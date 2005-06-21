@@ -1,0 +1,141 @@
+=======================
+CREATING NEW LANDSCAPES
+=======================
+
+**** NOTE ****
+
+This introduction to creating Enigma levels is gradually being replaced
+by a full reference manual, which should be included in all Enigma
+packages.  You can find it in a file called `enigma-ref.html'.  
+
+**************
+
+Enigma does not currently include a graphical level editor.  Instead,
+landscapes are described by small programs that are loaded and
+interpreted by the game engine.
+
+To create new levels you have to know a few basics about Lua, the
+programming language used internally by Enigma.  Fortunately, Lua is a
+very simple language, and only a subset of it is required for all but
+the most complicated levels.
+
+The bulk of this chapter describes the available game objects, their
+attributes, and the programming interface used to put these objects in
+a landscape.  This manual will not teach you how to create *new* kinds
+of objects or modify existing ones.  If that's what you're interested
+in, your best bet is to (a) read the source code, and (b) join the
+Enigma development mailing list.
+
+This file is more of a reference manual than a tutorial.  If you are
+new to creating Enigma levels, you may prefer to read the ``Overview''
+in the next section, study some of the existing levels, and then come
+back to this text for more information as needed.
+
+
+1.0     Quick Overview 
+----------------------
+
+[ now in the reference manual ]
+
+
+2.0     PREDEFINED FUNCTIONS
+============================
+
+2.1     Functions
+-----------------
+
+* create_world(width, height)
+* make_object(name, attrs)
+* set_attrib(object, key, value)
+* set_attribs(object, attrs)
+
+* set_stone(stname, x, y, attrs)
+* set_floor(flname, x, y, attrs)
+* set_item(itname, x, y, attrs)
+
+* fill_floor(flname, x,y, width, height)
+* draw_floor(flname, {x,y}, {xinc, yinc}, n, attrs)
+* draw_items(itname, {x,y}, {xinc, yinc}, n, attrs)
+* draw_stones(stname, {x,y}, {xinc, yinc}, n, attrs)
+* draw_border(stname)
+* set_stones(stname, poslist, attrs)
+* set_actor(name, x,y, attrs)
+
+* def_stone(stname, sound)
+* def_floor(flname, friction, mousefactor)
+
+2.2     Variables
+-----------------
+
+* level_width
+* level_height
+* oxyd_default_flavor
+* EAST, WEST, SOUTH, NORTH
+* TRUE, FALSE
+
+
+3.0     AVAILABLE OBJECTS
+=========================
+
+3.1     Floors
+--------------
+
+Abyss ("fl-abyss")
+Water ("fl-water")
+
+
+3.2     Items
+-------------
+
+Document ("it-document")
+Magic Wand ("it-magic")
+Trigger ("it-trigger")
+Shogun Dot ("it-shogundot")
+Hollows ("it-hollow", "it-tinyhollow")
+Hills ("it-hill", "it-tinyhill")
+
+
+3.3     Stones
+--------------
+
+Bolder Stone ("st-bolder")
+--------------------------
+
+  Attributes
+
+    "direction"   NORTH, EAST, SOUTH, WEST
+
+
+Fart Stone ("st-fart")
+----------------------
+
+* Messages
+
+  "trigger"	blow off
+
+
+Timer Stone ("st-timer")
+------------------------
+
+    This stone can be used to trigger periodic events or to trigger
+    one single event after a certain amount of time.
+
+  Attributes
+
+    "on" (1)        1 if the timer is running
+    "interval" (1)  number of seconds before "action" is performed
+    "loop" (1)      if 1, restart the timer after performing "action"
+    "action", "target"
+
+  Messages
+
+    "on", "off", "onoff"
+
+  Example
+
+    -- activate a laser after 5 seconds
+    set_stone("st-laser", 10,11, {name="laser"})
+    set_stone("st-timer", 10,10, 
+              {loop=0, action="onoff", target="laser", interval=5})
+
+

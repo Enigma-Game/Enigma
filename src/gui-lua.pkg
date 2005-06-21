@@ -1,0 +1,30 @@
+// -*- Mode: C++ -*-
+
+$#include "gui.hh"
+$using namespace gui;
+$using px::Rect;
+
+module gui
+{
+    class Widget {
+        ~Widget();
+        Rect get_area();
+    };
+
+    class TextButton : public Widget {
+        TextButton ();
+    };
+    class StaticTextButton : public TextButton {
+        StaticTextButton (const char *str);
+    };
+
+    class ImageButton : public Widget {
+        ImageButton (const char *fname);
+    };
+
+    class Menu {
+        void manage (Screen *scr);
+        void add (Widget *w, Rect r);
+        void quit();
+    };
+}

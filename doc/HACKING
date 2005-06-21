@@ -1,0 +1,14 @@
+Hacking
+=======
+
+If you intend to modify the source code, you may additionally need
+these programs:
+
+    * GNU Autotools (autoconf >= 2.5, automake)
+    * ImageMagick
+
+You can pass the '--build-tools' flag to the configure script to build
+a few additional programs that may be useful if you intend to seriously
+play with Enigma's internals.
+
+

@@ -1,0 +1,60 @@
+//==================================================  -*- Mode: C++ -*-
+// Copyright (C) 2002,2003 Daniel Heck
+//
+// This program is free software; you can redistribute it and/or
+// modify it under the terms of the GNU General Public License
+// as published by the Free Software Foundation; either version 2
+// of the License, or (at your option) any later version.
+//
+// This program is distributed in the hope that it will be useful,
+// but WITHOUT ANY WARRANTY; without even the implied warranty of
+// MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+// GNU General Public License for more details.
+//
+// You should have received a copy of the GNU General Public License along
+// with this program; if not, write to the Free Software Foundation, Inc.,
+// 59 Temple Place, Suite 330, Boston, MA 02111-1307, USA.
+//
+// $Id: display-lua.pkg,v 1.3 2004/05/27 20:30:36 dheck Exp $
+//======================================================================
+
+$#include "display.hh"
+$#include "d_models.hh"
+$using namespace display;
+$using px::Rect;
+$using px::Surface;
+
+
+Surface *GetSurface (const char *name);
+Surface *CropSurface (const Surface *s, Rect r);
+void     DefineImageModel (const char *name, Surface *s);
+
+module display
+{
+    typedef int FollowMode;
+    enum FollowMode {
+        FOLLOW_SCROLLING,       // Scroll the screen
+        FOLLOW_SCREEN,          // Flip the screen region
+        FOLLOW_SCREENSCROLLING, // Scroll to the next screen
+        FOLLOW_SMOOTH           // Follow pixel by pixel
+    };
+    void SetFollowMode (FollowMode m);
+
+/* -------------------- Functions -------------------- */
+
+    int DefineImage(const char *name, const char *fname,
+                    int xoff, int yoff, int padding = 0);
+    int DefineSubImage(const char *name, const char *fname,
+                        int xoff, int yoff, Rect r);
+    void DefineRandModel(const char *name, int n, const char *names[n]);
+    void DefineShadedModel(const char *name, const char *model,
+                           const char *shade);
+    void DefineOverlayImage (const char *name, int n,
+                             const char *images[n]);
+    void DefineComposite (const char *name,
+                          const char *bgname,
+                          const char *fgname);
+    void DefineAnim (const char *name, bool loop_p);
+    void AddFrame (const char *name, const char *model, double time);
+    void DefineAlias (const char *name, const char *othername);
+}

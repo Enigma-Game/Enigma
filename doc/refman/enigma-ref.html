@@ -1,0 +1,3986 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN"
+                      "http://www.w3.org/TR/html40/loose.dtd">
+<HTML>
+<!-- Created on , 29 2005 by texi2html 1.66 -->
+<!--
+Written by: Lionel Cons <Lionel.Cons@cern.ch> (original author)
+            Karl Berry  <karl@freefriends.org>
+            Olaf Bachmann <obachman@mathematik.uni-kl.de>
+            and many others.
+Maintained by: Many creative people <dev@texi2html.cvshome.org>
+Send bugs and suggestions to <users@texi2html.cvshome.org>
+
+-->
+<HEAD>
+<TITLE>Enigma Reference Manual</TITLE>
+
+<META NAME="description" CONTENT="Enigma Reference Manual">
+<META NAME="keywords" CONTENT="Enigma Reference Manual">
+<META NAME="resource-type" CONTENT="document">
+<META NAME="distribution" CONTENT="global">
+<META NAME="Generator" CONTENT="texi2html 1.66">
+<style type="text/css">
+<!--
+     H3 { background-color:rgb(90%,90%,100%); }
+     PRE { background-color:rgb(97%,97%,97%); }
+-->
+</style>
+
+</HEAD>
+
+<BODY LANG="" BGCOLOR="#FFFFFF" TEXT="#000000" LINK="#0000FF" VLINK="#800080" ALINK="#FF0000">
+
+<A NAME="SEC_Top"></A>
+<TABLE CELLPADDING=1 CELLSPACING=1 BORDER=0>
+<TR><TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="enigma-ref.html#SEC_Top">Top</A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="enigma-ref.html#SEC_Contents">Contents</A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="enigma-ref.html#SEC76">Index</A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="enigma-ref.html#SEC_About"> ? </A>]</TD>
+</TR></TABLE>
+<H1>Enigma Reference Manual</H1>
+
+<P>
+
+This manual describes the internals of
+<A HREF="http://www.nongnu.org/enigma/">Enigma</A>, in particular how to
+build new levels using Lua and how to interact with the game engine.
+It describes Enigma version 0.90.
+</P>
+<P>
+
+</P>
+<TABLE BORDER="0" CELLSPACING="0">
+<TR><TD ALIGN="left" VALIGN="TOP"><A HREF="enigma-ref.html#SEC1">1. Introduction</A></TD><TD>&nbsp;&nbsp;</TD><TD ALIGN="left" VALIGN="TOP">General remarks on creating new levels</TD></TR>
+<TR><TD ALIGN="left" VALIGN="TOP"><A HREF="enigma-ref.html#SEC6">2. XML levels</A></TD><TD>&nbsp;&nbsp;</TD><TD ALIGN="left" VALIGN="TOP">The new XML-based level descriptions</TD></TR>
+<TR><TD ALIGN="left" VALIGN="TOP"><A HREF="enigma-ref.html#SEC14">3. Objects</A></TD><TD>&nbsp;&nbsp;</TD><TD ALIGN="left" VALIGN="TOP">Description of all objects in Enigma</TD></TR>
+<TR><TD ALIGN="left" VALIGN="TOP"><A HREF="enigma-ref.html#SEC62">4. Variables</A></TD><TD>&nbsp;&nbsp;</TD><TD ALIGN="left" VALIGN="TOP">Lua variables that influence the game</TD></TR>
+<TR><TD ALIGN="left" VALIGN="TOP"><A HREF="enigma-ref.html#SEC63">5. Functions</A></TD><TD>&nbsp;&nbsp;</TD><TD ALIGN="left" VALIGN="TOP">Predefined functions</TD></TR>
+<TR><TD ALIGN="left" VALIGN="TOP"><A HREF="enigma-ref.html#SEC76">Index</A></TD><TD>&nbsp;&nbsp;</TD><TD ALIGN="left" VALIGN="TOP"></TD></TR>
+</TABLE>
+<P>
+
+<HR SIZE=1>
+<A NAME="SEC1"></A>
+<TABLE CELLPADDING=1 CELLSPACING=1 BORDER=0>
+<TR><TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="enigma-ref.html#SEC_Top"> &lt; </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="enigma-ref.html#SEC2"> &gt; </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="enigma-ref.html#SEC_Top"> &lt;&lt; </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="enigma-ref.html#SEC_Top"> Up </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="enigma-ref.html#SEC6"> &gt;&gt; </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="enigma-ref.html#SEC_Top">Top</A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="enigma-ref.html#SEC_Contents">Contents</A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="enigma-ref.html#SEC76">Index</A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="enigma-ref.html#SEC_About"> ? </A>]</TD>
+</TR></TABLE>
+<A NAME="Introduction"></A>
+<H1> 1. Introduction </H1>
+<!--docid::SEC1::-->
+<P>
+
+This chapter explains how Enigma works internally and how you can
+create your own levels.  This manual is not for users of graphical
+level editors, but rather for <EM>programmers</EM> of graphical level
+editors or users who want to use the full power of the Enigma
+&quot;engine&quot; by using the built-in scripting language.
+</P>
+<P>
+
+There are two kinds of file formats you can use to build levels for
+Enigma.  The traditional solution was to write small programs in a
+programming language called <EM>Lua</EM>.  Although this is still
+possible, the preferred way is now to prepare files in a data-centric
+format called XML; this will be discussed in detail in chapter
+</P>
+<P>
+
+Enigma's level format is extremely flexible and allows you to create
+very dynamic and interactive levels.  Here are a few examples of
+levels that make heavy use of Lua, both when preparing the level and
+during the game:
+</P>
+<P>
+
+<UL>
+<LI>
+Flood Gates (`<TT>nat8.lua</TT>') Was one of the first levels to use Lua for
+more than simply building the level and then handing it over to the game
+engine.  The flowing water is controlled by a small function written in
+Lua--there is no built-in suppport for flowing water in the game engine.
+<P>
+
+</P>
+<LI>
+Enigris (`<TT>ralf04.lua</TT>') lets you play Tetris inside Enigma.
+<P>
+
+</P>
+<LI>
+Mourning Palace (`<TT>ant08.lua</TT>') moving platforms, also controlled
+by a Lua function.
+<P>
+
+</P>
+<LI>
+Finally, some of the maze levels and most of the levels in the Sokoban
+pack are dynamically generated: They look a little different every
+time you play them.
+<P>
+
+</UL>
+<P>
+
+Our focus is on using Lua to access Enigma's game engine, so you won't
+learn much about Lua as a language in this chapter.  Many simple things,
+like function calls or <CODE>if</CODE> statements, will appear familiar to
+anyone having a little programming experience: In many ways Lua is
+similar to programming languages like Basic or Pascal.  But for most of
+Lua's finer points you will have to reach for the official Lua
+documentation, which you can download from
+<A HREF="http://www.lua.org">lua.org</A>.
+</P>
+<P>
+
+<TABLE BORDER="0" CELLSPACING="0">
+<TR><TD ALIGN="left" VALIGN="TOP"><A HREF="enigma-ref.html#SEC2">1.1 Creating New Levels</A></TD><TD>&nbsp;&nbsp;</TD><TD ALIGN="left" VALIGN="TOP"></TD></TR>
+<TR><TD ALIGN="left" VALIGN="TOP"><A HREF="enigma-ref.html#SEC3">1.2 A Simple Level</A></TD><TD>&nbsp;&nbsp;</TD><TD ALIGN="left" VALIGN="TOP"></TD></TR>
+<TR><TD ALIGN="left" VALIGN="TOP"><A HREF="enigma-ref.html#SEC4">1.3 Registering Levels</A></TD><TD>&nbsp;&nbsp;</TD><TD ALIGN="left" VALIGN="TOP"></TD></TR>
+<TR><TD ALIGN="left" VALIGN="TOP"><A HREF="enigma-ref.html#SEC5">1.4 Where to go from here</A></TD><TD>&nbsp;&nbsp;</TD><TD ALIGN="left" VALIGN="TOP"></TD></TR>
+</TABLE>
+<P>
+
+<A NAME="Creating New Levels"></A>
+<HR SIZE="6">
+<A NAME="SEC2"></A>
+<TABLE CELLPADDING=1 CELLSPACING=1 BORDER=0>
+<TR><TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="enigma-ref.html#SEC1"> &lt; </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="enigma-ref.html#SEC3"> &gt; </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="enigma-ref.html#SEC1"> &lt;&lt; </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="enigma-ref.html#SEC1"> Up </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="enigma-ref.html#SEC6"> &gt;&gt; </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="enigma-ref.html#SEC_Top">Top</A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="enigma-ref.html#SEC_Contents">Contents</A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="enigma-ref.html#SEC76">Index</A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="enigma-ref.html#SEC_About"> ? </A>]</TD>
+</TR></TABLE>
+<H2> 1.1 Creating New Levels </H2>
+<!--docid::SEC2::-->
+<P>
+
+Creating a new level basically consists of the following steps
+</P>
+<P>
+
+<OL>
+<LI>Writing the level description, for example a file named
+`<TT>daniel01.lua</TT>'.
+<LI>Inserting the new level into a level pack of your choice
+<LI>Creating a preview image for the level
+<LI>Testing the level in Enigma
+</OL>
+<P>
+
+<A NAME="Example Level"></A>
+<HR SIZE="6">
+<A NAME="SEC3"></A>
+<TABLE CELLPADDING=1 CELLSPACING=1 BORDER=0>
+<TR><TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="enigma-ref.html#SEC2"> &lt; </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="enigma-ref.html#SEC4"> &gt; </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="enigma-ref.html#SEC1"> &lt;&lt; </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="enigma-ref.html#SEC1"> Up </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="enigma-ref.html#SEC6"> &gt;&gt; </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="enigma-ref.html#SEC_Top">Top</A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="enigma-ref.html#SEC_Contents">Contents</A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="enigma-ref.html#SEC76">Index</A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="enigma-ref.html#SEC_About"> ? </A>]</TD>
+</TR></TABLE>
+<H2> 1.2 A Simple Level </H2>
+<!--docid::SEC3::-->
+<P>
+
+Here is a very simple level description that can also serve as a
+starting-point for new landscapes.  (In fact, this is the first level
+in Enigma, so you can try it out right away.)
+</P>
+<P>
+
+<TABLE><tr><td>&nbsp;</td><td class=example><pre> 1   CreateWorld(20, 13)
+ 2   draw_border(&quot;st-brownie&quot;)
+ 3   fill_floor(&quot;fl-hay&quot;, 0,0, level_width,level_height)
+ 4
+ 5   set_stone(&quot;st-fart&quot;, level_width-1,0, {name=&quot;fart&quot;})
+ 6   set_stone(&quot;st-timer&quot;, 0,0, {action=&quot;trigger&quot;, target=&quot;fart&quot;,
+ 7             interval=10})
+ 8
+ 9   oxyd(3,3)
+10   oxyd(level_width-4,level_height-4)
+11   oxyd(level_width-4, 3)
+12   oxyd(3,level_height-4)
+13   oxyd_shuffle()
+14
+15   set_actor(&quot;ac-blackball&quot;, 10,6.5)
+</pre></td></tr></table><P>
+
+The resulting level looks like this inside the game:
+</P>
+<P>
+
+Let's now turn to a line-by-line analysis of this program:
+</P>
+<P>
+
+<TABLE><tr><td>&nbsp;</td><td class=example><pre> 1   CreateWorld(20, 13)
+ 2   draw_border(&quot;st-brownie&quot;)
+ 3   fill_floor(&quot;fl-hay&quot;, 0,0, level_width,level_height)
+</pre></td></tr></table><P>
+
+The level begins with a call to <CODE>CreateWorld</CODE>, which creates a
+new world that is 20 blocks wide and 13 blocks high.  Every
+<EM>block</EM> in the world can be accessed with a pair of coordinates:
+The upper left corner has coordinates (0,0), the lower right one has
+coordinates (19,12).  Every block contains a floor tile, an (optional)
+item, and an (optional) stone.
+</P>
+<P>
+
+A frame of stones is drawn around the newly created landscape with the
+<CODE>draw_border</CODE> command.  Its argument, <CODE>&quot;st-brownie&quot;</CODE>, is the
+name of a stone.  By convention, all stones have <CODE>&quot;st-&quot;</CODE> prefixed
+to their name, similarly all item names begin with <CODE>&quot;it-&quot;</CODE> and
+all floor names with <CODE>&quot;fl-&quot;</CODE>.
+</P>
+<P>
+
+The <CODE>fill_floor</CODE> command in line 3 fills the complete floor with
+tiles of type <CODE>&quot;fl-hay&quot;</CODE>.  The other arguments are the upper left
+corner and the width and height of the rectangle to be filled.
+</P>
+<P>
+
+<TABLE><tr><td>&nbsp;</td><td class=example><pre> 5   set_stone(&quot;st-fart&quot;, level_width-1,0, {name=&quot;fart&quot;})
+ 6   set_stone(&quot;st-timer&quot;, 0,0, {action=&quot;trigger&quot;, target=&quot;fart&quot;,
+ 7             interval=10})
+</pre></td></tr></table><P>
+
+Lines 5 to 7 demonstrate how to create individual stones.  The
+<CODE>set_stone</CODE> command takes a stone name, the desired
+coordinates, and an (optional) list of <EM>attributes</EM>
+as arguments.  Note the use of curly braces <CODE>{</CODE>,
+<CODE>}</CODE> to enclose the attribute list.
+</P>
+<P>
+
+Attributes are the key to customizing the behaviour of objects in a
+landscape.  Here, we first give a name to the first stone we create.
+It's a fart stone that has the unpleasant habit of &quot;blowing off&quot;
+when triggered.  Triggering this fart stone is done by the timer stone
+we create in line 6--7.  This stone performs a predefined action at
+regular intervals.  In this case we want to send a &quot;trigger&quot; message
+every ten seconds to the object named &quot;fart&quot;.
+</P>
+<P>
+
+<TABLE><tr><td>&nbsp;</td><td class=example><pre> 9   oxyd(3,3)
+10   oxyd(level_width-4,level_height-4)
+11   oxyd(level_width-4, 3)
+12   oxyd(3,level_height-4)
+13   oxyd_shuffle()
+</pre></td></tr></table><P>
+
+These commands place a couple of oxyd stones in the level.  The
+<CODE>oxyd</CODE> command internally uses <CODE>set_stone(&quot;st-oxyd&quot;, x,y,
+...)</CODE>  to create the stones, but it additionally assigns sensible
+values to some of the oxyd stones' attributes (most notably the
+color).  The command on line 14 permutes the colors on the oxyd stones
+currently in the landscape.
+</P>
+<P>
+
+<TABLE><tr><td>&nbsp;</td><td class=example><pre>15   set_actor(&quot;ac-blackball&quot;, 10,6.5)
+</pre></td></tr></table><P>
+
+This final line creates the black marble controlled by the player.
+Objects that can move around freely are called &quot;actors&quot; in Enigma.
+Unlike stones and items, actors are not restricted to integer
+coordinates, as you can see in this example. 
+</P>
+<P>
+
+<A NAME="Registering Levels"></A>
+<HR SIZE="6">
+<A NAME="SEC4"></A>
+<TABLE CELLPADDING=1 CELLSPACING=1 BORDER=0>
+<TR><TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="enigma-ref.html#SEC3"> &lt; </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="enigma-ref.html#SEC5"> &gt; </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="enigma-ref.html#SEC1"> &lt;&lt; </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="enigma-ref.html#SEC1"> Up </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="enigma-ref.html#SEC6"> &gt;&gt; </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="enigma-ref.html#SEC_Top">Top</A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="enigma-ref.html#SEC_Contents">Contents</A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="enigma-ref.html#SEC76">Index</A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="enigma-ref.html#SEC_About"> ? </A>]</TD>
+</TR></TABLE>
+<H2> 1.3 Registering Levels </H2>
+<!--docid::SEC4::-->
+<P>
+
+After writing the level description you have to tell Enigma where to
+find your brand new landscape.  That's really two separate steps:
+</P>
+<P>
+
+<OL>
+<LI>Move the `<TT>.lua</TT>'-File where Enigma can find it;
+<LI>Insert a new entry into the appropriate level index.
+</OL>
+<P>
+
+The `<TT>.lua</TT>'-Files and the corresponding level index usually reside
+in the same directory.  For the levels that come with Enigma, for
+example, this is the `<TT>levels</TT>' directory inside.  For your own levels
+you can either use the same directory (currently your only choice if
+you use the Windows version of Enigma) or the `<TT>.enigma/levels</TT>'
+directory in your home folder (only if you use the Unix version).
+</P>
+<P>
+
+A level index is a file that contains the list of landscapes that comprise
+a level pack in Enigma.  Here is an excerpt from
+`<TT>index_enigma.txt</TT>', which defines the &quot;Enigma&quot; level pack:
+</P>
+<P>
+
+<TABLE><tr><td>&nbsp;</td><td class=example><pre>{file=welcome              name=&quot;Welcome&quot;                        author=&quot;Daniel Heck&quot;         }
+{file=martin06             name=&quot;Is It Easy?&quot;                    author=&quot;Martin Hawlisch&quot;     }
+{file=lasers101            name=&quot;Lasers 101&quot;                     author=&quot;Daniel Heck&quot;         }
+{file=level3a              name=&quot;Feel Your Way&quot;                  author=&quot;Siegfried Fennig&quot;    }
+{file=martin04             name=&quot;Sokoban Revival&quot;                author=&quot;Martin Hawlisch&quot;     }
+</pre></td></tr></table><P>
+
+Every line in this file describes one landscape in the level pack.
+The general format of these lines is
+</P>
+<P>
+
+<TABLE><tr><td>&nbsp;</td><td class=example><pre>{ tag1=content1 tag2=content2 ... }
+</pre></td></tr></table><P>
+
+One line normally contains many different <CODE>tag=content</CODE> pairs.
+</P>
+<P>
+
+If your content contains spaces, surround the content with quotes
+(e.g. <CODE>name=&quot;Is It Easy?&quot;</CODE>). If you want the string to contain quotes,
+escape them with <CODE>\</CODE> (e.g. <CODE>author = &quot;Petr \&quot;ant\&quot; Machata&quot;</CODE>).
+</P>
+<P>
+
+Here's a description of all supported tags:
+</P>
+<P>
+
+</P>
+<DL COMPACT>
+<DT><CODE>file</CODE>
+<DD>Defines the file name of the level (<EM>excluding</EM> the `<TT>.lua</TT>' extension).
+This entry is mandatory!
+<P>
+
+</P>
+<DT><CODE>name</CODE>
+<DD>Defines the full name of the level. This is the name the player will
+see in the level menu. You can leave this field empty if you prefer to
+leave your level unnamed.
+<P>
+
+</P>
+<DT><CODE>author</CODE>
+<DD>Defines the name of the autor. It will be displayed together with the full name at level startup.
+<P>
+
+</P>
+<DT><CODE>revision</CODE>
+<DD>Defines the revision number of the level (defaults to 1)
+When the revision number is increased, a small red ! appears in the level menu.
+<P>
+
+If you do changes to the level that affect the way the level
+is solved, you should increase the revision number.
+If you only did cosmetic changes, you should <EM>NOT</EM> increase the revision.
+</P>
+<P>
+
+You should never decrease the revision number!
+</P>
+<P>
+
+</P>
+<DT><CODE>easymode</CODE>
+<DD>Set this to 1 when the level supports different difficulties.
+<P>
+
+</P>
+<DT><CODE>par_time</CODE>
+<DD>Syntax: <CODE>par_time=sec,name</CODE>
+<P>
+
+<CODE>sec</CODE> is the par time for the level in seconds.
+</P>
+<P>
+
+<CODE>name</CODE> is the player who did the par.
+</P>
+<P>
+
+If easymode is 1 then <CODE>par_time_easy</CODE> and/or <CODE>par_time_normal</CODE>
+have to be used instead of <CODE>par_time</CODE>.
+</P>
+<P>
+
+</DL>
+<P>
+
+When Enigma starts up it automatically tries to load an index file
+called `<TT>index_user.txt</TT>', where you can store all your personal
+levels.  This file is not included in Enigma distributions, you have
+to create it yourself.  The levels listed in this file will show up in
+a new level pack called &quot;User Levels&quot;.
+</P>
+<P>
+
+<A NAME="More Information"></A>
+<HR SIZE="6">
+<A NAME="SEC5"></A>
+<TABLE CELLPADDING=1 CELLSPACING=1 BORDER=0>
+<TR><TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="enigma-ref.html#SEC4"> &lt; </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="enigma-ref.html#SEC6"> &gt; </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="enigma-ref.html#SEC1"> &lt;&lt; </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="enigma-ref.html#SEC1"> Up </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="enigma-ref.html#SEC6"> &gt;&gt; </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="enigma-ref.html#SEC_Top">Top</A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="enigma-ref.html#SEC_Contents">Contents</A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="enigma-ref.html#SEC76">Index</A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="enigma-ref.html#SEC_About"> ? </A>]</TD>
+</TR></TABLE>
+<H2> 1.4 Where to go from here </H2>
+<!--docid::SEC5::-->
+<P>
+
+The example level from the first section of this chapter was hopefully
+enough to give you an impression how level descriptions look like in
+Enigma.  Of course, that level was extremely simple, and most
+interesting levels will be more complicated.  The rest of this
+reference manual tries to document the available game objects and how
+to interact with the Enigma game engine, both when preparing the level
+(before the game starts) and during the game.
+</P>
+<P>
+
+This manual only describes the low-level interface to Enigma's game
+engine, which is as flexible as it is inconvenient to use by hand.
+Petr Machata has written a comprehensive set of helper routines that
+greatly simplify the creation of new levels.  You can use the package
+by including the line <CODE>Require(&quot;levels/ant.lua&quot;)</CODE> in your level
+descriptions.  There is extensive documentation for `<TT>ant.lua</TT>' in
+file `<TT>ant_lua.txt</TT>' in the documentation directory.
+</P>
+<P>
+
+Before you read on, please be aware that this manual is far from
+complete.  We are working on it and it will be ready for the
+(glorious) 1.0 release.  For the moment, the available level
+descriptions are the best &quot;documentation&quot; available.
+</P>
+<P>
+
+<A NAME="XML levels"></A>
+<HR SIZE="6">
+<A NAME="SEC6"></A>
+<TABLE CELLPADDING=1 CELLSPACING=1 BORDER=0>
+<TR><TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="enigma-ref.html#SEC5"> &lt; </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="enigma-ref.html#SEC7"> &gt; </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="enigma-ref.html#SEC1"> &lt;&lt; </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="enigma-ref.html#SEC_Top"> Up </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="enigma-ref.html#SEC14"> &gt;&gt; </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="enigma-ref.html#SEC_Top">Top</A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="enigma-ref.html#SEC_Contents">Contents</A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="enigma-ref.html#SEC76">Index</A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="enigma-ref.html#SEC_About"> ? </A>]</TD>
+</TR></TABLE>
+<H1> 2. XML levels </H1>
+<!--docid::SEC6::-->
+<P>
+
+Enigma is slowly moving towards a more data-centric level description
+format.  Although the current use of small Lua scripts for this purpose
+makes it possible to create levels with sophisticated dynamic behavior,
+it is difficult to create large, complex levels by hand and even more
+difficult to write graphical tools that help level designers with this
+task.  The purpose of the XML-based levle format for Enigma is to
+provide an extensible basis for automated processing of Enigma levels,
+while retaining the full expressive power of the Lua scripting language
+where necessary or desirable.
+</P>
+<P>
+
+The general outline of an XML-style Enigma level looks like this:
+</P>
+<P>
+
+<TABLE><tr><td>&nbsp;</td><td class=example><pre>&lt;level width=&quot;20&quot; height=&quot;13&quot;&gt;
+  &lt;info&gt;
+     &lt;!-- level information --&gt;
+  &lt;/info&gt;
+  &lt;option ... /&gt;
+  &lt;actors&gt;
+     &lt;!-- actor definitions --&gt;
+  &lt;/actors&gt;
+  &lt;floors&gt;
+     &lt;!-- floor definition --&gt;
+  &lt;/floors&gt;
+  &lt;items&gt;
+     &lt;!-- item definition --&gt;
+  &lt;/items&gt;
+  &lt;stones&gt;
+     &lt;!-- stone definition --&gt;
+  &lt;/stones&gt;
+  &lt;rubberbands&gt;
+     &lt;!-- rubberband definition --&gt;
+  &lt;/rubberbands&gt;
+  &lt;signals&gt;
+     &lt;!-- signal definition --&gt;
+  &lt;/signals&gt;
+  &lt;lua&gt;
+     &lt;!-- optional Lua code --&gt;
+  &lt;/lua&gt;
+&lt;/level&gt;
+</pre></td></tr></table><P>
+
+If you are unfamiliar with XML, here are a few general notes:
+<UL>
+<LI>XML is a standard for representing hierarchical documents.  An
+XML document consists of a number of arbitrarily nested segments delimited
+by opening tags like <CODE>&lt;level&gt;</CODE> and closing tags <CODE>&lt;/level&gt;</CODE>.
+<P>
+
+</P>
+<LI>Tags can have arguments, as shown above for the <CODE>level</CODE> tag.
+Arguments have the form <CODE>name=&quot;value&quot;</CODE>; note that the value must
+be enclosed in quotation marks.
+<P>
+
+</P>
+<LI>The empty tag <CODE>&lt;option ... /&gt;</CODE> is an abbreviation for
+<CODE>&lt;option ...&gt;&lt;/option&gt;</CODE>.
+<P>
+
+</P>
+<LI>Comments can be written like this <CODE>&lt;!-- blabla --&gt;</CODE>.
+</UL>
+<P>
+
+An Enigma level must begin with <CODE>&lt;level width=&quot;xx&quot; height=&quot;yy&quot;&gt;</CODE>,
+where <CODE>xx</CODE> and <CODE>yy</CODE> are width and height of the level, and ends
+with <CODE>&lt;/level&gt;</CODE>  The following sections of this manual describe the
+structure of the remaining parts of a level description, in the order
+indicated in the above example.
+</P>
+<P>
+
+<TABLE BORDER="0" CELLSPACING="0">
+<TR><TD ALIGN="left" VALIGN="TOP"><A HREF="enigma-ref.html#SEC7">2.1 Meta information</A></TD><TD>&nbsp;&nbsp;</TD><TD ALIGN="left" VALIGN="TOP"></TD></TR>
+<TR><TD ALIGN="left" VALIGN="TOP"><A HREF="enigma-ref.html#SEC8">2.2 Level options</A></TD><TD>&nbsp;&nbsp;</TD><TD ALIGN="left" VALIGN="TOP"></TD></TR>
+<TR><TD ALIGN="left" VALIGN="TOP"><A HREF="enigma-ref.html#SEC9">2.3 Actors</A></TD><TD>&nbsp;&nbsp;</TD><TD ALIGN="left" VALIGN="TOP"></TD></TR>
+<TR><TD ALIGN="left" VALIGN="TOP"><A HREF="enigma-ref.html#SEC10">2.4 Objects</A></TD><TD>&nbsp;&nbsp;</TD><TD ALIGN="left" VALIGN="TOP"></TD></TR>
+<TR><TD ALIGN="left" VALIGN="TOP"><A HREF="enigma-ref.html#SEC11">2.5 Signals</A></TD><TD>&nbsp;&nbsp;</TD><TD ALIGN="left" VALIGN="TOP"></TD></TR>
+<TR><TD ALIGN="left" VALIGN="TOP"><A HREF="enigma-ref.html#SEC12">2.6 Rubberbands</A></TD><TD>&nbsp;&nbsp;</TD><TD ALIGN="left" VALIGN="TOP"></TD></TR>
+<TR><TD ALIGN="left" VALIGN="TOP"><A HREF="enigma-ref.html#SEC13">2.7 Embedded Lua code</A></TD><TD>&nbsp;&nbsp;</TD><TD ALIGN="left" VALIGN="TOP"></TD></TR>
+</TABLE>
+<P>
+
+<A NAME="Meta information"></A>
+<HR SIZE="6">
+<A NAME="SEC7"></A>
+<TABLE CELLPADDING=1 CELLSPACING=1 BORDER=0>
+<TR><TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="enigma-ref.html#SEC6"> &lt; </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="enigma-ref.html#SEC8"> &gt; </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="enigma-ref.html#SEC6"> &lt;&lt; </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="enigma-ref.html#SEC6"> Up </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="enigma-ref.html#SEC14"> &gt;&gt; </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="enigma-ref.html#SEC_Top">Top</A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="enigma-ref.html#SEC_Contents">Contents</A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="enigma-ref.html#SEC76">Index</A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="enigma-ref.html#SEC_About"> ? </A>]</TD>
+</TR></TABLE>
+<H2> 2.1 Meta information </H2>
+<!--docid::SEC7::-->
+<P>
+
+Every level should begin with a short block containing general
+information about the level.  This can include the level name, its
+author and license restrictions.  If you intend your level(s) to be
+distributed with Enigma, the following four fields are mandatory:
+<TABLE><tr><td>&nbsp;</td><td class=example><pre>&lt;info&gt;
+  &lt;name&gt;LEVEL NAME&lt;/name&gt;
+  &lt;author&gt;AUTHOR NAME&lt;/author&gt;
+  &lt;copyright&gt;COPYRIGHT NOTICE&lt;/copyright&gt;
+  &lt;license&gt;LICENSE TERMS&lt;/license&gt;
+&lt;/info&gt;
+</pre></td></tr></table><P>
+
+<A NAME="Level options"></A>
+<HR SIZE="6">
+<A NAME="SEC8"></A>
+<TABLE CELLPADDING=1 CELLSPACING=1 BORDER=0>
+<TR><TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="enigma-ref.html#SEC7"> &lt; </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="enigma-ref.html#SEC9"> &gt; </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="enigma-ref.html#SEC6"> &lt;&lt; </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="enigma-ref.html#SEC6"> Up </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="enigma-ref.html#SEC14"> &gt;&gt; </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="enigma-ref.html#SEC_Top">Top</A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="enigma-ref.html#SEC_Contents">Contents</A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="enigma-ref.html#SEC76">Index</A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="enigma-ref.html#SEC_About"> ? </A>]</TD>
+</TR></TABLE>
+<H2> 2.2 Level options </H2>
+<!--docid::SEC8::-->
+<P>
+
+Certain aspects of the game can be customized by changing the values
+of the options to be described in this section.  Some of these options
+control general aspects, like constant force fields or whether the
+level automatically restarts when the marble gets destroyed, while other
+options provide default values for objects in the level, like the
+strength of magnetic fields or the look of Oxyd stones.
+</P>
+<P>
+
+The following example shows the general syntax for options.  Note the
+use of empty tags: the salient information is already contained in the
+attributes <VAR>name</VAR> and <VAR>value</VAR>.  Boolean options are always
+encoded as &quot;YES&quot; or &quot;NO&quot;.
+<TABLE><tr><td>&nbsp;</td><td class=example><pre>&lt;option name=&quot;shuffle&quot; value=&quot;NO&quot; /&gt;
+</pre></td></tr></table><P>
+
+Here is the table of all options available so far:
+</P>
+<DL COMPACT>
+
+<DT><CODE>shuffle</CODE>
+<DD>Shuffle the colors of the Oxyd stones after before starting the game?
+<STRONG>&quot;YES&quot;</STRONG>/&quot;NO&quot;.
+<P>
+
+</P>
+<DT><CODE>oxydflavor</CODE>
+<DD>The look of Oxyd stones; &quot;a&quot;/<STRONG>&quot;b&quot;</STRONG>/&quot;c&quot;/&quot;d&quot;.  
+See <A HREF="enigma-ref.html#SEC39">3.3.14 st-oxyd: Oxyd Stones</A> for details.
+<P>
+
+</P>
+<DT><CODE>reset</CODE>
+<DD>Reset the level when the player dies? &quot;YES&quot;/<STRONG>&quot;NO&quot;</STRONG>
+<P>
+
+</P>
+<DT><CODE>scrolling</CODE>
+<DD>An integer between 1 and 4 (inclusive).  Determines how the screen
+follows the currently active ball. 1: scroll the screen, 2: flip the
+screen, 3: scroll but align to screens, 4: keep marble at center.
+<DT><CODE></CODE>
+<DD></DL>
+<P>
+
+In addition, there are a few numeric options that determine the behavior
+of certain comon objects.  These correspond to the variables desribed
+later in the document, see <A HREF="enigma-ref.html#SEC62">4. Variables</A> for details.
+</P>
+<P>
+
+</P>
+<DL COMPACT>
+<DT><CODE>brittleness</CODE>
+<DD><DT><CODE>slopeforce</CODE>
+<DD><DT><CODE>flatforce</CODE>
+<DD><DT><CODE>frictionfactor</CODE>
+<DD><DT><CODE>electricforce</CODE>
+<DD><DT><CODE>bumperforce</CODE>
+<DD><DT><CODE>magnetforce</CODE>
+<DD><DT><CODE>magnetrange</CODE>
+<DD><DT><CODE>wormholeforce</CODE>
+<DD><DT><CODE>wormholerange</CODE>
+<DD><DT><CODE>holeforce</CODE>
+<DD></DL>
+<P>
+
+<A NAME="XML Actors"></A>
+<HR SIZE="6">
+<A NAME="SEC9"></A>
+<TABLE CELLPADDING=1 CELLSPACING=1 BORDER=0>
+<TR><TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="enigma-ref.html#SEC8"> &lt; </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="enigma-ref.html#SEC10"> &gt; </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="enigma-ref.html#SEC6"> &lt;&lt; </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="enigma-ref.html#SEC6"> Up </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="enigma-ref.html#SEC14"> &gt;&gt; </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="enigma-ref.html#SEC_Top">Top</A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="enigma-ref.html#SEC_Contents">Contents</A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="enigma-ref.html#SEC76">Index</A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="enigma-ref.html#SEC_About"> ? </A>]</TD>
+</TR></TABLE>
+<H2> 2.3 Actors </H2>
+<!--docid::SEC9::-->
+<P>
+
+Syntax:
+</P>
+<P>
+
+<TABLE><tr><td>&nbsp;</td><td class=example><pre>&lt;actors&gt;
+  &lt;actor kind=@&quot;ac-blackball@&quot; x=@&quot;10.5@&quot; y=@&quot;5.5@&quot; /&gt;
+&lt;/actors&gt;
+
+&lt;actors difficulty=@&quot;hard@&quot;&gt;
+  &lt;actor kind=@&quot;ac-killerball&quot; x=@&quot;3@&quot; y=@&quot;4@&quot; attribs=@&quot;controllers=3@&quot; /&gt;
+&lt;/actors&gt;
+
+&lt;actors difficulty=@&quot;easy@&quot;&gt;
+  &lt;actor kind=@&quot;ac-killerball&quot; x=@&quot;3@&quot; y=@&quot;4@&quot; attribs=@&quot;controllers=0@&quot; /&gt;
+&lt;/actors&gt;
+</pre></td></tr></table><P>
+
+<A NAME="XML Objects"></A>
+<HR SIZE="6">
+<A NAME="SEC10"></A>
+<TABLE CELLPADDING=1 CELLSPACING=1 BORDER=0>
+<TR><TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="enigma-ref.html#SEC9"> &lt; </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="enigma-ref.html#SEC11"> &gt; </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="enigma-ref.html#SEC6"> &lt;&lt; </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="enigma-ref.html#SEC6"> Up </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="enigma-ref.html#SEC14"> &gt;&gt; </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="enigma-ref.html#SEC_Top">Top</A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="enigma-ref.html#SEC_Contents">Contents</A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="enigma-ref.html#SEC76">Index</A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="enigma-ref.html#SEC_About"> ? </A>]</TD>
+</TR></TABLE>
+<H2> 2.4 Objects </H2>
+<!--docid::SEC10::-->
+<P>
+
+The description of floor tiles, items, and stones in the XML level file
+is very similar, so we treat them here in one section.  The general
+syntax looks like this:
+</P>
+<P>
+
+<TABLE><tr><td>&nbsp;</td><td class=example><pre>&lt;floors&gt;
+  &lt;row y=@&quot;yy@&quot;&gt; ... &lt;/row&gt;
+  &lt;floor kind=@&quot;name@&quot; x=@&quot;xx@&quot; y=@&quot;yy@&quot; attribs=@&quot;attriblist@&quot; /&gt;
+&lt;/floor&gt;
+</pre></td></tr></table><P>
+
+For items and stones, the XML tags are called <CODE>&lt;items&gt;</CODE> and
+<CODE>&lt;stones&gt;</CODE> respectively.  As for the actor sections, you can
+optionally include a <CODE>difficulty=</CODE> option to place certain objects
+only in the specified difficulty level.
+</P>
+<P>
+
+The <CODE>&lt;row&gt;</CODE> tag can be used to draw complete rows of objects to the
+screen.  An example looks like this:
+</P>
+<P>
+
+<TABLE><tr><td>&nbsp;</td><td class=example><pre>&lt;floors&gt;
+  &lt;row y=@&quot;10@&quot;&gt;abyss 10 water # abyss 10 &lt;/row&gt;
+&lt;/floors&gt;
+</pre></td></tr></table><P>
+
+This must be read as follows: In the tenth row, put one <CODE>fl-abyss</CODE>
+(not that the prefix is not included in the level file!), repeat it ten
+more times (so it's elevel abyss tiles), put one water tile, repeat it
+once, and then finish with another eleven abysses.
+</P>
+<P>
+
+Here's another, more advanced, example for a row of items:
+<TABLE><tr><td>&nbsp;</td><td class=example><pre>&lt;items&gt;
+  &lt;row y=@&quot;10@&quot;&gt;-10 hammer - - blackbomb - # -5 3&lt;/row&gt;
+&lt;/items&gt;
+</pre></td></tr></table>Read this as follows: skip 10 fields, put one hammer, skip two fields
+(you could also write <CODE>-2</CODE> instead), put one black bomb, skip one
+field, put another black bomb, skip five fields, and finish with three
+more black bombs.
+<P>
+
+In general there can be five different kinds of entries in such a row
+description, all of them separated by spaces:
+</P>
+<DL COMPACT>
+<DT><EM>name</EM>
+<DD>Put one object of the specified type at the current position, remember
+the object name;
+<DT><EM><CODE>#</CODE></EM>
+<DD>Repeat the last named object
+<DT><EM>positive number</EM>
+<DD>Repeat the last named object the specified number of times
+<DT><EM><CODE>-</CODE></EM>
+<DD>Skip one field
+<DT><EM>negative number</EM>
+<DD>Skip the specified number of fields
+</DL>
+<P>
+
+You cannot specify object attributes using <CODE>&lt;row&gt;</CODE> tags, to do this
+you must place objects individually, using either <CODE>&lt;floor ... /&gt;</CODE>, 
+<CODE>&lt;item ... /&gt;</CODE>, or <CODE>&lt;stone ... /&gt;</CODE>, for example
+<TABLE><tr><td>&nbsp;</td><td class=example><pre>&lt;stones&gt;
+  ...
+  &lt;stone kind=@&quot;st-switch@&quot; x=@&quot;2@&quot; y=@&quot;2@&quot; attribs=@&quot;action='openclose', target='door1'@&quot; /&gt;
+  ...
+&lt;/stones&gt;
+</pre></td></tr></table>The attribute list looks like the one in Lua would, except for the
+enclosing braces <CODE>{}</CODE> that must be omitted in the XML level
+format.  Please note that you must in this case use single quotes
+<CODE>'</CODE> to enclose string attributes, double quotes would terminate the
+XML argument.  Enigma's current XML parser unfortunately does not yet
+understand character entities like <CODE>&amp;quot;</CODE>, this will hopefully be
+fixed in future versions.
+<P>
+
+<A NAME="XML Signal"></A>
+<HR SIZE="6">
+<A NAME="SEC11"></A>
+<TABLE CELLPADDING=1 CELLSPACING=1 BORDER=0>
+<TR><TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="enigma-ref.html#SEC10"> &lt; </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="enigma-ref.html#SEC12"> &gt; </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="enigma-ref.html#SEC6"> &lt;&lt; </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="enigma-ref.html#SEC6"> Up </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="enigma-ref.html#SEC14"> &gt;&gt; </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="enigma-ref.html#SEC_Top">Top</A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="enigma-ref.html#SEC_Contents">Contents</A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="enigma-ref.html#SEC76">Index</A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="enigma-ref.html#SEC_About"> ? </A>]</TD>
+</TR></TABLE>
+<H2> 2.5 Signals </H2>
+<!--docid::SEC11::-->
+<P>
+
+[To be written]
+</P>
+<P>
+
+<A NAME="XML Rubberbands"></A>
+<HR SIZE="6">
+<A NAME="SEC12"></A>
+<TABLE CELLPADDING=1 CELLSPACING=1 BORDER=0>
+<TR><TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="enigma-ref.html#SEC11"> &lt; </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="enigma-ref.html#SEC13"> &gt; </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="enigma-ref.html#SEC6"> &lt;&lt; </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="enigma-ref.html#SEC6"> Up </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="enigma-ref.html#SEC14"> &gt;&gt; </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="enigma-ref.html#SEC_Top">Top</A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="enigma-ref.html#SEC_Contents">Contents</A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="enigma-ref.html#SEC76">Index</A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="enigma-ref.html#SEC_About"> ? </A>]</TD>
+</TR></TABLE>
+<H2> 2.6 Rubberbands </H2>
+<!--docid::SEC12::-->
+<P>
+
+Syntax:
+</P>
+<P>
+
+<TABLE><tr><td>&nbsp;</td><td class=example><pre>&lt;rubberbands&gt;
+  &lt;rubberband from=@&quot;objname@&quot; to=@&quot;objname@&quot; strength=@&quot;12@&quot; length=@&quot;5@&quot; minlen=@&quot;0@&quot; /&gt;
+&lt;/rubberbands&gt;
+</pre></td></tr></table><P>
+
+<A NAME="XML Lua code"></A>
+<HR SIZE="6">
+<A NAME="SEC13"></A>
+<TABLE CELLPADDING=1 CELLSPACING=1 BORDER=0>
+<TR><TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="enigma-ref.html#SEC12"> &lt; </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="enigma-ref.html#SEC14"> &gt; </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="enigma-ref.html#SEC6"> &lt;&lt; </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="enigma-ref.html#SEC6"> Up </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="enigma-ref.html#SEC14"> &gt;&gt; </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="enigma-ref.html#SEC_Top">Top</A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="enigma-ref.html#SEC_Contents">Contents</A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="enigma-ref.html#SEC76">Index</A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="enigma-ref.html#SEC_About"> ? </A>]</TD>
+</TR></TABLE>
+<H2> 2.7 Embedded Lua code </H2>
+<!--docid::SEC13::-->
+<P>
+
+To make XML levels every bit as expressive as the former level format,
+a special <CODE>&lt;lua&gt;</CODE> tag is available to carry arbitrary Lua code.
+Only one such tag per level is allowed, and the code it contains
+is executed <EM>after</EM> all other tags have been processed, immediately
+before handing the level over to the game engine.
+</P>
+<P>
+
+Lua code blocks can be used for everything that can not be realized with
+the data-centric XML format, like specially crafted signal handlers,
+randomly generated levels or puzzles, or to access features of Enigma's
+game engine that are not otherwise available.
+</P>
+<P>
+
+Graphical level editors are expected <EM>not</EM> to tamper with the
+contents of Lua code blocks when they read or write Enigma levels,
+i.e., neither to modify them nor to delete them without notice.
+</P>
+<P>
+
+<A NAME="Objects"></A>
+<HR SIZE="6">
+<A NAME="SEC14"></A>
+<TABLE CELLPADDING=1 CELLSPACING=1 BORDER=0>
+<TR><TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="enigma-ref.html#SEC13"> &lt; </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="enigma-ref.html#SEC15"> &gt; </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="enigma-ref.html#SEC6"> &lt;&lt; </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="enigma-ref.html#SEC_Top"> Up </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="enigma-ref.html#SEC62"> &gt;&gt; </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="enigma-ref.html#SEC_Top">Top</A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="enigma-ref.html#SEC_Contents">Contents</A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="enigma-ref.html#SEC76">Index</A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="enigma-ref.html#SEC_About"> ? </A>]</TD>
+</TR></TABLE>
+<H1> 3. Objects </H1>
+<!--docid::SEC14::-->
+<P>
+
+<TABLE BORDER="0" CELLSPACING="0">
+<TR><TD ALIGN="left" VALIGN="TOP"><A HREF="enigma-ref.html#SEC15">3.1 Floors</A></TD><TD>&nbsp;&nbsp;</TD><TD ALIGN="left" VALIGN="TOP"></TD></TR>
+<TR><TD ALIGN="left" VALIGN="TOP"><A HREF="enigma-ref.html#SEC18">3.2 Items</A></TD><TD>&nbsp;&nbsp;</TD><TD ALIGN="left" VALIGN="TOP"></TD></TR>
+<TR><TD ALIGN="left" VALIGN="TOP"><A HREF="enigma-ref.html#SEC25">3.3 Stones</A></TD><TD>&nbsp;&nbsp;</TD><TD ALIGN="left" VALIGN="TOP"></TD></TR>
+<TR><TD ALIGN="left" VALIGN="TOP"><A HREF="enigma-ref.html#SEC51">3.4 Actors</A></TD><TD>&nbsp;&nbsp;</TD><TD ALIGN="left" VALIGN="TOP"></TD></TR>
+<TR><TD ALIGN="left" VALIGN="TOP"><A HREF="enigma-ref.html#SEC61">3.5 General object attributes</A></TD><TD>&nbsp;&nbsp;</TD><TD ALIGN="left" VALIGN="TOP"></TD></TR>
+</TABLE>
+<P>
+
+<A NAME="Floors"></A>
+<HR SIZE="6">
+<A NAME="SEC15"></A>
+<TABLE CELLPADDING=1 CELLSPACING=1 BORDER=0>
+<TR><TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="enigma-ref.html#SEC14"> &lt; </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="enigma-ref.html#SEC16"> &gt; </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="enigma-ref.html#SEC14"> &lt;&lt; </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="enigma-ref.html#SEC14"> Up </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="enigma-ref.html#SEC62"> &gt;&gt; </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="enigma-ref.html#SEC_Top">Top</A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="enigma-ref.html#SEC_Contents">Contents</A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="enigma-ref.html#SEC76">Index</A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="enigma-ref.html#SEC_About"> ? </A>]</TD>
+</TR></TABLE>
+<H2> 3.1 Floors </H2>
+<!--docid::SEC15::-->
+<P>
+
+<HR SIZE="6">
+<A NAME="SEC16"></A>
+<TABLE CELLPADDING=1 CELLSPACING=1 BORDER=0>
+<TR><TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="enigma-ref.html#SEC15"> &lt; </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="enigma-ref.html#SEC17"> &gt; </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="enigma-ref.html#SEC14"> &lt;&lt; </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="enigma-ref.html#SEC14"> Up </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="enigma-ref.html#SEC62"> &gt;&gt; </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="enigma-ref.html#SEC_Top">Top</A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="enigma-ref.html#SEC_Contents">Contents</A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="enigma-ref.html#SEC76">Index</A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="enigma-ref.html#SEC_About"> ? </A>]</TD>
+</TR></TABLE>
+<H3> 3.1.1 Special floor tiles </H3>
+<!--docid::SEC16::-->
+<P>
+
+<TABLE><tr><td>&nbsp;</td><td class=example><pre>fl-abyss
+fl-acblack
+fl-acwhite
+fl-bridge( type )
+fl-bridge-closed( type )
+fl-bridge-open( type )
+fl-gradient( type )
+fl-gradient{1..16}
+fl-springboard
+fl-swamp
+fl-water
+</pre></td></tr></table><P>
+
+<HR SIZE="6">
+<A NAME="SEC17"></A>
+<TABLE CELLPADDING=1 CELLSPACING=1 BORDER=0>
+<TR><TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="enigma-ref.html#SEC16"> &lt; </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="enigma-ref.html#SEC18"> &gt; </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="enigma-ref.html#SEC14"> &lt;&lt; </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="enigma-ref.html#SEC14"> Up </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="enigma-ref.html#SEC62"> &gt;&gt; </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="enigma-ref.html#SEC_Top">Top</A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="enigma-ref.html#SEC_Contents">Contents</A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="enigma-ref.html#SEC76">Index</A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="enigma-ref.html#SEC_About"> ? </A>]</TD>
+</TR></TABLE>
+<H3> 3.1.2 Regular floor tiles </H3>
+<!--docid::SEC17::-->
+<P>
+
+<TABLE><tr><td>&nbsp;</td><td class=example><pre>fl-abyss_fake
+fl-black
+fl-bluegray
+fl-bluegreen
+fl-bluegreenx
+fl-brick
+fl-bumps
+fl-concrete
+fl-darkgray
+fl-dummy
+fl-dunes
+fl-floor_001
+fl-gravel
+fl-gray
+fl-hay
+fl-himalaya
+fl-ice
+fl-ice_001
+fl-inverse
+fl-inverse2
+fl-leaves
+fl-leavesb
+fl-leavesc{1..4}
+fl-leavesd{1..4}
+fl-leavese{1..4}
+fl-light
+fl-lightgray
+fl-marble
+fl-metal
+fl-metal{1..6}
+fl-mortar
+fl-normal
+fl-normal_x
+fl-plank
+fl-red
+fl-rock
+fl-rough
+fl-rough-blue
+fl-rough-red
+fl-rough_medium
+fl-rough_slow
+fl-sahara
+fl-samba
+fl-samba1
+fl-samba2
+fl-sand
+fl-space
+fl-space-force
+fl-stone
+fl-stwood
+fl-stwood1
+fl-stwood2
+fl-tigris
+fl-trigger
+fl-white
+fl-wood
+fl-woven
+</pre></td></tr></table><P>
+
+<A NAME="Items"></A>
+<HR SIZE="6">
+<A NAME="SEC18"></A>
+<TABLE CELLPADDING=1 CELLSPACING=1 BORDER=0>
+<TR><TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="enigma-ref.html#SEC17"> &lt; </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="enigma-ref.html#SEC19"> &gt; </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="enigma-ref.html#SEC14"> &lt;&lt; </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="enigma-ref.html#SEC14"> Up </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="enigma-ref.html#SEC62"> &gt;&gt; </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="enigma-ref.html#SEC_Top">Top</A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="enigma-ref.html#SEC_Contents">Contents</A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="enigma-ref.html#SEC76">Index</A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="enigma-ref.html#SEC_About"> ? </A>]</TD>
+</TR></TABLE>
+<H2> 3.2 Items </H2>
+<!--docid::SEC18::-->
+<P>
+
+<TABLE BORDER="0" CELLSPACING="0">
+<TR><TD ALIGN="left" VALIGN="TOP"><A HREF="enigma-ref.html#SEC19">3.2.1 Item List</A></TD><TD>&nbsp;&nbsp;</TD><TD ALIGN="left" VALIGN="TOP">A complete list of all items</TD></TR>
+<TR><TD ALIGN="left" VALIGN="TOP"><A HREF="enigma-ref.html#SEC20">3.2.2 it-document: Scrolls of Paper</A></TD><TD>&nbsp;&nbsp;</TD><TD ALIGN="left" VALIGN="TOP">Scrolls of Paper</TD></TR>
+<TR><TD ALIGN="left" VALIGN="TOP"><A HREF="enigma-ref.html#SEC21">3.2.3 it-floppy: Floppy Disk</A></TD><TD>&nbsp;&nbsp;</TD><TD ALIGN="left" VALIGN="TOP">Floppy Disk</TD></TR>
+<TR><TD ALIGN="left" VALIGN="TOP"><A HREF="enigma-ref.html#SEC22">3.2.4 it-hollow: Hollows in the floor</A></TD><TD>&nbsp;&nbsp;</TD><TD ALIGN="left" VALIGN="TOP">Pits in the floor</TD></TR>
+<TR><TD ALIGN="left" VALIGN="TOP"><A HREF="enigma-ref.html#SEC23">3.2.5 it-ring: Ring</A></TD><TD>&nbsp;&nbsp;</TD><TD ALIGN="left" VALIGN="TOP">Ring</TD></TR>
+<TR><TD ALIGN="left" VALIGN="TOP"><A HREF="enigma-ref.html#SEC24">3.2.6 it-vortex: Vortex</A></TD><TD>&nbsp;&nbsp;</TD><TD ALIGN="left" VALIGN="TOP">Vortices for Teleporting</TD></TR>
+</TABLE>
+<P>
+
+<A NAME="Item List"></A>
+<HR SIZE="6">
+<A NAME="SEC19"></A>
+<TABLE CELLPADDING=1 CELLSPACING=1 BORDER=0>
+<TR><TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="enigma-ref.html#SEC18"> &lt; </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="enigma-ref.html#SEC20"> &gt; </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="enigma-ref.html#SEC14"> &lt;&lt; </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="enigma-ref.html#SEC18"> Up </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="enigma-ref.html#SEC62"> &gt;&gt; </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="enigma-ref.html#SEC_Top">Top</A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="enigma-ref.html#SEC_Contents">Contents</A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="enigma-ref.html#SEC76">Index</A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="enigma-ref.html#SEC_About"> ? </A>]</TD>
+</TR></TABLE>
+<H3> 3.2.1 Item List </H3>
+<!--docid::SEC19::-->
+<P>
+
+<TABLE><tr><td>&nbsp;</td><td class=example><pre>it-1pkillstone
+it-2pkillstone
+it-abyss
+it-bag
+it-banana
+it-blackbomb
+it-blackbomb_burning
+it-blocker
+it-blocker-new
+it-booze
+it-brake
+it-bridge-oxyd
+it-bridge-oxyd_active
+it-brush
+it-burnable
+it-burnable_ash
+it-burnable_burning
+it-burnable_fireproof
+it-burnable_ignited
+it-changefloor
+it-cherry
+it-coffee
+it-coin1( value )
+it-coin2( value )
+it-coin4( value )
+it-crack{0..3} ( type fixed brittleness )
+it-cross
+it-debris
+it-document( text )
+it-drop
+it-dummy
+it-dynamite
+it-easykeepstone
+it-easykillstone
+it-explosion1
+it-explosion2
+it-explosion3
+it-extinguisher( load )
+it-extinguisher_empty( load )
+it-extinguisher_medium( load )
+it-extralife
+it-flagblack
+it-flagwhite
+it-floppy
+it-glasses
+it-glasses-broken
+it-hammer
+it-hill
+it-hollow
+it-hstrip
+it-inversesensor
+it-key( keycode )
+it-key_a
+it-key_b
+it-key_c
+it-landmine
+it-magicwand
+it-magnet( on strength range )
+it-magnet-off( on strength range )
+it-magnet-on( on strength range )
+it-odometer
+it-oxyd5f
+it-pencil
+it-pin
+it-pipe-e
+it-pipe-es
+it-pipe-h
+it-pipe-n
+it-pipe-ne
+it-pipe-s
+it-pipe-sw
+it-pipe-v
+it-pipe-w
+it-pipe-wn
+it-puller-e
+it-puller-n
+it-puller-s
+it-puller-w
+it-ring
+it-rubberband( object1 object2 length strength )
+it-seed
+it-seed_nowood
+it-seed_volcano
+it-sensor
+it-shogun-l
+it-shogun-m
+it-shogun-s
+it-signalfilter0
+it-signalfilter1
+it-spade
+it-spoon
+it-spring1
+it-spring2
+it-springboard
+it-squashed
+it-surprise
+it-sword
+it-tinyhill
+it-tinyhollow
+it-trigger( invisible )
+it-umbrella
+it-vortex-closed( autoclose targetx targety )
+it-vortex-open( autoclose targetx targety )
+it-vstrip
+it-weight
+it-whitebomb
+it-wormhole( on targetx targety strength range )
+it-wormhole-off( on targetx targety strength range )
+it-wrench
+it-yinyang
+</pre></td></tr></table><P>
+
+<A NAME="it-document"></A>
+<HR SIZE="6">
+<A NAME="SEC20"></A>
+<TABLE CELLPADDING=1 CELLSPACING=1 BORDER=0>
+<TR><TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="enigma-ref.html#SEC19"> &lt; </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="enigma-ref.html#SEC21"> &gt; </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="enigma-ref.html#SEC14"> &lt;&lt; </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="enigma-ref.html#SEC18"> Up </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="enigma-ref.html#SEC62"> &gt;&gt; </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="enigma-ref.html#SEC_Top">Top</A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="enigma-ref.html#SEC_Contents">Contents</A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="enigma-ref.html#SEC76">Index</A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="enigma-ref.html#SEC_About"> ? </A>]</TD>
+</TR></TABLE>
+<H3> 3.2.2 it-document: Scrolls of Paper </H3>
+<!--docid::SEC20::-->
+<P>
+
+This item looks like a piece of paper and contains text messages that
+can be displayed by activating the item.  
+</P>
+<P>
+
+<STRONG>Attributes</STRONG>
+</P>
+<P>
+
+</P>
+<DL COMPACT>
+<DT><CODE>text</CODE>
+<DD>The message to be displayed.
+</DL>
+<P>
+
+<STRONG>Example</STRONG>
+<TABLE><tr><td>&nbsp;</td><td class=example><pre>set_item(&quot;it-document&quot;, 1,1, {text=&quot;Hello World!&quot;})
+Document(1,1, &quot;Hello World&quot;)
+</pre></td></tr></table><P>
+
+<A NAME="it-floppy"></A>
+<HR SIZE="6">
+<A NAME="SEC21"></A>
+<TABLE CELLPADDING=1 CELLSPACING=1 BORDER=0>
+<TR><TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="enigma-ref.html#SEC20"> &lt; </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="enigma-ref.html#SEC22"> &gt; </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="enigma-ref.html#SEC14"> &lt;&lt; </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="enigma-ref.html#SEC18"> Up </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="enigma-ref.html#SEC62"> &gt;&gt; </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="enigma-ref.html#SEC_Top">Top</A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="enigma-ref.html#SEC_Contents">Contents</A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="enigma-ref.html#SEC76">Index</A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="enigma-ref.html#SEC_About"> ? </A>]</TD>
+</TR></TABLE>
+<H3> 3.2.3 it-floppy: Floppy Disk </H3>
+<!--docid::SEC21::-->
+<P>
+
+The floppy disk is needed to activate the Floppy switch (see
+<A HREF="enigma-ref.html#SEC34">3.3.9 st-floppy: Floppy Switch</A>).
+</P>
+<P>
+
+<A NAME="it-hollow"></A>
+<HR SIZE="6">
+<A NAME="SEC22"></A>
+<TABLE CELLPADDING=1 CELLSPACING=1 BORDER=0>
+<TR><TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="enigma-ref.html#SEC21"> &lt; </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="enigma-ref.html#SEC23"> &gt; </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="enigma-ref.html#SEC14"> &lt;&lt; </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="enigma-ref.html#SEC18"> Up </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="enigma-ref.html#SEC62"> &gt;&gt; </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="enigma-ref.html#SEC_Top">Top</A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="enigma-ref.html#SEC_Contents">Contents</A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="enigma-ref.html#SEC76">Index</A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="enigma-ref.html#SEC_About"> ? </A>]</TD>
+</TR></TABLE>
+<H3> 3.2.4 it-hollow: Hollows in the floor </H3>
+<!--docid::SEC22::-->
+<P>
+
+This item creates a hollow in the floor.
+If all existing @xref{ac-whiteball-small} are inside hollows the level succeeds.
+</P>
+<P>
+
+<STRONG>Attributes</STRONG>
+</P>
+<P>
+
+</P>
+<DL COMPACT>
+<DT><CODE>essential</CODE>
+<DD>Whether the hollow must be filled with a whiteball to end the level (1
+means 'yes').
+<P>
+
+Use this attribute if there are more holes than small whiteballs in a
+level and you want to determine which of the holes are needed to
+finish the level.
+</P>
+<P>
+
+For example: If you have many holes and 3 whiteballs, then set
+<CODE>essential=1</CODE> in 3 holes.  The game will end when the 3
+whiteballs are inside the 3 marked holes.
+</P>
+<P>
+
+</DL>
+<P>
+
+<A NAME="it-ring"></A>
+<HR SIZE="6">
+<A NAME="SEC23"></A>
+<TABLE CELLPADDING=1 CELLSPACING=1 BORDER=0>
+<TR><TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="enigma-ref.html#SEC22"> &lt; </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="enigma-ref.html#SEC24"> &gt; </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="enigma-ref.html#SEC14"> &lt;&lt; </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="enigma-ref.html#SEC18"> Up </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="enigma-ref.html#SEC62"> &gt;&gt; </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="enigma-ref.html#SEC_Top">Top</A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="enigma-ref.html#SEC_Contents">Contents</A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="enigma-ref.html#SEC76">Index</A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="enigma-ref.html#SEC_About"> ? </A>]</TD>
+</TR></TABLE>
+<H3> 3.2.5 it-ring: Ring </H3>
+<!--docid::SEC23::-->
+<P>
+
+When a player drops this item, the marble is teleported.  The
+destination depends on the game mode:
+</P>
+<P>
+
+</P>
+<DL COMPACT>
+<DT><EM>Single player levels:</EM>
+<DD>The marble is transported to its starting position or
+to the position of the last dropped @xref{it-flag}.
+<P>
+
+</P>
+<DT><EM>Multi player levels:</EM>
+<DD>Both marbles exchange their positions.
+</DL>
+<P>
+
+<A NAME="it-vortex"></A>
+<HR SIZE="6">
+<A NAME="SEC24"></A>
+<TABLE CELLPADDING=1 CELLSPACING=1 BORDER=0>
+<TR><TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="enigma-ref.html#SEC23"> &lt; </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="enigma-ref.html#SEC25"> &gt; </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="enigma-ref.html#SEC14"> &lt;&lt; </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="enigma-ref.html#SEC18"> Up </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="enigma-ref.html#SEC62"> &gt;&gt; </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="enigma-ref.html#SEC_Top">Top</A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="enigma-ref.html#SEC_Contents">Contents</A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="enigma-ref.html#SEC76">Index</A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="enigma-ref.html#SEC_About"> ? </A>]</TD>
+</TR></TABLE>
+<H3> 3.2.6 it-vortex: Vortex </H3>
+<!--docid::SEC24::-->
+<P>
+
+Vortices, like wormholes, can be used to teleport marbles.  In the
+simplest case, every vortex is connected to exactly one other vortex.
+If there are multiple target vortices, the marble will be teleported
+to the first <EM>unblocked</EM> target site.  Many levels in the
+original Oxyd games required the player to selectively block vortices
+to gain access to new parts of the level.
+</P>
+<P>
+
+<STRONG>Example</STRONG>
+</P>
+<P>
+
+This example creates three vortices.  If the second vortex is blocked, a
+marble falling into the first one is transported to (20,1).
+</P>
+<P>
+
+<TABLE><tr><td>&nbsp;</td><td class=example><pre>set_item (&quot;it-vortex&quot;, 1, 1)
+set_item (&quot;it-vortex&quot;, 10,1)
+set_item (&quot;it-vortex&quot;, 20,1)
+Signal (&quot;it(1 1)&quot;, &quot;it(10 1)&quot;)
+Signal (&quot;it(1 1)&quot;, &quot;it(20 1)&quot;)
+Signal (&quot;it(10 1)&quot;, &quot;it(1 1)&quot;)
+Signal (&quot;it(20 1)&quot;, &quot;it(1 1)&quot;)
+</pre></td></tr></table><P>
+
+<A NAME="Stones"></A>
+<HR SIZE="6">
+<A NAME="SEC25"></A>
+<TABLE CELLPADDING=1 CELLSPACING=1 BORDER=0>
+<TR><TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="enigma-ref.html#SEC24"> &lt; </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="enigma-ref.html#SEC26"> &gt; </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="enigma-ref.html#SEC14"> &lt;&lt; </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="enigma-ref.html#SEC14"> Up </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="enigma-ref.html#SEC62"> &gt;&gt; </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="enigma-ref.html#SEC_Top">Top</A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="enigma-ref.html#SEC_Contents">Contents</A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="enigma-ref.html#SEC76">Index</A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="enigma-ref.html#SEC_About"> ? </A>]</TD>
+</TR></TABLE>
+<H2> 3.3 Stones </H2>
+<!--docid::SEC25::-->
+<P>
+
+<TABLE BORDER="0" CELLSPACING="0">
+<TR><TD ALIGN="left" VALIGN="TOP"><A HREF="enigma-ref.html#SEC26">3.3.1 Stone List</A></TD><TD>&nbsp;&nbsp;</TD><TD ALIGN="left" VALIGN="TOP">A complete list of all stones</TD></TR>
+<TR><TD ALIGN="left" VALIGN="TOP"><A HREF="enigma-ref.html#SEC27">3.3.2 st-actorimpulse: Bumper Stones</A></TD><TD>&nbsp;&nbsp;</TD><TD ALIGN="left" VALIGN="TOP">Bumper Stones</TD></TR>
+<TR><TD ALIGN="left" VALIGN="TOP"><A HREF="enigma-ref.html#SEC28">3.3.3 st-chameleon: Chameleon Stone</A></TD><TD>&nbsp;&nbsp;</TD><TD ALIGN="left" VALIGN="TOP">Chameleon Stone</TD></TR>
+<TR><TD ALIGN="left" VALIGN="TOP"><A HREF="enigma-ref.html#SEC29">3.3.4 st-coinslot</A></TD><TD>&nbsp;&nbsp;</TD><TD ALIGN="left" VALIGN="TOP">Coin Slot Switch</TD></TR>
+<TR><TD ALIGN="left" VALIGN="TOP"><A HREF="enigma-ref.html#SEC30">3.3.5 st-death: Skull Stones</A></TD><TD>&nbsp;&nbsp;</TD><TD ALIGN="left" VALIGN="TOP">Skull Stones</TD></TR>
+<TR><TD ALIGN="left" VALIGN="TOP"><A HREF="enigma-ref.html#SEC31">3.3.6 st-disco: Disco Stones</A></TD><TD>&nbsp;&nbsp;</TD><TD ALIGN="left" VALIGN="TOP">Disco Stones</TD></TR>
+<TR><TD ALIGN="left" VALIGN="TOP"><A HREF="enigma-ref.html#SEC32">3.3.7 st-easymode: Easy Mode Stone</A></TD><TD>&nbsp;&nbsp;</TD><TD ALIGN="left" VALIGN="TOP">Easy Mode Stone</TD></TR>
+<TR><TD ALIGN="left" VALIGN="TOP"><A HREF="enigma-ref.html#SEC33">3.3.8 st-fart: Fart Stone</A></TD><TD>&nbsp;&nbsp;</TD><TD ALIGN="left" VALIGN="TOP">The Infamous Fart Stones</TD></TR>
+<TR><TD ALIGN="left" VALIGN="TOP"><A HREF="enigma-ref.html#SEC34">3.3.9 st-floppy: Floppy Switch</A></TD><TD>&nbsp;&nbsp;</TD><TD ALIGN="left" VALIGN="TOP">Floppy Switch</TD></TR>
+<TR><TD ALIGN="left" VALIGN="TOP"><A HREF="enigma-ref.html#SEC35">3.3.10 st-grate: Grates</A></TD><TD>&nbsp;&nbsp;</TD><TD ALIGN="left" VALIGN="TOP">Various Grates</TD></TR>
+<TR><TD ALIGN="left" VALIGN="TOP"><A HREF="enigma-ref.html#SEC36">3.3.11 st-laserswitch: Laser Switch</A></TD><TD>&nbsp;&nbsp;</TD><TD ALIGN="left" VALIGN="TOP">Laser Switch</TD></TR>
+<TR><TD ALIGN="left" VALIGN="TOP"><A HREF="enigma-ref.html#SEC37">3.3.12 st-lasertimeswitch: Laser Time Switch</A></TD><TD>&nbsp;&nbsp;</TD><TD ALIGN="left" VALIGN="TOP">Laser Time Switch</TD></TR>
+<TR><TD ALIGN="left" VALIGN="TOP"><A HREF="enigma-ref.html#SEC38">3.3.13 st-oneway: One-way Stones</A></TD><TD>&nbsp;&nbsp;</TD><TD ALIGN="left" VALIGN="TOP">One-way Stones</TD></TR>
+<TR><TD ALIGN="left" VALIGN="TOP"><A HREF="enigma-ref.html#SEC39">3.3.14 st-oxyd: Oxyd Stones</A></TD><TD>&nbsp;&nbsp;</TD><TD ALIGN="left" VALIGN="TOP">The Famous Oxyd Stones</TD></TR>
+<TR><TD ALIGN="left" VALIGN="TOP"><A HREF="enigma-ref.html#SEC40">3.3.15 st-rubberband: Rubberband Stone</A></TD><TD>&nbsp;&nbsp;</TD><TD ALIGN="left" VALIGN="TOP">Rubberband Stone</TD></TR>
+<TR><TD ALIGN="left" VALIGN="TOP"><A HREF="enigma-ref.html#SEC41">3.3.16 st-scissors: Scissors Stone</A></TD><TD>&nbsp;&nbsp;</TD><TD ALIGN="left" VALIGN="TOP">Scissors Stone</TD></TR>
+<TR><TD ALIGN="left" VALIGN="TOP"><A HREF="enigma-ref.html#SEC42">3.3.17 st-stone_break: Breakable Stone</A></TD><TD>&nbsp;&nbsp;</TD><TD ALIGN="left" VALIGN="TOP">Breakable Stone</TD></TR>
+<TR><TD ALIGN="left" VALIGN="TOP"><A HREF="enigma-ref.html#SEC43">3.3.18 st-swap: Swap Stone</A></TD><TD>&nbsp;&nbsp;</TD><TD ALIGN="left" VALIGN="TOP">Swap Stones</TD></TR>
+<TR><TD ALIGN="left" VALIGN="TOP"><A HREF="enigma-ref.html#SEC44">3.3.19 st-switch: Switches</A></TD><TD>&nbsp;&nbsp;</TD><TD ALIGN="left" VALIGN="TOP">Ordinary Switches</TD></TR>
+<TR><TD ALIGN="left" VALIGN="TOP"><A HREF="enigma-ref.html#SEC45">3.3.20 st-thief: Thief Stone</A></TD><TD>&nbsp;&nbsp;</TD><TD ALIGN="left" VALIGN="TOP">Thiefs</TD></TR>
+<TR><TD ALIGN="left" VALIGN="TOP"><A HREF="enigma-ref.html#SEC46">3.3.21 st-timer: Timer Stone</A></TD><TD>&nbsp;&nbsp;</TD><TD ALIGN="left" VALIGN="TOP">Timers</TD></TR>
+<TR><TD ALIGN="left" VALIGN="TOP"><A HREF="enigma-ref.html#SEC47">3.3.22 st-timeswitch: Time Switch</A></TD><TD>&nbsp;&nbsp;</TD><TD ALIGN="left" VALIGN="TOP">Time Switch</TD></TR>
+<TR><TD ALIGN="left" VALIGN="TOP"><A HREF="enigma-ref.html#SEC48">3.3.23 st-window: Breakable Stone</A></TD><TD>&nbsp;&nbsp;</TD><TD ALIGN="left" VALIGN="TOP">Breakable Window</TD></TR>
+<TR><TD ALIGN="left" VALIGN="TOP"><A HREF="enigma-ref.html#SEC49">3.3.24 st-wood: Wooden Stone</A></TD><TD>&nbsp;&nbsp;</TD><TD ALIGN="left" VALIGN="TOP">Wooden Stones</TD></TR>
+<TR><TD ALIGN="left" VALIGN="TOP"><A HREF="enigma-ref.html#SEC50">3.3.25 st-yinyang: Yin-Yang Stones</A></TD><TD>&nbsp;&nbsp;</TD><TD ALIGN="left" VALIGN="TOP">Yin-Yang Stones</TD></TR>
+</TABLE>
+<P>
+
+<A NAME="Stone List"></A>
+<HR SIZE="6">
+<A NAME="SEC26"></A>
+<TABLE CELLPADDING=1 CELLSPACING=1 BORDER=0>
+<TR><TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="enigma-ref.html#SEC25"> &lt; </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="enigma-ref.html#SEC27"> &gt; </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="enigma-ref.html#SEC14"> &lt;&lt; </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="enigma-ref.html#SEC25"> Up </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="enigma-ref.html#SEC62"> &gt;&gt; </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="enigma-ref.html#SEC_Top">Top</A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="enigma-ref.html#SEC_Contents">Contents</A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="enigma-ref.html#SEC76">Index</A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="enigma-ref.html#SEC_About"> ? </A>]</TD>
+</TR></TABLE>
+<H3> 3.3.1 Stone List </H3>
+<!--docid::SEC26::-->
+<P>
+
+<STRONG>Simple stones</STRONG>
+</P>
+<P>
+
+The following stone types are commonly used for &quot;decoration&quot;.  They
+generally do not have special properties or abilities.  Three types of
+abbreviations are used in the tables: <CODE>[abc]</CODE> stands for any of the
+characters in square brackets, <CODE>&lt;abc&gt;</CODE> stands for any subsequence
+of the characters between the angle brackets (in this case abc, ab, bc,
+a, b, c), and <CODE>{1..9}</CODE> indicates a sequence of numbers.
+</P>
+<P>
+
+<TABLE><tr><td>&nbsp;</td><td class=example><pre>st-beads
+st-bigbrick-&lt;nesw&gt;
+st-blue-sand
+st-bluegray
+st-bluegray_hole
+st-brick
+st-brownie
+st-bumps
+st-dummy
+st-fakeoxyd( blinking )
+st-fakeoxyda
+st-glass
+st-glass[123]
+st-glass[12]_hole
+st-glass1_move
+st-glass_move
+st-grate{1..3}
+st-greenbrown
+st-greenbrown_hole
+st-greenbrown_move
+st-likeoxyd[abcd]
+st-likeoxyd[abcd]-open
+st-marble
+st-marble_hole
+st-marble_move
+st-metal
+st-plain
+st-plain_hole
+st-plain_move
+st-rock{1..8}
+st-rock[123]_hole
+st-rock[13]_move
+st-stone[12]
+st-wood[12]
+st-wood_001
+st-woven
+st-yellow
+</pre></td></tr></table><P>
+
+<STRONG>Special stones</STRONG>
+</P>
+<P>
+
+The following stones types are special in the sense that they perform
+some action, either when hit by an actor, or all by themselves.
+</P>
+<P>
+
+<TABLE><tr><td>&nbsp;</td><td class=example><pre>st-3mirror( transparent movable orientation )
+st-actorimpulse
+st-actorimpulse_invisible
+st-black{1..4}
+st-blackballs
+st-block
+st-blocker
+st-blocker-growing
+st-bolder-[ensw]
+st-bombs
+st-brake
+st-break_acblack
+st-break_acwhite
+st-break_bolder
+st-break_gray
+st-break_invisible
+st-breaking
+st-brick_magic
+st-bug
+st-chameleon
+st-chargeminus( charge )
+st-chargeplus( charge )
+st-chargezero( charge )
+st-coffee
+st-coinslot( on )
+st-death
+st-death_invisible
+st-disco-dark
+st-disco-light
+st-disco-medium
+st-door( type )
+st-door-h( type )
+st-door-h-open( type )
+st-door-v( type )
+st-door-v-open( type )
+st-door_[abc]
+st-easymode
+st-explosion
+st-fart
+st-flash
+st-floppy( on )
+st-fourswitch( on )
+st-greenbrown-growing
+st-invisible
+st-invisible_magic
+st-key( on keycode )
+st-key_[abc] ( on keycode )
+st-knight
+st-laser-[ensw]( on )
+st-laserbreak
+st-laserswitch
+st-lasertimeswitch( delay )
+st-magic
+st-mail-[ensw]
+st-mirror-3&lt;
+st-mirror-3&lt;m
+st-mirror-3&lt;t
+st-mirror-3&lt;tm
+st-mirror-3&gt;
+st-mirror-3&gt;m
+st-mirror-3&gt;t
+st-mirror-3&gt;tm
+st-mirror-3^
+st-mirror-3^m
+st-mirror-3^t
+st-mirror-3^tm
+st-mirror-3v
+st-mirror-3vm
+st-mirror-3vt
+st-mirror-3vtm
+st-mirror-p-
+st-mirror-p-m
+st-mirror-p-t
+st-mirror-p-tm
+st-mirror-p/
+st-mirror-p/m
+st-mirror-p/t
+st-mirror-p/tm
+st-mirror-p\
+st-mirror-p\m
+st-mirror-p\t
+st-mirror-p\tm
+st-mirror-p|
+st-mirror-p|m
+st-mirror-p|t
+st-mirror-p|tm
+st-oneway-[nesw]
+st-oneway_black-[nesw]
+st-oneway_white-[nesw]
+st-oxyd( flavor color )
+st-oxyd-0x18
+st-peroxyd-0xb8
+st-peroxyd-0xb9
+st-plain_break
+st-plain_breaking
+st-plain_cracked
+st-plain_falling
+st-pmirror( transparent movable orientation )
+st-pull
+st-puzzle-hollow( oxyd )
+st-puzzle-&lt;nesw&gt;( oxyd )
+st-puzzle2-hollow( oxyd )
+st-puzzle2-&lt;nesw&gt;( oxyd )
+st-rock3_break
+st-rock3_movebreak
+st-rotator-left
+st-rotator-right
+st-rotator_move-left
+st-rotator_move-right
+st-rubberband( length strength )
+st-scissors
+st-shogun-&lt;sml&gt;
+st-spitter
+st-stone_break
+st-stonebrush
+st-stoneimpulse
+st-stoneimpulse-hollow
+st-stoneimpulse_movable
+st-surprise
+st-swap
+st-switch( on )
+st-switch_black( on )
+st-switch_white( on )
+st-thief
+st-timer( on interval loop invisible )
+st-timeswitch( delay )
+st-turnstile
+st-turnstile-green
+st-turnstile-[ensw]
+st-volcano
+st-volcano-growing
+st-volcano_active
+st-volcano_inactive
+st-white{1..4}
+st-whiteballs
+st-window
+st-wood
+st-wood-growing
+st-yinyang{1..3}
+</pre></td></tr></table><P>
+
+<A NAME="st-actorimpulse"></A>
+<HR SIZE="6">
+<A NAME="SEC27"></A>
+<TABLE CELLPADDING=1 CELLSPACING=1 BORDER=0>
+<TR><TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="enigma-ref.html#SEC26"> &lt; </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="enigma-ref.html#SEC28"> &gt; </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="enigma-ref.html#SEC14"> &lt;&lt; </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="enigma-ref.html#SEC25"> Up </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="enigma-ref.html#SEC62"> &gt;&gt; </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="enigma-ref.html#SEC_Top">Top</A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="enigma-ref.html#SEC_Contents">Contents</A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="enigma-ref.html#SEC76">Index</A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="enigma-ref.html#SEC_About"> ? </A>]</TD>
+</TR></TABLE>
+<H3> 3.3.2 st-actorimpulse: Bumper Stones </H3>
+<!--docid::SEC27::-->
+<P>
+
+These stones apply an impulse to actors that touch them.  The amount
+of force applied can be controlled by setting
+@xref{enigma.BumperForce} accordingly (the default is 800).
+Alternatively, the <CODE>force</CODE> attribute can be used to set this
+factor for <EM>individual</EM> bumper stones.
+</P>
+<P>
+
+The invisible variant, @xref{st-actorimpulse_invisible} can
+&quot;painted&quot; with a @xref{it-brush}.
+</P>
+<P>
+
+<A NAME="st-chameleon"></A>
+<HR SIZE="6">
+<A NAME="SEC28"></A>
+<TABLE CELLPADDING=1 CELLSPACING=1 BORDER=0>
+<TR><TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="enigma-ref.html#SEC27"> &lt; </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="enigma-ref.html#SEC29"> &gt; </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="enigma-ref.html#SEC14"> &lt;&lt; </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="enigma-ref.html#SEC25"> Up </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="enigma-ref.html#SEC62"> &gt;&gt; </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="enigma-ref.html#SEC_Top">Top</A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="enigma-ref.html#SEC_Contents">Contents</A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="enigma-ref.html#SEC76">Index</A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="enigma-ref.html#SEC_About"> ? </A>]</TD>
+</TR></TABLE>
+<H3> 3.3.3 st-chameleon: Chameleon Stone </H3>
+<!--docid::SEC28::-->
+<P>
+
+This stone takes on the look of the floor beneath it.  Actors can
+move through it, so these stones are perfect for hiding stuff under
+them...
+</P>
+<P>
+
+<A NAME="st-coinslot"></A>
+<HR SIZE="6">
+<A NAME="SEC29"></A>
+<TABLE CELLPADDING=1 CELLSPACING=1 BORDER=0>
+<TR><TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="enigma-ref.html#SEC28"> &lt; </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="enigma-ref.html#SEC30"> &gt; </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="enigma-ref.html#SEC14"> &lt;&lt; </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="enigma-ref.html#SEC25"> Up </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="enigma-ref.html#SEC62"> &gt;&gt; </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="enigma-ref.html#SEC_Top">Top</A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="enigma-ref.html#SEC_Contents">Contents</A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="enigma-ref.html#SEC76">Index</A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="enigma-ref.html#SEC_About"> ? </A>]</TD>
+</TR></TABLE>
+<H3> 3.3.4 st-coinslot </H3>
+<!--docid::SEC29::-->
+<P>
+
+A switch that can be activated with coins.  The more coins you put in,
+the longer the switch will stay activated.
+</P>
+<P>
+
+<STRONG>Attributes</STRONG>
+</P>
+<P>
+
+</P>
+<DL COMPACT>
+<DT><CODE>target, action</CODE>
+<DD>As usual
+</DL>
+<P>
+
+<A NAME="st-death"></A>
+<HR SIZE="6">
+<A NAME="SEC30"></A>
+<TABLE CELLPADDING=1 CELLSPACING=1 BORDER=0>
+<TR><TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="enigma-ref.html#SEC29"> &lt; </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="enigma-ref.html#SEC31"> &gt; </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="enigma-ref.html#SEC14"> &lt;&lt; </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="enigma-ref.html#SEC25"> Up </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="enigma-ref.html#SEC62"> &gt;&gt; </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="enigma-ref.html#SEC_Top">Top</A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="enigma-ref.html#SEC_Contents">Contents</A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="enigma-ref.html#SEC76">Index</A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="enigma-ref.html#SEC_About"> ? </A>]</TD>
+</TR></TABLE>
+<H3> 3.3.5 st-death: Skull Stones </H3>
+<!--docid::SEC30::-->
+<P>
+
+Simply kills all marbles that touch it (except when protected by an
+umbrella).
+</P>
+<P>
+
+<STRONG>Variants</STRONG>
+</P>
+<P>
+
+</P>
+<DL COMPACT>
+<DT><CODE>st-death</CODE>
+<DD><DT><CODE>st-death_invisible</CODE>
+<DD></DL>
+<P>
+
+<A NAME="st-disco"></A>
+<HR SIZE="6">
+<A NAME="SEC31"></A>
+<TABLE CELLPADDING=1 CELLSPACING=1 BORDER=0>
+<TR><TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="enigma-ref.html#SEC30"> &lt; </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="enigma-ref.html#SEC32"> &gt; </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="enigma-ref.html#SEC14"> &lt;&lt; </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="enigma-ref.html#SEC25"> Up </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="enigma-ref.html#SEC62"> &gt;&gt; </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="enigma-ref.html#SEC_Top">Top</A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="enigma-ref.html#SEC_Contents">Contents</A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="enigma-ref.html#SEC76">Index</A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="enigma-ref.html#SEC_About"> ? </A>]</TD>
+</TR></TABLE>
+<H3> 3.3.6 st-disco: Disco Stones </H3>
+<!--docid::SEC31::-->
+<P>
+
+Darkens everything that is underneath the stone (much like tinted
+glass).  Can be switched on and off (hence the name).
+</P>
+<P>
+
+<STRONG>Messages</STRONG>
+</P>
+<P>
+
+</P>
+<DL COMPACT>
+<DT><CODE>signal</CODE>
+<DD>With parameter 1, lighten the stone and (recursively) all neighboring
+disco stones; with parameter smaller than 1, darken them.
+<DT><CODE>lighten</CODE>
+<DD><DT><CODE>darken</CODE>
+<DD></DL>
+<P>
+
+<STRONG>Variants</STRONG>
+</P>
+<P>
+
+</P>
+<DL COMPACT>
+<DT><CODE>st-disco-light</CODE>
+<DD><DT><CODE>st-disco-medium</CODE>
+<DD><DT><CODE>st-disco-dark</CODE>
+<DD></DL>
+<P>
+
+<A NAME="st-easymode"></A>
+<HR SIZE="6">
+<A NAME="SEC32"></A>
+<TABLE CELLPADDING=1 CELLSPACING=1 BORDER=0>
+<TR><TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="enigma-ref.html#SEC31"> &lt; </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="enigma-ref.html#SEC33"> &gt; </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="enigma-ref.html#SEC14"> &lt;&lt; </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="enigma-ref.html#SEC25"> Up </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="enigma-ref.html#SEC62"> &gt;&gt; </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="enigma-ref.html#SEC_Top">Top</A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="enigma-ref.html#SEC_Contents">Contents</A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="enigma-ref.html#SEC76">Index</A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="enigma-ref.html#SEC_About"> ? </A>]</TD>
+</TR></TABLE>
+<H3> 3.3.7 st-easymode: Easy Mode Stone </H3>
+<!--docid::SEC32::-->
+<P>
+
+In easy game mode this stone converts the floor at its position to
+<CODE>fl-normal</CODE>.  In normal game mode the stone removes any item at
+its position.  The stone itself never appears in either game mode; it
+removes itself immediately after performing its job.
+</P>
+<P>
+
+This stone is commonly used to hide danger areas (water holes, abyss)
+or to insert helper items (umbrellas, seeds, etc.) that make the level
+easier in easy game mode.
+</P>
+<P>
+
+<A NAME="st-fart"></A>
+<HR SIZE="6">
+<A NAME="SEC33"></A>
+<TABLE CELLPADDING=1 CELLSPACING=1 BORDER=0>
+<TR><TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="enigma-ref.html#SEC32"> &lt; </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="enigma-ref.html#SEC34"> &gt; </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="enigma-ref.html#SEC14"> &lt;&lt; </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="enigma-ref.html#SEC25"> Up </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="enigma-ref.html#SEC62"> &gt;&gt; </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="enigma-ref.html#SEC_Top">Top</A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="enigma-ref.html#SEC_Contents">Contents</A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="enigma-ref.html#SEC76">Index</A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="enigma-ref.html#SEC_About"> ? </A>]</TD>
+</TR></TABLE>
+<H3> 3.3.8 st-fart: Fart Stone </H3>
+<!--docid::SEC33::-->
+<P>
+
+The fart stone has the unpleasant habit of &quot;blowing off&quot; when
+triggered (by actor hit or signal) and will close all Oxyd stones.
+</P>
+<P>
+
+<STRONG>Messages</STRONG>
+</P>
+<P>
+
+</P>
+<DL COMPACT>
+<DT><CODE>trigger</CODE>
+<DD>blow off
+</DL>
+<P>
+
+<A NAME="st-floppy"></A>
+<HR SIZE="6">
+<A NAME="SEC34"></A>
+<TABLE CELLPADDING=1 CELLSPACING=1 BORDER=0>
+<TR><TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="enigma-ref.html#SEC33"> &lt; </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="enigma-ref.html#SEC35"> &gt; </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="enigma-ref.html#SEC14"> &lt;&lt; </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="enigma-ref.html#SEC25"> Up </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="enigma-ref.html#SEC62"> &gt;&gt; </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="enigma-ref.html#SEC_Top">Top</A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="enigma-ref.html#SEC_Contents">Contents</A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="enigma-ref.html#SEC76">Index</A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="enigma-ref.html#SEC_About"> ? </A>]</TD>
+</TR></TABLE>
+<H3> 3.3.9 st-floppy: Floppy Switch </H3>
+<!--docid::SEC34::-->
+<P>
+
+A switch that is activated by inserting a floppy disk (see <A HREF="enigma-ref.html#SEC21">3.2.3 it-floppy: Floppy Disk</A>).
+</P>
+<P>
+
+<STRONG>Attributes</STRONG>
+</P>
+<P>
+
+</P>
+<DL COMPACT>
+<DT><CODE>on</CODE>
+<DD>1 or 0
+<DT><CODE>target</CODE>
+<DD><DT><CODE>action</CODE>
+<DD></DL>
+<P>
+
+<A NAME="st-grate"></A>
+<HR SIZE="6">
+<A NAME="SEC35"></A>
+<TABLE CELLPADDING=1 CELLSPACING=1 BORDER=0>
+<TR><TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="enigma-ref.html#SEC34"> &lt; </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="enigma-ref.html#SEC36"> &gt; </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="enigma-ref.html#SEC14"> &lt;&lt; </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="enigma-ref.html#SEC25"> Up </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="enigma-ref.html#SEC62"> &gt;&gt; </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="enigma-ref.html#SEC_Top">Top</A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="enigma-ref.html#SEC_Contents">Contents</A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="enigma-ref.html#SEC76">Index</A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="enigma-ref.html#SEC_About"> ? </A>]</TD>
+</TR></TABLE>
+<H3> 3.3.10 st-grate: Grates </H3>
+<!--docid::SEC35::-->
+<P>
+
+Floating grates, mainly decorative.  Flying objects (jumping marbles,
+rotors, etc.) cannot pass, objects moving on the floor can.
+</P>
+<P>
+
+<STRONG>Variants</STRONG>
+</P>
+<P>
+
+</P>
+<DL COMPACT>
+<DT><CODE>st-grate1</CODE>
+<DD><DT><CODE>st-grate2</CODE>
+<DD><DT><CODE>st-grate3</CODE>
+<DD></DL>
+<P>
+
+<A NAME="st-laserswitch"></A>
+<HR SIZE="6">
+<A NAME="SEC36"></A>
+<TABLE CELLPADDING=1 CELLSPACING=1 BORDER=0>
+<TR><TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="enigma-ref.html#SEC35"> &lt; </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="enigma-ref.html#SEC37"> &gt; </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="enigma-ref.html#SEC14"> &lt;&lt; </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="enigma-ref.html#SEC25"> Up </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="enigma-ref.html#SEC62"> &gt;&gt; </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="enigma-ref.html#SEC_Top">Top</A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="enigma-ref.html#SEC_Contents">Contents</A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="enigma-ref.html#SEC76">Index</A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="enigma-ref.html#SEC_About"> ? </A>]</TD>
+</TR></TABLE>
+<H3> 3.3.11 st-laserswitch: Laser Switch </H3>
+<!--docid::SEC36::-->
+<P>
+
+This switch is <CODE>on</CODE> while hit by a laserbeam
+and <CODE>off</CODE> when not hit by a laserbeam.
+</P>
+<P>
+
+See also <A HREF="enigma-ref.html#SEC37">3.3.12 st-lasertimeswitch: Laser Time Switch</A>.
+</P>
+<P>
+
+<STRONG>Attributes</STRONG>
+</P>
+<P>
+
+</P>
+<DL COMPACT>
+<DT><CODE>inverse=1</CODE>
+<DD>Inverts the on/off state of the switch
+(i.e <CODE>on</CODE> at startup and switch <CODE>off</CODE> with laserbeam)
+<DT><CODE>target,action</CODE>
+<DD>as usual
+</DL>
+<P>
+
+<A NAME="st-lasertimeswitch"></A>
+<HR SIZE="6">
+<A NAME="SEC37"></A>
+<TABLE CELLPADDING=1 CELLSPACING=1 BORDER=0>
+<TR><TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="enigma-ref.html#SEC36"> &lt; </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="enigma-ref.html#SEC38"> &gt; </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="enigma-ref.html#SEC14"> &lt;&lt; </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="enigma-ref.html#SEC25"> Up </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="enigma-ref.html#SEC62"> &gt;&gt; </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="enigma-ref.html#SEC_Top">Top</A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="enigma-ref.html#SEC_Contents">Contents</A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="enigma-ref.html#SEC76">Index</A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="enigma-ref.html#SEC_About"> ? </A>]</TD>
+</TR></TABLE>
+<H3> 3.3.12 st-lasertimeswitch: Laser Time Switch </H3>
+<!--docid::SEC37::-->
+<P>
+
+This switch is a mix between <A HREF="enigma-ref.html#SEC36">3.3.11 st-laserswitch: Laser Switch</A> and <A HREF="enigma-ref.html#SEC47">3.3.22 st-timeswitch: Time Switch</A>.
+</P>
+<P>
+
+<A NAME="st-oneway"></A>
+<HR SIZE="6">
+<A NAME="SEC38"></A>
+<TABLE CELLPADDING=1 CELLSPACING=1 BORDER=0>
+<TR><TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="enigma-ref.html#SEC37"> &lt; </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="enigma-ref.html#SEC39"> &gt; </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="enigma-ref.html#SEC14"> &lt;&lt; </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="enigma-ref.html#SEC25"> Up </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="enigma-ref.html#SEC62"> &gt;&gt; </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="enigma-ref.html#SEC_Top">Top</A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="enigma-ref.html#SEC_Contents">Contents</A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="enigma-ref.html#SEC76">Index</A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="enigma-ref.html#SEC_About"> ? </A>]</TD>
+</TR></TABLE>
+<H3> 3.3.13 st-oneway: One-way Stones </H3>
+<!--docid::SEC38::-->
+<P>
+
+This stone can be passed by the marble in only one direction. (Or, to
+be more exact, the arrow on the stone points to the one side of the
+stone through which it <EM>can't</EM> be entered.  Hard to explain, try
+it yourself :-)
+</P>
+<P>
+
+There are three different variants of the one-way stone: the standard
+one, <CODE>st-oneway</CODE>, which both the black and the white marble can
+pass, and two colored ones, <CODE>st-oneway_black</CODE> and
+<CODE>st-oneway_white</CODE>, which completely block marbles of the other
+color.
+</P>
+<P>
+
+<STRONG>Variants</STRONG>
+</P>
+<P>
+
+</P>
+<DL COMPACT>
+<DT><CODE>st-oneway</CODE>
+<DD><DT><CODE>st-oneway-[nesw]</CODE>
+<DD><DT><CODE>st-oneway_black</CODE>
+<DD><DT><CODE>st-oneway_black-[nesw]</CODE>
+<DD><DT><CODE>st-oneway_white</CODE>
+<DD><DT><CODE>st-oneway_white-[nesw]</CODE>
+<DD></DL>
+<P>
+
+<STRONG>Attributes</STRONG>
+</P>
+<P>
+
+</P>
+<DL COMPACT>
+<DT><CODE>orientation</CODE>
+<DD>One of <CODE>NORTH</CODE>, <CODE>EAST</CODE>, <CODE>SOUTH</CODE>, or <CODE>WEST</CODE>.  This
+determines the orientation of the stone when the level is loaded.  You
+need to use the <CODE>direction</CODE> message for changing the orientation
+during the game.  Note that it is usually easier to use one of the
+alternative names, like <CODE>st-oneway-north</CODE> instead of explicitly
+setting this attribute.
+</DL>
+<P>
+
+<STRONG>Messages</STRONG>
+</P>
+<P>
+
+</P>
+<DL COMPACT>
+<DT><CODE>direction</CODE>
+<DD>Set the direction of the arrow during the game.  Simply setting the
+attribute <CODE>orientation</CODE> is not enough, since this does not update
+the stone's model on the screen.
+<DT><CODE>signal</CODE>
+<DD><DT><CODE>flip</CODE>
+<DD>Both these messages flip the direction of the arrow.
+</DL>
+<P>
+
+<A NAME="st-oxyd"></A>
+<HR SIZE="6">
+<A NAME="SEC39"></A>
+<TABLE CELLPADDING=1 CELLSPACING=1 BORDER=0>
+<TR><TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="enigma-ref.html#SEC38"> &lt; </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="enigma-ref.html#SEC40"> &gt; </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="enigma-ref.html#SEC14"> &lt;&lt; </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="enigma-ref.html#SEC25"> Up </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="enigma-ref.html#SEC62"> &gt;&gt; </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="enigma-ref.html#SEC_Top">Top</A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="enigma-ref.html#SEC_Contents">Contents</A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="enigma-ref.html#SEC76">Index</A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="enigma-ref.html#SEC_About"> ? </A>]</TD>
+</TR></TABLE>
+<H3> 3.3.14 st-oxyd: Oxyd Stones </H3>
+<!--docid::SEC39::-->
+<P>
+
+Oxyd stones are characterized by two attributes: Their flavor and
+their color.  The <CODE>flavor</CODE> only affects the visual representation
+of the stone; it can be either `a' (opening like a flower), `b'
+(displaying a fade-in animation), `c', or `d'.  The <CODE>color</CODE>
+attribute determines the color on the oxyd stone.
+</P>
+<P>
+
+<STRONG>Note</STRONG>: You should rarely need to create Oxyd stones manually
+with <CODE>set_stone()</CODE>.  Use the predefined <CODE>oxyd()</CODE> function
+instead.  It will automatically take care of creating two Oxyd stones
+of every color.
+</P>
+<P>
+
+<STRONG>Attributes</STRONG>
+</P>
+<P>
+
+</P>
+<DL COMPACT>
+<DT><CODE>flavor</CODE>
+<DD>`a', `b', `c', or `d'
+<DT><CODE>color</CODE>
+<DD>a number between 0 and 7
+</DL>
+<P>
+
+<STRONG>Messages</STRONG>
+</P>
+<P>
+
+</P>
+<DL COMPACT>
+<DT><CODE>closeall</CODE>
+<DD>Close all oxyd stones
+<DT><CODE>shuffle</CODE>
+<DD>Interchange the colors of the oxyd stones in the current
+landscape. Use the <CODE>oxyd_shuffle()</CODE> function.
+<DT><CODE>trigger</CODE>
+<DD>Open the stone (useful for opening Oxyd stones using switches)
+</DL>
+<P>
+
+<A NAME="st-rubberband"></A>
+<HR SIZE="6">
+<A NAME="SEC40"></A>
+<TABLE CELLPADDING=1 CELLSPACING=1 BORDER=0>
+<TR><TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="enigma-ref.html#SEC39"> &lt; </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="enigma-ref.html#SEC41"> &gt; </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="enigma-ref.html#SEC14"> &lt;&lt; </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="enigma-ref.html#SEC25"> Up </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="enigma-ref.html#SEC62"> &gt;&gt; </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="enigma-ref.html#SEC_Top">Top</A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="enigma-ref.html#SEC_Contents">Contents</A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="enigma-ref.html#SEC76">Index</A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="enigma-ref.html#SEC_About"> ? </A>]</TD>
+</TR></TABLE>
+<H3> 3.3.15 st-rubberband: Rubberband Stone </H3>
+<!--docid::SEC40::-->
+<P>
+
+If hit by a marble, this stone first removes existing connections with
+other rubberband stones and then attaches a new elastic between the
+marble and itself.  Nothing happens if the marble was already attached
+to this particular stone.
+</P>
+<P>
+
+This stone can be moved if hit with a magic wand.
+</P>
+<P>
+
+<STRONG>Attributes</STRONG>
+</P>
+<P>
+
+</P>
+<DL COMPACT>
+<DT><CODE>length</CODE>
+<DD>The natural length of the rubberband (default: 1)
+<DT><CODE>strength</CODE>
+<DD>The strength of the rubberband (default: 10)
+</DL>
+<P>
+
+<A NAME="st-scissors"></A>
+<HR SIZE="6">
+<A NAME="SEC41"></A>
+<TABLE CELLPADDING=1 CELLSPACING=1 BORDER=0>
+<TR><TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="enigma-ref.html#SEC40"> &lt; </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="enigma-ref.html#SEC42"> &gt; </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="enigma-ref.html#SEC14"> &lt;&lt; </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="enigma-ref.html#SEC25"> Up </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="enigma-ref.html#SEC62"> &gt;&gt; </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="enigma-ref.html#SEC_Top">Top</A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="enigma-ref.html#SEC_Contents">Contents</A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="enigma-ref.html#SEC76">Index</A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="enigma-ref.html#SEC_About"> ? </A>]</TD>
+</TR></TABLE>
+<H3> 3.3.16 st-scissors: Scissors Stone </H3>
+<!--docid::SEC41::-->
+<P>
+
+This stone cuts all rubber bands attached to an actor that touches it.
+</P>
+<P>
+
+<A NAME="st-stone_break"></A>
+<HR SIZE="6">
+<A NAME="SEC42"></A>
+<TABLE CELLPADDING=1 CELLSPACING=1 BORDER=0>
+<TR><TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="enigma-ref.html#SEC41"> &lt; </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="enigma-ref.html#SEC43"> &gt; </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="enigma-ref.html#SEC14"> &lt;&lt; </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="enigma-ref.html#SEC25"> Up </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="enigma-ref.html#SEC62"> &gt;&gt; </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="enigma-ref.html#SEC_Top">Top</A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="enigma-ref.html#SEC_Contents">Contents</A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="enigma-ref.html#SEC76">Index</A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="enigma-ref.html#SEC_About"> ? </A>]</TD>
+</TR></TABLE>
+<H3> 3.3.17 st-stone_break: Breakable Stone </H3>
+<!--docid::SEC42::-->
+<P>
+
+This stone can be destroyed by an actor having a hammer and by laser,
+dynamite, bombs and bombstones.
+</P>
+<P>
+
+<A NAME="st-swap"></A>
+<HR SIZE="6">
+<A NAME="SEC43"></A>
+<TABLE CELLPADDING=1 CELLSPACING=1 BORDER=0>
+<TR><TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="enigma-ref.html#SEC42"> &lt; </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="enigma-ref.html#SEC44"> &gt; </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="enigma-ref.html#SEC14"> &lt;&lt; </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="enigma-ref.html#SEC25"> Up </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="enigma-ref.html#SEC62"> &gt;&gt; </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="enigma-ref.html#SEC_Top">Top</A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="enigma-ref.html#SEC_Contents">Contents</A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="enigma-ref.html#SEC76">Index</A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="enigma-ref.html#SEC_About"> ? </A>]</TD>
+</TR></TABLE>
+<H3> 3.3.18 st-swap: Swap Stone </H3>
+<!--docid::SEC43::-->
+<P>
+
+This stone can exchange its position with other neighboring stones
+if it is hit hard enough.  In a way, this makes swap stones a kind
+of &quot;movable stone&quot;, except that they can be only exchanged with
+other stones and may not be moved on empty fields.
+</P>
+<P>
+
+<A NAME="st-switch"></A>
+<HR SIZE="6">
+<A NAME="SEC44"></A>
+<TABLE CELLPADDING=1 CELLSPACING=1 BORDER=0>
+<TR><TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="enigma-ref.html#SEC43"> &lt; </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="enigma-ref.html#SEC45"> &gt; </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="enigma-ref.html#SEC14"> &lt;&lt; </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="enigma-ref.html#SEC25"> Up </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="enigma-ref.html#SEC62"> &gt;&gt; </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="enigma-ref.html#SEC_Top">Top</A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="enigma-ref.html#SEC_Contents">Contents</A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="enigma-ref.html#SEC76">Index</A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="enigma-ref.html#SEC_About"> ? </A>]</TD>
+</TR></TABLE>
+<H3> 3.3.19 st-switch: Switches </H3>
+<!--docid::SEC44::-->
+<P>
+
+A simple switch. 
+</P>
+<P>
+
+<STRONG>Variants</STRONG>
+</P>
+<P>
+
+</P>
+<DL COMPACT>
+<DT><CODE>st-switch</CODE>
+<DD>All kinds of objects can activate this switch
+<DT><CODE>st-switch_black</CODE>
+<DD>Only black marbles can activate this switch
+<DT><CODE>st-switch_white</CODE>
+<DD>Only white marbles can activate this switch
+</DL>
+<P>
+
+<STRONG>Attributes</STRONG>
+</P>
+<P>
+
+</P>
+<DL COMPACT>
+<DT><CODE>on</CODE>
+<DD>1 (activate) or 0 (inactive)
+<DT><CODE>target, action</CODE>
+<DD>as usual
+</DL>
+<P>
+
+<A NAME="st-thief"></A>
+<HR SIZE="6">
+<A NAME="SEC45"></A>
+<TABLE CELLPADDING=1 CELLSPACING=1 BORDER=0>
+<TR><TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="enigma-ref.html#SEC44"> &lt; </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="enigma-ref.html#SEC46"> &gt; </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="enigma-ref.html#SEC14"> &lt;&lt; </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="enigma-ref.html#SEC25"> Up </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="enigma-ref.html#SEC62"> &gt;&gt; </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="enigma-ref.html#SEC_Top">Top</A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="enigma-ref.html#SEC_Contents">Contents</A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="enigma-ref.html#SEC76">Index</A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="enigma-ref.html#SEC_About"> ? </A>]</TD>
+</TR></TABLE>
+<H3> 3.3.20 st-thief: Thief Stone </H3>
+<!--docid::SEC45::-->
+<P>
+
+Takes one item from inventory after when hit by the player's marble.
+Umbrellas protect against thievery.
+</P>
+<P>
+
+<A NAME="st-timer"></A>
+<HR SIZE="6">
+<A NAME="SEC46"></A>
+<TABLE CELLPADDING=1 CELLSPACING=1 BORDER=0>
+<TR><TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="enigma-ref.html#SEC45"> &lt; </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="enigma-ref.html#SEC47"> &gt; </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="enigma-ref.html#SEC14"> &lt;&lt; </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="enigma-ref.html#SEC25"> Up </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="enigma-ref.html#SEC62"> &gt;&gt; </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="enigma-ref.html#SEC_Top">Top</A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="enigma-ref.html#SEC_Contents">Contents</A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="enigma-ref.html#SEC76">Index</A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="enigma-ref.html#SEC_About"> ? </A>]</TD>
+</TR></TABLE>
+<H3> 3.3.21 st-timer: Timer Stone </H3>
+<!--docid::SEC46::-->
+<P>
+
+This stone can be used to trigger periodic events or to trigger one
+single event after a certain amount of time.
+</P>
+<P>
+
+<STRONG>Attributes</STRONG>
+</P>
+<P>
+
+</P>
+<DL COMPACT>
+<DT><CODE>on</CODE>
+<DD>1 if the timer is running
+<DT><CODE>interval</CODE>
+<DD>number of seconds before <CODE>action</CODE> is performed
+<DT><CODE>loop</CODE>
+<DD>if 1, restart the timer after performing <CODE>action</CODE>
+<DT><CODE>action</CODE>
+<DD>as usual
+<DT><CODE>target</CODE>
+<DD>as usual
+<DT><CODE>invisible</CODE>
+<DD>if 1, stone is invisible
+</DL>
+<P>
+
+<STRONG>Messages</STRONG>
+</P>
+<DL COMPACT>
+<DT><CODE>on</CODE>
+<DD><DT><CODE>off</CODE>
+<DD><DT><CODE>onoff</CODE>
+<DD></DL>
+<P>
+
+<STRONG>Example</STRONG>
+</P>
+<P>
+
+<TABLE><tr><td>&nbsp;</td><td class=example><pre>-- activate a laser after 5 seconds
+set_stone(&quot;st-laser&quot;, 10,11, {name=&quot;laser&quot;})
+set_stone(&quot;st-timer&quot;, 10,10,
+          {loop=0, action=&quot;onoff&quot;, target=&quot;laser&quot;, interval=5})
+</pre></td></tr></table><P>
+
+<A NAME="st-timeswitch"></A>
+<HR SIZE="6">
+<A NAME="SEC47"></A>
+<TABLE CELLPADDING=1 CELLSPACING=1 BORDER=0>
+<TR><TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="enigma-ref.html#SEC46"> &lt; </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="enigma-ref.html#SEC48"> &gt; </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="enigma-ref.html#SEC14"> &lt;&lt; </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="enigma-ref.html#SEC25"> Up </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="enigma-ref.html#SEC62"> &gt;&gt; </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="enigma-ref.html#SEC_Top">Top</A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="enigma-ref.html#SEC_Contents">Contents</A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="enigma-ref.html#SEC76">Index</A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="enigma-ref.html#SEC_About"> ? </A>]</TD>
+</TR></TABLE>
+<H3> 3.3.22 st-timeswitch: Time Switch </H3>
+<!--docid::SEC47::-->
+<P>
+
+When this switch is touched by an actor, it switches <CODE>on</CODE>
+for 1.8 seconds and then switches <CODE>off</CODE> again.
+</P>
+<P>
+
+See also <A HREF="enigma-ref.html#SEC37">3.3.12 st-lasertimeswitch: Laser Time Switch</A>.
+</P>
+<P>
+
+<STRONG>Attributes</STRONG>
+</P>
+<P>
+
+</P>
+<DL COMPACT>
+<DT><CODE>delay</CODE>
+<DD>The delay in seconds after which the switch goes <CODE>off</CODE>.
+<DT><CODE>inverse=1</CODE>
+<DD>Inverts the on/off state of the switch.
+</DL>
+<P>
+
+<A NAME="st-window"></A>
+<HR SIZE="6">
+<A NAME="SEC48"></A>
+<TABLE CELLPADDING=1 CELLSPACING=1 BORDER=0>
+<TR><TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="enigma-ref.html#SEC47"> &lt; </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="enigma-ref.html#SEC49"> &gt; </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="enigma-ref.html#SEC14"> &lt;&lt; </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="enigma-ref.html#SEC25"> Up </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="enigma-ref.html#SEC62"> &gt;&gt; </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="enigma-ref.html#SEC_Top">Top</A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="enigma-ref.html#SEC_Contents">Contents</A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="enigma-ref.html#SEC76">Index</A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="enigma-ref.html#SEC_About"> ? </A>]</TD>
+</TR></TABLE>
+<H3> 3.3.23 st-window: Breakable Stone </H3>
+<!--docid::SEC48::-->
+<P>
+
+Hit this window heavily with your marble to blast it into smithereens.
+</P>
+<P>
+
+<A NAME="st-wood"></A>
+<HR SIZE="6">
+<A NAME="SEC49"></A>
+<TABLE CELLPADDING=1 CELLSPACING=1 BORDER=0>
+<TR><TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="enigma-ref.html#SEC48"> &lt; </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="enigma-ref.html#SEC50"> &gt; </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="enigma-ref.html#SEC14"> &lt;&lt; </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="enigma-ref.html#SEC25"> Up </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="enigma-ref.html#SEC62"> &gt;&gt; </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="enigma-ref.html#SEC_Top">Top</A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="enigma-ref.html#SEC_Contents">Contents</A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="enigma-ref.html#SEC76">Index</A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="enigma-ref.html#SEC_About"> ? </A>]</TD>
+</TR></TABLE>
+<H3> 3.3.24 st-wood: Wooden Stone </H3>
+<!--docid::SEC49::-->
+<P>
+
+This stone is movable.  If moved into abyss, water or swamp it builds
+a wooden plank.
+</P>
+<P>
+
+Note: There are two flavors of <CODE>st-wood</CODE> which may be specified
+by using <CODE>st-wood1</CODE> or <CODE>st-wood2</CODE>.
+</P>
+<P>
+
+<A NAME="st-yinyang"></A>
+<HR SIZE="6">
+<A NAME="SEC50"></A>
+<TABLE CELLPADDING=1 CELLSPACING=1 BORDER=0>
+<TR><TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="enigma-ref.html#SEC49"> &lt; </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="enigma-ref.html#SEC51"> &gt; </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="enigma-ref.html#SEC14"> &lt;&lt; </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="enigma-ref.html#SEC25"> Up </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="enigma-ref.html#SEC62"> &gt;&gt; </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="enigma-ref.html#SEC_Top">Top</A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="enigma-ref.html#SEC_Contents">Contents</A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="enigma-ref.html#SEC76">Index</A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="enigma-ref.html#SEC_About"> ? </A>]</TD>
+</TR></TABLE>
+<H3> 3.3.25 st-yinyang: Yin-Yang Stones </H3>
+<!--docid::SEC50::-->
+<P>
+
+Yin-Yang stones change into @xref{st-white} or @xref{st-black}
+if you touch them.
+</P>
+<P>
+
+There are several flavors of this stone:
+</P>
+<P>
+
+</P>
+<DL COMPACT>
+<DT><CODE>st-yinyang1</CODE>
+<DD>If touched it changes it's color to the opposite color of your marble.
+<DT><CODE>st-yinyang2</CODE>
+<DD>If touched it changes it's color to the same color as your marble.
+<DT><CODE>st-yinyang3</CODE>
+<DD>The Per.Oxyd compatible: You must hold @xref{it-magicwand} or
+@xref{it-brush} to change the color to the opposite color of your
+marble.
+</DL>
+<P>
+
+Actors get stuck inside the Yin-Yang Stone if they are starting
+there or when they warp there. They can be freed by changing the 
+color of the Yin-Yang Stone to their color.
+</P>
+<P>
+
+<A NAME="Actors"></A>
+<HR SIZE="6">
+<A NAME="SEC51"></A>
+<TABLE CELLPADDING=1 CELLSPACING=1 BORDER=0>
+<TR><TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="enigma-ref.html#SEC50"> &lt; </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="enigma-ref.html#SEC52"> &gt; </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="enigma-ref.html#SEC14"> &lt;&lt; </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="enigma-ref.html#SEC14"> Up </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="enigma-ref.html#SEC62"> &gt;&gt; </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="enigma-ref.html#SEC_Top">Top</A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="enigma-ref.html#SEC_Contents">Contents</A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="enigma-ref.html#SEC76">Index</A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="enigma-ref.html#SEC_About"> ? </A>]</TD>
+</TR></TABLE>
+<H2> 3.4 Actors </H2>
+<!--docid::SEC51::-->
+<P>
+
+Movable objects are called &quot;actors&quot; in Enigma.  The commonest actor
+is, of course, the black marble, but there are others, including the
+white marble, the killerball and a few more:
+</P>
+<P>
+
+<HR SIZE="6">
+<A NAME="SEC52"></A>
+<TABLE CELLPADDING=1 CELLSPACING=1 BORDER=0>
+<TR><TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="enigma-ref.html#SEC51"> &lt; </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="enigma-ref.html#SEC53"> &gt; </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="enigma-ref.html#SEC14"> &lt;&lt; </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="enigma-ref.html#SEC14"> Up </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="enigma-ref.html#SEC62"> &gt;&gt; </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="enigma-ref.html#SEC_Top">Top</A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="enigma-ref.html#SEC_Contents">Contents</A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="enigma-ref.html#SEC76">Index</A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="enigma-ref.html#SEC_About"> ? </A>]</TD>
+</TR></TABLE>
+<H3> 3.4.1 ac-blackball </H3>
+<!--docid::SEC52::-->
+<P>
+
+mouseforce (default 1.0)
+color (default 0.0)
+blackball (default 1)
+player (default 0)
+controllers (default 1)
+</P>
+<P>
+
+<HR SIZE="6">
+<A NAME="SEC53"></A>
+<TABLE CELLPADDING=1 CELLSPACING=1 BORDER=0>
+<TR><TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="enigma-ref.html#SEC52"> &lt; </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="enigma-ref.html#SEC54"> &gt; </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="enigma-ref.html#SEC14"> &lt;&lt; </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="enigma-ref.html#SEC14"> Up </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="enigma-ref.html#SEC62"> &gt;&gt; </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="enigma-ref.html#SEC_Top">Top</A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="enigma-ref.html#SEC_Contents">Contents</A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="enigma-ref.html#SEC76">Index</A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="enigma-ref.html#SEC_About"> ? </A>]</TD>
+</TR></TABLE>
+<H3> 3.4.2 ac-whiteball </H3>
+<!--docid::SEC53::-->
+<P>
+
+mouseforce (default 1.0)
+color (default 1.0)
+whiteball (default 1)
+player (default 1)
+controllers (default 2)
+</P>
+<P>
+
+<HR SIZE="6">
+<A NAME="SEC54"></A>
+<TABLE CELLPADDING=1 CELLSPACING=1 BORDER=0>
+<TR><TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="enigma-ref.html#SEC53"> &lt; </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="enigma-ref.html#SEC55"> &gt; </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="enigma-ref.html#SEC14"> &lt;&lt; </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="enigma-ref.html#SEC14"> Up </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="enigma-ref.html#SEC62"> &gt;&gt; </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="enigma-ref.html#SEC_Top">Top</A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="enigma-ref.html#SEC_Contents">Contents</A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="enigma-ref.html#SEC76">Index</A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="enigma-ref.html#SEC_About"> ? </A>]</TD>
+</TR></TABLE>
+<H3> 3.4.3 ac-whiteball_small </H3>
+<!--docid::SEC54::-->
+<P>
+
+mouseforce (default 1.0)
+color (default 1.0)
+whiteball (default 1)
+controllers (default 3)
+</P>
+<P>
+
+<HR SIZE="6">
+<A NAME="SEC55"></A>
+<TABLE CELLPADDING=1 CELLSPACING=1 BORDER=0>
+<TR><TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="enigma-ref.html#SEC54"> &lt; </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="enigma-ref.html#SEC56"> &gt; </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="enigma-ref.html#SEC14"> &lt;&lt; </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="enigma-ref.html#SEC14"> Up </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="enigma-ref.html#SEC62"> &gt;&gt; </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="enigma-ref.html#SEC_Top">Top</A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="enigma-ref.html#SEC_Contents">Contents</A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="enigma-ref.html#SEC76">Index</A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="enigma-ref.html#SEC_About"> ? </A>]</TD>
+</TR></TABLE>
+<H3> 3.4.4 ac-killerball </H3>
+<!--docid::SEC55::-->
+<P>
+
+mouseforce (default 2.0)
+color (default 1.0)
+whiteball (default 1)
+controllers (default 3)
+</P>
+<P>
+
+<HR SIZE="6">
+<A NAME="SEC56"></A>
+<TABLE CELLPADDING=1 CELLSPACING=1 BORDER=0>
+<TR><TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="enigma-ref.html#SEC55"> &lt; </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="enigma-ref.html#SEC57"> &gt; </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="enigma-ref.html#SEC14"> &lt;&lt; </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="enigma-ref.html#SEC14"> Up </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="enigma-ref.html#SEC62"> &gt;&gt; </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="enigma-ref.html#SEC_Top">Top</A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="enigma-ref.html#SEC_Contents">Contents</A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="enigma-ref.html#SEC76">Index</A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="enigma-ref.html#SEC_About"> ? </A>]</TD>
+</TR></TABLE>
+<H3> 3.4.5 ac-rotor </H3>
+<!--docid::SEC56::-->
+<P>
+
+range (default 5.0)
+force (default 10.0)
+gohome (default 1)
+</P>
+<P>
+
+<HR SIZE="6">
+<A NAME="SEC57"></A>
+<TABLE CELLPADDING=1 CELLSPACING=1 BORDER=0>
+<TR><TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="enigma-ref.html#SEC56"> &lt; </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="enigma-ref.html#SEC58"> &gt; </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="enigma-ref.html#SEC14"> &lt;&lt; </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="enigma-ref.html#SEC14"> Up </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="enigma-ref.html#SEC62"> &gt;&gt; </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="enigma-ref.html#SEC_Top">Top</A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="enigma-ref.html#SEC_Contents">Contents</A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="enigma-ref.html#SEC76">Index</A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="enigma-ref.html#SEC_About"> ? </A>]</TD>
+</TR></TABLE>
+<H3> 3.4.6 ac-top </H3>
+<!--docid::SEC57::-->
+<P>
+
+range (default 5.0)
+force (default 10.0)
+gohome (default 1)
+</P>
+<P>
+
+<HR SIZE="6">
+<A NAME="SEC58"></A>
+<TABLE CELLPADDING=1 CELLSPACING=1 BORDER=0>
+<TR><TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="enigma-ref.html#SEC57"> &lt; </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="enigma-ref.html#SEC59"> &gt; </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="enigma-ref.html#SEC14"> &lt;&lt; </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="enigma-ref.html#SEC14"> Up </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="enigma-ref.html#SEC62"> &gt;&gt; </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="enigma-ref.html#SEC_Top">Top</A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="enigma-ref.html#SEC_Contents">Contents</A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="enigma-ref.html#SEC76">Index</A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="enigma-ref.html#SEC_About"> ? </A>]</TD>
+</TR></TABLE>
+<H3> 3.4.7 ac-bug </H3>
+<!--docid::SEC58::-->
+<P>
+
+<HR SIZE="6">
+<A NAME="SEC59"></A>
+<TABLE CELLPADDING=1 CELLSPACING=1 BORDER=0>
+<TR><TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="enigma-ref.html#SEC58"> &lt; </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="enigma-ref.html#SEC60"> &gt; </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="enigma-ref.html#SEC14"> &lt;&lt; </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="enigma-ref.html#SEC14"> Up </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="enigma-ref.html#SEC62"> &gt;&gt; </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="enigma-ref.html#SEC_Top">Top</A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="enigma-ref.html#SEC_Contents">Contents</A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="enigma-ref.html#SEC76">Index</A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="enigma-ref.html#SEC_About"> ? </A>]</TD>
+</TR></TABLE>
+<H3> 3.4.8 ac-horse </H3>
+<!--docid::SEC59::-->
+<P>
+
+force (default 10.0)
+target1
+target2
+target3
+target4
+</P>
+<P>
+
+<TABLE BORDER="0" CELLSPACING="0">
+<TR><TD ALIGN="left" VALIGN="TOP"><A HREF="enigma-ref.html#SEC60">3.4.9 Actor Attributes</A></TD><TD>&nbsp;&nbsp;</TD><TD ALIGN="left" VALIGN="TOP"></TD></TR>
+</TABLE>
+<P>
+
+<A NAME="Actor Attributes"></A>
+<HR SIZE="6">
+<A NAME="SEC60"></A>
+<TABLE CELLPADDING=1 CELLSPACING=1 BORDER=0>
+<TR><TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="enigma-ref.html#SEC59"> &lt; </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="enigma-ref.html#SEC61"> &gt; </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="enigma-ref.html#SEC14"> &lt;&lt; </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="enigma-ref.html#SEC51"> Up </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="enigma-ref.html#SEC62"> &gt;&gt; </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="enigma-ref.html#SEC_Top">Top</A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="enigma-ref.html#SEC_Contents">Contents</A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="enigma-ref.html#SEC76">Index</A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="enigma-ref.html#SEC_About"> ? </A>]</TD>
+</TR></TABLE>
+<H3> 3.4.9 Actor Attributes </H3>
+<!--docid::SEC60::-->
+<P>
+
+All actors share a set of common attributes that determine their
+general behaviour:
+</P>
+<P>
+
+</P>
+<DL COMPACT>
+<DT><CODE>player</CODE>
+<DD>The player &quot;owning&quot; this actor.  This is either 0 or 1 for the first
+or second player respectively.  Actors attached to a player can pick
+up items and can be respawned when they are killed.
+<P>
+
+</P>
+<DT><CODE>mouseforce</CODE>
+<DD>A factor that determines how much the actor accelerates when the mouse
+is moved.  Default is 1, use higher values for fast moving actors.  If
+set to 0, the actor cannot be moved with the mouse (but external
+forces can still exert a force on it).
+<P>
+
+</P>
+<DT><CODE>controllers</CODE>
+<DD>Determines which players may move this actor: 1=Player 1, 2=Player 2,
+3=both. By default, <CODE>ac-blackball</CODE>, <CODE>ac-whiteball</CODE> and
+<CODE>ac-whiteball-small</CODE> have their <CODE>controllers</CODE> attribute set
+to 1,2, and 3 respectively.
+<P>
+
+</P>
+<DT><CODE>essential</CODE>
+<DD>A non-zero value marks this actor as essential.  If
+<CODE>essential=1</CODE>, the game restarts if <CODE>1</CODE> of all essential
+actors can't resurrect (analog for higher values).  If you set the
+attribute for several actors, you should use the <EM>same value</EM> for
+all of them!
+<P>
+
+</P>
+<DT><CODE>whiteball, blackball</CODE>
+<DD>Used by color-sensitive stones (black/white switches for example) to
+determine whether the actor is the black or the white marble.  These
+attributes may disappear in future versions, please do not use them.
+</DL>
+<P>
+
+<A NAME="General object attributes"></A>
+<HR SIZE="6">
+<A NAME="SEC61"></A>
+<TABLE CELLPADDING=1 CELLSPACING=1 BORDER=0>
+<TR><TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="enigma-ref.html#SEC60"> &lt; </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="enigma-ref.html#SEC62"> &gt; </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="enigma-ref.html#SEC14"> &lt;&lt; </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="enigma-ref.html#SEC14"> Up </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="enigma-ref.html#SEC62"> &gt;&gt; </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="enigma-ref.html#SEC_Top">Top</A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="enigma-ref.html#SEC_Contents">Contents</A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="enigma-ref.html#SEC76">Index</A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="enigma-ref.html#SEC_About"> ? </A>]</TD>
+</TR></TABLE>
+<H2> 3.5 General object attributes </H2>
+<!--docid::SEC61::-->
+<P>
+
+</P>
+<DL COMPACT>
+<DT><CODE>name</CODE>
+<DD>All objects may be given a <CODE>name</CODE> attribute. Such <EM>named objects</EM> can
+be searched using <A HREF="enigma-ref.html#SEC68">5.4 enigma.GetNamedObject</A>.
+</DL>
+<P>
+
+<A NAME="Variables"></A>
+<HR SIZE="6">
+<A NAME="SEC62"></A>
+<TABLE CELLPADDING=1 CELLSPACING=1 BORDER=0>
+<TR><TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="enigma-ref.html#SEC61"> &lt; </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="enigma-ref.html#SEC63"> &gt; </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="enigma-ref.html#SEC14"> &lt;&lt; </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="enigma-ref.html#SEC_Top"> Up </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="enigma-ref.html#SEC63"> &gt;&gt; </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="enigma-ref.html#SEC_Top">Top</A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="enigma-ref.html#SEC_Contents">Contents</A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="enigma-ref.html#SEC76">Index</A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="enigma-ref.html#SEC_About"> ? </A>]</TD>
+</TR></TABLE>
+<H1> 4. Variables </H1>
+<!--docid::SEC62::-->
+<P>
+
+This chapter describes the a few variables that can be changed from
+level descriptions to alter the behavior of the game engine or set
+default attributes for some particular objects.  In the latter case, the
+same effect can usually be achieved by setting the corresponding object
+attributes directly, but being able to specify a global default value it
+is often more convenient.  You can always override these default
+attribute values for specific objects by setting the appropriate object
+attributes.
+</P>
+<P>
+
+<A NAME="IDX1"></A>
+</P>
+<DL>
+<DT><U>Variable:</U> <B>enigma.ConserveLevel</B>
+<DD><CODE>TRUE</CODE> or <CODE>FALSE</CODE>.  If <CODE>FALSE</CODE>, reload the level
+whenever the an actor that is controlled by a player (i.e., one that
+has the <CODE>player</CODE> attribute set) dies.  Often used in meditation
+landscapes or landscapes that are intended to be solved in one go.
+Default: <CODE>TRUE</CODE>.
+</DL>
+<P>
+
+<A NAME="IDX2"></A>
+</P>
+<DL>
+<DT><U>Variable:</U> <B>enigma.ShowMoves</B>
+<DD><CODE>TRUE</CODE> or <CODE>FALSE</CODE>.  This is only used in the Sokoban level
+pack to display a move counter in the inventory.
+Default: <CODE>FALSE</CODE>.
+</DL>
+<P>
+
+<A NAME="IDX3"></A>
+</P>
+<DL>
+<DT><U>Variable:</U> <B>enigma.Brittleness</B>
+<DD>A value between 0 and 1, denoting the probability that a brittle floor
+plate desintegrates further when an actor enters or leaves it.  1
+means that the floor will always crack, 0 that it is indestructible.
+Default: 0.5.
+</DL>
+<P>
+
+<A NAME="IDX4"></A>
+</P>
+<DL>
+<DT><U>Variable:</U> <B>enigma.BumperForce</B>
+<DD>The amount of force applied to an actor that hits an
+<CODE>st-actorimpulse</CODE> stone.  <A HREF="enigma-ref.html#SEC27">3.3.2 st-actorimpulse: Bumper Stones</A>.
+Default: 200.0.
+</DL>
+<P>
+
+<A NAME="IDX5"></A>
+</P>
+<DL>
+<DT><U>Variable:</U> <B>enigma.ElectricForce</B>
+<DD>A force multiplier for all electric forces between actors. 
+Default: 15.0.
+</DL>
+<P>
+
+<A NAME="IDX6"></A>
+</P>
+<DL>
+<DT><U>Variable:</U> <B>enigma.FrictionFactor</B>
+<DD>All friction forces are multiplied by this value.
+Default: 1.0.
+</DL>
+<P>
+
+<A NAME="IDX7"></A>
+</P>
+<DL>
+<DT><U>Variable:</U> <B>enigma.FlatForce</B>
+<DD>A global downward force.  This is currently only applied on floors of
+type <CODE>fl-space</CODE>.  Default: 0.
+</DL>
+<P>
+
+<A NAME="IDX8"></A>
+</P>
+<DL>
+<DT><U>Variable:</U> <B>enigma.HoleForce</B>
+<DD>A force factor that affects the steepness of hollows and hills.
+Default: 1.0.
+</DL>
+<P>
+
+<A NAME="IDX9"></A>
+</P>
+<DL>
+<DT><U>Variable:</U> <B>enigma.MagnetForce</B>
+<DD>A force multiplier for magnetic fields.  Default: 30.0.
+</DL>
+<P>
+
+<A NAME="IDX10"></A>
+</P>
+<DL>
+<DT><U>Variable:</U> <B>enigma.MagnetRange</B>
+<DD>The range of magnetic fields.  Default: 10.0.
+</DL>
+<P>
+
+<A NAME="IDX11"></A>
+</P>
+<DL>
+<DT><U>Variable:</U> <B>enigma.SlopeForce</B>
+<DD>A force multiplier for sloped floor tiles.  Default: 25.0.
+</DL>
+<P>
+
+<A NAME="IDX12"></A>
+</P>
+<DL>
+<DT><U>Variable:</U> <B>enigma.WaterSinkSpeed</B>
+<DD>How quickly balls sink in water.  Default: 1000.0.
+</DL>
+<P>
+
+<A NAME="IDX13"></A>
+</P>
+<DL>
+<DT><U>Variable:</U> <B>enigma.SwampSinkSpeed</B>
+<DD>How quickly balls sink in swamp.  Default: 4.0.
+</DL>
+<P>
+
+<A NAME="IDX14"></A>
+</P>
+<DL>
+<DT><U>Variable:</U> <B>enigma.WormholeForce</B>
+<DD>A force multiplier for wormholes.  Default: 30.0.
+</DL>
+<P>
+
+<A NAME="IDX15"></A>
+</P>
+<DL>
+<DT><U>Variable:</U> <B>enigma.WormholeRange</B>
+<DD>The range of worm holes.  Default: 10.0.
+</DL>
+<P>
+
+<A NAME="Functions"></A>
+<HR SIZE="6">
+<A NAME="SEC63"></A>
+<TABLE CELLPADDING=1 CELLSPACING=1 BORDER=0>
+<TR><TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="enigma-ref.html#SEC62"> &lt; </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="enigma-ref.html#SEC64"> &gt; </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="enigma-ref.html#SEC62"> &lt;&lt; </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="enigma-ref.html#SEC_Top"> Up </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="enigma-ref.html#SEC76"> &gt;&gt; </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="enigma-ref.html#SEC_Top">Top</A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="enigma-ref.html#SEC_Contents">Contents</A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="enigma-ref.html#SEC76">Index</A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="enigma-ref.html#SEC_About"> ? </A>]</TD>
+</TR></TABLE>
+<H1> 5. Functions </H1>
+<!--docid::SEC63::-->
+<P>
+
+<TABLE BORDER="0" CELLSPACING="0">
+<TR><TD ALIGN="left" VALIGN="TOP"><A HREF="enigma-ref.html#SEC64">5.1 AddRubberBand</A></TD><TD>&nbsp;&nbsp;</TD><TD ALIGN="left" VALIGN="TOP">Creating rubber bands</TD></TR>
+<TR><TD ALIGN="left" VALIGN="TOP"><A HREF="enigma-ref.html#SEC66">5.2 CreateWorld</A></TD><TD>&nbsp;&nbsp;</TD><TD ALIGN="left" VALIGN="TOP"></TD></TR>
+<TR><TD ALIGN="left" VALIGN="TOP"><A HREF="enigma-ref.html#SEC67">5.3 enigma.AddConstantForce</A></TD><TD>&nbsp;&nbsp;</TD><TD ALIGN="left" VALIGN="TOP"></TD></TR>
+<TR><TD ALIGN="left" VALIGN="TOP"><A HREF="enigma-ref.html#SEC68">5.4 enigma.GetNamedObject</A></TD><TD>&nbsp;&nbsp;</TD><TD ALIGN="left" VALIGN="TOP"></TD></TR>
+<TR><TD ALIGN="left" VALIGN="TOP"><A HREF="enigma-ref.html#SEC70">5.5 SendMessage</A></TD><TD>&nbsp;&nbsp;</TD><TD ALIGN="left" VALIGN="TOP">Sending messages to objects</TD></TR>
+<TR><TD ALIGN="left" VALIGN="TOP"><A HREF="enigma-ref.html#SEC72">5.6 draw_checkerboard_floor</A></TD><TD>&nbsp;&nbsp;</TD><TD ALIGN="left" VALIGN="TOP"></TD></TR>
+<TR><TD ALIGN="left" VALIGN="TOP"><A HREF="enigma-ref.html#SEC74">5.7 draw_border</A></TD><TD>&nbsp;&nbsp;</TD><TD ALIGN="left" VALIGN="TOP">Drawing a border of stones</TD></TR>
+</TABLE>
+<P>
+
+<A NAME="AddRubberBand"></A>
+<HR SIZE="6">
+<A NAME="SEC64"></A>
+<TABLE CELLPADDING=1 CELLSPACING=1 BORDER=0>
+<TR><TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="enigma-ref.html#SEC63"> &lt; </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="enigma-ref.html#SEC65"> &gt; </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="enigma-ref.html#SEC63"> &lt;&lt; </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="enigma-ref.html#SEC63"> Up </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="enigma-ref.html#SEC66"> &gt;&gt; </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="enigma-ref.html#SEC_Top">Top</A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="enigma-ref.html#SEC_Contents">Contents</A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="enigma-ref.html#SEC76">Index</A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="enigma-ref.html#SEC_About"> ? </A>]</TD>
+</TR></TABLE>
+<H2> 5.1 AddRubberBand </H2>
+<!--docid::SEC64::-->
+<P>
+
+<A NAME="IDX16"></A>
+</P>
+<DL>
+<DT><U>Function:</U> <B>AddRubberBand</B> <I>(actor, object, strength, length)</I>
+<DD><P>
+
+This function connects two objects with a rubber band: The first
+object is always an actor, the second object can be either another
+actor or a stone.
+</P>
+<P>
+
+The first argument <VAR>actor</VAR> is always a reference to an actor
+created earlier with the <CODE>set_actor</CODE> function.  The second
+parameter <VAR>object</VAR> may be either an actor or a stone created
+earlier.  The last two parameters define the properties of the rubber
+band: <VAR>strength</VAR> denotes the force factor of the elastic and
+<VAR>length</VAR> its natural length.  No force is exerted on the actor if
+the rubber band is shorter than its natural length.
+</P>
+<P>
+
+</P>
+</DL>
+<P>
+
+<HR SIZE="6">
+<A NAME="SEC65"></A>
+<TABLE CELLPADDING=1 CELLSPACING=1 BORDER=0>
+<TR><TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="enigma-ref.html#SEC64"> &lt; </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="enigma-ref.html#SEC66"> &gt; </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="enigma-ref.html#SEC63"> &lt;&lt; </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="enigma-ref.html#SEC63"> Up </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="enigma-ref.html#SEC66"> &gt;&gt; </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="enigma-ref.html#SEC_Top">Top</A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="enigma-ref.html#SEC_Contents">Contents</A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="enigma-ref.html#SEC76">Index</A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="enigma-ref.html#SEC_About"> ? </A>]</TD>
+</TR></TABLE>
+<H3> 5.1.1 Example </H3>
+<!--docid::SEC65::-->
+<P>
+
+<TABLE><tr><td>&nbsp;</td><td class=example><pre>local ac=set_actor(&quot;ac-blackball&quot;, 1.5,7.5)
+local st=set_stone(&quot;st-brownie&quot;, 10,6)
+AddRubberBand(ac, st, 50, 10)
+</pre></td></tr></table><P>
+
+<A NAME="CreateWorld"></A>
+<HR SIZE="6">
+<A NAME="SEC66"></A>
+<TABLE CELLPADDING=1 CELLSPACING=1 BORDER=0>
+<TR><TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="enigma-ref.html#SEC65"> &lt; </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="enigma-ref.html#SEC67"> &gt; </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="enigma-ref.html#SEC63"> &lt;&lt; </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="enigma-ref.html#SEC63"> Up </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="enigma-ref.html#SEC67"> &gt;&gt; </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="enigma-ref.html#SEC_Top">Top</A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="enigma-ref.html#SEC_Contents">Contents</A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="enigma-ref.html#SEC76">Index</A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="enigma-ref.html#SEC_About"> ? </A>]</TD>
+</TR></TABLE>
+<H2> 5.2 CreateWorld </H2>
+<!--docid::SEC66::-->
+<P>
+
+<A NAME="IDX17"></A>
+</P>
+<DL>
+<DT><U>Function:</U> <B>CreateWorld</B> <I>(width, heigth)</I>
+<DD><P>
+
+This function creates a new level. Because objects can only be added
+to the level after <CODE>CreateWorld</CODE> has been called,
+you should usually do so near the beginning of your level
+description.
+</P>
+<P>
+
+The <VAR>width</VAR> and <VAR>height</VAR> denote the size of the new level.  All
+levels with only one screen have the minimum size of 20x13 blocks.
+</P>
+<P>
+
+Note that level fields are indexed from zero, i.e, the field indices
+for a 20x13 level are in the range (0..19)x(0..12). Also note that the
+screens in Enigma overlap by one line or column: A level that fits on
+a single screen has size of 20x13, but two a level that is two screens
+wide 39x13 or 20x25, three screens 58x13 or 20x37.
+</P>
+</DL>
+<P>
+
+<A NAME="enigma.AddConstantForce"></A>
+<HR SIZE="6">
+<A NAME="SEC67"></A>
+<TABLE CELLPADDING=1 CELLSPACING=1 BORDER=0>
+<TR><TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="enigma-ref.html#SEC66"> &lt; </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="enigma-ref.html#SEC68"> &gt; </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="enigma-ref.html#SEC63"> &lt;&lt; </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="enigma-ref.html#SEC63"> Up </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="enigma-ref.html#SEC68"> &gt;&gt; </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="enigma-ref.html#SEC_Top">Top</A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="enigma-ref.html#SEC_Contents">Contents</A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="enigma-ref.html#SEC76">Index</A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="enigma-ref.html#SEC_About"> ? </A>]</TD>
+</TR></TABLE>
+<H2> 5.3 enigma.AddConstantForce </H2>
+<!--docid::SEC67::-->
+<P>
+
+<A NAME="IDX18"></A>
+</P>
+<DL>
+<DT><U>Function:</U> <B>enigma.AddConstantForce</B> <I>(gravity_x, gravity_y)</I>
+<DD><P>
+
+Adds global gravity to the current level.
+</P>
+<P>
+
+</P>
+<DL COMPACT>
+<DT><VAR>gravity_x</VAR>
+<DD>adds gravity in horizontal direction (positive means rightwards).
+<DT><VAR>gravity_y</VAR>
+<DD>adds gravity in vertical direction (positive means downwards).
+</DL>
+<P>
+
+</P>
+</DL>
+<P>
+
+<A NAME="enigma.GetNamedObject"></A>
+<HR SIZE="6">
+<A NAME="SEC68"></A>
+<TABLE CELLPADDING=1 CELLSPACING=1 BORDER=0>
+<TR><TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="enigma-ref.html#SEC67"> &lt; </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="enigma-ref.html#SEC69"> &gt; </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="enigma-ref.html#SEC63"> &lt;&lt; </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="enigma-ref.html#SEC63"> Up </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="enigma-ref.html#SEC70"> &gt;&gt; </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="enigma-ref.html#SEC_Top">Top</A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="enigma-ref.html#SEC_Contents">Contents</A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="enigma-ref.html#SEC76">Index</A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="enigma-ref.html#SEC_About"> ? </A>]</TD>
+</TR></TABLE>
+<H2> 5.4 enigma.GetNamedObject </H2>
+<!--docid::SEC68::-->
+<P>
+
+<A NAME="IDX19"></A>
+</P>
+<DL>
+<DT><U>Function:</U> <B>enigma.GetNamedObject</B> <I>(objname)</I>
+<DD><P>
+
+This function searches for an object that has a <CODE>name</CODE> attribute
+with value <VAR>objname</VAR>.  It returns a reference to the object or
+<CODE>nil</CODE> if none could be found.
+</P>
+<P>
+
+</P>
+</DL>
+<P>
+
+<HR SIZE="6">
+<A NAME="SEC69"></A>
+<TABLE CELLPADDING=1 CELLSPACING=1 BORDER=0>
+<TR><TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="enigma-ref.html#SEC68"> &lt; </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="enigma-ref.html#SEC70"> &gt; </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="enigma-ref.html#SEC63"> &lt;&lt; </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="enigma-ref.html#SEC63"> Up </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="enigma-ref.html#SEC70"> &gt;&gt; </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="enigma-ref.html#SEC_Top">Top</A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="enigma-ref.html#SEC_Contents">Contents</A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="enigma-ref.html#SEC76">Index</A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="enigma-ref.html#SEC_About"> ? </A>]</TD>
+</TR></TABLE>
+<H3> 5.4.1 Example </H3>
+<!--docid::SEC69::-->
+<P>
+
+<TABLE><tr><td>&nbsp;</td><td class=example><pre>set_stone(&quot;st-wood&quot;, 7, 11, {name=&quot;woodie&quot;})
+...
+local Woodie = enigma.GetNamedObject(&quot;woodie&quot;)
+</pre></td></tr></table><P>
+
+<A NAME="SendMessage"></A>
+<HR SIZE="6">
+<A NAME="SEC70"></A>
+<TABLE CELLPADDING=1 CELLSPACING=1 BORDER=0>
+<TR><TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="enigma-ref.html#SEC69"> &lt; </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="enigma-ref.html#SEC71"> &gt; </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="enigma-ref.html#SEC63"> &lt;&lt; </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="enigma-ref.html#SEC63"> Up </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="enigma-ref.html#SEC72"> &gt;&gt; </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="enigma-ref.html#SEC_Top">Top</A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="enigma-ref.html#SEC_Contents">Contents</A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="enigma-ref.html#SEC76">Index</A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="enigma-ref.html#SEC_About"> ? </A>]</TD>
+</TR></TABLE>
+<H2> 5.5 SendMessage </H2>
+<!--docid::SEC70::-->
+<P>
+
+<A NAME="IDX20"></A>
+</P>
+<DL>
+<DT><U>Function:</U> <B>SendMessage</B> <I>(object, message, data)</I>
+<DD><P>
+
+This function sends a <VAR>message</VAR> to an <VAR>object</VAR>.
+</P>
+<P>
+
+</P>
+<DL COMPACT>
+<DT><VAR>object</VAR>
+<DD>The recipient of the message.  Can either be the name of an object or a
+reference as returned by <A HREF="enigma-ref.html#SEC68">5.4 enigma.GetNamedObject</A>.
+<DT><VAR>message</VAR>
+<DD>The message itself (e.g. &quot;signal&quot;) You can see which messages are
+understood in the documentation of the particular <A HREF="enigma-ref.html#SEC14">3. Objects</A>.
+<DT><VAR>data</VAR>
+<DD>Some specific messages expect some additional data (e.g. message
+&quot;direction&quot; expects a direction like SOUTH or WEST).
+</DL>
+<P>
+
+</P>
+</DL>
+<P>
+
+<HR SIZE="6">
+<A NAME="SEC71"></A>
+<TABLE CELLPADDING=1 CELLSPACING=1 BORDER=0>
+<TR><TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="enigma-ref.html#SEC70"> &lt; </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="enigma-ref.html#SEC72"> &gt; </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="enigma-ref.html#SEC63"> &lt;&lt; </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="enigma-ref.html#SEC63"> Up </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="enigma-ref.html#SEC72"> &gt;&gt; </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="enigma-ref.html#SEC_Top">Top</A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="enigma-ref.html#SEC_Contents">Contents</A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="enigma-ref.html#SEC76">Index</A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="enigma-ref.html#SEC_About"> ? </A>]</TD>
+</TR></TABLE>
+<H3> 5.5.1 Examples </H3>
+<!--docid::SEC71::-->
+<P>
+
+<TABLE><tr><td>&nbsp;</td><td class=example><pre>set_stone(&quot;st-laser-s&quot;, 2, 2, {name=&quot;laser3&quot;, on=FALSE})
+...
+SendMessage(&quot;laser3&quot;, &quot;onoff&quot;)
+</pre></td></tr></table><P>
+
+<TABLE><tr><td>&nbsp;</td><td class=example><pre>set_stone(&quot;st-bolder&quot;, 7, 11, {name=&quot;bolder1&quot;, direction=SOUTH})
+...
+SendMessage(&quot;bolder1&quot;, &quot;direction&quot;, WEST)
+</pre></td></tr></table><P>
+
+<A NAME="draw_checkerboard_floor"></A>
+<HR SIZE="6">
+<A NAME="SEC72"></A>
+<TABLE CELLPADDING=1 CELLSPACING=1 BORDER=0>
+<TR><TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="enigma-ref.html#SEC71"> &lt; </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="enigma-ref.html#SEC73"> &gt; </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="enigma-ref.html#SEC63"> &lt;&lt; </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="enigma-ref.html#SEC63"> Up </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="enigma-ref.html#SEC74"> &gt;&gt; </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="enigma-ref.html#SEC_Top">Top</A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="enigma-ref.html#SEC_Contents">Contents</A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="enigma-ref.html#SEC76">Index</A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="enigma-ref.html#SEC_About"> ? </A>]</TD>
+</TR></TABLE>
+<H2> 5.6 draw_checkerboard_floor </H2>
+<!--docid::SEC72::-->
+<P>
+
+<A NAME="IDX21"></A>
+</P>
+<DL>
+<DT><U>Function:</U> <B>draw_checkerboard_floor</B> <I>(name1, name2, x, y, w, h, attribs)</I>
+<DD><P>
+
+This function draws checkerboard composed of two selected floor
+types. <VAR>name1</VAR> and <VAR>name2</VAR> are names of floor objects. See
+@xref{set_floor} for further details.
+</P>
+<P>
+
+</P>
+<DL COMPACT>
+<DT><VAR>name1, name2</VAR>
+<DD>Names of floor objects
+<DT><VAR>x, y</VAR>
+<DD>Location of left top corner of checkerboard area. Note that upper left
+map corner is [0,0].
+<DT><VAR>w, h</VAR>
+<DD>Size of generated checkerboard.
+<DT><VAR>attribs</VAR>
+<DD>Table of attribute names and corresponding values:
+<CODE>{attrib1=value1, attrib2=value2, ...}</CODE>. These attributes,
+together with default attributes, are passed to each tile of the
+generated checkerboard.
+</DL>
+<P>
+
+</P>
+</DL>
+<P>
+
+<HR SIZE="6">
+<A NAME="SEC73"></A>
+<TABLE CELLPADDING=1 CELLSPACING=1 BORDER=0>
+<TR><TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="enigma-ref.html#SEC72"> &lt; </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="enigma-ref.html#SEC74"> &gt; </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="enigma-ref.html#SEC63"> &lt;&lt; </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="enigma-ref.html#SEC63"> Up </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="enigma-ref.html#SEC74"> &gt;&gt; </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="enigma-ref.html#SEC_Top">Top</A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="enigma-ref.html#SEC_Contents">Contents</A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="enigma-ref.html#SEC76">Index</A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="enigma-ref.html#SEC_About"> ? </A>]</TD>
+</TR></TABLE>
+<H3> 5.6.1 Example </H3>
+<!--docid::SEC73::-->
+<P>
+
+<TABLE><tr><td>&nbsp;</td><td class=example><pre>draw_checkerboard_floor(&quot;fl-abyss&quot;, &quot;fl-rough&quot;, 2, 2, 23, 11)
+draw_checkerboard_floor(&quot;fl-normal&quot;, &quot;fl-inverse&quot;, 0, 0, levelw, levelh) -- racetrack
+</pre></td></tr></table><P>
+
+<A NAME="draw_border"></A>
+<HR SIZE="6">
+<A NAME="SEC74"></A>
+<TABLE CELLPADDING=1 CELLSPACING=1 BORDER=0>
+<TR><TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="enigma-ref.html#SEC73"> &lt; </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="enigma-ref.html#SEC75"> &gt; </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="enigma-ref.html#SEC63"> &lt;&lt; </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="enigma-ref.html#SEC63"> Up </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="enigma-ref.html#SEC75"> &gt;&gt; </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="enigma-ref.html#SEC_Top">Top</A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="enigma-ref.html#SEC_Contents">Contents</A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="enigma-ref.html#SEC76">Index</A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="enigma-ref.html#SEC_About"> ? </A>]</TD>
+</TR></TABLE>
+<H2> 5.7 draw_border </H2>
+<!--docid::SEC74::-->
+<P>
+
+<A NAME="IDX22"></A>
+</P>
+<DL>
+<DT><U>Function:</U> <B>draw_border</B> <I>(stonename, x,y, w,h)</I>
+<DD><P>
+
+This function adds a border of stones to your level.  If invoked with
+only one argument, this border encloses the whole level.
+</P>
+<P>
+
+</P>
+<DL COMPACT>
+<DT><VAR>stonename</VAR>
+<DD>The name of the border stone.
+<DT><VAR>x,y</VAR>
+<DD>(optional) Coordinates of upper-left corner. (0,0) if omitted.
+<DT><VAR>w,h</VAR>
+<DD>(optional) Width and height of border.
+</DL>
+<P>
+
+</P>
+</DL>
+<P>
+
+<HR SIZE="6">
+<A NAME="SEC75"></A>
+<TABLE CELLPADDING=1 CELLSPACING=1 BORDER=0>
+<TR><TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="enigma-ref.html#SEC74"> &lt; </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="enigma-ref.html#SEC76"> &gt; </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="enigma-ref.html#SEC63"> &lt;&lt; </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="enigma-ref.html#SEC63"> Up </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="enigma-ref.html#SEC76"> &gt;&gt; </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="enigma-ref.html#SEC_Top">Top</A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="enigma-ref.html#SEC_Contents">Contents</A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="enigma-ref.html#SEC76">Index</A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="enigma-ref.html#SEC_About"> ? </A>]</TD>
+</TR></TABLE>
+<H3> 5.7.1 Example </H3>
+<!--docid::SEC75::-->
+<P>
+
+<TABLE><tr><td>&nbsp;</td><td class=example><pre>draw_border(&quot;st-marble&quot;)
+draw_border(&quot;st-greenbrown&quot;, 0,5,3,3)
+</pre></td></tr></table><P>
+
+<A NAME="Index"></A>
+<HR SIZE="6">
+<A NAME="SEC76"></A>
+<TABLE CELLPADDING=1 CELLSPACING=1 BORDER=0>
+<TR><TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="enigma-ref.html#SEC75"> &lt; </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[ &gt; ]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="enigma-ref.html#SEC75"> &lt;&lt; </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="enigma-ref.html#SEC_Top"> Up </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[ &gt;&gt; ]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="enigma-ref.html#SEC_Top">Top</A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="enigma-ref.html#SEC_Contents">Contents</A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="enigma-ref.html#SEC76">Index</A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="enigma-ref.html#SEC_About"> ? </A>]</TD>
+</TR></TABLE>
+<H1> Index </H1>
+<!--docid::SEC76::-->
+<P>
+
+</P>
+<table><tr><th valign=top>Jump to: &nbsp; </th><td><A HREF="enigma-ref.html#tp_A" style="text-decoration:none"><b>A</b></A>
+ &nbsp; 
+<A HREF="enigma-ref.html#tp_C" style="text-decoration:none"><b>C</b></A>
+ &nbsp; 
+<A HREF="enigma-ref.html#tp_D" style="text-decoration:none"><b>D</b></A>
+ &nbsp; 
+<A HREF="enigma-ref.html#tp_E" style="text-decoration:none"><b>E</b></A>
+ &nbsp; 
+<A HREF="enigma-ref.html#tp_S" style="text-decoration:none"><b>S</b></A>
+ &nbsp; 
+</td></tr></table><P></P>
+<TABLE border=0>
+<TR><TD></TD><TH ALIGN=LEFT>Index Entry</TH><TH ALIGN=LEFT> Section</TH></TR>
+<TR><TD COLSPAN=3> <HR></TD></TR>
+<TR><TH><A NAME="tp_A"></A>A</TH><TD></TD><TD></TD></TR>
+<TR><TD></TD><TD valign=top><A HREF="enigma-ref.html#IDX16"><CODE>AddRubberBand</CODE></A></TD><TD valign=top><A HREF="enigma-ref.html#SEC64">5.1 AddRubberBand</A></TD></TR>
+<TR><TD COLSPAN=3> <HR></TD></TR>
+<TR><TH><A NAME="tp_C"></A>C</TH><TD></TD><TD></TD></TR>
+<TR><TD></TD><TD valign=top><A HREF="enigma-ref.html#IDX17"><CODE>CreateWorld</CODE></A></TD><TD valign=top><A HREF="enigma-ref.html#SEC66">5.2 CreateWorld</A></TD></TR>
+<TR><TD COLSPAN=3> <HR></TD></TR>
+<TR><TH><A NAME="tp_D"></A>D</TH><TD></TD><TD></TD></TR>
+<TR><TD></TD><TD valign=top><A HREF="enigma-ref.html#IDX22"><CODE>draw_border</CODE></A></TD><TD valign=top><A HREF="enigma-ref.html#SEC74">5.7 draw_border</A></TD></TR>
+<TR><TD></TD><TD valign=top><A HREF="enigma-ref.html#IDX21"><CODE>draw_checkerboard_floor</CODE></A></TD><TD valign=top><A HREF="enigma-ref.html#SEC72">5.6 draw_checkerboard_floor</A></TD></TR>
+<TR><TD COLSPAN=3> <HR></TD></TR>
+<TR><TH><A NAME="tp_E"></A>E</TH><TD></TD><TD></TD></TR>
+<TR><TD></TD><TD valign=top><A HREF="enigma-ref.html#IDX18"><CODE>enigma.AddConstantForce</CODE></A></TD><TD valign=top><A HREF="enigma-ref.html#SEC67">5.3 enigma.AddConstantForce</A></TD></TR>
+<TR><TD></TD><TD valign=top><A HREF="enigma-ref.html#IDX3"><CODE>enigma.Brittleness</CODE></A></TD><TD valign=top><A HREF="enigma-ref.html#SEC62">4. Variables</A></TD></TR>
+<TR><TD></TD><TD valign=top><A HREF="enigma-ref.html#IDX4"><CODE>enigma.BumperForce</CODE></A></TD><TD valign=top><A HREF="enigma-ref.html#SEC62">4. Variables</A></TD></TR>
+<TR><TD></TD><TD valign=top><A HREF="enigma-ref.html#IDX1"><CODE>enigma.ConserveLevel</CODE></A></TD><TD valign=top><A HREF="enigma-ref.html#SEC62">4. Variables</A></TD></TR>
+<TR><TD></TD><TD valign=top><A HREF="enigma-ref.html#IDX5"><CODE>enigma.ElectricForce</CODE></A></TD><TD valign=top><A HREF="enigma-ref.html#SEC62">4. Variables</A></TD></TR>
+<TR><TD></TD><TD valign=top><A HREF="enigma-ref.html#IDX7"><CODE>enigma.FlatForce</CODE></A></TD><TD valign=top><A HREF="enigma-ref.html#SEC62">4. Variables</A></TD></TR>
+<TR><TD></TD><TD valign=top><A HREF="enigma-ref.html#IDX6"><CODE>enigma.FrictionFactor</CODE></A></TD><TD valign=top><A HREF="enigma-ref.html#SEC62">4. Variables</A></TD></TR>
+<TR><TD></TD><TD valign=top><A HREF="enigma-ref.html#IDX19"><CODE>enigma.GetNamedObject</CODE></A></TD><TD valign=top><A HREF="enigma-ref.html#SEC68">5.4 enigma.GetNamedObject</A></TD></TR>
+<TR><TD></TD><TD valign=top><A HREF="enigma-ref.html#IDX8"><CODE>enigma.HoleForce</CODE></A></TD><TD valign=top><A HREF="enigma-ref.html#SEC62">4. Variables</A></TD></TR>
+<TR><TD></TD><TD valign=top><A HREF="enigma-ref.html#IDX9"><CODE>enigma.MagnetForce</CODE></A></TD><TD valign=top><A HREF="enigma-ref.html#SEC62">4. Variables</A></TD></TR>
+<TR><TD></TD><TD valign=top><A HREF="enigma-ref.html#IDX10"><CODE>enigma.MagnetRange</CODE></A></TD><TD valign=top><A HREF="enigma-ref.html#SEC62">4. Variables</A></TD></TR>
+<TR><TD></TD><TD valign=top><A HREF="enigma-ref.html#IDX2"><CODE>enigma.ShowMoves</CODE></A></TD><TD valign=top><A HREF="enigma-ref.html#SEC62">4. Variables</A></TD></TR>
+<TR><TD></TD><TD valign=top><A HREF="enigma-ref.html#IDX11"><CODE>enigma.SlopeForce</CODE></A></TD><TD valign=top><A HREF="enigma-ref.html#SEC62">4. Variables</A></TD></TR>
+<TR><TD></TD><TD valign=top><A HREF="enigma-ref.html#IDX13"><CODE>enigma.SwampSinkSpeed</CODE></A></TD><TD valign=top><A HREF="enigma-ref.html#SEC62">4. Variables</A></TD></TR>
+<TR><TD></TD><TD valign=top><A HREF="enigma-ref.html#IDX12"><CODE>enigma.WaterSinkSpeed</CODE></A></TD><TD valign=top><A HREF="enigma-ref.html#SEC62">4. Variables</A></TD></TR>
+<TR><TD></TD><TD valign=top><A HREF="enigma-ref.html#IDX14"><CODE>enigma.WormholeForce</CODE></A></TD><TD valign=top><A HREF="enigma-ref.html#SEC62">4. Variables</A></TD></TR>
+<TR><TD></TD><TD valign=top><A HREF="enigma-ref.html#IDX15"><CODE>enigma.WormholeRange</CODE></A></TD><TD valign=top><A HREF="enigma-ref.html#SEC62">4. Variables</A></TD></TR>
+<TR><TD COLSPAN=3> <HR></TD></TR>
+<TR><TH><A NAME="tp_S"></A>S</TH><TD></TD><TD></TD></TR>
+<TR><TD></TD><TD valign=top><A HREF="enigma-ref.html#IDX20"><CODE>SendMessage</CODE></A></TD><TD valign=top><A HREF="enigma-ref.html#SEC70">5.5 SendMessage</A></TD></TR>
+<TR><TD COLSPAN=3> <HR></TD></TR>
+</TABLE><P></P><table><tr><th valign=top>Jump to: &nbsp; </th><td><A HREF="enigma-ref.html#tp_A" style="text-decoration:none"><b>A</b></A>
+ &nbsp; 
+<A HREF="enigma-ref.html#tp_C" style="text-decoration:none"><b>C</b></A>
+ &nbsp; 
+<A HREF="enigma-ref.html#tp_D" style="text-decoration:none"><b>D</b></A>
+ &nbsp; 
+<A HREF="enigma-ref.html#tp_E" style="text-decoration:none"><b>E</b></A>
+ &nbsp; 
+<A HREF="enigma-ref.html#tp_S" style="text-decoration:none"><b>S</b></A>
+ &nbsp; 
+</td></tr></table><P>
+
+<HR SIZE="6">
+<A NAME="SEC_Contents"></A>
+<TABLE CELLPADDING=1 CELLSPACING=1 BORDER=0>
+<TR><TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="enigma-ref.html#SEC_Top">Top</A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="enigma-ref.html#SEC_Contents">Contents</A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="enigma-ref.html#SEC76">Index</A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="enigma-ref.html#SEC_About"> ? </A>]</TD>
+</TR></TABLE>
+<H1>Table of Contents</H1>
+<BLOCKQUOTE>
+<A NAME="TOC1" HREF="enigma-ref.html#SEC1">1. Introduction</A>
+<BR>
+<BLOCKQUOTE>
+<A NAME="TOC2" HREF="enigma-ref.html#SEC2">1.1 Creating New Levels</A>
+<BR>
+<A NAME="TOC3" HREF="enigma-ref.html#SEC3">1.2 A Simple Level</A>
+<BR>
+<A NAME="TOC4" HREF="enigma-ref.html#SEC4">1.3 Registering Levels</A>
+<BR>
+<A NAME="TOC5" HREF="enigma-ref.html#SEC5">1.4 Where to go from here</A>
+<BR>
+</BLOCKQUOTE>
+<A NAME="TOC6" HREF="enigma-ref.html#SEC6">2. XML levels</A>
+<BR>
+<BLOCKQUOTE>
+<A NAME="TOC7" HREF="enigma-ref.html#SEC7">2.1 Meta information</A>
+<BR>
+<A NAME="TOC8" HREF="enigma-ref.html#SEC8">2.2 Level options</A>
+<BR>
+<A NAME="TOC9" HREF="enigma-ref.html#SEC9">2.3 Actors</A>
+<BR>
+<A NAME="TOC10" HREF="enigma-ref.html#SEC10">2.4 Objects</A>
+<BR>
+<A NAME="TOC11" HREF="enigma-ref.html#SEC11">2.5 Signals</A>
+<BR>
+<A NAME="TOC12" HREF="enigma-ref.html#SEC12">2.6 Rubberbands</A>
+<BR>
+<A NAME="TOC13" HREF="enigma-ref.html#SEC13">2.7 Embedded Lua code</A>
+<BR>
+</BLOCKQUOTE>
+<A NAME="TOC14" HREF="enigma-ref.html#SEC14">3. Objects</A>
+<BR>
+<BLOCKQUOTE>
+<A NAME="TOC15" HREF="enigma-ref.html#SEC15">3.1 Floors</A>
+<BR>
+<BLOCKQUOTE>
+<A NAME="TOC16" HREF="enigma-ref.html#SEC16">3.1.1 Special floor tiles</A>
+<BR>
+<A NAME="TOC17" HREF="enigma-ref.html#SEC17">3.1.2 Regular floor tiles</A>
+<BR>
+</BLOCKQUOTE>
+<A NAME="TOC18" HREF="enigma-ref.html#SEC18">3.2 Items</A>
+<BR>
+<BLOCKQUOTE>
+<A NAME="TOC19" HREF="enigma-ref.html#SEC19">3.2.1 Item List</A>
+<BR>
+<A NAME="TOC20" HREF="enigma-ref.html#SEC20">3.2.2 it-document: Scrolls of Paper</A>
+<BR>
+<A NAME="TOC21" HREF="enigma-ref.html#SEC21">3.2.3 it-floppy: Floppy Disk</A>
+<BR>
+<A NAME="TOC22" HREF="enigma-ref.html#SEC22">3.2.4 it-hollow: Hollows in the floor</A>
+<BR>
+<A NAME="TOC23" HREF="enigma-ref.html#SEC23">3.2.5 it-ring: Ring</A>
+<BR>
+<A NAME="TOC24" HREF="enigma-ref.html#SEC24">3.2.6 it-vortex: Vortex</A>
+<BR>
+</BLOCKQUOTE>
+<A NAME="TOC25" HREF="enigma-ref.html#SEC25">3.3 Stones</A>
+<BR>
+<BLOCKQUOTE>
+<A NAME="TOC26" HREF="enigma-ref.html#SEC26">3.3.1 Stone List</A>
+<BR>
+<A NAME="TOC27" HREF="enigma-ref.html#SEC27">3.3.2 st-actorimpulse: Bumper Stones</A>
+<BR>
+<A NAME="TOC28" HREF="enigma-ref.html#SEC28">3.3.3 st-chameleon: Chameleon Stone</A>
+<BR>
+<A NAME="TOC29" HREF="enigma-ref.html#SEC29">3.3.4 st-coinslot</A>
+<BR>
+<A NAME="TOC30" HREF="enigma-ref.html#SEC30">3.3.5 st-death: Skull Stones</A>
+<BR>
+<A NAME="TOC31" HREF="enigma-ref.html#SEC31">3.3.6 st-disco: Disco Stones</A>
+<BR>
+<A NAME="TOC32" HREF="enigma-ref.html#SEC32">3.3.7 st-easymode: Easy Mode Stone</A>
+<BR>
+<A NAME="TOC33" HREF="enigma-ref.html#SEC33">3.3.8 st-fart: Fart Stone</A>
+<BR>
+<A NAME="TOC34" HREF="enigma-ref.html#SEC34">3.3.9 st-floppy: Floppy Switch</A>
+<BR>
+<A NAME="TOC35" HREF="enigma-ref.html#SEC35">3.3.10 st-grate: Grates</A>
+<BR>
+<A NAME="TOC36" HREF="enigma-ref.html#SEC36">3.3.11 st-laserswitch: Laser Switch</A>
+<BR>
+<A NAME="TOC37" HREF="enigma-ref.html#SEC37">3.3.12 st-lasertimeswitch: Laser Time Switch</A>
+<BR>
+<A NAME="TOC38" HREF="enigma-ref.html#SEC38">3.3.13 st-oneway: One-way Stones</A>
+<BR>
+<A NAME="TOC39" HREF="enigma-ref.html#SEC39">3.3.14 st-oxyd: Oxyd Stones</A>
+<BR>
+<A NAME="TOC40" HREF="enigma-ref.html#SEC40">3.3.15 st-rubberband: Rubberband Stone</A>
+<BR>
+<A NAME="TOC41" HREF="enigma-ref.html#SEC41">3.3.16 st-scissors: Scissors Stone</A>
+<BR>
+<A NAME="TOC42" HREF="enigma-ref.html#SEC42">3.3.17 st-stone_break: Breakable Stone</A>
+<BR>
+<A NAME="TOC43" HREF="enigma-ref.html#SEC43">3.3.18 st-swap: Swap Stone</A>
+<BR>
+<A NAME="TOC44" HREF="enigma-ref.html#SEC44">3.3.19 st-switch: Switches</A>
+<BR>
+<A NAME="TOC45" HREF="enigma-ref.html#SEC45">3.3.20 st-thief: Thief Stone</A>
+<BR>
+<A NAME="TOC46" HREF="enigma-ref.html#SEC46">3.3.21 st-timer: Timer Stone</A>
+<BR>
+<A NAME="TOC47" HREF="enigma-ref.html#SEC47">3.3.22 st-timeswitch: Time Switch</A>
+<BR>
+<A NAME="TOC48" HREF="enigma-ref.html#SEC48">3.3.23 st-window: Breakable Stone</A>
+<BR>
+<A NAME="TOC49" HREF="enigma-ref.html#SEC49">3.3.24 st-wood: Wooden Stone</A>
+<BR>
+<A NAME="TOC50" HREF="enigma-ref.html#SEC50">3.3.25 st-yinyang: Yin-Yang Stones</A>
+<BR>
+</BLOCKQUOTE>
+<A NAME="TOC51" HREF="enigma-ref.html#SEC51">3.4 Actors</A>
+<BR>
+<BLOCKQUOTE>
+<A NAME="TOC52" HREF="enigma-ref.html#SEC52">3.4.1 ac-blackball</A>
+<BR>
+<A NAME="TOC53" HREF="enigma-ref.html#SEC53">3.4.2 ac-whiteball</A>
+<BR>
+<A NAME="TOC54" HREF="enigma-ref.html#SEC54">3.4.3 ac-whiteball_small</A>
+<BR>
+<A NAME="TOC55" HREF="enigma-ref.html#SEC55">3.4.4 ac-killerball</A>
+<BR>
+<A NAME="TOC56" HREF="enigma-ref.html#SEC56">3.4.5 ac-rotor</A>
+<BR>
+<A NAME="TOC57" HREF="enigma-ref.html#SEC57">3.4.6 ac-top</A>
+<BR>
+<A NAME="TOC58" HREF="enigma-ref.html#SEC58">3.4.7 ac-bug</A>
+<BR>
+<A NAME="TOC59" HREF="enigma-ref.html#SEC59">3.4.8 ac-horse</A>
+<BR>
+<A NAME="TOC60" HREF="enigma-ref.html#SEC60">3.4.9 Actor Attributes</A>
+<BR>
+</BLOCKQUOTE>
+<A NAME="TOC61" HREF="enigma-ref.html#SEC61">3.5 General object attributes</A>
+<BR>
+</BLOCKQUOTE>
+<A NAME="TOC62" HREF="enigma-ref.html#SEC62">4. Variables</A>
+<BR>
+<A NAME="TOC63" HREF="enigma-ref.html#SEC63">5. Functions</A>
+<BR>
+<BLOCKQUOTE>
+<A NAME="TOC64" HREF="enigma-ref.html#SEC64">5.1 AddRubberBand</A>
+<BR>
+<BLOCKQUOTE>
+<A NAME="TOC65" HREF="enigma-ref.html#SEC65">5.1.1 Example</A>
+<BR>
+</BLOCKQUOTE>
+<A NAME="TOC66" HREF="enigma-ref.html#SEC66">5.2 CreateWorld</A>
+<BR>
+<A NAME="TOC67" HREF="enigma-ref.html#SEC67">5.3 enigma.AddConstantForce</A>
+<BR>
+<A NAME="TOC68" HREF="enigma-ref.html#SEC68">5.4 enigma.GetNamedObject</A>
+<BR>
+<BLOCKQUOTE>
+<A NAME="TOC69" HREF="enigma-ref.html#SEC69">5.4.1 Example</A>
+<BR>
+</BLOCKQUOTE>
+<A NAME="TOC70" HREF="enigma-ref.html#SEC70">5.5 SendMessage</A>
+<BR>
+<BLOCKQUOTE>
+<A NAME="TOC71" HREF="enigma-ref.html#SEC71">5.5.1 Examples</A>
+<BR>
+</BLOCKQUOTE>
+<A NAME="TOC72" HREF="enigma-ref.html#SEC72">5.6 draw_checkerboard_floor</A>
+<BR>
+<BLOCKQUOTE>
+<A NAME="TOC73" HREF="enigma-ref.html#SEC73">5.6.1 Example</A>
+<BR>
+</BLOCKQUOTE>
+<A NAME="TOC74" HREF="enigma-ref.html#SEC74">5.7 draw_border</A>
+<BR>
+<BLOCKQUOTE>
+<A NAME="TOC75" HREF="enigma-ref.html#SEC75">5.7.1 Example</A>
+<BR>
+</BLOCKQUOTE>
+</BLOCKQUOTE>
+<A NAME="TOC76" HREF="enigma-ref.html#SEC76">Index</A>
+<BR>
+</BLOCKQUOTE>
+<HR SIZE=1>
+<A NAME="SEC_OVERVIEW"></A>
+<TABLE CELLPADDING=1 CELLSPACING=1 BORDER=0>
+<TR><TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="enigma-ref.html#SEC_Top">Top</A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="enigma-ref.html#SEC_Contents">Contents</A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="enigma-ref.html#SEC76">Index</A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="enigma-ref.html#SEC_About"> ? </A>]</TD>
+</TR></TABLE>
+<H1>Short Table of Contents</H1>
+<BLOCKQUOTE>
+<A NAME="TOC1" HREF="enigma-ref.html#SEC1">1. Introduction</A>
+<BR>
+<A NAME="TOC6" HREF="enigma-ref.html#SEC6">2. XML levels</A>
+<BR>
+<A NAME="TOC14" HREF="enigma-ref.html#SEC14">3. Objects</A>
+<BR>
+<A NAME="TOC62" HREF="enigma-ref.html#SEC62">4. Variables</A>
+<BR>
+<A NAME="TOC63" HREF="enigma-ref.html#SEC63">5. Functions</A>
+<BR>
+<A NAME="TOC76" HREF="enigma-ref.html#SEC76">Index</A>
+<BR>
+
+</BLOCKQUOTE>
+<HR SIZE=1>
+<A NAME="SEC_About"></A>
+<TABLE CELLPADDING=1 CELLSPACING=1 BORDER=0>
+<TR><TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="enigma-ref.html#SEC_Top">Top</A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="enigma-ref.html#SEC_Contents">Contents</A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="enigma-ref.html#SEC76">Index</A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="enigma-ref.html#SEC_About"> ? </A>]</TD>
+</TR></TABLE>
+<H1>About this document</H1>
+This document was generated
+by 
+using <A HREF="http://texi2html.cvshome.org"><I>texi2html</I></A>
+<P></P>
+The buttons in the navigation panels have the following meaning:
+<P></P>
+<table border = "1">
+<TR>
+<TH> Button </TH>
+<TH> Name </TH>
+<TH> Go to </TH>
+<TH> From 1.2.3 go to</TH>
+</TR>
+<TR>
+<TD ALIGN="CENTER">
+ [ &lt; ] </TD>
+<TD ALIGN="CENTER">
+Back
+</TD>
+<TD>
+previous section in reading order
+</TD>
+<TD>
+1.2.2
+</TD>
+</TR>
+<TR>
+<TD ALIGN="CENTER">
+ [ &gt; ] </TD>
+<TD ALIGN="CENTER">
+Forward
+</TD>
+<TD>
+next section in reading order
+</TD>
+<TD>
+1.2.4
+</TD>
+</TR>
+<TR>
+<TD ALIGN="CENTER">
+ [ &lt;&lt; ] </TD>
+<TD ALIGN="CENTER">
+FastBack
+</TD>
+<TD>
+previous or up-and-previous section 
+</TD>
+<TD>
+1.1
+</TD>
+</TR>
+<TR>
+<TD ALIGN="CENTER">
+ [ Up ] </TD>
+<TD ALIGN="CENTER">
+Up
+</TD>
+<TD>
+up section
+</TD>
+<TD>
+1.2
+</TD>
+</TR>
+<TR>
+<TD ALIGN="CENTER">
+ [ &gt;&gt; ] </TD>
+<TD ALIGN="CENTER">
+FastForward
+</TD>
+<TD>
+next or up-and-next section
+</TD>
+<TD>
+1.3
+</TD>
+</TR>
+<TR>
+<TD ALIGN="CENTER">
+ [Top] </TD>
+<TD ALIGN="CENTER">
+Top
+</TD>
+<TD>
+cover (top) of document
+</TD>
+<TD>
+ &nbsp; 
+</TD>
+</TR>
+<TR>
+<TD ALIGN="CENTER">
+ [Contents] </TD>
+<TD ALIGN="CENTER">
+Contents
+</TD>
+<TD>
+table of contents
+</TD>
+<TD>
+ &nbsp; 
+</TD>
+</TR>
+<TR>
+<TD ALIGN="CENTER">
+ [Index] </TD>
+<TD ALIGN="CENTER">
+Index
+</TD>
+<TD>
+concept index
+</TD>
+<TD>
+ &nbsp; 
+</TD>
+</TR>
+<TR>
+<TD ALIGN="CENTER">
+ [ ? ] </TD>
+<TD ALIGN="CENTER">
+About
+</TD>
+<TD>
+this page
+</TD>
+<TD>
+ &nbsp; 
+</TD>
+</TR>
+</TABLE>
+    <P>
+      where the <STRONG> Example </STRONG> assumes that the current position
+      is at <STRONG> Subsubsection One-Two-Three </STRONG> of a document of
+      the following structure:</P>
+    <UL>
+      <LI> 1. Section One
+        <UL>
+          <LI>1.1 Subsection One-One
+            <UL>
+              <LI>...</LI>
+            </UL>
+          <LI>1.2 Subsection One-Two
+            <UL>
+              <LI>1.2.1 Subsubsection One-Two-One</LI>
+              <LI>1.2.2 Subsubsection One-Two-Two</LI>
+              <LI>1.2.3 Subsubsection One-Two-Three &nbsp; &nbsp;
+                <STRONG>&lt;== Current Position </STRONG></LI>
+              <LI>1.2.4 Subsubsection One-Two-Four</LI>
+            </UL>
+          </LI>
+          <LI>1.3 Subsection One-Three
+            <UL>
+              <LI>...</LI>
+            </UL>
+          </LI>
+          <LI>1.4 Subsection One-Four</LI>
+        </UL>
+      </LI>
+    </UL>
+
+<HR SIZE=1>
+<BR>
+<FONT SIZE="-1">
+This document was generated
+by by <I>Daniel Heck</I> on <I>, 29 2005</I>
+using <A HREF="http://texi2html.cvshome.org"><I>texi2html</I></A>
+</FONT>
+
+</BODY>
+</HTML>

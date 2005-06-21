@@ -1,0 +1,89 @@
+.TH "ENIGMA" "6" "March 14th, 2005" "Daniel Heck" "The Free Oxyd Clone"
+.SH "NAME"
+enigma \- Puzzle game reminiscent of Oxyd
+.SH "SYNOPSIS"
+\fBenigma\fR [\fB\-\-nosound\fR] [\fB\-\-nomusic\fR]
+[\fB\-\-nograb\fR] [\fB\-\-window\fR] [\fB\-h\fR|\fBhelp\fR]
+[\fB\-\-data=dir\fR] [\fB\-\-lang=lang\fR]
+[\fB\-\-version\fR]
+.
+.SH "DESCRIPTION"
+.
+Enigma is a puzzle game similar to Oxyd on the Atari ST or Rock'n'Roll
+on the Amiga and good old Marble Madness.
+.PP 
+In Enigma, your objective is to locate and uncover matching pairs of
+Oxyd stones. Simple as it sounds, this task is made more difficult by
+the fact that Oxyd stones tend to be hidden, inaccessible, or protected
+by unexpected traps. Overcoming these obstacles often requires a lot
+of dexterity and wit (and can be quite addictive.
+.PP
+.B For more information, please refer to the HTML manual!
+.
+.SH "OPTIONS"
+.
+.IP "\-\-nosound"
+Start Enigma without sound. Enigma uses SDL for its sound output.
+.IP "\-\-nomusic"
+Start Enigma without music. Sound effects will still be played.
+.IP "\-\-nograb"
+Do not use exclusive mouse/keyboard access.
+.IP "\-\-window"
+Run Enigma in a window; do not switch do fullscreen mode.
+.IP "\-\-data=dir, \-d dir"
+Prepend a directory to Enigma's search path.
+.IP "\-\-lang=lang, \-l lang"
+Override the default language.  See examples.
+.IP "\-\-help, \-h"
+Display a list of available command line options and quit.
+.IP "\-\-version"
+Print the Enigma version number and quit.
+.
+.SH "USAGE"
+.
+The objective of the game is to find and activate pairs of "Oxyd"
+stones with matching colors.  To this end, you are equipped with a
+small black ball that you control with your mouse.  But watch out!
+There are lasers, bombs, pits, and other harmful objects that may
+interfere with that simple goal, not to mention the countless devious
+puzzles the level designers have put in.
+.PP 
+There are several in\-game control keys.
+.IP "Left mouse button"
+Apply the selected item in your inventory.
+.IP "Right mouse button or mouse wheel"
+Rotate inventory items.
+.IP "Tabulator"
+Rotate inventory items.
+.IP "Escape"
+Enter the in\-game menu.
+.IP F1
+Display help screen.
+.IP F3
+Restart the current level.
+.IP F4
+Move to the next level.
+.IP F5
+Move to the next unsolved level.
+.IP F10
+Take a screenshot.
+.IP Left
+Decrease mouse speed.
+.IP Right
+Increase mouse speed.
+.IP Alt+Return 
+Toggle between fullscreen and windowed display.
+.IP Alt\-X 
+Return to the level menu immediately.
+.
+.SH "BUGS"
+.
+Please report bugs to <enigma\-devel@nongnu.org>.
+.
+.SH "AUTHORS"
+.
+Daniel Heck <dheck@ix.urz.uni\-heidelberg.de> is the main author 
+and maintainer of Enigma.
+Enigma itself is based on Oxyd, created by Meinolf Schneider.
+This manual page was created by Joe Wreschnig <piman@sacredchao.net> 
+and is currently maintained by Daniel Heck.

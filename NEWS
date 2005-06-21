@@ -1,0 +1,135 @@
+Version 0.92 (May 26 2005)
+
+  * Added Spanish translation
+  * Fixed bug: ice is now working
+  * A few smaller bug fixes
+
+Version 0.91 (Apr 26 2005)
+
+  * Fixed stupid bugs in Enigma 0.90
+  * Two new levels
+
+Version 0.90 (Mar 16 2005)
+
+  * New levels
+  * Support for 800x600 and 1024x768 video modes
+  * Support for non-English languages
+  * Vastly improved Oxyd 1 and Per.Oxyd compatibility
+  * Redesigned options menu
+  * Countless smaller enhancements
+
+Version 0.81 (Oct 11 2003)
+
+  * Mainly bugfixes
+
+Version 0.80 (Oct 08 2003)
+
+  * Time game
+  * Easy / difficult game mode
+  * Sokoban mode
+  * Game manual
+  * More than 300 new levels (now more than 580 in total)
+  * Better soft scrolling
+  * Countless new game elements: turnstiles, volcanos, warp tunnels,
+    land-mines, jump pads, rotors, ...
+  * Reduced memory footprint
+
+Version 0.70 (Feb 14 2003)
+
+  * Speed improvements
+  * Stereo sound
+  * More than 70 new levels
+  * Much better mouse controls
+  * Support for Oxyd's original sounds (see README)
+  * New game objects: Rubber bands, scissors, worm holes
+
+Version 0.60 (Dec 23 2002)
+
+  * Improved graphics
+  * Faster screen updates
+  * Softscrolling in some levels
+  * 40 new levels
+  * Many new game objects (ice, magnets, white marbles, ...)
+  * Mouse speed can be changed in the options menu and during the game
+    (left and right arrow keys)
+  * Sound and music volume can be configured
+  * Enigma now remembers which levels you already completed
+
+Version 0.50 (Aug 14 2002)
+
+  * Improved mouse controls
+  * Alpha blended shadows
+  * Improved menu system
+  * Many new game objects
+  * Sloped floor
+  * 52 new levels (now 96 in all!)
+  * Mousewheel support in the level menu
+  * New level type: meditation landscapes
+  * Win32 version
+
+Version 0.40a (May 18 2002)
+
+  * Made installation script ash-compatible (thanks to Kalle Olavi Niemitalo)
+  * Fixed installation bug (thanks to Rasmus Kaj)
+  * Now entering fullscreen mode by default
+  * Added RPM .spec file (thanks to Achim Settelmeier)
+
+Version 0.40 (May 14 2002)
+
+  * Many new levels from Siegfried Fennig and Martin Hawlisch (now 42
+    in total)
+  * 8 new stone types 
+    (st-wood, st-fart, st-timer, st-invisible,
+     st-greenbrown_{move,hole}, st-marble_{move,hole})
+  * 2 new floor types (fl-wood, fl-rough)
+  * Removed in-game soundtrack
+  * Johannes Fortmann contributed some new graphics
+  * Joe Wreschnig wrote a man page for Enigma
+  * Compilation fixes for gcc 3.1 (thanks to Artur Siekielski)
+  * Improved mainloop that suppresses huge time steps
+    (thanks to Dylan Thurston)
+
+Version 0.39 (Apr 21 2002)
+
+  * More compilation fixes 
+    (thanks to Cymru Stracchino and Erich Schubert)
+  * Better mainloop that doesn't eat all your CPU cycles
+    (thanks to Sergey Pinaev)
+  * Spiffier menu design
+  * In-game menu
+  * Smooth music transitions
+  * Music in the menu
+  * Lua must now be installed separately
+  * Works with Lua 4.1 (thanks to Erich Schubert)
+  * Lots of new levels (mainly due to Siegfried Fennig, who contributed
+    eight new ones!)
+  * The colors on Oxyd stones can be shuffled
+
+Version 0.38a (Apr 06 2002)
+ 
+  * Bug fixes that make Enigma compile with g++ 3.0
+
+Version 0.38 (Apr 04 2002)
+
+  * Puzzle stones
+  * Doors
+  * Space
+  * Switches
+  * Inverse motion floor
+  * Shogun dots and stones
+  * 3 new levels 
+
+Version 0.37 (Mar 20 2002)
+
+  * level selection menu
+  * chameleon stones
+  * better error handling
+  * assorted bugfixes
+
+Version 0.36a (Mar 17 2002)
+
+  * mostly internal changes requested by the savannah maintainers
+
+Version 0.36 (Mar 14 2002)
+
+  * first ``public'' release for savannah application

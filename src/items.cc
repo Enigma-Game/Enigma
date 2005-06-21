@@ -1,0 +1,3426 @@
+/*
+ * Copyright (C) 2002,2003,2004 Daniel Heck
+ *
+ * This program is free software; you can redistribute it and/or
+ * modify it under the terms of the GNU General Public License
+ * as published by the Free Software Foundation; either version 2
+ * of the License, or (at your option) any later version.
+ *
+ * This program is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ * GNU General Public License for more details.
+ *
+ * You should have received a copy of the GNU General Public License along
+ * with this program; if not, write to the Free Software Foundation, Inc.,
+ * 59 Temple Place, Suite 330, Boston, MA 02111-1307, USA.
+ *
+ * $Id: items.cc,v 1.107 2004/03/30 11:45:05 mhawlisch Exp $
+ */
+
+#include "main.hh"
+#include "display.hh"
+#include "player.hh"
+#include "client.hh"
+#include "sound.hh"
+#include "server.hh"
+#include "world.hh"
+
+#include "px/tools.hh"
+
+#include <algorithm>
+#include <cmath>
+#include <cassert>
+#include <iostream>
+
+
+using namespace std;
+using namespace world;
+
+using enigma::GridPos;
+using enigma::Value;
+using enigma::DoubleRand;
+using px::V2;
+
+
+/* -------------------- Macros -------------------- */
+
+#define DEF_ITEM(classname, kindname, kindid)   \
+    class classname : public Item {             \
+        CLONEOBJ(classname);                    \
+        DECL_TRAITS;                            \
+    public:                                     \
+        classname() {}                          \
+    };                                          \
+    DEF_TRAITS(classname, kindname, kindid)
+
+#define DEF_ITEMF(classname, kindname, kindid, flags)   \
+    class classname : public Item {             \
+        CLONEOBJ(classname);                    \
+        DECL_TRAITS;                            \
+    public:                                     \
+        classname() {}                          \
+    };                                          \
+    DEF_TRAITSF(classname, kindname, kindid, flags)
+
+#define DECL_TRAITS                                             \
+        static ItemTraits traits;                               \
+        const ItemTraits &get_traits() const { return traits; }
+
+#define DECL_TRAITS_ARRAY(n, subtype_expr)                                      \
+        static ItemTraits traits[n];                                            \
+        const ItemTraits &get_traits() const { return traits[subtype_expr]; }
+
+#define DEF_TRAITS(classname, name, id)         \
+    ItemTraits classname::traits = { name, id, itf_none, 0.0 }
+
+#define DEF_TRAITSF(classname, name, id, flags)         \
+    ItemTraits classname::traits = { name, id, flags, 0.0 }
+
+#define DEF_TRAITSR(classname, name, id, radius)         \
+    ItemTraits classname::traits = { name, id, 0, radius }
+
+
+/* -------------------- Item implementation -------------------- */
+
+Item::Item()
+{}
+
+void Item::kill() {
+    KillItem(get_pos());
+}
+
+void Item::replace(ItemID id) 
+{
+    Item *newitem = MakeItem (id);
+    TransferObjectName (this, newitem);
+    SetItem (get_pos(), newitem);
+}
+
+const char *Item::get_kind() const
+{
+    return get_traits().name;
+}
+
+string Item::get_inventory_model() 
+{
+    return get_kind();
+}
+
+void Item::init_model()
+{
+    const ItemTraits &tr = get_traits();
+    if (tr.flags & itf_invisible)
+        set_model("invisible");
+    else if (tr.flags & itf_animation) 
+        set_anim(tr.name);
+    else
+        set_model(tr.name);
+}
+
+void Item::stone_change (Stone */*st*/) {
+}
+
+void Item::on_stonehit (Stone */*st*/) {
+}
+
+void Item::on_laserhit(Direction) 
+{
+    if (get_traits().flags & itf_inflammable)
+        replace (it_explosion1);
+}
+
+
+void Item::on_drop (Actor */*a*/) {
+}
+
+void Item::drop (Actor *a, GridPos p) {
+    SetItem (p, this);
+    on_drop(a);
+}
+
+
+void Item::on_pickup (Actor */*a*/) {
+}
+
+bool Item::can_drop_at (GridPos p) {
+    return GetItem(p) == 0;
+}
+
+ItemAction Item::activate(Actor* /*a*/, GridPos /*p*/) { 
+    return ITEM_DROP; 
+}
+
+void Item::add_force(Actor */*a*/, V2 &) { 
+}
+
+bool Item::actor_hit(Actor *actor) 
+{
+    const ItemTraits &tr = get_traits();
+    if (tr.flags & itf_static)
+        return false;
+    else {
+        double radius = 0.3;
+        if (tr.radius != 0.0)
+            radius = tr.radius;
+        return length(actor->get_pos()-get_pos().center()) < radius;
+    }
+}
+
+
+/* -------------------- OnOffItem -------------------- */
+namespace
+{
+    class OnOffItem : public Item {
+    protected:
+        OnOffItem (bool onoff = false)
+        {
+            set_attrib("on", onoff);
+        }
+
+        bool is_on() const { 
+            return int_attrib("on") == 1; 
+        }
+
+        void set_on (bool newon) {
+            if (newon != is_on()) {
+                set_attrib("on", Value(newon));
+                init_model();
+                notify_onoff(newon);
+            }
+        }
+
+        void message(const string &m, const Value &val) {
+            if (m=="onoff")
+                set_on(!is_on());
+            else if (m=="signal")
+                set_on (to_int(val) != 0);
+            else if (m == "on")
+                set_on(true);
+            else if (m=="off")
+                set_on(false);
+        }
+
+        // OnOffItem interface
+        virtual void notify_onoff (bool /*on*/) {}
+    };
+}
+
+
+
+/* -------------------- Various simple items -------------------- */
+
+namespace
+{
+    DEF_ITEM(MagicWand, "it-magicwand", it_magicwand);
+    DEF_ITEM(Floppy,    "it-floppy", it_floppy);
+    DEF_ITEM(Odometer,  "it-odometer", it_odometer);
+    DEF_ITEM(Wrench,    "it-wrench", it_wrench);
+    DEF_ITEM(Pencil,    "it-pencil", it_pencil);
+    DEF_ITEM(BrokenGlasses, "it-glasses-broken", it_glasses_broken);
+    DEF_ITEMF(Coffee,   "it-coffee", it_coffee, itf_inflammable);
+}
+
+
+/* -------------------- DummyItem -------------------- */
+namespace
+{
+    class Dummyitem : public Item {
+        CLONEOBJ(Dummyitem);
+        DECL_TRAITS;
+
+        void on_pickup(Actor *) {
+            int code = int_attrib("code");
+            fprintf(stderr, "Picked up item 0x%x\n", code);
+        }
+        void on_drop(Actor *) {
+            int code = int_attrib("code");
+            fprintf(stderr, "Dropped item 0x%x\n", code);
+        }
+    public:
+        Dummyitem() {}
+    };
+    DEF_TRAITS(Dummyitem, "it-dummy", it_dummy);
+
+/* -------------------- Cherry -------------------- */
+
+    class Cherry : public Item {
+        CLONEOBJ(Cherry);
+        DECL_TRAITS;
+        ItemAction activate(Actor *actor, GridPos) {
+            SendMessage (actor, "invisibility");
+            return ITEM_KILL;
+        }
+
+        void on_stonehit(Stone */*st*/) {
+            replace(it_squashed);
+        }
+    public:
+        Cherry() {
+        }
+    };
+    DEF_TRAITS(Cherry, "it-cherry", it_cherry);
+
+/* -------------------- Squashed Cherry -------------------- */
+
+    class Squashed : public Item {
+        CLONEOBJ(Squashed);
+        DECL_TRAITS;
+    public:
+        Squashed() {
+        }
+    };
+    DEF_TRAITSF(Squashed, "it-squashed", it_squashed, itf_static);
+
+
+/* -------------------- Weight -------------------- */
+
+    class Weight : public Item {
+        CLONEOBJ(Weight);
+        DECL_TRAITS;
+
+        void on_pickup(Actor *a) {
+           ActorInfo *ai = a->get_actorinfo();
+           ai->mass += 10.0;
+        }
+        ItemAction activate(Actor *, GridPos) {
+            return ITEM_KEEP;
+        }
+    public:
+	Weight() {}
+    };
+    DEF_TRAITS(Weight, "it-weight", it_weight);
+
+/* -------------------- Pin -------------------- */
+
+    class Pin : public Item {
+        CLONEOBJ(Pin);
+        DECL_TRAITS;
+
+        void on_pickup(Actor *a) {
+            a->set_spikes(true);
+        }
+        void on_drop(Actor *a) {
+            a->set_spikes(false);
+        }
+    public:
+        Pin() {}
+    };
+    DEF_TRAITS(Pin, "it-pin", it_pin);
+
+/* -------------------- Banana -------------------- */
+
+    class Banana : public Item {
+        CLONEOBJ(Banana);
+        DECL_TRAITS;
+
+        void on_laserhit(Direction /*d*/) {
+            sound_event ("itemtransform");
+            replace(it_cherry);
+        }
+
+        void on_stonehit(Stone */*st*/) {
+            replace(it_squashed);
+        }
+
+    public:
+        Banana() {}
+    };
+    DEF_TRAITS(Banana, "it-banana", it_banana);
+
+/* -------------------- Sword -------------------- */
+
+    class Sword : public Item {
+        CLONEOBJ(Sword);
+        DECL_TRAITS;
+
+        void on_laserhit(Direction /*d*/) {
+            sound_event ("itemtransform");
+            replace(it_hammer);
+        }
+    public:
+        Sword() {}
+    };
+    DEF_TRAITS(Sword, "it-sword", it_sword);
+
+/* -------------------- Hammer -------------------- */
+
+    class Hammer : public Item {
+        CLONEOBJ(Hammer);
+        DECL_TRAITS;
+
+        void on_laserhit(Direction /*d*/) {
+            if (server::GameCompatibility != enigma::GAMET_PEROXYD) {
+                sound_event ("itemtransform");
+                replace(it_sword);
+            }
+        }
+    public:
+        Hammer() {}
+    };
+    DEF_TRAITS(Hammer, "it-hammer", it_hammer);
+}
+
+/* -------------------- ExtraLife -------------------- */
+namespace
+{
+    class ExtraLife : public Item {
+        CLONEOBJ(ExtraLife);
+        DECL_TRAITS;
+        std::string get_inventory_model() {
+            if (player::CurrentPlayer()==0)
+                return "inv-blackball";
+            else
+                return "inv-whiteball";
+        }
+
+        void on_laserhit(Direction /*d*/) {
+            sound_event ("itemtransform");
+            replace (it_glasses);
+        }
+
+    public:
+        ExtraLife() {}
+    };
+    DEF_TRAITS(ExtraLife, "it-extralife", it_extralife);
+}
+
+/* -------------------- Umbrella -------------------- */
+namespace
+{
+    class Umbrella : public Item {
+        CLONEOBJ(Umbrella);
+        DECL_TRAITS;
+        void on_laserhit (Direction) {
+            if (server::GameCompatibility != enigma::GAMET_PEROXYD) 
+                replace(it_explosion1);
+        }
+        ItemAction activate(Actor *a, GridPos) {
+            SendMessage(a, "shield");
+            return ITEM_KILL;
+        }
+    public:
+        Umbrella() {}
+    };
+    DEF_TRAITS (Umbrella, "it-umbrella", it_umbrella);
+}
+
+namespace
+{
+    class Spoon : public Item {
+        CLONEOBJ(Spoon);
+        DECL_TRAITS;
+
+        ItemAction activate(Actor *a, GridPos) {
+            SendMessage(a, "suicide");
+            return ITEM_DROP;
+        }
+    public:
+        Spoon() 
+        {}
+    };
+    DEF_TRAITS(Spoon, "it-spoon", it_spoon);
+}
+
+
+/* -------------------- Keys -------------------- */
+namespace
+{
+    class Key : public Item {
+        CLONEOBJ(Key);
+        DECL_TRAITS_ARRAY(3, subtype);
+
+        void message (const string &msg, const Value &) {
+            if (msg == "init") {
+                // Oxyd uses signals from keys to key switches to
+                // determine which keys activate which key hole.
+                GridPos keystonepos;
+                for (int idx=0; GetSignalTargetPos (this, keystonepos, idx); ++idx) { 
+                    Stone *st = GetStone(keystonepos);
+                    if (st && st->is_kind("st-key"))
+                        st->set_attrib("keycode",
+                                       int_attrib("keycode"));
+                }
+            }
+        }
+
+    public:
+        enum SubType { KEY1, KEY2, KEY3 } subtype;
+    	Key(SubType type = KEY1) 
+        : subtype(type)
+        {
+            set_attrib("keycode", subtype+1); 
+        }
+    };
+
+    ItemTraits Key::traits[3] = {
+        {"it-key_a", it_key_a, itf_none, 0.0},
+        {"it-key_b", it_key_b, itf_none, 0.0},
+        {"it-key_c", it_key_c, itf_none, 0.0}
+    };
+}
+
+/* -------------------- Booze -------------------- */
+
+namespace
+{
+    class Booze : public Item {
+	CLONEOBJ(Booze);
+        DECL_TRAITS;
+    public:
+	Booze() {
+	}
+    private:
+	ItemAction activate(Actor *a, GridPos) {
+	    SendMessage(a, "booze");
+	    return ITEM_DROP;
+	}
+    };
+    DEF_TRAITS(Booze, "it-booze", it_booze);
+}
+
+
+
+/* -------------------- Brush -------------------- */
+namespace
+{
+    /* Can "paint" some stones and remove ash. */
+    class Brush : public Item {
+        CLONEOBJ(Brush);
+        DECL_TRAITS;
+
+        ItemAction activate(Actor *, GridPos p) {
+            if (Item *it = GetItem(p))
+                SendMessage (it, "brush");
+            return ITEM_DROP;
+        }
+    public:
+        Brush() {}
+    };
+    DEF_TRAITSF(Brush, "it-brush", it_brush, itf_inflammable);
+}
+
+
+/* -------------------- Coins -------------------- */
+
+// :value    1,2,4: how many time-units this coin buys
+namespace
+{
+    class Coin1 : public Item {
+        CLONEOBJ(Coin1);
+        DECL_TRAITS;
+
+        void on_laserhit (Direction) {
+            sound_event ("itemtransform");
+            replace (it_umbrella);
+        }
+
+        void on_stonehit(Stone */*st*/) {
+            replace(it_coin2);
+        }
+
+    public:
+        Coin1() {
+            set_attrib ("value", 3.0); 
+        }
+    };
+    DEF_TRAITS(Coin1, "it-coin1", it_coin1);
+
+    class Coin2 : public Item {
+        CLONEOBJ(Coin2);
+        DECL_TRAITS;
+
+        void on_laserhit (Direction) {
+            sound_event ("itemtransform");
+            replace (it_hammer);
+        }
+
+        void on_stonehit(Stone */*st*/) {
+            replace(it_coin4);
+        }
+
+    public:
+        Coin2() {
+            set_attrib("value", 6.0);
+        }
+    };
+    DEF_TRAITS(Coin2, "it-coin2", it_coin2);
+
+    class Coin4 : public Item {
+        CLONEOBJ(Coin4);
+        DECL_TRAITS;
+
+        void on_laserhit (Direction) {
+            sound_event ("itemtransform");
+            replace (it_extralife);
+        }
+    public:
+        Coin4() {
+            set_attrib("value", 12.0);
+        }
+    };
+    DEF_TRAITS(Coin4, "it-coin4", it_coin4);
+}
+
+
+/* -------------------- Hills and Hollows -------------------- */
+
+/** \page it-hills Hills and Hollows
+
+Hills and hollows are placed on the floor and can
+make the movement difficult.
+
+\subsection hillsm Messages
+- \b trigger	will convert a hill to a hollow and vice versa
+- \b shovel     decreases the size of the hill/hollow
+
+\image html it-hill.png
+*/
+namespace
+{
+    class HillHollow : public Item {
+    protected:
+        enum Type { HILL, HOLLOW, TINYHILL, TINYHOLLOW };
+
+        HillHollow(Type t);
+
+        void transmute(Type newtype);
+        V2 vec_to_center (V2 v);
+        double get_radius() const { return m_radius[m_type]; }
+
+        Type get_type() const { return m_type; }
+
+    private:
+        double get_forcefac() const { 
+            return m_forcefac[m_type] * server::HoleForce; 
+        }
+        void shovel();
+
+        // Item interface
+        void add_force(Actor *a, V2 &f);
+        void on_stonehit(Stone *st);
+
+        // Object interface.
+        void message(const string &m, const Value &);
+
+        // Variables.
+        static double m_radius[4], m_forcefac[4];
+        Type m_type;
+    };
+
+    class Hill : public HillHollow {
+        CLONEOBJ(Hill);
+        DECL_TRAITS;
+    public:
+        Hill() : HillHollow(HILL) {}
+    };
+    DEF_TRAITSF(Hill, "it-hill", it_hill, itf_static);
+
+    class TinyHill : public HillHollow {
+        CLONEOBJ(TinyHill);
+        DECL_TRAITS;
+    public:
+        TinyHill() : HillHollow(TINYHILL) {}
+    };
+    DEF_TRAITSF(TinyHill, "it-tinyhill", it_tinyhill, itf_static);
+
+    /*
+     * Hollows are special in that they can end the current level
+     * if they have each a small white marble inside them.
+     */
+    class Hollow : public HillHollow {
+        INSTANCELISTOBJ(Hollow);
+        DECL_TRAITS;
+    public:
+        Hollow(Type t = HOLLOW);
+    private:
+        // Item interface.
+        bool actor_hit(Actor *a);
+        void actor_leave(Actor *a);
+
+        // Functions.
+        bool near_center_p (Actor *a);
+        void check_if_level_finished();
+
+        // Variables.
+        Actor *whiteball;   // The small white ball that is currently being tracked
+        Uint32 enter_time;  // ... when did it enter the hollow?
+    };
+    DEF_TRAITS(Hollow, "it-hollow", it_hollow);
+
+
+    class TinyHollow : public Hollow {
+        CLONEOBJ(TinyHollow);
+        DECL_TRAITS;
+    public:
+        TinyHollow() : Hollow(TINYHOLLOW) {}
+    };
+    DEF_TRAITSF(TinyHollow, "it-tinyhollow", it_tinyhollow, itf_static);
+
+}
+
+
+/* ---------- HillHollow ---------- */
+
+double HillHollow::m_radius[4] = {0.5, 0.5, 0.3, 0.3};
+double HillHollow::m_forcefac[4] = {90,-90, 90, -90};
+
+
+HillHollow::HillHollow (Type t)
+: m_type(t)
+{}
+
+void HillHollow::on_stonehit(Stone */*st*/)
+{
+    shovel();
+}
+
+void HillHollow::shovel() {
+    switch (get_id (this)) {
+    case it_hollow: transmute (TINYHOLLOW); break;
+    case it_hill:   transmute (TINYHILL); break;
+    default:        kill(); break;
+    }
+}
+
+void HillHollow::message(const string &m, const Value &val)
+{
+    if (m=="trigger") {
+        Type flippedkind[] = {HOLLOW,HILL, TINYHOLLOW,TINYHILL};
+        transmute(flippedkind[m_type]);
+    }
+    else if (m == "signal") {
+        if (to_double(val) != 0) {
+            Type flippedkind[] = {HILL,HILL, TINYHILL,TINYHILL};
+            transmute(flippedkind[m_type]);
+        } else {
+            Type flippedkind[] = {HOLLOW,HOLLOW, TINYHOLLOW,TINYHOLLOW};
+            transmute(flippedkind[m_type]);
+        }
+    }
+    else if (m=="shovel")
+        shovel();
+    else
+        Item::message (m, val);
+}
+
+V2 HillHollow::vec_to_center (V2 v)
+{
+    return v-get_pos().center();
+}
+
+void HillHollow::add_force(Actor *a, V2 &f)
+{
+    V2     v    = vec_to_center(a->get_pos());
+    double dist = length(v);
+
+    if (dist > get_radius())
+        return;
+
+    if (dist <= 0) { // exactly on hill-top
+        ActorInfo *ai = a->get_actorinfo();
+        if (length(ai->vel) <= 0) { // no velocity
+            // we are never "exactly" on the top!
+            v = px::V2(DoubleRand(0.01, 0.05), DoubleRand(0.01, 0.05));
+        }
+    }
+
+    f += get_forcefac()*v; // get the force
+}
+
+void HillHollow::transmute(Type newtype)
+{
+    static ItemID newmodel[] = { it_hill, it_hollow, it_tinyhill, it_tinyhollow };
+    replace (newmodel[newtype]);
+}
+
+/* ---------- Hollow ---------- */
+
+Hollow::InstanceList Hollow::instances;
+
+Hollow::Hollow(Type t)
+: HillHollow(t), whiteball(0)
+{}
+
+bool Hollow::near_center_p (Actor *a)
+{
+    return (length(vec_to_center(a->get_pos())) < get_radius()*0.8);
+}
+
+bool Hollow::actor_hit(Actor *a)
+{
+    ItemID id = get_id (this);
+
+    if (id == it_hollow || id == it_tinyhollow) {
+        if (whiteball==0 && get_id(a)==ac_meditation && near_center_p(a))
+        {
+            whiteball  = a;
+            enter_time = SDL_GetTicks();
+        }
+        else if (whiteball==a) {
+            if (!near_center_p(a))
+                whiteball = 0;
+            else
+                check_if_level_finished();
+        }
+    }
+
+    return false;
+}
+
+void Hollow::actor_leave(Actor *)
+{
+    whiteball = 0;
+}
+
+/* If (a) every small white ball is in a hollow and (b) each ball has
+   been inside the hollow for at least MINTIME milliseconds, finish
+   the level. */
+void Hollow::check_if_level_finished()
+{
+    const unsigned MINTIME = 1000;
+
+    unsigned wcnt     = 0;      // counts normal hollows with whiteball
+    unsigned ess_wcnt = 0;      // counts essential hollows with whiteball
+    unsigned ess_cnt  = 0;      // counts all essential hollows
+
+    for (Hollow::InstanceList::const_iterator hi = instances.begin();
+         hi != instances.end(); ++hi)
+    {
+        const Hollow& h         = **hi;
+        bool          essential = h.int_attrib("essential") != 0;
+
+        if (h.whiteball && (SDL_GetTicks() - h.enter_time) >= MINTIME) {
+            if (essential) ess_wcnt++;
+            else           wcnt++;
+        }
+
+        if (essential) ess_cnt++;
+    }
+
+    if (ess_cnt == ess_wcnt &&
+        (wcnt+ess_wcnt) == CountActorsOfKind (world::ac_meditation))
+    {
+        server::FinishLevel();
+    }
+}
+
+
+/* -------------------- Springs -------------------- */
+
+/** \page it-spring Spring
+
+Activating a spring will make the marble jump.
+A jumping marble does not fall into abyss or water.
+
+Springs come in two flavors: it-spring1 stays in the inventory,
+whereas it-spring2 drops to the floor when you activate it.
+
+\image html it-spring1.png
+*/
+namespace
+{
+    class Spring1 : public Item {
+        CLONEOBJ(Spring1);
+        DECL_TRAITS;
+    public:
+        Spring1() {}
+    private:
+        ItemAction activate(Actor *a, GridPos)
+        {
+            SendMessage(a, "jump");
+            return ITEM_KEEP;
+        }
+    };
+    DEF_TRAITS(Spring1, "it-spring1", it_spring1);
+
+    class Spring2 : public Item {
+        CLONEOBJ(Spring2);
+        DECL_TRAITS;
+    public:
+        Spring2() {}
+    private:
+        ItemAction activate(Actor *a, GridPos)
+        {
+            SendMessage(a, "jump");
+            return ITEM_DROP;
+        }
+    };
+    DEF_TRAITS(Spring2, "it-spring2", it_spring2);
+}
+
+
+/* -------------------- Springboard -------------------- */
+namespace
+{
+    class Springboard : public Item {
+        CLONEOBJ(Springboard);
+        DECL_TRAITS;
+
+        bool actor_hit(Actor *a) {
+            const double ITEM_RADIUS = 0.3;
+            px::V2 item_center(get_pos().x + 0.5, get_pos().y + 0.5);
+            double dist = length(a->get_pos() - item_center);
+            if (dist < ITEM_RADIUS) {
+                set_anim("it-springboard_anim");
+                SendMessage(a, "jump");
+            }
+            return false;
+        }
+
+        void animcb() {
+            set_model("it-springboard");
+        }
+    public:
+        Springboard() {}
+    };
+    DEF_TRAITS(Springboard, "it-springboard", it_springboard);
+}
+
+
+/* -------------------- Brake -------------------- */
+
+// Brake is only used to hold st-brake while it is in an inventory
+namespace
+{
+    class Brake : public Item {
+        CLONEOBJ(Brake);
+        DECL_TRAITS;
+    public:
+        Brake() {}
+
+        void on_creation (GridPos p) {
+            SetStone(p, MakeStone("st-brake"));
+            kill();
+        }
+
+        bool can_drop_at (GridPos p) {
+            return GetStone(p) == 0;
+        }
+
+        void drop (Actor *, GridPos p) {
+            SetStone(p, MakeStone("st-brake"));
+            kill();
+        }
+
+        string get_inventory_model() {
+            return "st-brake";
+        }
+
+        ItemAction activate(Actor *, GridPos) {
+            return ITEM_DROP;
+        }
+    };
+    DEF_TRAITS(Brake, "it-brake", it_brake);
+}
+
+
+/* -------------------- Explosion -------------------- */
+namespace
+{
+    class Explosion : public Item {
+    public:
+        Explosion ()
+        {}
+
+    private:
+        void init_model() {set_anim("expl");}
+        bool actor_hit(Actor *actor) {
+            SendMessage(actor, "shatter");
+            return false;
+        }
+    };
+
+    // Explode but do nothing else.
+    class Explosion1 : public Explosion {
+        CLONEOBJ(Explosion1);
+        DECL_TRAITS;
+
+        void animcb() {
+            kill();
+        }
+    public:
+        Explosion1() 
+        {}
+    };
+    DEF_TRAITSF(Explosion1, "it-explosion1", it_explosion1, 
+                itf_static | itf_animation | itf_indestructible | itf_norespawn);
+
+    // Explode and leave a hole in the ground.
+    class Explosion2 : public Explosion {
+        CLONEOBJ(Explosion2);
+        DECL_TRAITS;
+
+        void animcb() {
+            if (Floor *fl = GetFloor(get_pos()))
+                if (fl->is_destructible())
+                    replace(it_hollow);
+                else
+                    kill();
+        }
+    public:
+        Explosion2() 
+        {}
+    };
+    DEF_TRAITSF(Explosion2, "it-explosion2", it_explosion2,
+                itf_static | itf_animation | itf_indestructible | itf_norespawn);
+
+
+    // Explode and shatter the floor.
+    class Explosion3 : public Explosion {
+        CLONEOBJ(Explosion3);
+        DECL_TRAITS;
+
+        void animcb() {
+            if (Floor *fl = GetFloor(get_pos()))
+                if (fl->is_destructible())
+                    replace(it_debris);
+                else
+                    kill();
+        }
+    public:
+        Explosion3()
+        {}
+    };
+    DEF_TRAITSF(Explosion3, "it-explosion3", it_explosion3,
+                itf_static | itf_animation | itf_indestructible | itf_norespawn);
+}
+
+
+
+
+/* -------------------- Document -------------------- */
+namespace
+{
+    class Document : public Item {
+        CLONEOBJ(Document);
+        DECL_TRAITS;
+
+        ItemAction activate(Actor */*a*/, GridPos)
+        {
+            string txt;
+            if (string_attrib ("text", &txt))
+                client::Msg_ShowText (txt, true);
+            return ITEM_KILL;	       // remove from inventory
+        }
+        void message(const string &msg, const Value &/*val*/) {
+            bool explode = false;
+
+            if (msg == "ignite") {
+                // dynamite does not blow Documents in Oxyd1
+                explode = server::GameCompatibility != GAMET_OXYD1;
+            }
+            else if (msg == "expl" || msg == "bombstone")
+                explode = true;
+
+            if (explode)
+                replace (it_explosion1);
+        }
+    public:
+        Document() {
+            set_attrib("text", "");
+        }
+    };
+    DEF_TRAITSF(Document, "it-document", it_document, itf_inflammable);
+}
+
+
+/* -------------------- Dynamite -------------------- */
+namespace
+{
+    class Dynamite : public Item {
+        CLONEOBJ(Dynamite);
+        DECL_TRAITS;
+    public:
+        Dynamite() : state(IDLE) {}
+    private:
+        enum State { IDLE, BURNING };
+        State state;
+
+        void change_state(State newstate) {
+            if (newstate==BURNING && state==IDLE) {
+                state = BURNING;
+                set_anim("it-dynamite-burning");
+            }
+        }
+
+        void explode () {
+            GridPos p = get_pos();
+            SendExplosionEffect(p, EXPLOSION_DYNAMITE);
+            sound_event ("dynamite");
+            SetItem(p, it_explosion2);
+        }
+
+        void animcb() { explode(); }
+        void message(const string &msg, const Value &/*val*/) {
+            if (msg == "ignite" || msg == "expl" || msg == "bombstone")
+                change_state(BURNING);
+            else if (msg == "explode") // currently unused in c++ code
+                explode();
+        }
+        void on_laserhit(Direction) {
+            change_state(BURNING);
+        }
+        void on_drop(Actor *) { change_state(BURNING); }
+        bool actor_hit(Actor *a) {
+            if (state == BURNING)
+                return false;   // don't pick up burning dynamite
+
+            return Item::actor_hit(a);
+        }
+    };
+    DEF_TRAITSF(Dynamite, "it-dynamite", it_dynamite,
+                itf_indestructible);
+}
+
+// ----------------------------
+//      BombBase
+// ----------------------------
+// base class for BlackBomb and WhiteBomb
+
+namespace 
+{
+    class BombBase : public Item {
+    public:
+        BombBase (bool burning = false)
+        : m_burning(burning) 
+        {}
+
+    protected:
+        virtual void message(const string &msg, const Value &) {
+            if (msg == "ignite"  || msg == "expl")
+                burn();
+            else if (msg == "explode" )
+                explode();
+        }
+
+    private:
+        // Variables
+        bool m_burning;
+
+        // Private methods
+        virtual void explode() = 0;
+
+        void init_model() {
+            if (m_burning)
+                set_anim(burn_anim());
+            else
+                Item::init_model();
+        }
+
+        void burn() {
+            if (!m_burning) {
+                m_burning = true;
+                init_model();
+            }
+        }
+
+        void animcb() { explode (); }
+
+        void on_laserhit(Direction) {
+            explode();
+        }
+
+        void on_stonehit(Stone *st) {
+            switch (server::GameCompatibility) {
+            case GAMET_OXYD1:
+            case GAMET_OXYDMAGNUM:
+                if (!st->is_kind("st-wood?")) 
+                    // st-wood does not cause bombs to explode
+                    explode();
+                break;
+            default :
+                explode();
+                break;
+            }
+        }
+
+        virtual const char *burn_anim() const = 0;
+    };
+}
+
+/* -------------------- Black Bomb -------------------- */
+
+/** \page it-blackbomb Black Bomb
+
+When black bombs explode, they destroy the floor tile underneath them.
+
+\image html it-blackbomb.png
+*/
+
+namespace
+{
+    class BlackBomb : public BombBase  {
+        CLONEOBJ(BlackBomb);
+        DECL_TRAITS;
+    public:
+        BlackBomb (bool burning=false) 
+        : BombBase(burning) 
+        {}
+    private:
+        const char *burn_anim() const { return "it-blackbomb-burning"; }
+        void explode() {
+            GridPos p = get_pos();
+            sound_event ("blackbomb");
+            SendExplosionEffect(p, EXPLOSION_BLACKBOMB);
+            replace (it_explosion3);
+        }
+        void message(const string &msg, const Value &val) {
+            if (msg == "bombstone")
+                kill();
+            else
+                BombBase::message(msg, val);
+        }
+    };
+    DEF_TRAITSF(BlackBomb, "it-blackbomb", it_blackbomb, 
+                itf_static| itf_indestructible);
+
+    class BlackBombBurning : public BlackBomb {
+        CLONEOBJ(BlackBombBurning);
+        DECL_TRAITS;
+    public:
+        BlackBombBurning() : BlackBomb(true) {}
+    };
+    DEF_TRAITSF(BlackBombBurning, "it-blackbomb_burning", 
+                it_blackbomb_burning, 
+                itf_static | itf_indestructible | itf_norespawn);
+}
+
+
+/* -------------------- White bomb -------------------- */
+
+/*! When a white bombs explode, they destroy the floor tile underneath
+them and neighboring floors. */
+
+namespace
+{
+    class WhiteBomb : public BombBase  {
+        CLONEOBJ(WhiteBomb);
+        DECL_TRAITS;
+
+        const char *burn_anim() const { return "it-whitebomb-burning"; }
+        void explode() {
+            GridPos p = get_pos();
+            sound_event ("whitebomb");
+            replace (it_explosion3);
+            SendExplosionEffect(p, EXPLOSION_WHITEBOMB);
+        }
+
+        // WhiteBomb does not react on message "bombstone" in Oxyd1
+    public:
+        WhiteBomb() 
+        {}
+    };
+    DEF_TRAITSF(WhiteBomb, "it-whitebomb", it_whitebomb, 
+                itf_static | itf_indestructible);
+}
+
+
+/* -------------------- Trigger -------------------- */
+namespace
+{
+    class Trigger : public Item {
+        CLONEOBJ(Trigger);
+        DECL_TRAITS;
+    public:
+        Trigger();
+    private:
+        // Variables
+        bool m_pressedp;
+        int m_actorcount;
+
+        // Methods
+        void update_state();
+
+        // Item interface
+        void init_model();
+        void actor_enter(Actor *) { m_actorcount += 1; update_state(); }
+        void actor_leave(Actor *) { m_actorcount -= 1; update_state(); }
+        void stone_change(Stone *) { update_state(); }
+
+        void on_message (const Message &m) {
+            if (m.message == "signal") {
+                PerformAction (this, to_double (m.value));
+            } 
+            else if (m.message == "init") {
+                update_state();
+            }
+        }
+    };
+
+    DEF_TRAITSF(Trigger, "it-trigger", it_trigger, 
+                itf_static | itf_indestructible);
+}
+
+Trigger::Trigger()
+{
+    m_pressedp = false;
+    m_actorcount = 0;
+    set_attrib("invisible", 0.0);
+}
+
+void Trigger::init_model()
+{
+    if (int_attrib("invisible"))
+        set_model("invisible");
+    else if (m_pressedp)
+        set_model("it-trigger1");
+    else
+        set_model("it-trigger");
+}
+
+void Trigger::update_state()
+{
+    Stone *st = GetStone(get_pos());
+    // Hack to make tunnel puzzle stones pres triggers
+    bool stone_pressure = st && (!st->is_floating() || st->is_kind ("st-puzzle*"));
+    bool pressedp = stone_pressure || (m_actorcount > 0);
+
+    if (m_pressedp != pressedp) {
+        m_pressedp = pressedp;
+
+        if (m_pressedp) {
+            world::PerformAction(this, true);
+            sound_event ("triggerdown");
+        } else {
+            world::PerformAction(this, false);
+            sound_event ("triggerup");
+        }
+        init_model();
+    }
+}
+
+
+/* -------------------- Seed -------------------- */
+namespace
+{
+    class Seed : public Item {
+        bool activep;
+
+        bool actor_hit(Actor *a) {
+            if (activep)
+                return false;   // do not pickup growing seed
+            return Item::actor_hit(a);
+        }
+        void on_drop (Actor *) {start_growing();}
+        void on_stonehit (Stone *) {start_growing();}
+        void on_laserhit (Direction) {start_growing();}
+
+        void message(const string &msg, const Value &) {
+            if (msg == "grow" || msg == "signal") {
+                start_growing();
+            }
+        }
+
+        void start_growing() {
+            if (!activep) {
+                activep = true;
+                sound_event ("seedgrow");
+                set_anim("it-seed-growing");
+            }
+        }
+
+        void animcb() {
+            Stone *st = world::MakeStone (get_stone_name());
+            TransferObjectName (this, st);
+            world::SetStone (get_pos(), st);
+            kill();
+        }
+
+        virtual const char* get_stone_name() = 0;
+    public:
+        Seed () 
+        : activep(false)
+        {}
+    };
+
+    class SeedWood : public Seed {
+        CLONEOBJ(SeedWood);
+        DECL_TRAITS;
+
+        const char* get_stone_name() {
+            return "st-wood-growing";
+        }
+
+    public:
+        SeedWood()
+        {}
+    };
+    DEF_TRAITSR(SeedWood, "it-seed", it_seed, 0.2);
+
+    class SeedNowood : public Seed {
+        CLONEOBJ(SeedNowood);
+        DECL_TRAITS;
+
+        const char* get_stone_name() {
+            return "st-greenbrown-growing"; 
+        }
+    public:
+        SeedNowood()
+        {}
+    };
+    DEF_TRAITSR(SeedNowood, "it-seed_nowood", it_seed_nowood, 0.2);
+
+    class SeedVolcano : public Seed {
+        CLONEOBJ(SeedVolcano);
+        DECL_TRAITS;
+
+        const char* get_stone_name() {
+            return "st-volcano-growing";
+        }
+    public:
+        SeedVolcano()
+        {}
+    };
+    DEF_TRAITSR(SeedVolcano, "it-seed_volcano", it_seed_volcano, 0.2);
+}
+
+
+/* -------------------- Shogun dot -------------------- */
+
+/** \page it-shogun Shogun Dot
+
+\subsection shogundota Attributes
+- \b size:            1..3  (smallest..largest)
+- \b target, \b action:   as usual
+*/
+namespace
+{
+    class ShogunDot : public Item {
+        CLONEOBJ(ShogunDot);
+        DECL_TRAITS_ARRAY(3, subtype);
+    public:
+        static void setup() {
+            RegisterItem (new ShogunDot(SMALL));
+            RegisterItem (new ShogunDot(MEDIUM));
+            RegisterItem (new ShogunDot(LARGE));
+        }
+    private:
+        enum SubType { SMALL, MEDIUM, LARGE };
+        ShogunDot(SubType size);
+    
+        void message(const string &str, const Value &v);
+        void stone_change(Stone *st);
+
+        // Variables.
+        bool activated;
+        SubType subtype;
+    };
+    
+    ItemTraits ShogunDot::traits[3] = {
+        { "it-shogun-s", it_shogun_s, itf_static, 0.0 },
+        { "it-shogun-m", it_shogun_m, itf_static, 0.0 },
+        { "it-shogun-l", it_shogun_l, itf_static, 0.0 }
+    };
+}
+
+ShogunDot::ShogunDot (SubType size)
+: activated(false), subtype(size)
+{
+}
+
+void ShogunDot::stone_change(Stone *st) {
+    if (activated) {
+        if (st == 0) {
+            warning("stone_change: Stone disappeared w/o sending me a proper message!");
+        }
+    }
+}
+
+void ShogunDot::message(const string &str, const Value &/*v*/) {
+    if (str == "noshogun") {
+        if (activated) {
+            activated = false;
+            world::PerformAction(this, false);
+        }
+    }
+    else {
+        const char *s = str.c_str();
+        bool size_matches =
+            (strncmp(s, "shogun", 6) == 0)    &&
+            ((s[6]-'1')              == subtype) &&
+            (s[7] == 0);
+
+        if (size_matches != activated) {
+            activated = size_matches;
+            world::PerformAction(this, activated);
+        }
+    }
+}
+
+
+/* -------------------- Magnet -------------------- */
+namespace
+{
+    class Magnet : public OnOffItem {
+        class Magnet_FF : public world::ForceField {
+        public:
+            Magnet_FF() 
+            : m_active(false), strength(30), range(1000) 
+            {}
+
+            void set_pos(GridPos p) { center = p.center(); }
+            void set_range(double r) { range = r; }
+            void set_strength(double s) { strength = s; }
+
+            void add_force(Actor *a, V2 &f) {
+                if (m_active) {
+                    V2 dv = center - a->get_pos();
+                    double dist = length(dv);
+                    
+                    if (dist >= 0.2 && dist < range)
+                        f += 0.6* strength * dv / (dist*dist);
+                }
+            }
+
+            bool   m_active;
+            V2     center;
+            double strength;
+            double range;
+        };
+
+        CLONEOBJ(Magnet);
+        DECL_TRAITS_ARRAY(2, is_on());
+    public:
+        Magnet(bool onoff) : OnOffItem (onoff) {
+            set_attrib ("strength", Value()); // 30.0
+            set_attrib ("range", Value());
+        }
+    private:
+        void on_creation (GridPos p) {
+            double range = server::MagnetRange;
+	    double_attrib("range", &range);
+
+            double strength = server::MagnetForce;
+	    double_attrib("strength", &strength);
+
+            ff.m_active = is_on();
+            ff.set_pos (p);
+	    ff.set_range (range);
+	    ff.set_strength (strength);
+
+            world::AddForceField(&ff);
+            Item::on_creation (p);
+        }
+        void on_removal (GridPos p) {
+            Item::on_removal(p);
+            world::RemoveForceField(&ff);
+        }
+
+        virtual void notify_onoff(bool on) {
+            ff.m_active = on;
+        }
+
+
+        Magnet_FF ff;
+    };
+
+    ItemTraits Magnet::traits[2] = {
+        { "it-magnet-off", it_magnet_off, itf_static | itf_indestructible, 0.0 },
+        { "it-magnet-on",  it_magnet_on,  itf_static | itf_indestructible, 0.0 },
+    };
+}
+
+
+/* -------------------- Wormhole -------------------- */
+
+/** \page it-wormhole Worm hole
+
+Worm holes teleport actors to another place.  They have a variable
+attracting force field.
+
+\subsection wormholea Attributes
+- \b targetx:       X coordinate of the destination
+- \b targety:       Y coordinate of the destination
+- \b strength:      Strength of the force field (default: 50)
+- \b range:         Range of the force field
+
+\subsection wormholee Example
+\verbatim
+set_item("it-wormhole", 1,1, {targetx=5.5, targety=10.5, strength=50, range=5})
+\endverbatim
+*/
+
+namespace
+{
+    class WormHole_FF : public world::ForceField {
+    public:
+        WormHole_FF() : strength(0.6 * 50), rangesquared(1000000) {}
+
+        void set_pos(GridPos p) { center = p.center(); }
+        void set_range (double r) { rangesquared = r*r; }
+        void set_strength (double s) { strength = 0.6 * s; }
+
+        void add_force(Actor *a, V2 &f) {
+            V2 b = center - a->get_pos();
+            double bb = square(b);
+            if (bb < rangesquared && bb>0) 
+                f += (strength/bb)*b;
+        }
+
+        V2     center;          // Center of the force field
+        double strength;        // Strength of the force
+        double rangesquared;    // Range of the force squared
+    };
+
+    class WormHole : public OnOffItem, public enigma::TimeHandler {
+        CLONEOBJ(WormHole);
+        DECL_TRAITS_ARRAY(2, is_on());
+    public:
+        WormHole(bool onoff_) : OnOffItem(onoff_) {
+            set_attrib("targetx", Value());
+            set_attrib("targety", Value());
+            set_attrib("strength", Value());
+            set_attrib("range", Value());
+        }
+    private:
+        void on_creation (GridPos p) {
+            Item::on_creation (p);
+            set_forcefield();
+        }
+        void on_removal (GridPos p) {
+            world::RemoveForceField(&ff);
+            Item::on_removal(p);
+        }
+
+        void set_forcefield() {
+            if (is_on()) {
+                ff.set_pos(get_pos());
+                double range = server::WormholeRange;
+                double_attrib("range", &range);
+                ff.set_range (range);
+
+                double s = server::WormholeForce;
+                double_attrib("strength", &s);
+                ff.set_strength (s);
+
+                world::AddForceField(&ff);
+            } else {
+                world::RemoveForceField(&ff);
+            }
+        }
+
+        bool actor_hit(Actor *a);
+
+        V2 vec_to_center (V2 v) {return v-get_pos().center();}
+        bool near_center_p (Actor *a) {
+            return (length(vec_to_center(a->get_pos())) < 0.5/4);
+        }
+        bool get_target (V2 &targetpos);
+
+        void notify_onoff (bool /* onoff */) {
+            set_forcefield();
+        }
+
+        // Variables.
+        WormHole_FF ff;
+    };
+
+    ItemTraits WormHole::traits[2] = {
+        { "it-wormhole-off", it_wormhole_off, itf_none, 0.0 },
+        { "it-wormhole",     it_wormhole_on,  itf_none, 0.0 }
+    };
+}
+
+bool WormHole::get_target(V2 &targetpos) {
+    V2 t;
+    if (double_attrib("targetx", &t[0]) && double_attrib("targety", &t[1])) {
+        targetpos = t;
+        return true;
+    }
+    else {
+        // no target attributes -> search for signal
+        GridPos p;
+        if (GetSignalTargetPos(this, p)) {
+            targetpos = p.center();
+            return true;
+        }
+        else {
+            warning("no target attributes and no signal found");
+            return false;
+        }
+    }
+}
+
+bool WormHole::actor_hit(Actor *actor) 
+{
+    if (near_center_p(actor)) {
+        client::Msg_Sparkle (get_pos().center());
+        V2 targetpos;
+        if (get_target (targetpos)) {
+            sound_event ("warp");
+            world::WarpActor(actor, targetpos[0], targetpos[1], false);
+        }
+    }
+    return false;
+}
+
+
+/* -------------------- Vortex -------------------- */
+
+/** \page it-vortex Vortex
+
+Vortexes teleport actors to another place.
+
+They may be opened or closed. Is a vortex is closed, the actor cannot enter.
+
+\subsection vortexa Attributes
+- \b targetx:       X coordinate of the destination
+- \b targety:       Y coordinate of the destination
+
+\subsection vortexe Example
+\verbatim
+set_item("it-vortex-open", 1,1, {targetx=5.5, targety=10.5})
+set_item("it-vortex-closed", 3,1, {targetx=7.5, targety=10.5})
+\endverbatim
+
+\subsection vortexm Messages
+- \b open       opens the vortex
+- \b close      closes the vortex
+- \b trigger, openclose
+- \b signal     signal value: 1 -> "open"; 0 -> "close"
+*/
+
+namespace
+{
+    class Vortex : public Item, public TimeHandler {
+        CLONEOBJ(Vortex);
+        DECL_TRAITS_ARRAY(2, is_open());
+    public:
+        Vortex(bool opened);
+
+    private:
+        static const double RANGE;
+
+        // Item interface
+        bool actor_hit(Actor*);
+        void init_model();
+        void animcb();
+        void message(const string &msg, const Value &val);
+
+        // TimeHandler interface
+        void alarm();
+
+        // Private methods
+
+        V2 vec_to_center (V2 v) { 
+            return v-get_pos().center(); 
+        }
+        bool near_center_p (Actor *a) {
+            return length(vec_to_center(a->get_pos())) < RANGE;
+        }
+
+        void open();
+        void close();
+        void openclose();
+
+        void prepare_for_warp (Actor *actor);
+        void emit_actor();
+
+        bool get_target_by_index (int idx, V2 &target);
+        void perform_warp();    // warp swallowed actor(s)
+        void warp_to(const V2 &target);
+
+        bool is_open() const { return state == OPEN; }
+
+        // Variables
+        enum State { 
+            OPEN, 
+            CLOSED, 
+            OPENING, 
+            CLOSING,
+            WARPING,
+            EMITTING,
+            SWALLOWING,
+        };
+
+        State  state;
+        bool   close_after_warp;
+        Actor *m_actor_being_warped;
+        int    m_target_index;
+        Vortex *m_target_vortex;
+    };
+
+    ItemTraits Vortex::traits[2] = {
+        {"it-vortex-closed", it_vortex_closed, itf_none, 0.0},
+        {"it-vortex-open", it_vortex_open,     itf_none, 0.0}
+    };
+
+    const double Vortex::RANGE = 0.5/2;
+}
+
+Vortex::Vortex(bool opened)
+: state(opened ? OPEN : CLOSED),
+  close_after_warp(!opened),
+  m_actor_being_warped (0),
+  m_target_index (0),
+  m_target_vortex(0)
+{
+    set_attrib ("autoclose", Value());
+    set_attrib ("targetx", Value());
+    set_attrib ("targety", Value());
+}
+
+void Vortex::prepare_for_warp (Actor *actor) 
+{
+    SendMessage(actor, "fallvortex");
+    m_target_index = 0;
+    m_actor_being_warped = actor;
+    state = SWALLOWING;
+
+    GameTimer.set_alarm(this, 0.4, false);
+}
+
+
+bool Vortex::actor_hit (Actor *actor) 
+{
+    if (state == OPEN && near_center_p(actor) && actor->can_be_warped())
+        prepare_for_warp (actor);
+    return false;
+}
+
+void Vortex::message(const string &msg, const Value &val) 
+{
+    if (msg == "signal") {
+        int ival = to_int(val);
+        if (ival != 0)
+            open();
+        else 
+            close();
+    }
+    else if (msg == "openclose" || msg == "trigger")
+        openclose();
+    else if (msg == "open")
+        open();
+    else if (msg == "close" || (msg == "arrival" && close_after_warp)) {
+        close();
+    }
+}
+
+void Vortex::init_model() {
+    switch(state) {
+    case WARPING: 
+    case OPEN:   
+    case EMITTING:
+    case SWALLOWING:
+        set_model("it-vortex-open"); 
+        break;
+    case CLOSED: set_model("it-vortex-closed"); break;
+    case OPENING: set_anim("it-vortex-opening"); break;
+    case CLOSING: set_anim("it-vortex-closing"); break;
+    }
+}
+
+void Vortex::animcb() {
+    if (state == CLOSING) {
+        state = CLOSED;
+        init_model();
+    }
+    else if (state == OPENING) {
+        state = OPEN;
+        init_model();
+    }
+}
+
+void Vortex::open() {
+    if (state == CLOSING) {
+        state = OPENING;
+        get_model()->reverse(); // reverse animation
+    } 
+    else if (state == CLOSED) {
+        state = OPENING;
+        sound_event ("vortexopen");
+        init_model();
+    }
+}
+
+void Vortex::close() {
+    if (state == OPENING) {
+        state = CLOSING;
+        get_model()->reverse(); // reverse animation
+    } 
+    else if (state == OPEN) {
+        state = CLOSING;
+        sound_event ("vortexclose");
+        init_model();
+    }
+}
+
+void Vortex::openclose() {
+    if (state == OPEN || state == OPENING) 
+        close();
+    else
+        open();
+}
+
+bool Vortex::get_target_by_index (int idx, V2 &target) 
+{
+    GridPos targetpos;
+    // signals take precedence over targetx, targety attributes
+    if (world::GetSignalTargetPos(this, targetpos, idx)) {
+        target = targetpos.center();
+        return true;
+    }
+    // no signal defined
+    else if (idx == 0) {
+        V2 t;
+        if (double_attrib("targetx", &t[0]) && double_attrib("targety", &t[1])) {
+            target = t;
+            return true;
+        }
+    }
+    return false;
+}
+
+void Vortex::alarm() {
+    if (state == WARPING) {
+        perform_warp();
+    } else if (state == EMITTING) {
+        emit_actor();
+    } else if (state == SWALLOWING) {
+        state = WARPING;
+        sound_event ("hitfloor");
+        perform_warp();
+    } else 
+        assert (0);
+}
+
+void Vortex::emit_actor () {
+    V2 v(m_target_vortex->get_pos().center());
+    world::WarpActor (m_actor_being_warped, v[0], v[1], false);
+    SendMessage (m_actor_being_warped, "rise");
+    m_actor_being_warped = 0;
+    
+    state = OPEN;
+    if (this != m_target_vortex && close_after_warp)
+        close();
+}
+
+void Vortex::warp_to(const V2 &target) {
+    client::Msg_Sparkle (target);
+    world::WarpActor (m_actor_being_warped, target[0], target[1], false);
+    SendMessage (m_actor_being_warped, "appear");
+    m_actor_being_warped = 0;
+    state = OPEN;
+    if (close_after_warp)
+        close();
+}
+
+void Vortex::perform_warp() 
+{
+    if (!m_actor_being_warped)
+        return;
+
+    assert (state == WARPING);
+
+    V2 v_target;
+
+    // is another target position defined?
+    if (get_target_by_index (m_target_index, v_target)) {
+        GridPos  p_target(v_target);
+
+        Vortex *v = dynamic_cast<Vortex*>(GetItem(p_target));
+
+        if (v) {                // Destination is also a vortex
+            Stone *st = GetStone(p_target);
+
+            if (st && !st->is_floating()) {
+                // is destination vortex blocked? redirect
+                m_target_index += 1;
+                client::Msg_Sparkle (v_target);
+                world::WarpActor (m_actor_being_warped, 
+                                  v_target[0], v_target[1], false);
+                GameTimer.set_alarm(this, 0.4, false);
+            }
+            else {
+                m_target_vortex = v;
+
+                switch (v->state) {
+                case OPEN:
+                case OPENING:
+                    // destination is open
+                    emit_actor();
+                    break;
+
+                case CLOSED:
+                case CLOSING:
+                    // destination is closed
+                    SendMessage(v, "open");
+                    state = EMITTING;
+                    GameTimer.set_alarm(this, 0.4, false);
+                    break;
+                case SWALLOWING:
+                case WARPING:
+                case EMITTING:
+                    // destination is busy -> don't warp actor, emit
+                    // it where it has started
+                    m_target_vortex = this;
+                    emit_actor();
+                }
+            }
+        } else {
+            warp_to (v_target);
+        }
+    }
+    else {
+        // if no target defined, don't warp actor
+        m_target_vortex = this;
+        emit_actor();
+    }
+}
+
+
+/* -------------------- YinYang item -------------------- */
+namespace
+{
+    class YinYang : public Item {
+        CLONEOBJ(YinYang);
+        DECL_TRAITS;
+    public:
+        YinYang() 
+        {}
+
+        string get_inventory_model() {
+            if (player::CurrentPlayer()==0)
+                return "it-yinyang";
+            else
+                return "it-yanying";
+        }
+
+        ItemAction activate(Actor */*a*/, GridPos p) {
+            // Switch to other marble
+            player::SwapPlayers();
+            // play_sound("switch");   // don't! wrong coordinates!
+            sound::SoundEvent ("switchplayer", p.center());
+            return ITEM_KEEP;
+        }
+    };
+    DEF_TRAITS(YinYang, "it-yinyang", it_yinyang);
+}
+
+
+/* -------------------- Spade -------------------- */
+namespace
+{
+    class Spade : public Item {
+        CLONEOBJ(Spade);
+        DECL_TRAITS;
+
+        ItemAction activate(Actor *, GridPos p) {
+            if (Item *it=GetItem(p)) {
+                sound::SoundEvent ("spade", p.center());
+                SendMessage(it, "shovel");
+                return ITEM_KEEP;
+            }
+            return ITEM_DROP;
+        }
+    public:
+        Spade() {}
+    };
+    DEF_TRAITS(Spade, "it-spade", it_spade);
+}
+
+
+/* -------------------- Pipes -------------------- */
+namespace
+{
+    class Pipe : public Item {
+        CLONEOBJ(Pipe);
+        int subtype;
+        DECL_TRAITS_ARRAY(10, subtype);
+
+        Pipe(int stype) : subtype(stype) {}
+        void message(const string &msg, const Value &) {
+            if (msg == "expl")
+                replace (it_explosion1);
+        }
+    public:
+        static void setup() {
+            for (int i=0; i<10; ++i) 
+                RegisterItem (new Pipe (i));
+        }
+    };
+
+    ItemTraits Pipe::traits[] = {
+        {"it-pipe-e",  it_pipe_e,  itf_none, 0.0 },
+        {"it-pipe-w",  it_pipe_w,  itf_none, 0.0 }, 
+        {"it-pipe-s",  it_pipe_s,  itf_none, 0.0 }, 
+        {"it-pipe-n",  it_pipe_n,  itf_none, 0.0 },
+        {"it-pipe-es", it_pipe_es, itf_none, 0.0 }, 
+        {"it-pipe-ne", it_pipe_ne, itf_none, 0.0 }, 
+        {"it-pipe-sw", it_pipe_sw, itf_none, 0.0 }, 
+        {"it-pipe-wn", it_pipe_wn, itf_none, 0.0 },
+        {"it-pipe-h",  it_pipe_h,  itf_none, 0.0 },
+        {"it-pipe-v",  it_pipe_v,  itf_none, 0.0 },
+    };
+}
+
+
+/* -------------------- Pullers -------------------- */
+namespace
+{
+    class Puller : public Item {
+        CLONEOBJ (Puller);
+        DECL_TRAITS_ARRAY(4, get_orientation());
+
+        bool active;
+        Direction m_direction;
+
+        bool actor_hit(Actor *a) {
+            if (active)
+                return false;
+            return Item::actor_hit(a);
+        }
+
+        void on_drop(Actor */*a*/) { activate(); }
+
+        void activate() {
+            active=true;
+            set_anim("it-puller-active");
+            sound_event ("puller");
+        }
+        void animcb() {
+            Direction dir      = get_orientation();
+            GridPos   stonepos = move(get_pos(), reverse(dir));
+
+            send_impulse(stonepos, dir);
+            sound_event ("dynamite");
+            replace (it_explosion1);
+        }
+
+	Direction get_orientation() const {
+	    return m_direction;
+	}
+
+        Puller(Direction dir) 
+        : active(false), m_direction(dir)
+	{ }
+    public:
+        static void setup() {
+            RegisterItem (new Puller(NORTH));
+            RegisterItem (new Puller(EAST));
+            RegisterItem (new Puller(SOUTH));
+            RegisterItem (new Puller(WEST));
+        }
+    };
+
+    ItemTraits Puller::traits[4] = {
+        { "it-puller-w", it_puller_w, itf_none, 0.0 },
+        { "it-puller-s", it_puller_s, itf_none, 0.0 },
+        { "it-puller-e", it_puller_e, itf_none, 0.0 },
+        { "it-puller-n", it_puller_n, itf_none, 0.0 },
+    };
+}
+
+
+/* -------------------- Cracks -------------------- */
+namespace
+{
+    class Crack : public Item {
+        CLONEOBJ(Crack);
+        DECL_TRAITS_ARRAY(4, get_type());
+
+    public:
+        static void setup() {
+            RegisterItem (new Crack(0));
+            RegisterItem (new Crack(1));
+            RegisterItem (new Crack(2));
+            RegisterItem (new Crack(3));
+        }
+
+    private:
+        Crack(int type=0) 
+        : state(IDLE), anim_end(false)
+	{
+	    set_attrib("type", type);
+	    set_attrib("fixed", 0.0);
+            set_attrib("brittleness", Value());
+	}
+
+        enum State { IDLE, CRACKING1, CRACKING2 } state;
+        bool anim_end;
+
+        int get_type() const { 
+            int t = int_attrib("type");
+            return px::Clamp(t, 0, 4);
+        }
+	bool is_fixed() const { return int_attrib("fixed"); }
+
+        void init_model() {
+            if (int t=get_type()) {
+                if (t > 3) {
+                    state = CRACKING1;
+                    sound_event ("floordestroy");
+                    set_anim("it-crack_anim1");
+                //SetItem(get_pos(), MakeItem("it-debris"));
+                }else {
+                    set_model(px::strf("it-crack%d", t));
+                }
+            }
+            else
+                set_model("invisible");
+        }
+        void animcb() {
+            if (state == CRACKING2) {
+                GridPos p= get_pos();
+                SetFloor(p, MakeFloor("fl-abyss"));
+                KillItem(p);
+            } else {
+                state = CRACKING2;
+                set_anim("it-crack_anim2");
+            }
+        }
+
+        void crack(const GridPos &p) {
+            if (Floor *fl = GetFloor(p)) {
+                if (fl->is_destructible()) {
+                    if (Item *it = GetItem(p))
+                        SendMessage (it, "crack");
+                    else if (do_crack())
+                        SetItem(p, it_crack0);
+                }
+            }
+        }
+
+        void actor_enter(Actor *a) {
+            if (a->is_on_floor()) {
+                SendMessage(this, "crack");
+
+                if (get_type() <= 3) {
+                    GridPos p = get_pos();
+                    crack (move(p, NORTH));
+                    crack (move(p, EAST));
+                    crack (move(p, SOUTH));
+                    crack (move(p, WEST));
+                }
+            }
+        }
+        bool actor_hit(Actor *a) {
+            if (anim_end)
+                SendMessage(a, "fall");
+            return false;
+        }
+        void message(const string &msg, const Value &/*val*/) {
+            if (msg == "crack" && state==IDLE && !is_fixed()) {
+                int type = get_type();
+                if ((type == 0 && do_crack()) || (type > 0)) {
+                    set_attrib("type", Value(int_attrib("type") + 1));
+                    sound_event ("crack");
+                    init_model();
+                }
+            }
+        }
+
+        bool do_crack() {
+	    if (!is_fixed()) {
+		double brittleness = server::Brittleness;
+		double_attrib ("brittleness", &brittleness);
+		double rnd = DoubleRand(0, 1);
+		return rnd < brittleness;
+	    }
+	    else
+		return false;
+        }
+    };
+    ItemTraits Crack::traits[4] = {
+        {"it-crack0", it_crack0, itf_indestructible, 0.0},
+        {"it-crack1", it_crack1, itf_indestructible, 0.0},
+        {"it-crack2", it_crack2, itf_indestructible, 0.0},
+        {"it-crack3", it_crack3, itf_indestructible, 0.0}
+    };
+}
+
+/* -------------------- Debris -------------------- */
+namespace
+{
+    class Debris : public Item {
+        CLONEOBJ(Debris);
+        DECL_TRAITS;
+
+        bool actor_hit(Actor *a) { 
+            SendMessage(a, "fall"); 
+            return false;
+        }
+        void animcb() {
+            GridPos p = get_pos();
+            SetFloor(p, MakeFloor("fl-abyss"));
+            KillItem(p);
+        }
+    public:
+        Debris() {}
+    };
+    DEF_TRAITSF(Debris, "it-debris", it_debris, 
+                itf_animation | itf_indestructible);
+}
+
+
+/* -------------------- Burning floor -------------------- */
+
+namespace
+{
+    /*! This items can burn. The fire spreads and destroys items and actors. */
+    class Burnable : public Item {
+	CLONEOBJ(Burnable);
+        DECL_TRAITS_ARRAY(5, state);
+    public:
+        static void setup() {
+            RegisterItem (new Burnable(IDLE));
+            RegisterItem (new Burnable(IGNITE));
+            RegisterItem (new Burnable(BURNING));
+            RegisterItem (new Burnable(FIREPROOF));
+            RegisterItem (new Burnable(ASH));
+        }
+    private:
+	enum State { IDLE, IGNITE, BURNING, FIREPROOF, ASH };
+	Burnable (State initstate) {
+	    state = initstate;
+	}
+	State state;
+
+	void message (const string &msg, const Value &);
+ 	void animcb();
+	bool actor_hit (Actor *a);
+	void ignite (GridPos p);
+    };
+
+    ItemTraits Burnable::traits[5] = {
+        {"it-burnable",           it_burnable,           itf_static, 0.0},
+        {"it-burnable_ignited",   it_burnable_ignited,   itf_static | itf_animation, 0.0},
+        {"it-burnable_burning",   it_burnable_burning,   itf_static | itf_animation, 0.0},
+        {"it-burnable_fireproof", it_burnable_fireproof, itf_static, 0.0},
+        {"it-burnable_ash",       it_burnable_ash,       itf_static, 0.0},
+    };
+}
+
+void Burnable::message(const string &msg, const Value &)
+{
+    if ((msg == "trigger" || msg == "ignite" || msg == "expl") && state==IDLE) {
+        state = IGNITE; // start burning
+        init_model();
+    } else if (msg == "extinguish") {   // stop / never start burning
+        state = FIREPROOF;
+        init_model();
+    } else if (msg == "brush" && (state == ASH || state == FIREPROOF)) {
+        kill();                 // The brush cleans the floor
+    }
+}
+
+void Burnable::animcb() {
+    GridPos p = get_pos();
+    if (state == IGNITE || state == BURNING) {
+        bool spread = true;
+        if( Stone *st = GetStone( p)) {
+            if( ! st->is_floating())
+                spread = false; // only hollow stones allow the fire to spread
+
+            string model = st->get_kind();
+            if( model == "st-wood1" || model == "st-wood2") {
+                KillStone( p); // The fire has burnt away the wooden stone
+                spread = true;
+            }
+        }
+
+        // spread to neighbouring tiles
+        if (spread) {
+            if (DoubleRand(0, 1) > 0.3) ignite (move(p, NORTH));
+            if (DoubleRand(0, 1) > 0.3) ignite (move(p, EAST));
+            if (DoubleRand(0, 1) > 0.3) ignite (move(p, SOUTH));
+            if (DoubleRand(0, 1) > 0.3) ignite (move(p, WEST));
+        }
+    }
+    if (state == IGNITE) {
+        if (Floor *fl = GetFloor( p)) { // The fire has burnt away the wooden floor
+            string model = fl->get_kind();
+            if (model == "fl-wood" || model == "fl-stwood")
+                SetFloor( p, MakeFloor("fl-abyss"));
+        }
+        state = BURNING;
+        init_model();
+    } else if (state == BURNING) {  // stop burning after some random time
+        if (DoubleRand(0, 1) > 0.7)
+            state = ASH;
+        else
+            state = BURNING;
+
+        init_model();
+    }
+}
+
+bool Burnable::actor_hit(Actor *a) {
+    if (state == IGNITE || state == BURNING)
+        SendMessage(a, "shatter");
+    return false;
+}
+
+void Burnable::ignite (GridPos p) 
+{
+    bool only_ignite = false;
+
+    if (Stone *st = GetStone( p)) {
+        if (! st->is_floating() && ! st->is_movable())
+            return; // Stone does not allow to ignite.
+        if (st->is_movable())
+            only_ignite = true; // only ignit burnable items
+    }
+
+    Item *it = GetItem(p);
+    switch (get_id(it)) {
+    case it_none:
+        if (!only_ignite) {    // spread on the same floor (if stone allows)
+            if (Floor *fl1 = GetFloor (get_pos())) {
+                string model1 = fl1->get_kind();
+                if (Floor *fl2 = GetFloor(p)) {
+                    string model2 = fl2->get_kind();
+                    if (model1 == model2)
+                        SetItem (p, it_burnable);
+                }
+            }
+        }
+        break;
+
+    case it_burnable: case it_dynamite: case it_blackbomb: case it_whitebomb:
+        // ignite burnable items
+        SendMessage (it, "ignite");
+        break;
+
+    case it_crack0: case it_crack1: case it_crack2: case it_crack3:
+        // cracks are not strong enough
+        SetItem (p, it_debris);
+        break;
+
+    case it_extinguisher:
+    case it_burnable_ignited:	// only ignite once
+    case it_burnable_burning:	// dont re-ignite floor, to get a nicer animation
+    case it_burnable_fireproof:
+    case it_burnable_ash:
+    case it_hill: case it_tinyhill:
+    case it_hollow: case it_tinyhollow:
+        // these don't burn
+        break;
+    default:
+        // all other items burn
+        SetItem (p, it_burnable_ignited);
+        //SendMessage (it, "ignite");
+        break;
+    }
+}
+
+
+
+/* -------------------- Fire Extinguisher -------------------- */
+namespace
+{
+    /*! This items can extinguish burning floor. */
+    class Extinguisher : public Item {
+        CLONEOBJ(Extinguisher);
+        DECL_TRAITS_ARRAY(3, get_load());
+    public:
+        static void setup() {
+            RegisterItem (new Extinguisher(0));
+            RegisterItem (new Extinguisher(1));
+            RegisterItem (new Extinguisher(2));
+        }
+
+    private:
+        Extinguisher (int load) {
+    	    set_attrib("load", load);
+        }
+
+        int get_load() const { return int_attrib("load"); }
+        void set_load (int load) { set_attrib("load", load); }
+
+        void extinguish (GridPos p) {
+            if (Item *it = GetItem(p)) {
+                SendMessage (it, "extinguish");
+            } else {
+                SetItem (p, it_burnable_fireproof);
+            }
+        }
+
+        /* ---------- Item interface ---------- */
+
+        ItemAction activate(Actor *a, GridPos p);
+    };
+
+    ItemTraits Extinguisher::traits[3] = {
+        {"it-extinguisher_empty",  it_extinguisher_empty,  itf_none, 0.0},
+        {"it-extinguisher_medium", it_extinguisher_medium, itf_none, 0.0},
+        {"it-extinguisher",        it_extinguisher,        itf_none, 0.0},
+    };
+}
+
+ItemAction Extinguisher::activate(Actor *a, GridPos p) 
+{
+    int load = get_load();
+    if (load > 0) {
+        extinguish (p);
+        extinguish (move(p, NORTH));
+        extinguish (move(p, SOUTH));
+        extinguish (move(p, EAST));
+        extinguish (move(p, WEST));
+        if (load > 1) {
+            // full extinguisher has a larger range
+            extinguish (move(p, NORTH, NORTH));
+            extinguish (move(p, NORTH, EAST));
+            extinguish (move(p, SOUTH, SOUTH));
+            extinguish (move(p, SOUTH, WEST));
+            extinguish (move(p, EAST, EAST));
+            extinguish (move(p, EAST, SOUTH));
+            extinguish (move(p, WEST, WEST));
+            extinguish (move(p, WEST, NORTH));
+        }
+        set_load(load - 1);
+
+        // ### HACK ###
+        // update the player's inventory
+        if (player::Inventory *inv = player::GetInventory(a)) {
+            inv->redraw();
+        }
+    }
+    return ITEM_DROP;
+}
+
+
+/* -------------------- Flags -------------------- */
+
+namespace
+{
+    /*! Flags can be used to set a new respawn point for the black or
+      white marble. */
+    class FlagBlack : public Item {
+        CLONEOBJ(FlagBlack);
+        DECL_TRAITS;
+
+        void on_drop(Actor *) {
+            player::SetRespawnPositions(get_pos(), true);
+        }
+        void on_pickup(Actor *) {
+            player::RemoveRespawnPositions(true);
+        }
+
+    public:
+        FlagBlack() {}
+    };
+    DEF_TRAITS(FlagBlack, "it-flagblack", it_flagblack);
+
+    class FlagWhite : public Item {
+        CLONEOBJ(FlagWhite);
+        DECL_TRAITS;
+
+        void on_drop(Actor *) {
+            player::SetRespawnPositions(get_pos(), false);
+        }
+        void on_pickup(Actor *) {
+            player::RemoveRespawnPositions(false);
+        }
+
+    public:
+        FlagWhite()
+        {}
+    };
+
+    DEF_TRAITS(FlagWhite, "it-flagwhite", it_flagwhite);
+}
+
+
+
+/* -------------------- Blocker item -------------------- */
+
+namespace
+{
+    /*! If a 'BolderStone' moves over a 'Blocker' the 'Blocker' starts
+      growing and replaces itself by a BlockerStone. */
+    class Blocker : public Item, public TimeHandler {
+        CLONEOBJ(Blocker);
+        DECL_TRAITS;
+
+        enum State {
+            IDLE,               // nothing special
+            SHRINKED,           // recently shrinked by a BolderStone (which has not arrived yet)
+            BOLDERED,           // BolderStone has arrived (the one that made me shrink)
+            COVERED             // BolderStone will make me grow (but is on top of me)
+            // Note: BOLDERED and COVERED are used for all kinds of stones
+            // (e.g. when a stone is on top and the Blocker receives a "close" message)
+        } state;
+
+        static const char * const stateName[];
+
+        void change_state(State new_state);
+        void on_creation (GridPos p);
+        void on_removal (GridPos p);
+        void message(const string &msg, const Value &val);
+        void stone_change(Stone *st);
+        void grow();
+        void alarm();
+    public:
+        Blocker(bool shrinked_recently);
+    };
+    DEF_TRAITSF(Blocker, "it-blocker", it_blocker, itf_static);
+};
+
+const char * const Blocker::stateName[] = { "IDLE", "SHRINKED", "BOLDERED", "COVERED" };
+
+
+Blocker::Blocker(bool shrinked_recently)
+: state(shrinked_recently ? SHRINKED : IDLE)
+{}
+
+void Blocker::on_creation (GridPos p) 
+{
+    if (state == SHRINKED) {
+        GameTimer.set_alarm(this, 0.5, false);
+    }
+    Item::on_creation(p);
+}
+
+void Blocker::on_removal(GridPos p) 
+{
+    change_state(IDLE);
+    Item::on_removal(p);
+}
+
+void Blocker::change_state(State new_state) 
+{
+    if (state != new_state) {
+        if (state == SHRINKED)
+            GameTimer.remove_alarm(this);
+        else if (new_state == SHRINKED)
+            GameTimer.set_alarm(this, 0.5, false);
+        state = new_state;
+    }
+}
+
+
+void Blocker::grow() 
+{
+    Stone *st = world::MakeStone("st-blocker-growing");
+    world::SetStone(get_pos(), st);
+    TransferObjectName(this, st);
+    kill();
+}
+
+void Blocker::alarm() 
+{
+    if (state == SHRINKED) { // BolderStone did not arrive in time
+        change_state(IDLE);
+    }
+}
+
+
+void Blocker::message(const string &msg, const Value &val) 
+{
+    if (msg == "trigger" || msg == "openclose") {
+        switch (state) {
+        case IDLE:
+        case SHRINKED:
+            grow(); // if no stone on top -> grow
+            break;
+
+            // if stone on top -> toggle state (has no effect until stone leaves)
+        case BOLDERED:
+            change_state(COVERED);
+            break;
+        case COVERED:
+            change_state(BOLDERED);
+            break;
+        }
+    }
+    else {
+        int open = -1;
+
+        if (msg == "signal") {
+            if (val.get_type() == Value::DOUBLE) {
+                // val: 1 means "shrink", 0 means "grow"
+                open = static_cast<int>(val.get_double());
+//                 warning("received signal %i", open);
+            }
+            else {
+                assert(0);
+            }
+        }
+        else if (msg == "open")
+            open = 1;
+        else if (msg == "close")
+            open = 0;
+
+        if (open == 1)  { // shrink
+            if (state == COVERED)
+                change_state(BOLDERED);
+        }
+        else if (open != -1) { // grow
+            if (state == BOLDERED)
+                change_state(COVERED);
+            else if (state == SHRINKED)
+                change_state(IDLE); // remove alarm
+
+            if (state == IDLE) {
+                if (Stone *st = GetStone(get_pos())) {
+                    if (st->is_kind("st-bolder"))
+                        change_state(BOLDERED); // occurs in Per.Oxyd #84
+                    else
+                        change_state(COVERED);
+                }
+                else {
+                    grow();
+                }
+            }
+        }
+    }
+}
+
+void Blocker::stone_change(Stone *st)
+{
+    if (st) {
+        if (st->is_kind("st-bolder")) { // bolder arrived
+            switch (state) {
+            case IDLE:
+                change_state(COVERED);
+                break;
+            case SHRINKED:
+                change_state(BOLDERED);
+                break;
+            case COVERED:
+            case BOLDERED:
+                // two BolderStones running directly next to each other
+                // let second pass as well (correct? siegfried says yes)
+                break;
+            }
+        }
+        else { // any other stone
+            change_state(BOLDERED);
+        }
+    }
+    else {              // stone disappeared
+        switch (state) {
+        case BOLDERED:
+            change_state(IDLE);
+            break;
+        case COVERED:
+            grow();
+            break;
+        case IDLE:
+        case SHRINKED:
+            // no action
+            break;
+        }
+    }
+}
+
+
+/* -------------------- Ring -------------------- */
+namespace
+{
+    class Ring : public Item {
+        CLONEOBJ(Ring);
+        DECL_TRAITS;
+    public:
+        Ring() {}
+
+        ItemAction activate(Actor *a, GridPos) {
+            if (ExchangeMarbles(a)) {
+                sound_event ("switchmarbles");
+            }
+            else {
+                world::RespawnActor(a);
+            }
+            return ITEM_DROP;
+        }
+    };
+    DEF_TRAITS(Ring, "it-ring", it_ring);
+}
+
+//----------------------------------------
+// Bridge item (for Oxyd compatibility)
+//
+// Floor tiles seem to be static in Oxyd and cannot change dynamically
+// or be animated.  For this reason, every bridge floor in Oxyd has to
+// be combined with a bridge "item" that receives the signals, shows
+// the animation and sets or removes the floor.
+//----------------------------------------
+namespace
+{
+    class OxydBridge : public Item {
+        CLONEOBJ(OxydBridge);
+        DECL_TRAITS;
+
+        void message(const string& msg, const Value &val) {
+            if (msg == "signal") {
+                int ival = to_int (val);
+                Floor *floor = GetFloor (get_pos());
+                if (ival > 0)
+                    SendMessage (floor, "close");
+                else
+                    SendMessage (floor, "open");
+            }
+        }
+    public:
+        OxydBridge() {}
+    };
+    DEF_TRAITSF (OxydBridge, "it-bridge-oxyd", it_bridge_oxyd, 
+                 itf_static | itf_indestructible | itf_invisible);
+
+    class OxydBridgeActive : public OxydBridge {
+        CLONEOBJ(OxydBridgeActive);
+        DECL_TRAITS;
+
+        void on_creation (GridPos p) {
+            Floor *floor = GetFloor (p);
+            SendMessage (floor, "close");
+        }
+    public:
+        OxydBridgeActive() {}
+    };
+    DEF_TRAITSF(OxydBridgeActive, "it-bridge-oxyd_active", it_bridge_oxyd_active,
+                itf_static | itf_indestructible | itf_invisible);
+}
+
+
+/* -------------------- Sensors -------------------- */
+
+
+/* Basically behave like regular triggers, but they are invisible and can be
+   activated only once. */
+namespace
+{
+    class Sensor : public Item {
+        CLONEOBJ(Sensor);
+        DECL_TRAITS;
+    public:
+        Sensor() {}
+
+        void actor_enter (Actor *) {
+            PerformAction (this, true);
+        }
+    };
+    DEF_TRAITSF (Sensor, "it-sensor", it_sensor, itf_static | itf_invisible);
+
+    class InverseSensor : public Item {
+        CLONEOBJ(InverseSensor);
+        DECL_TRAITS;
+    public:
+        InverseSensor() {}
+
+        void actor_enter (Actor *) {
+            PerformAction (this, false);
+        }
+    };
+    DEF_TRAITSF(InverseSensor, "it-inversesensor", it_inversesensor, itf_static | itf_invisible);
+}
+
+
+/* -------------------- Signal filters -------------------- */
+namespace 
+{
+    class SignalFilterItem : public Item {
+        CLONEOBJ(SignalFilterItem);
+        DECL_TRAITS_ARRAY(2, type);
+
+        SignalFilterItem(int type_) : type(type_) {
+            assert(type >= 0 && type <= 1);
+        }
+
+        void message(const string& m, const Value& val) {
+            if (m == "signal") {
+                int value = to_int(val);
+//                 warning("received signal with value %i", value);
+                if (value)
+                    PerformAction(this, type);
+            }
+        }
+
+        // type of signal filter
+        // 0 : receive 1 -> send 0
+        // 1 : receive 1 -> send 1
+        int type;
+
+    public:
+        static void setup() {
+            RegisterItem (new SignalFilterItem(0));
+            RegisterItem (new SignalFilterItem(1));
+        }
+    };
+    ItemTraits SignalFilterItem::traits[2] = {
+        {"it-signalfilter0", it_signalfilter0, itf_static | itf_invisible, 0.0},
+        {"it-signalfilter1", it_signalfilter1, itf_static | itf_invisible, 0.0},
+    };
+}
+
+
+/* -------------------- EasyKillStone -------------------- */
+
+/*
+This item is never visible during the game.  Its only purpose is to
+modify the level if the difficulty mode is set to easy *before* the
+game starts.
+
+In easy game mode this item removes the stone at its position.  Then
+in both modes it kills itself.
+
+E.g. it can be used to hide walls in easy game mode.
+
+\ref st-easymode
+*/
+
+namespace
+{
+    class EasyKillStone : public Item {
+        CLONEOBJ(EasyKillStone);
+        DECL_TRAITS;
+
+        void on_message (const Message &);
+    public:
+        EasyKillStone() {}
+    };
+    DEF_TRAITSF(EasyKillStone, "it-easykillstone", 
+                it_easykillstone, itf_invisible);
+}
+
+void EasyKillStone::on_message (const Message &m ) 
+{
+    if (m.message == "init") {
+        // does not work in on_creation() because items are created
+        // before stones are created.
+        if (server::GetDifficulty() == DIFFICULTY_EASY) {
+            if (Stone *st = GetStone (get_pos())) {
+                if (st->is_kind ("st-death") ||
+                    st->is_kind ("st-flash") ||
+                    st->is_kind ("st-thief"))
+                {
+                    SetStone (get_pos(), MakeStone ("st-plain"));
+                }
+                else
+                    KillStone(get_pos());
+            }
+        }
+        kill();
+    }
+}
+
+
+
+/* -------------------- EasyKeepStone -------------------- */
+namespace
+{
+    class EasyKeepStone : public Item {
+        CLONEOBJ(EasyKeepStone);
+        DECL_TRAITS;
+
+        void message(const string& m, const Value& ) {
+            if (m == "init") {
+                // does not work in on_creation() because items are created
+                // before stones are created.
+                if (server::GetDifficulty() == DIFFICULTY_HARD)
+                    KillStone(get_pos());
+                kill();
+            }
+        }
+    public:
+        EasyKeepStone() {}
+    };
+    DEF_TRAITSF(EasyKeepStone, "it-easykeepstone", it_easykeepstone, itf_invisible);
+}
+
+/* -------------------- SingleKillStone -------------------- */
+namespace
+{
+    class OnePKillStone : public Item {
+        CLONEOBJ (OnePKillStone);
+        DECL_TRAITS;
+
+        void on_message (const Message &m) {
+            if (m.message == "init") {
+                if (server::SingleComputerGame)
+                    KillStone (get_pos());
+                kill();
+            }
+        }
+    public:
+        OnePKillStone () {}
+    };
+    DEF_TRAITSF(OnePKillStone, "it-1pkillstone", it_1pkillstone, itf_invisible);
+
+    class TwoPKillStone : public Item {
+        CLONEOBJ (TwoPKillStone);
+        DECL_TRAITS;
+
+        void on_message (const Message &m) {
+            if (m.message == "init") {
+                if (!server::SingleComputerGame)
+                    KillStone (get_pos());
+                kill();
+            }
+        }
+    public:
+        TwoPKillStone () {}
+    };
+    DEF_TRAITSF(TwoPKillStone, "it-2pkillstone", it_2pkillstone, itf_invisible);
+}
+
+
+/* -------------------- Glasses -------------------- */
+namespace
+{
+    class Glasses : public Item {
+        CLONEOBJ(Glasses);
+        DECL_TRAITS;
+
+        static bool wears_glasses(Actor *a) {
+            return player::GetInventory(a)->find("it-glasses") != -1;
+        }
+
+        void on_drop(Actor *a) {
+            if (!wears_glasses(a)) // 'this' was the only it-glasses
+                BroadcastMessage("glasses", 0.0, GRID_STONES_BIT);
+        }
+        void on_pickup(Actor *a) {
+            if (!wears_glasses(a)) // no glasses before
+                BroadcastMessage("glasses", 1.0, GRID_STONES_BIT);
+        }
+        void on_stonehit(Stone */*st*/) {
+            sound_event ("shatter");
+            replace (it_glasses_broken);
+        }
+    public:
+        Glasses() 
+        {}
+    };
+    DEF_TRAITS(Glasses, "it-glasses", it_glasses);
+}
+
+
+/* -------------------- Invisible abyss -------------------- */
+namespace
+{
+    class InvisibleAbyss : public Item {
+        CLONEOBJ(InvisibleAbyss);
+        DECL_TRAITS;
+        bool actor_hit(Actor *a) {
+            SendMessage(a, "fall");
+            return false;
+        }
+    public:
+        InvisibleAbyss() {}
+    };
+    DEF_TRAITSF(InvisibleAbyss, "it-abyss", it_abyss, itf_invisible);
+}
+
+
+/* -------------------- Landmine -------------------- */
+namespace
+{
+    class Landmine : public Item {
+        CLONEOBJ(Landmine);
+        DECL_TRAITS;
+
+	void explode() {
+            sound_event ("landmine");
+	    replace (it_explosion2);
+	}
+
+        bool actor_hit (Actor *a) {
+            const double ITEM_RADIUS = 0.3;
+            double dist = length(a->get_pos() - get_pos().center());
+            if (dist < ITEM_RADIUS) 
+		explode();
+            return false;
+        }
+
+        void on_stonehit(Stone *) { explode(); }
+    public:
+        Landmine() 
+        {}
+    };
+    DEF_TRAITS(Landmine, "it-landmine", it_landmine);
+}
+
+
+/* -------------------- Cross -------------------- */
+namespace
+{
+    class Cross : public Item, public TimeHandler {
+        CLONEOBJ(Cross);
+        DECL_TRAITS;
+
+        bool m_active;
+
+        void actor_enter(Actor *a) {
+            if (!m_active && a->get_attrib("player") != 0) {
+                GameTimer.set_alarm (this, 10);
+            }
+        }
+
+        void actor_leave (Actor *) {
+            if (m_active) {
+                GameTimer.remove_alarm (this);
+                m_active = false;
+            }
+        }
+
+        void alarm() {
+            PerformAction (this, true);
+        }
+
+        void on_message (const Message &m) {
+            if (server::GameCompatibility == enigma::GAMET_PEROXYD) {
+                // Crosses can be used to invert signals in Per.Oxyd
+                if (m.message == "signal") {
+                    PerformAction (this, 1-to_double (m.value));
+                }
+            }
+        }
+
+    public:
+        Cross() : m_active(false) {
+        }
+    };
+    DEF_TRAITSF(Cross, "it-cross", it_cross, itf_static);
+}
+
+/* -------------------- Bag -------------------- */
+namespace
+{
+    class Bag : public Item, public player::ItemHolder {
+        CLONEOBJ(Bag);
+        DECL_TRAITS;
+
+        enum { BAGSIZE = 13 };
+        vector<Item *> m_contents;
+
+        // ItemHolder interface
+        bool is_full() const {
+            return m_contents.size() == BAGSIZE;
+        }
+        void add_item (Item *it) {
+            assert(!is_full());
+            m_contents.insert (m_contents.begin(), it);
+        }
+
+        // Item interface
+        bool actor_hit (Actor *a) {
+            if (player::Inventory *inv = player::MayPickup(a)) {
+                while (!inv->is_full() && !m_contents.empty()) {
+                    Item *it = m_contents[0];
+                    m_contents.erase (m_contents.begin());
+                    inv->add_item(it);
+                }
+                if (!m_contents.empty())
+                    sound_event ("pickup");
+                return true;
+            }
+            return false;
+        }
+
+    public:
+        Bag()
+        {}
+
+        ~Bag() {
+            px::delete_sequence (m_contents.begin(), m_contents.end());
+        }
+    };
+    DEF_TRAITS(Bag, "it-bag", it_bag);
+}
+
+
+//----------------------------------------
+// Remaining items (still need to be implemented)
+//----------------------------------------
+namespace
+{
+    class Rubberband : public Item {
+    	CLONEOBJ(Rubberband);
+        DECL_TRAITS;
+
+        void activate(Actor *actor) {
+        }
+    public:
+    	Rubberband() {
+            set_attrib("object1", Value());
+            set_attrib("object2", Value());
+            set_attrib("length", Value());
+            set_attrib("strength", Value());
+        }
+    };
+    DEF_TRAITS(Rubberband, "it-rubberband", it_rubberband);
+
+    class HStrip : public Item {
+        CLONEOBJ(HStrip);
+        DECL_TRAITS;
+    public:
+        HStrip() {
+        }
+        bool actor_hit(Actor *a) {
+            double ycenter = get_pos().y + 0.5;
+            const double MAXDIST = 6.0/32;
+            if (fabs(a->get_pos()[1] - ycenter) > MAXDIST) {
+                if (Floor *fl = GetFloor(get_pos()))
+                    fl->actor_contact(a);
+            }
+            return false;
+        }
+
+        bool covers_floor() const { return true; }
+    };
+    DEF_TRAITS(HStrip, "it-hstrip", it_hstrip);
+
+    class VStrip : public Item {
+        CLONEOBJ(VStrip);
+        DECL_TRAITS;
+    public:
+        VStrip() {
+        }
+        bool actor_hit(Actor *a) {
+            double xcenter = get_pos().x + 0.5;
+            const double MAXDIST = 5.0/32;
+            if (fabs(a->get_pos()[0] - xcenter) > MAXDIST) {
+                if (Floor *fl = GetFloor(get_pos()))
+                    fl->actor_contact(a);
+            }
+            return false;
+        }
+
+        bool covers_floor() const { return true; }
+    };
+    DEF_TRAITS(VStrip, "it-vstrip", it_vstrip);
+
+    class SurpriseItem : public Item {
+        CLONEOBJ(SurpriseItem);
+        DECL_TRAITS;
+
+        void on_drop (Actor *) {
+            static ItemID items[] = {
+                it_umbrella,
+                it_spring1,
+                it_dynamite,
+                it_coffee,
+                it_hammer
+            };
+            replace (items[enigma::IntegerRand (0, 4)]);
+        }
+    public:
+        SurpriseItem() {
+        }
+    };
+    DEF_TRAITS(SurpriseItem, "it-surprise", it_surprise);
+}
+
+/* -------------------- ChangeFloorItem -------------------- */
+namespace 
+{
+    class ChangeFloorItem : public Item {
+        CLONEOBJ(ChangeFloorItem);
+        DECL_TRAITS;
+
+        void exchange_floor (const char *a, const char *b) {
+            GridPos p = get_pos();
+            if (Floor *fl = GetFloor(p)) {
+                if (fl->is_kind(a))
+                    SetFloor (p, MakeFloor(b));
+                else if (fl->is_kind(b))
+                    SetFloor (p, MakeFloor(a));
+            }
+        }
+        
+        void actor_leave (Actor *) {
+            if (server::TwoPlayerGame) {
+                // two players: black / white tile
+                exchange_floor ("fl-acwhite", "fl-acblack");
+            } else {
+                // one player: left / right accel
+//                exchange_floor ("fl-
+            }
+        }
+
+    public:
+        ChangeFloorItem() {
+        }
+    };
+    DEF_TRAITSF(ChangeFloorItem, "it-changefloor", it_changefloor,
+                itf_static | itf_invisible);
+
+    class Oxyd5fItem : public Item {
+        CLONEOBJ(Oxyd5fItem);
+        DECL_TRAITS;
+
+        void on_message (const world::Message &) {
+            PerformAction (this, true);
+        }
+    public:
+        Oxyd5fItem()
+        {}
+    };
+    DEF_TRAITSF(Oxyd5fItem, "it-oxyd5f", it_oxyd5f, 
+                itf_static | itf_invisible);
+}
+
+/* -------------------- Drop -------------------- */
+
+namespace
+{
+    Actor *replace_actor (Actor *olda, Actor *newa)
+    {
+        ActorInfo *info = newa->get_actorinfo();
+        info->pos = olda->get_pos();
+        info->vel = olda->get_vel();
+
+        int iplayer;
+        if (olda->int_attrib("player", &iplayer)) {
+            player::ReplaceActor (iplayer, olda, newa);
+        }
+
+        world::AddActor (newa);
+        if (!world::YieldActor (olda)) {
+            enigma::Log << "Strange: could not remove old actor\n";
+        }
+        olda->hide();
+        newa->show();
+        return olda;
+    }
+
+    class DropCallback : public enigma::TimeHandler {
+        Actor *rotor;
+        Actor *old;
+    public:
+        DropCallback (Actor *rotor_, Actor *old_)
+        : rotor (rotor_), old (old_)
+        {}
+
+        // TimerHandler interface
+        virtual void alarm() 
+        {
+            replace_actor (rotor, old);
+            
+            delete rotor;
+            delete this;
+        }
+    };
+
+    class Drop : public Item {
+        CLONEOBJ (Drop);
+        DECL_TRAITS;
+
+        ItemAction activate(Actor *a, GridPos)
+        {
+            const double ROTOR_LIFETIME = 5.0;
+
+            int     iplayer = a->int_attrib("player");
+            ActorID id      = get_id (a);
+
+            if (id == ac_blackball || id == ac_whiteball) {
+                Actor *rotor = world::MakeActor (ac_rotor);
+                rotor->set_attrib ("mouseforce", Value (1.0));
+                rotor->set_attrib ("controllers", Value (iplayer+1));
+                rotor->set_attrib ("player", Value (iplayer));
+                rotor->set_attrib ("gohome", Value (0.0));
+
+                replace_actor (a, rotor);
+
+                world::GameTimer.set_alarm (new DropCallback (rotor, a),
+                                            ROTOR_LIFETIME,
+                                            false);
+            }
+            return ITEM_KILL;	       // remove from inventory
+        }
+
+    public:
+        Drop() 
+        {}
+    };
+    DEF_TRAITS(Drop, "it-drop", it_drop);
+}
+
+
+/* -------------------- Functions -------------------- */
+
+void world::InitItems()
+{
+    RegisterItem (new Bag);
+    RegisterItem (new Banana);
+    RegisterItem (new BlackBomb);
+    RegisterItem (new BlackBombBurning);
+    Register ("it-blocker-new", new Blocker(true));
+    RegisterItem (new Blocker(false));
+    RegisterItem (new Booze);
+    RegisterItem (new Brake);
+    RegisterItem (new Brush);
+    Burnable::setup();
+    RegisterItem (new ChangeFloorItem);
+    RegisterItem (new Cherry);
+    RegisterItem (new Coffee);
+    RegisterItem (new Coin1);
+    RegisterItem (new Coin2);
+    RegisterItem (new Coin4);
+    Crack::setup();
+    RegisterItem (new Cross);
+    RegisterItem (new Debris);
+    RegisterItem (new Document);
+    RegisterItem (new Drop);
+    RegisterItem (new Dummyitem);
+    RegisterItem (new Dynamite);
+    RegisterItem (new EasyKillStone);
+    RegisterItem (new EasyKeepStone);
+    RegisterItem (new Explosion1);
+    RegisterItem (new Explosion2);
+    RegisterItem (new Explosion3);
+    Extinguisher::setup();
+    RegisterItem (new ExtraLife);
+    RegisterItem (new FlagBlack);
+    RegisterItem (new FlagWhite);
+    RegisterItem (new Floppy);
+    RegisterItem (new Glasses);
+    RegisterItem (new BrokenGlasses);
+    RegisterItem (new Hammer);
+    RegisterItem (new Hill);
+    RegisterItem (new Hollow);
+    RegisterItem (new HStrip);
+    RegisterItem (new InverseSensor);
+    RegisterItem (new InvisibleAbyss);
+    Register ("it-key", new Key);
+    RegisterItem (new Key(Key::KEY1));
+    RegisterItem (new Key(Key::KEY2));
+    RegisterItem (new Key(Key::KEY3));
+    RegisterItem (new Landmine);
+    RegisterItem (new MagicWand);
+    Register ("it-magnet", new Magnet (false));
+    RegisterItem (new Magnet (true));
+    RegisterItem (new Magnet (false));
+    RegisterItem (new Odometer);
+    RegisterItem (new OnePKillStone);
+    RegisterItem (new OxydBridge);
+    RegisterItem (new OxydBridgeActive);
+    RegisterItem (new Oxyd5fItem);
+    RegisterItem (new Pencil);
+    RegisterItem (new Pin);
+    Pipe::setup();
+    Puller::setup();
+    RegisterItem (new Ring);
+    RegisterItem (new Rubberband);
+    RegisterItem (new SeedWood);
+    RegisterItem (new SeedNowood);
+    RegisterItem (new SeedVolcano);
+    RegisterItem (new Sensor);
+    ShogunDot::setup();
+    SignalFilterItem::setup();
+    RegisterItem (new Spade);
+    RegisterItem (new Spoon);
+    RegisterItem (new Spring1);
+    RegisterItem (new Spring2);
+    RegisterItem (new Springboard);
+    RegisterItem (new Squashed);
+    RegisterItem (new SurpriseItem);
+    RegisterItem (new Sword);
+    RegisterItem (new TinyHill);
+    RegisterItem (new TinyHollow);
+    RegisterItem (new Trigger);
+    RegisterItem (new TwoPKillStone);
+    RegisterItem (new Umbrella);
+    RegisterItem (new Vortex(false));
+    RegisterItem (new Vortex(true));
+    RegisterItem (new VStrip);
+    RegisterItem (new Weight);
+    RegisterItem (new WhiteBomb);
+    RegisterItem (new Wrench);
+    RegisterItem (new WormHole(false));
+    RegisterItem (new WormHole(true));
+    RegisterItem (new YinYang);
+}

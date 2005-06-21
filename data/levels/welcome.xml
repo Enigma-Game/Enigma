@@ -1,0 +1,36 @@
+<level width="20" height="13">
+    <info>
+	<name>Welcome</name>
+	<name lang="de">Willkommen</name>
+	<author>Daniel Heck</author>
+	<copyright>Copyright (C) 2002 Daniel Heck</copyright>
+	<license>GPL v2.0 or above</license>
+    </info>
+    <option name="reset" value="NO"/>
+    <option name="oxydflavor" value="a"/>
+    <option name="shuffle" value="YES"/>
+    <floors>
+	<fill kind="fl-gravel"/>
+    </floors>
+    <stones>
+	<border kind="st-wood1"/>
+	<oxyd x="3" y="3"/>
+	<oxyd x="16" y="3"/>
+	<oxyd x="16" y="9"/>
+	<oxyd x="3" y="9"/>
+    </stones>
+    <stones difficulty="hard">
+	<stone kind="st-fart" x="9" y="6"/>
+	<stone kind="st-timer" x="10" y="6" attribs="interval=10"/>
+    </stones>
+    <actors>
+	<actor kind="ac-blackball" x="10" y="4.5" player="0"/>
+    </actors>
+    <signals>
+	<signal from="st(10 6)" to="st(9 6)"/>
+    </signals>
+<lua>
+    -- optional Lua code here
+</lua>
+
+</level>    

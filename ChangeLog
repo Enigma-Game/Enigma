@@ -1,0 +1,1966 @@
+2005-03-16  Ralf Westram  <amgine@reallysoft.de>
+
+	* data/levels/ralf10.lua: - fixed soundname
+	* data/levels/index_enigma3.txt: - fixed merge error
+
+2004-12-23  Ralf Westram  <amgine@reallysoft.de>
+
+	* src/px/video.cc: - stuffed a memory leak
+	* src/px/IMG_SavePNG.c: - rewrote IMG_SavePNG_RW (stuffing a severe memory leak)
+
+2004-12-10  Ralf Westram  <amgine@reallysoft.de>
+
+	* src/world.cc: - "No player 0 defined" thrown as XLevelLoading
+	* src/stones_simple.cc: - added attribute "blinking" to FakeOxydStone (can be tested from lua)
+	* data/levels/ralf.lua: - check whether dofile succeeds
+	* src/lua.cc: - more lua errors:
+			+ GetAttrib w/o key
+			+ NameObject w/o valid object or name
+			+ GetPos w/o valid object
+	* data/levels/ralf_pento*: - new levels
+	* data/levels/index_clones_of_oxyd.txt: - undid revision increase for siegfried104
+
+2004-12-07  Ralf Westram  <amgine@reallysoft.de>
+
+	* src/menus_internal.hh: - VTableBuilder finish may fail if requested layout is impossible 
+	* src/menus.cc: - LevelPackMenu tries several ways to arrange the LevelPack buttons
+			  (now works with up to 75 buttons in 640x480)
+	* src/lua.cc: - MakeObject raises error if not called with string argument
+	* src/main.cc: - searches for index_user.lua (intended to be added to ~/.enigma)
+		       - index*.lua search is performed _after_ parsing cmdline args
+
+2004-12-06  Ralf Westram  <amgine@reallysoft.de>
+
+	* data/levels/index_clones_of_oxyd.txt: - increased revision of siegfried104.lua
+	* src/floors.cc: - bugfix: ac-whiteball on fl-acblack was controllable (affected only siegfried104.lua)
+	* src/actors.hh: - added Actor::controlled_by()
+	* src/lua.cc: - added IsSolved()
+	* src/levels.*: - added FindLevel
+	* src/options.cc: - Set/GetLevelStatus no longer use the levelpack. Level names
+			    have to be unique anyway due to the way we store the solved
+			    levels in ~/.enigmarc 
+
+2004-12-05  Ralf Westram  <amgine@reallysoft.de>
+
+	* src/gui.*: - Widget::m_parent is now a Container
+		     - replaced redraw..() methods by invalidate..()
+		     - invalidate is now a method of Widget
+		     - added an AreaManager to handle invalidation and refresh for any Widget hierarchy
+		     - all Button classes beside StaticTextButton update their content
+		       dynamically every time they are drawn.
+		     - renamed 'TextButton' into 'StaticTextButton'
+		     - special button class 'BoolOptionButton' to handle bool options
+
+
+2004-12-04  Ralf Westram  <amgine@reallysoft.de>
+
+	* src/server.cc: - new console commands find, jumpto and info
+	* src/client.cc: - save History in .enigmarc
+	* src/levels.*: - added IndexOfLevelPack()
+	* src/menus.cc: - if levelpack changed from inside game -> adjust displayed levelpack
+	* data/levels/ralf_sokoban.lua: - again improved laser-flickering
+	* data/levels/ralf*.lua: - several levels use smooth scrolling now
+	* another sokoban level
+
+2004-12-02  Ralf Westram  <amgine@reallysoft.de>
+
+	* data/levels/Sokoban: - added 6 bigger sokoban levels (not all tested yet)
+	* data/levels/ralf_sokoban.lua: - may use smooth scrolling (automatically does for oversized levels)
+	* data/levels/ralf.lua: - size of landscape created by rs_init_world may be determined
+				  by setting preferred_width + preferred_height
+				  (useful for easy creation of free-scrolling worlds)
+
+2004-12-02  Ralf Westram  <amgine@reallysoft.de>
+
+	* data/levels/04crushprevievs.sh: - didn't work for subdirectories
+	* data/levels/00makepreviews.sh: - didn't work for subdirectories
+	* data/levels/ralf_sokoban.lua: - support for invisible/walllike boxes
+					- fixed a bug causing oxyd-model-names like 'st-oxydb4.00000-opening'
+					- if restricted/forbidden areas part was covered by box or actor
+					  it was handled like a normal area and produced unsolvable levels
+					- allows level file to trigger solvability improvement
+	* data/levels/Sokoban: - added 3 new Sokoban levels (one with invisible stones - funny :)
+			       - updated several levels due to area-bug in ralf_sokoban.lua
+			       - made some levels more difficult and increased their revision
+	* data/levels/m_tutor/index.txt: - increased revision numbers of most level, because easy mode
+					   was implemented, but not mentioned here.
+	* src/client.cc: - resets Client::m_cheater in level_loaded()
+	* src/enigma.cc: - enigma::to_int() uses round_nearest<>
+	* doc/manual/enigma.texi: - timehunt button
+
+2004-12-01  Ralf Westram  <amgine@reallysoft.de>
+
+	* src/items.cc: - fixed tinyhollow finish-detection
+	* src/server.cc: - Console commands:
+			   + "god" and "collision" inform client about cheating
+			   + new commands: easy,noeasy,time,notime,help+cheats
+	* src/levels.cc: - Skip non-par levels in time-hunt mode only if 'SkipSolvedLevels'
+			   (otherwise time-hunting against your own times gets difficult)
+	* src/client.cc: - added simple history to console (Cursor up/down)
+			 - accepts multiple commands seperated by ';'
+			 - Client tracks cheaters and then doesn't store play-results
+			 - Time-Hunt:
+			   + Tick at least 5 seconds
+			   + If hunting against own time -> restart level if not better
+			 - Client-Messaging:
+			   + Added Msg_Command for simple server->client messages
+			   + Replaced AbortGame and Msg_LevelFinished by messages "abort" and "level_finished"
+			   + Added new messages ("cheater", "easy_going")
+	* data/levels/Sokoban/*.txt: - new pars 
+
+2004-11-30  Ralf Westram  <amgine@reallysoft.de>
+
+	* data/levels/ralf_sokoban.lua: - improved laser-flickering (to speed up end-game)
+	* data/init.lua: - Gradient checks type and raises error 
+	* data/levels/ralf11.lua: - changes for easy-mode
+	* data/levels/ss14.lua: - fixed broken laser switch
+	* data/levels/ss10.lua: - fixed broken laser switch
+	* data/levels/ralf06.lua: - fixed broken laser switch
+	* data/levels/index_enigma2.txt: - removed impossible par times from Nat
+					 - ralf11: increased revision and added easymode
+	* data/levels/wb4.lua: - effectless easymode statements commented out
+	* data/levels/index_enigma2.txt: - easymode removed for wb4 (no difference)
+	* several levels: - avoiding 'options.Difficulty' - using 'difficult' instead
+
+2004-11-29  Ralf Westram  <amgine@reallysoft.de>
+
+	* data/levels/ralf_sokoban.lua: - again improved solvability for levels with "many" oxyds
+	* src/menus.cc: - shows %par in timehunt mode (instead of %solved)
+	* src/levels.*: - CountSolvedLevels may as well count par-times
+	* src/client.cc: - time-hunt: changed level startup/finish display
+	* data/levels/Sokoban: mic_141 + mmic_88 now always solvable - thanks to Stephanie
+	* data/levels/ralf_sokoban.lua: - handling for 'forbidden' sections (oxyd free zones)
+	* data/levels/martin91.lua: - fixed easy mode
+	* data/levels/index_esprit.txt: - removed easymode for ss_esp48 (did not differ between easy/normal difficulty)
+	* data/levels/index_enigma3.txt: - fixed merging error
+        * all changed indices: updated par times
+
+2004-11-26  Ralf Westram  <amgine@reallysoft.de>
+
+	* data/levels/martin18.lua: - door2 did not open (wrong door names in SendMessage)
+
+2004-11-25  Ralf Westram  <amgine@reallysoft.de>
+
+	* data/levels: - increased revision of 'meditation7'
+	* src/items.cc: - Hollow check whether they are really hollows
+	* src/stones_simple.cc: - implemented DeathStone/ThiefStone::actor_touch()
+	* src/stones.*: - added Stone::actor_touch()
+	* src/world.cc: - collision handling calls actor_touch()
+	* data/levels/*/index_*.txt: - updated par times
+				     - increased several revisions
+	* data/levels/ralf_sokoban.lua: - more skulls!
+
+2004-11-24  Ralf Westram  <amgine@reallysoft.de>
+
+	* data/levels/Sokoban/*.lua: - solvability-fixes
+	* src/lua.cc: - wrong soundname raises error
+	* src/actors.*:  - sound_event forwards result of SoundEvent
+	* src/objects.*: - sound_event forwards result of SoundEvent
+	* data/levels/ralf_sokoban.lua: - fixed sound name
+					- allow skulls on trigger after first skull was made
+	* src/server.cc: - allow Msg_RestartGame when state==sv_finished (needed by timehunt)
+	* src/oxyd.cc: - raises errors from oxyd-patches
+	* src/lua.cc: - made several errors more verbose
+		      - GetAttrib("kind") -> error
+		      - added GetKind/en_get_kind
+		      - EmitSound checks for object
+	* doc/refman/enigma-ref.texi: - added GetKind
+	* data/levels/ralf_sokoban.lua: - added flag for restriction testing
+					- uses GetKind() instead of broken GetAttrib("kind")
+	* data/init.lua: - added GetKind/get_kind
+	* src/world.cc: - throws XLevelRuntime if 'callback' fails
+	* src/server.hh: - added Msg_Panic
+	* src/server.cc: - throws XLevelRuntime if 'Tick' fails
+			 - added Msg_Panic (instantly sets server into state sv_idle)
+			 - raises errors from init.lua
+	* src/options.cc: - throws XLevelRuntime if 'SaveOptions' fails
+	* src/levels.hh: - new exception XLevelRuntime (used for (lua-)runtime errors)
+	* src/game.cc: - catches exception XLevelRuntime
+	* src/client.cc: - Fixed senseless message (occurred only if par was reached earlier)
+	* data/levels/index.lua: - added Levelpack '+index_user.txt'
+	* data/levels/02grep_levels.pl: - arch-friendly outputfilename
+
+2004-11-22  Ralf Westram  <amgine@reallysoft.de>
+
+	* src/menus.cc: - reactivated timehunt option
+	* src/client.cc: - ctrl-A -> restart
+			 - separated Timehunt and display logic in Client::level_finished
+			   (initiates Level Restart in case of TimeHunt-Failure)
+			 - show par-/best-time on level startup (TimeHunt mode only)
+			 - Mentioned par-holder in 'Too slow' message
+			 - uncommented help for Shift-F3
+	* src/server.cc: - MsgCommand('restart') -> server::RestartLevel
+			 - server::RestartLevel allowed as well in state sv_finished
+			 - log unknown commands
+
+2004-11-19  Ralf Westram  <amgine@reallysoft.de>
+
+	* lib-src/oxydlib/EnigmaNames.*: - this imports the stone/floor/item-tables from ../../src (aka enigma source)
+	* src/options.cc: - options::GetLevelStatus auto-increments revision 0 to revision 1
+	* src/levels.cc: - LevelInfo::revision defaults to 1
+
+2004-06-09  Daniel Heck  <dheck@ix.urz.uni-heidelberg.de>
+
+	* src/items.cc (Coin[124]): Changed time constants to more closely
+	match the ones in Oxyd.
+
+	* src/video.cc (Init): Better, more fail-safe video mode
+	initialization.
+
+2004-04-24  gettextize  <bug-gnu-gettext@gnu.org>
+
+	* configure.ac (AC_CONFIG_FILES): Add intl/Makefile.
+
+2004-04-23  gettextize  <bug-gnu-gettext@gnu.org>
+
+	* Makefile.am (SUBDIRS): Add m4.
+	(ACLOCAL_AMFLAGS): New variable.
+	(EXTRA_DIST): Add config.rpath.
+	* configure.ac (AC_CONFIG_FILES): Add m4/Makefile.
+
+2003-11-27  Daniel Heck  <dheck@ix.urz.uni-heidelberg.de>
+
+	* src/d_models.cc: Removed ReloadModels() because it did not work
+	anyway.
+
+	* configure.ac, lib-src/zipios++/configure.in: Compilation fixes
+	for cygwin (thanks to Tacvek)
+
+2003-11-26  Daniel Heck  <dheck@ix.urz.uni-heidelberg.de>
+
+	* src/actors.cc: - (ActorInfo) Removed unused ctor arguments.
+	- Cannonball does not rebound from stones
+
+	* src/levels.hh: - Doxygenified comments.
+
+	* src/menus_internal.hh: - px::Grab returns grabbed area.
+
+	* src/objects.hh: - Doxygenified comments.
+
+	* src/video.cc: - Added MouseCursor::init_bg(), restore_bg().
+
+	* src/world.cc: - Moved ActorInfo ctor here.
+	- Don't perform collision detection if
+	  ActorInfo::ignore_contacts set.
+
+	* src/world.hh: - Moved ActorInfo ctor to world.cc.
+	- Added ActorInfo::ignore_contacts variable.
+
+	* src/world_internal.hh: - Doxygenified comments.
+
+	* src/px/video.cc: - clip_blit() takes clipping rectangle instead
+	of graphics state as first arguments.
+	- px::Grab performs clipping and returns grabbed area.
+	- Fixed bug in MakeSurface (data, ...)
+	- Added MakeSurfaceLike()
+
+	* src/px/video.hh: - px::Grab returns grabbed area.
+	- Added MakeSurfaceLike()
+
+2003-11-21  Daniel Heck  <dheck@ix.urz.uni-heidelberg.de>
+
+	* src/stones.cc: - Emit cannonball only if state==IDLE
+
+	* src/world_internal.h: - Added World::add_actor() and
+	World::preparing_level
+
+	* src/world.cc: - Fixed bug in AddActor.
+	- Added World::add_actor() and World::preparing_level
+
+	* src/stones.cc: More work on st-spitter.
+
+	* src/display.cc: Removed effect sprite limit
+
+	* data/models-2d.lua: Added models for st-spitter
+
+2003-11-20  Daniel Heck  <dheck@ix.urz.uni-heidelberg.de>
+
+	* src/actors.cc:
+	- Removed unused position argument to Actor::Actor.
+	- Added Actor::set_anim().
+	- Continued implementation of CannonBall (still rebounds from
+	  stones and does not destroy them).
+	- Replaced set_model_cb() by set_anim().
+
+	* src/actors.hh:
+	- Added `ActorID's for later use.
+
+	* src/display.cc, src/display.hh: 
+	- Changed AddEffect() to return SpriteHandle.
+
+	* src/levelpack.cc: 
+	- Cosmetic changes.
+
+	* src/objects.hh: 
+	- Derive Actor from display::ModelCallback.  
+	- Added Actor::set_anim().  
+	- Actor::get_sprite() returns non-const reference (so we can
+	  modify the sprite handle of the CannonBall).
+
+	* src/stones.cc: 
+	- Added SpitterStone (st-spitter). 
+
+	* src/stones_simple.cc: 
+	- Cosmetic changes.
+
+	* src/world.cc: 
+	- Renamed WorldImpl to World.  
+	- Moved get_accel() into class World.  
+	- Added stub for SetConstantForce().  
+	- Call Actor::on_creation() from AddActor() (this is usually done
+	  in InitWorld(), but this doesn't work when creating actors during
+	  the game, like CannonBalls).
+	- Added world::KillActor()
+	- Fixed bug in world::Tick() that lead to a core dump when adding
+	  a new actor during the game
+
+	* src/world.hh:
+	- Added SetConstantForce(), KillActor()
+
+	* src/world_internal.hh:
+	- Removed abstract class World
+	- Renamed WorldImpl to World
+
+	
+
+2003-11-16  Daniel Heck  <dheck@ix.urz.uni-heidelberg.de>
+
+	* src/display.hh: Removed DefineModel() declaration
+
+	* src/display-lua.pkg: Export GetSurface(), CropSurface(),
+	DefineImageModel()
+	
+	* src/d_models.cc: Adapt to px::Cache changes. Disabled
+	ReloadModels().  Added CropSurface(), GetSurface(),
+	RegisterImage(), LookupImage(). 
+
+	* src/d_models.hh: Added CropSurface(), GetSurface(),
+	RegisterImage(), LookupImage(), DefineImageModel().
+
+	* src/display-lua: Added CropSurface(), GetSurface(),
+	DefineImageModel().
+
+	* src/display.cc: Moved ShowFPS here from options.cc. 
+
+	* src/enigma.cc: Added RegisterImage().Adapt to px::Cache changes. 
+	
+	* src/enigma.hh: Added RegisterImage().
+
+	* src/enigma-lua.pkg: Do not export anything from options:: namespace.
+	
+	* src/game.cc: Removed unused code + general cleanup.  Use new
+	options:: code. Added GetDifficulty(), SetMouseSpeed(),
+	GetMouseSpeed().  Removed GetStatus().
+
+	* src/game.hh: Added {MIN,MAX}_MouseSpeed (from options.hh),
+	SetMouseSpeed(), GetMouseSpeed(), GetDifficulty().
+
+	* src/items.cc: Adapt to new options code.
+
+	* src/levelpack.cc: Execute level code in lua::LevelState
+	environment.
+
+	* src/menus.cc: Use new options code.  Redesigned options menu to
+	use buttons with labels instead of wordy button texts.  Removed
+	"Manual" entry from main menu and added "Editor" entry.
+
+	* src/options.cc, src/options.hh: Added SetOption(), GetOption(),
+	GetBool(), GetDouble(), GetInt(), GetString().
+	Changed signature of GetLevelStatus.  
+	Removed SetLevelTime() (now in class LevelPack).
+	
+	* src/oxyd.cc: Use GetDifficulty().
+
+	* src/sound.cc: Use new options:: code.  PlayMusic(), StopMusic()
+	take std::string.
+
+	* src/sound.hh: PlayMusic(), StopMusic() take std::string.
+
+	* src/stones_simple.cc: Use new options:: code.  
+	(Switch): Call PerformAction immediately when hit by actor, not
+	after delay. Moved documentation to texi file.
+
+	* src/video.cc: Use new options:: code.
+
+	* src/world.cc: Use new options:: code.  Use lua::LevelState
+	instead of global state.
+
+
+2003-10-22  Ralf Westram  <amgine@reallysoft.de>
+
+	* src/oxyd.cc: - const correctness (get_info)
+		       - removed get_moddate, added get_revision_number
+	* src/game.cc: - fixed call to SetLevelTime
+	* src/options.cc: - SetLevelTime/SetLevelFinished: added parameter 'revision'
+			  - Interface of LevelStatus changed (gets revision instead of time)
+			  - Save status sorted (into config file)
+			  - saves revision number (instead of moddate of .lua)
+	* src/options.hh: - SetLevelTime/SetLevelFinished added parameter 'revision'
+	* src/levelpack.cc: - index_*.lua now support a 4th entry (which is the revision number).
+			      Empty name is sufficiant to comment out a line ('||').
+			    - removed get_moddate
+			    - const correctness for get_info
+	* src/menus.cc: - uses revision number for 'level changed' icon
+	* src/levels.hh: - removed time from LevelStatus; added parameter for revision
+			 - added revision to LevelInfo
+	* src/player.cc: - If all players have non-movable actors only the game restarts.
+			 - new actor attribute "essential=x".
+			   Game restarts if x essential players have died.
+	* src/actors.cc: - removed debugging output
+			 - respawn works with flag
+	* data/startup.lua: - LevelStat2 sets status with revision number
+			    - LevelStat converts old status to new format
+	* doc/refman/enigma-ref.texi: - doc for 'essential'
+	* data/levels/index_enigma2.txt: - set revision number of ralf05 to 2
+					 - removed ralf13
+	* data/levels/ss12.lua: - set essential=1
+	* data/levels/ralf12.lua: - set essential=1
+	* data/levels/ss17.lua: - added essential attribute to all balls
+	* data/levels/duffy26.lua: - added essential attribute to all balls
+	* data/levels/duffy23.lua: - added essential attribute to all balls
+	* data/levels/ss11.lua: - added essential attribute to all balls
+	* data/levels/ant15.lua: - added essential attribute to all balls
+	* data/levels/meditation15.lua: - added essential attribute to all balls
+	* data/levels/meditation16.lua: - added essential attribute to all balls
+	* data/levels/meditation5.lua: - added essential attribute to all balls
+	* data/levels/ss16.lua: - added essential attribute to all balls
+	* data/levels/martin51.lua: - added essential attribute to black ball
+	* data/levels/ant16.lua: - added essential attribute to all balls
+				   [this level is unplayable - magnetic force is to strong]
+
+2003-10-21  Ralf Westram  <amgine@reallysoft.de>
+
+	* src/laser.cc: - const correctness for predicates
+	* src/object_mixins.hh: - const correctness for predicates
+	* src/stones_complex.cc: - const correctness for predicates
+				 - cosmetics
+	* src/stones_simple.cc: - const correctness for predicates
+	* src/objects.hh: - added get_max_radius() to determine max. actor radius (hardcoded value)
+			  - Object+Actor: fixed const-correctness of some predicates
+	* src/menus.cc: - uses different shading method for completed levels
+			  [previous method didn't work with auto-previews]
+	* src/actors.cc: - checks for other actors when selecting a respawn destination
+			 - FreeRespawnLocationFinder: tests all fields affected by startingpos
+			   [e.g. when Actor appears on the edge between two fields, both will be checked].
+			 - respawn avoids some dangerous floors (water, abyss and space)
+			   and items (it-burnable-ignited)
+			 - added assertions testing value returned by get_max_radius()
+			 - const correctness for predicates
+
+2003-10-20  Ralf Westram  <amgine@reallysoft.de>
+
+	* data/levels/.cvsignore: - added index_user.txt
+	* autogen.sh: - call aclocal before autoheader (autoheader complained here)
+
+	* data/levels/02grep_levels.pl: - now writes to index_user.txt
+	* data/levels/ralf05.lua: - don't hide 9th movable impulse stone
+	* data/levels/ralf06.lua: - set mouseforce of small balls to 0
+	* data/levels/ralf08.lua: - enigma.ConserveLevel=FALSE
+
+	* src/actors.cc: - warning fixes
+			 - respawning actors search for a free starting position
+			 - added find_respawnpos()
+	* src/game.cc: - commented out unused states PLAYERDEAD and NOMORELIVES
+		       - CountSolvedLevels respects current difficulty level
+	* src/menus.cc: - Shading depends on difficulty level
+			- invalidate_all on difficulty change
+	* src/objects.hh: - added Actor::find_respawnpos()
+	* src/options.cc: - windows version prefers personal configuration file in $HOME
+	* src/player.cc: - search for better respawn position before respawning
+	* src/stones_complex.cc: - fixed State-deadlock problem of MovableImpulseStone
+
+	* src/floors.cc: - warning fixes
+	* src/items.cc: - warning fixes
+	* src/stones_simple.cc: - warning fixes
+	* src/world.cc: - warning fixes
+
+2003-09-07  Ralf Westram  <amgine@reallysoft.de>
+
+	* src/gui.cc: - Menu::manage passes a reasonable duration to tick()
+	* src/stones_complex.cc: - warning fix
+	* src/menus.cc: - max_available didn't contain what comment said
+			- already solved levels are always available
+			- info texts are displayed in LevelMenu
+	* src/items.cc: - warning fixes
+	* src/game.*: - minor fixes for available levels
+	* src/stones_simple.cc: - reduced number of messages flooded by DummyStone
+	* src/objects.cc: - reduced number of messages flooded by DummyFloor
+
+2003-08-19  Ralf Westram  <amgine@reallysoft.de>
+
+	* src/oxyd.cc: - scan the additional info provided by oxydlib for each actor
+			 and sets some attributes like mouseforce, rotor-range and speed.
+		       - skips multiple warnings about unknown objects
+	* src/actors.cc: - collision between small white and black ball shatters the latter
+			   (only if small whiteball is controlled by mouse)
+	* src/world.cc: - quick hack to fix broken turnstiles/pullstones.
+			  The bug is caused by resetting ActorInfo->pos to ActorInfo->oldpos
+
+2003-08-18  Ralf Westram  <amgine@reallysoft.de>
+
+	* src/enigma-lua.pkg: - added enigma::date
+	* src/enigma.hh: - added enigma::date (for lua)
+	* src/enigma.cc: - added enigma::date (for lua)
+	* src/items.cc: - Seed::on_laserhit returns false
+			- warnings fixed
+	* src/player.cc: - player::Suicide does no longer remove extralifes; shattering the actor is enough
+	* src/game.cc: - inventory now updated in Game::change_state
+		       - resorted states in Game::tick
+		       - does not change state on F3; doing Suicide is enough
+			 (that causes a real restart (with new lifes) when all lifes are gone)
+
+2003-08-17  Ralf Westram  <amgine@reallysoft.de>
+
+	* src/stones_simple.cc: - after growing, the seed instantly builds a bridge in swamp
+	* src/actors.cc: - actor can drop/pickup all items on swamp
+	* src/stones_complex.cc: - OneWayStones understand message "direction" (like Bolders do)
+	* src/stones_simple.cc: - added SwapStone::actor_inside()
+				- st-block disappears in swamp
+	* src/game.cc: - draw inventory before showing level info
+		       - prints info when skipping todo/unnamed level
+		       - moved class Avg out of Gmae::run (gcc complains)
+	* src/player.hh: - Inventory::redraw made public
+
+2003-08-05  Ralf Westram  <amgine@reallysoft.de>
+
+	* src/stones_simple.cc: - warning fixes
+
+2003-07-21  Ralf Westram  <amgine@reallysoft.de>
+
+	* src/stones_simple.cc: - actor_inside SwapStone -> shatter
+	* data/levels/ralf_sokoban.lua: - removed debugging code
+
+2003-07-21  Ralf Westram  <amgine@reallysoft.de>
+
+	* src/stones_simple.cc: - SwapStone disposes YieldedGridStone
+	* src/world.hh: - added MoveStone
+	* src/world.cc: - added MoveStone, disabled SwapStones (curr. unused)
+	* src/stones_internal.hh: added YieldedGridStone::dispose
+	* src/stones.cc: - added YieldedGridStone::dispose
+	* src/stones_complex.cc: - PullStone disposes YieldedGridStone (exit/restart during pull crashed)
+				 - actor_inside RotatorStone -> shatter
+	* src/objects.cc: - move_stone conserves running animations
+	* data/models-2d.lua: - added one frame to impulse-stone closing anim to make duration longer
+
+2003-07-18  Ralf Westram  <amgine@reallysoft.de>
+
+	* src/stones_simple.cc: - SwapStone uses YieldedGridStone to store swapped stone
+	* src/stones_complex.cc: - again made PullStone more complicate ;-)
+				   It may move multiple objects (actors and stones) at the same time.
+				   Pulled stone shortly disappears during move.
+				 - changes StoneImpulse_Base anim _before_ sending impulses
+				   (otherwise pull stone sets only a shadow of a pulled ImpulseStone)
+	* src/stones.cc: - implementation of YieldedGridStone
+	* src/stones_internal.hh: - added class YieldedGridStone
+	* data/models-2d.lua: - stoneimpulse-anim2 is a bit slower than stoneimpulse-anim1
+				(to avoid never-ending impulse)
+	* src/objects.cc: - warning uses fprintf again (cerr is far too slow)
+	* src/objects.hh: - added is_removable() [tells whether it's allowed to kill or yield a stone]
+	* src/menus.cc: - SDL_Event.motion.?? is only valid if event type is SDL_MOUSEMOTION
+
+2003-07-17  Ralf Westram  <amgine@reallysoft.de>
+
+	* data/levels/ss2.lua: - updated version from Smutty (even harder)
+			       - added "easy" setting (equal to previous version)
+	* data/levels/duffy9.lua: - fixed: re-setting st-switch from inside its own callback
+				    causes undefined bahvior
+
+2003-07-16  Ralf Westram  <amgine@reallysoft.de>
+
+	* src/stones_complex.cc: - I hate else w/o {}
+
+2003-07-15  Ralf Westram  <amgine@reallysoft.de>
+
+	* src/stones_complex.cc: - slightly modified puzzle scrambling
+				 - bolder listens to message "direction"
+	* src/world.cc: - fixed stupid bug in puzzle scrambling
+	* data/levels/ss2.lua: - uses message "direction" instead of setting attribute "direction".
+				 Bolders now turn instantly (regardless whether they move or not)
+	* data/levels/ralf_sokoban.lua: - new Sokoban-mode using swap-stones
+					- layout changed for many levels
+					- basic loss-detection
+
+2003-07-14  Ralf Westram  <amgine@reallysoft.de>
+
+	* src/items.cc: - stones break glasses
+			- laser hammer->sword (not in per.oxyd)
+			- coffee+brush break when hit by laser
+	* data/models-2d.lua: - added broken glasses
+			      - removed inventory model for glasses
+
+2003-07-13  Ralf Westram  <amgine@reallysoft.de>
+
+	* src/world.hh: - added ReplaceStone
+	* src/world.cc: - SwapStones uses IsLevelBorder
+			- NameObject and TransferObjectName warn if a name is overwritten
+			- added ReplaceStone
+	* src/enigma.cc: - fixed another alarm crash (crashed if alarm x removed alarm x+1)
+	* src/items.cc: - Seed transfers its object name to WoodenStone_Growing
+			- Blocker understands open/close-messages
+	* src/stones_complex.cc: - ShogunStones transfer their names
+				 - if Blocker triggered during anim then reverse anim
+				 - Blocker understands open/close-messages
+	* src/lua.cc: - added GetFloor, GetItem, GetStone, GetPos and KillItem to lua
+	* src/stones_simple.cc: - SwapStone uses IsLevelBorder; crashed when killed during move
+				- Timer stone: new attribute "invisible"
+				- WoodenStone_Growing transfers object name to WoodenStone
+
+2003-07-11  Ralf Westram  <amgine@reallysoft.de>
+
+	* src/oxyd.cc: - using same Puzzle-Scrambling as lua-code
+	* src/lua.cc: - Puzzle-Scrambling interface
+	* src/world.hh: - added functions for Puzzle-Scrambling
+	* src/world.cc: - send "init" to items only
+			- added functions for Puzzle-Scrambling
+			- puzzle scrambling is more intense than before
+	* src/objects.hh: - changed SimpleStone interface
+	* src/objects.cc: - Bridge closes when a stone appears and opens again when stone disappears
+	* src/menus.cc: - do not put broken levels into preview cache
+	* src/stones_simple.cc: - SimpleStone uses SimpleStoneTraits
+	* src/stones_complex.cc: - shuffling allowed for both types of puzzle stones (e.g. per.oxyd #35)
+				 - puzzle don't need "init" message
+	* src/enigma-lua.pkg: - changed SimpleStone interface
+	* src/SDL_rotozoom.c: - bigger source area for shrinking
+	* data/models-2d.lua: - added st-glass_move
+	* data/startup.lua: - changes to simple stone definition
+			    - added st-glass_move
+
+2003-07-09  Ralf Westram  <amgine@reallysoft.de>
+
+	* data/levels/siegfried71.lua: - set compatibility to "oxyd1"
+	* data/models-2d.lua: - st-swap "animation"
+	* src/game.cc: - missing header
+	* src/items.cc: - trigger didn't go 'off' when swap-stone was exchanged with grate
+	* src/stones_simple.cc: - SwapStone does special animation when it is moved
+
+2003-07-08  Ralf Westram  <amgine@reallysoft.de>
+
+	* data/models-2d.lua: - shadow animation for st-wood-growing, st-blocker
+			      - fixed shadow for activated laser
+	* src/SDL_rotozoom.c: - improved zoom quality for shrinked images
+	* src/menus.cc: - added cache for level previews
+
+2003-07-07  Ralf Westram  <amgine@reallysoft.de>
+
+	* src/objects.cc: - fix usage of FloorTraits.name
+	* src/display.cc: - added GetGameArea()
+	* src/display.hh: - added GetGameArea()
+	* src/sound.cc: - added functions to temporarily switch off sound
+	* src/sound.hh: - added functions to temporarily switch off sound
+	* src/levelpack.cc: - added LevelPack_Enigma::may_have_previews
+	* src/game.hh: - added LevelPack::may_have_previews
+	* src/oxyd.cc: - added LevelPack_Oxyd::may_have_previews
+	* src/game.cc: - Enigma does not popup game menu when it looses focus
+		       - create_preview switches off sound
+		       - rewrote GameMenu zoom position
+
+2003-07-06  Ralf Westram  <amgine@reallysoft.de>
+
+	* src/game.cc: - zoom position finetuned
+	* src/display.hh: - added GetReferencePointCoordinates
+	* src/d_engine.hh: - added get_reference_point_coordinates
+	* src/display.cc: - added get_reference_point_coordinates,GetReferencePointCoordinates
+	* src/menus.hh: - OptionsMenu gets background surface
+	* src/game.cc: - GameMenu zooms background
+	* src/world.cc: - BroadcastMessage uses GridLayerBits
+	* src/enigma.hh: - added GridLayerBits
+	* src/items.cc: - laser -> it-extralife = it-glasses
+			- glasses only broadcast if necessary
+	* src/objects.cc: - overloaded is_kind()
+	* src/stones_complex.cc: - uses GetInventory()
+	* src/stones_simple.cc: - uses GetInventory()
+	* src/stones_internal.hh: - removed get_inventory()
+	* src/stones.cc: - uses GetInventory()
+	* src/player.hh: - added Inventory::find(), IsCurrentPlayer(), overloaded GetInventory()
+			 - moved wielded_item... here
+	* src/player.cc: - added Inventory::find(), IsCurrentPlayer(), overloaded GetInventory()
+
+2003-07-05  Ralf Westram  <amgine@reallysoft.de>
+
+	* src/fwd.hh: - Value is in namespace enigma
+	* src/world.*: - InitLayers -> BroadcastMessage
+	* src/display.*: - warning fixes
+	* src/gui.hh: - warning fixes
+	* src/world.hh: - added FindSignalDestination
+	* src/world.cc: - message handling may be verboose
+			- added FindSignalDestination
+			- Signal list does not send signals to objects
+			  that were created by same signal.
+			  (Fixes: it-blocker refused to grow on signal)
+	* src/objects.cc: - message handling may be verboose
+	* src/actors.cc: - Actor sends message to it-vortex after appearing
+			 - When balls are falling into vortex they may be teleported
+			 - Player has short control, when actor is spitted out of vortex
+			 - Laser may hit player when coming out of vortex
+	* src/items.cc: - added SignalFilter
+			- it-blocker/it-vortex signal handling
+			- it-vortex uses Signal if no targetx/y attributes found
+			- added Vortex documentation
+			- added it-easymode (kills stones in easy mode)
+			- renamed SignalFilter -> SignalFilterItem
+			- vortex teleports to destination w/o vortex
+			- Hills are not flat on top (balls always roll down)
+			- added it-glasses
+	* src/stones_simple.cc: - warning fixes
+				- added st-easymode doc
+				- st-actorimpulse_invisible <> it-brush
+				- virtual dtor for GrateBase
+				- changed grate cloning: SINGLETONOBJ->CLONEOBJ
+				  (it was not possible to kill grates)
+				- st-death_invisible reacts on message "glasses"
+	* src/stones_complex.cc: - fixed st-blocker signal handling
+	* data/models-2d.lua: - added it-glasses
+	* lib-src/oxydlib/enigma_mapping.cpp: - added signal filters
+					      - added it-easymode, it-glasses
+	* lib-src/oxydlib/printlevels.cpp: - signals print all three types of objects (Surface, Piece and Object)
+
+2003-07-04  Ralf Westram  <amgine@reallysoft.de>
+
+	* src/actors.cc: - BasicBall: fall into and rise out of vortex
+	* lib-src/oxydlib/enigma_mapping.cpp: - added it-vortex
+					      - changed per.oxyd 0x52 (fl-bridge -> fl-black)
+	* src/items.cc: - added Vortex
+	* data/models-2d.lua: - added it-vortex
+
+2003-06-30  Ralf Westram  <amgine@reallysoft.de>
+
+	* src/stones_simple.cc: - made Grates float
+	* src/options.cc: - added options::MustRestartLevel
+	* src/menus.cc: - changing Difficulty sets options::MustRestartLevel
+	* src/game.cc: - cheat-fix: restarts game if options::MustRestartLevel
+	* src/stones_complex.cc: - oxyd1-PuzzleStones accept "scramble"-message and
+				   rotate when hit by laser
+				 - incomplete per.oxyd puzzle stones build bridges on
+				   water if actor doesn't hold it-magicwand
+	* src/oxyd.cc: - uses OxydLib::ScrambleItem to scramble oxyd1 puzzle pieces
+
+2003-06-29  Ralf Westram  <amgine@reallysoft.de>
+
+	* data/startup.lua: - removed st-grate1/2
+	* data/models-2d.lua: - shadows for doors [not very animated yet]
+			      - new shadow
+			      - whiteball jump anim
+	* src/stones.cc: - it-brake works with mail stone
+	* src/stones_simple.cc: - added Grate1/2 (actor rebounds if not on floor)
+
+2003-06-28  Ralf Westram  <amgine@reallysoft.de>
+
+	* src/stones_simple.cc: - WoodenStone has 2 flavors (behave like random floor)
+				- it-seed always creates the correct flavor
+	* src/objects.cc: - added FallenBox (fl-stwood)
+			  - Object::is_kind accepts simple wildcards
+	* data/models-2d.lua: - new floor fl-stwood (fallen st-wood)
+			      - st-wood has 2 flavours
+			      - st-stoneimpulse-hollow uses sh-glass (not sh-solid)
+			      - round shadows for several stones
+	* data/models.lua: - added functions for round stones
+	* data/levels/martin49.lua: - fix (only movable mirror move by impulse)
+	* lib-src/oxydlib/enigma_mapping.cpp: - added fl-stwood
+
+2003-06-27  Ralf Westram  <amgine@reallysoft.de>
+
+	* src/stones_complex.cc: - Impulse of RotatorStones is no longer triggered by alarm - instead
+				   animcb is used.
+	* src/laser.cc: - MirrorStone is no longer derived from MovableStone (because many are not movable).
+			  (Fixes: non-movable mirror-stones were moved by impulses)
+			- removed const-attribute from MirrorStone::is_movable() (virtual call did not work)
+			- added missing mirror types (transparent+movable)
+	* data/models-2d.lua: - rotator-anim: higher speeded, not looping
+
+2003-06-26  Ralf Westram  <amgine@reallysoft.de>
+
+	* data/startup.lua: - added fl-black/white
+	* src/objects.cc: - renamed fl-black/white to fl-acblack/acwhite
+	* lib-src/oxydlib/enigma_mapping.cpp: - added per.oxyd it-wrench
+					      - changed st-rotator -> st-rotator_move
+					      - renamed fl-black/white to fl-acblack/acwhite (only color-matching actor may move)
+					      - added fl-black/white (normal movement for all actors)
+	* src/menus.cc: - added LevelMenu::previous_levelpack() (bound to BACKSPACE)
+	* src/stones_complex.cc: - added st-rotator_move-left/right
+				 - wrench toggles rotator direction
+	* data/models-2d.lua: - added fl-acblack/acwhite
+			      - changed st-rotator anims
+			      - added it-wrench
+			      - fixed st-actorimpulse timing
+	* src/items.cc: - added Wrench
+	* data/init.lua: - added bigbrick()
+	* data/levels/ralf12.lua: - applied changes to ant's render_puzzles
+
+2003-06-25  Ralf Westram  <amgine@reallysoft.de>
+
+	* src/stones_simple.cc: - changed appearance of st-stonebrush for Per.Oxyd
+	* src/stones_complex.cc: - cosmetics
+	* src/oxyd.cc: - added class LP_OxydExtra
+		       - support for lasers
+	* src/*: - fixes for oxydlib v0.02
+	* src/menus.cc: - do not redraw anything in LevelWidget::set_selected() if
+			  nothing was drawn before (be quiet as well)
+			- update_info() in LevelWidget ctor
+	* src/object_mixins.hh: - MovableStone uses get_push_direction()
+	* src/stones_simple.cc: - simplified ActorImpulseStone(Invisible)
+				- force applies radial (from ActorImpulseStone center)
+	* data/models-2d.lua: - modified st-actorimpulse(-anim)
+	* lib-src/oxydlib/*: - merged with oxydlib v0.02
+	* lib-src/oxydlib/enigma_mapping.cpp: - changed laser mapping
+					      - added/fixed some peroxyd mappings
+					      - added/corrected st-actorimpulse stones
+
+2003-06-24  Ralf Westram  <amgine@reallysoft.de>
+
+	* src/options.cc: - added LevelMenuPosition
+	* src/options.hh: - added LevelMenuPosition
+	* src/enigma-lua.pkg: - added LevelMenuPosition
+	* src/menus.cc: - added set/get_position to LevelMenu/LevelWidget
+			- position in LevelMenu is stored/restored
+	* src/objects.cc: - fixed behavior of BlackTile/WhiteTile
+	* src/world.cc: - get_accel is aware of spikes
+	* src/objects.hh: - added 'has_spikes' to Actor
+	* data/models-2d.lua: - added it-pin
+	* src/items.cc: - added it-pin
+	* lib-src/oxydlib/enigma_mapping.cpp: - added it-pin
+
+2003-06-23  Ralf Westram  <amgine@reallysoft.de>
+
+	* data/levels/duffy6.lua: - changed abyss into water (st-bolder now falls into abyss)
+	* data/levels/ant07.lua: - changed abyss into water (st-bolder now falls into abyss)
+	* data/levels/level5e.lua: - changed abyss into water (st-bolder now falls into abyss)
+	* data/models-2d.lua: - added fall animations for bolders
+	* src/stones_complex.cc: - fall animation for bolders
+
+2003-06-22  Ralf Westram  <amgine@reallysoft.de>
+
+	* src/laser.hh: - virtual dtor for PhotoStone
+	* src/laser.cc: - virtual dtor for MirrorStone
+	* src/stones_simple.cc: - virtual dtor for BlackStone, WhiteStone, BreakableStone, YinYangStone,
+				  DiscoStone
+	* src/stones_complex.cc: - virtual dtor for KeyStone, ConnectiveStone, DoorBase, OneWayBase,
+				   StoneImpulse_Base, Turnstile_Arm, Turnstile_Pivot_Base
+	* src/items.cc: - virtual dtor for Bomb, HillHollow
+	* src/objects.hh: - virtual dtor for Actor, Item
+	* src/actors.cc: - virtual dtor for BasicBall
+	* src/oxyd.cc: - virtual dtor for LevelPack_Oxyd
+	* src/levelpack.cc: - virtual dtor for LevelPack_Enigma
+	* src/object_mixins.hh: - virtual dtor for OnOffBase, MovableStone
+	* src/px/video.cc: - virtual dtor for FBDrawable
+	* src/d_engine.hh: - virtual dtor for ModelLayer, DL_Grid
+	* src/objects.cc: - inserted bug note [not fixed yet]
+	* src/stones_complex.cc: - fixed bug in ShogunStone::on_impulse
+	* src/items.cc: - cosmetics
+	* src/stones_simple.cc: - cosmetics
+	* src/world.cc: - cosmetics
+	* src/objects.cc: - cosmetics
+	* src/gui.cc: - initialize Widget::listener in ctor
+		      - initialize Alignments in Label-ctor
+	* src/gui.hh: - added virtual dtor to Button, PushButton, TextButton, ImageButton, Container, List
+			(this fixes some memory leaks)
+	* src/actors.cc: - initialize BasicBall::sinkModel in ctor
+	* src/laser.cc: - initialize MirrorStone::outdirs in ctor
+
+2003-06-21  Ralf Westram  <amgine@reallysoft.de>
+
+	* src/items.cc: - it-seed kills other stone on same field before it starts growing
+			- corrected pickup-distance for it-seed, it-puller and it-dynamite
+	* data/startup.lua: - new stones (st-likeoxydx and st-likeoxydx-open; where x is abc or d)
+	* data/models-2d.lua: - new stones (st-likeoxydx and st-likeopenoxydx; where x is abc or d)
+	* src/oxyd.cc: - per.oxyd: create different oxyd flavor ("c")
+	* lib-src/oxydlib/enigma_mapping.cpp: - new per.oxyd codes: st-timer,st-fart,fl-rough,fl-gray
+						st-likeoxydc,st-likeoxydc-open
+	* src/stones_simple.cc: - added Stone_movebreak ("st-rock3_movebreak")
+				- added st-rock3_break
+	* lib-src/oxydlib/enigma_mapping.cpp: - changed breakable rock3
+	* data/models-2d.lua: - added st-rock3_break, st-rock3_break-anim and st-rock3_movebreak
+	* data/models-2d.lua: - added fartstone break anim
+	* src/stones_simple.cc: - FartStone destructable by laser, dynamite and bomb
+				- FartStone break anim
+	* src/laser.cc: - Oxyd1: light passes through transparent plane mirrors in
+			  plane direction
+	* src/items.cc: - WhiteBomb does not ignite on message "bombstone"
+	* src/stones_simple.cc: - st-rock3_move is killed on messages "expl" and "ignite"
+	* lib-src/oxydlib/enigma_mapping.cpp: - removed common object maps
+					      - explicit maps for all oxyd-types / marked unused objects
+					      - common objects are undefined now, need to be verified for each version
+
+2003-06-20  Ralf Westram  <amgine@reallysoft.de>
+
+	* src/stones_complex.cc: - If one of several adjacent complete puzzle stones is touched
+				   with a magic wand they explode all.
+	* src/objects.hh: - ExplosionType: BOMB -> BLACKBOMB/WHITEBOMB
+	* src/objects.cc: - Whitebomb puts a heavy explosion on adjacent fields
+	* src/items.cc: - BombStones blow up documents
+			- Dynamite does not blow up documents in Oxyd1
+			- White and black bomb send different explosion effects
+	* src/stones_simple.cc: - BrakeStone explodes on message "expl" (i.e. by bombs only)
+				- simplified YinYangStones
+	* src/items.cc: - Bombs and Dynamite use SendExplosionEffect()
+			- dynamite ignites on messages "expl" and "bombstone"
+			- simplified Bombs
+			- fixed st-wood <> bomb behavior for different oxyd versions
+	* src/stones_complex.cc: - Exploding puzzle stones affect adjacent fields
+				 - complete clusters explode on_laserhit
+	* src/stones_simple.cc: - BlockStone falls if floor changes
+				- WoodenStone falls on_move for oxyd1 and if floor changes for other versions
+				- simplified BreakableStones
+				  (st-stone_break, st-break_acwhite and st-break_acblack)
+				- st-stone_break is affected by nearby explosion (st-break-ac... not)
+				- BombStones uses SendExplosionEffect()
+	* src/world.cc: - call floor_change from stone_change() and SetFloor()
+	* src/main.cc: - removed 'gametype'
+	* src/game.cc: - new global 'GameCompatibility'
+		       - added SetCompatibility
+	* src/oxyd.cc: - sets GameType for different Oxyd level packs
+	* src/menus.cc: - warnings fixed
+	* src/levelpack.cc: - sets GameType for Enigma level packs
+	* src/game.hh: - LevelInfo: removed default parameter for GameType
+		       - new global 'GameCompatibility'
+		       - added GAMET_UNKNOWN
+	* src/enigma-lua.pkg: - SetCompatibility() may be used to change game behavior
+				from lua (to the behavior of the different oxyd versions)
+	* src/objects.cc: - added SendExplosionEffect()
+			  - DYNAMITE explosion sends "ignite" to stones on all 8 neighbors
+			    (see Per.Oxyd #61)
+			  - BombStones 'ignites' directly adjacent stones
+			    and 'kills' directly adjacent items (see Per.Oxyd (2p) #5)
+	* src/objects.hh: - added SendExplosionEffect()
+			  - added Stone::floor_change
+
+2003-06-18  Ralf Westram  <amgine@reallysoft.de>
+
+	* src/options.cc: - at level finish: always update solve time
+	* src/stones_complex.cc: - explosion sound
+				 - PerOxyd puzzle stones explode by magic wand
+				   (if complete and separate)
+
+2003-06-17  Ralf Westram  <amgine@reallysoft.de>
+
+	* src/stones_complex.cc: - added BigBrick, ConnectiveStone
+				 - Oxyd1 PuzzleStones:
+				   + explode delayed
+				   + generate Hollows
+				   + explode only if all adjacent stones build one complete cluster
+				 - do not shuffle PerOxyd/Enigma PuzzleStones
+	* src/items.cc: - if there are superfluous small whiteballs, then Hollows do
+			  NOT finish the level - assuming that additional Hollows should
+			  be created (e.g. by it-explosion2). See Oxyd1 #70
+	* src/player.cc: - added CountActorsOfKind()
+	* src/player.hh: - added CountActorsOfKind()
+	* lib-src/oxydlib/enigma_mapping.cpp: - added st-bigbrick
+	* data/models-2d.lua: - added st-bigbrick
+	* data/init.lua: - added puzzle2()
+	* data/levels/test_puzzles.lua: - test level for puzzles
+	* src/stones_complex.cc: - cleanup
+
+2003-06-16  Ralf Westram  <amgine@reallysoft.de>
+
+	* data/models-2d.lua: - added orange puzzle stones (oxyd1 compatible)
+	* src/world.hh: - added world::InitLayers()
+	* src/world.cc: - added InitLayers() (send "init" message to all objects at level startup)
+	* lib-src/oxydlib/enigma_mapping.cpp: - uses oxyd1 compatible puzzle stones for Oxyd1
+	* src/stones_complex.cc: - Bolder->PullStone behavior fixed
+				 - Oxyd1-compatible PuzzleStones: explode if complete, rotate otherwise,
+				   shuffle at level startup (currently produces unsolvable states)
+				 - fixed PerOxyd/Enigma style PuzzleStones: rotate by magic wand,
+				   never explode, breakout single stones, move clusters otherwise.
+
+2003-06-15  Ralf Westram  <amgine@reallysoft.de>
+
+	* configure.ac: - lib-src/zipios++/configure is only called if none of
+			  the --enable-... options has been specified, otherwise a
+			  warning message is printed.
+	* src/network.cc: - warning fixes
+	* src/levelpack.cc: - warning fixes
+	* src/oxyd.cc: - made literals const
+	* src/d_engine.hh: - warning fixes
+	* src/display.hh: - warning fixes
+
+2003-06-05  Ralf Westram  <amgine@reallysoft.de>
+
+	* src/player.hh: - added Inventory::remove_item
+	* src/player.cc: - fixed SIGSEGV if Inventory did change during activate()
+	* src/items.cc: - added Soother
+			- Dummyitem prints its code on pickup/drop
+	* src/world.hh: - added RespawnActor, changed WarpActor()
+	* src/world.cc: - added RespawnActor
+	* src/stones_complex.cc: - oops (puzzle stone nearly always converted into bridge)
+	* src/stones_simple.cc: - DummyStone prints its own code when hit
+	* src/objects.cc: - DummyFloor prints its own code when actor enters
+	* data/init.lua: - removed st-dummy
+	* lib-src/oxydlib/enigma_mapping.cpp: - added 'it-soother'
+					      - added and checked all mirrors for all Oxyd versions
+					        (uses new triangle mirror names)
+					      - added lasers
+	* src/laser.cc: - fixed orientation of TriangleMirror
+			- new names for TriangleMirrors (like PlaneMirrors)
+	* src/oxyd.cc: - removed mirrors from LP_Oxyd1/LP_OxydMagnum::make_stone()
+		       - Unknown objects store their oxyd code
+
+2003-06-04  Ralf Westram  <amgine@reallysoft.de>
+
+	* data/init.lua: - st-rock3_movable -> st-rock3_move
+	* lib-src/oxydlib/enigma_mapping.cpp: - added st-stone_break, st-rock3_movable
+					      - added some oxyd1 mirrors
+					      - added fl-bridge (not working yet)
+	* src/objects.hh: - added Object::is_kind(const char *)
+	* src/objects.cc: - added Object::is_kind(const char *)
+	* src/items.cc: - exploding BlackBomb spreads weak explosions
+			- bombs do not explode by st-wood
+			- simplified explosion effect
+			- explode instantly if hit by laser
+	* src/stones_simple.cc: - Stone_break can be destroyed by laser
+	* lib-src/oxydlib/printstats.cpp: - do not abort if some levels are not parseable
+	* src/oxyd.cc: - LevelInfo of oxyd levels contains correct name/filename
+			 even if some levels failed loading
+	* src/oxyd.cc: - LevelPack_Oxyd knows whether it's a twoplayer game
+		       - added LevelPack_Oxyd::needs_twoplayers()
+	* src/game.hh: - added LevelPack::needs_twoplayers()
+	* src/game.cc: - changed calls to NewGame()
+		       - added LevelPack_Enigma::needs_twoplayers()
+	* src/player.cc: - added SetRespawnPositions(), RemoveRespawnPositions()
+			 - NewGame() adds it-yinyang in oxyd linkgames
+			 - PickupItem calls on_pickup()
+	* src/player.hh: - added SetRespawnPositions(), RemoveRespawnPositions()
+			 - changed prototype for NewGame()
+	* src/items.cc: - Flags set respawn positions of marbles when dropped
+			  and remove them when picked up
+	* src/actors.cc: - WhiteBall_Small now has same attribs as WhiteBall
+			   (I'm unsure if this is correct, but attrib "whiteball" allows the small
+			    balls to use all white-specific items/stones/floors)
+	* src/objects.hh: - added Actor::set_respawnpos(), remove_respawnpos()
+	* data/models-2d.lua: - added fl-rough-red/blue, it-flagwhite
+	* data/init.lua: - new stone and floors
+	* lib-src/oxydlib/enigma_mapping.cpp: - Per.Oxyd: added st-bluegray_hole, fl-rough-red/blue
+	* src/stones_simple.cc: - moved BrakeStone here
+
+2003-06-03  Ralf Westram  <amgine@reallysoft.de>
+
+	* src/stones_complex.cc: - Puzzle stones build bridges only if they are complete
+				   (no idea how I got to the opposite opinion)
+	* src/sound.cc: - added ClearSoundCache()
+	* src/sound.hh: - added ClearSoundCache()
+	* src/main.cc: - moved levelpack creation to oxyd.cc
+		       - removed command line switch -s
+	* src/game.hh: - added get_default_SoundSet()
+	* src/game.cc: - added get_default_SoundSet()
+	* src/enigma-lua.pkg: - added SoundSet
+	* src/menus.cc: - removed LevelPackMenu
+			- added SoundSetButton
+	* src/options.cc: - new option SoundSet
+	* src/options.hh: - new option SoundSet
+	* src/oxyd.cc: - UseOxydSounds() renamed to ChangeSoundset()
+			 allows to change used soundset
+		       - added get_default_SoundSet()
+		       - moved some functions into class GameInfo
+	* src/oxyd.hh: - removed/changed prototypes
+
+2003-06-01  Ralf Westram  <amgine@reallysoft.de>
+
+	* src/oxyd.cc: - added LevelPack::get_modtime()
+	* src/system_unix.cc: - added FileModTime()
+	* src/game.hh: - added NextLevel() and LevelPack::get_modtime()
+	* src/game.cc: - class Game tracks 'overall_level_time' and saves par-time to LevelStatus
+		       - saves 'solved'-state for HARD and EASY
+		       - behavior of 'skip solved' depends on current difficulty level
+		       - advance() uses enigma::NextLevel()
+	* src/options.hh: - LevelStatus stores date when level has been solved
+			    (default to current date for all already solved level)
+	* src/options.cc: - date level has been finished is saved to config file
+			  - par-time is saved to config file
+	* src/menus.cc: - changed option menu layout + added 'Difficulty' button
+			- behavior of 'next unsolved'-button/key depends on current difficulty level
+			- level menu:
+			  + changed display for levels solved only in EASY mode
+			  + indicates levels that were modified since they have been solved
+			- next_unsolved() uses enigma::NextLevel()
+	* data/init.lua: - changed options.LevelStat accepts 4th parameter (date level has been finished)
+	* src/enigma-lua.pkg: - LevelStatus accepts 4th parameter (date level has been finished)
+
+2003-05-31  Ralf Westram  <amgine@reallysoft.de>
+
+	* lib-src/oxydlib/printstats.cpp: - added option to print enigma names
+	* lib-src/oxydlib/enigma_mapping.cpp: - stone/item/floor mapping for enigma
+	* lib-src/oxydlib/Makefile.am: - added enigma_mapping.cpp/h
+	* src/oxyd.cc: - moved stone/item/floor mapping to oxydlib
+	* src/enigma.hh: - added GridPos::center()
+	* src/stones.cc: - pickup Brake at same distance as normal items
+
+2003-05-30  Ralf Westram  <amgine@reallysoft.de>
+
+	* src/oxyd.cc: - added code for 'it-brake'
+	* src/stones_complex.cc: - st-bolder:
+				   + send "trigger" at level startup (e.g needed for PerOxyd #95)
+				   + send "trigger" after it was turned by magicwand, rotator stone, etc.
+				   + send impulse to st-pull (may walk through PullStones)
+	* src/stones.cc: - added class BrakeStone (has some fleas)
+			 - BrakeStone destroys Blocker (item)
+	* src/items.cc: - added class Brake
+	* src/world.hh: - added functions for simple Stone<->Item conversion
+			- added SetItemAsStone()
+	* src/world.cc: - added functions for simple Stone<->Item conversion
+			- added SetItemAsStone()
+			- SwapStones calls on_move() on both stones
+	* src/objects.hh: - added ItemAction 'ITEM_DROP_AS_STONE'
+	* data/models-2d.lua: - added it-brake, st-brake
+	* src/player.cc: - Suicide (F3) always affects all players
+			 - handle ITEM_DROP_AS_STONE case in activated_first()
+			 - added PickupStoneAsItem()
+
+2003-05-28  Ralf Westram  <amgine@reallysoft.de>
+
+	* data/levels/meditation12.lua: - enigma.ConserveLevel=FALSE
+	* data/levels/meditation2.lua: - enigma.ConserveLevel=FALSE
+	* data/levels/meditation4.lua: - enigma.ConserveLevel=FALSE
+	* data/levels/martin54.lua: - enigma.ConserveLevel=FALSE
+	* data/levels/02grep_levels.pl: - always skips 'todo.lua'
+	* src/enigma.cc: - style
+	* src/world.cc: - "real creation" of actor moved to AddActor(int,Actor*)
+	* src/player.cc: - remove extralife in resurrect_actor (before delay)
+			 - completely rewrote dead-actor handling
+
+2003-05-27  Ralf Westram  <amgine@reallysoft.de>
+
+	* src/player.cc: - if AllowTogglePlayer is false: do not switch to player 2 if player 1 is dead
+	* src/game.cc: - added AllowTogglePlayer
+	* src/game.hh: - added AllowTogglePlayer
+	* src/enigma-lua.pkg: - added AllowTogglePlayer
+	* data/init.lua: - init AllowTogglePlayer
+	* data/models-2d.lua: - added whiteball sink animation
+
+2003-05-26  Ralf Westram  <amgine@reallysoft.de>
+
+	* src/actors.cc: - cleaned; sound change
+	* src/stones_simple.cc: - fixed behavior of SimpleStoneMovable (laser passed through)
+				  (e.g. 'Duck and Cover')
+	* src/laser.cc: - stereo sound for lasers (try 'Follow the light')
+
+2003-05-25  Ralf Westram  <amgine@reallysoft.de>
+
+	* src/gui.hh: - added Menu::switch_active_widget, goto_adjacent_widget
+		      - added Container::find_adjacent_widget
+	* src/gui.cc: - PushButton accepts SPACE+RETURN
+		      - Menu handles cursor keys
+		      - added sounds to menu
+		      - added Menu::switch_active_widget, goto_adjacent_widget
+		      - added Container::find_adjacent_widget
+	* src/menus.hh: - added pointer to FullscreenButton
+	* src/menus.cc: - FullscreenButton:
+			  + now always displays current state (like other buttons do)
+			  + if Alt-Return had been used the behavior was inverted
+			  + OptionsMenu::on_event listens for Alt-Return and updates FullscreenButton
+			- added class ValueButton (value can be changed with Cursor left/right)
+			- simplified LevelWidget::set_selected
+	* src/video.cc: - ToggleFullscreen sets options::FullScreen (again?)
+			- event_filter passes Alt-Return to event queue
+
+2003-05-20  Ralf Westram  <amgine@reallysoft.de>
+
+	* src/lua.cc: - added lua function PlaySound(object, "sound")
+	* src/player.cc: - added NumberOfRealPlayers()
+			 - SwapPlayers() uses NumberOfRealPlayers (instead of
+			   players.size() which always is 2). This fixes crash
+			   with it-yinyang used with only one player
+	* src/world.cc: - InitWorld() now returns false if player 0 is not defined
+			  (e.g. if no or wrong player is defined)
+			- load level fails if InitWorld returns false
+	* data/levels/00makepreviews.sh: - fix (if no image)
+	* data/init.lua: - added fl-red
+	* data/models-2d.lua: - added fl-red
+			      - redefined st-pull
+
+2003-05-19  Ralf Westram  <amgine@reallysoft.de>
+
+	* configure.in: - added '--enable-debuggdb' to support gdb-debugging
+			- added '--enable-warnings' (enables all gcc warnings)
+
+2003-05-18  Ralf Westram  <amgine@reallysoft.de>
+
+	* data/models-2d.lua: - added pullstone images
+	* src/objects.cc: - warning() prints object pointer
+	* src/stones.cc: - new stone (PullStone)
+	* src/display.hh: - added virtual dtor for ModelCallback
+	* src/objects.hh: - added virtual dtor for TGridObject, GridObject
+
+2003-05-14  Ralf Westram  <amgine@reallysoft.de>
+
+	* src/objects.cc: - BolderStone:
+			    + first turn, then move (on_impulse)
+			    + sends impulse to obstacle regardless whether it
+			      moved itself or has been moved by sth.
+	* src/items.cc: - sending signal to Blocker blocked by stone changes state
+			  of Blocker (e.g. it grows after stone leave the blocker)
+	* src/stones.cc: - RotatorStone sends delayed impulses
+	* src/fwd.hh: - added Impulse
+	* src/world.hh: - added addDelayedImpulse()
+	* src/world.cc: - world::Tick handles delayed impulses
+			- added addDelayedImpulse()
+			- new class DelayedImpulse
+	* src/objects.hh: - delaying version of send_impulse()
+	* src/objects.cc: - delaying version of send_impulse()
+
+2003-05-13  Ralf Westram  <amgine@reallysoft.de>
+
+	* src/actors.cc: - two new sounds for actor drowning in swamp and water
+	* src/*: - SendImpulse() moved to Object::send_impulse()
+
+2003-05-12  Ralf Westram  <amgine@reallysoft.de>
+
+	* src/actors.cc: - Swamp <> Actor interaction working (white models are still missing)
+	* data/gfx/00process.sh: - allows multiple files as arguments
+	* data/models-2d.lua: - added shadow to sink animation
+			      - added drown animation
+	* src/objects.cc: - Turnstile_Pivot: simplified rotate;
+			  - different sound if hit by actor
+	* src/world.cc: - call Actor::think()
+
+2003-05-11  Ralf Westram  <amgine@reallysoft.de>
+
+	* src/items.cc: - BlockerStone <> Blocker transfer name during mutation
+	* src/objects.hh: - renamed log() -> warning()
+	* src/enigma.hh: - added new ctor for Value(string)
+	* src/world.cc: - added TransferObjectName
+			- tweaked GetNamedObject
+			- NameObject() sets attribute 'name'
+	* src/objects.cc: - BolderStone does change direction on_impulse only
+			    if impulse has been sent by RotatorStone
+			  - fixed BlockerStone message handling
+			  - BlockerStone <> Blocker transfer name during mutation
+			  - print warning if sending message to unknown object
+	* data/gfx/00process.sh: - added options
+	* src/objects.cc: - class Swamp
+			  - fixed BolderStone signal (running fast over it-trigger changed state)
+	* src/actors.cc: - actor sinks into swamp (only very basic and only ac-blackball)
+	* data/models-2d.lua: - new anim ac-blackball-sink
+
+2003-05-10  Ralf Westram  <amgine@reallysoft.de>
+
+	* src/enigma.cc: - allow remove_alarm() to be called from inside alarm()
+	* src/items.cc: - rewrote blocker implementation
+	* src/objects.cc: - puzzle <> magicwand act like per.oxyd does
+			  - when partial puzzle stones are pushed into water they build
+			    a bridge like per.oxyd does (this isn't true!)
+			  - moveable impulse stone <> magicwand
+	* src/oxyd.cc: - defined swamp codes
+	* data/models-2d.lua: - added "fl-swamp" (does not swallow actors yet)
+			      - faster blocker animation
+	* data/init.lua: - swamp
+
+2003-05-09  Ralf Westram  <amgine@reallysoft.de>
+
+	* data/levels/02grep_levels.pl: - always adds all *test*.lua
+	* data/levels/martin49.lua: - fixed orientation of top-mirrors
+	* src/enigma.cc: - fixed a logical error in Alarm::tick()
+			   alarms might have been deactivated on slow machines
+			   (maybe this fixes freezes which occurred in 'Enigris')
+	* src/objects.hh: - added logging helper function to Object
+	* src/oxyd.cc: - added "it-blocker", "st-blocker"
+	* src/objects.cc: - new class BlockerStone ("st-blocker")
+	* src/items.cc: - new class Blocker ("it-blocker")
+	* data/models-2d.lua: - new stone "st-blocker" + anims + new item "it-blocker"
+	* src/oxyd.cc: - corrected Per.Oxyd stonemap-entries 0x79 and 0x7a
+	* src/d_statusbar.hh: - cleaned
+	* src/objects.cc: - renamed warpActorsInRange -> handleActorsAndItems
+
+2003-05-08  Ralf Westram  <amgine@reallysoft.de>
+
+	* src/d_statusbar.hh: - tuned display of moves
+	* src/objects.cc: - move counter for shogun stone
+	* data/fonts/mkfonts.sh: - reduced size of 'timefont' (30->28)
+				 - fixed path (../ttf2bmf -> ../../src/ttf2bmf)
+				 - added 'smallfont' (size 14)
+
+2003-05-07  Ralf Westram  <amgine@reallysoft.de>
+
+	* src/world.cc: - SendImpulse stores information about the sender
+	* src/objects.cc: - added new Turnstile ("st-turnstile-green")
+			  - made normal Turnstile more compatible with Oxyd
+	* src/items.cc: - removed old non-impulsive code
+	* src/enigma.cc: - rotate() for Direction and DirectionBits
+	* data/models-2d.lua: - changed turnstile pivot animation (slower)
+
+2003-05-06  Ralf Westram  <amgine@reallysoft.de>
+
+	* src/objects.cc: - trigger w/o direction for ImpulseStones works again
+			    (fixes 'The Cage' and 'Land of Impulses')
+			  - undone some turnstile changes (oxyd compatibility)
+	* src/menus.cc: - 'u' in menu sets level status to unsolved
+	* data/levels/siegfried81.lua: - fixed (necessary due to different turnstile behavior)
+	* src/enigma.cc: - added direction_fromto()
+	* src/objects.cc: - Turnstiles changed behavior:
+			    + _all_ actors get rotated, but they only rotate if a turnstile arm hits them
+			    + if a stone blocks the way of an rotated actor, the actor gets smashed
+			    + if it's another turnstile that blocks, it rotates away
+
+2003-05-05  Ralf Westram  <amgine@reallysoft.de>
+
+	* src/player.*: - IncMoveCounter takes argument
+	* src/world.cc: - SwapStones increment movecounter
+	* src/objects.cc: - turnstiles and PuzzleStones increment movecounter
+			  - fixed warpActorsInRange
+
+2003-05-04  Ralf Westram  <amgine@reallysoft.de>
+
+	* data/levels/ralf_sokoban.lua: - uses ShowMoves
+	* data/init.lua: - init enigma.ShowMoves
+	* src/enigma-lua.pkg: - added ShowMoves
+	* src/game.cc: - added enigma::ShowMoves (move_stone counter)
+	* src/game.hh: - added enigma::ShowMoves (move_stone counter)
+	* src/objects.hh: - overloaded version of SendMessage
+	* src/player.cc: - added move counter
+	* src/player.hh: - added move counter
+	* src/world.cc: - initialize move counter in InitWorld
+	* src/objects.cc: - overloaded version of SendMessage
+			  - StoneImpulse_Base sends outgoing impulses in defined order. The order
+			    depends on the direction of the incoming impulse
+			  - counts and displays moves
+	* src/display.hh: - added optional counter to StatusBar
+	* src/d_statusbar.hh: - added optional counter to StatusBarImpl
+
+2003-05-03  Ralf Westram  <amgine@reallysoft.de>
+
+	* doc/TODO: - added LEVELS section
+
+2003-05-02  Ralf Westram  <amgine@reallysoft.de>
+
+	* src/world.cc: - GetActorsInRange gets _reference_ to vector
+	* src/actors.cc: - GridPos::GridPos(V2) replaces local function get_field
+	* src/*: - actor_hit() uses SendImpulse() instead of MaybeMoveStone()
+		 - 'impulses' propagate via Stone::on_impulse()
+		   i.e. Stones move themselve when an impulse is received
+		 - MaybeMoveStone() replaced by Stone::move_stone()
+		 - Pullers and ImpulseStones also send impulses. This fixes several bugs:
+ 		   - when ShogunStones where pushed/pulled they always moved in one piece
+		   - ShogunDots didn't get activated when ShogunStones were not moved directly by actor
+		   - PuzzleStones didn't move at all when pushed/pulled
+ 		   - Turnstiles didn't rotate
+		 - ImpulseStones _first_ search all targets in their neighbourhood _before_ sending the
+		   first impulse => Stones which move into neighbourhood as result of one of the sent
+		   impulses, don't get another impulse yet.
+		 - Turnstile_Pivot looks for nearby actors and warps them during rotation (working but unfinished)
+
+		 At the moment the whole impulse-mechanism can be switched off by undefining USE_IMPULSES (3x).
+		 I kept the old code inside until the new code proves stable.
+
+2003-05-01  Ralf Westram  <amgine@reallysoft.de>
+
+	* data/levels/02grep_levels.pl: - script to generate test-level pack by level content
+	* data/levels/index.lua: - include index_test.txt if it exists
+	* src/items.cc: - inactive ShogunDot sends a 'renotify'-request to Stones
+	* src/objects.cc: - ShogunStone notifies item if a 'renotify' message is received.
+			    (now setting ShogunStone first and ShogunDot afterwards activates the dot)
+
+2003-04-30  Ralf Westram  <amgine@reallysoft.de>
+
+	* data/levels/ralf_sokoban.lua: - fixed shogun behavior
+	* src/world.hh: - missing 'std::'
+
+2003-04-28  Ralf Westram  <amgine@reallysoft.de> (faked!)
+
+	* data/levels/01fix_indices.pl: - does not touch index-files if no author added
+					- strips '/ant_39' from author name ;-)
+	* data/levels/ralf_sokoban.lua: - lasers allowed on more positions
+					- improved symmetry of oxyds for symmetric levels
+
+2003-04-26  Ralf Westram  <amgine@reallysoft.de>
+
+	* src/d_statusbar.hh: - added 5 seconds text-mode
+	* src/display.hh: - added 5 seconds text-mode
+	* src/objects.cc: - removed debugging printout
+	* data/levels/01fix_indices.pl: - adds author information from lua-files into index files
+	* src/game.cc: - reads for author from LevelPack index
+		       - F4/F5 ignore options::SkipSolvedLevels
+
+2003-04-25  Ralf Westram  <amgine@reallysoft.de>
+
+	* src/game.cc: - displays level name and author
+
+2003-04-24  Daniel Heck  <dheck@ix.urz.uni-heidelberg.de>
+
+	* src/oxyd.cc: Started to move Oxyd version specific code to
+	separate classes.
+	* src/world.cc, world.hh: Added implementation of signals.
+
+2003-04-11  Ralf Westram  <amgine@reallysoft.de>
+
+	* data/levels/duffy15.lua: - set black actor first (viewport followed small white ball)
+	* src/Doxyfile: - recurses subdirs
+	* src/Makefile.am: - added help.cc / help.hh
+	* src/game.cc: - uses modified HelpMenu
+		       - F5 ingame skips to next unsolved level
+	* src/help.cc: - seperated HelpMenu in this module
+		       - displayed text as parameter
+	* src/menus.cc: - added help to level menu (F1)
+			- F5 in level menu skips to next unsolved level
+
+2003-04-08  Ralf Westram  <amgine@reallysoft.de>
+
+	* src/menus.cc: - creating previews depends on state of options::Nozoom
+	* src/options.hh: - new option 'Nozoom'
+	* src/options.cc: - new option 'Nozoom'
+	* src/main.cc: - new switch --nozoom
+
+2003-04-03  Ralf Westram  <amgine@reallysoft.de>
+
+	* src/options.hh: - added flag LevelStatusChanged
+			  - added LevelStatus::operator==
+	* src/options.cc: - all LevelStatus-changes set the flag LevelStatusChanged
+	* src/game.cc: - saves options after solving a level
+
+2003-03-30  Ralf Westram  <amgine@reallysoft.de>
+
+	* data/levels/ralf_sokoban.lua: - added tests if current oxyd stone distribution
+					  is solvable and if not then reinit level
+
+2003-03-29  Ralf Westram  <amgine@reallysoft.de>
+
+	* src/game.cc: - added new Game state LEVELINIT
+		       - fixed all occurances of load_level (state = ABORT if failed)
+	* src/menus.cc: - added hotkeys to level menu: 'N'=next unsolved, ' '=next level pack
+			- added LevelWidget::get_menu to get access to LevelMenu
+	* src/game.hh: - enigma::StartGame returns the number of the last level which has been played
+	* src/menus.cc: - after playing the LevelMenu positions on the last visited level
+			- added set_current() and replaced some occurances of set_selected()
+	* src/game.cc: - added Game::get_current_level()
+		       - enigma::StartGame returns the number of the last level which has been played
+		       - LEVELINFO displays level name and author in caption
+	* src/menus.cc: - Rearranged level menu button and added an 'unsolved' button
+
+2003-03-28  Ralf Westram  <amgine@reallysoft.de>
+
+	* src/items.cc: - ShogunDot::message now does correct activation and de-activation of shogun triggers
+			- ShogunDot::stone_change does nothing (only an assert if correct message has been sent)
+	* src/objects.cc: - moving shogun stone now _first_ corrects state of source stone
+			    and _afterwards_ the state of the target stone
+			  - ShogunStone::notify_item() now has bool argument for sending a
+			    message to items directly before the shogun stone disappears
+			  - plays additional sound when shogun stones fit together
+	* src/object_mixins.hh: - OnOffBase::is_on made const
+	* src/laser.cc: - LaserStone::emission_directions returns NODIRBIT when laser is off
+			  (oxyd stones next to inactive lasers got activated)
+	* data/levels/ralf_sokoban.lua: - added shogun+laser gamestyle
+
+2003-03-21  Ralf Westram  <amgine@reallysoft.de>
+
+	* data/levels/00makepreviews.sh: - updates bmps from ../../Sokoban to ./Sokoban
+	* data/levels/index.lua: - added Sokoban index
+	* data/levels/ralf.lua: - rs_create_world() does NOT change oxyd_default_flavor
+	* data/levels/ralf_sokoban.lua: - general gameplay for Sokoban levels
+	* data/levels: - added new subdirectory Sokoban + some converted levels
+
+2002-11-15  Daniel Heck  <dheck@ix.urz.uni-heidelberg.de>
+
+	* world.cc (UnnameObject): Reset name attribute of object being
+	unnamed.
+
+	* items.cc (HillHollow): Fixed hills and hollows.
+
+2002-11-07  Daniel Heck  <dheck@ix.urz.uni-heidelberg.de>
+
+	* configure.in: Change include path so make distcheck works again.
+
+	* world.cc (get_accel): Use different friction models for high and
+	low velocities.
+
+	* items.cc (Spade::activate): Drop if there is no item underneath.
+
+2002-11-06  Daniel Heck  <dheck@ix.urz.uni-heidelberg.de>
+
+	* init.lua (fill_items): New function.
+
+	* items.cc: Add Spade item.  Change Hill/Hollow implementation to
+	handle "shovel" message.
+
+2002-11-05  Daniel Heck  <dheck@ix.urz.uni-heidelberg.de>
+
+	* objects.cc (Bridge::change_state): Change model *before* setting
+	the new state.
+
+2002-11-04  Daniel Heck  <dheck@ix.urz.uni-heidelberg.de>
+
+	* items.cc: Finished magnets.
+
+2002-11-02  Daniel Heck  <dheck@ix.urz.uni-heidelberg.de>
+
+	* enigma.cc (GameMenu::GameMenu): Change button texts.
+
+	* display_impl.hh (AliasModel): New model.
+
+	* enigma-lua.pkg, display.cc, display.hh (DefineAlias): New
+	function; defines an alias for an existing model.
+
+2002-11-01  Daniel Heck  <dheck@ix.urz.uni-heidelberg.de>
+
+	* player.hh (SetCurrentPlayer): New function.
+
+	* items.cc (Init): Register YinYang item.
+
+	* player.cc (SwapPlayers): New function.
+
+	* objects.hh (Object::int_attrib): New overloaded version that
+	checks for errors.
+
+2002-10-31  Daniel Heck  <dheck@ix.urz.uni-heidelberg.de>
+
+	* world.cc (clear_world): Dispose all actors.
+
+	* px/tools.hh (AutoSequence): New helper class.
+
+	* px-lua.pkg: Declare Uint32, tolua leaks memory otherwise.
+
+	* models-2d.lua (def_subimages): Fix memory leaks.
+
+	* display.cc (update): Update shadow "cache".
+
+	* actors.cc (Init): Register WhiteBall.
+
+	* objects.hh (Actor::init): new method. Allocate sprite ID here.
+
+	* object_mixins.hh (CLONEOBJ): call Object::init from clone().
+	(SINGLETONOBJ): new macro.
+
+	* objects.hh (Object::init): new method.
+
+2002-10-30  Daniel Heck  <dheck@ix.urz.uni-heidelberg.de>
+
+	* actors.cc (Actor::Actor): Allocate sprite ID in constructor.
+	(Actor::set_model): Do not call allocate a new sprite ID.
+
+	* display_impl.hh (Sprite::visible): new attribute
+
+	* actors.cc: Reorganized implementation of balls.  Added new actor
+	`WhiteBall'.
+
+2002-10-27  Daniel Heck  <dheck@ix.urz.uni-heidelberg.de>
+
+	* px/array2.hh (Array2::resize): Save new width and height.
+
+	* px/video.cc (set_alpha): Activate RLE acceleration.
+
+	* display.cc (Redraw): Always flush screen updates.
+	(StatusBarImpl::tick): Redraw status bar every second when clock
+	is active.
+	(NewWorld): Ensure the current actor is centered when the level
+	starts.
+
+	* enigma.cc (game): Use video::BackBuffer instead of allocating a
+	new surface.
+
+	* display.cc, display.hh (DrawAll): new function.
+
+	* display.hh (RedrawAll): draw to surface instead of
+	screen, remove option for updating the screen.
+
+	* video.cc, video.hh (GetBackBuffer): New function.
+
+	* etc/mingw32-dist.sh: include gfx/enigma.pal in zipfile
+
+	* lua.cc (Init): Do not create table "enigma" by hand; let tolua
+	do this.  Otherwise tolua cannot define global variables in this table.
+
+	* sound/Makefile.am (pkgdata_DATA): include boink.wav
+
+	* gfx/Makefile.am (pkgdata_DATA): include enigma.pal
+
+	* configure.in: Bump version number.
+
+2002-10-23  Daniel Heck  <dheck@ix.urz.uni-heidelberg.de>
+
+	* init.lua (def_floor): Reduce friction for (almost) all floors.
+
+	* models-2d.lua: Load different "st-glass" model when in 8bpp mode.
+
+	* world.hh (world): Removed STONE_KILL enum.
+
+	* objects.cc (PuzzleStone::maybe_move_cluster): Create a "bridge"
+	when the puzzle stone is complete and only water/abyss is underneath.
+
+	* world.cc (handle_stone_contact): Allow stones to destroy
+	themselves in actor_hit() (Needed for puzzle stones).
+
+2002-10-22  Daniel Heck  <dheck@ix.urz.uni-heidelberg.de>
+
+	* actors.cc (BlackBall): make ball a little smaller
+
+	* options.hh, options.cc (UseAlpha): new option
+
+	* enigma-lua.pkg (options): export options::UseAlpha to Lua.
+
+	* options.cc (options): ShowFPS defaults to false
+
+	* actors.cc (BlackBall::change_state): Play sound effect when
+	jumping.
+
+	* video.hh, video.cc, enigma-lua.pkg (GetColorDepth): New function.
+
+	* video.cc (Video_SDL::init): Use 8 bits per pixel automatically
+	if this is the native bit depth.
+
+	* display_impl.hh (SurfaceAlloc): New surface allocator that works
+	with 8bpp colorkeyed images.
+
+	* display.cc: Rewrote large chunks to properly deal with 8bpp
+	video modes.
+
+	Rewrote screen update implementation.  Should be a bit faster now.
+
+	Messed up everything that has to do with shadows, both in 8bpp and
+	16bppp.  Will fix it later.
+
+	* models-2d.lua: Define more animations using subimages
+
+2002-10-18  Daniel Heck  <dheck@ix.urz.uni-heidelberg.de>
+
+	* enigma.cc (Game::on_keydown): Toggle fps display with "f" when
+	in wizard mode.
+
+	* display.cc (Redraw): Display fps if options::ShowFPS is set.
+
+	* options.cc, options.hh: new: options::ShowFPS.
+
+2002-10-17  Daniel Heck  <dheck@ix.urz.uni-heidelberg.de>
+
+	* px/video.cc (Grab,Duplicate): Copy color palette when available.
+
+	* enigma.hh,enigma.cc (FindDataFile): Added new variant of this function.
+
+	* enigma.cc (usage,init): document and detect new option --8bpp.
+
+	* options.cc,options.hh: new option BitsPerPixel.
+
+2002-10-15  Daniel Heck  <dheck@ix.urz.uni-heidelberg.de>
+
+	* gui.cc (TextButton::draw): Do not create a surface containing
+	the button's text every time the button is redrawn.   Draw
+	directly into the GC.
+
+	* px/font.hh, px/font.cc (Font::render) Draws int GC instead of Surface.
+
+	* objects.hh: Use associative lists for object attributes instead
+	of dictionaries.  The default Dict objects allocated roughly one
+	kbyte per object.
+
+	* objects.cc, laser.hh, laser.cc: Removed last cases of virtual
+	inheritance.
+
+	* items.cc (Seed): New class
+
+	* objects.cc (WoodenStone_Growing): New class: growing wooden
+	stone (graphics still missing).
+
+	* objects.hh: Added TGridObject<> class that simplifies changing
+	the model/the animation for derived classes.
+
+	Simplified Floor, Item, Stone classes as a side effect.
+
+2002-10-12  Daniel Heck  <dheck@ix.urz.uni-heidelberg.de>
+
+	* gui.hh: Added container widget, use it as base class for Menu.
+
+	* video.cc (MouseCursor): Fix memory leak.
+
+2002-10-07  Daniel Heck  <dheck@ix.urz.uni-heidelberg.de>
+
+	* enigma.cc: Moved documentation to doc/*.html.
+
+2002-10-02  Daniel Heck  <dheck@ix.urz.uni-heidelberg.de>
+
+	* levels/level1d.lua: Change oxyd flavour.
+
+	* levels/martin06.lua: Modify document text slightly.
+
+	* levels/martin35.lua: Fix visual glitches.
+
+	* objects.cc (ActorImpulseStone): Made stone work.
+
+	* world.hh (ActorInfo): Added forceacc field.
+
+	* world.cc (get_accel): Use force accumulator.
+
+	* enigma.hh (GridPos::operator==): Fix typo; Triggers should work
+	again.
+
+	* objects.cc (PuzzleStone::maybe_move_cluster): PuzzleStones move
+	again :-)
+
+	* levels/welcome.lua: Removed force field.
+
+	* px/geom.hh: Generic rectangle class, Rect as typedef, new
+	type DRect for double-valued rectangles.
+
+	* enigma.cc (MainMenu): Display version number in lower left
+	corner.
+	Added credits screen.
+
+2002-09-25  Daniel Heck  <dheck@ix.urz.uni-heidelberg.de>
+
+	* display.cc (StatusBarImpl): Fixed a couple of minor bugs like
+	the inventory not being displayed.
+
+	* models-2d.lua (NewAnim): Removed debugging message.
+
+2002-09-24  Daniel Heck  <dheck@ix.urz.uni-heidelberg.de>
+
+	* video.cc (FX_Push): Improved effect by decelerating the new
+	screen.
+
+	* ttf2bmf.cc: New option "-g".
+	Cleanup.
+
+	* px/math.hh (Vector::normalize): New method.
+
+	* enigma-lua.pkg: Added prototypes for DefineComposite,
+	DefineAnim, AddFrame.
+
+	* display.cc (StatusBarImpl): New class, replaces many of the
+	local functions and variables that formerly displayed the status
+	bar.
+
+	Removed remaining Lua interface routines.
+
+2002-09-23  Daniel Heck  <dheck@ix.urz.uni-heidelberg.de>
+
+	* enigma.cc (game): Show visual effect when switching to the level
+	menu.
+
+	* video.cc, video.hh (FX_Fly, FX_Push): New functions.
+	(FX_Fade): Renamed from `Fade'.
+
+	* display.cc: Limit number of effect sprites to 10.
+
+	* enigma.cc (init): Load configuration file.
+	(shutdown): Write configuration file.
+
+	* options.cc (Load, Save): New functions.
+
+2002-09-18  Daniel Heck  <dheck@ix.urz.uni-heidelberg.de>
+
+	* px/cache.hh (Cache::size): New method.
+
+	* px/dict.hh (Dict::size): New method.
+
+	* px/Makefile.am (EXTRA_DIST): Removed array2test.cc and
+	dicttest.cc.
+
+	* objects.cc: Fixed a few typos in CLONEOBJ() calls.
+
+	Removed virtual inheritance from MovableStone class.
+
+2002-09-16  Daniel Heck  <dheck@ix.urz.uni-heidelberg.de>
+
+	* lua.cc, lua.hh: Removed set_num, set_str and companions.  All
+	this is now handled by tolua.
+
+	* *.cc, *.hh: Countless small changes, mostly cosmetic.
+
+	Replaced many instances of virtual inheritance with normal
+	inheritance--tolua chokes on the former.
+
+	Replaced std::map with px::Dict.  This noticeably reduces compile
+	times.
+
+	Removed use of exceptions.  Funny observations: Executable shrinks
+	to half its size, and error handling improves in some places
+	(e.g., getting attribute values in items and stones).
+
+	* configure.in: By default, compile with -fno-exceptions.
+
+	* models-2d.lua, init.lua: Added ice_001 floor (SF).
+
+	* px/dict.cc, px/dict.hh: Added STL-workalike hash tables. Not
+	quite finished yet, but they do the job.
+
+	* tools.cc, tools.hh: Removed classes `Scope' and `Itor'.
+
+2002-09-05  Daniel Heck  <dheck@ix.urz.uni-heidelberg.de>
+
+	* world.cc (YieldStone, SetStone): Don't tell floors and items
+	about new stones immediately.  Defer this until the end of the
+	current tick.
+
+	* objects.cc (maybe_move_cluster, find_cluster): Fixed calculation
+	and movement of PuzzleStone clusters.
+
+2002-09-04  Daniel Heck  <dheck@ix.urz.uni-heidelberg.de>
+
+	* editor.lua: New file.
+
+2002-09-03  Daniel Heck  <dheck@ix.urz.uni-heidelberg.de>
+
+	* Makefile.am: Use TOLUA variable.
+
+	* configure.in: Search for tolua, both in PATH and current
+	directory.
+
+	* enigma.6, enigma.cc: Document --window switch.
+
+	* levels/martin36.lua, levels/natmaze1.lua, levels/test.lua: Use
+	soft scrolling.
+
+	* world.cc (advance_actor): Reduce MAXVEL to keep actors (as well
+	as possible) inside the screen while softscrolling.
+
+	* init.lua (create_world): Set FollowMode to FOLLOW_SCREEN by
+	default.
+
+	* enigma-lua.pkg: Added binding for display::SetFollowMode.
+
+	* display.cc: Implemented soft scrolling.
+
+2002-09-02  Daniel Heck  <dheck@ix.urz.uni-heidelberg.de>
+
+	* world.cc (WarpActor): New function.
+	(YieldActor): New function, but does not work at the moment.  Do
+	not use.
+
+	* items.cc: Added implementations for Magnets and Wormholes.  They
+	still need a little work though.
+
+	* laser.cc (MirrorStone::emit_light): Do not emit light in the
+	same direction more than once.  This fixes a bug reported by Ingo
+	van Lil.
+
+	* video.cc (Video_SDL::init): Do not enter fullscreen mode unless
+	options::FullScreen flag is set.
+
+	* options.cc, options.hh: New files.
+
+	* px/video.hh: Rewrote classes Surface and Screen.  Still not
+	perfect, but a lot cleaner than the old design.
+
+	* models-2d.lua (progress): Display logo and graphical progress
+	indicator.
+
+	* models-2d.lua: Use new functions in namespace "display".
+
+	* init.lua: Use new functions in namespace "enigma"/"world".
+
+	* video.cc (DisplayTextCentered): Removed.
+
+	* display_impl.hh: New file: Contains the type declarations from
+	the late display-2d.cc.
+
+	* display.cc: Renamed from display-2d.cc.
+
+	* enigma-lua.pkg, px-lua.pkg: New files: Interfaces exported to
+	Lua.
+
+	* world.cc (tick_actor): Use fixed rather than adaptive step
+	size.  Since the velocity of all objects is bounded, this works
+	just as well (it seems to, at least).
+
+2002-08-21  Daniel Heck  <dheck@ix.urz.uni-heidelberg.de>
+
+	* world.cc (RemoveForceField): Added implementation for this
+	function.
+
+	* tools.cc (Timer::tick): Fixed bug that causes timers to be
+	deactivated even though they should run forever.  Alarm::timeleft
+	should *never* be negative at the end of tick() when repeatp is
+	set.
+
+2002-08-15  Daniel Heck  <dheck@ix.urz.uni-heidelberg.de>
+
+	* configure.in: Check for Mingw32.
+
+	* Makefile.am (enigma_ico.o): Include program icon if compiling
+	with Wingw32.
+
+	* items.cc (Trigger): Applied a patch by Andrzej Szombierski that
+	fixes the behaviour of triggers when activated by stones.
+
+2002-08-14  Daniel Heck  <dheck@ix.urz.uni-heidelberg.de>
+
+	* levels/martin19.lua,levels/martin26.lua: Adapted to work with
+	the modified doors.
+
+	* world.cc (handle_stone_contact): Call Stone::actor_contact if
+	necessary.
+
+	* objects.hh (Stone::actor_contact): New method.  Called when an
+	actor is inside a stone but not moving towards is (so it's not
+	really a collision, for which actor_hit is called).  Used mainly
+	to fix the behaviour of doors.
+
+	* objects.cc (Door::actor_inside): New method. Kill actors that
+	stand inside a closing door.
+
+	* sound.cc (Init): Changed size of soundbuffer to 1024 byte.  This
+	should fixed lagging sound on Win32 systems.
+
+	* enigma.cc (Game): Added new state: PLAYERDEAD.
+	(tick): Do not restart level immediately when the player's marble
+	is dead; enter state PLAYERDEAD instead.
+
+	* models-2d.lua: Added animation for active death's head.
+
+	* objects.cc (TimerStone::alarm): Do not play sound when the
+	timer emits a signal.
+
+	* enigma.cc (Game::tick): Wait a little before changing to the
+	next level.
+
+	* actors.cc (Whiteball_small::change_state): Play shattering
+	animation.
+
+2002-08-13  Daniel Heck  <dheck@ix.urz.uni-heidelberg.de>
+
+	* gui.cc: Play sound when button is pressed.
+
+	* sound/Makefile.am (pkgdata_DATA): Added missing sound effects.
+
+	* actors.cc (Actor::move): Removed debugging message.
+
+	* Makefile.am (pkgdata_DATA): Include init.lua.
+
+	* init.lua: Moved here from the levels directory.
+
+	* enigma.cc (Game::run): Fadeout music before stopping it.
+
+	* sound.cc (FadoutMusic): New function.
+	(StopMusic): Forgot to reset current_music_name.
+
+	* enigma.cc (DataPathList): New class for maintaining the list of
+	data directories.
+	(SetDataPath, GetDataPath): New public functions.
+
+	* levels/index.lua: Added names for a few levels.
+
+	* models-2d.lua: Use different models for sloped floors when in
+	WizardMode.
+
+2002-08-12  Daniel Heck  <dheck@ix.urz.uni-heidelberg.de>
+
+	* enigma.cc (LevelMenu::scroll_up,scroll_down): New functions.
+	(LevelMenu::manage): Fix mousewheel scrolling.
+
+2002-08-11  Daniel Heck  <dheck@ix.urz.uni-heidelberg.de>
+
+	* enigma.cc (Game): Removed unused level_finished_p().
+
+	* world.cc (handle_contacts): Fixed bug in collision detection.
+
+	* items.cc (Hollow): Finish the level when all hollows contain a
+	small white marble.
+
+2002-08-10  Daniel Heck  <dheck@ix.urz.uni-heidelberg.de>
+
+	* px/font.cc (render): new method.
+
+	* models-2d.lua: added progress indicator
+
+	* lua.cc (display_text_centered): new function.
+
+	* video.cc (DisplayTextCentered): new function.
+
+	* px/array2.hh (Array2::resize): new method.
+	(Array2::Array2): constructor can be called without arguments.
+
+2002-07-09  Daniel Heck  <dheck@ix.urz.uni-heidelberg.de>
+
+	* enigma.cc (game): Load level list only once at the beginning of
+	the game.
+	(LevelMenu::paint): Mark levels that have already been completed.
+
+	* objects.cc (OneWayStone::actor_hit): Use contact_faces() instead
+	of contact_face().  This fixes a bug where you could move through
+	two adjacent oneway stones.
+
+	* world.cc (contact_faces): New function.
+

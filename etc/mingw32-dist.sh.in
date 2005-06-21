@@ -1,0 +1,162 @@
+#!/bin/sh
+#
+# This file creates a w32 binary release
+#
+VERSION=@VERSION@
+DDIR="`pwd`/Enigma-$VERSION"
+SDIR=@top_srcdir@
+BDIR=@top_builddir@
+
+function cptext {
+    $NLCVT unix2dos $SDIR/$1 >$DDIR/$2
+}
+
+function cpfile {
+	cp $SDIR/$1 $DDIR/$2
+}
+
+function cpbuiltfile {
+	cp $BDIR/$1 $DDIR/$2
+}
+
+#
+# Copy levels
+#
+function copy_levels
+{
+    echo "... copying levels"
+    mkdir $DDIR/data/levels
+    cp -p $SDIR/data/levels/*.{png,txt,lua,xml} $DDIR/data/levels
+    for folder in `(cd $SDIR/data/levels && ls -F)| grep / | grep -v CVS`; do 
+	mkdir $DDIR/data/levels/$folder; 
+	cp -p $SDIR/data/levels/$folder/*.{png,lua,txt} $DDIR/data/levels/$folder
+    done
+}
+
+function copy_data
+{
+    echo "... copying data files"
+    mkdir $DDIR/data
+    cp -p $SDIR/data/*.lua $DDIR/data/
+    for folder in `(cd $SDIR && ls -F data)| grep / | grep gfx`; do 
+	mkdir $DDIR/data/$folder; 
+	cp -p $SDIR/data/$folder/*.{png,jpg} $DDIR/data/$folder
+    done
+    copy_levels
+    mkdir $DDIR/data/fonts
+    cp -p $SDIR/data/fonts/*.{bmf,png,txt,ttf} $DDIR/data/fonts
+    mkdir $DDIR/data/sound 
+    cp -p $SDIR/data/sound/*.{wav,s3m} $DDIR/data/sound
+    mkdir $DDIR/data/thumbs
+    cp -p $SDIR/data/thumbs/README $DDIR/data/thumbs
+    
+    echo "... copying locales:"
+    mkdir $DDIR/data/locale
+    for lang in @ALL_LINGUAS@; do
+    	echo "$lang.gmo"
+	mkdir "$DDIR/data/locale/$lang"
+	mkdir "$DDIR/data/locale/$lang/LC_MESSAGES"
+    	cp -p $SDIR/po/$lang.gmo $DDIR/data/locale/$lang/LC_MESSAGES/enigma.mo
+    done
+}
+
+#
+# Copy documentation files
+#
+function copy_doc
+{
+    echo "... copying documentation"
+    mkdir $DDIR/doc
+    cptext README 		README.txt
+    cptext NEWS 		NEWS.txt
+    cptext COPYING 		doc/COPYING.txt
+    cptext CHANGES 		doc/CHANGES.txt
+    cptext etc/README-SDL.txt 	doc/README-SDL.txt
+    cptext doc/ant_lua.txt 	doc/ant_lua.txt
+    cptext doc/sounds.txt	doc/sounds.txt
+    cptext doc/objects.txt	doc/objects.txt
+    cptext doc/README.mingw32   doc/README-mingw32.txt
+    cptext doc/sound.lua        doc/sound.lua
+    cpbuiltfile doc/refman/enigma-ref.html doc/
+    cpfile doc/functions.html	doc/
+    cpfile doc/functions.css	doc/
+}
+
+#
+# Copy user manual
+#
+function copy_manual
+{
+    echo "... copying user manual"
+    mkdir $DDIR/manual $DDIR/manual/images
+    cpfile doc/manual/images/*.png manual/images
+    cpbuiltfile doc/manual/*.html manual
+}
+
+#
+# Copy windows DLLs
+#
+function copy_dlls
+{
+    echo "... copying DLLs"
+    for f in SDL SDL_image SDL_mixer SDL_ttf jpeg libpng libpng1 zlib zlib-1; do
+        ff="$f.dll"
+        if [ -f $ff ]; then
+            cp $ff $DDIR/
+	else
+	    echo "*** DLL missing: $ff ***"
+	fi
+    done
+}
+
+################
+# Build Enigma #
+################
+(cd .. ; make all) >/dev/null
+
+echo "----------------------------------------------------------------"
+echo "                 Building Enigma-$VERSION.zip"
+echo "----------------------------------------------------------------"
+
+###############
+# Find programs
+###############
+
+UPX=`which upx`
+STRIP=`which i586-mingw32msvc-strip`
+NLCVT="perl $SDIR/etc/nlcvt.pl"
+
+if [ ! ${UPX} ]; then
+  echo "*** Program not found: upx" 
+  UPX="echo"
+fi
+
+if [ ! ${STRIP} ]; then
+  echo "*** Program not found: strip"
+  STRIP="echo"
+fi
+
+###################
+# Copy everything #
+###################
+rm -rf $DDIR
+mkdir $DDIR
+
+copy_data
+copy_manual
+copy_doc
+
+cp $BDIR/etc/enigma.nsi $DDIR/enigma.nsi
+cp -p $BDIR/src/enigma.exe $DDIR/enigma.exe
+
+copy_dlls
+$STRIP "$DDIR/enigma.exe"
+$UPX $DDIR/enigma.exe >/dev/null
+
+rm -f Enigma-w32-$VERSION.zip
+zip -r Enigma-w32-$VERSION.zip "Enigma-$VERSION" >/dev/null
+rm -rf $DDIR
+
+echo "----------------------------------------------------------------"
+echo "                           DONE"
+echo "----------------------------------------------------------------"

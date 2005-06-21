@@ -1,0 +1,837 @@
+* BEFORE 1.00
+
+. different model for st-laserbreak
+. potential memory leak when Timer::clear() is called before all
+   alarms are triggered
+. z coordinate for actors
+. no respawning in mediation landscapes
+. what happens to bombs when bombstone explodes?
+o parse "special" entries in Oxyd levels
+o odd number of oxyd stones -> turn one into a fake oxyd
+o use objects IDs for oxyd->enigma translation
+o it-cross
+. most stones can turn hollow when receiving signal 1 (pox 11)
+. graphics for st-spitter
+. stone destruction by spitter
+o rubber band item
+. add missing models for small whiteball (swamp, jump) or disable
+  "jump" and "sink" messages
+. execute Lua scripts from .zip files
+. improve st-oneway_{black,white} graphics
+
+* OXYD IMPORTER
+
+o oxyd: initialize game variables (force factors etc.)
+. lightmover stone
+. seed turns directly into fl-wood under certain st-grate's
+
+* OXYD 1 LEVELS
+
+. ox1 23: screen filled with desintegrating stones when starting
+. ox1 27: solvable, but only by suiciding...; CHECK
+. ox1 32: stone does not turn hollow
+. ox1 34: force multiplier on floor wrong
+. ox1 38: border stone not destructible!
+. ox1 47: bridge not working properly
+. ox1 53: signal problems
+. ox1 62: force field missing
+. ox1 63: exploding glass stone should desintegrate into floor tiles
+. ox1 72: exploding glass stone should desintegrate into floor tiles
+. ox1 75: path completely visible at the beginning?
+. ox1 78: white balls should fall into abyss
+. ox1 82: odd # of oxyd stones
+. ox1 84: right border floor a bridge (how does that work?)
+. ox1 88: odd # of oxyd stones
+. ox1 89: laser does not turn on
+. ox1 90: magnets too strong
+. ox1 100: 
+o ox1 124: solvable? test
+. ox1 126: hide invisible death stones when switching players
+. ox1 138: unsolvable because of magnets? check
+o ox1 152: electric force not strong enough
+. ox1 153: missing item it-drop
+. ox1 155: signals ok? check
+. ox1 158: explosion should ignite all 8 neighbours
+. ox1 171: missing item it-drop
+. ox1 173: infinite magnet range 
+o ox1 180: wormhole too strong
+. ox1 184: bomb should destroy all 8 adjacent bomb stones
+. ox1 191: 
+o ox1 199: what do switches do? 
+. ox1 200: 
+
+* PER.OXYD LEVELS
+
+. pox 11: stone doesn't turn hollow
+. pox 13: strange timing (check)
+. pox 14: solvable? check
+. pox 19: door does not close, spitter not working
+. pox 20: rubber band a little too strong
+o pox 22: solvable?
+. pox 23: stone undef (fourswitch)
+. pox 29: should floor change?
+. pox 30: only one meditation marble controllable?
+. pox 32: cannot jump on horse, horse too fast
+. pox 35: magic wand-puzzle interaction wrong
+. pox 37: blockers connected to multiple triggers don't work
+   correctly; CHECK
+. pox 40: only one meditation marble controllable?
+. pox 39: door in the way (CHECK)
+. pox 41: dynamite thrower
+. pox 43: magnet range
+. pox 48: spitter does not work
+. pox 49: cannot open vortices; CHECK
+. pox 51: replace document, replace pencils?
+. pox 53: items undef
+o pox 55: 
+o pox 57: 
+o pox 61: should bolders destroy stones?
+. pox 63: fourswitches behave wrong
+. pox 65: rubberband a little too strong
+. pox 66: can bolders crush st-plain? CHECK
+. pox 67: spitter not working
+o pox 68: laser can rotate puzzle stones
+. pox 69: flat force constant has other sign in per.oxyd? CHECK
+. pox 72: how does rotor move? CHECK
+o pox 74: CHECK
+. pox 75: floor undef
+. pox 77: can rotors activate switches? CHECK
+. pox 78: 
+. pox 81: door opens right away (why?)
+. pox 91: do doors press buttons? CHECK
+. pox 95: playtest
+. pox 97: spitter not working
+. pos 98: bolder-laser interaction correct? CHECK
+. pox 100: stones, items undef
+. pox 105: 
+o pox 112: horse moves strangely; CHECK
+. pox 114: too easy? CHECK
+. pox 117: stones, items undef, check
+. pox 120: wormholes too strong
+. pox 121: cannot jump on horse
+. pox 126: item 0x3e undef, gravity in space correct? check
+. pox 128: forces wrong? check
+. pox 129: small balls deadly; cannot move through grate
+. pox 134: item 0x14 undef
+. pox 135: bolder-laser interaction correct? check
+. pox 140
+. pox 142: stone undef
+. pox 143: stone undef
+. pox 146: item undef
+. pox 152: stone, item undef; gravity? check
+. pox 153: forces wrong
+. pox 154: item undef
+. pox 160: meditation marble deadly
+. pox 162: unsolvable -- can glass push triggers?
+. pox 163: item 0x3e undef, floor undef
+. pox 164: stone undef
+. pox 166: item undef; timer correct? check
+. pox 167: item undef
+. pox 168: spitter not working
+. pox 169: floor undef
+. pox 174: stone undef
+. pox 177: "+" as signal handler not working
+. pox 178: stone undef
+. pox 179: stone undef
+. pox 181: check
+. pox 182: wormhole range
+. pox 183: rotor movable? check
+. pox 184: stone, floor undef
+. pox 186: item, stone undef
+. pox 187: item, stone, floor undef
+. pox 190: item undef, meditation marble deadly
+. pox 191: floor undef
+. pox 192: stone undef
+. pox 194: "+" as signal handler, wormhole range
+. pox 195: solvable? check
+. pox 196: signals correct? check
+. pox 198: item undef, strange rotor behaviour
+. pox 199: stone undef
+. pox 200: floor, item, stone undef
+
+* OXYD MAGNUM LEVELS
+
+. oxm 13: ?
+. oxm 17: stones should slide on ice, wooden stone should not drop into abyss
+. oxm 25: TEST
+. oxm 28: triggers don' work; TEST
+. oxm 32: fake oxyds; rotor too strong / too little friction
+. oxm 33: stones should not break
+. oxm 34: ?
+. oxm 35: fake oxyds
+. oxm 36: missing stone 0xa7
+. oxm 37: friction not correct
+. oxm 39: ac-bug should be frictionless over abyss
+. oxm 41: missing stone 0xa7
+. oxm 43: ?
+. oxm 45: missing stone 0xa7
+. oxm 46: ?
+. oxm 48: wrong stones for passage
+. oxm 49: magnets too strong?
+. oxm 51: missing stone 0x92
+. oxm 52: ?s
+. oxm 53: missing floor 0x42
+. oxm 57: missing stone 0xa7
+. oxm 64: missing stone 0xa7
+
+
+* OXYD EXTRA LEVELS
+
+. oxe 2: is item really a bag? fake oxyds should look like oxyds
+. oxe 3: fake oxyds
+. oxe 5: bridge not working
+. oxe 12: fake oxyds
+. oxe 13: correct mirrors?
+. oxe 15: rotor too strong?
+. oxe 21: add yinyang? how to destroy the cracked stones? wrong stone type?
+. oxe 23: switches working correctly?
+
+* LEVELS
+
+. Fix 'Push and Pull' (very easy)
+o polish existing levels (easy mode etc.)
+
+* MISC
+
+. traits / IDs for floors, stones
+o Use numeric object IDs internally instead of object names
+  (we need this for (a) a data-only level format, and (b) an efficient
+  network protocol)
+
+* GAME
+
+. use material properties (restitution coefficient, sound) for collisions
+
+* DISPLAY / GRAPHICS
+
+. models: st-fart
+. fix ShogunDot graphics (size=2+3)
+
+* SPECIAL OBJECTS / ACTORS
+
+o "horse"
+. spermbird
+
+* STONES
+
+
+* DEFERRED TASKS
+. configure.ac: add --with-enet=, --with-zipios= etc.
+. maybe integrate startup.lua into binary to make initialization more
+   robust
+. properly handle collision between flying actors
+. real 3D coordinates for actors
+. sort levels into level packs / subdirectories
+. turnstiles: animate when rotating (how?)
+. add ability to change keybindings
+. odometer
+. background behind floors: water/abyss/space/swamp
+. animation for falling st-wood, st-block
+. "Exit Program" in game menu / on SDL_QUIT
+. clean up Lua interface
+o network/internet game
+- Editor
+. icon bar
+. signal layer
+. object selection menus
+. loading
+. saving
+. change level size
+. documents -- how?
+. level attributes (name, author, gravity, ...)
+
+* OPEN QUESTIONS / DUBIOUS IDEAS
+? special menu entries (editable)
+? warp tunnels (a la sonic)
+? script for levelpack creation
+? rotating marble
+? add simple window manager (for editor?)
+? also use angular velocities for the marbles
+? only distribute Intro level pack with Enigma
+? wire
+? opengl display
+? use Object reference counts
+? edge radius as parameter for stones
+? run actor_enter() / actor_leave() when jumping (necessary for
+   trigger, conflicts with floor changing item)
+
+* DONE
+
+** --- before 0.90 ---
+
+x assign priorities to sound effects
+x (highlight current item in inventory)
+x implement bbox() for models
+x fix time hunt
+x draw game menu on top of _tinted_ background (options menu looks
+   horrible otherwise)
+x fix win32 build -- why two copies of zlib.dll ???
+x fix enigma levels with keys/locks
+x it-drop
+x move oxyd->enigma mapping to enigma sources
+x Screenshot (F10) crashes enigma in most cases (on P4/2.4)
+x better error handling
+x solve thumbs problem
+x fix error handling in .zip level packs
+x (thumbnails: Put them into ~/.enigma/thumbs32|48|... on Unix) no,
+  keep one thumbnail size for now
+x 40x40 it-cross, it-pencil, it-squashed
+x configure.ac: add --enable-experimental
+x better resampling code for sound rate conversion
+x improved graphics for color-blind players
+x fix: restart level after last life is gone
+x st-whiteballs, st-blackballs
+x fix: growing wooden stones replaces bolder -> crash
+x user bigger thumbnails is higher resolutions
+x create high-quality thumbnails using Lanczos filter
+x show marbles with shadow when creating previews
+x it-wormhole-off
+x rotors don't follow invisible marbles
+x oxyd: parse electric force strength
+x does it-seed respond to signals? No
+x the white bombs are supposed to destroy 5 fields
+x fix bomb / dynamite behaviour
+x oxyd: wormhole / magnet range
+x it-surprise -> dynamite, spring1, coffee, umbrella, hammer
+x laser turns banana into cherry
+x Oxyd: international messages
+x item traits
+x add $(srcdir)/*.jpg to the pkgdata_DATA variable (thanks to Erich Schubert)
+x faster loading of Oxyd level packs
+x crushed cherry
+x pencil (does nothing so far)
+x bags
+x variable item radius
+x (error dialog) displaying short error text enough for now
+x exit client when server encounters error; show error message
+x oxyd1: actors sink more slowly in water
+x removed emergency shield for marbles
+x adjustable sink speed in swamp and water
+x (redesign signal mechanism) good enough; rest can be done with callbacks
+x (use pnglib directly instead of SDL_image) we need jpeg support for
+   the menu background
+x fix rounding errors in display.cc
+x change video modes on the fly
+x moving stones should shatter all marbles inside the new field (no
+   reliance on actor_inside() etc)
+x remove magic stones only if hit heavily
+x support for higher resolution video modes
+x (exchange F3 and Shift-F3)
+x level menu: mark level as solved (for users of old releases or those
+   who lost their enigmarc file)
+x fix: all other stones that can be destroyed
+x it-burnable should ignite if a neighboring bomb explodes
+x remove it-ring after using it (only in singleplayer mode? not sure)
+x expose signal mechanism to Lua scripts
+x oxyd: shuffle oxyd stones (not documented so far)
+x stones which are falling into abyss are supposed to disappear in the
+  swamp
+x plain stone like in oxyd (mostly there? check)
+x st-bug
+x flash stone (transfers impulse from one actor to the other)
+x fixed vortices to handle multiple targets
+x cherry
+x fix: blocker stones appear at beginning of level (peroxyd)
+x spoon
+x oxyd: timers, wormholes
+x st-blocker is technically not floating (buttons get pressed), but
+   actors can enter it (conflicts with Actor::can_move())
+x st-surprise
+x fourway switches (use up to four signals or send numbers 1 to 4)
+x oxyd: rubber bands
+x Extend LevelPack class to include get_status, set_status, 
+  count_solved_levels, etc [dh]
+x spitting stone [dh]
+x remove in-game documentation (replace by tutorial levels)
+x new file format for .enigmarc [dh]
+x redesign options menu [dh]
+x (re-implement stippled shadows)
+x fall back to 640x480 window if video mode initialization fails [dh]
+x cleanly separated the global and the level-local Lua environments [dh]
+x time hunt mode [rw]
+x cache automatic previews on disk (pnglib) [rw]
+x (low detail graphics)
+x (different oxyd stone animations in 8bit mode)
+x new graphics for normal/black/white switches [dh]
+x new scheme for level metadata (author, level name, revision,
+  hints, par time, has easy variant, etc.) [rw]
+x bottles (that make the actor drunk, see esprit) [dh]
+x "essential" attribute for actors -> restart level if actor dead [rw]
+x "essential" hollows -> must be filled with meditation ball to finish level [rw]
+x level revision used instead of time to flag as changed [rw]
+x improved game restart (essential/unmovable actors) [rw]
+x fix: movable impulse stones got stuck after first move [rw]
+x prefer ~/.enigmarc under Windows if %HOME% is set [rw]
+x smart respawn [rw]
+
+** --- before 0.81 ---
+
+x fix level-restart bug
+x display state of coinslots
+x renamed *vulcano* to *volcano*
+x dynamite explosions in space don't create abyss
+
+** --- before 0.80 ---
+
+x (move zipios configuration to toplevel) no need to do so
+n (rethink coin implementation) works fine as it is
+x "Slinky Racing" solvable?
+x fix door bug
+x fix: intersecting actors getting stuck
+x umbrellas protect against thieves
+x fixed timing problem with st-stoneimpulse stones
+x fixed bug where triggers can get stuck
+x Fix shadow rendering on OS X
+x give marble an emergency shield if it would die after respawning
+x update credits
+x disallow starting locked levels with the "Start Game" button
+x open pair of oxyds only if first one was already blinking
+x mouseforce attribute for actors acts as multiplicator, not boolean flag
+x fix extinguisher display bug
+x finish user manual
+x flip arrow on st-oneway on "signal" or "flip" message
+x only handle actor-actor collisions if both actors are alive and on
+   the floor
+x horizontal and vertical strips
+x toggle holes and hills on signal
+x disco stones: normal messages
+x fix Oxyd 2p meditation landscapes
+x fix fl-acwhite, fl-acblack
+x killer balls
+x do not make all level in a levelpack freely playable (force players to solve levels).
+x ac-bug
+x rotors shatter the marbles
+x knight
+x remember stones<->actor contacts, don't treat these as collisions
+x fix: inventory does not show when starting a level [rw]
+x draw rubber bands to gc, not to screen
+x update credits
+x remove lib-src/libtolua directory from CVS
+x build tools optionally (configure --enable-tools)
+x sunglasses [rw]
+x fix: blocker stones (use Model::reverse() like in other doors) [rw]
+x fix floor traits problem (see DefineSimpleFloor for note)
+x protection shields
+x swamp (tweak parameters)
+x add missing models for whiteball [rw]
+x warp tunnel (a la oxyd) [rw]
+x cherry
+x add Menu::tick() and move update_info() calls there
+x display warning when option cannot be activated immediately
+x item radius [rw]
+x bolder stone falls into abyss [rw]
+x Fix all memory leaks [ant]
+x cup of coffee
+x rotors
+x spinning tops
+x fix: actor animations
+x make fart stones destructible (laser, dynamite, hammer, bomb) [rw]
+x disco stones
+x floating stones do not activate triggers
+x bridge items for Oxyd
+x time game
+x redesign level menu
+x different screen sizes
+x white and black tiles
+x electric stones
+x fix puzzle stone <> magic wand interaction [rw]
+x added oxyd-compatible puzzle stones [rw]
+x make black ball shine
+x include zipios in distribution
+x turnstiles: fix strange behaviour when trying to turn them with
+  pullers / rotator stones [rw]
+x brittle floor [mh,dh]
+x Draw rubber bands in one pass
+x update autogen.sh to configure libraries
+x do not use global Lua state for model initialization
+x display-lua.pkg
+x move parts of init.lua to startup.lua
+x add parameters for friction/slope for oxyd compatibility
+x flags [rw]
+x mail stone
+x update zipios++ from CVS to fix compilation problems
+x get rid of pink border in oxyd mode
+x self-contained level packs
+x white/black switches [sf]
+x two modes: easy/hard [rw]
+x implement easy mode stone
+x bolder stones: do not change direction when pushed by
+  st-stoneimpulse
+x allow using the mouse wheel for rotating inventory entries [ant]
+x white bombs [mh]
+x rotators
+x blocker stones [rw]
+x use signals for oxyd levels
+x better scrolling (marble cannot leave the screen)
+x signals
+x track down mingw compilation bug [none found]
+x improve documentation
+x move display code into a class
+x reuse display code in level editor
+x try to get rid of global variables as much as possible
+x use only 2d coordinates
+x don't crash when creating unknown objects or models
+x pullers
+x fix remaining problems with shadow rendering (memory consumption &
+  slow screen flips in large levels)
+x turnstiles
+x turnstiles: allow use of pullers to rotate
+x turnstiles: crush actors
+x rotary switch [sf]
+x Import oxyd level pack if .dat file present
+x Save config file more often
+x trampoline (springboard) floor [mh]
+x turnstiles: draw pivot stone
+x impulse stones: interaction with stones; movable version
+x puzzle stones: allow use of pullers
+
+** --- before 0.70 ---
+
+x reorder levels
+x fix sound effect volume (explosions in particular)
+x run levels in a "sandbox"
+x help screen
+x elastic bands
+x scissors stone
+x rubber band stone
+x finish worm hole
+x spatialize sound effects
+
+** --- before 0.60 ---
+x redesign level menu
+x speed up level loading (profile - where is the bottleneck?)
+x fix blackball- graphics (make them smaller)
+x sound volume in options menu
+x music volume in options menu
+x improve collisions with stone corners (finally!)
+x mouse speed in options menu
+x options in game menu
+x level pack menu
+x player switcher
+x let main actors appear/disappear when level is beginning/finished
+x new main menu
+x fix shogun stone graphics
+x save par times for levels
+x grab mouse cursor in windowed mode; release it in the menus
+x save information about completed levels
+x change sprite being followed when switching players
+x level packs
+x let main actor decide whether an item may be dropped
+  (eg, only if in state IDLE)
+x remove main actors as soon as level is completed
+x properly update changed models on the screen
+x fix laser--stone interaction
+x update AUTHORS and credits
+x fix trigger signal of holes/hollows
+x magic stones
+x spade
+x finish yinyang item
+x sword
+x ice
+x pipes
+x fix bridges
+x finish magnets
+x add alias model
+x fix graphics bugs
+x fix shadows
+x white ball
+x convert level previews to 8bpp
+x try out NSIS for win32 packaging
+x merge gfx8 and gfx directories
+x fix webpage--main server now nongnu.org
+x stop scrolling messages when rotating the inventory
+x redraw status bar only when necessary
+x puzzle stones transform to gray floors on water/abyss
+x support for 8bit gfx
+x replace dictionary in Object with assoc list and save loads of
+   memory
+x improve menu redraw speed
+x stone seed
+x laser switch (mh)
+x yin-yang stones of all sorts (mh)
+x impulse stone that pushes actors
+x generic rectangle class
+x credits
+x magnets
+x worm holes
+x implement soft scrolling
+x check for and raise errors in Lua interface routines (handled by tolua)
+x save configuration file
+
+** --- before 0.50 ---
+
+x models: st-timer
+x springs
+x impulse stones
+x pause game if program is deactivated
+x speed up complex screen updates
+x finish implementation of meditation landscapes
+x models: fl-gradient
+x subimage models
+x sloped floor
+x emerging/disappearing floor (mh)
+x alpha blended shadows
+x re-do actor shadows properly
+x breakable stone (sf)
+x new door types (st-doora, st-doorb) (sf)
+x enigma.GetTicks() function for Nat's maze generator
+x thief stone (mh)
+x options menu
+x mouse cursor for menus
+x new menu system
+x keys in various colors (sf)
+x key switches (sf)
+x in-game menu
+x activate menu entries with the mouse
+x slot machine (jf)
+x coins (jf)
+x ball--ball collisions
+x small balls (different colors?)
+x "bolder" stones
+x floppy switch (mh)
+x stone impulse stones (mh)
+x reorganize objects.cc into smaller pieces
+x cross-compile using mingw
+x finish rpm spec (as)
+x bomb explosions destroy nearby items and the floor underneath
+
+** --- before 0.40 ---
+
+x flavor "c" and "d" oxyd stones (thanks to Johannes Fortmann)
+x removed in-game music and the .texi documentation (for now)
+x puzzle,door: destroy marble
+x flavor "a" oxyd stones
+x --nomusic switch
+x fart stone (st-fart)
+x timer stone (st-timer)
+x extend and fix tools::Timer class
+x wooden floor
+x wooden stone
+x modify PUZ_0000 so that it's fully connected and actors can pass through
+x make moving & swapping work for animated stones
+x kill actors inside a closing door
+
+** --- before 0.39 ---
+
+x oxyd_shuffle
+x polish puzzle stone gfx
+x allow definition of new object types in Lua (restricted to simple
+  floors and stones so far)
+x distinguish between "touching" and "hitting" a stone
+x nice background image for main menu
+x pause (enter in-game menu)
+x handle contact with floor tiles and items
+x new "items": hills and hollows
+x new floor: water
+x death's head stones
+x extend configure.in to distinguish Lua 4.0 and 4.1
+x add Lua 4.1 support
+x remove Lua from distribution
+x soft fading of music
+x background music for main menu
+x tint_rect()
+x upload CVS snapshot
+x let objects create force fields
+
+** --- before 0.38 ---
+
+x there seems to be a subtle bug in the laser code. track down and fix.
+x new level: mirrors
+x fix LaserSensitive to handle laser stones and mirrors
+x fix interaction laser beams <-> doors
+x glass stone
+x new level: space
+x switch gfx
+x shogun dot/stone gfx
+x switch
+x shogun stones
+x shogun dots
+x doors
+x door gfx
+x inverse motion floor
+x space
+x put together a small homepage
+x puzzle stones
+x chameleon stone
+
+
+** --- before 0.37 ---
+
+x submit project description for savannah
+x level preview
+x finish levels if certain criteria are met
+x play music during the game
+x implement image cache
+x level selection menu
+x return error codes from lua::Dofile
+x add license information in all source files
+x register at savannah
+x add fadein/fadeout effect when (re-)starting a level
+x move to next level when all oxyd stones are open
+x oxyd stones open when hit by a laser beam
+x re-start level when all main actors have been killed
+x explosion as new item type
+x different model for extra life in inventory
+x animation for falling marble
+x abyss
+x time limited text display in the inventory area
+x more accurate collision detection with laser beams
+x implement on/off actions for switches etc.
+x marble shatters when hit by a laser or an explosion
+x paint laser stones in other orientations
+x message handler for LaserStone
+x fix update of inventory when displaying messages
+x make it easier to create objects in level description files
+x clean up display_2d.cc
+x let laser beams pass through floating stones
+x ignite dynamite and bombs when hit by laser
+x do screen updates more cleverly
+x recalc light only once, and at the end of a turn
+x laser recalc on changes to "illuminated" fields
+x invoke removal() when objects are removed from the grid
+x fix laser recalc when moving mirrors
+x fix laserhv gfx
+x laser beams
+x laser
+x mirrors
+x mirror gfx / impl
+x oneway stone gfx + impl
+x use GridPos instead of explicit (int x, int y) specifications
+x GridObject _always_ know about their position (heck, memory is cheap
+  these days, 8 bytes more for each object won't hurt that much)
+x interface for naming objects/retrieving objects by name
+x image cache
+x animation for active laser stone
+x LoadImage, LoadFont routines in enigma.cc
+x configure.in: create config.h, including DEFAULT_DATA_PATH
+x enigma::FindDataFile
+x load data from the installation directory
+x add a way to define overlay images
+x paint missing oxyd stones
+x make data path configurable
+x make "make install" work
+x adapt item_under, floor_under in SetFloor, SetItem, etc. [removed
+  these fields from ActorInfo]
+x include LUA in distribution (convert to autoconf?)
+x call Item::on_drop for dropped items
+x clean up state transition in dynamite and bombs
+x play sound on collisions with stones
+x fake oxyd stones
+x complete implementation of oxyd stones
+x remove generic model manager in display.cc (use map<> instead)
+x reversible animations
+x animation callbacks
+x remove class Model, do not pass Model objects between display and world
+x gfx swap stone
+x proper state transitions for oxyd stones
+x opening and closing animations for oxyd stones
+x composite model
+x make --help actually output something
+x complete bomb impl.
+x complete dynamite impl.
+x active objects in world::
+x add --nosound option
+x easier ways to define animations in models-2d.lua
+x burning dynamite animation
+x oxyd stones
+x reset text display when entering a new world
+x complete menu implementation
+x colored fonts (in ttf2bmf ?)
+x main menu
+x check for SDL_ttf
+x build ttf2bmf only if SDL_ttf present
+x oxyd stone animation
+x implement text display (only in inventory? on the screen? scrolling?)
+x px/font.cc|hh
+x fonts/ttf22bmf
+x option for mouse sensitivity
+x object callbacks to LUA functions
+x calling Object::on_message from LUA
+x only redraw sprites that have actually changed
+x add border stones that keep objects from leaving the level
+x fix add_contact()
+x swap stones
+x distribute all necessary files
+x implement scrolling (also soft scrolling?)
+x scroll if main actor of current player reaches the border of the screen
+x set tile width/height in model description file
+x make certain stones movable
+x gfx: bombstone
+x remove scheme code, adjust configure.in/Makefile.am
+x write lua interface code
+x lua interface code for display_2d, models-2d.lua completed
+x load a configuration file
+x rewrite guile files in LUA
+x bomb stone
+x make px::Array2 exception safe
+x write .spec file
+x it-dynamite
+x it-black bombs
+x it-magic wand
+x it-hammer
+x it-umbrella
+x it-one up
+x it-trigger
+x actor-stone collision fine tuning (rounded edges for stones)
+x make marble a little smaller
+x vector reflection: use plane instead of line
+x drop items or kill them if they so desire
+x scanlines are seldomly used in px::Surface; calculate on demand
+x insert picked up items at the beginning of the inventory
+x do not pick up items if any mouse button is pressed
+x activate objects
+x player:: must have a way to determine the main actor for every player
+x pick up items => on_pickup
+x inventory management
+x build and link LUA
+x fix type checks in scheme interface
+x object attributes (en-set-attrib / en-get-attrib)
+x find and plug memory leaks
+x random model factory
+x reduce screen overdraw (particularly bad for many collision animation)
+x make it compatible with older Guile versions
+x inventory window
+x two sprite types: ACTOR and EFFECT
+x remove finished animations
+x allow animationens for stones, items etc.
+x px::abs(Vector) --> px::length(Vector)
+x rename project to Enigma
+x fix strange bug: ball can penetrate (and pass) solid stones
+x fix rebounding from adjacent stones
+x define animations
+x show animation at collision points
+x collision with stones => stone->on_hit()
+x draw marble above stone shadows
+x display2d: ShadedModel new
+x remove `max_force' method
+x collision handling (how?)
+x physics simulation
+x ball--stone collisions
+x rebound from stones
+x friction
+x pass mouse force to world::
+x use Assert<TypeError> in Value::get* instead of assert()
+x world::get_force(Object *obj) -> friction, force fields etc
+x force management in world.cc
+x bewegung + position von actors in Terra richtig (->on_creation...)
+x use o2-make-object instead of -make-actor, -item, ...
+x correctly set window caption
+x sprite movement: also redraw old position
+x display_2d: fix screen update
+x scheme-interface for model definitions in display_2d.cc
+x display_2d.cc: do not save sprite positions in the model itself but
+  keep it separate -> unified meaning of draw_at()
+x display_2d.cc: implement animations as a vector<Model2d*>
+x evtl: draw_at() und draw_shadow_at() für jedes Model2d?
+x define models in scheme; remove init.cc
+x redraw sprites only if they really moved on the screen
+x World::tick
+x rewrite main loop / screen update
+x fix crash when reloading levels
+x at program start: flush the event queue to avoid mouse jumps
+x mouse force
+x mouse grab
+x make_actor, set_actor
+x animation, sprite, animatedsprite
+x timing module
+x link to guile

@@ -1,0 +1,110 @@
+//==================================================  -*- Mode: C++ -*-
+// Copyright (C) 2002,2003,2004 Daniel Heck
+//
+// This program is free software; you can redistribute it and/or
+// modify it under the terms of the GNU General Public License
+// as published by the Free Software Foundation; either version 2
+// of the License, or (at your option) any later version.
+//
+// This program is distributed in the hope that it will be useful,
+// but WITHOUT ANY WARRANTY; without even the implied warranty of
+// MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+// GNU General Public License for more details.
+//
+// You should have received a copy of the GNU General Public License along
+// with this program; if not, write to the Free Software Foundation, Inc.,
+// 59 Temple Place, Suite 330, Boston, MA 02111-1307, USA.
+//
+// $Id: enigma-lua.pkg,v 1.25 2004/03/15 20:15:36 dheck Exp $
+//======================================================================
+
+
+/* -------------------- enigma.cc -------------------- */
+
+$#include "server.hh"
+$#include "world.hh"
+
+$using namespace enigma;
+$using px::Surface;
+$using px::Font;
+
+module enigma
+{
+    enum Direction {NODIR, NORTH, EAST, SOUTH, WEST};
+
+    Surface *GetImage(const char *name);
+    Surface *GetImage(const char *name, const char *extension);
+    Surface *LoadImage(const char *name);
+    Surface *RegisterImage(const char *name, Surface *s);
+    Font    *GetFont(const char *name);
+
+    const char *date(const char *format); // format see 'man strftime'
+}
+
+/* -------------------- game.cc -------------------- */
+
+$using namespace server;
+$using namespace levels;
+module enigma
+{
+    extern int    TwoPlayerGame;
+    extern int    SingleComputerGame;
+    extern int    ConserveLevel;
+    extern int    AllowTogglePlayer;
+    extern int    ShowMoves;
+    extern double Brittleness;
+    extern double SlopeForce;
+    extern double FlatForce;
+    extern double FrictionFactor;
+    extern double IceFriction;
+    extern double ElectricForce;
+    extern double BumperForce;
+    extern double MagnetForce;
+    extern double MagnetRange;
+    extern double WaterSinkSpeed;
+    extern double SwampSinkSpeed;
+    extern double WormholeForce;
+    extern double WormholeRange;
+    extern double HoleForce;
+
+    void AddLevelPack (const char *init_file, const char *name);
+    void AddZippedLevelPack (const char *zipfile);
+    void SetCompatibility(const char *version);
+}
+
+/* -------------------- world.cc, objects.cc -------------------- */
+
+$using namespace world;
+
+module world
+{
+    class Object;
+    class Floor : public Object {};
+    class Item : public Object {};
+    class Stone : public Object {};
+
+    Object *MakeObject(const char *kind);
+    Floor *MakeFloor(const char *kind);
+    Item *MakeItem(const char *kind);
+    Stone *MakeStone(const char *kind);
+
+    Object *GetNamedObject(const char *name);
+
+    void Resize(int w, int h);
+    void DefineSimpleStone(const char *kind, const char *sound, int hollow, int glass);
+    void DefineSimpleStoneMovable(const char *kind, const char *sound, int glass);
+    void DefineSimpleFloor(const char *kind, double friction, double mousefactor);
+}
+
+/* -------------------- video.cc -------------------- */
+
+$#include "video.hh"
+$using namespace video;
+$using px::Screen;
+
+module video
+{
+    Screen *GetScreen();
+    void HideMouse();
+    void ShowMouse();
+}

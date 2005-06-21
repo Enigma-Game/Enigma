@@ -1,0 +1,172 @@
+|||||PLEASE DO NOT CHANGE THE ORDER OF THE LEVELS IN THIS FILE|||||
+
+{ file=welcome                      name="Welcome"                 author="Daniel Heck"                   easymode=1  par_time_easy=2,Johannes    par_time_normal=2,Ingo+Johannes    revision=2 }
+{ file=martin06                     name="Is It Easy?"             author="Martin Hawlisch"               par_time=9,Duffy+Ingo }
+{ file=level4d                      name="Pharaoh's Tomb"          author="Siegfried Fennig"              par_time=12,Duffy }
+{ file=level3a                      name="Feel Your Way"           author="Siegfried Fennig"              par_time=25,Stephanie }
+{ file=martin04                     name="Sokoban Revival"         author="Martin Hawlisch"               par_time=81,Duffy }
+{ file=martin15                     name="Black Is Beautiful"      author="Martin Hawlisch"               par_time=33,Duffy }
+{ file=martin35                     name="Round Trip"              author="Martin Hawlisch"               par_time=23,Ralf }
+{ file=martin08                     name="Light Switches"          author="Martin Hawlisch"               par_time=9,Ingo }
+{ file=martin19                     name="Floppy Swapping"         author="Martin Hawlisch"               par_time=40,Ingo }
+{ file=meditation1                  name="- Meditation -"          author=""                              par_time=7,Duffy+Johannes+Ralf }
+
+{ file=nat5                         name="Push Them In"            author="Andreas Persenius, Nat Pryce"  par_time=159,Stephanie }
+{ file=martin27                     name="It's Magic"              author="Martin Hawlisch"               par_time=147,Johannes }
+{ file=level7a                      name="Ice Skating"             author="Siegfried Fennig"              par_time=23,Duffy }
+{ file=lasers101                    name="Lasers 101"              author="Daniel Heck"                   par_time=29,Duffy }
+{ file=space                        name="The Grim Reaper"         author="Daniel Heck"                   easymode=1  par_time_easy=15,Johannes   par_time_normal=16,Duffy }
+{ file=nat3                         name="Knock Knock!"            author="Nat Pryce"                     par_time=13,Duffy }
+{ file=martin93                     name="Slalom Skiing"           author="Martin Hawlisch"               easymode=1  par_time_easy=13,Stephanie  par_time_normal=8,Duffy }
+{ file=ant01                        name="Puzzle Hacker"           author="Petr Machata"                  par_time=130,Stephanie }
+{ file=nat7                         name="Sok It To 'Em"           author="Nat Pryce"                     par_time=159,Duffy }
+
+{ file=meditation6                  name="- Meditation -"          author=""                              par_time=5,Duffy+Ingo }
+
+{ file=level1c                      name="Push? Pull!"             author="Siegfried Fennig"              par_time=97,Stephanie }
+{ file=mirrors                      name="Way To Go"               author="Daniel Heck"                   par_time=49,Stephanie }
+{ file=level4a                      name="The Doors"               author="Siegfried Fennig"              par_time=98,Daniel }
+{ file=level3f                      name="Water Holes"             author="Siegfried Fennig"              par_time=143,Stephanie }
+{ file=level2a                      name="Black Holes"             author="Siegfried Fennig"              par_time=22,Johannes }
+{ file=level3e                      name="Tubes"                   author="Siegfried Fennig"              par_time=132,Draknek }
+{ file=martin12                     name="Archipelago"             author="Martin Hawlisch"               par_time=179,Stephanie }
+{ file=level1f                      name="Swap Swap"               author="Siegfried Fennig"              par_time=59,Duffy }
+{ file=level4b                      name="Push your way"           author="Siegfried Fennig"              par_time=92,Duffy }
+
+{ file=meditation5                  name="- Meditation -"          author=""                              par_time=6,Ingo }
+
+{ file=level6b                      name="Bridgebuilder"           author="Siegfried Fennig"              par_time=230,Draknek }
+{ file=level6a                      name="Space Pirates"           author="Siegfried Fennig"              par_time=62,Ralf                revision=2 }
+{ file=martin14                     name="Mission Impossible"      author="Martin Hawlisch"               easymode=1  par_time_easy=21,Stephanie  par_time_normal=22,Stephanie }
+{ file=level5f                      name="Send More Money"         author="Siegfried Fennig"              par_time=41,Duffy }
+{ file=martin38                     name="Slippery Slopes"         author="Martin Hawlisch"               par_time=6,Daniel }
+{ file=martin33                     name="Not Hard Atoll"          author="Martin Hawlisch"               par_time=25,Duffy }
+{ file=nat6                         name="Twelve Doors"            author="Nat Pryce"                     par_time=193,Duffy }
+{ file=level5a                      name="Pickpockets"             author="Siegfried Fennig"              par_time=20,Johannes }
+{ file=level4f                      name="Running Rings"           author="Siegfried Fennig"              par_time=292,Stephanie }
+
+{ file=meditation9                  name="- Meditation -"          author="Siegfried Fennig"              par_time=20,Johannes }
+
+{ file=level5e                      name="Chain Reaction"          author="Siegfried Fennig"              par_time=108,Holger }
+{ file=martin30                     name="The Prison"              author="Martin Hawlisch"               par_time=67,Stephanie }
+{ file=nat1                         name="Indoor Pool"             author="Nat Pryce"                     par_time=84,Duffy }
+{ file=martin31                     name="The Racetrack"           author="Martin Hawlisch"               par_time=77,Duffy }
+{ file=martin17                     name="The Sargasso Sea"        author="Martin Hawlisch"               par_time=386,Stephanie }
+{ file=level4e                      name="Moonwalking"             author="Siegfried Fennig"              par_time=45,Draknek }
+{ file=level6d                      name="Painting"                author="Siegfried Fennig"              par_time=219,Ingo }
+{ file=level2d                      name="Tricks & Traps"          author="Siegfried Fennig"              par_time=396,Stephanie }
+{ file=nat2                         name="Duck and Cover"          author="Nat Pryce"                     par_time=38,Johannes }
+
+-- already in index_esprit.txt {file=meditation8          name="- Meditation -"                 author="Siegfried Fennig"    }
+-- Another meditation level should be used here.
+
+{ file=martin39                     name="Eraser Please!"          author="Martin Hawlisch"               par_time=11,Duffy }
+{ file=level2f                      name="Uhh-Steady!"             author="Siegfried Fennig"              par_time=31,Ingo }
+{ file=martin37                     name="Watery Grave"            author="Martin Hawlisch"               par_time=11,Ralf }
+{ file=level5b                      name="Break and Enter"         author="Siegfried Fennig"              par_time=93,Ingo+Stephanie }
+{ file=level6c                      name="Jump And Run"            author="Siegfried Fennig"              par_time=186,Ronald }
+{ file=martin26                     name="Back And Forth"          author="Martin Hawlisch"               par_time=15,Johannes }
+{ file=level6f                      name="Hidden Treasure"         author="Siegfried Fennig"              par_time=69,Ingo }
+{ file=martin02                     name="Mossy Paths"             author="Martin Hawlisch"               par_time=248,Ingo }
+{ file=qq1                          name="Light Barriers"          author="Andrzej Szombierski"           par_time=241,Duffy }
+
+{ file=daniel1                      name="- Meditation -"          author="Daniel Heck"                   par_time=5,Ingo }
+
+
+{ file=level3d                      name="Good Luck!"              author="Siegfried Fennig"              par_time=65,Ingo }
+{ file=level9a                      name="Mirror Shop"             author="Siegfried Fennig"              par_time=11,Duffy }
+{ file=qq3                          name="Stomp Stomp"             author="Andrzej Szombierski"           par_time=38,Duffy }
+{ file=level2c                      name="Find The Way Out"        author="Siegfried Fennig"              par_time=28,Duffy }
+{ file=level9c                      name="Basement"                author="Siegfried Fennig"              par_time=24,Duffy }
+{ file=ant18                        name="Ingrowing"               author="Petr Machata"                  par_time=37,Stephanie }
+{ file=ant09                        name="Escher's World"          author="Petr Machata"                  par_time=20,Duffy }
+{ file=ant13                        name="Impulsive"               author="Petr Machata"                  par_time=412,Ralf }
+{ file=natmaze6                     name="Magritte"                author="Nat Pryce"                     par_time=220,Daniel }
+
+{ file=meditation13                 name="- Meditation -"          author=""                              par_time=5,Ingo+Ralf }
+
+{ file=martin70                     name="Pools"                   author="Martin Hawlisch"               par_time=10,Duffy }
+{ file=level8e                      name="Light Switches"          author="Siegfried Fennig"              par_time=20,Ronald }
+{ file=martin66                     name="A Narrow Path"           author="Martin Hawlisch"               par_time=25,Duffy }
+{ file=ant03                        name="MetaPuzzle"              author="Petr Machata"                  par_time=75,Stephanie }
+{ file=duffy13                      name="Space Tubes"             author="Jacob Scott"                   par_time=15,Duffy }
+{ file=qq2                          name="The Cage"                author="Andrzej Szombierski"           par_time=135,Ant }
+{ file=level8d                      name="Sentinels"               author="Siegfried Fennig"              par_time=113,Johannes }
+{ file=ant04                        name="The Tomb"                author="Petr Machata"                  par_time=114,Ingo }
+{ file=natmaze1                     name="Desert Ruins"            author="Nat Pryce"                     par_time=148,Johannes }
+
+{ file=meditation14                 name="- Meditation -"          author="Siegfried Fennig"              par_time=9,Duffy }
+
+{ file=ant12                        name="Black Lava"              author="Petr Machata"                  par_time=13,Ant }
+{ file=nat8                         name="Flood Gates"             author="Nat Pryce"                     par_time=110,Ingo }
+{ file=nat9                         name="Balancing Act"           author="Nat Pryce"                     par_time=18,Duffy }
+{ file=ant07                        name="Automaton Magic"         author="Petr Machata"                  par_time=30,Stephanie }
+{ file=martin58                     name="Sheet Of Ice"            author="Martin Hawlisch"               par_time=52,Duffy }
+{ file=level7c                      name="No Trespassing"          author="Siegfried Fennig"              par_time=308,Johannes }
+{ file=martin60                     name=".J.U.M.P."               author="Martin Hawlisch"               par_time=47,Duffy }
+{ file=nat4                         name="Walk The Plank"          author="Nat Pryce"                     par_time=139,Nat }
+{ file=natmaze2                     name="Shipwreck"               author="Nat Pryce"                     par_time=299,Stephanie }
+
+{ file=ant16                        name="- Meditation -"          author="Petr Machata"                  par_time=9,Johannes }
+
+{ file=ant14                        name="Dancers"                 author="Petr Machata"                  par_time=36,Ant+Ralf+Stephanie }
+{ file=christophanita_runningstone  name="Running Stone"           author="Christoph & Anita"             par_time=74,Duffy }
+{ file=level9e                      name="Where's The Gardener?"   author="Siegfried Fennig"              par_time=36,Duffy }
+{ file=level9d                      name="Over the Lake"           author="Siegfried Fennig"              par_time=40,Ralf }
+{ file=martin71                     name="Follow the Leader"       author="Martin Hawlisch"               par_time=75,Ralf }
+{ file=duffy15                      name="Bumperball"              author="Jacob Scott"                   par_time=315,Johannes }
+{ file=martin68                     name="Where am I?"             author="Martin Hawlisch"               par_time=38,Duffy }
+{ file=level10b                     name="Space Travels"           author="Siegfried Fennig"              par_time=224,Duffy }
+{ file=natmaze3                     name="Gopher It"               author="Nat Pryce"                     par_time=255,Stephanie }
+
+{ file=ant24                        name="- Meditation -"          author="Petr Machata"                  par_time=43,Johannes }
+
+{ file=ant26                        name="Spiders"                 author="Petr Machata"                  par_time=49,Duffy }
+{ file=duffy1                       name="Meditation Puzzle"       author="Jacob Scott"                   par_time=90,Duffy }
+{ file=ant20                        name="Come To Me"              author="Petr Machata"                  par_time=12,Ralf }
+{ file=level9f                      name="Corridors"               author="Siegfried Fennig"              par_time=178,Duffy }
+{ file=ant06                        name="Dustwalkers"             author="Petr Machata"                  par_time=38,Ant }
+{ file=duffy3                       name="Laser Spiral"            author="Jacob Scott"                   par_time=77,Duffy }
+{ file=ant32                        name="Everhungry"              author="Petr Machata"                  par_time=5,Daniel+Holger+Ingo }
+{ file=ant05                        name="The Turtle"              author="Petr Machata"                  par_time=69,Stephanie }
+{ file=natmaze5                     name="Grow Your Own"           author="Nat Pryce"                     par_time=733,Duffy }
+
+{ file=meditation16                 name="- Meditation -"          author="Siegfried Fennig"              par_time=2,Draknek }
+
+{ file=ant21                        name="Draggers"                author="Petr Machata"                  par_time=16,Johannes }
+{ file=duffy2                       name="The Disappearing Block"  author="Jacob Scott"                   par_time=83,Duffy }
+{ file=martin73                     name="Space Fishing"           author="Martin Hawlisch"               par_time=224,Ronald }
+{ file=ant29                        name="Robbery"                 author="Petr Machata"                  par_time=15,Duffy+Ralf }
+{ file=ant02                        name="Go!"                     author="Petr Machata"                  par_time=18,Duffy }
+{ file=ant30                        name="Laser Magic"             author="Petr Machata"                  par_time=10,Duffy }
+{ file=ant11                        name="Cannonball"              author="Petr Machata"                  par_time=77,Ant }
+{ file=duffy10                      name="Islands"                 author="Jacob Scott"                   par_time=64,Duffy }
+{ file=natmaze4                     name="Space Walk"              author="Nat Pryce"                     par_time=1701,Markus }
+
+{ file=meditation15                 name="- Meditation -"          author="Siegfried Fennig"              par_time=36,Ralf }
+
+{ file=duffy7                       name="Jump!"                   author="Jacob Scott"                   par_time=50,Duffy }
+{ file=duffy8                       name="Checkerboard"            author="Jacob Scott"                   par_time=82,Duffy }
+{ file=ant10                        name="Circularity"             author="Petr Machata"                  par_time=31,Ingo }
+{ file=duffy5                       name="Just Moving Blocks?"     author="Jacob Scott"                   par_time=53,Markus }
+{ file=duffy14                      name="Slinky-Racing"           author="Jacob Scott"                   easymode=1  par_time_easy=27,Ralf       par_time_normal=26,Ralf }
+{ file=duffy6                       name="Boulder-Puzzle"          author="Jacob Scott"                   par_time=95,Duffy }
+{ file=ant28                        name="Wild"                    author="Petr Machata"                  par_time=16,Ralf }
+{ file=duffy4                       name="The Document"            author="Jacob Scott"                   par_time=91,Duffy }
+{ file=duffy9                       name="Double-Maze"             author="Jacob Scott"                   par_time=76,Ingo }
+
+{ file=meditation17                 name="- Meditation -"          author="Siegfried Fennig"              par_time=11,Ingo }
+
+{ file=ant22                        name="Chained"                 author="Petr Machata"                  par_time=33,Stephanie }
+{ file=duffy12                      name="Just a Maze?"            author="Jacob Scott"                   par_time=92,Duffy }
+{ file=duffy11                      name="The Race"                author="Jacob Scott"                   easymode=1  par_time_easy=52,Duffy      par_time_normal=58,Duffy+Johannes }
+{ file=duffy17                      name="Double-Spiral"           author="Jacob Scott"                   par_time=469,Duffy }
+{ file=ant08                        name="Mourning Palace"         author="Petr Machata"                  par_time=141,Ingo_K }
+{ file=duffy16                      name="Control Panel"           author="Jacob Scott"                   par_time=124,Duffy }
+{ file=ant25                        name="Dependants"              author="Petr Machata"                  par_time=18,Stephanie }
+{ file=level11b                     name="Question of Speed"       author="Siegfried Fennig"              par_time=14,Ralf }
+{ file=ant27                        name="Pain"                    author="Petr Machata"                  par_time=13,Duffy }
+
+{ file=ant23                        name="- Meditation -"          author="Petr Machata"                  par_time=272,Duffy }
+
+{ file=level11a                     name="Domain of Mysteries"     author="Siegfried Fennig"              par_time=213,Duffy }

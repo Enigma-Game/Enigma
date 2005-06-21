@@ -1,0 +1,509 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) YEAR Free Software Foundation, Inc.
+# This file is distributed under the same license as the PACKAGE package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
+#
+#, fuzzy
+msgid ""
+msgstr ""
+"Project-Id-Version: Enigma 0.90\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2005-05-29 23:58+0200\n"
+"PO-Revision-Date: 2005-05-15 23:03+0100\n"
+"Last-Translator: Samuel E. Martínez <semart@xasa.com>\n"
+"Language-Team: Spanish\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+
+#: src/server.cc:126
+msgid "Server Error: could not load level '"
+msgstr "Error del servidor: imposible cargar nivel '"
+
+#: src/client.cc:61
+#, c-format
+msgid "Mouse speed: %d"
+msgstr "Velocidad del ratón: %d"
+
+#: src/client.cc:68
+msgid "Another nameless level"
+msgstr "Otro nivel sin nombre"
+
+#: src/client.cc:70
+msgid " by "
+msgstr " por "
+
+#: src/client.cc:90
+msgid "Resume Level"
+msgstr "Continuar nivel"
+
+#: src/client.cc:91
+msgid "Restart Level"
+msgstr "Reiniciar nivel"
+
+#: src/client.cc:92 src/menus.cc:1566
+msgid "Options"
+msgstr "Opciones"
+
+#: src/client.cc:93
+msgid "Abort Level"
+msgstr "Abandonar nivel"
+
+#: src/client.cc:500
+msgid "Left mouse button:"
+msgstr "Botón izquierdo:"
+
+#: src/client.cc:500
+msgid "Activate/drop leftmost inventory item"
+msgstr "Activar/soltar objeto del inventario"
+
+#: src/client.cc:501
+msgid "Right mouse button:"
+msgstr "Botón derecho"
+
+#: src/client.cc:501
+msgid "Rotate inventory items"
+msgstr "Rotar objetos del inventario"
+
+#: src/client.cc:502 src/menus.cc:669
+msgid "Escape:"
+msgstr ""
+
+#: src/client.cc:502
+msgid "Show game menu"
+msgstr "Mostrar menú de juego"
+
+#: src/client.cc:503
+msgid "F1:"
+msgstr ""
+
+#: src/client.cc:503 src/menus.cc:670
+msgid "Show this help"
+msgstr "Mostrar esta ayuda"
+
+#: src/client.cc:504
+msgid "F3:"
+msgstr ""
+
+#: src/client.cc:504
+msgid "Kill current marble"
+msgstr "Romper canica"
+
+#: src/client.cc:505
+msgid "Shift+F3:"
+msgstr ""
+
+#: src/client.cc:505
+msgid "Restart the current level"
+msgstr "Reiniciar nivel"
+
+#: src/client.cc:506
+msgid "F4:"
+msgstr ""
+
+#: src/client.cc:506
+msgid "Skip to next level"
+msgstr "Pasar al siguiente nivel"
+
+#: src/client.cc:507
+msgid "F5:"
+msgstr ""
+
+#: src/client.cc:508
+msgid "F10:"
+msgstr ""
+
+#: src/client.cc:508
+msgid "Make screenshot"
+msgstr "Captura de pantalla"
+
+#: src/client.cc:509
+msgid "Left/right arrow:"
+msgstr "Cursor Izq/Dcha"
+
+#: src/client.cc:509
+msgid "Change mouse speed"
+msgstr "Cambiar velocidad del ratón"
+
+#: src/client.cc:510
+msgid "Alt+x:"
+msgstr ""
+
+#: src/client.cc:510
+msgid "Return to level menu"
+msgstr "Volver al menú de juego"
+
+#: src/client.cc:511 src/menus.cc:677
+msgid "Alt+Return:"
+msgstr "Alt+Intro"
+
+#: src/client.cc:511 src/menus.cc:677
+msgid "Switch between fullscreen and window"
+msgstr "Cambiar pantalla completa/ventana"
+
+#: src/client.cc:521
+msgid "Skip to next non-par level"
+msgstr "Pasar al siguiente nivel sin record"
+
+#: src/client.cc:522
+msgid "Skip to next unsolved level"
+msgstr "Pasar al siguiente nivel sin resolver"
+
+#: src/client.cc:658
+msgid "Too slow for "
+msgstr "Demasiado lento para "
+
+#: src/client.cc:661
+msgid "You are slow today.. [Ctrl-A]"
+msgstr "Pareces demasiado lento hoy.. [Ctrl+A]"
+
+#: src/client.cc:730
+msgid "Exactly the par time by "
+msgstr "Exactamente el mismo tiempo que "
+
+#: src/client.cc:732
+msgid "Great! A new par time!"
+msgstr "¡Bravo! Un nuevo record"
+
+#: src/client.cc:737
+msgid "Again your personal best time..."
+msgstr "De nuevo tu marca personal..."
+
+#: src/client.cc:741
+msgid "New personal best time!"
+msgstr "¡Nueva marca personal!"
+
+#: src/client.cc:752
+msgid "Your best, "
+msgstr "Tu mejor tiempo, "
+
+#: src/client.cc:759
+msgid "behind par time."
+msgstr "por detrás del record."
+
+#: src/client.cc:761
+msgid "behind best time."
+msgstr "por detrás de tu marca."
+
+#: src/client.cc:768
+msgid "Level finished!"
+msgstr "¡Nivel completado!"
+
+#: src/client.cc:770
+msgid " Cheater!"
+msgstr " ¡Tramposo!"
+
+#: src/client.cc:797
+#, c-format
+msgid "Enigma level #%d: %s"
+msgstr "Nivel #%d: %s"
+
+#: src/client.cc:809
+msgid "Your best time: "
+msgstr "Tu mejor marca: "
+
+#: src/client.cc:811
+msgid "Par to beat: "
+msgstr "Tiempo a batir: "
+
+#: src/main.cc:215
+#, c-format
+msgid "There was an error loading 'startup.lua'.\n"
+msgstr "Error al cargar 'startup.lua'.\n"
+
+#: src/main.cc:216
+#, c-format
+msgid "Your installation may be incomplete or invalid.\n"
+msgstr "La instalación puede estar incompleta o inválida.\n"
+
+#: src/main.cc:222
+#, c-format
+msgid "Error in configuration file.\n"
+msgstr "Error en fichero de configuración.\n"
+
+#: src/menus.cc:426
+msgid "No further unsolved level available!"
+msgstr "¡No quedan más niveles por resolver!"
+
+#: src/menus.cc:669
+msgid "Skip to main menu"
+msgstr "Ir al menú principal"
+
+#: src/menus.cc:672
+msgid "Arrows:"
+msgstr "Flechas:"
+
+#: src/menus.cc:672
+msgid "Select level"
+msgstr "Elija nivel"
+
+#: src/menus.cc:673
+msgid "Return:"
+msgstr "Intro:"
+
+#: src/menus.cc:673
+msgid "Play selected level"
+msgstr "Jugar nivel elegido"
+
+#: src/menus.cc:674
+msgid "Back/Space:"
+msgstr "Borrar/Espacio:"
+
+#: src/menus.cc:674
+msgid "Previous/next levelpack"
+msgstr "Anterior/siguiente lote de niveles"
+
+#: src/menus.cc:675
+msgid "Mark current level as Unsolved"
+msgstr "Marcar nivel actual como Incompleto"
+
+#: src/menus.cc:714
+msgid "Select next non-par level"
+msgstr "Ir al siguiente nivel sin record"
+
+#: src/menus.cc:716
+msgid "Select next unsolved level"
+msgstr "Ir al siguiente nivel sin resolver"
+
+#: src/menus.cc:786 src/menus.cc:807
+msgid "muted"
+msgstr "silencio"
+
+#: src/menus.cc:824
+msgid "Music in game"
+msgstr "Música del juego"
+
+#: src/menus.cc:824
+msgid "No music in game"
+msgstr "Sin música del juego"
+
+#: src/menus.cc:829 src/menus.cc:833 src/menus.cc:961
+msgid "Yes"
+msgstr "Si"
+
+#: src/menus.cc:829 src/menus.cc:833 src/menus.cc:961
+msgid "No"
+msgstr "No"
+
+#: src/menus.cc:902
+msgid "Default"
+msgstr "Por defecto"
+
+#: src/menus.cc:949
+msgid "reversed"
+msgstr "invertido"
+
+#: src/menus.cc:950
+msgid "mono"
+msgstr "mono"
+
+#: src/menus.cc:951
+msgid "normal"
+msgstr "normal"
+
+#: src/menus.cc:973
+msgid "Difficulty: Easy"
+msgstr "Dificultad: Fácil"
+
+#: src/menus.cc:975
+msgid "Difficulty: Normal"
+msgstr "Dificultad: Normal"
+
+#: src/menus.cc:989
+msgid "Tournament"
+msgstr "Campeonato"
+
+#: src/menus.cc:989
+msgid "Training"
+msgstr "Entrenamiento"
+
+#: src/menus.cc:1032
+msgid "unknown"
+msgstr "desconocido"
+
+#: src/menus.cc:1097 src/menus.cc:1229
+msgid "Back"
+msgstr "Volver"
+
+#: src/menus.cc:1113
+msgid "Language: "
+msgstr "Idioma"
+
+#: src/menus.cc:1114
+msgid "Fullscreen: "
+msgstr "Pantalla completa: "
+
+#: src/menus.cc:1115
+msgid "Video mode: "
+msgstr "Modo de vídeo"
+
+#: src/menus.cc:1116
+msgid "Gamma correction: "
+msgstr "Corrección gamma"
+
+#: src/menus.cc:1117
+msgid "Mouse speed: "
+msgstr "Velocidad del ratón: "
+
+#: src/menus.cc:1118
+msgid "Skip solved levels: "
+msgstr "Saltar niveles completados: "
+
+#: src/menus.cc:1119
+msgid "Time hunt: "
+msgstr "Cronometrado: "
+
+#: src/menus.cc:1129
+msgid "Sound volume: "
+msgstr "Volumen del sonido: "
+
+#: src/menus.cc:1130
+msgid "Sound set: "
+msgstr "Grupo de sonidos: "
+
+#: src/menus.cc:1131
+msgid "Music volume: "
+msgstr "Volumen de música: "
+
+#: src/menus.cc:1132
+msgid "Stereo: "
+msgstr "Estéreo: "
+
+#: src/menus.cc:1163
+msgid "Please restart Enigma to activate your changes!"
+msgstr "¡Reinicie Enigma para aplicar los cambios!"
+
+#: src/menus.cc:1231
+msgid "Level Pack"
+msgstr "Lote de niveles"
+
+#: src/menus.cc:1381
+msgid "You are not allowed to play this level yet."
+msgstr "No puedes jugar este nivel aún."
+
+#: src/menus.cc:1430
+#, c-format
+msgid "%d%% par"
+msgstr "%d%% record"
+
+#: src/menus.cc:1434
+#, c-format
+msgid "%d%% solved"
+msgstr "%d%% resuelto"
+
+#: src/menus.cc:1463
+#, c-format
+msgid "Your time: %d:%02d"
+msgstr "Tu marca: %d:%02d"
+
+#: src/menus.cc:1469
+msgid "That's par."
+msgstr "Ese es el record."
+
+#: src/menus.cc:1471
+#, c-format
+msgid "That's %d:%02d below par."
+msgstr "%d:%02d por debajo del record."
+
+#: src/menus.cc:1478
+#, c-format
+msgid "Par by %s: %d:%02d"
+msgstr "Record de %s: %d:%02d"
+
+#: src/menus.cc:1481
+#, c-format
+msgid "Par: %d:%02d"
+msgstr "Record: %d:%02d"
+
+#: src/menus.cc:1502
+#, c-format
+msgid "%s: %d levels"
+msgstr "%s: %d niveles"
+
+#: src/menus.cc:1560
+msgid "Start Game"
+msgstr "Jugar"
+
+#: src/menus.cc:1562
+msgid "Editor"
+msgstr ""
+
+#: src/menus.cc:1567
+msgid "Credits"
+msgstr "Créditos"
+
+#: src/menus.cc:1568
+msgid "Quit"
+msgstr "Salir"
+
+#: src/menus.cc:1657
+msgid "Project maintainer:"
+msgstr "Proyecto mantenido por:"
+
+#: src/menus.cc:1660
+msgid "Main developers:"
+msgstr "Desarrolladores principales:"
+
+#: src/menus.cc:1664
+msgid "Special Thanks To:"
+msgstr "Agradecimientos especiales para:"
+
+#: src/menus.cc:1665
+msgid "  JOHANNES FORTMANN (graphics), JEREMY SAWICKI (oxydlib),"
+msgstr "  JOHANNES FORTMANN (gráficos), JEREMY SAWICKI (oxydlib),"
+
+#: src/menus.cc:1666
+#, fuzzy
+msgid ""
+"  MEINOLF SCHNEIDER (game idea, level design), ANDREW \"NECROS\" SEGA (menu "
+"music)"
+msgstr ""
+"  MEINOLF SCHNEIDER (idea, diseño de niveles), ANDREW \"NECROS\" SEGA (menú "
+"música)"
+
+#: src/menus.cc:1667
+msgid "  NAT PRYCE & JOHN 'WB' SNEYERS (levels)"
+msgstr "  NAT PRYCE & JOHN 'WB' SNEYERS (niveles)"
+
+#: src/menus.cc:1669
+msgid "Please see the manual for more detailed credits."
+msgstr "Por favor, lee el manual para créditos más detallados."
+
+#: src/menus.cc:1671
+msgid "Home Page: http://www.nongnu.org/enigma"
+msgstr "Página del proyecto: http://www.nongnu.org/enigma"
+
+#: src/menus.cc:1672
+msgid "Contact: enigma-devel@nongnu.org"
+msgstr "Contacto: enigma-devel@nongnu.org"
+
+#: src/menus.cc:1674
+msgid "Enigma is free software and may be distributed under the"
+msgstr "Enigma es software libre y deberá ser distribuido bajo los"
+
+#: src/menus.cc:1675
+msgid "terms of the GNU General Public License, version 2.  See"
+msgstr "términos GNU General Public License, versión 2. Ver"
+
+#: src/menus.cc:1676
+msgid "the accompanying COPYING.GPL for details."
+msgstr "el adjunto COPYING.GPL para más detalles."
+
+#: src/menus.cc:1678
+msgid "Copyright (C) 2002-2005 Daniel Heck and contributors."
+msgstr "Copyright (C) 2002-2005 Daniel Heck y colaboradores."
+
+#~ msgid "Enigma - Level Pack Menu"
+#~ msgstr "Enigma - Menú Lotes de Niveles"
+
+#~ msgid "Enigma - Options Menu"
+#~ msgstr "Enigma - Menú de Opciones"
+
+#~ msgid "Enigma - Level Menu"
+#~ msgstr "Enigma - Menú de Niveles"
+
+#~ msgid "Enigma - Main Menu"
+#~ msgstr "Enigma - Menú Principal"
+
+#~ msgid "Main contributors:"
+#~ msgstr "Principales colaboradores:"

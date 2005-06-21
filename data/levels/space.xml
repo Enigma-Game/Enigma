@@ -1,0 +1,49 @@
+<level width="20" height="25">
+    <info>
+	<name>The Grim Reaper</name>
+	<name lang="de">Der Sensemann</name>
+	<author>Daniel Heck</author>
+	<copyright>Copyright (C) 2002 Daniel Heck</copyright>
+	<license>GPL v2.0 or above</license>
+    </info>
+    <floors>
+	<fill kind="fl-space"/>
+    </floors>
+    <stones>
+	<border kind="st-likeoxydc"/>
+	<oxyd x="1" y="1"/>
+	<oxyd x="18" y="1"/>
+	<oxyd x="1" y="12"/>
+	<oxyd x="18" y="12"/>
+	<oxyd x="18" y="23"/>
+	<oxyd x="1" y="23"/>
+    </stones>
+
+    <actors>
+	<actor kind="ac-blackball" x="10" y="6.5" player="0"/>
+    </actors>
+
+<lua>
+levelw=level_width
+levelh=level_height
+if options.Difficulty == HARD then
+    fill_floor("fl-inverse", 7,4, 6,5)
+    fill_floor("fl-inverse", 7,16, 6,5)
+    set_stones("st-death", {{9,0},{10,0},
+                   {9,levelh-1},{10,levelh-1},
+                   {0,6},{levelw-1,6},
+                   {0,18},{levelw-1,18}
+               }
+           )
+else
+    fill_floor("fl-gray", 6,4, 8,6)
+    fill_floor("fl-gray", 6,15, 8,6)
+    set_stones("st-actorimpulse", {{9,0}, {10,0},
+                   {9,levelh-1},{10,levelh-1},
+                   {0,6},{levelw-1,6},
+                   {0,18},{levelw-1,18}
+               }
+           )
+end
+</lua>
+</level>

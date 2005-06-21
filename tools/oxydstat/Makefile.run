@@ -1,0 +1,56 @@
+
+.SUFFIXES: .dat .stat .info
+
+DATDIR=$(ENIGMA)/data
+OXYDLIB=$(ENIGMA)/lib-src/oxydlib
+
+PRINTSTATS=$(OXYDLIB)/printstats
+PRINTSTATS_OPT=-n
+PRINTINFOS=$(OXYDLIB)/printlevels
+PRINTINFOS_OPT=
+
+DAT_OXYD1 = $(wildcard $(DATDIR)/oxyd1ibm.dat)
+DAT_OXYD_EXTRA = $(wildcard $(DATDIR)/oxydex.dat)
+DAT_OXYD_MAGNUM = $(wildcard $(DATDIR)/oxydmibm.dat)
+DAT_OXYD_MAGNUM_GOLD = $(wildcard $(DATDIR)/oxydmgg.dat)
+DAT_PEROXYD = $(wildcard $(DATDIR)/peroxyd.dat)
+
+DAT=$(DAT_OXYD1) $(DAT_OXYD_EXTRA) $(DAT_OXYD_MAGNUM) $(DAT_OXYD_MAGNUM_GOLD) $(DAT_PEROXYD)
+
+STAT=$(addsuffix .stat,$(notdir $(basename $(DAT))))
+INFO=$(addsuffix .info,$(notdir $(basename $(DAT))))
+
+help:
+		@echo ""
+		@echo " Target       Description"
+		@echo "---------------------------------------------------------------------"
+		@echo " stat         generates statistics for all installed oxyd levelpacks"
+		@echo " info         generates infos      for all installed oxyd levelpacks"
+		@echo " "
+		@echo " all          all above"
+		@echo " clean        remove generated files"
+		@echo ""
+
+all: stat info
+
+stat: $(STAT)
+
+info: $(INFO)
+
+%.stat : $(DATDIR)/%.dat
+		@echo "Generating $@"
+		@$(PRINTSTATS) $(PRINTSTATS_OPT) -v`./dat2opt.sh $(notdir $(basename $<))` $< > $@ || \
+				( echo "Error while creating '$@':"; cat $@; rm $@; echo "ignored")
+
+%.info : $(DATDIR)/%.dat
+		@echo "Generating $@"
+		@$(PRINTINFOS) $(PRINTINFOS_OPT) -v`./dat2opt.sh $(notdir $(basename $<))` $< > $@ || \
+				( echo "Error while creating '$@':"; cat $@; rm $@; echo "ignored")
+
+$(STAT) : $(PRINTSTATS)
+
+$(INFO) : $(PRINTINFOS)
+
+clean:
+		@rm -f *.stat *.info
+

@@ -1,0 +1,2519 @@
+\input texinfo                              @c -*- texinfo -*-
+@setfilename enigma-ref.info
+@settitle Enigma Reference Manual
+@titlepage
+@title Enigma Reference Manual
+@subtitle for version 0.90
+@author Daniel Heck
+@author Petr Machata
+@author Ralf Westram
+@end titlepage
+
+@contents
+
+@ifnottex
+@node Top, Introduction, (dir), (dir)
+@top
+
+This manual describes the internals of
+@uref{http://www.nongnu.org/enigma/,Enigma}, in particular how to
+build new levels using Lua and how to interact with the game engine.
+It describes Enigma version 0.90.
+@end ifnottex
+
+@menu
+* Introduction::                General remarks on creating new levels
+* XML levels::                  The new XML-based level descriptions
+* Objects::                     Description of all objects in Enigma
+* Variables::                   Lua variables that influence the game
+* Functions::                   Predefined functions
+* Index::                       
+@end menu
+
+@node Introduction, XML levels, Top, Top
+@chapter Introduction
+
+This chapter explains how Enigma works internally and how you can
+create your own levels.  This manual is not for users of graphical
+level editors, but rather for @emph{programmers} of graphical level
+editors or users who want to use the full power of the Enigma
+``engine'' by using the built-in scripting language.
+
+There are two kinds of file formats you can use to build levels for
+Enigma.  The traditional solution was to write small programs in a
+programming language called @emph{Lua}.  Although this is still
+possible, the preferred way is now to prepare files in a data-centric
+format called XML; this will be discussed in detail in chapter
+
+Enigma's level format is extremely flexible and allows you to create
+very dynamic and interactive levels.  Here are a few examples of
+levels that make heavy use of Lua, both when preparing the level and
+during the game:
+
+@itemize @bullet
+@item
+Flood Gates (@file{nat8.lua}) Was one of the first levels to use Lua for
+more than simply building the level and then handing it over to the game
+engine.  The flowing water is controlled by a small function written in
+Lua--there is no built-in suppport for flowing water in the game engine.
+
+@item
+Enigris (@file{ralf04.lua}) lets you play Tetris inside Enigma.
+
+@item
+Mourning Palace (@file{ant08.lua}) moving platforms, also controlled
+by a Lua function.
+
+@item
+Finally, some of the maze levels and most of the levels in the Sokoban
+pack are dynamically generated: They look a little different every
+time you play them.
+
+@end itemize
+
+Our focus is on using Lua to access Enigma's game engine, so you won't
+learn much about Lua as a language in this chapter.  Many simple things,
+like function calls or @command{if} statements, will appear familiar to
+anyone having a little programming experience: In many ways Lua is
+similar to programming languages like Basic or Pascal.  But for most of
+Lua's finer points you will have to reach for the official Lua
+documentation, which you can download from
+@uref{http://www.lua.org,lua.org}.
+
+@menu
+* Creating New Levels::         
+* Example Level::               
+* Registering Levels::          
+* More Information::            
+@end menu
+
+@node Creating New Levels, Example Level, Introduction, Introduction
+@section Creating New Levels
+
+Creating a new level basically consists of the following steps
+
+@enumerate
+@item Writing the level description, for example a file named
+@file{daniel01.lua}.
+@item Inserting the new level into a level pack of your choice
+@item Creating a preview image for the level
+@item Testing the level in Enigma
+@end enumerate
+
+@node Example Level, Registering Levels, Creating New Levels, Introduction
+@section A Simple Level
+
+Here is a very simple level description that can also serve as a
+starting-point for new landscapes.  (In fact, this is the first level
+in Enigma, so you can try it out right away.)
+
+@example
+ 1   CreateWorld(20, 13)
+ 2   draw_border("st-brownie")
+ 3   fill_floor("fl-hay", 0,0, level_width,level_height)
+ 4
+ 5   set_stone("st-fart", level_width-1,0, @{name="fart"@})
+ 6   set_stone("st-timer", 0,0, @{action="trigger", target="fart",
+ 7             interval=10@})
+ 8
+ 9   oxyd(3,3)
+10   oxyd(level_width-4,level_height-4)
+11   oxyd(level_width-4, 3)
+12   oxyd(3,level_height-4)
+13   oxyd_shuffle()
+14
+15   set_actor("ac-blackball", 10,6.5)
+@end example
+
+The resulting level looks like this inside the game:
+
+@ignore
+      <img src="welcome.png" alt="The first level" width="75%" height="75%"></para>
+@end ignore
+
+Let's now turn to a line-by-line analysis of this program:
+
+@example
+ 1   CreateWorld(20, 13)
+ 2   draw_border("st-brownie")
+ 3   fill_floor("fl-hay", 0,0, level_width,level_height)
+@end example
+
+The level begins with a call to @code{CreateWorld}, which creates a
+new world that is 20 blocks wide and 13 blocks high.  Every
+@dfn{block} in the world can be accessed with a pair of coordinates:
+The upper left corner has coordinates (0,0), the lower right one has
+coordinates (19,12).  Every block contains a floor tile, an (optional)
+item, and an (optional) stone.
+
+A frame of stones is drawn around the newly created landscape with the
+@code{draw_border} command.  Its argument, @code{"st-brownie"}, is the
+name of a stone.  By convention, all stones have @code{"st-"} prefixed
+to their name, similarly all item names begin with @code{"it-"} and
+all floor names with @code{"fl-"}.
+
+The @code{fill_floor} command in line 3 fills the complete floor with
+tiles of type @code{"fl-hay"}.  The other arguments are the upper left
+corner and the width and height of the rectangle to be filled.
+
+@example
+ 5   set_stone("st-fart", level_width-1,0, @{name="fart"@})
+ 6   set_stone("st-timer", 0,0, @{action="trigger", target="fart",
+ 7             interval=10@})
+@end example
+
+Lines 5 to 7 demonstrate how to create individual stones.  The
+@code{set_stone} command takes a stone name, the desired
+coordinates, and an (optional) list of @emph{attributes}
+as arguments.  Note the use of curly braces @code{@{},
+@code{@}} to enclose the attribute list.
+
+Attributes are the key to customizing the behaviour of objects in a
+landscape.  Here, we first give a name to the first stone we create.
+It's a fart stone that has the unpleasant habit of ``blowing off''
+when triggered.  Triggering this fart stone is done by the timer stone
+we create in line 6--7.  This stone performs a predefined action at
+regular intervals.  In this case we want to send a ``trigger'' message
+every ten seconds to the object named ``fart''.
+
+@example
+ 9   oxyd(3,3)
+10   oxyd(level_width-4,level_height-4)
+11   oxyd(level_width-4, 3)
+12   oxyd(3,level_height-4)
+13   oxyd_shuffle()
+@end example
+
+These commands place a couple of oxyd stones in the level.  The
+@code{oxyd} command internally uses @code{set_stone("st-oxyd", x,y,
+...)}  to create the stones, but it additionally assigns sensible
+values to some of the oxyd stones' attributes (most notably the
+color).  The command on line 14 permutes the colors on the oxyd stones
+currently in the landscape.
+
+@example
+15   set_actor("ac-blackball", 10,6.5)
+@end example
+
+This final line creates the black marble controlled by the player.
+Objects that can move around freely are called ``actors'' in Enigma.
+Unlike stones and items, actors are not restricted to integer
+coordinates, as you can see in this example. 
+
+@node Registering Levels, More Information, Example Level, Introduction
+@section Registering Levels
+
+After writing the level description you have to tell Enigma where to
+find your brand new landscape.  That's really two separate steps:
+
+@enumerate
+@item Move the @file{.lua}-File where Enigma can find it;
+@item Insert a new entry into the appropriate level index.
+@end enumerate
+
+The @file{.lua}-Files and the corresponding level index usually reside
+in the same directory.  For the levels that come with Enigma, for
+example, this is the @file{levels} directory inside.  For your own levels
+you can either use the same directory (currently your only choice if
+you use the Windows version of Enigma) or the @file{.enigma/levels}
+directory in your home folder (only if you use the Unix version).
+
+A level index is a file that contains the list of landscapes that comprise
+a level pack in Enigma.  Here is an excerpt from
+@file{index_enigma.txt}, which defines the ``Enigma'' level pack:
+
+@example
+{file=welcome              name="Welcome"                        author="Daniel Heck"         }
+{file=martin06             name="Is It Easy?"                    author="Martin Hawlisch"     }
+{file=lasers101            name="Lasers 101"                     author="Daniel Heck"         }
+{file=level3a              name="Feel Your Way"                  author="Siegfried Fennig"    }
+{file=martin04             name="Sokoban Revival"                author="Martin Hawlisch"     }
+@end example
+
+Every line in this file describes one landscape in the level pack.
+The general format of these lines is
+
+@example
+{ tag1=content1 tag2=content2 ... }
+@end example
+
+One line normally contains many different @code{tag=content} pairs.
+
+If your content contains spaces, surround the content with quotes
+(e.g. @code{name="Is It Easy?"}). If you want the string to contain quotes,
+escape them with @code{\} (e.g. @code{author = "Petr \"ant\" Machata"}).
+
+Here's a description of all supported tags:
+
+@table @code
+@item file
+Defines the file name of the level (@emph{excluding} the @file{.lua} extension).
+This entry is mandatory!
+
+@item name
+Defines the full name of the level. This is the name the player will
+see in the level menu. You can leave this field empty if you prefer to
+leave your level unnamed.
+
+@item author
+Defines the name of the autor. It will be displayed together with the full name at level startup.
+
+@item revision
+Defines the revision number of the level (defaults to 1)
+When the revision number is increased, a small red ! appears in the level menu.
+
+If you do changes to the level that affect the way the level
+is solved, you should increase the revision number.
+If you only did cosmetic changes, you should @emph{NOT} increase the revision.
+
+You should never decrease the revision number!
+
+@item easymode
+Set this to 1 when the level supports different difficulties.
+
+@item par_time
+Syntax: @code{par_time=sec,name}
+
+@code{sec} is the par time for the level in seconds.
+
+@code{name} is the player who did the par.
+
+If easymode is 1 then @code{par_time_easy} and/or @code{par_time_normal}
+have to be used instead of @code{par_time}.
+
+@c @item par_moves
+@c Syntax: @code{par_moves=moves,name}
+@c 
+@c @code{moves} are the par moves needed to complete the level.
+@c 
+@c @code{name} is the player who did the par.
+@c 
+@c If easymode is 1 then @code{par_moves_easy} and/or @code{par_moves_normal}
+@c have to be used instead of @code{par_moves}.
+@c 
+@c [not implemented - has no effect yet]
+
+@c @item hint1, hint2
+@c Define two hints how to solve the level. 
+@c 
+@c [not implemented - has no effect yet]
+
+@end table
+
+When Enigma starts up it automatically tries to load an index file
+called @file{index_user.txt}, where you can store all your personal
+levels.  This file is not included in Enigma distributions, you have
+to create it yourself.  The levels listed in this file will show up in
+a new level pack called ``User Levels''.
+
+
+@node More Information,  , Registering Levels, Introduction
+@section Where to go from here
+
+The example level from the first section of this chapter was hopefully
+enough to give you an impression how level descriptions look like in
+Enigma.  Of course, that level was extremely simple, and most
+interesting levels will be more complicated.  The rest of this
+reference manual tries to document the available game objects and how
+to interact with the Enigma game engine, both when preparing the level
+(before the game starts) and during the game.
+
+This manual only describes the low-level interface to Enigma's game
+engine, which is as flexible as it is inconvenient to use by hand.
+Petr Machata has written a comprehensive set of helper routines that
+greatly simplify the creation of new levels.  You can use the package
+by including the line @code{Require("levels/ant.lua")} in your level
+descriptions.  There is extensive documentation for @file{ant.lua} in
+file @file{ant_lua.txt} in the documentation directory.
+
+Before you read on, please be aware that this manual is far from
+complete.  We are working on it and it will be ready for the
+(glorious) 1.0 release.  For the moment, the available level
+descriptions are the best ``documentation'' available.
+
+@node  XML levels, Objects, Introduction, Top
+@chapter XML levels
+
+Enigma is slowly moving towards a more data-centric level description
+format.  Although the current use of small Lua scripts for this purpose
+makes it possible to create levels with sophisticated dynamic behavior,
+it is difficult to create large, complex levels by hand and even more
+difficult to write graphical tools that help level designers with this
+task.  The purpose of the XML-based levle format for Enigma is to
+provide an extensible basis for automated processing of Enigma levels,
+while retaining the full expressive power of the Lua scripting language
+where necessary or desirable.
+
+The general outline of an XML-style Enigma level looks like this:
+
+@example
+<level width="20" height="13">
+  <info>
+     <!-- level information -->
+  </info>
+  <option ... />
+  <actors>
+     <!-- actor definitions -->
+  </actors>
+  <floors>
+     <!-- floor definition -->
+  </floors>
+  <items>
+     <!-- item definition -->
+  </items>
+  <stones>
+     <!-- stone definition -->
+  </stones>
+  <rubberbands>
+     <!-- rubberband definition -->
+  </rubberbands>
+  <signals>
+     <!-- signal definition -->
+  </signals>
+  <lua>
+     <!-- optional Lua code -->
+  </lua>
+</level>
+@end example
+
+If you are unfamiliar with XML, here are a few general notes:
+@itemize
+@item XML is a standard for representing hierarchical documents.  An
+XML document consists of a number of arbitrarily nested segments delimited
+by opening tags like @code{<level>} and closing tags @code{</level>}.
+
+@item Tags can have arguments, as shown above for the @code{level} tag.  
+Arguments have the form @code{name="value"}; note that the value must
+be enclosed in quotation marks.
+
+@item The empty tag @code{<option ... />} is an abbreviation for
+@code{<option ...></option>}.
+
+@item Comments can be written like this @code{<!-- blabla -->}.
+@end itemize
+
+An Enigma level must begin with @code{<level width="xx" height="yy">},
+where @code{xx} and @code{yy} are width and height of the level, and ends
+with @code{</level>}  The following sections of this manual describe the
+structure of the remaining parts of a level description, in the order
+indicated in the above example.
+
+@menu
+* Meta information::            
+* Level options::               
+* XML Actors::                  
+* XML Objects::                 
+* XML Signal::                  
+* XML Rubberbands::             
+* XML Lua code::                
+@end menu
+
+@node  Meta information, Level options, XML levels, XML levels
+@section Meta information
+
+Every level should begin with a short block containing general
+information about the level.  This can include the level name, its
+author and license restrictions.  If you intend your level(s) to be
+distributed with Enigma, the following four fields are mandatory:
+@example
+<info>
+  <name>LEVEL NAME</name>
+  <author>AUTHOR NAME</author>
+  <copyright>COPYRIGHT NOTICE</copyright>
+  <license>LICENSE TERMS</license>
+</info>
+@end example
+
+@node  Level options, XML Actors, Meta information, XML levels
+@section Level options
+
+Certain aspects of the game can be customized by changing the values
+of the options to be described in this section.  Some of these options
+control general aspects, like constant force fields or whether the
+level automatically restarts when the marble gets destroyed, while other
+options provide default values for objects in the level, like the
+strength of magnetic fields or the look of Oxyd stones.
+
+The following example shows the general syntax for options.  Note the
+use of empty tags: the salient information is already contained in the
+attributes @var{name} and @var{value}.  Boolean options are always
+encoded as ``YES'' or ``NO''.
+@example
+<option name="shuffle" value="NO" />
+@end example
+
+Here is the table of all options available so far:
+@table @code
+
+@item shuffle
+Shuffle the colors of the Oxyd stones after before starting the game?
+@strong{"YES"}/"NO".
+
+@item oxydflavor
+The look of Oxyd stones; "a"/@strong{"b"}/"c"/"d".  
+See @ref{st-oxyd} for details.
+
+@item reset
+Reset the level when the player dies? "YES"/@strong{"NO"}
+
+@item scrolling
+An integer between 1 and 4 (inclusive).  Determines how the screen
+follows the currently active ball. 1: scroll the screen, 2: flip the
+screen, 3: scroll but align to screens, 4: keep marble at center.
+@item
+@end table
+
+In addition, there are a few numeric options that determine the behavior
+of certain comon objects.  These correspond to the variables desribed
+later in the document, see @ref{Variables} for details.
+
+@table @code
+@item brittleness
+@item slopeforce
+@item flatforce
+@item frictionfactor
+@item electricforce
+@item bumperforce
+@item magnetforce
+@item magnetrange
+@item wormholeforce
+@item wormholerange
+@item holeforce
+@end table
+
+
+@node  XML Actors, XML Objects, Level options, XML levels
+@section Actors
+
+Syntax:
+
+@example
+<actors>
+  <actor kind=@"ac-blackball@" x=@"10.5@" y=@"5.5@" />
+</actors>
+
+<actors difficulty=@"hard@">
+  <actor kind=@"ac-killerball" x=@"3@" y=@"4@" attribs=@"controllers=3@" />
+</actors>
+
+<actors difficulty=@"easy@">
+  <actor kind=@"ac-killerball" x=@"3@" y=@"4@" attribs=@"controllers=0@" />
+</actors>
+@end example
+
+
+@node  XML Objects, XML Signal, XML Actors, XML levels
+@section Objects
+
+The description of floor tiles, items, and stones in the XML level file
+is very similar, so we treat them here in one section.  The general
+syntax looks like this:
+
+@example
+<floors>
+  <row y=@"yy@"> ... </row>
+  <floor kind=@"name@" x=@"xx@" y=@"yy@" attribs=@"attriblist@" />
+</floor>
+@end example
+
+For items and stones, the XML tags are called @code{<items>} and
+@code{<stones>} respectively.  As for the actor sections, you can
+optionally include a @code{difficulty=} option to place certain objects
+only in the specified difficulty level.
+
+The @code{<row>} tag can be used to draw complete rows of objects to the
+screen.  An example looks like this:
+
+@example
+<floors>
+  <row y=@"10@">abyss 10 water # abyss 10 </row>
+</floors>
+@end example
+
+This must be read as follows: In the tenth row, put one @code{fl-abyss}
+(not that the prefix is not included in the level file!), repeat it ten
+more times (so it's elevel abyss tiles), put one water tile, repeat it
+once, and then finish with another eleven abysses.
+
+Here's another, more advanced, example for a row of items:
+@example
+<items>
+  <row y=@"10@">-10 hammer - - blackbomb - # -5 3</row>
+</items>
+@end example
+Read this as follows: skip 10 fields, put one hammer, skip two fields
+(you could also write @code{-2} instead), put one black bomb, skip one
+field, put another black bomb, skip five fields, and finish with three
+more black bombs.
+
+In general there can be five different kinds of entries in such a row
+description, all of them separated by spaces:
+@table @emph
+@item name
+Put one object of the specified type at the current position, remember
+the object name;
+@item @code{#}
+Repeat the last named object
+@item positive number
+Repeat the last named object the specified number of times
+@item @code{-}
+Skip one field
+@item negative number
+Skip the specified number of fields
+@end table
+
+You cannot specify object attributes using @code{<row>} tags, to do this
+you must place objects individually, using either @code{<floor ... />}, 
+@code{<item ... />}, or @code{<stone ... />}, for example
+@example
+<stones>
+  ...
+  <stone kind=@"st-switch@" x=@"2@" y=@"2@" attribs=@"action='openclose', target='door1'@" />
+  ...
+</stones>
+@end example
+The attribute list looks like the one in Lua would, except for the
+enclosing braces @code{@{@}} that must be omitted in the XML level
+format.  Please note that you must in this case use single quotes
+@code{'} to enclose string attributes, double quotes would terminate the
+XML argument.  Enigma's current XML parser unfortunately does not yet
+understand character entities like @code{&quot;}, this will hopefully be
+fixed in future versions.
+
+@node  XML Signal, XML Rubberbands, XML Objects, XML levels
+@section Signals
+
+[To be written]
+
+@node  XML Rubberbands, XML Lua code, XML Signal, XML levels
+@section Rubberbands
+
+Syntax:
+
+@example
+<rubberbands>
+  <rubberband from=@"objname@" to=@"objname@" strength=@"12@" length=@"5@" minlen=@"0@" />
+</rubberbands>
+@end example
+
+@node  XML Lua code,  , XML Rubberbands, XML levels
+@section Embedded Lua code
+
+To make XML levels every bit as expressive as the former level format,
+a special @code{<lua>} tag is available to carry arbitrary Lua code.
+Only one such tag per level is allowed, and the code it contains
+is executed @emph{after} all other tags have been processed, immediately
+before handing the level over to the game engine.
+
+Lua code blocks can be used for everything that can not be realized with
+the data-centric XML format, like specially crafted signal handlers,
+randomly generated levels or puzzles, or to access features of Enigma's
+game engine that are not otherwise available.
+
+Graphical level editors are expected @emph{not} to tamper with the
+contents of Lua code blocks when they read or write Enigma levels,
+i.e., neither to modify them nor to delete them without notice.
+
+@node Objects, Variables, XML levels, Top
+@chapter Objects
+
+@menu
+* Floors::                      
+* Items::                       
+* Stones::                      
+* Actors::                      
+* General object attributes::   
+@end menu
+
+@node Floors, Items, Objects, Objects
+@section Floors
+
+@subsection Special floor tiles
+
+@example
+fl-abyss
+fl-acblack
+fl-acwhite
+fl-bridge( type )
+fl-bridge-closed( type )
+fl-bridge-open( type )
+fl-gradient( type )
+fl-gradient@{1..16@}
+fl-springboard
+fl-swamp
+fl-water
+@end example
+
+@subsection Regular floor tiles
+
+@example
+fl-abyss_fake
+fl-black
+fl-bluegray
+fl-bluegreen
+fl-bluegreenx
+fl-brick
+fl-bumps
+fl-concrete
+fl-darkgray
+fl-dummy
+fl-dunes
+fl-floor_001
+fl-gravel
+fl-gray
+fl-hay
+fl-himalaya
+fl-ice
+fl-ice_001
+fl-inverse
+fl-inverse2
+fl-leaves
+fl-leavesb
+fl-leavesc@{1..4@}
+fl-leavesd@{1..4@}
+fl-leavese@{1..4@}
+fl-light
+fl-lightgray
+fl-marble
+fl-metal
+fl-metal@{1..6@}
+fl-mortar
+fl-normal
+fl-normal_x
+fl-plank
+fl-red
+fl-rock
+fl-rough
+fl-rough-blue
+fl-rough-red
+fl-rough_medium
+fl-rough_slow
+fl-sahara
+fl-samba
+fl-samba1
+fl-samba2
+fl-sand
+fl-space
+fl-space-force
+fl-stone
+fl-stwood
+fl-stwood1
+fl-stwood2
+fl-tigris
+fl-trigger
+fl-white
+fl-wood
+fl-woven
+@end example
+
+@node Items, Stones, Floors, Objects
+@section Items
+
+@menu
+* Item List::                   A complete list of all items
+* it-document::                 Scrolls of Paper
+* it-floppy::                   Floppy Disk
+* it-hollow::                   Pits in the floor
+* it-ring::                     Ring
+* it-vortex::                   Vortices for Teleporting
+@end menu
+
+@node Item List, it-document, Items, Items
+@subsection Item List
+
+@example
+it-1pkillstone
+it-2pkillstone
+it-abyss
+it-bag
+it-banana
+it-blackbomb
+it-blackbomb_burning
+it-blocker
+it-blocker-new
+it-booze
+it-brake
+it-bridge-oxyd
+it-bridge-oxyd_active
+it-brush
+it-burnable
+it-burnable_ash
+it-burnable_burning
+it-burnable_fireproof
+it-burnable_ignited
+it-changefloor
+it-cherry
+it-coffee
+it-coin1( value )
+it-coin2( value )
+it-coin4( value )
+it-crack@{0..3@} ( type fixed brittleness )
+it-cross
+it-debris
+it-document( text )
+it-drop
+it-dummy
+it-dynamite
+it-easykeepstone
+it-easykillstone
+it-explosion1
+it-explosion2
+it-explosion3
+it-extinguisher( load )
+it-extinguisher_empty( load )
+it-extinguisher_medium( load )
+it-extralife
+it-flagblack
+it-flagwhite
+it-floppy
+it-glasses
+it-glasses-broken
+it-hammer
+it-hill
+it-hollow
+it-hstrip
+it-inversesensor
+it-key( keycode )
+it-key_a
+it-key_b
+it-key_c
+it-landmine
+it-magicwand
+it-magnet( on strength range )
+it-magnet-off( on strength range )
+it-magnet-on( on strength range )
+it-odometer
+it-oxyd5f
+it-pencil
+it-pin
+it-pipe-e
+it-pipe-es
+it-pipe-h
+it-pipe-n
+it-pipe-ne
+it-pipe-s
+it-pipe-sw
+it-pipe-v
+it-pipe-w
+it-pipe-wn
+it-puller-e
+it-puller-n
+it-puller-s
+it-puller-w
+it-ring
+it-rubberband( object1 object2 length strength )
+it-seed
+it-seed_nowood
+it-seed_volcano
+it-sensor
+it-shogun-l
+it-shogun-m
+it-shogun-s
+it-signalfilter0
+it-signalfilter1
+it-spade
+it-spoon
+it-spring1
+it-spring2
+it-springboard
+it-squashed
+it-surprise
+it-sword
+it-tinyhill
+it-tinyhollow
+it-trigger( invisible )
+it-umbrella
+it-vortex-closed( autoclose targetx targety )
+it-vortex-open( autoclose targetx targety )
+it-vstrip
+it-weight
+it-whitebomb
+it-wormhole( on targetx targety strength range )
+it-wormhole-off( on targetx targety strength range )
+it-wrench
+it-yinyang
+@end example
+
+@c -------------------- Document --------------------
+@node it-document, it-floppy, Item List, Items
+@subsection it-document: Scrolls of Paper
+
+This item looks like a piece of paper and contains text messages that
+can be displayed by activating the item.  
+
+@strong{Attributes}
+
+@table @code
+@item text
+The message to be displayed.
+@end table
+
+@strong{Example}
+@example
+set_item("it-document", 1,1, @{text="Hello World!"@})
+Document(1,1, "Hello World")
+@end example
+
+@c -------------------- Floppy --------------------
+@node it-floppy, it-hollow, it-document, Items
+@subsection it-floppy: Floppy Disk
+
+The floppy disk is needed to activate the Floppy switch (see
+@ref{st-floppy}).
+
+@c -------------------- Hollow --------------------
+@node it-hollow, it-ring, it-floppy, Items
+@subsection it-hollow: Hollows in the floor
+
+This item creates a hollow in the floor.
+If all existing @ref{ac-whiteball-small} are inside hollows the level succeeds.
+
+@strong{Attributes}
+
+@table @code
+@item essential
+Whether the hollow must be filled with a whiteball to end the level (1
+means 'yes').
+
+Use this attribute if there are more holes than small whiteballs in a
+level and you want to determine which of the holes are needed to
+finish the level.
+
+For example: If you have many holes and 3 whiteballs, then set
+@code{essential=1} in 3 holes.  The game will end when the 3
+whiteballs are inside the 3 marked holes.
+
+@end table
+
+@c -------------------- Ring --------------------
+@node it-ring, it-vortex, it-hollow, Items
+@subsection it-ring: Ring
+
+When a player drops this item, the marble is teleported.  The
+destination depends on the game mode:
+
+@table @emph
+@item Single player levels:
+The marble is transported to its starting position or
+to the position of the last dropped @ref{it-flag}.
+
+@item Multi player levels:
+Both marbles exchange their positions.
+@end table
+
+@c -------------------- Vortex -------------------- 
+@node it-vortex,  , it-ring, Items
+@subsection it-vortex: Vortex
+
+Vortices, like wormholes, can be used to teleport marbles.  In the
+simplest case, every vortex is connected to exactly one other vortex.
+If there are multiple target vortices, the marble will be teleported
+to the first @emph{unblocked} target site.  Many levels in the
+original Oxyd games required the player to selectively block vortices
+to gain access to new parts of the level.
+
+@strong{Example}
+
+This example creates three vortices.  If the second vortex is blocked, a
+marble falling into the first one is transported to (20,1).
+
+@example
+set_item ("it-vortex", 1, 1)
+set_item ("it-vortex", 10,1)
+set_item ("it-vortex", 20,1)
+Signal ("it(1 1)", "it(10 1)")
+Signal ("it(1 1)", "it(20 1)")
+Signal ("it(10 1)", "it(1 1)")
+Signal ("it(20 1)", "it(1 1)")
+@end example
+
+
+@node Stones, Actors, Items, Objects
+@section Stones
+
+@menu
+* Stone List::                  A complete list of all stones
+* st-actorimpulse::             Bumper Stones
+* st-chameleon::                Chameleon Stone
+* st-coinslot::                 Coin Slot Switch
+* st-death::                    Skull Stones
+* st-disco::                    Disco Stones
+* st-easymode::                 Easy Mode Stone
+* st-fart::                     The Infamous Fart Stones
+* st-floppy::                   Floppy Switch
+* st-grate::                    Various Grates
+* st-laserswitch::              Laser Switch
+* st-lasertimeswitch::          Laser Time Switch
+* st-oneway::                   One-way Stones
+* st-oxyd::                     The Famous Oxyd Stones
+* st-rubberband::               Rubberband Stone
+* st-scissors::                 Scissors Stone
+* st-stone_break::              Breakable Stone
+* st-swap::                     Swap Stones
+* st-switch::                   Ordinary Switches
+* st-thief::                    Thiefs
+* st-timer::                    Timers
+* st-timeswitch::               Time Switch
+* st-window::                   Breakable Window
+* st-wood::                     Wooden Stones
+* st-yinyang::                  Yin-Yang Stones
+@end menu
+
+@node Stone List, st-actorimpulse, Stones, Stones
+@subsection Stone List
+
+@strong{Simple stones}
+
+The following stone types are commonly used for ``decoration''.  They
+generally do not have special properties or abilities.  Three types of
+abbreviations are used in the tables: @code{[abc]} stands for any of the
+characters in square brackets, @code{<abc>} stands for any subsequence
+of the characters between the angle brackets (in this case abc, ab, bc,
+a, b, c), and @code{@{1..9@}} indicates a sequence of numbers.
+
+@example
+st-beads
+st-bigbrick-<nesw>
+st-blue-sand
+st-bluegray
+st-bluegray_hole
+st-brick
+st-brownie
+st-bumps
+st-dummy
+st-fakeoxyd( blinking )
+st-fakeoxyda
+st-glass
+st-glass[123]
+st-glass[12]_hole
+st-glass1_move
+st-glass_move
+st-grate@{1..3@}
+st-greenbrown
+st-greenbrown_hole
+st-greenbrown_move
+st-likeoxyd[abcd]
+st-likeoxyd[abcd]-open
+st-marble
+st-marble_hole
+st-marble_move
+st-metal
+st-plain
+st-plain_hole
+st-plain_move
+st-rock@{1..8@}
+st-rock[123]_hole
+st-rock[13]_move
+st-stone[12]
+st-wood[12]
+st-wood_001
+st-woven
+st-yellow
+@end example
+
+@strong{Special stones}
+
+The following stones types are special in the sense that they perform
+some action, either when hit by an actor, or all by themselves.
+
+@example
+st-3mirror( transparent movable orientation )
+st-actorimpulse
+st-actorimpulse_invisible
+st-black@{1..4@}
+st-blackballs
+st-block
+st-blocker
+st-blocker-growing
+st-bolder-[ensw]
+st-bombs
+st-brake
+st-break_acblack
+st-break_acwhite
+st-break_bolder
+st-break_gray
+st-break_invisible
+st-breaking
+st-brick_magic
+st-bug
+st-chameleon
+st-chargeminus( charge )
+st-chargeplus( charge )
+st-chargezero( charge )
+st-coffee
+st-coinslot( on )
+st-death
+st-death_invisible
+st-disco-dark
+st-disco-light
+st-disco-medium
+st-door( type )
+st-door-h( type )
+st-door-h-open( type )
+st-door-v( type )
+st-door-v-open( type )
+st-door_[abc]
+st-easymode
+st-explosion
+st-fart
+st-flash
+st-floppy( on )
+st-fourswitch( on )
+st-greenbrown-growing
+st-invisible
+st-invisible_magic
+st-key( on keycode )
+st-key_[abc] ( on keycode )
+st-knight
+st-laser-[ensw]( on )
+st-laserbreak
+st-laserswitch
+st-lasertimeswitch( delay )
+st-magic
+st-mail-[ensw]
+st-mirror-3<
+st-mirror-3<m
+st-mirror-3<t
+st-mirror-3<tm
+st-mirror-3>
+st-mirror-3>m
+st-mirror-3>t
+st-mirror-3>tm
+st-mirror-3^
+st-mirror-3^m
+st-mirror-3^t
+st-mirror-3^tm
+st-mirror-3v
+st-mirror-3vm
+st-mirror-3vt
+st-mirror-3vtm
+st-mirror-p-
+st-mirror-p-m
+st-mirror-p-t
+st-mirror-p-tm
+st-mirror-p/
+st-mirror-p/m
+st-mirror-p/t
+st-mirror-p/tm
+st-mirror-p\
+st-mirror-p\m
+st-mirror-p\t
+st-mirror-p\tm
+st-mirror-p|
+st-mirror-p|m
+st-mirror-p|t
+st-mirror-p|tm
+st-oneway-[nesw]
+st-oneway_black-[nesw]
+st-oneway_white-[nesw]
+st-oxyd( flavor color )
+st-oxyd-0x18
+st-peroxyd-0xb8
+st-peroxyd-0xb9
+st-plain_break
+st-plain_breaking
+st-plain_cracked
+st-plain_falling
+st-pmirror( transparent movable orientation )
+st-pull
+st-puzzle-hollow( oxyd )
+st-puzzle-<nesw>( oxyd )
+st-puzzle2-hollow( oxyd )
+st-puzzle2-<nesw>( oxyd )
+st-rock3_break
+st-rock3_movebreak
+st-rotator-left
+st-rotator-right
+st-rotator_move-left
+st-rotator_move-right
+st-rubberband( length strength )
+st-scissors
+st-shogun-<sml>
+st-spitter
+st-stone_break
+st-stonebrush
+st-stoneimpulse
+st-stoneimpulse-hollow
+st-stoneimpulse_movable
+st-surprise
+st-swap
+st-switch( on )
+st-switch_black( on )
+st-switch_white( on )
+st-thief
+st-timer( on interval loop invisible )
+st-timeswitch( delay )
+st-turnstile
+st-turnstile-green
+st-turnstile-[ensw]
+st-volcano
+st-volcano-growing
+st-volcano_active
+st-volcano_inactive
+st-white@{1..4@}
+st-whiteballs
+st-window
+st-wood
+st-wood-growing
+st-yinyang@{1..3@}
+@end example
+
+
+@node st-actorimpulse, st-chameleon, Stone List, Stones
+@subsection st-actorimpulse: Bumper Stones
+
+These stones apply an impulse to actors that touch them.  The amount
+of force applied can be controlled by setting
+@ref{enigma.BumperForce} accordingly (the default is 800).
+Alternatively, the @code{force} attribute can be used to set this
+factor for @emph{individual} bumper stones.
+
+The invisible variant, @ref{st-actorimpulse_invisible} can
+``painted'' with a @ref{it-brush}.
+
+@node st-chameleon, st-coinslot, st-actorimpulse, Stones
+@subsection st-chameleon: Chameleon Stone
+
+This stone takes on the look of the floor beneath it.  Actors can
+move through it, so these stones are perfect for hiding stuff under
+them...
+
+
+@node st-coinslot, st-death, st-chameleon, Stones
+@subsection st-coinslot
+
+A switch that can be activated with coins.  The more coins you put in,
+the longer the switch will stay activated.
+
+@strong{Attributes}
+
+@table @code
+@item target, action
+As usual
+@end table
+
+
+@node st-death, st-disco, st-coinslot, Stones
+@subsection st-death: Skull Stones
+
+Simply kills all marbles that touch it (except when protected by an
+umbrella).
+
+@strong{Variants}
+
+@table @code
+@item st-death
+@item st-death_invisible
+@end table
+
+@node st-disco, st-easymode, st-death, Stones
+@subsection st-disco: Disco Stones
+
+Darkens everything that is underneath the stone (much like tinted
+glass).  Can be switched on and off (hence the name).
+
+@strong{Messages}
+
+@table @code
+@item signal
+With parameter 1, lighten the stone and (recursively) all neighboring
+disco stones; with parameter smaller than 1, darken them.
+@item lighten
+@item darken
+@end table
+
+@strong{Variants}
+
+@table @code
+@item st-disco-light
+@item st-disco-medium
+@item st-disco-dark
+@end table
+
+@node st-easymode, st-fart, st-disco, Stones
+@subsection st-easymode: Easy Mode Stone
+
+In easy game mode this stone converts the floor at its position to
+@code{fl-normal}.  In normal game mode the stone removes any item at
+its position.  The stone itself never appears in either game mode; it
+removes itself immediately after performing its job.
+
+This stone is commonly used to hide danger areas (water holes, abyss)
+or to insert helper items (umbrellas, seeds, etc.) that make the level
+easier in easy game mode.
+
+@node st-fart, st-floppy, st-easymode, Stones
+@subsection st-fart: Fart Stone
+
+The fart stone has the unpleasant habit of ``blowing off'' when
+triggered (by actor hit or signal) and will close all Oxyd stones.
+
+@strong{Messages}
+
+@table @code
+@item trigger
+blow off
+@end table
+
+
+
+@node st-floppy, st-grate, st-fart, Stones
+@subsection st-floppy: Floppy Switch
+
+A switch that is activated by inserting a floppy disk (see @ref{it-floppy}).
+
+@strong{Attributes}
+
+@table @code
+@item on
+1 or 0
+@item target
+@item action
+@end table
+
+@node st-grate, st-laserswitch, st-floppy, Stones
+@subsection st-grate: Grates
+
+Floating grates, mainly decorative.  Flying objects (jumping marbles,
+rotors, etc.) cannot pass, objects moving on the floor can.
+
+@strong{Variants}
+
+@table @code
+@item st-grate1
+@item st-grate2
+@item st-grate3
+@end table
+
+@node st-laserswitch, st-lasertimeswitch, st-grate, Stones
+@subsection st-laserswitch: Laser Switch
+
+This switch is @code{on} while hit by a laserbeam
+and @code{off} when not hit by a laserbeam.
+
+See also @ref{st-lasertimeswitch}.
+
+@strong{Attributes}
+
+@table @code
+@item inverse=1
+Inverts the on/off state of the switch
+(i.e @code{on} at startup and switch @code{off} with laserbeam)
+@item target,action
+as usual
+@end table
+
+@node st-lasertimeswitch, st-oneway, st-laserswitch, Stones
+@subsection st-lasertimeswitch: Laser Time Switch
+
+This switch is a mix between @ref{st-laserswitch} and @ref{st-timeswitch}.
+
+@node st-oneway, st-oxyd, st-lasertimeswitch, Stones
+@subsection st-oneway: One-way Stones
+
+This stone can be passed by the marble in only one direction. (Or, to
+be more exact, the arrow on the stone points to the one side of the
+stone through which it @emph{can't} be entered.  Hard to explain, try
+it yourself :-)
+
+There are three different variants of the one-way stone: the standard
+one, @code{st-oneway}, which both the black and the white marble can
+pass, and two colored ones, @code{st-oneway_black} and
+@code{st-oneway_white}, which completely block marbles of the other
+color.
+
+@strong{Variants}
+
+@table @code
+@item st-oneway
+@item st-oneway-[nesw]
+@item st-oneway_black
+@item st-oneway_black-[nesw]
+@item st-oneway_white
+@item st-oneway_white-[nesw]
+@end table
+
+@strong{Attributes}
+
+
+@table @code
+@item orientation
+One of @code{NORTH}, @code{EAST}, @code{SOUTH}, or @code{WEST}.  This
+determines the orientation of the stone when the level is loaded.  You
+need to use the @code{direction} message for changing the orientation
+during the game.  Note that it is usually easier to use one of the
+alternative names, like @code{st-oneway-north} instead of explicitly
+setting this attribute.
+@end table
+
+@strong{Messages}
+
+@table @code
+@item direction
+Set the direction of the arrow during the game.  Simply setting the
+attribute @code{orientation} is not enough, since this does not update
+the stone's model on the screen.
+@item signal
+@item flip
+Both these messages flip the direction of the arrow.
+@end table
+
+
+@node st-oxyd, st-rubberband, st-oneway, Stones
+@subsection st-oxyd: Oxyd Stones
+
+Oxyd stones are characterized by two attributes: Their flavor and
+their color.  The @code{flavor} only affects the visual representation
+of the stone; it can be either `a' (opening like a flower), `b'
+(displaying a fade-in animation), `c', or `d'.  The @code{color}
+attribute determines the color on the oxyd stone.
+
+@strong{Note}: You should rarely need to create Oxyd stones manually
+with @code{set_stone()}.  Use the predefined @code{oxyd()} function
+instead.  It will automatically take care of creating two Oxyd stones
+of every color.
+
+@strong{Attributes}
+
+@table @code
+@item flavor
+`a', `b', `c', or `d'
+@item color
+a number between 0 and 7
+@end table
+
+@strong{Messages}
+
+@table @code
+@item closeall
+Close all oxyd stones
+@item shuffle
+Interchange the colors of the oxyd stones in the current
+landscape. Use the @code{oxyd_shuffle()} function.
+@item trigger
+Open the stone (useful for opening Oxyd stones using switches)
+@end table
+
+
+@node st-rubberband, st-scissors, st-oxyd, Stones
+@subsection st-rubberband: Rubberband Stone
+
+If hit by a marble, this stone first removes existing connections with
+other rubberband stones and then attaches a new elastic between the
+marble and itself.  Nothing happens if the marble was already attached
+to this particular stone.
+
+This stone can be moved if hit with a magic wand.
+
+@strong{Attributes}
+
+@table @code
+@item length
+The natural length of the rubberband (default: 1)
+@item strength
+The strength of the rubberband (default: 10)
+@end table
+
+
+@node st-scissors, st-stone_break, st-rubberband, Stones
+@subsection st-scissors: Scissors Stone
+
+This stone cuts all rubber bands attached to an actor that touches it.
+
+
+@node st-stone_break, st-swap, st-scissors, Stones
+@subsection st-stone_break: Breakable Stone
+
+This stone can be destroyed by an actor having a hammer and by laser,
+dynamite, bombs and bombstones.
+
+@node st-swap, st-switch, st-stone_break, Stones
+@subsection st-swap: Swap Stone
+
+This stone can exchange its position with other neighboring stones
+if it is hit hard enough.  In a way, this makes swap stones a kind
+of "movable stone", except that they can be only exchanged with
+other stones and may not be moved on empty fields.
+
+
+@node st-switch, st-thief, st-swap, Stones
+@subsection st-switch: Switches
+
+A simple switch. 
+
+@strong{Variants}
+
+@table @code
+@item st-switch
+All kinds of objects can activate this switch
+@item st-switch_black
+Only black marbles can activate this switch
+@item st-switch_white
+Only white marbles can activate this switch
+@end table
+
+
+@strong{Attributes}
+
+@table @code
+@item on
+1 (activate) or 0 (inactive)
+@item target, action
+as usual
+@end table
+
+@node st-thief, st-timer, st-switch, Stones
+@subsection st-thief: Thief Stone
+
+Takes one item from inventory after when hit by the player's marble.
+Umbrellas protect against thievery.
+
+
+
+
+@node st-timer, st-timeswitch, st-thief, Stones
+@subsection st-timer: Timer Stone
+
+This stone can be used to trigger periodic events or to trigger one
+single event after a certain amount of time.
+
+@strong{Attributes}
+
+@table @code
+@item on
+1 if the timer is running
+@item interval
+number of seconds before @code{action} is performed
+@item loop
+if 1, restart the timer after performing @code{action}
+@item action
+as usual
+@item target
+as usual
+@item invisible
+if 1, stone is invisible
+@end table
+
+@strong{Messages}
+@table @code
+@item on
+@item off
+@item onoff
+@end table
+
+
+@strong{Example}
+
+@example
+-- activate a laser after 5 seconds
+set_stone("st-laser", 10,11, @{name="laser"@})
+set_stone("st-timer", 10,10,
+          @{loop=0, action="onoff", target="laser", interval=5@})
+@end example
+
+
+
+@node st-timeswitch, st-window, st-timer, Stones
+@subsection st-timeswitch: Time Switch
+
+When this switch is touched by an actor, it switches @code{on}
+for 1.8 seconds and then switches @code{off} again.
+
+See also @ref{st-lasertimeswitch}.
+
+@strong{Attributes}
+
+@table @code
+@item delay
+The delay in seconds after which the switch goes @code{off}.
+@item inverse=1
+Inverts the on/off state of the switch.
+@end table
+
+@node st-window, st-wood, st-timeswitch, Stones
+@subsection st-window: Breakable Stone
+
+Hit this window heavily with your marble to blast it into smithereens.
+
+@node st-wood, st-yinyang, st-window, Stones
+@subsection st-wood: Wooden Stone
+
+This stone is movable.  If moved into abyss, water or swamp it builds
+a wooden plank.
+
+Note: There are two flavors of @code{st-wood} which may be specified
+by using @code{st-wood1} or @code{st-wood2}.
+
+@node st-yinyang,  , st-wood, Stones
+@subsection st-yinyang: Yin-Yang Stones
+
+Yin-Yang stones change into @ref{st-white} or @ref{st-black}
+if you touch them.
+
+There are several flavors of this stone:
+
+@table @code
+@item st-yinyang1       
+If touched it changes it's color to the opposite color of your marble.
+@item st-yinyang2
+If touched it changes it's color to the same color as your marble.
+@item st-yinyang3
+The Per.Oxyd compatible: You must hold @ref{it-magicwand} or
+@ref{it-brush} to change the color to the opposite color of your
+marble.
+@end table
+
+Actors get stuck inside the Yin-Yang Stone if they are starting
+there or when they warp there. They can be freed by changing the 
+color of the Yin-Yang Stone to their color.
+
+@c ----------------------------------------------------------------------
+@node Actors, General object attributes, Stones, Objects
+@section Actors
+
+Movable objects are called ``actors'' in Enigma.  The commonest actor
+is, of course, the black marble, but there are others, including the
+white marble, the killerball and a few more:
+
+@subsection ac-blackball
+
+mouseforce (default 1.0)
+color (default 0.0)
+blackball (default 1)
+player (default 0)
+controllers (default 1)
+
+@subsection ac-whiteball
+
+mouseforce (default 1.0)
+color (default 1.0)
+whiteball (default 1)
+player (default 1)
+controllers (default 2)
+
+@subsection ac-whiteball_small
+
+mouseforce (default 1.0)
+color (default 1.0)
+whiteball (default 1)
+controllers (default 3)
+
+@subsection ac-killerball
+
+mouseforce (default 2.0)
+color (default 1.0)
+whiteball (default 1)
+controllers (default 3)
+
+
+@subsection ac-rotor
+
+range (default 5.0)
+force (default 10.0)
+gohome (default 1)
+
+@subsection ac-top
+
+range (default 5.0)
+force (default 10.0)
+gohome (default 1)
+
+@subsection ac-bug
+
+@subsection ac-horse
+
+force (default 10.0)
+target1
+target2
+target3
+target4
+
+@menu
+* Actor Attributes::            
+@end menu
+
+@node Actor Attributes,  , Actors, Actors
+@subsection Actor Attributes
+
+All actors share a set of common attributes that determine their
+general behaviour:
+
+@table @code
+@item player
+The player ``owning'' this actor.  This is either 0 or 1 for the first
+or second player respectively.  Actors attached to a player can pick
+up items and can be respawned when they are killed.
+
+@item mouseforce
+A factor that determines how much the actor accelerates when the mouse
+is moved.  Default is 1, use higher values for fast moving actors.  If
+set to 0, the actor cannot be moved with the mouse (but external
+forces can still exert a force on it).
+
+@item controllers
+Determines which players may move this actor: 1=Player 1, 2=Player 2,
+3=both. By default, @code{ac-blackball}, @code{ac-whiteball} and
+@code{ac-whiteball-small} have their @code{controllers} attribute set
+to 1,2, and 3 respectively.
+
+@item essential
+A non-zero value marks this actor as essential.  If
+@code{essential=1}, the game restarts if @code{1} of all essential
+actors can't resurrect (analog for higher values).  If you set the
+attribute for several actors, you should use the @emph{same value} for
+all of them!
+
+@item whiteball, blackball
+Used by color-sensitive stones (black/white switches for example) to
+determine whether the actor is the black or the white marble.  These
+attributes may disappear in future versions, please do not use them.
+@end table
+
+@c ----------------------------------------------------------------------
+@node General object attributes,  , Actors, Objects
+@section General object attributes
+
+@table @code
+@item name
+All objects may be given a @code{name} attribute. Such @emph{named objects} can
+be searched using @ref{enigma.GetNamedObject}.
+@end table
+
+@c ======================================================================
+@node Variables, Functions, Objects, Top
+@chapter Variables
+
+This chapter describes the a few variables that can be changed from
+level descriptions to alter the behavior of the game engine or set
+default attributes for some particular objects.  In the latter case, the
+same effect can usually be achieved by setting the corresponding object
+attributes directly, but being able to specify a global default value it
+is often more convenient.  You can always override these default
+attribute values for specific objects by setting the appropriate object
+attributes.
+
+@defvar enigma.ConserveLevel
+@code{TRUE} or @code{FALSE}.  If @code{FALSE}, reload the level
+whenever the an actor that is controlled by a player (i.e., one that
+has the @code{player} attribute set) dies.  Often used in meditation
+landscapes or landscapes that are intended to be solved in one go.
+Default: @code{TRUE}.
+@end defvar
+
+@defvar enigma.ShowMoves
+@code{TRUE} or @code{FALSE}.  This is only used in the Sokoban level
+pack to display a move counter in the inventory.
+Default: @code{FALSE}.
+@end defvar
+
+@defvar enigma.Brittleness
+A value between 0 and 1, denoting the probability that a brittle floor
+plate desintegrates further when an actor enters or leaves it.  1
+means that the floor will always crack, 0 that it is indestructible.
+Default: 0.5.
+@end defvar
+
+@defvar enigma.BumperForce
+The amount of force applied to an actor that hits an
+@code{st-actorimpulse} stone.  @ref{st-actorimpulse}.
+Default: 200.0.
+@end defvar
+
+@defvar enigma.ElectricForce
+A force multiplier for all electric forces between actors. 
+Default: 15.0.
+@end defvar
+
+@defvar enigma.FrictionFactor
+All friction forces are multiplied by this value.
+Default: 1.0.
+@end defvar
+
+@defvar enigma.FlatForce
+A global downward force.  This is currently only applied on floors of
+type @code{fl-space}.  Default: 0.
+@end defvar
+
+@defvar enigma.HoleForce
+A force factor that affects the steepness of hollows and hills.
+Default: 1.0.
+@end defvar
+
+@defvar enigma.MagnetForce
+A force multiplier for magnetic fields.  Default: 30.0.
+@end defvar
+
+@defvar enigma.MagnetRange
+The range of magnetic fields.  Default: 10.0.
+@end defvar
+
+@defvar enigma.SlopeForce
+A force multiplier for sloped floor tiles.  Default: 25.0.
+@end defvar
+
+@defvar enigma.WaterSinkSpeed
+How quickly balls sink in water.  Default: 1000.0.
+@end defvar
+
+@defvar enigma.SwampSinkSpeed
+How quickly balls sink in swamp.  Default: 4.0.
+@end defvar
+
+@defvar enigma.WormholeForce
+A force multiplier for wormholes.  Default: 30.0.
+@end defvar
+
+@defvar enigma.WormholeRange
+The range of worm holes.  Default: 10.0.
+@end defvar
+
+
+
+@node Functions, Index, Variables, Top
+@chapter Functions
+
+@menu
+* AddRubberBand::               Creating rubber bands
+* CreateWorld::                 
+* enigma.AddConstantForce::     
+* enigma.GetNamedObject::       
+* SendMessage::                 Sending messages to objects
+* draw_checkerboard_floor::     
+* draw_border::                 Drawing a border of stones
+@end menu
+
+@c ......................................................................
+@node AddRubberBand, CreateWorld, Functions, Functions
+@section AddRubberBand
+
+@defun AddRubberBand (actor, object, strength, length)
+
+This function connects two objects with a rubber band: The first
+object is always an actor, the second object can be either another
+actor or a stone.
+
+The first argument @var{actor} is always a reference to an actor
+created earlier with the @code{set_actor} function.  The second
+parameter @var{object} may be either an actor or a stone created
+earlier.  The last two parameters define the properties of the rubber
+band: @var{strength} denotes the force factor of the elastic and
+@var{length} its natural length.  No force is exerted on the actor if
+the rubber band is shorter than its natural length.
+
+@end defun
+
+@subsection Example
+
+@example
+local ac=set_actor("ac-blackball", 1.5,7.5)
+local st=set_stone("st-brownie", 10,6)
+AddRubberBand(ac, st, 50, 10)
+@end example
+
+@c ......................................................................
+@node CreateWorld, enigma.AddConstantForce, AddRubberBand, Functions
+@section CreateWorld
+
+@defun CreateWorld (width, heigth)
+
+This function creates a new level. Because objects can only be added
+to the level after @code{CreateWorld} has been called,
+you should usually do so near the beginning of your level
+description.
+
+The @var{width} and @var{height} denote the size of the new level.  All
+levels with only one screen have the minimum size of 20x13 blocks.
+
+Note that level fields are indexed from zero, i.e, the field indices
+for a 20x13 level are in the range (0..19)x(0..12). Also note that the
+screens in Enigma overlap by one line or column: A level that fits on
+a single screen has size of 20x13, but two a level that is two screens
+wide 39x13 or 20x25, three screens 58x13 or 20x37.
+@end defun
+
+@c ......................................................................
+@node enigma.AddConstantForce, enigma.GetNamedObject, CreateWorld, Functions
+@section enigma.AddConstantForce
+
+@defun enigma.AddConstantForce (gravity_x, gravity_y)
+
+Adds global gravity to the current level.
+
+@table @var
+@item gravity_x
+adds gravity in horizontal direction (positive means rightwards).
+@item gravity_y
+adds gravity in vertical direction (positive means downwards).
+@end table
+
+@end defun
+
+@c ......................................................................
+@node enigma.GetNamedObject, SendMessage, enigma.AddConstantForce, Functions
+@section enigma.GetNamedObject
+
+@defun enigma.GetNamedObject (objname)
+
+This function searches for an object that has a @code{name} attribute
+with value @var{objname}.  It returns a reference to the object or
+@code{nil} if none could be found.
+
+@end defun
+
+@subsection Example
+
+@example
+set_stone("st-wood", 7, 11, @{name="woodie"@})
+...
+local Woodie = enigma.GetNamedObject("woodie")
+@end example
+
+@c ......................................................................
+@node SendMessage, draw_checkerboard_floor, enigma.GetNamedObject, Functions
+@section SendMessage
+
+@defun SendMessage (object, message, data)
+
+This function sends a @var{message} to an @var{object}.
+
+@table @var
+@item object
+The recipient of the message.  Can either be the name of an object or a
+reference as returned by @ref{enigma.GetNamedObject}.
+@item message
+The message itself (e.g. "signal") You can see which messages are
+understood in the documentation of the particular @ref{Objects}.
+@item data
+Some specific messages expect some additional data (e.g. message
+"direction" expects a direction like SOUTH or WEST).
+@end table
+
+@end defun
+
+@subsection Examples
+
+@example
+set_stone("st-laser-s", 2, 2, @{name="laser3", on=FALSE@})
+...
+SendMessage("laser3", "onoff")
+@end example
+
+@example
+set_stone("st-bolder", 7, 11, {name="bolder1", direction=SOUTH})
+...
+SendMessage("bolder1", "direction", WEST)
+@end example
+
+@c ......................................................................
+@node  draw_checkerboard_floor, draw_border, SendMessage, Functions
+@section draw_checkerboard_floor
+
+@defun draw_checkerboard_floor (name1, name2, x, y, w, h, attribs)
+
+This function draws checkerboard composed of two selected floor
+types. @var{name1} and @var{name2} are names of floor objects. See
+@ref{set_floor} for further details.
+
+@table @var
+@item name1, name2
+Names of floor objects
+@item x, y
+Location of left top corner of checkerboard area. Note that upper left
+map corner is [0,0].
+@item w, h
+Size of generated checkerboard.
+@item attribs
+Table of attribute names and corresponding values:
+@code{@{attrib1=value1, attrib2=value2, ...@}}. These attributes,
+together with default attributes, are passed to each tile of the
+generated checkerboard.
+@end table
+
+@end defun
+
+@subsection Example
+
+@example
+draw_checkerboard_floor("fl-abyss", "fl-rough", 2, 2, 23, 11)
+draw_checkerboard_floor("fl-normal", "fl-inverse", 0, 0, levelw, levelh) -- racetrack
+@end example
+
+
+@c ......................................................................
+@node  draw_border,  , draw_checkerboard_floor, Functions
+@section draw_border
+
+@defun draw_border (stonename, x,y, w,h)
+
+This function adds a border of stones to your level.  If invoked with
+only one argument, this border encloses the whole level.
+
+@table @var
+@item stonename
+The name of the border stone.
+@item x,y
+(optional) Coordinates of upper-left corner. (0,0) if omitted.
+@item w,h
+(optional) Width and height of border.
+@end table
+
+@end defun
+
+@subsection Example
+
+@example
+draw_border("st-marble")
+draw_border("st-greenbrown", 0,5,3,3)
+@end example
+
+@ignore
+@c ......................................................................
+@c @node ,,,
+@c @section 
+
+@defun 
+
+@table @var
+@end table
+
+@end defun
+
+@subsection Example
+
+@example
+@end example
+
+@end ignore
+
+
+@ignore
+
+<para><a name="draw_floor01"></a>
+<h3>draw_floor</h3>
+<para>Syntax:
+<code>draw_floor(floorname, location, increment, count, attribs)</code>
+</para>
+
+<para>Description: Use this function to add several floor objects
+to your level in periodical distances. How does it work? At first it
+places the floor to <em>location</em>. Then it moves by
+<em>increment</em>, and again places given floor. And again and again
+- so many times as defined by <em>count</em>.</para>
+
+<para>Floorname: Name of floor object. See
+<a href="#set_floor01">set_floor</a> for further details.</para>
+
+<para>Location: This is Lua table with two elements:
+<tt>{x,y}</tt>. They represent the location of first floor object
+you want to add to map.</para>
+
+<para>Increment: Another Lua table with two elements:
+<tt>{dx,dy}</tt>. <em>dx</em> is the increment per step in x-axis,
+<em>dy</em> is increment per step in y-axis. Often this function is
+used to add a row of floors in one direction, and then
+<em>Increment</em> looks like this: <tt>{1,0}</tt> or
+<tt>{0,1}</tt>.</para>
+
+<para>Count: Number of steps to proceed.</para>
+
+<para>Attribs: Table of attribute names and corresponding values:
+<tt>{attrib1=value1, attrib2=value2, ...}</tt>. It represents the
+attributes to be passed to each created floor. You can omit this
+argument.</para>
+
+<para>Example:
+<pre>
+draw_floor("fl-abyss", {3,0}, {0,1}, level_height)
+draw_floor("fl-gradient", {15, 5}, {1,0}, 4, {type=1})
+draw_floor("fl-water", {level_width-4,3}, {0,1}, level_height-6)
+</pre></para>
+</para>
+
+
+
+<para><a name="draw_items01"></a>
+<h3>draw_items</h3>
+<para>Syntax:
+<code>draw_items(itemname, location, increment, count, attribs)</code>
+</para>
+
+<para>Description: This function adds to your level several item
+objects in periodical distances. It works much like
+<a href="#draw_floor01">draw_floor</a> except that it adds items instead
+of floors.</para>
+
+<para>Itemname: Name of item object. See
+<a href="#set_item01">set_item</a> for further details.</para>
+
+<para>Location: This is Lua table with two elements:
+<tt>{x,y}</tt>. They represent the location of first item that you
+want to add to map.</para>
+
+<para>Increment: Another Lua table with two elements:
+<tt>{dx,dy}</tt>. <em>dx</em> is the increment per step in x-axis,
+<em>dy</em> is increment per step in y-axis.</para>
+
+<para>Count: Number of steps to proceed.</para>
+
+<para>Attribs: Table of attribute names and corresponding values:
+<tt>{attrib1=value1, attrib2=value2, ...}</tt>. It represents the
+attributes to be passed to each created item. You may omit this
+argument.</para>
+
+<para>Example:
+<pre>
+draw_items("it-trigger", {3,3}, {2,0}, 8)
+draw_items("it-tinyhill", {5,3}, {2,0}, 7)
+</pre></para>
+</para>
+
+
+
+<para><a name="draw_stones01"></a>
+<h3>draw_stones</h3>
+<para>Syntax:
+<code>draw_stones(stonename, location, increment, count, attribs)</code>
+</para>
+
+<para>Description: This function adds to your level several stones
+in periodical distances. It works much like
+<a href="#draw_floor01">draw_floor</a> except that it adds stones instead of
+floors.</para>
+
+<para>Stonename: Name of stone object. See
+<a href="#set_stone01">set_stone</a> for further details.</para>
+
+<para>Location: This is Lua table with two elements:
+<tt>{x,y}</tt>. They represent the location of first stone to be
+placed to map.</para>
+
+<para>Increment: Another Lua table with two elements:
+<tt>{dx,dy}</tt>. <em>dx</em> is the increment per step in x-axis,
+<em>dy</em> is increment per step in y-axis.</para>
+
+<para>Count: Total number of stones to add.</para>
+
+<para>Attribs: Table of attribute names and corresponding values:
+<tt>{attrib1=value1, attrib2=value2, ...}</tt>. It represents the
+attributes to be passed to each created stone. You may omit this
+argument.</para>
+
+<para>Example:
+<pre>
+draw_stones("st-grate1", {9,1},{0,1}, 5)
+draw_stones("st-stone_break", {21,1}, {1,0}, 10)
+
+function draw_border(stonename, x0, y0, w, h)
+    draw_stones(stonename, {x0,y0}, {1,0}, w)
+    draw_stones(stonename, {x0,y0+h-1},{1,0}, w)
+    draw_stones(stonename, {x0,y0}, {0,1}, h)
+    draw_stones(stonename, {x0+w-1,y0},{0,1}, h)
+end
+</pre></para>
+</para>
+
+
+
+<para><a name="fill_floor01"></a>
+<h3>fill_floor</h3>
+<para>Syntax:
+<code>fill_floor(floorname)</code>
+<code>fill_floor(floorname, x, y, w, h)</code>
+</para>
+
+<para>Description: This function fills an area of map with
+selected floor type.</para>
+
+<para>Floorname: Name of floor object. See <a
+href="#set_floor01">set_floor</a> for further details. If this is the
+only argument to the function, whole map area is filled with this kind
+of floor.</para>
+
+<para>x, y: Coordinates of upper left corner of filled area. Note
+that upper left square of map is at coordinates [0,0]. If those
+arguments are omitted, zero is passed instead.</para>
+
+<para>w, h: Size of filled area. If any of these arguments is
+omitted, level width or height respectively is passed by default.</para>
+
+<para>Example:
+<pre>
+fill_floor("fl-space", 0,0, level_width,level_height)  -- these two lines
+fill_floor("fl-space")                                 -- do the same
+fill_floor("fl-gray", 1, 1, level_width-2, level_height-2)
+fill_floor("fl-water", 24,47, 11,1)
+</pre></para>
+</para>
+
+
+
+<para><a name="fill_items01"></a>
+<h3>fill_items</h3>
+<para>Syntax:
+<code>fill_items(itemname, x, y, w, h)</code>
+</para>
+
+<para>Description: This function fills an area of map with
+items of selected kind.</para>
+
+<para>Itemname: Name of item object. See
+<a href="#set_item01">set_item</a> for further details.</para>
+
+<para>x, y: Coordinates of upper left corner of filled area. Note
+that upper left square of map is at coordinates [0,0].</para>
+
+<para>w, h: Size of filled area - <em>w</em> is width and
+<em>h</em> is height.</para>
+
+<para>Note: Please note thatin contrast to function <a
+href="#fill_floor01">fill_floor</a>, this function doesn't have any
+default attributes and no parametter may be omitted.</para>
+
+<para>Example:
+<pre>
+-- (strange, no one ever used this function in their map...)
+fill_items("it-wormhole", 1, 1, 3, 3) -- field of 3x3 wormholes
+</pre></para>
+</para>
+
+
+
+<para><a name="fill_stones01"></a>
+<h3>fill_stones</h3>
+<para>Syntax:
+<code>fill_stones(stonename, x, y, w, h)</code>
+</para>
+
+<para>Description: This function fills an area of map with
+stones of selected kind.</para>
+
+<para>Stonename: Name of stone object. See
+<a href="#set_stone01">set_stone</a> for further details.</para>
+
+<para>x, y: Coordinates of upper left corner of filled area. Note
+that upper left square of map is at coordinates [0,0].</para>
+
+<para>w, h: Size of filled area - <em>w</em> is width and
+<em>h</em> is height.</para>
+
+<para>Note: Please note thatin contrast to function <a
+href="#fill_floor01">fill_floor</a>, this function doesn't have any
+default attributes and no parametter may be omitted.</para>
+
+<para>Example:
+<pre>
+fill_stones("st-chameleon", 1, 1, 18, 11)
+fill_stones("st-grate1", 1, 5, 5, 7)
+fill_stones("st-death", 9, 5, 2, 2)
+</pre></para>
+</para>
+
+
+
+<para><a name="GetAttrib01"></a>
+<h3>GetAttrib</h3>
+<para>Syntax:
+<code>GetAttrib(object, attribname)</code></para>
+
+<para>Description: The function is similar to SetAttrib, except
+that it doesn't set the attribute, but return current attribute
+value. Function arguments have the same meaning like in
+<a href="#SetAttrib01">SetAttrib</a>, see its description. Also note
+<a href="#GetKind01">GetKind</a>.
+</para>
+
+<para>Example:
+<pre>
+local bolder_dir = GetAttrib(bolder1, "direction")
+</pre></para>
+</para>
+
+
+
+<para><a name="GetKind01"></a>
+<h3>GetKind</h3>
+<para>Syntax:
+<code>GetKind(object)</code></para>
+
+<para>Description: The function is a work-around for
+GetAttrib("kind"), which does not work for items.
+</para>
+
+<para>Example:
+<pre>
+local stone_kind = GetKind(stone1)
+</pre></para>
+</para>
+
+
+
+<para><a name="MakeObject01"></a>
+<h3>MakeObject</h3>
+<para>Syntax:
+<code>MakeObject(objname, attribs)</code></para>
+
+<para>Description: The function MakeObject is used internally by
+other functions, like <a href="#set_floor01">set_floor</a>,
+<a href="#set_item01">set_item</a> or
+<a href="#set_stone01">set_stone</a>.
+It takes care of creating the object and sets up all desired
+attributes, including <a href="#SetDefaultAttribs01">default
+ones</a>.
+</para>
+
+<para>Objname: Name of internal enigma object. It can be name of
+any floor, stone or item.</para>
+
+<para>Attribs: Table of attribute names and corresponding values:
+<tt>{attrib1=value1, attrib2=value2, ...}</tt></para>
+
+<para>Example: To my best knowledge, no one uses this function in
+their levels. You should rather use set_floor/stone/item functions for
+creating particular enigma objects. If you need this function, you are
+probably guru and you don't need this manual either.</para>
+</para>
+
+
+
+<para><a name="SetAttrib01"></a>
+<h3>SetAttrib</h3>
+<para>Syntax:
+<code>SetAttrib(object, attribname, value)</code></para>
+
+<para>Description: The function sets the given attribute of a
+given object to given value. If you try to pass unknown attribute to
+an object, enigma will ignore it (i.e. nothing happens).</para>
+
+<para>Object: The variable that holds the object. Every function
+that creates an object returns the variable representing freshly added
+object. That's right what should be passed to SetAttrib. (See example).</para>
+
+<para>Attribname: Name of the attribute. See the description of
+objects to learn which object knows what attributes.</para>
+
+<para>Value: New value of attribute.</para>
+
+<para>Example:
+<pre>
+local ls = set_stone("st-laser", 1, 4, {on=FALSE, dir=NORTH})
+set_attrib(ls, "name", "laser")
+</pre>
+(also "on" and "dir" are attributes in this example)</para>
+</para>
+
+
+
+
+<para><a name="set_attribs01"></a>
+<h3>set_attribs</h3>
+<para>Syntax:
+<code>set_attribs(object, attribs)</code></para>
+
+<para>Description: This function sets several attributes at a
+time. The only thing it does is call <a
+href="#SetAttrib01">SetAttrib</a> as many times as needed to set
+values of all desired attributes.</para>
+
+<para>Object: Value that holds the object, whose attributes are
+about to change.</para>
+
+<para>Attribs: Table of attribute names and corresponding values:
+<tt>{attrib1=value1, attrib2=value2, ...}</tt></para>
+
+<para>Example:
+<pre>
+local ls = set_stone("st-laser", 1, 4, {on=FALSE, dir=NORTH})
+... (some lua code) ...
+set_attribs(ls, {on=TRUE, dir=WEST})
+</pre></para>
+</para>
+
+
+
+
+<para><a name="SetDefaultAttribs01"></a>
+<h3>SetDefaultAttribs</h3>
+<para>Syntax:
+<code>CreateWorld(objname, attribs)</code></para>
+
+<para>Description: Use this function if there are several objects
+of same kind, that have attributes (all or just some) with same
+value. For example if there are twenty wormholes with strength of 10,
+you can set the strength of 10 as a default value for all
+wormholes.</para>
+
+<para>Objname may be name of any enigma stone, floor or
+item. In most cases this is wormhole, because it's usual to have
+several wormholes with same strength and range, while it's not very
+common to have for example all doors vertical or all bolders facing
+west.</para>
+
+<para>Attribs: Table of keys and corresponding values:
+<tt>{attrib1=value1, attrib2=value2, ...}</tt></para>
+
+<para>Notes: Default attributes can be overriden or several extra
+attributes can be assigned to object. The attributes specified at
+creation time (using <a href="#set_floor01">set_floor</a>, <a
+href="#set_item01">set_item</a>, <a href="#set_stone01">set_stone</a>
+functions) override default attributes specified by
+SetDefaultAttribs.</para>
+
+<para>Example:
+<pre>
+SetDefaultAttribs("it-wormhole", {range=1.0, strength=10})
+set_item("it-wormhole", 11, 6, {targetx="48.5",targety="56.5"})
+</pre></para>
+</para>
+
+
+
+<para><a name="set_floor01"></a>
+<h3>set_floor</h3>
+<para>Syntax:
+<code>set_floor(floorname, x, y, attribs)</code></para>
+
+<para>Description: As you would expect, this function creates a
+floor at given [x,y] position in enigma level, and passes all
+necessary <a href="#SetDefaultAttribs01">default attributes</a> and
+attributes passed in <em>attribs</em> argument.</para>
+
+<para>Floorname: Enigma internal object name. The name should be
+the name of floor (they typically start with "fl-" prefix). In fact,
+it is possible to add a stone object as a floor, but strange things
+happen. Generally nothing you would like to use in your levels.</para>
+
+<para>x, y Location where you want the floor to be placed. Note
+that level coordinates begin with zero (see
+<a href="#CreateWorld01">CreateWorld</a>).</para>
+
+<para>Attribs: Table of attribute names and corresponding values:
+<tt>{attrib1=value1, attrib2=value2, ...}</tt></para>
+
+<para>Example:
+<pre>
+function setup_gradient_rose(x,y)
+   set_floor("fl-gradient", x, y+1, {type=1})
+   set_floor("fl-gradient", x, y-1, {type=2})
+   set_floor("fl-gradient", x+1, y, {type=3})
+   set_floor("fl-gradient", x-1, y, {type=4})
+end
+</pre></para>
+</para>
+
+
+
+<para><a name="set_item01"></a>
+<h3>set_item</h3>
+<para>Syntax:
+<code>set_item(itemname, x, y, attribs)</code></para>
+
+<para>Description: This function is very similar to the one named
+<a href="#set_floor01">set_floor</a>, describer earlier. It creates an
+item at given position. Items in enigma are all those magic wands,
+brushes, coins, triggers, bombs and also for example the laser ray or
+crackles. There can be only one single item on each position.</para>
+
+<para>Itemname: Enigma internal object name. The name has to be
+the name of item (they typically start with "it-" prefix). Enigma
+won't let you create an item from other object that just item.</para>
+
+<para>x, y Location where you want the item to be placed. Note
+that level coordinates begin with zero (see
+<a href="#CreateWorld01">CreateWorld</a>).</para>
+
+<para>Attribs: Table of attribute names and corresponding values:
+<tt>{attrib1=value1, attrib2=value2, ...}</tt></para>
+
+<para>Note: The rule of single item per field also means, that
+laser cannot "overshoot" magic wand or trigger, that you cannot drop
+item to cracked floor etc. It may look like disadvantage, but on the
+other hand, it can be used as an advantage (see for example the level
+named "Follow the Light" in "Oxyd Clones" package).</para>
+
+<para>Example:
+<pre>
+set_item("it-trigger", 34, 3, {action="openclose", target="bridge1"})
+</pre></para>
+</para>
+
+
+
+<para><a name="set_stone01"></a>
+<h3>set_stone</h3>
+<para>Syntax:
+<code>set_stone(stonename, x, y, attribs)</code></para>
+
+<para>Description: This function is very similar to the one named
+<a href="#set_floor01">set_floor</a>, describer earlier. It places the
+stone to desired location. Stones in enigma are all walls, glass
+blocks, death's heads, and also doors, switches, lasers, bolders and
+lots of other special enigma objects.</para>
+
+<para>Stonename: Enigma internal stone name. The name has to be
+the name of stone (they typically start with "st-" prefix). Enigma
+won't let you create the stone from other object that just stone.</para>
+
+<para>x, y Location where you want the stone to be placed. Note
+that level coordinates begin with zero (see
+<a href="#CreateWorld01">CreateWorld</a>).</para>
+
+<para>Attribs: Table of attribute names and corresponding values:
+<tt>{attrib1=value1, attrib2=value2, ...}</tt></para>
+
+<para>Example:
+<pre>
+set_stone("st-door", 18,  6, {name="door01", type="h"})
+set_stone("st-bolder", 2, 11, {name="bolder01", direction=NORTH})
+</pre></para>
+</para>
+
+
+
+<para><a name="set_stones01"></a>
+<h3>set_stones</h3>
+<para>Syntax:
+<code>set_stones(stonename, positions, attribs)</code></para>
+
+<para>Description: This function is somehow similar to <a
+href="#draw_stones01">draw_stones</a>. It can place several stones to
+locations all over the map. The locations to which the stones will be
+placed are listed in argument <em>positions</em>.</para>
+
+<para>Stonename: Enigma internal stone name. See <a
+href="#set_stone01">set_stone</a> for further details.</para>
+
+<para>Positions Table of stone locations. Its format is like this:
+<tt>{loc1, loc2, ...}</tt>, where each location is
+<tt>{x,y}</tt>. Together it looks like this: <tt>{{x1,y1}, {x2,y2},
+...}</tt>.</para>
+
+<para>Attribs: Table of attribute names and corresponding values:
+<tt>{attrib1=value1, attrib2=value2, ...}</tt>. Those attributes will
+be passed to created stones together with <a
+href="#SetDefaultAttribs01">default attributes</a>. You may omit this
+attribute.</para>
+
+<para>Example:
+<pre>
+set_stones("st-glass", {{1,6},{1,12},{34,1},{34,2},{35,2},{36,1},{36,2}})
+set_stones(bordertile, {{34, 1}, {34, 5}, {34, 7}, {34, 11}})
+set_stones("st-invisible", {{7,9}}) -- these two lines
+set_stone("st-invisible", 7, 9)     -- do the same
+</pre></para>
+</para>
+
+
+<h2>Functions and variables internal to Enigma</h2>
+    display.SetFollowMode(display.FOLLOW_SCREEN)
+
+@end ignore
+
+@node Index,  , Functions, Top
+@unnumbered Index
+
+@syncodeindex vr tp
+@syncodeindex fn tp
+
+@printindex tp
+
+@bye
