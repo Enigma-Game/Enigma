@@ -93,19 +93,29 @@ function LoadOptions (filename)
     dofile(filename)
 end
 
+function EscapeString (str)
+    str = gsub (str, "\\", "\\\\")
+    str = gsub (str, "\"", "\\\"")
+    return str
+end
+
 function SaveOptions (filename)
     function writeoption (key, val)
         local t = type(val)
         if t == "number" then
-            write(format("options[\"%s\"] = %f\n", key,val))
+            write(format("options[\"%s\"] = %f\n", 
+                         EscapeString(key),
+                         val))
         elseif t == "string" then
-            write(format("options[\"%s\"] = \"%s\"\n", key, val))
+            write(format("options[\"%s\"] = \"%s\"\n", 
+                         EscapeString(key), 
+                         EscapeString(val)))
         end
     end
 
     function writestat (leveltag, val)
         write(format("stats[\"%s\"] = { %d, %d, %d, %d }\n",
-                     leveltag, val[1], val[2], val[3], val[4]))
+                     EscapeString(leveltag), val[1], val[2], val[3], val[4]))
     end
 
     f = writeto(filename)
