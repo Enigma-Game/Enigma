@@ -27,7 +27,7 @@
 
 #include "../config.h"
 
-using namespace px;
+using namespace ecl;
 using namespace std;
 
 int Font::get_width(const char *str) 
@@ -113,7 +113,7 @@ BitmapFont::render(const GC &gc, int x, int y, const char *str)
 
 
 Font *
-px::LoadBitmapFont(const char * imgname, const char * descrname)
+ecl::LoadBitmapFont(const char * imgname, const char * descrname)
 {
     if (Surface *s = LoadImage(imgname))
         return new BitmapFont(s, descrname);
@@ -124,7 +124,7 @@ px::LoadBitmapFont(const char * imgname, const char * descrname)
 
 #ifndef HAVE_SDLTTF
 
-Font *px::LoadTTF (const char * /*filename*/, int /*ptsize*/, int, int, int)
+Font *ecl::LoadTTF (const char * /*filename*/, int /*ptsize*/, int, int, int)
 {
     return 0;
 }
@@ -218,7 +218,7 @@ int TrueTypeFont::get_width(const char *str)
     return w;
 }
 
-Font *px::LoadTTF (const char *filename, int ptsize, int r, int g, int b)
+Font *ecl::LoadTTF (const char *filename, int ptsize, int r, int g, int b)
 {
     if (TTF_Init()) {
     	// Error initializing TTF engine

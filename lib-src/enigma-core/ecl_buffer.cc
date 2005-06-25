@@ -18,7 +18,7 @@
 #include "buffer.hh"
 #include <iostream>
 
-using namespace px;
+using namespace ecl;
 using namespace std;
 
 Buffer::Buffer(size_t startlen)
@@ -148,7 +148,7 @@ bool Buffer::operator!() const
 /*
 ** === Read and write bytes ===
 */
-Buffer& px::read(Buffer& buf, Uint8& byte)
+Buffer& ecl::read(Buffer& buf, Uint8& byte)
 {
     int a = buf.read();
     if (a != -1)
@@ -156,7 +156,7 @@ Buffer& px::read(Buffer& buf, Uint8& byte)
     return buf;
 }
 
-Buffer& px::write(Buffer& buf, Uint8 byte)
+Buffer& ecl::write(Buffer& buf, Uint8 byte)
 {
     buf.write(byte);
     return buf;
@@ -166,7 +166,7 @@ Buffer& px::write(Buffer& buf, Uint8 byte)
 ** === Read and write words ===
 */
 
-Buffer& px::read(Buffer& buf, Uint16& word)
+Buffer& ecl::read(Buffer& buf, Uint16& word)
 {
     Uint8* ptr = (Uint8*) buf.get_rspace(2);
     if (ptr != 0)
@@ -174,7 +174,7 @@ Buffer& px::read(Buffer& buf, Uint16& word)
     return buf;
 }
 
-Buffer& px::write(Buffer& buf, Uint16 word)
+Buffer& ecl::write(Buffer& buf, Uint16 word)
 {
     Uint8* ptr = (Uint8*) buf.get_wspace(2);
     ptr[0] = word & 0xff;
@@ -186,7 +186,7 @@ Buffer& px::write(Buffer& buf, Uint16 word)
 ** === Read and write dwords ===
 */
 
-Buffer& px::read(Buffer& buf, Uint32& dword)
+Buffer& ecl::read(Buffer& buf, Uint32& dword)
 {
     Uint8* ptr = (Uint8*) buf.get_rspace(4);
     if (ptr != 0)
@@ -199,7 +199,7 @@ Buffer& px::read(Buffer& buf, Uint32& dword)
     return buf;
 }
 
-Buffer& px::write(Buffer& buf, Uint32 dword)
+Buffer& ecl::write(Buffer& buf, Uint32 dword)
 {
     Uint8* ptr = (Uint8*) buf.get_wspace(4);
     ptr[0] = dword & 0xff;
@@ -213,7 +213,7 @@ Buffer& px::write(Buffer& buf, Uint32 dword)
  ** === Read and write long longs ===
  */
 
-Buffer& px::read(Buffer& buf, Uint64& lvar)
+Buffer& ecl::read(Buffer& buf, Uint64& lvar)
 {
     Uint8* ptr = (Uint8*) buf.get_rspace(8);
     if (ptr != 0)
@@ -230,7 +230,7 @@ Buffer& px::read(Buffer& buf, Uint64& lvar)
     return buf;
 }
 
-Buffer& px::write(Buffer& buf, Uint64 lvar)
+Buffer& ecl::write(Buffer& buf, Uint64 lvar)
 {
     Uint8* ptr = (Uint8*) buf.get_wspace(8);
     ptr[0] = lvar & 0xff;
@@ -258,7 +258,7 @@ Buffer& px::write(Buffer& buf, Uint64 lvar)
 ** less desynchronisation in network games.
 */
 
-Buffer& px::read(Buffer& buf, float& dvar)
+Buffer& ecl::read(Buffer& buf, float& dvar)
 {
 	union
 {
@@ -270,7 +270,7 @@ Buffer& px::read(Buffer& buf, float& dvar)
     return buf;
 }
 
-Buffer& px::write(Buffer& buf, float dvar)
+Buffer& ecl::write(Buffer& buf, float dvar)
 {
 	union
 {
@@ -286,7 +286,7 @@ Buffer& px::write(Buffer& buf, float dvar)
  ** === Read and write doubles ===
  */
 
-Buffer& px::read(Buffer& buf, double& dvar)
+Buffer& ecl::read(Buffer& buf, double& dvar)
 {
     union
 {
@@ -298,7 +298,7 @@ Buffer& px::read(Buffer& buf, double& dvar)
     return buf;
 }
 
-Buffer& px::write(Buffer& buf, double dvar)
+Buffer& ecl::write(Buffer& buf, double dvar)
 {
 	union
 {
@@ -314,7 +314,7 @@ Buffer& px::write(Buffer& buf, double dvar)
 ** === Read and write another buffer ===
 */
 
-Buffer& px::read(Buffer& srcbuf, Buffer& destbuf, int len)
+Buffer& ecl::read(Buffer& srcbuf, Buffer& destbuf, int len)
 {
     if (&srcbuf != &destbuf)
     {
@@ -326,7 +326,7 @@ Buffer& px::read(Buffer& srcbuf, Buffer& destbuf, int len)
     return srcbuf;
 }
 
-Buffer& px::write(Buffer& buf, const Buffer& databuf)
+Buffer& ecl::write(Buffer& buf, const Buffer& databuf)
 {
     if (&buf != &databuf)
     {
@@ -339,7 +339,7 @@ Buffer& px::write(Buffer& buf, const Buffer& databuf)
 ** === Read and write strings ===
 */
 
-Buffer& px::read(Buffer& buf, string& str)
+Buffer& ecl::read(Buffer& buf, string& str)
 {
     Uint16 size;
     if (buf >> size)
@@ -351,7 +351,7 @@ Buffer& px::read(Buffer& buf, string& str)
     return buf;
 }
 
-Buffer& px::write(Buffer& buf, const string& str)
+Buffer& ecl::write(Buffer& buf, const string& str)
 {
     Uint16 size = str.size();
     buf << size;
@@ -363,13 +363,13 @@ Buffer& px::write(Buffer& buf, const string& str)
 ** Read and write from and to streams
 */
 
-ostream& px::operator<<(ostream& os, const Buffer& buf)
+ostream& ecl::operator<<(ostream& os, const Buffer& buf)
 {
     os.write(buf.data(), buf.size());
     return os;
 }
 
-istream& px::operator>>(istream& is, Buffer& buf)
+istream& ecl::operator>>(istream& is, Buffer& buf)
 {
     buf.clear();
     char tmp[2048];

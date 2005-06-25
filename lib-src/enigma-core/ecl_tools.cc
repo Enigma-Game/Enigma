@@ -26,9 +26,9 @@
 #include <cassert>
 
 using namespace std;
-using namespace px;
+using namespace ecl;
 
-string px::concat_paths (const string& path, const string& filename)
+string ecl::concat_paths (const string& path, const string& filename)
 {
     // concatenate path and filename (or relative subpath)
     return
@@ -37,7 +37,7 @@ string px::concat_paths (const string& path, const string& filename)
         filename.substr(filename.find_first_not_of (PathSeparator));
 }
 
-bool px::split_path (const string& path, string* dir_part, string* filename_part)
+bool ecl::split_path (const string& path, string* dir_part, string* filename_part)
 {
     size_t lslash = path.find_last_of (PathSeparator);
     if (lslash == path.length()-1) // trailing slash
@@ -80,7 +80,7 @@ namespace {
     }
 }
 
-string px::strf(const char *format, ...)
+string ecl::strf(const char *format, ...)
 {
     va_list argPtr;
     va_start(argPtr, format);

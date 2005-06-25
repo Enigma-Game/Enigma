@@ -1,7 +1,7 @@
 #include "dict.hh"
 
 unsigned 
-px::hash(const std::string &key)
+ecl::hash(const std::string &key)
 {
     unsigned h=0, g;
     for (const char *p=key.c_str(); *p; ++p)

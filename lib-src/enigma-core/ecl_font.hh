@@ -15,10 +15,10 @@
  * with this program; if not, write to the Free Software Foundation, Inc.,
  * 59 Temple Place, Suite 330, Boston, MA 02111-1307, USA.
  */
-#ifndef PX_FONT_HH
-#define PX_FONT_HH
+#ifndef ECL_FONT_HH
+#define ECL_FONT_HH
 
-namespace px
+namespace ecl
 {
     class GC;
     class Surface;

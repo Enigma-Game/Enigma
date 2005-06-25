@@ -17,7 +17,7 @@
 //======================================================================
 #include <iostream>
 #include "math.hh"
-namespace px
+namespace ecl
 {
     std::ostream& operator<<(std::ostream& os, const V3 & v)
     {

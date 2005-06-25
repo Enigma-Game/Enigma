@@ -23,7 +23,7 @@
 #include <string>
 #include <ctime>
 
-namespace px
+namespace ecl
 {
     extern const char *PathSeparator;
 

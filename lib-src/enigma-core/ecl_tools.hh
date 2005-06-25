@@ -17,8 +17,8 @@
  *
  * $Id: tools.hh,v 1.12 2004/03/20 16:15:28 dheck Exp $
  */
-#ifndef PX_TOOLS_HH
-#define PX_TOOLS_HH
+#ifndef ECL_TOOLS_HH
+#define ECL_TOOLS_HH
 
 #include <string>
 
@@ -30,7 +30,7 @@
 # endif
 #endif
 
-namespace px
+namespace ecl
 {
 
 /*
@@ -93,7 +93,7 @@ namespace px
 ** All images allocated and stored in `images' have by now been freed.
 */
     template <class T>
-    class AutoSequence : public px::Nocopy {
+    class AutoSequence : public ecl::Nocopy {
     public:
         ~AutoSequence() { delete_sequence(seq.begin(), seq.end()); }
         T *operator->() { return &seq; }

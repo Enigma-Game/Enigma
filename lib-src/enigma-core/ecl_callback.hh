@@ -15,10 +15,10 @@
 // with this program; if not, write to the Free Software Foundation, Inc.,
 // 59 Temple Place, Suite 330, Boston, MA 02111-1307, USA.
 //======================================================================
-#ifndef PX_CALLBACK_HH
-#define PX_CALLBACK_HH
+#ifndef ECL_CALLBACK_HH
+#define ECL_CALLBACK_HH
 
-namespace px
+namespace ecl
 {
     class Callback {
     public:
@@ -47,7 +47,7 @@ namespace px
     };
 }
 
-namespace px
+namespace ecl
 {
     inline FunctionCallback *
     make_cb(void (*func)()) 

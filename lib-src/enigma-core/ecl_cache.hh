@@ -17,8 +17,8 @@
  *
  * $Id: cache.hh,v 1.5 2004/04/24 11:46:01 dheck Exp $
  */
-#ifndef PX_CACHE_HH
-#define PX_CACHE_HH
+#ifndef ECL_CACHE_HH
+#define ECL_CACHE_HH
 
 /* -------------------- Cache -------------------- */
 
@@ -30,7 +30,7 @@
 
 #include "dict.hh"
 
-namespace px
+namespace ecl
 {
     template <class T>
     class DeleteDisposer {
@@ -66,7 +66,7 @@ namespace px
         virtual T    acquire (const std::string &name) = 0;
 
         // ---------- Variables ----------
-        typedef px::Dict<T> Map;
+        typedef ecl::Dict<T> Map;
         typedef typename Map::iterator iterator;
 
         Map cache;

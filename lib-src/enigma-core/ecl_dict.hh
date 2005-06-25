@@ -17,13 +17,13 @@
  *
  * $Id: dict.hh,v 1.5 2004/04/24 11:46:01 dheck Exp $
  */
-#ifndef PX_DICT_HH
-#define PX_DICT_HH
+#ifndef ECL_DICT_HH
+#define ECL_DICT_HH
 
 #include "error.hh"
 #include <utility>
 
-namespace px
+namespace ecl
 {
     extern unsigned hash(const std::string &key);
 

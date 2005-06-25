@@ -17,14 +17,14 @@
  *
  * $Id: geom.hh,v 1.5 2003/11/15 12:32:42 dheck Exp $
  */
-#ifndef PX_GEOM_HH
-#define PX_GEOM_HH
+#ifndef ECL_GEOM_HH
+#define ECL_GEOM_HH
 
 #include <iosfwd>
 #include <vector>
 #include "tools.hh"
 
-namespace px
+namespace ecl
 {
 
 /* -------------------- Generic rectangles -------------------- */

@@ -15,8 +15,8 @@
  * with this program; if not, write to the Free Software Foundation, Inc.,
  * 59 Temple Place, Suite 330, Boston, MA 02111-1307, USA.
  */
-#ifndef PX_ALIST_HH
-#define PX_ALIST_HH
+#ifndef ECL_ALIST_HH
+#define ECL_ALIST_HH
 
 /* 
  * This file defines STL-like associative lists (similar to the ones
@@ -29,7 +29,7 @@
 #include <list>
 #include <utility>
 
-namespace px
+namespace ecl
 {
     template <class KEY, class VAL> 
     class AssocList : public std::list<std::pair<KEY, VAL> > {

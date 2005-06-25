@@ -17,13 +17,13 @@
  *
  * $Id: error.hh,v 1.4 2004/03/20 16:15:29 dheck Exp $
  */
-#ifndef PX_ERROR_HH
-#define PX_ERROR_HH
+#ifndef ECL_ERROR_HH
+#define ECL_ERROR_HH
 
 #include <string>
 #include <exception>
 
-namespace px
+namespace ecl
 {
     using std::string;
 
@@ -43,17 +43,17 @@ namespace px
         std::string m_string;
     };
 
-#define PX_DEF_EXCEPTION(name, parent, message)                 \
+#define ECL_DEF_EXCEPTION(name, parent, message)                 \
     class name : public parent {                                \
     public:                                                     \
         name(const std::string &str = message) : parent(str) {} \
     }
 
-    PX_DEF_EXCEPTION( XInputOutput,     XGeneric,       "InputOutput" );
-    PX_DEF_EXCEPTION( XFileNotFound,    XInputOutput,   "File not found" );
-    PX_DEF_EXCEPTION( XEndOfFile,       XInputOutput,   "End of file" );
-    PX_DEF_EXCEPTION( XFileFormat,      XInputOutput,   "File format" );
-    PX_DEF_EXCEPTION( XVideo,           XGeneric,       "Video");
+    ECL_DEF_EXCEPTION( XInputOutput,     XGeneric,       "InputOutput" );
+    ECL_DEF_EXCEPTION( XFileNotFound,    XInputOutput,   "File not found" );
+    ECL_DEF_EXCEPTION( XEndOfFile,       XInputOutput,   "End of file" );
+    ECL_DEF_EXCEPTION( XFileFormat,      XInputOutput,   "File format" );
+    ECL_DEF_EXCEPTION( XVideo,           XGeneric,       "Video");
 
 
     template <class EXC>

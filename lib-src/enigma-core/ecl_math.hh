@@ -17,13 +17,13 @@
  *
  * $Id: math.hh,v 1.7 2004/02/16 00:23:54 dheck Exp $
  */
-#ifndef PX_MATH_HH_INCLUDED
-#define PX_MATH_HH_INCLUDED
+#ifndef ECL_MATH_HH_INCLUDED
+#define ECL_MATH_HH_INCLUDED
 
 #include <cmath>
 #include <iosfwd>
 
-namespace px
+namespace ecl
 {
 
 /* -------------------- Functions -------------------- */

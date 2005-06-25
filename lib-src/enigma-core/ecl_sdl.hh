@@ -22,8 +22,8 @@
 ** SDL wrappers & helper classes
 */
 
-#ifndef PX_SDL_HH
-#define PX_SDL_HH
+#ifndef ECL_SDL_HH
+#define ECL_SDL_HH
 
 #include "geom.hh"
 #include "SDL.h"
@@ -66,7 +66,7 @@ namespace sdl
         SDL_GrabMode grabmode;
     };
 
-    inline void copy_rect (SDL_Rect &s, const px::Rect &from) {
+    inline void copy_rect (SDL_Rect &s, const ecl::Rect &from) {
         s.x = from.x; s.y = from.y;
         s.w = from.w; s.h = from.h;
     }

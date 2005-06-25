@@ -17,8 +17,8 @@
  *
  * $Id: array2.hh,v 1.6 2004/04/24 11:46:01 dheck Exp $
  */
-#ifndef PX_ARRAY2_HH
-#define PX_ARRAY2_HH
+#ifndef ECL_ARRAY2_HH
+#define ECL_ARRAY2_HH
 
 /*
 ** This file implements templated two-dimensional arrays.
@@ -26,7 +26,7 @@
 
 #include <memory>
 
-namespace px
+namespace ecl
 {
     template <class T, class A = std::allocator<T> >
     struct Array2Base {
@@ -165,7 +165,7 @@ namespace px
     template <class T, class A> Array2<T,A>&
     Array2<T,A>::operator= (Array2<T,A> a2)
     {
-        px::swap(*this, a2);
+        ecl::swap(*this, a2);
         return *this;
     }
 }

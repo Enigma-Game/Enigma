@@ -15,15 +15,15 @@
 // with this program; if not, write to the Free Software Foundation, Inc.,
 // 59 Temple Place, Suite 330, Boston, MA 02111-1307, USA.
 //======================================================================
-#ifndef PX_BUFFER_HH
-#define PX_BUFFER_HH
+#ifndef ECL_BUFFER_HH
+#define ECL_BUFFER_HH
 
 #include "SDL_types.h"
 #include <iosfwd>
 #include <cstddef>
 #include <string>
 
-namespace px
+namespace ecl
 {    
     class Buffer {
       public:

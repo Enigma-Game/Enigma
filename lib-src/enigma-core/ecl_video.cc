@@ -32,19 +32,19 @@
 #include <cstdio>
 
 using namespace std;
-using namespace px;
+using namespace ecl;
 
 
 /* -------------------- Graphics primitives -------------------- */
 
-void px::frame (const GC &gc, int x, int y, int w, int h) {
+void ecl::frame (const GC &gc, int x, int y, int w, int h) {
     hline (gc, x, y, w);
     hline (gc, x, y+h-1, w);
     vline (gc, x, y, h);
     vline (gc, x+w-1, y, h);
 }
 
-void px::line (const GC &gc, int x1, int y1, int x2, int y2) {
+void ecl::line (const GC &gc, int x1, int y1, int x2, int y2) {
     gc.drawable->line (gc, x1, y1, x2, y2);
 }
 
@@ -120,32 +120,32 @@ namespace
 /* `Xlib.h' also defines a type named `Drawable' so we have to specify
    the namespace explicitly and cannot simply use a using-declaration. */
 
-void px::Drawable::set_pixels (const GS &gs, int n, const int* x, const int* y)
+void ecl::Drawable::set_pixels (const GS &gs, int n, const int* x, const int* y)
 {
     const int *xp = x, *yp = y;
     for (int i=n; i; --i)
 	set_pixel(gs, *xp++, *yp++);
 }
 
-void px::Drawable::hline (const GS &gs, int x, int y, int w)
+void ecl::Drawable::hline (const GS &gs, int x, int y, int w)
 {
     for (int i=w; i; --i)
 	set_pixel (gs, x++, y);
 }
 
-void px::Drawable::vline (const GS &gs, int x, int y, int h)
+void ecl::Drawable::vline (const GS &gs, int x, int y, int h)
 {
     for (int i=h; i; --i)
 	set_pixel (gs, x, y++);
 }
 
-void px::Drawable::box (const GS &gs, int x, int y, int w, int h)
+void ecl::Drawable::box (const GS &gs, int x, int y, int w, int h)
 {
     for (int i=h; i; --i)
 	hline (gs, x, y--, w);
 }
 
-void px::Drawable::line(const GS &, int /*x1*/, int /*y1*/, int /*x2*/, int /*y2*/)
+void ecl::Drawable::line(const GS &, int /*x1*/, int /*y1*/, int /*x2*/, int /*y2*/)
 {
 }
 
@@ -352,39 +352,39 @@ Surface::make_surface (SDL_Surface *sdls)
 /* `Xlib.h' also defines a type named `Screen' so we have to specify
    the namespace explicitly and cannot simply use a using-declaration. */
 
-px::Screen *px::Screen::m_instance = 0;
+ecl::Screen *ecl::Screen::m_instance = 0;
 
-px::Screen *
-px::Screen::get_instance() {
+ecl::Screen *
+ecl::Screen::get_instance() {
     return m_instance;
 }
 
 
-px::Screen::Screen (Surface *s)
+ecl::Screen::Screen (Surface *s)
 : m_surface(s), m_sdlsurface(s->get_surface()), update_all_p(false)
 {
     assert (m_instance == 0);
     m_instance = this;
 }
 
-px::Screen::Screen (SDL_Surface *s)
+ecl::Screen::Screen (SDL_Surface *s)
 : m_surface (Surface::make_surface(s)), m_sdlsurface(s), update_all_p(false)
 {
     assert (m_instance == 0);
     m_instance = this;
 }
 
-px::Screen::~Screen() {
+ecl::Screen::~Screen() {
     m_instance = 0;
 }
 
-void px::Screen::update_all()
+void ecl::Screen::update_all()
 {
     //SDL_UpdateRect(get_surface(), 0, 0, 0, 0);
     update_all_p = true;
 }
 
-void px::Screen::update_rect(const Rect& r)
+void ecl::Screen::update_rect(const Rect& r)
 {
     if (m_dirtyrects.size() < 200)
         m_dirtyrects.push_back(r);
@@ -392,12 +392,12 @@ void px::Screen::update_rect(const Rect& r)
         update_all();
 }
 
-void px::Screen::set_caption(const char* str)
+void ecl::Screen::set_caption(const char* str)
 {
     SDL_WM_SetCaption(str, 0);
 }
 
-void px::Screen::flush_updates()
+void ecl::Screen::flush_updates()
 {
     if (update_all_p) {
         SDL_UpdateRect(m_sdlsurface, 0, 0, 0, 0);	// update everything
@@ -416,15 +416,15 @@ void px::Screen::flush_updates()
     m_dirtyrects.clear();
 }
 
-Rect px::Screen::size() const {
+Rect ecl::Screen::size() const {
     return Rect(0, 0, width(), height());
 }
 
-int px::Screen::width() const {
+int ecl::Screen::width() const {
     return m_sdlsurface->w;
 }
 
-int px::Screen::height() const {
+int ecl::Screen::height() const {
     return m_sdlsurface->h;
 }
 
@@ -435,7 +435,7 @@ int px::Screen::height() const {
    new surface is returned; the old one must be deleted by hand if it
    is no longer needed.  */
 Surface*
-px::DisplayFormat(Surface* s)
+ecl::DisplayFormat(Surface* s)
 {
     if (SDL_Surface* s2 = SDL_DisplayFormat(s->get_surface()))
         return Surface::make_surface(s2);
@@ -443,15 +443,15 @@ px::DisplayFormat(Surface* s)
 }
 
 
-px::Screen *
-px::OpenScreen(int w, int h, int bipp)
+ecl::Screen *
+ecl::OpenScreen(int w, int h, int bipp)
 {
     SDL_Surface* sfc = SDL_SetVideoMode(w, h, bipp, SDL_SWSURFACE);
     return new Screen(sfc);
 }
 
 Surface *
-px::Duplicate(const Surface *s)
+ecl::Duplicate(const Surface *s)
 {
     if (s==0) return 0;
     SDL_Surface *sdls = s->get_surface();
@@ -464,13 +464,13 @@ px::Duplicate(const Surface *s)
     return Surface::make_surface(copy);
 }
 
-void px::SavePNG (const px::Surface *s, const std::string &filename)
+void ecl::SavePNG (const ecl::Surface *s, const std::string &filename)
 {
     IMG_SavePNG(s->get_surface(), filename.c_str());
 }
 
 
-void px::TintRect(Surface *s, Rect rect, Uint8 r, Uint8 g, Uint8 b, Uint8 a)
+void ecl::TintRect(Surface *s, Rect rect, Uint8 r, Uint8 g, Uint8 b, Uint8 a)
 {
     std::auto_ptr<Surface> copy(Grab(s, rect));
     if (copy.get()) {
@@ -583,7 +583,7 @@ static SDL_Surface *CropSurface (SDL_Surface *surface,
     return(convert);
 }
 
-Surface * px::Grab (const Surface *s, Rect &r) {
+Surface * ecl::Grab (const Surface *s, Rect &r) {
     if (s==0)
         return 0;
     SDL_Surface *sdls = s->get_surface();
@@ -603,7 +603,7 @@ Surface * px::Grab (const Surface *s, Rect &r) {
 #undef LoadImage
 
 
-Surface* px::LoadImage (const char* filename)
+Surface* ecl::LoadImage (const char* filename)
 {
     if (SDL_Surface *tmp = IMG_Load(filename))
     {
@@ -628,7 +628,7 @@ Surface* px::LoadImage (const char* filename)
     return 0;
 }
 
-Surface * px::MakeSurface(int w, int h, int bipp, const RGBA_Mask &mask)
+Surface * ecl::MakeSurface(int w, int h, int bipp, const RGBA_Mask &mask)
 {
     SDL_Surface* sfc;
     sfc = SDL_CreateRGBSurface(SDL_SWSURFACE, w, h, bipp,
@@ -641,7 +641,7 @@ Surface * px::MakeSurface(int w, int h, int bipp, const RGBA_Mask &mask)
 
 /* Create a surface from image data that is already somewhere in
    memory.  */
-Surface * px::MakeSurface(void *data, int w, int h, int bipp, int pitch,
+Surface * ecl::MakeSurface(void *data, int w, int h, int bipp, int pitch,
                           const RGBA_Mask &mask)
 {
     SDL_Surface* sfc;
@@ -652,7 +652,7 @@ Surface * px::MakeSurface(void *data, int w, int h, int bipp, int pitch,
     return Surface::make_surface (sfc);
 }
 
-Surface *px::MakeSurfaceLike (int w, int h, Surface *surface) 
+Surface *ecl::MakeSurfaceLike (int w, int h, Surface *surface) 
 {
     if (surface == 0)
         return 0;
@@ -667,7 +667,7 @@ Surface *px::MakeSurfaceLike (int w, int h, Surface *surface)
 
 /*! Resample a region inside a surface to a new size.  Returns a
   new 32 bit RGBA image containing the scaled image. */
-Surface *px::Resample (Surface *s, Rect rect, int neww, int newh,
+Surface *ecl::Resample (Surface *s, Rect rect, int neww, int newh,
                        ResampleFilter /*filter*/)
 {
     SDL_Surface *sdls = SDL_CreateRGBSurface(SDL_SWSURFACE, rect.w, rect.h, 32,

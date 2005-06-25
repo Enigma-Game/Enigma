@@ -17,14 +17,14 @@
  *
  * $Id: video.hh,v 1.11 2004/05/22 13:06:15 dheck Exp $
  */
-#ifndef PX_VIDEO_HH_INCLUDED
-#define PX_VIDEO_HH_INCLUDED
+#ifndef ECL_VIDEO_HH_INCLUDED
+#define ECL_VIDEO_HH_INCLUDED
 
-#include "pxfwd.hh"
+#include "eclfwd.hh"
 #include "geom.hh"
 #include "SDL.h"
 
-namespace px
+namespace ecl
 {
 
 /* -------------------- Colors -------------------- */
@@ -361,4 +361,4 @@ namespace px
                        ResampleFilter filter = FILTER_BILINEAR);
 }
 
-#endif /* !PX_VIDEO_HH_INCLUDED */
+#endif /* !ECL_VIDEO_HH_INCLUDED */

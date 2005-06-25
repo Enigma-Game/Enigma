@@ -21,11 +21,11 @@
 //#include <functional>
 
 using namespace std;
-using namespace px;
+using namespace ecl;
 
 /* -------------------- Rect -------------------- */
 
-std::ostream& px::operator<<(std::ostream& os, const Rect& r) {
+std::ostream& ecl::operator<<(std::ostream& os, const Rect& r) {
     return os << "Rect(" << r.x << " " << r.y << " " << r.w << " " << r.h << ")";
 }
 

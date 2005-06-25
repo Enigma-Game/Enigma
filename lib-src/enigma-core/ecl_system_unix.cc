@@ -28,12 +28,12 @@
 
 #include <config.h>
 
-using namespace px;
+using namespace ecl;
 using std::string;
 
-const char *px::PathSeparator = "/";
+const char *ecl::PathSeparator = "/";
 
-string px::ExpandPath (const string &pth)
+string ecl::ExpandPath (const string &pth)
 {
     string path = pth;
     string::size_type p=path.find("~");
@@ -46,13 +46,13 @@ string px::ExpandPath (const string &pth)
     return path;
 }
 
-bool px::FileExists (const std::string &fname)
+bool ecl::FileExists (const std::string &fname)
 {
     struct stat s;
     return (stat(fname.c_str(), &s)==0 && S_ISREG(s.st_mode));
 }
 
-time_t px::FileModTime (const std::string &fname)
+time_t ecl::FileModTime (const std::string &fname)
 {
     struct stat s;
     if (stat(fname.c_str(), &s) == 0) {
@@ -62,13 +62,13 @@ time_t px::FileModTime (const std::string &fname)
     return 0;                   // beginning of time
 }
 
-bool px::FolderExists (const std::string &fname)
+bool ecl::FolderExists (const std::string &fname)
 {
     struct stat s;
     return (stat(fname.c_str(), &s)==0 && S_ISDIR(s.st_mode));
 }
 
-bool px::FolderCreate (const std::string &fname)
+bool ecl::FolderCreate (const std::string &fname)
 {
     string parent_folder;
     string sub_folder;
@@ -93,14 +93,14 @@ bool px::FolderCreate (const std::string &fname)
 }
 
 
-std::string px::DefaultMessageLocale ()
+std::string ecl::DefaultMessageLocale ()
 {
     extern const char * sys_message_locale_name ();
 
     return sys_message_locale_name ();
 }
 
-std::string px::GetLanguageCode (const std::string &ln)
+std::string ecl::GetLanguageCode (const std::string &ln)
 {
     if (ln == "C" || ln == "POSIX" || ln.size() < 2)
         return "en";

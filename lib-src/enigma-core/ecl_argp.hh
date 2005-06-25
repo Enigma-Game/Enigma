@@ -17,18 +17,18 @@
  *
  * $Id: argp.hh,v 1.2 2003/10/20 16:15:34 dheck Exp $
  */
-#ifndef PX_ARGP_HH
-#define PX_ARGP_HH
+#ifndef ECL_ARGP_HH
+#define ECL_ARGP_HH
 
 #include "tools.hh"
 #include <list>
 #include <algorithm>
 
-namespace px 
+namespace ecl 
 { 
 namespace argp
 {
-    class ArgParser : public px::Nocopy {
+    class ArgParser : public ecl::Nocopy {
     public:
         // Constructors.
         ArgParser ();

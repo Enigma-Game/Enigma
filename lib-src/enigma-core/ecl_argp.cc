@@ -21,7 +21,7 @@
 #include <iostream>
 
 using namespace std;
-using px::argp::ArgParser;
+using ecl::argp::ArgParser;
 
 
 ArgParser::ArgParser() {

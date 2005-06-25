@@ -23,7 +23,7 @@
 #include <iterator>             // for ostream_iterator
 
 using namespace std;
-using namespace px::argp;
+using namespace ecl::argp;
 
 namespace
 {
