@@ -23,8 +23,8 @@
 
 #include <memory>
 #include "SDL.h"
-#include "px/pxfwd.hh"
-#include "px/geom.hh"
+#include "ecl_fwd.hh"
+#include "ecl_geom.hh"
 
 namespace video
 {
@@ -46,12 +46,12 @@ namespace video
         const char *gfxdir;     // Directory that contains the graphics
         int thumbw, thumbh;     // Width and height of thumbnails
         const char *thumbsdir;  // Directory that contains the thumbnails
-        px::Rect gamearea;
-        px::Rect statusbararea;
-        px::Rect sb_timearea;
-        px::Rect sb_movesarea;
-        px::Rect sb_itemarea;
-        px::Rect sb_textarea;
+        ecl::Rect gamearea;
+        ecl::Rect statusbararea;
+        ecl::Rect sb_timearea;
+        ecl::Rect sb_movesarea;
+        ecl::Rect sb_itemarea;
+        ecl::Rect sb_textarea;
         VideoModes  fallback_videomode;
         bool     available;     // Is this video mode available?
     };
@@ -83,12 +83,12 @@ namespace video
       mode. [currently always 16] */
     int GetColorDepth();
 
-    px::Screen *GetScreen();
+    ecl::Screen *GetScreen();
 
     /*! The backbuffer is surface that has the same size and pixel
       format as the screen.  This surface is used by ShowScreen() and
       FX_* functions below. */
-    px::Surface *BackBuffer();
+    ecl::Surface *BackBuffer();
     
     /*! Update gamma correction using current options. */
     void UpdateGamma();
@@ -114,7 +114,7 @@ namespace video
 
 /* -------------------- Mouse cursor -------------------- */
 
-    void SetMouseCursor(px::Surface *s, int hotx, int hoty);
+    void SetMouseCursor(ecl::Surface *s, int hotx, int hoty);
     void HideMouse();
     void ShowMouse();
     int Mousex();
@@ -131,7 +131,7 @@ namespace video
 
     enum FadeMode { FADEIN, FADEOUT };
     void FX_Fade (FadeMode mode);
-    void FX_Fly (px::Surface *newscr, int originx, int originy);
+    void FX_Fly (ecl::Surface *newscr, int originx, int originy);
 
     enum TransitionModes
     {
@@ -142,9 +142,9 @@ namespace video
 	TM_FLY_NW, TM_FLY_NE, TM_FLY_SE, TM_FLY_SW,
         TM_PUSH_RANDOM, TM_PUSH_N, TM_PUSH_S, TM_PUSH_W, TM_PUSH_E
     };
-    void ShowScreen (TransitionModes tm, px::Surface *newscr);
+    void ShowScreen (TransitionModes tm, ecl::Surface *newscr);
 
-    TransitionEffect *MakeEffect (TransitionModes tm, px::Surface *newscr);
+    TransitionEffect *MakeEffect (TransitionModes tm, ecl::Surface *newscr);
 }
 
 #endif

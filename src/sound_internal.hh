@@ -7,7 +7,7 @@ namespace
         // Variables
         SoundName name;
         bool      has_position;
-        px::V2    position;
+        ecl::V2    position;
         int       priority;
         double    volume;           // Volume between 0.0 and 1.0
         int       left;
@@ -47,7 +47,7 @@ namespace
         virtual void define_sound (const SoundName &, const std::string &filename)=0;
         virtual void define_sound (const SoundName &, const SoundData &)=0;
         virtual void play_sound (const SoundEffect &s) = 0;
-        virtual void set_listenerpos (px::V2 pos) = 0;
+        virtual void set_listenerpos (ecl::V2 pos) = 0;
         virtual void tick (double dtime) 
         {}
     };
@@ -87,7 +87,7 @@ namespace
 
         void define_sound (const SoundName &, const SoundData &)
         {}
-        void set_listenerpos (px::V2 pos) 
+        void set_listenerpos (ecl::V2 pos) 
         {}
     };
 
@@ -114,7 +114,7 @@ namespace
         void define_sound (const SoundName &, const SoundData &);
 
 
-        void set_listenerpos (px::V2 pos) { m_listenerpos = pos; }
+        void set_listenerpos (ecl::V2 pos) { m_listenerpos = pos; }
         void tick (double dtime);
     private:
         // ---------- Private methods ----------
@@ -135,9 +135,9 @@ namespace
         int        m_freq;
         Uint16     m_format;
         int        m_channels;
-        px::Dict<Mix_Chunk*> wav_cache;
+        ecl::Dict<Mix_Chunk*> wav_cache;
         vector<SoundEffect> m_channelinfo;
-        px::V2      m_listenerpos;
+        ecl::V2      m_listenerpos;
         SDL_mutex  *m_mutex;
         static SoundEngine_SDL *m_instance;
     };

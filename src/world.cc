@@ -42,7 +42,7 @@
 
 using namespace std;
 using namespace world;
-using namespace px;
+using namespace ecl;
 
 #include "world_internal.hh"
 
@@ -258,7 +258,7 @@ RubberBand::~RubberBand() {
 void RubberBand::apply_forces ()
 {
     V2 v = get_p2()-get_p1();
-    double vv = px::length(v);
+    double vv = ecl::length(v);
 
     if (vv > data.length) {
         V2 force = v * data.strength*(vv-data.length)/vv;
@@ -458,7 +458,7 @@ void World::remove (ForceField *ff)
 
 Object *World::get_named (const string &name)
 {
-    px::Dict<Object*>::iterator found = m_objnames.find(name);
+    ecl::Dict<Object*>::iterator found = m_objnames.find(name);
     if (found != m_objnames.end()) 
         return found->second;
     Log << "Did not find named object: " << name << '\n';
@@ -642,12 +642,12 @@ V2 World::get_global_force (Actor *a)
 /* -------------------- Collision handling -------------------- */
 
 struct Ball {
-    px::V2 c;                   // center
+    ecl::V2 c;                   // center
     double r;                   // radius
 };
 
 struct Oblong {
-    px::V2 c;                   // center
+    ecl::V2 c;                   // center
     double w;                   // width
     double h;                   // height
     double erad;                // edge radius
@@ -761,7 +761,7 @@ void World::find_contact_with_stone (Actor *a, GridPos p, StoneContact &c)
 void World::find_stone_contacts (Actor *a, StoneContactList &cl)
 {
     ActorInfo &ai = *a->get_actorinfo();
-    px::Rect r(round_down<int>(ai.pos[0]-0.5), round_down<int>(ai.pos[1]-0.5), 1, 1);
+    ecl::Rect r(round_down<int>(ai.pos[0]-0.5), round_down<int>(ai.pos[1]-0.5), 1, 1);
 
     static StoneContact contacts[2][2];
 
@@ -1209,7 +1209,7 @@ void world::AddRubberBand (Actor *a, Stone *st, const RubberBandData &d)
 void world::AddRubberBand (Actor *a, Actor *a2, const RubberBandData &d)
 {
     RubberBandData rbd (d);
-    rbd.length = px::Max (d.length, get_radius(a) + get_radius(a2));
+    rbd.length = ecl::Max (d.length, get_radius(a) + get_radius(a2));
     level->m_rubberbands.push_back(new RubberBand (a, a2, rbd));
 }
 
@@ -1692,7 +1692,7 @@ void world::ReleaseActor(Actor *a)
     a->get_actorinfo()->grabbed = false;
 }
 
-bool world::GetActorsInRange (px::V2 center, double range,
+bool world::GetActorsInRange (ecl::V2 center, double range,
                               vector<Actor*>& actors)
 {
     ActorList &al = level->actorlist;
@@ -1769,7 +1769,7 @@ void world::Shutdown()
 /* -------------------- Object repository -------------------- */
 namespace
 {
-    class ObjectRepos : public px::Nocopy {
+    class ObjectRepos : public ecl::Nocopy {
     public:
         ObjectRepos();
         ~ObjectRepos();
@@ -1793,7 +1793,7 @@ ObjectRepos::ObjectRepos() {
 
 ObjectRepos::~ObjectRepos()
 {
-    px::delete_map(objmap.begin(), objmap.end());
+    ecl::delete_map(objmap.begin(), objmap.end());
 }
 
 

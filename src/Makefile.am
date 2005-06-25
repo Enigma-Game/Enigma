@@ -1,16 +1,19 @@
 #
 # Makefile prototype for Enigma.
 #
-SUBDIRS = px
-
 bin_PROGRAMS = enigma
 
 
-EXTRA_DIST = enigma.ico enigma.rc \
-	     display-lua.pkg editor-lua.pkg \
-	     enigma-lua.pkg global-lua.pkg \
-	     gui-lua.pkg px-lua.pkg \
-	     enigma.doxygen
+EXTRA_DIST = \
+	enigma.ico \
+	enigma.rc \
+	display-lua.pkg \
+	editor-lua.pkg \
+	enigma-lua.pkg \
+	global-lua.pkg \
+	gui-lua.pkg \
+	ecl-lua.pkg \
+	enigma.doxygen
 
 # Source files created by 'tolua'.
 LUA_IF_SOURCES =			\
@@ -77,23 +80,28 @@ mingw_ldadd =
 endif
 
 
-enigma_CXXFLAGS = @SDL_CFLAGS@  -DLOCALEDIR=\"$(localedir)\" \
+enigma_CXXFLAGS = \
+	@SDL_CFLAGS@ \
+	 -DLOCALEDIR=\"$(localedir)\" \
 	-I$(top_srcdir)/lib-src/zipios++  \
 	-I$(top_builddir)/lib-src/zipios++ \
 	-I$(top_srcdir)/lib-src/lua \
+	-I$(top_srcdir)/lib-src/enigma-core \
 	-I$(top_srcdir)/lib-src \
 	-I$(top_builddir)/intl
 
-enigma_LIBS = @SDL_LIBS@
+enigma_LIBS = \
+	@SDL_LIBS@
 
 
-enigma_LDADD =  @LIBINTL@ \
-	       	px/libpx.a \
-		$(top_builddir)/lib-src/lua/liblua.a \
-		$(top_builddir)/lib-src/oxydlib/liboxyd.a \
-		$(top_builddir)/lib-src/zipios++/src/libzipios.a \
-		-lz \
-		$(mingw_ldadd)
+enigma_LDADD = \
+	@LIBINTL@ \
+	$(top_builddir)/lib-src/enigma-core/libecl.a \
+	$(top_builddir)/lib-src/lua/liblua.a \
+	$(top_builddir)/lib-src/oxydlib/liboxyd.a \
+	$(top_builddir)/lib-src/zipios++/src/libzipios.a \
+	-lz \
+	$(mingw_ldadd)
 
 # Rule for creating Lua interfaces from package descriptions using 'tolua'
 TOLUA=@TOLUA@

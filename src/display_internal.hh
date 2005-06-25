@@ -5,14 +5,14 @@
 
 namespace display
 {
-    using px::V2;
+    using ecl::V2;
 
     class DisplayLayer;
     class StatusBarImpl;
     class Model;
 
-    typedef px::Rect          ScreenArea;
-    typedef px::Rect          WorldArea;
+    typedef ecl::Rect          ScreenArea;
+    typedef ecl::Rect          WorldArea;
     typedef std::list<Model*> ModelList;
 
 
@@ -30,7 +30,7 @@ namespace display
 
     class TextDisplay {
     public:
-        TextDisplay(px::Font &f);
+        TextDisplay(ecl::Font &f);
 
         void set_text(const std::string &t, bool scrolling, double duration = -1);
 
@@ -38,16 +38,16 @@ namespace display
         bool has_changed() const { return changedp; }
         bool has_finished() const { return finishedp; }
 
-        void draw(px::GC &gc, const px::Rect &r);
+        void draw(ecl::GC &gc, const ecl::Rect &r);
     private:
-        px::Rect                area;
+        ecl::Rect                area;
         std::string             text;
         bool                    changedp, finishedp;
         bool                    pingpong;
         double                  xoff;
         double                  scrollspeed; // pixels per second
-        std::auto_ptr<px::Surface>  textsurface;
-        px::Font               &font;
+        std::auto_ptr<ecl::Surface>  textsurface;
+        ecl::Font               &font;
         double                  time, maxtime;
     };
 
@@ -57,7 +57,7 @@ namespace display
         ~StatusBarImpl();
 
         bool has_changed() const { return m_changedp; }
-        void redraw (px::GC &gc, const ScreenArea &r);
+        void redraw (ecl::GC &gc, const ScreenArea &r);
         void tick (double dtime);
         void new_world();
 

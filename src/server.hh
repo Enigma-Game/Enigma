@@ -146,7 +146,7 @@ namespace enigma_server
     
     void Msg_Panic (bool onoff);
 
-    void Msg_MouseForce (const px::V2 &f);
+    void Msg_MouseForce (const ecl::V2 &f);
 
 
     void Msg_ActivateItem();

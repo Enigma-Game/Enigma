@@ -21,7 +21,7 @@
 #define ENIGMA_GAME_HH
 
 #include "fwd.hh"
-#include "px/pxfwd.hh"
+#include "ecl_fwd.hh"
 
 namespace enigma_game
 {
@@ -34,7 +34,7 @@ namespace enigma_game
 
     /*! Draw a level preview into video::BackBuffer().  Return true if
       successful. */
-    bool DrawLevelPreview (px::GC &, const Level &l);
+    bool DrawLevelPreview (ecl::GC &, const Level &l);
 
 }
 

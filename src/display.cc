@@ -28,8 +28,8 @@
 #include "video.hh"
 #include "main.hh"
 
-#include "px/sdl.hh"
-#include "px/px.hh"
+#include "ecl_sdl.hh"
+#include "ecl.hh"
 
 #include <algorithm>
 #include <functional>
@@ -37,7 +37,7 @@
 #include <iostream>
 
 using namespace std;
-using namespace px;
+using namespace ecl;
 using namespace display;
 using namespace enigma;
 
@@ -104,7 +104,7 @@ StatusBarImpl::StatusBarImpl (const ScreenArea &area)
 }
 
 StatusBarImpl::~StatusBarImpl() {
-    px::delete_sequence(m_models.begin(), m_models.end());
+    ecl::delete_sequence(m_models.begin(), m_models.end());
     m_models.clear();
 }
 
@@ -156,7 +156,7 @@ void StatusBarImpl::show_odometer (bool active)
 }
 
 
-void StatusBarImpl::redraw (px::GC &gc, const ScreenArea &r) {
+void StatusBarImpl::redraw (ecl::GC &gc, const ScreenArea &r) {
     const video::VMInfo *vminfo = video::GetInfo();
     ScreenArea a = get_area();
     clip(gc, intersect(a, r));
@@ -259,7 +259,7 @@ void StatusBarImpl::set_inventory (const std::vector<std::string> &modelnames)
         hide_text();
     }
 
-    px::delete_sequence(m_models.begin(), m_models.end());
+    ecl::delete_sequence(m_models.begin(), m_models.end());
     m_models.clear();
 
     for (size_t i=0; i<modelnames.size(); ++i) {
@@ -374,7 +374,7 @@ void TextDisplay::tick (double dtime)
     }
 }
 
-void TextDisplay::draw (px::GC &gc, const ScreenArea &r) {
+void TextDisplay::draw (ecl::GC &gc, const ScreenArea &r) {
     clip(gc, intersect(area, r));
     set_color(gc, 0,0,0);
     box(gc, area);
@@ -422,7 +422,7 @@ void DisplayEngine::set_offset (const V2 &off) {
     world_to_video (off, &m_screenoffset[0], &m_screenoffset[1]);
 }
 
-void DisplayEngine::move_offset (const px::V2 &off) {
+void DisplayEngine::move_offset (const ecl::V2 &off) {
     m_new_offset = off;
 }
 
@@ -431,7 +431,7 @@ void DisplayEngine::move_offset (const px::V2 &off) {
   modified externally since the last call to update_offset(). */
 void DisplayEngine::update_offset () 
 {
-    px::Screen *screen = video::GetScreen();
+    ecl::Screen *screen = video::GetScreen();
 
     int oldx = m_screenoffset[0];
     int oldy = m_screenoffset[1];
@@ -466,7 +466,7 @@ void DisplayEngine::update_offset ()
     }
 }
 
-void DisplayEngine::set_screen_area (const px::Rect & r) {
+void DisplayEngine::set_screen_area (const ecl::Rect & r) {
     m_area = r;
 }
 
@@ -495,7 +495,7 @@ void DisplayEngine::world_to_screen (const V2 & pos, int *x, int *y)
 }
 
 
-void DisplayEngine::world_to_video (const px::V2 &pos, int *x, int *y)
+void DisplayEngine::world_to_video (const ecl::V2 &pos, int *x, int *y)
 {
     *x = round_nearest<int>(pos[0]*m_tilew);
     *y = round_nearest<int>(pos[1]*m_tileh);
@@ -511,7 +511,7 @@ void DisplayEngine::video_to_screen (int x, int y, int *xx, int *yy)
    tiles that contains a certain rectangle `r' in video space.  This
    function is used for calculating the region that needs to be
    updated when a sprite with extension `r' is moved on the screen. */
-void DisplayEngine::video_to_world (const px::Rect &r, Rect &s) {
+void DisplayEngine::video_to_world (const ecl::Rect &r, Rect &s) {
     dRect dr (r.x, r.y, r.w, r.h);
     s = round_grid (dr, get_tilew(), get_tileh());
 }
@@ -560,7 +560,7 @@ void DisplayEngine::mark_redraw_screen() {
     mark_redraw_area(screen_to_world(m_area));
 }
 
-void DisplayEngine::draw_all (px::GC &gc) 
+void DisplayEngine::draw_all (ecl::GC &gc) 
 {
     WorldArea wa = screen_to_world (get_area());
 
@@ -609,7 +609,7 @@ void DisplayEngine::update_layer (DisplayLayer *l, WorldArea wa)
 
 void DisplayEngine::update_screen() 
 {
-    px::Screen *screen = video::GetScreen();
+    ecl::Screen *screen = video::GetScreen();
     GC gc(screen->get_surface());
 
     if (m_new_offset != m_offset) {
@@ -755,7 +755,7 @@ Model *DL_Grid::yield_model (int x, int y) {
 }
 
 
-void DL_Grid::draw (px::GC &gc, const WorldArea &a, int destx, int desty) {
+void DL_Grid::draw (ecl::GC &gc, const WorldArea &a, int destx, int desty) {
     int x2 = a.x+a.w;
     int y2 = a.y+a.h;
     int tilew = get_engine()->get_tilew();
@@ -793,7 +793,7 @@ void SpriteHandle::kill() {
     }
 }
 
-void SpriteHandle::move (const px::V2 &newpos) const {
+void SpriteHandle::move (const ecl::V2 &newpos) const {
     if (layer)
         layer->move_sprite (id, newpos);
 }
@@ -844,7 +844,7 @@ void DL_Sprites::new_world (int w, int h) {
     numsprites = 0;
 }
 
-void DL_Sprites::move_sprite (SpriteId id, const px::V2& newpos) 
+void DL_Sprites::move_sprite (SpriteId id, const ecl::V2& newpos) 
 {
     Sprite *sprite = sprites[id];
 
@@ -916,7 +916,7 @@ void DL_Sprites::kill_sprite (SpriteId id) {
     }
 }
 
-void DL_Sprites::draw (px::GC &gc, const WorldArea &a, int /*x*/, int /*y*/)
+void DL_Sprites::draw (ecl::GC &gc, const WorldArea &a, int /*x*/, int /*y*/)
 {
     DisplayEngine *engine = get_engine();
     clip (gc, intersect (engine->get_area(), engine->world_to_screen(a)));
@@ -940,7 +940,7 @@ void DL_Sprites::draw_sprites (bool drawshadowp, GC &gc) {
     }
 }
 
-void DL_Sprites::draw_onepass (px::GC &gc)
+void DL_Sprites::draw_onepass (ecl::GC &gc)
 {
 //     draw_sprites (false, gc);
 }
@@ -982,7 +982,7 @@ void DL_Sprites::tick (double dtime)
 // RUBBER BANDS
 //----------------------------------------------------------------------
 
-void DL_Lines::draw_onepass (px::GC &gc)
+void DL_Lines::draw_onepass (ecl::GC &gc)
 {
     DisplayEngine *engine = get_engine();
 
@@ -1199,7 +1199,7 @@ namespace display
         {}
     };
 
-    class StoneShadowCache : public px::Nocopy {
+    class StoneShadowCache : public ecl::Nocopy {
     public:
         StoneShadowCache(int tilew, int tileh);
         ~StoneShadowCache();
@@ -1398,7 +1398,7 @@ void DL_Shadows::new_world(int w, int h)
     buffer = Surface::make_surface(ss);
 }
 
-void DL_Shadows::draw (px::GC &gc, const WorldArea &a, int destx, int desty) {
+void DL_Shadows::draw (ecl::GC &gc, const WorldArea &a, int destx, int desty) {
     int x2 = a.x+a.w;
     int y2 = a.y+a.h;
     int tilew = get_engine()->get_tilew();
@@ -1522,7 +1522,7 @@ int Follower::get_voff() const {
     return gamearea.h / m_engine->get_tileh() - 1;
 }
 
-void Follower::center(const px::V2 &point) {
+void Follower::center(const ecl::V2 &point) {
     double borderh = 0.5; 
     double borderv = 0.5;
     double hoff = get_hoff();
@@ -1557,7 +1557,7 @@ Follower_Screen::Follower_Screen(DisplayEngine *e)
 
 /*! Determine whether the screen must be scrolled or not, and change
   the coordinate origin of the screen accordingly. */
-void Follower_Screen::tick(double, const px::V2 &point) {
+void Follower_Screen::tick(double, const ecl::V2 &point) {
     DisplayEngine *engine = get_engine();
     V2 oldoff = engine->get_offset();
     Follower::center(point);
@@ -1576,12 +1576,12 @@ Follower_Scrolling::Follower_Scrolling(DisplayEngine *e, bool screenwise_)
   screenwise (screenwise_)
 {}
 
-void Follower_Scrolling::center(const px::V2 &point) {
+void Follower_Scrolling::center(const ecl::V2 &point) {
     Follower::center(point);
     curpos = destpos = get_engine()->get_offset();
 }
 
-void Follower_Scrolling::tick(double dtime, const px::V2 &point) {
+void Follower_Scrolling::tick(double dtime, const ecl::V2 &point) {
     DisplayEngine *engine   = get_engine();
 
     if (!currently_scrolling) {
@@ -1657,7 +1657,7 @@ Follower_Smooth::Follower_Smooth (DisplayEngine *e)
 {
 }
 
-px::V2 Follower_Smooth::calc_offset (const px::V2 &point)
+ecl::V2 Follower_Smooth::calc_offset (const ecl::V2 &point)
 {
     DisplayEngine *engine   = get_engine();
     ScreenArea     gamearea = engine->get_area();
@@ -1675,13 +1675,13 @@ px::V2 Follower_Smooth::calc_offset (const px::V2 &point)
     return destpos;
 }
 
-void Follower_Smooth::tick (double /*time*/, const px::V2 &point)
+void Follower_Smooth::tick (double /*time*/, const ecl::V2 &point)
 {
     DisplayEngine *engine   = get_engine();
     engine->move_offset (calc_offset (point));
 }
 
-void Follower_Smooth::center (const px::V2 &point)
+void Follower_Smooth::center (const ecl::V2 &point)
 {
     set_offset(calc_offset (point));
 }
@@ -1906,7 +1906,7 @@ void GameDisplay::redraw_all (Screen *scr) {
     redraw (scr);
 }
 
-void GameDisplay::redraw (px::Screen *screen) {
+void GameDisplay::redraw (ecl::Screen *screen) {
     GC gc(screen->get_surface());
     if (SDL_GetTicks() - last_frame_time > 10) {
         CommonDisplay::redraw();
@@ -2007,7 +2007,7 @@ void display::FocusReferencePoint() {
     gamedpy->follow_center();
 }
 
-void display::SetReferencePoint (const px::V2 &point) {
+void display::SetReferencePoint (const ecl::V2 &point) {
     gamedpy->set_reference_point (point);
 }
 

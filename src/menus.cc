@@ -39,7 +39,7 @@
 
 using namespace enigma;
 using namespace gui;
-using namespace px;
+using namespace ecl;
 using namespace OxydLib;
 using namespace std;
 
@@ -66,25 +66,25 @@ namespace
         display::Init();
     }
 
-    void SavePreview (std::string preview_name, px::Surface *s)
+    void SavePreview (std::string preview_name, ecl::Surface *s)
     {
         string preview_path;
         if (char *home = getenv ("HOME")) {
             preview_path = home;
             preview_path += "/.enigma/thumbs";
-            if (!px::FolderExists (preview_path))
-                px::FolderCreate (preview_path);
+            if (!ecl::FolderExists (preview_path))
+                ecl::FolderCreate (preview_path);
         }
         else {
             string preview_dir_path = FindDataFile("thumbs/README");
-            px::split_path(preview_dir_path, &preview_path, 0);
+            ecl::split_path(preview_dir_path, &preview_path, 0);
         }
         
         string parent_dir;
-        if (px::split_path(preview_path, &parent_dir, 0)) {
-            preview_name = px::concat_paths(parent_dir, preview_name);
+        if (ecl::split_path(preview_path, &parent_dir, 0)) {
+            preview_name = ecl::concat_paths(parent_dir, preview_name);
             enigma::Log << "Caching auto-preview as '" << preview_name << '\'' << endl;
-            px::SavePNG (s, preview_name);
+            ecl::SavePNG (s, preview_name);
         }
     }
 
@@ -100,7 +100,7 @@ namespace
 
     string gen_preview_name(int revision, int preview_version, const string& name) 
     {
-        return px::strf("thumbs/%i_%i_%s.png", revision, preview_version, name.c_str());
+        return ecl::strf("thumbs/%i_%i_%s.png", revision, preview_version, name.c_str());
     }
 
 
@@ -201,10 +201,10 @@ Surface *LevelPreviewCache::makePreview(const levels::Level &level)
     return ce->surface;
 }
 
-px::Surface *LevelPreviewCache::newPreview (const Level &level)
+ecl::Surface *LevelPreviewCache::newPreview (const Level &level)
 {
     Surface *surface = 0;
-    px::GC gc(video::BackBuffer());
+    ecl::GC gc(video::BackBuffer());
     if (game::DrawLevelPreview (gc, level)) { 
         surface = Resample (video::BackBuffer(), 
                             video::GetInfo()->gamearea, 
@@ -279,7 +279,7 @@ LevelPackMenu::LevelPackMenu()
         buttons.push_back(new StaticTextButton(lp->get_name(), this));
     }
 
-    Rect buttonarea = px::Screen::get_instance()->size();
+    Rect buttonarea = ecl::Screen::get_instance()->size();
     bool finished   = false;
 
     for (int mode = 0; !finished && mode < PACKMODES; ++mode) {
@@ -301,7 +301,7 @@ void LevelPackMenu::on_action(Widget *w) {
         }
 }
 
-void LevelPackMenu::draw_background(px::GC &gc) {
+void LevelPackMenu::draw_background(ecl::GC &gc) {
     video::SetCaption(("Enigma - Level Pack Menu"));
     blit(gc, 0,0, enigma::GetImage("menu_bg", ".jpg"));
 }
@@ -324,7 +324,7 @@ LevelWidget::LevelWidget(LevelPack *lp, LevelPreviewCache &cache_)
     buttonh = vminfo.thumbh + 28;
 }
 
-void LevelWidget::realize (const px::Rect &area_)
+void LevelWidget::realize (const ecl::Rect &area_)
 {
     Widget::realize (area_);
     width = area_.w / buttonw;
@@ -446,7 +446,7 @@ Surface *LevelWidget::get_preview_image (const Level &level)
     return img;
 }
 
-void LevelWidget::draw_level_preview (px::GC &gc, const Level &level, int x, int y)
+void LevelWidget::draw_level_preview (ecl::GC &gc, const Level &level, int x, int y)
 {
     Surface *img_easy        = enigma::GetImage("completed-easy");
     Surface *img_hard        = enigma::GetImage("completed");
@@ -529,7 +529,7 @@ struct LevelWidgetConfig {
     const char *fontname;
 };
 
-void LevelWidget::draw (px::GC &gc, const px::Rect &r)
+void LevelWidget::draw (ecl::GC &gc, const ecl::Rect &r)
 {
     const video::VMInfo &vminfo = *video::GetInfo();
     const int imgw = vminfo.thumbw;       // Size of the preview images
@@ -757,7 +757,7 @@ namespace
 {
     class MouseSpeedButton : public ValueButton {
         int get_value() const     { 
-            return px::round_nearest<int>(options::GetMouseSpeed());
+            return ecl::round_nearest<int>(options::GetMouseSpeed());
         }
         void set_value(int value) { 
             options::SetMouseSpeed (value);
@@ -1009,7 +1009,7 @@ Language languages[] = {
 
 int LanguageButton::get_value() const
 {
-    string localename; //  = px::DefaultMessageLocale ();
+    string localename; //  = ecl::DefaultMessageLocale ();
     options::GetOption ("Language", localename);
 
     int lang = 0;                  // unknown language
@@ -1065,7 +1065,7 @@ int GammaButton::get_value() const
 
 string GammaButton::get_text(int value) const
 {
-    return px::strf ("%d", value-5);
+    return ecl::strf ("%d", value-5);
 }
 
 
@@ -1093,7 +1093,7 @@ public:
 };
 
 
-OptionsMenu::OptionsMenu(px::Surface *background_)
+OptionsMenu::OptionsMenu(ecl::Surface *background_)
 : back(new StaticTextButton(_("Back"), this)),
   fullscreen(new FullscreenButton),
   m_restartinfo (new Label("")),
@@ -1197,7 +1197,7 @@ void OptionsMenu::tick (double)
     update_info();
 }
 
-void OptionsMenu::draw_background(px::GC &gc)
+void OptionsMenu::draw_background(ecl::GC &gc)
 {
     video::SetCaption(("Enigma - Options Menu"));
 //     blit(gc, 0,0, enigma::GetImage("menu_bg"));
@@ -1210,11 +1210,11 @@ void OptionsMenu::draw_background(px::GC &gc)
 struct LevelMenuConfig {
     int buttonw, buttonh;
     int lbuttonw, lbuttonh;
-    px::Rect previewarea;
+    ecl::Rect previewarea;
     int thumbsy;                // y coordinate of thumbnail window
     int leftborder;
 
-    LevelMenuConfig (const px::Rect &screen)
+    LevelMenuConfig (const ecl::Rect &screen)
     : buttonw (140), buttonh (35),
       lbuttonw (140), lbuttonh (100),
       previewarea (10, 60, screen.w-50, screen.h-130),
@@ -1507,7 +1507,7 @@ void LevelMenu::set_levelpack (unsigned index)
     }
 }
 
-void LevelMenu::draw_background(px::GC &gc) 
+void LevelMenu::draw_background(ecl::GC &gc) 
 {
     video::SetCaption(("Enigma - Level Menu"));
     sound::PlayMusic (options::GetString("MenuMusicFile"));
@@ -1568,7 +1568,7 @@ void MainMenu::build_menu()
     quit        = b.add(new StaticTextButton(_("Quit"), this));
 }
 
-void MainMenu::draw_background(px::GC &gc) 
+void MainMenu::draw_background(ecl::GC &gc) 
 {
     const video::VMInfo *vminfo = video::GetInfo();
 

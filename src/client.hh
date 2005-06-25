@@ -42,15 +42,15 @@ namespace enigma_client
 
     void Msg_LevelLoaded(unsigned levelidx);
 
-    void Msg_PlayerPosition (unsigned iplayer, const px::V2 &pos);
+    void Msg_PlayerPosition (unsigned iplayer, const ecl::V2 &pos);
 
-    void Msg_Sparkle (const px::V2 &pos);
+    void Msg_Sparkle (const ecl::V2 &pos);
 
     void Msg_ShowText (const std::string &text, bool scrolling, double duration=-1);
 
     //! Play sound emanating from an absolute position in the world
     void Msg_PlaySound (const std::string &soundname, 
-                        const px::V2 &pos,
+                        const ecl::V2 &pos,
                         double relative_volume);
 
     //! Play a  sound emanating from the player's current position

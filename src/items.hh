@@ -190,7 +190,7 @@ namespace world
           used by sloped and hills for force fields that are local to
           the current field.  For global force fields you have to
           register a ForceField in the world. */
-        virtual void add_force(Actor *a, px::V2 &f);
+        virtual void add_force(Actor *a, ecl::V2 &f);
 
         virtual bool can_drop_at (GridPos p);
 

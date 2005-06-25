@@ -5,7 +5,7 @@ namespace enigma_util
     using namespace enigma;
 
 
-    class Timer : public px::Nocopy {
+    class Timer : public ecl::Nocopy {
     public:
         Timer();
         ~Timer();

@@ -30,7 +30,7 @@ using namespace world;
 using namespace lasers;
 
 using stones::maybe_push_stone;
-using px::V2;
+using ecl::V2;
 
 namespace
 {
@@ -349,7 +349,7 @@ void LaserBeam::all_emitted()
     }
 
     if (count) {
-        sound::SoundEvent ("laseron", px::V2(x/count+.5, y/count+.5));
+        sound::SoundEvent ("laseron", ecl::V2(x/count+.5, y/count+.5));
     }
 
     old_laser_positions.clear();

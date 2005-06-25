@@ -1980,7 +1980,7 @@ namespace
             }
         }
         void init_model() {
-            set_model(px::strf("st-knight%d", subtype));
+            set_model(ecl::strf("st-knight%d", subtype));
         }
         bool is_floating() const { return subtype == MAX_SUBTYPE; }
     public:

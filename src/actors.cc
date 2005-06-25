@@ -30,7 +30,7 @@
 using namespace std;
 using namespace enigma;
 using namespace world;
-using px::V2;
+using ecl::V2;
 
 #include "actors_internal.hh"
 
@@ -76,7 +76,7 @@ const ActorInfo &Actor::get_actorinfo() const {
     return m_actorinfo; 
 }
 
-const px::V2 &Actor::get_pos() const
+const ecl::V2 &Actor::get_pos() const
 {
     return m_actorinfo.pos;
 }
@@ -127,7 +127,7 @@ void Actor::respawn() {
     on_respawn(p);
 }
 
-void Actor::add_force (const px::V2 &f) {
+void Actor::add_force (const ecl::V2 &f) {
     m_actorinfo.forceacc += f;
 }
 
@@ -135,17 +135,17 @@ void Actor::init() {
     m_sprite = display::AddSprite(get_pos());
 }
 
-void Actor::on_creation(const px::V2 &p) 
+void Actor::on_creation(const ecl::V2 &p) 
 {
     set_model(get_kind());
     m_sprite.move (p);
     move ();
 }
 
-void Actor::on_respawn (const px::V2 &/*pos*/) {
+void Actor::on_respawn (const ecl::V2 &/*pos*/) {
 }
 
-void Actor::warp(const px::V2 &newpos) {
+void Actor::warp(const ecl::V2 &newpos) {
     m_actorinfo.pos = newpos;
     m_actorinfo.vel = V2();
     m_sprite.move (newpos);
@@ -487,7 +487,7 @@ namespace
         bool is_flying() const { return true; }
         bool is_dead() const { return false; }
         bool is_on_floor() const { return false; }
-        void on_creation(const px::V2 &p);
+        void on_creation(const ecl::V2 &p);
         bool can_move() const { return true; }
 
         void animcb();
@@ -525,7 +525,7 @@ void CannonBall::animcb()
     KillActor (this);
 }
 
-void CannonBall::on_creation(const px::V2 &p) 
+void CannonBall::on_creation(const ecl::V2 &p) 
 {
     Actor::on_creation(p);
 
@@ -582,8 +582,8 @@ namespace
         virtual void think (double dtime);
         virtual void move_screen ();
 
-        void on_creation(const px::V2 &p);
-        void on_respawn (const px::V2 &/*pos*/)
+        void on_creation(const ecl::V2 &p);
+        void on_respawn (const ecl::V2 &/*pos*/)
         {
             change_state(APPEARING);
         }
@@ -647,7 +647,7 @@ BasicBall::BasicBall(const ActorTraits &tr)
 {
 }
 
-void BasicBall::on_creation(const px::V2 &p) 
+void BasicBall::on_creation(const ecl::V2 &p) 
 {
     Actor::on_creation(p);
     if (server::CreatingPreview)
@@ -748,7 +748,7 @@ void BasicBall::message(const string &m, const Value &v)
 
 void BasicBall::set_sink_model(const string &m)
 {
-    int modelnum = px::round_down<int>(sinkDepth);
+    int modelnum = ecl::round_down<int>(sinkDepth);
 
     if (!has_shield() && modelnum != sinkModel) {
         assert(modelnum >= minSinkDepth && modelnum < maxSinkDepth);
@@ -787,8 +787,8 @@ void BasicBall::update_model()
         }
         else {
             ActorInfo *ai = get_actorinfo();
-            int xpos = px::round_nearest<int> (ai->pos[0] * 32.0);
-            int ypos = px::round_nearest<int> (ai->pos[1] * 32.0);
+            int xpos = ecl::round_nearest<int> (ai->pos[0] * 32.0);
+            int ypos = ecl::round_nearest<int> (ai->pos[1] * 32.0);
 
             bool shinep = (xpos + ypos) % 2;
             set_shine_model (shinep);

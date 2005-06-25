@@ -150,9 +150,9 @@ namespace
             assert (0);
         }
         if (twoplayers) 
-            patchfile += px::strf ("%03d.lua", index+101);
+            patchfile += ecl::strf ("%03d.lua", index+101);
         else
-            patchfile += px::strf ("%03d.lua", index+1);
+            patchfile += ecl::strf ("%03d.lua", index+1);
     
         return patchfile;
     }
@@ -247,7 +247,7 @@ void OxydLoader::load ()
 
 Stone * OxydLoader::make_laser (int type)
 {
-    px::Assert<levels::XLevelLoading> 
+    ecl::Assert<levels::XLevelLoading> 
         (type >= 0 && type <= 2,
          "Oxyd supports only three different lasers per level");
 
@@ -309,7 +309,7 @@ Stone *OxydLoader::make_stone (int type, int x, int y)
         // No special case -> get Stone from map
         const char *name = config.stonetable[type];
         if (name == 0) {
-            Log << px::strf("Unknown stone %X\n", type);
+            Log << ecl::strf("Unknown stone %X\n", type);
             st = world::MakeStone ("st-dummy");
             st->set_attrib("code", type);
         }
@@ -357,7 +357,7 @@ Item  *OxydLoader::make_item (int type)
     Item *it = 0;
 
     OxydLib::Language lang = Language_English;
-    std::string localelang = px::GetLanguageCode (px::DefaultMessageLocale());
+    std::string localelang = ecl::GetLanguageCode (ecl::DefaultMessageLocale());
     if (localelang == "de")
 	lang = Language_German;
     else if (localelang == "fr")
@@ -383,7 +383,7 @@ Item  *OxydLoader::make_item (int type)
         {
             ItemID id = config.itemtable[type];
             if (id == it_INVALID) {
-                Log << px::strf ("Unknown item %X\n",type);
+                Log << ecl::strf ("Unknown item %X\n",type);
                 it = MakeItem (world::it_dummy);
                 it->set_attrib("code", type);
             }
@@ -407,7 +407,7 @@ void OxydLoader::load_floor ()
             Floor      *fl;
 
             if( name == 0) {
-                Log << px::strf ("Unknown floor %X\n",code);
+                Log << ecl::strf ("Unknown floor %X\n",code);
                 fl = MakeFloor("fl-dummy");
                 fl->set_attrib("code", code);
             }
@@ -547,25 +547,25 @@ void OxydLoader::load_actors ()
             int levelw = level.getWidth();
             if (!minfo.is_default(MI_HORSETARGET1)) {
                 int targetpos = minfo.get_value(MI_HORSETARGET1);
-                ac->set_attrib("target1", px::strf("%d %d", 
+                ac->set_attrib("target1", ecl::strf("%d %d", 
                                                    targetpos % levelw, 
                                                    int(targetpos / levelw)));
             }
             if (!minfo.is_default(MI_HORSETARGET2)) {
                 int targetpos = minfo.get_value(MI_HORSETARGET2);
-                ac->set_attrib("target2", px::strf("%d %d", 
+                ac->set_attrib("target2", ecl::strf("%d %d", 
                                                    targetpos % levelw, 
                                                    int(targetpos / levelw)));
             }
             if (!minfo.is_default(MI_HORSETARGET3)) {
                 int targetpos = minfo.get_value(MI_HORSETARGET3);
-                ac->set_attrib("target3", px::strf("%d %d", 
+                ac->set_attrib("target3", ecl::strf("%d %d", 
                                                    targetpos % levelw, 
                                                    int(targetpos / levelw)));
             }
             if (!minfo.is_default(MI_HORSETARGET4)) {
                 int targetpos = minfo.get_value(MI_HORSETARGET4);
-                ac->set_attrib("target4", px::strf("%d %d", 
+                ac->set_attrib("target4", ecl::strf("%d %d", 
                                                    targetpos % levelw, 
                                                    int(targetpos / levelw)));
             }
@@ -785,7 +785,7 @@ string LevelPack_Oxyd::get_name() const
 
 void LevelPack_Oxyd::load_level (size_t index) 
 {
-    px::Assert <levels::XLevelLoading> (index < size(), "Invalid level index");
+    ecl::Assert <levels::XLevelLoading> (index < size(), "Invalid level index");
 
     // Prepare level data
     string msg;
@@ -819,8 +819,8 @@ LevelPack_Oxyd::get_info (size_t index) const
     static LevelInfo info;
 
     info.type             = get_gametype();
-    info.filename         = px::strf ("Import %s %d", get_name().c_str(), index);
-    info.name             = px::strf ("%s #%d", get_name().c_str(), index+1);
+    info.filename         = ecl::strf ("Import %s %d", get_name().c_str(), index);
+    info.name             = ecl::strf ("%s #%d", get_name().c_str(), index+1);
     info.author           = "Dongleware";
     info.revision         = get_revision_number(index);
     info.has_easymode     = has_easymode(index);
@@ -1033,7 +1033,7 @@ void oxyd::Init()
 
 void oxyd::Shutdown()
 {
-    px::delete_sequence(games.begin(), games.end());
+    ecl::delete_sequence(games.begin(), games.end());
 }
 
 bool oxyd::FoundOxyd (OxydVersion ver) {

@@ -19,7 +19,7 @@
  */
 
 #include "network.hh"
-#include "px/buffer.hh"
+#include "ecl_buffer.hh"
 
 #ifdef ENABLE_EXPERIMENTAL
 #include "enet/enet.h"

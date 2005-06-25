@@ -61,8 +61,8 @@ namespace world
 
 
         // Floor interface
-        virtual px::V2 process_mouseforce (Actor *a, px::V2 force);
-        virtual void add_force(Actor */*a*/, px::V2 &/*f*/) { }
+        virtual ecl::V2 process_mouseforce (Actor *a, ecl::V2 force);
+        virtual void add_force(Actor */*a*/, ecl::V2 &/*f*/) { }
 
         virtual void on_drop (Item *) {}
         virtual void on_pickup (Item *) {}

@@ -36,7 +36,7 @@ namespace
         ScreenArea get_area() const { return m_area; }
 
         // Widget interface.
-        void draw (px::GC &gc, const px::Rect &area_) {
+        void draw (ecl::GC &gc, const ecl::Rect &area_) {
             set_color (gc, m_bgcolor);
             box (gc, area_);
         }
@@ -45,7 +45,7 @@ namespace
         // Variables.
         ScreenArea m_area;
         int        m_rows, m_cols;
-        px::RGB    m_bgcolor;
+        ecl::RGB    m_bgcolor;
 
     };
 

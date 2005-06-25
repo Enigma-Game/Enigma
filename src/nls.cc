@@ -1,6 +1,6 @@
 #include "nls.hh"
 #include "main.hh"
-#include "px/system.hh"
+#include "ecl_system.hh"
 
 #include <iostream>
 #include <string>
@@ -40,9 +40,9 @@ void nls::SetMessageLocale (const std::string &language)
     setlocale (LC_MESSAGES, ""); //language.c_str());
 #endif
 
-    std::string li = px::DefaultMessageLocale();
+    std::string li = ecl::DefaultMessageLocale();
     enigma::Log << "locale name: " << li << endl;
-    enigma::Log << "language code: " << px::GetLanguageCode (li) << endl;
+    enigma::Log << "language code: " << ecl::GetLanguageCode (li) << endl;
 }
 
 

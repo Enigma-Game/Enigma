@@ -26,7 +26,7 @@
 #include "server.hh"
 #include "world.hh"
 
-#include "px/tools.hh"
+#include "ecl_util.hh"
 
 #include <algorithm>
 #include <cmath>
@@ -40,7 +40,7 @@ using namespace world;
 using enigma::GridPos;
 using enigma::Value;
 using enigma::DoubleRand;
-using px::V2;
+using ecl::V2;
 
 
 /* -------------------- Macros -------------------- */
@@ -721,7 +721,7 @@ void HillHollow::add_force(Actor *a, V2 &f)
         ActorInfo *ai = a->get_actorinfo();
         if (length(ai->vel) <= 0) { // no velocity
             // we are never "exactly" on the top!
-            v = px::V2(DoubleRand(0.01, 0.05), DoubleRand(0.01, 0.05));
+            v = ecl::V2(DoubleRand(0.01, 0.05), DoubleRand(0.01, 0.05));
         }
     }
 
@@ -859,7 +859,7 @@ namespace
 
         bool actor_hit(Actor *a) {
             const double ITEM_RADIUS = 0.3;
-            px::V2 item_center(get_pos().x + 0.5, get_pos().y + 0.5);
+            ecl::V2 item_center(get_pos().x + 0.5, get_pos().y + 0.5);
             double dist = length(a->get_pos() - item_center);
             if (dist < ITEM_RADIUS) {
                 set_anim("it-springboard_anim");
@@ -2142,7 +2142,7 @@ namespace
 
         int get_type() const { 
             int t = int_attrib("type");
-            return px::Clamp(t, 0, 4);
+            return ecl::Clamp(t, 0, 4);
         }
 	bool is_fixed() const { return int_attrib("fixed"); }
 
@@ -2154,7 +2154,7 @@ namespace
                     set_anim("it-crack_anim1");
                 //SetItem(get_pos(), MakeItem("it-debris"));
                 }else {
-                    set_model(px::strf("it-crack%d", t));
+                    set_model(ecl::strf("it-crack%d", t));
                 }
             }
             else
@@ -3115,7 +3115,7 @@ namespace
         {}
 
         ~Bag() {
-            px::delete_sequence (m_contents.begin(), m_contents.end());
+            ecl::delete_sequence (m_contents.begin(), m_contents.end());
         }
     };
     DEF_TRAITS(Bag, "it-bag", it_bag);

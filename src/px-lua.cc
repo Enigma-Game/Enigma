@@ -1,6 +1,6 @@
 /*
 ** Lua binding: px
-** Generated automatically by tolua 4.0a on Fri Sep 12 22:07:20 2003.
+** Generated automatically by tolua 4.0a on Sat Jun 25 14:07:28 2005.
 */
 
 #include "tolua.h"
@@ -10,8 +10,8 @@ int tolua_px_open (lua_State* tolua_S);
 void tolua_px_close (lua_State* tolua_S);
 
 #include "SDL.h"
-#include "px/px.hh"
-using namespace px;
+#include "ecl.hh"
+using namespace ecl;
 
 /* function to register type */
 static void toluaI_reg_types (lua_State* tolua_S)
@@ -26,7 +26,7 @@ static void toluaI_reg_types (lua_State* tolua_S)
 }
 
 /* get function: x of class  Rect */
-static int toluaI_get_px_px_Rect_x(lua_State* tolua_S)
+static int toluaI_get_px_ecl_Rect_x(lua_State* tolua_S)
 {
   Rect* self = (Rect*)  tolua_getusertype(tolua_S,1,0);
  if (!self) tolua_error(tolua_S,"invalid 'self' in accessing variable 'x'");
@@ -35,7 +35,7 @@ static int toluaI_get_px_px_Rect_x(lua_State* tolua_S)
 }
 
 /* set function: x of class  Rect */
-static int toluaI_set_px_px_Rect_x(lua_State* tolua_S)
+static int toluaI_set_px_ecl_Rect_x(lua_State* tolua_S)
 {
   Rect* self = (Rect*)  tolua_getusertype(tolua_S,1,0);
  if (!self) tolua_error(tolua_S,"invalid 'self' in accessing variable 'x'");
@@ -46,7 +46,7 @@ static int toluaI_set_px_px_Rect_x(lua_State* tolua_S)
 }
 
 /* get function: y of class  Rect */
-static int toluaI_get_px_px_Rect_y(lua_State* tolua_S)
+static int toluaI_get_px_ecl_Rect_y(lua_State* tolua_S)
 {
   Rect* self = (Rect*)  tolua_getusertype(tolua_S,1,0);
  if (!self) tolua_error(tolua_S,"invalid 'self' in accessing variable 'y'");
@@ -55,7 +55,7 @@ static int toluaI_get_px_px_Rect_y(lua_State* tolua_S)
 }
 
 /* set function: y of class  Rect */
-static int toluaI_set_px_px_Rect_y(lua_State* tolua_S)
+static int toluaI_set_px_ecl_Rect_y(lua_State* tolua_S)
 {
   Rect* self = (Rect*)  tolua_getusertype(tolua_S,1,0);
  if (!self) tolua_error(tolua_S,"invalid 'self' in accessing variable 'y'");
@@ -66,7 +66,7 @@ static int toluaI_set_px_px_Rect_y(lua_State* tolua_S)
 }
 
 /* get function: w of class  Rect */
-static int toluaI_get_px_px_Rect_w(lua_State* tolua_S)
+static int toluaI_get_px_ecl_Rect_w(lua_State* tolua_S)
 {
   Rect* self = (Rect*)  tolua_getusertype(tolua_S,1,0);
  if (!self) tolua_error(tolua_S,"invalid 'self' in accessing variable 'w'");
@@ -75,7 +75,7 @@ static int toluaI_get_px_px_Rect_w(lua_State* tolua_S)
 }
 
 /* set function: w of class  Rect */
-static int toluaI_set_px_px_Rect_w(lua_State* tolua_S)
+static int toluaI_set_px_ecl_Rect_w(lua_State* tolua_S)
 {
   Rect* self = (Rect*)  tolua_getusertype(tolua_S,1,0);
  if (!self) tolua_error(tolua_S,"invalid 'self' in accessing variable 'w'");
@@ -86,7 +86,7 @@ static int toluaI_set_px_px_Rect_w(lua_State* tolua_S)
 }
 
 /* get function: h of class  Rect */
-static int toluaI_get_px_px_Rect_h(lua_State* tolua_S)
+static int toluaI_get_px_ecl_Rect_h(lua_State* tolua_S)
 {
   Rect* self = (Rect*)  tolua_getusertype(tolua_S,1,0);
  if (!self) tolua_error(tolua_S,"invalid 'self' in accessing variable 'h'");
@@ -95,7 +95,7 @@ static int toluaI_get_px_px_Rect_h(lua_State* tolua_S)
 }
 
 /* set function: h of class  Rect */
-static int toluaI_set_px_px_Rect_h(lua_State* tolua_S)
+static int toluaI_set_px_ecl_Rect_h(lua_State* tolua_S)
 {
   Rect* self = (Rect*)  tolua_getusertype(tolua_S,1,0);
  if (!self) tolua_error(tolua_S,"invalid 'self' in accessing variable 'h'");
@@ -106,7 +106,7 @@ static int toluaI_set_px_px_Rect_h(lua_State* tolua_S)
 }
 
 /* method: new of class  Rect */
-static int toluaI_px_px_Rect_new00(lua_State* tolua_S)
+static int toluaI_px_ecl_Rect_new00(lua_State* tolua_S)
 {
  if (
  !tolua_istype(tolua_S,2,LUA_TNUMBER,0) ||
@@ -134,7 +134,7 @@ tolua_lerror:
 }
 
 /* method: delete of class  Rect */
-static int toluaI_px_px_Rect_delete00(lua_State* tolua_S)
+static int toluaI_px_ecl_Rect_delete00(lua_State* tolua_S)
 {
  if (
  !tolua_istype(tolua_S,1,tolua_tag(tolua_S,"Rect"),0) ||
@@ -154,7 +154,7 @@ tolua_lerror:
 }
 
 /* method: new of class  V2 */
-static int toluaI_px_px_V2_new00(lua_State* tolua_S)
+static int toluaI_px_ecl_V2_new00(lua_State* tolua_S)
 {
  if (
  !tolua_isnoobj(tolua_S,2)
@@ -174,7 +174,7 @@ tolua_lerror:
 }
 
 /* method: new of class  V2 */
-static int toluaI_px_px_V2_new01(lua_State* tolua_S)
+static int toluaI_px_ecl_V2_new01(lua_State* tolua_S)
 {
  if (
  !tolua_istype(tolua_S,2,LUA_TNUMBER,0) ||
@@ -193,11 +193,11 @@ static int toluaI_px_px_V2_new01(lua_State* tolua_S)
  }
  return 1;
 tolua_lerror:
- return toluaI_px_px_V2_new00(tolua_S);
+ return toluaI_px_ecl_V2_new00(tolua_S);
 }
 
 /* method: operator&[] of class  V2 */
-static int toluaI_px_px_V2_operator_set00(lua_State* tolua_S)
+static int toluaI_px_ecl_V2_operator_set00(lua_State* tolua_S)
 {
  if (
  !tolua_istype(tolua_S,1,tolua_tag(tolua_S,"V2"),0) ||
@@ -221,7 +221,7 @@ tolua_lerror:
 }
 
 /* method: operator[] of class  V2 */
-static int toluaI_px_px_V2_operator_get00(lua_State* tolua_S)
+static int toluaI_px_ecl_V2_operator_get00(lua_State* tolua_S)
 {
  if (
  !tolua_istype(tolua_S,1,tolua_tag(tolua_S,"V2"),0) ||
@@ -246,7 +246,7 @@ tolua_lerror:
 }
 
 /* method: new of class  GS */
-static int toluaI_px_px_GS_new00(lua_State* tolua_S)
+static int toluaI_px_ecl_GS_new00(lua_State* tolua_S)
 {
  if (
  !tolua_istype(tolua_S,2,tolua_tag(tolua_S,"const Rect"),0) ||
@@ -268,7 +268,7 @@ tolua_lerror:
 }
 
 /* method: delete of class  GS */
-static int toluaI_px_px_GS_delete00(lua_State* tolua_S)
+static int toluaI_px_ecl_GS_delete00(lua_State* tolua_S)
 {
  if (
  !tolua_istype(tolua_S,1,tolua_tag(tolua_S,"GS"),0) ||
@@ -288,7 +288,7 @@ tolua_lerror:
 }
 
 /* get function: cliprect of class  GS */
-static int toluaI_get_px_px_GS_cliprect(lua_State* tolua_S)
+static int toluaI_get_px_ecl_GS_cliprect(lua_State* tolua_S)
 {
   GS* self = (GS*)  tolua_getusertype(tolua_S,1,0);
  if (!self) tolua_error(tolua_S,"invalid 'self' in accessing variable 'cliprect'");
@@ -297,7 +297,7 @@ static int toluaI_get_px_px_GS_cliprect(lua_State* tolua_S)
 }
 
 /* set function: cliprect of class  GS */
-static int toluaI_set_px_px_GS_cliprect(lua_State* tolua_S)
+static int toluaI_set_px_ecl_GS_cliprect(lua_State* tolua_S)
 {
   GS* self = (GS*)  tolua_getusertype(tolua_S,1,0);
  if (!self) tolua_error(tolua_S,"invalid 'self' in accessing variable 'cliprect'");
@@ -308,7 +308,7 @@ static int toluaI_set_px_px_GS_cliprect(lua_State* tolua_S)
 }
 
 /* get function: pcolor of class  GS */
-static int toluaI_get_px_px_GS_pcolor(lua_State* tolua_S)
+static int toluaI_get_px_ecl_GS_pcolor(lua_State* tolua_S)
 {
   GS* self = (GS*)  tolua_getusertype(tolua_S,1,0);
  if (!self) tolua_error(tolua_S,"invalid 'self' in accessing variable 'pcolor'");
@@ -317,7 +317,7 @@ static int toluaI_get_px_px_GS_pcolor(lua_State* tolua_S)
 }
 
 /* set function: pcolor of class  GS */
-static int toluaI_set_px_px_GS_pcolor(lua_State* tolua_S)
+static int toluaI_set_px_ecl_GS_pcolor(lua_State* tolua_S)
 {
   GS* self = (GS*)  tolua_getusertype(tolua_S,1,0);
  if (!self) tolua_error(tolua_S,"invalid 'self' in accessing variable 'pcolor'");
@@ -328,7 +328,7 @@ static int toluaI_set_px_px_GS_pcolor(lua_State* tolua_S)
 }
 
 /* method: delete of class  Drawable */
-static int toluaI_px_px_Drawable_delete00(lua_State* tolua_S)
+static int toluaI_px_ecl_Drawable_delete00(lua_State* tolua_S)
 {
  if (
  !tolua_istype(tolua_S,1,tolua_tag(tolua_S,"Drawable"),0) ||
@@ -348,7 +348,7 @@ tolua_lerror:
 }
 
 /* method: map_color of class  Drawable */
-static int toluaI_px_px_Drawable_map_color00(lua_State* tolua_S)
+static int toluaI_px_ecl_Drawable_map_color00(lua_State* tolua_S)
 {
  if (
  !tolua_istype(tolua_S,1,tolua_tag(tolua_S,"Drawable"),0) ||
@@ -377,7 +377,7 @@ tolua_lerror:
 }
 
 /* method: map_color of class  Drawable */
-static int toluaI_px_px_Drawable_map_color01(lua_State* tolua_S)
+static int toluaI_px_ecl_Drawable_map_color01(lua_State* tolua_S)
 {
  if (
  !tolua_istype(tolua_S,1,tolua_tag(tolua_S,"Drawable"),0) ||
@@ -403,11 +403,11 @@ static int toluaI_px_px_Drawable_map_color01(lua_State* tolua_S)
  }
  return 1;
 tolua_lerror:
- return toluaI_px_px_Drawable_map_color00(tolua_S);
+ return toluaI_px_ecl_Drawable_map_color00(tolua_S);
 }
 
 /* method: blit of class  Drawable */
-static int toluaI_px_px_Drawable_blit00(lua_State* tolua_S)
+static int toluaI_px_ecl_Drawable_blit00(lua_State* tolua_S)
 {
  if (
  !tolua_istype(tolua_S,1,tolua_tag(tolua_S,"Drawable"),0) ||
@@ -437,7 +437,7 @@ tolua_lerror:
 }
 
 /* method: blit of class  Drawable */
-static int toluaI_px_px_Drawable_blit01(lua_State* tolua_S)
+static int toluaI_px_ecl_Drawable_blit01(lua_State* tolua_S)
 {
  if (
  !tolua_istype(tolua_S,1,tolua_tag(tolua_S,"Drawable"),0) ||
@@ -464,11 +464,11 @@ static int toluaI_px_px_Drawable_blit01(lua_State* tolua_S)
  }
  return 0;
 tolua_lerror:
- return toluaI_px_px_Drawable_blit00(tolua_S);
+ return toluaI_px_ecl_Drawable_blit00(tolua_S);
 }
 
 /* method: get_pixel of class  Drawable */
-static int toluaI_px_px_Drawable_get_pixel00(lua_State* tolua_S)
+static int toluaI_px_ecl_Drawable_get_pixel00(lua_State* tolua_S)
 {
  if (
  !tolua_istype(tolua_S,1,tolua_tag(tolua_S,"Drawable"),0) ||
@@ -495,7 +495,7 @@ tolua_lerror:
 }
 
 /* method: set_pixel of class  Drawable */
-static int toluaI_px_px_Drawable_set_pixel00(lua_State* tolua_S)
+static int toluaI_px_ecl_Drawable_set_pixel00(lua_State* tolua_S)
 {
  if (
  !tolua_istype(tolua_S,1,tolua_tag(tolua_S,"Drawable"),0) ||
@@ -523,7 +523,7 @@ tolua_lerror:
 }
 
 /* method: set_pixels of class  Drawable */
-static int toluaI_px_px_Drawable_set_pixels00(lua_State* tolua_S)
+static int toluaI_px_ecl_Drawable_set_pixels00(lua_State* tolua_S)
 {
  if (
  !tolua_istype(tolua_S,1,tolua_tag(tolua_S,"Drawable"),0) ||
@@ -555,7 +555,7 @@ tolua_lerror:
 }
 
 /* method: hline of class  Drawable */
-static int toluaI_px_px_Drawable_hline00(lua_State* tolua_S)
+static int toluaI_px_ecl_Drawable_hline00(lua_State* tolua_S)
 {
  if (
  !tolua_istype(tolua_S,1,tolua_tag(tolua_S,"Drawable"),0) ||
@@ -585,7 +585,7 @@ tolua_lerror:
 }
 
 /* method: vline of class  Drawable */
-static int toluaI_px_px_Drawable_vline00(lua_State* tolua_S)
+static int toluaI_px_ecl_Drawable_vline00(lua_State* tolua_S)
 {
  if (
  !tolua_istype(tolua_S,1,tolua_tag(tolua_S,"Drawable"),0) ||
@@ -615,7 +615,7 @@ tolua_lerror:
 }
 
 /* method: line of class  Drawable */
-static int toluaI_px_px_Drawable_line00(lua_State* tolua_S)
+static int toluaI_px_ecl_Drawable_line00(lua_State* tolua_S)
 {
  if (
  !tolua_istype(tolua_S,1,tolua_tag(tolua_S,"Drawable"),0) ||
@@ -647,7 +647,7 @@ tolua_lerror:
 }
 
 /* method: box of class  Drawable */
-static int toluaI_px_px_Drawable_box00(lua_State* tolua_S)
+static int toluaI_px_ecl_Drawable_box00(lua_State* tolua_S)
 {
  if (
  !tolua_istype(tolua_S,1,tolua_tag(tolua_S,"Drawable"),0) ||
@@ -679,7 +679,7 @@ tolua_lerror:
 }
 
 /* method: size of class  Drawable */
-static int toluaI_px_px_Drawable_size00(lua_State* tolua_S)
+static int toluaI_px_ecl_Drawable_size00(lua_State* tolua_S)
 {
  if (
  !tolua_istype(tolua_S,1,tolua_tag(tolua_S,"const Drawable"),0) ||
@@ -709,7 +709,7 @@ tolua_lerror:
 }
 
 /* method: delete of class  Surface */
-static int toluaI_px_px_Surface_delete00(lua_State* tolua_S)
+static int toluaI_px_ecl_Surface_delete00(lua_State* tolua_S)
 {
  if (
  !tolua_istype(tolua_S,1,tolua_tag(tolua_S,"Surface"),0) ||
@@ -729,7 +729,7 @@ tolua_lerror:
 }
 
 /* method: width of class  Surface */
-static int toluaI_px_px_Surface_width00(lua_State* tolua_S)
+static int toluaI_px_ecl_Surface_width00(lua_State* tolua_S)
 {
  if (
  !tolua_istype(tolua_S,1,tolua_tag(tolua_S,"Surface"),0) ||
@@ -752,7 +752,7 @@ tolua_lerror:
 }
 
 /* method: height of class  Surface */
-static int toluaI_px_px_Surface_height00(lua_State* tolua_S)
+static int toluaI_px_ecl_Surface_height00(lua_State* tolua_S)
 {
  if (
  !tolua_istype(tolua_S,1,tolua_tag(tolua_S,"Surface"),0) ||
@@ -775,7 +775,7 @@ tolua_lerror:
 }
 
 /* method: get_surface of class  Screen */
-static int toluaI_px_px_Screen_get_surface00(lua_State* tolua_S)
+static int toluaI_px_ecl_Screen_get_surface00(lua_State* tolua_S)
 {
  if (
  !tolua_istype(tolua_S,1,tolua_tag(tolua_S,"Screen"),0) ||
@@ -798,7 +798,7 @@ tolua_lerror:
 }
 
 /* method: update_all of class  Screen */
-static int toluaI_px_px_Screen_update_all00(lua_State* tolua_S)
+static int toluaI_px_ecl_Screen_update_all00(lua_State* tolua_S)
 {
  if (
  !tolua_istype(tolua_S,1,tolua_tag(tolua_S,"Screen"),0) ||
@@ -820,7 +820,7 @@ tolua_lerror:
 }
 
 /* method: update_rect of class  Screen */
-static int toluaI_px_px_Screen_update_rect00(lua_State* tolua_S)
+static int toluaI_px_ecl_Screen_update_rect00(lua_State* tolua_S)
 {
  if (
  !tolua_istype(tolua_S,1,tolua_tag(tolua_S,"Screen"),0) ||
@@ -844,7 +844,7 @@ tolua_lerror:
 }
 
 /* method: flush_updates of class  Screen */
-static int toluaI_px_px_Screen_flush_updates00(lua_State* tolua_S)
+static int toluaI_px_ecl_Screen_flush_updates00(lua_State* tolua_S)
 {
  if (
  !tolua_istype(tolua_S,1,tolua_tag(tolua_S,"Screen"),0) ||
@@ -866,7 +866,7 @@ tolua_lerror:
 }
 
 /* method: set_caption of class  Screen */
-static int toluaI_px_px_Screen_set_caption00(lua_State* tolua_S)
+static int toluaI_px_ecl_Screen_set_caption00(lua_State* tolua_S)
 {
  if (
  !tolua_istype(tolua_S,1,tolua_tag(tolua_S,"Screen"),0) ||
@@ -890,7 +890,7 @@ tolua_lerror:
 }
 
 /* method: delete of class  Font */
-static int toluaI_px_px_Font_delete00(lua_State* tolua_S)
+static int toluaI_px_ecl_Font_delete00(lua_State* tolua_S)
 {
  if (
  !tolua_istype(tolua_S,1,tolua_tag(tolua_S,"Font"),0) ||
@@ -910,7 +910,7 @@ tolua_lerror:
 }
 
 /* method: get_lineskip of class  Font */
-static int toluaI_px_px_Font_get_lineskip00(lua_State* tolua_S)
+static int toluaI_px_ecl_Font_get_lineskip00(lua_State* tolua_S)
 {
  if (
  !tolua_istype(tolua_S,1,tolua_tag(tolua_S,"Font"),0) ||
@@ -933,7 +933,7 @@ tolua_lerror:
 }
 
 /* method: get_height of class  Font */
-static int toluaI_px_px_Font_get_height00(lua_State* tolua_S)
+static int toluaI_px_ecl_Font_get_height00(lua_State* tolua_S)
 {
  if (
  !tolua_istype(tolua_S,1,tolua_tag(tolua_S,"Font"),0) ||
@@ -956,7 +956,7 @@ tolua_lerror:
 }
 
 /* method: get_width of class  Font */
-static int toluaI_px_px_Font_get_width00(lua_State* tolua_S)
+static int toluaI_px_ecl_Font_get_width00(lua_State* tolua_S)
 {
  if (
  !tolua_istype(tolua_S,1,tolua_tag(tolua_S,"Font"),0) ||
@@ -981,7 +981,7 @@ tolua_lerror:
 }
 
 /* method: render of class  Font */
-static int toluaI_px_px_Font_render00(lua_State* tolua_S)
+static int toluaI_px_ecl_Font_render00(lua_State* tolua_S)
 {
  if (
  !tolua_istype(tolua_S,1,tolua_tag(tolua_S,"Font"),0) ||
@@ -1006,7 +1006,7 @@ tolua_lerror:
 }
 
 /* method: render of class  Font */
-static int toluaI_px_px_Font_render01(lua_State* tolua_S)
+static int toluaI_px_ecl_Font_render01(lua_State* tolua_S)
 {
  if (
  !tolua_istype(tolua_S,1,tolua_tag(tolua_S,"Font"),0) ||
@@ -1031,7 +1031,7 @@ static int toluaI_px_px_Font_render01(lua_State* tolua_S)
  }
  return 0;
 tolua_lerror:
- return toluaI_px_px_Font_render00(tolua_S);
+ return toluaI_px_ecl_Font_render00(tolua_S);
 }
 
 /* Open function */
@@ -1039,59 +1039,59 @@ int tolua_px_open (lua_State* tolua_S)
 {
  tolua_open(tolua_S);
  toluaI_reg_types(tolua_S);
- tolua_module(tolua_S,"px");
+ tolua_module(tolua_S,"ecl");
  tolua_cclass(tolua_S,"Rect","");
- tolua_tablevar(tolua_S,"Rect","x",toluaI_get_px_px_Rect_x,toluaI_set_px_px_Rect_x);
- tolua_tablevar(tolua_S,"Rect","y",toluaI_get_px_px_Rect_y,toluaI_set_px_px_Rect_y);
- tolua_tablevar(tolua_S,"Rect","w",toluaI_get_px_px_Rect_w,toluaI_set_px_px_Rect_w);
- tolua_tablevar(tolua_S,"Rect","h",toluaI_get_px_px_Rect_h,toluaI_set_px_px_Rect_h);
- tolua_function(tolua_S,"Rect","new",toluaI_px_px_Rect_new00);
- tolua_function(tolua_S,"Rect","delete",toluaI_px_px_Rect_delete00);
+ tolua_tablevar(tolua_S,"Rect","x",toluaI_get_px_ecl_Rect_x,toluaI_set_px_ecl_Rect_x);
+ tolua_tablevar(tolua_S,"Rect","y",toluaI_get_px_ecl_Rect_y,toluaI_set_px_ecl_Rect_y);
+ tolua_tablevar(tolua_S,"Rect","w",toluaI_get_px_ecl_Rect_w,toluaI_set_px_ecl_Rect_w);
+ tolua_tablevar(tolua_S,"Rect","h",toluaI_get_px_ecl_Rect_h,toluaI_set_px_ecl_Rect_h);
+ tolua_function(tolua_S,"Rect","new",toluaI_px_ecl_Rect_new00);
+ tolua_function(tolua_S,"Rect","delete",toluaI_px_ecl_Rect_delete00);
  tolua_cclass(tolua_S,"V2","");
- tolua_function(tolua_S,"V2","new",toluaI_px_px_V2_new00);
- tolua_function(tolua_S,"V2","new",toluaI_px_px_V2_new01);
- tolua_function(tolua_S,"V2","operator_set",toluaI_px_px_V2_operator_set00);
- tolua_function(tolua_S,"V2","operator_get",toluaI_px_px_V2_operator_get00);
+ tolua_function(tolua_S,"V2","new",toluaI_px_ecl_V2_new00);
+ tolua_function(tolua_S,"V2","new",toluaI_px_ecl_V2_new01);
+ tolua_function(tolua_S,"V2","operator_set",toluaI_px_ecl_V2_operator_set00);
+ tolua_function(tolua_S,"V2","operator_get",toluaI_px_ecl_V2_operator_get00);
  tolua_cclass(tolua_S,"GS","");
- tolua_function(tolua_S,"GS","new",toluaI_px_px_GS_new00);
- tolua_function(tolua_S,"GS","delete",toluaI_px_px_GS_delete00);
- tolua_tablevar(tolua_S,"GS","cliprect",toluaI_get_px_px_GS_cliprect,toluaI_set_px_px_GS_cliprect);
- tolua_tablevar(tolua_S,"GS","pcolor",toluaI_get_px_px_GS_pcolor,toluaI_set_px_px_GS_pcolor);
+ tolua_function(tolua_S,"GS","new",toluaI_px_ecl_GS_new00);
+ tolua_function(tolua_S,"GS","delete",toluaI_px_ecl_GS_delete00);
+ tolua_tablevar(tolua_S,"GS","cliprect",toluaI_get_px_ecl_GS_cliprect,toluaI_set_px_ecl_GS_cliprect);
+ tolua_tablevar(tolua_S,"GS","pcolor",toluaI_get_px_ecl_GS_pcolor,toluaI_set_px_ecl_GS_pcolor);
  tolua_cclass(tolua_S,"Drawable","");
- tolua_function(tolua_S,"Drawable","delete",toluaI_px_px_Drawable_delete00);
- tolua_function(tolua_S,"Drawable","map_color",toluaI_px_px_Drawable_map_color00);
- tolua_function(tolua_S,"Drawable","map_color",toluaI_px_px_Drawable_map_color01);
- tolua_function(tolua_S,"Drawable","blit",toluaI_px_px_Drawable_blit00);
- tolua_function(tolua_S,"Drawable","blit",toluaI_px_px_Drawable_blit01);
- tolua_function(tolua_S,"Drawable","get_pixel",toluaI_px_px_Drawable_get_pixel00);
- tolua_function(tolua_S,"Drawable","set_pixel",toluaI_px_px_Drawable_set_pixel00);
- tolua_function(tolua_S,"Drawable","set_pixels",toluaI_px_px_Drawable_set_pixels00);
- tolua_function(tolua_S,"Drawable","hline",toluaI_px_px_Drawable_hline00);
- tolua_function(tolua_S,"Drawable","vline",toluaI_px_px_Drawable_vline00);
- tolua_function(tolua_S,"Drawable","line",toluaI_px_px_Drawable_line00);
- tolua_function(tolua_S,"Drawable","box",toluaI_px_px_Drawable_box00);
- tolua_function(tolua_S,"Drawable","size",toluaI_px_px_Drawable_size00);
+ tolua_function(tolua_S,"Drawable","delete",toluaI_px_ecl_Drawable_delete00);
+ tolua_function(tolua_S,"Drawable","map_color",toluaI_px_ecl_Drawable_map_color00);
+ tolua_function(tolua_S,"Drawable","map_color",toluaI_px_ecl_Drawable_map_color01);
+ tolua_function(tolua_S,"Drawable","blit",toluaI_px_ecl_Drawable_blit00);
+ tolua_function(tolua_S,"Drawable","blit",toluaI_px_ecl_Drawable_blit01);
+ tolua_function(tolua_S,"Drawable","get_pixel",toluaI_px_ecl_Drawable_get_pixel00);
+ tolua_function(tolua_S,"Drawable","set_pixel",toluaI_px_ecl_Drawable_set_pixel00);
+ tolua_function(tolua_S,"Drawable","set_pixels",toluaI_px_ecl_Drawable_set_pixels00);
+ tolua_function(tolua_S,"Drawable","hline",toluaI_px_ecl_Drawable_hline00);
+ tolua_function(tolua_S,"Drawable","vline",toluaI_px_ecl_Drawable_vline00);
+ tolua_function(tolua_S,"Drawable","line",toluaI_px_ecl_Drawable_line00);
+ tolua_function(tolua_S,"Drawable","box",toluaI_px_ecl_Drawable_box00);
+ tolua_function(tolua_S,"Drawable","size",toluaI_px_ecl_Drawable_size00);
  tolua_cclass(tolua_S,"Surface","Drawable");
- tolua_function(tolua_S,"Surface","delete",toluaI_px_px_Surface_delete00);
- tolua_function(tolua_S,"Surface","width",toluaI_px_px_Surface_width00);
- tolua_function(tolua_S,"Surface","height",toluaI_px_px_Surface_height00);
+ tolua_function(tolua_S,"Surface","delete",toluaI_px_ecl_Surface_delete00);
+ tolua_function(tolua_S,"Surface","width",toluaI_px_ecl_Surface_width00);
+ tolua_function(tolua_S,"Surface","height",toluaI_px_ecl_Surface_height00);
  tolua_cclass(tolua_S,"Screen","");
- tolua_function(tolua_S,"Screen","get_surface",toluaI_px_px_Screen_get_surface00);
- tolua_function(tolua_S,"Screen","update_all",toluaI_px_px_Screen_update_all00);
- tolua_function(tolua_S,"Screen","update_rect",toluaI_px_px_Screen_update_rect00);
- tolua_function(tolua_S,"Screen","flush_updates",toluaI_px_px_Screen_flush_updates00);
- tolua_function(tolua_S,"Screen","set_caption",toluaI_px_px_Screen_set_caption00);
+ tolua_function(tolua_S,"Screen","get_surface",toluaI_px_ecl_Screen_get_surface00);
+ tolua_function(tolua_S,"Screen","update_all",toluaI_px_ecl_Screen_update_all00);
+ tolua_function(tolua_S,"Screen","update_rect",toluaI_px_ecl_Screen_update_rect00);
+ tolua_function(tolua_S,"Screen","flush_updates",toluaI_px_ecl_Screen_flush_updates00);
+ tolua_function(tolua_S,"Screen","set_caption",toluaI_px_ecl_Screen_set_caption00);
  tolua_cclass(tolua_S,"Font","");
- tolua_function(tolua_S,"Font","delete",toluaI_px_px_Font_delete00);
- tolua_function(tolua_S,"Font","get_lineskip",toluaI_px_px_Font_get_lineskip00);
- tolua_function(tolua_S,"Font","get_height",toluaI_px_px_Font_get_height00);
- tolua_function(tolua_S,"Font","get_width",toluaI_px_px_Font_get_width00);
- tolua_function(tolua_S,"Font","render",toluaI_px_px_Font_render00);
- tolua_function(tolua_S,"Font","render",toluaI_px_px_Font_render01);
+ tolua_function(tolua_S,"Font","delete",toluaI_px_ecl_Font_delete00);
+ tolua_function(tolua_S,"Font","get_lineskip",toluaI_px_ecl_Font_get_lineskip00);
+ tolua_function(tolua_S,"Font","get_height",toluaI_px_ecl_Font_get_height00);
+ tolua_function(tolua_S,"Font","get_width",toluaI_px_ecl_Font_get_width00);
+ tolua_function(tolua_S,"Font","render",toluaI_px_ecl_Font_render00);
+ tolua_function(tolua_S,"Font","render",toluaI_px_ecl_Font_render01);
  return 1;
 }
 /* Close function */
 void tolua_px_close (lua_State* tolua_S)
 {
- lua_pushnil(tolua_S); lua_setglobal(tolua_S,"px");
+ lua_pushnil(tolua_S); lua_setglobal(tolua_S,"ecl");
 }

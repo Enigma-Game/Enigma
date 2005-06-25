@@ -1,6 +1,6 @@
 /*
 ** Lua binding: px
-** Generated automatically by tolua 4.0a on Fri Sep 12 22:07:20 2003.
+** Generated automatically by tolua 4.0a on Sat Jun 25 14:07:28 2005.
 */
 
 /* Exported function */

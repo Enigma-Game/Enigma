@@ -20,8 +20,8 @@
 #ifndef GUI_HH_INCLUDED
 #define GUI_HH_INCLUDED
 
-#include "px/pxfwd.hh"
-#include "px/geom.hh"
+#include "ecl_fwd.hh"
+#include "ecl_geom.hh"
 #include "SDL.h"
 
 namespace gui
@@ -59,11 +59,11 @@ namespace gui
     public:
 
         /* ---------- Widget interface ---------- */
-        virtual void draw (px::GC &gc, const px::Rect &r) = 0;
+        virtual void draw (ecl::GC &gc, const ecl::Rect &r) = 0;
         virtual void activate() {}
         virtual void deactivate() {}
         
-        virtual void realize (const px::Rect &r) {
+        virtual void realize (const ecl::Rect &r) {
             set_area (r);
         }
 
@@ -79,8 +79,8 @@ namespace gui
         /* ---------- Accessors ---------- */
         void set_size(int w, int h) {area.w = w; area.h = h;}
 
-        px::Rect get_area() const { return area; }
-        void set_area(const px::Rect &r) { area = r; }
+        ecl::Rect get_area() const { return area; }
+        void set_area(const ecl::Rect &r) { area = r; }
         int get_x() const { return area.x; }
         int get_y() const { return area.y; }
         int get_w() const { return area.w; }
@@ -100,11 +100,11 @@ namespace gui
 
         /* ---------- Functions ---------- */
         void reconfigure();
-        void invalidate_area(const px::Rect &r);
+        void invalidate_area(const ecl::Rect &r);
         void invoke_listener();
         
     private:
-        px::Rect        area;
+        ecl::Rect        area;
         Container      *m_parent;
         ActionListener *m_listener;
     };
@@ -116,7 +116,7 @@ namespace gui
         EmptyWidget () : Widget ()
         {}
 
-        virtual void draw (px::GC &gc, const px::Rect &r) 
+        virtual void draw (ecl::GC &gc, const ecl::Rect &r) 
         {}
 
         virtual void naturalsize (int &w, int &h) const {
@@ -130,7 +130,7 @@ namespace gui
     public:
         virtual ~AreaManaged() {}
 
-        virtual void invalidate_area(const px::Rect &r) = 0;
+        virtual void invalidate_area(const ecl::Rect &r) = 0;
         virtual void invalidate_all() = 0;
         virtual void refresh() = 0;
     };
@@ -142,12 +142,12 @@ namespace gui
     public:
         AreaManager(Container *managed);
 
-        void invalidate_area(const px::Rect &r);
+        void invalidate_area(const ecl::Rect &r);
         void invalidate_all();
         void refresh();
 
     private:
-        px::RectList  dirtyrects;
+        ecl::RectList  dirtyrects;
         Container    *top_container;
     };
 
@@ -167,11 +167,11 @@ namespace gui
         void clear();
 
         // Widget interface.
-        void draw (px::GC& gc, const px::Rect &r);
+        void draw (ecl::GC& gc, const ecl::Rect &r);
         void move (int x, int y);
 
         // AreaManaged interface.
-        void invalidate_area(const px::Rect &r);
+        void invalidate_area(const ecl::Rect &r);
         void invalidate_all();
     protected:
         void refresh();
@@ -184,7 +184,7 @@ namespace gui
         WidgetList m_widgets;
 
     private:
-        px::Rect boundingbox();
+        ecl::Rect boundingbox();
 
         AreaManager *getAreaManager();
         AreaManager *managed_by;
@@ -266,7 +266,7 @@ namespace gui
     class Image : public Widget {
     public:
         Image (const std::string &iname) : imgname(iname) {}
-        void draw (px::GC &gc, const px::Rect &r);
+        void draw (ecl::GC &gc, const ecl::Rect &r);
     private:
         std::string imgname;
     };
@@ -280,17 +280,17 @@ namespace gui
                VAlignment valign=VALIGN_CENTER);
 
         // Widget interface
-        virtual void draw (px::GC &gc, const px::Rect &r);
+        virtual void draw (ecl::GC &gc, const ecl::Rect &r);
         virtual void naturalsize (int &w, int &h) const;
 
         // Methods
         void set_text (const std::string &text);
-        void set_font (px::Font *font);
+        void set_font (ecl::Font *font);
         void set_alignment (HAlignment halign, VAlignment valign=VALIGN_CENTER);
     private:
         // Variables.
         std::string m_text;
-        px::Font   *m_font;
+        ecl::Font   *m_font;
         HAlignment  m_halign;
         VAlignment  m_valign;
     };
@@ -302,7 +302,7 @@ namespace gui
         Button();
 
         // Widget interface.
-        void draw(px::GC &gc, const px::Rect &r);
+        void draw(ecl::GC &gc, const ecl::Rect &r);
         void activate();
         void deactivate();
     private:
@@ -334,10 +334,10 @@ namespace gui
         virtual std::string get_text() const = 0;
 
         // Widget interface.
-        void draw(px::GC &gc, const px::Rect &r);
+        void draw(ecl::GC &gc, const ecl::Rect &r);
 
         // Variables.
-        static px::Font *menufont, *menufont_pressed;
+        static ecl::Font *menufont, *menufont_pressed;
     };
 
 /* -------------------- StaticTextButton -------------------- */
@@ -410,7 +410,7 @@ namespace gui
                     ActionListener    *al = 0);
     private:
         // Widget interface.
-        void        draw(px::GC &gc, const px::Rect &r);
+        void        draw(ecl::GC &gc, const ecl::Rect &r);
         std::string fname_sel, fname_unsel;
     };
 
@@ -424,11 +424,11 @@ namespace gui
         bool manage();
 
         void add(Widget *w);
-        void add(Widget *w, px::Rect r);
+        void add(Widget *w, ecl::Rect r);
         void center();
 
         void draw_all();
-        void draw (px::GC &gc, const px::Rect &r);
+        void draw (ecl::GC &gc, const ecl::Rect &r);
 
         void quit();
         void abort();
@@ -438,7 +438,7 @@ namespace gui
         { active_widget = 0; }
 
         // Menu interface.
-        virtual void draw_background(px::GC &/*gc*/) {}
+        virtual void draw_background(ecl::GC &/*gc*/) {}
         virtual void tick (double /*dtime*/) {}
 
     private:

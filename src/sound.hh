@@ -20,7 +20,7 @@
 #ifndef SOUND_HH
 #define SOUND_HH
 
-#include "px/math.hh"
+#include "ecl_math.hh"
 
 #include <string>
 #include <vector>
@@ -55,8 +55,8 @@ namespace sound
     void TempDisableSound();
     void TempReEnableSound();
 
-    void SetListenerPosition (const px::V2 &pos);
-    void PlaySound (const SoundName &, const px::V2 &pos, double relative_volume = 1.0, int priority=0);
+    void SetListenerPosition (const ecl::V2 &pos);
+    void PlaySound (const SoundName &, const ecl::V2 &pos, double relative_volume = 1.0, int priority=0);
     void PlaySoundGlobal (const SoundName &, double relative_volume = 1.0, int priority=0);
 
     void PlayMusic (const std::string &name);
@@ -73,7 +73,7 @@ namespace sound
       `SoundEvent'.  Return true if the event was handles, false
       otherwise. */
     bool SoundEvent (const std::string &eventname,
-                     const px::V2 &pos = px::V2 (), 
+                     const ecl::V2 &pos = ecl::V2 (), 
                      double volume = 1.0);
 
     void ClearCache();

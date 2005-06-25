@@ -88,10 +88,10 @@ namespace
     private:
         bool on_event (const SDL_Event &e);
         void on_action(gui::Widget *w);
-        void draw_background(px::GC &gc);
+        void draw_background(ecl::GC &gc);
 
         gui::Widget *resume, *restart, *options, *abort;
-        px::Surface *zoomed;
+        ecl::Surface *zoomed;
         int          zoomxpos, zoomypos; // position to be zoomed
     };
 

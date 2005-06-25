@@ -25,7 +25,7 @@
 
 #include "stones_internal.hh"
 
-#include "px/tools.hh"
+#include "ecl_util.hh"
 
 #include <algorithm>
 #include <cassert>
@@ -792,7 +792,7 @@ ConnectiveStone::get_connections() const
 }
 
 void ConnectiveStone::init_model() {
-    set_model(get_kind()+px::strf("%d", get_modelno()));
+    set_model(get_kind()+ecl::strf("%d", get_modelno()));
 }
 
 int ConnectiveStone::get_modelno() const {
@@ -1386,7 +1386,7 @@ void PuzzleStone::on_removal(GridPos p) {
 }
 
 void PuzzleStone::on_laserhit (Direction dir) {
-    px::set_flags (illumination, to_bits(reverse(dir)));
+    ecl::set_flags (illumination, to_bits(reverse(dir)));
 }
 
 void PuzzleStone::on_recalc_start() {
@@ -1715,7 +1715,7 @@ namespace
         void on_impulse(const Impulse& impulse);
 
         void init_model() {
-            set_model(px::strf("st-shogun%d", int(get_holes())));
+            set_model(ecl::strf("st-shogun%d", int(get_holes())));
         }
 
         bool is_movable() const { return false; }
@@ -2514,13 +2514,13 @@ Turnstile_Pivot_Base::arms_present() const
     DirectionBits arms = NODIRBIT;
     GridPos p = get_pos();
     if (dynamic_cast<Turnstile_N*>(GetStone(move(p, NORTH))))
-        px::set_flags (arms, NORTHBIT);
+        ecl::set_flags (arms, NORTHBIT);
     if (dynamic_cast<Turnstile_S*>(GetStone(move(p, SOUTH))))
-        px::set_flags (arms, SOUTHBIT);
+        ecl::set_flags (arms, SOUTHBIT);
     if (dynamic_cast<Turnstile_E*>(GetStone(move(p, EAST))))
-        px::set_flags (arms, EASTBIT);
+        ecl::set_flags (arms, EASTBIT);
     if (dynamic_cast<Turnstile_W*>(GetStone(move(p, WEST))))
-        px::set_flags (arms, WESTBIT);
+        ecl::set_flags (arms, WESTBIT);
     return arms;
 }
 

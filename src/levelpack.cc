@@ -21,8 +21,8 @@
 #include "world.hh"
 #include "levels.hh"
 #include "main.hh"
-#include "px/tools.hh"
 
+#include "ecl_util.hh"
 
 #include "zipios++/zipfile.h"
 
@@ -37,7 +37,7 @@
 using namespace enigma;
 using namespace levels;
 using namespace std;
-using namespace px;
+using namespace ecl;
 using zipios::ZipFile;
 
 namespace
@@ -347,7 +347,7 @@ void LevelPack_CommandLine::load_level (size_t index)
     const LevelInfo &info = get_info(index);
     string filename = info.filename;
 
-    if (!px::FileExists ( filename )) { // Do not modify filename, use as is
+    if (!ecl::FileExists ( filename )) { // Do not modify filename, use as is
         throw XLevelLoading("Could not find level `" + info.filename );
     }
 

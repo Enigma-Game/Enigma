@@ -25,7 +25,7 @@
 #include "world.hh"
 #include "sound.hh"
 
-#include "px/sdl.hh"
+#include "ecl_sdl.hh"
 #include <cassert>
 
 using namespace enigma;
@@ -42,7 +42,7 @@ namespace
 
 /* -------------------- Level previews -------------------- */
 
-bool game::DrawLevelPreview (px::GC &gc, const Level &l)
+bool game::DrawLevelPreview (ecl::GC &gc, const Level &l)
 {
     LevelPack   *lp       = l.get_levelpack();
     unsigned     levelidx = l.get_index();

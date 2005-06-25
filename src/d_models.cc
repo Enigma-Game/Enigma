@@ -35,7 +35,7 @@
 using namespace enigma;
 using namespace display;
 using namespace std;
-using namespace px;
+using namespace ecl;
 
 
 extern "C" {
@@ -81,7 +81,7 @@ namespace
 
     private:
         // Variables
-        typedef px::Dict<Model*> ModelMap;
+        typedef ecl::Dict<Model*> ModelMap;
         ModelMap m_templates;
     };
 }
@@ -93,7 +93,7 @@ Surface *SurfaceCache_Alpha::acquire(const std::string &name)
 {
     string filename;
     if (file::FindImageFile (name + ".png", filename))
-        return px::LoadImage(filename.c_str());
+        return ecl::LoadImage(filename.c_str());
     else
         return 0;
 }
@@ -219,7 +219,7 @@ void display::ShutdownModels()
 }
 
 Surface *display::CropSurface (const Surface *s, Rect r) {
-    return px::Grab(s, r);
+    return ecl::Grab(s, r);
 }
 
 /* Register a new model template `m' under the name `name'. */
@@ -245,26 +245,26 @@ Model * display::MakeModel (const string &name)
 int display::DefineImage(const char *name, const char *fname,
                          int xoff, int yoff, int padding)
 {
-    px::Surface *sfc = surface_cache.get(fname);
+    ecl::Surface *sfc = surface_cache.get(fname);
     if (!sfc)
         return 1;
 
-    px::Rect r = sfc->size();
+    ecl::Rect r = sfc->size();
     r.x += padding; r.y += padding;
     r.w -= 2*padding; r.h -= 2*padding;
     DefineModel(name, new ImageModel(sfc, r, xoff+padding, yoff+padding));
     return 0;
 }
 
-void display::DefineImageModel (const char *name, px::Surface *s)
+void display::DefineImageModel (const char *name, ecl::Surface *s)
 {
     DefineModel (name, new ImageModel(s, 0, 0));
 }
 
 int display::DefineSubImage(const char *name, const char *fname,
-                             int xoff, int yoff, px::Rect subrect)
+                             int xoff, int yoff, ecl::Rect subrect)
 {
-    px::Surface *sfc = surface_cache.get(fname);
+    ecl::Surface *sfc = surface_cache.get(fname);
     if (!sfc)
         return 1;
     
@@ -329,18 +329,18 @@ void display::DefineAlias (const char *name, const char *othername)
 
 
 /* -------------------- Model -------------------- */
-void Model::get_extension (px::Rect &r)
+void Model::get_extension (ecl::Rect &r)
 {}
 
 
 
 /* -------------------- Image -------------------- */
 
-Image::Image(px::Surface *sfc)
+Image::Image(ecl::Surface *sfc)
 : surface(sfc), rect(surface->size()), refcount(1)
 {}
 
-Image::Image(px::Surface *sfc, const px::Rect &r)
+Image::Image(ecl::Surface *sfc, const ecl::Rect &r)
 : surface(sfc), rect(r), refcount(1)
 {}
 
@@ -356,7 +356,7 @@ void display::decref (Image *i) {
 }
 
 
-void display::draw_image (Image *i, px::GC &gc, int x, int y) 
+void display::draw_image (Image *i, ecl::GC &gc, int x, int y) 
 {
     blit(gc, x, y, i->surface, i->rect);
 }
@@ -374,7 +374,7 @@ ImageModel::ImageModel(Surface *s, int xo, int yo)
 : image(new Image(s)), xoff(xo), yoff(yo)
 {}
 
-ImageModel::ImageModel(Surface *s, const px::Rect &r, int xo, int yo)
+ImageModel::ImageModel(Surface *s, const ecl::Rect &r, int xo, int yo)
 : image(new Image(s, r)), xoff(xo), yoff(yo)
 {}
 
@@ -382,7 +382,7 @@ ImageModel::~ImageModel() {
     decref(image); 
 }
 	
-void ImageModel::draw(px::GC &gc, int x, int y) {
+void ImageModel::draw(ecl::GC &gc, int x, int y) {
     draw_image (image, gc, x+xoff, y+yoff);
 }
 
@@ -390,7 +390,7 @@ Model *ImageModel::clone() {
     return new ImageModel(image, xoff, yoff); 
 }
 
-void ImageModel::get_extension (px::Rect &r) {
+void ImageModel::get_extension (ecl::Rect &r) {
     r.x = xoff;
     r.y = yoff;
     r.w = image->rect.w;
@@ -430,11 +430,11 @@ void ShadowModel::restart() {
     shade->restart(); 
 }
 
-void ShadowModel::draw(px::GC &gc, int x, int y) {
+void ShadowModel::draw(ecl::GC &gc, int x, int y) {
     model->draw(gc,x,y);
 }
 
-void ShadowModel::draw_shadow(px::GC &gc, int x, int y) {
+void ShadowModel::draw_shadow(ecl::GC &gc, int x, int y) {
     shade->draw(gc,x,y);
 }
 
@@ -446,8 +446,8 @@ Model *ShadowModel::clone() {
     return new ShadowModel(model->clone(), shade->clone());
 }
 
-void ShadowModel::get_extension (px::Rect &r) {
-    px::Rect r1, r2;
+void ShadowModel::get_extension (ecl::Rect &r) {
+    ecl::Rect r1, r2;
     model->get_extension (r1);
     shade->get_extension (r2);
     r = boundingbox (r1, r2);
@@ -502,7 +502,7 @@ void Anim2d::add_frame(Model *m, double duration) {
     rep->frames.push_back(new AnimFrame(m, duration));
 }
 
-void Anim2d::draw(px::GC &gc, int x, int y) 
+void Anim2d::draw(ecl::GC &gc, int x, int y) 
 {
     if (!finishedp) {
         AnimFrame *f =rep->frames[curframe];
@@ -511,7 +511,7 @@ void Anim2d::draw(px::GC &gc, int x, int y)
     }
 }
         
-void Anim2d::draw_shadow (px::GC &gc, int x, int y) 
+void Anim2d::draw_shadow (ecl::GC &gc, int x, int y) 
 {
     if (!finishedp) {
         AnimFrame *f =rep->frames[curframe];
@@ -544,7 +544,7 @@ void Anim2d::move (int newx, int newy) {
     videoy = newy;
 }
 
-void Anim2d::get_extension (px::Rect &r) {
+void Anim2d::get_extension (ecl::Rect &r) {
     AnimFrame *f =rep->frames[curframe];
     f->model->get_extension (r);
 }

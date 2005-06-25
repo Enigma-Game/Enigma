@@ -34,17 +34,17 @@
 #include "lua.hh"
 #include "options.hh"
 #include "main.hh"
-#include "px/px.hh"
+#include "ecl.hh"
 #include "SDL.h"
 #include <cassert>
 #include <cstdio>
 #include <fstream>
 #include "config.h"
 
-#define SCREEN px::Screen::get_instance()
+#define SCREEN ecl::Screen::get_instance()
 
 using namespace std;
-using namespace px;
+using namespace ecl;
 using namespace video;
 using namespace enigma;
 
@@ -53,7 +53,7 @@ namespace
     class Video_SDL {
         SDL_Surface*    sdlScreen;
         string          caption;
-        px::Screen*     screen;
+        ecl::Screen*     screen;
         bool            initialized;
     public:
         Video_SDL();
@@ -65,7 +65,7 @@ namespace
         bool is_fullscreen() const;
         void set_caption(const char *str);
         const string& get_caption() const { return caption; }
-        px::Screen *get_screen() { return screen; }
+        ecl::Screen *get_screen() { return screen; }
     };
 
     class MouseCursor {
@@ -73,7 +73,7 @@ namespace
         MouseCursor ();
         ~MouseCursor();
 
-        void set_image (px::Surface *s, int hotx_, int hoty_);
+        void set_image (ecl::Surface *s, int hotx_, int hoty_);
         void move (int newx, int newy);
         void redraw ();         // Redraw if position/image changed
         void draw();            // Draw cursor if visible
@@ -204,7 +204,7 @@ MouseCursor::~MouseCursor() {
     delete cursor;
 }
 
-void MouseCursor::set_image (px::Surface *s, int hx, int hy) {
+void MouseCursor::set_image (ecl::Surface *s, int hx, int hy) {
     delete cursor;
     cursor = s;
     hotx   = hx;
@@ -276,7 +276,7 @@ void MouseCursor::init_bg() {
         delete background;
     }
 
-    background = px::MakeSurfaceLike (cursor->width(),
+    background = ecl::MakeSurfaceLike (cursor->width(),
                                       cursor->height(),
                                       SCREEN->get_surface());
     grab_bg();
@@ -404,7 +404,7 @@ namespace
 
 
 
-void video::SetMouseCursor(px::Surface *s, int hotx, int hoty) {
+void video::SetMouseCursor(ecl::Surface *s, int hotx, int hoty) {
     cursor->set_image(s, hotx, hoty);
     cursor->redraw();
 }
@@ -567,7 +567,7 @@ void video::ChangeVideoMode()
     cursor = oldcursor;
 }
 
-px::Screen * video::GetScreen() {
+ecl::Screen * video::GetScreen() {
     return SCREEN;
 }
 
@@ -619,11 +619,11 @@ void video::Screenshot (const std::string &fname)
 {
     // auto-create the directory if necessary
     string directory;
-    if (px::split_path (fname, &directory, 0) && !px::FolderExists(directory)) {
-        px::FolderCreate (directory);
+    if (ecl::split_path (fname, &directory, 0) && !ecl::FolderExists(directory)) {
+        ecl::FolderCreate (directory);
     }
 
-    px::SavePNG (SCREEN->get_surface(), fname);
+    ecl::SavePNG (SCREEN->get_surface(), fname);
     enigma::Log << "Wrote screenshot to '" << fname << "\n";
 }
 
@@ -632,12 +632,12 @@ void video::Screenshot (const std::string &fname)
 
 void video::FX_Fade(FadeMode mode) 
 {
-    px::Screen *screen = px::Screen::get_instance();
+    ecl::Screen *screen = ecl::Screen::get_instance();
     Surface *d = screen->get_surface();
     const double fadesec = 0.6;
     double v = 255/fadesec;
 
-    px::Surface *buffer = Duplicate(d);
+    ecl::Surface *buffer = Duplicate(d);
     double dt;
 
     double a = mode==FADEIN ? 0 : 255;
@@ -708,13 +708,13 @@ namespace
 {
     class Effect_Push : public TransitionEffect {
     public:
-        Effect_Push(px::Surface *newscr, int originx, int originy);
+        Effect_Push(ecl::Surface *newscr, int originx, int originy);
         void tick (double dtime);
         bool finished() const;
     private:
         double rest_time;
-        px::Surface *newscr;
-        std::auto_ptr<px::Surface > oldscr;
+        ecl::Surface *newscr;
+        std::auto_ptr<ecl::Surface > oldscr;
         int originx, originy;
         double velx, vely;
         double accx, accy;
@@ -723,7 +723,7 @@ namespace
     };
 }
 
-Effect_Push::Effect_Push(px::Surface *newscr_, int originx_, int originy_)
+Effect_Push::Effect_Push(ecl::Surface *newscr_, int originx_, int originy_)
 : rest_time (0.7),
   newscr (newscr_),
   oldscr (Duplicate(SCREEN->get_surface())),
@@ -778,7 +778,7 @@ bool Effect_Push::finished() const
 
 
 TransitionEffect *
-video::MakeEffect (TransitionModes tm, px::Surface *newscr)
+video::MakeEffect (TransitionModes tm, ecl::Surface *newscr)
 {
     int scrw = SCREEN->width();
     int scrh = SCREEN->height();

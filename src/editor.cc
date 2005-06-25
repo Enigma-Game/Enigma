@@ -22,7 +22,7 @@
 #include "lua.hh"
 #include "video.hh"
 #include "gui.hh"
-#include "px/sdl.hh"
+#include "ecl_sdl.hh"
 #include <iostream>
 
 #include "display_internal.hh"
@@ -37,7 +37,7 @@ extern "C" {
 using namespace std;
 using namespace enigma;
 using namespace editor;
-using namespace px;
+using namespace ecl;
 
 using display::ScreenArea;
 using display::DisplayEngine;

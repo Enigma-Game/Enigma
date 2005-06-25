@@ -33,15 +33,15 @@ extern "C" {
 #include "lualib.h"
 #include "tolua.h"
 }
-#include "px/px.hh"
+#include "ecl.hh"
 #include <cassert>
 
 using namespace std;
 using namespace enigma;
 using namespace lua;
 
-using px::round_down;
-using px::strf;
+using ecl::round_down;
+using ecl::strf;
 
 using enigma::GridPos;
 using world::Object;
@@ -316,7 +316,7 @@ int lua::PlaySound (lua_State *L)
     double      y         = lua_tonumber (L, 3);
     double      volume    = lua_tonumber (L, 4);
 
-    sound::PlaySound (soundname, px::V2 (x, y), volume);
+    sound::PlaySound (soundname, ecl::V2 (x, y), volume);
 
     return 0;
 }
@@ -430,7 +430,7 @@ en_get_pos(lua_State *L)
 }
 
 static int en_add_constant_force(lua_State *L) {
-    px::V2 v;
+    ecl::V2 v;
     v[0] = lua_tonumber(L, 1);
     v[1] = lua_tonumber(L, 2);
     world::SetConstantForce (v);

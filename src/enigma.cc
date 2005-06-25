@@ -18,7 +18,7 @@
  * $Id: enigma.cc,v 1.38 2004/05/27 20:38:28 dheck Exp $
  */
 #include "enigma.hh"
-#include "px/px.hh"
+#include "ecl.hh"
 
 #include <iostream>
 #include <cassert>
@@ -26,7 +26,7 @@
 #include <set>
 
 using namespace std;
-using namespace px;
+using namespace ecl;
 using namespace enigma;
 
 
@@ -261,7 +261,7 @@ ostream& enigma::operator<<(ostream& os, const Value& val)
 
 /* -------------------- GridPos -------------------- */
 
-GridPos::GridPos(const px::V2& p) 
+GridPos::GridPos(const ecl::V2& p) 
 : x (round_down<int>(p[0])), 
   y (round_down<int>(p[1])) 
 {}
@@ -413,7 +413,7 @@ namespace
             if (FindFile (string("fonts/")+name+".png", png) &&
                 FindFile (string("fonts/")+name+".bmf", bmf))
             {
-                return px::LoadBitmapFont(png.c_str(), bmf.c_str());
+                return ecl::LoadBitmapFont(png.c_str(), bmf.c_str());
             }
             return 0;
         }
@@ -421,12 +421,12 @@ namespace
         Font *load_ttf (const string &name, int ptsize, int r, int g, int b) {
             string ttf;
             if (enigma::FindFile (string("fonts/") + name, ttf))
-                return px::LoadTTF (ttf.c_str(), ptsize, r, g, b);
+                return ecl::LoadTTF (ttf.c_str(), ptsize, r, g, b);
             return 0;
         }
 
         // Variables
-        px::Dict <FontDescr> m_fonts;
+        ecl::Dict <FontDescr> m_fonts;
     };
 
     // ---------- Variables ----------
@@ -437,7 +437,7 @@ namespace
 
 Surface *ImageCache::acquire (const std::string &name) 
 {
-    return px::LoadImage(name.c_str());
+    return ecl::LoadImage(name.c_str());
 }
 
 void enigma::DefineFont (const char *name, 
@@ -449,20 +449,20 @@ void enigma::DefineFont (const char *name,
     font_cache.define_font (FontDescr (name, ttf_name, ttf_size, bmf_name, r, g, b));
 }
 
-px::Font *enigma::GetFont (const char *name) 
+ecl::Font *enigma::GetFont (const char *name) 
 {
     return font_cache.get(name);
 }
 
-px::Surface *enigma::LoadImage(const char *name) 
+ecl::Surface *enigma::LoadImage(const char *name) 
 {
     string filename;
     if (file::FindImageFile (string(name) + ".png", filename)) 
-        return px::LoadImage(filename.c_str());
+        return ecl::LoadImage(filename.c_str());
     return 0;
 }
 
-px::Surface *enigma::GetImage(const char *name, const char *ext) 
+ecl::Surface *enigma::GetImage(const char *name, const char *ext) 
 {
     string filename;
     if (file::FindImageFile (string(name) + ext, filename)) 
@@ -470,7 +470,7 @@ px::Surface *enigma::GetImage(const char *name, const char *ext)
     return 0;
 }
 
-px::Surface *enigma::RegisterImage (const char *name, px::Surface *s) 
+ecl::Surface *enigma::RegisterImage (const char *name, ecl::Surface *s) 
 {
     image_cache.store(name, s);
     return s;

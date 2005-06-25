@@ -29,7 +29,7 @@ namespace
         Menu *container;
         int skip;
     public:
-        BuildVList(Menu *cc, const px::Rect &rr, int s)
+        BuildVList(Menu *cc, const ecl::Rect &rr, int s)
             : r(rr), container(cc), skip(s)
         {}
 
@@ -44,12 +44,12 @@ namespace
 
     class VTableBuilder {
         Menu     *m_menu;
-        px::Rect  m_targetarea;
-        px::Rect  m_widgetsize;
+        ecl::Rect  m_targetarea;
+        ecl::Rect  m_widgetsize;
         int       m_vspacing, m_hspacing;
         
     public:
-        VTableBuilder (Menu *menu, const px::Rect &targetarea, const px::Rect &widgetsize,
+        VTableBuilder (Menu *menu, const ecl::Rect &targetarea, const ecl::Rect &widgetsize,
                        int   vspacing, int hspacing)
             : m_menu(menu),
               m_targetarea(targetarea),
@@ -108,7 +108,7 @@ namespace
             for (int col = 0; col < best_cols && i<count; col++) {
                 int y=0;
                 for (int row=0; row < best_rows && i<count; row++, i++) {
-                    px::Rect rr(x, y, m_widgetsize.w, m_widgetsize.h);
+                    ecl::Rect rr(x, y, m_widgetsize.w, m_widgetsize.h);
                     m_menu->add(widgets[i], rr);
                     // widgets[i]->move (x, y);
                     widgets[i]  = 0; // widget now owned by m_menu
@@ -125,7 +125,7 @@ namespace
         Menu *container;
         int skip;
     public:
-        BuildHList(Menu *cc, const px::Rect &rr, int s)
+        BuildHList(Menu *cc, const ecl::Rect &rr, int s)
         : r(rr), container(cc), skip(s)
         {}
 
@@ -135,7 +135,7 @@ namespace
             return w;
         }
         Widget *add (Widget *w, int width) {
-            px::Rect rr(r.x, r.y, width, r.h);
+            ecl::Rect rr(r.x, r.y, width, r.h);
             container->add(w, rr);
             r.x += width + skip;
             return w;
@@ -164,7 +164,7 @@ namespace
             Surface  *surface;      // owned by ImageCache
             unsigned  idx;          // level index
             
-            CacheElem (px::Surface *s, unsigned idx_)
+            CacheElem (ecl::Surface *s, unsigned idx_)
             : surface (s), idx(idx_)
             {}
             
@@ -176,7 +176,7 @@ namespace
 
         // ---------- Internal methods ----------
 
-        px::Surface *newPreview (const Level &level);
+        ecl::Surface *newPreview (const Level &level);
         CacheElem *make_cache_elem (const levels::Level &level);
         void release();
 
@@ -194,7 +194,7 @@ namespace
         LevelPackMenu();
 
         void on_action(Widget *w);
-        void draw_background(px::GC &gc);
+        void draw_background(ecl::GC &gc);
         int get_selection() const { return m_selection; }
 
     private:
@@ -214,14 +214,14 @@ namespace
         bool manage ();
 
         //---------- Widget interface ----------//
-        void draw(px::GC &gc, const px::Rect &r);
+        void draw(ecl::GC &gc, const ecl::Rect &r);
 
         void set_listener(ActionListener *al) {
             listener = al;
         }
         void trigger_action();
 
-        virtual void realize (const px::Rect &r);
+        virtual void realize (const ecl::Rect &r);
 
         //---------- Cursor motion ----------//
 
@@ -251,7 +251,7 @@ namespace
         void set_selected (int newfirst, int newsel);
         void recalc_available ();
         Surface *get_preview_image (const Level &);
-        void draw_level_preview (px::GC &, const Level &, int x, int y);
+        void draw_level_preview (ecl::GC &, const Level &, int x, int y);
 
         bool handle_keydown (const SDL_Event *e);
         bool handle_mousedown (const SDL_Event *e);
@@ -265,7 +265,7 @@ namespace
         int               iselected; // Index of selected level
         int               max_available; // Index of the last available level (one can choose out of x unsolved levels)
         int               width, height;
-        vector<px::Rect>  m_areas; // Screen areas occupied by level previews
+        vector<ecl::Rect>  m_areas; // Screen areas occupied by level previews
         ActionListener   *listener;
         int buttonw, buttonh;
     };
@@ -290,7 +290,7 @@ namespace
 
         // Menu interface.
         void tick (double time);
-        void draw_background(px::GC &gc);
+        void draw_background(ecl::GC &gc);
 
         // Widget interface.
         bool on_event (const SDL_Event &e);
@@ -326,7 +326,7 @@ namespace
         MainMenu();
     private:
         // Menu interface
-        void draw_background(px::GC &gc);
+        void draw_background(ecl::GC &gc);
         void tick(double dtime);
 
         // ActionListener interface.
@@ -354,7 +354,7 @@ namespace
 {
     class OptionsMenu : public gui::Menu {
     public:
-        OptionsMenu(px::Surface *background_);
+        OptionsMenu(ecl::Surface *background_);
         ~OptionsMenu();
     private:
         void update_info();
@@ -364,13 +364,13 @@ namespace
         void on_action(gui::Widget *w);
 
         // Menu interface.
-        void draw_background(px::GC &gc);
+        void draw_background(ecl::GC &gc);
         void tick(double dtime);
 
         // Variables.
         gui::Widget *back, *fullscreen;
         gui::Label  *m_restartinfo;
-        px::Surface *background;
+        ecl::Surface *background;
         std::string  previous_caption;
     };
 }
@@ -390,13 +390,13 @@ namespace
         void on_action(gui::Widget *w);
 
         // Menu interface.
-        void draw_background(px::GC &gc);
+        void draw_background(ecl::GC &gc);
         void tick(double dtime);
 
         // Variables.
         gui::Widget *back, *fullscreen;
         gui::Label  *m_restartinfo;
-        px::Surface *background;
+        ecl::Surface *background;
         std::string  previous_caption;
     };
 }

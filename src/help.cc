@@ -20,13 +20,13 @@
 
 #include "enigma.hh"
 #include "gui.hh"
-#include "px/px.hh"
+#include "ecl.hh"
 #include "help.hh"
 #include "video.hh"
 #include "nls.hh"
 
 using namespace enigma;
-using namespace px;
+using namespace ecl;
 using namespace std;
 
 struct HelpMenuConfig {
@@ -50,7 +50,7 @@ public:
 private:
     bool on_event           (const SDL_Event &e);
     void on_action          (gui::Widget *w);
-    void draw_background    (px::GC &gc);
+    void draw_background    (ecl::GC &gc);
 
     const char     **helptext;
     gui::Widget     *ok;
@@ -83,7 +83,7 @@ void HelpMenu::on_action (gui::Widget *w)
         Menu::quit();
 }
 
-void HelpMenu::draw_background (px::GC &gc) 
+void HelpMenu::draw_background (ecl::GC &gc) 
 {
     blit(gc, 0,0, enigma::GetImage("menu_bg", ".jpg"));
     Font *f = enigma::GetFont(cfg.fontname.c_str());

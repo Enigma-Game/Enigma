@@ -31,21 +31,21 @@ namespace enigma_levels
 
 /* -------------------- Exceptions -------------------- */
 
-    class XLevelLoading : public px::XGeneric {
+    class XLevelLoading : public ecl::XGeneric {
     public:
         XLevelLoading (const std::string &msg)
         : XGeneric (msg)
         {}
     };
 
-    class XLevelPackInit : public px::XGeneric {
+    class XLevelPackInit : public ecl::XGeneric {
     public:
         XLevelPackInit (const std::string &msg)
         : XGeneric (msg)
         {}
     };
     
-    class XLevelRuntime : public px::XGeneric {
+    class XLevelRuntime : public ecl::XGeneric {
     public:
         XLevelRuntime (const std::string &msg)
         : XGeneric (msg)
@@ -126,7 +126,7 @@ namespace enigma_levels
         /*! Return the level information for level INDEX */
         virtual const LevelInfo &get_info (size_t index) const = 0;
 
-        virtual px::Surface *load_preview (size_t /*index*/) { return 0; }
+        virtual ecl::Surface *load_preview (size_t /*index*/) { return 0; }
 
         /*! Return revision number of level INDEX. */
         virtual int get_revision_number(size_t index) const = 0;

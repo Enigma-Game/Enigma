@@ -20,7 +20,7 @@
 #define OBJECTS_DECL_HH
 
 #include "display.hh"
-#include "px/alist.hh"
+#include "ecl_alist.hh"
 
 namespace world
 {
@@ -55,7 +55,7 @@ namespace world
 
         /* ---------- Attributes ---------- */
 
-        typedef px::AssocList<std::string, Value> AttribMap;
+        typedef ecl::AssocList<std::string, Value> AttribMap;
 
         bool string_attrib (const string &name, string *val) const;
         int  int_attrib (const string &name) const;

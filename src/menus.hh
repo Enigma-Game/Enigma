@@ -19,10 +19,10 @@
 #include "enigma.hh"
 #include "game.hh"
 #include "gui.hh"
-#include "px/video.hh"
+#include "ecl_video.hh"
 
 namespace enigma
 {
     void ShowMainMenu();
-    void ShowOptionsMenu(px::Surface *background);
+    void ShowOptionsMenu(ecl::Surface *background);
 }

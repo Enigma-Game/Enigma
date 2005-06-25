@@ -51,11 +51,11 @@ namespace world
 /* -------------------- ActorInfo -------------------- */
 
     struct Contact {
-        px::V2 pos;
-        px::V2 normal;
+        ecl::V2 pos;
+        ecl::V2 normal;
 
         // Constructor
-        Contact (const px::V2 &pos_, const px::V2 &normal_)
+        Contact (const ecl::V2 &pos_, const ecl::V2 &normal_)
         : pos(pos_), normal (normal_) {} 
     };
 
@@ -68,9 +68,9 @@ namespace world
     struct ActorInfo {
 	// ---------- Variables ----------
 
-        px::V2 pos;		// Absolute position
-        px::V2 vel;		// Velocity
-        px::V2 forceacc;        // Force accumulator
+        ecl::V2 pos;		// Absolute position
+        ecl::V2 vel;		// Velocity
+        ecl::V2 forceacc;        // Force accumulator
 	double charge;		// Electric charge
 	double mass;		// Mass
 	double radius;		// Radius of the ball
@@ -79,10 +79,10 @@ namespace world
 
 	// Variables used internally by the physics engine
 
-        px::V2 last_pos;        // Position before current tick
-	px::V2 oldpos;		// Backup position for enter/leave notification
-        px::V2 force;		// Force used during tick
-        px::V2 collforce;
+        ecl::V2 last_pos;        // Position before current tick
+	ecl::V2 oldpos;		// Backup position for enter/leave notification
+        ecl::V2 force;		// Force used during tick
+        ecl::V2 collforce;
         ContactList contacts;
         ContactList new_contacts;
 
@@ -107,8 +107,8 @@ namespace world
         virtual void think (double dtime);
 
         virtual void on_collision(Actor *a);
-        virtual void on_creation(const px::V2 &pos);
-        virtual void on_respawn (const px::V2 &pos);
+        virtual void on_creation(const ecl::V2 &pos);
+        virtual void on_respawn (const ecl::V2 &pos);
 
         virtual bool is_dead() const = 0;
 	virtual bool is_movable() const { return true; }
@@ -127,27 +127,27 @@ namespace world
         /* ---------- Methods ---------- */
         void move ();
         virtual void move_screen ();
-        void warp (const px::V2 &newpos);
+        void warp (const ecl::V2 &newpos);
         bool sound_event (const char *name);
 
         void      respawn();
-        void      set_respawnpos(const px::V2& p);
+        void      set_respawnpos(const ecl::V2& p);
         void      remove_respawnpos();
         void      find_respawnpos();
-        const px::V2 &get_respawnpos() const;
-        const px::V2 &get_startpos() const;
+        const ecl::V2 &get_respawnpos() const;
+        const ecl::V2 &get_startpos() const;
 
         void hide();
         void show();
 
-        void add_force (const px::V2 &f);
+        void add_force (const ecl::V2 &f);
 
         /* ---------- Accessors ---------- */
         ActorInfo *get_actorinfo();
         const ActorInfo &get_actorinfo() const;
-        const px::V2 &get_pos() const;
+        const ecl::V2 &get_pos() const;
 
-        const px::V2 &get_vel() const {
+        const ecl::V2 &get_vel() const {
             return m_actorinfo.vel; 
         }
 
@@ -176,8 +176,8 @@ namespace world
         /* ---------- Variables ---------- */
         ActorInfo             m_actorinfo;
         display::SpriteHandle m_sprite;
-        px::V2                startingpos;
-        px::V2                respawnpos;
+        ecl::V2                startingpos;
+        ecl::V2                respawnpos;
         bool                  use_respawnpos;
         bool                  spikes; // set by "it-pin"
         int                   controllers;

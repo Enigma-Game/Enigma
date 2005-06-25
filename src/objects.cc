@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2002,2003,2004 Daniel Heck
+ * Copyright (C) 2002,2003,2004,2005 Daniel Heck
  *
  * This program is free software; you can redistribute it and/or
  * modify it under the terms of the GNU General Public License
@@ -21,8 +21,8 @@
 #include "sound.hh"
 #include "world.hh"
 
-#include "px/tools.hh"
-#include "px/dict.hh"
+#include "ecl_util.hh"
+#include "ecl_dict.hh"
 
 #include <algorithm>
 #include <string>

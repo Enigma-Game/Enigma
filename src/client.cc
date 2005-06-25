@@ -30,7 +30,7 @@
 #include "world.hh"
 #include "nls.hh"
 
-#include "px/sdl.hh"
+#include "ecl_sdl.hh"
 
 #include <cctype>
 #include <cstring>
@@ -39,7 +39,7 @@
 #include <iostream>
 
 using namespace enigma::client;
-using namespace px;
+using namespace ecl;
 using namespace std;
 
 #include "client_internal.hh"
@@ -110,7 +110,7 @@ GameMenu::~GameMenu() {
     delete(zoomed);
 }
 
-void GameMenu::draw_background(px::GC &gc) 
+void GameMenu::draw_background(ecl::GC &gc) 
 {
     const video::VMInfo *vminfo = video::GetInfo();
 
@@ -176,7 +176,7 @@ void GameMenu::draw_background(px::GC &gc)
         delete src;
     }
 
-    px::blit(gc, 0,0, zoomed);
+    ecl::blit(gc, 0,0, zoomed);
 }
 
 bool GameMenu::on_event (const SDL_Event &e) 
@@ -429,7 +429,7 @@ void Client::on_keydown(SDL_Event &e)
         case SDLK_t:
             if (enigma::WizardMode) {
                 Screen *scr = video::GetScreen();
-                px::TintRect(scr->get_surface (), display::GetGameArea(), 
+                ecl::TintRect(scr->get_surface (), display::GetGameArea(), 
                              100, 100, 100, 0);
                 scr->update_all();
             }
@@ -542,7 +542,7 @@ void Client::show_menu()
 {
     server::Msg_Pause (true);
 
-    px::Screen *screen = video::GetScreen();
+    ecl::Screen *screen = video::GetScreen();
 
     video::TempInputGrab grab (false);
 
@@ -576,7 +576,7 @@ void Client::draw_screen()
 
         vector<string> lines;
 
-        px::split_copy (m_error_message, '\n', back_inserter(lines));
+        ecl::split_copy (m_error_message, '\n', back_inserter(lines));
         int x     = 60;
         int y     = 60;
         int yskip = 25;
@@ -911,7 +911,7 @@ void client::Msg_PlayerPosition (unsigned iplayer, const V2 &pos)
 }
 
 void client::Msg_PlaySound (const std::string &wavfile, 
-                            const px::V2 &pos,
+                            const ecl::V2 &pos,
                             double relative_volume)
 {
     sound::SoundEvent (wavfile.c_str(), pos, relative_volume);
@@ -922,7 +922,7 @@ void client::Msg_PlaySound (const std::string &wavfile, double relative_volume)
     sound::SoundEvent (wavfile.c_str(), V2(), relative_volume);
 }
 
-void client::Msg_Sparkle (const px::V2 &pos) {
+void client::Msg_Sparkle (const ecl::V2 &pos) {
     display::AddEffect (pos, "ring-anim");
 }
 

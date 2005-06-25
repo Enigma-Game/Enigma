@@ -51,11 +51,11 @@ void Floor::dispose() {
 void Floor::message(const string& /*msg*/, const Value &/*val*/) {
 }
 
-px::V2 Floor::process_mouseforce (Actor *a, px::V2 force) {
+ecl::V2 Floor::process_mouseforce (Actor *a, ecl::V2 force) {
     if (a->controlled_by(player::CurrentPlayer()))
         return mousefactor() * force;
     else
-        return px::V2();
+        return ecl::V2();
 }
 
 void Floor::get_sink_speed (double &sinkspeed, double &raisespeed) const {
@@ -264,12 +264,12 @@ int Gradient::get_type() const
 
 void Gradient::init_model()
 {
-    set_model(px::strf("fl-gradient%d", get_type()));
+    set_model(ecl::strf("fl-gradient%d", get_type()));
 }
 
 void Gradient::add_force(Actor */*a*/, V2 &f)
 {
-    px::V2 force;
+    ecl::V2 force;
     int t = get_type();
 
     static int xforce[MAXTYPE-MINTYPE+1] = {
@@ -288,7 +288,7 @@ void Gradient::add_force(Actor */*a*/, V2 &f)
         -1, -1,  1,  1,
          1, -1,  0,  0
     };
-    force = px::V2(xforce[t-MINTYPE], yforce[t-MINTYPE]);
+    force = ecl::V2(xforce[t-MINTYPE], yforce[t-MINTYPE]);
     force.normalize();
 
     // use enigma::SlopeForce if no "force" attribute is set
@@ -406,7 +406,7 @@ void Bridge::message(const string &m, const Value &)
 
 void Bridge::init_model()
 {
-    set_model(px::strf("fl-bridge%c-%s", get_type(),
+    set_model(ecl::strf("fl-bridge%c-%s", get_type(),
                        (state==OPEN) ? "open" : "closed"));
 }
 
@@ -471,11 +471,11 @@ namespace
     public:
         BlackTile() : Floor ("fl-acblack", 5.2, 2.0) {}
 
-        px::V2 process_mouseforce (Actor */*a*/, px::V2 force) {
+        ecl::V2 process_mouseforce (Actor */*a*/, ecl::V2 force) {
             if (player::CurrentPlayer() == 0)
                 return mousefactor() * force;
             else
-                return px::V2();
+                return ecl::V2();
         }
     };
 
@@ -483,11 +483,11 @@ namespace
     public:
         WhiteTile() : Floor ("fl-acwhite", 5.2, 2.0) {}
 
-        px::V2 process_mouseforce (Actor */*a*/, px::V2 force) {
+        ecl::V2 process_mouseforce (Actor */*a*/, ecl::V2 force) {
             if (player::CurrentPlayer() == 1)
                 return mousefactor() * force;
             else
-                return px::V2();
+                return ecl::V2();
         }
     };
 }

@@ -2,7 +2,7 @@
 
 $#include "gui.hh"
 $using namespace gui;
-$using px::Rect;
+$using ecl::Rect;
 
 module gui
 {

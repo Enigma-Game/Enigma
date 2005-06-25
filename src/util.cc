@@ -3,7 +3,7 @@
 #include <algorithm>
 #include <functional>
 
-#include "px/tools.hh"
+#include "ecl_util.hh"
 
 #include "util.hh"
 
@@ -43,7 +43,8 @@ Alarm::Alarm(TimeHandler* h, double i, bool r)
 : handler(h), interval(i), timeleft(i), repeatp(r), removed(false)
 {}
 
-void Alarm::tick(double dtime) {
+void Alarm::tick (double dtime) 
+{
     if (!removed) {
         timeleft -= dtime;
         if (repeatp) {
@@ -66,7 +67,8 @@ struct Timer::Rep {
 };
 
 
-Timer::Timer() : self(*new Rep) {
+Timer::Timer() : self(*new Rep) 
+{
 }
 
 Timer::~Timer() 
@@ -75,7 +77,8 @@ Timer::~Timer()
     delete &self;
 }
 
-void Timer::deactivate(TimeHandler* th) {
+void Timer::deactivate(TimeHandler* th) 
+{
     std::list<TimeHandler*>::iterator i;
 
     i = find(self.handlers.begin(), self.handlers.end(), th);
@@ -87,12 +90,14 @@ void Timer::deactivate(TimeHandler* th) {
     // from their `tick' method!
 }
 
-void Timer::activate(TimeHandler *th) {
+void Timer::activate(TimeHandler *th) 
+{
     if (find(self.handlers.begin(), self.handlers.end(), th) == self.handlers.end())
         self.handlers.push_back(th);
 }
 
-void Timer::set_alarm(TimeHandler *th, double interval, bool repeatp) {
+void Timer::set_alarm(TimeHandler *th, double interval, bool repeatp) 
+{
     if (interval > 0)
         self.alarms.push_back(Alarm(th, interval, repeatp));
 }
@@ -117,7 +122,7 @@ void Timer::tick (double dtime)
 
     // explicit loop to allow remove_alarm() to be called from inside alarm()
     for (list<Alarm>::iterator i=self.alarms.begin(); i != self.alarms.end(); ) {
-        list<Alarm>::iterator n = px::next(i);
+        list<Alarm>::iterator n = ecl::next(i);
 
         i->tick(dtime);
         i = n;

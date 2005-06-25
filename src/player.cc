@@ -25,7 +25,7 @@
 #include "world.hh"
 #include "main.hh"
 
-#include "px/tools.hh"
+#include "ecl_util.hh"
 
 #include <algorithm>
 #include <iostream>
@@ -165,7 +165,7 @@ Inventory::~Inventory() {
 }
 
 void Inventory::clear() {
-    px::delete_sequence(m_items.begin(), m_items.end());
+    ecl::delete_sequence(m_items.begin(), m_items.end());
     m_items.clear();
 }
 
@@ -380,7 +380,7 @@ bool player::IsCurrentPlayer(Actor *a) {
 void player::SetCurrentPlayer(unsigned iplayer) 
 {
     if (iplayer >= players.size())
-        Log << px::strf("SetCurrentPlayer: no such player %d\n", iplayer);
+        Log << ecl::strf("SetCurrentPlayer: no such player %d\n", iplayer);
     else {
         icurrent_player = iplayer;
         UpdateInventory (GetInventory(iplayer));
@@ -401,7 +401,7 @@ unsigned player::NumberOfRealPlayers() {
 
 /*! Sets respawn positions for black or white actors. */
 void player::SetRespawnPositions(GridPos pos, bool black) {
-    px::V2 center = pos.center();
+    ecl::V2 center = pos.center();
 
     for (unsigned i=0; i<players.size(); ++i) {
         vector<Actor *> &al = players[i].actors;
@@ -668,7 +668,7 @@ void player::ActivateItem() {
 
 void player::RotateInventory(int dir) 
 {
-    sound::SoundEvent ("invrotate", px::V2());
+    sound::SoundEvent ("invrotate", ecl::V2());
     Inventory &inv = players[icurrent_player].inventory;
     inv.rotate(dir);
 }

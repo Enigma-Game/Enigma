@@ -364,9 +364,9 @@ namespace enigma_server {
                 if (ilevel >= 0 && static_cast<unsigned>(ilevel) < lp->size()) {
                     Msg_Jumpto(lp, ilevel);
                 }
-                else error = px::strf("Illegal level %i (1-%i)", ilevel+1, lp->size());
+                else error = ecl::strf("Illegal level %i (1-%i)", ilevel+1, lp->size());
             }
-            else error = px::strf("Illegal level pack %i (1-%i)", packnr+1, packs);
+            else error = ecl::strf("Illegal level pack %i (1-%i)", packnr+1, packs);
         }
         else error = "Syntax: jumpto pack,level";
 
@@ -492,9 +492,9 @@ void server::Msg_Command (const string &cmd)
     else if (cmd == "info") {
         const LevelInfo &info = CurrentLevelPack->get_info(CurrentLevel);
         string infotext       = 
-            px::strf("Level #%i of '", CurrentLevel+1) + CurrentLevelPack->get_name()
+            ecl::strf("Level #%i of '", CurrentLevel+1) + CurrentLevelPack->get_name()
             + "' (" + info.filename + ".lua)  -  \"" + info.name + "\" by " + info.author
-            + px::strf(" (rev=%i)", info.revision);
+            + ecl::strf(" (rev=%i)", info.revision);
 
         client::Msg_ShowText(infotext, true);
     }
@@ -533,7 +533,7 @@ void server::Msg_Panic (bool onoff) {
         state = sv_running;
 }
 
-void server::Msg_MouseForce (const px::V2 &f) {
+void server::Msg_MouseForce (const ecl::V2 &f) {
     world::SetMouseForce (f);
 }
 

@@ -26,7 +26,7 @@
 #include "oxyd.hh"
 #include "sound.hh"
 #include "video.hh"
-#include "px/argp.hh"
+#include "ecl_argp.hh"
 #include "world.hh"
 #include "nls.hh"
 
@@ -45,7 +45,7 @@
 #endif
 
 using namespace std;
-using namespace px;
+using namespace ecl;
 using namespace enigma;
 
 #ifdef WIN32
@@ -124,7 +124,7 @@ static void usage()
 
 namespace
 {
-    struct AP : public argp::ArgParser {
+    struct AP : public ecl::ArgParser {
     public:
         // Constructor
         AP();
@@ -403,7 +403,7 @@ int main(int argc, char** argv)
         shutdown();
         return 0;
     }
-    catch (px::XGeneric &e) {
+    catch (ecl::XGeneric &e) {
         cerr << "Error: " << e.what() << endl;
     }
     catch (std::exception &e) {

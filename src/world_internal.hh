@@ -25,7 +25,7 @@ namespace world
     class Field;
     struct Signal;
 
-    typedef px::Array2<Field> FieldArray;
+    typedef ecl::Array2<Field> FieldArray;
 
     typedef vector<ForceField*>  ForceList;
     typedef vector<StoneContact> StoneContactList;
@@ -313,7 +313,7 @@ namespace world
         StoneLayer      st_layer;
 
     private:
-        px::Dict<Object *> m_objnames; // Name -> object mapping
+        ecl::Dict<Object *> m_objnames; // Name -> object mapping
 
         list<Scramble> scrambles;
     };

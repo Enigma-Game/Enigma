@@ -21,8 +21,8 @@
 $#include "display.hh"
 $#include "d_models.hh"
 $using namespace display;
-$using px::Rect;
-$using px::Surface;
+$using ecl::Rect;
+$using ecl::Surface;
 
 
 Surface *GetSurface (const char *name);

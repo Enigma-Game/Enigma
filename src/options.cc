@@ -24,7 +24,7 @@
 #include "main.hh"
 #include "options.hh"
 #include "sound.hh"
-#include "px/system.hh"
+#include "ecl_system.hh"
 
 #include <cassert>
 #include <cstdio>
@@ -107,7 +107,7 @@ int options::GetInt (const char *name) {
 double options::SetMouseSpeed (double speed) 
 {
     double oldspeed = GetMouseSpeed();
-    double newspeed = px::Clamp<double>(speed, MIN_MouseSpeed, MAX_MouseSpeed);
+    double newspeed = ecl::Clamp<double>(speed, MIN_MouseSpeed, MAX_MouseSpeed);
     SetOption("MouseSpeed", newspeed);
     return oldspeed;
 }
@@ -208,7 +208,7 @@ Personal_ConfigurationFileName()
     std::string fname = "enigmarc.lua";
 
     if (getenv ("HOME") != 0)
-        fname = px::ExpandPath ("~/.enigmarc");
+        fname = ecl::ExpandPath ("~/.enigmarc");
 
     return fname;
 }

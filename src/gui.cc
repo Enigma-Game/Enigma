@@ -23,16 +23,16 @@
 #include "video.hh"
 #include "options.hh"
 #include "nls.hh"
-#include "px/px.hh"
+#include "ecl.hh"
 #include <cassert>
 #include <algorithm>
 #include <iostream>
 
 using namespace gui;
-using namespace px;
+using namespace ecl;
 using namespace std;
 
-#define SCREEN px::Screen::get_instance()
+#define SCREEN ecl::Screen::get_instance()
 
 /* -------------------- Widget -------------------- */
 
@@ -44,7 +44,7 @@ void Widget::invalidate() {
     if (m_parent)
         m_parent->invalidate_area(get_area());
 }
-void Widget::invalidate_area(const px::Rect& r) {
+void Widget::invalidate_area(const ecl::Rect& r) {
     if (m_parent)
         m_parent->invalidate_area(r);
 }
@@ -70,8 +70,8 @@ void Widget::resize (int w, int h) {
 
 /* -------------------- Image -------------------- */
 
-void Image::draw (px::GC &gc, const px::Rect &/*r*/) {
-    if (px::Surface *s = enigma::GetImage(imgname.c_str()))
+void Image::draw (ecl::GC &gc, const ecl::Rect &/*r*/) {
+    if (ecl::Surface *s = enigma::GetImage(imgname.c_str()))
         blit(gc, get_x(), get_y(), s);
 }
 
@@ -84,7 +84,7 @@ AreaManager::AreaManager(Container *c)
     assert(top_container->get_parent() == 0); // otherwise it's not the top_container
 }
 
-void AreaManager::invalidate_area(const px::Rect &r) {
+void AreaManager::invalidate_area(const ecl::Rect &r) {
     dirtyrects.add(r);
 }
 
@@ -129,7 +129,7 @@ AreaManager *Container::getAreaManager() {
     return managed_by;
 }
 
-void Container::invalidate_area(const px::Rect &r) { getAreaManager()->invalidate_area(r); }
+void Container::invalidate_area(const ecl::Rect &r) { getAreaManager()->invalidate_area(r); }
 void Container::invalidate_all() { getAreaManager()->invalidate_all(); }
 void Container::refresh() { getAreaManager()->refresh(); }
 
@@ -148,7 +148,7 @@ void Container::add_child (Widget *w) {
 }
 
 
-void Container::draw (px::GC& gc, const px::Rect &r) {
+void Container::draw (ecl::GC& gc, const ecl::Rect &r) {
     for (iterator i=begin(); i!=end(); ++i) {
         Widget *w = *i;
         Rect rr = intersect(r, w->get_area());
@@ -185,11 +185,11 @@ Widget * Container::find_adjacent_widget(Widget *from, int x, int y) {
 
     int       best_distance = INT_MAX;
     Widget   *best_widget   = 0;
-    px::Rect  farea         = from->get_area();
+    ecl::Rect  farea         = from->get_area();
 
     for (iterator i=begin(); i!=end(); ++i) {
         Widget   *w        = *i;
-        px::Rect  warea    = w->get_area();
+        ecl::Rect  warea    = w->get_area();
         bool      adjacent = true;
         int       distance = 0;
 
@@ -234,12 +234,12 @@ void Container::move (int x, int y) {
     }
 }
 
-px::Rect Container::boundingbox() {
+ecl::Rect Container::boundingbox() {
     if (!m_widgets.empty()) {
         iterator i=begin();
         Rect bbox=(*i)->get_area();
         for (++i; i!=end(); ++i)
-            bbox = px::boundingbox(bbox, (*i)->get_area());
+            bbox = ecl::boundingbox(bbox, (*i)->get_area());
         return bbox;
     } else
         return get_area();
@@ -415,7 +415,7 @@ void Label::set_text (const std::string &text) {
     }
 }
 
-void Label::set_font (px::Font *font) {
+void Label::set_font (ecl::Font *font) {
     if (m_font != font) {
         m_font = font;
         reconfigure();
@@ -423,7 +423,7 @@ void Label::set_font (px::Font *font) {
     }
 }
 
-void Label::draw (px::GC &gc, const px::Rect &) 
+void Label::draw (ecl::GC &gc, const ecl::Rect &) 
 {
     Font *f = m_font;
     int w, h;
@@ -476,10 +476,10 @@ void Button::deactivate() {
     invalidate();
 }
 
-void Button::draw(px::GC &gc, const px::Rect &r) {
+void Button::draw(ecl::GC &gc, const ecl::Rect &r) {
     const int borderw = 4;
 
-    px::Surface *s = enigma::GetImage (m_activep ? "buttonhl" : "button");
+    ecl::Surface *s = enigma::GetImage (m_activep ? "buttonhl" : "button");
 
     if (s) {                    // Ugly, but hey, it works
         set_color (gc, 0,0,0);
@@ -589,8 +589,8 @@ void PushButton::deactivate() {
 
 /* -------------------- TextButton -------------------- */
 
-px::Font *TextButton::menufont = 0;
-px::Font *TextButton::menufont_pressed = 0;
+ecl::Font *TextButton::menufont = 0;
+ecl::Font *TextButton::menufont_pressed = 0;
 
 TextButton::TextButton(ActionListener *al) {
     if (menufont == 0) {
@@ -600,7 +600,7 @@ TextButton::TextButton(ActionListener *al) {
     set_listener(al);
 }
 
-void TextButton::draw(px::GC &gc, const px::Rect &r) {
+void TextButton::draw(ecl::GC &gc, const ecl::Rect &r) {
     Button::draw(gc,r);
     Font   *f    = is_pressed() ? menufont_pressed : menufont;
     string  text = get_text();
@@ -731,7 +731,7 @@ ImageButton::ImageButton(const string &unselected,
     set_listener(al);
 }
 
-void ImageButton::draw(px::GC &gc, const px::Rect &r) {
+void ImageButton::draw(ecl::GC &gc, const ecl::Rect &r) {
     Button::draw(gc, r);
     string &fname = is_pressed() ? fname_sel : fname_unsel;
 
@@ -755,7 +755,7 @@ void Menu::add(Widget *w) {
     Container::add_child(w); 
 }
 
-void Menu::add(Widget *w, px::Rect r) {
+void Menu::add(Widget *w, ecl::Rect r) {
     w->move (r.x, r.y);
     w->resize (r.w, r.h);
     add(w);
@@ -891,7 +891,7 @@ void Menu::center() {
             a.w += max(0, r.x+r.w-a.x-a.w);
             a.h += max(0, r.y+r.h-a.y-a.h);
         }
-        Rect c=px::center(SCREEN->size(), a);
+        Rect c=ecl::center(SCREEN->size(), a);
         int dx = c.x-a.x;
         int dy = c.y-a.y;
 
@@ -911,7 +911,7 @@ void Menu::draw_all() {
     refresh();
 }
 
-void Menu::draw (px::GC &gc, const px::Rect &r)
+void Menu::draw (ecl::GC &gc, const ecl::Rect &r)
 {
     clip(gc, r);
     draw_background(gc);

@@ -20,7 +20,7 @@
 #ifndef D_MODELS_HH
 #define D_MODELS_HH
 
-#include "px/pxfwd.hh"
+#include "ecl_fwd.hh"
 #include <vector>
 #include <string>
 #include <cassert>
@@ -29,24 +29,24 @@ namespace display
 {
     using std::string;
     using std::vector;
-    using px::Surface;
+    using ecl::Surface;
 
 /* -------------------- Image -------------------- */
 
     struct Image {
 	// Variables.
-	px::Surface *surface;
-	px::Rect     rect;      // location of image inside surface
+	ecl::Surface *surface;
+	ecl::Rect     rect;      // location of image inside surface
 	int          refcount;  // reference count, initialized to 1
 
         // Constructors.
-	Image(px::Surface *sfc);
-	Image(px::Surface *sfc, const px::Rect &r);
+	Image(ecl::Surface *sfc);
+	Image(ecl::Surface *sfc, const ecl::Rect &r);
     };
 
     void incref (Image *i);
     void decref (Image *i);
-    void draw_image (Image *i, px::GC &gc, int x, int y);
+    void draw_image (Image *i, ecl::GC &gc, int x, int y);
 
 /* -------------------- ImageModel -------------------- */
 
@@ -57,13 +57,13 @@ namespace display
         // Constructors
 	ImageModel (Image *i, int xo, int yo);
 	ImageModel (Surface *s, int xo, int yo);
-	ImageModel (Surface *s, const px::Rect &r, int xo, int yo);
+	ImageModel (Surface *s, const ecl::Rect &r, int xo, int yo);
 	~ImageModel();
 	
         // Model interface
-        void   draw(px::GC &gc, int x, int y);
+        void   draw(ecl::GC &gc, int x, int y);
 	Model *clone();
-        void   get_extension (px::Rect &r);
+        void   get_extension (ecl::Rect &r);
         Image *get_image() { return image; }
     };
 
@@ -81,12 +81,12 @@ namespace display
 	void set_callback(ModelCallback *cb);
 	void reverse();
         void restart();
-        void draw (px::GC &gc, int x, int y);
-        void draw_shadow (px::GC &gc, int x, int y);
+        void draw (ecl::GC &gc, int x, int y);
+        void draw_shadow (ecl::GC &gc, int x, int y);
         Model *get_shadow() const;
         Model *clone();
 
-        void   get_extension (px::Rect &r);
+        void   get_extension (ecl::Rect &r);
 
     private:
         Model *model, *shade;
@@ -125,20 +125,20 @@ namespace display
             fg->remove (ml);
 //            bg->remove (ml);
         }
-        void draw(px::GC &gc, int x, int y) {
+        void draw(ecl::GC &gc, int x, int y) {
             bg->draw(gc,x,y);
             fg->draw(gc,x,y);
         }
-        void draw_shadow(px::GC &gc, int x, int y) {
+        void draw_shadow(ecl::GC &gc, int x, int y) {
             bg->draw_shadow(gc,x,y);
         }
         Model *clone() {
             return new CompositeModel(bg->clone(), fg->clone());
         }
 
-        void   get_extension (px::Rect &r) {
+        void   get_extension (ecl::Rect &r) {
             fg->get_extension (r);
-//             px::Rect r1, r2;
+//             ecl::Rect r1, r2;
 //             bg->get_extension (r1);
 //             fg->get_extension (r2);
 //             r = boundingbox (r1, r2);
@@ -166,7 +166,7 @@ namespace display
 
 /* -------------------- Animations -------------------- */
 
-    struct AnimFrame : public px::Nocopy {
+    struct AnimFrame : public ecl::Nocopy {
         // Variables
         Model *model;
         double  duration;
@@ -193,7 +193,7 @@ namespace display
         }
     };
 
-    class Anim2d : public Model, public px::Nocopy {
+    class Anim2d : public Model, public ecl::Nocopy {
     public:
         Anim2d (bool loop);
         ~Anim2d();
@@ -202,8 +202,8 @@ namespace display
         void add_frame(Model *m, double duration);
 
         /* ---------- Model interface ---------- */
-        void draw(px::GC &gc, int x, int y);
-        void draw_shadow(px::GC &gc, int x, int y);
+        void draw(ecl::GC &gc, int x, int y);
+        void draw_shadow(ecl::GC &gc, int x, int y);
         Model *clone() { return new Anim2d(rep); }
         void reverse() { reversep = !reversep; }
         void restart ();
@@ -212,11 +212,11 @@ namespace display
         void remove (ModelLayer *ml);
 
         void tick(double dtime);
-        bool has_changed(px::Rect &changed_region);
+        bool has_changed(ecl::Rect &changed_region);
         bool is_garbage() const { return finishedp; }
 
         void move (int newx, int newy);
-        void get_extension (px::Rect &r);
+        void get_extension (ecl::Rect &r);
 
     private:
         Anim2d(AnimRep *r);
@@ -233,10 +233,10 @@ namespace display
         ModelCallback *callback;
     };
 
-    px::Surface *GetSurface (const std::string &filename);
-    px::Surface *CropSurface (const px::Surface *s, px::Rect r);
+    ecl::Surface *GetSurface (const std::string &filename);
+    ecl::Surface *CropSurface (const ecl::Surface *s, ecl::Rect r);
     void DefineModel (const char *name, Model *m);
-    void DefineImageModel (const char *name, px::Surface *s);
+    void DefineImageModel (const char *name, ecl::Surface *s);
 }
 
 #endif

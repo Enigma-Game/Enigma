@@ -12,8 +12,8 @@ void tolua_display_close (lua_State* tolua_S);
 #include "display.hh"
 #include "d_models.hh"
 using namespace display;
-using px::Rect;
-using px::Surface;
+using ecl::Rect;
+using ecl::Surface;
 
 /* function to register type */
 static void toluaI_reg_types (lua_State* tolua_S)

@@ -20,10 +20,10 @@
 #ifndef D_ENGINE_HH
 #define D_ENGINE_HH
 
-#include "px/geom.hh"
-#include "px/array2.hh"
-#include "px/alist.hh"
-#include "px/pxfwd.hh"
+#include "ecl_geom.hh"
+#include "ecl_array2.hh"
+#include "ecl_alist.hh"
+#include "ecl_fwd.hh"
 
 namespace display
 {
@@ -37,35 +37,35 @@ namespace display
 
         /* ---------- Class configuration ---------- */
         void  add_layer (DisplayLayer *l);
-        void  set_screen_area (const px::Rect & r);
+        void  set_screen_area (const ecl::Rect & r);
         void  set_tilesize (int w, int h);
 
         int   get_tilew () const { return m_tilew; }
         int   get_tileh () const { return m_tileh; }
         int   get_width() const { return m_width; }
         int   get_height() const { return m_height; }
-        const px::Rect &get_area() const { return m_area; }
+        const ecl::Rect &get_area() const { return m_area; }
 
         /* ---------- Scrolling / page flipping ---------- */
-        void set_offset (const px::V2 &off);
-        void move_offset (const px::V2 &off);
-        px::V2 get_offset () const { return m_offset; }
+        void set_offset (const ecl::V2 &off);
+        void move_offset (const ecl::V2 &off);
+        ecl::V2 get_offset () const { return m_offset; }
 
         /* ---------- Game-related stuff ---------- */
         void new_world (int w, int h);
         void tick (double dtime);
 
         /* ---------- Coordinate conversion ---------- */
-        void      world_to_screen (const px::V2 & pos, int *x, int *y);
+        void      world_to_screen (const ecl::V2 & pos, int *x, int *y);
         WorldArea screen_to_world (const ScreenArea &a);
         ScreenArea world_to_screen (const WorldArea &a);
 
         /* "Video" coordinates are like screen coordinates, except the
            origin coincides with the world origin, not the current
            scrolling position. */
-        void world_to_video (const px::V2 &pos, int *x, int *y);
+        void world_to_video (const ecl::V2 &pos, int *x, int *y);
         void video_to_screen (int x, int y, int *xx, int *yy);
-        void video_to_world (const px::Rect &r, px::Rect &s);
+        void video_to_world (const ecl::Rect &r, ecl::Rect &s);
 
         V2 to_world (const V2 &pos);
 
@@ -78,7 +78,7 @@ namespace display
         void redraw_world_area (const WorldArea &a);
 
         void update_screen();
-        void draw_all (px::GC &gc);
+        void draw_all (ecl::GC &gc);
         void update_offset();
 
     private:
@@ -90,18 +90,18 @@ namespace display
         int m_tilew, m_tileh;
 
         // Offset of screen
-        px::V2 m_offset;        // Offset in world units
-        px::V2 m_new_offset;    // New offset in world units
+        ecl::V2 m_offset;        // Offset in world units
+        ecl::V2 m_new_offset;    // New offset in world units
         int    m_screenoffset[2]; // Offset in screen units
 
 
         // Screen area occupied by level display
-        px::Rect m_area;
+        ecl::Rect m_area;
 
         // Width and height of the world in tiles
         int m_width, m_height;
 
-        px::Array2<char> m_redrawp;
+        ecl::Array2<char> m_redrawp;
     };
 
 
@@ -118,13 +118,13 @@ namespace display
 
         /* ---------- DisplayLayer interface ---------- */
         virtual void prepare_draw (const WorldArea &) {}
-        virtual void draw (px::GC &gc, const WorldArea &a, int x, int y) = 0;
-        virtual void draw_onepass (px::GC &/*gc*/) {}
+        virtual void draw (ecl::GC &gc, const WorldArea &a, int x, int y) = 0;
+        virtual void draw_onepass (ecl::GC &/*gc*/) {}
         virtual void tick (double /*dtime*/) {}
         virtual void new_world (int /*w*/, int /*h*/) {}
 
         // Functions.
-        void mark_redraw_area (const px::Rect &r)
+        void mark_redraw_area (const ecl::Rect &r)
         {
             get_engine()->mark_redraw_area(r);
         }
@@ -177,13 +177,13 @@ namespace display
 
         // DisplayLayer interface.
         void new_world (int w, int h);
-        void draw (px::GC &gc, const WorldArea &a, int x, int y);
+        void draw (ecl::GC &gc, const WorldArea &a, int x, int y);
 
         // ModelLayer interface
         virtual int redraw_size () const { return m_redrawsize; }
 
         // Variables.
-        typedef px::Array2<Model*> ModelArray;
+        typedef ecl::Array2<Model*> ModelArray;
         ModelArray m_models;
         int m_redrawsize;
     };
@@ -191,7 +191,7 @@ namespace display
 
 /* -------------------- Sprites -------------------- */
 
-    class Sprite : public px::Nocopy {
+    class Sprite : public ecl::Nocopy {
     public:
         Model       *model;
         V2           pos;
@@ -215,18 +215,18 @@ namespace display
         ~DL_Sprites();
 
         /* ---------- DisplayLayer interface ---------- */
-        void draw (px::GC &gc, const WorldArea &a, int x, int y);
-        void draw_onepass (px::GC &gc);
+        void draw (ecl::GC &gc, const WorldArea &a, int x, int y);
+        void draw_onepass (ecl::GC &gc);
         void new_world (int, int);
 
         /* ---------- Member functions ---------- */
         SpriteId add_sprite (Sprite *sprite);
         void kill_sprite (SpriteId id);
-        void move_sprite (SpriteId, const px::V2& newpos);
+        void move_sprite (SpriteId, const ecl::V2& newpos);
         void replace_sprite (SpriteId id, Model *m);
 
         void redraw_sprite_region (SpriteId id);
-        void draw_sprites (bool shades, px::GC &gc);
+        void draw_sprites (bool shades, ecl::GC &gc);
 
         Model *get_model (SpriteId id) { return sprites[id]->model; }
 
@@ -257,13 +257,13 @@ namespace display
         ~DL_Shadows();
 
         void new_world(int w, int h);
-        void draw (px::GC &gc, int xpos, int ypos, int x, int y);
+        void draw (ecl::GC &gc, int xpos, int ypos, int x, int y);
 
-        void draw (px::GC &gc, const WorldArea &a, int x, int y);
+        void draw (ecl::GC &gc, const WorldArea &a, int x, int y);
     private:
         /* ---------- Private functions ---------- */
-        void shadow_blit (px::Surface *scr, int x, int y,
-                          px::Surface *shadows, px::Rect r);
+        void shadow_blit (ecl::Surface *scr, int x, int y,
+                          ecl::Surface *shadows, ecl::Rect r);
 
         bool has_actor (int x, int y);
         virtual void prepare_draw (const WorldArea &);
@@ -277,9 +277,9 @@ namespace display
         StoneShadowCache *m_cache;
 
         Uint32       shadow_ckey; // Color key
-        px::Surface *buffer;
+        ecl::Surface *buffer;
 
-        px::Array2<bool>   m_hasactor;
+        ecl::Array2<bool>   m_hasactor;
     };
 
 
@@ -294,7 +294,7 @@ namespace display
     };
 
 
-    typedef px::AssocList<unsigned, Line> LineMap;
+    typedef ecl::AssocList<unsigned, Line> LineMap;
 
     class DL_Lines : public DisplayLayer {
     public:
@@ -302,9 +302,9 @@ namespace display
         {
         }
 
-        void draw (px::GC &/*gc*/, const WorldArea &/*a*/, int /*x*/, int /*y*/)
+        void draw (ecl::GC &/*gc*/, const WorldArea &/*a*/, int /*x*/, int /*y*/)
         {}
-        void draw_onepass (px::GC &gc);
+        void draw_onepass (ecl::GC &gc);
 
         RubberHandle add_line (const V2 &p1, const V2 &p2);
         void set_startpoint (unsigned id, const V2 &p1);
@@ -372,15 +372,15 @@ namespace display
     public:
         Follower (DisplayEngine *e);
         virtual ~Follower() {}
-        virtual void tick(double dtime, const px::V2 &point) = 0;
-        virtual void center(const px::V2 &point);
+        virtual void tick(double dtime, const ecl::V2 &point) = 0;
+        virtual void center(const ecl::V2 &point);
 
     protected:
         DisplayEngine *get_engine() const { return m_engine; }
         bool set_offset (V2 offs);
         int get_hoff() const;
         int get_voff() const;
-        px::V2 get_scrollpos(const px::V2 &point);
+        ecl::V2 get_scrollpos(const ecl::V2 &point);
 
     private:
         DisplayEngine *m_engine;
@@ -391,7 +391,7 @@ namespace display
     class Follower_Screen : public Follower {
     public:
         Follower_Screen(DisplayEngine *e);
-        void tick(double dtime, const px::V2 &point);
+        void tick(double dtime, const ecl::V2 &point);
     };
 
     /*! Follows a sprite by softly scrolling the visible area of the
@@ -400,8 +400,8 @@ namespace display
     class Follower_Scrolling : public Follower {
     public:
         Follower_Scrolling (DisplayEngine *e, bool screenwise_);
-        void tick(double dtime, const px::V2 &point);
-        void center(const px::V2 &point);
+        void tick(double dtime, const ecl::V2 &point);
+        void center(const ecl::V2 &point);
     private:
         bool   currently_scrolling;
         V2     curpos, destpos;
@@ -414,10 +414,10 @@ namespace display
     class Follower_Smooth : public Follower {
     public:
         Follower_Smooth (DisplayEngine *e);
-        void tick (double time, const px::V2 &point);
-        void center (const px::V2 &point);
+        void tick (double time, const ecl::V2 &point);
+        void center (const ecl::V2 &point);
 
-        px::V2 calc_offset (const px::V2 &point);
+        ecl::V2 calc_offset (const ecl::V2 &point);
     };
 
 
@@ -440,19 +440,19 @@ namespace display
         void set_follow_mode (FollowMode m);
         void follow_center();
         void set_follow_sprite(SpriteId id);
-        void set_reference_point (const px::V2 &point);
+        void set_reference_point (const ecl::V2 &point);
 
         // current screen coordinates of reference point
         void get_reference_point_coordinates(int *x, int *y);
 
         /* ---------- Screen updates ---------- */
-        void redraw (px::Screen *scr);
-        void redraw_all (px::Screen *scr);
-        void draw_all (px::GC &gc);
+        void redraw (ecl::Screen *scr);
+        void redraw_all (ecl::Screen *scr);
+        void draw_all (ecl::GC &gc);
 
     private:
         void set_follower (Follower *f);
-        void draw_borders (px::GC &gc);
+        void draw_borders (ecl::GC &gc);
 
         /* ---------- Variables ---------- */
         Uint32         last_frame_time;

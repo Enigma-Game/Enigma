@@ -21,7 +21,7 @@
 #define DISPLAY_HH
 
 #include "enigma.hh"
-#include "px/px.hh"
+#include "ecl.hh"
 
 //----------------------------------------
 // Definition of models
@@ -50,14 +50,14 @@ namespace display
 
 	virtual bool is_garbage() const { return false; }
         virtual void tick(double /*dtime*/) {}
-        virtual bool has_changed(px::Rect &/*changed_region*/) { return false; }
+        virtual bool has_changed(ecl::Rect &/*changed_region*/) { return false; }
     };
 
     class Model : public Animation {
     public:
 
-        virtual void draw(px::GC &/*gc*/, int /*x*/, int /*y*/) {}
-        virtual void draw_shadow(px::GC &/*gc*/, int /*x*/, int /*y*/) {}
+        virtual void draw(ecl::GC &/*gc*/, int /*x*/, int /*y*/) {}
+        virtual void draw_shadow(ecl::GC &/*gc*/, int /*x*/, int /*y*/) {}
 
         virtual Model *get_shadow() const { return 0; }
 
@@ -65,7 +65,7 @@ namespace display
         virtual void remove (ModelLayer */*ml*/) {}
 
         virtual Model *clone() = 0;
-        virtual void get_extension (px::Rect &r);
+        virtual void get_extension (ecl::Rect &r);
     };
 
 /* -------------------- Functions -------------------- */
@@ -79,7 +79,7 @@ namespace display
     int DefineImage (const char *name, const char *fname,
                      int xoff, int yoff, int padding);
     int DefineSubImage (const char *name, const char *fname,
-                        int xoff, int yoff, px::Rect r);
+                        int xoff, int yoff, ecl::Rect r);
     void DefineRandModel (const char *name, int n, const char **names);
     void DefineShadedModel (const char *name, const char *model, const char *shade);
     void DefineOverlayImage (const char *name, int n, const char **images);
@@ -132,7 +132,7 @@ namespace display
         SpriteHandle();
 
         void kill();
-        void move (const px::V2 &newpos) const;
+        void move (const ecl::V2 &newpos) const;
         void replace_model (Model *m) const;
         Model *get_model () const;
         void set_callback (ModelCallback *cb) const;
@@ -142,14 +142,14 @@ namespace display
 
     /*! Add a new effect sprite.  Sprites of this type are
       automatically deleted once the animation has finished.  */
-    SpriteHandle AddEffect (const px::V2 &pos, const char *modelname);
+    SpriteHandle AddEffect (const ecl::V2 &pos, const char *modelname);
 
     /*! Create a new sprite.  If modelname==0, the sprite is
       considered invisible.  Sprites of this type are _never_
       automatically deleted.  */
-    SpriteHandle AddSprite (const px::V2 &pos, const char *modelname=0);
+    SpriteHandle AddSprite (const ecl::V2 &pos, const char *modelname=0);
 
-    void SetReferencePoint (const px::V2 &point);
+    void SetReferencePoint (const ecl::V2 &point);
     void SetFollowMode (FollowMode m);
     void FocusReferencePoint();
     void GetReferencePointCoordinates(int *x, int *y);
@@ -165,15 +165,15 @@ namespace display
         RubberHandle (DL_Lines *layer=0, unsigned id=0);
         operator unsigned() { return id; }
 
-        void update_first (const px::V2 &p1);
-        void update_second (const px::V2 &p2);
+        void update_first (const ecl::V2 &p1);
+        void update_second (const ecl::V2 &p2);
         void kill();
 
         DL_Lines *line_layer;
         unsigned id;
     };
 
-    RubberHandle AddRubber (const px::V2 &p1, const px::V2 &p2);
+    RubberHandle AddRubber (const ecl::V2 &p1, const ecl::V2 &p2);
 }
 
 
@@ -228,11 +228,11 @@ namespace display
 
     void            NewWorld (int w, int h);
     void            ResizeGameArea (int w, int h);
-    const px::Rect& GetGameArea ();
+    const ecl::Rect& GetGameArea ();
 
-    void DrawAll (px::GC &gc);
-    void RedrawAll (px::Screen *sfc);
-    void Redraw (px::Screen *sfc);
+    void DrawAll (ecl::GC &gc);
+    void RedrawAll (ecl::Screen *sfc);
+    void Redraw (ecl::Screen *sfc);
     void Tick (double dtime);
 }
 

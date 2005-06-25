@@ -25,8 +25,8 @@ $#include "server.hh"
 $#include "world.hh"
 
 $using namespace enigma;
-$using px::Surface;
-$using px::Font;
+$using ecl::Surface;
+$using ecl::Font;
 
 module enigma
 {
@@ -100,7 +100,7 @@ module world
 
 $#include "video.hh"
 $using namespace video;
-$using px::Screen;
+$using ecl::Screen;
 
 module video
 {

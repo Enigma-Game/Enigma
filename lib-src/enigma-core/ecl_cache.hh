@@ -28,7 +28,7 @@
   values are automatically retrieved using the `acquire' method.
 */
 
-#include "dict.hh"
+#include "ecl_dict.hh"
 
 namespace ecl
 {

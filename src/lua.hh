@@ -21,7 +21,7 @@
 #define LUA_HH
 
 #include "enigma.hh"
-#include "px/geom.hh"
+#include "ecl_geom.hh"
 
 extern "C" {
     struct lua_State;

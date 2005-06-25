@@ -21,13 +21,13 @@
 #ifndef NETWORK_HH
 #define NETWORK_HH
 
-#include "px/pxfwd.hh"
+#include "ecl_fwd.hh"
 #include "SDL_types.h"
 #include <iosfwd>
 
 namespace network
 {
-    using px::Buffer;
+    using ecl::Buffer;
 
     class Socket {
     public:

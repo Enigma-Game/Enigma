@@ -29,7 +29,7 @@ namespace world
 
 /* -------------------- Types -------------------- */
 
-    using px::V2;
+    using ecl::V2;
 
     using std::string;
 
@@ -293,7 +293,7 @@ namespace world
 
     /*! Find all actors at most RANGE units away from CENTER.  Returns
       false if none were found. */
-    bool GetActorsInRange (px::V2 center, double range, std::vector<Actor*> &actors);
+    bool GetActorsInRange (ecl::V2 center, double range, std::vector<Actor*> &actors);
 
     /*! Find all actors that are inside 'pos'.  Returns false if none
       were found. */

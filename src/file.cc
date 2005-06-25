@@ -23,7 +23,7 @@
 #include "video.hh"
 #include "main.hh"
 
-#include "px/system.hh"
+#include "ecl_system.hh"
 
 #include <sys/types.h>
 #include <dirent.h>
@@ -32,7 +32,7 @@
 #include <fstream>
 
 using namespace file;
-using namespace px;
+using namespace ecl;
 using namespace std;
 
 
@@ -65,19 +65,19 @@ GameFS::GameFS()
 
 void GameFS::append_dir (const string &path)
 {
-    std::string full_path = px::ExpandPath (path);
+    std::string full_path = ecl::ExpandPath (path);
     entries.push_back (FSEntry (FS_DIRECTORY, full_path));
 }
 
 void GameFS::prepend_dir (const string &path)
 {
-    std::string full_path = px::ExpandPath (path);
+    std::string full_path = ecl::ExpandPath (path);
     entries.insert (entries.begin(), FSEntry (FS_DIRECTORY, full_path));
 }
 
 void GameFS::prepend_zip (const std::string &filename)
 {
-    std::string path = px::ExpandPath (filename);
+    std::string path = ecl::ExpandPath (filename);
     entries.insert (entries.begin(), FSEntry (FS_ZIPFILE, path));
 }
 
@@ -90,8 +90,8 @@ bool GameFS::find_file (const string &filename, string &dest) const
         switch (e.type) {
         case FS_DIRECTORY:
             {
-                string complete_name = e.location + px::PathSeparator + filename;
-                if (px::FileExists(complete_name))
+                string complete_name = e.location + ecl::PathSeparator + filename;
+                if (ecl::FileExists(complete_name))
                 {
                     dest = complete_name;
                     return true;
@@ -126,8 +126,8 @@ GameFS::find_files(const string &folder, const string &filename) const
         switch (e.type) {
         case FS_DIRECTORY:
             {
-                string complete_name = e.location + px::PathSeparator + folder;
-                if (px::FolderExists(complete_name))
+                string complete_name = e.location + ecl::PathSeparator + folder;
+                if (ecl::FolderExists(complete_name))
                 {
                     DIR *dir = opendir( complete_name.c_str());
                     struct dirent *entry;
@@ -135,9 +135,9 @@ GameFS::find_files(const string &folder, const string &filename) const
                     {
                         if( strcmp( entry->d_name, ".") != 0 && strcmp( entry->d_name, "..") != 0)
                         {
-                            string tmp_name = complete_name + px::PathSeparator
-                                + string(entry->d_name) + px::PathSeparator + filename;
-                            if (px::FileExists (tmp_name))
+                            string tmp_name = complete_name + ecl::PathSeparator
+                                + string(entry->d_name) + ecl::PathSeparator + filename;
+                            if (ecl::FileExists (tmp_name))
                                 matches.push_back (tmp_name);
                         }
                     }

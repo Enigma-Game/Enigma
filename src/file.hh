@@ -23,7 +23,7 @@
 #include <iosfwd>
 #include <vector>
 #include <list>
-#include "px/error.hh"
+#include "ecl_error.hh"
 
 namespace file
 {

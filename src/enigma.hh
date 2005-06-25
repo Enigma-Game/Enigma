@@ -28,10 +28,10 @@
 
 #include "fwd.hh"
 #include "file.hh"
-#include "px/pxfwd.hh"
-#include "px/math.hh"
-#include "px/tools.hh"
-#include "px/cache.hh"
+#include "ecl_fwd.hh"
+#include "ecl_math.hh"
+#include "ecl_util.hh"
+#include "ecl_cache.hh"
 
 #define NUMENTRIES(array) (sizeof(array)/sizeof(*array))
 
@@ -67,11 +67,11 @@ namespace enigma
 
 /* -------------------- Resource Management -------------------- */
 
-    class ImageCache : public px::PtrCache<px::Surface> {
+    class ImageCache : public ecl::PtrCache<ecl::Surface> {
     public:
-        using px::PtrCache<px::Surface>::store;
+        using ecl::PtrCache<ecl::Surface>::store;
 
-        px::Surface *acquire(const std::string &name);
+        ecl::Surface *acquire(const std::string &name);
     };
 
 
@@ -85,11 +85,11 @@ namespace enigma
                      int ttf_size,
                      const char *bmf_name,
                      int r, int g, int b);
-    px::Font *GetFont (const char *name);
+    ecl::Font *GetFont (const char *name);
 
-    px::Surface *LoadImage (const char *name);
-    px::Surface *GetImage (const char *name, const char *ext = ".png");
-    px::Surface *RegisterImage (const char *name, px::Surface *s);
+    ecl::Surface *LoadImage (const char *name);
+    ecl::Surface *GetImage (const char *name, const char *ext = ".png");
+    ecl::Surface *RegisterImage (const char *name, ecl::Surface *s);
     void ClearImageCache();
 
 /* -------------------- Direction, DirectionBits -------------------- */
@@ -154,8 +154,8 @@ namespace enigma
         } val;
     };
 
-    px::Buffer& operator<<(px::Buffer& buf, const Value& val);
-    px::Buffer& operator>>(px::Buffer& buf, Value& val);
+    ecl::Buffer& operator<<(ecl::Buffer& buf, const Value& val);
+    ecl::Buffer& operator>>(ecl::Buffer& buf, Value& val);
 
     std::ostream& operator<<(std::ostream& os, const Value& val);
 
@@ -183,9 +183,9 @@ namespace enigma
 
         // Methods
         explicit GridPos(int xx=0, int yy=0);
-        explicit GridPos(const px::V2& p);
+        explicit GridPos(const ecl::V2& p);
         void move(Direction dir);
-        px::V2 center() const;
+        ecl::V2 center() const;
     };
 
     GridPos move(GridPos p, Direction dir);
@@ -278,8 +278,8 @@ namespace enigma
         }
     }
 
-    inline px::V2 GridPos::center() const { 
-        return px::V2(x+.5, y+.5); 
+    inline ecl::V2 GridPos::center() const { 
+        return ecl::V2(x+.5, y+.5); 
     }
 
 

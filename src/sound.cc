@@ -149,7 +149,7 @@ void SoundEngine_SDL::shutdown()
 
 void SoundEngine_SDL::clear_cache() 
 {
-    for (px::Dict<Mix_Chunk*>::iterator it = wav_cache.begin(); it != wav_cache.end(); ++it)
+    for (ecl::Dict<Mix_Chunk*>::iterator it = wav_cache.begin(); it != wav_cache.end(); ++it)
 
         Mix_FreeChunk(it->second);
     wav_cache.clear();
@@ -160,7 +160,7 @@ void SoundEngine_SDL::set_sound_volume (double soundvol)
     if (!m_initialized)
         return;                 // SDL_mixer crashes without this check
 
-    m_soundvolume = px::round_down<int>(px::Clamp(soundvol, 0.0, 1.0) * MIX_MAX_VOLUME);
+    m_soundvolume = ecl::round_down<int>(ecl::Clamp(soundvol, 0.0, 1.0) * MIX_MAX_VOLUME);
     Mix_Volume (-1, m_soundvolume);
 }
 
@@ -169,7 +169,7 @@ void SoundEngine_SDL::set_music_volume (double musicvol)
     if (!m_initialized)
         return;                 // SDL_mixer crashes without this check
 
-    m_musicvolume = px::round_down<int>(px::Clamp(musicvol, 0.0, 1.0) * MIX_MAX_VOLUME);
+    m_musicvolume = ecl::round_down<int>(ecl::Clamp(musicvol, 0.0, 1.0) * MIX_MAX_VOLUME);
     Mix_VolumeMusic (m_musicvolume);
 }
 
@@ -221,13 +221,13 @@ void SoundEngine_SDL::update_channel (int channel)
     int    left;
     int    right;
     if (se.has_position) {
-        px::V2 distv = se.position - m_listenerpos;
+        ecl::V2 distv = se.position - m_listenerpos;
         double dist = max(0.0, length(distv) - fullvol_range);
 
         int xdist = int(distv[0] * options::GetDouble("StereoSeparation"));
 
-        left  = px::Clamp (255 - xdist, 0, 255);
-        right = px::Clamp (255 + xdist, 0, 255);
+        left  = ecl::Clamp (255 - xdist, 0, 255);
+        right = ecl::Clamp (255 + xdist, 0, 255);
         volume = (1 - dist/range) * se.volume;
     }
     else
@@ -239,8 +239,8 @@ void SoundEngine_SDL::update_channel (int channel)
 
     Mix_SetPanning (channel, left, right);
 
-    int mixvol = px::round_down<int>(volume * MIX_MAX_VOLUME);
-    Mix_Volume(channel, px::Clamp(mixvol, 0, MIX_MAX_VOLUME));
+    int mixvol = ecl::round_down<int>(volume * MIX_MAX_VOLUME);
+    Mix_Volume(channel, ecl::Clamp(mixvol, 0, MIX_MAX_VOLUME));
 }
 
 int SoundEngine_SDL::already_playing (const SoundName &name)
@@ -257,7 +257,7 @@ int SoundEngine_SDL::already_playing (const SoundName &name)
 
 Mix_Chunk *SoundEngine_SDL::cache_sound(const std::string &name)
 {
-    px::Dict<Mix_Chunk*>::iterator i=wav_cache.find(name);
+    ecl::Dict<Mix_Chunk*>::iterator i=wav_cache.find(name);
     if (i == wav_cache.end()) {
         Mix_Chunk *ch = 0;
         string filename;
@@ -409,12 +409,12 @@ void sound::DisableMusic() {
     music_enabled = false;
 }
 
-void sound::SetListenerPosition (const px::V2 &pos) 
+void sound::SetListenerPosition (const ecl::V2 &pos) 
 {
     sound_engine->set_listenerpos (pos);
 }
 
-void sound::PlaySound (const SoundName &name, const px::V2 &pos, double volume, int priority) 
+void sound::PlaySound (const SoundName &name, const ecl::V2 &pos, double volume, int priority) 
 {
     if (!sound_enabled)
         return;
@@ -435,7 +435,7 @@ void sound::PlaySoundGlobal (const SoundName &name, double volume, int priority)
     SoundEffect se;
     se.name         = name;
     se.has_position = false;
-    se.position     = px::V2();
+    se.position     = ecl::V2();
     se.priority     = priority;
     se.volume       = volume * options::GetDouble("SoundVolume");
     se.left         = 255;
@@ -518,7 +518,7 @@ namespace
         const int sample_size = 1;    //  8bit sample data
 
         float ratio = float(oldfreq) / float(newfreq);
-        size_t newlen = px::round_down<int> (len / ratio);
+        size_t newlen = ecl::round_down<int> (len / ratio);
         *newlen_ = newlen;
         Sint8 *newdata = (Sint8*) malloc (sample_size * newlen);
         if (!newdata)
@@ -529,7 +529,7 @@ namespace
 
         float srcinc = float (len-1) / float (newlen); 
         for (unsigned i=0; i<newlen; ++i) {
-            int srcidx = px::round_down <int> (i * srcinc); // srcpos);
+            int srcidx = ecl::round_down <int> (i * srcinc); // srcpos);
             float a2 = i*srcinc - srcidx;
             float a1 = 1.0f - a2;
             dst[i] = static_cast<Sint8> ((a1*src[srcidx] + a2*src[srcidx+1])/2);
@@ -606,15 +606,15 @@ namespace
 //         {
 //             double        factor  = (double)sourcelen / destlen;
 //             int           support = Filter::support;
-//             double         dx      = px::Max(factor, 1.0);
+//             double         dx      = ecl::Max(factor, 1.0);
 //             vector<double> F (2*support + 1);
 
 //             SampleT *dp = dest;
 //             for (size_t t=0; t<destlen; ++t) 
 //             {
 //                 double center = (t+0.5)*factor; // kernel center in the source
-//                 int   start  = px::Max<int>(0, center-support + 0.5);
-//                 int   stop   = px::Min<int>(sourcelen, center+support+0.5);
+//                 int   start  = ecl::Max<int>(0, center-support + 0.5);
+//                 int   stop   = ecl::Min<int>(sourcelen, center+support+0.5);
 //                 int   n      = stop-start;
 
 //                 // Calculate filter coefficients
@@ -636,7 +636,7 @@ namespace
 //                 for (int j=n-1; j>=0; --j)
 //                     accu += F[j] * sp[j];
 //                 *dp++ = static_cast<SampleT> (accu); 
-// //                 *dp++ = static_cast<SampleT> (px::Clamp<double> (accu, -128, 127));
+// //                 *dp++ = static_cast<SampleT> (ecl::Clamp<double> (accu, -128, 127));
 //             }
 //         }
 
@@ -682,7 +682,7 @@ Mix_Chunk * ChunkFromRaw (const Uint8 *buf, Uint32 len,
     return chunk;
 }
 
-bool sound::SoundEvent (const std::string &eventname, const px::V2 &pos, double volume)
+bool sound::SoundEvent (const std::string &eventname, const ecl::V2 &pos, double volume)
 {
     lua_State *L = lua::GlobalState();
 

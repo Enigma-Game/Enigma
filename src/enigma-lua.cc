@@ -12,14 +12,14 @@ void tolua_enigma_close (lua_State* tolua_S);
 #include "server.hh"
 #include "world.hh"
 using namespace enigma;
-using px::Surface;
-using px::Font;
+using ecl::Surface;
+using ecl::Font;
 using namespace server;
 using namespace levels;
 using namespace world;
 #include "video.hh"
 using namespace video;
-using px::Screen;
+using ecl::Screen;
 
 /* function to register type */
 static void toluaI_reg_types (lua_State* tolua_S)
