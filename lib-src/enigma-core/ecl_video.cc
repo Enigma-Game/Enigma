@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2002,2003,2004 Daniel Heck
+ * Copyright (C) 2002,2003,2004,2005 Daniel Heck
  *
  * This program is free software; you can redistribute it and/or
  * modify it under the terms of the GNU General Public License
@@ -17,9 +17,9 @@
  *
  * $Id: video.cc,v 1.20 2004/04/24 11:46:01 dheck Exp $
  */
-#include "video.hh"
-#include "error.hh"
-#include "sdl.hh"
+#include "ecl_video.hh"
+#include "ecl_error.hh"
+#include "ecl_sdl.hh"
 
 #include "SDL_image.h"
 #include "SDL_syswm.h"

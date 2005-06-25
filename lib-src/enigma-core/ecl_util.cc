@@ -18,8 +18,8 @@
  * $Id: tools.cc,v 1.4 2003/10/30 19:52:31 reallysoft Exp $
  */
 
-#include "tools.hh"
-#include "system.hh"
+#include "ecl_util.hh"
+#include "ecl_system.hh"
 
 #include <cstdarg>
 #include <cstdio>

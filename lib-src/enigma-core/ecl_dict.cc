@@ -1,4 +1,4 @@
-#include "dict.hh"
+#include "ecl_dict.hh"
 
 unsigned 
 ecl::hash(const std::string &key)

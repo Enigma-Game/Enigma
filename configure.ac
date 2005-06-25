@@ -219,8 +219,8 @@ AC_CONFIG_FILES([Makefile m4/Makefile  intl/Makefile
            lib-src/Makefile
 	   lib-src/oxydlib/Makefile
 	   lib-src/lua/Makefile
+           lib-src/enigma-core/Makefile
 	   src/Makefile
-           src/px/Makefile
 	   tools/Makefile
 	   etc/enigma.spec
 	   etc/mingw32-dist.sh

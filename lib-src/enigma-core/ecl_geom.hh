@@ -20,9 +20,10 @@
 #ifndef ECL_GEOM_HH
 #define ECL_GEOM_HH
 
+#include "ecl_util.hh"
+
 #include <iosfwd>
 #include <vector>
-#include "tools.hh"
 
 namespace ecl
 {

@@ -1,4 +1,4 @@
-#include "sdl.hh"
+#include "ecl_sdl.hh"
 
 using namespace sdl;
 

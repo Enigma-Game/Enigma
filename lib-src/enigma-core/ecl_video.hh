@@ -20,8 +20,9 @@
 #ifndef ECL_VIDEO_HH_INCLUDED
 #define ECL_VIDEO_HH_INCLUDED
 
-#include "eclfwd.hh"
-#include "geom.hh"
+#include "ecl_fwd.hh"
+#include "ecl_geom.hh"
+
 #include "SDL.h"
 
 namespace ecl

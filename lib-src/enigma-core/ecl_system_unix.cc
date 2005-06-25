@@ -17,8 +17,9 @@
  *
  * $Id: system_unix.cc,v 1.4 2003/11/06 12:15:06 mhawlisch Exp $
  */
-#include "system.hh"
-#include "tools.hh"
+#include "ecl_system.hh"
+#include "ecl_util.hh"
+
 #include <cstdlib>
 #include <sys/types.h>
 #include <sys/stat.h>

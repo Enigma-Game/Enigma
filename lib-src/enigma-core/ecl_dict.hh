@@ -20,7 +20,7 @@
 #ifndef ECL_DICT_HH
 #define ECL_DICT_HH
 
-#include "error.hh"
+#include "ecl_error.hh"
 #include <utility>
 
 namespace ecl

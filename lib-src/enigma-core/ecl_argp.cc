@@ -17,11 +17,11 @@
  *
  * $Id: argp.cc,v 1.3 2003/10/20 16:15:34 dheck Exp $
  */
-#include "argp.hh"
+#include "ecl_argp.hh"
 #include <iostream>
 
 using namespace std;
-using ecl::argp::ArgParser;
+using ecl::ArgParser;
 
 
 ArgParser::ArgParser() {

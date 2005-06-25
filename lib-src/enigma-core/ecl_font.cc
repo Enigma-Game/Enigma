@@ -17,15 +17,15 @@
  *
  * $Id: font.cc,v 1.4 2004/04/20 19:15:29 dheck Exp $
  */
-#include "font.hh"
-#include "geom.hh"
-#include "video.hh"
+#include "ecl_font.hh"
+#include "ecl_geom.hh"
+#include "ecl_video.hh"
 #include <vector>
 #include <string>
 #include <memory>               // for auto_ptr
 #include <stdio.h>
 
-#include "../config.h"
+#include <config.h>
 
 using namespace ecl;
 using namespace std;
