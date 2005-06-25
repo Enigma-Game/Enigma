@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2002,2003 Daniel Heck
+ * Copyright (C) 2002,2003,2004,2005 Daniel Heck
  *
  * This program is free software; you can redistribute it and/or
  * modify it under the terms of the GNU General Public License
@@ -17,8 +17,8 @@
  *
  * $Id: tools.hh,v 1.12 2004/03/20 16:15:28 dheck Exp $
  */
-#ifndef ECL_TOOLS_HH
-#define ECL_TOOLS_HH
+#ifndef ECL_UTIL_HH_INCLUDED
+#define ECL_UTIL_HH_INCLUDED
 
 #include <string>
 
@@ -213,9 +213,9 @@ namespace ecl
     }
 
 
-    /*
-    ** Some helper functions for dealing with bit flags.
-    */
+/*
+** Some helper functions for dealing with bit flags.
+*/
 
     template <class E, class I> inline void
     set_flags (E &val, I flags)
@@ -251,7 +251,5 @@ namespace ecl
     bool        split_path(const std::string& path, std::string* dir_part, std::string* filename_part);
 
 }
-
-
 
 #endif
