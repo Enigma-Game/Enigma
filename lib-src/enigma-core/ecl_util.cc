@@ -15,7 +15,6 @@
  * with this program; if not, write to the Free Software Foundation, Inc.,
  * 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.
  *
- * $Id: tools.cc,v 1.4 2003/10/30 19:52:31 reallysoft Exp $
  */
 
 #include "ecl_util.hh"

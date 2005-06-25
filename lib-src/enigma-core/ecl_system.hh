@@ -15,7 +15,6 @@
  * with this program; if not, write to the Free Software Foundation, Inc.,
  * 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.
  *
- * $Id: system.hh,v 1.1 2003/10/27 11:45:48 reallysoft Exp $
  */
 #ifndef SYSTEM_HH
 #define SYSTEM_HH

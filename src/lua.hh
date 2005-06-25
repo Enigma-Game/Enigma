@@ -15,7 +15,6 @@
  * with this program; if not, write to the Free Software Foundation, Inc.,
  * 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.
  *
- * $Id: lua.hh,v 1.9 2004/02/15 17:42:13 dheck Exp $
  */
 #ifndef LUA_HH
 #define LUA_HH

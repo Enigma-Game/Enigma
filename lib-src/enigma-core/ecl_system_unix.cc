@@ -15,7 +15,6 @@
  * with this program; if not, write to the Free Software Foundation, Inc.,
  * 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.
  *
- * $Id: system_unix.cc,v 1.4 2003/11/06 12:15:06 mhawlisch Exp $
  */
 #include "ecl_system.hh"
 #include "ecl_util.hh"

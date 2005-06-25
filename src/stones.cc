@@ -15,7 +15,6 @@
  * with this program; if not, write to the Free Software Foundation, Inc.,
  * 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.
  *
- * $Id: stones.cc,v 1.29 2004/03/15 20:15:34 dheck Exp $
  */
 #include "stones_internal.hh"
 #include "server.hh"

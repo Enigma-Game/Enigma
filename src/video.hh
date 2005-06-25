@@ -15,7 +15,6 @@
  * with this program; if not, write to the Free Software Foundation, Inc.,
  * 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.
  *
- * $Id: video.hh,v 1.9 2004/03/21 17:31:47 dheck Exp $
  */
 
 #ifndef VIDEO_HH_INCLUDED

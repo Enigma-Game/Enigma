@@ -15,7 +15,6 @@
  * with this program; if not, write to the Free Software Foundation, Inc.,
  * 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.
  *
- * $Id: items.hh,v 1.8 2004/03/15 20:15:35 dheck Exp $
  */
 #ifndef ITEMS_HH_INCLUDED
 #define ITEMS_HH_INCLUDED

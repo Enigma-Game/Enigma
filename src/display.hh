@@ -15,7 +15,6 @@
  * with this program; if not, write to the Free Software Foundation, Inc.,
  * 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.
  *
- * $Id: display.hh,v 1.31 2004/05/27 20:34:50 dheck Exp $
  */
 #ifndef DISPLAY_HH
 #define DISPLAY_HH

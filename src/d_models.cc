@@ -15,7 +15,6 @@
  * with this program; if not, write to the Free Software Foundation, Inc.,
  * 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.
  *
- * $Id: d_models.cc,v 1.21 2004/05/27 20:30:42 dheck Exp $
  */
 
 #include "display_internal.hh"

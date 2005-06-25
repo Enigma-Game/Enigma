@@ -15,7 +15,6 @@
  * with this program; if not, write to the Free Software Foundation, Inc.,
  * 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.
  *
- * $Id: argp.cc,v 1.3 2003/10/20 16:15:34 dheck Exp $
  */
 #include "ecl_argp.hh"
 #include <iostream>

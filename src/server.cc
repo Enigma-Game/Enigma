@@ -15,7 +15,6 @@
  * with this program; if not, write to the Free Software Foundation, Inc.,
  * 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.
  *
- * $Id: server.cc,v 1.7 2004/04/24 11:46:51 dheck Exp $
  */
 #include "server.hh"
 #include "player.hh"

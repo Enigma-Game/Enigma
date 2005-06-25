@@ -15,7 +15,6 @@
  * with this program; if not, write to the Free Software Foundation, Inc.,
  * 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.
  *
- * $Id: client.hh,v 1.1 2004/02/15 11:32:52 dheck Exp $
  */
 #ifndef CLIENT_HH_INCLUDED
 #define CLIENT_HH_INCLUDED

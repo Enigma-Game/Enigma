@@ -15,7 +15,6 @@
  * with this program; if not, write to the Free Software Foundation, Inc.,
  * 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.
  *
- * $Id: math.hh,v 1.7 2004/02/16 00:23:54 dheck Exp $
  */
 #ifndef ECL_MATH_HH_INCLUDED
 #define ECL_MATH_HH_INCLUDED

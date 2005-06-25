@@ -15,7 +15,6 @@
  * with this program; if not, write to the Free Software Foundation, Inc.,
  * 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.
  *
- * $Id: stones_internal.hh,v 1.9 2004/03/18 18:09:24 dheck Exp $
  */
 #ifndef STONES_INTERNAL_HH_INCLUDED
 #define STONES_INTERNAL_HH_INCLUDED

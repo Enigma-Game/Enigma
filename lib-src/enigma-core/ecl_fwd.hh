@@ -15,7 +15,6 @@
  * with this program; if not, write to the Free Software Foundation, Inc.,
  * 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.
  *
- * $Id: eclfwd.hh,v 1.2 2003/03/05 22:06:50 dheck Exp $
  */
 #ifndef ECLFWD_HH_INCLUDED
 #define ECLFWD_HH_INCLUDED

@@ -15,7 +15,6 @@
  * with this program; if not, write to the Free Software Foundation, Inc.,
  * 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.
  *
- * $Id: main.hh,v 1.2 2004/05/22 13:04:30 dheck Exp $
  */
 #ifndef ENIGMA_MAIN_HH
 #define ENIGMA_MAIN_HH

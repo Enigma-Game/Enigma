@@ -15,7 +15,6 @@
  * with this program; if not, write to the Free Software Foundation, Inc.,
  * 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.
  *
- * $Id: error.hh,v 1.4 2004/03/20 16:15:29 dheck Exp $
  */
 #ifndef ECL_ERROR_HH
 #define ECL_ERROR_HH

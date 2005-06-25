@@ -15,7 +15,6 @@
  * with this program; if not, write to the Free Software Foundation, Inc.,
  * 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.
  *
- * $Id: d_engine.hh,v 1.18 2004/02/15 11:36:16 dheck Exp $
  */
 #ifndef D_ENGINE_HH
 #define D_ENGINE_HH

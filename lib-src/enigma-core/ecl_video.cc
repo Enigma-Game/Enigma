@@ -15,7 +15,6 @@
  * with this program; if not, write to the Free Software Foundation, Inc.,
  * 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.
  *
- * $Id: video.cc,v 1.20 2004/04/24 11:46:01 dheck Exp $
  */
 #include "ecl_video.hh"
 #include "ecl_error.hh"

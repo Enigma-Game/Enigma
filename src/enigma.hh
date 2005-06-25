@@ -15,7 +15,6 @@
  * with this program; if not, write to the Free Software Foundation, Inc.,
  * 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.
  *
- * $Id: enigma.hh,v 1.30 2004/05/27 20:38:15 dheck Exp $
  */
 #ifndef ENIGMA_HH
 #define ENIGMA_HH

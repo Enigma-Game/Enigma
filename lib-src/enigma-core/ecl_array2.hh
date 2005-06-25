@@ -15,7 +15,6 @@
  * with this program; if not, write to the Free Software Foundation, Inc.,
  * 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.
  *
- * $Id: array2.hh,v 1.6 2004/04/24 11:46:01 dheck Exp $
  */
 #ifndef ECL_ARRAY2_HH
 #define ECL_ARRAY2_HH

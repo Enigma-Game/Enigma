@@ -15,7 +15,6 @@
  * with this program; if not, write to the Free Software Foundation, Inc.,
  * 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.
  *
- * $Id: editor.cc,v 1.11 2004/03/15 20:15:36 dheck Exp $
  */
 #include "editor.hh"
 #include "world.hh"

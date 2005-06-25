@@ -15,7 +15,6 @@
  * with this program; if not, write to the Free Software Foundation, Inc.,
  * 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.
  *
- * $Id: sound.cc,v 1.28 2004/05/22 13:04:29 dheck Exp $
  */
 #include "enigma.hh"
 #include "options.hh"

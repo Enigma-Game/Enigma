@@ -15,7 +15,6 @@
  * with this program; if not, write to the Free Software Foundation, Inc.,
  * 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.
  *
- * $Id: editor.hh,v 1.3 2003/07/17 20:18:03 dheck Exp $
  */
 #ifndef EDITOR_HH
 #define EDITOR_HH

@@ -16,7 +16,6 @@
  * with this program; if not, write to the Free Software Foundation, Inc.,
  * 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.
  *
- * $Id: ox_peroxyd.cc,v 1.6 2004/03/18 18:09:24 dheck Exp $
  */
 
 #if defined(PLAIN_SPEC_ONLY)

@@ -15,7 +15,6 @@
  * with this program; if not, write to the Free Software Foundation, Inc.,
  * 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.
  *
- * $Id: network.cc,v 1.4 2004/05/22 13:04:30 dheck Exp $
  */
 
 #include "network.hh"

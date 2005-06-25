@@ -15,7 +15,6 @@
  * with this program; if not, write to the Free Software Foundation, Inc.,
  * 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.
  *
- * $Id: geom.hh,v 1.5 2003/11/15 12:32:42 dheck Exp $
  */
 #ifndef ECL_GEOM_HH
 #define ECL_GEOM_HH

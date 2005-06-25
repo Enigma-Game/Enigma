@@ -15,7 +15,6 @@
  * with this program; if not, write to the Free Software Foundation, Inc.,
  * 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.
  *
- * $Id: display.cc,v 1.45 2004/05/22 13:04:32 dheck Exp $
  */
 
 /*

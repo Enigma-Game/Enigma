@@ -15,7 +15,6 @@
  * with this program; if not, write to the Free Software Foundation, Inc.,
  * 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.
  *
- * $Id: world_internal.hh,v 1.8 2004/04/24 11:46:51 dheck Exp $
  */
 
 #include <memory>

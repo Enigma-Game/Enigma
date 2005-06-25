@@ -15,7 +15,6 @@
  * with this program; if not, write to the Free Software Foundation, Inc.,
  * 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.
  *
- * $Id: stones_simple.cc,v 1.71 2004/03/18 18:09:23 dheck Exp $
  */
 #include "laser.hh"
 #include "server.hh"

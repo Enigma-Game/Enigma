@@ -15,7 +15,6 @@
  * with this program; if not, write to the Free Software Foundation, Inc.,
  * 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.
  *
- * $Id: tools.hh,v 1.12 2004/03/20 16:15:28 dheck Exp $
  */
 #ifndef ECL_UTIL_HH_INCLUDED
 #define ECL_UTIL_HH_INCLUDED
