@@ -1,0 +1,171 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+TODO:
+Add documentation to the rest of the elements
+Figure out the 'row' element.
+-->
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema" elementFormDefault="qualified" attributeFormDefault="unqualified">
+	<xs:attribute name="difficulty">
+		<xs:annotation>
+			<xs:documentation xml:lang="en">Sets the difficulty for which the parent element applies.</xs:documentation>
+		</xs:annotation>
+		<xs:simpleType>
+			<xs:restriction base="xs:string">
+				<xs:enumeration value="easy"/>
+				<xs:enumeration value="hard"/>
+			</xs:restriction>
+		</xs:simpleType>
+	</xs:attribute>
+	<xs:element name="level">
+		<xs:annotation>
+			<xs:documentation xml:lang="en">This is the base element. All other elements must be within this.</xs:documentation>
+		</xs:annotation>
+		<xs:complexType>
+			<xs:sequence>
+				<xs:element name="info">
+					<xs:annotation>
+						<xs:documentation xml:lang="en">This element contains the level's metadata.</xs:documentation>
+					</xs:annotation>
+					<xs:complexType>
+						<xs:sequence>
+							<xs:element name="name" maxOccurs="unbounded">
+								<xs:complexType>
+									<xs:simpleContent>
+										<xs:extension base="xs:string">
+											<xs:attribute name="lang" type="xs:language" use="optional"/>
+										</xs:extension>
+									</xs:simpleContent>
+								</xs:complexType>
+							</xs:element>
+							<xs:element name="author" type="xs:string">
+								<xs:annotation>
+									<xs:documentation xml:lang="en">This element should contain the author's name.</xs:documentation>
+								</xs:annotation>
+							</xs:element>
+							<xs:element name="copyright" type="xs:string"/>
+							<xs:element name="license" type="xs:string">
+								<xs:annotation>
+									<xs:documentation xml:lang="en">This element is the copyright licence under which the level can be distributed.
+Ex: <licence>GPL 2.0 or greater</licence>
+									</xs:documentation>
+								</xs:annotation>
+							</xs:element>
+						</xs:sequence>
+					</xs:complexType>
+				</xs:element>
+				<xs:element name="option" minOccurs="0" maxOccurs="unbounded">
+					<xs:complexType>
+						<xs:attribute name="name" type="xs:string" use="required"/>
+						<xs:attribute name="value" type="xs:string" use="required"/>
+					</xs:complexType>
+				</xs:element>
+				<xs:choice maxOccurs="unbounded">
+					<xs:element name="floors">
+						<xs:complexType>
+							<xs:choice maxOccurs="unbounded">
+								<xs:element name="fill">
+									<xs:complexType>
+										<xs:attribute name="kind" type="xs:string" use="required"/>
+									</xs:complexType>
+								</xs:element>
+								<xs:element name="floor">
+									<xs:complexType>
+										<xs:attribute name="kind" use="required"/>
+										<xs:attribute name="x" use="required"/>
+										<xs:attribute name="y" use="required"/>
+										<xs:attribute ref="attribs"/>
+									</xs:complexType>
+								</xs:element>
+							</xs:choice>
+						</xs:complexType>
+					</xs:element>
+					<xs:element name="stones">
+						<xs:complexType>
+							<xs:choice maxOccurs="unbounded">
+								<xs:element name="stone">
+									<xs:complexType>
+										<xs:attribute name="kind" type="xs:string" use="required"/>
+										<xs:attribute name="x" type="xs:unsignedByte" use="required"/>
+										<xs:attribute name="y" type="xs:unsignedByte" use="required"/>
+										<xs:attribute name="attribs" type="xs:string" use="optional"/>
+									</xs:complexType>
+								</xs:element>
+								<xs:element name="border">
+									<xs:complexType>
+										<xs:attribute name="kind" type="xs:string" use="required"/>
+									</xs:complexType>
+								</xs:element>
+								<xs:element name="oxyd">
+									<xs:complexType>
+										<xs:attribute name="x" type="xs:unsignedByte" use="required"/>
+										<xs:attribute name="y" type="xs:unsignedByte" use="required"/>
+									</xs:complexType>
+								</xs:element>
+							</xs:choice>
+							<xs:attribute ref="difficulty"/>
+						</xs:complexType>
+					</xs:element>
+					<xs:element name="actors">
+						<xs:complexType>
+							<xs:choice maxOccurs="unbounded">
+								<xs:element name="actor">
+									<xs:complexType>
+										<xs:attribute name="kind" type="xs:string" use="required"/>
+										<xs:attribute name="x" type="xs:unsignedByte" use="required"/>
+										<xs:attribute name="y" type="xs:decimal" use="required"/>
+										<xs:attribute name="player" type="xs:unsignedByte"/>
+										<xs:attribute ref="attribs"/>
+										<xs:attribute name="num" type="xs:integer"/>
+									</xs:complexType>
+								</xs:element>
+							</xs:choice>
+							<xs:attribute ref="difficulty"/>
+						</xs:complexType>
+					</xs:element>
+					<xs:element name="signals">
+						<xs:complexType>
+							<xs:choice maxOccurs="unbounded">
+								<xs:element name="signal">
+									<xs:complexType>
+										<xs:attribute name="from" type="xs:string" use="required"/>
+										<xs:attribute name="to" type="xs:string" use="required"/>
+									</xs:complexType>
+								</xs:element>
+							</xs:choice>
+							<xs:attribute ref="difficulty"/>
+						</xs:complexType>
+					</xs:element>
+					<xs:element name="rubberbands">
+						<xs:complexType>
+							<xs:choice maxOccurs="unbounded">
+								<xs:element name="rubberband">
+									<xs:complexType>
+										<xs:attribute name="from" type="xs:string" use="required"/>
+										<xs:attribute name="to" type="xs:string" use="required"/>
+										<xs:attribute name="strength"/>
+										<xs:attribute name="length"/>
+										<xs:attribute name="minlen"/>
+									</xs:complexType>
+								</xs:element>
+							</xs:choice>
+							<xs:attribute ref="difficulty"/>
+						</xs:complexType>
+					</xs:element>
+				</xs:choice>
+				<xs:element name="lua" type="xs:string" minOccurs="0">
+					<xs:annotation>
+						<xs:documentation xml:lang="en">This element contains lua code. It is intended to allow use of lua code to perform complex tasks that are not possible using just the XML format.
+If it appears it must be the least element in 'level'.</xs:documentation>
+					</xs:annotation>
+				</xs:element>
+			</xs:sequence>
+			<xs:attribute name="width" type="xs:positiveInteger" use="required"/>
+			<xs:attribute name="height" type="xs:positiveInteger" use="required"/>
+		</xs:complexType>
+	</xs:element>
+	<xs:attribute name="attribs">
+		<xs:annotation>
+			<xs:documentation xml:lang="en">Comma seperated list of attributes. See documentation for details.</xs:documentation>
+		</xs:annotation>
+	</xs:attribute>
+</xs:schema>
