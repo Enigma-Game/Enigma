@@ -110,7 +110,7 @@ function upleftstate(state)
    while (state[i]==0) do i = i+1 end
    local up = floor(i/5);
    i=0
-   while (state[flip[i]]==0) do i = i+1 end
+   while (flip[i] and state[flip[i]]==0) do i = i+1 end
    local left = floor(i/5);
    return up,left
 end
