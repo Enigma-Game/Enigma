@@ -69,9 +69,17 @@ int Level::get_revision () const
     return m_levelpack->get_revision_number(m_index);
 }
 
+static string getIndexName (const LevelInfo &info) 
+{
+    string indexname = info.filename;
+    if (!info.indexname.empty())
+        indexname = info.indexname;
+    return indexname;
+}
+
 void Level::set_status (const LevelStatus &levelstat) 
 {
-    options::SetLevelStatus(get_info().filename, levelstat);
+    options::SetLevelStatus(getIndexName(get_info()), levelstat);
 }
 
 bool Level::set_level_time (int difficulty, int time)
@@ -132,7 +140,7 @@ string Level::get_par_holder (int difficulty)
 
 bool Level::get_status (LevelStatus &levelstat) const
 {
-    return options::GetLevelStatus (get_info().filename, levelstat);
+    return options::GetLevelStatus (getIndexName(get_info()), levelstat);
 }
 
 const LevelInfo &Level::get_info () const

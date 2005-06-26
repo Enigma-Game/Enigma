@@ -191,6 +191,7 @@ namespace
             }
 
             if      (tag == "file")     info.filename     = content;
+            else if (tag == "indexname")info.indexname    = content;
             else if (tag == "name")     info.name         = content;
             else if (tag == "author")   info.author       = content;
             else if (tag == "revision") info.revision     = atoi(content.c_str());

@@ -66,6 +66,8 @@ namespace enigma_levels
         // Variables.
         GameType type;
         string   filename;              //< Filename of the level (exl. extension)
+        string   indexname;             //< The name used in the options file, 
+                                        //   empty string -> use filename entry
         string   name;                  //< Complete name of the level
         string   author;                //< Author of the level
         int      revision;              //< Revision # of this level
