@@ -400,7 +400,8 @@ DisplayEngine::DisplayEngine (int tilew, int tileh)
     m_screenoffset[0] = m_screenoffset[1] = 0;
 }
 
-DisplayEngine::~DisplayEngine() {
+DisplayEngine::~DisplayEngine() 
+{
     delete_sequence (m_layers.begin(), m_layers.end());
 }
 
@@ -1508,22 +1509,26 @@ void DL_Shadows::draw(GC &gc, int xpos, int ypos, int x, int y) {
 //----------------------------------------------------------------------
 
 Follower::Follower (DisplayEngine *e)
-: m_engine(e)
+: m_engine(e),
+  m_boundary (0.5)
 {}
 
-int Follower::get_hoff() const { 
+double Follower::get_hoff() const 
+{ 
     ScreenArea gamearea = m_engine->get_area();
-    return gamearea.w / m_engine->get_tilew() - 1;
+    return gamearea.w / m_engine->get_tilew() -m_boundary*2; 
 }
 
-int Follower::get_voff() const { 
+double Follower::get_voff() const 
+{
     ScreenArea gamearea = m_engine->get_area();
-    return gamearea.h / m_engine->get_tileh() - 1;
+    return gamearea.h / m_engine->get_tileh() -m_boundary*2;
 }
 
-void Follower::center(const ecl::V2 &point) {
-    double borderh = 0.5; 
-    double borderv = 0.5;
+void Follower::center(const ecl::V2 &point) 
+{
+    double borderh = m_boundary; 
+    double borderv = m_boundary;
     double hoff = get_hoff();
     double voff = get_voff();
 
@@ -1534,12 +1539,13 @@ void Follower::center(const ecl::V2 &point) {
     set_offset(off);
 }
 
-bool Follower::set_offset (V2 offs) {
+bool Follower::set_offset (V2 offs) 
+{
     DisplayEngine *e = get_engine();
     offs[0] = max (offs[0], 0.0);
     offs[1] = max (offs[1], 0.0);
-    offs[0] = min (offs[0], double(e->get_width()-get_hoff()-1));
-    offs[1] = min (offs[1], double(e->get_height()-get_voff()-1));
+    offs[0] = min (offs[0], double(e->get_width()-get_hoff()));
+    offs[1] = min (offs[1], double(e->get_height()-get_voff()));
     if (offs != e->get_offset()) {
 	e->set_offset(offs);
 	return true;
@@ -1575,12 +1581,14 @@ Follower_Scrolling::Follower_Scrolling(DisplayEngine *e, bool screenwise_)
   screenwise (screenwise_)
 {}
 
-void Follower_Scrolling::center(const ecl::V2 &point) {
+void Follower_Scrolling::center(const ecl::V2 &point) 
+{
     Follower::center(point);
     curpos = destpos = get_engine()->get_offset();
 }
 
-void Follower_Scrolling::tick(double dtime, const ecl::V2 &point) {
+void Follower_Scrolling::tick(double dtime, const ecl::V2 &point) 
+{
     DisplayEngine *engine   = get_engine();
 
     if (!currently_scrolling) {
@@ -1611,8 +1619,8 @@ void Follower_Scrolling::tick(double dtime, const ecl::V2 &point) {
             if (screenwise) {
                 double hoff = get_hoff();
                 double voff = get_voff();
-                destpos[0] = floor((point[0]-0.5) / hoff) * hoff;
-                destpos[1] = floor((point[1]-0.5) / voff) * voff;
+                destpos[0] = floor((point[0]-m_boundary) / hoff) * hoff;
+                destpos[1] = floor((point[1]-m_boundary) / voff) * voff;
             } else {
                 destpos = point - V2(gamearea.w/tilew, gamearea.h/tileh)/2;
             }
@@ -1896,6 +1904,12 @@ void GameDisplay::get_reference_point_coordinates(int *x, int *y) {
     get_engine()->world_to_screen(m_reference_point, x, y);
 }
 
+void GameDisplay::set_scroll_boundary (double boundary) 
+{
+    if (m_follower)
+        m_follower->set_boundary (boundary);
+}
+
 /* ---------- Screen updates ---------- */
 
 void GameDisplay::redraw_all (Screen *scr) {
@@ -2013,6 +2027,11 @@ void display::SetReferencePoint (const ecl::V2 &point) {
 void display::SetFollowMode(FollowMode m) {
     gamedpy->set_follow_mode(m);
 }
+
+void display::SetScrollBoundary (double boundary) {
+    gamedpy->set_scroll_boundary (boundary);
+}
+
 
 void display::GetReferencePointCoordinates(int *x, int *y) {
     gamedpy->get_reference_point_coordinates(x, y);

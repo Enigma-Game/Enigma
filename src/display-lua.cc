@@ -1,6 +1,6 @@
 /*
 ** Lua binding: display
-** Generated automatically by tolua 4.0a on Wed Mar 16 15:43:49 2005.
+** Generated automatically by tolua 4.0a on Sun Jun 26 15:02:35 2005.
 */
 
 #include "tolua.h"
@@ -109,6 +109,50 @@ static int toluaI_display_display_SetFollowMode00(lua_State* tolua_S)
  return 0;
 tolua_lerror:
  tolua_error(tolua_S,"#ferror in function 'SetFollowMode'.");
+ return 0;
+}
+
+/* function: SetScrollBoundary */
+static int toluaI_display_display_SetScrollBoundary00(lua_State* tolua_S)
+{
+ if (
+ !tolua_istype(tolua_S,1,LUA_TNUMBER,0) ||
+ !tolua_isnoobj(tolua_S,2)
+ )
+ goto tolua_lerror;
+ else
+ {
+  double boundary = ((double)  tolua_getnumber(tolua_S,1,0));
+ {
+  SetScrollBoundary(boundary);
+ }
+ }
+ return 0;
+tolua_lerror:
+ tolua_error(tolua_S,"#ferror in function 'SetScrollBoundary'.");
+ return 0;
+}
+
+/* function: ResizeGameArea */
+static int toluaI_display_display_ResizeGameArea00(lua_State* tolua_S)
+{
+ if (
+ !tolua_istype(tolua_S,1,LUA_TNUMBER,0) ||
+ !tolua_istype(tolua_S,2,LUA_TNUMBER,0) ||
+ !tolua_isnoobj(tolua_S,3)
+ )
+ goto tolua_lerror;
+ else
+ {
+  int w = ((int)  tolua_getnumber(tolua_S,1,0));
+  int h = ((int)  tolua_getnumber(tolua_S,2,0));
+ {
+  ResizeGameArea(w,h);
+ }
+ }
+ return 0;
+tolua_lerror:
+ tolua_error(tolua_S,"#ferror in function 'ResizeGameArea'.");
  return 0;
 }
 
@@ -389,6 +433,8 @@ int tolua_display_open (lua_State* tolua_S)
  tolua_constant(tolua_S,"display","FOLLOW_SCREENSCROLLING",FOLLOW_SCREENSCROLLING);
  tolua_constant(tolua_S,"display","FOLLOW_SMOOTH",FOLLOW_SMOOTH);
  tolua_function(tolua_S,"display","SetFollowMode",toluaI_display_display_SetFollowMode00);
+ tolua_function(tolua_S,"display","SetScrollBoundary",toluaI_display_display_SetScrollBoundary00);
+ tolua_function(tolua_S,"display","ResizeGameArea",toluaI_display_display_ResizeGameArea00);
  tolua_function(tolua_S,"display","DefineImage",toluaI_display_display_DefineImage00);
  tolua_function(tolua_S,"display","DefineSubImage",toluaI_display_display_DefineSubImage00);
  tolua_function(tolua_S,"display","DefineRandModel",toluaI_display_display_DefineRandModel00);

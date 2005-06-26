@@ -39,6 +39,9 @@ module display
         FOLLOW_SMOOTH           // Follow pixel by pixel
     };
     void SetFollowMode (FollowMode m);
+    void SetScrollBoundary (double boundary);
+
+    void ResizeGameArea (int w, int h);
 
 /* -------------------- Functions -------------------- */
 

@@ -374,12 +374,16 @@ namespace display
         virtual void tick(double dtime, const ecl::V2 &point) = 0;
         virtual void center(const ecl::V2 &point);
 
+        void set_boundary (double b) { m_boundary = b; }
+
     protected:
         DisplayEngine *get_engine() const { return m_engine; }
         bool set_offset (V2 offs);
-        int get_hoff() const;
-        int get_voff() const;
+        double get_hoff() const;
+        double get_voff() const;
         ecl::V2 get_scrollpos(const ecl::V2 &point);
+
+        double m_boundary;
 
     private:
         DisplayEngine *m_engine;
@@ -415,6 +419,7 @@ namespace display
         Follower_Smooth (DisplayEngine *e);
         void tick (double time, const ecl::V2 &point);
         void center (const ecl::V2 &point);
+        virtual void set_boundary (double b) {}
 
         ecl::V2 calc_offset (const ecl::V2 &point);
     };
@@ -440,6 +445,7 @@ namespace display
         void follow_center();
         void set_follow_sprite(SpriteId id);
         void set_reference_point (const ecl::V2 &point);
+        void set_scroll_boundary (double d);
 
         // current screen coordinates of reference point
         void get_reference_point_coordinates(int *x, int *y);

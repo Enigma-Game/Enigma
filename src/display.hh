@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2002,2003 Daniel Heck
+ * Copyright (C) 2002,2003,2004,2005 Daniel Heck
  *
  * This program is free software; you can redistribute it and/or
  * modify it under the terms of the GNU General Public License
@@ -16,8 +16,8 @@
  * 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.
  *
  */
-#ifndef DISPLAY_HH
-#define DISPLAY_HH
+#ifndef DISPLAY_HH_INCLUDED
+#define DISPLAY_HH_INCLUDED
 
 #include "enigma.hh"
 #include "ecl.hh"
@@ -104,19 +104,31 @@ namespace display
     Model*  YieldModel (const GridLoc & l);
 }
 
-/* -------------------- Sprites -------------------- */
+/* -------------------- Scrolling -------------------- */
 namespace display
 {
-    enum SpriteLayer {
-        SPRITE_ACTOR, SPRITE_EFFECT, SPRITE_DEBRIS
-    };
-
     enum FollowMode {
         FOLLOW_NONE            = 0, // Don't follow any sprite
         FOLLOW_SCROLLING       = 1, // Scroll the screen
         FOLLOW_SCREEN          = 2, // Flip the screen region
         FOLLOW_SCREENSCROLLING = 3, // Scroll to the next screen
         FOLLOW_SMOOTH          = 4, // Follow pixel by pixel
+    };
+
+
+    void SetFollowMode (FollowMode m);
+    void SetScrollBoundary (double boundary);
+
+    void SetReferencePoint (const ecl::V2 &point);
+    void GetReferencePointCoordinates(int *x, int *y);
+    void FocusReferencePoint();
+}
+
+/* -------------------- Sprites -------------------- */
+namespace display
+{
+    enum SpriteLayer {
+        SPRITE_ACTOR, SPRITE_EFFECT, SPRITE_DEBRIS
     };
 
     typedef unsigned int SpriteId;
@@ -148,10 +160,6 @@ namespace display
       automatically deleted.  */
     SpriteHandle AddSprite (const ecl::V2 &pos, const char *modelname=0);
 
-    void SetReferencePoint (const ecl::V2 &point);
-    void SetFollowMode (FollowMode m);
-    void FocusReferencePoint();
-    void GetReferencePointCoordinates(int *x, int *y);
 }
 
 /* -------------------- Rubber bands -------------------- */
