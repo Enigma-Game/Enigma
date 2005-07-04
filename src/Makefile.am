@@ -45,7 +45,10 @@ enigma_SOURCES = 			\
 	help.cc help.hh			\
 	main.cc main.hh			\
 	menus.cc menus.hh menus_internal.hh	\
-	nls.cc nls.hh			\
+	netgame.cc 		\
+	netgame.hh 		\
+	nls.cc 			\
+	nls.hh			\
 	objects.cc objects.hh objects_decl.hh 	\
 	oxyd.cc	oxyd.hh oxyd_internal.hh	\
 	ox_extra.cc			\
@@ -87,6 +90,7 @@ enigma_CXXFLAGS = \
 	-I$(top_builddir)/lib-src/zipios++ \
 	-I$(top_srcdir)/lib-src/lua \
 	-I$(top_srcdir)/lib-src/enigma-core \
+	-I$(top_srcdir)/lib-src/enet/include \
 	-I$(top_srcdir)/lib-src \
 	-I$(top_builddir)/intl
 
@@ -98,6 +102,7 @@ enigma_LDADD = \
 	@LIBINTL@ \
 	$(top_builddir)/lib-src/enigma-core/libecl.a \
 	$(top_builddir)/lib-src/lua/liblua.a \
+	$(top_builddir)/lib-src/enet/libenet.a \
 	$(top_builddir)/lib-src/oxydlib/liboxyd.a \
 	$(top_builddir)/lib-src/zipios++/src/libzipios.a \
 	-lz \

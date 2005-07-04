@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2003 Daniel Heck
+ * Copyright (C) 2003,2005 Daniel Heck
  *
  * This program is free software; you can redistribute it and/or
  * modify it under the terms of the GNU General Public License
@@ -29,7 +29,7 @@ namespace
         int skip;
     public:
         BuildVList(Menu *cc, const ecl::Rect &rr, int s)
-            : r(rr), container(cc), skip(s)
+        : r(rr), container(cc), skip(s)
         {}
 
         Widget *add(Widget *w) {
@@ -50,11 +50,11 @@ namespace
     public:
         VTableBuilder (Menu *menu, const ecl::Rect &targetarea, const ecl::Rect &widgetsize,
                        int   vspacing, int hspacing)
-            : m_menu(menu),
-              m_targetarea(targetarea),
-              m_widgetsize(widgetsize),
-              m_vspacing(vspacing),
-              m_hspacing(hspacing)
+        : m_menu(menu),
+          m_targetarea(targetarea),
+          m_widgetsize(widgetsize),
+          m_vspacing(vspacing),
+          m_hspacing(hspacing)
         {}
 
         bool finish(vector<Widget*> widgets) {
@@ -142,10 +142,28 @@ namespace
 
         Rect pos() const { return r; }
     };
-}
 
-namespace
-{
+
+    class BuildTable {
+        Container *container;
+        int columns;
+        int current_column;
+        int rowheight;
+
+    public:
+        BuildTable (Container *container_, int columns_, int rowheight_)
+        : container(container_) , 
+          columns (columns_),
+          current_column (0),
+          rowheight (rowheight_)
+        {}
+   
+        void add (Widget *w) {
+
+        }
+    };
+
+
     class LevelPreviewCache {
     public:
         LevelPreviewCache();
@@ -339,12 +357,36 @@ namespace
 
         // Variables.
         Widget *m_startgame;
+        Widget *m_netgame;
         Widget *leveled;
         Widget *manual;
         Widget *options;
         Widget *credits;
         Widget *quit;
         Widget *lpack;
+    };
+}
+
+/* -------------------- NetworkMenu -------------------- */
+namespace
+{
+    class NetworkMenu : public gui::Menu {
+    public:
+        NetworkMenu ();
+        ~NetworkMenu ();
+    private:
+        // ActionListener interface.
+        bool on_event (const SDL_Event &e);
+        void on_action(gui::Widget *w);
+
+        // Menu interface.
+        void draw_background(ecl::GC &gc);
+        void tick(double dtime);
+
+        // Variables.
+        gui::Widget *m_startgame;
+        gui::Widget *m_joingame;
+        gui::Widget *m_back;
     };
 }
 

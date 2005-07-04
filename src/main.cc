@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2002,2003,2004 Daniel Heck
+ * Copyright (C) 2002,2003,2004,2005 Daniel Heck
  *
  * This program is free software; you can redistribute it and/or
  * modify it under the terms of the GNU General Public License
@@ -29,6 +29,8 @@
 #include "world.hh"
 #include "nls.hh"
 
+#include "enet/enet.h"
+
 #include <locale.h>
 
 #include <cstdio>
@@ -48,8 +50,9 @@ using namespace ecl;
 using namespace enigma;
 
 #ifdef WIN32
-// LoadImage is a Syscall on Windows, which gets defined to LoadImageA or LoadImageW in winuser.h
-//  so we simply undefine it to use this name for one of the methods
+// LoadImage is a Syscall on Windows, which gets defined to LoadImageA
+// or LoadImageW in winuser.h so we simply undefine it to use this
+// name for one of the methods
 #undef LoadImage
 #endif
 
@@ -339,6 +342,12 @@ static void init()
         sound::DisableMusic();
     sound::Init();
 
+    // ----- Initialize network layer
+    if (enet_initialize () != 0) {
+        fprintf (stderr, "An error occurred while initializing ENet.\n");
+        exit (1);
+    }
+
     // ----- Load models
     display::Init();
 
@@ -357,6 +366,7 @@ static void shutdown()
     video::Shutdown();
     display::Shutdown();
     sound::Shutdown();
+    enet_deinitialize();
     options::Save();
     lua::ShutdownGlobal();
     delete_sequence(levels::LevelPacks.begin(),

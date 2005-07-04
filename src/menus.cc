@@ -16,30 +16,31 @@
  * 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.
  *
  */
-#include "main.hh"
-#include "video.hh"
 #include "menus.hh"
-#include "editor.hh"
-#include "options.hh"
-#include "sound.hh"
-#include "config.h"
-#include "help.hh"
-#include "display.hh"
-#include "oxyd.hh"
-#include "client.hh"
-#include "server.hh"
-#include "world.hh"
-#include "nls.hh"
 
-#include <map>
+#include "client.hh"
+#include "config.h"
+#include "display.hh"
+#include "editor.hh"
+#include "help.hh"
+#include "main.hh"
+#include "netgame.hh"
+#include "nls.hh"
+#include "options.hh"
+#include "oxyd.hh"
+#include "server.hh"
+#include "sound.hh"
+#include "video.hh"
+#include "world.hh"
+
 #include <cassert>
 #include <cctype>
 #include <cstdlib>
+#include <map>
 
 using namespace enigma;
 using namespace gui;
 using namespace ecl;
-using namespace OxydLib;
 using namespace std;
 
 using levels::LevelStatus;
@@ -58,7 +59,7 @@ namespace
       load the appropriate models. */
     void ChangeVideoMode()
     {
-        world::PrepareLevel(0,0);      // make sure no references to models remain
+        world::PrepareLevel();      // make sure no references to models remain
         video::ChangeVideoMode();
         enigma::ClearImageCache();
         display::Shutdown();
@@ -867,14 +868,14 @@ namespace
 /* -------------------- SoundSetButton -------------------- */
 
 SoundSetButton::SoundSetButton()
-: ValueButton(0, int(OxydVersion_PerOxyd)+2)
+: ValueButton(0, int(OxydLib::OxydVersion_PerOxyd)+2)
 {
     init();
 }
 
 bool SoundSetButton::hasSoundSet(int value) {
     if (value<2) return true;
-    return oxyd::FoundOxyd(OxydVersion(value-2));
+    return oxyd::FoundOxyd(OxydLib::OxydVersion(value-2));
 }
 
 int SoundSetButton::get_value() const 
@@ -895,7 +896,10 @@ void SoundSetButton::set_value(int value) {
     oxyd::ChangeSoundset(options::GetInt("SoundSet"), -1);
 }
 
-string SoundSetButton::get_text(int value) const {
+string SoundSetButton::get_text(int value) const 
+{
+    using namespace OxydLib;
+
     string sound_set;
     switch (value) {
     case 0: sound_set = _("Default"); break;
@@ -1068,29 +1072,8 @@ string GammaButton::get_text(int value) const
 }
 
 
- 
 
 /* -------------------- Options Menu -------------------- */
-
-class BuildTable {
-    Container *container;
-    int columns;
-    int current_column;
-    int rowheight;
-
-public:
-    BuildTable (Container *container_, int columns_, int rowheight_)
-    : container(container_) , 
-      columns (columns_),
-      current_column (0),
-      rowheight (rowheight_)
-    {}
-   
-    void add (Widget *w) {
-
-    }
-};
-
 
 OptionsMenu::OptionsMenu(ecl::Surface *background_)
 : back(new StaticTextButton(_("Back"), this)),
@@ -1544,6 +1527,51 @@ void LevelMenu::show_text(const string& text) {
 
 
 
+/* -------------------- NetworkMenu -------------------- */
+
+NetworkMenu::NetworkMenu ()
+{
+    const video::VMInfo *vminfo = video::GetInfo();
+
+    BuildVList b(this, Rect((vminfo->width - 150)/2,150,150,40), 5);
+    m_startgame = b.add(new StaticTextButton(_("Start Game"), this));
+    m_joingame = b.add(new StaticTextButton(_("Join Game"), this));
+    m_back = b.add(new StaticTextButton(_("Back"), this));
+}
+
+NetworkMenu::~NetworkMenu ()
+{
+}
+
+bool NetworkMenu::on_event (const SDL_Event &e)
+{
+    return false;
+}
+
+void NetworkMenu::on_action(gui::Widget *w)
+{
+    if (w == m_startgame) {
+        netgame::Start();
+    } 
+    else if (w == m_joingame) {
+        netgame::Join("localhost", 12345);
+    }
+    if (w == m_back)
+        Menu::quit();
+}
+
+void NetworkMenu::draw_background(ecl::GC &gc)
+{
+    video::SetCaption (("Enigma - Network Menu"));
+    blit(gc, 0,0, enigma::GetImage("menu_bg", ".jpg"));
+}
+
+void NetworkMenu::tick(double dtime)
+{
+}
+
+
+
 /* -------------------- Main menu -------------------- */
 
 MainMenu::MainMenu() 
@@ -1558,8 +1586,8 @@ void MainMenu::build_menu()
     BuildVList b(this, Rect((vminfo->width - 150)/2,150,150,40), 5);
     m_startgame = b.add(new StaticTextButton(_("Start Game"), this));
 #ifdef ENABLE_EXPERIMENTAL
+    m_netgame   = b.add (new StaticTextButton (_("Network Game"), this));
     leveled     = b.add(new StaticTextButton(_("Editor"), this));
-
 #endif
 //    manual      = b.add(new StaticTextButton("Manual", this));
     options     = b.add(new StaticTextButton(_("Options"), this));
@@ -1602,6 +1630,8 @@ void MainMenu::on_action(Widget *w)
         reset_active_widget ();
         build_menu();
 #ifdef ENABLE_EXPERIMENTAL
+    } else if (w == m_netgame) {
+        ShowNetworkMenu();
     } else if (w == leveled) {
         editor::Run();
 #endif
@@ -1761,5 +1791,11 @@ void enigma::ShowOptionsMenu(Surface *background) {
         background = enigma::GetImage("menu_bg", ".jpg");
     OptionsMenu m(background);
     m.center();
+    m.manage();
+}
+
+void enigma::ShowNetworkMenu() 
+{
+    NetworkMenu m;
     m.manage();
 }
