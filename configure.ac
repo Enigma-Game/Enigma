@@ -197,7 +197,7 @@ AC_DEFINE_UNQUOTED(DEFAULT_DATA_PATH, "./data:~/.enigma:$ENIGMA_DATADIR", [Defau
 
 dnl Configure libraries
 AC_CONFIG_SUBDIRS(lib-src/zipios++)
-dnl AC_CONFIG_SUBDIRS(lib-src/enet)
+AC_CONFIG_SUBDIRS(lib-src/enet)
 
 AC_CONFIG_FILES([Makefile m4/Makefile  intl/Makefile 
            data/Makefile

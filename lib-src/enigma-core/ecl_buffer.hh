@@ -33,6 +33,8 @@ namespace ecl
         ~Buffer()           { delete[] buf; }
         void clear()        { sz=0; rpos=wpos=buf; }
 
+        void assign (char *data, size_t size);
+
         int read();			// return the next byte or -1 on EOF
         Buffer& write(char c);	// write one byte at the current position
         Buffer& read(void* dest, size_t maxlen);

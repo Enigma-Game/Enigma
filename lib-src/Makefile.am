@@ -1,1 +1,1 @@
-SUBDIRS = oxydlib lua zipios++
+SUBDIRS = oxydlib lua zipios++ enet enigma-core
