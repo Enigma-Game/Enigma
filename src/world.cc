@@ -1079,13 +1079,11 @@ void world::Resize (int w, int h)
     display::NewWorld(w, h);
 }
 
-void world::PrepareLevel (int w, int h)
+void world::PrepareLevel ()
 {
     GameTimer.clear();
     CurrentCollisionActor = 0;
-    server::GameReset();
-    player::NewWorld();
-    Resize (w, h);
+    Resize (20, 13);
 }
 
 bool world::InitWorld()
@@ -1211,6 +1209,20 @@ void world::AddRubberBand (Actor *a, Actor *a2, const RubberBandData &d)
     rbd.length = ecl::Max (d.length, get_radius(a) + get_radius(a2));
     level->m_rubberbands.push_back(new RubberBand (a, a2, rbd));
 }
+
+void world::KillRubberBands (Actor *a)
+{
+    for (unsigned i=0; i<level->m_rubberbands.size(); ) {
+        RubberBand &r = *level->m_rubberbands[i];
+        if (r.get_actor() == a) {
+            delete &r;
+            level->m_rubberbands.erase(level->m_rubberbands.begin()+i);
+            continue;       // don't increment i
+        }
+        ++i;
+    }
+}
+
 
 void world::KillRubberBand (Actor *a, Stone *st)
 {

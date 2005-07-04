@@ -145,7 +145,7 @@ namespace world
 
     void Init();
 
-    void PrepareLevel (int w, int h);
+    void PrepareLevel ();
 
     /* Create a new, empty world with width `w' and height `h`. */
     void Resize (int w, int h);
@@ -204,6 +204,9 @@ namespace world
       than `length' it will exert no force on the actor(s). */
     void AddRubberBand (Actor *a, Stone *st, const RubberBandData &d);
     void AddRubberBand (Actor *a, Actor *a2, const RubberBandData &d);
+
+    /*! Remove all rubber bands connected to `a'. */
+    void KillRubberBands (Actor *a);
 
     /*! Remove the rubber band between `a' and `st'.  If `st' is 0,
       all rubber bands connecting `a' to a stone will be cut. */

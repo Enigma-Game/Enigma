@@ -652,7 +652,7 @@ void FloppyStone::actor_hit (const StoneContact &sc)
                 PerformAction(this, is_on());
             }
         }
-        else if (player::wielded_item_is(sc.actor, "it-floppy")) {
+        else if (player::WieldedItemIs (sc.actor, "it-floppy")) {
             DisposeObject(inv->yield_first());
             set_on(true);
             PerformAction(this, is_on());

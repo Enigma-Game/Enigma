@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2002,2003,2004 Daniel Heck
+ * Copyright (C) 2002,2003,2004,2005 Daniel Heck
  *
  * This program is free software; you can redistribute it and/or
  * modify it under the terms of the GNU General Public License
@@ -16,8 +16,8 @@
  * 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.
  *
  */
-#ifndef PLAYER_HH
-#define PLAYER_HH
+#ifndef PLAYER_HH_INCLUDED
+#define PLAYER_HH_INCLUDED
 
 /*
  * Player management.  Deals mostly with inventory management,
@@ -81,7 +81,7 @@ namespace enigma_player
     /*! This is called whenever a new level is reached in a running
       game.  The inventories of all players are cleaned up, i.e., all
       items except for extra lifes are removed. */
-    void NewWorld();
+    void PrepareLevel();
 
     /*! Add a yinyang item to all players' inventories. */
     void AddYinYang ();
@@ -106,13 +106,11 @@ namespace enigma_player
     int      CurrentPlayer();
     void     SetCurrentPlayer(unsigned iplayer);
     unsigned NumberOfRealPlayers();
-    bool     IsCurrentPlayer(Actor *a);
 
     Inventory *MayPickup(Actor *a);
     Inventory *GetInventory(int iplayer);
     Inventory *GetInventory(Actor *a);
-    Item      *wielded_item (Actor *a);
-    bool       wielded_item_is(Actor *a, const std::string &kind);
+    bool       WieldedItemIs(Actor *a, const std::string &kind);
 
     void Suicide();
 

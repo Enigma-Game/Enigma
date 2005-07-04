@@ -1,8 +1,11 @@
 #include "gui.hh"
 #include "video.hh"
+#include "ecl_buffer.hh"
 
 namespace
 {
+    using ecl::Buffer;
+    using std::string;
 
 /* -------------------- Server -> Client messages -------------------- */
 
@@ -27,12 +30,8 @@ namespace
         ClientCommand type;
     };
 
-    enum ClientEffect {
-    
-    };
-
     struct Cl_NewWorld {
-        string levelname;
+        std::string levelname;
         int width;
         int height;
     };
@@ -41,6 +40,9 @@ namespace
         Cl_LevelLoaded() : Message (cl_level_loaded) {
         }
     };
+    Buffer &operator << (Buffer &b, const Cl_LevelLoaded &m) {
+        return b << Uint8 (cl_level_loaded);
+    }
 
     struct Cl_ChangeField {
 
@@ -117,6 +119,9 @@ namespace
 
         void tick (double dtime);
         void stop() { m_state = cls_idle; }
+        bool network_start();
+        void network_stop();
+
 
         void handle_message(Message *msg);
 
@@ -172,6 +177,8 @@ namespace
         string      m_error_message;
 
         std::auto_ptr<video::TransitionEffect> m_effect;
+        ENetHost   *m_network_host;
+        ENetPeer   *m_server;
 
     private:
         Client (const Client&);

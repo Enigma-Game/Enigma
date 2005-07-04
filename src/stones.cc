@@ -565,7 +565,7 @@ namespace
                 break_me();
         }
         void actor_hit (const StoneContact &sc) {
-            if (player::wielded_item_is(sc.actor, "it-hammer")) {
+            if (player::WieldedItemIs (sc.actor, "it-hammer")) {
                 break_me();
             }
         }
@@ -590,7 +590,7 @@ namespace
         }
 
         void actor_hit (const StoneContact &sc) {
-            if (player::wielded_item_is(sc.actor, "it-hammer")) {
+            if (player::WieldedItemIs (sc.actor, "it-hammer")) {
                 break_me();
             }
         }

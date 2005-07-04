@@ -82,7 +82,7 @@ namespace
         bool is_movable () const { return movable; }
 
         void actor_hit (const StoneContact &sc) {
-            if (player::wielded_item_is(sc.actor, "it-wrench")) {
+            if (player::WieldedItemIs (sc.actor, "it-wrench")) {
                 clockwise = !clockwise;
                 init_model();
             }
@@ -408,7 +408,7 @@ void OneWayBase::actor_hit(const StoneContact &sc) {
     Direction o=get_orientation();
 
     if (has_dir(contact_faces(sc), o)) {
-        if (player::wielded_item_is(sc.actor, "it-magicwand")) {
+        if (player::WieldedItemIs (sc.actor, "it-magicwand")) {
             set_orientation(reverse(o));
             init_model();
         }
@@ -535,7 +535,7 @@ namespace
         bool is_movable() const { return state != FALLING; }
 
         void actor_hit(const StoneContact &sc) {
-            if (player::wielded_item_is(sc.actor, "it-magicwand")) {
+            if (player::WieldedItemIs (sc.actor, "it-magicwand")) {
                 set_dir(reverse(get_dir()));
                 init_model();
             }
@@ -750,7 +750,7 @@ namespace
         void actor_hit(const StoneContact &sc) {
             Actor *a = sc.actor;
 
-            if( state == ACTIVE && player::wielded_item_is(a, "it-hammer")) {
+            if( state == ACTIVE && player::WieldedItemIs (a, "it-hammer")) {
                 state = BREAKING;
                 init_model();
             }
@@ -1286,7 +1286,7 @@ void PuzzleStone::on_impulse(const Impulse& impulse)
         bool    actor_with_wand = false;
 
         if (Actor *ac = dynamic_cast<Actor*>(impulse.sender)) 
-            actor_with_wand = player::wielded_item_is(ac, "it-magicwand");
+            actor_with_wand = player::WieldedItemIs (ac, "it-magicwand");
 
         maybe_move_cluster(c, is_complete, actor_with_wand, impulse.dir);
     }
@@ -1445,7 +1445,7 @@ void PuzzleStone::actor_hit(const StoneContact &sc)
     else {
         // Not Oxyd 1
 
-        bool has_magic_wand = player::wielded_item_is(sc.actor, "it-magicwand");
+        bool has_magic_wand = player::WieldedItemIs (sc.actor, "it-magicwand");
 
         // 1) Try to start explosion of complete cluster
         if (has_magic_wand && explode_complete_cluster())
@@ -2034,7 +2034,7 @@ namespace
                 notify_state(oldstate); // restart anim if it was animated before move
 
                 Actor *hitman = dynamic_cast<Actor*>(impulse.sender);
-                if (hitman && player::wielded_item_is(hitman, "it-magicwand")) {
+                if (hitman && player::WieldedItemIs (hitman, "it-magicwand")) {
                     return;     // do not change state to PULSING
                 }
             }

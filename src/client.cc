@@ -31,6 +31,8 @@
 
 #include "ecl_sdl.hh"
 
+#include "enet/enet.h"
+
 #include <cctype>
 #include <cstring>
 #include <cassert>
@@ -220,11 +222,78 @@ Client::Client()
   m_cheater(false), 
   m_user_input()
 {
+    m_network_host = 0;
 }
 
-Client::~Client() {
-
+Client::~Client() 
+{
+    network_stop();
 }
+
+bool Client::network_start()
+{
+    if (m_network_host)
+        return true;
+
+    m_network_host = enet_host_create (NULL,
+                                       1 /* only allow 1 outgoing connection */,
+                                       57600 / 8 /* 56K modem with 56 Kbps downstream bandwidth */,
+                                       14400 / 8 /* 56K modem with 14 Kbps upstream bandwidth */);
+
+    if (m_network_host == NULL) {
+        fprintf (stderr, 
+                 "An error occurred while trying to create an ENet client host.\n");
+        return false;
+    }
+
+
+    // ----- Connect to server
+
+    ENetAddress sv_address;
+    ENetPeer *m_server;
+
+    /* Connect to some.server.net:1234. */
+    enet_address_set_host (&sv_address, "localhost");
+    sv_address.port = 12345;
+
+    /* Initiate the connection, allocating the two channels 0 and 1. */
+    m_server = enet_host_connect (m_network_host, &sv_address, 2);    
+    
+    if (m_server == NULL) {
+       fprintf (stderr, 
+                "No available peers for initiating an ENet connection.\n");
+       return false;
+    }
+    
+    // Wait up to 5 seconds for the connection attempt to succeed.
+    ENetEvent event;
+    if (enet_host_service (m_network_host, &event, 5000) > 0 &&
+        event.type == ENET_EVENT_TYPE_CONNECT)
+    {
+        fprintf (stderr, "Connection to some.server.net:1234 succeeded.");
+        return true;
+    }
+    else
+    {
+        /* Either the 5 seconds are up or a disconnect event was */
+        /* received. Reset the peer in the event the 5 seconds   */
+        /* had run out without any significant event.            */
+        enet_peer_reset (m_server);
+        m_server = 0;
+
+        fprintf (stderr, "Connection to localhost:12345 failed.");
+        return false;
+    }
+}
+
+void Client::network_stop ()
+{
+    if (m_network_host)
+        enet_host_destroy (m_network_host);
+    if (m_server)
+        enet_peer_reset (m_server);
+}
+
 
 /* ---------- Event handling ---------- */
 
@@ -856,7 +925,14 @@ void Client::error (const string &text)
 
 /* -------------------- Functions -------------------- */
 
-void client::Msg_LevelLoaded (unsigned levelidx) {
+
+bool client::NetworkStart() 
+{
+    return CLIENT.network_start();
+}
+
+void client::Msg_LevelLoaded (unsigned levelidx) 
+{
     CLIENT.level_loaded(levelidx);
 }
 

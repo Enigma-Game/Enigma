@@ -590,7 +590,7 @@ namespace
         Stone_break(const char *kind) : BreakableStone(kind) { }
     private:
         bool may_be_broken_by(Actor *a) const {
-            return player::wielded_item_is(a, "it-hammer");
+            return player::WieldedItemIs (a, "it-hammer");
         }
     };
 
@@ -634,7 +634,7 @@ namespace
         Break_bolder() : BreakableStone("st-break_bolder") {}
     private:
         bool may_be_broken_by(Actor *a) const {
-            return player::wielded_item_is(a, "it-hammer");
+            return player::WieldedItemIs (a, "it-hammer");
         }
         virtual void message(const string &msg, const Value &) {
             if (msg == "trigger")
@@ -674,7 +674,7 @@ namespace
             return "st-rock3_break-anim";
         }
         bool may_be_broken_by(Actor *a) const {
-            return player::wielded_item_is(a, "it-hammer");
+            return player::WieldedItemIs (a, "it-hammer");
         }
 
         bool is_movable() const { return true; }
@@ -717,7 +717,7 @@ namespace
     private:
         bool may_be_broken_by(Actor *a) const {
             return a->get_attrib("whiteball") &&
-                player::wielded_item_is(a, "it-hammer");
+                player::WieldedItemIs (a, "it-hammer");
         }
     };
 }
@@ -747,7 +747,7 @@ namespace
     private:
         bool may_be_broken_by(Actor *a) const {
             return a->get_attrib("blackball") &&
-                player::wielded_item_is(a, "it-hammer");
+                player::WieldedItemIs (a, "it-hammer");
         }
     };
 }
@@ -777,7 +777,7 @@ namespace
         BrickMagic() : Stone("st-brick_magic") {}
     private:
         void actor_hit(const StoneContact &sc) {
-            if (player::wielded_item_is(sc.actor, "it-magicwand")) {
+            if (player::WieldedItemIs (sc.actor, "it-magicwand")) {
                 sound_event ("stonepaint");
                 ReplaceStone (get_pos(), MakeStone("st-glass"));
             }
@@ -812,7 +812,7 @@ namespace
 
         void actor_hit(const StoneContact &sc) {
             if( state == INVISIBLE) {
-                if (player::wielded_item_is(sc.actor, "it-brush")) {
+                if (player::WieldedItemIs (sc.actor, "it-brush")) {
                     sound_event ("stonepaint");
                     state = BRUSH;
                     if (server::GameCompatibility == GAMET_PEROXYD) {
@@ -856,14 +856,14 @@ namespace
         State state;
         void actor_hit(const StoneContact &sc) {
             if (state == INVISIBLE) {
-                if (player::wielded_item_is(sc.actor, "it-brush")) {
+                if (player::WieldedItemIs (sc.actor, "it-brush")) {
                     sound_event ("stonepaint");
                     state = BRUSH;
                     set_model("st-stone_break");
                 }
             }
             else if (state == BRUSH) {
-                if (player::wielded_item_is(sc.actor, "it-hammer")) {
+                if (player::WieldedItemIs (sc.actor, "it-hammer")) {
                     sound_event ("stonedestroy");
                     state = DESTROY;
                     set_anim("st-stone_break-anim");
@@ -906,7 +906,7 @@ namespace
 
         void actor_hit(const StoneContact &sc) {
             if (state == INVISIBLE) {
-                if (player::wielded_item_is(sc.actor, "it-magicwand")) {
+                if (player::WieldedItemIs (sc.actor, "it-magicwand")) {
                     sound_event ("stonepaint");
                     state = STONE;
                     set_model("st-greenbrown");
@@ -1121,7 +1121,7 @@ namespace
 
         void on_impulse (const Impulse& impulse) {
             Actor *a = dynamic_cast<Actor *> (impulse.sender);
-            if (a && player::wielded_item_is (a, "it-magicwand"))
+            if (a && player::WieldedItemIs (a, "it-magicwand"))
                 move_stone(impulse.dir);
         }
 
@@ -1306,7 +1306,7 @@ void FartStone::animcb()
 
 void FartStone::actor_hit(const StoneContact &sc) 
 {
-    if (player::wielded_item_is(sc.actor, "it-hammer"))
+    if (player::WieldedItemIs (sc.actor, "it-hammer"))
         change_state(BREAKING);
     else
         change_state(FARTING);
@@ -1473,7 +1473,7 @@ namespace
         ActorImpulseStoneInvisible() : ActorImpulseBase("st-actorimpulse_invisible") {}
 
         void actor_hit(const StoneContact& sc) {
-            if (player::wielded_item_is(sc.actor, "it-brush")) {
+            if (player::WieldedItemIs (sc.actor, "it-brush")) {
                 Stone *st = MakeStone("st-actorimpulse");
                 SetStone(get_pos(), st);
                 st->actor_hit(sc);
@@ -1630,8 +1630,8 @@ namespace
         YinYangStone3() : YinYangStone("st-yinyang3") {}
     private:
         void actor_hit(const StoneContact &sc) {
-            if (player::wielded_item_is(sc.actor, "it-magicwand") ||
-                player::wielded_item_is(sc.actor, "it-brush"))
+            if (player::WieldedItemIs (sc.actor, "it-magicwand") ||
+                player::WieldedItemIs (sc.actor, "it-brush"))
             {
                 if      (sc.actor->get_attrib("blackball")) 
                     turn_white("st-white4");
@@ -1967,7 +1967,7 @@ namespace
         void actor_hit(const StoneContact &sc)
         {
             if (subtype != MAX_SUBTYPE) {
-                if (player::wielded_item_is (sc.actor, "it-sword")) {
+                if (player::WieldedItemIs (sc.actor, "it-sword")) {
                     subtype += 1;
                     if (subtype == MAX_SUBTYPE) {
                         client::Msg_ShowText ("All right, we'll call it a draw", false, 4.0);

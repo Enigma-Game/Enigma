@@ -219,7 +219,7 @@ OxydLoader::OxydLoader (const Level &level_,
 void OxydLoader::load ()
 {
     // Prepare Enigma game engine
-    world::PrepareLevel (level.getWidth(), level.getHeight());
+    world::Resize (level.getWidth(), level.getHeight());
     if (config.twoplayers) 
         server::TwoPlayerGame = true;
     display::ResizeGameArea (20, 11);
@@ -805,9 +805,6 @@ void LevelPack_Oxyd::load_level (size_t index)
             throw levels::XLevelLoading(err);
         }
     }
-
-    // Good to go!
-    world::InitWorld();
 }
 
 const LevelInfo &

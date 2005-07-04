@@ -281,7 +281,6 @@ void LevelPack_Enigma::reinit()
 
 void LevelPack_Enigma::load_level (istream &is) 
 {
-    world::PrepareLevel (20,13);
     file::ByteVec luacode;
     file::readfile (is, luacode);
 
@@ -290,19 +289,16 @@ void LevelPack_Enigma::load_level (istream &is)
 //        clear_world();
         throw XLevelLoading (lua::LastError(L));
     }
-    world::InitWorld();
 }
 
 void LevelPack_Enigma::load_level_xml (istream &is)
 {
-    world::PrepareLevel (20,13);
     file::ByteVec xmlcode;
     file::readfile (is, xmlcode);
     lua_State *L = lua::LevelState();
     if (lua::CallFunc (L, "LoadLevelXML", xmlcode)) {
         throw XLevelLoading (lua::LastError(L));
     }
-    world::InitWorld();
 }
 
 void LevelPack_Enigma::load_level (size_t index)

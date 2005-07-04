@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2004 Daniel Heck
+ * Copyright (C) 2004,2005 Daniel Heck
  *
  * This program is free software; you can redistribute it and/or
  * modify it under the terms of the GNU General Public License
@@ -17,15 +17,18 @@
  *
  */
 #include "server.hh"
+
+#include "actors.hh"
+#include "client.hh"
+#include "lua.hh"
+#include "main.hh"
+#include "nls.hh"
+#include "options.hh"
+#include "player.hh"
 #include "player.hh"
 #include "world.hh"
-#include "actors.hh"
-#include "player.hh"
-#include "lua.hh"
-#include "client.hh"
-#include "options.hh"
-#include "nls.hh"
-#include "main.hh"
+
+#include "enet/enet.h"
 
 #include <cctype>
 
@@ -96,27 +99,27 @@ namespace
     double             current_state_dtime = 0;
     levels::LevelPack *levelpack           = 0;
     int                 move_counter; // counts movements of stones
-
+    ENetAddress        network_address;
+    ENetHost           *network_host       = 0;
 }
 
 void load_level (unsigned ilevel)
 {
     if (levelpack) {
-        const levels::LevelInfo &info = levelpack->get_info(ilevel);
+        server::PrepareLevel();
 
         // first set default compatibility mode
         // (may be overidden by load_level (from lua))
+        const levels::LevelInfo &info = levelpack->get_info(ilevel);
         server::GameCompatibility = info.type;
 
-        player::NewGame();
-//2, levelpack->needs_twoplayers()); // two virtual players
         try {
             levelpack->load_level (ilevel);
             server::CurrentLevel = ilevel;
-            state = sv_waiting_for_clients;
             game::ResetGameTimer();
 
             if (!CreatingPreview) {
+                world::InitWorld();
                 player::LevelLoaded();
                 client::Msg_LevelLoaded(ilevel);
             }
@@ -170,14 +173,80 @@ void server::Init()
 void server::Shutdown()
 {
     lua::ShutdownLevel();
+    if (network_host != 0)
+        enet_host_destroy (network_host);
 }
 
-namespace 
+
+bool server::NetworkStart()
 {
+    if (network_host != 0)
+        return true;
+
+    network_address.host = ENET_HOST_ANY;
+    network_address.port = 12345;
+
+    network_host = enet_host_create (&network_address, 32, 0, 0);
+    if (network_host == NULL) {
+        fprintf (stderr, 
+                 "An error occurred while trying to create an ENet server host.\n");
+        return false;
+    }
+
+    ENetEvent event;
+    
+    /* Wait up to 1000 milliseconds for an event. */
+    while (enet_host_service (network_host, & event, 10000) > 0)
+    {
+        switch (event.type)
+        {
+        case ENET_EVENT_TYPE_CONNECT:
+            printf ("A new client connected from %x:%u.\n", 
+                    event.peer -> address.host,
+                    event.peer -> address.port);
+
+            /* Store any relevant client information here. */
+            event.peer -> data = (void*)"Client information";
+
+            break;
+
+        case ENET_EVENT_TYPE_RECEIVE:
+            printf ("A packet of length %u containing %s was received from %s on channel %u.\n",
+                    event.packet -> dataLength,
+                    event.packet -> data,
+                    event.peer -> data,
+                    event.channelID);
+
+            /* Clean up the packet now that we're done using it. */
+            enet_packet_destroy (event.packet);
+            
+            break;
+           
+        case ENET_EVENT_TYPE_DISCONNECT:
+            printf ("%s disconected.\n", event.peer -> data);
+
+            /* Reset the peer's client information. */
+
+            event.peer -> data = NULL;
+        }
+    }
+
+
+
+    return true;
 }
 
-void server::GameReset()
+void server::GameStart()
 {
+    player::NewGame();
+    PrepareLevel();
+
+}
+
+void server::PrepareLevel()
+{
+    state = sv_waiting_for_clients;
+
     server::NoCollisions = false;
 
     server::ConserveLevel     = true;
@@ -201,6 +270,9 @@ void server::GameReset()
     server::HoleForce         = 1.0;
 
     move_counter = 0;
+
+    world::PrepareLevel ();
+    player::PrepareLevel();
 
     /* Restart the Lua environment so symbol definitions from
        different levels do not get in each other's way.*/

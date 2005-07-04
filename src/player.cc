@@ -109,6 +109,9 @@ void LevelLocalData::respawn_dead_actors(double dtime)
 
         info.time_left -= dtime;
         if (info.time_left < 0) {
+//             if (lua::CallFunc (lua::LevelState(), "Respawn", Value()) != 0) {
+//                 throw enigma_levels::XLevelRuntime(string("Calling 'Respawn' failed:\n")+lua::LastError(lua::LevelState()));
+                
             info.actor->respawn();
             respawn_list.erase(respawn_list.begin()+i);
             continue;           // don't increment i
@@ -290,8 +293,8 @@ void player::NewGame ()
     for (int i=0; i<nplayers; ++i) {
         Inventory *inv = GetInventory(i);
 
-        inv->add_item (world::MakeItem (world::it_extralife));
-        inv->add_item (world::MakeItem (world::it_extralife));
+        inv->add_item (MakeItem (world::it_extralife));
+        inv->add_item (MakeItem (world::it_extralife));
     }
 }
 
@@ -313,7 +316,7 @@ void player::LevelLoaded()
     inv->redraw();
 }
 
-void player::NewWorld() 
+void player::PrepareLevel() 
 {
     // Clear up the inventories of all players: keep only extra lifes.
     for (unsigned iplayer=0; iplayer<players.size(); ++iplayer)
@@ -340,6 +343,7 @@ void player::LevelFinished()
         for (unsigned j=0; j<players[i].actors.size(); ++j) {
             Actor *a = players[i].actors[j];
             world::SendMessage(a, "disappear");
+            world::KillRubberBands (a);
         }
     }
 }
@@ -354,13 +358,8 @@ Inventory * player::GetInventory (Actor *a) {
     return 0;
 }
 
-Item * player::wielded_item (Actor *a) {
-    if (player::Inventory *inv = player::GetInventory(a))
-        return inv->get_item(0);
-    return 0;
-}
-
-bool player::wielded_item_is(Actor *a, const string &kind) {
+bool player::WieldedItemIs (Actor *a, const string &kind) 
+{
     if (player::Inventory *inv = GetInventory(a))
         if (Item *it = inv->get_item(0))
             return it->is_kind(kind);
@@ -370,10 +369,6 @@ bool player::wielded_item_is(Actor *a, const string &kind) {
 
 int player::CurrentPlayer() {
     return icurrent_player;
-}
-
-bool player::IsCurrentPlayer(Actor *a) {
-    return static_cast<int>(icurrent_player) == a->int_attrib("player");
 }
 
 void player::SetCurrentPlayer(unsigned iplayer) 
@@ -399,7 +394,8 @@ unsigned player::NumberOfRealPlayers() {
 }
 
 /*! Sets respawn positions for black or white actors. */
-void player::SetRespawnPositions(GridPos pos, bool black) {
+void player::SetRespawnPositions(GridPos pos, bool black) 
+{
     ecl::V2 center = pos.center();
 
     for (unsigned i=0; i<players.size(); ++i) {
@@ -468,7 +464,8 @@ void player::AddActor (unsigned iplayer, Actor *a)
     }
 }
 
-void player::SwapPlayers() {
+void player::SwapPlayers() 
+{
     if (NumberOfRealPlayers() >= 2) {
         SetCurrentPlayer(1-icurrent_player);
     }
@@ -501,9 +498,9 @@ static void CheckDeadActors()
     if (server::ConserveLevel) {
         // to live means to be not dead and to be able to move
         for (unsigned pl = 0; pl<players.size(); ++pl) {
-            vector<Actor*>& actors = players[pl].actors;
-            bool                     has_living_actor = false;
-            int                      dead_essentials = 0;
+            vector<Actor*>& actors           = players[pl].actors;
+            bool            has_living_actor = false;
+            int             dead_essentials  = 0;
 
             for (size_t i=0; i<actors.size(); ++i) {
                 Actor *a = actors[i];
