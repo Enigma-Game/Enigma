@@ -378,15 +378,15 @@ ostream& ecl::operator<<(ostream& os, const Buffer& buf)
     return os;
 }
 
-istream& ecl::operator>>(istream& is, Buffer& buf)
-{
-    buf.clear();
-    char tmp[2048];
-    while (is.read(tmp, sizeof tmp))
-    {
-        buf.write(tmp, sizeof tmp);
-    }
-    buf.write(tmp, is.gcount());
-    return is;
-}
+// istream& ecl::operator>>(istream& is, Buffer& buf)
+// {
+//     buf.clear();
+//     char tmp[2048];
+//     while (is.read(tmp, sizeof tmp))
+//     {
+//         buf.write(tmp, sizeof tmp);
+//     }
+//     buf.write(tmp, is.gcount());
+//     return is;
+// }
 

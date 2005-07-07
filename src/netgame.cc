@@ -16,6 +16,7 @@
  * 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.
  *
  */
+#include "main.hh"
 #include "netgame.hh"
 #include "server.hh"
 #include "client.hh"
@@ -28,7 +29,7 @@
 using namespace enigma;
 
 #include "client_internal.hh"
-
+#include "server_internal.hh"
 
 namespace
 {
@@ -38,6 +39,8 @@ namespace
         virtual void send_message (const Buffer &b, int channel) = 0;
         virtual void send_reliable (const Buffer &b, int channel) = 0;
         virtual bool poll_message (Buffer &b, int &player_no) = 0;
+        virtual void disconnect(int timeout=1000) = 0;
+        virtual bool is_connected() const = 0;
     };
 
     class Peer_Enet : public Peer {
@@ -50,21 +53,24 @@ namespace
         {
         }
 
+
+        ~Peer_Enet() 
+        {
+            disconnect(0);
+        }
+
         // Peer interface
 
         virtual void send_message (const Buffer &b, int channel)
         {
-            ENetPacket * packet = enet_packet_create (b.data(),
-                                                      b.size(),
-                                                      0);
+            ENetPacket *packet = enet_packet_create (b.data(), b.size(), 0);
             enet_peer_send (m_peer, channel, packet);
         }
 
         virtual void send_reliable (const Buffer &b, int channel)
         {
-            ENetPacket * packet = enet_packet_create (b.data(),
-                                                      b.size(),
-                                                      ENET_PACKET_FLAG_RELIABLE);
+            ENetPacket *packet = enet_packet_create (b.data(), b.size(),
+                                                     ENET_PACKET_FLAG_RELIABLE);
             enet_peer_send (m_peer, channel, packet);
         }
 
@@ -85,7 +91,6 @@ namespace
                 }
            
                 case ENET_EVENT_TYPE_DISCONNECT:
-                    printf ("%s disconected.\n", event.peer -> data);
                     m_connected = false;
                     event.peer -> data = NULL;
                     break;
@@ -94,8 +99,36 @@ namespace
                     break;
                 }
             }
-
+            return false;
         }
+
+        virtual void disconnect(int timeout = 1000) 
+        {
+            ENetEvent event;
+    
+            enet_peer_disconnect (m_peer);
+
+            while (enet_host_service (m_host, & event, timeout) > 0) {
+                switch (event.type) {
+                case ENET_EVENT_TYPE_RECEIVE:
+                    enet_packet_destroy (event.packet);
+                    break;
+
+                case ENET_EVENT_TYPE_DISCONNECT:
+                    printf ("Disconnection succeeded.\n");
+                    return;
+                }
+            }
+    
+            enet_peer_reset (m_peer);
+            m_connected = false;
+        }
+
+        virtual bool is_connected() const 
+        {
+            return m_connected;
+        }
+
 
     private:
         // Variables
@@ -131,27 +164,52 @@ namespace
 }
 
 
-void handle_client_packet (const Buffer &b, int player_no)
+void handle_client_packet (Buffer &b, int player_no)
 {
+    using namespace enigma_server;
+    Uint8 code; 
+    while (b >> code) {
+        switch (code) {
+        case SVMSG_NOOP:
+            break;              // no nothing
+
+        case SVMSG_SETGAME:
+            break;
+
+        case SVMSG_LOADLEVEL: {
+            Uint16 levelno;
+            if (b >> levelno) {
+                printf ("SV: Loading level %d\n", int(levelno));
+                server::Msg_LoadLevel (levelno);
+            }
+
+            break;
+        }
+        default:
+            enigma::Log << "SV: received undefined packet: " << int(code) << "\n";
+        }
+    }
 }
 
 void server_loop (Peer *m_peer)
 {
+    printf ("SV: Entered server loop\n");
+    server::InitNewGame();
     Buffer buf;
     buf << Cl_LevelLoaded ();
     m_peer->send_reliable (buf, 1);
 
-    while (true) {
+    while (m_peer->is_connected()) {
         SDL_Event e;
         while (SDL_PollEvent(&e)) {
             if (e.type && e.key.keysym.sym == SDLK_ESCAPE)
                 goto done;
-
         }
+        server::Tick (0.01);
         Buffer buf;
         int player_no;
         while (m_peer->poll_message (buf, player_no)) {
-            printf ("Received message from client %d\n", player_no);
+            printf ("SV: Received message from client %d\n", player_no);
             handle_client_packet (buf, player_no);
         }
         SDL_Delay (10);
@@ -174,7 +232,7 @@ void netgame::Start ()
     network_host = enet_host_create (&network_address, 1, 0, 0);
     if (network_host == NULL) {
         fprintf (stderr, 
-                 "An error occurred while trying to create an ENet server host.\n");
+                 "SV: An error occurred while trying to create an ENet server host.\n");
         return;
     }
 
@@ -192,7 +250,7 @@ void netgame::Start ()
         
         while (enet_host_service (network_host, & event, 0) > 0) {
             if (event.type == ENET_EVENT_TYPE_CONNECT) {
-                event.peer -> data = (void*)"Client information";
+                printf ("SV: Connected to client\n");
                 m_peer = new Peer_Enet (network_host, event.peer, 2);
             }
         }
@@ -200,6 +258,9 @@ void netgame::Start ()
     }
 
     server_loop (m_peer);
+
+    m_peer->disconnect();
+    delete m_peer;
 }
 
 
@@ -220,7 +281,7 @@ void netgame::Join (std::string hostname, int port)
                                        14400 / 8 /* 56K modem with 14 Kbps upstream bandwidth */);
 
     if (m_network_host == NULL) {
-        fprintf (stderr, "An error occurred while trying to create an ENet client host.\n");
+        fprintf (stderr, "CL: An error occurred while trying to create an ENet client host.\n");
         return;
     }
 
@@ -239,7 +300,7 @@ void netgame::Join (std::string hostname, int port)
     
     if (m_server == NULL) {
         fprintf (stderr, 
-                 "No available peers for initiating an ENet connection.\n");
+                 "CL: No available peers for initiating an ENet connection.\n");
         return;
     }
     
@@ -249,14 +310,16 @@ void netgame::Join (std::string hostname, int port)
     if (enet_host_service (m_network_host, &event, 5000) > 0 &&
         event.type == ENET_EVENT_TYPE_CONNECT)
     {
-        fprintf (stderr, "Connection to some.server.net:12345 succeeded.\n");
-
-        m_peer = new Peer_Enet (m_network_host, event.peer, 0);
+        fprintf (stderr, "CL: Connection to some.server.net:12345 succeeded.\n");
+        if (m_server != event.peer)
+            printf ("CL: peers differ!?!\n");
+        m_peer = new Peer_Enet (m_network_host, m_server, 0);
     }
     else
         return;
 
-    while (true) {
+
+    while (m_peer->is_connected()) {
         SDL_Event e;
         while (SDL_PollEvent(&e)) {
             if (e.type && e.key.keysym.sym == SDLK_ESCAPE)
@@ -266,7 +329,7 @@ void netgame::Join (std::string hostname, int port)
         Buffer buf;
         int peerno;
         while (m_peer->poll_message (buf, peerno)) {
-            printf ("A packet of length %u was received from %d on channel %u.\n",
+            printf ("CL: A packet of length %u was received from %d on channel %u.\n",
                     buf.size(),
                     peerno,
                     0);          // channel
@@ -275,7 +338,7 @@ void netgame::Join (std::string hostname, int port)
                 Uint8 code;
                 buf >> code;
                 switch (code) {
-                case cl_level_loaded:
+                case CLMSG_LEVEL_LOADED:
                     printf ("cl_level_loaded\n");
                     break;
                 }
@@ -284,6 +347,12 @@ void netgame::Join (std::string hostname, int port)
                 
             }
             
+            Buffer buf;
+            buf << Uint8(enigma_server::SVMSG_LOADLEVEL);
+            buf << Uint16(58);
+            m_peer->send_reliable (buf, 1);
+            printf ("CL: sending message %u\n", buf.size());
+
 
             break;
         }
@@ -297,6 +366,8 @@ void netgame::Join (std::string hostname, int port)
 //         return;
 //     }
   done:
+    m_peer->disconnect();
+    delete m_peer;
     return;
 
     // ---------- ENet-independent code ----------

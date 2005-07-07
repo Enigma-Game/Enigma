@@ -154,7 +154,7 @@ namespace enigma
     };
 
     ecl::Buffer& operator<<(ecl::Buffer& buf, const Value& val);
-    ecl::Buffer& operator>>(ecl::Buffer& buf, Value& val);
+//     ecl::Buffer& operator>>(ecl::Buffer& buf, Value& val);
 
     std::ostream& operator<<(std::ostream& os, const Value& val);
 

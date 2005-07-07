@@ -69,7 +69,7 @@ bool game::DrawLevelPreview (ecl::GC &gc, const Level &l)
 
 void game::StartGame (levels::LevelPack *lp, unsigned ilevel)
 {
-    server::GameStart();
+    server::InitNewGame();
 
     video::HideMouse();
     sdl::TempInputGrab grab(enigma::Nograb ? SDL_GRAB_OFF : SDL_GRAB_ON);

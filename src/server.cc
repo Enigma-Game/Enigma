@@ -36,7 +36,7 @@ using namespace enigma::server;
 using namespace world;
 using namespace std;
 
-namespace
+namespace enigma_server
 {
     enum ServerState {
         sv_idle,
@@ -55,7 +55,12 @@ namespace
 
         static Server *instance;
     };
+
+    void PrepareLevel();
+
 }
+
+
 
 
 /* -------------------- Global variables -------------------- */
@@ -178,70 +183,17 @@ void server::Shutdown()
 }
 
 
-bool server::NetworkStart()
-{
-    if (network_host != 0)
-        return true;
-
-    network_address.host = ENET_HOST_ANY;
-    network_address.port = 12345;
-
-    network_host = enet_host_create (&network_address, 32, 0, 0);
-    if (network_host == NULL) {
-        fprintf (stderr, 
-                 "An error occurred while trying to create an ENet server host.\n");
-        return false;
-    }
-
-    ENetEvent event;
-    
-    /* Wait up to 1000 milliseconds for an event. */
-    while (enet_host_service (network_host, & event, 10000) > 0)
-    {
-        switch (event.type)
-        {
-        case ENET_EVENT_TYPE_CONNECT:
-            printf ("A new client connected from %x:%u.\n", 
-                    event.peer -> address.host,
-                    event.peer -> address.port);
-
-            /* Store any relevant client information here. */
-            event.peer -> data = (void*)"Client information";
-
-            break;
-
-        case ENET_EVENT_TYPE_RECEIVE:
-            printf ("A packet of length %u containing %s was received from %s on channel %u.\n",
-                    event.packet -> dataLength,
-                    event.packet -> data,
-                    event.peer -> data,
-                    event.channelID);
-
-            /* Clean up the packet now that we're done using it. */
-            enet_packet_destroy (event.packet);
-            
-            break;
-           
-        case ENET_EVENT_TYPE_DISCONNECT:
-            printf ("%s disconected.\n", event.peer -> data);
-
-            /* Reset the peer's client information. */
-
-            event.peer -> data = NULL;
-        }
-    }
-
-
-
-    return true;
-}
-
-void server::GameStart()
+void server::InitNewGame()
 {
     player::NewGame();
     PrepareLevel();
-
 }
+
+bool server::NetworkStart()
+{
+}
+
+
 
 void server::PrepareLevel()
 {

@@ -10,21 +10,21 @@ namespace
 /* -------------------- Server -> Client messages -------------------- */
 
     enum ClientCommand {
-        cl_noop,
-        cl_new_world,
-        cl_level_loaded,
-        cl_change_field,
-        cl_add_actor,
-        cl_move_actor,
-        cl_focus_actor,
-        cl_change_line,
-        cl_play_sound,
-        cl_show_text,
-        cl_error                // error occurred
+        CLMSG_NOOP,
+        CLMSG_NEW_WORLD,
+        CLMSG_LEVEL_LOADED,
+        CLMSG_CHANGE_FIELD,
+        CLMSG_ADD_ACTOR,
+        CLMSG_MOVE_ACTOR,
+        CLMSG_FOCUS_ACTOR,
+        CLMSG_CHANGE_LINE,
+        CLMSG_PLAY_SOUND,
+        CLMSG_SHOW_TEXT,
+        CLMSG_ERROR                // error occurred
     };
 
     struct Message {
-        Message (ClientCommand type_ = cl_noop) : type (type_) {
+        Message (ClientCommand type_ = CLMSG_NOOP) : type (type_) {
         }
 
         ClientCommand type;
@@ -37,11 +37,11 @@ namespace
     };
 
     struct Cl_LevelLoaded : public Message {
-        Cl_LevelLoaded() : Message (cl_level_loaded) {
+        Cl_LevelLoaded() : Message (CLMSG_LEVEL_LOADED) {
         }
     };
     Buffer &operator << (Buffer &b, const Cl_LevelLoaded &m) {
-        return b << Uint8 (cl_level_loaded);
+        return b << Uint8 (CLMSG_LEVEL_LOADED);
     }
 
     struct Cl_ChangeField {
@@ -62,7 +62,7 @@ namespace
     };
 
     struct Cl_ShowText : public Message {
-        Cl_ShowText() : Message(cl_show_text) {
+        Cl_ShowText() : Message(CLMSG_SHOW_TEXT) {
         }
 
         string text;

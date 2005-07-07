@@ -906,7 +906,7 @@ void Client::level_loaded (unsigned ilevel)
 
 void Client::handle_message (Message *m) { // @@@ unused
     switch (m->type) {
-    case cl_level_loaded:
+    case CLMSG_LEVEL_LOADED:
 
         break;
     default:

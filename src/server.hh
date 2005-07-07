@@ -107,13 +107,17 @@ namespace enigma_server
 
 /* -------------------- Functions -------------------- */
 
-    void GameStart();
-    void PrepareLevel();
-
+    /** Initialize the server at program start. */
     void Init();
+
+    /** Shutdown the server at program end. */
     void Shutdown();
 
+// TEST
     bool NetworkStart();
+
+    /** Prepare the server for a new game. */
+    void InitNewGame();
 
     void Tick (double dtime);
     void RestartLevel();

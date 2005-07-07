@@ -1509,8 +1509,8 @@ void DL_Shadows::draw(GC &gc, int xpos, int ypos, int x, int y) {
 //----------------------------------------------------------------------
 
 Follower::Follower (DisplayEngine *e)
-: m_engine(e),
-  m_boundary (0.5)
+: m_boundary (0.5),
+  m_engine(e)
 {}
 
 double Follower::get_hoff() const 

@@ -104,6 +104,6 @@ namespace ecl
     }
 
     std::ostream& operator <<(std::ostream& os, const Buffer& buf);
-    std::istream& operator >>(std::istream& is, Buffer& buf);
+//    std::istream& operator >>(std::istream& is, Buffer& buf);
 }
 #endif

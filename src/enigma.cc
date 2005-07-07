@@ -181,35 +181,35 @@ Buffer& enigma::operator<<(Buffer& buf, const Value& val)
     return buf;
 }
 
-Buffer& enigma::operator>>(Buffer& buf, Value& val)
-{
-    Uint8 type = Value::NIL;
-    buf >> type;
+// Buffer& enigma::operator>>(Buffer& buf, Value& val)
+// {
+//     Uint8 type = Value::NIL;
+//     buf >> type;
 
-    switch (type) {
-    case Value::NIL:
-        // ## fixme
-        break;
-    case Value::DOUBLE:
-        {
-            double tmp;
-            if (buf >> tmp)
-                val = Value(tmp);
-        } break;
-    case Value::STRING:
-        {
-            Uint16 len;
-            if (buf >> len) {
-                char* tmp = new char[len+1];
-                tmp[len] = 0;
-                if (buf.read(tmp, len))
-                    val.assign(tmp);
-                delete[] tmp;
-            }
-        } break;
-    }
-    return buf;
-}
+//     switch (type) {
+//     case Value::NIL:
+//         // ## fixme
+//         break;
+//     case Value::DOUBLE:
+//         {
+//             double tmp;
+//             if (buf >> tmp)
+//                 val = Value(tmp);
+//         } break;
+//     case Value::STRING:
+//         {
+//             Uint16 len;
+//             if (buf >> len) {
+//                 char* tmp = new char[len+1];
+//                 tmp[len] = 0;
+//                 if (buf.read(tmp, len))
+//                     val.assign(tmp);
+//                 delete[] tmp;
+//             }
+//         } break;
+//     }
+//     return buf;
+// }
 
 int enigma::to_int(const Value &v) {
     switch (v.get_type()) {
