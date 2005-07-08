@@ -191,6 +191,7 @@ void server::InitNewGame()
 
 bool server::NetworkStart()
 {
+    return true;
 }
 
 
@@ -301,6 +302,7 @@ void server::Tick (double dtime)
 void server::Msg_SetLevelPack (const std::string &name)
 {
     levelpack = levels::FindLevelPack (name);
+    server::CurrentLevelPack = levelpack;
     if (levelpack == 0) {
         // XXX server error: invalid level pack
     }

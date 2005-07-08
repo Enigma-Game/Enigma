@@ -16,10 +16,11 @@
  * 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.
  *
  */
+#include "client.hh"
 #include "main.hh"
+#include "options.hh"
 #include "netgame.hh"
 #include "server.hh"
-#include "client.hh"
 
 #include "enet/enet.h"
 
@@ -117,6 +118,9 @@ namespace
                 case ENET_EVENT_TYPE_DISCONNECT:
                     printf ("Disconnection succeeded.\n");
                     return;
+                case ENET_EVENT_TYPE_NONE:
+                case ENET_EVENT_TYPE_CONNECT:
+                    break;
                 }
             }
     
@@ -173,23 +177,45 @@ void handle_client_packet (Buffer &b, int player_no)
         case SVMSG_NOOP:
             break;              // no nothing
 
-        case SVMSG_SETGAME:
-            break;
-
         case SVMSG_LOADLEVEL: {
             Uint16 levelno;
-            if (b >> levelno) {
-                printf ("SV: Loading level %d\n", int(levelno));
+            string levelpack;
+            if (b >> levelno >> levelpack) {
+                printf ("SV: Loading level %d from levelpack %s\n", int(levelno), 
+                        levelpack.c_str());
+                server::Msg_SetLevelPack (levelpack);
                 server::Msg_LoadLevel (levelno);
             }
 
             break;
         }
+
+        case SVMSG_MOUSEFORCE: {
+            printf ("mouse force\n");
+            float dx, dy;
+            if (b >> dx >> dy) {
+                printf ("-- yei!\n");
+                server::Msg_MouseForce (ecl::V2(dx, dy));
+            }
+            break;
+        }
+
+        case SVMSG_ACTIVATEITEM: {
+            server::Msg_ActivateItem ();
+            break;
+        }
+
         default:
             enigma::Log << "SV: received undefined packet: " << int(code) << "\n";
         }
     }
 }
+
+namespace
+{
+    Uint32      last_tick_time;
+}
+
 
 void server_loop (Peer *m_peer)
 {
@@ -199,20 +225,48 @@ void server_loop (Peer *m_peer)
     buf << Cl_LevelLoaded ();
     m_peer->send_reliable (buf, 1);
 
-    while (m_peer->is_connected()) {
+    double dtime = 0;
+    while (!client::AbortGameP() && m_peer->is_connected()) {
+        last_tick_time=SDL_GetTicks();
+
+
         SDL_Event e;
         while (SDL_PollEvent(&e)) {
             if (e.type && e.key.keysym.sym == SDLK_ESCAPE)
                 goto done;
         }
-        server::Tick (0.01);
+
+        try {
+            client::Tick (dtime);
+            server::Tick (dtime);
+        }
+        catch (enigma_levels::XLevelRuntime& err) {        
+            client::Msg_Error (string("Server Error: level runtime error:\n")
+                               + err.what());
+            server::Msg_Panic(true);
+        }
+
         Buffer buf;
         int player_no;
         while (m_peer->poll_message (buf, player_no)) {
             printf ("SV: Received message from client %d\n", player_no);
             handle_client_packet (buf, player_no);
         }
-        SDL_Delay (10);
+
+
+        int sleeptime = 10 - (SDL_GetTicks()-last_tick_time);
+        if (sleeptime >= 3)      // only sleep if relatively idle
+            SDL_Delay(sleeptime);
+        dtime = (SDL_GetTicks()-last_tick_time)/1000.0;
+        if (fabs(1-dtime/0.01) < 0.2) {
+            // less than 20% deviation from desired frame time?
+            dtime = 0.01;
+        }
+
+	if (dtime > 500.0) /* Time has done something strange, perhaps
+			      run backwards */
+            dtime = 0.0;
+
     }
 
   done:
@@ -296,7 +350,8 @@ void netgame::Join (std::string hostname, int port)
     sv_address.port = port;
 
     /* Initiate the connection, allocating the two channels 0 and 1. */
-    m_server = enet_host_connect (m_network_host, &sv_address, 4);    
+    int numchannels = 2;
+    m_server = enet_host_connect (m_network_host, &sv_address, numchannels);
     
     if (m_server == NULL) {
         fprintf (stderr, 
@@ -324,6 +379,14 @@ void netgame::Join (std::string hostname, int port)
         while (SDL_PollEvent(&e)) {
             if (e.type && e.key.keysym.sym == SDLK_ESCAPE)
                 goto done;
+            else if (e.type ==SDL_MOUSEMOTION) {
+                Buffer buf;
+                float mouseforce = options::GetDouble("MouseSpeed");
+                buf << Uint8 (enigma_server::SVMSG_MOUSEFORCE)
+                    << float (e.motion.xrel * mouseforce)
+                    << float (e.motion.yrel * mouseforce);
+                m_peer->send_reliable (buf,1);
+            }
         }
 
         Buffer buf;
@@ -342,14 +405,12 @@ void netgame::Join (std::string hostname, int port)
                     printf ("cl_level_loaded\n");
                     break;
                 }
-                
-           
-                
             }
             
             Buffer buf;
             buf << Uint8(enigma_server::SVMSG_LOADLEVEL);
-            buf << Uint16(58);
+            buf << Uint16(84);
+            buf << string("Enigma");
             m_peer->send_reliable (buf, 1);
             printf ("CL: sending message %u\n", buf.size());
 
