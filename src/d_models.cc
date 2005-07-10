@@ -41,10 +41,10 @@ extern "C" {
 #include "lualib.h"
 #include "tolua.h"
 }
-#include "global-lua.hh"
-#include "display-lua.hh"
-#include "enigma-lua.hh"
-#include "px-lua.hh"
+#include "lua-global.hh"
+#include "lua-display.hh"
+#include "lua-enigma.hh"
+#include "lua-ecl.hh"
 
 /* -------------------- Types -------------------- */
 

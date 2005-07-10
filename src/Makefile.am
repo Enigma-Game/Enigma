@@ -7,64 +7,109 @@ bin_PROGRAMS = enigma
 EXTRA_DIST = \
 	enigma.ico \
 	enigma.rc \
-	display-lua.pkg \
-	editor-lua.pkg \
-	enigma-lua.pkg \
-	global-lua.pkg \
-	gui-lua.pkg \
-	ecl-lua.pkg \
+# 	display-lua.pkg \
+# 	editor-lua.pkg \
+# 	enigma-lua.pkg \
+# 	global-lua.pkg \
+# 	gui-lua.pkg \
+# 	ecl-lua.pkg \
 	enigma.doxygen
 
 # Source files created by 'tolua'.
-LUA_IF_SOURCES =			\
-	display-lua.cc display-lua.hh	\
-	editor-lua.cc editor-lua.hh	\
-	enigma-lua.cc enigma-lua.hh	\
-	global-lua.cc global-lua.hh	\
-	px-lua.cc px-lua.hh
+# LUA_IF_SOURCES =		
 
-enigma_SOURCES = 			\
-	$(LUA_IF_SOURCES)		\
-	actors.hh actors.cc actors_internal.hh	\
-	client.cc client.hh client_internal.hh	\
-	d_models.cc d_models.hh		\
-	display.hh display.cc display_internal.hh	\
-	d_engine.hh 			\
-	editor.cc editor.hh editor_impl.hh	\
-	enigma.cc enigma.hh		\
-	file.cc file.hh file_internal.hh	\
-	floors.cc floors.hh		\
-	fwd.hh				\
-	game.cc	game.hh			\
-	gui.cc gui.hh			\
-	items.cc items.hh		\
-	laser.cc laser.hh		\
-	levelpack.cc			\
-	levels.cc levels.hh		\
-	lua.cc lua.hh			\
-	help.cc help.hh			\
-	main.cc main.hh			\
-	menus.cc menus.hh menus_internal.hh	\
+enigma_SOURCES = 		\
+	actors.hh 		\
+	actors.cc 		\
+	actors_internal.hh	\
+	client.cc 		\
+	client.hh 		\
+	client_internal.hh	\
+	d_models.cc 		\
+	d_models.hh		\
+	display.hh 		\
+	display.cc 		\
+	display_internal.hh	\
+	d_engine.hh		\
+	editor.cc 		\
+	editor.hh 		\
+	editor_impl.hh		\
+	enigma.cc 		\
+	enigma.hh		\
+	file.cc 		\
+	file.hh 		\
+	file_internal.hh	\
+	floors.cc 		\
+	floors.hh		\
+	fwd.hh			\
+	game.cc			\
+	game.hh			\
+	gui.cc 			\
+	gui.hh			\
+	items.cc 		\
+	items.hh		\
+	laser.cc 		\
+	laser.hh		\
+	levelpack.cc		\
+	levels.cc 		\
+	levels.hh		\
+	lua.cc 			\
+	lua.hh			\
+	lua-display.cc 		\
+	lua-display.hh		\
+	lua-editor.cc 		\
+	lua-editor.hh		\
+	lua-enigma.cc 		\
+	lua-enigma.hh		\
+	lua-global.cc 		\
+	lua-global.hh		\
+	lua-ecl.cc 		\
+	lua-px.hh		\
+	help.cc 		\
+	help.hh			\
+	main.cc 		\
+	main.hh			\
+	menus.cc 		\
+	menus.hh 		\
+	menus_internal.hh	\
 	netgame.cc 		\
 	netgame.hh 		\
+	network.cc		\
+	network.hh		\
 	nls.cc 			\
 	nls.hh			\
-	objects.cc objects.hh objects_decl.hh 	\
-	oxyd.cc	oxyd.hh oxyd_internal.hh	\
-	ox_extra.cc			\
-	ox_magnum.cc			\
-	ox_oxyd1.cc			\
-	ox_peroxyd.cc			\
-	options.cc options.hh		\
-	player.cc player.hh		\
-	server.cc server.hh		\
-	sound.cc sound.hh sound_internal.hh		\
-	stones.cc stones.hh stones_internal.hh\
-	stones_simple.cc stones_complex.cc  \
-	st_switches.cc			\
-	util.cc util.hh			\
-	video.cc video.hh		\
-	world.cc world.hh world_internal.hh
+	objects.cc 		\
+	objects.hh 		\
+	objects_decl.hh 	\
+	oxyd.cc			\
+	oxyd.hh 		\
+	oxyd_internal.hh	\
+	ox_extra.cc		\
+	ox_magnum.cc		\
+	ox_oxyd1.cc		\
+	ox_peroxyd.cc		\
+	options.cc 		\
+	options.hh		\
+	player.cc 		\
+	player.hh		\
+	server.cc 		\
+	server.hh		\
+	sound.cc 		\
+	sound.hh 		\
+	sound_internal.hh	\
+	stones.cc 		\
+	stones.hh 		\
+	stones_internal.hh 	\
+	stones_simple.cc 	\
+	stones_complex.cc  	\
+	st_switches.cc		\
+	util.cc 		\
+	util.hh			\
+	video.cc 		\
+	video.hh		\
+	world.cc 		\
+	world.hh 		\
+	world_internal.hh
 
 datadir = @datadir@
 
@@ -109,15 +154,15 @@ enigma_LDADD = \
 	$(mingw_ldadd)
 
 # Rule for creating Lua interfaces from package descriptions using 'tolua'
-TOLUA=@TOLUA@
-%-lua.cc %-lua.hh: %-lua.pkg
-	@echo "XXX: ${TOLUA}"
-	@if [ "x${TOLUA}" != "x" ]; then \
-	  echo "Running ${TOLUA}..."; \
-	  ${TOLUA} -H $*-lua.hh -n $(notdir $*) -o $@ $<; \
-	else \
-	  echo "$<:0: Warning: Can't update lua interface - tolua not installed "; \
-	fi
+#TOLUA=@TOLUA@
+#%-lua.cc %-lua.hh: %-lua.pkg
+#	@echo "XXX: ${TOLUA}"
+#	@if [ "x${TOLUA}" != "x" ]; then \
+#	  echo "Running ${TOLUA}..."; \
+#	  ${TOLUA} -H $*-lua.hh -n $(notdir $*) -o $@ $<; \
+#	else \
+#	  echo "$<:0: Warning: Can't update lua interface - tolua not installed "; \
+#	fi
 
 #------------------ Packaging rules for Mac OSX ------------------------
 

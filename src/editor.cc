@@ -31,7 +31,7 @@ extern "C" {
 #include "lualib.h"
 #include "tolua.h"
 }
-#include "editor-lua.hh"
+#include "lua-editor.hh"
 
 using namespace std;
 using namespace enigma;

@@ -24,9 +24,9 @@
 #include "sound.hh"
 #include "options.hh"
 
-#include "display-lua.hh"
-#include "enigma-lua.hh"
-#include "px-lua.hh"
+#include "lua-display.hh"
+#include "lua-enigma.hh"
+#include "lua-ecl.hh"
 
 extern "C" {
 #include "lualib.h"
