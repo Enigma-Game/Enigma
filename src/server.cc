@@ -72,7 +72,7 @@ bool           server::CreatingPreview = false;
 
 bool server::NoCollisions = false;
 
-
+double   server::LevelTime;
 bool     server::ConserveLevel;
 bool     server::TwoPlayerGame;
 bool     server::SingleComputerGame;
@@ -150,6 +150,8 @@ void server::RaiseError (const std::string &msg)
 void gametick(double dtime)
 {
     const double timestep = 0.01; // 10ms
+    
+    server::LevelTime += dtime;
 
     time_accu += dtime;
     if (time_accu > 1.0) {
@@ -159,9 +161,9 @@ void gametick(double dtime)
     player::Tick (time_accu);
     for (;time_accu >= timestep; time_accu -= timestep) {
         world::Tick (timestep);
-//         player::Tick (timestep);
         if (lua::CallFunc (lua::LevelState(), "Tick", timestep) != 0) {
-            throw enigma_levels::XLevelRuntime(string("Calling 'Tick' failed:\n")+lua::LastError(lua::LevelState()));
+            throw enigma_levels::XLevelRuntime (string("Calling 'Tick' failed:\n") 
+                                                + lua::LastError(lua::LevelState()));
         }
     }
     world::TickFinished ();
@@ -202,6 +204,7 @@ void server::PrepareLevel()
 
     server::NoCollisions = false;
 
+    server::LevelTime         = 0.0;
     server::ConserveLevel     = true;
     server::TwoPlayerGame     = false;
     server::SingleComputerGame= true;

@@ -42,12 +42,15 @@ namespace enigma_server
       making a preview image. */
     extern bool CreatingPreview;
 
-
 /* -------------------- Cheats -------------------- */
 
     extern bool NoCollisions;
 
 /* -------------------- Per-level settings -------------------- */
+
+    // The number of seconds passed since the game started.  Used as
+    // the time stamp in network packets.
+    extern double LevelTime;
 
     // True: do not reset level when player dies
     extern bool     ConserveLevel;

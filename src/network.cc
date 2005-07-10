@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2002,2004 Daniel Heck
+ * Copyright (C) 2002,2004,2005 Daniel Heck
  *
  * This program is free software; you can redistribute it and/or
  * modify it under the terms of the GNU General Public License
@@ -20,9 +20,7 @@
 #include "network.hh"
 #include "ecl_buffer.hh"
 
-#ifdef ENABLE_EXPERIMENTAL
 #include "enet/enet.h"
-#endif
 
 #include <cassert>
 #include <cstring>
@@ -31,141 +29,118 @@
 
 #include "SDL_types.h"
 
+
 using namespace std;
-using namespace network;
+using namespace enigma;
+using ecl::Buffer;
 
- // MemorySocket
+/* -------------------- Peer_Enet implementation -------------------- */
 
-MemorySocket::MemorySocket()
-    : _target(0)		// not connected
-    , _recvbuf(new Buffer(4096))
-    , _pendingbuf(new Buffer(4096))
-{}
-
-MemorySocket::~MemorySocket()
+Peer_Enet::Peer_Enet (ENetHost *host, ENetPeer *peer, int playerno) 
+    : m_host (host),
+      m_peer (peer), 
+      m_playerno (playerno),
+      m_connected (true)
 {
-    delete _recvbuf;
-    delete _pendingbuf;
 }
 
-void
-MemorySocket::set_target(MemorySocket* target)
+
+Peer_Enet::~Peer_Enet() 
 {
-    _target = target;
+    disconnect(0);
 }
 
-int
-MemorySocket::send(const void* data, int len)
-{
-    if (_target == 0)
-	return -1;
-    _target->_pendingbuf->write (data, len);
-    return 0;
-}
 
-Buffer*
-MemorySocket::recv()
+void Peer_Enet::disconnect(int timeout = 1000) 
 {
-    if (_pendingbuf->size() == 0)
-    {
-        // no data pending
-	return 0;
+    ENetEvent event;
+    
+    enet_peer_disconnect (m_peer);
+
+    while (enet_host_service (m_host, & event, timeout) > 0) {
+        switch (event.type) {
+        case ENET_EVENT_TYPE_RECEIVE:
+            enet_packet_destroy (event.packet);
+            break;
+
+        case ENET_EVENT_TYPE_DISCONNECT:
+            printf ("Disconnection succeeded.\n");
+            return;
+        case ENET_EVENT_TYPE_NONE:
+        case ENET_EVENT_TYPE_CONNECT:
+            break;
+        }
     }
-    else
-    {
-	// swap pending and receive buffer
-	Buffer* tmp = _recvbuf;
-	_recvbuf = _pendingbuf;
-	_pendingbuf = tmp;
-	_pendingbuf->clear();
-	return _recvbuf;
-    }
+    
+    enet_peer_reset (m_peer);
+    m_connected = false;
 }
 
-int
-MemorySocket::close()
+bool Peer_Enet::is_connected() const 
 {
-    _target = 0;
-    _pendingbuf->clear();
-    _recvbuf->clear();
-    return 0;
+    return m_connected;
 }
 
-
-/* -------------------- Functions -------------------- */
-
-void network::Init ()
+bool Peer_Enet::poll_message (Buffer &b, int &player_no) 
 {
-#ifdef ENABLE_EXPERIMENTAL
-    if (enet_initialize () != 0) {
-        fprintf (stderr, "Couldn't init ENet.\n");
-        exit(1);
+    if (!m_connected)
+        return false;
+
+    ENetEvent event;
+    if (enet_host_service (m_host, & event, 0) > 0) {
+        switch (event.type) {
+        case ENET_EVENT_TYPE_RECEIVE: {
+            b.assign (reinterpret_cast<char*> (event.packet->data), 
+                      event.packet->dataLength);
+            player_no = m_playerno;
+            enet_packet_destroy (event.packet);
+            return true;
+        }
+           
+        case ENET_EVENT_TYPE_DISCONNECT:
+            m_connected = false;
+            event.peer -> data = NULL;
+            break;
+
+        default:
+            break;
+        }
     }
-    atexit(enet_deinitialize);
-#endif
+    return false;
 }
 
-
-
- // Testing routine
-#ifdef TESTING
-#include <iostream>
-#include <fstream>
-
-int
-main (int, char**)
+void Peer_Enet::send_message (const Buffer &b, int channel)
 {
-    Buffer buf;
-    MemorySocket sock1;
-    MemorySocket sock2;
-    sock1.set_target (&sock2);
-    sock2.set_target (&sock1);
-
-    buf << Uint8(12) << Uint16(-23) << Uint32(766565) << -3.1415926;
-    buf << string ("Hello World!");
-
-    sock1.send (buf.data(), buf.size());
-
-    Buffer* b2 = sock2.recv();
-    if (b2) {
-	cout << "received some data:\n";
-
-	Uint8 a = 0;
-	Uint16 b = 0;
-	Uint32 c = 0;
-	double d;
-	string str;
-	(*b2) >> a >> b >> c >> d >> str;
-
-	cout << int(a) << ", " << Sint16(b) << ", " << c << ", " << d
-	     << ", '" << str << "'" << endl;
-    } else {
-	cout << "no message pending\n";
-    }
-
-    // new write buf to a file
-    ofstream ofile ("network_test");
-    ofile << buf;
-    ofile.close();
-
-    buf.clear();
-    ifstream ifile ("network_test");
-    ifile >> buf;
-    ifile.close();
-
-    {
-	cout << "\nread the file:\n";
-
-	Uint8 a = 0;
-	Uint16 b = 0;
-	Uint32 c = 0;
-	double d;
-	string str;
-	buf >> a >> b >> c >> d >> str;
-
-	cout << int(a) << ", " << Sint16(b) << ", " << c << ", " << d
-	     << ", '" << str << "'" << endl;
-    }
-
+    ENetPacket *packet = enet_packet_create (b.data(), b.size(), 0);
+    enet_peer_send (m_peer, channel, packet);
 }
-#endif
+
+void Peer_Enet::send_reliable (const Buffer &b, int channel)
+{
+    ENetPacket *packet = enet_packet_create (b.data(), b.size(),
+                                             ENET_PACKET_FLAG_RELIABLE);
+    enet_peer_send (m_peer, channel, packet);
+}
+
+
+
+
+/* -------------------- Peer_Local implementation -------------------- */
+
+bool Peer_Local::poll_message (Buffer &b, int &player_no)
+{
+    if (!m_queue.empty()) {
+        
+    }
+    return false;
+}
+
+void Peer_Local::send_message (const Buffer &b, int channel) 
+{
+}
+
+void Peer_Local::send_reliable (const Buffer &b, int channel)
+{
+    send_message (b, channel);
+}
+

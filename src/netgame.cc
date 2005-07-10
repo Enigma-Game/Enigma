@@ -18,8 +18,9 @@
  */
 #include "client.hh"
 #include "main.hh"
-#include "options.hh"
 #include "netgame.hh"
+#include "network.hh"
+#include "options.hh"
 #include "server.hh"
 
 #include "enet/enet.h"
@@ -32,141 +33,10 @@ using namespace enigma;
 #include "client_internal.hh"
 #include "server_internal.hh"
 
-namespace
-{
-    class Peer {
-    public:
-        virtual ~Peer() {}
-        virtual void send_message (const Buffer &b, int channel) = 0;
-        virtual void send_reliable (const Buffer &b, int channel) = 0;
-        virtual bool poll_message (Buffer &b, int &player_no) = 0;
-        virtual void disconnect(int timeout=1000) = 0;
-        virtual bool is_connected() const = 0;
-    };
 
-    class Peer_Enet : public Peer {
-    public:
-        Peer_Enet (ENetHost *host, ENetPeer *peer, int playerno) 
-        : m_host (host),
-          m_peer (peer), 
-          m_playerno (playerno),
-          m_connected (true)
-        {
-        }
-
-
-        ~Peer_Enet() 
-        {
-            disconnect(0);
-        }
-
-        // Peer interface
-
-        virtual void send_message (const Buffer &b, int channel)
-        {
-            ENetPacket *packet = enet_packet_create (b.data(), b.size(), 0);
-            enet_peer_send (m_peer, channel, packet);
-        }
-
-        virtual void send_reliable (const Buffer &b, int channel)
-        {
-            ENetPacket *packet = enet_packet_create (b.data(), b.size(),
-                                                     ENET_PACKET_FLAG_RELIABLE);
-            enet_peer_send (m_peer, channel, packet);
-        }
-
-        virtual bool poll_message (Buffer &b, int &player_no) 
-        {
-            if (!m_connected)
-                return false;
-
-            ENetEvent event;
-            if (enet_host_service (m_host, & event, 0) > 0) {
-                switch (event.type) {
-                case ENET_EVENT_TYPE_RECEIVE: {
-                    b.assign (reinterpret_cast<char*> (event.packet->data), 
-                              event.packet->dataLength);
-                    player_no = m_playerno;
-                    enet_packet_destroy (event.packet);
-                    return true;
-                }
-           
-                case ENET_EVENT_TYPE_DISCONNECT:
-                    m_connected = false;
-                    event.peer -> data = NULL;
-                    break;
-
-                default:
-                    break;
-                }
-            }
-            return false;
-        }
-
-        virtual void disconnect(int timeout = 1000) 
-        {
-            ENetEvent event;
-    
-            enet_peer_disconnect (m_peer);
-
-            while (enet_host_service (m_host, & event, timeout) > 0) {
-                switch (event.type) {
-                case ENET_EVENT_TYPE_RECEIVE:
-                    enet_packet_destroy (event.packet);
-                    break;
-
-                case ENET_EVENT_TYPE_DISCONNECT:
-                    printf ("Disconnection succeeded.\n");
-                    return;
-                case ENET_EVENT_TYPE_NONE:
-                case ENET_EVENT_TYPE_CONNECT:
-                    break;
-                }
-            }
-    
-            enet_peer_reset (m_peer);
-            m_connected = false;
-        }
-
-        virtual bool is_connected() const 
-        {
-            return m_connected;
-        }
-
-
-    private:
-        // Variables
-        ENetHost *m_host;
-        ENetPeer *m_peer;
-        int m_playerno;
-        bool m_connected;
-    };
-
-    class Peer_Local : public Peer {
-    public:
-
-        virtual void send_message (const Buffer &b, int channel) 
-        {
-        }
-
-        virtual void send_reliable (const Buffer &b, int channel)
-        {
-            send_message (b, channel);
-        }
-
-        virtual bool poll_message (Buffer &b, int &player_no)
-        {
-            if (!m_queue.empty()) {
-                
-            }
-            return false;
-        }
-    private:
-        // Variables
-        std::list<Buffer> m_queue;
-    };
-}
-
+//======================================================================
+// SERVER
+//======================================================================
 
 void handle_client_packet (Buffer &b, int player_no)
 {
@@ -317,9 +187,46 @@ void netgame::Start ()
     delete m_peer;
 }
 
+//======================================================================
+// CLIENT
+//======================================================================
 
-/* ==================== CLIENT ==================== */
+namespace
+{
+    struct MovementCommand {
+        float time_stamp;
+        float force_x;
+        float force_y;
+    };
 
+    typedef std::list<MovementCommand> MovementList;
+
+    MovementList movement_list;
+
+
+    Peer *server_peer;
+}
+
+void handle_server_packet (Buffer &buf)
+{
+    if (buf.size() > 0) {
+        Uint8 code;
+        buf >> code;
+        switch (code) {
+        case CLMSG_LEVEL_LOADED:
+            printf ("cl_level_loaded\n");
+            break;
+
+        }
+    }
+            
+    Buffer obuf;
+    obuf << Uint8(enigma_server::SVMSG_LOADLEVEL);
+    obuf << Uint16(84);
+    obuf << string("Enigma");
+    server_peer->send_reliable (obuf, 1);
+    printf ("CL: sending message %u\n", obuf.size());
+}
 
 void netgame::Join (std::string hostname, int port)
 {
@@ -360,7 +267,7 @@ void netgame::Join (std::string hostname, int port)
     }
     
 
-    Peer *m_peer = 0;
+    server_peer = 0;
     ENetEvent event;
     if (enet_host_service (m_network_host, &event, 5000) > 0 &&
         event.type == ENET_EVENT_TYPE_CONNECT)
@@ -368,13 +275,13 @@ void netgame::Join (std::string hostname, int port)
         fprintf (stderr, "CL: Connection to some.server.net:12345 succeeded.\n");
         if (m_server != event.peer)
             printf ("CL: peers differ!?!\n");
-        m_peer = new Peer_Enet (m_network_host, m_server, 0);
+        server_peer = new Peer_Enet (m_network_host, m_server, 0);
     }
     else
         return;
 
 
-    while (m_peer->is_connected()) {
+    while (server_peer->is_connected()) {
         SDL_Event e;
         while (SDL_PollEvent(&e)) {
             if (e.type && e.key.keysym.sym == SDLK_ESCAPE)
@@ -385,53 +292,22 @@ void netgame::Join (std::string hostname, int port)
                 buf << Uint8 (enigma_server::SVMSG_MOUSEFORCE)
                     << float (e.motion.xrel * mouseforce)
                     << float (e.motion.yrel * mouseforce);
-                m_peer->send_reliable (buf,1);
+                server_peer->send_reliable (buf,1);
             }
         }
 
         Buffer buf;
         int peerno;
-        while (m_peer->poll_message (buf, peerno)) {
-            printf ("CL: A packet of length %u was received from %d on channel %u.\n",
-                    buf.size(),
-                    peerno,
-                    0);          // channel
-
-            if (buf.size() > 0) {
-                Uint8 code;
-                buf >> code;
-                switch (code) {
-                case CLMSG_LEVEL_LOADED:
-                    printf ("cl_level_loaded\n");
-                    break;
-                }
-            }
-            
-            Buffer buf;
-            buf << Uint8(enigma_server::SVMSG_LOADLEVEL);
-            buf << Uint16(84);
-            buf << string("Enigma");
-            m_peer->send_reliable (buf, 1);
-            printf ("CL: sending message %u\n", buf.size());
-
-
-            break;
+        while (server_peer->poll_message (buf, peerno)) {
+            handle_server_packet (buf);
         }
         SDL_Delay (10);
     }
 
-//         enet_peer_reset (m_server);
-//         m_server = 0;
-
-//         fprintf (stderr, "Connection to localhost:12345 failed.\n");
-//         return;
-//     }
   done:
-    m_peer->disconnect();
-    delete m_peer;
+    server_peer->disconnect();
+    delete server_peer;
+    server_peer = 0;
     return;
-
-    // ---------- ENet-independent code ----------
-
 
 }

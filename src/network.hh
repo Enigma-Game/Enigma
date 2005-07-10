@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2002,2004 Daniel Heck
+ * Copyright (C) 2002,2004,2005 Daniel Heck
  *
  * This program is free software; you can redistribute it and/or
  * modify it under the terms of the GNU General Public License
@@ -17,45 +17,60 @@
  *
  */
 
-#ifndef NETWORK_HH
-#define NETWORK_HH
+#ifndef NETWORK_HH_INCLUDED
+#define NETWORK_HH_INCLUDED
 
 #include "ecl_fwd.hh"
+
 #include "SDL_types.h"
+#include "enet/enet.h"
+#include <list>
 #include <iosfwd>
 
-namespace network
+namespace enigma
 {
-    using ecl::Buffer;
-
-    class Socket {
+    class Peer {
     public:
-        virtual ~Socket() {}
-        virtual int     send (const void* data, int len) = 0;
-        virtual Buffer* recv() = 0;
-        virtual int     close() = 0;
+        virtual ~Peer() {}
+        virtual void send_message (const ecl::Buffer &b, int channel) = 0;
+        virtual void send_reliable (const ecl::Buffer &b, int channel) = 0;
+        virtual bool poll_message (ecl::Buffer &b, int &player_no) = 0;
+        virtual void disconnect(int timeout=1000) = 0;
+        virtual bool is_connected() const = 0;
     };
 
-    class MemorySocket : public Socket {
+    class Peer_Enet : public Peer {
     public:
-        MemorySocket();
-        ~MemorySocket();
+        Peer_Enet (ENetHost *host, ENetPeer *peer, int playerno);
+        ~Peer_Enet();
 
-        void set_target (MemorySocket* target);
-	
-        // Socket interface.
-        int     send (const void* data, int len);
-        Buffer* recv();
-        int     close();
     private:
-        MemorySocket*   _target;   // the other end of the communication link
-        Buffer*         _recvbuf;  // buffer returned by last call to `recv'
-        Buffer*         _pendingbuf; // buffer for collecting incoming data
+        // Peer interface
+        virtual void send_message (const ecl::Buffer &b, int channel);
+        virtual void send_reliable (const ecl::Buffer &b, int channel);
+        virtual bool poll_message (ecl::Buffer &b, int &player_no); 
+        virtual void disconnect(int timeout);
+        virtual bool is_connected() const;
+
+    private:
+        // Variables
+        ENetHost *m_host;
+        ENetPeer *m_peer;
+        int m_playerno;
+        bool m_connected;
     };
 
-/* -------------------- Functions -------------------- */
+    class Peer_Local : public Peer {
+    public:
+        virtual void send_message (const ecl::Buffer &b, int channel) ;
+        virtual void send_reliable (const ecl::Buffer &b, int channel);
+        virtual bool poll_message (ecl::Buffer &b, int &player_no);
+    private:
+        // Variables
+        std::list<ecl::Buffer> m_queue;
+    };
 
-    void Init();
+
 }
 
 #endif
