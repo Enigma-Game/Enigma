@@ -131,7 +131,7 @@ namespace oxyd
         : OxydLoader (level_, config_)
         {}
     
-        virtual Stone *make_stone (int type, int x, int y);
+        virtual Stone *make_stone (int type, int x, int y) {}
     };
 
     class PerOxydLoader : public OxydLoader {

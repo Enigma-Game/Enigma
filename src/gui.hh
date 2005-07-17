@@ -256,7 +256,7 @@ namespace gui
 
     private:
         // List interface
-        virtual void recalc();
+        virtual void recalc() {}
 
     };
 
