@@ -627,7 +627,7 @@ namespace
         double m_invisible_rest_time;
     };
 
-    const double BasicBall::SHIELD_TIME = 5.0;
+    const double BasicBall::SHIELD_TIME = 10.0;
 }
 
 BasicBall::BasicBall(const ActorTraits &tr)
