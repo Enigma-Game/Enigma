@@ -1504,10 +1504,10 @@ namespace
         void animcb();
 
         // Stone interface
-        virtual bool is_transparent (Direction) const 
+        virtual bool is_transparent (Direction) const
         { return state==OPEN; }
-        
-        virtual bool is_sticky (const Actor *) const 
+
+        virtual bool is_sticky (const Actor *) const
         { return false; }
     };
 }
@@ -1606,7 +1606,7 @@ namespace
     private:
         virtual string opening_sound() const { return "dooropen"; }
         virtual string closing_sound() const { return "doorclose"; }
-	virtual const char *collision_sound() { return "electric"; }
+        virtual const char *collision_sound() { return "electric"; }
         string get_type() const {
             string type="h";
             string_attrib("type", &type);
@@ -1614,7 +1614,7 @@ namespace
         }
 
         bool is_transparent (Direction) const;
-        bool is_floating () const { 
+        bool is_floating () const {
             return true;        // don't let door press buttons
         }
 

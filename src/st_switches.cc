@@ -313,15 +313,16 @@ bool KeyStone::check_matching_key (player::Inventory *inv)
 {
     Item *it = inv->get_item(0);
     int keycode, my_keycode = int_attrib ("keycode");
-    return (it->is_kind("it-key*") 
-            && it->int_attrib("keycode", &keycode) 
+    return (it
+            && it->is_kind("it-key*")
+            && it->int_attrib("keycode", &keycode)
             && my_keycode == keycode);
 }
 
-void KeyStone::actor_hit(const StoneContact &sc) 
+void KeyStone::actor_hit(const StoneContact &sc)
 {
     player::Inventory *inv = player::GetInventory(sc.actor);
-    if (!inv) 
+    if (!inv)
         return;
 
     bool toggle = false;
