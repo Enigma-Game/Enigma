@@ -583,7 +583,7 @@ There are three types of explosives you can come across in Enigma.
 The most harmless is the stick of dynamite.  It doesn't do much damage
 to floor tiles or neighboring stones when it explodes, but it is
 useful for destroying certain stones and for igniting nearby bombs.
-  
+
 Black bombs are powerful enough to destroy most floor tiles and many
 other objects.  For most purposes, they are the explosive of choice.
 White bombs have the explosive power of five black bombs--get away
@@ -744,7 +744,7 @@ block of puzzle stones is fully connected (i.e., it has no open
 sockets), the block immediately starts to explode, stone by stone.  If
 the block is not fully connected, the stones in the row or column that
 was hit get shifted by one place either horizontally or vertically.
-  
+ 
 There's a rare variant of the common puzzle stone that behaves a
 little differently.  The main habitat of this are the levels of Oxyd
 1, and it's recognizable by the color of its pipes, which is orange
@@ -1155,7 +1155,7 @@ Debian packages
 @item Meinolf Schneider
 Original game idea--@emph{Thanks}!
 
-@item Andrew Sega
+@item Andrew ``Necros'' Sega
 Menu music (@emph{Pentagonal Dreams})
 
 @item David W. Skinner
