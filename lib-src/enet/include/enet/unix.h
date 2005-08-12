@@ -28,5 +28,9 @@ typedef struct
     size_t dataLength;
 } ENetBuffer;
 
+#define ENET_CALLBACK
+
+#define ENET_API extern
+
 #endif /* __ENET_UNIX_H__ */
 
