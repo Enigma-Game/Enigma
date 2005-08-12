@@ -223,18 +223,18 @@ a level pack in Enigma.  Here is an excerpt from
 @file{index_enigma.txt}, which defines the ``Enigma'' level pack:
 
 @example
-{file=welcome              name="Welcome"                        author="Daniel Heck"         }
-{file=martin06             name="Is It Easy?"                    author="Martin Hawlisch"     }
-{file=lasers101            name="Lasers 101"                     author="Daniel Heck"         }
-{file=level3a              name="Feel Your Way"                  author="Siegfried Fennig"    }
-{file=martin04             name="Sokoban Revival"                author="Martin Hawlisch"     }
+@{file=welcome              name="Welcome"                        author="Daniel Heck"         @}
+@{file=martin06             name="Is It Easy?"                    author="Martin Hawlisch"     @}
+@{file=lasers101            name="Lasers 101"                     author="Daniel Heck"         @}
+@{file=level3a              name="Feel Your Way"                  author="Siegfried Fennig"    @}
+@{file=martin04             name="Sokoban Revival"                author="Martin Hawlisch"     @}
 @end example
 
 Every line in this file describes one landscape in the level pack.
 The general format of these lines is
 
 @example
-{ tag1=content1 tag2=content2 ... }
+@{ tag1=content1 tag2=content2 ... @}
 @end example
 
 One line normally contains many different @code{tag=content} pairs.
@@ -1899,7 +1899,7 @@ SendMessage("laser3", "onoff")
 @end example
 
 @example
-set_stone("st-bolder", 7, 11, {name="bolder1", direction=SOUTH})
+set_stone("st-bolder", 7, 11, @{name="bolder1", direction=SOUTH@})
 ...
 SendMessage("bolder1", "direction", WEST)
 @end example

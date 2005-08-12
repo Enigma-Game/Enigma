@@ -2,16 +2,16 @@
 
 HTML = enigma-ref.html
 
-EXTRA_DIST = enigma-ref.texi texi2html.init $(HTML)
+EXTRA_DIST = enigma-ref.texi enigma-t2h.init $(HTML)
 
 htmldir=@datadir@/doc/enigma/reference
 html_DATA = $(HTML)
 
-enigma-ref.html: $(srcdir)/enigma-ref.texi $(srcdir)/texi2html.init
+enigma-ref.html: $(srcdir)/enigma-ref.texi $(srcdir)/enigma-t2h.init
 	@if [ "${TEXI2HTML}" ]; then \
 	  echo "Creating reference manual"; \
 	  echo "... texi2html ..."; \
-	  ${TEXI2HTML} -Verbose -init_file $(srcdir)/texi2html.init $(srcdir)/enigma-ref.texi; \
+	  ${TEXI2HTML} -Verbose -init_file $(srcdir)/enigma-t2h.init $(srcdir)/enigma-ref.texi; \
 	else \
 	  echo "Warning: texi2html not found"; \
 	fi
