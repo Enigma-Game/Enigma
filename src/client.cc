@@ -352,11 +352,11 @@ void Client::on_mousebutton(SDL_Event &e)
         else if (e.button.button == 3|| e.button.button == 4) {
             // right mousebutton, wheel down -> rotate inventory
             rotate_inventory(+1);
-	}
-	else if (e.button.button == 5) {
-	    // wheel down -> inverse rotate inventory
+        }
+        else if (e.button.button == 5) {
+            // wheel down -> inverse rotate inventory
             rotate_inventory(-1);
-	}
+        }
     }
     update_mouse_button_state();
 }

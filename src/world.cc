@@ -58,7 +58,7 @@ namespace {
       stone. But it's annoying when there are two adjacent stones and
       a marble rebounds from any one (or even both) corners, because
       it changes the direction of the marble quite unpredictably.
-       
+
       This function modifies the contact information for two adjacent
       stones in such a way that the two collisions are treated as a
       single collision with a flat surface. */
@@ -90,7 +90,7 @@ namespace {
             }
         }
     }
-    
+
 /*! Find an already existing contact point in the ContactList that is
   similar to the second argument. */
     bool has_nearby_contact (const ContactList &cl, const Contact &c)
@@ -98,7 +98,8 @@ namespace {
         double posdelta = 0.2;
         double normaldelta = 0.1;
         for (size_t i=0; i<cl.size(); ++i) {
-            if (length (cl[i].pos - c.pos) < posdelta && length (cl[i].normal - c.normal) < normaldelta)
+            if (length (cl[i].pos - c.pos) < posdelta
+                && length (cl[i].normal - c.normal) < normaldelta)
                 return true;
         }
         return false;
@@ -143,7 +144,7 @@ namespace
     {
         Object *src = s->source;
         Object *dst = GetObject(s->destloc);
-        
+
 #if defined(VERBOSE_MESSAGES)
         src->warning("emit_from: msg='%s'", // dest=%i/%i obj=%p",
                      s->message.c_str()
@@ -710,7 +711,7 @@ void World::find_contact_with_stone (Actor *a, GridPos p, StoneContact &c)
             c.normal        = V2(0,-1);
             dist            = y-ay;
         }
-	c.is_contact = (dist-r < contact_e);
+        c.is_contact = (dist-r < contact_e);
     }
     // Closest feature == west or east face of the stone?
     else if (ay>y+erad && ay<y+1-erad) {
@@ -1271,11 +1272,11 @@ void world::GiveRubberBands (Stone *st, vector<Rubber_Band_Info> &rubs) {
    for (unsigned i=0; i<level->m_rubberbands.size(); ) {
         RubberBand &r = *level->m_rubberbands[i];
         if (r.get_stone() == st) {
-	    Rubber_Band_Info rbi;
-	    rbi.act = r.get_actor();
-	    rbi.data = r.get_data();
-	    rubs.push_back(rbi);
-	}
+            Rubber_Band_Info rbi;
+            rbi.act = r.get_actor();
+            rbi.data = r.get_data();
+            rubs.push_back(rbi);
+        }
         ++i;
     }
 }
@@ -1444,19 +1445,19 @@ void world::SendExplosionEffect(GridPos center, ExplosionType type)
     const int AFFECTED_FIELDS       = 8;
 
     for (int a = 0; a<AFFECTED_FIELDS; ++a) {
-	GridPos  dest = get_neighbour (center, a+1);
-	Item    *item            = GetItem(dest);
-	Stone   *stone           = GetStone(dest);
-	bool     direct_neighbor = a<4;
+        GridPos  dest = get_neighbour (center, a+1);
+        Item    *item            = GetItem(dest);
+        Stone   *stone           = GetStone(dest);
+        bool     direct_neighbor = a<4;
 
-	switch (type) {
-	case EXPLOSION_DYNAMITE:
-	    if (stone) SendMessage(stone, "ignite");
-	    if (item) SendMessage(item, "ignite");
-	    break;
+        switch (type) {
+        case EXPLOSION_DYNAMITE:
+            if (stone) SendMessage(stone, "ignite");
+            if (item) SendMessage(item, "ignite");
+            break;
 
-	case EXPLOSION_BLACKBOMB:
-	    if (direct_neighbor) {
+        case EXPLOSION_BLACKBOMB:
+            if (direct_neighbor) {
                 explosion (dest, it_explosion1);
             } 
             else {
@@ -1465,21 +1466,21 @@ void world::SendExplosionEffect(GridPos center, ExplosionType type)
             }
             break;
 
-	case EXPLOSION_WHITEBOMB:
+        case EXPLOSION_WHITEBOMB:
             explosion (dest, it_explosion3);
-	    break;
+            break;
 
-	case EXPLOSION_BOMBSTONE:
-	    if (direct_neighbor) {
-		if (stone) SendMessage(stone, "bombstone");
-		if (item) SendMessage(item, "bombstone");
-	    }
-	    break;
+        case EXPLOSION_BOMBSTONE:
+            if (direct_neighbor) {
+                if (stone) SendMessage(stone, "bombstone");
+                if (item) SendMessage(item, "bombstone");
+            }
+            break;
 
         case EXPLOSION_SPITTER:
 
             break;
-	}
+        }
     }
 }
 

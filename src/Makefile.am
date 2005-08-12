@@ -7,12 +7,6 @@ bin_PROGRAMS = enigma
 EXTRA_DIST = \
 	enigma.ico \
 	enigma.rc \
-# 	display-lua.pkg \
-# 	editor-lua.pkg \
-# 	enigma-lua.pkg \
-# 	global-lua.pkg \
-# 	gui-lua.pkg \
-# 	ecl-lua.pkg \
 	enigma.doxygen
 
 # Source files created by 'tolua'.

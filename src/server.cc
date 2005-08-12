@@ -5,7 +5,7 @@
  * modify it under the terms of the GNU General Public License
  * as published by the Free Software Foundation; either version 2
  * of the License, or (at your option) any later version.
- *  
+ *
  * This program is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
@@ -29,6 +29,12 @@
 #include "world.hh"
 
 #include "enet/enet.h"
+
+#ifdef WIN32
+// SendMessage is a Syscall on Windows, so we simply undefine it to use this
+// name for one of the methods
+#undef SendMessage
+#endif
 
 #include <cctype>
 
@@ -150,7 +156,7 @@ void server::RaiseError (const std::string &msg)
 void gametick(double dtime)
 {
     const double timestep = 0.01; // 10ms
-    
+
     server::LevelTime += dtime;
 
     time_accu += dtime;
@@ -162,12 +168,11 @@ void gametick(double dtime)
     for (;time_accu >= timestep; time_accu -= timestep) {
         world::Tick (timestep);
         if (lua::CallFunc (lua::LevelState(), "Tick", timestep) != 0) {
-            throw enigma_levels::XLevelRuntime (string("Calling 'Tick' failed:\n") 
+            throw enigma_levels::XLevelRuntime (string("Calling 'Tick' failed:\n")
                                                 + lua::LastError(lua::LevelState()));
         }
     }
     world::TickFinished ();
-    
 }
 
 
@@ -317,12 +322,12 @@ void server::Msg_LoadLevel (unsigned ilevel)
 }
 
 
-void server::Msg_StartGame() 
+void server::Msg_StartGame()
 {
     if (state == sv_waiting_for_clients) {
         time_accu = 0;
         state = sv_running;
-    } 
+    }
     else {
         // Warning << "server: Received unexpected StartGame message.\n";
         // XXX discard message if not waiting for it?
@@ -331,7 +336,7 @@ void server::Msg_StartGame()
 
 namespace enigma_server {
     using levels::LevelInfo;
-    
+
     class GlobalLevelIter {     // iterates repeatedly through ALL levels
         int levelnr, packnr;
         int levels, packs;
@@ -340,7 +345,7 @@ namespace enigma_server {
         GlobalLevelIter(LevelPack *lp, int ilevel)
             : levelnr(ilevel),
               packnr(0),
-              levels(lp->size()), 
+              levels(lp->size()),
               packs(enigma_levels::LevelPacks.size())
         {
             while (packnr<packs && enigma_levels::LevelPacks[packnr] != lp)
@@ -358,9 +363,14 @@ namespace enigma_server {
             return *this;
         }
 
-        LevelPack *getPack() const { return enigma_levels::LevelPacks[packnr]; }
+        LevelPack *getPack() const {
+            return enigma_levels::LevelPacks[packnr];
+        }
         int getLevel() const { return levelnr; }
-        const levels::LevelInfo& getInfo() const { return getPack()->get_info(getLevel()); }
+
+        const levels::LevelInfo& getInfo() const {
+            return getPack()->get_info(getLevel());
+        }
     };
 
     void Msg_Jumpto(LevelPack *lp, int ilevel) {
@@ -392,7 +402,8 @@ namespace enigma_server {
                 if (ilevel >= 0 && static_cast<unsigned>(ilevel) < lp->size()) {
                     Msg_Jumpto(lp, ilevel);
                 }
-                else error = ecl::strf("Illegal level %i (1-%i)", ilevel+1, lp->size());
+                else
+                    error = ecl::strf("Illegal level %i (1-%i)", ilevel+1, lp->size());
             }
             else error = ecl::strf("Illegal level pack %i (1-%i)", packnr+1, packs);
         }
@@ -405,7 +416,7 @@ namespace enigma_server {
         struct LowerCaseString {
             string low;
             LowerCaseString(const string& s) : low(s) {
-                for (string::iterator i = low.begin(); i != low.end(); ++i) 
+                for (string::iterator i = low.begin(); i != low.end(); ++i)
                     *i = tolower(*i);
             }
             bool containedBy(LowerCaseString other) const {
@@ -453,8 +464,8 @@ void server::Msg_Command (const string &cmd)
     else if (cmd == "abort") {
         client::Msg_Command(cmd);
     }
-    
-    // ------------------------------ cheats    
+
+    // ------------------------------ cheats
     else if (cmd == "god") {
         SendMessage (player::GetMainActor (player::CurrentPlayer()),
                      "shield");
