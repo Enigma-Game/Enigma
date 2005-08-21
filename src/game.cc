@@ -52,6 +52,8 @@ bool game::DrawLevelPreview (ecl::GC &gc, const Level &l)
     try {
         server::Msg_SetLevelPack(lp->get_name());
         server::Msg_LoadLevel (levelidx);
+
+
         display::DrawAll(gc);
         success = true;
     }

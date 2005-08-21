@@ -129,8 +129,8 @@ void load_level (unsigned ilevel)
             server::CurrentLevel = ilevel;
             game::ResetGameTimer();
 
+            world::InitWorld();
             if (!CreatingPreview) {
-                world::InitWorld();
                 player::LevelLoaded();
                 client::Msg_LevelLoaded(ilevel);
             }

@@ -170,21 +170,8 @@ void LevelPreviewCache::set_size(int xs, int ys)
 
 Surface *LevelPreviewCache::getPreview(const levels::Level &level)
 {
-    int idx = level.get_index();
-//    LevelPack *lp = level.get_levelpack();
-    PreviewMap::iterator i = cache.find(idx);
-    if (i != cache.end())
-        return i->second->surface;
-    return 0;
-
-//     assert(xsize != 0 && ysize != 0); // forgot to call set_size() ?
-//     LevelPreviewCacheElem *ce = new LevelPreviewCacheElem(level, xsize, ysize, imgCache);
-
-//     Surface *surface = ce->get_surface();
-//     if (!surface)   delete ce; // dont add broken levels to cache
-//     else            cache[idx] = ce;
-
-//     return surface;
+    PreviewMap::iterator i = cache.find(level.get_index());
+    return  (i != cache.end()) ? i->second->surface : 0;
 }
 
 Surface *LevelPreviewCache::makePreview(const levels::Level &level)
