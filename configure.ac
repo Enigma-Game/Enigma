@@ -68,6 +68,14 @@ if test "$BUILD_INCLUDED_LIBINTL" = yes; then
    CXXFLAGS="$CXXFLAGS -I\$(top_srcdir)/intl"
 fi
 
+
+dnl This is to check for winmm which must be included to satisfy enet
+dnl when compiling under mingw32
+if test "$MINGW32" = yes; then
+   AC_CHECK_LIB(winmm,main)
+fi
+
+
 dnl ----------------------------------------
 dnl Check for SDL image library
 dnl Check for SDL mixer library
@@ -80,7 +88,7 @@ SDL_LIBS="$SDL_LIBS -lSDL_image -lSDL_mixer"
 AC_CHECK_LIB(SDL_mixer, Mix_QuickLoad_RAW, have_mix_quickload="yes", have_mix_quickload="no")
 
 if test "$have_mix_quickload" = no; then
-   AC_MSG_ERROR([SDL_mixer >= 1.5 is required to compile Enigma])
+   AC_MSG_ERROR([SDL_mixer >= 1.2.5 is required to compile Enigma])
 fi
 
 dnl ----------------------------------------

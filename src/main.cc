@@ -160,16 +160,16 @@ AP::AP() : ArgParser (app.args.begin(), app.args.end())
     dumpinfo = false;
     gamename = "";
 
-    def (&nosound,		"nosound");
-    def (&nomusic,		"nomusic");
-    def (&show_version, 	"version");
-    def (&show_help,    	"help", 'h');
+    def (&nosound,              "nosound");
+    def (&nomusic,              "nomusic");
+    def (&show_version,         "version");
+    def (&show_help,            "help", 'h');
     def (&WizardMode,           "wizard");
     def (&Nograb,               "nograb");
-    def (&do_log,       	"log", 'l');
-    def (&dumpinfo,		"dumpinfo");
-    def (OPT_WINDOW,    	"window",  'w');
-    def (OPT_GAME,      	"game", 'l', true);
+    def (&do_log,               "log", 'l');
+    def (&dumpinfo,             "dumpinfo");
+    def (OPT_WINDOW,            "window",  'w');
+    def (OPT_GAME,              "game", 'l', true);
     def (OPT_DATA,              "data", 'd', true);
     def (OPT_LANG,              "lang", 'l', true);
 }
