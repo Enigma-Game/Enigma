@@ -55,7 +55,7 @@ WARN_LOGFILE           =
 # configuration options related to the input files
 #---------------------------------------------------------------------------
 INPUT                  = ./ \
-                         ./ecl/ \
+                         ../lib-src/enigma-core/ \
                          ../lib-src/oxydlib/
 FILE_PATTERNS          = *.cc \
                          *.hh
