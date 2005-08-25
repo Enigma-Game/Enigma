@@ -148,7 +148,7 @@ bool LevelLocalData::remove_extralife (Actor *a)
 namespace
 {
     LevelLocalData leveldat;
-    PlayerList     players;     // this currently has always size 2
+    PlayerList     players(2);     // this currently has always size 2
     unsigned       icurrent_player = 0;
 }
 
