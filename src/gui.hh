@@ -344,14 +344,26 @@ namespace gui
     class StaticTextButton : public TextButton {
     public:
         StaticTextButton(const std::string &t, ActionListener *al=0);
-        void set_text(const std::string &t);
+        virtual void set_text(const std::string &t);
 
     private:
         // TextButton interface.
         std::string get_text() const;
 
+    protected:
         // Variables.
         std::string text;
+    };
+
+/* -------------------- UntranslatedStaticTextButton -------------------- */
+
+    class UntranslatedStaticTextButton : public StaticTextButton {
+    public:
+        UntranslatedStaticTextButton(const std::string &t, ActionListener *al=0);
+
+    private:
+        // TextButton interface.
+        std::string get_text() const;
     };
 
 /* -------------------- BoolOptionButton -------------------- */

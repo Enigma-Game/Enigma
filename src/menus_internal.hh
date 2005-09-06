@@ -409,7 +409,7 @@ namespace
         void tick(double dtime);
 
         // Variables.
-        gui::Widget *back, *fullscreen;
+        gui::Widget *back, *fullscreen, *language;
         gui::Label  *m_restartinfo;
         ecl::Surface *background;
         std::string  previous_caption;
@@ -487,8 +487,11 @@ namespace
         int get_value() const;
         void set_value(int value);
         string get_text(int value) const;
+        bool inInit;
+        ActionListener *myListener;
     public:
-        LanguageButton ();
+        // second user action listener: first one is misused by ValueButton 
+        LanguageButton (ActionListener *al = 0);
         
     };
 

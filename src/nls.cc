@@ -10,8 +10,6 @@
 
 using namespace std;
 
-static std::string old_lang_env;
-
 #if !defined (HAVE_SETENV) && defined (HAVE_PUTENV)
 static char lang_env[256];
 #endif
@@ -30,8 +28,6 @@ void nls::SetMessageLocale (const std::string &language)
 {
     if (language != "")
         my_setenv ("LANG", language);
-    else if (old_lang_env != "")
-        my_setenv ("LANG", old_lang_env);
 
 #if defined(ENABLE_NLS) && defined(HAVE_LC_MESSAGES)
     // Hack to fool libintl into changing the message locale more than
@@ -45,10 +41,3 @@ void nls::SetMessageLocale (const std::string &language)
     enigma::Log << "language code: " << ecl::GetLanguageCode (li) << endl;
 }
 
-
-void nls::Init()
-{
-    const char *l = getenv ("LANG");
-    if (l)
-        old_lang_env = l;
-}

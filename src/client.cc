@@ -88,10 +88,10 @@ namespace
 /* -------------------- GameMenu -------------------- */
 
 GameMenu::GameMenu (int zoomxpos_, int zoomypos_)
-: resume(new gui::StaticTextButton(_("Resume Level"), this)),
-  restart(new gui::StaticTextButton(_("Restart Level"), this)),
-  options(new gui::StaticTextButton(_("Options"), this)),
-  abort(new gui::StaticTextButton(_("Abort Level"), this)),
+: resume(new gui::StaticTextButton(N_("Resume Level"), this)),
+  restart(new gui::StaticTextButton(N_("Restart Level"), this)),
+  options(new gui::StaticTextButton(N_("Options"), this)),
+  abort(new gui::StaticTextButton(N_("Abort Level"), this)),
   zoomed(0),
   zoomxpos(zoomxpos_),
   zoomypos(zoomypos_)

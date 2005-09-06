@@ -60,7 +60,7 @@ private:
 
 HelpMenu::HelpMenu (const char **helptext_, int xoffset_) : 
     helptext    (helptext_),
-    ok          (new gui::StaticTextButton("Ok", this)),
+    ok          (new gui::StaticTextButton(N_("Ok"), this)),
     cfg         (xoffset_)
 {
     add(ok, Rect(640-170,480-60,150,40));
@@ -90,8 +90,8 @@ void HelpMenu::draw_background (ecl::GC &gc)
     int y = cfg.y0;
     for (int i = 0; helptext[i]; i += 2) 
     {
-        f->render (gc, cfg.x0, y, _(helptext[i]));
-        f->render (gc, cfg.x1, y, _(helptext[i+1]));
+        f->render (gc, cfg.x0, y, _(helptext[i]));    // translate
+        f->render (gc, cfg.x1, y, _(helptext[i+1]));  // translate
         y += cfg.yskip;
     }
 }

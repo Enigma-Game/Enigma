@@ -38,6 +38,7 @@ namespace enigma
         Application();
 
         void init(int argc, char **argv);
+        void setLanguage(std::string newLanguage);
 
         //---------- Variables ----------//
 
@@ -47,9 +48,13 @@ namespace enigma
         bool wizard_mode;
         bool nograb;            // Do not grab mouse cursor during game
         std::string language;   // Language to use
+        std::string defaultLanguage;
+        std::string argumentLanguage;
     };
 
 #define APP enigma::Application::get_instance()
+
+    extern Application app;
 
     //---------- Logging ----------//
     extern std::ostream Log;

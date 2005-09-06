@@ -92,7 +92,9 @@ static std::fstream logfile;
 Application::Application()
 : wizard_mode   (false),
   nograb        (false),
-  language      ("")
+  language      (""),
+  defaultLanguage (""),
+  argumentLanguage ("")
 {
 }
 
@@ -103,6 +105,16 @@ void Application::init(int argc, char **argv)
     copy(argv+1, argv+argc, back_inserter(args));
 }
 
+void Application::setLanguage(std::string newLanguage)
+{
+    if (newLanguage == "") {
+        language = defaultLanguage;
+    }
+    else {
+        language = newLanguage;
+    }
+    nls::SetMessageLocale(language);
+}
 
 
 /* -------------------- Functions -------------------- */
@@ -166,10 +178,10 @@ AP::AP() : ArgParser (app.args.begin(), app.args.end())
     def (&show_help,            "help", 'h');
     def (&WizardMode,           "wizard");
     def (&Nograb,               "nograb");
-    def (&do_log,               "log", 'l');
+    def (&do_log,               "log");
     def (&dumpinfo,             "dumpinfo");
     def (OPT_WINDOW,            "window",  'w');
-    def (OPT_GAME,              "game", 'l', true);
+    def (OPT_GAME,              "game", true);
     def (OPT_DATA,              "data", 'd', true);
     def (OPT_LANG,              "lang", 'l', true);
 }
@@ -187,7 +199,7 @@ void AP::on_option (int id, const string &param)
         file::AddDataPath (param);
         break;
     case OPT_LANG:
-        app.language = param;
+        app.argumentLanguage = param;
         break;
     }
 }
@@ -254,19 +266,30 @@ static std::string get_system_locale ()
 /*! Initialize the internationalization subsystem */
 static void init_i18n ()
 {
-    nls::Init();
-
-    string language;
-    if (language == "") {
-        options::GetOption ("Language", language);
+    // prioritys:
+    // language: command-line --- user option --- system (environment)
+    // defaultLanguage: command-line --- system (environment)
+    app.language = app.argumentLanguage;
+    app.defaultLanguage = app.argumentLanguage;
+    if (app.language == "") {
+        options::GetOption("Language", app.language);
     }
-    if (language == "") {
-        language = get_system_locale ();
+    enigma::Log << "before DefaultMessageLocale " << endl;
+    if (app.defaultLanguage == "") {
+        app.defaultLanguage = ecl::DefaultMessageLocale ();
+    enigma::Log << "after DefaultMessageLocale:" << app.defaultLanguage << endl;
+#ifdef MACOSX
+        app.defaultLanguage = get_system_locale();
+#endif //MACOSX
+        if (app.language == "") {
+            app.language = app.defaultLanguage;
+        }
     }
+    
 
 #if defined(ENABLE_NLS)
 
-    nls::SetMessageLocale (language);
+    nls::SetMessageLocale (app.language);
 
     bindtextdomain (PACKAGE_NAME, LOCALEDIR);
 
@@ -282,20 +305,22 @@ static void init()
 {
     lua_State *L = lua::GlobalState();
 
-    init_i18n();
-
-    // ----- Evaluate command line arguments.
+    // parse commandline arguments
     AP ap;
     ap.parse();
 
+    if (ap.do_log) 
+        enigma::Log.rdbuf(cout.rdbuf());
+
+    // set message language
+    init_i18n();
+
+    // ----- Evaluate command line arguments.
     if (ap.show_help || ap.show_version) {
         printf("Enigma %s\n",PACKAGE_VERSION);
         if (ap.show_help) usage();
         exit(0);
     }
-
-    if (ap.do_log) 
-        enigma::Log.rdbuf(cout.rdbuf());
 
     // ----- Load level packs
     if (ap.levelnames.empty()) {

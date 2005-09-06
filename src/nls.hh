@@ -17,7 +17,6 @@
 namespace nls
 {
     void SetMessageLocale (const std::string &language);
-    void Init();
 }
 
 #endif

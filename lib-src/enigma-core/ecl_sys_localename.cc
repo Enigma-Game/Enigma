@@ -707,29 +707,30 @@ sys_message_locale_name ()
 
 #ifndef WIN32
   int category = LC_MESSAGES;
-
-  /* Use the POSIX methods of looking to 'LC_ALL', 'LC_xxx', and 'LANG'.
-     On some systems this can be done by the 'setlocale' function itself.  */
-# if defined HAVE_SETLOCALE && defined HAVE_LC_MESSAGES && defined HAVE_LOCALE_NULL
-  retval = setlocale (category, NULL);
-# else
-  /* Setting of LC_ALL overwrites all other.  */
-  retval = getenv ("LC_ALL");
+  
+  // Prefer user to system defaults; specific to general defaults
+  // Use the POSIX methods of looking to 'LC_ALL', 'LC_xxx', and 'LANG'.  
+  /* First comes the name of the desired category.  */
+  retval = getenv (categoryname);
   if (retval == NULL || retval[0] == '\0')
-    {
-      /* Next comes the name of the desired category.  */
-      retval = getenv (categoryname);
-      if (retval == NULL || retval[0] == '\0')
-	{
-	  /* Last possibility is the LANG environment variable.  */
-	  retval = getenv ("LANG");
-	  if (retval == NULL || retval[0] == '\0')
-	    /* We use C as the default domain.  POSIX says this is
-	       implementation defined.  */
-	    retval = "C";
-	}
-    }
+  {
+      /* Next possibility is the LANG environment variable.  */
+      retval = getenv ("LANG");
+      if (retval == NULL || retval[0] == '\0') {
+          /* Next possibility is the general LC_ALL.  */
+          retval = getenv ("LC_ALL");
+          if (retval == NULL || retval[0] == '\0') {
+# if defined HAVE_SETLOCALE && defined HAVE_LC_MESSAGES && defined HAVE_LOCALE_NULL
+              /* On some systems this can be done by the 'setlocale' function itself.  */
+              retval = setlocale (category, NULL);
+# else
+              /* We use C as the default domain.  POSIX says this is
+       	         implementation defined.  */
+	      retval = "C";
 # endif
+          }
+      }
+  }
 
   return retval;
 

@@ -439,8 +439,8 @@ void Label::draw (ecl::GC &gc, const ecl::Rect &)
     case VALIGN_BOTTOM: y += get_h() - h; break;
     case VALIGN_CENTER: y += (get_h()-h)/2; break;
     }
-
-    f->render (gc, x, y, m_text.c_str());
+    // translate if not an empty string
+    f->render (gc, x, y, m_text == "" ? "" : _(m_text.c_str()));
 }
 
 void Label::set_alignment (HAlignment halign, VAlignment valign) {
@@ -454,7 +454,8 @@ void Label::set_alignment (HAlignment halign, VAlignment valign) {
 void Label::naturalsize (int &w, int &h) const
 {
     h = m_font->get_height();
-    w = m_font->get_width (m_text.c_str());
+    // width of translation if not an empty string
+    w = m_font->get_width (m_text == "" ? "" : _(m_text.c_str()));
 }
 
 
@@ -628,7 +629,20 @@ void StaticTextButton::set_text(const std::string &t) {
 }
 
 string StaticTextButton::get_text() const {
-    return text;
+    return _(text.c_str());   // translate
+}
+
+/* -------------------- UntranslatedStaticTextButton -------------------- */
+
+UntranslatedStaticTextButton::UntranslatedStaticTextButton(const string &t, 
+        ActionListener *al)
+    : StaticTextButton(t, al)
+{
+}
+
+
+string UntranslatedStaticTextButton::get_text() const {
+    return StaticTextButton::text;
 }
 
 
@@ -656,7 +670,7 @@ void BoolOptionButton::on_action(Widget *) {
 }
 
 string BoolOptionButton::get_text() const {
-    return enigma_options::GetBool(optionName) ? trueText : falseText;
+    return enigma_options::GetBool(optionName) ? _(trueText.c_str()) : _(falseText.c_str());
 }
     
 

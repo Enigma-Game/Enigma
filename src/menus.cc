@@ -16,6 +16,7 @@
  * 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.
  *
  */
+ 
 #include "menus.hh"
 
 #include "client.hh"
@@ -263,7 +264,7 @@ LevelPackMenu::LevelPackMenu()
 
     for (unsigned i=0; i<packcount; ++i) {
         LevelPack *lp = LevelPacks[i];
-        buttons.push_back(new StaticTextButton(lp->get_name(), this));
+        buttons.push_back(new UntranslatedStaticTextButton(lp->get_name(), this));
     }
 
     Rect buttonarea = ecl::Screen::get_instance()->size();
@@ -808,16 +809,16 @@ namespace
         }
     public:
         InGameMusicButton() :
-            BoolOptionButton("InGameMusic", _("Music in game"), _("No music in game"), this)
+            BoolOptionButton("InGameMusic", N_("Music in game"), N_("No music in game"), this)
         { }
     };
 
     struct SkipSolvedButton : public BoolOptionButton {
-        SkipSolvedButton() : BoolOptionButton("SkipSolvedLevels", _("Yes"), _("No"), this) {}
+        SkipSolvedButton() : BoolOptionButton("SkipSolvedLevels", N_("Yes"), N_("No"), this) {}
     };
 
     struct TimeHuntButton : public BoolOptionButton {
-        TimeHuntButton() : BoolOptionButton("TimeHunting", _("Yes"), _("No"), this) {}
+        TimeHuntButton() : BoolOptionButton("TimeHunting", N_("Yes"), N_("No"), this) {}
     };
 
     class VideoModeButton : public TextButton {
@@ -948,7 +949,7 @@ string StereoButton::get_text(int value) const
 /* -------------------- FullscreenButton -------------------- */
 
 FullscreenButton::FullscreenButton()
-    : BoolOptionButton("FullScreen", _("Yes"), _("No"), this)
+    : BoolOptionButton("FullScreen", N_("Yes"), N_("No"), this)
 {
 }
 
@@ -976,7 +977,7 @@ void DifficultyButton::on_action(Widget *)
 /* -------------------- TournamentButton -------------------- */
 
 TournamentButton::TournamentButton()
-    : BoolOptionButton("Tournament", _("Tournament"), _("Training"), this)
+    : BoolOptionButton("Tournament", N_("Tournament"), N_("Training"), this)
 {
 }
 
@@ -1013,7 +1014,12 @@ int LanguageButton::get_value() const
 void LanguageButton::set_value(int value)
 {
     options::SetOption ("Language", languages[value].localename);
-    nls::SetMessageLocale (languages[value].localename);
+    
+    if ( not inInit) {
+        // change language only on user action
+        app.setLanguage(languages[value].localename);
+        myListener->on_action(this);
+    }
 }
 
 string LanguageButton::get_text(int value) const
@@ -1024,10 +1030,12 @@ string LanguageButton::get_text(int value) const
         return languages[value].name;
 }
 
-LanguageButton::LanguageButton ()
-: ValueButton(0, NUMENTRIES(languages)-1)
+LanguageButton::LanguageButton (ActionListener *al)
+: ValueButton(0, NUMENTRIES(languages)-1), myListener(al)
 {
+    inInit = true;
     init();
+    inInit = false;
 }
 
 /* -------------------- GammaButton -------------------- */
@@ -1063,7 +1071,7 @@ string GammaButton::get_text(int value) const
 /* -------------------- Options Menu -------------------- */
 
 OptionsMenu::OptionsMenu(ecl::Surface *background_)
-: back(new StaticTextButton(_("Back"), this)),
+: back(new StaticTextButton(N_("Back"), this)),
   fullscreen(new FullscreenButton),
   m_restartinfo (new Label("")),
   background(background_),
@@ -1079,15 +1087,16 @@ OptionsMenu::OptionsMenu(ecl::Surface *background_)
     BuildVList left (this, Rect(0, 0, but_width, but_height), spacing);
     BuildVList rightlabels (this, Rect(but_width+big_spacing, 0, label_width, but_height), spacing);
     BuildVList right(this, Rect(but_width+big_spacing+label_width, 0, but_width, but_height), spacing);
-    leftlabels.add (new Label(_("Language: "), HALIGN_RIGHT));
-    leftlabels.add (new Label(_("Fullscreen: "), HALIGN_RIGHT));
-    leftlabels.add (new Label(_("Video mode: "), HALIGN_RIGHT));
-    leftlabels.add (new Label(_("Gamma correction: "), HALIGN_RIGHT));
-    leftlabels.add (new Label(_("Mouse speed: "), HALIGN_RIGHT));
-    leftlabels.add (new Label(_("Skip solved levels: "), HALIGN_RIGHT));
-    leftlabels.add (new Label(_("Time hunt: "), HALIGN_RIGHT));
+    leftlabels.add (new Label(N_("Language: "), HALIGN_RIGHT));
+    leftlabels.add (new Label(N_("Fullscreen: "), HALIGN_RIGHT));
+    leftlabels.add (new Label(N_("Video mode: "), HALIGN_RIGHT));
+    leftlabels.add (new Label(N_("Gamma correction: "), HALIGN_RIGHT));
+    leftlabels.add (new Label(N_("Mouse speed: "), HALIGN_RIGHT));
+    leftlabels.add (new Label(N_("Skip solved levels: "), HALIGN_RIGHT));
+    leftlabels.add (new Label(N_("Time hunt: "), HALIGN_RIGHT));
 
-    left.add (new LanguageButton);
+    language = new LanguageButton(this);
+    left.add (language);
     left.add (fullscreen);
     left.add (new VideoModeButton);
     left.add (new GammaButton);
@@ -1095,10 +1104,10 @@ OptionsMenu::OptionsMenu(ecl::Surface *background_)
     left.add (new SkipSolvedButton);
     left.add (new TimeHuntButton);
 
-    rightlabels.add (new Label(_("Sound volume: "), HALIGN_RIGHT));
-    rightlabels.add (new Label(_("Sound set: "), HALIGN_RIGHT));
-    rightlabels.add (new Label(_("Music volume: "), HALIGN_RIGHT));
-    rightlabels.add (new Label(_("Stereo: "), HALIGN_RIGHT));
+    rightlabels.add (new Label(N_("Sound volume: "), HALIGN_RIGHT));
+    rightlabels.add (new Label(N_("Sound set: "), HALIGN_RIGHT));
+    rightlabels.add (new Label(N_("Music volume: "), HALIGN_RIGHT));
+    rightlabels.add (new Label(N_("Stereo: "), HALIGN_RIGHT));
 
     right.add (new SoundVolumeButton);
     right.add (new SoundSetButton);
@@ -1129,7 +1138,7 @@ void OptionsMenu::update_info()
 {
     if (options::MustRestart)
         m_restartinfo->set_text (
-            _("Please restart Enigma to activate your changes!"));
+            N_("Please restart Enigma to activate your changes!"));
     else
         m_restartinfo->set_text ("");
 }
@@ -1159,6 +1168,9 @@ void OptionsMenu::on_action(Widget *w)
 {
     if (w == back)
         Menu::quit();
+    else if (w == language)
+        // language changed - retranslate and redraw everything
+        invalidate_all();
 }
 
 void OptionsMenu::tick (double)
@@ -1195,9 +1207,9 @@ struct LevelMenuConfig {
 LevelMenu::LevelMenu(LevelPack *lp, unsigned long pos)
 : but_unsolved   (new ImageButton("ic-unsolved", "ic-unsolved1", this)), 
   but_tournament (new TournamentButton),
-  but_back       (new StaticTextButton(_("Back"), this)),
+  but_back       (new StaticTextButton(N_("Back"), this)),
   but_difficulty (new DifficultyButton),
-  but_levelpack  (new StaticTextButton(_("Level Pack"), this)),
+  but_levelpack  (new StaticTextButton(N_("Level Pack"), this)),
   lbl_lpinfo     (new Label("")),
   lbl_statistics (new Label("")),
   lbl_levelname  (new Label("", HALIGN_LEFT)),
@@ -1521,9 +1533,9 @@ NetworkMenu::NetworkMenu ()
     const video::VMInfo *vminfo = video::GetInfo();
 
     BuildVList b(this, Rect((vminfo->width - 150)/2,150,150,40), 5);
-    m_startgame = b.add(new StaticTextButton(_("Start Game"), this));
-    m_joingame = b.add(new StaticTextButton(_("Join Game"), this));
-    m_back = b.add(new StaticTextButton(_("Back"), this));
+    m_startgame = b.add(new StaticTextButton(N_("Start Game"), this));
+    m_joingame = b.add(new StaticTextButton(N_("Join Game"), this));
+    m_back = b.add(new StaticTextButton(N_("Back"), this));
 }
 
 NetworkMenu::~NetworkMenu ()
@@ -1571,15 +1583,15 @@ void MainMenu::build_menu()
     const video::VMInfo *vminfo = video::GetInfo();
 
     BuildVList b(this, Rect((vminfo->width - 150)/2,150,150,40), 5);
-    m_startgame = b.add(new StaticTextButton(_("Start Game"), this));
+    m_startgame = b.add(new StaticTextButton(N_("Start Game"), this));
 #ifdef ENABLE_EXPERIMENTAL
-    m_netgame   = b.add (new StaticTextButton (_("Network Game"), this));
-    leveled     = b.add(new StaticTextButton(_("Editor"), this));
+    m_netgame   = b.add (new StaticTextButton (N_("Network Game"), this));
+    leveled     = b.add(new StaticTextButton(N_("Editor"), this));
 #endif
 //    manual      = b.add(new StaticTextButton("Manual", this));
-    options     = b.add(new StaticTextButton(_("Options"), this));
-    credits     = b.add(new StaticTextButton(_("Credits"), this));
-    quit        = b.add(new StaticTextButton(_("Quit"), this));
+    options     = b.add(new StaticTextButton(N_("Options"), this));
+    credits     = b.add(new StaticTextButton(N_("Credits"), this));
+    quit        = b.add(new StaticTextButton(N_("Quit"), this));
 }
 
 void MainMenu::draw_background(ecl::GC &gc) 
@@ -1613,9 +1625,7 @@ void MainMenu::on_action(Widget *w)
         show_credits ();
     } else if (w == options) {
         ShowOptionsMenu(0);
-        clear();
-        reset_active_widget ();
-        build_menu();
+
 #ifdef ENABLE_EXPERIMENTAL
     } else if (w == m_netgame) {
         ShowNetworkMenu();
