@@ -249,18 +249,18 @@ static void init_basic()
 }
 
 
+#ifdef MACOSX
 static std::string get_system_locale ()
 {
     string language;
-#ifdef MACOSX
     // get the locale and export it to the environment
     CFLocaleRef locale = CFLocaleCopyCurrent();
     CFStringRef name = CFLocaleGetIdentifier(locale);
     language = CFStringGetCStringPtr(name, NULL);
     CFRelease(locale);
-#endif //MACOSX
     return language;
 }
+#endif //MACOSX
 
 
 /*! Initialize the internationalization subsystem */
@@ -277,7 +277,7 @@ static void init_i18n ()
     enigma::Log << "before DefaultMessageLocale " << endl;
     if (app.defaultLanguage == "") {
         app.defaultLanguage = ecl::DefaultMessageLocale ();
-    enigma::Log << "after DefaultMessageLocale:" << app.defaultLanguage << endl;
+        enigma::Log << "after DefaultMessageLocale:" << app.defaultLanguage << endl;
 #ifdef MACOSX
         app.defaultLanguage = get_system_locale();
 #endif //MACOSX

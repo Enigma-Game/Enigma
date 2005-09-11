@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2002,2003,2004 Daniel Heck
+ * Copyright (C) 2002,2003,2004,2005 Daniel Heck
  *
  * This program is free software; you can redistribute it and/or
  * modify it under the terms of the GNU General Public License
@@ -53,8 +53,12 @@ namespace enigma_levels
     
 /* -------------------- LevelInfo -------------------- */
 
-    /*! This datastructure contains information about individual
-      levels. */
+    /*!
+     * This datastructure contains information about individual
+     * levels.  This is the information stored in the level index
+     * files.  Dynamic information, such as the the user's best time,
+     * are stored in the LevelStatus class.
+     */
     struct LevelInfo
     {
         // Constructor
@@ -77,11 +81,21 @@ namespace enigma_levels
         string   par_time_easy_by;     //< player name(s) for 'best_time_easy'
         string   par_time_normal_by;   //< same for 'best_time_normal'
         int      par_moves;            //< Minimum moves to solve level
-
+        int      intelligence;
+        int      dexterity;
+        int      patience;
+        int      knowledge;
+        int      speed;
     };
 
 /* -------------------- LevelStatus -------------------- */
 
+    /*! 
+     * This class stores information about the user's progress with a
+     * particular level.  This is the information that is stored in
+     * the .enigmarc files.  See for options.cc and startup.lua for
+     * the relevant I/O code.
+     */
     struct LevelStatus {
         LevelStatus(int easy=-1, int hard=-1, int fin=0, int solved_rev = 0);
         bool operator == (const LevelStatus& other) const;
@@ -101,8 +115,6 @@ namespace enigma_levels
         string filename;        // directory name of level pack
         string displayname;     // name to be displayed in menu
         size_t nlevels;         // number of levels
-
-        // Constructor
     };
 
 
@@ -145,6 +157,11 @@ namespace enigma_levels
 
         /*! Returns true if LevelPack may have previews */
         virtual bool may_have_previews() const = 0;
+
+        /*! Swap to levels in the level list.  This allows reordering
+          of level packs in the level menu.  Returns true if swapping
+          succeeded, false if not supported or unsuccessful. */
+        virtual bool swap (int idx1, int idx2) = 0;
     };
 
 /* -------------------- Level -------------------- */

@@ -730,6 +730,12 @@ LevelPack_Oxyd::LevelPack_Oxyd (OxydVersion ver, DatFile *dat,
     Log << "Levelpack '" << get_name() << "' has " << nlevels << " levels." << endl;
 }
 
+bool LevelPack_Oxyd::swap (int, int)
+{
+    // not supported
+    return false;
+}
+
 int LevelPack_Oxyd::get_revision_number (size_t /*index*/) const 
 { 
     // Revision is always 1 (never DECREASE the revision number! )

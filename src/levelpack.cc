@@ -47,7 +47,7 @@ namespace
     public:
         LevelPack_Enigma (const string &initfile, const string &name);
 
-        // LevelPack interface
+        // ---------- LevelPack interface ----------
         void reinit();
         string get_name() const { return m_name; }
         size_t size() const { return m_levels.size(); }
@@ -59,6 +59,7 @@ namespace
         int    get_default_SoundSet() const { return 1; }
         bool   needs_twoplayers() const { return false; }
         bool   may_have_previews() const { return true; }
+        bool   swap (int idx1, int idx2);
 
     protected:
         LevelPack_Enigma() {}
@@ -83,6 +84,7 @@ namespace
         string            m_name;
         vector<LevelInfo> m_levels;
     };
+
 
     class LevelPack_CommandLine : public LevelPack_Enigma {
     public:
@@ -146,7 +148,7 @@ namespace
         string par_moves_by;
 
         ++p;
-        while (1) {
+        while (true) {
             string tag;
             string content;
 
@@ -196,10 +198,15 @@ namespace
             else if (tag == "author")   info.author       = content;
             else if (tag == "revision") info.revision     = atoi(content.c_str());
             else if (tag == "easymode") info.has_easymode = (content == "1");
-            else if (tag == "par_time") parsePar(content, par_time, par_time_by);
-            else if (tag == "par_time_easy") parsePar(content, info.par_time_easy, info.par_time_easy_by);
+            else if (tag == "int")      info.intelligence = atoi(content.c_str());
+            else if (tag == "dex")      info.dexterity    = atoi(content.c_str());
+            else if (tag == "pat")      info.patience     = atoi(content.c_str());
+            else if (tag == "kno")      info.knowledge    = atoi(content.c_str());
+            else if (tag == "spe")      info.speed        = atoi(content.c_str());
+            else if (tag == "par_time")        parsePar(content, par_time, par_time_by);
+            else if (tag == "par_time_easy")   parsePar(content, info.par_time_easy, info.par_time_easy_by);
             else if (tag == "par_time_normal") parsePar(content, info.par_time_normal, info.par_time_normal_by);
-            else if (tag == "par_moves") parsePar(content, info.par_moves, par_moves_by);
+            else if (tag == "par_moves")       parsePar(content, info.par_moves, par_moves_by);
 //                 else if (tag == "hint1") hint1           = content;
 //                 else if (tag == "hint2") hint2           = content;
             else
@@ -243,6 +250,18 @@ LevelPack_Enigma::get_info (size_t index) const
 int LevelPack_Enigma::get_revision_number(size_t index) const {
     return get_info(index).revision;
 }
+
+bool LevelPack_Enigma::swap (int idx1, int idx2)
+{
+    if (idx1 >= 0 && idx2 >= 0 && 
+        (size_t)idx1 < m_levels.size() && (size_t)idx2 < m_levels.size()) 
+    {
+        std::swap (m_levels[idx1], m_levels[idx2]);
+        return true;
+    }
+    return false;
+}
+
 
 void LevelPack_Enigma::load_index (istream &is)
 {

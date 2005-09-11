@@ -131,7 +131,7 @@ namespace oxyd
         : OxydLoader (level_, config_)
         {}
     
-        virtual Stone *make_stone (int type, int x, int y) {}
+        virtual Stone *make_stone (int type, int x, int y) { return 0; }
     };
 
     class PerOxydLoader : public OxydLoader {
@@ -162,7 +162,7 @@ namespace oxyd
         int get_default_SoundSet() const;
         bool needs_twoplayers() const;
         bool may_have_previews() const;
-
+        bool swap (int, int);
     protected:
         virtual bool has_easymode(size_t /*index*/) const { return true; }
         GameMode get_gamemode() const;

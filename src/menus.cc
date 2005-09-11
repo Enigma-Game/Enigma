@@ -567,8 +567,7 @@ void LevelWidget::draw (ecl::GC &gc, const ecl::Rect &r)
     return;
 }
 
-void
-LevelWidget::set_selected (int newfirst, int newsel)
+void LevelWidget::set_selected (int newfirst, int newsel)
 {
     int numlevels = static_cast<int>(level_pack->size());
     newsel = Clamp(newsel, 0, numlevels-1);
@@ -686,6 +685,22 @@ bool LevelWidget::handle_keydown (const SDL_Event *e)
         // Generate new level preview for current level
         preview_cache.updatePreview (level);
         invalidate();
+        break;
+
+    case SDLK_LESS:
+    case SDLK_MINUS:
+        if  (level_pack->swap (iselected, iselected-1)) {
+            set_current (iselected-1);
+            invalidate();
+        }
+        break;
+
+    case SDLK_GREATER:
+    case SDLK_PLUS:
+        if (level_pack->swap (iselected, iselected+1)) {
+            set_current (iselected+1);
+            invalidate();
+        }
         break;
 
     case SDLK_LEFT:  set_current (iselected-1); break;

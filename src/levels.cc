@@ -37,8 +37,14 @@ LevelInfo::LevelInfo()
     type            = enigma::GAMET_ENIGMA;
     revision        = 1;
     has_easymode    = false;
-    par_time_easy   = -1; //DEFAULT_TIME;
-    par_time_normal = -1; //DEFAULT_TIME;
+    par_time_easy   = -1;       //DEFAULT_TIME;
+    par_time_normal = -1;       //DEFAULT_TIME;
+    par_moves       = 0;
+    intelligence    = 0;
+    dexterity       = 0;
+    patience        = 0;
+    knowledge       = 0;
+    speed           = 0;
 }
 
 
