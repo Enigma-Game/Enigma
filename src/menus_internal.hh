@@ -179,17 +179,17 @@ namespace
 
         struct CacheElem {
             Surface  *surface;      // owned by ImageCache
-            unsigned  idx;          // level index
+            std::string  idx;          // level indexname
             
-            CacheElem (ecl::Surface *s, unsigned idx_)
+            CacheElem (ecl::Surface *s, std::string idx_)
             : surface (s), idx(idx_)
             {}
             
-            bool operator<(const CacheElem& other) 
-            { return idx<other.idx; }
+ //           bool operator<(const CacheElem& other) 
+ //           { return idx<other.idx; }
         };
         
-        typedef std::map<unsigned, CacheElem*> PreviewMap;
+        typedef std::map<std::string, CacheElem*> PreviewMap;
 
         // ---------- Internal methods ----------
 

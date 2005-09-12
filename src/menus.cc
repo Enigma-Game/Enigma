@@ -171,7 +171,7 @@ void LevelPreviewCache::set_size(int xs, int ys)
 
 Surface *LevelPreviewCache::getPreview(const levels::Level &level)
 {
-    PreviewMap::iterator i = cache.find(level.get_index());
+    PreviewMap::iterator i = cache.find(level.uniqueName());
     return  (i != cache.end()) ? i->second->surface : 0;
 }
 
@@ -184,7 +184,7 @@ Surface *LevelPreviewCache::makePreview(const levels::Level &level)
 
     CacheElem *ce = make_cache_elem (level);
     if (ce)
-        cache[level.get_index()] = ce;
+        cache[level.uniqueName()] = ce;
 
     return ce->surface;
 }
@@ -205,7 +205,7 @@ Surface *LevelPreviewCache::updatePreview (const levels::Level &level)
 {
     if (Surface *surface = newPreview (level)) 
     {
-        size_t idx = level.get_index();
+        std::string idx = level.uniqueName();
         PreviewMap::iterator i = cache.find (idx);
         if (i != cache.end())
             delete i->second;
@@ -243,7 +243,7 @@ LevelPreviewCache::make_cache_elem (const levels::Level &level)
     }
 
     if (surface)
-        return new CacheElem (surface, level.get_index());
+        return new CacheElem (surface, level.uniqueName());
     return 0;
 }
 
@@ -1366,7 +1366,11 @@ void LevelMenu::on_action(Widget *w)
             Level level (lp, ilevel);
             if (!LevelIsLocked (level)) {
                 game::StartGame(lp, ilevel);
-                ilevel = server::CurrentLevel;
+                if (levels::IsHistory(lp))
+                    // the played level is now the first in history
+                    ilevel = 0;
+                else
+                    ilevel = server::CurrentLevel;
                 if (lp != server::CurrentLevelPack) {
                     set_levelpack(IndexOfLevelPack(server::CurrentLevelPack));
                 }

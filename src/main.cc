@@ -327,6 +327,7 @@ static void init()
         lua::Dofile(L, "levels/index.lua");
         lua::DoSubfolderfile(L, "levels", "index.lua");
         lua::Dofile(L, "levels/index_user.lua");
+        levels::AddHistoryLevelPack ();
     }
     else {
         levels::AddSimpleLevelPack (ap.levelnames, "Quick Test Levels");

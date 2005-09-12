@@ -86,6 +86,10 @@ namespace enigma_levels
         int      patience;
         int      knowledge;
         int      speed;
+        
+        bool operator == (const LevelInfo& otherLI);
+        string uniqueName();           // name to be used for indexing
+
     };
 
 /* -------------------- LevelStatus -------------------- */
@@ -128,6 +132,7 @@ namespace enigma_levels
 
         /*! Return level pack's name */
         virtual string get_name() const = 0;
+        virtual bool usesStandardLoadLevel() { return false;};
 
         /*! Return number of levels */
         virtual size_t size() const = 0;
@@ -174,6 +179,7 @@ namespace enigma_levels
         {}
 
         const LevelInfo &get_info () const;
+        string uniqueName() const;           // name to be used for indexing
 
         bool   get_status (LevelStatus &levelstat) const;
         void   set_status (const LevelStatus &levelstat);
@@ -227,6 +233,10 @@ namespace enigma_levels
     // levelpack.cc
     void AddLevelPack (const char *init_file, const char *name);
 
+    void AddHistoryLevelPack ();
+    void AddHistory(LevelPack *levelpack, unsigned index);
+    bool IsHistory(LevelPack *levelpack);
+    
     void AddSimpleLevelPack (const std::vector<std::string> &levels, 
                              const char *name);
 

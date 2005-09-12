@@ -113,6 +113,9 @@ void game::StartGame (levels::LevelPack *lp, unsigned ilevel)
 // 	else if (dtime > 0.5)
 //             dtime = 0.5;
     }
+    // add last played level
+    levels::AddHistory(server::CurrentLevelPack, server::CurrentLevel);
+
     video::ShowMouse();
 }
 

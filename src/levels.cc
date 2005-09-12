@@ -45,10 +45,22 @@ LevelInfo::LevelInfo()
     patience        = 0;
     knowledge       = 0;
     speed           = 0;
+
 }
 
+bool LevelInfo::operator == (const LevelInfo& otherLI)
+{
+    return filename == otherLI.filename;
+}
 
-
+string LevelInfo::uniqueName() 
+{
+    string name = filename;
+    if (!indexname.empty())
+        name = indexname;
+    return name;
+}
+
 /* -------------------- LevelStatus implementation -------------------- */
 
 LevelStatus::LevelStatus(int easy, int hard, int finished_, int solved_rev)
@@ -73,6 +85,11 @@ bool LevelStatus::operator == (const LevelStatus& other) const
 int Level::get_revision () const
 {
     return m_levelpack->get_revision_number(m_index);
+}
+
+string Level::uniqueName() const {
+    LevelInfo li = m_levelpack->get_info(m_index);
+    return li.uniqueName();
 }
 
 static string getIndexName (const LevelInfo &info) 

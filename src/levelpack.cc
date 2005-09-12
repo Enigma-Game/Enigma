@@ -46,6 +46,7 @@ namespace
     class LevelPack_Enigma : public LevelPack {
     public:
         LevelPack_Enigma (const string &initfile, const string &name);
+        virtual bool usesStandardLoadLevel() { return true;};
 
         // ---------- LevelPack interface ----------
         void reinit();
@@ -74,22 +75,31 @@ namespace
 
         // Load list of levels from stream
         void load_index (istream &is);
+        void save_index (ostream &os);
+
 
         void load_level (istream &is);
         void load_level_xml (istream &is);
 
-    private:
         // Variables
         string            m_initfile;
         string            m_name;
         vector<LevelInfo> m_levels;
     };
 
+    class LevelPack_History : public LevelPack_Enigma {
+    public:
+        LevelPack_History (const string &initfile, const string &name);
+        void addHistory(LevelPack *levelpack, unsigned index);
+        virtual bool usesStandardLoadLevel() { return false;};
+        virtual void load_level (size_t index);
+    };
 
     class LevelPack_CommandLine : public LevelPack_Enigma {
     public:
         LevelPack_CommandLine (const vector<string> &levelfiles,
                                const string &name);
+        virtual bool usesStandardLoadLevel() { return false;};
     private:
         void load_level (size_t index);
     };
@@ -100,6 +110,7 @@ namespace
     public:
         LevelPack_Zipped (const string &zipfile);
         ~LevelPack_Zipped();
+        virtual bool usesStandardLoadLevel() { return false;};
 
         // LevelPack interface
         void        reinit();
@@ -284,6 +295,41 @@ void LevelPack_Enigma::load_index (istream &is)
     }
 }
 
+void LevelPack_Enigma::save_index (ostream &os) {
+    unsigned i;
+    for (i = 0; i< m_levels.size(); i++) { 
+        LevelInfo &li = m_levels[i];
+        os << "{" ;
+        if (li.filename != "")
+            os << "  file=\"" << li.filename << "\"";
+        if (li.indexname != "")
+            os << "  indexname=\"" << li.indexname << "\"";
+        if (li.name != "")
+            os << "  name=\"" << li.name << "\"";
+        if (li.author != "")
+            os << "  author=\"" << li.author << "\"";
+        os << "  revision=" << li.revision;
+        if (li.has_easymode) {
+            os << "  easymode=1";
+            os << "  par_time_easy=" << li.par_time_easy << "," << li.par_time_easy_by;
+            os << "  par_time_normal=" << li.par_time_normal << "," << li.par_time_normal_by;
+        }
+        else
+            os << "  par_time=" << li.par_time_easy << "," << li.par_time_easy_by;
+        if (li.intelligence > 0) 
+            os << "  int=" << li.intelligence;
+        if (li.dexterity > 0) 
+            os << "  dex=" << li.dexterity;
+        if (li.patience > 0) 
+            os << "  pat=" << li.patience;
+        if (li.knowledge > 0) 
+            os << "  kno=" << li.knowledge;
+        if (li.speed > 0) 
+            os << "  spe=" << li.speed;
+        os << " }\n";
+    }
+}
+
 void LevelPack_Enigma::reinit()
 {
     if (m_initfile == "") 
@@ -337,7 +383,75 @@ void LevelPack_Enigma::load_level (size_t index)
     }
 }
 
-
+/* -------------------- LevelPack_History -------------------- */
+
+LevelPack_History::LevelPack_History (const string &initfile, const string &n)
+{
+    LevelPack_Enigma::m_initfile = initfile;
+    LevelPack_Enigma::m_name = n;
+    reinit();
+}
+
+void LevelPack_History::addHistory(LevelPack *orgLevelpack, unsigned orgIndex) {
+    // we need a copy of the info because we may delete the original before
+    // we add the copy if the user plays a level of the history package itself.
+    LevelInfo li = orgLevelpack->get_info(orgIndex);
+    
+    //
+    if (!orgLevelpack->usesStandardLoadLevel() && orgLevelpack != this) {
+        char txt[5];
+        // no history for commandline package - a second security check
+        if (orgLevelpack->get_name().compare("Quick Test Levels") == 0) { 
+            enigma::Log << "no history for commandline\n";
+            return;
+        }
+        snprintf(txt, sizeof(txt), "%d", orgIndex);
+        li.indexname = li.filename;
+        li.filename = "#" + orgLevelpack->get_name() + "#" + txt;
+    }
+    // insert a copy of LevelInfo into own vector
+    m_levels.erase(std::remove(m_levels.begin(), m_levels.end(), li), m_levels.end());
+    m_levels.insert(m_levels.begin(), li);
+    
+    // limit size of history
+    if (m_levels.size() > 100) 
+        m_levels.pop_back();
+    
+    // save modified history index
+    if (m_initfile == "") 
+        return;
+
+    string      filename = enigma::FindDataFile(m_initfile);
+    ofstream    os(filename.c_str());
+
+    if (!os)
+        throw XLevelPackInit ("Cannot open index file");
+        
+    save_index(os);
+}
+
+void LevelPack_History::load_level (size_t index) {
+    std::string filename = m_levels[index].filename;
+    if (filename[0] != '#') 
+        LevelPack_Enigma::load_level (index);
+    else {
+        unsigned int posSecondHash = filename.find('#',1);
+        if (posSecondHash == string::npos)
+            throw XLevelLoading("Bad filename in history index: " + filename );
+        std::string packName = filename.substr(1, posSecondHash -1);
+        LevelPack *lp = FindLevelPack(packName);
+        if (lp != NULL) {
+            std::string levelNumber = filename.substr(posSecondHash + 1);
+            lp->load_level(atoi(levelNumber.c_str()));
+        }
+        else {
+            throw XLevelLoading("Missing levelpack for history index: " + filename );
+        }
+    }
+    
+}
+
+
 /* -------------------- LevelPack_CommandLine -------------------- */
 
 
@@ -446,6 +560,7 @@ void LevelPack_Zipped::load_level (size_t index)
 
 // contains all levels packs added by AddLevelPack and AddZippedLevelPack
 static set<string> addedLevelPacks;
+static LevelPack_History *theHistory;
 
 void levels::AddLevelPack (const char *init_file, const char *name)
 {
@@ -464,6 +579,52 @@ void levels::AddLevelPack (const char *init_file, const char *name)
             enigma::Log << "Could not find level index file `" << init_file << "'\n";
         }
     }
+}
+
+void levels::AddHistoryLevelPack ()
+{
+    const char *history_file = "levels/index_history.txt";
+    if (addedLevelPacks.find(history_file) == addedLevelPacks.end()) {
+        string filename;
+        if (!FindFile(history_file, filename)) {
+            // no history - try to create an empty one
+            string levelPath;
+
+            if (char *home = getenv ("HOME")) {
+                levelPath = home;
+                levelPath += "/.enigma/levels";
+                if (!ecl::FolderExists (levelPath))
+                    ecl::FolderCreate (levelPath);
+                filename = home;
+                filename += "/.enigma/";
+                filename += history_file;
+                ofstream    os(filename.c_str());
+            }
+        }
+        if (FindFile(history_file, filename)) {
+            try {
+                theHistory = new LevelPack_History (history_file, "History");
+                RegisterLevelPack (theHistory);
+                addedLevelPacks.insert(history_file);
+            }
+            catch (const XLevelPackInit &e)
+            {
+                cerr << e.get_string() << endl;
+            }
+        } else {
+            enigma::Log << "Could not find level index file `" << history_file << "'\n";
+        }
+    }
+}
+
+void levels::AddHistory(LevelPack *levelpack, unsigned index) {
+    if(theHistory != NULL) {
+        theHistory->addHistory(levelpack, index);
+    }
+}
+
+bool levels::IsHistory(LevelPack *levelpack) {
+    return (theHistory == levelpack);
 }
 
 void levels::AddSimpleLevelPack (const std::vector<std::string> &levels, 

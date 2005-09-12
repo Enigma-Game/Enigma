@@ -948,8 +948,12 @@ void client::Stop() {
 void client::Msg_AdvanceLevel (levels::LevelAdvanceMode mode) {
     Level level (server::CurrentLevelPack, server::CurrentLevel);
 
-    if (advance_level (level, mode))
+    if (advance_level (level, mode)) {
+        // log last played level
+        levels::AddHistory(server::CurrentLevelPack, server::CurrentLevel);
+        // now we may advance
         server::Msg_LoadLevel (level.get_index());
+    }
     else
         client::Msg_Command("abort");
 }
