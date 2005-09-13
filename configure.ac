@@ -231,10 +231,12 @@ AC_CONFIG_FILES([Makefile m4/Makefile  intl/Makefile
 	   src/Makefile
 	   tools/Makefile
 	   etc/enigma.spec
-	   etc/mingw32-dist.sh
 	   etc/enigma.nsi
 	   po/Makefile.in
 ])
+
+AC_CONFIG_FILES([etc/mingw32-dist.sh],[chmod +x etc/mingw32-dist.sh])
+
 AC_OUTPUT
 
 AC_MSG_RESULT([

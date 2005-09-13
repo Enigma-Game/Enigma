@@ -7,8 +7,23 @@ these programs:
     * GNU Autotools (autoconf >= 2.5, automake)
     * ImageMagick
 
-You can pass the '--build-tools' flag to the configure script to build
+You can pass the '--enable-tools' flag to the configure script to build
 a few additional programs that may be useful if you intend to seriously
 play with Enigma's internals.
 
+
+FAQ - Notes
+
+- unreadable characters in sources --- utf8 coded sources like menu.cc, *.po 
+
+GCC incl 4.0 does not support standard C++ unicode escapes like "\u00E7" as a 
+french cedille. But GCC accepts code written coded as utf8.
+Please configure your editor to read and write utf8.
+
+- enigma.pot as a generated file in repository
+enigma.pot is made if missing and on explicit command (make dist ) but not
+on standard make due to performance issues. If not in repository enigma.pot 
+would be regenerated once after checkout with an update of all *.po. 
+Further changes would be ignored and all resulting *.po would be recommited 
+into the repository!
 

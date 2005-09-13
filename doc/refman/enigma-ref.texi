@@ -489,15 +489,15 @@ Syntax:
 
 @example
 <actors>
-  <actor kind=@"ac-blackball@" x=@"10.5@" y=@"5.5@" />
+  <actor kind="ac-blackball" x="10.5" y="5.5" />
 </actors>
 
-<actors difficulty=@"hard@">
-  <actor kind=@"ac-killerball" x=@"3@" y=@"4@" attribs=@"controllers=3@" />
+<actors difficulty="hard">
+  <actor kind="ac-killerball" x="3" y="4" attribs="controllers=3" />
 </actors>
 
-<actors difficulty=@"easy@">
-  <actor kind=@"ac-killerball" x=@"3@" y=@"4@" attribs=@"controllers=0@" />
+<actors difficulty="easy">
+  <actor kind="ac-killerball" x="3" y="4" attribs="controllers=0" />
 </actors>
 @end example
 
@@ -511,8 +511,8 @@ syntax looks like this:
 
 @example
 <floors>
-  <row y=@"yy@"> ... </row>
-  <floor kind=@"name@" x=@"xx@" y=@"yy@" attribs=@"attriblist@" />
+  <row y="yy"> ... </row>
+  <floor kind="name" x="xx" y="yy" attribs="attriblist" />
 </floor>
 @end example
 
@@ -526,7 +526,7 @@ screen.  An example looks like this:
 
 @example
 <floors>
-  <row y=@"10@">abyss 10 water # abyss 10 </row>
+  <row y="10">abyss 10 water # abyss 10 </row>
 </floors>
 @end example
 
@@ -538,7 +538,7 @@ once, and then finish with another eleven abysses.
 Here's another, more advanced, example for a row of items:
 @example
 <items>
-  <row y=@"10@">-10 hammer - - blackbomb - # -5 3</row>
+  <row y="10">-10 hammer - - blackbomb - # -5 3</row>
 </items>
 @end example
 Read this as follows: skip 10 fields, put one hammer, skip two fields
@@ -568,7 +568,7 @@ you must place objects individually, using either @code{<floor ... />},
 @example
 <stones>
   ...
-  <stone kind=@"st-switch@" x=@"2@" y=@"2@" attribs=@"action='openclose', target='door1'@" />
+  <stone kind="st-switch" x="2" y="2" attribs="action='openclose', target='door1'" />
   ...
 </stones>
 @end example
@@ -592,7 +592,7 @@ Syntax:
 
 @example
 <rubberbands>
-  <rubberband from=@"objname@" to=@"objname@" strength=@"12@" length=@"5@" minlen=@"0@" />
+  <rubberband from="objname" to="objname" strength="12" length="5" minlen="0" />
 </rubberbands>
 @end example
 
