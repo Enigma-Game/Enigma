@@ -47,7 +47,7 @@ namespace gui
     class ActionListener {
     public:
         virtual ~ActionListener() {}
-        virtual void on_action(Widget */*w*/) {};
+        virtual void on_action(Widget *) {};
     };
 
 /* -------------------- GUI Widgets -------------------- */
@@ -214,7 +214,7 @@ namespace gui
 
         int get_spacing () const;
 
-        void get_size (const Widget *w, int &w, int &h) const;
+        void get_size (const Widget *widget, int &w, int &h) const;
 
         // ---------- Widget interface ----------
         virtual void move (int x, int y);

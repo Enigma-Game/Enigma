@@ -142,7 +142,7 @@ namespace ecl
         const_iterator end() const  { return m_rectangles.end(); }
 
         void clear()                { m_rectangles.clear(); }
-        int  size() const           { return m_rectangles.size(); }
+        size_t size() const           { return m_rectangles.size(); }
         bool empty() const          { return m_rectangles.empty(); }
         void push_back(const Rect& r);
         void pop_back();

@@ -231,6 +231,10 @@ double enigma::to_double(const Value &v) {
     }
 }
 
+#ifdef _MSC_VER
+#define snprintf _snprintf
+#endif
+
 const char * enigma::to_string(const Value &v) {
     static char buf[30];
     switch (v.get_type()) {

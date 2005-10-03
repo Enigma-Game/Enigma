@@ -117,10 +117,10 @@ void Item::init_model()
         set_model(tr.name);
 }
 
-void Item::stone_change (Stone */*st*/) {
+void Item::stone_change (Stone * /*st*/) {
 }
 
-void Item::on_stonehit (Stone */*st*/) {
+void Item::on_stonehit (Stone * /*st*/) {
 }
 
 void Item::on_laserhit(Direction) 
@@ -130,7 +130,7 @@ void Item::on_laserhit(Direction)
 }
 
 
-void Item::on_drop (Actor */*a*/) {
+void Item::on_drop (Actor * /*a*/) {
 }
 
 void Item::drop (Actor *a, GridPos p) {
@@ -139,7 +139,7 @@ void Item::drop (Actor *a, GridPos p) {
 }
 
 
-void Item::on_pickup (Actor */*a*/) {
+void Item::on_pickup (Actor * /*a*/) {
 }
 
 bool Item::can_drop_at (GridPos p) {
@@ -150,7 +150,7 @@ ItemAction Item::activate(Actor* /*a*/, GridPos /*p*/) {
     return ITEM_DROP; 
 }
 
-void Item::add_force(Actor */*a*/, V2 &) { 
+void Item::add_force(Actor *, V2 &) { 
 }
 
 bool Item::actor_hit(Actor *actor) 
@@ -251,7 +251,7 @@ namespace
             return ITEM_KILL;
         }
 
-        void on_stonehit(Stone */*st*/) {
+        void on_stonehit(Stone *) {
             replace(it_squashed);
         }
     public:
@@ -318,7 +318,7 @@ namespace
             replace(it_cherry);
         }
 
-        void on_stonehit(Stone */*st*/) {
+        void on_stonehit(Stone *) {
             replace(it_squashed);
         }
 
@@ -514,7 +514,7 @@ namespace
             replace (it_umbrella);
         }
 
-        void on_stonehit(Stone */*st*/) {
+        void on_stonehit(Stone *) {
             replace(it_coin2);
         }
 
@@ -534,7 +534,7 @@ namespace
             replace (it_hammer);
         }
 
-        void on_stonehit(Stone */*st*/) {
+        void on_stonehit(Stone *) {
             replace(it_coin4);
         }
 
@@ -669,7 +669,7 @@ HillHollow::HillHollow (Type t)
 : m_type(t)
 {}
 
-void HillHollow::on_stonehit(Stone */*st*/)
+void HillHollow::on_stonehit(Stone *)
 {
     shovel();
 }
@@ -995,7 +995,7 @@ namespace
         CLONEOBJ(Document);
         DECL_TRAITS;
 
-        ItemAction activate(Actor */*a*/, GridPos)
+        ItemAction activate(Actor *, GridPos)
         {
             string txt;
             if (string_attrib ("text", &txt))
@@ -1239,7 +1239,7 @@ namespace
 
         void on_message (const Message &m) {
             if (m.message == "signal") {
-                PerformAction (this, to_double (m.value));
+                PerformAction (this, to_double (m.value) != 0.0);
             } 
             else if (m.message == "init") {
                 update_state();
@@ -1345,7 +1345,7 @@ namespace
         SeedWood()
         {}
     };
-    DEF_TRAITSR(SeedWood, "it-seed", it_seed, 0.2);
+    DEF_TRAITSR(SeedWood, "it-seed", it_seed, 0.2f);
 
     class SeedNowood : public Seed {
         CLONEOBJ(SeedNowood);
@@ -1358,7 +1358,7 @@ namespace
         SeedNowood()
         {}
     };
-    DEF_TRAITSR(SeedNowood, "it-seed_nowood", it_seed_nowood, 0.2);
+    DEF_TRAITSR(SeedNowood, "it-seed_nowood", it_seed_nowood, 0.2f);
 
     class SeedVolcano : public Seed {
         CLONEOBJ(SeedVolcano);
@@ -1371,7 +1371,7 @@ namespace
         SeedVolcano()
         {}
     };
-    DEF_TRAITSR(SeedVolcano, "it-seed_volcano", it_seed_volcano, 0.2);
+    DEF_TRAITSR(SeedVolcano, "it-seed_volcano", it_seed_volcano, 0.2f);
 }
 
 
@@ -1986,7 +1986,7 @@ namespace
                 return "it-yanying";
         }
 
-        ItemAction activate(Actor */*a*/, GridPos p) {
+        ItemAction activate(Actor *, GridPos p) {
             // Switch to other marble
             player::SwapPlayers();
             // play_sound("switch");   // don't! wrong coordinates!
@@ -2071,7 +2071,7 @@ namespace
             return Item::actor_hit(a);
         }
 
-        void on_drop(Actor */*a*/) { activate(); }
+        void on_drop(Actor *) { activate(); }
 
         void activate() {
             active=true;
@@ -2130,11 +2130,11 @@ namespace
     private:
         Crack(int type=0) 
         : state(IDLE), anim_end(false)
-	{
-	    set_attrib("type", type);
-	    set_attrib("fixed", 0.0);
+	    {
+	        set_attrib("type", type);
+	        set_attrib("fixed", 0.0);
             set_attrib("brittleness", Value());
-	}
+	    }
 
         enum State { IDLE, CRACKING1, CRACKING2 } state;
         bool anim_end;
@@ -2143,7 +2143,7 @@ namespace
             int t = int_attrib("type");
             return ecl::Clamp(t, 0, 4);
         }
-	bool is_fixed() const { return int_attrib("fixed"); }
+	    bool is_fixed() const { return int_attrib("fixed") != 0; }
 
         void init_model() {
             if (int t=get_type()) {
@@ -2823,7 +2823,7 @@ namespace
                 int value = to_int(val);
 //                 warning("received signal with value %i", value);
                 if (value)
-                    PerformAction(this, type);
+                    PerformAction(this, type != 0);
             }
         }
 
@@ -2975,7 +2975,7 @@ namespace
             if (!wears_glasses(a)) // no glasses before
                 BroadcastMessage("glasses", 1.0, GRID_STONES_BIT);
         }
-        void on_stonehit(Stone */*st*/) {
+        void on_stonehit(Stone *) {
             sound_event ("shatter");
             replace (it_glasses_broken);
         }
@@ -3063,7 +3063,7 @@ namespace
             if (server::GameCompatibility == enigma::GAMET_PEROXYD) {
                 // Crosses can be used to invert signals in Per.Oxyd
                 if (m.message == "signal") {
-                    PerformAction (this, 1-to_double (m.value));
+                    PerformAction (this, to_double (m.value) != 1.0);
                 }
             }
         }

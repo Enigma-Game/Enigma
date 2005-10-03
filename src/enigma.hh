@@ -256,7 +256,7 @@ namespace enigma
     }
 
     inline bool has_dir(DirectionBits db, Direction dir) {
-        return db & to_bits(dir);
+        return (db & to_bits(dir)) != 0;
     }
 
 

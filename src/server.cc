@@ -114,19 +114,19 @@ namespace
     ENetHost           *network_host       = 0;
 }
 
-void load_level (unsigned ilevel)
+void load_level (size_t ilevel)
 {
     if (levelpack) {
         server::PrepareLevel();
 
         // first set default compatibility mode
-        // (may be overidden by load_level (from lua))
+        // (may be overidden by load_level (from Lua))
         const levels::LevelInfo &info = levelpack->get_info(ilevel);
         server::GameCompatibility = info.type;
 
         try {
             levelpack->load_level (ilevel);
-            server::CurrentLevel = ilevel;
+            server::CurrentLevel = static_cast<unsigned> (ilevel);
             game::ResetGameTimer();
 
             world::InitWorld();
@@ -316,7 +316,7 @@ void server::Msg_SetLevelPack (const std::string &name)
     }
 }
 
-void server::Msg_LoadLevel (unsigned ilevel)
+void server::Msg_LoadLevel (size_t ilevel)
 {
     load_level(ilevel);
 }
@@ -338,11 +338,11 @@ namespace enigma_server {
     using levels::LevelInfo;
 
     class GlobalLevelIter {     // iterates repeatedly through ALL levels
-        int levelnr, packnr;
-        int levels, packs;
+        size_t levelnr, packnr;
+        size_t levels, packs;
 
     public:
-        GlobalLevelIter(LevelPack *lp, int ilevel)
+        GlobalLevelIter(LevelPack *lp, size_t ilevel)
             : levelnr(ilevel),
               packnr(0),
               levels(lp->size()),
@@ -366,16 +366,16 @@ namespace enigma_server {
         LevelPack *getPack() const {
             return enigma_levels::LevelPacks[packnr];
         }
-        int getLevel() const { return levelnr; }
+        size_t getLevel() const { return levelnr; }
 
         const levels::LevelInfo& getInfo() const {
             return getPack()->get_info(getLevel());
         }
     };
 
-    void Msg_Jumpto(LevelPack *lp, int ilevel) {
+    void Msg_Jumpto(LevelPack *lp, size_t ilevel) {
         CurrentLevelPack = lp;
-        CurrentLevel = ilevel; // XXX
+        CurrentLevel = static_cast<unsigned> (ilevel); // XXX
 
         Msg_SetLevelPack (lp->get_name());
         Msg_LoadLevel (ilevel);
@@ -393,7 +393,7 @@ namespace enigma_server {
 
         if (comma != string::npos) {
             int packnr = atoi(dest.c_str())-1;
-            int packs  = enigma_levels::LevelPacks.size();
+            int packs  = static_cast<int> (enigma_levels::LevelPacks.size());
             int ilevel = atoi(dest.c_str()+comma+1)-1;
 
             if (packnr >= 0 && packnr < packs) {

@@ -696,6 +696,10 @@ void lua::ShutdownGlobal()
     global_state = 0;
 }
 
+#ifdef _MSC_VER
+#define snprintf _snprintf
+#endif
+
 
 
 lua_State *lua::InitLevel() 

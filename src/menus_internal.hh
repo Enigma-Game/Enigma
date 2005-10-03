@@ -64,7 +64,7 @@ namespace
             if (widgets.empty())
                 return true;
 
-            int count       = widgets.size();
+            int count       = (int) widgets.size();
             int max_columns = (m_targetarea.w+m_vspacing) / (m_widgetsize.w+m_vspacing);
             int max_rows    = (m_targetarea.h+m_hspacing) / (m_widgetsize.h+m_hspacing);
             int min_columns = ((count-1) / max_rows)+1;
@@ -247,7 +247,7 @@ namespace
         void start();
         void end();
 
-        void set_current(int newsel) { set_selected(ifirst, newsel); }
+        void set_current (size_t newsel);
         void next_unsolved();
 
         bool on_event(const SDL_Event &e);
@@ -265,7 +265,7 @@ namespace
         //---------- Private functions ----------//
         void scroll_up(int lines);
         void scroll_down(int lines);
-        void set_selected (int newfirst, int newsel);
+        void set_selected (size_t newfirst, size_t newsel);
         void recalc_available ();
         Surface *get_preview_image (const Level &);
         void draw_level_preview (ecl::GC &, const Level &, int x, int y);
@@ -278,13 +278,13 @@ namespace
         LevelPreviewCache  &preview_cache;
         levels::LevelPack *level_pack; // The current level pack
 
-        int               ifirst; // Index of "upper left" level
-        int               iselected; // Index of selected level
-        int               max_available; // Index of the last available level (one can choose out of x unsolved levels)
-        int               width, height;
+        size_t             ifirst; // Index of "upper left" level
+        size_t             iselected; // Index of selected level
+        int                max_available; // Index of the last available level (one can choose out of x unsolved levels)
+        int                width, height;
         vector<ecl::Rect>  m_areas; // Screen areas occupied by level previews
-        ActionListener   *listener;
-        int buttonw, buttonh;
+        ActionListener    *listener;
+        int                buttonw, buttonh;
     };
 
 /* -------------------- LevelMenu -------------------- */

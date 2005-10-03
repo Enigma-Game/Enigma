@@ -88,14 +88,15 @@ namespace
 /* -------------------- GameMenu -------------------- */
 
 GameMenu::GameMenu (int zoomxpos_, int zoomypos_)
-: resume(new gui::StaticTextButton(N_("Resume Level"), this)),
-  restart(new gui::StaticTextButton(N_("Restart Level"), this)),
-  options(new gui::StaticTextButton(N_("Options"), this)),
-  abort(new gui::StaticTextButton(N_("Abort Level"), this)),
-  zoomed(0),
+: zoomed(0),
   zoomxpos(zoomxpos_),
   zoomypos(zoomypos_)
 {
+    resume  = new gui::StaticTextButton(N_("Resume Level"), this);
+    restart = new gui::StaticTextButton(N_("Restart Level"), this);
+    options = new gui::StaticTextButton(N_("Options"), this);
+    abort   = new gui::StaticTextButton(N_("Abort Level"), this);
+
     add(resume,     Rect(0,0,150,40));
     add(restart,    Rect(0,45,150,40));
 #if 1
@@ -853,6 +854,10 @@ void Client::level_finished()
     else 
         m_state = cls_finished;
 }
+
+#ifdef _MSC_VER
+#define snprintf _snprintf
+#endif
 
 void Client::level_loaded (unsigned ilevel)
 {

@@ -115,7 +115,7 @@ namespace world
     class ConstantForce : public ForceField {
     public:
         ConstantForce(V2 f=V2()) : force(f) {}
-        void add_force(Actor */*a*/, V2 &f) {
+        void add_force(Actor * /*a*/, V2 &f) {
             f += force;
         }
         void set_force (const V2 &force_) { force = force_; }

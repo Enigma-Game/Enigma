@@ -159,7 +159,7 @@ namespace world
         double get_mouseforce () const { return mouseforce; }
 
         bool controlled_by(int player) const {
-            return get_controllers() & (1+player);
+            return (get_controllers() & (1+player)) != 0;
         }
 
         const GridPos &get_gridpos() const { return gridpos; }

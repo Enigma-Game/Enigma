@@ -45,8 +45,8 @@ namespace ecl
         int seekr(long pos, SeekMode whence);
         int seekw(long pos, SeekMode whence);
 
-        long get_rpos() const           { return rpos-buf; }   
-        long get_wpos() const           { return wpos-buf; }
+        ptrdiff_t get_rpos() const           { return rpos-buf; }   
+        ptrdiff_t get_wpos() const           { return wpos-buf; }
         
         size_t size() const             { return sz; }
         const char* data() const        { return buf; };
@@ -60,7 +60,7 @@ namespace ecl
     
         bool good() const               { return iostate==0; }
         bool fail() const               { return iostate & FAILBIT; }
-        bool eof() const                { return iostate & EOFBIT; }
+        bool eof() const                { return (iostate & EOFBIT) != 0; }
         void clear_state(State st=GOODBIT) { iostate = st; }
         State state() const             { return iostate; }
       private:

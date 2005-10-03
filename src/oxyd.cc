@@ -137,7 +137,7 @@ namespace
         return GridLoc (tab[a.getGridType()], GridPos(a.getX(), a.getY()));
     }
 
-    string patchfile_name (enigma::GameType t, int index, bool twoplayers)
+    string patchfile_name (enigma::GameType t, size_t index, bool twoplayers)
     {
         string patchfile = "levels/patches/";
         switch (t) {
@@ -171,6 +171,24 @@ namespace
 
 
 /* -------------------- CommandString implementation -------------------- */
+
+CommandString::CommandString(const string &cmd) 
+: m_cmd(cmd),
+  m_iter (m_cmd.begin())
+{}
+
+int CommandString::get_char () {
+    if (m_iter == m_cmd.end())
+        return 0;
+    return *m_iter++;
+}
+
+bool CommandString::get_bool (bool dflt) {
+    int c = get_char();
+    if (c == 0xf8 || c == 0xf9)
+        return  (c == 0xf9);
+    return dflt;
+}
 
 
 int CommandString::get_int (int min, int max, int dflt)
@@ -208,7 +226,7 @@ int CommandString::get_int (int min, int max, int dflt)
 
 /* -------------------- OxydLoader -------------------- */
 
-OxydLoader::OxydLoader (const Level &level_, 
+OxydLoader::OxydLoader (const OxydLib::Level &level_, 
                         const LoaderConfig config_)
 : level (level_),
   config (config_)
@@ -459,16 +477,16 @@ void OxydLoader::load_actors ()
 {
     using world::MakeActor;
 
-    int  nmeditationmarbles = 0;
-    int  nmarbles           = level.getNumMarbles();
-    bool have_black_marble  = false;
+    int     nmeditationmarbles = 0;
+    size_t  nmarbles           = level.getNumMarbles();
+    bool    have_black_marble  = false;
 
-    for (int i=0; i<nmarbles; ++i)
+    for (size_t i=0; i<nmarbles; ++i)
         if (level.getMarble(i).getMarbleType() == MarbleType_Black)
             have_black_marble                   = true;
 
 
-    for (int i=0; i<nmarbles; ++i) {
+    for (size_t i=0; i<nmarbles; ++i) {
         const Marble &marble = level.getMarble(i);
         double        x      = marble.getX()/32.0;
         double        y      = marble.getY()/32.0;
@@ -841,7 +859,7 @@ LP_OxydExtra::LP_OxydExtra (DatFile *dat)
 }
 
 
-void LP_OxydExtra::load (const Level &level)
+void LP_OxydExtra::load (const OxydLib::Level &level)
 {
     LoaderConfig c (needs_twoplayers(), 
                     get_gamemode(), 
@@ -864,7 +882,7 @@ LP_OxydMagnum::LP_OxydMagnum(OxydVersion version, DatFile *dat)
 {
 }
 
-void LP_OxydMagnum::load (const Level &level)
+void LP_OxydMagnum::load (const OxydLib::Level &level)
 {
     LoaderConfig c (needs_twoplayers(), 
                     get_gamemode(), 
@@ -934,6 +952,10 @@ GameInfo::GameInfo()
 : ver(OxydVersion_Invalid), datfile(0), m_present(false)
 {}
 
+GameInfo::~GameInfo() {
+	delete datfile;
+}
+
 
 GameInfo::GameInfo (OxydVersion ver_, const string &game_, const string &datfile_name_)
 : ver(ver_), game(game_), datfile(0), /*datfile_name(datfile_name_), */m_present(false)
@@ -975,13 +997,15 @@ void GameInfo::openDatFile()
 
 LevelPack *GameInfo::makeLevelPack(bool twoplayers)
 {
-    if (datfile == 0 || ver == OxydVersion_Invalid)
+    if (datfile == 0)
         return 0;
 
     if (twoplayers && (ver == OxydVersion_OxydExtra ||
                        ver == OxydVersion_OxydMagnum ||
                        ver == OxydVersion_OxydMagnumGold))
+    {
         return 0;           // no twoplayer levels available
+    }
 
     switch (ver) {
     case OxydVersion_Oxyd1:
@@ -993,9 +1017,9 @@ LevelPack *GameInfo::makeLevelPack(bool twoplayers)
     case OxydVersion_OxydMagnum:
     case OxydVersion_OxydMagnumGold:
         return new LP_OxydMagnum (ver, datfile);
+
     default:
-        assert(0);
-        break;
+        return 0;
     }
 }
 

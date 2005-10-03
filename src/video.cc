@@ -171,7 +171,7 @@ bool Video_SDL::init(int w, int h, int bpp, bool fullscreen)
 bool Video_SDL::is_fullscreen() const 
 { 
     if (sdlScreen)
-        return sdlScreen->flags & SDL_FULLSCREEN; 
+        return (sdlScreen->flags & SDL_FULLSCREEN) != 0; 
     return false;
 }
 
@@ -611,7 +611,7 @@ const string& video::GetCaption()
 
 void video::UpdateGamma()
 {
-    double gamma = options::GetDouble ("Gamma");
+    float gamma = static_cast<float> (options::GetDouble ("Gamma"));
     SDL_SetGamma (gamma, gamma, gamma);
 }
 

@@ -120,8 +120,8 @@ namespace world
 
         virtual void   actor_hit (const StoneContact &sc);
         virtual void   actor_touch (const StoneContact &sc);
-        virtual void   actor_inside (Actor */*a*/) {}
-        virtual void   actor_contact (Actor */*a*/) {}
+        virtual void   actor_inside (Actor * /*a*/) {}
+        virtual void   actor_contact (Actor * /*a*/) {}
 
         virtual void   on_move();
         virtual void   on_floor_change() {}

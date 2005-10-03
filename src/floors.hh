@@ -61,7 +61,7 @@ namespace world
 
         // Floor interface
         virtual ecl::V2 process_mouseforce (Actor *a, ecl::V2 force);
-        virtual void add_force(Actor */*a*/, ecl::V2 &/*f*/) { }
+        virtual void add_force(Actor *, ecl::V2 &/*f*/) { }
 
         virtual void on_drop (Item *) {}
         virtual void on_pickup (Item *) {}
@@ -80,7 +80,7 @@ namespace world
         display::Model *get_model ();
         void kill_model (GridPos p);
     private:
-        virtual void on_actorhit(Actor */*a*/) {}
+        virtual void on_actorhit(Actor * /*a*/) {}
         FloorTraits traits;
     };
 

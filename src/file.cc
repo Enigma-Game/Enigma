@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2002,2003,2004 Daniel Heck
+ * Copyright (C) 2002,2003,2004,2005 Daniel Heck
  *
  * This program is free software; you can redistribute it and/or
  * modify it under the terms of the GNU General Public License
@@ -24,8 +24,12 @@
 
 #include "ecl_system.hh"
 
+#include "config.h"
+
 #include <sys/types.h>
+#ifdef HAVE_DIRENT_H
 #include <dirent.h>
+#endif
 #include <algorithm>
 #include <iostream>
 #include <fstream>
@@ -33,6 +37,97 @@
 using namespace file;
 using namespace ecl;
 using namespace std;
+
+
+namespace
+{
+    struct DirEntry {
+	std::string name;
+	bool is_dir;
+    };
+
+/* -------------------- DirIter (POSIX) -------------------- */
+
+#ifdef HAVE_DIRENT_H
+
+    class DirIter {
+    public:
+        DirIter (const std::string &path) : m_dir (NULL), m_entry (NULL) {
+            open (path);
+        }
+        ~DirIter () {
+            if (m_dir != NULL)
+                closedir (m_dir);
+        }
+
+        bool open (const std::string &path) {
+            m_dir = opendir (path.c_str());
+            return m_dir != 0;
+        }
+        bool get_next (DirEntry &entry) {
+            m_entry = readdir(m_dir);
+            if (m_entry != NULL) {
+                entry.name = m_entry->d_name;
+                entry.is_dir = false;
+                return true;
+            }
+            return false;
+        }
+    private:
+        DIR           *m_dir;
+        struct dirent *m_entry;
+    };
+
+
+/* -------------------- DirIter (Win32) -------------------- */
+
+#elif defined (_MSC_VER)
+
+#include <windows.h>
+
+    class DirIter {
+    public:
+        DirIter (const std::string &path) 
+        : m_handle (INVALID_HANDLE_VALUE)
+        {
+            open (path);
+        }
+        ~DirIter () {
+            close();
+        }
+
+        bool open (const std::string &path) {
+            std::string glob (path);
+            glob += "\\*.*";
+            m_handle = FindFirstFile (glob.c_str(), &m_dir);
+            return m_handle != INVALID_HANDLE_VALUE;
+        }
+        bool get_next (DirEntry &entry) {
+            if (m_handle != INVALID_HANDLE_VALUE) {
+                entry.name = m_dir.cFileName;
+                entry.is_dir = false;
+                if (!FindNextFile (m_handle, &m_dir)) 
+                    close();
+                return true;
+            }
+            return false;
+        }
+    private:
+        void close () {
+            if (m_handle != INVALID_HANDLE_VALUE) {
+                FindClose (m_handle);
+                m_handle = INVALID_HANDLE_VALUE;
+            }
+        }
+
+        // Variables.
+        WIN32_FIND_DATA m_dir;
+        HANDLE	        m_handle;
+    };
+
+#endif
+
+}
 
 
 /* -------------------- FileHandle_Dir -------------------- */
@@ -114,6 +209,8 @@ FileHandle *GameFS::find_file (const FileName &n)
     return 0;
 }
 
+
+
 std::list <string>
 GameFS::find_files(const string &folder, const string &filename) const
 {
@@ -123,26 +220,22 @@ GameFS::find_files(const string &folder, const string &filename) const
         const FSEntry &e = entries[i];
 
         switch (e.type) {
-        case FS_DIRECTORY:
-            {
-                string complete_name = e.location + ecl::PathSeparator + folder;
-                if (ecl::FolderExists(complete_name))
-                {
-                    DIR *dir = opendir( complete_name.c_str());
-                    struct dirent *entry;
-                    while((entry = readdir(dir)) != NULL)
-                    {
-                        if( strcmp( entry->d_name, ".") != 0 && strcmp( entry->d_name, "..") != 0)
-                        {
-                            string tmp_name = complete_name + ecl::PathSeparator
-                                + string(entry->d_name) + ecl::PathSeparator + filename;
-                            if (ecl::FileExists (tmp_name))
-                                matches.push_back (tmp_name);
-                        }
+        case FS_DIRECTORY: {
+            string complete_name = e.location + ecl::PathSeparator + folder;
+            if (ecl::FolderExists(complete_name)) {
+                DirIter iter (complete_name);
+                DirEntry entry;
+                while (iter.get_next (entry)) {
+                    if (entry.name != "." && entry.name != "..") {
+                        string tmp_name = complete_name + ecl::PathSeparator
+                            + entry.name + ecl::PathSeparator + filename;
+                        if (ecl::FileExists (tmp_name))
+                            matches.push_back (tmp_name);
                     }
-                    closedir(dir);
                 }
-            } break;
+            }
+            break;
+        }
         case FS_ZIPFILE:
             break;
         }

@@ -529,7 +529,7 @@ void LevelPack_Zipped::reinit()
             throw XLevelPackInit ("Invalid level pack: " + m_filename);
         }
     }
-    catch (std::exception &x) {
+    catch (std::exception &) {
         throw XLevelPackInit ("Error reading from .zip file: " + m_filename);
     }
 }
@@ -549,7 +549,7 @@ void LevelPack_Zipped::load_level (size_t index)
     catch (XLevelLoading &) {
         throw;                  // rethrow
     }
-    catch (std::exception &x) {
+    catch (std::exception &) {
         throw XLevelLoading("Unknown error in loading from ZIP file: " + 
                             m_filename + "/" + filename);
     }

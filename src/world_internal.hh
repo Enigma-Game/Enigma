@@ -21,7 +21,7 @@
 
 namespace world
 {
-    class Field;
+    struct Field;
     struct Signal;
 
     typedef ecl::Array2<Field> FieldArray;
@@ -281,7 +281,7 @@ namespace world
         void find_stone_contacts (Actor *a, StoneContactList &cl);
         void handle_stone_contact (StoneContact &sc);
         void handle_actor_contacts ();
-        void handle_actor_contact (unsigned a1, unsigned a2);
+        void handle_actor_contact (size_t a1, size_t a2);
         void handle_contacts (unsigned actoridx);
         void handle_delayed_impulses (double dtime);
 

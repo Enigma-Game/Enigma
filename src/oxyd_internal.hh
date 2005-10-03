@@ -48,6 +48,8 @@ namespace oxyd
 
 /* -------------------- OxydLoader -------------------- */
 
+    /** This data structure is used to encode differences between different
+        Oxyd versions and other .*/
     struct LoaderConfig {
         // Variables
         const char    *oxyd_flavor;
@@ -88,7 +90,6 @@ namespace oxyd
 
         virtual ~OxydLoader()
         {}
-
 
         void load();
 
@@ -219,28 +220,17 @@ namespace oxyd
 
     /* -------------------- CommandString -------------------- */
 
+    /** A class used to decode "command strings" used for 
+        settings in Oxyd levels. */
     class CommandString {
     public:
-        CommandString(const string &cmd) 
-        : m_cmd(cmd),
-          m_iter (m_cmd.begin())
-        {}
+        CommandString(const string &cmd);
 
         int get_int (int min, int max, int dflt);
-
-        int get_char () {
-            if (m_iter == m_cmd.end())
-                return 0;
-            return *m_iter++;
-        }
-
-        bool get_bool (bool dflt) {
-            int c = get_char();
-            if (c == 0xf8 || c == 0xf9)
-                return  (c == 0xf9);
-            return dflt;
-        }
+        int get_char ();
+        bool get_bool (bool dflt);
     private:
+        // Variables
         string           m_cmd;
         string::iterator m_iter;
     };
@@ -252,11 +242,7 @@ namespace oxyd
     public:
         GameInfo();
         GameInfo (OxydVersion ver_, const string &game_, const string &datfile_name_);
-        ~GameInfo() {
-            // /*!!*/ fixme: sth goes wrong if this is deleted. why ?
-	    if (datfile)
-		delete datfile;
-        }
+        ~GameInfo();
 
         bool is_present() const { return m_present; }
         DatFile *getDatfile() { return datfile; }
@@ -269,6 +255,7 @@ namespace oxyd
         string       datfile_path;
         bool         m_present;
 
+        // Private methods.
         void       openDatFile();
         LevelPack *makeLevelPack(bool twoplayer);
     };
@@ -320,8 +307,7 @@ namespace oxyd
         }
     };
 
-/* -------------------- Variables -------------------- */
-
+/* -------------------- Global Variables -------------------- */
 
     extern world::ItemID oxyd1_item_map[];
     extern const char *oxyd1_floor_map[];

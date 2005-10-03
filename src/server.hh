@@ -141,7 +141,7 @@ namespace enigma_server
 
     void Msg_SetLevelPack (const std::string &name);
 
-    void Msg_LoadLevel(unsigned levelindex);
+    void Msg_LoadLevel (size_t levelindex);
 
     /*! After loading the level, the server sends a "LevelLoaded"
       message to all clients.  The game only starts after they have

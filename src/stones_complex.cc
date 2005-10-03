@@ -346,7 +346,7 @@ namespace
         OneWayStone(Direction dir=SOUTH) : OneWayBase("st-oneway", dir) {}
     private:
         CLONEOBJ(OneWayStone);
-        virtual bool actor_may_pass (Actor */*a*/) { return true; }
+        virtual bool actor_may_pass (Actor * /*a*/) { return true; }
     };
 
 
@@ -1170,7 +1170,7 @@ void PuzzleStone::maybe_move_cluster(Cluster &c, bool is_complete,
         }
     }
 
-    server::IncMoveCounter(c.size());
+    server::IncMoveCounter (static_cast<int> (c.size()));
 }
 
 bool PuzzleStone::cluster_complete() {
@@ -1185,10 +1185,10 @@ int PuzzleStone::get_modelno() const {
 }
 
 void PuzzleStone::rotate_cluster(const Cluster &c) {
-    unsigned size = c.size();
+    size_t size = c.size();
     if (size > 1) {
         int cn = GetStone(c[size-1])->int_attrib("connections");
-        for (unsigned i=size-1; i>0; --i) {
+        for (size_t i=size-1; i>0; --i) {
             PuzzleStone *st = dynamic_cast<PuzzleStone*> (GetStone (c[i]));
             st->set_attrib ("connections", GetStone(c[i-1])->int_attrib ("connections"));
             st->init_model();
@@ -1262,12 +1262,12 @@ void PuzzleStone::message(const string& msg, const Value &val) {
         Cluster   c;
         find_row_or_column_cluster(c, get_pos(), dir, oxyd1_compatible());
 
-        int size = c.size();
+        size_t size = c.size();
 
         // warning("received 'scramble'. dir=%s size=%i", to_suffix(dir).c_str(), size);
 
         if (size >= 2) {
-            int count = IntegerRand(0, size-1);
+            int count = IntegerRand(0, static_cast<int> (size-1));
             while (count--)
                 rotate_cluster(c);
         }
@@ -1739,7 +1739,7 @@ ShogunStone::Holes ShogunStone::smallest_hole(Holes s) {
     if (s & SMALL) return SMALL;
     if (s & MEDIUM) return MEDIUM;
     if (s & LARGE) return LARGE;
-    assert(0);
+    throw levels::XLevelRuntime ("ShogunStone: internal error");
 }
 
 void ShogunStone::notify_item ()
@@ -1840,7 +1840,7 @@ namespace
         void message(const string &m, const Value &value) {
             if (m=="trigger") {
                 incoming = (value.get_type() == Value::DOUBLE)
-                    ? Direction(value.get_double()+0.1)
+                    ? Direction( static_cast<int> (value.get_double()+0.1))
                     : NODIR;
 
                 change_state(PULSING);
@@ -2147,17 +2147,21 @@ OxydStone::OxydStone()
     set_attrib("color", "0");
 }
 
-void OxydStone::message(const string &m, const Value &val) {
+void OxydStone::message(const string &m, const Value &val) 
+{
     if (m=="closeall") {
         for (unsigned i=0; i<instances.size(); ++i)
             instances[i]->change_state(CLOSING);
     }
-    else if (m=="shuffle")
+    else if (m=="shuffle") {
         shuffle_colors();
-    else if (m=="trigger" || m=="spitter")
+    }
+    else if (m=="trigger" || m=="spitter") {
 	maybe_open_stone();
-    else if (m=="signal" && to_int(val) != 0)
+    }
+    else if (m=="signal" && to_int(val) != 0) {
 	maybe_open_stone();
+    }
     else if (m=="init") {
         // odd number of oxyd stones in the level? no problem, turn a
         // random one into a fake oxyd
@@ -2168,10 +2172,11 @@ void OxydStone::message(const string &m, const Value &val) {
     }
 }
 
-void OxydStone::shuffle_colors() {
-    vector<int> closed_oxyds;
-    unsigned isize = instances.size();
-    for (unsigned i=0; i<isize; ++i) {
+void OxydStone::shuffle_colors() 
+{
+    vector<size_t> closed_oxyds;
+    size_t         isize = instances.size();
+    for (size_t i=0; i<isize; ++i) {
         if (instances[i]->state == CLOSED) {
             closed_oxyds.push_back(i);
         }
@@ -2180,7 +2185,7 @@ void OxydStone::shuffle_colors() {
     unsigned size = closed_oxyds.size();
     if (size>1) {
         for (unsigned i = 0; i<size; ++i) {
-            unsigned a = IntegerRand(0, size-2);
+            unsigned a = IntegerRand(0, static_cast<int> (size-2));
             if (a >= i) ++a;        // make a always different from j
 
             OxydStone *o1 = instances[closed_oxyds[i]];
@@ -2627,20 +2632,15 @@ bool Turnstile_Pivot_Base::rotate(bool clockwise, Object *impulse_sender) {
     }
 
     if (can_rotate) {
-        if (clockwise)
-            sound_event ("turnstileright");
-        else 
-            sound_event ("turnstileleft");
-//         if (dynamic_cast<Actor*>(impulse_sender)) {
-//         }
+        sound_event (clockwise ? "turnstileright" : "turnstileleft");
         sound_event("movesmall");
 
         active = true;
         set_anim(anim());
-	rotate_arms(arms, clockwise);
+	    rotate_arms(arms, clockwise);
         handleActorsAndItems(clockwise, impulse_sender);
 
-        PerformAction (this, 1-clockwise);
+        PerformAction (this, clockwise == 0);
         server::IncMoveCounter();
     }
     return can_rotate;
@@ -2654,7 +2654,7 @@ namespace {
             {WESTBIT, NORTHBIT, NORTHBIT, EASTBIT, EASTBIT, SOUTHBIT, SOUTHBIT, WESTBIT},
             {NORTHBIT, NORTHBIT, EASTBIT, EASTBIT, SOUTHBIT, SOUTHBIT, WESTBIT, WESTBIT}
         };
-        return arms & neededArm[cw][field];
+        return (arms & neededArm[cw][field]) != 0;
     }
 }
 
@@ -2689,13 +2689,13 @@ void Turnstile_Pivot_Base::handleActorsAndItems(bool clockwise, Object *impulse_
     if (!GetActorsInRange(pv_pos.center(), 1.879, actorsInRange))
         return;
 
-    vector<Actor*>::iterator i = actorsInRange.begin(), end = actorsInRange.end();
-    for (; i != end; ++i) {
-        Actor *ac = *i;
+    vector<Actor*>::iterator iter = actorsInRange.begin(), end = actorsInRange.end();
+    for (; iter != end; ++iter) {
+        Actor *ac = *iter;
         const V2 &ac_center = ac->get_pos();
         GridPos   ac_pos(ac_center);
-        int       dx        = ac_pos.x-pv_pos.x;
-        int       dy        = ac_pos.y-pv_pos.y;
+        int dx  = ac_pos.x-pv_pos.x;
+        int dy  = ac_pos.y-pv_pos.y;
 
         // ignore if actor is not inside the turnstile
         if (dx<-1 || dx>1 || dy<-1 || dy>1)

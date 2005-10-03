@@ -327,7 +327,7 @@ public:
   void setHarmlessMeditationMarbles(bool bHarmlessMeditationMarbles)
   { m_bHarmlessMeditationMarbles = bHarmlessMeditationMarbles; }
 
-  int getNumMarbles() const { return m_marbles.size(); }
+  size_t getNumMarbles() const { return m_marbles.size(); }
   void setNumMarbles(int num) { m_marbles.resize(num); }
   const Marble &getMarble(int nMarble) const { return m_marbles[nMarble]; }
   Marble *getMarbleForWrite(int nMarble) { return &m_marbles[nMarble]; }

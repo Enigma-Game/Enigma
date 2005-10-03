@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2002,2003 Daniel Heck
+ * Copyright (C) 2002,2003,2005 Daniel Heck
  *
  * This program is free software; you can redistribute it and/or
  * modify it under the terms of the GNU General Public License
@@ -160,7 +160,7 @@ bool options::GetLevelStatus (const std::string &levelname,
     lua_getglobal(L, "stats");
     lua_pushstring (L, levelname.c_str());
     lua_rawget (L, -2);
-    if (!lua_istable(L, -1) || !lua_getn(L, -1)==4) {
+    if (!lua_istable(L, -1) || lua_getn(L, -1)!=4) {
         lua_settop(L, oldtop);
         return false;
     }

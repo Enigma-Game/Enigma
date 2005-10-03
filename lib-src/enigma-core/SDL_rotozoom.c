@@ -20,7 +20,13 @@
 #define MAX(a,b)    (((a) > (b)) ? (a) : (b))
 #define MIN(a,b)    (((a) < (b)) ? (a) : (b))
 
-inline int clamp (int x, int xmin, int xmax)
+#ifdef _MSC_VER
+#define INLINE __inline
+#else
+#define INLINE inline
+#endif
+
+INLINE int clamp (int x, int xmin, int xmax)
 {
     if (x < xmin)
         return xmin;
@@ -29,7 +35,7 @@ inline int clamp (int x, int xmin, int xmax)
     return x;
 }
 
-inline double sinc(double x)
+INLINE double sinc(double x)
 {
     if (x == 0)
         return 1;
@@ -37,7 +43,7 @@ inline double sinc(double x)
     return sin(x)/x;
 }
 
-inline float lanczos2(float x)
+INLINE float lanczos2(float x)
 {
 /*     return sinc(x); */
   if (x < -2 || x > 2)
@@ -47,7 +53,7 @@ inline float lanczos2(float x)
 /* sinc_table [(int)((x+4)*100. )] * sinc_table[(int)((x/2+4)*100.)]; */
 }
 
-inline float lanczos3(float x)
+INLINE float lanczos3(float x)
 {
 /*     return sinc(x); */
   if (x < -3 || x > 3)
@@ -233,11 +239,11 @@ static void zoomLanczos (SDL_Surface *src, SDL_Surface *dst)
 int zoomSurfaceRGBA(SDL_Surface * src, SDL_Surface * dst, int smooth)
 {
     if (!smooth) {
-        int x, y, sx, sy, *sax, *say, *csax, *csay, csx, csy, ex, ey, t1, t2, sstep;
+        int x, y, sx, sy, *sax, *say, *csax, *csay, csx, csy, ex, ey;
         tColorRGBA *sp, *csp, *dp;
         int sgap, dgap;
-	sx = (int) (65536.0 * (float) src->w / (float) dst->w);
-	sy = (int) (65536.0 * (float) src->h / (float) dst->h);
+    	sx = (int) (65536.0 * (float) src->w / (float) dst->w);
+	    sy = (int) (65536.0 * (float) src->h / (float) dst->h);
 
         /*
          * Allocate memory for row increments
@@ -284,18 +290,18 @@ int zoomSurfaceRGBA(SDL_Surface * src, SDL_Surface * dst, int smooth)
          * Switch between interpolating and non-interpolating code
          */
         csay = say;
-	for (y = 0; y < dst->h; y++) {
-	    sp = csp;
-	    csax = sax;
-	    for (x = 0; x < dst->w; x++, dp++) {
-		*dp = *sp;
-		csax++;
-		sp += (*csax >> 16);
+	    for (y = 0; y < dst->h; y++) {
+	        sp = csp;
+	        csax = sax;
+	        for (x = 0; x < dst->w; x++, dp++) {
+		        *dp = *sp;
+		        csax++;
+		        sp += (*csax >> 16);
+	        }
+	        csay++;
+	        csp = (tColorRGBA *) ((Uint8 *) csp + (*csay >> 16) * src->pitch);
+	        dp = (tColorRGBA *) ((Uint8 *) dp + dgap);
 	    }
-	    csay++;
-	    csp = (tColorRGBA *) ((Uint8 *) csp + (*csay >> 16) * src->pitch);
-	    dp = (tColorRGBA *) ((Uint8 *) dp + dgap);
-	}
 
         free(sax);
         free(say);
@@ -502,13 +508,13 @@ int zoomSurfaceY(SDL_Surface * src, SDL_Surface * dst)
      * Allocate memory for row increments
      */
     if ((sax = (Uint32 *) malloc(dst->w * sizeof(Uint32))) == NULL) {
-	return (-1);
+    	return (-1);
     }
     if ((say = (Uint32 *) malloc(dst->h * sizeof(Uint32))) == NULL) {
-	if (sax != NULL) {
-	    free(sax);
-	}
-	return (-1);
+	    if (sax != NULL) {
+	        free(sax);
+	    }
+	    return (-1);
     }
 
     /*
@@ -517,31 +523,31 @@ int zoomSurfaceY(SDL_Surface * src, SDL_Surface * dst)
     csx = 0;
     csax = sax;
     for (x = 0; x < dst->w; x++) {
-	csx += sx;
-	*csax = (csx >> 16);
-	csx &= 0xffff;
-	csax++;
+	    csx += sx;
+	    *csax = (csx >> 16);
+	    csx &= 0xffff;
+	    csax++;
     }
     csy = 0;
     csay = say;
     for (y = 0; y < dst->h; y++) {
-	csy += sy;
-	*csay = (csy >> 16);
-	csy &= 0xffff;
-	csay++;
+	    csy += sy;
+	    *csay = (csy >> 16);
+	    csy &= 0xffff;
+	    csay++;
     }
 
     csx = 0;
     csax = sax;
     for (x = 0; x < dst->w; x++) {
-	csx += (*csax);
-	csax++;
+	    csx += (*csax);
+	    csax++;
     }
     csy = 0;
     csay = say;
     for (y = 0; y < dst->h; y++) {
-	csy += (*csay);
-	csay++;
+	    csy += (*csay);
+	    csay++;
     }
 
     /*
@@ -556,32 +562,32 @@ int zoomSurfaceY(SDL_Surface * src, SDL_Surface * dst)
      */
     csay = say;
     for (y = 0; y < dst->h; y++) {
-	csax = sax;
-	sp = csp;
-	for (x = 0; x < dst->w; x++) {
+	    csax = sax;
+	    sp = csp;
+	    for (x = 0; x < dst->w; x++) {
+	        /*
+	        * Draw
+	        */
+	        *dp = *sp;
+	        /*
+	        * Advance source pointers
+	        */
+	        sp += (*csax);
+	        csax++;
+	        /*
+	        * Advance destination pointer
+	        */
+	        dp++;
+	    }
 	    /*
-	     * Draw
-	     */
-	    *dp = *sp;
+	    * Advance source pointer (for row)
+	    */
+	    csp += ((*csay) * src->pitch);
+	    csay++;
 	    /*
-	     * Advance source pointers
-	     */
-	    sp += (*csax);
-	    csax++;
-	    /*
-	     * Advance destination pointer
-	     */
-	    dp++;
-	}
-	/*
-	 * Advance source pointer (for row)
-	 */
-	csp += ((*csay) * src->pitch);
-	csay++;
-	/*
-	 * Advance destination pointers
-	 */
-	dp += dgap;
+	    * Advance destination pointers
+	    */
+	    dp += dgap;
     }
 
     /*
@@ -865,7 +871,7 @@ SDL_Surface *rotozoomSurface(SDL_Surface * src, double angle, double zoom, int s
     double zoominv;
     double sanglezoom, canglezoom, sanglezoominv, canglezoominv;
     int dstwidthhalf, dstwidth, dstheighthalf, dstheight;
-    double x, y, cx, cy, sx, sy;
+    double x, y, cx, cy;
     int is32bit;
     int i, src_converted;
 

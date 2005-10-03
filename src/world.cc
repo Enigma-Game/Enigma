@@ -553,6 +553,10 @@ void World::scramble_puzzles()
 
 /* -------------------- Force calculation -------------------- */
 
+#ifndef M_PI
+#define M_PI 3.1415926535
+#endif
+
 void World::add_mouseforce (Actor *a, Floor *floor, V2 &mforce)
 {
     if (a->get_controllers() != 0) {
@@ -840,10 +844,10 @@ void World::handle_stone_contact (StoneContact &sc)
 namespace {
     struct ActorEntry {
         double pos;
-        int idx;
+        size_t idx;
 
         ActorEntry () { pos = 0; idx = 0; }
-        ActorEntry (double pos_, int idx_) { pos = pos_; idx = idx_; }
+        ActorEntry (double pos_, size_t idx_) { pos = pos_; idx = idx_; }
 
         bool operator < (const ActorEntry &x) const {
             return pos < x.pos;
@@ -861,12 +865,12 @@ void World::handle_actor_contacts () {
     }
     sort (xlist.begin(), xlist.end());
     for (size_t i=0; i<nactors; ++i) {
-        int a1 = xlist[i].idx;
+        size_t a1 = xlist[i].idx;
         ActorInfo &ai1 = *actorlist[a1]->get_actorinfo();
         double r1 = ai1.radius;
         double x1 = ai1.pos[0];
         for (size_t j=i+1; j<nactors; ++j) {
-            int a2 = xlist[j].idx;
+            size_t a2 = xlist[j].idx;
             if (xlist[j].pos - x1 < r1 + get_radius(actorlist[a2])) 
                 handle_actor_contact (a1, a2);
             else
@@ -875,7 +879,7 @@ void World::handle_actor_contacts () {
     }
 }
 
-void World::handle_actor_contact (unsigned i, unsigned j)
+void World::handle_actor_contact (size_t i, size_t j)
 {
     Actor *actor1 = actorlist[i];
     ActorInfo &a1 = *actor1->get_actorinfo();
@@ -927,7 +931,6 @@ void World::handle_contacts (unsigned actoridx)
     Actor *actor1 = actorlist[actoridx];
     ActorInfo &a1 = *actor1->get_actorinfo();
 
-
     if (a1.ignore_contacts)     // used by the cannonball for example
         return;
 
@@ -936,9 +939,6 @@ void World::handle_contacts (unsigned actoridx)
     find_stone_contacts(actor1, cl);
     for (StoneContactList::iterator i=cl.begin(); i != cl.end(); ++i)
         handle_stone_contact (*i);
-
-//     // Handle contacts with other actors
-//     handle_actor_contacts (actoridx);
 }
 
 /* -------------------- Actor Motion -------------------- */
@@ -996,7 +996,6 @@ void World::move_actors (double dtime)
         }
         for_each (m_rubberbands.begin(), m_rubberbands.end(), 
                   mem_fun(&RubberBand::apply_forces));
-
 
         rest_time -= dt;
     }
@@ -1374,9 +1373,9 @@ void world::BroadcastMessage (const std::string& msg,
 {
     int  width     = level->w;
     int  height    = level->h;
-    bool to_floors = grids & GRID_FLOOR_BIT;
-    bool to_items  = grids & GRID_ITEMS_BIT;
-    bool to_stones = grids & GRID_STONES_BIT;
+    bool to_floors = (grids & GRID_FLOOR_BIT) != 0;
+    bool to_items  = (grids & GRID_ITEMS_BIT) != 0;
+    bool to_stones = (grids & GRID_STONES_BIT) != 0;
 
     for (int y = 0; y<height; ++y) {
         for (int x = 0; x<width; ++x) {
@@ -1445,9 +1444,9 @@ void world::SendExplosionEffect(GridPos center, ExplosionType type)
     const int AFFECTED_FIELDS       = 8;
 
     for (int a = 0; a<AFFECTED_FIELDS; ++a) {
-        GridPos  dest = get_neighbour (center, a+1);
-        Item    *item            = GetItem(dest);
-        Stone   *stone           = GetStone(dest);
+        GridPos  dest            = get_neighbour (center, a+1);
+        Item    *item            = GetItem (dest);
+        Stone   *stone           = GetStone (dest);
         bool     direct_neighbor = a<4;
 
         switch (type) {
@@ -1478,7 +1477,7 @@ void world::SendExplosionEffect(GridPos center, ExplosionType type)
             break;
 
         case EXPLOSION_SPITTER:
-
+            // TODO: spitter explosions
             break;
         }
     }
@@ -1502,15 +1501,18 @@ const Field *world::GetField (GridPos p)
 
 /* -------------------- Floor manipulation -------------------- */
 
-void world::KillFloor(GridPos p) {
+void world::KillFloor(GridPos p) 
+{
     level->fl_layer.kill(p);
 }
 
-Floor *world::GetFloor(GridPos p) {
+Floor *world::GetFloor(GridPos p) 
+{
     return level->fl_layer.get(p);
 }
 
-void world::SetFloor(GridPos p, Floor* fl) {
+void world::SetFloor(GridPos p, Floor* fl) 
+{
     level->fl_layer.set(p,fl);
     if (!level->preparing_level)
         if (Stone *st = GetStone(p))
@@ -1867,6 +1869,7 @@ namespace
     ObjectRepos *repos;
     vector<Actor *> actor_repos(ac_COUNT);
     vector<Stone *> stone_repos(st_COUNT);
+    vector<Item *> item_repos(it_COUNT);
 }
 
 void world::Register (const string &kind, Object *obj) {
@@ -1987,11 +1990,7 @@ void world::DumpObjectInfo() {
     repos->dump_info();
 }
 
-
-namespace
-{
-    vector<Item *> item_repos(it_COUNT);
-}
+/* ------------------- Item repository ------------------- */
 
 void world::Register (const string &kind, Item *obj) 
 {

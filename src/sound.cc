@@ -248,7 +248,7 @@ int SoundEngine_SDL::already_playing (const SoundName &name)
         const SoundEffect &se = m_channelinfo[i];
 
         if (se.active && se.name == name && se.playing_time < 0.05)
-            return i;
+            return static_cast<int> (i);
     }
     return -1;
 }
@@ -323,7 +323,8 @@ void SoundEngine_SDL::define_sound (
     const SoundName &name, 
     const SoundData &data)
 {
-    Mix_Chunk *ch= ChunkFromRaw (&data.buf[0], data.buf.size(),
+    Uint32 bufsize = static_cast<Uint32> (data.buf.size());
+    Mix_Chunk *ch= ChunkFromRaw (&data.buf[0], bufsize,
                                  data.freq, AUDIO_S8, data.nchannels);
     if (ch != 0)
         wav_cache.insert(name, ch);
@@ -517,7 +518,7 @@ namespace
         const int sample_size = 1;    //  8bit sample data
 
         float ratio = float(oldfreq) / float(newfreq);
-        size_t newlen = ecl::round_down<int> (len / ratio);
+        Uint32 newlen = ecl::round_down<int> (len / ratio);
         *newlen_ = newlen;
         Sint8 *newdata = (Sint8*) malloc (sample_size * newlen);
         if (!newdata)

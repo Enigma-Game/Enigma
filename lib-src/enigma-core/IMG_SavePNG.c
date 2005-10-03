@@ -1,6 +1,8 @@
 #include "SDL.h"
 #include "IMG_SavePNG.h"
 #include "png.h"
+#include <stdlib.h>
+#include <setjmp.h>
 
 #define IMG_SetError(a) SDL_SetError(a)
 
@@ -63,10 +65,12 @@ int IMG_SavePNG_RW(SDL_Surface *face, SDL_RWops *src) {
                                                 rmask, gmask, bmask, amask);
 
     if (surface) {
+		png_structp png_ptr;
+
         SDL_BlitSurface(face, NULL, surface, NULL);
         SDL_LockSurface(surface);
 
-        png_structp png_ptr = png_create_write_struct(PNG_LIBPNG_VER_STRING, NULL, png_user_error, png_user_warn);
+        png_ptr = png_create_write_struct(PNG_LIBPNG_VER_STRING, NULL, png_user_error, png_user_warn);
         if (!png_ptr) {
             IMG_SetError("Couldn't allocate memory for PNG file");
         }
@@ -84,6 +88,7 @@ int IMG_SavePNG_RW(SDL_Surface *face, SDL_RWops *src) {
                     IMG_SetError("Error writing the PNG file");
                 }
                 else {
+					int colortype;
                     png_set_write_fn(png_ptr, src, png_write_data, png_io_flush);
                     /* Set the image information here.  Width and height are up to 2^31,
                      * bit_depth is one of 1, 2, 4, 8, or 16, but valid values also depend on
@@ -93,7 +98,7 @@ int IMG_SavePNG_RW(SDL_Surface *face, SDL_RWops *src) {
                      * PNG_INTERLACE_ADAM7, and the compression_type and filter_type MUST
                      * currently be PNG_COMPRESSION_TYPE_BASE and PNG_FILTER_TYPE_BASE. REQUIRED
                      */
-                    int colortype = png_colortype_from_surface(surface);
+                    colortype = png_colortype_from_surface(surface);
                     png_set_IHDR(png_ptr, info_ptr, surface->w, surface->h, 8,
                                  colortype, PNG_INTERLACE_NONE, PNG_COMPRESSION_TYPE_BASE, PNG_FILTER_TYPE_BASE);
 	

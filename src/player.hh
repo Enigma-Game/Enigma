@@ -53,16 +53,16 @@ namespace enigma_player
         void add_item(Item *i);
 
 
-        int size() const { return m_items.size(); } // number of items
+        size_t size() const { return m_items.size(); } // number of items
         void clear();
 
         void  rotate(int dir=1);
         void  activate_first();
-        Item *get_item(int idx) const;
-        Item *yield_item(int idx);
+        Item *get_item (size_t idx) const;
+        Item *yield_item (size_t idx);
         Item *yield_first();
 
-        int find(const std::string& kind, int start_idx = 0) const;
+        int find(const std::string& kind, size_t start_idx = 0) const;
 
         void redraw();
 

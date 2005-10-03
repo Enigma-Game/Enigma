@@ -79,7 +79,7 @@ namespace
     {
         if (inv == GetInventory (CurrentPlayer())) {
             std::vector<std::string> modelnames;
-            for (int i=0; i<inv->size(); ++i) {
+            for (size_t i=0; i<inv->size(); ++i) {
                 world::Item *it = inv->get_item(i);
                 modelnames.push_back(it->get_inventory_model());
             }
@@ -171,12 +171,12 @@ void Inventory::clear() {
     m_items.clear();
 }
 
-Item * Inventory::get_item(int idx) const {
+Item * Inventory::get_item (size_t idx) const {
     return idx >= size() ? 0 : m_items[idx];
 }
 
-Item * Inventory::yield_item(int idx) {
-    if (0 <= idx && idx < size()) {
+Item * Inventory::yield_item (size_t idx) {
+    if (idx < size()) {
         Item *it = m_items[idx];
         m_items.erase(m_items.begin()+ idx);
         redraw();
@@ -270,12 +270,12 @@ void Inventory::activate_first()
     }
 }
 
-int Inventory::find(const string& kind, int start_idx) const 
+int Inventory::find(const string& kind, size_t start_idx) const 
 {
-    int size_ = size();
-    for (int i = start_idx; i<size_; ++i) {
+    size_t size_ = size();
+    for (size_t i = start_idx; i<size_; ++i) {
         if (get_item(i)->is_kind(kind))
-            return i;
+            return static_cast<int> (i);
     }
     return -1;
 }
@@ -323,7 +323,7 @@ void player::PrepareLevel()
     {
         Inventory *inv = GetInventory(iplayer);
         int nextralifes=0;
-        for (int i=0; i<inv->size(); ++i)
+        for (size_t i=0; i<inv->size(); ++i)
             if (get_id (inv->get_item(i)) == world::it_extralife)
                 nextralifes += 1;
         inv->clear();

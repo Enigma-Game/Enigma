@@ -61,23 +61,35 @@ void Floor::get_sink_speed (double &sinkspeed, double &raisespeed) const {
 //     sinkspeed = raisespeed = 0.0;
 }
 
+double Floor::friction() const 
+{ 
+    return traits.friction; 
+}
 
- double Floor::friction() const { return traits.friction; }
- double Floor::mousefactor() const { return traits.mousefactor; }
+double Floor::mousefactor() const 
+{ 
+    return traits.mousefactor; 
+}
 
- bool Floor::is_destructible() const {return true;}
+bool Floor::is_destructible() const 
+{
+    return true;
+}
 
- void Floor::set_model (const std::string &mname) {
-     display::SetModel (GridLoc(GRID_FLOOR, get_pos()), mname);
- }
+void Floor::set_model (const std::string &mname) 
+{
+    display::SetModel (GridLoc(GRID_FLOOR, get_pos()), mname);
+}
 
- display::Model *Floor::get_model () {
-     return display::GetModel (GridLoc(GRID_FLOOR, get_pos()));
- }
+display::Model *Floor::get_model () 
+{
+    return display::GetModel (GridLoc(GRID_FLOOR, get_pos()));
+}
 
- void Floor::kill_model (GridPos p) {
-     display::KillModel (GridLoc (GRID_FLOOR, p));
- }
+void Floor::kill_model (GridPos p) 
+{
+    display::KillModel (GridLoc (GRID_FLOOR, p));
+}
 
 namespace
 {
@@ -266,7 +278,7 @@ void Gradient::init_model()
     set_model(ecl::strf("fl-gradient%d", get_type()));
 }
 
-void Gradient::add_force(Actor */*a*/, V2 &f)
+void Gradient::add_force(Actor *, V2 &f)
 {
     ecl::V2 force;
     int t = get_type();
@@ -470,7 +482,7 @@ namespace
     public:
         BlackTile() : Floor ("fl-acblack", 5.2, 2.0) {}
 
-        ecl::V2 process_mouseforce (Actor */*a*/, ecl::V2 force) {
+        ecl::V2 process_mouseforce (Actor *, ecl::V2 force) {
             if (player::CurrentPlayer() == 0)
                 return mousefactor() * force;
             else
@@ -482,7 +494,7 @@ namespace
     public:
         WhiteTile() : Floor ("fl-acwhite", 5.2, 2.0) {}
 
-        ecl::V2 process_mouseforce (Actor */*a*/, ecl::V2 force) {
+        ecl::V2 process_mouseforce (Actor *, ecl::V2 force) {
             if (player::CurrentPlayer() == 1)
                 return mousefactor() * force;
             else

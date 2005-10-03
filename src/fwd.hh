@@ -46,10 +46,10 @@ namespace world
     class Floor;
     class Item;
     class Actor;
-    class ActorInfo;
-    class StoneContact;
-    class Impulse;
-    class Message;
+    struct ActorInfo;
+    struct StoneContact;
+    struct Impulse;
+    struct Message;
 }
 
 #endif

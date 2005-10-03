@@ -1216,7 +1216,7 @@ namespace
         void alarm() {
             if (is_on()) {
 //                 sound::PlaySound("st-timer");
-                PerformAction(this, m_signalvalue);
+                PerformAction(this, m_signalvalue != 0);
                 m_signalvalue = 1-m_signalvalue;
             }
         }
@@ -1387,7 +1387,7 @@ void ThiefStone::steal_from_player()
     if (m_affected_actor && !m_affected_actor->has_shield()) {
         player::Inventory *inv = player::GetInventory(m_affected_actor);
         if (inv && inv->size() > 0) {
-            int i = IntegerRand (0, inv->size()-1);
+            int i = IntegerRand (0, int (inv->size()-1));
             delete inv->yield_item(i);
             sound_event("thief");
         }
@@ -1995,14 +1995,14 @@ void world::DefineSimpleStone(const std::string &kind,
                               const std::string &sound,
                               int hollow, int glass)
 {
-    Register(new SimpleStone(kind, sound, hollow, glass));
+    Register(new SimpleStone(kind, sound, hollow != 0, glass != 0));
 }
 
 void world::DefineSimpleStoneMovable(const std::string &kind, 
                                      const std::string &sound, 
                                      int glass)
 {
-    Register(new SimpleStoneMovable(kind, sound, glass));
+    Register(new SimpleStoneMovable(kind, sound, glass != 0));
 }
 
 void stones::Init_simple()

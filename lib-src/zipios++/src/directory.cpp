@@ -26,7 +26,7 @@
 
 #if defined(unix) || defined(__unix) || defined(__unix__) || defined(MACOSX) || defined(__NetBSD__) || defined (__FreeBSD__) || defined (__OpenBSD__)
 #  define BOOST_UNIX 1
-#elif defined(_WINDOWS) || defined(__MINGW32__)
+#elif defined(_WINDOWS) || defined(__MINGW32__) || defined (_MSC_VER)
 #  define BOOST_WINNT 1
 #endif 
 

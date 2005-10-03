@@ -426,8 +426,8 @@ namespace
     protected:
         MirrorStone(const char *name, bool movable=false, bool transparent=false);
 
-        bool is_transparent() const { return int_attrib("transparent"); }
-        bool is_movable() const { return int_attrib("movable"); }
+        bool is_transparent() const { return int_attrib("transparent") != 0; }
+        bool is_movable() const { return int_attrib("movable") != 0; }
 
         void set_orientation(int o) { set_attrib("orientation", o); }
         int get_orientation() { return int_attrib("orientation"); }
@@ -558,7 +558,7 @@ namespace
     private:
         void SetOrientation(char o) {
             const char *a = " -\\|/";
-            MirrorStone::set_orientation(strchr(a,o)-a);
+            MirrorStone::set_orientation(int (strchr(a,o)-a));
         }
         char GetOrientation() {
             const char *a = " -\\|/";
@@ -649,7 +649,7 @@ namespace
 
         void SetOrientation(char o) {
             const char *a = " v<^>";
-            MirrorStone::set_orientation(strchr(a,o)-a);
+            MirrorStone::set_orientation( int (strchr(a,o)-a));
         }
 
         Direction GetOrientation() // orientation of the flat side of the mirror

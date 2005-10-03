@@ -101,7 +101,7 @@ static int toluaI_display_display_SetFollowMode00(lua_State* tolua_S)
  goto tolua_lerror;
  else
  {
-  FollowMode m = ((FollowMode)  tolua_getnumber(tolua_S,1,0));
+  FollowMode m = ((FollowMode)  static_cast<int>(tolua_getnumber(tolua_S,1,0)));
  {
   SetFollowMode(m);
  }

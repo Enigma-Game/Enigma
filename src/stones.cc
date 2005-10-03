@@ -734,9 +734,10 @@ namespace
 
 // --------------------------------------------------------------------------------
 
+extern void InitSwitches();
+
 void stones::Init()
 {
-    extern void InitSwitches();
 
     // Register(new ...);
 

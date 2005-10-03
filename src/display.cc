@@ -154,6 +154,10 @@ void StatusBarImpl::show_odometer (bool active)
     }
 }
 
+#ifdef _MSC_VER
+#define snprintf _snprintf
+#endif
+
 
 void StatusBarImpl::redraw (ecl::GC &gc, const ScreenArea &r) {
     const video::VMInfo *vminfo = video::GetInfo();

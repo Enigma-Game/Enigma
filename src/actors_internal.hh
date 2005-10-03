@@ -198,7 +198,7 @@ namespace
                 }
                 else { // a better location has been found
                     ExaminedLocations::const_iterator c = candidates.begin();
-                    advance(c, IntegerRand(0, candidates.size()-1));
+                    advance(c, IntegerRand(0, int (candidates.size()-1)));
 
                     assert(c != candidates.end());
                     preferred_position = c->center();

@@ -68,7 +68,7 @@ LP_PerOxyd::LP_PerOxyd (DatFile *dat, bool twoplayers)
 {
 }
 
-void LP_PerOxyd::load (const Level &level)
+void LP_PerOxyd::load (const OxydLib::Level &level)
 {
     LoaderConfig c (needs_twoplayers(), 
                     get_gamemode(), 

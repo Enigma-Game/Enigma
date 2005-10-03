@@ -60,8 +60,8 @@ namespace display
 
         virtual Model *get_shadow() const { return 0; }
 
-        virtual void expose (ModelLayer */*ml*/, int videox, int videoy) {}
-        virtual void remove (ModelLayer */*ml*/) {}
+        virtual void expose (ModelLayer * /*ml*/, int videox, int videoy) {}
+        virtual void remove (ModelLayer * /*ml*/) {}
 
         virtual Model *clone() = 0;
         virtual void get_extension (ecl::Rect &r);

@@ -17,7 +17,7 @@ namespace enigma_util
 
         void tick(double dtime);
     private:
-        class Rep;
+        struct Rep;
         Rep &self;
     };
 }

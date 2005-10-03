@@ -51,6 +51,11 @@ using levels::LevelPacks;
 
 #include "menus_internal.hh"
 
+#ifdef _MSC_VER
+#define snprintf _snprintf
+#endif
+
+
 /* -------------------- Helper routines -------------------- */
 
 namespace
@@ -185,7 +190,6 @@ Surface *LevelPreviewCache::makePreview(const levels::Level &level)
     CacheElem *ce = make_cache_elem (level);
     if (ce)
         cache[level.uniqueName()] = ce;
-
     return ce->surface;
 }
 
@@ -340,9 +344,10 @@ void LevelWidget::show_text(const string& text) {
     get_menu()->show_text(text);
 }
 
-void LevelWidget::scroll_up(int nlines) {
+void LevelWidget::scroll_up (int nlines) 
+{
     for (; nlines; --nlines) {
-        if (ifirst+width*height >= (int)level_pack->size())
+        if (ifirst+width*height >= level_pack->size())
             break;
         ifirst += width;
         if (iselected < ifirst)
@@ -351,7 +356,8 @@ void LevelWidget::scroll_up(int nlines) {
     invalidate();
 }
 
-void LevelWidget::scroll_down(int nlines) {
+void LevelWidget::scroll_down(int nlines) 
+{
     for (; nlines; --nlines) {
         if (ifirst < width)
             break;
@@ -567,19 +573,24 @@ void LevelWidget::draw (ecl::GC &gc, const ecl::Rect &r)
     return;
 }
 
-void LevelWidget::set_selected (int newfirst, int newsel)
+void LevelWidget::set_current (size_t newsel)
 {
-    int numlevels = static_cast<int>(level_pack->size());
-    newsel = Clamp(newsel, 0, numlevels-1);
+    set_selected (ifirst, newsel);
+}
+
+void LevelWidget::set_selected (size_t newfirst, size_t newsel)
+{
+    size_t numlevels = level_pack->size();
+    newsel = Clamp<size_t> (newsel, 0, numlevels-1);
 
     if (newsel < newfirst)
         newfirst = (newsel/width)*width;
     if (newsel >= newfirst+width*height)
         newfirst = (newsel/width-height+1)*width;
 
-    newfirst = Clamp(newfirst, 0, numlevels-1);
+    newfirst = Clamp<size_t> (newfirst, 0, numlevels-1);
 
-    int oldsel = iselected;
+    size_t oldsel = iselected;
     if (newfirst != ifirst) {
         ifirst    = newfirst;
         iselected = newsel;
@@ -1021,7 +1032,7 @@ int LanguageButton::get_value() const
     int lang = 0;                  // unknown language
     for (size_t i=0; i<NUMENTRIES(languages); ++i) {
         if (localename == languages[i].localename)
-            lang = i;
+            lang = int(i);
     }
     return lang;
 }
@@ -1430,7 +1441,7 @@ void LevelMenu::update_info()
             snprintf (txt, sizeof(txt), _("%d%% par"), pct);
         }
         else {
-            int pct = 100*numsolved / lp->size();
+            int pct = 100*numsolved / int (lp->size());
             snprintf (txt, sizeof(txt), _("%d%% solved"), pct);
         }
         lbl_statistics->set_text(txt);
@@ -1523,7 +1534,7 @@ void LevelMenu::next_levelpack()
 }
 
 void LevelMenu::previous_levelpack() {
-    unsigned prev_pack = m_ilevelpack;
+    size_t prev_pack = m_ilevelpack;
     if (prev_pack == 0) prev_pack = LevelPacks.size()-1;
     else --prev_pack;
     set_levelpack(prev_pack);
@@ -1660,8 +1671,9 @@ void MainMenu::on_action(Widget *w)
 
 void MainMenu::tick(double /* dtime */) 
 {
+    bool option_fullscreen = options::GetInt ("FullScreen") != 0;
     if (options::GetInt ("VideoMode") != video::GetVideoMode()
-        || options::GetInt ("FullScreen") != video::IsFullScreen())
+        || option_fullscreen != video::IsFullScreen())
     {
         ChangeVideoMode();
         clear();

@@ -279,7 +279,7 @@ void RotorBase::think (double dtime)
 
     Actor *target = 0;
     V2     target_vec;
-    bool attack_nearest = int_attrib ("attacknearest");
+    bool attack_nearest = (int_attrib ("attacknearest") != 0);
 
     vector<Actor *> actors;
     GetActorsInRange (get_pos(), range, actors);
@@ -334,8 +334,8 @@ namespace
 ActorTraits Rotor::traits = {
     "ac-rotor",                 // name
     ac_rotor,                   // id
-    22.0/64,                    // radius
-    0.8                         // mass
+    22.0f/64,                   // radius
+    0.8f                        // mass
 };
 
 
@@ -355,8 +355,8 @@ namespace
 ActorTraits Top::traits = {
     "ac-top",                   // name
     ac_top,                     // id
-    16.0/64,                    // radius
-    0.8                         // mass
+    16.0f/64,                   // radius
+    0.8f                        // mass
 };
 
 
@@ -378,8 +378,8 @@ namespace
 ActorTraits Bug::traits = {
     "ac-bug",                   // name
     ac_bug,                     // id
-    12.0/64,                    // radius
-    0.7                         // mass
+    12.0f/64,                   // radius
+    0.7f                        // mass
 };
 
 
@@ -413,8 +413,8 @@ namespace
 ActorTraits Horse::traits = {
     "ac-horse",                 // name
     ac_horse,                   // id
-    24.0/64,                    // radius
-    1.2                         // mass
+    24.0f/64,                   // radius
+    1.2f                        // mass
 };
 
 Horse::Horse() 
@@ -789,7 +789,7 @@ void BasicBall::update_model()
             int xpos = ecl::round_nearest<int> (ai->pos[0] * 32.0);
             int ypos = ecl::round_nearest<int> (ai->pos[1] * 32.0);
 
-            bool shinep = (xpos + ypos) % 2;
+            bool shinep = ((xpos + ypos) % 2) != 0;
             set_shine_model (shinep);
         }
         break;
@@ -1117,15 +1117,15 @@ ActorTraits WhiteBall::traits = {
 ActorTraits WhiteBall_Small::traits = {
     "ac-whiteball-small",       // name
     ac_meditation,              // id
-    13.0/64,                    // radius
-    0.7                         // mass
+    13.0f/64,                   // radius
+    0.7f                        // mass
 };
 
 ActorTraits Killerball::traits = {
     "ac-killerball",            // name
     ac_killerball,              // id
-    13.0/64,                    // radius
-    0.7                         // mass
+    13.0f/64,                   // radius
+    0.7f                        // mass
 };
 
 

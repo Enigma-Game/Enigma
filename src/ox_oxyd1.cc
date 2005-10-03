@@ -50,7 +50,7 @@ LP_Oxyd1::LP_Oxyd1 (DatFile *dat, bool twoplayers)
 {
 }
 
-void LP_Oxyd1::load (const Level &level)
+void LP_Oxyd1::load (const OxydLib::Level &level)
 {
     LoaderConfig c (needs_twoplayers(),
                     get_gamemode(),

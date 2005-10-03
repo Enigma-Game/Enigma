@@ -242,14 +242,14 @@ Buffer& ecl::read(Buffer& buf, Uint64& lvar)
 Buffer& ecl::write(Buffer& buf, Uint64 lvar)
 {
     Uint8* ptr = (Uint8*) buf.get_wspace(8);
-    ptr[0] = lvar & 0xff;
-    ptr[1] = (lvar >> 8) & 0xff;
-    ptr[2] = (lvar >> 16) & 0xff;
-    ptr[3] = (lvar >> 24) & 0xff;
-    ptr[4] = (lvar >> 32) & 0xff;
-    ptr[5] = (lvar >> 40) & 0xff;
-    ptr[6] = (lvar >> 48) & 0xff;
-    ptr[7] = (lvar >> 56) & 0xff;
+    ptr[0] = Uint8(lvar & 0xff);
+    ptr[1] = Uint8((lvar >> 8) & 0xff);
+    ptr[2] = Uint8((lvar >> 16) & 0xff);
+    ptr[3] = Uint8((lvar >> 24) & 0xff);
+    ptr[4] = Uint8((lvar >> 32) & 0xff);
+    ptr[5] = Uint8((lvar >> 40) & 0xff);
+    ptr[6] = Uint8((lvar >> 48) & 0xff);
+    ptr[7] = Uint8((lvar >> 56) & 0xff);
     return buf;
 }
 
