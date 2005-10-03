@@ -1,0 +1,64 @@
+
+int: Intelligence and Creativity
+  1 = I know where I am, I know where to go and how
+      to get there; without even moving the marble!
+  2 = Okay, give me a minute to orient myself...
+  3 = There's some standard algorithm to solve this...
+      (like e.g. mazes or slight variations of them)
+  4 = Trial-and-error won't work and there is no
+      algorithm to solve it quickly... some kind of
+      code or advanced planning or so... 
+  5 = ...some difficult kind of code...
+
+dex: Dexterity
+  1 = It doesn't matter what I touch;
+      this level is damn-proof.
+  2 = Okay, there are some lethal positions I
+      shouldn't move the level into.
+  3 = The standard one-row-to-death-way
+  4 = Pushing without falling?
+  5 = Pushing without falling ten times in a row?
+
+pat: Patience
+  (Everything meant as "feeled time", the real time 
+   can be estimated from the par_times)
+  1 = I solved it right after understanding the level.
+  2 = I needed some time but it wasn't boring.
+  3 = Okay, some minutes. But the landscape is nice...
+  4 = I know what to do but it doesn't seem to end...
+  5 = This really needs discipline.
+
+kno: Knowledge of the game
+  1 = Must...open...oxyd...stones...
+      Everything else is explained. (e.g. Tutorials)
+  2 = Simple mechanics, like pushing and
+      bridge-building, connected puzzle-stones,
+      simple shogun-stones, no item-transformations
+  3 = Playing the Advanced Tutorial is enough
+  4 = Standard-objects that are not shown in the tutorial,
+      like rubber-bands, unconnected puzzle-stones,
+      springs, thiefs, three-parted shogun-stones,
+      invisible and hole-stones, wormholes, magnets,
+      restart...
+  5 = Needs deeper understanding of the game,
+      like: cracks are items, too; seeds can grow inside
+      grates and one-way streets...
+  6 = This level uses a (more or less) unique mechanism
+      or seldom used object. (However, this mechanism or
+      object may or may not be easy to understand, e.g.
+      "Flood Control" vs. "Everhungry"; this goes into
+      the int/pat-rating.)
+
+spe: Speed and speed-control
+  1 = No time limit.
+  2 = Don't stop for too long.
+      (e.g. something slow is chasing me or swamp)
+  3 = There is a proper time limit of some kind.
+  4 = Don't stop.
+      (e.g. something fast is chasing me)
+  5 = Hurry up!
+
+
+
+
+
