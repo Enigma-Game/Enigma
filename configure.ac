@@ -48,6 +48,12 @@ AC_SUBST([TOLUA])
 TOLUA=["\$(top_builddir)/tools/tolua"]
 dnl AC_PATH_PROG(TOLUA, tolua, "", ["\$(top_builddir)/tools/tolua"])
 
+
+dnl ======================================================================
+dnl Check for system headers
+dnl ======================================================================
+AC_CHECK_HEADERS([dirent.h])
+
 dnl ======================================================================
 dnl Check for libraries
 dnl ======================================================================
@@ -74,7 +80,6 @@ dnl when compiling under mingw32
 if test "$MINGW32" = yes; then
    AC_CHECK_LIB(winmm,main)
 fi
-
 
 dnl ----------------------------------------
 dnl Check for SDL image library
