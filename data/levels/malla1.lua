@@ -1,5 +1,5 @@
 -- Pneumatic Delivery
--- (c) 2004 Manuel König
+-- (c) 2004 Manuel Kï¿½nig
 
 Require("levels/ant.lua")
 multiplayer_mode()
