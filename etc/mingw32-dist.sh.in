@@ -99,7 +99,7 @@ function copy_manual
 function copy_dlls
 {
     echo "... copying DLLs"
-    for f in SDL SDL_image SDL_mixer SDL_ttf jpeg libpng13 zlib1; do
+    for f in SDL SDL_image SDL_mixer SDL_ttf jpeg libpng libpng1 zlib zlib-1; do
         ff="$f.dll"
         if [ -f $ff ]; then
             cp $ff $DDIR/
