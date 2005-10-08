@@ -65,7 +65,7 @@ else
 end
 
 cells["B"] = cell{parent=cells[" "],actor={"ac-blackball", {player=0}}}
-cells["W"] = cell{parent=cells[" "],actor={"ac-whiteball", {player=1}}}
+cells["W"] = cell{parent=cells[" "],actor={"ac-whiteball", {player=0, controllers=0}}}
 cells["o"] = cell{oxyd}
 
 rs_create_world(level,cells)
