@@ -6,9 +6,31 @@ VERSION=@VERSION@
 DDIR="`pwd`/Enigma-$VERSION"
 SDIR=@top_srcdir@
 BDIR=@top_builddir@
+DLLDEFAULTS="SDL SDL_image SDL_mixer SDL_ttf jpeg libpng libpng1 zlib zlib-1"
 
+if [ "$ENIGMADEVDLLS" != "" ]; then
+  DLLS=$ENIGMADEVDLLS
+else
+  DLLS=$DLLDEFAULTS
+fi
+
+STRIP=@STRIP@
+if [ "$STRIP" = "" ]; then
+  STRIP=strip
+fi
+
+if [ "$ENIGMADEVCROSSPREFIX" != "" ]; then
+  PATH="$ENIGMADEVCROSSPREFIX/bin:$PATH"
+fi
+
+# copy text file with newline convertion if necessary
 function cptext {
-    $NLCVT unix2dos $SDIR/$1 >$DDIR/$2
+    $NLCVT dos2unix $SDIR/$1 >$DDIR/$2 2> /dev/null
+    if test $? -ne 0; then
+        $NLCVT unix2dos $SDIR/$1 >$DDIR/$2
+    else
+        cp $SDIR/$1 $DDIR/$2
+    fi
 }
 
 function cpfile {
@@ -19,6 +41,16 @@ function cpbuiltfile {
 	cp $BDIR/$1 $DDIR/$2
 }
 
+# copy files of an extention with newline convertion to lf if necessary
+function cplffiles {
+    for f in `(cd $SDIR/$1 && ls *.$3)`; do
+        $NLCVT dos2unix $SDIR/$1/$f >$DDIR/$2/$f 2> /dev/null
+        if test $? -ne 0; then
+            cp $SDIR/$1/$f $DDIR/$2/$f
+        fi
+    done
+}
+
 #
 # Copy levels
 #
@@ -26,10 +58,15 @@ function copy_levels
 {
     echo "... copying levels"
     mkdir $DDIR/data/levels
-    cp -p $SDIR/data/levels/*.{png,txt,lua,xml} $DDIR/data/levels
+    cp -p $SDIR/data/levels/*.png $DDIR/data/levels
+    cplffiles data/levels data/levels lua
+    cplffiles data/levels data/levels txt
+    cplffiles data/levels data/levels xml
     for folder in `(cd $SDIR/data/levels && ls -F)| grep / | grep -v CVS`; do 
 	mkdir $DDIR/data/levels/$folder; 
-	cp -p $SDIR/data/levels/$folder/*.{png,lua,txt} $DDIR/data/levels/$folder
+	cp -p $SDIR/data/levels/$folder/*.png $DDIR/data/levels/$folder
+        cplffiles data/levels/$folder data/levels/$folder lua
+        cplffiles data/levels/$folder data/levels/$folder txt
     done
 }
 
@@ -37,7 +74,7 @@ function copy_data
 {
     echo "... copying data files"
     mkdir $DDIR/data
-    cp -p $SDIR/data/*.lua $DDIR/data/
+    cplffiles data data lua
     for folder in `(cd $SDIR && ls -F data)| grep / | grep gfx`; do 
 	mkdir $DDIR/data/$folder; 
 	cp -p $SDIR/data/$folder/*.{png,jpg} $DDIR/data/$folder
@@ -98,8 +135,8 @@ function copy_manual
 #
 function copy_dlls
 {
-    echo "... copying DLLs"
-    for f in SDL SDL_image SDL_mixer SDL_ttf jpeg libpng libpng1 zlib zlib-1; do
+    echo "... copying DLLs: $DLLS"
+    for f in $DLLS; do
         ff="$f.dll"
         if [ -f $ff ]; then
             cp $ff $DDIR/
@@ -118,12 +155,13 @@ echo "----------------------------------------------------------------"
 echo "                 Building Enigma-$VERSION.zip"
 echo "----------------------------------------------------------------"
 
+
 ###############
 # Find programs
 ###############
 
 UPX=`which upx`
-STRIP=`which i586-mingw32msvc-strip`
+STRIPFULLPATH=`which $STRIP`
 NLCVT="perl $SDIR/etc/nlcvt.pl"
 
 if [ ! ${UPX} ]; then
@@ -131,7 +169,7 @@ if [ ! ${UPX} ]; then
   UPX="echo"
 fi
 
-if [ ! ${STRIP} ]; then
+if [ ! ${STRIPFULLPATH} ]; then
   echo "*** Program not found: strip"
   STRIP="echo"
 fi

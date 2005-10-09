@@ -26,10 +26,12 @@ mailing list.)
       * SDL_ttf  (http://www.libsdl.org/projects/SDL_ttf)
       * zlib
       * libpng
+      * Xerces-C
 
   - Build Enigma by invoking "./configure && make" from the Enigma
     source directory.
 
+For a more detailed memory log see appendix A)
 
 2) Cross compilation
 --------------------
@@ -39,8 +41,12 @@ development tools are readily available on Linux, this may in fact be
 easier than the native compilation outlined above.  You need:
 
   - A Linux version of the MinGW compiler.  Debian has prebuilt packages 
-    for this, for other distributions try 
+    for this (check gcc -v includes --enable-sjlj-exceptions), 
+    for other distributions try: 
     
+      /etc/build-cross.sh 
+    
+    a updated and modified version of the script from
       http://www.libsdl.org/extras/win32/cross/README.txt
 
   - Get and install the libraries listed above
@@ -51,6 +57,7 @@ easier than the native compilation outlined above.  You need:
 
   - Run "make"
 
+For a more detailed memory log see appendix B)
 
 3) Packaging
 ------------
@@ -72,4 +79,114 @@ installer from the zip file.  Here is how:
 
 4) Additional Notes
 -------------------
+
+A) Native MinGW Compilation
+---------------------------
+
+Decide where to install mingw,msys and GnuWin32 - the main restriction is are
+paths without spaces (f.e. D:\MinGW, D:\msys, D:\GnuWin32).
+
+Install MinGW-version.exe (includes: runtime+w32api+binutils+gcc-[core+g++]+make)
+
+Install MinSys-version.exe
+Install msysDTK-version.exe
+Install msys-autoconf-2.59.tar.bz2 to msys
+(Install msys-automake-1.8.2.tar.bz2 to msys)
+
+Execute all shell commands from now on in msys/bash
+
+Extract texi2html - ./configure;make;make install
+
+Add GnuWin32/bin to PATH (either Windows or msys/bash)
+Extract gettext-bin + dep to GnuWin32
+Extract zip-bin to GnuWin32
+
+Install upx anywhere in PATH
+
+SDL-devel-1.2.9-mingw32.tar.gz
+  extract to a workdir
+  move include/* to include/SDL
+  edit Makefile CROSS_PATH to /mingw
+  edit bin/i386-mingw32msvc-sdl-config  prefix to /mingw
+  make cross
+  cp /mingw/bin/i386-mingw32msvc-sdl-config /mingw/bin/sdl-config
+  cp bin/*.dll to enigma/etc and a second copy to enigma
+
+SDL_ttf-devel-2.0.7-VC6.zip, SDL_mixer-devel-1.2.6-VC6.zip, SDL_image-devel-1.2.4-VC6.zip
+  extract
+  cp includes to /mingw/include/SDL
+  cp lib/*.lib to /mingw/lib
+  cp lib/*.dll to enigma/etc
+
+zlib-1.2.3-lib.zip, libpng-1.2.8-lib.zip
+  extract
+  cp includes to /mingw/include
+  cp lib/zlib.dll.a, libpng.dll.a to /mingw/lib 
+
+xerces-c
+  ./configure --prefix=/mingw
+  make
+  make install
+  
+enigma
+  export ENIGMADEVDLLS="SDL SDL_image SDL_mixer SDL_ttf jpeg libpng13 zlib"
+  ./configure
+  cd etc
+  ./mingw32-dist.sh
+  install etc/enigma.zip
+
+B) Cross MinGW Compilation
+---------------------------
+
+Decide where to install the cross compiler. The project default is
+/usr/i586-mingw32msvc with root ownership. If you are sure that you are the
+only cross compile user you can install it in your homedir, too.
+
+Let us call the installation base path CROSSPREFIX and TARGET the system we 
+build for (default: i586-minge32msvc). Then we will define
+CROSSPATH = CROSSPREFIX/TARGET  (default:/usr/i586-mingw32msvc/i586-mingw32msvc)
+
+etc/build-cross.sh copy as root or user to a workdir
+  edit PREFIX to your selected CROSSPATH
+  edit MINGW_URL if appropriate
+  execute it - this will take some time
+  (you may save the downloaded source directory - the rest can be deleted)
+  chown -R root:root CROSSPATH
+
+SDL-devel-1.2.9-mingw32.tar.gz
+  extract to a workdir
+  move include/* to include/SDL
+  edit Makefile CROSS_PATH to your selected CROSSPATH
+  edit bin/i386-mingw32msvc-sdl-config  prefix to your selceted CROSSPATH
+  make cross
+  ln -s CROSSPATH/bin/i386-mingw32msvc-sdl-config CROSSPREFIX/bin/sdl-config
+  cp bin/*.dll to enigma/etc
+
+SDL_ttf-devel-2.0.7-VC6.zip, SDL_mixer-devel-1.2.6-VC6.zip, SDL_image-devel-1.2.4-VC6.zip
+  extract
+  cp includes to CROSSPATH/include/SDL
+  cp lib/*.lib to CROSSPATH/lib
+  cp lib/*.dll to enigma/etc
+
+zlib-1.2.3-lib.zip, libpng-1.2.8-lib.zip
+  extract
+  cp includes to CROSSPATH/include
+  cp lib/zlib.dll.a, libpng.dll.a to CROSSPATH/lib 
+
+xerces-c
+  cp etc/mingw-config.sh to base directory of xerces-c
+  edit mingw-config.sh - add your CROSSPREFIX to PATH, use your TARGET as
+    commandprefix
+  execute mingw-config.sh
+  PATH=CROSSPREFIX/bin:$PATH (the path defined at the beginning!)
+  make
+  make install (as root with PATH=CROSSPREFIX/bin:$PATH)
+  
+enigma
+  export ENIGMADEVDLLS="SDL SDL_image SDL_mixer SDL_ttf jpeg libpng13 zlib"
+  export ENIGMADEVCROSSPREFIX=CROSSPREFIX (the path defined at the beginning!)
+  cd etc
+  ./mingw32-configure.sh
+  ./mingw32-dist.sh
+  install etc/enigma.zip on Windows
 

@@ -1,5 +1,6 @@
 # Process this file with autoconf to produce a configure script.
 AC_INIT([enigma],[0.92])
+AC_PREREQ(2.59)
 AC_CANONICAL_BUILD
 AC_CANONICAL_TARGET
 AC_CONFIG_SRCDIR([src/enigma.cc])
@@ -37,6 +38,9 @@ if test "x$CYGWIN" = xyes; then
   CFLAGS="$CFLAGS -mno-cygwin"
   CPPFLAGS="$CXXFLAGS -mno-cygwin"
   WINDRES="${WINDRES-windres}"
+fi
+if test "x$WINDRES" = x; then
+  WINDRES="windres"
 fi
 AC_SUBST(WINDRES)
 

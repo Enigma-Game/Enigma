@@ -27,3 +27,21 @@ would be regenerated once after checkout with an update of all *.po.
 Further changes would be ignored and all resulting *.po would be recommited 
 into the repository!
 
+- eliminate trailing '/' from gcc -I paths 
+
+This is for mingw gcc 3.4.2 compatibility. No problem with 3.4.1 and should be
+no more problem with 3.4.4. As soon as the current mingw release updates to a
+corrected gcc version we can skip this workaround.
+
+- lua code in repository is native but in exe distribution LF terminated
+Lua produces errors with CR+LF. By declaring lua files as native the repository
+will be free of CR+LF independent from the level authors editor. If we would not
+declare it native we would depend on the authors awareness of this problem.
+
+- the executable is large - why static link with xerces-c 3.0 for windows
+The trunk xerces 3.0 version libs are not stripped - strip enigma and it looks
+better. The Windows version currently generates no dll - you can do it by hand.
+But eitherway the static linked version will be smaller after upx than the
+shared one plus the dll. The Windows zip distribution grows from 11 MB only by
+appr. 650 KB to 11.5 MB.
+
