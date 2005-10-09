@@ -360,6 +360,11 @@ int luaX_lex (LexState *LS, SemInfo *seminfo) {
       case '_': goto tname;
 
       default:
+        if (isspace(LS->current)) {
+          next(LS);
+          continue;
+        }
+
         if (!isalpha(LS->current)) {
           int c = LS->current;
           if (iscntrl(c))
