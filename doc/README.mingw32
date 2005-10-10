@@ -130,6 +130,7 @@ xerces-c
   
 enigma
   export ENIGMADEVDLLS="SDL SDL_image SDL_mixer SDL_ttf jpeg libpng13 zlib"
+  ./autogen.sh
   ./configure
   cd etc
   ./mingw32-dist.sh
@@ -185,6 +186,7 @@ xerces-c
 enigma
   export ENIGMADEVDLLS="SDL SDL_image SDL_mixer SDL_ttf jpeg libpng13 zlib"
   export ENIGMADEVCROSSPREFIX=CROSSPREFIX (the path defined at the beginning!)
+  ./autogen.sh
   cd etc
   ./mingw32-configure.sh
   ./mingw32-dist.sh

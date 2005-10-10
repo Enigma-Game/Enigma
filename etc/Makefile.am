@@ -13,7 +13,9 @@ desktop_DATA = enigma.desktop
 # endif !MINGW32
 
 EXTRA_DIST = \
-	enigma.spec.in \
+	build-cross.sh \
+        xerces-mingw-conf.sh \
+        enigma.spec.in \
 	enigma.spec \
 	mingw32-configure.sh \
 	mingw32-dist.sh.in \
