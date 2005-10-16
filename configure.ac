@@ -117,10 +117,42 @@ dnl Check for libpng
 dnl ---------------------------------------
 AC_CHECK_LIB(png,png_create_write_struct,,[AC_MSG_ERROR([libpng is required to compile Enigma])])
 
-dnl
+dnl ----------------------------------------
+dnl Check for xerces
+dnl ----------------------------------------
+if test "$MINGW32" = yes; then
+  AC_MSG_CHECKING([for Xerces 3.0 experimental version])
+  AC_EGREP_HEADER([gXercesMajVersion = 3],[xercesc/util/XercesVersion.hpp],
+      [AC_MSG_RESULT([found])],
+      [AC_MSG_ERROR([not found])])      
+   AC_CHECK_LIB(xerces, main,,[AC_MSG_ERROR([xerces is required to compile Enigma])])
+else
+  AC_MSG_CHECKING([for Xerces 3.0 experimental version])
+  AC_EGREP_HEADER([gXercesMajVersion = 3],[xercesc/util/XercesVersion.hpp],
+      xerces3exp="yes",
+      xerces3exp="no")      
+  if test "x$xerces3exp" = xyes; then
+    AC_MSG_RESULT([found])
+    AC_CHECK_LIB(xerces, main,,[AC_MSG_ERROR([xerces is required to compile Enigma])])
+  else
+    AC_MSG_RESULT([not found])
+    AC_MSG_CHECKING([for Xerces >=2.4 released version])
+    AC_RUN_IFELSE([AC_LANG_PROGRAM([[#include <xercesc/util/XercesVersion.hpp>]],
+          [[if (XERCES_VERSION_MAJOR < 2)
+              return 1;
+            else if (XERCES_VERSION_MAJOR == 2 && XERCES_VERSION_MINOR < 4) 
+              return 1;
+            return 0;]])],
+        [AC_MSG_RESULT([found])],
+        [AC_MSG_ERROR([Xerces >= 2.4 not found.])])
+    AC_CHECK_LIB(xerces-c, main,,[AC_MSG_ERROR([xerces is required to compile Enigma])])
+  fi
+fi
+
+dnl ----------------------------------------
 dnl Activate optimizations when profiling, to get rid of
 dnl inlineable functions.
-dnl
+dnl ----------------------------------------
 AC_MSG_CHECKING(whether to include profiling information)
 AC_ARG_ENABLE(profile,
   AS_HELP_STRING(--enable-profile,Compile with profiling information), ,
@@ -159,6 +191,7 @@ dnl ----------------------------------------
 dnl Optimize?
 dnl ----------------------------------------
 
+AC_MSG_CHECKING(whether to optimize)
 AC_ARG_ENABLE(optimize,
   AS_HELP_STRING(--enable-optimize,Compile with optimizations [default=no]), ,
   enable_optimize=no

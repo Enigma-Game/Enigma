@@ -200,7 +200,7 @@ bool GameFS::find_file (const string &filename, string &dest) const
     return false;
 }
 
-FileHandle *GameFS::find_file (const FileName &n)
+file::FileHandle *GameFS::find_file (const FileName &n)
 {
     string fname;
     if (find_file (n, fname)) {
@@ -293,7 +293,7 @@ bool file::FindFile (const string &fname, string &dst_fname)
     return gamefs.find_file(fname, dst_fname);
 }
 
-FileHandle *file::FindFile (const FileName &n)
+file::FileHandle *file::FindFile (const FileName &n)
 {
     return gamefs.find_file (n);
 }

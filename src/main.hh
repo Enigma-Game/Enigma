@@ -22,7 +22,13 @@
 #include <string>
 #include <vector>
 #include <memory>
-
+#include <xercesc/dom/DOMImplementation.hpp>
+#include <xercesc/dom/DOMImplementationLS.hpp>
+#if _XERCES_VERSION >= 30000
+#include <xercesc/dom/DOMLSParser.hpp>
+#else
+#include <xercesc/dom/DOMBuilder.hpp>
+#endif
 
 namespace enigma
 {
@@ -50,6 +56,25 @@ namespace enigma
         std::string language;   // Language to use
         std::string defaultLanguage;
         std::string argumentLanguage;
+        /**
+         * The implementation of DOM Core.
+         */
+        XERCES_CPP_NAMESPACE_QUALIFIER DOMImplementation   *domImplementationCore;
+        /**
+         * The implementation of DOM Load and Save.
+         */
+        XERCES_CPP_NAMESPACE_QUALIFIER DOMImplementationLS *domImplementationLS;
+#if _XERCES_VERSION >= 30000
+        /**
+         * A configured DOM parser for reusage.
+         */
+        XERCES_CPP_NAMESPACE_QUALIFIER DOMLSParser *domParser;
+#else    
+        /**
+         * A configured DOM parser for reusage.
+         */
+        XERCES_CPP_NAMESPACE_QUALIFIER DOMBuilder *domParser;
+#endif
     };
 
 #define APP enigma::Application::get_instance()

@@ -28,6 +28,7 @@
 #include "ecl_argp.hh"
 #include "world.hh"
 #include "nls.hh"
+#include "DOMErrorReporter.hh"
 
 #include "enet/enet.h"
 
@@ -37,6 +38,11 @@
 #include <cstdlib>
 #include <fstream>
 #include <iostream>
+#include <xercesc/dom/DOM.hpp>
+#include <xercesc/util/XMLString.hpp>
+#include <xercesc/util/XMLUniDefs.hpp>
+#include <xercesc/util/PlatformUtils.hpp>
+#include <xercesc/util/XercesVersion.hpp>
 
 #ifdef MACOSX
 // for CFLocale
@@ -48,6 +54,7 @@
 using namespace std;
 using namespace ecl;
 using namespace enigma;
+XERCES_CPP_NAMESPACE_USE 
 
 #ifdef WIN32
 // LoadImage is a Syscall on Windows, which gets defined to LoadImageA
@@ -231,6 +238,45 @@ static void init_basic()
         file::AddDataPath(string(path)+"/Application Support/Enigma");
     }
 #endif
+
+    // init XML
+    try {
+        // Initialize to en_US - we don't know the user prefs yet
+        // If more than the error messages should be influenced we would
+        // have to terminate and reinit after reading the user prefs.
+        XMLPlatformUtils::Initialize();
+        
+        static const XMLCh ls[] = { chLatin_L, chLatin_S, chNull };
+        static const XMLCh core[] = { chLatin_C, chLatin_O,  chLatin_R, chLatin_E, chNull };
+        app.domImplementationLS = (DOMImplementationLS*)
+                (DOMImplementationRegistry::getDOMImplementation(ls));
+        app.domImplementationCore = (DOMImplementation*)
+                (DOMImplementationRegistry::getDOMImplementation(core));
+        DOMErrorReporter *errorHandler = new DOMErrorReporter();
+
+#if _XERCES_VERSION >= 30000
+        app.domParser = app.domImplementationLS->createLSParser(DOMImplementationLS::MODE_SYNCHRONOUS, 0);
+        DOMConfiguration  *config = app.domParser->getDomConfig();
+
+        config->setParameter(XMLUni::fgDOMNamespaces, true);
+        config->setParameter(XMLUni::fgXercesSchema, true);
+        config->setParameter(XMLUni::fgXercesSchemaFullChecking, true);
+        config->setParameter(XMLUni::fgDOMValidate, true);
+        config->setParameter(XMLUni::fgDOMErrorHandler, errorHandler);
+#else    
+        app.domParser = app.domImplementationLS->createDOMBuilder(DOMImplementationLS::MODE_SYNCHRONOUS, 0);
+
+        app.domParser->setFeature(XMLUni::fgDOMNamespaces, true);
+        app.domParser->setFeature(XMLUni::fgXercesSchema, true);
+        app.domParser->setFeature(XMLUni::fgXercesSchemaFullChecking, true);
+        app.domParser->setFeature(XMLUni::fgDOMValidation, true);
+        app.domParser->setErrorHandler(errorHandler);
+#endif
+    }
+    catch (...) {
+        fprintf(stderr, _("Error in XML initialization.\n"));
+        exit(1);
+    }     
 	
     lua_State *L = lua::GlobalState();
 
@@ -248,6 +294,34 @@ static void init_basic()
      }
 }
 
+static void testXerces() {
+    char* xmlFile = "index_test.xml"; //your test xml file
+    DOMDocument *doc = 0;
+    enigma::Log << "XML start\n";
+
+    try {
+        doc = app.domParser->parseURI(xmlFile);
+    }
+    catch (const XMLException& toCatch) {
+        char* message = XMLString::transcode(toCatch.getMessage());
+        cout << "Exception message is: \n"
+             << message << "\n";
+        XMLString::release(&message);
+        exit (-1);
+    }
+    catch (const DOMException& toCatch) {
+        char* message = XMLString::transcode(toCatch.msg);
+        cout << "Exception message is: \n"
+             << message << "\n";
+        XMLString::release(&message);
+        exit (-1);
+    }
+    catch (...) {
+        cout << "Unexpected Exception \n" ;
+        exit (-1);
+    }
+    enigma::Log << "XML done\n";
+}
 
 #ifdef MACOSX
 static std::string get_system_locale ()
@@ -266,7 +340,7 @@ static std::string get_system_locale ()
 /*! Initialize the internationalization subsystem */
 static void init_i18n ()
 {
-    // prioritys:
+    // priorities:
     // language: command-line --- user option --- system (environment)
     // defaultLanguage: command-line --- system (environment)
     app.language = app.argumentLanguage;
@@ -397,6 +471,7 @@ static void shutdown()
     lua::ShutdownGlobal();
     delete_sequence(levels::LevelPacks.begin(),
                     levels::LevelPacks.end());
+    XMLPlatformUtils::Terminate();
     delete ::nullbuffer;
 }
 
@@ -434,6 +509,7 @@ int main(int argc, char** argv)
         app.init(argc,argv);
         init_basic();
         init();
+//        testXerces();
         ShowMainMenu();
         shutdown();
         return 0;

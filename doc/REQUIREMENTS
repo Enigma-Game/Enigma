@@ -38,7 +38,7 @@ Apache          2.7 : http://xml.apache.org/xerces-c/download.cgi
                       Linux: ./configure --prefix=/mysweethome; make; install)
                       Windows: see doc/README.mingw
 
-libpng          1.2.8                           
+libpng          1.2.7                           
 /GnuWin32       http://gnuwin32.sourceforge.net/packages/libpng.htm
                 Developer files (W)
                 (The 1.2.8 dll is incompatible to SDL_image 1.2.4)

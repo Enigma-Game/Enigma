@@ -34,6 +34,8 @@ libecl_a_SOURCES = \
 	ecl_system.hh 			\
 	ecl_system_unix.cc 		\
 	ecl_sys_localename.cc		\
+	ecl_utf.hh                      \
+	ecl_utf.cc                      \
 	ecl_util.hh 			\
 	ecl_util.cc			\
 	ecl_video.cc 			\

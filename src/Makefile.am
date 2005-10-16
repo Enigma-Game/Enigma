@@ -19,6 +19,8 @@ enigma_SOURCES = 		\
 	client.cc 		\
 	client.hh 		\
 	client_internal.hh	\
+	DOMErrorReporter.hh     \
+	DOMErrorReporter.cc     \
 	d_models.cc 		\
 	d_models.hh		\
 	display.hh 		\
