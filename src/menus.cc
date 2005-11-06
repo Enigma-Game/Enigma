@@ -18,7 +18,7 @@
  */
  
 #include "menus.hh"
-
+#include "gui/TextField.hh"
 #include "client.hh"
 #include "config.h"
 #include "display.hh"
@@ -1140,7 +1140,8 @@ OptionsMenu::OptionsMenu(ecl::Surface *background_)
     right.add (new MusicVolumeButton);
 //    right.add (new InGameMusicButton);
     right.add (new StereoButton);
-
+//    right.add (new TextField());
+    
     {
         Rect l = left.pos();
         Rect r = right.pos();

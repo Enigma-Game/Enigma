@@ -794,6 +794,7 @@ bool Menu::manage() {
         }
         refresh();
         SDL_Delay(10);
+        if(active_widget) active_widget->tick(0.01);
         tick (0.01);
     }
     sound::SoundEvent ("menuexit");

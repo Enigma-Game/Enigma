@@ -49,6 +49,8 @@ enigma_SOURCES = 		\
 	levelpack.cc		\
 	levels.cc 		\
 	levels.hh		\
+	LocalToXML.cc		\
+	LocalToXML.hh		\
 	lua.cc 			\
 	lua.hh			\
 	lua-display.cc 		\
@@ -60,7 +62,7 @@ enigma_SOURCES = 		\
 	lua-global.cc 		\
 	lua-global.hh		\
 	lua-ecl.cc 		\
-	lua-px.hh		\
+	lua-ecl.hh		\
 	help.cc 		\
 	help.hh			\
 	main.cc 		\
@@ -99,13 +101,21 @@ enigma_SOURCES = 		\
 	stones_simple.cc 	\
 	stones_complex.cc  	\
 	st_switches.cc		\
+	Utf8ToXML.cc		\
+	Utf8ToXML.hh		\
 	util.cc 		\
 	util.hh			\
 	video.cc 		\
 	video.hh		\
 	world.cc 		\
 	world.hh 		\
-	world_internal.hh
+	world_internal.hh	\
+	XMLtoLocal.cc		\
+	XMLtoLocal.hh		\
+	XMLtoUtf8.cc		\
+	XMLtoUtf8.hh		\
+	gui/TextField.cc	\
+	gui/TextField.hh
 
 datadir = @datadir@
 

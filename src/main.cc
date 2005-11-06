@@ -39,6 +39,7 @@
 #include <fstream>
 #include <iostream>
 #include <xercesc/dom/DOM.hpp>
+#include <xercesc/framework/XMLRecognizer.hpp>
 #include <xercesc/util/XMLString.hpp>
 #include <xercesc/util/XMLUniDefs.hpp>
 #include <xercesc/util/PlatformUtils.hpp>
@@ -246,6 +247,16 @@ static void init_basic()
         // have to terminate and reinit after reading the user prefs.
         XMLPlatformUtils::Initialize();
         
+        // Initialize transcoding service for XML <-> utf8
+        XMLTransService::Codes initResult;        
+        app.xmlUtf8Transcoder = XMLPlatformUtils::fgTransService->
+                makeNewTranscoderFor(XMLRecognizer::UTF_8, initResult, 
+                4096); // the block size is irrelevant for utf-8                  
+        if (initResult != XMLTransService::Ok) {
+            fprintf(stderr, _("Error in XML initialization.\n"));
+            exit(1);
+        }
+        
         static const XMLCh ls[] = { chLatin_L, chLatin_S, chNull };
         static const XMLCh core[] = { chLatin_C, chLatin_O,  chLatin_R, chLatin_E, chNull };
         app.domImplementationLS = (DOMImplementationLS*)
@@ -292,35 +303,6 @@ static void init_basic()
         fprintf(stderr, _("Error in configuration file.\n"));
   	fprintf(stderr, lua::LastError (lua::GlobalState()).c_str());
      }
-}
-
-static void testXerces() {
-    char* xmlFile = "index_test.xml"; //your test xml file
-    DOMDocument *doc = 0;
-    enigma::Log << "XML start\n";
-
-    try {
-        doc = app.domParser->parseURI(xmlFile);
-    }
-    catch (const XMLException& toCatch) {
-        char* message = XMLString::transcode(toCatch.getMessage());
-        cout << "Exception message is: \n"
-             << message << "\n";
-        XMLString::release(&message);
-        exit (-1);
-    }
-    catch (const DOMException& toCatch) {
-        char* message = XMLString::transcode(toCatch.msg);
-        cout << "Exception message is: \n"
-             << message << "\n";
-        XMLString::release(&message);
-        exit (-1);
-    }
-    catch (...) {
-        cout << "Unexpected Exception \n" ;
-        exit (-1);
-    }
-    enigma::Log << "XML done\n";
 }
 
 #ifdef MACOSX
@@ -509,7 +491,6 @@ int main(int argc, char** argv)
         app.init(argc,argv);
         init_basic();
         init();
-//        testXerces();
         ShowMainMenu();
         shutdown();
         return 0;

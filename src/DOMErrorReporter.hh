@@ -17,6 +17,9 @@
  *
  */
 
+#ifndef ENIGMA_DOMERRORREPORTER_HH
+#define ENIGMA_DOMERRORREPORTER_HH
+
 #include <xercesc/dom/DOMErrorHandler.hpp>
 #include <xercesc/dom/DOMError.hpp>
 
@@ -74,4 +77,5 @@ namespace enigma
     };
     
 } // namespace enigma
+#endif
 

@@ -93,6 +93,7 @@ namespace gui
         }
 
         void invalidate();
+        virtual void tick (double /*dtime*/) {}
 
     protected:
         Widget(Container *parent=0);
@@ -304,8 +305,6 @@ namespace gui
         void draw(ecl::GC &gc, const ecl::Rect &r);
         void activate();
         void deactivate();
-    private:
-
         bool m_activep;
     };
 
@@ -450,7 +449,6 @@ namespace gui
 
         // Menu interface.
         virtual void draw_background(ecl::GC &/*gc*/) {}
-        virtual void tick (double /*dtime*/) {}
 
     private:
         void handle_event(const SDL_Event &e);

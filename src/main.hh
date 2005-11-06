@@ -29,6 +29,7 @@
 #else
 #include <xercesc/dom/DOMBuilder.hpp>
 #endif
+#include <xercesc/util/TransService.hpp>
 
 namespace enigma
 {
@@ -56,6 +57,12 @@ namespace enigma
         std::string language;   // Language to use
         std::string defaultLanguage;
         std::string argumentLanguage;
+        
+        /**
+         * A xerces transcoder for utf-8.
+         */
+        XERCES_CPP_NAMESPACE_QUALIFIER XMLTranscoder   *xmlUtf8Transcoder;
+        
         /**
          * The implementation of DOM Core.
          */

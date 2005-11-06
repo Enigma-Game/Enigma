@@ -19,13 +19,13 @@
 
 #include "DOMErrorReporter.hh"
 #include "main.hh"
-#include "ecl_utf.hh"
+#include "XMLtoLocal.hh"
 #include <iostream>
 #include <xercesc/dom/DOM.hpp>
 #include <xercesc/util/XMLString.hpp>
 #include <xercesc/util/XercesDefs.hpp>
 
-using namespace ecl;
+
 XERCES_CPP_NAMESPACE_USE
 
 namespace enigma
@@ -55,10 +55,10 @@ namespace enigma
             severity = DOMError::DOM_SEVERITY_FATAL_ERROR;
         }
     
-        Log << XML2Local(domError.getLocation()->getURI())
+        Log << XMLtoLocal(domError.getLocation()->getURI())
              << ", line " << domError.getLocation()->getLineNumber()
              << ", char " << domError.getLocation()->getColumnNumber()
-             << "\n  Message: " << XML2Local(domError.getMessage()) << std::endl;
+             << "\n  Message: " << XMLtoLocal(domError.getMessage()) << std::endl;
     
         // try to continue
         return true;
