@@ -897,7 +897,7 @@ namespace
         bool oxyd1_compatible() const { return int_attrib("oxyd") != 0; }
 
         static bool visit_dir(vector<GridPos> &stack, GridPos curpos,
-                              Direction dir);
+                              Direction dir, int wanted_oxyd_attrib);
         static void visit_adjacent(vector<GridPos>& stack, GridPos curpos,
                                    Direction dir, int wanted_oxyd_attrib);
 
@@ -962,13 +962,13 @@ PuzzleStone::PuzzleStone(int connections, bool oxyd1_compatible_)
 }
 
 
-bool
-PuzzleStone::visit_dir(vector<GridPos> &stack, GridPos curpos, Direction dir)
+bool PuzzleStone::visit_dir(vector<GridPos> &stack, GridPos curpos, 
+        Direction dir, int wanted_oxyd_attrib)
 {
     GridPos newpos = move(curpos, dir);
     PuzzleStone *pz = dynamic_cast<PuzzleStone*>(GetStone(newpos));
 
-    if (!pz)
+    if ((!pz) || (wanted_oxyd_attrib != pz->int_attrib("oxyd")))
         return false;
 
     DirectionBits cfaces = pz->get_connections();
@@ -997,6 +997,8 @@ bool PuzzleStone::find_cluster(Cluster &cluster) {
     bool is_complete = true;
     pos_stack.push_back(get_pos());
     this->visited = true;
+    int wanted_oxyd_attrib = int_attrib("oxyd");
+
     while (!pos_stack.empty())
     {
         GridPos curpos = pos_stack.back();
@@ -1012,13 +1014,13 @@ bool PuzzleStone::find_cluster(Cluster &cluster) {
             cfaces = DirectionBits(NORTHBIT | SOUTHBIT | EASTBIT | WESTBIT);
 
         if (has_dir(cfaces, NORTH))
-            is_complete &= visit_dir(pos_stack, curpos, NORTH);
+            is_complete &= visit_dir(pos_stack, curpos, NORTH, wanted_oxyd_attrib);
         if (has_dir(cfaces, EAST))
-            is_complete &= visit_dir(pos_stack, curpos, EAST);
+            is_complete &= visit_dir(pos_stack, curpos, EAST, wanted_oxyd_attrib);
         if (has_dir(cfaces, SOUTH))
-            is_complete &= visit_dir(pos_stack, curpos, SOUTH);
+            is_complete &= visit_dir(pos_stack, curpos, SOUTH, wanted_oxyd_attrib);
         if (has_dir(cfaces, WEST))
-            is_complete &= visit_dir(pos_stack, curpos, WEST);
+            is_complete &= visit_dir(pos_stack, curpos, WEST, wanted_oxyd_attrib);
     }
     return is_complete;
 }
