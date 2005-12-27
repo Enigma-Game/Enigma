@@ -369,17 +369,18 @@ void LevelWidget::scroll_down(int nlines)
 }
 
 void LevelWidget::page_up() {
-    set_selected (ifirst - width*height, iselected - width*height);
+    set_selected ((ifirst >= width*height ? ifirst - width*height : 0), 
+            (iselected >= width*height ? iselected - width*height : 0));
 }
 
 void LevelWidget::page_down() 
 {
     unsigned s = level_pack->size();
+    size_t lastPage = (s >= width*height ? (s / width - height) * width : 0);
 
     // make sure last page is shown as a whole
-    int first = std::min<int> ((s / width - height) * width,
-                               ifirst + width*height);
-//    set_selected (first, s-1);
+    int first = std::min<int> (lastPage, ifirst + width*height);
+    //    set_selected (first, s-1);
     set_selected (first, iselected + width*height);
 }
 
@@ -390,8 +391,8 @@ void LevelWidget::start() {
 void LevelWidget::end() 
 {
     unsigned s = level_pack->size();
-    int first = (s / width - height) * width;
-    set_selected (first, s-1);
+    size_t lastPage = (s >= width*height ? (s / width - height) * width : 0);
+    set_selected (lastPage, s-1);
 }
 
 void LevelWidget::recalc_available() {
@@ -580,6 +581,10 @@ void LevelWidget::set_current (size_t newsel)
 
 void LevelWidget::set_selected (size_t newfirst, size_t newsel)
 {
+    // check for implicit argument convertions of negativ integers to unsigned
+    assert(newfirst < 1000000);
+    assert(newsel < 1000000);
+    
     size_t numlevels = level_pack->size();
     newsel = Clamp<size_t> (newsel, 0, numlevels-1);
 
