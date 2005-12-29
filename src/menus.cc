@@ -376,10 +376,10 @@ void LevelWidget::page_up() {
 void LevelWidget::page_down() 
 {
     unsigned s = level_pack->size();
-    size_t lastPage = (s >= width*height ? (s / width - height) * width : 0);
+    size_t lastPage = (s >= width*height ? (s / width - height + 1) * width : 0);
 
     // make sure last page is shown as a whole
-    int first = std::min<int> (lastPage, ifirst + width*height);
+    size_t first = std::min<size_t> (lastPage, ifirst + width*height);
     //    set_selected (first, s-1);
     set_selected (first, iselected + width*height);
 }
@@ -391,7 +391,7 @@ void LevelWidget::start() {
 void LevelWidget::end() 
 {
     unsigned s = level_pack->size();
-    size_t lastPage = (s >= width*height ? (s / width - height) * width : 0);
+    size_t lastPage = (s >= width*height ? (s / width - height + 1) * width : 0);
     set_selected (lastPage, s-1);
 }
 
