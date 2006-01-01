@@ -123,6 +123,9 @@ void load_level (size_t ilevel)
         // (may be overidden by load_level (from Lua))
         const levels::LevelInfo &info = levelpack->get_info(ilevel);
         server::GameCompatibility = info.type;
+        
+        // clear inventory before level load and give us 2 extralives
+        player::NewGame();
 
         try {
             levelpack->load_level (ilevel);
@@ -192,7 +195,6 @@ void server::Shutdown()
 
 void server::InitNewGame()
 {
-    player::NewGame();
     PrepareLevel();
 }
 
