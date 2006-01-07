@@ -48,7 +48,7 @@ namespace enigma
                 srcLength,
                 xmlString, maxDestLength,
                 charsEaten, charSizes);
-        delete charSizes;
+        delete[] charSizes;
         if (charsEaten < srcLength)
             // an assert - should never occur
             Log << "Utf8toXML: incomplete transcoding - only "<< charsEaten <<
@@ -57,7 +57,7 @@ namespace enigma
     
     
     Utf8ToXML::~Utf8ToXML() {
-        delete xmlString;
+        delete [] xmlString;
     }
 
     const XMLCh * Utf8ToXML::x_str() const {
