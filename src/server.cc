@@ -637,5 +637,5 @@ int server::GetMoveCounter()
 
 void server::Msg_ActivateItem()
 {
-    player::ActivateItem();
+    player::ActivateFirstItem();
 }

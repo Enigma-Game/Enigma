@@ -21,7 +21,7 @@
 #include "sound.hh"
 #include "server.hh"
 #include "player.hh"
-
+#include "Inventory.hh"
 #include "stones_internal.hh"
 
 #include "ecl_util.hh"
@@ -2804,11 +2804,12 @@ MailStone::MailStone (const char *kind, Direction dir)
 
 void MailStone::actor_hit (const StoneContact &sc) 
 {
-    if (player::Inventory *inv = player::GetInventory(sc.actor)) {
+    if (enigma::Inventory *inv = player::GetInventory(sc.actor)) {
         if (Item *it = inv->get_item(0)) {
             GridPos p = find_pipe_endpoint();
             if (world::IsInsideLevel(p) && it->can_drop_at (p)) {
                 it = inv->yield_first();
+                player::RedrawInventory (inv);
                 it->drop(sc.actor, p);
             }
         }

@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2002,2003,2004 Daniel Heck
+ * Copyright (C) 2002,2003,2004,2006 Daniel Heck
  *
  * This program is free software; you can redistribute it and/or
  * modify it under the terms of the GNU General Public License
@@ -17,6 +17,7 @@
  *
  */
 #include "player.hh"
+#include "Inventory.hh"
 #include "display.hh"
 #include "sound.hh"
 #include "client.hh"
@@ -31,7 +32,9 @@
 #include <cassert>
 
 using namespace std;
-using namespace enigma::player;
+using namespace enigma;
+using world::Actor;
+using enigma::Inventory;
 
 namespace
 {
@@ -39,12 +42,12 @@ namespace
     public:
         PlayerInfo();
 
-        string          name;
-        Inventory       inventory;
-        vector<Actor*>  actors;
-        bool            out_of_lives;
-        double          dead_dtime; // number of seconds the player is already dead
-        bool            inhibit_pickup;
+        string         name;
+        Inventory      inventory;
+        vector<Actor*> actors;
+        bool           out_of_lives;
+        double         dead_dtime; // number of seconds the player is already dead
+        bool           inhibit_pickup;
     };
 
     typedef vector<PlayerInfo> PlayerList;
@@ -70,22 +73,6 @@ namespace
         // Variables
         vector<RespawnInfo> respawn_list;
     };
-}
-
-/* -------------------- Auxiliary functions -------------------- */
-namespace
-{
-    void UpdateInventory (Inventory *inv)
-    {
-        if (inv == GetInventory (CurrentPlayer())) {
-            std::vector<std::string> modelnames;
-            for (size_t i=0; i<inv->size(); ++i) {
-                world::Item *it = inv->get_item(i);
-                modelnames.push_back(it->get_inventory_model());
-            }
-            STATUSBAR->set_inventory (modelnames);
-        }
-    }
 }
 
 /* -------------------- PlayerInfo -------------------- */
@@ -137,9 +124,11 @@ bool LevelLocalData::remove_extralife (Actor *a)
 
     if (idx == -1) // no extralife found
         return false;
-
-    delete inv->yield_item(idx);
-    return true;
+    else {
+        delete inv->yield_item(idx);
+        player::RedrawInventory (inv);
+        return true;
+    }
 }
 
 
@@ -150,134 +139,6 @@ namespace
     LevelLocalData leveldat;
     PlayerList     players(2);     // this currently has always size 2
     unsigned       icurrent_player = 0;
-}
-
-
-
-
-/* -------------------- Inventory -------------------- */
-
-unsigned const Inventory::max_items = 12;
-
-Inventory::Inventory() : m_items()
-{}
-
-Inventory::~Inventory() {
-    clear();
-}
-
-void Inventory::clear() {
-    ecl::delete_sequence(m_items.begin(), m_items.end());
-    m_items.clear();
-}
-
-Item * Inventory::get_item (size_t idx) const {
-    return idx >= size() ? 0 : m_items[idx];
-}
-
-Item * Inventory::yield_item (size_t idx) {
-    if (idx < size()) {
-        Item *it = m_items[idx];
-        m_items.erase(m_items.begin()+ idx);
-        redraw();
-        return it;
-    }
-    return 0;
-}
-
-Item * Inventory::yield_first() {
-    return yield_item(0);
-}
-
-Item * Inventory::remove_item(Item *wanted) {
-    vector<Item*>::iterator e = m_items.end();
-    for (vector<Item*>::iterator i = m_items.begin(); i != e; ++i) {
-        if (*i == wanted) {
-            m_items.erase(i);
-            return wanted;
-        }
-    }
-    return 0;
-}
-
-bool Inventory::is_full() const 
-{
-    ItemHolder *holder = dynamic_cast<ItemHolder*>(get_item(0));
-    if (holder)
-        return holder->is_full(); 
-    return m_items.size() == max_items; 
-}
-
-void Inventory::add_item(Item *i) 
-{
-    ItemHolder *holder = dynamic_cast<ItemHolder*>(get_item(0));
-    if (holder && !holder->is_full()) {
-        // first item is a bag and not full
-        holder->add_item(i);
-    }
-    else {
-        m_items.insert(m_items.begin(), i);
-        redraw();
-    }
-}
-
-void Inventory::redraw() 
-{
-    UpdateInventory (this);
-}
-
-void Inventory::rotate(int dir) 
-{
-    if (!m_items.empty()) {
-	if (dir==1)
-	    std::rotate(m_items.begin(), m_items.begin()+1, m_items.end());
-	else
-	    std::rotate(m_items.begin(), m_items.end()-1, m_items.end());
-
-        redraw();
-    }
-}
-
-void Inventory::activate_first() 
-{
-    if (!m_items.empty()) {
-        Item *it = m_items[0];
-        Actor *ac = 0;
-        GridPos p;
-        bool can_drop_item = false;
-        if (!players[icurrent_player].actors.empty()) {
-            ac = players[icurrent_player].actors[0];
-            p = GridPos(ac->get_pos());
-            can_drop_item = ac->can_drop_items();
-        }
-
-        switch (it->activate(ac, p)) {
-        case world::ITEM_DROP:
-            // only drop if no item underneath and actor allows it
-            if (it->can_drop_at(p) && can_drop_item) {
-                remove_item(it);
-                redraw();
-                it->drop(ac, p);
-            }
-            break;
-        case world::ITEM_KILL:
-            remove_item(it);
-            redraw();
-            break;
-        case world::ITEM_KEEP:
-            break;
-        }
-    }
-}
-
-int Inventory::find(const string& kind, size_t start_idx) const 
-{
-    size_t size_ = size();
-    for (size_t i = start_idx; i<size_; ++i) {
-        if (get_item(i)->is_kind(kind))
-            return static_cast<int> (i);
-    }
-    return -1;
 }
 
 
@@ -311,9 +172,7 @@ void player::LevelLoaded()
 {
     if (server::TwoPlayerGame && server::SingleComputerGame)
         AddYinYang();
-    Inventory *inv = GetInventory (icurrent_player);
-    assert (inv);
-    inv->redraw();
+    RedrawInventory ();
 }
 
 void player::PrepareLevel() 
@@ -348,19 +207,23 @@ void player::LevelFinished()
     }
 }
 
-Inventory * player::GetInventory (int iplayer) {
+Inventory * player::GetInventory (int iplayer) 
+{
     return &players[iplayer].inventory;
 }
 
-Inventory * player::GetInventory (Actor *a) {
+
+Inventory * player::GetInventory (Actor *a) 
+{
     if (const Value *v = a->get_attrib("player"))
         return GetInventory(to_int(*v));
     return 0;
 }
 
+
 bool player::WieldedItemIs (Actor *a, const string &kind) 
 {
-    if (player::Inventory *inv = GetInventory(a))
+    if (Inventory *inv = GetInventory(a))
         if (Item *it = inv->get_item(0))
             return it->is_kind(kind);
     return false;
@@ -377,7 +240,7 @@ void player::SetCurrentPlayer(unsigned iplayer)
         Log << ecl::strf("SetCurrentPlayer: no such player %d\n", iplayer);
     else {
         icurrent_player = iplayer;
-        UpdateInventory (GetInventory(iplayer));
+        RedrawInventory (GetInventory(iplayer));
     }
 }
 
@@ -573,7 +436,7 @@ static void CheckDeadActors()
         if (toggle_to_player == NO_PLAYER)
             server::Msg_RestartGame();
         else
-            SetCurrentPlayer(toggle_to_player);
+            player::SetCurrentPlayer(toggle_to_player);
     }
 
 }
@@ -627,12 +490,13 @@ Inventory *player::MayPickup(Actor *a)
     return dont_pickup ? 0 : inv;
 }
 
-void player::PickupItem(Actor *a, GridPos p) 
+void player::PickupItem (Actor *a, GridPos p) 
 {
     if (Inventory *inv = MayPickup(a)) {
         if (Item *item = world::YieldItem(p)) {
             item->on_pickup(a);
             inv->add_item(item);
+            RedrawInventory (inv);
             sound::SoundEvent ("pickup", p.center());
         }
     }
@@ -651,21 +515,78 @@ void player::PickupStoneAsItem (Actor *a, enigma::GridPos p)
             if (Item *item = world::MakeItem(kind.c_str())) {
                 world::DisposeObject (stone);
                 inv->add_item(item);
+                player::RedrawInventory(inv);
                 sound::SoundEvent ("pickup", p.center());
             }
         }
     }
 }
 
-void player::ActivateItem() {
+void player::ActivateFirstItem() 
+{
     Inventory &inv = players[icurrent_player].inventory;
-    inv.activate_first();
+
+
+    if (inv.size() > 0) {
+        Item *it = inv.get_item (0);
+        world::Actor *ac = 0;
+        GridPos p;
+        bool can_drop_item = false;
+        if (!players[icurrent_player].actors.empty()) {
+            ac = players[icurrent_player].actors[0];
+            p = GridPos(ac->get_pos());
+            can_drop_item = ac->can_drop_items();
+        }
+
+        switch (it->activate(ac, p)) {
+        case world::ITEM_DROP:
+            // only drop if no item underneath and actor allows it
+            if (it->can_drop_at(p) && can_drop_item) {
+                it = inv.yield_first ();
+                RedrawInventory (&inv);
+                it->drop(ac, p);
+            }
+            break;
+        case world::ITEM_KILL:
+            DisposeObject (inv.yield_first ());
+            RedrawInventory (&inv);
+            break;
+        case world::ITEM_KEEP:
+            break;
+        }
+    }
 }
 
 void player::RotateInventory(int dir) 
 {
     sound::SoundEvent ("invrotate", ecl::V2());
     Inventory &inv = players[icurrent_player].inventory;
-    inv.rotate(dir);
+    if (dir == 1)
+        inv.rotate_left ();
+    else
+        inv.rotate_right ();
+    RedrawInventory (&inv);
+}
+
+
+/** Update the specified inventory on the screen, provided it is the
+    inventory of the current player.  For all other inventories, this
+    function does nothing. */
+void player::RedrawInventory (Inventory *inv)
+{
+    if (inv == GetInventory (CurrentPlayer())) 
+        RedrawInventory();
+}
+
+
+void player::RedrawInventory()
+{
+    Inventory *inv = GetInventory (CurrentPlayer());
+    std::vector<std::string> modelnames;
+    for (size_t i=0; i<inv->size(); ++i) {
+        world::Item *it = inv->get_item(i);
+        modelnames.push_back(it->get_inventory_model());
+    }
+    STATUSBAR->set_inventory (modelnames);
 }
 

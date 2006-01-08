@@ -1,3 +1,20 @@
+/*
+ * Copyright (C) 2006 Daniel Heck
+ *
+ * This program is free software; you can redistribute it and/or
+ * modify it under the terms of the GNU General Public License
+ * as published by the Free Software Foundation; either version 2
+ * of the License, or (at your option) any later version.
+ *
+ * This program is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ * GNU General Public License for more details.
+ *
+ * You should have received a copy of the GNU General Public License along
+ * with this program; if not, write to the Free Software Foundation, Inc.,
+ * 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.
+ */
 
 #include <list>
 #include <algorithm>
@@ -7,8 +24,8 @@
 
 #include "util.hh"
 
-
-using namespace enigma::util;
+using enigma::Timer;
+using enigma::TimeHandler;
 using namespace std;
 
 
@@ -16,32 +33,42 @@ using namespace std;
 
 namespace
 {
+    /** This class helps #Timer keep track of the current list of
+        registered TimeHandlers. */
     class Alarm {
     public:
-        Alarm(TimeHandler* h, double interval, bool repeatp);
-        void tick(double dtime);
-        bool expired() const { return removed || timeleft <= 0; }
-
-        void remove() { 
-            removed = true; 
-        }
-
-        bool operator==(const Alarm &a) const {
-            return a.handler == handler;
-        }
+        Alarm (enigma::TimeHandler* h, double interval, bool repeatp);
+        void tick (double dtime);
+        bool expired() const;
+        void mark_removed();
+        bool has_handler (enigma::TimeHandler *th) const;
     private:
         // Variables
-        TimeHandler *handler;
-        double       interval;
-        double       timeleft;
-        bool         repeatp;
-        bool         removed;
+        enigma::TimeHandler *handler;
+        double               interval;
+        double               timeleft;
+        bool                 repeatp;
+        bool                 removed;
     };
 }
+
 
 Alarm::Alarm(TimeHandler* h, double i, bool r)
 : handler(h), interval(i), timeleft(i), repeatp(r), removed(false)
 {}
+
+
+bool Alarm::expired() const 
+{
+    return removed || timeleft <= 0; 
+}
+
+
+void Alarm::mark_removed() 
+{ 
+    removed = true; 
+}
+
 
 void Alarm::tick (double dtime) 
 {
@@ -59,6 +86,12 @@ void Alarm::tick (double dtime)
 }
 
 
+bool Alarm::has_handler (TimeHandler *th) const 
+{
+    return handler == th;
+}
+
+
 /* -------------------- Timer implementation -------------------- */
 
 struct Timer::Rep {
@@ -67,15 +100,18 @@ struct Timer::Rep {
 };
 
 
-Timer::Timer() : self(*new Rep) 
+Timer::Timer() 
+: self(*new Rep) 
 {
 }
+
 
 Timer::~Timer() 
 {
     clear();
     delete &self;
 }
+
 
 void Timer::deactivate(TimeHandler* th) 
 {
@@ -85,10 +121,8 @@ void Timer::deactivate(TimeHandler* th)
     if (i != self.handlers.end()) {
         *i = 0;
     }
-    //    self.handlers.remove(th);
-    // This doesn't work because some objects deactivate themselves
-    // from their `tick' method!
 }
+
 
 void Timer::activate(TimeHandler *th) 
 {
@@ -96,34 +130,32 @@ void Timer::activate(TimeHandler *th)
         self.handlers.push_back(th);
 }
 
+
 void Timer::set_alarm(TimeHandler *th, double interval, bool repeatp) 
 {
     if (interval > 0)
         self.alarms.push_back(Alarm(th, interval, repeatp));
 }
 
-void Timer::remove_alarm(TimeHandler *th) {
-    // does not work (crashes if alarm_n removed alarm_n+1)
-    // self.alarms.remove(Alarm(th,0,0));
 
+void Timer::remove_alarm(TimeHandler *th) 
+{
     list<Alarm>::iterator e = self.alarms.end();
-    // only the ``handler'' entries are compared:
-    list<Alarm>::iterator a = find(self.alarms.begin(), e, Alarm(th, 0, 0));
-    if (a != e)
-        a->remove(); // only mark for removal!
+    for (list<Alarm>::iterator it = self.alarms.begin(); it != e; ++it) 
+        if (it->has_handler (th))
+            it->mark_removed();
 }
 
 
 void Timer::tick (double dtime) 
 {
-    self.handlers.remove(0);     // remove inactive entries
-    for_each(self.handlers.begin(), self.handlers.end(),
-             std::bind2nd (std::mem_fun (&TimeHandler::tick), dtime));
+    self.handlers.remove (0);     // remove inactive entries
+    for_each (self.handlers.begin(), self.handlers.end(),
+              std::bind2nd (std::mem_fun (&TimeHandler::tick), dtime));
 
-    // explicit loop to allow remove_alarm() to be called from inside alarm()
+    // Explicit loop to allow remove_alarm() to be called from inside alarm()
     for (list<Alarm>::iterator i=self.alarms.begin(); i != self.alarms.end(); ) {
         list<Alarm>::iterator n = ecl::next(i);
-
         i->tick(dtime);
         i = n;
     }

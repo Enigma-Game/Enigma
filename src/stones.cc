@@ -20,6 +20,7 @@
 #include "server.hh"
 #include "client.hh"
 #include "player.hh"
+#include "Inventory.hh"
 #include <cassert>
 
 using namespace std;
@@ -297,10 +298,11 @@ void SpitterStone::actor_hit (const StoneContact &sc)
     if (state != IDLE)
         return;
 
-    if (player::Inventory *inv = player::GetInventory(sc.actor)) {
+    if (enigma::Inventory *inv = player::GetInventory(sc.actor)) {
         int lifepos = inv->find("it-extralife");
         if (lifepos != -1) {
             delete inv->yield_item(lifepos);
+            player::RedrawInventory (inv);
             ball_velocity = sc.actor->get_vel();
             state = LOADING;
             set_anim ("st-spitter-loading");

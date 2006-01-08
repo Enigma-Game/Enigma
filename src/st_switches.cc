@@ -19,6 +19,7 @@
 #include "laser.hh"
 #include "player.hh"
 #include "server.hh"
+#include "Inventory.hh"
 
 #include <cassert>
 
@@ -233,7 +234,7 @@ void CoinSlot::tick(double dtime)
 
 void CoinSlot::actor_hit(const StoneContact &sc)
 {
-    if (player::Inventory *inv = player::GetInventory(sc.actor)) {
+    if (enigma::Inventory *inv = player::GetInventory(sc.actor)) {
         if (Item *it = inv->get_item (0)) {
             ItemID id = get_id(it);
             if (id == it_coin1 || id == it_coin2 || id == it_coin4) {
@@ -245,6 +246,7 @@ void CoinSlot::actor_hit(const StoneContact &sc)
                 remaining_time += coin_value;
 
                 inv->yield_first();
+                player::RedrawInventory (inv);
                 delete it;
             }
         }
@@ -283,7 +285,7 @@ namespace
         void init_model() {set_model(is_on() ? "st-key1" : "st-key0");}
         void actor_hit(const StoneContact &sc);
         const char *collision_sound() { return "metal"; }
-        bool check_matching_key (player::Inventory *inv);
+        bool check_matching_key (enigma::Inventory *inv);
     public:
         KeyStone(const char *kind="st-key", int keycode=0) 
         : OnOffStone(kind) 
@@ -309,7 +311,7 @@ namespace
     };
 }
 
-bool KeyStone::check_matching_key (player::Inventory *inv)
+bool KeyStone::check_matching_key (enigma::Inventory *inv)
 {
     Item *it = inv->get_item(0);
     int keycode, my_keycode = int_attrib ("keycode");
@@ -321,7 +323,7 @@ bool KeyStone::check_matching_key (player::Inventory *inv)
 
 void KeyStone::actor_hit(const StoneContact &sc)
 {
-    player::Inventory *inv = player::GetInventory(sc.actor);
+    enigma::Inventory *inv = player::GetInventory(sc.actor);
     if (!inv)
         return;
 
@@ -337,9 +339,10 @@ void KeyStone::actor_hit(const StoneContact &sc)
             }
         }
         else if (check_matching_key (inv)) {
-            DisposeObject(inv->yield_first());
+            DisposeObject (inv->yield_first());
             toggle = true;
         }
+        player::RedrawInventory (inv);
     }
     else {
         if (check_matching_key (inv))
@@ -639,25 +642,27 @@ namespace
     };
 }
 
-void FloppyStone::init_model() {
+void FloppyStone::init_model() 
+{
     set_model(is_on() ? "st-floppy1" : "st-floppy0");
 }
 
 void FloppyStone::actor_hit (const StoneContact &sc)
 {
-    if (player::Inventory *inv = player::GetInventory(sc.actor)) {
+    if (enigma::Inventory *inv = player::GetInventory(sc.actor)) {
         if (is_on()) {
             if (!inv->is_full()) {
-                inv->add_item(MakeItem("it-floppy"));
+                inv->add_item (MakeItem("it-floppy"));
                 set_on(false);
                 PerformAction(this, is_on());
             }
         }
         else if (player::WieldedItemIs (sc.actor, "it-floppy")) {
-            DisposeObject(inv->yield_first());
+            DisposeObject (inv->yield_first());
             set_on(true);
             PerformAction(this, is_on());
         }
+        player::RedrawInventory (inv);
     }
 }
 

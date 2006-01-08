@@ -9,8 +9,18 @@ EXTRA_DIST = \
 	enigma.rc \
 	enigma.doxygen
 
-# Source files created by 'tolua'.
-# LUA_IF_SOURCES =		
+
+CXXFLAGS = \
+	@SDL_CFLAGS@ \
+	 -DLOCALEDIR=\"$(localedir)\" \
+	-I$(top_srcdir)/lib-src/zipios++  \
+	-I$(top_builddir)/lib-src/zipios++ \
+	-I$(top_srcdir)/lib-src/lua \
+	-I$(top_srcdir)/lib-src/enigma-core \
+	-I$(top_srcdir)/lib-src/enet/include \
+	-I$(top_srcdir)/lib-src \
+	-I$(top_builddir)/intl
+
 
 enigma_SOURCES = 		\
 	actors.hh 		\
@@ -42,6 +52,9 @@ enigma_SOURCES = 		\
 	game.hh			\
 	gui.cc 			\
 	gui.hh			\
+	Inventory.cc		\
+	Inventory.hh		\
+	ItemHolder.hh		\
 	items.cc 		\
 	items.hh		\
 	laser.cc 		\
@@ -133,17 +146,6 @@ mingw_ldadd =
 
 endif
 
-
-enigma_CXXFLAGS = \
-	@SDL_CFLAGS@ \
-	 -DLOCALEDIR=\"$(localedir)\" \
-	-I$(top_srcdir)/lib-src/zipios++  \
-	-I$(top_builddir)/lib-src/zipios++ \
-	-I$(top_srcdir)/lib-src/lua \
-	-I$(top_srcdir)/lib-src/enigma-core \
-	-I$(top_srcdir)/lib-src/enet/include \
-	-I$(top_srcdir)/lib-src \
-	-I$(top_builddir)/intl
 
 enigma_LIBS = \
 	@SDL_LIBS@

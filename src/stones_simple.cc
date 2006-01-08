@@ -20,6 +20,7 @@
 #include "server.hh"
 #include "player.hh"
 #include "client.hh"
+#include "Inventory.hh"
 
 #include "stones_internal.hh"
 
@@ -1385,10 +1386,11 @@ void ThiefStone::animcb() {
 void ThiefStone::steal_from_player() 
 {
     if (m_affected_actor && !m_affected_actor->has_shield()) {
-        player::Inventory *inv = player::GetInventory(m_affected_actor);
+        enigma::Inventory *inv = player::GetInventory(m_affected_actor);
         if (inv && inv->size() > 0) {
             int i = IntegerRand (0, int (inv->size()-1));
             delete inv->yield_item(i);
+            player::RedrawInventory (inv);
             sound_event("thief");
         }
     }
@@ -1656,33 +1658,44 @@ namespace
     private:
         enum State { IDLE, BREAK };
         State state;
-        void actor_hit(const StoneContact &sc);
-        void change_state (State newstate) {
-            if (state == IDLE && newstate==BREAK) {
-                state = newstate;
-                sound_event ("stonedestroy");
-                set_anim("st-bombs-anim");
-            }
-        }
-        void animcb() {
-            assert(state == BREAK);
-            GridPos p = get_pos();
-            SendExplosionEffect(p, EXPLOSION_BOMBSTONE);
-            KillStone(p);
-            SetItem(p, it_explosion1);
-        }
-        void BombStone::message(const string &msg, const Value &) {
-            if (msg =="expl" || msg =="bombstone")
-                change_state(BREAK);
-        }
+        void actor_hit (const StoneContact &sc);
+        void change_state (State newstate);
+        void animcb();
+        void message (const string &msg, const Value &);
     };
 }
 
-void BombStone::actor_hit(const StoneContact &sc) {
-    if (player::Inventory *inv = player::GetInventory(sc.actor)) {
+void BombStone::change_state (State newstate) 
+{
+    if (state == IDLE && newstate==BREAK) {
+        state = newstate;
+        sound_event ("stonedestroy");
+        set_anim("st-bombs-anim");
+    }
+}
+
+void BombStone::animcb() 
+{
+    assert(state == BREAK);
+    GridPos p = get_pos();
+    SendExplosionEffect(p, EXPLOSION_BOMBSTONE);
+    KillStone(p);
+    SetItem(p, it_explosion1);
+}
+
+void BombStone::message(const string &msg, const Value &) 
+{
+    if (msg =="expl" || msg =="bombstone")
+        change_state(BREAK);
+}
+
+void BombStone::actor_hit(const StoneContact &sc) 
+{
+    if (enigma::Inventory *inv = player::GetInventory(sc.actor)) {
         if (!inv->is_full()) {
             Item *it = MakeItem("it-blackbomb");
             inv->add_item(it);
+            player::RedrawInventory (inv);
         }
     }
 }

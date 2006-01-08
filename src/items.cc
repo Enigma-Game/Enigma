@@ -24,6 +24,8 @@
 #include "sound.hh"
 #include "server.hh"
 #include "world.hh"
+#include "Inventory.hh"
+#include "ItemHolder.hh"
 
 #include "ecl_util.hh"
 
@@ -2470,11 +2472,9 @@ ItemAction Extinguisher::activate(Actor *a, GridPos p)
         }
         set_load(load - 1);
 
-        // ### HACK ###
-        // update the player's inventory
-        if (player::Inventory *inv = player::GetInventory(a)) {
-            inv->redraw();
-        }
+        // Redraw the player's inventory, the visual representation of
+        // the extinguisher has changed.
+        player::RedrawInventory();
     }
     return ITEM_DROP;
 }
@@ -3078,7 +3078,7 @@ namespace
 /* -------------------- Bag -------------------- */
 namespace
 {
-    class Bag : public Item, public player::ItemHolder {
+    class Bag : public Item, public enigma::ItemHolder {
         CLONEOBJ(Bag);
         DECL_TRAITS;
 
@@ -3096,11 +3096,12 @@ namespace
 
         // Item interface
         bool actor_hit (Actor *a) {
-            if (player::Inventory *inv = player::MayPickup(a)) {
+            if (Inventory *inv = player::MayPickup(a)) {
                 while (!inv->is_full() && !m_contents.empty()) {
                     Item *it = m_contents[0];
                     m_contents.erase (m_contents.begin());
-                    inv->add_item(it);
+                    inv->add_item (it);
+                    player::RedrawInventory (inv);
                 }
                 if (!m_contents.empty())
                     sound_event ("pickup");

@@ -378,7 +378,7 @@ namespace
     auto_ptr<World> level;
 }
 
-util::Timer    world::GameTimer;
+enigma::Timer  world::GameTimer;
 bool           world::TrackMessages;
 Actor         *world::CurrentCollisionActor = 0;
 

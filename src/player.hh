@@ -14,12 +14,13 @@
  * You should have received a copy of the GNU General Public License along
  * with this program; if not, write to the Free Software Foundation, Inc.,
  * 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.
- *
  */
 #ifndef PLAYER_HH_INCLUDED
 #define PLAYER_HH_INCLUDED
 
-/*
+/**
+ * @file
+ *
  * Player management.  Deals mostly with inventory management,
  * switching between players, respawning, etc.  Players are numbered
  * from 0..N-1, where N is the number of players in the current game
@@ -28,109 +29,71 @@
 
 #include "objects.hh"
 
-namespace enigma_player
-{
-    using namespace enigma;
-
-    class ItemHolder {
-    public:
-        virtual ~ItemHolder() {}
-
-        //! Return true if not further object can be picked up
-        virtual bool is_full() const = 0;
-
-        //! Add another item
-        virtual void add_item (Item *it) = 0;
-    };
-
-    class Inventory : public ItemHolder {
-    public:
-        Inventory();
-        ~Inventory();
-
-        // ItemHolder interface
-        bool is_full() const;
-        void add_item(Item *i);
-
-
-        size_t size() const { return m_items.size(); } // number of items
-        void clear();
-
-        void  rotate(int dir=1);
-        void  activate_first();
-        Item *get_item (size_t idx) const;
-        Item *yield_item (size_t idx);
-        Item *yield_first();
-
-        int find(const std::string& kind, size_t start_idx = 0) const;
-
-        void redraw();
-
-    private:
-        // Private methods.
-        Item *remove_item(Item *it);
-
-        // Private variables.
-        static const unsigned max_items;
-        std::vector<Item*> m_items;
-    };
-
-    /*! Start a new game for two virtual players. */
-    void NewGame();
-
-    /*! This is called whenever a new level is reached in a running
-      game.  The inventories of all players are cleaned up, i.e., all
-      items except for extra lifes are removed. */
-    void PrepareLevel();
-
-    /*! Add a yinyang item to all players' inventories. */
-    void AddYinYang ();
-
-    /*! Called after the loading a level but before starting the
-      game.  It initializes the inventory. */
-    void LevelLoaded();
-
-    /*! Called as soon as the current level is finished; it removes
-      the actors of all players from the level. */
-    void LevelFinished();
-
-    /* This function is only used by the YinYang items to exchange the
-       two players. */
-    void SwapPlayers();
-
-    // set/remove respawn positions for all black or all white actors
-    // (used when it-flagwhite/black is dropped)
-    void SetRespawnPositions(enigma::GridPos pos, bool black);
-    void RemoveRespawnPositions(bool black);
-
-    int      CurrentPlayer();
-    void     SetCurrentPlayer(unsigned iplayer);
-    unsigned NumberOfRealPlayers();
-
-    Inventory *MayPickup(Actor *a);
-    Inventory *GetInventory(int iplayer);
-    Inventory *GetInventory(Actor *a);
-    bool       WieldedItemIs(Actor *a, const std::string &kind);
-
-    void Suicide();
-
-    void AddActor (unsigned iplayer, Actor *a);
-    Actor *ReplaceActor (unsigned iplayer, Actor *old, Actor *a);
-    Actor *GetMainActor (unsigned iplayer);
-
-    bool     AllActorsDead();
-
-    void InhibitPickup (bool yesno);
-    void PickupItem (Actor *a, enigma::GridPos p);
-    void PickupStoneAsItem (Actor *a, enigma::GridPos p);
-    void RotateInventory (int dir=1);
-    void ActivateItem();
-
-    void Tick (double dtime);
-}
-
 namespace enigma
 {
-    namespace player = enigma_player;
-}
+    class Inventory;
+
+    namespace player {
+
+        /*! Start a new game for two virtual players. */
+        void NewGame();
+
+        /*! This is called whenever a new level is reached in a running
+          game.  The inventories of all players are cleaned up, i.e., all
+          items except for extra lifes are removed. */
+        void PrepareLevel();
+
+        /*! Add a yinyang item to all players' inventories. */
+        void AddYinYang ();
+
+        /*! Called after the loading a level but before starting the
+          game.  It initializes the inventory. */
+        void LevelLoaded();
+
+        /*! Called as soon as the current level is finished; it removes
+          the actors of all players from the level. */
+        void LevelFinished();
+
+        /* This function is only used by the YinYang items to exchange the
+           two players. */
+        void SwapPlayers();
+
+        void RedrawInventory();
+        void RedrawInventory(Inventory *inv);
+
+        // set/remove respawn positions for all black or all white actors
+        // (used when it-flagwhite/black is dropped)
+        void SetRespawnPositions(enigma::GridPos pos, bool black);
+        void RemoveRespawnPositions(bool black);
+
+        int      CurrentPlayer();
+        void     SetCurrentPlayer(unsigned iplayer);
+        unsigned NumberOfRealPlayers();
+
+
+        Inventory *MayPickup(Actor *a);
+        Inventory *GetInventory(int iplayer);
+        Inventory *GetInventory(Actor *a);
+        bool       WieldedItemIs(Actor *a, const std::string &kind);
+
+        void Suicide();
+
+        void AddActor (unsigned iplayer, Actor *a);
+        Actor *ReplaceActor (unsigned iplayer, Actor *old, Actor *a);
+        Actor *GetMainActor (unsigned iplayer);
+
+        bool AllActorsDead();
+
+        void InhibitPickup (bool yesno);
+        void PickupItem (Actor *a, enigma::GridPos p);
+        void PickupStoneAsItem (Actor *a, enigma::GridPos p);
+        void RotateInventory (int dir=1);
+
+        void ActivateFirstItem();
+        world::ItemAction ActivateItem (Item *it);
+
+        void Tick (double dtime);
+
+    } // namespace player
+} // namespace enigma
 #endif

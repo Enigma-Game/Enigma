@@ -129,7 +129,7 @@ namespace world
 
     /* The global timer for all objects that need to be notified at
        regular intervals. */
-    extern util::Timer GameTimer;
+    extern enigma::Timer GameTimer;
 
     /* Output a message whenever a message is being sent. */
     extern bool TrackMessages;
