@@ -31,6 +31,7 @@
 #include <dirent.h>
 #endif
 #include <algorithm>
+#include <ios>
 #include <iostream>
 #include <fstream>
 
@@ -249,13 +250,22 @@ std::istream &
 file::readfile (std::istream &is, file::ByteVec &dest, int blocksize)
 {
     size_t len = dest.size();
-    int nread=0;
+    int nread = blocksize;
     do {
-        dest.resize(dest.size() + blocksize);
-        is.read (&dest[len], blocksize);
+        dest.resize(dest.size() + nread);  // blocksize of free space at pos len
+        is.getline (&dest[len], blocksize);
         nread = is.gcount();
-        len += nread;
-    } while (nread == blocksize);
+        if (nread >= (blocksize - 1) && is.fail()) {
+            // either eof or no eol reached
+            len += --nread;
+            enigma::Log << "file::readfile long line that may cause trouble with mingw\n";
+        } else if (!is.fail()) {
+            // nread > 0 and includes trailing 0
+            len += nread;
+            // substitute 0 by eol
+            dest[len-1] = '\n';
+        }
+    } while (nread > 0 && !is.fail() && !is.eof());
     dest.resize(len);
     return is;
 }
