@@ -371,11 +371,11 @@ void LevelPack_Enigma::load_level (size_t index)
     const LevelInfo &info = get_info(index);
     string filename;
     if (file::FindFile ("levels/" + info.filename + ".xml", filename)) {
-        ifstream ifs(filename.c_str());
+        basic_ifstream<char> ifs(filename.c_str(), ios::binary | ios::in);
         load_level_xml (ifs);
     }
     else if (file::FindFile ("levels/" + info.filename + ".lua", filename)) {
-        ifstream ifs(filename.c_str());
+        basic_ifstream<char> ifs(filename.c_str(), ios::binary | ios::in);
         load_level (ifs);
     }
     else {
@@ -485,11 +485,11 @@ void LevelPack_CommandLine::load_level (size_t index)
         string ext = filename.substr (extbegin);
         
         if (ext == ".lua" || ext == ".ell") {
-            ifstream ifs(filename.c_str());
+            basic_ifstream<char> ifs(filename.c_str(), ios::binary | ios::in);
             LevelPack_Enigma::load_level (ifs);
         }
         else if (ext == ".xml" || ext == ".elx") {
-            ifstream ifs(filename.c_str());
+            basic_ifstream<char> ifs(filename.c_str(), ios::binary | ios::in);
             load_level_xml (ifs);
         }
         else{
