@@ -31,6 +31,8 @@ enigma_SOURCES = 		\
 	client_internal.hh	\
 	DOMErrorReporter.hh     \
 	DOMErrorReporter.cc     \
+	DOMSchemaResolver.cc	\
+	DOMSchemaResolver.hh	\
 	d_models.cc 		\
 	d_models.hh		\
 	display.hh 		\
@@ -44,7 +46,6 @@ enigma_SOURCES = 		\
 	enigma.hh		\
 	file.cc 		\
 	file.hh 		\
-	file_internal.hh	\
 	floors.cc 		\
 	floors.hh		\
 	fwd.hh			\
@@ -103,6 +104,8 @@ enigma_SOURCES = 		\
 	options.hh		\
 	player.cc 		\
 	player.hh		\
+	PreferenceManager.cc	\
+	PreferenceManager.hh	\
 	server.cc 		\
 	server.hh		\
 	sound.cc 		\

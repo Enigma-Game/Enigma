@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2005 Ronald Lamprecht
+ * Copyright (C) 2005, 2006 Ronald Lamprecht
  *
  * This program is free software; you can redistribute it and/or
  * modify it under the terms of the GNU General Public License
@@ -45,7 +45,7 @@ namespace enigma
     }
     
     XMLtoUtf8::~XMLtoUtf8() {
-        delete utf8String;
+        delete [] utf8String;
     }
 
     const char* XMLtoUtf8::c_str() const {

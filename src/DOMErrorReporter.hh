@@ -20,6 +20,7 @@
 #ifndef ENIGMA_DOMERRORREPORTER_HH
 #define ENIGMA_DOMERRORREPORTER_HH
 
+#include <ostream>
 #include <xercesc/dom/DOMErrorHandler.hpp>
 #include <xercesc/dom/DOMError.hpp>
 
@@ -32,7 +33,11 @@ namespace enigma
     class DOMErrorReporter : public XERCES_CPP_NAMESPACE_QUALIFIER DOMErrorHandler
     {
     public:
-        DOMErrorReporter();
+        /**
+         * Main constructor.
+         * @param aLogStream  the stream for error reports 
+         */
+        DOMErrorReporter(std::ostream *aLogStream);
         ~DOMErrorReporter();
 
         /**
@@ -57,11 +62,29 @@ namespace enigma
          * Resets error flag and severity
          */
         void resetErrors();
+        
+        /**
+         * Switch on report output to log stream
+         */
+        void reportToLog();
+        
+        /**
+         * Switch on report output to err stream
+         */
+        void reportToErr();
+        
+        /**
+         * Switch off report output
+         */
+        void reportToNull();
+        
+        /**
+         * Switch on report output to given stream
+         */
+        void reportToOstream(std::ostream *anOstream);
     
     private :
-        // -----------------------------------------------------------------------
         //  Unimplemented constructors and operators
-        // -----------------------------------------------------------------------
         DOMErrorReporter(const DOMErrorReporter&);
         void operator=(const DOMErrorReporter&);
     
@@ -74,6 +97,16 @@ namespace enigma
          * Most significant error type since last reset
          */
         XERCES_CPP_NAMESPACE_QUALIFIER DOMError::ErrorSeverity severity;
+        
+        /**
+         * Current output stream for error reports
+         */
+        std::ostream *reportStream;
+        
+        /**
+         * The configured log output stream
+         */
+        std::ostream *logStream;
     };
     
 } // namespace enigma

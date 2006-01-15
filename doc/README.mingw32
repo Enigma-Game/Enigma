@@ -176,9 +176,9 @@ zlib-1.2.3-lib.zip, libpng-1.2.8-lib.zip
 
 xerces-c
   cp etc/mingw-config.sh to base directory of xerces-c
-  edit mingw-config.sh - add your CROSSPREFIX to PATH, use your TARGET as
+  edit mingw-config.sh - add your CROSSPREFIX/bin to PATH, use your TARGET as
     commandprefix
-  execute mingw-config.sh
+  execute "mingw-config.sh --prefix=CROSSPATH --disable-transcoder-icu
   PATH=CROSSPREFIX/bin:$PATH (the path defined at the beginning!)
   make
   make install (as root with PATH=CROSSPREFIX/bin:$PATH)

@@ -38,14 +38,14 @@ string ecl::concat_paths (const string& path, const string& filename)
 
 bool ecl::split_path (const string& path, string* dir_part, string* filename_part)
 {
-    size_t lslash = path.find_last_of (PathSeparator);
+    size_t lslash = path.find_last_of (PathSeparators);
     if (lslash == path.length()-1) // trailing slash
         return split_path(path.substr(0, lslash), dir_part, filename_part);
 
     if (lslash == string::npos)
         return false;
 
-    size_t lnslash = path.find_last_not_of (PathSeparator, lslash);
+    size_t lnslash = path.find_last_not_of (PathSeparators, lslash);
 
     if (dir_part) *dir_part           = path.substr(0, lnslash+1);
     if (filename_part) *filename_part = path.substr(lslash+1);

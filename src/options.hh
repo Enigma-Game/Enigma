@@ -54,6 +54,7 @@ namespace enigma_options
 
 /* -------------------- Functions -------------------- */
 
+    bool HasOption (const char *name, std::string &value);
     void SetOption (const char *name, double value);
     void SetOption (const char *name, const std::string &value);
     void GetOption (const char *name, double &value);

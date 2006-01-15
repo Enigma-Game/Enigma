@@ -25,6 +25,7 @@
 namespace ecl
 {
     extern const char *PathSeparator;
+    extern const char *PathSeparators;
 
     std::string ExpandPath (const std::string &path);
 
@@ -33,6 +34,10 @@ namespace ecl
         
     bool FolderExists (const std::string &fname);
     bool FolderCreate (const std::string &fname);
+
+#ifdef __MINGW32__
+    std::string ApplicationDataPath();
+#endif
 
 /* -------------------- Locales -------------------- */
 

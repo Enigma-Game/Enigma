@@ -1006,12 +1006,12 @@ void DifficultyButton::on_action(Widget *)
 }
 
 /* -------------------- TournamentButton -------------------- */
-
-TournamentButton::TournamentButton()
-    : BoolOptionButton("Tournament", N_("Tournament"), N_("Training"), this)
-{
-}
-
+// 
+// TournamentButton::TournamentButton()
+//     : BoolOptionButton("Tournament", N_("Tournament"), N_("Training"), this)
+// {
+// }
+// 
 /* -------------------- LanguageButton -------------------- */
 
 struct Language {
@@ -1238,7 +1238,7 @@ struct LevelMenuConfig {
 
 LevelMenu::LevelMenu(LevelPack *lp, unsigned long pos)
 : but_unsolved   (new ImageButton("ic-unsolved", "ic-unsolved1", this)), 
-  but_tournament (new TournamentButton),
+//  but_tournament (new TournamentButton),
   but_back       (new StaticTextButton(N_("Back"), this)),
   but_difficulty (new DifficultyButton),
   but_levelpack  (new StaticTextButton(N_("Level Pack"), this)),

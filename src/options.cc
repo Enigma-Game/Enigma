@@ -22,6 +22,7 @@
 #include "lua.hh"
 #include "main.hh"
 #include "options.hh"
+#include "PreferenceManager.hh"
 #include "sound.hh"
 #include "ecl_system.hh"
 
@@ -49,39 +50,41 @@ namespace enigma_options
 
 /* -------------------- Functions -------------------- */
 
+bool options::HasOption (const char *name, std::string &value) {
+    bool hasOption;
+    const char * result;
+    lua_State *L = lua::GlobalState();
+    lua_getglobal (L, "options");
+    lua_pushstring (L, name);
+    lua_rawget (L, -2);
+    result = lua_tostring (L, -1);
+    if (result != NULL) {
+        hasOption = true;
+        value = result;
+    } else {
+        hasOption = false;
+    }
+    lua_pop (L, 2);
+    return hasOption;
+} 
+
 void options::SetOption (const char *name, double value)
 {
-    lua_State *L = lua::GlobalState();
-    lua::SetTableVar (L, "options", name, value);
+    app.prefs->setPref(name, value);
 }
 
 void options::SetOption (const char *name, const std::string &value)
 {
-    lua_State *L = lua::GlobalState();
-    lua_getglobal (L, "options");
-    lua_pushstring (L, name);
-    lua_pushstring (L, value.c_str());
-    lua_rawset (L, -3);
-    lua_pop (L, 1);
+    app.prefs->setPref(name, value);
 }
 
 void options::GetOption (const char *name, double &value)
 {
-    lua_State *L = lua::GlobalState();
-    lua_getglobal (L, "options");
-    lua_pushstring (L, name);
-    lua_rawget (L, -2);
-    value = lua_tonumber (L, -1);
-    lua_pop(L, 2);
+    app.prefs->getPref(name, value);
 }
 
 void options::GetOption (const char *name, std::string &value) {
-    lua_State *L = lua::GlobalState();
-    lua_getglobal (L, "options");
-    lua_pushstring (L, name);
-    lua_rawget (L, -2);
-    value = lua_tostring (L, -1);
-    lua_pop (L, 2);
+    app.prefs->getPref(name, value);
 } 
 
 bool options::GetBool (const char *name) {
@@ -223,34 +226,13 @@ System_ConfigurationFileName()
 static std::string
 Windows_ConfigurationFileName()
 {
-    typedef HRESULT (WINAPI *SHGETFOLDERPATH)( HWND, int, HANDLE, DWORD, LPTSTR );
-#   define CSIDL_FLAG_CREATE 0x8000
-#   define CSIDL_APPDATA 0x1A
-#   define SHGFP_TYPE_CURRENT 0
-
-    HINSTANCE shfolder_dll;
-    SHGETFOLDERPATH SHGetFolderPath ;
-
-    /* load the shfolder.dll to retreive SHGetFolderPath */
-    if( ( shfolder_dll = LoadLibrary("shfolder.dll") ) != NULL )
-    {
-        SHGetFolderPath = (SHGETFOLDERPATH)GetProcAddress( shfolder_dll, "SHGetFolderPathA");
-        if ( SHGetFolderPath != NULL )
-        {
-            TCHAR szPath[MAX_PATH] = "";
-
-            /* get the "Application Data" folder for the current user */
-            if( S_OK == SHGetFolderPath( NULL, CSIDL_APPDATA | CSIDL_FLAG_CREATE,
-                                         NULL, SHGFP_TYPE_CURRENT, szPath) )
-            {
-                FreeLibrary( shfolder_dll);
-                return std::string(szPath) + "/enigmarc.lua";
-            }
-        }
-        FreeLibrary( shfolder_dll);
-    }
-
-    return Personal_ConfigurationFileName();
+    std::string result = ecl::ApplicationDataPath();
+    
+    if (!result.empty()) 
+        return result + "/enigmarc.lua";
+    else
+        return Personal_ConfigurationFileName();
+    
 }
 
 #endif

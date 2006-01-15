@@ -26,9 +26,10 @@
 #include "sound.hh"
 #include "video.hh"
 #include "ecl_argp.hh"
+#include "ecl_system.hh"
 #include "world.hh"
 #include "nls.hh"
-#include "DOMErrorReporter.hh"
+#include "PreferenceManager.hh"
 
 #include "enet/enet.h"
 
@@ -44,6 +45,7 @@
 #include <xercesc/util/XMLUniDefs.hpp>
 #include <xercesc/util/PlatformUtils.hpp>
 #include <xercesc/util/XercesVersion.hpp>
+
 
 #ifdef MACOSX
 // for CFLocale
@@ -94,37 +96,6 @@ std::ostream enigma::Log(0);
   this case, enigma::Log uses this object's streambuffer. */
 static std::fstream logfile;
 
-
-/* -------------------- Application -------------------- */
-
-Application::Application()
-: wizard_mode   (false),
-  nograb        (false),
-  language      (""),
-  defaultLanguage (""),
-  argumentLanguage ("")
-{
-}
-
-
-void Application::init(int argc, char **argv) 
-{
-    progname = argv[0];
-    copy(argv+1, argv+argc, back_inserter(args));
-}
-
-void Application::setLanguage(std::string newLanguage)
-{
-    if (newLanguage == "") {
-        language = defaultLanguage;
-    }
-    else {
-        language = newLanguage;
-    }
-    nls::SetMessageLocale(language);
-}
-
-
 /* -------------------- Functions -------------------- */
 
 static void usage()
@@ -133,14 +104,15 @@ static void usage()
            "Available options :\n\n"
            "    --nosound      Disable music and sound\n"
            "    --nomusic      Disable music\n"
-           "    --window       Run in a window; do not enter fullscreen mode\n"
+           "    --window -w    Run in a window; do not enter fullscreen mode\n"
            "    --help -h      Show this help\n"
            "    --version      Print the executable's version number\n"
            "    --nograb       Do not use exclusive mouse/keyboard access\n"
            "    --data -d path Load data from additional directory\n"
            "    --lang -l lang Set game language\n"
+           "    --pref -p file Use filename for preferences\n"
            "\n",
-           app.progname.c_str()
+           app.progCallPath.c_str()
            );
 }
 
@@ -152,14 +124,16 @@ namespace
         AP();
 
         // Variables.
-        bool nosound, nomusic, show_help, show_version, do_log;
+        bool nosound, nomusic, show_help, show_version, do_log, force_window;
         bool dumpinfo;
         string gamename;
+        string datapath;
+        string preffilename;
         std::vector<string> levelnames;
 
     private:
         enum {
-            OPT_WINDOW, OPT_GAME, OPT_DATA, OPT_LANG
+            OPT_WINDOW, OPT_GAME, OPT_DATA, OPT_LANG, OPT_PREF
         };
 
         // ArgParser interface.
@@ -176,9 +150,11 @@ namespace
 
 AP::AP() : ArgParser (app.args.begin(), app.args.end())
 {
-    nosound  = nomusic = show_help = show_version = do_log = false;
+    nosound  = nomusic = show_help = show_version = do_log = force_window = false;
     dumpinfo = false;
     gamename = "";
+    datapath = "";
+    preffilename = PREFFILENAME;
 
     def (&nosound,              "nosound");
     def (&nomusic,              "nomusic");
@@ -188,26 +164,31 @@ AP::AP() : ArgParser (app.args.begin(), app.args.end())
     def (&Nograb,               "nograb");
     def (&do_log,               "log");
     def (&dumpinfo,             "dumpinfo");
-    def (OPT_WINDOW,            "window",  'w');
+    def (&force_window,         "window", 'w');
     def (OPT_GAME,              "game", true);
     def (OPT_DATA,              "data", 'd', true);
     def (OPT_LANG,              "lang", 'l', true);
+    def (OPT_PREF,              "pref", 'p', true);
 }
 
 void AP::on_option (int id, const string &param) 
 {
     switch (id) {
-    case OPT_WINDOW:  
-        options::SetOption("FullScreen", false);
-        break;
     case OPT_GAME:
         gamename = param; 
         break;
     case OPT_DATA:
-        file::AddDataPath (param);
+// we should be able to add several paths -- file.cc has does not yet support this
+//        if (datapath.empty())
+            datapath = param;
+//         else
+//             datapath = param  + ":" + datapath;
         break;
     case OPT_LANG:
         app.argumentLanguage = param;
+        break;
+    case OPT_PREF:
+        preffilename = param;
         break;
     }
 }
@@ -221,89 +202,6 @@ void AP::on_argument (const string &arg)
 
 /*! Initialize enough of the game to be able to show error messages in
   the window, not on the console. */
-static void init_basic()
-{
-    // Initialize logfile 
-    enigma::Log.rdbuf(::nullbuffer);
-
-    // Set list of file search paths from compile option
-    file::SetDataPath (DEFAULT_DATA_PATH);
-
-#ifdef MACOSX
-    // set user-visible data paths
-    NSSearchPathEnumerationState cur=NSStartSearchPathEnumeration(NSLibraryDirectory, NSAllDomainsMask);
-    char path[PATH_MAX];
-
-    while(cur) {
-        cur=NSGetNextSearchPathEnumeration(cur, path);
-        file::AddDataPath(string(path)+"/Application Support/Enigma");
-    }
-#endif
-
-    // init XML
-    try {
-        // Initialize to en_US - we don't know the user prefs yet
-        // If more than the error messages should be influenced we would
-        // have to terminate and reinit after reading the user prefs.
-        XMLPlatformUtils::Initialize();
-        
-        // Initialize transcoding service for XML <-> utf8
-        XMLTransService::Codes initResult;        
-        app.xmlUtf8Transcoder = XMLPlatformUtils::fgTransService->
-                makeNewTranscoderFor(XMLRecognizer::UTF_8, initResult, 
-                4096); // the block size is irrelevant for utf-8                  
-        if (initResult != XMLTransService::Ok) {
-            fprintf(stderr, _("Error in XML initialization.\n"));
-            exit(1);
-        }
-        
-        static const XMLCh ls[] = { chLatin_L, chLatin_S, chNull };
-        static const XMLCh core[] = { chLatin_C, chLatin_O,  chLatin_R, chLatin_E, chNull };
-        app.domImplementationLS = (DOMImplementationLS*)
-                (DOMImplementationRegistry::getDOMImplementation(ls));
-        app.domImplementationCore = (DOMImplementation*)
-                (DOMImplementationRegistry::getDOMImplementation(core));
-        DOMErrorReporter *errorHandler = new DOMErrorReporter();
-
-#if _XERCES_VERSION >= 30000
-        app.domParser = app.domImplementationLS->createLSParser(DOMImplementationLS::MODE_SYNCHRONOUS, 0);
-        DOMConfiguration  *config = app.domParser->getDomConfig();
-
-        config->setParameter(XMLUni::fgDOMNamespaces, true);
-        config->setParameter(XMLUni::fgXercesSchema, true);
-        config->setParameter(XMLUni::fgXercesSchemaFullChecking, true);
-        config->setParameter(XMLUni::fgDOMValidate, true);
-        config->setParameter(XMLUni::fgDOMErrorHandler, errorHandler);
-#else    
-        app.domParser = app.domImplementationLS->createDOMBuilder(DOMImplementationLS::MODE_SYNCHRONOUS, 0);
-
-        app.domParser->setFeature(XMLUni::fgDOMNamespaces, true);
-        app.domParser->setFeature(XMLUni::fgXercesSchema, true);
-        app.domParser->setFeature(XMLUni::fgXercesSchemaFullChecking, true);
-        app.domParser->setFeature(XMLUni::fgDOMValidation, true);
-        app.domParser->setErrorHandler(errorHandler);
-#endif
-    }
-    catch (...) {
-        fprintf(stderr, _("Error in XML initialization.\n"));
-        exit(1);
-    }     
-	
-    lua_State *L = lua::GlobalState();
-
-    // Run initialization scripts
-    if (lua::Dofile(L, "startup.lua") != 0) {
-        fprintf(stderr, _("There was an error loading 'startup.lua'.\n"));
-        fprintf(stderr, _("Your installation may be incomplete or invalid.\n"));
-        exit (1);
-    }
-
-    // Load preferences
-    if (!options::Load()) {
-        fprintf(stderr, _("Error in configuration file.\n"));
-  	fprintf(stderr, lua::LastError (lua::GlobalState()).c_str());
-     }
-}
 
 #ifdef MACOSX
 static std::string get_system_locale ()
@@ -347,7 +245,7 @@ static void init_i18n ()
 
     nls::SetMessageLocale (app.language);
 
-    bindtextdomain (PACKAGE_NAME, LOCALEDIR);
+    bindtextdomain (PACKAGE_NAME, app.l18nPath.c_str());
 
     // SDL_ttf does not handle arbitrary encodings, so use UTF-8
     bind_textdomain_codeset (PACKAGE_NAME, "utf-8");
@@ -356,29 +254,75 @@ static void init_i18n ()
 
 }
 
-/*! Initialize the rest of the game */
-static void init() 
-{
-    lua_State *L = lua::GlobalState();
+/* -------------------- Application -------------------- */
 
-    // parse commandline arguments
+Application::Application()
+: wizard_mode   (false),
+  nograb        (false),
+  language      (""),
+  defaultLanguage (""),
+  argumentLanguage ("")
+{
+}
+
+
+void Application::init(int argc, char **argv) 
+{
+    progCallPath = argv[0];
+    copy(argv+1, argv+argc, back_inserter(args));
+    
+    // parse commandline arguments -- needs args
     AP ap;
     ap.parse();
 
-    if (ap.do_log) 
-        enigma::Log.rdbuf(cout.rdbuf());
-
-    // set message language
-    init_i18n();
-
     // ----- Evaluate command line arguments.
+    // start with simple actions that do not need further initialization
     if (ap.show_help || ap.show_version) {
         printf("Enigma %s\n",PACKAGE_VERSION);
         if (ap.show_help) usage();
         exit(0);
     }
 
+    // initialize logfile -- needs ap
+    if (ap.do_log) 
+        enigma::Log.rdbuf(cout.rdbuf());
+    else
+        enigma::Log.rdbuf(::nullbuffer);
+
+    // initialize system datapaths -- needs ap, log
+    systemCmdDataPath = ap.datapath;
+    initSysDatapaths(ap.preffilename);
+
+    // initialize XML -- needs log, datapaths
+    initXerces();
+    
+    // initialize LUA - Run initialization scripts
+    lua_State *L = lua::GlobalState();
+    if (lua::Dofile(L, "startup.lua") != 0) {
+        fprintf(stderr, _("There was an error loading 'startup.lua'.\n"));
+        fprintf(stderr, _("Your installation may be incomplete or invalid.\n"));
+        exit (1);
+    }
+
+    // initialize preferences -- needs LUA, XML
+    if (!options::Load()) {
+        fprintf(stderr, _("Error in configuration file.\n"));
+  	fprintf(stderr, lua::LastError (lua::GlobalState()).c_str());
+    }     
+    prefs = PreferenceManager::instance();
+    
+    if (ap.force_window) {
+        options::SetOption("FullScreen", false);
+    }
+
+    // initialize user data paths -- needs preferences, system datapaths
+    initUserDatapaths();
+    
+    // set message language
+    init_i18n();
+    
     // ----- Load level packs
+//    lua_State *L = lua::GlobalState();
     if (ap.levelnames.empty()) {
         lua::Dofile(L, "levels/index.lua");
         lua::DoSubfolderfile(L, "levels", "index.lua");
@@ -388,8 +332,6 @@ static void init()
     else {
         levels::AddSimpleLevelPack (ap.levelnames, "Quick Test Levels");
     }
-
-
 
     // ----- Initialize object repositories
     world::Init();
@@ -441,26 +383,42 @@ static void init()
     enigma::Randomize();
 }
 
-static void shutdown() 
+void Application::initSysDatapaths(const std::string &prefFilename)
 {
-    oxyd::Shutdown();
-    world::Shutdown();
-    video::Shutdown();
-    display::Shutdown();
-    sound::Shutdown();
-    enet_deinitialize();
-    options::Save();
-    lua::ShutdownGlobal();
-    delete_sequence(levels::LevelPacks.begin(),
-                    levels::LevelPacks.end());
-    XMLPlatformUtils::Terminate();
-    delete ::nullbuffer;
-}
+    std::string progDir;          // directory path part of args[0]
+    std::string progName;         // filename part of args[0]
+    bool progDirExists = split_path(progCallPath, &progDir, &progName);
+    std::string systemPath = SYSTEM_DATA_DIR; // substituted by configure.ac
+    bool haveHome = (getenv("HOME") != 0);
+#ifdef __MINGW32__
+    // windows standard user specific application data directory path
+    std::string winAppDataPath = ecl::ApplicationDataPath() + "/Enigma";
+#endif
+    
+    // The old code -- to be deleted
+    // Set list of file search paths from compile option
+    file::SetDataPath (DEFAULT_DATA_PATH);
+    if (!systemCmdDataPath.empty())
+        file::AddDataPath (systemCmdDataPath);
+#ifdef __MINGW32__
+    if (progDirExists) {
+        file::AddDataPath (progDir + "/data");
+    }
+#endif
 
-int main(int argc, char** argv) 
-{
-
-#ifdef MACOSX
+    // systemFS
+    systemFS = new file::GameFS();
+#ifdef __MINGW32__
+    if (!progDirExists) {
+        // filename only -- working dir should be on enigma as enigma
+        // should never be located on exec path on windows
+        systemAppDataPath = "./data";
+    } else {
+        // a call from elsewhere -- absolute or relative path does not matter.
+        // this enables calls from a commandline.
+        systemAppDataPath = progDir + "/data";
+    }
+#elif MACOSX
     // Mac OS X applications are self-contained bundles,
     // i.e., directories like "Enigma.app".  Resources are
     // placed in those bundles under "Enigma.app/Contents/Resources",
@@ -472,7 +430,7 @@ int main(int argc, char** argv)
     char parentdir[1024];
     char *c;
 
-    strncpy ( parentdir, argv[0], sizeof(parentdir) );
+    strncpy ( parentdir, progCallPath.c_str(), sizeof(parentdir) );
     c = (char*) parentdir;
 
     while (*c != '\0')     /* go to end */
@@ -485,12 +443,190 @@ int main(int argc, char** argv)
 
     chdir (parentdir);  /* chdir to the binary app's parent */
     chdir ("../Resources/"); /* chdir to the .app's parent */
-#endif //MACOSX
+    
+    systemAppDataPath = "./data";
+    
+// to be tested and used as substitution for the code above:
+//     systemAppDataPath = progDir + "/../Resources/data";
+    
+#else
+    // Unix -- we get our data path from the installation
+    systemAppDataPath = systemPath;
+#endif
+    systemFS->append_dir(systemAppDataPath);
+    if (!systemCmdDataPath.empty())
+         systemFS->prepend_dir(systemCmdDataPath);
+    
+    // l18nPath
+    l18nPath = LOCALEDIR;    // defined in src/Makefile.am
+#ifdef __MINGW32__
+    if (progDirExists) {
+        l18nPath = progDir + "/" + l18nPath;
+    }
+#endif
+    
+    
+    // prefPath
+    if (haveHome) {
+        prefPath = ecl::ExpandPath("~");
+        Log << "prefPath " << prefPath << "\n";
+        if (!ecl::FolderExists(prefPath))
+            // may happen on Windows
+            if(!ecl::FolderCreate(prefPath)) {
+                fprintf(stderr, _("Error Home directory does not exist.\n"));
+                exit(1);
+            }
+        userStdPath = prefPath + "/.enigma";
+        prefPath = prefPath + ecl::PathSeparator + "." + prefFilename;
+#ifdef __MINGW32__
+    } else if (!winAppDataPath.empty()) {
+        if (!ecl::FolderExists(winAppDataPath))
+            // may happen on Windows
+            if(!ecl::FolderCreate(winAppDataPath)) {
+                fprintf(stderr, _("Error Application Data directory does not exist.\n"));
+                exit(1);
+            }
+        Log << "winAppDataPath " << winAppDataPath << "\n";
+        userStdPath = winAppDataPath;
+        prefPath = winAppDataPath + ecl::PathSeparator + "." + prefFilename;
+#endif
+    } else {
+        fprintf(stderr, _("Error Home directory does not exist.\n"));
+        exit(1);
+    }
+    
+}
 
+void Application::initXerces() {
+    // init XML
+    try {
+        // Initialize to en_US - we don't know the user prefs yet
+        // If more than the error messages should be influenced we would
+        // have to terminate and reinit after reading the user prefs.
+        XMLPlatformUtils::Initialize();
+        
+        // Initialize transcoding service for XML <-> utf8
+        XMLTransService::Codes initResult;        
+        xmlUtf8Transcoder = XMLPlatformUtils::fgTransService->
+                makeNewTranscoderFor(XMLRecognizer::UTF_8, initResult, 
+                4096); // the block size is irrelevant for utf-8                  
+        if (initResult != XMLTransService::Ok) {
+            fprintf(stderr, _("Error in XML initialization.\n"));
+            exit(1);
+        }
+        
+        static const XMLCh ls[] = { chLatin_L, chLatin_S, chNull };
+        static const XMLCh core[] = { chLatin_C, chLatin_O,  chLatin_R, chLatin_E, chNull };
+        domImplementationLS = (DOMImplementationLS*)
+                (DOMImplementationRegistry::getDOMImplementation(ls));
+        domImplementationCore = (DOMImplementation*)
+                (DOMImplementationRegistry::getDOMImplementation(core));
+        domParserErrorHandler = new DOMErrorReporter(&Log);
+        domParserSchemaResolver = new DOMSchemaResolver();
+        domSerErrorHandler = new DOMErrorReporter(&Log);
+
+#if _XERCES_VERSION >= 30000
+        domParser = domImplementationLS->createLSParser(DOMImplementationLS::MODE_SYNCHRONOUS, 0);
+        DOMConfiguration *config = domParser->getDomConfig();
+
+        config->setParameter(XMLUni::fgDOMNamespaces, true);
+        config->setParameter(XMLUni::fgXercesSchema, true);
+        config->setParameter(XMLUni::fgXercesSchemaFullChecking, true);
+        config->setParameter(XMLUni::fgDOMValidate, true);
+        config->setParameter(XMLUni::fgDOMErrorHandler, domParserErrorHandler);
+        config->setParameter(XMLUni::fgDOMResourceResolver, domParserSchemaResolver);
+
+        domSer = domImplementationLS->createLSSerializer();
+        config = domSer->getDomConfig();
+        
+        config->setParameter(XMLUni::fgDOMWRTFormatPrettyPrint, true);
+        config->setParameter(XMLUni::fgDOMErrorHandler, domSerErrorHandler);
+
+#else    
+        domParser = domImplementationLS->createDOMBuilder(DOMImplementationLS::MODE_SYNCHRONOUS, 0);
+
+        domParser->setFeature(XMLUni::fgDOMNamespaces, true);
+        domParser->setFeature(XMLUni::fgXercesSchema, true);
+        domParser->setFeature(XMLUni::fgXercesSchemaFullChecking, true);
+        domParser->setFeature(XMLUni::fgDOMValidation, true);
+        domParser->setErrorHandler(domParserErrorHandler);
+        domParser->setEntityResolver(domParserSchemaResolver);
+
+        domSer = domImplementationLS->createDOMWriter();
+        domSer->setFeature(XMLUni::fgDOMWRTFormatPrettyPrint, true);
+        domSer->setErrorHandler(domSerErrorHandler);
+#endif
+    }
+    catch (...) {
+        fprintf(stderr, _("Error in XML initialization.\n"));
+        exit(1);
+    }     
+}	
+
+void Application::setLanguage(std::string newLanguage)
+{
+    if (newLanguage == "") {
+        language = defaultLanguage;
+    }
+    else {
+        language = newLanguage;
+    }
+    nls::SetMessageLocale(language);
+}
+
+void Application::initUserDatapaths() {
+    // userPath
+//  if (no preference for user path)
+        userPath = userStdPath;
+//  else
+//      userPath = value of user preference
+    
+    // resourceFS
+    resourceFS = new file::GameFS();
+    resourceFS->append_dir(systemAppDataPath);    
+#ifdef MACOSX
+    // set user-visible data paths -- use it for resource paths
+    NSSearchPathEnumerationState cur=NSStartSearchPathEnumeration(NSLibraryDirectory, NSAllDomainsMask);
+    char path[PATH_MAX];
+
+    while(cur) {
+        cur=NSGetNextSearchPathEnumeration(cur, path);
+        resourceFS->prepend_dir(std::string(path)+"/Application Support/Enigma");
+    }
+#endif
+    resourceFS->prepend_dir(systemCmdDataPath);    
+    resourceFS->prepend_dir(userPath);    
+
+    // tmpPath
+//  if (preference keep tmp local)
+//        tmpPath = userStdPath;
+//  else
+        tmpPath = userPath;
+}
+
+/* -------------------- Functions -------------------- */
+
+static void shutdown() 
+{
+    oxyd::Shutdown();
+    world::Shutdown();
+    video::Shutdown();
+    display::Shutdown();
+    sound::Shutdown();
+    enet_deinitialize();
+    app.prefs->shutdown();
+    options::Save();
+    lua::ShutdownGlobal();
+    delete_sequence(levels::LevelPacks.begin(),
+                    levels::LevelPacks.end());
+    XMLPlatformUtils::Terminate();
+    delete ::nullbuffer;
+}
+
+int main(int argc, char** argv) 
+{
     try {
         app.init(argc,argv);
-        init_basic();
-        init();
         ShowMainMenu();
         shutdown();
         return 0;

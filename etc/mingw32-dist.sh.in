@@ -67,6 +67,7 @@ function copy_levels
 	cp -p $SDIR/data/levels/$folder/*.png $DDIR/data/levels/$folder
         cplffiles data/levels/$folder data/levels/$folder lua
         cplffiles data/levels/$folder data/levels/$folder txt
+        cplffiles data/levels/$folder data/levels/$folder xml
     done
 }
 
@@ -75,10 +76,13 @@ function copy_data
     echo "... copying data files"
     mkdir $DDIR/data
     cplffiles data data lua
+    cplffiles data data xml
     for folder in `(cd $SDIR && ls -F data)| grep / | grep gfx`; do 
 	mkdir $DDIR/data/$folder; 
 	cp -p $SDIR/data/$folder/*.{png,jpg} $DDIR/data/$folder
     done
+    mkdir $DDIR/data/schemas
+    cplffiles data/schemas data/schemas xsd
     copy_levels
     mkdir $DDIR/data/fonts
     cp -p $SDIR/data/fonts/*.{bmf,png,txt,ttf} $DDIR/data/fonts

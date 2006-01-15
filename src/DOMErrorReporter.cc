@@ -30,35 +30,41 @@ XERCES_CPP_NAMESPACE_USE
 
 namespace enigma
 {
-    DOMErrorReporter::DOMErrorReporter() :
-        sawErrors(false), severity(DOMError::DOM_SEVERITY_WARNING) {
+    DOMErrorReporter::DOMErrorReporter(std::ostream *aLogStream) :
+        sawErrors(false), severity(DOMError::DOM_SEVERITY_WARNING),
+        logStream(aLogStream), reportStream(aLogStream) {
     }
     
     DOMErrorReporter::~DOMErrorReporter() {
     }
     
-    
-    // ---------------------------------------------------------------------------
     //  DOMCountHandlers: Overrides of the DOM ErrorHandler interface
-    // ---------------------------------------------------------------------------
     bool DOMErrorReporter::handleError(const DOMError& domError) {
         sawErrors = true;
-        if (domError.getSeverity() == DOMError::DOM_SEVERITY_WARNING)
-            Log << "\nWarning at file ";
+        if (domError.getSeverity() == DOMError::DOM_SEVERITY_WARNING) {
+            if(reportStream) {*reportStream << "\nWarning ";}
+        }
         else if (domError.getSeverity() == DOMError::DOM_SEVERITY_ERROR) {
-            Log << "\nError at file ";
+            if(reportStream) {*reportStream << "\nError ";}
             if (severity == DOMError::DOM_SEVERITY_WARNING)
                 severity = DOMError::DOM_SEVERITY_ERROR;
         }
         else {
-            Log << "\nFatal Error at file ";
+            if(reportStream) {*reportStream << "\nFatal Error ";}
             severity = DOMError::DOM_SEVERITY_FATAL_ERROR;
         }
     
-        Log << XMLtoLocal(domError.getLocation()->getURI())
-             << ", line " << domError.getLocation()->getLineNumber()
-             << ", char " << domError.getLocation()->getColumnNumber()
-             << "\n  Message: " << XMLtoLocal(domError.getMessage()) << std::endl;
+        if(reportStream) {
+            const XMLCh * const fileURI = domError.getLocation()->getURI();
+            if( fileURI &&  (XMLString::stringLen(fileURI) > 0)) {
+                *reportStream << "at file " 
+                    << XMLtoLocal(fileURI)
+                    << ", line " << domError.getLocation()->getLineNumber()
+                    << ", char " << domError.getLocation()->getColumnNumber();
+            }
+             *reportStream << "\n  Message: " << XMLtoLocal(domError.getMessage()) 
+                 << std::endl;
+        }
     
         // try to continue
         return true;
@@ -76,6 +82,22 @@ namespace enigma
         sawErrors = false;
         severity = DOMError::DOM_SEVERITY_WARNING;
     }
-
+    
+    void DOMErrorReporter::reportToLog() {
+        reportStream = logStream;
+    }
+    
+    void DOMErrorReporter::reportToErr() {
+        reportStream = &std::cerr;
+    }
+    
+    void DOMErrorReporter::reportToNull() {
+        reportStream = NULL;
+    }
+    
+    void DOMErrorReporter::reportToOstream(std::ostream *anOstream) {
+        reportStream = anOstream;
+    }
+    
 } // namespace enigma
 

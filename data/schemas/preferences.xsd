@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xs:schema xmlns:xs='http://www.w3.org/2001/XMLSchema' version="1.0" xml:lang="en">
+  <xs:annotation>
+    <xs:documentation>
+      XML Schema definitions for Enigma preference ".enigma.xml".
+    </xs:documentation>
+  </xs:annotation>
+  <xs:element name="preferences">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element name="property" minOccurs="0" maxOccurs="unbounded">
+          <xs:annotation>
+            <xs:documentation>
+              All simple key-value-properties.
+            </xs:documentation>
+          </xs:annotation>
+          <xs:complexType>
+            <xs:attribute name="key" type="xs:string" use="required"/>
+            <xs:attribute name="value" type="xs:string" use="required"/>
+          </xs:complexType>
+        </xs:element> <!-- property -->
+        <xs:element name="levelindexes">
+          <xs:annotation>
+            <xs:documentation>
+              Levelindices locations.
+            </xs:documentation>
+          </xs:annotation>
+        </xs:element> <!-- levelindexes -->
+        <xs:any namespace="##any" minOccurs="0" maxOccurs="unbounded" processContents="skip">
+          <xs:annotation>
+            <xs:documentation>
+              Ignore any future incompatible extensions.
+            </xs:documentation>
+          </xs:annotation>
+        </xs:any>
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+</xs:schema>

@@ -17,7 +17,6 @@
  *
  */
 #include "file.hh"
-#include "file_internal.hh"
 #include "enigma.hh"
 #include "video.hh"
 #include "main.hh"
@@ -176,6 +175,19 @@ void GameFS::prepend_zip (const std::string &filename)
     entries.insert (entries.begin(), FSEntry (FS_ZIPFILE, path));
 }
 
+void GameFS::setDataPath (const string &p) 
+{
+    clear();
+
+    std::vector<std::string> datapaths;
+#ifdef __MINGW32__
+    split_copy (p, ';', back_inserter(datapaths));
+#else
+    split_copy (p, ':', back_inserter(datapaths));
+#endif
+    for (unsigned i=0; i<datapaths.size(); ++i)
+        append_dir (datapaths[i]);
+}
 
 bool GameFS::find_file (const string &filename, string &dest) const 
 {
@@ -275,13 +287,7 @@ namespace
 
 void file::SetDataPath (const string &p) 
 {
-    gamefs.clear();
-
-    std::vector<std::string> datapaths;
-    split_copy (p, ':', back_inserter(datapaths));
-
-    for (unsigned i=0; i<datapaths.size(); ++i)
-        gamefs.append_dir (datapaths[i]);
+    gamefs.setDataPath(p);
 }
 
 void file::AddDataPath (const string &path)

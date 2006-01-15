@@ -378,17 +378,17 @@ levels::HighestAvailableLevel(LevelPack *lp)
 
 bool levels::LevelIsLocked (const Level &level)
 {
-    if (!options::GetBool("Tournament"))
+//    if (!options::GetBool("Tournament"))
         return false;               // lock levels only in tournament mode
 
-    unsigned max_available = HighestAvailableLevel (level.get_levelpack());
-    int finished = 0;
-
-    LevelStatus levelstat;
-    if (level.get_status(levelstat))
-        finished = levelstat.finished;
-
-    return !(level.get_index() <= max_available || finished >= options::GetDifficulty());
+//     unsigned max_available = HighestAvailableLevel (level.get_levelpack());
+//     int finished = 0;
+// 
+//     LevelStatus levelstat;
+//     if (level.get_status(levelstat))
+//         finished = levelstat.finished;
+// 
+//     return !(level.get_index() <= max_available || finished >= options::GetDifficulty());
 }
 
 

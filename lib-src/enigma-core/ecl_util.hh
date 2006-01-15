@@ -247,6 +247,22 @@ namespace ecl
     std::string strf(const char *format, ...) __attribute__((format(printf, 1, 2)));
 
     std::string concat_paths(const std::string& path, const std::string& filename);
+    
+    /**
+     * Split a given path into the leading directory part and the last filename
+     * part. The path may use unix slash separators as well as windows backlashes.
+     * Even mixed usage is allowed. Trailing path separators are skipped.
+     * @param path           the path to be split
+     * @param dir_part       ptr to a return string where the leading directory 
+     *                       part without trailing separators will be stored. 
+     *                       The string will not be set if the result is false.
+     * @param filename_part  ptr to a return string where the trailing filename 
+     *                       part will be stored. 
+     *                       The string will not be set if the result is false.
+     * @return               success of splitting the path into 2 parts. If no
+     *                       path separator was found just false will be returned
+     *                       without modification of the return strings.
+     */
     bool        split_path(const std::string& path, std::string* dir_part, std::string* filename_part);
 
 }

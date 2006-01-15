@@ -20,6 +20,7 @@
 #include "ecl_util.hh"
 
 #include <cstdlib>
+#include <iostream>
 #include <sys/types.h>
 #include <sys/stat.h>
 #include <locale.h>
@@ -28,10 +29,15 @@
 
 #include <config.h>
 
+#ifdef __MINGW32__
+#include <windows.h>
+#endif
+
 using namespace ecl;
 using std::string;
 
-const char *ecl::PathSeparator = "/";
+const char *ecl::PathSeparator = "/";      // for path assembly
+const char *ecl::PathSeparators = "/\\";   // for path splits
 
 string ecl::ExpandPath (const string &pth)
 {
@@ -92,6 +98,45 @@ bool ecl::FolderCreate (const std::string &fname)
     return ok;
 }
 
+#ifdef __MINGW32__
+// should be ecl_system_windows.cc ?
+std::string ecl::ApplicationDataPath()
+{
+    typedef HRESULT (WINAPI *SHGETFOLDERPATH)( HWND, int, HANDLE, DWORD, LPTSTR );
+#   define CSIDL_FLAG_CREATE 0x8000
+#   define CSIDL_APPDATA 0x1A
+#   define SHGFP_TYPE_CURRENT 0
+
+    HINSTANCE shfolder_dll;
+    SHGETFOLDERPATH SHGetFolderPath ;
+
+    static bool didRun = false;
+    static std::string result = "";  // remember exec results 
+    
+    if (!didRun) {
+        didRun = true;
+        /* load the shfolder.dll to retreive SHGetFolderPath */
+        if( ( shfolder_dll = LoadLibrary("shfolder.dll") ) != NULL )
+        {
+            SHGetFolderPath = (SHGETFOLDERPATH)GetProcAddress( shfolder_dll, "SHGetFolderPathA");
+            if ( SHGetFolderPath != NULL )
+            {
+                TCHAR szPath[MAX_PATH] = "";
+    
+                /* get the "Application Data" folder for the current user */
+                if( S_OK == SHGetFolderPath( NULL, CSIDL_APPDATA | CSIDL_FLAG_CREATE,
+                                             NULL, SHGFP_TYPE_CURRENT, szPath) )
+                {
+                    result = szPath;
+                }
+            }
+            FreeLibrary( shfolder_dll);
+        }
+    }
+    return result;
+}
+
+#endif
 
 std::string ecl::DefaultMessageLocale ()
 {
