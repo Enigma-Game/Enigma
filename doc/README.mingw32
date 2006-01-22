@@ -121,7 +121,7 @@ SDL_ttf-devel-2.0.7-VC6.zip, SDL_mixer-devel-1.2.6-VC6.zip, SDL_image-devel-1.2.
 zlib-1.2.3-lib.zip, libpng-1.2.8-lib.zip
   extract
   cp includes to /mingw/include
-  cp lib/zlib.dll.a, libpng.dll.a to /mingw/lib 
+  cp lib/libz.dll.a, libpng.dll.a to /mingw/lib 
 
 xerces-c
   ./configure --prefix=/mingw
@@ -172,13 +172,13 @@ SDL_ttf-devel-2.0.7-VC6.zip, SDL_mixer-devel-1.2.6-VC6.zip, SDL_image-devel-1.2.
 zlib-1.2.3-lib.zip, libpng-1.2.8-lib.zip
   extract
   cp includes to CROSSPATH/include
-  cp lib/zlib.dll.a, libpng.dll.a to CROSSPATH/lib 
+  cp lib/libz.dll.a, libpng.dll.a to CROSSPATH/lib 
 
 xerces-c
-  cp etc/mingw-config.sh to base directory of xerces-c
-  edit mingw-config.sh - add your CROSSPREFIX/bin to PATH, use your TARGET as
-    commandprefix
-  execute "mingw-config.sh --prefix=CROSSPATH --disable-transcoder-icu
+  cp etc/xerces-mingw-config.sh to base directory of xerces-c
+  edit xerces-mingw-config.sh - add your CROSSPREFIX/bin to PATH, 
+    use your TARGET as commandprefix
+  execute "xerces-mingw-config.sh --prefix=CROSSPATH --disable-transcoder-icu
   PATH=CROSSPREFIX/bin:$PATH (the path defined at the beginning!)
   make
   make install (as root with PATH=CROSSPREFIX/bin:$PATH)

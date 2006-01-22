@@ -31,7 +31,7 @@ GCC_VERSION=3.4.2-20040916-1
 GCC=gcc-$GCC_VERSION
 GCC_ARCHIVES="gcc-core-$GCC_VERSION-src.tar.gz gcc-g++-$GCC_VERSION-src.tar.gz"
 GCC_PATCH=""
-BINUTILS=binutils-2.15.91-20040904-1
+BINUTILS=binutils-2.16.91-20050827-1
 BINUTILS_ARCHIVE=$BINUTILS-src.tar.gz
 MINGW=mingw-runtime-3.8
 MINGW_ARCHIVE=$MINGW.tar.gz
@@ -228,7 +228,7 @@ final_tweaks()
 	fi
 
 	# strip all the binaries
-	ls "$PREFIX"/bin/* "$PREFIX/$TARGET"/bin/* | egrep -v '.dll$' |
+	ls "$PREFIX"/bin/* "$PREFIX/$TARGET"/bin/* | egrep -v '.dll$' | egrep -v 'gccbug$' |
 	while read file; do
 		strip "$file"
 	done

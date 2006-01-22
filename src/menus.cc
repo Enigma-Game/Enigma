@@ -1027,6 +1027,7 @@ Language languages[] = {
     { "Français",        "fr_FR" },
     { "Italiano",               "it_IT" },
     { "Nederlands",             "nl_NL" },
+    { "Swenska",             "sv_SE" },
 };
 
 int LanguageButton::get_value() const

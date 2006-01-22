@@ -50,7 +50,7 @@ zlib            1.2.3
 Tools:
 ------
 
-gcc             3.4.2 (W)                       
+gcc             3.4.2 (W)   - 4.0 (L)                    
 GNU/mingw       http://www.mingw.org/download.shtml
                 MinGW-4.1.0.exe + MinSYS-1.0.10.exe + msysDTK-1.0.1
                 (crosscompiler see doc/README.mingw and etc/build-cross.sh)

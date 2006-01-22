@@ -594,7 +594,8 @@ void Application::initUserDatapaths() {
         resourceFS->prepend_dir(std::string(path)+"/Application Support/Enigma");
     }
 #endif
-    resourceFS->prepend_dir(systemCmdDataPath);    
+    if (!systemCmdDataPath.empty())
+	resourceFS->prepend_dir(systemCmdDataPath);    
     resourceFS->prepend_dir(userPath);    
 
     // tmpPath

@@ -335,7 +335,8 @@ void LevelPack_Enigma::reinit()
     if (m_initfile == "") 
         return;
 
-    string      filename = enigma::FindDataFile(m_initfile);
+    string      filename;
+    app.resourceFS->find_file(m_initfile, filename);
     ifstream    is(filename.c_str());
 
     if (!is)
@@ -421,7 +422,8 @@ void LevelPack_History::addHistory(LevelPack *orgLevelpack, unsigned orgIndex) {
     if (m_initfile == "") 
         return;
 
-    string      filename = enigma::FindDataFile(m_initfile);
+    string filename;
+    app.resourceFS->find_file(m_initfile, filename);
     ofstream    os(filename.c_str());
 
     if (!os)
@@ -586,22 +588,15 @@ void levels::AddHistoryLevelPack ()
     const char *history_file = "levels/index_history.txt";
     if (addedLevelPacks.find(history_file) == addedLevelPacks.end()) {
         string filename;
-        if (!FindFile(history_file, filename)) {
+        if (!app.resourceFS->find_file(history_file, filename)) {
             // no history - try to create an empty one
-            string levelPath;
-
-            if (char *home = getenv ("HOME")) {
-                levelPath = home;
-                levelPath += "/.enigma/levels";
-                if (!ecl::FolderExists (levelPath))
-                    ecl::FolderCreate (levelPath);
-                filename = home;
-                filename += "/.enigma/";
-                filename += history_file;
-                ofstream    os(filename.c_str());
-            }
+            string levelPath = app.userPath + "/levels";
+	    if (!ecl::FolderExists (levelPath))
+		ecl::FolderCreate (levelPath);
+	    filename = app.userPath + "/" + history_file;
+	    ofstream    os(filename.c_str());
         }
-        if (FindFile(history_file, filename)) {
+        if (app.resourceFS->find_file(history_file, filename)) {
             try {
                 theHistory = new LevelPack_History (history_file, "History");
                 RegisterLevelPack (theHistory);

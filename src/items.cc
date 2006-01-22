@@ -2427,8 +2427,8 @@ namespace
     	    set_attrib("load", load);
         }
 
-        int get_load() const { return int_attrib("load"); }
-        void set_load (int load) { set_attrib("load", load); }
+        int get_load() const { return ecl::Clamp<int>(int_attrib("load"),0,2); }
+        void set_load (int load) { set_attrib("load", ecl::Clamp<int>(load,0,2)); }
 
         void extinguish (GridPos p) {
             if (Item *it = GetItem(p)) {
