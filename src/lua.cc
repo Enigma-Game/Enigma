@@ -17,6 +17,7 @@
  *
  */
 #include "lua.hh"
+#include "main.hh"
 #include "world.hh"
 #include "config.h"
 #include "video.hh"
@@ -603,8 +604,7 @@ int lua::FindDataFile (lua_State *L)
 {
     const char *filename = lua_tostring(L, 1);
     string absfile;
-    if (enigma::FindFile(filename, absfile)) 
-//        = enigma::FindDataFile(filename);
+    if (app.resourceFS->findFile(filename, absfile)) 
         lua_pushstring(L, absfile.c_str());
     else
         lua_pushnil (L);
@@ -628,7 +628,7 @@ int lua::CallFunc(lua_State *L, const char *funcname, const Value& arg) {
     return lua_call(L, 1, 0);
 }
 
-int lua::CallFunc(lua_State *L, const char *funcname, const file::ByteVec& arg) {
+int lua::CallFunc(lua_State *L, const char *funcname, const ByteVec& arg) {
     lua_getglobal(L, funcname);
     lua_pushlstring (L, &arg[0], arg.size());
     return lua_call(L, 1, 0);
@@ -637,7 +637,7 @@ int lua::CallFunc(lua_State *L, const char *funcname, const file::ByteVec& arg) 
 int lua::Dofile(lua_State *L, const string &filename) 
 {
     string fname;
-    if (enigma::FindFile(filename, fname)) {
+    if (app.resourceFS->findFile(filename, fname)) {
         int oldtop = lua_gettop(L);
         int retval = lua_dofile(L, fname.c_str());
         lua_settop(L, oldtop);
@@ -646,7 +646,19 @@ int lua::Dofile(lua_State *L, const string &filename)
     return LUA_ERRFILE;
 }
 
-int lua::Dobuffer (lua_State *L, const file::ByteVec &luacode) {
+int lua::DoSysFile(lua_State *L, const string &filename) 
+{
+    string fname;
+    if (app.systemFS->findFile(filename, fname)) {
+        int oldtop = lua_gettop(L);
+        int retval = lua_dofile(L, fname.c_str());
+        lua_settop(L, oldtop);
+        return retval;
+    }
+    return LUA_ERRFILE;
+}
+
+int lua::Dobuffer (lua_State *L, const ByteVec &luacode) {
     const char *buffer = reinterpret_cast<const char *>(&luacode[0]);
     return lua_dobuffer (L, buffer, luacode.size(), "buffer");
 }
@@ -659,7 +671,7 @@ string lua::LastError (lua_State *L)
 
 
 int lua::DoSubfolderfile(lua_State *L, const string &basefolder, const string &filename) {
-    std::list <string> fnames = enigma::FindDataFiles(basefolder, filename);
+    std::list <string> fnames = app.resourceFS->findSubfolderFiles(basefolder, filename);
     int retval = 0;
     while (fnames.size() > 0) {
         int oldtop = lua_gettop(L);

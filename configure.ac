@@ -243,11 +243,6 @@ fi
 
 dnl Setup default search path for game data
 FC_EXPAND_DIR(ENIGMA_DATADIR, "$datadir/enigma")
-if test "$MINGW32" = yes; then
-  AC_DEFINE_UNQUOTED(DEFAULT_DATA_PATH, "./data;~/.enigma;$ENIGMA_DATADIR", [Default data directory])
-else
-  AC_DEFINE_UNQUOTED(DEFAULT_DATA_PATH, "./data:~/.enigma:$ENIGMA_DATADIR", [Default data directory])
-fi
 AC_DEFINE_UNQUOTED(SYSTEM_DATA_DIR, "$ENIGMA_DATADIR", [Default data directory])
 
 dnl Configure libraries

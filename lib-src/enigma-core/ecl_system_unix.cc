@@ -36,8 +36,14 @@
 using namespace ecl;
 using std::string;
 
-const char *ecl::PathSeparator = "/";      // for path assembly
-const char *ecl::PathSeparators = "/\\";   // for path splits
+#ifdef __MINGW32__
+const char *ecl::PathSeparator = "\\";      // for path assembly
+const char *ecl::PathsSeparator = ";";      // for listing paths in a string
+#else
+const char *ecl::PathSeparator = "/";       // for path assembly
+const char *ecl::PathsSeparator = ":";      // for listing paths in a string
+#endif
+const char *ecl::PathSeparators = "/\\";    // for path splits
 
 string ecl::ExpandPath (const string &pth)
 {

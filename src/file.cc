@@ -34,7 +34,7 @@
 #include <iostream>
 #include <fstream>
 
-using namespace file;
+using namespace enigma;
 using namespace ecl;
 using namespace std;
 
@@ -42,8 +42,8 @@ using namespace std;
 namespace
 {
     struct DirEntry {
-	std::string name;
-	bool is_dir;
+        std::string name;
+        bool is_dir;
     };
 
 /* -------------------- DirIter (POSIX) -------------------- */
@@ -122,34 +122,33 @@ namespace
 
         // Variables.
         WIN32_FIND_DATA m_dir;
-        HANDLE	        m_handle;
+        HANDLE          m_handle;
     };
 
 #endif
 
 }
 
-
 /* -------------------- FileHandle_Dir -------------------- */
+// 
+// FileHandle_Dir::FileHandle_Dir (const std::string &name)
+// : m_name (name)
+// {
+// }
+// 
+// bool FileHandle_Dir::exists() const
+// {
+//     return true;
+// }
+// 
+// void FileHandle_Dir::read (ByteVec &buffer)
+// {
+//     std::ifstream ifs(m_name.c_str());
+//     enigma::readfile (ifs, buffer);
+// }
+// 
 
-FileHandle_Dir::FileHandle_Dir (const std::string &name)
-: m_name (name)
-{
-}
 
-bool FileHandle_Dir::exists() const
-{
-    return true;
-}
-
-void FileHandle_Dir::read (ByteVec &buffer)
-{
-    std::ifstream ifs(m_name.c_str());
-    file::readfile (ifs, buffer);
-}
-
-
-
 /* -------------------- GameFS implementation -------------------- */
 
 GameFS::GameFS() 
@@ -180,16 +179,24 @@ void GameFS::setDataPath (const string &p)
     clear();
 
     std::vector<std::string> datapaths;
-#ifdef __MINGW32__
-    split_copy (p, ';', back_inserter(datapaths));
-#else
-    split_copy (p, ':', back_inserter(datapaths));
-#endif
+    split_copy (p, *ecl::PathsSeparator, back_inserter(datapaths));
     for (unsigned i=0; i<datapaths.size(); ++i)
         append_dir (datapaths[i]);
 }
 
-bool GameFS::find_file (const string &filename, string &dest) const 
+std::string GameFS::getDataPath() {
+    std::string path;
+    
+    for (unsigned i=0, size=entries.size(); i < size; ++i) {
+        const FSEntry &e = entries[i];
+        if (i>0)
+            path += ecl::PathsSeparator;
+        path += e.location;
+    }
+    return path;
+}
+
+bool GameFS::findFile (const string &filename, string &dest) const 
 {
     for (unsigned i=0; i<entries.size(); ++i) {
         const FSEntry &e = entries[i];
@@ -213,19 +220,27 @@ bool GameFS::find_file (const string &filename, string &dest) const
     return false;
 }
 
-file::FileHandle *GameFS::find_file (const FileName &n)
+// enigma::FileHandle *GameFS::findFile (const FileName &n)
+// {
+//     string fname;
+//     if (findFile (n, fname)) {
+//         return new FileHandle_Dir (fname);
+//     }
+//     return 0;
+// }
+
+std::string GameFS::findFile(const string &filename)
 {
-    string fname;
-    if (find_file (n, fname)) {
-        return new FileHandle_Dir (fname);
+    string found_file;
+    if (!findFile(filename, found_file)) {
+        enigma::Log << "File not found: " << filename << endl;
+        return filename;
     }
-    return 0;
+    return found_file;
 }
 
-
-
 std::list <string>
-GameFS::find_files(const string &folder, const string &filename) const
+GameFS::findSubfolderFiles(const string &folder, const string &filename) const
 {
     std::list <string> matches;
 
@@ -256,10 +271,23 @@ GameFS::find_files(const string &folder, const string &filename) const
     return matches;
 }
 
+
+/* First search in video mode specific directory, then in "gfx/". */ 
+bool GameFS::findImageFile (const string &basename, string &filename)
+{
+    const video::VMInfo *vminfo = video::GetInfo();
+    string fname = string(vminfo->gfxdir) + basename;
+    if (!findFile(fname, filename)) {
+        fname = string ("gfx/") + basename;
+        return findFile(fname, filename);
+    }
+    return true;
+}
+
 /* -------------------- Helper functions -------------------- */
 
 std::istream &
-file::readfile (std::istream &is, file::ByteVec &dest, int blocksize)
+enigma::Readfile (std::istream &is, ByteVec &dest, int blocksize)
 {
     size_t len = dest.size();
     int nread=0;
@@ -273,69 +301,3 @@ file::readfile (std::istream &is, file::ByteVec &dest, int blocksize)
     return is;
 }
 
-
-
-/* -------------------- Local variables -------------------- */
-
-namespace 
-{
-    GameFS gamefs;
-}
-
-
-/* -------------------- Functions -------------------- */
-
-void file::SetDataPath (const string &p) 
-{
-    gamefs.setDataPath(p);
-}
-
-void file::AddDataPath (const string &path)
-{
-    gamefs.prepend_dir (path);
-}
-
-bool file::FindFile (const string &fname, string &dst_fname) 
-{
-    return gamefs.find_file(fname, dst_fname);
-}
-
-file::FileHandle *file::FindFile (const FileName &n)
-{
-    return gamefs.find_file (n);
-}
-
-
-string file::FindDataFile(const string &filename)
-{
-    string found_file;
-    if (!gamefs.find_file(filename, found_file)) {
-        enigma::Log << "File not found: " << filename << endl;
-        return filename;
-    }
-    return found_file;
-}
-
-string file::FindDataFile(const string &path, const string &filename) 
-{
-    return FindDataFile(path+"/"+filename);
-}
-
-std::list <string>
-file::FindDataFiles(const string &path, const string &filename)
-{
-    return gamefs.find_files(path, filename);
-}
-
-
-/* First search in video mode specific directory, then in "gfx/". */ 
-bool file::FindImageFile (const string &basename, string &filename)
-{
-    const video::VMInfo *vminfo = video::GetInfo();
-    string fname = string(vminfo->gfxdir) + basename;
-    if (!FindFile(fname, filename)) {
-        fname = string ("gfx/") + basename;
-        return FindFile(fname, filename);
-    }
-    return true;
-}

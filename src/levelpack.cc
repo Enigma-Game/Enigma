@@ -336,7 +336,7 @@ void LevelPack_Enigma::reinit()
         return;
 
     string      filename;
-    app.resourceFS->find_file(m_initfile, filename);
+    app.resourceFS->findFile(m_initfile, filename);
     ifstream    is(filename.c_str());
 
     if (!is)
@@ -347,8 +347,8 @@ void LevelPack_Enigma::reinit()
 
 void LevelPack_Enigma::load_level (istream &is) 
 {
-    file::ByteVec luacode;
-    file::readfile (is, luacode);
+    enigma::ByteVec luacode;
+    enigma::Readfile (is, luacode);
 
     lua_State *L = lua::LevelState();
     if (lua::Dobuffer(L, luacode) != 0) {
@@ -359,8 +359,8 @@ void LevelPack_Enigma::load_level (istream &is)
 
 void LevelPack_Enigma::load_level_xml (istream &is)
 {
-    file::ByteVec xmlcode;
-    file::readfile (is, xmlcode);
+    enigma::ByteVec xmlcode;
+    enigma::Readfile (is, xmlcode);
     lua_State *L = lua::LevelState();
     if (lua::CallFunc (L, "LoadLevelXML", xmlcode)) {
         throw XLevelLoading (lua::LastError(L));
@@ -371,11 +371,11 @@ void LevelPack_Enigma::load_level (size_t index)
 {
     const LevelInfo &info = get_info(index);
     string filename;
-    if (file::FindFile ("levels/" + info.filename + ".xml", filename)) {
+    if (app.resourceFS->findFile ("levels/" + info.filename + ".xml", filename)) {
         basic_ifstream<char> ifs(filename.c_str(), ios::binary | ios::in);
         load_level_xml (ifs);
     }
-    else if (file::FindFile ("levels/" + info.filename + ".lua", filename)) {
+    else if (app.resourceFS->findFile ("levels/" + info.filename + ".lua", filename)) {
         basic_ifstream<char> ifs(filename.c_str(), ios::binary | ios::in);
         load_level (ifs);
     }
@@ -423,7 +423,7 @@ void LevelPack_History::addHistory(LevelPack *orgLevelpack, unsigned orgIndex) {
         return;
 
     string filename;
-    app.resourceFS->find_file(m_initfile, filename);
+    app.resourceFS->findFile(m_initfile, filename);
     ofstream    os(filename.c_str());
 
     if (!os)
@@ -568,7 +568,7 @@ void levels::AddLevelPack (const char *init_file, const char *name)
 {
     if (addedLevelPacks.find(init_file) == addedLevelPacks.end()) {
         string filename;
-        if (FindFile(init_file, filename)) {
+        if (app.resourceFS->findFile(init_file, filename)) {
             try {
                 RegisterLevelPack (new LevelPack_Enigma (init_file, name));
                 addedLevelPacks.insert(init_file);
@@ -588,15 +588,15 @@ void levels::AddHistoryLevelPack ()
     const char *history_file = "levels/index_history.txt";
     if (addedLevelPacks.find(history_file) == addedLevelPacks.end()) {
         string filename;
-        if (!app.resourceFS->find_file(history_file, filename)) {
+        if (!app.resourceFS->findFile(history_file, filename)) {
             // no history - try to create an empty one
             string levelPath = app.userPath + "/levels";
-	    if (!ecl::FolderExists (levelPath))
-		ecl::FolderCreate (levelPath);
-	    filename = app.userPath + "/" + history_file;
-	    ofstream    os(filename.c_str());
+            if (!ecl::FolderExists (levelPath))
+                ecl::FolderCreate (levelPath);
+            filename = app.userPath + "/" + history_file;
+            ofstream    os(filename.c_str());
         }
-        if (app.resourceFS->find_file(history_file, filename)) {
+        if (app.resourceFS->findFile(history_file, filename)) {
             try {
                 theHistory = new LevelPack_History (history_file, "History");
                 RegisterLevelPack (theHistory);
@@ -639,7 +639,7 @@ void levels::AddZippedLevelPack (const char *zipfile)
 {
     if (addedLevelPacks.find(zipfile) == addedLevelPacks.end()) {
         string filename;
-        if (FindFile (zipfile, filename)) {
+        if (app.resourceFS->findFile (zipfile, filename)) {
             RegisterLevelPack (new LevelPack_Zipped (filename));
             addedLevelPacks.insert(zipfile);
         } else {

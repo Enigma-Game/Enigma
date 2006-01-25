@@ -91,7 +91,7 @@ namespace
 Surface *SurfaceCache_Alpha::acquire(const std::string &name) 
 {
     string filename;
-    if (file::FindImageFile (name + ".png", filename))
+    if (app.resourceFS->findImageFile (name + ".png", filename))
         return ecl::LoadImage(filename.c_str());
     else
         return 0;
@@ -101,7 +101,7 @@ Surface *SurfaceCache_Alpha::acquire(const std::string &name)
 Surface *SurfaceCache::acquire(const std::string &name) 
 {
     string filename;
-    if (file::FindImageFile (name + ".png", filename)) {
+    if (app.resourceFS->findImageFile (name + ".png", filename)) {
         SDL_Surface *s = IMG_Load(filename.c_str());
         if (s) {
             SDL_Surface *img = 0;
@@ -197,7 +197,7 @@ void display::InitModels()
     string fname;
 
     const video::VMInfo *vminfo = video::GetInfo();
-    fname = enigma::FindDataFile (vminfo->initscript);
+    fname = app.systemFS->findFile (vminfo->initscript); // systemFS!
     if (lua_dofile (L, fname.c_str()) != 0) {
         fprintf (stderr, "Error loading '%s'\n", fname.c_str());
     }

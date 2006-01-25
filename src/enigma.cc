@@ -18,6 +18,7 @@
  */
 #include "enigma.hh"
 #include "ecl.hh"
+#include "main.hh"
 
 #include <iostream>
 #include <cassert>
@@ -412,9 +413,8 @@ namespace
 
         Font *load_bmf (const string &name) {
             string png, bmf;
-            using enigma::FindFile;
-            if (FindFile (string("fonts/")+name+".png", png) &&
-                FindFile (string("fonts/")+name+".bmf", bmf))
+            if (app.resourceFS->findFile(string("fonts/")+name+".png", png) &&
+                app.resourceFS->findFile(string("fonts/")+name+".bmf", bmf))
             {
                 return ecl::LoadBitmapFont(png.c_str(), bmf.c_str());
             }
@@ -423,7 +423,7 @@ namespace
 
         Font *load_ttf (const string &name, int ptsize, int r, int g, int b) {
             string ttf;
-            if (enigma::FindFile (string("fonts/") + name, ttf))
+            if (app.resourceFS->findFile(string("fonts/") + name, ttf))
                 return ecl::LoadTTF (ttf.c_str(), ptsize, r, g, b);
             return 0;
         }
@@ -460,7 +460,7 @@ ecl::Font *enigma::GetFont (const char *name)
 ecl::Surface *enigma::LoadImage(const char *name) 
 {
     string filename;
-    if (file::FindImageFile (string(name) + ".png", filename)) 
+    if (app.resourceFS->findImageFile (string(name) + ".png", filename)) 
         return ecl::LoadImage(filename.c_str());
     return 0;
 }
@@ -468,7 +468,7 @@ ecl::Surface *enigma::LoadImage(const char *name)
 ecl::Surface *enigma::GetImage(const char *name, const char *ext) 
 {
     string filename;
-    if (file::FindImageFile (string(name) + ext, filename)) 
+    if (app.resourceFS->findImageFile (string(name) + ext, filename)) 
         return image_cache.get(filename);
     return 0;
 }

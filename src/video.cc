@@ -484,7 +484,7 @@ bool video::ModeAvailable (VideoModes vm)
 {
     const VMInfo *vminfo = GetInfo (vm);
     string fname;
-    return (vminfo->available && enigma::FindFile (vminfo->initscript, fname));
+    return (vminfo->available && app.systemFS->findFile (vminfo->initscript, fname));
 }
 
 

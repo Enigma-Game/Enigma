@@ -26,6 +26,7 @@ namespace ecl
 {
     extern const char *PathSeparator;
     extern const char *PathSeparators;
+    extern const char *PathsSeparator;
 
     std::string ExpandPath (const std::string &path);
 

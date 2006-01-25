@@ -83,7 +83,7 @@ namespace enigma
          * data directory preceeded by an optional commandline data path (used
          * by developers to run enigma without installation).
          */
-        file::GameFS *systemFS;
+        GameFS *systemFS;
         
         /**
          * pathlist for resources that are either version independent or include
@@ -93,7 +93,7 @@ namespace enigma
          * OS library resource paths, preceeded by the optional commandline data path,
          * preceeded by the user data path.
          */
-        file::GameFS *resourceFS; // other r data sounds,..., inidices, levels
+        GameFS *resourceFS; // other r data sounds,..., inidices, levels
         
         /**
          * the path to the user preferences file. The directory is OS dependent

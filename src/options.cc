@@ -218,7 +218,7 @@ Personal_ConfigurationFileName()
 static std::string
 System_ConfigurationFileName()
 {
-    return enigma::FindDataFile ("enigma_conf.lua");
+    return app.systemFS->findFile ("enigma_conf.lua");
 }
 
 #ifdef __MINGW32__

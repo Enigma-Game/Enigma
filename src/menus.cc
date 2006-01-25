@@ -82,7 +82,8 @@ namespace
                 ecl::FolderCreate (preview_path);
         }
         else {
-            string preview_dir_path = FindDataFile("thumbs/README");
+	    // to be eliminated! Do not write on system path
+            string preview_dir_path = app.systemFS->findFile("thumbs/README");
             ecl::split_path(preview_dir_path, &preview_path, 0);
         }
         
@@ -132,7 +133,7 @@ namespace
             for (int v = preview_version; v >= 1; --v) {
                 string preview_name = gen_preview_name(r, v, name);
                 string found_name;
-                if (FindFile(preview_name, found_name)) {
+                if (app.resourceFS->findFile(preview_name, found_name)) {
                     if (remove(found_name.c_str()) == -1) {
                         enigma::Log << "Error deleting outdated preview '" << found_name << '\'' << endl;
                     }
@@ -232,7 +233,7 @@ LevelPreviewCache::make_cache_elem (const levels::Level &level)
     Surface *surface = 0;
 
     string preview_path;
-    if (FindFile(preview_name, preview_path))
+    if (app.resourceFS->findFile(preview_name, preview_path))
         surface = imgCache.get(preview_path);
 
     if (!surface) {
@@ -430,7 +431,7 @@ Surface *LevelWidget::get_preview_image (const Level &level)
     Surface *img = 0;
     if (level_pack->may_have_previews()) {
         string fname = string("levels/") + levelinfo.filename + ".png";
-        if (enigma::FindFile (fname, fname))
+        if (app.resourceFS->findFile (fname, fname))
             img = cache.get(fname);
     }
     if (!img) {

@@ -77,7 +77,7 @@ namespace enigma
             return NULL;
         } else {
             std::string schemaPath;
-            bool result = app.systemFS->find_file( std::string("schemas/") + 
+            bool result = app.systemFS->findFile( std::string("schemas/") + 
                     i->second , schemaPath);
             if (result) {
                 DOMLSInput * inSrc = new Wrapper4InputSource(new LocalFileInputSource(
@@ -108,7 +108,7 @@ namespace enigma
             return NULL;
         } else {
             std::string schemaPath;
-            bool result = app.systemFS->find_file( std::string("schemas/") + 
+            bool result = app.systemFS->findFile( std::string("schemas/") + 
                     i->second , schemaPath);
             if (result) {
                 DOMInputSource * inSrc = new Wrapper4InputSource(new LocalFileInputSource(

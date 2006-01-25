@@ -76,13 +76,16 @@ namespace lua
 
     /*! Call a Lua function with a (large) byte vector as the sole
       argument.  Currently only used for loading XML levels. */
-    int CallFunc (lua_State *L, const char *funcname, const file::ByteVec &arg);
+    int CallFunc (lua_State *L, const char *funcname, const ByteVec &arg);
 
     /*! Find a Lua script using enigma::FindFile and run it. */
     int Dofile (lua_State *L, const std::string & filename);
 
+     /*! Find a system Lua script using enigma::FindFile and run it. */
+    int DoSysFile (lua_State *L, const std::string & filename);
+
     /*! Run the Lua code contained in `luacode'. */
-    int Dobuffer (lua_State *L, const file::ByteVec &luacode);
+    int Dobuffer (lua_State *L, const ByteVec &luacode);
 
     /*! Return the text of the last error message. */
     std::string LastError (lua_State *L);

@@ -260,7 +260,7 @@ Mix_Chunk *SoundEngine_SDL::cache_sound(const std::string &name)
     if (i == wav_cache.end()) {
         Mix_Chunk *ch = 0;
         string filename;
-        if (enigma::FindFile("sound/" + name + ".wav", filename))
+        if (app.resourceFS->findFile("sound/" + name + ".wav", filename))
              ch = Mix_LoadWAV(filename.c_str());
         if (ch != 0)
             wav_cache.insert(name, ch);
@@ -457,7 +457,7 @@ void sound::PlayMusic (const std::string &name)
     FadeoutMusic();
 
     string fname;
-    if (file::FindFile (name, fname) && sound_engine->play_music (fname))
+    if (app.resourceFS->findFile (name, fname) && sound_engine->play_music (fname))
         current_music_name = name;
     else
         current_music_name = "";

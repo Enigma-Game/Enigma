@@ -823,7 +823,7 @@ void LevelPack_Oxyd::load_level (size_t index)
     // Apply patch file
     string patchname = patchfile_name (get_gametype(), index, m_twoplayers);
     string patchfile;
-    if (enigma::FindFile (patchname, patchfile)) {
+    if (app.resourceFS->findFile (patchname, patchfile)) {
         if (lua::Dofile (lua::LevelState(), patchname) != 0) {
             string err = string("While executing '")+patchname+"':\n"+lua::LastError(lua::LevelState());
             throw levels::XLevelLoading(err);
@@ -961,7 +961,7 @@ GameInfo::GameInfo (OxydVersion ver_, const string &game_, const string &datfile
 : ver(ver_), game(game_), datfile(0), /*datfile_name(datfile_name_), */m_present(false)
 {
     string fname;
-    if (FindFile (datfile_name_, datfile_path)) {
+    if (app.resourceFS->findFile (datfile_name_, datfile_path)) {
         enigma::Log << "Found " << game << " data file\n";
         m_present = true;
         openDatFile();

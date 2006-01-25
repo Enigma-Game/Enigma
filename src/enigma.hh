@@ -36,7 +36,6 @@
 
 namespace enigma
 {
-    using namespace file;
 
 /* -------------------- Various types -------------------- */
 

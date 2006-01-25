@@ -22,6 +22,7 @@
 #include "ecl_video.hh" // set_color, line
 #include "ecl_util.hh"  // set_flags
 
+#include "main.hh"
 #include "world.hh"
 #include "lua.hh"
 #include "video.hh"
@@ -202,7 +203,7 @@ Editor::init()
 
 	new_world( 20, 13 );
 
-	string fname = enigma::FindDataFile( "editor.lua" );
+	string fname = app.systemFS->findFile( "editor.lua" );
 	if( lua_dofile( m_lua, fname.c_str() ) != 0) {
 		fprintf( stderr, "Error loading 'editor.lua'\n" );
 	}

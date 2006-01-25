@@ -298,7 +298,7 @@ void Application::init(int argc, char **argv)
     
     // initialize LUA - Run initialization scripts
     lua_State *L = lua::GlobalState();
-    if (lua::Dofile(L, "startup.lua") != 0) {
+    if (lua::DoSysFile(L, "startup.lua") != 0) {
         fprintf(stderr, _("There was an error loading 'startup.lua'.\n"));
         fprintf(stderr, _("Your installation may be incomplete or invalid.\n"));
         exit (1);
@@ -394,20 +394,9 @@ void Application::initSysDatapaths(const std::string &prefFilename)
     // windows standard user specific application data directory path
     std::string winAppDataPath = ecl::ApplicationDataPath() + "/Enigma";
 #endif
-    
-    // The old code -- to be deleted
-    // Set list of file search paths from compile option
-    file::SetDataPath (DEFAULT_DATA_PATH);
-    if (!systemCmdDataPath.empty())
-        file::AddDataPath (systemCmdDataPath);
-#ifdef __MINGW32__
-    if (progDirExists) {
-        file::AddDataPath (progDir + "/data");
-    }
-#endif
 
     // systemFS
-    systemFS = new file::GameFS();
+    systemFS = new GameFS();
 #ifdef __MINGW32__
     if (!progDirExists) {
         // filename only -- working dir should be on enigma as enigma
@@ -456,6 +445,7 @@ void Application::initSysDatapaths(const std::string &prefFilename)
     systemFS->append_dir(systemAppDataPath);
     if (!systemCmdDataPath.empty())
          systemFS->prepend_dir(systemCmdDataPath);
+    Log << "systemFS = \"" << systemFS->getDataPath() << "\"\n"; 
     
     // l18nPath
     l18nPath = LOCALEDIR;    // defined in src/Makefile.am
@@ -464,12 +454,12 @@ void Application::initSysDatapaths(const std::string &prefFilename)
         l18nPath = progDir + "/" + l18nPath;
     }
 #endif
+    Log << "l18nPath = \"" << l18nPath << "\"\n"; 
     
     
     // prefPath
     if (haveHome) {
         prefPath = ecl::ExpandPath("~");
-        Log << "prefPath " << prefPath << "\n";
         if (!ecl::FolderExists(prefPath))
             // may happen on Windows
             if(!ecl::FolderCreate(prefPath)) {
@@ -494,7 +484,7 @@ void Application::initSysDatapaths(const std::string &prefFilename)
         fprintf(stderr, _("Error Home directory does not exist.\n"));
         exit(1);
     }
-    
+    Log << "prefPath = \"" << prefPath << "\"\n"; 
 }
 
 void Application::initXerces() {
@@ -580,9 +570,10 @@ void Application::initUserDatapaths() {
         userPath = userStdPath;
 //  else
 //      userPath = value of user preference
+    Log << "userPath = \"" << userPath << "\"\n"; 
     
     // resourceFS
-    resourceFS = new file::GameFS();
+    resourceFS = new GameFS();
     resourceFS->append_dir(systemAppDataPath);    
 #ifdef MACOSX
     // set user-visible data paths -- use it for resource paths
@@ -597,6 +588,7 @@ void Application::initUserDatapaths() {
     if (!systemCmdDataPath.empty())
 	resourceFS->prepend_dir(systemCmdDataPath);    
     resourceFS->prepend_dir(userPath);    
+    Log << "resourceFS = \"" << resourceFS->getDataPath() << "\"\n"; 
 
     // tmpPath
 //  if (preference keep tmp local)
