@@ -51,8 +51,6 @@ enigma_SOURCES = 		\
 	fwd.hh			\
 	game.cc			\
 	game.hh			\
-	gui.cc 			\
-	gui.hh			\
 	Inventory.cc		\
 	Inventory.hh		\
 	ItemHolder.hh		\
@@ -81,9 +79,6 @@ enigma_SOURCES = 		\
 	help.hh			\
 	main.cc 		\
 	main.hh			\
-	menus.cc 		\
-	menus.hh 		\
-	menus_internal.hh	\
 	netgame.cc 		\
 	netgame.hh 		\
 	network.cc		\
@@ -130,8 +125,13 @@ enigma_SOURCES = 		\
 	XMLtoLocal.hh		\
 	XMLtoUtf8.cc		\
 	XMLtoUtf8.hh		\
+	gui/menus.cc		\
+	gui/menus.hh		\
+	gui/menus_internal.hh	\
 	gui/TextField.cc	\
-	gui/TextField.hh
+	gui/TextField.hh	\
+	gui/widgets.cc		\
+	gui/widgets.hh
 
 datadir = @datadir@
 

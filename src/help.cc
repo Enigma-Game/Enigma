@@ -18,7 +18,7 @@
  */
 
 #include "enigma.hh"
-#include "gui.hh"
+#include "gui/widgets.hh"
 #include "ecl.hh"
 #include "help.hh"
 #include "video.hh"

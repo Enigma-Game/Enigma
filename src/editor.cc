@@ -26,7 +26,7 @@
 #include "world.hh"
 #include "lua.hh"
 #include "video.hh"
-#include "gui.hh"
+#include "gui/widgets.hh"
 #include "display_internal.hh" // WorldArea
 
 #include <iostream>

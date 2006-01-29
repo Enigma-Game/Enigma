@@ -18,12 +18,12 @@
 
 #include "enigma.hh"
 #include "game.hh"
-#include "gui.hh"
+#include "gui/widgets.hh"
 #include "ecl_video.hh"
 
-namespace enigma
-{
+namespace enigma { namespace gui {
+
     void ShowMainMenu();
     void ShowOptionsMenu(ecl::Surface *background);
     void ShowNetworkMenu();
-}
+}} // namespace enigma::gui

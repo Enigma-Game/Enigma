@@ -20,7 +20,7 @@
 #include "main.hh"
 #include "display.hh"
 #include "lua.hh"
-#include "menus.hh"
+#include "gui/menus.hh"
 #include "options.hh"
 #include "oxyd.hh"
 #include "sound.hh"
@@ -620,7 +620,7 @@ int main(int argc, char** argv)
 {
     try {
         app.init(argc,argv);
-        ShowMainMenu();
+        gui::ShowMainMenu();
         shutdown();
         return 0;
     }

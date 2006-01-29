@@ -1,4 +1,4 @@
-#include "gui.hh"
+#include "gui/widgets.hh"
 #include "video.hh"
 #include "ecl_buffer.hh"
 
@@ -83,7 +83,7 @@ namespace
     };
 
 
-    class GameMenu : public gui::Menu {
+    class GameMenu : public enigma::gui::Menu {
     public:
         GameMenu(int zoomxpos_, int zoomypos_);
         virtual ~GameMenu();

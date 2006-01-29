@@ -17,7 +17,7 @@
  *
  */
 
-#include "gui.hh"
+#include "gui/widgets.hh"
 #include "sound.hh"
 #include "video.hh"
 #include "options.hh"
@@ -27,7 +27,7 @@
 #include <algorithm>
 #include <iostream>
 
-using namespace gui;
+using namespace enigma::gui;
 using namespace ecl;
 using namespace std;
 

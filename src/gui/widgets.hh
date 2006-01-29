@@ -16,15 +16,14 @@
  * 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.
  *
  */
-#ifndef GUI_HH_INCLUDED
-#define GUI_HH_INCLUDED
+#ifndef WIDGETS_HH_INCLUDED
+#define WIDGETS_HH_INCLUDED
 
 #include "ecl_fwd.hh"
 #include "ecl_geom.hh"
 #include "SDL.h"
 
-namespace gui
-{
+namespace enigma { namespace gui {
 
 
 /* -------------------- Alignment -------------------- */
@@ -461,5 +460,5 @@ namespace gui
         Widget *active_widget;
         bool quitp, abortp;
     };
-}
+}} // namespace gui
 #endif

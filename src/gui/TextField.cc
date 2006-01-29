@@ -18,7 +18,7 @@
  */
 
 #include "main.hh"
-#include "gui.hh"
+#include "gui/widgets.hh"
 #include "gui/TextField.hh"
 #include "ecl_utf.hh"
 #include "sound.hh"
@@ -30,7 +30,7 @@
 #include <algorithm>
 #include <iostream>
 
-using namespace gui;
+using namespace enigma::gui;
 using namespace ecl;
 using namespace std;
 

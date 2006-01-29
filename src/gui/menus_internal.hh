@@ -21,8 +21,8 @@
 #include <iostream>
 
 /* -------------------- Helper classes -------------------- */
-namespace
-{
+namespace enigma { namespace gui {
+        
     class BuildVList {
         Rect r;
         Menu *container;
@@ -365,11 +365,9 @@ namespace
         Widget *quit;
         Widget *lpack;
     };
-}
 
 /* -------------------- NetworkMenu -------------------- */
-namespace
-{
+        
     class NetworkMenu : public gui::Menu {
     public:
         NetworkMenu ();
@@ -388,11 +386,9 @@ namespace
         gui::Widget *m_joingame;
         gui::Widget *m_back;
     };
-}
 
 /* -------------------- OptionsMenu -------------------- */
-namespace
-{
+
     class OptionsMenu : public gui::Menu {
     public:
         OptionsMenu(ecl::Surface *background_);
@@ -414,11 +410,9 @@ namespace
         ecl::Surface *background;
         std::string  previous_caption;
     };
-}
 
 /* -------------------- InGameOptionsMenu -------------------- */
-namespace
-{
+
     class InGameOptionsMenu : public gui::Menu {
     public:
         InGameOptionsMenu();
@@ -440,11 +434,9 @@ namespace
         ecl::Surface *background;
         std::string  previous_caption;
     };
-}
 
 /* -------------------- Options Buttons -------------------- */
-namespace
-{
+
     class DifficultyButton : public TextButton {
         // TextButton interface.
         std::string get_text() const;
@@ -504,4 +496,4 @@ namespace
         
     };
 
-}
+}} // namespace enigma::gui

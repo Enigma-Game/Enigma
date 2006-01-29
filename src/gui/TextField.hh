@@ -21,10 +21,9 @@
 #define GUI_TF_HH_INCLUDED
 
 
-#include "gui.hh"
+#include "gui/widgets.hh"
 
-namespace gui
-{
+namespace enigma { namespace gui {
 
     /**
      * Gui widget for simple text insertion. Cursor keys, backspace and delete,
@@ -85,5 +84,5 @@ namespace gui
         std::vector<unsigned char> * charSizesPostCursor;
         static ecl::Font *menufont;
     };
-} // namespace gui
+}} // namespace enigma::gui
 #endif

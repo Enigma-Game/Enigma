@@ -17,7 +17,7 @@
  *
  */
  
-#include "menus.hh"
+#include "gui/menus.hh"
 #include "gui/TextField.hh"
 #include "client.hh"
 #include "config.h"
@@ -49,7 +49,7 @@ using levels::LevelInfo;
 using levels::LevelPack;
 using levels::LevelPacks;
 
-#include "menus_internal.hh"
+#include "gui/menus_internal.hh"
 
 #ifdef _MSC_VER
 #define snprintf _snprintf
@@ -145,6 +145,7 @@ namespace
         }
     }
 }
+
 
 /* -------------------- LevelPreviewCache -------------------- */
 
@@ -1456,7 +1457,7 @@ void LevelMenu::update_info()
 
         const LevelInfo &li = level.get_info();
 
-	// Display level name
+        // Display level name
         if (enigma::WizardMode) {
             snprintf (txt, sizeof(txt), "#%d: %s (%s)",
                       iselected+1, li.name.c_str(), li.filename.c_str());
@@ -1466,7 +1467,7 @@ void LevelMenu::update_info()
         }
         lbl_levelname->set_text(txt);
 
-	// Display best time
+        // Display best time
         if (shown_text.length()) {
             lbl_levelinfo->set_text(shown_text);
         }
@@ -1719,9 +1720,9 @@ void MainMenu::show_text( const char *text[])
 void MainMenu::show_credits () 
 {
     static const char *credit_text[] = {
-	N_("Project maintainer:"),
-	"  DANIEL HECK",
-	" ",
+        N_("Project maintainer:"),
+        "  DANIEL HECK",
+        " ",
         N_("Main developers:"),
         "  SIEGFRIED FENNIG, MARTIN HAWLISCH, PETR MACHATA,",
         "  JACOB SCOTT, SVEN SIGGELKOW, RALF WESTRAM",
@@ -1730,11 +1731,11 @@ void MainMenu::show_credits ()
         N_("  JOHANNES FORTMANN (graphics), JEREMY SAWICKI (oxydlib),"),
         N_("  MEINOLF SCHNEIDER (game idea, level design), ANDREW \"NECROS\" SEGA (menu music)"),
         N_("  NAT PRYCE & JOHN 'WB' SNEYERS (levels)"),
-	" ",
-	N_("Please see the manual for more detailed credits."),
         " ",
-	N_("Home Page: http://www.nongnu.org/enigma"),
-	N_("Contact: enigma-devel@nongnu.org"),
+        N_("Please see the manual for more detailed credits."),
+        " ",
+        N_("Home Page: http://www.nongnu.org/enigma"),
+        N_("Contact: enigma-devel@nongnu.org"),
         " ",
         N_("Enigma is free software and may be distributed under the"),
         N_("terms of the GNU General Public License, version 2.  See"),
@@ -1817,12 +1818,12 @@ void MainMenu::show_help ()
 
 /* -------------------- Functions -------------------- */
 
-void enigma::ShowMainMenu() {
+void enigma::gui::ShowMainMenu() {
     MainMenu m;
     m.manage();
 }
 
-void enigma::ShowOptionsMenu(Surface *background) {
+void enigma::gui::ShowOptionsMenu(Surface *background) {
     if (background == 0)
         background = enigma::GetImage("menu_bg", ".jpg");
     OptionsMenu m(background);
@@ -1830,8 +1831,10 @@ void enigma::ShowOptionsMenu(Surface *background) {
     m.manage();
 }
 
-void enigma::ShowNetworkMenu() 
+void enigma::gui::ShowNetworkMenu() 
 {
     NetworkMenu m;
     m.manage();
 }
+
+

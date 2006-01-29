@@ -23,7 +23,7 @@
 #include "server.hh"
 #include "help.hh"
 #include "main.hh"
-#include "menus.hh"
+#include "gui/menus.hh"
 #include "sound.hh"
 #include "player.hh"
 #include "world.hh"
@@ -206,7 +206,7 @@ void GameMenu::on_action(gui::Widget *w) {
         Menu::quit();
     }
     else if (w == options) {
-        enigma::ShowOptionsMenu (0);
+        enigma::gui::ShowOptionsMenu (0);
         Menu::quit();
     }
 }
