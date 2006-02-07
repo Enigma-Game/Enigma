@@ -257,16 +257,20 @@ namespace
 	void on_collision (Actor *a) {
 	    SendMessage(a, "shatter");
 	}
+
+        bool attackCurrentOnly;
+        double timeKeepAttackStrategy;
     };
 }
 
 RotorBase::RotorBase(const ActorTraits &tr)
-: Actor(tr)
+: Actor(tr), attackCurrentOnly(false), timeKeepAttackStrategy(0)
 {
     set_attrib ("range", 5.0);
     set_attrib ("force", 10.0);
     set_attrib ("gohome", 1.0);
     set_attrib ("attacknearest", 1.0);
+    set_attrib ("prefercurrent", 0.0);
 }
 
 void RotorBase::think (double dtime)
@@ -281,6 +285,14 @@ void RotorBase::think (double dtime)
     V2     target_vec;
     bool attack_nearest = (int_attrib ("attacknearest") != 0);
 
+    double preferCurrent;
+    double_attrib("prefercurrent", &preferCurrent);
+    timeKeepAttackStrategy  -= dtime;
+    if (timeKeepAttackStrategy < 0) {
+        timeKeepAttackStrategy = enigma::DoubleRand(0.8, 1.6);
+        attackCurrentOnly = (enigma::DoubleRand(0.0, 1.0) < preferCurrent);
+    }
+
     vector<Actor *> actors;
     GetActorsInRange (get_pos(), range, actors);
     for (size_t i=0; i<actors.size(); ++i) {
@@ -290,13 +302,14 @@ void RotorBase::think (double dtime)
             && a->is_movable() && !a->is_invisible())
         {
             V2 v = a->get_pos() - get_pos();
-            if (attack_nearest) {
+            if (attack_nearest && !attackCurrentOnly ||
+                    attackCurrentOnly && a == player::GetMainActor(
+                    player::CurrentPlayer())) {
                 if (!target || (length(v) < length(target_vec))) {
                     target = a;
                     target_vec = v;
                 }
-            }
-            else {
+            } else if (!attackCurrentOnly) {            
                 target = a;
                 target_vec += normalize(v);
             }
