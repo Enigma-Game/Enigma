@@ -480,7 +480,10 @@ en_is_solved(lua_State *L)
         solved = level.is_solved(options::GetInt("Difficulty"));
     else 
         lua_error(L, strf("IsSolved: Unknown level '%s'", levelname).c_str());
-    lua_pushnumber(L, solved);
+    if (solved)
+        lua_pushnumber(L, solved);
+    else
+        lua_pushnil(L);
     return 1;
 }
 
