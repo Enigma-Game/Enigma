@@ -26,6 +26,7 @@
 #include "world.hh"
 #include "Inventory.hh"
 #include "ItemHolder.hh"
+#include "lev/Proxy.hh"
 
 #include "ecl_util.hh"
 
@@ -1000,8 +1001,15 @@ namespace
         ItemAction activate(Actor *, GridPos)
         {
             string txt;
-            if (string_attrib ("text", &txt))
+            if (string_attrib ("text", &txt)) {
+                lev::Proxy *level = lev::Proxy::loadedLevel();
+                // after complete switch to Proxy as levelloader the following
+                // conditional can be abolished
+                if (level)
+                    // translate text
+                    txt = level->getLocalizedString(txt);
                 client::Msg_ShowText (txt, true);
+            }
             return ITEM_KILL;	       // remove from inventory
         }
         void message(const string &msg, const Value &/*val*/) {

@@ -1,31 +1,27 @@
-<level width="20" height="25">
-    <info>
-	<name>The Grim Reaper</name>
-	<name lang="de">Der Sensemann</name>
-	<author>Daniel Heck</author>
-	<copyright>Copyright (C) 2002 Daniel Heck</copyright>
-	<license>GPL v2.0 or above</license>
-    </info>
-    <floors>
-	<fill kind="fl-space"/>
-    </floors>
-    <stones>
-	<border kind="st-likeoxydc"/>
-	<oxyd x="1" y="1"/>
-	<oxyd x="18" y="1"/>
-	<oxyd x="1" y="12"/>
-	<oxyd x="18" y="12"/>
-	<oxyd x="18" y="23"/>
-	<oxyd x="1" y="23"/>
-    </stones>
+<?xml version="1.0" encoding="UTF-8" standalone="no" ?>
+<el:level xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://enigma/level level.xsd" xmlns:el="http://enigma/level">
+  <el:protected >
+    <el:info el:type="level">
+      <el:identity el:titel="The Grim Reaper" el:id="space"/>
+      <el:version el:score="1" el:release="1" el:revision="1" el:status="stable"/>
+      <el:author  el:name="Daniel Heck"/>
+      <el:copyright>Copyright © 2006 Daniel Heck</el:copyright>
+      <el:license el:type="GPL v2.0 or above" el:open="true"/>
+      <el:compatibility el:enigma="0.92"/>
+      <el:modes el:easy="true" el:single="true" el:network="false"/>
+      <el:comments>
+        <el:code>recoded to Lua embedded in new XML format by Ronald Lamprecht</el:code>
+      </el:comments>
+      <el:score el:easy="-1" el:difficult="-1"/>
+    </el:info>
+    <el:luamain><![CDATA[
+levelw = 20
+levelh = 25
 
-    <actors>
-	<actor kind="ac-blackball" x="10" y="6.5" player="0"/>
-    </actors>
+create_world(levelw, levelh)
+draw_border("st-likeoxydc")
+fill_floor("fl-space", 0,0, level_width,level_height)
 
-<lua>
-levelw=level_width
-levelh=level_height
 if options.Difficulty == HARD then
     fill_floor("fl-inverse", 7,4, 6,5)
     fill_floor("fl-inverse", 7,16, 6,5)
@@ -45,5 +41,23 @@ else
                }
            )
 end
-</lua>
-</level>
+
+oxyd(1,1)
+oxyd(level_width-2, 1)
+oxyd(1, level_height/2)
+oxyd(level_width-2, level_height/2)
+oxyd(level_width-2,level_height-2)
+oxyd(1,level_height-2)
+oxyd_shuffle()
+
+set_actor("ac-blackball", 10,6.5, {player=0})
+    ]]></el:luamain>
+    <el:i18n>
+      <el:string el:key="titel">
+        <el:english el:translate="true"/>
+        <el:translation el:lang="de">Der Sensemann</el:translation>
+      </el:string>
+    </el:i18n>
+  </el:protected>
+</el:level>
+

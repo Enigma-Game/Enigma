@@ -44,6 +44,7 @@ namespace display
         std::string             text;
         bool                    changedp, finishedp;
         bool                    pingpong;
+        bool                    showscroll;
         double                  xoff;
         double                  scrollspeed; // pixels per second
         std::auto_ptr<ecl::Surface>  textsurface;

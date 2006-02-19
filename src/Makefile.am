@@ -131,7 +131,9 @@ enigma_SOURCES = 		\
 	gui/TextField.cc	\
 	gui/TextField.hh	\
 	gui/widgets.cc		\
-	gui/widgets.hh
+	gui/widgets.hh		\
+	lev/Proxy.cc		\
+	lev/Proxy.hh
 
 datadir = @datadir@
 

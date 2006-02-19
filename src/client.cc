@@ -32,6 +32,7 @@
 #include "ecl_sdl.hh"
 
 #include "enet/enet.h"
+#include "lev/Proxy.hh"
 
 #include <cctype>
 #include <cstring>
@@ -65,10 +66,23 @@ namespace
     /*! Generate the message that is displayed when the level starts. */
     string displayedLevelInfo (const LevelInfo &info)
     {
-        string text = (info.name.empty()) ?
-            _("Another nameless level") : string("\"")+info.name+"\"";
-        if (!info.author.empty())
-            text += _(" by ") + info.author;
+        string text;
+        lev::Proxy *level = lev::Proxy::loadedLevel();
+        // after complete switch to Proxy as levelloader the following
+        // conditional can be abolished
+        if (level) {
+            std::string tmp;
+            text = string("\"")+ level->getLocalizedString("titel")+"\"" +
+                _(" by ") + level->getAuthor();
+            tmp = level->getLocalizedString("subtitel");
+            if (!tmp.empty())
+                text += string(" - ")+ tmp; 
+        } else {
+            text = (info.name.empty()) ?
+                _("Another nameless level") : string("\"")+info.name+"\"";
+            if (!info.author.empty())
+                text += _(" by ") + info.author;
+        }
         return text;
     }
 }
@@ -885,10 +899,12 @@ void Client::level_loaded (unsigned ilevel)
             displayed_info += strf("%d:%02d", (m_hunt_against_time/60)%100, m_hunt_against_time%60);
 //+ _(" by ") +hunted;
 // makes the string too long in many levels
+            Msg_ShowText (displayed_info, false, 4.0);
         }
-        else
+        else {
             displayed_info = displayedLevelInfo(info);
-        Msg_ShowText (displayed_info, false, 4.0);
+            Msg_ShowText (displayed_info, true, 2.0);
+        }
     }
 
     sound::FadeoutMusic();

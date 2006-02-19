@@ -307,6 +307,7 @@ TextDisplay::TextDisplay (Font &f)
   text(), 
   changedp(false), finishedp(true),
   pingpong (false),
+  showscroll(false),
   xoff(0), scrollspeed(200),
   textsurface(0), font(f)
 {
@@ -324,16 +325,30 @@ void TextDisplay::set_text (const string &t, bool scrolling, double duration)
 
     time = 0;
 
+    if (scrolling) {
+        if (duration <= 0) {
+            xoff = -area.w;
+            scrollspeed = 160;
+        } else {
+            // Showscroll mode: first show string then scoll it out
+            showscroll = true;
+            scrollspeed = 0;
+            if (area.w < textsurface->width()) {
+                // start left adjusted for long strings
+                xoff = 0;
+            } else {
+                // start centered for short strings
+                xoff = -(area.w - textsurface->width())/2;
+            }
+        }
+    }
+
     if (duration > 0)
         maxtime = duration;
     else
         maxtime = 1e20;       // "infinite" for all practical purposes
 
-    if (scrolling) {
-        xoff = -area.w;
-        scrollspeed = 160;
-    }
-    else {// centered text string
+    if (!scrolling) {// centered text string
         if (area.w < textsurface->width()) {
             pingpong = true;
             scrollspeed = 4 * (textsurface->width() - area.w) / duration;
@@ -354,8 +369,14 @@ void TextDisplay::tick (double dtime)
 {
     time += dtime;
     if (time > maxtime) {
-        finishedp = true;
-        changedp = true;
+        if (showscroll) {
+            showscroll = false;
+            scrollspeed = 160;            
+            maxtime = 1e20;       // "infinite" for all practical purposes
+        } else {
+            finishedp = true;
+            changedp = true;
+        }
     }
     else {
         int oldxoff = round_nearest<int>(xoff);

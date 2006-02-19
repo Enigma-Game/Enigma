@@ -20,6 +20,7 @@
 #include "world.hh"
 #include "levels.hh"
 #include "main.hh"
+#include "lev/Proxy.hh"
 
 #include "ecl_util.hh"
 
@@ -347,6 +348,7 @@ void LevelPack_Enigma::reinit()
 
 void LevelPack_Enigma::load_level (istream &is) 
 {
+    lev::Proxy::releaseCurrentLevel();
     enigma::ByteVec luacode;
     enigma::Readfile (is, luacode);
 
@@ -359,6 +361,7 @@ void LevelPack_Enigma::load_level (istream &is)
 
 void LevelPack_Enigma::load_level_xml (istream &is)
 {
+    lev::Proxy::releaseCurrentLevel();
     enigma::ByteVec xmlcode;
     enigma::Readfile (is, xmlcode);
     lua_State *L = lua::LevelState();
@@ -372,8 +375,9 @@ void LevelPack_Enigma::load_level (size_t index)
     const LevelInfo &info = get_info(index);
     string filename;
     if (app.resourceFS->findFile ("levels/" + info.filename + ".xml", filename)) {
-        basic_ifstream<char> ifs(filename.c_str(), ios::binary | ios::in);
-        load_level_xml (ifs);
+        lev::Proxy::loadLevel(filename);
+//        basic_ifstream<char> ifs(filename.c_str(), ios::binary | ios::in);
+//        load_level_xml (ifs);
     }
     else if (app.resourceFS->findFile ("levels/" + info.filename + ".lua", filename)) {
         basic_ifstream<char> ifs(filename.c_str(), ios::binary | ios::in);
@@ -403,7 +407,7 @@ void LevelPack_History::addHistory(LevelPack *orgLevelpack, unsigned orgIndex) {
         char txt[5];
         // no history for commandline package - a second security check
         if (orgLevelpack->get_name().compare("Quick Test Levels") == 0) { 
-            enigma::Log << "no history for commandline\n";
+            // enigma::Log << "no history for commandline\n";
             return;
         }
         snprintf(txt, sizeof(txt), "%d", orgIndex);
@@ -491,8 +495,12 @@ void LevelPack_CommandLine::load_level (size_t index)
             LevelPack_Enigma::load_level (ifs);
         }
         else if (ext == ".xml" || ext == ".elx") {
-            basic_ifstream<char> ifs(filename.c_str(), ios::binary | ios::in);
-            load_level_xml (ifs);
+            lev::Proxy::loadLevel(filename);
+            m_levels[index].name = lev::Proxy::loadedLevel()->getLocalizedString("titel");
+//            m_levels[index].name += " - " + lev::Proxy::loadedLevel()->getLocalizedString("subtitel");
+            
+//             basic_ifstream<char> ifs(filename.c_str(), ios::binary | ios::in);
+//             load_level_xml (ifs);
         }
         else{
             throw XLevelLoading ("Unknown file extension in " + info.filename);
