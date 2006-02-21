@@ -721,10 +721,10 @@ bool LevelWidget::handle_keydown (const SDL_Event *e)
         }
         break;
 
-    case SDLK_LEFT:  set_current (iselected-1); break;
+    case SDLK_LEFT:  set_current (iselected>1 ? iselected-1 : 0); break;
     case SDLK_RIGHT: set_current (iselected+1); break;
     case SDLK_DOWN:  set_current (iselected+width); break;
-    case SDLK_UP:    set_current (iselected-width); break;
+    case SDLK_UP:    set_current (iselected>width ? iselected-width : 0); break;
     case SDLK_PAGEDOWN: page_down(); break;
     case SDLK_PAGEUP: page_up(); break;
     case SDLK_HOME: start(); break;
