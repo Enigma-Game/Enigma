@@ -119,10 +119,10 @@ function copy_doc
     cptext doc/README.mingw32   doc/README-mingw32.txt
     cptext doc/sound.lua        doc/sound.lua
     cpbuiltfile doc/refman/enigma-ref.html doc/
-    cpfile doc/refman/demo_simple.xml	doc/
-    cpfile doc/refman/i18n.xml	doc/
-    cpfile doc/refman/lua2xml	doc/
-    cpfile doc/refman/xml2lua	doc/
+    cpfile doc/demo_simple.xml	doc/
+    cpfile doc/demo_i18n.xml	doc/
+    cpfile doc/lua2xml		doc/
+    cpfile doc/xml2lua		doc/
     cpfile doc/functions.html	doc/
     cpfile doc/functions.css	doc/
 }

@@ -22,6 +22,7 @@
 #include "levels.hh"
 #include "lua.hh"
 #include "main.hh"
+#include "nls.hh"
 #include "Utf8ToXML.hh"
 #include "XMLtoUtf8.hh"
 #include <iostream>
