@@ -7,6 +7,7 @@
 @author Daniel Heck
 @author Petr Machata
 @author Ralf Westram
+@author Ronald Lamprecht
 @end titlepage
 
 @contents
@@ -23,14 +24,14 @@ It describes Enigma version 0.90.
 
 @menu
 * Introduction::                General remarks on creating new levels
-* XML levels::                  The new XML-based level descriptions
+* Level Basics::                  Introduction to Level description
 * Objects::                     Description of all objects in Enigma
 * Variables::                   Lua variables that influence the game
 * Functions::                   Predefined functions
 * Index::                       
 @end menu
 
-@node Introduction, XML levels, Top, Top
+@node Introduction, Level Basics, Top, Top
 @chapter Introduction
 
 This chapter explains how Enigma works internally and how you can
@@ -331,7 +332,831 @@ complete.  We are working on it and it will be ready for the
 (glorious) 1.0 release.  For the moment, the available level
 descriptions are the best ``documentation'' available.
 
-@node  XML levels, Objects, Introduction, Top
+@node  Level Basics, Objects, Introduction, Top
+@chapter Level Basics
+
+As you have played some levels of Enigma you may have noticed that Enigma is a
+quite dynamic game with versatile levels. Thus it is not astonishing that it is
+not possible to describe such levels with a static approach of a simple object
+map like Sokoban. Some levels like mazes, generate their layout and look different
+each time they are played. Other levels provide a dynamic behaviour during the 
+play. F.e. switches may open doors only on certain circumstances. To comply these 
+demands the powerful light-weight C extension language @url{http://www.lua.org, Lua}
+has been integrated into Enigma.
+
+Up to Enigma 0.92 two different level formats did exist. One was a XML like
+format that was primarily designed for external level editor programs. As its
+static object map description part was inconvenient for manual edition it was
+never used by many authors. The second format was plain Lua code that used
+an interface of Enigma Lua functions to add objects and callback functions.
+This second format was used by nearly all authors. But it had a small drawback -
+metadata for the level like the author name, license info and last but not least
+the level name itself could only be stored as unformatted Lua comments and had
+to be reinserted manually into the level-package indices.
+
+With the post 0.92 XMLification of Enigma we achieved full XML support by 
+integration of Apache Xerces and were wondering how to get rid of the old
+level format drawbacks and how to add some compelling new features:
+
+@itemize @bullet
+@item 
+a single format with optional parts - use only those parts you have need of
+
+@item
+no major changes or any limitations for Lua level authors
+
+@item
+keep all author supplied metadata in the level
+
+@item
+enable plug & play for users - copy the level from the author and play it 
+without manual index edition
+
+@item
+support of various encodings like US-ASCII, UTF-8, UTF-16, windows-1252
+
+@item
+internationalization of levels - allow authors to add strings in their native
+language and supply translators with all translatable level strings and comments
+from the authors how to translate.
+
+@item
+add a release and dependecy management for levels and libraries
+
+@item
+add level update and upgrade support for levels and libraries
+
+@item
+substitute the old XML format by a versatile editor interface
+
+@item
+keep the format open to future extensions
+
+@end itemize
+
+Let us have a first view on complete simple @samp{Hello World} level in the new format:
+
+@example
+<?xml version="1.0" encoding="@var{UTF-8}" standalone="no" ?>
+<@i{el}:@b{level} xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="@i{http://enigma/level level.xsd}" xmlns:@i{el}="@i{http://enigma/level}">
+  <@i{el}:@b{protected} >
+    <@i{el}:@b{info} @i{el}:@b{type}="@var{level}">
+      <@i{el}:@b{identity} @i{el}:@b{titel}="@var{Demo Simple}" @i{el}:@b{id}="@var{20060210ral001}"/>
+      <@i{el}:@b{version} @i{el}:@b{score}="@var{1}" @i{el}:@b{release}="@var{1}" @i{el}:@b{revision}="@var{0}" @i{el}:@b{status}="@var{stable}"/>
+      <@i{el}:@b{author}  @i{el}:@b{name}="@var{Ronald Lamprecht}"/>
+      <@i{el}:@b{copyright}>@var{Copyright © 2006 Ronald Lamprecht}</@i{el}:@b{copyright}>
+      <@i{el}:@b{license} @i{el}:@b{type}="@var{GPL v2.0 or above}" @i{el}:@b{open}="@var{true}"/>
+      <@i{el}:@b{compatibility} @i{el}:@b{enigma}="@var{0.92}"/>
+      <@i{el}:@b{modes} @i{el}:@b{easy}="@var{false}" @i{el}:@b{single}="@var{true}" @i{el}:@b{network}="@var{false}"/>
+      <@i{el}:@b{score} @i{el}:@b{easy}="@var{-1}" @i{el}:@b{difficult}="@var{-1}"/>
+    </@i{el}:@b{info}>
+    <@i{el}:@b{luamain}><![CDATA[
+levelw = 20
+levelh = 13
+
+@b{create_world}( levelw, levelh)
+@b{draw_border}("@i{st-wood}")
+@b{fill_floor}("@i{fl-leavesb}", 0,0,levelw,levelh)
+
+@b{oxyd}( 4,4)
+@b{oxyd}( 14,4)
+
+@b{set_actor}("@i{ac-blackball}", 4, 11)
+    ]]></@i{el}:@b{luamain}>
+    <@i{el}:@b{i18n}/>
+  </@i{el}:@b{protected}>
+</@i{el}:@b{level}>
+@end example
+
+You may notice that the XML part contains all the metadata that the level author
+is used to supply with a level. The XML part is like a formular that can be copied
+from a template and be filled out.
+
+The Lua code is embedded in the XML. The only limitation to the Lua part is that 
+@samp{]]>} is reserved for the end mark and would have to be substituted by 
+@samp{]] >}. No further restrictions.
+
+As the example above includes all mandatory XML parts our aim to avoid major
+changes for Lua level authors should be achieved.
+
+You find the example above aside this documentation. To test the level without
+addition to any levelpack you can call Enigma from the commandline with the
+level path as the single argument: @samp{enigma demo_simple.xml} for Unix and 
+@samp{C:\programs\Enigma-1.00\enigma.exe demo_simple.xml} (please adjust the 
+Enigma installation path) for Windows. 
+
+Of course we have to look at the details of the format and explain the optional
+parts:
+
+@menu
+* XML Level structure::
+* Info metadata::
+* LUA code::
+* Internationalization (i18n)::
+* Usage::
+* Update and Upgrade::
+@end menu
+
+@node XML Level structure, Info metadata, Level Basics, Level Basics
+@section XML Level structure
+
+Let us start with a complete overview of all existing top XML element nodes. The
+following level skeleton contains optional elements that are beyond level basics.
+These elements are just included for completeness:
+
+@example
+<?xml version="1.0" encoding="@var{UTF-8}" standalone="no" ?>
+<@i{el}:@b{level} xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="@i{http://enigma/level level.xsd http://enigma/editor editor.xsd}" xmlns:@i{el}="@i{http://enigma/level}" xmlns:@i{ee}="@i{http://enigma/editor}">
+  <@i{el}:@b{protected}>
+    <@i{el}:@b{info} @i{el}:@b{type}="@var{level}">
+      <!-- required elements omited -->
+    </@i{el}:@b{info}>
+    <@i{el}:@b{elements}/>
+    <@i{el}:@b{luamain}><![CDATA[
+    ]]></@i{el}:@b{luamain}>
+    <@i{ee}:@b{editor}/>
+    <@i{el}:@b{i18n}/>
+  </@i{el}:@b{protected}>
+  <@i{el}:@b{public}>
+    <@i{el}:@b{i18n}/>
+    <@i{el}:@b{upgrade}/> 
+  </@i{el}:@b{public}>
+</@i{el}:@b{level}>
+@end example
+
+The first line is the XML declaration. It is fixed besides the encoding 
+specification. Enigma supports on all platforms at least @samp{US-ASCII}, 
+@samp{UTF-8}, @samp{UTF-16}, @samp{ISO-8859-1}, @samp{windows-1252}.
+Enter your encoding and ensure that your editor saves the level in this encoding.
+On some editors you can start in ASCII mode, copy the level skeleton with a
+different encoding declaration like UTF-8, save the level still in ASCII mode
+and reopen the file - the editor may detect the XML declaration and switch 
+automatically to the given encoding. Note that as long as you do not enter
+international strings in the level you do not have to bother with the encoding 
+at all. You can choose UTF-8 in this case.
+
+Some addiontal remarks for XML newbies. The XML markup tags are quite similar
+to HTML. But XML requires for each start tag @samp{<element>} a corresponding
+end tag @samp{</element>}. For elements that have only attributes and no content
+you can and should use the alternativ empty element notation @samp{<element/>}.
+Note that when we define an element as empty or state that no content is allowed
+not a single whitespace, even no linebreak is allowed between start and end tag -
+use the empty element notation to avoid mistakes.
+
+We use a pretty printing format with an indention of 2. Each element starts on
+a separate line. Elements with text content have the end tag on the same line.
+Only elements with subelements have the end tag on a separate line with the same
+indention.
+
+This format is not mandatory. You can even insert linebreaks in text contents and
+within the marks and even within attribute values. But note that the basic rule
+is that each linebreak will be substituted by a space during the XML parsing.
+Take this space into account to avoid mistakes, or simply live with the long lines.
+
+All tag names and attribute names are prefixed with a namespace identifier. We
+use @samp{el} as an abreviation for enigma level. All tag names that may be
+manually edited use this prefix.
+
+external entities for &, < -- usage of "
+
+@b{Elements:}
+
+@table @asis
+@item @b{/level}, @i{required, single occurence} 
+This is the root node. There is only one instance of this node per file. Like the
+first XML declaration line this second line is quite fixed. There are two versions.
+The simple 3 attribute version as used in the first example and the 4 attribute
+version as above that is only used by level editor programs. For manual level
+edition just copy the simple version as the second line to your level file.
+
+@b{Attributes:}
+
+@table @asis
+@item @b{xmlns:xsi}, @i{required, contents fixed} 
+Namespace definition for the schema. The contents is fixed to 
+"http://www.w3.org/2001/XMLSchema-instance". The attribute tag @samp{xsi} must
+match the prefix of the next attribute tag and is standard.
+
+@item @b{xsi:schemaLocation}, @i{required, contents fixed} 
+Location of the used schemas. The contents is the fixed enigma level 
+namespace followed by the schema location URL. Level editor programs will add
+their namespace and their schema location URL as in the second example above.
+
+@item @b{xmlns:el}, @i{required, contents fixed} 
+Namespace definition for enigma level. We use @samp{el} as namespace prefix
+for all level element and attribut tags as standard. The used prefix can be
+arbitrary but must match this attibutes tag. The contents of the attribute is
+fixed to the enigma level namespace.
+
+@item @b{xmlns:ee}, @i{optional} 
+This last namespace definition is used by level editor programs only. As an
+example we declared @samp{ee} as namespace prefix for all editor element and
+attribute tags.  The used prefix can be arbitrary but must match this attibutes
+tag. The contents of the attribute is the editors namespace.
+
+@end table
+
+@item @b{/level/protected}, @i{required, single occurence} 
+
+The protected node section contains all level data that derive from the author and
+should not be modified by anyone else.
+
+@item @b{/level/protected/info}, @i{required, single occurence}
+
+The info node section contains all level metadata. It is mandatory and described in 
+detail at section @ref{Info metadata}.
+
+@item @b{/level/protected/elements}, @i{optional, single occurence} 
+
+The elements node section is optional. It contains level description parts that
+are given in a data driven manner. Even though the driving force is the support
+for level editor programs a level author may use any parts of this section he
+likes.
+
+@item @b{/level/protected/luamain}, @i{optional, single occurence}
+
+The luamain node section is the part to insert manually Lua level descriptions.
+It is described in detail at section @ref{LUA code}.
+
+@item @b{/level/protected/editor}, @i{optional, single occurence} 
+
+The editor node section is an open extension area for level editor programs.
+They can add any additional information in this section that they have need of.
+This node section is simply ignored by Enigma.
+
+@item @b{/level/protected/i18n}, @i{required, single occurence} 
+
+The i18n node section contains English strings, native translations and comments
+supplied from the author for the translators. This node section is mandatory 
+and described in detail at section @ref{Internationalization (i18n)}.
+
+@item @b{/level/public}, @i{optional, single occurence} 
+
+This public node section is an optional extension to the proteced part. It
+contains information that is not validated by the author and may even be added
+after the last authors review.
+
+@item @b{/level/public/i18n}, @i{optional, single occurence} 
+
+This public i18n section contains further level supplied translations. They
+may derive from the author or other sources. These translations will be
+validated by the translators and are used as long as the translators do not
+supply corrected versions. See @ref{Internationalization (i18n)}.
+
+@item @b{/level/public/upgrade}, @i{optional, single occurence} 
+
+This upgrade node is part of the @ref{Update and Upgrade} system.
+
+@end table
+
+@node Info metadata, LUA code, XML Level structure, Level Basics
+@section Info metadata
+
+The Info node contains all author supplied metadata of the level. This is the
+source of these data. All other parts of Enigma like level indices just contain
+copies that will be automatically updated to the levels original data.
+
+Let us have a look on all supported subnodes of info with typically used attributes:
+
+@example
+<@i{el}:@b{info} @i{el}:@b{type}="@var{level}">
+  <@i{el}:@b{identity} @i{el}:@b{titel}="@var{Demo I18N}" @i{el}:@b{subtitel}="@var{Translate or let it be translated}" @i{el}:@b{id}="@var{20060211ral002}"/>
+  <@i{el}:@b{version} @i{el}:@b{score}="@var{1}" @i{el}:@b{release}="@var{1}" @i{el}:@b{revision}="@var{0}" @i{el}:@b{status}="@var{experimental}"/>
+  <@i{el}:@b{author}  @i{el}:@b{name}="@var{Ronald Lamprecht}" @i{el}:@b{email}="@var{ral@@users.berlios.de}"/>
+  <@i{el}:@b{copyright}>@var{Copyright © 2006 Ronald Lamprecht}</@i{el}:@b{copyright}>
+  <@i{el}:@b{license} @i{el}:@b{type}="@var{GPL v2.0 or above}" @i{el}:@b{open}="@var{true}"/>
+  <@i{el}:@b{compatibility} @i{el}:@b{enigma}="@var{0.92}"/>
+  <@i{el}:@b{modes} @i{el}:@b{easy}="@var{false}" @i{el}:@b{single}="@var{true}" @i{el}:@b{network}="@var{false}"/>
+  <@i{el}:@b{comments}/>
+  <@i{el}:@b{update} @i{el}:@b{url}="@var{http://...}"/>
+  <@i{el}:@b{upgrade} @i{el}:@b{url}="@var{http://...}" @i{el}:@b{release}="@var{2}"/>
+  <@i{el}:@b{score} @i{el}:@b{easy}="@var{-1}" @i{el}:@b{difficult}="@var{-1}"/>
+</@i{el}:@b{info}>
+@end example
+
+@b{Attributes:}
+
+@table @asis
+@item @b{type}, @i{required}, values = "level", "library", "multilevel"
+The schema may be used for single enigma levels, libraries that contain level
+description parts for reusage as well as descriptions for multiple levels at once.
+
+@samp{level} are all single level descriptions. It does not matter if they are
+edited manually or by a level editor program and which description elements are
+used
+
+@samp{library} are level description parts that may be included into levels.
+The library may consist just of Lua code in the luamain node or addtional object
+descriptions in the elements node. Libraries may make use of nearly all nodes besides
+the @samp{/level/protected/info/score} and @samp{/level/*/i18n} which both have
+to be provided but will not be evaluated. Libraries are included into levels via
+the dependency node-element. See @ref{<compatibility>}.
+
+@samp{multilevel} are descriptions for multiple levels at once. The main purpose
+is to support foreign game level formats like the Sokoban level format which
+describes usually a whole set of level maps in a single file.
+
+@end table
+
+@b{Contents - Elements:}
+
+@table @asis
+@item @b{identity}, @i{required}
+The titel, subtitel and the main level identification string. See @ref{<identity>}.
+
+@item @b{version}, @i{required}
+@ref{<version>}
+
+@item @b{author}, @i{required} 
+All information provided about the author him- or herself. See @ref{<author>}.
+
+@item @b{copyright}, @i{required} 
+The @ref{<copyright>} message for the level.
+
+@item @b{license}, @i{required} 
+Information about the @ref{<license>} conditions.
+
+@item @b{compatibility}, @i{required} 
+@ref{<compatibility>}
+
+@item @b{modes}, @i{required} 
+@ref{<modes>}
+
+@item @b{comments}, @i{optional} 
+Optional comments like credits, dedication and code comments. See @ref{<comments>}.
+
+@item @b{update}, @i{optional} 
+@ref{Update and Upgrade}
+
+@item @b{upgrade}, @i{optional} 
+@ref{Update and Upgrade}
+
+@item @b{score}, @i{required} 
+@ref{<score>}
+
+@end table
+
+@menu
+* <identity>::
+* <version>::
+* <author>::
+* <copyright>::
+* <license>::
+* <compatibility>::
+* <modes>::
+* <comments>::
+* <score>::
+@end menu
+
+
+@node <identity>, <version>, Info metadata, Info metadata
+@subsection <identity>
+
+The @samp{@b{identity}} element is required, as it provides the information for human
+and system identification of the level. 
+
+@example
+<@i{el}:@b{identity} @i{el}:@b{titel}="@var{Demo I18N}" @i{el}:@b{subtitel}="@var{Translate or let it be translated}" @i{el}:@b{id}="@var{20060211ral002}"/>
+@end example
+
+@b{Attributes:}
+
+@table @asis
+@item @b{titel}, @i{required} 
+The English titel of the level. Make sure that the titel is not too long as it
+will be used on the level selection menu. Translations of the titel can be provided
+in the @ref{Internationalization (i18n)} sections.
+
+@item @b{subtitel}, @i{optional}
+An optional english subtitel. Used for titel parts that are too long for the
+main titel , or a short first hint. The subtitel is displayed on the level info
+page and on the start of the level. Translations of the subtitel can be provided
+in the @ref{Internationalization (i18n)} sections.
+
+@item @b{id}, @i{required}
+needs some explanation.
+@end table
+
+@b{Contents:}
+
+The element itself is empty - no content is allowed.
+
+@node <version>, <author>, <identity>, Info metadata
+@subsection <version>
+
+@example
+<@i{el}:@b{version} @i{el}:@b{score}="@var{1}" @i{el}:@b{release}="@var{1}" @i{el}:@b{revision}="@var{0}" @i{el}:@b{status}="@var{experimental}"/>
+@end example
+
+@b{Attributes:}
+
+@table @asis
+@item @b{score}, @i{required} 
+
+@item @b{release}, @i{required} 
+
+@item @b{revision}, @i{required} 
+
+@item @b{status}, @i{required}, values = "released", "stable", "test", "experimental"
+
+@end table
+
+@b{Contents:}
+
+The element itself is empty - no content is allowed.
+
+@node <author>, <copyright>, <version>, Info metadata
+@subsection <author>
+
+The information about the author him/herself. The element itself is required.
+But all attributes are optional to allow an author to be anonymous. Please
+remember, that level adminstrators and translators may have a need to contact
+you as an author. So please give a way to drop a note for you.
+
+The author element node may look like:
+
+@example
+<@i{el}:@b{author}  @i{el}:@b{name}="@var{Ronald Lamprecht}" @i{el}:@b{email}="@var{ral@@users.berlios.de}" @i{el}:@b{homepage}="@var{http://myhomepage.domain}"/>
+@end example
+
+@b{Attributes:}
+
+@table @asis
+@item @b{name}, @i{optional}, default = "anonymous" 
+The authors name as it will be displayed on the level info page and on the start
+of the level. The name defaults to @samp{anonymous}.
+
+@item @b{email}, @i{optional} 
+The authors email address or a newsgroup or forum he listens to. In general a
+hint how to drop a note for him. The value will just be displayed as a string on
+the level info page.
+
+@item @b{homepage}, @i{optional} 
+An address about the author or where the author publishes further Enigma levels.
+The value will just be displayed as a string on the level info page.
+
+@end table
+
+@b{Contents:}
+
+The element itself is empty - no content is allowed.
+
+@node <copyright>, <license>, <author>, Info metadata
+@subsection <copyright>
+
+The standardized location for a copyright message of the author:
+@example
+<@i{el}:@b{copyright}>@var{Copyright © 2006 Ronald Lamprecht}</@i{el}:@b{copyright}>
+@end example
+
+@b{Attributes:}
+
+none
+
+@b{Contents:}
+
+The copyright notice of the author.
+
+@node <license>, <compatibility>, <copyright>, Info metadata
+@subsection <license>
+
+Of course every author is free to choose the license conditions for his levels.
+But the author has to state the conditions. Thus this node element and its
+attributes are required:
+
+@example
+<@i{el}:@b{license} @i{el}:@b{type}="@var{GPL v2.0 or above}" @i{el}:@b{open}="@var{true}"/>
+@end example
+
+@b{Attributes:}
+
+@table @asis
+@item @b{type}, @i{required}
+A short license identifier of the license type with an optional link address to
+the license text or the string @samp{special} if the author supplies an own 
+license as the content of this element.
+
+@item @b{open}, @i{required}
+A boolean statement if the choosen license fulfills the criteria of the 
+@url{http://www.opensource.org/, Open Source Initiative (OSI)}. Please note 
+that a value of @samp{false} may keep your level of being distributed together
+with Enigma.
+
+@end table
+
+@b{Contents:}
+
+A complete license text may be added as the contens of this element. Please
+make use of identification of the level via the type attribute.
+
+@node <compatibility>, <modes>, <license>, Info metadata
+@subsection <compatibility>
+
+@example
+@end example
+
+@b{Attributes:}
+
+@table @asis
+@item @b{type}, @i{required}
+
+@end table
+
+@b{Contents:}
+
+@node <modes>, <comments>, <compatibility>, Info metadata
+@subsection <modes>
+
+@example
+<@i{el}:@b{modes} @i{el}:@b{easy}="@var{false}" @i{el}:@b{single}="@var{true}" @i{el}:@b{network}="@var{false}"/>
+@end example
+
+@b{Attributes:}
+
+@table @asis
+@item @b{easy}, @i{required}
+@item @b{single}, @i{required}
+@item @b{network}, @i{required}
+
+@end table
+
+@b{Contents:}
+
+@node <comments>, <score>, <modes>, Info metadata
+@subsection <comments>
+
+The optional comments node allows the author to add a few comments and to determine
+how they should be processed. Please note that comments will not be translated
+by the internationalization support.
+
+@example
+<@i{el}:@b{comments}>
+    <@i{el}:@b{credit} @i{el}:@b{showinfo}="@var{true}" @i{el}:@b{showstart}="@var{false}">@var{Thanks to the author of my favorite libs}</@i{el}:@b{credit}>
+    <@i{el}:@b{dedication} @i{el}:@b{showinfo}="@var{true}" @i{el}:@b{showstart}="@var{false}">@var{To a honorable or a beloved person}</@i{el}:@b{dedication}>
+    <@i{el}:@b{code}>@var{some important general notes}</@i{el}:@b{code}>
+</@i{el}:@b{comments}>
+@end example
+
+@b{Attributes:}
+none
+
+@b{Contents - Elements:}
+
+The comments element itself contains only subelements as content.
+
+@table @asis
+@item @b{credit}, @i{optional, single occurence}
+The place to honor people who did make your level running.
+
+@b{Attributes:}
+@table @asis
+@item @b{showinfo}, @i{optional}, default = "false"
+A value of @samp{true} will make the message being displayed on the level info
+page
+
+@item @b{showstart}, @i{optional}, default = "false"
+A value of @samp{true} will make the message being displayed on startup of the
+level. Please use this feature only in rare cases.
+@end table
+
+@b{Contents:}
+
+The credit message itself.
+
+@item @b{dedication}, @i{optional, single occurence}
+The place to dedicate the level to a honorable of a beloved person. Please use
+this place instead of adding document-items within the level.
+
+@b{Attributes:}
+@table @asis
+@item @b{showinfo}, @i{optional}, default = "false"
+A value of @samp{true} will make the message being displayed on the level info
+page
+
+@item @b{showstart}, @i{optional}, default = "false"
+A value of @samp{true} will make the message being displayed on startup of the
+level. Please use this feature only in rare cases.
+@end table
+
+@b{Contents:}
+
+The dedication message itself.
+
+@item @b{code}, @i{optional, single occurence}
+
+@b{Attributes:}
+
+none.
+
+@b{Contents:}
+
+The main code comment that may be an explanation of the @ref{<version>} status 
+or a todo list. This comment will not be processed.
+
+@end table
+
+@node <score>, , <comments>, Info metadata
+@subsection <score>
+
+@example
+<@i{el}:@b{score} @i{el}:@b{easy}="@var{67}" @i{el}:@b{difficult}="@var{-1}"/>
+@end example
+
+@b{Attributes:}
+
+@table @asis
+@item @b{easy}, @i{required}
+@item @b{difficult}, @i{required}
+
+@end table
+
+@b{Contents:}
+
+@node LUA code, Internationalization (i18n), Info metadata, Level Basics
+@section LUA code
+
+
+@example
+    <@i{el}:@b{luamain}><![CDATA[
+levelw = 20
+levelh = 13
+
+create_world( levelw, levelh)
+draw_border("st-wood")
+fill_floor("fl-leavesb", 0,0,levelw,levelh)
+
+oxyd( 4,4)
+oxyd( 14,4)
+
+document(5,10,"hint1")
+document(10,10,"hint2")
+document(10,5,"Heureka!")
+set_actor("ac-blackball", 4, 11)
+    ]]></@i{el}:@b{luamain}>
+@end example
+
+Strings with Umlauts but Identifier pure US-ASCII
+
+
+@b{Attributes:}
+
+@table @asis
+@item @b{type}, @i{required}
+
+@end table
+
+@b{Contents:}
+
+@node Internationalization (i18n), Usage, LUA code, Level Basics
+@section Internationalization (i18n)
+
+The internationalization of levels is one of the driving forces behind the level
+format changes. As you may have noticed there are two @samp{i18n} elements, one
+in the authors protected section and one in the public. Let us look how to use
+them for internationalization of the three documents of our @samp{demo_i18n.xml}
+level:
+
+@example
+  <@i{el}:@b{protected} >
+    <!-- elements ommited -->
+    <@i{el}:@b{i18n}>
+      <@i{el}:@b{string} @i{el}:@b{key}="@var{titel}">
+        <@i{el}:@b{english} @i{el}:@b{translate}="@var{false}"/>
+      </@i{el}:@b{string}>
+      <@i{el}:@b{string} @i{el}:@b{key}="@var{subtitel}">
+        <@i{el}:@b{english} @i{el}:@b{translate}="@var{true}"/>
+        <@i{el}:@b{translation} @i{el}:@b{lang}="@var{de}">@var{Übersetzten oder übersetzten lassen}</@i{el}:@b{translation}>
+      </@i{el}:@b{string}>
+      <@i{el}:@b{string} @i{el}:@b{key}="@var{hint1}">
+        <@i{el}:@b{english} @i{el}:@b{comment}="@var{Let 'right' be ambiguous: correct and opposite of left - if not possible choose correct">Read the right document}</@i{el}:@b{english}>
+        <@i{el}:@b{translation} @i{el}:@b{lang}="@var{de}">@var{Lies das rechte Dokument}</@i{el}:@b{translation}>
+      </@i{el}:@b{string}>
+      <@i{el}:@b{string} @i{el}:@b{key}="@var{hint2}">
+        <@i{el}:@b{english} @i{el}:@b{comment}="@var{the correct one and not the right positioned one}">@var{The right one, not the right one!}</@i{el}:@b{english}>
+        <@i{el}:@b{translation} @i{el}:@b{lang}="@var{de}">@var{Das rechte, nicht das rechte}</@i{el}:@b{translation}>
+      </@i{el}:@b{string}>
+      <@i{el}:@b{string} @i{el}:@b{key}="@var{Heureka!}">
+        <@i{el}:@b{english} @i{el}:@b{translate}="@var{false}">@var{Heureka!}</@i{el}:@b{english}>
+      </@i{el}:@b{string}>
+    </@i{el}:@b{i18n}>
+  </@i{el}:@b{protected}>
+  <@i{el}:@b{public}>
+    <@i{el}:@b{i18n}>
+      <@i{el}:@b{string} @i{el}:@b{key}="@var{hint1}">
+        <@i{el}:@b{translation} @i{el}:@b{lang}="@var{fr}">@var{Lirez la droite document}</@i{el}:@b{translation}> 
+      </@i{el}:@b{string}>
+    </@i{el}:@b{i18n}>
+  </@i{el}:@b{public}>
+@end example
+
+Two of the documents use key words to reference a string. The last one uses the
+English string itself as the key. There are two additional reserved keys 
+@samp{titel} and @samp{subtitel}.
+
+For each string we like to translate or have translated we define a @samp{string}
+subelement of the protected section and add a @samp{english} subelement to the
+@samp{string} element itself. The @samp{string} element just takes a single 
+mandatory attribute - the key of the string. The @samp{english} element has a
+one mandatory attribute @samp{translate} that defaults to @samp{true} stating
+the author decision whether the string should be translated. In case the author
+does not want a string to be translated he can, and will, just add no @samp{string}
+element for this string at all. Thus the elements for the strings with the keys
+@samp{titel} and @samp{Heureka!} are optional and quite unusual.
+
+@samp{titel} and @samp{subtitel} have the English text given in the @ref{<identity>}
+element. All other strings referenced by keys need to add the
+English text as the content of the @samp{english} element. @samp{hint1} and 
+@samp{hint2} are examples.
+
+As we did choose quite ambiguous English texts it is very likly that translators
+who do not play the game and just get the text to translate may deliver a wrong
+translation. To avoid mistakes a level author may add a @samp{comment} attribute
+to the @samp{english} element. The translator receives this comment together with
+the English string as we will see lateron.
+
+If the author is not native English speaking he should add himself @samp{translation}
+subelement to the @samp{sting} element. The @samp{translation} element has a
+single mandatory attribute @samp{lang} that takes the 2-character language
+abbreviation. The contents of the element is the translation itself.
+
+All translation added in the protected section take preceedance over any translators
+translation and will work directly after addition without waiting for a translators
+tranlation.
+
+Last but not least we have a @samp{i18n} element in the public section. This element
+takes translation suggestions. They may be added by the author himself for further
+languages he is aware of. They may be added by other people on the way to the user
+or even the user himself.
+
+Translations in this section will again work directly after addition without
+waiting for a translators tranlation. But they will be preceeded by available
+translations provided by translators.
+
+The format is identical to the protected section, with the exception that no
+@samp{english} element may be provided. The @samp{key} attribute in the 
+@samp{string} element must match exactly the @samp{key} attribute in the corresponding
+@samp{string} element in the protected section. There is one subtle difference
+due to technical and practical reasons. @samp{key} attributes in the public
+section need to be XML identifiers - thus you can not provide public translations
+for strings that use the english phrase as the key. Choose a keyword and provide
+the english string in the public @samp{i18n} section to avoid these troubles.
+
+The @samp{string} element in protected section as well as in the public section
+must be unique concerning the attribute @samp{key} within the section. This means
+you should add translations for all known languages for a string in @samp{string}
+element in the proteced and one in the public section. The sequence does not matter.
+
+Let us have a look what the translator gets presented for each string. Let us 
+start with @samp{hint2} for the German translator:
+
+@example
+#  @i{level}: "@var{Demo Internationalization}"
+#  @i{author}: "@var{Ronald Lamprecht}" @i{email} "@var{ral@@users.berlios.de}"
+#  @i{comment}: "@var{the correct one and not the right positioned one}"
+#  @i{use}: "@var{Das rechte, nicht das rechte}"
+#: po/level_i18n.cc:17
+@b{msgid} "@var{The right one, not the right one!}"
+@b{msgstr} ""
+@end example
+
+@samp{msgid} is the English string. @samp{msgstr} takes the German translation.
+But the translator does not need to translate as the German tranlation was 
+given by the author in the @samp{#  use:} line
+
+And as another example @samp{hint1} for the French translator:
+@example
+#  @i{level}: "@var{Demo Internationalization}"
+#  @i{author}: "@var{Ronald Lamprecht}" @i{email} "@var{ral@@users.berlios.de}"
+#  @i{comment}: "@var{Let 'right' be ambiguous: correct and opposite of left - if not possible choose correct}"
+#  @i{check}: "@var{Lirez la droite document}"
+#: po/level_i18n.cc:14
+@b{msgid} "@var{Read the right document}"
+@b{msgstr} "@var{Lirez le droite document}"
+@end example
+
+Here the public translation is given in the @samp{#  check:} line. As it contains
+at least one mistake the translator will correct it as shown in the @samp{msgstr}
+string.
+
+@node Usage, Update and Upgrade, Internationalization (i18n), Level Basics
+@section Usage
+
+templates
+
+backward compatible lua format
+
+syntax coloring
+
+Tools for conversion: xml2lua, lua2xml
+
+How to validate
+
+@node Update and Upgrade, , Usage, Level Basics
+@section Update and Upgrade
+
+@ignore
+
+@node  XML levels, Objects, Level Basics, Top
 @chapter XML levels
 
 Enigma is slowly moving towards a more data-centric level description
@@ -347,8 +1172,8 @@ where necessary or desirable.
 The general outline of an XML-style Enigma level looks like this:
 
 @example
-<level width="20" height="13">
-  <info>
+<@i{el}:@b{level} @i{el}:@b{width}="@var{20}" @b{height}="@var{13}"@i{>}
+  <@b{info}>
      <!-- level information -->
   </info>
   <option ... />
@@ -614,7 +1439,9 @@ Graphical level editors are expected @emph{not} to tamper with the
 contents of Lua code blocks when they read or write Enigma levels,
 i.e., neither to modify them nor to delete them without notice.
 
-@node Objects, Variables, XML levels, Top
+@end ignore
+
+@node Objects, Variables, Level Basics, Top
 @chapter Objects
 
 @menu

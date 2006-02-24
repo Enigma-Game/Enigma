@@ -38,7 +38,7 @@ namespace lua
     };
 
     enum Error {
-        NOERROR = 0,
+        NO_LUAERROR = 0,
         ERRRUN,
 	ERRFILE,
 	ERRSYNTAX,
@@ -112,3 +112,4 @@ namespace lua
                         const std::string & filename);
 }
 #endif
+

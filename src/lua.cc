@@ -67,7 +67,7 @@ namespace
     lua::Error _lua_err_code (int i)
     {
         switch (i) {
-	case 0: return NOERROR;
+	case 0: return NO_LUAERROR;
 	case LUA_ERRRUN: return ERRRUN;
 	case LUA_ERRFILE: return ERRFILE;
 	case LUA_ERRSYNTAX: return ERRSYNTAX;
@@ -692,7 +692,7 @@ void lua::CheckedDoFile (lua_State *L, GameFS * fs, std::string const& fname)
     }
 
     lua::Error status = _lua_do_file(L, completefn);
-    if (status != lua::NOERROR) {
+    if (status != lua::NO_LUAERROR) {
         fprintf(stderr, _("There was an error loading '%s'.\n"), completefn.c_str());
         fprintf(stderr, _("Your installation may be incomplete or invalid.\n"));
 	fprintf(stderr, _("Error: '%s'\n"), lua::LastError(L).c_str());

@@ -101,7 +101,7 @@ namespace enigma { namespace lev {
             stringList = doc->getElementsByTagNameNS(levelNS, 
                     Utf8ToXML("string").x_str());
             if(app.domParserErrorHandler->getSawErrors()) {
-                errMessage = std::string(errStream.str(), errStream.str().size());
+                errMessage = errStream.str();
             }
             app.domParserErrorHandler->reportToNull();  // do not report to errStream any more
         }
