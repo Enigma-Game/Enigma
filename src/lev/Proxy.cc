@@ -26,7 +26,7 @@
 #include "Utf8ToXML.hh"
 #include "XMLtoUtf8.hh"
 #include <iostream>
-#include <strstream>
+#include <sstream>
 #include <xercesc/dom/DOM.hpp>
 #include <xercesc/util/XMLException.hpp>
 #include <xercesc/util/XMLString.hpp>
@@ -90,7 +90,7 @@ namespace enigma { namespace lev {
     void Proxy::loadXML(std::string filename) {
         std::string errMessage;
         try {
-            std::ostrstream errStream;
+            std::ostringstream errStream;
             app.domParserErrorHandler->resetErrors();
             app.domParserErrorHandler->reportToOstream(&errStream);
             app.domParserSchemaResolver->resetResolver();
@@ -101,7 +101,7 @@ namespace enigma { namespace lev {
             stringList = doc->getElementsByTagNameNS(levelNS, 
                     Utf8ToXML("string").x_str());
             if(app.domParserErrorHandler->getSawErrors()) {
-                errMessage = std::string(errStream.str(), errStream.pcount());
+                errMessage = std::string(errStream.str(), errStream.str().size());
             }
             app.domParserErrorHandler->reportToNull();  // do not report to errStream any more
         }

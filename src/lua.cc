@@ -36,6 +36,8 @@ extern "C" {
 #include "ecl.hh"
 #include <cassert>
 
+#include "nls.hh"
+
 using namespace std;
 using namespace enigma;
 using namespace lua;
@@ -61,6 +63,27 @@ namespace
     lua_State *level_state = 0;  // level-local state
     int object_tag;             // Lua tag for `Object's
     lua_State *global_state = 0; // global Lua state
+
+    lua::Error _lua_err_code (int i)
+    {
+        switch (i) {
+	case 0: return NOERROR;
+	case LUA_ERRRUN: return ERRRUN;
+	case LUA_ERRFILE: return ERRFILE;
+	case LUA_ERRSYNTAX: return ERRSYNTAX;
+	case LUA_ERRMEM: return ERRMEM;
+	case LUA_ERRERR: return ERRERR;
+	}
+	assert (!"Should never get there!");
+    }
+
+    Error _lua_do_file(lua_State *L, const string &filename)
+    {
+	int oldtop = lua_gettop(L);
+	int retval = lua_dofile(L, filename.c_str());
+	lua_settop(L, oldtop);
+	return _lua_err_code(retval);
+    }
 }
 
 
@@ -625,45 +648,62 @@ void lua::RegisterFuncs(lua_State *L, CFunction *funcs)
     lua_pop(L, 1);
 }
 
-int lua::CallFunc(lua_State *L, const char *funcname, const Value& arg) {
+Error lua::CallFunc(lua_State *L, const char *funcname, const Value& arg) {
     lua_getglobal(L, funcname);
     push_value(L, arg);
-    return lua_call(L, 1, 0);
+    return _lua_err_code(lua_call(L, 1, 0));
 }
 
-int lua::CallFunc(lua_State *L, const char *funcname, const ByteVec& arg) {
+Error lua::CallFunc(lua_State *L, const char *funcname, const ByteVec& arg) {
     lua_getglobal(L, funcname);
     lua_pushlstring (L, &arg[0], arg.size());
-    return lua_call(L, 1, 0);
+    return _lua_err_code(lua_call(L, 1, 0));
 }
 
-int lua::Dofile(lua_State *L, const string &filename) 
+Error lua::DoGeneralFile(lua_State *L, GameFS * fs, const string &filename)
 {
-    string fname;
-    if (app.resourceFS->findFile(filename, fname)) {
-        int oldtop = lua_gettop(L);
-        int retval = lua_dofile(L, fname.c_str());
-        lua_settop(L, oldtop);
-        return retval;
+    string completefn;
+    if (fs->findFile(filename, completefn)) {
+        return _lua_do_file(L, completefn);
     }
-    return LUA_ERRFILE;
+    else {
+        return _lua_err_code(LUA_ERRFILE);
+    }
 }
 
-int lua::DoSysFile(lua_State *L, const string &filename) 
+Error lua::Dofile(lua_State *L, const string &filename) 
 {
-    string fname;
-    if (app.systemFS->findFile(filename, fname)) {
-        int oldtop = lua_gettop(L);
-        int retval = lua_dofile(L, fname.c_str());
-        lua_settop(L, oldtop);
-        return retval;
-    }
-    return LUA_ERRFILE;
+    return lua::DoGeneralFile(L, app.resourceFS, filename);
 }
 
-int lua::Dobuffer (lua_State *L, const ByteVec &luacode) {
+Error lua::DoSysFile(lua_State *L, const string &filename) 
+{
+    return lua::DoGeneralFile(L, app.systemFS, filename);
+}
+
+void lua::CheckedDoFile (lua_State *L, GameFS * fs, std::string const& fname)
+{
+    string completefn;
+    if (!fs->findFile(fname, completefn))
+    {
+        fprintf(stderr, _("Cannot find '%s'.\n"), fname.c_str());
+        fprintf(stderr, _("Your installation may be incomplete or invalid.\n"));
+        exit (1);
+    }
+
+    lua::Error status = _lua_do_file(L, completefn);
+    if (status != lua::NOERROR) {
+        fprintf(stderr, _("There was an error loading '%s'.\n"), completefn.c_str());
+        fprintf(stderr, _("Your installation may be incomplete or invalid.\n"));
+	fprintf(stderr, _("Error: '%s'\n"), lua::LastError(L).c_str());
+        exit (1);
+    }
+}
+
+
+Error lua::Dobuffer (lua_State *L, const ByteVec &luacode) {
     const char *buffer = reinterpret_cast<const char *>(&luacode[0]);
-    return lua_dobuffer (L, buffer, luacode.size(), "buffer");
+    return _lua_err_code(lua_dobuffer (L, buffer, luacode.size(), "buffer"));
 }
 
 string lua::LastError (lua_State *L)
@@ -673,7 +713,7 @@ string lua::LastError (lua_State *L)
 }
 
 
-int lua::DoSubfolderfile(lua_State *L, const string &basefolder, const string &filename) {
+Error lua::DoSubfolderfile(lua_State *L, const string &basefolder, const string &filename) {
     std::list <string> fnames = app.resourceFS->findSubfolderFiles(basefolder, filename);
     int retval = 0;
     while (fnames.size() > 0) {
@@ -683,7 +723,7 @@ int lua::DoSubfolderfile(lua_State *L, const string &basefolder, const string &f
 	fnames.pop_front();
         lua_settop(L, oldtop);
     }
-    return retval;
+    return _lua_err_code(retval);
 }
 
 lua_State *lua::GlobalState() 

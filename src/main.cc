@@ -298,11 +298,7 @@ void Application::init(int argc, char **argv)
     
     // initialize LUA - Run initialization scripts
     lua_State *L = lua::GlobalState();
-    if (lua::DoSysFile(L, "startup.lua") != 0) {
-        fprintf(stderr, _("There was an error loading 'startup.lua'.\n"));
-        fprintf(stderr, _("Your installation may be incomplete or invalid.\n"));
-        exit (1);
-    }
+    lua::CheckedDoFile(L, app.systemFS, "startup.lua");
 
     // initialize preferences -- needs LUA, XML
     if (!options::Load()) {

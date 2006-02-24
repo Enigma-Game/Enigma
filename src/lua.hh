@@ -37,6 +37,15 @@ namespace lua
         const char *name;
     };
 
+    enum Error {
+        NOERROR = 0,
+        ERRRUN,
+	ERRFILE,
+	ERRSYNTAX,
+	ERRMEM,
+	ERRERR
+    };
+
 /* -------------------- Lua states for Enigma -------------------- */
 
     lua_State *GlobalState();
@@ -72,26 +81,33 @@ namespace lua
 
     /*! Call a Lua function with one argument.  This is mainly used
       for callbacks during the game. */
-    int CallFunc(lua_State *L, const char *funcname, const enigma::Value& arg);
+    Error CallFunc(lua_State *L, const char *funcname, const enigma::Value& arg);
 
     /*! Call a Lua function with a (large) byte vector as the sole
       argument.  Currently only used for loading XML levels. */
-    int CallFunc (lua_State *L, const char *funcname, const ByteVec &arg);
+    Error CallFunc (lua_State *L, const char *funcname, const ByteVec &arg);
 
     /*! Find a Lua script using enigma::FindFile and run it. */
-    int Dofile (lua_State *L, const std::string & filename);
+    Error Dofile (lua_State *L, const std::string & filename);
 
-     /*! Find a system Lua script using enigma::FindFile and run it. */
-    int DoSysFile (lua_State *L, const std::string & filename);
+    /*! Find a system Lua script using enigma::FindFile and run it. */
+    Error DoSysFile (lua_State *L, const std::string & filename);
+
+    /*! Find a Lua script in given filesystem using enigma::FindFile and run it. */
+    Error DoGeneralFile(lua_State *L, GameFS * fs, const string &filename);
 
     /*! Run the Lua code contained in `luacode'. */
-    int Dobuffer (lua_State *L, const ByteVec &luacode);
+    Error Dobuffer (lua_State *L, const ByteVec &luacode);
+
+    /*! Try to run given file on given filesystem.  If something
+      fails, provide generic error message and exit enigma.*/
+    void CheckedDoFile (lua_State *L, GameFS * fs, const string &filename);
 
     /*! Return the text of the last error message. */
     std::string LastError (lua_State *L);
 
 
-    int DoSubfolderfile(lua_State *L, 
+    Error DoSubfolderfile(lua_State *L, 
                         const std::string & basefolder, 
                         const std::string & filename);
 }
