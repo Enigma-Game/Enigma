@@ -38,10 +38,10 @@ using namespace stones;
 /* -------------------- RotatorStone -------------------- */
 namespace
 {
-    class RotatorStone : public Stone {
+    class RotatorStone : public PhotoStone {
     public:
         RotatorStone(bool clockwise_, bool movable_)
-        : Stone("st-rotator"), clockwise(clockwise_), movable(movable_)
+        : PhotoStone("st-rotator"), clockwise(clockwise_), movable(movable_)
         {}
 
     private:
@@ -53,6 +53,16 @@ namespace
 
         Stone *clone() { return new RotatorStone(clockwise, movable); }
         void dispose() { delete this; }
+        
+        // Stone interface
+        void on_creation (GridPos p) {
+            Stone::on_creation(p);
+            photo_activate();
+        }
+        void on_removal (GridPos p){
+            photo_deactivate();
+            Stone::on_removal(p);
+        }
 
         void send_impulses() {
             GridPos p = get_pos();
@@ -96,10 +106,12 @@ namespace
                 move_stone(impulse.dir);
         }
 
-        void on_laserhit(Direction) {
+        // PhotoStone interface
+        void notify_laseron() {
             clockwise = !clockwise;
             init_model();
         }
+        void notify_laseroff() {}
     };
 
     const double RotatorStone::RATE          = 1.0;
