@@ -527,10 +527,17 @@ void LevelPack_Zipped::reinit()
         m_zip.reset (new ZipFile (m_filename));
 
         auto_ptr<istream> isptr (m_zip->getInputStream ("index.txt"));
+        if (isptr.get() == NULL)
+            throw XLevelPackInit ("Invalid level pack: " + m_filename + " index.txt missing");
         istream &is = *isptr;
 
         string line;
         if (getline(is, line)) {
+            // we read the index in binary mode and have to strip of the \n for
+            // windows
+            if (line[line.size()-1] = '\n') {
+                line.resize(line.size()-1);
+            }
             m_name = line;
             load_index (is);
         }
