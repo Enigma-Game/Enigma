@@ -260,6 +260,8 @@ AC_CONFIG_FILES([Makefile m4/Makefile  intl/Makefile
            data/levels/m_tutor/Makefile
            data/levels/patches/Makefile
            data/levels/lib/Makefile
+           data/levels/experimental/Makefile
+           data/levels/stable/Makefile
            data/fonts/Makefile
            data/sound/Makefile
            data/schemas/Makefile

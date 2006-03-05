@@ -1,0 +1,27 @@
+-- Here are some Testlevel, unfinished Ideas, Specific Bugtests, (currently) unplayable Levels etc...
+
+{file=experimental/key                  name="Key"                author="Martin Hawlisch, Siegfried Fennig"}
+{file=experimental/level2b              name=""                   author="Siegfried Fennig"}
+{file=experimental/randompuzzles        name="Puzzle Labor"       author="Raoul"}
+{file=experimental/items                name="Items"              author="Raoul"}
+{file=experimental/closetherings        name="Close the Rings"    author="Raoul"}
+
+------------Specific Bugtests------------------
+
+{file=experimental/testimpulses         name="Impulstest"         author="?"}
+{file=experimental/autorotation         name="Autorotation"       author="?"}
+{file=experimental/tarimstest           name="Tarims Bug"         author="Andreas Lochmann"}
+{file=experimental/puzzletest           name="Puzzle Bug"         author="Raoul"}
+{file=experimental/demo_prefercurrent   name="rotor attribute prefercurrent" author="Ronald Lamprecht"}
+{file=experimental/killStone            name="killStone"          author="Xerxes M. Dynatos"}
+{file=experimental/todo                 name="TODO"               author="?"}
+{file=experimental/hole_test            name="Hole Test"          author="Raoul/Richi"}
+{file=experimental/wolfamongsheep       name="Wolf Among Sheep"   author="illmind"}
+
+------------Currently unsolvable or not working---------------
+
+{file=experimental/duffy95              name="Automaton"          author="Jacob Scott" par_time=117,Stephanie }
+{file=experimental/ralf14               name="Escape?"            author="Ralf Westram" par_time=79,Stephanie }
+{file=experimental/luc16                name="Flipper"            author="Lukas Schueller"}
+{file=experimental/wb1_1                name="Hurry!"             author="Jon Sneyers"}
+{file=experimental/wb2                  name="Impossible?"        author="Jon Sneyers"}

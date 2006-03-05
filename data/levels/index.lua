@@ -5,6 +5,9 @@ enigma.AddLevelPack( "levels/m_tutor/index.txt", "Tutorial")
 --     enigma.AddLevelPack( "levels/index_experimental.txt", "Experimental")
 -- end
 
+enigma.AddLevelPack( "levels/experimental/index_experimental.txt", "Experimental")
+enigma.AddLevelPack( "levels/stable/index_stable.txt", "Stable: New Levels")
+
 enigma.AddLevelPack( "levels/index_e1.txt", "Enigma")
 enigma.AddLevelPack( "levels/index_e2.txt", "Enigma 2")
 enigma.AddLevelPack( "levels/index_e3.txt", "Enigma 3")
