@@ -262,6 +262,11 @@ AC_CONFIG_FILES([Makefile m4/Makefile  intl/Makefile
            data/levels/lib/Makefile
            data/levels/experimental/Makefile
            data/levels/stable/Makefile
+           data/levels/enigma_i/Makefile
+           data/levels/enigma_ii/Makefile
+           data/levels/enigma_iii/Makefile
+           data/levels/enigma_iv/Makefile
+           data/levels/enigma_v/Makefile
            data/fonts/Makefile
            data/sound/Makefile
            data/schemas/Makefile

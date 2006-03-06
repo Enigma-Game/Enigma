@@ -1,3 +1,3 @@
 pkgdatadir = $(datadir)/@PACKAGE@/levels/stable
-pkgdata_DATA = $(wildcard $(srcdir)/*.lua)
-EXTRA_DIST = $(pkgdata_DATA)
+pkgdata_DATA = $(wildcard $(srcdir)/*.png $(srcdir)/*.txt $(srcdir)/*.lua $(srcdir)/*.xml) index_stable.txt
+EXTRA_DIST = 00makepreviews.sh $(pkgdata_DATA)
