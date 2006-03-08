@@ -530,7 +530,10 @@ Display game menu
 Display help screen
 
 @item @key{F3}
-Kill the current marble and restart the level
+Kill the current marble 
+
+@item @key{Shift-F3}
+Restart the current level
 
 @item @key{F4}
 Move to the next level
