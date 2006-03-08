@@ -1,0 +1,107 @@
+-- Clones of the Esprit Game
+-- nearly complete
+-- 3 levels were copied two times, so there are two nearly identical versions of each level: # 17, 39, 68
+
+{file=esprit/martin45      name="esprit  01"              author="Martin Hawlisch"   par_time=1,Ralf}
+{file=esprit/martin46      name="esprit  02"              author="Martin Hawlisch"   par_time=4,Daniel+Ingo+Johannes+Ralf}
+{file=esprit/martin47      name="esprit  03"              author="Martin Hawlisch"   par_time=13,Daniel}
+{file=esprit/martin55      name="esprit  04"              author="Martin Hawlisch"   par_time=5,Johannes}
+{file=esprit/martin48      name="esprit  05"              author="Martin Hawlisch"   par_time=6,Johannes}
+{file=esprit/martin53      name="esprit  06"              author="Martin Hawlisch"   par_time=13,Daniel+Duffy+Johannes}
+{file=esprit/ss_esp07      name="esprit  07"              author="Sven Siggelkow"    par_time=8,Duffy}
+{file=esprit/ss_esp08      name="esprit  08"              author="Sven Siggelkow"    par_time=11,Duffy}
+{file=esprit/ss_esp09      name="esprit  09"              author="Sven Siggelkow"    par_time=4,Duffy+Johannes}
+{file=esprit/meditation10  name="- Meditation -"          author=""                  par_time=3,Duffy+Johannes+Ralf}
+{file=esprit/ss_esp11      name="esprit  11"              author="Sven Siggelkow"    par_time=12,Duffy+Ralf}
+{file=esprit/ss_esp12      name="esprit  12"              author="Sven Siggelkow"    par_time=5,Duffy+Ralf}
+{file=esprit/martin34      name="esprit  13 - Spin Cycle"              author="Martin Hawlisch"   par_time=19,Duffy}
+{file=esprit/martin56      name="esprit  14"              author="Martin Hawlisch"   par_time=7,Johannes}
+{file=esprit/martin67      name="esprit  15"              author="Martin Hawlisch"   par_time=11,Ralf}
+{file=esprit/ss_esp16      name="esprit  16"              author="Sven Siggelkow"    par_time=30,Johannes}
+{file=esprit/ss_esp17      name="esprit  17"              author="Sven Siggelkow"    par_time=21,Duffy}
+--nearly the same as # 17
+--{file=esprit/martin05    name="Avoid Death"            author="Martin Hawlisch"   par_time=24,Duffy}
+{file=esprit/ss_esp18      name="esprit  18"              author="Sven Siggelkow"    par_time=35,Johannes}
+{file=esprit/martin13      name="esprit  19 - Skydiver"                author="Martin Hawlisch"   par_time=26,Duffy}
+{file=esprit/ss_esp20      name="- Meditation -"          author="Sven Siggelkow"    par_time=9,Duffy}
+{file=esprit/ss_esp21      name="esprit  21"              author="Sven Siggelkow"    par_time=16,Johannes}
+{file=esprit/ss_esp22      name="esprit  22"              author="Sven Siggelkow"    par_time=80,Duffy}
+{file=esprit/ss_esp23      name="esprit  23"              author="Sven Siggelkow"    par_time=50,Duffy}
+{file=esprit/ss_esp24      name="esprit  24"              author="Sven Siggelkow"    par_time=10,Duffy}
+{file=esprit/ss_esp25      name="esprit  25"              author="Sven Siggelkow"    par_time=7,Duffy}
+{file=esprit/ss4           name="esprit  26 - Bank-O-Mat"              author="Sven Siggelkow"    par_time=24,Johannes}
+{file=esprit/ss_esp27      name="esprit  27"              author="Sven Siggelkow"    par_time=36,Stephanie}
+{file=esprit/ss_esp28      name="esprit  28"              author="Sven Siggelkow"    par_time=2,Draknek+Samuel}
+{file=esprit/ss_esp29      name="esprit  29"              author="Sven Siggelkow"    par_time=19,Duffy}
+{file=esprit/meditation11  name="- Meditation -"          author=""                  par_time=17,Daniel}
+{file=esprit/ss_esp31      name="esprit  31"              author="Sven Siggelkow"    par_time=3,Duffy+Ralf+Samuel}
+{file=esprit/ss_esp32      name="esprit  32"              author="Sven Siggelkow"    par_time=19,Johannes}
+{file=esprit/ss_esp34      name="esprit  54"              author="Sven Siggelkow"    par_time=7,Johannes+Samuel}
+{file=esprit/ss_esp35      name="esprit  35"              author="Sven Siggelkow"    par_time=14,Duffy}
+{file=esprit/ss_esp36      name="esprit  36"              author="Sven Siggelkow"    par_time=20,Duffy}
+{file=esprit/ss_esp37      name="esprit  37"              author="Sven Siggelkow"    par_time=51,Duffy}
+{file=esprit/ss_esp38      name="esprit  38"              author="Sven Siggelkow"    par_time=29,Stephanie}
+{file=esprit/ss_esp39      name="esprit  39"              author="Sven Siggelkow"    par_time=16,Daniel}
+--nearly the same as # 39
+--{file=esprit/level2e     name="Fear of Flying"          author=""                  par_time=14,Duffy}
+{file=esprit/meditation7   name="- Meditation -"          author=""                  par_time=11,Johannes                  revision=2}
+{file=esprit/ss_esp41      name="esprit  41"              author="Sven Siggelkow"    par_time=22,Duffy}
+{file=esprit/ss_esp42      name="esprit  42"              author="Sven Siggelkow"    par_time=16,Duffy}
+{file=esprit/ss_esp43      name="esprit  43"              author="Sven Siggelkow"    par_time=10,Johannes}
+
+{file=esprit/martin52      name="esprit  46"              author="Martin Hawlisch"   par_time=25,Johannes}
+{file=esprit/ss_esp47      name="esprit  47"              author="Sven Siggelkow"    par_time=23,Duffy}
+{file=esprit/ss_esp48      name="esprit  48"              author="Sven Siggelkow"    par_time=22,Duffy}
+{file=esprit/ss_esp49      name="esprit  49"              author="Sven Siggelkow"    par_time=189,Stephanie}
+{file=esprit/ss_esp50      name="esprit  50"              author="Sven Siggelkow"    par_time=50,Johannes}
+{file=esprit/level4c       name="esprit  51 - Shadows"                 author=""                  par_time=41,Stephanie}
+{file=esprit/ss_esp52      name="esprit  52"              author="Sven Siggelkow"    par_time=22,Duffy}
+
+{file=esprit/ss_esp54      name="esprit  54"              author="Sven Siggelkow"    par_time=7,Johannes+Samuel}
+{file=esprit/ss_esp55      name="esprit  55"              author="Sven Siggelkow"    par_time=5,Duffy+Johannes+Ralf}
+
+{file=esprit/ss_esp58      name="esprit  58"              author="Sven Siggelkow"    par_time=37,Duffy}
+{file=esprit/ss_esp59      name="esprit  59"              author="Sven Siggelkow"    par_time=15,Johannes}
+{file=esprit/meditation12  name="- Meditation -"          author=""                  par_time=12,Ralf}
+{file=esprit/ss_esp61      name="esprit  61"              author="Sven Siggelkow"    par_time=29,Johannes}
+{file=esprit/level3b       name="esprit  62 - Checkered craze"         author=""                  par_time=48,Duffy}
+{file=esprit/ss_esp63      name="esprit  63"              author="Sven Siggelkow"    par_time=22,Stephanie}
+
+{file=esprit/ss_esp65      name="esprit  65"              author="Sven Siggelkow"    par_time=12,Duffy}
+{file=esprit/ss_esp66      name="esprit  66"              author="Sven Siggelkow"    par_time=230,Duffy}
+{file=esprit/martin54      name="esprit  67"              author="Martin Hawlisch"   easymode=1  par_time_normal=190,Markus   par_time_easy=28,Stephanie}
+{file=esprit/ss_esp68      name="esprit  68"              author="Sven Siggelkow"    par_time=27,Duffy}
+--nearly the same as # 68
+--{file=esprit/martin57    name="Fatal Attraction"        author="Martin Hawlisch"   par_time=58,Stephanie}
+{file=esprit/ss_esp69      name="esprit  69"              author="Sven Siggelkow"    par_time=47,Duffy}
+{file=esprit/ss_esp70      name="- Meditation -"          author="Sven Siggelkow"    par_time=11,Duffy}
+
+{file=esprit/level6e       name="esprit  72 - Wicked Road Holes"       author="Siegfried Fennig"  par_time=18,Duffy}
+{file=esprit/ss_esp73      name="esprit  73"              author="Sven Siggelkow"    par_time=5,Duffy+Johannes}
+{file=esprit/ss_esp74      name="esprit  74"              author="Sven Siggelkow"    par_time=2,Ralf}
+{file=esprit/ss_esp75      name="esprit  75"              author="Sven Siggelkow"    par_time=4,Samuel}
+{file=esprit/ss_esp76      name="esprit  76"              author="Sven Siggelkow"    par_time=12,Duffy}
+{file=esprit/ss_esp77      name="esprit  77"              author="Sven Siggelkow"    par_time=8,Duffy}
+
+{file=esprit/ss_esp79      name="esprit  79"              author="Sven Siggelkow"    par_time=3,Duffy}
+{file=esprit/ss_esp80      name="- Meditation -"          author="Sven Siggelkow"    par_time=7,Ralf}
+{file=esprit/ss_esp81      name="esprit  81"              author="Sven Siggelkow"    par_time=93,Duffy}
+{file=esprit/ss_esp82      name="esprit  82"              author="Sven Siggelkow"    par_time=13,Duffy+Johannes}
+{file=esprit/ss_esp83      name="esprit  83"              author="Sven Siggelkow"    par_time=165,Andrzej}
+{file=esprit/ss_esp84      name="esprit  84"              author="Sven Siggelkow"    par_time=13,Johannes+Samuel}
+{file=esprit/ss_esp85      name="esprit  85 - @work"                   author="Sven Siggelkow"    par_time=28,Johannes}
+{file=esprit/ss_esp86      name="esprit  86"              author="Sven Siggelkow"    par_time=37,Samuel}
+{file=esprit/ss_esp87      name="esprit  87"              author="Sven Siggelkow"    easymode=1  par_time_normal=14,Johannes  par_time_easy=10,Johannes   revision=2}
+{file=esprit/ss_esp88      name="esprit  88 - The Locksmith"           author="Sven Siggelkow"    par_time=165,Stephanie}
+{file=esprit/ss_esp89      name="esprit  89 - Death in the Caribbean"  author="Sven Siggelkow"    par_time=18,Stephanie}
+{file=esprit/meditation8   name="- Meditation -"          author="Siegfried Fennig"  par_time=16,Duffy+Johannes}
+{file=esprit/ss_esp91      name="esprit 91"               author="Sven Siggelkow"    par_time=82,Johannes}
+{file=esprit/ss_esp92      name="esprit 92"               author="Sven Siggelkow"    par_time=60,Ingo}
+{file=esprit/ss_esp93      name="esprit 93"               author="Sven Siggelkow"    par_time=24,Duffy}
+{file=esprit/ss_esp94      name="esprit 94"               author="Sven Siggelkow"    par_time=43,Duffy}
+{file=esprit/ss_esp95      name="esprit  95 Burn baby, burn"         author="Sven Siggelkow"    par_time=13,Duffy}
+{file=esprit/ss_esp96      name="esprit 96"               author="Sven Siggelkow"    par_time=15,Duffy}
+{file=esprit/ss_esp97      name="esprit 97"               author="Sven Siggelkow"    par_time=63,Johannes}
+{file=esprit/ss_esp98      name="esprit 98"               author="Sven Siggelkow"    par_time=103,Stephanie}
+{file=esprit/ss_esp99      name="esprit 99"               author="Sven Siggelkow"    par_time=2,Stephanie}
+{file=esprit/ss_esp100     name="esprit 100"              author="Sven Siggelkow"    easymode=1  par_time_normal=557,Duffy}

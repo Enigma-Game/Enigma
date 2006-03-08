@@ -15,6 +15,13 @@ enigma.AddLevelPack( "levels/enigma_iii/index_enigma_iii.txt", "Enigma III")
 enigma.AddLevelPack( "levels/enigma_iv/index_enigma_iv.txt", "Enigma IV")
 enigma.AddLevelPack( "levels/enigma_v/index_enigma_v.txt", "Enigma V")
 
+enigma.AddLevelPack( "levels/esprit/index_esprit.txt", "Esprit")
+enigma.AddLevelPack( "levels/oxyd/index_oxyd.txt", "Oxyd")
+enigma.AddLevelPack( "levels/peroxyd/index_peroxyd.txt", "Per.Oxyd")
+enigma.AddLevelPack( "levels/oxydmagnum/index_oxydmagnum.txt", "OxydMagnum")
+enigma.AddLevelPack( "levels/oxydextra/index_oxydextra.txt", "OxydExtra")
+
+
 -- old arrangement
 --enigma.AddLevelPack( "levels/index_e1.txt", "Enigma")
 --enigma.AddLevelPack( "levels/index_e2.txt", "Enigma 2")
@@ -22,7 +29,7 @@ enigma.AddLevelPack( "levels/enigma_v/index_enigma_v.txt", "Enigma V")
 --enigma.AddLevelPack( "levels/index_clones_of_oxyd.txt", "Oxyds")
 
 -- Clones
-enigma.AddLevelPack( "levels/index_esprit.txt", "Esprit")
+--enigma.AddLevelPack( "levels/index_esprit.txt", "Esprit")
 
 -- add test level pack (usually containing levels created by the user)
 enigma.AddLevelPack( "levels/index_user.txt", "User Levels")

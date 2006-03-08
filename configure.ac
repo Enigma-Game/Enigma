@@ -260,6 +260,11 @@ AC_CONFIG_FILES([Makefile m4/Makefile  intl/Makefile
            data/levels/m_tutor/Makefile
            data/levels/patches/Makefile
            data/levels/lib/Makefile
+           data/levels/esprit/Makefile
+           data/levels/oxyd/Makefile
+           data/levels/peroxyd/Makefile
+           data/levels/oxydmagnum/Makefile
+           data/levels/oxydextra/Makefile
            data/levels/experimental/Makefile
            data/levels/stable/Makefile
            data/levels/enigma_i/Makefile
