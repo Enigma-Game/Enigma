@@ -18,3 +18,6 @@ enigma.AddLevelPack( "levels/oxyd/index_oxyd.txt", "Oxyd")
 enigma.AddLevelPack( "levels/peroxyd/index_peroxyd.txt", "PerOxyd")
 enigma.AddLevelPack( "levels/oxydmagnum/index_oxydmagnum.txt", "OxydMagnum")
 enigma.AddLevelPack( "levels/oxydextra/index_oxydextra.txt", "OxydExtra")
+
+-- Levels qualified for NetPlay
+enigma.AddLevelPack( "levels/index_netplay.txt", "Netplay")

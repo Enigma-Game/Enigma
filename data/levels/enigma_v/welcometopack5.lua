@@ -1,5 +1,5 @@
 -- Welcome to Pack III
--- Copyright (C) 2003 Martin Hawlisch
+-- Copyright (C) 2006 Raoul
 -- Licensed under GPL v2.0
 
 levelw = 20
@@ -17,7 +17,7 @@ fill_floor(boden, 0,0,levelw,levelh)
 
 if difficult then
  set_stone("st-fart",9,6,{name="fart1"})
- set_stone("st-timer",10,6,{action="trigger", target="fart1", interval=10})
+ set_stone("st-timer",10,6,{action="trigger", target="fart1", interval=20})
 end
 
 -- ITEMS --
@@ -46,7 +46,6 @@ oxyd(16,4)
 oxyd(16,6)
 oxyd(16,8)
 oxyd_shuffle()
-
 
 
 

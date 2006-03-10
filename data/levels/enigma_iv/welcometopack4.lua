@@ -20,7 +20,7 @@ draw_border(wand)
 
 if difficult then
  set_stone("st-fart",9,6,{name="fart1"})
- set_stone("st-timer",10,6,{action="trigger", target="fart1", interval=10})
+ set_stone("st-timer",10,6,{action="trigger", target="fart1", interval=17.5})
 end
 
 -- ITEMS --
@@ -45,8 +45,6 @@ oxyd(17,9)
 
 oxyd_default_flavor = "d"
 oxyd_shuffle()
-
-
 
 
 
