@@ -42,3 +42,21 @@ set_actor("ac-whiteball-small",  7.5,10.5, {player=0, mouseforce=1})
 set_actor("ac-whiteball-small", 12.5,10.5, {player=0, mouseforce=1})
 set_actor("ac-whiteball-small", 16.5,10.5, {player=0, mouseforce=1})
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
