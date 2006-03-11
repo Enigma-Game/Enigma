@@ -852,17 +852,6 @@ make use of identification of the level via the type attribute.
 @node <compatibility>, <modes>, <license>, Info metadata
 @subsection <compatibility>
 
-@example
-@end example
-
-@b{Attributes:}
-
-@table @asis
-@item @b{type}, @i{required}
-
-@end table
-
-@b{Contents:}
 
 @node <modes>, <comments>, <compatibility>, Info metadata
 @subsection <modes>
@@ -975,6 +964,7 @@ or a todo list. This comment will not be processed.
 @node LUA code, Internationalization (i18n), Info metadata, Level Basics
 @section LUA code
 
+This elements takes any Lua code as a single chunk with nearly no limitations:
 
 @example
     <@i{el}:@b{luamain}><![CDATA[
@@ -995,17 +985,24 @@ set_actor("ac-blackball", 4, 11)
     ]]></@i{el}:@b{luamain}>
 @end example
 
-Strings with Umlauts but Identifier pure US-ASCII
-
-
 @b{Attributes:}
 
-@table @asis
-@item @b{type}, @i{required}
-
-@end table
+none
 
 @b{Contents:}
+
+This element takes the main Lua code as its contents. All other possible
+libraries that are declared as dependencies and Lua chunks supplied by XML 
+elements are preloaded. 
+
+The Lua code itself that is enclosed in a XML CDATA section. This limitates the
+Lua code to not use the reserved end marker @samp{]]>}. Any occurence has to be
+substituted by @samp{]] >}. 
+
+On the other hand the XML format extends the Lua capatibilities to the usage of
+encodings. You may use Lua strings and comments with Umlauts. But Lua identifiers
+are still limited to pure US-ASCII. The benefit is that you can use Umlauts and
+other non ASCII characters within it-document hints.
 
 @node Internationalization (i18n), Usage, LUA code, Level Basics
 @section Internationalization (i18n)
@@ -1141,15 +1138,96 @@ string.
 @node Usage, Update and Upgrade, Internationalization (i18n), Level Basics
 @section Usage
 
-templates
+After all the theory lets have a look how to deal with the XML levelformat in
+practice. Of course you will not assemble all XML metadata from scratch for
+every new level you write. You should use templates. You can start with any
+existing level, f.e. the @samp{demo_i18n.xml} that is supplied with this
+documentation. Add your personal data to your template and store it as basis for all new levels
+you write.
 
-backward compatible lua format
+Some level authors are very used to the Lua file format as their favorite editor supports
+Lua files with syntax coloring. The XML file name and the XML elements will cause
+their editor to use XML syntax coloring. As these authors are nevertheless used
+to supply metadata in the header of their Lua levels as non standardized Lua 
+comments we decided to support a similar Lua compatible XML format. We call it 
+"Lua commented XML" as it simply comments out all XML lines with the Lua comment
+@samp{--xml-- }. For example
 
-syntax coloring
+@example
+--xml-- <?xml version="1.0" encoding="UTF-8" standalone="no" ?>
+--xml-- <el:level xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://enigma/level level.xsd" xmlns:el="http://enigma/level">
+--xml--   <el:protected >
+--xml--     <el:info el:type="level">
+--xml--       <el:identity el:titel="Demo Simple" el:id="20060210ral001"/>
+--xml--       <el:version el:score="1" el:release="1" el:revision="0" el:status="stable"/>
+--xml--       <el:author  el:name="Ronald Lamprecht"/>
+--xml--       <el:copyright>Copyright © 2006 Ronald Lamprecht</el:copyright>
+--xml--       <el:license el:type="GPL2" el:open="true">GPL v2.0 or above</el:license>
+--xml--       <el:compatibility el:enigma="0.92"/>
+--xml--       <el:modes el:easy="false" el:single="true" el:network="false"/>
+--xml--       <el:score el:easy="-1" el:difficult="-1"/>
+--xml--     </el:info>
+--xml--     <el:luamain><![CDATA[
+levelw = 20
+levelh = 13
 
-Tools for conversion: xml2lua, lua2xml
+@b{create_world}( levelw, levelh)
+@b{draw_border}("@i{st-wood}")
+@b{fill_floor}("@i{fl-leavesb}", 0,0,levelw,levelh)
 
-How to validate
+@b{oxyd}( 4,4)
+@b{oxyd}( 14,4)
+
+@b{set_actor}("@i{ac-blackball}", 4, 11)
+--xml--     ]]></el:luamain>
+--xml--     <el:i18n/>
+--xml--   </el:protected>
+--xml-- </el:level>
+@end example
+
+Please note that each XML metadata line has to start exactly with @samp{--xml-- },
+8 charcters including the space at the end! An additional limitation of the
+Lua commented XML format arises from Lua's capability of handling character
+encodings. You need to limit yourself to @samp{UTF-8} or of cause @samp{US-ASCII}
+to successfully use the Lua commented XML format. Please remember, that even
+though the XML part is Lua commented, it will still be evaluated and has thus
+to valid.
+
+Every level stored in this Lua commented XML format as a file with extension
+@samp{.lua} can be used locally for command line usage as well as in any level
+package that is stored on the Enigma's users home directory. But Lua commented XML
+levels can not be stored on Internet servers and cannot be online updated. Thus
+this format is good for level development, but the levels should be converted
+to the pure XML format for distribution. Please note that Enigma looks for XML levels
+first, and uses Lua levels only if no XML level could be found.
+
+Another usage of Lua commented XML levels is the format backward compatibility to 
+Enigma 0.92. As long as levels do not use new Enigma features you can include
+your levels in Enigma 0.92 level packages in this format.
+
+As you may need to convert levels several times between the XML and the Lua format
+we do provide tools for conversion: @samp{xml2lua} and @samp{lua2xml}. Both are
+very simple Lua 5 scripts that you can execute as 
+@samp{lua xml2lua demo_simple.xml > demo_simple.lua} with a proper installed
+Lua 5 version. On Unix systems you can mark the scripts as executables and
+simply call @samp{xml2lua demo_simple.xml > demo_simple.lua}.
+
+Of course you can add the convertion algorithm as simple macros for your favorite
+editor. Please publish any editor macros you write.
+
+As you fiddle with the XML metadata you may of course produce syntactical errors.
+You can validate your level by trying to start it with Enigma. XML errors are
+output as Lua errors are. In case the error messages are too long to read you may
+want to start Enigma from the command line with option @samp{--log} and read the
+messages printed to the command line or written to the file @samp{stdout.txt} on
+the current working directory for Windows systems.
+
+Of course you can use any external XML validation tool, too. You just need to
+copy the schema file @samp{level.xsd} on the same directory as the level itself.
+Possible validation tools are the Xerces-C sample application 
+@samp{DOMPrint.exe -n -s -f -v=always level.xml} or validating editors like
+@url{http://www.freexmleditor.com/, Exchanger XML Lite}. Such editors will provide
+you with selections of all possible elements and attributes at each position.
 
 @node Update and Upgrade, , Usage, Level Basics
 @section Update and Upgrade
