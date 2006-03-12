@@ -343,19 +343,19 @@ static std::string convert_encoding (const std::string &t)
     for (size_t i = 0; i<tt.length(); ++i) {
 	unsigned char c = tt[i];
         switch (c) {
-        case 129: tt.replace (i, 1, "\303\274"), i++; break; // ü
-        case 130: tt.replace (i, 1, "\303\251"), i++; break; // é
-        case 132: tt.replace (i, 1, "\303\244"), i++; break; // ä
-        case 133: tt.replace (i, 1, "\303\240"), i++; break; // à 
-        case 136: tt.replace (i, 1, "\303\252"), i++; break; // ê
-        case 138: tt.replace (i, 1, "\303\250"), i++; break; // è
-        case 142: tt.replace (i, 1, "\303\204"), i++; break; // Ä
-        case 145: tt.replace (i, 1, "\302\251"), i++; break; // ©
-        case 148: tt.replace (i, 1, "\303\266"), i++; break; // ö
-        case 150: tt.replace (i, 1, "\303\273"), i++; break; // û
-        case 151: tt.replace (i, 1, "\303\271"), i++; break; // ù
-        case 154: tt.replace (i, 1, "\303\234"), i++; break; // Ü
-        case 158: tt.replace (i, 1, "\303\237"), i++; break; // ß
+        case 129: tt.replace (i, 1, "\303\274"), i++; break; // ï¿½
+        case 130: tt.replace (i, 1, "\303\251"), i++; break; // ï¿½
+        case 132: tt.replace (i, 1, "\303\244"), i++; break; // ï¿½
+        case 133: tt.replace (i, 1, "\303\240"), i++; break; // ï¿½ 
+        case 136: tt.replace (i, 1, "\303\252"), i++; break; // ï¿½
+        case 138: tt.replace (i, 1, "\303\250"), i++; break; // ï¿½
+        case 142: tt.replace (i, 1, "\303\204"), i++; break; // ï¿½
+        case 145: tt.replace (i, 1, "\302\251"), i++; break; // ï¿½
+        case 148: tt.replace (i, 1, "\303\266"), i++; break; // ï¿½
+        case 150: tt.replace (i, 1, "\303\273"), i++; break; // ï¿½
+        case 151: tt.replace (i, 1, "\303\271"), i++; break; // ï¿½
+        case 154: tt.replace (i, 1, "\303\234"), i++; break; // ï¿½
+        case 158: tt.replace (i, 1, "\303\237"), i++; break; // ï¿½
         default:
             if (c > 128)
                 Log << "Unknown character in Oxyd text: " << int(c) << ' ';
@@ -743,6 +743,14 @@ LevelPack_Oxyd::LevelPack_Oxyd (OxydVersion ver, DatFile *dat,
         if (!m_datfile->getLevel(i).empty()) {
             level_index[nlevels] = i;
             nlevels++;
+            
+             LevelInfo info = get_info(nlevels);
+            char txt[5];
+            snprintf(txt, sizeof(txt), "%d", nlevels);
+            proxy_index[nlevels] = lev::Proxy::registerLevel(
+                     "#" + get_name() + "#" + txt,  "#" + get_name(),
+                    info.filename, info.name, info.author, info.revision, 
+                    info.revision, info.has_easymode);
         }
     }
     Log << "Levelpack '" << get_name() << "' has " << nlevels << " levels." << endl;
@@ -806,7 +814,13 @@ string LevelPack_Oxyd::get_name() const
     return level_index[0]>99 ? names2p[v] : names1p[v];
 }
 
-void LevelPack_Oxyd::load_level (size_t index) 
+void LevelPack_Oxyd::load_level (size_t index) {
+    const LevelInfo &info = get_info(index);
+    info.proxy->loadLevel();
+//    load_oxyd_level(index);
+}
+
+void LevelPack_Oxyd::load_oxyd_level (size_t index) 
 {
     ecl::Assert <levels::XLevelLoading> (index < size(), "Invalid level index");
 
@@ -834,6 +848,7 @@ void LevelPack_Oxyd::load_level (size_t index)
 const LevelInfo &
 LevelPack_Oxyd::get_info (size_t index) const
 {
+    int enigma_index = index;
     index = level_index[index]-m_index_start;
 
     static LevelInfo info;
@@ -846,6 +861,8 @@ LevelPack_Oxyd::get_info (size_t index) const
     info.has_easymode     = has_easymode(index);
 //     info.par_time_easy    = info.par_time_normal = -1; // @@@ read from score file ?
 //     info.par_time_easy_by = info.par_time_hard_by = "";
+    
+    info.proxy = proxy_index[enigma_index];
 
     return info;
 }

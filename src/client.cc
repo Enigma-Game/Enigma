@@ -75,7 +75,7 @@ namespace
             text = string("\"")+ level->getLocalizedString("titel")+"\"" +
                 _(" by ") + level->getAuthor();
             tmp = level->getLocalizedString("subtitel");
-            if (!tmp.empty())
+            if (!tmp.empty() && tmp != "subtitel")
                 text += string(" - ")+ tmp; 
         } else {
             text = (info.name.empty()) ?

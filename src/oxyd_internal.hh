@@ -26,6 +26,7 @@
 #include "oxydlib/DatFile.h"
 #include "oxydlib/FileUtils.h"
 #include "oxydlib/Level.h"
+#include "lev/Proxy.hh"
 
 #include <cassert>
 
@@ -153,6 +154,8 @@ namespace oxyd
         LevelPack_Oxyd (OxydVersion ver, DatFile *dat,
                         int idx_start, int idx_end, bool twoplayers);
 
+        void load_oxyd_level (size_t index);
+
         /* ---------- LevelPack interface ---------- */
         string get_name() const;
         size_t size() const { return nlevels; }
@@ -186,6 +189,7 @@ namespace oxyd
 
         int m_index_start; // first index of this level pack
         int level_index[200];
+        enigma::lev::Proxy * proxy_index[200];
         int nlevels;
     };
 

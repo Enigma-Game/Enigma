@@ -79,9 +79,6 @@ namespace
         void save_index (ostream &os);
 
 
-        void load_level (istream &is);
-        void load_level_xml (istream &is);
-
         // Variables
         string            m_initfile;
         string            m_name;
@@ -93,7 +90,6 @@ namespace
         LevelPack_History (const string &initfile, const string &name);
         void addHistory(LevelPack *levelpack, unsigned index);
         virtual bool usesStandardLoadLevel() { return false;};
-        virtual void load_level (size_t index);
     };
 
     class LevelPack_CommandLine : public LevelPack_Enigma {
@@ -109,22 +105,22 @@ namespace
     /*! An Enigma level pack inside a ZIP file. */
     class LevelPack_Zipped : public LevelPack_Enigma {
     public:
-        LevelPack_Zipped (const string &zipfile);
+        LevelPack_Zipped (const string &indexfile, const string &zippath);
         ~LevelPack_Zipped();
         virtual bool usesStandardLoadLevel() { return false;};
 
         // LevelPack interface
         void        reinit();
         string      get_name() const { return m_name; }
-        void        load_level(size_t idx);
 
         // never DECREASE the revision number!
         int         get_revision_number(size_t /*idx*/) const { return 1; }
+    protected:
+        void load_index (istream &is);
 
     private:
         // Variables
         string            m_filename; // Name of .zip file
-        auto_ptr<ZipFile> m_zip;
         string            m_name; // Name of level pack
     };
 }
@@ -282,12 +278,25 @@ void LevelPack_Enigma::load_index (istream &is)
     try {
         m_levels.clear();
 
+        // prepare Proxy coding of pack path
+        std::string packPath;
+        if(m_name == "History") {
+            packPath = "#history";
+        } else {
+            std::string::size_type n = m_initfile.rfind('/');
+            n = (n > 6) ? n - 7 : 0;
+            packPath = m_initfile.substr(7, n);
+        }
         string line;
         while (getline(is, line)) {
             ++linenumber;
             LevelInfo info;
-            if (parse_levelinfo (line, info))
+            if (parse_levelinfo (line, info)) {
+                info.proxy = lev::Proxy::registerLevel(info.filename, packPath,
+                        info.uniqueName(), info.name, info.author, info.revision, 
+                    info.revision, info.has_easymode);
                 m_levels.push_back(info);
+            }
         }
     }
     catch (const XLevelPackInit &e) {
@@ -346,46 +355,11 @@ void LevelPack_Enigma::reinit()
     load_index(is);
 }
 
-void LevelPack_Enigma::load_level (istream &is) 
-{
-    lev::Proxy::releaseCurrentLevel();
-    enigma::ByteVec luacode;
-    enigma::Readfile (is, luacode);
-
-    lua_State *L = lua::LevelState();
-    if (lua::Dobuffer(L, luacode) != 0) {
-//        clear_world();
-        throw XLevelLoading (lua::LastError(L));
-    }
-}
-
-void LevelPack_Enigma::load_level_xml (istream &is)
-{
-    lev::Proxy::releaseCurrentLevel();
-    enigma::ByteVec xmlcode;
-    enigma::Readfile (is, xmlcode);
-    lua_State *L = lua::LevelState();
-    if (lua::CallFunc (L, "LoadLevelXML", xmlcode)) {
-        throw XLevelLoading (lua::LastError(L));
-    }
-}
 
 void LevelPack_Enigma::load_level (size_t index)
 {
     const LevelInfo &info = get_info(index);
-    string filename;
-    if (app.resourceFS->findFile ("levels/" + info.filename + ".xml", filename)) {
-        lev::Proxy::loadLevel(filename);
-//        basic_ifstream<char> ifs(filename.c_str(), ios::binary | ios::in);
-//        load_level_xml (ifs);
-    }
-    else if (app.resourceFS->findFile ("levels/" + info.filename + ".lua", filename)) {
-        basic_ifstream<char> ifs(filename.c_str(), ios::binary | ios::in);
-        load_level (ifs);
-    }
-    else {
-        throw XLevelLoading("Could not find level `" + info.filename );
-    }
+    info.proxy->loadLevel();
 }
 
 /* -------------------- LevelPack_History -------------------- */
@@ -404,16 +378,18 @@ void LevelPack_History::addHistory(LevelPack *orgLevelpack, unsigned orgIndex) {
     
     //
     if (!orgLevelpack->usesStandardLoadLevel() && orgLevelpack != this) {
-        char txt[5];
-        // no history for commandline package - a second security check
-        if (orgLevelpack->get_name().compare("Quick Test Levels") == 0) { 
-            // enigma::Log << "no history for commandline\n";
-            return;
+        switch (li.proxy->getNormPathType()) {
+            case lev::Proxy::pt_absolute:
+                // no history for commandline package - a second security check
+                return;
+            case lev::Proxy::pt_oxyd:
+                // oxyd - we need to keep the id as we reuse the filename
+                li.indexname = li.filename;
+                break;
         }
-        snprintf(txt, sizeof(txt), "%d", orgIndex);
-        li.indexname = li.filename;
-        li.filename = "#" + orgLevelpack->get_name() + "#" + txt;
     }
+    // resolve relative paths
+    li.filename = li.proxy->getNormLevelPath();
     // insert a copy of LevelInfo into own vector
     m_levels.erase(std::remove(m_levels.begin(), m_levels.end(), li), m_levels.end());
     m_levels.insert(m_levels.begin(), li);
@@ -436,28 +412,6 @@ void LevelPack_History::addHistory(LevelPack *orgLevelpack, unsigned orgIndex) {
     save_index(os);
 }
 
-void LevelPack_History::load_level (size_t index) {
-    std::string filename = m_levels[index].filename;
-    if (filename[0] != '#') 
-        LevelPack_Enigma::load_level (index);
-    else {
-        unsigned int posSecondHash = filename.find('#',1);
-        if (posSecondHash == string::npos)
-            throw XLevelLoading("Bad filename in history index: " + filename );
-        std::string packName = filename.substr(1, posSecondHash -1);
-        LevelPack *lp = FindLevelPack(packName);
-        if (lp != NULL) {
-            std::string levelNumber = filename.substr(posSecondHash + 1);
-            lp->load_level(atoi(levelNumber.c_str()));
-        }
-        else {
-            throw XLevelLoading("Missing levelpack for history index: " + filename );
-        }
-    }
-    
-}
-
-
 /* -------------------- LevelPack_CommandLine -------------------- */
 
 
@@ -473,6 +427,8 @@ LevelPack_CommandLine::LevelPack_CommandLine (
         snprintf (buffer, sizeof(buffer)-1, "Level %d", int(i));
         buffer[sizeof(buffer)] = '\0';
         info.name = buffer;
+        info.proxy = lev::Proxy::registerLevel(info.filename, "#commandline",
+                "", info.name, "unknown", 0, 0, false);
         append_level_info (info);
     }
 }
@@ -480,40 +436,17 @@ LevelPack_CommandLine::LevelPack_CommandLine (
 void LevelPack_CommandLine::load_level (size_t index)
 {
     const LevelInfo &info = get_info(index);
-    string filename = info.filename;
-
-    if (!ecl::FileExists ( filename )) { // Do not modify filename, use as is
-        throw XLevelLoading("Could not find level `" + info.filename );
-    }
-
-    size_t extbegin = filename.rfind ('.');
-    if (extbegin != string::npos) {
-        string ext = filename.substr (extbegin);
-        
-        if (ext == ".lua" || ext == ".ell") {
-            basic_ifstream<char> ifs(filename.c_str(), ios::binary | ios::in);
-            LevelPack_Enigma::load_level (ifs);
-        }
-        else if (ext == ".xml" || ext == ".elx") {
-            lev::Proxy::loadLevel(filename);
-            m_levels[index].name = lev::Proxy::loadedLevel()->getLocalizedString("titel");
-//            m_levels[index].name += " - " + lev::Proxy::loadedLevel()->getLocalizedString("subtitel");
-            
-//             basic_ifstream<char> ifs(filename.c_str(), ios::binary | ios::in);
-//             load_level_xml (ifs);
-        }
-        else{
-            throw XLevelLoading ("Unknown file extension in " + info.filename);
-        }
-    }
+    info.proxy->loadLevel();
+    m_levels[index].name = lev::Proxy::loadedLevel()->getLocalizedString("titel");
 }
 
 
 /* -------------------- LevelPack_Zipped -------------------- */
 
-LevelPack_Zipped::LevelPack_Zipped (const string &zipfile)
-: m_filename (zipfile), m_zip()
+LevelPack_Zipped::LevelPack_Zipped (const string &indexfile, const string &zippath)
+: m_filename (indexfile)
 {
+    m_initfile = indexfile;
     reinit();
 }
 
@@ -524,11 +457,11 @@ LevelPack_Zipped::~LevelPack_Zipped()
 void LevelPack_Zipped::reinit()
 {
     try {
-        m_zip.reset (new ZipFile (m_filename));
-
-        auto_ptr<istream> isptr (m_zip->getInputStream ("index.txt"));
-        if (isptr.get() == NULL)
-            throw XLevelPackInit ("Invalid level pack: " + m_filename + " index.txt missing");
+        auto_ptr<istream> isptr;
+        std::string dummy;
+        if(!app.resourceFS->findFile(m_filename, dummy, isptr))
+            throw XLevelPackInit ("No index in level pack: ");
+        
         istream &is = *isptr;
 
         string line;
@@ -551,28 +484,45 @@ void LevelPack_Zipped::reinit()
     }
 }
 
-void LevelPack_Zipped::load_level (size_t index)
+void LevelPack_Zipped::load_index (istream &is)
 {
-    const LevelInfo &levelinfo = get_info(index);
-    string filename = levelinfo.filename + ".lua";
+    int linenumber = 0;
+
     try {
-        auto_ptr<istream> isptr (m_zip->getInputStream (filename));
-        Assert<XLevelLoading> (isptr.get() != 0, 
-                               "File not found in ZIP file: " + 
-                               m_filename + "/" + filename);
-        
-        LevelPack_Enigma::load_level (*isptr);
+        m_levels.clear();
+
+        // get zip pack path 
+        std::string packPath;
+        std::string::size_type n = m_initfile.rfind('/');
+        n =  n - 7; // skip leading  "levels/"
+        packPath = m_initfile.substr(7, n);
+        string line;
+        while (getline(is, line)) {
+            ++linenumber;
+            LevelInfo info;
+            if (parse_levelinfo (line, info)) {
+                if (info.filename.find('/') == std::string::npos) {
+                    // old zip file
+                    if (info.indexname.empty()) {
+                        // keep id
+                        info.indexname = info.filename;
+                    }
+                    info.filename = packPath + "/" +info.filename;
+                }
+                info.proxy = lev::Proxy::registerLevel(info.filename, packPath,
+                        info.uniqueName(), info.name, info.author, info.revision, 
+                    info.revision, info.has_easymode);
+                m_levels.push_back(info);
+            }
+        }
     }
-    catch (XLevelLoading &) {
-        throw;                  // rethrow
-    }
-    catch (std::exception &) {
-        throw XLevelLoading("Unknown error in loading from ZIP file: " + 
-                            m_filename + "/" + filename);
+    catch (const XLevelPackInit &e) {
+        string xerror = strf("in line %i: %s", linenumber, e.what());
+        throw XLevelPackInit (xerror);
     }
 }
 
-
+
 /* -------------------- Functions -------------------- */
 
 // contains all levels packs added by AddLevelPack and AddZippedLevelPack
@@ -655,7 +605,10 @@ void levels::AddZippedLevelPack (const char *zipfile)
     if (addedLevelPacks.find(zipfile) == addedLevelPacks.end()) {
         string filename;
         if (app.resourceFS->findFile (zipfile, filename)) {
-            RegisterLevelPack (new LevelPack_Zipped (filename));
+            // the index file as it would be for a unpacked zip
+            std::string zf = zipfile;
+            std::string indexfile = zf.substr(0, zf.rfind('.')) + "/index.txt";
+            RegisterLevelPack (new LevelPack_Zipped (indexfile, filename));
             addedLevelPacks.insert(zipfile);
         } else {
             enigma::Log << "Could not find zip file `" << zipfile << "'\n";

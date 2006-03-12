@@ -46,6 +46,7 @@ enigma_SOURCES = 		\
 	enigma.hh		\
 	file.cc 		\
 	file.hh 		\
+	file_zip.cc 		\
 	floors.cc 		\
 	floors.hh		\
 	fwd.hh			\

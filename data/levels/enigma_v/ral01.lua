@@ -2,11 +2,11 @@
 --xml-- <el:level xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://enigma/level level.xsd" xmlns:el="http://enigma/level">
 --xml--   <el:protected >
 --xml--     <el:info el:type="level">
---xml--       <el:identity el:titel="Firefox" el:subtitel="Fire or be fired" el:id="ral01"/>
---xml--       <el:version el:release="1" el:revision="0" el:status="stable"/>
+--xml--       <el:identity el:titel="Firefox" el:subtitel="Fire or be fired" el:id="20060213ral03"/>
+--xml--       <el:version el:score="1" el:release="1" el:revision="1" el:status="stable"/>
 --xml--       <el:author  el:name="Ronald Lamprecht" el:email="ral@users.berlios.de"/>
 --xml--       <el:copyright>Copyright © 2006 Ronald Lamprecht</el:copyright>
---xml--       <el:license el:type="GPL2" el:open="true">GPL v2.0 or above</el:license>
+--xml--       <el:license el:type="GPL v2.0 or above" el:open="true"/>
 --xml--       <el:compatibility el:enigma="0.92">
 --xml--         <el:dependency el:library="natmaze" el:release="1" el:preload="false"/>
 --xml--       </el:compatibility>
@@ -333,6 +333,3 @@ oxyd_shuffle()
 --xml--   </el:protected>
 --xml-- </el:level>
 --xml-- 
-
-
-

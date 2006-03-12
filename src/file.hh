@@ -116,6 +116,21 @@ namespace enigma
          */
         bool findFile(const string &filename, string &dest) const;
                 
+        /**
+         * Search first occurence of a file on the GameFS. The file can be
+         * a path component like "levels/e1/hello.lua". Zip archives are searched,
+         * too. The path above would be looked up in "levels/e1.zip" as "hello.lua"
+         * and as "e1/hello.lua". Plain files preceed zipped onces on every
+         * search directory.
+         * @param filename the searched filename
+         * @param dest     the expanded full path of the first occurence.
+         * @param isptr    an opened istream of the first occurence in case
+         *                 the file is zipped
+         * @return  has a file been found.
+         */
+        bool findFile(const string &filename, string &dest, 
+                std::auto_ptr<std::istream> &isptr) const;
+                
 //      FileHandle *findFile (const FileName &);
 
         /**
@@ -156,6 +171,11 @@ namespace enigma
 
     /*! Load a complete file/input stream `is' into `dst'.  */
     std::istream &Readfile (std::istream &is, ByteVec &dst, int blocksize=512);
+    
+    // banned code to file_zip.cc due to macro clashes
+    bool findInZip(std::string zipPath, std::string zippedFilename1,
+        std::string zippedFilename2, string &dest, 
+        std::auto_ptr<std::istream> &isresult);
 
 } // namespace enigma
 #endif

@@ -21,6 +21,7 @@
 
 #include "enigma.hh"
 #include "game.hh"
+#include "lev/Proxy.hh"
 #include <memory>               // for auto_ptr
 
 namespace enigma_levels
@@ -89,6 +90,8 @@ namespace enigma_levels
         
         bool operator == (const LevelInfo& otherLI);
         string uniqueName();           // name to be used for indexing
+        
+        enigma::lev::Proxy *proxy; // the successor
 
     };
 

@@ -220,6 +220,49 @@ bool GameFS::findFile (const string &filename, string &dest) const
     return false;
 }
 
+bool GameFS::findFile (const string &filename, string &dest, 
+        std::auto_ptr<std::istream> &isresult) const {
+    std::string::size_type slpos = filename.rfind('/');
+    std::string zipName;
+    std::string zippedFilename1, zippedFilename2;
+    bool searchZip = false;
+    std::string complete_name;
+    
+    if (slpos != std::string::npos) {
+        // file may be zipped - for "levels/Sokoban/mic_60.xml" we will look for
+        // "mic_60.xml" and "Sokoban/mic_60.xml" at "levels/Sokoban.zip"
+        searchZip = true;
+        zipName = filename.substr(0, slpos) + ".zip";
+        zippedFilename1 = filename.substr(slpos + 1);
+        std::string::size_type slpos2 = filename.rfind('/', slpos-1);
+        zippedFilename2 = filename.substr(slpos2 + 1);
+    }
+    for (unsigned i=0; i<entries.size(); ++i) {
+        const FSEntry &e = entries[i];
+
+        switch (e.type) {
+        case FS_DIRECTORY: {
+                complete_name = e.location + ecl::PathSeparator + filename;
+                if (ecl::FileExists(complete_name)) {
+                    dest = complete_name;
+                    return true;
+                } else if (searchZip){
+                    complete_name = e.location + ecl::PathSeparator + zipName;
+                    if (ecl::FileExists(complete_name) &&
+                            findInZip(complete_name, zippedFilename1, 
+                            zippedFilename2,  dest, isresult)) {
+                        return true;
+                    }
+                }
+            } break;
+
+        case FS_ZIPFILE: {
+            } break;
+        }
+    }
+    return false;
+}
+
 // enigma::FileHandle *GameFS::findFile (const FileName &n)
 // {
 //     string fname;
