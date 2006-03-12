@@ -6,7 +6,7 @@
 -- GPL 2.0 or above
 
 
-dofile(enigma.FindDataFile("levels/ralf_sokoban.lua"))
+dofile(enigma.FindDataFile("levels/lib/ralf_sokoban.lua"))
 
 -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- --
 

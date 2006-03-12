@@ -21,3 +21,7 @@ enigma.AddLevelPack( "levels/oxydextra/index_oxydextra.txt", "OxydExtra")
 
 -- Levels qualified for NetPlay
 enigma.AddLevelPack( "levels/index_netplay.txt", "Netplay")
+
+-- add test level pack (usually containing levels created by the user)
+enigma.AddLevelPack( "levels/index_user.txt", "User Levels")
+enigma.AddLevelPack( "levels/+index_user.txt", "Arch friendly User Levels")

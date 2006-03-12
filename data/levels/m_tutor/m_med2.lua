@@ -5,7 +5,7 @@
 -- Licensed under the GPL version 2.
 
 
-dofile(enigma.FindDataFile("levels/ant.lua"))
+dofile(enigma.FindDataFile("levels/lib/ant.lua"))
 
 cells={}
 

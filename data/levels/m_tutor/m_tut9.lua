@@ -7,7 +7,7 @@
 
 oxyd_default_flavor = "d"
 
-Require("levels/ant.lua")
+Require("levels/lib/ant.lua")
 
 cells={}
 

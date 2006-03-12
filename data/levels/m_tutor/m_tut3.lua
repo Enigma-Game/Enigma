@@ -7,7 +7,7 @@
 
 oxyd_default_flavor = "a"
 
-dofile(enigma.FindDataFile("levels/ant.lua"))
+dofile(enigma.FindDataFile("levels/lib/ant.lua"))
 
 cells={}
 

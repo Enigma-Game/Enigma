@@ -11,7 +11,7 @@
 -- Converted to enigma format by Ralf Westram (amgine@reallysoft.de)
 
 
-dofile(enigma.FindDataFile("levels/ralf_sokoban.lua"))
+dofile(enigma.FindDataFile("levels/lib/ralf_sokoban.lua"))
 
 -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- --
 
