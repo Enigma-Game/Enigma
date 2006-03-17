@@ -23,14 +23,16 @@ case $host_os in
 esac
 AM_CONDITIONAL(MINGW32, test x$MINGW32 = xyes)
 
-
 dnl ======================================================================
 dnl Check for programs
 dnl ======================================================================
+CXXTMPFLAGS="$CXXFLAGS"
 AC_PROG_CC
 AC_PROG_CXX
 AC_PROG_CPP
 AC_PROG_RANLIB
+dnl do not add the AC_PROG_CXX default CXXFLAGS
+CXXFLAGS="$CXXTMPFLAGS"
 
 dnl Add -mno-cygwin to CXXFLAGS and CFLAGS if working under cygwin
 if test "x$CYGWIN" = xyes; then

@@ -10,9 +10,8 @@ EXTRA_DIST = \
 	enigma.doxygen
 
 
-CXXFLAGS = \
-	@SDL_CFLAGS@ \
-	 -DLOCALEDIR=\"$(localedir)\" \
+CXXFLAGS = @CXXFLAGS@\
+	-DLOCALEDIR=\"$(localedir)\" \
 	-I$(top_srcdir)/lib-src/zipios++  \
 	-I$(top_builddir)/lib-src/zipios++ \
 	-I$(top_srcdir)/lib-src/lua \
