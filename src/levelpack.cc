@@ -21,6 +21,7 @@
 #include "levels.hh"
 #include "main.hh"
 #include "lev/Proxy.hh"
+#include "lev/RatingManager.hh"
 
 #include "ecl_util.hh"
 
@@ -277,6 +278,7 @@ void LevelPack_Enigma::load_index (istream &is)
 
     try {
         m_levels.clear();
+        lev::RatingManager *theRatingMgr = lev::RatingManager::instance();
 
         // prepare Proxy coding of pack path
         std::string packPath;
@@ -295,6 +297,10 @@ void LevelPack_Enigma::load_index (istream &is)
                 info.proxy = lev::Proxy::registerLevel(info.filename, packPath,
                         info.uniqueName(), info.name, info.author, info.revision, 
                     info.revision, info.has_easymode);
+                theRatingMgr->registerRating(info.uniqueName(), info.revision,
+                    info.intelligence, info.dexterity, info.patience,
+                    info.knowledge, info.speed, info.par_time_easy,
+                    info.par_time_normal);
                 m_levels.push_back(info);
             }
         }

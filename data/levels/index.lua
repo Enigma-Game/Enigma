@@ -6,11 +6,11 @@ enigma.AddLevelPack( "levels/experimental/index_experimental.txt", "Experimental
 enigma.AddLevelPack( "levels/stable/index_stable.txt", "Stable: New Levels")
 
 -- New Arrangement
-enigma.AddLevelPack("levels/enigma_i/index_enigma_i.txt", "Enigma I")
-enigma.AddLevelPack("levels/enigma_ii/index_enigma_ii.txt", "Enigma II")
-enigma.AddLevelPack("levels/enigma_iii/index_enigma_iii.txt", "Enigma III")
-enigma.AddLevelPack("levels/enigma_iv/index_enigma_iv.txt", "Enigma IV")
-enigma.AddLevelPack("levels/enigma_v/index_enigma_v.txt", "Enigma V")
+enigma.AddLevelPack("levels/enigma_i/index_enigma_i_ratings.txt", "Enigma I")
+enigma.AddLevelPack("levels/enigma_ii/index_enigma_ii_ratings.txt", "Enigma II")
+enigma.AddLevelPack("levels/enigma_iii/index_enigma_iii_ratings.txt", "Enigma III")
+enigma.AddLevelPack("levels/enigma_iv/index_enigma_iv_ratings.txt", "Enigma IV")
+enigma.AddLevelPack("levels/enigma_v/index_enigma_v_ratings.txt", "Enigma V")
 
 -- Oxyd Clones
 enigma.AddLevelPack( "levels/esprit/index_esprit.txt", "Esprit")

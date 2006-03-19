@@ -78,8 +78,14 @@ namespace enigma { namespace lev {
          */
         std::string getLocalizedString(const std::string &key);
         
+        std::string getId();
+        int getScoreVersion();
         std::string getAuthor();
         std::string getTitel(); // english titel
+        std::string getContact();
+        std::string getHomepage();
+        std::string getCredit(bool infoUsage);
+        std::string getDedication(bool infoUsage);
         
         /**
          * the level address that can be used independent of a level pack

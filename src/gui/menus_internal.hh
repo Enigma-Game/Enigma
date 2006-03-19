@@ -17,14 +17,18 @@
  *
  */
 
+#include "widgets.hh"
+#include "levels.hh"
+#include "ecl_geom.hh"
 #include <png.h>
 #include <iostream>
+#include <vector>
 
 /* -------------------- Helper classes -------------------- */
 namespace enigma { namespace gui {
         
     class BuildVList {
-        Rect r;
+        ecl::Rect r;
         Menu *container;
         int skip;
     public:
@@ -38,7 +42,7 @@ namespace enigma { namespace gui {
             return w;
         }
 
-        Rect pos() const { return r; }
+        ecl::Rect pos() const { return r; }
     };
 
     class VTableBuilder {
@@ -57,7 +61,7 @@ namespace enigma { namespace gui {
           m_hspacing(hspacing)
         {}
 
-        bool finish(vector<Widget*> widgets) {
+        bool finish(std::vector<Widget*> widgets) {
             // if finish returns false, no widgets have been added to the menu
             // because the layout failed.
 
@@ -120,7 +124,7 @@ namespace enigma { namespace gui {
     };
 
     class BuildHList {
-        Rect r;
+        ecl::Rect r;
         Menu *container;
         int skip;
     public:
@@ -140,7 +144,7 @@ namespace enigma { namespace gui {
             return w;
         }
 
-        Rect pos() const { return r; }
+        ecl::Rect pos() const { return r; }
     };
 
 
@@ -172,13 +176,13 @@ namespace enigma { namespace gui {
         void clear();
         void set_size(int xs, int ys);
 
-        Surface *getPreview (const levels::Level &);
-        Surface *makePreview (const levels::Level &);
-        Surface *updatePreview (const levels::Level &);
+        ecl::Surface *getPreview (const levels::Level &);
+        ecl::Surface *makePreview (const levels::Level &);
+        ecl::Surface *updatePreview (const levels::Level &);
     private:
 
         struct CacheElem {
-            Surface  *surface;      // owned by ImageCache
+            ecl::Surface  *surface;      // owned by ImageCache
             std::string  idx;          // level indexname
             
             CacheElem (ecl::Surface *s, std::string idx_)
@@ -215,7 +219,7 @@ namespace enigma { namespace gui {
         int get_selection() const { return m_selection; }
 
     private:
-        vector<Widget *> buttons;
+        std::vector<Widget *> buttons;
         int m_selection;
     };
 
@@ -267,7 +271,7 @@ namespace enigma { namespace gui {
         void scroll_down(int lines);
         void set_selected (size_t newfirst, size_t newsel);
         void recalc_available ();
-        Surface *get_preview_image (const Level &);
+        ecl::Surface *get_preview_image (const Level &);
         void draw_level_preview (ecl::GC &, const Level &, int x, int y);
 
         bool handle_keydown (const SDL_Event *e);
@@ -282,7 +286,7 @@ namespace enigma { namespace gui {
         size_t             iselected; // Index of selected level
         int                max_available; // Index of the last available level (one can choose out of x unsolved levels)
         int                width, height;
-        vector<ecl::Rect>  m_areas; // Screen areas occupied by level previews
+        std::vector<ecl::Rect>  m_areas; // Screen areas occupied by level previews
         ActionListener    *listener;
         int                buttonw, buttonh;
     };

@@ -47,6 +47,15 @@ using namespace enigma;
 XERCES_CPP_NAMESPACE_USE 
 
 namespace enigma { namespace lev {
+    bool boolValue(const XMLCh * const string) {
+        std::string boolString = XMLtoUtf8(string).c_str();
+        if (boolString == "true" ||  boolString == "1")
+            return true;
+        else
+            // we need no further investigation due to XML validation
+            return false;
+    }
+     
     // http://enigma/level
     const XMLCh Proxy::levelNS[] =
     {
@@ -184,6 +193,8 @@ namespace enigma { namespace lev {
         
         // handle oxyd first
         if (normPathType == pt_oxyd) {
+            if(onlyMetadata)
+                return;
             // use oxyd loader
             std::string::size_type posSecondHash = normLevelPath.find('#',1);
             if (posSecondHash == string::npos)
@@ -320,11 +331,11 @@ namespace enigma { namespace lev {
         DOMNodeList * luamainList = doc->getElementsByTagNameNS(levelNS, Utf8ToXML("luamain").x_str());
         if (luamainList->getLength() == 1) {
             DOMElement *luamain  = dynamic_cast<DOMElement *>(luamainList->item(0));
-            if (lua_dostring(L, XMLtoUtf8(luamain->getTextContent ()).c_str() ) != 0) {
-                throw enigma_levels::XLevelLoading (lua::LastError(L));
+            if (lua_dostring(L, XMLtoUtf8(luamain->getTextContent()).c_str() ) != 0) {
+                throw enigma_levels::XLevelLoading(lua::LastError(L));
             }
         } else {
-            throw enigma_levels::XLevelLoading ("not implemented");
+            throw enigma_levels::XLevelLoading("not implemented");
         }
     }
 
@@ -404,12 +415,20 @@ namespace enigma { namespace lev {
         return (translFound ? translation : english);
     }
     
+    std::string Proxy::getId() {
+        return id;
+    }
+    
+    int Proxy::getScoreVersion() {
+        return scoreVersion;
+    }
+    
     std::string Proxy::getAuthor() {
         if (doc != NULL) {
-            DOMElement *identityElem = 
+            DOMElement *authorElem = 
                     dynamic_cast<DOMElement *>(infoElem->getElementsByTagNameNS(
                     levelNS, Utf8ToXML("author").x_str())->item(0));
-            author = XMLtoUtf8(identityElem->getAttributeNS(levelNS, 
+            author = XMLtoUtf8(authorElem->getAttributeNS(levelNS, 
                     Utf8ToXML("name").x_str())).c_str();
         }
         return author;
@@ -424,6 +443,60 @@ namespace enigma { namespace lev {
                     Utf8ToXML("titel").x_str())).c_str();
         }
         return titel;
+    }
+
+    std::string Proxy::getContact() {
+        std::string contact;
+        if (doc != NULL) {
+            DOMElement *authorElem = 
+                    dynamic_cast<DOMElement *>(infoElem->getElementsByTagNameNS(
+                    levelNS, Utf8ToXML("author").x_str())->item(0));
+            contact = XMLtoUtf8(authorElem->getAttributeNS(levelNS, 
+                    Utf8ToXML("email").x_str())).c_str();
+        }
+        return contact;
+    }
+    
+    std::string Proxy::getHomepage() {
+        std::string homepage;
+        if (doc != NULL) {
+            DOMElement *authorElem = 
+                    dynamic_cast<DOMElement *>(infoElem->getElementsByTagNameNS(
+                    levelNS, Utf8ToXML("author").x_str())->item(0));
+            homepage = XMLtoUtf8(authorElem->getAttributeNS(levelNS, 
+                    Utf8ToXML("homepage").x_str())).c_str();
+        }
+        return homepage;
+    }
+
+    std::string Proxy::getCredit(bool infoUsage) {
+        std::string credit;
+        std::string attribute = infoUsage ? "showinfo" : "showstart";
+        if (doc != NULL) {
+            DOMElement *creditElem = 
+                    dynamic_cast<DOMElement *>(infoElem->getElementsByTagNameNS(
+                    levelNS, Utf8ToXML("credit").x_str())->item(0));
+            if (creditElem != NULL)  // element is optional
+                if (boolValue(creditElem->getAttributeNS(levelNS, 
+                        Utf8ToXML(attribute.c_str()).x_str())))
+                    credit = XMLtoUtf8(creditElem->getTextContent()).c_str();
+        }
+        return credit;
+    }
+
+    std::string Proxy::getDedication(bool infoUsage) {
+        std::string dedication;
+        std::string attribute = infoUsage ? "showinfo" : "showstart";
+        if (doc != NULL) {
+            DOMElement *dedicationElem = 
+                    dynamic_cast<DOMElement *>(infoElem->getElementsByTagNameNS(
+                    levelNS, Utf8ToXML("dedication").x_str())->item(0));
+            if (dedicationElem != NULL)  // element is optional
+                if (boolValue(dedicationElem->getAttributeNS(levelNS, 
+                        Utf8ToXML(attribute.c_str()).x_str())))
+                    dedication = XMLtoUtf8(dedicationElem->getTextContent()).c_str();
+        }
+        return dedication;
     }
 
 }} // namespace enigma::lev

@@ -125,6 +125,8 @@ enigma_SOURCES = 		\
 	XMLtoLocal.hh		\
 	XMLtoUtf8.cc		\
 	XMLtoUtf8.hh		\
+	gui/LevelInspector.cc	\
+	gui/LevelInspector.hh	\
 	gui/menus.cc		\
 	gui/menus.hh		\
 	gui/menus_internal.hh	\
@@ -132,6 +134,8 @@ enigma_SOURCES = 		\
 	gui/TextField.hh	\
 	gui/widgets.cc		\
 	gui/widgets.hh		\
+	lev/RatingManager.cc	\
+	lev/RatingManager.hh	\
 	lev/Proxy.cc		\
 	lev/Proxy.hh
 

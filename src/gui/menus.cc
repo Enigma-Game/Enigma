@@ -18,6 +18,7 @@
  */
  
 #include "gui/menus.hh"
+#include "gui/LevelInspector.hh"
 #include "gui/TextField.hh"
 #include "client.hh"
 #include "config.h"
@@ -33,6 +34,7 @@
 #include "sound.hh"
 #include "video.hh"
 #include "world.hh"
+#include "lev/Proxy.hh"
 
 #include <cassert>
 #include <cctype>
@@ -656,13 +658,33 @@ bool LevelWidget::handle_mousedown (const SDL_Event *e)
         for (unsigned i=0; i<m_areas.size(); ++i)
             if (m_areas[i].contains(e->button.x, e->button.y))
             {
-                sound::SoundEvent ("menuok");
-                iselected = ifirst+i;
-                trigger_action();
+                if (SDL_GetModState() & KMOD_CTRL) {
+                    // control key pressed - level inspector
+                    Level level (level_pack,ifirst+i);
+                    lev::Proxy *levelProxy = level.get_info().proxy;
+                    LevelInspector m(levelProxy, get_preview_image(level));
+                    m.manage();
+                    get_menu()->draw_all();
+                } else {
+                    // no control key - start level
+                    sound::SoundEvent ("menuok");
+                    iselected = ifirst+i;
+                    trigger_action();
+                }
                 return true;
             }
         break;
-    case SDL_BUTTON_RIGHT:
+    case SDL_BUTTON_RIGHT: 
+        for (unsigned i=0; i<m_areas.size(); ++i)
+            if (m_areas[i].contains(e->button.x, e->button.y))
+            {
+                Level level (level_pack,ifirst+i);
+                lev::Proxy *levelProxy = level.get_info().proxy;
+                LevelInspector m(levelProxy, get_preview_image(level));
+                m.manage();
+                get_menu()->draw_all();
+                return true;
+            }
         break;
     case 4: scroll_down(1); return true;
     case 5: scroll_up(1); return true;
@@ -1148,7 +1170,7 @@ OptionsMenu::OptionsMenu(ecl::Surface *background_)
     right.add (new MusicVolumeButton);
 //    right.add (new InGameMusicButton);
     right.add (new StereoButton);
-//    right.add (new TextField());
+    right.add (new TextField());
     
     {
         Rect l = left.pos();
@@ -1364,12 +1386,13 @@ bool LevelMenu::on_event (const SDL_Event &e)
             default: handled=false; break;
             }
         }
-        else if (e.type == SDL_MOUSEBUTTONDOWN
-                 && e.button.button == SDL_BUTTON_RIGHT)
-        {
-            Menu::quit();
-            handled=true;
-        }
+// right mouse button used with priority for level inspector
+//         else if (e.type == SDL_MOUSEBUTTONDOWN
+//                  && e.button.button == SDL_BUTTON_RIGHT)
+//         {
+//             Menu::quit();
+//             handled=true;
+//         }
         else
             handled = Menu::on_event (e);
     }
