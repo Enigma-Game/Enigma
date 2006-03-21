@@ -178,7 +178,7 @@ namespace enigma
 
     private:
         void initSysDatapaths(const std::string &prefFilename);
-        void Application::initXerces();
+        void initXerces();
         void initUserDatapaths();
         std::string systemAppDataPath;    // dir path to the apps data
         std::string systemCmdDataPath;    // commandline override of systemAppDataPath

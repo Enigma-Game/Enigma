@@ -96,7 +96,7 @@ namespace enigma
      */
     class GameFS {
     public:
-        GameFS::GameFS();
+        GameFS();
 
         void clear() { entries.clear(); }
                 

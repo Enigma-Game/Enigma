@@ -71,7 +71,7 @@ namespace enigma
          * @param prefName  the name of the searched or new property
          * @return  the property element with the given key name.
          */
-        XERCES_CPP_NAMESPACE_QUALIFIER DOMElement * PreferenceManager::getProperty(const char *prefName);
+        XERCES_CPP_NAMESPACE_QUALIFIER DOMElement * getProperty(const char *prefName);
 
         /**
          * checks if a property exists.
