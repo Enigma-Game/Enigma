@@ -24,6 +24,8 @@
 #include <xercesc/dom/DOMDocument.hpp>
 
 namespace enigma { namespace lev {
+    enum controlType {force, balance, key, other};
+    
     /**
      * A standin for an addressable level file and its level metadata.
      * Every level index and the commandline register their levels with the
@@ -80,10 +82,14 @@ namespace enigma { namespace lev {
         
         std::string getId();
         int getScoreVersion();
+        int getReleaseVersion();
+        int getRevisionNumber();
         std::string getAuthor();
         std::string getTitel(); // english titel
+        bool hasEasymode();
         std::string getContact();
         std::string getHomepage();
+        controlType getControl();
         std::string getCredit(bool infoUsage);
         std::string getDedication(bool infoUsage);
         
@@ -97,19 +103,21 @@ namespace enigma { namespace lev {
          * the type of the level address
          */
         Proxy::pathType getNormPathType();
+        std::string getAbsLevelPath();
     private:
         static Proxy *currentLevel;
         static std::map<std::string, Proxy *> cache;
         
         pathType normPathType;
         std::string normLevelPath; // stable/welcome, #oxyd#17, http://..., ~/test
+        std::string absLevelPath;
         std::string id; // level id - old filename or indexname
         std::string titel; // old name
         std::string author;
         int scoreVersion;
         int releaseVersion;
         int revisionNumber;
-        bool hasEasymode;
+        bool hasEasymodeFlag;
         XERCES_CPP_NAMESPACE_QUALIFIER DOMDocument *doc;
         XERCES_CPP_NAMESPACE_QUALIFIER DOMElement *infoElem;
         XERCES_CPP_NAMESPACE_QUALIFIER DOMNodeList *stringList;

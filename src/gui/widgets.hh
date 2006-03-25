@@ -286,7 +286,7 @@ namespace enigma { namespace gui {
         void set_text (const std::string &text);
         void set_font (ecl::Font *font);
         void set_alignment (HAlignment halign, VAlignment valign=VALIGN_CENTER);
-    private:
+    protected:
         // Variables.
         std::string m_text;
         ecl::Font   *m_font;

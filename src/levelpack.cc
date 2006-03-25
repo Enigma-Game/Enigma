@@ -300,7 +300,8 @@ void LevelPack_Enigma::load_index (istream &is)
                 theRatingMgr->registerRating(info.uniqueName(), info.revision,
                     info.intelligence, info.dexterity, info.patience,
                     info.knowledge, info.speed, info.par_time_easy,
-                    info.par_time_normal);
+                    info.par_time_easy_by ,info.par_time_normal,
+                    info.par_time_normal_by);
                 m_levels.push_back(info);
             }
         }

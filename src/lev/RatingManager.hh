@@ -54,14 +54,18 @@ namespace enigma { namespace lev {
         ~RatingManager();
         void registerRating(std::string levelId, int levelScoreVersion,
                 int intelligence, int dexterity, int patience,
-                int knowledge, int speed, int bestScoreEasy, int bestScoreDifficult);
+                int knowledge, int speed, int bestScoreEasy, 
+                std::string bestScoreEasyHolder, int bestScoreDifficult,
+                std::string bestScoreDifficultHolder);
         int getIntelligence(Proxy *levelProxy);
         int getDexterity(Proxy *levelProxy);
         int getPatience(Proxy *levelProxy);
         int getKnowledge(Proxy *levelProxy);
         int getSpeed(Proxy *levelProxy);
         int getBestScoreEasy(Proxy *levelProxy);
+        std::string getBestScoreEasyHolder(Proxy *levelProxy);
         int getBestScoreDifficult(Proxy *levelProxy);
+        std::string getBestScoreDifficultHolder(Proxy *levelProxy);
     protected:
         RatingManager();
     private:

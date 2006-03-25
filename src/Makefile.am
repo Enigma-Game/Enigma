@@ -130,6 +130,8 @@ enigma_SOURCES = 		\
 	gui/menus.cc		\
 	gui/menus.hh		\
 	gui/menus_internal.hh	\
+	gui/MonospacedLabel.cc	\
+	gui/MonospacedLabel.hh	\
 	gui/TextField.cc	\
 	gui/TextField.hh	\
 	gui/widgets.cc		\

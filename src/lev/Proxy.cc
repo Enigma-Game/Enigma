@@ -141,7 +141,7 @@ namespace enigma { namespace lev {
             normPathType(thePathType), normLevelPath(theNormLevelPath), 
             id(levelId), titel(levelTitel), author(levelAuthor),
             scoreVersion(levelScoreVersion), releaseVersion(levelRelease),
-            hasEasymode(levelHasEasymode), doc(NULL) {
+            revisionNumber(0), hasEasymodeFlag(levelHasEasymode), doc(NULL) {
     }
         
     Proxy::~Proxy() {
@@ -166,6 +166,10 @@ namespace enigma { namespace lev {
         return normPathType;
     }
 
+    std::string Proxy::getAbsLevelPath() {
+        return absLevelPath;
+    }
+    
     void Proxy::loadLevel() {
         if (doc == NULL) {
             load(false);
@@ -181,10 +185,10 @@ namespace enigma { namespace lev {
     void Proxy::load(bool onlyMetadata) {
         bool useFileLoader = false;
         bool isXML = true;
-        std::string absLevelPath;
         std::auto_ptr<std::istream> isptr;
         ByteVec levelCode;
         std::string errMessage;
+        absLevelPath = "";
         
         // release current proxy
         if (currentLevel != NULL)
@@ -420,7 +424,36 @@ namespace enigma { namespace lev {
     }
     
     int Proxy::getScoreVersion() {
+        if (doc != NULL) {
+            DOMElement *versionElem = 
+                    dynamic_cast<DOMElement *>(infoElem->getElementsByTagNameNS(
+                    levelNS, Utf8ToXML("version").x_str())->item(0));
+            scoreVersion = XMLString::parseInt(versionElem->getAttributeNS(levelNS, 
+                    Utf8ToXML("score").x_str()));
+        }
         return scoreVersion;
+    }
+    
+    int Proxy::getReleaseVersion() {
+        if (doc != NULL) {
+            DOMElement *versionElem = 
+                    dynamic_cast<DOMElement *>(infoElem->getElementsByTagNameNS(
+                    levelNS, Utf8ToXML("version").x_str())->item(0));
+            releaseVersion = XMLString::parseInt(versionElem->getAttributeNS(levelNS, 
+                    Utf8ToXML("release").x_str()));
+        }
+        return releaseVersion;
+    }
+    
+    int Proxy::getRevisionNumber() {
+        if (doc != NULL) {
+            DOMElement *versionElem = 
+                    dynamic_cast<DOMElement *>(infoElem->getElementsByTagNameNS(
+                    levelNS, Utf8ToXML("version").x_str())->item(0));
+            revisionNumber = XMLString::parseInt(versionElem->getAttributeNS(levelNS, 
+                    Utf8ToXML("revision").x_str()));
+        }
+        return revisionNumber;
     }
     
     std::string Proxy::getAuthor() {
@@ -445,6 +478,17 @@ namespace enigma { namespace lev {
         return titel;
     }
 
+    bool Proxy::hasEasymode() {
+        if (doc != NULL) {
+            DOMElement *modesElem = 
+                    dynamic_cast<DOMElement *>(infoElem->getElementsByTagNameNS(
+                    levelNS, Utf8ToXML("modes").x_str())->item(0));
+            hasEasymodeFlag = boolValue(modesElem->getAttributeNS(levelNS, 
+                        Utf8ToXML("easy").x_str()));
+        }
+        return hasEasymodeFlag;
+    }
+
     std::string Proxy::getContact() {
         std::string contact;
         if (doc != NULL) {
@@ -467,6 +511,24 @@ namespace enigma { namespace lev {
                     Utf8ToXML("homepage").x_str())).c_str();
         }
         return homepage;
+    }
+
+    controlType Proxy::getControl() {
+        controlType control = force;
+        if (doc != NULL) {
+            DOMElement *authorElem = 
+                    dynamic_cast<DOMElement *>(infoElem->getElementsByTagNameNS(
+                    levelNS, Utf8ToXML("modes").x_str())->item(0));
+            std::string controlString = XMLtoUtf8(authorElem->getAttributeNS(levelNS, 
+                    Utf8ToXML("control").x_str())).c_str();
+            if (controlString == "balance")
+                control = balance;
+            else if  (controlString == "key")
+                control = key;
+            else if  (controlString == "other")
+                control = other;
+        }
+        return control;
     }
 
     std::string Proxy::getCredit(bool infoUsage) {

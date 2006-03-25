@@ -41,15 +41,22 @@ namespace enigma { namespace gui {
         //
         std::string ratingToString(int value);
         std::string scoreToString(int easy, int difficult, lev::Proxy *aLevel);
-
+        void dispatchBottomLines(int &bestScoreHolderLines, 
+            int &creditsLines, int &dedicationLines, int &levelPathLines,
+            int &annotationLines, int numLines, int width);
+        std::string::size_type breakString(const std::string &theString, 
+                const std::string &breakChar, const int width, 
+                ecl::Font * const theFont);
         // Variables.
         gui::Widget *back;
         gui::TextField *annotation;
         ecl::Surface *previewImage;
         lev::Proxy  *levelProxy;
+        std::string levelPathString;
         int vspacing;
         int vmargin;
-        int hmargin;    
+        int hmargin;
+        bool withEasy;
     };
 
 }} // namespace enigma::gui

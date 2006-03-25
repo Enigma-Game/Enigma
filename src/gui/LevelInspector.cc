@@ -17,11 +17,13 @@
  */
 
 #include "gui/LevelInspector.hh"
+#include "main.hh"
 #include "enigma.hh"
 #include "nls.hh"
 #include "video.hh"
 #include "ecl_util.hh"
 #include "gui/menus_internal.hh"
+#include "gui/MonospacedLabel.hh"
 #include "lev/RatingManager.hh"
 
 #include <vector>
@@ -65,7 +67,15 @@ LevelInspector::LevelInspector(lev::Proxy *aLevel, ecl::Surface *preview):
     
         std::string tmp, tmp2;
         lev::RatingManager *theRatingMgr = lev::RatingManager::instance();
-    
+        withEasy = aLevel->hasEasymode();
+        ecl::Font *menufont = enigma::GetFont("menufont");
+        levelPathString = 
+                (levelProxy->getNormPathType() == lev::Proxy::pt_resource) ?
+                levelProxy->getAbsLevelPath() : levelProxy->getNormLevelPath();
+        // substitute all backslashes by slashes
+        for (std::string::size_type slpos = levelPathString.find('\\');
+                slpos != std::string::npos; slpos = levelPathString.find('\\')) 
+            levelPathString.replace(slpos, 1, 1, '/');
         BuildVList authorT(this, Rect(hmargin,vmargin,110,25), vspacing);
         authorT.add(new Label(N_("Level: "), HALIGN_RIGHT));
         authorT.add(new Label((""), HALIGN_RIGHT)); // subtitel
@@ -107,42 +117,128 @@ LevelInspector::LevelInspector(lev::Proxy *aLevel, ecl::Surface *preview):
         ratingPub.add(new Label(ratingToString(theRatingMgr->getKnowledge(aLevel)).c_str(), HALIGN_CENTER));
         ratingPub.add(new Label(ratingToString(theRatingMgr->getSpeed(aLevel)).c_str(), HALIGN_CENTER));
         
-        BuildVList scoresT(this, Rect(vminfo->width/2-100/2-20,vmargin+5*25+4*vspacing+16,100,25), 2);
-        scoresT.add(new Label(N_("Scores"), HALIGN_CENTER));
+        BuildVList scoresT(this, Rect(vminfo->width/2-100-20,vmargin+5*25+4*vspacing+16,100,25), 2);
+        scoresT.add(new Label(N_("Scores"), HALIGN_RIGHT));
+
         BuildVList scoresST(this, Rect(vminfo->width/2-100-20,vmargin+6*25+5*vspacing+16,100,25), 2);
         scoresST.add(new Label(N_("You: "), HALIGN_RIGHT));
         scoresST.add(new Label(N_("Best: "), HALIGN_RIGHT));
         scoresST.add(new Label(N_("PAR: "), HALIGN_RIGHT));
         scoresST.add(new Label(N_("Author: "), HALIGN_RIGHT));
-        scoresST.add(new Label(N_("# Players: "), HALIGN_RIGHT));
+        scoresST.add(new Label(N_("Solved #: "), HALIGN_RIGHT));
     
-        BuildVList scores(this, Rect(vminfo->width/2-15,vmargin+6*25+5*vspacing+16,95,25), 2);
-        scores.add(new Label("", HALIGN_CENTER));
-        scores.add(new Label(scoreToString(theRatingMgr->getBestScoreEasy(aLevel),
-            theRatingMgr->getBestScoreDifficult(aLevel),aLevel).c_str(), HALIGN_CENTER));
+        BuildVList scores(this, Rect(vminfo->width/2-15+(withEasy?0:20),
+                vmargin+6*25+5*vspacing+16,(withEasy?105:50),25), 2);
+        scores.add(new MonospacedLabel(" ",'8', " 0123456789", HALIGN_LEFT));
+        scores.add(new MonospacedLabel(scoreToString(theRatingMgr->getBestScoreEasy(aLevel),
+            theRatingMgr->getBestScoreDifficult(aLevel),aLevel).c_str(),'8', " 0123456789", HALIGN_LEFT));
         
-        BuildVList versionT(this, Rect(vminfo->width-100/2-90-3*hmargin,vmargin+5*25+4*vspacing+16,100,25), 2);
+        BuildVList versionT(this, Rect(vminfo->width-100/2-90-2*hmargin,vmargin+5*25+4*vspacing+16,100,25), 2);
         versionT.add(new Label(N_("Version"), HALIGN_CENTER));
-        BuildVList versionST(this, Rect(vminfo->width-110-90-3*hmargin,vmargin+6*25+5*vspacing+16,110,25), 2);
+        BuildVList versionST(this, Rect(vminfo->width-110-90-2*hmargin,vmargin+6*25+5*vspacing+16,110,25), 2);
         versionST.add(new Label(N_("Score: "), HALIGN_RIGHT));
         versionST.add(new Label(N_("Release: "), HALIGN_RIGHT));
         versionST.add(new Label(N_("Revision: "), HALIGN_RIGHT));
-        versionST.add(new Label(N_("Easy/Diff: "), HALIGN_RIGHT));
         versionST.add(new Label(N_("Control: "), HALIGN_RIGHT));
+        versionST.add(new Label(N_("Target: "), HALIGN_RIGHT));
+
+        BuildVList version(this, Rect(vminfo->width-80-2*hmargin,vmargin+6*25+5*vspacing+16,80,25), 2);
+        version.add(new MonospacedLabel(ecl::strf("%6d", aLevel->getScoreVersion()).c_str(),
+                '8', " 0123456789", HALIGN_LEFT));
+        version.add(new MonospacedLabel(ecl::strf("%6d", aLevel->getReleaseVersion()).c_str(),
+                '8', " 0123456789", HALIGN_LEFT));
+        version.add(new MonospacedLabel(ecl::strf("%6d", aLevel->getRevisionNumber()).c_str(),
+                '8', " 0123456789", HALIGN_LEFT));
+        switch (aLevel->getControl()) {
+            case lev::force:
+                version.add(new Label(N_("force"), HALIGN_LEFT));
+                break;
+            case lev::balance:
+                version.add(new Label(N_("balance"), HALIGN_LEFT));
+                break;
+            case lev::key:
+                version.add(new Label(N_("key"), HALIGN_LEFT));
+                break;
+            default:
+                version.add(new Label(N_("unknown"), HALIGN_LEFT));
+                break;
+        }
         
-        BuildVList ratingPubT1(this, Rect(hmargin,vmargin+11*25+9*vspacing+2*16,110,25), 2);
-        ratingPubT1.add(new Label(N_("Credit: "), HALIGN_RIGHT));
-        ratingPubT1.add(new Label(N_("Dedication: "), HALIGN_RIGHT));
-        ratingPubT1.add(new Label(N_("Annotation: "), HALIGN_RIGHT));
-        ratingPubT1.add(new Label(N_("Rating: "), HALIGN_RIGHT));
-    
-        BuildVList comments(this, Rect(hmargin+110+10,vmargin+11*25+9*vspacing+2*16, vminfo->width-3*hmargin-110-10,25), 2);
-        comments.add(new Label(levelProxy->getCredit(true), HALIGN_LEFT));
-        comments.add(new Label(levelProxy->getDedication(true), HALIGN_LEFT));
-    //comments.add(new TextField());
-    
-        add(annotation, Rect(hmargin+110+10, vmargin+13*25+11*vspacing+2*16, vminfo->width-3*hmargin-110-10, 25));
-        
+        int bestScoreHolderLines = 0;
+        int creditsLines = 0;
+        int dedicationLines = 0;
+        int levelPathLines = 0;
+        int annotationLines = 0; 
+        int vnext = vmargin+11*25+9*vspacing+2*16;
+        int textwidth = vminfo->width-3*hmargin-110-10;
+        dispatchBottomLines(bestScoreHolderLines, creditsLines, dedicationLines,
+                levelPathLines, annotationLines, 
+                (vminfo->height-(vnext)-60)/27, textwidth);
+        if (bestScoreHolderLines == 1) {
+            add(new Label(N_("Best Score Holders: "), HALIGN_RIGHT),Rect(hmargin,vnext,200,25));
+            std::string holders;
+            if (withEasy) {
+                holders = theRatingMgr->getBestScoreEasyHolder(aLevel);
+                if (holders.empty())
+                    holders = "  - ";
+                holders += " / ";
+            }
+            if (theRatingMgr->getBestScoreDifficultHolder(aLevel).empty())
+                holders += " -";
+            else
+                holders += theRatingMgr->getBestScoreDifficultHolder(aLevel);
+            add(new Label(holders, HALIGN_LEFT), Rect(hmargin+200+10,vnext,textwidth-90,25));
+            vnext += 25 + vspacing;
+        }
+        if (creditsLines >= 1) {
+            add(new Label(N_("Credit: "), HALIGN_RIGHT),Rect(hmargin,vnext,110,25));
+            std::string creditsString = levelProxy->getCredit(true);
+            for (int i = 0; i< creditsLines; i++) {
+                std::string::size_type breakPos = breakString( creditsString, 
+                        " ", textwidth, menufont);
+                add(new Label(creditsString.substr(0,breakPos), HALIGN_LEFT), Rect(hmargin+110+10,vnext,textwidth,25));
+                creditsString = creditsString.substr(breakPos);
+                vnext += (25 + vspacing);
+            }
+        }
+        if (dedicationLines >= 1) {
+            add(new Label(N_("Dedication: "), HALIGN_RIGHT),Rect(hmargin,vnext,110,25));
+            std::string dedicationString = levelProxy->getDedication(true);
+            for (int i = 0; i< dedicationLines; i++) {
+                std::string::size_type breakPos = breakString( dedicationString, 
+                        " ", textwidth, menufont);
+                add(new Label(dedicationString.substr(0,breakPos), HALIGN_LEFT), Rect(hmargin+110+10,vnext,textwidth,25));
+                dedicationString = dedicationString.substr(breakPos);
+                vnext += (25 + vspacing);
+            }
+        }
+        if (levelPathLines >= 1) {
+            add(new Label(N_("Level Path: "), HALIGN_RIGHT),Rect(hmargin,vnext,110,25));
+            std::string workString = levelPathString;
+            for (int i = 0; i< levelPathLines - 1; i++) {
+                std::string::size_type breakPos = breakString( workString, 
+                        "/", textwidth, menufont);
+                add(new Label(workString.substr(0,breakPos), HALIGN_LEFT), Rect(hmargin+110+10,vnext,textwidth,25));
+                workString = workString.substr(breakPos);
+                vnext += (25 + vspacing);
+            }
+            // show as much as possible from last line
+            if (menufont->get_width(workString.c_str()) > textwidth) {
+                // show the filename at the end - skip leading parts if necessary
+                add(new Label(workString, HALIGN_RIGHT), Rect(hmargin+110+10,vnext,textwidth,25));
+            } else {
+                // display up to the last character
+                add(new Label(workString, HALIGN_LEFT), Rect(hmargin+110+10,vnext,textwidth,25));
+            }
+            vnext += (25 + vspacing);
+        }
+        if (annotationLines >= 1) {
+            add(new Label(N_("Annotation: "), HALIGN_RIGHT),Rect(hmargin,vnext,110,25));
+            add(annotation, Rect(hmargin+110+10, vnext, textwidth, 25));
+            vnext += (25 + vspacing)*annotationLines;
+        }
+        add(new Label(N_("Rating: "), HALIGN_RIGHT),Rect(hmargin,vnext,110,25));
+
     }
     
     LevelInspector::~LevelInspector () {
@@ -162,6 +258,14 @@ LevelInspector::LevelInspector(lev::Proxy *aLevel, ecl::Surface *preview):
         video::SetCaption (("Enigma - Level Inspector"));
         blit(gc, 0,0, enigma::GetImage("menu_bg", ".jpg"));
         blit(gc, vminfo->width-vminfo->thumbw-10-hmargin, vmargin, previewImage);
+        Surface *img_hard = enigma::GetImage("completed");
+        if (withEasy) {
+            Surface *img_easy = enigma::GetImage("completed-easy");
+            blit (gc, vminfo->width/2-10, vmargin+5*25+4*vspacing+16, img_easy);
+            blit (gc, vminfo->width/2-10+63, vmargin+5*25+4*vspacing+16, img_hard);
+        } else {
+            blit (gc, vminfo->width/2-10+20, vmargin+5*25+4*vspacing+16, img_hard);
+        }
     }
     
     void LevelInspector::tick(double dtime) {
@@ -177,15 +281,117 @@ LevelInspector::LevelInspector(lev::Proxy *aLevel, ecl::Surface *preview):
     }
     
     std::string LevelInspector::scoreToString(int easy, int difficult, lev::Proxy *aLevel) {
-        if (easy >= 0 && difficult >=0)
-            return ecl::strf( "%2d:%02d / %2d:%02d", easy/60, easy%60, difficult/60,
-                    difficult%60);
-        else if (easy < 0 && difficult >= 0)
-            return ecl::strf( "  -   / %2d:%02d", difficult/60, difficult%60);
-        else if (easy >= 0 && difficult < 0)
-            return ecl::strf( "%2d:%02d /   -  ", easy/60, easy%60);
-        else
-            return "  -   /   -  ";
+        if (withEasy) {
+            if (easy >= 0 && difficult >=0)
+                return ecl::strf( "%2d:%02d / %2d:%02d", easy/60, easy%60, difficult/60,
+                        difficult%60);
+            else if (easy < 0 && difficult >= 0)
+                return ecl::strf( "  -   / %2d:%02d", difficult/60, difficult%60);
+            else if (easy >= 0 && difficult < 0)
+                return ecl::strf( "%2d:%02d /   -  ", easy/60, easy%60);
+            else
+                return "  -   /   -  ";
+        } else {
+            if (difficult >=0)
+                return ecl::strf( "%2d:%02d", difficult/60, difficult%60);
+            else
+                return "  -  ";
+        }
+    }
+    
+    void LevelInspector::dispatchBottomLines(int &bestScoreHolderLines, 
+            int &creditsLines, int &dedicationLines, int &levelPathLines,
+            int &annotationLines, int numLines, int width) {
+        enum botType {holder, credits, dedication, path, annotation};
+        const int sequenceSize = 13;
+        botType sequence[sequenceSize] = {credits, dedication, annotation, path,
+                holder, annotation, path, credits, dedication, annotation,  credits,
+                dedication, annotation};
+        int j = 0;
+        std::string creditsString = levelProxy->getCredit(true);
+        std::string dedicationString = levelProxy->getDedication(true);
+        std::string pathWorkString = levelPathString;
+        ecl::Font *menufont = enigma::GetFont("menufont");
+        for (int i = 0; i<numLines; i++) {
+            bool assigned = false;
+            do {
+                switch (sequence[j++]) {
+                    case holder: 
+                        bestScoreHolderLines++;
+                        assigned = true;
+                        break;
+                    case credits: 
+                        if (!(creditsString.empty())) {
+                            creditsLines++;
+                            creditsString = creditsString.substr(breakString(
+                                    creditsString, " ", width, menufont));
+                            assigned = true;
+                        }
+                        break;
+                    case dedication: 
+                        if (!(dedicationString.empty())) {
+                            dedicationLines++;
+                            dedicationString = dedicationString.substr(breakString(
+                                    dedicationString, " ", width, menufont));
+                            assigned = true;
+                        }
+                        break;
+                    case path: 
+                        if (!(pathWorkString.empty())) {
+                            levelPathLines++;
+                            pathWorkString = pathWorkString.substr(breakString(
+                                    pathWorkString, "/", width, menufont));
+                            assigned = true;
+                        }
+                        break;
+                    case annotation: 
+                        annotationLines++;
+                        assigned = true;
+                        break;
+                }
+                
+            } while (!assigned && j < sequenceSize);
+            if (j == sequenceSize)
+                return;
+        }
+    }
+    
+    std::string::size_type LevelInspector::breakString(const std::string &theString,
+            const std::string &breakChar, const int width, 
+            ecl::Font * const theFont) {
+        std::string::size_type lastpos = std::string::npos;
+        std::string::size_type pos = 0;
+        do {
+            std::string::size_type nextpos = theString.find(breakChar, pos);
+            if (nextpos == std::string::npos) {
+                // there is no further break pos
+                if (lastpos == std::string::npos) {
+                    // there was no break at all
+                    return theString.size();
+                } else {
+                    if (theFont->get_width(theString.c_str()) <= width) { 
+                        // the complete string fits into a line
+                        return theString.size();
+                    } else {
+                        // just the last chunk was too much
+                        return lastpos;
+                    }
+                }
+            } else {
+                if (theFont->get_width(theString.substr(0, nextpos+breakChar.size()).c_str()) <= width) { 
+                    lastpos = nextpos+breakChar.size();
+                    pos = lastpos;
+                } else {
+                    // now the string is too long
+                    if (lastpos == std::string::npos) {
+                        // but there is no other break before
+                        return nextpos+breakChar.size();
+                    } else {
+                        return lastpos;
+                    }
+                }
+            }
+        } while (true);
     }
 
 }} // namespace enigma::lev

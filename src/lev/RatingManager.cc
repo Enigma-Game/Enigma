@@ -52,7 +52,9 @@ namespace enigma { namespace lev {
     
     void RatingManager::registerRating(std::string levelId, int levelScoreVersion,
                 int intelligence, int dexterity, int patience,
-                int knowledge, int speed, int bestScoreEasy, int bestScoreDifficult) {
+                int knowledge, int speed, int bestScoreEasy, 
+                std::string bestScoreEasyHolder, int bestScoreDifficult,
+                std::string bestScoreDifficultHolder) {
         char txt[5];
         snprintf(txt, sizeof(txt), "%d", levelScoreVersion);        
         std::string cacheKey = levelId + txt;
@@ -68,7 +70,9 @@ namespace enigma { namespace lev {
         theRating->knowledge = knowledge;
         theRating->speed = speed;
         theRating->bestScoreEasy = bestScoreEasy;
+        theRating->bestScoreEasyHolder = bestScoreEasyHolder;
         theRating->bestScoreDifficult = bestScoreDifficult;
+        theRating->bestScoreDifficultHolder = bestScoreDifficultHolder;
         cache.insert(std::make_pair(cacheKey, theRating));
         return;
     }
@@ -126,7 +130,15 @@ namespace enigma { namespace lev {
         return -1;
     }
 
-        int RatingManager::getBestScoreDifficult(Proxy *levelProxy) {
+    std::string RatingManager::getBestScoreEasyHolder(Proxy *levelProxy) {
+        Rating * theRating = findRating(levelProxy);
+        if (theRating != NULL) {
+            return theRating->bestScoreEasyHolder;
+        }
+        return "";
+    }
+
+    int RatingManager::getBestScoreDifficult(Proxy *levelProxy) {
         Rating * theRating = findRating(levelProxy);
         if (theRating != NULL) {
             return theRating->bestScoreDifficult;
@@ -134,6 +146,13 @@ namespace enigma { namespace lev {
         return -1;
     }
 
+    std::string RatingManager::getBestScoreDifficultHolder(Proxy *levelProxy) {
+        Rating * theRating = findRating(levelProxy);
+        if (theRating != NULL) {
+            return theRating->bestScoreDifficultHolder;
+        }
+        return "";
+    }
     Rating * RatingManager::findRating(Proxy * levelProxy) {
         char txt[5];
         snprintf(txt, sizeof(txt), "%d", levelProxy->getScoreVersion());        
