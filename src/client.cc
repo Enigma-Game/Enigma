@@ -554,9 +554,13 @@ void Client::on_keydown(SDL_Event &e)
         case SDLK_F5: Msg_AdvanceLevel(levels::advance_unsolved); break;
 
         case SDLK_F10: {
-            string fname = string("screenshots/");
-            fname += server::CurrentLevelPack->get_info(server::CurrentLevel).filename;
-            fname += ".png";
+            std::string basename = std::string("screenshots/") +
+                    server::CurrentLevelPack->get_info(server::CurrentLevel).filename;
+            std::string fname = basename + ".png";
+            int i = 1;
+            while (ecl::FileExists(fname.c_str())) {
+                fname = basename + ecl::strf("_%d", i++) + ".png";
+            }
             video::Screenshot(fname);
             break;
         }
@@ -818,7 +822,8 @@ void Client::level_finished()
     if (text.length() == 0 && best_user_time>0) {
         if (level_time == best_user_time) {
             text = _("Again your personal best time...");
-            timehunt_restart = true; // when hunting yourself: Equal is too slow
+            if (options::GetBool("TimeHunting"))
+                timehunt_restart = true; // when hunting yourself: Equal is too slow
         }
         else if (level_time<best_user_time)
             text = _("New personal best time!");
