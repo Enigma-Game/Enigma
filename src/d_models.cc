@@ -39,7 +39,7 @@ using namespace ecl;
 
 extern "C" {
 #include "lualib.h"
-#include "tolua.h"
+#include "tolua++.h"
 }
 #include "lua-global.hh"
 #include "lua-display.hh"
@@ -184,9 +184,8 @@ void display::InitModels()
 {
     modelmgr = new ModelManager;
 
-    lua_State *L = lua_open(0);
-    lua_baselibopen (L);
-    lua_strlibopen(L);
+    lua_State *L = lua_open();
+    luaL_openlibs(L);
     lua_register (L, "FindDataFile", lua::FindDataFile);
     tolua_open(L);
     tolua_global_open(L);
@@ -198,7 +197,7 @@ void display::InitModels()
 
     const video::VMInfo *vminfo = video::GetInfo();
     fname = app.systemFS->findFile (vminfo->initscript); // systemFS!
-    if (lua_dofile (L, fname.c_str()) != 0) {
+    if (luaL_dofile (L, fname.c_str()) != 0) {
         fprintf (stderr, "Error loading '%s'\n", fname.c_str());
     }
     enigma::Log << "# models: " << modelmgr->num_templates() << endl;

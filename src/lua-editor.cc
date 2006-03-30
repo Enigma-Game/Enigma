@@ -1,164 +1,152 @@
 /*
 ** Lua binding: editor
-** Generated automatically by tolua 4.0a on Mon Jul 14 09:51:26 2003.
+** Generated automatically by tolua++-1.0.91 on Tue Mar 21 09:17:47 2006.
 */
 
-#include "tolua.h"
+#ifndef __cplusplus
+#include "stdlib.h"
+#endif
+#include "string.h"
+
+#include "tolua++.h"
 
 /* Exported function */
-int tolua_editor_open (lua_State* tolua_S);
-void tolua_editor_close (lua_State* tolua_S);
+TOLUA_API int  tolua_editor_open (lua_State* tolua_S);
 
 #include "editor.hh"
 using namespace editor;
 
 /* function to register type */
-static void toluaI_reg_types (lua_State* tolua_S)
+static void tolua_reg_types (lua_State* tolua_S)
 {
 }
 
 /* function: DefineFloorGroup */
-static int toluaI_editor_editor_DefineFloorGroup00(lua_State* tolua_S)
+#ifndef TOLUA_DISABLE_tolua_editor_editor_DefineFloorGroup00
+static int tolua_editor_editor_DefineFloorGroup00(lua_State* tolua_S)
 {
+#ifndef TOLUA_RELEASE
+ tolua_Error tolua_err;
  if (
- !tolua_istype(tolua_S,1,LUA_TSTRING,0) ||
- !tolua_istype(tolua_S,2,LUA_TSTRING,0) ||
- !tolua_istype(tolua_S,3,LUA_TNUMBER,0) ||
- !tolua_istype(tolua_S,4,LUA_TTABLE,0) ||
- !tolua_isnoobj(tolua_S,5)
+     !tolua_isstring(tolua_S,1,0,&tolua_err) ||
+     !tolua_isstring(tolua_S,2,0,&tolua_err) ||
+     !tolua_isnumber(tolua_S,3,0,&tolua_err) ||
+     !tolua_isstring(tolua_S,4,0,&tolua_err) ||
+     !tolua_isnoobj(tolua_S,5,&tolua_err)
  )
- goto tolua_lerror;
+  goto tolua_lerror;
  else
+#endif
  {
-  const char* name = ((const char*)  tolua_getstring(tolua_S,1,0));
-  const char* descr = ((const char*)  tolua_getstring(tolua_S,2,0));
-  int nentries = ((int)  tolua_getnumber(tolua_S,3,0));
-  const char** entries = (const char**) malloc(nentries*sizeof(char*));
- {
- if (!tolua_arrayistype(tolua_S,4,LUA_TSTRING,nentries,0))
- goto tolua_lerror;
- else
- {
- int i;
- for(i=0; i<nentries;i++)
-  entries[i] = ((const char*)  tolua_getfieldstring(tolua_S,4,i+1,0));
+  const char* name = ((const char*)  tolua_tostring(tolua_S,1,0));
+  const char* descr = ((const char*)  tolua_tostring(tolua_S,2,0));
+  int nentries = ((int)  tolua_tonumber(tolua_S,3,0));
+  const char* entries = ((const char*)  tolua_tostring(tolua_S,4,0));
+  {
+   DefineFloorGroup(name,descr,nentries,&entries);
+   tolua_pushstring(tolua_S,(const char*)entries);
+  }
  }
- }
- {
-  DefineFloorGroup(name,descr,nentries,entries);
- }
- {
- int i;
- for(i=0; i<nentries;i++)
- tolua_pushfieldstring(tolua_S,4,i+1,(const char*) entries[i]);
- }
- free(entries);
- }
+ return 1;
+#ifndef TOLUA_RELEASE
+ tolua_lerror:
+ tolua_error(tolua_S,"#ferror in function 'DefineFloorGroup'.",&tolua_err);
  return 0;
-tolua_lerror:
- tolua_error(tolua_S,"#ferror in function 'DefineFloorGroup'.");
- return 0;
+#endif
 }
+#endif //#ifndef TOLUA_DISABLE
 
 /* function: DefineItemGroup */
-static int toluaI_editor_editor_DefineItemGroup00(lua_State* tolua_S)
+#ifndef TOLUA_DISABLE_tolua_editor_editor_DefineItemGroup00
+static int tolua_editor_editor_DefineItemGroup00(lua_State* tolua_S)
 {
+#ifndef TOLUA_RELEASE
+ tolua_Error tolua_err;
  if (
- !tolua_istype(tolua_S,1,LUA_TSTRING,0) ||
- !tolua_istype(tolua_S,2,LUA_TSTRING,0) ||
- !tolua_istype(tolua_S,3,LUA_TNUMBER,0) ||
- !tolua_istype(tolua_S,4,LUA_TTABLE,0) ||
- !tolua_isnoobj(tolua_S,5)
+     !tolua_isstring(tolua_S,1,0,&tolua_err) ||
+     !tolua_isstring(tolua_S,2,0,&tolua_err) ||
+     !tolua_isnumber(tolua_S,3,0,&tolua_err) ||
+     !tolua_isstring(tolua_S,4,0,&tolua_err) ||
+     !tolua_isnoobj(tolua_S,5,&tolua_err)
  )
- goto tolua_lerror;
+  goto tolua_lerror;
  else
+#endif
  {
-  const char* name = ((const char*)  tolua_getstring(tolua_S,1,0));
-  const char* descr = ((const char*)  tolua_getstring(tolua_S,2,0));
-  int nentries = ((int)  tolua_getnumber(tolua_S,3,0));
-  const char** entries = (const char**) malloc(nentries*sizeof(char*));
- {
- if (!tolua_arrayistype(tolua_S,4,LUA_TSTRING,nentries,0))
- goto tolua_lerror;
- else
- {
- int i;
- for(i=0; i<nentries;i++)
-  entries[i] = ((const char*)  tolua_getfieldstring(tolua_S,4,i+1,0));
+  const char* name = ((const char*)  tolua_tostring(tolua_S,1,0));
+  const char* descr = ((const char*)  tolua_tostring(tolua_S,2,0));
+  int nentries = ((int)  tolua_tonumber(tolua_S,3,0));
+  const char* entries = ((const char*)  tolua_tostring(tolua_S,4,0));
+  {
+   DefineItemGroup(name,descr,nentries,&entries);
+   tolua_pushstring(tolua_S,(const char*)entries);
+  }
  }
- }
- {
-  DefineItemGroup(name,descr,nentries,entries);
- }
- {
- int i;
- for(i=0; i<nentries;i++)
- tolua_pushfieldstring(tolua_S,4,i+1,(const char*) entries[i]);
- }
- free(entries);
- }
+ return 1;
+#ifndef TOLUA_RELEASE
+ tolua_lerror:
+ tolua_error(tolua_S,"#ferror in function 'DefineItemGroup'.",&tolua_err);
  return 0;
-tolua_lerror:
- tolua_error(tolua_S,"#ferror in function 'DefineItemGroup'.");
- return 0;
+#endif
 }
+#endif //#ifndef TOLUA_DISABLE
 
 /* function: DefineStoneGroup */
-static int toluaI_editor_editor_DefineStoneGroup00(lua_State* tolua_S)
+#ifndef TOLUA_DISABLE_tolua_editor_editor_DefineStoneGroup00
+static int tolua_editor_editor_DefineStoneGroup00(lua_State* tolua_S)
 {
+#ifndef TOLUA_RELEASE
+ tolua_Error tolua_err;
  if (
- !tolua_istype(tolua_S,1,LUA_TSTRING,0) ||
- !tolua_istype(tolua_S,2,LUA_TSTRING,0) ||
- !tolua_istype(tolua_S,3,LUA_TNUMBER,0) ||
- !tolua_istype(tolua_S,4,LUA_TTABLE,0) ||
- !tolua_isnoobj(tolua_S,5)
+     !tolua_isstring(tolua_S,1,0,&tolua_err) ||
+     !tolua_isstring(tolua_S,2,0,&tolua_err) ||
+     !tolua_isnumber(tolua_S,3,0,&tolua_err) ||
+     !tolua_isstring(tolua_S,4,0,&tolua_err) ||
+     !tolua_isnoobj(tolua_S,5,&tolua_err)
  )
- goto tolua_lerror;
+  goto tolua_lerror;
  else
+#endif
  {
-  const char* name = ((const char*)  tolua_getstring(tolua_S,1,0));
-  const char* descr = ((const char*)  tolua_getstring(tolua_S,2,0));
-  int nentries = ((int)  tolua_getnumber(tolua_S,3,0));
-  const char** entries = (const char**) malloc(nentries*sizeof(char*));
- {
- if (!tolua_arrayistype(tolua_S,4,LUA_TSTRING,nentries,0))
- goto tolua_lerror;
- else
- {
- int i;
- for(i=0; i<nentries;i++)
-  entries[i] = ((const char*)  tolua_getfieldstring(tolua_S,4,i+1,0));
+  const char* name = ((const char*)  tolua_tostring(tolua_S,1,0));
+  const char* descr = ((const char*)  tolua_tostring(tolua_S,2,0));
+  int nentries = ((int)  tolua_tonumber(tolua_S,3,0));
+  const char* entries = ((const char*)  tolua_tostring(tolua_S,4,0));
+  {
+   DefineStoneGroup(name,descr,nentries,&entries);
+   tolua_pushstring(tolua_S,(const char*)entries);
+  }
  }
- }
- {
-  DefineStoneGroup(name,descr,nentries,entries);
- }
- {
- int i;
- for(i=0; i<nentries;i++)
- tolua_pushfieldstring(tolua_S,4,i+1,(const char*) entries[i]);
- }
- free(entries);
- }
+ return 1;
+#ifndef TOLUA_RELEASE
+ tolua_lerror:
+ tolua_error(tolua_S,"#ferror in function 'DefineStoneGroup'.",&tolua_err);
  return 0;
-tolua_lerror:
- tolua_error(tolua_S,"#ferror in function 'DefineStoneGroup'.");
- return 0;
+#endif
 }
+#endif //#ifndef TOLUA_DISABLE
 
 /* Open function */
-int tolua_editor_open (lua_State* tolua_S)
+TOLUA_API int tolua_editor_open (lua_State* tolua_S)
 {
  tolua_open(tolua_S);
- toluaI_reg_types(tolua_S);
- tolua_module(tolua_S,"editor");
- tolua_function(tolua_S,"editor","DefineFloorGroup",toluaI_editor_editor_DefineFloorGroup00);
- tolua_function(tolua_S,"editor","DefineItemGroup",toluaI_editor_editor_DefineItemGroup00);
- tolua_function(tolua_S,"editor","DefineStoneGroup",toluaI_editor_editor_DefineStoneGroup00);
+ tolua_reg_types(tolua_S);
+ tolua_module(tolua_S,NULL,0);
+ tolua_beginmodule(tolua_S,NULL);
+  tolua_module(tolua_S,"editor",0);
+  tolua_beginmodule(tolua_S,"editor");
+   tolua_function(tolua_S,"DefineFloorGroup",tolua_editor_editor_DefineFloorGroup00);
+   tolua_function(tolua_S,"DefineItemGroup",tolua_editor_editor_DefineItemGroup00);
+   tolua_function(tolua_S,"DefineStoneGroup",tolua_editor_editor_DefineStoneGroup00);
+  tolua_endmodule(tolua_S);
+ tolua_endmodule(tolua_S);
  return 1;
 }
-/* Close function */
-void tolua_editor_close (lua_State* tolua_S)
-{
- lua_pushnil(tolua_S); lua_setglobal(tolua_S,"editor");
-}
+
+
+#if defined(LUA_VERSION_NUM) && LUA_VERSION_NUM >= 501
+ TOLUA_API int luaopen_editor (lua_State* tolua_S) {
+ return tolua_editor_open(tolua_S);
+};
+#endif
+

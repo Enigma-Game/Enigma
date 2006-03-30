@@ -1,9 +1,8 @@
 /*
 ** Lua binding: px
-** Generated automatically by tolua 4.0a on Sat Jun 25 14:07:28 2005.
+** Generated automatically by tolua++-1.0.91 on Tue Mar 21 09:06:58 2006.
 */
 
 /* Exported function */
-int tolua_px_open (lua_State* tolua_S);
-void tolua_px_close (lua_State* tolua_S);
+TOLUA_API int  tolua_px_open (lua_State* tolua_S);
 

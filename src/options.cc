@@ -33,6 +33,7 @@
 
 extern "C" {
 #include <lua.h>
+#include <lauxlib.h>
 }
 
 using namespace enigma;
@@ -163,7 +164,7 @@ bool options::GetLevelStatus (const std::string &levelname,
     lua_getglobal(L, "stats");
     lua_pushstring (L, levelname.c_str());
     lua_rawget (L, -2);
-    if (!lua_istable(L, -1) || lua_getn(L, -1)!=4) {
+    if (!lua_istable(L, -1) || luaL_getn(L, -1)!=4) {
         lua_settop(L, oldtop);
         return false;
     }
@@ -262,7 +263,7 @@ bool options::Save ()
 static bool
 load_from_file (const std::string &fname)
 {
-    int errcode = lua_dofile (lua::GlobalState(), fname.c_str());
+    int errcode = luaL_dofile (lua::GlobalState(), fname.c_str());
     bool success =  (errcode == 0 || errcode == LUA_ERRFILE);
     if (!success) {
         enigma::Log << "error in file `" << fname <<"'\n";

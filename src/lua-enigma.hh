@@ -1,9 +1,8 @@
 /*
 ** Lua binding: enigma
-** Generated automatically by tolua 4.0a on Sat Jun 25 14:09:29 2005.
+** Generated automatically by tolua++-1.0.91 on Tue Mar 21 09:08:28 2006.
 */
 
 /* Exported function */
-int tolua_enigma_open (lua_State* tolua_S);
-void tolua_enigma_close (lua_State* tolua_S);
+TOLUA_API int  tolua_enigma_open (lua_State* tolua_S);
 

@@ -1,9 +1,8 @@
 /*
 ** Lua binding: global
-** Generated automatically by tolua 4.0a on Wed Oct 27 11:10:28 2004.
+** Generated automatically by tolua++-1.0.91 on Tue Mar 21 09:08:57 2006.
 */
 
 /* Exported function */
-int tolua_global_open (lua_State* tolua_S);
-void tolua_global_close (lua_State* tolua_S);
+TOLUA_API int  tolua_global_open (lua_State* tolua_S);
 

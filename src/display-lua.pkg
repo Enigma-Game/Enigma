@@ -49,11 +49,11 @@ module display
                     int xoff, int yoff, int padding = 0);
     int DefineSubImage(const char *name, const char *fname,
                         int xoff, int yoff, Rect r);
-    void DefineRandModel(const char *name, int n, const char *names[n]);
+    void DefineRandModel(const char *name, int n, const char **names);
     void DefineShadedModel(const char *name, const char *model,
                            const char *shade);
     void DefineOverlayImage (const char *name, int n,
-                             const char *images[n]);
+                             const char **images);
     void DefineComposite (const char *name,
                           const char *bgname,
                           const char *fgname);

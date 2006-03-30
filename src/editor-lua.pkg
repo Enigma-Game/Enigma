@@ -24,11 +24,11 @@ $using namespace editor;
 module editor
 {
     void DefineFloorGroup (const char *name, const char *descr,
-                           int nentries, const char *entries[nentries]);
+                           int nentries, const char **entries);
 
     void DefineItemGroup (const char *name, const char *descr,
-                          int nentries, const char *entries[nentries]);
+                          int nentries, const char **entries);
 
     void DefineStoneGroup (const char *name, const char *descr,
-                           int nentries, const char *entries[nentries]);
+                           int nentries, const char **entries);
 }
