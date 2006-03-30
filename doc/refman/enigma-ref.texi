@@ -398,7 +398,7 @@ Let us have a first view on complete simple @samp{Hello World} level in the new 
 
 @example
 <?xml version="1.0" encoding="@var{UTF-8}" standalone="no" ?>
-<@i{el}:@b{level} xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="@i{http://enigma/level level.xsd}" xmlns:@i{el}="@i{http://enigma/level}">
+<@i{el}:@b{level} xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="@i{http://enigma-game.org/schema/level/1 level.xsd}" xmlns:@i{el}="@i{http://enigma-game.org/schema/level/1}">
   <@i{el}:@b{protected} >
     <@i{el}:@b{info} @i{el}:@b{type}="@var{level}">
       <@i{el}:@b{identity} @i{el}:@b{titel}="@var{Demo Simple}" @i{el}:@b{id}="@var{20060210ral001}"/>
@@ -408,7 +408,7 @@ Let us have a first view on complete simple @samp{Hello World} level in the new 
       <@i{el}:@b{license} @i{el}:@b{type}="@var{GPL v2.0 or above}" @i{el}:@b{open}="@var{true}"/>
       <@i{el}:@b{compatibility} @i{el}:@b{enigma}="@var{0.92}"/>
       <@i{el}:@b{modes} @i{el}:@b{easy}="@var{false}" @i{el}:@b{single}="@var{true}" @i{el}:@b{network}="@var{false}"/>
-      <@i{el}:@b{score} @i{el}:@b{easy}="@var{-1}" @i{el}:@b{difficult}="@var{-1}"/>
+      <@i{el}:@b{score} @i{el}:@b{easy}="@var{-}" @i{el}:@b{difficult}="@var{-}"/>
     </@i{el}:@b{info}>
     <@i{el}:@b{luamain}><![CDATA[
 levelw = 20
@@ -449,6 +449,7 @@ Of course we have to look at the details of the format and explain the optional
 parts:
 
 @menu
+* Getting Started::
 * XML Level structure::
 * Info metadata::
 * LUA code::
@@ -457,7 +458,12 @@ parts:
 * Update and Upgrade::
 @end menu
 
-@node XML Level structure, Info metadata, Level Basics, Level Basics
+@node Getting Started, XML Level structure, Level Basics, Level Basics
+@section Getting Started
+
+
+
+@node XML Level structure, Info metadata, Getting Started, Level Basics
 @section XML Level structure
 
 Let us start with a complete overview of all existing top XML element nodes. The
@@ -466,7 +472,7 @@ These elements are just included for completeness:
 
 @example
 <?xml version="1.0" encoding="@var{UTF-8}" standalone="no" ?>
-<@i{el}:@b{level} xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="@i{http://enigma/level level.xsd http://enigma/editor editor.xsd}" xmlns:@i{el}="@i{http://enigma/level}" xmlns:@i{ee}="@i{http://enigma/editor}">
+<@i{el}:@b{level} xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="@i{http://enigma-game.org/schema/level/1 level.xsd http://enigma-game.org/schema/editor editor.xsd}" xmlns:@i{el}="@i{http://enigma-game.org/schema/level/1}" xmlns:@i{ee}="@i{http://enigma-game.org/schema/editor}">
   <@i{el}:@b{protected}>
     <@i{el}:@b{info} @i{el}:@b{type}="@var{level}">
       <!-- required elements omited -->
@@ -517,7 +523,13 @@ All tag names and attribute names are prefixed with a namespace identifier. We
 use @samp{el} as an abreviation for enigma level. All tag names that may be
 manually edited use this prefix.
 
-external entities for &, < -- usage of "
+And finally a short comment to the XML reserved characters @samp{&} and @samp{<}.
+These two characters are reserved as tag and entity starting characters. If you
+have need for them in text contents or in attribute values you have to substitute
+them by the entity sequences @samp{&amp;} and @samp{&lt;}. Additionally attribute
+values have to be enclosed either by @samp{"} or @samp{'}. Of course the used 
+enclosing character has to substituted in attribute values, too. Use @samp{&quot}
+and @samp{&apos}.
 
 @b{Elements:}
 
@@ -630,7 +642,7 @@ Let us have a look on all supported subnodes of info with typically used attribu
   <@i{el}:@b{comments}/>
   <@i{el}:@b{update} @i{el}:@b{url}="@var{http://...}"/>
   <@i{el}:@b{upgrade} @i{el}:@b{url}="@var{http://...}" @i{el}:@b{release}="@var{2}"/>
-  <@i{el}:@b{score} @i{el}:@b{easy}="@var{-1}" @i{el}:@b{difficult}="@var{-1}"/>
+  <@i{el}:@b{score} @i{el}:@b{easy}="@var{-}" @i{el}:@b{difficult}="@var{-}"/>
 </@i{el}:@b{info}>
 @end example
 
@@ -665,7 +677,7 @@ describes usually a whole set of level maps in a single file.
 The titel, subtitel and the main level identification string. See @ref{<identity>}.
 
 @item @b{version}, @i{required}
-@ref{<version>}
+All aspects of the level @ref{<version>}.
 
 @item @b{author}, @i{required} 
 All information provided about the author him- or herself. See @ref{<author>}.
@@ -677,10 +689,11 @@ The @ref{<copyright>} message for the level.
 Information about the @ref{<license>} conditions.
 
 @item @b{compatibility}, @i{required} 
-@ref{<compatibility>}
+All information about @ref{<compatibility>} to Enigma releases, dependencies
+from libraries, external data and the editor program that generated the level.
 
 @item @b{modes}, @i{required} 
-@ref{<modes>}
+The @ref{<modes>} that the level supports, as difficulty, network  and control.
 
 @item @b{comments}, @i{optional} 
 Optional comments like credits, dedication and code comments. See @ref{<comments>}.
@@ -692,7 +705,7 @@ Optional comments like credits, dedication and code comments. See @ref{<comments
 @ref{Update and Upgrade}
 
 @item @b{score}, @i{required} 
-@ref{<score>}
+The authors own @ref{<score>} of this level.
 
 @end table
 
@@ -729,12 +742,36 @@ in the @ref{Internationalization (i18n)} sections.
 
 @item @b{subtitel}, @i{optional}
 An optional english subtitel. Used for titel parts that are too long for the
-main titel , or a short first hint. The subtitel is displayed on the level info
+main titel, or for a short first hint. The subtitel is displayed on the level info
 page and on the start of the level. Translations of the subtitel can be provided
 in the @ref{Internationalization (i18n)} sections.
 
 @item @b{id}, @i{required}
-needs some explanation.
+This is the central system identification string of the level that remains valid
+for all time independent of upcomming release updates. Enigma's single demand
+on the id is that it is unique. Unique among all levels created by all authors
+around the world.
+
+As levels can be edited with any text editor or different special Enigma level
+editors there is no control about the uniqueness. Thus we have to provide a
+simple convention to avoid any possible id clashes:
+
+@var{@b{YYYYMMDDuserNN}}
+
+Where @samp{YYYY},@samp{MM},@samp{DD} is the date of the creation of the first
+experimental version, @samp{user} stand for a user specific name and @samp{NN} for the
+user specific level creation number. F.e. my level called @samp{Firefox} has
+the id @samp{20060213ral03}. The last part of the id, the level creation number,
+is just ever increasing. Even if the level gets never released and ends up just
+as an experiment, do not recycle the numbers! There is no relationship between
+this number and the number that may be part of the level's filename. F.e. the
+@samp{Firefox} has the filename @samp{ral01.xml}. The id is a Enigma level 
+system id and is never exposed to users.
+
+For backward compatibility legacy levels keep their former filename as the
+new level id and do not fit in the name schema given above. But that does not
+harm as the only requirement is the uniqueness.
+
 @end table
 
 @b{Contents:}
@@ -744,6 +781,8 @@ The element itself is empty - no content is allowed.
 @node <version>, <author>, <identity>, Info metadata
 @subsection <version>
 
+This element provides the versioning information for the system.
+
 @example
 <@i{el}:@b{version} @i{el}:@b{score}="@var{1}" @i{el}:@b{release}="@var{1}" @i{el}:@b{revision}="@var{0}" @i{el}:@b{status}="@var{experimental}"/>
 @end example
@@ -751,13 +790,71 @@ The element itself is empty - no content is allowed.
 @b{Attributes:}
 
 @table @asis
-@item @b{score}, @i{required} 
+@item @b{score}, @i{required}
+The score version is given as an integer. New level versions need to increase the
+score version number if the level modifications cause different solutions with 
+uncomparable score values. Of course level authors should be very restrictive 
+with such modifications.
+
+During the development of a level the attribute @samp{@b{status}} should be used to mark a
+level as not released. Not later than the author changes the @samp{@b{status}} to
+@samp{released} he has to check scoring compatibility and increase the score 
+version if necessary.
+
+This attribute is the logical equivalence to the Enigma 0.92 @samp{index.txt} attribute 
+@samp{revision}.
 
 @item @b{release}, @i{required} 
+The technical release version is given as an integer. New level versions need to 
+increase the release version number if the level modifications either cause technical
+incompatibilities with previous Enigma releases or the scoring version has been
+increased.
+
+The primary cause for technical incompatibilities should be the compensation 
+of Enigma engine changes. As such compensations will not run on the old Enigma
+version the level versions have to be distinguished by a different release number.
+
+In both cases, technical and scoring incompatibilities, the level file name has
+to be changed, too. This is necessary as on some systems different Enigma versions
+may be installed at the same time. They have the need for both level versions at
+the same time. Internet servers providing Enigma levels need to offer different
+level release at the same time, too.
+
+To enable humans to assign different level release files to a level itself we
+strongly recommend the name convention for levels 
+@var{AuthoridentifierLevelnumber_Releasenumber.Suffix}. Where the levelnumber is at
+least 2 digits. For example @samp{ral01_2.xml}
 
 @item @b{revision}, @i{required} 
+The revision number is a simple ever increasing version number. Every published
+version of the level should have a new revision number. The revision number is
+independent from the scoring and release version number.
+
+If Enigma finds two levelfiles in its data serach paths with identical filenames,
+id, score and release version it will load the one with the higher revision number.
+This feature guarantees, that a new revision of a level distributed with a new
+Enigma release can not be shadowed by an older level revision stored on the users
+home level directory. Online updates will check the level revision numbers, too.
+
+Even though the revision evaluates to a number the attribute can take a second 
+string format as the literal keyword @samp{$Revision$}. This 
+@url{http://subversion.tigris.org/, Subversion} format allows level authors to 
+let the level revision number be automatically inserted by their Subversion 
+repository. They just have to set @samp{svn propset svn:keywords "Revision" level.xml} 
+at their repository for every level file. As the Subversion revision number is 
+ever increasing it fulfills our criteria. Note that there is no need for revision
+numbers to be consecutive.
 
 @item @b{status}, @i{required}, values = "released", "stable", "test", "experimental"
+This attributes describes the quality of the level during development. Enigma
+uses the status to protect the score database to be spoiled by unplanned solution
+scores. Only for levels marked as @samp{released} scores will be recorded.
+
+A level author who starts a change on a released level should first change the
+status back to @samp{experimental}. Then he should make his changes and test 
+the level. When he is definitivly sure that he did not introduce any spoilers
+he can release the level again with a new revision and may be release or 
+score version number.
 
 @end table
 
@@ -852,24 +949,194 @@ make use of identification of the level via the type attribute.
 @node <compatibility>, <modes>, <license>, Info metadata
 @subsection <compatibility>
 
-
-@node <modes>, <comments>, <compatibility>, Info metadata
-@subsection <modes>
-
 @example
-<@i{el}:@b{modes} @i{el}:@b{easy}="@var{false}" @i{el}:@b{single}="@var{true}" @i{el}:@b{network}="@var{false}"/>
+<@i{el}:@b{compatibility} @i{el}:@b{enigma}="@var{0.92}">
+  <@i{el}:@b{dependency} @i{el}:@b{path}="@var{lib/natmaze}" @i{el}:@b{id}="@var{lib/natmaze}" @i{el}:@b{release}="@var{1}" @i{el}:@b{preload}="@var{true}" @i{el}:@b{url}="@var{http://anywhere.xxx/mypage/natmaze.xml}"/>
+  <@i{el}:@b{externaldata} @i{el}:@b{path}="@var{./extfile}" @i{el}:@b{url}="@var{http://anywhere.xxx/mypage/extdata.xml}"/>
+  <@i{el}:@b{editor} @i{el}:@b{name}="@var{none}" @i{el}:@b{version}="@var{}"/>
+</@i{el}:@b{compatibility}>
 @end example
 
 @b{Attributes:}
 
 @table @asis
-@item @b{easy}, @i{required}
-@item @b{single}, @i{required}
-@item @b{network}, @i{required}
+@item @b{enigma}, @i{required}
+The minimal Enigma release number required for compatibility.
+
+@end table
+
+@b{Contents - Elements:}
+
+The comments element itself contains only subelements as content.
+
+@table @asis
+@item @b{dependency}, @i{optional, mutiple occurence}
+With the use of this element you can specify any Enigma-Lua library this levels
+depends on. You can specify several libraries by multiple occurence of this 
+element. If you configure a library to be preloaded it will be loaded by the
+engine before any level Lua code is loaded and executed. The load sequence of
+several libraries conforms strictly to the sequence of their dependencies elements.
+
+@b{Attributes:}
+@table @asis
+@item @b{path}, @i{required}
+The resource path of the library without it's suffix. As most libraries are
+stored in the @samp{lib} subdirectory of Enigma's @samp{levels} directory the
+resource path will be in most cases like the one in the example above: 
+@samp{lib/ant}.
+
+But libraries can also be totally level pack specific. In this case you may use
+a relative resource path like @samp{./mylib} and store the library in the level
+pack directory itself.
+
+@item @b{id}, @i{required}
+The version independent id of the library as specified in the library metadata.
+It will be checked on load of the library to avoid problems and may be used 
+together with the release number to detect relocated libraries.
+
+@item @b{release}, @i{required}
+Even though different release versions of libraries have to have different
+filenames we require to specify the library version. It will be checked on load
+of the library to avoid problems and may be used together with the id to detect
+relocated libraries.
+
+@item @b{preload}, @i{required}
+A boolean statement that specifies whether the library should be preloaded. If
+the library is not preloaded you can still load it via Lua code statements. But
+even those libraries have to be declared as they will be checked on conformance.
+You should always preload your libraries if you make use of the @samp{elements}
+section.
+
+@item @b{url}, @i{optional}
+This optional attribute allows to specifiy a backup address for the library.
+This will be usefull for the usage of new libraries that are not yet distributed
+with the system. 
+
+For the development and test phase of new libraries themself
+a developer can hand out test levels with an empty @samp{library} resource path
+attribute. The test levels will load the newest library version as published
+at the given url.
 
 @end table
 
 @b{Contents:}
+
+none.
+
+@item @b{externaldata}, @i{optional, multiple occurence}
+This element can be used to specify any external data file this levels
+depends on. You can specify several files by multiple occurence of this 
+element. Files declared can be read via the Lua interface.
+
+This feature should support levels that simulate foreign games like Sokoban 
+within Enigma. Due to copyrights and license conditions it may not be possible 
+to include some data within a level. But it may be legal to distribute the data 
+in the original unmodified format.
+
+@b{Attributes:}
+@table @asis
+@item @b{path}, @i{optional}
+The resource path of the external data file with it's suffix. As the data are
+usually level specific they should be stored aside of the level in the same
+levelpacl directory. Thus a relative resource path like @samp{./datafile.ext} 
+should be preferable. 
+
+@item @b{url}, @i{optional}
+This optional attribute allows to specifiy an online address for the external data
+file. Only wellformed xml data files can be accessd by this method.
+
+The online access method should only be used as a backup address or due to very
+restrictive license conditions that make it impossible to distribute the data
+file together with Enigma.
+
+@end table
+
+@b{Contents:}
+
+none.
+
+@item @b{editor}, @i{optional, single occurence}
+This element can be used by special level editor programs to store information
+about themselves.
+
+@b{Attributes:}
+
+@table @asis
+@item @b{name}, @i{required}
+The name of the level editor.
+
+@item @b{version}, @i{required}
+A version number of the editor given as a string.
+.
+@end table
+
+@b{Contents:}
+
+none
+
+@end table
+
+@b{Contents:}
+
+none
+
+@node <modes>, <comments>, <compatibility>, Info metadata
+@subsection <modes>
+
+The modes element allows the author to declare the supported and the default
+modes of his level. Enigma's engine checks that the level is used in supported
+modes.
+
+@example
+<@i{el}:@b{modes} @i{el}:@b{easy}="@var{false}" @i{el}:@b{single}="@var{true}" @i{el}:@b{network}="@var{false}" @i{el}:@b{control}="@var{force}" @i{el}:@b{scoreunit}="@var{duration}" @i{el}:@b{scoretarget}="@var{time}"/>
+@end example
+
+@b{Attributes:}
+
+@table @asis
+@item @b{easy}, @i{required}, values = "true", "false"
+If a level provides a second easy-difficulty mode set this attribute to @samp{true}.
+If only a one difficulty mode is supported set this attribute to @samp{false}.
+
+@item @b{single}, @i{required}, values = "true", "false"
+If a level provides a single player game as it is standard set this attribute to
+@samp{true}. Only if the level is a 2-player-network game only set this attribute
+to @samp{false}.
+
+@item @b{network}, @i{required}, values = "true", "false"
+If a level provides a 2-player-network game set this attribute to @samp{true}.
+If not set this attribute to @samp{false}.
+
+@item @b{control}, @i{optional}, values = "force", "balance", "key", "other"; default = "force"
+This attribute defines the standard control mode of the level. A level can be
+played by using the mouse to generate forces on the marbles as it is the standard
+and only way up to Enigma 0.92. Or a level can be played using the mouse, or
+other input devices to balance the level-world with the marbles. Or the keyboard
+may be used with its cursor keys to move the actor like in classical Sokoban games.
+
+Even though the user has always the last choice to define the input method he
+currently wants to use the author has to define the standard control-mode that
+is used by the scoring system. Only scores achieved in the defined control mode
+will be saved and evaluated for high score lists.
+
+@item @b{scoreunit}, @i{optional}, values = "duration", "number"; default = "duration"
+This attribute defines the evaluation and display mode of score values. By the
+default @samp{duration} the score is intepreted as level solution time and displayed
+in a @b{MM:SS} format. In the @samp{number} mode scores are displayed as plain
+numbers and lower numbers be evaluated as better scores. This mode is appropriate
+for counting of pushes and moves.
+
+@item @b{scoretarget}, @i{optional}, values = "time", "pushes", "moves", *; default = "time"
+The score target triggers the measuring of score values. @samp{time} will take the
+solution time, @samp{pushes} counts the pushes of stones, @samp{moves} counts the
+moves of the actor. Any other value will call a Lua function for score values.
+The target is used as a short title for the score in user interface displays.
+
+@end table
+
+@b{Contents:}
+
+none
 
 @node <comments>, <score>, <modes>, Info metadata
 @subsection <comments>
@@ -880,7 +1147,7 @@ by the internationalization support.
 
 @example
 <@i{el}:@b{comments}>
-    <@i{el}:@b{credit} @i{el}:@b{showinfo}="@var{true}" @i{el}:@b{showstart}="@var{false}">@var{Thanks to the author of my favorite libs}</@i{el}:@b{credit}>
+    <@i{el}:@b{credits} @i{el}:@b{showinfo}="@var{true}" @i{el}:@b{showstart}="@var{false}">@var{Thanks to the author of my favorite libs}</@i{el}:@b{credits}>
     <@i{el}:@b{dedication} @i{el}:@b{showinfo}="@var{true}" @i{el}:@b{showstart}="@var{false}">@var{To a honorable or a beloved person}</@i{el}:@b{dedication}>
     <@i{el}:@b{code}>@var{some important general notes}</@i{el}:@b{code}>
 </@i{el}:@b{comments}>
@@ -894,7 +1161,7 @@ none
 The comments element itself contains only subelements as content.
 
 @table @asis
-@item @b{credit}, @i{optional, single occurence}
+@item @b{credits}, @i{optional, single occurence}
 The place to honor people who did make your level running.
 
 @b{Attributes:}
@@ -910,7 +1177,8 @@ level. Please use this feature only in rare cases.
 
 @b{Contents:}
 
-The credit message itself.
+The credits message itself. It may be broken over several lines. Whitespaces will
+be collapsed before display.
 
 @item @b{dedication}, @i{optional, single occurence}
 The place to dedicate the level to a honorable of a beloved person. Please use
@@ -929,7 +1197,8 @@ level. Please use this feature only in rare cases.
 
 @b{Contents:}
 
-The dedication message itself.
+The dedication message itself. It may be broken over several lines. Whitespaces will
+be collapsed before display.
 
 @item @b{code}, @i{optional, single occurence}
 
@@ -940,22 +1209,36 @@ none.
 @b{Contents:}
 
 The main code comment that may be an explanation of the @ref{<version>} status 
-or a todo list. This comment will not be processed.
+or a todo list. It may be broken over several lines. This comment will not be 
+processed.
 
 @end table
 
 @node <score>, , <comments>, Info metadata
 @subsection <score>
 
+In this node the author should provide his own scoring values as hints and
+challenge for other players. All values are related to the control mode defined
+in @ref{<modes>}.
+
 @example
-<@i{el}:@b{score} @i{el}:@b{easy}="@var{67}" @i{el}:@b{difficult}="@var{-1}"/>
+<@i{el}:@b{score} @i{el}:@b{easy}="@var{01:07}" @i{el}:@b{difficult}="@var{-}"/>
 @end example
 
 @b{Attributes:}
 
 @table @asis
 @item @b{easy}, @i{required}
+The solvage time for the easy mode. The format is either @var{@b{MM:SS}} where
+MM stands for the minutes, and SS for the seconds, or @var{@b{-}} if the author did
+not yet solve the level himself. For levels with a score unit mode @samp{number}
+the value would be the number of marble moves or pushes.
+
 @item @b{difficult}, @i{required}
+The solvage time for the difficult mode. The format is either @var{@b{MM:SS}} where
+MM stands for the minutes, and SS for the seconds, or @var{@b{-}} if the author did
+not yet solve the level himself. For levels with a score unit mode @samp{number}
+the value would be the number of marble moves or pushes.
 
 @end table
 
@@ -1076,9 +1359,9 @@ subelement to the @samp{sting} element. The @samp{translation} element has a
 single mandatory attribute @samp{lang} that takes the 2-character language
 abbreviation. The contents of the element is the translation itself.
 
-All translation added in the protected section take preceedance over any translators
+All translations added in the protected section take preceedance over any translators
 translation and will work directly after addition without waiting for a translators
-tranlation.
+translation.
 
 Last but not least we have a @samp{i18n} element in the public section. This element
 takes translation suggestions. They may be added by the author himself for further
@@ -1155,7 +1438,7 @@ comments we decided to support a similar Lua compatible XML format. We call it
 
 @example
 --xml-- <?xml version="1.0" encoding="UTF-8" standalone="no" ?>
---xml-- <el:level xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://enigma/level level.xsd" xmlns:el="http://enigma/level">
+--xml-- <el:level xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://enigma-game.org/schema/level/1 level.xsd" xmlns:el="http://enigma-game.org/schema/level/1">
 --xml--   <el:protected >
 --xml--     <el:info el:type="level">
 --xml--       <el:identity el:titel="Demo Simple" el:id="20060210ral001"/>
@@ -1165,7 +1448,7 @@ comments we decided to support a similar Lua compatible XML format. We call it
 --xml--       <el:license el:type="GPL2" el:open="true">GPL v2.0 or above</el:license>
 --xml--       <el:compatibility el:enigma="0.92"/>
 --xml--       <el:modes el:easy="false" el:single="true" el:network="false"/>
---xml--       <el:score el:easy="-1" el:difficult="-1"/>
+--xml--       <el:score el:easy="-" el:difficult="-"/>
 --xml--     </el:info>
 --xml--     <el:luamain><![CDATA[
 levelw = 20
@@ -1231,6 +1514,57 @@ you with selections of all possible elements and attributes at each position.
 
 @node Update and Upgrade, , Usage, Level Basics
 @section Update and Upgrade
+
+Enigma is capable to load new level versions as we provide all necessary 
+attributes in the @ref{<version>} element.
+
+If Enigma loads a new level version that differs just in the @samp{@b{revision}}
+we speak of an @samp{@b{update}}. Updates can be performed quite automatically
+and old versions can be replaced by the updates as they are guaranteed by the
+author to be compatible in scoring and dependencies. In the protected info
+element the author should provide a download address for automatic updates:
+
+@example
+<@i{el}:@b{update} @i{el}:@b{url}="@var{http://myLevelServer.org/path/level_01.xml}"/>
+@end example
+
+@b{Attributes:}
+
+@table @asis
+@item @b{url}, @i{required}
+A longtime valid complete address for update downloads of this level in the 
+same score and release version.
+
+@end table
+
+If the author of a level introduces incompatibilities into the level he increases 
+the release version of the level and stores it with a new filename. The download
+of such a new level version we call @samp{@b{upgrade}}.
+
+To publish the availability of a upgrade release the author should update the 
+previous release with a final revision that just adds an upgrade element that
+announces the new release:
+
+@example
+<@i{el}:@b{upgrade} @i{el}:@b{url}="@var{http://myLevelServer.org/path/level_02.xml}" @i{el}:@b{release}="@var{2}"/>
+@end example
+
+@b{Attributes:}
+
+@table @asis
+@item @b{url}, @i{required}
+A longtime valid complete address for upgrade downloads of this level. A path
+to the new file.
+
+@item @b{release}, @i{required}
+The release version of the upgrade.
+
+@end table
+
+As the author cannot update all distributed levels himself to announce the
+availability of the new release we added another upgrade element in the public
+section. Level administrators can use this element for the same purpose with
+the same syntax without modifying the authors protected section.
 
 @ignore
 
