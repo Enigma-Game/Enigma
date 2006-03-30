@@ -1,19 +1,19 @@
 --xml-- <?xml version="1.0" encoding="UTF-8" standalone="no" ?>
---xml-- <el:level xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://enigma/level level.xsd" xmlns:el="http://enigma/level">
+--xml-- <el:level xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://enigma-game.org/schema/level/1 level.xsd" xmlns:el="http://enigma-game.org/schema/level/1">
 --xml--   <el:protected >
 --xml--     <el:info el:type="level">
---xml--       <el:identity el:titel="Toreador" el:id="ral02"/>
---xml--       <el:version el:release="0" el:revision="0" el:status="experimental"/>
+--xml--       <el:identity el:titel="Toreador" el:id="20060213ral004"/>
+--xml--       <el:version el:score="0" el:release="0" el:revision="1" el:status="experimental"/>
 --xml--       <el:author  el:name="Ronald Lamprecht" el:email="ral@users.berlios.de"/>
 --xml--       <el:copyright>Copyright © 2006 Ronald Lamprecht</el:copyright>
---xml--       <el:license el:type="GPL2" el:open="true">GPL v2.0 or above</el:license>
+--xml--       <el:license el:type="GPL v2.0 or above" el:open="true"/>
 --xml--       <el:compatibility el:enigma="0.93"/>
 --xml--       <el:modes el:easy="false" el:single="true" el:network="false"/>
 --xml--       <el:comments>
 --xml--         <el:credit el:showinfo="true" el:showstart="false">Thanks to Nat Pryce for his libs and code examples</el:credit>
 --xml--         <el:code>Lua 4.x based - replace %ident upvalues by ident for Lua 5.x in compatible mode</el:code>
 --xml--       </el:comments>
---xml--       <el:score el:easy="-1" el:difficult="116"/>
+--xml--       <el:score el:easy="-" el:difficult="1:56"/>
 --xml--     </el:info>
 --xml--     <el:luamain><![CDATA[
 enigma.ConserveLevel = FALSE
@@ -178,6 +178,3 @@ oxyd_shuffle()
 --xml--   </el:protected>
 --xml-- </el:level>
 --xml-- 
-
-
-

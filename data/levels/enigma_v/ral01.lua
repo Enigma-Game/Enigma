@@ -1,22 +1,22 @@
 --xml-- <?xml version="1.0" encoding="UTF-8" standalone="no" ?>
---xml-- <el:level xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://enigma/level level.xsd" xmlns:el="http://enigma/level">
+--xml-- <el:level xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://enigma-game.org/schema/level/1 level.xsd" xmlns:el="http://enigma-game.org/schema/level/1">
 --xml--   <el:protected >
 --xml--     <el:info el:type="level">
 --xml--       <el:identity el:titel="Firefox" el:subtitel="Fire or be fired" el:id="20060213ral03"/>
---xml--       <el:version el:score="1" el:release="1" el:revision="1" el:status="stable"/>
+--xml--       <el:version el:score="1" el:release="1" el:revision="2" el:status="stable"/>
 --xml--       <el:author  el:name="Ronald Lamprecht" el:email="ral@users.berlios.de"/>
 --xml--       <el:copyright>Copyright © 2006 Ronald Lamprecht</el:copyright>
 --xml--       <el:license el:type="GPL v2.0 or above" el:open="true"/>
 --xml--       <el:compatibility el:enigma="0.92">
---xml--         <el:dependency el:library="natmaze" el:release="1" el:preload="false"/>
+--xml--         <el:dependency el:path="lib/natmaze" el:id="lib/natmaze" el:release="1" el:preload="false"/>
 --xml--       </el:compatibility>
 --xml--       <el:modes el:easy="true" el:single="true" el:network="false"/>
 --xml--       <el:comments>
---xml--         <el:credit el:showinfo="true" el:showstart="false">Thanks to Nat Pryce for his libs and code examples</el:credit>
+--xml--         <el:credits el:showinfo="true" el:showstart="false">Thanks to Nat Pryce for his libs and code examples</el:credits>
 --xml--         <el:dedication el:showinfo="true" el:showstart="false">To Daniel Heck for his great work on the engine</el:dedication>
 --xml--         <el:code>Lua 4.x based - replace %ident upvalues by ident for Lua 5.x in compatible mode</el:code>
 --xml--       </el:comments>
---xml--       <el:score el:easy="474" el:difficult="585"/>
+--xml--       <el:score el:easy="7:54" el:difficult="9:45"/>
 --xml--     </el:info>
 --xml--     <el:luamain><![CDATA[
 Require("levels/lib/natmaze.lua")

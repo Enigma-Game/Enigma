@@ -25,6 +25,8 @@
 
 namespace enigma { namespace lev {
     enum controlType {force, balance, key, other};
+    enum scoreUnitType {duration, number};
+    enum scoreTargetType {time, pushes, moves, lua};
     
     /**
      * A standin for an addressable level file and its level metadata.
@@ -90,8 +92,12 @@ namespace enigma { namespace lev {
         std::string getContact();
         std::string getHomepage();
         controlType getControl();
-        std::string getCredit(bool infoUsage);
+        scoreUnitType getScoreUnit();
+        std::string getScoreTarget();
+        std::string getCredits(bool infoUsage);
         std::string getDedication(bool infoUsage);
+        int getEasyScore();
+        int getDifficultScore();
         
         /**
          * the level address that can be used independent of a level pack
@@ -118,6 +124,7 @@ namespace enigma { namespace lev {
         int releaseVersion;
         int revisionNumber;
         bool hasEasymodeFlag;
+        scoreUnitType scoreUnit;
         XERCES_CPP_NAMESPACE_QUALIFIER DOMDocument *doc;
         XERCES_CPP_NAMESPACE_QUALIFIER DOMElement *infoElem;
         XERCES_CPP_NAMESPACE_QUALIFIER DOMNodeList *stringList;
@@ -129,7 +136,7 @@ namespace enigma { namespace lev {
         void release();
         void load(bool onlyMetadata);
         void loadLuaCode();
-        
+        int scoreText2Int(std::string text);
     };
 }} // namespace enigma::lev
 #endif

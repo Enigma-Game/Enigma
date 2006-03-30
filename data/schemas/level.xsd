@@ -1,11 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<xs:schema xmlns:xs='http://www.w3.org/2001/XMLSchema' targetNamespace="http://enigma/level" xmlns:el="http://enigma/level" elementFormDefault="qualified" attributeFormDefault="qualified" version="0.1" xml:lang="en">
+<xs:schema xmlns:xs='http://www.w3.org/2001/XMLSchema' targetNamespace="http://enigma-game.org/schema/level/1" xmlns:el="http://enigma-game.org/schema/level/1" elementFormDefault="qualified" attributeFormDefault="qualified" version="0.2" xml:lang="en">
   <xs:annotation>
     <xs:documentation>
       XML schema definitions for Enigma levels
       Copyright © 2006 Ronald Lamprecht
       GPL2
-      ToDo: use a valid namespace !
     </xs:documentation>
   </xs:annotation>
   <xs:element name="level">
@@ -33,7 +32,11 @@
                       <xs:complexType>
                         <xs:attribute name="score" type="xs:unsignedShort" use="required"/>
                         <xs:attribute name="release" type="xs:unsignedShort" use="required"/>
-                        <xs:attribute name="revision" type="xs:unsignedShort" use="required"/>
+                        <xs:attribute name="revision" use="required">
+                          <xs:simpleType>
+                            <xs:union memberTypes="xs:unsignedShort el:revisionType"/>
+                          </xs:simpleType>
+                        </xs:attribute>
                         <xs:attribute name="status" type="el:statusType" use="required"/>
                       </xs:complexType>
                     </xs:element> <!-- version -->
@@ -60,21 +63,23 @@
                         <xs:sequence>
                           <xs:element name="dependency" minOccurs="0" maxOccurs="unbounded">
                             <xs:complexType>
-                              <xs:attribute name="library" type="xs:string" use="required"/>
+                              <xs:attribute name="path" type="xs:string" use="required"/>
+                              <xs:attribute name="id" type="xs:string" use="required"/>
                               <xs:attribute name="release" type="xs:unsignedShort" use="required"/>
                               <xs:attribute name="preload" type="xs:boolean" use="required"/>
-                              <xs:attribute name="id" type="xs:string" use="optional"/>
+                              <xs:attribute name="url" type="xs:anyURI" use="optional"/>
                             </xs:complexType>
                           </xs:element> <!-- dependency -->
-                          <xs:element name="externaldata" minOccurs="0" maxOccurs="1">
+                          <xs:element name="externaldata" minOccurs="0" maxOccurs="unbounded">
                             <xs:complexType>
-                              <xs:anyAttribute namespace="##targetNamespace" processContents="skip"/>
+                              <xs:attribute name="path" type="xs:string" use="optional"/>
+                              <xs:attribute name="url" type="xs:anyURI" use="optional"/>
                             </xs:complexType>
                           </xs:element> <!-- externaldata -->
                           <xs:element name="editor" minOccurs="0" maxOccurs="1">
                             <xs:complexType>
                               <xs:attribute name="name" type="xs:string" use="required"/>
-                              <xs:attribute name="version" type="xs:string" use="optional"/>
+                              <xs:attribute name="version" type="xs:string" use="required"/>
                             </xs:complexType>
                           </xs:element> <!-- editor -->
                           <xs:element name="extensions" minOccurs="0" maxOccurs="1">
@@ -94,25 +99,27 @@
                         <xs:attribute name="single" type="xs:boolean" use="required"/>
                         <xs:attribute name="network" type="xs:boolean" use="required"/>
                         <xs:attribute name="control" type="el:controlType" use="optional" default="force"/>
+                        <xs:attribute name="scoreunit" type="el:scoreunitType" use="optional" default="duration"/>
+                        <xs:attribute name="scoretarget" type="xs:string" use="optional" default="time"/>
                       </xs:complexType>
                     </xs:element> <!-- modes -->
                     <xs:element name="comments" minOccurs="0" maxOccurs="1">
                       <xs:complexType>
                         <xs:sequence>
-                          <xs:element name="credit" minOccurs="0" maxOccurs="1">
+                          <xs:element name="credits" minOccurs="0" maxOccurs="1">
                             <xs:complexType>
                               <xs:simpleContent>
-                                <xs:extension base="xs:string">
+                                <xs:extension base="xs:token">
                                   <xs:attribute name="showinfo" type="xs:boolean" use="optional" default="false"/>
                                   <xs:attribute name="showstart" type="xs:boolean" use="optional" default="false"/>
                                 </xs:extension>
                               </xs:simpleContent>
                             </xs:complexType>
-                          </xs:element> <!-- credit -->
+                          </xs:element> <!-- credits -->
                           <xs:element name="dedication" minOccurs="0" maxOccurs="1">
                             <xs:complexType>
                               <xs:simpleContent>
-                                <xs:extension base="xs:string">
+                                <xs:extension base="xs:token">
                                   <xs:attribute name="showinfo" type="xs:boolean" use="optional" default="false"/>
                                   <xs:attribute name="showstart" type="xs:boolean" use="optional" default="false"/>
                                 </xs:extension>
@@ -134,6 +141,11 @@
                         <xs:attribute name="release" type="xs:unsignedShort" use="required"/>
                       </xs:complexType>
                     </xs:element> <!-- upgrade -->
+                    <xs:element name="preview" minOccurs="0" maxOccurs="1">
+                      <xs:complexType>
+                        <xs:anyAttribute namespace="##targetNamespace" processContents="skip"/>
+                      </xs:complexType>
+                    </xs:element> <!-- preview -->
                     <xs:element name="score" minOccurs="1" maxOccurs="1">
                       <xs:complexType>
                         <xs:attribute name="easy" type="el:scoreType" use="required"/>
@@ -292,6 +304,11 @@
       <xs:enumeration value="library"/>
     </xs:restriction>
   </xs:simpleType>
+  <xs:simpleType name="revisionType">
+    <xs:restriction base="xs:string">
+      <xs:pattern value="$Revision[ ]*[\d]*[ ]*$"/>
+    </xs:restriction>
+  </xs:simpleType>
   <xs:simpleType name="statusType">
     <xs:restriction base="xs:string">
       <xs:enumeration value="released"/>
@@ -308,9 +325,15 @@
       <xs:enumeration value="other"/>
     </xs:restriction>
   </xs:simpleType>
+  <xs:simpleType name="scoreunitType">
+    <xs:restriction base="xs:string">
+      <xs:enumeration value="duration"/>
+      <xs:enumeration value="number"/>
+    </xs:restriction>
+  </xs:simpleType>
   <xs:simpleType name="scoreType">
-    <xs:restriction base="xs:int">
-      <xs:minInclusive value="-1"/>
+    <xs:restriction base="xs:string">
+      <xs:pattern value="-|([ \d]?\d:[012345]\d)|(\d)+"/>
     </xs:restriction>
   </xs:simpleType>
 </xs:schema>

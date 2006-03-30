@@ -40,7 +40,9 @@ namespace enigma { namespace gui {
         
         //
         std::string ratingToString(int value);
-        std::string scoreToString(int easy, int difficult, lev::Proxy *aLevel);
+        std::string scoreToString(int easy, int difficult, lev::Proxy *aLevel,
+                bool constLengthForCenteredClipping);
+        std::string scoreToString(int score, lev::Proxy *aLevel);
         void dispatchBottomLines(int &bestScoreHolderLines, 
             int &creditsLines, int &dedicationLines, int &levelPathLines,
             int &annotationLines, int numLines, int width);

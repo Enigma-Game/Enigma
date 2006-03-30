@@ -128,10 +128,13 @@ LevelInspector::LevelInspector(lev::Proxy *aLevel, ecl::Surface *preview):
         scoresST.add(new Label(N_("Solved #: "), HALIGN_RIGHT));
     
         BuildVList scores(this, Rect(vminfo->width/2-15+(withEasy?0:20),
-                vmargin+6*25+5*vspacing+16,(withEasy?105:50),25), 2);
-        scores.add(new MonospacedLabel(" ",'8', " 0123456789", HALIGN_LEFT));
+                vmargin+6*25+5*vspacing+16,(withEasy?105:46),25), 2);
+        scores.add(new MonospacedLabel(" ",'8', " 0123456789", HALIGN_CENTER));
         scores.add(new MonospacedLabel(scoreToString(theRatingMgr->getBestScoreEasy(aLevel),
-            theRatingMgr->getBestScoreDifficult(aLevel),aLevel).c_str(),'8', " 0123456789", HALIGN_LEFT));
+            theRatingMgr->getBestScoreDifficult(aLevel),aLevel,true).c_str(),'8', " 0123456789", HALIGN_CENTER));
+        scores.add(new MonospacedLabel(" ",'8', " 0123456789", HALIGN_CENTER));
+        scores.add(new MonospacedLabel(scoreToString(aLevel->getEasyScore(),
+            aLevel->getDifficultScore(),aLevel,true).c_str(),'8', " 0123456789", HALIGN_CENTER));
         
         BuildVList versionT(this, Rect(vminfo->width-100/2-90-2*hmargin,vmargin+5*25+4*vspacing+16,100,25), 2);
         versionT.add(new Label(N_("Version"), HALIGN_CENTER));
@@ -163,6 +166,7 @@ LevelInspector::LevelInspector(lev::Proxy *aLevel, ecl::Surface *preview):
                 version.add(new Label(N_("unknown"), HALIGN_LEFT));
                 break;
         }
+        version.add(new Label(aLevel->getScoreTarget().c_str(), HALIGN_LEFT)); // how should we localize this damn thing?
         
         int bestScoreHolderLines = 0;
         int creditsLines = 0;
@@ -191,8 +195,8 @@ LevelInspector::LevelInspector(lev::Proxy *aLevel, ecl::Surface *preview):
             vnext += 25 + vspacing;
         }
         if (creditsLines >= 1) {
-            add(new Label(N_("Credit: "), HALIGN_RIGHT),Rect(hmargin,vnext,110,25));
-            std::string creditsString = levelProxy->getCredit(true);
+            add(new Label(N_("Credits: "), HALIGN_RIGHT),Rect(hmargin,vnext,110,25));
+            std::string creditsString = levelProxy->getCredits(true);
             for (int i = 0; i< creditsLines; i++) {
                 std::string::size_type breakPos = breakString( creditsString, 
                         " ", textwidth, menufont);
@@ -280,23 +284,40 @@ LevelInspector::LevelInspector(lev::Proxy *aLevel, ecl::Surface *preview):
         }
     }
     
-    std::string LevelInspector::scoreToString(int easy, int difficult, lev::Proxy *aLevel) {
+    std::string LevelInspector::scoreToString(int easy, int difficult, 
+            lev::Proxy *aLevel, bool constLengthForCenteredClipping) {
         if (withEasy) {
-            if (easy >= 0 && difficult >=0)
-                return ecl::strf( "%2d:%02d / %2d:%02d", easy/60, easy%60, difficult/60,
-                        difficult%60);
-            else if (easy < 0 && difficult >= 0)
-                return ecl::strf( "  -   / %2d:%02d", difficult/60, difficult%60);
-            else if (easy >= 0 && difficult < 0)
-                return ecl::strf( "%2d:%02d /   -  ", easy/60, easy%60);
+            if (!constLengthForCenteredClipping)
+                return scoreToString(easy, aLevel) + " / " + 
+                        scoreToString(difficult, aLevel);
             else
-                return "  -   /   -  ";
+                if (aLevel->getScoreUnit() == lev::duration)
+                    //
+                    return (easy >= 0 ? "-  " : ":  ") + 
+                            scoreToString(easy, aLevel) + " / " + 
+                            scoreToString(difficult, aLevel) +
+                            (difficult >= 0 ? "  -" : "  :") ;
+                else
+                    return (easy >= 0 ? "-  " : "   ") + 
+                            scoreToString(easy, aLevel) + " / " + 
+                            scoreToString(difficult, aLevel) +
+                            (difficult >= 0 ? "  -" : "   ") ;
         } else {
-            if (difficult >=0)
-                return ecl::strf( "%2d:%02d", difficult/60, difficult%60);
+            return scoreToString(difficult, aLevel);
+        }
+    }
+    
+    std::string LevelInspector::scoreToString(int score, lev::Proxy *aLevel) {
+        if (aLevel->getScoreUnit() == lev::duration) 
+            if (score >= 0 && score <= (99*60+59))
+                return ecl::strf("%2d:%02d", score/60, score%60);
             else
                 return "  -  ";
-        }
+        else
+            if (score >= 0 && score <= 9999)
+                return ecl::strf("%4d", score);
+            else
+                return "   -";
     }
     
     void LevelInspector::dispatchBottomLines(int &bestScoreHolderLines, 
@@ -308,7 +329,7 @@ LevelInspector::LevelInspector(lev::Proxy *aLevel, ecl::Surface *preview):
                 holder, annotation, path, credits, dedication, annotation,  credits,
                 dedication, annotation};
         int j = 0;
-        std::string creditsString = levelProxy->getCredit(true);
+        std::string creditsString = levelProxy->getCredits(true);
         std::string dedicationString = levelProxy->getDedication(true);
         std::string pathWorkString = levelPathString;
         ecl::Font *menufont = enigma::GetFont("menufont");

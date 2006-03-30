@@ -519,6 +519,7 @@ void Application::initXerces() {
         config->setParameter(XMLUni::fgXercesSchema, true);
         config->setParameter(XMLUni::fgXercesSchemaFullChecking, true);
         config->setParameter(XMLUni::fgDOMValidate, true);
+        config->setParameter(XMLUni::fgDOMDatatypeNormalization, true);
         config->setParameter(XMLUni::fgDOMErrorHandler, domParserErrorHandler);
         config->setParameter(XMLUni::fgDOMResourceResolver, domParserSchemaResolver);
 
@@ -535,6 +536,7 @@ void Application::initXerces() {
         domParser->setFeature(XMLUni::fgXercesSchema, true);
         domParser->setFeature(XMLUni::fgXercesSchemaFullChecking, true);
         domParser->setFeature(XMLUni::fgDOMValidation, true);
+        domParser->setFeature(XMLUni::fgDOMDatatypeNormalization, true);
         domParser->setErrorHandler(domParserErrorHandler);
         domParser->setEntityResolver(domParserSchemaResolver);
 
