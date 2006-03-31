@@ -1,228 +1,61 @@
--- Keystone, a level for Enigma
+-- Oxydrings, a level for Enigma
 -- Copyright (C) 2006 Raoul
 -- Licensed under GPL v2.0 or above 
--- Another Level with Puzzles...
+-- YAPSL (Yet Another PuzzleStone Level)
 
 -- GENERAL --
 Require("levels/lib/libpuzzle.lua")
 levelw = 20
-levelh = 37
+levelh = 13
 create_world(levelw, levelh)
-enigma.ConserveLevel = TRUE
+enigma.ConserveLevel = FALSE
 
 -- DESIGN --
-boden="fl-black"
+boden="fl-abyss_fake"
 wand="st-glass"
+bodenk="fl-normal"
 
 -- FLOOR --
-fill_floor("fl-abyss_fake", 0,0,levelw,levelh)
-fill_floor(boden, 3,0,15,13)
-fill_floor(boden, 5,26,11,9)
+fill_floor(boden, 0,0,levelw,levelh)
 
--- STONES --
-draw_border(wand,3,0,15,13)
-draw_border(wand,5,26,11,9)
+fill_floor(bodenk,2,2,3,3)
+fill_floor(bodenk,2,8,3,3)
+fill_floor(bodenk,15,2,3,3)
+fill_floor(bodenk,15,8,3,3)
 
--- second room --
-if not difficult then
-set_stone("st-switch_white", 8, 29, {action="callback",target="per1",name="rot1"})
-set_stone("st-switch_white", 8, 31, {action="callback",target="per2",name="rot2"})
-set_stone("st-switch_white", 9, 30, {action="callback",target="per3",name="rot3"})
-set_stone("st-switch_white", 10, 30, {action="callback",target="per4",name="rot4"})
-set_stone("st-switch_white", 11, 30, {action="callback",target="per5",name="rot5"})
-set_stone("st-switch_white", 12, 29,{action="callback",target="per6",name="rot6"})
-set_stone("st-switch_white", 12, 31, {action="callback",target="per7",name="rot7"})
-else
-set_stone("st-switch_white", 8, 29, {action="callback",target="per7",name="rot1"})
-set_stone("st-switch_white", 8, 31, {action="callback",target="per6",name="rot2"})
-set_stone("st-switch_white", 9, 30, {action="callback",target="per5",name="rot3"})
-set_stone("st-switch_white", 10, 30, {action="callback",target="per4",name="rot4"})
-set_stone("st-switch_white", 11, 30, {action="callback",target="per3",name="rot5"})
-set_stone("st-switch_white", 12, 29,{action="callback",target="per2",name="rot6"})
-set_stone("st-switch_white", 12, 31, {action="callback",target="per1",name="rot7"})
-end
-
--- PUZZLES --
---blaue:
-matr={{1,0,0,1,0},{1,1,1,1,1},{1,0,1,0,0}}
-matrix2places(matr,5,3,4,5)
-which_piece(matr,5,3)
-draw_direct(anzteile,locs,teile,"")
-
-matr={{0,1,0,0,1},{1,1,1,1,1},{0,1,0,0,1}}
-matrix2places(matr,5,3,12,5)
-which_piece(matr,5,3)
-draw_direct(anzteile,locs,teile,"")
-
-matr={{1,1,1},{0,1,0},{1,1,1},{0,1,0},{0,1,0}}
-matrix2places(matr,3,5,9,1)
-which_piece(matr,3,5)
-draw_direct(anzteile,locs,teile,"")
-
-matr={{0,1,0},{0,1,1},{1,1,0},{0,1,0},{1,1,1}}
-matrix2places(matr,3,5,9,7)
-which_piece(matr,3,5)
-draw_direct(anzteile,locs,teile,"")
+--holes:
+--self
+set_item("it-wormhole",4,4,{targetx="3.5",targety="4.5",strength="1",range="1"})
+set_item("it-wormhole",15,4,{targetx="15.5",targety="3.5",strength="1",range="1"})
+set_item("it-wormhole",15,8,{targetx="16.5",targety="8.5",strength="1",range="1"})
+set_item("it-wormhole",4,8,{targetx="4.5",targety="9.5",strength="1",range="1"})
+--clock
+set_item("it-wormhole",4,2,{targetx="17.5",targety="3.5",strength="1",range="1"})
+set_item("it-wormhole",17,4,{targetx="16.5",targety="10.5",strength="1",range="1"})
+set_item("it-wormhole",15,10,{targetx="2.5",targety="9.5",strength="1",range="1"})
+set_item("it-wormhole",2,8,{targetx="3.5",targety="2.5",strength="1",range="1"})
+--counterclock
+set_item("it-wormhole",2,4,{targetx="3.5",targety="10.5",strength="1",range="1"})
+set_item("it-wormhole",4,10,{targetx="17.5",targety="9.5",strength="1",range="1"})
+set_item("it-wormhole",17,8,{targetx="16.5",targety="2.5",strength="1",range="1"})
+set_item("it-wormhole",15,2,{targetx="2.5",targety="3.5",strength="1",range="1"})
+--cross
+set_item("it-wormhole",17,2,{targetx="3.5",targety="8.5",strength="1",range="1"})
+set_item("it-wormhole",2,10,{targetx="16.5",targety="4.5",strength="1",range="1"})
+set_item("it-wormhole",2,2,{targetx="15.5",targety="9.5",strength="1",range="1"})
+set_item("it-wormhole",17,10,{targetx="4.5",targety="3.5",strength="1",range="1"})
 
 -- ACTORS --
-set_actor("ac-blackball", 15.5,10.5, {player=0})
-set_actor("ac-whiteball", 7.5,28.5, {player=1})
-set_item("it-yinyang", 15,10)
-set_item("it-yinyang", 7,28)
+actor1=set_actor("ac-blackball", 4.5,4.5, {player=0})
 
 -- OXYD --
-oxyd(3,6)
-oxyd(10,0)
-oxyd(10,12)
-oxyd(17,6)
+oxyd(3,3)
+oxyd(3,9)
+oxyd(16,3)
+oxyd(16,9)
 oxyd_default_flavor = "d"
 oxyd_shuffle()
 
--- LUA-FUNCTIONS --
---Overwrite the TEIL() in libpuzzle.lua:
-waswo={"","","","","","","","","","",""}
-
-function teil(anz,orte,teile,art)
- restteile={}
- zyklen=anz
- for i=1,zyklen do
-  t=random(1,anz)
-  aktteil=teile[t]
-
-  set_stone("st-puzzle".."2".."-"..aktteil, orte[1][i],orte[2][i])
-  waswo[i]=aktteil
-
-  restteile={}
-  schogse=0
-
-  for k=1,anz do
-   if teile[k]==aktteil and schogse==0 then
-    restteile[k]="0"
-    schogse=1
-   else
-    restteile[k]=teile[k]
-   end
-  end
-
-  teile={}
- 
-  z2=1
-  for j=1,anz do
-   if restteile[j]~="0" then
-    teile[z2]=restteile[j]
-    z2=z2+1
-   end 
-  end
-
-  anz=anz-1
- end
-end
-
---Oranges Puzzleteil
-matr={{1,1,0,1,1},{0,1,1,1,0},{1,1,0,1,1}}
-matrix2places(matr,5,3,8,5)
-which_piece(matr,5,3)
-teil(anzteile,locs,teile,"2")
----------------
-function per1()
- localram={"",""}
- localram[1]=waswo[1]
- localram[2]=waswo[2]
- tmp=localram[2]
- localram[2]=localram[1]
- localram[1]=tmp
- waswo[1]=localram[1]
- waswo[2]=localram[2]
- set_stone("st-puzzle".."2".."-"..localram[1],8,5)
- set_stone("st-puzzle".."2".."-"..localram[2],9,5)
-end
----------------
-function per2()
- localram={"",""}
- localram[1]=waswo[8]
- localram[2]=waswo[9]
- tmp=localram[2]
- localram[2]=localram[1]
- localram[1]=tmp 
- waswo[8]=localram[1]
- waswo[9]=localram[2]
- set_stone("st-puzzle".."2".."-"..localram[1],8,7)
- set_stone("st-puzzle".."2".."-"..localram[2],9,7)
-end
----------------
-function per3()
- localram={"","",""}
- localram[1]=waswo[2]
- localram[2]=waswo[5]
- localram[3]=waswo[9]
- tmp=localram[3]
- localram[3]=localram[2]
- localram[2]=localram[1]
- localram[1]=tmp
- waswo[2]=localram[1]
- waswo[5]=localram[2]
- waswo[9]=localram[3]
- set_stone("st-puzzle".."2".."-"..localram[1],9,5)
- set_stone("st-puzzle".."2".."-"..localram[2],9,6)
- set_stone("st-puzzle".."2".."-"..localram[3],9,7)
-end
----------------
-function per4()
- localram={"","",""}
- localram[1]=waswo[5]
- localram[2]=waswo[6]
- localram[3]=waswo[7]
- tmp=localram[3]
- localram[3]=localram[2]
- localram[2]=localram[1]
- localram[1]=tmp
- waswo[5]=localram[1]
- waswo[6]=localram[2]
- waswo[7]=localram[3]
- set_stone("st-puzzle".."2".."-"..localram[1],9,6)
- set_stone("st-puzzle".."2".."-"..localram[2],10,6)
- set_stone("st-puzzle".."2".."-"..localram[3],11,6)
-end
----------------
-function per5()
- localram={"","",""}
- localram[1]=waswo[3]
- localram[2]=waswo[7]
- localram[3]=waswo[10]
- tmp=localram[3]
- localram[3]=localram[2]
- localram[2]=localram[1]
- localram[1]=tmp
- waswo[3]=localram[1]
- waswo[7]=localram[2]
- waswo[10]=localram[3]
- set_stone("st-puzzle".."2".."-"..localram[1],11,5)
- set_stone("st-puzzle".."2".."-"..localram[2],11,6)
- set_stone("st-puzzle".."2".."-"..localram[3],11,7)
-end
----------------
-function per6()
- localram={"",""}
- localram[1]=waswo[3]
- localram[2]=waswo[4]
- tmp=localram[2]
- localram[2]=localram[1]
- localram[1]=tmp
- waswo[3]=localram[1]
- waswo[4]=localram[2]
- set_stone("st-puzzle".."2".."-"..localram[1],11,5)
- set_stone("st-puzzle".."2".."-"..localram[2],12,5)
-end
----------------
-function per7()
- localram={"",""}
- localram[1]=waswo[10]
- localram[2]=waswo[11]
- tmp=localram[2]
- localram[2]=localram[1]
- localram[1]=tmp
- waswo[10]=localram[1]
- waswo[11]=localram[2]
- set_stone("st-puzzle".."2".."-"..localram[1],11,7)
- set_stone("st-puzzle".."2".."-"..localram[2],12,7)
-end
+-- RINGS --
+must_shuffle=0
+puzzle({{1,1,1,1,0,0,0,0,0,0,0,0,0,1,1,1,1},{1,0,0,1,0,0,0,0,0,0,0,0,0,1,0,0,1},{1,0,0,1,1,1,1,1,1,1,1,1,1,1,0,0,1},{1,1,1,1,0,0,0,0,0,0,0,0,0,1,1,1,1},{0,0,1,0,0,0,0,0,0,0,0,0,0,0,1,0,0},{0,0,1,0,0,0,0,0,0,0,0,0,0,0,1,0,0},{1,1,1,1,0,0,0,0,0,0,0,0,0,1,1,1,1},{1,0,0,1,1,1,1,1,1,1,1,1,1,1,0,0,1},{1,0,0,1,0,0,0,0,0,0,0,0,0,1,0,0,1},{1,1,1,1,0,0,0,0,0,0,0,0,0,1,1,1,1}},2,2,"")

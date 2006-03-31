@@ -1,5 +1,5 @@
 -- Oxyd 68, a OxydClone for Enigma
--- Copyright (C) 2006 Raoul
+-- Copyright (C) 2006 Raoul Bourquin
 -- Licensed under GPL v2.0 or above 
 -- Twoplayer nr 86
 
@@ -52,10 +52,7 @@ renderLine(12,  "                    ")
 oxyd_shuffle()
 
 --Ring
-matr={{1,1,1,1},{1,0,0,1},{1,0,0,1},{1,1,1,1}}
-matrix2places(matr,4,4,8,4)
-which_piece(matr,4,4)
-teil(anzteile,locs,teile,"2")
+puzzle({{1,1,1,1},{1,0,0,1},{1,0,0,1},{1,1,1,1}},8,4,"2")
 
 -- Special
 set_item("it-document",4,3,{text="Es ist ein Ring!"})

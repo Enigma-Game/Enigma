@@ -1,5 +1,5 @@
 -- A meditation level for Enigma
--- Copyright (C) 2005 Raoul
+-- Copyright (C) 2005 Raoul Bourquin
 -- Licensed under GPL v2.0 or above
 
 -- GENERAL --
@@ -133,8 +133,6 @@ yp3=0+random(11)
 set_actor("ac-whiteball-small", xp1+.5,yp1+.5, {player=0})
 set_actor("ac-whiteball-small", xp2+.5,yp2+.5, {player=0})
 set_actor("ac-whiteball-small", xp3+.5,yp3+.5, {player=0})
-
-
 
 
 

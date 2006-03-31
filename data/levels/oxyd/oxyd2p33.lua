@@ -1,6 +1,6 @@
--- Copyright (C) 2005 Raoul
--- Licensed under GPL v2.0 or above
--- Clone von Oxyd 2 Player # 33
+-- Oxyd 2 Player Nr 33, a Oxyd-Clone for Enigma
+-- Copyright (C) 2005,2006 Raoul Bourquin
+-- Licensed under GPL v2.0 or above 
 
 -- GENERAL --
 levelw = 20
@@ -71,11 +71,13 @@ oxyd_default_flavor = "a"
 oxyd_shuffle()
 
 function wrap1()
- teil(7,{{9,9,9,9,10,11,12},{7,6,5,4,4,4,4}},{"n","ns","ns","es","ew","ew","w"},2)
+ puzzle({{1,1,1,1},{1,0,0,0},{1,0,0,0},{1,0,0,0}},9,4,"2")
 end
 
 -- Code automatisch executen
 wrap1()
+
+
 
 
 

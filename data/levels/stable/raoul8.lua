@@ -1,162 +1,235 @@
--- You need them, a level for Enigma
+-- Keystone, a level for Enigma
 -- Copyright (C) 2006 Raoul
 -- Licensed under GPL v2.0 or above 
--- Dont think to much
+-- Another Level with Puzzles...
 
 -- GENERAL --
-levelw = 58
+Require("levels/lib/libpuzzle.lua")
+levelw = 20
 levelh = 37
 create_world(levelw, levelh)
-enigma.ConserveLevel = True
-oxyd_default_flavor = "a"
+enigma.ConserveLevel = TRUE
 
 -- DESIGN --
 boden="fl-black"
 wand="st-glass"
 
-fill_floor(boden, 0,0, level_width,level_height)
---fill_floor("fl-black", 22,15,14,7)
+-- FLOOR --
+fill_floor("fl-abyss_fake", 0,0,levelw,levelh)
+fill_floor(boden, 3,0,15,13)
+fill_floor(boden, 5,26,11,9)
 
-function renderLine( line, pattern)
-	for i=1, strlen(pattern) do
-		local c = strsub( pattern, i, i)
-		if c =="#" then
-			set_stone(wand, i-1, line)
-  		elseif c=="x" then
-			oxyd(i-1, line)
-  		elseif c=="o" then
-			set_stone("st-stoneimpulse",i-1, line)
-  		elseif c=="u" then
-			set_stone("st-stoneimpulse-hollow",i-1, line)
-  		elseif c=="6" then
-set_stone("st-puzzle-ns",i-1,line)
+-- STONES --
+draw_border(wand,3,0,15,13)
+draw_border(wand,5,26,11,9)
 
-  		elseif c=="8" then
-set_stone("st-puzzle-ew",i-1,line)
-
-
-  		elseif c=="1" then
-set_stone("st-puzzle-sw",i-1,line)
-
-  		elseif c=="2" then
-set_stone("st-puzzle-nw",i-1,line)
-
-  		elseif c=="3" then
-set_stone("st-puzzle-ne",i-1,line)
-
-  		elseif c=="4" then
-set_stone("st-puzzle-es",i-1,line)
-
-  		elseif c=="l" then
-set_stone("st-puzzle-nsw",i-1,line)
-
-  		elseif c=="r" then
-set_stone("st-puzzle-nes",i-1,line)
-
-
-		end
-	end	
+-- second room --
+if not difficult then
+set_stone("st-switch_white", 8, 29, {action="callback",target="per1",name="rot1"})
+set_stone("st-switch_white", 8, 31, {action="callback",target="per2",name="rot2"})
+set_stone("st-switch_white", 9, 30, {action="callback",target="per3",name="rot3"})
+set_stone("st-switch_white", 10, 30, {action="callback",target="per4",name="rot4"})
+set_stone("st-switch_white", 11, 30, {action="callback",target="per5",name="rot5"})
+set_stone("st-switch_white", 12, 29,{action="callback",target="per6",name="rot6"})
+set_stone("st-switch_white", 12, 31, {action="callback",target="per7",name="rot7"})
+else
+set_stone("st-switch_white", 8, 29, {action="callback",target="per7",name="rot1"})
+set_stone("st-switch_white", 8, 31, {action="callback",target="per6",name="rot2"})
+set_stone("st-switch_white", 9, 30, {action="callback",target="per5",name="rot3"})
+set_stone("st-switch_white", 10, 30, {action="callback",target="per4",name="rot4"})
+set_stone("st-switch_white", 11, 30, {action="callback",target="per3",name="rot5"})
+set_stone("st-switch_white", 12, 29,{action="callback",target="per2",name="rot6"})
+set_stone("st-switch_white", 12, 31, {action="callback",target="per1",name="rot7"})
 end
 
-renderLine(00 , "##########################################################")
-renderLine(01 , "#                  #                  #                  #")
-renderLine(02 , "#                                                        #")
-renderLine(03 , "#                                                        #")
-renderLine(04 , "#                                  ooooooooooo           #")
-renderLine(05 , "#                                  o         o           #")
-renderLine(06 , "#                                  o         o           #")
-renderLine(07 , "#                                  o     ooooo           #")
-renderLine(08 , "#                                  o     o               #")
-renderLine(09 , "#                                  o     o               #")
-renderLine(10 , "#                                  o     o               #")
-renderLine(11 , "#                 ooooo ooooooooo  o ooo oooo            #")
-renderLine(12 , "##               oo###o#3#######o##o#o#o    o           ##")
-renderLine(13 , "#              ooo #                  1oooooo            #")
-renderLine(14 , "#              o   #                  #                  #")
-renderLine(15 , "#           oooo   #   81        481  #                  #")
-renderLine(16 , "#           o     oo  6xr 81  488lx6  2ouu               #")
-renderLine(17 , "#           o     o#  382  6      82  #  u               #")
-renderLine(18 , "#           o     o#       r88l       #  u               #")
-renderLine(19 , "#           o     o8  481  6  6  48   #  u               #")
-renderLine(20 , "#        oooo      #  6xr88   388lx6  2o u               #")
-renderLine(21 , "#        o    ooooo6  38         382  #o u               #")
-renderLine(22 , "#        oooooo#####                  oo u               #")
-renderLine(23 , "#              ouuuu                  #  o               #")
-renderLine(24 , "##             ouoo#u#o#######4##o#####  o              ##")
-renderLine(25 , "#              ouooou#ooo ooooo  ooooooooo               #")
-renderLine(26 , "#              ouuuuuo  o o                              #")
-renderLine(27 , "#              ooooooo  o o                              #")
-renderLine(28 , "#                       o o                              #")
-renderLine(29 , "#                     ooo o                              #")
-renderLine(30 , "#                     o   o                              #")
-renderLine(31 , "#                     ooooo                              #")
-renderLine(32 , "#                                                        #")
-renderLine(33 , "#                                                        #")
-renderLine(34 , "#                                                        #")
-renderLine(35 , "#                  #                  #                  #")
-renderLine(36,  "##########################################################")
+-- PUZZLES --
+--blaue:
+must_shuffle=0
+puzzle({{1,0,0,1,0},{1,1,1,1,1},{1,0,1,0,0}},4,5,"")
 
+puzzle({{0,1,0,0,1},{1,1,1,1,1},{0,1,0,0,1}},12,5,"")
+
+puzzle({{1,1,1},{0,1,0},{1,1,1},{0,1,0},{0,1,0}},9,1,"")
+
+puzzle({{0,1,0},{0,1,1},{1,1,0},{0,1,0},{1,1,1}},9,7,"")
+
+-- ACTORS --
+set_actor("ac-blackball", 15.5,10.5, {player=0})
+set_actor("ac-whiteball", 7.5,28.5, {player=1})
+set_item("it-yinyang", 15,10)
+set_item("it-yinyang", 7,28)
+
+-- OXYD --
+oxyd(3,6)
+oxyd(10,0)
+oxyd(10,12)
+oxyd(17,6)
+oxyd_default_flavor = "d"
 oxyd_shuffle()
 
--- Special
-set_actor("ac-blackball", 22.5,22.5, {player=0})                    
+-- LUA-FUNCTIONS --
+--Overwrite the PUZZLE_SHUFFLE() in libpuzzle.lua:
+waswo={"","","","","","","","","","",""}
 
--- Cheatprotection
-set_item("it-trigger",22,15,{action="callback", target="prot1", invisible=TRUE})
-set_item("it-trigger",33,17,{action="callback", target="prot2", invisible=TRUE})
-set_item("it-trigger",24,21,{action="callback", target="prot3", invisible=TRUE})
-set_item("it-trigger",35,19,{action="callback", target="prot4", invisible=TRUE})
-set_item("it-trigger",25,16,{action="callback", target="prot5", invisible=TRUE})
-set_item("it-trigger",27,20,{action="callback", target="prot6", invisible=TRUE})
-set_item("it-trigger",30,17,{action="callback", target="prot7", invisible=TRUE})
+function puzzle_shuffle(teile)
+ 
+ shuffled_pieces={}
 
-p1=0
-p2=0
-p3=0
-p4=0
-p5=0
-p6=0
-p7=0
+ local restteile={}
+ local anz=anz_stones
+ local zyklen=anz
+ local i,j,k
+ local counter=1
 
-function prot1()
- p1=1-p1
- check()
-end
+ for i=1,zyklen do
 
-function prot2()
- p2=1-p2
- check()
-end
+  --shuffle pieces:
+  t=random(1,anz)
+  
+  aktteil=teile[t]
+  shuffled_pieces[counter]=aktteil
+  counter=counter+1
+  
+ --add this line for this level:
+  waswo[i]=aktteil
 
-function prot3()
- p3=1-p3
- check()
-end
+  --prepare the teile array for next cycle
+  local restteile={}
+  local schogse=0
 
-function prot4()
- p4=1-p4
- check()
-end
+  --copy the teile array, mark the piece we just have used with "0"
+  for k=1,anz do
+   if teile[k]==aktteil and schogse==0 then
+    restteile[k]="0"
+    schogse=1
+   else
+    restteile[k]=teile[k]
+   end
+  end
 
-function prot5()
- p5=1-p5
- check()
-end
+  --clear teile array:
+  teile={}
+  local t=1
 
-function prot6()
- p6=1-p6
- check()
-end
-
-function prot7()
- p7=1-p7
- check()
-end
-
-function check()
- if p1+p2+p3+p4+p5+p6+p7==7 then
-  set_item("it-magicwand",16,26)
- else 
-  enigma.KillItem(16,26)
+  for j=1,anz do
+   if restteile[j]~="0" then
+    teile[t]=restteile[j]
+    t=t+1
+   end 
+  end
+  
+  --we have used one piece:
+  anz=anz-1
  end
+
+ return shuffled_pieces
+
+end
+
+--Oranges Puzzleteil
+must_shuffle=1
+puzzle({{1,1,0,1,1},{0,1,1,1,0},{1,1,0,1,1}},8,5,"2")
+
+---------------
+function per1()
+ localram={"",""}
+ localram[1]=waswo[1]
+ localram[2]=waswo[2]
+ tmp=localram[2]
+ localram[2]=localram[1]
+ localram[1]=tmp
+ waswo[1]=localram[1]
+ waswo[2]=localram[2]
+ set_stone("st-puzzle".."2".."-"..localram[1],8,5)
+ set_stone("st-puzzle".."2".."-"..localram[2],9,5)
+end
+---------------
+function per2()
+ localram={"",""}
+ localram[1]=waswo[8]
+ localram[2]=waswo[9]
+ tmp=localram[2]
+ localram[2]=localram[1]
+ localram[1]=tmp 
+ waswo[8]=localram[1]
+ waswo[9]=localram[2]
+ set_stone("st-puzzle".."2".."-"..localram[1],8,7)
+ set_stone("st-puzzle".."2".."-"..localram[2],9,7)
+end
+---------------
+function per3()
+ localram={"","",""}
+ localram[1]=waswo[2]
+ localram[2]=waswo[5]
+ localram[3]=waswo[9]
+ tmp=localram[3]
+ localram[3]=localram[2]
+ localram[2]=localram[1]
+ localram[1]=tmp
+ waswo[2]=localram[1]
+ waswo[5]=localram[2]
+ waswo[9]=localram[3]
+ set_stone("st-puzzle".."2".."-"..localram[1],9,5)
+ set_stone("st-puzzle".."2".."-"..localram[2],9,6)
+ set_stone("st-puzzle".."2".."-"..localram[3],9,7)
+end
+---------------
+function per4()
+ localram={"","",""}
+ localram[1]=waswo[5]
+ localram[2]=waswo[6]
+ localram[3]=waswo[7]
+ tmp=localram[3]
+ localram[3]=localram[2]
+ localram[2]=localram[1]
+ localram[1]=tmp
+ waswo[5]=localram[1]
+ waswo[6]=localram[2]
+ waswo[7]=localram[3]
+ set_stone("st-puzzle".."2".."-"..localram[1],9,6)
+ set_stone("st-puzzle".."2".."-"..localram[2],10,6)
+ set_stone("st-puzzle".."2".."-"..localram[3],11,6)
+end
+---------------
+function per5()
+ localram={"","",""}
+ localram[1]=waswo[3]
+ localram[2]=waswo[7]
+ localram[3]=waswo[10]
+ tmp=localram[3]
+ localram[3]=localram[2]
+ localram[2]=localram[1]
+ localram[1]=tmp
+ waswo[3]=localram[1]
+ waswo[7]=localram[2]
+ waswo[10]=localram[3]
+ set_stone("st-puzzle".."2".."-"..localram[1],11,5)
+ set_stone("st-puzzle".."2".."-"..localram[2],11,6)
+ set_stone("st-puzzle".."2".."-"..localram[3],11,7)
+end
+---------------
+function per6()
+ localram={"",""}
+ localram[1]=waswo[3]
+ localram[2]=waswo[4]
+ tmp=localram[2]
+ localram[2]=localram[1]
+ localram[1]=tmp
+ waswo[3]=localram[1]
+ waswo[4]=localram[2]
+ set_stone("st-puzzle".."2".."-"..localram[1],11,5)
+ set_stone("st-puzzle".."2".."-"..localram[2],12,5)
+end
+---------------
+function per7()
+ localram={"",""}
+ localram[1]=waswo[10]
+ localram[2]=waswo[11]
+ tmp=localram[2]
+ localram[2]=localram[1]
+ localram[1]=tmp
+ waswo[10]=localram[1]
+ waswo[11]=localram[2]
+ set_stone("st-puzzle".."2".."-"..localram[1],11,7)
+ set_stone("st-puzzle".."2".."-"..localram[2],12,7)
 end

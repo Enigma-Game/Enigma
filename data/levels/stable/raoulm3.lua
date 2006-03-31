@@ -103,7 +103,7 @@ set_item("it-flagwhite",1,13)
 
 set_actor("ac-whiteball-small", 1,13, {player=0})
 
---So ist es:
+--Original Way:
 --renderLine(00 , "######################")
 --renderLine(01 , "#nbbbbbbbbbbbbl nbbi #")
 --renderLine(02 , "#dfaaaaaaaaaagc dfagl#")

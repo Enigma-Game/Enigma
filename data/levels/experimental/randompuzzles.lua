@@ -3,6 +3,7 @@
 -- Licensed under GPL v2.0 or above
 -- Beispiel fuer die Zufallsverteilung von Puzzlesteinen...
 -- Experimental
+-- Use with libpuzzle Version 0.9
 
 -- GENERAL --
 Require("levels/lib/libpuzzle.lua")
@@ -17,7 +18,6 @@ boden="fl-sahara"
 wand="st-glass"
 boden2="fl-black"
 
-
 -- FLOOR --
 fill_floor(boden, 0,0,levelw,levelh)
 fill_floor(boden2,7,3,8,6)
@@ -25,8 +25,6 @@ fill_floor(boden2,7,3,8,6)
 -- STONES --
 draw_border(wand)
 draw_stones(wand,{19,1},{0,1},11)
-
-
 
 set_stone("st-switch", 18, 1, {action="callback",target="wrap1",name="sg"})
 set_stone("st-switch", 18, 2, {action="callback",target="wrap2",name="sg"})
@@ -42,6 +40,13 @@ local ac2=set_actor("ac-whiteball", 21.5,2.5, {player=1})
 -- ITEMS
 set_item("it-yinyang",1,1)
 set_item("it-yinyang",21,2)
+
+set_item("it-document",17,1,{text="Zeichne Figur mit durchmixten Teilen"})
+set_item("it-document",17,2,{text="Zeichne Figur mit nicht durchmixten Teilen"})
+set_item("it-document",17,11,{text="Lösche Reste auf dem Experimentierplatz"})
+
+set_item("it-document",21,1,{text="Speichere Figur zum anschliessenden Zeichnen"})
+set_item("it-document",21,11,{text="Reset aller Schalter"})
 
 ---------------------
 -- Zeichne Schalter und Eventhandler dazu:
@@ -60,16 +65,14 @@ end
 ---------------------
 -- Zeichne die Figur mit durchmischten Teilen
 function wrap1()
- matrix2places(matrix,8,6,7,3)
- which_piece(matrix,8,6)
- teil(anzteile,locs,teile,2)
+ must_shuffle=1
+ puzzle(matrix,7,3,"2")
 end
 
 -- Zeichne die Figur geloest
 function wrap2()
- matrix2places(matrix,8,6,7,3)
- which_piece(matrix,8,6)
- draw_direct(anzteile,locs,teile,2)
+ must_shuffle=0
+ puzzle(matrix,7,3,"2")
 end
 
 -- Setzte die Schalter zurueck

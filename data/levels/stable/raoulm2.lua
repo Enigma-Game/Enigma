@@ -1,6 +1,6 @@
 -- A meditation level for Enigma
 -- Copyright (C) 2005 Raoul
--- Licensed under GPL v2.0 or above
+-- Licensed under GPL v2.0 or above 
 
 -- GENERAL --
 levelw = 20
@@ -75,20 +75,6 @@ set_actor("ac-whiteball-small", 10,2.5, {player=0})
 set_actor("ac-whiteball-small", 10,10.5, {player=0})
 set_actor("ac-whiteball-small", 2.5,6.5, {player=0})
 set_actor("ac-whiteball-small", 17.5,6.5, {player=0})
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 
 

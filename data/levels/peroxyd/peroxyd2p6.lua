@@ -1,5 +1,5 @@
 -- Per.Oxyd MP #6, a level for Enigma
--- Copyright (C) 2006 Raoul
+-- Copyright (C) 2006 Raoul Bourquin
 -- Licensed under GPL v2.0 or above 
 -- Per.Oxyd Clone
 
@@ -59,11 +59,8 @@ fill_stones("st-white1",35,14,3,3)
 fill_stones("st-black1",35,17,3,3)
 
 --puzzle
-matr={{1,1,1,1,1,1,1,1,1,1},{1,0,0,0,0,0,0,0,0,1},{1,0,0,0,0,0,0,0,0,1},{1,0,0,0,0,0,0,0,0,1},{1,0,0,0,0,0,0,0,0,1},{1,1,1,1,1,1,1,1,1,1}}
-
-matrix2places(matr,10,6,14,8)
-which_piece(matr,10,6)
-draw_direct(anzteile,locs,teile,"")
+must_shuffle=0
+puzzle({{1,1,1,1,1,1,1,1,1,1},{1,0,0,0,0,0,0,0,0,1},{1,0,0,0,0,0,0,0,0,1},{1,0,0,0,0,0,0,0,0,1},{1,0,0,0,0,0,0,0,0,1},{1,1,1,1,1,1,1,1,1,1}},14,8,"")
 
 -- ACTORS --
 set_actor("ac-blackball", 11.5,5.5, {player=0})
@@ -86,6 +83,8 @@ oxyd(36,15)
 oxyd(36,18)
 oxyd_default_flavor = "a"
 oxyd_shuffle()
+
+
 
 
 

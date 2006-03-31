@@ -1,5 +1,5 @@
 -- Welcome II, a level for Enigma
--- Copyright (C) 2006 Raoul
+-- Copyright (C) 2006 Raoul Bourquin
 -- Licensed under GPL v2.0 or above 
 
 -- GENERAL --

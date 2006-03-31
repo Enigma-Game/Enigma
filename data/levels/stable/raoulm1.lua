@@ -157,8 +157,3 @@ set_actor("ac-whiteball-small", xp3+.5,yp3+.5, {player=0})
 
 
 
-
-
-
-
-

@@ -1,6 +1,6 @@
--- Copyright (C) 2005 Raoul
--- Licensed under GPL v2.0
-
+-- A meditation level for Enigma
+-- Copyright (C) 2005 Raoul Bourquin
+-- Licensed under GPL v2.0 or above 
 
 -- GENERAL --
 levelw = 20
@@ -46,27 +46,22 @@ set_floor("fl-gradient4",18,2)
 set_floor("fl-gradient4",18,6)
 set_floor("fl-gradient4",18,10)
 
-
-
 -- ITEMS --
 set_item("it-hollow", 15,2, {essential=1})
 set_item("it-hollow", 10,6, {essential=1})
 set_item("it-hollow", 4,10, {essential=1})
 
 -- ACTORS --
-local ac1=set_actor("ac-whiteball-small", 10,2.5,{player=0})
-local ac2=set_actor("ac-whiteball-small", 10,6.5,{player=0})
-local ac3=set_actor("ac-whiteball-small", 10,10.5,{player=0})
+if not difficult then
+ ac1=set_actor("ac-whiteball-small", 10,2.5,{player=0,essential=1})
+ ac2=set_actor("ac-whiteball-small", 10,6.5,{player=0,essential=1})
+ ac3=set_actor("ac-whiteball-small", 10,10.5,{player=0,essential=1})
+else
+ ac1=set_actor("ac-whiteball-small", 10,2.5,{essential=0,controllers=2})
+ ac2=set_actor("ac-whiteball-small", 10,6.5,{player=0,essential=1})
+ ac3=set_actor("ac-whiteball-small", 10,10.5,{essential=0,controllers=2})
+end
 
 AddRubberBand(ac1,ac2,4,3)
 AddRubberBand(ac2,ac3,4,3)
-
-
-
-
-
-
-
-
-
 

@@ -1,6 +1,6 @@
 -- Lifes' Cross, a level for Enigma
--- Copyright (C) 2005 Raoul 
--- Licensed under GPL v2.0 or above
+-- Copyright (C) 2005 Raoul Bourquin
+-- Licensed under GPL v2.0 or above 
 
 levelw = 20
 levelh = 20
@@ -187,20 +187,6 @@ oxyd_shuffle()
 enigma.ConserveLevel = TRUE
 enigma.BumperForce = 200
 display.SetFollowMode(display.FOLLOW_SMOOTH)
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 
 

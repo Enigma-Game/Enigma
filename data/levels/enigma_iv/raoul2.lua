@@ -1,5 +1,5 @@
 -- Eternal Circulation, a Level for Enigma
--- Copyright (C) 2005 Raoul
+-- Copyright (C) 2005 Raoul Bourquin
 -- Licensed under GPL v2.0 or above
 
 -- GENERAL --
@@ -180,11 +180,6 @@ oxyd(5,14)
 oxyd(14,14)
 oxyd_default_flavor = "d"
 oxyd_shuffle()
-
-
-
-
-
 
 
 
