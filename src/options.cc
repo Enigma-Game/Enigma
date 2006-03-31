@@ -263,8 +263,10 @@ bool options::Save ()
 static bool
 load_from_file (const std::string &fname)
 {
-    int errcode = luaL_dofile (lua::GlobalState(), fname.c_str());
-    bool success =  (errcode == 0 || errcode == LUA_ERRFILE);
+    GameFS (rootFS);
+    rootFS.append_dir("/");
+    lua::Error errcode = lua::DoGeneralFile(lua::GlobalState(),&rootFS, fname.c_str());
+    bool success =  (errcode == 0 || errcode == lua::ERRFILE);
     if (!success) {
         enigma::Log << "error in file `" << fname <<"'\n";
     }

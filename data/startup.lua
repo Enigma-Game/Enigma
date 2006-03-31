@@ -67,7 +67,7 @@ function options.LevelStat2 (key, stat)
     if stat[2] < 0 then stat[2] = -1 end
     if stat[3] < 0 then stat[3] = 0 end
 
-    gsub(key, "([^#]*)#(.+)", function (pack,lev) stats[lev] = %stat end)
+    gsub(key, "([^#]*)#(.+)", function (pack,lev) stats[lev] = stat end)
 end
 
 -- For backwards compatibility only --
@@ -86,7 +86,7 @@ function options.LevelStat (key, stat)
         stat[4] = 1 
     end -- level status has 'solved_at' time -> default to revision 1
 
-    gsub(key, "([^#]*)#(.+)", function (pack,lev) stats[lev] = %stat end)
+    gsub(key, "([^#]*)#(.+)", function (pack,lev) stats[lev] = stat end)
 end
 
 function LoadOptions (filename)
@@ -286,7 +286,7 @@ end
 
 -- Copy all key/value pairs only present in t1 to t2.
 function copy_missing (t1, t2)
-    for k,v in t1 do
+    for k,v in pairs(t1) do
         if not t2[k] then
             t2[k] = v
         end

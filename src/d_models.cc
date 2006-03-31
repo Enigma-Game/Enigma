@@ -186,6 +186,8 @@ void display::InitModels()
 
     lua_State *L = lua_open();
     luaL_openlibs(L);
+//do not exit(1) in checkedDoFile!
+    lua::CheckedDoFile(L, app.systemFS, "compat.lua");
     lua_register (L, "FindDataFile", lua::FindDataFile);
     tolua_open(L);
     tolua_global_open(L);
@@ -197,8 +199,10 @@ void display::InitModels()
 
     const video::VMInfo *vminfo = video::GetInfo();
     fname = app.systemFS->findFile (vminfo->initscript); // systemFS!
-    if (luaL_dofile (L, fname.c_str()) != 0) {
-        fprintf (stderr, "Error loading '%s'\n", fname.c_str());
+//     if (luaL_dofile (L, fname.c_str()) != 0) {
+    if (lua::DoSysFile(L, vminfo->initscript) != lua::NO_LUAERROR) {
+        fprintf(stderr, "Error loading '%s'\n", fname.c_str());
+	fprintf(stderr, "Error: '%s'\n", lua::LastError(L).c_str());
     }
     enigma::Log << "# models: " << modelmgr->num_templates() << endl;
 //     enigma::Log << "# images: " << surface_cache.size() << endl;

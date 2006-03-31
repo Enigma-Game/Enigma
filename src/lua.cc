@@ -789,6 +789,7 @@ lua_State *lua::GlobalState()
         lua_State *L = global_state = lua_open();
 
         luaL_openlibs(L);
+        CheckedDoFile(L, app.systemFS, "compat.lua");
 
         tolua_open(L);
         tolua_enigma_open(L);
@@ -822,6 +823,8 @@ lua_State *lua::InitLevel()
     luaL_dostring (L, buffer);
 
     luaL_openlibs(L);
+//do not exit(1) in checkedDoFile!
+    CheckedDoFile(L, app.systemFS, "compat.lua");
 
     tolua_open(L);
     tolua_enigma_open(L);
