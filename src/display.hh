@@ -79,9 +79,9 @@ namespace display
                      int xoff, int yoff, int padding);
     int DefineSubImage (const char *name, const char *fname,
                         int xoff, int yoff, ecl::Rect r);
-    void DefineRandModel (const char *name, int n, const char **names);
+    void DefineRandModel (const char *name, int n, char **names);
     void DefineShadedModel (const char *name, const char *model, const char *shade);
-    void DefineOverlayImage (const char *name, int n, const char **images);
+    void DefineOverlayImage (const char *name, int n, char **images);
     void DefineComposite (const char *name, const char *bgname, const char *fgname);
     void DefineAnim (const char *name, bool loop_p);
     void AddFrame (const char *name, const char *model, double time);

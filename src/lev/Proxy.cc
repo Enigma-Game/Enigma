@@ -340,6 +340,7 @@ namespace enigma { namespace lev {
         if (luamainList->getLength() == 1) {
             DOMElement *luamain  = dynamic_cast<DOMElement *>(luamainList->item(0));
             if (luaL_dostring(L, XMLtoUtf8(luamain->getTextContent()).c_str() ) != 0) {
+	      lua_setglobal (L, "_LASTERROR");
                 throw enigma_levels::XLevelLoading(lua::LastError(L));
             }
         } else {

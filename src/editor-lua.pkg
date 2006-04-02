@@ -19,16 +19,17 @@
 //======================================================================
 
 $#include "editor.hh"
+$#define TOLUA_RELEASE 1
 $using namespace editor;
 
 module editor
 {
     void DefineFloorGroup (const char *name, const char *descr,
-                           int nentries, const char **entries);
+                           int nentries, const char *entries[nentries]);
 
     void DefineItemGroup (const char *name, const char *descr,
-                          int nentries, const char **entries);
+                          int nentries, const char *entries[nentries]);
 
     void DefineStoneGroup (const char *name, const char *descr,
-                           int nentries, const char **entries);
+                           int nentries, const char *entries[nentries]);
 }

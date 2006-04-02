@@ -33,7 +33,7 @@ function Progress(percent, text)
     local logo = enigma.GetImage("enigma_logo3")
     local x = (d:width()  - logo:width())/2
     local y = (d:height() - logo:height())/2
-    local gs = GS:new(d:size())
+    local gs = ecl.GS:new(d:size())
     local font2 = enigma.GetFont("menufontsel")
 
     d:blit(gs, 0, 0, background)
@@ -78,7 +78,7 @@ end
 -- of them.
 function def_images(names, opt)
     opt = opt or {}
-    for i,name in names do
+    for i,name in pairs(names) do
 	def_image(name,opt)
     end
 end
@@ -98,7 +98,7 @@ function def_subimages(name, options)
 
     local imagelist={}
     local cnt = 1
-    local r=Rect:new(0,0,0,0)
+    local r=ecl.Rect:new(0,0,0,0)
     for x=1,w do
         for y=1,h do
             r.x,r.y,r.w,r.h = imgw*(x-1),imgh*(y-1),imgw,imgh
@@ -123,7 +123,7 @@ function map_tiles (imginfo, func)
     local h = imginfo.h or 1
     local tilew = imginfo.tilew or TileSize
     local tileh = imginfo.tileh or TileSize
-    local r=Rect:new(0,0,0,0)
+    local r=ecl.Rect:new(0,0,0,0)
     local n=1
     for y=0,h-1 do
         for x=0,w-1 do
@@ -139,7 +139,7 @@ end
 
 function DefineTile (imagename, modelname, x, y)
     local image = GetSurface (imagename)
-    local r=Rect:new(x * TileSize, y*TileSize, TileSize, TileSize)
+    local r=ecl.Rect:new(x * TileSize, y*TileSize, TileSize, TileSize)
     local subsurface = CropSurface (image, r)
     DefineImageModel (modelname, subsurface)
     r:delete()
@@ -157,8 +157,8 @@ function DefineTiles(imagename, modelnames)
 
     local image = GetSurface (imagename)
     local imgw = image:width()
-    local r=Rect:new(0,0,TileSize,TileSize)
-    for i,mname in modelnames do
+    local r=ecl.Rect:new(0,0,TileSize,TileSize)
+    for i,mname in pairs(modelnames) do
         r.x,r.y,r.w,r.h = xoff,yoff,tilew,tileh
 --        local subsurface = CropSurface (image, r)
 --        DefineImageModel (mname, subsurface)
@@ -240,7 +240,7 @@ end
 -- duration.
 function buildframes(names, msec)
     local a={}
-    for i,n in names do a[i] = {n, msec} end
+    for i,n in pairs(names) do a[i] = {n, msec} end
     return a
 end
 
@@ -310,7 +310,13 @@ end
 -- Define an animation from a list of models.
 
 function def_anim(name, frames, loop)
-    display.DefineAnim(name, loop)
+    local loopbool
+    if loop then
+        if loop==0 then loopbool=false else loopbool=true end
+    else
+        loopbool=false
+    end
+    display.DefineAnim(name,loopbool)
     for i=1,getn(frames) do
 	local frame = frames[i]
 	display.AddFrame(name, frame[1], frame[2])

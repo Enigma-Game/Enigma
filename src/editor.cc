@@ -420,7 +420,7 @@ Editor::on_keydown( SDL_Event &e )
 }
 
 void editor::DefineFloorGroup( char const* name, char const* descr,
-	int nentries, char const* * entries )
+	int nentries, char ** entries )
 {
 	Editor *ed = Editor::get_instance();
 
@@ -430,7 +430,7 @@ void editor::DefineFloorGroup( char const* name, char const* descr,
 }
 
 void editor::DefineItemGroup( const char *name, const char *descr,
-	int nentries, const char **entries )
+	int nentries, char **entries )
 {
 	Editor *ed = Editor::get_instance();
 
@@ -440,7 +440,7 @@ void editor::DefineItemGroup( const char *name, const char *descr,
 }
 
 void editor::DefineStoneGroup( const char *name, const char *descr,
-	int nentries, const char **entries )
+	int nentries, char **entries )
 {
 	Editor *ed = Editor::get_instance();
 

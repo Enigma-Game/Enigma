@@ -159,7 +159,7 @@ to_object(lua_State *L, int idx)
         luaL_error(L, "Cannot convert type to an Object");
         return 0;
     }
-    return static_cast<Object*>(lua_touserdata(L,idx));
+    return static_cast<Object*>(*(static_cast<void**>(lua_touserdata(L,idx))));
 }
 
 static void
@@ -267,7 +267,7 @@ en_set_floor(lua_State *L)
     if (lua_isnil(L, 3))
         fl = 0;
     else if (is_object(L,3)) {
-        fl = static_cast<Floor*>(lua_touserdata(L,3));
+        fl = static_cast<Floor*>(*(static_cast<void**> (lua_touserdata(L,3))));
     	if( ! fl)
 	    luaL_error(L, "object is no valid floor");
     } else
@@ -754,7 +754,12 @@ Error lua::Dobuffer (lua_State *L, const ByteVec &luacode) {
 string lua::LastError (lua_State *L)
 {
     lua_getglobal (L, "_LASTERROR");
-    return string (lua_tostring (L, -1));
+    if (lua_isstring(L,-1)){
+      return string (lua_tostring (L, -1));
+    }
+    else {
+      return "Lua Error. No error message available.";
+    }
 }
 
 

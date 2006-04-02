@@ -279,7 +279,7 @@ def_image("inv-whiteball")
 Progress(10, "Loading floor models")
 
 function def_floors(floorlist)
-    for i,name in floorlist do
+    for i,name in pairs(floorlist) do
 	def_image(name)
     end
 end

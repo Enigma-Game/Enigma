@@ -1,6 +1,6 @@
 /*
 ** Lua binding: editor
-** Generated automatically by tolua++-1.0.91 on Tue Mar 21 09:17:47 2006.
+** Generated automatically by tolua++-1.0.91 on Fri Mar 31 15:50:43 2006.
 */
 
 #ifndef __cplusplus
@@ -14,6 +14,7 @@
 TOLUA_API int  tolua_editor_open (lua_State* tolua_S);
 
 #include "editor.hh"
+#define TOLUA_RELEASE 1
 using namespace editor;
 
 /* function to register type */
@@ -41,13 +42,33 @@ static int tolua_editor_editor_DefineFloorGroup00(lua_State* tolua_S)
   const char* name = ((const char*)  tolua_tostring(tolua_S,1,0));
   const char* descr = ((const char*)  tolua_tostring(tolua_S,2,0));
   int nentries = ((int)  tolua_tonumber(tolua_S,3,0));
-  const char* entries = ((const char*)  tolua_tostring(tolua_S,4,0));
+#ifdef __cplusplus
+  char** entries = new char*[nentries];
+#else
+  char** entries = (char**) malloc((nentries)*sizeof(char*));
+#endif
   {
-   DefineFloorGroup(name,descr,nentries,&entries);
-   tolua_pushstring(tolua_S,(const char*)entries);
+#ifndef TOLUA_RELEASE
+   if (!tolua_isstringarray(tolua_S,4,nentries,0,&tolua_err))
+    goto tolua_lerror;
+   else
+#endif
+   {
+    int i;
+    for(i=0; i<nentries;i++)
+    entries[i] = ((char*)  tolua_tofieldstring(tolua_S,4,i+1,0));
+   }
   }
+  {
+   DefineFloorGroup(name,descr,nentries,entries);
+  }
+#ifdef __cplusplus
+  delete [] entries;
+#else
+  free(entries);
+#endif
  }
- return 1;
+ return 0;
 #ifndef TOLUA_RELEASE
  tolua_lerror:
  tolua_error(tolua_S,"#ferror in function 'DefineFloorGroup'.",&tolua_err);
@@ -76,13 +97,33 @@ static int tolua_editor_editor_DefineItemGroup00(lua_State* tolua_S)
   const char* name = ((const char*)  tolua_tostring(tolua_S,1,0));
   const char* descr = ((const char*)  tolua_tostring(tolua_S,2,0));
   int nentries = ((int)  tolua_tonumber(tolua_S,3,0));
-  const char* entries = ((const char*)  tolua_tostring(tolua_S,4,0));
+#ifdef __cplusplus
+  char** entries = new char*[nentries];
+#else
+  char** entries = (char**) malloc((nentries)*sizeof(char*));
+#endif
   {
-   DefineItemGroup(name,descr,nentries,&entries);
-   tolua_pushstring(tolua_S,(const char*)entries);
+#ifndef TOLUA_RELEASE
+   if (!tolua_isstringarray(tolua_S,4,nentries,0,&tolua_err))
+    goto tolua_lerror;
+   else
+#endif
+   {
+    int i;
+    for(i=0; i<nentries;i++)
+    entries[i] = ((char*)  tolua_tofieldstring(tolua_S,4,i+1,0));
+   }
   }
+  {
+   DefineItemGroup(name,descr,nentries,entries);
+  }
+#ifdef __cplusplus
+  delete [] entries;
+#else
+  free(entries);
+#endif
  }
- return 1;
+ return 0;
 #ifndef TOLUA_RELEASE
  tolua_lerror:
  tolua_error(tolua_S,"#ferror in function 'DefineItemGroup'.",&tolua_err);
@@ -111,13 +152,33 @@ static int tolua_editor_editor_DefineStoneGroup00(lua_State* tolua_S)
   const char* name = ((const char*)  tolua_tostring(tolua_S,1,0));
   const char* descr = ((const char*)  tolua_tostring(tolua_S,2,0));
   int nentries = ((int)  tolua_tonumber(tolua_S,3,0));
-  const char* entries = ((const char*)  tolua_tostring(tolua_S,4,0));
+#ifdef __cplusplus
+  char** entries = new char*[nentries];
+#else
+  char** entries = (char**) malloc((nentries)*sizeof(char*));
+#endif
   {
-   DefineStoneGroup(name,descr,nentries,&entries);
-   tolua_pushstring(tolua_S,(const char*)entries);
+#ifndef TOLUA_RELEASE
+   if (!tolua_isstringarray(tolua_S,4,nentries,0,&tolua_err))
+    goto tolua_lerror;
+   else
+#endif
+   {
+    int i;
+    for(i=0; i<nentries;i++)
+    entries[i] = ((char*)  tolua_tofieldstring(tolua_S,4,i+1,0));
+   }
   }
+  {
+   DefineStoneGroup(name,descr,nentries,entries);
+  }
+#ifdef __cplusplus
+  delete [] entries;
+#else
+  free(entries);
+#endif
  }
- return 1;
+ return 0;
 #ifndef TOLUA_RELEASE
  tolua_lerror:
  tolua_error(tolua_S,"#ferror in function 'DefineStoneGroup'.",&tolua_err);

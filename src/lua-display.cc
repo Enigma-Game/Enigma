@@ -1,6 +1,6 @@
 /*
 ** Lua binding: display
-** Generated automatically by tolua++-1.0.91 on Tue Mar 21 09:16:39 2006.
+** Generated automatically by tolua++-1.0.91 on Fri Mar 31 15:53:20 2006.
 */
 
 #ifndef __cplusplus
@@ -15,6 +15,7 @@ TOLUA_API int  tolua_display_open (lua_State* tolua_S);
 
 #include "display.hh"
 #include "d_models.hh"
+#define TOLUA_RELEASE 1
 using namespace display;
 using ecl::Rect;
 using ecl::Surface;
@@ -294,13 +295,33 @@ static int tolua_display_display_DefineRandModel00(lua_State* tolua_S)
  {
   const char* name = ((const char*)  tolua_tostring(tolua_S,1,0));
   int n = ((int)  tolua_tonumber(tolua_S,2,0));
-  const char* names = ((const char*)  tolua_tostring(tolua_S,3,0));
+#ifdef __cplusplus
+  char** names = new char*[n];
+#else
+  char** names = (char**) malloc((n)*sizeof(char*));
+#endif
   {
-   DefineRandModel(name,n,&names);
-   tolua_pushstring(tolua_S,(const char*)names);
+#ifndef TOLUA_RELEASE
+   if (!tolua_isstringarray(tolua_S,3,n,0,&tolua_err))
+    goto tolua_lerror;
+   else
+#endif
+   {
+    int i;
+    for(i=0; i<n;i++)
+    names[i] = ((char*)  tolua_tofieldstring(tolua_S,3,i+1,0));
+   }
   }
+  {
+   DefineRandModel(name,n,names);
+  }
+#ifdef __cplusplus
+  delete [] names;
+#else
+  free(names);
+#endif
  }
- return 1;
+ return 0;
 #ifndef TOLUA_RELEASE
  tolua_lerror:
  tolua_error(tolua_S,"#ferror in function 'DefineRandModel'.",&tolua_err);
@@ -359,13 +380,33 @@ static int tolua_display_display_DefineOverlayImage00(lua_State* tolua_S)
  {
   const char* name = ((const char*)  tolua_tostring(tolua_S,1,0));
   int n = ((int)  tolua_tonumber(tolua_S,2,0));
-  const char* images = ((const char*)  tolua_tostring(tolua_S,3,0));
+#ifdef __cplusplus
+  char** images = new char*[n];
+#else
+  char** images = (char**) malloc((n)*sizeof(char*));
+#endif
   {
-   DefineOverlayImage(name,n,&images);
-   tolua_pushstring(tolua_S,(const char*)images);
+#ifndef TOLUA_RELEASE
+   if (!tolua_isstringarray(tolua_S,3,n,0,&tolua_err))
+    goto tolua_lerror;
+   else
+#endif
+   {
+    int i;
+    for(i=0; i<n;i++)
+    images[i] = ((char*)  tolua_tofieldstring(tolua_S,3,i+1,0));
+   }
   }
+  {
+   DefineOverlayImage(name,n,images);
+  }
+#ifdef __cplusplus
+  delete [] images;
+#else
+  free(images);
+#endif
  }
- return 1;
+ return 0;
 #ifndef TOLUA_RELEASE
  tolua_lerror:
  tolua_error(tolua_S,"#ferror in function 'DefineOverlayImage'.",&tolua_err);

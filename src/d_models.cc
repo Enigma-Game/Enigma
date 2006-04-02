@@ -274,7 +274,7 @@ int display::DefineSubImage(const char *name, const char *fname,
     return 0;
 }
 
-void display::DefineRandModel(const char *name, int n, const char **names)
+void display::DefineRandModel(const char *name, int n, char **names)
 {
     RandomModel *m = new RandomModel();
     for (int i=0; i<n; i++) 
@@ -292,7 +292,7 @@ void display::DefineShadedModel (const char *name, const char *model, const char
    `images' is the name of the background image, the following images are
    drawn on top of it. */
 void display::DefineOverlayImage (const char *name, int n, 
-                                  const char **images)
+                                   char **images)
 {
     Surface *sfc = Duplicate(surface_cache.get(images[0]));
     if (sfc) {

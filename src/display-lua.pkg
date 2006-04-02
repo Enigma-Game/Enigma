@@ -20,6 +20,7 @@
 
 $#include "display.hh"
 $#include "d_models.hh"
+$#define TOLUA_RELEASE 1
 $using namespace display;
 $using ecl::Rect;
 $using ecl::Surface;
@@ -49,11 +50,11 @@ module display
                     int xoff, int yoff, int padding = 0);
     int DefineSubImage(const char *name, const char *fname,
                         int xoff, int yoff, Rect r);
-    void DefineRandModel(const char *name, int n, const char **names);
+    void DefineRandModel(const char *name, int n, const char *names[n]);
     void DefineShadedModel(const char *name, const char *model,
                            const char *shade);
     void DefineOverlayImage (const char *name, int n,
-                             const char **images);
+                             const char *images[n]);
     void DefineComposite (const char *name,
                           const char *bgname,
                           const char *fgname);
