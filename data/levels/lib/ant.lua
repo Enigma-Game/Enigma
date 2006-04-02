@@ -256,7 +256,7 @@ function set_default_parent(func)
    end
 
    if (type(func) == "table") then
-      for key,f in func do
+      for key,f in pairs(func) do
 	 local ftype = type(f)
 	 if ((ftype ~= "function") and (ftype ~= "string")) then
 	    warning("set_default_parent: element "..key.." of DEFAULT_CELL_PARENT\n"..
@@ -370,14 +370,14 @@ function cell(structure)
 		xylist = {xylist}
 	     end
 
-	     for idx = 1,getn(%parent) do
-		local tab0 = %parent[idx]
+	     for idx = 1,getn(parent) do
+		local tab0 = parent[idx]
 		--+ tab0 is table. first item is function, the rest are the the function arguments
 		--+ first extract function from tab0, then include arguments from function call to the
 		--  tab, add a place for x,y coordinates and call it. Eventually tab will look like this:
 		--    {x, y, pfpar1, pfpar2, ..., arg1, arg2, ...}
 		local func = tab0[1]
-		local pmode = tab0.mode or %parent.mode or 0
+		local pmode = tab0.mode or parent.mode or 0
 
 		local tab;
 		if (pmode == 0) then
@@ -408,12 +408,12 @@ function cell(structure)
 	     --process common map elements
 	     for i = 1,getn(xylist) do
 		local x,y = transform_coords(xylist[i][1], xylist[i][2])
-		if (%structure.stone) then ret = set_stone(%cell0.stone.face, x, y, %cell0.stone.attr) end
-		if (%structure.floor) then ret = set_floor(%cell0.floor.face, x, y, %cell0.floor.attr) end
-		if (%structure.item ) then ret = set_item (%cell0.item.face , x, y, %cell0.item.attr ) end
-		if (%structure.actor) then
-		   local ax, ay = get_actor_x(x, %cell0.actor.mode), get_actor_y(y, %cell0.actor.mode)
-		   ret = set_actor(%cell0.actor.face, ax, ay, %cell0.actor.attr)
+		if (structure.stone) then ret = set_stone(cell0.stone.face, x, y, cell0.stone.attr) end
+		if (structure.floor) then ret = set_floor(cell0.floor.face, x, y, cell0.floor.attr) end
+		if (structure.item ) then ret = set_item (cell0.item.face , x, y, cell0.item.attr ) end
+		if (structure.actor) then
+		   local ax, ay = get_actor_x(x, cell0.actor.mode), get_actor_y(y, cell0.actor.mode)
+		   ret = set_actor(cell0.actor.face, ax, ay, cell0.actor.attr)
 		end
 	     end
 	     return ret
@@ -518,7 +518,7 @@ function render_key(rx, ry, key, cellfuncs)
 
    -- call default parents
    if (DEFAULT_CELL_PARENT) then
-      for _,val in DEFAULT_CELL_PARENT do
+      for _,val in pairs(DEFAULT_CELL_PARENT) do
 	 local dpfunc = 0
 	 if (type(val) == "string") then
 	    dpfunc = get_cell_func(val, cellfuncs)
@@ -1085,7 +1085,7 @@ end
 
 function new_rail(engines, path)
    local func0 = function()
-		    for _,engine in %engines do
+		    for _,engine in engines do
 		       local ekey = getkey(engine.x, engine.y)
 
 		       for _, dir in {engine.dir,{1,0},{0,1},{-1,0},{0,-1}} do
@@ -1093,8 +1093,8 @@ function new_rail(engines, path)
 			  local y0 = engine.y + dir[2]
 			  local key = getkey(x0, y0)
 
-			  if ((%path[key]) and (%path[key].tag ~= %path[ekey].tag)) then
-			     %path[key].tag = %path[ekey].tag
+			  if ((path[key]) and (path[key].tag ~= path[ekey].tag)) then
+			     path[key].tag = path[ekey].tag
 			     engine.x, engine.y = x0, y0
 			     engine.dir = dir -- remember direction
 			     engine.tag(x0, y0)
@@ -1335,8 +1335,8 @@ function bool_table(count_tot, count_init, test_func, true_func, false_func)
    local tab   = {};
 
    tab.test    = test_func  or function() return nil end;
-   tab.true    = true_func  or function() return nil end;
-   tab.false   = false_func or function() return nil end;
+   tab.ontrue    = true_func  or function() return nil end;
+   tab.onfalse   = false_func or function() return nil end;
    tab.count   = count_tot  or 1;
    tab.value   = count_init or 0;
    tab.remember= -1;
@@ -1361,10 +1361,10 @@ function bool_set(value, omit, tab)
 
       if (res) then
 	 debug("bool_set: true")
-	 tab.true()
+	 tab.ontrue()
       else
 	 debug("bool_set: false")
-	 tab.false()
+	 tab.onfalse()
       end
    end
 end

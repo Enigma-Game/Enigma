@@ -11,6 +11,7 @@ pkgdata_DATA = \
 	models-40.lua \
 	models-48.lua \
 	init.lua \
-	startup.lua
+	startup.lua \
+	compat.lua
 
 EXTRA_DIST = $(pkgdata_DATA)

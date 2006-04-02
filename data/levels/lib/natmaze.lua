@@ -192,7 +192,7 @@ function tight_maze( maze, maze_floor, wall_floor, wall_stone )
     local originy = 1
     
     function cell_to_level( cellx, celly )
-        return %originx + cellx * 2, %originy + celly * 2
+        return originx + cellx * 2, originy + celly * 2
     end
     
     function draw_maze_border( maze, stone )
@@ -208,28 +208,28 @@ function tight_maze( maze, maze_floor, wall_floor, wall_stone )
     function render_cell( maze, cellx, celly )
         local x, y = cell_to_level( cellx, celly )
         
-        if %wall_stone then 
-            set_stone( %wall_stone, x+1, y+1 )
+        if wall_stone then 
+            set_stone( wall_stone, x+1, y+1 )
         end
-        if %maze_floor then
-            set_floor( %maze_floor, x, y )
+        if maze_floor then
+            set_floor( maze_floor, x, y )
         end
         if maze:can_go_south(cellx,celly) then
-            if %maze_floor then
-                set_floor( %maze_floor, x, y+1 )
+            if maze_floor then
+                set_floor( maze_floor, x, y+1 )
             end
         else
-            if %wall_stone then
-                set_stone( %wall_stone, x, y+1 )
+            if wall_stone then
+                set_stone( wall_stone, x, y+1 )
             end
         end
         if maze:can_go_east(cellx,celly) then
-            if %maze_floor then
-                set_floor( %maze_floor, x+1, y )
+            if maze_floor then
+                set_floor( maze_floor, x+1, y )
             end
         else
-            if %wall_stone then
-                set_stone( %wall_stone, x+1, y )
+            if wall_stone then
+                set_stone( wall_stone, x+1, y )
             end
         end
     end
