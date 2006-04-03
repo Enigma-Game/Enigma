@@ -5,8 +5,8 @@
 -----------------------------------------------------------------
 -- I took this from Petr Machata's Meditation level
 
-dofile(enigma.FindDataFile("levels/lib/ant.lua"))
-dofile(enigma.FindDataFile("levels/lib/natmaze.lua"))
+Require("levels/lib/ant.lua")
+Require("levels/lib/natmaze.lua")
 
 function cell_to_level( cellx, celly )
     return originx + cellx * 2, originy + celly * 2

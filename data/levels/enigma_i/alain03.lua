@@ -2,7 +2,7 @@
 -- Copyright (C) 2005 Alain Busser
 -- Licensed under GPL v2.0 or above 
 
-dofile(enigma.FindDataFile("levels/lib/ant.lua"))
+Require("levels/lib/ant.lua")
 
 cells={}
 

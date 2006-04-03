@@ -407,8 +407,8 @@ function itemfreeze_look_for_floor(j, old_x, old_y)
   if not (itemfreeze_savedfloor[j] == "") then
     set_floor(itemfreeze_savedfloor[j], old_x, old_y)
   end
-  newfloor = enigma.GetKind(enigma.GetFloor
-     (itemfreeze_pos_x[j], itemfreeze_pos_y[j]))
+  newfloor = enigma.GetKind(enigma.GetFloor(
+     itemfreeze_pos_x[j], itemfreeze_pos_y[j]))
   if newfloor == "fl-water" then
     itemfreeze_savedfloor[j] = itemfreeze_parentfloor  -- this is fl-ice
     set_floor(itemfreeze_parentfloor, itemfreeze_pos_x[j], itemfreeze_pos_y[j])

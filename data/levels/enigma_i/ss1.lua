@@ -53,18 +53,18 @@ function trig5 () trigger(5) end
 function trig6 () trigger(6) end
 
 function trigger(num)
-   %switches[num] = 1-%switches[num]
+   switches[num] = 1-switches[num]
    all=1
    for x=1,6 do
-      if (%switches[x]==0) then
+      if (switches[x]==0) then
          all = 0
       end
    end
    if (doorsopen==0 and all==1) then
-      SendMessage(%door, "open", TRUE)
+      SendMessage(door, "open", TRUE)
       doorsopen = 1
    elseif (doorsopen==1 and all==0) then
-      SendMessage(%door, "close", FALSE)
+      SendMessage(door, "close", FALSE)
       doorsopen = 0
    end
 end

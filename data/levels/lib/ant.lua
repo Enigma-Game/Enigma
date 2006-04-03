@@ -121,7 +121,7 @@ end
 function clone_table(tab)
    local ntab = {}
 
-   for key,val in tab do
+   for key,val in pairs(tab) do
       ntab[key] = val
    end
 
@@ -217,7 +217,7 @@ function guess_cell_key_width(cellfuncs)
    local funcs = get_cellfuncs(cellfuncs)
    local freq_table = {}
 
-   for key,_ in funcs do
+   for key,_ in pairs(funcs) do
       local ktype = type(key)
       if (ktype == "string") then
 	 local n = strlen(key)
@@ -226,7 +226,7 @@ function guess_cell_key_width(cellfuncs)
    end
 
    local maxw,maxfreq = 0,0
-   for w,freq in freq_table do
+   for w,freq in pairs(freq_table) do
       if (freq > maxfreq) then
 	 maxw = w
 	 maxfreq = freq
@@ -398,10 +398,10 @@ function cell(structure)
 		if (pmode == 0) then
 		   for i = 1,getn(xylist) do
 		      tab[1],tab[2] = transform_coords(xylist[i][1], xylist[i][2])
-		      ret = call(func, tab)
+		      ret = func(unpack(tab))
 		   end
 		else
-		   ret = call(func, tab)
+		   ret = func(unpack(tab))
 		end
 	     end
 
@@ -630,7 +630,7 @@ function fill_world_func(fillfunc, x0, y0, w, h)
    end
    local x0,y0,w,h = transform_coords(x0, y0, w, h)
 
-   for _,func in fillfunc do
+   for _,func in pairs(fillfunc) do
       for x=x0, x0+w-1 do
 	 for y=y0, y0+h-1 do
 	    func(x, y)
@@ -646,7 +646,7 @@ function draw_border_func(fillfunc, x0, y0, w, h)
    end
    local x0,y0,w,h = transform_coords(x0, y0, w, h)
 
-   for _,func in fillfunc do
+   for _,func in pairs(fillfunc) do
       for x=x0,x0+w-1 do
 	 func(x, y0)
 	 func(x, y0+h-1)
@@ -666,7 +666,7 @@ function draw_func_corners(fillfunc, x0, y0, w, h)
    end
    local x0,y0,w,h = transform_coords(x0, y0, w, h)
 
-   for _,func in fillfunc do
+   for _,func in pairs(fillfunc) do
       func(x0,y0)
       func(x0,y0+h-1)
       func(x0+w-1,y0)
@@ -681,7 +681,7 @@ function set_funcs(fillfunc, poslist)
       fillfunc = {fillfunc}
    end
 
-   for _,func in fillfunc do
+   for _,func in pairs(fillfunc) do
       for i = 1,getn(poslist) do
           local x,y,w,h = transform_coords(poslist[i][1], poslist[i][2])
           func(x, y)
@@ -728,9 +728,9 @@ function draw_func(fillfunc, ...)
       fillfunc = {fillfunc}
    end
 
-   local xylist = call(get_draw_coords, arg)
+   local xylist = get_draw_coords(unpack(arg))
 
-   for _,func in fillfunc do
+   for _,func in pairs(fillfunc) do
       for i = 1,getn(xylist) do
 	 local x,y = transform_coords(xylist[i][1], xylist[i][2])
 	 func(x,y)
@@ -783,9 +783,9 @@ function ngon_funcs(fillfunc, ...)
       fillfunc = {fillfunc}
    end
 
-   local xylist = call(get_ngon_coords, arg)
+   local xylist = get_ngon_coords(unpack(arg))
 
-   for _,func in fillfunc do
+   for _,func in pairs(fillfunc) do
       for i = 1,getn(xylist) do
 	 local x,y = transform_coords(xylist[i][1], xylist[i][2])
 	 func(x,y)
@@ -1008,7 +1008,7 @@ end
 
 function spread_tag(tab, tag)
    local tag = tag or 2
-   for _,val in tab do
+   for _,val in pairs(tab) do
       local x0 = val.x
       local y0 = val.y
       local tab0 = val.tag
@@ -1085,10 +1085,10 @@ end
 
 function new_rail(engines, path)
    local func0 = function()
-		    for _,engine in engines do
+		    for _,engine in pairs(engines) do
 		       local ekey = getkey(engine.x, engine.y)
 
-		       for _, dir in {engine.dir,{1,0},{0,1},{-1,0},{0,-1}} do
+		       for _, dir in pairs({engine.dir,{1,0},{0,1},{-1,0},{0,-1}}) do
 			  local x0 = engine.x + dir[1]
 			  local y0 = engine.y + dir[2]
 			  local key = getkey(x0, y0)
@@ -1115,14 +1115,18 @@ end
 -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- --
 -- see ant.lua documentation for extensive howto
 function render_puzzles(tab, kind, generatorfunc)
-   for _,val in tab do
+   for _,val in pairs(tab) do
       local kind = kind or puzzle
       local x,y = val.x, val.y
 
-      local up   = (tab[getkey(x, y-1)] ~= nil) or 0;
-      local down = (tab[getkey(x, y+1)] ~= nil) or 0;
-      local left = (tab[getkey(x-1, y)] ~= nil) or 0;
-      local right= (tab[getkey(x+1, y)] ~= nil) or 0;
+      local up   = 0;
+      local down = 0;
+      local left = 0;
+      local right= 0;
+      if (tab[getkey(x, y-1)] ~= nil) then up = 1 end
+      if (tab[getkey(x, y+1)] ~= nil) then down = 1 end
+      if (tab[getkey(x-1, y)] ~= nil) then left = 1 end
+      if (tab[getkey(x+1, y)] ~= nil) then right = 1 end
 
       if (generatorfunc) then
 	 generatorfunc(val);
@@ -1146,9 +1150,9 @@ function render_wormholes(holes, targets, whole_attribs, actor_mode)
    local whole_attribs = whole_attribs or {}
    local actor_mode = actor_mode or 3
 
-   for _,hval in holes do
+   for _,hval in pairs(holes) do
       local target = 0
-      for _,tval in targets do
+      for _,tval in pairs(targets) do
 	 if (tval.tag == hval.tag) then
 	    target = tval;
 	    break
@@ -1233,7 +1237,7 @@ function map_slope(x, y, node)
    local longval = 0;
    local warns = {}
    --
-   for key,val in map do
+   for key,val in pairs(map) do
       local okay = 1
       local count = 0
       -- okay turns to 0, if any char, that is not 'x', doesn't match
@@ -1275,7 +1279,7 @@ function map_slope(x, y, node)
 end
 
 function render_slopes(tab, invert)
-   for _,val in tab do
+   for _,val in pairs(tab) do
       local x,y = val.x, val.y
 
       local node = {}

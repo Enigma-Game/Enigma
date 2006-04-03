@@ -3,7 +3,7 @@
 -- Licensed under GPL v2.0 or above
 -- 2003-01-13
 
-dofile(enigma.FindDataFile("levels/lib/ant.lua"))
+Require("levels/lib/ant.lua")
 
 -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- --
 
@@ -62,7 +62,7 @@ function place_new_oxyd_stone(count)
       dostring(funcn.." = "..func0)
 
       --add oxyd and triggers
-      cells["+"]=%cell{parent=metal,item={face="it-trigger",attr={action="callback", target=funcn, invisible=1}}}
+      cells["+"]=cell{parent=metal,item={face="it-trigger",attr={action="callback", target=funcn, invisible=1}}}
       draw_map(ox, oy, blockmap)
 
       oxydstones[key] = 0

@@ -4,7 +4,7 @@
 -- Contact: 	amgine@reallysoft.de
 -- License: 	GPL v2.0 or above
 
-dofile(enigma.FindDataFile("levels/lib/ralf.lua"))
+Require("levels/lib/ralf.lua")
 
 --debug_mode()
 show_restricted = 0 -- set to 1 to use different floors for restricted areas (for debugging)

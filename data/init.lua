@@ -59,7 +59,13 @@ function PrintTable(t)
 end
 
 function Require(filename)
-    dofile(enigma.FindDataFile(filename))
+    path = enigma.FindDataFile(filename)
+    if path == nil then
+        -- avoid reading from stdin !
+        error("File not found '" .. filename .. "'")
+    else
+        dofile(path)
+    end
 end
 
 
