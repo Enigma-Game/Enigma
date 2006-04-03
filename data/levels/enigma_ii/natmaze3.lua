@@ -3,13 +3,13 @@
 -- Copyright (c) 2002 Nat Pryce
 -- License: GPL v2.0 or above
 
-dofile( enigma.FindDataFile("levels/lib/natmaze.lua") )
+Require("levels/lib/natmaze.lua")
 
 originx = 1
 originy = 1
 
 function cell_to_level( cellx, celly )
-    return %originx + cellx * 2, %originy + celly * 2
+    return originx + cellx * 2, originy + celly * 2
 end
 
 function render_cell( maze, cellx, celly )

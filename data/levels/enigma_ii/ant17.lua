@@ -4,8 +4,8 @@
 -- 2003-01-13
 -- 2003-06-24 -- changes in AddConstantForce
 
-dofile(enigma.FindDataFile("levels/lib/ant.lua"))
-dofile(enigma.FindDataFile("levels/lib/natmaze.lua"))
+Require("levels/lib/ant.lua")
+Require("levels/lib/natmaze.lua")
 
 -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- --
 -- i took base for this cell_to_level and render_cell from Nat Pryce's natmaze.lua maps

@@ -8,8 +8,8 @@
 -- (c) 2003 Petr Machata/ant_39
 -- Licensed under GPL v2.0 or above
 
-dofile(enigma.FindDataFile("levels/lib/ant.lua"))
-dofile(enigma.FindDataFile("levels/lib/natmaze.lua"))
+Require("levels/lib/ant.lua")
+Require("levels/lib/natmaze.lua")
 
 -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- --
 -- i took these from Nat Pryce's natmaze.lua maps

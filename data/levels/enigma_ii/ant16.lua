@@ -4,8 +4,8 @@
 -- 2003-01-11
 -- 2003-02-09 -- fixed originx/originy handling
 
-dofile(enigma.FindDataFile("levels/lib/ant.lua"))
-dofile(enigma.FindDataFile("levels/lib/natmaze.lua"))
+Require("levels/lib/ant.lua")
+Require("levels/lib/natmaze.lua")
 
 -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- --
 -- i took these from Nat Pryce's natmaze.lua maps

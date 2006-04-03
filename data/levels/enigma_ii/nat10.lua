@@ -4,7 +4,7 @@
 -- Licensed under GPL v2.0 or above
 -- 2003-06-24: [ant]: changes in AddConstantForce
 
-dofile(enigma.FindDataFile("levels/lib/natmaze.lua"))
+Require("levels/lib/natmaze.lua")
 
 -----------------------------------------------------------------------------
 LEVEL_WIDTH = 39

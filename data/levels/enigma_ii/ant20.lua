@@ -7,7 +7,7 @@
 -- 2003-02-20 -- rewrite
 -- 2003-03-25 -- using slope generator
 
-dofile(enigma.FindDataFile("levels/lib/ant.lua"))
+Require("levels/lib/ant.lua")
 
 -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- --
 
@@ -17,10 +17,10 @@ function switchcell(x, y, boundwith, tgt)
    local fname = "switchfunc"..num
 
    local func0 = function()
-		    kill_stone(%x, %y)
-		    local obj = {set_stone("st-death", %x, %y, {})}
-		    add_rubber_bands(%boundwith, obj, 16, 0)
-		    send_group_message(%tgt, "open")
+		    kill_stone(x, y)
+		    local obj = {set_stone("st-death", x, y, {})}
+		    add_rubber_bands(boundwith, obj, 16, 0)
+		    send_group_message(tgt, "open")
 		 end
 
    setglobal(fname, func0)

@@ -4,7 +4,7 @@
 -- 2003-02-10 -- keeping up to date with latest additions to ant.lua
 -- 2003-06-23 -- changed abyss to water, because st-bolder now falls into abyss [ralf]
 
-dofile(enigma.FindDataFile("levels/lib/ant.lua"))
+Require("levels/lib/ant.lua")
 -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- --
 
 stepon = nil
