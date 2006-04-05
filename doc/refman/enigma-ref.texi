@@ -8,12 +8,13 @@
 @author Petr Machata
 @author Ralf Westram
 @author Ronald Lamprecht
+@author Andreas Lochmann
 @end titlepage
 
 @contents
 
 @ifnottex
-@node Top, Introduction, (dir), (dir)
+@node Top, Running Enigma, (dir), (dir)
 @top
 
 This manual describes the internals of
@@ -23,316 +24,331 @@ It describes Enigma version 0.90.
 @end ifnottex
 
 @menu
-* Introduction::                General remarks on creating new levels
-* Level Basics::                  Introduction to Level description
+* Running Enigma::              Running Enigma
+* Levelpack Basics::            Addition and managing of levels in packs 
+* Level Basics::                Introduction to level description
 * Objects::                     Description of all objects in Enigma
 * Variables::                   Lua variables that influence the game
 * Functions::                   Predefined functions
 * Index::                       
 @end menu
 
-@node Introduction, Level Basics, Top, Top
-@chapter Introduction
+@node  Running Enigma, Level Basics, Top, Top
+@chapter Running Enigma
 
-This chapter explains how Enigma works internally and how you can
-create your own levels.  This manual is not for users of graphical
-level editors, but rather for @emph{programmers} of graphical level
-editors or users who want to use the full power of the Enigma
-``engine'' by using the built-in scripting language.
+@menu
+* Locating Resources::
+* Startup Switches::
+* User Options::
+* Level Info::
+@end menu
 
-There are two kinds of file formats you can use to build levels for
-Enigma.  The traditional solution was to write small programs in a
-programming language called @emph{Lua}.  Although this is still
-possible, the preferred way is now to prepare files in a data-centric
-format called XML; this will be discussed in detail in chapter
+@node Locating Resources, Startup Switches, Running Enigma, Running Enigma
+@section Locating Resources
 
-Enigma's level format is extremely flexible and allows you to create
-very dynamic and interactive levels.  Here are a few examples of
-levels that make heavy use of Lua, both when preparing the level and
-during the game:
+@node Startup Switches, User Options, Locating Resources, Running Enigma
+@section Startup Switches
 
+@node User Options, Level Info, Startup Switches, Running Enigma
+@section User Options
+
+@node Level Info,, User Options, Running Enigma
+@section Level Info
+
+@menu
+* Public Ratings::
+* Scores::
+@end menu
+
+@node Public Ratings, Scores, Level Info, Level Info
+@subsection Public Ratings
+
+Most levels are rated within five different categories:
 @itemize @bullet
 @item
-Flood Gates (@file{nat8.lua}) Was one of the first levels to use Lua for
-more than simply building the level and then handing it over to the game
-engine.  The flowing water is controlled by a small function written in
-Lua--there is no built-in suppport for flowing water in the game engine.
+int = Intelligence
 
 @item
-Enigris (@file{ralf04.lua}) lets you play Tetris inside Enigma.
+dex = Dexterity
 
 @item
-Mourning Palace (@file{ant08.lua}) moving platforms, also controlled
-by a Lua function.
+pat = Patience
 
 @item
-Finally, some of the maze levels and most of the levels in the Sokoban
-pack are dynamically generated: They look a little different every
-time you play them.
+kno = Knowledge of Enigma
+
+@item
+spe = Speed and Speed control
 
 @end itemize
 
-Our focus is on using Lua to access Enigma's game engine, so you won't
-learn much about Lua as a language in this chapter.  Many simple things,
-like function calls or @command{if} statements, will appear familiar to
-anyone having a little programming experience: In many ways Lua is
-similar to programming languages like Basic or Pascal.  But for most of
-Lua's finer points you will have to reach for the official Lua
-documentation, which you can download from
-@uref{http://www.lua.org,lua.org}.
+To distinguish the ratings from their everyday-meanings, we use the
+abbreviations for the ratings. Each of these categories takes values
+between 1 (easy) and 5 (difficult), except for kno, which can also be
+6 (unique mechanism).
 
-@menu
-* Creating New Levels::         
-* Example Level::               
-* Registering Levels::          
-* More Information::            
-@end menu
+Please bear in mind that it's not very simple to hold on to the
+following definitions in each single of nearly 750 cases, so there
+might be (will be) derivations from them in single levels.
 
-@node Creating New Levels, Example Level, Introduction, Introduction
-@section Creating New Levels
+@strong{Intelligence (int)}
 
-Creating a new level basically consists of the following steps
+This is intended to measure the creativity, planning and analytic
+requirements needed to solve the level. Intelligence is a very
+difficult notion in itself, and thus at first not easy to
+rate nor to grasp. Consequently, a fixed definition of the five
+rating-degrees does not only help in the rating process, but is
+essential. So, assume you know everything about the single elements of
+a level. Then ask yourself these questions:
+@itemize @bullet
+@item
+Can I see the solution at once? Yes -> int 1
 
+@item
+Do I only have to orient myself, like testing the exits of wormholes
+or see the function of a switch? -> int 2
+
+@item
+Is there a standard algorithm to solve the problem, like in a maze, or
+searching for a hidden item? -> int 3
+
+@item
+Neither trial-and-error nor standard algorithms work; is it a simple
+kind of code or advanced planning? -> int 4
+
+@item
+A difficult code, pattern or causal chain? -> int 5
+
+@end itemize
+
+High values for intelligence are typically puzzles.
+int-ratings do not accumulate; the most difficult puzzle
+alone already determines the rating.
+
+@strong{Dexterity (dex)}
+
+There are lots of levels, which can be solved either by accuracy or by
+patience. In our context, dexterity is not meant in the sense of
+accuracy to avoid patience, but accuracy to avoid death. So it focuses
+on the lethal positions in a level, not only death-stones and abysses,
+but also casualties like pushing a stone accidentally into an
+unreachable corner.
+
+@itemize @bullet
+@item
+It doesn't matter what I touch, this level is damn-proof. -> dex 1
+
+@item
+Well, there are lethal positions I shouldn't move the level into, but
+they are not difficult to overcome. -> dex 2
+
+@item
+Comparable with a single row with abyss left and right. -> dex 3
+
+@item
+Comparable with pushing a stone to the right while there is abyss on
+the left, or a single row with death-stones left and right. ->
+dex 4
+
+@item
+Needs lots of attempts to succeed. -> dex 5
+
+@end itemize
+
+In contrast to the int-rating, dex might accumulate: Many situations,
+each of dex 3 can add up to dex 4 or even 5. This way dex 5 can be
+achieved. Rotors in a level contribute as well to dex as to the
+speed-rating spe. Thus, levels with a high dex-spe-combination are
+mostly action-driven, whereas a high dex-pat-combination typically is
+a dangerous maze.
+
+@strong{Patience (pat)}
+
+Patience is a relatively subjective rating, and refers much to
+''feeled time''. So two levels with same mechanics can have
+different pat-values, e.g. if one level has a nicer design or shows
+the progress of the level in some way, like the number of opened
+oxyds. It explicitly includes having to start the level over and over
+again; not the time in the lower left corner or the score is crucial,
+but the complete feeled time needed to solve the level, starting from
+the first look at it.
+@itemize @bullet
+@item
+I solved the level right after understanding it. -> pat 1
+
+@item
+I needed some time but is wasn't boring. -> pat 2
+
+@item
+Okay, some minutes. But the landscape is nice... -> pat 3
+
+@item
+I know what to do, but it doesn't seem to end. -> pat 4
+
+@item
+This level really needs discipline. -> pat 5
+
+@end itemize
+
+A high number of oxyds can as well heighten the pat-value as lower it:
+If the player has to traverse the level several times to open matching
+pairs of oxyds, it is definitely pat-heightening. However, if they are
+arranged to mark the progress of the player, and deal as a kind of
+small rewards within the level, they can lower the pat-value. The same
+with a high number of doors: The arrangement is the critical factor.
+
+High pat-values are typically mazes. In combination with int 3, a high
+pat-value can indicate a hidden item or a hollow stone. pat-values
+involve the whole level, so they can't accumulate.
+
+@strong{Knowledge of Enigma (kno)}
+
+The kno-rating mostly takes on the function and interactions of single
+objects in the game, like stones, floors, items, and actors. However,
+in some cases it also deals with special techniques. The guide line is
+the ``Advanced Tutorial'', which defines kno 3. kno 4 corresponds to
+standard objects that aren't shown in the tutorial, kno 5 requires a
+deeper knowledge of the game internals. Finally, kno 6 indicates
+special mechanisms, that are seldom or unique. The overall kno-rating
+of a level equals that of the most difficult object or technique (and
+thus is non-accumulative):
 @enumerate
-@item Writing the level description, for example a file named
-@file{daniel01.lua}.
-@item Inserting the new level into a level pack of your choice
-@item Creating a preview image for the level
-@item Testing the level in Enigma
+@item
+Moving a single marble on normal floors, normal walls, oxyds,
+stones that look like oxyds, death-stones, water, abyss, documents,
+using the inventory, static gravity, visible gradients.
+
+@item
+Pushing stones, simple Sokoban-tricks, bridge-building in water
+and abyss, connected puzzle-stones, moving more than one marble,
+meditations, grates, rotors and tops, hidden gradients, triggers and
+switches, doors, holes (not by dynamite), swamp, floppys and
+st-floppy, keys and locks, coins and slots, cracks, timer-stones.
+
+@item
+Different floors can have different fraction and mouseforce, space,
+ice, inverted floor, some stones sink while others swim, black grates
+that hold rotors and tops away, dynamite, dynamite-breakable stones,
+spade, bolders, magic-wand to change bolder-direction, bolders sink
+into abyss, sheafs of glass, spoon, actors and items may hide under
+movable stones, small not-killer whiteballs, coloured one-way-streets,
+actorimpulse-stones (``bumpers''), rotors can fly over abyss,
+fart-stones, swords and knights, lasers, static and movable mirrors,
+item- and coin-transformations by pushing stones over them and by
+lasers, umbrellas protect of abyss, hammer and breakable stones
+(although not in tutorial).
+
+@item
+Bridge-building in swamps, rubber-bands, rubber-band-stones,
+scissor-stones, unconnected puzzle-stones, exploding puzzle-stones,
+turning puzzle-stones (with and without a magic wand), springs (both
+types, on the floor and hole-kind springs like in ``Upstream
+Journey''), thiefs, three-parted shogun-stones, invisible stones,
+hollow stones, chameleon-stones, items hidden under chameleon stones,
+stones that aren't what they seem (e.g. fake-death-stones), wormholes,
+magnets, using F3 for a restart to solve a level, yin-yangs,
+one-colour-, yin-yang- and inverted yin-yang-stones, stones breakable
+by only one colour, killer-balls, swap-stones, brush and paintable
+stones, changing one-way-streets with a magic wand, making stones to
+glass with a magic wand, impulse-stones (movable, static and hollow),
+black and white bombs, bomb-stones, fire, extinguishers,
+rotator-stones, yellow anti-swapping stones, mines, flags, seeds,
+weights, putting objects under one-way-streets and other hollow
+stones, electric stones, turnstiles, mailing and pipes, rings (single
+and multiplayer), volcanos, bags, randomizers (as possible effect of a
+switch), horses and horse-passing stones, pins, bananas, cherries make
+invisible, surprise-item.
+
+@item
+Cracks, floor-springs, wormholes etc. are all items, seeds can grow
+inside stones, laser is blocked by all items, killer-balls don't sink
+in water, ``Space Meditation''-kind collisions, holding down the
+mouse-button, invisibility lets you go through glass, jumping over
+lasers...
+
+@item
+Spitter-stones, surprise-stones, levels like ``Enigris'' or ``Flood
+Gates''...
+
 @end enumerate
 
-@node Example Level, Registering Levels, Creating New Levels, Introduction
-@section A Simple Level
+kno 6 does not neccessarily mean that this level is difficult to
+understand; the unique mechanism or object might as well be very
+intuitive, like in ``Flood Gates''.
 
-Here is a very simple level description that can also serve as a
-starting-point for new landscapes.  (In fact, this is the first level
-in Enigma, so you can try it out right away.)
+@strong{Speed and speed control (spe)}
 
-@example
- 1   CreateWorld(20, 13)
- 2   draw_border("st-brownie")
- 3   fill_floor("fl-hay", 0,0, level_width,level_height)
- 4
- 5   set_stone("st-fart", level_width-1,0, @{name="fart"@})
- 6   set_stone("st-timer", 0,0, @{action="trigger", target="fart",
- 7             interval=10@})
- 8
- 9   oxyd(3,3)
-10   oxyd(level_width-4,level_height-4)
-11   oxyd(level_width-4, 3)
-12   oxyd(3,level_height-4)
-13   oxyd_shuffle()
-14
-15   set_actor("ac-blackball", 10,6.5)
-@end example
-
-The resulting level looks like this inside the game:
-
-@ignore
-      <img src="welcome.png" alt="The first level" width="75%" height="75%"></para>
-@end ignore
-
-Let's now turn to a line-by-line analysis of this program:
-
-@example
- 1   CreateWorld(20, 13)
- 2   draw_border("st-brownie")
- 3   fill_floor("fl-hay", 0,0, level_width,level_height)
-@end example
-
-The level begins with a call to @code{CreateWorld}, which creates a
-new world that is 20 blocks wide and 13 blocks high.  Every
-@dfn{block} in the world can be accessed with a pair of coordinates:
-The upper left corner has coordinates (0,0), the lower right one has
-coordinates (19,12).  Every block contains a floor tile, an (optional)
-item, and an (optional) stone.
-
-A frame of stones is drawn around the newly created landscape with the
-@code{draw_border} command.  Its argument, @code{"st-brownie"}, is the
-name of a stone.  By convention, all stones have @code{"st-"} prefixed
-to their name, similarly all item names begin with @code{"it-"} and
-all floor names with @code{"fl-"}.
-
-The @code{fill_floor} command in line 3 fills the complete floor with
-tiles of type @code{"fl-hay"}.  The other arguments are the upper left
-corner and the width and height of the rectangle to be filled.
-
-@example
- 5   set_stone("st-fart", level_width-1,0, @{name="fart"@})
- 6   set_stone("st-timer", 0,0, @{action="trigger", target="fart",
- 7             interval=10@})
-@end example
-
-Lines 5 to 7 demonstrate how to create individual stones.  The
-@code{set_stone} command takes a stone name, the desired
-coordinates, and an (optional) list of @emph{attributes}
-as arguments.  Note the use of curly braces @code{@{},
-@code{@}} to enclose the attribute list.
-
-Attributes are the key to customizing the behaviour of objects in a
-landscape.  Here, we first give a name to the first stone we create.
-It's a fart stone that has the unpleasant habit of ``blowing off''
-when triggered.  Triggering this fart stone is done by the timer stone
-we create in line 6--7.  This stone performs a predefined action at
-regular intervals.  In this case we want to send a ``trigger'' message
-every ten seconds to the object named ``fart''.
-
-@example
- 9   oxyd(3,3)
-10   oxyd(level_width-4,level_height-4)
-11   oxyd(level_width-4, 3)
-12   oxyd(3,level_height-4)
-13   oxyd_shuffle()
-@end example
-
-These commands place a couple of oxyd stones in the level.  The
-@code{oxyd} command internally uses @code{set_stone("st-oxyd", x,y,
-...)}  to create the stones, but it additionally assigns sensible
-values to some of the oxyd stones' attributes (most notably the
-color).  The command on line 14 permutes the colors on the oxyd stones
-currently in the landscape.
-
-@example
-15   set_actor("ac-blackball", 10,6.5)
-@end example
-
-This final line creates the black marble controlled by the player.
-Objects that can move around freely are called ``actors'' in Enigma.
-Unlike stones and items, actors are not restricted to integer
-coordinates, as you can see in this example. 
-
-@node Registering Levels, More Information, Example Level, Introduction
-@section Registering Levels
-
-After writing the level description you have to tell Enigma where to
-find your brand new landscape.  That's really two separate steps:
+The spe-value not only corresponds to the maximum speed a level
+requires (like it's needed to run away from a rotor), but also the
+degree of control a player has over his mouse while moving it,
+excellent examples for this are ``Mourning Palace'' and the middle
+part of ``Sacrifice''. This involves moving the mouse with a constant
+velocity for a long time, as well as correctly estimating the speed
+that's needed in a certain task, like shattering a sheaf of glass.
 
 @enumerate
-@item Move the @file{.lua}-File where Enigma can find it;
-@item Insert a new entry into the appropriate level index.
+@item
+No time limit. 
+
+@item
+You shouldn't stop for too long. For example, something slow might
+be chasing you.
+
+@item
+There is an appropiate time limit or speed control task. This can
+be a single, not too fast rotor in an open area.
+
+@item
+Don't stop! Examples are difficult timing-tasks as well as a single
+fast rotor or several slower ones.
+
+@item
+Hurry Up! Whereas spe 4 is meant to be difficult, but obviously
+solvable in not too many attempts, spe 5 is everything above this.
+
 @end enumerate
 
-The @file{.lua}-Files and the corresponding level index usually reside
-in the same directory.  For the levels that come with Enigma, for
-example, this is the @file{levels} directory inside.  For your own levels
-you can either use the same directory (currently your only choice if
-you use the Windows version of Enigma) or the @file{.enigma/levels}
-directory in your home folder (only if you use the Unix version).
+The spe-rating again is cumulative, as many slow rotors can add up
+to spe 3 or 4 or a combination of many slow time-switches to be
+pressed in a certain order can make up a horrible task. In contrast to
+the other categories, for which the average is near 3 (or between 3
+and 4 for kno), an overwhelming fraction of all levels are definitely
+spe 1. So, the spe-rating is more a kind of supplement to the three
+core-ratings int, dex and pat.
 
-A level index is a file that contains the list of landscapes that comprise
-a level pack in Enigma.  Here is an excerpt from
-@file{index_enigma.txt}, which defines the ``Enigma'' level pack:
+@strong{Combinations of ratings}
+
+In some cases it can be of interest to have a single value to measure
+the difficulty of a level. A simple possibility to calculate such a
+universal rating is to choose a linear combination of the 5 single
+ratings, weighted with appropriate weights. These weights should
+correspond to the difficulty a single category adds to the universal
+difficulty, but these weights also should be carefully chosen to avoid
+number-theoretic obstructions (e.g. when all weights are even except
+for the spe-rating, then there will be a visible difference in the
+distribution of even and odd univeral ratings, which can be very
+misleading). A working and very interesting linear combination is the
+following, which has been applied in the reordering process:
 
 @example
-@{file=welcome              name="Welcome"                        author="Daniel Heck"         @}
-@{file=martin06             name="Is It Easy?"                    author="Martin Hawlisch"     @}
-@{file=lasers101            name="Lasers 101"                     author="Daniel Heck"         @}
-@{file=level3a              name="Feel Your Way"                  author="Siegfried Fennig"    @}
-@{file=martin04             name="Sokoban Revival"                author="Martin Hawlisch"     @}
+universal difficulty  =  7*int + 6*dex + 4*pat + 3*kno + 4*spe - 23
 @end example
 
-Every line in this file describes one landscape in the level pack.
-The general format of these lines is
+This has the special property that it takes relatively broadly and
+continuously distributed values between 1 (all ratings 1) and 100 (all
+ratings 5, kno 6) and emphasizes the most difficult categories
+intelligence and dexterity. However, some very small or very high
+values cannot appear in this combination, like 2 or 99. Other
+combinations lead to full, but narrow, or to broad but
+uncontinuous spectra.
 
-@example
-@{ tag1=content1 tag2=content2 ... @}
-@end example
+@node Scores,, Public Ratings, Level Info
+@subsection Scores
 
-One line normally contains many different @code{tag=content} pairs.
+@node  Levelpack Basics, Level Basics, Running Enigma, Top
+@chapter Levelpack Basics
 
-If your content contains spaces, surround the content with quotes
-(e.g. @code{name="Is It Easy?"}). If you want the string to contain quotes,
-escape them with @code{\} (e.g. @code{author = "Petr \"ant\" Machata"}).
-
-Here's a description of all supported tags:
-
-@table @code
-@item file
-Defines the file name of the level (@emph{excluding} the @file{.lua} extension).
-This entry is mandatory!
-
-@item name
-Defines the full name of the level. This is the name the player will
-see in the level menu. You can leave this field empty if you prefer to
-leave your level unnamed.
-
-@item author
-Defines the name of the autor. It will be displayed together with the full name at level startup.
-
-@item revision
-Defines the revision number of the level (defaults to 1)
-When the revision number is increased, a small red ! appears in the level menu.
-
-If you do changes to the level that affect the way the level
-is solved, you should increase the revision number.
-If you only did cosmetic changes, you should @emph{NOT} increase the revision.
-
-You should never decrease the revision number!
-
-@item easymode
-Set this to 1 when the level supports different difficulties.
-
-@item par_time
-Syntax: @code{par_time=sec,name}
-
-@code{sec} is the par time for the level in seconds.
-
-@code{name} is the player who did the par.
-
-If easymode is 1 then @code{par_time_easy} and/or @code{par_time_normal}
-have to be used instead of @code{par_time}.
-
-@c @item par_moves
-@c Syntax: @code{par_moves=moves,name}
-@c 
-@c @code{moves} are the par moves needed to complete the level.
-@c 
-@c @code{name} is the player who did the par.
-@c 
-@c If easymode is 1 then @code{par_moves_easy} and/or @code{par_moves_normal}
-@c have to be used instead of @code{par_moves}.
-@c 
-@c [not implemented - has no effect yet]
-
-@c @item hint1, hint2
-@c Define two hints how to solve the level. 
-@c 
-@c [not implemented - has no effect yet]
-
-@end table
-
-When Enigma starts up it automatically tries to load an index file
-called @file{index_user.txt}, where you can store all your personal
-levels.  This file is not included in Enigma distributions, you have
-to create it yourself.  The levels listed in this file will show up in
-a new level pack called ``User Levels''.
-
-
-@node More Information,  , Registering Levels, Introduction
-@section Where to go from here
-
-The example level from the first section of this chapter was hopefully
-enough to give you an impression how level descriptions look like in
-Enigma.  Of course, that level was extremely simple, and most
-interesting levels will be more complicated.  The rest of this
-reference manual tries to document the available game objects and how
-to interact with the Enigma game engine, both when preparing the level
-(before the game starts) and during the game.
-
-This manual only describes the low-level interface to Enigma's game
-engine, which is as flexible as it is inconvenient to use by hand.
-Petr Machata has written a comprehensive set of helper routines that
-greatly simplify the creation of new levels.  You can use the package
-by including the line @code{Require("levels/ant.lua")} in your level
-descriptions.  There is extensive documentation for @file{ant.lua} in
-file @file{ant_lua.txt} in the documentation directory.
-
-Before you read on, please be aware that this manual is far from
-complete.  We are working on it and it will be ready for the
-(glorious) 1.0 release.  For the moment, the available level
-descriptions are the best ``documentation'' available.
-
-@node  Level Basics, Objects, Introduction, Top
+@node  Level Basics, Objects, Levelpack Basics, Top
 @chapter Level Basics
 
 As you have played some levels of Enigma you may have noticed that Enigma is a
@@ -449,7 +465,7 @@ Of course we have to look at the details of the format and explain the optional
 parts:
 
 @menu
-* Getting Started::
+* Getting Started with Levels::
 * XML Level structure::
 * Info metadata::
 * LUA code::
@@ -458,12 +474,111 @@ parts:
 * Update and Upgrade::
 @end menu
 
-@node Getting Started, XML Level structure, Level Basics, Level Basics
-@section Getting Started
+@node Getting Started with Levels, XML Level structure, Level Basics, Level Basics
+@section Getting Started with Levels
+
+A Simple Level
+
+Here is a very simple level description that can also serve as a
+starting-point for new landscapes.  (In fact, this is the first level
+in Enigma, so you can try it out right away.)
+
+@example
+ 1   CreateWorld(20, 13)
+ 2   draw_border("st-brownie")
+ 3   fill_floor("fl-hay", 0,0, level_width,level_height)
+ 4
+ 5   set_stone("st-fart", level_width-1,0, @{name="fart"@})
+ 6   set_stone("st-timer", 0,0, @{action="trigger", target="fart",
+ 7             interval=10@})
+ 8
+ 9   oxyd(3,3)
+10   oxyd(level_width-4,level_height-4)
+11   oxyd(level_width-4, 3)
+12   oxyd(3,level_height-4)
+13   oxyd_shuffle()
+14
+15   set_actor("ac-blackball", 10,6.5)
+@end example
+
+The resulting level looks like this inside the game:
+
+@ignore
+      <img src="welcome.png" alt="The first level" width="75%" height="75%"></para>
+@end ignore
+
+Let's now turn to a line-by-line analysis of this program:
+
+@example
+ 1   CreateWorld(20, 13)
+ 2   draw_border("st-brownie")
+ 3   fill_floor("fl-hay", 0,0, level_width,level_height)
+@end example
+
+The level begins with a call to @code{CreateWorld}, which creates a
+new world that is 20 blocks wide and 13 blocks high.  Every
+@dfn{block} in the world can be accessed with a pair of coordinates:
+The upper left corner has coordinates (0,0), the lower right one has
+coordinates (19,12).  Every block contains a floor tile, an (optional)
+item, and an (optional) stone.
+
+A frame of stones is drawn around the newly created landscape with the
+@code{draw_border} command.  Its argument, @code{"st-brownie"}, is the
+name of a stone.  By convention, all stones have @code{"st-"} prefixed
+to their name, similarly all item names begin with @code{"it-"} and
+all floor names with @code{"fl-"}.
+
+The @code{fill_floor} command in line 3 fills the complete floor with
+tiles of type @code{"fl-hay"}.  The other arguments are the upper left
+corner and the width and height of the rectangle to be filled.
+
+@example
+ 5   set_stone("st-fart", level_width-1,0, @{name="fart"@})
+ 6   set_stone("st-timer", 0,0, @{action="trigger", target="fart",
+ 7             interval=10@})
+@end example
+
+Lines 5 to 7 demonstrate how to create individual stones.  The
+@code{set_stone} command takes a stone name, the desired
+coordinates, and an (optional) list of @emph{attributes}
+as arguments.  Note the use of curly braces @code{@{},
+@code{@}} to enclose the attribute list.
+
+Attributes are the key to customizing the behaviour of objects in a
+landscape.  Here, we first give a name to the first stone we create.
+It's a fart stone that has the unpleasant habit of ``blowing off''
+when triggered.  Triggering this fart stone is done by the timer stone
+we create in line 6--7.  This stone performs a predefined action at
+regular intervals.  In this case we want to send a ``trigger'' message
+every ten seconds to the object named ``fart''.
+
+@example
+ 9   oxyd(3,3)
+10   oxyd(level_width-4,level_height-4)
+11   oxyd(level_width-4, 3)
+12   oxyd(3,level_height-4)
+13   oxyd_shuffle()
+@end example
+
+These commands place a couple of oxyd stones in the level.  The
+@code{oxyd} command internally uses @code{set_stone("st-oxyd", x,y,
+...)}  to create the stones, but it additionally assigns sensible
+values to some of the oxyd stones' attributes (most notably the
+color).  The command on line 14 permutes the colors on the oxyd stones
+currently in the landscape.
+
+@example
+15   set_actor("ac-blackball", 10,6.5)
+@end example
+
+This final line creates the black marble controlled by the player.
+Objects that can move around freely are called ``actors'' in Enigma.
+Unlike stones and items, actors are not restricted to integer
+coordinates, as you can see in this example. 
 
 
 
-@node XML Level structure, Info metadata, Getting Started, Level Basics
+@node XML Level structure, Info metadata, Getting Started with Levels, Level Basics
 @section XML Level structure
 
 Let us start with a complete overview of all existing top XML element nodes. The
@@ -1567,6 +1682,295 @@ section. Level administrators can use this element for the same purpose with
 the same syntax without modifying the authors protected section.
 
 @ignore
+
+
+
+@node Introduction, Level Basics, Top, Top
+@chapter Introduction
+
+This chapter explains how Enigma works internally and how you can
+create your own levels.  This manual is not for users of graphical
+level editors, but rather for @emph{programmers} of graphical level
+editors or users who want to use the full power of the Enigma
+``engine'' by using the built-in scripting language.
+
+There are two kinds of file formats you can use to build levels for
+Enigma.  The traditional solution was to write small programs in a
+programming language called @emph{Lua}.  Although this is still
+possible, the preferred way is now to prepare files in a data-centric
+format called XML; this will be discussed in detail in chapter
+
+Enigma's level format is extremely flexible and allows you to create
+very dynamic and interactive levels.  Here are a few examples of
+levels that make heavy use of Lua, both when preparing the level and
+during the game:
+
+@itemize @bullet
+@item
+Flood Gates (@file{nat8.lua}) Was one of the first levels to use Lua for
+more than simply building the level and then handing it over to the game
+engine.  The flowing water is controlled by a small function written in
+Lua--there is no built-in suppport for flowing water in the game engine.
+
+@item
+Enigris (@file{ralf04.lua}) lets you play Tetris inside Enigma.
+
+@item
+Mourning Palace (@file{ant08.lua}) moving platforms, also controlled
+by a Lua function.
+
+@item
+Finally, some of the maze levels and most of the levels in the Sokoban
+pack are dynamically generated: They look a little different every
+time you play them.
+
+@end itemize
+
+Our focus is on using Lua to access Enigma's game engine, so you won't
+learn much about Lua as a language in this chapter.  Many simple things,
+like function calls or @command{if} statements, will appear familiar to
+anyone having a little programming experience: In many ways Lua is
+similar to programming languages like Basic or Pascal.  But for most of
+Lua's finer points you will have to reach for the official Lua
+documentation, which you can download from
+@uref{http://www.lua.org,lua.org}.
+
+@menu
+* Creating New Levels::         
+* Example Level::               
+* Registering Levels::          
+* More Information::            
+@end menu
+
+
+@node Creating New Levels, Example Level, Introduction, Introduction
+@section Creating New Levels
+
+Creating a new level basically consists of the following steps
+
+@enumerate
+@item Writing the level description, for example a file named
+@file{daniel01.lua}.
+@item Inserting the new level into a level pack of your choice
+@item Creating a preview image for the level
+@item Testing the level in Enigma
+@end enumerate
+
+
+@node Example Level, Registering Levels, Creating New Levels, Introduction
+@section A Simple Level
+
+Here is a very simple level description that can also serve as a
+starting-point for new landscapes.  (In fact, this is the first level
+in Enigma, so you can try it out right away.)
+
+@example
+ 1   CreateWorld(20, 13)
+ 2   draw_border("st-brownie")
+ 3   fill_floor("fl-hay", 0,0, level_width,level_height)
+ 4
+ 5   set_stone("st-fart", level_width-1,0, @{name="fart"@})
+ 6   set_stone("st-timer", 0,0, @{action="trigger", target="fart",
+ 7             interval=10@})
+ 8
+ 9   oxyd(3,3)
+10   oxyd(level_width-4,level_height-4)
+11   oxyd(level_width-4, 3)
+12   oxyd(3,level_height-4)
+13   oxyd_shuffle()
+14
+15   set_actor("ac-blackball", 10,6.5)
+@end example
+
+The resulting level looks like this inside the game:
+
+      <img src="welcome.png" alt="The first level" width="75%" height="75%"></para>
+
+Let's now turn to a line-by-line analysis of this program:
+
+@example
+ 1   CreateWorld(20, 13)
+ 2   draw_border("st-brownie")
+ 3   fill_floor("fl-hay", 0,0, level_width,level_height)
+@end example
+
+The level begins with a call to @code{CreateWorld}, which creates a
+new world that is 20 blocks wide and 13 blocks high.  Every
+@dfn{block} in the world can be accessed with a pair of coordinates:
+The upper left corner has coordinates (0,0), the lower right one has
+coordinates (19,12).  Every block contains a floor tile, an (optional)
+item, and an (optional) stone.
+
+A frame of stones is drawn around the newly created landscape with the
+@code{draw_border} command.  Its argument, @code{"st-brownie"}, is the
+name of a stone.  By convention, all stones have @code{"st-"} prefixed
+to their name, similarly all item names begin with @code{"it-"} and
+all floor names with @code{"fl-"}.
+
+The @code{fill_floor} command in line 3 fills the complete floor with
+tiles of type @code{"fl-hay"}.  The other arguments are the upper left
+corner and the width and height of the rectangle to be filled.
+
+@example
+ 5   set_stone("st-fart", level_width-1,0, @{name="fart"@})
+ 6   set_stone("st-timer", 0,0, @{action="trigger", target="fart",
+ 7             interval=10@})
+@end example
+
+Lines 5 to 7 demonstrate how to create individual stones.  The
+@code{set_stone} command takes a stone name, the desired
+coordinates, and an (optional) list of @emph{attributes}
+as arguments.  Note the use of curly braces @code{@{},
+@code{@}} to enclose the attribute list.
+
+Attributes are the key to customizing the behaviour of objects in a
+landscape.  Here, we first give a name to the first stone we create.
+It's a fart stone that has the unpleasant habit of ``blowing off''
+when triggered.  Triggering this fart stone is done by the timer stone
+we create in line 6--7.  This stone performs a predefined action at
+regular intervals.  In this case we want to send a ``trigger'' message
+every ten seconds to the object named ``fart''.
+
+@example
+ 9   oxyd(3,3)
+10   oxyd(level_width-4,level_height-4)
+11   oxyd(level_width-4, 3)
+12   oxyd(3,level_height-4)
+13   oxyd_shuffle()
+@end example
+
+These commands place a couple of oxyd stones in the level.  The
+@code{oxyd} command internally uses @code{set_stone("st-oxyd", x,y,
+...)}  to create the stones, but it additionally assigns sensible
+values to some of the oxyd stones' attributes (most notably the
+color).  The command on line 14 permutes the colors on the oxyd stones
+currently in the landscape.
+
+@example
+15   set_actor("ac-blackball", 10,6.5)
+@end example
+
+This final line creates the black marble controlled by the player.
+Objects that can move around freely are called ``actors'' in Enigma.
+Unlike stones and items, actors are not restricted to integer
+coordinates, as you can see in this example. 
+
+
+@node Registering Levels, More Information, Example Level, Introduction
+@section Registering Levels
+
+After writing the level description you have to tell Enigma where to
+find your brand new landscape.  That's really two separate steps:
+
+@enumerate
+@item Move the @file{.lua}-File where Enigma can find it;
+@item Insert a new entry into the appropriate level index.
+@end enumerate
+
+The @file{.lua}-Files and the corresponding level index usually reside
+in the same directory.  For the levels that come with Enigma, for
+example, this is the @file{levels} directory inside.  For your own levels
+you can either use the same directory (currently your only choice if
+you use the Windows version of Enigma) or the @file{.enigma/levels}
+directory in your home folder (only if you use the Unix version).
+
+A level index is a file that contains the list of landscapes that comprise
+a level pack in Enigma.  Here is an excerpt from
+@file{index_enigma.txt}, which defines the ``Enigma'' level pack:
+
+@example
+@{file=welcome              name="Welcome"                        author="Daniel Heck"         @}
+@{file=martin06             name="Is It Easy?"                    author="Martin Hawlisch"     @}
+@{file=lasers101            name="Lasers 101"                     author="Daniel Heck"         @}
+@{file=level3a              name="Feel Your Way"                  author="Siegfried Fennig"    @}
+@{file=martin04             name="Sokoban Revival"                author="Martin Hawlisch"     @}
+@end example
+
+Every line in this file describes one landscape in the level pack.
+The general format of these lines is
+
+@example
+@{ tag1=content1 tag2=content2 ... @}
+@end example
+
+One line normally contains many different @code{tag=content} pairs.
+
+If your content contains spaces, surround the content with quotes
+(e.g. @code{name="Is It Easy?"}). If you want the string to contain quotes,
+escape them with @code{\} (e.g. @code{author = "Petr \"ant\" Machata"}).
+
+Here's a description of all supported tags:
+
+@table @code
+@item file
+Defines the file name of the level (@emph{excluding} the @file{.lua} extension).
+This entry is mandatory!
+
+@item name
+Defines the full name of the level. This is the name the player will
+see in the level menu. You can leave this field empty if you prefer to
+leave your level unnamed.
+
+@item author
+Defines the name of the autor. It will be displayed together with the full name at level startup.
+
+@item revision
+Defines the revision number of the level (defaults to 1)
+When the revision number is increased, a small red ! appears in the level menu.
+
+If you do changes to the level that affect the way the level
+is solved, you should increase the revision number.
+If you only did cosmetic changes, you should @emph{NOT} increase the revision.
+
+You should never decrease the revision number!
+
+@item easymode
+Set this to 1 when the level supports different difficulties.
+
+@item par_time
+Syntax: @code{par_time=sec,name}
+
+@code{sec} is the par time for the level in seconds.
+
+@code{name} is the player who did the par.
+
+If easymode is 1 then @code{par_time_easy} and/or @code{par_time_normal}
+have to be used instead of @code{par_time}.
+
+
+@end table
+
+When Enigma starts up it automatically tries to load an index file
+called @file{index_user.txt}, where you can store all your personal
+levels.  This file is not included in Enigma distributions, you have
+to create it yourself.  The levels listed in this file will show up in
+a new level pack called ``User Levels''.
+
+
+@node More Information,  , Registering Levels, Introduction
+@section Where to go from here
+
+The example level from the first section of this chapter was hopefully
+enough to give you an impression how level descriptions look like in
+Enigma.  Of course, that level was extremely simple, and most
+interesting levels will be more complicated.  The rest of this
+reference manual tries to document the available game objects and how
+to interact with the Enigma game engine, both when preparing the level
+(before the game starts) and during the game.
+
+This manual only describes the low-level interface to Enigma's game
+engine, which is as flexible as it is inconvenient to use by hand.
+Petr Machata has written a comprehensive set of helper routines that
+greatly simplify the creation of new levels.  You can use the package
+by including the line @code{Require("levels/ant.lua")} in your level
+descriptions.  There is extensive documentation for @file{ant.lua} in
+file @file{ant_lua.txt} in the documentation directory.
+
+Before you read on, please be aware that this manual is far from
+complete.  We are working on it and it will be ready for the
+(glorious) 1.0 release.  For the moment, the available level
+descriptions are the best ``documentation'' available.
+
 
 @node  XML levels, Objects, Level Basics, Top
 @chapter XML levels
