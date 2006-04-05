@@ -6,8 +6,8 @@
 
 -- reused code from ant16.lua
 
-dofile(enigma.FindDataFile("levels/lib/ant.lua"))
-dofile(enigma.FindDataFile("levels/lib/natmaze.lua"))
+Require("levels/lib/ant.lua")
+Require("levels/lib/natmaze.lua")
 
 -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- --
 -- i took these from Nat Pryce's natmaze.lua maps

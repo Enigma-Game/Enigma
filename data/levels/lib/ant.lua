@@ -1283,30 +1283,14 @@ function render_slopes(tab, invert)
       local x,y = val.x, val.y
 
       local node = {}
-      local intval = 0
-      if (tab[getkey(x-1,y-1)] ~= nil) then intval = 1 end
-      tinsert(node, intval)
-      intval = 0
-      if (tab[getkey(x  ,y-1)] ~= nil) then intval = 1 end
-      tinsert(node, intval)
-      intval = 0
-      if (tab[getkey(x+1,y-1)] ~= nil) then intval = 1 end
-      tinsert(node, intval)
-      intval = 0
-      if (tab[getkey(x-1,y  )] ~= nil) then intval = 1 end
-      tinsert(node, intval)
-      intval = 0
-      if (tab[getkey(x+1,y  )] ~= nil) then intval = 1 end
-      tinsert(node, intval)
-      intval = 0
-      if (tab[getkey(x-1,y+1)] ~= nil) then intval = 1 end
-      tinsert(node, intval)
-      intval = 0
-      if (tab[getkey(x  ,y+1)] ~= nil) then intval = 1 end
-      tinsert(node, intval)
-      intval = 0
-      if (tab[getkey(x+1,y+1)] ~= nil) then intval = 1 end
-      tinsert(node, intval)
+      if (tab[getkey(x-1,y-1)] ~= nil) then tinsert(node, 1) else  tinsert(node, 0) end
+      if (tab[getkey(x  ,y-1)] ~= nil) then tinsert(node, 1) else  tinsert(node, 0) end
+      if (tab[getkey(x+1,y-1)] ~= nil) then tinsert(node, 1) else  tinsert(node, 0) end
+      if (tab[getkey(x-1,y  )] ~= nil) then tinsert(node, 1) else  tinsert(node, 0) end
+      if (tab[getkey(x+1,y  )] ~= nil) then tinsert(node, 1) else  tinsert(node, 0) end
+      if (tab[getkey(x-1,y+1)] ~= nil) then tinsert(node, 1) else  tinsert(node, 0) end
+      if (tab[getkey(x  ,y+1)] ~= nil) then tinsert(node, 1) else  tinsert(node, 0) end
+      if (tab[getkey(x+1,y+1)] ~= nil) then tinsert(node, 1) else  tinsert(node, 0) end
 
       if (val.tag ~= 2) then
 	 if( (invert ~= nil) ~= (val.tag == -1)) then   -- this is !(invert xor (val.tag == -1))
