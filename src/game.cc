@@ -83,9 +83,8 @@ void game::StartGame (levels::LevelPack *lp, unsigned ilevel)
     server::Msg_LoadLevel (ilevel);
 
     double dtime = 0;
+    last_tick_time=SDL_GetTicks();
     while (!client::AbortGameP()) {
-        last_tick_time=SDL_GetTicks();
-
         try {
             client::Tick (dtime);
             server::Tick (dtime);
@@ -100,11 +99,15 @@ void game::StartGame (levels::LevelPack *lp, unsigned ilevel)
         if (sleeptime >= 3)      // only sleep if relatively idle
             SDL_Delay(sleeptime);
 
-        dtime = (SDL_GetTicks()-last_tick_time)/1000.0;
+        Uint32 current_tick_time = SDL_GetTicks();
+        dtime = (current_tick_time - last_tick_time)/1000.0;
 
         if (abs(1-dtime/0.01) < 0.2) {
             // less than 20% deviation from desired frame time?
             dtime = 0.01;
+            last_tick_time += 10;
+        } else {
+            last_tick_time = current_tick_time;
         }
 
 	if (dtime > 500.0) /* Time has done something strange, perhaps
