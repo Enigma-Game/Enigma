@@ -45,7 +45,7 @@ stones["}"]={"bombs"}
 items["s"]={"seed"}
 items["("]={"spring1"}
 
-	for tgt, kind in targets do
+	for tgt, kind in pairs(targets) do
 	local C=format("%c", tgt+64)
 	local c=format("%c", tgt+96)
 	
@@ -141,11 +141,10 @@ end
 create_world( strlen(level[1]), getn(level) )
 fill_floor("fl-leaves")
 	
-for y,line in level do
+for y,line in pairs(level) do
     y=y-1
     for x = 0, level_width-1 do
         local cell = strchar(strbyte(line,x+1))
-        local asc=ascii(cell)
         
         if floors[cell] then
             set_floor("fl-"..floors[cell][1], x, y, floors[cell][2])

@@ -5,7 +5,7 @@
 -- 2003-02-09 -- fixes in object groups
 -- 2003-02-10 -- rubber band fix
 
-dofile(enigma.FindDataFile("levels/lib/ant.lua"))
+Require("levels/lib/ant.lua")
 
 -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- --
 

@@ -9,7 +9,7 @@ display.DefineAlias("fake_stone_move", "st-death")
 world.DefineSimpleStone("fake_stone", "shatter", 0, 0)
 display.DefineAlias("fake_stone", "st-death")
 
-dofile(enigma.FindDataFile("levels/lib/ant.lua"))
+Require("levels/lib/ant.lua")
 
 cells={}
 

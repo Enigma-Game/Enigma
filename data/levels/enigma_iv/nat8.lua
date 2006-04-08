@@ -105,12 +105,12 @@ function lockgate_type( name, factory_func )
     local switch_type = strlower(name)
     local callback_name = "open_gate_" .. gate_type
     local callback = function()
-        open_lockgate( %gate_type )
+        open_lockgate( gate_type )
     end
     
     setglobal( callback_name, callback )
     types[gate_type] = function( x, y )
-        %factory_func( x, y, %gate_type )
+        factory_func( x, y, gate_type )
     end
 end
 
@@ -121,7 +121,7 @@ function switch_type( name )
     
     types[switch_type] = function( x, y )
         set_stone( "st-switch", x, y,
-                  {action="callback", target=%callback_name} )
+                  {action="callback", target=callback_name} )
     end
 end
 
@@ -132,14 +132,14 @@ function trigger_type( name )
     
     types[switch_type] = function( x, y )
         set_item( "it-trigger", x, y,
-                  {action="callback", target=%callback_name} )
+                  {action="callback", target=callback_name} )
     end
 end
 
 function tick()
     local new_flows = {}
     
-    for i,flow in flows do
+    for i,flow in pairs(flows) do
         channel_type = channels[flow]
         if can_flow( flow ) then
             if channels[flow] == CHANNEL then
@@ -280,7 +280,7 @@ switch_type( "i" )
 
 for color=0,9 do
     types[""..color] = function( x, y )
-        set_stone( "st-oxyd", x, y, {flavor="a", color=""..%color} )
+        set_stone( "st-oxyd", x, y, {flavor="a", color=""..color} )
     end
 end
 
@@ -289,7 +289,7 @@ end
 
 create_world( strlen(level[1]), getn(level) )
 fill_floor( "fl-leaves")
-for y,line in level do
+for y,line in pairs(level) do
     for x = 1,strlen(line) do
         local type = strchar(strbyte(line,x))
         types[type]( x-1, y-1 )

@@ -92,7 +92,7 @@ renderLine(12, "##################II")
 --              01234567890123456789
 
 function s1()
- SendMessage(%laser, "onoff")
+ SendMessage(laser, "onoff")
 end
 
 

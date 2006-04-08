@@ -111,10 +111,10 @@ set_item("it-trigger", x0+3,y0+1, {invisible=1,action="callback", target="box1tr
 set_item("it-trigger", x0+3,y0+2, {invisible=1,action="callback", target="box1trig2"})
 set_item("it-trigger", x0+4,y0+2, {invisible=1,action="callback", target="box1trig3"})
 
--- Ansrechbar als %door1
+-- Ansrechbar als door1
 local door1 = set_stone("st-door-v", x0+7, y0+5)
 
--- Ansprechbar als %switchesbox1
+-- Ansprechbar als switchesbox1
 local switchesbox1={0, 0, 0}
 doorsopenbox1=0
 
@@ -123,18 +123,18 @@ function box1trig2 () triggerbox1(2) end
 function box1trig3 () triggerbox1(3) end 
 
 function triggerbox1(num)
-   %switchesbox1[num] = 1-%switchesbox1[num]
+   switchesbox1[num] = 1-switchesbox1[num]
    allbox1=1
    for x=1,3 do
-      if (%switchesbox1[x]==0) then
+      if (switchesbox1[x]==0) then
          allbox1 = 0
       end
    end
    if (doorsopenbox1==0 and allbox1==1) then
-      SendMessage(%door1, "open")
+      SendMessage(door1, "open")
       doorsopenbox1 = 1
    elseif (doorsopenbox1==1 and allbox1==0) then
-      SendMessage(%door1, "close")
+      SendMessage(door1, "close")
       doorsopenbox1 = 0
    end
 end
@@ -178,10 +178,10 @@ function box2trig2 () triggerbox2(2) end
 function box2trig3 () triggerbox2(3) end 
 
 function triggerbox2(num)
-   %switchesbox2[num] = 1-%switchesbox2[num]
+   switchesbox2[num] = 1-switchesbox2[num]
    allbox2=1
    for x=1,3 do
-      if (%switchesbox2[x]==0) then
+      if (switchesbox2[x]==0) then
          allbox2 = 0
       end
    end
@@ -226,10 +226,10 @@ function box3trig2 () triggerbox3(2) end
 function box3trig3 () triggerbox3(3) end 
 
 function triggerbox3(num)
-   %switchesbox3[num] = 1-%switchesbox3[num]
+   switchesbox3[num] = 1-switchesbox3[num]
    allbox3=1
    for x=1,3 do
-      if (%switchesbox3[x]==0) then
+      if (switchesbox3[x]==0) then
          allbox3 = 0
       end
    end
@@ -275,10 +275,10 @@ function box4trig3 () triggerbox4(3) end
 function box4trig4 () triggerbox4(4) end 
 
 function triggerbox4(num)
-   %switchesbox4[num] = 1-%switchesbox4[num]
+   switchesbox4[num] = 1-switchesbox4[num]
    allbox4=1
    for x=1,4 do
-      if (%switchesbox4[x]==0) then
+      if (switchesbox4[x]==0) then
          allbox4 = 0
       end
    end
@@ -320,10 +320,10 @@ function box5trig2 () triggerbox5(2) end
 function box5trig3 () triggerbox5(3) end 
 
 function triggerbox5(num)
-   %switchesbox5[num] = 1-%switchesbox5[num]
+   switchesbox5[num] = 1-switchesbox5[num]
    allbox5=1
    for x=1,3 do
-      if (%switchesbox5[x]==0) then
+      if (switchesbox5[x]==0) then
          allbox5 = 0
       end
    end
@@ -356,7 +356,7 @@ set_item("it-trigger", x0+2,y0+3, {action="callback", target="box6trig2"})
 set_item("it-trigger", x0+6,y0+3, {action="callback", target="box6trig3"})
 set_item("it-extralife", x0+2,y0+5)
 
--- Ansprechbar als %switches
+-- Ansprechbar als switches
 local switchesbox6={0, 0, 0}
 doorsopenbox6=0
 
@@ -365,18 +365,18 @@ function box6trig2 () triggerbox6(2) end
 function box6trig3 () triggerbox6(3) end 
 
 function triggerbox6(num)
-   %switchesbox6[num] = 1-%switchesbox6[num]
+   switchesbox6[num] = 1-switchesbox6[num]
    allbox6=1
    for x=1,3 do
-      if (%switchesbox6[x]==0) then
+      if (switchesbox6[x]==0) then
          allbox6 = 0
       end
    end
    if (doorsopenbox6==0 and allbox6==1) then
-      SendMessage(%laser1, "off")
+      SendMessage(laser1, "off")
       doorsopenbox6 = 1
    elseif (doorsopenbox6==1 and allbox6==0) then
-	SendMessage(%laser1, "on")
+	SendMessage(laser1, "on")
       doorsopenbox6 = 0
    end
 end
@@ -417,20 +417,20 @@ function box7trig2 () triggerbox7(2) end
 function box7trig3 () triggerbox7(3) end 
 
 function triggerbox7(num)
-   %switchesbox7[num] = 1-%switchesbox7[num]
+   switchesbox7[num] = 1-switchesbox7[num]
    allbox7=1
    for x=1,3 do
-      if (%switchesbox7[x]==0) then
+      if (switchesbox7[x]==0) then
          allbox7 = 0
       end
    end     
    if (doorsopenbox7==0 and allbox7==1) then
       set_stone("st-glass1_hole",24,14)
-      SendMessage(%door2, "open")
+      SendMessage(door2, "open")
       doorsopenbox7 = 1
    elseif (doorsopenbox7==1 and allbox7==0) then
       set_stone("st-glass1",24,14)
-      SendMessage(%door2, "close")
+      SendMessage(door2, "close")
       doorsopenbox7 = 0
    end
 end
@@ -467,18 +467,18 @@ function box8trig3 () triggerbox8(3) end
 function box8trig4 () triggerbox8(4) end 
 
 function triggerbox8(num)
-   %switchesbox8[num] = 1-%switchesbox8[num]
+   switchesbox8[num] = 1-switchesbox8[num]
    allbox8=1
    for x=1,4 do
-      if (%switchesbox8[x]==0) then
+      if (switchesbox8[x]==0) then
          allbox8 = 0
       end
    end
    if (doorsopenbox8==0 and allbox8==1) then
-      SendMessage(%laser2, "on")
+      SendMessage(laser2, "on")
       doorsopenbox8 = 1
    elseif (doorsopenbox8==1 and allbox8==0) then
-      SendMessage(%laser2, "off")
+      SendMessage(laser2, "off")
       doorsopenbox8 = 0
    end
 end

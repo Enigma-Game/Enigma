@@ -232,7 +232,7 @@ function plot_map(tomap,x,y,typ)
 end
 
 function dump_map(themap)
-   for y,str in themap do
+   for y,str in pairs(themap) do
       print(y,"'",str,"'")
    end
 end
@@ -359,7 +359,7 @@ end
 
 function check_breakouts()
    local oldpoints = points
-   for y,str in dmap do
+   for y,str in pairs(dmap) do
       local spacefound = 0
       for x=1,dfieldw do
          local c = strsub(str,x,x)
@@ -383,7 +383,7 @@ end
 
 function fit_broken_lines()
    local maxy = 99
-   for y,broken in broken_lines do
+   for y,broken in pairs(broken_lines) do
       if (broken == 1) then
          if (y < maxy) then
             maxy = y
@@ -468,7 +468,7 @@ function trigger5() trigger(5) end -- drop/restart
 function end_game()
    if (game_over == 0) then
       game_over = 1
-      for key,str in dmap do
+      for key,str in pairs(dmap) do
          dmap[key] = gsub(str,"%d","S")
       end
    end
@@ -584,7 +584,7 @@ function game_tick(fall)
          points = 0
          show_points()
          local line = strrep("-", dfieldw)
-         for y,str in dmap do
+         for y,str in pairs(dmap) do
             dmap[y] = line
          end
          stone_done(0)

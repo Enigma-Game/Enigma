@@ -2,7 +2,7 @@
 -- Copyright (C) 2005 Lukas Schueller
 -- Licensed under GPL v2.0 or above 
 
-dofile( enigma.FindDataFile("levels/lib/natmaze.lua") )
+Require("levels/lib/natmaze.lua")
 
 mfloors = {"fl-leaves","fl-wood","fl-rough-blue","fl-rough-red","fl-sand","fl-rough","fl-normal"}
 
@@ -10,7 +10,7 @@ originx = 1
 originy = 1
 
 function cell_to_level( cellx, celly )
-  return %originx + cellx * 2, %originy + celly * 2
+  return originx + cellx * 2, originy + celly * 2
 end
 
 function fill_randomfloor(names, x0,y0, w,h)

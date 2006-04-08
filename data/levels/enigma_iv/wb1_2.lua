@@ -6,7 +6,7 @@
 -- Nov 2005: Changes in level design, due to new timing engine.
 --           Added easy mode (some seconds more time) -- Andreas
 
-dofile(enigma.FindDataFile("levels/lib/ant.lua"))
+Require("levels/lib/ant.lua")
 
 -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- --
 

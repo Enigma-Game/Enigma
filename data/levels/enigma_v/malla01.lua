@@ -125,10 +125,10 @@ function trigger3 () triggerdoor1(3) end
 doorsopen1=0
 
 function triggerdoor1(num)
-   %switchesdoor1[num] = 1-%switchesdoor1[num]
+   switchesdoor1[num] = 1-switchesdoor1[num]
    alldoor1=1
    for x=1,3 do
-      if (%switchesdoor1[x]==0) then
+      if (switchesdoor1[x]==0) then
          alldoor1 = 0
 	end
    end
@@ -158,10 +158,10 @@ function lasertrigger4 () triggerdoor3(4) end
 doorsopen3=0
 
 function triggerdoor3(num)
-   %switchesdoor3[num] = 1-%switchesdoor3[num]
+   switchesdoor3[num] = 1-switchesdoor3[num]
    allswitches3=1
    for x=1,4 do
-      if (%switchesdoor3[x]==0) then
+      if (switchesdoor3[x]==0) then
          allswitches3 = 0
 	end
    end

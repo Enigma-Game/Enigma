@@ -208,7 +208,7 @@ fill_floor (LAND_FLOOR)
 
 enigma.TwoPlayerGame = TRUE
 
-for y,line in level do
+for y,line in pairs(level) do
 
     for x = 1,strlen(line) do
 
