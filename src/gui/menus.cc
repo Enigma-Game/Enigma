@@ -876,6 +876,10 @@ namespace
         TimeHuntButton() : BoolOptionButton("TimeHunting", N_("Yes"), N_("No"), this) {}
     };
 
+    struct RatingsUpdateButton : public BoolOptionButton {
+        RatingsUpdateButton() : BoolOptionButton("RatingsAutoUpdate", N_("Auto"), N_("Never"), this) {}
+    };
+
     class VideoModeButton : public TextButton {
 
         video::VideoModes get_mode() const {
@@ -1164,13 +1168,15 @@ OptionsMenu::OptionsMenu(ecl::Surface *background_)
     rightlabels.add (new Label(N_("Sound set: "), HALIGN_RIGHT));
     rightlabels.add (new Label(N_("Music volume: "), HALIGN_RIGHT));
     rightlabels.add (new Label(N_("Stereo: "), HALIGN_RIGHT));
+    rightlabels.add (new Label(N_("Ratings update: "), HALIGN_RIGHT));
 
     right.add (new SoundVolumeButton);
     right.add (new SoundSetButton);
     right.add (new MusicVolumeButton);
 //    right.add (new InGameMusicButton);
     right.add (new StereoButton);
-    right.add (new TextField());
+    right.add (new RatingsUpdateButton);
+//    right.add (new TextField());
     
     {
         Rect l = left.pos();

@@ -30,6 +30,7 @@
 #include "world.hh"
 #include "nls.hh"
 #include "PreferenceManager.hh"
+#include "lev/RatingManager.hh"
 
 #include "enet/enet.h"
 
@@ -607,6 +608,7 @@ static void shutdown()
     enet_deinitialize();
     app.prefs->shutdown();
     options::Save();
+    lev::RatingManager::instance()->save();
     lua::ShutdownGlobal();
     delete_sequence(levels::LevelPacks.begin(),
                     levels::LevelPacks.end());

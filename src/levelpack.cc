@@ -297,11 +297,13 @@ void LevelPack_Enigma::load_index (istream &is)
                 info.proxy = lev::Proxy::registerLevel(info.filename, packPath,
                         info.uniqueName(), info.name, info.author, info.revision, 
                     info.revision, info.has_easymode);
-                theRatingMgr->registerRating(info.uniqueName(), info.revision,
-                    info.intelligence, info.dexterity, info.patience,
-                    info.knowledge, info.speed, info.par_time_easy,
-                    info.par_time_easy_by ,info.par_time_normal,
-                    info.par_time_normal_by);
+                if(m_name != "History") {
+                    theRatingMgr->registerRating(info.uniqueName(), info.revision,
+                        info.intelligence, info.dexterity, info.patience,
+                        info.knowledge, info.speed, info.par_time_easy,
+                        info.par_time_easy_by ,info.par_time_normal,
+                        info.par_time_normal_by);
+                }
                 m_levels.push_back(info);
             }
         }

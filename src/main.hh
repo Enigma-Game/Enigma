@@ -36,6 +36,7 @@
 #include <xercesc/util/TransService.hpp>
 
 #define PREFFILENAME "enigmarc3.xml"
+#define RATINGSFILENAME "ratings.xml"
 
 namespace enigma
 {

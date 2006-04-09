@@ -33,6 +33,137 @@ using namespace enigma;
 
 namespace enigma { namespace gui {
 
+    class IntelligenceButton : public ValueButton {
+        int get_value() const     { 
+            return theRatingMgr->getIntelligence(theLevel);
+        }
+        void set_value(int value) { 
+            theRatingMgr->setIntelligence(theLevel, value);
+        }
+    
+        string get_text(int value) const  {
+            return strf("%d", value);
+        }
+    public:
+        IntelligenceButton(lev::Proxy  *aLevel) : ValueButton(0, 5), 
+                theLevel (aLevel) {
+            theRatingMgr = lev::RatingManager::instance();
+            init();
+        }
+    private:
+        lev::RatingManager *theRatingMgr;
+        lev::Proxy *theLevel;        
+    };
+    
+    class DexterityButton : public ValueButton {
+        int get_value() const     { 
+            return theRatingMgr->getDexterity(theLevel);
+        }
+        void set_value(int value) { 
+            theRatingMgr->setDexterity(theLevel, value);
+        }
+    
+        string get_text(int value) const  {
+            return strf("%d", value);
+        }
+    public:
+        DexterityButton(lev::Proxy  *aLevel) : ValueButton(0, 5), 
+                theLevel (aLevel) {
+            theRatingMgr = lev::RatingManager::instance();
+            init();
+        }
+    private:
+        lev::RatingManager *theRatingMgr;
+        lev::Proxy *theLevel;        
+    };
+    
+    class PatienceButton : public ValueButton {
+        int get_value() const     { 
+            return theRatingMgr->getPatience(theLevel);
+        }
+        void set_value(int value) { 
+            theRatingMgr->setPatience(theLevel, value);
+        }
+    
+        string get_text(int value) const  {
+            return strf("%d", value);
+        }
+    public:
+        PatienceButton(lev::Proxy  *aLevel) : ValueButton(0, 5), 
+                theLevel (aLevel) {
+            theRatingMgr = lev::RatingManager::instance();
+            init();
+        }
+    private:
+        lev::RatingManager *theRatingMgr;
+        lev::Proxy *theLevel;        
+    };
+    
+    class KnowledgeButton : public ValueButton {
+        int get_value() const     { 
+            return theRatingMgr->getKnowledge(theLevel);
+        }
+        void set_value(int value) { 
+            theRatingMgr->setKnowledge(theLevel, value);
+        }
+    
+        string get_text(int value) const  {
+            return strf("%d", value);
+        }
+    public:
+        KnowledgeButton(lev::Proxy  *aLevel) : ValueButton(0, 6), 
+                theLevel (aLevel) {
+            theRatingMgr = lev::RatingManager::instance();
+            init();
+        }
+    private:
+        lev::RatingManager *theRatingMgr;
+        lev::Proxy *theLevel;        
+    };
+    
+    class SpeedButton : public ValueButton {
+        int get_value() const     { 
+            return theRatingMgr->getSpeed(theLevel);
+        }
+        void set_value(int value) { 
+            theRatingMgr->setSpeed(theLevel, value);
+        }
+    
+        string get_text(int value) const  {
+            return strf("%d", value);
+        }
+    public:
+        SpeedButton(lev::Proxy  *aLevel) : ValueButton(0, 5), 
+                theLevel (aLevel) {
+            theRatingMgr = lev::RatingManager::instance();
+            init();
+        }
+    private:
+        lev::RatingManager *theRatingMgr;
+        lev::Proxy *theLevel;        
+    };
+    
+//     class RatingButton : public ValueButton {
+//         int get_value() const     { 
+//             return theRatingMgr->getSpeed(theLevel);
+//         }
+//         void set_value(int value) { 
+//             theRatingMgr->setSpeed(theLevel, value);
+//         }
+//     
+//         string get_text(int value) const  {
+//             return strf("%d", value);
+//         }
+//     public:
+//         RatingButton(lev::Proxy  *aLevel) : ValueButton(0, 5), 
+//                 theLevel (aLevel) {
+//             theRatingMgr = lev::RatingManager::instance();
+//             init();
+//         }
+//     private:
+//         lev::RatingManager *theRatingMgr;
+//         lev::Proxy *theLevel;        
+//     };
     
 LevelInspector::LevelInspector(lev::Proxy *aLevel, ecl::Surface *preview):
         previewImage(preview), levelProxy(aLevel),
@@ -44,7 +175,7 @@ LevelInspector::LevelInspector(lev::Proxy *aLevel, ecl::Surface *preview):
         vmargin = vminfo->height < 500 ? 10 :(vminfo->height < 650 ?  20 : 30);
         hmargin = vminfo->width < 660 ? 10 : (vminfo->width < 900 ? 20 : 30);    
     
-        add(back, Rect(vminfo->width-100-2*hmargin,vminfo->height-50,100,35));
+        add(back, Rect(vminfo->width-130-2*hmargin,vminfo->height-50,130,35));
     
         try {
             aLevel->loadMetadata();
@@ -110,12 +241,20 @@ LevelInspector::LevelInspector(lev::Proxy *aLevel, ecl::Surface *preview):
         ratingPubST.add(new Label(N_("Knowledge: "), HALIGN_RIGHT));
         ratingPubST.add(new Label(N_("Speed: "), HALIGN_RIGHT));
         
-        BuildVList ratingPub(this, Rect(hmargin+130+15,vmargin+6*25+5*vspacing+16, 10,25), 2);
-        ratingPub.add(new Label(ratingToString(theRatingMgr->getIntelligence(aLevel)).c_str(), HALIGN_CENTER));
-        ratingPub.add(new Label(ratingToString(theRatingMgr->getDexterity(aLevel)).c_str(), HALIGN_CENTER));
-        ratingPub.add(new Label(ratingToString(theRatingMgr->getPatience(aLevel)).c_str(), HALIGN_CENTER));
-        ratingPub.add(new Label(ratingToString(theRatingMgr->getKnowledge(aLevel)).c_str(), HALIGN_CENTER));
-        ratingPub.add(new Label(ratingToString(theRatingMgr->getSpeed(aLevel)).c_str(), HALIGN_CENTER));
+        BuildVList ratingPub(this, Rect(hmargin+130+15,vmargin+6*25+5*vspacing+16, 20,25), 2);
+        if (WizardMode) {
+            ratingPub.add(new IntelligenceButton(aLevel));
+            ratingPub.add(new DexterityButton(aLevel));
+            ratingPub.add(new PatienceButton(aLevel));
+            ratingPub.add(new KnowledgeButton(aLevel));
+            ratingPub.add(new SpeedButton(aLevel));
+        } else {
+            ratingPub.add(new Label(ratingToString(theRatingMgr->getIntelligence(aLevel)).c_str(), HALIGN_CENTER));
+            ratingPub.add(new Label(ratingToString(theRatingMgr->getDexterity(aLevel)).c_str(), HALIGN_CENTER));
+            ratingPub.add(new Label(ratingToString(theRatingMgr->getPatience(aLevel)).c_str(), HALIGN_CENTER));
+            ratingPub.add(new Label(ratingToString(theRatingMgr->getKnowledge(aLevel)).c_str(), HALIGN_CENTER));
+            ratingPub.add(new Label(ratingToString(theRatingMgr->getSpeed(aLevel)).c_str(), HALIGN_CENTER));
+        }
         
         BuildVList scoresT(this, Rect(vminfo->width/2-100-20,vmargin+5*25+4*vspacing+16,100,25), 2);
         scoresT.add(new Label(N_("Scores"), HALIGN_RIGHT));
@@ -125,16 +264,22 @@ LevelInspector::LevelInspector(lev::Proxy *aLevel, ecl::Surface *preview):
         scoresST.add(new Label(N_("Best: "), HALIGN_RIGHT));
         scoresST.add(new Label(N_("PAR: "), HALIGN_RIGHT));
         scoresST.add(new Label(N_("Author: "), HALIGN_RIGHT));
-        scoresST.add(new Label(N_("Solved #: "), HALIGN_RIGHT));
+        scoresST.add(new Label(N_("Solved %: "), HALIGN_RIGHT));
     
         BuildVList scores(this, Rect(vminfo->width/2-15+(withEasy?0:20),
-                vmargin+6*25+5*vspacing+16,(withEasy?105:46),25), 2);
+                vmargin+6*25+5*vspacing+16,(withEasy?117:54),25), 2);
         scores.add(new MonospacedLabel(" ",'8', " 0123456789", HALIGN_CENTER));
         scores.add(new MonospacedLabel(scoreToString(theRatingMgr->getBestScoreEasy(aLevel),
             theRatingMgr->getBestScoreDifficult(aLevel),aLevel,true).c_str(),'8', " 0123456789", HALIGN_CENTER));
-        scores.add(new MonospacedLabel(" ",'8', " 0123456789", HALIGN_CENTER));
+        scores.add(new MonospacedLabel(scoreToString(theRatingMgr->getParScoreEasy(aLevel),
+            theRatingMgr->getParScoreDifficult(aLevel),aLevel,true).c_str(),'8', " 0123456789", HALIGN_CENTER));
         scores.add(new MonospacedLabel(scoreToString(aLevel->getEasyScore(),
             aLevel->getDifficultScore(),aLevel,true).c_str(),'8', " 0123456789", HALIGN_CENTER));
+        scores.add(new MonospacedLabel(withEasy ? (theRatingMgr->getPcSolvedEasy(aLevel) + 
+            " /" + theRatingMgr->getPcSolvedDifficult(aLevel) + " ").c_str() :
+            (theRatingMgr->getPcSolvedDifficult(aLevel) + " ").c_str(),
+        
+            '8', " 0123456789", HALIGN_CENTER));
         
         BuildVList versionT(this, Rect(vminfo->width-100/2-90-2*hmargin,vmargin+5*25+4*vspacing+16,100,25), 2);
         versionT.add(new Label(N_("Version"), HALIGN_CENTER));
@@ -242,6 +387,10 @@ LevelInspector::LevelInspector(lev::Proxy *aLevel, ecl::Surface *preview):
             vnext += (25 + vspacing)*annotationLines;
         }
         add(new Label(N_("Rating: "), HALIGN_RIGHT),Rect(hmargin,vnext,110,25));
+//         add(new RatingButton(aLevel),Rect(hmargin+110+10,vnext,40,25));
+        add(new Label(N_("Average: "), HALIGN_RIGHT),Rect(hmargin+110+10+40+20,vnext,95,25));
+        add(new Label(theRatingMgr->getAverageRating(aLevel), HALIGN_RIGHT),Rect(hmargin+110+10+40+20+95+10,vnext,25,25));
+        add(new StaticTextButton(N_("Screenshots"), this), Rect(vminfo->width-260-3*hmargin,vminfo->height-50,130,35));
 
     }
     
@@ -265,10 +414,10 @@ LevelInspector::LevelInspector(lev::Proxy *aLevel, ecl::Surface *preview):
         Surface *img_hard = enigma::GetImage("completed");
         if (withEasy) {
             Surface *img_easy = enigma::GetImage("completed-easy");
-            blit (gc, vminfo->width/2-10, vmargin+5*25+4*vspacing+16, img_easy);
-            blit (gc, vminfo->width/2-10+63, vmargin+5*25+4*vspacing+16, img_hard);
+            blit (gc, vminfo->width/2-4, vmargin+5*25+4*vspacing+16, img_easy);
+            blit (gc, vminfo->width/2-4+63, vmargin+5*25+4*vspacing+16, img_hard);
         } else {
-            blit (gc, vminfo->width/2-10+20, vmargin+5*25+4*vspacing+16, img_hard);
+            blit (gc, vminfo->width/2-4+20, vmargin+5*25+4*vspacing+16, img_hard);
         }
     }
     
