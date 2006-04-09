@@ -21,6 +21,7 @@
 
 #include "main.hh"
 #include "ecl_util.hh"
+#include "LocalToXML.hh"
 #include "Utf8ToXML.hh"
 #include "XMLtoUtf8.hh"
 
@@ -321,7 +322,7 @@ namespace enigma { namespace lev {
                 std::for_each(cache.begin(), cache.end(), saveLevelRating);
                 std::string writePath = app.userPath + "/" + RATINGSFILENAME;
 #if _XERCES_VERSION >= 30000
-                app.domSer->writeToURI(doc, LocalToXML(writePath).x_str());
+                app.domSer->writeToURI(saveDoc, LocalToXML(writePath.c_str()).x_str());
 #else
                 XMLFormatTarget *myFormTarget = new LocalFileFormatTarget(writePath.c_str());
                 app.domSer->writeNode(myFormTarget, *saveDoc);            

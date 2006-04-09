@@ -83,6 +83,7 @@ function copy_data
     done
     mkdir $DDIR/data/schemas
     cplffiles data/schemas data/schemas xsd
+    cplffiles data/schemas data/schemas xml
     copy_levels
     mkdir $DDIR/data/fonts
     cp -p $SDIR/data/fonts/*.{bmf,png,txt,ttf} $DDIR/data/fonts
