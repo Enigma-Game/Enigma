@@ -142,6 +142,11 @@
 --
 
 
+--------------------------------------
+--  Global variables and constants  --
+--------------------------------------
+
+
 -- direct options --
 
 itemfreeze_option = 5
@@ -178,12 +183,15 @@ itemfreeze_destroyed = {}
 itemfreeze_damaged = {}
 
 
--- destructive functions (shattering, melting)  --
+---------------------------------------------------
+--  Destructive functions (shattering, melting)  --
+---------------------------------------------------
+
 
 function itemfreeze_remove_burnables(pos_x, pos_y)
-  myitem = enigma.GetItem(pos_x, pos_y)
+  local myitem = enigma.GetItem(pos_x, pos_y)
   if myitem ~= nil then
-    kind = enigma.GetKind(myitem)
+    local kind = enigma.GetKind(myitem)
     if (kind == "it-burnable") or (kind == "it-burnable_ignited") 
              or (kind == "it-burnable_burning") then
       kill_item(pos_x, pos_y)
@@ -192,9 +200,9 @@ function itemfreeze_remove_burnables(pos_x, pos_y)
 end
 
 function itemfreeze_shatter_ice(pos_x, pos_y)
-  myfloor = enigma.GetFloor(pos_x, pos_y)
+  local myfloor = enigma.GetFloor(pos_x, pos_y)
   if myfloor ~= nil then
-    kind = enigma.GetKind(myfloor)
+    local kind = enigma.GetKind(myfloor)
     if (kind ~= "fl-abyss") then   -- and (kind ~= "fl-water") then
       set_floor(itemfreeze_parentfloor, pos_x, pos_y)
     end
@@ -205,9 +213,9 @@ end
 function itemfreeze_shatter(j)
   if itemfreeze_destroyed[j] == 0 then
     itemfreeze_destroyed[j] = 1
-    pos_x = itemfreeze_pos_x[j]
-    pos_y = itemfreeze_pos_y[j]
-    mystone = enigma.GetNamedObject("st-itemfreeze_"..tostring(j))
+    local pos_x = itemfreeze_pos_x[j]
+    local pos_y = itemfreeze_pos_y[j]
+    local mystone = enigma.GetNamedObject("st-itemfreeze_"..tostring(j))
     if mystone ~= nil then
       enigma.EmitSound(mystone, "whitebomb")
       kill_stone(pos_x, pos_y)
@@ -224,9 +232,9 @@ function itemfreeze_shatter(j)
     -- With this little hack we can use a freezed dynamite
     -- to block the laser for a short period of time:
     if itemfreeze_remove_hollow == 1 then
-      myitem = enigma.GetItem(pos_x, pos_y)
+      local myitem = enigma.GetItem(pos_x, pos_y)
       if myitem ~= nil then
-        kind = enigma.GetKind(myitem)
+        local kind = enigma.GetKind(myitem)
         if (kind == "it-hollow") or (kind == "it-tinyhollow") then
           kill_item(pos_x, pos_y)
         end
@@ -240,21 +248,24 @@ end
 
 function itemfreeze_melt(j, damage)
   if itemfreeze_destroyed[j] == 0 then
+    if damage == nil then
+      damage = itemfreeze_melt_on_damage
+    end
     itemfreeze_damaged[j] = itemfreeze_damaged[j] + damage
-    if itemfreeze_damaged[j] > itemfreeze_melt_on_damage then
+    if itemfreeze_damaged[j] >= itemfreeze_melt_on_damage then
       itemfreeze_destroyed[j] = 1
       --if itemfreeze_stone[j] ~= nil then
       --  enigma.EmitSound(itemfreeze_stone[j], "")
       --end
-      pos_x = itemfreeze_pos_x[j]
-      pos_y = itemfreeze_pos_y[j]
+      local pos_x = itemfreeze_pos_x[j]
+      local pos_y = itemfreeze_pos_y[j]
       kill_stone(pos_x, pos_y)
       if itemfreeze_savedfloor[j] ~= "" then
         set_floor(itemfreeze_savedfloor[j], pos_x, pos_y)
       end
-      myfloor = enigma.GetFloor(pos_x, pos_y)
+      local myfloor = enigma.GetFloor(pos_x, pos_y)
       if myfloor ~= nil then
-        kind = enigma.GetKind(myfloor)
+        local kind = enigma.GetKind(myfloor)
         if kind ~= "fl-abyss" then
           set_floor(itemfreeze_meltingfloor, pos_x, pos_y)
         end
@@ -265,15 +276,20 @@ function itemfreeze_melt(j, damage)
 end
 
 
--- timer callback and subfunctions, the heart of this library --
+------------------------------------------------------------------
+--  Timer callback and subfunctions, the heart of this library  --
+------------------------------------------------------------------
+
 
 function itemfreeze_look_for_item(j, old_x, old_y)
-  olditem = enigma.GetItem(old_x, old_y)
-  if olditem == nil  then  oldkind = ""  else  oldkind = enigma.GetKind(olditem)  end
-  newitem = enigma.GetItem(itemfreeze_pos_x[j], itemfreeze_pos_y[j])
-  if newitem == nil  then  newkind = ""  else  newkind = enigma.GetKind(newitem)  end
-  mykind = itemfreeze_itemkind[j]
-  explosion = 0
+  local olditem = enigma.GetItem(old_x, old_y)
+  local oldkind = ""
+  if olditem ~= nil  then  oldkind = enigma.GetKind(olditem)  end
+  local newitem = enigma.GetItem(itemfreeze_pos_x[j], itemfreeze_pos_y[j])
+  local newkind = ""
+  if newitem ~= nil  then  newkind = enigma.GetKind(newitem)  end
+  local mykind = itemfreeze_itemkind[j]
+  local explosion = 0
   -- First, replace some itemkinds if necessary:
   if oldkind == "it-laserbeam"          then  oldkind = ""                   end
   if oldkind == "it-explosion1"         then  oldkind = ""   explosion = 1   end
@@ -325,9 +341,11 @@ function itemfreeze_look_for_item(j, old_x, old_y)
     else
       -- at this point, we have olditem ~= nil, newitem ~= nil, but
       -- they might be identical.
-      if newitem == olditem then
+      --if newitem == olditem then
+      if (itemfreeze_pos_x[j] == old_x) and (itemfreeze_pos_y[j] == old_y) then
         -- Ah, it's just the old one. Forget it.
-        -- Note: For this, we compared the items themself, not their kinds!
+        -- Note: For this, we compared the item-positions,
+        --       comparing the items themselves doesn't work in lua 5!
       else
         -- Okay, now we're in trouble. Several possiblities:
         --  (1) Kill the new one, hold the old, and move it.
@@ -407,8 +425,8 @@ function itemfreeze_look_for_floor(j, old_x, old_y)
   if not (itemfreeze_savedfloor[j] == "") then
     set_floor(itemfreeze_savedfloor[j], old_x, old_y)
   end
-  newfloor = enigma.GetKind(enigma.GetFloor(
-     itemfreeze_pos_x[j], itemfreeze_pos_y[j]))
+  local newfloor = enigma.GetKind(enigma.GetFloor(
+      itemfreeze_pos_x[j], itemfreeze_pos_y[j]))
   if newfloor == "fl-water" then
     itemfreeze_savedfloor[j] = itemfreeze_parentfloor  -- this is fl-ice
     set_floor(itemfreeze_parentfloor, itemfreeze_pos_x[j], itemfreeze_pos_y[j])
@@ -420,9 +438,9 @@ end
 
 function itemfreeze_look_for_explosion(j, x, y)
   if (x >= 0) and (y >= 0) and (itemfreeze_destroyed[j] == 0) then
-    myitem = enigma.GetItem(x, y)
+    local myitem = enigma.GetItem(x, y)
     if myitem ~= nil then
-      kind = enigma.GetKind(myitem)
+      local kind = enigma.GetKind(myitem)
       if (kind == "it-explosion1") or (kind == "it-explosion2")
               or (kind == "it-explosion3") then
         itemfreeze_shatter(j)
@@ -433,9 +451,9 @@ end
 
 function itemfreeze_look_for_fire(j, x, y, damage)
   if (x >= 0) and (y >= 0) and (itemfreeze_destroyed[j] == 0) then
-    myitem = enigma.GetItem(x, y)
+    local myitem = enigma.GetItem(x, y)
     if myitem ~= nil then
-      kind = enigma.GetKind(myitem)
+      local kind = enigma.GetKind(myitem)
       if (kind == "it-burnable_burning") or (kind == "it-burnable_ignited") then
         itemfreeze_melt(j, damage)
       end
@@ -445,6 +463,7 @@ end
 
 function itemfreeze_timercallback()
   if itemfreeze_totalnumber > 0 then
+    local j
     for j = 1, itemfreeze_totalnumber do
       -- Check for existence of the stone
       if itemfreeze_test_for_existence ~= 0 then
@@ -457,21 +476,23 @@ function itemfreeze_timercallback()
       end
       -- Check items and floors, has the stone moved?
       if itemfreeze_destroyed[j] == 0 then
-        if (enigma.GetStone(itemfreeze_pos_x[j], itemfreeze_pos_y[j])
-            ~= itemfreeze_stone[j]) then
-          -- obviously, this stone has moved!
-          current_stone = itemfreeze_stone[j]
+        local current_stone = itemfreeze_stone[j]
+        local old_x = itemfreeze_pos_x[j]
+        local old_y = itemfreeze_pos_y[j]
+        itemfreeze_pos_x[j], itemfreeze_pos_y[j] = enigma.GetPos(current_stone)
+        --if (enigma.GetStone(itemfreeze_pos_x[j], itemfreeze_pos_y[j])
+        --    ~= itemfreeze_stone[j]) then -- this doesn't work in lua 5!
+        if (old_x ~= itemfreeze_pos_x[j]) or (old_y ~= itemfreeze_pos_y[j]) then
+          -- Obviously, this stone has moved!
           enigma.EmitSound(current_stone, "ballcollision")
-          old_x = itemfreeze_pos_x[j]
-          old_y = itemfreeze_pos_y[j]
-          itemfreeze_pos_x[j], itemfreeze_pos_y[j] = enigma.GetPos(current_stone)
           itemfreeze_look_for_floor(j, old_x, old_y)
           itemfreeze_look_for_item(j, old_x, old_y)
         end  
       end
     end
     -- Now the pyrotechniques:
-    if itemfreeze_fire_countdown == 0 then        
+    if itemfreeze_fire_countdown == 0 then
+      local j
       for j = 1, itemfreeze_totalnumber do
         if itemfreeze_destroyed[j] == 0 then
           -- Check for nearby explosions
@@ -502,7 +523,10 @@ function itemfreeze_timercallback()
 end
 
 
--- interface functions --
+---------------------------
+--  Interface functions  --
+---------------------------
+
 
 function itemfreeze_rotate_option()
   if itemfreeze_option == 5 then
@@ -519,7 +543,7 @@ end
 
 function set_itemfreeze(posx, posy)
   itemfreeze_totalnumber = itemfreeze_totalnumber + 1
-  newstone = set_stone(itemfreeze_parentstone, posx, posy,
+  local newstone = set_stone(itemfreeze_parentstone, posx, posy,
     { name="st-itemfreeze_"..tostring(itemfreeze_totalnumber) })
   itemfreeze_savedfloor[itemfreeze_totalnumber] = ""
   itemfreeze_pos_x[itemfreeze_totalnumber] = posx
