@@ -128,7 +128,7 @@ local day=enigma.date("%A")
 
 function s1()                               
 
-if %day == "Sunday" then
+if day == "Sunday" then
 
   SendMessage("door", "open")
 

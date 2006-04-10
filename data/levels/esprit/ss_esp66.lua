@@ -163,8 +163,8 @@ local flags = {0,0,0,0,1,1,0,0,0,0,0,1,1,1,0}
 --             1 2 3 4 5 6 7 8 9 0 1 2 3 4 5
 
 function door()
-%flags[15] = 1 - %flags[15]
-if %flags[15] == 0 then
+flags[15] = 1 - flags[15]
+if flags[15] == 0 then
 	set_stone("st-bluegray",17,12)
     else
 	enigma.KillStone(17,12)
@@ -172,8 +172,8 @@ end
 end
 
 function s3()
-%flags[1] = 1 - %flags[1]
-if %flags[1] == 0 then
+flags[1] = 1 - flags[1]
+if flags[1] == 0 then
 	SendMessage("3","direction",EAST)
     else
 	SendMessage("3","direction",WEST)
@@ -181,8 +181,8 @@ end
 end
 
 function s4()
-%flags[2] = 1 - %flags[2]
-if %flags[2] == 0 then
+flags[2] = 1 - flags[2]
+if flags[2] == 0 then
 	SendMessage("4","direction",NORTH)
     else
 	SendMessage("4","direction",SOUTH)
@@ -190,8 +190,8 @@ end
 end
 
 function s5()
-%flags[3] = 1 - %flags[3]
-if %flags[3] == 0 then
+flags[3] = 1 - flags[3]
+if flags[3] == 0 then
 	SendMessage("5","direction",EAST)
     else
 	SendMessage("5","direction",WEST)
@@ -199,8 +199,8 @@ end
 end
 
 function s6()
-%flags[4] = 1 - %flags[4]
-if %flags[4] == 0 then
+flags[4] = 1 - flags[4]
+if flags[4] == 0 then
 	SendMessage("6","direction",NORTH)
     else
 	SendMessage("6","direction",SOUTH)
@@ -208,8 +208,8 @@ end
 end
 
 function s7()
-%flags[5] = 1 - %flags[5]
-if %flags[5] == 0 then
+flags[5] = 1 - flags[5]
+if flags[5] == 0 then
 	SendMessage("7","direction",EAST)
     else
 	SendMessage("7","direction",WEST)
@@ -217,8 +217,8 @@ end
 end
 
 function s8()
-%flags[6] = 1 - %flags[6]
-if %flags[6] == 0 then
+flags[6] = 1 - flags[6]
+if flags[6] == 0 then
 	SendMessage("8","direction",EAST)
     else
 	SendMessage("8","direction",WEST)
@@ -226,8 +226,8 @@ end
 end
 
 function s9()
-%flags[7] = 1 - %flags[7]
-if %flags[7] == 0 then
+flags[7] = 1 - flags[7]
+if flags[7] == 0 then
 	SendMessage("9","direction",NORTH)
     else
 	SendMessage("9","direction",SOUTH)
@@ -235,8 +235,8 @@ end
 end
 
 function s0()
-%flags[8] = 1 - %flags[8]
-if %flags[8] == 0 then
+flags[8] = 1 - flags[8]
+if flags[8] == 0 then
 	SendMessage("0","direction",NORTH)
     else
 	SendMessage("0","direction",SOUTH)
@@ -244,8 +244,8 @@ end
 end
 
 function sa()
-%flags[9] = 1 - %flags[9]
-if %flags[9] == 0 then
+flags[9] = 1 - flags[9]
+if flags[9] == 0 then
 	SendMessage("a","direction",NORTH)
     else
 	SendMessage("a","direction",SOUTH)
@@ -253,8 +253,8 @@ end
 end
 
 function sb()
-%flags[10] = 1 - %flags[10]
-if %flags[10] == 0 then
+flags[10] = 1 - flags[10]
+if flags[10] == 0 then
 	SendMessage("b","direction",NORTH)
     else
 	SendMessage("b","direction",SOUTH)
@@ -262,8 +262,8 @@ end
 end
 
 function sc()
-%flags[11] = 1 - %flags[11]
-if %flags[11] == 0 then
+flags[11] = 1 - flags[11]
+if flags[11] == 0 then
 	SendMessage("c","direction",EAST)
     else
 	SendMessage("c","direction",WEST)
@@ -271,8 +271,8 @@ end
 end
 
 function sd()
-%flags[12] = 1 - %flags[12]
-if %flags[12] == 0 then
+flags[12] = 1 - flags[12]
+if flags[12] == 0 then
 	SendMessage("d","direction",NORTH)
     else
 	SendMessage("d","direction",SOUTH)
@@ -280,8 +280,8 @@ end
 end
 
 function se()
-%flags[13] = 1 - %flags[13]
-if %flags[13] == 0 then
+flags[13] = 1 - flags[13]
+if flags[13] == 0 then
 	SendMessage("e","direction",EAST)
     else
 	SendMessage("e","direction",WEST)
@@ -290,8 +290,8 @@ end
 
 
 function sf()
-%flags[14] = 1 - %flags[14]
-if %flags[14] == 0 then
+flags[14] = 1 - flags[14]
+if flags[14] == 0 then
 	SendMessage("f","direction",EAST)
     else
 	SendMessage("f","direction",WEST)

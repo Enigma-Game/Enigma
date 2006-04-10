@@ -138,6 +138,7 @@ to_value(lua_State *L, int idx)
     case LUA_TNIL: return Value();
     case LUA_TNUMBER: return Value(lua_tonumber(L,idx));
     case LUA_TSTRING: return Value(lua_tostring(L,idx));
+    case LUA_TBOOLEAN: return (lua_toboolean(L,idx)) ? Value(1) : Value();
     default: luaL_error(L,"Cannot convert type to Value.");
     }
     return Value();
@@ -254,6 +255,16 @@ en_get_kind(lua_State *L)
     }
 
     push_value(L, Value(obj->get_kind()));
+    return 1;
+}
+
+static int
+en_is_same_object(lua_State *L)
+{
+    Object *obj1 = to_object(L,1);
+    Object *obj2 = to_object(L,2);
+
+    lua_pushboolean(L, obj1 == obj2);
     return 1;
 }
 
@@ -602,6 +613,7 @@ static CFunction levelfuncs[] = {
     {en_get_pos,            "GetPos"},
     {en_get_attrib,         "GetAttrib"},
     {en_get_kind,           "GetKind"},
+    {en_is_same_object,     "IsSameObject"},
 
     // manipulating objects
 
@@ -828,8 +840,6 @@ lua_State *lua::InitLevel()
     luaL_dostring (L, buffer);
 
     luaL_openlibs(L);
-//do not exit(1) in checkedDoFile!
-    CheckedDoFile(L, app.systemFS, "compat.lua");
 
     tolua_open(L);
     tolua_enigma_open(L);

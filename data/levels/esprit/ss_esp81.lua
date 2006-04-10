@@ -186,29 +186,29 @@ local flag = {0,0,0,0,0,0,0,0,0,0,0,0,0,0,0}
 
 function s1()                               
 
-%flag[1] = %flag[1] + 1
+flag[1] = flag[1] + 1
 
-if %flag[1] == 4 then %flag[1] = 0 end 
+if flag[1] == 4 then flag[1] = 0 end 
 
-if %flag[1] == 0 then
+if flag[1] == 0 then
 
     set_stone("st-oneway_black-w", 7,3)
 
     set_stone("st-oneway_black-n", 3,7)
 
- elseif %flag[1] == 1 then
+ elseif flag[1] == 1 then
 
     set_stone("st-oneway_black-e", 7,3)
 
     set_stone("st-oneway_black-n", 3,7)
 
- elseif %flag[1] == 2 then
+ elseif flag[1] == 2 then
 
     set_stone("st-oneway_black-w", 7,3)
 
     set_stone("st-oneway_black-s", 3,7)
 
- elseif %flag[1] == 3 then
+ elseif flag[1] == 3 then
 
     set_stone("st-oneway_black-w", 7,3)
 
@@ -222,11 +222,11 @@ end
 
 function s2()                               
 
-%flag[2] = %flag[2] + 1
+flag[2] = flag[2] + 1
 
-if %flag[2] == 4 then %flag[2] = 0 end
+if flag[2] == 4 then flag[2] = 0 end
 
-if %flag[2] == 0 then
+if flag[2] == 0 then
 
     set_stone("st-oneway_black-w", 14,3)
 
@@ -234,7 +234,7 @@ if %flag[2] == 0 then
 
     set_stone("st-oneway_black-e", 6 ,3)
 
- elseif %flag[2] == 1 then
+ elseif flag[2] == 1 then
 
     set_stone("st-oneway_black-e", 14,3)
 
@@ -242,7 +242,7 @@ if %flag[2] == 0 then
 
     set_stone("st-oneway_black-e", 6 ,3)
 
- elseif %flag[2] == 2 then
+ elseif flag[2] == 2 then
 
     set_stone("st-oneway_black-w", 14,3)
 
@@ -250,7 +250,7 @@ if %flag[2] == 0 then
 
     set_stone("st-oneway_black-e", 6 ,3)
 
- elseif %flag[2] == 3 then
+ elseif flag[2] == 3 then
 
     set_stone("st-oneway_black-w", 14,3)
 
@@ -266,11 +266,11 @@ end
 
 function s3()                               
 
-%flag[3] = %flag[3] + 1
+flag[3] = flag[3] + 1
 
-if %flag[3] == 4 then %flag[3] = 0 end
+if flag[3] == 4 then flag[3] = 0 end
 
-if %flag[3] == 0 then
+if flag[3] == 0 then
 
     set_stone("st-oneway_black-w", 25,3)
 
@@ -278,7 +278,7 @@ if %flag[3] == 0 then
 
     set_stone("st-oneway_black-e", 13,3)
 
- elseif %flag[3] == 1 then
+ elseif flag[3] == 1 then
 
     set_stone("st-oneway_black-e", 25,3)
 
@@ -286,7 +286,7 @@ if %flag[3] == 0 then
 
     set_stone("st-oneway_black-e", 13,3)
 
- elseif %flag[3] == 2 then
+ elseif flag[3] == 2 then
 
     set_stone("st-oneway_black-w", 25,3)
 
@@ -294,7 +294,7 @@ if %flag[3] == 0 then
 
     set_stone("st-oneway_black-e", 13,3)
 
- elseif %flag[3] == 3 then
+ elseif flag[3] == 3 then
 
     set_stone("st-oneway_black-w", 25,3)
 
@@ -310,11 +310,11 @@ end
 
 function s4()                               
 
-%flag[4] = %flag[4] + 1
+flag[4] = flag[4] + 1
 
-if %flag[4] == 4 then %flag[4] = 0 end
+if flag[4] == 4 then flag[4] = 0 end
 
-if %flag[4] == 0 then
+if flag[4] == 0 then
 
     set_stone("st-oneway_black-w", 32,3)
 
@@ -322,7 +322,7 @@ if %flag[4] == 0 then
 
     set_stone("st-oneway_black-e", 24,3)
 
- elseif %flag[4] == 1 then
+ elseif flag[4] == 1 then
 
     set_stone("st-oneway_black-e", 32,3)   
 
@@ -330,7 +330,7 @@ if %flag[4] == 0 then
 
     set_stone("st-oneway_black-e", 24,3)   
 
- elseif %flag[4] == 2 then
+ elseif flag[4] == 2 then
 
     set_stone("st-oneway_black-w", 32,3)
 
@@ -338,7 +338,7 @@ if %flag[4] == 0 then
 
     set_stone("st-oneway_black-e", 24,3)
 
- elseif %flag[4] == 3 then
+ elseif flag[4] == 3 then
 
     set_stone("st-oneway_black-w", 32,3)
 
@@ -354,29 +354,29 @@ end
 
 function s5()                               
 
-%flag[5] = %flag[5] + 1
+flag[5] = flag[5] + 1
 
-if %flag[5] == 4 then %flag[5] = 0 end
+if flag[5] == 4 then flag[5] = 0 end
 
-if %flag[5] == 0 then
-
-    set_stone("st-oneway_black-n", 35,7)
-
-    set_stone("st-oneway_black-e", 31,3)
-
- elseif %flag[5] == 1 then
+if flag[5] == 0 then
 
     set_stone("st-oneway_black-n", 35,7)
 
     set_stone("st-oneway_black-e", 31,3)
 
- elseif %flag[5] == 2 then
+ elseif flag[5] == 1 then
+
+    set_stone("st-oneway_black-n", 35,7)
+
+    set_stone("st-oneway_black-e", 31,3)
+
+ elseif flag[5] == 2 then
 
     set_stone("st-oneway_black-s", 35,7)
 
     set_stone("st-oneway_black-e", 31,3)
 
- elseif %flag[5] == 3 then
+ elseif flag[5] == 3 then
 
     set_stone("st-oneway_black-n", 35,7)
 
@@ -390,11 +390,11 @@ end
 
 function s6()                               
 
-%flag[6] = %flag[6] + 1
+flag[6] = flag[6] + 1
 
-if %flag[6] == 4 then %flag[6] = 0 end
+if flag[6] == 4 then flag[6] = 0 end
 
-if %flag[6] == 0 then
+if flag[6] == 0 then
 
     set_stone("st-oneway_black-n", 3,6 )
 
@@ -402,7 +402,7 @@ if %flag[6] == 0 then
 
     set_stone("st-oneway_black-n", 3,14)
 
- elseif %flag[6] == 1 then
+ elseif flag[6] == 1 then
 
     set_stone("st-oneway_black-s", 3,6 )
 
@@ -410,7 +410,7 @@ if %flag[6] == 0 then
 
     set_stone("st-oneway_black-n", 3,14)
 
- elseif %flag[6] == 2 then
+ elseif flag[6] == 2 then
 
     set_stone("st-oneway_black-s", 3,6 )
 
@@ -418,7 +418,7 @@ if %flag[6] == 0 then
 
     set_stone("st-oneway_black-s", 3,14)
 
- elseif %flag[6] == 3 then
+ elseif flag[6] == 3 then
 
     set_stone("st-oneway_black-s", 3,6 )
 
@@ -434,11 +434,11 @@ end
 
 function s7()                               
 
-%flag[7] = %flag[7] + 1
+flag[7] = flag[7] + 1
 
-if %flag[7] == 4 then %flag[7] = 0 end
+if flag[7] == 4 then flag[7] = 0 end
 
-if %flag[7] == 0 then
+if flag[7] == 0 then
 
     set_stone("st-oneway_black-n", 10,6 )
 
@@ -448,7 +448,7 @@ if %flag[7] == 0 then
 
     set_stone("st-oneway_black-e",  6,10)
 
- elseif %flag[7] == 1 then
+ elseif flag[7] == 1 then
 
     set_stone("st-oneway_black-s", 10,6 )
 
@@ -458,7 +458,7 @@ if %flag[7] == 0 then
 
     set_stone("st-oneway_black-e",  6,10)
 
- elseif %flag[7] == 2 then
+ elseif flag[7] == 2 then
 
     set_stone("st-oneway_black-s", 10,6 )
 
@@ -468,7 +468,7 @@ if %flag[7] == 0 then
 
     set_stone("st-oneway_black-e",  6,10)
 
- elseif %flag[7] == 3 then
+ elseif flag[7] == 3 then
 
     set_stone("st-oneway_black-s", 10,6 )
 
@@ -486,11 +486,11 @@ end
 
 function s8()                               
 
-%flag[8] = %flag[8] + 1
+flag[8] = flag[8] + 1
 
-if %flag[8] == 4 then %flag[8] = 0 end
+if flag[8] == 4 then flag[8] = 0 end
 
-if %flag[8] == 0 then
+if flag[8] == 0 then
 
     set_stone("st-oneway_black-n", 19,6 )
 
@@ -500,7 +500,7 @@ if %flag[8] == 0 then
 
     set_stone("st-oneway_black-e", 13,10)
 
- elseif %flag[8] == 1 then
+ elseif flag[8] == 1 then
 
     set_stone("st-oneway_black-s", 19,6 )
 
@@ -510,7 +510,7 @@ if %flag[8] == 0 then
 
     set_stone("st-oneway_black-e", 13,10)
 
- elseif %flag[8] == 2 then
+ elseif flag[8] == 2 then
 
     set_stone("st-oneway_black-s", 19,6 )
 
@@ -520,7 +520,7 @@ if %flag[8] == 0 then
 
     set_stone("st-oneway_black-e", 13,10)
 
- elseif %flag[8] == 3 then
+ elseif flag[8] == 3 then
 
     set_stone("st-oneway_black-s", 19,6 )
 
@@ -538,11 +538,11 @@ end
 
 function s9()                               
 
-%flag[9] = %flag[9] + 1
+flag[9] = flag[9] + 1
 
-if %flag[9] == 4 then %flag[9] = 0 end
+if flag[9] == 4 then flag[9] = 0 end
 
-if %flag[9] == 0 then
+if flag[9] == 0 then
 
     set_stone("st-oneway_black-n", 28, 6)
 
@@ -552,7 +552,7 @@ if %flag[9] == 0 then
 
     set_stone("st-oneway_black-e", 24,10)
 
- elseif %flag[9] == 1 then
+ elseif flag[9] == 1 then
 
     set_stone("st-oneway_black-s", 28, 6)
 
@@ -562,7 +562,7 @@ if %flag[9] == 0 then
 
     set_stone("st-oneway_black-e", 24,10)
 
- elseif %flag[9] == 2 then
+ elseif flag[9] == 2 then
 
     set_stone("st-oneway_black-s", 28, 6)
 
@@ -572,7 +572,7 @@ if %flag[9] == 0 then
 
     set_stone("st-oneway_black-e", 24,10)
 
- elseif %flag[9] == 3 then
+ elseif flag[9] == 3 then
 
     set_stone("st-oneway_black-s", 28, 6)
 
@@ -590,11 +590,11 @@ end
 
 function s0()                               
 
-%flag[10] = %flag[10] + 1
+flag[10] = flag[10] + 1
 
-if %flag[10] == 4 then %flag[10] = 0 end
+if flag[10] == 4 then flag[10] = 0 end
 
-if %flag[10] == 0 then
+if flag[10] == 0 then
 
     set_stone("st-oneway_black-n", 35, 6)
 
@@ -602,7 +602,7 @@ if %flag[10] == 0 then
 
     set_stone("st-oneway_black-e", 31,10)
 
- elseif %flag[10] == 1 then
+ elseif flag[10] == 1 then
 
     set_stone("st-oneway_black-s", 35, 6)
 
@@ -610,7 +610,7 @@ if %flag[10] == 0 then
 
     set_stone("st-oneway_black-e", 31,10)
 
- elseif %flag[10] == 2 then
+ elseif flag[10] == 2 then
 
     set_stone("st-oneway_black-s", 35, 6)
 
@@ -618,7 +618,7 @@ if %flag[10] == 0 then
 
     set_stone("st-oneway_black-e", 31,10)
 
- elseif %flag[10] == 3 then
+ elseif flag[10] == 3 then
 
     set_stone("st-oneway_black-s", 35, 6)
 
@@ -634,29 +634,29 @@ end
 
 function sA()                               
 
-%flag[11] = %flag[11] + 1
+flag[11] = flag[11] + 1
 
-if %flag[11] == 4 then %flag[11] = 0 end
+if flag[11] == 4 then flag[11] = 0 end
 
-if %flag[11] == 0 then
+if flag[11] == 0 then
 
     set_stone("st-oneway_black-n",  3,13)
 
     set_stone("st-oneway_black-w",  7,17)
 
- elseif %flag[11] == 1 then
+ elseif flag[11] == 1 then
 
     set_stone("st-oneway_black-s",  3,13)
 
     set_stone("st-oneway_black-e",  7,17)
 
- elseif %flag[11] == 2 then
+ elseif flag[11] == 2 then
 
     set_stone("st-oneway_black-s",  3,13)
 
     set_stone("st-oneway_black-w",  7,17)
 
- elseif %flag[11] == 3 then
+ elseif flag[11] == 3 then
 
     set_stone("st-oneway_black-s",  3,13)
 
@@ -670,11 +670,11 @@ end
 
 function sB()                               
 
-%flag[12] = %flag[12] + 1
+flag[12] = flag[12] + 1
 
-if %flag[12] == 4 then %flag[12] = 0 end
+if flag[12] == 4 then flag[12] = 0 end
 
-if %flag[12] == 0 then
+if flag[12] == 0 then
 
     set_stone("st-oneway_black-n", 10,13)
 
@@ -682,7 +682,7 @@ if %flag[12] == 0 then
 
     set_stone("st-oneway_black-e",  6,17)
 
- elseif %flag[12] == 1 then
+ elseif flag[12] == 1 then
 
     set_stone("st-oneway_black-s", 10,13)
 
@@ -690,7 +690,7 @@ if %flag[12] == 0 then
 
     set_stone("st-oneway_black-e",  6,17)
 
- elseif %flag[12] == 2 then
+ elseif flag[12] == 2 then
 
     set_stone("st-oneway_black-s", 10,13)
 
@@ -698,7 +698,7 @@ if %flag[12] == 0 then
 
     set_stone("st-oneway_black-e",  6,17)
 
- elseif %flag[12] == 3 then
+ elseif flag[12] == 3 then
 
     set_stone("st-oneway_black-s", 10,13)
 
@@ -714,11 +714,11 @@ end
 
 function sC()                               
 
-%flag[13] = %flag[13] + 1
+flag[13] = flag[13] + 1
 
-if %flag[13] == 4 then %flag[13] = 0 end
+if flag[13] == 4 then flag[13] = 0 end
 
-if %flag[13] == 0 then
+if flag[13] == 0 then
 
     set_stone("st-oneway_black-n", 19,13)
 
@@ -726,7 +726,7 @@ if %flag[13] == 0 then
 
     set_stone("st-oneway_black-e", 13,17)
 
- elseif %flag[13] == 1 then
+ elseif flag[13] == 1 then
 
     set_stone("st-oneway_black-s", 19,13)
 
@@ -734,7 +734,7 @@ if %flag[13] == 0 then
 
     set_stone("st-oneway_black-e", 13,17)
 
- elseif %flag[13] == 2 then
+ elseif flag[13] == 2 then
 
     set_stone("st-oneway_black-s", 19,13)
 
@@ -742,7 +742,7 @@ if %flag[13] == 0 then
 
     set_stone("st-oneway_black-e", 13,17)
 
- elseif %flag[13] == 3 then
+ elseif flag[13] == 3 then
 
     set_stone("st-oneway_black-s", 19,13)
 
@@ -758,11 +758,11 @@ end
 
 function sD()                               
 
-%flag[14] = %flag[14] + 1
+flag[14] = flag[14] + 1
 
-if %flag[14] == 4 then %flag[14] = 0 end
+if flag[14] == 4 then flag[14] = 0 end
 
-if %flag[14] == 0 then
+if flag[14] == 0 then
 
     set_stone("st-oneway_black-n", 28,13)
 
@@ -770,7 +770,7 @@ if %flag[14] == 0 then
 
     set_stone("st-oneway_black-e", 24,17)
 
- elseif %flag[14] == 1 then
+ elseif flag[14] == 1 then
 
     set_stone("st-oneway_black-s", 28,13)
 
@@ -778,7 +778,7 @@ if %flag[14] == 0 then
 
     set_stone("st-oneway_black-e", 24,17)
 
- elseif %flag[14] == 2 then
+ elseif flag[14] == 2 then
 
     set_stone("st-oneway_black-s", 28,13)
 
@@ -786,7 +786,7 @@ if %flag[14] == 0 then
 
     set_stone("st-oneway_black-e", 24,17)
 
- elseif %flag[14] == 3 then
+ elseif flag[14] == 3 then
 
     set_stone("st-oneway_black-s", 28,13)
 
@@ -802,29 +802,29 @@ end
 
 function sE()                               
 
-%flag[15] = %flag[15] + 1
+flag[15] = flag[15] + 1
 
-if %flag[15] == 4 then %flag[15] = 0 end
+if flag[15] == 4 then flag[15] = 0 end
 
-if %flag[15] == 0 then
+if flag[15] == 0 then
 
     set_stone("st-oneway_black-n", 35,13)
 
     set_stone("st-oneway_black-e", 31,17)
 
- elseif %flag[15] == 1 then
+ elseif flag[15] == 1 then
 
     set_stone("st-oneway_black-s", 35,13)
 
     set_stone("st-oneway_black-e", 31,17)
 
- elseif %flag[15] == 2 then
+ elseif flag[15] == 2 then
 
     set_stone("st-oneway_black-s", 35,13)
 
     set_stone("st-oneway_black-e", 31,17)
 
- elseif %flag[15] == 3 then        
+ elseif flag[15] == 3 then        
 
     set_stone("st-oneway_black-s", 35,13)
 

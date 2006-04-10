@@ -198,7 +198,7 @@ draw_map(0,0,itmap,items)
 
 --ACTORS
 set_actor("ac-blackball", 9.5,6.5, {player=0})
-set_actor("ac-rotor",48.5,6.5,{range=7,force=20,gohome=TRUE})
+set_actor("ac-rotor",48.5,6.5,{range=7,force=20,gohome=true})
 
 --MAGNET
 SetAttrib(enigma.GetItem(9,27),"force",10)

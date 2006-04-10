@@ -241,7 +241,10 @@ void server::PrepareLevel()
        different levels do not get in each other's way.*/
     lua::ShutdownLevel();
     lua_State *L = lua::InitLevel();
-    if (lua::Dofile(L, "init.lua") != 0) {
+    if (lua::DoSysFile(L, "compat.lua") != lua::NO_LUAERROR) {
+        throw levels::XLevelLoading("While processing 'compat.lua':\n"+lua::LastError(L));
+    }
+    if (lua::DoSysFile(L, "init.lua") != lua::NO_LUAERROR) {
         throw levels::XLevelLoading("While processing 'init.lua':\n"+lua::LastError(L));
     }
 

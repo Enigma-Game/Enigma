@@ -8,7 +8,7 @@ world.DefineSimpleStoneMovable("oneway_move", "st-metal", 0)
 
 display.DefineAlias("oneway_move", "st-oneway_black-n")
 
-dofile(enigma.FindDataFile("levels/lib/ant.lua"))
+Require("levels/lib/ant.lua")
 cells={}
 
 -- only for testing

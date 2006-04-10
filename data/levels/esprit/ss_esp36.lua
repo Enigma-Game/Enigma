@@ -112,9 +112,9 @@ local flag = {0,0}
 
 function s1()
 
-   %flag[1] = 1-%flag[1]
+   flag[1] = 1-flag[1]
 
-set_attribs(enigma.GetNamedObject("worm1"), {targetx=30*%flag[1]+6.5}) 
+set_attribs(enigma.GetNamedObject("worm1"), {targetx=30*flag[1]+6.5}) 
 
 end
 
@@ -122,9 +122,9 @@ end
 
 function s2()
 
-   %flag[2] = 1-%flag[2]                                                 
+   flag[2] = 1-flag[2]                                                 
 
-set_attribs(enigma.GetNamedObject("worm2"), {targetx=32.5-(30*%flag[2])})
+set_attribs(enigma.GetNamedObject("worm2"), {targetx=32.5-(30*flag[2])})
 
 end
 

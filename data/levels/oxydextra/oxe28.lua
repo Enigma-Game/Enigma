@@ -20,7 +20,7 @@
 --- yes, it does :) Thanks, Petr
 
 
-dofile(enigma.FindDataFile("levels/lib/ant.lua"))
+Require("levels/lib/ant.lua")
 -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- --
 fl0 = cell{floor="fl-gray"}
 marble = cell{actor={"ac-blackball", {player=0}}}

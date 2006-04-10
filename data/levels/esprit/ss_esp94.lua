@@ -184,13 +184,13 @@ y = 3.5
 
 function s(num)
 
-%flags[num]=1-%flags[num]
+flags[num]=1-flags[num]
 
 status=0
 
 for i=1,12 do
 
-  status = status + %flags[i]*(2^i)
+  status = status + flags[i]*(2^i)
 
   end
 

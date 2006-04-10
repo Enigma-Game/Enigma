@@ -186,8 +186,6 @@ void display::InitModels()
 
     lua_State *L = lua_open();
     luaL_openlibs(L);
-//do not exit(1) in checkedDoFile!
-    lua::CheckedDoFile(L, app.systemFS, "compat.lua");
     lua_register (L, "FindDataFile", lua::FindDataFile);
     tolua_open(L);
     tolua_global_open(L);
@@ -195,11 +193,16 @@ void display::InitModels()
     tolua_display_open(L);
     tolua_px_open(L);
 
+    if (lua::DoSysFile(L, "compat.lua") != lua::NO_LUAERROR) {
+        fprintf(stderr, "Error loading 'compat.lua'\n");
+	fprintf(stderr, "Error: '%s'\n", lua::LastError(L).c_str());
+        return;
+    }
+
     string fname;
 
     const video::VMInfo *vminfo = video::GetInfo();
-    fname = app.systemFS->findFile (vminfo->initscript); // systemFS!
-//     if (luaL_dofile (L, fname.c_str()) != 0) {
+    fname = app.systemFS->findFile (vminfo->initscript);
     if (lua::DoSysFile(L, vminfo->initscript) != lua::NO_LUAERROR) {
         fprintf(stderr, "Error loading '%s'\n", fname.c_str());
 	fprintf(stderr, "Error: '%s'\n", lua::LastError(L).c_str());

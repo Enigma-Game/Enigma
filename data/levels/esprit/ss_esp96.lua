@@ -136,8 +136,8 @@ local flag = {0,0,0,0,}
 x = 0
 
 function sx(num)
-    %flag[num] = 1-%flag[num]
-    if (%flag[1]+%flag[2]+%flag[3]+%flag[4]==4) then
+    flag[num] = 1-flag[num]
+    if (flag[1]+flag[2]+flag[3]+flag[4]==4) then
         -- open, if all timeswitches are on   
         x = x+1
         if x == 5 then x = 1 end

@@ -64,11 +64,11 @@ function s3() s(3) end
 local flag = {0,0,0}
 
 function s(num)
-%flag[num] = 1-%flag[num]
-if (%flag[1]+%flag[2]+%flag[3]==3) then -- open, if all inserted  
+flag[num] = 1-flag[num]
+if (flag[1]+flag[2]+flag[3]==3) then -- open, if all inserted  
    SendMessage("doora", "open") 
    SendMessage("doorb", "open")
-elseif (%flag[1]+%flag[2]+%flag[3]==0) then  -- close, if money is out
+elseif (flag[1]+flag[2]+flag[3]==0) then  -- close, if money is out
    SendMessage("doora", "close") 
    SendMessage("doorb", "close")
   end

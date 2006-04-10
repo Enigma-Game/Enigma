@@ -168,11 +168,11 @@ function s9() sx(9) end
 
 function sx(x)
 
-%num[x] = 1-%num[x]
+num[x] = 1-num[x]
 
-power = 3*(%num[1] + %num[2] + %num[3] + %num[4] + %num[5] + %num[6] + %num[7] + %num[8] + %num[9])
+power = 3*(num[1] + num[2] + num[3] + num[4] + num[5] + num[6] + num[7] + num[8] + num[9])
 
-if %num[x] == 0 then
+if num[x] == 0 then
 
 	SendMessage("magnet"..x, "off")
 

@@ -109,8 +109,8 @@ local switches = {0,0,0,0,0}
 -- i              1 2 3 4 5
 
 function s1() -- 1->5
-    %switches[1] = 1 - %switches[1]  -- store switch state, because this switch will be switched!
-    if %switches[3] == 0 then 
+    switches[1] = 1 - switches[1]  -- store switch state, because this switch will be switched!
+    if switches[3] == 0 then 
         SendMessage("s5s", "on", 1)  -- Schalter umlegen.
     else
         SendMessage("s5s", "off", 0)
@@ -119,9 +119,9 @@ function s1() -- 1->5
 end
 
 function s2() -- 2->a
-%switches[2] = 1 - %switches[2]
-%flags[1] = 1 - %flags[1]
-if %flags[1] == 0 then
+switches[2] = 1 - switches[2]
+flags[1] = 1 - flags[1]
+if flags[1] == 0 then
 	set_stone("st-oneway_black-s", 10,7)
     else
 	set_stone("st-oneway_black-n", 10,7)
@@ -129,8 +129,8 @@ end
 end
 
 function s3() -- 3->p
-%flags[11] = 1 - %flags[11]
-if %flags[11] == 0 then
+flags[11] = 1 - flags[11]
+if flags[11] == 0 then
 	set_stone("st-oneway_black-s", 10,5)
     else
 	set_stone("st-oneway_black-n", 10,5)
@@ -138,8 +138,8 @@ end
 end
 
 function s4() -- 4->h
-%flags[7] = 1 - %flags[7]
-if %flags[7] == 0 then
+flags[7] = 1 - flags[7]
+if flags[7] == 0 then
 	set_stone("st-oneway_black-e", 5,8)
     else
 	set_stone("st-oneway_black-w", 5,8)
@@ -147,9 +147,9 @@ end
 end
 
 function s5() -- 5->b
-%switches[3] = 1 - %switches[3]
-%flags[2] = 1 - %flags[2]
-if %flags[2] == 0 then
+switches[3] = 1 - switches[3]
+flags[2] = 1 - flags[2]
+if flags[2] == 0 then
 	set_stone("st-oneway_black-e", 13,2)
     else
 	set_stone("st-oneway_black-w", 13,2)
@@ -158,9 +158,9 @@ end
 
 
 function s6() -- 6->c
-%switches[4] = 1 - %switches[4]
-%flags[3] = 1 - %flags[3]
-if %flags[3] == 0 then
+switches[4] = 1 - switches[4]
+flags[3] = 1 - flags[3]
+if flags[3] == 0 then
 	set_stone("st-oneway_black-e", 11,2)
     else
 	set_stone("st-oneway_black-w", 11,2)
@@ -168,15 +168,15 @@ end
 end
 
 function s7() -- 7->9
-if %switches[5] == 0 then SendMessage( "s9s", "on", 1)  -- Schalter umlegen.
+if switches[5] == 0 then SendMessage( "s9s", "on", 1)  -- Schalter umlegen.
 	else SendMessage("s9s", "off", 0)
 	end
 s9()	
 end
 
 function s8() -- 8->d
-%flags[4] = 1 - %flags[4]
-if %flags[4] == 0 then
+flags[4] = 1 - flags[4]
+if flags[4] == 0 then
 	set_stone("st-oneway_black-e", 9,4)
     else
 	set_stone("st-oneway_black-w", 9,4)
@@ -184,54 +184,54 @@ end
 end
 
 function s9() -- 9->l + 6
-    %switches[5] = 1 - %switches[5]
-    %flags[8] = 1 - %flags[8]
-    if %flags[8] == 0 then
+    switches[5] = 1 - switches[5]
+    flags[8] = 1 - flags[8]
+    if flags[8] == 0 then
         set_stone("st-oneway_black-s", 10,9)
     else
 	set_stone("st-oneway_black-n", 10,9)
     end
-    if %switches[4] == 0 then SendMessage("s6s", "on", 1)  -- Schalter umlegen.
+    if switches[4] == 0 then SendMessage("s6s", "on", 1)  -- Schalter umlegen.
     else SendMessage("s6s", "off", 0)
     end
 s6()	
 end
 
 function sA() -- A->h + 2
-    %flags[7] = 1 - %flags[7]
-    if %flags[7] == 0 then
+    flags[7] = 1 - flags[7]
+    if flags[7] == 0 then
 	set_stone("st-oneway_black-e", 5,8)
     else
 	set_stone("st-oneway_black-w", 5,8)
     end
-    if %switches[2] == 0 then SendMessage("s2s", "on", 1)  -- Schalter umlegen.
+    if switches[2] == 0 then SendMessage("s2s", "on", 1)  -- Schalter umlegen.
     else SendMessage( "s2s", "off", 0)
     end
     s2()	
 end
 
 function sB() -- B->f + e + 1
-    %flags[5] = 1 - %flags[5]
-    %flags[6] = 1 - %flags[6]
-    if %flags[6] == 0 then
+    flags[5] = 1 - flags[5]
+    flags[6] = 1 - flags[6]
+    if flags[6] == 0 then
 	set_stone("st-oneway_black-e", 5,2)
     else
 	set_stone("st-oneway_black-w", 5,2)
     end
-    if %flags[5] == 0 then
+    if flags[5] == 0 then
 	set_stone("st-oneway_black-e", 7,6)
     else
 	set_stone("st-oneway_black-w", 7,6)
     end
-    if %switches[1] == 0 then SendMessage( "s1s", "on", 1)  -- Schalter umlegen.
+    if switches[1] == 0 then SendMessage( "s1s", "on", 1)  -- Schalter umlegen.
     else SendMessage( "s1s", "off", 0)
     end
     s1()
 end
 
 function sC() -- C->d
-%flags[4] = 1 - %flags[4]
-if %flags[4] == 0 then
+flags[4] = 1 - flags[4]
+if flags[4] == 0 then
 	set_stone("st-oneway_black-e", 9,4)
     else
 	set_stone("st-oneway_black-w", 9,4)
@@ -239,8 +239,8 @@ end
 end
 
 function sD() -- D->n
-    %flags[9] = 1 - %flags[9]
-    if %flags[9] == 0 then
+    flags[9] = 1 - flags[9]
+    if flags[9] == 0 then
 	set_stone("st-oneway_black-s", 12,9)
     else
 	set_stone("st-oneway_black-n", 12,9)
@@ -248,14 +248,14 @@ function sD() -- D->n
 end
 
 function sE() -- E->a + b
-%flags[1] = 1 - %flags[1]
-%flags[2] = 1 - %flags[2]
-if %flags[1] == 0 then
+flags[1] = 1 - flags[1]
+flags[2] = 1 - flags[2]
+if flags[1] == 0 then
 	set_stone("st-oneway_black-s", 10,7)
     else
 	set_stone("st-oneway_black-n", 10,7)
 end
-if %flags[2] == 0 then
+if flags[2] == 0 then
 	set_stone("st-oneway_black-e", 13,2)
     else
 	set_stone("st-oneway_black-w", 13,2)
@@ -263,8 +263,8 @@ end
 end
 
 --function sT()
---%flags[10] = 1 - %flags[10]
---if %flags[10] == 0 then
+--flags[10] = 1 - flags[10]
+--if flags[10] == 0 then
 --	set_stone("st-oneway_black-s", 10,3)
 --    else
 --	set_stone("st-oneway_black-n", 10,3)
