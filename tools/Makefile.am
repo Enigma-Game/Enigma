@@ -13,7 +13,7 @@ ttf2bmf_SOURCES = ttf2bmf.cc getopt.c getopt1.c getopt.h
 ttf2bmf_CXXFLAGS = @SDL_CFLAGS@
 ttf2bmf_LDADD = -lSDL_ttf
 
-tolua_SOURCES = tolua.c tolualua.c tolualua.h
+tolua_SOURCES = tolua.c toluabind.c toluabind.h
 tolua_CFLAGS = -I$(top_srcdir)/lib-src/lua
 tolua_LDADD = -L$(top_builddir)/lib-src/lua -llua 
 

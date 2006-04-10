@@ -11,14 +11,14 @@ WALL = "st-rock2"
 function trigger( id )
     return function( x, y )
         set_floor( INNER_FLOOR, x, y )
-        set_item( "it-trigger", x, y, {target=%id, action="openclose"} )
+        set_item( "it-trigger", x, y, {target=id, action="openclose"} )
     end
 end
 
 function door( id, type )
    return function( x, y )
       set_floor( INNER_FLOOR, x, y )
-      set_stone( "st-door_a", x, y, {name=%id,type=%type} )
+      set_stone( "st-door_a", x, y, {name=id,type=type} )
    end
 end
 
@@ -40,13 +40,13 @@ level = {
 }
 
 cells = {}
-for i,id in {"a","b","c","d","e","f","g","h"} do
+for i,id in pairs({"a","b","c","d","e","f","g","h"}) do
     cells[id] = trigger(strupper(id))
 end
-for i,id in {"A","H","F"} do
+for i,id in pairs({"A","H","F"}) do
     cells[id] = door( id, "h" )
 end
-for i,id in {"G","D","B","E","C"} do
+for i,id in pairs({"G","D","B","E","C"}) do
     cells[id] = door( id, "v" )
 end
 cells["."] = function( x, y )
@@ -78,7 +78,7 @@ end
 
 create_world( strlen(level[1]), getn(level) )
 oxyd_default_flavor = "a"
-for y,line in level do
+for y,line in pairs(level) do
     for x = 1,strlen(line) do
         cell = strchar(strbyte(line,x))
         cells[cell]( x-1, y-1 )

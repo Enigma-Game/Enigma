@@ -3,7 +3,7 @@
 -- Copyright: 	(C) 2003 Sven Siggelkow
 -- License: 	GPL v2.0 or above
 
-dofile(enigma.FindDataFile("levels/lib/ant.lua"))
+Require("levels/lib/ant.lua")
 cells={}
 
 cells[" "]=cell{floor="fl-leaves"}

@@ -3,7 +3,7 @@
 -- License: 	GPL v2.0 or above
 -- Per.Oxyd Single #055
 
-dofile(enigma.FindDataFile("levels/lib/ant.lua"))
+Require("levels/lib/ant.lua")
 cells={}
 
 cells[" "]=cell{floor="fl-rough"}
@@ -51,8 +51,8 @@ create_world_by_map(level,cells)
 local flag = {0,0,0}
 
 function s1()
-%flag[1] = 1 - %flag[1]
-if %flag[1] == 0 then
+flag[1] = 1 - flag[1]
+if flag[1] == 0 then
     set_stone("st-oneway-w", 2,5)
     set_stone("st-oneway-e", 2,7)
  else
@@ -62,8 +62,8 @@ end
 end
 
 function s2()
-%flag[2] = 1 - %flag[2]
-if %flag[2] == 0 then
+flag[2] = 1 - flag[2]
+if flag[2] == 0 then
     set_stone("st-oneway-e", 4,5)
     set_stone("st-oneway-e", 4,7)
  else
@@ -73,8 +73,8 @@ end
 end
 
 function s3()
-%flag[3] = 1 - %flag[3]
-if %flag[3] == 0 then
+flag[3] = 1 - flag[3]
+if flag[3] == 0 then
     set_stone("st-oneway-e", 19,5)
     set_stone("st-oneway-w", 19,7)
  else

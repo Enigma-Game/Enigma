@@ -5,7 +5,7 @@
 -- Contact: 	amgine@reallysoft.de
 -- License: 	GPL v2.0 or above
 
-if dofile(enigma.FindDataFile("levels/lib/ralf_pento.lua")) == nil then error("can't load 'ralf_pento.lua'"); end
+Require("levels/lib/ralf_pento.lua")
 
 level={
    "##o###o#2##1##o##o##",

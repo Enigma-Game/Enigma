@@ -4,7 +4,7 @@
 -- 2003-02-08
 -- 2003-02-09 -- enigma.ConserveLevel=FALSE added
 
-dofile(enigma.FindDataFile("levels/lib/ant.lua"))
+Require("levels/lib/ant.lua")
 
 -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- --
 

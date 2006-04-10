@@ -6,7 +6,7 @@
 
 
 
-dofile(enigma.FindDataFile("levels/lib/ant.lua"))
+Require("levels/lib/ant.lua")
 
 cells={}
 

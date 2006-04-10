@@ -7,7 +7,7 @@ world.DefineSimpleStoneMovable("invisible_move", "st-metal", 0)
 
 display.DefineAlias("invisible_move", "st-invisible")
 
-dofile(enigma.FindDataFile("levels/lib/ant.lua"))
+Require("levels/lib/ant.lua")
 cells={}
 
 cells[" "]=cell{floor="fl-leaves"}

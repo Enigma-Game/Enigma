@@ -3,7 +3,7 @@
 -- Licensed under GPL v2.0 or above
 -- 2003-02-21
 
-dofile(enigma.FindDataFile("levels/lib/ant.lua"))
+Require("levels/lib/ant.lua")
 -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- --
 num = 0
 function engine(x, y, delta, faces, attribs, modattrib, modvalues)
@@ -22,15 +22,15 @@ function engine(x, y, delta, faces, attribs, modattrib, modvalues)
 
    local func0 = function()
 		    -- switch
-		    %it.state = %it.state +1
-		    if (%it.state>getn(%modvalues)) then
-		       %it.state = 1
+		    it.state = it.state +1
+		    if (it.state>getn(modvalues)) then
+		       it.state = 1
 		    end
 		    -- set state of desired target object
-		    kill_stone(%x2, %y2)
-		    %attribs[2][%modattrib] = %modvalues[%it.state]
-		    set_stone(%faces[2], %x2, %y2, %attribs[2])
-		    --set_attrib(%it.tgt, %modattrib, %modvalues[%it.state])
+		    kill_stone(x2, y2)
+		    attribs[2][modattrib] = modvalues[it.state]
+		    set_stone(faces[2], x2, y2, attribs[2])
+		    --set_attrib(it.tgt, modattrib, modvalues[it.state])
 		 end
 
    setglobal(fname, func0)

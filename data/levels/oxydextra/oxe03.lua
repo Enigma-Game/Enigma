@@ -3,7 +3,7 @@
 -- Licensed under GPL v2.0 or above
 -- 2003-02-16
 
-dofile(enigma.FindDataFile("levels/lib/ant.lua"))
+Require("levels/lib/ant.lua")
 
 -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- --
 actor = cell{actor={"ac-blackball", {player=0}}}
@@ -17,7 +17,7 @@ worm7 = cell{parent={{wormhole, 9.5, 3.5, {range=7.5}}}}
 create_world(20, 13)
 fill_world_func(abyss)
 
-for _,y in {2,7} do
+for _,y in pairs({2,7}) do
    draw_border_func({fakeoxyd, normal}, 0, y, 0, 3)
    draw_func(normal, {0,y+1}, {1,0}, 20)
    gradw( 8,y+1)

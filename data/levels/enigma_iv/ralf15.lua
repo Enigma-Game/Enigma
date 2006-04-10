@@ -5,7 +5,7 @@
 -- Contact: 	amgine@reallysoft.de
 -- License: 	GPL v2.0 or above
 
-dofile(enigma.FindDataFile("levels/lib/ralf.lua"))
+Require("levels/lib/ralf.lua")
 
 level={
    "###o###########o####",

@@ -84,7 +84,7 @@ function set_oxyd( x, y )
 end
 
 function set_oxyds( xs )
-    for i,x in xs do
+    for i,x in pairs(xs) do
         set_oxyd( x, 1 )
         set_oxyd( x, level_height-2 )
     end

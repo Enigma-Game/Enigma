@@ -37,7 +37,7 @@
 
 extern "C" {
 #include "lualib.h"
-#include "tolua.h"
+#include "tolua++.h"
 }
 #include "lua-editor.hh"
 
@@ -175,12 +175,11 @@ Editor::Editor()
 	, m_iconbar( m_iconarea, 2, 640/32 )
 	, m_quit_editor( false )
 	, m_cursor()
-	, m_lua( lua_open( 0 ) )
+	, m_lua( luaL_newstate() )
 	, m_editmode( MODE_FLOOR )
 	, m_tools()
 {
-	lua_baselibopen( m_lua );
-	lua_strlibopen( m_lua );
+        luaL_openlibs(m_lua);
 	tolua_open( m_lua );
 	tolua_editor_open( m_lua );
 }
@@ -204,7 +203,7 @@ Editor::init()
 	new_world( 20, 13 );
 
 	string fname = app.systemFS->findFile( "editor.lua" );
-	if( lua_dofile( m_lua, fname.c_str() ) != 0) {
+	if( luaL_dofile( m_lua, fname.c_str() ) != 0) {
 		fprintf( stderr, "Error loading 'editor.lua'\n" );
 	}
 }
@@ -421,7 +420,7 @@ Editor::on_keydown( SDL_Event &e )
 }
 
 void editor::DefineFloorGroup( char const* name, char const* descr,
-	int nentries, char const* * entries )
+	int nentries, char ** entries )
 {
 	Editor *ed = Editor::get_instance();
 
@@ -431,7 +430,7 @@ void editor::DefineFloorGroup( char const* name, char const* descr,
 }
 
 void editor::DefineItemGroup( const char *name, const char *descr,
-	int nentries, const char **entries )
+	int nentries, char **entries )
 {
 	Editor *ed = Editor::get_instance();
 
@@ -441,7 +440,7 @@ void editor::DefineItemGroup( const char *name, const char *descr,
 }
 
 void editor::DefineStoneGroup( const char *name, const char *descr,
-	int nentries, const char **entries )
+	int nentries, char **entries )
 {
 	Editor *ed = Editor::get_instance();
 

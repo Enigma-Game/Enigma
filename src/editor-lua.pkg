@@ -19,6 +19,7 @@
 //======================================================================
 
 $#include "editor.hh"
+$#define TOLUA_RELEASE 1
 $using namespace editor;
 
 module editor

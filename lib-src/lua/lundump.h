@@ -1,6 +1,6 @@
 /*
-** $Id: lundump.h,v 1.1 2003/02/09 21:30:32 dheck Exp $
-** load pre-compiled Lua chunks
+** $Id: lundump.h,v 1.40 2005/11/11 14:03:13 lhf Exp $
+** load precompiled Lua chunks
 ** See Copyright Notice in lua.h
 */
 
@@ -10,26 +10,27 @@
 #include "lobject.h"
 #include "lzio.h"
 
-/* load one chunk */
-Proto* luaU_undump (lua_State* L, ZIO* Z);
+/* load one chunk; from lundump.c */
+LUAI_FUNC Proto* luaU_undump (lua_State* L, ZIO* Z, Mbuffer* buff, const char* name);
 
-/* find byte order */
-int luaU_endianess (void);
+/* make header; from lundump.c */
+LUAI_FUNC void luaU_header (char* h);
 
-/* definitions for headers of binary files */
-#define	VERSION		0x40		/* last format change was in 4.0 */
-#define	VERSION0	0x40		/* last major  change was in 4.0 */
-#define ID_CHUNK	27		/* binary files start with ESC... */
-#define	SIGNATURE	"Lua"		/* ...followed by this signature */
+/* dump one chunk; from ldump.c */
+LUAI_FUNC int luaU_dump (lua_State* L, const Proto* f, lua_Writer w, void* data, int strip);
 
-/* formats for error messages */
-#define SOURCE_FMT	"<%d:%.99s>"
-#define SOURCE		tf->lineDefined,tf->source->str
-#define IN_FMT		" in %p " SOURCE_FMT
-#define IN		tf,SOURCE
+#ifdef luac_c
+/* print one chunk; from print.c */
+LUAI_FUNC void luaU_print (const Proto* f, int full);
+#endif
 
-/* a multiple of PI for testing native format */
-/* multiplying by 1E8 gives non-trivial integer values */
-#define	TEST_NUMBER	3.14159265358979323846E8
+/* for header of binary files -- this is Lua 5.1 */
+#define LUAC_VERSION		0x51
+
+/* for header of binary files -- this is the official format */
+#define LUAC_FORMAT		0
+
+/* size of header of binary files */
+#define LUAC_HEADERSIZE		12
 
 #endif

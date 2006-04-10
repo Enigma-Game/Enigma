@@ -3,7 +3,7 @@
 -- Licensed under GPL v2.0 or above
 -- 2003-02-10 -- keeping up to date with latest additions to ant.lua
 
-dofile(enigma.FindDataFile("levels/lib/ant.lua"))
+Require("levels/lib/ant.lua")
 
 -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- --
 -- turtle state

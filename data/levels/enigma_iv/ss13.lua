@@ -110,8 +110,8 @@ renderLine(12, "#DDD#1#2#DD#3#4#DDD#")
 local s={0, 0, 0, 0}
 
 function s1()
-   %s[1] = 1-%s[1]
-   if (%s[1] == 1) then 
+   s[1] = 1-s[1]
+   if (s[1] == 1) then 
       set_item("it-hill",12,11)
    else 
       set_item("it-hollow",12,11)
@@ -119,8 +119,8 @@ function s1()
 end
 
 function s2()
-   %s[2] = 1-%s[2]
-   if (%s[2] == 1) then 
+   s[2] = 1-s[2]
+   if (s[2] == 1) then 
       set_item("it-hill",14,11)
    else 
       set_item("it-hollow",14,11)
@@ -128,8 +128,8 @@ function s2()
 end
 
 function s3()
-   %s[3] = 1-%s[3]
-   if (%s[3] == 1) then 
+   s[3] = 1-s[3]
+   if (s[3] == 1) then 
       set_item("it-hill",5,11)
    else 
       set_item("it-hollow",5,11)
@@ -137,8 +137,8 @@ function s3()
 end
 
 function s4()
-   %s[4] = 1-%s[4]
-   if (%s[4] == 1) then 
+   s[4] = 1-s[4]
+   if (s[4] == 1) then 
       set_item("it-hill",7,11)
    else 
       set_item("it-hollow",7,11)

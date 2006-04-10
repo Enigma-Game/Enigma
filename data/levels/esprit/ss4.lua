@@ -81,12 +81,12 @@ function s8() s(8) end
 local flag = {0,0,0,0,0,0,0,0}
 
 function s(num)
-%flag[num] = 1-%flag[num]
-if (%flag[1]+%flag[2]+%flag[3]+%flag[4]+%flag[5]+%flag[6]+%flag[7]+%flag[8]==8) then     -- open, if all inserted  
+flag[num] = 1-flag[num]
+if (flag[1]+flag[2]+flag[3]+flag[4]+flag[5]+flag[6]+flag[7]+flag[8]==8) then     -- open, if all inserted  
    SendMessage("doora", "open") 
    SendMessage("doorb", "open")
    SendMessage("doorc", "open")   
-elseif (%flag[1]+%flag[2]+%flag[3]+%flag[4]+%flag[5]+%flag[6]+%flag[7]+%flag[8]==0) then -- close, if money is out
+elseif (flag[1]+flag[2]+flag[3]+flag[4]+flag[5]+flag[6]+flag[7]+flag[8]==0) then -- close, if money is out
    SendMessage("doora", "close") 
    SendMessage("doorb", "close")
    SendMessage("doorc", "close") 

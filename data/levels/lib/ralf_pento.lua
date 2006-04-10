@@ -4,7 +4,7 @@
 -- Contact: 	amgine@reallysoft.de
 -- License: 	GPL v2.0 or above
 
-if dofile(enigma.FindDataFile("levels/lib/ralf.lua")) == nil then error("can't load 'ralf.lua'"); end
+Require("levels/lib/ralf.lua")
 
 flip = {}
 mirrorx = {}

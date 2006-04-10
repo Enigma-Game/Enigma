@@ -14,20 +14,20 @@ local intact_fields = {}
 function bombit(x0, y0)
    bomb = set_item("it-blackbomb", x0, y0)
    SendMessage(bomb, "explode")
-   %shatter_map[getkey(x0,y0)] = {x=x0, y=y0}
-   %shatter_map.count = %shatter_map.count+1
-   %shatter_map[%shatter_map.count] = %shatter_map[getkey(x0,y0)]
+   shatter_map[getkey(x0,y0)] = {x=x0, y=y0}
+   shatter_map.count = shatter_map.count+1
+   shatter_map[shatter_map.count] = shatter_map[getkey(x0,y0)]
 end
 
 -- add given field to list of intact fields
 function add_intact(x0, y0)
-   %intact_fields[getkey(x0,y0)] = 1
+   intact_fields[getkey(x0,y0)] = 1
 end
 
 -- move the eater
 function tick()
-   if ((%shatter_map.count or 0)==0) then bombit(10,7) return end
-   if (%shatter_map.effct > %shatter_map.count) then return end
+   if ((shatter_map.count or 0)==0) then bombit(10,7) return end
+   if (shatter_map.effct > shatter_map.count) then return end
 
    local minx, maxx = 1, level_width-2
    local miny, maxy = 1, level_height-2 
@@ -38,12 +38,12 @@ function tick()
 
    repeat
       -- once the array is empty, there are no shatters left to satisfy conditions
-      if (%shatter_map.effct > %shatter_map.count) then return end
+      if (shatter_map.effct > shatter_map.count) then return end
       -- pick a field from shatter array and movement direction
-      local m = %shatter_map.count
+      local m = shatter_map.count
       local d = random(1,4)
       -- setup coordinates
-      x0, y0 = %shatter_map[m].x, %shatter_map[m].y
+      x0, y0 = shatter_map[m].x, shatter_map[m].y
       x1, y1 = x0, y0
       -- setup flags
       found = 1
@@ -62,17 +62,17 @@ function tick()
 	 count=count+1
 	 if (count>4) then found=0 break end
 
-	 cond = (not(%shatter_map[getkey(x1,y1)] or %intact_fields[getkey(x1,y1)]))
+	 cond = (not(shatter_map[getkey(x1,y1)] or intact_fields[getkey(x1,y1)]))
       until cond
 
       --if not found, this square is inner void
       if (found == 0) then
 	 -- swap
-	 local rem = %shatter_map[%shatter_map.effct]
-	 %shatter_map[%shatter_map.effct] = %shatter_map[m]
-	 %shatter_map[m] = rem
+	 local rem = shatter_map[shatter_map.effct]
+	 shatter_map[shatter_map.effct] = shatter_map[m]
+	 shatter_map[m] = rem
 	 -- move effective counter of shatter array
-	 %shatter_map.effct = %shatter_map.effct+1
+	 shatter_map.effct = shatter_map.effct+1
       end
    until (found==1)
 

@@ -7,7 +7,7 @@
 -- FIXME: if openclose message for it-vortex is ok functions ss01-ss08 can be replaced action="openclose" in trigger attributes
              
 enigma.SetCompatibility("oxyd.magnum")                                                               
-dofile(enigma.FindDataFile("levels/lib/ant.lua"))
+Require("levels/lib/ant.lua")
 cells={}
 cells[" "]=cell{floor="fl-rock"}
 cells["#"]=cell{stone="st-metal"}
@@ -251,8 +251,8 @@ function s1()
 end
 
 function s2()
-   %flags[12] = 1-%flags[12]
-   if (%flags[12] == 1) then 
+   flags[12] = 1-flags[12]
+   if (flags[12] == 1) then 
       SendMessage("vortex11", "open")
    else 
       SendMessage("vortex11", "close")
@@ -260,8 +260,8 @@ function s2()
 end
 
 function ss01()
-   %flags[1] = 1-%flags[1]
-   if (%flags[1] == 1) then 
+   flags[1] = 1-flags[1]
+   if (flags[1] == 1) then 
       SendMessage("vortex01", "open")
    else 
       SendMessage("vortex01", "close")
@@ -269,8 +269,8 @@ function ss01()
 end
 
 function ss02()
-   %flags[2] = 1-%flags[2]
-   if (%flags[2] == 1) then 
+   flags[2] = 1-flags[2]
+   if (flags[2] == 1) then 
       SendMessage("vortex02", "open")
    else 
       SendMessage("vortex02", "close")
@@ -278,8 +278,8 @@ function ss02()
 end
 
 function ss03()
-   %flags[3] = 1-%flags[3]
-   if (%flags[3] == 1) then 
+   flags[3] = 1-flags[3]
+   if (flags[3] == 1) then 
       SendMessage("vortex03", "open")
    else 
       SendMessage("vortex03", "close")
@@ -287,8 +287,8 @@ function ss03()
 end
 
 function ss04()
-   %flags[4] = 1-%flags[4]
-   if (%flags[4] == 1) then 
+   flags[4] = 1-flags[4]
+   if (flags[4] == 1) then 
       SendMessage("vortex04", "open")
    else 
       SendMessage("vortex04", "close")
@@ -296,8 +296,8 @@ function ss04()
 end
 
 function ss05()
-   %flags[5] = 1-%flags[5]
-   if (%flags[5] == 1) then 
+   flags[5] = 1-flags[5]
+   if (flags[5] == 1) then 
       SendMessage("vortex05", "open")
    else 
       SendMessage("vortex05", "close")
@@ -305,8 +305,8 @@ function ss05()
 end
 
 function ss06()
-   %flags[6] = 1-%flags[6]
-   if (%flags[6] == 1) then 
+   flags[6] = 1-flags[6]
+   if (flags[6] == 1) then 
       SendMessage("vortex06", "open")
    else 
       SendMessage("vortex06", "close")
@@ -314,8 +314,8 @@ function ss06()
 end
 
 function ss07()
-   %flags[7] = 1-%flags[7]
-   if (%flags[7] == 1) then 
+   flags[7] = 1-flags[7]
+   if (flags[7] == 1) then 
       SendMessage("vortex07", "open")
    else 
       SendMessage("vortex07", "close")
@@ -323,8 +323,8 @@ function ss07()
 end
 
 function ss08()
-   %flags[8] = 1-%flags[8]
-   if (%flags[8] == 1) then 
+   flags[8] = 1-flags[8]
+   if (flags[8] == 1) then 
       SendMessage("vortex08", "open")
    else 
       SendMessage("vortex08", "close")
@@ -332,8 +332,8 @@ function ss08()
 end
 
 function ss09()
-   %flags[9] = 1-%flags[9]
-   if (%flags[9] == 1) then 
+   flags[9] = 1-flags[9]
+   if (flags[9] == 1) then 
       SendMessage("vortex09", "open")
    else 
       SendMessage("vortex09", "close")
@@ -341,8 +341,8 @@ function ss09()
 end
 
 function ss10()
-   %flags[10] = 1-%flags[10]
-   if (%flags[10] == 1) then 
+   flags[10] = 1-flags[10]
+   if (flags[10] == 1) then 
       SendMessage("impulse1", "trigger")
    else 
       local x1,y1 = enigma.GetPos(enigma.GetNamedObject("black"))
@@ -354,8 +354,8 @@ function ss10()
 end
 
 function ss11()
-   %flags[11] = 1-%flags[11]
-   if (%flags[11] == 1) then 
+   flags[11] = 1-flags[11]
+   if (flags[11] == 1) then 
       SendMessage("impulse3", "trigger")
    else 
       local x1,y1 = enigma.GetPos(enigma.GetNamedObject("black"))

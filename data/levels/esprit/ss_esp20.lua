@@ -52,8 +52,8 @@ function s3 () sx(3) end
 function s4 () sx(4) end 
 
 function sx(num)
-   %s[num] = 1-%s[num]
-   if (%s[num] == 1) then 
+   s[num] = 1-s[num]
+   if (s[num] == 1) then 
       set_item("it-hill",3*num+2,6)
    else 
       set_item("it-hollow",3*num+2,6)

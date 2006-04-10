@@ -1,14 +1,18 @@
 /*
-** $Id: lmem.c,v 1.1 2003/02/09 21:30:32 dheck Exp $
+** $Id: lmem.c,v 1.70 2005/12/26 13:35:47 roberto Exp $
 ** Interface to Memory Manager
 ** See Copyright Notice in lua.h
 */
 
 
-#include <stdlib.h>
+#include <stddef.h>
+
+#define lmem_c
+#define LUA_CORE
 
 #include "lua.h"
 
+#include "ldebug.h"
 #include "ldo.h"
 #include "lmem.h"
 #include "lobject.h"
@@ -16,135 +20,67 @@
 
 
 
-
-#ifdef LUA_DEBUG
 /*
-** {======================================================================
-** Controlled version for realloc.
-** =======================================================================
+** About the realloc function:
+** void * frealloc (void *ud, void *ptr, size_t osize, size_t nsize);
+** (`osize' is the old size, `nsize' is the new size)
+**
+** Lua ensures that (ptr == NULL) iff (osize == 0).
+**
+** * frealloc(ud, NULL, 0, x) creates a new block of size `x'
+**
+** * frealloc(ud, p, x, 0) frees the block `p'
+** (in this specific case, frealloc must return NULL).
+** particularly, frealloc(ud, NULL, 0, 0) does nothing
+** (which is equivalent to free(NULL) in ANSI C)
+**
+** frealloc returns NULL if it cannot create or reallocate the area
+** (any reallocation to an equal or smaller size cannot fail!)
 */
 
 
-#include <assert.h>
-#include <limits.h>
-#include <string.h>
 
-#define realloc(b, s)	debug_realloc(b, s)
-#define malloc(b)	debug_realloc(NULL, b)
-#define free(b)		debug_realloc(b, 0)
+#define MINSIZEARRAY	4
 
 
-/* ensures maximum alignment for HEADER */
-#define HEADER	(sizeof(union L_Umaxalign))
-
-#define MARKSIZE	16
-#define MARK		0x55  /* 01010101 (a nice pattern) */
-
-
-#define blocksize(b)	((unsigned long *)((char *)(b) - HEADER))
-
-unsigned long memdebug_numblocks = 0;
-unsigned long memdebug_total = 0;
-unsigned long memdebug_maxmem = 0;
-unsigned long memdebug_memlimit = LONG_MAX;
-
-
-static void *checkblock (void *block) {
-  unsigned long *b = blocksize(block);
-  unsigned long size = *b;
-  int i;
-  for (i=0;i<MARKSIZE;i++)
-    assert(*(((char *)b)+HEADER+size+i) == MARK+i);  /* corrupted block? */
-  memdebug_numblocks--;
-  memdebug_total -= size;
-  return b;
-}
-
-
-static void freeblock (void *block) {
-  if (block) {
-    size_t size = *blocksize(block);
-    block = checkblock(block);
-    memset(block, -1, size+HEADER+MARKSIZE);  /* erase block */
-    (free)(block);  /* free original block */
+void *luaM_growaux_ (lua_State *L, void *block, int *size, size_t size_elems,
+                     int limit, const char *errormsg) {
+  void *newblock;
+  int newsize;
+  if (*size >= limit/2) {  /* cannot double it? */
+    if (*size >= limit)  /* cannot grow even a little? */
+      luaG_runerror(L, errormsg);
+    newsize = limit;  /* still have at least one free place */
   }
-}
-
-
-static void *debug_realloc (void *block, size_t size) {
-  if (size == 0) {
-    freeblock(block);
-    return NULL;
-  }
-  else if (memdebug_total+size > memdebug_memlimit)
-    return NULL;  /* to test memory allocation errors */
   else {
-    size_t realsize = HEADER+size+MARKSIZE;
-    char *newblock = (char *)(malloc)(realsize);  /* alloc a new block */
-    int i;
-    if (realsize < size) return NULL;  /* overflow! */
-    if (newblock == NULL) return NULL;
-    if (block) {
-      size_t oldsize = *blocksize(block);
-      if (oldsize > size) oldsize = size;
-      memcpy(newblock+HEADER, block, oldsize);
-      freeblock(block);  /* erase (and check) old copy */
-    }
-    memdebug_total += size;
-    if (memdebug_total > memdebug_maxmem) memdebug_maxmem = memdebug_total;
-    memdebug_numblocks++;
-    *(unsigned long *)newblock = size;
-    for (i=0;i<MARKSIZE;i++)
-      *(newblock+HEADER+size+i) = (char)(MARK+i);
-    return newblock+HEADER;
+    newsize = (*size)*2;
+    if (newsize < MINSIZEARRAY)
+      newsize = MINSIZEARRAY;  /* minimum size */
   }
+  newblock = luaM_reallocv(L, block, *size, newsize, size_elems);
+  *size = newsize;  /* update only when everything else is OK */
+  return newblock;
 }
 
 
-/* }====================================================================== */
-#endif
-
-
-
-/*
-** Real ISO (ANSI) systems do not need these tests;
-** but some systems (Sun OS) are not that ISO...
-*/
-#ifdef OLD_ANSI
-#define realloc(b,s)	((b) == NULL ? malloc(s) : (realloc)(b, s))
-#define free(b)		if (b) (free)(b)
-#endif
-
-
-void *luaM_growaux (lua_State *L, void *block, size_t nelems,
-               int inc, size_t size, const char *errormsg, size_t limit) {
-  size_t newn = nelems+inc;
-  if (nelems >= limit-inc) lua_error(L, errormsg);
-  if ((newn ^ nelems) <= nelems ||  /* still the same power-of-2 limit? */
-       (nelems > 0 && newn < MINPOWER2))  /* or block already is MINPOWER2? */
-      return block;  /* do not need to reallocate */
-  else  /* it crossed a power-of-2 boundary; grow to next power */
-    return luaM_realloc(L, block, luaO_power2(newn)*size);
+void *luaM_toobig (lua_State *L) {
+  luaG_runerror(L, "memory allocation error: block too big");
+  return NULL;  /* to avoid warnings */
 }
+
 
 
 /*
 ** generic allocation routine.
 */
-void *luaM_realloc (lua_State *L, void *block, lint32 size) {
-  if (size == 0) {
-    free(block);  /* block may be NULL; that is OK for free */
-    return NULL;
-  }
-  else if (size >= MAX_SIZET)
-    lua_error(L, "memory allocation error: block too big");
-  block = realloc(block, size);
-  if (block == NULL) {
-    if (L)
-      luaD_breakrun(L, LUA_ERRMEM);  /* break run without error message */
-    else return NULL;  /* error before creating state! */
-  }
+void *luaM_realloc_ (lua_State *L, void *block, size_t osize, size_t nsize) {
+  global_State *g = G(L);
+  lua_assert((osize == 0) == (block == NULL));
+  block = (*g->frealloc)(g->ud, block, osize, nsize);
+  if (block == NULL && nsize > 0)
+    luaD_throw(L, LUA_ERRMEM);
+  lua_assert((nsize == 0) == (block == NULL));
+  g->totalbytes = (g->totalbytes - osize) + nsize;
   return block;
 }
-
 

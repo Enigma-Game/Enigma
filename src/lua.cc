@@ -25,14 +25,15 @@
 #include "sound.hh"
 #include "options.hh"
 
+extern "C" {
+#include "lualib.h"
+#include "tolua++.h"
+}
+
 #include "lua-display.hh"
 #include "lua-enigma.hh"
 #include "lua-ecl.hh"
 
-extern "C" {
-#include "lualib.h"
-#include "tolua.h"
-}
 #include "ecl.hh"
 #include <cassert>
 
@@ -61,7 +62,6 @@ namespace lua
 namespace 
 {
     lua_State *level_state = 0;  // level-local state
-    int object_tag;             // Lua tag for `Object's
     lua_State *global_state = 0; // global Lua state
 
     lua::Error _lua_err_code (int i)
@@ -80,7 +80,19 @@ namespace
     Error _lua_do_file(lua_State *L, const string &filename)
     {
 	int oldtop = lua_gettop(L);
-	int retval = lua_dofile(L, filename.c_str());
+	int retval = luaL_loadfile(L, filename.c_str());
+	if (retval!=0) // error
+        {
+	  lua_setglobal (L, "_LASTERROR") ; //Set _LASTERROR to returned error message
+        }
+	else 
+	{
+	  retval= lua_pcall(L, 0, 0, 0);
+	  if (retval!=0) // error
+          {
+	    lua_setglobal (L, "_LASTERROR") ; //Set _LASTERROR to returned error message
+          }
+	}
 	lua_settop(L, oldtop);
 	return _lua_err_code(retval);
     }
@@ -126,7 +138,8 @@ to_value(lua_State *L, int idx)
     case LUA_TNIL: return Value();
     case LUA_TNUMBER: return Value(lua_tonumber(L,idx));
     case LUA_TSTRING: return Value(lua_tostring(L,idx));
-    default: lua_error(L,"Cannot convert type to Value.");
+    case LUA_TBOOLEAN: return (lua_toboolean(L,idx)) ? Value(1) : Value();
+    default: luaL_error(L,"Cannot convert type to Value.");
     }
     return Value();
 }
@@ -134,7 +147,7 @@ to_value(lua_State *L, int idx)
 static bool
 is_object(lua_State *L, int idx)
 {
-    return lua_isuserdata(L,idx) && lua_tag(L,idx)==object_tag;
+    return lua_isuserdata(L,idx) && luaL_checkudata(L,idx,"_ENIGMAOBJECT");
 }
 
 static Object *
@@ -144,21 +157,27 @@ to_object(lua_State *L, int idx)
         return 0;
 
     if (!is_object(L,idx)) {
-        lua_error(L, "Cannot convert type to an Object");
+        luaL_error(L, "Cannot convert type to an Object");
         return 0;
     }
-    return static_cast<Object*>(lua_touserdata(L,idx));
+    return static_cast<Object*>(*(static_cast<void**>(lua_touserdata(L,idx))));
 }
 
 static void
 pushobject (lua_State *L, Object *obj)
 {
+    Object **udata;
     /* Lua does not allow NULL pointers in userdata variables, so
        convert them manually to `nil' values. */
     if (obj == 0)
         lua_pushnil(L);
     else
-        lua_pushusertag(L, obj, object_tag);
+      {
+        udata=(Object**)lua_newuserdata(L,sizeof(int));
+	*udata=obj;
+        luaL_getmetatable(L, "_ENIGMAOBJECT");
+        lua_setmetatable(L, -2);
+      }
 }
 
 
@@ -168,7 +187,7 @@ int lua::MakeObject (lua_State *L)
 {
     const char *name = lua_tostring(L, 1);
     if (!name) {
-        lua_error(L, "MakeObject: string expected as argument");
+        luaL_error(L, "MakeObject: string expected as argument");
     }
     Object *obj = world::MakeObject(name);
     pushobject(L, obj);
@@ -191,7 +210,7 @@ en_set_attrib(lua_State *L)
     if (obj && key)
         obj->set_attrib(key, to_value(L, 3));
     else
-        lua_error(L, strf("SetAttrib: invalid object or attribute name '%s'", key).c_str());
+        luaL_error(L, strf("SetAttrib: invalid object or attribute name '%s'", key).c_str());
     return 0;
 }
 
@@ -202,22 +221,22 @@ en_get_attrib(lua_State *L)
     const char *key = lua_tostring(L,2);
 
     if (!obj) {
-        lua_error(L, "GetAttrib: invalid object");
+        luaL_error(L, "GetAttrib: invalid object");
         return 0;
     }
     if (!key) {
-        lua_error(L, "GetAttrib: invalid key");
+        luaL_error(L, "GetAttrib: invalid key");
         return 0;
     }
 
     if (0 == strcmp(key, "kind")) {
-        lua_error(L, "GetAttrib: illegal attribute, use GetKind()");
+        luaL_error(L, "GetAttrib: illegal attribute, use GetKind()");
         return 0;
     }
 
     const Value *v =  obj->get_attrib(key);
     if (!v) {
-        lua_error(L, strf("GetAttrib: unknown attribute '%s'", key).c_str());
+        luaL_error(L, strf("GetAttrib: unknown attribute '%s'", key).c_str());
         lua_pushnil(L);
     }
     else
@@ -231,11 +250,21 @@ en_get_kind(lua_State *L)
     Object *obj = to_object(L,1);
 
     if (!obj) {
-        lua_error(L, "GetKind: invalid object");
+        luaL_error(L, "GetKind: invalid object");
         return 0;
     }
 
     push_value(L, Value(obj->get_kind()));
+    return 1;
+}
+
+static int
+en_is_same_object(lua_State *L)
+{
+    Object *obj1 = to_object(L,1);
+    Object *obj2 = to_object(L,2);
+
+    lua_pushboolean(L, obj1 == obj2);
     return 1;
 }
 
@@ -249,11 +278,11 @@ en_set_floor(lua_State *L)
     if (lua_isnil(L, 3))
         fl = 0;
     else if (is_object(L,3)) {
-        fl = static_cast<Floor*>(lua_touserdata(L,3));
+        fl = static_cast<Floor*>(*(static_cast<void**> (lua_touserdata(L,3))));
     	if( ! fl)
-	    lua_error(L, "object is no valid floor");
+	    luaL_error(L, "object is no valid floor");
     } else
-        lua_error(L, "argument 3 must be an Object or nil");
+        luaL_error(L, "argument 3 must be an Object or nil");
     world::SetFloor(GridPos(x,y), fl);
     return 0;
 }
@@ -265,7 +294,7 @@ en_set_item(lua_State *L)
     int y = round_down<int>(lua_tonumber(L, 2));
     Item *it = dynamic_cast<Item*>(to_object(L, 3));
     if( ! it)
-        lua_error(L, "object is no valid item");
+        luaL_error(L, "object is no valid item");
     world::SetItem(GridPos(x,y), it);
     return 0;
 }
@@ -277,7 +306,7 @@ en_set_stone(lua_State *L)
     int y = round_down<int>(lua_tonumber(L, 2));
     Stone *st = dynamic_cast<Stone*>(to_object(L, 3));
     if( ! st)
-        lua_error(L, "object is no valid stone");
+        luaL_error(L, "object is no valid stone");
     world::SetStone(GridPos(x,y), st);
     return 0;
 }
@@ -305,7 +334,7 @@ en_set_actor(lua_State *L)
     double y = lua_tonumber(L,2);
     Actor *ac = dynamic_cast<Actor*>(to_object(L, 3));
     if( ! ac)
-        lua_error(L, "object is no valid actor");
+        luaL_error(L, "object is no valid actor");
     world::AddActor(x, y, ac);
     return 0;
 }
@@ -317,16 +346,16 @@ en_send_message(lua_State *L)
     Object     *obj = to_object(L, 1);
     const char *msg = lua_tostring(L, 2);
     if (!msg)
-        lua_error(L,"Illegal message");
+        luaL_error(L,"Illegal message");
     else if (obj) {
         try {
             world::SendMessage (obj, msg, to_value(L, 3));
         }
         catch (const enigma_levels::XLevelRuntime &e) {
-            lua_error (L, e.what());
+            luaL_error (L, e.what());
         }
         catch (...) {
-            lua_error (L, "uncaught exception");
+            luaL_error (L, "uncaught exception");
         }
     }
     return 0;
@@ -362,16 +391,16 @@ int lua::EmitSound (lua_State *L)
     const char *soundname = lua_tostring(L, 2);
 
     if (!soundname)
-        lua_error(L,"Illegal sound");
+        luaL_error(L,"Illegal sound");
     else if (obj) {
         GridObject *gobj = dynamic_cast<GridObject*>(obj);
         if (gobj) {
             if (!gobj->sound_event (soundname)) 
-                lua_error(L, strf("Can't find sound '%s'", soundname).c_str());
+                luaL_error(L, strf("Can't find sound '%s'", soundname).c_str());
         }
     }
     else
-        lua_error(L, "EmitSound: invalid object");
+        luaL_error(L, "EmitSound: invalid object");
 
     return 0;
 }
@@ -383,9 +412,9 @@ en_name_object(lua_State *L)
     const char *name = lua_tostring(L,2);
 
     if (!obj) 
-        lua_error(L, "NameObject: Illegal object");
+        luaL_error(L, "NameObject: Illegal object");
     else if (!name) 
-        lua_error(L, "NameObject: Illegal name");
+        luaL_error(L, "NameObject: Illegal name");
     else
         world::NameObject(obj, name);
 
@@ -435,7 +464,7 @@ en_get_pos(lua_State *L)
     GridPos  p;
 
     if (!obj) {
-        lua_error(L, "GetPos: Illegal object");
+        luaL_error(L, "GetPos: Illegal object");
         return 0;
     }
 
@@ -473,14 +502,14 @@ en_add_rubber_band (lua_State *L)
     d.minlength = lua_tonumber (L, 5);
 
     if (!a1)
-        lua_error(L, "AddRubberBand: First argument must be an actor\n");
+        luaL_error(L, "AddRubberBand: First argument must be an actor\n");
     else {
         if (a2)
             world::AddRubberBand (a1, a2, d);
         else if (st)
             world::AddRubberBand (a1, st, d);
         else
-            lua_error(L, "AddRubberBand: Second argument must be actor or stone\n");
+            luaL_error(L, "AddRubberBand: Second argument must be actor or stone\n");
     }
     return 0;
 }
@@ -502,7 +531,7 @@ en_is_solved(lua_State *L)
     if (levels::FindLevel (levelname, level))
         solved = level.is_solved(options::GetInt("Difficulty"));
     else 
-        lua_error(L, strf("IsSolved: Unknown level '%s'", levelname).c_str());
+        luaL_error(L, strf("IsSolved: Unknown level '%s'", levelname).c_str());
     if (solved)
         lua_pushnumber(L, solved);
     else
@@ -522,7 +551,7 @@ en_add_scramble(lua_State *L)
     if (found && found[0]) 
         world::AddScramble(GridPos(x,y), enigma::Direction(found-allowed));
     else 
-        lua_error(L, "AddScramble: Third argument must be one character of \"wsen\"");
+        luaL_error(L, "AddScramble: Third argument must be one character of \"wsen\"");
 
     return 0;
 }
@@ -544,9 +573,9 @@ en_add_signal (lua_State *L) {
     GridLoc source, target;
 
     if (sourcestr == 0 || !to_gridloc(sourcestr, source))
-        lua_error (L, "AddSignal: invalid source descriptor");
+        luaL_error (L, "AddSignal: invalid source descriptor");
     if (targetstr == 0 || !to_gridloc(targetstr, target)) 
-        lua_error (L, "AddSignal: invalid target descriptor");
+        luaL_error (L, "AddSignal: invalid target descriptor");
     if (msg == 0)
         msg = "signal";
 
@@ -584,6 +613,7 @@ static CFunction levelfuncs[] = {
     {en_get_pos,            "GetPos"},
     {en_get_attrib,         "GetAttrib"},
     {en_get_kind,           "GetKind"},
+    {en_is_same_object,     "IsSameObject"},
 
     // manipulating objects
 
@@ -649,15 +679,27 @@ void lua::RegisterFuncs(lua_State *L, CFunction *funcs)
 }
 
 Error lua::CallFunc(lua_State *L, const char *funcname, const Value& arg) {
+    int retval;
     lua_getglobal(L, funcname);
     push_value(L, arg);
-    return _lua_err_code(lua_call(L, 1, 0));
+    retval=lua_pcall(L,1,0,0);
+    if (retval!=0) // error
+      {
+	lua_setglobal (L, "_LASTERROR") ; //Set _LASTERROR to returned error message
+      }
+    return _lua_err_code(retval);
 }
 
 Error lua::CallFunc(lua_State *L, const char *funcname, const ByteVec& arg) {
+  int retval;
     lua_getglobal(L, funcname);
     lua_pushlstring (L, &arg[0], arg.size());
-    return _lua_err_code(lua_call(L, 1, 0));
+    retval=lua_pcall(L,1,0,0);
+    if (retval!=0) // error
+      {
+	lua_setglobal (L, "_LASTERROR") ; //Set _LASTERROR to returned error message
+      }
+    return _lua_err_code(retval);
 }
 
 Error lua::DoGeneralFile(lua_State *L, GameFS * fs, const string &filename)
@@ -702,14 +744,34 @@ void lua::CheckedDoFile (lua_State *L, GameFS * fs, std::string const& fname)
 
 
 Error lua::Dobuffer (lua_State *L, const ByteVec &luacode) {
+  int retval;
     const char *buffer = reinterpret_cast<const char *>(&luacode[0]);
-    return _lua_err_code(lua_dobuffer (L, buffer, luacode.size(), "buffer"));
+    
+    retval=luaL_loadbuffer(L, buffer, luacode.size(), "buffer");
+    if (retval!=0) // error
+      {
+	lua_setglobal (L, "_LASTERROR") ; //Set _LASTERROR to returned error message
+      }
+      else 
+	{
+	  retval= lua_pcall(L, 0, 0, 0);
+	  if (retval!=0) // error
+          {
+	    lua_setglobal (L, "_LASTERROR") ; //Set _LASTERROR to returned error message
+          }
+	}
+    return _lua_err_code(retval);
 }
 
 string lua::LastError (lua_State *L)
 {
     lua_getglobal (L, "_LASTERROR");
-    return string (lua_tostring (L, -1));
+    if (lua_isstring(L,-1)){
+      return string (lua_tostring (L, -1));
+    }
+    else {
+      return "Lua Error. No error message available.";
+    }
 }
 
 
@@ -719,7 +781,19 @@ Error lua::DoSubfolderfile(lua_State *L, const string &basefolder, const string 
     while (fnames.size() > 0) {
         int oldtop = lua_gettop(L);
 	string fname = fnames.front();
-        retval = lua_dofile(L, fname.c_str());
+        retval = luaL_loadfile(L, fname.c_str());
+        if (retval!=0) // error
+        {
+	  lua_setglobal (L, "_LASTERROR") ; //Set _LASTERROR to returned error message
+        }
+	else 
+	{
+	  retval= lua_pcall(L, 0, 0, 0);
+	  if (retval!=0) // error
+          {
+	    lua_setglobal (L, "_LASTERROR") ; //Set _LASTERROR to returned error message
+          }
+	}
 	fnames.pop_front();
         lua_settop(L, oldtop);
     }
@@ -729,12 +803,10 @@ Error lua::DoSubfolderfile(lua_State *L, const string &basefolder, const string 
 lua_State *lua::GlobalState() 
 {
     if (global_state == 0) {
-        lua_State *L = global_state = lua_open(0);
+        lua_State *L = global_state = lua_open();
 
-        lua_baselibopen(L);
-        lua_strlibopen(L);
-        lua_mathlibopen(L);
-        lua_iolibopen(L);
+        luaL_openlibs(L);
+        CheckedDoFile(L, app.systemFS, "compat.lua");
 
         tolua_open(L);
         tolua_enigma_open(L);
@@ -761,21 +833,13 @@ lua_State *lua::InitLevel()
 {
     char buffer[255];
 
-    lua_State *L = level_state = lua_open(0);
-
-    lua_dostring (L, "options={}");
+    lua_State *L = level_state = lua_open();
+    luaL_dostring (L, "options={}");
     snprintf (buffer, sizeof(buffer), "options.Difficulty = %d", 
               server::GetDifficulty());
-    lua_dostring (L, buffer);
+    luaL_dostring (L, buffer);
 
-    lua_baselibopen(L);
-    lua_strlibopen(L);
-    lua_mathlibopen(L);
-    lua_iolibopen(L);
-
-    // Override _ALERT function so we can catch error messages
-    lua_dostring (L, "function _ALERT(msg) _LASTERROR = msg end");
-
+    luaL_openlibs(L);
 
     tolua_open(L);
     tolua_enigma_open(L);
@@ -784,8 +848,8 @@ lua_State *lua::InitLevel()
 
     RegisterFuncs(L, levelfuncs);
 
-    // Create a new tag for world::Object objects
-    object_tag = lua_newtag(L);
+    // Create a new metatable for world::Object objects
+    luaL_newmetatable(L,"_ENIGMAOBJECT");
     return L;
 }
 
@@ -800,3 +864,4 @@ void lua::ShutdownLevel() {
         level_state = 0;
     }
 }
+

@@ -10,7 +10,7 @@ set_oxyd = oxyd
 
 function oxyd( type, color )
     return function( x, y, tiles )
-        return set_oxyd( x, y, %type or oxyd_default_flavor, %color )
+        return set_oxyd( x, y, type or oxyd_default_flavor, color )
     end
 end
 
@@ -37,53 +37,53 @@ end
 function checkerboard_floor( type1, type2, attribs1, attribs2 )
     return function( x, y, tiles )
         if mod(x,2) == mod(y,2) then
-            return set_floor( %type1, x, y, %attribs1 or {} )
+            return set_floor( type1, x, y, attribs1 or {} )
         else
-            return set_floor( %type2, x, y, %attribs2 or {} )
+            return set_floor( type2, x, y, attribs2 or {} )
         end
     end
 end
 
 function floor( floor_type, attribs )
     return function( x, y, tiles )
-        return set_floor( %floor_type, x, y, %attribs or {} )
+        return set_floor( floor_type, x, y, attribs or {} )
     end
 end
 
 function stone( stone_type, attribs )
     return function( x, y, tiles )
-        return set_stone( %stone_type, x, y, %attribs or {} )
+        return set_stone( stone_type, x, y, attribs or {} )
     end
 end
 
 function item( item_type, attribs )
     return function( x, y, tiles )
-        return set_item( %item_type, x, y, %attribs or {} )
+        return set_item( item_type, x, y, attribs or {} )
     end
 end
 
 function actor( actor_type, attribs )
     return function( x, y, tiles )
-        return set_actor( %actor_type, x+0.5, y+0.5, %attribs or {} )
+        return set_actor( actor_type, x+0.5, y+0.5, attribs or {} )
     end
 end
 
 function gradient( gradient_type )
     return function( x, y, tiles )
-        return set_floor( "fl-gradient", x, y, {type=%gradient_type} )
+        return set_floor( "fl-gradient", x, y, {type=gradient_type} )
     end
 end
 
 function inherit(tile_type)
     return function( x, y, tiles )
-        return create_tile( tiles, x, y, %tile_type )
+        return create_tile( tiles, x, y, tile_type )
     end
 end
 
 function group( array, constructor )
     return function( x, y, tiles )
-        object = %constructor( x, y, tiles )
-    	tinsert( %array, object )
+        object = constructor( x, y, tiles )
+    	tinsert( array, object )
     	return object
     end
 end

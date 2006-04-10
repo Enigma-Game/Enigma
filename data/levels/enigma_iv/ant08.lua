@@ -4,7 +4,7 @@
 -- 2003-01-07
 -- 2003-02-20 -- rewrites
 
-dofile(enigma.FindDataFile("levels/lib/ant.lua"))
+Require("levels/lib/ant.lua")
 
 -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- --
 function construct(x, y) set_floor("fl-normal", x, y) end

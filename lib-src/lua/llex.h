@@ -1,5 +1,5 @@
 /*
-** $Id: llex.h,v 1.1 2003/02/09 21:30:32 dheck Exp $
+** $Id: llex.h,v 1.57 2005/12/07 15:43:05 roberto Exp $
 ** Lexical Analyzer
 ** See Copyright Notice in lua.h
 */
@@ -13,8 +13,8 @@
 
 #define FIRST_RESERVED	257
 
-/* maximum length of a reserved word (+1 for final 0) */
-#define TOKEN_LEN	15
+/* maximum length of a reserved word */
+#define TOKEN_LEN	(sizeof("function")/sizeof(char))
 
 
 /*
@@ -24,19 +24,24 @@
 enum RESERVED {
   /* terminal symbols denoted by reserved words */
   TK_AND = FIRST_RESERVED, TK_BREAK,
-  TK_DO, TK_ELSE, TK_ELSEIF, TK_END, TK_FOR, TK_FUNCTION, TK_IF, TK_LOCAL,
-  TK_NIL, TK_NOT, TK_OR, TK_REPEAT, TK_RETURN, TK_THEN, TK_UNTIL, TK_WHILE,
+  TK_DO, TK_ELSE, TK_ELSEIF, TK_END, TK_FALSE, TK_FOR, TK_FUNCTION,
+  TK_IF, TK_IN, TK_LOCAL, TK_NIL, TK_NOT, TK_OR, TK_REPEAT,
+  TK_RETURN, TK_THEN, TK_TRUE, TK_UNTIL, TK_WHILE,
   /* other terminal symbols */
-  TK_NAME, TK_CONCAT, TK_DOTS, TK_EQ, TK_GE, TK_LE, TK_NE, TK_NUMBER,
-  TK_STRING, TK_EOS
+  TK_CONCAT, TK_DOTS, TK_EQ, TK_GE, TK_LE, TK_NE, TK_NUMBER,
+  TK_NAME, TK_STRING, TK_EOS
 };
 
 /* number of reserved words */
-#define NUM_RESERVED	((int)(TK_WHILE-FIRST_RESERVED+1))
+#define NUM_RESERVED	(cast(int, TK_WHILE-FIRST_RESERVED+1))
+
+
+/* array with token `names' */
+LUAI_DATA const char *const luaX_tokens [];
 
 
 typedef union {
-  Number r;
+  lua_Number r;
   TString *ts;
 } SemInfo;  /* semantics information */
 
@@ -48,25 +53,29 @@ typedef struct Token {
 
 
 typedef struct LexState {
-  int current;  /* current character */
+  int current;  /* current character (charint) */
+  int linenumber;  /* input line counter */
+  int lastline;  /* line of last token `consumed' */
   Token t;  /* current token */
   Token lookahead;  /* look ahead token */
   struct FuncState *fs;  /* `FuncState' is private to the parser */
   struct lua_State *L;
-  struct zio *z;  /* input stream */
-  int linenumber;  /* input line counter */
-  int lastline;  /* line of last token `consumed' */
+  ZIO *z;  /* input stream */
+  Mbuffer *buff;  /* buffer for tokens */
   TString *source;  /* current source name */
+  char decpoint;  /* locale decimal point */
 } LexState;
 
 
-void luaX_init (lua_State *L);
-void luaX_setinput (lua_State *L, LexState *LS, ZIO *z, TString *source);
-int luaX_lex (LexState *LS, SemInfo *seminfo);
-void luaX_checklimit (LexState *ls, int val, int limit, const char *msg);
-void luaX_syntaxerror (LexState *ls, const char *s, const char *token);
-void luaX_error (LexState *ls, const char *s, int token);
-void luaX_token2str (int token, char *s);
+LUAI_FUNC void luaX_init (lua_State *L);
+LUAI_FUNC void luaX_setinput (lua_State *L, LexState *LS, ZIO *z,
+                              TString *source);
+LUAI_FUNC TString *luaX_newstring (LexState *LS, const char *str, size_t l);
+LUAI_FUNC void luaX_next (LexState *ls);
+LUAI_FUNC void luaX_lookahead (LexState *ls);
+LUAI_FUNC void luaX_lexerror (LexState *ls, const char *msg, int token);
+LUAI_FUNC void luaX_syntaxerror (LexState *ls, const char *s);
+LUAI_FUNC const char *luaX_token2str (LexState *ls, int token);
 
 
 #endif

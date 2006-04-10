@@ -279,7 +279,7 @@ def_image("inv-whiteball")
 Progress(10, "Loading floor models")
 
 function def_floors(floorlist)
-    for i,name in floorlist do
+    for i,name in pairs(floorlist) do
 	def_image(name)
     end
 end
@@ -618,7 +618,7 @@ do
     }
     map_tiles({h=3},
               function (i, rect)
-                  local model = %tiles[i]
+                  local model = tiles[i]
                   display.DefineSubImage(model, "st-disco", 0,0, rect)
               end)
 end
@@ -789,8 +789,8 @@ def_image("st-easymode")
 
 def_stone("st-laserswitch0", nil, {filename="st-oxydb"})
 def_anim_images("laserswitch-blink",
-                repeatanim(pingpong
-                           (buildframes(framenames("st-fakeoxyd-blink", 1,4),
+                repeatanim(pingpong(
+                            buildframes(framenames("st-fakeoxyd-blink", 1,4),
                             50))), {loop=1})
 def_solidstone("st-laserswitch1", "laserswitch-blink")
 
@@ -903,28 +903,28 @@ do
         local fadein = "oxyd"..flavor.."-fadein"
         local fadeout= "oxyd"..flavor.."-fadeout"
 
-        def_overlay(n.."-base", {%baseimg[flavor], %colorspots[color+1]})
+        def_overlay(n.."-base", {baseimg[flavor], colorspots[color+1]})
         display.DefineComposite(n.."-opening-fg", n.."-base", fadein)
         display.DefineComposite(n.."-closing-fg", n.."-base", fadeout)
-        def_shmodel (n.."-opening", n.."-opening-fg", %shadow[flavor])
-        def_shmodel (n.."-closing", n.."-closing-fg", %shadow[flavor])
+        def_shmodel (n.."-opening", n.."-opening-fg", shadow[flavor])
+        def_shmodel (n.."-closing", n.."-closing-fg", shadow[flavor])
     end
 
     function mkblink(flavor, color)
         local n = "st-oxyd"..flavor..color.."-blink"
-        local img={%baseimg[flavor],%colorspots[color+1], "st-oxyd-questmark"}
+        local img={baseimg[flavor],colorspots[color+1], "st-oxyd-questmark"}
         def_overlay(n..1, img)
-        def_overlay(n..2, {%baseimg[flavor], %colorspots[color+1]})
+        def_overlay(n..2, {baseimg[flavor], colorspots[color+1]})
         def_anim(n.."-anim", buildframes({n..1,n..2}, 500), 1)
-        def_shmodel(n, n.."-anim", %shadow[flavor])
+        def_shmodel(n, n.."-anim", shadow[flavor])
     end
 
     function mkopened(flavor, color)
         local n = "st-oxyd" .. flavor .. color .. "-open"
         local names = {}
 
-        for i=1,getn(%openovls) do
-            local images={%baseimg[flavor],%colorspots[color+1],%openovls[i]}
+        for i=1,getn(openovls) do
+            local images={baseimg[flavor],colorspots[color+1],openovls[i]}
             names[i] = n .. format("_%04d", i)
             def_overlay(names[i], images)
         end
@@ -934,20 +934,20 @@ do
         def_anim(n.."-anim", frames, TRUE)
 
         -- and finally add a shadow to make the model complete
-        def_shmodel(n, n.."-anim", %shadow[flavor])
+        def_shmodel(n, n.."-anim", shadow[flavor])
     end
 
     function mkoxyd(flavor)
-        def_stone("st-oxyd"..flavor, %shadow[flavor])
-        def_shmodel("st-likeoxyd"..flavor, "st-oxyd"..flavor, %shadow[flavor])
+        def_stone("st-oxyd"..flavor, shadow[flavor])
+        def_shmodel("st-likeoxyd"..flavor, "st-oxyd"..flavor, shadow[flavor])
 --        def_solidstone("st-likeoxyd"..flavor, "st-oxyd"..flavor)
         img=def_image("st-oxyd"..flavor.."-open")
-        def_shmodel("st-likeoxyd"..flavor.."-open", img, %shadow[flavor])
+        def_shmodel("st-likeoxyd"..flavor.."-open", img, shadow[flavor])
 
         local fadein = "oxyd"..flavor.."-fadein"
         local fadeout= "oxyd"..flavor.."-fadeout"
-        def_anim(fadein, %fopening[flavor])
-        def_anim(fadeout, %fclosing[flavor])
+        def_anim(fadein, fopening[flavor])
+        def_anim(fadeout, fclosing[flavor])
 
         for color=0,7 do
             mkopenclose(flavor, color)
@@ -997,8 +997,8 @@ make_laser("-n")
 ---------------------
 def_stone("st-fakeoxyd", "sh-round", {filename="st-oxydb"})
 def_anim_images("fakeoxyd-blink",
-                repeatanim(pingpong
-                           (buildframes(framenames("st-fakeoxyd-blink", 1,4),
+                repeatanim(pingpong(
+                            buildframes(framenames("st-fakeoxyd-blink", 1,4),
                                         50))))
 def_roundstone("st-fakeoxyd-blink", "fakeoxyd-blink")
 
@@ -1007,8 +1007,8 @@ def_alias("st-fakeoxyda", "st-oxyda")
 -- Fart stone
 def_stone("st-fart", "sh-round", {filename="st-oxydb"})
 def_anim_images("farting",
-                repeatanim(pingpong
-                           (buildframes(framenames("st-fakeoxyd-blink", 1,4),
+                repeatanim(pingpong(
+                            buildframes(framenames("st-fakeoxyd-blink", 1,4),
                                         50))))
 def_roundstone("st-farting", "farting")
 
@@ -1401,12 +1401,12 @@ do
 
     function def_bolder(orient, start)
        local animname="st-bolder"..orient.."a"
-       local frames={%img[start], %img[start+1], %img[start+2]}
+       local frames={img[start], img[start+1], img[start+2]}
        def_anim(animname, buildframes(frames, 120), FALSE)
        def_shmodel("st-bolder-"..orient, animname, "sh-round")
 
        animname="st-bolder-"..orient.."-fall-anim"
-       frames={%imgfall[start],%imgfall[start+1],%imgfall[start+2]}
+       frames={imgfall[start],imgfall[start+1],imgfall[start+2]}
        def_anim(animname, buildframes(frames, 120), FALSE)
     end
 

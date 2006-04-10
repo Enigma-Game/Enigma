@@ -3,7 +3,7 @@
 -- Copyright (c) 2002 Nat Pryce
 -- License: GPL v2.0 or above
 
-dofile( enigma.FindDataFile("levels/lib/natmaze.lua") )
+Require("levels/lib/natmaze.lua")
 
 
 maze = new_kruskal_maze(38,24)   
@@ -12,7 +12,7 @@ originy = 1
 visited = {}
 
 function cell_to_level( cellx, celly )
-    return originx + cellx * 2, %originy + celly * 2
+    return originx + cellx * 2, originy + celly * 2
 end
 
 function show_neighbours( cellx, celly )
@@ -47,7 +47,7 @@ function show_cell( cellx, celly )
     
     function trigger_callback( on )
         if on == 1 then
-            show_neighbours( %cellx, %celly )
+            show_neighbours( cellx, celly )
         end
     end
     setglobal( function_name, trigger_callback )

@@ -4,7 +4,7 @@
 -- Contact: 	amgine@reallysoft.de
 -- License: 	GPL v2.0 or above
 
-if dofile(enigma.FindDataFile("levels/lib/ant.lua")) == nil then error("can't load 'ant.lua'"); end
+Require("levels/lib/ant.lua")
 -- Thanks to ant
 
 -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- --
@@ -47,7 +47,7 @@ function draw_map_oriented(x0, y0, map, width, height, cellfuncs, flipx, flipy,r
    while (rotate > 3) do rotate = rotate-4 end
    while (rotate < 0) do rotate = rotate+4 end
 
-   for y,str in map do
+   for y,str in pairs(map) do
       for x = 1,width do
          local key = strsub(str, (x-1)*CELL_KEY_WIDTH+1, x*CELL_KEY_WIDTH)
          local func = funcs[key]

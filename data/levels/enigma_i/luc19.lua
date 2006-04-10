@@ -28,7 +28,7 @@ floors = {
 }
 --------------------------------------------------
 -- The Maze
-dofile( enigma.FindDataFile("levels/lib/natmaze.lua") )
+Require("levels/lib/natmaze.lua")
 maze = new_kruskal_maze(8,8)
 startx, starty = random(maze.width-2), random(maze.height-2)
 offsetx = 8.5

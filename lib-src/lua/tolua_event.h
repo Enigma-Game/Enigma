@@ -1,9 +1,9 @@
-/* tolua: error handling
+/* tolua: event functions
 ** Support code for Lua bindings.
 ** Written by Waldemar Celes
 ** TeCGraf/PUC-Rio
-** Jul 1998
-** $Id: tolua_eh.h,v 1.1 2003/02/09 21:30:32 dheck Exp $
+** Apr 2003
+** $Id: $
 */
 
 /* This code is free software; you can redistribute it and/or modify it.
@@ -12,13 +12,13 @@
 ** enhancements, or modifications.
 */
 
+#ifndef TOLUA_EVENT_H
+#define TOLUA_EVENT_H
 
+#include "tolua++.h"
 
-#ifndef tolua_eh_h
-#define tolua_eh_h
-
-void toluaI_eh_set 
-(lua_State* L, int narg, const char* provided, const char* expected);
-
+TOLUA_API void tolua_moduleevents (lua_State* L);
+TOLUA_API int tolua_ismodulemetatable (lua_State* L);
+TOLUA_API void tolua_classevents (lua_State* L);
 
 #endif

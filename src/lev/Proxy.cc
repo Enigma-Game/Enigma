@@ -39,6 +39,7 @@
  
 extern "C" {
 #include "lua.h"
+#include "lauxlib.h"
 }
 
 
@@ -338,7 +339,8 @@ namespace enigma { namespace lev {
         DOMNodeList * luamainList = doc->getElementsByTagNameNS(levelNS, Utf8ToXML("luamain").x_str());
         if (luamainList->getLength() == 1) {
             DOMElement *luamain  = dynamic_cast<DOMElement *>(luamainList->item(0));
-            if (lua_dostring(L, XMLtoUtf8(luamain->getTextContent()).c_str() ) != 0) {
+            if (luaL_dostring(L, XMLtoUtf8(luamain->getTextContent()).c_str() ) != 0) {
+	      lua_setglobal (L, "_LASTERROR");
                 throw enigma_levels::XLevelLoading(lua::LastError(L));
             }
         } else {

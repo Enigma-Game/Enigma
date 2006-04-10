@@ -7,45 +7,45 @@
 
 function floor( floor_type, attribs )
     return function( x, y )
-        set_floor( %floor_type, x, y, %attribs or {} )
+        set_floor( floor_type, x, y, attribs or {} )
     end
 end
 
 function stone( stone_type, attribs )
     return function( x, y )
-        set_stone( %stone_type, x, y, %attribs or {} )
+        set_stone( stone_type, x, y, attribs or {} )
     end
 end
 
 function item( item_type, attribs )
     return function( x, y )
-        set_item( %item_type, x, y, %attribs or {} )
+        set_item( item_type, x, y, attribs or {} )
     end
 end
 
 function actor( actor_type, attribs )
     return function( x, y )
-        set_actor( %actor_type, x+0.5, y+0.5, %attribs
+        set_actor( actor_type, x+0.5, y+0.5, attribs
 or {} )
     end
 end
 
 function gradient( gradient_type )
     return function( x, y )
-        set_floor( "fl-gradient", x, y, {type=%gradient_type} )
+        set_floor( "fl-gradient", x, y, {type=gradient_type} )
     end
 end
 
 function create_world_from_map( tiles, map )
     create_world( strlen(map[1]), getn(map) )
     
-    for y,line in map do
+    for y,line in pairs(map) do
         for x = 1,strlen(line) do
             local tile = strchar(strbyte(line,x))
             local constructors = tiles[tile]
             
             if constructors then
-                for i,constructor in constructors do
+                for i,constructor in pairs(constructors) do
                     constructor(x-1,y-1)
                 end
             else

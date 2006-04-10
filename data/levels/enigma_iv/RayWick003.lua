@@ -325,7 +325,7 @@ fill_floor(SAND_FLOOR, 0, 0, 58, 37 )
 
 draw_border( "st-rock2" )
 
-for y,line in level do
+for y,line in pairs(level) do
 
     for x = 1,strlen(line) do
 

@@ -25,13 +25,13 @@ namespace editor
 {
     void Run();
     void DefineFloorGroup (const char *name, const char *descr,
-                           int nentries, const char **entries);
+                           int nentries, char **entries);
 
     void DefineItemGroup (const char *name, const char *descr,
-                          int nentries, const char **entries);
+                          int nentries, char **entries);
 
     void DefineStoneGroup (const char *name, const char *descr,
-                           int nentries, const char **entries);
+                           int nentries, char **entries);
 }
 
 #endif

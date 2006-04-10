@@ -49,7 +49,7 @@ DefaultAttribs = {}
 ---------------------
 
 function PrintTable(t)
-    for i,v in t do
+    for i,v in pairs(t) do
         if type(v)=="table" then
             print (i.." - "..v[1]..","..v[2])
         else
@@ -59,7 +59,13 @@ function PrintTable(t)
 end
 
 function Require(filename)
-    dofile(enigma.FindDataFile(filename))
+    path = enigma.FindDataFile(filename)
+    if path == nil then
+        -- avoid reading from stdin !
+        error("File not found '" .. filename .. "'")
+    else
+        dofile(path)
+    end
 end
 
 
@@ -82,7 +88,7 @@ end
 function SetDefaultAttribs(objname, attribs)
     local list = DefaultAttribs[objname]
     if list then
-        for key,val in attribs do list[key] = val end
+        for key,val in pairs(attribs) do list[key] = val end
     else
         DefaultAttribs[objname]= attribs
     end
@@ -100,7 +106,7 @@ GetKind   = enigma.GetKind
 
 function set_attribs(obj, attrs)
     if not attrs then return end
-    for key,val in attrs do
+    for key,val in pairs(attrs) do
 	set_attrib(obj, key, val)
     end
 end
@@ -228,7 +234,7 @@ function draw_border(stonename, x0, y0, w, h)
 end
 
 function set_stones(name, poslist, attrs)
-    for i,xy in poslist do
+    for i,xy in pairs(poslist) do
 	set_stone(name, xy[1], xy[2], attrs)
     end
 end
@@ -439,7 +445,7 @@ wormhole = Wormhole
 function XML_parseargs (s)
     local arg = {}
     gsub(s, "(%w+)=([\"'])(.-)%2", function (w, _, a)
-                                       %arg[w] = a
+                                       arg[w] = a
                                    end)
     return arg
 end

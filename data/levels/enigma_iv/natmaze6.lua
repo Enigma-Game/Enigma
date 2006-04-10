@@ -3,7 +3,7 @@
 -- Copyright (c) 2002 Nat Pryce
 -- License: GPL v2.0 or above
 
-dofile( enigma.FindDataFile("levels/lib/natmaze.lua") )
+Require("levels/lib/natmaze.lua")
 
 
 maze = new_kruskal_maze( 12, 12 )

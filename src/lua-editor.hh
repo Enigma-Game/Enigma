@@ -1,9 +1,8 @@
 /*
 ** Lua binding: editor
-** Generated automatically by tolua 4.0a on Mon Jul 14 09:51:26 2003.
+** Generated automatically by tolua++-1.0.91 on Fri Mar 31 15:50:43 2006.
 */
 
 /* Exported function */
-int tolua_editor_open (lua_State* tolua_S);
-void tolua_editor_close (lua_State* tolua_S);
+TOLUA_API int  tolua_editor_open (lua_State* tolua_S);
 
