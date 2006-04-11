@@ -73,7 +73,7 @@ while aktX<16 do
 end
 
 -- zeichne Weg
-for i,val in weg do
+for i,val in pairs(weg) do
     set_floor(visibleFloor,weg[i][1],weg[i][2])
        set_item("it-trigger", weg[i][1],weg[i][2], {action="callback", target="einzelanzeige", invisible=TRUE})
 end
@@ -81,7 +81,7 @@ end
 -- loesche Weg
 function verschwinde()
    if verschwunden==FALSE then
-       for i, val in weg
+       for i, val in pairs(weg)
        do
            set_floor("fl-water-1",weg[i][1],weg[i][2])
            verdeckt[weg[i][1]..weg[i][2]]=TRUE

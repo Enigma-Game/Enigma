@@ -2,15 +2,15 @@
 -- Copyright (C) 2005 Lukas Schueller
 -- Licensed under GPL v2.0 or above 
 
-dofile( enigma.FindDataFile("levels/lib/natmaze.lua") )
+Require("levels/lib/natmaze.lua")
 
 mfloors = {"fl-leaves","fl-wood","fl-rough-blue","fl-rough-red","fl-sand","fl-rough","fl-normal"}
 
-originx = 1
-originy = 1
+local originx = 1
+local originy = 1
 
 function cell_to_level( cellx, celly )
-  return %originx + cellx * 2, %originy + celly * 2
+  return originx + cellx * 2, originy + celly * 2
 end
 
 function fill_randomfloor(names, x0,y0, w,h)
@@ -42,16 +42,20 @@ end
 
 local maze = new_kruskal_maze(38,24)
 CreateWorld(maze.width*2+2,maze.height*2+2)
+
 draw_border("st-rock1")
 fill_randomfloor(mfloors)
 render_maze(maze,render_cell)
+
 oxyd(1,0)
 oxyd(2*maze.width-1,2*maze.height)
 oxyd(1,2*maze.height)
 oxyd(2*maze.width-1,0)
 oxyd_shuffle()
+
 local actorx, actory = cell_to_level(random(maze.width)-1,random(maze.height)-1)
 set_actor("ac-blackball", actorx + 0.5, actory + 0.5,{player=0})
+
 --display.SetFollowMode(display.FOLLOW_SMOOTH)
 
 

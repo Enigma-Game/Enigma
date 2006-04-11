@@ -1,5 +1,5 @@
 -- Keystone, a level for Enigma
--- Copyright (C) 2006 Raoul
+-- Copyright (C) 2006 Raoul Bourquin
 -- Licensed under GPL v2.0 or above 
 -- Another Level with Puzzles...
 
@@ -127,6 +127,7 @@ function puzzle_shuffle(teile)
 end
 
 --Oranges Puzzleteil
+shuffle_method="random"
 must_shuffle=1
 puzzle({{1,1,0,1,1},{0,1,1,1,0},{1,1,0,1,1}},8,5,"2")
 

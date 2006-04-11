@@ -7,15 +7,14 @@
 levelw = 58
 levelh = 37
 create_world(levelw, levelh)
-enigma.ConserveLevel = True
+enigma.ConserveLevel = 1
 oxyd_default_flavor = "a"
 
 -- DESIGN --
 boden="fl-black"
 wand="st-glass"
 
-fill_floor(boden, 0,0, level_width,level_height)
---fill_floor("fl-black", 22,15,14,7)
+fill_floor(boden, 0,0, levelw,levelh)
 
 function renderLine( line, pattern)
 	for i=1, strlen(pattern) do

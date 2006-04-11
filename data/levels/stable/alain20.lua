@@ -111,10 +111,20 @@ function display_game()
 				set_stone("st-rock3",50-j,i)
 			end
 		end
+		if ghost[i]>=0 then
+			for j=1,ghost[i] do
+				set_stone("st-glass",50-num-j,i)
+			end
+		end
 		num=tab[i+6]
 		if num>=0 then
 			for j=1,num do
 				set_stone("st-rock3",54+j,7-i)
+			end
+		end
+		if ghost[i+6]>=0 then
+			for j=1,ghost[i+6] do
+				set_stone("st-glass",54+num+j,7-i)
 			end
 		end
 	end
@@ -143,6 +153,17 @@ function display_choice()
 --		set_stone("st-glass1",50,i)
 --		set_stone("st-glass1",54,13-i)
 	end
+	for i=1,12 do
+		ghost[i]=0
+	end
+	som3=tab[my_choice]
+	j=my_choice
+	for i=1,som3 do
+		j=j+1
+		if j==13 then j=1 end
+		ghost[j]=ghost[j]+1
+	end
+	display_game()
 	set_floor("fl-water",50,my_choice)
 	set_floor("fl-red",54,13-BB_choice)
 --	set_stone("st-glass3",50,my_choice)
@@ -162,7 +183,7 @@ function okokok()
 			tab[j]=tab[j]+1
 		end
 		take1(j)
-		display_game()
+		display_choice()
 		if hurra1==1 then
 			for i=1,1 do -- Now Big Brother enters in action -- -- -- -- -- -- -- -- -- --
 				BB_choice=random(6)+6
@@ -264,6 +285,7 @@ function reset()
 	bouh=0
 	for i=1,12 do
 		tab[i]=4
+		ghost[i]=0
 	end
 	display_game()
 	my_choice=random(6)
@@ -288,6 +310,7 @@ renderLine(12 , "                                           +                 + 
 --               012345678901234567890123456789012345678901234567890123456789012345678901234567890123456789012345678
 
 tab={}
+ghost={}
 reset()
 oxyd_shuffle()
 

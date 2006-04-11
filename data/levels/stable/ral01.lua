@@ -36,31 +36,31 @@ end
 
 function floor( floor_type, attribs )
     return function( x, y, tiles )
-        return set_floor( %floor_type, x, y, %attribs or {} )
+        return set_floor( floor_type, x, y, attribs or {} )
     end
 end
 
 function stone( stone_type, attribs )
     return function( x, y, tiles )
-        return set_stone( %stone_type, x, y, %attribs or {} )
+        return set_stone( stone_type, x, y, attribs or {} )
     end
 end
 
 function item( item_type, attribs )
     return function( x, y, tiles )
-        return set_item( %item_type, x, y, %attribs or {} )
+        return set_item( item_type, x, y, attribs or {} )
     end
 end
 
 function actor( actor_type, attribs )
     return function( x, y, tiles )
-        return set_actor( %actor_type, x+0.5, y+0.5, %attribs or {} )
+        return set_actor( actor_type, x+0.5, y+0.5, attribs or {} )
     end
 end
 
 function inherit(tile_type)
     return function( x, y, tiles )
-        return create_tile( tiles, x, y, %tile_type )
+        return create_tile( tiles, x, y, tile_type )
     end
 end
 

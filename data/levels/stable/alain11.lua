@@ -77,7 +77,7 @@ end
 
 function apr1()
 
-        if %month == "April" then
+        if month == "April" then
 
 --               01234567890123456789
 renderLine(00 , "wwwwwwwwwwwwwwwwwwww")
