@@ -59,22 +59,22 @@ namespace enigma { namespace lev {
          *            resource path level packs use the subdirectory name below
          *            levels or "", zipped packs the filename without suffix
          * @arg levelId  the version independent level id as used for scoring
-         * @arg levelTitel the english titel of the level
+         * @arg levelTitle the english title of the level
          * @arg levelAuthor the name of the author
          * @arg levelScoreVersion the score version
          * @arg levelRelease the level compatibility release version
          * @arg levelHasEasymode support of an easy mode
          */
         static Proxy *registerLevel(std::string levelPath, std::string indexPath,
-                std::string levelId, std::string levelTitel, std::string levelAuthor,
+                std::string levelId, std::string levelTitle, std::string levelAuthor,
                 int levelScoreVersion, int levelRelease, bool levelHasEasymode);
 
         void loadLevel();
         void loadMetadata();
         
         /**
-         * Retrieve and translate a level string. The key may be "titel",
-         * "subtitel" or any level specific string key. The priorities for
+         * Retrieve and translate a level string. The key may be "title",
+         * "subtitle" or any level specific string key. The priorities for
          * translation are as follows: protected translation - gettext 
          * translation - public translation - protected english - key
          * @arg key     the key for the search string
@@ -87,7 +87,7 @@ namespace enigma { namespace lev {
         int getReleaseVersion();
         int getRevisionNumber();
         std::string getAuthor();
-        std::string getTitel(); // english titel
+        std::string getTitle(); // english title
         bool hasEasymode();
         std::string getContact();
         std::string getHomepage();
@@ -118,7 +118,7 @@ namespace enigma { namespace lev {
         std::string normLevelPath; // stable/welcome, #oxyd#17, http://..., ~/test
         std::string absLevelPath;
         std::string id; // level id - old filename or indexname
-        std::string titel; // old name
+        std::string title; // old name
         std::string author;
         int scoreVersion;
         int releaseVersion;
@@ -130,7 +130,7 @@ namespace enigma { namespace lev {
         XERCES_CPP_NAMESPACE_QUALIFIER DOMNodeList *stringList;
         
         Proxy(pathType thePathType, std::string theNormLevelPath,
-                std::string levelId, std::string levelTitel, std::string levelAuthor,
+                std::string levelId, std::string levelTitle, std::string levelAuthor,
                 int levelScoreVersion, int levelRelease, bool levelHasEasymode);
         ~Proxy();
         void release();

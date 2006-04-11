@@ -606,9 +606,9 @@ static void shutdown()
     display::Shutdown();
     sound::Shutdown();
     enet_deinitialize();
+    lev::RatingManager::instance()->save();
     app.prefs->shutdown();
     options::Save();
-    lev::RatingManager::instance()->save();
     lua::ShutdownGlobal();
     delete_sequence(levels::LevelPacks.begin(),
                     levels::LevelPacks.end());

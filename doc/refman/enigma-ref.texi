@@ -417,10 +417,10 @@ Let us have a first view on complete simple @samp{Hello World} level in the new 
 <@i{el}:@b{level} xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="@i{http://enigma-game.org/schema/level/1 level.xsd}" xmlns:@i{el}="@i{http://enigma-game.org/schema/level/1}">
   <@i{el}:@b{protected} >
     <@i{el}:@b{info} @i{el}:@b{type}="@var{level}">
-      <@i{el}:@b{identity} @i{el}:@b{titel}="@var{Demo Simple}" @i{el}:@b{id}="@var{20060210ral001}"/>
+      <@i{el}:@b{identity} @i{el}:@b{title}="@var{Demo Simple}" @i{el}:@b{id}="@var{20060210ral001}"/>
       <@i{el}:@b{version} @i{el}:@b{score}="@var{1}" @i{el}:@b{release}="@var{1}" @i{el}:@b{revision}="@var{0}" @i{el}:@b{status}="@var{stable}"/>
       <@i{el}:@b{author}  @i{el}:@b{name}="@var{Ronald Lamprecht}"/>
-      <@i{el}:@b{copyright}>@var{Copyright © 2006 Ronald Lamprecht}</@i{el}:@b{copyright}>
+      <@i{el}:@b{copyright}>@var{Copyright ï¿½ 2006 Ronald Lamprecht}</@i{el}:@b{copyright}>
       <@i{el}:@b{license} @i{el}:@b{type}="@var{GPL v2.0 or above}" @i{el}:@b{open}="@var{true}"/>
       <@i{el}:@b{compatibility} @i{el}:@b{enigma}="@var{0.92}"/>
       <@i{el}:@b{modes} @i{el}:@b{easy}="@var{false}" @i{el}:@b{single}="@var{true}" @i{el}:@b{network}="@var{false}"/>
@@ -747,10 +747,10 @@ Let us have a look on all supported subnodes of info with typically used attribu
 
 @example
 <@i{el}:@b{info} @i{el}:@b{type}="@var{level}">
-  <@i{el}:@b{identity} @i{el}:@b{titel}="@var{Demo I18N}" @i{el}:@b{subtitel}="@var{Translate or let it be translated}" @i{el}:@b{id}="@var{20060211ral002}"/>
+  <@i{el}:@b{identity} @i{el}:@b{title}="@var{Demo I18N}" @i{el}:@b{subtitle}="@var{Translate or let it be translated}" @i{el}:@b{id}="@var{20060211ral002}"/>
   <@i{el}:@b{version} @i{el}:@b{score}="@var{1}" @i{el}:@b{release}="@var{1}" @i{el}:@b{revision}="@var{0}" @i{el}:@b{status}="@var{experimental}"/>
   <@i{el}:@b{author}  @i{el}:@b{name}="@var{Ronald Lamprecht}" @i{el}:@b{email}="@var{ral@@users.berlios.de}"/>
-  <@i{el}:@b{copyright}>@var{Copyright © 2006 Ronald Lamprecht}</@i{el}:@b{copyright}>
+  <@i{el}:@b{copyright}>@var{Copyright ï¿½ 2006 Ronald Lamprecht}</@i{el}:@b{copyright}>
   <@i{el}:@b{license} @i{el}:@b{type}="@var{GPL v2.0 or above}" @i{el}:@b{open}="@var{true}"/>
   <@i{el}:@b{compatibility} @i{el}:@b{enigma}="@var{0.92}"/>
   <@i{el}:@b{modes} @i{el}:@b{easy}="@var{false}" @i{el}:@b{single}="@var{true}" @i{el}:@b{network}="@var{false}"/>
@@ -789,7 +789,7 @@ describes usually a whole set of level maps in a single file.
 
 @table @asis
 @item @b{identity}, @i{required}
-The titel, subtitel and the main level identification string. See @ref{<identity>}.
+The title, subtitle and the main level identification string. See @ref{<identity>}.
 
 @item @b{version}, @i{required}
 All aspects of the level @ref{<version>}.
@@ -844,21 +844,21 @@ The @samp{@b{identity}} element is required, as it provides the information for 
 and system identification of the level. 
 
 @example
-<@i{el}:@b{identity} @i{el}:@b{titel}="@var{Demo I18N}" @i{el}:@b{subtitel}="@var{Translate or let it be translated}" @i{el}:@b{id}="@var{20060211ral002}"/>
+<@i{el}:@b{identity} @i{el}:@b{title}="@var{Demo I18N}" @i{el}:@b{subtitle}="@var{Translate or let it be translated}" @i{el}:@b{id}="@var{20060211ral002}"/>
 @end example
 
 @b{Attributes:}
 
 @table @asis
-@item @b{titel}, @i{required} 
-The English titel of the level. Make sure that the titel is not too long as it
-will be used on the level selection menu. Translations of the titel can be provided
+@item @b{title}, @i{required} 
+The English title of the level. Make sure that the title is not too long as it
+will be used on the level selection menu. Translations of the title can be provided
 in the @ref{Internationalization (i18n)} sections.
 
-@item @b{subtitel}, @i{optional}
-An optional english subtitel. Used for titel parts that are too long for the
-main titel, or for a short first hint. The subtitel is displayed on the level info
-page and on the start of the level. Translations of the subtitel can be provided
+@item @b{subtitle}, @i{optional}
+An optional english subtitle. Used for title parts that are too long for the
+main title, or for a short first hint. The subtitle is displayed on the level info
+page and on the start of the level. Translations of the subtitle can be provided
 in the @ref{Internationalization (i18n)} sections.
 
 @item @b{id}, @i{required}
@@ -1018,7 +1018,7 @@ The element itself is empty - no content is allowed.
 
 The standardized location for a copyright message of the author:
 @example
-<@i{el}:@b{copyright}>@var{Copyright © 2006 Ronald Lamprecht}</@i{el}:@b{copyright}>
+<@i{el}:@b{copyright}>@var{Copyright ï¿½ 2006 Ronald Lamprecht}</@i{el}:@b{copyright}>
 @end example
 
 @b{Attributes:}
@@ -1415,12 +1415,12 @@ level:
   <@i{el}:@b{protected} >
     <!-- elements ommited -->
     <@i{el}:@b{i18n}>
-      <@i{el}:@b{string} @i{el}:@b{key}="@var{titel}">
+      <@i{el}:@b{string} @i{el}:@b{key}="@var{title}">
         <@i{el}:@b{english} @i{el}:@b{translate}="@var{false}"/>
       </@i{el}:@b{string}>
-      <@i{el}:@b{string} @i{el}:@b{key}="@var{subtitel}">
+      <@i{el}:@b{string} @i{el}:@b{key}="@var{subtitle}">
         <@i{el}:@b{english} @i{el}:@b{translate}="@var{true}"/>
-        <@i{el}:@b{translation} @i{el}:@b{lang}="@var{de}">@var{Übersetzten oder übersetzten lassen}</@i{el}:@b{translation}>
+        <@i{el}:@b{translation} @i{el}:@b{lang}="@var{de}">@var{ï¿½bersetzten oder ï¿½bersetzten lassen}</@i{el}:@b{translation}>
       </@i{el}:@b{string}>
       <@i{el}:@b{string} @i{el}:@b{key}="@var{hint1}">
         <@i{el}:@b{english} @i{el}:@b{comment}="@var{Let 'right' be ambiguous: correct and opposite of left - if not possible choose correct">Read the right document}</@i{el}:@b{english}>
@@ -1446,7 +1446,7 @@ level:
 
 Two of the documents use key words to reference a string. The last one uses the
 English string itself as the key. There are two additional reserved keys 
-@samp{titel} and @samp{subtitel}.
+@samp{title} and @samp{subtitle}.
 
 For each string we like to translate or have translated we define a @samp{string}
 subelement of the protected section and add a @samp{english} subelement to the
@@ -1456,9 +1456,9 @@ one mandatory attribute @samp{translate} that defaults to @samp{true} stating
 the author decision whether the string should be translated. In case the author
 does not want a string to be translated he can, and will, just add no @samp{string}
 element for this string at all. Thus the elements for the strings with the keys
-@samp{titel} and @samp{Heureka!} are optional and quite unusual.
+@samp{title} and @samp{Heureka!} are optional and quite unusual.
 
-@samp{titel} and @samp{subtitel} have the English text given in the @ref{<identity>}
+@samp{title} and @samp{subtitle} have the English text given in the @ref{<identity>}
 element. All other strings referenced by keys need to add the
 English text as the content of the @samp{english} element. @samp{hint1} and 
 @samp{hint2} are examples.
@@ -1556,10 +1556,10 @@ comments we decided to support a similar Lua compatible XML format. We call it
 --xml-- <el:level xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://enigma-game.org/schema/level/1 level.xsd" xmlns:el="http://enigma-game.org/schema/level/1">
 --xml--   <el:protected >
 --xml--     <el:info el:type="level">
---xml--       <el:identity el:titel="Demo Simple" el:id="20060210ral001"/>
+--xml--       <el:identity el:title="Demo Simple" el:id="20060210ral001"/>
 --xml--       <el:version el:score="1" el:release="1" el:revision="0" el:status="stable"/>
 --xml--       <el:author  el:name="Ronald Lamprecht"/>
---xml--       <el:copyright>Copyright © 2006 Ronald Lamprecht</el:copyright>
+--xml--       <el:copyright>Copyright ï¿½ 2006 Ronald Lamprecht</el:copyright>
 --xml--       <el:license el:type="GPL2" el:open="true">GPL v2.0 or above</el:license>
 --xml--       <el:compatibility el:enigma="0.92"/>
 --xml--       <el:modes el:easy="false" el:single="true" el:network="false"/>

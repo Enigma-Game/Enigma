@@ -1,24 +1,24 @@
---xml-- <?xml version="1.0" encoding="UTF-8" standalone="no" ?>
---xml-- <el:level xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://enigma-game.org/schema/level/1 level.xsd" xmlns:el="http://enigma-game.org/schema/level/1">
---xml--   <el:protected >
---xml--     <el:info el:type="level">
---xml--       <el:identity el:titel="Firefox" el:subtitel="Fire or be fired" el:id="20060213ral03"/>
---xml--       <el:version el:score="1" el:release="1" el:revision="2" el:status="stable"/>
---xml--       <el:author  el:name="Ronald Lamprecht" el:email="ral@users.berlios.de"/>
---xml--       <el:copyright>Copyright © 2006 Ronald Lamprecht</el:copyright>
---xml--       <el:license el:type="GPL v2.0 or above" el:open="true"/>
---xml--       <el:compatibility el:enigma="0.92">
---xml--         <el:dependency el:path="lib/natmaze" el:id="lib/natmaze" el:release="1" el:preload="false"/>
---xml--       </el:compatibility>
---xml--       <el:modes el:easy="true" el:single="true" el:network="false"/>
---xml--       <el:comments>
---xml--         <el:credits el:showinfo="true" el:showstart="false">Thanks to Nat Pryce for his libs and code examples</el:credits>
---xml--         <el:dedication el:showinfo="true" el:showstart="false">To Daniel Heck for his great work on the engine</el:dedication>
---xml--         <el:code>Lua 4.x based - replace %ident upvalues by ident for Lua 5.x in compatible mode</el:code>
---xml--       </el:comments>
---xml--       <el:score el:easy="7:54" el:difficult="9:45"/>
---xml--     </el:info>
---xml--     <el:luamain><![CDATA[
+<?xml version="1.0" encoding="UTF-8" standalone="no" ?>
+<el:level xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://enigma-game.org/schema/level/1 level.xsd" xmlns:el="http://enigma-game.org/schema/level/1">
+  <el:protected >
+    <el:info el:type="level">
+      <el:identity el:title="Firefox" el:subtitle="Fire or be fired" el:id="20060213ral03"/>
+      <el:version el:score="1" el:release="1" el:revision="3" el:status="stable"/>
+      <el:author  el:name="Ronald Lamprecht" el:email="ral@users.berlios.de"/>
+      <el:copyright>Copyright © 2006 Ronald Lamprecht</el:copyright>
+      <el:license el:type="GPL v2.0 or above" el:open="true"/>
+      <el:compatibility el:enigma="0.92">
+        <el:dependency el:path="lib/natmaze" el:id="lib/natmaze" el:release="1" el:preload="false"/>
+      </el:compatibility>
+      <el:modes el:easy="true" el:single="true" el:network="false"/>
+      <el:comments>
+        <el:credits el:showinfo="true" el:showstart="false">Thanks to Nat Pryce for his libs and code examples</el:credits>
+        <el:dedication el:showinfo="true" el:showstart="false">To Daniel Heck for his great work on the engine</el:dedication>
+        <el:code>Lua 5.1</el:code>
+      </el:comments>
+      <el:score el:easy="7:54" el:difficult="9:45"/>
+    </el:info>
+    <el:luamain><![CDATA[
 Require("levels/lib/natmaze.lua")
 
 enigma.ConserveLevel = FALSE
@@ -308,28 +308,28 @@ end
 
 render_broken_maze()
 oxyd_shuffle()
---xml--     ]]></el:luamain>
---xml--     <el:i18n>
---xml--       <el:string el:key="titel">
---xml--         <el:english el:translate="false"/>
---xml--       </el:string>
---xml--       <el:string el:key="subtitel">
---xml--         <el:english el:translate="true" el:comment="Set fire or die"/>
---xml--         <el:translation el:lang="de">Brenne oder verbrenne</el:translation>
---xml--       </el:string>
---xml--       <el:string el:key="Do you think a bushman would start to search an extinguisher in the cellar in case of a wall of fire is approaching? Be a Firefox - you have the first 5 items to deal with, no more no less!">
---xml--         <el:english el:comment="Firefox in sense of clever in handling fire">Do you think a bushman would start to search an extinguisher in the cellar in case of a wall of fire is approaching? Be a Firefox - you have the first 5 items to deal with, no more no less!</el:english>
---xml--         <el:translation el:lang="de">Würde ein Buschmann anfangen einen Feuerlöscher im Keller zu suchen, wenn eine Feuerwalze naht? Sei ein Fuchs im Feuer - es gibt nur die ersten 5 Gegenstände die zur Lösung beitragen können!</el:translation>
---xml--       </el:string>
---xml--       <el:string el:key="You can extinguish fire with water. This is a good place to refill your extinguisher. Be aware, water is rare!">
---xml--         <el:english>You can extinguish fire with water. This is a good place to refill your extinguisher. Be aware, water is rare!</el:english>
---xml--         <el:translation el:lang="de">Man kann Feuer mit Wasser löschen! Hier ist ein guter Ort um Feuerlöscher wieder aufzufüllen. Wer Wasser verschwendet, jämmerlich verendet!</el:translation>
---xml--       </el:string>
---xml--       <el:string el:key="OOPS! The maze is broken! Prepare to repair the maze before you destroy it.">
---xml--         <el:english>OOPS! The maze is broken! Prepare to repair the maze before you destroy it.</el:english>
---xml--         <el:translation el:lang="de">Oh! Das Labyrinth ist unvollständig! Unternimm etwas um das Labyrinth zu reparieren bevor Du es zerstörst.</el:translation>
---xml--       </el:string>
---xml--     </el:i18n>
---xml--   </el:protected>
---xml-- </el:level>
---xml-- 
+    ]]></el:luamain>
+    <el:i18n>
+      <el:string el:key="title">
+        <el:english el:translate="false"/>
+      </el:string>
+      <el:string el:key="subtitle">
+        <el:english el:translate="true" el:comment="Set fire or die"/>
+        <el:translation el:lang="de">Brenne oder verbrenne</el:translation>
+      </el:string>
+      <el:string el:key="Do you think a bushman would start to search an extinguisher in the cellar in case of a wall of fire is approaching? Be a Firefox - you have the first 5 items to deal with, no more no less!">
+        <el:english el:comment="Firefox in sense of clever in handling fire">Do you think a bushman would start to search an extinguisher in the cellar in case of a wall of fire is approaching? Be a Firefox - you have the first 5 items to deal with, no more no less!</el:english>
+        <el:translation el:lang="de">Würde ein Buschmann anfangen einen Feuerlöscher im Keller zu suchen, wenn eine Feuerwalze naht? Sei ein Fuchs im Feuer - es gibt nur die ersten 5 Gegenstände die zur Lösung beitragen können!</el:translation>
+      </el:string>
+      <el:string el:key="You can extinguish fire with water. This is a good place to refill your extinguisher. Be aware, water is rare!">
+        <el:english>You can extinguish fire with water. This is a good place to refill your extinguisher. Be aware, water is rare!</el:english>
+        <el:translation el:lang="de">Man kann Feuer mit Wasser löschen! Hier ist ein guter Ort um Feuerlöscher wieder aufzufüllen. Wer Wasser verschwendet, jämmerlich verendet!</el:translation>
+      </el:string>
+      <el:string el:key="OOPS! The maze is broken! Prepare to repair the maze before you destroy it.">
+        <el:english>OOPS! The maze is broken! Prepare to repair the maze before you destroy it.</el:english>
+        <el:translation el:lang="de">Oh! Das Labyrinth ist unvollständig! Unternimm etwas um das Labyrinth zu reparieren bevor Du es zerstörst.</el:translation>
+      </el:string>
+    </el:i18n>
+  </el:protected>
+</el:level>
+

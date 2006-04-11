@@ -77,7 +77,7 @@ namespace enigma { namespace lev {
     
 
     Proxy * Proxy::registerLevel(std::string levelPath, std::string indexPath,
-            std::string levelId, std::string levelTitel, std::string levelAuthor,
+            std::string levelId, std::string levelTitle, std::string levelAuthor,
             int levelScoreVersion, int levelRelease, bool levelHasEasymode) {
         Proxy *theProxy;
         pathType thePathType = pt_resource;
@@ -131,7 +131,7 @@ namespace enigma { namespace lev {
         }
         
         // create new proxy
-        theProxy = new Proxy(thePathType, theNormLevelPath, levelId, levelTitel,
+        theProxy = new Proxy(thePathType, theNormLevelPath, levelId, levelTitle,
             levelAuthor, levelScoreVersion, levelRelease, levelHasEasymode);
         cache.insert(std::make_pair(cacheKey, theProxy));
         return theProxy;
@@ -139,10 +139,10 @@ namespace enigma { namespace lev {
      
 
     Proxy::Proxy(pathType thePathType, std::string theNormLevelPath,
-            std::string levelId, std::string levelTitel, std::string levelAuthor,
+            std::string levelId, std::string levelTitle, std::string levelAuthor,
             int levelScoreVersion, int levelRelease, bool levelHasEasymode) :  
             normPathType(thePathType), normLevelPath(theNormLevelPath), 
-            id(levelId), titel(levelTitel), author(levelAuthor),
+            id(levelId), title(levelTitle), author(levelAuthor),
             scoreVersion(levelScoreVersion), releaseVersion(levelRelease),
             revisionNumber(0), hasEasymodeFlag(levelHasEasymode), 
             scoreUnit (duration), doc(NULL) {
@@ -356,21 +356,21 @@ namespace enigma { namespace lev {
         
         // add handling for calls besides level run: info from cache
         if (doc == NULL) {
-            if (key == "titel")
-                return titel;
+            if (key == "title")
+                return title;
             else
                 return key;
         }
         
-        if (key == "titel" || key == "subtitel") {
+        if (key == "title" || key == "subtitle") {
             // get the english originals from the identity attributes
             DOMElement *identityElem = 
                     dynamic_cast<DOMElement *>(infoElem->getElementsByTagNameNS(
                     levelNS, Utf8ToXML("identity").x_str())->item(0));
             english = XMLtoUtf8(identityElem->getAttributeNS(levelNS, 
                     Utf8ToXML(&key).x_str())).c_str();
-            if (key == "titel")
-                titel = english;  // update cash
+            if (key == "title")
+                title = english;  // update cash
         }
         
         bool translFound = false;
@@ -493,15 +493,15 @@ namespace enigma { namespace lev {
         return author;
     }
 
-    std::string Proxy::getTitel() {
+    std::string Proxy::getTitle() {
         if (doc != NULL) {
             DOMElement *identityElem = 
                     dynamic_cast<DOMElement *>(infoElem->getElementsByTagNameNS(
                     levelNS, Utf8ToXML("identity").x_str())->item(0));
-            titel = XMLtoUtf8(identityElem->getAttributeNS(levelNS, 
-                    Utf8ToXML("titel").x_str())).c_str();
+            title = XMLtoUtf8(identityElem->getAttributeNS(levelNS, 
+                    Utf8ToXML("title").x_str())).c_str();
         }
-        return titel;
+        return title;
     }
 
     bool Proxy::hasEasymode() {
@@ -574,15 +574,15 @@ namespace enigma { namespace lev {
     }
     
     std::string Proxy::getScoreTarget() {
-        std::string titel = "time";
+        std::string title = "time";
         if (doc != NULL) {
             DOMElement *modesElem = 
                     dynamic_cast<DOMElement *>(infoElem->getElementsByTagNameNS(
                     levelNS, Utf8ToXML("modes").x_str())->item(0));
-            titel = XMLtoUtf8(modesElem->getAttributeNS(levelNS, 
+            title = XMLtoUtf8(modesElem->getAttributeNS(levelNS, 
                         Utf8ToXML("scoretarget").x_str())).c_str();
         }
-        return titel;
+        return title;
     }
     
     std::string Proxy::getCredits(bool infoUsage) {

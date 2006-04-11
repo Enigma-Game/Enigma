@@ -24,29 +24,29 @@
   
   <xsl:template match="el:identity">
     <xsl:text>&#xA;//level#  level: "</xsl:text>
-    <xsl:value-of select="@el:titel"/>
+    <xsl:value-of select="@el:title"/>
     <xsl:text>"&#xA;</xsl:text>
   </xsl:template>
   
   <xsl:template match="/el:level/el:protected/el:i18n/el:string">
     <xsl:if test="el:english/@el:translate='true'">
-      <xsl:if test="@el:key='titel'">
+      <xsl:if test="@el:key='title'">
         <xsl:apply-templates select="el:english/@el:comment"/>
         <xsl:apply-templates select="el:translation"/>
         <xsl:apply-templates select="id(@el:key)"/>
         <xsl:text>gettext("</xsl:text>
-        <xsl:value-of select="/el:level/el:protected/el:info/el:identity/@el:titel"/>
+        <xsl:value-of select="/el:level/el:protected/el:info/el:identity/@el:title"/>
         <xsl:text>")&#xA;</xsl:text>
       </xsl:if>
-      <xsl:if test="@el:key='subtitel' and /el:level/el:protected/el:info/el:identity/@el:subtitel!=''">
+      <xsl:if test="@el:key='subtitle' and /el:level/el:protected/el:info/el:identity/@el:subtitle!=''">
         <xsl:apply-templates select="el:english/@el:comment"/>
         <xsl:apply-templates select="el:translation"/>
         <xsl:apply-templates select="id(@el:key)"/>
         <xsl:text>gettext("</xsl:text>
-        <xsl:value-of select="/el:level/el:protected/el:info/el:identity/@el:subtitel"/>
+        <xsl:value-of select="/el:level/el:protected/el:info/el:identity/@el:subtitle"/>
         <xsl:text>")&#xA;</xsl:text>
       </xsl:if>
-      <xsl:if test="@el:key!='titel' and @el:key!='subtitel'">
+      <xsl:if test="@el:key!='title' and @el:key!='subtitle'">
         <xsl:apply-templates select="el:english/@el:comment"/>
         <xsl:apply-templates select="el:translation"/>
         <xsl:apply-templates select="id(@el:key)"/>

@@ -446,7 +446,7 @@ void LevelPack_CommandLine::load_level (size_t index)
 {
     const LevelInfo &info = get_info(index);
     info.proxy->loadLevel();
-    m_levels[index].name = lev::Proxy::loadedLevel()->getLocalizedString("titel");
+    m_levels[index].name = lev::Proxy::loadedLevel()->getLocalizedString("title");
 }
 
 

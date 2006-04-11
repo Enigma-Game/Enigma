@@ -209,22 +209,22 @@ LevelInspector::LevelInspector(lev::Proxy *aLevel, ecl::Surface *preview):
             levelPathString.replace(slpos, 1, 1, '/');
         BuildVList authorT(this, Rect(hmargin,vmargin,110,25), vspacing);
         authorT.add(new Label(N_("Level: "), HALIGN_RIGHT));
-        authorT.add(new Label((""), HALIGN_RIGHT)); // subtitel
+        authorT.add(new Label((""), HALIGN_RIGHT)); // subtitle
         authorT.add(new Label(N_("Author: "), HALIGN_RIGHT));
         authorT.add(new Label(N_("Contact: "), HALIGN_RIGHT));
         authorT.add(new Label(N_("Homepage: "), HALIGN_RIGHT));
         
         BuildVList author(this, Rect(hmargin+110+10,vmargin,
                 vminfo->width-(hmargin+110+10)-10-(vminfo->thumbw+10)-hmargin,25), vspacing);
-        tmp = levelProxy->getTitel();
-        tmp2 = levelProxy->getLocalizedString("titel");
+        tmp = levelProxy->getTitle();
+        tmp2 = levelProxy->getLocalizedString("title");
         if (tmp != tmp2)
             tmp = tmp + "  --  " + tmp2;
         author.add(new Label( tmp, HALIGN_LEFT));
-        tmp = levelProxy->getLocalizedString("subtitel");
-        if (tmp == "subtitel")
+        tmp = levelProxy->getLocalizedString("subtitle");
+        if (tmp == "subtitle")
             tmp = "";
-        author.add(new Label(tmp, HALIGN_LEFT)); // subtitel
+        author.add(new Label(tmp, HALIGN_LEFT)); // subtitle
         author.add(new Label(levelProxy->getAuthor(), HALIGN_LEFT));
         
         BuildVList address(this, Rect(hmargin+110+10,vmargin+3*(25+vspacing),

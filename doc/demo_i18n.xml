@@ -2,7 +2,7 @@
 <el:level xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://enigma-game.org/schema/level/1 level.xsd" xmlns:el="http://enigma-game.org/schema/level/1">
   <el:protected >
     <el:info el:type="level">
-      <el:identity el:titel="Demo I18N" el:subtitel="Translate or let it be translated" el:id="20060211ral002"/>
+      <el:identity el:title="Demo I18N" el:subtitle="Translate or let it be translated" el:id="20060211ral002"/>
       <el:version el:score="1" el:release="1" el:revision="1" el:status="experimental"/>
       <el:author  el:name="Ronald Lamprecht" el:email="ral@users.berlios.de"/>
       <el:copyright>Copyright © 2006 Ronald Lamprecht</el:copyright>
@@ -28,10 +28,10 @@ document(10,5,"Heureka!")
 set_actor("ac-blackball", 4, 11)
     ]]></el:luamain>
     <el:i18n>
-      <el:string el:key="titel">
+      <el:string el:key="title">
         <el:english el:translate="false"/>
       </el:string>
-      <el:string el:key="subtitel">
+      <el:string el:key="subtitle">
         <el:english el:translate="true"/>
         <el:translation el:lang="de">Übersetzten oder übersetzten lassen</el:translation>
       </el:string>

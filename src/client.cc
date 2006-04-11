@@ -72,10 +72,10 @@ namespace
         // conditional can be abolished
         if (level) {
             std::string tmp;
-            text = string("\"")+ level->getLocalizedString("titel")+"\"" +
+            text = string("\"")+ level->getLocalizedString("title")+"\"" +
                 _(" by ") + level->getAuthor();
-            tmp = level->getLocalizedString("subtitel");
-            if (!tmp.empty() && tmp != "subtitel")
+            tmp = level->getLocalizedString("subtitle");
+            if (!tmp.empty() && tmp != "subtitle")
                 text += string(" - ")+ tmp; 
         } else {
             text = (info.name.empty()) ?
