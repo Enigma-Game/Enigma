@@ -77,25 +77,6 @@ namespace
 	assert (!"Should never get there!");
     }
 
-    Error _lua_do_file(lua_State *L, const string &filename)
-    {
-	int oldtop = lua_gettop(L);
-	int retval = luaL_loadfile(L, filename.c_str());
-	if (retval!=0) // error
-        {
-	  lua_setglobal (L, "_LASTERROR") ; //Set _LASTERROR to returned error message
-        }
-	else 
-	{
-	  retval= lua_pcall(L, 0, 0, 0);
-	  if (retval!=0) // error
-          {
-	    lua_setglobal (L, "_LASTERROR") ; //Set _LASTERROR to returned error message
-          }
-	}
-	lua_settop(L, oldtop);
-	return _lua_err_code(retval);
-    }
 }
 
 
@@ -702,11 +683,31 @@ Error lua::CallFunc(lua_State *L, const char *funcname, const ByteVec& arg) {
     return _lua_err_code(retval);
 }
 
+Error lua::DoAbsoluteFile(lua_State *L, const string &filename)
+{
+    int oldtop = lua_gettop(L);
+    int retval = luaL_loadfile(L, filename.c_str());
+    if (retval!=0) // error
+    {
+      lua_setglobal (L, "_LASTERROR") ; //Set _LASTERROR to returned error message
+    }
+    else 
+    {
+      retval= lua_pcall(L, 0, 0, 0);
+      if (retval!=0) // error
+      {
+        lua_setglobal (L, "_LASTERROR") ; //Set _LASTERROR to returned error message
+      }
+    }
+    lua_settop(L, oldtop);
+    return _lua_err_code(retval);
+}
+    
 Error lua::DoGeneralFile(lua_State *L, GameFS * fs, const string &filename)
 {
     string completefn;
     if (fs->findFile(filename, completefn)) {
-        return _lua_do_file(L, completefn);
+        return lua::DoAbsoluteFile(L, completefn);
     }
     else {
         return _lua_err_code(LUA_ERRFILE);
@@ -733,7 +734,7 @@ void lua::CheckedDoFile (lua_State *L, GameFS * fs, std::string const& fname)
         exit (1);
     }
 
-    lua::Error status = _lua_do_file(L, completefn);
+    lua::Error status = lua::DoAbsoluteFile(L, completefn);
     if (status != lua::NO_LUAERROR) {
         fprintf(stderr, _("There was an error loading '%s'.\n"), completefn.c_str());
         fprintf(stderr, _("Your installation may be incomplete or invalid.\n"));

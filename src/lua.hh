@@ -87,6 +87,11 @@ namespace lua
       argument.  Currently only used for loading XML levels. */
     Error CallFunc (lua_State *L, const char *funcname, const ByteVec &arg);
 
+    /**
+     * Run a Lua script using a given absolute path.
+     */
+    Error DoAbsoluteFile (lua_State *L, const std::string & filename);
+
     /*! Find a Lua script using enigma::FindFile and run it. */
     Error Dofile (lua_State *L, const std::string & filename);
 
