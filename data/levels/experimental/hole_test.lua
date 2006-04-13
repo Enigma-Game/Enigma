@@ -19,7 +19,7 @@ fill_floor(boden, 0,0,levelw,levelh)
 draw_border(wand)
 
 -- ITEMS --
-set_item("it-document", 10, 6, {text="Absturz bei Holes mit Austrittsort==Hole"})
+set_item("it-document", 10, 6, {text="Grunddatei eines einfachen Levels ohne ant.lua"})
 
 set_item("it-wormhole", 6, 6, {targetx="6.5",targety="6.5"})
 

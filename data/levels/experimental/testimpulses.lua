@@ -1,6 +1,6 @@
 -- A test level to test implementation of impulses
 
-dofile(enigma.FindDataFile("levels/lib/ralf.lua"))
+Require("levels/lib/ralf.lua")
 
 debug_mode()
 

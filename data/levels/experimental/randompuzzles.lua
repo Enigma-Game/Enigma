@@ -3,7 +3,7 @@
 -- Licensed under GPL v2.0 or above
 -- Beispiel fuer die Zufallsverteilung von Puzzlesteinen...
 -- Experimental
--- Use with libpuzzle Version 0.9
+-- use with libpuzzle >0.95
 
 -- GENERAL --
 Require("levels/lib/libpuzzle.lua")
@@ -33,6 +33,10 @@ set_stone("st-switch", 18, 11, {action="callback",target="del",name="sd"})
 set_stone("st-switch", 20, 1, {action="callback",target="write_vals",name="sw"})
 set_stone("st-switch", 20, 11, {action="callback",target="leere",name="sl"})
 
+set_stone("st-switch", 1, 11, {action="callback",target="was",name="art_steine_switch"})
+
+set_stone("st-switch", 3, 11, {action="callback",target="method",name="shuffle_method"})
+
 -- ACTORS --
 local ac1=set_actor("ac-blackball", 1.5,1.5, {player=0})
 local ac2=set_actor("ac-whiteball", 21.5,2.5, {player=1})
@@ -47,6 +51,12 @@ set_item("it-document",17,11,{text="Lösche Reste auf dem Experimentierplatz"})
 
 set_item("it-document",21,1,{text="Speichere Figur zum anschliessenden Zeichnen"})
 set_item("it-document",21,11,{text="Reset aller Schalter"})
+
+set_item("it-document",1,10,{text="Rote oder Blaue Puzzlesteine ?"})
+set_item("it-document",3,10,{text="shuffle_method = permutation oder random"})
+
+
+set_item("it-magicwand",2,11)
 
 ---------------------
 -- Zeichne Schalter und Eventhandler dazu:
@@ -63,16 +73,20 @@ for i=1,6 do
    end
 end
 ---------------------
+--WORLD-VALUES:
+art_steine="2"
+shuffle_method="permutation"
+
 -- Zeichne die Figur mit durchmischten Teilen
 function wrap1()
  must_shuffle=1
- puzzle(matrix,7,3,"2")
+ puzzle(matrix,7,3,art_steine)
 end
 
 -- Zeichne die Figur geloest
 function wrap2()
  must_shuffle=0
- puzzle(matrix,7,3,"2")
+ puzzle(matrix,7,3,art_steine)
 end
 
 -- Setzte die Schalter zurueck
@@ -90,6 +104,27 @@ function del()
   end
  end
 end
+
+--welche art steine ?
+function was()
+ if art_steine=="" then 
+  art_steine="2"
+ else
+  art_steine=""
+ end
+ return art_steine
+end
+
+--welche shuffle_,ethod ?
+function method()
+ if shuffle_method=="permutation" then 
+  shuffle_method="random"
+ else
+  shuffle_method="permutation"
+ end
+ set_item("it-document",4,11,{text="set to "..shuffle_method})
+end
+
 
 -- Speichere die Schalter
 function write_vals()
