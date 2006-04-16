@@ -10,3 +10,13 @@ docdir = @datadir@/doc/enigma
 doc_DATA = README NEWS CHANGES COPYING
 
 ACLOCAL_AMFLAGS = -I m4
+
+tolua:
+	cd src && $(MAKE) $(AM_MAKEFLAGS) tolua
+
+pot:
+	cd po && $(MAKE) $(AM_MAKEFLAGS) enigma.pot-update
+
+pos:
+	cd po && $(MAKE) $(AM_MAKEFLAGS) update-po
+

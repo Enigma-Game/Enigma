@@ -5,7 +5,7 @@
 <!-- Usage: Xalan -v level.xml i18n.xsl > po/level_i18n.cc -->
 <!-- Note: the schema level.xsd must be locatable for parsing level.xml -->
 <!--       without a resolver the schema must be copied into the same dir as level.xml -->
-<xsl:stylesheet version="1.0" xmlns:xsl="http://www.w3.org/1999/XSL/Transform" xmlns:el="http://enigma/level">
+<xsl:stylesheet version="1.0" xmlns:xsl="http://www.w3.org/1999/XSL/Transform" xmlns:el="http://enigma-game.org/schema/level/1">
   <xsl:output method="text" indent="no"/>
 
   <xsl:template match="/">

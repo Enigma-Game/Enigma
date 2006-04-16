@@ -18,14 +18,4 @@ liblua_a_SOURCES = \
  tolua_event.c tolua_event.h tolua_is.c tolua_map.c tolua_push.c \
  tolua_to.c
 
-#tolua_SOURCES = \
-#  tolua.c tolualua.c liolib.c
 
-#EXTRA_tolua_SOURCES = \
-#  array.lua basic.lua class.lua clean.lua code.lua \
-#  container.lua declaration.lua define.lua doit.lua \
-#  enumerate.lua feature.lua function.lua lua2c.lua \
-#  module.lua operator.lua package.lua typedef.lua \
-#  variable.lua verbatim.lua
-
-#tolua_LDADD = liblua.a

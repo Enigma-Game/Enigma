@@ -173,15 +173,19 @@ enigma_LDADD = \
 	$(mingw_ldadd)
 
 # Rule for creating Lua interfaces from package descriptions using 'tolua'
-#TOLUA=@TOLUA@
-#%-lua.cc %-lua.hh: %-lua.pkg
-#	@echo "XXX: ${TOLUA}"
-#	@if [ "x${TOLUA}" != "x" ]; then \
-#	  echo "Running ${TOLUA}..."; \
-#	  ${TOLUA} -H $*-lua.hh -n $(notdir $*) -o $@ $<; \
-#	else \
-#	  echo "$<:0: Warning: Can't update lua interface - tolua not installed "; \
-#	fi
+TOLUA=@TOLUA@
+tolua:
+	@if [ "x${TOLUA}" != "x" ]; then \
+		echo "Running ${TOLUA}..."; \
+		${TOLUA} -H lua-display.hh -n display -o lua-display.cc display-lua.pkg; \
+		${TOLUA} -H lua-editor.hh -n editor -o lua-editor.cc editor-lua.pkg; \
+		${TOLUA} -H lua-enigma.hh -n enigma -o lua-enigma.cc enigma-lua.pkg; \
+		${TOLUA} -H lua-global.hh -n global -o lua-global.cc global-lua.pkg; \
+		${TOLUA} -H lua-ecl.hh -n px -o lua-ecl.cc ecl-lua.pkg; \
+	else \
+		echo "$<:0: Warning: Can't update lua interface - tolua not installed "; \
+	fi
+
 
 #------------------ Packaging rules for Mac OSX ------------------------
 
