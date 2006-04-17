@@ -70,12 +70,8 @@ oxyd(19,10)
 oxyd_default_flavor = "a"
 oxyd_shuffle()
 
-function wrap1()
- puzzle({{1,1,1,1},{1,0,0,0},{1,0,0,0},{1,0,0,0}},9,4,"2")
-end
+puzzle({{1,1,1,1},{1,0,0,0},{1,0,0,0},{1,0,0,0}},9,4,"red")
 
--- Code automatisch executen
-wrap1()
 
 
 

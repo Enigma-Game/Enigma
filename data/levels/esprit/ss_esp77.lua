@@ -32,7 +32,8 @@ function renderLine( line, pattern)
       elseif c =="5" then                                                               
          set_item("it-wormhole",i-1,line, {targetx="1.5",targety="8.5",strength=0})
       elseif c=="k" then
-	 set_actor("ac-rotor", i-1+0.5,line+0.5, {mouseforce=1, range=6, force=20}) 
+	 --set_actor("ac-rotor", i-1+0.5,line+0.5, {mouseforce=1, range=6, force=20}) 
+         set_actor("ac-rotor", i-1+0.5,line+0.5, {range=8, force=20}) 
       elseif c=="O" then
 	 oxyd(i-1,line) 
         end

@@ -48,7 +48,8 @@ function renderLine( line, pattern)
 
       elseif c=="R" then
 
-	 set_actor("ac-rotor", i-1+0.5,line+0.5, {mouseforce=1, range=50, force=20})
+	 --set_actor("ac-rotor", i-1+0.5,line+0.5, {mouseforce=1, range=50, force=20})
+	 set_actor("ac-rotor", i-1+0.5,line+0.5, {range=50, force=20})
 
       elseif c=="O" then
 

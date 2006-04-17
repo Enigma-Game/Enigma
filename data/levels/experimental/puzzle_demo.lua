@@ -54,8 +54,8 @@ renderLine(24 , "#######################################")
 oxyd_shuffle()
 
 -- Special
-set_item("it-document", 3, 8, {text="Welcome to the demonstration of libpuzzle version 0.96"})
-set_item("it-document", 3, 9, {text="Please also look at the source code...it's very easy :)"})
+set_item("it-document", 3, 8, {text="Welcome to the demonstration of libpuzzle version 0.97"})
+set_item("it-document", 3, 9, {text="Please also look at the source code of the lib and of this level."})
 set_actor("ac-blackball", 2.5,7.5, {player=0}) 
 set_item("it-magicwand", 2, 7) 
 
@@ -69,40 +69,40 @@ set_item("it-document", 23, 16, {text="Room 4: Some things, you can do with pseu
 --first room:
 --rings, treppe, figure1...
 --shows some general things
+--"normal" use of the lib, no WORLD variables or default arguments...
 
   --ring1
-  must_shuffle=0
-  puzzle({{1,1,1},{1,0,1},{1,1,1}},2,2,"2")
+  puzzle({{1,1,1},{1,0,1},{1,1,1}},2,2,"red","no")
 
-  puzzle({{1,1,1,0},{1,0,0,1},{1,0,1,1},{1,1,1,0}},10,6,"2")
+  puzzle({{1,1,1,0},{1,0,0,1},{1,0,1,1},{1,1,1,0}},10,6,"red","no")
 
-  must_shuffle=1
-  puzzle({{1,0,0},{1,1,0},{0,1,1}},10,2,"2")
+  puzzle({{1,0,0},{1,1,0},{0,1,1}},10,2,"red","yes")
 
-  must_shuffle=0
-  puzzle({{1,1,1},{1,1,1},{1,1,1}},14,2,"2")
+  puzzle({{1,1,1},{1,1,1},{1,1,1}},14,2,"red","no")
 
-  puzzle({{0,0,1,0,0},{0,1,1,1,0},{1,1,0,1,1}},14,9,"")
+  puzzle({{0,0,1,0,0},{0,1,1,1,0},{1,1,0,1,1}},14,9,"blue","no")
 
-  puzzle({{0,0,1,0},{0,1,1,0},{0,1,0,0},{0,1,1,1},{0,0,0,1},{1,1,1,1}},5, 4,"")
+  puzzle({{0,0,1,0},{0,1,1,0},{0,1,0,0},{0,1,1,1},{0,0,0,1},{1,1,1,1}},5, 4,"blue","no")
 
 --second room:
 --every puzzle here is solvable, generated with permutations
+--configured with the WORLD Variables:
+  art="2"
   must_shuffle=1
-  puzzle({{0,1,0},{1,1,1},{0,1,0}},21,1,"2")
-  puzzle({{0,1,0},{1,1,1},{0,1,0}},25,1,"2")
-  puzzle({{0,1,0},{1,1,1},{0,1,0}},30,1,"2")
-  puzzle({{0,1,0},{1,1,1},{0,1,0}},34,1,"2")
+  puzzle({{0,1,0},{1,1,1},{0,1,0}},21,1)
+  puzzle({{0,1,0},{1,1,1},{0,1,0}},25,1)
+  puzzle({{0,1,0},{1,1,1},{0,1,0}},30,1)
+  puzzle({{0,1,0},{1,1,1},{0,1,0}},34,1)
 
-  puzzle({{1,1,1},{0,1,0},{0,1,0}},21,5,"2")
-  puzzle({{1,1,1},{0,1,0},{0,1,0}},25,5,"2")
-  puzzle({{1,1,1},{0,1,0},{0,1,0}},30,5,"2")
-  puzzle({{1,1,1},{0,1,0},{0,1,0}},34,5,"2")
+  puzzle({{1,1,1},{0,1,0},{0,1,0}},21,5)
+  puzzle({{1,1,1},{0,1,0},{0,1,0}},25,5)
+  puzzle({{1,1,1},{0,1,0},{0,1,0}},30,5)
+  puzzle({{1,1,1},{0,1,0},{0,1,0}},34,5)
 
-  puzzle({{1,0,0},{1,0,0},{1,1,1}},21,9,"2")
-  puzzle({{1,0,0},{1,0,0},{1,1,1}},25,9,"2")
-  puzzle({{1,0,0},{1,0,0},{1,1,1}},30,9,"2")
-  puzzle({{1,0,0},{1,0,0},{1,1,1}},34,9,"2")
+  puzzle({{1,0,0},{1,0,0},{1,1,1}},21,9)
+  puzzle({{1,0,0},{1,0,0},{1,1,1}},25,9)
+  puzzle({{1,0,0},{1,0,0},{1,1,1}},30,9)
+  puzzle({{1,0,0},{1,0,0},{1,1,1}},34,9)
 
 
 --third room:
@@ -110,25 +110,24 @@ set_item("it-document", 23, 16, {text="Room 4: Some things, you can do with pseu
 
   must_shuffle=1
   shuffle_method="random"
-  puzzle({{1},{1},{1}},11,20,"")
-  puzzle({{1},{1},{1},{1}},13,19,"")
-  puzzle({{1},{1},{1},{1},{1}},15,18,"")
-  puzzle({{1},{1},{1},{1},{1},{1}},17,17,"")
+  puzzle({{1},{1},{1}},11,20,"blue")
+  puzzle({{1},{1},{1},{1}},13,19,"blue")
+  puzzle({{1},{1},{1},{1},{1}},15,18,"blue")
+  puzzle({{1},{1},{1},{1},{1},{1}},17,17,"blue")
 
   shuffle_method="permutation"
-  puzzle({{1},{1},{1}},8,14,"2")
-  puzzle({{1},{1},{1},{1}},6,14,"2")
-  puzzle({{1},{1},{1},{1},{1}},4,14,"2")
-  puzzle({{1},{1},{1},{1},{1},{1}},2,14,"2")
+  puzzle({{1},{1},{1}},8,14,"red")
+  puzzle({{1},{1},{1},{1}},6,14,"red")
+  puzzle({{1},{1},{1},{1},{1}},4,14,"red")
+  puzzle({{1},{1},{1},{1},{1},{1}},2,14,"red")
 
 --4. room:
 --shows the wonderfull possibilities of pseudo_pieces.
 
-  must_shuffle=0
-  puzzle({{0,2,0,2,0},{2,1,1,1,2},{0,1,0,1,0},{2,1,1,1,2},{0,2,0,2,0}},21,14,"")
+  puzzle({{0,2,0,2,0},{2,1,1,1,2},{0,1,0,1,0},{2,1,1,1,2},{0,2,0,2,0}},21,14,"blue","no")
 
-  puzzle({{1,1,2,1},{1,0,0,1},{1,2,1,1}},26,20,"")
+  puzzle({{1,1,2,1},{1,0,0,1},{1,2,1,1}},26,20,"blue","no")
 
-  puzzle({{1,1,1},{1,2,1},{1,1,1}},27,14,"2")
+  puzzle({{1,1,1},{1,2,1},{1,1,1}},27,14,"red","no")
 
-  puzzle({{1,1,1,1},{2,0,0,1},{0,2,0,1},{1,1,1,1},{0,1,0,0},{0,1,0,2},{2,1,1,1}},32,15,"")
+  puzzle({{1,1,1,1},{2,0,0,1},{0,2,0,1},{1,1,1,1},{0,1,0,0},{0,1,0,2},{2,1,1,1}},32,15,"blue","no")

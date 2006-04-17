@@ -3,7 +3,8 @@
 -- License: 	GPL v2.0 or above
 -- Per.Oxyd Single #055
 
-Require("levels/lib/ant.lua")
+dofile(enigma.FindDataFile("levels/lib/ant.lua"))
+enigma.ConserveLevel=FALSE
 cells={}
 
 cells[" "]=cell{floor="fl-rough"}

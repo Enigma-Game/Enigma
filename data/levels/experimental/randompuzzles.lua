@@ -74,7 +74,7 @@ for i=1,6 do
 end
 ---------------------
 --WORLD-VALUES:
-art_steine="2"
+art_steine="red"
 shuffle_method="permutation"
 
 -- Zeichne die Figur mit durchmischten Teilen
@@ -107,10 +107,10 @@ end
 
 --welche art steine ?
 function was()
- if art_steine=="" then 
-  art_steine="2"
+ if art_steine=="blue" then 
+  art_steine="red"
  else
-  art_steine=""
+  art_steine="blue"
  end
  return art_steine
 end

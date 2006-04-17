@@ -3,6 +3,9 @@
 
 -- Singleplayer
 
+-- # 001
+{ file=oxyd/oxyd1                 name="Oxyd 1"                     author="Raoul Bourquin"}
+
 -- # 002
 {file=oxyd/siegfried70   name="Minor Obstacle"       author="Siegfried Fennig"  par_time=13,Ralf}
 
@@ -33,6 +36,9 @@
 -- # 018
 {file=oxyd/martin63      name="More Speed"           author="Martin Hawlisch"   par_time=8,Johannes}
 
+-- # 020
+{ file=oxyd/oxyd20                name="Oxyd 20"                    author="Raoul Bourquin"}
+
 -- # 022
 {file=oxyd/martin59      name="Bad Punball"          author="Martin Hawlisch"   par_time=4,Johannes}
 -- # 023
@@ -52,7 +58,7 @@
 -- # 039
 {file=oxyd/siegfried72   name="Take a Break"         author="Siegfried Fennig"  par_time=9,Duffy}
 
--- # 51
+-- # 051
 {file=oxyd/siegfried88   name="Jump Pads"            author="Siegfried Fennig"  par_time=23,Duffy}
 
 -- # 052
@@ -62,19 +68,31 @@
 -- # 054
 {file=oxyd/siegfried101  name="Soaring High"         author="Siegfried Fennig"  par_time=74,Johannes}
 
+-- # 070
+{ file=oxyd/oxyd70                name="Oxyd 70"                    author="Raoul Bourquin"}
+
+-- # 077
+{ file=oxyd/oxyd77                name="Oxyd 77"                    author="Raoul Bourquin"}
+
+-- # 090
+{ file=oxyd/oxyd90                name="Oxyd 90"                    author="Raoul Bourquin"}
+
 -- # 093
 {file=oxyd/level9b       name="So Many Doors"        author="Siegfried Fennig"  par_time=204,Duffy}
 
 
 -- Multiplayer
+-- # 001
+{ file=oxyd/oxyd2p1               name="Oxyd 1"                     author="Raoul Bourquin"}
+
 -- # 002
 {file=oxyd/martin65      name="Land of the Doors"    author="Martin Hawlisch"   par_time=27,Johannes}
 
+-- # 003
+{ file=oxyd/oxyd2p3               name="Oxyd 3"                     author="Raoul Bourquin"}
+
 -- # 005
 {file=oxyd/martin42      name="Black or White"       author="Martin Hawlisch"   par_time=77,Johannes}
-
--- # 008
--- Werde ich bauen
 
 -- # 014
 {file=oxyd/siegfried76   name="Advance Planning"     author="Siegfried Fennig"  par_time=153,Duffy}

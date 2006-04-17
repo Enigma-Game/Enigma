@@ -1,5 +1,5 @@
 -- You need them, a level for Enigma
--- Copyright (C) 2006 Raoul
+-- Copyright (C) 2006 Raoul Bourquin
 -- Licensed under GPL v2.0 or above 
 -- Dont think to much
 
@@ -14,7 +14,8 @@ oxyd_default_flavor = "a"
 boden="fl-black"
 wand="st-glass"
 
-fill_floor(boden, 0,0, levelw,levelh)
+fill_floor(boden, 0,0, level_width,level_height)
+--fill_floor("fl-black", 22,15,14,7)
 
 function renderLine( line, pattern)
 	for i=1, strlen(pattern) do

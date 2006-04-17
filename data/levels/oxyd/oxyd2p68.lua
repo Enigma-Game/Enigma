@@ -52,7 +52,7 @@ renderLine(12,  "                    ")
 oxyd_shuffle()
 
 --Ring
-puzzle({{1,1,1,1},{1,0,0,1},{1,0,0,1},{1,1,1,1}},8,4,"2")
+puzzle({{1,1,1,1},{1,0,0,1},{1,0,0,1},{1,1,1,1}},8,4,"red")
 
 -- Special
 set_item("it-document",4,3,{text="Es ist ein Ring!"})

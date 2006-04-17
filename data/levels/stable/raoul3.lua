@@ -1,5 +1,5 @@
 -- Oxyd-Puzzle, a level for Enigma
--- Copyright (C) 2005 Raoul
+-- Copyright (C) 2005 Raoul Bourquin
 -- Licensed under GPL v2.0 or above 
 
 -- GENERAL --

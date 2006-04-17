@@ -3,15 +3,16 @@
 -- License: 	GPL v2.0 or above
 -- ESPRIT #049
 
-levelw = 182
+--levelw = 182
+levelw = 191
 levelh = 13
 create_world(levelw, levelh)
+fill_floor("fl-space",0,0,levelw,levelh)
 oxyd_default_flavor = "a"
 display.SetFollowMode(display.FOLLOW_SCROLLING)
+
 set_actor("ac-blackball", 178.5,6.5)
-fill_floor("fl-bluegray",0,0,levelw,levelh)
-
-
+fill_floor("fl-bluegray",0,0,182,levelh)
 
 function renderLine( line, pattern)
     for i=1, strlen(pattern) do

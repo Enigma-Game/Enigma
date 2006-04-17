@@ -4,14 +4,23 @@
 -- ESPRIT #037
 -- change rotor with spermbird, if implemented
 
+-- Apr.2006: Replaced the rotor with a ghost, and
+--   changed the puzzle-mechanism to avoid a second
+--   way to solve the puzzle -> Revision 2   Andreas
+
+Require("levels/lib/andreas_ghosts.lua")
+
 levelw = 20
 levelh = 25
 create_world(levelw, levelh)
 oxyd_default_flavor = "c"       -- Default flavor for oxyd stones.
-set_actor("ac-blackball", 11.5,8.5)
-set_actor("ac-rotor", 1.5,9.5, {range=30, force=40}) 
+set_actor("ac-blackball", 11.5,8.5, {player=0})
+--set_actor("ac-rotor", 1.5,9.5, {range=30, force=40}) 
+ghosts_set_ghost(1,9,"ac-rotor",1,ghosts_direction_intelligent,
+                    {range=0, force=40, gohome=FALSE})
 
-fill_floor("fl-sand",0,0,levelw,levelh)
+--fill_floor("fl-sand",0,0,levelw,levelh)
+ghosts_set_railarea(0,0,levelw,levelh,1,"fl-sand")
 
 function renderLine( line, pattern)
     for i=1, strlen(pattern) do
@@ -27,13 +36,19 @@ function renderLine( line, pattern)
       elseif c=="5" then
          puzzle(i-1,line, 7)  
          set_item("it-trigger", i-1,line, {action="callback", target="s1"})
+      elseif c=="A" then
+         set_item("it-trigger", i-1,line, {action="callback", target="s2"})
+      elseif c=="B" then
+         set_item("it-trigger", i-1,line, {action="callback", target="s3"})
+      elseif c=="C" then
+         set_item("it-trigger", i-1,line, {action="callback", target="s4"})
       elseif c=="6" then
          puzzle(i-1,line, 4)  	
       elseif c=="7" then
          puzzle(i-1,line, 13)        
       elseif c=="8" then
          puzzle(i-1,line, 10)  
-         set_item("it-magicwand",i-1,line)
+         --set_item("it-magicwand",i-1,line)
       elseif c=="." then
          set_stone("st-door_b", i-1,line, {type="v"})   
       elseif c=="O" then
@@ -49,8 +64,8 @@ renderLine(03 , "# # #   # #   # #..#")
 renderLine(04 , "# # # # # # # #    #")  
 renderLine(05 , "# # # # # # # #### #")
 renderLine(06 , "# # # #   # #      #")
-renderLine(07 , "# # # ####5 ###### #")
-renderLine(08 , "# # # 7            #")
+renderLine(07 , "# # # ####5A###### #")
+renderLine(08 , "# # # 7   BC       #")
 renderLine(09 , "#   # ##### #### # #")
 renderLine(10 , "##### #O  . . O#6# #")
 renderLine(11 , "#     #   . .  # # #")
@@ -70,28 +85,58 @@ renderLine(23 , "#           #      #")
 renderLine(24 , "####################")
 --               01234567890123456789
 
-x=2
-function s1()
-x=x-1
-if x == 0 then           -- stones vanish if the initial activated trigger is released by cluster exploding
-  enigma.KillStone(17,3)
-  enigma.KillStone(18,3)
-  enigma.KillStone(10,10)
-  enigma.KillStone(12,10)
-  enigma.KillStone(10,11)
-  enigma.KillStone(12,11)
-  enigma.KillStone(13,17)
-  enigma.KillStone(14,17)
+
+state_s1 = 1
+state_s2 = 1
+state_s3 = 1
+state_s4 = 1
+
+function msgthisdoor(x,y,msg)  
+  SendMessage(enigma.GetStone(x,y), msg)
+end
+
+function checkmydoors()
+  local msg
+  if      (state_s1 == 0) and (state_s2 == 0)
+      and (state_s3 == 0) and (state_s4 == 0) then
+    msg = "open"
+  else
+    msg = "close"
   end
+  msgthisdoor(17,3,msg)
+  msgthisdoor(18,3,msg)
+  msgthisdoor(10,10,msg)
+  msgthisdoor(12,10,msg)
+  msgthisdoor(10,11,msg)
+  msgthisdoor(12,11,msg)
+  msgthisdoor(13,17,msg)
+  msgthisdoor(14,17,msg)
+end
+
+state_s1 = 1
+function s1()
+  state_s1 = 1 - state_s1
+  checkmydoors()
+end
+state_s2 = 1
+function s2()
+  state_s2 = 1 - state_s2
+  checkmydoors()
+end
+state_s3 = 1
+function s3()
+  state_s3 = 1 - state_s3
+  checkmydoors()
+end
+state_s4 = 1
+function s4()
+  state_s4 = 1 - state_s4
+  checkmydoors()
 end
 
 oxyd_shuffle()
 
-
-
-
-
-
-
-
-
+ghosts_init(0,0)
+if difficult then
+  enigma.SlopeForce=20
+end

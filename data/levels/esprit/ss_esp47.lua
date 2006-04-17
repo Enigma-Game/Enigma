@@ -7,6 +7,11 @@
 -- problem: killer should be a spermbird, which is seeking randomly for the marble
 
 
+-- Apr.2006: Replaced the rotor with a ghost. -- Andreas
+
+Require("levels/lib/andreas_ghosts.lua")
+
+
 
 levelw = 20
 
@@ -18,9 +23,15 @@ oxyd_default_flavor = "b"
 
 set_actor("ac-blackball",10.5,9.5)
 
-set_actor("ac-rotor", 10.5,3.5, {mouseforce=0, range=5, force=12}) 
+--set_actor("ac-rotor", 10.5,3.5, {mouseforce=0, range=5, force=12}) 
+
+ghosts_set_ghost(10,3,"ac-rotor",1,ghosts_direction_intelligent,
+                    {range=5, force=12, gohome=FALSE})
+--enigma.SlopeForce = 17
 
 fill_floor("fl-abyss",0,0,levelw,levelh)
+--ghosts_set_railarea(0,0,levelw,levelh,1,"")
+
 
 
 
@@ -37,10 +48,13 @@ function renderLine( line, pattern)
       elseif c=="f" then
 
          set_floor("fl-himalaya", i-1,line)
+         ghosts_set_rail(i-1,line,1,"")
 
       elseif c=="F" then
 
          set_floor("fl-himalaya", i-1,line)
+
+         ghosts_set_rail(i-1,line,1,"")
 
          set_item("it-extralife", i-1,line)
 
@@ -87,12 +101,5 @@ renderLine(12 , "##########O#########")
 
 
 oxyd_shuffle()
-
-
-
-
-
-
-
-
+ghosts_init(0,0)
 

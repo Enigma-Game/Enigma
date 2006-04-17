@@ -1,7 +1,7 @@
 -- libpuzzle, a library for enigma
 -- Copyright (C) 2005, 2006 Raoul Bourquin
 -- Licensed under GPL v2.0 or above
--- Version 0.96
+-- Version 0.97
 
 -- This is a lua-library to make it really easy to set up random puzzles.
 
@@ -12,60 +12,92 @@
 -- Now you can use every function here, but usually you would just call "puzzle(YOUR OPTIONS)"
 -- But you can influence the puzzle() by setting the values in the WORLD section manually to different values.
 
---Example to generate a Ring with 8 Stones (the red ones) at the Position 4/5:
---puzzle({{1,1,1},{1,0,1},{1,1,1}},2,4,"2")
+-----------------------------------
+-- User's Reference with Example --
+-----------------------------------
+--Example to generate an shuffled Ring with 8 Stones (the red ones) at the Position 4/5:
+--puzzle({{1,1,1},{1,0,1},{1,1,1}},2,4,"red","yes")
 
-------------
---Reference:
-------------
 -- in [], this are the values from the example above.
 
---Matrix: this is the abstract definition of the puzzle:
+--original_atrix: this is the abstract definition of the puzzle:
 --###
 --# # this ring has the matrix: {{1,1,1},{1,0,1},{1,1,1}}
 --###
 --The format is: {row1, row2, row3, ...}
 --where row1 is:{stone1, stone2, ston3, ...}
 --Pseudo Pieces:
---If you want to set a pseudo piece, you set a "2" in the matrix. This piece will not appear in the level. But it will influence the others in this way, that where a pseusdo piece is, the "normal" pieces around it will have connections. This is the way to generate open clusters.
+--If you want to set a pseudo piece, you set a "2" in the matrix. This piece will not appear in the level. But it will
+--influence the others in this way, that where a pseusdo piece is, the "normal" pieces around it will have connections.
+--This is the way to generate open clusters.
 --[{{1,1,1},{1,0,1},{1,1,1}}]
 
---anz_stones: this in the number stones we need. 
---[8]
+--xtopleftcorner/ytopleftcorner or xcorner/ycorner: the absolute coordinates of the top left corner of your puzzle-matrix.
+--It's not required that this is really a stone. 
+--[2 and 4]
+
+--puzzle_kind: this string describes if we use the blue or the red puzzle stones
+--the values are: "blue" for blue and "red" for red ! 
+--["red"]
+
+--shuffle: this string says, if the puzzle must be shuffled or not.
+--the values are "yes" and "no".
+--["yes"]
+
+--now, the syntax for a puzzle is:
+--puzzle(original_matrix, xtopleftcorner, ytopleftcorner, puzzle_kind, shuffle)
+
+--if you want to configure the lib for a level, may be change the shuffle algorithm, use the variables in the WORLD section... 
+
+-- it's easy, isn't it ?
+
+-------------------------------------
+-- Programmer's Variable Reference --
+-------------------------------------
+--List of the main globals:
+--DON'T change this values directly!
+--matrix:  original_matrix
+--matrix:  matrix
+--matrix:  teile_matrix
+--array:   teile={}
+--array:   shuffled_pieces={}
+--matrix:  stone_coordinates={{},{}}
+--array:   xpermutations={}
+--array:   ypermutations={}
+
+--original_matrix: This matrix contains the original values, given in puzzle()
+--in acts as a backup, it is never changed or used.
+--just after calling puzzle() the values will be written in matrix.
+
+--shuffled_pieces: this array keeps the mixed descriptions. 
+--[no values, it's random!]
 
 --stone_coordinates: this 2D Array keeps the coordinates of the stones.
 --Format: {{X-Values},{Y-Values}}
 --{{x-first-stone, xsecond-stone, ...},{y-first-stone, y-second-stone, ...}}
 --[{{2,3,4,2,4,2,3,4},{4,4,4,5,5,6,6,6}}]
 
---xtopleftcorner/ytopleftcorner or xcorner/ycorner: the absolute coordinates of the top left corner of your puzzle-matrix.
---It's not required that this is really a stone. 
---[2 and 4]
-
 --teile: this array keeps all strings that describes the different stones used. 
 --[{"es","ew","sw","ns","ns","ne","ew","nw"}]
 
---shuffled_pieces: this array keeps the mix descriptions. 
---[no values, it's random!]
+--teile_matrix: this matrix stores the teile at their places.
+--neede to shuffle with permutation.
 
---art: this string describes if we use the blue or the red puzzle stones
---the values are: "" for blue and "2" for red ! 
---["2"]
-
---now, the syntax for a puzzle is:
---puzzle(matrix, xtopleftcorner, ytopleftcorner, art)
-
--- it's easy, isn't it ?
+--anz:stones: the number of stones needed.
 
 --TODO:
--->finish error-subsystem(half done)
 -->clear the variables, locals, globals...use same names for same local vars, eg. temp,tmp...(half done)
--->write all comment in english(nearly done)
 -->release libpuzzle 1.0
 
+
+----------------------------
+--BEGINN OF LIBPUZZLE CODE--
 ---------------------------------------------------------------
---WORLD:
+--WORLD SECTION:
 --This are global variables. They determine the exact behavior of the puzzle function.
+--This values, you can use to configure the lib in your level.
+--Just set the variable to the desired value, before you call puzzle().
+--Then, your values will be kept until you change them again!
 
 --must we shuffle the pieces or not ?
 --1 means true, 0 means false.
@@ -79,8 +111,8 @@ shuffle_method="permutation"
 
 --with how many permutations we shuffle:
 --for bigger puzzles, take bigger values!
---not yet used
---num_perm_todo=10
+--this value is just the base, the real value (num_perm_todo) is calculated this way:
+--num_perm_todo=num_perm+random(1,num_perm)
 num_perm=10
 
 --this value varies the real num_perm_todo
@@ -93,18 +125,9 @@ num_perm=10
 --not yet used, probably this will never be used...
 open_cluster=1 
 
---whether the error-subsystem is turn on or off:
---because its not yet usable, turn it off
-error_subsystem=off
-
----------------------------------------------------------------
---List of the main globals:
---matrix: original_matrix
---matrix: matrix
---matrix: teile_matrix
---array: teile
---array: shuffled_pieces
---matrix: stone_coordinates
+--Default value for the kind of puzzles:
+--only used, if nothing given as parameter of puzzle()
+art="2"
 
 ---------------------------------------------------------------
 --HELPERFUNCTIONS:
@@ -162,82 +185,30 @@ function rewrite_matrix(matrix)
 end
 
 ---------------------------------------------------------------
---Error-detecting-subsystem:
---not yet stable and finished!!
---not yet used
-
---Matrix too small, r and c dim <1 ?
-error=nil
-
-function too_small(matrix)
- local rdim=arraydim(matrix)
- local cdim=arraydim(matrix[1])
-
- if rdim<1 or cdim<1 then
-  error="Matrix is too small"
- end
-
- return error
-end
-
---Matrix is rectangular ?
-function test_matrix(matrix)
-
- local rows=arraydim(matrix)
- local okrows=0
- local good_length=arraydim(mastone_coordinatestrix[i])
- local i
-
- for i=1,rows do
-  local_row=arraydim(matrix[i])
-  if local_row~=good_length then
-   error="Matrix is not rectangular !"
-  end
- end
- return error
-end
-
---Matrix contains invalid values ?
-function valid_values(matrix)
- local i
- local rows=arraydim(matrix)
- local cols=arraydim(matrix[1])
-
- for i=1,rows do
-  for j=1,cols do
-   if matrix[i][j]~=0 or matrix[i][j]~=1 then
-    error="Invalid char in Matrix !"
-   end
-  end
- end
- return error
-end
-
---main function of the error-subsystem:
-function check_for_errors(matrix)
- error=nil
- too_small(matrix)
- test_matrix(matrix)
- valid_values(matrix)
-
- if error~=nil then
-  set_item("it-document", xtopleftcorner, ytopleftcorner,{text=error})
-  return 1
- end
- return 0
-end
-
----------------------------------------------------------------
 --WRAPPER:
 --The "normal" User of libpuzzle would call this function only.
-function puzzle(original_matrix, xtopleftcorner, ytopleftcorner, art)
+function puzzle(original_matrix, xtopleftcorner, ytopleftcorner, puzzle_kind, shuffle)
 
  --make a copy of the original Matrix to work on.
  --this way there are no problem when changing the matrix and recalling puzzle() without regenerating the original matrix.
  matrix=copy_matrix(original_matrix,matrix)
 
- --call the error subsystem:
- --check_for_errors(matrix)
+ --argument parser:
+ if puzzle_kind ~= nil then
+  if puzzle_kind=="blue" then
+   art=""
+  elseif puzzle_kind=="red" then
+   art="2"
+  end
+ end
+
+ if shuffle ~= nil then
+  if shuffle=="yes" then
+   must_shuffle=1
+  elseif shuffle=="no" then
+   must_shuffle=0
+  end
+ end
 
  --call the matrix2places to get the real locations of the puzzlestones:
  matrix2places(matrix, xtopleftcorner, ytopleftcorner)
@@ -457,7 +428,6 @@ function puzzle_shuffle(teile)
   anz=anz-1
  end
 
- return shuffled_pieces
 end
 ---------------------------------------------------------------
 --PERMUTATION-SHUFFLE:
@@ -502,35 +472,34 @@ function analyzerow(matrix,row)
     --Yes, increase the number of Permutations by 1:
     perm_counter = perm_counter + 1
 
-    --verlängere den Permutationsarray um einen neunen array:
+    --add an array to the permutation-array:
     xpermutations[perm_counter]={}
 
-    --beginn
+    --start
     xpermutations[perm_counter][1]={}
     --end
     xpermutations[perm_counter][2]={}
 
-    --setze anfang:
-    --Reihenwert des Anfangs
+    --set the beginning:
+    --ROW value 
     xpermutations[perm_counter][1][1]=row
-    --Spaltenwert des Anfangs
+    --COL value
     xpermutations[perm_counter][1][2]=counter
 
-    --setze ende:
-    --Reihenwert des endes
+    --set end:
+    --ROW value
     xpermutations[perm_counter][2][1]=row
-    --Spaltenwert des endes
+    --COL value
     xpermutations[perm_counter][2][2]=counter+local_length-1
 
    end
    
-   --springe gerade nach die einersequenz:
+   --jump just after the sequence of "1":
    counter=counter+local_length
 
   end
  end
 
- return xpermutations
 end
 
 --------------------------------------------------------------------
@@ -607,7 +576,6 @@ function analyzecol(matrix,col)
   end
  end
  
- return ypermutations
 end
 
 --------------------------------------------------------------------------
@@ -781,4 +749,6 @@ function draw_pieces(stone_coordinates,shuffled_pieces,art)
 end
 
 ---------------------------------------------------------------
---END OF THE LIBPUZZLE
+--END OF LIBPUZZLE CODE --
+--------------------------
+

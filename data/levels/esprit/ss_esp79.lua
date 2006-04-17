@@ -32,7 +32,8 @@ function renderLine( line, pattern)
       elseif c=="2" then
          set_stone("st-door_c", i-1,line, {name="door2", type="v"})
       elseif c=="R" then
-	 set_actor("ac-rotor", i-1+0.5,line+0.5, {mouseforce=1, range=25, force=40})
+	 --set_actor("ac-rotor", i-1+0.5,line+0.5, {mouseforce=1, range=25, force=40})
+         set_actor("ac-rotor", i-1+0.5,line+0.5, {range=25, force=40})
       elseif c=="O" then
 	 oxyd(i-1,line) 
         end
