@@ -77,6 +77,12 @@ namespace
             tmp = level->getLocalizedString("subtitle");
             if (!tmp.empty() && tmp != "subtitle")
                 text += string(" - ")+ tmp; 
+            tmp = level->getCredits(false);
+            if (!tmp.empty())
+                text += string(" - Credits: ")+ tmp; 
+            tmp = level->getDedication(false);
+            if (!tmp.empty())
+                text += string(" - Dedication: ")+ tmp; 
         } else {
             text = (info.name.empty()) ?
                 _("Another nameless level") : string("\"")+info.name+"\"";

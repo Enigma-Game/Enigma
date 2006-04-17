@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<xs:schema xmlns:xs='http://www.w3.org/2001/XMLSchema' targetNamespace="http://enigma-game.org/schema/level/1" xmlns:el="http://enigma-game.org/schema/level/1" elementFormDefault="qualified" attributeFormDefault="qualified" version="0.3" xml:lang="en">
+<xs:schema xmlns:xs='http://www.w3.org/2001/XMLSchema' targetNamespace="http://enigma-game.org/schema/level/1" xmlns:el="http://enigma-game.org/schema/level/1" elementFormDefault="qualified" attributeFormDefault="qualified" version="0.4" xml:lang="en">
   <xs:annotation>
     <xs:documentation>
       XML schema definitions for Enigma levels
@@ -306,7 +306,7 @@
   </xs:simpleType>
   <xs:simpleType name="revisionType">
     <xs:restriction base="xs:string">
-      <xs:pattern value="$Revision[ ]*[\d]*[ ]*$"/>
+      <xs:pattern value="$Revision[:]?[ ]*[\d]*[ ]*$"/>
     </xs:restriction>
   </xs:simpleType>
   <xs:simpleType name="statusType">
