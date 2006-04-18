@@ -96,6 +96,7 @@ void Item::replace(ItemID id)
 {
     Item *newitem = MakeItem (id);
     TransferObjectName (this, newitem);
+    setup_successor(newitem);           // hook for subclasses
     SetItem (get_pos(), newitem);
 }
 
@@ -631,10 +632,12 @@ namespace
      * if they have each a small white marble inside them.
      */
     class Hollow : public HillHollow {
-        INSTANCELISTOBJ(Hollow);
         DECL_TRAITS;
     public:
         Hollow(Type t = HOLLOW);
+    protected:
+        INSTANCELISTOBJ(Hollow);    // TinyHollow needs access
+        virtual void setup_successor(Item *newitem);
     private:
         // Item interface.
         bool actor_hit(Actor *a);
@@ -648,11 +651,21 @@ namespace
         Actor *whiteball;   // The small white ball that is currently being tracked
         Uint32 enter_time;  // ... when did it enter the hollow?
     };
-    DEF_TRAITS(Hollow, "it-hollow", it_hollow);
+    DEF_TRAITSF(Hollow, "it-hollow", it_hollow, itf_static);
 
 
     class TinyHollow : public Hollow {
-        CLONEOBJ(TinyHollow);
+        TinyHollow *clone() { 
+            TinyHollow *o = new TinyHollow(*this); 
+            if (enigma_server::GameCompatibility == GAMET_ENIGMA)
+                instances.push_back(o); 
+            return o;
+        }
+        void dispose() {
+            if (enigma_server::GameCompatibility == GAMET_ENIGMA)
+                instances.erase(find(instances.begin(), instances.end(), this));
+            delete this;
+        }
         DECL_TRAITS;
     public:
         TinyHollow() : Hollow(TINYHOLLOW) {}
@@ -736,6 +749,7 @@ void HillHollow::transmute(Type newtype)
     replace (newmodel[newtype]);
 }
 
+
 /* ---------- Hollow ---------- */
 
 Hollow::InstanceList Hollow::instances;
@@ -804,6 +818,13 @@ void Hollow::check_if_level_finished()
         (wcnt+ess_wcnt) == CountActorsOfKind (world::ac_meditation))
     {
         server::FinishLevel();
+    }
+}
+
+void Hollow::setup_successor(Item *newitem) {
+    const Value *essential = get_attrib("essential");
+    if (essential != NULL) {
+        newitem->set_attrib("essential",*essential);
     }
 }
 

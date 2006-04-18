@@ -230,6 +230,8 @@ namespace world
         virtual void kill_model (GridPos p) {
             display::KillModel (GridLoc (GRID_ITEMS, p));
         }
+        // replace template method hook
+        virtual void setup_successor(Item *newitem) {}
     };
 
 /* -------------------- Inline functions -------------------- */
