@@ -1,7 +1,8 @@
 -- Enignimm=Nim, a level for Enigma
 -- Copyright (C) 2006 Alain Busser
 -- Licensed under GPL v2.0 or above 
--- with the usual and valuable help by Andreas Lochmann
+
+-- Jan.'06: Added visualization of options  Andreas
 
 levelw = 20
 levelh = 13
@@ -271,6 +272,9 @@ function turn2()  --this is the first "Nim" game, with 13 stones
 		end			
 	end
 end
+
+
+
 
 
 

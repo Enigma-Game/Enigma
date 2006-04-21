@@ -26,11 +26,11 @@ set_actor("ac-whiteball-small", 35, level_height/2, {player=0})
 
 
 function random_x()
-    return 19 + random(1,18)
+    return 19 + random(2,17)
 end
 
 function random_y()
-    return 12 + random(1,11)
+    return 12 + random(2,10)
 end
 
 TOP=1

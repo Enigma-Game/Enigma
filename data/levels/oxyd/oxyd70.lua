@@ -4,9 +4,9 @@
 
 -- GENERAL --
 levelw = 20
-levelh = 13
+levelh = 25
 
-Require("levels/privat/libpuzzle.lua")
+Require("levels/lib/libpuzzle.lua")
 
 create_world(levelw, levelh)
 
@@ -17,7 +17,9 @@ function renderLine( line, pattern)
 			set_item("it-hollow",i-1,line)
 			set_floor("fl-brick",i-1,line)
                 elseif c=="#" then
-                        set_stone("st-brick",i-1,line)
+                        set_stone("st-rock2",i-1,line)
+                elseif c=="H" then
+                        set_stone("st-rock2_hole",i-1,line)
                 elseif c==" " then
 			set_floor("fl-brick",i-1,line)
 
@@ -37,22 +39,37 @@ function renderLine( line, pattern)
 end
 
 renderLine(00 , "ssssssssssssssssssss")
-renderLine(01 , "####################")
-renderLine(02 , "#                  #")
+renderLine(01 , "ssssssssssssssssssss")
+renderLine(02 , "####################")
 renderLine(03 , "#                  #")
-renderLine(04 , "#     da da da     #")
-renderLine(05 , "#     cb cb cb     #")
-renderLine(06 , "#       o  o       #")
-renderLine(07 , "#     da da da     #")
-renderLine(08 , "#     cb cb cb     #")
-renderLine(09 , "#                  #")
+renderLine(04 , "#                  #")
+renderLine(05 , "#     da da da     #")
+renderLine(06 , "#     cb cb cb     #")
+renderLine(07 , "#       o  o       #")
+renderLine(08 , "#     da da da     #")
+renderLine(09 , "#     cb cb cb     #")
 renderLine(10 , "#                  #")
-renderLine(11 , "####################")
-renderLine(12 , "ssssssssssssssssssss")
+renderLine(11 , "#                  #")
+renderLine(12 , "####H##########H####")
+renderLine(13 , "#                  #")
+renderLine(14 , "#                  #")
+renderLine(15 , "#     da da da     #")
+renderLine(16 , "#     cb cb cb     #")
+renderLine(17 , "#       o  o       #")
+renderLine(18 , "#     da da da     #")
+renderLine(19 , "#     cb cb cb     #")
+renderLine(20 , "#                  #")
+renderLine(21 , "#                  #")
+renderLine(22 , "####################")
+renderLine(23 , "ssssssssssssssssssss")
+renderLine(24 , "ssssssssssssssssssss")
 
 -- Special
-set_actor("ac-whiteball-small", 10,3.5, {player=0})
-set_actor("ac-whiteball-small", 10,9.5, {player=0})  
+set_actor("ac-whiteball-small", 10,4.5, {player=0})
+set_actor("ac-whiteball-small", 10,10.5, {player=0})  
 
-puzzle({{0,0,1,0,0,1,0,0},{0,0,1,0,0,1,0,0},{1,1,1,1,1,1,1,1},{0,0,1,0,0,1,0,0},{0,0,1,0,0,1,0,0}},6,4,"red","yes")
+set_actor("ac-whiteball-small", 10,14.5, {player=0})
+set_actor("ac-whiteball-small", 10,20.5, {player=0})  
 
+puzzle({{0,0,1,0,0,1,0,0},{0,0,1,0,0,1,0,0},{1,1,1,1,1,1,1,1},{0,0,1,0,0,1,0,0},{0,0,1,0,0,1,0,0}},6,5,"red","yes")
+puzzle({{0,0,1,0,0,1,0,0},{0,0,1,0,0,1,0,0},{1,1,1,1,1,1,1,1},{0,0,1,0,0,1,0,0},{0,0,1,0,0,1,0,0}},6,15,"red","no")

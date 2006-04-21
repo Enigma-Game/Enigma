@@ -1,5 +1,5 @@
 -- Ghost Islands, a level for Enigma
--- Copyright (C) 2006 Raoul
+-- Copyright (C) 2006 Raoul Bourquin
 -- Licensed under GPL v2.0 or above
  
 Require("levels/lib/ant.lua")
@@ -9,8 +9,6 @@ function file_oxyd(x,y,f)
     oxyd_default_flavor=f
     oxyd(x,y)
 end
-
-display.SetFollowMode(display.FOLLOW_SCROLLING)
 
 levelh=13
 levelw=20
@@ -39,25 +37,29 @@ cells["j"]=cell{floor="fl-gradient10"}
 cells["k"]=cell{floor="fl-gradient11"}
 cells["l"]=cell{floor="fl-gradient12"}
 
-stones["O"]=cell{parent={{file_oxyd,"b"}}}
-stones["#"]=cell{stone="st-black4"}
-stones["X"]=cell{stone="st-death_invisible"}
---stones["X"]=cell{stone="st-death"}
+cells["s"]=cell{floor="fl-swamp"}
 
-level={"####ef   eaaaaaf    ",
-       "#   gh   c#####d    ",
-       "#        c#####d    ",
-       "#        c#####d    ",
-       "eaaaaaaaai#####d    ",
-       "c##############d    ",
-       "c#######lbbbbbjd    ",
-       "c#######d     ckaaf ",
-       "c#######d     c###d ",
-       "c#######d     c###d ",
-       "c#######d     c###d ",
+stones["O"]=cell{parent={{file_oxyd,"b"}}}
+
+stones["X"]=cell{stone="st-death_invisible"}
+
+
+if not difficult then
+enigma.SlopeForce=15
+
+level={"####ef  seaaaaaf    ",
+       "#sssgh  sc#####d    ",
+       "#s     ssc#####d    ",
+       "#ssss sssc#####d    ",
+       "eaaaaaaaai#####ds   ",
+       "c##############ds   ",
+       "c#######lbbbbbjdss  ",
+       "c#######dsssssckaaf ",
+       "c#######dss  sc###d ",
+       "c#######ds    c###d ",
+       "c#######ds    c###d ",
        "c#######d     gbbbh ",
        "gbbbbbbbh           "}
-if not difficult then
 stmap={"                    ",
        "          O   O     ",
        "                    ",
@@ -72,6 +74,21 @@ stmap={"                    ",
        " O     O            ",
        "                    "}
 else
+enigma.SlopeForce=18
+
+level={"####ef   eaaaaaf    ",
+       "#   gh   c#####d    ",
+       "#        c#####d    ",
+       "#        c#####d    ",
+       "eaaaaaaaai#####d    ",
+       "c##############d    ",
+       "c#######lbbbbbjd    ",
+       "c#######d     ckaaf ",
+       "c#######d     c###d ",
+       "c#######d     c###d ",
+       "c#######d     c###d ",
+       "c#######d     gbbbh ",
+       "gbbbbbbbh           "}
 stmap={"                    ",
        "          O   O     ",
        "           X X      ",
@@ -96,5 +113,8 @@ draw_full(10,1,5,5,1)
 draw_full(15,8,3,3,1)
 
 set_actor("ac-blackball",5,1,{player=0,name="bb"})
+set_item("it-document",0,0,{text="Use Shift-F3 if neccessary..."})
 
 oxyd_shuffle()
+
+display.SetFollowMode(display.FOLLOW_SCROLLING)

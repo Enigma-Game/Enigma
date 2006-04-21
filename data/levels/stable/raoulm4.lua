@@ -1,5 +1,5 @@
 -- A meditation level for Enigma
--- Copyright (C) 2006 Raoul
+-- Copyright (C) 2006 Raoul Bourquin
 -- Licensed under GPL v2.0 or above 
 
 -- GENERAL --
@@ -8,6 +8,8 @@ levelw = 20
 levelh = 13
 
 create_world(levelw, levelh)
+
+display.SetFollowMode(display.FOLLOW_SCROLLING)
 
 fill_floor("fl-water",0,0,levelw,levelh)
 
