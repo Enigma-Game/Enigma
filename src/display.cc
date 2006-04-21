@@ -841,10 +841,12 @@ void SpriteHandle::set_callback (ModelCallback *cb) const {
 
 void SpriteHandle::hide() const {
     layer->get_sprite(id)->visible = false;
+    layer->get_sprite(id)->mayNeedRedraw = false;
 }
 
 void SpriteHandle::show() const {
     layer->get_sprite(id)->visible = true;
+    layer->get_sprite(id)->mayNeedRedraw = true;
 }
 
 
@@ -876,7 +878,8 @@ void DL_Sprites::move_sprite (SpriteId id, const ecl::V2& newpos)
     int newx, newy;
     get_engine()->world_to_video (newpos, &newx, &newy);
 
-    if (newx != sprite->screenpos[0] || newy != sprite->screenpos[1]) {
+    if (newx != sprite->screenpos[0] || newy != sprite->screenpos[1] ||
+            sprite->mayNeedRedraw ) {
         redraw_sprite_region(id); // make sure old sprite is removed
         sprite->pos = newpos;
         sprite->screenpos[0] = newx;

@@ -197,9 +197,10 @@ namespace display
         int          screenpos[2];
         SpriteLayer  layer;
         bool         visible;
+        bool         mayNeedRedraw;
 
         Sprite (const V2 & p, SpriteLayer l, Model *m)
-        : model(m), pos(p), layer(l), visible(true)
+        : model(m), pos(p), layer(l), visible(true), mayNeedRedraw(false)
         {
             screenpos[0] = screenpos[1] = 0;
         }

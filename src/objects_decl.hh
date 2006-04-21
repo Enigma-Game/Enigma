@@ -158,9 +158,9 @@ namespace world
         void dispose() { delete this; }
 
 
-#define SINGLETONOBJ(TYPE)                    \
-        TYPE* clone() { return this; }        \
-        void dispose() {}
+// #define SINGLETONOBJ(TYPE)                    \
+//         TYPE* clone() { return this; }        \
+//         void dispose() {}
 
 
 #define INSTANCELISTOBJ(TYPE)                                                   \

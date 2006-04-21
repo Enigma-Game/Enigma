@@ -105,14 +105,23 @@ fi
 dnl ----------------------------------------
 dnl Check for SDL_ttf library
 dnl ---------------------------------------
-AC_CHECK_LIB(SDL_ttf,main,have_sdlttf="yes", have_sdlttf="no")
-AM_CONDITIONAL(HAVESDLTTF, [test "$have_sdlttf" = yes])
-if test "x$have_sdlttf" = xyes; then
+if test "$MINGW32" = yes; then
+  AC_CHECK_LIB(SDL_ttf, main,,[AC_MSG_ERROR([SDL_ttf >= 2.0.6 is required to compile Enigma])])
   AC_DEFINE(HAVE_SDLTTF, , [Whether SDL_ttf library was found during configure])
-  LIBS="$LIBS -lSDL_ttf"
 else
-  AC_MSG_ERROR([SDL_ttf is required to compile Enigma])
+  AC_MSG_CHECKING([for SDL_ttf >=2.0.6])
+  AC_RUN_IFELSE([AC_LANG_PROGRAM([[#include <SDL/SDL_ttf.h>]],
+        [[if (TTF_MAJOR_VERSION < 2)
+            return 1;
+          else if (TTF_MAJOR_VERSION == 2 && TTF_MINOR_VERSION == 0 && TTF_PATCHLEVEL < 6) 
+            return 1;
+          return 0;]])],
+      [AC_MSG_RESULT([found])],
+      [AC_MSG_ERROR([SDL_ttf >= 2.0.6 not found.])])
+  AC_CHECK_LIB(SDL_ttf, main,,[AC_MSG_ERROR([SDL_ttf is required to compile Enigma])])
+  AC_DEFINE(HAVE_SDLTTF, , [Whether SDL_ttf library was found during configure])
 fi
+
 
 dnl ----------------------------------------
 dnl Check for libpng

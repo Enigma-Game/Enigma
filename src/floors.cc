@@ -40,11 +40,11 @@ Floor::Floor (const FloorTraits &tr)
 {}
 
 Floor *Floor::clone() {
-    return this;
+    return new Floor(*this);
 }
 
 void Floor::dispose() {
-    ; // do nothing
+    delete this;
 }
 
 void Floor::message(const string& /*msg*/, const Value &/*val*/) {
