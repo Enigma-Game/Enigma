@@ -125,6 +125,7 @@ namespace enigma { namespace lev {
         void setKnowledge(Proxy *levelProxy, short knowledge);
         short getSpeed(Proxy *levelProxy);
         void setSpeed(Proxy *levelProxy, short speed);
+        short getDifficulty(Proxy *levelProxy);
         short getBestScoreEasy(Proxy *levelProxy);
         std::string getBestScoreEasyHolder(Proxy *levelProxy);
         short getBestScoreDifficult(Proxy *levelProxy);

@@ -742,7 +742,6 @@ LevelPack_Oxyd::LevelPack_Oxyd (OxydVersion ver, DatFile *dat,
     for (int i = idx_start; i <= idx_end; i++) {
         if (!m_datfile->getLevel(i).empty()) {
             level_index[nlevels] = i;
-            nlevels++;
             
              LevelInfo info = get_info(nlevels);
             char txt[5];
@@ -751,6 +750,7 @@ LevelPack_Oxyd::LevelPack_Oxyd (OxydVersion ver, DatFile *dat,
                      "#" + get_name() + "#" + txt,  "#" + get_name(),
                     info.filename, info.name, info.author, info.revision, 
                     info.revision, info.has_easymode);
+            nlevels++;
         }
     }
     Log << "Levelpack '" << get_name() << "' has " << nlevels << " levels." << endl;

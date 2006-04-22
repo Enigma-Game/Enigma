@@ -460,6 +460,15 @@ namespace enigma { namespace lev {
         }
     }
 
+    short RatingManager::getDifficulty(Proxy *levelProxy) {
+        int difficulty = 7*getIntelligence(levelProxy) + 
+                6*getDexterity(levelProxy) +
+                4*getPatience(levelProxy) +
+                3*getKnowledge(levelProxy) +
+                4*getSpeed(levelProxy) - 23;
+        return difficulty > 0 ? difficulty : 0;
+    }
+    
     short RatingManager::getBestScoreEasy(Proxy *levelProxy) {
         Rating * theRating = findRating(levelProxy);
         if (theRating != NULL) {
