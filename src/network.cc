@@ -55,7 +55,7 @@ void Peer_Enet::disconnect(int timeout = 1000)
 {
     ENetEvent event;
     
-    enet_peer_disconnect (m_peer);
+    enet_peer_disconnect (m_peer, 0);
 
     while (enet_host_service (m_host, & event, timeout) > 0) {
         switch (event.type) {

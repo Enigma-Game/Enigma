@@ -21,7 +21,13 @@ case $host_os in
   *cygwin* ) CYGWIN=yes;;
          * ) CYGWIN=no;;
 esac
+case $host_os in
+  *linux* ) LINUX=yes;;
+        * ) LINUX=no;;
+esac
+
 AM_CONDITIONAL(MINGW32, test x$MINGW32 = xyes)
+AM_CONDITIONAL(LINUX, test x$LINUX = xyes)
 
 dnl ======================================================================
 dnl Check for programs
@@ -252,11 +258,15 @@ else
 	AC_MSG_RESULT(no)
 fi
 
+dnl ----------------------------------------------------------
 dnl Setup default search path for game data
+dnl ----------------------------------------------------------
 FC_EXPAND_DIR(ENIGMA_DATADIR, "$datadir/enigma")
 AC_DEFINE_UNQUOTED(SYSTEM_DATA_DIR, "$ENIGMA_DATADIR", [Default data directory])
 
+dnl ----------------------------------------------------------
 dnl Configure libraries
+dnl ----------------------------------------------------------
 AC_CONFIG_SUBDIRS(lib-src/zipios++)
 AC_CONFIG_SUBDIRS(lib-src/enet)
 

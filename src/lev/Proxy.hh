@@ -26,7 +26,7 @@
 namespace enigma { namespace lev {
     enum controlType {force, balance, key, other};
     enum scoreUnitType {duration, number};
-    enum scoreTargetType {time, pushes, moves, lua};
+    enum scoreTargetType {time, pushes, moves, callback};
     
     /**
      * A standin for an addressable level file and its level metadata.

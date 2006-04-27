@@ -163,7 +163,7 @@ namespace ecl
 
         Rect size() const { return Rect(0,0,m_surface->w, m_surface->h); }
         void box (const GS &gs, int x, int y, int w, int h);
-        void line (const GS &gs, int x1, int y2, int x2, int y2);
+        void line (const GS &gs, int x1, int y1, int x2, int y2);
         void blit (const GS &gs, int x, int y, const Surface* s, const Rect &r);
         void blit (const GS &gs, int x, int y, const Surface* src);
 

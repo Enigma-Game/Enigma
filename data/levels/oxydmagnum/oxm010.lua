@@ -3,7 +3,7 @@
 -- Licensed under GPL v2.0 or above
 -- 2003-02-21
 
-Require(enigma.FindDataFile("levels/lib/ant.lua")
+Require("levels/lib/ant.lua")
 -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- --
 normal = cell{floor="fl-brick"}
 stone  = cell{stone="st-marble"}

@@ -6,6 +6,20 @@ noinst_LIBRARIES = liblua.a
 
 EXTRA_DIST = README
 
+if LINUX
+
+CFLAGSDEFAULT = @CFLAGS@\
+	-DLUA_USE_LINUX
+
+else
+
+CFLAGSDEFAULT = @CFLAGS@
+
+endif
+
+CFLAGS = $(CFLAGSDEFAULT)
+
+
 liblua_a_SOURCES = \
  lapi.c lauxlib.c lbaselib.c lcode.c ldblib.c ldebug.c \
  ldo.c ldump.c lfunc.c lgc.c linit.c liolib.c llex.c \
