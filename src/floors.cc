@@ -479,6 +479,7 @@ void Bridge::animcb()
 namespace
 {
     class BlackTile : public Floor {
+        CLONEOBJ(BlackTile);
     public:
         BlackTile() : Floor ("fl-acblack", 5.2, 2.0) {}
 
@@ -491,6 +492,7 @@ namespace
     };
 
     class WhiteTile : public Floor {
+        CLONEOBJ(WhiteTile);
     public:
         WhiteTile() : Floor ("fl-acwhite", 5.2, 2.0) {}
 
