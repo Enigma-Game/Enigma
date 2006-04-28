@@ -3100,6 +3100,10 @@ namespace
     public:
         Cross() : m_active(false) {
         }
+        
+        virtual ~Cross() {
+            GameTimer.remove_alarm (this);
+        }
     };
     DEF_TRAITSF(Cross, "it-cross", it_cross, itf_static);
 }

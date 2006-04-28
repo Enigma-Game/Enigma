@@ -1187,6 +1187,10 @@ namespace
 
             // set_on(true);   DOESN'T WORK! calls init_model()
         }
+        
+        virtual ~TimerStone() {
+            GameTimer.remove_alarm (this);
+        }
     private:
         int m_signalvalue;
 
