@@ -138,26 +138,26 @@ namespace world
 
     /*! What may happen to an item _after_ it was activated? */
     enum ItemAction {
-        ITEM_DROP,              //< Drop it to the floor
-        ITEM_KILL,              //< Remove it from the inventory and dispose it
-        ITEM_KEEP,              //< Keep it in the inventory; do nothing further
+        ITEM_DROP,              //!< Drop it to the floor
+        ITEM_KILL,              //!< Remove it from the inventory and dispose it
+        ITEM_KEEP,              //!< Keep it in the inventory; do nothing further
     };
 
     enum ItemFlags {
         itf_none   = 0,
-        itf_static = 1,         //< Cannot be picked up
-        itf_indestructible = 2, //< Cannot be destroyed by explosions etc.
-        itf_animation = 4,      //< Use set_anim() instead of set_model()
-        itf_invisible = 8,      //< Item has no visible model
-        itf_inflammable = 16,   //< Burns when hit by laser beam
-        itf_norespawn = 32,     //< Don't respawn balls on top of this item
+        itf_static = 1,         //!< Cannot be picked up
+        itf_indestructible = 2, //!< Cannot be destroyed by explosions etc.
+        itf_animation = 4,      //!< Use set_anim() instead of set_model()
+        itf_invisible = 8,      //!< Item has no visible model
+        itf_inflammable = 16,   //!< Burns when hit by laser beam
+        itf_norespawn = 32,     //!< Don't respawn balls on top of this item
     };
 
     struct ItemTraits {
-        const char *name;
+        const char *name;       //!< Name of the item, e.g., "it-hammer"
         ItemID      id;
-        int         flags;
-        float       radius;     // 0.0 == use default
+        int         flags;      //!< Combination of ItemFlags
+        float       radius;     //!< Radius, 0.0 = default
     };
 
     class Item : public GridObject {
@@ -180,7 +180,7 @@ namespace world
         virtual const ItemTraits &get_traits() const = 0;
 
         /*! Return true if item completely covers the floor. In this
-          case the floor's `actor_contact' method will not be called
+          case the Floor::actor_contact() will not be called
           automatically; this must be done from `Item::actor_hit' (if
           at all). */
         virtual bool covers_floor() const { return false; }

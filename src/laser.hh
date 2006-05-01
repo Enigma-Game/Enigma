@@ -26,8 +26,10 @@
 
 namespace world
 {
-    // This interface must be implemented by all items and stones that
-    // are capable of emitting light.
+    /**
+     * This interface must be implemented by all items and stones that
+     * are capable of emitting light.
+     */
     class LaserEmitter {
     public:
 	virtual ~LaserEmitter() {}
@@ -36,22 +38,34 @@ namespace world
 
 /* -------------------- PhotoCell -------------------- */
 
-    /*! Photocells are objects (not necessarily stones) that are
-      sensitive to laser light. */
-
+    /**
+     * PhotoCells are objects (not necessarily stones) that are
+     * sensitive to laser light.  Whenever the game engine
+     * recalculates the laser beams, instances of this class are
+     * notified about the beginning and the end of a recalculation.
+     */
     class PhotoCell {
     public:
-        virtual ~PhotoCell() {
-            photo_deactivate();
-        }
+        virtual ~PhotoCell();
 
+        // ---------- Static functions ----------
         static void notify_start();
         static void notify_finish();
 
+        // ---------- PhotoCell interface ----------
         virtual void on_recalc_start() = 0;
         virtual void on_recalc_finish() = 0;
     protected:
+
+        /*! Derived classes must call this method to register
+          themselves for the on_recalc_start() and on_recalc_finish()
+          events. */
         void photo_activate();
+
+        /*! Derived classes must call this method to unregister
+          themselves.  It is automatically called by ~PhotoCell(), but
+          objects may have to call it explicitly if they are not
+          interested in PhotoCell events. */
         void photo_deactivate();
     private:
         static std::vector<void*> instances;

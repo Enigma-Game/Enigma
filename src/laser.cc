@@ -146,6 +146,17 @@ an incoming beam).
 
 vector<void*> PhotoCell::instances;
 
+PhotoCell::~PhotoCell() 
+{
+    photo_deactivate();
+}
+
+
+/**
+ * This function notifies all instances of PhotoCell that a
+ * recalculation of the laser beams is about to begin by calling
+ * on_recalc_start() for each instance.
+ */
 void PhotoCell::notify_start()
 {
     for(unsigned i=0; i<instances.size(); ++i)
@@ -155,6 +166,11 @@ void PhotoCell::notify_start()
     }
 }
 
+/**
+ * This function notifies all instances of PhotoCell that the engine
+ * has finished recalculating the laser beams by calling
+ * on_recalc_finish() for each instance.
+ */
 void PhotoCell::notify_finish()
 {
     for(unsigned i=0; i<instances.size(); ++i)
@@ -166,18 +182,17 @@ void PhotoCell::notify_finish()
 
 void PhotoCell::photo_activate()
 {
-    vector<void*>::iterator i;
-    i = std::find(instances.begin(), instances.end(), this);
+    vector<void*>::iterator i = std::find(instances.begin(), instances.end(), this);
     if (i != instances.end())
-        assert(0 || "Photocell activated twice\n");
+        assert (0 || "Photocell activated twice\n");
     else
-        instances.push_back(this);
+        instances.push_back (this);
 }
 
 void PhotoCell::photo_deactivate()
 {
     vector<void*>::iterator i;
-    i = std::find(instances.begin(), instances.end(), this);
+    i = std::find (instances.begin(), instances.end(), this);
     if (i != instances.end())
         instances.erase(i);
 }

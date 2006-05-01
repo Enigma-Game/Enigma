@@ -637,12 +637,13 @@ namespace
         void on_move() {
             GridPos p = get_pos();
             if (Floor *fl = GetFloor (p)) {
-                if (fl->is_kind("fl-abyss"))
-                    ReplaceStone(p, MakeStone("st-plain_falling"));
+                if (fl->is_kind("fl-abyss")) {
+                    ReplaceStone (p, MakeStone("st-plain_falling"));
+                }
                 else if (fl->is_kind("fl-swamp") || fl->is_kind("fl-water")) {
                     sound_event ("drown");
                     client::Msg_Sparkle (p.center());
-                    KillStone(p);
+                    KillStone (p);
                 }
             }
         }

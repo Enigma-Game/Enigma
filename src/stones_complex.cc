@@ -2181,7 +2181,8 @@ void OxydStone::message(const string &m, const Value &val)
         // random one into a fake oxyd
 
         if (instances.size() % 2) {
-            /// "odd number of oxyd stones\n";
+            // "odd number of oxyd stones";
+            // TODO
         }
     }
 }
