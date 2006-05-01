@@ -26,6 +26,11 @@ case $host_os in
         * ) LINUX=no;;
 esac
 
+case $host_os in
+ *darwin* ) MACOSX=yes;;
+       * ) MACOSX=no;;
+esac
+
 AM_CONDITIONAL(MINGW32, test x$MINGW32 = xyes)
 AM_CONDITIONAL(LINUX, test x$LINUX = xyes)
 
@@ -51,6 +56,13 @@ if test "x$WINDRES" = x; then
   WINDRES="windres"
 fi
 AC_SUBST(WINDRES)
+
+dnl Add -DMACOSX to CXXFLAGS and CFLAGS if working under darwin
+if test "x$MACOSX" = xyes; then
+ CXXFLAGS="$CXXFLAGS -DMACOSX"
+ CFLAGS="$CFLAGS -DMACOSX"
+ CPPFLAGS="$CXXFLAGS -DMACOSX"
+fi
 
 dnl ---------- Texi2html ----------
 AC_PATH_PROG(TEXI2HTML, texi2html, "")

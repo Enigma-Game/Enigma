@@ -14,7 +14,7 @@ EXTRA_DIST = enigma.texi enigma_de.texi $(html_DATA)
 $(HTML) : enigma.texi
 	@if [ "${TEXI2HTML}" ]; then \
 	  echo "Running texi2html"; \
-	  ${TEXI2HTML} -toc_file=index.html -split=chapter -output=. -nosec_nav $(srcdir)/enigma.texi; \
+	  ${TEXI2HTML} -toc_file=index.html -split=chapter -output=enigma.html -nosec_nav $(srcdir)/enigma.texi; \
 	else \
 	  echo "Warning: texi2html not found"; \
 	fi

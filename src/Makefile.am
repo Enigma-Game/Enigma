@@ -192,7 +192,6 @@ tolua:
 #------------------ Packaging rules for Mac OSX ------------------------
 
 bundle_name = ../Enigma.app
-bundle_locales = de.gmo
 # Special target to copy all needed game files to Enigma.app/Contents/Resources.
 # For Mac OS X bundle.
 bundle:
@@ -200,39 +199,37 @@ bundle:
 	mkdir -p $(bundle_name)/Contents/Resources
 	mkdir -p $(bundle_name)/Contents/Resources/data/
 	echo "APPL????" > $(bundle_name)/Contents/PkgInfo
-	cp ../$(top_builddir)/etc/Info.plist $(bundle_name)/Contents/
-	cp ../$(top_builddir)/etc/enigma.icns $(bundle_name)/Contents/Resources/
-	cp -R ../$(top_builddir)/data/levels $(bundle_name)/Contents/Resources/data/
-	cp ../$(top_builddir)/data/*.lua $(bundle_name)/Contents/Resources/data/
+	cp $(top_builddir)/etc/Info.plist $(bundle_name)/Contents/
+	cp $(top_builddir)/etc/enigma.icns $(bundle_name)/Contents/Resources/
+	cp -R $(top_builddir)/data/levels $(bundle_name)/Contents/Resources/data/
+	cp $(top_builddir)/data/*.lua $(bundle_name)/Contents/Resources/data/
 	mkdir -p $(bundle_name)/Contents/Resources/data/gfx
-	cp -R ../$(top_builddir)/data/gfx/*.png $(bundle_name)/Contents/Resources/data/gfx
+	cp -R $(top_builddir)/data/gfx/*.png $(bundle_name)/Contents/Resources/data/gfx
 	mkdir -p $(bundle_name)/Contents/Resources/data/gfx32
-	cp -R ../$(top_builddir)/data/gfx32/*.png $(bundle_name)/Contents/Resources/data/gfx32
-	cp -R ../$(top_builddir)/data/gfx32/*.jpg $(bundle_name)/Contents/Resources/data/gfx32
+	cp -R $(top_builddir)/data/gfx32/*.png $(bundle_name)/Contents/Resources/data/gfx32
+	cp -R $(top_builddir)/data/gfx32/*.jpg $(bundle_name)/Contents/Resources/data/gfx32
 	mkdir -p $(bundle_name)/Contents/Resources/data/gfx40
-	cp -R ../$(top_builddir)/data/gfx40/*.png $(bundle_name)/Contents/Resources/data/gfx40
-	cp -R ../$(top_builddir)/data/gfx40/*.jpg $(bundle_name)/Contents/Resources/data/gfx40
+	cp -R $(top_builddir)/data/gfx40/*.png $(bundle_name)/Contents/Resources/data/gfx40
+	cp -R $(top_builddir)/data/gfx40/*.jpg $(bundle_name)/Contents/Resources/data/gfx40
 	mkdir -p $(bundle_name)/Contents/Resources/data/gfx48
-	cp -R ../$(top_builddir)/data/gfx48/*.png $(bundle_name)/Contents/Resources/data/gfx48
-	cp -R ../$(top_builddir)/data/gfx48/*.jpg $(bundle_name)/Contents/Resources/data/gfx48
+	cp -R $(top_builddir)/data/gfx48/*.png $(bundle_name)/Contents/Resources/data/gfx48
+	cp -R $(top_builddir)/data/gfx48/*.jpg $(bundle_name)/Contents/Resources/data/gfx48
 	mkdir -p $(bundle_name)/Contents/Resources/data/sound
-	cp -R ../$(top_builddir)/data/sound/*.wav $(bundle_name)/Contents/Resources/data/sound
-	cp -R ../$(top_builddir)/data/sound/*.s3m $(bundle_name)/Contents/Resources/data/sound
+	cp -R $(top_builddir)/data/sound/*.wav $(bundle_name)/Contents/Resources/data/sound
+	cp -R $(top_builddir)/data/sound/*.s3m $(bundle_name)/Contents/Resources/data/sound
 	mkdir -p $(bundle_name)/Contents/Resources/data/fonts
-	cp ../$(top_builddir)/data/fonts/*.png $(bundle_name)/Contents/Resources/data/fonts
-	cp ../$(top_builddir)/data/fonts/*.bmf $(bundle_name)/Contents/Resources/data/fonts
-	cp ../$(top_builddir)/data/fonts/*.ttf $(bundle_name)/Contents/Resources/data/fonts
+	cp $(top_builddir)/data/fonts/*.png $(bundle_name)/Contents/Resources/data/fonts
+	cp $(top_builddir)/data/fonts/*.bmf $(bundle_name)/Contents/Resources/data/fonts
+	cp $(top_builddir)/data/fonts/*.ttf $(bundle_name)/Contents/Resources/data/fonts
 	mkdir -p $(bundle_name)/Contents/Frameworks
-	cp -r /Library/Frameworks/SDL.framework $(bundle_name)/Contents/Frameworks/
-	cp -r /Library/Frameworks/SDL_image.framework $(bundle_name)/Contents/Frameworks/
-	cp -r /Library/Frameworks/SDL_mixer.framework $(bundle_name)/Contents/Frameworks/
-	@catalogs='$(bundle_locales)'; \
-	for cat in $$catalogs; do \
-	  lang=`echo $$cat | sed 's/\.gmo$$//'`; \
-	  dir=$(bundle_name)/Contents/Resources/locale/$$lang/LC_MESSAGES; \
+	cp -R /Library/Frameworks/SDL.framework $(bundle_name)/Contents/Frameworks/
+	cp -R /Library/Frameworks/SDL_image.framework $(bundle_name)/Contents/Frameworks/
+	cp -R /Library/Frameworks/SDL_mixer.framework $(bundle_name)/Contents/Frameworks/
+	for cat in $(ALL_LINGUAS); do \
+	  dir=$(bundle_name)/Contents/Resources/locale/$$cat/LC_MESSAGES; \
 	  mkdir -p $$dir; \
 	  echo "installing $$cat as $$dir/enigma.mo"; \
-	  cp -r ../$(top_builddir)/po/$$cat $$dir/enigma.mo; \
+	  cp -r $(top_builddir)/po/$$cat.gmo $$dir/enigma.mo; \
 	done
 
 # Special target to copy the binary to Enigma.app/Contents/MacOS.
@@ -241,5 +238,6 @@ bundle-fw: enigma-fw-mosx
 	strip $(bundle_name)/Contents/MacOS/enigma
 
 # Special target to create a binary linked with Mac OS X frameworks
+static_prefix = /usr/fink
 enigma-fw-mosx: $(enigma_OBJECTS) $(enigma_DEPENDENCIES)
-	$(CXX) $(LDFLAGS) -o enigma-fw $(enigma_OBJECTS) $(enigma_DEPENDENCIES) /usr/fink/lib/libintl.a /usr/lib/libiconv.dylib -lsdlmain -lz -framework SDL -framework SDL_image -framework SDL_mixer -framework IOKit -framework Cocoa -framework OpenGL -framework Carbon -framework QuickTime -framework SDL_ttf /usr/fink/lib/libpng.a
+	$(CXX) $(LDFLAGS) -o enigma-fw $(enigma_OBJECTS) $(enigma_DEPENDENCIES) $(static_prefix)/lib/libintl.a $(static_prefix)/lib/libxerces-c.a /usr/lib/libiconv.dylib -L$(static_prefix)/lib -lsdlmain -lz -framework SDL -framework SDL_image -framework SDL_mixer -framework Cocoa -framework OpenGL -framework SDL_ttf $(static_prefix)/lib/libpng.a 

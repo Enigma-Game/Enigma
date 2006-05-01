@@ -211,7 +211,11 @@ static std::string get_system_locale ()
     // get the locale and export it to the environment
     CFLocaleRef locale = CFLocaleCopyCurrent();
     CFStringRef name = CFLocaleGetIdentifier(locale);
-    language = CFStringGetCStringPtr(name, NULL);
+    const char *tmp=CFStringGetCStringPtr(name, NULL);
+    if(tmp)
+    {
+        language = tmp;
+    }
     CFRelease(locale);
     return language;
 }
@@ -413,27 +417,8 @@ void Application::initSysDatapaths(const std::string &prefFilename)
     // then chdir to ../Resources. The original SDL implementation chdirs to
     // "../../..", i.e. the directory the bundle is placed in. This breaks
     // the self-containedness.
-    char parentdir[1024];
-    char *c;
-
-    strncpy ( parentdir, progCallPath.c_str(), sizeof(parentdir) );
-    c = (char*) parentdir;
-
-    while (*c != '\0')     /* go to end */
-        c++;
-
-    while (*c != '/')      /* back up to parent */
-        c--;
-
-    *c++ = '\0';           /* cut off last part (binary name) */
-
-    chdir (parentdir);  /* chdir to the binary app's parent */
-    chdir ("../Resources/"); /* chdir to the .app's parent */
-    
-    systemAppDataPath = "./data";
-    
-// to be tested and used as substitution for the code above:
-//     systemAppDataPath = progDir + "/../Resources/data";
+	
+    systemAppDataPath = progDir + "/../Resources/data";
     
 #else
     // Unix -- we get our data path from the installation
@@ -450,6 +435,8 @@ void Application::initSysDatapaths(const std::string &prefFilename)
     if (progDirExists) {
         l18nPath = progDir + "/" + l18nPath;
     }
+#elif MACOSX
+    l18nPath = progDir + "/../Resources/locale";
 #endif
     Log << "l18nPath = \"" << l18nPath << "\"\n"; 
     
