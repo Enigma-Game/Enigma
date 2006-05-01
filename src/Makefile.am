@@ -147,15 +147,15 @@ datadir = @datadir@
 
 if MINGW32
 
-localedir = data/locale
-mingw_ldadd = enigma_ico.o -lws2_32
-enigma_ico.o: enigma.rc enigma.ico
+  localedir := data/locale
+  mingw_ldadd := enigma_ico.o -lws2_32
+  enigma_ico.o: enigma.rc enigma.ico
 	$(WINDRES) $(srcdir)/enigma.rc --include-dir=$(srcdir) -O coff -o enigma_ico.o
 
 else # not MINGW32
 
-localedir = $(datadir)/locale
-mingw_ldadd =
+  localedir = $(datadir)/locale
+  mingw_ldadd =
 
 endif
 
@@ -176,6 +176,7 @@ enigma_LDADD = \
 
 # Rule for creating Lua interfaces from package descriptions using 'tolua'
 TOLUA=@TOLUA@
+.PHONY: tolua
 tolua:
 	@if [ "x${TOLUA}" != "x" ]; then \
 		echo "Running ${TOLUA}..."; \
@@ -191,9 +192,10 @@ tolua:
 
 #------------------ Packaging rules for Mac OSX ------------------------
 
-bundle_name = ../Enigma.app
+bundle_name := ../Enigma.app
 # Special target to copy all needed game files to Enigma.app/Contents/Resources.
 # For Mac OS X bundle.
+.PHONY: bundle
 bundle:
 	mkdir -p $(bundle_name)/Contents/MacOS
 	mkdir -p $(bundle_name)/Contents/Resources
@@ -233,11 +235,13 @@ bundle:
 	done
 
 # Special target to copy the binary to Enigma.app/Contents/MacOS.
+.PHONY: bundle-fw
 bundle-fw: enigma-fw-mosx
 	cp enigma-fw $(bundle_name)/Contents/MacOS/enigma
 	strip $(bundle_name)/Contents/MacOS/enigma
 
 # Special target to create a binary linked with Mac OS X frameworks
-static_prefix = /usr/fink
+static_prefix := /usr/fink
+.PHONY: enigma-fw-mosx
 enigma-fw-mosx: $(enigma_OBJECTS) $(enigma_DEPENDENCIES)
 	$(CXX) $(LDFLAGS) -o enigma-fw $(enigma_OBJECTS) $(enigma_DEPENDENCIES) $(static_prefix)/lib/libintl.a $(static_prefix)/lib/libxerces-c.a /usr/lib/libiconv.dylib -L$(static_prefix)/lib -lsdlmain -lz -framework SDL -framework SDL_image -framework SDL_mixer -framework Cocoa -framework OpenGL -framework SDL_ttf $(static_prefix)/lib/libpng.a 
