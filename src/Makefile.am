@@ -232,6 +232,7 @@ bundle:
 	cp -R /Library/Frameworks/SDL.framework $(bundle_name)/Contents/Frameworks/
 	cp -R /Library/Frameworks/SDL_image.framework $(bundle_name)/Contents/Frameworks/
 	cp -R /Library/Frameworks/SDL_mixer.framework $(bundle_name)/Contents/Frameworks/
+	cp -R /Library/Frameworks/SDL_ttf.framework $(bundle_name)/Contents/Frameworks/
 	for cat in $(ALL_LINGUAS); do \
 	  dir=$(bundle_name)/Contents/Resources/locale/$$cat/LC_MESSAGES; \
 	  mkdir -p $$dir; \
