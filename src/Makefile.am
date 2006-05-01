@@ -192,33 +192,38 @@ tolua:
 
 #------------------ Packaging rules for Mac OSX ------------------------
 
-bundle_name := ../Enigma.app
+bundle_name := ../etc/Enigma.app
 # Special target to copy all needed game files to Enigma.app/Contents/Resources.
 # For Mac OS X bundle.
 .PHONY: bundle
 bundle:
+	-rm -rf $(bundle_name)/Contents
 	mkdir -p $(bundle_name)/Contents/MacOS
 	mkdir -p $(bundle_name)/Contents/Resources
 	mkdir -p $(bundle_name)/Contents/Resources/data/
 	echo "APPL????" > $(bundle_name)/Contents/PkgInfo
 	cp $(top_builddir)/etc/Info.plist $(bundle_name)/Contents/
 	cp $(top_builddir)/etc/enigma.icns $(bundle_name)/Contents/Resources/
-	cp -R $(top_builddir)/data/levels $(bundle_name)/Contents/Resources/data/
+	tar --exclude .svn -c -f - -C $(top_builddir)/data/levels . | tar xpf - -C $(bundle_name)/Contents/Resources/data
 	cp $(top_builddir)/data/*.lua $(bundle_name)/Contents/Resources/data/
+	cp $(top_builddir)/data/*.xml $(bundle_name)/Contents/Resources/data/
 	mkdir -p $(bundle_name)/Contents/Resources/data/gfx
-	cp -R $(top_builddir)/data/gfx/*.png $(bundle_name)/Contents/Resources/data/gfx
+	cp $(top_builddir)/data/gfx/*.png $(bundle_name)/Contents/Resources/data/gfx
 	mkdir -p $(bundle_name)/Contents/Resources/data/gfx32
-	cp -R $(top_builddir)/data/gfx32/*.png $(bundle_name)/Contents/Resources/data/gfx32
-	cp -R $(top_builddir)/data/gfx32/*.jpg $(bundle_name)/Contents/Resources/data/gfx32
+	cp $(top_builddir)/data/gfx32/*.png $(bundle_name)/Contents/Resources/data/gfx32
+	cp $(top_builddir)/data/gfx32/*.jpg $(bundle_name)/Contents/Resources/data/gfx32
 	mkdir -p $(bundle_name)/Contents/Resources/data/gfx40
-	cp -R $(top_builddir)/data/gfx40/*.png $(bundle_name)/Contents/Resources/data/gfx40
-	cp -R $(top_builddir)/data/gfx40/*.jpg $(bundle_name)/Contents/Resources/data/gfx40
+	cp $(top_builddir)/data/gfx40/*.png $(bundle_name)/Contents/Resources/data/gfx40
+	cp $(top_builddir)/data/gfx40/*.jpg $(bundle_name)/Contents/Resources/data/gfx40
 	mkdir -p $(bundle_name)/Contents/Resources/data/gfx48
-	cp -R $(top_builddir)/data/gfx48/*.png $(bundle_name)/Contents/Resources/data/gfx48
-	cp -R $(top_builddir)/data/gfx48/*.jpg $(bundle_name)/Contents/Resources/data/gfx48
+	cp $(top_builddir)/data/gfx48/*.png $(bundle_name)/Contents/Resources/data/gfx48
+	cp $(top_builddir)/data/gfx48/*.jpg $(bundle_name)/Contents/Resources/data/gfx48
+	mkdir -p $(bundle_name)/Contents/Resources/data/schemas
+	cp $(top_builddir)/data/schemas/*.xml $(bundle_name)/Contents/Resources/data/schemas
+	cp $(top_builddir)/data/schemas/*.xsd $(bundle_name)/Contents/Resources/data/schemas
 	mkdir -p $(bundle_name)/Contents/Resources/data/sound
-	cp -R $(top_builddir)/data/sound/*.wav $(bundle_name)/Contents/Resources/data/sound
-	cp -R $(top_builddir)/data/sound/*.s3m $(bundle_name)/Contents/Resources/data/sound
+	cp $(top_builddir)/data/sound/*.wav $(bundle_name)/Contents/Resources/data/sound
+	cp $(top_builddir)/data/sound/*.s3m $(bundle_name)/Contents/Resources/data/sound
 	mkdir -p $(bundle_name)/Contents/Resources/data/fonts
 	cp $(top_builddir)/data/fonts/*.png $(bundle_name)/Contents/Resources/data/fonts
 	cp $(top_builddir)/data/fonts/*.bmf $(bundle_name)/Contents/Resources/data/fonts
@@ -231,7 +236,7 @@ bundle:
 	  dir=$(bundle_name)/Contents/Resources/locale/$$cat/LC_MESSAGES; \
 	  mkdir -p $$dir; \
 	  echo "installing $$cat as $$dir/enigma.mo"; \
-	  cp -r $(top_builddir)/po/$$cat.gmo $$dir/enigma.mo; \
+	  cp $(top_builddir)/po/$$cat.gmo $$dir/enigma.mo; \
 	done
 
 # Special target to copy the binary to Enigma.app/Contents/MacOS.
@@ -241,7 +246,7 @@ bundle-fw: enigma-fw-mosx
 	strip $(bundle_name)/Contents/MacOS/enigma
 
 # Special target to create a binary linked with Mac OS X frameworks
-static_prefix := /usr/fink
+static_prefix := `$(SDL_CONFIG) --prefix`
 .PHONY: enigma-fw-mosx
 enigma-fw-mosx: $(enigma_OBJECTS) $(enigma_DEPENDENCIES)
 	$(CXX) $(LDFLAGS) -o enigma-fw $(enigma_OBJECTS) $(enigma_DEPENDENCIES) $(static_prefix)/lib/libintl.a $(static_prefix)/lib/libxerces-c.a /usr/lib/libiconv.dylib -L$(static_prefix)/lib -lsdlmain -lz -framework SDL -framework SDL_image -framework SDL_mixer -framework Cocoa -framework OpenGL -framework SDL_ttf $(static_prefix)/lib/libpng.a 
