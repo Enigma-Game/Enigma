@@ -297,7 +297,12 @@ end
 
 function def_anim_images(name, frames, opt)
     opt = opt or {}
-    display.DefineAnim(name, opt.loop)
+    if loop then
+        if opt.loop==0 then loopbool=false else loopbool=true end
+    else
+        loopbool=false
+    end
+    display.DefineAnim(name, loopbool)
     for i=1,getn(frames) do
 	local frame=frames[i]
 	opt.filename = frame[1]

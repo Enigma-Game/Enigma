@@ -1,6 +1,6 @@
 /*
 ** Lua binding: editor
-** Generated automatically by tolua++-1.0.91 on Fri Mar 31 15:50:43 2006.
+** Generated automatically by tolua++-1.0.92 on Fri Apr 28 14:17:24 2006.
 */
 
 #ifndef __cplusplus
@@ -14,7 +14,6 @@
 TOLUA_API int  tolua_editor_open (lua_State* tolua_S);
 
 #include "editor.hh"
-#define TOLUA_RELEASE 1
 using namespace editor;
 
 /* function to register type */
@@ -32,7 +31,7 @@ static int tolua_editor_editor_DefineFloorGroup00(lua_State* tolua_S)
      !tolua_isstring(tolua_S,1,0,&tolua_err) ||
      !tolua_isstring(tolua_S,2,0,&tolua_err) ||
      !tolua_isnumber(tolua_S,3,0,&tolua_err) ||
-     !tolua_isstring(tolua_S,4,0,&tolua_err) ||
+     !tolua_istable(tolua_S,4,0,&tolua_err) ||
      !tolua_isnoobj(tolua_S,5,&tolua_err)
  )
   goto tolua_lerror;
@@ -87,7 +86,7 @@ static int tolua_editor_editor_DefineItemGroup00(lua_State* tolua_S)
      !tolua_isstring(tolua_S,1,0,&tolua_err) ||
      !tolua_isstring(tolua_S,2,0,&tolua_err) ||
      !tolua_isnumber(tolua_S,3,0,&tolua_err) ||
-     !tolua_isstring(tolua_S,4,0,&tolua_err) ||
+     !tolua_istable(tolua_S,4,0,&tolua_err) ||
      !tolua_isnoobj(tolua_S,5,&tolua_err)
  )
   goto tolua_lerror;
@@ -142,7 +141,7 @@ static int tolua_editor_editor_DefineStoneGroup00(lua_State* tolua_S)
      !tolua_isstring(tolua_S,1,0,&tolua_err) ||
      !tolua_isstring(tolua_S,2,0,&tolua_err) ||
      !tolua_isnumber(tolua_S,3,0,&tolua_err) ||
-     !tolua_isstring(tolua_S,4,0,&tolua_err) ||
+     !tolua_istable(tolua_S,4,0,&tolua_err) ||
      !tolua_isnoobj(tolua_S,5,&tolua_err)
  )
   goto tolua_lerror;

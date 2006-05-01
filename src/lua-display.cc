@@ -1,6 +1,6 @@
 /*
 ** Lua binding: display
-** Generated automatically by tolua++-1.0.91 on Fri Mar 31 15:53:20 2006.
+** Generated automatically by tolua++-1.0.92 on Fri Apr 28 14:17:24 2006.
 */
 
 #ifndef __cplusplus
@@ -15,7 +15,6 @@ TOLUA_API int  tolua_display_open (lua_State* tolua_S);
 
 #include "display.hh"
 #include "d_models.hh"
-#define TOLUA_RELEASE 1
 using namespace display;
 using ecl::Rect;
 using ecl::Surface;
@@ -286,7 +285,7 @@ static int tolua_display_display_DefineRandModel00(lua_State* tolua_S)
  if (
      !tolua_isstring(tolua_S,1,0,&tolua_err) ||
      !tolua_isnumber(tolua_S,2,0,&tolua_err) ||
-     !tolua_isstring(tolua_S,3,0,&tolua_err) ||
+     !tolua_istable(tolua_S,3,0,&tolua_err) ||
      !tolua_isnoobj(tolua_S,4,&tolua_err)
  )
   goto tolua_lerror;
@@ -371,7 +370,7 @@ static int tolua_display_display_DefineOverlayImage00(lua_State* tolua_S)
  if (
      !tolua_isstring(tolua_S,1,0,&tolua_err) ||
      !tolua_isnumber(tolua_S,2,0,&tolua_err) ||
-     !tolua_isstring(tolua_S,3,0,&tolua_err) ||
+     !tolua_istable(tolua_S,3,0,&tolua_err) ||
      !tolua_isnoobj(tolua_S,4,&tolua_err)
  )
   goto tolua_lerror;

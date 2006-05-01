@@ -20,7 +20,6 @@
 
 $#include "display.hh"
 $#include "d_models.hh"
-$#define TOLUA_RELEASE 1
 $using namespace display;
 $using ecl::Rect;
 $using ecl::Surface;
