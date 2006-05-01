@@ -166,6 +166,24 @@ namespace enigma { namespace lev {
         return normLevelPath;
     }
     
+    std::string Proxy::getLocalSubstitutionLevelPath() {
+        std::string result = getNormLevelPath();
+        std::string::size_type pos;
+        // substitute url protocol "http://" by "http/"
+        pos = result.find("://");
+        if (pos != std::string::npos)
+            result.replace(pos, 2,"");
+        
+        // substitute all filesystem uncommon chars to '_'
+        const std::string validChars("\\_-/.~#0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ");
+        pos = result.find_first_not_of(validChars, 0);
+        while (pos != std::string::npos) {
+            result.replace(pos, 1,"~");
+            pos = result.find_first_not_of(validChars, pos+1);
+        }
+        return result;
+    }
+    
     Proxy::pathType Proxy::getNormPathType() {
         return normPathType;
     }

@@ -75,8 +75,6 @@ enigma_SOURCES = 		\
 	lua-global.hh		\
 	lua-ecl.cc 		\
 	lua-ecl.hh		\
-	help.cc 		\
-	help.hh			\
 	main.cc 		\
 	main.hh			\
 	netgame.cc 		\
@@ -125,6 +123,8 @@ enigma_SOURCES = 		\
 	XMLtoLocal.hh		\
 	XMLtoUtf8.cc		\
 	XMLtoUtf8.hh		\
+	gui/HelpMenu.cc		\
+	gui/HelpMenu.hh		\
 	gui/LevelInspector.cc	\
 	gui/LevelInspector.hh	\
 	gui/menus.cc		\
@@ -132,6 +132,8 @@ enigma_SOURCES = 		\
 	gui/menus_internal.hh	\
 	gui/MonospacedLabel.cc	\
 	gui/MonospacedLabel.hh	\
+	gui/ScreenshotViewer.cc	\
+	gui/ScreenshotViewer.hh	\
 	gui/TextField.cc	\
 	gui/TextField.hh	\
 	gui/widgets.cc		\

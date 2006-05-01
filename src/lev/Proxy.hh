@@ -101,9 +101,17 @@ namespace enigma { namespace lev {
         
         /**
          * the level address that can be used independent of a level pack
-         * as a crossreference.
+         * as a crossreference. (stable/welcome, #oxyd#17, http://..., ~/test)
          */
         std::string getNormLevelPath();
+        
+        /**
+         * The normalized level path with all critical characters substituted
+         * by '~' to allow url's to be used and to make generated paths portable.
+         * Url protocols like "http://" are substituted by "http/". The returned
+         * path can be used as a local path element.
+         */
+        std::string getLocalSubstitutionLevelPath();
         
         /**
          * the type of the level address

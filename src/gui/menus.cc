@@ -24,7 +24,7 @@
 #include "config.h"
 #include "display.hh"
 #include "editor.hh"
-#include "help.hh"
+#include "gui/HelpMenu.hh"
 #include "main.hh"
 #include "netgame.hh"
 #include "nls.hh"

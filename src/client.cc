@@ -21,7 +21,7 @@
 #include "display.hh"
 #include "options.hh"
 #include "server.hh"
-#include "help.hh"
+#include "gui/HelpMenu.hh"
 #include "main.hh"
 #include "gui/menus.hh"
 #include "sound.hh"
@@ -560,12 +560,13 @@ void Client::on_keydown(SDL_Event &e)
         case SDLK_F5: Msg_AdvanceLevel(levels::advance_unsolved); break;
 
         case SDLK_F10: {
-            std::string basename = std::string("screenshots/") +
-                    server::CurrentLevelPack->get_info(server::CurrentLevel).filename;
+            lev::Proxy *level = lev::Proxy::loadedLevel();
+            std::string basename = app.userPath + std::string("/screenshots/") +
+                    level->getLocalSubstitutionLevelPath();
             std::string fname = basename + ".png";
             int i = 1;
             while (ecl::FileExists(fname.c_str())) {
-                fname = basename + ecl::strf("_%d", i++) + ".png";
+                fname = basename + ecl::strf("#%d", i++) + ".png";
             }
             video::Screenshot(fname);
             break;
@@ -615,7 +616,7 @@ void Client::show_help()
         : _("Skip to next unsolved level");
 
     video::ShowMouse();
-    displayHelp(helptext_ingame, 200);
+    gui::displayHelp(helptext_ingame, 200);
     video::HideMouse();
 
     update_mouse_button_state();

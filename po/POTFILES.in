@@ -2,6 +2,8 @@ src/server.cc
 src/client.cc
 src/main.cc
 src/gui/menus.cc
+src/gui/ScreenshotViewer.cc
+src/gui/LevelInspector.cc
 src/help.cc
 src/lua.cc
 po/level_i18n.cc

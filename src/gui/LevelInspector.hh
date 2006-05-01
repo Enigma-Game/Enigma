@@ -51,6 +51,7 @@ namespace enigma { namespace gui {
                 ecl::Font * const theFont);
         // Variables.
         gui::Widget *back;
+        gui::Widget *screenshot;
         gui::TextField *annotation;
         ecl::Surface *previewImage;
         lev::Proxy  *levelProxy;

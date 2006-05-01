@@ -24,6 +24,7 @@
 #include "ecl_util.hh"
 #include "gui/menus_internal.hh"
 #include "gui/MonospacedLabel.hh"
+#include "gui/ScreenshotViewer.hh"
 #include "lev/RatingManager.hh"
 
 #include <vector>
@@ -168,7 +169,8 @@ namespace enigma { namespace gui {
 LevelInspector::LevelInspector(lev::Proxy *aLevel, ecl::Surface *preview):
         previewImage(preview), levelProxy(aLevel),
         annotation (new TextField()),
-        back (new StaticTextButton(N_("Ok"), this))
+        back (new StaticTextButton(N_("Ok"), this)),
+        screenshot (new StaticTextButton(N_("Screenshot"), this))
     {
         const video::VMInfo *vminfo = video::GetInfo();
         vspacing = vminfo->height < 500 ? 2 :(vminfo->height < 650 ? 3 : 4);
@@ -177,6 +179,7 @@ LevelInspector::LevelInspector(lev::Proxy *aLevel, ecl::Surface *preview):
         bool highres = vminfo->height > 650 ? true : false;
     
         add(back, Rect(vminfo->width-130-2*hmargin,vminfo->height-50,130,35));
+        add(screenshot, Rect(vminfo->width-260-3*hmargin,vminfo->height-50,130,35));
     
         try {
             aLevel->loadMetadata();
@@ -399,8 +402,6 @@ LevelInspector::LevelInspector(lev::Proxy *aLevel, ecl::Surface *preview):
 //         add(new RatingButton(aLevel),Rect(hmargin+110+10,vnext,40,25));
         add(new Label(N_("Average: "), HALIGN_RIGHT),Rect(hmargin+110+10+40+20,vnext,95,25));
         add(new Label(theRatingMgr->getAverageRating(aLevel), HALIGN_RIGHT),Rect(hmargin+110+10+40+20+95+10,vnext,25,25));
-        add(new StaticTextButton(N_("Screenshots"), this), Rect(vminfo->width-260-3*hmargin,vminfo->height-50,130,35));
-
     }
     
     LevelInspector::~LevelInspector () {
@@ -411,8 +412,14 @@ LevelInspector::LevelInspector(lev::Proxy *aLevel, ecl::Surface *preview):
     }
     
     void LevelInspector::on_action(gui::Widget *w) {
-        if (w == back)
+        if (w == back) {
             Menu::quit();
+        } else if (w == screenshot) {
+            ScreenshotViewer m(app.userPath + "/screenshots/" + 
+                    levelProxy->getLocalSubstitutionLevelPath()); // TODO urls
+            m.manage();
+            invalidate_all();
+        }
     }
     
     void LevelInspector::draw_background(ecl::GC &gc) {

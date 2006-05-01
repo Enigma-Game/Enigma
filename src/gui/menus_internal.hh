@@ -17,6 +17,9 @@
  *
  */
 
+#ifndef GUI_MENUSINTERNAL_HH_INCLUDED
+#define GUI_MENUSINTERNAL_HH_INCLUDED
+
 #include "widgets.hh"
 #include "levels.hh"
 #include "ecl_geom.hh"
@@ -501,3 +504,4 @@ namespace enigma { namespace gui {
     };
 
 }} // namespace enigma::gui
+#endif
