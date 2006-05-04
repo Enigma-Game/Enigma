@@ -21,6 +21,7 @@
 
 #include "enigma.hh"
 #include "ecl_geom.hh"
+#include "objects_decl.hh"
 
 extern "C" {
     struct lua_State;
@@ -81,7 +82,7 @@ namespace lua
 
     /*! Call a Lua function with one argument.  This is mainly used
       for callbacks during the game. */
-    Error CallFunc(lua_State *L, const char *funcname, const enigma::Value& arg);
+    Error CallFunc(lua_State *L, const char *funcname, const enigma::Value& arg, world::Object *obj);
 
     /*! Call a Lua function with a (large) byte vector as the sole
       argument.  Currently only used for loading XML levels. */

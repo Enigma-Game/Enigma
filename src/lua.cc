@@ -98,7 +98,7 @@ void lua::SetTableVar (lua_State *L,
 
 void lua::SetSoundTable (const char *name)
 {
-    CallFunc (global_state, "ActivateSoundTable", name);
+    CallFunc (global_state, "ActivateSoundTable", name, NULL);
 }
 
 
@@ -659,11 +659,12 @@ void lua::RegisterFuncs(lua_State *L, CFunction *funcs)
     lua_pop(L, 1);
 }
 
-Error lua::CallFunc(lua_State *L, const char *funcname, const Value& arg) {
+Error lua::CallFunc(lua_State *L, const char *funcname, const Value& arg, world::Object *obj) {
     int retval;
     lua_getglobal(L, funcname);
     push_value(L, arg);
-    retval=lua_pcall(L,1,0,0);
+    pushobject(L, obj);
+    retval=lua_pcall(L,2,0,0);
     if (retval!=0) // error
       {
 	lua_setglobal (L, "_LASTERROR") ; //Set _LASTERROR to returned error message

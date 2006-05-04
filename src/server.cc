@@ -170,7 +170,7 @@ void gametick(double dtime)
     player::Tick (time_accu);
     for (;time_accu >= timestep; time_accu -= timestep) {
         world::Tick (timestep);
-        if (lua::CallFunc (lua::LevelState(), "Tick", timestep) != 0) {
+        if (lua::CallFunc (lua::LevelState(), "Tick", timestep, NULL) != 0) {
             throw enigma_levels::XLevelRuntime (string("Calling 'Tick' failed:\n")
                                                 + lua::LastError(lua::LevelState()));
         }

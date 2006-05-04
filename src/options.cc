@@ -251,7 +251,7 @@ bool options::Save ()
     std::string fname = Personal_ConfigurationFileName();
 #endif
 
-    if (lua::CallFunc(lua::GlobalState(), "SaveOptions", fname+"2") == 0) {
+    if (lua::CallFunc(lua::GlobalState(), "SaveOptions", fname+"2", NULL) == 0) {
         LevelStatusChanged = false;
         return true;
     }

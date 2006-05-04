@@ -1402,7 +1402,7 @@ void world::PerformAction (Object *o, bool onoff)
 #endif // VERBOSE_MESSAGES
 
     if (action == "callback") {
-        if (lua::CallFunc(lua::LevelState(), target.c_str(), Value(onoff)) != 0) {
+        if (lua::CallFunc(lua::LevelState(), target.c_str(), Value(onoff), o) != 0) {
             throw enigma_levels::XLevelRuntime(string("callback '")+target+"' failed:\n"+lua::LastError(lua::LevelState()));
         }
     }
