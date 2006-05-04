@@ -28,3 +28,6 @@ EXTRA_DIST = \
 	mac-build.sh \
 	README-SDL.txt \
 	enigma.nsi
+
+MOSTLYCLEANFILES = \
+	enigma.dmg

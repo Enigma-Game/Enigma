@@ -201,7 +201,7 @@ tolua:
 
 #------------------ Packaging rules for Mac OSX ------------------------
 
-bundle_name := ../etc/Enigma.app
+bundle_name := $(top_builddir)/etc/Enigma.app
 # Special target to copy all needed game files to Enigma.app/Contents/Resources.
 # For Mac OS X bundle.
 .PHONY: bundle
@@ -213,7 +213,7 @@ bundle:
 	echo "APPL????" > $(bundle_name)/Contents/PkgInfo
 	cp $(top_builddir)/etc/Info.plist $(bundle_name)/Contents/
 	cp $(top_builddir)/etc/enigma.icns $(bundle_name)/Contents/Resources/
-	tar --exclude .svn -c -f - -C $(top_builddir)/data/levels . | tar xpf - -C $(bundle_name)/Contents/Resources/data
+	tar --exclude .svn -c -f - -C $(top_builddir)/data levels | tar xpf - -C $(bundle_name)/Contents/Resources/data
 	cp $(top_builddir)/data/*.lua $(bundle_name)/Contents/Resources/data/
 	cp $(top_builddir)/data/*.xml $(bundle_name)/Contents/Resources/data/
 	mkdir -p $(bundle_name)/Contents/Resources/data/gfx
@@ -260,3 +260,9 @@ static_prefix := `$(SDL_CONFIG) --prefix`
 .PHONY: enigma-fw-mosx
 enigma-fw-mosx: $(enigma_OBJECTS) $(enigma_DEPENDENCIES)
 	$(CXX) $(LDFLAGS) -o enigma-fw $(enigma_OBJECTS) $(enigma_DEPENDENCIES) $(static_prefix)/lib/libintl.a $(static_prefix)/lib/libxerces-c.a /usr/lib/libiconv.dylib -L$(static_prefix)/lib -lsdlmain -lz -framework SDL -framework SDL_image -framework SDL_mixer -framework Cocoa -framework OpenGL -framework SDL_ttf $(static_prefix)/lib/libpng.a 
+
+# Special target to make a disk image of the bundled app
+.PHONY: bundle-dmg
+bundle-dmg:
+	hdiutil create  -srcfolder $(bundle_name) -volname Enigma -imagekey zlib-level=6 $(top_builddir)/etc/enigma.dmg
+
