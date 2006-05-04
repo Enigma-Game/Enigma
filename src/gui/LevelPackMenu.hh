@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2002,2005 Daniel Heck
+ * Copyright (C) 2002,2003,2004,2005,2006 Daniel Heck
  *
  * This program is free software; you can redistribute it and/or
  * modify it under the terms of the GNU General Public License
@@ -14,16 +14,27 @@
  * You should have received a copy of the GNU General Public License along
  * with this program; if not, write to the Free Software Foundation, Inc.,
  * 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.
+ *
  */
+#ifndef GUI_LEVELPACKMENU_HH_INCLUDED
+#define GUI_LEVELPACKMENU_HH_INCLUDED
 
-#include "enigma.hh"
-#include "game.hh"
-#include "gui/widgets.hh"
-#include "ecl_video.hh"
+#include "gui/Menu.hh"
 
 namespace enigma { namespace gui {
+/* -------------------- LevelPackMenu -------------------- */
 
-    void ShowMainMenu();
-    void ShowOptionsMenu(ecl::Surface *background);
-    void ShowNetworkMenu();
+    class LevelPackMenu : public Menu {
+    public:
+        LevelPackMenu();
+
+        void on_action(Widget *w);
+        void draw_background(ecl::GC &gc);
+        int get_selection() const { return m_selection; }
+
+    private:
+        std::vector<Widget *> buttons;
+        int m_selection;
+    };
 }} // namespace enigma::gui
+#endif

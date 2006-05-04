@@ -1,4 +1,4 @@
-#include "gui/widgets.hh"
+#include "gui/Menu.hh"
 #include "video.hh"
 #include "ecl_buffer.hh"
 

@@ -423,42 +423,5 @@ namespace enigma { namespace gui {
         std::string fname_sel, fname_unsel;
     };
 
-/* -------------------- Menu -------------------- */
-
-    class Menu : public Container {
-    public:
-        Menu();
-
-        //! true: ok, false: menu aborted by user
-        bool manage();
-
-        void add(Widget *w);
-        void add(Widget *w, ecl::Rect r);
-        void center();
-
-        void draw_all();
-        void draw (ecl::GC &gc, const ecl::Rect &r);
-
-        void quit();
-        void abort();
-
-    protected:
-        void reset_active_widget()
-        { active_widget = 0; }
-
-        // Menu interface.
-        virtual void draw_background(ecl::GC &/*gc*/) {}
-
-    private:
-        void handle_event(const SDL_Event &e);
-
-        void switch_active_widget(Widget *to_activate);
-        void track_active_widget( int x, int y ); // used by mouse
-        void goto_adjacent_widget(int xdir, int ydir); // used by keyboard
-
-        // Variables.
-        Widget *active_widget;
-        bool quitp, abortp;
-    };
-}} // namespace gui
+}} // namespace enigma::gui
 #endif

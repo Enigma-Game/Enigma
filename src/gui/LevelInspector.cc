@@ -22,10 +22,11 @@
 #include "nls.hh"
 #include "video.hh"
 #include "ecl_util.hh"
-#include "gui/menus_internal.hh"
 #include "gui/MonospacedLabel.hh"
 #include "gui/ScreenshotViewer.hh"
 #include "lev/RatingManager.hh"
+
+#include "levels.hh"
 
 #include <vector>
 

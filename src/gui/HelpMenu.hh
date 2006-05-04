@@ -21,7 +21,7 @@
 #define ENIGMA_HELP_HH
 
 
-#include "gui/widgets.hh"
+#include "gui/Menu.hh"
 #include "ecl.hh"
 
 namespace enigma { namespace gui {

@@ -23,7 +23,7 @@
 #include "server.hh"
 #include "gui/HelpMenu.hh"
 #include "main.hh"
-#include "gui/menus.hh"
+#include "gui/OptionsMenu.hh"
 #include "sound.hh"
 #include "player.hh"
 #include "world.hh"

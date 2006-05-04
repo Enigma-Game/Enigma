@@ -20,7 +20,7 @@
 #include "main.hh"
 #include "display.hh"
 #include "lua.hh"
-#include "gui/menus.hh"
+#include "gui/MainMenu.hh"
 #include "options.hh"
 #include "oxyd.hh"
 #include "sound.hh"

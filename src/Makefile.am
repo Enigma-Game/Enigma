@@ -127,11 +127,20 @@ enigma_SOURCES = 		\
 	gui/HelpMenu.hh		\
 	gui/LevelInspector.cc	\
 	gui/LevelInspector.hh	\
-	gui/menus.cc		\
-	gui/menus.hh		\
-	gui/menus_internal.hh	\
+	gui/LevelMenu.cc	\
+	gui/LevelMenu.hh	\
+	gui/LevelPackMenu.cc	\
+	gui/LevelPackMenu.hh	\
+	gui/LevelWidget.cc	\
+	gui/LevelWidget.hh	\
+	gui/MainMenu.cc		\
+	gui/MainMenu.hh		\
+	gui/Menu.cc		\
+	gui/Menu.hh		\
 	gui/MonospacedLabel.cc	\
 	gui/MonospacedLabel.hh	\
+	gui/OptionsMenu.cc	\
+	gui/OptionsMenu.hh	\
 	gui/ScreenshotViewer.cc	\
 	gui/ScreenshotViewer.hh	\
 	gui/TextField.cc	\

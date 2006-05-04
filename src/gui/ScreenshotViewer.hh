@@ -21,7 +21,7 @@
 #define GUI_SCREENSHOTVIEWER_HH_INCLUDED
 
 
-#include "gui/widgets.hh"
+#include "gui/Menu.hh"
 
 namespace enigma { namespace gui {
 
