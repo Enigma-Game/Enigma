@@ -16,9 +16,6 @@
  * 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.
  *
  */
-#ifdef __MINGW32__
-#       include <windows.h>
-#endif
 #include "lua.hh"
 #include "main.hh"
 #include "options.hh"
@@ -35,6 +32,10 @@ extern "C" {
 #include <lua.h>
 #include <lauxlib.h>
 }
+
+#ifdef __MINGW32__
+#       include <windows.h>
+#endif
 
 using namespace enigma;
 
