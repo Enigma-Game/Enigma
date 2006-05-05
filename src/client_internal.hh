@@ -82,22 +82,6 @@ namespace
         int priority;
     };
 
-
-    class GameMenu : public enigma::gui::Menu {
-    public:
-        GameMenu(int zoomxpos_, int zoomypos_);
-        virtual ~GameMenu();
-    private:
-        bool on_event (const SDL_Event &e);
-        void on_action(gui::Widget *w);
-        void draw_background(ecl::GC &gc);
-
-        gui::Widget *resume, *restart, *options, *abort;
-        ecl::Surface *zoomed;
-        int          zoomxpos, zoomypos; // position to be zoomed
-    };
-
-
 /* -------------------- Client class -------------------- */
 
     enum ClientState {

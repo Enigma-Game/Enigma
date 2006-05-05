@@ -29,6 +29,7 @@
 #include "world.hh"
 
 #include "netgame.hh"
+#include "editor.hh"
 
 #include "levels.hh"
 using enigma::levels::LevelStatus;
