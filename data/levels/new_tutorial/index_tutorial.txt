@@ -1,0 +1,65 @@
+{  file=new_tutorial/m_tut1  name="Oxyd Stones 1"  author="Martin Hawlisch"  indexname=m_tut1  easymode=1  par_time_normal=4,Ralf  par_time_easy=2,Ralf  revision=2  }
+{  file=new_tutorial/m_tut2  name="Oxyd Stones 2"  author="Martin Hawlisch"  indexname=m_tut2  easymode=1  par_time_normal=19,Ralf  par_time_easy=7,Ralf  revision=2  }
+{  file=new_tutorial/m_tut3  name="Oxyd Stones 3"  author="Martin Hawlisch"  indexname=m_tut3  easymode=1  par_time_normal=37,Ralf  par_time_easy=15,Ralf  revision=2  }
+{  file=new_tutorial/m_med1  name="Meditation 1"  author="Martin Hawlisch"  indexname=m_med1  easymode=1  par_time_normal=5,Ralf  par_time_easy=4,Ralf  revision=2  }
+{  file=new_tutorial/m_tut4  name="Movement 1"  author="Martin Hawlisch"  indexname=m_tut4  easymode=1  par_time_normal=9,Ralf  par_time_easy=2,Ralf  revision=2  }
+{  file=new_tutorial/m_tut5  name="Movement 2"  author="Martin Hawlisch"  indexname=m_tut5  easymode=1  par_time_normal=10,Ralf  par_time_easy=6,Ralf  revision=2  }
+{  file=new_tutorial/m_tut6  name="Movement 3"  author="Martin Hawlisch"  indexname=m_tut6  easymode=1  par_time_normal=61,Ralf  par_time_easy=20,Ralf  revision=2  }
+{  file=new_tutorial/m_med2  name="Meditation 2"  author="Martin Hawlisch"  indexname=m_med2  easymode=1  par_time_normal=9,Ralf  par_time_easy=6,Ralf  revision=2  }
+{  file=new_tutorial/m_tut7  name="Movement 4"  author="Martin Hawlisch"  indexname=m_tut7  easymode=1  par_time_normal=32,Ralf  par_time_easy=19,Ralf  revision=2  }
+{  file=new_tutorial/m_tut8  name="Movement 5"  author="Martin Hawlisch"  indexname=m_tut8  easymode=1  par_time_normal=29,Ralf  par_time_easy=11,Ralf  revision=2  }
+{  file=new_tutorial/m_tut9  name="Floors 1"  author="Martin Hawlisch"  indexname=m_tut9  easymode=1  par_time_normal=88,Ralf  par_time_easy=13,Ralf  revision=2  }
+{  file=new_tutorial/m_tut10  name="Floors 2"  author="Martin Hawlisch"  indexname=m_tut10  }
+{  file=new_tutorial/m_tut11  name="Floors 3"  author="Martin Hawlisch"  indexname=m_tut11  }
+{  file=new_tutorial/a_tut01  name="Doors and Triggers"  author="Andreas Lochmann"  indexname=a_tut01  }
+{  file=new_tutorial/a_tut02  name="Timers"  author="Andreas Lochmann"  indexname=a_tut02  }
+{  file=enigma_i/welcome  name="Welcome"  author="Daniel Heck"  indexname=welcome  easymode=1  par_time_normal=2,Ingo+Johannes  par_time_easy=2,Johannes  revision=2  int=1  dex=1  pat=1  kno=1  spe=2  }
+{  file=enigma_ii/jc02  name="Rollercoaster"  author="Jens-Christian Korth"  indexname=jc02  par_time=32,Duffy  int=2  dex=1  pat=3  kno=3  spe=1  }
+{  file=enigma_i/level4a  name="The Doors"  author="Siegfried Fennig"  indexname=level4a  par_time=98,Daniel  int=1  dex=2  pat=3  kno=2  spe=1  }
+{  file=enigma_iv/alain10  name="Sierpinski"  author="Alain Busser"  indexname=alain10  int=2  dex=3  pat=2  kno=3  spe=1  }
+{  file=enigma_i/alain03  name="- Meditation -"  author="Alain Busser"  indexname=alain03  int=1  dex=1  pat=1  kno=2  spe=1  }
+{  file=enigma_i/wb13  name="(Counter)Clockwise"  author="Jon 'WB' Sneyers"  indexname=wb13  par_time=66,Duffy  int=2  dex=1  pat=3  kno=3  spe=1  }
+{  file=enigma_i/jc01  name="Hurry!"  author="Jens-Christian Korth"  indexname=jc01  par_time=13,Duffy  int=2  dex=1  pat=3  kno=3  spe=3  }
+{  file=enigma_i/martin37  name="Watery Grave"  author="Martin Hawlisch"  indexname=martin37  par_time=11,Ralf  int=1  dex=3  pat=2  kno=2  spe=2  }
+{  file=new_tutorial/a_tut03  name="Blocks and Slopes"  author="Andreas Lochmann"  indexname=a_tut03  }
+{  file=enigma_ii/martin35  name="Round Trip"  author="Martin Hawlisch"  indexname=martin35  par_time=23,Ralf  int=1  dex=1  pat=3  kno=1  spe=1  }
+{  file=enigma_ii/rb02  name="Koosnab"  author="Roberto Bardin"  indexname=rb02  int=3  dex=3  pat=2  kno=2  spe=1  }
+{  file=enigma_i/illmind03  name="Hanging In The Balance"  author="illmind"  indexname=illmind03  int=1  dex=3  pat=3  kno=1  spe=1  }
+{  file=enigma_i/martin83  name="Three Plugs"  author="Martin Hawlisch"  indexname=martin83  par_time=32,Johannes  int=3  dex=2  pat=2  kno=2  spe=1  }
+{  file=enigma_iii/martin15  name="Black Is Beautiful"  author="Martin Hawlisch"  indexname=martin15  par_time=33,Duffy  int=2  dex=3  pat=3  kno=1  spe=1  }
+{  file=enigma_i/meditation6  name="- Meditation -"  indexname=meditation6  par_time=5,Duffy+Ingo  int=1  dex=1  pat=2  kno=2  spe=1  }
+{  file=enigma_ii/nat1  name="Indoor Pool"  author="Nat Pryce"  indexname=nat1  par_time=84,Duffy  int=3  dex=2  pat=2  kno=2  spe=1  }
+{  file=enigma_i/balance  name="Balance"  author="Erich Schubert"  indexname=balance  par_time=18,Duffy  int=2  dex=3  pat=3  kno=1  spe=1  }
+{  file=enigma_ii/nat5  name="Push Them In"  author="Andreas Persenius, Nat Pryce"  indexname=nat5  par_time=159,Stephanie  int=3  dex=3  pat=3  kno=2  spe=1  }
+{  file=enigma_i/richi04  name="Without Tremor"  author="Richi Buetzer"  indexname=richi04  int=1  dex=3  pat=2  kno=2  spe=1  }
+{  file=enigma_i/martin38  name="Slippery Slopes"  author="Martin Hawlisch"  indexname=martin38  par_time=6,Daniel  int=1  dex=3  pat=1  kno=1  spe=2  }
+{  file=enigma_i/level7a  name="Ice Skating"  author="Siegfried Fennig"  indexname=level7a  par_time=23,Duffy  int=1  dex=3  pat=3  kno=3  spe=1  }
+{  file=enigma_i/nat7  name="Sok It To 'Em"  author="Nat Pryce"  indexname=nat7  par_time=159,Duffy  int=3  dex=2  pat=2  kno=2  spe=1  }
+{  file=new_tutorial/a_tut04  name="Lasers and Mirrors"  author="Andreas Lochmann"  indexname=a_tut04  }
+{  file=enigma_i/martin08  name="Light Switches"  author="Martin Hawlisch"  indexname=martin08  par_time=9,Ingo  int=1  dex=3  pat=1  kno=2  spe=1  }
+{  file=enigma_i/meditation1  name="- Meditation -"  indexname=meditation1  par_time=7,Duffy+Johannes+Ralf  int=1  dex=1  pat=1  kno=2  spe=1  }
+{  file=enigma_i/luc12  name="Mirror Room"  author="Lukas Schueller"  indexname=luc12  int=3  dex=2  pat=3  kno=3  spe=1  }
+{  file=enigma_i/martin04  name="Sokoban Revival"  author="Martin Hawlisch"  indexname=martin04  par_time=81,Duffy  int=3  dex=2  pat=2  kno=2  spe=1  }
+{  file=enigma_i/luc17  name="Mirror Room II"  author="Lukas Schueller"  indexname=luc17  int=3  dex=2  pat=3  kno=3  spe=1  }
+{  file=enigma_i/martin14  name="Mission Impossible"  author="Martin Hawlisch"  indexname=martin14  easymode=1  par_time_normal=22,Stephanie  par_time_easy=21,Stephanie  int=2  dex=3  pat=3  kno=3  spe=2  }
+{  file=enigma_i/martin92  name="Brittle Planks"  author="Martin Hawlisch"  indexname=martin92  easymode=1  par_time_normal=6,Johannes  par_time_easy=10,Samuel+Stephanie  int=1  dex=3  pat=2  kno=2  spe=3  }
+{  file=enigma_i/lasers101  name="Lasers 101"  author="Daniel Heck"  indexname=lasers101  par_time=29,Duffy  int=1  dex=2  pat=2  kno=3  spe=1  }
+{  file=enigma_ii/duffy3  name="Laser Spiral"  author="Jacob Scott"  indexname=duffy3  par_time=77,Duffy  int=3  dex=2  pat=3  kno=3  spe=1  }
+{  file=enigma_iii/martin91  name="Brittle Floor!"  author="Martin Hawlisch"  indexname=martin91  easymode=1  par_time_normal=7,Ingo+Ralf  par_time_easy=10,Ralf  int=2  dex=3  pat=2  kno=2  spe=2  }
+{  file=enigma_ii/duffy42  name="Inverted Laser Spiral"  author="Jacob Scott"  indexname=duffy42  par_time=171,Stephanie  int=3  dex=2  pat=3  kno=3  spe=1  }
+{  file=enigma_i/meditation14  name="- Meditation -"  author="Siegfried Fennig"  indexname=meditation14  par_time=9,Duffy  int=1  dex=3  pat=2  kno=3  spe=1  }
+{  file=enigma_iv/mp03  name="Laser Games"  author="moonpearl"  indexname=mp03  int=3  dex=2  pat=3  kno=3  spe=1  }
+{  file=new_tutorial/a_tut05  name="Items"  author="Andreas Lochmann"  indexname=a_tut05  }
+{  file=enigma_i/luc07  name="Flying"  author="Lukas Schueller"  indexname=luc07  int=2  dex=2  pat=1  kno=2  spe=3  }
+{  file=enigma_i/wb9  name="Annoying little balls"  author="Jon 'WB' Sneyers"  indexname=wb9  par_time=8,Markus  revision=2  int=1  dex=1  pat=3  kno=2  spe=1  }
+{  file=enigma_i/space  name="The Grim Reaper"  author="Daniel Heck"  indexname=space  easymode=1  par_time_normal=16,Duffy  par_time_easy=15,Johannes  int=1  dex=3  pat=3  kno=3  spe=1  }
+{  file=enigma_ii/ant07  name="Automaton Magic"  author="Petr Machata"  indexname=ant07  par_time=30,Stephanie  int=3  dex=2  pat=2  kno=3  spe=2  }
+{  file=enigma_ii/martin26  name="Back And Forth"  author="Martin Hawlisch"  indexname=martin26  par_time=15,Johannes  int=2  dex=2  pat=1  kno=3  spe=1  }
+{  file=enigma_i/duffy21  name="If They'd Just Hold Still"  author="Jacob Scott"  indexname=duffy21  par_time=18,Ralf  int=2  dex=2  pat=2  kno=2  spe=1  }
+{  file=enigma_i/luc06  name="Formentera!"  author="Lukas Schueller"  indexname=luc06  int=2  dex=1  pat=3  kno=3  spe=1  }
+{  file=enigma_ii/wb10  name="- Meditation -"  author="Jon 'WB' Sneyers"  indexname=wb10  par_time=34,Duffy  int=1  dex=2  pat=2  kno=3  spe=1  }
+{  file=enigma_i/martin06  name="Is It Easy?"  author="Martin Hawlisch"  indexname=martin06  par_time=9,Duffy+Ingo  int=2  dex=1  pat=2  kno=1  spe=1  }
+{  file=enigma_ii/peter01  name="Beam0r"  author="Peter Santo"  indexname=peter01  par_time=55,Ronald  int=3  dex=2  pat=3  kno=3  spe=1  }
+{  file=enigma_ii/martin93  name="Slalom Skiing"  author="Martin Hawlisch"  indexname=martin93  easymode=1  par_time_normal=8,Duffy  par_time_easy=13,Stephanie  int=1  dex=3  pat=2  kno=3  spe=1  }
+{  file=new_tutorial/a_tut06  name="Bye!"  author="Andreas Lochmann"  indexname=a_tut06  }
+{  file=new_tutorial/adv_tutorial  name="Advanced Tutorial"  author="Jacob Scott"  indexname=adv_tutorial  }

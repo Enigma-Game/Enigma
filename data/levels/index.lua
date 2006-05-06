@@ -1,5 +1,6 @@
 -- Tutorial
 enigma.AddLevelPack( "levels/m_tutor/index.txt", "Tutorial")
+enigma.AddLevelPack( "levels/new_tutorial/index_tutorial.txt", "New Tutorial")
 
 -- Developer-Packs
 enigma.AddLevelPack( "levels/experimental/index_experimental.txt", "Experimental")
