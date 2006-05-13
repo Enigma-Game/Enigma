@@ -49,8 +49,6 @@
 
 
 #ifdef MACOSX
-// for CFLocale
-#include "CoreFoundation/CoreFoundation.h"
 // for search paths
 #include "NSSystemDirectories.h"
 #endif
@@ -204,23 +202,6 @@ void AP::on_argument (const string &arg)
 /*! Initialize enough of the game to be able to show error messages in
   the window, not on the console. */
 
-#ifdef MACOSX
-static std::string get_system_locale ()
-{
-    string language;
-    // get the locale and export it to the environment
-    CFLocaleRef locale = CFLocaleCopyCurrent();
-    CFStringRef name = CFLocaleGetIdentifier(locale);
-    const char *tmp=CFStringGetCStringPtr(name, NULL);
-    if(tmp)
-    {
-        language = tmp;
-    }
-    CFRelease(locale);
-    return language;
-}
-#endif //MACOSX
-
 
 /*! Initialize the internationalization subsystem */
 static void init_i18n ()
@@ -233,13 +214,8 @@ static void init_i18n ()
     if (app.language == "") {
         options::GetOption("Language", app.language);
     }
-    enigma::Log << "before DefaultMessageLocale " << endl;
     if (app.defaultLanguage == "") {
         app.defaultLanguage = ecl::DefaultMessageLocale ();
-        enigma::Log << "after DefaultMessageLocale:" << app.defaultLanguage << endl;
-#ifdef MACOSX
-        app.defaultLanguage = get_system_locale();
-#endif //MACOSX
         if (app.language == "") {
             app.language = app.defaultLanguage;
         }

@@ -26,6 +26,11 @@
 #include <stdlib.h>
 #include <locale.h>
 
+#ifdef MACOSX
+// for CFLocale
+#include "CoreFoundation/CoreFoundation.h"
+#endif
+
 #if defined _WIN32 || defined __WIN32__
 # undef WIN32   /* avoid warning on mingw32 */
 # define WIN32
@@ -706,6 +711,7 @@ sys_message_locale_name ()
   const char *retval;
 
 #ifndef WIN32
+#ifndef MACOSX
   int category = LC_MESSAGES;
   
   // Prefer user to system defaults; specific to general defaults
@@ -733,6 +739,19 @@ sys_message_locale_name ()
   }
 
   return retval;
+#else /* MACOSX */
+    string language;
+    // get the locale and export it to the environment
+    CFLocaleRef locale = CFLocaleCopyCurrent();
+    CFStringRef name = CFLocaleGetIdentifier(locale);
+    const char *tmp=CFStringGetCStringPtr(name, NULL);
+    if(tmp)
+    {
+        language = tmp;
+    }
+    CFRelease(locale);
+    return language.c_str();
+#endif /* MACOSX */
 
 #else /* WIN32 */
 

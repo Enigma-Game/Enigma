@@ -59,9 +59,7 @@ AC_SUBST(WINDRES)
 
 dnl Add -DMACOSX to CXXFLAGS and CFLAGS if working under darwin
 if test "x$MACOSX" = xyes; then
- CXXFLAGS="$CXXFLAGS -DMACOSX"
- CFLAGS="$CFLAGS -DMACOSX"
- CPPFLAGS="$CXXFLAGS -DMACOSX"
+ CPPFLAGS="$CPPFLAGS -DMACOSX"
 fi
 
 dnl ---------- Texi2html ----------

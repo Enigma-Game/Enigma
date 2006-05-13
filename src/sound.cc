@@ -265,7 +265,7 @@ Mix_Chunk *SoundEngine_SDL::cache_sound(const std::string &name)
         if (ch != 0)
             wav_cache.insert(name, ch);
         else
-	    enigma::Log << "Couldn't load sample: " << Mix_GetError() << endl;
+	    enigma::Log << "Couldn't load sample '" << name << "': " << Mix_GetError() << endl;
         return ch;
     } else
         return i->second;
