@@ -32,11 +32,15 @@ namespace enigma { namespace gui {
         void draw_background(ecl::GC &gc);
         void tick(double dtime);
 
+        // Widget interface
+        virtual bool on_event(const SDL_Event &e);
+
         // ActionListener interface.
         void on_action(Widget *w);
 
         // Private methods.
         void show_credits();
+        void show_paths();
         void show_help();
         void show_text( const char *text[]);
         void build_menu();

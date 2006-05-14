@@ -46,9 +46,6 @@ namespace enigma { namespace gui {
         void dispatchBottomLines(int &bestScoreHolderLines, 
             int &creditsLines, int &dedicationLines, int &levelPathLines,
             int &annotationLines, int numLines, int width);
-        std::string::size_type breakString(const std::string &theString, 
-                const std::string &breakChar, const int width, 
-                ecl::Font * const theFont);
         // Variables.
         gui::Widget *back;
         gui::Widget *screenshot;

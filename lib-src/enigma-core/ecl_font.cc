@@ -37,6 +37,42 @@ int Font::get_width(const char *str)
     return w;
 }
 
+std::string::size_type Font::breakString(const std::string &theString,
+        const std::string &breakChars, const int width) {
+    std::string::size_type lastpos = std::string::npos;
+    std::string::size_type pos = 0;
+    do {
+        std::string::size_type nextpos = theString.find_first_of(breakChars, pos);
+        if (nextpos == std::string::npos) {
+            // there is no further break pos
+            if (lastpos == std::string::npos) {
+                // there was no break at all
+                return theString.size();
+            } else {
+                if (get_width(theString.c_str()) <= width) { 
+                    // the complete string fits into a line
+                    return theString.size();
+                } else {
+                    // just the last chunk was too much
+                    return lastpos;
+                }
+            }
+        } else {
+            if (get_width(theString.substr(0, nextpos+1).c_str()) <= width) { 
+                lastpos = nextpos+1;
+                pos = lastpos;
+            } else {
+                // now the string is too long
+                if (lastpos == std::string::npos) {
+                    // but there is no other break before
+                    return nextpos+1;
+                } else {
+                    return lastpos;
+                }
+            }
+        }
+    } while (true);
+}
 
 //
 // Bitmap fonts

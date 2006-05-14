@@ -356,8 +356,8 @@ LevelInspector::LevelInspector(lev::Proxy *aLevel, ecl::Surface *preview):
             add(new Label(N_("Credits: "), HALIGN_RIGHT),Rect(hmargin,vnext,110,25));
             std::string creditsString = levelProxy->getCredits(true);
             for (int i = 0; i< creditsLines; i++) {
-                std::string::size_type breakPos = breakString( creditsString, 
-                        " ", textwidth, menufont);
+                std::string::size_type breakPos = menufont->breakString( creditsString, 
+                        " ", textwidth);
                 add(new Label(creditsString.substr(0,breakPos), HALIGN_LEFT), Rect(hmargin+110+10,vnext,textwidth,25));
                 creditsString = creditsString.substr(breakPos);
                 vnext += (25 + vspacing);
@@ -367,8 +367,8 @@ LevelInspector::LevelInspector(lev::Proxy *aLevel, ecl::Surface *preview):
             add(new Label(N_("Dedication: "), HALIGN_RIGHT),Rect(hmargin,vnext,110,25));
             std::string dedicationString = levelProxy->getDedication(true);
             for (int i = 0; i< dedicationLines; i++) {
-                std::string::size_type breakPos = breakString( dedicationString, 
-                        " ", textwidth, menufont);
+                std::string::size_type breakPos = menufont->breakString( dedicationString, 
+                        " ", textwidth);
                 add(new Label(dedicationString.substr(0,breakPos), HALIGN_LEFT), Rect(hmargin+110+10,vnext,textwidth,25));
                 dedicationString = dedicationString.substr(breakPos);
                 vnext += (25 + vspacing);
@@ -378,8 +378,8 @@ LevelInspector::LevelInspector(lev::Proxy *aLevel, ecl::Surface *preview):
             add(new Label(N_("Level Path: "), HALIGN_RIGHT),Rect(hmargin,vnext,110,25));
             std::string workString = levelPathString;
             for (int i = 0; i< levelPathLines - 1; i++) {
-                std::string::size_type breakPos = breakString( workString, 
-                        "/", textwidth, menufont);
+                std::string::size_type breakPos = menufont->breakString( workString, 
+                        "/", textwidth);
                 add(new Label(workString.substr(0,breakPos), HALIGN_LEFT), Rect(hmargin+110+10,vnext,textwidth,25));
                 workString = workString.substr(breakPos);
                 vnext += (25 + vspacing);
@@ -510,24 +510,24 @@ LevelInspector::LevelInspector(lev::Proxy *aLevel, ecl::Surface *preview):
                     case credits: 
                         if (!(creditsString.empty())) {
                             creditsLines++;
-                            creditsString = creditsString.substr(breakString(
-                                    creditsString, " ", width, menufont));
+                            creditsString = creditsString.substr(menufont->breakString(
+                                    creditsString, " ", width));
                             assigned = true;
                         }
                         break;
                     case dedication: 
                         if (!(dedicationString.empty())) {
                             dedicationLines++;
-                            dedicationString = dedicationString.substr(breakString(
-                                    dedicationString, " ", width, menufont));
+                            dedicationString = dedicationString.substr(menufont->breakString(
+                                    dedicationString, " ", width));
                             assigned = true;
                         }
                         break;
                     case path: 
                         if (!(pathWorkString.empty())) {
                             levelPathLines++;
-                            pathWorkString = pathWorkString.substr(breakString(
-                                    pathWorkString, "/", width, menufont));
+                            pathWorkString = pathWorkString.substr(menufont->breakString(
+                                    pathWorkString, "/", width));
                             assigned = true;
                         }
                         break;
@@ -543,42 +543,4 @@ LevelInspector::LevelInspector(lev::Proxy *aLevel, ecl::Surface *preview):
         }
     }
     
-    std::string::size_type LevelInspector::breakString(const std::string &theString,
-            const std::string &breakChar, const int width, 
-            ecl::Font * const theFont) {
-        std::string::size_type lastpos = std::string::npos;
-        std::string::size_type pos = 0;
-        do {
-            std::string::size_type nextpos = theString.find(breakChar, pos);
-            if (nextpos == std::string::npos) {
-                // there is no further break pos
-                if (lastpos == std::string::npos) {
-                    // there was no break at all
-                    return theString.size();
-                } else {
-                    if (theFont->get_width(theString.c_str()) <= width) { 
-                        // the complete string fits into a line
-                        return theString.size();
-                    } else {
-                        // just the last chunk was too much
-                        return lastpos;
-                    }
-                }
-            } else {
-                if (theFont->get_width(theString.substr(0, nextpos+breakChar.size()).c_str()) <= width) { 
-                    lastpos = nextpos+breakChar.size();
-                    pos = lastpos;
-                } else {
-                    // now the string is too long
-                    if (lastpos == std::string::npos) {
-                        // but there is no other break before
-                        return nextpos+breakChar.size();
-                    } else {
-                        return lastpos;
-                    }
-                }
-            }
-        } while (true);
-    }
-
 }} // namespace enigma::lev

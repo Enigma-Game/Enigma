@@ -20,8 +20,10 @@
 #include "gui/MainMenu.hh"
 #include "gui/LevelMenu.hh"
 #include "gui/OptionsMenu.hh"
+#include "gui/HelpMenu.hh"
 #include "display.hh"
 #include "ecl.hh"
+#include "main.hh"
 #include "nls.hh"
 #include "options.hh"
 #include "sound.hh"
@@ -145,6 +147,23 @@ namespace enigma { namespace gui {
         f->render (gc, 5, vminfo->height - 20, "v" PACKAGE_VERSION);
     }
     
+    bool MainMenu::on_event (const SDL_Event &e) {
+        switch (e.type) {
+            case SDL_KEYDOWN:
+                SDLKey keysym = e.key.keysym.sym;
+                switch (keysym) {
+                case SDLK_F2:     
+                    show_paths();
+                    invalidate_all();
+                    return true;
+                default:
+                    break;
+                }
+                break;
+        }
+        return false;
+    }
+
     void MainMenu::on_action(Widget *w) 
     {
         if (w == m_startgame) {
@@ -241,6 +260,58 @@ namespace enigma { namespace gui {
         };
     
         show_text(credit_text);
+    }
+    
+    void MainMenu::show_paths() {
+        const char *pathtext[20];
+        std::string pathstrings[20];
+        std::string work;
+        Font *menufont = enigma::GetFont("menufont");
+        const video::VMInfo *vminfo = video::GetInfo();
+        int width = vminfo->width - 80;
+        int i = 0;
+        
+        pathtext[i++] = N_("Preferences Path:");
+        work = app.prefPath;
+        do {
+            std::string::size_type breakPos = menufont->breakString(work,"/\\", width);
+            pathstrings[i] = "    " + work.substr(0,breakPos);
+            pathtext[i] = pathstrings[i].c_str();
+            work = work.substr(breakPos);
+            i++;
+        } while(!work.empty() );
+        pathtext[i++] = " ";
+        pathtext[i++] = N_("User Path:");
+        work = app.userPath;
+        do {
+            std::string::size_type breakPos = menufont->breakString(work,"/\\", width);
+            pathstrings[i] = "    " + work.substr(0,breakPos);
+            pathtext[i] = pathstrings[i].c_str();
+            work = work.substr(breakPos);
+            i++;
+        } while(!work.empty() );
+        pathtext[i++] = " ";
+        pathtext[i++] = N_("System Path:");
+        work = app.systemFS->getDataPath();
+        do {
+            std::string::size_type breakPos = menufont->breakString(work,"/\\", width);
+            pathstrings[i] = "    " + work.substr(0,breakPos);
+            pathtext[i] = pathstrings[i].c_str();
+            work = work.substr(breakPos);
+            i++;
+        } while(!work.empty() );
+        pathtext[i++] = " ";
+        pathtext[i++] = N_("Resource Paths:");
+        work = app.resourceFS->getDataPath();
+        do {
+            std::string::size_type breakPos = menufont->breakString(work,"/\\", width);
+            pathstrings[i] = "    " + work.substr(0,breakPos);
+            pathtext[i] = pathstrings[i].c_str();
+            work = work.substr(breakPos);
+            i++;
+        } while(!work.empty() );
+        pathtext[i++] = 0;
+        show_text(pathtext);
     }
     
     void MainMenu::show_help () 
