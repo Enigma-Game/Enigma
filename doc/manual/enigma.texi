@@ -31,7 +31,7 @@ notice and this notice are preserved.
 @contents
 
 @ifnottex
-@node Top, Introduction
+@node Top, Introduction, (dir), (dir)
 @top Enigma
 
 This manual describes how to install and play Enigma.  It corresponds
@@ -52,7 +52,6 @@ notice and this notice are preserved.
 * Spoilers::                    Tips for some difficult levels
 * Credits::                     Credits and `Thank You's
 
-
 @detailmenu
  --- The Detailed Node Listing ---
 
@@ -60,7 +59,6 @@ Introduction
 
 * About::                       Some facts about Enigma
 * Installation::                Getting and installing Enigma
-* Emulating Oxyd::              Using Oxyd's data files with Enigma
 * Distributing Enigma::         Give copies to your friends!
 
 The Game
@@ -124,7 +122,6 @@ Credits
 @menu
 * About::                       Some facts about Enigma
 * Installation::                Getting and installing Enigma
-* Emulating Oxyd::              Using Oxyd's data files with Enigma
 * Distributing Enigma::         Give copies to your friends!
 @end menu
 
@@ -158,7 +155,7 @@ thing we will ever get in return for the countless hours we have put
 into this game.
 
 
-@node Installation, Emulating Oxyd, About, Introduction
+@node Installation, Distributing Enigma, About, Introduction
 @section Installation
 
 The latest version of Enigma can be downloaded from Enigma's
@@ -187,56 +184,56 @@ information. If you cannot get Enigma to work on your computer, feel
 free to ask for help on the Enigma mailing list
 (@email{enigma-devel@@nongnu.org}).
 
-@node Emulating Oxyd, Distributing Enigma, Installation, Introduction
-@section Emulating Oxyd
+@c @node Emulating Oxyd, Distributing Enigma, Installation, Introduction
+@c @section Emulating Oxyd
 
-As mentioned in the introduction, Enigma started out as a clone of
-Oyxd.  By now, Enigma is finally capable of emulating most of Oxyd's
-core functionality, although the gaming experience isn't perfect yet.
-Enigma still lacks some of Oxyd's game objects, and features like
-network support are completely missing.  What @emph{does} work,
-however, is importing Oxyd's sound effects and playing many of the
-original levels.
+@c As mentioned in the introduction, Enigma started out as a clone of
+@c Oyxd.  By now, Enigma is finally capable of emulating most of Oxyd's
+@c core functionality, although the gaming experience isn't perfect yet.
+@c Enigma still lacks some of Oxyd's game objects, and features like
+@c network support are completely missing.  What @emph{does} work,
+@c however, is importing Oxyd's sound effects and playing many of the
+@c original levels.
 
-Enigma will automatically import every Oxyd data file it can find.
-By default it searches for data files in the following places:
+@c Enigma will automatically import every Oxyd data file it can find.
+@c By default it searches for data files in the following places:
 
-@table @strong
-@item Windows
-There's a @file{data} folder in Enigma's installation directory, the
-location of which you can specify in the installation program.
-This is usually something like @file{C:\Program Files\Enigma\data}.
+@c @table @strong
+@c @item Windows
+@c There's a @file{data} folder in Enigma's installation directory, the
+@c location of which you can specify in the installation program.
+@c This is usually something like @file{C:\Program Files\Enigma\data}.
 
-@item Unix / OS X
-There are two possible data directories on Unix-like systems: firstly
-the system-wide directory (something like
-@file{/usr/local/share/enigma} or @file{/usr/share/games/enigma},
-depending on your configuration), and secondly a per-user directory
-called @file{.enigma} in your home directory.
-@end table
+@c @item Unix / OS X
+@c There are two possible data directories on Unix-like systems: firstly
+@c the system-wide directory (something like
+@c @file{/usr/local/share/enigma} or @file{/usr/share/games/enigma},
+@c depending on your configuration), and secondly a per-user directory
+@c called @file{.enigma} in your home directory.
+@c @end table
 
-All you have to do is copy one/any/all of the following files to
-Enigma's data directory (remember that case @emph{does} matter on
-Unix-like operating systems):
+@c All you have to do is copy one/any/all of the following files to
+@c Enigma's data directory (remember that case @emph{does} matter on
+@c Unix-like operating systems):
 
-@multitable {Oxyd magnum gold} {@file{oxyd1ibm.dat}}
-@item @strong{Game}	@tab @strong{Data file}
-@item Per.Oxyd		@tab @file{peroxyd.dat}
-@item Oxyd 1		@tab @file{oxyd1ibm.dat}
-@item Oxyd extra	@tab @file{oxydex.dat}
-@item Oxyd magnum	@tab @file{oxydmibm.dat}
-@item Oxyd magnum gold	@tab @file{oxydmgg.dat}
-@end multitable
+@c @multitable {Oxyd magnum gold} {@file{oxyd1ibm.dat}}
+@c @item @strong{Game}	@tab @strong{Data file}
+@c @item Per.Oxyd		@tab @file{peroxyd.dat}
+@c @item Oxyd 1		@tab @file{oxyd1ibm.dat}
+@c @item Oxyd extra	@tab @file{oxydex.dat}
+@c @item Oxyd magnum	@tab @file{oxydmibm.dat}
+@c @item Oxyd magnum gold	@tab @file{oxydmgg.dat}
+@c @end multitable
 
-Per.Oxyd and Oxyd 1 are ``dongleware'' (i.e., some kind of shareware)
-and can be downloaded freely from the Internet (search for ``oxyd
-abandonware''; Google is your friend).  Oxyd extra and Oxyd magnum were
-regular commercial games, so you may use the data files only if you have
-a legal copy of these games.  Please do not ask us to send you copies of
-any Oxyd version---we won't.  Oxyd may have been abandoned, but it's
-still copyrighted, and we respect that.
+@c Per.Oxyd and Oxyd 1 are ``dongleware'' (i.e., some kind of shareware)
+@c and can be downloaded freely from the Internet (search for ``oxyd
+@c abandonware''; Google is your friend).  Oxyd extra and Oxyd magnum were
+@c regular commercial games, so you may use the data files only if you have
+@c a legal copy of these games.  Please do not ask us to send you copies of
+@c any Oxyd version---we won't.  Oxyd may have been abandoned, but it's
+@c still copyrighted, and we respect that.
 
-@node Distributing Enigma,  , Emulating Oxyd, Introduction
+@node Distributing Enigma,  , Installation, Introduction
 @section Distributing Enigma
 
 Enigma is free software and may be distributed under the terms of the
