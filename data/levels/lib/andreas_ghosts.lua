@@ -49,7 +49,7 @@
 --            Also reduce the range and/or force to sensible values.
 --            If you use a marble, you should set "mouseforce=0".
 --  Remark 2: Ghosts may not have arbitrary names! The name of a
---            ghost is determined as "ghostX" with X the number of
+--            ghost is determined as "ghost_X" with X the number of
 --            the ghost, determined in the order of definition.
 --  Remark 3: To each of the coordinates the value 0.5 will be added.
 --            So, if you transform a set_actor-call, please subtract
@@ -642,6 +642,7 @@ function ghosts_set_railarea(x1,y1,x2,y2,rail,floorkind)
     end
   end
 end
+
 
 
 

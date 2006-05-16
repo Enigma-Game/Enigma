@@ -47,6 +47,6 @@ renderLine(12 , "--------------------")
 oxyd_shuffle()
 
 -- Special
-set_item("it-document", 11, 5, {text="Beachten Sie die Wasserlöcher!"})
+set_item("it-document", 11, 5, {text="Beachten Sie die Wasserloecher!"})
 bb=set_actor("ac-blackball", 8.5,5.5, {player=0, name="bb"})  
 AddRubberBand(bb, enigma.GetStone(8,4),60)
