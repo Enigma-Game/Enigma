@@ -23,6 +23,7 @@
 # include <config.h>
 #endif
 
+#include "ecl_system.hh"
 #include <stdlib.h>
 #include <locale.h>
 
@@ -704,8 +705,7 @@
    should be used for codeset information instead.
    The result must not be freed; it is statically allocated.  */
 
-const char *
-sys_message_locale_name ()
+std::string ecl::SysMessageLocaleName()
 {
   const char *categoryname = "LC_MESSAGES";
   const char *retval;
@@ -750,7 +750,7 @@ sys_message_locale_name ()
         language = tmp;
     }
     CFRelease(locale);
-    return language.c_str();
+    return language;
 #endif /* MACOSX */
 
 #else /* WIN32 */

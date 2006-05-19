@@ -42,7 +42,7 @@ namespace ecl
 
 /* -------------------- Locales -------------------- */
 
-    std::string DefaultMessageLocale ();
+    std::string SysMessageLocaleName ();
 
     std::string GetLanguageCode (const std::string &localename);
 }

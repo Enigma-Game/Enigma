@@ -144,12 +144,6 @@ std::string ecl::ApplicationDataPath()
 
 #endif
 
-std::string ecl::DefaultMessageLocale ()
-{
-    extern const char * sys_message_locale_name ();
-
-    return sys_message_locale_name ();
-}
 
 std::string ecl::GetLanguageCode (const std::string &ln)
 {

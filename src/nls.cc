@@ -36,7 +36,7 @@ void nls::SetMessageLocale (const std::string &language)
     setlocale (LC_MESSAGES, ""); //language.c_str());
 #endif
 
-    std::string li = ecl::DefaultMessageLocale();
+    std::string li = ecl::SysMessageLocaleName();
     enigma::Log << "locale name: " << li << endl;
     enigma::Log << "language code: " << ecl::GetLanguageCode (li) << endl;
 }

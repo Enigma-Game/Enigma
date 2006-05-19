@@ -374,7 +374,7 @@ Item  *OxydLoader::make_item (int type)
     Item *it = 0;
 
     OxydLib::Language lang = Language_English;
-    std::string localelang = ecl::GetLanguageCode (ecl::DefaultMessageLocale());
+    std::string localelang = ecl::GetLanguageCode (ecl::SysMessageLocaleName());
     if (localelang == "de")
 	lang = Language_German;
     else if (localelang == "fr")

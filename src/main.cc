@@ -215,7 +215,7 @@ static void init_i18n ()
         options::GetOption("Language", app.language);
     }
     if (app.defaultLanguage == "") {
-        app.defaultLanguage = ecl::DefaultMessageLocale ();
+        app.defaultLanguage = ecl::SysMessageLocaleName();
         if (app.language == "") {
             app.language = app.defaultLanguage;
         }
