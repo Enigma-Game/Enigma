@@ -147,6 +147,18 @@ do
     def_alias ("ac-whiteball-small-sunk", "invisible")
 end
 
+-- Jumping small balls --
+do
+    namelist = SpriteImages("ac-whiteball-small-jump", 4)
+    shadows  = SpriteImages("sh-whiteball-small-jump", 4, 0.4)
+    frames   = {}
+    for i=1,4 do
+        def_shmodel("sb-jump"..i, namelist[i], shadows[i])
+        tinsert(frames, "sb-jump"..i)
+    end
+    def_anim("ac-whiteball-small-jump", pingpong(buildframes(frames, 70)))
+end
+
 def_alias("ac-killerball", "ac-whiteball-small")
 
 -------------------------
