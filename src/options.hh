@@ -44,7 +44,7 @@ namespace enigma_options
 
     /*! An option was changed that will not take effect until Enigma is
       restarted. */
-    extern bool MustRestart;
+//    extern bool MustRestart;
 
     /*! An option was changed that makes it necessary to restart the
       current level (e.g. Difficulty changed during the game).  When

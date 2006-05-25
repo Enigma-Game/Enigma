@@ -65,6 +65,25 @@ namespace enigma
 
         void init(int argc, char **argv);
         void setLanguage(std::string newLanguage);
+        /**
+         * Define a new user path. Files stored to user path use the new path
+         * at once and the path is added to the resource path for file lookups.
+         * But existing files on the previous user path are not copied or moved
+         * to the new location! This remains a manual task for the user. The new
+         * user path is added to the preferences.
+         * @param newPath local encoded new user path or empty string for default
+         */
+        void setUserPath(std::string newPath);
+        
+        /**
+         * Define a new user image path. Images are stored to new path
+         * at once and the path is added to the resource path for images lookups.
+         * But existing images on the previous user images path are not copied or moved
+         * to the new location! This remains a manual task for the user. The new
+         * user images path is added to the preferences.
+         * @param newPath local encoded new path or empty string for default
+         */
+        void setUserImagePath(std::string newPath);
 
         //---------- Variables ----------//
 
@@ -105,9 +124,9 @@ namespace enigma
         std::string prefPath;
         
         /**
-         * the path to the gettext l18n data. 
+         * the path to the gettext l10n data. 
          */
-        std::string l18nPath;
+        std::string l10nPath;
         
         /**
          * the path to user data. The base directory for files like score, user
@@ -119,11 +138,13 @@ namespace enigma
         std::string userPath;
         
         /**
-         * the path for generated temporary data. Files like thumbs, that can
-         * be regenerated, but should be stored between rund to fasten the 
-         * application.
+         * the path for large image data. Files like thumbs and screenshots
+         * that the user may not want to be stored on the userPath. The main
+         * reason for this separation of user data should be limited space on
+         * userPath. The userImagePath defaults to userPath, but can be overriden
+         * by a user preference.
          */
-        std::string tmpPath;
+        std::string userImagePath;
         
         /**
          * the singleton instance of our preference manager.
@@ -184,6 +205,7 @@ namespace enigma
         std::string systemAppDataPath;    // dir path to the apps data
         std::string systemCmdDataPath;    // commandline override of systemAppDataPath
         std::string userStdPath;          // standard user data path
+        void init_i18n();
     };
 
 #define APP enigma::Application::get_instance()

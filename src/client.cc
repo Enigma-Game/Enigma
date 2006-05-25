@@ -432,14 +432,16 @@ void Client::on_keydown(SDL_Event &e)
 
         case SDLK_F10: {
             lev::Proxy *level = lev::Proxy::loadedLevel();
-            std::string basename = app.userPath + std::string("/screenshots/") +
+            std::string basename = std::string("screenshots/") +
                     level->getLocalSubstitutionLevelPath();
             std::string fname = basename + ".png";
+            std::string fullPath;
             int i = 1;
-            while (ecl::FileExists(fname.c_str())) {
+            while (app.resourceFS->findFile(fname, fullPath)) {
                 fname = basename + ecl::strf("#%d", i++) + ".png";
             }
-            video::Screenshot(fname);
+            std::string savePath = app.userImagePath + "/" + fname;
+            video::Screenshot(savePath);
             break;
         }
         case SDLK_RETURN: process_userinput(); break;

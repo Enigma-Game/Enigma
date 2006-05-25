@@ -18,14 +18,17 @@
  */
  
 #include "gui/OptionsMenu.hh"
-#include "gui/TextField.hh"
 #include "ecl.hh"
+#include "LocalToXML.hh"
 #include "main.hh"
 #include "nls.hh"
 #include "options.hh"
 #include "oxyd.hh"
 #include "sound.hh"
+#include "Utf8ToXML.hh"
 #include "video.hh"
+#include "XMLtoLocal.hh"
+#include "XMLtoUtf8.hh"
 
 using namespace ecl;
 using namespace std;
@@ -349,11 +352,14 @@ namespace enigma { namespace gui {
         const int label_width = 180;
         const int but_width   = 100;
         const int but_height  = 30;
+        const video::VMInfo *vminfo = video::GetInfo();
+        int hmargin = vminfo->width < 660 ? 10 : (vminfo->width < 900 ? 20 : 80);
+        int midspacing = vminfo->width - 2*hmargin - 2*but_width - 2*label_width;
     
         BuildVList leftlabels (this, Rect(-label_width, 0, label_width, but_height), spacing);
         BuildVList left (this, Rect(0, 0, but_width, but_height), spacing);
-        BuildVList rightlabels (this, Rect(but_width+big_spacing, 0, label_width, but_height), spacing);
-        BuildVList right(this, Rect(but_width+big_spacing+label_width, 0, but_width, but_height), spacing);
+        BuildVList rightlabels (this, Rect(but_width+midspacing, 0, label_width, but_height), spacing);
+        BuildVList right(this, Rect(but_width+midspacing+label_width, 0, but_width, but_height), spacing);
         leftlabels.add (new Label(N_("Language: "), HALIGN_RIGHT));
         leftlabels.add (new Label(N_("Fullscreen: "), HALIGN_RIGHT));
         leftlabels.add (new Label(N_("Video mode: "), HALIGN_RIGHT));
@@ -380,46 +386,59 @@ namespace enigma { namespace gui {
         right.add (new SoundVolumeButton);
         right.add (new SoundSetButton);
         right.add (new MusicVolumeButton);
-    //    right.add (new InGameMusicButton);
+//        right.add (new InGameMusicButton);Über
         right.add (new StereoButton);
         right.add (new RatingsUpdateButton);
-    //    right.add (new TextField());
         
-        {
-            Rect l = left.pos();
-            Rect r = right.pos();
+        Rect l = left.pos();
+        Rect r = right.pos();
+
+        BuildVList bottomlabels (this, Rect(-label_width, Max(l.y, r.y), label_width, but_height), spacing);
+        BuildVList bottom (this, Rect(0, Max(l.y, r.y), vminfo->width - 2*hmargin - label_width, but_height), spacing);
+        bottomlabels.add (new Label(N_("User path: "), HALIGN_RIGHT));
+        bottomlabels.add (new Label(N_("User image path: "), HALIGN_RIGHT));
+        userPathTF = new TextField(XMLtoUtf8(LocalToXML(app.userPath.c_str()).x_str()).c_str());
+        bottom.add (userPathTF);
+        userImagePathTF = new TextField(XMLtoUtf8(LocalToXML(app.userImagePath.c_str()).x_str()).c_str());
+        bottom.add (userImagePathTF);
+
+//            add (m_restartinfo, Rect (l.x, l.y + 15, 400, 20));
+//            m_restartinfo->set_alignment (HALIGN_LEFT);
+//            update_info();
     
-            add (m_restartinfo, Rect (l.x, l.y + 15, 400, 20));
-            m_restartinfo->set_alignment (HALIGN_LEFT);
-            update_info();
+        Rect b = bottom.pos();
+        l.x = (l.x+r.x)/2;
+        l.y = b.y+big_spacing;
     
-            l.x = (l.x+r.x)/2;
-            l.y = Max(l.y, r.y)+big_spacing;
-    
-            add(back, l);
-        }
+        add(back, l);
     }
     
     OptionsMenu::~OptionsMenu() {
         video::SetCaption(previous_caption.c_str());
     }
     
-    void OptionsMenu::update_info() 
-    {
-        if (options::MustRestart)
-            m_restartinfo->set_text (
-                N_("Please restart Enigma to activate your changes!"));
-        else
-            m_restartinfo->set_text ("");
-    }
+//    void OptionsMenu::update_info() 
+//    {
+//        if (options::MustRestart)
+//            m_restartinfo->set_text (
+//                N_("Please restart Enigma to activate your changes!"));
+//        else
+//            m_restartinfo->set_text ("");
+//    }
     
+    void OptionsMenu::quit() {
+        app.setUserPath(XMLtoLocal(Utf8ToXML(userPathTF->getText().c_str()).x_str()).c_str());
+        app.setUserImagePath(XMLtoLocal(Utf8ToXML(userImagePathTF->getText().c_str()).x_str()).c_str());
+        Menu::quit();
+    }
+
     bool OptionsMenu::on_event (const SDL_Event &e)
     {
         bool handled=false;
         if (e.type == SDL_MOUSEBUTTONDOWN
             && e.button.button == SDL_BUTTON_RIGHT)
         {
-            Menu::quit();
+            quit();
             handled = true;
         }
         else if (e.type == SDL_KEYUP) {
@@ -437,7 +456,7 @@ namespace enigma { namespace gui {
     void OptionsMenu::on_action(Widget *w)
     {
         if (w == back)
-            Menu::quit();
+            quit();
         else if (w == language)
             // language changed - retranslate and redraw everything
             invalidate_all();
@@ -445,7 +464,7 @@ namespace enigma { namespace gui {
     
     void OptionsMenu::tick (double)
     {
-        update_info();
+//        update_info();
     }
     
     void OptionsMenu::draw_background(ecl::GC &gc)

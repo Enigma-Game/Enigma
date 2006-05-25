@@ -20,6 +20,7 @@
 #define GUI_OPTIONSMENU_HH_INCLUDED
 
 #include "gui/Menu.hh"
+#include "gui/TextField.hh"
 
 namespace enigma { namespace gui {
 /* -------------------- OptionsMenu -------------------- */
@@ -28,6 +29,7 @@ namespace enigma { namespace gui {
     public:
         OptionsMenu(ecl::Surface *background_);
         ~OptionsMenu();
+        virtual void quit();
     private:
         void update_info();
 
@@ -41,6 +43,8 @@ namespace enigma { namespace gui {
 
         // Variables.
         gui::Widget *back, *fullscreen, *language;
+        gui::TextField *userPathTF;
+        gui::TextField *userImagePathTF;
         gui::Label  *m_restartinfo;
         ecl::Surface *background;
         std::string  previous_caption;

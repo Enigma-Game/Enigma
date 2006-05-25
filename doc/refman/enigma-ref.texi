@@ -3,7 +3,7 @@
 @settitle Enigma Reference Manual
 @titlepage
 @title Enigma Reference Manual
-@subtitle for version 0.90
+@subtitle for version 1.00
 @author Daniel Heck
 @author Petr Machata
 @author Ralf Westram
@@ -20,7 +20,7 @@
 This manual describes the internals of
 @uref{http://www.nongnu.org/enigma/,Enigma}, in particular how to
 build new levels using Lua and how to interact with the game engine.
-It describes Enigma version 0.90.
+It describes Enigma version 1.00.
 @end ifnottex
 
 @menu
@@ -36,6 +36,14 @@ It describes Enigma version 0.90.
 @node  Running Enigma, Level Basics, Top, Top
 @chapter Running Enigma
 
+After a hopefully succesfull installation and some first levels you may be 
+interested in some information how Enigma is configured, how you can optimize
+Enigma to your demands and what some options and attributes within Enigma are for.
+
+This first chapter should give you some valuable information to these questions
+and provides some basic knowledge you will need to know to manage level packs,
+levels or write own levels as described in the following chapters.
+
 @menu
 * Locating Resources::
 * Startup Switches::
@@ -46,11 +54,165 @@ It describes Enigma version 0.90.
 @node Locating Resources, Startup Switches, Running Enigma, Running Enigma
 @section Locating Resources
 
+For reasons of backup, system changes, special configurations, level additions
+and hopefully own new levels you may need to know where Enigma stores the 
+resources and how you can control them.
+
+Enigma maintains several paths for control of load and storage of files. You
+can list these paths either by pressing @key{F2} within the main menu or by 
+starting Enigma with the switch @option{--log} (@pxref{Startup Switches}) and looking at the console output.
+
+@table @asis
+@item @b{Preferences Path}
+This is the path to the file that stores your preferences concerning application
+options. This file is usually located at your @env{HOME} directory. For @env{HOME}-less
+Windows users it is stored in the @samp{Application Data\Enigma} directory. As
+it is the third version in the history of Enigma the file is named 
+@samp{.enigmarc3.xml} by default. 
+
+It is recommended to backup this file, even though it contains only few data that
+can be quickly reconfigured.
+
+As these preferences are quite specific for the operating system and 
+configuration you will use a different version on each Enigma installation you
+have.
+
+Mainly for Enigma developers exists a switch @option{--pref} (@pxref{Startup Switches})
+to rename this preferences file. By starting Enigma with a renamed preferences
+file a developer can temporarily use a complete seperated configuration for
+testing purposes without the danger of destroying his main configuration. The
+developer may use it to start Enigma with a plain standard configuration for
+testing purposes, too.
+
+In all cases the preferences filename will be hidden by a leading @samp{.} in the
+filename.
+
+@item @b{User Path}
+This is the main path to the users Enigma data. All updates, user installed
+levels and user written levels, the users scores, history and usually the
+users screenshots and level previews are stored at this path.
+
+A backup of this directory is mandatory!
+
+The standard location is the directory @samp{.enigma} at your @env{HOME} 
+directory. For @env{HOME}-less Windows users it is the @samp{Application Data\Enigma} 
+directory.
+
+You can define an own path within the @ref{User Options}. By this means you
+can store your Enigma user data on a memory stick or you can store them on
+a shared partition and use them alternatively from two Enigma installations.
+
+@item @b{User Image Path}
+This is a second path to the users Enigma data that is used to access images
+like screenshots and thumbnails of levels. Usually this path is identical to 
+the main @samp{User Path}.
+
+Just in case you make many screenshots and have limited resources on the main
+@samp{User Path} you may want to store the images on another path. You can 
+define an own path within the @ref{User Options}.
+
+@item @b{System Path}
+This path gives you the location of all system resources that are distributed
+with Enigma. Here you will find the levels, libraries, etc. A first class 
+address to look for examples if you start writing own levels.
+
+@item @b{Resource Paths}
+This is a list of paths. Every version independent resource is looked up on all 
+paths in this list and loaded from the first occurence.
+
+User data preceed system data. This way updates on your user data path will win.
+Have a look at this list if you are observe difference between a source and the
+runtime behaviour. You may have looked at a file that was hidden by another on
+a preceeding path in this list.
+
+@item @b{l10n Path}
+This path shows the directory that contains the localization data.
+
+@end table
+
+Please note that some resources like levels may be zipped. In this case a 
+resource that you expect at @samp{dirname/filename} may be stored in a zipfile
+named @samp{dirname.zip}. The path of the file within the zip can be either
+@samp{dirname/filename} or @samp{./filename}. In case a resource is provided
+in zipped and unzipped the plain file stored in a directory wins, as it is 
+assumed to be an update to the zip.
+
 @node Startup Switches, User Options, Locating Resources, Running Enigma
 @section Startup Switches
 
+@table @asis
+@item @b{-@w{}-data -d path}
+A switch for Enigma developers that allows to add an additional path to the
+resource paths that preceeds the system path (@pxref{Startup Switches}). A
+developer can test an Enigma compilation without installation by calling it
+from the shell with the current working directory on the main directory via
+@samp{src/Enigma -d ./data}.
+
+@item @b{-@w{}-help -h}
+Just list the available startup switches to the output and terminate.
+
+@item @b{-@w{}-lang -l lang}
+...
+
+@item @b{-@w{}-log}
+This switch turns on logging of internal information to the standard output.
+Windows users will find an file called @samp{stdout.txt} in the current working
+directory. The output will f.e. list the paths described in @ref{Locating Resources}.
+
+@item @b{-@w{}-nograb}
+...
+
+@item @b{-@w{}-nomusic}
+...
+
+@item @b{-@w{}-nosound}
+...
+
+@item @b{-@w{}-pref -p filename}
+The name of an alternative preferences file without the leading dot for hidden
+filenames. This switch is a pure Enigma developer support feature as described
+in @ref{Locating Resources}.
+
+@item @b{-@w{}-version}
+...
+
+@item @b{-@w{}-window -w}
+...
+
+@end table
+
 @node User Options, Level Info, Startup Switches, Running Enigma
 @section User Options
+
+@table @asis
+@item @b{Ratings update}
+...
+
+@item @b{User path}
+This textfield allows you to define an arbitrary directory for your Enigma user
+data as described in @ref{Locating Resources}.
+
+Deletion of the string resets the path to the default.
+
+The new path is activated on leaving the options menu. Even though all files
+are stored directly to the new path and files will still be found on the old
+path you may want to quit Enigma immediatly and first copy/merge the old 
+directory to the new location. This copy of your old data is necessary as with
+the next start Enigma will locate user data at the new location exclusively. 
+
+@item @b{User image path}
+This textfield allows you to define an arbitrary directory for your Enigma user
+image data as described in @ref{Locating Resources}.
+
+Deletion of the string resets the path to the default.
+
+The new path is activated on leaving the options menu. Even though all files
+are stored directly to the new path and files will still be found on the old
+path you may want to quit Enigma immediatly and first copy/merge the old 
+directory to the new location. This copy of your old data is necessary as with
+the next start Enigma will locate user data at the new location exclusively. 
+
+@end table
 
 @node Level Info,, User Options, Running Enigma
 @section Level Info

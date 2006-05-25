@@ -263,8 +263,8 @@ namespace enigma { namespace gui {
     }
     
     void MainMenu::show_paths() {
-        const char *pathtext[20];
-        std::string pathstrings[20];
+        const char *pathtext[25];
+        std::string pathstrings[25];
         std::string work;
         Font *menufont = enigma::GetFont("menufont");
         const video::VMInfo *vminfo = video::GetInfo();
@@ -291,6 +291,16 @@ namespace enigma { namespace gui {
             i++;
         } while(!work.empty() );
         pathtext[i++] = " ";
+        pathtext[i++] = N_("User Image Path:");
+        work = app.userImagePath;
+        do {
+            std::string::size_type breakPos = menufont->breakString(work,"/\\", width);
+            pathstrings[i] = "    " + work.substr(0,breakPos);
+            pathtext[i] = pathstrings[i].c_str();
+            work = work.substr(breakPos);
+            i++;
+        } while(!work.empty() );
+        pathtext[i++] = " ";
         pathtext[i++] = N_("System Path:");
         work = app.systemFS->getDataPath();
         do {
@@ -303,6 +313,16 @@ namespace enigma { namespace gui {
         pathtext[i++] = " ";
         pathtext[i++] = N_("Resource Paths:");
         work = app.resourceFS->getDataPath();
+        do {
+            std::string::size_type breakPos = menufont->breakString(work,"/\\", width);
+            pathstrings[i] = "    " + work.substr(0,breakPos);
+            pathtext[i] = pathstrings[i].c_str();
+            work = work.substr(breakPos);
+            i++;
+        } while(!work.empty() );
+        pathtext[i++] = " ";
+        pathtext[i++] = N_("L10n Path:");
+        work = app.l10nPath;
         do {
             std::string::size_type breakPos = menufont->breakString(work,"/\\", width);
             pathstrings[i] = "    " + work.substr(0,breakPos);

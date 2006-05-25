@@ -45,7 +45,7 @@ using namespace enigma;
 namespace enigma_options
 {
     bool LevelStatusChanged = false;
-    bool MustRestart        = false;
+//    bool MustRestart        = false;
     bool MustRestartLevel   = false;
 }
 

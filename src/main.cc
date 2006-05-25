@@ -29,7 +29,11 @@
 #include "ecl_system.hh"
 #include "world.hh"
 #include "nls.hh"
+#include "LocalToXML.hh"
 #include "PreferenceManager.hh"
+#include "Utf8ToXML.hh"
+#include "XMLtoUtf8.hh"
+#include "XMLtoLocal.hh"
 #include "lev/RatingManager.hh"
 
 #include "enet/enet.h"
@@ -203,37 +207,6 @@ void AP::on_argument (const string &arg)
   the window, not on the console. */
 
 
-/*! Initialize the internationalization subsystem */
-static void init_i18n ()
-{
-    // priorities:
-    // language: command-line --- user option --- system (environment)
-    // defaultLanguage: command-line --- system (environment)
-    app.language = app.argumentLanguage;
-    app.defaultLanguage = app.argumentLanguage;
-    if (app.language == "") {
-        options::GetOption("Language", app.language);
-    }
-    if (app.defaultLanguage == "") {
-        app.defaultLanguage = ecl::SysMessageLocaleName();
-        if (app.language == "") {
-            app.language = app.defaultLanguage;
-        }
-    }
-    
-
-#if defined(ENABLE_NLS)
-
-    nls::SetMessageLocale (app.language);
-
-    bindtextdomain (PACKAGE_NAME, app.l18nPath.c_str());
-
-    // SDL_ttf does not handle arbitrary encodings, so use UTF-8
-    bind_textdomain_codeset (PACKAGE_NAME, "utf-8");
-    textdomain (PACKAGE_NAME);
-#endif
-
-}
 
 /* -------------------- Application -------------------- */
 
@@ -405,16 +378,16 @@ void Application::initSysDatapaths(const std::string &prefFilename)
          systemFS->prepend_dir(systemCmdDataPath);
     Log << "systemFS = \"" << systemFS->getDataPath() << "\"\n"; 
     
-    // l18nPath
-    l18nPath = LOCALEDIR;    // defined in src/Makefile.am
+    // l10nPath
+    l10nPath = LOCALEDIR;    // defined in src/Makefile.am
 #ifdef __MINGW32__
     if (progDirExists) {
-        l18nPath = progDir + "/" + l18nPath;
+        l10nPath = progDir + "/" + l10nPath;
     }
 #elif MACOSX
-    l18nPath = progDir + "/../Resources/locale";
+    l10nPath = progDir + "/../Resources/locale";
 #endif
-    Log << "l18nPath = \"" << l18nPath << "\"\n"; 
+    Log << "l10nPath = \"" << l10nPath << "\"\n"; 
     
     
     // prefPath
@@ -515,25 +488,23 @@ void Application::initXerces() {
     }     
 }	
 
-void Application::setLanguage(std::string newLanguage)
-{
-    if (newLanguage == "") {
-        language = defaultLanguage;
-    }
-    else {
-        language = newLanguage;
-    }
-    nls::SetMessageLocale(language);
-}
-
 void Application::initUserDatapaths() {
     // userPath
-//  if (no preference for user path)
+    userPath = prefs->getString("UserPath");
+    if (userPath.empty())
         userPath = userStdPath;
-//  else
-//      userPath = value of user preference
+    else
+        userPath = XMLtoLocal(Utf8ToXML(userPath.c_str()).x_str()).c_str();
     Log << "userPath = \"" << userPath << "\"\n"; 
     
+    // userImagePath
+    userImagePath = prefs->getString("UserImagePath");
+    if (userImagePath.empty())
+        userImagePath = userStdPath;
+    else
+        userImagePath = XMLtoLocal(Utf8ToXML(userImagePath.c_str()).x_str()).c_str();
+    Log << "userImagePath = \"" << userImagePath << "\"\n"; 
+
     // resourceFS
     resourceFS = new GameFS();
     resourceFS->append_dir(systemAppDataPath);    
@@ -549,14 +520,91 @@ void Application::initUserDatapaths() {
 #endif
     if (!systemCmdDataPath.empty())
 	resourceFS->prepend_dir(systemCmdDataPath);    
-    resourceFS->prepend_dir(userPath);    
+    resourceFS->prepend_dir(userPath);
+    if (userImagePath != userPath)
+        resourceFS->prepend_dir(userImagePath);
     Log << "resourceFS = \"" << resourceFS->getDataPath() << "\"\n"; 
 
-    // tmpPath
-//  if (preference keep tmp local)
-//        tmpPath = userStdPath;
-//  else
-        tmpPath = userPath;
+}
+
+void Application::init_i18n()
+{
+    // Initialize the internationalization subsystem
+    
+    // priorities:
+    // language: command-line --- user option --- system (environment)
+    // defaultLanguage: command-line --- system (environment)
+    app.language = app.argumentLanguage;
+    app.defaultLanguage = app.argumentLanguage;
+    if (app.language == "") {
+        options::GetOption("Language", app.language);
+    }
+    if (app.defaultLanguage == "") {
+        app.defaultLanguage = ecl::SysMessageLocaleName();
+        if (app.language == "") {
+            app.language = app.defaultLanguage;
+        }
+    }   
+
+#if defined(ENABLE_NLS)
+
+    nls::SetMessageLocale (app.language);
+
+    bindtextdomain (PACKAGE_NAME, app.l10nPath.c_str());
+
+    // SDL_ttf does not handle arbitrary encodings, so use UTF-8
+    bind_textdomain_codeset (PACKAGE_NAME, "utf-8");
+    textdomain (PACKAGE_NAME);
+#endif
+
+}
+
+void Application::setLanguage(std::string newLanguage)
+{
+    if (newLanguage == "") {
+        language = defaultLanguage;
+    }
+    else {
+        language = newLanguage;
+    }
+    nls::SetMessageLocale(language);
+}
+
+void Application::setUserPath(std::string newPath) {
+    std::string prefUserPath = (newPath == userStdPath) ? "" : newPath;
+    if ((prefUserPath.empty() && userPath != userStdPath) || (!prefUserPath.empty() && prefUserPath != userPath)) {
+        // set the new userPath - used for saves
+        if (prefUserPath.empty())    
+            userPath = userStdPath;
+        else
+            userPath = prefUserPath;
+        
+        // load all resources primarily from the new path but keep the old user path
+        // because the user could not yet copy his user data to the new location
+        resourceFS->prepend_dir(userPath);
+        
+        // set the new path as the users preference - the standard path is saved as ""
+        prefs->setPref("UserPath", std::string(XMLtoUtf8(LocalToXML(&prefUserPath).x_str()).c_str()));
+    }
+}
+
+void Application::setUserImagePath(std::string newPath) {
+    std::string prefUserImagePath = (newPath == userStdPath) ? "" : newPath;
+    if ((prefUserImagePath.empty() && userImagePath != userStdPath) || (!prefUserImagePath.empty() && prefUserImagePath != userImagePath)) {
+        // set the new userImagePath - used for saves
+        if (prefUserImagePath.empty())    
+            userImagePath = userStdPath;
+        else
+            userImagePath = prefUserImagePath;
+                
+        // load all resources primarily from the new path but keep the old user path
+        // because the user could not yet copy his user data to the new location
+        if (userImagePath != userPath)
+            resourceFS->prepend_dir(userImagePath);
+
+        // set the new path as the users preference - the standard path is saved as ""
+        prefs->setPref("UserImagePath", std::string(XMLtoUtf8(LocalToXML(&prefUserImagePath).x_str()).c_str()));
+    }
 }
 
 /* -------------------- Functions -------------------- */

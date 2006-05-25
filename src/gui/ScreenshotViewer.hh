@@ -22,6 +22,7 @@
 
 
 #include "gui/Menu.hh"
+#include "lev/Proxy.hh"
 
 namespace enigma { namespace gui {
 
@@ -31,7 +32,7 @@ namespace enigma { namespace gui {
      */
     class ScreenshotViewer : public gui::Menu {
     public:
-        ScreenshotViewer (std::string screenshotBasePath);
+        ScreenshotViewer (lev::Proxy *aLevel);
         ~ScreenshotViewer ();
         
         // Widget interface
@@ -40,6 +41,7 @@ namespace enigma { namespace gui {
         // Menu interface.
         virtual void draw_background    (ecl::GC &gc);
     private:
+        lev::Proxy  *levelProxy;
         std::string basePath;
         int shotNumber;
     };

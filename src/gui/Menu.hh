@@ -44,7 +44,7 @@ namespace enigma { namespace gui {
         void draw_all();
         void draw (ecl::GC &gc, const ecl::Rect &r);
 
-        void quit();
+        virtual void quit();
         void abort();
 
     protected:

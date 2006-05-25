@@ -416,8 +416,7 @@ LevelInspector::LevelInspector(lev::Proxy *aLevel, ecl::Surface *preview):
         if (w == back) {
             Menu::quit();
         } else if (w == screenshot) {
-            ScreenshotViewer m(app.userPath + "/screenshots/" + 
-                    levelProxy->getLocalSubstitutionLevelPath()); // TODO urls
+            ScreenshotViewer m(levelProxy);
             m.manage();
             invalidate_all();
         }
