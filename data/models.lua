@@ -297,7 +297,8 @@ end
 
 function def_anim_images(name, frames, opt)
     opt = opt or {}
-    if loop then
+    local loopbool
+    if opt.loop then
         if opt.loop==0 then loopbool=false else loopbool=true end
     else
         loopbool=false
