@@ -740,7 +740,7 @@ std::string ecl::SysMessageLocaleName()
 
   return retval;
 #else /* MACOSX */
-    string language;
+    std::string language;
     // get the locale and export it to the environment
     CFLocaleRef locale = CFLocaleCopyCurrent();
     CFStringRef name = CFLocaleGetIdentifier(locale);

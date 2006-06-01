@@ -2359,18 +2359,19 @@ void Burnable::animcb() {
         }
     }
     if (state == IGNITE) {
-        if (Floor *fl = GetFloor( p)) { // The fire has burnt away the wooden floor
-            string model = fl->get_kind();
-            if (model == "fl-wood" || model == "fl-stwood")
-                SetFloor( p, MakeFloor("fl-abyss"));
-        }
         state = BURNING;
         init_model();
     } else if (state == BURNING) {  // stop burning after some random time
-        if (DoubleRand(0, 1) > 0.7)
+        if (DoubleRand(0, 1) > 0.7) {
+            if (Floor *fl = GetFloor( p)) { // The fire has burnt away the wooden floor
+                string model = fl->get_kind();
+                if (model == "fl-wood" || model == "fl-stwood")
+                    SetFloor( p, MakeFloor("fl-abyss"));
+            }
             state = ASH;
-        else
+        } else {
             state = BURNING;
+        }
 
         init_model();
     }

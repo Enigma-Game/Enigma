@@ -297,12 +297,7 @@ end
 
 function def_anim_images(name, frames, opt)
     opt = opt or {}
-    local loopbool
-    if opt.loop then
-        if opt.loop==0 then loopbool=false else loopbool=true end
-    else
-        loopbool=false
-    end
+    local loopbool = opt.loop and (opt.loop == 1 or opt.loop == true) or false
     display.DefineAnim(name, loopbool)
     for i=1,getn(frames) do
 	local frame=frames[i]
@@ -316,12 +311,7 @@ end
 -- Define an animation from a list of models.
 
 function def_anim(name, frames, loop)
-    local loopbool
-    if loop then
-        if loop==0 then loopbool=false else loopbool=true end
-    else
-        loopbool=false
-    end
+    local loopbool = loop and (loop == 1 or loop == true) or false
     display.DefineAnim(name,loopbool)
     for i=1,getn(frames) do
 	local frame = frames[i]
