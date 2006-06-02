@@ -6,9 +6,9 @@ levelw = 20
 levelh = 13
 
 if difficult then 
-	numax=12
-elseif not difficult then
 	numax=13
+elseif not difficult then
+	numax=16
 end
 
 create_world(levelw, levelh)
@@ -100,114 +100,146 @@ end
 -- switch functions -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- --
 
 function switch1()
+  if (not difficult) or (tab[16]~=tab[1] and tab[2]~=tab[1]) then
 	tab[16]=1-tab[16]
 	tab[1]=1-tab[1]
 	tab[2]=1-tab[2]
+  end
 	display()
 end
 
 function switch2()
+  if (not difficult) or (tab[1]~=tab[2] and tab[3]~=tab[2]) then
 	tab[1]=1-tab[1]
 	tab[2]=1-tab[2]
 	tab[3]=1-tab[3]
+  end
 	display()
 end
 
 function switch3()
+  if (not difficult) or (tab[2]~=tab[3] and tab[4]~=tab[3]) then
 	tab[2]=1-tab[2]
 	tab[3]=1-tab[3]
 	tab[4]=1-tab[4]
+  end
 	display()
 end
 
 function switch4()
+  if (not difficult) or (tab[3]~=tab[4] and tab[5]~=tab[4]) then
 	tab[3]=1-tab[3]
 	tab[4]=1-tab[4]
 	tab[5]=1-tab[5]
+  end
 	display()
 end
 
 function switch5()
+  if (not difficult) or (tab[4]~=tab[5] and tab[6]~=tab[5]) then
 	tab[4]=1-tab[4]
 	tab[5]=1-tab[5]
 	tab[6]=1-tab[6]
+  end
 	display()
 end
 
 function switch6()
+  if (not difficult) or (tab[5]~=tab[6] and tab[7]~=tab[6]) then
 	tab[5]=1-tab[5]
 	tab[6]=1-tab[6]
 	tab[7]=1-tab[7]
+  end
 	display()
 end
 
 function switch7()
+  if (not difficult) or (tab[6]~=tab[7] and tab[8]~=tab[7]) then
 	tab[6]=1-tab[6]
 	tab[7]=1-tab[7]
 	tab[8]=1-tab[8]
+  end
 	display()
 end
 
 function switch8()
+  if (not difficult) or (tab[7]~=tab[8] and tab[9]~=tab[8]) then
 	tab[7]=1-tab[7]
 	tab[8]=1-tab[8]
 	tab[9]=1-tab[9]
+  end
 	display()
 end
 
 function switch9()
+  if (not difficult) or (tab[8]~=tab[9] and tab[10]~=tab[9]) then
 	tab[8]=1-tab[8]
 	tab[9]=1-tab[9]
 	tab[10]=1-tab[10]
+  end
 	display()
 end
 
 function switch10()
+  if (not difficult) or (tab[9]~=tab[10] and tab[11]~=tab[10]) then
 	tab[9]=1-tab[9]
 	tab[10]=1-tab[10]
 	tab[11]=1-tab[11]
+  end
 	display()
 end
 
 function switch11()
+  if (not difficult) or (tab[10]~=tab[11] and tab[12]~=tab[11]) then
 	tab[10]=1-tab[10]
 	tab[11]=1-tab[11]
 	tab[12]=1-tab[12]
+  end
 	display()
 end
 
 function switch12()
+  if (not difficult) or (tab[11]~=tab[12] and tab[13]~=tab[12]) then
 	tab[11]=1-tab[11]
 	tab[12]=1-tab[12]
 	tab[13]=1-tab[13]
+  end
 	display()
 end
 
 function switch13()
+  if (not difficult) or (tab[12]~=tab[13] and tab[14]~=tab[13]) then
 	tab[12]=1-tab[12]
 	tab[13]=1-tab[13]
 	tab[14]=1-tab[14]
+  end
 	display()
 end
 
 function switch14()
+  if (not difficult) or (tab[13]~=tab[14] and tab[15]~=tab[14]) then
 	tab[13]=1-tab[13]
 	tab[14]=1-tab[14]
 	tab[15]=1-tab[15]
+  end
 	display()
 end
 
 function switch15()
+  if (not difficult) or (tab[14]~=tab[15] and tab[16]~=tab[15]) then
 	tab[14]=1-tab[14]
 	tab[15]=1-tab[15]
 	tab[16]=1-tab[16]
+  end
 	display()
 end
 
 function switch16()
+  if (not difficult) or (tab[15]~=tab[16] and tab[1]~=tab[16]) then
 	tab[15]=1-tab[15]
 	tab[16]=1-tab[16]
 	tab[1]=1-tab[1]
+  end
 	display()
 end
 
@@ -226,7 +258,7 @@ renderLine(02 , "      ED            ")
 renderLine(03 , "     F  C           ")
 renderLine(04 , "    G    B          ")  
 renderLine(05 , "   H  z   A     V/V/")
-renderLine(06 , "   I   d  P   -<    ")
+renderLine(06 , "   I  d   P   -<    ")
 renderLine(07 , "    J    O      /V/V")
 renderLine(08 , "     K  N           ")
 renderLine(09 , "      LM            ")
@@ -235,6 +267,10 @@ renderLine(11 , "                    ")
 renderLine(12 , "               V/V/o")
 --               01234567890123456789
 
+
+if difficult then
+	document(6,7,"You are only allowed to change a color when it is surrounded by the other color")
+end
 tab={}
 reset()
 oxyd_shuffle()

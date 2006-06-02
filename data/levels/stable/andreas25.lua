@@ -1,7 +1,7 @@
 -- Acoustic Memory, a level for Enigma
 -- Copyright (C) 2006 Andreas Lochmann
--- Licensed under GPL v2.0 or above
--- Generated with the help of BBE 1.05
+-- Licensed under GPL v2.0 or above 
+-- Created with the help of BBE 1.05
 
 -- Initialisation
 
@@ -12,11 +12,90 @@ enigma.FlatForce=30
 enigma.SlopeForce=30
 enigma.ElectricForce=30
 oxyd_default_flavor = "b"
+num_diffsounds = 4
+num_diffpulses = 3
 
 triggerstone = {}
 for j = 0,17 do
   triggerstone[j] = -1
 end
+
+choosefrom = "abcdehijlpqrswy"
+chosensound = {}
+for j = 1,strlen(choosefrom) do
+  chosensound[j] = -1
+end
+
+if difficult then
+  diffsound = {}
+  local diffelem = {}
+  local j, k, c
+  for j = 1,strlen(choosefrom) do
+    diffsound[j] = ""
+  end
+  for j = 1,num_diffsounds do
+    diffelem[j] = -1
+    for c = 1,1000 do   -- try at most 1000 times
+      if diffelem[j] == -1 then
+        diffelem[j] = random(1,strlen(choosefrom))
+        if j > 1 then
+          for k = 1, j - 1 do
+            if diffelem[j] == diffelem[k] then
+              diffelem[j] = -1
+            end
+          end
+        end
+      end
+    end
+    if diffelem[j] == -1 then
+      error("(1) Unexpected probability: "..
+            "Assume to be extraordinarily happy to have found this!")
+    end
+  end
+  for j = 1,strlen(choosefrom) do
+    for c = 1, 1000 do
+      if diffsound[j] == "" then
+        for k = 1,num_diffpulses do 
+          local n = diffelem[random(1,num_diffsounds)]
+          diffsound[j] = diffsound[j]..strsub(choosefrom, n, n)
+        end
+        diffsound[j] = diffsound[j].."."
+        if j > 1 then
+          for k = 1, j - 1 do
+            if diffsound[j] == diffsound[k] then
+              diffsound[j] = ""
+            end
+          end
+        end
+      end
+    end
+    if diffsound[j] == "" then
+      error("Didn't find a combination for number "..tostring(j).."!")
+    end
+  end
+end
+
+oxydsound = {}
+for j = 0,8 do
+  local c
+  oxydsound[2*j] = -1
+  for c = 1,1000 do  -- try this at most 1000 times
+    if oxydsound[2*j] == -1 then
+      oxydsound[2*j] = random(1,strlen(choosefrom))
+      if chosensound[oxydsound[2*j]] == -1 then
+        chosensound[oxydsound[2*j]] = j
+      else
+        oxydsound[2*j] = -1
+      end
+    end
+  end
+  if oxydsound[2*j] == -1 then
+    error("(2) Unexpected probability: Assume to be extraordinarily happy to have found this!")
+  end
+  oxydsound[2*j+1] = oxydsound[2*j]
+end
+
+lasttriggered = -1
 
 -- Set a trigger (parent)
 
@@ -24,7 +103,7 @@ counter = 0
 function settrigger(x,y)
   local c
   local found = -1
-  for c = 1,1000 do  -- try this at most 1000 times 
+  for c = 1,1000 do  -- Find an oxyd/fart: try this at most 1000 times
     if found == -1 then
       found = random(0,17)
       if triggerstone[found] == -1 then
@@ -35,15 +114,61 @@ function settrigger(x,y)
       end
     end
   end
-  if found == -1 then
-    error("Unexpected probability: Assume to be extraordinarily happy to have found this!")
+  if (found == -1) or (sfound == -1) then
+    error("(3) Unexpected probability: Assume to be extraordinarily happy to have found this!")
   else
-    set_item("it-trigger", x, y, {action="trigger", target="mystone"..tostring(found),
-        invisible=FALSE})
+    set_item("it-sensor", x, y, {name = "trigger"..tostring(counter-1),
+      action = "callback", target = "triggerfunc", mynumber = found, mystate = 1})
+    set_floor("fl-trigger", x, y)
   end
 end
 
--- Set stone with name "mystone"..counter2
+function triggerfunc(onoff, sender)
+  if enigma.GetAttrib(sender, "mystate") == 1 then
+    local mynumber = enigma.GetAttrib(sender, "mynumber")
+    local mysound = oxydsound[mynumber]
+    if difficult then
+      soundstring = soundstring..diffsound[mysound]
+    else
+      soundstring = soundstring..strsub(choosefrom,mysound,mysound)
+    end
+    enigma.SetAttrib(sender, "mystate", 0)
+    set_floor("fl-samba", enigma.GetPos(sender))
+    if lasttriggered == -1 then
+      lasttriggered = mynumber
+    else
+      if        (oxydsound[lasttriggered] == oxydsound[mynumber])
+            and (lasttriggered ~= mynumber) then
+        lasttriggered = -1
+        -- test if all sounds were opened
+        local sum = 0
+        for j = 0, 17 do
+          sum = sum + enigma.GetAttrib(enigma.GetNamedObject(
+                           "trigger"..tostring(j)), "mystate")
+        end
+        if sum == 0 then
+          for j = 0, 1 do
+            SendMessage("mystone"..tostring(j), "trigger")
+          end
+        end
+      else
+        -- start all over again
+        local j
+        for j = 0, 17 do
+          local trig = enigma.GetNamedObject("trigger"..tostring(j))
+          if trig == nil then
+            error("Um... shouldn't happen: trig == nil.")
+          end        
+          SetAttrib(trig, "mystate", 1)
+          set_floor("fl-trigger", enigma.GetPos(trig))
+          lasttriggered = -1          
+        end
+      end
+    end
+  end
+end
+
+-- Set stone with name "mystone"..counter2  (mostly an artifact)
 
 counter2 = 0
 function setmystone(x,y,st)
@@ -56,18 +181,63 @@ function setmystone(x,y,st)
   counter2 = counter2 + 1
 end
 
+-- Sound-string playing
+
+-- Remark: This timer-callback-function plays a sound defined by its
+--         first character, then deletes this. The sound is saved in
+--         the global variable "soundstring".
+
+soundstring = ""
+
+function soundstring_timercallback()
+  local s = ""
+  if strlen(soundstring) == 1 then
+    s = soundstring
+    soundstring = ""
+  end
+  if strlen(soundstring) > 1 then
+    s = strsub(soundstring, 1, 1)
+    soundstring = strsub(soundstring, 2, strlen(soundstring))
+  end
+  --  choosefrom = "abcdehijlpqrswy"
+  local play = ""
+      if  s == "a"  then  play = "cloth"
+  elseif  s == "b"  then  play = "blackbomb"
+  elseif  s == "c"  then  play = "coinsloton"
+  elseif  s == "d"  then  play = "drown"
+  elseif  s == "e"  then  play = "fakeoxyd"
+  elseif  s == "f"  then  play = "fart"
+  elseif  s == "g"  then  play = ""
+  elseif  s == "h"  then  play = "shatter"
+  elseif  s == "i"  then  play = "itemtransform"
+  elseif  s == "j"  then  play = "jump"
+  elseif  s == "k"  then  play = ""
+  elseif  s == "l"  then  play = "laseron"
+  elseif  s == "m"  then  play = "mirrorturn"
+  elseif  s == "n"  then  play = "stonepaint"
+  elseif  s == "o"  then  play = "oxydopen"
+  elseif  s == "p"  then  play = "pickup"
+  elseif  s == "q"  then  play = "puzzlerotate"
+  elseif  s == "r"  then  play = "rubberband"
+  elseif  s == "s"  then  play = "switchplayer"
+  elseif  s == "t"  then  play = "triggerdown"
+  elseif  s == "u"  then  play = "oxydopened"
+  elseif  s == "v"  then  play = ""
+  elseif  s == "w"  then  play = "swamp"
+  elseif  s == "x"  then  play = ""
+  elseif  s == "y"  then  play = "stonedestroy"
+  elseif  s == "z"  then  play = ""
+  elseif  s == "."  then  play = ""  -- this is a forced pause
+  end
+  if play ~= "" then
+    enigma.EmitSound(soundstone, play)
+  end
+end
+
 -- The level itself
 
 function ac_blackball(x,y)
-  n=""
-  p=0
-  f=0
-  if (x==9) and (y==5) then
-    n="ac9x5"
-    p=0
-    mf=1
-  end
-  set_actor("ac-blackball",x+0.5,y+0.5,{player=p,name=n,mouseforce=mf})
+  set_actor("ac-blackball",x+0.5,y+0.5,{player=0,name="blackball",mouseforce=1})
 end
 
 cells={}
@@ -82,6 +252,7 @@ cells["!"]=cell{floor="fl-samba"}
 stones["!"]=cell{stone="st-wood"}
 stones["#"]=cell{parent={{setmystone,"st-oxyd"}}}
 stones["$"]=cell{parent={{setmystone,"st-fart"}}}
+stones["f"]=cell{stone="st-fart"}
 items["!"]=cell{parent={{settrigger}}}
 actors["!"]=cell{parent={{ac_blackball}}}
 level={"!!!!!!!!!!!!!!!!!!!!",
@@ -142,12 +313,16 @@ level={"!!!!!!!!!!!!!!!!!!!!",
         "!                  !",
         "!                  !",
         "!!!!!!!!!!!!!!!!!!!!",
-        "################$$!!",
+        "##$$$$$$$$$$$$$$$$!!",   -- those fart-stones are just artifacts...
         "                    "}
 create_world_by_map(level)
 draw_map(0,0,stmap,stones)
 draw_map(0,0,itmap,items)
 draw_map(0,0,acmap,actors)
-oxyd_shuffle()
+
+soundstone = set_stone("st-timer", 0, 14, {action="callback",
+  target="soundstring_timercallback", interval=0.3})
+
+
 
 
