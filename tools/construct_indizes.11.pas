@@ -122,7 +122,7 @@ var f : text; j, k : longint;
 begin
   assign(f, file_unrated);
   rewrite(f);
-  for j := 1 to empty - 1 do begin
+  for j := 0 to empty - 1 do begin
     for k := 1 to MaxComments do
       if comment[j,k] <> '' then
 	writeln(f, comment[j,k]);
@@ -133,7 +133,7 @@ begin
   if option_create_ratingsindex then begin
     assign(f, file_rated);
     rewrite(f);
-    for j := 1 to empty - 1 do begin
+    for j := 0 to empty - 1 do begin
       for k := 1 to MaxComments do
 	if comment[j,k] <> '' then
 	  writeln(f, comment[j,k]);      
@@ -146,7 +146,7 @@ end;
 procedure TypIndex.Init;
 var j, k : longint;
 begin
-  for j := 1 to MaxLevels do begin
+  for j := 0 to MaxLevels do begin
     rated[j] := '';
     unrated[j] := '';
     for k := 1 to MaxComments do

@@ -16,9 +16,6 @@ function renderLine( line, pattern)
   		if c=="x" then
                    set_floor("fl-metal",i-1,line)
                    set_stone("st-glass1_hole",i-1,line)
-  		elseif c=="y" then
-                   set_floor("fl-metal",i-1,line)
-                 --  set_stone("st-glass2_hole",i-1,line)
                 elseif c=="#" then
                    set_floor("fl-metal",i-1,line)
                    set_stone("st-glass2",i-1,line)
@@ -29,17 +26,17 @@ function renderLine( line, pattern)
 end
 
 renderLine(00 , "####################")
-renderLine(01 , "#  x  yxxy  xxy yx #")
-renderLine(02 , "#  xy yxx  yxx   x #")
-renderLine(03 , "#  xy  xx yyxxy yx #")
+renderLine(01 , "#  x   xx   xx   x #")
+renderLine(02 , "#  x   xx   xx   x #")
+renderLine(03 , "#  x   xx   xx   x #")
 renderLine(04 , "#  xxxxxxxxxxxxxxx #")
 renderLine(05 , "#                  #")
 renderLine(06 , "#                  #")
 renderLine(07 , "#                  #")
 renderLine(08 , "# xxxxxxxxxxxxxxx  #")
-renderLine(09 , "# x   xxyy xx yyx  #")
-renderLine(10 , "# xy yxxyy xx   x  #")
-renderLine(11 , "# xy yxx   xxy yx  #")
+renderLine(09 , "# x   xx   xx   x  #")
+renderLine(10 , "# x   xx   xx   x  #")
+renderLine(11 , "# x   xx   xx   x  #")
 renderLine(12 , "####################")
 
 set_stone("st-switch_black", 5, 5, {action="callback",target="wrap1",name="sw1"})
@@ -57,7 +54,6 @@ set_actor("ac-blackball", 2.5,6.5, {player=0})
 -- OXYD --
 onemal=0
 oxyd_default_flavor = "b"
-
 
 --RANDOM TILES FOR UPPER ROW:
 tiles={{{1,1,0},{0,1,0},{0,1,1}},{{0,1,1},{0,1,0},{1,1,0}},{{0,1,1},{1,1,0},{1,0,0}},{{1,1,0},{0,1,1},{0,0,1}},{{0,1,0},{1,1,1},{0,1,0}},{{1,1,1},{0,1,0},{0,1,0}},{{0,1,0},{0,1,0},{1,1,1}},{{1,1,1},{1,0,0},{1,0,0}},{{1,1,1},{0,0,1},{0,0,1}},{{0,1,0},{1,1,1},{1,0,0}},{{0,1,0},{1,1,1},{0,0,1}},{{1,1,0},{0,1,1},{0,1,0}},{{0,1,1},{1,1,0},{0,1,0}}}

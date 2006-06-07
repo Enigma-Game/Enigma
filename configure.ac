@@ -305,6 +305,7 @@ AC_CONFIG_FILES([Makefile m4/Makefile  intl/Makefile
            data/levels/enigma_iii/Makefile
            data/levels/enigma_iv/Makefile
            data/levels/enigma_v/Makefile
+           data/levels/enigma_vi/Makefile
            data/fonts/Makefile
            data/sound/Makefile
            data/schemas/Makefile
