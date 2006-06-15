@@ -2,14 +2,14 @@
 <el:level xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://enigma-game.org/schema/level/1 level.xsd" xmlns:el="http://enigma-game.org/schema/level/1">
   <el:protected >
     <el:info el:type="level">
-      <el:identity el:title ="Hot Meditation" el:id="20060527ral10"/>
-      <el:version el:score="0" el:release="0" el:revision="$Revision: 18 $" el:status="test"/>
+      <el:identity el:title ="Hot Meditation" el:id="20060527ral010"/>
+      <el:version el:score="0" el:release="0" el:revision="$Revision: 19 $" el:status="test"/>
       <el:author  el:name="Ronald Lamprecht" el:email="ral@users.berlios.de"/>
       <el:copyright>Copyright © 2006 Ronald Lamprecht</el:copyright>
       <el:license el:type="GPL v2.0 or above" el:open="true"/>
       <el:compatibility el:enigma="0.93"/>
       <el:modes el:easy="true" el:single="true" el:network="false"/>
-      <el:score el:easy="0:55" el:difficult="1:06"/>
+      <el:score el:easy="0:33" el:difficult="0:50"/>
     </el:info>
     <el:luamain><![CDATA[
 Require("levels/lib/natmaze.lua")

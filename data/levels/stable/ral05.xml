@@ -2,8 +2,8 @@
 <el:level xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://enigma-game.org/schema/level/1 level.xsd" xmlns:el="http://enigma-game.org/schema/level/1">
   <el:protected >
     <el:info el:type="level">
-      <el:identity el:title ="Catwalk Meditation" el:id="20060505ral07"/>
-      <el:version el:score="0" el:release="0" el:revision="$Revision: 14 $" el:status="test"/>
+      <el:identity el:title ="Catwalk Meditation" el:id="20060505ral007"/>
+      <el:version el:score="0" el:release="0" el:revision="$Revision: 19 $" el:status="test"/>
       <el:author  el:name="Ronald Lamprecht" el:email="ral@users.berlios.de"/>
       <el:copyright>Copyright © 2006 Ronald Lamprecht</el:copyright>
       <el:license el:type="GPL v2.0 or above" el:open="true"/>
@@ -12,8 +12,6 @@
       <el:score el:easy="1:25" el:difficult="2:28"/>
     </el:info>
     <el:luamain><![CDATA[
-Require("levels/lib/natmaze.lua")
-
 enigma.ConserveLevel = FALSE
 
 function oxyd( x, y, tiles )
@@ -125,8 +123,6 @@ function create_tile( tiles, x, y, tile_type )
 	error("invalid tile identifier " .. tile_type )
     end
 end
-
-oxyd_default_flavor = "a"
 
 tiles = {}
 tiles["."] = {floor("fl-rock")}
