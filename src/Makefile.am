@@ -266,5 +266,5 @@ enigma-fw-mosx: $(enigma_OBJECTS) $(enigma_DEPENDENCIES)
 # Special target to make a disk image of the bundled app
 .PHONY: bundle-dmg
 bundle-dmg:
-	hdiutil create  -srcfolder $(bundle_name) -volname Enigma -imagekey zlib-level=6 $(top_builddir)/etc/enigma.dmg
+	hdiutil create  -ov -srcfolder $(bundle_name) -volname Enigma -imagekey zlib-level=6 $(top_builddir)/etc/enigma.dmg
 

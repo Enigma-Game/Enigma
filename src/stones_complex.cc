@@ -305,14 +305,12 @@ void PullStone::on_impulse(const Impulse& impulse)
         GridPos    actor_pos(ai->pos);
 
         if (actor_pos == newPos) { // if the actor is in the dest field
-            V2 warp((oldPos.x-newPos.x)*0.4, (oldPos.y-newPos.y)*0.4); // half move vector (of actor)
-            V2 vel      = ai->vel;
-            V2 mid_dest = ai->pos+warp; // position during move
+            V2 vel = ai->vel;
+            V2 mid_dest = ai->pos;
 
+            mid_dest[0] = ecl::Clamp<double> (mid_dest[0], oldPos.x+0.01, oldPos.x+0.99);
+            mid_dest[1] = ecl::Clamp<double> (mid_dest[1], oldPos.y+0.01, oldPos.y+0.99);
             WarpActor(actor, mid_dest[0], mid_dest[1], false);
-
-//             if (length(vel) < 15.0) // speed up actor
-//                 vel += 1.7*warp;
 
             newStone->pull_info->add_actor(actor, vel);
         }

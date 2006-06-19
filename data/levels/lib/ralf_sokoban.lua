@@ -4,6 +4,9 @@
 -- Contact: 	amgine@reallysoft.de
 -- License: 	GPL v2.0 or above
 
+-- Jun 06: Changed "init(num)" such that reverse_scrolling is used
+--         in difficult mode instead of easy mode  -- Andreas
+
 Require("levels/lib/ralf.lua")
 
 --debug_mode()
@@ -375,7 +378,10 @@ function init(num)
       end
    end
 
-   if (reverse_scrolling==1 and not difficult) then
+   -- Use of reverse_scrolling only in easy-mode wasn't logical, was it?
+   -- Changed this: Jun 06, Andreas
+   --if (reverse_scrolling==1 and not difficult) then
+   if ((reverse_scrolling == 1) and difficult) then
       floorface = "fl-inverse"
    end
 
@@ -1410,6 +1416,7 @@ function play_sokoban(level,num)
    end
 
 end
+
 
 
 
