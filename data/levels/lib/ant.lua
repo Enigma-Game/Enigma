@@ -109,6 +109,7 @@ end
 
 -- x,y should be numbers, although chars and strings are generally also the right choice
 function getkey(...)
+   local arg={...}
    local key=""
    for i = 1,getn(arg) do
       if (i > 1) then key = key.."\0" end
@@ -359,6 +360,7 @@ function cell(structure)
    --  and then call  --cell1(par2)--  instead of  --func(par1, par2)--
    --  It may be used as a sort of curried functions from haskell, as far as my poor haskell knowledge says...
    return function(...)
+             local arg={...}
 	     local xylist = tremove(arg, 1) or {}
 	     local ret = nil
 
@@ -386,17 +388,17 @@ function cell(structure)
 		   tab = {}
 		end
 
-		for a = 2,getn(tab0) do
-		   tinsert(tab, tab0[a])
+		for a = 2, #tab0 do
+		   tab[#tab + 1] = tab0[a]
 		end
 
-		for a = 1,getn(arg) do
-		   tinsert(tab, arg[a])
+		for a = 1,#arg do
+		   tab[#tab + 1] = arg[a]
 		end
 
 		-- and call a function
 		if (pmode == 0) then
-		   for i = 1,getn(xylist) do
+		   for i = 1,#xylist do
 		      tab[1],tab[2] = transform_coords(xylist[i][1], xylist[i][2])
 		      ret = func(unpack(tab))
 		   end
@@ -406,7 +408,7 @@ function cell(structure)
 	     end
 
 	     --process common map elements
-	     for i = 1,getn(xylist) do
+	     for i = 1,#xylist do
 		local x,y = transform_coords(xylist[i][1], xylist[i][2])
 		if (structure.stone) then ret = set_stone(cell0.stone.face, x, y, cell0.stone.attr) end
 		if (structure.floor) then ret = set_floor(cell0.floor.face, x, y, cell0.floor.attr) end
@@ -462,6 +464,7 @@ end
 -- this function accepts a table of cellfuncs and arbitrary number of string keys as arguments
 -- it loads the default keys to given cellfuncs table
 function use_cells(funcs, ...)
+   local arg={...}
    for a = 1,getn(arg) do
       funcs[arg[a]] = DEFAULT_KEY_MEANING[arg[a]]
    end
@@ -724,6 +727,7 @@ end
 
 -- drawing function
 function draw_func(fillfunc, ...)
+   local arg={...}
    if (type(fillfunc) ~= "table") then
       fillfunc = {fillfunc}
    end
@@ -779,6 +783,7 @@ end
 
 -- drawing function
 function ngon_funcs(fillfunc, ...)
+   local arg={...}
    if (type(fillfunc) == "function") then
       fillfunc = {fillfunc}
    end
