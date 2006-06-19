@@ -23,7 +23,7 @@ cells["s"]=cell{item="it-spring1"}
 
 cells["-"]=doorh
 
-action_A  =cell{{{cells[">"], 1, 4}; mode=-1}}
+action_A  = function () cell{{{cells[">"], 1, 4}; mode=-1}}() end
 cells["A"]=cell{item={"it-trigger", {action="callback", target="action_A"}}}
 
 cells["B"]=cell{{{switch, "doorB", "openclose"}}}
@@ -32,7 +32,7 @@ cells["b"]=cell{{cells["`"], {doorv, {name="doorB"}}}}
 success_C =function() send_message_named("doorC", "open", nil); end;
 failed_C  =function() send_message_named("doorC", "close", nil); end;
 states_C  =bool_table(3, 0, bool_and, success_C, failed_C)
-action_C  =cell{{{bool_set, states_C}}}
+action_C  =function() cell{{{bool_set, states_C}}}() end
 cells["C"]=cell{item={"it-trigger", {action="callback", target="action_C"}}}
 cells["c"]=cell{{{doorh, {name="doorC"}}}}
 
