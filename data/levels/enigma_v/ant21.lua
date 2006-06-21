@@ -16,7 +16,7 @@ cells[" "]=cell{floor="fl-metal"}
 cells[","]=cell{floor="fl-normal"}
 cells["."]=cell{floor="fl-abyss"}
 cells[":"]=cell{parent=cells[","], stone="st-chameleon", item="it-seed"}
-cells["+"]=cell{{{document, "This level is symetric..."}}}
+cells["+"]=cell{{{document, "This level is symmetric..."}}}
 
 cells["#"]=cell{stone="st-rock1"}
 cells["X"]=cell{stone="st-grate1"}
@@ -85,18 +85,3 @@ set_default_parent(cells[" "])
 create_world_by_map(level)
 add_rubber_bands(actors, bolders, 5, 0)
 enigma.ConserveLevel = FALSE
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
