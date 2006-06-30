@@ -219,7 +219,6 @@ namespace
     DEF_ITEM(Floppy,    "it-floppy", it_floppy);
     DEF_ITEM(Odometer,  "it-odometer", it_odometer);
     DEF_ITEM(Wrench,    "it-wrench", it_wrench);
-    DEF_ITEM(Pencil,    "it-pencil", it_pencil);
     DEF_ITEM(BrokenGlasses, "it-glasses-broken", it_glasses_broken);
     DEF_ITEMF(Coffee,   "it-coffee", it_coffee, itf_inflammable);
 }
@@ -269,6 +268,15 @@ namespace
     class Squashed : public Item {
         CLONEOBJ(Squashed);
         DECL_TRAITS;
+        
+        void on_message (const Message &m) {
+            if (enigma_server::GameCompatibility == GAMET_ENIGMA) {
+                if (m.message == "brush")
+                    KillItem(this->get_pos());
+            }
+        }
+
+        
     public:
         Squashed() {
         }
@@ -3095,6 +3103,9 @@ namespace
                 if (m.message == "signal") {
                     PerformAction (this, to_double (m.value) != 1.0);
                 }
+            } else if (enigma_server::GameCompatibility == GAMET_ENIGMA) {
+                if (m.message == "brush")
+                    KillItem(this->get_pos());
             }
         }
 
@@ -3153,6 +3164,49 @@ namespace
         }
     };
     DEF_TRAITS(Bag, "it-bag", it_bag);
+}
+
+/* -------------------- pencil -------------------- */
+namespace
+{
+    class Pencil : public Item {
+        CLONEOBJ(Pencil);
+        DECL_TRAITS;
+
+        ItemAction activate(Actor * a, GridPos p) {
+            if (enigma_server::GameCompatibility == GAMET_ENIGMA) {
+                if (Item *it=GetItem(p)) {
+                    return ITEM_KEEP;
+                }
+                // If the actor is flying and tries to make a cross, drop the it-pencil
+                if (a->is_flying()) {
+                    return ITEM_DROP;
+                }
+
+                Floor *fl = GetFloor(p);
+                string model = fl->get_kind();
+
+                /* do not allow markings on this floortypes:
+                   fl-abyss, fl-water, fl-swamp
+                   fl-bridge[{-closed,-open}]?
+                   markings on fl-ice will result as it-crack1
+                */
+                if (model == "fl-abyss" || model == "fl-water" || model == "fl-swamp") {
+                    return ITEM_KEEP;
+                } else  if (model == "fl-ice" || model == "fl-ice_001") {
+                    SetItem (p, it_crack1);
+                } else {
+                    SetItem (p, it_cross);
+                }
+                return ITEM_KILL;
+            }
+        }
+
+    public:
+        Pencil() {}
+    };
+
+    DEF_TRAITS(Pencil, "it-pencil", it_pencil);
 }
 
 

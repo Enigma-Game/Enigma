@@ -137,10 +137,11 @@
 --
 -- Further comments:
 --
---  To heighten performance, only every 5th cycle is checked for
---  explosions or fire. You can change this via itemfreeze_fire_interval.
+--  To heighten performance, only every n-th cycle can be checked for
+--  explosions or fire. You can adjust this via itemfreeze_fire_interval,
+--  which is by default 0 (= every cycle). This way you can also add
+--  randomness to the itemfreeze-explosions.
 --
-
 
 --------------------------------------
 --  Global variables and constants  --
@@ -162,7 +163,7 @@ itemfreeze_parentstone = "st-glass_move"
 itemfreeze_parentfloor = "fl-ice"
 itemfreeze_meltingfloor = "fl-water"
 itemfreeze_defreezing_item = "it-pin"   -- e.g. "it-coffee", "it-spoon"
-itemfreeze_fire_interval = 5
+itemfreeze_fire_interval = 0
 
 -- global variables --
 
