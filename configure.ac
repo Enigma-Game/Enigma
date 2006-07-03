@@ -8,7 +8,7 @@ AC_CONFIG_SRCDIR([src/enigma.cc])
 AM_INIT_AUTOMAKE(AC_PACKAGE_TARNAME, AC_PACKAGE_VERSION, -)
 AC_CONFIG_HEADERS([src/config.h])
 
-ALL_LINGUAS="de fr nl it es sv"
+ALL_LINGUAS="de fr nl it es sv ru"
 AC_SUBST(ALL_LINGUAS)
 AM_GNU_GETTEXT
 

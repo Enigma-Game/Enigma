@@ -1,200 +1,199 @@
-# translation of enigma.po to Italiano
-# Copyright (C) 2005 Free Software Foundation, Inc.
+#, fuzzy
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) YEAR Free Software Foundation, Inc.
 # This file is distributed under the same license as the PACKAGE package.
-# Samuele Kaplun <kaplun@aliceposta.it>, 2005.
+# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
 #
 msgid ""
 msgstr ""
-"Project-Id-Version: enigma\n"
+"Project-Id-Version: Enigma 0.92\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2006-07-03 21:57+0200\n"
-"PO-Revision-Date: 2005-02-07 22:42+0100\n"
-"Last-Translator: Samuele Kaplun <kaplun@aliceposta.it>\n"
-"Language-Team: Italiano <kde-i18n-it@kde.org>\n"
+"PO-Revision-Date: 2006-07-02 18:00+0200\n"
+"Last-Translator: Dremuk Serge <dremuk@rambler.ru>\n"
+"Language-Team: Russian\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Generator: KBabel 1.10\n"
-"Plural-Forms:  nplurals=2; plural=(n != 1);\n"
 
 #: src/server.cc:142 src/gui/LevelInspector.cc:190
 msgid "Server Error: could not load level '"
-msgstr "Errore Server: impossibile caricare il livello "
+msgstr "Ошибка сервера: невозможно загрузить уровень '"
 
 #: src/client.cc:63
 #, c-format
 msgid "Mouse speed: %d"
-msgstr "Velocità mouse: %d"
+msgstr "Скорость мыши: %d"
 
 #: src/client.cc:76 src/client.cc:90
 msgid " by "
-msgstr " di "
+msgstr " от "
 
 #: src/client.cc:88
 msgid "Another nameless level"
-msgstr "Un altro livello senza nome"
+msgstr "Другой безымянный уровень"
 
 #: src/client.cc:467
 msgid "Left mouse button:"
-msgstr "Pulsante sinistro del mouse:"
+msgstr "Левая кнопка мыши:"
 
 #: src/client.cc:467
 msgid "Activate/drop leftmost inventory item"
-msgstr "Attiva/rilascia elemento d'inventario più a sinistra"
+msgstr "Активировать/Бросить самый левый предмет инвентаря"
 
 #: src/client.cc:468
 msgid "Right mouse button:"
-msgstr "Pulsante destro del mouse:"
+msgstr "Правая кнопка мыши:"
 
 #: src/client.cc:468
 msgid "Rotate inventory items"
-msgstr "Ruota elementi d'inventario"
+msgstr "Циклически передвинуть предметы инвентаря"
 
 #: src/client.cc:469 src/gui/ScreenshotViewer.cc:34
 msgid "Escape:"
-msgstr "Esci:"
+msgstr ""
 
 #: src/client.cc:469
 msgid "Show game menu"
-msgstr "Visualizza menu del gioco"
+msgstr "Показать меню игры"
 
 #: src/client.cc:470
 msgid "F1:"
-msgstr "F1:"
+msgstr ""
 
 #: src/client.cc:470 src/gui/ScreenshotViewer.cc:35
 msgid "Show this help"
-msgstr "Mostra questa guida"
+msgstr "Показать эту справку"
 
 #: src/client.cc:471
 msgid "F3:"
-msgstr "F3:"
+msgstr ""
 
 #: src/client.cc:471
 msgid "Kill current marble"
-msgstr "Uccidi il marmo corrente"
+msgstr "Разрушить текущий шар"
 
 #: src/client.cc:472
 msgid "Shift+F3:"
-msgstr "Shift+F3:"
+msgstr ""
 
 #: src/client.cc:472
 msgid "Restart the current level"
-msgstr "Riavvia il livello attuale"
+msgstr "Перезагрузить текущий уровень"
 
 #: src/client.cc:473
 msgid "F4:"
-msgstr "F4:"
+msgstr ""
 
 #: src/client.cc:473
 msgid "Skip to next level"
-msgstr "Salta al prossimo livello"
+msgstr "Перейти к следующему уровню"
 
 #: src/client.cc:474
 msgid "F5:"
-msgstr "F5:"
+msgstr ""
 
 #: src/client.cc:475
 msgid "F10:"
-msgstr "F10:"
+msgstr ""
 
 #: src/client.cc:475
 msgid "Make screenshot"
-msgstr "Crea uno screenshot"
+msgstr "Сделать снимок экрана"
 
 #: src/client.cc:476
 msgid "Left/right arrow:"
-msgstr "Freccia sinistra/destra:"
+msgstr "Левая/Правая стрелки управления курсором:"
 
 #: src/client.cc:476
 msgid "Change mouse speed"
-msgstr "Cambia velocità del mouse"
+msgstr "Изменить скорость мыши"
 
 #: src/client.cc:477
 msgid "Alt+x:"
-msgstr "Alt+x:"
+msgstr ""
 
 #: src/client.cc:477
 msgid "Return to level menu"
-msgstr "Ritorna al menu dei livelli"
+msgstr "Вернуться к меню выбора уровней"
 
 #: src/client.cc:478
 msgid "Alt+Return:"
-msgstr "Alt+Return:"
+msgstr "Alt+Enter"
 
 #: src/client.cc:478
 msgid "Switch between fullscreen and window"
-msgstr "Alterna finestra a modalità tutto schermo"
+msgstr "Переключение полноэкранного и оконного вида"
 
 #: src/client.cc:488
 msgid "Skip to next non-par level"
-msgstr "Salta al prossimo livello non-par"
+msgstr "Перейти к следующему, медленно решенному, уровню"
 
 #: src/client.cc:489
 msgid "Skip to next unsolved level"
-msgstr "Salta al prossimo livello non risolto"
+msgstr "Перейти к следующему нерешенному уровню"
 
 #: src/client.cc:625
 msgid "Too slow for "
-msgstr "Troppo lento per "
+msgstr "Слишком медленно для "
 
 #: src/client.cc:628
 msgid "You are slow today.. [Ctrl-A]"
-msgstr "Sei lento oggi.. [Ctrl-A]"
+msgstr "Вы сегодня медленно играете.. [Ctrl-A]"
 
 #: src/client.cc:697
 msgid "Exactly the par time by "
-msgstr "Esattamente il tempo par di "
+msgstr "Рекордное время решения - "
 
 #: src/client.cc:699
 msgid "Great! A new par time!"
-msgstr "Grande! Un nuovo tempo par!"
+msgstr "Отлично! Новое рекордное время!"
 
 #: src/client.cc:704
 msgid "Again your personal best time..."
-msgstr "Di nuovo il tuo tempo migliore..."
+msgstr "Снова Ваше персональное лучшее время..."
 
 #: src/client.cc:709
 msgid "New personal best time!"
-msgstr "Nuovo miglior tempo personale!"
+msgstr "Новое персональное время!"
 
 #: src/client.cc:720
 msgid "Your best, "
-msgstr "Il tuo miglior, "
+msgstr "Ваше лучшее время, "
 
 #: src/client.cc:727
 msgid "behind par time."
-msgstr "dietro al tempo par."
+msgstr "медленнее, чем заявленное время."
 
 #: src/client.cc:729
 msgid "behind best time."
-msgstr "dietro al miglior tempo."
+msgstr "медленнее лучшего времени."
 
 #: src/client.cc:736
 msgid "Level finished!"
-msgstr "Livello terminato!"
+msgstr "Уровень решен!"
 
 #: src/client.cc:738
 msgid " Cheater!"
-msgstr " Imbroglione!"
+msgstr " Обманщик!"
 
 #: src/client.cc:769
 #, c-format
 msgid "Enigma level #%d: %s"
-msgstr "Livello Enigma #%d: %s"
+msgstr "Уровень Enigma #%d: %s"
 
 #: src/client.cc:781
 msgid "Your best time: "
-msgstr "Il tuo tempo miglior: "
+msgstr "Ваше лучшее время: "
 
 #: src/client.cc:783
 msgid "Par to beat: "
-msgstr "Par da battere: "
+msgstr "Рекордное время: "
 
 #: src/main.cc:259
 #, c-format
 msgid "Error in configuration file.\n"
-msgstr "Errore nel file di configurazione.\n"
+msgstr "Ошибка в конфигурационном файле.\n"
 
 #: src/main.cc:399 src/main.cc:417
 #, c-format
@@ -209,11 +208,11 @@ msgstr ""
 #: src/main.cc:437 src/main.cc:486
 #, fuzzy, c-format
 msgid "Error in XML initialization.\n"
-msgstr "Errore nel file di configurazione.\n"
+msgstr "Ошибка в конфигурационном файле."
 
 #: src/gui/MainMenu.cc:72 src/gui/MainMenu.cc:122
 msgid "Start Game"
-msgstr "Inizia partita"
+msgstr "Начать игру"
 
 #: src/gui/MainMenu.cc:73
 msgid "Join Game"
@@ -222,86 +221,86 @@ msgstr ""
 #: src/gui/MainMenu.cc:74 src/gui/OptionsMenu.cc:345 src/gui/LevelMenu.cc:63
 #: src/gui/ScreenshotViewer.cc:34
 msgid "Back"
-msgstr "Indietro"
+msgstr "Назад"
 
 #: src/gui/MainMenu.cc:124
 #, fuzzy
 msgid "Network Game"
-msgstr "Inizia partita"
+msgstr "Начать игру"
 
 #: src/gui/MainMenu.cc:125
 msgid "Editor"
-msgstr "Editor"
+msgstr "Редактор"
 
 #: src/gui/MainMenu.cc:128
 msgid "Options"
-msgstr "Opzioni"
+msgstr "Настройки"
 
 #: src/gui/MainMenu.cc:129
 msgid "Credits"
-msgstr "Riconoscimenti"
+msgstr "Создатели"
 
 #: src/gui/MainMenu.cc:130
 msgid "Quit"
-msgstr "Esci"
+msgstr "Выход"
 
 #: src/gui/MainMenu.cc:237
 msgid "Project maintainer:"
-msgstr "Maintainer del progetto:"
+msgstr "Управляющий проектом:"
 
 #: src/gui/MainMenu.cc:240
 msgid "Main developers:"
-msgstr ""
+msgstr "Главные разработчики:"
 
 #: src/gui/MainMenu.cc:244
 msgid "Special Thanks To:"
-msgstr "Un Grazie Particolare va a:"
+msgstr "Особая благодарность:"
 
 #: src/gui/MainMenu.cc:245
 msgid "  JOHANNES FORTMANN (graphics), JEREMY SAWICKI (oxydlib),"
-msgstr "  JOHANNES FORTMANN (grafica), JEREMY SAWICKI (oxydlib),"
+msgstr "  JOHANNES FORTMANN (графика), JEREMY SAWICKI (oxydlib),"
 
 #: src/gui/MainMenu.cc:246
-#, fuzzy
 msgid ""
 "  MEINOLF SCHNEIDER (game idea, level design), ANDREW \"NECROS\" SEGA (menu "
 "music)"
 msgstr ""
-"  MEINOLF SCHNEIDER (idea del gioco), ANDREW \"NECROS\" SEGA (menu della "
-"musica)"
+"  MEINOLF SCHNEIDER (идея игры, дизайн уровней), ANDREW \"NECROS\" SEGA "
+"(меню музыки)"
 
 #: src/gui/MainMenu.cc:247
 msgid "  NAT PRYCE & JOHN 'WB' SNEYERS (levels)"
-msgstr "  NAT PRYCE & JOHN 'WB' SNEYERS (livelli)"
+msgstr "  NAT PRYCE & JOHN 'WB' SNEYERS (уровни)"
 
 #: src/gui/MainMenu.cc:249
 msgid "Please see the manual for more detailed credits."
-msgstr "Per favore, guarda il manuale per ulteriori ringraziamenti."
+msgstr ""
+"Пожалуйста, смотрите руководство для более детальной информации о "
+"разработчиках"
 
 #: src/gui/MainMenu.cc:251
 msgid "Home Page: http://www.nongnu.org/enigma"
-msgstr "Home Page: http://www.nongnu.org/enigma"
+msgstr "Домашняя страница: http://www.nongnu.org/enigma"
 
 #: src/gui/MainMenu.cc:252
 msgid "Contact: enigma-devel@nongnu.org"
-msgstr "Contatta: enigma-devel@nongnu.org"
+msgstr "Контакты: enigma-devel@nongnu.org"
 
 #: src/gui/MainMenu.cc:254
 msgid "Enigma is free software and may be distributed under the"
-msgstr "Enigma è un software libero e può essere distribuito sotto ai"
+msgstr "Enigma - свободное программное обеспечение, и может распространяться"
 
 #: src/gui/MainMenu.cc:255
 msgid "terms of the GNU General Public License, version 2.  See"
-msgstr "termini della GNU General Public License, versione 2.  Guarda"
+msgstr "на условиях GNU General Public License версии 2. Смотрите файл"
 
 #: src/gui/MainMenu.cc:256
 msgid "the accompanying COPYING.GPL for details."
-msgstr "il file COPYING.GPL incluso per i dettagli."
+msgstr "COPYING.GPL для более днтальной информации."
 
 #: src/gui/MainMenu.cc:258
-#, fuzzy
 msgid "Copyright (C) 2002-2005 Daniel Heck and contributors."
-msgstr "Copyright (C) 2002-2004 Daniel Heck ed i collaboratori."
+msgstr "Авторское право (C) 2002-2005 Daniel Heck и участники"
 
 #: src/gui/MainMenu.cc:274
 msgid "Preferences Path:"
@@ -329,25 +328,25 @@ msgstr ""
 
 #: src/gui/OptionsMenu.cc:68 src/gui/OptionsMenu.cc:89
 msgid "muted"
-msgstr "muto"
+msgstr "выкл."
 
 #: src/gui/OptionsMenu.cc:106
 msgid "Music in game"
-msgstr "Musica durante il gioco"
+msgstr "Музыка в игре"
 
 #: src/gui/OptionsMenu.cc:106
 msgid "No music in game"
-msgstr "Nessuna musica durante il gioco"
+msgstr "Без музыки в игре"
 
 #: src/gui/OptionsMenu.cc:111 src/gui/OptionsMenu.cc:115
 #: src/gui/OptionsMenu.cc:249
 msgid "Yes"
-msgstr "Sì"
+msgstr "Да"
 
 #: src/gui/OptionsMenu.cc:111 src/gui/OptionsMenu.cc:115
 #: src/gui/OptionsMenu.cc:249
 msgid "No"
-msgstr "No"
+msgstr "Нет"
 
 #: src/gui/OptionsMenu.cc:119
 msgid "Auto"
@@ -356,76 +355,76 @@ msgstr ""
 #: src/gui/OptionsMenu.cc:119
 #, fuzzy
 msgid "Never"
-msgstr "invertito"
+msgstr "реверсное"
 
 #: src/gui/OptionsMenu.cc:190
 msgid "Default"
-msgstr "Predefinito"
+msgstr "По умолчанию"
 
 #: src/gui/OptionsMenu.cc:237
 msgid "reversed"
-msgstr "invertito"
+msgstr "реверсное"
 
 #: src/gui/OptionsMenu.cc:238
 msgid "mono"
-msgstr "mono"
+msgstr "моно"
 
 #: src/gui/OptionsMenu.cc:239
 msgid "normal"
-msgstr "normale"
+msgstr "нормальное"
 
 #: src/gui/OptionsMenu.cc:299 src/gui/LevelInspector.cc:324
 msgid "unknown"
-msgstr "sconosciuto"
+msgstr "неизвестный"
 
 #: src/gui/OptionsMenu.cc:364
 msgid "Language: "
-msgstr "Lingua: "
+msgstr "Язык: "
 
 #: src/gui/OptionsMenu.cc:365
 msgid "Fullscreen: "
-msgstr "Schermo pieno: "
+msgstr "Полный экран: "
 
 #: src/gui/OptionsMenu.cc:366
 msgid "Video mode: "
-msgstr "Modalità video: "
+msgstr "Видеорежим: "
 
 #: src/gui/OptionsMenu.cc:367
 msgid "Gamma correction: "
-msgstr "Correzione gamma: "
+msgstr "Гамма коррекция: "
 
 #: src/gui/OptionsMenu.cc:368
 msgid "Mouse speed: "
-msgstr "Velocità mouse: "
+msgstr "Скорость мыши: "
 
 #: src/gui/OptionsMenu.cc:369
 msgid "Skip solved levels: "
-msgstr "Salta livelli risolti: "
+msgstr "Пропустить решенные уровни: "
 
 #: src/gui/OptionsMenu.cc:370
 msgid "Time hunt: "
-msgstr "Sfida a cronometro: "
+msgstr "Следить за временем игры: "
 
 #: src/gui/OptionsMenu.cc:381
 msgid "Sound volume: "
-msgstr "Volume del suono: "
+msgstr "Громкость звука: "
 
 #: src/gui/OptionsMenu.cc:382
 msgid "Sound set: "
-msgstr "Insieme di suoni: "
+msgstr "Набор звуков: "
 
 #: src/gui/OptionsMenu.cc:383
 msgid "Music volume: "
-msgstr "Volume della musica: "
+msgstr "Громкость музыки: "
 
 #: src/gui/OptionsMenu.cc:384
 msgid "Stereo: "
-msgstr "Stereo: "
+msgstr "Стерео: "
 
 #: src/gui/OptionsMenu.cc:385
 #, fuzzy
 msgid "Ratings update: "
-msgstr "Lingua: "
+msgstr "Язык: "
 
 #: src/gui/OptionsMenu.cc:399
 msgid "User path: "
@@ -437,58 +436,58 @@ msgstr ""
 
 #: src/gui/LevelMenu.cc:65
 msgid "Level Pack"
-msgstr "Pacchetto di livelli"
+msgstr "Набор уровней"
 
 #: src/gui/LevelMenu.cc:220
 msgid "You are not allowed to play this level yet."
-msgstr "Non puoi ancora giocare questo livello."
+msgstr "Вам еще не разрешено играть этот уровень."
 
 #: src/gui/LevelMenu.cc:269
 #, c-format
 msgid "%d%% par"
-msgstr "%d%% par"
+msgstr "%d%% рекорд"
 
 #: src/gui/LevelMenu.cc:273
 #, c-format
 msgid "%d%% solved"
-msgstr "%d%% risolto"
+msgstr "%d%% решено"
 
 #: src/gui/LevelMenu.cc:302
 #, c-format
 msgid "Your time: %d:%02d"
-msgstr "Il tuo tempo: %d:%02d"
+msgstr "Ваше время: %d:%02d"
 
 #: src/gui/LevelMenu.cc:308
 msgid "That's par."
-msgstr "Questo è par."
+msgstr "Это рекорд."
 
 #: src/gui/LevelMenu.cc:310
 #, c-format
 msgid "That's %d:%02d below par."
-msgstr "Questo è %d:%02d sotto al par."
+msgstr "Время %d:%02d хуже рекорда."
 
 #: src/gui/LevelMenu.cc:317
 #, c-format
 msgid "Par by %s: %d:%02d"
-msgstr "Par di %s: %d:%02d"
+msgstr "Рекорд - %s: %d:%02d"
 
 #: src/gui/LevelMenu.cc:320
 #, c-format
 msgid "Par: %d:%02d"
-msgstr "Par: %d:%02d"
+msgstr "Рекорд: %d:%02d"
 
 #: src/gui/LevelMenu.cc:341
 #, c-format
 msgid "%s: %d levels"
-msgstr "%s: %d livelli"
+msgstr "%s: %d уровней"
 
 #: src/gui/LevelMenu.cc:393
 msgid "Difficulty: Easy"
-msgstr "Difficoltà: Semplice"
+msgstr "Сложность: Легкая"
 
 #: src/gui/LevelMenu.cc:395
 msgid "Difficulty: Normal"
-msgstr "Difficoltà: Normale"
+msgstr "Сложность: Нормальная"
 
 #: src/gui/ScreenshotViewer.cc:36
 msgid "Page Up:"
@@ -497,7 +496,7 @@ msgstr ""
 #: src/gui/ScreenshotViewer.cc:36
 #, fuzzy
 msgid "Show previous screenshot"
-msgstr "Crea uno screenshot"
+msgstr "Сделать снимок экрана"
 
 #: src/gui/ScreenshotViewer.cc:37
 msgid "Page Down:"
@@ -506,12 +505,12 @@ msgstr ""
 #: src/gui/ScreenshotViewer.cc:37
 #, fuzzy
 msgid "Show next screenshot"
-msgstr "Crea uno screenshot"
+msgstr "Сделать снимок экрана"
 
 #: src/gui/ScreenshotViewer.cc:105
 #, fuzzy
 msgid "No screenshot available:"
-msgstr "Nessun altro livello irrisolto disponibile!"
+msgstr "Нерешенных уровней больше нет!"
 
 #: src/gui/LevelInspector.cc:173 src/gui/HelpMenu.cc:34
 msgid "Ok"
@@ -520,12 +519,12 @@ msgstr ""
 #: src/gui/LevelInspector.cc:174
 #, fuzzy
 msgid "Screenshot"
-msgstr "Crea uno screenshot"
+msgstr "Сделать снимок экрана"
 
 #: src/gui/LevelInspector.cc:216
 #, fuzzy
 msgid "Level: "
-msgstr "Pacchetto di livelli"
+msgstr "Набор уровней"
 
 #: src/gui/LevelInspector.cc:218 src/gui/LevelInspector.cc:275
 msgid "Author: "
@@ -562,12 +561,12 @@ msgstr ""
 #: src/gui/LevelInspector.cc:247
 #, fuzzy
 msgid "Speed: "
-msgstr "Stereo: "
+msgstr "Стерео: "
 
 #: src/gui/LevelInspector.cc:248
 #, fuzzy
 msgid "Difficulty: "
-msgstr "Difficoltà: Semplice"
+msgstr "Сложность: Легкая"
 
 #: src/gui/LevelInspector.cc:269
 msgid "Scores"
@@ -588,12 +587,12 @@ msgstr ""
 #: src/gui/LevelInspector.cc:276
 #, fuzzy
 msgid "Solved %: "
-msgstr "Salta livelli risolti: "
+msgstr "Пропустить решенные уровни: "
 
 #: src/gui/LevelInspector.cc:277
 #, fuzzy
 msgid "Solved #: "
-msgstr "Salta livelli risolti: "
+msgstr "Пропустить решенные уровни: "
 
 #: src/gui/LevelInspector.cc:298
 msgid "Version"
@@ -602,7 +601,7 @@ msgstr ""
 #: src/gui/LevelInspector.cc:300
 #, fuzzy
 msgid "Score: "
-msgstr "Stereo: "
+msgstr "Стерео: "
 
 #: src/gui/LevelInspector.cc:301
 msgid "Release: "
@@ -639,7 +638,7 @@ msgstr ""
 #: src/gui/LevelInspector.cc:356
 #, fuzzy
 msgid "Credits: "
-msgstr "Riconoscimenti"
+msgstr "Создатели"
 
 #: src/gui/LevelInspector.cc:367
 msgid "Dedication: "
@@ -648,7 +647,7 @@ msgstr ""
 #: src/gui/LevelInspector.cc:378
 #, fuzzy
 msgid "Level Path: "
-msgstr "Pacchetto di livelli"
+msgstr "Набор уровней"
 
 #: src/gui/LevelInspector.cc:398
 msgid "Annotation: "
@@ -670,12 +669,12 @@ msgstr ""
 #: src/lua.cc:734 src/lua.cc:741
 #, c-format
 msgid "Your installation may be incomplete or invalid.\n"
-msgstr "La tua installazione potrebbe essere incompleta o non valida.\n"
+msgstr "Установка не полная или выполнена с ошибкой.\n"
 
 #: src/lua.cc:740
 #, fuzzy, c-format
 msgid "There was an error loading '%s'.\n"
-msgstr "C'è stato un errore nel caricamento di 'startup.lua'.\n"
+msgstr "Ошибка при загрузке 'startup.lua'."
 
 #: src/lua.cc:742
 #, c-format
@@ -758,64 +757,64 @@ msgid "Catwalk Meditation"
 msgstr ""
 
 #~ msgid "Resume Level"
-#~ msgstr "Ripristina Livello"
+#~ msgstr "Продолжить уровень"
 
 #~ msgid "Restart Level"
-#~ msgstr "Ricomincia Livello"
+#~ msgstr "Перезагрузить уровень"
 
 #~ msgid "Abort Level"
-#~ msgstr "Annulla Livello"
+#~ msgstr "Прервать уровень"
 
 #~ msgid "Skip to main menu"
-#~ msgstr "Salta al menu principale"
+#~ msgstr "Перейти к основному меню"
 
 #~ msgid "Arrows:"
-#~ msgstr "Frecce:"
+#~ msgstr "Стрелки:"
 
 #~ msgid "Select level"
-#~ msgstr "Seleziona livello"
+#~ msgstr "Выбрать уровень"
 
 #~ msgid "Return:"
-#~ msgstr "Ritorna:"
+#~ msgstr "Enter:"
 
 #~ msgid "Play selected level"
-#~ msgstr "Gioca livello selezionato"
+#~ msgstr "Играть выбранный уровень"
 
 #~ msgid "Back/Space:"
-#~ msgstr "Back/Space:"
+#~ msgstr "Забой/Пробел:"
 
 #~ msgid "Previous/next levelpack"
-#~ msgstr "Precedente/prossimo pacchetto di livelli"
+#~ msgstr "Предыдущий/Следующий набор уровней"
 
 #~ msgid "Mark current level as Unsolved"
-#~ msgstr "Segna livello corrente come Irrisolto"
+#~ msgstr "Пометить текущий уровень как Нерешенный"
 
 #~ msgid "Select next non-par level"
-#~ msgstr "Seleziona prossimo livello non-par"
+#~ msgstr "Выбрать следующий, медленно решенный, уровень"
 
 #~ msgid "Select next unsolved level"
-#~ msgstr "Seleziona prossimo livello irrisolto"
+#~ msgstr "Выбрать следующий нерешенный уровень"
 
 #~ msgid "Tournament"
-#~ msgstr "Torneo"
+#~ msgstr "Турнир"
 
 #~ msgid "Training"
-#~ msgstr "Allenamento"
+#~ msgstr "Тренировка"
 
 #~ msgid "Please restart Enigma to activate your changes!"
-#~ msgstr "Per favore, riavvia Enigma per attivare le tue modifiche!"
+#~ msgstr "Пожалуйста перезагрузите Enigma для активации изменений!"
 
 #~ msgid "Enigma - Level Pack Menu"
-#~ msgstr "Enigma - Menu Pacchetto Livelli"
+#~ msgstr "Enigma - Меню набора уровней"
 
 #~ msgid "Enigma - Options Menu"
-#~ msgstr "Enigma - Menu delle Opzioni"
+#~ msgstr "Enigma - Меню настроек"
 
 #~ msgid "Enigma - Level Menu"
-#~ msgstr "Enigma - Menu dei Livelli"
+#~ msgstr "Enigma - Меню уровней"
 
 #~ msgid "Enigma - Main Menu"
-#~ msgstr "Enigma - Menu Principale"
+#~ msgstr "Enigma - Главное меню"
 
 #~ msgid "Main contributors:"
-#~ msgstr "Principali collaboratori:"
+#~ msgstr "Главные участники:"

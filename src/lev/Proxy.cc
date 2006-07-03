@@ -430,7 +430,7 @@ namespace enigma { namespace lev {
                 }
                 if  (!translFound && protectedString) {
                     // gettext
-                    std::string tmp = gettext(english.c_str());
+                    std::string tmp = _(english.c_str());
                     if (tmp != english) {
                         translation = tmp;
                         translFound = true;

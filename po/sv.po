@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: enigma 0.92.1\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2005-05-29 23:58+0200\n"
+"POT-Creation-Date: 2006-07-03 21:57+0200\n"
 "PO-Revision-Date: 2005-12-18 00:30+0100\n"
 "Last-Translator: Daniel Nylander <po@danielnylander.se>\n"
 "Language-Team: Swedish <tp-sv@listor.tp-sv.se>\n"
@@ -15,486 +15,787 @@ msgstr ""
 "Content-Type: text/plain; charset=utf-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 
-#: src/server.cc:126
+#: src/server.cc:142 src/gui/LevelInspector.cc:190
 msgid "Server Error: could not load level '"
 msgstr "Serverfel: kunde inte läsa in nivå '"
 
-#: src/client.cc:61
+#: src/client.cc:63
 #, c-format
 msgid "Mouse speed: %d"
 msgstr "Mushastighet: %d"
 
-#: src/client.cc:68
-msgid "Another nameless level"
-msgstr "Ytterligare en namnlös nivå"
-
-#: src/client.cc:70
+#: src/client.cc:76 src/client.cc:90
 msgid " by "
 msgstr " av "
 
-#: src/client.cc:90
-msgid "Resume Level"
-msgstr "Återuppta nivå"
+#: src/client.cc:88
+msgid "Another nameless level"
+msgstr "Ytterligare en namnlös nivå"
 
-#: src/client.cc:91
-msgid "Restart Level"
-msgstr "Starta om nivå"
-
-#: src/client.cc:92
-#: src/menus.cc:1566
-msgid "Options"
-msgstr "Alternativ"
-
-#: src/client.cc:93
-msgid "Abort Level"
-msgstr "Avbryt nivå"
-
-#: src/client.cc:500
+#: src/client.cc:467
 msgid "Left mouse button:"
 msgstr "Vänster musknapp:"
 
-#: src/client.cc:500
+#: src/client.cc:467
 msgid "Activate/drop leftmost inventory item"
 msgstr "Aktivera/släpp inventariesak längst till vänster"
 
-#: src/client.cc:501
+#: src/client.cc:468
 msgid "Right mouse button:"
 msgstr "Höger musknapp:"
 
-#: src/client.cc:501
+#: src/client.cc:468
 msgid "Rotate inventory items"
 msgstr "Rotera saker i inventariet"
 
-#: src/client.cc:502
-#: src/menus.cc:669
+#: src/client.cc:469 src/gui/ScreenshotViewer.cc:34
 msgid "Escape:"
 msgstr "Escape:"
 
-#: src/client.cc:502
+#: src/client.cc:469
 msgid "Show game menu"
 msgstr "Visa spelmeny"
 
-#: src/client.cc:503
+#: src/client.cc:470
 msgid "F1:"
 msgstr "F1:"
 
-#: src/client.cc:503
-#: src/menus.cc:670
+#: src/client.cc:470 src/gui/ScreenshotViewer.cc:35
 msgid "Show this help"
 msgstr "Visa denna hjälp"
 
-#: src/client.cc:504
+#: src/client.cc:471
 msgid "F3:"
 msgstr "F3:"
 
-#: src/client.cc:504
+#: src/client.cc:471
 msgid "Kill current marble"
 msgstr "Döda nuvarande marmor"
 
-#: src/client.cc:505
+#: src/client.cc:472
 msgid "Shift+F3:"
 msgstr "Shift+F3:"
 
-#: src/client.cc:505
+#: src/client.cc:472
 msgid "Restart the current level"
 msgstr "Starta om nuvarande nivå"
 
-#: src/client.cc:506
+#: src/client.cc:473
 msgid "F4:"
 msgstr "F4:"
 
-#: src/client.cc:506
+#: src/client.cc:473
 msgid "Skip to next level"
 msgstr "Hoppa till nästa nivå"
 
-#: src/client.cc:507
+#: src/client.cc:474
 msgid "F5:"
 msgstr "F5:"
 
-#: src/client.cc:508
+#: src/client.cc:475
 msgid "F10:"
 msgstr "F10:"
 
-#: src/client.cc:508
+#: src/client.cc:475
 msgid "Make screenshot"
 msgstr "Ta skärmbild"
 
-#: src/client.cc:509
+#: src/client.cc:476
 msgid "Left/right arrow:"
 msgstr "Vänster/höger piltangent:"
 
-#: src/client.cc:509
+#: src/client.cc:476
 msgid "Change mouse speed"
 msgstr "Ändra mushastighet"
 
-#: src/client.cc:510
+#: src/client.cc:477
 msgid "Alt+x:"
 msgstr "Alt+x:"
 
-#: src/client.cc:510
+#: src/client.cc:477
 msgid "Return to level menu"
 msgstr "Återgå till nivåmeny"
 
-#: src/client.cc:511
-#: src/menus.cc:677
+#: src/client.cc:478
 msgid "Alt+Return:"
 msgstr "Alt+Return:"
 
-#: src/client.cc:511
-#: src/menus.cc:677
+#: src/client.cc:478
 msgid "Switch between fullscreen and window"
 msgstr "Växla mellan fullskärm och fönster"
 
-#: src/client.cc:521
+#: src/client.cc:488
 msgid "Skip to next non-par level"
 msgstr "Hoppa till nästa icke-par nivå"
 
-#: src/client.cc:522
+#: src/client.cc:489
 msgid "Skip to next unsolved level"
 msgstr "Hoppa till nästa olösta nivå"
 
-#: src/client.cc:658
+#: src/client.cc:625
 msgid "Too slow for "
 msgstr "För långsam för "
 
-#: src/client.cc:661
+#: src/client.cc:628
 msgid "You are slow today.. [Ctrl-A]"
 msgstr "Du är långsam idag.. [Ctrl-A]"
 
-#: src/client.cc:730
+#: src/client.cc:697
 msgid "Exactly the par time by "
 msgstr "Exakt par-tiden med "
 
-#: src/client.cc:732
+#: src/client.cc:699
 msgid "Great! A new par time!"
 msgstr "Bra! En ny par-tid!"
 
-#: src/client.cc:737
+#: src/client.cc:704
 msgid "Again your personal best time..."
 msgstr "Din personliga bästa tid igen..."
 
-#: src/client.cc:741
+#: src/client.cc:709
 msgid "New personal best time!"
 msgstr "Nytt personlig bästa tid!"
 
-#: src/client.cc:752
+#: src/client.cc:720
 msgid "Your best, "
 msgstr "Ditt bästa, "
 
-#: src/client.cc:759
+#: src/client.cc:727
 msgid "behind par time."
 msgstr "efter par-tid."
 
-#: src/client.cc:761
+#: src/client.cc:729
 msgid "behind best time."
 msgstr "efter bästa tid."
 
-#: src/client.cc:768
+#: src/client.cc:736
 msgid "Level finished!"
 msgstr "Nivå avklarad!"
 
-#: src/client.cc:770
+#: src/client.cc:738
 msgid " Cheater!"
 msgstr " Fuskare!"
 
-#: src/client.cc:797
+#: src/client.cc:769
 #, c-format
 msgid "Enigma level #%d: %s"
 msgstr "Enigma nivå #%d: %s"
 
-#: src/client.cc:809
+#: src/client.cc:781
 msgid "Your best time: "
 msgstr "Din bästa tid: "
 
-#: src/client.cc:811
+#: src/client.cc:783
 msgid "Par to beat: "
 msgstr "Par att slå: "
 
-#: src/main.cc:215
-#, c-format
-msgid "There was an error loading 'startup.lua'.\n"
-msgstr "Det inträffade ett fel vid inläsning av \"startup.lua\".\n"
-
-#: src/main.cc:216
-#, c-format
-msgid "Your installation may be incomplete or invalid.\n"
-msgstr "Din installation kan vara okomplett eller ogiltig.\n"
-
-#: src/main.cc:222
+#: src/main.cc:259
 #, c-format
 msgid "Error in configuration file.\n"
 msgstr "Fel i konfigurationsfil.\n"
 
-#: src/menus.cc:426
-msgid "No further unsolved level available!"
-msgstr "Inga fler olästa nivåer tillgängliga!"
+#: src/main.cc:399 src/main.cc:417
+#, c-format
+msgid "Error Home directory does not exist.\n"
+msgstr ""
 
-#: src/menus.cc:669
-msgid "Skip to main menu"
-msgstr "Hoppa till huvudmeny"
+#: src/main.cc:409
+#, c-format
+msgid "Error Application Data directory does not exist.\n"
+msgstr ""
 
-#: src/menus.cc:672
-msgid "Arrows:"
-msgstr "Piltangenter:"
+#: src/main.cc:437 src/main.cc:486
+#, fuzzy, c-format
+msgid "Error in XML initialization.\n"
+msgstr "Fel i konfigurationsfil.\n"
 
-#: src/menus.cc:672
-msgid "Select level"
-msgstr "Välj nivå"
+#: src/gui/MainMenu.cc:72 src/gui/MainMenu.cc:122
+msgid "Start Game"
+msgstr "Starta spel"
 
-#: src/menus.cc:673
-msgid "Return:"
-msgstr "Return:"
+#: src/gui/MainMenu.cc:73
+msgid "Join Game"
+msgstr ""
 
-#: src/menus.cc:673
-msgid "Play selected level"
-msgstr "Spela vald nivå"
-
-#: src/menus.cc:674
-msgid "Back/Space:"
-msgstr "Backspace/Mellanslag:"
-
-#: src/menus.cc:674
-msgid "Previous/next levelpack"
-msgstr "Föregående/nästa nivåpaket"
-
-#: src/menus.cc:675
-msgid "Mark current level as Unsolved"
-msgstr "Markera nuvarande nivå som Olöst"
-
-#: src/menus.cc:714
-msgid "Select next non-par level"
-msgstr "Välj nästa icke-par nivå"
-
-#: src/menus.cc:716
-msgid "Select next unsolved level"
-msgstr "Välj nästa olösta nivå"
-
-#: src/menus.cc:786
-#: src/menus.cc:807
-msgid "muted"
-msgstr "tyst"
-
-#: src/menus.cc:824
-msgid "Music in game"
-msgstr "Musik i spelet"
-
-#: src/menus.cc:824
-msgid "No music in game"
-msgstr "Ingen musik i spelet"
-
-#: src/menus.cc:829
-#: src/menus.cc:833
-#: src/menus.cc:961
-msgid "Yes"
-msgstr "Ja"
-
-#: src/menus.cc:829
-#: src/menus.cc:833
-#: src/menus.cc:961
-msgid "No"
-msgstr "Nej"
-
-#: src/menus.cc:902
-msgid "Default"
-msgstr "Förvald"
-
-#: src/menus.cc:949
-msgid "reversed"
-msgstr "omvänd"
-
-#: src/menus.cc:950
-msgid "mono"
-msgstr "mono"
-
-#: src/menus.cc:951
-msgid "normal"
-msgstr "normal"
-
-#: src/menus.cc:973
-msgid "Difficulty: Easy"
-msgstr "Svårhetsgrad: Lätt"
-
-#: src/menus.cc:975
-msgid "Difficulty: Normal"
-msgstr "Svårhetsgrad: Normal"
-
-#: src/menus.cc:989
-msgid "Tournament"
-msgstr "Turnering"
-
-#: src/menus.cc:989
-msgid "Training"
-msgstr "Träning"
-
-#: src/menus.cc:1032
-msgid "unknown"
-msgstr "okänd"
-
-#: src/menus.cc:1097
-#: src/menus.cc:1229
+#: src/gui/MainMenu.cc:74 src/gui/OptionsMenu.cc:345 src/gui/LevelMenu.cc:63
+#: src/gui/ScreenshotViewer.cc:34
 msgid "Back"
 msgstr "Tillbaka"
 
-#: src/menus.cc:1113
+#: src/gui/MainMenu.cc:124
+#, fuzzy
+msgid "Network Game"
+msgstr "Starta spel"
+
+#: src/gui/MainMenu.cc:125
+msgid "Editor"
+msgstr "Redigerare"
+
+#: src/gui/MainMenu.cc:128
+msgid "Options"
+msgstr "Alternativ"
+
+#: src/gui/MainMenu.cc:129
+msgid "Credits"
+msgstr "Tack"
+
+#: src/gui/MainMenu.cc:130
+msgid "Quit"
+msgstr "Avsluta"
+
+#: src/gui/MainMenu.cc:237
+msgid "Project maintainer:"
+msgstr "Projekthanterare:"
+
+#: src/gui/MainMenu.cc:240
+msgid "Main developers:"
+msgstr "Huvudutvecklare:"
+
+#: src/gui/MainMenu.cc:244
+msgid "Special Thanks To:"
+msgstr "Speciella tack till:"
+
+#: src/gui/MainMenu.cc:245
+msgid "  JOHANNES FORTMANN (graphics), JEREMY SAWICKI (oxydlib),"
+msgstr "  JOHANNES FORTMANN (grafik), JEREMY SAWICKI (oxydlib),"
+
+#: src/gui/MainMenu.cc:246
+msgid ""
+"  MEINOLF SCHNEIDER (game idea, level design), ANDREW \"NECROS\" SEGA (menu "
+"music)"
+msgstr ""
+"  MEINOLF SCHNEIDER (spelidé, nivådesign), ANDREW \"NECROS\" SEGA (menymusik)"
+
+#: src/gui/MainMenu.cc:247
+msgid "  NAT PRYCE & JOHN 'WB' SNEYERS (levels)"
+msgstr "  NAT PRYCE & JOHN \"WB\" SNEYERS (nivåer)"
+
+#: src/gui/MainMenu.cc:249
+msgid "Please see the manual for more detailed credits."
+msgstr "Vänligen se manualen för fler detaljer."
+
+#: src/gui/MainMenu.cc:251
+msgid "Home Page: http://www.nongnu.org/enigma"
+msgstr "Webbplats: http://www.nongnu.org/enigma"
+
+#: src/gui/MainMenu.cc:252
+msgid "Contact: enigma-devel@nongnu.org"
+msgstr "Kontakt: enigma-devel@nongnu.org"
+
+#: src/gui/MainMenu.cc:254
+msgid "Enigma is free software and may be distributed under the"
+msgstr "Enigma är fri programvara och kan distribueras under"
+
+#: src/gui/MainMenu.cc:255
+msgid "terms of the GNU General Public License, version 2.  See"
+msgstr "villkoren för GNU General Public License, version 2.  Se"
+
+#: src/gui/MainMenu.cc:256
+msgid "the accompanying COPYING.GPL for details."
+msgstr "den medföljande COPYING.GPL för detaljer."
+
+#: src/gui/MainMenu.cc:258
+msgid "Copyright (C) 2002-2005 Daniel Heck and contributors."
+msgstr "Copyright (C) 2002-2005 Daniel Heck och bidragare."
+
+#: src/gui/MainMenu.cc:274
+msgid "Preferences Path:"
+msgstr ""
+
+#: src/gui/MainMenu.cc:284
+msgid "User Path:"
+msgstr ""
+
+#: src/gui/MainMenu.cc:294
+msgid "User Image Path:"
+msgstr ""
+
+#: src/gui/MainMenu.cc:304
+msgid "System Path:"
+msgstr ""
+
+#: src/gui/MainMenu.cc:314
+msgid "Resource Paths:"
+msgstr ""
+
+#: src/gui/MainMenu.cc:324
+msgid "L10n Path:"
+msgstr ""
+
+#: src/gui/OptionsMenu.cc:68 src/gui/OptionsMenu.cc:89
+msgid "muted"
+msgstr "tyst"
+
+#: src/gui/OptionsMenu.cc:106
+msgid "Music in game"
+msgstr "Musik i spelet"
+
+#: src/gui/OptionsMenu.cc:106
+msgid "No music in game"
+msgstr "Ingen musik i spelet"
+
+#: src/gui/OptionsMenu.cc:111 src/gui/OptionsMenu.cc:115
+#: src/gui/OptionsMenu.cc:249
+msgid "Yes"
+msgstr "Ja"
+
+#: src/gui/OptionsMenu.cc:111 src/gui/OptionsMenu.cc:115
+#: src/gui/OptionsMenu.cc:249
+msgid "No"
+msgstr "Nej"
+
+#: src/gui/OptionsMenu.cc:119
+msgid "Auto"
+msgstr ""
+
+#: src/gui/OptionsMenu.cc:119
+#, fuzzy
+msgid "Never"
+msgstr "omvänd"
+
+#: src/gui/OptionsMenu.cc:190
+msgid "Default"
+msgstr "Förvald"
+
+#: src/gui/OptionsMenu.cc:237
+msgid "reversed"
+msgstr "omvänd"
+
+#: src/gui/OptionsMenu.cc:238
+msgid "mono"
+msgstr "mono"
+
+#: src/gui/OptionsMenu.cc:239
+msgid "normal"
+msgstr "normal"
+
+#: src/gui/OptionsMenu.cc:299 src/gui/LevelInspector.cc:324
+msgid "unknown"
+msgstr "okänd"
+
+#: src/gui/OptionsMenu.cc:364
 msgid "Language: "
 msgstr "Språk: "
 
-#: src/menus.cc:1114
+#: src/gui/OptionsMenu.cc:365
 msgid "Fullscreen: "
 msgstr "Fullskärm: "
 
-#: src/menus.cc:1115
+#: src/gui/OptionsMenu.cc:366
 msgid "Video mode: "
 msgstr "Videoläge: "
 
-#: src/menus.cc:1116
+#: src/gui/OptionsMenu.cc:367
 msgid "Gamma correction: "
 msgstr "Gammajustering: "
 
-#: src/menus.cc:1117
+#: src/gui/OptionsMenu.cc:368
 msgid "Mouse speed: "
 msgstr "Mushastighet: "
 
-#: src/menus.cc:1118
+#: src/gui/OptionsMenu.cc:369
 msgid "Skip solved levels: "
 msgstr "Hoppa över lösta nivåer: "
 
-#: src/menus.cc:1119
+#: src/gui/OptionsMenu.cc:370
 msgid "Time hunt: "
 msgstr "Tidsjakt: "
 
-#: src/menus.cc:1129
+#: src/gui/OptionsMenu.cc:381
 msgid "Sound volume: "
 msgstr "Ljudvolym: "
 
-#: src/menus.cc:1130
+#: src/gui/OptionsMenu.cc:382
 msgid "Sound set: "
 msgstr "Ljudschema: "
 
-#: src/menus.cc:1131
+#: src/gui/OptionsMenu.cc:383
 msgid "Music volume: "
 msgstr "Musikvolym: "
 
-#: src/menus.cc:1132
+#: src/gui/OptionsMenu.cc:384
 msgid "Stereo: "
 msgstr "Stereo: "
 
-#: src/menus.cc:1163
-msgid "Please restart Enigma to activate your changes!"
-msgstr "Vänligen starta om Enigma för att aktivera dina ändringar!"
+#: src/gui/OptionsMenu.cc:385
+#, fuzzy
+msgid "Ratings update: "
+msgstr "Språk: "
 
-#: src/menus.cc:1231
+#: src/gui/OptionsMenu.cc:399
+msgid "User path: "
+msgstr ""
+
+#: src/gui/OptionsMenu.cc:400
+msgid "User image path: "
+msgstr ""
+
+#: src/gui/LevelMenu.cc:65
 msgid "Level Pack"
 msgstr "Nivåpaket"
 
-#: src/menus.cc:1381
+#: src/gui/LevelMenu.cc:220
 msgid "You are not allowed to play this level yet."
 msgstr "Du tillåts inte spela denna nivå ännu."
 
-#: src/menus.cc:1430
+#: src/gui/LevelMenu.cc:269
 #, c-format
 msgid "%d%% par"
 msgstr "%d%% par"
 
-#: src/menus.cc:1434
+#: src/gui/LevelMenu.cc:273
 #, c-format
 msgid "%d%% solved"
 msgstr "%d%% lösta"
 
-#: src/menus.cc:1463
+#: src/gui/LevelMenu.cc:302
 #, c-format
 msgid "Your time: %d:%02d"
 msgstr "Din tid: %d:%02d"
 
-#: src/menus.cc:1469
+#: src/gui/LevelMenu.cc:308
 msgid "That's par."
 msgstr "Det blev par."
 
-#: src/menus.cc:1471
+#: src/gui/LevelMenu.cc:310
 #, c-format
 msgid "That's %d:%02d below par."
 msgstr "Det är %d:%02d under par."
 
-#: src/menus.cc:1478
+#: src/gui/LevelMenu.cc:317
 #, c-format
 msgid "Par by %s: %d:%02d"
 msgstr "Par av %s: %d:%02d"
 
-#: src/menus.cc:1481
+#: src/gui/LevelMenu.cc:320
 #, c-format
 msgid "Par: %d:%02d"
 msgstr "Par: %d:%02d"
 
-#: src/menus.cc:1502
+#: src/gui/LevelMenu.cc:341
 #, c-format
 msgid "%s: %d levels"
 msgstr "%s: %d nivåer"
 
-#: src/menus.cc:1560
-msgid "Start Game"
-msgstr "Starta spel"
+#: src/gui/LevelMenu.cc:393
+msgid "Difficulty: Easy"
+msgstr "Svårhetsgrad: Lätt"
 
-#: src/menus.cc:1562
-msgid "Editor"
-msgstr "Redigerare"
+#: src/gui/LevelMenu.cc:395
+msgid "Difficulty: Normal"
+msgstr "Svårhetsgrad: Normal"
 
-#: src/menus.cc:1567
-msgid "Credits"
+#: src/gui/ScreenshotViewer.cc:36
+msgid "Page Up:"
+msgstr ""
+
+#: src/gui/ScreenshotViewer.cc:36
+#, fuzzy
+msgid "Show previous screenshot"
+msgstr "Ta skärmbild"
+
+#: src/gui/ScreenshotViewer.cc:37
+msgid "Page Down:"
+msgstr ""
+
+#: src/gui/ScreenshotViewer.cc:37
+#, fuzzy
+msgid "Show next screenshot"
+msgstr "Ta skärmbild"
+
+#: src/gui/ScreenshotViewer.cc:105
+#, fuzzy
+msgid "No screenshot available:"
+msgstr "Inga fler olästa nivåer tillgängliga!"
+
+#: src/gui/LevelInspector.cc:173 src/gui/HelpMenu.cc:34
+msgid "Ok"
+msgstr ""
+
+#: src/gui/LevelInspector.cc:174
+#, fuzzy
+msgid "Screenshot"
+msgstr "Ta skärmbild"
+
+#: src/gui/LevelInspector.cc:216
+#, fuzzy
+msgid "Level: "
+msgstr "Nivåpaket"
+
+#: src/gui/LevelInspector.cc:218 src/gui/LevelInspector.cc:275
+msgid "Author: "
+msgstr ""
+
+#: src/gui/LevelInspector.cc:219
+msgid "Contact: "
+msgstr ""
+
+#: src/gui/LevelInspector.cc:220
+msgid "Homepage: "
+msgstr ""
+
+#: src/gui/LevelInspector.cc:241
+msgid "Public Ratings"
+msgstr ""
+
+#: src/gui/LevelInspector.cc:243
+msgid "Intelligence: "
+msgstr ""
+
+#: src/gui/LevelInspector.cc:244
+msgid "Dexterity: "
+msgstr ""
+
+#: src/gui/LevelInspector.cc:245
+msgid "Patience: "
+msgstr ""
+
+#: src/gui/LevelInspector.cc:246
+msgid "Knowledge: "
+msgstr ""
+
+#: src/gui/LevelInspector.cc:247
+#, fuzzy
+msgid "Speed: "
+msgstr "Stereo: "
+
+#: src/gui/LevelInspector.cc:248
+#, fuzzy
+msgid "Difficulty: "
+msgstr "Svårhetsgrad: Lätt"
+
+#: src/gui/LevelInspector.cc:269
+msgid "Scores"
+msgstr ""
+
+#: src/gui/LevelInspector.cc:272
+msgid "You: "
+msgstr ""
+
+#: src/gui/LevelInspector.cc:273
+msgid "Best: "
+msgstr ""
+
+#: src/gui/LevelInspector.cc:274
+msgid "PAR: "
+msgstr ""
+
+#: src/gui/LevelInspector.cc:276
+#, fuzzy
+msgid "Solved %: "
+msgstr "Hoppa över lösta nivåer: "
+
+#: src/gui/LevelInspector.cc:277
+#, fuzzy
+msgid "Solved #: "
+msgstr "Hoppa över lösta nivåer: "
+
+#: src/gui/LevelInspector.cc:298
+msgid "Version"
+msgstr ""
+
+#: src/gui/LevelInspector.cc:300
+#, fuzzy
+msgid "Score: "
+msgstr "Stereo: "
+
+#: src/gui/LevelInspector.cc:301
+msgid "Release: "
+msgstr ""
+
+#: src/gui/LevelInspector.cc:302
+msgid "Revision: "
+msgstr ""
+
+#: src/gui/LevelInspector.cc:303
+msgid "Control: "
+msgstr ""
+
+#: src/gui/LevelInspector.cc:304
+msgid "Target: "
+msgstr ""
+
+#: src/gui/LevelInspector.cc:315
+msgid "force"
+msgstr ""
+
+#: src/gui/LevelInspector.cc:318
+msgid "balance"
+msgstr ""
+
+#: src/gui/LevelInspector.cc:321
+msgid "key"
+msgstr ""
+
+#: src/gui/LevelInspector.cc:340
+msgid "Best Score Holders: "
+msgstr ""
+
+#: src/gui/LevelInspector.cc:356
+#, fuzzy
+msgid "Credits: "
 msgstr "Tack"
 
-#: src/menus.cc:1568
-msgid "Quit"
-msgstr "Avsluta"
+#: src/gui/LevelInspector.cc:367
+msgid "Dedication: "
+msgstr ""
 
-#: src/menus.cc:1657
-msgid "Project maintainer:"
-msgstr "Projekthanterare:"
+#: src/gui/LevelInspector.cc:378
+#, fuzzy
+msgid "Level Path: "
+msgstr "Nivåpaket"
 
-#: src/menus.cc:1660
-msgid "Main developers:"
-msgstr "Huvudutvecklare:"
+#: src/gui/LevelInspector.cc:398
+msgid "Annotation: "
+msgstr ""
 
-#: src/menus.cc:1664
-msgid "Special Thanks To:"
-msgstr "Speciella tack till:"
+#: src/gui/LevelInspector.cc:402
+msgid "Rating: "
+msgstr ""
 
-#: src/menus.cc:1665
-msgid "  JOHANNES FORTMANN (graphics), JEREMY SAWICKI (oxydlib),"
-msgstr "  JOHANNES FORTMANN (grafik), JEREMY SAWICKI (oxydlib),"
+#: src/gui/LevelInspector.cc:404
+msgid "Average: "
+msgstr ""
 
-#: src/menus.cc:1666
-msgid "  MEINOLF SCHNEIDER (game idea, level design), ANDREW \"NECROS\" SEGA (menu music)"
-msgstr "  MEINOLF SCHNEIDER (spelidé, nivådesign), ANDREW \"NECROS\" SEGA (menymusik)"
+#: src/lua.cc:733
+#, c-format
+msgid "Cannot find '%s'.\n"
+msgstr ""
 
-#: src/menus.cc:1667
-msgid "  NAT PRYCE & JOHN 'WB' SNEYERS (levels)"
-msgstr "  NAT PRYCE & JOHN \"WB\" SNEYERS (nivåer)"
+#: src/lua.cc:734 src/lua.cc:741
+#, c-format
+msgid "Your installation may be incomplete or invalid.\n"
+msgstr "Din installation kan vara okomplett eller ogiltig.\n"
 
-#: src/menus.cc:1669
-msgid "Please see the manual for more detailed credits."
-msgstr "Vänligen se manualen för fler detaljer."
+#: src/lua.cc:740
+#, fuzzy, c-format
+msgid "There was an error loading '%s'.\n"
+msgstr "Det inträffade ett fel vid inläsning av \"startup.lua\".\n"
 
-#: src/menus.cc:1671
-msgid "Home Page: http://www.nongnu.org/enigma"
-msgstr "Webbplats: http://www.nongnu.org/enigma"
+#: src/lua.cc:742
+#, c-format
+msgid "Error: '%s'\n"
+msgstr ""
 
-#: src/menus.cc:1672
-msgid "Contact: enigma-devel@nongnu.org"
-msgstr "Kontakt: enigma-devel@nongnu.org"
+#  level: "The Grim Reaper"
+#  author: "Daniel Heck" email ""
+#: po/level_i18n.cc:5
+msgid "The Grim Reaper"
+msgstr ""
 
-#: src/menus.cc:1674
-msgid "Enigma is free software and may be distributed under the"
-msgstr "Enigma är fri programvara och kan distribueras under"
+#  level: "Welcome"
+#  author: "Daniel Heck" email ""
+#: po/level_i18n.cc:10
+msgid "Welcome"
+msgstr ""
 
-#: src/menus.cc:1675
-msgid "terms of the GNU General Public License, version 2.  See"
-msgstr "villkoren för GNU General Public License, version 2.  Se"
+#  level: "Firefox"
+#  author: "Ronald Lamprecht" email "ral@users.berlios.de"
+#  comment: "Set fire or die"
+#: po/level_i18n.cc:16 po/level_i18n.cc:29
+msgid "Fire or be fired"
+msgstr ""
 
-#: src/menus.cc:1676
-msgid "the accompanying COPYING.GPL for details."
-msgstr "den medföljande COPYING.GPL för detaljer."
+#  level: "Firefox"
+#  author: "Ronald Lamprecht" email "ral@users.berlios.de"
+#  comment: "Firefox in sense of clever in handling fire"
+#: po/level_i18n.cc:19 po/level_i18n.cc:32
+msgid ""
+"Do you think a bushman would start to search an extinguisher in the cellar "
+"in case of a wall of fire is approaching? Be a Firefox - you have the first "
+"5 items to deal with, no more no less!"
+msgstr ""
 
-#: src/menus.cc:1678
-msgid "Copyright (C) 2002-2005 Daniel Heck and contributors."
-msgstr "Copyright (C) 2002-2005 Daniel Heck och bidragare."
+#  level: "Firefox"
+#  author: "Ronald Lamprecht" email "ral@users.berlios.de"
+#: po/level_i18n.cc:21 po/level_i18n.cc:34
+msgid ""
+"You can extinguish fire with water. This is a good place to refill your "
+"extinguisher. Be aware, water is rare!"
+msgstr ""
 
+#  level: "Firefox"
+#  author: "Ronald Lamprecht" email "ral@users.berlios.de"
+#: po/level_i18n.cc:23 po/level_i18n.cc:36
+msgid ""
+"OOPS! The maze is broken! Prepare to repair the maze before you destroy it."
+msgstr ""
+
+#  level: "Toreador"
+#  author: "Ronald Lamprecht" email "ral@users.berlios.de"
+#: po/level_i18n.cc:41
+msgid "Toreador"
+msgstr ""
+
+#  level: "Basketball"
+#  author: "Ronald Lamprecht" email "ral@users.berlios.de"
+#: po/level_i18n.cc:46
+msgid "Pass the ball in time"
+msgstr ""
+
+#  level: "Meditation Disturbance"
+#  author: "Ronald Lamprecht" email "ral@users.berlios.de"
+#: po/level_i18n.cc:51
+msgid "Meditation Disturbance"
+msgstr ""
+
+#  level: "Meditation Disturbance"
+#  author: "Ronald Lamprecht" email "ral@users.berlios.de"
+#  comment: "free translatable joke about being hit by a horse"
+#: po/level_i18n.cc:54
+msgid "Hit by a bolting horse"
+msgstr ""
+
+#  level: "Catwalk Meditation"
+#  author: "Ronald Lamprecht" email "ral@users.berlios.de"
+#: po/level_i18n.cc:59
+msgid "Catwalk Meditation"
+msgstr ""
+
+#~ msgid "Resume Level"
+#~ msgstr "Återuppta nivå"
+
+#~ msgid "Restart Level"
+#~ msgstr "Starta om nivå"
+
+#~ msgid "Abort Level"
+#~ msgstr "Avbryt nivå"
+
+#~ msgid "Skip to main menu"
+#~ msgstr "Hoppa till huvudmeny"
+
+#~ msgid "Arrows:"
+#~ msgstr "Piltangenter:"
+
+#~ msgid "Select level"
+#~ msgstr "Välj nivå"
+
+#~ msgid "Return:"
+#~ msgstr "Return:"
+
+#~ msgid "Play selected level"
+#~ msgstr "Spela vald nivå"
+
+#~ msgid "Back/Space:"
+#~ msgstr "Backspace/Mellanslag:"
+
+#~ msgid "Previous/next levelpack"
+#~ msgstr "Föregående/nästa nivåpaket"
+
+#~ msgid "Mark current level as Unsolved"
+#~ msgstr "Markera nuvarande nivå som Olöst"
+
+#~ msgid "Select next non-par level"
+#~ msgstr "Välj nästa icke-par nivå"
+
+#~ msgid "Select next unsolved level"
+#~ msgstr "Välj nästa olösta nivå"
+
+#~ msgid "Tournament"
+#~ msgstr "Turnering"
+
+#~ msgid "Training"
+#~ msgstr "Träning"
+
+#~ msgid "Please restart Enigma to activate your changes!"
+#~ msgstr "Vänligen starta om Enigma för att aktivera dina ändringar!"

@@ -27,6 +27,8 @@
 #include "server.hh"
 #include "video.hh"
 
+#include <cassert>
+
 using namespace ecl;
 using namespace std;
 

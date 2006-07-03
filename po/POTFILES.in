@@ -1,9 +1,12 @@
 src/server.cc
 src/client.cc
 src/main.cc
-src/gui/menus.cc
+src/gui/MainMenu.cc
+src/gui/OptionsMenu.cc
+src/gui/LevelMenu.cc
+src/gui/LevelPackMenu.cc
 src/gui/ScreenshotViewer.cc
 src/gui/LevelInspector.cc
-src/help.cc
+src/gui/HelpMenu.cc
 src/lua.cc
 po/level_i18n.cc

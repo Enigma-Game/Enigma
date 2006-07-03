@@ -871,10 +871,16 @@ namespace
     public:
         Spring2() {}
     private:
-        ItemAction activate(Actor *a, GridPos)
+        ItemAction activate(Actor *a, GridPos p)
         {
-            SendMessage(a, "jump");
-            return ITEM_DROP;
+            Item *it = GetItem(p);
+            if (!it || has_flags(it, itf_static)) {
+                SendMessage(a, "jump");
+                return ITEM_DROP;  // drop if grid has no item
+            } else {
+                // don't jump if a regular item is on the grid
+                return ITEM_KEEP;
+            }
         }
     };
     DEF_TRAITS(Spring2, "it-spring2", it_spring2);
@@ -905,7 +911,7 @@ namespace
     public:
         Springboard() {}
     };
-    DEF_TRAITS(Springboard, "it-springboard", it_springboard);
+    DEF_TRAITSF(Springboard, "it-springboard", it_springboard, itf_static);
 }
 
 
@@ -1655,8 +1661,8 @@ namespace
     };
 
     ItemTraits WormHole::traits[2] = {
-        { "it-wormhole-off", it_wormhole_off, itf_none, 0.0 },
-        { "it-wormhole",     it_wormhole_on,  itf_none, 0.0 }
+        { "it-wormhole-off", it_wormhole_off, itf_static, 0.0 },
+        { "it-wormhole",     it_wormhole_on,  itf_static, 0.0 }
     };
 }
 
@@ -1780,8 +1786,8 @@ namespace
     };
 
     ItemTraits Vortex::traits[2] = {
-        {"it-vortex-closed", it_vortex_closed, itf_none, 0.0},
-        {"it-vortex-open", it_vortex_open,     itf_none, 0.0}
+        {"it-vortex-closed", it_vortex_closed, itf_static, 0.0},
+        {"it-vortex-open", it_vortex_open,     itf_static, 0.0}
     };
 
     const double Vortex::RANGE = 0.5/2;
@@ -2261,10 +2267,10 @@ namespace
         }
     };
     ItemTraits Crack::traits[4] = {
-        {"it-crack0", it_crack0, itf_indestructible, 0.0},
-        {"it-crack1", it_crack1, itf_indestructible, 0.0},
-        {"it-crack2", it_crack2, itf_indestructible, 0.0},
-        {"it-crack3", it_crack3, itf_indestructible, 0.0}
+        {"it-crack0", it_crack0, itf_static | itf_indestructible, 0.0},
+        {"it-crack1", it_crack1, itf_static | itf_indestructible, 0.0},
+        {"it-crack2", it_crack2, itf_static | itf_indestructible, 0.0},
+        {"it-crack3", it_crack3, itf_static | itf_indestructible, 0.0}
     };
 }
 
@@ -2288,7 +2294,7 @@ namespace
         Debris() {}
     };
     DEF_TRAITSF(Debris, "it-debris", it_debris, 
-                itf_animation | itf_indestructible);
+                itf_static | itf_animation | itf_indestructible);
 }
 
 
@@ -3038,7 +3044,7 @@ namespace
     public:
         InvisibleAbyss() {}
     };
-    DEF_TRAITSF(InvisibleAbyss, "it-abyss", it_abyss, itf_invisible);
+    DEF_TRAITSF(InvisibleAbyss, "it-abyss", it_abyss, itf_static | itf_invisible);
 }
 
 
@@ -3067,7 +3073,7 @@ namespace
         Landmine() 
         {}
     };
-    DEF_TRAITS(Landmine, "it-landmine", it_landmine);
+    DEF_TRAITSF(Landmine, "it-landmine", it_landmine, itf_static);
 }
 
 
@@ -3249,7 +3255,7 @@ namespace
 
         bool covers_floor() const { return true; }
     };
-    DEF_TRAITS(HStrip, "it-hstrip", it_hstrip);
+    DEF_TRAITSF(HStrip, "it-hstrip", it_hstrip, itf_static);
 
     class VStrip : public Item {
         CLONEOBJ(VStrip);
@@ -3269,7 +3275,7 @@ namespace
 
         bool covers_floor() const { return true; }
     };
-    DEF_TRAITS(VStrip, "it-vstrip", it_vstrip);
+    DEF_TRAITSF(VStrip, "it-vstrip", it_vstrip, itf_static);
 
     class SurpriseItem : public Item {
         CLONEOBJ(SurpriseItem);

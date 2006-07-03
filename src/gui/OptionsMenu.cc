@@ -30,6 +30,8 @@
 #include "XMLtoLocal.hh"
 #include "XMLtoUtf8.hh"
 
+#include <cassert>
+
 using namespace ecl;
 using namespace std;
 
@@ -266,6 +268,7 @@ namespace enigma { namespace gui {
         { "Italiano",               "it_IT" },
         { "Nederlands",             "nl_NL" },
         { "Svenska",             "sv_SE" },
+        { "Русский",             "ru_RU" },
     };
     
     int LanguageButton::get_value() const

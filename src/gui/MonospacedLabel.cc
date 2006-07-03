@@ -48,7 +48,7 @@ namespace enigma { namespace gui {
         case VALIGN_CENTER: y += (get_h()-h)/2; break;
         }
         // translate if not an empty string
-        char * translation = _(m_text.c_str());
+        const char * translation = _(m_text.c_str());
         int len = strlen(translation);
         int monoWidth = m_font->get_width(sampleChar);
         char c[] = " ";
@@ -70,7 +70,7 @@ namespace enigma { namespace gui {
     void MonospacedLabel::naturalsize (int &w, int &h) const {
         h = m_font->get_height();
         w = 0; 
-        char * translation = _(m_text.c_str());
+        const char * translation = _(m_text.c_str());
         int len = strlen(translation);
         int monoWidth = m_font->get_width(sampleChar);
         for (int i = 0; i<len; i++) {
