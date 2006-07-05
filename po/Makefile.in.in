@@ -142,10 +142,14 @@ $(POFILES): $(srcdir)/$(DOMAIN).pot
 	  test "$(srcdir)" = . && cdcmd="" || cdcmd="cd $(srcdir) && "; \
 	  echo "$${cdcmd}$(MSGMERGE_UPDATE) $${lang}.po $(DOMAIN).pot"; \
 	  cd $(srcdir) && $(MSGMERGE_UPDATE) $${lang}.po $(DOMAIN).pot; \
-	  lua ../tools/merge_level_i18n.lua $${lang}; \
+	  if test -f "$(srcdir)/level_i18n.cc"; then \
+	    lua ../tools/merge_level_i18n.lua $${lang}; \
+	  fi \
 	else \
 	  $(MAKE) $${lang}.po-create; \
-	  lua ../tools/merge_level_i18n.lua $${lang}; \
+	  if test -f "$(srcdir)/level_i18n.cc"; then \
+	    lua ../tools/merge_level_i18n.lua $${lang}; \
+	  fi \
 	fi
 
 
