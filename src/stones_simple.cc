@@ -1104,12 +1104,15 @@ namespace
         void actor_hit(const StoneContact &sc) {
             double strength = 10.0;
             double length = 1.0;
-            double_attrib ("length", &length);
+            double minlength = 0.0;
             double_attrib ("strength", &strength);
+            double_attrib ("length", &length);
+            double_attrib ("minlength", &minlength);
 
             world::RubberBandData rbd;
             rbd.strength = strength;
             rbd.length = length;
+            rbd.minlength = minlength;
 
             if (!world::HasRubberBand (sc.actor, this)) {
                 sound_event ("rubberband");
@@ -2006,6 +2009,103 @@ namespace
 }
 
 
+/* -------------------- Light Passenger Stone -------------------- */
+namespace
+{
+    class LightPassengerStone : public PhotoStone, public TimeHandler {
+        CLONEOBJ(LightPassengerStone);
+    public:
+        LightPassengerStone(const char *kind) :  PhotoStone(kind) 
+{ skateDir = NODIR; isActive = true; isLighted = false; skipTurn = true; }
+
+    private:
+        Direction skateDir;
+        bool isActive;
+        bool isLighted;
+        bool skipTurn;
+
+        void on_creation(GridPos p) 
+        {
+            PhotoStone::on_creation(p);
+            photo_activate();
+        }
+        void on_removal(GridPos p) 
+        {
+            photo_deactivate();
+            PhotoStone::on_removal(p);
+        }
+        void notify_laseroff(){
+            if (isLighted) GameTimer.remove_alarm(this);
+            isLighted = false;
+        }
+        void notify_laseron(){
+            if (!isLighted) GameTimer.set_alarm(this, 0.05, true);
+            isLighted = true;            
+        }        
+
+        void set_on(bool newon){
+            isActive = newon;
+            if (!isActive)  skateDir = NODIR;
+        }
+
+        void message (const string &msg, const Value &v) {
+            if      (msg == "onoff")   set_on(!isActive);
+            else if (msg == "signal")  set_on(to_int(v) != 0);
+            else if (msg == "on")      set_on(true);
+            else if (msg == "off")     set_on(false);
+            else if (msg == "trigger") set_on(!isActive);
+        }
+
+        void alarm() {
+            if(isLighted && isActive) {
+                GridPos p = get_pos();
+                int toSouth =    (lasers::LightFrom(p,NORTH)?1:0)
+                               + (lasers::LightFrom(p,SOUTH)?-1:0);
+                int toWest =   (lasers::LightFrom(p,EAST)?1:0)
+                             + (lasers::LightFrom(p,WEST)?-1:0);
+                if(toSouth * toWest != 0) {
+                    // Light is coming from two directions. Choose the one you are
+                    // *not* coming from (thus changing beams), in doubt: no direction.
+                    if(skateDir == NORTH || skateDir == SOUTH || skateDir == NODIR)
+                        toSouth = 0;
+                    if(skateDir == EAST || skateDir == WEST || skateDir == NODIR)
+                        toWest = 0;
+                }                
+                skateDir = (toSouth == 1) ? SOUTH : (toSouth == -1) ? NORTH :
+                    (toWest == 1) ? WEST : (toWest == -1) ? EAST : NODIR;
+                if(skateDir != NODIR) {                    
+                    if(GetStone(move(p, skateDir))) {
+                        // Skipping each second turn makes the passenger stone seem
+                        // slower when pushing another stone. This looks more
+                        // natural.
+                        if(!skipTurn)
+                            send_impulse(move(p, skateDir), skateDir);                        
+                        skipTurn = !skipTurn;
+                    }
+                    move_stone(skateDir);                    
+                }
+            }
+        }
+        
+        void on_impulse(const Impulse &impulse) {
+            Actor *hitman = dynamic_cast<Actor*>(impulse.sender);
+            if(!hitman && !(isLighted && isActive))
+                move_stone(impulse.dir);
+        }
+        bool is_movable () const { return false; }
+    };
+    class LightPassStone : public Stone {
+    public:
+        LightPassStone() : Stone("st-lightpassenger") {}
+    private:
+        Stone *clone() {
+            return new LightPassengerStone ("st-lightpassenger");
+        }
+        void dispose() {delete this;}
+    };
+}
+
+
 /* -------------------- Functions -------------------- */
 
 void world::DefineSimpleStone(const std::string &kind, 
@@ -2081,4 +2181,6 @@ void stones::Init_simple()
     Register(new YinYangStone1);
     Register(new YinYangStone2);
     Register(new YinYangStone3);
+
+    Register(new LightPassStone);
 }

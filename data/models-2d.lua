@@ -1458,6 +1458,14 @@ do
     def_alias ("st-spitter-spitting", "st-fakeoxyd-blink")
 end
 
+---------------------------
+-- Light Passenger Stone --
+---------------------------
+do
+    def_image("st-lightpassenger")
+    def_shmodel("st-lightpassenger", "st-lightpassenger", "sh-solid")
+end
+
 -------------
 -- Effects --
 -------------
