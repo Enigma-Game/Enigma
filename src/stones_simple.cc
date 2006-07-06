@@ -2014,9 +2014,16 @@ namespace
 {
     class LightPassengerStone : public PhotoStone, public TimeHandler {
         CLONEOBJ(LightPassengerStone);
+        DECL_TRAITS;
     public:
-        LightPassengerStone(const char *kind) :  PhotoStone(kind) 
-{ skateDir = NODIR; isActive = true; isLighted = false; skipTurn = true; }
+        LightPassengerStone() : PhotoStone(traits.name),
+                skateDir (NODIR), isActive (true), isLighted (false),
+                skipTurn (true) {
+        }
+
+    virtual ~LightPassengerStone() {
+        GameTimer.remove_alarm (this);
+    }
 
     private:
         Direction skateDir;
@@ -2094,15 +2101,8 @@ namespace
         }
         bool is_movable () const { return false; }
     };
-    class LightPassStone : public Stone {
-    public:
-        LightPassStone() : Stone("st-lightpassenger") {}
-    private:
-        Stone *clone() {
-            return new LightPassengerStone ("st-lightpassenger");
-        }
-        void dispose() {delete this;}
-    };
+    
+    DEF_TRAITS(LightPassengerStone,"st-lightpassenger", st_lightpassenger);
 }
 
 
@@ -2182,5 +2182,5 @@ void stones::Init_simple()
     Register(new YinYangStone2);
     Register(new YinYangStone3);
 
-    Register(new LightPassStone);
+    Register(new LightPassengerStone);
 }

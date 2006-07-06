@@ -49,6 +49,7 @@ namespace world
         st_white3,
         st_white4,
         st_window,
+        st_lightpassenger,
 
         st_LAST,
         st_COUNT = st_LAST
