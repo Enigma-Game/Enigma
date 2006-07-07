@@ -136,7 +136,7 @@ namespace world
         const ecl::V2 &get_respawnpos() const;
         const ecl::V2 &get_startpos() const;
 
-        void hide();
+        virtual void hide();
         void show();
 
         void add_force (const ecl::V2 &f);

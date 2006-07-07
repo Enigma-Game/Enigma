@@ -588,6 +588,7 @@ namespace
         void set_sink_model(const string &m);
         void set_shine_model (bool shinep);
         void update_halo();
+        virtual void hide();
 
         /* ---------- Actor interface ---------- */
         
@@ -1043,6 +1044,11 @@ void BasicBall::update_halo() {
     else if (m_halostate != NOHALO) {
         m_halosprite.move (get_pos());
     }
+}
+
+void BasicBall::hide() {
+    Actor::hide();
+    disable_shield();
 }
 
 //----------------------------------------
