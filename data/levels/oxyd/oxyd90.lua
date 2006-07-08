@@ -1,5 +1,5 @@
--- NAME, a level for Enigma
--- Copyright (C) YEAR AUTHOR
+-- Oxyd 90, a OxydClone for Enigma
+-- Copyright (C) 2005/2006 Raoul Bourquin
 -- Licensed under GPL v2.0 or above 
 
 -- GENERAL --
@@ -7,6 +7,8 @@ levelw = 20
 levelh = 13
 
 create_world(levelw, levelh)
+
+enigma.SlopeForce=18
 
 fill_floor("fl-abyss")
 

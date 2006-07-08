@@ -50,6 +50,7 @@ namespace world
         st_white4,
         st_window,
         st_lightpassenger,
+        st_camouflage,
 
         st_LAST,
         st_COUNT = st_LAST

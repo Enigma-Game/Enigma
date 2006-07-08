@@ -2105,6 +2105,16 @@ namespace
     DEF_TRAITS(LightPassengerStone,"st-lightpassenger", st_lightpassenger);
 }
 
+/* -------------------- st-camouflage -------------------- */
+namespace
+{
+    class CamouflageStone : public Stone {
+        CLONEOBJ(CamouflageStone);
+        public:
+            CamouflageStone() : Stone("st-camouflage") {}
+    };
+}
+
 
 /* -------------------- Functions -------------------- */
 
@@ -2183,4 +2193,6 @@ void stones::Init_simple()
     Register(new YinYangStone3);
 
     Register(new LightPassengerStone);
+    
+    Register(new CamouflageStone);
 }

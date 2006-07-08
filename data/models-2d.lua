@@ -331,6 +331,14 @@ do
     def_alias("fl-leavese4", "fl-leavesx20")
 end
 
+-- To get different wood tiles with horizontal or vertical slats.
+-- Each floortype has got 2 random images.
+do
+    def_subimages("fl-wood", {w=1, h=4, modelname="fl-woodx"})
+    display.DefineRandModel("fl-wood", 4, {"fl-woodx1", "fl-woodx2", "fl-woodx3", "fl-woodx4"})
+    display.DefineRandModel("fl-wood1", 2, {"fl-woodx3", "fl-woodx4"})
+    display.DefineRandModel("fl-wood2", 2, {"fl-woodx1", "fl-woodx2"})
+end
 
 def_randfloor("fl-rock", {"fl-rock1", "fl-rock2"})
 def_floors{"fl-abyss"}
@@ -368,7 +376,6 @@ def_randfloor_si("fl-water", 4)
 def_randfloor_si("fl-swamp", 4)
 def_randfloor_si("fl-woven", 5)
 def_randfloor_si("fl-marble", 4)
-def_randfloor_si("fl-wood", 4)
 --def_subimages("fl-stwood", {h=2})
 def_randfloor_si("fl-stwood", 2)
 def_randfloor_si("fl-bluegray", 4)
@@ -379,6 +386,7 @@ def_randfloor_si("fl-sahara", 4)
 def_randfloor_si("fl-tigris", 4)
 def_randfloor_si("fl-samba", 2)
 def_randfloor_si("fl-himalaya", 4)
+def_floors{"fl-woven_orange"}
 
 --
 -- Bridges
@@ -429,7 +437,7 @@ do
         "it-puller-n", "it-puller-e", "it-puller-s", "it-puller-w",
         "it-odometer",
         "it-flagblack", "it-flagwhite",
-        "it-ring", "it-pin", "it-bag"
+        "it-ring", "it-pin", "it-bag","it-drop"
     }
 --    def_tiles("items", itemtiles)
     DefineTiles ("items", itemtiles)
@@ -1464,6 +1472,14 @@ end
 do
     def_image("st-lightpassenger")
     def_shmodel("st-lightpassenger", "st-lightpassenger", "sh-solid")
+end
+
+----------------------
+-- Camouflage Stone --
+----------------------
+do
+    def_image("st-camouflage")
+    def_shmodel("st-camouflage", "st-camouflage", "sh-solid")
 end
 
 -------------

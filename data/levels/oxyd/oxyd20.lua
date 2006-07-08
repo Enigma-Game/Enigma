@@ -1,5 +1,5 @@
--- NAME, a level for Enigma
--- Copyright (C) YEAR AUTHOR
+-- Oxyd 20, a OxydClone for Enigma
+-- Copyright (C) 2005/2006 Raoul Bourquin
 -- Licensed under GPL v2.0 or above 
 
 -- GENERAL --
@@ -9,6 +9,9 @@ levelh = 13
 Require("levels/lib/libterrain.lua")
 
 create_world(levelw, levelh)
+
+enigma.SlopeForce=18
+enigma.HoleForce=1.8
 
 fill_floor("fl-abyss_fake",0,0,levelw,levelh)
 
