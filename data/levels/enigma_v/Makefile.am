@@ -1,3 +1,3 @@
 pkgdatadir = $(datadir)/@PACKAGE@/levels/enigma_v
-pkgdata_DATA = $(wildcard $(srcdir)/*.png $(srcdir)/*.txt $(srcdir)/*.lua $(srcdir)/*.xml) index_enigma_v.txt
+pkgdata_DATA = $(wildcard $(srcdir)/*.png $(srcdir)/*.txt $(srcdir)/*.lua $(srcdir)/*.xml)
 EXTRA_DIST = 00makepreviews.sh $(pkgdata_DATA)

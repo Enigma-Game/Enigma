@@ -290,7 +290,7 @@ AC_CONFIG_FILES([Makefile m4/Makefile  intl/Makefile
            data/gfx48/Makefile
            data/levels/Makefile
            data/levels/Sokoban/Makefile
-           data/levels/m_tutor/Makefile
+           data/levels/tutorial/Makefile
            data/levels/patches/Makefile
            data/levels/lib/Makefile
            data/levels/esprit/Makefile
@@ -306,6 +306,7 @@ AC_CONFIG_FILES([Makefile m4/Makefile  intl/Makefile
            data/levels/enigma_iv/Makefile
            data/levels/enigma_v/Makefile
            data/levels/enigma_vi/Makefile
+           data/levels/png_temp/Makefile
            data/fonts/Makefile
            data/sound/Makefile
            data/schemas/Makefile
