@@ -66,6 +66,7 @@ module enigma
     extern double WormholeForce;
     extern double WormholeRange;
     extern double HoleForce;
+    extern bool   CreatingPreview;
 
     void AddLevelPack (const char *init_file, const char *name);
     void AddZippedLevelPack (const char *zipfile);

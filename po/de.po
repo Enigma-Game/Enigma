@@ -6,7 +6,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Enigma 0.90\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2006-07-03 21:57+0200\n"
+"POT-Creation-Date: 2006-07-14 12:26+0200\n"
 "PO-Revision-Date: 2004-12-02 13:59+0100\n"
 "Last-Translator: Daniel Heck <dheck@gmx.de>\n"
 "Language-Team: Enigma developers <enigma-devel@nongnu.org>\n"
@@ -47,7 +47,7 @@ msgstr "Rechte Maustaste"
 msgid "Rotate inventory items"
 msgstr "Inventar umordnen"
 
-#: src/client.cc:469 src/gui/ScreenshotViewer.cc:34
+#: src/client.cc:469 src/gui/LevelWidget.cc:614 src/gui/ScreenshotViewer.cc:34
 msgid "Escape:"
 msgstr "Escape:"
 
@@ -59,7 +59,7 @@ msgstr "Menü anzeigen"
 msgid "F1:"
 msgstr "F1:"
 
-#: src/client.cc:470 src/gui/ScreenshotViewer.cc:35
+#: src/client.cc:470 src/gui/LevelWidget.cc:615 src/gui/ScreenshotViewer.cc:35
 msgid "Show this help"
 msgstr "Diese Hilfe anzeigen"
 
@@ -115,11 +115,11 @@ msgstr "Alt+x:"
 msgid "Return to level menu"
 msgstr "Zurück zum Levelmenü"
 
-#: src/client.cc:478
+#: src/client.cc:478 src/gui/LevelWidget.cc:622
 msgid "Alt+Return:"
 msgstr "Alt+Eingabe"
 
-#: src/client.cc:478
+#: src/client.cc:478 src/gui/LevelWidget.cc:622
 msgid "Switch between fullscreen and window"
 msgstr "Zwischen Vollbild- und Fenstermodus umschalten"
 
@@ -216,7 +216,7 @@ msgstr "Spiel starten"
 msgid "Join Game"
 msgstr ""
 
-#: src/gui/MainMenu.cc:74 src/gui/OptionsMenu.cc:345 src/gui/LevelMenu.cc:63
+#: src/gui/MainMenu.cc:74 src/gui/OptionsMenu.cc:348 src/gui/LevelMenu.cc:63
 #: src/gui/ScreenshotViewer.cc:34
 msgid "Back"
 msgstr "Zurück"
@@ -230,7 +230,7 @@ msgstr "Spiel starten"
 msgid "Editor"
 msgstr "Editor"
 
-#: src/gui/MainMenu.cc:128
+#: src/gui/MainMenu.cc:128 src/gui/GameMenu.cc:45
 msgid "Options"
 msgstr "Einstellungen"
 
@@ -323,111 +323,111 @@ msgstr ""
 msgid "L10n Path:"
 msgstr ""
 
-#: src/gui/OptionsMenu.cc:68 src/gui/OptionsMenu.cc:89
+#: src/gui/OptionsMenu.cc:70 src/gui/OptionsMenu.cc:91
 msgid "muted"
 msgstr "aus"
 
-#: src/gui/OptionsMenu.cc:106
+#: src/gui/OptionsMenu.cc:108
 msgid "Music in game"
 msgstr "Musik im Spiel"
 
-#: src/gui/OptionsMenu.cc:106
+#: src/gui/OptionsMenu.cc:108
 msgid "No music in game"
 msgstr "Keine Musik im Spiel"
 
-#: src/gui/OptionsMenu.cc:111 src/gui/OptionsMenu.cc:115
-#: src/gui/OptionsMenu.cc:249
+#: src/gui/OptionsMenu.cc:113 src/gui/OptionsMenu.cc:117
+#: src/gui/OptionsMenu.cc:251
 msgid "Yes"
 msgstr "Ja"
 
-#: src/gui/OptionsMenu.cc:111 src/gui/OptionsMenu.cc:115
-#: src/gui/OptionsMenu.cc:249
+#: src/gui/OptionsMenu.cc:113 src/gui/OptionsMenu.cc:117
+#: src/gui/OptionsMenu.cc:251
 msgid "No"
 msgstr "Nein"
 
-#: src/gui/OptionsMenu.cc:119
+#: src/gui/OptionsMenu.cc:121
 msgid "Auto"
 msgstr ""
 
-#: src/gui/OptionsMenu.cc:119
+#: src/gui/OptionsMenu.cc:121
 #, fuzzy
 msgid "Never"
 msgstr "vertauscht"
 
-#: src/gui/OptionsMenu.cc:190
+#: src/gui/OptionsMenu.cc:192
 msgid "Default"
 msgstr "autom."
 
-#: src/gui/OptionsMenu.cc:237
+#: src/gui/OptionsMenu.cc:239
 msgid "reversed"
 msgstr "vertauscht"
 
-#: src/gui/OptionsMenu.cc:238
+#: src/gui/OptionsMenu.cc:240
 msgid "mono"
 msgstr "mono"
 
-#: src/gui/OptionsMenu.cc:239
+#: src/gui/OptionsMenu.cc:241
 msgid "normal"
 msgstr "normal"
 
-#: src/gui/OptionsMenu.cc:299 src/gui/LevelInspector.cc:324
+#: src/gui/OptionsMenu.cc:302 src/gui/LevelInspector.cc:324
 msgid "unknown"
 msgstr "unbekannt"
 
-#: src/gui/OptionsMenu.cc:364
+#: src/gui/OptionsMenu.cc:367
 msgid "Language: "
 msgstr "Sprache: "
 
-#: src/gui/OptionsMenu.cc:365
+#: src/gui/OptionsMenu.cc:368
 msgid "Fullscreen: "
 msgstr "Vollbild: "
 
-#: src/gui/OptionsMenu.cc:366
+#: src/gui/OptionsMenu.cc:369
 msgid "Video mode: "
 msgstr "Grafikmodus: "
 
-#: src/gui/OptionsMenu.cc:367
+#: src/gui/OptionsMenu.cc:370
 msgid "Gamma correction: "
 msgstr "Gamma-Korrektur: "
 
-#: src/gui/OptionsMenu.cc:368
+#: src/gui/OptionsMenu.cc:371
 msgid "Mouse speed: "
 msgstr "Maustempo: "
 
-#: src/gui/OptionsMenu.cc:369
+#: src/gui/OptionsMenu.cc:372
 msgid "Skip solved levels: "
 msgstr "Nur ungelöste Level: "
 
-#: src/gui/OptionsMenu.cc:370
+#: src/gui/OptionsMenu.cc:373
 msgid "Time hunt: "
 msgstr "Rekordjagd: "
 
-#: src/gui/OptionsMenu.cc:381
+#: src/gui/OptionsMenu.cc:384
 msgid "Sound volume: "
 msgstr "Effekt-Lautstärke: "
 
-#: src/gui/OptionsMenu.cc:382
+#: src/gui/OptionsMenu.cc:385
 msgid "Sound set: "
 msgstr "Sound Schema: "
 
-#: src/gui/OptionsMenu.cc:383
+#: src/gui/OptionsMenu.cc:386
 msgid "Music volume: "
 msgstr "Musik-Lautstärke: "
 
-#: src/gui/OptionsMenu.cc:384
+#: src/gui/OptionsMenu.cc:387
 msgid "Stereo: "
 msgstr "Stereo: "
 
-#: src/gui/OptionsMenu.cc:385
+#: src/gui/OptionsMenu.cc:388
 #, fuzzy
 msgid "Ratings update: "
 msgstr "Sprache: "
 
-#: src/gui/OptionsMenu.cc:399
+#: src/gui/OptionsMenu.cc:402
 msgid "User path: "
 msgstr ""
 
-#: src/gui/OptionsMenu.cc:400
+#: src/gui/OptionsMenu.cc:403
 msgid "User image path: "
 msgstr ""
 
@@ -485,6 +485,51 @@ msgstr "Leichter Modus"
 #: src/gui/LevelMenu.cc:395
 msgid "Difficulty: Normal"
 msgstr "Schwerer Modus"
+
+#: src/gui/LevelWidget.cc:343
+#, fuzzy
+msgid "No further unsolved level available!"
+msgstr "Keine weiteren ungelösten Landschaften!"
+
+#: src/gui/LevelWidget.cc:614
+msgid "Skip to main menu"
+msgstr "Zurück ins Hauptmenü"
+
+#: src/gui/LevelWidget.cc:617
+msgid "Arrows:"
+msgstr "Pfeiltasten:"
+
+#: src/gui/LevelWidget.cc:617
+msgid "Select level"
+msgstr "Level auswählen"
+
+#: src/gui/LevelWidget.cc:618
+msgid "Return:"
+msgstr "Eingabe"
+
+#: src/gui/LevelWidget.cc:618
+msgid "Play selected level"
+msgstr "Spiel starten"
+
+#: src/gui/LevelWidget.cc:619
+msgid "Back/Space:"
+msgstr "Backspace/Leertaste:"
+
+#: src/gui/LevelWidget.cc:619
+msgid "Previous/next levelpack"
+msgstr "Voriges/nächstes Levelpaket"
+
+#: src/gui/LevelWidget.cc:620
+msgid "Mark current level as Unsolved"
+msgstr "Level als `ungelöst' markieren"
+
+#: src/gui/LevelWidget.cc:675
+msgid "Select next non-par level"
+msgstr "Zum nächsten Level unter Rekordzeit"
+
+#: src/gui/LevelWidget.cc:677
+msgid "Select next unsolved level"
+msgstr "Zum nächsten ungelösten Level springen"
 
 #: src/gui/ScreenshotViewer.cc:36
 msgid "Page Up:"
@@ -659,6 +704,18 @@ msgstr ""
 msgid "Average: "
 msgstr ""
 
+#: src/gui/GameMenu.cc:43
+msgid "Resume Level"
+msgstr "Weiter"
+
+#: src/gui/GameMenu.cc:44
+msgid "Restart Level"
+msgstr "Neustart"
+
+#: src/gui/GameMenu.cc:46
+msgid "Abort Level"
+msgstr "Abbruch"
+
 #: src/lua.cc:733
 #, c-format
 msgid "Cannot find '%s'.\n"
@@ -679,25 +736,11 @@ msgstr "'startup.lua' konnte nicht geladen werden.\n"
 msgid "Error: '%s'\n"
 msgstr ""
 
-#  level: "The Grim Reaper"
-#  author: "Daniel Heck" email ""
-#  use: "Der Sensemann"
-#: po/level_i18n.cc:5
-msgid "The Grim Reaper"
-msgstr ""
-
-#  level: "Welcome"
-#  author: "Daniel Heck" email ""
-#  use: "Willkommen"
-#: po/level_i18n.cc:10
-msgid "Welcome"
-msgstr ""
-
 #  level: "Firefox"
 #  author: "Ronald Lamprecht" email "ral@users.berlios.de"
 #  comment: "Set fire or die"
 #  use: "Brenne oder verbrenne"
-#: po/level_i18n.cc:16 po/level_i18n.cc:29
+#: po/level_i18n.cc:6 po/level_i18n.cc:61
 msgid "Fire or be fired"
 msgstr ""
 
@@ -705,7 +748,7 @@ msgstr ""
 #  author: "Ronald Lamprecht" email "ral@users.berlios.de"
 #  comment: "Firefox in sense of clever in handling fire"
 #  use: "Würde ein Buschmann anfangen einen Feuerlöscher im Keller zu suchen, wenn eine Feuerwalze naht? Sei ein Fuchs im Feuer - es gibt nur die ersten 5 Gegenstände die zur Lösung beitragen können!"
-#: po/level_i18n.cc:19 po/level_i18n.cc:32
+#: po/level_i18n.cc:9 po/level_i18n.cc:64
 msgid ""
 "Do you think a bushman would start to search an extinguisher in the cellar "
 "in case of a wall of fire is approaching? Be a Firefox - you have the first "
@@ -715,7 +758,7 @@ msgstr ""
 #  level: "Firefox"
 #  author: "Ronald Lamprecht" email "ral@users.berlios.de"
 #  use: "Man kann Feuer mit Wasser löschen! Hier ist ein guter Ort um Feuerlöscher wieder aufzufüllen. Wer Wasser verschwendet, jämmerlich verendet!"
-#: po/level_i18n.cc:21 po/level_i18n.cc:34
+#: po/level_i18n.cc:11 po/level_i18n.cc:66
 msgid ""
 "You can extinguish fire with water. This is a good place to refill your "
 "extinguisher. Be aware, water is rare!"
@@ -724,29 +767,36 @@ msgstr ""
 #  level: "Firefox"
 #  author: "Ronald Lamprecht" email "ral@users.berlios.de"
 #  use: "Oh! Das Labyrinth ist unvollständig! Unternimm etwas um das Labyrinth zu reparieren bevor Du es zerstörst."
-#: po/level_i18n.cc:23 po/level_i18n.cc:36
+#: po/level_i18n.cc:13 po/level_i18n.cc:68
 msgid ""
 "OOPS! The maze is broken! Prepare to repair the maze before you destroy it."
-msgstr ""
-
-#  level: "Toreador"
-#  author: "Ronald Lamprecht" email "ral@users.berlios.de"
-#  use: "Torero"
-#: po/level_i18n.cc:41
-msgid "Toreador"
 msgstr ""
 
 #  level: "Basketball"
 #  author: "Ronald Lamprecht" email "ral@users.berlios.de"
 #  use: "Rechtzeitige Ballabgabe"
-#: po/level_i18n.cc:46
+#: po/level_i18n.cc:18
 msgid "Pass the ball in time"
+msgstr ""
+
+#  level: "Toreador"
+#  author: "Ronald Lamprecht" email "ral@users.berlios.de"
+#  use: "Torero"
+#: po/level_i18n.cc:23
+msgid "Toreador"
+msgstr ""
+
+#  level: "Catwalk Meditation"
+#  author: "Ronald Lamprecht" email "ral@users.berlios.de"
+#  use: "Meditation auf dem Laufsteg"
+#: po/level_i18n.cc:28
+msgid "Catwalk Meditation"
 msgstr ""
 
 #  level: "Meditation Disturbance"
 #  author: "Ronald Lamprecht" email "ral@users.berlios.de"
 #  use: "Ruhestörung bei der Meditation"
-#: po/level_i18n.cc:51
+#: po/level_i18n.cc:33
 msgid "Meditation Disturbance"
 msgstr ""
 
@@ -754,55 +804,23 @@ msgstr ""
 #  author: "Ronald Lamprecht" email "ral@users.berlios.de"
 #  comment: "free translatable joke about being hit by a horse"
 #  use: "Ich glaub mich tritt ein Pferd"
-#: po/level_i18n.cc:54
+#: po/level_i18n.cc:36
 msgid "Hit by a bolting horse"
 msgstr ""
 
-#  level: "Catwalk Meditation"
-#  author: "Ronald Lamprecht" email "ral@users.berlios.de"
-#  use: "Meditation auf dem Laufsteg"
-#: po/level_i18n.cc:59
-msgid "Catwalk Meditation"
+#  level: "The Grim Reaper"
+#  author: "Daniel Heck" email ""
+#  use: "Der Sensemann"
+#: po/level_i18n.cc:50
+msgid "The Grim Reaper"
 msgstr ""
 
-#~ msgid "Resume Level"
-#~ msgstr "Weiter"
-
-#~ msgid "Restart Level"
-#~ msgstr "Neustart"
-
-#~ msgid "Abort Level"
-#~ msgstr "Abbruch"
-
-#~ msgid "Skip to main menu"
-#~ msgstr "Zurück ins Hauptmenü"
-
-#~ msgid "Arrows:"
-#~ msgstr "Pfeiltasten:"
-
-#~ msgid "Select level"
-#~ msgstr "Level auswählen"
-
-#~ msgid "Return:"
-#~ msgstr "Eingabe"
-
-#~ msgid "Play selected level"
-#~ msgstr "Spiel starten"
-
-#~ msgid "Back/Space:"
-#~ msgstr "Backspace/Leertaste:"
-
-#~ msgid "Previous/next levelpack"
-#~ msgstr "Voriges/nächstes Levelpaket"
-
-#~ msgid "Mark current level as Unsolved"
-#~ msgstr "Level als `ungelöst' markieren"
-
-#~ msgid "Select next non-par level"
-#~ msgstr "Zum nächsten Level unter Rekordzeit"
-
-#~ msgid "Select next unsolved level"
-#~ msgstr "Zum nächsten ungelösten Level springen"
+#  level: "Welcome"
+#  author: "Daniel Heck" email ""
+#  use: "Willkommen"
+#: po/level_i18n.cc:55
+msgid "Welcome"
+msgstr ""
 
 #~ msgid "Tournament"
 #~ msgstr "Tournier"

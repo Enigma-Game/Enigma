@@ -977,8 +977,10 @@ GameInfo::~GameInfo() {
 GameInfo::GameInfo (OxydVersion ver_, const string &game_, const string &datfile_name_)
 : ver(ver_), game(game_), datfile(0), /*datfile_name(datfile_name_), */m_present(false)
 {
+    string alt_datfile_name = "levels/legacy_dat/" + datfile_name_;
     string fname;
-    if (app.resourceFS->findFile (datfile_name_, datfile_path)) {
+    if (app.resourceFS->findFile (datfile_name_, datfile_path) ||
+            app.resourceFS->findFile (alt_datfile_name, datfile_path)) {
         enigma::Log << "Found " << game << " data file\n";
         m_present = true;
         openDatFile();

@@ -269,6 +269,7 @@ namespace enigma { namespace gui {
         { "Nederlands",             "nl_NL" },
         { "Svenska",             "sv_SE" },
         { "Русский",             "ru_RU" },
+        { "Magyar",             "hu_HU" },
     };
     
     int LanguageButton::get_value() const

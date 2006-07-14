@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: enigma 0.92.1\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2006-07-03 21:57+0200\n"
+"POT-Creation-Date: 2006-07-14 12:26+0200\n"
 "PO-Revision-Date: 2005-12-18 00:30+0100\n"
 "Last-Translator: Daniel Nylander <po@danielnylander.se>\n"
 "Language-Team: Swedish <tp-sv@listor.tp-sv.se>\n"
@@ -48,7 +48,7 @@ msgstr "Höger musknapp:"
 msgid "Rotate inventory items"
 msgstr "Rotera saker i inventariet"
 
-#: src/client.cc:469 src/gui/ScreenshotViewer.cc:34
+#: src/client.cc:469 src/gui/LevelWidget.cc:614 src/gui/ScreenshotViewer.cc:34
 msgid "Escape:"
 msgstr "Escape:"
 
@@ -60,7 +60,7 @@ msgstr "Visa spelmeny"
 msgid "F1:"
 msgstr "F1:"
 
-#: src/client.cc:470 src/gui/ScreenshotViewer.cc:35
+#: src/client.cc:470 src/gui/LevelWidget.cc:615 src/gui/ScreenshotViewer.cc:35
 msgid "Show this help"
 msgstr "Visa denna hjälp"
 
@@ -116,11 +116,11 @@ msgstr "Alt+x:"
 msgid "Return to level menu"
 msgstr "Återgå till nivåmeny"
 
-#: src/client.cc:478
+#: src/client.cc:478 src/gui/LevelWidget.cc:622
 msgid "Alt+Return:"
 msgstr "Alt+Return:"
 
-#: src/client.cc:478
+#: src/client.cc:478 src/gui/LevelWidget.cc:622
 msgid "Switch between fullscreen and window"
 msgstr "Växla mellan fullskärm och fönster"
 
@@ -217,7 +217,7 @@ msgstr "Starta spel"
 msgid "Join Game"
 msgstr ""
 
-#: src/gui/MainMenu.cc:74 src/gui/OptionsMenu.cc:345 src/gui/LevelMenu.cc:63
+#: src/gui/MainMenu.cc:74 src/gui/OptionsMenu.cc:348 src/gui/LevelMenu.cc:63
 #: src/gui/ScreenshotViewer.cc:34
 msgid "Back"
 msgstr "Tillbaka"
@@ -231,7 +231,7 @@ msgstr "Starta spel"
 msgid "Editor"
 msgstr "Redigerare"
 
-#: src/gui/MainMenu.cc:128
+#: src/gui/MainMenu.cc:128 src/gui/GameMenu.cc:45
 msgid "Options"
 msgstr "Alternativ"
 
@@ -322,111 +322,111 @@ msgstr ""
 msgid "L10n Path:"
 msgstr ""
 
-#: src/gui/OptionsMenu.cc:68 src/gui/OptionsMenu.cc:89
+#: src/gui/OptionsMenu.cc:70 src/gui/OptionsMenu.cc:91
 msgid "muted"
 msgstr "tyst"
 
-#: src/gui/OptionsMenu.cc:106
+#: src/gui/OptionsMenu.cc:108
 msgid "Music in game"
 msgstr "Musik i spelet"
 
-#: src/gui/OptionsMenu.cc:106
+#: src/gui/OptionsMenu.cc:108
 msgid "No music in game"
 msgstr "Ingen musik i spelet"
 
-#: src/gui/OptionsMenu.cc:111 src/gui/OptionsMenu.cc:115
-#: src/gui/OptionsMenu.cc:249
+#: src/gui/OptionsMenu.cc:113 src/gui/OptionsMenu.cc:117
+#: src/gui/OptionsMenu.cc:251
 msgid "Yes"
 msgstr "Ja"
 
-#: src/gui/OptionsMenu.cc:111 src/gui/OptionsMenu.cc:115
-#: src/gui/OptionsMenu.cc:249
+#: src/gui/OptionsMenu.cc:113 src/gui/OptionsMenu.cc:117
+#: src/gui/OptionsMenu.cc:251
 msgid "No"
 msgstr "Nej"
 
-#: src/gui/OptionsMenu.cc:119
+#: src/gui/OptionsMenu.cc:121
 msgid "Auto"
 msgstr ""
 
-#: src/gui/OptionsMenu.cc:119
+#: src/gui/OptionsMenu.cc:121
 #, fuzzy
 msgid "Never"
 msgstr "omvänd"
 
-#: src/gui/OptionsMenu.cc:190
+#: src/gui/OptionsMenu.cc:192
 msgid "Default"
 msgstr "Förvald"
 
-#: src/gui/OptionsMenu.cc:237
+#: src/gui/OptionsMenu.cc:239
 msgid "reversed"
 msgstr "omvänd"
 
-#: src/gui/OptionsMenu.cc:238
+#: src/gui/OptionsMenu.cc:240
 msgid "mono"
 msgstr "mono"
 
-#: src/gui/OptionsMenu.cc:239
+#: src/gui/OptionsMenu.cc:241
 msgid "normal"
 msgstr "normal"
 
-#: src/gui/OptionsMenu.cc:299 src/gui/LevelInspector.cc:324
+#: src/gui/OptionsMenu.cc:302 src/gui/LevelInspector.cc:324
 msgid "unknown"
 msgstr "okänd"
 
-#: src/gui/OptionsMenu.cc:364
+#: src/gui/OptionsMenu.cc:367
 msgid "Language: "
 msgstr "Språk: "
 
-#: src/gui/OptionsMenu.cc:365
+#: src/gui/OptionsMenu.cc:368
 msgid "Fullscreen: "
 msgstr "Fullskärm: "
 
-#: src/gui/OptionsMenu.cc:366
+#: src/gui/OptionsMenu.cc:369
 msgid "Video mode: "
 msgstr "Videoläge: "
 
-#: src/gui/OptionsMenu.cc:367
+#: src/gui/OptionsMenu.cc:370
 msgid "Gamma correction: "
 msgstr "Gammajustering: "
 
-#: src/gui/OptionsMenu.cc:368
+#: src/gui/OptionsMenu.cc:371
 msgid "Mouse speed: "
 msgstr "Mushastighet: "
 
-#: src/gui/OptionsMenu.cc:369
+#: src/gui/OptionsMenu.cc:372
 msgid "Skip solved levels: "
 msgstr "Hoppa över lösta nivåer: "
 
-#: src/gui/OptionsMenu.cc:370
+#: src/gui/OptionsMenu.cc:373
 msgid "Time hunt: "
 msgstr "Tidsjakt: "
 
-#: src/gui/OptionsMenu.cc:381
+#: src/gui/OptionsMenu.cc:384
 msgid "Sound volume: "
 msgstr "Ljudvolym: "
 
-#: src/gui/OptionsMenu.cc:382
+#: src/gui/OptionsMenu.cc:385
 msgid "Sound set: "
 msgstr "Ljudschema: "
 
-#: src/gui/OptionsMenu.cc:383
+#: src/gui/OptionsMenu.cc:386
 msgid "Music volume: "
 msgstr "Musikvolym: "
 
-#: src/gui/OptionsMenu.cc:384
+#: src/gui/OptionsMenu.cc:387
 msgid "Stereo: "
 msgstr "Stereo: "
 
-#: src/gui/OptionsMenu.cc:385
+#: src/gui/OptionsMenu.cc:388
 #, fuzzy
 msgid "Ratings update: "
 msgstr "Språk: "
 
-#: src/gui/OptionsMenu.cc:399
+#: src/gui/OptionsMenu.cc:402
 msgid "User path: "
 msgstr ""
 
-#: src/gui/OptionsMenu.cc:400
+#: src/gui/OptionsMenu.cc:403
 msgid "User image path: "
 msgstr ""
 
@@ -484,6 +484,51 @@ msgstr "Svårhetsgrad: Lätt"
 #: src/gui/LevelMenu.cc:395
 msgid "Difficulty: Normal"
 msgstr "Svårhetsgrad: Normal"
+
+#: src/gui/LevelWidget.cc:343
+#, fuzzy
+msgid "No further unsolved level available!"
+msgstr "Inga fler olästa nivåer tillgängliga!"
+
+#: src/gui/LevelWidget.cc:614
+msgid "Skip to main menu"
+msgstr "Hoppa till huvudmeny"
+
+#: src/gui/LevelWidget.cc:617
+msgid "Arrows:"
+msgstr "Piltangenter:"
+
+#: src/gui/LevelWidget.cc:617
+msgid "Select level"
+msgstr "Välj nivå"
+
+#: src/gui/LevelWidget.cc:618
+msgid "Return:"
+msgstr "Return:"
+
+#: src/gui/LevelWidget.cc:618
+msgid "Play selected level"
+msgstr "Spela vald nivå"
+
+#: src/gui/LevelWidget.cc:619
+msgid "Back/Space:"
+msgstr "Backspace/Mellanslag:"
+
+#: src/gui/LevelWidget.cc:619
+msgid "Previous/next levelpack"
+msgstr "Föregående/nästa nivåpaket"
+
+#: src/gui/LevelWidget.cc:620
+msgid "Mark current level as Unsolved"
+msgstr "Markera nuvarande nivå som Olöst"
+
+#: src/gui/LevelWidget.cc:675
+msgid "Select next non-par level"
+msgstr "Välj nästa icke-par nivå"
+
+#: src/gui/LevelWidget.cc:677
+msgid "Select next unsolved level"
+msgstr "Välj nästa olösta nivå"
 
 #: src/gui/ScreenshotViewer.cc:36
 msgid "Page Up:"
@@ -657,6 +702,18 @@ msgstr ""
 msgid "Average: "
 msgstr ""
 
+#: src/gui/GameMenu.cc:43
+msgid "Resume Level"
+msgstr "Återuppta nivå"
+
+#: src/gui/GameMenu.cc:44
+msgid "Restart Level"
+msgstr "Starta om nivå"
+
+#: src/gui/GameMenu.cc:46
+msgid "Abort Level"
+msgstr "Avbryt nivå"
+
 #: src/lua.cc:733
 #, c-format
 msgid "Cannot find '%s'.\n"
@@ -677,29 +734,17 @@ msgstr "Det inträffade ett fel vid inläsning av \"startup.lua\".\n"
 msgid "Error: '%s'\n"
 msgstr ""
 
-#  level: "The Grim Reaper"
-#  author: "Daniel Heck" email ""
-#: po/level_i18n.cc:5
-msgid "The Grim Reaper"
-msgstr ""
-
-#  level: "Welcome"
-#  author: "Daniel Heck" email ""
-#: po/level_i18n.cc:10
-msgid "Welcome"
-msgstr ""
-
 #  level: "Firefox"
 #  author: "Ronald Lamprecht" email "ral@users.berlios.de"
 #  comment: "Set fire or die"
-#: po/level_i18n.cc:16 po/level_i18n.cc:29
+#: po/level_i18n.cc:6 po/level_i18n.cc:61
 msgid "Fire or be fired"
 msgstr ""
 
 #  level: "Firefox"
 #  author: "Ronald Lamprecht" email "ral@users.berlios.de"
 #  comment: "Firefox in sense of clever in handling fire"
-#: po/level_i18n.cc:19 po/level_i18n.cc:32
+#: po/level_i18n.cc:9 po/level_i18n.cc:64
 msgid ""
 "Do you think a bushman would start to search an extinguisher in the cellar "
 "in case of a wall of fire is approaching? Be a Firefox - you have the first "
@@ -708,7 +753,7 @@ msgstr ""
 
 #  level: "Firefox"
 #  author: "Ronald Lamprecht" email "ral@users.berlios.de"
-#: po/level_i18n.cc:21 po/level_i18n.cc:34
+#: po/level_i18n.cc:11 po/level_i18n.cc:66
 msgid ""
 "You can extinguish fire with water. This is a good place to refill your "
 "extinguisher. Be aware, water is rare!"
@@ -716,80 +761,53 @@ msgstr ""
 
 #  level: "Firefox"
 #  author: "Ronald Lamprecht" email "ral@users.berlios.de"
-#: po/level_i18n.cc:23 po/level_i18n.cc:36
+#: po/level_i18n.cc:13 po/level_i18n.cc:68
 msgid ""
 "OOPS! The maze is broken! Prepare to repair the maze before you destroy it."
 msgstr ""
 
+#  level: "Basketball"
+#  author: "Ronald Lamprecht" email "ral@users.berlios.de"
+#: po/level_i18n.cc:18
+msgid "Pass the ball in time"
+msgstr ""
+
 #  level: "Toreador"
 #  author: "Ronald Lamprecht" email "ral@users.berlios.de"
-#: po/level_i18n.cc:41
+#: po/level_i18n.cc:23
 msgid "Toreador"
 msgstr ""
 
-#  level: "Basketball"
+#  level: "Catwalk Meditation"
 #  author: "Ronald Lamprecht" email "ral@users.berlios.de"
-#: po/level_i18n.cc:46
-msgid "Pass the ball in time"
+#: po/level_i18n.cc:28
+msgid "Catwalk Meditation"
 msgstr ""
 
 #  level: "Meditation Disturbance"
 #  author: "Ronald Lamprecht" email "ral@users.berlios.de"
-#: po/level_i18n.cc:51
+#: po/level_i18n.cc:33
 msgid "Meditation Disturbance"
 msgstr ""
 
 #  level: "Meditation Disturbance"
 #  author: "Ronald Lamprecht" email "ral@users.berlios.de"
 #  comment: "free translatable joke about being hit by a horse"
-#: po/level_i18n.cc:54
+#: po/level_i18n.cc:36
 msgid "Hit by a bolting horse"
 msgstr ""
 
-#  level: "Catwalk Meditation"
-#  author: "Ronald Lamprecht" email "ral@users.berlios.de"
-#: po/level_i18n.cc:59
-msgid "Catwalk Meditation"
+#  level: "The Grim Reaper"
+#  author: "Daniel Heck" email ""
+#: po/level_i18n.cc:50
+msgid "The Grim Reaper"
 msgstr ""
 
-#~ msgid "Resume Level"
-#~ msgstr "Återuppta nivå"
-
-#~ msgid "Restart Level"
-#~ msgstr "Starta om nivå"
-
-#~ msgid "Abort Level"
-#~ msgstr "Avbryt nivå"
-
-#~ msgid "Skip to main menu"
-#~ msgstr "Hoppa till huvudmeny"
-
-#~ msgid "Arrows:"
-#~ msgstr "Piltangenter:"
-
-#~ msgid "Select level"
-#~ msgstr "Välj nivå"
-
-#~ msgid "Return:"
-#~ msgstr "Return:"
-
-#~ msgid "Play selected level"
-#~ msgstr "Spela vald nivå"
-
-#~ msgid "Back/Space:"
-#~ msgstr "Backspace/Mellanslag:"
-
-#~ msgid "Previous/next levelpack"
-#~ msgstr "Föregående/nästa nivåpaket"
-
-#~ msgid "Mark current level as Unsolved"
-#~ msgstr "Markera nuvarande nivå som Olöst"
-
-#~ msgid "Select next non-par level"
-#~ msgstr "Välj nästa icke-par nivå"
-
-#~ msgid "Select next unsolved level"
-#~ msgstr "Välj nästa olösta nivå"
+#  level: "Welcome"
+#  author: "Daniel Heck" email ""
+#: po/level_i18n.cc:55
+msgid "Welcome"
+msgstr ""
 
 #~ msgid "Tournament"
 #~ msgstr "Turnering"

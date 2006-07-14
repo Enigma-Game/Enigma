@@ -1,62 +1,60 @@
-# translation of enigma.po to Italiano
-# Copyright (C) 2005 Free Software Foundation, Inc.
-# This file is distributed under the same license as the PACKAGE package.
-# Samuele Kaplun <kaplun@aliceposta.it>, 2005.
+# Hungarian translation for Enigma.
+# Copyright (C) 2005, 2006 Máté Lehel Juhász
+# This file is distributed under the same license as the Enigma package.
+# Máté Lehel Juhász <jmatel@cs.elte.hu>, 2005, 2006.
 #
 msgid ""
 msgstr ""
-"Project-Id-Version: enigma\n"
+"Project-Id-Version: Enigma 0.92\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2006-07-14 12:26+0200\n"
-"PO-Revision-Date: 2005-02-07 22:42+0100\n"
-"Last-Translator: Samuele Kaplun <kaplun@aliceposta.it>\n"
-"Language-Team: Italiano <kde-i18n-it@kde.org>\n"
+"PO-Revision-Date: 2006-07-14\n"
+"Last-Translator: Máté Lehel Juhász <jmatel@cs.elte.hu>\n"
+"Language-Team: Hungarian\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Generator: KBabel 1.10\n"
-"Plural-Forms:  nplurals=2; plural=(n != 1);\n"
 
 #: src/server.cc:142 src/gui/LevelInspector.cc:190
 msgid "Server Error: could not load level '"
-msgstr "Errore Server: impossibile caricare il livello "
+msgstr "Kiszolgáló hiba: nem tudta betölteni a következő pályát: '"
 
 #: src/client.cc:63
 #, c-format
 msgid "Mouse speed: %d"
-msgstr "Velocità mouse: %d"
+msgstr "Egér sebessége: %d"
 
 #: src/client.cc:76 src/client.cc:90
 msgid " by "
-msgstr " di "
+msgstr " készítette "
 
 #: src/client.cc:88
 msgid "Another nameless level"
-msgstr "Un altro livello senza nome"
+msgstr "Még egy névtelen pálya"
 
 #: src/client.cc:467
 msgid "Left mouse button:"
-msgstr "Pulsante sinistro del mouse:"
+msgstr "Bal egérgomb:"
 
 #: src/client.cc:467
 msgid "Activate/drop leftmost inventory item"
-msgstr "Attiva/rilascia elemento d'inventario più a sinistra"
+msgstr "Baloldali kézben lévő elem működésbe hozása/leejtése"
 
 #: src/client.cc:468
 msgid "Right mouse button:"
-msgstr "Pulsante destro del mouse:"
+msgstr "Jobb egérgomb:"
 
 #: src/client.cc:468
 msgid "Rotate inventory items"
-msgstr "Ruota elementi d'inventario"
+msgstr "Kézben lévő elemek váltogatása"
 
 #: src/client.cc:469 src/gui/LevelWidget.cc:614 src/gui/ScreenshotViewer.cc:34
 msgid "Escape:"
-msgstr "Esci:"
+msgstr "Esc:"
 
 #: src/client.cc:469
 msgid "Show game menu"
-msgstr "Visualizza menu del gioco"
+msgstr "Játék menü megjelenítése"
 
 #: src/client.cc:470
 msgid "F1:"
@@ -64,7 +62,7 @@ msgstr "F1:"
 
 #: src/client.cc:470 src/gui/LevelWidget.cc:615 src/gui/ScreenshotViewer.cc:35
 msgid "Show this help"
-msgstr "Mostra questa guida"
+msgstr "Ennek a súgó-képernyőnek a megjelenítése"
 
 #: src/client.cc:471
 msgid "F3:"
@@ -72,7 +70,7 @@ msgstr "F3:"
 
 #: src/client.cc:471
 msgid "Kill current marble"
-msgstr "Uccidi il marmo corrente"
+msgstr "Jelenlegi golyó összetörése"
 
 #: src/client.cc:472
 msgid "Shift+F3:"
@@ -80,7 +78,7 @@ msgstr "Shift+F3:"
 
 #: src/client.cc:472
 msgid "Restart the current level"
-msgstr "Riavvia il livello attuale"
+msgstr "Jelenlegi pálya újrakezdése"
 
 #: src/client.cc:473
 msgid "F4:"
@@ -88,7 +86,7 @@ msgstr "F4:"
 
 #: src/client.cc:473
 msgid "Skip to next level"
-msgstr "Salta al prossimo livello"
+msgstr "Ugrás a következő pályára"
 
 #: src/client.cc:474
 msgid "F5:"
@@ -100,15 +98,15 @@ msgstr "F10:"
 
 #: src/client.cc:475
 msgid "Make screenshot"
-msgstr "Crea uno screenshot"
+msgstr "Pillanatkép készítése"
 
 #: src/client.cc:476
 msgid "Left/right arrow:"
-msgstr "Freccia sinistra/destra:"
+msgstr "Bal/jobb nyíl:"
 
 #: src/client.cc:476
 msgid "Change mouse speed"
-msgstr "Cambia velocità del mouse"
+msgstr "Egér sebességének állítása"
 
 #: src/client.cc:477
 msgid "Alt+x:"
@@ -116,7 +114,7 @@ msgstr "Alt+x:"
 
 #: src/client.cc:477
 msgid "Return to level menu"
-msgstr "Ritorna al menu dei livelli"
+msgstr "Visszatérés a pályák menübe"
 
 #: src/client.cc:478 src/gui/LevelWidget.cc:622
 msgid "Alt+Return:"
@@ -124,353 +122,350 @@ msgstr "Alt+Return:"
 
 #: src/client.cc:478 src/gui/LevelWidget.cc:622
 msgid "Switch between fullscreen and window"
-msgstr "Alterna finestra a modalità tutto schermo"
+msgstr "Váltás teljes képernyő és ablak között"
 
 #: src/client.cc:488
 msgid "Skip to next non-par level"
-msgstr "Salta al prossimo livello non-par"
+msgstr "Ugrás a következő nem par szintre"
 
 #: src/client.cc:489
 msgid "Skip to next unsolved level"
-msgstr "Salta al prossimo livello non risolto"
+msgstr "Ugrás a következő megoldatlan szintre"
 
 #: src/client.cc:625
 msgid "Too slow for "
-msgstr "Troppo lento per "
+msgstr "Lassú hozzá képest: "
 
 #: src/client.cc:628
 msgid "You are slow today.. [Ctrl-A]"
-msgstr "Sei lento oggi.. [Ctrl-A]"
+msgstr "Ma Ön lassú... [Ctrl-A]"
 
 #: src/client.cc:697
 msgid "Exactly the par time by "
-msgstr "Esattamente il tempo par di "
+msgstr "Pontosan az ő par idejét teljesítette: "
 
 #: src/client.cc:699
 msgid "Great! A new par time!"
-msgstr "Grande! Un nuovo tempo par!"
+msgstr "Nagyszerű! Új par idő!"
 
 #: src/client.cc:704
 msgid "Again your personal best time..."
-msgstr "Di nuovo il tuo tempo migliore..."
+msgstr "Ismét az Ön legjobb ideje..."
 
 #: src/client.cc:709
 msgid "New personal best time!"
-msgstr "Nuovo miglior tempo personale!"
+msgstr "Új személyes legjobb idő!"
 
 #: src/client.cc:720
 msgid "Your best, "
-msgstr "Il tuo miglior, "
+msgstr "Az Ön legjobb teljesítménye, "
 
 #: src/client.cc:727
 msgid "behind par time."
-msgstr "dietro al tempo par."
+msgstr "idővel maradt le a par időtől."
 
 #: src/client.cc:729
 msgid "behind best time."
-msgstr "dietro al miglior tempo."
+msgstr "idővel maradt le a legjobb időtől."
 
 #: src/client.cc:736
 msgid "Level finished!"
-msgstr "Livello terminato!"
+msgstr "Pálya befejezve!"
 
 #: src/client.cc:738
 msgid " Cheater!"
-msgstr " Imbroglione!"
+msgstr " Csaló!"
 
 #: src/client.cc:769
 #, c-format
 msgid "Enigma level #%d: %s"
-msgstr "Livello Enigma #%d: %s"
+msgstr "%d. Engima pálya: %s"
 
 #: src/client.cc:781
 msgid "Your best time: "
-msgstr "Il tuo tempo miglior: "
+msgstr "Az Ön legjobb ideje: "
 
 #: src/client.cc:783
 msgid "Par to beat: "
-msgstr "Par da battere: "
+msgstr "A megdöntendő par idő:"
 
 #: src/main.cc:259
 #, c-format
 msgid "Error in configuration file.\n"
-msgstr "Errore nel file di configurazione.\n"
+msgstr "Hiba a konfigurációs fájlban.\n"
 
 #: src/main.cc:399 src/main.cc:417
 #, c-format
 msgid "Error Home directory does not exist.\n"
-msgstr ""
+msgstr "Hiba: A 'Home' könyvtár nem létezik.\n"
 
 #: src/main.cc:409
 #, c-format
 msgid "Error Application Data directory does not exist.\n"
-msgstr ""
+msgstr "Hiba: Az 'Application Data' könyvtár nem létezik.\n"
 
 #: src/main.cc:437 src/main.cc:486
-#, fuzzy, c-format
+#, c-format
 msgid "Error in XML initialization.\n"
-msgstr "Errore nel file di configurazione.\n"
+msgstr "Hiba az XML inicializálása során.\n"
 
 #: src/gui/MainMenu.cc:72 src/gui/MainMenu.cc:122
 msgid "Start Game"
-msgstr "Inizia partita"
+msgstr "Játék Kezdete"
 
 #: src/gui/MainMenu.cc:73
 msgid "Join Game"
-msgstr ""
+msgstr "Csatlakozás Játékhoz"
 
 #: src/gui/MainMenu.cc:74 src/gui/OptionsMenu.cc:348 src/gui/LevelMenu.cc:63
 #: src/gui/ScreenshotViewer.cc:34
 msgid "Back"
-msgstr "Indietro"
+msgstr "Vissza"
 
 #: src/gui/MainMenu.cc:124
-#, fuzzy
 msgid "Network Game"
-msgstr "Inizia partita"
+msgstr "Hálózati Játék"
 
 #: src/gui/MainMenu.cc:125
 msgid "Editor"
-msgstr "Editor"
+msgstr "Szerkesztő"
 
 #: src/gui/MainMenu.cc:128 src/gui/GameMenu.cc:45
 msgid "Options"
-msgstr "Opzioni"
+msgstr "Beállítások"
 
 #: src/gui/MainMenu.cc:129
 msgid "Credits"
-msgstr "Riconoscimenti"
+msgstr "Névjegy"
 
 #: src/gui/MainMenu.cc:130
 msgid "Quit"
-msgstr "Esci"
+msgstr "Kilépés"
 
 #: src/gui/MainMenu.cc:237
 msgid "Project maintainer:"
-msgstr "Maintainer del progetto:"
+msgstr "Projekt fenntartó:"
 
 #: src/gui/MainMenu.cc:240
 msgid "Main developers:"
-msgstr ""
+msgstr "Fő fejlesztők:"
 
 #: src/gui/MainMenu.cc:244
 msgid "Special Thanks To:"
-msgstr "Un Grazie Particolare va a:"
+msgstr "Különleges köszönet:"
 
 #: src/gui/MainMenu.cc:245
 msgid "  JOHANNES FORTMANN (graphics), JEREMY SAWICKI (oxydlib),"
-msgstr "  JOHANNES FORTMANN (grafica), JEREMY SAWICKI (oxydlib),"
+msgstr "  JOHANNES FORTMANN (grafika), JEREMY SAWICKI (oxydlib),"
 
 #: src/gui/MainMenu.cc:246
-#, fuzzy
 msgid ""
 "  MEINOLF SCHNEIDER (game idea, level design), ANDREW \"NECROS\" SEGA (menu "
 "music)"
 msgstr ""
-"  MEINOLF SCHNEIDER (idea del gioco), ANDREW \"NECROS\" SEGA (menu della "
-"musica)"
+"  MEINOLF SCHNEIDER (játékötlet, pályaterv), ANDREW \"NECROS\" SEGA (menü "
+"zene)"
 
 #: src/gui/MainMenu.cc:247
 msgid "  NAT PRYCE & JOHN 'WB' SNEYERS (levels)"
-msgstr "  NAT PRYCE & JOHN 'WB' SNEYERS (livelli)"
+msgstr "  NAT PRYCE & JOHN 'WB' SNEYERS (pályák)"
 
 #: src/gui/MainMenu.cc:249
 msgid "Please see the manual for more detailed credits."
-msgstr "Per favore, guarda il manuale per ulteriori ringraziamenti."
+msgstr "Részletes névjegyhez forduljon a kézikönyvhöz."
 
 #: src/gui/MainMenu.cc:251
 msgid "Home Page: http://www.nongnu.org/enigma"
-msgstr "Home Page: http://www.nongnu.org/enigma"
+msgstr "Honlap: http://www.nongnu.org/enigma"
 
 #: src/gui/MainMenu.cc:252
 msgid "Contact: enigma-devel@nongnu.org"
-msgstr "Contatta: enigma-devel@nongnu.org"
+msgstr "Elérés: enigma-devel@nongnu.org"
 
 #: src/gui/MainMenu.cc:254
 msgid "Enigma is free software and may be distributed under the"
-msgstr "Enigma è un software libero e può essere distribuito sotto ai"
+msgstr "Az Enigma szabad szoftver, és a GNU General Public License"
 
 #: src/gui/MainMenu.cc:255
 msgid "terms of the GNU General Public License, version 2.  See"
-msgstr "termini della GNU General Public License, versione 2.  Guarda"
+msgstr "2. változat kikötéseinek értelmében. Részletekhez"
 
 #: src/gui/MainMenu.cc:256
 msgid "the accompanying COPYING.GPL for details."
-msgstr "il file COPYING.GPL incluso per i dettagli."
+msgstr "forduljon a mellékelt COPYING.GPL-hez."
 
 #: src/gui/MainMenu.cc:258
-#, fuzzy
 msgid "Copyright (C) 2002-2005 Daniel Heck and contributors."
-msgstr "Copyright (C) 2002-2004 Daniel Heck ed i collaboratori."
+msgstr "Copyright (C) 2002-2005 Daniel Heck és közreműködők."
 
 #: src/gui/MainMenu.cc:274
 msgid "Preferences Path:"
-msgstr ""
+msgstr "Beállítások útvonala:"
 
 #: src/gui/MainMenu.cc:284
 msgid "User Path:"
-msgstr ""
+msgstr "Felhasználói útvonal:"
 
 #: src/gui/MainMenu.cc:294
 msgid "User Image Path:"
-msgstr ""
+msgstr "Képek útvonala:"
 
 #: src/gui/MainMenu.cc:304
 msgid "System Path:"
-msgstr ""
+msgstr "Rendszer útvonal:"
 
 #: src/gui/MainMenu.cc:314
 msgid "Resource Paths:"
-msgstr ""
+msgstr "Erőforrások útvonala:"
 
 #: src/gui/MainMenu.cc:324
 msgid "L10n Path:"
-msgstr ""
+msgstr "Lokalizációs útvonal:"
 
 #: src/gui/OptionsMenu.cc:70 src/gui/OptionsMenu.cc:91
 msgid "muted"
-msgstr "muto"
+msgstr "néma"
 
 #: src/gui/OptionsMenu.cc:108
 msgid "Music in game"
-msgstr "Musica durante il gioco"
+msgstr "Zene a játékban"
 
 #: src/gui/OptionsMenu.cc:108
 msgid "No music in game"
-msgstr "Nessuna musica durante il gioco"
+msgstr "Nincs zene a játékban"
 
 #: src/gui/OptionsMenu.cc:113 src/gui/OptionsMenu.cc:117
 #: src/gui/OptionsMenu.cc:251
 msgid "Yes"
-msgstr "Sì"
+msgstr "Igen"
 
 #: src/gui/OptionsMenu.cc:113 src/gui/OptionsMenu.cc:117
 #: src/gui/OptionsMenu.cc:251
 msgid "No"
-msgstr "No"
+msgstr "Nem"
 
 #: src/gui/OptionsMenu.cc:121
 msgid "Auto"
-msgstr ""
+msgstr "magától"
 
 #: src/gui/OptionsMenu.cc:121
-#, fuzzy
 msgid "Never"
-msgstr "invertito"
+msgstr "soha"
 
 #: src/gui/OptionsMenu.cc:192
 msgid "Default"
-msgstr "Predefinito"
+msgstr "alap"
 
 #: src/gui/OptionsMenu.cc:239
 msgid "reversed"
-msgstr "invertito"
+msgstr "fordított"
 
 #: src/gui/OptionsMenu.cc:240
 msgid "mono"
-msgstr "mono"
+msgstr "monó"
 
 #: src/gui/OptionsMenu.cc:241
 msgid "normal"
-msgstr "normale"
+msgstr "sztereó"
 
 #: src/gui/OptionsMenu.cc:302 src/gui/LevelInspector.cc:324
 msgid "unknown"
-msgstr "sconosciuto"
+msgstr "ismeretlen"
 
 #: src/gui/OptionsMenu.cc:367
 msgid "Language: "
-msgstr "Lingua: "
+msgstr "Nyelv: "
 
 #: src/gui/OptionsMenu.cc:368
 msgid "Fullscreen: "
-msgstr "Schermo pieno: "
+msgstr "Teljes képernyő: "
 
 #: src/gui/OptionsMenu.cc:369
 msgid "Video mode: "
-msgstr "Modalità video: "
+msgstr "Videó mód: "
 
 #: src/gui/OptionsMenu.cc:370
 msgid "Gamma correction: "
-msgstr "Correzione gamma: "
+msgstr "Gamma korrekció: "
 
 #: src/gui/OptionsMenu.cc:371
 msgid "Mouse speed: "
-msgstr "Velocità mouse: "
+msgstr "Egér sebessége: "
 
+# note "Megoldottak kihagyása: " would be nicer, doesn't fit however
 #: src/gui/OptionsMenu.cc:372
 msgid "Skip solved levels: "
-msgstr "Salta livelli risolti: "
+msgstr "Készek kihagyása: "
 
 #: src/gui/OptionsMenu.cc:373
 msgid "Time hunt: "
-msgstr "Sfida a cronometro: "
+msgstr "Idővadászat: "
 
 #: src/gui/OptionsMenu.cc:384
 msgid "Sound volume: "
-msgstr "Volume del suono: "
+msgstr "Hangerő: "
 
 #: src/gui/OptionsMenu.cc:385
 msgid "Sound set: "
-msgstr "Insieme di suoni: "
+msgstr "Hangkészlet: "
 
 #: src/gui/OptionsMenu.cc:386
 msgid "Music volume: "
-msgstr "Volume della musica: "
+msgstr "Zene erősség: "
 
 #: src/gui/OptionsMenu.cc:387
 msgid "Stereo: "
-msgstr "Stereo: "
+msgstr "Csatornák: "
 
 #: src/gui/OptionsMenu.cc:388
-#, fuzzy
 msgid "Ratings update: "
-msgstr "Lingua: "
+msgstr "Minősítés frissítése: "
 
 #: src/gui/OptionsMenu.cc:402
 msgid "User path: "
-msgstr ""
+msgstr "Felhasználói útvonal: "
 
 #: src/gui/OptionsMenu.cc:403
 msgid "User image path: "
-msgstr ""
+msgstr "Képek útvonala: "
 
 #: src/gui/LevelMenu.cc:65
 msgid "Level Pack"
-msgstr "Pacchetto di livelli"
+msgstr "Pályacsomag"
 
 #: src/gui/LevelMenu.cc:220
 msgid "You are not allowed to play this level yet."
-msgstr "Non puoi ancora giocare questo livello."
+msgstr "Ezt a pályát még nem játszhatja."
 
 #: src/gui/LevelMenu.cc:269
 #, c-format
 msgid "%d%% par"
 msgstr "%d%% par"
 
+# note: "%d%% megoldott" would be nicer, but left for consistency
 #: src/gui/LevelMenu.cc:273
 #, c-format
 msgid "%d%% solved"
-msgstr "%d%% risolto"
+msgstr "%d%% kész"
 
 #: src/gui/LevelMenu.cc:302
 #, c-format
 msgid "Your time: %d:%02d"
-msgstr "Il tuo tempo: %d:%02d"
+msgstr "Az Ön ideje: %d:%02d"
 
 #: src/gui/LevelMenu.cc:308
 msgid "That's par."
-msgstr "Questo è par."
+msgstr "Ez par."
 
 #: src/gui/LevelMenu.cc:310
 #, c-format
 msgid "That's %d:%02d below par."
-msgstr "Questo è %d:%02d sotto al par."
+msgstr "Ez %d:%02d idővel van a par alatt."
 
 #: src/gui/LevelMenu.cc:317
 #, c-format
 msgid "Par by %s: %d:%02d"
-msgstr "Par di %s: %d:%02d"
+msgstr "%s par ideje: %d:%02d"
 
 #: src/gui/LevelMenu.cc:320
 #, c-format
@@ -480,271 +475,262 @@ msgstr "Par: %d:%02d"
 #: src/gui/LevelMenu.cc:341
 #, c-format
 msgid "%s: %d levels"
-msgstr "%s: %d livelli"
+msgstr "%s: %d pálya"
 
 #: src/gui/LevelMenu.cc:393
 msgid "Difficulty: Easy"
-msgstr "Difficoltà: Semplice"
+msgstr "Szint: Egyszerű"
 
 #: src/gui/LevelMenu.cc:395
 msgid "Difficulty: Normal"
-msgstr "Difficoltà: Normale"
+msgstr "Szint: Rendes"
 
 #: src/gui/LevelWidget.cc:343
-#, fuzzy
 msgid "No further unsolved level available!"
-msgstr "Nessun altro livello irrisolto disponibile!"
+msgstr "Nincs további elérhető megoldatlan pálya!"
 
 #: src/gui/LevelWidget.cc:614
 msgid "Skip to main menu"
-msgstr "Salta al menu principale"
+msgstr "Ugrás a főmenübe"
 
 #: src/gui/LevelWidget.cc:617
 msgid "Arrows:"
-msgstr "Frecce:"
+msgstr "Nyilak:"
 
 #: src/gui/LevelWidget.cc:617
 msgid "Select level"
-msgstr "Seleziona livello"
+msgstr "Pálya választása"
 
 #: src/gui/LevelWidget.cc:618
 msgid "Return:"
-msgstr "Ritorna:"
+msgstr "Return:"
 
 #: src/gui/LevelWidget.cc:618
 msgid "Play selected level"
-msgstr "Gioca livello selezionato"
+msgstr "Kiválasztott pálya játszása"
 
 #: src/gui/LevelWidget.cc:619
 msgid "Back/Space:"
-msgstr "Back/Space:"
+msgstr "Visszatörlés/Szóköz:"
 
 #: src/gui/LevelWidget.cc:619
 msgid "Previous/next levelpack"
-msgstr "Precedente/prossimo pacchetto di livelli"
+msgstr "Előző/következő pályacsomag"
 
 #: src/gui/LevelWidget.cc:620
 msgid "Mark current level as Unsolved"
-msgstr "Segna livello corrente come Irrisolto"
+msgstr "Jelenlegi pálya bejelölése mint 'Megoldatlan'"
 
 #: src/gui/LevelWidget.cc:675
 msgid "Select next non-par level"
-msgstr "Seleziona prossimo livello non-par"
+msgstr "Következő nem par pálya"
 
 #: src/gui/LevelWidget.cc:677
 msgid "Select next unsolved level"
-msgstr "Seleziona prossimo livello irrisolto"
+msgstr "Következő megoldatlan pálya"
 
 #: src/gui/ScreenshotViewer.cc:36
 msgid "Page Up:"
-msgstr ""
+msgstr "Page Up:"
 
 #: src/gui/ScreenshotViewer.cc:36
-#, fuzzy
 msgid "Show previous screenshot"
-msgstr "Crea uno screenshot"
+msgstr "Előző pillanatkép"
 
 #: src/gui/ScreenshotViewer.cc:37
 msgid "Page Down:"
-msgstr ""
+msgstr "Page Down:"
 
 #: src/gui/ScreenshotViewer.cc:37
-#, fuzzy
 msgid "Show next screenshot"
-msgstr "Crea uno screenshot"
+msgstr "Következő pillanatkép"
 
 #: src/gui/ScreenshotViewer.cc:105
-#, fuzzy
 msgid "No screenshot available:"
-msgstr "Nessun altro livello irrisolto disponibile!"
+msgstr "Nincs elérhető pillanatkép:"
 
 #: src/gui/LevelInspector.cc:173 src/gui/HelpMenu.cc:34
 msgid "Ok"
-msgstr ""
+msgstr "Ok"
 
 #: src/gui/LevelInspector.cc:174
-#, fuzzy
 msgid "Screenshot"
-msgstr "Crea uno screenshot"
+msgstr "Pillanatkép"
 
 #: src/gui/LevelInspector.cc:216
-#, fuzzy
 msgid "Level: "
-msgstr "Pacchetto di livelli"
+msgstr "Pálya: "
 
 #: src/gui/LevelInspector.cc:218 src/gui/LevelInspector.cc:275
 msgid "Author: "
-msgstr ""
+msgstr "Alkotó: "
 
 #: src/gui/LevelInspector.cc:219
 msgid "Contact: "
-msgstr ""
+msgstr "Elérhetőség: "
 
 #: src/gui/LevelInspector.cc:220
 msgid "Homepage: "
-msgstr ""
+msgstr "Honlap: "
 
+# note: "Hivatalos minősítés" could be a preferable translation (i.e. official),
+#  but doesn't fit. "Ált." stands for "Általános" (i.e. common)
 #: src/gui/LevelInspector.cc:241
 msgid "Public Ratings"
-msgstr ""
+msgstr "Ált. minősítés"
 
 #: src/gui/LevelInspector.cc:243
 msgid "Intelligence: "
-msgstr ""
+msgstr "Gondolkodás: "
 
 #: src/gui/LevelInspector.cc:244
 msgid "Dexterity: "
-msgstr ""
+msgstr "Ügyesség: "
 
 #: src/gui/LevelInspector.cc:245
 msgid "Patience: "
-msgstr ""
+msgstr "Türelem: "
 
 #: src/gui/LevelInspector.cc:246
 msgid "Knowledge: "
-msgstr ""
+msgstr "Tudás: "
 
 #: src/gui/LevelInspector.cc:247
-#, fuzzy
 msgid "Speed: "
-msgstr "Stereo: "
+msgstr "Sebesség: "
 
 #: src/gui/LevelInspector.cc:248
-#, fuzzy
 msgid "Difficulty: "
-msgstr "Difficoltà: Semplice"
+msgstr "Nehézség: "
 
 #: src/gui/LevelInspector.cc:269
 msgid "Scores"
-msgstr ""
+msgstr "Pontszámok"
 
 #: src/gui/LevelInspector.cc:272
 msgid "You: "
-msgstr ""
+msgstr "Ön: "
 
 #: src/gui/LevelInspector.cc:273
 msgid "Best: "
-msgstr ""
+msgstr "Legjobb: "
 
 #: src/gui/LevelInspector.cc:274
 msgid "PAR: "
-msgstr ""
+msgstr "PAR: "
 
+# note, "Megoldva %: " would be nicer, doesn't fit
 #: src/gui/LevelInspector.cc:276
-#, fuzzy
 msgid "Solved %: "
-msgstr "Salta livelli risolti: "
+msgstr "Kész %: "
 
+# note, "Megoldva #: " would be nicer, doesn't fit
 #: src/gui/LevelInspector.cc:277
-#, fuzzy
 msgid "Solved #: "
-msgstr "Salta livelli risolti: "
+msgstr "Kész #: "
 
 #: src/gui/LevelInspector.cc:298
 msgid "Version"
-msgstr ""
+msgstr "Verzió"
 
 #: src/gui/LevelInspector.cc:300
-#, fuzzy
 msgid "Score: "
-msgstr "Stereo: "
+msgstr "Jelzés: "
 
 #: src/gui/LevelInspector.cc:301
 msgid "Release: "
-msgstr ""
+msgstr "Kiadás: "
 
 #: src/gui/LevelInspector.cc:302
 msgid "Revision: "
-msgstr ""
+msgstr "Átdolgozás: "
 
 #: src/gui/LevelInspector.cc:303
 msgid "Control: "
-msgstr ""
+msgstr "Irányítás: "
 
 #: src/gui/LevelInspector.cc:304
 msgid "Target: "
-msgstr ""
+msgstr "Cél: "
 
 #: src/gui/LevelInspector.cc:315
 msgid "force"
-msgstr ""
+msgstr "erő"
 
 #: src/gui/LevelInspector.cc:318
 msgid "balance"
-msgstr ""
+msgstr "egyensúly"
 
 #: src/gui/LevelInspector.cc:321
 msgid "key"
-msgstr ""
+msgstr "kulcs"
 
 #: src/gui/LevelInspector.cc:340
 msgid "Best Score Holders: "
-msgstr ""
+msgstr "Legjobb játékosok: "
 
 #: src/gui/LevelInspector.cc:356
-#, fuzzy
 msgid "Credits: "
-msgstr "Riconoscimenti"
+msgstr "Köszönet: "
 
 #: src/gui/LevelInspector.cc:367
 msgid "Dedication: "
-msgstr ""
+msgstr "Ajánlás: "
 
 #: src/gui/LevelInspector.cc:378
-#, fuzzy
 msgid "Level Path: "
-msgstr "Pacchetto di livelli"
+msgstr "Elérési út: "
 
 #: src/gui/LevelInspector.cc:398
 msgid "Annotation: "
-msgstr ""
+msgstr "Jegyzet: "
 
 #: src/gui/LevelInspector.cc:402
 msgid "Rating: "
-msgstr ""
+msgstr "Minősítés: "
 
 #: src/gui/LevelInspector.cc:404
 msgid "Average: "
-msgstr ""
+msgstr "Átlag: "
 
 #: src/gui/GameMenu.cc:43
 msgid "Resume Level"
-msgstr "Ripristina Livello"
+msgstr "Folytatás"
 
 #: src/gui/GameMenu.cc:44
 msgid "Restart Level"
-msgstr "Ricomincia Livello"
+msgstr "Újrakezdés"
 
 #: src/gui/GameMenu.cc:46
 msgid "Abort Level"
-msgstr "Annulla Livello"
+msgstr "Megszakítás"
 
 #: src/lua.cc:733
 #, c-format
 msgid "Cannot find '%s'.\n"
-msgstr ""
+msgstr "A '%s' nem található.\n"
 
 #: src/lua.cc:734 src/lua.cc:741
 #, c-format
 msgid "Your installation may be incomplete or invalid.\n"
-msgstr "La tua installazione potrebbe essere incompleta o non valida.\n"
+msgstr "Lehet, hogy az Ön telepítése nem teljes vagy érvénytelen.\n"
 
 #: src/lua.cc:740
-#, fuzzy, c-format
+#, c-format
 msgid "There was an error loading '%s'.\n"
-msgstr "C'è stato un errore nel caricamento di 'startup.lua'.\n"
+msgstr "Hiba történt a '%s' betöltése során.\n"
 
 #: src/lua.cc:742
 #, c-format
 msgid "Error: '%s'\n"
-msgstr ""
+msgstr "Hiba: '%s'\n"
 
 #  level: "Firefox"
 #  author: "Ronald Lamprecht" email "ral@users.berlios.de"
 #  comment: "Set fire or die"
 #: po/level_i18n.cc:6 po/level_i18n.cc:61
 msgid "Fire or be fired"
-msgstr ""
+msgstr "Tüzelj vagy égj!"
 
 #  level: "Firefox"
 #  author: "Ronald Lamprecht" email "ral@users.berlios.de"
@@ -755,6 +741,9 @@ msgid ""
 "in case of a wall of fire is approaching? Be a Firefox - you have the first "
 "5 items to deal with, no more no less!"
 msgstr ""
+"Gondolja, hogy egy busman elkezdene egy tűzoltókészüléket keresni a "
+"pincében, amikor egy lángfal közeledik felé? Legyen hát a 'tűz mestere'! "
+"Rendelkezésére áll az első 5 elem, se több, se kevesebb!"
 
 #  level: "Firefox"
 #  author: "Ronald Lamprecht" email "ral@users.berlios.de"
@@ -763,6 +752,8 @@ msgid ""
 "You can extinguish fire with water. This is a good place to refill your "
 "extinguisher. Be aware, water is rare!"
 msgstr ""
+"A tüzet vízzel tudja eloltani. Ez a hely alkalmas a tűzoltókészüléke "
+"újratöltésére. De ne felejtse, a víz ritka."
 
 #  level: "Firefox"
 #  author: "Ronald Lamprecht" email "ral@users.berlios.de"
@@ -770,70 +761,68 @@ msgstr ""
 msgid ""
 "OOPS! The maze is broken! Prepare to repair the maze before you destroy it."
 msgstr ""
+"Hoppá! A labirintus elromlott! Kezdje el megjavítani, mielőtt elpusztítja!"
 
 #  level: "Basketball"
 #  author: "Ronald Lamprecht" email "ral@users.berlios.de"
 #: po/level_i18n.cc:18
 msgid "Pass the ball in time"
-msgstr ""
+msgstr "Passzold időben a labdát!"
 
 #  level: "Toreador"
 #  author: "Ronald Lamprecht" email "ral@users.berlios.de"
 #: po/level_i18n.cc:23
 msgid "Toreador"
-msgstr ""
+msgstr "Torreádor"
 
 #  level: "Catwalk Meditation"
 #  author: "Ronald Lamprecht" email "ral@users.berlios.de"
 #: po/level_i18n.cc:28
 msgid "Catwalk Meditation"
-msgstr ""
+msgstr "Palló meditáció"
 
 #  level: "Meditation Disturbance"
 #  author: "Ronald Lamprecht" email "ral@users.berlios.de"
 #: po/level_i18n.cc:33
 msgid "Meditation Disturbance"
-msgstr ""
+msgstr "Meditáció háborgatás"
 
 #  level: "Meditation Disturbance"
 #  author: "Ronald Lamprecht" email "ral@users.berlios.de"
 #  comment: "free translatable joke about being hit by a horse"
 #: po/level_i18n.cc:36
 msgid "Hit by a bolting horse"
-msgstr ""
+msgstr "Belesújtott a ló"
 
 #  level: "The Grim Reaper"
 #  author: "Daniel Heck" email ""
 #: po/level_i18n.cc:50
 msgid "The Grim Reaper"
-msgstr ""
+msgstr "A Nagy Kaszás"
 
 #  level: "Welcome"
 #  author: "Daniel Heck" email ""
 #: po/level_i18n.cc:55
 msgid "Welcome"
-msgstr ""
+msgstr "Üdvözöljük!"
 
 #~ msgid "Tournament"
-#~ msgstr "Torneo"
+#~ msgstr "Mérkőzés"
 
 #~ msgid "Training"
-#~ msgstr "Allenamento"
+#~ msgstr "Gyakorlás"
 
 #~ msgid "Please restart Enigma to activate your changes!"
-#~ msgstr "Per favore, riavvia Enigma per attivare le tue modifiche!"
+#~ msgstr "Indítsa újra az Engimát, hogy változtatásai érvénybe lépjenek!"
 
-#~ msgid "Enigma - Level Pack Menu"
-#~ msgstr "Enigma - Menu Pacchetto Livelli"
+#~ msgid "other"
+#~ msgstr "egyéb"
 
-#~ msgid "Enigma - Options Menu"
-#~ msgstr "Enigma - Menu delle Opzioni"
+#~ msgid "time"
+#~ msgstr "idő"
 
-#~ msgid "Enigma - Level Menu"
-#~ msgstr "Enigma - Menu dei Livelli"
+#~ msgid "pushes"
+#~ msgstr "mozdítás"
 
-#~ msgid "Enigma - Main Menu"
-#~ msgstr "Enigma - Menu Principale"
-
-#~ msgid "Main contributors:"
-#~ msgstr "Principali collaboratori:"
+#~ msgid "moves"
+#~ msgstr "lépések"

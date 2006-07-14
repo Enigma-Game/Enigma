@@ -4,9 +4,11 @@ src/main.cc
 src/gui/MainMenu.cc
 src/gui/OptionsMenu.cc
 src/gui/LevelMenu.cc
+src/gui/LevelWidget.cc
 src/gui/LevelPackMenu.cc
 src/gui/ScreenshotViewer.cc
 src/gui/LevelInspector.cc
 src/gui/HelpMenu.cc
+src/gui/GameMenu.cc
 src/lua.cc
 po/level_i18n.cc

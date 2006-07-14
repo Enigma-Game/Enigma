@@ -1,6 +1,6 @@
 /*
 ** Lua binding: enigma
-** Generated automatically by tolua++-1.0.92 on Fri Apr 28 14:17:24 2006.
+** Generated automatically by tolua++-1.0.92 on 07/09/06 22:52:39.
 */
 
 #ifndef __cplusplus
@@ -666,6 +666,30 @@ static int tolua_set_enigma_HoleForce(lua_State* tolua_S)
 }
 #endif //#ifndef TOLUA_DISABLE
 
+/* get function: CreatingPreview */
+#ifndef TOLUA_DISABLE_tolua_get_enigma_CreatingPreview
+static int tolua_get_enigma_CreatingPreview(lua_State* tolua_S)
+{
+  tolua_pushboolean(tolua_S,(bool)CreatingPreview);
+ return 1;
+}
+#endif //#ifndef TOLUA_DISABLE
+
+/* set function: CreatingPreview */
+#ifndef TOLUA_DISABLE_tolua_set_enigma_CreatingPreview
+static int tolua_set_enigma_CreatingPreview(lua_State* tolua_S)
+{
+#ifndef TOLUA_RELEASE
+  tolua_Error tolua_err;
+  if (!tolua_isboolean(tolua_S,2,0,&tolua_err))
+   tolua_error(tolua_S,"#vinvalid type in variable assignment.",&tolua_err);
+#endif
+  CreatingPreview = ((bool)  tolua_toboolean(tolua_S,2,0))
+;
+ return 0;
+}
+#endif //#ifndef TOLUA_DISABLE
+
 /* function: AddLevelPack */
 #ifndef TOLUA_DISABLE_tolua_enigma_enigma_AddLevelPack00
 static int tolua_enigma_enigma_AddLevelPack00(lua_State* tolua_S)
@@ -1146,6 +1170,7 @@ TOLUA_API int tolua_enigma_open (lua_State* tolua_S)
    tolua_variable(tolua_S,"WormholeForce",tolua_get_enigma_WormholeForce,tolua_set_enigma_WormholeForce);
    tolua_variable(tolua_S,"WormholeRange",tolua_get_enigma_WormholeRange,tolua_set_enigma_WormholeRange);
    tolua_variable(tolua_S,"HoleForce",tolua_get_enigma_HoleForce,tolua_set_enigma_HoleForce);
+   tolua_variable(tolua_S,"CreatingPreview",tolua_get_enigma_CreatingPreview,tolua_set_enigma_CreatingPreview);
    tolua_function(tolua_S,"AddLevelPack",tolua_enigma_enigma_AddLevelPack00);
    tolua_function(tolua_S,"AddZippedLevelPack",tolua_enigma_enigma_AddZippedLevelPack00);
    tolua_function(tolua_S,"SetCompatibility",tolua_enigma_enigma_SetCompatibility00);
