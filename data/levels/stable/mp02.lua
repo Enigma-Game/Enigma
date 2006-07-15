@@ -300,7 +300,7 @@ set_item("it-vortex-open", 9, 31, {targetx = 13.5, targety =  10.5, name="vortex
 set_item("it-vortex-open", 55, 35, {targetx = 13.5, targety =  10.5, name="vortex2"})
 set_item("it-vortex-open", 54, 58, {targetx = 13.5, targety =  10.5, name="vortex3"})
 
-set_item("it-wormhole", 19, 2, {targetx = 38.5, targety =  2.5, name="vortex4"})
+set_item("it-wormhole", 19, 2, {targetx = 38.5, targety =  2.5, name="vortex4", strength=0})
 set_item("it-vortex-open", 18, 9, {targetx = 1.5, targety =  25.5, name="vortex5"})
 set_item("it-vortex-open", 1, 11, {targetx = 40.5, targety =  25.5, name="vortex6"})
 set_item("it-vortex-open", 7, 5, {targetx = 41.5, targety =  50.5, name="vortex7"})
@@ -308,4 +308,3 @@ set_item("it-vortex-open", 7, 5, {targetx = 41.5, targety =  50.5, name="vortex7
 -- ACTORS
 set_actor("ac-whiteball",1.5,3.5)
 set_actor("ac-blackball",13.5,10.5,{player=0})
-

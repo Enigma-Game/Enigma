@@ -1,3 +1,3 @@
 pkgdatadir = $(datadir)/@PACKAGE@/levels/esprit
-pkgdata_DATA = $(wildcard $(srcdir)/*.png $(srcdir)/*.txt $(srcdir)/*.lua $(srcdir)/*.xml) index_esprit.txt
+pkgdata_DATA = $(wildcard $(srcdir)/*.png $(srcdir)/*.txt $(srcdir)/*.lua $(srcdir)/*.xml)
 EXTRA_DIST = 00makepreviews.sh $(pkgdata_DATA)
