@@ -824,6 +824,21 @@ namespace
     };
 }
 
+/* -------------------- BigBlueSand -------------------- */
+
+// Same as BigBrick but with st-blue-sand
+
+namespace
+{
+    class BigBlueSand : public ConnectiveStone {
+        CLONEOBJ(BigBlueSand);
+        public:
+            BigBlueSand(int connections)
+            : ConnectiveStone("st-bigbluesand", connections)
+            {}
+    };
+}
+
 
 /* -------------------- Puzzle stones -------------------- */ 
 
@@ -2978,6 +2993,23 @@ void stones::Init_complex()
     Register("st-bigbrick-nsw", new BigBrick(12));
     Register("st-bigbrick-esw", new BigBrick(8));
     Register("st-bigbrick-nesw", new BigBrick(16));
+    
+    Register("st-bigbluesand", new BigBlueSand(1));
+    Register("st-bigbluesand-n", new BigBlueSand(9));
+    Register("st-bigbluesand-e", new BigBlueSand(5));
+    Register("st-bigbluesand-s", new BigBlueSand(3));
+    Register("st-bigbluesand-w", new BigBlueSand(2));
+    Register("st-bigbluesand-ne", new BigBlueSand(13));
+    Register("st-bigbluesand-nw", new BigBlueSand(10));
+    Register("st-bigbluesand-es", new BigBlueSand(7));
+    Register("st-bigbluesand-sw", new BigBlueSand(4));
+    Register("st-bigbluesand-ns", new BigBlueSand(11));
+    Register("st-bigbluesand-ew", new BigBlueSand(6));
+    Register("st-bigbluesand-nes", new BigBlueSand(15));
+    Register("st-bigbluesand-new", new BigBlueSand(14));
+    Register("st-bigbluesand-nsw", new BigBlueSand(12));
+    Register("st-bigbluesand-esw", new BigBlueSand(8));
+    Register("st-bigbluesand-nesw", new BigBlueSand(16));
 
     Register ("st-rotator-right", new RotatorStone(true, false));
     Register ("st-rotator-left", new RotatorStone(false, false));

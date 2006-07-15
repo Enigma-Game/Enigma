@@ -1325,6 +1325,15 @@ end
 --def_alias("st-bigbrick-esw", "st-bigbrick8");
 --def_alias("st-bigbrick-nesw", "st-bigbrick16");
 
+-----------------
+-- BigBlueSand --
+-----------------
+
+do
+   def_subimages("st-bigbluesand", {modelname="st-bigbluesandx",w=4,h=4})
+   for i=1,16 do def_solidstone("st-bigbluesand"..i, "st-bigbluesandx"..i) end
+end
+
 -----------
 -- Doors --
 -----------
