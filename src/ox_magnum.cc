@@ -45,7 +45,7 @@ const char *oxyd::oxydmag_floor_map[256] = {
     "fl-metal",                 // OxydMagnum floor 0x02 (This should be "fl-stwood" for #112)
     "fl-metal3",                // OxydMagnum floor 0x03
     "fl-metal4",                // OxydMagnum floor 0x04
-    0,                          // OxydMagnum floor 0x05 (common was 'fl-metal')
+    0,                          // OxydMagnum floor 0x05 (common was 'fl-metal')(level 121 ?)
     "fl-metal5",                // OxydMagnum floor 0x06
     "fl-normal",                // OxydMagnum floor 0x07 (common was 'fl-metal')
     "fl-tigris",                // OxydMagnum floor 0x08 (common was 'fl-rough')
@@ -103,10 +103,10 @@ const char *oxyd::oxydmag_floor_map[256] = {
     "fl-rock",                  // OxydMagnum floor 0x3c
     UNUSED,                     // OxydMagnum floor 0x3d
     UNUSED,                     // OxydMagnum floor 0x3e
-    0,                          // OxydMagnum floor 0x3f
+    0,                          // OxydMagnum floor 0x3f (Level 121 ?)(in normal Oxyd Magnum Levels unused!)
     "fl-stwood1",               // OxydMagnum floor 0x40
     "fl-wood",                  // OxydMagnum floor 0x41
-    0,                          // OxydMagnum floor 0x42
+    "fl-wood1",                 // OxydMagnum floor 0x42
     UNUSED,                     // OxydMagnum floor 0x43
     UNUSED,                     // OxydMagnum floor 0x44
     UNUSED,                     // OxydMagnum floor 0x45
@@ -130,7 +130,7 @@ const char *oxyd::oxydmag_floor_map[256] = {
     UNUSED,                     // OxydMagnum floor 0x57
     "fl-darkgray",              // OxydMagnum floor 0x58
     "fl-leaves",                // OxydMagnum floor 0x59
-    0,                          // OxydMagnum floor 0x5a
+    0,                          // OxydMagnum floor 0x5a (Level 121 ?)(Probably Oxyd Magnum Gold levels)
     "fl-plank",                 // OxydMagnum floor 0x5b
     // codes >= 0x5c are unused
 };
@@ -155,8 +155,8 @@ const char *oxyd::oxydmag_stone_map[256] = {
     UNUSED,                     // OxydMagnum stone 0x1e
     "st-brick",                 // OxydMagnum stone 0x1f
     "st-rock1",                 // OxydMagnum stone 0x20
-    0,                          // OxydMagnum stone 0x21
-    0,                          // OxydMagnum stone 0x22 (common was 'st-glass')
+    "st-rock1",                 // OxydMagnum stone 0x21 (Level 121 ?)(Oxyd Magnum Gold)
+    "st-rock1",                 // OxydMagnum stone 0x22 (common was 'st-glass')(Level 73 only)(looks like st-rock1)(looks like 0x20, but not like 0x87)
     "st-woven",                 // OxydMagnum stone 0x23
     "st-marble",                // OxydMagnum stone 0x24
     "st-glass1",                // OxydMagnum stone 0x25
@@ -167,13 +167,13 @@ const char *oxyd::oxydmag_stone_map[256] = {
     "st-plain_move",            // OxydMagnum stone 0x2a
     "st-wood",                  // OxydMagnum stone 0x2b
     "st-switch",                // OxydMagnum stone 0x2c
-    "st-floppy",                // OxydMagnum stone 0x2d
+    "st-floppy",                // OxydMagnum stone 0x2d (in normal Oxyd Magnum Levels unused!)
     UNUSED,                     // OxydMagnum stone 0x2e
-    "st-fourswitch",            // OxydMagnum stone 0x2f
+    "st-fourswitch",            // OxydMagnum stone 0x2f (Level 89 and 92)
     "st-key",                   // OxydMagnum stone 0x30
     "st-floppy",                // OxydMagnum stone 0x31
     "st-knight",                // OxydMagnum stone 0x32
-    0,                          // OxydMagnum stone 0x33
+    "st-fourswitch",            // OxydMagnum stone 0x33 (Level 51 and 100)
     "st-death",                 // OxydMagnum stone 0x34
     "st-death_invisible",       // OxydMagnum stone 0x35
     "st-oneway_black-w",        // OxydMagnum stone 0x36
@@ -185,8 +185,8 @@ const char *oxyd::oxydmag_stone_map[256] = {
     "st-oneway_white-n",        // OxydMagnum stone 0x3c
     "st-oneway_white-s",        // OxydMagnum stone 0x3d
     UNUSED,                     // OxydMagnum stone 0x3e
-    0,                          // OxydMagnum stone 0x3f
-    0,                          // OxydMagnum stone 0x40
+    UNUSED,                     // OxydMagnum stone 0x3f
+    UNUSED,                     // OxydMagnum stone 0x40
     UNUSED,                     // OxydMagnum stone 0x41
     "st-actorimpulse",          // OxydMagnum stone 0x42
     "st-actorimpulse_invisible", // OxydMagnum stone 0x43
@@ -242,9 +242,9 @@ const char *oxyd::oxydmag_stone_map[256] = {
     "st-rock2",                 // OxydMagnum stone 0x75 (common was 'st-rock2')
     "st-invisible",             // OxydMagnum stone 0x76
     UNUSED,                     // OxydMagnum stone 0x77
-    "st-door-h-open",           // OxydMagnum stone 0x78
+    "st-door-v-open",           // OxydMagnum stone 0x78 (st-door-h-open was wrong, look at level #32)
     UNUSED,                     // OxydMagnum stone 0x79
-    "st-door-v-open",           // OxydMagnum stone 0x7a
+    "st-timeswitch",            // OxydMagnum stone 0x7a (Level 66, this is a solid stone)
     UNUSED,                     // OxydMagnum stone 0x7b
     UNUSED,                     // OxydMagnum stone 0x7c
     UNUSED,                     // OxydMagnum stone 0x7d
@@ -256,26 +256,26 @@ const char *oxyd::oxydmag_stone_map[256] = {
     UNUSED,                     // OxydMagnum stone 0x83
     UNUSED,                     // OxydMagnum stone 0x84
     UNUSED,                     // OxydMagnum stone 0x85
-    "st-rock3_hole",                          // OxydMagnum stone 0x86
-    "st-rock1",                 // OxydMagnum stone 0x87
-    0,                          // OxydMagnum stone 0x88
-    0,                          // OxydMagnum stone 0x89
+    "st-rock3_hole",            // OxydMagnum stone 0x86
+    "st-rock4",                 // OxydMagnum stone 0x87 (was st-rock1, but the pic has straight edges and surfaces)
+    0,                          // OxydMagnum stone 0x88 (Level 121 ?)(in normal Oxyd Magnum Levels unused!)
+    0,                          // OxydMagnum stone 0x89 (Level 121 ?)(in normal Oxyd Magnum Levels unused!)
     "st-stone1",                // OxydMagnum stone 0x8a
     "st-rock6",                 // OxydMagnum stone 0x8b
     "st-white1",                // OxydMagnum stone 0x8c
     "st-black1",                // OxydMagnum stone 0x8d
     "st-yinyang2",              // OxydMagnum stone 0x8e
     UNUSED,                     // OxydMagnum stone 0x8f
-    0,                          // OxydMagnum stone 0x90
+    "st-redrock",               // OxydMagnum stone 0x90 (Level 89 only)
     UNUSED,                     // OxydMagnum stone 0x91
-    0,                          // OxydMagnum stone 0x92
+    "st-fourswitch",            // OxydMagnum stone 0x92 (Level 51 only)
     "st-yinyang1",              // OxydMagnum stone 0x93
     "st-break_acwhite",         // OxydMagnum stone 0x94
     "st-break_acblack",         // OxydMagnum stone 0x95
     "st-chargeplus",            // OxydMagnum stone 0x96
     "st-chargeminus",           // OxydMagnum stone 0x97
     "st-chargezero",            // OxydMagnum stone 0x98
-    0,                          // OxydMagnum stone 0x99 (common was 'st-blocker')
+    0,                          // OxydMagnum stone 0x99 (common was 'st-blocker')(Level 121 ?)(in normal Oxyd Magnum Levels unused!)
     "st-turnstile",             // OxydMagnum stone 0x9a
     "st-turnstile-n",           // OxydMagnum stone 0x9b
     "st-turnstile-s",           // OxydMagnum stone 0x9c
@@ -291,7 +291,7 @@ const char *oxyd::oxydmag_stone_map[256] = {
     UNUSED,                     // OxydMagnum stone 0xa6
     "st-lightpassenger",        // OxydMagnum stone 0xa7
     UNUSED,                     // OxydMagnum stone 0xa8
-    0,                          // OxydMagnum stone 0xa9
+    UNUSED,                     // OxydMagnum stone 0xa9
     // codes >= 0xaa are unused
 };
 

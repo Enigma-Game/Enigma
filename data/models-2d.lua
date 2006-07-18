@@ -680,10 +680,13 @@ def_stone("st-rock5")
 def_stone("st-rock6")
 def_stone("st-rock7")
 def_stone("st-rock8", "sh-round")
+def_stone("st-rock9", "sh-round")
+def_stone("st-redrock")
 def_stone("st-brownie", "sh-round")
 def_stone("st-stone1")
 def_stone("st-stone2")
 def_stone("st-bumps")
+def_stone("st-camouflage")
 
 def_alias("st-laserbreak", "st-rock3")
 def_alias("st-laserbreak-anim", "st-rock3_break-anim")
@@ -1481,14 +1484,6 @@ end
 do
     def_image("st-lightpassenger")
     def_shmodel("st-lightpassenger", "st-lightpassenger", "sh-solid")
-end
-
-----------------------
--- Camouflage Stone --
-----------------------
-do
-    def_image("st-camouflage")
-    def_shmodel("st-camouflage", "st-camouflage", "sh-solid")
 end
 
 -------------
