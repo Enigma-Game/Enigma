@@ -100,7 +100,7 @@ msgstr "F10:"
 
 #: src/client.cc:475
 msgid "Make screenshot"
-msgstr "Сделать снимок экрана"
+msgstr "Снимок экрана"
 
 #: src/client.cc:476
 msgid "Left/right arrow:"
@@ -116,7 +116,7 @@ msgstr "Alt+x:"
 
 #: src/client.cc:477
 msgid "Return to level menu"
-msgstr "Вернуться к меню выбора уровней"
+msgstr "Вернуться к меню уровней"
 
 #: src/client.cc:478 src/gui/LevelWidget.cc:622
 msgid "Alt+Return:"
@@ -156,7 +156,7 @@ msgstr "Снова Ваше персональное лучшее время..."
 
 #: src/client.cc:709
 msgid "New personal best time!"
-msgstr "Новое персональное время!"
+msgstr "Новое персональное лучшее время!"
 
 #: src/client.cc:720
 msgid "Your best, "
@@ -199,17 +199,17 @@ msgstr "Ошибка в конфигурационном файле.\n"
 #: src/main.cc:399 src/main.cc:417
 #, c-format
 msgid "Error Home directory does not exist.\n"
-msgstr ""
+msgstr "Ошибка! Домашняя папка не существует.\n"
 
 #: src/main.cc:409
 #, c-format
 msgid "Error Application Data directory does not exist.\n"
-msgstr ""
+msgstr "Ошибка! Папка с данными игры не существует.\n"
 
 #: src/main.cc:437 src/main.cc:486
-#, fuzzy, c-format
+#, c-format
 msgid "Error in XML initialization.\n"
-msgstr "Ошибка в конфигурационном файле.\n"
+msgstr "Ошибка при инициализации XML.\n"
 
 #: src/gui/MainMenu.cc:72 src/gui/MainMenu.cc:122
 msgid "Start Game"
@@ -217,7 +217,7 @@ msgstr "Начать игру"
 
 #: src/gui/MainMenu.cc:73
 msgid "Join Game"
-msgstr ""
+msgstr "Подключиться к игре"
 
 #: src/gui/MainMenu.cc:74 src/gui/OptionsMenu.cc:348 src/gui/LevelMenu.cc:63
 #: src/gui/ScreenshotViewer.cc:34
@@ -225,9 +225,8 @@ msgid "Back"
 msgstr "Назад"
 
 #: src/gui/MainMenu.cc:124
-#, fuzzy
 msgid "Network Game"
-msgstr "Начать игру"
+msgstr "Сетевая игра"
 
 #: src/gui/MainMenu.cc:125
 msgid "Editor"
@@ -305,27 +304,27 @@ msgstr "Авторское право (C) 2002-2005 Daniel Heck и участн�
 
 #: src/gui/MainMenu.cc:274
 msgid "Preferences Path:"
-msgstr ""
+msgstr "Путь к настройкам:"
 
 #: src/gui/MainMenu.cc:284
 msgid "User Path:"
-msgstr ""
+msgstr "Папка пользователя:"
 
 #: src/gui/MainMenu.cc:294
 msgid "User Image Path:"
-msgstr ""
+msgstr "Изображения:"
 
 #: src/gui/MainMenu.cc:304
 msgid "System Path:"
-msgstr ""
+msgstr "Системная папка:"
 
 #: src/gui/MainMenu.cc:314
 msgid "Resource Paths:"
-msgstr ""
+msgstr "Папка с ресурсами:"
 
 #: src/gui/MainMenu.cc:324
 msgid "L10n Path:"
-msgstr ""
+msgstr "Путь к L10n:"
 
 #: src/gui/OptionsMenu.cc:70 src/gui/OptionsMenu.cc:91
 msgid "muted"
@@ -351,12 +350,11 @@ msgstr "Нет"
 
 #: src/gui/OptionsMenu.cc:121
 msgid "Auto"
-msgstr ""
+msgstr "Авто"
 
 #: src/gui/OptionsMenu.cc:121
-#, fuzzy
 msgid "Never"
-msgstr "реверс"
+msgstr "Никогда"
 
 #: src/gui/OptionsMenu.cc:192
 msgid "Default"
@@ -423,17 +421,16 @@ msgid "Stereo: "
 msgstr "Стерео: "
 
 #: src/gui/OptionsMenu.cc:388
-#, fuzzy
 msgid "Ratings update: "
-msgstr "Язык: "
+msgstr "Обновлять рейтинг: "
 
 #: src/gui/OptionsMenu.cc:402
 msgid "User path: "
-msgstr ""
+msgstr "Папка пользователя: "
 
 #: src/gui/OptionsMenu.cc:403
 msgid "User image path: "
-msgstr ""
+msgstr "Изображения: "
 
 #: src/gui/LevelMenu.cc:65
 msgid "Level Pack"
@@ -491,7 +488,6 @@ msgid "Difficulty: Normal"
 msgstr "Игра: Норма"
 
 #: src/gui/LevelWidget.cc:343
-#, fuzzy
 msgid "No further unsolved level available!"
 msgstr "Нерешенных уровней больше нет!"
 
@@ -537,175 +533,163 @@ msgstr "Выбрать следующий нерешенный уровень"
 
 #: src/gui/ScreenshotViewer.cc:36
 msgid "Page Up:"
-msgstr ""
+msgstr "Page Up:"
 
 #: src/gui/ScreenshotViewer.cc:36
-#, fuzzy
 msgid "Show previous screenshot"
-msgstr "Сделать снимок экрана"
+msgstr "Показать предыдущий снимок"
 
 #: src/gui/ScreenshotViewer.cc:37
 msgid "Page Down:"
-msgstr ""
+msgstr "Page Down:"
 
 #: src/gui/ScreenshotViewer.cc:37
-#, fuzzy
 msgid "Show next screenshot"
-msgstr "Сделать снимок экрана"
+msgstr "Показать следующий снимок"
 
 #: src/gui/ScreenshotViewer.cc:105
-#, fuzzy
 msgid "No screenshot available:"
-msgstr "Нерешенных уровней больше нет!"
+msgstr "Нет снимков!"
 
 #: src/gui/LevelInspector.cc:173 src/gui/HelpMenu.cc:34
 msgid "Ok"
-msgstr ""
+msgstr "Ок"
 
 #: src/gui/LevelInspector.cc:174
-#, fuzzy
 msgid "Screenshot"
-msgstr "Сделать снимок экрана"
+msgstr "Снимок экрана"
 
 #: src/gui/LevelInspector.cc:216
-#, fuzzy
 msgid "Level: "
-msgstr "Банк уровней"
+msgstr "Уровень: "
 
 #: src/gui/LevelInspector.cc:218 src/gui/LevelInspector.cc:275
 msgid "Author: "
-msgstr ""
+msgstr "Автор: "
 
 #: src/gui/LevelInspector.cc:219
 msgid "Contact: "
-msgstr ""
+msgstr "Контакты: "
 
 #: src/gui/LevelInspector.cc:220
 msgid "Homepage: "
-msgstr ""
+msgstr "Страница: "
 
 #: src/gui/LevelInspector.cc:241
 msgid "Public Ratings"
-msgstr ""
+msgstr "Рейтинг"
 
 #: src/gui/LevelInspector.cc:243
 msgid "Intelligence: "
-msgstr ""
+msgstr "Интеллект: "
 
 #: src/gui/LevelInspector.cc:244
 msgid "Dexterity: "
-msgstr ""
+msgstr "Ловкость: "
 
 #: src/gui/LevelInspector.cc:245
 msgid "Patience: "
-msgstr ""
+msgstr "Терпение: "
 
 #: src/gui/LevelInspector.cc:246
 msgid "Knowledge: "
-msgstr ""
+msgstr "Знания: "
 
 #: src/gui/LevelInspector.cc:247
-#, fuzzy
 msgid "Speed: "
-msgstr "Стерео: "
+msgstr "Скорость: "
 
 #: src/gui/LevelInspector.cc:248
-#, fuzzy
 msgid "Difficulty: "
-msgstr "Игра: Легкая"
+msgstr "Сложность: "
 
 #: src/gui/LevelInspector.cc:269
 msgid "Scores"
-msgstr ""
+msgstr "Баллы"
 
 #: src/gui/LevelInspector.cc:272
 msgid "You: "
-msgstr ""
+msgstr "Вы: "
 
 #: src/gui/LevelInspector.cc:273
 msgid "Best: "
-msgstr ""
+msgstr "Лучший: "
 
 #: src/gui/LevelInspector.cc:274
 msgid "PAR: "
-msgstr ""
+msgstr "Рекорд: "
 
 #: src/gui/LevelInspector.cc:276
-#, fuzzy
 msgid "Solved %: "
-msgstr "Пропускать решенные: "
+msgstr "Решено %: "
 
 #: src/gui/LevelInspector.cc:277
-#, fuzzy
 msgid "Solved #: "
-msgstr "Пропускать решенные: "
+msgstr "Решено #: "
 
 #: src/gui/LevelInspector.cc:298
 msgid "Version"
-msgstr ""
+msgstr "Версия"
 
 #: src/gui/LevelInspector.cc:300
-#, fuzzy
 msgid "Score: "
-msgstr "Стерео: "
+msgstr "Баллы: "
 
 #: src/gui/LevelInspector.cc:301
 msgid "Release: "
-msgstr ""
+msgstr "Выпуск: "
 
 #: src/gui/LevelInspector.cc:302
 msgid "Revision: "
-msgstr ""
+msgstr "Издание: "
 
 #: src/gui/LevelInspector.cc:303
 msgid "Control: "
-msgstr ""
+msgstr "Контроль: "
 
 #: src/gui/LevelInspector.cc:304
 msgid "Target: "
-msgstr ""
+msgstr "Цель: "
 
 #: src/gui/LevelInspector.cc:315
 msgid "force"
-msgstr ""
+msgstr "сила"
 
 #: src/gui/LevelInspector.cc:318
 msgid "balance"
-msgstr ""
+msgstr "балланс"
 
 #: src/gui/LevelInspector.cc:321
 msgid "key"
-msgstr ""
+msgstr "клавиша"
 
 #: src/gui/LevelInspector.cc:340
 msgid "Best Score Holders: "
-msgstr ""
+msgstr "Лучшие баллы: "
 
 #: src/gui/LevelInspector.cc:356
-#, fuzzy
 msgid "Credits: "
 msgstr "Создатели"
 
 #: src/gui/LevelInspector.cc:367
 msgid "Dedication: "
-msgstr ""
+msgstr "Выделение: "
 
 #: src/gui/LevelInspector.cc:378
-#, fuzzy
 msgid "Level Path: "
 msgstr "Банк уровней"
 
 #: src/gui/LevelInspector.cc:398
 msgid "Annotation: "
-msgstr ""
+msgstr "Аннотация: "
 
 #: src/gui/LevelInspector.cc:402
 msgid "Rating: "
-msgstr ""
+msgstr "Рейтинг: "
 
 #: src/gui/LevelInspector.cc:404
 msgid "Average: "
-msgstr ""
+msgstr "Среднее: "
 
 #: src/gui/GameMenu.cc:43
 msgid "Resume Level"
@@ -722,7 +706,7 @@ msgstr "Прервать уровень"
 #: src/lua.cc:733
 #, c-format
 msgid "Cannot find '%s'.\n"
-msgstr ""
+msgstr "Не найден '%s'.\n"
 
 #: src/lua.cc:734 src/lua.cc:741
 #, c-format
@@ -730,89 +714,71 @@ msgid "Your installation may be incomplete or invalid.\n"
 msgstr "Установка не полная или выполнена с ошибкой.\n"
 
 #: src/lua.cc:740
-#, fuzzy, c-format
+#, c-format
 msgid "There was an error loading '%s'.\n"
-msgstr "Ошибка при загрузке 'startup.lua'.\n"
+msgstr "Ошибка при загрузке '%s'.\n"
 
 #: src/lua.cc:742
 #, c-format
 msgid "Error: '%s'\n"
-msgstr ""
+msgstr "Ошибка: '%s'\n"
 
-#  level: "Firefox"
-#  author: "Ronald Lamprecht" email "ral@users.berlios.de"
-#  comment: "Set fire or die"
 #: po/level_i18n.cc:6 po/level_i18n.cc:61
 msgid "Fire or be fired"
-msgstr ""
+msgstr "Подожги или подожгись сам"
 
-#  level: "Firefox"
-#  author: "Ronald Lamprecht" email "ral@users.berlios.de"
-#  comment: "Firefox in sense of clever in handling fire"
 #: po/level_i18n.cc:9 po/level_i18n.cc:64
 msgid ""
 "Do you think a bushman would start to search an extinguisher in the cellar "
 "in case of a wall of fire is approaching? Be a Firefox - you have the first "
 "5 items to deal with, no more no less!"
 msgstr ""
+"Вы думаете нужно искать огнетушитель в клетке пока стена огня не настигнет "
+"Вас?Будь хитрым - у Вас есть 5 первых инструментов для того, чтобы "
+"справиться, ни больше ни меньше!"
 
-#  level: "Firefox"
-#  author: "Ronald Lamprecht" email "ral@users.berlios.de"
 #: po/level_i18n.cc:11 po/level_i18n.cc:66
 msgid ""
 "You can extinguish fire with water. This is a good place to refill your "
 "extinguisher. Be aware, water is rare!"
 msgstr ""
+"Вы можете потушить огонь водой. Хороший момент для применения огнетушителя. "
+"Будьте внимательны, воды мало!"
 
-#  level: "Firefox"
-#  author: "Ronald Lamprecht" email "ral@users.berlios.de"
 #: po/level_i18n.cc:13 po/level_i18n.cc:68
 msgid ""
 "OOPS! The maze is broken! Prepare to repair the maze before you destroy it."
-msgstr ""
+msgstr "Оопс! Головоломка сломана! Отремонтируй ее до разрушения."
 
-#  level: "Basketball"
-#  author: "Ronald Lamprecht" email "ral@users.berlios.de"
 #: po/level_i18n.cc:18
 msgid "Pass the ball in time"
-msgstr ""
+msgstr "Пассуй мяч вовремя"
+
+#: po/level_i18n.cc:23
+msgid "Toreador"
+msgstr "Тореадор"
+
+#: po/level_i18n.cc:28
+msgid "Catwalk Meditation"
+msgstr "Catwalk - медитация"
+
+#: po/level_i18n.cc:33
+msgid "Meditation Disturbance"
+msgstr "Помеха медитации"
+
+#: po/level_i18n.cc:36
+msgid "Hit by a bolting horse"
+msgstr "Пострадай от закрытой лошади"
 
 #  level: "Toreador"
 #  author: "Ronald Lamprecht" email "ral@users.berlios.de"
-#: po/level_i18n.cc:23
-msgid "Toreador"
-msgstr ""
-
-#  level: "Catwalk Meditation"
-#  author: "Ronald Lamprecht" email "ral@users.berlios.de"
-#: po/level_i18n.cc:28
-msgid "Catwalk Meditation"
-msgstr ""
-
-#  level: "Meditation Disturbance"
-#  author: "Ronald Lamprecht" email "ral@users.berlios.de"
-#: po/level_i18n.cc:33
-msgid "Meditation Disturbance"
-msgstr ""
-
-#  level: "Meditation Disturbance"
-#  author: "Ronald Lamprecht" email "ral@users.berlios.de"
-#  comment: "free translatable joke about being hit by a horse"
-#: po/level_i18n.cc:36
-msgid "Hit by a bolting horse"
-msgstr ""
-
-#  level: "The Grim Reaper"
-#  author: "Daniel Heck" email ""
 #: po/level_i18n.cc:50
 msgid "The Grim Reaper"
-msgstr ""
+msgstr "Жуткая жатка"
 
-#  level: "Welcome"
-#  author: "Daniel Heck" email ""
 #: po/level_i18n.cc:55
 msgid "Welcome"
-msgstr ""
+msgstr "Добро пожаловать"
 
 #~ msgid "Tournament"
 #~ msgstr "Турнир"
@@ -820,5 +786,3 @@ msgstr ""
 #~ msgid "Training"
 #~ msgstr "Тренировка"
 
-#~ msgid "Please restart Enigma to activate your changes!"
-#~ msgstr "Пожалуйста перезагрузите Enigma для активации изменений!"

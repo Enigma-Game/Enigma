@@ -616,7 +616,7 @@ void server::SetCompatibility(const char *version) {
 enigma::Difficulty server::GetDifficulty()
 {
     int i= options::GetInt ("Difficulty");
-    if (i == DIFFICULTY_EASY)
+    if (i == DIFFICULTY_EASY && !server::CreatingPreview)
         return DIFFICULTY_EASY;
     else
         return DIFFICULTY_HARD;
