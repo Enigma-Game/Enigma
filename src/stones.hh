@@ -131,6 +131,7 @@ namespace world
 
     protected:
         bool move_stone(Direction dir);
+        ecl::V2 distortedVelocity (ecl::V2 vel, double defaultfactor);
 
     protected:
         // GridObject interface

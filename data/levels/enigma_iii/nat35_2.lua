@@ -3,6 +3,11 @@
 -- Copyright (c) 2002 Nat Pryce
 -- License: GPL v2.0 or above
 
+-- ant 2003-02-13: actor should not appear at space cell
+
+-- May 06: Reduced size -- Andreas
+
+
 Require("levels/lib/natmaze.lua")
 
 
@@ -56,10 +61,12 @@ function render_cell( maze, cellx, celly )
 end
 
 do
-    local maze = new_kruskal_maze(38,24)   
-    
-    create_world( maze.width*2 + 2, maze.height*2 + 2 )
-    fill_floor( "fl-abyss")
+    -- local maze = new_kruskal_maze(38,24)   
+    local maze = new_kruskal_maze(19,18)
+
+    --create_world( maze.width*2 + 2, maze.height*2 + 2 )
+    create_world( maze.width*2 + 1, maze.height*2 + 1 )
+    fill_floor( "fl-abyss")    
     render_maze( maze, render_cell )
     
     oxyd(1,0)
@@ -78,7 +85,6 @@ do
                { player=0 } )
 end
 display.SetFollowMode(display.FOLLOW_SCROLLING)
-
 
 
 

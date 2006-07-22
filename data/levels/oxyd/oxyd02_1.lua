@@ -11,7 +11,7 @@ create_world(levelw, levelh)
 draw_border("st-marble")
 --enigma.ConserveLevel = FALSE
 oxyd_default_flavor = "d"
-fill_floor("fl-leaves")
+fill_floor("fl-brick")
 
 function renderLine( line, pattern)
     for i=1, strlen(pattern) do

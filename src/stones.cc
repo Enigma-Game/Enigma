@@ -184,6 +184,31 @@ void Stone::on_move() {
         ShatterActorsInsideField (get_pos());
 }
 
+/* Multiplies velocity with the attribute-matrix
+   hit_distortion_[xx,xy,yx,yy] and factor hit_factor
+   If components are not set, use ((1,0),(0,1)) as
+   default matrix, resp. defaultfactor as hit_factor. */
+ecl::V2 Stone::distortedVelocity (ecl::V2 vel, double defaultfactor = 1.0) {
+    ecl::V2 newvel(0,0);    
+    if(const Value *xx = this->get_attrib("hit_distortion_xx"))
+        newvel[0] += to_double(*xx) * vel[0];
+    else
+        newvel[0] += vel[0];
+    if(const Value *xy = this->get_attrib("hit_distortion_xy"))
+        newvel[0] += to_double(*xy) * vel[1];
+    if(const Value *yx = this->get_attrib("hit_distortion_yx"))
+        newvel[1] += to_double(*yx) * vel[0];
+    if(const Value *yy = this->get_attrib("hit_distortion_yy"))
+        newvel[1] += to_double(*yy) * vel[1];
+    else
+        newvel[1] += vel[1];
+    if (const Value *factor = this->get_attrib("hit_factor"))
+        newvel *= to_double(*factor);
+    else
+        newvel *= defaultfactor;    
+    return newvel;
+}
+
 
 
 // *******************************************************************************
@@ -303,7 +328,7 @@ void SpitterStone::actor_hit (const StoneContact &sc)
         if (lifepos != -1) {
             delete inv->yield_item(lifepos);
             player::RedrawInventory (inv);
-            ball_velocity = sc.actor->get_vel();
+            ball_velocity = distortedVelocity(sc.actor->get_vel(), 1.0);
             state = LOADING;
             set_anim ("st-spitter-loading");
         }
@@ -397,7 +422,7 @@ namespace
 
         void actor_hit (const StoneContact &sc) {
             if (Actor *other = FindOtherMarble(sc.actor)) {
-                other->add_force (20*sc.actor->get_vel());
+                other->add_force (distortedVelocity(sc.actor->get_vel(), 20));
             }
         }
 

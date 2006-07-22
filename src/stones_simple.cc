@@ -1425,7 +1425,7 @@ namespace
                 double_attrib("force", &forcefac);
 
                 V2 vec = normalize(sc.actor->get_pos() - get_pos().center());
-                sc.actor->add_force (vec * forcefac);
+                sc.actor->add_force (distortedVelocity(vec, forcefac));                
 
                 sound_event("bumper");
                 set_anim("st-actorimpulse-anim");
@@ -2017,8 +2017,7 @@ namespace
         DECL_TRAITS;
     public:
         LightPassengerStone() : PhotoStone(traits.name),
-                skateDir (NODIR), isActive (true), isLighted (false),
-                skipTurn (true) {
+                skateDir (NODIR), isActive (true), isLighted (false) {
         }
 
     virtual ~LightPassengerStone() {
@@ -2029,7 +2028,6 @@ namespace
         Direction skateDir;
         bool isActive;
         bool isLighted;
-        bool skipTurn;
 
         void on_creation(GridPos p) 
         {
@@ -2046,9 +2044,25 @@ namespace
             isLighted = false;
         }
         void notify_laseron(){
-            if (!isLighted) GameTimer.set_alarm(this, 0.05, true);
-            isLighted = true;            
+            if (!isLighted) GameTimer.set_alarm(this, get_interval(), true);
+            isLighted = true;
         }        
+
+	double get_interval() {
+            if (const Value *v = this->get_attrib("interval")) 
+	        return to_double(*v);
+            return 0.05;
+	}
+
+        void set_attrib (const string& key, const Value &val)
+        {
+            PhotoStone::set_attrib (key, val);
+            // Reset timer via notify_laser* to activate new interval.
+            if (key == "interval" && isLighted) {
+                notify_laseroff();
+                notify_laseron();
+            }
+        }
 
         void set_on(bool newon){
             isActive = newon;
@@ -2072,11 +2086,15 @@ namespace
                              + (lasers::LightFrom(p,WEST)?-1:0);
                 if(toSouth * toWest != 0) {
                     // Light is coming from two directions. Choose the one you are
-                    // *not* coming from (thus changing beams), in doubt: no direction.
-                    if(skateDir == NORTH || skateDir == SOUTH || skateDir == NODIR)
+                    // *not* coming from (thus changing beams), in doubt: random.
+                    if(skateDir == NORTH || skateDir == SOUTH)
                         toSouth = 0;
-                    if(skateDir == EAST || skateDir == WEST || skateDir == NODIR)
+                    if(skateDir == EAST || skateDir == WEST)
                         toWest = 0;
+                    if(skateDir == NODIR) {
+                        toSouth = IntegerRand(0,1) ? 0 : toSouth;
+                        toWest = toSouth ? 0 : toWest;
+		    }
                 }                
                 skateDir = (toSouth == 1) ? SOUTH : (toSouth == -1) ? NORTH :
                     (toWest == 1) ? WEST : (toWest == -1) ? EAST : NODIR;
@@ -2084,10 +2102,8 @@ namespace
                     if(GetStone(move(p, skateDir))) {
                         // Skipping each second turn makes the passenger stone seem
                         // slower when pushing another stone. This looks more
-                        // natural.
-                        if(!skipTurn)
-                            send_impulse(move(p, skateDir), skateDir);                        
-                        skipTurn = !skipTurn;
+                        // natural. That's why impulse is delayed:
+                        send_impulse(move(p, skateDir), skateDir, get_interval());
                     }
                     move_stone(skateDir);                    
                 }

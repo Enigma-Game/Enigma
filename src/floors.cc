@@ -63,11 +63,15 @@ void Floor::get_sink_speed (double &sinkspeed, double &raisespeed) const {
 
 double Floor::friction() const 
 { 
+    if (const Value *v = this->get_attrib("friction")) 
+        return to_double(*v);
     return traits.friction; 
 }
 
 double Floor::mousefactor() const 
 { 
+    if (const Value *v = this->get_attrib("mousefactor")) 
+        return to_double(*v);
     return traits.mousefactor; 
 }
 
@@ -89,6 +93,16 @@ display::Model *Floor::get_model ()
 void Floor::kill_model (GridPos p) 
 {
     display::KillModel (GridLoc (GRID_FLOOR, p));
+}
+
+void Floor::add_force (Actor *, V2 &f)
+{
+    if(const Value *x = this->get_attrib("force_x")) {
+        f[0] += to_double(*x);
+    }
+    if(const Value *y = this->get_attrib("force_y")) {
+        f[1] += to_double(*y);
+    }
 }
 
 namespace
@@ -278,7 +292,7 @@ void Gradient::init_model()
     set_model(ecl::strf("fl-gradient%d", get_type()));
 }
 
-void Gradient::add_force(Actor *, V2 &f)
+void Gradient::add_force(Actor *a, V2 &f)
 {
     ecl::V2 force;
     int t = get_type();
@@ -308,6 +322,7 @@ void Gradient::add_force(Actor *, V2 &f)
         factor = forcefac;
     force *= factor;
     f += force;
+    Floor::add_force(a, f);
 }
 
 
