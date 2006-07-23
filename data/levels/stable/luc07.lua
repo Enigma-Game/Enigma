@@ -4,7 +4,7 @@
 -------------------------------------------------
 -- Environment
 CreateWorld(39, 13) 
-draw_border("st-rock2")
+draw_border("st-metal")
 fill_floor("fl-metal", 0,0, 20,13)
 fill_floor("fl-abyss", 20,0, 19,13)
 oxyd_default_flavor = "c"

@@ -26,9 +26,9 @@ create_world(levelw, levelh)
 fill_floor("fl-wood")
 fill_floor("fl-abyss", 0, 11, 20, 2) 
 
-draw_border("st-rock2", 0, 0, 20, 11)
-fill_stones("st-rock2", 1, 10, 18, 1) -- delete this line, if display.ResizeGameArea (20,11) is set
-fill_stones("st-rock2", 9, 1, 2, 9) 
+draw_border("st-metal", 0, 0, 20, 11)
+fill_stones("st-metal", 1, 10, 18, 1) -- delete this line, if display.ResizeGameArea (20,11) is set
+fill_stones("st-metal", 9, 1, 2, 9) 
 
 oxyd(0,4)
 oxyd(5,10)

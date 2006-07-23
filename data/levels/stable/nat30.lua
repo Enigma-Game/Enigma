@@ -48,7 +48,7 @@ end
 
 
 create_world(20,13)
-draw_border("st-rock2")    
+draw_border("st-metal")    
 fill_floor("fl-leaves")
 set_item("it-hollow", 2, 2)
 set_item("it-hollow", level_width-3, 2)

@@ -17,7 +17,7 @@ enigma.ConserveLevel = FALSE
 CreateWorld(58,37)
 --------------------------------------------
 --environment
-draw_border("st-rock2")
+draw_border("st-metal")
 fill_floor("fl-metal",0,0,58,37)
 for i=1, 45 do
   fill_floor(floors[random(getn(floors))],random(52),random(31),random(4,10),random(4,10))

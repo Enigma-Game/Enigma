@@ -22,7 +22,7 @@ stones[" "]=cell{}
 cells[" "]=cell{}
 items[" "]=cell{}
 cells["!"]=cell{floor="fl-normal"}
-stones["!"]=cell{stone="st-rock2"}
+stones["!"]=cell{stone="st-metal"}
 stones["#"]=cell{stone="st-laserswitch"}
 stones["$"]=cell{parent={{file_oxyd,"a"}}}
 stones["%"]=cell{stone="st-door-h"}
@@ -50,9 +50,9 @@ stones[">"]=cell{stone="st-oneway-e"}
 stones["-"]=cell{stone="st-mirror-p|m"}
 stones["."]=cell{stone="st-mirror-p|tm"}
 if difficult then
-  stones["M"]=cell{stone="st-rock2"}
-  stones["L"]=cell{stone="st-rock2"}
-  stones["K"]=cell{stone="st-rock2"}
+  stones["M"]=cell{stone="st-metal"}
+  stones["L"]=cell{stone="st-metal"}
+  stones["K"]=cell{stone="st-metal"}
 else
   stones["M"]=cell{stone="st-mirror-p|m"}
   stones["L"]=cell{stone="st-mirror-p|tm"}

@@ -6,7 +6,7 @@ multiplayer_mode()
 use_cells(cells, "1", "2")
 
 cells[" "]=cell{floor="fl-sand"}
-cells["#"]=cell{stone="st-rock2"}
+cells["#"]=cell{stone="st-metal"}
 --cells["n"]=cell{stone="st-turnstile-n"}
 cells["t"]=cell{stone="st-turnstile"}
 cells["s"]=cell{stone="st-turnstile-s"}

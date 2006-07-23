@@ -90,7 +90,7 @@ stones["&"]=cell{stone="st-likeoxydd"}
 stones["'"]=cell{stone="st-switch"}
 stones["("]=cell{stone="st-grate1"}
 stones["*"]=cell{stone="st-rock1"}
-stones[","]=cell{stone="st-rock2"}
+stones[","]=cell{stone="st-metal"}
 stones["-"]=cell{stone="st-shogun-s"}
 stones["."]=cell{stone="st-rock1_move"}
 stones["/"]=cell{stone="st-stoneimpulse"}
