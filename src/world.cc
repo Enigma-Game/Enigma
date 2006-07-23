@@ -16,6 +16,7 @@
  * 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.
  *
  */
+#include "errors.hh"
 #include "laser.hh"
 #include "player.hh"
 #include "sound.hh"
@@ -1112,7 +1113,7 @@ bool world::InitWorld()
     level->changed_stones.clear();
 
     if (!seen_player0) 
-        throw enigma_levels::XLevelLoading("Error: No player 0 defined!");
+        throw XLevelLoading("Error: No player 0 defined!");
 
     world::BroadcastMessage("init", Value(),
                             GridLayerBits(GRID_ITEMS_BIT | GRID_STONES_BIT));
@@ -1403,7 +1404,7 @@ void world::PerformAction (Object *o, bool onoff)
 
     if (action == "callback") {
         if (lua::CallFunc(lua::LevelState(), target.c_str(), Value(onoff), o) != 0) {
-            throw enigma_levels::XLevelRuntime(string("callback '")+target+"' failed:\n"+lua::LastError(lua::LevelState()));
+            throw XLevelRuntime(string("callback '")+target+"' failed:\n"+lua::LastError(lua::LevelState()));
         }
     }
     else if (action == "signal") {

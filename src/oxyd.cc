@@ -23,6 +23,7 @@
  * sound effects.
  */
 
+#include "errors.hh"
 #include "oxyd.hh"
 #include "sound.hh"
 #include "lua.hh"
@@ -264,7 +265,7 @@ void OxydLoader::load ()
 
 Stone * OxydLoader::make_laser (int type)
 {
-    ecl::Assert<levels::XLevelLoading> 
+    ecl::Assert<XLevelLoading> 
         (type >= 0 && type <= 2,
          "Oxyd supports only three different lasers per level");
 
@@ -822,13 +823,13 @@ void LevelPack_Oxyd::load_level (size_t index) {
 
 void LevelPack_Oxyd::load_oxyd_level (size_t index) 
 {
-    ecl::Assert <levels::XLevelLoading> (index < size(), "Invalid level index");
+    ecl::Assert <XLevelLoading> (index < size(), "Invalid level index");
 
     // Prepare level data
     string msg;
     Level  level;
     if (!parseLevel (m_datfile->getLevel(level_index[index]), &level, &msg)) {
-        throw levels::XLevelLoading(msg);
+        throw XLevelLoading(msg);
     }
 
     // Load level
@@ -840,7 +841,7 @@ void LevelPack_Oxyd::load_oxyd_level (size_t index)
     if (app.resourceFS->findFile (patchname, patchfile)) {
         if (lua::Dofile (lua::LevelState(), patchname) != 0) {
             string err = string("While executing '")+patchname+"':\n"+lua::LastError(lua::LevelState());
-            throw levels::XLevelLoading(err);
+            throw XLevelLoading(err);
         }
     }
 }

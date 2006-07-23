@@ -21,6 +21,7 @@
 
 #include "main.hh"
 #include "ecl_util.hh"
+#include "errors.hh"
 #include "LocalToXML.hh"
 #include "Utf8ToXML.hh"
 #include "XMLtoUtf8.hh"

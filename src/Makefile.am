@@ -43,6 +43,7 @@ enigma_SOURCES = 		\
 	editor_impl.hh		\
 	enigma.cc 		\
 	enigma.hh		\
+	errorrs.hh		\
 	file.cc 		\
 	file.hh 		\
 	file_zip.cc 		\

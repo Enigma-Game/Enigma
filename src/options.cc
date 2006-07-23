@@ -16,6 +16,7 @@
  * 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.
  *
  */
+#include "errors.hh"
 #include "lua.hh"
 #include "main.hh"
 #include "options.hh"
@@ -257,7 +258,7 @@ bool options::Save ()
         return true;
     }
     
-    throw enigma_levels::XLevelRuntime(std::string("Calling 'SaveOptions' failed:\n")+lua::LastError(lua::GlobalState()));
+    throw XLevelRuntime(std::string("Calling 'SaveOptions' failed:\n")+lua::LastError(lua::GlobalState()));
     // return false; // was never used
 }
 

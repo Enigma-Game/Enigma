@@ -16,6 +16,7 @@
  * 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.
  */
 
+#include "errors.hh"
 #include "gui/LevelInspector.hh"
 #include "main.hh"
 #include "enigma.hh"
@@ -185,7 +186,7 @@ LevelInspector::LevelInspector(lev::Proxy *aLevel, ecl::Surface *preview):
         try {
             aLevel->loadMetadata();
         }
-        catch (levels::XLevelLoading &err) {
+        catch (XLevelLoading &err) {
             std::vector<string> lines;
             std::string errmsg = _("Server Error: could not load level '")
                                    + aLevel->getNormLevelPath() + "'\n"

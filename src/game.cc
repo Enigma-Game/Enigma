@@ -16,6 +16,7 @@
  * 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.
  *
  */
+#include "errors.hh"
 #include "main.hh"
 #include "options.hh"
 #include "video.hh"
@@ -57,7 +58,7 @@ bool game::DrawLevelPreview (ecl::GC &gc, const Level &l)
         display::DrawAll(gc);
         success = true;
     }
-    catch (levels::XLevelLoading &) {
+    catch (XLevelLoading &) {
         ;
     }
     server::CreatingPreview = false;
@@ -89,7 +90,7 @@ void game::StartGame (levels::LevelPack *lp, unsigned ilevel)
             client::Tick (dtime);
             server::Tick (dtime);
         }
-        catch (enigma_levels::XLevelRuntime& err) {        
+        catch (XLevelRuntime& err) {        
             client::Msg_Error (string("Server Error: level runtime error:\n")
                                + err.what());
             server::Msg_Panic(true);

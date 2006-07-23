@@ -16,6 +16,7 @@
  * 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.
  *
  */
+#include "errors.hh"
 #include "client.hh"
 #include "main.hh"
 #include "netgame.hh"
@@ -110,7 +111,7 @@ void server_loop (Peer *m_peer)
             client::Tick (dtime);
             server::Tick (dtime);
         }
-        catch (enigma_levels::XLevelRuntime& err) {        
+        catch (XLevelRuntime& err) {        
             client::Msg_Error (string("Server Error: level runtime error:\n")
                                + err.what());
             server::Msg_Panic(true);

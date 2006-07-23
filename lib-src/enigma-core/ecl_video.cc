@@ -604,7 +604,15 @@ Surface * ecl::Grab (const Surface *s, Rect &r) {
 
 Surface* ecl::LoadImage (const char* filename)
 {
-    if (SDL_Surface *tmp = IMG_Load(filename))
+    return LoadImage(IMG_Load(filename));
+}
+
+Surface* ecl::LoadImage(SDL_RWops *src, int freesrc) {
+    return LoadImage(IMG_Load_RW(src, freesrc));
+}
+
+Surface* ecl::LoadImage(SDL_Surface *tmp) {
+    if (tmp != NULL)
     {
         SDL_Surface* img;
 

@@ -29,28 +29,6 @@ namespace enigma_levels
     using namespace enigma;
     using std::string;
 
-/* -------------------- Exceptions -------------------- */
-
-    class XLevelLoading : public ecl::XGeneric {
-    public:
-        XLevelLoading (const std::string &msg)
-        : XGeneric (msg)
-        {}
-    };
-
-    class XLevelPackInit : public ecl::XGeneric {
-    public:
-        XLevelPackInit (const std::string &msg)
-        : XGeneric (msg)
-        {}
-    };
-    
-    class XLevelRuntime : public ecl::XGeneric {
-    public:
-        XLevelRuntime (const std::string &msg)
-        : XGeneric (msg)
-        {}
-    };
     
 /* -------------------- LevelInfo -------------------- */
 

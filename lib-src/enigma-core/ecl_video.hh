@@ -341,7 +341,9 @@ namespace ecl
     /*! Load an image using SDL_image and convert it to an optimized
       format. */
     Surface* LoadImage(const char* filename);
-
+    Surface* LoadImage(SDL_RWops *src, int freesrc);
+    Surface* LoadImage(SDL_Surface *tmpImage);
+    
     /*! Overlay a rectangle `rect' in `s' with a transparent colored
       box. */
     void TintRect(Surface *s, Rect rect, Uint8 r, Uint8 g, Uint8 b, Uint8 a);

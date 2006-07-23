@@ -17,6 +17,7 @@
  *
  */
 
+#include "errors.hh"
 #include "laser.hh"
 #include "sound.hh"
 #include "server.hh"
@@ -1766,7 +1767,7 @@ ShogunStone::Holes ShogunStone::smallest_hole(Holes s) {
     if (s & SMALL) return SMALL;
     if (s & MEDIUM) return MEDIUM;
     if (s & LARGE) return LARGE;
-    throw levels::XLevelRuntime ("ShogunStone: internal error");
+    throw XLevelRuntime ("ShogunStone: internal error");
 }
 
 void ShogunStone::notify_item ()

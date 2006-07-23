@@ -19,6 +19,7 @@
 #include "lev/Proxy.hh"
 
 #include "ecl_system.hh"
+#include "errors.hh"
 #include "levels.hh"
 #include "lua.hh"
 #include "main.hh"
@@ -224,7 +225,7 @@ namespace enigma { namespace lev {
             // use oxyd loader
             std::string::size_type posSecondHash = normLevelPath.find('#',1);
             if (posSecondHash == string::npos)
-                throw levels::XLevelLoading("Bad filename for oxyd level: " + normLevelPath );
+                throw XLevelLoading("Bad filename for oxyd level: " + normLevelPath );
             std::string packName = normLevelPath.substr(1, posSecondHash -1);
             oxyd::LevelPack_Oxyd *lp =  dynamic_cast<oxyd::LevelPack_Oxyd *>(levels::FindLevelPack(packName)); // preliminary
             if (lp != NULL) {
@@ -232,7 +233,7 @@ namespace enigma { namespace lev {
                 lp->load_oxyd_level(atoi(levelNumber.c_str()));
             }
             else {
-                throw levels::XLevelLoading("Missing oxyd levelpack for: " + normLevelPath);
+                throw XLevelLoading("Missing oxyd levelpack for: " + normLevelPath);
             }
             return;
             
@@ -244,7 +245,7 @@ namespace enigma { namespace lev {
                         absLevelPath, isptr) &&
                     !app.resourceFS->findFile ("levels/" + normLevelPath + ".lua", 
                         absLevelPath, isptr))
-                throw levels::XLevelLoading("Could not find level " + normLevelPath );
+                throw XLevelLoading("Could not find level " + normLevelPath );
         } else
             // error unknown type
             return;
@@ -263,10 +264,10 @@ namespace enigma { namespace lev {
                 // use file loader only for zipped xml files
                 useFileLoader = (isptr.get() != NULL) ? true : false;
             } else {
-                throw levels::XLevelLoading ("Unknown file extension in " + absLevelPath);
+                throw XLevelLoading ("Unknown file extension in " + absLevelPath);
             }
         } else {
-                throw levels::XLevelLoading ("Unknown file extension in " + absLevelPath);
+                throw XLevelLoading ("Unknown file extension in " + absLevelPath);
         }
 
         // load
@@ -306,7 +307,7 @@ namespace enigma { namespace lev {
                     doc = NULL;
                     lua_State *L = lua::LevelState();
                     if (lua::Dobuffer(L, levelCode) != 0) {
-                        throw levels::XLevelLoading (lua::LastError(L));
+                        throw XLevelLoading (lua::LastError(L));
                     }
                 }
             }
@@ -344,7 +345,7 @@ namespace enigma { namespace lev {
             }
             if (!errMessage.empty()) {
                 Log << errMessage;   // make long error messages readable
-                throw levels::XLevelLoading (errMessage);
+                throw XLevelLoading (errMessage);
 // todo: check metadata, handle shadowed levels
             } else if (!onlyMetadata){   
                 loadLuaCode();
@@ -359,10 +360,10 @@ namespace enigma { namespace lev {
             DOMElement *luamain  = dynamic_cast<DOMElement *>(luamainList->item(0));
             if (luaL_dostring(L, XMLtoUtf8(luamain->getTextContent()).c_str() ) != 0) {
 	      lua_setglobal (L, "_LASTERROR");
-                throw enigma_levels::XLevelLoading(lua::LastError(L));
+                throw XLevelLoading(lua::LastError(L));
             }
         } else {
-            throw enigma_levels::XLevelLoading("not implemented");
+            throw XLevelLoading("not implemented");
         }
     }
 

@@ -18,6 +18,7 @@
  */
 #include "server.hh"
 
+#include "errors.hh"
 #include "actors.hh"
 #include "client.hh"
 #include "lua.hh"
@@ -138,7 +139,7 @@ void load_level (size_t ilevel)
                 client::Msg_LevelLoaded(ilevel);
             }
         }
-        catch (levels::XLevelLoading &err) {
+        catch (XLevelLoading &err) {
             client::Msg_Error (_("Server Error: could not load level '")
                                + info.filename + "'\n"
                                + err.what());
@@ -153,7 +154,7 @@ void load_level (size_t ilevel)
 
 void server::RaiseError (const std::string &msg)
 {
-    throw levels::XLevelLoading (msg);
+    throw XLevelLoading (msg);
 }
 
 void gametick(double dtime)
@@ -171,7 +172,7 @@ void gametick(double dtime)
     for (;time_accu >= timestep; time_accu -= timestep) {
         world::Tick (timestep);
         if (lua::CallFunc (lua::LevelState(), "Tick", timestep, NULL) != 0) {
-            throw enigma_levels::XLevelRuntime (string("Calling 'Tick' failed:\n")
+            throw XLevelRuntime (string("Calling 'Tick' failed:\n")
                                                 + lua::LastError(lua::LevelState()));
         }
     }
@@ -242,10 +243,10 @@ void server::PrepareLevel()
     lua::ShutdownLevel();
     lua_State *L = lua::InitLevel();
     if (lua::DoSysFile(L, "compat.lua") != lua::NO_LUAERROR) {
-        throw levels::XLevelLoading("While processing 'compat.lua':\n"+lua::LastError(L));
+        throw XLevelLoading("While processing 'compat.lua':\n"+lua::LastError(L));
     }
     if (lua::DoSysFile(L, "init.lua") != lua::NO_LUAERROR) {
-        throw levels::XLevelLoading("While processing 'init.lua':\n"+lua::LastError(L));
+        throw XLevelLoading("While processing 'init.lua':\n"+lua::LastError(L));
     }
 
 }

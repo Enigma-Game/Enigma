@@ -17,6 +17,7 @@
  *
  */
 #include "lua.hh"
+#include "errors.hh"
 #include "main.hh"
 #include "world.hh"
 #include "config.h"
@@ -332,7 +333,7 @@ en_send_message(lua_State *L)
         try {
             world::SendMessage (obj, msg, to_value(L, 3));
         }
-        catch (const enigma_levels::XLevelRuntime &e) {
+        catch (const XLevelRuntime &e) {
             luaL_error (L, e.what());
         }
         catch (...) {
