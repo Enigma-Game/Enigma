@@ -15,7 +15,7 @@ function renderLine( line, pattern)
 	for i=1, strlen(pattern) do
 		local c = strsub( pattern, i, i)
 		if c =="#" then
-			set_stone( "st-rock2", i-1, line)
+			set_stone( "st-metal", i-1, line)
 		elseif c == "o" then
 			oxyd( i-1, line)
 		end
@@ -70,6 +70,7 @@ oxyd_shuffle()
 
 set_actor("ac-blackball", 70, 16)
 display.SetFollowMode(display.FOLLOW_SCROLLING)
+
 
 
 

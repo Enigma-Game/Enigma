@@ -8,19 +8,19 @@ levelw = 20
 levelh = 13
 
 create_world(levelw, levelh)
-draw_border("st-rock2")
+draw_border("st-metal")
 fill_floor("fl-gray")
 
-draw_stones("st-rock2",   {17,1}, {0,1}, 5)
-draw_stones("st-rock2",   {17,7}, {0,1}, 5)
-draw_stones("st-rock2",   {5,6}, {1,0}, 2)
-draw_stones("st-rock2",   {5,8}, {1,0}, 3)
-draw_stones("st-rock2",   {10,6}, {1,0}, 2)
-draw_stones("st-rock2",   {9,8}, {1,0}, 3)
+draw_stones("st-metal",   {17,1}, {0,1}, 5)
+draw_stones("st-metal",   {17,7}, {0,1}, 5)
+draw_stones("st-metal",   {5,6}, {1,0}, 2)
+draw_stones("st-metal",   {5,8}, {1,0}, 3)
+draw_stones("st-metal",   {10,6}, {1,0}, 2)
+draw_stones("st-metal",   {9,8}, {1,0}, 3)
 
-set_stone("st-rock2", 7,4)
-set_stone("st-rock2", 9,4)
-set_stone("st-rock2", 8,7)
+set_stone("st-metal", 7,4)
+set_stone("st-metal", 9,4)
+set_stone("st-metal", 8,7)
 
 draw_stones("st-grate1", {4,6}, {0,1} ,3)
 draw_stones("st-grate1", {12,6}, {0,1} ,3)
@@ -38,6 +38,7 @@ oxyd(18,1)
 oxyd(18,11)
 
 set_actor("ac-blackball" ,2.5, 6.5)
+
 
 
 

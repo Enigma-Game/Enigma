@@ -21,7 +21,7 @@ function renderLine( line, pattern)
       elseif c=="D" then
 	 set_stone("st-death",i-1,line)
       elseif c=="W" then
-         set_stone("st-metal",i-1,line)
+         set_stone("st-rock2",i-1,line)
       elseif c=="O" then
 	 oxyd(i-1,line)
       elseif c=="1" then
@@ -49,6 +49,7 @@ renderLine(11, "#D       SS       D#")
 renderLine(12, "####################")
 --              01234567890123456789
 oxyd_shuffle()
+
 
 
 

@@ -32,7 +32,7 @@ function renderLine( line, pattern)
         elseif c =="G" then
             set_stone( "st-rock6", i-1, line)
         elseif c =="H" then
-            set_stone( "st-rock2", i-1, line)
+            set_stone( "st-metal", i-1, line)
         elseif c =="I" then
             set_stone( "st-rock3", i-1, line)
         elseif c == "o" then
@@ -151,7 +151,7 @@ function typechange(x,y,newtype)
     elseif newtype ==7 then
         set_stone( "st-rock6", x, y)
     elseif newtype ==8 then
-        set_stone( "st-rock2", x, y)
+        set_stone( "st-metal", x, y)
     elseif newtype ==9 then
         set_stone( "st-rock3", x, y)
     end
@@ -344,6 +344,7 @@ function funcc10()
         ff10=0
     end
 end
+
 
 
 

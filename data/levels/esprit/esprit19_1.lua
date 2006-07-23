@@ -10,7 +10,7 @@ levelh = 121
 create_world( levelw, levelh)
 
 fill_floor("fl-gray", 0,0,levelw,levelh)
-stone = "st-rock2"
+stone = "st-metal"
 
 draw_border( stone)
 oxyd(  2,72)
@@ -56,6 +56,7 @@ set_item( "it-hill",   8,117)
 
 enigma.AddConstantForce(0,25)
 set_actor("ac-blackball", 9, levelh-2)
+
 
 
 

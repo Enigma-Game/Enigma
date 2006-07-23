@@ -20,7 +20,7 @@ mazeh=5
 
 abyssfloor=cell{floor={face="fl-abyss"}}
 solidfloor =cell{parent={{randomfloor,{cell{floor={face="fl-metal"}},cell{floor={face="fl-tigris"}},0.15}}}}
-borderstone=cell{parent={abyssfloor, {randomfloor,{cell{stone={face="st-rock2"}},cell{stone={face="st-rock5"}},0.15}}}}
+borderstone=cell{parent={abyssfloor, {randomfloor,{cell{stone={face="st-metal"}},cell{stone={face="st-rock5"}},0.15}}}}
 
 function cell_to_level( cellx, celly )
    return originx + cellx * mazecellsize, originy + celly * mazecellsize
@@ -120,6 +120,7 @@ place_oxyd_stone(solidfloor, originx+mazew*3-1, originy+mazeh*3-1)
 oxyd_shuffle()
 -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- --
 display.SetFollowMode(display.FOLLOW_SCROLLING)
+
 
 
 

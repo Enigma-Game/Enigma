@@ -56,7 +56,7 @@ function renderLine( line, pattern)
 		elseif c=="J" then
 			set_stone("st-switch",i-1,line,{action="callback",target="pj"})
 		elseif c=="*" then
-		   	set_stone("st-metal",i-1,line)
+		   	set_stone("st-rock2",i-1,line)
 		elseif c=="=" then
 			doorh(i-1,line,{name="door1"})
 		elseif c=="+" then
@@ -265,6 +265,7 @@ end
 
 reset()
 oxyd_shuffle()
+
 
 
 

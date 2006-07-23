@@ -10,7 +10,7 @@ enigma.ConserveLevel = FALSE
 
 -- DESIGN --
 boden="fl-metal"
-wand="st-rock2"
+wand="st-metal"
 
 -- FLOOR --
 fill_floor(boden, 0,0,levelw,levelh)
@@ -48,6 +48,7 @@ oxyd(11,8)
 
 oxyd_default_flavor = "d"
 oxyd_shuffle()
+
 
 
 

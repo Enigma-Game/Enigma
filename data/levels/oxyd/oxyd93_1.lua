@@ -8,7 +8,7 @@ levelw = 20
 levelh = 25
 
 create_world(levelw, levelh)
-draw_border("st-rock2")
+draw_border("st-metal")
 fill_floor("fl-leaves")
 
 oxyd_default_flavor = "d"
@@ -24,24 +24,24 @@ oxyd (18,14)
 
 oxyd_shuffle()
 
-draw_stones("st-rock2", { 2,10},{1,0}, 2)
-draw_stones("st-rock2", { 4, 3},{0,1}, 3)
-draw_stones("st-rock2", { 4, 7},{0,1}, 4)
-draw_stones("st-rock2", { 5, 7},{1,0}, 3)
-draw_stones("st-rock2", { 6, 5},{1,0}, 3)
-draw_stones("st-rock2", { 7, 2},{0,1}, 2)
-draw_stones("st-rock2", { 9, 2},{1,0}, 2)
-draw_stones("st-rock2", { 9, 4},{0,1}, 2)
-draw_stones("st-rock2", {11, 4},{0,1}, 2)
-draw_stones("st-rock2", {11, 7},{0,1}, 4)
-draw_stones("st-rock2", {12, 3},{0,1}, 2)
-draw_stones("st-rock2", {12,10},{1,0}, 3)
-draw_stones("st-rock2", {14, 3},{1,0}, 2)
-draw_stones("st-rock2", {15, 6},{0,1}, 5)
-draw_stones("st-rock2", { 2,12},{1,0}, 7)
-draw_stones("st-rock2", {10,12},{1,0}, 9)
-draw_stones("st-rock2", { 2,13},{0,1}, 8)
-set_stones("st-rock2", {{15,4},{18,5}})
+draw_stones("st-metal", { 2,10},{1,0}, 2)
+draw_stones("st-metal", { 4, 3},{0,1}, 3)
+draw_stones("st-metal", { 4, 7},{0,1}, 4)
+draw_stones("st-metal", { 5, 7},{1,0}, 3)
+draw_stones("st-metal", { 6, 5},{1,0}, 3)
+draw_stones("st-metal", { 7, 2},{0,1}, 2)
+draw_stones("st-metal", { 9, 2},{1,0}, 2)
+draw_stones("st-metal", { 9, 4},{0,1}, 2)
+draw_stones("st-metal", {11, 4},{0,1}, 2)
+draw_stones("st-metal", {11, 7},{0,1}, 4)
+draw_stones("st-metal", {12, 3},{0,1}, 2)
+draw_stones("st-metal", {12,10},{1,0}, 3)
+draw_stones("st-metal", {14, 3},{1,0}, 2)
+draw_stones("st-metal", {15, 6},{0,1}, 5)
+draw_stones("st-metal", { 2,12},{1,0}, 7)
+draw_stones("st-metal", {10,12},{1,0}, 9)
+draw_stones("st-metal", { 2,13},{0,1}, 8)
+set_stones("st-metal", {{15,4},{18,5}})
 set_stones("st-block", {{12,6},{14,5},{17,5},{18,10}})
 
 set_stone("st-shogun-s", 5, 4)
@@ -83,6 +83,7 @@ set_stone("st-door",13, 3, {name="door12", type="h"})
 set_attrib(laser( 9,12, TRUE, NORTH), "name", "laser1")
 
 set_actor("ac-blackball",9.5,6.5)
+
 
 
 

@@ -35,7 +35,7 @@ function maze_floor( x, y, w, h )
 end
 
 function maze_wall( x, y )
-    set_stone( "st-rock2", x, y );
+    set_stone( "st-metal", x, y );
 end
 
 function render_cell( maze, cellx, celly )
@@ -53,9 +53,9 @@ end
 
 function draw_maze( maze )
     render_maze( maze, render_cell )
-    draw_stones( "st-rock2", {MAZE_X-1, MAZE_Y-1}, {1,0}, 
+    draw_stones( "st-metal", {MAZE_X-1, MAZE_Y-1}, {1,0}, 
                  MAZE_WIDTH*MAZE_CELL_WIDTH + 1 )
-    draw_stones( "st-rock2", {MAZE_X-1, MAZE_Y}, {0,1}, 
+    draw_stones( "st-metal", {MAZE_X-1, MAZE_Y}, {0,1}, 
                  MAZE_HEIGHT*MAZE_CELL_HEIGHT )
 end
 
@@ -141,6 +141,7 @@ set_stone( "st-timer", mid_x+1, mid_y+1,
 set_actor("ac-blackball", MAZE_X+0.5, MAZE_Y+0.5)
 
 set_gravity()
+
 
 
 

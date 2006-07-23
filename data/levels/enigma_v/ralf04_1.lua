@@ -151,7 +151,7 @@ stoneface = { -- define different faces for the stones
    "st-bluegray",
    "st-wood_001",
 
-   "st-rock2",
+   "st-metal",
    "st-stone_break",
    "st-fakeoxyd",
 --   "st-wood",
@@ -612,6 +612,7 @@ end
 rs_create_world(level,cells,floorcell)
 stone_done(1)
 stone_done(0)
+
 
 
 

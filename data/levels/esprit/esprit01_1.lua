@@ -7,7 +7,7 @@
 create_world( 20, 13)
 oxyd_default_flavor = "d"
 
-draw_border("st-rock2")
+draw_border("st-metal")
 fill_floor("fl-metal")
 
 oxyd( 5, 3)
@@ -18,6 +18,7 @@ oxyd(14, 9)
 oxyd_shuffle()
 
 set_actor("ac-blackball", 10,6.5)
+
 
 
 

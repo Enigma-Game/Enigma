@@ -5,7 +5,7 @@
 
 INNER_FLOOR = "fl-plank"
 OUTER_FLOOR = "fl-water"
-WALL = "st-rock2"
+WALL = "st-metal"
 
 
 function trigger( id )
@@ -85,6 +85,7 @@ for y,line in pairs(level) do
     end
 end
 oxyd_shuffle()
+
 
 
 

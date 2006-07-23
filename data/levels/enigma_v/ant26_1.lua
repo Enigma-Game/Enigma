@@ -12,7 +12,7 @@ cells={}
 cells["."]=abyss
 cells[" "]=cell{floor="fl-himalaya"}
 
-cells["#"]=cell{stone="st-rock2"}
+cells["#"]=cell{stone="st-metal"}
 cells["="]=cell{stone="st-glass"}
 
 actors={}
@@ -63,6 +63,7 @@ set_default_parent(cells[" "])
 create_world_by_map(level)
 add_rubber_bands(actors, actors, 10, 11)
 oxyd_shuffle()
+
 
 
 

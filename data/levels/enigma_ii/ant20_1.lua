@@ -32,7 +32,7 @@ cells={}
 
 cells["_"]=cell{floor="fl-normal"}
 cells[" "]=cell{floor="fl-sand"}
-cells["#"]=cell{stone="st-rock2"}
+cells["#"]=cell{stone="st-metal"}
 
 slopes={}
 pivots={}
@@ -73,6 +73,7 @@ spread_tag(pivots)
 render_slopes(slopes)
 
 oxyd_shuffle()
+
 
 
 

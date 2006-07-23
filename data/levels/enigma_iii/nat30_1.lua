@@ -48,7 +48,7 @@ end
 
 
 create_world(20,13)
-draw_border("st-rock2")    
+draw_border("st-metal")    
 fill_floor("fl-leaves")
 set_item("it-hollow", 2, 2)
 set_item("it-hollow", level_width-3, 2)
@@ -72,6 +72,7 @@ sumo( top, 3*level_width/4, level_height/2, 1.25, 10000, blackball, 10 )
 
 --sumo( top, 5, 4, 1.25, 10000, blackball, 10 )
 --sumo( top, 5, 9, 1.25, 10000, blackball, 10 )
+
 
 
 

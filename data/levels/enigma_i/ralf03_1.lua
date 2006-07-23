@@ -17,7 +17,7 @@ lightfloorface = "fl-sahara"
 darkfloorface  = "fl-tigris"
 bluefloorface  = "fl-bluegray"
 
-stonefaces   = { "st-rock1", "st-rock6", "st-rock2", "st-rock3"}
+stonefaces   = { "st-rock1", "st-rock6", "st-metal", "st-rock3"}
 rotdirection = { 1, -1, 1, -1 }
 switchface   = "st-switch"
 borderface   = "st-rock5"
@@ -213,6 +213,7 @@ document(1,2*blockh,"Maintenance code: metal-stone-stone-stone-red-yellow-yellow
 oxyd_shuffle()
 display.SetFollowMode(display.FOLLOW_SMOOTH)
 marble(mx*blockw+0.5,my*blockh+0.5)
+
 
 
 

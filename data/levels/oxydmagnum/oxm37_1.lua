@@ -11,7 +11,7 @@ oxyd_default_flavor = "b"
 fill_floor("fl-rough")
 fill_floor("fl-rough_slow", 14, 5, 3, 3)
 
-stone = "st-rock2"
+stone = "st-metal"
 
 draw_border( stone)
 draw_stones( stone, { 1,5}, {1,0}, 4)
@@ -49,6 +49,7 @@ oxyd_shuffle()
 
 set_actor("ac-blackball", 9.2, 6.5, {essential=1})
 set_actor("ac-whiteball-small", 15.5, 6.5, {player=0})
+
 
 
 

@@ -17,7 +17,7 @@ function renderLine( line, pattern)
 	for i=1, strlen(pattern) do
 		local c = strsub( pattern, i, i)
 		if c =="#" then
-			set_stone( "st-metal", i-1, line)
+			set_stone( "st-rock2", i-1, line)
 		elseif c == "o" then
 			oxyd( i-1, line)
 		elseif c == "*" then
@@ -73,6 +73,7 @@ renderLine(11,"o D D D D D D D D o#")
 renderLine(12,"####################")
 
 oxyd_shuffle()
+
 
 
 

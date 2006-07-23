@@ -28,7 +28,7 @@ function renderLine( line, pattern)
 		elseif c =="s" then
 			set_stone("st-break_acblack", i-1, line)
 		elseif c =="H" then
-			set_stone("st-rock2_hole", i-1, line)
+			set_stone("st-metal_hole", i-1, line)
   		elseif c=="o" then
 			oxyd(i-1,line)
 		end
@@ -63,4 +63,5 @@ set_item("it-yinyang", 4,6)
 set_item("it-yinyang", 15,6)
 set_actor("ac-blackball", 4.5, 6.5, {player=0})
 set_actor("ac-whiteball",  15.5, 6.5, {player=1})
+
 

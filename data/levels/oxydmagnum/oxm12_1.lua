@@ -9,7 +9,7 @@ Require("levels/lib/ant.lua")
 cells={}
 cells["."] = abyss
 cells[" "] = cell{floor="fl-metal"}
-cells["#"] = cell{stone="st-rock2"}
+cells["#"] = cell{stone="st-metal"}
 cells["W"] = cell{stone="st-wood"}
 cells["-"] = cell{{{mirrorp, FALSE, FALSE, 1}}}
 cells["/"] = cell{{{mirrorp, FALSE, TRUE, 2}}}
@@ -39,6 +39,7 @@ oxyd_default_flavor = "d"
 set_default_parent(cells[" "])
 create_world_by_map(level)
 oxyd_shuffle()
+
 
 
 

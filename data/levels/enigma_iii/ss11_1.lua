@@ -3,7 +3,7 @@
 -- Copyright: 	(C) 2003 Sven Siggelkow
 -- License: 	GPL v2.0 or above
 
-world.DefineSimpleStoneMovable("invisible_move", "st-metal", 0)
+world.DefineSimpleStoneMovable("invisible_move", "st-rock2", 0)
 
 display.DefineAlias("invisible_move", "st-invisible")
 
@@ -38,6 +38,7 @@ level = {
 set_default_parent(cells[" "])
 
 create_world_by_map(level,cells)
+
 
 
 

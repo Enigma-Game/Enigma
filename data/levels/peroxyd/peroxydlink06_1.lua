@@ -20,7 +20,7 @@ function renderLine( line, pattern)
   		if c=="x" then
 			oxyd(i-1,line)
                 elseif c=="#" then
-			set_stone("st-metal",i-1,line)
+			set_stone("st-rock2",i-1,line)
                    
                 elseif c==" " then
                    set_floor("fl-concrete",i-1,line)
@@ -70,5 +70,6 @@ set_item("it-yinyang", 11,5)
 set_item("it-yinyang", 11,15)
 
 puzzle({{1,1,1,1,1,1,1,1,1,1},{1,0,0,0,0,0,0,0,0,1},{1,0,0,0,0,0,0,0,0,1},{1,0,0,0,0,0,0,0,0,1},{1,0,0,0,0,0,0,0,0,1},{1,1,1,1,1,1,1,1,1,1}},14,10,"blue","no")
+
 
 

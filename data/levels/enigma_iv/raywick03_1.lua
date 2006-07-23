@@ -323,7 +323,7 @@ create_world( 58, 37 )
 
 fill_floor(SAND_FLOOR, 0, 0, 58, 37 )
 
-draw_border( "st-rock2" )
+draw_border( "st-metal" )
 
 for y,line in pairs(level) do
 
@@ -348,6 +348,7 @@ oxyd(52,31)
 oxyd_shuffle()
 
 oxyd_shuffle()
+
 
 
 

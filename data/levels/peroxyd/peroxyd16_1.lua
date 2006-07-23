@@ -10,7 +10,7 @@ levelh = 13
 create_world(levelw, levelh)
 oxyd_default_flavor = "c"       -- Default flavor for oxyd stones.
 
-draw_border("st-rock2")
+draw_border("st-metal")
 
 fill_floor("fl-gray")
 
@@ -49,6 +49,7 @@ mirrorp(8,8,0,0,4)
 mirrorp(6,8,0,0,1)
 
 set_actor("ac-blackball", 3,7)
+
 
 
 

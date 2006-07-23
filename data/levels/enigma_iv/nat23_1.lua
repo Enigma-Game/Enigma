@@ -161,8 +161,8 @@ tiles[","] = {floor("fl-leavesc4")}
 tiles["."] = {dark_floor}
 tiles[";"] = {floor("fl-normal")}
 tiles["+"] = {dark_floor, stone("st-grate1")}
-tiles["#"] = {dark_floor, stone("st-rock2")}
-tiles["-"] = {dark_floor, stone("st-rock2_hole")}
+tiles["#"] = {dark_floor, stone("st-metal")}
+tiles["-"] = {dark_floor, stone("st-metal_hole")}
 tiles["%"] = {light_floor, stone("st-rock3_hole")}
 tiles["="] = {light_floor, stone("st-rock3")}
 tiles["x"] = {light_floor, stone("st-rock3_break")}
@@ -274,6 +274,7 @@ starty = level_height/2
 set_actor( "ac-blackball", startx, starty, {player=0} )
 
 oxyd_shuffle()
+
 
 
 

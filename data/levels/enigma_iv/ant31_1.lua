@@ -14,14 +14,14 @@ use_cells(cells, "O")
 cells[" "]=cell{}
 cells["-"]=cell{{{gradient, FLAT_FORCE_S}}}
 cells["_"]=cell{{{gradient, FLAT_FORCE_N}}}
-cells["#"]=cell{stone="st-rock2"}
+cells["#"]=cell{stone="st-metal"}
 cells["%"]=cell{stone="st-scissors"}
 cells["w"]=cell{stone="st-white4"}
 cells["b"]=cell{stone="st-black4"}
 
 stones={}
 actors={}
-cells["?"]=cell{{{add_multistone, "st-rock2", stones}}}
+cells["?"]=cell{{{add_multistone, "st-metal", stones}}}
 cells["2"]=cell{{{add_multiactor, "ac-whiteball", actors, {player=1, mouseforce=0}}}}
 cells["O"]=cell{{{add_multiobject, actors, cells["O"]}}}
 
@@ -58,6 +58,7 @@ spread_tag(pivots)
 render_slopes(slopes)
 
 oxyd_shuffle()
+
 
 
 

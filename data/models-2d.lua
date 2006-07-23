@@ -711,6 +711,7 @@ def_alias("st-glass1_move", "st-glass1")
 def_alias("st-glass2_hole", "st-glass2")
 
 def_stone("st-metal")
+def_alias("st-metal_hole", "st-metal")
 def_stone("st-blue-sand")
 
 do

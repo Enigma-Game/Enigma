@@ -22,7 +22,7 @@ function renderLine( line, pattern)
       elseif c=="G" then
 	 set_floor("fl-gradient",  i-1,  line, {type=3})
       elseif c=="W" then
-         set_stone("st-metal",i-1,line)
+         set_stone("st-rock2",i-1,line)
       elseif c=="O" then
 	 oxyd(i-1,line)
         end
@@ -44,6 +44,7 @@ renderLine(11, "W              G   W")
 renderLine(12, "WWWWWWWWWWWWWWWWWWWW")
 --              01234567890123456789
 oxyd_shuffle()
+
 
 
 

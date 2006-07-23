@@ -9,7 +9,7 @@ cells={}
 use_cells(cells, "O", "W")
 
 cells[" "]=cell{floor="fl-metal"}
-cells["#"]=cell{stone="st-rock2"}
+cells["#"]=cell{stone="st-metal"}
 cells["%"]=cell{stone="st-swap"}
 
 cells[">"]=cell{{{gradient, FLAT_FORCE_E}}}
@@ -77,6 +77,7 @@ render_slopes(slopes, -1)
 
 oxyd_shuffle()
 enigma.ConserveLevel=FALSE
+
 
 
 

@@ -6,7 +6,7 @@
 
 INNER_FLOOR = "fl-normal"
 OUTER_FLOOR = "fl-leaves"
-WALL = "st-rock2"
+WALL = "st-metal"
 
 level = {
     "                    ",
@@ -59,6 +59,7 @@ for y,line in pairs(level) do
     end
 end
 oxyd_shuffle()
+
 
 
 

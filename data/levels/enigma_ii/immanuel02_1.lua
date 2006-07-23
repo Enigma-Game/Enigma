@@ -33,7 +33,7 @@ function renderLine( y, pattern)
     for x=0, strlen(pattern) - 1 do
         local c = strsub( pattern, x + 1, x + 1)
         if c =="#" then
-            set_stone( "st-rock2", x, y)
+            set_stone( "st-metal", x, y)
         elseif c == "o" then
             oxyd( x, y)
         elseif c == "s" then
@@ -150,6 +150,7 @@ end
 function tte()
   tuer_bewegen("e", SOUTH)
 end
+
 
 
 

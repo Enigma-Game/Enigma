@@ -9,7 +9,7 @@ Require("levels/lib/ant.lua")
 cells={}
 
 cells[" "]=cell{floor="fl-metal"}
-cells["#"]=cell{stone="st-metal"}
+cells["#"]=cell{stone="st-rock2"}
 cells["~"]=cell{floor="fl-water"}
 if not difficult then -- easy
 	cells["-"]=cells[" "]
@@ -46,6 +46,7 @@ set_default_parent(cells[" "])
 create_world_by_map(level,cells)
 
 oxyd_shuffle()
+
 
 
 

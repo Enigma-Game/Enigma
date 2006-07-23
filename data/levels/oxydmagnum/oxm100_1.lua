@@ -10,7 +10,7 @@ enigma.SetCompatibility("oxyd.magnum")
 Require("levels/lib/ant.lua")
 cells={}
 cells[" "]=cell{floor="fl-rock"}
-cells["#"]=cell{stone="st-metal"}
+cells["#"]=cell{stone="st-rock2"}
 cells["-"]=cell{floor="fl-rock",stone="st-oneway_white-e"}
 cells["."]=cell{floor="fl-rock",item="it-seed"}
 cells["/"]=cell{{{mirrorp, FALSE, FALSE, 4}}}
@@ -368,6 +368,7 @@ end
 
 set_actor("ac-blackball", 29.5,15.5, {name="black"}) set_item("it-yinyang", 29,15)
 set_actor("ac-whiteball", 9.5,65.5, {name="white"}) set_item("it-yinyang", 9,65)
+
 
 
 

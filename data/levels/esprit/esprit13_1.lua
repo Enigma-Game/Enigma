@@ -7,7 +7,7 @@
 levelw = 20
 levelh = 13
 
-stone="st-rock2"
+stone="st-metal"
 
 create_world( levelw, levelh)
 draw_border( stone)
@@ -60,6 +60,7 @@ oxyd_shuffle()
 
 
 set_actor("ac-blackball", 11, 11)
+
 
 
 

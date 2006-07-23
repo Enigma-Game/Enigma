@@ -21,7 +21,7 @@ sahara=     cell{floor="fl-sahara"}
 tigris=     cell{floor="fl-tigris"}
 metal=      cell{floor="fl-metal"}
 solidfloor= cell{{{checkerfloor,{sahara,tigris; sidex=blockw, sidey=blockh, offset=1}}}}
-borderstone=cell{{{randomfloor,{cell{stone={face="st-rock2"}},cell{stone={face="st-rock5"}},0.15}}}}
+borderstone=cell{{{randomfloor,{cell{stone={face="st-metal"}},cell{stone={face="st-rock5"}},0.15}}}}
 marble=     cell{actor={"ac-blackball", {player=0}}}
 
 oxydstones = {n=0}
@@ -80,6 +80,7 @@ marble(blockw+1,1)
 place_new_oxyd_stone(1)
 -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- --
 display.SetFollowMode(display.FOLLOW_SCROLLING)
+
 
 
 

@@ -4,7 +4,7 @@
 -- Esprit # 100
 -- Feb.'06: Replaced some characters to get pure ASCII, Raoul 
                                                                
-world.DefineSimpleStoneMovable("oneway_move", "st-metal", 0)
+world.DefineSimpleStoneMovable("oneway_move", "st-rock2", 0)
 
 display.DefineAlias("oneway_move", "st-oneway_black-n")
 
@@ -180,6 +180,7 @@ set_actor("ac-blackball", 2.5,35.5) set_floor("fl-metal",2,35)
 
 -- last puzzle (meadow pushing)                               
 --set_actor("ac-blackball", 48,30.5, {player=0})
+
 
 
 

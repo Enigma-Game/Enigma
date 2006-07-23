@@ -13,9 +13,9 @@ fill_floor("fl-sand", 0,0,levelw,levelh-3)
 fill_floor("fl-water", 0,levelh-3,levelw,3)
 
 function createOxyd( x, y)
-	set_stone( "st-rock2", x-1, y)
-	set_stone( "st-rock2", x+1, y)
-	set_stone( "st-rock2", x,   y+1)
+	set_stone( "st-metal", x-1, y)
+	set_stone( "st-metal", x+1, y)
+	set_stone( "st-metal", x,   y+1)
 	oxyd(x,y)
 end
 
@@ -38,6 +38,7 @@ oxyd_shuffle()
 enigma.AddConstantForce(0,30)
 
 set_actor("ac-blackball", 2, 2)
+
 
 
 

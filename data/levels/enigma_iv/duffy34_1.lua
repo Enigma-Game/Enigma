@@ -30,7 +30,7 @@ function renderLine( line, pattern)
         elseif c =="v" then
             set_stone( "st-rock3", i-1, line)
         elseif c ==";" then
-            set_stone( "st-rock2", i-1, line)
+            set_stone( "st-metal", i-1, line)
         elseif c =="/" then
             set_stone( "st-rock1", i-1, line)
         elseif c =="H" then
@@ -265,6 +265,7 @@ end
 --	   set_item("it-wormhole", 26+w8, 47, {strength=1,targetx="48.5",targety="41.5"})
 --end	  
 --end
+
 
 
 

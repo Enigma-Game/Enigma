@@ -4,16 +4,16 @@ levelw = 20
 levelh = 13
 
 create_world(levelw, levelh)
-draw_border("st-rock2")
+draw_border("st-metal")
 fill_floor("fl-bluegreen", 0,0, levelw,levelh)
 
-draw_stones("st-rock2", {4,1}, {0,1},2)
-draw_stones("st-rock2", {4,4}, {0,1},2)
-draw_stones("st-rock2", {4,7}, {0,1},5)
-draw_stones("st-rock2", {15,1}, {0,1},5)
-draw_stones("st-rock2", {15,7}, {0,1},5)
-draw_stones("st-rock2", {1,5}, {1,0},3)
-set_stones("st-rock2", {{1,7},{3,7},{16,5},{16,7},{18,5},{18,7}})
+draw_stones("st-metal", {4,1}, {0,1},2)
+draw_stones("st-metal", {4,4}, {0,1},2)
+draw_stones("st-metal", {4,7}, {0,1},5)
+draw_stones("st-metal", {15,1}, {0,1},5)
+draw_stones("st-metal", {15,7}, {0,1},5)
+draw_stones("st-metal", {1,5}, {1,0},3)
+set_stones("st-metal", {{1,7},{3,7},{16,5},{16,7},{18,5},{18,7}})
 
 set_floor("fl-bridge",  4,3, {name="bridge1"})
 set_floor("fl-bridge",  2,7, {name="bridge2"})
@@ -45,6 +45,7 @@ set_actor("ac-whiteball-small",  7.5, 3.5, {player=0, mouseforce=1, essential=1}
 set_actor("ac-whiteball-small",  13.5,2.5, {player=0, mouseforce=1, essential=1})
 set_actor("ac-whiteball-small", 8.5, 9.5, {player=0, mouseforce=1, essential=1})
 set_actor("ac-whiteball-small", 11.5,10.5, {player=0, mouseforce=1, essential=1})
+
 
 
 

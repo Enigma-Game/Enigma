@@ -90,7 +90,7 @@ stones["&"]=cell{stone="st-likeoxydd"}
 stones["'"]=cell{stone="st-switch"}
 stones["("]=cell{stone="st-grate1"}
 stones["*"]=cell{stone="st-rock1"}
-stones[","]=cell{stone="st-rock2"}
+stones[","]=cell{stone="st-metal"}
 stones["-"]=cell{stone="st-shogun-s"}
 stones["."]=cell{stone="st-rock1_move"}
 stones["/"]=cell{stone="st-stoneimpulse"}
@@ -299,4 +299,5 @@ SetAttrib(enigma.GetStone(80,28),"color","3")
 SetAttrib(enigma.GetStone(92,30),"color","3")
 SetAttrib(enigma.GetStone(0,27),"color","6")
 SetAttrib(enigma.GetStone(0,33),"color","6")
+
 

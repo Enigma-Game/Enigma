@@ -183,6 +183,7 @@ def_stone("st-stone2")
 def_stone("st-bumps")
 def_stone("st-beads")
 def_stone("st-metal")
+def_stone_hollow("st-metal_hole")
 def_stone("st-blue-sand")
 def_stone("st-yellow")
 

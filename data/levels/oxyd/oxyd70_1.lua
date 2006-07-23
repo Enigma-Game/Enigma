@@ -17,9 +17,9 @@ function renderLine( line, pattern)
 			set_item("it-hollow",i-1,line)
 			set_floor("fl-brick",i-1,line)
                 elseif c=="#" then
-                        set_stone("st-rock2",i-1,line)
+                        set_stone("st-metal",i-1,line)
                 elseif c=="H" then
-                        set_stone("st-rock2_hole",i-1,line)
+                        set_stone("st-metal_hole",i-1,line)
                 elseif c==" " then
 			set_floor("fl-brick",i-1,line)
 
@@ -73,4 +73,5 @@ set_actor("ac-whiteball-small", 10,20.5, {player=0})
 
 puzzle({{0,0,1,0,0,1,0,0},{0,0,1,0,0,1,0,0},{1,1,1,1,1,1,1,1},{0,0,1,0,0,1,0,0},{0,0,1,0,0,1,0,0}},6,5,"red","yes")
 puzzle({{0,0,1,0,0,1,0,0},{0,0,1,0,0,1,0,0},{1,1,1,1,1,1,1,1},{0,0,1,0,0,1,0,0},{0,0,1,0,0,1,0,0}},6,15,"red","no")
+
 

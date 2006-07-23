@@ -125,7 +125,7 @@ oxyd_default_flavor = "a"
 tiles = {}
 tiles[" "] = {floor("fl-leaves")}
 tiles["+"] = {inherit(" "), stone("st-black4")}
-tiles["#"] = {inherit(" "), stone("st-rock2")}
+tiles["#"] = {inherit(" "), stone("st-metal")}
 tiles["x"] = {inherit(" "), oxyd}
 tiles["~"] = {floor("fl-water")}
 
@@ -179,6 +179,7 @@ create_world_from_map( tiles, {
 --set_actor("ac-blackball", level_width/2, level_height/2, {player=0})
 
 oxyd_shuffle()
+
 
 
 

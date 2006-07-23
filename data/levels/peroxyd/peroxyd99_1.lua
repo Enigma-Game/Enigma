@@ -8,7 +8,7 @@ levelw = 20
 levelh = 13
 
 create_world(levelw, levelh)
-draw_border("st-rock2")
+draw_border("st-metal")
 fill_floor("fl-gray")
 
 oxyd (1,1)
@@ -28,16 +28,17 @@ abyss(5,11)
 
 -- document(12,3, "...geschafft")
 document(12,3, "... did it!")
-draw_stones("st-rock2", {9, 2}, {0,1},10)
+draw_stones("st-metal", {9, 2}, {0,1},10)
 
 set_item("it-trigger", 3,11, {action="openclose", target="door"})
 set_stone("st-door", 9, 1 , {name="door", type="v"})
 
-set_stone("st-rock2", 1,7)
-set_stones("st-rock2", {{4,7},{5,7},{6,7},{3,10},{4,10}})
+set_stone("st-metal", 1,7)
+set_stones("st-metal", {{4,7},{5,7},{6,7},{3,10},{4,10}})
 
 set_actor("ac-blackball", 7,3)
  
+
 
 
 

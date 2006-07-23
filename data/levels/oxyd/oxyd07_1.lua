@@ -7,7 +7,7 @@
 levelw = 20
 levelh = 13
 
-stone = "st-rock2"
+stone = "st-metal"
 
 create_world( levelw, levelh)
 fill_floor("fl-abyss", 1, 11, 18,1)
@@ -66,6 +66,7 @@ oxyd(18,12)
 oxyd_shuffle()
 
 set_actor("ac-blackball", 10, 5)
+
 
 
 

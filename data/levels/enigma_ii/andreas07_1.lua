@@ -22,7 +22,7 @@ stones[" "]=cell{}
 cells[" "]=cell{}
 items[" "]=cell{}
 cells["!"]=cell{floor="fl-normal"}
-stones["!"]=cell{stone="st-rock2"}
+stones["!"]=cell{stone="st-metal"}
 stones["#"]=cell{stone="st-puzzle2-nw"}
 stones["$"]=cell{stone="st-puzzle2-ew"}
 stones["%"]=cell{stone="st-puzzle2-nsw"}
@@ -127,6 +127,7 @@ else
   SetAttrib(enigma.GetItem(16,3),"text","Don't think too long... it's easy!")
 end
 oxyd_shuffle()
+
 
 
 

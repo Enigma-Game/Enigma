@@ -6,17 +6,17 @@ levelw = 20
 levelh = 13
 
 create_world(levelw, levelh)
-draw_border("st-rock2")
+draw_border("st-metal")
 fill_floor("fl-rough")
 
 
 oxyd(2,2)
 oxyd(level_width-3,level_height-3)
 
-draw_stones("st-rock2", {5,1}, {0,1}, 11)
+draw_stones("st-metal", {5,1}, {0,1}, 11)
 set_stone("st-door", 5, 10 , {name="door1", type="v"})
 
-draw_stones("st-rock2", {14,1}, {0,1}, 11)
+draw_stones("st-metal", {14,1}, {0,1}, 11)
 set_stone("st-door", 14, 2 , {name="door2", type="v"})
 
 
@@ -27,6 +27,7 @@ set_stone("st-shogun-sml", 10,7)
 
 
 set_actor("ac-blackball", 10,9.5)
+
 
 
 

@@ -16,7 +16,7 @@ function renderLine( line, pattern)
     for i=1, strlen(pattern) do
       local c = strsub( pattern, i, i)
       if c == "#" then
-         set_stone("st-rock2",i-1,line)
+         set_stone("st-metal",i-1,line)
       elseif c == "D" then                      
 	 set_stone("st-death", i-1,line)
       elseif c=="d" then
@@ -121,13 +121,14 @@ flag = 1 - flag
 time = enigma.date("%S") + enigma.date("%M")*60
 a = (time-time_old) * flag -- only when waiting ON the trigger
 if a > 60 then
- set_stone("st-rock2_hole",19,18)
+ set_stone("st-metal_hole",19,18)
  document(19,18,"You'll do anything you're told!")
  end
 time_old=time
 end
 
 oxyd_shuffle()
+
 
 
 
