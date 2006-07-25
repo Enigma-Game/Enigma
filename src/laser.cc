@@ -200,8 +200,16 @@ void PhotoCell::photo_deactivate()
 
 /* -------------------- PhotoStone -------------------- */
 
-void PhotoStone::check_state()
+PhotoStone::PhotoStone(const char *kind) : Stone(kind) 
 {
+    illuminated = false;
+}
+
+void PhotoStone::on_recalc_start() 
+{}
+
+void PhotoStone::on_recalc_finish() 
+{ 
     GridPos p = get_pos();
     bool illu = (LightFrom(p, NORTH) || LightFrom(p, EAST)
                  || LightFrom(p, WEST) || LightFrom(p, SOUTH));
@@ -237,9 +245,6 @@ void PhotoStone::check_state()
 //   the beam is recalculated.  For objects that need to be notified
 //   when the laser goes on or off, use the `PhotoStone'
 //   mixin.
-//
-// More bits of information can be found in the description of laser
-// stones and mirrors.
 
 vector<LaserBeam*> LaserBeam::instances;
 map<GridPos, int>  LaserBeam::old_laser_positions;

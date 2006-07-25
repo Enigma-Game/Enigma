@@ -1051,7 +1051,7 @@ namespace
             bool explode = false;
 
             if (msg == "ignite") {
-                // dynamite does not blow Documents in Oxyd1
+                // dynamite does not blow up Documents in Oxyd1
                 explode = server::GameCompatibility != GAMET_OXYD1;
             }
             else if (msg == "expl" || msg == "bombstone")
@@ -1316,7 +1316,7 @@ void Trigger::init_model()
 void Trigger::update_state()
 {
     Stone *st = GetStone(get_pos());
-    // Hack to make tunnel puzzle stones pres triggers
+    // Hack to make tunnel puzzle stones press triggers
     bool stone_pressure = st && (!st->is_floating() || st->is_kind ("st-puzzle*"));
     bool pressedp = stone_pressure || (m_actorcount > 0);
 

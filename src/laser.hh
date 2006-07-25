@@ -87,15 +87,16 @@ namespace world
 
     class PhotoStone : public Stone, public PhotoCell {
     protected:
-        PhotoStone(const char *kind) : Stone(kind) {illuminated = false;}
+        PhotoStone (const char *kind);
+
     private:
         bool illuminated;
 
-        void on_recalc_start() {}
-        void on_recalc_finish() { check_state(); }
+        // PhotoCell interface
+        void on_recalc_start();
+        void on_recalc_finish();
 
-        void check_state();
-
+        // PhotoStone interface
         virtual void notify_laseron() = 0;
         virtual void notify_laseroff() = 0;
     };
