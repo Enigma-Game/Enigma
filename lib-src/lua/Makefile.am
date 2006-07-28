@@ -13,11 +13,24 @@ CFLAGSDEFAULT = @CFLAGS@\
 
 else
 
-CFLAGSDEFAULT = @CFLAGS@
+CFLAGSDEFAULT= @CFLAGS@ 
 
 endif
 
-CFLAGS = $(CFLAGSDEFAULT)
+
+if CXXLUA
+
+## Compile as c++
+CXXLUAFLAGS = -x c++ @CXXFLAGS@
+
+else
+
+CXXLUAFLAGS=
+
+endif
+
+
+CFLAGS = $(CFLAGSDEFAULT) $(CXXLUAFLAGS)
 
 
 liblua_a_SOURCES = \

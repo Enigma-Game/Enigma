@@ -128,10 +128,13 @@ xerces-c
   make
   make install
   
-enigma
+enigma (Note the first "make" just compiles the tool "tolua")
   export ENIGMADEVDLLS="SDL SDL_image SDL_mixer SDL_ttf jpeg libpng13 zlib"
   ./autogen.sh
+  ./configure --disable-cxxlua
+  make
   ./configure
+  make clean
   cd etc
   ./mingw32-dist.sh
   install etc/enigma.zip

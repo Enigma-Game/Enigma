@@ -35,10 +35,16 @@
 #include "display_internal.hh"
 #include "d_engine.hh"
 
+#ifndef CXXLUA
 extern "C" {
 #include "lualib.h"
 #include "tolua++.h"
 }
+#else
+#include "lualib.h"
+#include "tolua++.h"
+#endif 
+
 #include "lua-editor.hh"
 
 using namespace std;

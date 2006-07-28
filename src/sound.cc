@@ -30,9 +30,13 @@
 #include <cassert>
 #include <memory>
 
+#ifndef CXXLUA
 extern "C" {
 #include "lua.h"
 }
+#else
+#include "lua.h"
+#endif 
 
 
 using namespace std;

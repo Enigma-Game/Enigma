@@ -23,9 +23,12 @@
 #include "ecl_geom.hh"
 #include "objects_decl.hh"
 
-extern "C" {
-    struct lua_State;
-}
+#ifdef CXXLUA
+struct lua_State;
+#else 
+extern "C" struct lua_State;
+#endif
+
 
 namespace lua
 {

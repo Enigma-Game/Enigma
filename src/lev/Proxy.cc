@@ -37,11 +37,16 @@
 #include <xercesc/util/XMLUniDefs.hpp>
 #include <xercesc/framework/MemBufInputSource.hpp>
 #include <xercesc/framework/Wrapper4InputSource.hpp>
- 
+
+#ifndef CXXLUA
 extern "C" {
 #include "lua.h"
 #include "lauxlib.h"
 }
+#else
+#include "lua.h"
+#include "lauxlib.h"
+#endif 
 
 
 using namespace std;

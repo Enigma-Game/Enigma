@@ -29,10 +29,15 @@
 #include <cstdlib>
 #include <set>
 
+#ifndef CXXLUA
 extern "C" {
 #include <lua.h>
 #include <lauxlib.h>
 }
+#else
+#include <lua.h>
+#include <lauxlib.h>
+#endif 
 
 #ifdef __MINGW32__
 #       include <windows.h>

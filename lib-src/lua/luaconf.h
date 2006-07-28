@@ -731,6 +731,11 @@ union luai_Cast { double l_d; long l_l; };
 */
 
 
+#if defined(__cplusplus) && defined(CXXLUA)
+#undef LUAI_TRY
+#define LUAI_TRY(L,c,a)	try { a } catch(lua_longjmp*) \
+	{ if ((c)->status == 0) (c)->status = -1; }
+#endif
 
 #endif
 

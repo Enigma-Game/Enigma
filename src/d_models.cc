@@ -36,11 +36,17 @@ using namespace display;
 using namespace std;
 using namespace ecl;
 
-
+#ifndef CXXLUA
 extern "C" {
 #include "lualib.h"
 #include "tolua++.h"
 }
+#else
+#include "lualib.h"
+#include "tolua++.h"
+#endif 
+
+
 #include "lua-global.hh"
 #include "lua-display.hh"
 #include "lua-enigma.hh"

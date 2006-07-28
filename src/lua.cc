@@ -26,10 +26,16 @@
 #include "sound.hh"
 #include "options.hh"
 
+#ifndef CXXLUA
 extern "C" {
 #include "lualib.h"
 #include "tolua++.h"
 }
+#else
+#include "lualib.h"
+#include "tolua++.h"
+#endif 
+
 
 #include "lua-display.hh"
 #include "lua-enigma.hh"

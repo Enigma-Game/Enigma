@@ -7,7 +7,12 @@ else
 TTFTOOL = 
 endif
 
+if CXXLUA
+noinst_PROGRAMS =  $(TTFTOOL)
+else
 noinst_PROGRAMS = tolua $(TTFTOOL)
+endif
+
 
 ttf2bmf_SOURCES = ttf2bmf.cc getopt.c getopt1.c getopt.h
 ttf2bmf_CXXFLAGS = @SDL_CFLAGS@

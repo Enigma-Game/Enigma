@@ -39,8 +39,14 @@ extern "C" {
 
 typedef int lua_Object;
 
+#if defined(__cplusplus) && defined(CXXLUA)
+  extern "C++" {
+#endif
 #include "lua.h"
 #include "lauxlib.h"
+#if defined(__cplusplus) && defined(CXXLUA)
+  }
+#endif
 
 struct tolua_Error
 {
