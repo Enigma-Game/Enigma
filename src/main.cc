@@ -27,6 +27,7 @@
 #include "video.hh"
 #include "ecl_argp.hh"
 #include "ecl_system.hh"
+#include "errors.hh"
 #include "world.hh"
 #include "nls.hh"
 #include "LocalToXML.hh"
@@ -80,6 +81,8 @@ namespace
 namespace enigma
 {
     Application app;
+    
+    bool noAssert = true;      // block expensive assert evaluations by default
 
     bool   WizardMode        = false;
 
@@ -127,7 +130,7 @@ namespace
         AP();
 
         // Variables.
-        bool nosound, nomusic, show_help, show_version, do_log, force_window;
+        bool nosound, nomusic, show_help, show_version, do_log, do_assert, force_window;
         bool dumpinfo;
         string gamename;
         string datapath;
@@ -153,7 +156,7 @@ namespace
 
 AP::AP() : ArgParser (app.args.begin(), app.args.end())
 {
-    nosound  = nomusic = show_help = show_version = do_log = force_window = false;
+    nosound  = nomusic = show_help = show_version = do_log = do_assert = force_window = false;
     dumpinfo = false;
     gamename = "";
     datapath = "";
@@ -166,6 +169,7 @@ AP::AP() : ArgParser (app.args.begin(), app.args.end())
     def (&WizardMode,           "wizard");
     def (&Nograb,               "nograb");
     def (&do_log,               "log");
+    def (&do_assert,            "assert");
     def (&dumpinfo,             "dumpinfo");
     def (&force_window,         "window", 'w');
     def (OPT_GAME,              "game", true);
@@ -242,6 +246,10 @@ void Application::init(int argc, char **argv)
         enigma::Log.rdbuf(cout.rdbuf());
     else
         enigma::Log.rdbuf(::nullbuffer);
+
+    // initialize assertion stop flag
+    if (ap.do_assert)
+        enigma::noAssert = false;
 
     // initialize system datapaths -- needs ap, log
     systemCmdDataPath = ap.datapath;

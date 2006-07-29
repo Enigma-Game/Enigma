@@ -217,6 +217,20 @@ if test "x$enable_experimental" = xyes; then
 fi
 
 dnl ----------------------------------------
+dnl Include asserts ?
+dnl ----------------------------------------
+AC_MSG_CHECKING(whether to include assert statements)
+AC_ARG_ENABLE(assert,
+  AS_HELP_STRING(--enable-assert,Include assert statements [default=yes]), 
+  , enable_assert=yes)
+if test "x$enable_assert" = xyes; then
+  CXXFLAGS="$CXXFLAGS -DENABLE_ASSERT"
+  AC_MSG_RESULT(yes)
+else
+  AC_MSG_RESULT(no)
+fi
+
+dnl ----------------------------------------
 dnl Optimize?
 dnl ----------------------------------------
 

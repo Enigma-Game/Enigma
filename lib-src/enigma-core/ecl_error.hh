@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2002,2004 Daniel Heck
+ * Copyright (C) 2002,2004,2005,2006 Daniel Heck
  *
  * This program is free software; you can redistribute it and/or
  * modify it under the terms of the GNU General Public License
@@ -19,8 +19,16 @@
 #ifndef ECL_ERROR_HH
 #define ECL_ERROR_HH
 
+#include "ecl_util.hh"
+
 #include <string>
 #include <exception>
+
+#ifdef ENABLE_ASSERT
+#define ASSERT(p, t, m)   ((p) ? (void) 0 : ecl::Assert<t>(false, ecl::strf("Assert(%s) at %s:%d: %s() failed - %s",#p,__FILE__,__LINE__,__func__,m)))
+#else
+#define ASSERT(p, t, m)   ((void)0)
+#endif
 
 namespace ecl
 {
