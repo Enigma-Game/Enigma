@@ -1572,8 +1572,8 @@ bool Follower::set_offset (V2 offs)
     DisplayEngine *e = get_engine();
     offs[0] = max (offs[0], 0.0);
     offs[1] = max (offs[1], 0.0);
-    offs[0] = min (offs[0], double(e->get_width()-get_hoff()));
-    offs[1] = min (offs[1], double(e->get_height()-get_voff()));
+    offs[0] = min (offs[0], double(e->get_width()-get_hoff()-1));
+    offs[1] = min (offs[1], double(e->get_height()-get_voff()-1));
     if (offs != e->get_offset()) {
 	e->set_offset(offs);
 	return true;

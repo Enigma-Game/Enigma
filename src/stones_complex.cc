@@ -914,7 +914,11 @@ namespace
     class PuzzleStone : public ConnectiveStone, public TimeHandler, public world::PhotoCell {
         INSTANCELISTOBJ(PuzzleStone);
     public:
-        PuzzleStone(int connections, bool oxyd1_compatible_);
+        PuzzleStone(int connections, bool oxyd1_compatible_);  
+    protected:
+        virtual ~PuzzleStone() {
+            GameTimer.remove_alarm (this);
+        }     
     private:
         typedef vector<GridPos> Cluster;
 
