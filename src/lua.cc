@@ -224,7 +224,7 @@ en_get_attrib(lua_State *L)
 
     const Value *v =  obj->get_attrib(key);
     if (!v) {
-        luaL_error(L, strf("GetAttrib: unknown attribute '%s'", key).c_str());
+        // unknown attribute
         lua_pushnil(L);
     }
     else
