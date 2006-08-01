@@ -2433,6 +2433,32 @@ i.e., neither to modify them nor to delete them without notice.
 @node Floors, Items, Objects, Objects
 @section Floors
 
+@menu
+* Common Attributes::           Common attributes for single floor tiles
+* Special floor tiles::         List of special floors
+* Regular floor tiles::         List of regular floors
+* fl-nomouse::                  No-mouse-floor
+* fl-thief::                    Thief Floor
+@end menu
+
+@node Common Attributes, Special floor tiles, Floors, Floors
+@subsection Common Attributes
+
+@table @code
+@item friction
+overrides the default friction for this floor tile
+@item mousefactor
+overrides the default mousefactor
+@item force_x
+defines a horizontal flat force
+@item force_y
+defines a vertical flat force
+@end table
+
+On gradients, @code{force_x} and @code{force_y} are additive to the
+gradient's standard force.
+
+@node Special floor tiles, Regular floor tiles, Common Attributes, Floors
 @subsection Special floor tiles
 
 @example
@@ -2446,9 +2472,12 @@ fl-gradient( type )
 fl-gradient@{1..16@}
 fl-springboard
 fl-swamp
+fl-thief
 fl-water
+fl-nomouse
 @end example
 
+@node Regular floor tiles, fl-nomouse, Special floor tiles, Floors
 @subsection Regular floor tiles
 
 @example
@@ -2511,19 +2540,36 @@ fl-wood
 fl-woven
 @end example
 
+@node fl-nomouse, fl-thief, Regular floor tiles, Floors
+@subsection fl-nomouse
+
+This floor prevents a player from controlling the marble.
+
+@node fl-thief, , fl-nomouse, Floors
+@subsection fl-thief
+
+This floor steals one item from the players inventory.
+It looks like the simple floor @code{fl-bluegray}.
+Compare with @code{st-thief} (@ref{st-thief}).
+
+
 @node Items, Stones, Floors, Objects
 @section Items
 
 @menu
 * Item List::                   A complete list of all items
+* it-brush::                    Brush
 * it-document::                 Scrolls of Paper
+* it-drop::                     Transmuting Liquid
 * it-floppy::                   Floppy Disk
 * it-hollow::                   Pits in the floor
+* it-magicwand::                Magic Wand
+* it-pencil::                   Pencil
 * it-ring::                     Ring
 * it-vortex::                   Vortices for Teleporting
 @end menu
 
-@node Item List, it-document, Items, Items
+@node Item List, it-brush, Items, Items
 @subsection Item List
 
 @example
@@ -2639,8 +2685,22 @@ it-wrench
 it-yinyang
 @end example
 
+@c -------------------- Brush --------------------
+@node it-brush, it-document, Item List, Items
+@subsection it-brush: Brush
+
+This item can be used to make some invisible stones visible
+(st-actorimpulse_invisible (see @ref{st-actorimpulse}),
+@ref{st-break_invisible}, @ref{st-stonebrush}) and to remove debris
+from the level (@ref{it-burnable_ash}, @ref{it-burnable_fireproof},
+@ref{it-squashed}, @ref{it-cross}).
+
+The Per.Oxyd-compatibility stone st-yinyang3 (see @ref{st-yinyang})
+must be touched with an it-brush or an @ref{it-magicwand} in order to
+activate it. 
+
 @c -------------------- Document --------------------
-@node it-document, it-floppy, Item List, Items
+@node it-document, it-drop, it-brush, Items
 @subsection it-document: Scrolls of Paper
 
 This item looks like a piece of paper and contains text messages that
@@ -2659,15 +2719,22 @@ set_item("it-document", 1,1, @{text="Hello World!"@})
 Document(1,1, "Hello World")
 @end example
 
+@c -------------------- Drop --------------------
+@node it-drop, it-floppy, it-document, Items
+@subsection it-drop: Transmuting Liquid
+
+Transforms the marble into an @ref{ac-rotor} for a short time.
+Can be used multiple times.
+
 @c -------------------- Floppy --------------------
-@node it-floppy, it-hollow, it-document, Items
+@node it-floppy, it-hollow, it-drop, Items
 @subsection it-floppy: Floppy Disk
 
 The floppy disk is needed to activate the Floppy switch (see
 @ref{st-floppy}).
 
 @c -------------------- Hollow --------------------
-@node it-hollow, it-ring, it-floppy, Items
+@node it-hollow, it-magicwand, it-floppy, Items
 @subsection it-hollow: Hollows in the floor
 
 This item creates a hollow in the floor.
@@ -2690,8 +2757,43 @@ whiteballs are inside the 3 marked holes.
 
 @end table
 
+@c -------------------- Magic Wand --------------------
+@node it-magicwand, it-pencil, it-hollow, Items
+@subsection it-magicwand: Magic Wand
+
+@itemize @bullet
+@item
+Changes direction of a oneway stone (@ref{st-oneway}).
+@item
+Changes direction of a bolder stone (@ref{st-bolder}).
+@item
+Scrambles blue puzzle stones instead of pushing, lets complete
+clusters explode (@ref{st-puzzle}).
+@c @item
+@c not implemented?  st-stoneimpulse_movable doesn't pulse
+@item
+Makes @code{st-brick_magic} transparent (@ref{st-brick_magic}).
+@item
+Makes @code{st-invisible_magic} visible and non-transparent
+(@ref{st-invisible_magic}).
+@item
+Makes rubberband stones movable (@ref{st-rubberband}).
+@item
+Changes colour of a chess stone (@ref{st-chess_[black/white]}).
+@item
+Activates @code{st-yinyang3} (@ref{st-yinyang}).
+@end itemize
+
+@c -------------------- Pencil --------------------
+@node it-pencil, it-ring, it-hollow, Items
+@subsection it-pencil: Pencil
+
+Try to scratch an @ref{it-cross} into the floor, pencil is lost
+after this. Scratching onto ice results in a crack, scratching
+while flying or on certain floors results in dropping the pencil.
+
 @c -------------------- Ring --------------------
-@node it-ring, it-vortex, it-hollow, Items
+@node it-ring, it-vortex, it-pencil, Items
 @subsection it-ring: Ring
 
 When a player drops this item, the marble is teleported.  The
@@ -2740,19 +2842,23 @@ Signal ("it(20 1)", "it(1 1)")
 * Stone List::                  A complete list of all stones
 * st-actorimpulse::             Bumper Stones
 * st-chameleon::                Chameleon Stone
+* st-chess_[black/white]::      Chess (Knight) Stone
 * st-coinslot::                 Coin Slot Switch
 * st-death::                    Skull Stones
 * st-disco::                    Disco Stones
 * st-easymode::                 Easy Mode Stone
 * st-fart::                     The Infamous Fart Stones
+* st-flash::                    Flash Stone
 * st-floppy::                   Floppy Switch
 * st-grate::                    Various Grates
 * st-laserswitch::              Laser Switch
 * st-lasertimeswitch::          Laser Time Switch
+* st-lightpassenger::           Light Passenger
 * st-oneway::                   One-way Stones
 * st-oxyd::                     The Famous Oxyd Stones
 * st-rubberband::               Rubberband Stone
 * st-scissors::                 Scissors Stone
+* st-shogun-<sml>::             Shogun Stones
 * st-stone_break::              Breakable Stone
 * st-swap::                     Swap Stones
 * st-switch::                   Ordinary Switches
@@ -2778,6 +2884,7 @@ a, b, c), and @code{@{1..9@}} indicates a sequence of numbers.
 
 @example
 st-beads
+st-bigbluesand-<nesw>
 st-bigbrick-<nesw>
 st-blue-sand
 st-bluegray
@@ -2785,6 +2892,7 @@ st-bluegray_hole
 st-brick
 st-brownie
 st-bumps
+st-camouflage
 st-dummy
 st-fakeoxyd( blinking )
 st-fakeoxyda
@@ -2806,7 +2914,8 @@ st-metal
 st-plain
 st-plain_hole
 st-plain_move
-st-rock@{1..8@}
+st-redrock
+st-rock@{1..9@}
 st-rock[123]_hole
 st-rock[13]_move
 st-stone[12]
@@ -2845,6 +2954,8 @@ st-chameleon
 st-chargeminus( charge )
 st-chargeplus( charge )
 st-chargezero( charge )
+st-chess_black( colour direction1 direction2 )
+st-chess_white( colour direction1 direction2 )
 st-coffee
 st-coinslot( on )
 st-death
@@ -2861,7 +2972,7 @@ st-door_[abc]
 st-easymode
 st-explosion
 st-fart
-st-flash
+st-flash( hit_factor hit_distortion_[xx,xy,yx,yy] )
 st-floppy( on )
 st-fourswitch( on )
 st-greenbrown-growing
@@ -2874,6 +2985,7 @@ st-laser-[ensw]( on )
 st-laserbreak
 st-laserswitch
 st-lasertimeswitch( delay )
+st-lightpassenger( interval )
 st-magic
 st-mail-[ensw]
 st-mirror-3<
@@ -2931,7 +3043,7 @@ st-rotator-left
 st-rotator-right
 st-rotator_move-left
 st-rotator_move-right
-st-rubberband( length strength )
+st-rubberband( length strength minlength )
 st-scissors
 st-shogun-<sml>
 st-spitter
@@ -2973,10 +3085,12 @@ of force applied can be controlled by setting
 Alternatively, the @code{force} attribute can be used to set this
 factor for @emph{individual} bumper stones.
 
-The invisible variant, @ref{st-actorimpulse_invisible} can
-``painted'' with a @ref{it-brush}.
+@strong{Variants}
 
-@node st-chameleon, st-coinslot, st-actorimpulse, Stones
+The invisible variant, st-actorimpulse_invisible can be
+``painted'' with an @ref{it-brush}.
+
+@node st-chameleon, st-chess_[black/white], st-actorimpulse, Stones
 @subsection st-chameleon: Chameleon Stone
 
 This stone takes on the look of the floor beneath it.  Actors can
@@ -2984,7 +3098,45 @@ move through it, so these stones are perfect for hiding stuff under
 them...
 
 
-@node st-coinslot, st-death, st-chameleon, Stones
+@node st-chess_[black/white], st-coinslot, st-chameleon, Stones
+@subsection st-chess_[black/white]: Chess (Knight) Stone
+
+When hit, a chess stone makes a knight move: two steps in direction of
+the hit plus one step in direction of the vertical velocity
+component. @code{st-chess_black} can only be moved with the black
+marble, @code{st-chess_white} only with the white. When there is a
+chess stone of opposite colour or a thief stone (@ref{st-thief}) at
+the target position of a knight move, this stone is destroyed.
+
+When hit with a magic wand (@ref{it-magicwand}), a chess stone changes
+colour.
+
+@strong{Attributes}
+
+@table @code
+@item colour
+0 for black, 1 for white
+@item direction1, direction2
+Used by the @code{move}-message
+@end table
+
+@strong{Messages}
+
+@table @code
+@item capture
+Destroy stone with capture-animation.
+@item flip
+Change colour.
+@item move_[nne, nnw, wwn, wws, ssw, sse, ees, een]
+Make a knight move.
+@item move
+Make a knight move defined by the attributes @code{direction1} (two
+steps) and @code{direction2} (one step). You can use the @code{NORTH},
+@code{SOUTH}, @code{EAST} and @code{WEST} constants for this.
+@end table
+
+
+@node st-coinslot, st-death, st-chess_[black/white], Stones
 @subsection st-coinslot
 
 A switch that can be activated with coins.  The more coins you put in,
@@ -3047,7 +3199,7 @@ This stone is commonly used to hide danger areas (water holes, abyss)
 or to insert helper items (umbrellas, seeds, etc.) that make the level
 easier in easy game mode.
 
-@node st-fart, st-floppy, st-easymode, Stones
+@node st-fart, st-flash, st-easymode, Stones
 @subsection st-fart: Fart Stone
 
 The fart stone has the unpleasant habit of ``blowing off'' when
@@ -3060,9 +3212,23 @@ triggered (by actor hit or signal) and will close all Oxyd stones.
 blow off
 @end table
 
+@node st-flash, st-floppy, st-fart, Stones
+@subsection st-flash: Flash Stone
 
+When the flash stone is hit by the black marble, an impulse will
+be given to the white marble as if it had been hit itself -- and vice
+versa, when the white marble hits the flash stone.
 
-@node st-floppy, st-grate, st-fart, Stones
+@strong{Attributes}
+
+@table @code
+@item hit_factor
+factor of the transmitted force (default 20)
+@item hit_distortion_xx, hit_distortion_xy, hit_distortion_yx, hit_distortion_yy
+define a matrix to be applied to the force (default 1,0,0,1)
+@end table
+
+@node st-floppy, st-grate, st-flash, Stones
 @subsection st-floppy: Floppy Switch
 
 A switch that is activated by inserting a floppy disk (see @ref{it-floppy}).
@@ -3108,10 +3274,46 @@ Inverts the on/off state of the switch
 as usual
 @end table
 
-@node st-lasertimeswitch, st-oneway, st-laserswitch, Stones
+@node st-lasertimeswitch, st-lightpassenger, st-laserswitch, Stones
 @subsection st-lasertimeswitch: Laser Time Switch
 
 This switch is a mix between @ref{st-laserswitch} and @ref{st-timeswitch}.
+
+@node st-lightpassenger, , , Stones
+@subsection st-lightpassenger: Light Passenger
+
+The light passenger skates on a laser beam and may push up to one
+movable stone in front of it. Opposing laser beams are ignored.
+When the actual laser beam on which the passenger skates is crossed
+by another one, the passenger switches beams. If it is initially
+lighted by two rectangular beams, one of them will be chosen by
+random. The light passenger's skating ability can be turned off
+and on.
+
+When a stone is in its way, the passenger sends an impulse to the
+blocking stone, which may move it, but may also have other effects.
+E.g. a turnstile turns around and an impulse-stone starts pulsing,
+but it does not open oxyds (this is intended).
+
+The light passenger can't be pushed by a marble, but e.g. by an
+impulse- or pull-stone.
+
+@strong{Attributes}
+
+@table @code
+@item interval
+overrides the standard speed of the light passenger
+@end table
+
+@strong{Messages}
+
+@table @code
+@item onoff, on, off, trigger
+trigger between activated and deactivated (= no skating)
+@item signal
+with parameter 0: deactivating, else activating
+@end table
+
 
 @node st-oneway, st-oxyd, st-lasertimeswitch, Stones
 @subsection st-oneway: One-way Stones
@@ -3217,20 +3419,36 @@ This stone can be moved if hit with a magic wand.
 The natural length of the rubberband (default: 1)
 @item strength
 The strength of the rubberband (default: 10)
+@item minlength
+The minimal length of the rubberband (default: 0)
 @end table
 
 
-@node st-scissors, st-stone_break, st-rubberband, Stones
+@node st-scissors, st-shogun-<sml>, st-rubberband, Stones
 @subsection st-scissors: Scissors Stone
 
 This stone cuts all rubber bands attached to an actor that touches it.
 
 
-@node st-stone_break, st-swap, st-scissors, Stones
+@node st-shogun-<sml>, st-stone_break, st-scissors, Stones
+@subsection st-shogun-<sml>: Shogun Stones
+
+These stones come in three basic variants: small (@code{s}), medium
+(@code{m}) and large (@code{l}). The smaller ones can be pushed into
+bigger ones, forming combined forms denoted by combinations of @code{s},
+@code{m} and @code{l}.
+
+The shogun stones trigger shogun items (see @ref{it-shogun}).
+
+Shogun stones don't ignite bombs when pushed over them.
+
+
+@node st-stone_break, st-swap, st-shogun-<sml>, Stones
 @subsection st-stone_break: Breakable Stone
 
 This stone can be destroyed by an actor having a hammer and by laser,
 dynamite, bombs and bombstones.
+
 
 @node st-swap, st-switch, st-stone_break, Stones
 @subsection st-swap: Swap Stone
@@ -3273,8 +3491,18 @@ as usual
 Takes one item from inventory after when hit by the player's marble.
 Umbrellas protect against thievery.
 
+Thief stones can be destroyed with chess stones
+(@ref{st-chess_[black/white]}).
 
+Compare with @code{fl-thief} (@ref{fl-thief}).
 
+@strong{Messages}
+
+@table @code
+@item capture
+Destroy thief stone with capture-animation (as if captured by a chess
+stone).
+@end table
 
 @node st-timer, st-timeswitch, st-thief, Stones
 @subsection st-timer: Timer Stone
@@ -3376,68 +3604,23 @@ color of the Yin-Yang Stone to their color.
 @node Actors, General object attributes, Stones, Objects
 @section Actors
 
-Movable objects are called ``actors'' in Enigma.  The commonest actor
-is, of course, the black marble, but there are others, including the
-white marble, the killerball and a few more:
-
-@subsection ac-blackball
-
-mouseforce (default 1.0)
-color (default 0.0)
-blackball (default 1)
-player (default 0)
-controllers (default 1)
-
-@subsection ac-whiteball
-
-mouseforce (default 1.0)
-color (default 1.0)
-whiteball (default 1)
-player (default 1)
-controllers (default 2)
-
-@subsection ac-whiteball_small
-
-mouseforce (default 1.0)
-color (default 1.0)
-whiteball (default 1)
-controllers (default 3)
-
-@subsection ac-killerball
-
-mouseforce (default 2.0)
-color (default 1.0)
-whiteball (default 1)
-controllers (default 3)
-
-
-@subsection ac-rotor
-
-range (default 5.0)
-force (default 10.0)
-gohome (default 1)
-
-@subsection ac-top
-
-range (default 5.0)
-force (default 10.0)
-gohome (default 1)
-
-@subsection ac-bug
-
-@subsection ac-horse
-
-force (default 10.0)
-target1
-target2
-target3
-target4
-
 @menu
-* Actor Attributes::            
+* Actor Attributes::            Yin-Yang Stones
+* ac-blackball::                Black Marble
+* ac-whiteball::                White Marble
+* ac-whiteball-small::          Meditation Marble
+* ac-killerball::               Small killer marble
+* ac-rotor::                    Rotor
+* ac-top::                      Spinning Top
+* ac-bug::                      Bug
+* ac-horse::                    Horse
 @end menu
 
-@node Actor Attributes,  , Actors, Actors
+Movable objects are called ``actors'' in Enigma.  The most common
+actor is, of course, the black marble, but there are others, including
+the white marble, the killerball and a few more:
+
+@node Actor Attributes, ac-blackball, Actors, Actors
 @subsection Actor Attributes
 
 All actors share a set of common attributes that determine their
@@ -3473,6 +3656,68 @@ Used by color-sensitive stones (black/white switches for example) to
 determine whether the actor is the black or the white marble.  These
 attributes may disappear in future versions, please do not use them.
 @end table
+
+
+@node ac-blackball, ac-whiteball, Actors, Actors
+@subsection ac-blackball
+
+mouseforce (default 1.0)
+color (default 0.0)
+blackball (default 1)
+player (default 0)
+controllers (default 1)
+
+@node ac-whiteball, ac-whiteball-small, ac-blackball, Actors
+@subsection ac-whiteball
+
+mouseforce (default 1.0)
+color (default 1.0)
+whiteball (default 1)
+player (default 1)
+controllers (default 2)
+
+@node ac-whiteball-small, ac-killerball, ac-whiteball, Actors
+@subsection ac-whiteball-small
+
+mouseforce (default 1.0)
+color (default 1.0)
+whiteball (default 1)
+controllers (default 3)
+
+@node ac-killerball, ac-rotor, ac-whiteball-small, Actors
+@subsection ac-killerball
+
+mouseforce (default 2.0)
+color (default 1.0)
+whiteball (default 1)
+controllers (default 3)
+
+@node ac-rotor, ac-top, ac-killerball, Actors
+@subsection ac-rotor
+
+range (default 5.0)
+force (default 10.0)
+gohome (default 1)
+
+@node ac-top, ac-bug, ac-rotor, Actors
+@subsection ac-top
+
+range (default 5.0)
+force (default 10.0)
+gohome (default 1)
+
+@node ac-bug, ac-horse, ac-top, Actors
+@subsection ac-bug
+
+@node ac-horse,  , ac-bug, Actors
+@subsection ac-horse
+
+force (default 10.0)
+target1
+target2
+target3
+target4
+
 
 @c ----------------------------------------------------------------------
 @node General object attributes,  , Actors, Objects
