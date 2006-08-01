@@ -4,9 +4,9 @@
     <el:info el:type="level">
       <el:identity el:title="Tool Time" el:subtitle="" el:id="barry03"/>
       <el:version el:score="1" el:release="1" el:revision="0" el:status="released"/>
-      <el:author  el:name="Barry and Lori Mead" el:email="bmead15@cox.net" el:homepage=""/>
-      <el:copyright>Copyright © 2003 Barry and Lori Mead</el:copyright>
-      <el:license el:type="GPL v2.0" el:open="true"/>
+      <el:author  el:name="Barry &amp; Lori Mead" el:email="bmead15@cox.net" el:homepage=""/>
+      <el:copyright>Copyright © 2003 Barry &amp; Lori Mead</el:copyright>
+      <el:license el:type="GPL version 2" el:open="true"/>
       <el:compatibility el:enigma="0.92">
       </el:compatibility>
       <el:modes el:easy="false" el:single="true" el:network="false"/>
@@ -105,7 +105,7 @@ end
         <el:english el:translate="false"/>
       </el:string>
       <el:string el:key="text1">
-        <el:english el:translate="true">Make a Sword, and Umbrella.</el:english>
+        <el:english el:translate="true">Make a Sword, &amp; Umbrella.</el:english>
       </el:string> 
     </el:i18n>
   </el:protected>

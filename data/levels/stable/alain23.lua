@@ -1,4 +1,4 @@
--- Billiards, a meditation level for Enigma
+-- pool with a pole, a meditation level for Enigma
 -- Copyright (C) 2006 Alain Busser
 -- Licensed under GPL v2.0 or above 
 

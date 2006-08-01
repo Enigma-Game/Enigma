@@ -4,9 +4,9 @@
     <el:info el:type="level">
       <el:identity el:title="- Meditation -" el:subtitle="" el:id="meditation1"/>
       <el:version el:score="1" el:release="1" el:revision="0" el:status="released"/>
-      <el:author  el:name="" el:email="" el:homepage=""/>
-      <el:copyright>Copyright © year </el:copyright>
-      <el:license el:type="no license given" el:open="true"/>
+      <el:author  el:name="anonymous" el:email="" el:homepage=""/>
+      <el:copyright>Copyright ©</el:copyright>
+      <el:license el:type="Donated to Enigma under the projects license" el:open="true"/>
       <el:compatibility el:enigma="0.92">
       </el:compatibility>
       <el:modes el:easy="false" el:single="true" el:network="false"/>
