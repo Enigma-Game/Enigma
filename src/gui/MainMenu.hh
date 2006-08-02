@@ -47,6 +47,7 @@ namespace enigma { namespace gui {
 
         // Variables.
         Widget *m_startgame;
+        Widget *m_levelpack;
         Widget *m_netgame;
         Widget *leveled;
         Widget *manual;

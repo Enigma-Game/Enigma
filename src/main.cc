@@ -36,6 +36,7 @@
 #include "XMLtoUtf8.hh"
 #include "XMLtoLocal.hh"
 #include "lev/RatingManager.hh"
+#include "lev/VolatileIndex.hh"
 
 #include "enet/enet.h"
 
@@ -281,15 +282,19 @@ void Application::init(int argc, char **argv)
     
     // ----- Load level packs
 //    lua_State *L = lua::GlobalState();
-    if (ap.levelnames.empty()) {
-        lua::Dofile(L, "levels/index.lua");
-        lua::DoSubfolderfile(L, "levels", "index.lua");
-        lua::Dofile(L, "levels/index_user.lua");
-        levels::AddHistoryLevelPack ();
+    lua::Dofile(L, "levels/index.lua");
+    lua::DoSubfolderfile(L, "levels", "index.lua");
+    lua::Dofile(L, "levels/index_user.lua");
+//        levels::AddHistoryLevelPack ();
+    if (!ap.levelnames.empty()) {
+        lev::Index::registerIndex(new lev::VolatileIndex("Quick Test Levels",
+                "Default", ap.levelnames));
+        lev::Index::setCurrentIndex("Quick Test Levels");
     }
-    else {
-        levels::AddSimpleLevelPack (ap.levelnames, "Quick Test Levels");
-    }
+    std::vector<std::string> emptyList;
+    lev::Index::registerIndex(new lev::VolatileIndex("Search Result",
+                "Default", emptyList));
+    
 
     // ----- Initialize object repositories
     world::Init();

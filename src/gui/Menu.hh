@@ -35,13 +35,12 @@ namespace enigma { namespace gui {
         Menu();
 
         //! true: ok, false: menu aborted by user
-        bool manage();
+        virtual bool manage();
 
         void add(Widget *w);
         void add(Widget *w, ecl::Rect r);
         void center();
 
-        void draw_all();
         void draw (ecl::GC &gc, const ecl::Rect &r);
 
         virtual void quit();

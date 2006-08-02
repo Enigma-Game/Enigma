@@ -512,18 +512,23 @@ en_get_ticks(lua_State *L)
 static int
 en_is_solved(lua_State *L)
 {
-    const char  *levelname = lua_tostring(L,1);
-    int          solved    = 0;
+    // Function depreceated
+    // - filename is no longer a useful reference for levels
+    // - levels should not depend on external data for reasons of
+    //   network compatibility and level journaling
+    luaL_error(L, "Usage of depreceated function \"IsSolved()\"");
 
-    levels::Level level (0, 0);
-    if (levels::FindLevel (levelname, level))
-        solved = level.is_solved(options::GetInt("Difficulty"));
-    else 
-        luaL_error(L, strf("IsSolved: Unknown level '%s'", levelname).c_str());
-    if (solved)
-        lua_pushnumber(L, solved);
-    else
-        lua_pushnil(L);
+//    const char  *levelname = lua_tostring(L,1);
+//    int          solved    = 0;
+//    
+//    levels::Level level (0, 0);
+//    if (levels::FindLevel (levelname, level)) {
+//        solved = level.is_solved(options::GetInt("Difficulty"));
+//    } else 
+//    if (solved)
+//        lua_pushnumber(L, solved);
+//    else
+//        lua_pushnil(L);
     return 1;
 }
 

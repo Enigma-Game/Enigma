@@ -23,20 +23,21 @@
 #ifndef SERVER_HH_INCLUDED
 #define SERVER_HH_INCLUDED
 
-#include "levels.hh"
+//#include "levels.hh"
+#include "lev/Proxy.hh"
 
 namespace enigma_server 
 {
     using namespace enigma;
-    using levels::LevelPack;
+//    using levels::LevelPack;
 
 /* -------------------- Global variables -------------------- */
 
     /*! Pointer to the current level pack. */
-    extern LevelPack *CurrentLevelPack;
+//    extern LevelPack *CurrentLevelPack;
 
     /*! Index of the current level. */
-    extern unsigned CurrentLevel;
+//    extern unsigned CurrentLevel;
 
     /*! True if the level is only being loaded for the purpose of
       making a preview image. */
@@ -141,7 +142,7 @@ namespace enigma_server
 
     void Msg_SetLevelPack (const std::string &name);
 
-    void Msg_LoadLevel (size_t levelindex);
+    void Msg_LoadLevel (lev::Proxy *levelProxy, bool isPreview);
 
     /*! After loading the level, the server sends a "LevelLoaded"
       message to all clients.  The game only starts after they have

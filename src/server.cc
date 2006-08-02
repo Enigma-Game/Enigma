@@ -67,13 +67,9 @@ namespace enigma_server
 
 }
 
-
-
 
 /* -------------------- Global variables -------------------- */
 
-levels::LevelPack   *server::CurrentLevelPack = 0;
-unsigned             server::CurrentLevel     = 0;
 
 bool           server::CreatingPreview = false;
 
@@ -115,42 +111,44 @@ namespace
     ENetHost           *network_host       = 0;
 }
 
-void load_level (size_t ilevel)
+void load_level(lev::Proxy *levelProxy)
 {
-    if (levelpack) {
-        server::PrepareLevel();
+    server::PrepareLevel();
 
-        // first set default compatibility mode
-        // (may be overidden by load_level (from Lua))
-        const levels::LevelInfo &info = levelpack->get_info(ilevel);
-        server::GameCompatibility = info.type;
-        
-        // clear inventory before level load and give us 2 extralives
-        player::NewGame();
+    // first set default compatibility mode
+    // (may be overidden by load_level (from Lua))
+    server::GameCompatibility = levelProxy->getCompatibility();
+    
+    // clear inventory before level load and give us 2 extralives
+    player::NewGame();
 
-        try {
-            levelpack->load_level (ilevel);
-            server::CurrentLevel = static_cast<unsigned> (ilevel);
-            game::ResetGameTimer();
+    try {
+        levelProxy->loadLevel();
+//            server::CurrentLevel = static_cast<unsigned> (ilevel);
+        game::ResetGameTimer();
 
-            world::InitWorld();
-            if (!CreatingPreview) {
+        world::InitWorld();
+        if (!CreatingPreview) {
                 player::LevelLoaded();
-                client::Msg_LevelLoaded(ilevel);
-            }
-        }
-        catch (XLevelLoading &err) {
-            client::Msg_Error (_("Server Error: could not load level '")
-                               + info.filename + "'\n"
-                               + err.what());
-            state = sv_idle;
+                client::Msg_LevelLoaded();
         }
     }
-    else {
-        // XXX server error: no level pack selected
-        state = sv_idle;
+    catch (XLevelLoading &err) {
+        std::string levelPathString = 
+            (levelProxy->getNormPathType() == lev::Proxy::pt_resource) ?
+            levelProxy->getAbsLevelPath() : levelProxy->getNormLevelPath();
+        std::string msg = _("Server Error: could not load level '")
+                               + levelPathString + "'\n"
+                               + err.what();
+        if (!CreatingPreview) {
+            client::Msg_Error(msg);
+            state = sv_idle;
+        } else {
+            throw XLevelLoading(msg);
+        }
     }
 }
+
 
 void server::RaiseError (const std::string &msg)
 {
@@ -296,7 +294,8 @@ void server::Tick (double dtime)
     case sv_restart_level:
         current_state_dtime += dtime;
         if (current_state_dtime >= 1.0) {
-            load_level(CurrentLevel);
+            lev::Index *ind = lev::Index::getCurrentIndex();
+            load_level(ind->getCurrent());
         } else {
             gametick(dtime);
         }
@@ -306,25 +305,20 @@ void server::Tick (double dtime)
         if (current_state_dtime <= 2.5)
             gametick(dtime);
         else {
-            client::Msg_AdvanceLevel (levels::advance_normal);
+            client::Msg_AdvanceLevel (lev::ADVANCE_NEXT_MODE);
             state = sv_waiting_for_clients;
         }
         break;
     }
 }
 
-void server::Msg_SetLevelPack (const std::string &name)
-{
-    levelpack = levels::FindLevelPack (name);
-    server::CurrentLevelPack = levelpack;
-    if (levelpack == 0) {
-        // XXX server error: invalid level pack
-    }
+void server::Msg_SetLevelPack (const std::string &name) {
+    lev::Index::setCurrentIndex(name);
 }
 
-void server::Msg_LoadLevel (size_t ilevel)
-{
-    load_level(ilevel);
+void server::Msg_LoadLevel (lev::Proxy *levelProxy, bool isPreview) {
+    server::CreatingPreview = isPreview;
+    load_level(levelProxy);
 }
 
 
@@ -343,75 +337,42 @@ void server::Msg_StartGame()
 namespace enigma_server {
     using levels::LevelInfo;
 
-    class GlobalLevelIter {     // iterates repeatedly through ALL levels
-        size_t levelnr, packnr;
-        size_t levels, packs;
 
-    public:
-        GlobalLevelIter(LevelPack *lp, size_t ilevel)
-            : levelnr(ilevel),
-              packnr(0),
-              levels(lp->size()),
-              packs(enigma_levels::LevelPacks.size())
-        {
-            while (packnr<packs && enigma_levels::LevelPacks[packnr] != lp)
-                ++packnr;
-        }
-
-        GlobalLevelIter& operator++() {
-            if (levelnr<(levels-1))
-                ++levelnr;
-            else {
-                levelnr  = 0;
-                packnr = (packnr+1)%packs;
-                levels = enigma_levels::LevelPacks[packnr]->size();
-            }
-            return *this;
-        }
-
-        LevelPack *getPack() const {
-            return enigma_levels::LevelPacks[packnr];
-        }
-        size_t getLevel() const { return levelnr; }
-
-        const levels::LevelInfo& getInfo() const {
-            return getPack()->get_info(getLevel());
-        }
-    };
-
-    void Msg_Jumpto(LevelPack *lp, size_t ilevel) {
-        CurrentLevelPack = lp;
-        CurrentLevel = static_cast<unsigned> (ilevel); // XXX
-
-        Msg_SetLevelPack (lp->get_name());
-        Msg_LoadLevel (ilevel);
-
-        Msg_Command("restart");
-    }
+//    void Msg_Jumpto(LevelPack *lp, size_t ilevel) {
+//        CurrentLevelPack = lp;
+//        CurrentLevel = static_cast<unsigned> (ilevel); // XXX
+//
+//        Msg_SetLevelPack (lp->get_name());
+//        Msg_LoadLevel (ilevel);
+//
+//        Msg_Command("restart");
+//    }
 
     void Msg_Command_jumpto(const string& dest) {
         // global level jump
-        // e.g.:  dest = "7,33" -> jump to level #33 of 7th levelpack
-        // note: pack and level counter start at 1 (not at 0)
+        // e.g.:  dest = "Enigma IV,33" -> jump to level #33 of index "Enigma IV"
+        // note: level counter start at 1 (not at 0)
 
         size_t comma = dest.find_first_of(',');
         string error;
 
         if (comma != string::npos) {
-            int packnr = atoi(dest.c_str())-1;
-            int packs  = static_cast<int> (enigma_levels::LevelPacks.size());
+            std::string name = dest.substr(0, comma);
+            Log << "Jumpto '" << name <<"'\n";
             int ilevel = atoi(dest.c_str()+comma+1)-1;
-
-            if (packnr >= 0 && packnr < packs) {
-                LevelPack *lp = enigma_levels::LevelPacks[packnr];
-
-                if (ilevel >= 0 && static_cast<unsigned>(ilevel) < lp->size()) {
-                    Msg_Jumpto(lp, ilevel);
+            
+            if (lev::Index::setCurrentIndex(name)) {
+                
+                if (ilevel >= 0 && ilevel < lev::Index::getCurrentIndex()->size()) {
+                    lev::Index * curInd = lev::Index::getCurrentIndex();
+                    curInd->setCurrentPosition(ilevel);
+                    Msg_LoadLevel (curInd->getProxy(ilevel), false);
+                    Msg_Command("restart");
+                } else {
+                    error = ecl::strf("Illegal level %i (1-%i)", ilevel+1, lev::Index::getCurrentIndex()->size());
+                    // May be we want to reset the current index ?
                 }
-                else
-                    error = ecl::strf("Illegal level %i (1-%i)", ilevel+1, lp->size());
-            }
-            else error = ecl::strf("Illegal level pack %i (1-%i)", packnr+1, packs);
+            } else error = ecl::strf("Illegal level pack %s", name.c_str());
         }
         else error = "Syntax: jumpto pack,level";
 
@@ -419,43 +380,24 @@ namespace enigma_server {
     }
 
     void Msg_Command_find(const string& text) {
-        struct LowerCaseString {
-            string low;
-            LowerCaseString(const string& s) : low(s) {
-                for (string::iterator i = low.begin(); i != low.end(); ++i)
-                    *i = tolower(*i);
-            }
-            bool containedBy(LowerCaseString other) const {
-                return other.low.find(low) != string::npos;
-            }
-        };
-
-        LowerCaseString  lowtext(text);
-        GlobalLevelIter  liter(CurrentLevelPack, CurrentLevel);
-        const LevelInfo *start = &liter.getInfo();
-        ++liter;
-
-        for (const LevelInfo *info = &liter.getInfo();
-             info != start;
-             info = &(++liter).getInfo())
-        {
-            if (lowtext.containedBy(info->filename) ||
-                lowtext.containedBy(info->name) ||
-                lowtext.containedBy(info->author))
-            {
-                Msg_Jumpto(liter.getPack(), liter.getLevel());
-                info = start = 0;
-                break;
-            }
-        }
-
-        if (start)
+        std::string indName = lev::Proxy::search(text);
+        if (!indName.empty()) {
+            lev::Index::setCurrentIndex(indName);
+            lev::Index * searchResult = lev::Index::getCurrentIndex();
+            searchResult->setCurrentPosition(0);
+            Msg_LoadLevel (searchResult->getProxy(0), false);
+            Msg_Command("restart");
+        } else {
             client::Msg_ShowText(string("Couldn't find '")+text+'\'', false, 2);
+        }
     }
 };
 
 void server::Msg_Command (const string &cmd)
 {
+    lev::Index *ind = lev::Index::getCurrentIndex();
+    lev::Proxy *curProxy = ind->getCurrent();
+    
     // ------------------------------ normal commands
     if (cmd == "invrotate") {
         player::RotateInventory();
@@ -489,8 +431,9 @@ void server::Msg_Command (const string &cmd)
     // ------------------------------ quick options
     else if (cmd == "easy") {
         if (options::GetInt("Difficulty") == DIFFICULTY_HARD) {
-            Level level (server::CurrentLevelPack, server::CurrentLevel);
-            if (level.get_info().has_easymode) {
+//            Level level (server::CurrentLevelPack, server::CurrentLevel);
+//            if (level.get_info().has_easymode) {
+            if (curProxy->hasEasymode()) {
                 client::Msg_ShowText("Restarting in easy mode", false, 2);
                 options::SetOption("Difficulty", DIFFICULTY_EASY);
                 server::Msg_Command("restart");
@@ -503,9 +446,10 @@ void server::Msg_Command (const string &cmd)
     }
     else if (cmd == "noeasy") {
         if (options::GetInt("Difficulty") == DIFFICULTY_EASY) {
-            Level level (server::CurrentLevelPack, server::CurrentLevel);
+//            Level level (server::CurrentLevelPack, server::CurrentLevel);
             options::SetOption("Difficulty", DIFFICULTY_HARD);
-            if (level.get_info().has_easymode) {
+//            if (level.get_info().has_easymode) {
+            if (curProxy->hasEasymode()) {
                 client::Msg_ShowText("Restarting in normal mode", false, 2);
                 server::Msg_Command("restart");
             }
@@ -535,12 +479,11 @@ void server::Msg_Command (const string &cmd)
             client::Msg_ShowText("Already in easy-going mode.", false, 2);
     }
     else if (cmd == "info") {
-        const LevelInfo &info = CurrentLevelPack->get_info(CurrentLevel);
         string infotext       = 
-            ecl::strf("Level #%i of '", CurrentLevel+1) + CurrentLevelPack->get_name()
-            + "' (" + info.filename + ".lua)  -  \"" + info.name + "\" by " + info.author
-            + ecl::strf(" (rev=%i)", info.revision);
-
+            ecl::strf("Level #%i of '", ind->getCurrentLevel()) + ind->getName()
+            + "' (" + curProxy->getAbsLevelPath() + ")  -  \"" + curProxy->getTitle() + "\" by " + curProxy->getAuthor()
+            + ecl::strf(" (rev=%i)", curProxy->getReleaseVersion());
+            
         client::Msg_ShowText(infotext, true);
     }
     else if (cmd.substr(0, 5) == "find ") { // global level-jump

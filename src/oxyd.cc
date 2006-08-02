@@ -30,6 +30,7 @@
 #include "server.hh"
 #include "player.hh"
 #include "main.hh"
+#include "lev/AdapterIndex.hh"
 
 #include <cstdio>
 #include <cstdlib>
@@ -750,18 +751,18 @@ LevelPack_Oxyd::LevelPack_Oxyd (OxydVersion ver, DatFile *dat,
             proxy_index[nlevels] = lev::Proxy::registerLevel(
                      "#" + get_name() + "#" + txt,  "#" + get_name(),
                     info.filename, info.name, info.author, info.revision, 
-                    info.revision, info.has_easymode);
+                    info.revision, info.has_easymode, info.type);
             nlevels++;
         }
     }
     Log << "Levelpack '" << get_name() << "' has " << nlevels << " levels." << endl;
 }
 
-bool LevelPack_Oxyd::swap (int, int)
-{
-    // not supported
-    return false;
-}
+//bool LevelPack_Oxyd::swap (int, int)
+//{
+//    // not supported
+//    return false;
+//}
 
 int LevelPack_Oxyd::get_revision_number (size_t /*index*/) const 
 { 
@@ -987,10 +988,14 @@ GameInfo::GameInfo (OxydVersion ver_, const string &game_, const string &datfile
         openDatFile();
 
         if (m_present) {
-            if (LevelPack *lp = makeLevelPack(false))
+            if (LevelPack *lp = makeLevelPack(false)) {
                 levels::LevelPacks.push_back(lp);
-            if (LevelPack *lp = makeLevelPack(true))
+                lev::Index::registerIndex(new lev::AdapterIndex(lp));
+            }
+            if (LevelPack *lp = makeLevelPack(true)) {
                 levels::LevelPacks.push_back(lp);
+                lev::Index::registerIndex(new lev::AdapterIndex(lp));
+            }
         }
     }
 }

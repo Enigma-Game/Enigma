@@ -41,7 +41,8 @@ namespace enigma
 
     enum Difficulty {
         DIFFICULTY_EASY = 1,
-        DIFFICULTY_HARD = 2
+        DIFFICULTY_HARD = 2,
+        DIFFICULTY_ANY  = 3
     };
 
 

@@ -125,7 +125,7 @@ namespace enigma_levels
         /*! Return the level information for level INDEX */
         virtual const LevelInfo &get_info (size_t index) const = 0;
 
-        virtual ecl::Surface *load_preview (size_t /*index*/) { return 0; }
+//        virtual ecl::Surface *load_preview (size_t /*index*/) { return 0; }
 
         /*! Return revision number of level INDEX. */
         virtual int get_revision_number(size_t index) const = 0;
@@ -147,7 +147,7 @@ namespace enigma_levels
         /*! Swap to levels in the level list.  This allows reordering
           of level packs in the level menu.  Returns true if swapping
           succeeded, false if not supported or unsuccessful. */
-        virtual bool swap (int idx1, int idx2) = 0;
+//        virtual bool swap (int idx1, int idx2) = 0;
     };
 
 /* -------------------- Level -------------------- */
@@ -164,17 +164,17 @@ namespace enigma_levels
 
         bool   get_status (LevelStatus &levelstat) const;
         void   set_status (const LevelStatus &levelstat);
-        void   mark_solved ();
-        void   mark_unsolved();
+//        void   mark_solved ();
+//        void   mark_unsolved();
 
-        int    get_par_time (int difficulty) const;
-        bool   set_level_time (int difficulty, int time);
-        string get_par_holder (int difficulty);
-        bool   is_solved (int difficulty);
-        int    get_best_user_time (int difficulty) const;
+//        int    get_par_time (int difficulty) const;
+//        bool   set_level_time (int difficulty, int time);
+//        string get_par_holder (int difficulty);
+//        bool   is_solved (int difficulty);
+//        int    get_best_user_time (int difficulty) const;
         int    get_revision () const;
 
-        Level next_level (int difficulty, bool skip_solved, bool select_non_par);
+//        Level next_level (int difficulty, bool skip_solved, bool select_non_par);
 
         // Accessors
         size_t get_index () const { return m_index; }
@@ -186,13 +186,13 @@ namespace enigma_levels
         size_t     m_index;
     };
 
-    enum LevelAdvanceMode {
-        advance_normal,         // honor SkipSolvedLevels/TimeHunting options
-        advance_strictly_next,  // move to the next level
-        advance_unsolved,       // move to the next unsolved / non-par level
-    };
-
-    bool advance_level (Level &l, LevelAdvanceMode m);
+//    enum LevelAdvanceMode {
+//        advance_normal,         // honor SkipSolvedLevels/TimeHunting options
+//        advance_strictly_next,  // move to the next level
+//        advance_unsolved,       // move to the next unsolved / non-par level
+//    };
+//
+//    bool advance_level (Level &l, LevelAdvanceMode m);
 
 /* -------------------- Global variables -------------------- */
 
@@ -201,8 +201,8 @@ namespace enigma_levels
 /* -------------------- Functions -------------------- */
 
     unsigned     HighestAvailableLevel(LevelPack *lp);
-    unsigned     CountSolvedLevels (LevelPack *lp, int difficulty, unsigned *par_counter);
-    bool         LevelIsLocked (const Level &l);
+//    unsigned     CountSolvedLevels (LevelPack *lp, int difficulty, unsigned *par_counter);
+//    bool         LevelIsLocked (const Level &l);
 
     /* ---------- Levelpack management ---------- */
 
@@ -212,16 +212,16 @@ namespace enigma_levels
     void       RegisterLevelPack (LevelPack *lp);
 
     // levelpack.cc
-    void AddLevelPack (const char *init_file, const char *name);
+    LevelPack * AddLevelPack2 (const char *init_file, const char *name);
 
     void AddHistoryLevelPack ();
     void AddHistory(LevelPack *levelpack, unsigned index);
     bool IsHistory(LevelPack *levelpack);
     
-    void AddSimpleLevelPack (const std::vector<std::string> &levels, 
-                             const char *name);
+//    void AddSimpleLevelPack (const std::vector<std::string> &levels, 
+//                             const char *name);
 
-    void AddZippedLevelPack (const char *zipfile);
+    LevelPack *  AddZippedLevelPack2 (const char *zipfile);
 
 }
 

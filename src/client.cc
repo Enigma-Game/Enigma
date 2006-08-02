@@ -28,11 +28,14 @@
 #include "player.hh"
 #include "world.hh"
 #include "nls.hh"
+#include "lev/Index.hh"
+#include "lev/Proxy.hh"
+#include "lev/RatingManager.hh"
+#include "lev/ScoreManager.hh"
 
 #include "ecl_sdl.hh"
 
 #include "enet/enet.h"
-#include "lev/Proxy.hh"
 
 #include <cctype>
 #include <cstring>
@@ -45,10 +48,6 @@ using namespace ecl;
 using namespace std;
 
 #include "client_internal.hh"
-
-using levels::LevelInfo;
-using levels::LevelPack;
-
 
 /* -------------------- Auxiliary functions -------------------- */
 
@@ -64,31 +63,27 @@ namespace
     }
 
     /*! Generate the message that is displayed when the level starts. */
-    string displayedLevelInfo (const LevelInfo &info)
+    string displayedLevelInfo (lev::Proxy *level)
     {
-        string text;
-        lev::Proxy *level = lev::Proxy::loadedLevel();
-        // after complete switch to Proxy as levelloader the following
-        // conditional can be abolished
-        if (level) {
-            std::string tmp;
-            text = string("\"")+ level->getLocalizedString("title")+"\"" +
-                _(" by ") + level->getAuthor();
-            tmp = level->getLocalizedString("subtitle");
-            if (!tmp.empty() && tmp != "subtitle")
-                text += string(" - ")+ tmp; 
-            tmp = level->getCredits(false);
-            if (!tmp.empty())
-                text += string(" - Credits: ")+ tmp; 
-            tmp = level->getDedication(false);
-            if (!tmp.empty())
-                text += string(" - Dedication: ")+ tmp; 
-        } else {
-            text = (info.name.empty()) ?
-                _("Another nameless level") : string("\"")+info.name+"\"";
-            if (!info.author.empty())
-                text += _(" by ") + info.author;
-        }
+        std::string text;
+        std::string tmp;
+
+        tmp  = level->getLocalizedString("title");
+        if (tmp.empty())
+            tmp = _("Another nameless level");
+        text = string("\"")+ tmp +"\"";
+        tmp = level->getAuthor();
+        if (!tmp.empty())
+            text += _(" by ") + tmp;
+        tmp = level->getLocalizedString("subtitle");
+        if (!tmp.empty() && tmp != "subtitle")
+           text += string(" - ")+ tmp; 
+        tmp = level->getCredits(false);
+        if (!tmp.empty())
+            text += string(" - Credits: ")+ tmp; 
+        tmp = level->getDedication(false);
+        if (!tmp.empty())
+            text += string(" - Dedication: ")+ tmp; 
         return text;
     }
 }
@@ -427,8 +422,8 @@ void Client::on_keydown(SDL_Event &e)
                 server::Msg_Command ("suicide"); 
             break;
 
-        case SDLK_F4: Msg_AdvanceLevel(levels::advance_strictly_next); break;
-        case SDLK_F5: Msg_AdvanceLevel(levels::advance_unsolved); break;
+        case SDLK_F4: Msg_AdvanceLevel(lev::ADVANCE_STRICTLY); break;
+        case SDLK_F5: Msg_AdvanceLevel(lev::ADVANCE_UNSOLVED); break;
 
         case SDLK_F10: {
             lev::Proxy *level = lev::Proxy::loadedLevel();
@@ -561,14 +556,19 @@ void Client::draw_screen()
 }
 
 
-void Client::init_hunted_time(int ilevel, string& hunted) 
+std::string Client::init_hunted_time() 
 {
+    std::string hunted;
     m_hunt_against_time = 0;
     if (options::GetBool("TimeHunting")) {
-        Level level(server::CurrentLevelPack, ilevel);
+        lev::Index *ind = lev::Index::getCurrentIndex();
+        lev::ScoreManager *scm = lev::ScoreManager::instance();
+        lev::Proxy *curProxy = ind->getCurrent();
+        lev::RatingManager *ratingMgr = lev::RatingManager::instance();
+        
         int   difficulty     = options::GetDifficulty();
-        int   par_time       = level.get_par_time(difficulty);
-        int   best_user_time = level.get_best_user_time(difficulty);
+        int   par_time       = ratingMgr->getBestScore(curProxy, difficulty);
+        int   best_user_time = scm->getBestUserScore(curProxy, difficulty);
 
         if (best_user_time>0 && (par_time == -1 || best_user_time<par_time)) {
             m_hunt_against_time = best_user_time;
@@ -576,11 +576,12 @@ void Client::init_hunted_time(int ilevel, string& hunted)
         }
         else if (par_time>0) {
             m_hunt_against_time = par_time;
-            hunted              = level.get_par_holder(difficulty);
+            hunted              = ratingMgr->getBestScoreHolder(curProxy, difficulty);
         }
 
         // STATUSBAR->set_timerstart(-m_hunt_against_time);
     }
+    return hunted;
 }
 
 void Client::tick (double dtime) 
@@ -615,14 +616,19 @@ void Client::tick (double dtime)
 
             if (m_hunt_against_time && old_second <= m_hunt_against_time) {
                 if (second > m_hunt_against_time) { // happens exactly once when par has passed by
-                    Level  level(server::CurrentLevelPack, server::CurrentLevel);
+                    lev::Index *ind = lev::Index::getCurrentIndex();
+                    lev::ScoreManager *scm = lev::ScoreManager::instance();
+                    lev::Proxy *curProxy = ind->getCurrent();
+                    lev::RatingManager *ratingMgr = lev::RatingManager::instance();
                     int    difficulty     = options::GetDifficulty();
-                    int    par_time       = level.get_par_time (difficulty);
-                    int    best_user_time = level.get_best_user_time (difficulty);
+                    int    par_time       = ratingMgr->getBestScore(curProxy, difficulty);
+                    int    best_user_time = scm->getBestUserScore(curProxy, difficulty);
                     string message;
 
                     if (par_time>0 && (best_user_time<0 || best_user_time>par_time)) {
-                        message = string(_("Too slow for "))+level.get_par_holder(difficulty)+".. [Ctrl-A]";
+                        message = string(_("Too slow for ")) + 
+                            ratingMgr->getBestScoreHolder(curProxy, difficulty) +
+                            ".. [Ctrl-A]";
                     }
                     else {
                         message = string(_("You are slow today.. [Ctrl-A]"));
@@ -679,14 +685,16 @@ void Client::tick (double dtime)
 
 void Client::level_finished() 
 {
-    Level level (server::CurrentLevelPack, server::CurrentLevel);
-
-    int difficulty = options::GetDifficulty();
+    lev::Index *ind = lev::Index::getCurrentIndex();
+    lev::ScoreManager *scm = lev::ScoreManager::instance();
+    lev::Proxy *curProxy = ind->getCurrent();
+    lev::RatingManager *ratingMgr = lev::RatingManager::instance();
+    int    difficulty     = options::GetDifficulty();
+    int    par_time       = ratingMgr->getBestScore(curProxy, difficulty);
+    int    best_user_time = scm->getBestUserScore(curProxy, difficulty);
+    string par_name       = ratingMgr->getBestScoreHolder(curProxy, difficulty);
 
     int    level_time     = round_nearest<int> (m_total_game_time);
-    int    par_time       = level.get_par_time (difficulty);
-    string par_name       = level.get_par_holder (difficulty);
-    int    best_user_time = level.get_best_user_time (difficulty);
 
     string      text;
     bool        timehunt_restart = false;
@@ -740,7 +748,7 @@ void Client::level_finished()
     Msg_ShowText (text, false);
 
     if (!m_cheater) {
-        level.set_level_time (options::GetDifficulty(), level_time);
+        scm->updateUserScore(curProxy, difficulty, level_time);
 
         if (options::LevelStatusChanged) {
             // save options (just in case Enigma crashes when loading next level)
@@ -758,20 +766,17 @@ void Client::level_finished()
 #define snprintf _snprintf
 #endif
 
-void Client::level_loaded (unsigned ilevel)
+void Client::level_loaded()
 {
-    LevelPack *lp = server::CurrentLevelPack;
+    lev::Index *ind = lev::Index::getCurrentIndex();
+    lev::ScoreManager *scm = lev::ScoreManager::instance();
+    lev::Proxy *curProxy = ind->getCurrent();
 
     // update window title
-    const LevelInfo &info = lp->get_info(ilevel);
+    video::SetCaption(ecl::strf(_("Enigma level #%d: %s"), ind->getCurrentLevel(), 
+            curProxy->getTitle().c_str()).c_str());
 
-    char       buffer[100];
-    snprintf (buffer, sizeof(buffer), _("Enigma level #%d: %s"), 
-              ilevel+1, info.name.c_str());
-    video::SetCaption(buffer);
-
-    string hunted;
-    init_hunted_time(ilevel, hunted);   // sets m_hunt_against_time (used below)
+    string hunted = init_hunted_time();   // sets m_hunt_against_time (used below)
 
     // show level information (name, author, etc.)
     {
@@ -781,13 +786,14 @@ void Client::level_loaded (unsigned ilevel)
                 displayed_info = _("Your best time: ");
             else
                 displayed_info = _("Par to beat: ");
-            displayed_info += strf("%d:%02d", (m_hunt_against_time/60)%100, m_hunt_against_time%60);
+            displayed_info += ecl::strf("%d:%02d", (m_hunt_against_time/60)%100, 
+                    m_hunt_against_time%60);
 //+ _(" by ") +hunted;
 // makes the string too long in many levels
             Msg_ShowText (displayed_info, false, 4.0);
         }
         else {
-            displayed_info = displayedLevelInfo(info);
+            displayed_info = displayedLevelInfo(curProxy);
             Msg_ShowText (displayed_info, true, 2.0);
         }
     }
@@ -800,7 +806,6 @@ void Client::level_loaded (unsigned ilevel)
     }
 
     // start screen transition
-
     GC gc(video::BackBuffer());
     display::DrawAll(gc);
 
@@ -837,9 +842,9 @@ bool client::NetworkStart()
     return CLIENT.network_start();
 }
 
-void client::Msg_LevelLoaded (unsigned levelidx) 
+void client::Msg_LevelLoaded() 
 {
-    CLIENT.level_loaded(levelidx);
+    CLIENT.level_loaded();
 }
 
 void client::Tick (double dtime) {
@@ -851,14 +856,14 @@ void client::Stop() {
     CLIENT.stop ();
 }
 
-void client::Msg_AdvanceLevel (levels::LevelAdvanceMode mode) {
-    Level level (server::CurrentLevelPack, server::CurrentLevel);
+void client::Msg_AdvanceLevel (lev::LevelAdvanceMode mode) {
 
-    if (advance_level (level, mode)) {
-        // log last played level
-        levels::AddHistory(server::CurrentLevelPack, server::CurrentLevel);
+    lev::Index *ind = lev::Index::getCurrentIndex();
+    // log last played level
+//    levels::AddHistory(server::CurrentLevelPack, server::CurrentLevel);
+    if (ind->advanceLevel(mode)) {
         // now we may advance
-        server::Msg_LoadLevel (level.get_index());
+        server::Msg_LoadLevel(ind->getCurrent(), false);
     }
     else
         client::Msg_Command("abort");

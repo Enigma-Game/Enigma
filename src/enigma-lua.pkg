@@ -23,6 +23,7 @@
 
 $#include "server.hh"
 $#include "world.hh"
+$#include "lev/Index.hh"
 
 $using namespace enigma;
 $using ecl::Surface;
@@ -41,10 +42,10 @@ module enigma
     const char *date(const char *format); // format see 'man strftime'
 }
 
-/* -------------------- game.cc -------------------- */
+/* -------------------- server.cc, lev/Index.cc -------------------- */
 
 $using namespace server;
-$using namespace levels;
+$using namespace lev;
 module enigma
 {
     extern int    TwoPlayerGame;

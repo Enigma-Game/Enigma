@@ -21,6 +21,7 @@
 #include "gui/LevelMenu.hh"
 #include "gui/OptionsMenu.hh"
 #include "gui/HelpMenu.hh"
+#include "gui/LevelPackMenu.hh"
 #include "display.hh"
 #include "ecl.hh"
 #include "main.hh"
@@ -32,12 +33,6 @@
 
 #include "netgame.hh"
 #include "editor.hh"
-
-#include "levels.hh"
-using enigma::levels::LevelStatus;
-using enigma::levels::LevelInfo;
-using enigma::levels::LevelPack;
-using enigma::levels::LevelPacks;
 
 
 using namespace ecl;
@@ -120,6 +115,7 @@ namespace enigma { namespace gui {
     
         BuildVList b(this, Rect((vminfo->width - 150)/2,150,150,40), 5);
         m_startgame = b.add(new StaticTextButton(N_("Start Game"), this));
+        m_levelpack = b.add(new StaticTextButton(N_("Level Pack"), this));
     #ifdef ENABLE_EXPERIMENTAL
         m_netgame   = b.add (new StaticTextButton (N_("Network Game"), this));
         leveled     = b.add(new StaticTextButton(N_("Editor"), this));
@@ -167,13 +163,21 @@ namespace enigma { namespace gui {
     void MainMenu::on_action(Widget *w) 
     {
         if (w == m_startgame) {
-            LevelMenu m(LevelPacks[0], options::GetInt("LevelMenuPosition"));
-            m.manage();
-            options::SetOption("LevelMenuPosition", m.get_position());
+//            LevelMenu m(LevelPacks[0], options::GetInt("LevelMenuPosition"));
+//            LevelMenu m;  
+//            m.manage();
+            
+            LevelPackMenu m;
+            m.manageLevelMenu();
+//            options::SetOption("LevelMenuPosition", m.get_position());
             invalidate_all();
     //     }
     //     else if (w == manual) {
     //         show_help ();
+        } else if (w == m_levelpack) {
+            LevelPackMenu m;
+            m.manage();
+            invalidate_all();
         } else if (w == credits) {
             show_credits ();
         } else if (w == options) {

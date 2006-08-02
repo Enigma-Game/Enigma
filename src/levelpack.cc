@@ -21,6 +21,7 @@
 #include "world.hh"
 #include "levels.hh"
 #include "main.hh"
+#include "lev/AdapterIndex.hh"
 #include "lev/Proxy.hh"
 #include "lev/RatingManager.hh"
 
@@ -63,7 +64,7 @@ namespace
         int    get_default_SoundSet() const { return 1; }
         bool   needs_twoplayers() const { return false; }
         bool   may_have_previews() const { return true; }
-        bool   swap (int idx1, int idx2);
+//        bool   swap (int idx1, int idx2);
 
     protected:
         LevelPack_Enigma() {}
@@ -261,16 +262,16 @@ int LevelPack_Enigma::get_revision_number(size_t index) const {
     return get_info(index).revision;
 }
 
-bool LevelPack_Enigma::swap (int idx1, int idx2)
-{
-    if (idx1 >= 0 && idx2 >= 0 && 
-        (size_t)idx1 < m_levels.size() && (size_t)idx2 < m_levels.size()) 
-    {
-        std::swap (m_levels[idx1], m_levels[idx2]);
-        return true;
-    }
-    return false;
-}
+//bool LevelPack_Enigma::swap (int idx1, int idx2)
+//{
+//    if (idx1 >= 0 && idx2 >= 0 && 
+//        (size_t)idx1 < m_levels.size() && (size_t)idx2 < m_levels.size()) 
+//    {
+//        std::swap (m_levels[idx1], m_levels[idx2]);
+//        return true;
+//    }
+//    return false;
+//}
 
 
 void LevelPack_Enigma::load_index (istream &is)
@@ -297,7 +298,7 @@ void LevelPack_Enigma::load_index (istream &is)
             if (parse_levelinfo (line, info)) {
                 info.proxy = lev::Proxy::registerLevel(info.filename, packPath,
                         info.uniqueName(), info.name, info.author, info.revision, 
-                    info.revision, info.has_easymode);
+                    info.revision, info.has_easymode,GAMET_ENIGMA);
                 if(m_name != "History") {
                     theRatingMgr->registerRating(info.uniqueName(), info.revision,
                         info.intelligence, info.dexterity, info.patience,
@@ -425,30 +426,30 @@ void LevelPack_History::addHistory(LevelPack *orgLevelpack, unsigned orgIndex) {
 /* -------------------- LevelPack_CommandLine -------------------- */
 
 
-LevelPack_CommandLine::LevelPack_CommandLine (
-    const vector<string> &levelfiles,
-    const string &name)
-{
-    set_name (name);
-    char buffer[256];
-    for (unsigned i=0; i<levelfiles.size(); i++) {
-        LevelInfo info;
-        info.filename = levelfiles[i];
-        snprintf (buffer, sizeof(buffer)-1, "Level %d", int(i));
-        buffer[sizeof(buffer)] = '\0';
-        info.name = buffer;
-        info.proxy = lev::Proxy::registerLevel(info.filename, "#commandline",
-                "", info.name, "unknown", 0, 0, false);
-        append_level_info (info);
-    }
-}
-
-void LevelPack_CommandLine::load_level (size_t index)
-{
-    const LevelInfo &info = get_info(index);
-    info.proxy->loadLevel();
-//    m_levels[index].name = lev::Proxy::loadedLevel()->getLocalizedString("title");
-}
+//LevelPack_CommandLine::LevelPack_CommandLine (
+//    const vector<string> &levelfiles,
+//    const string &name)
+//{
+//    set_name (name);
+//    char buffer[256];
+//    for (unsigned i=0; i<levelfiles.size(); i++) {
+//        LevelInfo info;
+//        info.filename = levelfiles[i];
+//        snprintf (buffer, sizeof(buffer)-1, "Level %d", int(i));
+//        buffer[sizeof(buffer)] = '\0';
+//        info.name = buffer;
+//        info.proxy = lev::Proxy::registerLevel(info.filename, "#commandline",
+//                "", info.name, "unknown", 0, 0, false, GAMET_ENIGMA);
+//        append_level_info (info);
+//    }
+//}
+//
+//void LevelPack_CommandLine::load_level (size_t index)
+//{
+//    const LevelInfo &info = get_info(index);
+//    info.proxy->loadLevel();
+////    m_levels[index].name = lev::Proxy::loadedLevel()->getLocalizedString("title");
+//}
 
 
 /* -------------------- LevelPack_Zipped -------------------- */
@@ -521,7 +522,7 @@ void LevelPack_Zipped::load_index (istream &is)
                 }
                 info.proxy = lev::Proxy::registerLevel(info.filename, packPath,
                         info.uniqueName(), info.name, info.author, info.revision, 
-                    info.revision, info.has_easymode);
+                    info.revision, info.has_easymode, GAMET_ENIGMA);
                 m_levels.push_back(info);
             }
         }
@@ -539,13 +540,15 @@ void LevelPack_Zipped::load_index (istream &is)
 static set<string> addedLevelPacks;
 static LevelPack_History *theHistory;
 
-void levels::AddLevelPack (const char *init_file, const char *name)
+LevelPack *levels::AddLevelPack2 (const char *init_file, const char *name)
 {
+    LevelPack *lp = NULL;
     if (addedLevelPacks.find(init_file) == addedLevelPacks.end()) {
         string filename;
         if (app.resourceFS->findFile(init_file, filename)) {
             try {
-                RegisterLevelPack (new LevelPack_Enigma (init_file, name));
+                lp = new LevelPack_Enigma (init_file, name);
+                RegisterLevelPack (lp);
                 addedLevelPacks.insert(init_file);
             }
             catch (const XLevelPackInit &e)
@@ -556,6 +559,7 @@ void levels::AddLevelPack (const char *init_file, const char *name)
             enigma::Log << "Could not find level index file `" << init_file << "'\n";
         }
     }
+    return lp;
 }
 
 void levels::AddHistoryLevelPack ()
@@ -574,6 +578,7 @@ void levels::AddHistoryLevelPack ()
         if (app.resourceFS->findFile(history_file, filename)) {
             try {
                 theHistory = new LevelPack_History (history_file, "History");
+                lev::Index::registerIndex(new lev::AdapterIndex(theHistory));
                 RegisterLevelPack (theHistory);
                 addedLevelPacks.insert(history_file);
             }
@@ -597,31 +602,36 @@ bool levels::IsHistory(LevelPack *levelpack) {
     return (theHistory == levelpack);
 }
 
-void levels::AddSimpleLevelPack (const std::vector<std::string> &levels, 
-                                 const char *name)
-{
-    try {
-        RegisterLevelPack (new LevelPack_CommandLine (levels, name));
-    }
-    catch (const XLevelPackInit &e)
-    {
-        cerr << e.get_string() << endl;
-    }
-}
+//void levels::AddSimpleLevelPack (const std::vector<std::string> &levels, 
+//                                 const char *name)
+//{
+//    try {
+//        LevelPack *lp = new LevelPack_CommandLine (levels, name);
+//        lev::Index::registerIndex(new lev::AdapterIndex(lp));        
+//        RegisterLevelPack (lp);
+//    }
+//    catch (const XLevelPackInit &e)
+//    {
+//        cerr << e.get_string() << endl;
+//    }
+//}
 
 
-void levels::AddZippedLevelPack (const char *zipfile)
+LevelPack *  levels::AddZippedLevelPack2 (const char *zipfile)
 {
+    LevelPack *lp = NULL;
     if (addedLevelPacks.find(zipfile) == addedLevelPacks.end()) {
         string filename;
         if (app.resourceFS->findFile (zipfile, filename)) {
             // the index file as it would be for a unpacked zip
             std::string zf = zipfile;
             std::string indexfile = zf.substr(0, zf.rfind('.')) + "/index.txt";
-            RegisterLevelPack (new LevelPack_Zipped (indexfile, filename));
+            lp = new LevelPack_Zipped (indexfile, filename);
+            RegisterLevelPack (lp);
             addedLevelPacks.insert(zipfile);
         } else {
             enigma::Log << "Could not find zip file `" << zipfile << "'\n";
         }
     }
+    return lp;
 }

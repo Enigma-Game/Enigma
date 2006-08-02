@@ -29,19 +29,23 @@ namespace enigma { namespace gui {
 
     class LevelMenu : public Menu {
     public:
-        LevelMenu(levels::LevelPack *lp, unsigned long pos);
+//        LevelMenu(levels::LevelPack *lp, unsigned long pos);
+        LevelMenu();
 
-        // Rotate through levelpacks
+        // Rotate through levels and packs
         void next_levelpack();
         void previous_levelpack();
-        int get_position() const;
-        void set_position(int pos);
+//        int get_position() const;
+//        void set_position(int pos);
         void show_text(const string& text);
+        bool isMainQuit();
 
     private:
         void update_info();
+        void next_unsolved();
 
-        void set_levelpack (unsigned index);
+        void updateIndex();
+//        void set_levelpack (unsigned index);
 
         // Menu interface.
         void tick (double time);
@@ -55,23 +59,21 @@ namespace enigma { namespace gui {
 
         // Variables.
 
-        LevelPreviewCache preview_cache;
 
         Widget *pgup, *pgdown, *start, *end;
-    Widget      *but_unsolved;      // Next unsolved level button
+        Widget      *but_unsolved;      // Next unsolved level button
         Widget      *but_tournament;
         Widget      *but_back;          // "Back" button
         Widget      *but_difficulty;        // "Difficulty" button
         TextButton  *but_levelpack;     // "Levelpack" button
         Label       *lbl_lpinfo;        // Levelpack information
-    Label       *lbl_statistics;        // percentage solved
+        Label       *lbl_statistics;        // percentage solved
         Label       *lbl_levelname;
-    Label       *lbl_levelinfo;
+        Label       *lbl_levelinfo;
         LevelWidget *levelwidget;
-        levels::LevelPack   *level_pack;
-        unsigned     m_ilevelpack;
         string       shown_text; // info text (disappears automatically)
         double       shown_text_ttl; // rest duration for shown_text
+        bool         main_quit;
     };
 
 /* -------------------- Buttons -------------------- */

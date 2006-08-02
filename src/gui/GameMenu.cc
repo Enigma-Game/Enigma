@@ -19,6 +19,7 @@
  
 #include "gui/GameMenu.hh"
 #include "gui/OptionsMenu.hh"
+#include "gui/LevelInspector.hh"
 #include "client.hh"
 #include "display.hh"
 #include "ecl.hh"
@@ -26,6 +27,7 @@
 #include "nls.hh"
 #include "server.hh"
 #include "video.hh"
+#include "lev/Index.hh"
 
 #include <cassert>
 
@@ -43,12 +45,14 @@ namespace enigma { namespace gui {
         resume  = new gui::StaticTextButton(N_("Resume Level"), this);
         restart = new gui::StaticTextButton(N_("Restart Level"), this);
         options = new gui::StaticTextButton(N_("Options"), this);
+        info    = new gui::StaticTextButton(N_("Level Info"), this);
         abort   = new gui::StaticTextButton(N_("Abort Level"), this);
     
         add(resume,     Rect(0,0,150,40));
         add(restart,    Rect(0,45,150,40));
         add(options,    Rect(0,90,150,40));
-        add(abort,      Rect(0,135,150,40));
+        add(info,       Rect(0,135,150,40));
+        add(abort,      Rect(0,180,150,40));
         center();
     }
     
@@ -137,6 +141,7 @@ namespace enigma { namespace gui {
     }
     
     void GameMenu::on_action(gui::Widget *w) {
+        lev::Index *ind = lev::Index::getCurrentIndex();
         if (w == resume) {
             Menu::quit();
         }
@@ -146,11 +151,16 @@ namespace enigma { namespace gui {
         }
         else if (w == restart) {
             client::Stop ();
-            server::Msg_LoadLevel (server::CurrentLevel);
+            server::Msg_LoadLevel(ind->getCurrent(), false);
             Menu::quit();
         }
         else if (w == options) {
             enigma::gui::ShowOptionsMenu (0);
+            Menu::quit();
+        }
+        else if (w == info) {
+            LevelInspector m(ind->getCurrent());
+            m.manage();
             Menu::quit();
         }
     }

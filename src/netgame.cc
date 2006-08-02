@@ -48,18 +48,19 @@ void handle_client_packet (Buffer &b, int player_no)
         case SVMSG_NOOP:
             break;              // no nothing
 
-        case SVMSG_LOADLEVEL: {
-            Uint16 levelno;
-            string levelpack;
-            if (b >> levelno >> levelpack) {
-                printf ("SV: Loading level %d from levelpack %s\n", int(levelno), 
-                        levelpack.c_str());
-                server::Msg_SetLevelPack (levelpack);
-                server::Msg_LoadLevel (levelno);
-            }
-
-            break;
-        }
+// not yet used -- rewrite to index/proxy usage
+//        case SVMSG_LOADLEVEL: {
+//            Uint16 levelno;
+//            string levelpack;
+//            if (b >> levelno >> levelpack) {
+//                printf ("SV: Loading level %d from levelpack %s\n", int(levelno), 
+//                        levelpack.c_str());
+//                server::Msg_SetLevelPack (levelpack);
+//                server::Msg_LoadLevel (levelno);
+//            }
+//
+//            break;
+//        }
 
         case SVMSG_MOUSEFORCE: {
             printf ("mouse force\n");

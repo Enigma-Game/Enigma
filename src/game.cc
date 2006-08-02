@@ -42,26 +42,22 @@ namespace
 
 /* -------------------- Level previews -------------------- */
 
-bool game::DrawLevelPreview (ecl::GC &gc, const Level &l)
+bool game::DrawLevelPreview (ecl::GC &gc, lev::Proxy *levelProxy)
 {
-    LevelPack   *lp       = l.get_levelpack();
-    unsigned     levelidx = l.get_index();
     bool success = false;
 
-    server::CreatingPreview = true;
     sound::TempDisableSound();
     try {
-        server::Msg_SetLevelPack(lp->get_name());
-        server::Msg_LoadLevel (levelidx);
-
+        server::Msg_LoadLevel (levelProxy, true);
 
         display::DrawAll(gc);
         success = true;
     }
-    catch (XLevelLoading &) {
-        ;
+    catch (XLevelLoading &err) {
+        // log the message as we cannot display it on the screen
+        Log << "DrawLevelPreview load error:\n" << err.what();
+        success = false;
     }
-    server::CreatingPreview = false;
     sound::TempReEnableSound();
     return success;
 }
@@ -70,18 +66,15 @@ bool game::DrawLevelPreview (ecl::GC &gc, const Level &l)
 
 /* -------------------- Functions -------------------- */
 
-void game::StartGame (levels::LevelPack *lp, unsigned ilevel)
+void game::StartGame ()
 {
+    lev::Index *ind = lev::Index::getCurrentIndex();
     server::InitNewGame();
 
     video::HideMouse();
     sdl::TempInputGrab grab(enigma::Nograb ? SDL_GRAB_OFF : SDL_GRAB_ON);
 
-    server::CurrentLevelPack = lp;
-    server::CurrentLevel = ilevel; // XXX
-
-    server::Msg_SetLevelPack (lp->get_name());
-    server::Msg_LoadLevel (ilevel);
+    server::Msg_LoadLevel(ind->getCurrent(), false);
 
     double dtime = 0;
     last_tick_time=SDL_GetTicks();
@@ -118,7 +111,7 @@ void game::StartGame (levels::LevelPack *lp, unsigned ilevel)
 //             dtime = 0.5;
     }
     // add last played level
-    levels::AddHistory(server::CurrentLevelPack, server::CurrentLevel);
+//    levels::AddHistory(server::CurrentLevelPack, server::CurrentLevel);
 
     video::ShowMouse();
 }

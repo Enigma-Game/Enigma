@@ -27,6 +27,8 @@
 #include "oxyd_internal.hh"
 #include "Utf8ToXML.hh"
 #include "XMLtoUtf8.hh"
+#include "lev/Index.hh"
+
 #include <cassert>
 #include <fstream>
 #include <iostream>
@@ -84,7 +86,8 @@ namespace enigma { namespace lev {
 
     Proxy * Proxy::registerLevel(std::string levelPath, std::string indexPath,
             std::string levelId, std::string levelTitle, std::string levelAuthor,
-            int levelScoreVersion, int levelRelease, bool levelHasEasymode) {
+            int levelScoreVersion, int levelRelease, bool levelHasEasymode,
+            GameType levelCompatibilty, levelStatusType status) {
         Proxy *theProxy;
         pathType thePathType = pt_resource;
         std::string theNormLevelPath;
@@ -132,25 +135,60 @@ namespace enigma { namespace lev {
         std::map<std::string, Proxy *>::iterator i = cache.find(cacheKey);
         if (i != cache.end()) {
             Proxy * candidate = i->second;
-//            Log << "Proxy cache hit for " << theNormLevelPath << " found " << candidate->normLevelPath << " release " << candidate->releaseVersion << "\n";
             return candidate;
         }
         
         // create new proxy
         theProxy = new Proxy(thePathType, theNormLevelPath, levelId, levelTitle,
-            levelAuthor, levelScoreVersion, levelRelease, levelHasEasymode);
+            levelAuthor, levelScoreVersion, levelRelease, levelHasEasymode, 
+            levelCompatibilty, status);
         cache.insert(std::make_pair(cacheKey, theProxy));
         return theProxy;
     }
-     
+
+    struct LowerCaseString {
+        std::string low;
+        LowerCaseString(const std::string& s) : low(s) {
+            for (std::string::iterator i = low.begin(); i != low.end(); ++i)
+                *i = tolower(*i);
+        }
+        bool containedBy(LowerCaseString other) const {
+            return other.low.find(low) != string::npos;
+        }
+    };
+    
+    Index * searchIndex;
+    LowerCaseString searchText("");
+    void do_search(const std::map<std::string, Proxy *>::value_type pair) {
+        Proxy * candidate = pair.second;
+        if (searchText.containedBy(candidate->getNormLevelPath()) ||
+                searchText.containedBy(candidate->getTitle()) ||
+                searchText.containedBy(candidate->getAuthor())) {
+            searchIndex->appendProxy(candidate);
+//            Log << "Search result: " << pair.first << " - is - " << candidate->getTitle() << "\n";
+        }
+    }
+    
+    std::string Proxy::search(std::string text) {
+        searchIndex = Index::findIndex("Search Result");
+        // assert searchIndex
+        searchIndex->clear();
+        searchText = LowerCaseString(text);
+        std::for_each(cache.begin(), cache.end(), do_search);
+        return (searchIndex->size() > 0) ? searchIndex->getName() : "";
+    }
+
+    
 
     Proxy::Proxy(pathType thePathType, std::string theNormLevelPath,
             std::string levelId, std::string levelTitle, std::string levelAuthor,
-            int levelScoreVersion, int levelRelease, bool levelHasEasymode) :  
+            int levelScoreVersion, int levelRelease, bool levelHasEasymode,
+            GameType levelCompatibilty,levelStatusType status) :  
             normPathType(thePathType), normLevelPath(theNormLevelPath), 
             id(levelId), title(levelTitle), author(levelAuthor),
             scoreVersion(levelScoreVersion), releaseVersion(levelRelease),
             revisionNumber(0), hasEasymodeFlag(levelHasEasymode), 
+            compatibility(levelCompatibilty), levelStatus (status), 
             scoreUnit (duration), doc(NULL) {
     }
         
@@ -349,11 +387,24 @@ namespace enigma { namespace lev {
                 errMessage = "Unexpected XML Exception on load of level\n";
             }
             if (!errMessage.empty()) {
+                release();           // empty or errornous doc 
                 Log << errMessage;   // make long error messages readable
                 throw XLevelLoading (errMessage);
 // todo: check metadata, handle shadowed levels
-            } else if (!onlyMetadata){   
-                loadLuaCode();
+            } else {
+                // check metadata - currently just overwrite
+                getId();
+                getTitle();
+                getScoreVersion();
+                getReleaseVersion();
+                getRevisionNumber();
+                getLevelStatus();
+                getAuthor();
+                hasEasymode();
+                getScoreUnit();
+                if (!onlyMetadata){   
+                    loadLuaCode();
+                }
             }
         }
     }
@@ -449,6 +500,14 @@ namespace enigma { namespace lev {
     }
     
     std::string Proxy::getId() {
+        // load level id only for volatile indices
+        if (doc != NULL && (id.empty() || id[0] == '_')) {
+            DOMElement *identityElem = 
+                    dynamic_cast<DOMElement *>(infoElem->getElementsByTagNameNS(
+                    levelNS, Utf8ToXML("identity").x_str())->item(0));
+            id = XMLtoUtf8(identityElem->getAttributeNS(levelNS, 
+                    Utf8ToXML("id").x_str())).c_str();
+        }       
         return id;
     }
     
@@ -504,6 +563,25 @@ namespace enigma { namespace lev {
             }
         }
         return revisionNumber;
+    }
+    
+    levelStatusType Proxy::getLevelStatus() {
+        if (doc != NULL) {
+            DOMElement *versionElem = 
+                    dynamic_cast<DOMElement *>(infoElem->getElementsByTagNameNS(
+                    levelNS, Utf8ToXML("version").x_str())->item(0));
+            std::string status = XMLtoUtf8(versionElem->getAttributeNS(levelNS, 
+                    Utf8ToXML("status").x_str())).c_str();
+            if (status == "released")
+                levelStatus = STATUS_RELEASED;
+            else if (status == "stable")
+                levelStatus = STATUS_STABLE;
+            else if (status == "test")
+                levelStatus = STATUS_TEST;
+            else if (status == "experimental")
+                levelStatus = STATUS_EXPERIMENTAL;
+        }
+        return levelStatus;
     }
     
     std::string Proxy::getAuthor() {
@@ -674,4 +752,9 @@ namespace enigma { namespace lev {
                         atoi(text.substr(colon+1).c_str());
         }
     }
+    
+    GameType Proxy::getCompatibility() {
+        return compatibility;
+    }
+    
 }} // namespace enigma::lev

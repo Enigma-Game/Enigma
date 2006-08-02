@@ -19,6 +19,8 @@
 #ifndef LEV_PROXY_HH_INCLUDED
 #define LEV_PROXY_HH_INCLUDED
 
+#include "enigma.hh"
+
 #include <map>
 #include <string>
 #include <xercesc/dom/DOMDocument.hpp>
@@ -27,6 +29,13 @@ namespace enigma { namespace lev {
     enum controlType {force, balance, key, other};
     enum scoreUnitType {duration, number};
     enum scoreTargetType {time, pushes, moves, callback};
+    enum levelStatusType {
+        STATUS_RELEASED,
+        STATUS_STABLE,
+        STATUS_TEST,
+        STATUS_EXPERIMENTAL,
+        STATUS_UNKNOWN
+    };
     
     /**
      * A standin for an addressable level file and its level metadata.
@@ -67,7 +76,10 @@ namespace enigma { namespace lev {
          */
         static Proxy *registerLevel(std::string levelPath, std::string indexPath,
                 std::string levelId, std::string levelTitle, std::string levelAuthor,
-                int levelScoreVersion, int levelRelease, bool levelHasEasymode);
+                int levelScoreVersion, int levelRelease, bool levelHasEasymode,
+                GameType levelCompatibilty, levelStatusType status =STATUS_RELEASED);
+        
+        static std::string search(std::string text);
 
         void loadLevel();
         void loadMetadata();
@@ -86,6 +98,7 @@ namespace enigma { namespace lev {
         int getScoreVersion();
         int getReleaseVersion();
         int getRevisionNumber();
+        levelStatusType getLevelStatus();
         std::string getAuthor();
         std::string getTitle(); // english title
         bool hasEasymode();
@@ -98,6 +111,7 @@ namespace enigma { namespace lev {
         std::string getDedication(bool infoUsage);
         int getEasyScore();
         int getDifficultScore();
+        GameType getCompatibility();
         
         /**
          * the level address that can be used independent of a level pack
@@ -131,15 +145,24 @@ namespace enigma { namespace lev {
         int scoreVersion;
         int releaseVersion;
         int revisionNumber;
+        levelStatusType levelStatus;
         bool hasEasymodeFlag;
         scoreUnitType scoreUnit;
+        /**
+         * The compatibility that needs to be preset on level load.
+         * Usually level set the compatibility themselves on load. But heritage
+         * levels loaded from DAT-files do not. Thus we need to keep the type
+         * info in the Proxy as an exception.
+         */
+        GameType compatibility;
         XERCES_CPP_NAMESPACE_QUALIFIER DOMDocument *doc;
         XERCES_CPP_NAMESPACE_QUALIFIER DOMElement *infoElem;
         XERCES_CPP_NAMESPACE_QUALIFIER DOMNodeList *stringList;
         
         Proxy(pathType thePathType, std::string theNormLevelPath,
                 std::string levelId, std::string levelTitle, std::string levelAuthor,
-                int levelScoreVersion, int levelRelease, bool levelHasEasymode);
+                int levelScoreVersion, int levelRelease, bool levelHasEasymode,
+                GameType levelCompatibilty, levelStatusType status);
         ~Proxy();
         void release();
         void load(bool onlyMetadata);

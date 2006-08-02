@@ -46,6 +46,25 @@ extern "C" {
 using namespace enigma;
 
 
+/* -------------------- LevelStatus implementation -------------------- */
+
+namespace enigma_options
+{
+    LevelStatus::LevelStatus(int easy, int hard, int finished_, int solved_rev)
+        : time_easy (easy),
+          time_hard (hard),
+          finished (finished_),
+          solved_revision (solved_rev) {
+    }
+
+    bool LevelStatus::operator == (const LevelStatus& other) const  {
+        return (time_easy == other.time_easy &&
+                time_hard == other.time_hard &&
+                finished == other.finished &&
+                solved_revision == other.solved_revision);
+    }
+}
+
 /* -------------------- Variables -------------------- */
 
 namespace enigma_options
@@ -141,7 +160,7 @@ std::string options::GetString (const char *name)
 }
 
 static void UpdateLevelStatus(const std::string &levelname,
-                              const LevelStatus &stat)
+                              const options::LevelStatus &stat)
 {
     options::LevelStatusChanged = true;
 

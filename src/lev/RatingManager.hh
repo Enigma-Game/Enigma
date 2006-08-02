@@ -20,6 +20,7 @@
 #define RATINGMGR_HH_INCLUDED
 
 #include "lev/Proxy.hh"
+#include "enigma.hh"
 
 #include <map>
 #include <string>
@@ -126,6 +127,8 @@ namespace enigma { namespace lev {
         short getSpeed(Proxy *levelProxy);
         void setSpeed(Proxy *levelProxy, short speed);
         short getDifficulty(Proxy *levelProxy);
+        short getBestScore(Proxy *levelProxy, int difficulty);
+        std::string getBestScoreHolder(Proxy *levelProxy, int difficulty);
         short getBestScoreEasy(Proxy *levelProxy);
         std::string getBestScoreEasyHolder(Proxy *levelProxy);
         short getBestScoreDifficult(Proxy *levelProxy);

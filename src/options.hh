@@ -32,6 +32,26 @@ namespace enigma_options
 {
     using namespace enigma;
 
+/* -------------------- LevelStatus -------------------- */
+
+    /*! 
+     * This class stores information about the user's progress with a
+     * particular level.  This is the information that is stored in
+     * the .enigmarc files.  See for options.cc and startup.lua for
+     * the relevant I/O code.
+     */
+    struct LevelStatus {
+        LevelStatus(int easy=-1, int hard=-1, int fin=0, int solved_rev = 0);
+        bool operator == (const LevelStatus& other) const;
+
+        // Variables.
+
+        int time_easy;         // user's best time in seconds (-1: NA)
+        int time_hard;         // user's best time in seconds (-1: NA)
+        int finished;          // Level solved? 0 = no,1=easy,2=hard,3=easy&hard
+        int solved_revision;   // Revision #  that was solved
+    };
+
 /* -------------------- Constants -------------------- */
 
     const int MIN_MouseSpeed = 1;
@@ -73,12 +93,12 @@ namespace enigma_options
     /*! Get the status of a particular level.
       Returns false if no record for this level exists. */
     bool GetLevelStatus (const std::string &levelname,
-                         enigma::LevelStatus &stat);
+                         LevelStatus &stat);
 
     /*! Set the status of a particular level.  The previous entry (if
       available) for this level is discarded. */
     void SetLevelStatus(const std::string &levelname,
-                        const enigma::LevelStatus &stat);
+                        const LevelStatus &stat);
 
     int GetDifficulty();
 

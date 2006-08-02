@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2002,2003,2004,2005,2006 Daniel Heck
+ * Copyright (C) 2006 Ronald Lamprecht
  *
  * This program is free software; you can redistribute it and/or
  * modify it under the terms of the GNU General Public License
@@ -14,31 +14,33 @@
  * You should have received a copy of the GNU General Public License along
  * with this program; if not, write to the Free Software Foundation, Inc.,
  * 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.
- *
  */
-#ifndef GUI_LEVELPACKMENU_HH_INCLUDED
-#define GUI_LEVELPACKMENU_HH_INCLUDED
+ 
+#ifndef LEV_VOLATILEINDEX_HH_INCLUDED
+#define LEV_VOLATILEINDEX_HH_INCLUDED
 
-#include "gui/Menu.hh"
+#include "lev/Index.hh"
 
-namespace enigma { namespace gui {
-/* -------------------- LevelPackMenu -------------------- */
+#include <string>
+#include <vector>
 
-    class LevelPackMenu : public Menu {
+namespace enigma { namespace lev {    
+    /**
+     * 
+     */
+    class VolatileIndex : public Index  {
     public:
-        LevelPackMenu();
-        bool manageLevelMenu();
-
-        void on_action(Widget *w);
-        void draw_background(ecl::GC &gc);
-
+        /**
+         * Convention: method names *Level() can take int pos or Proxy as arg.
+         */
+        VolatileIndex(std::string anIndexName, std::string aGroupName,
+                const std::vector<string> levelpaths);
+        ~VolatileIndex();
+        virtual void appendProxy(Proxy * newLevel);
+        virtual void clear();
     private:
-        std::vector<Widget *> buttons;
-//        int m_selection;
-        Widget      *but_search;
-        Widget      *but_edit;
-        Widget      *but_level;
-        Widget      *but_main;
+        static int levelCount;  // used for volatile level ids - necessary for lua levels
     };
-}} // namespace enigma::gui
+
+}} // namespace enigma::lev
 #endif

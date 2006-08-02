@@ -21,6 +21,7 @@
 
 #include "fwd.hh"
 #include "ecl_fwd.hh"
+#include "lev/Proxy.hh"
 
 namespace enigma_game
 {
@@ -29,11 +30,11 @@ namespace enigma_game
 
     void ResetGameTimer();
 
-    void StartGame (LevelPack *lp, unsigned levelidx);
+    void StartGame();
 
     /*! Draw a level preview into video::BackBuffer().  Return true if
       successful. */
-    bool DrawLevelPreview (ecl::GC &, const Level &l);
+    bool DrawLevelPreview (ecl::GC &, enigma::lev::Proxy *levelProxy);
 
 }
 

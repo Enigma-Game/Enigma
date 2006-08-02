@@ -60,8 +60,8 @@ namespace enigma { namespace gui {
     }
     
     bool Menu::manage() {
-        draw_all();
         quitp=abortp=false;
+        draw_all();
         while (!(quitp || abortp)) {
             SCREEN->flush_updates();
             SDL_Event e;
@@ -194,11 +194,6 @@ namespace enigma { namespace gui {
                 m_widgets[i]->resize (r.w, r.h);
             }
         }
-    }
-    
-    void Menu::draw_all() {
-        invalidate_all();
-        refresh();
     }
     
     void Menu::draw (ecl::GC &gc, const ecl::Rect &r)

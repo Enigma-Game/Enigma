@@ -27,7 +27,7 @@
 namespace enigma { namespace gui {
     class LevelInspector : public gui::Menu {
     public:
-        LevelInspector (lev::Proxy *aLevel, ecl::Surface *preview);
+        LevelInspector (lev::Proxy *aLevel);
         ~LevelInspector ();
     private:
         // ActionListener interface.                    

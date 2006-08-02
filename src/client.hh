@@ -19,7 +19,7 @@
 #ifndef CLIENT_HH_INCLUDED
 #define CLIENT_HH_INCLUDED
 
-#include "levels.hh"
+#include "lev/Index.hh"
 
 namespace enigma_client 
 {
@@ -40,9 +40,9 @@ namespace enigma_client
 
     void Msg_Command(const std::string& cmd);
     
-    void Msg_AdvanceLevel (levels::LevelAdvanceMode mode);
+    void Msg_AdvanceLevel (lev::LevelAdvanceMode mode);
 
-    void Msg_LevelLoaded(unsigned levelidx);
+    void Msg_LevelLoaded();
 
     void Msg_PlayerPosition (unsigned iplayer, const ecl::V2 &pos);
 

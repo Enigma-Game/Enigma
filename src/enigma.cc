@@ -438,7 +438,7 @@ namespace
     ImageCache image_cache;
 }
 
-Surface *ImageCache::acquire (const std::string &name) 
+ecl::Surface *ImageCache::acquire (const std::string &name) 
 {
     return ecl::LoadImage(name.c_str());
 }

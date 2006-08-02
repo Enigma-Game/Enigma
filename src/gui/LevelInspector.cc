@@ -24,6 +24,7 @@
 #include "video.hh"
 #include "ecl_util.hh"
 #include "gui/MonospacedLabel.hh"
+#include "gui/LevelPreviewCache.hh"
 #include "gui/ScreenshotViewer.hh"
 #include "lev/RatingManager.hh"
 
@@ -168,12 +169,12 @@ namespace enigma { namespace gui {
 //         lev::Proxy *theLevel;        
 //     };
     
-LevelInspector::LevelInspector(lev::Proxy *aLevel, ecl::Surface *preview):
-        previewImage(preview), levelProxy(aLevel),
-        annotation (new TextField()),
+LevelInspector::LevelInspector(lev::Proxy *aLevel):
+        levelProxy(aLevel), annotation (new TextField()),
         back (new StaticTextButton(N_("Ok"), this)),
         screenshot (new StaticTextButton(N_("Screenshot"), this))
     {
+        previewImage = LevelPreviewCache::instance()->getPreview(aLevel);
         const video::VMInfo *vminfo = video::GetInfo();
         vspacing = vminfo->height < 500 ? 2 :(vminfo->height < 650 ? 3 : 4);
         vmargin = vminfo->height < 500 ? 10 :(vminfo->height < 650 ?  20 : 30);

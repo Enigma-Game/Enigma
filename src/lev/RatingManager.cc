@@ -470,6 +470,29 @@ namespace enigma { namespace lev {
         return difficulty > 0 ? difficulty : 0;
     }
     
+    short RatingManager::getBestScore(Proxy *levelProxy, int difficulty) {
+        switch (difficulty) {
+            case DIFFICULTY_EASY:
+                return getBestScoreEasy(levelProxy);
+            case DIFFICULTY_HARD:
+                return getBestScoreDifficult(levelProxy);
+            default:
+                ecl::Assert <XFrontend> (false, "RatingManager::getBestScore illegal difficulty");
+        }
+                
+    }
+    
+    std::string RatingManager::getBestScoreHolder(Proxy *levelProxy, int difficulty) {
+        switch (difficulty) {
+            case DIFFICULTY_EASY:
+                return getBestScoreEasyHolder(levelProxy);
+            case DIFFICULTY_HARD:
+                return getBestScoreDifficultHolder(levelProxy);
+            default:
+                ecl::Assert <XFrontend> (false, "RatingManager::getBestScoreHolder illegal difficulty");
+        }
+    }
+
     short RatingManager::getBestScoreEasy(Proxy *levelProxy) {
         Rating * theRating = findRating(levelProxy);
         if (theRating != NULL) {

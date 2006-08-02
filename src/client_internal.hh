@@ -109,7 +109,7 @@ namespace
 
         void handle_message(Message *msg);
 
-        void level_loaded(unsigned levelidx);
+        void level_loaded();
         void level_finished();
 
         void error (const std::string &text);
@@ -121,7 +121,7 @@ namespace
         void easy_going() { m_hunt_against_time = false; }
     private:
 
-        void init_hunted_time(int ilevel, string& hunted);
+        std::string init_hunted_time();
 
 
         /* ---------- Private methods ---------- */

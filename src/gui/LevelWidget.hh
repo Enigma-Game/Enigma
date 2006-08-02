@@ -20,60 +20,22 @@
 #define GUI_LEVELWIDGET_HH_INCLUDED
 
 #include "gui/widgets.hh"
-#include "levels.hh"
-#include <map>
+#include "gui/LevelPreviewCache.hh"
+#include "lev/Index.hh"
+#include "lev/ScoreManager.hh"
+
 
 namespace enigma { namespace gui {
-    class LevelPreviewCache {
-    public:
-        LevelPreviewCache();
-        ~LevelPreviewCache();
-
-        void clear();
-        void set_size(int xs, int ys);
-
-        ecl::Surface *getPreview (const levels::Level &);
-        ecl::Surface *makePreview (const levels::Level &);
-        ecl::Surface *updatePreview (const levels::Level &);
-    private:
-
-        struct CacheElem {
-            ecl::Surface  *surface;      // owned by ImageCache
-            std::string  idx;          // level indexname
-            
-            CacheElem (ecl::Surface *s, std::string idx_)
-            : surface (s), idx(idx_)
-            {}
-            
- //           bool operator<(const CacheElem& other) 
- //           { return idx<other.idx; }
-        };
-        
-        typedef std::map<std::string, CacheElem*> PreviewMap;
-
-        // ---------- Internal methods ----------
-
-        ecl::Surface *newPreview (const Level &level);
-        CacheElem *make_cache_elem (const levels::Level &level);
-        void release();
-
-        // ---------- Variables ----------
-
-        PreviewMap         cache;
-        enigma::ImageCache imgCache;
-        int                xsize, ysize;
-    };
-
-
 /* -------------------- LevelWidget -------------------- */
 
     class LevelMenu;
 
+    /**
+     * 
+     */
     class LevelWidget : public Widget {
     public:
-        LevelWidget(levels::LevelPack *lp,
-                    LevelPreviewCache &cache);
-        bool manage ();
+        LevelWidget();
 
         //---------- Widget interface ----------//
         void draw(ecl::GC &gc, const ecl::Rect &r);
@@ -92,44 +54,44 @@ namespace enigma { namespace gui {
         void start();
         void end();
 
-        void set_current (size_t newsel);
-        void next_unsolved();
-
         bool on_event(const SDL_Event &e);
-        int get_position() const;
-        void set_position(int pos);
-
-        //---------- LevelMenu interaction ----------//
-
-        int selected_level() const { return iselected; }
-        LevelMenu *get_menu();
-        void show_text(const string& text);
-        void change_levelpack (levels::LevelPack *lp);
+        void syncFromIndexMgr();  // external change of currentIndex, currentLevel
 
     private:
         //---------- Private functions ----------//
+        void syncToIndexMgr();
+        void set_current (int newsel);
         void scroll_up(int lines);
         void scroll_down(int lines);
-        void set_selected (size_t newfirst, size_t newsel);
-        void recalc_available ();
-        ecl::Surface *get_preview_image (const Level &);
-        void draw_level_preview (ecl::GC &, const Level &, int x, int y);
+        void set_selected (int newfirst, int newsel);
+        void draw_level_preview (ecl::GC &gc, int x, int y, 
+               lev::Proxy *proxy, bool selected, bool showScore, bool locked);
 
         bool handle_keydown (const SDL_Event *e);
         bool handle_mousedown (const SDL_Event *e);
 
         //---------- Variables ----------//
-        ImageCache         cache;
-        LevelPreviewCache  &preview_cache;
-        levels::LevelPack *level_pack; // The current level pack
-
-        size_t             ifirst; // Index of "upper left" level
-        size_t             iselected; // Index of selected level
-        int                max_available; // Index of the last available level (one can choose out of x unsolved levels)
-        int                width, height;
-        std::vector<ecl::Rect>  m_areas; // Screen areas occupied by level previews
+        LevelPreviewCache *preview_cache;
+        lev::ScoreManager *scoreMgr;
+        lev::Index        *curIndex;
         ActionListener    *listener;
-        int                buttonw, buttonh;
+
+        int  ifirst;    // Index of "upper left" level
+        int  iselected; // Index of selected level
+        int  width;     // number of buttons in a row
+        int  height;    // number of buttons in a column
+        int  buttonw;   // pixelwidth of a button
+        int  buttonh;   // pixelheight of a button
+        std::vector<ecl::Rect>  m_areas; // Screen areas occupied by level previews
+
+        // some image pointers for efficiency
+        ecl::Surface *img_easy;
+        ecl::Surface *img_hard;
+        ecl::Surface *img_changed;
+        ecl::Surface *img_unavailable;
+    //    Surface *img_unknown;
+        ecl::Surface *img_par;
+        ecl::Surface *img_border;
     };
 
 }} // namespace enigma::gui

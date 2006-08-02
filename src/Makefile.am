@@ -134,6 +134,8 @@ enigma_SOURCES = 		\
 	gui/LevelMenu.hh	\
 	gui/LevelPackMenu.cc	\
 	gui/LevelPackMenu.hh	\
+	gui/LevelPreviewCache.cc \
+	gui/LevelPreviewCache.hh \
 	gui/LevelWidget.cc	\
 	gui/LevelWidget.hh	\
 	gui/MainMenu.cc		\
@@ -150,10 +152,18 @@ enigma_SOURCES = 		\
 	gui/TextField.hh	\
 	gui/widgets.cc		\
 	gui/widgets.hh		\
+	lev/AdapterIndex.cc	\
+	lev/AdapterIndex.hh	\
+	lev/Index.cc		\
+	lev/Index.hh		\
 	lev/RatingManager.cc	\
 	lev/RatingManager.hh	\
 	lev/Proxy.cc		\
-	lev/Proxy.hh
+	lev/Proxy.hh		\
+	lev/ScoreManager.cc	\
+	lev/ScoreManager.hh	\
+	lev/VolatileIndex.cc	\
+	lev/VolatileIndex.hh
 
 datadir = @datadir@
 

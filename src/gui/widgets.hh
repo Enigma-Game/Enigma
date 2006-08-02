@@ -164,6 +164,7 @@ namespace enigma { namespace gui {
         Widget *find_adjacent_widget(Widget *from, int x, int y);
 
         void clear();
+        void draw_all();
 
         // Widget interface.
         void draw (ecl::GC& gc, const ecl::Rect &r);
@@ -172,9 +173,9 @@ namespace enigma { namespace gui {
         // AreaManaged interface.
         void invalidate_area(const ecl::Rect &r);
         void invalidate_all();
-    protected:
         void refresh();
-
+        
+    protected:
         typedef std::vector<Widget *> WidgetList;
         typedef WidgetList::iterator iterator;
 
@@ -327,9 +328,9 @@ namespace enigma { namespace gui {
     class TextButton : public PushButton {
     public:
         TextButton(ActionListener *al=0);
-    private:
         virtual std::string get_text() const = 0;
 
+    private:
         // Widget interface.
         void draw(ecl::GC &gc, const ecl::Rect &r);
 
@@ -344,7 +345,6 @@ namespace enigma { namespace gui {
         StaticTextButton(const std::string &t, ActionListener *al=0);
         virtual void set_text(const std::string &t);
 
-    private:
         // TextButton interface.
         std::string get_text() const;
 
@@ -359,7 +359,6 @@ namespace enigma { namespace gui {
     public:
         UntranslatedStaticTextButton(const std::string &t, ActionListener *al=0);
 
-    private:
         // TextButton interface.
         std::string get_text() const;
     };

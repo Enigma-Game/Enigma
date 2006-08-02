@@ -44,7 +44,7 @@ namespace oxyd
 
     using levels::LevelPack;
     using levels::LevelInfo;
-    using levels::LevelStatus;
+//    using levels::LevelStatus;
     using OxydLib::Level;
 
 /* -------------------- OxydLoader -------------------- */

@@ -102,68 +102,81 @@ static string getIndexName (const LevelInfo &info)
 
 void Level::set_status (const LevelStatus &levelstat) 
 {
-    options::SetLevelStatus(getIndexName(get_info()), levelstat);
+    options::LevelStatus optLevelStat;
+    optLevelStat.time_easy = levelstat.time_easy;
+    optLevelStat.time_hard = levelstat.time_hard;
+    optLevelStat.finished = levelstat.finished;
+    optLevelStat.solved_revision = levelstat.solved_revision;
+    options::SetLevelStatus(getIndexName(get_info()), optLevelStat);
 }
 
-bool Level::set_level_time (int difficulty, int time)
-{
-    int revision = m_levelpack->get_revision_number (m_index);
+//bool Level::set_level_time (int difficulty, int time)
+//{
+//    int revision = m_levelpack->get_revision_number (m_index);
+//
+//    LevelStatus levelstat (-1, -1, difficulty, revision);
+//
+//    if (get_status (levelstat)) {
+//        if (levelstat.finished == 0 || 
+//            (levelstat.solved_revision >= 1 && levelstat.solved_revision < revision))
+//        {
+//            // reset level status if level marked as not finished (the
+//            // user can do so explicitly in the level menu) or if only
+//            // an old revision of the level was solved.
+//            levelstat.time_hard = -1;
+//            levelstat.time_easy = -1;
+//            levelstat.finished  = 0;
+//        }
+//        levelstat.finished        |= difficulty;
+//        levelstat.solved_revision  = revision;
+//    }
+//
+//    bool new_record = false;
+//    int& time_curr  = (difficulty == enigma::DIFFICULTY_EASY) 
+//        ? levelstat.time_easy : levelstat.time_hard;
+//
+//    if (time_curr > time || time_curr == -1) {
+//        time_curr  = time;
+//        new_record = true;
+//    }
+//    set_status (levelstat);
+//    return new_record;
+//}
 
-    LevelStatus levelstat (-1, -1, difficulty, revision);
-
-    if (get_status (levelstat)) {
-        if (levelstat.finished == 0 || 
-            (levelstat.solved_revision >= 1 && levelstat.solved_revision < revision))
-        {
-            // reset level status if level marked as not finished (the
-            // user can do so explicitly in the level menu) or if only
-            // an old revision of the level was solved.
-            levelstat.time_hard = -1;
-            levelstat.time_easy = -1;
-            levelstat.finished  = 0;
-        }
-        levelstat.finished        |= difficulty;
-        levelstat.solved_revision  = revision;
-    }
-
-    bool new_record = false;
-    int& time_curr  = (difficulty == enigma::DIFFICULTY_EASY) 
-        ? levelstat.time_easy : levelstat.time_hard;
-
-    if (time_curr > time || time_curr == -1) {
-        time_curr  = time;
-        new_record = true;
-    }
-    set_status (levelstat);
-    return new_record;
-}
-
-int Level::get_par_time (int difficulty) const
-{
-    const LevelInfo &levelinfo = get_info();
-    int par_time = difficulty == DIFFICULTY_HARD
-        ? levelinfo.par_time_normal
-        : levelinfo.par_time_easy;
-
-    if (par_time == LevelInfo::DEFAULT_TIME)
-        return -1;
-    else
-        return par_time;
-}
-
-string Level::get_par_holder (int difficulty) 
-{
-    const LevelInfo &levelinfo = get_info();
-
-    return difficulty == DIFFICULTY_HARD
-        ? levelinfo.par_time_normal_by
-        : levelinfo.par_time_easy_by;
-}
+//int Level::get_par_time (int difficulty) const
+//{
+//    const LevelInfo &levelinfo = get_info();
+//    int par_time = difficulty == DIFFICULTY_HARD
+//        ? levelinfo.par_time_normal
+//        : levelinfo.par_time_easy;
+//
+//    if (par_time == LevelInfo::DEFAULT_TIME)
+//        return -1;
+//    else
+//        return par_time;
+//}
+//
+//string Level::get_par_holder (int difficulty) 
+//{
+//    const LevelInfo &levelinfo = get_info();
+//
+//    return difficulty == DIFFICULTY_HARD
+//        ? levelinfo.par_time_normal_by
+//        : levelinfo.par_time_easy_by;
+//}
 
 
 bool Level::get_status (LevelStatus &levelstat) const
 {
-    return options::GetLevelStatus (getIndexName(get_info()), levelstat);
+    options::LevelStatus optLevelStat;
+    bool result =  options::GetLevelStatus (getIndexName(get_info()), optLevelStat);
+    if (result) {
+        levelstat.time_easy = optLevelStat.time_easy;
+        levelstat.time_hard = optLevelStat.time_hard;
+        levelstat.finished = optLevelStat.finished;
+        levelstat.solved_revision = optLevelStat.solved_revision;
+    }
+    return result;
 }
 
 const LevelInfo &Level::get_info () const
@@ -172,115 +185,116 @@ const LevelInfo &Level::get_info () const
 }
 
 
-int Level::get_best_user_time (int difficulty) const
-{
-    const LevelInfo &levelinfo = get_info();
-    LevelStatus levelstat;
+//int Level::get_best_user_time (int difficulty) const
+//{
+//    const LevelInfo &levelinfo = get_info();
+//    LevelStatus levelstat;
+//
+//    int best_user_time = -1;
+//    if (get_status (levelstat)) {
+//        if (levelinfo.has_easymode) {
+//            if ((levelstat.finished & difficulty) != 0) {
+//                best_user_time = (difficulty == DIFFICULTY_HARD) // XXX should use difficulty parameter
+//                    ? levelstat.time_hard 
+//                    : levelstat.time_easy;
+//            }
+//        }
+//        else {
+//            // If level is the same in easy and hard mode use the user's
+//            // best time in either difficulty level.
+//            if (levelstat.finished) {
+//                if (levelstat.time_hard > 0) 
+//                    best_user_time = levelstat.time_hard;
+//                if (levelstat.time_easy > 0 && (levelstat.time_easy < best_user_time || best_user_time<0))
+//                    best_user_time = levelstat.time_easy;
+//            }
+//        }
+//        if (levelstat.solved_revision < levelinfo.revision)
+//            best_user_time = -1;
+//    }
+//    assert (best_user_time >= -1);
+//    return best_user_time;
+//}
+//
+//bool Level::is_solved (int difficulty)
+//{
+//    const LevelInfo &levelinfo = get_info();
+//    LevelStatus levelstat;
+//
+//    if (get_status(levelstat))
+//        return ((levelstat.finished & difficulty) ||
+//                (!levelinfo.has_easymode && levelstat.finished));
+//    return false;
+//}
 
-    int best_user_time = -1;
-    if (get_status (levelstat)) {
-        if (levelinfo.has_easymode) {
-            if ((levelstat.finished & difficulty) != 0) {
-                best_user_time = (difficulty == DIFFICULTY_HARD) // XXX should use difficulty parameter
-                    ? levelstat.time_hard 
-                    : levelstat.time_easy;
-            }
-        }
-        else {
-            // If level is the same in easy and hard mode use the user's
-            // best time in either difficulty level.
-            if (levelstat.finished) {
-                if (levelstat.time_hard > 0) 
-                    best_user_time = levelstat.time_hard;
-                if (levelstat.time_easy > 0 && (levelstat.time_easy < best_user_time || best_user_time<0))
-                    best_user_time = levelstat.time_easy;
-            }
-        }
-        if (levelstat.solved_revision < levelinfo.revision)
-            best_user_time = -1;
-    }
-    assert (best_user_time >= -1);
-    return best_user_time;
-}
 
-bool Level::is_solved (int difficulty)
-{
-    const LevelInfo &levelinfo = get_info();
-    LevelStatus levelstat;
+//void Level::mark_solved () 
+//{
+//    // set state to "solved"
+//    LevelStatus      levelstat;
+//
+//    // get current status (if available)
+//    get_status (levelstat);
+//
+//    if (levelstat.finished != 3) {
+//        levelstat.finished = 3; // both easy and difficult
+//        levelstat.solved_revision = get_info().revision;
+//        set_status (levelstat);
+//    }
+//}
 
-    if (get_status(levelstat))
-        return ((levelstat.finished & difficulty) ||
-                (!levelinfo.has_easymode && levelstat.finished));
-    return false;
-}
-
-
-void Level::mark_solved () 
-{
-    // set state to "solved"
-    LevelStatus      levelstat;
-
-    // get current status (if available)
-    get_status (levelstat);
-
-    if (levelstat.finished != 3) {
-        levelstat.finished = 3; // both easy and difficult
-        levelstat.solved_revision = get_info().revision;
-        set_status (levelstat);
-    }
-}
-
-void Level::mark_unsolved () 
-{
-    LevelStatus      levelstat;
-    if (get_status (levelstat) && levelstat.finished) {
-        levelstat.finished  = 0;
-        set_status (levelstat);
-    }
-}
+//void Level::mark_unsolved () 
+//{
+//    LevelStatus      levelstat;
+//    if (get_status (levelstat) && levelstat.finished) {
+//        levelstat.finished  = 0;
+//        set_status (levelstat);
+//    }
+//}
 
 /* Returns level index 0 if no suitable ``next level'' could be found. */
-Level Level::next_level (int difficulty,
-                         bool skip_solved,
-                         bool select_non_par) // always takes non-par levels (overides skip_solved)
-{
-    LevelPack *lp = get_levelpack();
-    Level nextl (*this);
-
-    size_t size  = lp->size();
-    size_t max_available = HighestAvailableLevel(lp);
-
-    bool found = false;
-    while (nextl.m_index<size+1 && !found) {
-        ++nextl.m_index;
-        bool available = nextl.m_index <= max_available;
-        if (!available)
-            continue;
-
-        if (skip_solved || select_non_par) {
-            bool solved = nextl.is_solved (difficulty);
-            if (!solved) // always play unsolved levels
-                found = true;
-            else { // solved levels
-                if (select_non_par) {
-                    int  par_time       = nextl.get_par_time (difficulty);
-                    int  best_user_time = nextl.get_best_user_time (difficulty);
-                    bool need_par       = best_user_time<0 || (par_time>0 && best_user_time>par_time);
-
-                    if (need_par)
-                        found = true;
-                }
-                else if (!skip_solved)
-                    found = true;
-            }
-        }
-        else
-            found = true;
-    }
-    if (!found)
-        nextl.m_index = 0;
-    return nextl;
-}
+//Level Level::next_level (int difficulty,
+//                         bool skip_solved,
+//                         bool select_non_par) // always takes non-par levels (overides skip_solved)
+//{
+//    LevelPack *lp = get_levelpack();
+//    Level nextl (*this);
+//
+//    size_t size  = lp->size();
+//    size_t max_available = HighestAvailableLevel(lp);
+//
+//    bool found = false;
+//    while (nextl.m_index<size+1 && !found) {
+//        ++nextl.m_index;
+//        bool available = nextl.m_index <= max_available;
+//        if (!available)
+//            continue;
+//
+//        if (skip_solved || select_non_par) {
+//            bool solved = nextl.is_solved (difficulty);
+//            if (!solved) // always play unsolved levels
+//                found = true;
+//            else { // solved levels
+//                if (select_non_par) {
+//                    int  par_time       = nextl.get_par_time (difficulty);
+//                    int  best_user_time = nextl.get_best_user_time (difficulty);
+//                    bool need_par       = best_user_time<0 || (par_time>0 && best_user_time>par_time);
+//
+//                    if (need_par)
+//                        found = true;
+//                }
+//                else if (!skip_solved)
+//                    // this code will never be executed!
+//                    found = true;
+//            }
+//        }
+//        else
+//            found = true;
+//    }
+//    if (!found)
+//        nextl.m_index = 0;
+//    return nextl;
+//}
 
 
 /* -------------------- Global variables -------------------- */
@@ -289,69 +303,69 @@ std::vector<LevelPack *>  levels::LevelPacks;
 
 /* -------------------- Functions -------------------- */
 
-bool levels::advance_level (Level &l, LevelAdvanceMode m)
-{
-    bool skip_solved  = options::GetBool("SkipSolvedLevels");
-    bool take_non_par = skip_solved == true && options::GetBool("TimeHunting");
+//bool levels::advance_level (Level &l, LevelAdvanceMode m)
+//{
+//    bool skip_solved  = options::GetBool("SkipSolvedLevels");
+//    bool take_non_par = options::GetBool("TimeHunting");
+//
+//    switch (m) {
+//    case advance_normal:
+//        break;
+//    case advance_strictly_next:
+//        skip_solved = false;
+//        take_non_par = false;
+//        break;
+//    case advance_unsolved:
+//        skip_solved = true;
+//        break;
+//    };
+//
+//    Level nextl  = l.next_level (options::GetDifficulty(),
+//                                 skip_solved, take_non_par);
+//
+//    if (nextl.get_index()) {
+//        l = nextl; 
+//        return true;
+//    }
+//    return false;
+//}
 
-    switch (m) {
-    case advance_normal:
-        break;
-    case advance_strictly_next:
-        skip_solved = false;
-        take_non_par = false;
-        break;
-    case advance_unsolved:
-        skip_solved = true;
-        break;
-    };
 
-    Level nextl  = l.next_level (options::GetDifficulty(),
-                                 skip_solved, take_non_par);
-
-    if (nextl.get_index()) {
-        l = nextl; 
-        return true;
-    }
-    return false;
-}
-
-
-unsigned
-levels::CountSolvedLevels (LevelPack *lp, int difficulty, unsigned *par_counter)
-{
-    unsigned cnt                  = 0;
-    if (par_counter) *par_counter = 0;
-
-    for (size_t i=0; i<lp->size(); ++i) {
-        Level            level (lp, i);
-        LevelStatus      levelstat;
-
-        if (level.get_status(levelstat)) {
-            if (levelstat.finished >= difficulty) {
-                ++cnt;
-            }
-            else if (levelstat.finished == 1 && !level.get_info().has_easymode) {
-                // level has been finished in easy-mode, but has no easymode
-                // (due to an old&fixed enigma-bug user time was saved as easy user time)
-                ++cnt;
-            }
-
-            if (par_counter) {
-                int user_time = level.get_best_user_time(difficulty);
-                int par_time  = level.get_par_time(difficulty);
-
-                if (user_time != -1 && 
-                    (user_time <= par_time || par_time == -1)) {
-                    // user solved the level after time recording was implemented into enigma
-                    // and reached par. Levels w/o par count as par as well.
-                    ++(*par_counter);
-                }
-            }
-        }
-    }
-    return cnt;
-}
+//unsigned
+//levels::CountSolvedLevels (LevelPack *lp, int difficulty, unsigned *par_counter)
+//{
+//    unsigned cnt                  = 0;
+//    if (par_counter) *par_counter = 0;
+//
+//    for (size_t i=0; i<lp->size(); ++i) {
+//        Level            level (lp, i);
+//        LevelStatus      levelstat;
+//
+//        if (level.get_status(levelstat)) {
+//            if (levelstat.finished >= difficulty) {
+//                ++cnt;
+//            }
+//            else if (levelstat.finished == 1 && !level.get_info().has_easymode) {
+//                // level has been finished in easy-mode, but has no easymode
+//                // (due to an old&fixed enigma-bug user time was saved as easy user time)
+//                ++cnt;
+//            }
+//
+//            if (par_counter) {
+//                int user_time = level.get_best_user_time(difficulty);
+//                int par_time  = level.get_par_time(difficulty);
+//
+//                if (user_time != -1 && 
+//                    (user_time <= par_time || par_time == -1)) {
+//                    // user solved the level after time recording was implemented into enigma
+//                    // and reached par. Levels w/o par count as par as well.
+//                    ++(*par_counter);
+//                }
+//            }
+//        }
+//    }
+//    return cnt;
+//}
 
 unsigned
 levels::HighestAvailableLevel(LevelPack *lp)
@@ -376,20 +390,20 @@ levels::HighestAvailableLevel(LevelPack *lp)
     return max_available;
 }
 
-bool levels::LevelIsLocked (const Level &level)
-{
-//    if (!options::GetBool("Tournament"))
-        return false;               // lock levels only in tournament mode
-
-//     unsigned max_available = HighestAvailableLevel (level.get_levelpack());
-//     int finished = 0;
-// 
-//     LevelStatus levelstat;
-//     if (level.get_status(levelstat))
-//         finished = levelstat.finished;
-// 
-//     return !(level.get_index() <= max_available || finished >= options::GetDifficulty());
-}
+//bool levels::LevelIsLocked (const Level &level)
+//{
+////    if (!options::GetBool("Tournament"))
+//        return false;               // lock levels only in tournament mode
+//
+////     unsigned max_available = HighestAvailableLevel (level.get_levelpack());
+////     int finished = 0;
+//// 
+////     LevelStatus levelstat;
+////     if (level.get_status(levelstat))
+////         finished = levelstat.finished;
+//// 
+////     return !(level.get_index() <= max_available || finished >= options::GetDifficulty());
+//}
 
 
 /* -------------------- Levelpack management -------------------- */
