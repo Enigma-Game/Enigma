@@ -17,6 +17,7 @@
  *
  */
 
+#include "errors.hh"
 #include "main.hh"
 #include "display.hh"
 #include "player.hh"
@@ -1616,6 +1617,7 @@ namespace
             set_attrib("targety", Value());
             set_attrib("strength", Value());
             set_attrib("range", Value());
+            justWarping = false;
         }
     private:
         void on_creation (GridPos p) {
@@ -1658,6 +1660,7 @@ namespace
 
         // Variables.
         WormHole_FF ff;
+        bool        justWarping;  // to avoid recursions
     };
 
     ItemTraits WormHole::traits[2] = {
@@ -1688,12 +1691,15 @@ bool WormHole::get_target(V2 &targetpos) {
 
 bool WormHole::actor_hit(Actor *actor) 
 {
+    ASSERT(!justWarping, XLevelRuntime, "WormHole:: Recursion detected!");
     if (near_center_p(actor)) {
         client::Msg_Sparkle (get_pos().center());
         V2 targetpos;
         if (get_target (targetpos)) {
             sound_event ("warp");
+            justWarping = true;
             world::WarpActor(actor, targetpos[0], targetpos[1], false);
+            justWarping = false;
         }
     }
     return false;
