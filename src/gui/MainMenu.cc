@@ -22,6 +22,7 @@
 #include "gui/OptionsMenu.hh"
 #include "gui/HelpMenu.hh"
 #include "gui/LevelPackMenu.hh"
+#include "gui/LevelPreviewCache.hh"
 #include "display.hh"
 #include "ecl.hh"
 #include "main.hh"
@@ -50,6 +51,7 @@ namespace enigma { namespace gui {
     {
         world::PrepareLevel();      // make sure no references to models remain
         video::ChangeVideoMode();
+        LevelPreviewCache::instance()->clear();
         enigma::ClearImageCache();
         display::Shutdown();
         display::Init();

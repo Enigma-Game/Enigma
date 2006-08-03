@@ -59,6 +59,7 @@ namespace enigma { namespace gui {
 
         ecl::Surface *getPreview (lev::Proxy *levelProxy);
         ecl::Surface *updatePreview (lev::Proxy *levelProxy);
+        void clear();
     protected:
         LevelPreviewCache();
     private:
@@ -71,7 +72,6 @@ namespace enigma { namespace gui {
 
         // ---------- Internal methods ----------
 
-        void clear();
         ecl::Surface *newPreview (lev::Proxy *levelProxy);
         std::string makePreviewPath(lev::Proxy *levelProxy);
         void savePreview(lev::Proxy *levelProxy, ecl::Surface *s);
