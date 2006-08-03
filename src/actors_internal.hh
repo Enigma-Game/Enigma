@@ -70,7 +70,7 @@ namespace
             if      (actor_is_marble)         dist = wanted_distance_to(a.get_kind());
             else if (is_marble(a.get_kind())) dist = wanted_distance_to(actor_to_set.get_kind());
 
-            assert(dist <= MAX_DISTANCE_WANTED);
+            ASSERT(dist <= MAX_DISTANCE_WANTED, XLevelRuntime, "FreeRespawnLocationFinder: distance_wanted_to too large ");
             return dist;
         }
 
@@ -200,7 +200,7 @@ namespace
                     ExaminedLocations::const_iterator c = candidates.begin();
                     advance(c, IntegerRand(0, int (candidates.size()-1)));
 
-                    assert(c != candidates.end());
+                    ASSERT(c != candidates.end(), XLevelRuntime, "FreeRespawnLocationFinder: list of candidates corrupt");
                     preferred_position = c->center();
                 }
             }

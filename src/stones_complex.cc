@@ -28,7 +28,6 @@
 #include "ecl_util.hh"
 
 #include <algorithm>
-#include <cassert>
 #include <iostream>
 
 using namespace std;
@@ -245,12 +244,12 @@ void PullStone::change_state (State new_state) {
 }
 
 void PullStone::alarm() {
-    assert(state == MOVING);
+    ASSERT(state == MOVING, XLevelRuntime, "PullStone: alarm called with inconsistent state");
     GridPos oldpos = move (get_pos(), reverse(m_movedir));
 
     // remove the disappearing half of the PullStone :
     PullStone *oldStone = dynamic_cast<PullStone*>(GetStone(oldpos));
-    assert(oldStone);
+    ASSERT(oldStone, XLevelRuntime, "PullStone: oldStone non-existent in alarm");
     oldStone->change_state(VANISHED);
     KillStone(oldpos);
 
@@ -652,7 +651,8 @@ namespace
                 change_state(SOLID);
                 break;
             default :
-                assert(0);
+                ASSERT(0, XLevelRuntime,
+                    "BlockerStone: animcb called with inconsistent state");
                 break;
             }
         }
@@ -1035,7 +1035,7 @@ bool PuzzleStone::find_cluster(Cluster &cluster) {
         pos_stack.pop_back();
 
         PuzzleStone *pz = dynamic_cast<PuzzleStone*>(GetStone(curpos));
-        assert(pz);
+        ASSERT(pz, XLevelRuntime, "PuzzleStone: missing stone in find_cluster");
 
         cluster.push_back(curpos);
         DirectionBits cfaces = pz->get_connections();
@@ -1103,7 +1103,8 @@ void PuzzleStone::find_adjacents(Cluster &cluster) {
 void PuzzleStone::find_row_or_column_cluster(Cluster &c, GridPos startpos, 
                                              Direction dir, int wanted_oxyd_attrib)
 {
-    assert(dir != NODIR);
+    ASSERT(dir != NODIR, XLevelRuntime,
+        "PuzzleStone: no direction in find_row_or_column_cluster");
 
     GridPos p = startpos;
     while (Stone *puzz = dynamic_cast<PuzzleStone*>(GetStone(p))) {
@@ -1329,7 +1330,8 @@ bool PuzzleStone::explode_complete_cluster()
     // @@@ FIXME: explode_complete_cluster should mark the whole cluster
     // as "EXPLODING_SOON" (otherwise it may be changed before it explodes completely)
 
-    assert(state == IDLE);
+    ASSERT(state == IDLE, XLevelRuntime,
+        "PuzzleStone: explode_complete_cluster called with inconsistent state");
     bool exploded = false;
 
     Cluster complete;
@@ -1343,7 +1345,8 @@ bool PuzzleStone::explode_complete_cluster()
             exploded = true;
         }
         else {
-            assert(all.size() > complete.size());
+            ASSERT(all.size() > complete.size(), XLevelRuntime,
+                "PuzzleStone: sizes don't match in explode_complete_cluster");
             if (!oxyd1_compatible()) {
                 // check if 'all' is made up of complete clusters :
 
@@ -1371,7 +1374,8 @@ bool PuzzleStone::explode_complete_cluster()
                     complete.clear();
                     {
                         PuzzleStone *pz = dynamic_cast<PuzzleStone*>(GetStone(all[0]));
-                        assert(pz);
+                        ASSERT(pz, XLevelRuntime,
+                            "PuzzleStone: missing stone in explode_complete_cluster");
                         if (!pz->find_cluster(complete)) {
                             break; // incomplete cluster found -> don't explode
                         }

@@ -16,6 +16,8 @@
  * 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.
  *
  */
+
+#include "errors.hh"
 #include "game.hh"
 #include "sound.hh"
 #include "world.hh"
@@ -29,7 +31,6 @@
 #include <cstdarg>
 #include <iostream>
 #include <iomanip>
-#include <cassert>
 
 using namespace std;
 using namespace enigma;
@@ -102,7 +103,8 @@ const char *
 Object::get_kind() const
 {
     const Value *v = get_attrib("kind");
-    assert(v && v->get_type()==Value::STRING);
+    ASSERT(v && v->get_type()==Value::STRING, XLevelRuntime,
+        "Object: attribute kind is not of type string (found in get_kind)");
     return v->get_string();
 }
 

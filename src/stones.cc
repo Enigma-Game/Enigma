@@ -16,12 +16,13 @@
  * 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.
  *
  */
+
+#include "errors.hh"
 #include "stones_internal.hh"
 #include "server.hh"
 #include "client.hh"
 #include "player.hh"
 #include "Inventory.hh"
-#include <cassert>
 
 using namespace std;
 using namespace world;
@@ -299,7 +300,8 @@ namespace
 
 void SpitterStone::animcb() {
     switch (state) {
-    case IDLE: assert(0); 
+    case IDLE:
+        ASSERT(0, XLevelRuntime, "SpitterStone: animcb called with inconsistent state"); 
     case LOADING: {
         Actor     *ball = MakeActor (ac_cannonball);
         ActorInfo *ai   = ball->get_actorinfo();
@@ -348,8 +350,10 @@ YieldedGridStone::YieldedGridStone(Stone *st)
 
 YieldedGridStone::~YieldedGridStone() 
 {
-    assert(!stone);
-    assert(!model);
+    ASSERT(!stone, XLevelRuntime,
+        "YieldedGridStone: destructor called though stone still exists");
+    ASSERT(!model, XLevelRuntime,
+        "YieldedGridStone: destructor called though model still exists");
 }
 
 void YieldedGridStone::set_stone(GridPos pos) 

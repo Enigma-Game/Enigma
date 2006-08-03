@@ -17,13 +17,13 @@
  *
  */
 
+#include "errors.hh"
 #include "player.hh"
 #include "server.hh"
 #include "world.hh"
 #include "main.hh"
 
 #include <iostream>
-#include <cassert>
 
 using namespace std;
 using namespace enigma;
@@ -483,7 +483,9 @@ void Bridge::animcb()
         case OPENING: change_state(OPEN); break;
         case CLOSING: change_state(CLOSED); break;
         case CLOSING_BYSTONE: change_state(CLOSED_BYSTONE); break;
-        default : assert(0); break;
+        default :
+            ASSERT(0, XLevelRuntime, "Bridge: animcb called after unknown animation");
+            break;
     }
 }
 

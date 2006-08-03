@@ -16,6 +16,8 @@
  * 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.
  *
  */
+
+#include "errors.hh"
 #include "laser.hh"
 #include "server.hh"
 #include "player.hh"
@@ -23,8 +25,6 @@
 #include "Inventory.hh"
 
 #include "stones_internal.hh"
-
-#include <cassert>
 
 using namespace std;
 using namespace world;
@@ -1386,7 +1386,7 @@ void ThiefStone::animcb() {
         init_model();
         break;
     default:
-        assert(0);
+        ASSERT(0, XLevelRuntime, "ThiefStone: animcb called with inconsistent state");
     }
 }
 
@@ -1683,7 +1683,7 @@ void BombStone::change_state (State newstate)
 
 void BombStone::animcb() 
 {
-    assert(state == BREAK);
+    ASSERT(state == BREAK, XLevelRuntime, "BombStone: animcb called with inconsistent state");
     GridPos p = get_pos();
     SendExplosionEffect(p, EXPLOSION_BOMBSTONE);
     KillStone(p);

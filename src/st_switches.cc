@@ -16,12 +16,12 @@
  * 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.
  *
  */
+
+#include "errors.hh"
 #include "laser.hh"
 #include "player.hh"
 #include "server.hh"
 #include "Inventory.hh"
-
-#include <cassert>
 
 #include "stones_internal.hh"
 
@@ -225,7 +225,7 @@ void CoinSlot::animcb() {
 
 void CoinSlot::tick(double dtime)
 {
-    assert(remaining_time > 0);
+    ASSERT(remaining_time > 0, XLevelRuntime, "CoinSlot: tick called, but no remaining time");
 
     remaining_time -= dtime;
     if (remaining_time <= 0)
@@ -411,7 +411,8 @@ namespace
             case EAST:  set_model("st-fourswitch-e"); break;
             case SOUTH: set_model("st-fourswitch-s"); break;
             case WEST:  set_model("st-fourswitch-w"); break;
-            case NODIR: assert(0);
+            case NODIR: ASSERT(0, XLevelRuntime,
+                "FourSwitch: no direction defined (found in init_model)");
             }
         }
 
@@ -518,7 +519,7 @@ void LaserTimeSwitchBase::change_state(State newstate) {
         PerformAction(this, !inverse());
         if (newstate == TOUCHED) {
             double delay = timer_delay();
-            assert(delay>0.0);
+            ASSERT(delay>0.0, XLevelRuntime, "LaserTimeSwitchBase: delay non-positive");
             GameTimer.set_alarm(this, delay, false);
         }
     }
@@ -529,7 +530,8 @@ void LaserTimeSwitchBase::change_state(State newstate) {
     }
     else {
         // it's not allowed to switch from LIGHTED to TOUCHED
-        assert(!(state == LIGHTED && newstate == TOUCHED));
+       ASSERT(!(state == LIGHTED && newstate == TOUCHED), XLevelRuntime,
+           "LaserTimeSwitchBase: trying to switch from lighted to touched");
     }
     state = newstate;
 }
@@ -597,7 +599,8 @@ const char *LaserTimeSwitch::get_inactive_model() const {
 
 double LaserTimeSwitch::timer_delay() const {
     double delay;
-    if (!double_attrib("delay", &delay)) assert(0);
+    if (!double_attrib("delay", &delay))
+        ASSERT(0, XLevelRuntime, "LaserTimeSwitch: delay not properly defined");
     return delay;
 }
 

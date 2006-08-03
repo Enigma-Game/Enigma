@@ -16,13 +16,14 @@
  * 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.
  *
  */
+
+#include "errors.hh"
 #include "enigma.hh"
 #include "player.hh"
 #include "sound.hh"
 #include "server.hh"
 #include "world.hh"
 
-#include <cassert>
 #include <iostream>
 #include <set>
 
@@ -60,7 +61,7 @@ Actor::Actor (const ActorTraits &tr)
     m_actorinfo.mass = tr.default_mass;
     m_actorinfo.radius = tr.radius;
 
-    assert(m_actorinfo.radius <= get_max_radius());
+    ASSERT(m_actorinfo.radius <= get_max_radius(), XLevelRuntime, "Actor: radius of actor too large");
 }
 
 void Actor::on_collision (Actor *) 
@@ -764,7 +765,8 @@ void BasicBall::set_sink_model(const string &m)
     int modelnum = ecl::round_down<int>(sinkDepth);
 
     if (!has_shield() && modelnum != sinkModel) {
-        assert(modelnum >= minSinkDepth && modelnum < maxSinkDepth);
+        ASSERT(modelnum >= minSinkDepth && modelnum < maxSinkDepth, XLevelRuntime,
+            "BasicBall: set_sink_model called though modelnum incorrect");
 
         string img = m+"-sink";
         img.append(1, static_cast<char>('0'+modelnum));
@@ -982,7 +984,8 @@ void BasicBall::change_state(State newstate) {
         world::GrabActor(this);
         break;
     case JUMP_VORTEX:
-        assert(oldstate == RISING_VORTEX);
+        ASSERT(oldstate == RISING_VORTEX, XLevelRuntime,
+            "BasicBall: change to state JUMP_VORTEX but not RISING_VORTEX");
         vortex_normal_time = 0;
         set_model(kind);
         world::ReleaseActor(this);

@@ -33,7 +33,6 @@
 
 #include <algorithm>
 #include <cmath>
-#include <cassert>
 #include <iostream>
 
 
@@ -1932,7 +1931,7 @@ void Vortex::alarm() {
         sound_event ("hitfloor");
         perform_warp();
     } else 
-        assert (0);
+        ASSERT (0, XLevelRuntime, "Vortex: alarm called with inconsistent state");
 }
 
 void Vortex::emit_actor () {
@@ -1961,7 +1960,8 @@ void Vortex::perform_warp()
     if (!m_actor_being_warped)
         return;
 
-    assert (state == WARPING);
+    ASSERT (state == WARPING, XLevelRuntime,
+        "Vortex: perform_warp called with inconsistent state");
 
     V2 v_target;
 
@@ -2684,7 +2684,7 @@ void Blocker::message(const string &msg, const Value &val)
 //                 warning("received signal %i", open);
             }
             else {
-                assert(0);
+                ASSERT(0, XLevelRuntime, "Blocker: message 'signal' with wrong typed value");
             }
         }
         else if (msg == "open")
@@ -2865,7 +2865,7 @@ namespace
         DECL_TRAITS_ARRAY(2, type);
 
         SignalFilterItem(int type_) : type(type_) {
-            assert(type >= 0 && type <= 1);
+            ASSERT(type >= 0 && type <= 1, XLevelRuntime, "SignalFilterItem: type unknown");
         }
 
         void message(const string& m, const Value& val) {
@@ -3147,7 +3147,7 @@ namespace
             return m_contents.size() == BAGSIZE;
         }
         void add_item (Item *it) {
-            assert(!is_full());
+            ASSERT(!is_full(), XLevelRuntime, "Bag: trying to add item though full");
             m_contents.insert (m_contents.begin(), it);
         }
 
