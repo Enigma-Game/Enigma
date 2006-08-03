@@ -542,9 +542,20 @@ void Client::draw_screen()
         int x     = 60;
         int y     = 60;
         int yskip = 25;
-        for (unsigned i=0; i<lines.size(); ++i) {
-            f->render(gc, x,  y, lines[i].c_str());
+        const video::VMInfo *vminfo = video::GetInfo();
+        int width = vminfo->width - 120;
+        for (unsigned i=0; i<lines.size(); ) {
+            std::string::size_type breakPos = f->breakString( lines[i], 
+                    " ", width);
+            f->render(gc, x,  y, lines[i].substr(0,breakPos).c_str());
             y += yskip;
+            if (breakPos != lines[i].size()) {
+                // process rest of line
+                lines[i] = lines[i].substr(breakPos);
+            } else {
+                // process next line
+                i++;
+            }
         }
         scr->update_all();
         scr->flush_updates();
