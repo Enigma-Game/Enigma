@@ -109,3 +109,4 @@ set_actor("ac-blackball",18.5,11.5,{player="0"})
 set_actor("ac-whiteball",14.5,7.5)
 
 oxyd_shuffle()
+

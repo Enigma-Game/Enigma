@@ -92,3 +92,4 @@ set_actor("ac-blackball",2.5,10.5,{player=0,name="bb"})
 set_actor("ac-whiteball",17.5,2.5,{player=1,name="wb"})
 
 oxyd_shuffle()
+

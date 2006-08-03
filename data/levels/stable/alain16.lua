@@ -56,7 +56,7 @@ function renderLine( line, pattern)
 		elseif c=="J" then
 			set_stone("st-switch",i-1,line,{action="callback",target="pj"})
 		elseif c=="*" then
-		   	set_stone("st-rock2",i-1,line)
+		   	set_stone("st-metal",i-1,line)
 		elseif c=="=" then
 			doorh(i-1,line,{name="door1"})
 		elseif c=="+" then
@@ -243,19 +243,16 @@ function reset()
  tcur={}
  ttrue={}
 	
- ttrue[1]=random(6)
- for j=1,1 do
-	r=random(6)
-	if r==ttrue[1] then j=j-1 else ttrue[2]=r end
- end
- for j=1,1 do
-	r=random(6)
-	if (r==ttrue[1] or r==ttrue[2]) then j=j-1 else ttrue[3]=r end
- end
- for j=1,1 do
-	r=random(6)
-	if (r==ttrue[1] or r==ttrue[2] or r==ttrue[3]) then j=j-1 else ttrue[4]=r end
- end
+ ttrue[1] = random(6)
+ repeat
+   ttrue[2] = random(6)
+ until ttrue[2] ~= ttrue[1]
+ repeat
+   ttrue[3] = random(6)
+ until (ttrue[3] ~= ttrue[1]) and (ttrue[3] ~= ttrue[2])
+ repeat
+   ttrue[4] = random(6)
+ until (ttrue[4] ~= ttrue[1]) and (ttrue[4] ~= ttrue[2]) and (ttrue[4] ~= ttrue[3])
  current_color=random(6)
  current_position=random(4)
  current_game=0
@@ -265,6 +262,9 @@ end
 
 reset()
 oxyd_shuffle()
+
+
+
 
 
 

@@ -300,4 +300,3 @@ SetAttrib(enigma.GetStone(92,30),"color","3")
 SetAttrib(enigma.GetStone(0,27),"color","6")
 SetAttrib(enigma.GetStone(0,33),"color","6")
 
-

@@ -308,3 +308,4 @@ set_item("it-vortex-open", 7, 5, {targetx = 41.5, targety =  50.5, name="vortex7
 -- ACTORS
 set_actor("ac-whiteball",1.5,3.5)
 set_actor("ac-blackball",13.5,10.5,{player=0})
+

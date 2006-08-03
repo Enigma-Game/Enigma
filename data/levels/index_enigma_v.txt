@@ -1,4 +1,4 @@
-{  file=enigma_v/welcometopack5_1  name="Welcome"  author="Raoul Bourquin"  indexname=welcometopack5  }
+{  file=enigma_v/welcometopack5_1  name="Welcome"  author="Raoul Bourquin"  indexname=welcometopack5  int=1  dex=1  pat=2  kno=1  spe=4  }
 {  file=enigma_v/alain11_1  name="April 1st"  author="Alain Busser"  indexname=alain11  par_time=1,Raoul  int=2  dex=2  pat=1  kno=5  spe=1  }
 {  file=enigma_v/alain09_1  name="Send me the keys!"  author="Alain Busser"  indexname=alain09  par_time=76,Raoul  int=3  dex=2  pat=2  kno=4  spe=1  }
 {  file=enigma_v/andreas06_1  name="Laser Path"  author="Andreas Lochmann"  indexname=andreas06  easymode=1  int=5  dex=3  pat=2  kno=3  spe=1  }
@@ -16,17 +16,17 @@
 {  file=enigma_v/ant21_1  name="Draggers"  author="Petr Machata"  indexname=ant21  par_time=16,Johannes  int=3  dex=4  pat=3  kno=4  spe=4  }
 {  file=enigma_v/siegfried16_1  name="Break and Enter"  author="Siegfried Fennig"  indexname=level5b  par_time=93,Ingo+Stephanie  int=2  dex=4  pat=2  kno=4  spe=3  }
 {  file=enigma_v/just06_1  name="Double Play"  author="JuSt"  indexname=just06  int=4  dex=3  pat=3  kno=4  spe=2  }
-{  file=enigma_v/duffy78_1  name="Stealing from Thieves"  author="Jacob Scott"  indexname=duffy78  par_time=12,Johannes  int=2  dex=1  pat=1  kno=4  spe=5  }
+{  file=enigma_v/raoul05_1  name="Oxyd-Puzzle"  author="Raoul Bourquin"  indexname=raoul05  int=3  dex=1  pat=4  kno=4  spe=1  }
 {  file=enigma_v/ralf12_1  name="- Meditation -"  author="Ralf Westram"  indexname=ralf12  easymode=1  par_time_normal=145,Daniel  par_time_easy=184,Ralf  int=4  dex=3  pat=3  kno=4  spe=1  }
 {  file=enigma_v/duffy114_1  name="Plan Ahead"  author="Jacob Scott"  indexname=duffy114  int=4  dex=2  pat=2  kno=5  spe=2  }
-{  file=enigma_v/siegfried19_2  name="Space Pirates"  author="Siegfried Fennig"  indexname=level6a  par_time=62,Ralf  revision=2  int=2  dex=2  pat=2  kno=4  spe=2  }
+{  file=enigma_v/raoul12_1  name="Keystone"  author="Raoul Bourquin"  indexname=raoul12  int=4  dex=2  pat=3  kno=4  spe=1  }
 {  file=enigma_v/richi07_1  name="Print 23"  author="Richi Buetzer"  indexname=richi07  par_time=23,Raoul  int=4  dex=1  pat=2  kno=6  spe=1  }
-{  file=enigma_v/duffy56_1  name="Crossfire"  author="Jacob Scott"  indexname=duffy56  par_time=68,Duffy  int=4  dex=3  pat=3  kno=4  spe=3  }
+{  file=enigma_v/siegfried19_2  name="Space Pirates"  author="Siegfried Fennig"  indexname=level6a  par_time=62,Ralf  revision=2  int=2  dex=2  pat=2  kno=4  spe=2  }
 {  file=enigma_v/luc24_1  name="Laser Crossing"  author="Lukas Schueller"  indexname=luc24  easymode=1  par_time_normal=47,Raoul  int=2  dex=5  pat=3  kno=4  spe=4  }
 {  file=enigma_v/qq02_1  name="The Cage"  author="Andrzej Szombierski"  indexname=qq2  par_time=135,Ant  int=4  dex=3  pat=2  kno=4  spe=2  }
 {  file=enigma_v/duffy81_1  name="Listen Carefully"  author="Jacob Scott"  indexname=duffy81  par_time=143,Johannes  int=4  dex=3  pat=3  kno=4  spe=1  }
 {  file=enigma_v/duffy50_1  name="Take Turns"  author="Jacob Scott"  indexname=duffy50  par_time=99,Ingo_K  int=2  dex=5  pat=3  kno=4  spe=2  }
-{  file=enigma_v/duffy71_2  name="Don't Be Greedy"  author="Jacob Scott"  indexname=duffy71  revision=2  int=2  dex=3  pat=4  kno=5  spe=2  }
+{  file=enigma_v/luc30_1  name="The Carousel"  author="Lukas Schueller"  indexname=luc30  int=2  dex=3  pat=4  kno=4  spe=3  }
 {  file=enigma_v/duffy32_2  name="Two Billiard Tables"  author="Jacob Scott"  indexname=duffy32  par_time=121,Ralf  revision=2  int=2  dex=1  pat=5  kno=4  spe=1  }
 {  file=enigma_v/duffy131_1  name="Ocean Cruising"  author="Jacob Scott"  indexname=duffy131  int=2  dex=4  pat=2  kno=5  spe=5  }
 {  file=enigma_v/nat04_1  name="Walk The Plank"  author="Nat Pryce"  indexname=nat4  par_time=139,Nat  int=4  dex=4  pat=4  kno=2  spe=2  }
@@ -45,7 +45,7 @@
 {  file=enigma_v/ss03_1  name="Psycho Pushing"  author="Sven Siggelkow"  indexname=ss3  easymode=1  par_time_normal=363,Stephanie  par_time_easy=325,Stephanie  int=4  dex=4  pat=3  kno=4  spe=4  }
 {  file=enigma_v/duffy53_1  name="Turnstile Maze"  author="Jacob Scott"  indexname=duffy53  par_time=102,Stephanie  int=5  dex=1  pat=4  kno=4  spe=1  }
 {  file=enigma_v/ralf11_2  name="Swamp Stomp"  author="Ralf Westram"  indexname=ralf11  easymode=1  par_time_normal=192,Ralf  par_time_easy=91,Ralf  revision=2  int=2  dex=4  pat=4  kno=4  spe=3  }
-{  file=enigma_v/ralf06_1  name="ZigZag"  author="Ralf Westram"  indexname=ralf06  easymode=1  par_time_normal=45,Ralf  par_time_easy=33,Ralf  int=3  dex=3  pat=4  kno=4  spe=4  }
+{  file=enigma_v/duffy56_1  name="Crossfire"  author="Jacob Scott"  indexname=duffy56  par_time=68,Duffy  int=4  dex=3  pat=3  kno=4  spe=3  }
 {  file=enigma_v/luc08_1  name="Swamp of Balls"  author="Lukas Schueller"  indexname=luc08  par_time=44,Raoul  int=2  dex=4  pat=3  kno=4  spe=4  }
 {  file=enigma_v/duffy67_1  name="Anticipation"  author="Jacob Scott"  indexname=duffy67  par_time=160,Markus  int=1  dex=1  pat=5  kno=4  spe=1  }
 {  file=enigma_v/ss06_1  name="Where's the Money?"  author="Sven Siggelkow"  indexname=ss6  easymode=1  par_time_normal=24,Duffy  par_time_easy=44,Johannes  int=3  dex=3  pat=3  kno=4  spe=3  }
@@ -75,7 +75,7 @@
 {  file=enigma_v/duffy51_1  name="Stranded"  author="Jacob Scott"  indexname=duffy51  par_time=97,Ralf  int=2  dex=3  pat=2  kno=5  spe=1  }
 {  file=enigma_v/spaceman03_1  name="Fatal Attraction III"  author="Spaceman"  indexname=spaceman3  par_time=33,Raoul  int=3  dex=2  pat=2  kno=4  spe=2  }
 {  file=enigma_v/just03_1  name="Doors forever"  author="JuSt"  indexname=just03  easymode=1  int=5  dex=4  pat=4  kno=4  spe=2  }
-{  file=enigma_v/duffy116_1  name="Just Stay Calm"  author="Jacob Scott"  indexname=duffy116  int=2  dex=5  pat=4  kno=6  spe=5  }
+{  file=enigma_v/duffy71_2  name="Don't Be Greedy"  author="Jacob Scott"  indexname=duffy71  revision=2  int=2  dex=3  pat=4  kno=5  spe=2  }
 {  file=enigma_v/duffy113_1  name="Help Yourself"  author="Jacob Scott"  indexname=duffy113  int=3  dex=2  pat=3  kno=6  spe=1  }
 {  file=enigma_v/ral05_1  name="- Catwalk Meditation -"  author="Ronald Lambrecht"  indexname=20060505ral007  easymode=1  int=5  dex=4  pat=3  kno=4  spe=1  }
 {  file=enigma_v/martin58_1  name="Sheet Of Ice"  author="Martin Hawlisch"  indexname=martin58  par_time=52,Duffy  int=1  dex=3  pat=3  kno=4  spe=1  }
@@ -91,8 +91,8 @@
 {  file=enigma_v/ral01_1  name="Firefox"  author="Ronald Lamprecht"  indexname=20060213ral003  easymode=1  int=4  dex=4  pat=4  kno=5  spe=3  }
 {  file=enigma_v/duffy129_1  name="Island Labyrinth"  author="Jacob Scott"  indexname=duffy129  int=4  dex=3  pat=4  kno=4  spe=3  }
 {  file=enigma_v/raoul11_1  name="You need them"  author="Raoul Bourquin"  indexname=raoul11  par_time=166,Raoul  int=3  dex=4  pat=4  kno=4  spe=1  }
-{  file=enigma_v/raoul14_1  name="Oxydmoron"  author="Raoul Bourquin"  indexname=raoul14  par_time=73,Raoul  int=4  dex=4  pat=4  kno=4  spe=1  }
-{  file=enigma_v/duffy91_1  name="You Must Be Kidding"  author="Jacob Scott"  indexname=duffy91  int=2  dex=5  pat=4  kno=3  spe=3  }
+{  file=enigma_v/andreas27_1  name="Pipes and Plumbing"  author="Andreas Lochmann"  indexname=andreas27  easymode=1  int=3  dex=1  pat=3  kno=6  spe=3  }
+{  file=enigma_v/duffy91_1  name="You Must Be Kidding"  author="Jacob Scott"  indexname=duffy91  int=2  dex=5  pat=5  kno=3  spe=3  }
 {  file=enigma_v/duffy132_1  name="Prepare Your Defense"  author="Jacob Scott"  indexname=duffy132  int=5  dex=3  pat=4  kno=4  spe=3  }
 {  file=enigma_v/duffy95_1  name="Automaton"  author="Jacob Scott"  indexname=duffy95  par_time=117,Stephanie  int=5  dex=2  pat=3  kno=4  spe=1  }
 {  file=enigma_v/nat15_1  name="Caterpillar"  author="Nat Pryce"  indexname=nat15  par_time=726,Duffy  int=4  dex=4  pat=5  kno=6  spe=1  }
