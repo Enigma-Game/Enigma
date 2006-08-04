@@ -2856,6 +2856,7 @@ Signal ("it(20 1)", "it(1 1)")
 * st-lightpassenger::           Light Passenger
 * st-oneway::                   One-way Stones
 * st-oxyd::                     The Famous Oxyd Stones
+* st-polarswitch::              Light Switch in Polarizator Style
 * st-rubberband::               Rubberband Stone
 * st-scissors::                 Scissors Stone
 * st-shogun-<sml>::             Shogun Stones
@@ -3032,6 +3033,7 @@ st-plain_breaking
 st-plain_cracked
 st-plain_falling
 st-pmirror( transparent movable orientation )
+st-polarswitch
 st-pull
 st-puzzle-hollow( oxyd )
 st-puzzle-<nesw>( oxyd )
@@ -3366,7 +3368,7 @@ Both these messages flip the direction of the arrow.
 @end table
 
 
-@node st-oxyd, st-rubberband, st-oneway, Stones
+@node st-oxyd, st-polarswitch, st-oneway, Stones
 @subsection st-oxyd: Oxyd Stones
 
 Oxyd stones are characterized by two attributes: Their flavor and
@@ -3402,7 +3404,33 @@ Open the stone (useful for opening Oxyd stones using switches)
 @end table
 
 
-@node st-rubberband, st-scissors, st-oxyd, Stones
+@node st-polarswitch, st-rubberband, st-oxyd, Stones
+@subsection st-polarswitch: Light Switch
+
+When hit, this stone changes transparency for laser
+beams. It uses the same graphics as @code{st-glass1} and 
+@code{st-glass2}. By default, it is non-transparent.
+
+Attributes and messages are equivalent to those of switches:
+
+@strong{Attributes}
+
+@table @code
+@item on
+1 (transparent) or 0 (non-transparent)
+@end table
+
+@strong{Messages}
+
+@table @code
+@item signal
+1 (lighten) or 0 (darken)
+@item on, off, onoff
+on = lighten, off = darken, onoff = toggle
+@end table
+
+
+@node st-rubberband, st-scissors, st-polarswitch, Stones
 @subsection st-rubberband: Rubberband Stone
 
 If hit by a marble, this stone first removes existing connections with

@@ -51,6 +51,7 @@ namespace world
         st_window,
         st_lightpassenger,
         st_camouflage,
+        st_polarswitch,
 
         st_LAST,
         st_COUNT = st_LAST

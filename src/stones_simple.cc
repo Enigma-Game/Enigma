@@ -2122,6 +2122,24 @@ namespace
 }
 
 
+/* -------------------- Polarization Switch stone -------------------- */
+namespace
+{
+    class PolarSwitchStone : public OnOffStone {
+        CLONEOBJ(PolarSwitchStone);
+        DECL_TRAITS;
+    public:
+        PolarSwitchStone() : OnOffStone("st-polarswitch") {}
+    private:
+        void actor_hit(const StoneContact &sc) { set_on(!is_on()); }
+        void init_model() { set_model(is_on() ? "st-glass1" : "st-glass2"); }
+        bool is_transparent(Direction) const { return this->is_on(); }
+        void notify_onoff(bool) { lasers::MaybeRecalcLight(this->get_pos()); }
+    };
+    DEF_TRAITS(PolarSwitchStone, "st-polarswitch", st_polarswitch);
+}
+
+
 /* -------------------- Functions -------------------- */
 
 void world::DefineSimpleStone(const std::string &kind, 
@@ -2199,4 +2217,5 @@ void stones::Init_simple()
     Register(new YinYangStone3);
 
     Register(new LightPassengerStone);
+    Register(new PolarSwitchStone);
 }
