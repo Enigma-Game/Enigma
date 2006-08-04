@@ -16,10 +16,6 @@
       <el:score el:easy="-" el:difficult="-"/>
     </el:info>
     <el:luamain><![CDATA[
--- Frogger, a level for Enigma
--- Copyright (C) 2005 Alain Busser
--- Licensed under GPL v2.0 or above 
-
 -- VARS
 timetillnewcar_a = 1
 timetillnewcar_b = 1
