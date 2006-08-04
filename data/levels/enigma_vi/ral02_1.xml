@@ -169,7 +169,6 @@ create_world_from_map( tiles, {
 })
 
 oxyd_shuffle()
-
     ]]></el:luamain>
     <el:i18n>
       <el:string el:key="title">
@@ -179,6 +178,4 @@ oxyd_shuffle()
     </el:i18n>
   </el:protected>
 </el:level>
-
-
 

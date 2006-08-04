@@ -8,6 +8,7 @@ enigma.AddLevelPack("levels/index_enigma_iii.txt", "Enigma III")
 enigma.AddLevelPack("levels/index_enigma_iv.txt", "Enigma IV")
 enigma.AddLevelPack("levels/index_enigma_v.txt", "Enigma V")
 enigma.AddLevelPack("levels/index_enigma_vi.txt", "Enigma VI")
+enigma.AddLevelPack("levels/index_enigma_vii.txt", "Enigma VII")
 
 -- Oxyd* Level Clones
 enigma.AddLevelPack( "levels/index_esprit.txt", "Esprit")
