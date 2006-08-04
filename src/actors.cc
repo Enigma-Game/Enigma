@@ -91,7 +91,7 @@ void Actor::think(double /*dtime*/) {
     if (f) {
         Floor *fl = f->floor;
         Item *it = f->item;
-        bool item_covers_floor = (it && it->covers_floor());
+        bool item_covers_floor = (it && it->covers_floor(m_actorinfo.pos));
         if (!item_covers_floor && fl && this->is_on_floor())
             fl->actor_contact(this);
     }
@@ -819,7 +819,9 @@ void BasicBall::sink (double dtime)
     double sink_speed  = 0.0;
     double raise_speed = 0.0;   // at this velocity don't sink; above: raise
 
-    if (Floor *fl = GetFloor (get_gridpos()))
+    Item *it = GetItem(get_gridpos());
+    Floor *fl = GetFloor (get_gridpos());
+    if (!(it != NULL && it->covers_floor(get_pos())) && fl != NULL)
         fl->get_sink_speed (sink_speed, raise_speed);
     
     if (sink_speed == 0.0 || has_shield()) {

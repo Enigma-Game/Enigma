@@ -3249,17 +3249,14 @@ namespace
     public:
         HStrip() {
         }
-        bool actor_hit(Actor *a) {
-            double ycenter = get_pos().y + 0.5;
+        bool covers_floor(ecl::V2 pos) const {
+            if (GridPos(pos) != get_pos())
+                return false;
+            
             const double MAXDIST = 6.0/32;
-            if (fabs(a->get_pos()[1] - ycenter) > MAXDIST) {
-                if (Floor *fl = GetFloor(get_pos()))
-                    fl->actor_contact(a);
-            }
-            return false;
+            double ycenter = get_pos().y + 0.5;
+            return (fabs(pos[1] - ycenter) > MAXDIST) ? false : true;
         }
-
-        bool covers_floor() const { return true; }
     };
     DEF_TRAITSF(HStrip, "it-hstrip", it_hstrip, itf_static);
 
@@ -3269,17 +3266,14 @@ namespace
     public:
         VStrip() {
         }
-        bool actor_hit(Actor *a) {
-            double xcenter = get_pos().x + 0.5;
+        bool covers_floor(ecl::V2 pos) const {
+            if (GridPos(pos) != get_pos())
+                return false;
+            
             const double MAXDIST = 5.0/32;
-            if (fabs(a->get_pos()[0] - xcenter) > MAXDIST) {
-                if (Floor *fl = GetFloor(get_pos()))
-                    fl->actor_contact(a);
-            }
-            return false;
+            double xcenter = get_pos().x + 0.5;
+            return (fabs(pos[0] - xcenter) > MAXDIST) ? false : true;
         }
-
-        bool covers_floor() const { return true; }
     };
     DEF_TRAITSF(VStrip, "it-vstrip", it_vstrip, itf_static);
 

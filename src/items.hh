@@ -183,7 +183,7 @@ namespace world
           case the Floor::actor_contact() will not be called
           automatically; this must be done from `Item::actor_hit' (if
           at all). */
-        virtual bool covers_floor() const { return false; }
+        virtual bool covers_floor(ecl::V2 pos) const { return false; }
 
         /*! Return the force an item exerts on actor `a'.  This is
           used by sloped and hills for force fields that are local to
