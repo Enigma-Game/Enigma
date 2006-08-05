@@ -1215,7 +1215,7 @@ void world::KillRubberBands (Actor *a)
 {
     for (unsigned i=0; i<level->m_rubberbands.size(); ) {
         RubberBand &r = *level->m_rubberbands[i];
-        if (r.get_actor() == a) {
+        if (r.get_actor() == a || r.get_actor2() == a) {
             delete &r;
             level->m_rubberbands.erase(level->m_rubberbands.begin()+i);
             continue;       // don't increment i
