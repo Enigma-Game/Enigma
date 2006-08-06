@@ -79,6 +79,8 @@ namespace enigma { namespace lev {
                 int levelScoreVersion, int levelRelease, bool levelHasEasymode,
                 GameType levelCompatibilty, levelStatusType status =STATUS_RELEASED);
         
+        static Proxy *autoRegisterLevel(std::string indexPath, std::string filename);
+
         static std::string search(std::string text);
 
         void loadLevel();

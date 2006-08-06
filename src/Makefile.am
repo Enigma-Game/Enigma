@@ -158,6 +158,8 @@ enigma_SOURCES = 		\
 	lev/Index.hh		\
 	lev/RatingManager.cc	\
 	lev/RatingManager.hh	\
+	lev/PersistentIndex.cc	\
+	lev/PersistentIndex.hh	\
 	lev/Proxy.cc		\
 	lev/Proxy.hh		\
 	lev/ScoreManager.cc	\

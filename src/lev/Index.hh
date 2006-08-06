@@ -25,6 +25,8 @@
 #include <string>
 #include <vector>
 
+#define DEFAULT_INDEX_GROUP "Default"
+
 namespace enigma { namespace lev {    
     enum LevelAdvanceMode {
         ADVANCE_NEXT_MODE,       // honor NextLevelMode
@@ -56,7 +58,8 @@ namespace enigma { namespace lev {
         /**
          * Convention: method names *Level() can take int pos or Proxy as arg.
          */
-        Index();
+        Index(std::string anIndexName = "Unnamed Pack", 
+                std::string aGroupName = DEFAULT_INDEX_GROUP);
         ~Index();
         
         std::string getName();

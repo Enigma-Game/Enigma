@@ -145,6 +145,35 @@ namespace enigma { namespace lev {
         cache.insert(std::make_pair(cacheKey, theProxy));
         return theProxy;
     }
+    
+    Proxy * Proxy::autoRegisterLevel(std::string indexPath, std::string filename) {
+        Proxy *theProxy = new Proxy(pt_resource, indexPath + "/" + filename , "", "",
+            "unknown", 0, 0, false, GAMET_UNKNOWN, STATUS_UNKNOWN);
+        try {
+            theProxy->loadMetadata();
+        }
+        catch (XLevelLoading &err) {
+            Log << "autoRegisterLevel load error on '" << indexPath << "/"<< filename << "\n";
+        }
+        if (theProxy->getId().empty()) {
+            delete theProxy;
+            theProxy = NULL;
+        } else {
+            // eliminate duplicates and register
+            Log << "autoRegisterLevel register '" << indexPath << "/"<< filename << "\n";
+            std::string cacheKey = theProxy->getNormLevelPath() + theProxy->getId() + 
+                    ecl::strf("%d", theProxy->getReleaseVersion());
+            std::map<std::string, Proxy *>::iterator i = cache.find(cacheKey);
+            if (i != cache.end()) {
+                delete theProxy;
+                theProxy = i->second;
+            } else {
+                cache.insert(std::make_pair(cacheKey, theProxy));        
+            }
+        }
+        return theProxy;
+    }
+   
 
     struct LowerCaseString {
         std::string low;
@@ -193,8 +222,7 @@ namespace enigma { namespace lev {
     }
         
     Proxy::~Proxy() {
-        if (doc != NULL)
-            doc->release();
+        this->release();
     }
     
     void Proxy::release() {

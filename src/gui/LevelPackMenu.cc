@@ -44,7 +44,7 @@ namespace enigma { namespace gui {
             { 120, 25 },            // up to 5*15 = 75 levelpacks
         };
     
-        std::vector<lev::Index *> * group = lev::Index::getGroup("Default");
+        std::vector<lev::Index *> * group = lev::Index::getGroup(DEFAULT_INDEX_GROUP);
         unsigned packcount = group->size();
 
         for (unsigned i=0; i<packcount; ++i) {

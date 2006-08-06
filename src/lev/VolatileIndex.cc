@@ -19,8 +19,6 @@
 #include "lev/VolatileIndex.hh"
 #include "errors.hh"
 #include "main.hh"
-#include "options.hh"
-#include "oxyd.hh"
 
 
 
@@ -29,7 +27,7 @@ namespace enigma { namespace lev {
     int VolatileIndex::levelCount = 0;
     
     VolatileIndex::VolatileIndex(std::string anIndexName, std::string aGroupName,
-            const std::vector<string> levelpaths) {
+            const std::vector<string> levelpaths) : Index(anIndexName, aGroupName) {
         for (unsigned i=0; i<levelpaths.size(); i++) {
             levelCount++;
             Proxy * aProxy = Proxy::registerLevel(levelpaths[i], "#commandline",
@@ -43,15 +41,9 @@ namespace enigma { namespace lev {
                 Log << "Level load error on '" << levelpaths[i] << "\n";
             }
         }
-        indexName = anIndexName;
-        indexGroup = aGroupName;
     }
     
     VolatileIndex::~VolatileIndex() {}
-    
-    void VolatileIndex::appendProxy(Proxy * newLevel) {
-        proxies.push_back(newLevel);
-    }
     
     void VolatileIndex::clear() {
         proxies.clear();

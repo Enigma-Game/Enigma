@@ -45,7 +45,7 @@ namespace enigma { namespace lev {
             
         indices.insert(std::make_pair(anIndex->getName(), anIndex));
         
-        std::string groupName = "Default";  // used if no group is supplied
+        std::string groupName = DEFAULT_INDEX_GROUP;  // used if no group is supplied
         std::vector<Index *> * group;
         // check preferences for assigned group
         
@@ -106,7 +106,7 @@ namespace enigma { namespace lev {
             else {
                 std::vector<std::string> emptyList;
                 registerIndex(new lev::VolatileIndex("Empty Index",
-                        "Default", emptyList));
+                        DEFAULT_INDEX_GROUP, emptyList));
                 setCurrentIndex("Empty Index");
             }
                 
@@ -162,8 +162,9 @@ namespace enigma { namespace lev {
             return NULL;
     }
     
-    Index::Index() : currentPosition (0), screenFirstPosition (0),
-            indexName ("Unnamed Pack") {
+    Index::Index(std::string anIndexName, std::string aGroupName) : 
+            indexName (anIndexName), indexGroup (aGroupName),
+            currentPosition (0), screenFirstPosition (0) {
     }
     
     Index::~Index() {}
@@ -277,7 +278,7 @@ namespace enigma { namespace lev {
     }
 
     void Index::appendProxy(Proxy * newLevel) {
-//        proxies.push_back(aProxy);
+        proxies.push_back(newLevel);
     }
 
     void Index::clear() {

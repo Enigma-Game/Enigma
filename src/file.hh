@@ -44,6 +44,21 @@ namespace enigma
         {}
     };
 
+    struct DirEntry {
+        std::string name;
+        bool is_dir;
+    };
+
+    class DirIter {
+    public:
+        static DirIter * instance(const std::string &path);
+        virtual ~DirIter ();
+        virtual bool open(const std::string &path) = 0;
+        virtual bool get_next (DirEntry &entry) = 0;
+    protected:
+        DirIter();
+    };
+
     /* -------------------- FileHandles --------------------*/
 // 
 //     class FileHandle {

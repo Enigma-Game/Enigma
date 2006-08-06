@@ -38,33 +38,32 @@ using namespace enigma;
 using namespace ecl;
 using namespace std;
 
+DirIter::DirIter() {}
+DirIter::~DirIter() {}
 
 namespace
 {
-    struct DirEntry {
-        std::string name;
-        bool is_dir;
-    };
 
 /* -------------------- DirIter (POSIX) -------------------- */
 
 #ifdef HAVE_DIRENT_H
 
-    class DirIter {
+    class DirIterOS : DirIter {
     public:
-        DirIter (const std::string &path) : m_dir (NULL), m_entry (NULL) {
+        DirIterOS (const std::string &path) : m_dir (NULL), m_entry (NULL) {
             open (path);
         }
-        ~DirIter () {
+        virtual ~DirIterOS () {
             if (m_dir != NULL)
                 closedir (m_dir);
         }
 
-        bool open (const std::string &path) {
+        virtual bool open (const std::string &path) {
             m_dir = opendir (path.c_str());
             return m_dir != 0;
         }
-        bool get_next (DirEntry &entry) {
+        virtual bool get_next (DirEntry &entry) {
+            if (m_dir == 0) return false;
             m_entry = readdir(m_dir);
             if (m_entry != NULL) {
                 entry.name = m_entry->d_name;
@@ -85,14 +84,14 @@ namespace
 
 #include <windows.h>
 
-    class DirIter {
+    class DirIterOS : DirIter {
     public:
-        DirIter (const std::string &path) 
+        DirIterOS (const std::string &path) 
         : m_handle (INVALID_HANDLE_VALUE)
         {
             open (path);
         }
-        ~DirIter () {
+        ~DirIterOS () {
             close();
         }
 
@@ -128,6 +127,11 @@ namespace
 #endif
 
 }
+
+DirIter * DirIter::instance(const std::string &path) {  
+    return reinterpret_cast<DirIter *>(new DirIterOS(path));
+}
+
 
 /* -------------------- FileHandle_Dir -------------------- */
 // 
@@ -294,7 +298,7 @@ GameFS::findSubfolderFiles(const string &folder, const string &filename) const
         case FS_DIRECTORY: {
             string complete_name = e.location + ecl::PathSeparator + folder;
             if (ecl::FolderExists(complete_name)) {
-                DirIter iter (complete_name);
+                DirIterOS iter (complete_name);
                 DirEntry entry;
                 while (iter.get_next (entry)) {
                     if (entry.name != "." && entry.name != "..") {

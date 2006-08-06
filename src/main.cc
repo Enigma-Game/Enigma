@@ -37,6 +37,7 @@
 #include "XMLtoLocal.hh"
 #include "lev/RatingManager.hh"
 #include "lev/VolatileIndex.hh"
+#include "lev/PersistentIndex.hh"
 
 #include "enet/enet.h"
 
@@ -281,6 +282,7 @@ void Application::init(int argc, char **argv)
     init_i18n();
     
     // ----- Load level packs
+    lev::PersistentIndex::registerPersistentIndices();
 //    lua_State *L = lua::GlobalState();
     lua::Dofile(L, "levels/index.lua");
     lua::DoSubfolderfile(L, "levels", "index.lua");
@@ -288,12 +290,12 @@ void Application::init(int argc, char **argv)
 //        levels::AddHistoryLevelPack ();
     if (!ap.levelnames.empty()) {
         lev::Index::registerIndex(new lev::VolatileIndex("Quick Test Levels",
-                "Default", ap.levelnames));
+                DEFAULT_INDEX_GROUP, ap.levelnames));
         lev::Index::setCurrentIndex("Quick Test Levels");
     }
     std::vector<std::string> emptyList;
     lev::Index::registerIndex(new lev::VolatileIndex("Search Result",
-                "Default", emptyList));
+                DEFAULT_INDEX_GROUP, emptyList));
     
 
     // ----- Initialize object repositories
@@ -538,6 +540,13 @@ void Application::initUserDatapaths() {
         resourceFS->prepend_dir(userImagePath);
     Log << "resourceFS = \"" << resourceFS->getDataPath() << "\"\n"; 
 
+    // create levels/auto, levels/cross, levels/legacy_dat on userPath
+    if (!ecl::FolderExists(userPath + "/levels/auto"))
+        ecl::FolderCreate (userPath + "/levels/auto");
+    if (!ecl::FolderExists(userPath + "/levels/cross"))
+        ecl::FolderCreate (userPath + "/levels/cross");
+    if (!ecl::FolderExists(userPath + "/levels/legacy_dat"))
+        ecl::FolderCreate (userPath + "/levels/legacy_dat");   
 }
 
 void Application::init_i18n()

@@ -16,8 +16,8 @@
  * 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.
  */
  
-#ifndef LEV_VOLATILEINDEX_HH_INCLUDED
-#define LEV_VOLATILEINDEX_HH_INCLUDED
+#ifndef LEV_PERSISTENTINDEX_HH_INCLUDED
+#define LEV_PERSISTENTINDEX_HH_INCLUDED
 
 #include "lev/Index.hh"
 
@@ -25,20 +25,25 @@
 #include <vector>
 
 namespace enigma { namespace lev {    
+    
+    
     /**
      * 
      */
-    class VolatileIndex : public Index  {
+    class PersistentIndex : public Index  {
     public:
+        static void registerPersistentIndices();
+        
         /**
          * Convention: method names *Level() can take int pos or Proxy as arg.
          */
-        VolatileIndex(std::string anIndexName, std::string aGroupName,
-                const std::vector<string> levelpaths);
-        ~VolatileIndex();
+        PersistentIndex(std::string anIndexName, std::string aGroupName);
+        ~PersistentIndex();
         virtual void clear();
+    protected:
+        std::string indexDirPath;
+        std::string indexFilename;
     private:
-        static int levelCount;  // used for volatile level ids - necessary for lua levels
     };
 
 }} // namespace enigma::lev
