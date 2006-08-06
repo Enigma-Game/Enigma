@@ -76,8 +76,8 @@ namespace world
 
         virtual const char *get_kind() const;
 
-        virtual void on_message (const Message &m);
-        virtual void message(const string& msg, const Value &val);
+        virtual Value on_message (const Message &m);
+        virtual Value message(const string& msg, const Value &val);
         virtual void set_attrib(const string& key, const Value &val);
         virtual const Value* get_attrib(const string& key) const;
 

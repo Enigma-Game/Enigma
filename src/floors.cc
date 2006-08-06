@@ -47,7 +47,8 @@ void Floor::dispose() {
     delete this;
 }
 
-void Floor::message(const string& /*msg*/, const Value &/*val*/) {
+Value Floor::message(const string& /*msg*/, const Value &/*val*/) {
+    return Value();
 }
 
 ecl::V2 Floor::process_mouseforce (Actor *a, ecl::V2 force) {
@@ -351,6 +352,7 @@ namespace
         CLONEOBJ(Bridge);
     public:
         Bridge(bool open=true);
+        virtual Value message(const string &m, const Value &);
     private:
         enum State {
             OPEN, CLOSED, OPENING, CLOSING, // normal states
@@ -366,7 +368,6 @@ namespace
 
 //         void actor_enter(Actor *);
         void actor_contact (Actor* a) {if (state!=CLOSED) SendMessage(a, "fall");}
-        void message(const string &m, const Value &);
         void init_model();
         void stone_change(Stone *st);
 
@@ -394,7 +395,7 @@ void Bridge::stone_change(Stone *st) {
     }
 }
 
-void Bridge::message(const string &m, const Value &)
+Value Bridge::message(const string &m, const Value &)
 {
     if (m == "open" && (state==CLOSED || state==CLOSING))
         change_state(OPENING);
@@ -428,6 +429,7 @@ void Bridge::message(const string &m, const Value &)
             change_state(OPENING);
             break;
         }
+    return Value();
 }
 
 void Bridge::init_model()

@@ -97,7 +97,7 @@ namespace world
 
         /* ---------- Object interface ---------- */
         Actor *clone() = 0;
-        void   message (const string &m, const Value &);
+        virtual Value   message (const string &m, const Value &);
         void   set_attrib (const string& key, const Value &val);
 
         /* ---------- Actor interface ---------- */

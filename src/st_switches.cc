@@ -420,10 +420,11 @@ namespace
             turn();
         }
 
-        void on_message (const Message &m)
+        virtual Value on_message (const Message &m)
         {
             if (m.message == "signal" || m.message == "trigger")
                 turn();
+            return Value();
         }
 
         const char *collision_sound() { return "metal"; }

@@ -193,7 +193,7 @@ namespace
             }
         }
 
-        void message(const string &m, const Value &val) {
+        virtual Value message(const string &m, const Value &val) {
             if (m=="onoff")
                 set_on(!is_on());
             else if (m=="signal")
@@ -202,6 +202,7 @@ namespace
                 set_on(true);
             else if (m=="off")
                 set_on(false);
+            return Value();
         }
 
         // OnOffItem interface
@@ -269,11 +270,12 @@ namespace
         CLONEOBJ(Squashed);
         DECL_TRAITS;
         
-        void on_message (const Message &m) {
+        virtual Value on_message (const Message &m) {
             if (enigma_server::GameCompatibility == GAMET_ENIGMA) {
                 if (m.message == "brush")
                     KillItem(this->get_pos());
             }
+            return Value();
         }
 
         
@@ -441,7 +443,7 @@ namespace
         CLONEOBJ(Key);
         DECL_TRAITS_ARRAY(3, subtype);
 
-        void message (const string &msg, const Value &) {
+        virtual Value message (const string &msg, const Value &) {
             if (msg == "init") {
                 // Oxyd uses signals from keys to key switches to
                 // determine which keys activate which key hole.
@@ -453,6 +455,7 @@ namespace
                                        int_attrib("keycode"));
                 }
             }
+            return Value();
         }
 
     public:
@@ -590,6 +593,9 @@ make the movement difficult.
 namespace
 {
     class HillHollow : public Item {
+    public:
+        // Object interface.
+        virtual Value message(const string &m, const Value &);
     protected:
         enum Type { HILL, HOLLOW, TINYHILL, TINYHOLLOW };
 
@@ -611,8 +617,6 @@ namespace
         void add_force(Actor *a, V2 &f);
         void on_stonehit(Stone *st);
 
-        // Object interface.
-        void message(const string &m, const Value &);
 
         // Variables.
         static double m_radius[4], m_forcefac[4];
@@ -706,7 +710,7 @@ void HillHollow::shovel() {
     }
 }
 
-void HillHollow::message(const string &m, const Value &val)
+Value HillHollow::message(const string &m, const Value &val)
 {
     if (m=="trigger") {
         Type flippedkind[] = {HOLLOW,HILL, TINYHOLLOW,TINYHILL};
@@ -725,6 +729,7 @@ void HillHollow::message(const string &m, const Value &val)
         shovel();
     else
         Item::message (m, val);
+    return Value();
 }
 
 V2 HillHollow::vec_to_center (V2 v)
@@ -1047,7 +1052,7 @@ namespace
             }
             return ITEM_KILL;	       // remove from inventory
         }
-        void message(const string &msg, const Value &/*val*/) {
+        virtual Value message(const string &msg, const Value &/*val*/) {
             bool explode = false;
 
             if (msg == "ignite") {
@@ -1059,6 +1064,7 @@ namespace
 
             if (explode)
                 replace (it_explosion1);
+            return Value();
         }
     public:
         Document() {
@@ -1095,13 +1101,14 @@ namespace
             SetItem(p, it_explosion2);
         }
 
-        void animcb() { explode(); }
-        void message(const string &msg, const Value &/*val*/) {
+        virtual Value message(const string &msg, const Value &/*val*/) {
             if (msg == "ignite" || msg == "expl" || msg == "bombstone")
                 change_state(BURNING);
             else if (msg == "explode") // currently unused in c++ code
                 explode();
+            return Value();
         }
+        void animcb() { explode(); }
         void on_laserhit(Direction) {
             change_state(BURNING);
         }
@@ -1131,11 +1138,12 @@ namespace
         {}
 
     protected:
-        virtual void message(const string &msg, const Value &) {
+        virtual Value message(const string &msg, const Value &) {
             if (msg == "ignite"  || msg == "expl")
                 burn();
             else if (msg == "explode" )
                 explode();
+            return Value();
         }
 
     private:
@@ -1209,11 +1217,12 @@ namespace
             SendExplosionEffect(p, EXPLOSION_BLACKBOMB);
             replace (it_explosion3);
         }
-        void message(const string &msg, const Value &val) {
+        virtual Value message(const string &msg, const Value &val) {
             if (msg == "bombstone")
                 kill();
             else
                 BombBase::message(msg, val);
+            return Value();
         }
     };
     DEF_TRAITSF(BlackBomb, "it-blackbomb", it_blackbomb, 
@@ -1282,13 +1291,14 @@ namespace
         void actor_leave(Actor *) { m_actorcount -= 1; update_state(); }
         void stone_change(Stone *) { update_state(); }
 
-        void on_message (const Message &m) {
+        virtual Value on_message (const Message &m) {
             if (m.message == "signal") {
                 PerformAction (this, to_double (m.value) != 0.0);
             } 
             else if (m.message == "init") {
                 update_state();
             }
+            return Value();
         }
     };
 
@@ -1350,10 +1360,11 @@ namespace
         void on_stonehit (Stone *) {start_growing();}
         void on_laserhit (Direction) {start_growing();}
 
-        void message(const string &msg, const Value &) {
+        virtual Value message(const string &msg, const Value &) {
             if (msg == "grow" || msg == "signal") {
                 start_growing();
             }
+            return Value();
         }
 
         void start_growing() {
@@ -1443,7 +1454,7 @@ namespace
         enum SubType { SMALL, MEDIUM, LARGE };
         ShogunDot(SubType size);
     
-        void message(const string &str, const Value &v);
+        virtual Value message(const string &str, const Value &v);
         void stone_change(Stone *st);
 
         // Variables.
@@ -1471,7 +1482,7 @@ void ShogunDot::stone_change(Stone *st) {
     }
 }
 
-void ShogunDot::message(const string &str, const Value &/*v*/) {
+Value ShogunDot::message(const string &str, const Value &/*v*/) {
     if (str == "noshogun") {
         if (activated) {
             activated = false;
@@ -1490,6 +1501,7 @@ void ShogunDot::message(const string &str, const Value &/*v*/) {
             world::PerformAction(this, activated);
         }
     }
+    return Value();
 }
 
 
@@ -1745,7 +1757,7 @@ namespace
         bool actor_hit(Actor*);
         void init_model();
         void animcb();
-        void message(const string &msg, const Value &val);
+        virtual Value message(const string &msg, const Value &val);
 
         // TimeHandler interface
         void alarm();
@@ -1828,7 +1840,7 @@ bool Vortex::actor_hit (Actor *actor)
     return false;
 }
 
-void Vortex::message(const string &msg, const Value &val) 
+Value Vortex::message(const string &msg, const Value &val) 
 {
     if (msg == "signal") {
         int ival = to_int(val);
@@ -1844,6 +1856,7 @@ void Vortex::message(const string &msg, const Value &val)
     else if (msg == "close" || (msg == "arrival" && close_after_warp)) {
         close();
     }
+    return Value();
 }
 
 void Vortex::init_model() {
@@ -2080,9 +2093,10 @@ namespace
         DECL_TRAITS_ARRAY(10, subtype);
 
         Pipe(int stype) : subtype(stype) {}
-        void message(const string &msg, const Value &) {
+        virtual Value message(const string &msg, const Value &) {
             if (msg == "expl")
                 replace (it_explosion1);
+            return Value();
         }
     public:
         static void setup() {
@@ -2250,7 +2264,7 @@ namespace
                 SendMessage(a, "fall");
             return false;
         }
-        void message(const string &msg, const Value &/*val*/) {
+        virtual Value message(const string &msg, const Value &/*val*/) {
             if (msg == "crack" && state==IDLE && !is_fixed()) {
                 int type = get_type();
                 if ((type == 0 && do_crack()) || (type > 0)) {
@@ -2259,6 +2273,7 @@ namespace
                     init_model();
                 }
             }
+            return Value();
         }
 
         bool do_crack() {
@@ -2327,7 +2342,7 @@ namespace
 	}
 	State state;
 
-	void message (const string &msg, const Value &);
+	virtual Value message (const string &msg, const Value &);
  	void animcb();
 	bool actor_hit (Actor *a);
 	void ignite (GridPos p);
@@ -2342,7 +2357,7 @@ namespace
     };
 }
 
-void Burnable::message(const string &msg, const Value &)
+Value Burnable::message(const string &msg, const Value &)
 {
     if ((msg == "trigger" || msg == "ignite" || msg == "expl") && state==IDLE) {
         state = IGNITE; // start burning
@@ -2353,6 +2368,7 @@ void Burnable::message(const string &msg, const Value &)
     } else if (msg == "brush" && (state == ASH || state == FIREPROOF)) {
         kill();                 // The brush cleans the floor
     }
+    return Value();
 }
 
 void Burnable::animcb() {
@@ -2597,7 +2613,7 @@ namespace
         void change_state(State new_state);
         void on_creation (GridPos p);
         void on_removal (GridPos p);
-        void message(const string &msg, const Value &val);
+        virtual Value message(const string &msg, const Value &val);
         void stone_change(Stone *st);
         void grow();
         void alarm();
@@ -2656,7 +2672,7 @@ void Blocker::alarm()
 }
 
 
-void Blocker::message(const string &msg, const Value &val) 
+Value Blocker::message(const string &msg, const Value &val) 
 {
     if (msg == "trigger" || msg == "openclose") {
         switch (state) {
@@ -2715,6 +2731,7 @@ void Blocker::message(const string &msg, const Value &val)
             }
         }
     }
+    return Value();
 }
 
 void Blocker::stone_change(Stone *st)
@@ -2792,7 +2809,7 @@ namespace
         CLONEOBJ(OxydBridge);
         DECL_TRAITS;
 
-        void message(const string& msg, const Value &val) {
+        virtual Value message(const string& msg, const Value &val) {
             if (msg == "signal") {
                 int ival = to_int (val);
                 Floor *floor = GetFloor (get_pos());
@@ -2801,6 +2818,7 @@ namespace
                 else
                     SendMessage (floor, "open");
             }
+            return Value();
         }
     public:
         OxydBridge() {}
@@ -2868,13 +2886,14 @@ namespace
             ASSERT(type >= 0 && type <= 1, XLevelRuntime, "SignalFilterItem: type unknown");
         }
 
-        void message(const string& m, const Value& val) {
+        virtual Value message(const string& m, const Value& val) {
             if (m == "signal") {
                 int value = to_int(val);
 //                 warning("received signal with value %i", value);
                 if (value)
                     PerformAction(this, type != 0);
             }
+            return Value();
         }
 
         // type of signal filter
@@ -2916,7 +2935,7 @@ namespace
         CLONEOBJ(EasyKillStone);
         DECL_TRAITS;
 
-        void on_message (const Message &);
+        virtual Value on_message (const Message &);
     public:
         EasyKillStone() {}
     };
@@ -2924,7 +2943,7 @@ namespace
                 it_easykillstone, itf_invisible);
 }
 
-void EasyKillStone::on_message (const Message &m ) 
+Value EasyKillStone::on_message (const Message &m ) 
 {
     if (m.message == "init") {
         // does not work in on_creation() because items are created
@@ -2943,6 +2962,7 @@ void EasyKillStone::on_message (const Message &m )
         }
         kill();
     }
+    return Value();
 }
 
 
@@ -2954,7 +2974,7 @@ namespace
         CLONEOBJ(EasyKeepStone);
         DECL_TRAITS;
 
-        void message(const string& m, const Value& ) {
+        virtual Value message(const string& m, const Value& ) {
             if (m == "init") {
                 // does not work in on_creation() because items are created
                 // before stones are created.
@@ -2962,6 +2982,7 @@ namespace
                     KillStone(get_pos());
                 kill();
             }
+            return Value();
         }
     public:
         EasyKeepStone() {}
@@ -2976,12 +2997,13 @@ namespace
         CLONEOBJ (OnePKillStone);
         DECL_TRAITS;
 
-        void on_message (const Message &m) {
+        virtual Value on_message (const Message &m) {
             if (m.message == "init") {
                 if (server::SingleComputerGame)
                     KillStone (get_pos());
                 kill();
             }
+            return Value();
         }
     public:
         OnePKillStone () {}
@@ -2992,12 +3014,13 @@ namespace
         CLONEOBJ (TwoPKillStone);
         DECL_TRAITS;
 
-        void on_message (const Message &m) {
+        virtual Value on_message (const Message &m) {
             if (m.message == "init") {
                 if (!server::SingleComputerGame)
                     KillStone (get_pos());
                 kill();
             }
+            return Value();
         }
     public:
         TwoPKillStone () {}
@@ -3109,7 +3132,7 @@ namespace
             PerformAction (this, true);
         }
 
-        void on_message (const Message &m) {
+        virtual Value on_message (const Message &m) {
             if (server::GameCompatibility == enigma::GAMET_PEROXYD) {
                 // Crosses can be used to invert signals in Per.Oxyd
                 if (m.message == "signal") {
@@ -3119,6 +3142,7 @@ namespace
                 if (m.message == "brush")
                     KillItem(this->get_pos());
             }
+            return Value();
         }
 
     public:
@@ -3336,8 +3360,9 @@ namespace
         CLONEOBJ(Oxyd5fItem);
         DECL_TRAITS;
 
-        void on_message (const world::Message &) {
+        virtual Value on_message (const world::Message &) {
             PerformAction (this, true);
+            return Value();
         }
     public:
         Oxyd5fItem()

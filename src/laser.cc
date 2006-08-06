@@ -463,7 +463,7 @@ namespace
         void init_model();
     private:
 	// Object interface.
-        void message(const string &m, const Value &);
+        virtual Value message(const string &m, const Value &);
 
         // LaserEmitter interface
         DirectionBits emission_directions() const {
@@ -504,7 +504,7 @@ void MirrorStone::init_model() {
     set_model(mname);
 }
 
-void MirrorStone::message(const string &m, const Value &val) {
+Value MirrorStone::message(const string &m, const Value &val) {
     if (m == "trigger" || m=="turn") {
         rotate_right();
     }
@@ -533,6 +533,7 @@ void MirrorStone::message(const string &m, const Value &val) {
         init_model();
         MaybeRecalcLight(get_pos());
     }
+    return Value();
 }
 
 void MirrorStone::actor_hit(const world::StoneContact &sc)

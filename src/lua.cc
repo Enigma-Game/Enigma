@@ -333,11 +333,12 @@ en_send_message(lua_State *L)
 {
     Object     *obj = to_object(L, 1);
     const char *msg = lua_tostring(L, 2);
+    Value v;
     if (!msg)
         luaL_error(L,"Illegal message");
     else if (obj) {
         try {
-            world::SendMessage (obj, msg, to_value(L, 3));
+            v = world::SendMessage (obj, msg, to_value(L, 3));
         }
         catch (const XLevelRuntime &e) {
             luaL_error (L, e.what());
@@ -346,6 +347,7 @@ en_send_message(lua_State *L)
             luaL_error (L, "uncaught exception");
         }
     }
+    push_value(L, v);
     return 0;
 }
 

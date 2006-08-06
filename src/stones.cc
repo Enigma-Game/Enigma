@@ -537,10 +537,11 @@ namespace
 
         const char *collision_sound() {return "stone";}
 
-        void message (const string &msg, const Value &) {
+        virtual Value message (const string &msg, const Value &) {
             if (msg == "trigger" || msg == "signal") {
                 ReplaceStone(get_pos(), MakeStone("st-plain_hole"));
             }
+            return Value();
         }
     public:
         PlainStone() : Stone("st-plain") {}
@@ -549,10 +550,11 @@ namespace
     class PlainStone_Hollow : public Stone {
         CLONEOBJ(PlainStone_Hollow);
 
-        void message (const string &msg, const Value &) {
+        virtual Value message (const string &msg, const Value &) {
             if (msg == "trigger" || msg == "signal") {
                 ReplaceStone(get_pos(), MakeStone("st-plain"));
             }
+            return Value();
         }
 
         StoneResponse collision_response(const StoneContact &) 
@@ -591,9 +593,10 @@ namespace
         void on_laserhit (Direction) {
             break_me();
         }
-        void message (const string &msg, const Value &) {
+        virtual Value message (const string &msg, const Value &) {
             if (msg =="ignite" || msg == "expl" || msg == "bombstone")
                 break_me();
+            return Value();
         }
         void actor_hit (const StoneContact &sc) {
             if (player::WieldedItemIs (sc.actor, "it-hammer")) {
@@ -626,9 +629,10 @@ namespace
             }
         }
 
-        void message (const string &msg, const Value &) {
+        virtual Value message (const string &msg, const Value &) {
             if (msg =="ignite" || msg == "expl" || msg == "bombstone")
                 break_me();
+            return Value();
         }
         const char *collision_sound() {return "metal";}
     public:
@@ -659,9 +663,10 @@ namespace
             sound_event ("stonedestroy");
             ReplaceStone(get_pos(), MakeStone ("st-plain_breaking"));
         }
-        void message (const string &msg, const Value &) {
+        virtual Value message (const string &msg, const Value &) {
             if (msg =="ignite" || msg == "expl" || msg == "bombstone")
                 break_me();
+            return Value();
         }
         void on_move() {
             GridPos p = get_pos();
@@ -691,7 +696,7 @@ namespace
     class BlackBallsStone : public Stone {
         CLONEOBJ(BlackBallsStone);
 
-        void on_message (const Message &m)
+        virtual Value on_message (const Message &m)
         {
             GridPos p = get_pos();
             Actor *a = world::CurrentCollisionActor;
@@ -709,6 +714,7 @@ namespace
                     SendMessage (GetStone (move (p, SOUTH)), "signal", 1.0);
                 }
             }
+            return Value();
         }
     public:
         BlackBallsStone() : Stone ("st-blackballs") {
@@ -718,7 +724,7 @@ namespace
     class WhiteBallsStone : public Stone {
         CLONEOBJ(WhiteBallsStone);
 
-        void on_message (const Message &m)
+        virtual Value on_message (const Message &m)
         {
             GridPos p = get_pos();
             Actor *a = world::CurrentCollisionActor;
@@ -736,6 +742,7 @@ namespace
                     SendMessage (GetStone (move (p, SOUTH)), "signal", 1.0);
                 }
             }
+            return Value();
         }
 
     public:

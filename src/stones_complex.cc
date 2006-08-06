@@ -335,7 +335,7 @@ namespace
         OneWayBase(const char *kind, Direction dir);
 
         void init_model();
-        void message(const string& msg, const Value &val);
+        virtual Value message(const string& msg, const Value &val);
 
         void actor_hit (const StoneContact&);
         StoneResponse collision_response(const StoneContact &sc);
@@ -402,7 +402,7 @@ void OneWayBase::init_model()
     set_model (mname);
 }
 
-void OneWayBase::message(const string& msg, const Value &val) {
+Value OneWayBase::message(const string& msg, const Value &val) {
     if (msg == "direction" && val.get_type() == Value::DOUBLE) {
         set_orientation(to_direction(val));
         init_model();
@@ -412,6 +412,7 @@ void OneWayBase::message(const string& msg, const Value &val) {
         set_orientation(reverse(dir));
         init_model();
     }
+    return Value();
 }
 
 void OneWayBase::actor_hit(const StoneContact &sc) {
@@ -570,11 +571,12 @@ namespace
             move_stone(impulse.dir);
         }
 
-        void message(const string& msg, const Value &val) {
+        virtual Value message(const string& msg, const Value &val) {
             if (msg == "direction" && state != FALLING) {
                 set_dir (to_direction(val));
                 init_model();
             }
+            return Value();
         }
     };
 }
@@ -657,7 +659,7 @@ namespace
             }
         }
 
-        void message(const string &msg, const Value &val) {
+        virtual Value message(const string &msg, const Value &val) {
             if (msg == "trigger" || msg == "openclose") {
                 if (state == SHRINKING) {
                     change_state(GROWING);
@@ -686,6 +688,7 @@ namespace
                 if (state == SHRINKING)
                     change_state(GROWING);
             }
+            return Value();
         }
 
         void actor_contact(Actor *a) {
@@ -740,13 +743,14 @@ namespace
             }
         }
 
-        void message(const string &msg, const Value &) {
+        virtual Value message(const string &msg, const Value &) {
             if (msg == "trigger") {
                 if (state == INACTIVE) {
                     state = ACTIVE;
                     init_model();
                 }
             }
+            return Value();
         }
 
         void spread( GridPos p) {
@@ -961,7 +965,7 @@ namespace
 
         /* ---------- Stone interface ---------- */
 
-        void message(const string& msg, const Value &val);
+        virtual Value message(const string& msg, const Value &val);
 
         void on_creation (GridPos p);
         void on_removal (GridPos p);
@@ -1281,7 +1285,7 @@ void PuzzleStone::alarm() {
     explode();
 }
 
-void PuzzleStone::message(const string& msg, const Value &val) {
+Value PuzzleStone::message(const string& msg, const Value &val) {
     if (msg == "scramble") {
         // oxyd levels contain explicit information on how to
         // scramble puzzle stones. According to that information
@@ -1308,6 +1312,7 @@ void PuzzleStone::message(const string& msg, const Value &val) {
             warning("useless scramble (cluster size=%i)", size);
         }
     }
+    return Value();
 }
 
 void PuzzleStone::on_impulse(const Impulse& impulse) 
@@ -1533,7 +1538,7 @@ namespace
 
         // Private methods
         void change_state(State newstate) ;
-        void message(const string &m, const Value &);
+        virtual Value message(const string &m, const Value &);
 
         StoneResponse collision_response(const StoneContact &sc);
 
@@ -1548,7 +1553,7 @@ namespace
     };
 }
 
-void DoorBase::message(const string &m, const Value &val) {
+Value DoorBase::message(const string &m, const Value &val) {
     State newstate = state;
     int ival = to_int (val);
 
@@ -1565,6 +1570,7 @@ void DoorBase::message(const string &m, const Value &val) {
         change_state(OPENING);
     else if (newstate==CLOSING && (state==OPEN || state==OPENING))
         change_state(CLOSING);
+    return Value();
 }
 
 void DoorBase::init_model() {
@@ -1730,10 +1736,11 @@ namespace
         Holes get_holes() const;
         void notify_item();
 
-        void message(const string &m, const Value &) {
+        virtual Value message(const string &m, const Value &) {
             if (m == "init") { // request from ShogunDot (if set _after_ ShogunStone)
                 notify_item();
             }
+            return Value();
         }
 
         void add_hole(Holes h) {
@@ -1873,7 +1880,7 @@ namespace
 
         virtual void notify_state(State st) = 0;
 
-        void message(const string &m, const Value &value) {
+        virtual Value message(const string &m, const Value &value) {
             if (m=="trigger") {
                 incoming = (value.get_type() == Value::DOUBLE)
                     ? Direction( static_cast<int> (value.get_double()+0.1))
@@ -1885,6 +1892,7 @@ namespace
                 incoming = NODIR;
                 change_state (PULSING);
             }
+            return Value();
         }
 
         void animcb() {
@@ -2145,7 +2153,7 @@ namespace
         void on_creation (GridPos p);
         void on_removal (GridPos p);
         const char *collision_sound() { return "stone"; }
-        void message(const string &m, const Value &);
+        virtual Value message(const string &m, const Value &);
 
 
         // PhotoStone interface
@@ -2183,7 +2191,7 @@ OxydStone::OxydStone()
     set_attrib("color", "0");
 }
 
-void OxydStone::message(const string &m, const Value &val) 
+Value OxydStone::message(const string &m, const Value &val) 
 {
     if (m=="closeall") {
         for (unsigned i=0; i<instances.size(); ++i)
@@ -2207,6 +2215,7 @@ void OxydStone::message(const string &m, const Value &val)
             // TODO
         }
     }
+    return Value();
 }
 
 void OxydStone::shuffle_colors() 
@@ -2385,7 +2394,7 @@ namespace
 
     private:
         // Object interface
-        virtual void on_message (const Message &m);
+        virtual Value on_message (const Message &m);
         virtual void animcb();
 
         // Private methods
@@ -2537,7 +2546,7 @@ void Turnstile_Pivot_Base::animcb()
     active = false;
 }
 
-void Turnstile_Pivot_Base::on_message (const Message &m)
+Value Turnstile_Pivot_Base::on_message (const Message &m)
 {
     if (m.message == "signal") {
         int val = to_int (m.value);
@@ -2546,6 +2555,7 @@ void Turnstile_Pivot_Base::on_message (const Message &m)
         else
             rotate(true, 0);
     }
+    return Value();
 }
 
 

@@ -115,7 +115,7 @@ namespace
             return traits->hollow || traits->glass;
         }
 
-        void on_message (const Message &m)
+        virtual Value on_message (const Message &m)
         {
             if (traits->hollow && m.message == "glasses") {
                 if (to_int(m.value)) {
@@ -131,6 +131,7 @@ namespace
                     }
                 }
             }
+            return Value();
         }
 
         const SimpleStoneTraits *traits; // owned by simple_stone_traits
@@ -223,7 +224,7 @@ namespace
         CLONEOBJ(EasyModeStone);
         DECL_TRAITS;
 
-        void message(const std::string &msg, const Value&) {
+        virtual Value message(const std::string &msg, const Value&) {
             if (msg == "init") {
                 if (server::GetDifficulty() == DIFFICULTY_EASY) {
                     SetFloor (get_pos(), MakeFloor ("fl-normal"));
@@ -232,6 +233,7 @@ namespace
                 }
                 KillStone (get_pos());
             }
+            return Value();
         }
     public:
         EasyModeStone() 
@@ -550,9 +552,10 @@ namespace
         void animcb() {
             KillStone(get_pos());
         }
-        void message(const string &msg, const Value &) {
+        virtual Value message(const string &msg, const Value &) {
             if (msg =="ignite" || msg == "expl" || msg == "bombstone")
                 break_me();
+            return Value();
         }
 
         virtual string get_break_anim() const  {
@@ -637,9 +640,10 @@ namespace
         bool may_be_broken_by(Actor *a) const {
             return player::WieldedItemIs (a, "it-hammer");
         }
-        virtual void message(const string &msg, const Value &) {
+        virtual Value message(const string &msg, const Value &) {
             if (msg == "trigger")
                 break_me();
+            return Value();
         }
     };
 }
@@ -959,9 +963,10 @@ namespace
             }
         }
 
-        void message (const string &msg, const Value &) {
+        virtual Value message (const string &msg, const Value &) {
             if (msg == "fall")
                 fall();
+            return Value();
         }
 
         // in oxyd1 only fall when moving
@@ -1264,7 +1269,7 @@ namespace
         void change_state(State newstate);
         void animcb();
         void actor_hit(const StoneContact &sc);
-        void message(const string &m, const Value &val);
+        virtual Value message(const string &m, const Value &val);
 
         void on_laserhit(Direction) {
             change_state(BREAKING);
@@ -1319,7 +1324,7 @@ void FartStone::actor_hit(const StoneContact &sc)
     else
         change_state(FARTING);
 }
-void FartStone::message (const string &m, const Value &val) 
+Value FartStone::message (const string &m, const Value &val) 
 {
     if (m == "signal" && to_int(val) != 0)
         change_state(FARTING);
@@ -1327,6 +1332,7 @@ void FartStone::message (const string &m, const Value &val)
         change_state(FARTING);
     else if (m == "ignite" || m == "expl") 
         change_state(BREAKING);
+    return Value();
 }
 
 
@@ -1456,7 +1462,7 @@ namespace
 
         int m_signalidx;
 
-        void message (const string &msg, const Value &) {
+        virtual Value message (const string &msg, const Value &) {
             if (msg == "signal") {
                 world::EmitSignalByIndex (this, m_signalidx, 0);
                 m_signalidx += 1;
@@ -1467,6 +1473,7 @@ namespace
             } else if (msg == "init") {
                 world::EmitSignalByIndex (this, m_signalidx, 1);
             }
+            return Value();
         }
 
     public:
@@ -1556,12 +1563,13 @@ namespace
             }
         }
 
-        void on_message (const Message &m) {
+        virtual Value on_message (const Message &m) {
             if (m.message == "signal" || m.message == "trigger") {
                 // toggle between black and white stone
                 m_type = (m_type + 4) % 8;
                 init_model();
             }
+            return Value();
         }
 
         bool is_floating() const { return true; }
@@ -1668,7 +1676,7 @@ namespace
         void actor_hit (const StoneContact &sc);
         void change_state (State newstate);
         void animcb();
-        void message (const string &msg, const Value &);
+        virtual Value message (const string &msg, const Value &);
     };
 }
 
@@ -1690,10 +1698,11 @@ void BombStone::animcb()
     SetItem(p, it_explosion1);
 }
 
-void BombStone::message(const string &msg, const Value &) 
+Value BombStone::message(const string &msg, const Value &) 
 {
     if (msg =="expl" || msg =="bombstone")
         change_state(BREAK);
+    return Value();
 }
 
 void BombStone::actor_hit(const StoneContact &sc) 
@@ -1793,7 +1802,7 @@ namespace
             set_visible_model();
         }
 
-        void message(const string& msg, const Value &val) {
+        virtual Value message(const string& msg, const Value &val) {
             if (msg == "glasses") {
                 if (to_int(val)) {
                     if (!visible) {
@@ -1808,6 +1817,7 @@ namespace
                     }
                 }
             }
+            return Value();
         }
     public:
         DeathStoneInvisible() : visible(false) {}
@@ -1866,10 +1876,11 @@ namespace
             explode();
         }
 
-        void message(const string &msg, const Value &) {
+        virtual Value message(const string &msg, const Value &) {
             if (msg == "expl") {
                 explode();
             }
+            return Value();
         }
 
         bool is_sticky(const Actor *) const 
@@ -1905,7 +1916,7 @@ namespace
     private:
         bool is_floating() const { return true; }
 
-        void message(const string &msg, const Value &val) {
+        virtual Value message(const string &msg, const Value &val) {
             if (msg == "signal") {
                 int ival = to_int (val);
                 if (ival > 0)
@@ -1917,6 +1928,7 @@ namespace
                 lighten();
             else if (msg == "darken")
                 darken();
+            return Value();
         }
     };
     class DiscoLight : public DiscoStone {
@@ -2069,12 +2081,13 @@ namespace
             if (!isActive)  skateDir = NODIR;
         }
 
-        void message (const string &msg, const Value &v) {
+        virtual Value message (const string &msg, const Value &v) {
             if      (msg == "onoff")   set_on(!isActive);
             else if (msg == "signal")  set_on(to_int(v) != 0);
             else if (msg == "on")      set_on(true);
             else if (msg == "off")     set_on(false);
             else if (msg == "trigger") set_on(!isActive);
+            return Value();
         }
 
         void alarm() {

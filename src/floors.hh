@@ -56,7 +56,7 @@ namespace world
         // Object interface
         Floor *clone();
         void dispose();
-        void message(const string& msg, const Value &val);
+        virtual Value message(const string& msg, const Value &val);
 
 
         // Floor interface

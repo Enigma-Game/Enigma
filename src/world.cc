@@ -1346,25 +1346,27 @@ bool world::GetSignalTargetPos (Object *src, GridPos &pos, int signalidx)
 }
 
 
-void world::SendMessage(Object *o, const std::string &msg) 
+Value world::SendMessage(Object *o, const std::string &msg) 
 {
-    SendMessage (o, Message (msg, Value()));
+    return SendMessage (o, Message (msg, Value()));
 }
 
-void world::SendMessage(Object *o, const std::string &msg, const Value& value)
+Value world::SendMessage(Object *o, const std::string &msg, const Value& value)
 {
-    SendMessage (o, Message (msg, value));
+    return SendMessage (o, Message (msg, value));
 }
 
-void world::SendMessage (Object *o, const Message &m)
+Value world::SendMessage (Object *o, const Message &m)
 {
     if (o) {
         if (TrackMessages)
             o->warning("will be sent message '%s' (with Value)", m.message.c_str());
-        o->on_message (m);
+        return o->on_message(m);
     }
-    else if (TrackMessages)
+    else if (TrackMessages) {
         fprintf(stderr, "Sending message '%s' to NULL-object\n", m.message.c_str());
+        return Value();
+    }
 }
 
 

@@ -86,13 +86,14 @@ Object::Object(const char *kind) {
 }
 
 
-void Object::on_message (const world::Message &m)
+Value Object::on_message (const world::Message &m)
 {
-    message (m.message, m.value);
+    return message (m.message, m.value);
 }
 
-void Object::message(const string& /*msg*/, const Value &/*val*/)
+Value Object::message(const string& /*msg*/, const Value &/*val*/)
 {
+    return Value();
 }
 
 void Object::on_levelinit() {

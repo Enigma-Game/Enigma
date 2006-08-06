@@ -251,9 +251,9 @@ namespace world
     void BroadcastMessage (const std::string& msg, const enigma::Value& value, 
                            GridLayerBits grids);
 
-    void SendMessage (Object *o, const string &msg);
-    void SendMessage (Object *o, const string &msg, const enigma::Value& value);
-    void SendMessage (Object *o, const Message &m);
+    Value SendMessage (Object *o, const string &msg);
+    Value SendMessage (Object *o, const string &msg, const enigma::Value& value);
+    Value SendMessage (Object *o, const Message &m);
 
     /*! This function is used by all triggers, switches etc. that
       perform some particular action when activated (like opening

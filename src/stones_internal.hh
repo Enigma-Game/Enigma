@@ -101,7 +101,7 @@ namespace stones
 
         virtual void notify_onoff(bool /*on*/) {}
 
-        void on_message(const world::Message &msg)
+        virtual Value on_message(const world::Message &msg)
         {
             const std::string &m = msg.message;
             if (m=="onoff")
@@ -112,6 +112,7 @@ namespace stones
                 set_on(true);
             else if (m=="off")
                 set_on(false);
+            return Value();
         }
     };
 }

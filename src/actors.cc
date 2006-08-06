@@ -217,10 +217,11 @@ bool Actor::can_move() const {
     return true;
 }
 
-void Actor::message(const string &m, const Value &) {
+Value Actor::message(const string &m, const Value &) {
     if (m == "init") {
         startingpos = get_pos();
     }
+    return Value();
 }
 
 bool Actor::sound_event (const char *name) {
@@ -616,7 +617,7 @@ namespace
         bool can_be_warped() const { return state==NORMAL; }
 
         // Object interface.
-        void message(const string &m, const Value &);
+        virtual Value message(const string &m, const Value &);
 
         // ModelCallback interface.
         void animcb();
@@ -705,7 +706,7 @@ void BasicBall::change_state_noshield (State newstate)
         change_state(newstate);
 }
 
-void BasicBall::message(const string &m, const Value &v) 
+Value BasicBall::message(const string &m, const Value &v) 
 {
     switch (state) {
     case NORMAL:
@@ -758,6 +759,7 @@ void BasicBall::message(const string &m, const Value &v)
             m_drunk_rest_time += 5.0; // Drunken for 5 more seconds
         }
     }
+    return Value();
 }
 
 void BasicBall::set_sink_model(const string &m)
