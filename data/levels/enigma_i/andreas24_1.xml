@@ -2,14 +2,14 @@
 <el:level xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://enigma-game.org/schema/level/1 level.xsd" xmlns:el="http://enigma-game.org/schema/level/1">
   <el:protected>
     <el:info el:type="level">
-      <el:identity el:title="Floppy Floors" el:subtitle="" el:id="andreas24"/>
+      <el:identity el:title="Floppy Floors" el:subtitle="" el:id="stable/andreas24"/>
       <el:version el:score="1" el:release="1" el:revision="0" el:status="released"/>
       <el:author  el:name="Andreas Lochmann" el:email="" el:homepage=""/>
       <el:copyright>Copyright © 2006 Andreas Lochmann</el:copyright>
-      <el:license el:type="GPL v2.0 or above " el:open="true"/>
+      <el:license el:type="GPL v2.0 or above" el:open="true"/>
       <el:compatibility el:enigma="0.92">
       </el:compatibility>
-      <el:modes el:easy="false" el:single="true" el:network="false"/>
+      <el:modes el:easy="true" el:single="true" el:network="false"/>
       <el:comments>
         <el:code>Lua 5.1 and XML converted by Leveladministrators</el:code>
       </el:comments>
@@ -21,6 +21,7 @@
 Require("levels/lib/ant.lua")
 
 -- Global variables holding the floor-state
+
 levelh=13
 levelw=20
 enigma.FlatForce=30
@@ -90,7 +91,6 @@ function file_oxyd(x,y,f)
   oxyd_default_flavor=f
   oxyd(x,y)
 end
-
 function ac_blackball(x,y)
   n=""
   p=0
@@ -107,12 +107,10 @@ cells={}
 items={}
 actors={}
 stones={}
-
 actors[" "]=cell{}
 stones[" "]=cell{}
 cells[" "]=cell{}
 items[" "]=cell{}
-
 cells["!"]=cell{floor=nofloor}
 
 if difficult then

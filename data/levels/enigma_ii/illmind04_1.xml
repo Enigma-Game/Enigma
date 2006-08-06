@@ -2,7 +2,7 @@
 <el:level xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://enigma-game.org/schema/level/1 level.xsd" xmlns:el="http://enigma-game.org/schema/level/1">
   <el:protected>
     <el:info el:type="level">
-      <el:identity el:title="Knight Moves" el:subtitle="" el:id="illmind04"/>
+      <el:identity el:title="Knight Moves" el:subtitle="" el:id="stable/illmind04"/>
       <el:version el:score="1" el:release="1" el:revision="0" el:status="released"/>
       <el:author  el:name="illmind" el:email="" el:homepage=""/>
       <el:copyright>Copyright © 2005 illmind</el:copyright>
@@ -112,6 +112,8 @@ set_stone("st-timer", 23,8, {loop=1, action="onoff", target="illkill07", interva
 set_stone("st-timer", 23,9, {loop=1, action="onoff", target="illkill08", interval=3})
 set_stone("st-timer", 23,10, {loop=1, action="onoff", target="illkill09", interval=3})
 set_stone("st-timer", 23,11, {loop=1, action="onoff", target="illkill10", interval=3})
+
+
 
 -- effect timer
 mytimer=-1
@@ -327,7 +329,9 @@ set_actor("ac-blackball", 1.5, 1.5, {player=0})
 -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- --
 
 -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- --
+-- -- -- -- -- -- -- -- -- -- -- -- -- -- -- --
 -- extralife:  for experimenting purposes -- --
+-- -- -- -- -- -- -- -- -- -- -- -- -- -- -- --
 -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- --
 -- set_item("it-extralife", 5,1)
 -- set_item("it-extralife", 7,1)
@@ -336,7 +340,9 @@ set_actor("ac-blackball", 1.5, 1.5, {player=0})
 -- set_item("it-extralife", 13,1)
 -- set_item("it-extralife", 15,1)
 -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- --
+-- -- -- -- -- -- -- -- -- -- -- -- -- -- -- --
 -- delete minus signs infront of set_item -- --
+-- -- -- -- -- -- -- -- -- -- -- -- -- -- -- --
 -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- --
     ]]></el:luamain>
     <el:i18n>
@@ -344,7 +350,7 @@ set_actor("ac-blackball", 1.5, 1.5, {player=0})
         <el:english el:translate="false"/>
       </el:string>
       <el:string el:key="text1">
-        <el:english el:translate="true">so,  where  are  the  knights  ?  -  you'll  be  sorry  you  asked  !</el:english>
+        <el:english el:translate="true">So,  where  are  the  knights  ?  -  you'll  be  sorry  you  asked  !</el:english>
       </el:string> 
       <el:string el:key="text2">
         <el:english el:translate="false">illmind's  knight  moves  ...</el:english>

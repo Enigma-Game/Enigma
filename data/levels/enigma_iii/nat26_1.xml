@@ -2,7 +2,7 @@
 <el:level xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://enigma-game.org/schema/level/1 level.xsd" xmlns:el="http://enigma-game.org/schema/level/1">
   <el:protected>
     <el:info el:type="level">
-      <el:identity el:title="Fox in the Henhouse" el:subtitle="" el:id="nat26"/>
+      <el:identity el:title="Fox in the Henhouse" el:subtitle="" el:id="stable/nat26"/>
       <el:version el:score="1" el:release="1" el:revision="0" el:status="released"/>
       <el:author  el:name="Nat Pryce" el:email="" el:homepage=""/>
       <el:copyright>Copyright © 2005 Nat Pryce</el:copyright>
@@ -132,6 +132,8 @@ end
 
 oxyd_default_flavor = "a"
 
+
+
 tiles = {}
 tiles[" "] = {floor("fl-leaves")}
 tiles["+"] = {inherit(" "), stone("st-black4")}
@@ -184,6 +186,7 @@ create_world_from_map( tiles, {
 "~x                 x                  x                 x~",
 "~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~"
 })
+
 
 --set_actor("ac-blackball", level_width/2, level_height/2, {player=0})
 

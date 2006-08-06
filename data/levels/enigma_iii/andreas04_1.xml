@@ -2,14 +2,14 @@
 <el:level xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://enigma-game.org/schema/level/1 level.xsd" xmlns:el="http://enigma-game.org/schema/level/1">
   <el:protected>
     <el:info el:type="level">
-      <el:identity el:title="Laser Castle" el:subtitle="" el:id="andreas04"/>
+      <el:identity el:title="Laser Castle" el:subtitle="" el:id="stable/andreas04"/>
       <el:version el:score="1" el:release="1" el:revision="0" el:status="released"/>
       <el:author  el:name="Andreas Lochmann" el:email="" el:homepage=""/>
       <el:copyright>Copyright © 2006 Andreas Lochmann</el:copyright>
       <el:license el:type="GPL v2.0 or above" el:open="true"/>
       <el:compatibility el:enigma="0.92">
       </el:compatibility>
-      <el:modes el:easy="true" el:single="true" el:network="false"/>
+      <el:modes el:easy="false" el:single="true" el:network="false"/>
       <el:comments>
         <el:credits>Thanks to Karen for her great idea for easy-mode: Of course a Castle needs a flag!</el:credits>
         <el:code>Lua 5.1 and XML converted by Leveladministrators</el:code>
@@ -25,24 +25,19 @@ function file_oxyd(x,y,f)
     oxyd_default_flavor=f
     oxyd(x,y)
 end
-
 levelh=52
 levelw=20
-
 enigma.FlatForce=30
 enigma.SlopeForce=30
 enigma.ElectricForce=30
-
 cells={}
 items={}
 actors={}
 stones={}
-
 actors[" "]=cell{}
 stones[" "]=cell{}
 cells[" "]=cell{}
 items[" "]=cell{}
-
 cells["!"]=cell{floor="fl-water"}
 cells["#"]=cell{floor="fl-leaves"}
 stones["!"]=cell{stone="st-greenbrown"}
@@ -78,7 +73,6 @@ stones[")"]=cell{stone="st-knight"}
 stones["*"]=cell{stone="st-black4"}
 items["%"]=cell{item="it-hammer"}
 stones["+"]=cell{stone="st-laser-w"}
-
 function ac_blackball(x,y)
 n=""
 p=0
@@ -90,10 +84,8 @@ f=0
  end
 set_actor("ac-blackball",x+0.5,y+0.5,{player=p,name=n,mouseforce=mf})
 end
-
 actors["!"]=cell{parent={{ac_blackball}}}
 items["&"]=cell{item="it-document"}
-
 function ac_top(x,y)
 n=""
 r=0
@@ -113,7 +105,6 @@ f=0
  end
 set_actor("ac-top",x+0.5,y+0.5,{range=r,force=f,name=n,gohome=init})
 end
-
 actors["#"]=cell{parent={{ac_top}}}
 -- actors["#"]=cell{parent={{ac_rotor}}}
 stones[","]=cell{stone="st-mirror-p\\t"}
@@ -126,7 +117,6 @@ stones["1"]=cell{stone="st-mirror-p|t"}
 stones["5"]=cell{stone="st-door-v"}
 stones["6"]=cell{stone="st-stoneimpulse-hollow"}
 items["("]=cell{item="it-extralife"}
-
 level={"!!!!!!!!!!!!!!!!!!!!",
        "!!!######!!!!###!!!!",
        "!!#&))).#!!!######!!",
@@ -179,163 +169,162 @@ level={"!!!!!!!!!!!!!!!!!!!!",
        "$$$$$$$$$$$$$$+1+$$$",
        "$$$$$$$$$$$$$$$+1$$$",
        "$$$$$$$$$$$$$$$$$$$$"}
-acmap={"                    ",
-       "                    ",
-       "                    ",
-       "                    ",
-       "                    ",
-       "                    ",
-       "                    ",
-       "                    ",
-       "                    ",
-       "                    ",
-       "                    ",
-       "                    ",
-       "                    ",
-       "                    ",
-       "                    ",
-       "                    ",
-       "                    ",
-       "                    ",
-       "                    ",
-       "                    ",
-       "                    ",
-       "                    ",
-       "                    ",
-       "                    ",
-       "                    ",
-       "                    ",
-       "                    ",
-       "                    ",
-       "          !         ",
-       "                    ",
-       "                    ",
-       "                    ",
-       "                    ",
-       "                    ",
-       "                    ",
-       "                    ",
-       "                    ",
-       "                    ",
-       "                    ",
-       "                    ",
-       "                    ",
-       "                    ",
-       "                    ",
-       "                    ",
-       "            #       ",
-       "                    ",
-       "                    ",
-       "          #         ",
-       "                    ",
-       "                    ",
-       "                    ",
-       "                    "}
-itmap={"                    ",
-       "                    ",
-       "                    ",
-       "                    ",
-       "     !              ",
-       "               !    ",
-       "                    ",
-       "                    ",
-       "                    ",
-       "                    ",
-       "                    ",
-       "                    ",
-       "                    ",
-       "                    ",
-       "         %          ",
-       "                    ",
-       "      ! !           ",
-       "                  ! ",
-       "                    ",
-       "                    ",
-       "                    ",
-       "                    ",
-       "                    ",
-       "                    ",
-       "                    ",
-       "                    ",
-       "                    ",
-       "                    ",
-       "                    ",
-       "                    ",
-       "'                  '",
-       "##'       &      '##",
-       "  ######'       '#  ",
-       "        #########   ",
-       "                    ",
-       "                    ",
-       "                    ",
-       "                    ",
-       "                    ",
-       "                    ",
-       "                    ",
-       "                    ",
-       "                    ",
-       "                    ",
-       "                    ",
-       "                    ",
-       "                    ",
-       "                    ",
-       "                    ",
-       "                    ",
-       "                    ",
-       "                    "}
-stmap={"                    ",
-       "                    ",
-       "                    ",
-       "    ###             ",
-       "    # #       ###   ",
-       "    #$%       # #   ",
-       "    ###&####  %$#   ",
-       "      #%%%'######   ",
-       "      #%&%(,'& 5    ",
-       "      #% )  %####   ",
-       "      #% %    '%#   ",
-       "      #'%%%-%)%'#   ",
-       "      #(  +%0  1#   ",
-       "      #'%%%.% %'#   ",
-       "    #%#%  % %  %#   ",
-       "    #%&###'/'%66####",
-       "    #$ # ## %%  #%##",
-       "    ####  ######&% #",
-       "               %%%$#",
-       "               #####",
-       "                    ",
-       "                    ",
-       "                    ",
-       "                    ",
-       "                    ",
-       "                    ",
-       "                    ",
-       "                    ",
-       "                    ",
-       "                    ",
-       "                    ",
-       "                    ",
-       "!!                !!",
-       "!!!!!!!!         !!!",
-       "!!!!!!!!!!!!!!!!!!!!",
-       "!!!!!!!!!!!!!!!!!!!!",
-       "!!!!!!!!!!!!!!!!!!!!",
-       "!!!!!!!!!!!!!!!!!!!!",
-       "                    ",
-       "                    ",
-       "       %%%%%%%%%    ",
-       "       %      *%    ",
-       "      %%      *%    ",
-       "      %  )     %    ",
-       "      %      ) %    ",
-       "      % )      %    ",
-       "      %        %    ",
-       "      % *   )  %    ",
-       "      %%*     *%%%  ",
-       "       %%%%%%%* )%  ",
-       "             %%)'%  ",
-       "              %%%%  "}
-
+   acmap={"                    ",
+          "                    ",
+          "                    ",
+          "                    ",
+          "                    ",
+          "                    ",
+          "                    ",
+          "                    ",
+          "                    ",
+          "                    ",
+          "                    ",
+          "                    ",
+          "                    ",
+          "                    ",
+          "                    ",
+          "                    ",
+          "                    ",
+          "                    ",
+          "                    ",
+          "                    ",
+          "                    ",
+          "                    ",
+          "                    ",
+          "                    ",
+          "                    ",
+          "                    ",
+          "                    ",
+          "                    ",
+          "          !         ",
+          "                    ",
+          "                    ",
+          "                    ",
+          "                    ",
+          "                    ",
+          "                    ",
+          "                    ",
+          "                    ",
+          "                    ",
+          "                    ",
+          "                    ",
+          "                    ",
+          "                    ",
+          "                    ",
+          "                    ",
+          "            #       ",
+          "                    ",
+          "                    ",
+          "          #         ",
+          "                    ",
+          "                    ",
+          "                    ",
+          "                    "}
+  itmap={"                    ",
+         "                    ",
+         "                    ",
+         "                    ",
+         "     !              ",
+         "               !    ",
+         "                    ",
+         "                    ",
+         "                    ",
+         "                    ",
+         "                    ",
+         "                    ",
+         "                    ",
+         "                    ",
+         "         %          ",
+         "                    ",
+         "      ! !           ",
+         "                  ! ",
+         "                    ",
+         "                    ",
+         "                    ",
+         "                    ",
+         "                    ",
+         "                    ",
+         "                    ",
+         "                    ",
+         "                    ",
+         "                    ",
+         "                    ",
+         "                    ",
+         "'                  '",
+         "##'       &      '##",
+         "  ######'       '#  ",
+         "        #########   ",
+         "                    ",
+         "                    ",
+         "                    ",
+         "                    ",
+         "                    ",
+         "                    ",
+         "                    ",
+         "                    ",
+         "                    ",
+         "                    ",
+         "                    ",
+         "                    ",
+         "                    ",
+         "                    ",
+         "                    ",
+         "                    ",
+         "                    ",
+         "                    "}
+ stmap={"                    ",
+        "                    ",
+        "                    ",
+        "    ###             ",
+        "    # #       ###   ",
+        "    #$%       # #   ",
+        "    ###&####  %$#   ",
+        "      #%%%'######   ",
+        "      #%&%(,'& 5    ",
+        "      #% )  %####   ",
+        "      #% %    '%#   ",
+        "      #'%%%-%)%'#   ",
+        "      #(  +%0  1#   ",
+        "      #'%%%.% %'#   ",
+        "    #%#%  % %  %#   ",
+        "    #%&###'/'%66####",
+        "    #$ # ## %%  #%##",
+        "    ####  ######&% #",
+        "               %%%$#",
+        "               #####",
+        "                    ",
+        "                    ",
+        "                    ",
+        "                    ",
+        "                    ",
+        "                    ",
+        "                    ",
+        "                    ",
+        "                    ",
+        "                    ",
+        "                    ",
+        "                    ",
+        "!!                !!",
+        "!!!!!!!!         !!!",
+        "!!!!!!!!!!!!!!!!!!!!",
+        "!!!!!!!!!!!!!!!!!!!!",
+        "!!!!!!!!!!!!!!!!!!!!",
+        "!!!!!!!!!!!!!!!!!!!!",
+        "                    ",
+        "                    ",
+        "       %%%%%%%%%    ",
+        "       %      *%    ",
+        "      %%      *%    ",
+        "      %  )     %    ",
+        "      %      ) %    ",
+        "      % )      %    ",
+        "      %        %    ",
+        "      % *   )  %    ",
+        "      %%*     *%%%  ",
+        "       %%%%%%%* )%  ",
+        "             %%)'%  ",
+        "              %%%%  "}
 create_world_by_map(level)
 draw_map(0,0,stmap,stones)
 draw_map(0,0,itmap,items)
@@ -370,7 +359,6 @@ SetAttrib(enigma.GetStone(11,13),"init",FALSE)
 SetAttrib(enigma.GetStone(12,12),"init",FALSE)
 SetAttrib(enigma.GetItem(15,5),"invisible",FALSE)
 SetAttrib(enigma.GetItem(18,17),"invisible",FALSE)
-
 Signal ("st(13 8)","st(11 11)")
 Signal ("st(13 8)","st(12 12)")
 Signal ("st(13 8)","st(11 13)")
@@ -413,7 +401,7 @@ oxyd_shuffle()
         <el:english el:translate="false"/>
       </el:string>
       <el:string el:key="text1">
-        <el:english el:translate="true">A castle lies before you ... beware of guardians!</el:english>
+        <el:english el:translate="true">A castle lies before you... beware of guardians!</el:english>
       </el:string> 
     </el:i18n>
   </el:protected>

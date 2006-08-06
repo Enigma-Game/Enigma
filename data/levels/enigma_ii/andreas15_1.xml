@@ -2,7 +2,7 @@
 <el:level xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://enigma-game.org/schema/level/1 level.xsd" xmlns:el="http://enigma-game.org/schema/level/1">
   <el:protected>
     <el:info el:type="level">
-      <el:identity el:title="Spaceleast" el:subtitle="" el:id="andreas15"/>
+      <el:identity el:title="Spaceleast" el:subtitle="" el:id="stable/andreas15"/>
       <el:version el:score="1" el:release="1" el:revision="0" el:status="released"/>
       <el:author  el:name="Andreas Lochmann" el:email="" el:homepage=""/>
       <el:copyright>Copyright © 2005 Andreas Lochmann</el:copyright>
@@ -23,27 +23,21 @@ function file_oxyd(x,y,f)
     oxyd_default_flavor=f
     oxyd(x,y)
 end
-
 levelh=13
 levelw=20
-
 enigma.FlatForce=30
 enigma.SlopeForce=30
 enigma.ElectricForce=30
-
 cells={}
 items={}
 actors={}
 stones={}
-
 actors[" "]=cell{}
 stones[" "]=cell{}
 cells[" "]=cell{}
 items[" "]=cell{}
-
 stones["!"]=cell{stone="st-rock6"}
 stones["#"]=cell{stone="st-death"}
-
 function ac_blackball(x,y)
 n=""
 p=0
@@ -55,7 +49,6 @@ f=0
  end
 set_actor("ac-blackball",x+0.5,y+0.5,{player=p,name=n,mouseforce=mf})
 end
-
 actors["!"]=cell{parent={{ac_blackball}}}
 stones["$"]=cell{parent={{file_oxyd,"b"}}}
 stones["%"]=cell{stone="st-easymode"}
@@ -68,7 +61,6 @@ cells[")"]=cell{floor="fl-gradient12"}
 cells["#"]=cell{floor="fl-normal"}
 cells["$"]=cell{floor="fl-gradient9"}
 cells["%"]=cell{floor="fl-gradient10"}
-
 level={"!!!!!!!!!!!!!!!!!!!!",
        "!$!!!!!!!&!!!!!!!!(!",
        "!!$!!!!!!!&!!!!!!(!!",
@@ -82,54 +74,51 @@ level={"!!!!!!!!!!!!!!!!!!!!",
        "!!%!!!!!!'!!!!!!!)!!",
        "!%!!!!!!!!'!!!!!!!)!",
        "!!!!!!!!!!!!!!!!!!!!"}
-acmap={"                    ",
-       "                    ",
-       "  !                 ",
-       "                    ",
-       "                    ",
-       "                    ",
-       "                    ",
-       "                    ",
-       "                    ",
-       "                    ",
-       "                    ",
-       "                    ",
-       "                    "}
-itmap={"                    ",
-       "                    ",
-       "                    ",
-       "                    ",
-       "                    ",
-       "                    ",
-       "        !  !        ",
-       "                    ",
-       "                    ",
-       "                    ",
-       "                    ",
-       "                    ",
-       "                    "}
-stmap={"!#!!#!!#!##!#!!#!!#!",
-       "#                  #",
-       "!                  !",
-       "#                  #",
-       "!                  !",
-       "#                  #",
-       "!     $$%$$%$$     !",
-       "#                  #",
-       "!                  !",
-       "#                  #",
-       "!                  !",
-       "#                  #",
-       "!#!!#!!#!##!#!!#!!#!"}
-
+   acmap={"                    ",
+          "                    ",
+          "  !                 ",
+          "                    ",
+          "                    ",
+          "                    ",
+          "                    ",
+          "                    ",
+          "                    ",
+          "                    ",
+          "                    ",
+          "                    ",
+          "                    "}
+  itmap={"                    ",
+         "                    ",
+         "                    ",
+         "                    ",
+         "                    ",
+         "                    ",
+         "        !  !        ",
+         "                    ",
+         "                    ",
+         "                    ",
+         "                    ",
+         "                    ",
+         "                    "}
+ stmap={"!#!!#!!#!##!#!!#!!#!",
+        "#                  #",
+        "!                  !",
+        "#                  #",
+        "!                  !",
+        "#                  #",
+        "!     $$%$$%$$     !",
+        "#                  #",
+        "!                  !",
+        "#                  #",
+        "!                  !",
+        "#                  #",
+        "!#!!#!!#!##!#!!#!!#!"}
 create_world_by_map(level)
 draw_map(0,0,stmap,stones)
 draw_map(0,0,itmap,items)
 draw_map(0,0,acmap,actors)
-
 SetAttrib(enigma.GetItem(8,6),"force",10)
 SetAttrib(enigma.GetItem(11,6),"force",10)
-
 oxyd_shuffle()
     ]]></el:luamain>
     <el:i18n>

@@ -2,7 +2,7 @@
 <el:level xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://enigma-game.org/schema/level/1 level.xsd" xmlns:el="http://enigma-game.org/schema/level/1">
   <el:protected>
     <el:info el:type="level">
-      <el:identity el:title="- Meditation -" el:subtitle="" el:id="alain04"/>
+      <el:identity el:title="- Meditation -" el:subtitle="" el:id="stable/alain04"/>
       <el:version el:score="1" el:release="1" el:revision="0" el:status="released"/>
       <el:author  el:name="Alain Busser" el:email="" el:homepage=""/>
       <el:copyright>Copyright © 2006 Alain Busser</el:copyright>
@@ -20,19 +20,18 @@ levelw = 20
 levelh = 13
 
 create_world(levelw, levelh)
-
 oxyd_default_flavor = "a"
-
 draw_border("st-rock1")
 fill_floor("fl-leaves", 0,0, level_width,level_height)
-
 enigma.BumperForce=600
 function renderLine( line, pattern)
 	for i=1, strlen(pattern) do
 		local c = strsub( pattern, i, i)
 		if c =="#" then
 			set_stone( "st-glass1", i-1, line)
-        elseif c == "a" then
+		elseif c == "o" then
+			oxyd( i-1, line)
+            elseif c == "a" then
 			set_item("it-wormhole",i-1,line, {targetx=" 13.5",targety="10+random(10)/10",strength=0,range=0})          
 		elseif c == "b" then
 			set_item("it-wormhole",i-1,line, {targetx=" 4.5",targety="3+random(10)/10",strength=0,range=0})          
@@ -88,6 +87,8 @@ renderLine(09 , " *i+ * zj**kz * +l* ")
 renderLine(10 , " *e e*f f**g g*h h* ")
 renderLine(11 , " ****************** ") 
 --               01234567890123456789
+
+oxyd_shuffle()
     ]]></el:luamain>
     <el:i18n>
       <el:string el:key="title">

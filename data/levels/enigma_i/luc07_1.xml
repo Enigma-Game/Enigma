@@ -2,9 +2,9 @@
 <el:level xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://enigma-game.org/schema/level/1 level.xsd" xmlns:el="http://enigma-game.org/schema/level/1">
   <el:protected>
     <el:info el:type="level">
-      <el:identity el:title="Flying" el:subtitle="" el:id="luc07"/>
+      <el:identity el:title="Flying" el:subtitle="" el:id="stable/luc07"/>
       <el:version el:score="1" el:release="1" el:revision="0" el:status="released"/>
-      <el:author  el:name="Lukas Schueller" el:email="" el:homepage=""/>
+      <el:author  el:name="Lukas Schueller" el:email="Lucky_Luc@web.de" el:homepage=""/>
       <el:copyright>Copyright © 2005 Lukas Schueller</el:copyright>
       <el:license el:type="GPL v2.0 or above" el:open="true"/>
       <el:compatibility el:enigma="0.92">
@@ -16,15 +16,12 @@
       <el:score el:easy="-" el:difficult="-"/>
     </el:info>
     <el:luamain><![CDATA[
-CreateWorld(39, 13)
- 
+-- Environment
+CreateWorld(39, 13) 
 draw_border("st-metal")
-
 fill_floor("fl-metal", 0,0, 20,13)
 fill_floor("fl-abyss", 20,0, 19,13)
-
 oxyd_default_flavor = "c"
-
 oxyd(1,1)
 oxyd(1,11)
 oxyd(1,6)
@@ -34,10 +31,8 @@ oxyd(37,1)
 oxyd(37,11)
 oxyd(37,6)
 oxyd_shuffle()
-
 set_item("it-umbrella", 10,6)
 set_item("it-document", 19,6, {text="text1"})
-
 set_actor("ac-blackball",9.5,6.5, {player=0})
     ]]></el:luamain>
     <el:i18n>

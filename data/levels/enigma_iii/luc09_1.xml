@@ -2,9 +2,9 @@
 <el:level xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://enigma-game.org/schema/level/1 level.xsd" xmlns:el="http://enigma-game.org/schema/level/1">
   <el:protected>
     <el:info el:type="level">
-      <el:identity el:title="Teamplay Doors" el:subtitle="" el:id="luc09"/>
+      <el:identity el:title="Teamplay Doors" el:subtitle="" el:id="stable/luc09"/>
       <el:version el:score="1" el:release="1" el:revision="0" el:status="released"/>
-      <el:author  el:name="Lukas Schueller" el:email="" el:homepage=""/>
+      <el:author  el:name="Lukas Schueller" el:email="Lucky_Luc@web.de" el:homepage=""/>
       <el:copyright>Copyright © 2005 Lukas Schueller</el:copyright>
       <el:license el:type="GPL v2.0 or above" el:open="true"/>
       <el:compatibility el:enigma="0.92">
@@ -21,7 +21,6 @@
 --                changed behaviour of the first doors; Raoul and Andreas
 
 --Environment
-
 Require("levels/lib/ant.lua")
 
 stateA = 0

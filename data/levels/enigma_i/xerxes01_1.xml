@@ -2,8 +2,8 @@
 <el:level xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://enigma-game.org/schema/level/1 level.xsd" xmlns:el="http://enigma-game.org/schema/level/1">
   <el:protected>
     <el:info el:type="level">
-      <el:identity el:title="Encased" el:subtitle="" el:id="xerxes01"/>
-      <el:version el:score="1" el:release="1" el:revision="3" el:status="released"/>
+      <el:identity el:title="Encased" el:subtitle="" el:id="stable/xerxes01"/>
+      <el:version el:score="1" el:release="1" el:revision="0" el:status="released"/>
       <el:author  el:name="Xerxes M. Dynatos" el:email="" el:homepage=""/>
       <el:copyright>Copyright © 2005 Xerxes M. Dynatos</el:copyright>
       <el:license el:type="GPL v2.0 or above" el:open="true"/>
@@ -16,9 +16,10 @@
       <el:score el:easy="-" el:difficult="-"/>
     </el:info>
     <el:luamain><![CDATA[
+-- Enigma Level Version: 3
+
 levelw=39
 levelh=13
-
 clear=0
 CLEAR_OXYD = 0
 
@@ -87,6 +88,7 @@ function renderLine( line, pattern)
 	end	
 end
 
+
 -- Floor:  " "
 -- Border: "#"
 -- Oxyd:   "o"
@@ -106,6 +108,7 @@ renderLine(11,"#9################################0####")
 renderLine(12,"######################################T")
 
 oxyd_shuffle()
+
 
 function funcTimer()
 
@@ -201,6 +204,9 @@ renderLine(12,"###################################### ")
 clear=0
 end
 end
+
+
+
 
 function isoxyd(x, y)
   local st = enigma.GetStone(x, y)

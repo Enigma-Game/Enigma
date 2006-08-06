@@ -2,7 +2,7 @@
 <el:level xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://enigma-game.org/schema/level/1 level.xsd" xmlns:el="http://enigma-game.org/schema/level/1">
   <el:protected>
     <el:info el:type="level">
-      <el:identity el:title="Shoals" el:subtitle="" el:id="nat27"/>
+      <el:identity el:title="Shoals" el:subtitle="" el:id="stable/nat27"/>
       <el:version el:score="1" el:release="1" el:revision="0" el:status="released"/>
       <el:author  el:name="Nat Pryce" el:email="" el:homepage=""/>
       <el:copyright>Copyright © 2003 Nat Pryce</el:copyright>
@@ -64,6 +64,7 @@ function draw_maze()
     render_maze( new_kruskal_maze(maze_width,maze_height), render_cell )
 end
 
+
 cells = {}
 
 function cell_is_clear(x,y)
@@ -85,6 +86,7 @@ function random_safe_tile()
     tinsert(cells, {x,y})
     return {cellx_to_worldx(x)+1,celly_to_worldy(y)+1}
 end
+
 
 create_world( 39, 13 )
 fill_floor("fl-water")
