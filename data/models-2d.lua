@@ -1104,14 +1104,35 @@ end
 -- Thief stone --
 -----------------
 do
-    local img = def_subimages("st-thief", {h=7})
-    local f = buildframes(img, 80)
-    def_anim("thief-emerge", f)
-    def_anim("thief-retreat", reverseframes(f))
-    def_roundstone("st-thief", img[1])
+    local img1 = def_subimages("st-thief", {h=7})
+    local img2 = def_subimages("st-thief-captured", {h=12})
+    local f1 = buildframes(img1, 80)
+    local f2 = buildframes(img2, 80)
+    def_anim("thief-emerge", f1)
+    def_anim("thief-retreat", reverseframes(f1))
+    def_anim("st-thief-captured", f2)
+    def_roundstone("st-thief", img1[1])
     def_roundstone("st-thief-emerge", "thief-emerge")
-    def_roundstone("st-thief-retreat", "thief-retreat")
+    def_roundstone("st-thief-retreat", "thief-retreat")    
 end
+
+-----------------
+-- Chess stone --
+-----------------
+function make_chess(colour)
+    local img1 = def_subimages("st-chess"..colour, {h=5});
+    --local img2 = def_subimages("st-chess"..colour.."-captured", {h=5});
+    local f1 = buildframes(img1, 120)
+    --local f2 = buildframes(img2, 40)
+    local f2 = f1
+    def_anim("st-chess"..colour.."-disappearing", f1);
+    def_anim("st-chess"..colour.."-appearing", reverseframes(f1))
+    def_anim("st-chess"..colour.."-captured", f2);
+    def_roundstone("st-chess"..colour, img1[1])
+end
+
+make_chess("_black")
+make_chess("_white")
 
 -----------------
 -- Timer stone --

@@ -1343,34 +1343,29 @@ namespace
 {
     /*! Steals one item from the player's inventory when hit. */
     class ThiefStone : public Stone {
-	CLONEOBJ(ThiefStone);
+        CLONEOBJ(ThiefStone);
         DECL_TRAITS;
 
-        enum State { IDLE, EMERGING, RETREATING } state;
+        enum State { IDLE, EMERGING, RETREATING, CAPTURED } state;
         Actor *m_affected_actor;
     public:
-	ThiefStone();
+        ThiefStone();
     private:
-	void steal_from_player();
+        void steal_from_player();
 
         void actor_hit(const StoneContact &sc);
         // even a slight touch should steal from the actor: 
         void actor_touch(const StoneContact &sc) { actor_hit(sc); }
         void animcb();
+        virtual Value message(const string &msg, const Value &v);        
 
-        const char *collision_sound() {
-            return "cloth";
-        }
+        const char *collision_sound() { return "cloth"; }
     };
     DEF_TRAITS(ThiefStone, "st-thief", st_thief);
 }
 
 ThiefStone::ThiefStone() 
-: state(IDLE),
-  m_affected_actor (0)
-{
-}
-
+: state(IDLE), m_affected_actor (0) {}
 
 void ThiefStone::actor_hit(const StoneContact &sc) {
     if (state==IDLE) {
@@ -1391,6 +1386,9 @@ void ThiefStone::animcb() {
         state = IDLE;
         init_model();
         break;
+    case CAPTURED:
+        KillStone(get_pos());
+        break;
     default:
         ASSERT(0, XLevelRuntime, "ThiefStone: animcb called with inconsistent state");
     }
@@ -1407,6 +1405,15 @@ void ThiefStone::steal_from_player()
             sound_event("thief");
         }
     }
+}
+
+Value ThiefStone::message(const string &msg, const Value &v) {
+    if(msg == "capture" && state == IDLE) {
+        state = CAPTURED;
+        set_anim(string(get_kind()) + "-captured");
+        return Value(1);
+    } else
+        return Stone::message(msg, v);
 }
 
 // -------------------------

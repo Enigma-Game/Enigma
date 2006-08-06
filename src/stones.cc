@@ -162,12 +162,11 @@ const char * Stone::collision_sound() {
 
    Note: This should be used by on_impulse() to perform a move.
 */
-bool Stone::move_stone(Direction dir) {
+bool Stone::move_stone(GridPos newPos, const char *soundevent) {
     GridPos p      = get_pos();
-    GridPos newPos = move(p, dir);
 
     if (!GetStone(newPos)) {
-        sound_event ("movesmall");
+        sound_event (soundevent);
 
         MoveStone(p, newPos);
         server::IncMoveCounter();
@@ -178,6 +177,9 @@ bool Stone::move_stone(Direction dir) {
         return true;
     }
     return false;
+}
+bool Stone::move_stone(Direction dir) {
+    return move_stone(move(get_pos(), dir), "movesmall");
 }
 
 void Stone::on_move() {

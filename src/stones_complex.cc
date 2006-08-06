@@ -2907,6 +2907,211 @@ GridPos MailStone::find_pipe_endpoint()
     return p;
 }
 
+
+/* -------------------- Chess stone -------------------- */
+
+namespace
+{
+    class ChessStone : public Stone, public TimeHandler {
+        CLONEOBJ(ChessStone);
+    public:
+        ChessStone (int color) : Stone("st-chess") {
+            newcolor = color;
+            Stone::set_attrib("color", color);
+            set_state(IDLE);
+            destination = GridPos(0,0);
+            capture_retry = 0;
+        }
+        virtual ~ChessStone() {
+            GameTimer.remove_alarm (this);
+        }
+        void init_model();
+        void animcb();
+        void set_attrib(const string& key, const Value &val);
+        virtual Value message(const string &msg, const Value &v);
+        void actor_hit(const StoneContact &sc);
+        void alarm();
+    private:
+        // Variables and Constants
+        enum State {IDLE, APPEARING, DISAPPEARING, CAPTURING, CAPTURED} state;
+        GridPos destination;
+        int newcolor;  // Buffers a color-changing message while not IDLE.
+        int capture_retry;
+        static const int max_capture_retry = 20;
+        static const double capture_interval = 0.1;
+        static const double hit_threshold = 3.0;
+
+        // Methods
+        string get_model_name();
+        Value maybe_move_to(Direction dir1, Direction dir2);
+        virtual Value message_move(Direction dir1, Direction dir2);
+        void set_state(State newstate);
+        void set_color(int color);
+    };
+
+    string ChessStone::get_model_name() {
+        string mname = get_kind();
+        mname += int_attrib("color") == 0.0 ? "_black" : "_white";
+        return mname;
+    }
+
+    void ChessStone::init_model() { set_model(get_model_name()); }
+
+    void ChessStone::animcb() {
+        Stone *st;
+        switch (state) {
+        case DISAPPEARING:
+            set_state(APPEARING);
+            st = GetStone(destination);
+            if(st) {
+                // Something went wrong while killing the old
+                // stone, or maybe a third one intervened.
+                // Don't move, just reappear at old position.                
+            } else {
+                move_stone(destination, "movesmall");
+                SendMessage(GetFloor(destination), "capture");
+            }
+            set_anim(get_model_name()+"-appearing");           
+            break;
+        case APPEARING:
+            set_state(IDLE);
+            init_model();
+            break;
+        case CAPTURED:
+            KillStone(get_pos());
+            break;
+        default:
+           ASSERT(0, XLevelRuntime, "ChessStone: inconsistent state in animcb()");
+        }
+    }
+
+    void ChessStone::actor_hit(const StoneContact &sc) {
+         if (player::WieldedItemIs (sc.actor, "it-magicwand")) {
+             sound_event ("stonepaint");
+             set_color(1 - int_attrib("color"));
+         } else if ((sc.actor->get_attrib("blackball") && int_attrib("color") == 0)
+                    || (sc.actor->get_attrib("whiteball") && int_attrib("color") == 1)) {
+            V2 v = sc.actor->get_vel();
+            Direction dir1 = get_push_direction(sc);
+            if(state == IDLE && dir1 != NODIR) {
+                Direction dir2 = NODIR;
+                if (dir1 == SOUTH || dir1 == NORTH) {
+                    dir2 = v[0] >  hit_threshold ? EAST :
+                           v[0] < -hit_threshold ? WEST : NODIR;
+                } else {
+                    dir2 = v[1] >  hit_threshold ? SOUTH :
+                           v[1] < -hit_threshold ? NORTH : NODIR;
+                }
+                if(dir2 == NODIR)  return;
+                maybe_move_to(dir1, dir2);
+            }
+        }
+    }
+
+    Value ChessStone::maybe_move_to(Direction dir1, Direction dir2) {
+        destination = move(move(move(get_pos(), dir1), dir1), dir2);
+        if(!IsInsideLevel(destination))  return Value();
+        if(!GetStone(destination)) {
+            // Simple case: Just move.
+            set_state(DISAPPEARING);
+            set_anim(get_model_name() + "-disappearing");
+            return Value(1);
+        } else {
+            // Test stone. Is it opposite chess stone or totally another one?
+            Stone *st = GetStone(destination);
+            const Value *col = get_attrib("color");
+            if(to_int(SendMessage(st, "capture", Value(get_model_name()))) ) {
+                // Give it some time for animation, then replace it.
+                set_state(CAPTURING);
+                GameTimer.set_alarm(this, capture_interval, false);
+                return Value(1);
+            }
+            return Value();
+        }
+    }
+
+    void ChessStone::alarm() {
+        switch(state) {
+        case CAPTURING:
+            if(!GetStone(destination)) {
+                set_state(DISAPPEARING);
+                set_anim(get_model_name() + "-disappearing");
+                break;
+            } else if(capture_retry < max_capture_retry) {
+                ++capture_retry;
+                GameTimer.set_alarm(this, capture_interval, false);
+            } else {
+                // Cancel efforts to capture foreign stone.
+                capture_retry = 0;
+                set_state(IDLE);
+            }
+        }
+    }
+
+    Value ChessStone::message(const string &msg, const Value &v) {
+        if(msg == "capture") {
+            if(state == IDLE && to_string(v) != get_model_name()) {
+                set_state(CAPTURED);
+                set_anim(get_model_name() + "-captured");
+                return Value(1);
+            } else
+                return Value();
+        } else if(msg == "move_nne") { return message_move(NORTH, EAST); }
+        else   if(msg == "move_een") { return message_move(EAST, NORTH); }
+        else   if(msg == "move_ees") { return message_move(EAST, SOUTH); }
+        else   if(msg == "move_sse") { return message_move(SOUTH, EAST); }
+        else   if(msg == "move_ssw") { return message_move(SOUTH, WEST); }
+        else   if(msg == "move_wws") { return message_move(WEST, SOUTH); }
+        else   if(msg == "move_wwn") { return message_move(WEST, NORTH); }
+        else   if(msg == "move_nnw") { return message_move(NORTH, WEST); }
+        else   if(msg == "move") {
+            Direction dir1 = (Direction) int_attrib("direction1");
+            Direction dir2 = (Direction) int_attrib("direction2");
+            return message_move(dir1, dir2);
+        } else if(msg == "signal") { set_color(to_int(v)); }
+        else   if(msg == "flip") { set_color(1 - int_attrib("color")); }
+        else
+            return Stone::message(msg, v);
+        return Value();
+    }
+
+    Value ChessStone::message_move(Direction dir1, Direction dir2) {
+        // Restrict message-moves to chess-knight-moves
+        if((((dir1==NORTH || dir1==SOUTH) && (dir2==EAST || dir2==WEST))
+           || ((dir1==EAST || dir1==WEST) && (dir2==SOUTH || dir2==NORTH)))
+           && state == IDLE)
+            return maybe_move_to(dir1, dir2);
+        return Value();
+    }
+
+    void ChessStone::set_state(State newstate) {
+        state = newstate;
+        if(state == IDLE && newcolor != int_attrib("color"))
+            set_color(newcolor);
+    }
+
+    void ChessStone::set_attrib(const string& key, const Value &val) {
+        if(key == "color") {
+            set_color(to_int(val));
+        } else
+            Stone::set_attrib(key, val);
+    }
+
+    void ChessStone::set_color(int color) {
+        if(color != 0 && color != 1) {
+            ASSERT(0, XLevelRuntime, "ChessStone: argument to color not 0 or 1");
+        }
+        if(state == IDLE) {
+            Stone::set_attrib("color", color);
+            newcolor = color;
+            init_model();
+        } else {
+            // Remember this color and set it the next time IDLE is set.
+            newcolor = color;
+        }
+    }
+}
+
 // --------------------------------------------------------------------------------
 
 void stones::Init_complex()
@@ -3052,4 +3257,7 @@ void stones::Init_complex()
     Register (new Turnstile_S);
     Register (new Turnstile_E);
     Register (new Turnstile_W);
+
+    Register("st-chess_black", new ChessStone(0));
+    Register("st-chess_white", new ChessStone(1));
 }
