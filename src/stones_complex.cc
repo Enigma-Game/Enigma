@@ -2938,8 +2938,8 @@ namespace
         int newcolor;  // Buffers a color-changing message while not IDLE.
         int capture_retry;
         static const int max_capture_retry = 20;
-        static const double capture_interval = 0.1;
-        static const double hit_threshold = 3.0;
+        static double capture_interval;
+        static double hit_threshold;
 
         // Methods
         string get_model_name();
@@ -2948,6 +2948,8 @@ namespace
         void set_state(State newstate);
         void set_color(int color);
     };
+    double ChessStone::capture_interval = 0.1;
+    double ChessStone::hit_threshold = 3.0;
 
     string ChessStone::get_model_name() {
         string mname = get_kind();
