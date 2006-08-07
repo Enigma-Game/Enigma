@@ -32,7 +32,6 @@
 #include <functional>
 #include <map>
 #include <numeric>
-#include <cassert>
 
 
 
@@ -239,16 +238,16 @@ RubberBand::RubberBand (Actor *a1, Actor *a2, const RubberBandData &d)
   model(display::AddRubber(get_p1(),get_p2())),
   data (d)
 {
-    assert(actor);
-    assert(d.length >= 0);
+    ASSERT(actor, XLevelRuntime, "RubberBand: no actor defined");
+    ASSERT(d.length >= 0, XLevelRuntime, "RubberBand: length negative");
 }
 
 RubberBand::RubberBand (Actor *a1, Stone *st, const RubberBandData &d)
 : actor(a1), actor2(0), stone(st), model(0),
   data (d)
 {
-    assert(actor);
-    assert(d.length >= 0);
+    ASSERT(actor, XLevelRuntime, "RubberBand: no actor defined");
+    ASSERT(d.length >= 0, XLevelRuntime, "RubberBand: length negative");
     model = display::AddRubber(get_p1(), get_p2());
 }
 
@@ -474,7 +473,7 @@ void World::name_object (Object *obj, const std::string &name)
 
 void World::unname (Object *obj)
 {
-    assert(obj);
+    ASSERT(obj, XLevelRuntime, "unname: no object given");
     string name;
     if (obj->string_attrib("name", &name)) {
         m_objnames.remove(name);
@@ -1227,7 +1226,7 @@ void world::KillRubberBands (Actor *a)
 
 void world::KillRubberBand (Actor *a, Stone *st)
 {
-    assert(a);
+    ASSERT(a, XLevelRuntime, "KillRubberBand: no actor attached");
     for (unsigned i=0; i<level->m_rubberbands.size(); ) {
         RubberBand &r = *level->m_rubberbands[i];
         if (r.get_actor() == a && r.get_stone() != 0)
@@ -1242,7 +1241,7 @@ void world::KillRubberBand (Actor *a, Stone *st)
 
 void world::KillRubberBand (Actor *a, Actor *a2)
 {
-    assert (a);
+    ASSERT(a, XLevelRuntime, "KillRubberBand: no actor attached");
     for (unsigned i=0; i<level->m_rubberbands.size(); ) {
         RubberBand &r = *level->m_rubberbands[i];
         if (r.get_actor() == a && r.get_actor2() != 0)
@@ -1904,7 +1903,8 @@ void world::RegisterStone (Stone *stone)
 {
     Register(static_cast<Object*>(stone));
     StoneID id = get_id(stone);
-    assert (id != st_INVALID);
+    ASSERT (id != st_INVALID, XLevelRuntime,
+        "RegisterStone: trying to register with invalid ID");
     stone_repos[id] = stone;
 }
 
@@ -1912,7 +1912,8 @@ void world::RegisterActor (Actor *actor)
 {
     Register(static_cast<Object*>(actor));
     ActorID id = get_id(actor);
-    assert (id != ac_INVALID);
+    ASSERT (id != ac_INVALID, XLevelRuntime,
+        "RegisterActor: trying to register with invalid ID");
     actor_repos[id] = actor;
 }
 
@@ -1962,7 +1963,7 @@ Actor *world::MakeActor (ActorID id)
     if (Actor *ac = actor_repos[id])
         return ac->clone();
     else
-        assert (0 || "internal error: built-in actor not defined!?");
+        ASSERT(0, XLevelRuntime, "MakeActor: no actor for ID defined");
     return 0;
 }
 
@@ -1971,7 +1972,7 @@ Stone *world::MakeStone (StoneID id)
     if (Stone *st = stone_repos[id])
         return st->clone();
     else
-        assert (0 || "internal error: built-in stone not defined!?");
+        ASSERT(0, XLevelRuntime, "MakeStone: no stone for ID defined");
     return 0;
 }
 
@@ -2005,7 +2006,8 @@ void world::RegisterItem (Item *item)
 {
     Register(static_cast<Object*>(item));
     ItemID id = get_id(item);
-    assert (id != it_INVALID);
+    ASSERT(id != it_INVALID, XLevelRuntime,
+        "RegisterItem: trying to register with invalid ID");
     item_repos[id] = item;
 }
 
@@ -2014,7 +2016,7 @@ Item *world::MakeItem (ItemID id)
     if (Item *it = item_repos[id])
         return it->clone();
     else
-        assert (0 || "internal error: built-in item not defined!?");
+        ASSERT(0, XLevelRuntime, "MakeItem: no item for ID defined");
     return 0;
 }
 

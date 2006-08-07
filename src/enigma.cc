@@ -16,12 +16,13 @@
  * 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.
  *
  */
+
+#include "errors.hh"
 #include "enigma.hh"
 #include "ecl.hh"
 #include "main.hh"
 
 #include <iostream>
-#include <cassert>
 #include <ctime>
 #include <set>
 
@@ -67,7 +68,8 @@ direction_fromto(GridPos source, GridPos target)
         else if (dx ==  1) d = EAST;
     }
 
-    assert(d != NODIR); // source and target have to be adjacent!
+    ASSERT(d != NODIR, XLevelRuntime,
+        "direction_fromto: source and target not adjacent");
     return d;
 }
 
@@ -152,13 +154,13 @@ void Value::clear() {
 
 double Value::get_double() const throw()
 {
-    assert(type == DOUBLE);
+    ASSERT(type == DOUBLE, XLevelRuntime, "get_double: type not double");
     return val.dval;
 }
 
 const char* Value::get_string() const throw()
 {
-    assert(type == STRING);
+    ASSERT(type == STRING, XLevelRuntime, "get_string: type not string");
     return val.str;
 }
 
@@ -283,7 +285,7 @@ std::ostream& enigma::operator<<(std::ostream& os, const GridPos& val)
 */
 GridPos enigma::get_neighbour (GridPos p, int i)
 {
-    assert (i >= 0 && i <= 9);
+    ASSERT (i >= 0 && i <= 9, XLevelRuntime, "get_neighbour: index out of bounds");
     static int xoff[9] = { 0,0,-1,1,0,-1,1,-1,1 };
     static int yoff[9] = { 0,-1,0,0,1,-1,-1,1,1 };
     return GridPos(p.x + xoff[i], p.y + yoff[i]);
