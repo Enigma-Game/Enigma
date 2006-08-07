@@ -32,7 +32,7 @@ cells["L"]=cell{{{laser, TRUE, EAST}}}
 cells["o"]=cell{item= "it-extralife"}
 cells["c"]=cell{item= {"it-coin4"}}
 -- Yes, it is an empty String! -raoul
-cells["d"]=cell{{{document, ""}}}
+cells["d"]=cell{{{document, "text1"}}}
 cells["x"]=cell{{cells["."], cells["X"]}}
 
 level = {
@@ -73,7 +73,7 @@ oxyd_shuffle()
         <el:english el:translate="false"/>
       </el:string>
       <el:string el:key="text1">
-        <el:english el:translate="false"></el:english>
+        <el:english el:translate="false"> </el:english>
       </el:string> 
     </el:i18n>
   </el:protected>

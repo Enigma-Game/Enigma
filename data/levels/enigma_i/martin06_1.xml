@@ -35,13 +35,16 @@ oxyd( 5,6)
 oxyd( 14,6)
 oxyd_shuffle()
 
-document(2,2," . . . There are more than two . . .")
+document(2,2,"text1")
 set_actor("ac-blackball", 10, 6)
     ]]></el:luamain>
     <el:i18n>
       <el:string el:key="title">
         <el:english el:translate="false"/>
       </el:string>
+      <el:string el:key="text1">
+        <el:english el:translate="true"> . . . There are more than two . . .</el:english>
+      </el:string> 
     </el:i18n>
   </el:protected>
 </el:level>

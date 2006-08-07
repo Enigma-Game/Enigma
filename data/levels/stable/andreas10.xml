@@ -290,15 +290,13 @@ if not difficult then
   set_item("it-pin", 3, 6)
 end
 
-set_item("it-document", 16, 6,
-   {text="text1"})
+set_item("it-document", 16, 6, {text="text1"})
 
 secondhint = 0
 function timercallback()
   if secondhint == 0 then
     secondhint = 1
-    set_item("it-document", 16, 6,
-      {text="text2"})
+    set_item("it-document", 16, 6, {text="text2"})
   end
 end
 
