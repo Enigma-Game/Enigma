@@ -1376,10 +1376,20 @@ namespace
         }
 
         void animcb() {
-            Stone *st = world::MakeStone (get_stone_name());
-            TransferObjectName (this, st);
-            world::SetStone (get_pos(), st);
-            kill();
+            GridPos p= get_pos();
+            if (enigma_server::GameCompatibility == GAMET_OXYDMAGNUM
+                && get_stone_name() == "st-wood-growing" && GetStone(p)) {
+                string model = GetStone(p)->get_kind();
+                if (model == "st-grate1") {
+                    SetFloor(p, MakeFloor("fl-stwood"));
+                    kill();
+                    return;
+               }
+           }
+           Stone *st = world::MakeStone (get_stone_name());
+           TransferObjectName (this, st);
+           world::SetStone (p, st);
+           kill();
         }
 
         virtual const char* get_stone_name() = 0;
