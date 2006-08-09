@@ -18,7 +18,7 @@
     <el:luamain><![CDATA[
 levelw=58
 levelh=30
-enigma.ConserveLevel = FALSE		-- dh
+enigma.ConserveLevel = FALSE        -- dh
 
 create_world( levelw, levelh)
 enigma.SetCompatibility("oxyd1")
@@ -72,13 +72,13 @@ function renderLine( line, pattern)
             dynamite(i-1,line)
         elseif c == "W" then
             if not difficult then
-                --			set_stone("st-wood", i-1, line)
+                --            set_stone("st-wood", i-1, line)
             else
                 set_stone("st-wood", i-1, line)
             end
         elseif c == "w" then
             if not difficult then
-                --			fill_floor("fl-water", i-1,line, 1,1)
+                --            fill_floor("fl-water", i-1,line, 1,1)
             else
                 fill_floor("fl-water", i-1,line, 1,1)
             end
@@ -114,7 +114,7 @@ renderLine(20, "### # ######################b#######################c#####")
 renderLine(21, "### as######################s                        #####")
 renderLine(22, "##########################################################")
 
-set_actor("ac-blackball", 47.5,3.5)	
+set_actor("ac-blackball", 47.5,3.5)    
 
 set_stone("st-greenbrown",39,10)
 

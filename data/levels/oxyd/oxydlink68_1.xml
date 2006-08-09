@@ -32,20 +32,20 @@ fill_floor(boden, 0,0, level_width,level_height)
 fill_floor("fl-metal", 0,1, level_width,level_height-2)
 
 function renderLine( line, pattern)
-	for i=1, strlen(pattern) do
-		local c = strsub( pattern, i, i)
-		if c =="#" then
-			set_stone(wand, i-1, line)
-		elseif c =="w" then
-			set_stone("st-break_acwhite", i-1, line)
-		elseif c =="s" then
-			set_stone("st-break_acblack", i-1, line)
-		elseif c =="H" then
-			set_stone("st-metal_hole", i-1, line)
-  		elseif c=="o" then
-			oxyd(i-1,line)
-		end
-	end	
+    for i=1, strlen(pattern) do
+        local c = strsub( pattern, i, i)
+        if c =="#" then
+            set_stone(wand, i-1, line)
+        elseif c =="w" then
+            set_stone("st-break_acwhite", i-1, line)
+        elseif c =="s" then
+            set_stone("st-break_acblack", i-1, line)
+        elseif c =="H" then
+            set_stone("st-metal_hole", i-1, line)
+          elseif c=="o" then
+            oxyd(i-1,line)
+        end
+    end    
 end
 
 renderLine(00 , "                    ")

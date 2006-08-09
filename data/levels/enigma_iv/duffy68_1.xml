@@ -61,7 +61,7 @@ function renderLine( line, pattern)
         elseif c == "l" then
             set_stone("st-bolder-w", i-1,line)
         elseif c=="D" then
-            set_stone("st-oneway-s", i-1,line)	
+            set_stone("st-oneway-s", i-1,line)    
         elseif c=="L" then
             set_stone("st-oneway-w", i-1,line)
         elseif c=="R" then
@@ -78,7 +78,7 @@ function renderLine( line, pattern)
             set_item("it-blackbomb",i-1,line)
         elseif c == "S" then
             set_item("it-ring",i-1,line)
-        elseif c=="f" then	
+        elseif c=="f" then    
             set_item("it-floppy", i-1,line)
         elseif c=="F" then
             set_stone( "st-floppy", i-1,line,{action="callback",target="funcc1"})

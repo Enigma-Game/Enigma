@@ -25,85 +25,85 @@ enigma.ConserveLevel=FALSE
 fill_floor("fl-metal", 0,0,levelw,levelh)
 
 function renderLine( line, pattern)
-	for i=1, strlen(pattern) do
-		local c = strsub( pattern, i, i)
-		if c =="#" then
-			set_stone( "st-greenbrown", i-1, line)
-		elseif c =="D" then
-			set_stone( "st-death", i-1, line)
-		elseif c == "o" then
-			oxyd( i-1, line)
+    for i=1, strlen(pattern) do
+        local c = strsub( pattern, i, i)
+        if c =="#" then
+            set_stone( "st-greenbrown", i-1, line)
+        elseif c =="D" then
+            set_stone( "st-death", i-1, line)
+        elseif c == "o" then
+            oxyd( i-1, line)
                 elseif c == "!" then
---			abyss(i-1,line)
-			fill_floor("fl-water", i-1,line, 1,1)
-		elseif c=="+" then
-			set_stone( "st-wood", i-1, line)
-		elseif c=="g" then
-			draw_stones("st-grate1",{i-1,line}, {1,1}, 1)
+--            abyss(i-1,line)
+            fill_floor("fl-water", i-1,line, 1,1)
+        elseif c=="+" then
+            set_stone( "st-wood", i-1, line)
+        elseif c=="g" then
+            draw_stones("st-grate1",{i-1,line}, {1,1}, 1)
 
-		elseif c=="h" then
-		   set_item("it-tinyhollow", i-1, line)
-		elseif c=="H" then
-		   set_item("it-hollow", i-1, line)
-		elseif c=="J" then
-		   set_item("it-hill", i-1, line)
-		elseif c=="j" then
-		   set_item("it-tinyhill", i-1, line)
-		elseif c == "1" then --ur
-		   set_floor("fl-gradient",  i-1,  line, {type=11})
-		elseif c == "3" then --dl
-		   set_floor("fl-gradient",  i-1,  line, {type=9})
-		elseif c == "7" then --dr
-		   set_floor("fl-gradient",  i-1,  line, {type=12})
-		elseif c == "9" then --ul
-		   set_floor("fl-gradient",  i-1,  line, {type=10})
-		elseif c == "4" then --dl
-		   set_floor("fl-gradient",  i-1,  line, {type=4})
- 		elseif c == "S" then
-		   set_stone("st-bolder-s", i-1,line, {name="bolder1"})
-		elseif c == "R" then
-		   set_stone("st-bolder-e", i-1,line, {name="bolder2"})
-		elseif c=="u" then
-		   set_item("it-trigger", i-1,line, {action="callback", target="funcc1"})
-		elseif c=="r" then
-		   set_item("it-trigger", i-1,line, {action="callback", target="funcc2"})
-		elseif c=="d" then
-		   set_item("it-trigger", i-1,line, {action="callback", target="funcc3"})
-		elseif c=="l" then
-		   set_item("it-trigger", i-1,line, {action="callback", target="funcc4"})
-		elseif c=="s" then
-		   set_item("it-trigger", i-1,line, {action="callback", target="funcc5"})
-		elseif c=="e" then
-		   set_item("it-trigger", i-1,line, {action="callback", target="funcc6"})
-		elseif c=="A" then
-		   set_stone("st-switch", i-1,line, {action="openclose",target="door1"})
-		elseif c=="B" then
-		   set_stone("st-switch", i-1,line, {action="callback",target="funcc7"})
-		elseif c=="C" then
-		   set_stone("st-switch", i-1,line, {action="openclose",target="door2"})
-		elseif c=="F" then
-		   set_stone("st-switch", i-1,line, {action="openclose",target="door3"})
-		elseif c=="a" then
-		   doorh( i-1,line, {name="door1"})
-		elseif c=="c" then
-		   doorh( i-1,line, {name="door2"})
-		elseif c=="f" then
-		   doorh( i-1,line, {name="door3"})
-		elseif c=="y" then
-		   set_actor("ac-whiteball",  i-.5, line+1)
-		elseif c=="L" then
-			oneway(i-1,line, enigma.WEST)
-		elseif c=="~" then
-			oneway(i-1,line, enigma.NORTH)
-		elseif c=="`" then
-			oneway(i-1,line, enigma.SOUTH)
-		elseif c =="X" then
-		   set_stone( "st-rubberband", i-1, line,{strength=0})
+        elseif c=="h" then
+           set_item("it-tinyhollow", i-1, line)
+        elseif c=="H" then
+           set_item("it-hollow", i-1, line)
+        elseif c=="J" then
+           set_item("it-hill", i-1, line)
+        elseif c=="j" then
+           set_item("it-tinyhill", i-1, line)
+        elseif c == "1" then --ur
+           set_floor("fl-gradient",  i-1,  line, {type=11})
+        elseif c == "3" then --dl
+           set_floor("fl-gradient",  i-1,  line, {type=9})
+        elseif c == "7" then --dr
+           set_floor("fl-gradient",  i-1,  line, {type=12})
+        elseif c == "9" then --ul
+           set_floor("fl-gradient",  i-1,  line, {type=10})
+        elseif c == "4" then --dl
+           set_floor("fl-gradient",  i-1,  line, {type=4})
+         elseif c == "S" then
+           set_stone("st-bolder-s", i-1,line, {name="bolder1"})
+        elseif c == "R" then
+           set_stone("st-bolder-e", i-1,line, {name="bolder2"})
+        elseif c=="u" then
+           set_item("it-trigger", i-1,line, {action="callback", target="funcc1"})
+        elseif c=="r" then
+           set_item("it-trigger", i-1,line, {action="callback", target="funcc2"})
+        elseif c=="d" then
+           set_item("it-trigger", i-1,line, {action="callback", target="funcc3"})
+        elseif c=="l" then
+           set_item("it-trigger", i-1,line, {action="callback", target="funcc4"})
+        elseif c=="s" then
+           set_item("it-trigger", i-1,line, {action="callback", target="funcc5"})
+        elseif c=="e" then
+           set_item("it-trigger", i-1,line, {action="callback", target="funcc6"})
+        elseif c=="A" then
+           set_stone("st-switch", i-1,line, {action="openclose",target="door1"})
+        elseif c=="B" then
+           set_stone("st-switch", i-1,line, {action="callback",target="funcc7"})
+        elseif c=="C" then
+           set_stone("st-switch", i-1,line, {action="openclose",target="door2"})
+        elseif c=="F" then
+           set_stone("st-switch", i-1,line, {action="openclose",target="door3"})
+        elseif c=="a" then
+           doorh( i-1,line, {name="door1"})
+        elseif c=="c" then
+           doorh( i-1,line, {name="door2"})
+        elseif c=="f" then
+           doorh( i-1,line, {name="door3"})
+        elseif c=="y" then
+           set_actor("ac-whiteball",  i-.5, line+1)
+        elseif c=="L" then
+            oneway(i-1,line, enigma.WEST)
+        elseif c=="~" then
+            oneway(i-1,line, enigma.NORTH)
+        elseif c=="`" then
+            oneway(i-1,line, enigma.SOUTH)
+        elseif c =="X" then
+           set_stone( "st-rubberband", i-1, line,{strength=0})
 
 elseif c=="w" then
 yy1( "white",  i-1, line)
-		end
-	end	
+        end
+    end    
 end
 
 function yy1( color, x, y)

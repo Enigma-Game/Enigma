@@ -99,7 +99,7 @@ function renderLine( line, pattern)
         elseif c=="r" then
             set_item("it-odometer",i-1,line)
         end
-    end	
+    end    
 end
 
 renderLine(00,"######o######o######")

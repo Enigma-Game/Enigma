@@ -27,13 +27,13 @@ enigma.SlopeForce=18
 fill_floor("fl-abyss")
 
 function renderLine( line, pattern)
-	for i=1, strlen(pattern) do
-		local c = strsub( pattern, i, i)
-  		if c=="x" then
-			set_item("it-magnet-on",i-1,line)
+    for i=1, strlen(pattern) do
+        local c = strsub( pattern, i, i)
+          if c=="x" then
+            set_item("it-magnet-on",i-1,line)
                 elseif c=="o" then
                    set_item("it-hollow",i-1,line)
-		   set_floor("fl-gray",i-1,line)
+           set_floor("fl-gray",i-1,line)
 
                 elseif c=="a" then
                    set_floor("fl-gradient6",i-1,line)
@@ -62,8 +62,8 @@ function renderLine( line, pattern)
                    set_floor("fl-gradient11",i-1,line)
                 elseif c=="l" then
                    set_floor("fl-gradient12",i-1,line)
-		end
-	end	
+        end
+    end    
 end
 
 renderLine(00 , "                    ")

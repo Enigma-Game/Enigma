@@ -62,7 +62,7 @@ create_world_by_map(level,cells)
 oxyd_shuffle()
 
 if not difficult then -- easy
-	display.SetFollowMode(display.FOLLOW_SCROLLING)
+    display.SetFollowMode(display.FOLLOW_SCROLLING)
 end
     ]]></el:luamain>
     <el:i18n>

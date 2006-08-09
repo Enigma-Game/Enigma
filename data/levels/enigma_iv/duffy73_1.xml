@@ -43,7 +43,7 @@ function renderLine( line, pattern)
             set_stone( "st-greenbrown", i-1, line)
         elseif c =="k" then
             if difficult==false then
-                --			set_stone( "st-greenbrown", i-1, line)
+                --            set_stone( "st-greenbrown", i-1, line)
             else
                 set_stone( "st-greenbrown", i-1, line)
             end
@@ -52,7 +52,7 @@ function renderLine( line, pattern)
             if difficult==false then
                 set_item("it-flagblack",i-1,line)
             else
-                --			set_item("it-flagblack",i-1,line)
+                --            set_item("it-flagblack",i-1,line)
             end
         elseif c =="Q" then
             set_stone( "st-greenbrown", i-1, line)
@@ -213,7 +213,7 @@ function renderLine( line, pattern)
             set_floor("fl-hay",i-1,line)
             set_stone("st-chargezero",i-1,line)
         elseif c==";" then
-            --		   set_floor("fl-bridge", i-1,line, {name="bridge1",type=xx})
+            --           set_floor("fl-bridge", i-1,line, {name="bridge1",type=xx})
             set_floor("fl-leaves",i-1,line)
             set_stone("st-invisible",i-1,line)
         elseif c=="2" then
@@ -232,7 +232,7 @@ function renderLine( line, pattern)
             set_floor("fl-leaves",i-1,line)
             document(i-1,line,"text1")
         end
-    end	
+    end    
 end
 
 function yy1( color, x, y)

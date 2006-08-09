@@ -79,244 +79,244 @@ end
 
 
 function renderLine( line, pattern)
-	for i=1, strlen(pattern) do
-		local c = strsub( pattern, i, i)
-		if c =="#" then
-			set_stone( "st-blue-sand", i-1, line)
-		elseif c =="w" then
-			set_stone( "st-glass", i-1, line)
-		elseif c ==">" then
-			set_stone( "st-thief", i-1, line)
-			set_floor("fl-space",i-1,line)
-		elseif c == "o" then
-			oxyd( i-1, line)
-		   set_floor("fl-normal",i-1,line)
-		elseif c == "*" then
-			set_stone( "st-brownie", i-1, line)
+    for i=1, strlen(pattern) do
+        local c = strsub( pattern, i, i)
+        if c =="#" then
+            set_stone( "st-blue-sand", i-1, line)
+        elseif c =="w" then
+            set_stone( "st-glass", i-1, line)
+        elseif c ==">" then
+            set_stone( "st-thief", i-1, line)
+            set_floor("fl-space",i-1,line)
+        elseif c == "o" then
+            oxyd( i-1, line)
+           set_floor("fl-normal",i-1,line)
+        elseif c == "*" then
+            set_stone( "st-brownie", i-1, line)
                 elseif c == "!" then
-			abyss(i-1,line)
-		elseif c == "~" then
-		   set_floor("fl-water",i-1,line)
-		elseif c=="z" then
-		   set_actor("ac-blackball", i-1,line+.5, {player=0})
-		elseif c=="y" then
-		   set_actor("ac-whiteball", i-1,line+.5, {player=1})
-		elseif c == "g" then
-			draw_stones("st-grate1",{i-1,line}, {1,1}, 1)
-		elseif c=="+" then
-			set_stone( "st-wood", i-1, line)
-		elseif c=="=" then
-			set_floor("fl-space",i-1,line)
-		elseif c=="U" then
-		   set_stone("st-fourswitch",i-1,line,{name="s1",action="callback",target="funcc1"})
-		elseif c=="R" then
-		   set_stone("st-fourswitch",i-1,line,{name="cs",action="callback",target="funcc1"})
-		   enigma.SendMessage(enigma.GetNamedObject("cs"),"trigger",nil)
-		elseif c=="D" then
-		   set_stone("st-fourswitch",i-1,line,{name="cs",action="callback",target="funcc1"})
-		   enigma.SendMessage(enigma.GetNamedObject("cs"),"trigger",nil)
-		   enigma.SendMessage(enigma.GetNamedObject("cs"),"trigger",nil)
-		elseif c=="L" then
-		   set_stone("st-fourswitch",i-1,line,{name="cs",action="callback",target="funcc1"})
-		   enigma.SendMessage(enigma.GetNamedObject("cs"),"trigger",nil)
-		   enigma.SendMessage(enigma.GetNamedObject("cs"),"trigger",nil)
-		   enigma.SendMessage(enigma.GetNamedObject("cs"),"trigger",nil)
-		elseif c=="u" then
-		   set_stone("st-fourswitch",i-1,line,{name=("sa"..usnum),action="callback",target=("funcca"..usnum)})
+            abyss(i-1,line)
+        elseif c == "~" then
+           set_floor("fl-water",i-1,line)
+        elseif c=="z" then
+           set_actor("ac-blackball", i-1,line+.5, {player=0})
+        elseif c=="y" then
+           set_actor("ac-whiteball", i-1,line+.5, {player=1})
+        elseif c == "g" then
+            draw_stones("st-grate1",{i-1,line}, {1,1}, 1)
+        elseif c=="+" then
+            set_stone( "st-wood", i-1, line)
+        elseif c=="=" then
+            set_floor("fl-space",i-1,line)
+        elseif c=="U" then
+           set_stone("st-fourswitch",i-1,line,{name="s1",action="callback",target="funcc1"})
+        elseif c=="R" then
+           set_stone("st-fourswitch",i-1,line,{name="cs",action="callback",target="funcc1"})
+           enigma.SendMessage(enigma.GetNamedObject("cs"),"trigger",nil)
+        elseif c=="D" then
+           set_stone("st-fourswitch",i-1,line,{name="cs",action="callback",target="funcc1"})
+           enigma.SendMessage(enigma.GetNamedObject("cs"),"trigger",nil)
+           enigma.SendMessage(enigma.GetNamedObject("cs"),"trigger",nil)
+        elseif c=="L" then
+           set_stone("st-fourswitch",i-1,line,{name="cs",action="callback",target="funcc1"})
+           enigma.SendMessage(enigma.GetNamedObject("cs"),"trigger",nil)
+           enigma.SendMessage(enigma.GetNamedObject("cs"),"trigger",nil)
+           enigma.SendMessage(enigma.GetNamedObject("cs"),"trigger",nil)
+        elseif c=="u" then
+           set_stone("st-fourswitch",i-1,line,{name=("sa"..usnum),action="callback",target=("funcca"..usnum)})
 usnum=usnum+1
-		elseif c=="r" then
-		   set_stone("st-fourswitch",i-1,line,{name=("sb"..rsnum),action="callback",target=("funccb"..rsnum)})
+        elseif c=="r" then
+           set_stone("st-fourswitch",i-1,line,{name=("sb"..rsnum),action="callback",target=("funccb"..rsnum)})
 rsnum=rsnum+1
-		elseif c=="d" then
-		   set_stone("st-fourswitch",i-1,line,{name=("sc"..dsnum),action="callback",target=("funccc"..dsnum)})
+        elseif c=="d" then
+           set_stone("st-fourswitch",i-1,line,{name=("sc"..dsnum),action="callback",target=("funccc"..dsnum)})
 dsnum=dsnum+1
-		elseif c=="l" then
-		   set_stone("st-fourswitch",i-1,line,{name=("sd"..lsnum),action="callback",target=("funccd"..lsnum)})
+        elseif c=="l" then
+           set_stone("st-fourswitch",i-1,line,{name=("sd"..lsnum),action="callback",target=("funccd"..lsnum)})
 lsnum=lsnum+1
-		elseif c=="A" then
-			doorv( i-1,line, {name="door1"})
-		elseif c=="B" then
-			doorv( i-1,line, {name="door2"})
-		elseif c=="5" then
-			doorv( i-1,line, {name="door3"})
-		elseif c=="1" then
-		   set_stone("st-fourswitch",i-1,line,{name="cs",action="callback",target="funcc1"})
-		   if zeropos==1 then
+        elseif c=="A" then
+            doorv( i-1,line, {name="door1"})
+        elseif c=="B" then
+            doorv( i-1,line, {name="door2"})
+        elseif c=="5" then
+            doorv( i-1,line, {name="door3"})
+        elseif c=="1" then
+           set_stone("st-fourswitch",i-1,line,{name="cs",action="callback",target="funcc1"})
+           if zeropos==1 then
 
-		   elseif zeropos==2 then
-		      enigma.SendMessage(enigma.GetNamedObject("cs"),"trigger",nil)
-		   elseif zeropos==3 then
-		      enigma.SendMessage(enigma.GetNamedObject("cs"),"trigger",nil)
-		      enigma.SendMessage(enigma.GetNamedObject("cs"),"trigger",nil)
-		   elseif zeropos==4 then
-		      enigma.SendMessage(enigma.GetNamedObject("cs"),"trigger",nil)
-		      enigma.SendMessage(enigma.GetNamedObject("cs"),"trigger",nil)
-		      enigma.SendMessage(enigma.GetNamedObject("cs"),"trigger",nil)
-		   end
-		elseif c=="2" then
-		   set_stone("st-fourswitch",i-1,line,{name="cs",action="callback",target="funcc1"})
-		   if zeropos==1 then
-		      enigma.SendMessage(enigma.GetNamedObject("cs"),"trigger",nil)
-		   elseif zeropos==2 then
-		      enigma.SendMessage(enigma.GetNamedObject("cs"),"trigger",nil)
-		      enigma.SendMessage(enigma.GetNamedObject("cs"),"trigger",nil)
-		   elseif zeropos==3 then
-		      enigma.SendMessage(enigma.GetNamedObject("cs"),"trigger",nil)
-		      enigma.SendMessage(enigma.GetNamedObject("cs"),"trigger",nil)
-		      enigma.SendMessage(enigma.GetNamedObject("cs"),"trigger",nil)
-		   elseif zeropos==4 then
+           elseif zeropos==2 then
+              enigma.SendMessage(enigma.GetNamedObject("cs"),"trigger",nil)
+           elseif zeropos==3 then
+              enigma.SendMessage(enigma.GetNamedObject("cs"),"trigger",nil)
+              enigma.SendMessage(enigma.GetNamedObject("cs"),"trigger",nil)
+           elseif zeropos==4 then
+              enigma.SendMessage(enigma.GetNamedObject("cs"),"trigger",nil)
+              enigma.SendMessage(enigma.GetNamedObject("cs"),"trigger",nil)
+              enigma.SendMessage(enigma.GetNamedObject("cs"),"trigger",nil)
+           end
+        elseif c=="2" then
+           set_stone("st-fourswitch",i-1,line,{name="cs",action="callback",target="funcc1"})
+           if zeropos==1 then
+              enigma.SendMessage(enigma.GetNamedObject("cs"),"trigger",nil)
+           elseif zeropos==2 then
+              enigma.SendMessage(enigma.GetNamedObject("cs"),"trigger",nil)
+              enigma.SendMessage(enigma.GetNamedObject("cs"),"trigger",nil)
+           elseif zeropos==3 then
+              enigma.SendMessage(enigma.GetNamedObject("cs"),"trigger",nil)
+              enigma.SendMessage(enigma.GetNamedObject("cs"),"trigger",nil)
+              enigma.SendMessage(enigma.GetNamedObject("cs"),"trigger",nil)
+           elseif zeropos==4 then
 
-		   end
-		elseif c=="3" then
-		   set_stone("st-fourswitch",i-1,line,{name="cs",action="callback",target="funcc1"})
-		   if zeropos==1 then
-		      enigma.SendMessage(enigma.GetNamedObject("cs"),"trigger",nil)
-		      enigma.SendMessage(enigma.GetNamedObject("cs"),"trigger",nil)
-		   elseif zeropos==2 then
-		      enigma.SendMessage(enigma.GetNamedObject("cs"),"trigger",nil)
-		      enigma.SendMessage(enigma.GetNamedObject("cs"),"trigger",nil)
-		      enigma.SendMessage(enigma.GetNamedObject("cs"),"trigger",nil)
-		   elseif zeropos==3 then
+           end
+        elseif c=="3" then
+           set_stone("st-fourswitch",i-1,line,{name="cs",action="callback",target="funcc1"})
+           if zeropos==1 then
+              enigma.SendMessage(enigma.GetNamedObject("cs"),"trigger",nil)
+              enigma.SendMessage(enigma.GetNamedObject("cs"),"trigger",nil)
+           elseif zeropos==2 then
+              enigma.SendMessage(enigma.GetNamedObject("cs"),"trigger",nil)
+              enigma.SendMessage(enigma.GetNamedObject("cs"),"trigger",nil)
+              enigma.SendMessage(enigma.GetNamedObject("cs"),"trigger",nil)
+           elseif zeropos==3 then
 
-		   elseif zeropos==4 then
-		      enigma.SendMessage(enigma.GetNamedObject("cs"),"trigger",nil)
-		   end
-		elseif c=="4" then
-		   set_stone("st-fourswitch",i-1,line,{name="cs",action="callback",target="funcc1"})
-		   if zeropos==1 then
-		      enigma.SendMessage(enigma.GetNamedObject("cs"),"trigger",nil)
-		      enigma.SendMessage(enigma.GetNamedObject("cs"),"trigger",nil)
-		      enigma.SendMessage(enigma.GetNamedObject("cs"),"trigger",nil)
-		   elseif zeropos==2 then
+           elseif zeropos==4 then
+              enigma.SendMessage(enigma.GetNamedObject("cs"),"trigger",nil)
+           end
+        elseif c=="4" then
+           set_stone("st-fourswitch",i-1,line,{name="cs",action="callback",target="funcc1"})
+           if zeropos==1 then
+              enigma.SendMessage(enigma.GetNamedObject("cs"),"trigger",nil)
+              enigma.SendMessage(enigma.GetNamedObject("cs"),"trigger",nil)
+              enigma.SendMessage(enigma.GetNamedObject("cs"),"trigger",nil)
+           elseif zeropos==2 then
 
-		   elseif zeropos==3 then
-		      enigma.SendMessage(enigma.GetNamedObject("cs"),"trigger",nil)
-		   elseif zeropos==4 then
-		      enigma.SendMessage(enigma.GetNamedObject("cs"),"trigger",nil)
-		      enigma.SendMessage(enigma.GetNamedObject("cs"),"trigger",nil)
-		   end
-		elseif c=="a" then
-		   set_stone("st-fourswitch",i-1,line,{name=("sssa"..usnum2),action="callback",target=("funccqa"..usnum2)})
+           elseif zeropos==3 then
+              enigma.SendMessage(enigma.GetNamedObject("cs"),"trigger",nil)
+           elseif zeropos==4 then
+              enigma.SendMessage(enigma.GetNamedObject("cs"),"trigger",nil)
+              enigma.SendMessage(enigma.GetNamedObject("cs"),"trigger",nil)
+           end
+        elseif c=="a" then
+           set_stone("st-fourswitch",i-1,line,{name=("sssa"..usnum2),action="callback",target=("funccqa"..usnum2)})
 usnum2=usnum2+1
-		elseif c=="b" then
-		   set_stone("st-fourswitch",i-1,line,{name=("sssb"..rsnum2),action="callback",target=("funccqb"..rsnum2)})
+        elseif c=="b" then
+           set_stone("st-fourswitch",i-1,line,{name=("sssb"..rsnum2),action="callback",target=("funccqb"..rsnum2)})
 rsnum2=rsnum2+1
-		elseif c=="c" then
-		   set_stone("st-fourswitch",i-1,line,{name=("sssc"..dsnum2),action="callback",target=("funccqc"..dsnum2)})
+        elseif c=="c" then
+           set_stone("st-fourswitch",i-1,line,{name=("sssc"..dsnum2),action="callback",target=("funccqc"..dsnum2)})
 dsnum2=dsnum2+1
-		elseif c=="`" then
-		   set_stone("st-fourswitch",i-1,line,{name=("sssd"..lsnum2),action="callback",target=("funccqd"..lsnum2)})
+        elseif c=="`" then
+           set_stone("st-fourswitch",i-1,line,{name=("sssd"..lsnum2),action="callback",target=("funccqd"..lsnum2)})
 lsnum2=lsnum2+1
-		elseif c=="e" then
-		   set_stone("st-fourswitch",i-1,line,{name="t1",action="callback",target="funcct1"})
-		elseif c=="f" then
-		   set_stone("st-fourswitch",i-1,line,{name="t2",action="callback",target="funcct2"})
-		elseif c=="G" then
-		   set_stone("st-fourswitch",i-1,line,{name="t3",action="callback",target="funcct3"})
-		elseif c=="h" then
-		   set_stone("st-fourswitch",i-1,line,{name="t4",action="callback",target="funcct4"})
-		elseif c=="Q" then
-		   set_floor("fl-normal",i-1,line)
-		elseif c == "8" then --2-u
-			set_floor("fl-gradient",  i-1,  line, {type=2})
-		elseif c == "6" then --3-r
-			set_floor("fl-gradient",  i-1,  line, {type=3})
-		elseif c == "0" then --1-d
-			set_floor("fl-gradient",  i-1,  line, {type=1})
-		elseif c == ";" then --4-l
-			set_floor("fl-gradient",  i-1,  line, {type=4})
-		elseif c == "k" then --1-dl
-			set_floor("fl-gradient",  i-1,  line, {type=11})
-		elseif c == "m" then --3-dr
-			set_floor("fl-gradient",  i-1,  line, {type=9})
-		elseif c == "q" then --7-ul
-			set_floor("fl-gradient",  i-1,  line, {type=12})
-		elseif c == "s" then --9-ur
-			set_floor("fl-gradient",  i-1,  line, {type=10})
-		elseif c == "t" then --9-ur
-		   set_stone("st-timer",  i-1,  line, {loop=1,interval=.45,name="tt",action="callback",target="funcctchange"})
-		elseif c=="C" then
-			set_attrib(laser(i-1,line, FALSE, EAST), "name", "laser1")
- 		elseif c=="/" then
- 			mirrorp(i-1,line,FALSE,FALSE, 4)
- 		elseif c==":" then
- 			mirrorp(i-1,line,FALSE,FALSE, 2)
- 		elseif c=="?" then
- 			mirrorp(i-1,line,FALSE,TRUE, 4)
- 		elseif c=="." then
- 			mirrorp(i-1,line,FALSE,TRUE, 2)
-		elseif c=="T" then
-		   set_item("it-trigger",i-1,line,{action="callback",target="funcctstart"})
-		elseif c=="H" then
-		   set_stone("st-fourswitch",i-1,line,{name="cs",action="callback",target="funcc1"})
-		   if pos1==1 then
+        elseif c=="e" then
+           set_stone("st-fourswitch",i-1,line,{name="t1",action="callback",target="funcct1"})
+        elseif c=="f" then
+           set_stone("st-fourswitch",i-1,line,{name="t2",action="callback",target="funcct2"})
+        elseif c=="G" then
+           set_stone("st-fourswitch",i-1,line,{name="t3",action="callback",target="funcct3"})
+        elseif c=="h" then
+           set_stone("st-fourswitch",i-1,line,{name="t4",action="callback",target="funcct4"})
+        elseif c=="Q" then
+           set_floor("fl-normal",i-1,line)
+        elseif c == "8" then --2-u
+            set_floor("fl-gradient",  i-1,  line, {type=2})
+        elseif c == "6" then --3-r
+            set_floor("fl-gradient",  i-1,  line, {type=3})
+        elseif c == "0" then --1-d
+            set_floor("fl-gradient",  i-1,  line, {type=1})
+        elseif c == ";" then --4-l
+            set_floor("fl-gradient",  i-1,  line, {type=4})
+        elseif c == "k" then --1-dl
+            set_floor("fl-gradient",  i-1,  line, {type=11})
+        elseif c == "m" then --3-dr
+            set_floor("fl-gradient",  i-1,  line, {type=9})
+        elseif c == "q" then --7-ul
+            set_floor("fl-gradient",  i-1,  line, {type=12})
+        elseif c == "s" then --9-ur
+            set_floor("fl-gradient",  i-1,  line, {type=10})
+        elseif c == "t" then --9-ur
+           set_stone("st-timer",  i-1,  line, {loop=1,interval=.45,name="tt",action="callback",target="funcctchange"})
+        elseif c=="C" then
+            set_attrib(laser(i-1,line, FALSE, EAST), "name", "laser1")
+         elseif c=="/" then
+             mirrorp(i-1,line,FALSE,FALSE, 4)
+         elseif c==":" then
+             mirrorp(i-1,line,FALSE,FALSE, 2)
+         elseif c=="?" then
+             mirrorp(i-1,line,FALSE,TRUE, 4)
+         elseif c=="." then
+             mirrorp(i-1,line,FALSE,TRUE, 2)
+        elseif c=="T" then
+           set_item("it-trigger",i-1,line,{action="callback",target="funcctstart"})
+        elseif c=="H" then
+           set_stone("st-fourswitch",i-1,line,{name="cs",action="callback",target="funcc1"})
+           if pos1==1 then
 
-		   elseif pos1==2 then
-		      enigma.SendMessage(enigma.GetNamedObject("cs"),"trigger",nil)
-		   elseif pos1==3 then
-		      enigma.SendMessage(enigma.GetNamedObject("cs"),"trigger",nil)
-		      enigma.SendMessage(enigma.GetNamedObject("cs"),"trigger",nil)
-		   elseif pos1==4 then
-		      enigma.SendMessage(enigma.GetNamedObject("cs"),"trigger",nil)
-		      enigma.SendMessage(enigma.GetNamedObject("cs"),"trigger",nil)
-		      enigma.SendMessage(enigma.GetNamedObject("cs"),"trigger",nil)
+           elseif pos1==2 then
+              enigma.SendMessage(enigma.GetNamedObject("cs"),"trigger",nil)
+           elseif pos1==3 then
+              enigma.SendMessage(enigma.GetNamedObject("cs"),"trigger",nil)
+              enigma.SendMessage(enigma.GetNamedObject("cs"),"trigger",nil)
+           elseif pos1==4 then
+              enigma.SendMessage(enigma.GetNamedObject("cs"),"trigger",nil)
+              enigma.SendMessage(enigma.GetNamedObject("cs"),"trigger",nil)
+              enigma.SendMessage(enigma.GetNamedObject("cs"),"trigger",nil)
 end
-		elseif c=="I" then
-		   set_stone("st-fourswitch",i-1,line,{name="cs",action="callback",target="funcc1"})
-		   if pos2==1 then
+        elseif c=="I" then
+           set_stone("st-fourswitch",i-1,line,{name="cs",action="callback",target="funcc1"})
+           if pos2==1 then
 
-		   elseif pos2==2 then
-		      enigma.SendMessage(enigma.GetNamedObject("cs"),"trigger",nil)
-		   elseif pos2==3 then
-		      enigma.SendMessage(enigma.GetNamedObject("cs"),"trigger",nil)
-		      enigma.SendMessage(enigma.GetNamedObject("cs"),"trigger",nil)
-		   elseif pos2==4 then
-		      enigma.SendMessage(enigma.GetNamedObject("cs"),"trigger",nil)
-		      enigma.SendMessage(enigma.GetNamedObject("cs"),"trigger",nil)
-		      enigma.SendMessage(enigma.GetNamedObject("cs"),"trigger",nil)
-		   end
-		elseif c=="J" then
-		   set_stone("st-fourswitch",i-1,line,{name="cs",action="callback",target="funcc1"})
-		   if pos3==1 then
+           elseif pos2==2 then
+              enigma.SendMessage(enigma.GetNamedObject("cs"),"trigger",nil)
+           elseif pos2==3 then
+              enigma.SendMessage(enigma.GetNamedObject("cs"),"trigger",nil)
+              enigma.SendMessage(enigma.GetNamedObject("cs"),"trigger",nil)
+           elseif pos2==4 then
+              enigma.SendMessage(enigma.GetNamedObject("cs"),"trigger",nil)
+              enigma.SendMessage(enigma.GetNamedObject("cs"),"trigger",nil)
+              enigma.SendMessage(enigma.GetNamedObject("cs"),"trigger",nil)
+           end
+        elseif c=="J" then
+           set_stone("st-fourswitch",i-1,line,{name="cs",action="callback",target="funcc1"})
+           if pos3==1 then
 
-		   elseif pos3==2 then
-		      enigma.SendMessage(enigma.GetNamedObject("cs"),"trigger",nil)
-		   elseif pos3==3 then
-		      enigma.SendMessage(enigma.GetNamedObject("cs"),"trigger",nil)
-		      enigma.SendMessage(enigma.GetNamedObject("cs"),"trigger",nil)
-		   elseif pos3==4 then
-		      enigma.SendMessage(enigma.GetNamedObject("cs"),"trigger",nil)
-		      enigma.SendMessage(enigma.GetNamedObject("cs"),"trigger",nil)
-		      enigma.SendMessage(enigma.GetNamedObject("cs"),"trigger",nil)
-		   end
-		elseif c=="K" then
-		   set_stone("st-fourswitch",i-1,line,{name="cs",action="callback",target="funcc1"})
-		   if pos4==1 then
+           elseif pos3==2 then
+              enigma.SendMessage(enigma.GetNamedObject("cs"),"trigger",nil)
+           elseif pos3==3 then
+              enigma.SendMessage(enigma.GetNamedObject("cs"),"trigger",nil)
+              enigma.SendMessage(enigma.GetNamedObject("cs"),"trigger",nil)
+           elseif pos3==4 then
+              enigma.SendMessage(enigma.GetNamedObject("cs"),"trigger",nil)
+              enigma.SendMessage(enigma.GetNamedObject("cs"),"trigger",nil)
+              enigma.SendMessage(enigma.GetNamedObject("cs"),"trigger",nil)
+           end
+        elseif c=="K" then
+           set_stone("st-fourswitch",i-1,line,{name="cs",action="callback",target="funcc1"})
+           if pos4==1 then
 
-		   elseif pos4==2 then
-		      enigma.SendMessage(enigma.GetNamedObject("cs"),"trigger",nil)
-		   elseif pos4==3 then
-		      enigma.SendMessage(enigma.GetNamedObject("cs"),"trigger",nil)
-		      enigma.SendMessage(enigma.GetNamedObject("cs"),"trigger",nil)
-		   elseif pos4==4 then
-		      enigma.SendMessage(enigma.GetNamedObject("cs"),"trigger",nil)
-		      enigma.SendMessage(enigma.GetNamedObject("cs"),"trigger",nil)
-		      enigma.SendMessage(enigma.GetNamedObject("cs"),"trigger",nil)
-		   end
-		elseif c=="M" then
-		   set_stone("st-fourswitch",i-1,line,{name=("ssa"..msnum),action="callback",target=("funccxm"..msnum)})
+           elseif pos4==2 then
+              enigma.SendMessage(enigma.GetNamedObject("cs"),"trigger",nil)
+           elseif pos4==3 then
+              enigma.SendMessage(enigma.GetNamedObject("cs"),"trigger",nil)
+              enigma.SendMessage(enigma.GetNamedObject("cs"),"trigger",nil)
+           elseif pos4==4 then
+              enigma.SendMessage(enigma.GetNamedObject("cs"),"trigger",nil)
+              enigma.SendMessage(enigma.GetNamedObject("cs"),"trigger",nil)
+              enigma.SendMessage(enigma.GetNamedObject("cs"),"trigger",nil)
+           end
+        elseif c=="M" then
+           set_stone("st-fourswitch",i-1,line,{name=("ssa"..msnum),action="callback",target=("funccxm"..msnum)})
 msnum=msnum+1
-		elseif c=="N" then
-		   set_stone("st-fourswitch",i-1,line,{name=("ssb"..nsnum),action="callback",target=("funccxn"..nsnum)})
+        elseif c=="N" then
+           set_stone("st-fourswitch",i-1,line,{name=("ssb"..nsnum),action="callback",target=("funccxn"..nsnum)})
 nsnum=nsnum+1
-		elseif c=="O" then
-		   set_stone("st-fourswitch",i-1,line,{name=("ssc"..osnum),action="callback",target=("funccxo"..osnum)})
+        elseif c=="O" then
+           set_stone("st-fourswitch",i-1,line,{name=("ssc"..osnum),action="callback",target=("funccxo"..osnum)})
 osnum=osnum+1
-		elseif c=="P" then
-		   set_stone("st-fourswitch",i-1,line,{name=("ssd"..psnum),action="callback",target=("funccxp"..psnum)})
+        elseif c=="P" then
+           set_stone("st-fourswitch",i-1,line,{name=("ssd"..psnum),action="callback",target=("funccxp"..psnum)})
 psnum=psnum+1
-	     end
-	end	
+         end
+    end    
 end
 
 renderLine(00,"#############################################################################################################################################!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!##############################!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!! ")
@@ -655,26 +655,26 @@ function funcccheck2()
    z=zeropos
      if ffqa1==z and ffqa2==z and ffqa3==z and ffqa4==z then
         if ((ffqb1==z+1 and ffqb2==z+1 and ffqb3==z+1) or (ffqb1==z-3 and ffqb2==z-3 and ffqb3==z-3)) then
-  	 if ((ffqc1==z+2 and ffqc2==z+2 and ffqc3==z+2) or (ffqc1==z-2 and ffqc2==z-2 and ffqc3==z-2)) then
-  	    if ((ffqd1==z+3 and ffqd2==z+3 and ffqd3==z+3 and ffqd4==z+3 and ffqd5==z+3 and ffqd6==z+3 and ffqd7==z+3 and ffqd8==z+3 and ffqd9==z+3 and ffqd10==z+3 and ffqd11==z+3) or (ffqd1==z-1 and ffqd2==z-1 and ffqd3==z-1 and ffqd4==z-1 and ffqd5==z-1 and ffqd6==z-1 and ffqd7==z-1 and ffqd8==z-1 and ffqd9==z-1 and ffqd10==z-1 and ffqd11==z-1)) then
-  	       if ffcheck2==0 then
-  		  enigma.SendMessage(enigma.GetNamedObject("door2"),"open",nil)
-  		  ffcheck2=1
-  	       else
-  		  enigma.SendMessage(enigma.GetNamedObject("door2"),"close",nil)
-  		  ffcheck2=0
-  	       end
-  	    else
-  	       enigma.SendMessage(enigma.GetNamedObject("door2"),"close",nil)
-  	       ffcheck2=0
-  	    end
-  	 else
-  	    enigma.SendMessage(enigma.GetNamedObject("door2"),"close",nil)
-  	    ffcheck2=0
-  	 end
+       if ((ffqc1==z+2 and ffqc2==z+2 and ffqc3==z+2) or (ffqc1==z-2 and ffqc2==z-2 and ffqc3==z-2)) then
+          if ((ffqd1==z+3 and ffqd2==z+3 and ffqd3==z+3 and ffqd4==z+3 and ffqd5==z+3 and ffqd6==z+3 and ffqd7==z+3 and ffqd8==z+3 and ffqd9==z+3 and ffqd10==z+3 and ffqd11==z+3) or (ffqd1==z-1 and ffqd2==z-1 and ffqd3==z-1 and ffqd4==z-1 and ffqd5==z-1 and ffqd6==z-1 and ffqd7==z-1 and ffqd8==z-1 and ffqd9==z-1 and ffqd10==z-1 and ffqd11==z-1)) then
+             if ffcheck2==0 then
+            enigma.SendMessage(enigma.GetNamedObject("door2"),"open",nil)
+            ffcheck2=1
+             else
+            enigma.SendMessage(enigma.GetNamedObject("door2"),"close",nil)
+            ffcheck2=0
+             end
+          else
+             enigma.SendMessage(enigma.GetNamedObject("door2"),"close",nil)
+             ffcheck2=0
+          end
+       else
+          enigma.SendMessage(enigma.GetNamedObject("door2"),"close",nil)
+          ffcheck2=0
+       end
         else
-  	 enigma.SendMessage(enigma.GetNamedObject("door2"),"close",nil)
-  	 ffcheck2=0
+       enigma.SendMessage(enigma.GetNamedObject("door2"),"close",nil)
+       ffcheck2=0
         end
      else
         enigma.SendMessage(enigma.GetNamedObject("door2"),"close",nil)
@@ -743,20 +743,20 @@ function funcctchange()
     if changet==1 then
        enigma.SendMessage(enigma.GetNamedObject("t1"),"trigger",nil)
        if tpos1==1 and tstart1==0 then
- 	 enigma.SendMessage(enigma.GetNamedObject("t2"),"trigger",nil)
- 	 if tpos2==1 and tstart2==0 then
- 	    enigma.SendMessage(enigma.GetNamedObject("t3"),"trigger",nil)
- 	    if tpos3==1 and tstart3==0 then
- 	       enigma.SendMessage(enigma.GetNamedObject("t4"),"trigger",nil)
- 	       if tpos4==1 and tstart4==0 then
-  		  if fftchange==0 then
-  		     enigma.SendMessage(enigma.GetNamedObject("laser1"),"on",nil)
-  		     changet=0
-  		     fftchange=1
-  		  end
- 	       end
- 	    end
- 	 end
+      enigma.SendMessage(enigma.GetNamedObject("t2"),"trigger",nil)
+      if tpos2==1 and tstart2==0 then
+         enigma.SendMessage(enigma.GetNamedObject("t3"),"trigger",nil)
+         if tpos3==1 and tstart3==0 then
+            enigma.SendMessage(enigma.GetNamedObject("t4"),"trigger",nil)
+            if tpos4==1 and tstart4==0 then
+            if fftchange==0 then
+               enigma.SendMessage(enigma.GetNamedObject("laser1"),"on",nil)
+               changet=0
+               fftchange=1
+            end
+            end
+         end
+      end
        end
     end
 end
@@ -899,8 +899,8 @@ function funcccheck3()
       ffcheck3=1
    else
       if ffcheck3==1 then
-	 enigma.SendMessage(enigma.GetNamedObject("door3"),"close",nil)
-	 ffcheck3=0
+     enigma.SendMessage(enigma.GetNamedObject("door3"),"close",nil)
+     ffcheck3=0
       end
    end
 end

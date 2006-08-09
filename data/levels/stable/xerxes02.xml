@@ -2,7 +2,7 @@
 <el:level xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://enigma-game.org/schema/level/1 level.xsd" xmlns:el="http://enigma-game.org/schema/level/1">
   <el:protected>
     <el:info el:type="level">
-      <el:identity el:title="Dirt Clod" el:subtitle="" el:id="stable/xerxes02"/>
+      <el:identity el:title="Dirt Clod" el:subtitle="" el:id="xerxes02"/>
       <el:version el:score="1" el:release="1" el:revision="0" el:status="released"/>
       <el:author  el:name="Xerxes M. Dynatos" el:email="" el:homepage=""/>
       <el:copyright>Copyright © 2005 Xerxes M. Dynatos</el:copyright>
@@ -24,73 +24,73 @@ create_world( levelw, levelh)
 fill_floor("fl-himalaya", 0,0,levelw,levelh) --fl-leaves --fl-acblack
 
 function renderLine( line, pattern)
-	for i=1, strlen(pattern) do
-		local c = strsub( pattern, i, i)
-		if c =="#" then
-			set_stone( "st-greenbrown", i-1, line)
-		elseif c == "o" then
-			oxyd( i-1, line)
-		elseif c == "H" then
-			set_stone( "st-greenbrown_hole", i-1, line)
-		elseif c == "h" then
-			set_stone( "st-greenbrown_hole", i-1, line)
-			set_item("it-key_a", i-1 ,line)
-		elseif c == "G" then
-			set_stone( "st-glass1_hole", i-1, line)
+    for i=1, strlen(pattern) do
+        local c = strsub( pattern, i, i)
+        if c =="#" then
+            set_stone( "st-greenbrown", i-1, line)
+        elseif c == "o" then
+            oxyd( i-1, line)
+        elseif c == "H" then
+            set_stone( "st-greenbrown_hole", i-1, line)
+        elseif c == "h" then
+            set_stone( "st-greenbrown_hole", i-1, line)
+            set_item("it-key_a", i-1 ,line)
+        elseif c == "G" then
+            set_stone( "st-glass1_hole", i-1, line)
                 elseif c == "!" then
-			fill_floor("fl-water", i-1,line, 1,1)
-		elseif c=="z" then
-			set_actor("ac-blackball", i-.5,line+.5)
-			--set_actor("ac-whiteball", i-.5,line+.5)
-			--set_item("it-extralife", i-.5,line+.5)
-			--set_item("it-extralife", i-.5,line+.5)
-			--set_item("it-extralife", i-.5,line+.5)
-		elseif c=="+" then
-			set_stone( "st-wood", i-1, line)
-			--fill_floor("fl-leaves", i-1,line, 1,1)
-			fill_floor("fl-brick", i-1,line, 1,1)
-		elseif c=="A" then
-			doorv(i-1,line,{name="door1"})
-		elseif c=="B" then
-			doorv(i-1,line,{name="door2"})
-		elseif c=="E" then
-			doorv(i-1,line,{name="door3"})
-		elseif c=="D" then
-			set_stone("st-floppy", i-1, line, {action="openclose", target="door2"})
-		elseif c=="d" then
-			set_stone( "st-greenbrown_hole", i-1, line)
-			set_item("it-floppy", i-1, line)
-		elseif c=="C" then
-			set_stone("st-key_a", i-1, line, {action="openclose", target="door1"})
-		elseif c=="c" then		
-			set_item("it-key_a", i-1 ,line)
-	        elseif c=="e" then
-			set_stone("st-switch", i-1,line, {action="openclose",target="door5"})
-		elseif c=="x" then
-			set_stone( "st-greenbrown_hole", i-1, line)
-			set_item("it-extralife", i-.5,line+.5)
-		elseif c=="r" then
-			set_stone("st-door_b", i-1,line, {name="door5", type="v"})
-		elseif c=="q" then
-			set_stone("st-door_b", i-1,line, {name="door6", type="v"})
-		elseif c=="W" then
-			set_stone( "st-greenbrown_hole", i-1, line)
-			set_item("it-wormhole", i-1,line, {strength=1,targetx="5",targety="6"})
-		elseif c=="M" then
-			set_stone( "st-greenbrown_hole", i-1, line)
-			set_item("it-coin1",i-1,line)
-		elseif c=="f" then
-			set_stone( "st-fart", i-1, line)
-		elseif c=="S" then
-			set_stone( "st-coinslot", i-1, line, {action="openclose", target="door8"})
-		elseif c=="s" then
-			doorv(i-1,line,{name="door8"})
-		elseif c=="P" then
-			doorv(i-1,line,{name="door9"})
-		elseif c=="p" then
-			set_stone("st-switch", i-1,line, {action="openclose",target="door9"})
-		end
-	end	
+            fill_floor("fl-water", i-1,line, 1,1)
+        elseif c=="z" then
+            set_actor("ac-blackball", i-.5,line+.5)
+            --set_actor("ac-whiteball", i-.5,line+.5)
+            --set_item("it-extralife", i-.5,line+.5)
+            --set_item("it-extralife", i-.5,line+.5)
+            --set_item("it-extralife", i-.5,line+.5)
+        elseif c=="+" then
+            set_stone( "st-wood", i-1, line)
+            --fill_floor("fl-leaves", i-1,line, 1,1)
+            fill_floor("fl-brick", i-1,line, 1,1)
+        elseif c=="A" then
+            doorv(i-1,line,{name="door1"})
+        elseif c=="B" then
+            doorv(i-1,line,{name="door2"})
+        elseif c=="E" then
+            doorv(i-1,line,{name="door3"})
+        elseif c=="D" then
+            set_stone("st-floppy", i-1, line, {action="openclose", target="door2"})
+        elseif c=="d" then
+            set_stone( "st-greenbrown_hole", i-1, line)
+            set_item("it-floppy", i-1, line)
+        elseif c=="C" then
+            set_stone("st-key_a", i-1, line, {action="openclose", target="door1"})
+        elseif c=="c" then        
+            set_item("it-key_a", i-1 ,line)
+            elseif c=="e" then
+            set_stone("st-switch", i-1,line, {action="openclose",target="door5"})
+        elseif c=="x" then
+            set_stone( "st-greenbrown_hole", i-1, line)
+            set_item("it-extralife", i-.5,line+.5)
+        elseif c=="r" then
+            set_stone("st-door_b", i-1,line, {name="door5", type="v"})
+        elseif c=="q" then
+            set_stone("st-door_b", i-1,line, {name="door6", type="v"})
+        elseif c=="W" then
+            set_stone( "st-greenbrown_hole", i-1, line)
+            set_item("it-wormhole", i-1,line, {strength=1,targetx="5",targety="6"})
+        elseif c=="M" then
+            set_stone( "st-greenbrown_hole", i-1, line)
+            set_item("it-coin1",i-1,line)
+        elseif c=="f" then
+            set_stone( "st-fart", i-1, line)
+        elseif c=="S" then
+            set_stone( "st-coinslot", i-1, line, {action="openclose", target="door8"})
+        elseif c=="s" then
+            doorv(i-1,line,{name="door8"})
+        elseif c=="P" then
+            doorv(i-1,line,{name="door9"})
+        elseif c=="p" then
+            set_stone("st-switch", i-1,line, {action="openclose",target="door9"})
+        end
+    end    
 end
 
 -- Floor:  " "

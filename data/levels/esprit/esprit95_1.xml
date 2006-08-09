@@ -62,7 +62,7 @@ function renderLine( line, pattern)
          set_stone("st-door_c", i-1, line,  {name="door3"})
       elseif c =="E" then
          set_stone("st-coinslot", i-1,line, {action="openclose", target="door3"})
-      elseif c=="m" then	
+      elseif c=="m" then    
          set_item("it-coin2", i-1,line,{value=3})
       elseif c =="1" then
          set_item("it-extralife", i-1,line)
@@ -88,7 +88,7 @@ function renderLine( line, pattern)
          set_item("it-umbrella", i-1,line)
                                                                          
       elseif c=="O" then                                                               
-	 oxyd(i-1,line)         
+     oxyd(i-1,line)         
         end
     end  
 end

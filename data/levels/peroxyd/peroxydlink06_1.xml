@@ -28,12 +28,12 @@ fill_floor("fl-abyss")
 fill_floor("fl-concrete",0,2,levelw,levelh-4)
 
 function renderLine( line, pattern)
-	for i=1, strlen(pattern) do
-		local c = strsub( pattern, i, i)
-  		if c=="x" then
-			oxyd(i-1,line)
+    for i=1, strlen(pattern) do
+        local c = strsub( pattern, i, i)
+          if c=="x" then
+            oxyd(i-1,line)
                 elseif c=="#" then
-			set_stone("st-rock2",i-1,line)
+            set_stone("st-rock2",i-1,line)
                    
                 elseif c==" " then
                    set_floor("fl-concrete",i-1,line)
@@ -43,8 +43,8 @@ function renderLine( line, pattern)
                 elseif c=="w" then
                    set_stone("st-white1",i-1,line)
 
-		end
-	end	
+        end
+    end    
 end
 
 renderLine(00 , "---------------------------------------")

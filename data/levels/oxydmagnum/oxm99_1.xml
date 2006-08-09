@@ -68,7 +68,7 @@ function renderLine( line, pattern)
          set_item("it-yinyang", i-1, line+.5)
       elseif c == "b" then
          set_actor("ac-whiteball", i-.5,line+.5)
-         set_item("it-yinyang", i-1, line+.5)	 
+         set_item("it-yinyang", i-1, line+.5)     
         end
     end
 end

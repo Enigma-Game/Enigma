@@ -28,45 +28,45 @@ enigma.ConserveLevel=FALSE
 fill_floor("fl-normal", 0,0,levelw,levelh)
 
 function renderLine( line, pattern)
-	for i=1, strlen(pattern) do
-		local c = strsub( pattern, i, i)
-		if c =="#" then
-			set_stone("st-rock6", i-1, line)
-		elseif c == "o" then
-		   set_stone("st-oxyd", i-1, line,{color="0"})
-		elseif c == "*" then
-			set_stone( "st-brownie", i-1, line)
+    for i=1, strlen(pattern) do
+        local c = strsub( pattern, i, i)
+        if c =="#" then
+            set_stone("st-rock6", i-1, line)
+        elseif c == "o" then
+           set_stone("st-oxyd", i-1, line,{color="0"})
+        elseif c == "*" then
+            set_stone( "st-brownie", i-1, line)
                 elseif c == "!" then
-			abyss(i-1,line)
-		elseif c == "~" then
-		   set_floor("fl-water",i-1,line)
-		elseif c=="z" then
-		   set_actor("ac-blackball",i-.5,line+.5,{name="b1",player=0})
-		   set_item("it-trigger",i-1,line,{invisible=1,action="callback",target="funcc6"})
-		elseif c=="y" then
-		   set_actor("ac-whiteball", i-1,line+.5, {player=1})
-		elseif c == "g" then
-			draw_stones("st-grate1",{i-1,line}, {1,1}, 1)
-		elseif c=="+" then
-			set_stone( "st-wood", i-1, line)
-		elseif c=="=" then
-		   set_floor("fl-space",i-1,line)
-		elseif c=="A" then
+            abyss(i-1,line)
+        elseif c == "~" then
+           set_floor("fl-water",i-1,line)
+        elseif c=="z" then
+           set_actor("ac-blackball",i-.5,line+.5,{name="b1",player=0})
+           set_item("it-trigger",i-1,line,{invisible=1,action="callback",target="funcc6"})
+        elseif c=="y" then
+           set_actor("ac-whiteball", i-1,line+.5, {player=1})
+        elseif c == "g" then
+            draw_stones("st-grate1",{i-1,line}, {1,1}, 1)
+        elseif c=="+" then
+            set_stone( "st-wood", i-1, line)
+        elseif c=="=" then
+           set_floor("fl-space",i-1,line)
+        elseif c=="A" then
             set_item("it-wormhole", i-1, line, {strength=0,targetx="10.5",targety="6.5"})
-		elseif c=="a" then
-		   set_item("it-trigger",i-1,line,{invisible=1,action="callback",target="funcc5"})
-		elseif c=="u" then
-		   set_item("it-trigger",i-1,line,{invisible=1,action="callback",target="funcc1"})
-		elseif c=="r" then
-		   set_item("it-trigger",i-1,line,{invisible=1,action="callback",target="funcc2"})
-		elseif c=="d" then
-		   set_item("it-trigger",i-1,line,{invisible=1,action="callback",target="funcc3"})
-		elseif c=="l" then
-		   set_item("it-trigger",i-1,line,{invisible=1,action="callback",target="funcc4"})
-		elseif c==" " then
-		   set_item("it-trigger",i-1,line,{invisible=1})
-	     end
-	end	
+        elseif c=="a" then
+           set_item("it-trigger",i-1,line,{invisible=1,action="callback",target="funcc5"})
+        elseif c=="u" then
+           set_item("it-trigger",i-1,line,{invisible=1,action="callback",target="funcc1"})
+        elseif c=="r" then
+           set_item("it-trigger",i-1,line,{invisible=1,action="callback",target="funcc2"})
+        elseif c=="d" then
+           set_item("it-trigger",i-1,line,{invisible=1,action="callback",target="funcc3"})
+        elseif c=="l" then
+           set_item("it-trigger",i-1,line,{invisible=1,action="callback",target="funcc4"})
+        elseif c==" " then
+           set_item("it-trigger",i-1,line,{invisible=1})
+         end
+    end    
 end
 
 renderLine(00,"!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!")

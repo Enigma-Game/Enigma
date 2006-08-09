@@ -26,7 +26,7 @@ function fill_floor(name, x0,y0, w,h, attrs)
     if w  == nil then w  = level_width end
     if h  == nil then h  = level_height end
     for y=y0,y0+h-1 do
-	for x=x0,x0+w-1 
+    for x=x0,x0+w-1 
             do set_floor(name, x, y, attrs) 
         end
     end

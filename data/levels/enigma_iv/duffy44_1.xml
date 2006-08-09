@@ -39,37 +39,37 @@ function renderLine( line, pattern)
             set_floor("fl-hay",  i-1,  line)
         elseif c == " " then
             abyss(i-1,line)
-	elseif c=="a" then
+    elseif c=="a" then
             set_item("it-trigger", i-1,line, {action="callback", target="funcca"})
-	elseif c=="b" then
+    elseif c=="b" then
             set_item("it-trigger", i-1,line, {action="callback", target="funccb"})
-	elseif c=="c" then
+    elseif c=="c" then
             set_item("it-trigger", i-1,line, {action="callback", target="funccc"})
-	elseif c=="d" then
+    elseif c=="d" then
             set_item("it-trigger", i-1,line, {action="callback", target="funccd"})
-	elseif c=="e" then
+    elseif c=="e" then
             set_item("it-trigger", i-1,line, {action="callback", target="funcce"})
-	elseif c=="f" then
+    elseif c=="f" then
             set_item("it-trigger", i-1,line, {action="callback", target="funccf"})
-	elseif c=="g" then
+    elseif c=="g" then
             set_item("it-trigger", i-1,line, {action="callback", target="funccg"})
-	elseif c=="h" then
+    elseif c=="h" then
             set_item("it-trigger", i-1,line, {action="callback", target="funcch"})
-	elseif c=="i" then
+    elseif c=="i" then
             set_item("it-trigger", i-1,line, {action="callback", target="funcci"})
-	elseif c=="j" then
+    elseif c=="j" then
             set_item("it-trigger", i-1,line, {action="callback", target="funccj"})
-	elseif c=="k" then
+    elseif c=="k" then
             set_item("it-trigger", i-1,line, {action="callback", target="funcck"})
-	elseif c=="l" then
+    elseif c=="l" then
             set_item("it-trigger", i-1,line, {action="callback", target="funccl"})
-	elseif c=="m" then
+    elseif c=="m" then
             set_item("it-trigger", i-1,line, {action="callback", target="funccm"})
-	elseif c=="n" then
+    elseif c=="n" then
             set_item("it-trigger", i-1,line, {action="callback", target="funccn"})
-	elseif c=="p" then
+    elseif c=="p" then
             set_item("it-trigger", i-1,line, {action="callback", target="funccp"})
-	elseif c=="q" then
+    elseif c=="q" then
             set_item("it-trigger", i-1,line, {action="callback", target="funccq"})
         elseif c=="A" then
             set_item( "it-magnet",i-1 ,line , {name="m1"})
@@ -110,7 +110,7 @@ function renderLine( line, pattern)
         elseif c == "R" then --3-r
             set_floor("fl-gradient",  i-1,  line, {type=3})
         end
-    end	
+    end    
 end
 
 -- Floor:  " "

@@ -45,7 +45,7 @@ function renderLine( line, pattern)
          set_floor("fl-gradient",  i-1,  line, {type=21})   
          --set_floor("fl-normal",  i-1,  line)
       elseif c=="O" then
-	 oxyd(i-1,line)         
+     oxyd(i-1,line)         
         end
     end  
 end

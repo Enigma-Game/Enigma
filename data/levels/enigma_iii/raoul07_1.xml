@@ -48,7 +48,7 @@ function render_cell( maze, cellx, celly )
     if maze:can_go_east(cellx,celly) then
         maze_floor(x+1,y)
     elseif maze:contains_cell(cellx+1,celly) then
-    	maze_wall(x+1,y)
+        maze_wall(x+1,y)
     end
     
     if maze:can_go_south(cellx,celly) then

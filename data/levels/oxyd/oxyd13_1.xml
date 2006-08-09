@@ -24,24 +24,24 @@ create_world( levelw, levelh)
 fill_floor("fl-bluegreen", 0,0,levelw,levelh)
 
 function renderLine( line, pattern)
-	for i=1, strlen(pattern) do
-		local c = strsub( pattern, i, i)
-		if c =="#" then
-			set_stone( "st-glass", i-1, line)
-		elseif c == "o" then
-			oxyd( i-1, line)
-		elseif c == "s" then
-			set_stone( "st-shogun-s", i-1, line)
-		elseif c == "<" then
-			oneway( i-1, line, enigma.WEST)
-		elseif c == ">" then
-			oneway( i-1, line, enigma.EAST)
-		elseif c == "v" then
-			oneway( i-1, line, enigma.SOUTH)
-		elseif c == "^" then
-			oneway( i-1, line, enigma.NORTH)
-		end
-	end
+    for i=1, strlen(pattern) do
+        local c = strsub( pattern, i, i)
+        if c =="#" then
+            set_stone( "st-glass", i-1, line)
+        elseif c == "o" then
+            oxyd( i-1, line)
+        elseif c == "s" then
+            set_stone( "st-shogun-s", i-1, line)
+        elseif c == "<" then
+            oneway( i-1, line, enigma.WEST)
+        elseif c == ">" then
+            oneway( i-1, line, enigma.EAST)
+        elseif c == "v" then
+            oneway( i-1, line, enigma.SOUTH)
+        elseif c == "^" then
+            oneway( i-1, line, enigma.NORTH)
+        end
+    end
 end
 
 -- Floor:   " "

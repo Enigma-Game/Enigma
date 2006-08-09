@@ -29,11 +29,11 @@ function switchcell(x, y, boundwith, tgt)
    local fname = "switchfunc"..num
 
    local func0 = function()
-		    kill_stone(x, y)
-		    local obj = {set_stone("st-death", x, y, {})}
-		    add_rubber_bands(boundwith, obj, 16, 0)
-		    send_group_message(tgt, "open")
-		 end
+            kill_stone(x, y)
+            local obj = {set_stone("st-death", x, y, {})}
+            add_rubber_bands(boundwith, obj, 16, 0)
+            send_group_message(tgt, "open")
+         end
 
    setglobal(fname, func0)
 

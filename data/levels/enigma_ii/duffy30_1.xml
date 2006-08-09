@@ -65,7 +65,7 @@ function renderLine( line, pattern)
             set_stone("st-oxyd", i-1, line,{color="7",name="o16"})
         elseif c == "!" then
             abyss(i-1,line)
-            --	           	fill_floor("fl-water", i-1,line, 1,1)
+            --                   fill_floor("fl-water", i-1,line, 1,1)
         elseif c=="z" then
             set_actor("ac-blackball", i-.5,line+.5)
         elseif c == "A" then
@@ -126,8 +126,8 @@ function renderLine( line, pattern)
             puzzle(i-1,line,PUZ_1001)
         elseif c == "L" then
             puzzle(i-1,line,PUZ_1100)
-	end
-    end	
+    end
+    end    
 end
 
 -- Floor:  " "

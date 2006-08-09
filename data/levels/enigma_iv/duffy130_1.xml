@@ -27,37 +27,37 @@ create_world( levelw, levelh)
 fill_floor("fl-hay", 0,0,levelw,levelh)
 
 function renderLine(line, pattern)
-	for i=1, strlen(pattern) do
-		c = strsub( pattern, i, i)
-		if c =="#" then
-			set_stone( "st-greenbrown", i-1, line)
-		elseif c == "o" then
-			oxyd( i-1, line)
-			set_floor("fl-water",i-1,line)
-		elseif c == "*" then
-			set_stone( "st-brownie", i-1, line)
+    for i=1, strlen(pattern) do
+        c = strsub( pattern, i, i)
+        if c =="#" then
+            set_stone( "st-greenbrown", i-1, line)
+        elseif c == "o" then
+            oxyd( i-1, line)
+            set_floor("fl-water",i-1,line)
+        elseif c == "*" then
+            set_stone( "st-brownie", i-1, line)
                 elseif c == "!" then
-			abyss(i-1,line)
-		elseif c == "&" then
-		   set_floor("fl-water",i-1,line)
-		elseif c=="z" then
-		   set_actor("ac-blackball", i-.5,line+.5, {name="ac1",player=0})
-		   document(i-1,line,"text1")
-		elseif c=="y" then
-		   set_actor("ac-whiteball", i-1,line+.5, {player=1})
-		elseif c == "g" then
-			draw_stones("st-grate1",{i-1,line}, {1,1}, 1)
-		elseif c=="+" then
-			set_stone( "st-wood", i-1, line)
-		elseif c=="=" then
-			set_floor("fl-space",i-1,line)
-		elseif c=="~" then
-		   set_floor("fl-water",i-1,line)
-		   set_item("it-trigger",i-1,line,{invisible=1,action="callback",target="funcc1"})
-		elseif c=="M" then
-		   set_stone("st-timer",i-1,line,{name="t1",loop=1,interval=.001,action="callback",target="funcctimer"})
-	     end
-	end	
+            abyss(i-1,line)
+        elseif c == "&" then
+           set_floor("fl-water",i-1,line)
+        elseif c=="z" then
+           set_actor("ac-blackball", i-.5,line+.5, {name="ac1",player=0})
+           document(i-1,line,"text1")
+        elseif c=="y" then
+           set_actor("ac-whiteball", i-1,line+.5, {player=1})
+        elseif c == "g" then
+            draw_stones("st-grate1",{i-1,line}, {1,1}, 1)
+        elseif c=="+" then
+            set_stone( "st-wood", i-1, line)
+        elseif c=="=" then
+            set_floor("fl-space",i-1,line)
+        elseif c=="~" then
+           set_floor("fl-water",i-1,line)
+           set_item("it-trigger",i-1,line,{invisible=1,action="callback",target="funcc1"})
+        elseif c=="M" then
+           set_stone("st-timer",i-1,line,{name="t1",loop=1,interval=.001,action="callback",target="funcctimer"})
+         end
+    end    
 end
 
 renderLine(00,"&&&&&&&&&&&&&&&&&&&&M")
@@ -91,15 +91,15 @@ bridges=24
 function funcc1()
    if (num<=bridges) then
       if (ff1==0) then
-	 x,y=enigma.GetPos(ac1)
-	 set_floor("fl-hay",x,y)
-	 num=num+1
-	 posx=x
-	 posy=y
-	 enigma.SendMessage(t1,"on",nil)
-	 ff1=1
+     x,y=enigma.GetPos(ac1)
+     set_floor("fl-hay",x,y)
+     num=num+1
+     posx=x
+     posy=y
+     enigma.SendMessage(t1,"on",nil)
+     ff1=1
       else
-	 ff1=0
+     ff1=0
       end
    end
 end

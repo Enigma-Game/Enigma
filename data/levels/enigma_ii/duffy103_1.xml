@@ -28,62 +28,62 @@ enigma.ConserveLevel=FALSE
 fill_floor("fl-himalaya", 0,0,levelw,levelh)
 
 function renderLine( line, pattern)
-	for i=1, strlen(pattern) do
-		local c = strsub( pattern, i, i)
-		if c =="#" then
-			set_stone( "st-rock6", i-1, line)
-		elseif c =="A" then
-		   set_stone( "st-rock4", i-1, line,{name="A"})
-		elseif c =="B" then
-		   set_stone( "st-rock4", i-1, line,{name="B"})
-		elseif c =="C" then
-		   set_stone( "st-rock4", i-1, line,{name="C"})
-		elseif c =="D" then
-		   set_stone( "st-rock4", i-1, line,{name="D"})
-		elseif c =="E" then
-		   set_stone( "st-rock4", i-1, line,{name="E"})
-		elseif c =="F" then
-		   set_stone( "st-rock4", i-1, line,{name="F"})
-		elseif c =="G" then
-		   set_stone( "st-rock4", i-1, line,{name="G"})
-		elseif c == "o" then
-			oxyd( i-1, line)
-		elseif c == "*" then
-			set_stone( "st-brownie", i-1, line)
+    for i=1, strlen(pattern) do
+        local c = strsub( pattern, i, i)
+        if c =="#" then
+            set_stone( "st-rock6", i-1, line)
+        elseif c =="A" then
+           set_stone( "st-rock4", i-1, line,{name="A"})
+        elseif c =="B" then
+           set_stone( "st-rock4", i-1, line,{name="B"})
+        elseif c =="C" then
+           set_stone( "st-rock4", i-1, line,{name="C"})
+        elseif c =="D" then
+           set_stone( "st-rock4", i-1, line,{name="D"})
+        elseif c =="E" then
+           set_stone( "st-rock4", i-1, line,{name="E"})
+        elseif c =="F" then
+           set_stone( "st-rock4", i-1, line,{name="F"})
+        elseif c =="G" then
+           set_stone( "st-rock4", i-1, line,{name="G"})
+        elseif c == "o" then
+            oxyd( i-1, line)
+        elseif c == "*" then
+            set_stone( "st-brownie", i-1, line)
                 elseif c == "!" then
-			abyss(i-1,line)
-		elseif c == "~" then
-		   set_floor("fl-water",i-1,line)
-		elseif c=="z" then
-		   set_actor("ac-blackball", i-.5,line+.5, {controllers=1, player=0,name="z"})
-		elseif c=="a" then
-		   set_actor("ac-whiteball-small", i-.5,line+.5, {name="a",controllers=0, mouseforce=0, player=1})
-		elseif c=="b" then
-		   set_actor("ac-whiteball-small", i-.5,line+.5, {name="b",controllers=0, mouseforce=0, player=1})
-		elseif c=="c" then
-		   set_actor("ac-whiteball-small", i-.5,line+.5, {name="c",controllers=0, mouseforce=0, player=1})
-		elseif c=="d" then
-		   set_actor("ac-whiteball-small", i-.5,line+.5, {name="d",controllers=0, mouseforce=0, player=1})
-		elseif c=="e" then
-		   set_actor("ac-whiteball-small", i-.5,line+.5, {name="e",controllers=0, mouseforce=0, player=1})
-		elseif c=="f" then
-		   set_actor("ac-whiteball-small", i-.5,line+.5, {name="f",controllers=0, mouseforce=0, player=1})
-		elseif c=="h" then
-		   set_actor("ac-whiteball-small", i-.5,line+.5, {name="h",controllers=0, mouseforce=0, player=1})
-		elseif c=="i" then
-		   set_actor("ac-whiteball-small", i-.5,line+.5, {name="i",controllers=0, mouseforce=0, player=1})
-		elseif c=="j" then
-		   set_actor("ac-whiteball-small", i-.5,line+.5, {name="j",controllers=0, mouseforce=0, player=1})
-		elseif c == "g" then
-			draw_stones("st-grate1",{i-1,line}, {1,1}, 1)
-		elseif c=="+" then
-			set_stone( "st-wood", i-1, line)
-		elseif c=="=" then
-			set_floor("fl-space",i-1,line)
-		elseif c=="H" then
-			set_item("it-hollow",i-1,line)
-	     end
-	end	
+            abyss(i-1,line)
+        elseif c == "~" then
+           set_floor("fl-water",i-1,line)
+        elseif c=="z" then
+           set_actor("ac-blackball", i-.5,line+.5, {controllers=1, player=0,name="z"})
+        elseif c=="a" then
+           set_actor("ac-whiteball-small", i-.5,line+.5, {name="a",controllers=0, mouseforce=0, player=1})
+        elseif c=="b" then
+           set_actor("ac-whiteball-small", i-.5,line+.5, {name="b",controllers=0, mouseforce=0, player=1})
+        elseif c=="c" then
+           set_actor("ac-whiteball-small", i-.5,line+.5, {name="c",controllers=0, mouseforce=0, player=1})
+        elseif c=="d" then
+           set_actor("ac-whiteball-small", i-.5,line+.5, {name="d",controllers=0, mouseforce=0, player=1})
+        elseif c=="e" then
+           set_actor("ac-whiteball-small", i-.5,line+.5, {name="e",controllers=0, mouseforce=0, player=1})
+        elseif c=="f" then
+           set_actor("ac-whiteball-small", i-.5,line+.5, {name="f",controllers=0, mouseforce=0, player=1})
+        elseif c=="h" then
+           set_actor("ac-whiteball-small", i-.5,line+.5, {name="h",controllers=0, mouseforce=0, player=1})
+        elseif c=="i" then
+           set_actor("ac-whiteball-small", i-.5,line+.5, {name="i",controllers=0, mouseforce=0, player=1})
+        elseif c=="j" then
+           set_actor("ac-whiteball-small", i-.5,line+.5, {name="j",controllers=0, mouseforce=0, player=1})
+        elseif c == "g" then
+            draw_stones("st-grate1",{i-1,line}, {1,1}, 1)
+        elseif c=="+" then
+            set_stone( "st-wood", i-1, line)
+        elseif c=="=" then
+            set_floor("fl-space",i-1,line)
+        elseif c=="H" then
+            set_item("it-hollow",i-1,line)
+         end
+    end    
 end
 
 renderLine(00,"####################")

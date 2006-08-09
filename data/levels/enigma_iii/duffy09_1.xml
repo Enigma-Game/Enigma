@@ -26,47 +26,47 @@ fill_floor("fl-leaves", 0,0,levelw,levelh)
 done_with_setup = 0
 
 function renderLine( line, pattern)
-	for i=1, strlen(pattern) do
-		local c = strsub( pattern, i, i)
-		if c =="#" then
-			set_stone( "st-glass", i-1, line)
-		elseif c == "o" then
-			if done_with_setup == 0 then
-			   oxyd( i-1, line)
-			end
+    for i=1, strlen(pattern) do
+        local c = strsub( pattern, i, i)
+        if c =="#" then
+            set_stone( "st-glass", i-1, line)
+        elseif c == "o" then
+            if done_with_setup == 0 then
+               oxyd( i-1, line)
+            end
         elseif c == "!" then
-			abyss(i-1,line)
---			fill_floor("fl-water", i-1,line, 1,1)
-		elseif c=="z" then
-			set_actor("ac-blackball", i-.5,line+.5)
-		elseif c=="+" then
-			set_stone( "st-wood", i-1, line)
-		elseif c=="1" then
-			doorv( i-1,line, {name="door1"})
-		elseif c=="W" then
-			set_attrib(laser(i-1,line, FALSE, WEST), "name", "laser")
-		elseif c=="L" then
-			set_stone("st-key_a", i-1,line, {action="on", target="laser"})
-		elseif c=="k" then
-			set_item("it-key_a", i-1,line)
-		elseif c=="`" then
-			mirrorp(i-1,line,FALSE,TRUE, 2)
-		elseif c=="/" then
-			mirrorp(i-1,line,FALSE,TRUE, 4)
-		elseif c=="B" then
-			set_stone("st-bombs", i-1,line)
-		elseif c=="g" then
-			draw_stones("st-grate1",{i-1,line}, {1,1}, 1)
-		elseif c=="A" then
+            abyss(i-1,line)
+--            fill_floor("fl-water", i-1,line, 1,1)
+        elseif c=="z" then
+            set_actor("ac-blackball", i-.5,line+.5)
+        elseif c=="+" then
+            set_stone( "st-wood", i-1, line)
+        elseif c=="1" then
+            doorv( i-1,line, {name="door1"})
+        elseif c=="W" then
+            set_attrib(laser(i-1,line, FALSE, WEST), "name", "laser")
+        elseif c=="L" then
+            set_stone("st-key_a", i-1,line, {action="on", target="laser"})
+        elseif c=="k" then
+            set_item("it-key_a", i-1,line)
+        elseif c=="`" then
+            mirrorp(i-1,line,FALSE,TRUE, 2)
+        elseif c=="/" then
+            mirrorp(i-1,line,FALSE,TRUE, 4)
+        elseif c=="B" then
+            set_stone("st-bombs", i-1,line)
+        elseif c=="g" then
+            draw_stones("st-grate1",{i-1,line}, {1,1}, 1)
+        elseif c=="A" then
            if done_with_setup==0 then
               set_stone("st-switch", i-1,line, {action="callback",target="funcc"})
            end
-		elseif c=="h" then
-     		   	draw_stones("st-grate2",{i-1,line}, {1,1}, 1)
-		elseif c=="m" then
-		        set_stone("st-marble",i-1,line)
-		end
-	end	
+        elseif c=="h" then
+                    draw_stones("st-grate2",{i-1,line}, {1,1}, 1)
+        elseif c=="m" then
+                set_stone("st-marble",i-1,line)
+        end
+    end    
 end
 
 through=0
@@ -140,15 +140,15 @@ function funcc()
    renderLine(12, myline12)
 
     if through==1 then
-	through=0
+    through=0
     end
 --    if through==0 then
---	for i=1, strlen(pattern) do
---	    local c = strsub( pattern, i, i)
---	    if c =="#" then
---		set_stone("st-greenbrown",i-1,line)
---	    end
---	end		
+--    for i=1, strlen(pattern) do
+--        local c = strsub( pattern, i, i)
+--        if c =="#" then
+--        set_stone("st-greenbrown",i-1,line)
+--        end
+--    end        
 --    end
     through=through+1
 end

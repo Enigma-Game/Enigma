@@ -2,7 +2,7 @@
 <el:level xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://enigma-game.org/schema/level/1 level.xsd" xmlns:el="http://enigma-game.org/schema/level/1">
   <el:protected>
     <el:info el:type="level">
-      <el:identity el:title="pool with a pole" el:subtitle="" el:id="stable/alain23"/>
+      <el:identity el:title="pool with a pole" el:subtitle="" el:id="alain23"/>
       <el:version el:score="1" el:release="1" el:revision="0" el:status="released"/>
       <el:author  el:name="Alain Busser" el:email="" el:homepage=""/>
       <el:copyright>Copyright © 2006 Alain Busser</el:copyright>
@@ -29,26 +29,26 @@ enigma.BumperForce=600
 enigma.SlopeForce=8
 
 function renderLine( line, pattern)
-	for i=1, strlen(pattern) do
-		local c = strsub( pattern, i, i)
-		if c =="#" then
-			set_stone("st-white4", i-1,line)
-		elseif c == "o" then
-			set_item("it-hollow", i-1, line)
-        	elseif c == "1" then
-            	        set_floor("fl-gradient",  i-1,  line, {type=21})
-        	elseif c == "2" then
-            	        set_floor("fl-gradient",  i-1,  line, {type=22})
-        	elseif c == "3" then
-            	        set_floor("fl-gradient",  i-1,  line, {type=23})
-        	elseif c == "4" then
-            	        set_floor("fl-gradient",  i-1,  line, {type=24})
-		elseif c=="*" then
-			set_actor("ac-whiteball-small", i-0.5, line+0.5, {player=1, mouseforce=0})
-		elseif c=="z" then
-			set_actor("ac-blackball", i-0.5, line+0.5, {player=0, mouseforce=1})
-		end
-	end	
+    for i=1, strlen(pattern) do
+        local c = strsub( pattern, i, i)
+        if c =="#" then
+            set_stone("st-white4", i-1,line)
+        elseif c == "o" then
+            set_item("it-hollow", i-1, line)
+            elseif c == "1" then
+                        set_floor("fl-gradient",  i-1,  line, {type=21})
+            elseif c == "2" then
+                        set_floor("fl-gradient",  i-1,  line, {type=22})
+            elseif c == "3" then
+                        set_floor("fl-gradient",  i-1,  line, {type=23})
+            elseif c == "4" then
+                        set_floor("fl-gradient",  i-1,  line, {type=24})
+        elseif c=="*" then
+            set_actor("ac-whiteball-small", i-0.5, line+0.5, {player=1, mouseforce=0})
+        elseif c=="z" then
+            set_actor("ac-blackball", i-0.5, line+0.5, {player=0, mouseforce=1})
+        end
+    end    
 end
 
 if difficult then

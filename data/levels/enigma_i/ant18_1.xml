@@ -52,23 +52,23 @@ function place_new_oxyd_stone(count)
       local num = oxydstones.n+1
 
       if num>14 then
-	 return
+     return
       end
 
       repeat
-	 mox, moy=random(0,blocksx-1),random(0,blocksy-1)
-	 key = getkey(mox, moy)
-	 ox, oy=mox*blockw+1, moy*blockh+1
+     mox, moy=random(0,blocksx-1),random(0,blocksy-1)
+     key = getkey(mox, moy)
+     ox, oy=mox*blockw+1, moy*blockh+1
       until (not(oxydstones[key]))and(((mod(mox,2)==0)and(mod(moy,2)==0)))
 
       --well, place found. Now construct triggering function
       local funcn = "trigger_"..num
       func0 = "function() "..
-	      "  if (oxydstones[\""..key.."\"] == 0) then "..
-	      "    oxydstones[\""..key.."\"] = 1 "..
-	      "    place_new_oxyd_stone(2) "..
-	      "  end "..
-	      "end "
+          "  if (oxydstones[\""..key.."\"] == 0) then "..
+          "    oxydstones[\""..key.."\"] = 1 "..
+          "    place_new_oxyd_stone(2) "..
+          "  end "..
+          "end "
 
       dostring(funcn.." = "..func0)
 

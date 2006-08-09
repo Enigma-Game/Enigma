@@ -25,62 +25,62 @@ draw_border("st-brownie")
 fill_floor("fl-hay")
 
 function renderLine( line, pattern)
-	for i=1, strlen(pattern) do
-		local c = strsub( pattern, i, i)
-		if c =="#" then
-			abyss(i-1,line)
-		elseif c == "o" then
-			oxyd( i-1, line)
-		elseif c == "s" then
-			set_item("it-spring1",i-1,line)
-		elseif c == "m" then
-			fill_floor("fl-metal", i-1,line, 1,1)
-		elseif c == "i" then
-			set_stone( "st-invisible", i-1, line)
-		elseif c == "h" then
-			set_item("it-trigger", i-1,line, {action="openclose",target="door1"})
-		elseif c == "H" then
-			set_stone("st-door", i-1, line , {name="door1", type="v"})
-		elseif c == "*" then
-			set_stone("st-brownie", i-1, line)
-		elseif c == "g" then
-			draw_stones("st-grate1",{i-1,line}, {1,1}, 1)
+    for i=1, strlen(pattern) do
+        local c = strsub( pattern, i, i)
+        if c =="#" then
+            abyss(i-1,line)
+        elseif c == "o" then
+            oxyd( i-1, line)
+        elseif c == "s" then
+            set_item("it-spring1",i-1,line)
+        elseif c == "m" then
+            fill_floor("fl-metal", i-1,line, 1,1)
+        elseif c == "i" then
+            set_stone( "st-invisible", i-1, line)
+        elseif c == "h" then
+            set_item("it-trigger", i-1,line, {action="openclose",target="door1"})
+        elseif c == "H" then
+            set_stone("st-door", i-1, line , {name="door1", type="v"})
+        elseif c == "*" then
+            set_stone("st-brownie", i-1, line)
+        elseif c == "g" then
+            draw_stones("st-grate1",{i-1,line}, {1,1}, 1)
                 elseif c == "u" then
-			set_floor("fl-gradient",  i-1,  line, {type=2})
-		elseif c == "r" then
-			set_floor("fl-gradient",  i-1,  line, {type=3})
-		elseif c == "b" then
-			set_floor("fl-gradient",  i-1,  line, {type=1})
-		elseif c == "l" then
-			set_floor("fl-gradient",  i-1,  line, {type=4})
- 		elseif c == "d" then
-			set_stone("st-death", i-1,line)
+            set_floor("fl-gradient",  i-1,  line, {type=2})
+        elseif c == "r" then
+            set_floor("fl-gradient",  i-1,  line, {type=3})
+        elseif c == "b" then
+            set_floor("fl-gradient",  i-1,  line, {type=1})
+        elseif c == "l" then
+            set_floor("fl-gradient",  i-1,  line, {type=4})
+         elseif c == "d" then
+            set_stone("st-death", i-1,line)
                 elseif c == "1" then
-			oneway(i-1,line, enigma.NORTH)
+            oneway(i-1,line, enigma.NORTH)
                 elseif c == "4" then
-			oneway(i-1,line, enigma.SOUTH)
+            oneway(i-1,line, enigma.SOUTH)
                 elseif c == "3" then
-			oneway(i-1,line, enigma.WEST)
- 		elseif c == "2" then
-			oneway(i-1,line, enigma.EAST)
-		elseif c == "~" then
-			fill_floor("fl-water", i-1,line, 1,1)
+            oneway(i-1,line, enigma.WEST)
+         elseif c == "2" then
+            oneway(i-1,line, enigma.EAST)
+        elseif c == "~" then
+            fill_floor("fl-water", i-1,line, 1,1)
                 elseif c == "!" then
-			abyss(i-1,line)
+            abyss(i-1,line)
                 elseif c == "@" then
-			document(i-1,line,"text1")
+            document(i-1,line,"text1")
                 elseif c == "+" then
-		        set_stone("st-greenbrown",i-1,line)
- 		elseif c == "f" then
-		        fakeoxyd(i-1,line)
-		elseif c == "v" then
-		        oneway(i-1,line, enigma.WEST)
-		elseif c == "y" then
-		        oneway(i-1,line, enigma.NORTH)
-		elseif c == "z" then	
-			set_actor("ac-blackball" ,i-1, line)
+                set_stone("st-greenbrown",i-1,line)
+         elseif c == "f" then
+                fakeoxyd(i-1,line)
+        elseif c == "v" then
+                oneway(i-1,line, enigma.WEST)
+        elseif c == "y" then
+                oneway(i-1,line, enigma.NORTH)
+        elseif c == "z" then    
+            set_actor("ac-blackball" ,i-1, line)
                 end
-	end
+    end
 end
 
 -- Floor:  " "

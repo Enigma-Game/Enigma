@@ -61,23 +61,23 @@ function renderLine( line, pattern)
 
       elseif c=="d" then
 
-         set_floor("fl-gradient",  i-1,  line, {type=9})   		 	 	 
+         set_floor("fl-gradient",  i-1,  line, {type=9})                      
 
       elseif c=="1" then
 
-	 set_floor("fl-gradient",  i-1,  line, {type=3})         
+     set_floor("fl-gradient",  i-1,  line, {type=3})         
 
       elseif c=="2" then
 
-	 set_floor("fl-gradient",  i-1,  line, {type=4})   
+     set_floor("fl-gradient",  i-1,  line, {type=4})   
 
       elseif c=="3" then
 
-	 set_floor("fl-gradient",  i-1,  line, {type=1})   
+     set_floor("fl-gradient",  i-1,  line, {type=1})   
 
       elseif c=="4" then
 
-	 set_floor("fl-gradient",  i-1,  line, {type=2})         
+     set_floor("fl-gradient",  i-1,  line, {type=2})         
 
       elseif c=="5" then
 
@@ -85,7 +85,7 @@ function renderLine( line, pattern)
 
       elseif c=="6" then
 
-         set_floor("fl-gradient",  i-1,  line, {type=6})   	
+         set_floor("fl-gradient",  i-1,  line, {type=6})       
 
       elseif c=="7" then
 
@@ -97,7 +97,7 @@ function renderLine( line, pattern)
 
       elseif c=="O" then
 
-	 oxyd(i-1,line)         
+     oxyd(i-1,line)         
 
         end
 

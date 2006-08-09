@@ -149,24 +149,24 @@ mytimer = 0
 function timer_handler()
     mytimer=mytimer+1
     if mytimer==1 then
-	x=20
-	y=20
+    x=20
+    y=20
     end
     if mytimer==2 then
-	x=-20
-	y=-20
+    x=-20
+    y=-20
     end
     if mytimer==3 then
-	x=20
-	y=-20    
+    x=20
+    y=-20    
     end
     if mytimer==4 then
-	x=0
-	y=0
-	x=-20
-	y=20
-	SendMessage("door2", "openclose")
-	mytimer=0
+    x=0
+    y=0
+    x=-20
+    y=20
+    SendMessage("door2", "openclose")
+    mytimer=0
     end
     enigma.AddConstantForce(x,y)
 end

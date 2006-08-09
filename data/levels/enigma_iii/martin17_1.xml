@@ -27,21 +27,21 @@ create_world( levelw, levelh)
 fill_floor("fl-water", 0,0,levelw,levelh)
 
 function renderLine( line, pattern)
-	for i=1, strlen(pattern) do
-		local c = strsub( pattern, i, i)
-		if c =="#" then
-			set_floor( floor, i-1, line)
-			set_stone( stone, i-1, line)
-		elseif c == "o" then
-			set_floor( floor, i-1, line)
-			oxyd( i-1, line)
-		elseif c == "=" then
-			set_floor( floor, i-1, line)
-		elseif c == "x" then
-			set_floor( floor, i-1, line)
-			set_stone( "st-wood", i-1, line)
-		end
-	end
+    for i=1, strlen(pattern) do
+        local c = strsub( pattern, i, i)
+        if c =="#" then
+            set_floor( floor, i-1, line)
+            set_stone( stone, i-1, line)
+        elseif c == "o" then
+            set_floor( floor, i-1, line)
+            oxyd( i-1, line)
+        elseif c == "=" then
+            set_floor( floor, i-1, line)
+        elseif c == "x" then
+            set_floor( floor, i-1, line)
+            set_stone( "st-wood", i-1, line)
+        end
+    end
 end
 
 -- Floor:   "="

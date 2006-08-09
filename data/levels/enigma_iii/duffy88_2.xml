@@ -81,7 +81,7 @@ function renderLine( line, pattern)
             set_floor("fl-gradient",  i-1,  line, {type=10})
         elseif c=="R" then
             set_actor("ac-rotor", i-.5,line+.5, {range=1000, force=93})
-            set_floor("fl-gradient",  i-1,  line, {type=2})	
+            set_floor("fl-gradient",  i-1,  line, {type=2})    
         elseif c=="B" then
             yy1( "black",  i-1, line)
             set_floor("fl-gradient",  i-1,  line, {type=2})
@@ -89,7 +89,7 @@ function renderLine( line, pattern)
             set_stone("st-oneway-n", i-1,line)
             set_floor("fl-hay",i-1,line)
         end
-    end	
+    end    
 end
 
 function yy1( color, x, y)

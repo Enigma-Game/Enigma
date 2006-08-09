@@ -24,46 +24,46 @@ create_world( levelw, levelh)
 fill_floor("fl-leaves", 0,0,levelw,levelh)
 
 function renderLine( line, pattern)
-	for i=1, strlen(pattern) do
-		local c = strsub( pattern, i, i)
-		if c =="#" then
-			set_stone( "st-greenbrown", i-1, line)
-		elseif c == "o" then
-			oxyd( i-1, line)
+    for i=1, strlen(pattern) do
+        local c = strsub( pattern, i, i)
+        if c =="#" then
+            set_stone( "st-greenbrown", i-1, line)
+        elseif c == "o" then
+            oxyd( i-1, line)
         elseif c == "!" then
-			abyss(i-1,line)
---			fill_floor("fl-water", i-1,line, 1,1)
-		elseif c=="z" then
-			set_actor("ac-blackball", i-.5,line+.5)
-			set_item("it-yinyang", i-1, line+.5)
-			fill_floor("fl-bluegreen", i-1,line, 1,1)
-		elseif c=="y" then
-			set_actor("ac-whiteball", i-.5,line+.5)
-			set_item("it-yinyang", i-1, line+.5)
-			fill_floor("fl-bluegreen", i-1,line, 1,1)
-		elseif c=="+" then
-			set_stone( "st-wood", i-1, line)
-			fill_floor("fl-bluegreen", i-1,line, 1,1)
-		elseif c=="=" then
-			set_stone( "st-wood", i-1, line)
-		elseif c=="B" then
-			set_stone("st-bombs", i-1,line)
-		elseif c=="d" then
-			set_stone("st-oneway-s", i-1,line)	
-		elseif c=="l" then
-			set_stone("st-oneway-w", i-1,line)
-		elseif c == "X" then
-            		draw_stones("st-yinyang1", { i-1,line}, {0,1},1)
-		elseif c=="C" then
-		       doorh( i-1,line, {name="door3"})
-		elseif c == "b" then
-			yy1( "black",  i-1, line)
-		elseif c == "w" then
-			yy1( "white",  i-1, line)
-		elseif c == "x" then
-			fill_floor("fl-bluegreen", i-1,line, 1,1)
-		end
-	end	
+            abyss(i-1,line)
+--            fill_floor("fl-water", i-1,line, 1,1)
+        elseif c=="z" then
+            set_actor("ac-blackball", i-.5,line+.5)
+            set_item("it-yinyang", i-1, line+.5)
+            fill_floor("fl-bluegreen", i-1,line, 1,1)
+        elseif c=="y" then
+            set_actor("ac-whiteball", i-.5,line+.5)
+            set_item("it-yinyang", i-1, line+.5)
+            fill_floor("fl-bluegreen", i-1,line, 1,1)
+        elseif c=="+" then
+            set_stone( "st-wood", i-1, line)
+            fill_floor("fl-bluegreen", i-1,line, 1,1)
+        elseif c=="=" then
+            set_stone( "st-wood", i-1, line)
+        elseif c=="B" then
+            set_stone("st-bombs", i-1,line)
+        elseif c=="d" then
+            set_stone("st-oneway-s", i-1,line)    
+        elseif c=="l" then
+            set_stone("st-oneway-w", i-1,line)
+        elseif c == "X" then
+                    draw_stones("st-yinyang1", { i-1,line}, {0,1},1)
+        elseif c=="C" then
+               doorh( i-1,line, {name="door3"})
+        elseif c == "b" then
+            yy1( "black",  i-1, line)
+        elseif c == "w" then
+            yy1( "white",  i-1, line)
+        elseif c == "x" then
+            fill_floor("fl-bluegreen", i-1,line, 1,1)
+        end
+    end    
 end
 
 function yy1( color, x, y)

@@ -30,211 +30,211 @@ oxyd_default_flavor="a"
 fill_floor("fl-leaves", 0,0,levelw,levelh)
 
 function renderLine( line, pattern)
-	for i=1, strlen(pattern) do
-		local c = strsub( pattern, i, i)
-		if c =="#" then
-			set_stone( "st-greenbrown", i-1, line)
-		elseif c =="0" then
-			set_floor("fl-ice_001",i-1,line)
-			set_item("it-pin",i-1,line)
-		elseif c =="s" then
-			set_stone( "st-greenbrown", i-1, line)
-		   set_floor("fl-inverse",i-1,line)
-		elseif c =="G" then
-	   set_stone( "st-fakeoxyda", i-1, line)
-		elseif c =="|" then
-	   set_stone( "st-fakeoxyda", i-1, line)
-	   set_item("it-cherry",i-1,line)
-		elseif c =="e" then
-		   set_stone("st-glass2_hole",i-1,line)
-  		   set_item("it-vortex-open", i-1, line, {targetx="22.5",targety="52.5"})
-		elseif c =="I" then
-  		   set_item("it-vortex-open", i-1, line, {targetx="1.5",targety="54.5"})
-		elseif c =="," then
-  		   set_item("it-vortex-open", i-1, line)
-		elseif c =="?" then
-			set_stone( "st-greenbrown", i-1, line)
-			set_floor("fl-ice_001",i-1,line)
-		elseif c =="x" then
-			set_stone( "st-greenbrown", i-1, line)
-			set_floor("fl-swamp",i-1,line)
-		elseif c =="X" then
-			set_stone( "st-death", i-1, line)
-		elseif c =="f" then
-			set_stone( "st-death_invisible", i-1, line)
-		elseif c =="v" then
-			set_stone( "st-glass", i-1, line)
-		elseif c =="V" then
-			set_stone( "st-brick_magic", i-1, line)
-		elseif c =="`" then
-		   set_stone( "st-bigbrick-nw", i-1, line)
-		elseif c =="@" then
-		   set_stone( "st-bigbrick-ne", i-1, line)
-		elseif c =="^" then
-		   set_stone( "st-bigbrick-es", i-1, line)
-		elseif c =="-" then
-		   set_stone( "st-bigbrick-sw", i-1, line)
-		elseif c =="8" then
-		   set_stone( "st-bigbrick-n", i-1, line)
-		elseif c =="6" then
-		   set_stone( "st-bigbrick-e", i-1, line)
-		elseif c =="." then
-		   set_stone( "st-bigbrick-s", i-1, line)
-		elseif c ==";" then
-		   set_stone( "st-bigbrick-w", i-1, line)
-		elseif c ==":" then
-		   set_stone( "st-bigbrick-nesw", i-1, line)
-		elseif c =="t" then
-			set_stone( "st-brick_magic", i-1, line)
-			set_item("it-surprise",i-1,line)
-		elseif c =="/" then
-			set_stone( "st-brick_magic", i-1, line)
-			set_item("it-extralife",i-1,line)
-		elseif c =="O" then
-			set_item("it-extralife",i-1,line)
-		elseif c =="$" then
-			set_stone( "st-greenbrown", i-1, line)
-			set_floor("fl-sand",i-1,line)
-		elseif c =="%" then
-			set_stone( "st-greenbrown", i-1, line)
-			set_floor("fl-normal",i-1,line)
-		elseif c =="&" then
-			set_stone( "st-greenbrown", i-1, line)
-			set_floor("fl-hay",i-1,line)
-		elseif c =="F" then
-			set_stone( "st-flash", i-1, line)
-			set_floor("fl-ice_001",i-1,line)
-		elseif c =="a" then
-			set_stone( "st-actorimpulse", i-1, line)
-			set_floor("fl-ice_001",i-1,line)
-		elseif c =="Y" then
-			set_stone( "st-yinyang1", i-1, line)
-			set_floor("fl-ice_001",i-1,line)
-		elseif c =="S" then
-			set_stone( "st-surprise", i-1, line)
-		elseif c =="L" then
-			set_stone( "st-window", i-1, line)
-		elseif c == "o" then
-			oxyd( i-1, line)
-		elseif c == "J" then
-			oxyd( i-1, line)
-			set_floor("fl-hay",i-1,line)
-		elseif c == "<" then
-			oxyd( i-1, line)
-			set_floor("fl-normal",i-1,line)
-		elseif c == "*" then
-			set_stone( "st-brownie", i-1, line)
+    for i=1, strlen(pattern) do
+        local c = strsub( pattern, i, i)
+        if c =="#" then
+            set_stone( "st-greenbrown", i-1, line)
+        elseif c =="0" then
+            set_floor("fl-ice_001",i-1,line)
+            set_item("it-pin",i-1,line)
+        elseif c =="s" then
+            set_stone( "st-greenbrown", i-1, line)
+           set_floor("fl-inverse",i-1,line)
+        elseif c =="G" then
+       set_stone( "st-fakeoxyda", i-1, line)
+        elseif c =="|" then
+       set_stone( "st-fakeoxyda", i-1, line)
+       set_item("it-cherry",i-1,line)
+        elseif c =="e" then
+           set_stone("st-glass2_hole",i-1,line)
+             set_item("it-vortex-open", i-1, line, {targetx="22.5",targety="52.5"})
+        elseif c =="I" then
+             set_item("it-vortex-open", i-1, line, {targetx="1.5",targety="54.5"})
+        elseif c =="," then
+             set_item("it-vortex-open", i-1, line)
+        elseif c =="?" then
+            set_stone( "st-greenbrown", i-1, line)
+            set_floor("fl-ice_001",i-1,line)
+        elseif c =="x" then
+            set_stone( "st-greenbrown", i-1, line)
+            set_floor("fl-swamp",i-1,line)
+        elseif c =="X" then
+            set_stone( "st-death", i-1, line)
+        elseif c =="f" then
+            set_stone( "st-death_invisible", i-1, line)
+        elseif c =="v" then
+            set_stone( "st-glass", i-1, line)
+        elseif c =="V" then
+            set_stone( "st-brick_magic", i-1, line)
+        elseif c =="`" then
+           set_stone( "st-bigbrick-nw", i-1, line)
+        elseif c =="@" then
+           set_stone( "st-bigbrick-ne", i-1, line)
+        elseif c =="^" then
+           set_stone( "st-bigbrick-es", i-1, line)
+        elseif c =="-" then
+           set_stone( "st-bigbrick-sw", i-1, line)
+        elseif c =="8" then
+           set_stone( "st-bigbrick-n", i-1, line)
+        elseif c =="6" then
+           set_stone( "st-bigbrick-e", i-1, line)
+        elseif c =="." then
+           set_stone( "st-bigbrick-s", i-1, line)
+        elseif c ==";" then
+           set_stone( "st-bigbrick-w", i-1, line)
+        elseif c ==":" then
+           set_stone( "st-bigbrick-nesw", i-1, line)
+        elseif c =="t" then
+            set_stone( "st-brick_magic", i-1, line)
+            set_item("it-surprise",i-1,line)
+        elseif c =="/" then
+            set_stone( "st-brick_magic", i-1, line)
+            set_item("it-extralife",i-1,line)
+        elseif c =="O" then
+            set_item("it-extralife",i-1,line)
+        elseif c =="$" then
+            set_stone( "st-greenbrown", i-1, line)
+            set_floor("fl-sand",i-1,line)
+        elseif c =="%" then
+            set_stone( "st-greenbrown", i-1, line)
+            set_floor("fl-normal",i-1,line)
+        elseif c =="&" then
+            set_stone( "st-greenbrown", i-1, line)
+            set_floor("fl-hay",i-1,line)
+        elseif c =="F" then
+            set_stone( "st-flash", i-1, line)
+            set_floor("fl-ice_001",i-1,line)
+        elseif c =="a" then
+            set_stone( "st-actorimpulse", i-1, line)
+            set_floor("fl-ice_001",i-1,line)
+        elseif c =="Y" then
+            set_stone( "st-yinyang1", i-1, line)
+            set_floor("fl-ice_001",i-1,line)
+        elseif c =="S" then
+            set_stone( "st-surprise", i-1, line)
+        elseif c =="L" then
+            set_stone( "st-window", i-1, line)
+        elseif c == "o" then
+            oxyd( i-1, line)
+        elseif c == "J" then
+            oxyd( i-1, line)
+            set_floor("fl-hay",i-1,line)
+        elseif c == "<" then
+            oxyd( i-1, line)
+            set_floor("fl-normal",i-1,line)
+        elseif c == "*" then
+            set_stone( "st-brownie", i-1, line)
                 elseif c == "!" then
-			abyss(i-1,line)
-		elseif c == "~" then
-		   set_floor("fl-water",i-1,line)
-		elseif c=="z" then
-		   set_actor("ac-blackball", i-1,line+.5, {essential=1,player=0})
-		elseif c=="y" then
-		   set_actor("ac-whiteball", i-.5,line+.5, {player=1})
-		elseif c=="w" then
-		   set_actor("ac-killerball", i-.5,line+.5, {player=1,mouseforce=0})
-			set_floor("fl-ice_001",i-1,line)
-		elseif c=="R" then
-		   set_actor("ac-rotor", i-.5,line+.5, {force=30,range=8})
-		elseif c=="N" then
-		   set_actor("ac-top", i-1,line+.5, {force=40,range=9})
-		   set_item("it-cherry",i-1,line)
-		elseif c==">" then
-		   set_item("it-cherry",i-1,line)
-		elseif c=="b" then
-		   set_actor("ac-bug", i-.5,line+.5)
-			set_floor("fl-sand",i-1,line)
-		elseif c == "g" then
-			draw_stones("st-grate1",{i-1,line}, {1,1}, 1)
-		elseif c=="+" then
-			set_stone( "st-wood", i-1, line)
-		elseif c=="=" then
-			set_floor("fl-space",i-1,line)
-			set_floor("fl-space",i-1,line-1)
-			set_floor("fl-space",i-1,line+1)
-		elseif c=="i" then
-			set_floor("fl-ice_001",i-1,line)
-		elseif c=="n" then
-			set_floor("fl-normal",i-1,line)
-		elseif c=="j" then
-			set_floor("fl-hay",i-1,line)
-		elseif c=="q" then
-		   set_floor("fl-sand",i-1,line)
-		elseif c=="m" then
-		   set_floor("fl-swamp",i-1,line)
-		elseif c=="Q" then
-		   set_floor("fl-inverse",i-1,line)
-		elseif c=="p" then
-		   set_floor("fl-swamp",i-1,line)
-		   set_item("it-extralife",i-1,line)
-		elseif c=="_" then
-			fill_floor("fl-brick",i-1,line,18,11)
-		elseif c=="Z" then
-			fill_floor("fl-himalaya",i-2,line,19,12)
-		elseif c=="H" then
-			set_stone("st-rock3_break", i-1, line)
-		elseif c=="T" then
-			set_stone("st-rock3_break", i-1, line)
-			set_item("it-surprise",i-1,line)
-		elseif c=="h" then
-			set_stone("st-rock3", i-1, line)
-		elseif c=="P" then
-			set_item("it-hammer",i-1,line)
-		elseif c=="M" then
-			set_stone( "st-brownie", i-1, line)
-			set_item("it-magicwand",i-1,line)
-		elseif c=="D" then
-			set_item("it-dynamite",i-1,line)
-		elseif c=="B" then
-			set_stone("st-bug", i-1, line)
-		elseif c=="c" then
-			set_stone("st-bug", i-1, line)
-			set_item("it-floppy",i-1,line)
-		elseif c == "d" then --1-d
-			set_floor("fl-gradient",  i-1,  line, {type=1})
-		elseif c == "u" then --2-u
-			set_floor("fl-gradient",  i-1,  line, {type=2})
-		elseif c == "r" then --3-r
-			set_floor("fl-gradient",  i-1,  line, {type=3})
-		elseif c == "l" then --4-l
-			set_floor("fl-gradient",  i-1,  line, {type=4})
-		elseif c == "1" then --ur
-			set_floor("fl-gradient",  i-1,  line, {type=11})
-		elseif c == "3" then --dl
-			set_floor("fl-gradient",  i-1,  line, {type=9})
-		elseif c == "7" then --dr
-			set_floor("fl-gradient",  i-1,  line, {type=12})
-		elseif c == "9" then --ul
-			set_floor("fl-gradient",  i-1,  line, {type=10})
-		elseif c=="U" then
-			set_stone("st-bolder", i-1,line, {direction=NORTH})
-		   set_floor("fl-water",i-1,line)
-		elseif c=="4" then
-			yy1( "white",  i-1, line)
-			set_floor("fl-gradient",  i-1,  line, {type=4})
-		elseif c=="5" then
-			yy1( "white",  i-1, line)
-			set_floor("fl-gradient",  i-1,  line, {type=11})
-		elseif c=="2" then
-			yy1( "white",  i-1, line)
-			set_floor("fl-gradient",  i-1,  line, {type=1})
-		elseif c=="W" then
-			yy1( "black",  i-1, line)
-		elseif c=="C" then
-			set_stone( "st-floppy", i-1,line,{action="openclose",target="door1"})
-			set_floor("fl-hay",i-1,line)
-		elseif c=="A" then
-			doorv( i-1,line, {name="door1"})
-			set_floor("fl-hay",i-1,line)
-		elseif c=="K" then
+            abyss(i-1,line)
+        elseif c == "~" then
+           set_floor("fl-water",i-1,line)
+        elseif c=="z" then
+           set_actor("ac-blackball", i-1,line+.5, {essential=1,player=0})
+        elseif c=="y" then
+           set_actor("ac-whiteball", i-.5,line+.5, {player=1})
+        elseif c=="w" then
+           set_actor("ac-killerball", i-.5,line+.5, {player=1,mouseforce=0})
+            set_floor("fl-ice_001",i-1,line)
+        elseif c=="R" then
+           set_actor("ac-rotor", i-.5,line+.5, {force=30,range=8})
+        elseif c=="N" then
+           set_actor("ac-top", i-1,line+.5, {force=40,range=9})
+           set_item("it-cherry",i-1,line)
+        elseif c==">" then
+           set_item("it-cherry",i-1,line)
+        elseif c=="b" then
+           set_actor("ac-bug", i-.5,line+.5)
+            set_floor("fl-sand",i-1,line)
+        elseif c == "g" then
+            draw_stones("st-grate1",{i-1,line}, {1,1}, 1)
+        elseif c=="+" then
+            set_stone( "st-wood", i-1, line)
+        elseif c=="=" then
+            set_floor("fl-space",i-1,line)
+            set_floor("fl-space",i-1,line-1)
+            set_floor("fl-space",i-1,line+1)
+        elseif c=="i" then
+            set_floor("fl-ice_001",i-1,line)
+        elseif c=="n" then
+            set_floor("fl-normal",i-1,line)
+        elseif c=="j" then
+            set_floor("fl-hay",i-1,line)
+        elseif c=="q" then
+           set_floor("fl-sand",i-1,line)
+        elseif c=="m" then
+           set_floor("fl-swamp",i-1,line)
+        elseif c=="Q" then
+           set_floor("fl-inverse",i-1,line)
+        elseif c=="p" then
+           set_floor("fl-swamp",i-1,line)
+           set_item("it-extralife",i-1,line)
+        elseif c=="_" then
+            fill_floor("fl-brick",i-1,line,18,11)
+        elseif c=="Z" then
+            fill_floor("fl-himalaya",i-2,line,19,12)
+        elseif c=="H" then
+            set_stone("st-rock3_break", i-1, line)
+        elseif c=="T" then
+            set_stone("st-rock3_break", i-1, line)
+            set_item("it-surprise",i-1,line)
+        elseif c=="h" then
+            set_stone("st-rock3", i-1, line)
+        elseif c=="P" then
+            set_item("it-hammer",i-1,line)
+        elseif c=="M" then
+            set_stone( "st-brownie", i-1, line)
+            set_item("it-magicwand",i-1,line)
+        elseif c=="D" then
+            set_item("it-dynamite",i-1,line)
+        elseif c=="B" then
+            set_stone("st-bug", i-1, line)
+        elseif c=="c" then
+            set_stone("st-bug", i-1, line)
+            set_item("it-floppy",i-1,line)
+        elseif c == "d" then --1-d
+            set_floor("fl-gradient",  i-1,  line, {type=1})
+        elseif c == "u" then --2-u
+            set_floor("fl-gradient",  i-1,  line, {type=2})
+        elseif c == "r" then --3-r
+            set_floor("fl-gradient",  i-1,  line, {type=3})
+        elseif c == "l" then --4-l
+            set_floor("fl-gradient",  i-1,  line, {type=4})
+        elseif c == "1" then --ur
+            set_floor("fl-gradient",  i-1,  line, {type=11})
+        elseif c == "3" then --dl
+            set_floor("fl-gradient",  i-1,  line, {type=9})
+        elseif c == "7" then --dr
+            set_floor("fl-gradient",  i-1,  line, {type=12})
+        elseif c == "9" then --ul
+            set_floor("fl-gradient",  i-1,  line, {type=10})
+        elseif c=="U" then
+            set_stone("st-bolder", i-1,line, {direction=NORTH})
+           set_floor("fl-water",i-1,line)
+        elseif c=="4" then
+            yy1( "white",  i-1, line)
+            set_floor("fl-gradient",  i-1,  line, {type=4})
+        elseif c=="5" then
+            yy1( "white",  i-1, line)
+            set_floor("fl-gradient",  i-1,  line, {type=11})
+        elseif c=="2" then
+            yy1( "white",  i-1, line)
+            set_floor("fl-gradient",  i-1,  line, {type=1})
+        elseif c=="W" then
+            yy1( "black",  i-1, line)
+        elseif c=="C" then
+            set_stone( "st-floppy", i-1,line,{action="openclose",target="door1"})
+            set_floor("fl-hay",i-1,line)
+        elseif c=="A" then
+            doorv( i-1,line, {name="door1"})
+            set_floor("fl-hay",i-1,line)
+        elseif c=="K" then
             set_item("it-wormhole", i-1, line, {strength=0,targetx="49.5",targety="49.5"})
-		elseif c=="k" then
-			set_attrib(laser(i-1,line, TRUE, NORTH), "name", "laser1")
-		elseif c=="E" then
-		   document(i-1,line,"text1")
-	     end
-	end	
+        elseif c=="k" then
+            set_attrib(laser(i-1,line, TRUE, NORTH), "name", "laser1")
+        elseif c=="E" then
+           document(i-1,line,"text1")
+         end
+    end    
      end
 
 function yy1( color, x, y)

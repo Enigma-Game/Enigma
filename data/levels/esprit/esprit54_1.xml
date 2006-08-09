@@ -47,25 +47,25 @@ function renderLine( line, pattern)
 
       elseif c=="D" then
 
-	 set_stone("st-death",i-1,line)
+     set_stone("st-death",i-1,line)
 
-	 set_item("it-magnet",i-1,line)
+     set_item("it-magnet",i-1,line)
 
       elseif c=="W" then
 
-	 set_stone("st-greenbrown",i-1,line)	 
+     set_stone("st-greenbrown",i-1,line)     
 
       elseif c=="1" then
 
-	 set_floor("fl-gradient",  i-1,  line, {type=23})         
+     set_floor("fl-gradient",  i-1,  line, {type=23})         
 
       elseif c=="2" then
 
-	 set_floor("fl-gradient",  i-1,  line, {type=24})   
+     set_floor("fl-gradient",  i-1,  line, {type=24})   
 
       elseif c=="3" then
 
-	 set_floor("fl-gradient",  i-1,  line, {type=21})      	 
+     set_floor("fl-gradient",  i-1,  line, {type=21})           
 
       elseif c=="5" then
 
@@ -77,19 +77,19 @@ function renderLine( line, pattern)
 
       elseif c=="a" then
 
-	 set_floor("fl-gradient",  i-1,  line, {type=24})
+     set_floor("fl-gradient",  i-1,  line, {type=24})
 
-	 set_item("it-wormhole",i-1,line, {targetx=" 2.5",targety="1.5",strength=0,range=0})          
+     set_item("it-wormhole",i-1,line, {targetx=" 2.5",targety="1.5",strength=0,range=0})          
 
       elseif c=="b" then
 
-         set_floor("fl-gradient",  i-1,  line, {type=23})         	 
+         set_floor("fl-gradient",  i-1,  line, {type=23})              
 
          set_item("it-wormhole",i-1,line, {targetx=" 17.5",targety="1.5",strength=0,range=0})
 
       elseif c=="O" then
 
-	 oxyd(i-1,line)         
+     oxyd(i-1,line)         
 
         end
 

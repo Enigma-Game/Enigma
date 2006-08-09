@@ -33,40 +33,40 @@ function renderLine( line, pattern)
       elseif c=="p" then               
          set_stone("st-door_a",i-1,line)
       elseif c=="|" then
-	 set_stone("st-greenbrown_hole",i-1,line)
-	 if (not difficult) then -- easy
-	   set_stone("st-grate2",i-1,line)
-	 else                            -- hard
-	   set_stone("st-greenbrown_hole",i-1,line)
-	 end
-	 set_floor("fl-gradient",  i-1,  line, {type=1})
+     set_stone("st-greenbrown_hole",i-1,line)
+     if (not difficult) then -- easy
+       set_stone("st-grate2",i-1,line)
+     else                            -- hard
+       set_stone("st-greenbrown_hole",i-1,line)
+     end
+     set_floor("fl-gradient",  i-1,  line, {type=1})
       elseif c=="a" then
-	 if (not difficult) then -- easy
-	   set_stone("st-grate2",i-1,line)
-	 else                            -- hard
-	   set_stone("st-greenbrown_hole",i-1,line)
-	 end
+     if (not difficult) then -- easy
+       set_stone("st-grate2",i-1,line)
+     else                            -- hard
+       set_stone("st-greenbrown_hole",i-1,line)
+     end
          hollow(i-1,line, {name="hollow1"})
       elseif c=="b" then
-	 if (not difficult) then -- easy
-	   set_stone("st-grate2",i-1,line)
-	 else                            -- hard
-	   set_stone("st-greenbrown_hole",i-1,line)
-	 end
+     if (not difficult) then -- easy
+       set_stone("st-grate2",i-1,line)
+     else                            -- hard
+       set_stone("st-greenbrown_hole",i-1,line)
+     end
          hollow(i-1,line, {name="hollow2"})
       elseif c=="c" then
-	 if (not difficult) then -- easy
-	   set_stone("st-grate2",i-1,line)
-	 else                            -- hard
-	   set_stone("st-greenbrown_hole",i-1,line)
-	 end
+     if (not difficult) then -- easy
+       set_stone("st-grate2",i-1,line)
+     else                            -- hard
+       set_stone("st-greenbrown_hole",i-1,line)
+     end
          hollow(i-1,line, {name="hollow3"})
       elseif c=="d" then
-	 if (not difficult) then -- easy
-	   set_stone("st-grate2",i-1,line)
-	 else                            -- hard
-	   set_stone("st-greenbrown_hole",i-1,line)
-	 end
+     if (not difficult) then -- easy
+       set_stone("st-grate2",i-1,line)
+     else                            -- hard
+       set_stone("st-greenbrown_hole",i-1,line)
+     end
          hollow(i-1,line, {name="hollow4"})
       elseif c=="e" then
          set_stone("st-door_a", i-1,line, {name="door1", type="v"})
@@ -77,29 +77,29 @@ function renderLine( line, pattern)
       elseif c=="h" then
          set_stone("st-door_a", i-1,line, {name="door4", type="v"})
       elseif c=="1" then
-	 set_stone("st-switch",i-1,line, {action="callback", target="s1"})
+     set_stone("st-switch",i-1,line, {action="callback", target="s1"})
       elseif c=="2" then
-	 set_stone("st-switch",i-1,line, {action="callback", target="s2"})
+     set_stone("st-switch",i-1,line, {action="callback", target="s2"})
       elseif c=="3" then
-	 set_stone("st-switch",i-1,line, {action="callback", target="s3"})
+     set_stone("st-switch",i-1,line, {action="callback", target="s3"})
       elseif c=="4" then
-	 set_stone("st-switch",i-1,line, {action="callback", target="s4"})	
+     set_stone("st-switch",i-1,line, {action="callback", target="s4"})    
       elseif c=="W" then
-	 set_stone("st-timer",i-1,line, {action="openclose", target="door1"})
+     set_stone("st-timer",i-1,line, {action="openclose", target="door1"})
       elseif c=="X" then
-	 set_stone("st-timer",i-1,line, {action="openclose", target="door2"})
+     set_stone("st-timer",i-1,line, {action="openclose", target="door2"})
       elseif c=="Y" then
-	 set_stone("st-timer",i-1,line, {action="openclose", target="door3"})
+     set_stone("st-timer",i-1,line, {action="openclose", target="door3"})
       elseif c=="Z" then
-	 set_stone("st-timer",i-1,line, {action="openclose", target="door4"})
+     set_stone("st-timer",i-1,line, {action="openclose", target="door4"})
       elseif c=="5" then
-	 set_stone("st-fourswitch",i-1,line, {name="switch1", action="openclose", target="door1"})
+     set_stone("st-fourswitch",i-1,line, {name="switch1", action="openclose", target="door1"})
       elseif c=="6" then
-	 set_stone("st-fourswitch",i-1,line, {name="switch2", action="openclose", target="door2"})
+     set_stone("st-fourswitch",i-1,line, {name="switch2", action="openclose", target="door2"})
       elseif c=="7" then
-	 set_stone("st-fourswitch",i-1,line, {name="switch3", action="openclose", target="door3"})
+     set_stone("st-fourswitch",i-1,line, {name="switch3", action="openclose", target="door3"})
       elseif c=="8" then
-	 set_stone("st-fourswitch",i-1,line, {name="switch4", action="openclose", target="door4"})	
+     set_stone("st-fourswitch",i-1,line, {name="switch4", action="openclose", target="door4"})    
       elseif c=="x" then
          set_actor("ac-whiteball-small", i,line+.5, {player=0})
         end

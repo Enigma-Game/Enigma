@@ -67,7 +67,7 @@ function renderLine( line, pattern)
         elseif c == "8" then --small ul
             set_floor("fl-gradient",  i-1,  line, {type=10})
         end
-    end	
+    end    
 end
 
 -- Floor:  " "

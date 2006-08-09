@@ -22,9 +22,9 @@ cells={}
 
 cells[" "]=cell{floor="fl-rough-blue"}
 if (not difficult) then
-	cells["#"]=cell{stone="st-invisible",floor="fl-rough-red"}
+    cells["#"]=cell{stone="st-invisible",floor="fl-rough-red"}
 else
-	cells["#"]=cell{stone="st-death_invisible",floor="fl-rough-red"}
+    cells["#"]=cell{stone="st-death_invisible",floor="fl-rough-red"}
 end
 
 cells["x"]=cell{actor={"ac-rotor", {range=25, force=40}}}

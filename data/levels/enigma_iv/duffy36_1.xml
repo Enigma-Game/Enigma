@@ -32,20 +32,20 @@ function renderLine( line, pattern)
             oxyd( i-1, line)
         elseif c == "!" then
             abyss(i-1,line)
-            --	           	fill_floor("fl-water", i-1,line, 1,1)
+            --                   fill_floor("fl-water", i-1,line, 1,1)
         elseif c=="z" then
             set_actor("ac-blackball", i-.5,line+.5)
         elseif c=="s" then
             set_stone( "st-stoneimpulse", i-1, line)
         elseif c=="S" then
             set_stone( "st-stoneimpulse-hollow", i-1,line)
-	elseif c=="A" then
+    elseif c=="A" then
             set_stone( "st-stoneimpulse-hollow", i-1,line,{name="ss1"})
-	elseif c=="B" then
+    elseif c=="B" then
             set_stone( "st-stoneimpulse-hollow", i-1,line,{name="ss2"})
-	elseif c=="C" then
+    elseif c=="C" then
             set_stone( "st-stoneimpulse-hollow", i-1,line,{name="ss3"})
-	elseif c=="D" then
+    elseif c=="D" then
             set_stone( "st-stoneimpulse-hollow", i-1,line,{name="ss4"})
         elseif c=="a" then
             set_stone("st-stoneimpulse",i-1,line,{name="s1"})
@@ -56,7 +56,7 @@ function renderLine( line, pattern)
         elseif c=="d" then
             set_stone("st-stoneimpulse",i-1,line,{name="s4"})
         end
-    end	
+    end    
 end
 
 -- Floor:  " "

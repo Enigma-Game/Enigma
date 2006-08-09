@@ -29,11 +29,11 @@ function renderLine( line, pattern)
         local c = strsub( pattern, i, i)
         if c =="#" then
             set_stone("st-greenbrown",i-1,line)
-        elseif c == "z" then	
+        elseif c == "z" then    
             set_actor("ac-blackball", i-.5,line+1)
         elseif c == "o" then
             oxyd(i-1,line)
-        elseif c == "@" then	
+        elseif c == "@" then    
             hollow(i-1,line)
         elseif c == "/" then
             mirrorp(i-1,line,FALSE,FALSE, 4)
@@ -41,7 +41,7 @@ function renderLine( line, pattern)
             mirrorp(i-1,line,FALSE,FALSE, 2)
         elseif c == "?" then
             mirrorp(i-1,line,TRUE,TRUE, 1)
-        elseif c == "x" then	
+        elseif c == "x" then    
             set_item("it-key_a", i-1 ,line)
         elseif c == "u" then
             set_attrib(laser(i-1,line, TRUE, NORTH), "name", "laser")

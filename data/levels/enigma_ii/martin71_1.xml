@@ -29,26 +29,26 @@ function turnbolder( dir)
    local bolder_dir=enigma.GetAttrib(enigma.GetNamedObject("bolder1"), "direction")
    -- SET NEW DIRECTION
    if dir == "left" then
-   	bolder_dir = bolder_dir -1
-   	while (bolder_dir<0) do
-   	   bolder_dir = bolder_dir +4
-   	end
+       bolder_dir = bolder_dir -1
+       while (bolder_dir<0) do
+          bolder_dir = bolder_dir +4
+       end
    else
-   	bolder_dir = bolder_dir +1
-	while (bolder_dir>3) do
-	   bolder_dir = bolder_dir -4
-	end
+       bolder_dir = bolder_dir +1
+    while (bolder_dir>3) do
+       bolder_dir = bolder_dir -4
+    end
    end
 
    SendMessage("bolder1", "direction", bolder_dir)
 end
 
 function turnbolder1()
-	turnbolder( "left")
+    turnbolder( "left")
 end
 
 function turnbolder2()
-	turnbolder( "right")
+    turnbolder( "right")
 end
 
 create_world( 5*19+1, 5*12+1)

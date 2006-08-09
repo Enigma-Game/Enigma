@@ -25,17 +25,17 @@ Require("levels/lib/libpuzzle.lua")
 create_world(levelw, levelh)
 
 function renderLine( line, pattern)
-	for i=1, strlen(pattern) do
-		local c = strsub( pattern, i, i)
-  		if c=="o" then
-			set_item("it-hollow",i-1,line)
-			set_floor("fl-brick",i-1,line)
+    for i=1, strlen(pattern) do
+        local c = strsub( pattern, i, i)
+          if c=="o" then
+            set_item("it-hollow",i-1,line)
+            set_floor("fl-brick",i-1,line)
                 elseif c=="#" then
                         set_stone("st-metal",i-1,line)
                 elseif c=="H" then
                         set_stone("st-metal_hole",i-1,line)
                 elseif c==" " then
-			set_floor("fl-brick",i-1,line)
+            set_floor("fl-brick",i-1,line)
 
                 elseif c=="a" then
                         set_stone("st-bigbrick-sw",i-1,line)
@@ -47,9 +47,9 @@ function renderLine( line, pattern)
                         set_stone("st-bigbrick-es",i-1,line)
 
                 elseif c=="s" then
-			set_floor("fl-abyss_fake",i-1,line)
-		end
-	end	
+            set_floor("fl-abyss_fake",i-1,line)
+        end
+    end    
 end
 
 renderLine(00 , "ssssssssssssssssssss")

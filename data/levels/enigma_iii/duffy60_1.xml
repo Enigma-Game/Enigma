@@ -75,7 +75,7 @@ function renderLine( line, pattern)
         elseif c == "@" then
             document(i-1,line,"text1")
         end
-    end	
+    end    
 end
 
 renderLine(00,"!o!!!!!!!!!!!$!!!!!!")

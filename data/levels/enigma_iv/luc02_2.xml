@@ -33,7 +33,7 @@ function fill_randomfloor(names, x0,y0, w,h)
     if w  == nil then w  = level_width end
     if h  == nil then h  = level_height end
     for y=y0,y0+h-1 do
-	for x=x0,x0+w-1 do
+    for x=x0,x0+w-1 do
             set_floor(names[random(getn(names))], x, y) 
         end
     end

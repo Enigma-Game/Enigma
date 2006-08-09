@@ -29,38 +29,38 @@ difficult = (options.Difficulty==2)
 fill_floor("fl-leaves", 0,0,levelw,levelh)
 
 function renderLine( line, pattern)
-	for i=1, strlen(pattern) do
-		local c = strsub( pattern, i, i)
-		if c =="#" then
-			set_stone( "st-death", i-1, line)
-		elseif c == "o" then
-			oxyd( i-1, line)
-		elseif c == "*" then
-			set_stone( "st-brownie", i-1, line)
+    for i=1, strlen(pattern) do
+        local c = strsub( pattern, i, i)
+        if c =="#" then
+            set_stone( "st-death", i-1, line)
+        elseif c == "o" then
+            oxyd( i-1, line)
+        elseif c == "*" then
+            set_stone( "st-brownie", i-1, line)
                 elseif c == "!" then
-			abyss(i-1,line)
-		elseif c == "~" then
-		   set_floor("fl-water",i-1,line)
-		elseif c=="z" then
-		   set_actor("ac-blackball", i-.5,line+.5, {player=0})
-		elseif c=="y" then
-		   set_actor("ac-whiteball", i-1,line+.5, {player=1})
-		elseif c=="t" then
+            abyss(i-1,line)
+        elseif c == "~" then
+           set_floor("fl-water",i-1,line)
+        elseif c=="z" then
+           set_actor("ac-blackball", i-.5,line+.5, {player=0})
+        elseif c=="y" then
+           set_actor("ac-whiteball", i-1,line+.5, {player=1})
+        elseif c=="t" then
 if difficult==false then
-		   set_actor("ac-top", i-.5,line+.5, {force=25,range=30,controllers=0,player=1})
+           set_actor("ac-top", i-.5,line+.5, {force=25,range=30,controllers=0,player=1})
 else
-		   set_actor("ac-top", i-.5,line+.5, {force=40,range=30,controllers=0,player=1})
+           set_actor("ac-top", i-.5,line+.5, {force=40,range=30,controllers=0,player=1})
 end
-		elseif c == "g" then
-			draw_stones("st-grate1",{i-1,line}, {1,1}, 1)
-		elseif c=="+" then
-			set_stone( "st-wood", i-1, line)
-		elseif c=="=" then
-			set_floor("fl-space",i-1,line)
-		elseif c=="T" then
-		   set_stone("st-timer",i-1,line,{loop=1,interval=0.2,action="callback",target="funcc1"})
-	     end
-	end	
+        elseif c == "g" then
+            draw_stones("st-grate1",{i-1,line}, {1,1}, 1)
+        elseif c=="+" then
+            set_stone( "st-wood", i-1, line)
+        elseif c=="=" then
+            set_floor("fl-space",i-1,line)
+        elseif c=="T" then
+           set_stone("st-timer",i-1,line,{loop=1,interval=0.2,action="callback",target="funcc1"})
+         end
+    end    
 end
 
 renderLine(00,"####################T")

@@ -23,12 +23,12 @@ WALL = "st-wood_001"
 function draw_checkerboard_floor( name1, name2, x, y, w, h, attrs)
     for i=1,h do
         for j=1,w do
-	    if mod(i,2) == mod(j,2) then
-	        set_floor( name1, x+j-1, y+i-1, attrs )
-	    else
-	        set_floor( name2, x+j-1, y+i-1, attrs )
+        if mod(i,2) == mod(j,2) then
+            set_floor( name1, x+j-1, y+i-1, attrs )
+        else
+            set_floor( name2, x+j-1, y+i-1, attrs )
             end
-	end
+    end
     end
 end
 

@@ -32,17 +32,17 @@ function renderLine( line, pattern)
       elseif c=="S" then
          set_item("it-umbrella", i-1,line)
       elseif c=="D" then
-	 set_stone("st-death",i-1,line)
+     set_stone("st-death",i-1,line)
       elseif c=="W" then
          set_stone("st-rock2",i-1,line)
       elseif c=="O" then
-	 oxyd(i-1,line)
+     oxyd(i-1,line)
       elseif c=="1" then
          set_stone("st-oneway_black-w",i-1,line)
       elseif c=="2" then
          set_stone("st-oneway_black-e",i-1,line)
       elseif c=="N" then
-	 document(i-1,line,"text1")
+     document(i-1,line,"text1")
         end
     end
 end

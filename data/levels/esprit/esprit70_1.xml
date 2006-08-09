@@ -29,25 +29,25 @@ function renderLine( line, pattern)
          set_floor("fl-gray",i-1,line)
          hollow(i-1,line)
       elseif c=="1" then
-	 set_floor("fl-gradient",  i-1,  line, {type=2})
+     set_floor("fl-gradient",  i-1,  line, {type=2})
       elseif c=="2" then
-	 set_floor("fl-gradient",  i-1,  line, {type=1})
+     set_floor("fl-gradient",  i-1,  line, {type=1})
       elseif c=="3" then
-	 set_floor("fl-gradient",  i-1,  line, {type=3})
+     set_floor("fl-gradient",  i-1,  line, {type=3})
       elseif c=="4" then
-	 set_floor("fl-gradient",  i-1,  line, {type=4})	
+     set_floor("fl-gradient",  i-1,  line, {type=4})    
       elseif c=="a" then
          set_stone("st-actorimpulse_invisible",i-1,line)
-	 set_floor("fl-gradient",  i-1,  line, {type=2})
+     set_floor("fl-gradient",  i-1,  line, {type=2})
       elseif c=="b" then
          set_stone("st-actorimpulse_invisible",i-1,line)      
-	 set_floor("fl-gradient",  i-1,  line, {type=1})
+     set_floor("fl-gradient",  i-1,  line, {type=1})
       elseif c=="c" then
          set_stone("st-actorimpulse_invisible",i-1,line)      
-	 set_floor("fl-gradient",  i-1,  line, {type=3})
+     set_floor("fl-gradient",  i-1,  line, {type=3})
       elseif c=="d" then
          set_stone("st-actorimpulse_invisible",i-1,line)      
-	 set_floor("fl-gradient",  i-1,  line, {type=4})	  	 	
+     set_floor("fl-gradient",  i-1,  line, {type=4})               
       elseif c=="M" then
          set_stone("st-greenbrown",i-1,line)
         end

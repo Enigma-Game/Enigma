@@ -44,25 +44,25 @@ function renderLine( line, pattern)
       elseif c=="D" then
          set_stone("st-death", i-1,line) 
       elseif c=="k" then
-	 set_item("it-key_c", i-1,line)
+     set_item("it-key_c", i-1,line)
       elseif c=="a" then
          set_stone("st-bluegray_hole", i-1,line) 
-	 set_item("it-key_a", i-1,line)
-	 --set_floor("fl-gradient",  i-1,  line, {type=4})
+     set_item("it-key_a", i-1,line)
+     --set_floor("fl-gradient",  i-1,  line, {type=4})
       elseif c=="n" then
          set_stone("st-bluegray_hole", i-1,line) 
-	 document(i-1,line,"text1")
-	 --set_floor("fl-gradient",  i-1,  line, {type=4})
+     document(i-1,line,"text1")
+     --set_floor("fl-gradient",  i-1,  line, {type=4})
       elseif c=="N" then
          set_stone("st-bluegray_hole", i-1,line) 
-	document(i-1,line,"text2")
-	--set_floor("fl-gradient",  i-1,  line, {type=4})
+    document(i-1,line,"text2")
+    --set_floor("fl-gradient",  i-1,  line, {type=4})
       elseif c=="K" then
-	 set_item("it-cherry", i-1,line)         
+     set_item("it-cherry", i-1,line)         
       elseif c=="E" then
-	 set_item("it-extralife", i-1,line)   
+     set_item("it-extralife", i-1,line)   
       elseif c=="1" then
-	 set_item("it-coin1", i-1,line)   
+     set_item("it-coin1", i-1,line)   
       elseif c=="2" then
          set_item("it-coin2", i-1,line)
       elseif c=="4" then
@@ -86,7 +86,7 @@ function renderLine( line, pattern)
       elseif c=="c" then
          set_stone("st-stone_break", i-1,line) 
       elseif c=="O" then
-	 oxyd(i-1,line)
+     oxyd(i-1,line)
         end
     end  
 end

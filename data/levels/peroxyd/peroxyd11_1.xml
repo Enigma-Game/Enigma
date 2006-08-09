@@ -31,29 +31,29 @@ function renderLine( line, pattern)
       if c == "#" then
          set_stone("st-metal",i-1,line)
       elseif c == "D" then                      
-	 set_stone("st-death", i-1,line)
+     set_stone("st-death", i-1,line)
       elseif c=="d" then
-	 doorh( i-1,line, {name="door"})
-	 set_floor("fl-space", i-1,line)
+     doorh( i-1,line, {name="door"})
+     set_floor("fl-space", i-1,line)
       elseif c == "C" then                      
-	 set_stone("st-coinslot", i-1,line,{target="door", action="openclose"})
-      elseif c=="1" then	
-	 set_item("it-coin1", i-1,line)
-      elseif c=="2" then	
-	 set_item("it-coin2", i-1,line)
-      elseif c=="4" then	
-	 set_item("it-coin4", i-1,line)
-      elseif c=="s" then	
-	 set_item("it-spring1", i-1,line)
-      elseif c=="c" then	
-	 set_item("it-coffee", i-1,line)
-      elseif c=="a" then	
-	 set_floor("fl-abyss", i-1,line)
-      elseif c=="0" then	
-	 set_floor("fl-space", i-1,line)	 
+     set_stone("st-coinslot", i-1,line,{target="door", action="openclose"})
+      elseif c=="1" then    
+     set_item("it-coin1", i-1,line)
+      elseif c=="2" then    
+     set_item("it-coin2", i-1,line)
+      elseif c=="4" then    
+     set_item("it-coin4", i-1,line)
+      elseif c=="s" then    
+     set_item("it-spring1", i-1,line)
+      elseif c=="c" then    
+     set_item("it-coffee", i-1,line)
+      elseif c=="a" then    
+     set_floor("fl-abyss", i-1,line)
+      elseif c=="0" then    
+     set_floor("fl-space", i-1,line)     
       elseif c=="W" then                                                                
          set_item("it-magnet",i-1,line,{name="magnetW", on=0})
-         set_floor("fl-space",i-1,line)	 
+         set_floor("fl-space",i-1,line)     
       elseif c=="X" then                                                                
          set_item("it-magnet",i-1,line,{name="magnetX", on=0})
          set_floor("fl-space",i-1,line)
@@ -64,11 +64,11 @@ function renderLine( line, pattern)
          set_item("it-magnet",i-1,line,{name="magnetZ", on=0})
          set_floor("fl-space",i-1,line)
       elseif c=="w" then
-	 set_item("it-trigger",i-1,line, {action="onoff", target="magnetW"})         
+     set_item("it-trigger",i-1,line, {action="onoff", target="magnetW"})         
       elseif c=="x" then
-	 set_item("it-trigger",i-1,line, {action="onoff", target="magnetX"})   
+     set_item("it-trigger",i-1,line, {action="onoff", target="magnetX"})   
       elseif c=="y" then
-	 set_item("it-trigger",i-1,line, {action="onoff", target="magnetY"})     	 
+     set_item("it-trigger",i-1,line, {action="onoff", target="magnetY"})          
       elseif c=="z" then
          set_item("it-trigger",i-1,line, {action="onoff", target="magnetZ"})
       elseif c=="n" then

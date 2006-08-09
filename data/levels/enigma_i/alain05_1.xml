@@ -27,38 +27,38 @@ draw_border("st-rock1")
 fill_floor("fl-tigris")
 
 function renderLine( line, pattern)
-	for i=1, strlen(pattern) do
-		local c = strsub( pattern, i, i)
-		if c =="*" then
-			set_stone( "st-rock1", i-1, line)
-		elseif c == "o" then
-			oxyd( i-1, line)
+    for i=1, strlen(pattern) do
+        local c = strsub( pattern, i, i)
+        if c =="*" then
+            set_stone( "st-rock1", i-1, line)
+        elseif c == "o" then
+            oxyd( i-1, line)
             elseif c=="z" then
-			set_actor("ac-blackball", i-.5,line+.5, {player=0})
-		elseif c=="a" then
-			document(i-1,line, "text1") 
-		elseif c=="b" then
-			document(i-1,line, "text2") 
-		elseif c=="c" then
-			document(i-1,line, "text3") 
-		elseif c=="+" then
-			set_stone("st-grate1", i-1,line)
-		elseif c=="g" then
-			doorv(i-1,line, {name="door1"})
-		elseif c=="h" then
-			doorv(i-1,line, {name="door2"})
-		elseif c=="f" then
-			set_floor("fl-water",i-1,line)
-		elseif c=="l" then
-			set_floor("fl-leaves",i-1,line)
-     		elseif c == "2" then
-         		set_item("it-banana",i-1,line)
-		elseif c == "T" then
-         		set_stone("st-switch",i-1,line, {action="open", target="door1"})
-     		elseif c == "S" then
-         		set_stone("st-switch",i-1,line, {action="open", target="door2"})
-		end
-	end	
+            set_actor("ac-blackball", i-.5,line+.5, {player=0})
+        elseif c=="a" then
+            document(i-1,line, "text1") 
+        elseif c=="b" then
+            document(i-1,line, "text2") 
+        elseif c=="c" then
+            document(i-1,line, "text3") 
+        elseif c=="+" then
+            set_stone("st-grate1", i-1,line)
+        elseif c=="g" then
+            doorv(i-1,line, {name="door1"})
+        elseif c=="h" then
+            doorv(i-1,line, {name="door2"})
+        elseif c=="f" then
+            set_floor("fl-water",i-1,line)
+        elseif c=="l" then
+            set_floor("fl-leaves",i-1,line)
+             elseif c == "2" then
+                 set_item("it-banana",i-1,line)
+        elseif c == "T" then
+                 set_stone("st-switch",i-1,line, {action="open", target="door1"})
+             elseif c == "S" then
+                 set_stone("st-switch",i-1,line, {action="open", target="door2"})
+        end
+    end    
 end
 
 --               01234567890123456789

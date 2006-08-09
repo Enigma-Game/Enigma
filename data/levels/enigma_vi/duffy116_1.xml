@@ -28,66 +28,66 @@ enigma.SlopeForce=90
 fill_floor("fl-mortar", 0,0,levelw,levelh)
 
 function renderLine( line, pattern)
-	for i=1, strlen(pattern) do
-		local c = strsub( pattern, i, i)
-		if c =="#" then
-			set_stone( "st-greenbrown", i-1, line)
-		elseif c =="%" then
-			set_stone( "st-greenbrown", i-1, line)
-		   set_floor("fl-gradient",i-1,line,{type=21})
-		elseif c == "o" then
-			oxyd( i-1, line)
-		elseif c == "O" then
-			oxyd( i-1, line)
-		   set_floor("fl-gradient",i-1,line,{type=21})
-		elseif c == "*" then
-			set_stone( "st-brownie", i-1, line)
+    for i=1, strlen(pattern) do
+        local c = strsub( pattern, i, i)
+        if c =="#" then
+            set_stone( "st-greenbrown", i-1, line)
+        elseif c =="%" then
+            set_stone( "st-greenbrown", i-1, line)
+           set_floor("fl-gradient",i-1,line,{type=21})
+        elseif c == "o" then
+            oxyd( i-1, line)
+        elseif c == "O" then
+            oxyd( i-1, line)
+           set_floor("fl-gradient",i-1,line,{type=21})
+        elseif c == "*" then
+            set_stone( "st-brownie", i-1, line)
                 elseif c == "!" then
-			abyss(i-1,line)
-		elseif c == "~" then
-		   set_floor("fl-water",i-1,line)
-		elseif c=="z" then
-		   set_actor("ac-blackball", i-.5,line+.5, {player=0})
-			draw_stones("st-grate1",{i-1,line}, {1,1}, 1)
-		   set_floor("fl-gradient",i-1,line,{type=21})
-		elseif c=="y" then
-		   set_actor("ac-whiteball", i-1,line+.5, {player=1})
-		elseif c == "g" then
-			draw_stones("st-grate1",{i-1,line}, {1,1}, 1)
-		elseif c == "G" then
-			draw_stones("st-grate1",{i-1,line}, {1,1}, 1)
-		   set_floor("fl-gradient",i-1,line,{type=21})
-		elseif c=="+" then
-			set_stone( "st-wood", i-1, line)
-		elseif c=="&" then
-			set_stone( "st-wood", i-1, line)
-		   set_floor("fl-gradient",i-1,line,{type=21})
-		elseif c=="^" then
-			set_stone( "st-wood", i-1, line)
-		   set_floor("fl-gradient",i-1,line,{type=21})
-		   set_item("it-extralife",i-1,line)
-		elseif c=="=" then
-			set_floor("fl-space",i-1,line)
-		elseif c=="d" then
-		   set_floor("fl-gradient",i-1,line,{type=21})
-		elseif c=="W" then
-		fill_floor("fl-wood",i-1,line+1,5,8)
-		elseif c=="T" then
-		   set_stone("st-timer",i-1,line,{loop=1,interval=0.15,action="callback",target="funcc1"})
-		   set_floor("fl-gradient",i-1,line,{type=21})
-		elseif c=="U" then
-		   set_stone("st-timer",i-1,line,{loop=1,interval=0.15,action="callback",target="funcc3"})
-		   set_floor("fl-gradient",i-1,line,{type=21})
-		elseif c=="V" then
-		   set_stone("st-timer",i-1,line,{loop=1,interval=0.5,action="callback",target="funcc2"})
-		   set_floor("fl-gradient",i-1,line,{type=21})
-		elseif c=="R" then
-		   set_stone("st-oneway", i-1,line, {orientation=enigma.EAST})
-			set_floor("fl-gradient",  i-1,  line, {type=11})
-		elseif c=="1" then
-			set_floor("fl-gradient",  i-1,  line, {type=11})
-	     end
-	end	
+            abyss(i-1,line)
+        elseif c == "~" then
+           set_floor("fl-water",i-1,line)
+        elseif c=="z" then
+           set_actor("ac-blackball", i-.5,line+.5, {player=0})
+            draw_stones("st-grate1",{i-1,line}, {1,1}, 1)
+           set_floor("fl-gradient",i-1,line,{type=21})
+        elseif c=="y" then
+           set_actor("ac-whiteball", i-1,line+.5, {player=1})
+        elseif c == "g" then
+            draw_stones("st-grate1",{i-1,line}, {1,1}, 1)
+        elseif c == "G" then
+            draw_stones("st-grate1",{i-1,line}, {1,1}, 1)
+           set_floor("fl-gradient",i-1,line,{type=21})
+        elseif c=="+" then
+            set_stone( "st-wood", i-1, line)
+        elseif c=="&" then
+            set_stone( "st-wood", i-1, line)
+           set_floor("fl-gradient",i-1,line,{type=21})
+        elseif c=="^" then
+            set_stone( "st-wood", i-1, line)
+           set_floor("fl-gradient",i-1,line,{type=21})
+           set_item("it-extralife",i-1,line)
+        elseif c=="=" then
+            set_floor("fl-space",i-1,line)
+        elseif c=="d" then
+           set_floor("fl-gradient",i-1,line,{type=21})
+        elseif c=="W" then
+        fill_floor("fl-wood",i-1,line+1,5,8)
+        elseif c=="T" then
+           set_stone("st-timer",i-1,line,{loop=1,interval=0.15,action="callback",target="funcc1"})
+           set_floor("fl-gradient",i-1,line,{type=21})
+        elseif c=="U" then
+           set_stone("st-timer",i-1,line,{loop=1,interval=0.15,action="callback",target="funcc3"})
+           set_floor("fl-gradient",i-1,line,{type=21})
+        elseif c=="V" then
+           set_stone("st-timer",i-1,line,{loop=1,interval=0.5,action="callback",target="funcc2"})
+           set_floor("fl-gradient",i-1,line,{type=21})
+        elseif c=="R" then
+           set_stone("st-oneway", i-1,line, {orientation=enigma.EAST})
+            set_floor("fl-gradient",  i-1,  line, {type=11})
+        elseif c=="1" then
+            set_floor("fl-gradient",  i-1,  line, {type=11})
+         end
+    end    
 end
 
 renderLine(00,"#######%O%O%O%O%O%O%T")

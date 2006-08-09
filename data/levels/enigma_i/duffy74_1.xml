@@ -29,34 +29,34 @@ function renderLine( line, pattern)
    for i=1, strlen(pattern) do
       local c = strsub( pattern, i, i)
       if c =="#" then
-	 set_stone( "st-glass", i-1, line)
+     set_stone( "st-glass", i-1, line)
       elseif c == "o" then
-	 if done_with_setup== 0 then
-	    oxyd( i-1, line)
-	 end
+     if done_with_setup== 0 then
+        oxyd( i-1, line)
+     end
       elseif c == "!" then
-	 abyss(i-1,line)
-	 --fill_floor("fl-water", i-1,line, 1,1)
+     abyss(i-1,line)
+     --fill_floor("fl-water", i-1,line, 1,1)
       elseif c == " " then
-	 enigma.KillStone(i-1,line)
+     enigma.KillStone(i-1,line)
       elseif c=="z" then
-	 if done_with_setup==0 then
-	    set_actor("ac-blackball", i-.5,line+.5, {player=0})
-	 end
+     if done_with_setup==0 then
+        set_actor("ac-blackball", i-.5,line+.5, {player=0})
+     end
       elseif c=="+" then
-	 set_stone( "st-wood", i-1, line)
+     set_stone( "st-wood", i-1, line)
       elseif c=="B" then
-	 set_stone("st-bombs", i-1,line)
+     set_stone("st-bombs", i-1,line)
       elseif c=="g" then
-	 draw_stones("st-grate1",{i-1,line}, {1,1}, 1)
+     draw_stones("st-grate1",{i-1,line}, {1,1}, 1)
       elseif c=="A" then
-	 if done_with_setup==0 then
-	    set_stone("st-switch", i-1,line, {action="callback",target="funcc"})
-	 end
+     if done_with_setup==0 then
+        set_stone("st-switch", i-1,line, {action="callback",target="funcc"})
+     end
       elseif c=="h" then
-	 draw_stones("st-grate2",{i-1,line}, {1,1}, 1)
+     draw_stones("st-grate2",{i-1,line}, {1,1}, 1)
       elseif c=="m" then
-	 set_stone( "st-glass", i-1, line)
+     set_stone( "st-glass", i-1, line)
       end
    end
 end
@@ -65,19 +65,19 @@ for i=0, 60 do
    for j=0, 40 do
       xxx=random(13)
       if xxx==1 or xxx==2 or xxx==3 then
-	 set_floor("fl-leaves",i,j)
+     set_floor("fl-leaves",i,j)
       end
       if xxx==4 or xxx==5  or xxx==6 then
-	 set_floor("fl-bluegreen",i,j)
+     set_floor("fl-bluegreen",i,j)
       end
       if xxx==7 or xxx==8 or xxx==9 then 
-	 set_floor("fl-sand",i,j)
+     set_floor("fl-sand",i,j)
       end
       if xxx==10 or xxx==11 or xxx==12 then
-	 set_floor("fl-wood",i,j)
+     set_floor("fl-wood",i,j)
       end
       if xxx==13 then
-	 set_floor("fl-inverse",i,j)
+     set_floor("fl-inverse",i,j)
       end
    end
 end

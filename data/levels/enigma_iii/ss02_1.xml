@@ -28,29 +28,29 @@ function renderLine( line, pattern)
       if c ==     "G" then
          set_stone("st-glass",i-1,line)
       elseif c=="a" then
-	 doorh( i-1,line, {name="door1"})
+     doorh( i-1,line, {name="door1"})
       elseif c=="b" then
-	 doorv( i-1,line, {name="door2"})
+     doorv( i-1,line, {name="door2"})
       elseif c=="c" then
-	 doorv( i-1,line, {name="door3"})
+     doorv( i-1,line, {name="door3"})
       elseif c=="d" then
-	 doorh( i-1,line, {name="door4"})
+     doorh( i-1,line, {name="door4"})
       elseif c=="1" then
-	 set_stone("st-fourswitch", i-1,line, {action="callback", target="s1"})
+     set_stone("st-fourswitch", i-1,line, {action="callback", target="s1"})
       elseif c=="2" then
-	 set_stone("st-fourswitch", i-1,line, {action="callback", target="s2"})
+     set_stone("st-fourswitch", i-1,line, {action="callback", target="s2"})
       elseif c=="3" then
-	 set_stone("st-fourswitch", i-1,line, {action="callback", target="s3"})
+     set_stone("st-fourswitch", i-1,line, {action="callback", target="s3"})
       elseif c=="4" then
-	 set_stone("st-fourswitch", i-1,line, {action="callback", target="s4"})
+     set_stone("st-fourswitch", i-1,line, {action="callback", target="s4"})
       elseif c=="w" then
           set_stone("st-bolder-n", i-1,line, {name="bolder1"})
       elseif c=="x" then
           set_stone("st-bolder-n", i-1,line, {name="bolder2"})
       elseif c=="y" then
-	 set_stone("st-bolder-n", i-1,line, {name="bolder3"})
+     set_stone("st-bolder-n", i-1,line, {name="bolder3"})
       elseif c=="z" then
-	 set_stone("st-bolder-n", i-1,line, {name="bolder4"})
+     set_stone("st-bolder-n", i-1,line, {name="bolder4"})
       elseif c == "O" then
          oxyd(i-1,line)
       elseif c == "A" then

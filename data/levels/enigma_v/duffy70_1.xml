@@ -64,9 +64,9 @@ function renderLine( line, pattern)
             set_stone("st-brownie", i-1, line)
         elseif c == "!" then
             abyss(i-1,line)
-            --			fill_floor("fl-water", i-1,line, 1,1)
+            --            fill_floor("fl-water", i-1,line, 1,1)
         elseif c == "~" then
-            --			abyss(i-1,line)
+            --            abyss(i-1,line)
             fill_floor("fl-water", i-1,line, 1,1)
         elseif c=="z" then
             set_actor("ac-blackball", i-1,line+.5)
@@ -132,7 +132,7 @@ function renderLine( line, pattern)
         elseif c == "b" then
             set_item("it-blackbomb",i-1,line)
         end
-    end	
+    end    
 end
 
 -- Floor:  " "

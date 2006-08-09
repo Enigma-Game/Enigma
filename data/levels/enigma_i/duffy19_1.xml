@@ -39,7 +39,7 @@ function renderLine( line, pattern)
         elseif c=="z" then
             set_actor("ac-blackball", i-.5,line+.5)
         end
-    end	
+    end    
 end
 
 -- Floor:  " "
@@ -228,81 +228,81 @@ if s0x<2 then
    if s0y<2 then
       x=random(2)
       if x==1 then
-	 x=2
+     x=2
       elseif x==2 then
-	 x=3
+     x=3
       end
    elseif s0y>10 then
       x=random(2)
       if x==1 then
-	 x=1
+     x=1
       elseif x==2 then
-	 x=2
+     x=2
       end
    else
       x=random(3)
       if x==1 then
-	 x=1
+     x=1
       elseif x==2 then
-	 x=2
+     x=2
       elseif x==3 then
-	 x=3
+     x=3
       end
    end
 elseif s0x>17 then
    if s0y<2 then
       x=random(2)
       if x==1 then
-	 x=3
+     x=3
       elseif x==2 then
-	 x=4
+     x=4
       end
    elseif s0y>10 then
       x=random(2)
       if x==1 then
-	 x=1
+     x=1
       elseif x==2 then
-	 x=4
+     x=4
       end
    else
       x=random(3)
       if x==1 then
-	 x=1
+     x=1
       elseif x==2 then
-	 x=3
+     x=3
       elseif x==3 then
-	 x=4
+     x=4
       end
    end
 else
    if s0y<2 then
       x=random(3)
       if x==1 then
-	 x=2
+     x=2
       elseif x==2 then
-	 x=3
+     x=3
       elseif x==3 then
-	 x=4
+     x=4
       end
    elseif s0y>10 then
       x=random(3)
       if x==1 then
-	 x=1
+     x=1
       elseif x==2 then
-	 x=2
+     x=2
       elseif x==3 then
-	 x=4
+     x=4
       end
    else
       x=random(4)
       if x==1 then
-	 x=1
+     x=1
       elseif x==2 then
-	 x=2
+     x=2
       elseif x==3 then
-	 x=3
+     x=3
       elseif x==4 then
-	 x=4
+     x=4
       end
    end
 end
@@ -344,27 +344,27 @@ if x==1 then
       px=3
    else
       if px==3 then
-	 x=random(2)
-	 if x==1 then
-	    if s0x<18 then
-	       s0x=s0x+1
-	       px=2
-	    else
-	       s0x=s0x-1
-	       px=4
-	    end
-	 elseif x==2 then
-	    if s0x>1 then
-	       s0x=s0x-1
-	       px=4
-	    else
-	       s0x=s0x+1
-	       px=2
-	    end
-	 end
+     x=random(2)
+     if x==1 then
+        if s0x<18 then
+           s0x=s0x+1
+           px=2
+        else
+           s0x=s0x-1
+           px=4
+        end
+     elseif x==2 then
+        if s0x>1 then
+           s0x=s0x-1
+           px=4
+        else
+           s0x=s0x+1
+           px=2
+        end
+     end
       else
-	 s0y=s0y-1
-	 px=1
+     s0y=s0y-1
+     px=1
       end
    end
 elseif x==2 then
@@ -373,27 +373,27 @@ elseif x==2 then
       px=4
    else
       if px==4 then
-	 x=random(2)
-	 if x==1 then
-	    if s0y>1 then
-	       s0y=s0y-1
-	       px=1
-	    else
-	       s0y=s0y+1
-	       px=3
-	    end
-	 elseif x==2 then
-	    if s0y<11 then
-	       s0y=s0y+1
-	       px=3
-	    else
-	       s0y=s0y-1
-	       px=1
-	    end
-	 end
+     x=random(2)
+     if x==1 then
+        if s0y>1 then
+           s0y=s0y-1
+           px=1
+        else
+           s0y=s0y+1
+           px=3
+        end
+     elseif x==2 then
+        if s0y<11 then
+           s0y=s0y+1
+           px=3
+        else
+           s0y=s0y-1
+           px=1
+        end
+     end
       else
-	 s0x=s0x+1
-	 px=2
+     s0x=s0x+1
+     px=2
       end
    end
 elseif x==3 then
@@ -402,27 +402,27 @@ elseif x==3 then
       px=1
    else
       if px==1 then
-	 x=random(2)
-	 if x==1 then
-	    if s0x<18 then
-	       s0x=s0x+1
-	       px=2
-	    else
-	       s0x=s0x-1
-	       px=4
-	    end
-	 elseif x==2 then
-	    if s0x>1 then
-	       s0x=s0x-1
-	       px=4
-	    else
-	       s0x=s0x+1
-	       px=2
-	    end
-	 end
+     x=random(2)
+     if x==1 then
+        if s0x<18 then
+           s0x=s0x+1
+           px=2
+        else
+           s0x=s0x-1
+           px=4
+        end
+     elseif x==2 then
+        if s0x>1 then
+           s0x=s0x-1
+           px=4
+        else
+           s0x=s0x+1
+           px=2
+        end
+     end
       else
-	 s0y=s0y+1
-	 px=3
+     s0y=s0y+1
+     px=3
       end
    end
 elseif x==4 then
@@ -431,27 +431,27 @@ elseif x==4 then
       px=2
    else
       if px==2 then
-	 x=random(2)
-	 if x==1 then
-	    if s0y>1 then
-	       s0y=s0y-1
-	       px=1
-	    else
-	       s0y=s0y+1
-	       px=3
-	    end
-	 elseif x==2 then
-	    if s0y<11 then
-	       s0y=s0y+1
-	       px=3
-	    else
-	       s0y=s0y-1
-	       px=1
-	    end
-	 end
+     x=random(2)
+     if x==1 then
+        if s0y>1 then
+           s0y=s0y-1
+           px=1
+        else
+           s0y=s0y+1
+           px=3
+        end
+     elseif x==2 then
+        if s0y<11 then
+           s0y=s0y+1
+           px=3
+        else
+           s0y=s0y-1
+           px=1
+        end
+     end
       else
-	 s0x=s0x-1
-	 px=4
+     s0x=s0x-1
+     px=4
       end
    end
 end
@@ -477,81 +477,81 @@ if s0x2<2 then
    if s0y2<2 then
       x2=random(2)
       if x2==1 then
-	 x2=2
+     x2=2
       elseif x2==2 then
-	 x2=3
+     x2=3
       end
    elseif s0y2>10 then
       x2=random(2)
       if x2==1 then
-	 x2=1
+     x2=1
       elseif x2==2 then
-	 x2=2
+     x2=2
       end
    else
       x2=random(3)
       if x2==1 then
-	 x2=1
+     x2=1
       elseif x2==2 then
-	 x2=2
+     x2=2
       elseif x2==3 then
-	 x2=3
+     x2=3
       end
    end
 elseif s0x2>17 then
    if s0y2<2 then
       x2=random(2)
       if x2==1 then
-	 x2=3
+     x2=3
       elseif x2==2 then
-	 x2=4
+     x2=4
       end
    elseif s0y2>10 then
       x2=random(2)
       if x2==1 then
-	 x2=1
+     x2=1
       elseif x2==2 then
-	 x2=4
+     x2=4
       end
    else
       x2=random(3)
       if x2==1 then
-	 x2=1
+     x2=1
       elseif x2==2 then
-	 x2=3
+     x2=3
       elseif x2==3 then
-	 x2=4
+     x2=4
       end
    end
 else
    if s0y2<2 then
       x2=random(3)
       if x2==1 then
-	 x2=2
+     x2=2
       elseif x2==2 then
-	 x2=3
+     x2=3
       elseif x2==3 then
-	 x2=4
+     x2=4
       end
    elseif s0y2>10 then
       x2=random(3)
       if x2==1 then
-	 x2=1
+     x2=1
       elseif x2==2 then
-	 x2=2
+     x2=2
       elseif x2==3 then
-	 x2=4
+     x2=4
       end
    else
       x2=random(4)
       if x2==1 then
-	 x2=1
+     x2=1
       elseif x2==2 then
-	 x2=2
+     x2=2
       elseif x2==3 then
-	 x2=3
+     x2=3
       elseif x2==4 then
-	 x2=4
+     x2=4
       end
    end
 end
@@ -593,27 +593,27 @@ if x2==1 then
       px2=3
    else
       if px2==3 then
-	 x2=random(2)
-	 if x2==1 then
-	    if s0x2<18 then
-	       s0x2=s0x2+1
-	       px2=2
-	    else
-	       s0x2=s0x2-1
-	       px2=4
-	    end
-	 elseif x2==2 then
-	    if s0x2>1 then
-	       s0x2=s0x2-1
-	       px2=4
-	    else
-	       s0x2=s0x2+1
-	       px2=2
-	    end
-	 end
+     x2=random(2)
+     if x2==1 then
+        if s0x2<18 then
+           s0x2=s0x2+1
+           px2=2
+        else
+           s0x2=s0x2-1
+           px2=4
+        end
+     elseif x2==2 then
+        if s0x2>1 then
+           s0x2=s0x2-1
+           px2=4
+        else
+           s0x2=s0x2+1
+           px2=2
+        end
+     end
       else
-	 s0y2=s0y2-1
-	 px2=1
+     s0y2=s0y2-1
+     px2=1
       end
    end
 elseif x2==2 then
@@ -622,27 +622,27 @@ elseif x2==2 then
       px2=4
    else
       if px2==4 then
-	 x2=random(2)
-	 if x2==1 then
-	    if s0y2>1 then
-	       s0y2=s0y2-1
-	       px2=1
-	    else
-	       s0y2=s0y2+1
-	       px2=3
-	    end
-	 elseif x2==2 then
-	    if s0y2<11 then
-	       s0y2=s0y2+1
-	       px2=3
-	    else
-	       s0y2=s0y2-1
-	       px2=1
-	    end
-	 end
+     x2=random(2)
+     if x2==1 then
+        if s0y2>1 then
+           s0y2=s0y2-1
+           px2=1
+        else
+           s0y2=s0y2+1
+           px2=3
+        end
+     elseif x2==2 then
+        if s0y2<11 then
+           s0y2=s0y2+1
+           px2=3
+        else
+           s0y2=s0y2-1
+           px2=1
+        end
+     end
       else
-	 s0x2=s0x2+1
-	 px2=2
+     s0x2=s0x2+1
+     px2=2
       end
    end
 elseif x2==3 then
@@ -651,27 +651,27 @@ elseif x2==3 then
       px2=1
    else
       if px2==1 then
-	 x2=random(2)
-	 if x2==1 then
-	    if s0x2<18 then
-	       s0x2=s0x2+1
-	       px2=2
-	    else
-	       s0x2=s0x2-1
-	       px2=4
-	    end
-	 elseif x2==2 then
-	    if s0x2>1 then
-	       s0x2=s0x2-1
-	       px2=4
-	    else
-	       s0x2=s0x2+1
-	       px2=2
-	    end
-	 end
+     x2=random(2)
+     if x2==1 then
+        if s0x2<18 then
+           s0x2=s0x2+1
+           px2=2
+        else
+           s0x2=s0x2-1
+           px2=4
+        end
+     elseif x2==2 then
+        if s0x2>1 then
+           s0x2=s0x2-1
+           px2=4
+        else
+           s0x2=s0x2+1
+           px2=2
+        end
+     end
       else
-	 s0y2=s0y2+1
-	 px2=3
+     s0y2=s0y2+1
+     px2=3
       end
    end
 elseif x2==4 then
@@ -680,27 +680,27 @@ elseif x2==4 then
       px2=2
    else
       if px2==2 then
-	 x2=random(2)
-	 if x2==1 then
-	    if s0y2>1 then
-	       s0y2=s0y2-1
-	       px2=1
-	    else
-	       s0y2=s0y2+1
-	       px2=3
-	    end
-	 elseif x2==2 then
-	    if s0y2<11 then
-	       s0y2=s0y2+1
-	       px2=3
-	    else
-	       s0y2=s0y2-1
-	       px2=1
-	    end
-	 end
+     x2=random(2)
+     if x2==1 then
+        if s0y2>1 then
+           s0y2=s0y2-1
+           px2=1
+        else
+           s0y2=s0y2+1
+           px2=3
+        end
+     elseif x2==2 then
+        if s0y2<11 then
+           s0y2=s0y2+1
+           px2=3
+        else
+           s0y2=s0y2-1
+           px2=1
+        end
+     end
       else
-	 s0x2=s0x2-1
-	 px2=4
+     s0x2=s0x2-1
+     px2=4
       end
    end
 end
@@ -726,81 +726,81 @@ if s0x3<2 then
    if s0y3<2 then
       x3=random(2)
       if x3==1 then
-	 x3=2
+     x3=2
       elseif x3==2 then
-	 x3=3
+     x3=3
       end
    elseif s0y3>10 then
       x3=random(2)
       if x3==1 then
-	 x3=1
+     x3=1
       elseif x3==2 then
-	 x3=2
+     x3=2
       end
    else
       x3=random(3)
       if x3==1 then
-	 x3=1
+     x3=1
       elseif x3==2 then
-	 x3=2
+     x3=2
       elseif x3==3 then
-	 x3=3
+     x3=3
       end
    end
 elseif s0x3>17 then
    if s0y3<2 then
       x3=random(2)
       if x3==1 then
-	 x3=3
+     x3=3
       elseif x3==2 then
-	 x3=4
+     x3=4
       end
    elseif s0y3>10 then
       x3=random(2)
       if x3==1 then
-	 x3=1
+     x3=1
       elseif x3==2 then
-	 x3=4
+     x3=4
       end
    else
       x3=random(3)
       if x3==1 then
-	 x3=1
+     x3=1
       elseif x3==2 then
-	 x3=3
+     x3=3
       elseif x3==3 then
-	 x3=4
+     x3=4
       end
    end
 else
    if s0y3<2 then
       x3=random(3)
       if x3==1 then
-	 x3=2
+     x3=2
       elseif x3==2 then
-	 x3=3
+     x3=3
       elseif x3==3 then
-	 x3=4
+     x3=4
       end
    elseif s0y3>10 then
       x3=random(3)
       if x3==1 then
-	 x3=1
+     x3=1
       elseif x3==2 then
-	 x3=2
+     x3=2
       elseif x3==3 then
-	 x3=4
+     x3=4
       end
    else
       x3=random(4)
       if x3==1 then
-	 x3=1
+     x3=1
       elseif x3==2 then
-	 x3=2
+     x3=2
       elseif x3==3 then
-	 x3=3
+     x3=3
       elseif x3==4 then
-	 x3=4
+     x3=4
       end
    end
 end
@@ -842,27 +842,27 @@ if x3==1 then
       px3=3
    else
       if px3==3 then
-	 x3=random(2)
-	 if x3==1 then
-	    if s0x3<18 then
-	       s0x3=s0x3+1
-	       px3=2
-	    else
-	       s0x3=s0x3-1
-	       px3=4
-	    end
-	 elseif x3==2 then
-	    if s0x3>1 then
-	       s0x3=s0x3-1
-	       px3=4
-	    else
-	       s0x3=s0x3+1
-	       px3=2
-	    end
-	 end
+     x3=random(2)
+     if x3==1 then
+        if s0x3<18 then
+           s0x3=s0x3+1
+           px3=2
+        else
+           s0x3=s0x3-1
+           px3=4
+        end
+     elseif x3==2 then
+        if s0x3>1 then
+           s0x3=s0x3-1
+           px3=4
+        else
+           s0x3=s0x3+1
+           px3=2
+        end
+     end
       else
-	 s0y3=s0y3-1
-	 px3=1
+     s0y3=s0y3-1
+     px3=1
       end
    end
 elseif x3==2 then
@@ -871,27 +871,27 @@ elseif x3==2 then
       px3=4
    else
       if px3==4 then
-	 x3=random(2)
-	 if x3==1 then
-	    if s0y3>1 then
-	       s0y3=s0y3-1
-	       px3=1
-	    else
-	       s0y3=s0y3+1
-	       px3=3
-	    end
-	 elseif x3==2 then
-	    if s0y3<11 then
-	       s0y3=s0y3+1
-	       px3=3
-	    else
-	       s0y3=s0y3-1
-	       px3=1
-	    end
-	 end
+     x3=random(2)
+     if x3==1 then
+        if s0y3>1 then
+           s0y3=s0y3-1
+           px3=1
+        else
+           s0y3=s0y3+1
+           px3=3
+        end
+     elseif x3==2 then
+        if s0y3<11 then
+           s0y3=s0y3+1
+           px3=3
+        else
+           s0y3=s0y3-1
+           px3=1
+        end
+     end
       else
-	 s0x3=s0x3+1
-	 px3=2
+     s0x3=s0x3+1
+     px3=2
       end
    end
 elseif x3==3 then
@@ -900,27 +900,27 @@ elseif x3==3 then
       px3=1
    else
       if px3==1 then
-	 x3=random(2)
-	 if x3==1 then
-	    if s0x3<18 then
-	       s0x3=s0x3+1
-	       px3=2
-	    else
-	       s0x3=s0x3-1
-	       px3=4
-	    end
-	 elseif x3==2 then
-	    if s0x3>1 then
-	       s0x3=s0x3-1
-	       px3=4
-	    else
-	       s0x3=s0x3+1
-	       px3=2
-	    end
-	 end
+     x3=random(2)
+     if x3==1 then
+        if s0x3<18 then
+           s0x3=s0x3+1
+           px3=2
+        else
+           s0x3=s0x3-1
+           px3=4
+        end
+     elseif x3==2 then
+        if s0x3>1 then
+           s0x3=s0x3-1
+           px3=4
+        else
+           s0x3=s0x3+1
+           px3=2
+        end
+     end
       else
-	 s0y3=s0y3+1
-	 px3=3
+     s0y3=s0y3+1
+     px3=3
       end
    end
 elseif x3==4 then
@@ -929,27 +929,27 @@ elseif x3==4 then
       px3=2
    else
       if px3==2 then
-	 x3=random(2)
-	 if x3==1 then
-	    if s0y3>1 then
-	       s0y3=s0y3-1
-	       px3=1
-	    else
-	       s0y3=s0y3+1
-	       px3=3
-	    end
-	 elseif x3==2 then
-	    if s0y3<11 then
-	       s0y3=s0y3+1
-	       px3=3
-	    else
-	       s0y3=s0y3-1
-	       px3=1
-	    end
-	 end
+     x3=random(2)
+     if x3==1 then
+        if s0y3>1 then
+           s0y3=s0y3-1
+           px3=1
+        else
+           s0y3=s0y3+1
+           px3=3
+        end
+     elseif x3==2 then
+        if s0y3<11 then
+           s0y3=s0y3+1
+           px3=3
+        else
+           s0y3=s0y3-1
+           px3=1
+        end
+     end
       else
-	 s0x3=s0x3-1
-	 px3=4
+     s0x3=s0x3-1
+     px3=4
       end
    end
 end

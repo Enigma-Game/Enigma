@@ -34,17 +34,17 @@ function engine(x, y, delta, faces, attribs, modattrib, modvalues)
    it.tgt = set_stone(faces[2], x2, y2, attribs[2])
 
    local func0 = function()
-		    -- switch
-		    it.state = it.state +1
-		    if (it.state>getn(modvalues)) then
-		       it.state = 1
-		    end
-		    -- set state of desired target object
-		    kill_stone(x2, y2)
-		    attribs[2][modattrib] = modvalues[it.state]
-		    set_stone(faces[2], x2, y2, attribs[2])
-		    --set_attrib(it.tgt, modattrib, modvalues[it.state])
-		 end
+            -- switch
+            it.state = it.state +1
+            if (it.state>getn(modvalues)) then
+               it.state = 1
+            end
+            -- set state of desired target object
+            kill_stone(x2, y2)
+            attribs[2][modattrib] = modvalues[it.state]
+            set_stone(faces[2], x2, y2, attribs[2])
+            --set_attrib(it.tgt, modattrib, modvalues[it.state])
+         end
 
    setglobal(fname, func0)
 end

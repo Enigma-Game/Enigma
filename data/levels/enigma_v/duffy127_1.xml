@@ -30,123 +30,123 @@ oxyd_default_flavor="a"
 fill_floor("fl-bumps", 0,0,levelw,levelh)
 
 function renderLine( line, pattern)
-	for i=1, strlen(pattern) do
-		local c = strsub( pattern, i, i)
-		if c =="#" then
-			set_stone( "st-marble", i-1, line)
-		elseif c =="." then
-			set_stone( "st-fakeoxyda", i-1, line)
-			set_item("it-cross",i-1,line)
-		elseif c == "o" then
-			oxyd( i-1, line)
-		elseif c == "*" then
-			set_stone( "st-brownie", i-1, line)
+    for i=1, strlen(pattern) do
+        local c = strsub( pattern, i, i)
+        if c =="#" then
+            set_stone( "st-marble", i-1, line)
+        elseif c =="." then
+            set_stone( "st-fakeoxyda", i-1, line)
+            set_item("it-cross",i-1,line)
+        elseif c == "o" then
+            oxyd( i-1, line)
+        elseif c == "*" then
+            set_stone( "st-brownie", i-1, line)
                 elseif c == "!" then
-			abyss(i-1,line)
-		elseif c == "~" then
-		   set_floor("fl-water",i-1,line)
-		elseif c=="z" then
-		   set_actor("ac-blackball", i-1,line+.5, {player=0})
-		elseif c == "g" then
-			draw_stones("st-grate1",{i-1,line}, {1,1}, 1)
-		elseif c=="+" then
-			set_stone( "st-wood", i-1, line)
-		elseif c=="=" then
-			set_floor("fl-space",i-1,line)
-		     elseif c=="a" then
-			set_item("it-trigger",i-1,line,{action="callback",target="funcc1"})
-		     elseif c=="b" then
-			set_item("it-trigger",i-1,line,{action="callback",target="funcc2"})
-		     elseif c=="c" then
-			set_item("it-trigger",i-1,line,{action="callback",target="funcc3"})
-		     elseif c=="d" then
-			set_item("it-trigger",i-1,line,{action="callback",target="funcc4"})
-		     elseif c=="e" then
-			set_item("it-trigger",i-1,line,{action="callback",target="funcc5"})
-		     elseif c=="j" then
-			set_item("it-trigger",i-1,line,{action="callback",target="funcc10"})
-		     elseif c=="`" then
-			set_item("it-trigger",i-1,line,{action="callback",target="funcc15"})
-		     elseif c=="t" then
-			set_item("it-trigger",i-1,line,{action="callback",target="funcc20"})
-		     elseif c=="y" then
-			set_item("it-trigger",i-1,line,{action="callback",target="funcc25"})
-		     elseif c=="f" then
-			set_item("it-trigger",i-1,line,{action="callback",target="funcc6"})
-		     elseif c=="k" then
-			set_item("it-trigger",i-1,line,{action="callback",target="funcc11"})
-		     elseif c=="p" then
-			set_item("it-trigger",i-1,line,{action="callback",target="funcc16"})
-		     elseif c=="u" then
-			set_item("it-trigger",i-1,line,{action="callback",target="funcc21"})
-		     elseif c=="v" then
-			set_item("it-trigger",i-1,line,{action="callback",target="funcc22"})
-		     elseif c=="w" then
-			set_item("it-trigger",i-1,line,{action="callback",target="funcc23"})
-		     elseif c=="x" then
-			set_item("it-trigger",i-1,line,{action="callback",target="funcc24"})
-		     elseif c=="y" then
-			set_item("it-trigger",i-1,line,{action="callback",target="funcc25"})
-		     elseif c=="m" then
-			set_item("it-trigger",i-1,line,{action="callback",target="funcc13"})
-		elseif c=="A" then
-		   set_stone("st-door_a",i-1,line,{name="s1"})
-		elseif c=="B" then
-		   set_stone("st-door_a",i-1,line,{name="s2"})
-		elseif c=="C" then
-		   set_stone("st-door_a",i-1,line,{name="s3"})
-		elseif c=="D" then
-		   set_stone("st-door_a",i-1,line,{name="s4"})
-		elseif c=="E" then
-		   set_stone("st-door_a",i-1,line,{name="s5"})
-		elseif c=="F" then
-		   set_stone("st-door_a",i-1,line,{name="s6"})
-		elseif c=="G" then
-		   set_stone("st-door_a",i-1,line,{name="s7"})
-		elseif c=="H" then
-		   set_stone("st-door_a",i-1,line,{name="s8"})
-		elseif c=="I" then
-		   set_stone("st-door_a",i-1,line,{name="s9"})
-		elseif c=="J" then
-		   set_stone("st-door_a",i-1,line,{name="s10"})
-		elseif c=="K" then
-		   set_stone("st-door_a",i-1,line,{name="s11"})
-		elseif c=="L" then
-		   set_stone("st-door_a",i-1,line,{name="s12"})
-		elseif c=="M" then
-		   set_stone("st-door_a",i-1,line,{name="s13"})
-		elseif c=="N" then
-		   set_stone("st-door_a",i-1,line,{name="s14"})
-		elseif c=="O" then
-		   set_stone("st-door_a",i-1,line,{name="s15"})
-		elseif c=="P" then
-		   set_stone("st-door_a",i-1,line,{name="s16"})
-		elseif c=="Q" then
-		   set_stone("st-door_a",i-1,line,{name="s17"})
-		elseif c=="R" then
-		   set_stone("st-door_a",i-1,line,{name="s18"})
-		elseif c=="S" then
-		   set_stone("st-door_a",i-1,line,{name="s19"})
-		elseif c=="T" then
-		   set_stone("st-door_a",i-1,line,{name="s20"})
-		elseif c=="U" then
-		   set_stone("st-door_a",i-1,line,{name="s21"})
-		elseif c=="V" then
-		   set_stone("st-door_a",i-1,line,{name="s22"})
-		elseif c=="W" then
-		   set_stone("st-door_a",i-1,line,{name="s23"})
-		elseif c=="X" then
-		   set_stone("st-door_a",i-1,line,{name="s24"})
-		elseif c=="Y" then
-		   set_stone("st-door_a",i-1,line,{name="s25"})
-		elseif c=="Z" then
-		   set_stone("st-door_a",i-1,line,{name="sb1"})
-		elseif c=="1" then
-		   set_stone("st-door_a",i-1,line,{name="sc1"})
-		elseif c=="2" then
-		   set_stone("st-door_a",i-1,line,{name="sc2"})
-	     end
-	end	
+            abyss(i-1,line)
+        elseif c == "~" then
+           set_floor("fl-water",i-1,line)
+        elseif c=="z" then
+           set_actor("ac-blackball", i-1,line+.5, {player=0})
+        elseif c == "g" then
+            draw_stones("st-grate1",{i-1,line}, {1,1}, 1)
+        elseif c=="+" then
+            set_stone( "st-wood", i-1, line)
+        elseif c=="=" then
+            set_floor("fl-space",i-1,line)
+             elseif c=="a" then
+            set_item("it-trigger",i-1,line,{action="callback",target="funcc1"})
+             elseif c=="b" then
+            set_item("it-trigger",i-1,line,{action="callback",target="funcc2"})
+             elseif c=="c" then
+            set_item("it-trigger",i-1,line,{action="callback",target="funcc3"})
+             elseif c=="d" then
+            set_item("it-trigger",i-1,line,{action="callback",target="funcc4"})
+             elseif c=="e" then
+            set_item("it-trigger",i-1,line,{action="callback",target="funcc5"})
+             elseif c=="j" then
+            set_item("it-trigger",i-1,line,{action="callback",target="funcc10"})
+             elseif c=="`" then
+            set_item("it-trigger",i-1,line,{action="callback",target="funcc15"})
+             elseif c=="t" then
+            set_item("it-trigger",i-1,line,{action="callback",target="funcc20"})
+             elseif c=="y" then
+            set_item("it-trigger",i-1,line,{action="callback",target="funcc25"})
+             elseif c=="f" then
+            set_item("it-trigger",i-1,line,{action="callback",target="funcc6"})
+             elseif c=="k" then
+            set_item("it-trigger",i-1,line,{action="callback",target="funcc11"})
+             elseif c=="p" then
+            set_item("it-trigger",i-1,line,{action="callback",target="funcc16"})
+             elseif c=="u" then
+            set_item("it-trigger",i-1,line,{action="callback",target="funcc21"})
+             elseif c=="v" then
+            set_item("it-trigger",i-1,line,{action="callback",target="funcc22"})
+             elseif c=="w" then
+            set_item("it-trigger",i-1,line,{action="callback",target="funcc23"})
+             elseif c=="x" then
+            set_item("it-trigger",i-1,line,{action="callback",target="funcc24"})
+             elseif c=="y" then
+            set_item("it-trigger",i-1,line,{action="callback",target="funcc25"})
+             elseif c=="m" then
+            set_item("it-trigger",i-1,line,{action="callback",target="funcc13"})
+        elseif c=="A" then
+           set_stone("st-door_a",i-1,line,{name="s1"})
+        elseif c=="B" then
+           set_stone("st-door_a",i-1,line,{name="s2"})
+        elseif c=="C" then
+           set_stone("st-door_a",i-1,line,{name="s3"})
+        elseif c=="D" then
+           set_stone("st-door_a",i-1,line,{name="s4"})
+        elseif c=="E" then
+           set_stone("st-door_a",i-1,line,{name="s5"})
+        elseif c=="F" then
+           set_stone("st-door_a",i-1,line,{name="s6"})
+        elseif c=="G" then
+           set_stone("st-door_a",i-1,line,{name="s7"})
+        elseif c=="H" then
+           set_stone("st-door_a",i-1,line,{name="s8"})
+        elseif c=="I" then
+           set_stone("st-door_a",i-1,line,{name="s9"})
+        elseif c=="J" then
+           set_stone("st-door_a",i-1,line,{name="s10"})
+        elseif c=="K" then
+           set_stone("st-door_a",i-1,line,{name="s11"})
+        elseif c=="L" then
+           set_stone("st-door_a",i-1,line,{name="s12"})
+        elseif c=="M" then
+           set_stone("st-door_a",i-1,line,{name="s13"})
+        elseif c=="N" then
+           set_stone("st-door_a",i-1,line,{name="s14"})
+        elseif c=="O" then
+           set_stone("st-door_a",i-1,line,{name="s15"})
+        elseif c=="P" then
+           set_stone("st-door_a",i-1,line,{name="s16"})
+        elseif c=="Q" then
+           set_stone("st-door_a",i-1,line,{name="s17"})
+        elseif c=="R" then
+           set_stone("st-door_a",i-1,line,{name="s18"})
+        elseif c=="S" then
+           set_stone("st-door_a",i-1,line,{name="s19"})
+        elseif c=="T" then
+           set_stone("st-door_a",i-1,line,{name="s20"})
+        elseif c=="U" then
+           set_stone("st-door_a",i-1,line,{name="s21"})
+        elseif c=="V" then
+           set_stone("st-door_a",i-1,line,{name="s22"})
+        elseif c=="W" then
+           set_stone("st-door_a",i-1,line,{name="s23"})
+        elseif c=="X" then
+           set_stone("st-door_a",i-1,line,{name="s24"})
+        elseif c=="Y" then
+           set_stone("st-door_a",i-1,line,{name="s25"})
+        elseif c=="Z" then
+           set_stone("st-door_a",i-1,line,{name="sb1"})
+        elseif c=="1" then
+           set_stone("st-door_a",i-1,line,{name="sc1"})
+        elseif c=="2" then
+           set_stone("st-door_a",i-1,line,{name="sc2"})
+         end
+    end    
 end
 
 renderLine(00,"####################")
@@ -311,7 +311,7 @@ elseif ff1==1 then
 ff1=0
 end
 funccc()
-		   end
+           end
 
 function funcc3()
 if ff1==0 then
@@ -334,7 +334,7 @@ elseif ff1==1 then
 ff1=0
 end
 funccc()
-		   end
+           end
 
 function funcc4()
 if ff1==0 then
@@ -356,7 +356,7 @@ elseif ff1==1 then
 ff1=0
 end
 funccc()
-		   end
+           end
 
 function funcc5()
 if ff1==0 then

@@ -2,7 +2,7 @@
 <el:level xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://enigma-game.org/schema/level/1 level.xsd" xmlns:el="http://enigma-game.org/schema/level/1">
   <el:protected>
     <el:info el:type="level">
-      <el:identity el:title="Shoals" el:subtitle="" el:id="stable/nat27"/>
+      <el:identity el:title="Shoals" el:subtitle="" el:id="nat27"/>
       <el:version el:score="1" el:release="1" el:revision="0" el:status="released"/>
       <el:author  el:name="Nat Pryce" el:email="" el:homepage=""/>
       <el:copyright>Copyright © 2003 Nat Pryce</el:copyright>
@@ -46,7 +46,7 @@ function render_cell( maze, cellx, celly )
     if maze:can_go_east(cellx,celly) then
         maze_floor(x+1,y)
     elseif maze:contains_cell(cellx+1,celly) then
-    	maze_wall(x+1,y)
+        maze_wall(x+1,y)
     end
     
     if maze:can_go_south(cellx,celly) then

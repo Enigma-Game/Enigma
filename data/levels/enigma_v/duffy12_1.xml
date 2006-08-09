@@ -66,7 +66,7 @@ function renderLine( line, pattern)
         elseif c == "1" then
             oneway(i-1,line, enigma.NORTH)
         elseif c == "z" then
-            set_actor("ac-blackball", i-1,line)	
+            set_actor("ac-blackball", i-1,line)    
         elseif c == "s" then
             set_item("it-spring1",i-1,line)
         elseif c == "i" then
@@ -131,18 +131,18 @@ totgravity=0
 function timer_handler()
     if mytimer==0 then
         SendMessage("door2", "open")
-   	SendMessage("door3", "open")
-	SendMessage("door5", "open")
+       SendMessage("door3", "open")
+    SendMessage("door5", "open")
     end
     mytimer = mytimer + 1
     if gravity<20 then
-	if mytimer==20 then
-	    gravity=gravity+1
-	end
+    if mytimer==20 then
+        gravity=gravity+1
+    end
     elseif gravity>7 then
-	if mytimer==30 then
-	    gravity=gravity+1
-	end
+    if mytimer==30 then
+        gravity=gravity+1
+    end
     end
 
     totgravity = totgravity+gravity

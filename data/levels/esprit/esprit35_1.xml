@@ -44,7 +44,7 @@ function renderLine( line, pattern)
 
       elseif c=="r" then        
 
-	 set_actor("ac-rotor", i-.5,line+.5, {range=7, force=40}) -- range means stones between
+     set_actor("ac-rotor", i-.5,line+.5, {range=7, force=40}) -- range means stones between
 
       elseif c=="c" then
 
@@ -56,7 +56,7 @@ function renderLine( line, pattern)
 
       elseif c=="O" then
 
-	 oxyd(i-1,line)         
+     oxyd(i-1,line)         
 
         end
 

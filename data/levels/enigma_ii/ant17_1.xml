@@ -45,23 +45,23 @@ function render_cell(maze, cellx, celly)
 
    for xx=0,mazebasesize-1 do
       for yy=0,mazebasesize-1 do
-	 solidfloor(x+xx, y+yy)
+     solidfloor(x+xx, y+yy)
       end
    end
 
    if maze:can_go_south(cellx,celly) then
       for i=mazebasesize,mazecellsize do
-	 for j=0,mazebranchsize-1 do
-	    solidfloor(x+j, y+mazecellsize-i+1)
-	 end
+     for j=0,mazebranchsize-1 do
+        solidfloor(x+j, y+mazecellsize-i+1)
+     end
       end
    end
 
    if maze:can_go_east(cellx,celly) then
       for i=mazebasesize,mazecellsize do
-	 for j=0,mazebranchsize-1 do
-	    solidfloor(x+mazecellsize-i+1, y+j)
-	 end
+     for j=0,mazebranchsize-1 do
+        solidfloor(x+mazecellsize-i+1, y+j)
+     end
       end
    end
 end

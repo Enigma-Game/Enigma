@@ -15,7 +15,7 @@
       </el:comments>
       <el:score el:easy="-" el:difficult="-"/>
     </el:info>
-    <el:luamain><![CDATA[	
+    <el:luamain><![CDATA[    
 Require("levels/lib/ralf_pento.lua")
 
 level={

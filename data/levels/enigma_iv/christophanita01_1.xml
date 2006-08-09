@@ -108,7 +108,7 @@ document(8,11, "text2")
 
 -- functions
 function kill_stone()
-	enigma.KillStone(2, 7)
+    enigma.KillStone(2, 7)
 end
     ]]></el:luamain>
     <el:i18n>

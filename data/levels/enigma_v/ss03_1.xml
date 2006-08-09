@@ -29,11 +29,11 @@ fill_floor("fl-rough", 0,0, levelw,levelh)
 -- Randsteine verschiebbar
 --------------------------------------------------------------------------------------------
    for x=1,7 do
-   	y=5*x
-	set_stone("st-rock1_move",1,y)
-	set_stone("st-rock1_move",37,y)
-	set_stone("st-rock1_move",y,1)
-	set_stone("st-rock1_move",y,23)	
+       y=5*x
+    set_stone("st-rock1_move",1,y)
+    set_stone("st-rock1_move",37,y)
+    set_stone("st-rock1_move",y,1)
+    set_stone("st-rock1_move",y,23)    
    end
    
 set_item("it-floppy",5,1)
@@ -344,7 +344,7 @@ function triggerbox5(num)
       set_attribs(enigma.GetNamedObject("warp1"), {targetx="12.5", targety="19.5",strength=0})   
       doorsopenbox5 = 1
    elseif (doorsopenbox5==1 and allbox5==0) then
-	set_attribs(enigma.GetNamedObject("warp1"), {targetx="4.5", targety="18.5",strength=5})
+    set_attribs(enigma.GetNamedObject("warp1"), {targetx="4.5", targety="18.5",strength=5})
       doorsopenbox5 = 0
    end
 end
@@ -389,7 +389,7 @@ function triggerbox6(num)
       SendMessage(laser1, "off")
       doorsopenbox6 = 1
    elseif (doorsopenbox6==1 and allbox6==0) then
-	SendMessage(laser1, "on")
+    SendMessage(laser1, "on")
       doorsopenbox6 = 0
    end
 end

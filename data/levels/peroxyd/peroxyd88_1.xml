@@ -25,11 +25,11 @@ create_world(levelw, levelh)
 fill_floor("fl-abyss")
 
 function renderLine( line, pattern)
-	for i=1, strlen(pattern) do
-		local c = strsub( pattern, i, i)
-  		if c=="x" then
+    for i=1, strlen(pattern) do
+        local c = strsub( pattern, i, i)
+          if c=="x" then
                         oxyd_default_flavor = "a"
-			oxyd(i-1,line)
+            oxyd(i-1,line)
                 elseif c=="#" then
                    set_stone("st-plain",i-1,line)
                 elseif c=="E" then
@@ -40,8 +40,8 @@ function renderLine( line, pattern)
                 elseif c=="h" then
                    set_floor("fl-samba",i-1,line)
 
-		end
-	end	
+        end
+    end    
 end
 
 renderLine(00 , "--------------------")

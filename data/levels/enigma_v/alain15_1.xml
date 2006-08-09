@@ -26,52 +26,52 @@ fill_floor("fl-leaves", 0,0, level_width,level_height)
 draw_border("st-rock1")
 
 function renderLine( line, pattern)
-	for i=1, strlen(pattern) do
-		local c = strsub( pattern, i, i)
-		if c =="x" then
-			set_stone("st-death_invisible",i-1,line)
-		elseif c=="a" then
-			set_stone("st-knight", i-1,line)
-		elseif c==">" then
-			set_stone("st-oneway-e",i-1,line)
-		elseif c=="D" then
-			document(i-1,line,"text1")
-		elseif c=="i" then
-			set_item("it-glasses", i-1,line)
-			set_floor("fl-swamp",i-1,line)
-			set_stone("st-chameleon",i-1,line)
-		elseif c=="j" then
-			set_item("it-sword", i-1,line)
-			--set_floor("fl-swamp",i-1,line)
-			--set_stone("st-chameleon",i-1,line)
-		elseif c=="k" then
-			set_stone("st-invisible", i-1,line)
-			--set_stone("st-chameleon",i-1,line)
-		elseif c=="l" then
-			set_stone("st-chameleon",i-1,line)
-		elseif c=="*" then
-		   	set_item("it-burnable_fireproof",i-1,line)
-		elseif c=="w" then
-			set_stone("st-whiteballs",i-1,line)
-		elseif c=="-" then
-			set_floor("fl-swamp",i-1,line)
-		elseif c=="+" then
-			set_stone("st-rock4",i-1,line)
-		elseif c == "o" then
-			oxyd( i-1, line)
-		elseif c=="t" then
-			set_item("it-trigger",i-1,line,{invisible=1,action="callback",target="func1"})
-		elseif c=="O" then
-			set_item("it-ring",i-1,line)
-  		elseif c=="z" then
-			set_actor("ac-blackball", i-.5,line+.5, {name="ac0"})
-		end
-	end	
+    for i=1, strlen(pattern) do
+        local c = strsub( pattern, i, i)
+        if c =="x" then
+            set_stone("st-death_invisible",i-1,line)
+        elseif c=="a" then
+            set_stone("st-knight", i-1,line)
+        elseif c==">" then
+            set_stone("st-oneway-e",i-1,line)
+        elseif c=="D" then
+            document(i-1,line,"text1")
+        elseif c=="i" then
+            set_item("it-glasses", i-1,line)
+            set_floor("fl-swamp",i-1,line)
+            set_stone("st-chameleon",i-1,line)
+        elseif c=="j" then
+            set_item("it-sword", i-1,line)
+            --set_floor("fl-swamp",i-1,line)
+            --set_stone("st-chameleon",i-1,line)
+        elseif c=="k" then
+            set_stone("st-invisible", i-1,line)
+            --set_stone("st-chameleon",i-1,line)
+        elseif c=="l" then
+            set_stone("st-chameleon",i-1,line)
+        elseif c=="*" then
+               set_item("it-burnable_fireproof",i-1,line)
+        elseif c=="w" then
+            set_stone("st-whiteballs",i-1,line)
+        elseif c=="-" then
+            set_floor("fl-swamp",i-1,line)
+        elseif c=="+" then
+            set_stone("st-rock4",i-1,line)
+        elseif c == "o" then
+            oxyd( i-1, line)
+        elseif c=="t" then
+            set_item("it-trigger",i-1,line,{invisible=1,action="callback",target="func1"})
+        elseif c=="O" then
+            set_item("it-ring",i-1,line)
+          elseif c=="z" then
+            set_actor("ac-blackball", i-.5,line+.5, {name="ac0"})
+        end
+    end    
 end
 
 function func1()
-	set_item("it-burnable_ignited",9,11)
-	set_item("it-burnable_ignited",9,10)
+    set_item("it-burnable_ignited",9,11)
+    set_item("it-burnable_ignited",9,10)
 
 end
 

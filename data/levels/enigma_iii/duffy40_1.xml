@@ -25,43 +25,43 @@ enigma.TwoPlayerGame = TRUE
 fill_floor("fl-bluegreen", 0,0,levelw,levelh)
 
 function renderLine( line, pattern)
-	for i=1, strlen(pattern) do
-		local c = strsub( pattern, i, i)
-		if c =="#" then
-			set_stone( "st-greenbrown", i-1, line)
-		elseif c == "o" then
-			oxyd( i-1, line)
+    for i=1, strlen(pattern) do
+        local c = strsub( pattern, i, i)
+        if c =="#" then
+            set_stone( "st-greenbrown", i-1, line)
+        elseif c == "o" then
+            oxyd( i-1, line)
         elseif c == "!" then
-			abyss(i-1,line)
---			fill_floor("fl-water", i-1,line, 1,1)
-		elseif c=="z" then
+            abyss(i-1,line)
+--            fill_floor("fl-water", i-1,line, 1,1)
+        elseif c=="z" then
                     set_actor("ac-blackball", i-.5,line+.5)
-		elseif c=="y" then
+        elseif c=="y" then
                     set_actor("ac-whiteball", i-.5,line+.5, {player=0})
-		elseif c=="H" then
-		   hollow(i-1,line)
-		elseif c == "d" then --1-d
-			set_floor("fl-gradient",  i-1,  line, {type=1})
-		elseif c == "u" then --2-u
-			set_floor("fl-gradient",  i-1,  line, {type=2})
-		elseif c == "r" then --3-r
-			set_floor("fl-gradient",  i-1,  line, {type=3})
-		elseif c == "l" then --4-l
-		   set_floor("fl-gradient",  i-1,  line, {type=4})
-		elseif c=="W" then
+        elseif c=="H" then
+           hollow(i-1,line)
+        elseif c == "d" then --1-d
+            set_floor("fl-gradient",  i-1,  line, {type=1})
+        elseif c == "u" then --2-u
+            set_floor("fl-gradient",  i-1,  line, {type=2})
+        elseif c == "r" then --3-r
+            set_floor("fl-gradient",  i-1,  line, {type=3})
+        elseif c == "l" then --4-l
+           set_floor("fl-gradient",  i-1,  line, {type=4})
+        elseif c=="W" then
                     oneway(i-1,line, enigma.WEST)
                     set_floor("fl-gradient",  i-1,  line, {type=4})
-		elseif c=="N" then
+        elseif c=="N" then
                     oneway(i-1,line, enigma.NORTH)
                     set_floor("fl-gradient",  i-1,  line, {type=2})
-		elseif c=="E" then
+        elseif c=="E" then
                     oneway(i-1,line, enigma.EAST)
                     set_floor("fl-gradient",  i-1,  line, {type=3})
-		elseif c=="S" then
+        elseif c=="S" then
                     oneway(i-1,line, enigma.SOUTH)
                     set_floor("fl-gradient",  i-1,  line, {type=1})
-		end
-	end	
+        end
+    end    
      end
 
 -- Floor:  " "

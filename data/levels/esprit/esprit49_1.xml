@@ -34,35 +34,35 @@ function renderLine( line, pattern)
       elseif c =="-" then
          set_stone("st-rock3_break",i-1,line)
       elseif c=="M" then
-	 set_stone("st-rock3_move",i-1,line)
+     set_stone("st-rock3_move",i-1,line)
       elseif c=="H" then
-	 set_stone("st-rock3_hole",i-1,line)
+     set_stone("st-rock3_hole",i-1,line)
       elseif c=="h" then
-	 set_stone("st-rock3_hole",i-1,line)
-	 set_item("it-crack0",i-1,line)
+     set_stone("st-rock3_hole",i-1,line)
+     set_item("it-crack0",i-1,line)
       elseif c=="c" then
-	 set_item("it-crack1",i-1,line)
+     set_item("it-crack1",i-1,line)
       elseif c=="e" then
-	 set_item("it-crack0",i-1,line)
+     set_item("it-crack0",i-1,line)
       elseif c=="d" then
-	 set_item("it-crack3",i-1,line)
+     set_item("it-crack3",i-1,line)
       elseif c=="0" then
-	 set_stone("st-door_c", i-1,line,{name="door0"})
+     set_stone("st-door_c", i-1,line,{name="door0"})
       elseif c=="9" then
-	 set_stone("st-door_c", i-1,line)
+     set_stone("st-door_c", i-1,line)
       elseif c == "K" then
          set_stone("st-coinslot", i-1,line, {action="openclose", target="door0"})
       elseif c =="g" then
          set_stone("st-grate2",i-1,line)
       elseif c =="!" then
          set_stone("st-grate2",i-1,line)
-	 set_item("it-hammer", i-1,line)
+     set_item("it-hammer", i-1,line)
       elseif c=="a" then
-         set_stone("st-rock3_hole",i-1,line)	
-      	 set_item("it-coin1", i-1,line)
-      elseif c=="b" then	
-	 set_stone("st-rock3_hole",i-1,line)
-	 set_item("it-coin4", i-1,line)
+         set_stone("st-rock3_hole",i-1,line)    
+           set_item("it-coin1", i-1,line)
+      elseif c=="b" then    
+     set_stone("st-rock3_hole",i-1,line)
+     set_item("it-coin4", i-1,line)
       elseif c =="i" then
          set_item("it-trigger", i-1,line, {invisible=1,action="callback", target="s1"})
       elseif c =="j" then
@@ -80,7 +80,7 @@ function renderLine( line, pattern)
       elseif c=="o" then
          set_item("it-hollow",i-1,line)
       elseif c=="w" then
-	 set_stone("st-glass1",i-1,line)
+     set_stone("st-glass1",i-1,line)
       elseif c =="Z" then
          set_item("it-wormhole",i-1,line, {targetx="175.5",targety="6.5",strength=0})
          set_stone("st-glass", i-1,line)
@@ -94,21 +94,21 @@ function renderLine( line, pattern)
       elseif c=="S" then
          set_stone("st-switch", i-1,line,{target="s0", action="callback"})
       elseif c=="1" then
-	 set_stone("st-door_c", i-1,line,{name="door1"})
+     set_stone("st-door_c", i-1,line,{name="door1"})
       elseif c=="2" then
-	 set_stone("st-door_c", i-1,line,{name="door2"})        
+     set_stone("st-door_c", i-1,line,{name="door2"})        
       elseif c=="3" then
-	 set_stone("st-door_c", i-1,line,{name="door3"})
+     set_stone("st-door_c", i-1,line,{name="door3"})
       elseif c=="4" then
-	 set_stone("st-door_c", i-1,line,{name="door4"})        
+     set_stone("st-door_c", i-1,line,{name="door4"})        
       elseif c=="5" then
-	 set_stone("st-door_c", i-1,line,{name="door5"})
+     set_stone("st-door_c", i-1,line,{name="door5"})
       elseif c=="6" then
-	 set_stone("st-door_c", i-1,line,{name="door6"})        
+     set_stone("st-door_c", i-1,line,{name="door6"})        
       elseif c=="f" then
          set_stone("st-fourswitch", i-1,line,{target="s7", action="callback"})
       elseif c=="O" then
-	 oxyd(i-1,line)         
+     oxyd(i-1,line)         
         end
     end  
 end

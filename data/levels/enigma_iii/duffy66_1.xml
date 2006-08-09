@@ -101,7 +101,7 @@ function renderLine( line, pattern)
             set_actor("ac-whiteball", i-.5,line+.5, {player=0,mouseforce=1})
             set_floor("fl-gradient",  i-1,  line, {type=24})
         end
-    end	
+    end    
 end
 
 renderLine(00,"!!!!!!!!!!!!!!!!!!!!!")
@@ -525,23 +525,23 @@ function dcheck()
     end
 
     --   if direc==1 then
-    --      	set_floor("fl-gradient",  bx, by , {type=2})
+    --          set_floor("fl-gradient",  bx, by , {type=2})
     --  elseif direc==2 then
     --        set_floor("fl-gradient",  bx,  by, {type=3})
     --   elseif direc==3 then
-    --      	set_floor("fl-gradient",  bx,  by, {type=1})
+    --          set_floor("fl-gradient",  bx,  by, {type=1})
     --   elseif direc==4 then
-    --      	set_floor("fl-gradient",  bx,  by, {type=4})
+    --          set_floor("fl-gradient",  bx,  by, {type=4})
     --     end
     --if direc>4 then
     --   if prevdirec==1 then
-    --      	set_floor("fl-gradient",  bx, by , {type=2})
+    --          set_floor("fl-gradient",  bx, by , {type=2})
     --  elseif prevdirec==2 then
     --        set_floor("fl-gradient",  bx,  by, {type=3})
     --   elseif prevdirec==3 then
-    --      	set_floor("fl-gradient",  bx,  by, {type=1})
+    --          set_floor("fl-gradient",  bx,  by, {type=1})
     --   elseif prevdirec==4 then
-    --      	set_floor("fl-gradient",  bx,  by, {type=4})
+    --          set_floor("fl-gradient",  bx,  by, {type=4})
     --     end
     --  end
 
@@ -613,7 +613,7 @@ function timer_callback()
                         direc2=3
                     end
                 end
-            end	       
+            end           
         end
         if direc2==1 then
             ay=ay-1

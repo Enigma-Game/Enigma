@@ -38,9 +38,9 @@ function renderLine( line, pattern)
             set_stone( "st-grate1", i-1, line)
         elseif c == "!" then
             abyss(i-1,line)
-            --			fill_floor("fl-water", i-1,line, 1,1)
+            --            fill_floor("fl-water", i-1,line, 1,1)
         elseif c == "~" then
-            --			abyss(i-1,line)
+            --            abyss(i-1,line)
             fill_floor("fl-water", i-1,line, 1,1)
         elseif c=="+" then
             set_stone( "st-wood", i-1, line)
@@ -69,7 +69,7 @@ function renderLine( line, pattern)
         elseif c=="9" then
             set_item("it-trigger", i-1,line, {invisible=1,action="callback", target="funcc9"})
         end
-    end	
+    end    
 end
 
 -- Floor:  " "
@@ -94,9 +94,9 @@ function renderLine( line, pattern)
    for i=1, strlen(pattern) do
       local c = strsub( pattern, i, i)
       if c =="#" then
-	 set_stone( "st-glass", i-1, line)
+     set_stone( "st-glass", i-1, line)
       elseif c == "o" then
-	 oxyd( i-1, line)
+     oxyd( i-1, line)
       end
    end
 end
@@ -242,14 +242,14 @@ function funcc10()
       cur=4
       f10=1
       if prev==6 then
-	 bx=14
-	 by=11
-	 dcheck()
+     bx=14
+     by=11
+     dcheck()
       end
       if prev==7 then
-	 bx=15
-	 by=10
-	 dcheck()
+     bx=15
+     by=10
+     dcheck()
       end
    else
       f10=0
@@ -372,34 +372,34 @@ function timer_callback()
    elseif xdist==ydist then
       direc2=random(2)
       if (ax-bx)>0 then
-	 if (ay-by)>0 then
-	    if direc2==1 then
-	       direc2=1
-	    elseif direc2==2 then
-	       direc2=4
-	    end
-	 elseif (ay-by)<0 then
-	    if direc2==1 then
-	       direc2=3
-	    elseif direc2==2 then
-	       direc2=4
-	    end
-	 end
+     if (ay-by)>0 then
+        if direc2==1 then
+           direc2=1
+        elseif direc2==2 then
+           direc2=4
+        end
+     elseif (ay-by)<0 then
+        if direc2==1 then
+           direc2=3
+        elseif direc2==2 then
+           direc2=4
+        end
+     end
       elseif (ax-bx)<0 then
-	 if (ay-by)>0 then
-	    if direc2==1 then
-	       direc2=1
-	    elseif direc2==2 then
-	       direc2=2
-	    end
-	 elseif (ay-by)<0 then
-	    if direc2==1 then
-	       direc2=2
-	    elseif direc2==2 then
-	       direc2=3
-	    end
-	 end
-      end	       
+     if (ay-by)>0 then
+        if direc2==1 then
+           direc2=1
+        elseif direc2==2 then
+           direc2=2
+        end
+     elseif (ay-by)<0 then
+        if direc2==1 then
+           direc2=2
+        elseif direc2==2 then
+           direc2=3
+        end
+     end
+      end           
    end
    if direc2==1 then
       ay=ay-1

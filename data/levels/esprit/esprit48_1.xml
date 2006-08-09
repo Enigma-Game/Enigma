@@ -35,21 +35,21 @@ function renderLine( line, pattern)
          set_stone("st-rock3_break", i-1,line) 
          set_item("it-dynamite", i-1,line)         
       elseif c=="A" then
-	 set_floor("fl-abyss", i-1,line) 	      
+     set_floor("fl-abyss", i-1,line)           
       elseif c =="a" then
          set_stone("st-door_c", i-1,line,{name="doora"})    
          set_item("it-dynamite", i-1,line)
       elseif c =="b" then
          set_stone("st-door_c", i-1,line,{name="doorb"})        
-	 set_item("it-dynamite", i-1,line)
+     set_item("it-dynamite", i-1,line)
       elseif c=="1" then
-         set_stone("st-coinslot", i-1,line, {action="callback", target="s1"})   	
+         set_stone("st-coinslot", i-1,line, {action="callback", target="s1"})       
       elseif c=="2" then
-         set_stone("st-coinslot", i-1,line, {action="callback", target="s2"})   	
+         set_stone("st-coinslot", i-1,line, {action="callback", target="s2"})       
       elseif c=="3" then
-         set_stone("st-coinslot", i-1,line, {action="callback", target="s3"})   	
+         set_stone("st-coinslot", i-1,line, {action="callback", target="s3"})       
       elseif c=="O" then                                                               
-	 oxyd(i-1,line)  
+     oxyd(i-1,line)  
          set_item("it-dynamite", i-1,line)
         end
     end  

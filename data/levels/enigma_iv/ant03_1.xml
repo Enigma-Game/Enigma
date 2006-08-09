@@ -52,26 +52,26 @@ function proceed()
    function isstone(arr, x, y)
       if ((x>=1)and(y>=1)and(x<=4)and(y<=4)) then
          if sws[(x-1)*4+y] == 1 then
-	    return 1
+        return 1
          else
-	    return 0
+        return 0
          end
       else
-	return 0
+    return 0
       end
    end
 
    for x=1,4 do
       for y=1,4 do
-	 if (isstone(sarr, x, y)==1) then -- sarr[x..","..y]==1 then
-	    --look around where are other stones
-	    up   = isstone(sws, x, y-1)
-	    down = isstone(sws, x, y+1)
-	    left = isstone(sws, x-1, y)
-	    right= isstone(sws, x+1, y)
-	    --and convert this information to puzzle stone
-	    dostring("puz = PUZ_"..up..right..down..left)
-	    puzzle(x1+x, y1+y, puz)
+     if (isstone(sarr, x, y)==1) then -- sarr[x..","..y]==1 then
+        --look around where are other stones
+        up   = isstone(sws, x, y-1)
+        down = isstone(sws, x, y+1)
+        left = isstone(sws, x-1, y)
+        right= isstone(sws, x+1, y)
+        --and convert this information to puzzle stone
+        dostring("puz = PUZ_"..up..right..down..left)
+        puzzle(x1+x, y1+y, puz)
          end
       end
    end

@@ -28,10 +28,10 @@ fill_floor("fl-abyss",0,0,levelw,levelh)
 fill_floor("fl-metal",0,1,levelw,levelh-2)
 
 function renderLine( line, pattern)
-	for i=1, strlen(pattern) do
-		local c = strsub( pattern, i, i)
-  		if c=="X" then
-			oxyd(i-1,line)
+    for i=1, strlen(pattern) do
+        local c = strsub( pattern, i, i)
+          if c=="X" then
+            oxyd(i-1,line)
                 elseif c=="#" then
                    set_stone("st-plain",i-1,line)
 
@@ -56,12 +56,12 @@ function renderLine( line, pattern)
                 elseif c=="a" then
                    set_floor("fl-abyss",i-1,line)
 
-		elseif c=="f" then
-		   set_item("it-flagblack",i-1,line)
-		elseif c=="s" then
-		   set_item("it-spring1",i-1,line)
-		end
-	end	
+        elseif c=="f" then
+           set_item("it-flagblack",i-1,line)
+        elseif c=="s" then
+           set_item("it-spring1",i-1,line)
+        end
+    end    
 end
 
 renderLine(00 , "                                       ")

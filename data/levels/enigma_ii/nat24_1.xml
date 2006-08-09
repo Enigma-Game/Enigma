@@ -109,7 +109,7 @@ function draw_spotlight()
 end
 
 function clear_spotlight()
-    fill_floor( "fl-leavesb", spotlight_position.x, spotlight_position.y, 2, 2 )	
+    fill_floor( "fl-leavesb", spotlight_position.x, spotlight_position.y, 2, 2 )    
 end
 
 function move_spotlight()
@@ -119,14 +119,14 @@ function move_spotlight()
     dy = delta( spotlight_destination.y, spotlight_position.y )
 
     if dx == 0 and dy == 0 then
-	spotlight_destination = random_point()
+    spotlight_destination = random_point()
     else
         prefer_move_x = random() >= 0.5
 
         if dx ~= 0 and (dy == 0 or prefer_move_x) then
-	    spotlight_position.x = spotlight_position.x + dx
+        spotlight_position.x = spotlight_position.x + dx
         else
-	    spotlight_position.y = spotlight_position.y + dy    
+        spotlight_position.y = spotlight_position.y + dy    
         end
     end
 
@@ -135,7 +135,7 @@ end
 
 function flood_world()
     fill_floor("fl-water")
-    fill_floor( "fl-leaves", spotlight_position.x, spotlight_position.y, 2, 2 )	
+    fill_floor( "fl-leaves", spotlight_position.x, spotlight_position.y, 2, 2 )    
     spotlight_moving = false
     schedule( 5, drain_world )
 end

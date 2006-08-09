@@ -2,7 +2,7 @@
 <el:level xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://enigma-game.org/schema/level/1 level.xsd" xmlns:el="http://enigma-game.org/schema/level/1">
   <el:protected>
     <el:info el:type="level">
-      <el:identity el:title="Designed with love" el:subtitle="" el:id="stable/just01"/>
+      <el:identity el:title="Designed with love" el:subtitle="" el:id="just01"/>
       <el:version el:score="1" el:release="1" el:revision="0" el:status="released"/>
       <el:author  el:name="JuSt" el:email="" el:homepage=""/>
       <el:copyright>Copyright © JuSt</el:copyright>
@@ -42,11 +42,11 @@ function renderLine( line, pattern)
           set_stone("st-rock3_hole",i-1,line)
           set_item("it-magicwand",i-1,line)
       elseif c == "1" then
-	    set_item("it-wormhole", i-1, line, {strength=1,targetx="24.5",targety="1.5", name="wh2"})
+        set_item("it-wormhole", i-1, line, {strength=1,targetx="24.5",targety="1.5", name="wh2"})
       elseif c == "2" then
-    	    set_item("it-wormhole", i-1, line, {strength=1,targetx="13.5",targety="47.5", name="wh3"})
+            set_item("it-wormhole", i-1, line, {strength=1,targetx="13.5",targety="47.5", name="wh3"})
       elseif c == "3" then
-    	    set_item("it-wormhole", i-1, line, {strength=1,targetx="54.5",targety="25.5", name="wh4"})
+            set_item("it-wormhole", i-1, line, {strength=1,targetx="54.5",targety="25.5", name="wh4"})
       elseif c == "+" then
           set_item("it-coin1",i-1, line)
       elseif c == "*" then
@@ -57,8 +57,8 @@ function renderLine( line, pattern)
           set_stone("st-glass", i-1, line)
       elseif c == "/" then
           mirrorp(i-1,line,FALSE,FALSE, 2)
-	elseif c=="_" then
-	    set_stone( "st-wood", i-1, line)
+    elseif c=="_" then
+        set_stone( "st-wood", i-1, line)
       elseif c == "a" then
           doorh(i-1, line, {name="door1"} )
       elseif c == "b" then
@@ -128,7 +128,7 @@ function renderLine( line, pattern)
       elseif c == "-" then
           set_item("it-trigger", i-1,line, {invisible=1, action="callback", target="s1"})
       elseif c == "|" then
-	    set_floor("fl-gradient",  i-1,  line, {type=2})
+        set_floor("fl-gradient",  i-1,  line, {type=2})
       elseif c == "Q" then
           set_stone("st-knight", i-1, line)
       elseif c == "!" then

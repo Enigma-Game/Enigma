@@ -55,7 +55,7 @@ function renderLine( line, pattern)
             oxyd( i-1, line)
         elseif c == "!" then
             abyss(i-1,line)
-            --			fill_floor("fl-water", i-1,line, 1,1)
+            --            fill_floor("fl-water", i-1,line, 1,1)
         elseif c=="+" then
             set_stone( "st-wood", i-1, line)
         elseif c == "=" then
@@ -88,7 +88,7 @@ function renderLine( line, pattern)
             set_stone("st-oneway-n", i-1, line)
         elseif c=="E" then
             set_stone("st-oneway-e", i-1, line)
-	elseif c=="W" then
+    elseif c=="W" then
             set_stone("st-oneway-w", i-1, line)
         elseif c=="g" then
             draw_stones("st-grate1",{i-1,line}, {1,1}, 1)
@@ -114,34 +114,34 @@ function renderLine( line, pattern)
             set_floor("fl-bridge", i-1,line, {name="bridge9", type="x"})
         elseif c=="j" then
             set_floor("fl-bridge", i-1,line, {name="bridge10", type="x"})
-	elseif c=="`" then
+    elseif c=="`" then
             set_item("it-wormhole", i-1, line, {strength=1,targetx="59.5",targety="22.5", name="ww1"})
-	elseif c=="@" then
+    elseif c=="@" then
             set_item("it-wormhole", i-1, line, {strength=1,targetx="40.5",targety="26.5", name="ww2"})
-	elseif c=="~" then
+    elseif c=="~" then
             set_item("it-wormhole", i-1, line, {strength=1,targetx="2.5",targety="14.5", name="ww3"})
-	elseif c=="$" then
+    elseif c=="$" then
             set_item("it-wormhole", i-1, line, {strength=1,targetx="10",targety="42.5", name="ww4"})
-	elseif c=="%" then
+    elseif c=="%" then
             set_item("it-wormhole", i-1, line, {strength=1,targetx="74.5",targety="46.5", name="ww5"})
-	elseif c=="^" then
+    elseif c=="^" then
             set_item("it-wormhole", i-1, line, {strength=1,targetx="71.5",targety="6.5", name="ww6"})
-	elseif c=="&" then
+    elseif c=="&" then
             set_item("it-wormhole", i-1, line, {strength=1,targetx="49",targety="30.5", name="ww7"})
-	elseif c=="8" then
+    elseif c=="8" then
             set_item("it-wormhole", i-1, line, {strength=1,targetx="48.5",targety="40.5", name="ww8"})
-	elseif c=="p" then
+    elseif c=="p" then
             set_item("it-wormhole", i-1, line, {strength=7,targetx="71.5",targety="6.5"})
-	elseif c=="0" then
+    elseif c=="0" then
             set_item("it-wormhole", i-1, line, {strength=8,targetx="59.5",targety="15.5"})
-	elseif c=="q" then
+    elseif c=="q" then
             set_item("it-wormhole", i-1, line, {strength=1,targetx="37.5",targety="25.5"})
         elseif c=="V" then
             set_stone("st-switch", i-1,line, {action="callback",target="funcc"})
         elseif c=="F" then
             set_item("it-trigger", i-1,line, {action="callback", target="changewormholes"})
         end
-    end	
+    end    
 end
 
 -- Floor:  " "
@@ -209,19 +209,19 @@ set_floor("fl-gradient",  18,  47, {type=12})
 through=0
 function funcc()
     if through==1 then
-	through=0
+    through=0
     end
     if through==0 then
-	SendMessage("bridge1", "openclose")
-	SendMessage("bridge2", "openclose")
-	SendMessage("bridge3", "openclose")
-	SendMessage("bridge4", "openclose")
-	SendMessage("bridge5", "openclose")
-	SendMessage("bridge6", "openclose")
-	SendMessage("bridge7", "openclose")
-	SendMessage("bridge8", "openclose")
-	SendMessage("bridge9", "openclose")
-	SendMessage("bridge10", "openclose")
+    SendMessage("bridge1", "openclose")
+    SendMessage("bridge2", "openclose")
+    SendMessage("bridge3", "openclose")
+    SendMessage("bridge4", "openclose")
+    SendMessage("bridge5", "openclose")
+    SendMessage("bridge6", "openclose")
+    SendMessage("bridge7", "openclose")
+    SendMessage("bridge8", "openclose")
+    SendMessage("bridge9", "openclose")
+    SendMessage("bridge10", "openclose")
     end
     through=through+1
 end
@@ -265,19 +265,19 @@ end
 --tx=48.5
 --ty=41.5
 --end
---	   SetAttrib(ww1, "targetx", tx)
---	   SetAttrib(ww1, "targety", ty)
---	   SetAttrib(ww2, "targetx", tx)
---	   SetAttrib(ww2, "targety", ty)
+--       SetAttrib(ww1, "targetx", tx)
+--       SetAttrib(ww1, "targety", ty)
+--       SetAttrib(ww2, "targetx", tx)
+--       SetAttrib(ww2, "targety", ty)
 --         set_item("it-wormhole", 26+w1, 47, {strength=1,targetx="59.5",targety="22.5"})
---	   set_item("it-wormhole", 26+w2, 47, {strength=1,targetx="41.5",targety="26.5"})
---	   set_item("it-wormhole", 26+w3, 47, {strength=1,targetx="2.5",targety="14.5"})
---	   set_item("it-wormhole", 26+w4, 47, {strength=1,targetx="10",targety="42.5"})
---	   set_item("it-wormhole", 26+w5, 47, {strength=1,targetx="76.5",targety="46.5"})
---	   set_item("it-wormhole", 26+w6, 47, {strength=1,targetx="71.5",targety="6.5"})
---	   set_item("it-wormhole", 26+w7, 47, {strength=1,targetx="49",targety="30.5"})
---	   set_item("it-wormhole", 26+w8, 47, {strength=1,targetx="48.5",targety="41.5"})
---end	  
+--       set_item("it-wormhole", 26+w2, 47, {strength=1,targetx="41.5",targety="26.5"})
+--       set_item("it-wormhole", 26+w3, 47, {strength=1,targetx="2.5",targety="14.5"})
+--       set_item("it-wormhole", 26+w4, 47, {strength=1,targetx="10",targety="42.5"})
+--       set_item("it-wormhole", 26+w5, 47, {strength=1,targetx="76.5",targety="46.5"})
+--       set_item("it-wormhole", 26+w6, 47, {strength=1,targetx="71.5",targety="6.5"})
+--       set_item("it-wormhole", 26+w7, 47, {strength=1,targetx="49",targety="30.5"})
+--       set_item("it-wormhole", 26+w8, 47, {strength=1,targetx="48.5",targety="41.5"})
+--end      
 --end
     ]]></el:luamain>
     <el:i18n>

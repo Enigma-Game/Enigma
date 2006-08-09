@@ -44,7 +44,7 @@ for i=6, levelw-4, 2 do
     end
     
     set_item("it-trigger", i-1, 11, { action="open", target="l_door"..i })
-    --	set_item("it-trigger", i-1, 10, { action="open", target="p_door"..i })
+    --    set_item("it-trigger", i-1, 10, { action="open", target="p_door"..i })
 end
 
 set_item("it-trigger", 18, 1, { action="callback", target="close_all" })
@@ -69,7 +69,7 @@ set_actor("ac-blackball", 18.5, 3.5)
 
 function close_all()
     for i=6, levelw-4, 2 do
-	SendMessage("l_door"..i, "close")
+    SendMessage("l_door"..i, "close")
     end
 end
     ]]></el:luamain>

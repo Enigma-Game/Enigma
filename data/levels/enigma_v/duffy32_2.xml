@@ -32,7 +32,7 @@ function renderLine( line, pattern)
             oxyd( i-1, line)
         elseif c == "!" then
             abyss(i-1,line)
-            --			fill_floor("fl-water", i-1,line, 1,1)
+            --            fill_floor("fl-water", i-1,line, 1,1)
         elseif c=="z" then
             set_actor("ac-blackball", i-.5,line+.5)
             set_item("it-spring1",i-1,line)
@@ -82,8 +82,8 @@ function renderLine( line, pattern)
             set_stone("st-switch", i-1,line, {action="callback",target="hh7"})
         elseif c=="r" then
             set_stone("st-switch", i-1,line, {action="callback",target="hh8"})
-	end
-    end	
+    end
+    end    
 end
 -- Floor:  " "
 -- Border: "#"

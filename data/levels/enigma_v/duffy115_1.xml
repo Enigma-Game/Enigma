@@ -27,36 +27,36 @@ create_world( levelw, levelh)
 fill_floor("fl-ice_001", 0,0,levelw,levelh)
 
 function renderLine( line, pattern)
-	for i=1, strlen(pattern) do
-		local c = strsub( pattern, i, i)
-		if c =="#" then
-			set_stone( "st-rock5", i-1, line)
-		elseif c =="F" then
-			set_stone( "st-fart", i-1, line)
-		elseif c == "o" then
-			oxyd( i-1, line)
-		elseif c == "*" then
-			set_stone( "st-brownie", i-1, line)
+    for i=1, strlen(pattern) do
+        local c = strsub( pattern, i, i)
+        if c =="#" then
+            set_stone( "st-rock5", i-1, line)
+        elseif c =="F" then
+            set_stone( "st-fart", i-1, line)
+        elseif c == "o" then
+            oxyd( i-1, line)
+        elseif c == "*" then
+            set_stone( "st-brownie", i-1, line)
                 elseif c == "!" then
-			abyss(i-1,line)
-		elseif c == "~" then
-		   set_floor("fl-water",i-1,line)
-		elseif c=="z" then
-		   set_actor("ac-blackball", i-.5,line+.5, {player=0})
-		elseif c=="y" then
-		   set_actor("ac-whiteball", i-1,line+.5, {player=1})
-		elseif c=="R" then
-		   set_actor("ac-top", i-.5,line+.5, {force=3,range=100,player=1})
-		elseif c == "g" then
-			draw_stones("st-grate1",{i-1,line}, {1,1}, 1)
-		elseif c=="+" then
-			set_stone( "st-wood", i-1, line)
-		elseif c=="=" then
-			set_floor("fl-space",i-1,line)
-		elseif c=="S" then
-		   set_stone("st-switch",i-1,line,{action="callback",target="funcc1"})
-	     end
-	end	
+            abyss(i-1,line)
+        elseif c == "~" then
+           set_floor("fl-water",i-1,line)
+        elseif c=="z" then
+           set_actor("ac-blackball", i-.5,line+.5, {player=0})
+        elseif c=="y" then
+           set_actor("ac-whiteball", i-1,line+.5, {player=1})
+        elseif c=="R" then
+           set_actor("ac-top", i-.5,line+.5, {force=3,range=100,player=1})
+        elseif c == "g" then
+            draw_stones("st-grate1",{i-1,line}, {1,1}, 1)
+        elseif c=="+" then
+            set_stone( "st-wood", i-1, line)
+        elseif c=="=" then
+            set_floor("fl-space",i-1,line)
+        elseif c=="S" then
+           set_stone("st-switch",i-1,line,{action="callback",target="funcc1"})
+         end
+    end    
 end
 
 renderLine(00,"####################")

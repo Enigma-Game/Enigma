@@ -22,19 +22,19 @@ create_world(levelw, levelh)
 fill_floor("fl-metal")
 
 function create_room( nr, goal)
-	draw_border( "st-plain", nr*19, 0, 20, 13)
-	set_item( "it-wormhole", nr*19+18, 1+goal, {range=1, strength=10, targetx=nr*19+19+11.5, targety=6.5})
-	for i=1, 9 do
-		item = enigma.GetItem(nr*19+18,1+i)
-		if item == nil then
-			set_item( "it-wormhole", nr*19+18, 1+i, {range=1, strength=10, targetx=nr*19+1.5, targety=6.5})
-		end
-	end
-	if (not difficult) then
-		fill_floor( "fl-water", nr*19+1, 1, goal, 11)
-	else
-		fill_floor( "fl-water", nr*19+1, 1, 3, 11)
-	end
+    draw_border( "st-plain", nr*19, 0, 20, 13)
+    set_item( "it-wormhole", nr*19+18, 1+goal, {range=1, strength=10, targetx=nr*19+19+11.5, targety=6.5})
+    for i=1, 9 do
+        item = enigma.GetItem(nr*19+18,1+i)
+        if item == nil then
+            set_item( "it-wormhole", nr*19+18, 1+i, {range=1, strength=10, targetx=nr*19+1.5, targety=6.5})
+        end
+    end
+    if (not difficult) then
+        fill_floor( "fl-water", nr*19+1, 1, goal, 11)
+    else
+        fill_floor( "fl-water", nr*19+1, 1, 3, 11)
+    end
 end
 
 create_room( 0, 3)

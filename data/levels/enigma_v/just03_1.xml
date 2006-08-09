@@ -139,7 +139,7 @@ function renderLine(line, pattern)
         elseif c == "[" then
             set_stone ("st-laserswitch", i-1, line, {action="open", target = "door11"} )
         end
-    end	
+    end    
 end
 
 
@@ -225,7 +225,7 @@ function renderItem(line, pattern)
         elseif c == "Z" then
             set_item("it-umbrella", i-1, line)
         end
-    end	
+    end    
 end
 
 

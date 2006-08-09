@@ -15,7 +15,9 @@ program construct_indizes;
    -m   --rename    : Rename lua/xml-files
    -on  --oldnames  : Use old filenames
    -nn  --newnames  : Use new filenames
-   -h   --help  -?  : Help }
+   -h   --help  -?  : Help
+   -c   --check     : Check level files induces -l
+   -l   --lf        : Remove LF from level files }
 
 const
   Separator = #9;  { e.g. ';' or #9 = tab;
@@ -48,6 +50,8 @@ const
   option_create_ratingsindex : boolean = TRUE;
   option_new_filenames : boolean = FALSE;
   option_rename : boolean = FALSE;
+  option_check_files : boolean = FALSE;
+  option_lf : boolean = FALSE;
 
   col_directory = 'directory';
   col_oldname = 'oldname';
@@ -402,17 +406,23 @@ begin
     end;
     while not eof(fin) do begin
       read(fin, b);
-      if (b = 9) or (b = 10) or ((b >= 23) and (b <= 126)) then
-        write(fout, b)  { write ASCII }
-      else if (b = 13) then
-        inc(cr)  { delete CRs, but count their total }
+      if option_lf and (b = 13) then
+	inc(cr) { delete CRs, but count their total }
       else begin
-        writeln(f_notascii, 'Not-ASCII Nr. ', b, ' (', chr(b), ') found in file ',
-  	      fulloldname, '.');
-        write(fout, b);  { warn, but use same symbols }
+        if option_check_files then begin
+          if (b = 9) or (b = 10) or (b = 13) or ((b >= 23) and (b <= 126)) then
+            write(fout, b)  { write ASCII }          
+          else begin
+            writeln(f_notascii, 'Not-ASCII Nr. ', b, ' (', chr(b), ') found in file ',
+  	          fulloldname, '.');
+            write(fout, b);  { warn, but use same symbols }
+          end
+        end else
+          write(fout, b);
       end;
     end;
-    write(fout, 10); { end in newline }
+    if option_check_files then
+      write(fout, 10); { end in newline }
     close(fout);
     close(fin);	 
     erase(fin);
@@ -631,6 +641,8 @@ begin
     writeln(stderr, '-on, --oldnames : Use old filename-column (default).');
     writeln(stderr, '-nn, --newnames : Use new filename-column.');
     writeln(stderr, '-m, --rename : Rename from old to new (-nn: vice versa).');
+    writeln(stderr, '-c, --check : Check level files (ASCII, LF+FF, final FF; def.off)');
+    writeln(stderr, '-l, --lf : Remove LF from files (part of -c, def.off).');
     writeln(stderr, '-h, --help, -?, ? : This help.');
     writeln(stderr);
     halt;
@@ -650,6 +662,11 @@ begin
     option_new_filenames := TRUE;
   end else if (st = '-m') or (st = '--rename') then begin
     option_rename := TRUE;
+  end else if (st = '-c') or (st = '--check') then begin
+    option_check_files := TRUE;
+    option_lf := TRUE;
+  end else if (st = '-l') or (st = '--lf') then begin
+    option_lf := TRUE;
   end else begin
     writeln(stderr);
     writeln(stderr, 'Parameter unknown: ', st);

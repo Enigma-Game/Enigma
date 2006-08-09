@@ -116,7 +116,7 @@ function buffer_generic_test(buf,test)
    while test(buf,i) do
       i=i+1
       if (not(buf[i])) then
-	 return nil
+     return nil
       end
    end
    return i

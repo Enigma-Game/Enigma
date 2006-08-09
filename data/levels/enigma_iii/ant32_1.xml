@@ -61,29 +61,29 @@ function tick()
       count= 0
 
       repeat
-	 if     (d == 1) then x1=x0+0 y1=y0-1
-	 elseif (d == 2) then x1=x0+1 y1=y0+0
-	 elseif (d == 3) then x1=x0+0 y1=y0+1
-	 elseif (d == 4) then x1=x0-1 y1=y0+0
-	 end
+     if     (d == 1) then x1=x0+0 y1=y0-1
+     elseif (d == 2) then x1=x0+1 y1=y0+0
+     elseif (d == 3) then x1=x0+0 y1=y0+1
+     elseif (d == 4) then x1=x0-1 y1=y0+0
+     end
 
-	 d = d+1
-	 if (d>4) then d=d-4 end
+     d = d+1
+     if (d>4) then d=d-4 end
 
-	 count=count+1
-	 if (count>4) then found=0 break end
+     count=count+1
+     if (count>4) then found=0 break end
 
-	 cond = (not(shatter_map[getkey(x1,y1)] or intact_fields[getkey(x1,y1)]))
+     cond = (not(shatter_map[getkey(x1,y1)] or intact_fields[getkey(x1,y1)]))
       until cond
 
       --if not found, this square is inner void
       if (found == 0) then
-	 -- swap
-	 local rem = shatter_map[shatter_map.effct]
-	 shatter_map[shatter_map.effct] = shatter_map[m]
-	 shatter_map[m] = rem
-	 -- move effective counter of shatter array
-	 shatter_map.effct = shatter_map.effct+1
+     -- swap
+     local rem = shatter_map[shatter_map.effct]
+     shatter_map[shatter_map.effct] = shatter_map[m]
+     shatter_map[m] = rem
+     -- move effective counter of shatter array
+     shatter_map.effct = shatter_map.effct+1
       end
    until (found==1)
 

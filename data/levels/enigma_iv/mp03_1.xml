@@ -202,104 +202,104 @@ oxyd_shuffle()
 
 
 function switch()
-	mir=enigma.GetNamedObject("mirror0")
-	if sw0==1 then SendMessage(mir,"mirror-east") else SendMessage(mir,"mirror-north") end
-	mir=enigma.GetNamedObject("mirror1")
-	if sw1==1 then SendMessage(mir,"mirror-east") else SendMessage(mir,"mirror-south") end
-	mir=enigma.GetNamedObject("mirror2")
-	if sw2==1 then SendMessage(mir,"mirror-east") else SendMessage(mir,"mirror-north") end
-	mir=enigma.GetNamedObject("mirror3")
-	if sw3==1 then SendMessage(mir,"mirror-west") else SendMessage(mir,"mirror-south") end
-	mir=enigma.GetNamedObject("mirror4")
-	if sw4==1 then SendMessage(mir,"mirror-east") else SendMessage(mir,"mirror-north") end
-	mir=enigma.GetNamedObject("mirror5")
-	if sw5==1 then SendMessage(mir,"mirror-west") else SendMessage(mir,"mirror-south") end
-	mir=enigma.GetNamedObject("mirror6")
-	if sw6==1 then SendMessage(mir,"mirror-south") else SendMessage(mir,"mirror-east") end
-	mir=enigma.GetNamedObject("mirror7")
-	if sw7==1 then SendMessage(mir,"mirror-north") else SendMessage(mir,"mirror-west") end
-	mir=enigma.GetNamedObject("mirror8")
-	if sw8==1 then SendMessage(mir,"mirror-east") else SendMessage(mir,"mirror-north") end
-	mir=enigma.GetNamedObject("mirror9")
-	if sw9==1 then SendMessage(mir,"mirror-east") else SendMessage(mir,"mirror-north") end
-	mir=enigma.GetNamedObject("mirror10")
-	if sw10==1 then SendMessage(mir,"mirror-east") else SendMessage(mir,"mirror-north") end
-	mir=enigma.GetNamedObject("mirror11")
-	if sw11==1 then SendMessage(mir,"mirror-north") else SendMessage(mir,"mirror-west") end
-	mir=enigma.GetNamedObject("mirror12")
-	if sw12==1 then SendMessage(mir,"mirror-east") else SendMessage(mir,"mirror-north") end
-	mir=enigma.GetNamedObject("mirror13")
-	if sw13==1 then SendMessage(mir,"mirror-west") else SendMessage(mir,"mirror-south") end
+    mir=enigma.GetNamedObject("mirror0")
+    if sw0==1 then SendMessage(mir,"mirror-east") else SendMessage(mir,"mirror-north") end
+    mir=enigma.GetNamedObject("mirror1")
+    if sw1==1 then SendMessage(mir,"mirror-east") else SendMessage(mir,"mirror-south") end
+    mir=enigma.GetNamedObject("mirror2")
+    if sw2==1 then SendMessage(mir,"mirror-east") else SendMessage(mir,"mirror-north") end
+    mir=enigma.GetNamedObject("mirror3")
+    if sw3==1 then SendMessage(mir,"mirror-west") else SendMessage(mir,"mirror-south") end
+    mir=enigma.GetNamedObject("mirror4")
+    if sw4==1 then SendMessage(mir,"mirror-east") else SendMessage(mir,"mirror-north") end
+    mir=enigma.GetNamedObject("mirror5")
+    if sw5==1 then SendMessage(mir,"mirror-west") else SendMessage(mir,"mirror-south") end
+    mir=enigma.GetNamedObject("mirror6")
+    if sw6==1 then SendMessage(mir,"mirror-south") else SendMessage(mir,"mirror-east") end
+    mir=enigma.GetNamedObject("mirror7")
+    if sw7==1 then SendMessage(mir,"mirror-north") else SendMessage(mir,"mirror-west") end
+    mir=enigma.GetNamedObject("mirror8")
+    if sw8==1 then SendMessage(mir,"mirror-east") else SendMessage(mir,"mirror-north") end
+    mir=enigma.GetNamedObject("mirror9")
+    if sw9==1 then SendMessage(mir,"mirror-east") else SendMessage(mir,"mirror-north") end
+    mir=enigma.GetNamedObject("mirror10")
+    if sw10==1 then SendMessage(mir,"mirror-east") else SendMessage(mir,"mirror-north") end
+    mir=enigma.GetNamedObject("mirror11")
+    if sw11==1 then SendMessage(mir,"mirror-north") else SendMessage(mir,"mirror-west") end
+    mir=enigma.GetNamedObject("mirror12")
+    if sw12==1 then SendMessage(mir,"mirror-east") else SendMessage(mir,"mirror-north") end
+    mir=enigma.GetNamedObject("mirror13")
+    if sw13==1 then SendMessage(mir,"mirror-west") else SendMessage(mir,"mirror-south") end
 end
 
 function funcc0(ison)
-	sw0=ison
-	switch()
+    sw0=ison
+    switch()
 end
 
 function funcc1(ison)
-	sw1=ison
-	switch()
+    sw1=ison
+    switch()
 end
 
 function funcc2(ison)
-	sw2=ison
-	switch()
+    sw2=ison
+    switch()
 end
 
 function funcc3(ison)
-	sw3=ison
-	switch()
+    sw3=ison
+    switch()
 end
 
 function funcc4(ison)
-	sw4=ison
-	switch()
+    sw4=ison
+    switch()
 end
 
 function funcc5(ison)
-	sw5=ison
-	switch()
+    sw5=ison
+    switch()
 end
 
 function funcc6(ison)
-	sw6=ison
-	switch()
+    sw6=ison
+    switch()
 end
 
 function funcc7(ison)
-	sw7=ison
-	switch()
+    sw7=ison
+    switch()
 end
 
 function funcc8(ison)
-	sw8=ison
-	switch()
+    sw8=ison
+    switch()
 end
 
 function funcc9(ison)
-	sw9=ison
-	switch()
+    sw9=ison
+    switch()
 end
 
 function funcc10(ison)
-	sw10=ison
-	switch()
+    sw10=ison
+    switch()
 end
 
 function funcc11(ison)
-	sw11=ison
-	switch()
+    sw11=ison
+    switch()
 end
 
 function funcc12(ison)
-	sw12=ison
-	switch()
+    sw12=ison
+    switch()
 end
 
 function funcc13(ison)
-	sw13=ison
-	switch()
+    sw13=ison
+    switch()
 end
     ]]></el:luamain>
     <el:i18n>

@@ -47,9 +47,9 @@ function renderLine( line, pattern)
       elseif c =="f" then
          set_floor("fl-water", i-1,line)
       elseif c=="O" then                                                               
-	 oxyd(i-1,line) 
+     oxyd(i-1,line) 
       elseif c=="." then
-	 set_item("it-burnable_ignited", i-1,line) 
+     set_item("it-burnable_ignited", i-1,line) 
         end
     end  
 end

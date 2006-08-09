@@ -29,37 +29,37 @@ oxyd_default_flavor="a"
 fill_floor("fl-leaves", 0,0,levelw,levelh)
 
 function renderLine( line, pattern)
-	for i=1, strlen(pattern) do
-		local c = strsub( pattern, i, i)
-		if c =="#" then
-			set_stone( "st-rock1", i-1, line)
-		elseif c =="Z" then
-			set_stone( "st-rock1", i-1, line)
-		   set_floor("fl-hay",i-1,line)
-		elseif c =="0" then
-			set_stone( "st-knight", i-1, line)
-		elseif c =="r" then
-			if difficult then
-			   set_actor("ac-rotor", i-.5,line+.5,
-			{controllers=0,gohome=FALSE,force=20,range=8})
-			 else
-			   set_actor("ac-rotor", i-.5,line+.5,
-			{controllers=0,gohome=FALSE,force=10,range=8})
-			 end
-		elseif c =="X" then
-			set_stone( "st-death", i-1, line)
-		elseif c == "o" then
-			oxyd( i-1, line)
-		elseif c == "*" then
-			set_stone( "st-brownie", i-1, line)
+    for i=1, strlen(pattern) do
+        local c = strsub( pattern, i, i)
+        if c =="#" then
+            set_stone( "st-rock1", i-1, line)
+        elseif c =="Z" then
+            set_stone( "st-rock1", i-1, line)
+           set_floor("fl-hay",i-1,line)
+        elseif c =="0" then
+            set_stone( "st-knight", i-1, line)
+        elseif c =="r" then
+            if difficult then
+               set_actor("ac-rotor", i-.5,line+.5,
+            {controllers=0,gohome=FALSE,force=20,range=8})
+             else
+               set_actor("ac-rotor", i-.5,line+.5,
+            {controllers=0,gohome=FALSE,force=10,range=8})
+             end
+        elseif c =="X" then
+            set_stone( "st-death", i-1, line)
+        elseif c == "o" then
+            oxyd( i-1, line)
+        elseif c == "*" then
+            set_stone( "st-brownie", i-1, line)
                 elseif c == "!" then
-			abyss(i-1,line)
-		elseif c=="z" then
-		   set_actor("ac-blackball", i-1,line+.5, {player=0})
+            abyss(i-1,line)
+        elseif c=="z" then
+           set_actor("ac-blackball", i-1,line+.5, {player=0})
                 elseif c == "'" then
-			abyss(i-1,line)
-		elseif c=="=" then
-			set_floor("fl-space",i-1,line)
+            abyss(i-1,line)
+        elseif c=="=" then
+            set_floor("fl-space",i-1,line)
                 end
         end
 end

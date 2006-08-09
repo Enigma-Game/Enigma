@@ -30,21 +30,21 @@ enigma.HoleForce=1.8
 fill_floor("fl-abyss_fake",0,0,levelw,levelh)
 
 function renderLine( line, pattern)
-	for i=1, strlen(pattern) do
-		local c = strsub( pattern, i, i)
-  		if c=="o" then
-			set_item("it-hollow",i-1,line)
-			set_floor("fl-gray",i-1,line)
+    for i=1, strlen(pattern) do
+        local c = strsub( pattern, i, i)
+          if c=="o" then
+            set_item("it-hollow",i-1,line)
+            set_floor("fl-gray",i-1,line)
                 elseif c=="#" then
                         set_stone("st-marble",i-1,line)
                 elseif c==" " then
-			set_floor("fl-wood",i-1,line)
+            set_floor("fl-wood",i-1,line)
                 elseif c=="-" then
-			set_floor("fl-gray",i-1,line)
+            set_floor("fl-gray",i-1,line)
                 elseif c=="s" then
-			set_floor("fl-abyss_fake",i-1,line)
-		end
-	end	
+            set_floor("fl-abyss_fake",i-1,line)
+        end
+    end    
 end
 
 renderLine(00 , "ssssssssssssssssssss")

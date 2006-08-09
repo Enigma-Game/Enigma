@@ -2,7 +2,7 @@
 <el:level xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://enigma-game.org/schema/level/1 level.xsd" xmlns:el="http://enigma-game.org/schema/level/1">
   <el:protected>
     <el:info el:type="level">
-      <el:identity el:title="A bayou by you" el:subtitle="" el:id="stable/alain21"/>
+      <el:identity el:title="A bayou by you" el:subtitle="" el:id="alain21"/>
       <el:version el:score="1" el:release="1" el:revision="0" el:status="released"/>
       <el:author  el:name="Alain Busser" el:email="" el:homepage=""/>
       <el:copyright>Copyright © 2006 Alain Busser</el:copyright>
@@ -25,72 +25,72 @@ display.SetFollowMode(display.FOLLOW_SCROLLING)
 fill_floor("fl-leaves", 0,0, level_width,level_height)
 
 function renderLine( line, pattern)
-	for i=1, strlen(pattern) do
-		local c = strsub( pattern, i, i)
-		if c =="#" then
-			set_stone( "st-rock1", i-1, line)
-		elseif c=="*" then
-			set_stone("st-rock1_move",i-1,line)
-		elseif c=="." then
-			set_stone("st-greenbrown",i-1,line)
-		elseif c=="x" then
-			set_stone("st-death",i-1,line)
-		elseif c=="X" then
-			document(i-1,line,"text1")
-		elseif c=="u" then
-			set_item("it-umbrella",i-1,line)
-		elseif c=="a" then
-			set_floor("fl-abyss",i-1,line)
-		elseif c=="+" then
-			set_stone("st-black4",i-1,line)
-		elseif c=="|" then
- 	           puzzle(i-1,line,PUZ_1010)
-		elseif c=="-" then
-	            puzzle(i-1,line,PUZ_0101)
-		elseif c=="A" then
- 	           puzzle(i-1,line,PUZ_0110)
-		elseif c=="B" then
-	            puzzle(i-1,line,PUZ_0011)
-		elseif c=="C" then
- 	           puzzle(i-1,line,PUZ_1100)
-		elseif c=="D" then
-	            puzzle(i-1,line,PUZ_1001)
-		elseif c=="/" then
-			set_item("it-trigger",i-1,line,{action="callback", target="flytox"})
-		elseif c=="0" then
-			set_floor("fl-swamp",i-1,line)
-		elseif c=="1" then
-			set_actor("ac-rotor",i-0.5,line+0.5,{range=40,force=20,name="mosquito1",gohome=FALSE})
-		elseif c=="2" then
-			set_actor("ac-rotor",i-0.5,line+0.5,{range=40,force=20,name="mosquito2",gohome=FALSE})
-		elseif c=="3" then
-			set_actor("ac-rotor",i-0.5,line+0.5,{range=40,force=20,name="mosquito3",gohome=FALSE})
-		elseif c=="4" then
-			set_actor("ac-rotor",i-0.5,line+0.5,{range=40,force=20,name="mosquito4",gohome=FALSE})
-		elseif c=="5" then
-			set_actor("ac-rotor",i-0.5,line+0.5,{range=40,force=20,name="mosquito5",gohome=FALSE})
-		elseif c=="6" then
-			set_actor("ac-rotor",i-0.5,line+0.5,{range=40,force=20,name="mosquito6",gohome=FALSE})
-		elseif c=="7" then
-			set_actor("ac-top",i-0.5,line+0.5,{range=40,force=20,name="alligator1",gohome=TRUE})
-		elseif c=="8" then
-			set_actor("ac-top",i-0.5,line+0.5,{range=20,force=15,name="alligator2",gohome=TRUE})
-		elseif c=="w" then
-			set_floor("fl-water",i-1,line)
-		elseif c=="z" then
-			set_actor("ac-blackball", i-.5,line+.5, {name="maroon",player=0})
-		elseif c=="o" then
-			oxyd(i-1,line)
-		end
-	end	
+    for i=1, strlen(pattern) do
+        local c = strsub( pattern, i, i)
+        if c =="#" then
+            set_stone( "st-rock1", i-1, line)
+        elseif c=="*" then
+            set_stone("st-rock1_move",i-1,line)
+        elseif c=="." then
+            set_stone("st-greenbrown",i-1,line)
+        elseif c=="x" then
+            set_stone("st-death",i-1,line)
+        elseif c=="X" then
+            document(i-1,line,"text1")
+        elseif c=="u" then
+            set_item("it-umbrella",i-1,line)
+        elseif c=="a" then
+            set_floor("fl-abyss",i-1,line)
+        elseif c=="+" then
+            set_stone("st-black4",i-1,line)
+        elseif c=="|" then
+                puzzle(i-1,line,PUZ_1010)
+        elseif c=="-" then
+                puzzle(i-1,line,PUZ_0101)
+        elseif c=="A" then
+                puzzle(i-1,line,PUZ_0110)
+        elseif c=="B" then
+                puzzle(i-1,line,PUZ_0011)
+        elseif c=="C" then
+                puzzle(i-1,line,PUZ_1100)
+        elseif c=="D" then
+                puzzle(i-1,line,PUZ_1001)
+        elseif c=="/" then
+            set_item("it-trigger",i-1,line,{action="callback", target="flytox"})
+        elseif c=="0" then
+            set_floor("fl-swamp",i-1,line)
+        elseif c=="1" then
+            set_actor("ac-rotor",i-0.5,line+0.5,{range=40,force=20,name="mosquito1",gohome=FALSE})
+        elseif c=="2" then
+            set_actor("ac-rotor",i-0.5,line+0.5,{range=40,force=20,name="mosquito2",gohome=FALSE})
+        elseif c=="3" then
+            set_actor("ac-rotor",i-0.5,line+0.5,{range=40,force=20,name="mosquito3",gohome=FALSE})
+        elseif c=="4" then
+            set_actor("ac-rotor",i-0.5,line+0.5,{range=40,force=20,name="mosquito4",gohome=FALSE})
+        elseif c=="5" then
+            set_actor("ac-rotor",i-0.5,line+0.5,{range=40,force=20,name="mosquito5",gohome=FALSE})
+        elseif c=="6" then
+            set_actor("ac-rotor",i-0.5,line+0.5,{range=40,force=20,name="mosquito6",gohome=FALSE})
+        elseif c=="7" then
+            set_actor("ac-top",i-0.5,line+0.5,{range=40,force=20,name="alligator1",gohome=TRUE})
+        elseif c=="8" then
+            set_actor("ac-top",i-0.5,line+0.5,{range=20,force=15,name="alligator2",gohome=TRUE})
+        elseif c=="w" then
+            set_floor("fl-water",i-1,line)
+        elseif c=="z" then
+            set_actor("ac-blackball", i-.5,line+.5, {name="maroon",player=0})
+        elseif c=="o" then
+            oxyd(i-1,line)
+        end
+    end    
 end
 
 -- piege a moustiques
 
 function flytox()
-	for i=19,22 do
-		set_stone("st-black4",82,i)
-	end
+    for i=19,22 do
+        set_stone("st-black4",82,i)
+    end
 end
 
 --               012345678901234567890123456789012345678901234567890123456789012345678901234567890123456789012345678901234

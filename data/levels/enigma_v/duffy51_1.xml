@@ -38,9 +38,9 @@ function renderLine( line, pattern)
             set_stone( "st-brownie", i-1, line)
         elseif c == "!" then
             abyss(i-1,line)
-            --			fill_floor("fl-water", i-1,line, 1,1)
+            --            fill_floor("fl-water", i-1,line, 1,1)
         elseif c == "~" then
-            --			abyss(i-1,line)
+            --            abyss(i-1,line)
             fill_floor("fl-water", i-1,line, 1,1)
         elseif c=="z" then
             local ac0=set_actor("ac-blackball", i,line+.5, {name="ac0"})
@@ -108,7 +108,7 @@ function renderLine( line, pattern)
             set_stone("st-door_a",i-1,line,{name="door4"})
 
         end
-    end	
+    end    
 end
 
 function yy1( color, x, y)

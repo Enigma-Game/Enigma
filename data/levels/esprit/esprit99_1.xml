@@ -52,7 +52,7 @@ function renderLine( line, pattern)
 
       elseif c=="O" then
 
-	 oxyd(i-1,line)
+     oxyd(i-1,line)
 
         end
 

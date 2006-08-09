@@ -44,7 +44,7 @@ function renderLine( line, pattern)
         elseif c=="B" then
             set_stone("st-bombs", i-1,line)
         elseif c=="d" then
-            set_stone("st-oneway-s", i-1,line)	
+            set_stone("st-oneway-s", i-1,line)    
         elseif c=="l" then
             set_stone("st-oneway-w", i-1,line)
         elseif c=="s" then
@@ -63,7 +63,7 @@ function renderLine( line, pattern)
             set_stone( "st-switch", i-1, line, 
                       {target="start_ferry", action="callback"})
         end
-    end	
+    end    
 end
 -- Floor:  " "
 -- Border: "#"

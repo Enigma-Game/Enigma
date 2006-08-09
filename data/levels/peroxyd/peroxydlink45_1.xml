@@ -24,11 +24,11 @@ draw_border("st-marble")
 fill_floor("fl-marble")
 
 function puzzle_cross( x, y)
-	puzzle( x,y, PUZ_1111)
-	puzzle( x-1,y, PUZ_0100)
-	puzzle(x+1,y, PUZ_0001)
-	puzzle(x,y-1, PUZ_0010)
-	puzzle(x,y+1, PUZ_1000)
+    puzzle( x,y, PUZ_1111)
+    puzzle( x-1,y, PUZ_0100)
+    puzzle(x+1,y, PUZ_0001)
+    puzzle(x,y-1, PUZ_0010)
+    puzzle(x,y+1, PUZ_1000)
 end
 
 puzzle_cross( 4,4)

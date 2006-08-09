@@ -116,7 +116,7 @@ function renderLine( line, pattern)
 
       elseif c=="O" then                                                               
 
-	 oxyd(i-1,line) 
+     oxyd(i-1,line) 
 
         end
 
@@ -206,143 +206,143 @@ for i=1,12 do
 
 if     status == 0 then
 
-	xalt = x
+    xalt = x
 
-	yalt = y
+    yalt = y
 
-	x = 2.5 
+    x = 2.5 
 
-	y = 3.5
+    y = 3.5
 
 elseif status == 2 then
 
-	xalt = x
+    xalt = x
 
-	yalt = y
+    yalt = y
 
-	x = 2.5 
+    x = 2.5 
 
-	y = 7.5
+    y = 7.5
 
 elseif status == 6 then
 
-	xalt = x
+    xalt = x
 
-	yalt = y
+    yalt = y
 
-	x = 2.5 
+    x = 2.5 
 
-	y = 11.5
+    y = 11.5
 
 elseif status == 14 then
 
-	xalt = x
+    xalt = x
 
-	yalt = y
+    yalt = y
 
-	x = 15.5 
+    x = 15.5 
 
-	y = 3.5
+    y = 3.5
 
 elseif status == 30 then
 
-	xalt = x
+    xalt = x
 
-	yalt = y
+    yalt = y
 
-	x = 15.5 
+    x = 15.5 
 
-	y = 7.5
+    y = 7.5
 
 elseif status == 62 then
 
-	xalt = x
+    xalt = x
 
-	yalt = y
+    yalt = y
 
-	x = 15.5 
+    x = 15.5 
 
-	y = 11.5
+    y = 11.5
 
 elseif status == 126 then
 
-	xalt = x
+    xalt = x
 
-	yalt = y
+    yalt = y
 
-	x = 4.5 
+    x = 4.5 
 
-	y = 3.5
+    y = 3.5
 
 elseif status == 254 then
 
-	xalt = x
+    xalt = x
 
-	yalt = y
+    yalt = y
 
-	x = 4.5 
+    x = 4.5 
 
-	y = 7.5
+    y = 7.5
 
 elseif status == 510 then
 
-	xalt = x
+    xalt = x
 
-	yalt = y
+    yalt = y
 
-	x = 4.5 
+    x = 4.5 
 
-	y = 11.5
+    y = 11.5
 
 elseif status == 1022 then
 
-	xalt = x
+    xalt = x
 
-	yalt = y
+    yalt = y
 
-	x = 17.5 
+    x = 17.5 
 
-	y = 3.5
+    y = 3.5
 
 elseif status == 2046 then
 
-	xalt = x
+    xalt = x
 
-	yalt = y
+    yalt = y
 
-	x = 17.5 
+    x = 17.5 
 
-	y = 7.5
+    y = 7.5
 
 elseif status == 4094 then
 
-	xalt = x
+    xalt = x
 
-	yalt = y
+    yalt = y
 
-	x = 17.5 
+    x = 17.5 
 
-	y = 11.5
+    y = 11.5
 
 elseif status == 8190 then
 
-	xalt = x
+    xalt = x
 
-	yalt = y
+    yalt = y
 
-	x = 2.5 
+    x = 2.5 
 
-	y = 1.5
+    y = 1.5
 
-	document(2,1,"text1") 
+    document(2,1,"text1") 
 
 else
 
-	x=xalt
+    x=xalt
 
-	y=yalt	
+    y=yalt    
 
-end	
+end    
 
 set_attribs(enigma.GetNamedObject("warp"), {targetx=x, targety=y})
 

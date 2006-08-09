@@ -80,7 +80,7 @@ function renderLine( line, pattern)
       elseif c=="q" then
          set_stone("st-key_c", i-1, line)
       elseif c=="O" then 
-	 oxyd(i-1,line)  
+     oxyd(i-1,line)  
         end
     end
 end

@@ -27,8 +27,8 @@ function renderLine( line, pattern)
         local c = strsub( pattern, i, i)
         if c == "o" then
             oxyd( i-1, line)
-	elseif c == "#" then
-	    set_stone( "st-brick", i-1, line)
+    elseif c == "#" then
+        set_stone( "st-brick", i-1, line)
         end
     end
 end

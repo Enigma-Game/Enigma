@@ -32,9 +32,9 @@ for x=0,9 do
 
     for y=0,5 do
 
-	set_floor("fl-light",2*x+1,2*y+1)
+    set_floor("fl-light",2*x+1,2*y+1)
 
-	end
+    end
 
     end
 
@@ -58,7 +58,7 @@ function renderLine( line, pattern)
 
       elseif c=="O" then
 
-	 oxyd(i-1,line)
+     oxyd(i-1,line)
 
         end
 

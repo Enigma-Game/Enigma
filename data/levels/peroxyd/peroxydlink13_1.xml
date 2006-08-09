@@ -27,9 +27,9 @@ create_world(levelw, levelh)
 fill_floor("fl-samba",0,0,levelw, levelh)
 
 function renderLine( line, pattern)
-	for i=1, strlen(pattern) do
-		local c = strsub( pattern, i, i)
-  		if c=="O" then
+    for i=1, strlen(pattern) do
+        local c = strsub( pattern, i, i)
+          if c=="O" then
                    oxyd(i-1,line)
                 elseif c=="-" then
                    set_floor("fl-abyss",i-1,line)
@@ -37,8 +37,8 @@ function renderLine( line, pattern)
                    set_stone("st-marble",i-1,line)
                 elseif c=="X" then
                    set_stone("st-stoneimpulse",i-1,line)
-		end
-	end	
+        end
+    end    
 end
 --               0123456789012345678901234567890123456789012345678901234567
 renderLine(00 , "----------------------------------------------------------")

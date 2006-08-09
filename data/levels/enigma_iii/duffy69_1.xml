@@ -33,7 +33,7 @@ function renderLine( line, pattern)
             set_stone( "st-greenbrown", i-1, line)
         elseif c =="%" then
             set_stone( "st-greenbrown", i-1, line)
-            --			set_floor("fl-rough_slow",i-1,line)
+            --            set_floor("fl-rough_slow",i-1,line)
         elseif c =="X" then
             set_stone( "st-death", i-1, line)
         elseif c == "o" then
@@ -44,7 +44,7 @@ function renderLine( line, pattern)
             abyss(i-1,line)
         elseif c=="z" then
             set_actor("ac-blackball", i-.5,line+.5)
-            --			set_floor("fl-rough_slow",i-1,line)
+            --            set_floor("fl-rough_slow",i-1,line)
         elseif c == "g" then
             draw_stones("st-grate1",{i-1,line}, {1,1}, 1)
         elseif c=="+" then
@@ -52,7 +52,7 @@ function renderLine( line, pattern)
         elseif c=="=" then
             set_floor("fl-space",i-1,line)
         elseif c=="x" then
-            --			set_floor("fl-rough_slow",i-1,line)
+            --            set_floor("fl-rough_slow",i-1,line)
         elseif c=="i" then
             set_floor("fl-ice_001",i-1,line)
         elseif c=="1" then
@@ -112,19 +112,19 @@ function renderLine( line, pattern)
             end
         elseif c=="a" then
             set_item("it-trigger", i-1,line, {action="callback", target="funccdir1"})
-            --			set_floor("fl-rough_slow",i-1,line)
+            --            set_floor("fl-rough_slow",i-1,line)
         elseif c=="b" then
             set_item("it-trigger", i-1,line, {action="callback", target="funccdir2"})
-            --			set_floor("fl-rough_slow",i-1,line)
+            --            set_floor("fl-rough_slow",i-1,line)
         elseif c=="c" then
             set_item("it-trigger", i-1,line, {action="callback", target="funccdir3"})
-            --			set_floor("fl-rough_slow",i-1,line)
+            --            set_floor("fl-rough_slow",i-1,line)
         elseif c=="d" then
             set_item("it-trigger", i-1,line, {action="callback", target="funccdir4"})
-            --			set_floor("fl-rough_slow",i-1,line)
+            --            set_floor("fl-rough_slow",i-1,line)
         elseif c=="e" then
             set_item("it-trigger", i-1,line, {action="callback", target="funccdir5"})
-            --			set_floor("fl-rough_slow",i-1,line)
+            --            set_floor("fl-rough_slow",i-1,line)
         elseif c == "d" then --1-d
             set_floor("fl-gradient",  i-1,  line, {type=21})
         elseif c == "u" then --2-u
@@ -141,16 +141,16 @@ function renderLine( line, pattern)
             set_actor("ac-whiteball", i-.5,line+.5, {player=0,mouseforce=1})
             set_floor("fl-gradient",  i-1,  line, {type=24})
         elseif c=="A" then
-            --  		   set_item("it-vortex-open", i-1, line, {targetx="16.5",targety="8.5", name="V1"})
-            --			set_floor("fl-space",i-1,line)
-            --			abyss(i-1,line)
+            --             set_item("it-vortex-open", i-1, line, {targetx="16.5",targety="8.5", name="V1"})
+            --            set_floor("fl-space",i-1,line)
+            --            abyss(i-1,line)
             if difficult then
                 set_floor("fl-water",i-1,line)
             else
                 set_stone ("st-actorimpulse", i-1, line)
             end
         end
-    end	
+    end    
 end
 
 --renderLine(00,"%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%")
@@ -260,27 +260,27 @@ f11=0
 
 function funccdir1()
    chosendir=1
-      	set_floor("fl-gradient",  bx, by , {type=22})
+          set_floor("fl-gradient",  bx, by , {type=22})
 end
 
 function funccdir2()
    chosendir=2
-      	set_floor("fl-gradient",  bx, by , {type=23})
+          set_floor("fl-gradient",  bx, by , {type=23})
 end
 
 function funccdir3()
    chosendir=3
-      	set_floor("fl-gradient",  bx, by , {type=21})
+          set_floor("fl-gradient",  bx, by , {type=21})
 end
 
 function funccdir4()
    chosendir=4
-      	set_floor("fl-gradient",  bx, by , {type=24})
+          set_floor("fl-gradient",  bx, by , {type=24})
 end
 
 function funccdir5()
    chosendir=5
-      	set_floor("fl-normal",  bx, by)
+          set_floor("fl-normal",  bx, by)
 end
 
 function funcc1()
@@ -629,35 +629,35 @@ end
    end
 
 if chosendir==1 then
-      	set_floor("fl-gradient",  bx, by , {type=22})
+          set_floor("fl-gradient",  bx, by , {type=22})
   elseif chosendir==2 then
         set_floor("fl-gradient",  bx,  by, {type=23})
    elseif chosendir==3 then
-      	set_floor("fl-gradient",  bx,  by, {type=21})
+          set_floor("fl-gradient",  bx,  by, {type=21})
    elseif chosendir==4 then
-      	set_floor("fl-gradient",  bx,  by, {type=24})
+          set_floor("fl-gradient",  bx,  by, {type=24})
    elseif chosendir==5 then
         set_floor("fl-normal",  bx,  by)
      end
 
 --   if direc==1 then
---      	set_floor("fl-gradient",  bx, by , {type=2})
+--          set_floor("fl-gradient",  bx, by , {type=2})
 --  elseif direc==2 then
 --        set_floor("fl-gradient",  bx,  by, {type=3})
 --   elseif direc==3 then
---      	set_floor("fl-gradient",  bx,  by, {type=1})
+--          set_floor("fl-gradient",  bx,  by, {type=1})
 --   elseif direc==4 then
---      	set_floor("fl-gradient",  bx,  by, {type=4})
+--          set_floor("fl-gradient",  bx,  by, {type=4})
 --     end
 --if direc>4 then
 --   if prevdirec==1 then
---      	set_floor("fl-gradient",  bx, by , {type=2})
+--          set_floor("fl-gradient",  bx, by , {type=2})
 --  elseif prevdirec==2 then
 --        set_floor("fl-gradient",  bx,  by, {type=3})
 --   elseif prevdirec==3 then
---      	set_floor("fl-gradient",  bx,  by, {type=1})
+--          set_floor("fl-gradient",  bx,  by, {type=1})
 --   elseif prevdirec==4 then
---      	set_floor("fl-gradient",  bx,  by, {type=4})
+--          set_floor("fl-gradient",  bx,  by, {type=4})
 --     end
      --  end
 

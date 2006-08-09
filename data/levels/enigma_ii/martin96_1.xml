@@ -62,9 +62,9 @@ end
 cells={}
 
 if (not difficult) then 
-	cells[" "]=cell{floor="fl-bluegray"}
+    cells[" "]=cell{floor="fl-bluegray"}
 else
-	cells[" "]=cell{floor="fl-bluegray",stone="st-grate2"}
+    cells[" "]=cell{floor="fl-bluegray",stone="st-grate2"}
 end
 cells["."]=cell{floor="fl-water"}
 cells["w"]=cell{stone="st-knight",floor="fl-bluegray"}

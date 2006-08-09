@@ -25,99 +25,99 @@ enigma.TwoPlayerGame = TRUE
 fill_floor("fl-metal", 0,0,levelw,levelh)
 
 function renderLine( line, pattern)
-	for i=1, strlen(pattern) do
-		local c = strsub( pattern, i, i)
-		if c =="#" then
-			set_stone( "st-greenbrown", i-1, line)
-		elseif c == "o" then
-			oxyd( i-1, line)
+    for i=1, strlen(pattern) do
+        local c = strsub( pattern, i, i)
+        if c =="#" then
+            set_stone( "st-greenbrown", i-1, line)
+        elseif c == "o" then
+            oxyd( i-1, line)
                 elseif c == "!" then
---			abyss(i-1,line)
-			fill_floor("fl-water", i-1,line, 1,1)
-		elseif c == "s" then
-			set_stone("st-stoneimpulse", i-1,line)
-		elseif c == "2" then --1-d
-			set_floor("fl-gradient",  i-1,  line, {type=1})
-		elseif c == "8" then --2-u
-			set_floor("fl-gradient",  i-1,  line, {type=2})
-		elseif c == "6" then --3-r
-			set_floor("fl-gradient",  i-1,  line, {type=3})
-		elseif c == "4" then --4-l
-			set_floor("fl-gradient",  i-1,  line, {type=4})
-		elseif c == "1" then --ur
-			set_floor("fl-gradient",  i-1,  line, {type=11})
-		elseif c == "3" then --dl
-			set_floor("fl-gradient",  i-1,  line, {type=9})
-		elseif c == "7" then --dr
-			set_floor("fl-gradient",  i-1,  line, {type=12})
-		elseif c == "9" then --ul
-			set_floor("fl-gradient",  i-1,  line, {type=10})
-		elseif c=="z" then
-			set_actor("ac-blackball", i-.5,line+.5)
-		elseif c=="y" then
-			set_actor("ac-whiteball", i-.5,line+.5)
-		elseif c=="+" then
-			set_stone( "st-wood", i-1, line)
-			fill_floor("fl-leaves", i-1,line, 1,1)
-		elseif c==":" then
-			fill_floor("fl-space", i-1,line, 1,1)
-		elseif c=="=" then
-			fill_floor("fl-leaves", i-1,line, 1,1)
-		elseif c=="S" then
-			set_stone( "st-swap", i-1, line)
-		elseif c == "R" then
-			puzzle(i-1,line,PUZ_0100)
-		elseif c == "L" then
-			puzzle(i-1,line,PUZ_0001)
-		elseif c=="g" then
-			draw_stones("st-grate1",{i-1,line}, {1,1}, 1)
-		elseif c=="h" then
-			doorh(i-1,line,{name="door1"})
-		elseif c=="q" then
-			doorh(i-1,line,{name="door2"})
-		elseif c=="j" then
-			doorh(i-1,line,{name="door3"})
-		elseif c=="v" then
-			doorh(i-1,line,{name="door4"})
-		elseif c=="u" then
-			oneway(i-1,line, enigma.NORTH)
-			fill_floor("fl-inverse", i-1,line, 1,1)
-		elseif c=="r" then
-			oneway(i-1,line, enigma.EAST)
-			fill_floor("fl-inverse", i-1,line, 1,1)
-		elseif c=="d" then
-			oneway(i-1,line, enigma.SOUTH)
-			fill_floor("fl-inverse", i-1,line, 1,1)
-		elseif c=="l" then
-			oneway(i-1,line, enigma.WEST)
-			fill_floor("fl-inverse", i-1,line, 1,1)
-		elseif c=="I" then
-			fill_floor("fl-inverse", i-1,line, 1,1)
-		elseif c=="F" then
-			set_stone("st-floppy", i-1, line, {action="openclose", target="door2"})
-		elseif c=="U" then
-			set_stone("st-floppy", i-1, line, {action="openclose", target="door3"})
+--            abyss(i-1,line)
+            fill_floor("fl-water", i-1,line, 1,1)
+        elseif c == "s" then
+            set_stone("st-stoneimpulse", i-1,line)
+        elseif c == "2" then --1-d
+            set_floor("fl-gradient",  i-1,  line, {type=1})
+        elseif c == "8" then --2-u
+            set_floor("fl-gradient",  i-1,  line, {type=2})
+        elseif c == "6" then --3-r
+            set_floor("fl-gradient",  i-1,  line, {type=3})
+        elseif c == "4" then --4-l
+            set_floor("fl-gradient",  i-1,  line, {type=4})
+        elseif c == "1" then --ur
+            set_floor("fl-gradient",  i-1,  line, {type=11})
+        elseif c == "3" then --dl
+            set_floor("fl-gradient",  i-1,  line, {type=9})
+        elseif c == "7" then --dr
+            set_floor("fl-gradient",  i-1,  line, {type=12})
+        elseif c == "9" then --ul
+            set_floor("fl-gradient",  i-1,  line, {type=10})
+        elseif c=="z" then
+            set_actor("ac-blackball", i-.5,line+.5)
+        elseif c=="y" then
+            set_actor("ac-whiteball", i-.5,line+.5)
+        elseif c=="+" then
+            set_stone( "st-wood", i-1, line)
+            fill_floor("fl-leaves", i-1,line, 1,1)
+        elseif c==":" then
+            fill_floor("fl-space", i-1,line, 1,1)
+        elseif c=="=" then
+            fill_floor("fl-leaves", i-1,line, 1,1)
+        elseif c=="S" then
+            set_stone( "st-swap", i-1, line)
+        elseif c == "R" then
+            puzzle(i-1,line,PUZ_0100)
+        elseif c == "L" then
+            puzzle(i-1,line,PUZ_0001)
+        elseif c=="g" then
+            draw_stones("st-grate1",{i-1,line}, {1,1}, 1)
+        elseif c=="h" then
+            doorh(i-1,line,{name="door1"})
+        elseif c=="q" then
+            doorh(i-1,line,{name="door2"})
+        elseif c=="j" then
+            doorh(i-1,line,{name="door3"})
+        elseif c=="v" then
+            doorh(i-1,line,{name="door4"})
+        elseif c=="u" then
+            oneway(i-1,line, enigma.NORTH)
+            fill_floor("fl-inverse", i-1,line, 1,1)
+        elseif c=="r" then
+            oneway(i-1,line, enigma.EAST)
+            fill_floor("fl-inverse", i-1,line, 1,1)
+        elseif c=="d" then
+            oneway(i-1,line, enigma.SOUTH)
+            fill_floor("fl-inverse", i-1,line, 1,1)
+        elseif c=="l" then
+            oneway(i-1,line, enigma.WEST)
+            fill_floor("fl-inverse", i-1,line, 1,1)
+        elseif c=="I" then
+            fill_floor("fl-inverse", i-1,line, 1,1)
+        elseif c=="F" then
+            set_stone("st-floppy", i-1, line, {action="openclose", target="door2"})
+        elseif c=="U" then
+            set_stone("st-floppy", i-1, line, {action="openclose", target="door3"})
 
-		elseif c=="f" then
-			set_item("it-floppy", i-1, line)
-		elseif c=="K" then
-			set_stone("st-key_a", i-1, line, {action="openclose", target="door1"})
-		elseif c=="V" then
-			set_stone("st-key_a", i-1, line, {action="openclose", target="door4"})
-		elseif c=="k" then		
-			set_item("it-key_a", i-1 ,line)
-		elseif c == "b" then
-			yy1( "black",  i-1, line)
-		elseif c == "w" then
-			yy1( "white",  i-1, line)
-		elseif c == "X" then
-            		draw_stones("st-yinyang1", { i-1,line}, {0,1},1)
-		elseif c=="P" then
-			set_item("it-brush",i-1,line)
-		elseif c=="p" then
-			draw_stones("st-stonebrush", {i-1,line}, {1,0},1)
-		end
-	end	
+        elseif c=="f" then
+            set_item("it-floppy", i-1, line)
+        elseif c=="K" then
+            set_stone("st-key_a", i-1, line, {action="openclose", target="door1"})
+        elseif c=="V" then
+            set_stone("st-key_a", i-1, line, {action="openclose", target="door4"})
+        elseif c=="k" then        
+            set_item("it-key_a", i-1 ,line)
+        elseif c == "b" then
+            yy1( "black",  i-1, line)
+        elseif c == "w" then
+            yy1( "white",  i-1, line)
+        elseif c == "X" then
+                    draw_stones("st-yinyang1", { i-1,line}, {0,1},1)
+        elseif c=="P" then
+            set_item("it-brush",i-1,line)
+        elseif c=="p" then
+            draw_stones("st-stonebrush", {i-1,line}, {1,0},1)
+        end
+    end    
 end
 
 function yy1( color, x, y)

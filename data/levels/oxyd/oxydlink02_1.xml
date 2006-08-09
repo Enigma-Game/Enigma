@@ -28,21 +28,21 @@ draw_border( stone)
 draw_stones( stone, {19, 1}, {0,1}, 11)
 
 function oxbase1( x, y, a, b)
-	oxyd( x, y)
-	draw_stones( stone, {x-2,y-1}, {1,0}, 4)
-	draw_stones( stone, {x-2,y+1}, {1,0}, 4)
-	set_stone( stone, x+1, y)
-	doorv(x-1,y, {name="door"..a})
-	set_item("it-trigger", x-2,y, {invisible=1, action="open", target="door"..b})
+    oxyd( x, y)
+    draw_stones( stone, {x-2,y-1}, {1,0}, 4)
+    draw_stones( stone, {x-2,y+1}, {1,0}, 4)
+    set_stone( stone, x+1, y)
+    doorv(x-1,y, {name="door"..a})
+    set_item("it-trigger", x-2,y, {invisible=1, action="open", target="door"..b})
 end
 
 function oxbase2( x, y, a, b)
-	oxyd( x, y)
-	draw_stones( stone, {x-1,y-1}, {1,0}, 4)
-	draw_stones( stone, {x-1,y+1}, {1,0}, 4)
-	set_stone( stone, x-1, y)
-	doorv(x+1,y, {name="door"..a})
-	set_item("it-trigger", x+2, y, {invisible=1, action="open", target="door"..b})
+    oxyd( x, y)
+    draw_stones( stone, {x-1,y-1}, {1,0}, 4)
+    draw_stones( stone, {x-1,y+1}, {1,0}, 4)
+    set_stone( stone, x-1, y)
+    doorv(x+1,y, {name="door"..a})
+    set_item("it-trigger", x+2, y, {invisible=1, action="open", target="door"..b})
 end
 
 

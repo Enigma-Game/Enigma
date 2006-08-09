@@ -131,9 +131,9 @@ function draw_oxyd_tile(x,y,xt,yt)
     if (strsub(mask,count,count)=="1") then
         local d = random(1,4)
         if     (d == 1) then oxyd(x+xt,y+yt)
-    	elseif (d == 2) then oxyd(x+(stilew-xt-1),y+yt)
-	    elseif (d == 3) then oxyd(x+(stilew-xt-1),y+(stileh-yt-1))
-    	elseif (d == 4) then oxyd(x+xt,           y+(stileh-yt-1))
+        elseif (d == 2) then oxyd(x+(stilew-xt-1),y+yt)
+        elseif (d == 3) then oxyd(x+(stilew-xt-1),y+(stileh-yt-1))
+        elseif (d == 4) then oxyd(x+xt,           y+(stileh-yt-1))
         end
     end
 end

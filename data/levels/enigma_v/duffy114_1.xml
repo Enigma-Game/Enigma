@@ -82,7 +82,7 @@ function renderLine( line, pattern)
             draw_stones("st-grate1",{i-1,line}, {1,1}, 1)
         elseif c == "G" then
             if difficult==false then
-                --			draw_stones("st-grate1",{i-1,line}, {1,1}, 1)
+                --            draw_stones("st-grate1",{i-1,line}, {1,1}, 1)
             else
                 draw_stones("st-grate1",{i-1,line}, {1,1}, 1)
             end
@@ -95,11 +95,11 @@ function renderLine( line, pattern)
         elseif c=="=" then
             set_floor("fl-space",i-1,line)
         elseif c=="U" then
-            set_stone("st-oneway", i-1,line, {orientation=enigma.NORTH})	
+            set_stone("st-oneway", i-1,line, {orientation=enigma.NORTH})    
         elseif c=="R" then
-            set_stone("st-oneway", i-1,line, {orientation=enigma.EAST})	
+            set_stone("st-oneway", i-1,line, {orientation=enigma.EAST})    
         elseif c=="D" then
-            set_stone("st-oneway", i-1,line, {orientation=enigma.SOUTH})	
+            set_stone("st-oneway", i-1,line, {orientation=enigma.SOUTH})    
         elseif c=="L" then
             set_stone("st-oneway", i-1,line, {orientation=enigma.WEST})
         elseif c=="u" then
@@ -122,7 +122,7 @@ function renderLine( line, pattern)
         elseif c=="q" then
             yy1( "white",  i-1, line)
         end
-    end	
+    end    
 end
 
 function yy1( color, x, y)

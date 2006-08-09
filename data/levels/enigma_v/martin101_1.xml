@@ -24,9 +24,9 @@ cells[" "]=cell{floor="fl-metal"}
 cells["#"]=cell{stone="st-rock2"}
 cells["~"]=cell{floor="fl-water"}
 if not difficult then -- easy
-	cells["-"]=cells[" "]
+    cells["-"]=cells[" "]
 else
-	cells["-"]=cells["~"]
+    cells["-"]=cells["~"]
 end
 cells["w"]=cell{item="it-weight"}
 cells["k"]=cell{item="it-floppy"}

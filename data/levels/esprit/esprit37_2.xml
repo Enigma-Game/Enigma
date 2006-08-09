@@ -42,11 +42,11 @@ function renderLine( line, pattern)
       if c ==   "#" then
          set_stone("st-rock1", i-1,line)
       elseif c=="1" then
-	 set_item("it-wormhole", i-1,line, {targetx="4.5", targety="17.5",strength=0})         
+     set_item("it-wormhole", i-1,line, {targetx="4.5", targety="17.5",strength=0})         
       elseif c=="2" then
-	 set_item("it-wormhole", i-1,line, {targetx="1.5", targety="2.5",strength=0})   
+     set_item("it-wormhole", i-1,line, {targetx="1.5", targety="2.5",strength=0})   
       elseif c=="3" then
-	 set_item("it-wormhole", i-1,line, {targetx="4.5", targety="13.5",strength=0})   
+     set_item("it-wormhole", i-1,line, {targetx="4.5", targety="13.5",strength=0})   
       elseif c=="5" then
          puzzle(i-1,line, 7)  
          set_item("it-trigger", i-1,line, {action="callback", target="s1"})
@@ -57,7 +57,7 @@ function renderLine( line, pattern)
       elseif c=="C" then
          set_item("it-trigger", i-1,line, {action="callback", target="s4"})
       elseif c=="6" then
-         puzzle(i-1,line, 4)  	
+         puzzle(i-1,line, 4)      
       elseif c=="7" then
          puzzle(i-1,line, 13)        
       elseif c=="8" then
@@ -66,7 +66,7 @@ function renderLine( line, pattern)
       elseif c=="." then
          set_stone("st-door_b", i-1,line, {type="v"})   
       elseif c=="O" then
-	 oxyd(i-1,line)
+     oxyd(i-1,line)
         end
     end  
 end

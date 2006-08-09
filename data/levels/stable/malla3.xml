@@ -2,7 +2,7 @@
 <el:level xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://enigma-game.org/schema/level/1 level.xsd" xmlns:el="http://enigma-game.org/schema/level/1">
   <el:protected>
     <el:info el:type="level">
-      <el:identity el:title="Step gently!" el:subtitle="" el:id="stable/malla3"/>
+      <el:identity el:title="Step gently!" el:subtitle="" el:id="malla3"/>
       <el:version el:score="1" el:release="1" el:revision="0" el:status="released"/>
       <el:author  el:name="Manuel Koenig" el:email="" el:homepage=""/>
       <el:copyright>Copyright © 2006 Manuel Koenig</el:copyright>
@@ -35,8 +35,8 @@ oxyd(14,0)
 oxyd(19,7)
 
 for n=1,72 do
-	set_floor("fl-bridge", ((n-1)/9)+1 , mod((n-1),9)+1, {name="bridge"..n})
-	set_item("it-trigger", ((n-1)/9)+11, mod((n-1),9)+1, {target="bridge"..n , action="openclose"})
+    set_floor("fl-bridge", ((n-1)/9)+1 , mod((n-1),9)+1, {name="bridge"..n})
+    set_item("it-trigger", ((n-1)/9)+11, mod((n-1),9)+1, {target="bridge"..n , action="openclose"})
 end
 
 set_floor("fl-acblack", 4, 5)

@@ -63,22 +63,22 @@ stones["}"]={"bombs"}
 items["s"]={"seed"}
 items["("]={"spring1"}
 
-	for tgt, kind in pairs(targets) do
-	local C=format("%c", tgt+64)
-	local c=format("%c", tgt+96)
-	
-		if tgt <= 2 then
-		items[C]={"trigger", { action="callback", target="tr"..tgt }}
-		else
-		items[C]={"trigger", { action="openclose", target="tgt"..tgt}}
-		end
-	
-		if kind == "b" then
-		floors[c]={"bridge", { name="tgt"..tgt, type="a"}}
-		else
-		stones[c]={"door", {type=kind, name="tgt"..tgt}}
-		end
-	end
+    for tgt, kind in pairs(targets) do
+    local C=format("%c", tgt+64)
+    local c=format("%c", tgt+96)
+    
+        if tgt <= 2 then
+        items[C]={"trigger", { action="callback", target="tr"..tgt }}
+        else
+        items[C]={"trigger", { action="openclose", target="tgt"..tgt}}
+        end
+    
+        if kind == "b" then
+        floors[c]={"bridge", { name="tgt"..tgt, type="a"}}
+        else
+        stones[c]={"door", {type=kind, name="tgt"..tgt}}
+        end
+    end
 
 stones["|"]={"timer", {target="pulse", action="callback", interval=3}}
 items["+"]={"blackbomb"}
@@ -100,7 +100,7 @@ level = {
 "#@.#v###@####g#  d  ",
 "#..;@........@#  e  ",
 "#..#@@........3  fh ",
-"|..#;##########   i ",	-- screen boundary
+"|..#;##########   i ",    -- screen boundary
 "#.CDE#..&....}#   J ",
 "#.FHI#K@@.....####j#",
 "########...........#",
@@ -128,16 +128,16 @@ p2=0
 
 function check_buttons()
     if p1 > 0 and p2 > 0 then
-	SendMessage("tgt1", "close")
-	SendMessage("tgt2", "close")
+    SendMessage("tgt1", "close")
+    SendMessage("tgt2", "close")
     else
-	SendMessage("tgt1", "open")
-	SendMessage("tgt2", "open")
+    SendMessage("tgt1", "open")
+    SendMessage("tgt2", "open")
     end
 end
 
-function tr1(q)	p1=q	check_buttons()	end
-function tr2(q)	p2=q	check_buttons()	end
+function tr1(q)    p1=q    check_buttons()    end
+function tr2(q)    p2=q    check_buttons()    end
 
 -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- --
 
@@ -148,17 +148,17 @@ draw_stones("st-puzzle", {x, y+h}, {1, 0}, w, { connections=PUZ_0101} )
 draw_stones("st-puzzle", {x, y}, {0, 1}, h, { connections=PUZ_1010} )
 draw_stones("st-puzzle", {x+w, y}, {0, 1}, h, { connections=PUZ_1010} )
 
-puzzle(x, y, PUZ_0110)		-- TL
-puzzle(x+w, y, PUZ_0011)	-- TR
-puzzle(x, y+h, PUZ_1100)	-- BL
-puzzle(x+w, y+h, PUZ_1001)	-- BR
+puzzle(x, y, PUZ_0110)        -- TL
+puzzle(x+w, y, PUZ_0011)    -- TR
+puzzle(x, y+h, PUZ_1100)    -- BL
+puzzle(x+w, y+h, PUZ_1001)    -- BR
 end
 
 -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- --
 
 create_world( strlen(level[1]), getn(level) )
 fill_floor("fl-leaves")
-	
+    
 for y,line in pairs(level) do
     y=y-1
     for x = 0, level_width-1 do
@@ -188,7 +188,7 @@ end
 -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- --
 
 puzzle_box(1, 1, 3, 3 )
-puzzle(3, 1, PUZ_0000)	-- holes
+puzzle(3, 1, PUZ_0000)    -- holes
 puzzle(3, 4, PUZ_0000)
 
 oxyd_shuffle()

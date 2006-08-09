@@ -64,8 +64,8 @@
          "bS      W          #gKK        #0#   N#b#",--11
          "bb#########################l###########b#",--12
          "bbbbbbbbbbb bbbbbbbbbbbbbbbbbbbbbbbbbbbb#" --13
-	--00000000001111111111222222222233333333334
-	--01234567890123456789012345678901234567890
+    --00000000001111111111222222222233333333334
+    --01234567890123456789012345678901234567890
       }
 
       oxyd_default_flavor = "a"
@@ -78,50 +78,50 @@
 
       function sa()
         ff[1] = ff[1] + 1
-	if (ff[1] >= 4) then ff[1] = 0 end
-	compute_gate()
+    if (ff[1] >= 4) then ff[1] = 0 end
+    compute_gate()
       end
 
       function sb()
         ff[2] = ff[2] + 1
-	if (ff[2] >= 4) then ff[2] = 0 end
-	compute_gate()
+    if (ff[2] >= 4) then ff[2] = 0 end
+    compute_gate()
       end
 
       function sc()
         ff[3] = ff[3] + 1
-	if (ff[3] >= 4) then ff[3] = 0 end
-	compute_gate()
+    if (ff[3] >= 4) then ff[3] = 0 end
+    compute_gate()
       end
 
       function sd()
         ff[4] = ff[4] + 1
-	if (ff[4] >= 4) then ff[4] = 0 end
-	compute_gate()
+    if (ff[4] >= 4) then ff[4] = 0 end
+    compute_gate()
       end
 
       function compute_gate()
         if (ff[1] == 0) and (ff[2] == 1) and (ff[3] == 3) and (ff[4] == 2) then
-	  send_message_named("door_wand", "open", nil)
-	else
-	  send_message_named("door_wand", "close", nil)
-	end
+      send_message_named("door_wand", "open", nil)
+    else
+      send_message_named("door_wand", "close", nil)
+    end
       end
 
       function t1()
-	  fc = fc + 1
-	  if (fc == 10) then
+      fc = fc + 1
+      if (fc == 10) then
             set_stone("st-stoneimpulse",11,13)
-	  end
+      end
 
-	  ff[5] = 1 - ff[5]
-	  if (ff[5] == 1) then
-	    send_message_named("door_walkA", "open", nil)
-	    send_message_named("door_walkB", "open", nil)
-	  else
-	    send_message_named("door_walkA", "close", nil)
-	    send_message_named("door_walkB", "close", nil)
-	  end
+      ff[5] = 1 - ff[5]
+      if (ff[5] == 1) then
+        send_message_named("door_walkA", "open", nil)
+        send_message_named("door_walkB", "open", nil)
+      else
+        send_message_named("door_walkA", "close", nil)
+        send_message_named("door_walkB", "close", nil)
+      end
       end
     ]]></el:luamain>
     <el:i18n>

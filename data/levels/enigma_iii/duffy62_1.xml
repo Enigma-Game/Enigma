@@ -81,7 +81,7 @@ function renderLine( line, pattern)
         elseif c=="2" then
             set_stone("st-oneway-e", i-1,line)
         end
-    end	
+    end    
 end
 
 renderLine(00,"!!!#Ro###o###o#!!!!!")

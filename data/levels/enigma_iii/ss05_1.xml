@@ -41,7 +41,7 @@ function renderLine( line, pattern)
       elseif c =="E" then
          set_stone("st-blocker", i-1,line,{name="exit"})            
       elseif c=="W" then
-	 set_stone("st-window", i-1,line)    
+     set_stone("st-window", i-1,line)    
       elseif c=="S" then
          set_stone("st-switch_black", i-1,line, {action="trigger", target="exit"})              
       elseif c=="T" then
@@ -49,7 +49,7 @@ function renderLine( line, pattern)
       elseif c=="D" then
          document(i-1,line, "text1")                 
       elseif c=="O" then                                                               
-	     oxyd(i-1,line)         
+         oxyd(i-1,line)         
       end
     end  
 end

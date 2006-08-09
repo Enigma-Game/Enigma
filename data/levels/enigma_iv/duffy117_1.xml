@@ -36,66 +36,66 @@ enigma.FrictionFactor=-ffct
 fill_floor("fl-rough-blue", 0,0,levelw,levelh)
 
 function renderLine( line, pattern)
-	for i=1, strlen(pattern) do
-		local c = strsub( pattern, i, i)
-		if c =="#" then
-		   set_stone( "st-stone1", i-1, line)
-		elseif c =="X" then
-		   set_stone( "st-death", i-1, line)
-		elseif c =="&" then
-		   set_stone( "st-death", i-1, line)
-			set_floor("fl-space",i-1,line)
-		elseif c =="R" then
-		   set_stone( "st-stone1", i-1, line)
-		   set_floor( "fl-rough-red", i-1, line)
-		elseif c == "o" then
-			oxyd( i-1, line)
-		elseif c == "%" then
-			oxyd( i-1, line)
-			set_floor("fl-space",i-1,line)
-		elseif c == "*" then
-			set_stone( "st-brownie", i-1, line)
+    for i=1, strlen(pattern) do
+        local c = strsub( pattern, i, i)
+        if c =="#" then
+           set_stone( "st-stone1", i-1, line)
+        elseif c =="X" then
+           set_stone( "st-death", i-1, line)
+        elseif c =="&" then
+           set_stone( "st-death", i-1, line)
+            set_floor("fl-space",i-1,line)
+        elseif c =="R" then
+           set_stone( "st-stone1", i-1, line)
+           set_floor( "fl-rough-red", i-1, line)
+        elseif c == "o" then
+            oxyd( i-1, line)
+        elseif c == "%" then
+            oxyd( i-1, line)
+            set_floor("fl-space",i-1,line)
+        elseif c == "*" then
+            set_stone( "st-brownie", i-1, line)
                 elseif c == "!" then
-			abyss(i-1,line)
-		elseif c == "~" then
-		   set_floor("fl-water",i-1,line)
-		elseif c == "r" then
-		   set_floor("fl-rough-red",i-1,line)
-		   set_item("it-trigger",i-1,line,{invisible=1,action="callback",target="funcc1"})
-		elseif c == "H" then
-		   set_item("it-hammer",i-1,line)
-		elseif c == "h" then
-		   set_stone("st-stone_break",i-1,line)
-		elseif c == "O" then
-		   set_item("it-extralife",i-1,line)
-		elseif c == "F" then
-		   set_item("it-flagblack",i-1,line)
-		elseif c == "L" then
-		   set_item("it-landmine",i-1,line)
-		elseif c=="z" then
-		   set_actor("ac-blackball", i-.5,line+.5, {player=0})
-		elseif c=="y" then
-		   set_actor("ac-whiteball", i-1,line+.5, {player=1})
-		elseif c == "g" then
-			draw_stones("st-grate1",{i-1,line}, {1,1}, 1)
-		elseif c=="+" then
-			set_stone( "st-wood", i-1, line)
-		elseif c=="=" then
-			set_floor("fl-space",i-1,line)
-		elseif c=="N" then
-			set_stone("st-bolder", i-1,line, {direction=NORTH})
-		elseif c=="E" then
-			set_stone("st-bolder", i-1,line, {direction=EAST})
-		elseif c=="S" then
-			set_stone("st-bolder", i-1,line, {direction=SOUTH})
-		elseif c=="W" then
-			set_stone("st-bolder", i-1,line, {direction=WEST})
-		elseif c=="T" then
-		   set_actor("ac-top", i-.5,line+.5, {player=1, mouseforce=0, range=6, force=10})
-		elseif c=="B" then
-			yy1( "black",  i-1, line)
-	     end
-	end	
+            abyss(i-1,line)
+        elseif c == "~" then
+           set_floor("fl-water",i-1,line)
+        elseif c == "r" then
+           set_floor("fl-rough-red",i-1,line)
+           set_item("it-trigger",i-1,line,{invisible=1,action="callback",target="funcc1"})
+        elseif c == "H" then
+           set_item("it-hammer",i-1,line)
+        elseif c == "h" then
+           set_stone("st-stone_break",i-1,line)
+        elseif c == "O" then
+           set_item("it-extralife",i-1,line)
+        elseif c == "F" then
+           set_item("it-flagblack",i-1,line)
+        elseif c == "L" then
+           set_item("it-landmine",i-1,line)
+        elseif c=="z" then
+           set_actor("ac-blackball", i-.5,line+.5, {player=0})
+        elseif c=="y" then
+           set_actor("ac-whiteball", i-1,line+.5, {player=1})
+        elseif c == "g" then
+            draw_stones("st-grate1",{i-1,line}, {1,1}, 1)
+        elseif c=="+" then
+            set_stone( "st-wood", i-1, line)
+        elseif c=="=" then
+            set_floor("fl-space",i-1,line)
+        elseif c=="N" then
+            set_stone("st-bolder", i-1,line, {direction=NORTH})
+        elseif c=="E" then
+            set_stone("st-bolder", i-1,line, {direction=EAST})
+        elseif c=="S" then
+            set_stone("st-bolder", i-1,line, {direction=SOUTH})
+        elseif c=="W" then
+            set_stone("st-bolder", i-1,line, {direction=WEST})
+        elseif c=="T" then
+           set_actor("ac-top", i-.5,line+.5, {player=1, mouseforce=0, range=6, force=10})
+        elseif c=="B" then
+            yy1( "black",  i-1, line)
+         end
+    end    
      end
 
 function yy1( color, x, y)

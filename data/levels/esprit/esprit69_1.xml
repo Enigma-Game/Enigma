@@ -68,17 +68,17 @@ function renderLine( line, pattern)
       elseif c =="C" then
          set_stone("st-key_c", i-1, line, {action="openclose", target="door3"})
       elseif c=="D" then
-	 set_stone("st-switch",i-1,line, {action="openclose", target="door4"})         
+     set_stone("st-switch",i-1,line, {action="openclose", target="door4"})         
       elseif c=="F" then
-	 set_stone("st-switch",i-1,line, {action="openclose", target="door6"})   
+     set_stone("st-switch",i-1,line, {action="openclose", target="door6"})   
       elseif c=="G" then
-	 set_stone("st-switch",i-1,line, {action="openclose", target="door7"})
+     set_stone("st-switch",i-1,line, {action="openclose", target="door7"})
       elseif c=="r" then
-	 set_actor("ac-rotor", i,line+1, {mouseforce=0, range=50, force=70})
+     set_actor("ac-rotor", i,line+1, {mouseforce=0, range=50, force=70})
       elseif c=="R" then
-	 set_actor("ac-rotor", i,line+1, {mouseforce=0, range=6, force=20})
+     set_actor("ac-rotor", i,line+1, {mouseforce=0, range=6, force=20})
       elseif c=="O" then
-	 oxyd(i-1,line)         
+     oxyd(i-1,line)         
         end
     end  
 end

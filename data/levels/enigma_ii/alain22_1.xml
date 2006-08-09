@@ -25,59 +25,59 @@ display.SetFollowMode(display.FOLLOW_SCROLLING)
 fill_floor("fl-leaves", 0,0, level_width,level_height)
 
 function renderLine( line, pattern)
-	for i=1, strlen(pattern) do
-		local c = strsub( pattern, i, i)
-		if c =="#" then
-			set_stone( "st-greenbrown", i-1, line)
-		elseif c=="*" then
-			set_stone( "st-wood2", i-1, line)
-		elseif c=="." then
-			set_stone("st-wood",i-1,line)
-		elseif c=="a" then
-			set_floor("fl-water",i-1,line)
-		elseif c=="b" then
-			set_floor("fl-sand",i-1,line)
-		elseif c=="c" then
-			set_floor("fl-water",i-1,line)
-			set_stone("st-chameleon",i-1,line)
-		elseif c=="/" then
-			set_floor("fl-sand",i-1,line)
-			set_item("it-trigger",i-1,line,{invisible=1,action="callback", target="pursuit"})
-		elseif c=="x" then
-			set_floor("fl-sand",i-1,line)
-			set_item("it-wormhole",i-1,line, {invisibble=1,targetx=" 12.5",targety="30.5",strength=0,range=0})
-			set_stone("st-chameleon",i-1,line)
-		elseif c=="q" then
-			set_floor("fl-sand",i-1,line)
-			set_item("it-wormhole",i-1,line, {invisibble=1,targetx=" 30.5",targety="11.5",strength=0,range=0})
-			set_stone("st-chameleon",i-1,line)
-		elseif c=="y" then
-			set_floor("fl-sand",i-1,line)
-			set_stone("st-chameleon",i-1,line)          
-		elseif c=="z" then
-			set_floor("fl-sand",i-1,line)
-			set_actor("ac-blackball", i-.5,line+.5, {name="maroon",player=0})
-		elseif c=="o" then
-			oxyd(i-1,line)
-		elseif c=="p" then
-			set_stone("st-fakeoxyd",i-1,line)
-		end
-	end	
+    for i=1, strlen(pattern) do
+        local c = strsub( pattern, i, i)
+        if c =="#" then
+            set_stone( "st-greenbrown", i-1, line)
+        elseif c=="*" then
+            set_stone( "st-wood2", i-1, line)
+        elseif c=="." then
+            set_stone("st-wood",i-1,line)
+        elseif c=="a" then
+            set_floor("fl-water",i-1,line)
+        elseif c=="b" then
+            set_floor("fl-sand",i-1,line)
+        elseif c=="c" then
+            set_floor("fl-water",i-1,line)
+            set_stone("st-chameleon",i-1,line)
+        elseif c=="/" then
+            set_floor("fl-sand",i-1,line)
+            set_item("it-trigger",i-1,line,{invisible=1,action="callback", target="pursuit"})
+        elseif c=="x" then
+            set_floor("fl-sand",i-1,line)
+            set_item("it-wormhole",i-1,line, {invisibble=1,targetx=" 12.5",targety="30.5",strength=0,range=0})
+            set_stone("st-chameleon",i-1,line)
+        elseif c=="q" then
+            set_floor("fl-sand",i-1,line)
+            set_item("it-wormhole",i-1,line, {invisibble=1,targetx=" 30.5",targety="11.5",strength=0,range=0})
+            set_stone("st-chameleon",i-1,line)
+        elseif c=="y" then
+            set_floor("fl-sand",i-1,line)
+            set_stone("st-chameleon",i-1,line)          
+        elseif c=="z" then
+            set_floor("fl-sand",i-1,line)
+            set_actor("ac-blackball", i-.5,line+.5, {name="maroon",player=0})
+        elseif c=="o" then
+            oxyd(i-1,line)
+        elseif c=="p" then
+            set_stone("st-fakeoxyd",i-1,line)
+        end
+    end    
 end
 
 anz_rotors=0
 
 function pursuit1()
-	if devil==1 and anz_rotors<6 then
-		set_actor("ac-rotor",8.5,11.5,{range=40,force=20,name="nickel1",gohome=FALSE})
+    if devil==1 and anz_rotors<6 then
+        set_actor("ac-rotor",8.5,11.5,{range=40,force=20,name="nickel1",gohome=FALSE})
                 anz_rotors = anz_rotors+1
-	end
+    end
 end
 
 function pursuit()
-	devil=1
-	pursuit1()
-	devil=0
+    devil=1
+    pursuit1()
+    devil=0
 end
 
 --               012345678901234567890123456789012345678901

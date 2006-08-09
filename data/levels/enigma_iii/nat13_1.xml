@@ -20,7 +20,7 @@
 
 function fill_gradient( x0, y0, width, height, type )
     for y=y0,y0+height-1 do
-	for x=x0,x0+width-1 do 
+    for x=x0,x0+width-1 do 
             gradient( x, y, type )
         end
     end

@@ -25,18 +25,18 @@ function renderLine( line, pattern)
     for i=1, strlen(pattern) do
         local c = strsub( pattern, i, i)
         if c =="w" then
-	    set_floor( "fl-wood", i-1, line)
+        set_floor( "fl-wood", i-1, line)
             set_stone( "st-wood", i-1, line)
         elseif c == "o" then
-	    set_floor( "fl-wood", i-1, line)
+        set_floor( "fl-wood", i-1, line)
             oxyd( i-1, line)
-	elseif c == "b" then
-	    set_floor( "fl-wood", i-1, line)
-	    set_stone( "st-greenbrown_move", i-1, line)
+    elseif c == "b" then
+        set_floor( "fl-wood", i-1, line)
+        set_stone( "st-greenbrown_move", i-1, line)
         elseif c == " " then
             set_floor( "fl-abyss", i-1, line)
-	elseif c == "=" then
-	    set_floor( "fl-wood", i-1, line)
+    elseif c == "=" then
+        set_floor( "fl-wood", i-1, line)
         end
     end
 end
