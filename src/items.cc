@@ -1638,9 +1638,27 @@ namespace
             set_attrib("targety", Value());
             set_attrib("strength", Value());
             set_attrib("range", Value());
+            set_attrib("interval", Value()); // see get_interval() for default
+            state = TELEPORT_IDLE;
             justWarping = false;
         }
+
+        void init_model();
+        bool actor_hit(Actor *a);
+        void notify_onoff (bool /* onoff */) { set_forcefield();  }
+        void alarm();
+
+    protected:
+        virtual ~WormHole() {
+            GameTimer.remove_alarm (this);
+        }
     private:
+        enum State { TELEPORT_IDLE, TELEPORT_WAITING } state;
+        // Note that there're two notions of on and off for this object:
+        // The OnOffItem-part is only used to operate the force field,
+        // whereas the teleport ability is controlled by the state-variable.
+        // Animation is turned off when either one of them is off.
+
         void on_creation (GridPos p) {
             Item::on_creation (p);
             set_forcefield();
@@ -1667,16 +1685,16 @@ namespace
             }
         }
 
-        bool actor_hit(Actor *a);
-
         V2 vec_to_center (V2 v) {return v-get_pos().center();}
         bool near_center_p (Actor *a) {
             return (length(vec_to_center(a->get_pos())) < 0.5/4);
         }
         bool get_target (V2 &targetpos);
 
-        void notify_onoff (bool /* onoff */) {
-            set_forcefield();
+        double get_interval() const {
+            double interval = 0.0;
+            double_attrib("interval", &interval);
+            return interval;
         }
 
         // Variables.
@@ -1713,17 +1731,34 @@ bool WormHole::get_target(V2 &targetpos) {
 bool WormHole::actor_hit(Actor *actor) 
 {
     ASSERT(!justWarping, XLevelRuntime, "WormHole:: Recursion detected!");
-    if (near_center_p(actor)) {
+    if (state == TELEPORT_IDLE && near_center_p(actor)) {
         client::Msg_Sparkle (get_pos().center());
         V2 targetpos;
         if (get_target (targetpos)) {
             sound_event ("warp");
+            if(get_interval() > 0) {
+                state = TELEPORT_WAITING;
+                GameTimer.set_alarm(this, get_interval(), false);
+                init_model();
+            }
             justWarping = true;
             world::WarpActor(actor, targetpos[0], targetpos[1], false);
             justWarping = false;
         }
     }
     return false;
+}
+
+void WormHole::alarm() {
+    state = TELEPORT_IDLE;
+    init_model();
+}
+
+void WormHole::init_model() {
+    if(state == TELEPORT_IDLE)
+        OnOffItem::init_model();
+    else
+        set_anim("it-wormhole-off");
 }
 
 
