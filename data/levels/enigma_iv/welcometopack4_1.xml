@@ -61,7 +61,8 @@ oxyd_shuffle()
     ]]></el:luamain>
     <el:i18n>
       <el:string el:key="title">
-        <el:english el:translate="false"/>
+        <el:english el:translate="true"/>
+        <el:translation el:lang="de">Willkommen</el:translation>
       </el:string>
       <el:string el:key="text1">
         <el:english el:translate="true">Welcome to Enigma IV</el:english>

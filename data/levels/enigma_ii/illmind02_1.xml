@@ -149,7 +149,7 @@ set_actor("ac-blackball", 12.5, 18.5, {player=0})
         <el:english el:translate="false">illmind's  disk  royal  ...</el:english>
       </el:string> 
       <el:string el:key="text2">
-        <el:english el:translate="true">is  black  always  beautifull  ?</el:english>
+        <el:english el:translate="true">is  black  always  beautifull?</el:english>
       </el:string> 
     </el:i18n>
   </el:protected>

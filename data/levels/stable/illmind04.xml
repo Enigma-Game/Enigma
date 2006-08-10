@@ -350,7 +350,7 @@ set_actor("ac-blackball", 1.5, 1.5, {player=0})
         <el:english el:translate="false"/>
       </el:string>
       <el:string el:key="text1">
-        <el:english el:translate="true">So,  where  are  the  knights  ?  -  you'll  be  sorry  you  asked  !</el:english>
+        <el:english el:translate="true">So,  where  are  the  knights?  -  you'll  be  sorry  you  asked!</el:english>
       </el:string> 
       <el:string el:key="text2">
         <el:english el:translate="false">illmind's  knight  moves  ...</el:english>
