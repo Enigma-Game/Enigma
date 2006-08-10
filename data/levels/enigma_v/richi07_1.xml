@@ -261,7 +261,7 @@ end
         <el:english el:translate="false"/>
       </el:string>
       <el:string el:key="text1">
-        <el:english el:translate="true">ASCII-Table: ... 48="0", 49="1", 50="2" ...</el:english>
+        <el:english el:translate="false">ASCII-Table: ... 48='0', 49='1', 50='2' ...</el:english>
       </el:string> 
       <el:string el:key="text2">
         <el:english el:translate="true">If you have never heard about Brainf***, visit e.g. http://en.wikipedia.org/wiki/Brainfuck before you try to solve this level.</el:english>

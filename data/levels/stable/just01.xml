@@ -261,16 +261,16 @@ document(14,44, "text5")
       </el:string> 
       <el:string el:key="text3">
         <el:english el:translate="true">Go on! There's no way back now!</el:english>
-        <el:translation el:lang="de">Weiter jetzt! Es gibt keinen Weg zurueck!</el:translation>
+        <el:translation el:lang="de">Weiter jetzt! Es gibt keinen Weg zurück!</el:translation>
       </el:string> 
       <el:string el:key="text4">
         <el:english el:translate="true">STOP! Not this way! There's a short-cut ...</el:english>
-        <el:translation el:lang="de">HALT! Nicht hier entlang! Es gibt eine Abkuerzung ...</el:translation>
+        <el:translation el:lang="de">HALT! Nicht hier entlang! Es gibt eine Abkürzung ...</el:translation>
       </el:string> 
       <el:string el:key="text5">
         <el:english el:translate="true">There's a trigger one step to the left. If you could keep it depressed, it would help you a lot if you go back!
 </el:english>
-        <el:translation el:lang="de">Da ist ein Trigger einen Schritt links von hier. Wenn du ihn gedrueckt halten kannst und zurueckgehst, wuerde es dir sehr helfen!</el:translation>
+        <el:translation el:lang="de">Da ist ein Trigger einen Schritt links von hier. Wenn du ihn gedrückt halten kannst und zurückgehst, würde es dir sehr helfen!</el:translation>
       </el:string> 
     </el:i18n>
   </el:protected>

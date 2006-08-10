@@ -31,8 +31,6 @@ cells["-"]=cell{{{mirrorp, FALSE, TRUE, 3}}}
 cells["L"]=cell{{{laser, TRUE, EAST}}}
 cells["o"]=cell{item= "it-extralife"}
 cells["c"]=cell{item= {"it-coin4"}}
--- Yes, it is an empty String! -raoul
-cells["d"]=cell{{{document, "text1"}}}
 cells["x"]=cell{{cells["."], cells["X"]}}
 
 level = {
@@ -46,7 +44,7 @@ level = {
    "#    .*.     O #   #",
    "#    .o.           #",
    "#    .*. xxx       #",
-   "#    .d. x0x       #",
+   "#    . . x0x       #",
    "#    .*. x0x       #",
    "#   #.c. xxx###=####",
    "#    ...           #",
@@ -72,9 +70,6 @@ oxyd_shuffle()
       <el:string el:key="title">
         <el:english el:translate="false"/>
       </el:string>
-      <el:string el:key="text1">
-        <el:english el:translate="false"> </el:english>
-      </el:string> 
     </el:i18n>
   </el:protected>
 </el:level>

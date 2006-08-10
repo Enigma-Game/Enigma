@@ -289,13 +289,13 @@ end
         <el:english el:translate="false"/>
       </el:string>
       <el:string el:key="text1">
-        <el:english el:translate="true">You play against Big Brother; each player in turn deletes 1, 2 or 3 stones; the one who deletes the last stone LOOSES !!!</el:english>
+        <el:english el:translate="true">You play against Big Brother; each player in turn deletes 1, 2 or 3 stones; the one who deletes the last stone LOOSES!!!</el:english>
       </el:string> 
       <el:string el:key="text2">
         <el:english el:translate="true">Now you begin this game.</el:english>
       </el:string> 
       <el:string el:key="text3">
-        <el:english el:translate="true">Poor little blackball... SHIFT+F3!!!</el:english>
+        <el:english el:translate="true">Poor little blackball ... SHIFT+F3!!!</el:english>
       </el:string> 
     </el:i18n>
   </el:protected>

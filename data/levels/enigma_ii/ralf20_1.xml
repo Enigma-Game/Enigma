@@ -49,7 +49,7 @@ display.SetFollowMode(display.FOLLOW_SMOOTH)
         <el:english el:translate="false"/>
       </el:string>
       <el:string el:key="text1">
-        <el:english el:translate="false">And last not least: 3*20 = 60</el:english>
+        <el:english el:translate="true">And last not least: 3*20 = 60</el:english>
       </el:string> 
     </el:i18n>
   </el:protected>

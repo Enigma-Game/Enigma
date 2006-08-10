@@ -105,7 +105,7 @@ enigma.ConserveLevel = FALSE
         <el:english el:translate="true">There are different kinds of seeds ... Try to use them!</el:english>
       </el:string> 
       <el:string el:key="text5">
-        <el:english el:translate="false">Noitcerid etisoppo eht yrt! Tuo syaw owt? Rorrim, rorrim ...</el:english>
+        <el:english el:translate="true" el:comment="read from the right">Noitcerid etisoppo eht yrt! Tuo syaw owt? Rorrim, rorrim ...</el:english>
       </el:string> 
     </el:i18n>
   </el:protected>

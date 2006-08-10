@@ -71,7 +71,7 @@ AddRubberBand(bb, enigma.GetStone(8,4),60)
       </el:string>
       <el:string el:key="text1">
         <el:english el:translate="true">Watch out for water holes!</el:english>
-        <el:translation el:lang="de">Beachten Sie die Wasserloecher!</el:translation>
+        <el:translation el:lang="de">Beachten Sie die Wasserlöcher!</el:translation>
       </el:string> 
     </el:i18n>
   </el:protected>

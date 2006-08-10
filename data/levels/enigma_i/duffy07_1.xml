@@ -133,7 +133,7 @@ display.SetFollowMode(display.FOLLOW_SCROLLING)
         <el:english el:translate="false"/>
       </el:string>
       <el:string el:key="text1">
-        <el:english el:translate="true">I'ts a race!</el:english>
+        <el:english el:translate="true">It's a race!</el:english>
       </el:string> 
     </el:i18n>
   </el:protected>

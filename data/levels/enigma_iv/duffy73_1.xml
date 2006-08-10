@@ -534,7 +534,7 @@ SendMessage("switch5","on")
         <el:english el:translate="false"/>
       </el:string>
       <el:string el:key="text1">
-        <el:english el:translate="false">.moor txen eht ot teg ot syaw owt era erehT</el:english>
+        <el:english el:translate="true" el:comment="read from the right">.moor txen eht ot teg ot syaw owt era erehT</el:english>
       </el:string> 
     </el:i18n>
   </el:protected>
