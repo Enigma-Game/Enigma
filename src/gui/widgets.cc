@@ -18,11 +18,13 @@
  */
 
 #include "gui/widgets.hh"
+#include "enigma.hh"
 #include "sound.hh"
 #include "video.hh"
 #include "options.hh"
 #include "nls.hh"
 #include "ecl.hh"
+#include "ecl_font.hh"
 #include <cassert>
 #include <algorithm>
 #include <iostream>

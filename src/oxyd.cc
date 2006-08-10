@@ -30,7 +30,6 @@
 #include "server.hh"
 #include "player.hh"
 #include "main.hh"
-#include "lev/AdapterIndex.hh"
 
 #include <cstdio>
 #include <cstdlib>
@@ -734,48 +733,28 @@ world::Actor *OxydLoader::get_actor (int idx)
 /* -------------------- LevelPack_Oxyd -------------------- */
 
 LevelPack_Oxyd::LevelPack_Oxyd (OxydVersion ver, DatFile *dat, 
-                                int idx_start, int idx_end, 
-                                bool twoplayers)
-: m_datfile (dat),
-  m_twoplayers (twoplayers),
-  m_index_start (idx_start)
-{
+        int idx_start, int idx_end, bool twoplayers) : 
+        m_datfile (dat), m_twoplayers (twoplayers), m_index_start (idx_start) {
     nlevels = 0;
     for (int i = idx_start; i <= idx_end; i++) {
         if (!m_datfile->getLevel(i).empty()) {
             level_index[nlevels] = i;
             
-             LevelInfo info = get_info(nlevels);
             char txt[5];
             snprintf(txt, sizeof(txt), "%d", nlevels);
-            proxy_index[nlevels] = lev::Proxy::registerLevel(
+            lev::Proxy * aProxy = lev::Proxy::registerLevel(
                      "#" + get_name() + "#" + txt,  "#" + get_name(),
-                    info.filename, info.name, info.author, info.revision, 
-                    info.revision, info.has_easymode, info.type);
+                    ecl::strf ("Import %s %d", get_name().c_str(), nlevels), 
+                    ecl::strf ("%s #%d", get_name().c_str(), nlevels+1), 
+                    "Dongleware", 1, 1, has_easymode(nlevels), get_gametype());
+            proxies.push_back(aProxy);
             nlevels++;
         }
     }
+    indexName = get_name();
     Log << "Levelpack '" << get_name() << "' has " << nlevels << " levels." << endl;
 }
 
-//bool LevelPack_Oxyd::swap (int, int)
-//{
-//    // not supported
-//    return false;
-//}
-
-int LevelPack_Oxyd::get_revision_number (size_t /*index*/) const 
-{ 
-    // Revision is always 1 (never DECREASE the revision number! )
-    return 1; 
-}
-
-int LevelPack_Oxyd::get_preview_version() const 
-{ 
-    // Increment this to invalidate auto-saved previews for oxyd level
-    // packs never DECREASE the preview version!
-    return 1; 
-}
 
 int LevelPack_Oxyd::get_default_SoundSet() const 
 { 
@@ -786,12 +765,6 @@ bool LevelPack_Oxyd::needs_twoplayers() const
 {
     return m_twoplayers;
 }
-
-bool LevelPack_Oxyd::may_have_previews() const 
-{
-    return false; 
-}
-
 
 GameType LevelPack_Oxyd::get_gametype() const 
 {
@@ -814,12 +787,6 @@ string LevelPack_Oxyd::get_name() const
     };
     OxydVersion v = get_version();
     return level_index[0]>99 ? names2p[v] : names1p[v];
-}
-
-void LevelPack_Oxyd::load_level (size_t index) {
-    const LevelInfo &info = get_info(index);
-    info.proxy->loadLevel();
-//    load_oxyd_level(index);
 }
 
 void LevelPack_Oxyd::load_oxyd_level (size_t index) 
@@ -845,28 +812,6 @@ void LevelPack_Oxyd::load_oxyd_level (size_t index)
             throw XLevelLoading(err);
         }
     }
-}
-
-const LevelInfo &
-LevelPack_Oxyd::get_info (size_t index) const
-{
-    int enigma_index = index;
-    index = level_index[index]-m_index_start;
-
-    static LevelInfo info;
-
-    info.type             = get_gametype();
-    info.filename         = ecl::strf ("Import %s %d", get_name().c_str(), index);
-    info.name             = ecl::strf ("%s #%d", get_name().c_str(), index+1);
-    info.author           = "Dongleware";
-    info.revision         = get_revision_number(index);
-    info.has_easymode     = has_easymode(index);
-//     info.par_time_easy    = info.par_time_normal = -1; // @@@ read from score file ?
-//     info.par_time_easy_by = info.par_time_hard_by = "";
-    
-    info.proxy = proxy_index[enigma_index];
-
-    return info;
 }
 
 
@@ -988,14 +933,8 @@ GameInfo::GameInfo (OxydVersion ver_, const string &game_, const string &datfile
         openDatFile();
 
         if (m_present) {
-            if (LevelPack *lp = makeLevelPack(false)) {
-                levels::LevelPacks.push_back(lp);
-                lev::Index::registerIndex(new lev::AdapterIndex(lp));
-            }
-            if (LevelPack *lp = makeLevelPack(true)) {
-                levels::LevelPacks.push_back(lp);
-                lev::Index::registerIndex(new lev::AdapterIndex(lp));
-            }
+            lev::Index::registerIndex(makeLevelIndex(false));
+            lev::Index::registerIndex(makeLevelIndex(true));
         }
     }
 }
@@ -1020,7 +959,7 @@ void GameInfo::openDatFile()
     }
 }
 
-LevelPack *GameInfo::makeLevelPack(bool twoplayers)
+lev::Index *GameInfo::makeLevelIndex(bool twoplayers)
 {
     if (datfile == 0)
         return 0;

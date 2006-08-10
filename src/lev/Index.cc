@@ -26,9 +26,6 @@
 #include "lev/ScoreManager.hh"
 #include "lev/RatingManager.hh"
 
-#include "lev/AdapterIndex.hh"
-#include "levels.hh"
-
 
 namespace enigma { namespace lev {
 
@@ -45,7 +42,7 @@ namespace enigma { namespace lev {
             
         indices.insert(std::make_pair(anIndex->getName(), anIndex));
         
-        std::string groupName = DEFAULT_INDEX_GROUP;  // used if no group is supplied
+        std::string groupName = INDEX_DEFAULT_GROUP;  // used if no group is supplied
         std::vector<Index *> * group;
         // check preferences for assigned group
         
@@ -92,7 +89,7 @@ namespace enigma { namespace lev {
     Index * Index::getCurrentIndex() {
         if (currentIndex == NULL) {
             // first look for user preference
-            if (setCurrentIndex("CurrentIndex"))
+            if (setCurrentIndex(app.prefs->getString("CurrentIndex")))
                 currentIndex->setCurrentPosition(app.prefs->getInt("CurrentPosition"));
             
             // fallback to "Tutorial" pack
@@ -106,7 +103,7 @@ namespace enigma { namespace lev {
             else {
                 std::vector<std::string> emptyList;
                 registerIndex(new lev::VolatileIndex("Empty Index",
-                        DEFAULT_INDEX_GROUP, emptyList));
+                        INDEX_DEFAULT_GROUP, emptyList));
                 setCurrentIndex("Empty Index");
             }
                 
@@ -300,18 +297,4 @@ namespace enigma { namespace lev {
         return false;
     }
 
-// private
-    void AddLevelPack (const char *init_file, const char *name) {
-        Log << "Index AddLevelPack " << init_file << "\n";
-        enigma::levels::LevelPack *lp = enigma::levels::AddLevelPack2(init_file, name);
-        if (lp != NULL) 
-            Index::registerIndex(new AdapterIndex(lp));
-    }
-
-    void AddZippedLevelPack (const char *zipfile) {
-        Log << "Index AddZippedLevelPack " << zipfile << "\n";
-        enigma::levels::LevelPack *lp = enigma::levels::AddZippedLevelPack2(zipfile);
-        if (lp != NULL) 
-            Index::registerIndex(new AdapterIndex(lp));
-    }
 }} // namespace enigma::lev

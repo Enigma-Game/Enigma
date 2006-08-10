@@ -290,12 +290,12 @@ void Application::init(int argc, char **argv)
 //        levels::AddHistoryLevelPack ();
     if (!ap.levelnames.empty()) {
         lev::Index::registerIndex(new lev::VolatileIndex("Quick Test Levels",
-                DEFAULT_INDEX_GROUP, ap.levelnames));
+                INDEX_DEFAULT_GROUP, ap.levelnames));
         lev::Index::setCurrentIndex("Quick Test Levels");
     }
     std::vector<std::string> emptyList;
     lev::Index::registerIndex(new lev::VolatileIndex("Search Result",
-                DEFAULT_INDEX_GROUP, emptyList));
+                INDEX_DEFAULT_GROUP, emptyList));
     
 
     // ----- Initialize object repositories
@@ -643,8 +643,6 @@ static void shutdown()
     app.prefs->shutdown();
     options::Save();
     lua::ShutdownGlobal();
-    delete_sequence(levels::LevelPacks.begin(),
-                    levels::LevelPacks.end());
     XMLPlatformUtils::Terminate();
     delete ::nullbuffer;
 }

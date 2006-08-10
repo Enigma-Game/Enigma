@@ -19,14 +19,13 @@
 #ifndef OXYD_INTERNAL_HH
 #define OXYD_INTERNAL_HH
 
-#include "levels.hh"
-
 #include "world.hh"
 
 #include "oxydlib/DatFile.h"
 #include "oxydlib/FileUtils.h"
 #include "oxydlib/Level.h"
 #include "lev/Proxy.hh"
+#include "lev/Index.hh"
 
 #include <cassert>
 
@@ -42,9 +41,6 @@ namespace oxyd
     using namespace OxydLib;
     using namespace enigma;
 
-    using levels::LevelPack;
-    using levels::LevelInfo;
-//    using levels::LevelStatus;
     using OxydLib::Level;
 
 /* -------------------- OxydLoader -------------------- */
@@ -149,7 +145,7 @@ namespace oxyd
 
 /* -------------------- LevelPack_Oxyd -------------------- */
 
-    class LevelPack_Oxyd : public LevelPack {
+    class LevelPack_Oxyd : public lev::Index {
     public:
         LevelPack_Oxyd (OxydVersion ver, DatFile *dat,
                         int idx_start, int idx_end, bool twoplayers);
@@ -158,15 +154,9 @@ namespace oxyd
 
         /* ---------- LevelPack interface ---------- */
         string get_name() const;
-        size_t size() const { return nlevels; }
-        void load_level (size_t index);
-        const LevelInfo &get_info (size_t index) const;
-        int get_revision_number (size_t index) const;
-        int get_preview_version() const;
+        int size() const { return nlevels; }
         int get_default_SoundSet() const;
         bool needs_twoplayers() const;
-        bool may_have_previews() const;
-        bool swap (int, int);
     protected:
         virtual bool has_easymode(size_t /*index*/) const { return true; }
         GameMode get_gamemode() const;
@@ -188,8 +178,7 @@ namespace oxyd
         bool         m_twoplayers; // true -> twoplayer game
 
         int m_index_start; // first index of this level pack
-        int level_index[200];
-        enigma::lev::Proxy * proxy_index[200];
+        int level_index[120];
         int nlevels;
     };
 
@@ -261,7 +250,7 @@ namespace oxyd
 
         // Private methods.
         void       openDatFile();
-        LevelPack *makeLevelPack(bool twoplayer);
+        lev::Index *makeLevelIndex(bool twoplayer);
     };
 
 

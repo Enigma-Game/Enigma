@@ -18,6 +18,7 @@
  */
 
 #include "client.hh"
+#include "game.hh"
 #include "display.hh"
 #include "options.hh"
 #include "server.hh"

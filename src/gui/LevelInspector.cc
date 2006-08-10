@@ -28,7 +28,6 @@
 #include "gui/ScreenshotViewer.hh"
 #include "lev/RatingManager.hh"
 
-#include "levels.hh"
 
 #include <vector>
 

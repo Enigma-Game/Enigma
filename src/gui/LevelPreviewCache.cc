@@ -92,7 +92,6 @@ namespace enigma { namespace gui {
             SDL_RWops *imageHandle = SDL_RWFromMem(&(imageData[0]), imageData.size());
             surface = ecl::LoadImage(imageHandle, 1);
             imgCache.store(previewSubPath, surface); // insert in imgCache
-            Log << "load bundled preview " + previewSubPath + "\n";
         }
                         
         // load preview from stored file if possible

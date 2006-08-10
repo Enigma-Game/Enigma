@@ -16,6 +16,7 @@
  * 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.
  *
  */
+#include "game.hh"
 #include "errors.hh"
 #include "main.hh"
 #include "options.hh"

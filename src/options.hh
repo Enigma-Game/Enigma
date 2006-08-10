@@ -26,7 +26,6 @@
 */
 
 #include <ctime>
-#include "levels.hh"
 
 namespace enigma_options
 {

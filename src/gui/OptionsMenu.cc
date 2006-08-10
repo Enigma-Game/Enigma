@@ -19,6 +19,7 @@
  
 #include "gui/OptionsMenu.hh"
 #include "ecl.hh"
+#include "enigma.hh"
 #include "LocalToXML.hh"
 #include "main.hh"
 #include "nls.hh"

@@ -59,9 +59,6 @@ enigma_SOURCES = 		\
 	items.hh		\
 	laser.cc 		\
 	laser.hh		\
-	levelpack.cc		\
-	levels.cc 		\
-	levels.hh		\
 	LocalToXML.cc		\
 	LocalToXML.hh		\
 	lua.cc 			\
@@ -152,8 +149,6 @@ enigma_SOURCES = 		\
 	gui/TextField.hh	\
 	gui/widgets.cc		\
 	gui/widgets.hh		\
-	lev/AdapterIndex.cc	\
-	lev/AdapterIndex.hh	\
 	lev/Index.cc		\
 	lev/Index.hh		\
 	lev/RatingManager.cc	\

@@ -20,7 +20,6 @@
 
 #include "ecl_system.hh"
 #include "errors.hh"
-#include "levels.hh"
 #include "lua.hh"
 #include "main.hh"
 #include "nls.hh"
@@ -298,12 +297,10 @@ namespace enigma { namespace lev {
             if (posSecondHash == string::npos)
                 throw XLevelLoading("Bad filename for oxyd level: " + normLevelPath );
             std::string packName = normLevelPath.substr(1, posSecondHash -1);
-            oxyd::LevelPack_Oxyd *lp =  dynamic_cast<oxyd::LevelPack_Oxyd *>(levels::FindLevelPack(packName)); // preliminary
-            if (lp != NULL) {
-                std::string levelNumber = normLevelPath.substr(posSecondHash + 1);
-                lp->load_oxyd_level(atoi(levelNumber.c_str()));
-            }
-            else {
+            std::string levelNumber = normLevelPath.substr(posSecondHash + 1);
+            if (Index * oxydIndex = Index::findIndex(packName)) {
+                dynamic_cast<oxyd::LevelPack_Oxyd *>(oxydIndex)->load_oxyd_level(atoi(levelNumber.c_str()));
+            } else {
                 throw XLevelLoading("Missing oxyd levelpack for: " + normLevelPath);
             }
             return;

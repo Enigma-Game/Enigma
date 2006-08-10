@@ -19,6 +19,7 @@
 #include "server.hh"
 
 #include "errors.hh"
+#include "game.hh"
 #include "actors.hh"
 #include "client.hh"
 #include "lua.hh"
@@ -105,7 +106,6 @@ namespace
     ServerState        state               = sv_idle;
     double             time_accu           = 0;
     double             current_state_dtime = 0;
-    levels::LevelPack *levelpack           = 0;
     int                 move_counter; // counts movements of stones
     ENetAddress        network_address;
     ENetHost           *network_host       = 0;
@@ -335,18 +335,6 @@ void server::Msg_StartGame()
 }
 
 namespace enigma_server {
-    using levels::LevelInfo;
-
-
-//    void Msg_Jumpto(LevelPack *lp, size_t ilevel) {
-//        CurrentLevelPack = lp;
-//        CurrentLevel = static_cast<unsigned> (ilevel); // XXX
-//
-//        Msg_SetLevelPack (lp->get_name());
-//        Msg_LoadLevel (ilevel);
-//
-//        Msg_Command("restart");
-//    }
 
     void Msg_Command_jumpto(const string& dest) {
         // global level jump
@@ -431,8 +419,6 @@ void server::Msg_Command (const string &cmd)
     // ------------------------------ quick options
     else if (cmd == "easy") {
         if (options::GetInt("Difficulty") == DIFFICULTY_HARD) {
-//            Level level (server::CurrentLevelPack, server::CurrentLevel);
-//            if (level.get_info().has_easymode) {
             if (curProxy->hasEasymode()) {
                 client::Msg_ShowText("Restarting in easy mode", false, 2);
                 options::SetOption("Difficulty", DIFFICULTY_EASY);
@@ -446,9 +432,7 @@ void server::Msg_Command (const string &cmd)
     }
     else if (cmd == "noeasy") {
         if (options::GetInt("Difficulty") == DIFFICULTY_EASY) {
-//            Level level (server::CurrentLevelPack, server::CurrentLevel);
             options::SetOption("Difficulty", DIFFICULTY_HARD);
-//            if (level.get_info().has_easymode) {
             if (curProxy->hasEasymode()) {
                 client::Msg_ShowText("Restarting in normal mode", false, 2);
                 server::Msg_Command("restart");

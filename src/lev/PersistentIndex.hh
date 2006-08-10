@@ -22,7 +22,9 @@
 #include "lev/Index.hh"
 
 #include <string>
-#include <vector>
+#include <istream>
+
+#define INDEX_STD_FILENAME  "index.xml"
 
 namespace enigma { namespace lev {    
     
@@ -37,14 +39,27 @@ namespace enigma { namespace lev {
         /**
          * Convention: method names *Level() can take int pos or Proxy as arg.
          */
-        PersistentIndex(std::string anIndexName, std::string aGroupName);
+        PersistentIndex(std::string thePackPath,  std::string anIndexName = "", 
+                std::string theIndexFilename = INDEX_STD_FILENAME, std::string aGroupName = INDEX_DEFAULT_GROUP);
+        /**
+         * Legacy 0.92 constructor - called once to convert the index to XML.
+         * When the index has been stored as XML this constructor will not be
+         * called again.
+         */
+        PersistentIndex(std::istream *legacyIndex, std::string thePackPath,  bool isZip = false,
+                std::string anIndexName = "", std::string theIndexFilename = INDEX_STD_FILENAME);
         ~PersistentIndex();
         virtual void clear();
     protected:
-        std::string indexDirPath;
+        std::string packPath;
         std::string indexFilename;
     private:
+        // legacy 0.92
+        void parsePar(const string& par, int& par_value, std::string& par_text);
     };
+
+    void AddLevelPack (const char *init_file, const char *name);
+    void AddZippedLevelPack (const char *zipfile);
 
 }} // namespace enigma::lev
 #endif

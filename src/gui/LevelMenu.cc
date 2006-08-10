@@ -23,7 +23,7 @@
 #include "gui/LevelPackMenu.hh"
 
 #include "ecl.hh"
-#include "levels.hh"
+#include "game.hh"
 #include "main.hh"
 #include "nls.hh"
 #include "options.hh"
@@ -35,9 +35,6 @@
 using namespace std;
 using namespace ecl;
 
-//using enigma::levels::LevelStatus;
-using enigma::levels::LevelInfo;
-using enigma::levels::LevelPack;
 
 namespace enigma { namespace gui {
 /* -------------------- Level Menu -------------------- */
@@ -399,17 +396,7 @@ namespace enigma { namespace gui {
         lev::Index::setCurrentIndex(lev::Index::previousGroupIndex()->getName());
         updateIndex();
     }
-    
-// no more needed - pack by Index Class, level in method ??
-//    int LevelMenu::get_position() const {
-//        return (m_ilevelpack << 16) | (levelwidget->get_position() & 0xffff);
-//    }
-    
-//    void LevelMenu::set_position(int pos) {
-//        set_levelpack(pos >> 16);
-//        levelwidget->set_position(pos & 0xffff);
-//    }
-    
+        
     void LevelMenu::show_text(const string& text) {
         shown_text     = text;
         shown_text_ttl = 2.0; // show for two seconds

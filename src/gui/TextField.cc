@@ -21,6 +21,7 @@
 #include "gui/widgets.hh"
 #include "gui/TextField.hh"
 #include "ecl_utf.hh"
+#include "enigma.hh"
 #include "sound.hh"
 #include "video.hh"
 #include "options.hh"
