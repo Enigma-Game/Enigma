@@ -102,9 +102,8 @@ Stones
 
 Spoilers
 
-* Tutorial::                    Hints for Level Pack `Tutorial'
-* Enigma Hints::                Hints for Level Pack `Enigma'
-* Enigma 2 Hints::              Hints for Level Pack `Enigma 2'
+* Tutorial::                    Walkthrough for `Advanced Tutorial'
+* Hints::                       Hints for Several Levels
 
 Credits
 
@@ -794,13 +793,12 @@ veteran Enigma players need hours to solve them.  Some levels are
 easier to solve in easy game mode (@pxref{Game options}).
 
 @menu
-* Tutorial::                    Hints for Level Pack `Tutorial'
-* Enigma Hints::                Hints for Level Pack `Enigma'
-* Enigma 2 Hints::              Hints for Level Pack `Enigma 2'
+* Tutorial::                    Walkthrough for `Advanced Tutorial'
+* Hints::                       Hints for Several Levels
 @end menu
 
-@node Tutorial, Enigma Hints, Spoilers, Spoilers
-@section Walkthrough for Tutorial
+@node Tutorial, Hints, Spoilers, Spoilers
+@section Walkthrough for Advanced Tutorial
 
 The landscapes in the ``Tutorial'' level pack are supposed to be easy.
 Except for the last one, which is not...  This section of the manual was
@@ -983,117 +981,211 @@ as the activated oxyd stones (one at a time).  Don't hit the fart
 stones (the black stones).  You win!
 
 
-@node Enigma Hints, Enigma 2 Hints, Tutorial, Spoilers
-@section Hints for `Enigma'
+@node Hints, , Tutorial, Spoilers
+@section Hints for Several Levels
 
 @table @strong
 
-@item #3: Pharaohs' Tombs
-Don't take the papyrus.
+@item I/6: Welcome to the Machine  @c I/6  =  2/33
+The message near the upper-right corner contains an important hint.
 
-@item #5: Sokoban Revival
+@item I/8: Easy?  @c I/8  =  2/12
+Put the first shogun stone in the upper left corner, and the second
+one @emph{above} the rightmost shogun dot.
+
+@item I/31: Where Am I?  @c I/31  =  1/96
+Make use of the wooden stones if you have lost your way. 
+
+@item I/32: The Grim Reaper  @c I/32  =  1/15
+Ever thought of turning your mouse upside-down???
+
+@item I/43: Sokoban Revival  @c I/43  =  1/5
 Remember? This was the first level in the original Sokoban...  So it
 can't be that hard!
 
-@item #9: Floppy Swapping
-First, find the floppy disk and the magic wand, you will need them.
-Second, always keep the floppy and the wand with you.  Third, some
-stones look alike but don't behave alike.
-
-@item #14: Lasers 101
+@item I/65: Lasers 101  @c I/65  =  1/14
 Push two of the mirrors to the top and one to the bottom.  By moving the
 mirrors around and by aiming carefully you can hit all of the Oxyd
 stones with a laser beam.
 
-@item #15: The Grim Reaper
-Ever thought of turning your mouse upside-down???
-
-@item #16: Knock Knock
-Listen carefully, look carefully.  
-
-@item #22: Way to Go
+@item I/72: Way to Go  @c I/72  = 1/22
 One of the blue dots behaves differently.  Make use of that fact!
 
-@item #29: Push Your Way
-Find the magic wand first! 
-
-@item #30: Meditation
+@item I/80: Meditation  @c I/80  =  1/30
 Align the marbles horizontally. 
 
-@item #32: Space Pirates
-This one is tricky.  Ignite a bomb near the wooden stones.
+@item II/15: Knock Knock  @c II/15  =  1/16
+@c Listen carefully, look carefully.  
+Knock the walls.
 
-@item #37: Twelve doors
+@item II/27: Twelve doors  @c II/27  =  1/37
 You opened all the doors and still can't get through?  You must have
 missed something!
 
-@item #48: Tricks and Traps
-Cannot get out of the first screen? Focus on the small blinking dot
-first.  Cannot find the last Oxyd stone? Activate three of the large
-blinking dots on the first screen and the small one on the third screen.
+@item II/40: Space Meditation
+Ever heard of the three-body-problem?
 
-@item #56: Hidden Treasure
-Make sure you always have access to the room with the switch on the
-floor.  Then search for the second screen with the ``hidden
-treasure''.
+@item II/44: Pharaos' Tombs  @c II/44  =  1/3
+@c Don't take the papyrus.
+Learn from ``Easy Shifting...''.
 
-@item #71: Light Switches
-Jam the lasers in case you're not fast enough. 
+@item II/56: Easy Shifting...
+Learn from ``Running Rings''.
 
-@item #81: Flood Gates
-Carefully flooding certain areas can be useful. Do not leave the first
-room without activating the lower switch.
+@item II/57: Floppy Swapping  @c II/57  =  1/9
+First, find the floppy disk and the magic wand, you will need them.
+Second, always keep the floppy and the wand with you.  Third, some
+stones look alike but don't behave alike.
 
-@item #87: Walk the Plank
-Not enough of a pirate to master the this level?  There is a
-different, easier route.
+@item II/59: The Disappearing Block
+Jam the laser.
 
-@item #96: Where Am I?
-Make use of the wooden stones if you have lost your way. 
-
-@item #110: Draggers
-Admitted, this level is evil. There's a seed hidden near your starting
-point.
-
-@item #113: Robbery
-Enter the bank through cracks in the floor. 
-
-@item #115: Laser Magic
+@item II/65: Laser Magic  @c II/65  =  1/115
 It's time to learn a few things about object transformations.
 Experiment!
 
-@item #135: Control Panel
+@item II/69: Question of Speed  @c II/69  =  1/137
+Or rather: Question of Seed???  
+
+@item II/77: Push Your Way  @c II/77  =  1/29
+Find the magic wand first! 
+
+@item II/97: Tool Time
+Hide dangerous tools from children.
+
+@item II/99: Domain of Mysteries
+Step careful in the ladder.
+
+@item II/100: Patterns
+Is there an echo?
+
+@item III/9: What's the Problem?  @c III/9  =  2/68
+Decoys all over the place... this is a meditation landscape.
+
+@item III/14: Use the PIN  @c III/14  =  2/34
+... or use your favourite encyclopedia if you don't recall the right
+number.
+
+@item III/16: Control Panel  @c III/16  =  1/135
 The message in the left room tells you how to arrange the blocks on the
 first rows of triggers.  From there, use the color codes indicated in
 the left room. 
 
-@item #137: Question of Speed
-Or rather: Question of Seed???  
-@end table
+@item III/22: Portable Laser
+Be grateful!
 
-@node Enigma 2 Hints,  , Enigma Hints, Spoilers
-@section Hints for `Enigma 2' 
+@item III/27: Tricks and Traps  @c III/27  =  1/48
+Cannot get out of the first screen? Focus on the small blinking dot
+first.  Cannot find the last Oxyd stone? Activate three of the large
+blinking dots on the first screen and the small one on the third screen.
 
-@table @strong
-@item #12: Easy?
-Put the first shogun stone in the upper left corner, and the second
-one @emph{above} the rightmost shogun dot.
-
-@item #16: Wells
+@item III/28: Wells  @c III/28  =  2/16
 Afraid to die?
 
-@item #33: Welcome to the Machine
-The message near the upper-right corner contains an important hint.
+@item III/29: Push? Pull!
+One swap up -- One swap down -- Puzzle to the right -- then keep on!
 
-@item #34: Use the PIN
-... or use your favourite encyclopedia if you don't recall the right
-number.
+@item III/40: Snow White
+@c What remains of holes when it is snowing?
+Three little eskimoes -- Wand'ring on an ice field -- Couldn't find
+their little igloos -- Deep under the snow shield.
 
-@item #62: TNT Shortage?
+@item III/43: The Ditch
+You can't solve this level without a broken ego.
+
+@item III/95: Jump and Run
+There's a spring hidden under a mirror.
+
+@item IV/6: TNT Shortage?  @c IV/6  =  2/62
 It's easier with a hammer!
 
-@item #68: What's the Problem?
-Decoys all over the place... this is a meditation landscape.
+@item IV/17: Flood Gates  @c IV/17  =  1/81
+Carefully flooding certain areas can be useful. Do not leave the first
+room without activating the lower switch. The many switches on the
+lower left all do the same.
+
+@item IV/25: Light Switches  @c IV/25  =  1/71
+Jam the lasers in case you're not fast enough. 
+
+@item IV/27: Robbery  @c IV/27  =  1/113
+Enter the bank through cracks in the floor. 
+
+@item IV/34: Running Rings
+Learn from ``Pharao's Tomb''.
+
+@item IV/39: How Many Spirals?
+Some people jump out of the window when there's fire -- do it the
+other way around.
+
+@item IV/47: Just Moving Blocks?
+Too many wooden blocks? How could you remove one?
+
+@item IV/48: Artillery
+The cannonball also opens oxyds.
+
+@item IV/54: Fire Safety
+The trigger hurts you? Destroy it!
+
+@item IV/64: The Flagstone Reaper
+It processes.
+
+@item IV/65: Little Bit of Everything
+Use F3.
+
+@item V/15: Solvable?
+Does WNSE remind you of something?
+
+@item V/16: Draggers  @c V/16  =  1/110
+Admitted, this level is evil. There's a seed hidden near your starting
+point.
+
+@item V/22: Space Pirates  @c V/22  =  1/32
+This one is tricky.  Ignite a bomb near the wooden stones.
+
+@item V/32: Walk the Plank  @c V/32  =  1/87
+Not enough of a pirate to master the this level?  There is a
+different, easier route.
+
+@item V/34: Island of Safety
+First analyse one-hundreds.
+
+@item V/45: Psycho Pushing
+Hit and race.
+
+@item V/58: Now What?
+When you see the cross, what should the array show next?
+
+@item V/78: Don't Be Greedy
+There's a better hint somewhere in this manual.
+
+@item V/89: Ice-Bomb
+There's a better hint hidden under the oxyd.
+
+@item V/91: Firefox
+Floor burns faster.
+
+@item V/96: Prepare Your Defense
+The laser changes more than items.
+
+@item VI/7: Orbitting
+Don't let anything touch the borders.
+
+@item esprit 43
+Sacrifice to the volcano.
+
+@item esprit 52
+Play it to the date.
+
+@item esprit 100
+Blast the corner.
+
+@item Oxyd Magnum 99 (level 22): Letter Bomb
+Bomb the bombstone.
+
+@item PerOxyd 49 (level 22): Hidden Treasure  @c Peroxyd 49  =  1/56
+Make sure you always have access to the room with the switch on the
+floor.  Then search for the second screen with the ``hidden
+treasure''.
 
 @end table
 
