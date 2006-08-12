@@ -1066,8 +1066,7 @@ namespace
         CLONEOBJ(ScissorsStone);
         DECL_TRAITS;
         void actor_hit(const StoneContact &sc) {
-            world::KillRubberBand (sc.actor, (Stone*)0);
-            world::KillRubberBand (sc.actor, (Actor*)0);
+            world::KillRubberBands (sc.actor);
             sound_event("scissors");
             set_anim("st-scissors-snip");
         }

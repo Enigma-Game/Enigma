@@ -132,7 +132,6 @@ const char *Stone::get_kind() const
         return Object::get_kind();
 }
 
-
 StoneResponse Stone::collision_response(const StoneContact &) {
     return STONE_REBOUND;
 }

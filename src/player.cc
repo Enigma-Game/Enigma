@@ -513,6 +513,7 @@ void player::PickupStoneAsItem (Actor *a, enigma::GridPos p)
                 kind[0] = 'i';
 
             if (Item *item = world::MakeItem(kind.c_str())) {
+                KillRubberBands(stone);
                 world::DisposeObject (stone);
                 inv->add_item(item);
                 player::RedrawInventory(inv);
