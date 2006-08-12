@@ -3471,6 +3471,8 @@ namespace
             ActorID id      = get_id (a);
 
             if (id == ac_blackball || id == ac_whiteball) {
+                // Kill ALL rubberbands connected with the actor:
+                world::KillRubberBands (a);
                 Actor *rotor = world::MakeActor (ac_rotor);
                 rotor->set_attrib ("mouseforce", Value (1.0));
                 rotor->set_attrib ("controllers", Value (iplayer+1));

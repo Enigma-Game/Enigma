@@ -1540,4 +1540,18 @@ Sprite{
     loop     = TRUE
 }
 
+-- Halo for small balls --
+Sprite{
+    name     = "halo-small",
+    nimages  = 2,
+    framelen = 30,
+    loop     = TRUE
+}
+Sprite{
+    name     = "halo-small-blink",
+    nimages  = 2,
+    framelen = 30,
+    loop     = TRUE
+}
+
 Progress(100, "Loading Oxyd levels")

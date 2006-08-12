@@ -1022,6 +1022,16 @@ bool BasicBall::has_shield() const {
 void BasicBall::update_halo() {
     HaloState newstate = m_halostate;
 
+    double radius = get_actorinfo()->radius;
+    string halokind;
+
+    // Determine which halomodel has to be used:
+    if (radius == 19.0/64) { // Halo for normal balls
+        halokind="halo";
+    }else if (radius == 13.0f/64) { // Halo for small balls
+        halokind="halo-small";
+    }
+
     if (m_shield_rest_time <= 0)
         newstate = NOHALO;
     else if (m_shield_rest_time <= 3.0)
@@ -1030,8 +1040,9 @@ void BasicBall::update_halo() {
         newstate = HALONORMAL;
 
     if (newstate != m_halostate) {
-	if (m_halostate == NOHALO)
-	    m_halosprite = display::AddSprite (get_pos(), "halo");
+	if (m_halostate == NOHALO){
+	   m_halosprite = display::AddSprite (get_pos(), halokind.c_str());
+    }
         switch (newstate) {
         case NOHALO:
             // remove halo
@@ -1040,10 +1051,10 @@ void BasicBall::update_halo() {
             break;
         case HALOBLINK:
             // blink for the last 3 seconds
-            m_halosprite.replace_model (display::MakeModel ("halo-blink"));
+            m_halosprite.replace_model (display::MakeModel (halokind+"-blink"));
             break;
         case HALONORMAL:
-	    m_halosprite.replace_model (display::MakeModel ("halo"));
+            m_halosprite.replace_model (display::MakeModel (halokind));
             break;
         }
         m_halostate = newstate;
