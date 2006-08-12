@@ -121,6 +121,8 @@ enigma_SOURCES = 		\
 	XMLtoLocal.hh		\
 	XMLtoUtf8.cc		\
 	XMLtoUtf8.hh		\
+	gui/ErrorMenu.cc	\
+	gui/ErrorMenu.hh	\
 	gui/GameMenu.cc		\
 	gui/GameMenu.hh		\
 	gui/HelpMenu.cc		\

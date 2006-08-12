@@ -25,6 +25,8 @@
 #include "d_engine.hh"
 #include "video.hh"
 #include "main.hh"
+#include "nls.hh"
+#include "gui/ErrorMenu.hh"
 
 #include "SDL_image.h"
 
@@ -200,9 +202,13 @@ void display::InitModels()
     tolua_px_open(L);
 
     if (lua::DoSysFile(L, "compat.lua") != lua::NO_LUAERROR) {
-        fprintf(stderr, "Error loading 'compat.lua'\n");
-	fprintf(stderr, "Error: '%s'\n", lua::LastError(L).c_str());
-        return;
+        std::string message = ecl::strf("Error loading 'compat.lua'\nError: '%s'\n",
+                lua::LastError(L).c_str());
+        fprintf(stderr, message.c_str());
+        gui::ErrorMenu m(message + 
+                _("\n\nThis error may cause the application to behave strange!")
+                , N_("Continue"));
+        m.manage();
     }
 
     string fname;
@@ -210,13 +216,18 @@ void display::InitModels()
     const video::VMInfo *vminfo = video::GetInfo();
     fname = app.systemFS->findFile (vminfo->initscript);
     if (lua::DoSysFile(L, vminfo->initscript) != lua::NO_LUAERROR) {
-        fprintf(stderr, "Error loading '%s'\n", fname.c_str());
-	fprintf(stderr, "Error: '%s'\n", lua::LastError(L).c_str());
+        std::string message = ecl::strf("Error loading '%s'\nError: '%s'\n",
+                fname.c_str(), lua::LastError(L).c_str());
+        fprintf(stderr, message.c_str());
+        gui::ErrorMenu m(message + 
+                _("\n\nThis error may cause the application to behave strange!")
+                , N_("Continue"));
+        m.manage();
     }
     enigma::Log << "# models: " << modelmgr->num_templates() << endl;
-//     enigma::Log << "# images: " << surface_cache.size() << endl;
 
     surface_cache_alpha.clear();
+    lua_close(L);
 }
 
 void display::ShutdownModels() 

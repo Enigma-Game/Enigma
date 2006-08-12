@@ -1033,6 +1033,11 @@ bool oxyd::FoundOxyd (OxydVersion ver) {
 
 void oxyd::ChangeSoundset (int sound_set, int default_sound_set) 
 {
+    ASSERT(sound_set >= 0 && sound_set <= OxydVersion_Count + 1 &&
+            (default_sound_set == -1 || 
+            default_sound_set >= OxydVersion_First + 1 &&  
+            default_sound_set <= OxydVersion_Count + 1 ), XFrontend, 
+            "Illegal Soundset requested");
     static int last_default_sound_set = 1;
 
     // if called without knowing default sound set

@@ -21,6 +21,7 @@
 #include "display.hh"
 #include "lua.hh"
 #include "gui/MainMenu.hh"
+#include "gui/ErrorMenu.hh"
 #include "options.hh"
 #include "oxyd.hh"
 #include "sound.hh"
@@ -654,6 +655,12 @@ int main(int argc, char** argv)
         gui::ShowMainMenu();
         shutdown();
         return 0;
+    }
+    catch (XFrontend &e) {
+        cerr << "Error: " << e.what() << endl;
+        gui::ErrorMenu m(std::string(_("Fatal Error that causes the application to quit:\n\n")) 
+                + e.what(), N_("Quit"));
+        m.manage();
     }
     catch (ecl::XGeneric &e) {
         cerr << "Error: " << e.what() << endl;

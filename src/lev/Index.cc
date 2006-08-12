@@ -106,8 +106,6 @@ namespace enigma { namespace lev {
                         INDEX_DEFAULT_GROUP, emptyList));
                 setCurrentIndex("Empty Index");
             }
-                
-            oxyd::ChangeSoundset(app.prefs->getInt("SoundSet"), currentIndex->get_default_SoundSet());
         }
         return currentIndex;
     }
@@ -116,7 +114,7 @@ namespace enigma { namespace lev {
         Index * newIndex = findIndex(anIndexName);
         if (newIndex != NULL) {
             if (newIndex != currentIndex) {
-                // set soundset!!
+                oxyd::ChangeSoundset(newIndex->get_default_SoundSet(), -1);
                 app.prefs->setPref("CurrentIndex", anIndexName);
             }
             currentIndex = newIndex;
@@ -187,8 +185,10 @@ namespace enigma { namespace lev {
     }
     
     void Index::setCurrentPosition(int newPos) {
-        ecl::Assert <XFrontend> (newPos == 0 || (newPos > 0 && newPos < size()), 
-                "Index::setCurrentPosition illegal position");
+        // reset positions that are out of range - this may happen due to
+        // editable Indices
+        if (newPos < 0 || newPos > size())
+            newPos = 0;
 
         //
         currentPosition = newPos;
