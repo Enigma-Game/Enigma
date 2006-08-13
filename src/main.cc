@@ -658,8 +658,8 @@ int main(int argc, char** argv)
     }
     catch (XFrontend &e) {
         cerr << "Error: " << e.what() << endl;
-        gui::ErrorMenu m(std::string(_("Fatal Error that causes the application to quit:\n\n")) 
-                + e.what(), N_("Quit"));
+        std::string message = _("Fatal Error that causes the application to quit:\n\n");
+        gui::ErrorMenu m(message + e.what(), N_("Quit"));
         m.manage();
     }
     catch (ecl::XGeneric &e) {
