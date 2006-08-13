@@ -361,8 +361,13 @@ namespace enigma_server {
                     // May be we want to reset the current index ?
                 }
             } else error = ecl::strf("Illegal level pack %s", name.c_str());
+        } else if (lev::Index::setCurrentIndex(dest)) {
+            lev::Index * curInd = lev::Index::getCurrentIndex();
+            Msg_LoadLevel (curInd->getCurrent(), false);
+            Msg_Command("restart");
+        } else {
+            error = "Syntax: jumpto pack[,level]";
         }
-        else error = "Syntax: jumpto pack,level";
 
         if (!error.empty()) client::Msg_ShowText(error, false, 2);
     }
@@ -373,8 +378,14 @@ namespace enigma_server {
             lev::Index::setCurrentIndex(indName);
             lev::Index * searchResult = lev::Index::getCurrentIndex();
             searchResult->setCurrentPosition(0);
-            Msg_LoadLevel (searchResult->getProxy(0), false);
-            Msg_Command("restart");
+            if (searchResult->size() == 1) {
+                // play unique level directly 
+                Msg_LoadLevel (searchResult->getProxy(0), false);
+                Msg_Command("restart");
+            } else {
+                // display multiple levels as pack
+                Msg_Command("abort");
+            }
         } else {
             client::Msg_ShowText(string("Couldn't find '")+text+'\'', false, 2);
         }

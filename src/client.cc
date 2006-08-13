@@ -785,8 +785,8 @@ void Client::level_loaded()
     lev::Proxy *curProxy = ind->getCurrent();
 
     // update window title
-    video::SetCaption(ecl::strf(_("Enigma level #%d: %s"), ind->getCurrentLevel(), 
-            curProxy->getTitle().c_str()).c_str());
+    video::SetCaption(ecl::strf(_("Enigma pack %s - level #%d: %s"), ind->getName().c_str(),
+            ind->getCurrentLevel(), curProxy->getTitle().c_str()).c_str());
 
     string hunted = init_hunted_time();   // sets m_hunt_against_time (used below)
 

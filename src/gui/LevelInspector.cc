@@ -27,6 +27,7 @@
 #include "gui/LevelPreviewCache.hh"
 #include "gui/ScreenshotViewer.hh"
 #include "lev/RatingManager.hh"
+#include "lev/ScoreManager.hh"
 
 
 #include <vector>
@@ -204,6 +205,7 @@ LevelInspector::LevelInspector(lev::Proxy *aLevel):
     
         std::string tmp, tmp2;
         lev::RatingManager *theRatingMgr = lev::RatingManager::instance();
+        lev::ScoreManager  *theScoreMgr = lev::ScoreManager::instance();
         withEasy = aLevel->hasEasymode();
         ecl::Font *menufont = enigma::GetFont("menufont");
         levelPathString = 
@@ -279,7 +281,8 @@ LevelInspector::LevelInspector(lev::Proxy *aLevel):
     
         BuildVList scores(this, Rect(vminfo->width/2-15+(withEasy?0:20),
                 vmargin+6*25+5*vspacing+16,(withEasy?117:54),25), 2);
-        scores.add(new MonospacedLabel(" ",'8', " 0123456789", HALIGN_CENTER));
+        scores.add(new MonospacedLabel(scoreToString(theScoreMgr->getBestUserScore(aLevel, DIFFICULTY_EASY),
+            theScoreMgr->getBestUserScore(aLevel, DIFFICULTY_HARD),aLevel,true).c_str(),'8', " 0123456789", HALIGN_CENTER));
         scores.add(new MonospacedLabel(scoreToString(theRatingMgr->getBestScoreEasy(aLevel),
             theRatingMgr->getBestScoreDifficult(aLevel),aLevel,true).c_str(),'8', " 0123456789", HALIGN_CENTER));
         scores.add(new MonospacedLabel(scoreToString(theRatingMgr->getParScoreEasy(aLevel),
