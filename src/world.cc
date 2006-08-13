@@ -1366,6 +1366,7 @@ Value world::SendMessage (Object *o, const Message &m)
         fprintf(stderr, "Sending message '%s' to NULL-object\n", m.message.c_str());
         return Value();
     }
+    return Value();
 }
 
 
@@ -1428,8 +1429,8 @@ namespace
 {
     void explosion (GridPos p, ItemID explosion_item)
     {
-        Stone *stone = GetStone(p);
-        SendMessage(stone, "expl");
+        if (Stone *stone = GetStone(p))
+            SendMessage(stone, "expl");
         if (Item  *item  = GetItem(p)) {
             if (has_flags(item, itf_indestructible))
                 SendMessage(item, "expl");
@@ -1462,8 +1463,8 @@ void world::SendExplosionEffect(GridPos center, ExplosionType type)
                 explosion (dest, it_explosion1);
             } 
             else {
-                SendMessage(stone, "ignite");
-                SendMessage(item, "ignite");
+                if (stone) SendMessage(stone, "ignite");
+                if (item) SendMessage(item, "ignite");
             }
             break;
 
