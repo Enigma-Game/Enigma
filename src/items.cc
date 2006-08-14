@@ -1333,14 +1333,14 @@ void Trigger::update_state()
     if (m_pressedp != pressedp) {
         m_pressedp = pressedp;
 
-        if (m_pressedp) {
-            world::PerformAction(this, true);
-            sound_event ("triggerdown");
-        } else {
-            world::PerformAction(this, false);
-            sound_event ("triggerup");
-        }
         init_model();
+        if (m_pressedp) {
+            sound_event ("triggerdown");
+            world::PerformAction(this, true);
+        } else {
+            sound_event ("triggerup");
+            world::PerformAction(this, false);
+        }
     }
 }
 
