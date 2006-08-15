@@ -20,6 +20,10 @@ enigma.AddLevelPack( "levels/index_oxydextra.txt", "OxydExtra")
 -- Levels qualified for NetPlay
 enigma.AddLevelPack( "levels/index_netplay.txt", "Netplay")
 
+-- Sokoban Packs
+enigma.AddLevelPack( "levels/index_microban.txt", "Microban")
+enigma.AddLevelPack( "levels/index_mas_microban.txt", "Mas Microban")
+
 -- Developer-Packs
 enigma.AddLevelPack( "levels/experimental/index_experimental.txt", "Experimental")
 enigma.AddLevelPack( "levels/stable/index_stable.txt", "Stable: New Levels")
