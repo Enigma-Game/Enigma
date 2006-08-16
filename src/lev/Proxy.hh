@@ -134,10 +134,15 @@ namespace enigma { namespace lev {
          */
         Proxy::pathType getNormPathType();
         std::string getAbsLevelPath();
+        void loadDependency(std::string depId);
     private:
         static Proxy *currentLevel;
         static std::map<std::string, Proxy *> cache;
+        static std::vector<Proxy *> loadedLibs;
+        static std::vector<Proxy *> registeredLibs;
+        static void releaseLibs();
         
+        bool isLibraryFlag;
         pathType normPathType;
         std::string normLevelPath; // stable/welcome, #oxyd#17, http://..., ~/test
         std::string absLevelPath;
@@ -161,7 +166,7 @@ namespace enigma { namespace lev {
         XERCES_CPP_NAMESPACE_QUALIFIER DOMElement *infoElem;
         XERCES_CPP_NAMESPACE_QUALIFIER DOMNodeList *stringList;
         
-        Proxy(pathType thePathType, std::string theNormLevelPath,
+        Proxy(bool proxyIsLibrary, pathType thePathType, std::string theNormLevelPath,
                 std::string levelId, std::string levelTitle, std::string levelAuthor,
                 int levelScoreVersion, int levelRelease, bool levelHasEasymode,
                 GameType levelCompatibilty, levelStatusType status);
@@ -169,6 +174,9 @@ namespace enigma { namespace lev {
         void release();
         void load(bool onlyMetadata);
         void loadLuaCode();
+        void processDependencies();   
+        void registerPreloadDependency(std::string depPath, std::string depId,
+            int depRelease, bool depPreload, std::string depUrl);
         int scoreText2Int(std::string text);
     };
 }} // namespace enigma::lev

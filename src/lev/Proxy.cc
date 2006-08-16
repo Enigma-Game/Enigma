@@ -75,6 +75,16 @@ namespace enigma { namespace lev {
             chLatin_l, chForwardSlash, chDigit_1, chNull
     };
     std::map<std::string, Proxy *> Proxy::cache;
+    std::vector<Proxy *> Proxy::loadedLibs;
+    std::vector<Proxy *> Proxy::registeredLibs;
+    void Proxy::releaseLibs() {
+        for (int i = 0; i << loadedLibs.size(); i++)
+            delete loadedLibs[i];
+        loadedLibs.clear();
+        for (int i = 0; i << registeredLibs.size(); i++)
+            delete registeredLibs[i];
+        registeredLibs.clear();
+    }
 
     Proxy *Proxy::currentLevel = NULL;
     
@@ -138,7 +148,7 @@ namespace enigma { namespace lev {
         }
         
         // create new proxy
-        theProxy = new Proxy(thePathType, theNormLevelPath, levelId, levelTitle,
+        theProxy = new Proxy(false, thePathType, theNormLevelPath, levelId, levelTitle,
             levelAuthor, levelScoreVersion, levelRelease, levelHasEasymode, 
             levelCompatibilty, status);
         cache.insert(std::make_pair(cacheKey, theProxy));
@@ -146,7 +156,7 @@ namespace enigma { namespace lev {
     }
     
     Proxy * Proxy::autoRegisterLevel(std::string indexPath, std::string filename) {
-        Proxy *theProxy = new Proxy(pt_resource, indexPath + "/" + filename , "", "",
+        Proxy *theProxy = new Proxy(false, pt_resource, indexPath + "/" + filename , "", "",
             "unknown", 0, 0, false, GAMET_UNKNOWN, STATUS_UNKNOWN);
         try {
             theProxy->loadMetadata();
@@ -208,11 +218,11 @@ namespace enigma { namespace lev {
 
     
 
-    Proxy::Proxy(pathType thePathType, std::string theNormLevelPath,
+    Proxy::Proxy(bool proxyIsLibrary, pathType thePathType, std::string theNormLevelPath,
             std::string levelId, std::string levelTitle, std::string levelAuthor,
             int levelScoreVersion, int levelRelease, bool levelHasEasymode,
             GameType levelCompatibilty,levelStatusType status) :  
-            normPathType(thePathType), normLevelPath(theNormLevelPath), 
+            isLibraryFlag (proxyIsLibrary), normPathType(thePathType), normLevelPath(theNormLevelPath), 
             id(levelId), title(levelTitle), author(levelAuthor),
             scoreVersion(levelScoreVersion), releaseVersion(levelRelease),
             revisionNumber(0), hasEasymodeFlag(levelHasEasymode), 
@@ -229,8 +239,10 @@ namespace enigma { namespace lev {
             doc->release();
             doc = NULL;
         }
-        if (this == currentLevel)
+        if (this == currentLevel) {
             currentLevel = NULL;
+            releaseLibs();
+        }
     }
     
     std::string Proxy::getNormLevelPath() {
@@ -267,6 +279,7 @@ namespace enigma { namespace lev {
         if (doc == NULL) {
             load(false);
         } else {
+            processDependencies();
             loadLuaCode();
         }
     }
@@ -284,9 +297,11 @@ namespace enigma { namespace lev {
         absLevelPath = "";
         
         // release current proxy
-        if (currentLevel != NULL)
-            currentLevel->release();
-        currentLevel = this;
+        if (!isLibraryFlag) {
+            if (currentLevel != NULL)
+                currentLevel->release();
+            currentLevel = this;
+        }
         
         // handle oxyd first
         if (normPathType == pt_oxyd) {
@@ -428,12 +443,100 @@ namespace enigma { namespace lev {
                 hasEasymode();
                 getScoreUnit();
                 if (!onlyMetadata){   
+                    processDependencies();
                     loadLuaCode();
                 }
             }
         }
     }
 
+    void Proxy::processDependencies() {
+        // cleanup on level but not on libs
+        if (this == currentLevel) {
+            // cleanup all lib proxies loaded by previous load
+            releaseLibs();
+        }
+        if (doc != NULL) {
+            DOMNodeList *depList = infoElem->getElementsByTagNameNS(
+                    levelNS, Utf8ToXML("dependency").x_str());
+            for (int i = 0, l = depList-> getLength();  i < l; i++) {
+                DOMElement *depElem = dynamic_cast<DOMElement *>(depList->item(i));
+                std::string depPath;
+                std::string depId;
+                int         depRelease;
+                bool        depPreload;
+                std::string depUrl;
+                depPath = XMLtoUtf8(depElem->getAttributeNS(levelNS, 
+                        Utf8ToXML("path").x_str())).c_str();
+                depId = XMLtoUtf8(depElem->getAttributeNS(levelNS, 
+                        Utf8ToXML("id").x_str())).c_str();
+                depRelease = XMLString::parseInt(depElem->getAttributeNS(levelNS, 
+                        Utf8ToXML("release").x_str()));
+                depPreload = boolValue(depElem->getAttributeNS(levelNS, 
+                            Utf8ToXML("preload").x_str()));
+                depUrl = XMLtoUtf8(depElem->getAttributeNS(levelNS, 
+                        Utf8ToXML("url").x_str())).c_str();
+//                Log << "Deps: Path="<<depPath<<" Id="<< depId <<" Rel="<< depRelease <<" Prel="<< depPreload<< " Url=" << depUrl<<"\n";
+                // load every dependency just once and break circular dependencies
+                // by central load via Level
+                currentLevel->registerPreloadDependency(depPath, depId, depRelease,
+                        depPreload, depUrl);
+            }
+        }
+    }
+    
+    void Proxy::registerPreloadDependency(std::string depPath, std::string depId,
+            int depRelease, bool depPreload, std::string depUrl) {
+        // check if lib is already registered
+        
+        // find most up to date lib in requested release version
+        Proxy * depProxy = new Proxy(true, depPath.empty() ? pt_url : pt_resource,
+                depPath.empty() ? depUrl : depPath, depId, "", "", 0, depRelease,
+                false, GAMET_ENIGMA, STATUS_UNKNOWN);
+                
+        // load and register lib
+        if (depPreload) {
+            loadedLibs.push_back(depProxy);
+            depProxy->load(false);
+        } else {
+            registeredLibs.push_back(depProxy);
+        }
+        
+    }
+    
+    void Proxy::loadDependency(std::string depId) {
+        // check if lib is already loaded
+        for (int i=0 ; i<loadedLibs.size(); i++) {
+            if (loadedLibs[i]->getId() == depId)
+                // library is already loaded
+                return;
+        }
+        
+        for (int i=0 ; i<registeredLibs.size(); i++) {
+            if (registeredLibs[i]->getId() == depId) {
+                // library is registered to be loaded - do it
+                loadedLibs.push_back(registeredLibs[i]);
+                registeredLibs[i]->load(false);
+                // delete form not yet loaded list
+                registeredLibs[i] = registeredLibs[registeredLibs.size() - 1];
+                registeredLibs.pop_back();
+                return;
+            }
+        }
+//        if (doc == NULL) {
+        if (true) {
+//            Log << "loadDependency " << depId << "\n";
+            // handling for legacy Lua levels that did not register dependencies
+            Proxy * depProxy = new Proxy(true, pt_resource, depId, depId, "", "", 0, 1,
+                false, GAMET_ENIGMA, STATUS_UNKNOWN);
+            loadedLibs.push_back(depProxy);
+            depProxy->load(false);
+            return;
+        } else
+            // xml levels have to register used libraries as dependencies
+            throw XLevelLoading("load attempt of undeclared library");
+    }
+    
     void Proxy::loadLuaCode() {
         lua_State *L = lua::LevelState();
         DOMNodeList * luamainList = doc->getElementsByTagNameNS(levelNS, Utf8ToXML("luamain").x_str());

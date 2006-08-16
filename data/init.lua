@@ -58,14 +58,18 @@ function PrintTable(t)
     end
 end
 
+--function Require(filename)
+--    path = enigma.FindDataFile(filename)
+--    if path == nil then
+--        -- avoid reading from stdin !
+--        error("File not found '" .. filename .. "'")
+--    else
+--        dofile(path)
+--    end
+--end
+
 function Require(filename)
-    path = enigma.FindDataFile(filename)
-    if path == nil then
-        -- avoid reading from stdin !
-        error("File not found '" .. filename .. "'")
-    else
-        dofile(path)
-    end
+    enigma.LoadLib(string.sub(filename,8,string.len(filename)-4))
 end
 
 

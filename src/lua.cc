@@ -25,6 +25,8 @@
 #include "server.hh"
 #include "sound.hh"
 #include "options.hh"
+#include "lev/Index.hh"
+#include "lev/Proxy.hh"
 
 #ifndef CXXLUA
 extern "C" {
@@ -578,6 +580,18 @@ en_add_signal (lua_State *L) {
     return 0;
 }
 
+int loadLib(lua_State *L) 
+{
+    const char *id = lua_tostring(L, 1);
+    lev::Proxy * curProxy = lev::Index::getCurrentProxy();
+    try {
+        curProxy->loadDependency(id);
+    } catch (XLevelLoading &err) {
+        luaL_error(L, err.what());
+    }
+    return 1;
+}
+
 static CFunction globalfuncs[] = {
     {FindDataFile,          "FindDataFile"},
     {lua::PlaySoundGlobal,  "PlaySoundGlobal"},
@@ -591,6 +605,7 @@ static CFunction levelfuncs[] = {
     // internal functions
 
     {FindDataFile,          "FindDataFile"},
+    {loadLib,               "LoadLib"},
     {en_get_object_template,"GetObjectTemplate"},
     {lua::MakeObject,       "MakeObject"},
     {en_set_actor,          "SetActor"},
