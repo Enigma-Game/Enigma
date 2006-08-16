@@ -3026,6 +3026,7 @@ namespace
                 // Give it some time for animation, then replace it.
                 set_state(CAPTURING);
                 GameTimer.set_alarm(this, capture_interval, false);
+                capture_retry = 0;
                 return Value(1);
             }
             return Value();
