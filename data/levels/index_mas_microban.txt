@@ -60,3 +60,7 @@
 { file=mas_microban/mmic_123    name="Mas Microban 123"  author="David W Skinner"  easymode=1  par_time_easy=106,Ralf       par_time_normal=113,Ralf }
 { file=mas_microban/mmic_124    name="Mas Microban 124"  author="David W Skinner"  easymode=1  par_time_easy=158,Ralf       par_time_normal=625,Ralf }
 { file=mas_microban/mmic_127    name="Mas Microban 127"  author="David W Skinner"  easymode=1  par_time_easy=45,Ralf        par_time_normal=76,Ralf }
+
+-- 2 Mas Sasquatch Level:
+{ file=mas_microban/msas_11     name="Mas Sasquatch 11"  author="David W Skinner" }
+{ file=mas_microban/msas_12     name="Mas Sasquatch 12"  author="David W Skinner"  par_time=44,Ralf }

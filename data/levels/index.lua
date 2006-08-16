@@ -21,6 +21,7 @@ enigma.AddLevelPack( "levels/index_oxydextra.txt", "OxydExtra")
 enigma.AddLevelPack( "levels/index_netplay.txt", "Netplay")
 
 -- Sokoban Packs
+enigma.AddLevelPack( "levels/index_sokoban.txt", "Original Sokoban")
 enigma.AddLevelPack( "levels/index_microban.txt", "Microban")
 enigma.AddLevelPack( "levels/index_mas_microban.txt", "Mas Microban")
 

@@ -335,7 +335,7 @@ AC_CONFIG_FILES([Makefile m4/Makefile  intl/Makefile
            data/levels/experimental/Makefile
            data/levels/stable/Makefile
            data/levels/lib/Makefile
-           data/levels/Sokoban/Makefile
+           data/levels/sokoban/Makefile
            data/levels/microban/Makefile
            data/levels/mas_microban/Makefile
            data/levels/patches/Makefile
