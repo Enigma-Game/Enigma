@@ -118,6 +118,9 @@ void load_level(lev::Proxy *levelProxy)
     // first set default compatibility mode
     // (may be overidden by load_level (from Lua))
     server::GameCompatibility = levelProxy->getCompatibility();
+    if (server::GameCompatibility == GAMET_UNKNOWN)
+        // use default Comopatibility
+        server::GameCompatibility = GAMET_ENIGMA;
     
     // clear inventory before level load and give us 2 extralives
     player::NewGame();
