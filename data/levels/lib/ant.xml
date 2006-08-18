@@ -8,6 +8,8 @@
       <el:copyright>Copyright © 2002-2003 Petr Machata</el:copyright>
       <el:license el:type="GPL v2.0 or above" el:open="true"/>
       <el:compatibility el:enigma="0.92">
+      <el:compatibility el:enigma="0.92">
+        <el:dependency el:path="lib/natmaze" el:id="lib/natmaze" el:release="1" el:preload="false"/>
       </el:compatibility>
       <el:modes el:easy="false" el:single="false" el:network="false"/>
       <el:comments>
@@ -1532,7 +1534,7 @@ end
 
 -- maybe in a future, there will be a possibility to integrate Nat's mazes into maps
 function maze_mode()
-   Require("levels/lib/natmaze.lua")
+   enigma.LoadLib("lib/natmaze")
    --map_cell_meaning("!", )
 end
 

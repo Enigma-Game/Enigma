@@ -67,7 +67,8 @@ namespace enigma { namespace lev {
     void ScoreManager::updateUserScore(lev::Proxy *levelProxy, int difficulty, int score) {
         ecl::Assert <XFrontend> (difficulty >= DIFFICULTY_EASY &&  
                 difficulty <= DIFFICULTY_HARD, "ScoreManager::updateUserScore illegal difficulty");
-        updateUserScoreLegacy(levelProxy, difficulty, score);
+        if (levelProxy->getLevelStatus() == lev::STATUS_RELEASED)
+            updateUserScoreLegacy(levelProxy, difficulty, score);
     }
     
     bool ScoreManager::bestScoreReached(lev::Proxy *levelProxy, int difficulty) {

@@ -301,15 +301,28 @@ LevelInspector::LevelInspector(lev::Proxy *aLevel):
         BuildVList versionT(this, Rect(vminfo->width-100/2-90-2*hmargin,vmargin+5*25+4*vspacing+16,100,25), 2);
         versionT.add(new Label(N_("Version"), HALIGN_CENTER));
         BuildVList versionST(this, Rect(vminfo->width-110-90-2*hmargin,vmargin+6*25+5*vspacing+16,110,25), 2);
-        versionST.add(new Label(N_("Score: "), HALIGN_RIGHT));
+        if (aLevel->getLevelStatus() == lev::STATUS_RELEASED)
+            versionST.add(new Label(N_("Score: "), HALIGN_RIGHT));
+        else
+            versionST.add(new Label(N_("Status: "), HALIGN_RIGHT));
         versionST.add(new Label(N_("Release: "), HALIGN_RIGHT));
         versionST.add(new Label(N_("Revision: "), HALIGN_RIGHT));
         versionST.add(new Label(N_("Control: "), HALIGN_RIGHT));
         versionST.add(new Label(N_("Target: "), HALIGN_RIGHT));
 
-        BuildVList version(this, Rect(vminfo->width-80-2*hmargin,vmargin+6*25+5*vspacing+16,80,25), 2);
-        version.add(new MonospacedLabel(ecl::strf("%6d", aLevel->getScoreVersion()).c_str(),
-                '8', " 0123456789", HALIGN_LEFT));
+        BuildVList version(this, Rect(vminfo->width-80-2*hmargin,vmargin+6*25+5*vspacing+16,80+2*hmargin,25), 2);
+        if (aLevel->getLevelStatus() == lev::STATUS_RELEASED)
+            version.add(new MonospacedLabel(ecl::strf("%6d", aLevel->getScoreVersion()).c_str(),
+                    '8', " 0123456789", HALIGN_LEFT));
+        else if (aLevel->getLevelStatus() == lev::STATUS_STABLE)
+            version.add(new Label(N_("stable"), HALIGN_LEFT));
+        else if (aLevel->getLevelStatus() == lev::STATUS_TEST)
+            version.add(new Label(N_("test"), HALIGN_LEFT));
+        else if (aLevel->getLevelStatus() == lev::STATUS_EXPERIMENTAL)
+            version.add(new Label(N_("experimental"), HALIGN_LEFT));
+        else
+            version.add(new Label(N_("unknown"), HALIGN_LEFT));
+        
         version.add(new MonospacedLabel(ecl::strf("%6d", aLevel->getReleaseVersion()).c_str(),
                 '8', " 0123456789", HALIGN_LEFT));
         version.add(new MonospacedLabel(ecl::strf("%6d", aLevel->getRevisionNumber()).c_str(),
@@ -328,7 +341,13 @@ LevelInspector::LevelInspector(lev::Proxy *aLevel):
                 version.add(new Label(N_("unknown"), HALIGN_LEFT));
                 break;
         }
-        version.add(new Label(aLevel->getScoreTarget().c_str(), HALIGN_LEFT)); // how should we localize this damn thing?
+#if 0
+        // fake gettext to register the following strings for I18N
+        _("time")
+        _("pushes")
+        _("moves")
+#endif
+        version.add(new Label(aLevel->getScoreTarget().c_str(), HALIGN_LEFT));
         
         int bestScoreHolderLines = 0;
         int creditsLines = 0;
