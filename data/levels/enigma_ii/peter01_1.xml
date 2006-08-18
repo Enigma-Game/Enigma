@@ -8,6 +8,7 @@
       <el:copyright>Copyright © 2003 Peter Santo</el:copyright>
       <el:license el:type="public domain" el:open="true"/>
       <el:compatibility el:enigma="0.92">
+       <el:dependency el:path="lib/ant" el:id="lib/ant" el:release="1" el:preload="true"/>
       </el:compatibility>
       <el:modes el:easy="false" el:single="true" el:network="false"/>
       <el:comments>
@@ -21,7 +22,6 @@
 -- but I like finding solutions for laser beam puzzles.
 -- Feb.'06: Replaced some characters to get pure ASCII, Raoul 
 
-Require("levels/lib/ant.lua")
 display.SetFollowMode(display.FOLLOW_SCROLLING)
 
 oxyd_default_flavor = "b"

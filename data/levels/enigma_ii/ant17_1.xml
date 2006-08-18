@@ -8,6 +8,8 @@
       <el:copyright>Copyright © 2003 Petr Machata</el:copyright>
       <el:license el:type="GPL v2.0 or above" el:open="true"/>
       <el:compatibility el:enigma="0.92">
+       <el:dependency el:path="lib/ant" el:id="lib/ant" el:release="1" el:preload="true"/>
+       <el:dependency el:path="lib/natmaze" el:id="lib/natmaze" el:release="1" el:preload="true"/>
       </el:compatibility>
       <el:modes el:easy="false" el:single="true" el:network="false"/>
       <el:comments>
@@ -18,10 +20,6 @@
     <el:luamain><![CDATA[
 -- 2003-01-13
 -- 2003-06-24 -- changes in AddConstantForce
-
-Require("levels/lib/ant.lua")
-Require("levels/lib/natmaze.lua")
-
 -- i took base for this cell_to_level and render_cell from Nat Pryce's natmaze.lua maps
 
 mazecellsize = 3

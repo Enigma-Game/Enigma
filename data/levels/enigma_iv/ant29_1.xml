@@ -8,6 +8,7 @@
       <el:copyright>Copyright © 2003 Petr Machata</el:copyright>
       <el:license el:type="GPL v2.0 or above" el:open="true"/>
       <el:compatibility el:enigma="0.92">
+       <el:dependency el:path="lib/ant" el:id="lib/ant" el:release="1" el:preload="true"/>
       </el:compatibility>
       <el:modes el:easy="false" el:single="true" el:network="false"/>
       <el:comments>
@@ -16,13 +17,7 @@
       <el:score el:easy="-" el:difficult="-"/>
     </el:info>
     <el:luamain><![CDATA[
-Require("levels/lib/ant.lua")
-
--- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- --
-
 function f_doorA() send_group_message(doorsA, "openclose") end
-
--- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- --
 
 floor = cell{floor="fl-himalaya"}
 stone = cell{stone="st-rock4"}
@@ -37,8 +32,6 @@ coinr = cell{{{randomfloor, {coin1, coin2, coin3}}}}
 crack3 = cell{item= {"it-crack3", {fixed=1}}}
 crack2 = cell{item= {"it-crack1", {fixed=1}}}
 spring = cell{item= "it-spring2"}
-
--- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- --
 
 create_world(20, 13)
 oxyd_default_flavor = "a"

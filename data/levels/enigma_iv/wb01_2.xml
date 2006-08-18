@@ -8,6 +8,7 @@
       <el:copyright>Copyright © 2003 Jon 'WB' Sneyers</el:copyright>
       <el:license el:type="GPL v2.0 or above" el:open="true"/>
       <el:compatibility el:enigma="0.92">
+       <el:dependency el:path="lib/ant" el:id="lib/ant" el:release="1" el:preload="true"/>
       </el:compatibility>
       <el:modes el:easy="true" el:single="true" el:network="false"/>
       <el:comments>
@@ -18,8 +19,6 @@
     <el:luamain><![CDATA[
 -- Nov 2005: Changes in level design, due to new timing engine.
 --           Added easy mode (some seconds more time) -- Andreas
-
-Require("levels/lib/ant.lua")
 
 cells={}
 

@@ -8,6 +8,7 @@
       <el:copyright>Copyright © 2003 Martinn Hawlisch</el:copyright>
       <el:license el:type="GPL version 2" el:open="true"/>
       <el:compatibility el:enigma="0.92">
+       <el:dependency el:path="lib/ant" el:id="lib/ant" el:release="1" el:preload="true"/>
       </el:compatibility>
       <el:modes el:easy="false" el:single="true" el:network="false"/>
       <el:comments>
@@ -20,8 +21,6 @@ world.DefineSimpleStoneMovable("fake_stone_move", "shatter", 0)
 display.DefineAlias("fake_stone_move", "st-death")
 world.DefineSimpleStone("fake_stone", "shatter", 0, 0)
 display.DefineAlias("fake_stone", "st-death")
-
-Require("levels/lib/ant.lua")
 
 cells={}
 

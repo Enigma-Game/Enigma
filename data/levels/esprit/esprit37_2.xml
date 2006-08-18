@@ -8,6 +8,7 @@
       <el:copyright>Copyright © 2003 Sven Siggelkow</el:copyright>
       <el:license el:type="GPL v2.0 or above" el:open="true"/>
       <el:compatibility el:enigma="0.92">
+       <el:dependency el:path="lib/andreas_ghosts" el:id="lib/andreas_ghosts" el:release="1" el:preload="true"/>
       </el:compatibility>
       <el:modes el:easy="false" el:single="true" el:network="false"/>
       <el:comments>
@@ -17,12 +18,9 @@
     </el:info>
     <el:luamain><![CDATA[
 -- change rotor with spermbird, if implemented
-
 -- Apr.2003: Replaced the rotor with a ghost, and
 --   changed the puzzle-mechanism to avoid a second
 --   way to solve the puzzle -> Revision 2   Andreas
-
-Require("levels/lib/andreas_ghosts.lua")
 
 levelw = 20
 levelh = 25

@@ -8,6 +8,7 @@
       <el:copyright>Copyright © 2003 Petr Machata</el:copyright>
       <el:license el:type="GPL v2.0 or above" el:open="true"/>
       <el:compatibility el:enigma="0.92">
+       <el:dependency el:path="lib/ant" el:id="lib/ant" el:release="1" el:preload="true"/>
       </el:compatibility>
       <el:modes el:easy="false" el:single="true" el:network="false"/>
       <el:comments>
@@ -20,9 +21,6 @@
 -- 2003-02-10 -- change in interfacing parent functions in ant.lua, rubber band changed
 -- 2003-02-20 -- rewrite
 -- 2003-03-25 -- using slope generator
-
-Require("levels/lib/ant.lua")
-
 num = 0
 function switchcell(x, y, boundwith, tgt)
    num = num +1

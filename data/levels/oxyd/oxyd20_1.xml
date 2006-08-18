@@ -8,6 +8,7 @@
       <el:copyright>Copyright © 2005,2006 Raoul Bourquin</el:copyright>
       <el:license el:type="GPL v2.0 or above" el:open="true"/>
       <el:compatibility el:enigma="0.92">
+       <el:dependency el:path="lib/libterrain" el:id="lib/libterrain" el:release="1" el:preload="true"/>
       </el:compatibility>
       <el:modes el:easy="false" el:single="true" el:network="false"/>
       <el:comments>
@@ -19,8 +20,6 @@
 -- GENERAL --
 levelw = 20
 levelh = 13
-
-Require("levels/lib/libterrain.lua")
 
 create_world(levelw, levelh)
 

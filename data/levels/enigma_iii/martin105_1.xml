@@ -8,6 +8,8 @@
       <el:copyright>Copyright © 2003 Martin Hawlisch</el:copyright>
       <el:license el:type="GPL version 2" el:open="true"/>
       <el:compatibility el:enigma="0.92">
+       <el:dependency el:path="lib/ant" el:id="lib/ant" el:release="1" el:preload="true"/>
+       <el:dependency el:path="lib/natmaze" el:id="lib/natmaze" el:release="1" el:preload="true"/>
       </el:compatibility>
       <el:modes el:easy="true" el:single="true" el:network="false"/>
       <el:comments>
@@ -17,10 +19,6 @@
     </el:info>
     <el:luamain><![CDATA[
 -- reused code from ant16.lua
-
-Require("levels/lib/ant.lua")
-Require("levels/lib/natmaze.lua")
-
 -- i took these from Nat Pryce's natmaze.lua maps
 function cell_to_level( cellx, celly )
     return originx + cellx * 2, originy + celly * 2

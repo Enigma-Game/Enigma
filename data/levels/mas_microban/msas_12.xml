@@ -8,7 +8,9 @@
       <el:copyright>Copyright © 1999 David W Skinner</el:copyright>
       <el:license el:type="see Lua code below" el:open="true"/>
       <el:compatibility el:enigma="0.92">
-      </el:compatibility>
+       <el:dependency el:path="lib/ralf_sokoban" el:id="lib/ralf_sokoban" el:release="1" el:preload="true"/>
+      <el:dependency el:path="lib/ralf_sokoban" el:id="lib/ralf_sokoban" el:release="1" el:preload="true"/>
+       </el:compatibility>
       <el:modes el:easy="false" el:single="true" el:network="false"/>
       <el:comments>
         <el:code>Converted to enigma format by Ralf Westram with friendly permission from David W Skinner.</el:code>
@@ -16,8 +18,6 @@
       <el:score el:easy="-" el:difficult="-"/>
     </el:info>
     <el:luamain><![CDATA[
-Require("levels/lib/ralf_sokoban.lua")
-
 -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- --
 
 level={

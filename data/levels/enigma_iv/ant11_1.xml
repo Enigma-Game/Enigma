@@ -8,6 +8,7 @@
       <el:copyright>Copyright © 2003 Petr Machata</el:copyright>
       <el:license el:type="GPL v2.0 or above" el:open="true"/>
       <el:compatibility el:enigma="0.92">
+       <el:dependency el:path="lib/ant" el:id="lib/ant" el:release="1" el:preload="true"/>
       </el:compatibility>
       <el:modes el:easy="false" el:single="true" el:network="false"/>
       <el:comments>
@@ -21,8 +22,6 @@
 -- 2003-02-09 -- fixes in object groups
 -- 2003-06-24 -- changes in AddConstantForce
 -- 2003-10-18 -- too strong gravity fixed, also some minor cleanups
-
-Require("levels/lib/ant.lua")
 
 -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- --
 function construct(x, y) set_floor("fl-metal", x, y) end
