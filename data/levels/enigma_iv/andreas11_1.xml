@@ -8,6 +8,7 @@
       <el:copyright>Copyright © 2005 Andreas Lochmann</el:copyright>
       <el:license el:type="GPL v2.0 or above" el:open="true"/>
       <el:compatibility el:enigma="0.92">
+       <el:dependency el:path="lib/ant" el:id="lib/ant" el:release="1" el:preload="true"/>
       </el:compatibility>
       <el:modes el:easy="true" el:single="true" el:network="false"/>
       <el:comments>
@@ -17,8 +18,6 @@
     </el:info>
     <el:luamain><![CDATA[
 -- Created with the help of BBE 1.05
-
-Require("levels/lib/ant.lua")
 
 function file_oxyd(x,y,f)
     oxyd_default_flavor=f
@@ -248,13 +247,11 @@ create_world_by_map(level)
 draw_map(0,0,stmap,stones)
 draw_map(0,0,itmap,items)
 draw_map(0,0,acmap,actors)
-
 TIMERINT = 3.0
 motion_a = 0
 motion_b = 0
 motion_c = 0
 motion_d = 0
-
 function trig_a()
   set_stone("st-stone1", 2, 13);
   set_stone("st-stone1", 1, 14);
@@ -269,7 +266,6 @@ function clock_a()
   end
   motion_a = 0
 end
-
 function trig_b()
   set_stone("st-stone1", 17, 13);
   set_stone("st-stone1", 18, 14);
@@ -284,7 +280,6 @@ function clock_b()
   end
   motion_b = 0
 end
-
 function trig_c()
   set_stone("st-stone1", 2, 23);
   set_stone("st-stone1", 1, 22);
@@ -299,7 +294,6 @@ function clock_c()
   end
   motion_c = 0
 end
-
 function trig_d()
   set_stone("st-stone1", 17, 23);
   set_stone("st-stone1", 18, 22);
@@ -314,7 +308,6 @@ function clock_d()
   end
   motion_d = 0
 end
-
 set_item("it-trigger", 1, 11, {action="callback", target="trig_a"})
 set_item("it-trigger", 18, 11, {action="callback", target="trig_b"})
 set_item("it-trigger", 1, 25, {action="callback", target="trig_c"})
@@ -323,9 +316,7 @@ set_stone("st-timer", 2, 11, {action="callback", target="clock_a", interval=TIME
 set_stone("st-timer", 17, 11, {action="callback", target="clock_b", interval=TIMERINT} )
 set_stone("st-timer", 2, 25, {action="callback", target="clock_c", interval=TIMERINT} )
 set_stone("st-timer", 17, 25, {action="callback", target="clock_d", interval=TIMERINT} )
-
 set_item("it-document", 10, 16, {text="text1"})
-
 oxyd_shuffle()
     ]]></el:luamain>
     <el:i18n>

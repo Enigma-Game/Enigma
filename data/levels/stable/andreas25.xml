@@ -8,6 +8,7 @@
       <el:copyright>Copyright © 2006 Andreas Lochmann</el:copyright>
       <el:license el:type="GPL v2.0 or above" el:open="true"/>
       <el:compatibility el:enigma="0.92">
+       <el:dependency el:path="lib/ant" el:id="lib/ant" el:release="1" el:preload="true"/>
       </el:compatibility>
       <el:modes el:easy="false" el:single="true" el:network="false"/>
       <el:comments>
@@ -17,11 +18,7 @@
     </el:info>
     <el:luamain><![CDATA[
 -- Created with the help of BBE 1.05
-
 -- Initialisation
-
-Require("levels/lib/ant.lua")
-
 levelh=15
 levelw=20
 enigma.FlatForce=30
@@ -30,18 +27,15 @@ enigma.ElectricForce=30
 oxyd_default_flavor = "b"
 num_diffsounds = 4
 num_diffpulses = 3
-
 triggerstone = {}
 for j = 0,17 do
   triggerstone[j] = -1
 end
-
 choosefrom = "abcdehijlpqrswy"
 chosensound = {}
 for j = 1,strlen(choosefrom) do
   chosensound[j] = -1
 end
-
 if difficult then
   diffsound = {}
   local diffelem = {}
@@ -90,7 +84,6 @@ if difficult then
     end
   end
 end
-
 oxydsound = {}
 for j = 0,8 do
   local c
@@ -110,11 +103,8 @@ for j = 0,8 do
   end
   oxydsound[2*j+1] = oxydsound[2*j]
 end
-
 lasttriggered = -1
-
 -- Set a trigger (parent)
-
 counter = 0
 function settrigger(x,y)
   local c
@@ -138,7 +128,6 @@ function settrigger(x,y)
     set_floor("fl-trigger", x, y)
   end
 end
-
 function triggerfunc(onoff, sender)
   if enigma.GetAttrib(sender, "mystate") == 1 then
     local mynumber = enigma.GetAttrib(sender, "mynumber")
@@ -183,9 +172,7 @@ function triggerfunc(onoff, sender)
     end
   end
 end
-
 -- Set stone with name "mystone"..counter2  (mostly an artifact)
-
 counter2 = 0
 function setmystone(x,y,st)
   if st == "st-oxyd" then
@@ -196,15 +183,11 @@ function setmystone(x,y,st)
   SetAttrib(enigma.GetStone(x,y), "name", "mystone"..tostring(counter2))
   counter2 = counter2 + 1
 end
-
 -- Sound-string playing
-
 -- Remark: This timer-callback-function plays a sound defined by its
 --         first character, then deletes this. The sound is saved in
 --         the global variable "soundstring".
-
 soundstring = ""
-
 function soundstring_timercallback()
   local s = ""
   if strlen(soundstring) == 1 then
@@ -249,13 +232,10 @@ function soundstring_timercallback()
     enigma.EmitSound(soundstone, play)
   end
 end
-
 -- The level itself
-
 function ac_blackball(x,y)
   set_actor("ac-blackball",x+0.5,y+0.5,{player=0,name="blackball",mouseforce=1})
 end
-
 cells={}
 items={}
 actors={}
@@ -335,7 +315,6 @@ create_world_by_map(level)
 draw_map(0,0,stmap,stones)
 draw_map(0,0,itmap,items)
 draw_map(0,0,acmap,actors)
-
 soundstone = set_stone("st-timer", 0, 14, {action="callback",
   target="soundstring_timercallback", interval=0.3})
     ]]></el:luamain>

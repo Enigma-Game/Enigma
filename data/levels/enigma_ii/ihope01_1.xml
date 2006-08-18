@@ -8,6 +8,7 @@
       <el:copyright>Copyright © ihope</el:copyright>
       <el:license el:type="GPL v2.0 or above" el:open="true"/>
       <el:compatibility el:enigma="0.92">
+       <el:dependency el:path="lib/ant" el:id="lib/ant" el:release="1" el:preload="true"/>
       </el:compatibility>
       <el:modes el:easy="false" el:single="true" el:network="false"/>
       <el:comments>
@@ -17,8 +18,6 @@
     </el:info>
     <el:luamain><![CDATA[
 -- !!BBE105!! Do not delete this line
-
-Require("levels/lib/ant.lua")
 
 function file_oxyd(x,y,f)
     oxyd_default_flavor=f

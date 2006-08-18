@@ -8,6 +8,7 @@
       <el:copyright>Copyright © 2006 Raoul Bourquin</el:copyright>
       <el:license el:type="GPL v2.0 or above" el:open="true"/>
       <el:compatibility el:enigma="0.92">
+       <el:dependency el:path="lib/ant" el:id="lib/ant" el:release="1" el:preload="true"/>
       </el:compatibility>
       <el:modes el:easy="true" el:single="true" el:network="false"/>
       <el:comments>
@@ -16,31 +17,24 @@
       <el:score el:easy="-" el:difficult="-"/>
     </el:info>
     <el:luamain><![CDATA[
-Require("levels/lib/ant.lua")
 
 function file_oxyd(x,y,f)
     oxyd_default_flavor=f
     oxyd(x,y)
 end
-
 levelh=13
 levelw=20
-
 cells={}
 stones={}
-
 stones[" "]=cell{}
 cells[" "]=cell{}
-
 cells[" "]=cell{floor="fl-water"}
 cells["#"]=cell{floor="fl-concrete"}
 --cells["#"]=cell{floor="fl-sand"}
-
 stones["O"]=cell{parent={{file_oxyd,"b"}}}
 stones["S"]=cell{stone="st-black4"}
 stones["W"]=cell{stone="st-white4"}
 stones["Y"]=cell{stone="st-yinyang1"}
-
 level={"                    ",
        " ####          #### ",
        " #  ##       ###### ",
@@ -83,16 +77,12 @@ stmap={"                    ",
        "       O     O SSSS ",
        "                    "}
 end
-
 create_world_by_map(level)
 draw_map(0,0,stmap,stones)
-
 set_item("it-yinyang",3,10)
 set_item("it-yinyang",16,2)
-
 set_actor("ac-blackball",2.5,10.5,{player=0,name="bb"})
 set_actor("ac-whiteball",17.5,2.5,{player=1,name="wb"})
-
 oxyd_shuffle()
     ]]></el:luamain>
     <el:i18n>

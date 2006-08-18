@@ -132,7 +132,7 @@ set_actor("ac-blackball", 15.5, 9.5)
         <el:english el:translate="false"/>
       </el:string>
       <el:string el:key="text1">
-        <el:english el:translate="false"></el:english>
+        <el:english el:translate="false"> </el:english>
       </el:string> 
     </el:i18n>
   </el:protected>

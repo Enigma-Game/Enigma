@@ -8,6 +8,7 @@
       <el:copyright>Copyright © 2005 Andreas Lochmann</el:copyright>
       <el:license el:type="GPL v2.0 or above" el:open="true"/>
       <el:compatibility el:enigma="0.92">
+       <el:dependency el:path="lib/ant" el:id="lib/ant" el:release="1" el:preload="true"/>
       </el:compatibility>
       <el:modes el:easy="true" el:single="true" el:network="false"/>
       <el:comments>
@@ -17,8 +18,6 @@
     </el:info>
     <el:luamain><![CDATA[
 -- Created with the help of BBE 1.05
-
-Require("levels/lib/ant.lua")
 
 function file_oxyd(x,y,f)
     oxyd_default_flavor=f
@@ -84,7 +83,6 @@ else
   cells["d"]=cell{floor="fl-gradient12"}
 end
 cells["R"]=cell{parent={{random_gradient}}}
-
 -- Gradienten
 --   1   v
 --   2   ^
@@ -98,7 +96,6 @@ cells["R"]=cell{parent={{random_gradient}}}
 --  10  > ^  Spitze
 --  11  < v  Spitze
 --  12  < ^  Spitze
-
    level={"                    ",
           " BvvvvvvvvvvvvvvvvA ",
           " >                < ",

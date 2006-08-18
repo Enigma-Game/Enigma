@@ -8,6 +8,7 @@
       <el:copyright>Copyright © 2005 Lukas Schueller</el:copyright>
       <el:license el:type="GPL v2.0 or above" el:open="true"/>
       <el:compatibility el:enigma="0.92">
+       <el:dependency el:path="lib/natmaze" el:id="lib/natmaze" el:release="1" el:preload="true"/>
       </el:compatibility>
       <el:modes el:easy="true" el:single="true" el:network="false"/>
       <el:comments>
@@ -42,7 +43,7 @@ floors = {
 }
 --------------------------------------------------
 -- The Maze
-Require("levels/lib/natmaze.lua")
+
 maze = new_kruskal_maze(8,8)
 startx, starty = random(maze.width-2), random(maze.height-2)
 offsetx = 8.5

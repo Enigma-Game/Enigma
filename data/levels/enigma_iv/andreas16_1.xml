@@ -8,6 +8,7 @@
       <el:copyright>Copyright © 2006 Andreas Lochmann</el:copyright>
       <el:license el:type="GPL v2.0 or above" el:open="true"/>
       <el:compatibility el:enigma="0.92">
+       <el:dependency el:path="lib/ant" el:id="lib/ant" el:release="1" el:preload="true"/>
       </el:compatibility>
       <el:modes el:easy="true" el:single="true" el:network="false"/>
       <el:comments>
@@ -18,33 +19,26 @@
     <el:luamain><![CDATA[
 -- Created with the help of BBE 1.05
 
-Require("levels/lib/ant.lua")
 function file_oxyd(x,y,f)
     oxyd_default_flavor=f
     oxyd(x,y)
 end
-
 levelh=25
 levelw=39
-
 enigma.FlatForce=30
 enigma.SlopeForce=30
 enigma.ElectricForce=30
-
 cells={}
 items={}
 actors={}
 stones={}
-
 actors[" "]=cell{}
 stones[" "]=cell{}
 cells[" "]=cell{}
 items[" "]=cell{}
-
 cells["!"]=cell{floor="fl-brick"}
 stones["!"]=cell{stone="st-rock4"}
 cells["#"]=cell{floor="fl-abyss"}
-
 function ac_blackball(x,y)
 n=""
 p=0
@@ -56,13 +50,11 @@ f=0
  end
 set_actor("ac-blackball",x+0.5,y+0.5,{player=p,name=n,mouseforce=mf})
 end
-
 actors["!"]=cell{parent={{ac_blackball}}}
 --stones["#"]=cell{stone="st-invisible"}
 stones["#"]=cell{stone="st-stonebrush"}
 items["!"]=cell{item="it-brush"}
 stones["$"]=cell{parent={{file_oxyd,"a"}}}
-
 level={"!!!!!!!!!!!!!!!!!!!!!!!!!!!############",
        "!!!!!!!!!!!!!!!!!!!!!!!!!!!############",
        "!!!!!!!!!!!!!!!!!!!!!!!!!!!############",
@@ -163,14 +155,11 @@ stmap={"!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!",
         "!                                     !",
         "!                                     !",
         "!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!"}
-
 create_world_by_map(level)
 draw_map(0,0,stmap,stones)
 draw_map(0,0,itmap,items)
 draw_map(0,0,acmap,actors)
-
 randomseed( enigma.GetTicks() )
-
 --colour = {}
 uhrlaeuft = 1.0
 richtung = 1.0
@@ -181,7 +170,6 @@ count = 0
 malen = 0
 hinweis = 0
 TIMERINT = 0.8
-
 function timercallback()  -- Every 0.8 seconds something happens...
   if (uhrlaeuft == 1.0) and (zerstoert == 0.0) then -- forget these
     -- remove clock from its old position
@@ -246,18 +234,15 @@ function timercallback()  -- Every 0.8 seconds something happens...
     end        
   end
 end
-
 function hitclock()
   richtung = richtung + 1.0
   if richtung == 5.0 then
     richtung = 1.0
   end
 end
-
 set_stone("st-timer", 0, 0, {action="callback", target="timercallback", interval=TIMERINT} )
 set_stone("st-fourswitch",posx,posy, {action="callback", target="hitclock"})
 set_item("it-brush", 2, 3, {name="thisbrush"})
-
 oxyd_shuffle()
     ]]></el:luamain>
     <el:i18n>

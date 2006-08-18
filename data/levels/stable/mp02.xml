@@ -8,6 +8,7 @@
       <el:copyright>Copyright © 2005 moonpearl</el:copyright>
       <el:license el:type="GPL v2.0 or above" el:open="true"/>
       <el:compatibility el:enigma="0.92">
+       <el:dependency el:path="lib/ant" el:id="lib/ant" el:release="1" el:preload="true"/>
       </el:compatibility>
       <el:modes el:easy="false" el:single="true" el:network="false"/>
       <el:comments>
@@ -18,28 +19,21 @@
     <el:luamain><![CDATA[
 -- Reordering of the Landscapes by Raoul in 2006
 
-Require("levels/lib/ant.lua")
-
 function file_oxyd(x,y,f)
     oxyd_default_flavor=f
     oxyd(x,y)
 end
-
 levelh=61
 levelw=58
-
 enigma.FlatForce=30
 enigma.SlopeForce=30
 enigma.ElectricForce=30
-
 cells={}
 items={}
 stones={}
-
 stones[" "]=cell{}
 cells[" "]=cell{}
 items[" "]=cell{}
-
 cells["!"]=cell{floor="fl-normal"}
 --------------------------------------------------------------------
 -- FLOORS
@@ -52,7 +46,6 @@ cells["'"]=cell{floor="fl-leavesb"}
 cells["&"]=cell{floor="fl-rough-red"}
 cells["%"]=cell{floor="fl-bumps"}
 cells["$"]=cell{floor="fl-rough-blue"}
-
 level={"!!!              !!!                  %%%%%%%%%%%%%%%%%%%%",
        "!$!!!!      !!!!!!$!                  %%%%%%%%%%%%%%%%%%%%",
        "!$$$$!      !$$$$$$!                  %%%%%%%%%%%%%%%%%%%%",
@@ -134,7 +127,6 @@ stones["2"]=cell{stone="st-knight"}
 stones["/"]=cell{stone="st-death_invisible"}
 stones["0"]=cell{stone="st-laser-e"}
 stones["O"]=cell{stone="st-invisible"}
-
 --      0    5    0    5    0    5    0    5    0    5    0    5 7
 stmap={"!#$              $!$O                 ))))))))))))))))))))",--0
        "# $&            $$ $O                 ) )   '  )  '  )  !)",
@@ -210,7 +202,6 @@ items[")"]=cell{item="it-spring2"}
 items["*"]=cell{item="it-spring1"}
 items["+"]=cell{item="it-trigger"}
 items[","]=cell{item="it-yinyang"}
-
 --      0    5    0    5    0    5    0    5    0    5    0    5 7
 itmap={"                                                          ",--0
        " !                                     #                  ",
@@ -278,7 +269,6 @@ itmap={"                                                          ",--0
 create_world_by_map(level)
 draw_map(0,0,stmap,stones)
 draw_map(0,0,itmap,items)
-
 --OXYDS
 SetAttrib(enigma.GetStone(0,0),"color","0")
 SetAttrib(enigma.GetStone(48,52),"color","0")
@@ -290,36 +280,26 @@ SetAttrib(enigma.GetStone(8,3),"color","3")
 SetAttrib(enigma.GetStone(45,26),"color","3")
 SetAttrib(enigma.GetStone(0,4),"color","6")
 SetAttrib(enigma.GetStone(18,0),"color","6")
-
 --TEXTE
 SetAttrib(enigma.GetItem(11,10),"text","text1")
-
 SetAttrib(enigma.GetItem(39,1),"text","text2")
-
 SetAttrib(enigma.GetItem(1,32),"text","text3")
-
 SetAttrib(enigma.GetItem(2,27),"text","text4")
-
 SetAttrib(enigma.GetItem(41,26),"text","text5")
-
 SetAttrib(enigma.GetItem(41,51),"text","text6")
-
 --LASER
 SetAttrib(enigma.GetStone(39,53),"init",FALSE)
 SetAttrib(enigma.GetItem(41,55),"invisible",FALSE)
 Signal ("it(41 55)","st(39 53)")
-
 --TUNNELS
 set_item("it-vortex-open", 49, 7, {targetx = 13.5, targety =  10.5, name="vortex0"})
 set_item("it-vortex-open", 9, 31, {targetx = 13.5, targety =  10.5, name="vortex1"})
 set_item("it-vortex-open", 55, 35, {targetx = 13.5, targety =  10.5, name="vortex2"})
 set_item("it-vortex-open", 54, 58, {targetx = 13.5, targety =  10.5, name="vortex3"})
-
 set_item("it-wormhole", 19, 2, {targetx = 38.5, targety =  2.5, name="vortex4", strength=0})
 set_item("it-vortex-open", 18, 9, {targetx = 1.5, targety =  25.5, name="vortex5"})
 set_item("it-vortex-open", 1, 11, {targetx = 40.5, targety =  25.5, name="vortex6"})
 set_item("it-vortex-open", 7, 5, {targetx = 41.5, targety =  50.5, name="vortex7"})
-
 -- ACTORS
 set_actor("ac-whiteball",1.5,3.5)
 set_actor("ac-blackball",13.5,10.5,{player=0})

@@ -8,6 +8,7 @@
       <el:copyright>Copyright © 2006 Spaceman</el:copyright>
       <el:license el:type="GPL v2.0 or above" el:open="true"/>
       <el:compatibility el:enigma="0.92">
+       <el:dependency el:path="lib/ant" el:id="lib/ant" el:release="1" el:preload="true"/>
       </el:compatibility>
       <el:modes el:easy="false" el:single="true" el:network="false"/>
       <el:comments>
@@ -19,30 +20,22 @@
 -- Levelcode cleaned by raoul 3.2006
 -- !!BBE105!! Do not delete this line
 
-Require("levels/lib/ant.lua")
-
 function file_oxyd(x,y,f)
     oxyd_default_flavor=f
     oxyd(x,y)
 end
-
 levelh=13
 levelw=20
-
 cells={}
 stones={}
-
 stones[" "]=cell{}
 cells[" "]=cell{}
-
 cells["!"]=cell{floor="fl-inverse"}
 cells["#"]=cell{floor="fl-normal"}
 cells["$"]=cell{floor="fl-acwhite"}
-
 stones["#"]=cell{stone="st-likeoxydb"}
 stones["$"]=cell{parent={{file_oxyd,"b"}}}
 stones["!"]=cell{stone="st-marble"}
-
 level={"!!!!!!!!!!!!!!!!!!!!",
        "!!#!#!#!#!#!#!#!#!#!",
        "!#!$!#!#!$!#!#!#!#!!",
@@ -56,7 +49,6 @@ level={"!!!!!!!!!!!!!!!!!!!!",
        "!#!#!#!$!#!$!#!#!#!!",
        "!!#!#!#!#!#!#!#!#!#!",
        "!!!!!!!!!!!!!!!!!!!!"}
-
  stmap={"!!!!!!!!!!!!!!!!!!!!",
         "!                  !",
         "!  $     #    #    !",
@@ -70,12 +62,9 @@ level={"!!!!!!!!!!!!!!!!!!!!",
         "!     ##   #    $  !",
         "!            $     !",
         "!!!!!!!!!!!!!!!!!!!!"}
-
 create_world_by_map(level)
 draw_map(0,0,stmap,stones)
-
 set_actor("ac-blackball",18.5,1.5,{player=0,name="bb"})
-
 oxyd_shuffle()
     ]]></el:luamain>
     <el:i18n>

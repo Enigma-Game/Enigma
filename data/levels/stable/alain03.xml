@@ -8,6 +8,7 @@
       <el:copyright>Copyright © 2005 Alain Busser</el:copyright>
       <el:license el:type="GPL v2.0 or above" el:open="true"/>
       <el:compatibility el:enigma="0.92">
+       <el:dependency el:path="lib/ant" el:id="lib/ant" el:release="1" el:preload="true"/>
       </el:compatibility>
       <el:modes el:easy="false" el:single="true" el:network="false"/>
       <el:comments>
@@ -16,15 +17,12 @@
       <el:score el:easy="-" el:difficult="-"/>
     </el:info>
     <el:luamain><![CDATA[
-Require("levels/lib/ant.lua")
 
 cells={}
-
 cells[" "]=cell{floor="fl-leaves"}
 cells["#"]=cell{stone="st-likeoxyda"}
 cells["o"]=cell{actor={"ac-whiteball-small", {player=0}}}
 cells["+"]=cell{item="it-hollow"}
-
 level = {
    "####################",
    "#        oo        #",
@@ -40,11 +38,8 @@ level = {
    "#        +         #",
    "####################"
 }
-
 set_default_parent(cells[" "])
-
 create_world_by_map(level,cells)
-
 oxyd_shuffle()
     ]]></el:luamain>
     <el:i18n>

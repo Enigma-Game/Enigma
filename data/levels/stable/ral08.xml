@@ -7,13 +7,13 @@
       <el:author  el:name="Ronald Lamprecht" el:email="ral@users.berlios.de"/>
       <el:copyright>Copyright © 2006 Ronald Lamprecht</el:copyright>
       <el:license el:type="GPL v2.0 or above" el:open="true"/>
-      <el:compatibility el:enigma="0.93"/>
+      <el:compatibility el:enigma="0.93">
+       <el:dependency el:path="lib/natmaze" el:id="lib/natmaze" el:release="1" el:preload="true"/>
+      </el:compatibility>
       <el:modes el:easy="true" el:single="true" el:network="false"/>
       <el:score el:easy="0:33" el:difficult="0:50"/>
     </el:info>
     <el:luamain><![CDATA[
-Require("levels/lib/natmaze.lua")
-
 enigma.ConserveLevel = FALSE
 
 function oxyd( x, y, tiles )

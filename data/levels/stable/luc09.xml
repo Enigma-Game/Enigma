@@ -8,6 +8,7 @@
       <el:copyright>Copyright © 2005 Lukas Schueller</el:copyright>
       <el:license el:type="GPL v2.0 or above" el:open="true"/>
       <el:compatibility el:enigma="0.92">
+       <el:dependency el:path="lib/ant" el:id="lib/ant" el:release="1" el:preload="true"/>
       </el:compatibility>
       <el:modes el:easy="false" el:single="true" el:network="false"/>
       <el:comments>
@@ -19,9 +20,7 @@
     <el:luamain><![CDATA[
 -- Dec/Jan 05/06: Added abyss, FOLLOW-Scrolling, and
 --                changed behaviour of the first doors; Raoul and Andreas
-
 --Environment
-Require("levels/lib/ant.lua")
 
 stateA = 0
 stateB = 0
@@ -70,7 +69,6 @@ function TriggerE()
   stateE = 1 - stateE
   --TriggerC()
 end
-
 multiplayer_mode()
 cells={}
 cells[" "]=cell{floor="fl-himalaya"}
@@ -141,7 +139,6 @@ set_default_parent(cells[" "])
 create_world_by_map(level)
 oxyd_shuffle()
 SendMessage(enigma.GetNamedObject("doorz"), "open");
-
 display.SetFollowMode(display.FOLLOW_SCROLLING)
     ]]></el:luamain>
     <el:i18n>

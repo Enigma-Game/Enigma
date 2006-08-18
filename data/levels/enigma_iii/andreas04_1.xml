@@ -8,6 +8,7 @@
       <el:copyright>Copyright © 2006 Andreas Lochmann</el:copyright>
       <el:license el:type="GPL v2.0 or above" el:open="true"/>
       <el:compatibility el:enigma="0.92">
+       <el:dependency el:path="lib/ant" el:id="lib/ant" el:release="1" el:preload="true"/>
       </el:compatibility>
       <el:modes el:easy="false" el:single="true" el:network="false"/>
       <el:comments>
@@ -18,8 +19,6 @@
     </el:info>
     <el:luamain><![CDATA[
 -- Created with the help of BBE 1.05
-
-Require("levels/lib/ant.lua")
 
 function file_oxyd(x,y,f)
     oxyd_default_flavor=f
@@ -329,14 +328,12 @@ create_world_by_map(level)
 draw_map(0,0,stmap,stones)
 draw_map(0,0,itmap,items)
 draw_map(0,0,acmap,actors)
-
 set_item("it-wormhole",14, 8, {targetx="14.5",targety="42.5",strength=0})
 set_item("it-wormhole",14,16, {targetx="14.5",targety="48.5",strength=0})
 set_item("it-wormhole",14,41, {targetx="16.5",targety="8.5",strength=0})
 set_item("it-wormhole",14,49, {targetx="15.5",targety="16.5",strength=0})
 set_item("it-wormhole", 8,14, {targetx="8.5",targety="48.5",strength=0})
 set_item("it-wormhole", 8,47, {targetx="9.0",targety="14.5",strength=0})
-
 -- SetAttrib(enigma.GetItem(14,8),"strength",0)
 -- SetAttrib(enigma.GetItem(14,16),"strength",0)
 -- SetAttrib(enigma.GetItem(14,41),"strength",0)
@@ -349,7 +346,6 @@ set_item("it-wormhole", 8,47, {targetx="9.0",targety="14.5",strength=0})
 -- Signal ("it(14 49)","fl(15 16)")
 -- Signal ("it(8 14)","fl(8 48)")
 -- Signal ("it(8 47)","fl(8 14)")
-
 SetAttrib(enigma.GetItem(5,4),"invisible",FALSE)
 SetAttrib(enigma.GetItem(6,16),"invisible",FALSE)
 SetAttrib(enigma.GetStone(10,12),"init",FALSE)
@@ -388,11 +384,9 @@ Signal ("st(8 8)","st(11 8)")
 Signal ("st(8 8)","st(15 12)")
 Signal ("st(8 8)","st(11 15)")
 Signal ("st(8 8)","st(7 12)")
-
 if not difficult then
   set_item("it-flagblack",17,9)
 end
-
 display.SetFollowMode(display.FOLLOW_SCROLLING)
 oxyd_shuffle()
     ]]></el:luamain>

@@ -16,8 +16,6 @@
       <el:score el:easy="-" el:difficult="0:47"/>
     </el:info>
     <el:luamain><![CDATA[
-Require("levels/lib/natmaze.lua")
-
 enigma.ConserveLevel = FALSE
 math_floor = floor
 
