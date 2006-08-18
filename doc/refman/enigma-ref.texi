@@ -2986,7 +2986,7 @@ st-laser-[ensw]( on )
 st-laserbreak
 st-laserswitch
 st-lasertimeswitch( delay )
-st-lightpassenger( interval )
+st-lightpassenger( interval friction_factor gradient_factor )
 st-magic
 st-mail-[ensw]
 st-mirror-3<
@@ -3300,11 +3300,30 @@ but it does not open oxyds (this is intended).
 The light passenger can't be pushed by a marble, but e.g. by an
 impulse- or pull-stone.
 
+The speed of the light passenger can be changed with the
+@code{interval}-attribute (default 50 ms, which is quite fast) and may
+include the floor friction and local gradient via
+@code{friction_factor} (ff) and @code{gradient_factor} (gf).
+The resulting interval results as
+
+@example
+interval  =  base * (1 + ff * friction) / (1 + gf * gradient)
+@end example
+
+with @code{base} the value of the @code{interval}-attribute,
+@code{friction} the friction of the floor below the light passenger,
+and @code{gradient} the parallel part of the force of the floor,
+i.e. the sum of gradient-force and @code{force_x/y}-attributes.
+
 @strong{Attributes}
 
 @table @code
 @item interval
 overrides the standard speed of the light passenger
+@item friction_factor
+involves friction into the speed of the light passenger (sensible: 1.0)
+@item gradient_factor
+involves gradients into the speed of the light passenger (sensible: 0.02)
 @end table
 
 @strong{Messages}

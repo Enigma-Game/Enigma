@@ -37,7 +37,7 @@ namespace world
 
     struct FloorTraits {
         // Variables
-	string     name;
+        string     name;
         double     friction;
         double     mousefactor;
         FloorFlags flags;
@@ -61,7 +61,7 @@ namespace world
 
         // Floor interface
         virtual ecl::V2 process_mouseforce (Actor *a, ecl::V2 force);
-        virtual void add_force(Actor *, ecl::V2 &);
+        virtual void add_force(Actor *, ecl::V2 &);  // Note: actor = 0 must be allowed!
 
         virtual void on_drop (Item *) {}
         virtual void on_pickup (Item *) {}
@@ -73,7 +73,7 @@ namespace world
         virtual double mousefactor() const;
 
         virtual void get_sink_speed (double &sinkspeed, double &raisespeed) const;
-	virtual bool is_destructible() const;
+        virtual bool is_destructible() const;
     protected:
         // GridObject interface
         void set_model (const std::string &mname);

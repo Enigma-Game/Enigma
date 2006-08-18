@@ -2062,24 +2062,34 @@ namespace
             isLighted = false;
         }
         void notify_laseron(){
-            if (!isLighted) GameTimer.set_alarm(this, get_interval(), true);
+            if (!isLighted) GameTimer.set_alarm(this, get_interval(), false);
             isLighted = true;
         }        
 
-	double get_interval() {
+        double get_interval() {
+            /*  Interval is calculated from
+                        1 + friction_factor * friction
+            interval = -------------------------------- * baseinterval
+                        1 + gradient_factor * gradient
+                and min-maxed to sensible values. "gradient" is just
+                the force resulting from floor->add_force. "baseinterval"
+                is 50 ms or the interval given in "interval".
+            */
+            double base = 0.05;
             if (const Value *v = this->get_attrib("interval")) 
-	        return to_double(*v);
-            return 0.05;
-	}
-
-        void set_attrib (const string& key, const Value &val)
-        {
-            PhotoStone::set_attrib (key, val);
-            // Reset timer via notify_laser* to activate new interval.
-            if (key == "interval" && isLighted) {
-                notify_laseroff();
-                notify_laseron();
-            }
+                base = to_double(*v);
+            if (const Value *f = this->get_attrib("friction_factor"))
+                base *= 1.0 + to_double(*f) * GetFloor(get_pos())->friction();
+            if (const Value *g = this->get_attrib("gradient_factor"))
+                if (skateDir != NODIR) {
+                    V2 vec = V2(0.0,0.0);
+                    double quot = 0;
+                    GetFloor(get_pos())->add_force(0, vec);
+                    quot = skateDir == NORTH ? -vec[1] : skateDir == SOUTH ? vec[1] :
+                        skateDir == EAST ? vec[0] : skateDir == WEST ? -vec[0] : 0;
+                    base /= max(1.0 + to_double(*g) * quot, 0.01);                    
+                }
+            return max(base, 0.02);
         }
 
         void set_on(bool newon){
@@ -2113,7 +2123,7 @@ namespace
                     if(skateDir == NODIR) {
                         toSouth = IntegerRand(0,1) ? 0 : toSouth;
                         toWest = toSouth ? 0 : toWest;
-		    }
+                    }
                 }                
                 skateDir = (toSouth == 1) ? SOUTH : (toSouth == -1) ? NORTH :
                     (toWest == 1) ? WEST : (toWest == -1) ? EAST : NODIR;
@@ -2124,8 +2134,9 @@ namespace
                         // natural. That's why impulse is delayed:
                         send_impulse(move(p, skateDir), skateDir, get_interval());
                     }
-                    move_stone(skateDir);                    
+                    move_stone(skateDir);
                 }
+                GameTimer.set_alarm(this, get_interval(), false);
             }
         }
         

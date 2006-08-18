@@ -98,6 +98,7 @@ void Floor::kill_model (GridPos p)
 
 void Floor::add_force (Actor *, V2 &f)
 {
+    // Note that actor = 0 is possible from lightpassenger-calculation.
     if(const Value *x = this->get_attrib("force_x")) {
         f[0] += to_double(*x);
     }
