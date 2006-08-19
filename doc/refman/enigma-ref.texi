@@ -2558,18 +2558,21 @@ Compare with @code{st-thief} (@ref{st-thief}).
 
 @menu
 * Item List::                   A complete list of all items
+* it-brake::                    Brake Item
 * it-brush::                    Brush
 * it-document::                 Scrolls of Paper
 * it-drop::                     Transmuting Liquid
 * it-floppy::                   Floppy Disk
+* it-hammer::                   Hammer
 * it-hollow::                   Pits in the floor
 * it-magicwand::                Magic Wand
 * it-pencil::                   Pencil
 * it-ring::                     Ring
+* it-sword::                    Sword
 * it-vortex::                   Vortices for Teleporting
 @end menu
 
-@node Item List, it-brush, Items, Items
+@node Item List, it-brake, Items, Items
 @subsection Item List
 
 @example
@@ -2685,19 +2688,28 @@ it-wrench
 it-yinyang
 @end example
 
+@c -------------------- Brake Item --------------------
+@node it-brake, it-brush, Item List, Items
+@subsection it-brake: Brake
+
+When used, this item creates an @ref{st-brake}, which itself can be
+picked up as @code{it-brake} again.  It can be used to destroy
+@ref{it-blocker}.
+
 @c -------------------- Brush --------------------
-@node it-brush, it-document, Item List, Items
+@node it-brush, it-document, it-brake, Items
 @subsection it-brush: Brush
 
 This item can be used to make some invisible stones visible
-(st-actorimpulse_invisible (see @ref{st-actorimpulse}),
-@ref{st-break_invisible}, @ref{st-stonebrush}) and to remove debris
-from the level (@ref{it-burnable_ash}, @ref{it-burnable_fireproof},
+(@code{st-actorimpulse_invisible} (see @ref{st-actorimpulse}),
+@code{st-break_invisible} (see @ref{Breakable Stones}),
+@ref{st-stonebrush}) and to remove debris from the level
+(@ref{it-burnable_ash}, @ref{it-burnable_fireproof},
 @ref{it-squashed}, @ref{it-cross}).
 
-The Per.Oxyd-compatibility stone st-yinyang3 (see @ref{st-yinyang})
-must be touched with an it-brush or an @ref{it-magicwand} in order to
-activate it. 
+The Per.Oxyd-compatibility stone @code{st-yinyang3} (see
+@ref{st-yinyang}) must be touched with an @code{it-brush} or
+@ref{it-magicwand} in order to activate it. 
 
 @c -------------------- Document --------------------
 @node it-document, it-drop, it-brush, Items
@@ -2727,14 +2739,23 @@ Transforms the marble into an @ref{ac-rotor} for a short time.
 Can be used multiple times.
 
 @c -------------------- Floppy --------------------
-@node it-floppy, it-hollow, it-drop, Items
+@node it-floppy, it-hammer, it-drop, Items
 @subsection it-floppy: Floppy Disk
 
 The floppy disk is needed to activate the Floppy switch (see
 @ref{st-floppy}).
 
+@c -------------------- Hammer --------------------
+@node it-hammer, it-hollow, it-floppy, Items
+@subsection it-hammer: Hammer
+
+The hammer is used to destroy some stones, see @ref{Breakable
+Stones}. It also transforms into @ref{it-sword} when hit with a laser
+beam and is itself laser-transformation-result of @ref{it-sword} and
+@code{it-coin2} (see @ref{it-coin}).
+
 @c -------------------- Hollow --------------------
-@node it-hollow, it-magicwand, it-floppy, Items
+@node it-hollow, it-magicwand, it-hammer, Items
 @subsection it-hollow: Hollows in the floor
 
 This item creates a hollow in the floor.
@@ -2774,8 +2795,7 @@ clusters explode (@ref{st-puzzle}).
 @item
 Makes @code{st-brick_magic} transparent (@ref{st-brick_magic}).
 @item
-Makes @code{st-invisible_magic} visible and non-transparent
-(@ref{st-invisible_magic}).
+Makes @ref{st-invisible_magic} visible and non-transparent.
 @item
 Makes rubberband stones movable (@ref{st-rubberband}).
 @item
@@ -2793,7 +2813,7 @@ after this. Scratching onto ice results in a crack, scratching
 while flying or on certain floors results in dropping the pencil.
 
 @c -------------------- Ring --------------------
-@node it-ring, it-vortex, it-pencil, Items
+@node it-ring, it-sword, it-pencil, Items
 @subsection it-ring: Ring
 
 When a player drops this item, the marble is teleported.  The
@@ -2808,8 +2828,15 @@ to the position of the last dropped @ref{it-flag}.
 Both marbles exchange their positions.
 @end table
 
+@c -------------------- Sword --------------------
+@node it-sword, it-vortex, it-ring, Items
+@subsection it-sword: Sword
+
+Used to neutralize @ref{st-knight}.  Laser-transforms into
+@ref{it-hammer} and vice versa.
+
 @c -------------------- Vortex -------------------- 
-@node it-vortex,  , it-ring, Items
+@node it-vortex,  , it-sword, Items
 @subsection it-vortex: Vortex
 
 Vortices, like wormholes, can be used to teleport marbles.  In the
@@ -2840,7 +2867,14 @@ Signal ("it(20 1)", "it(1 1)")
 
 @menu
 * Stone List::                  A complete list of all stones
+* Breakable Stones::            A summary of all breakable stones
+* Oxyd Compatibility Stones::   Special stones for oxyd compatibility and debugging
 * st-actorimpulse::             Bumper Stones
+* st-[black/white]::            Black and white stones
+* st-block::                    Movable and sinkable stone
+* st-bombs::                    Bombstone
+* st-brake::                    Brake
+* st-brick_magic::              Magic Brick Stone
 * st-chameleon::                Chameleon Stone
 * st-chess_[black/white]::      Chess (Knight) Stone
 * st-coinslot::                 Coin Slot Switch
@@ -2851,6 +2885,8 @@ Signal ("it(20 1)", "it(1 1)")
 * st-flash::                    Flash Stone
 * st-floppy::                   Floppy Switch
 * st-grate::                    Various Grates
+* st-invisible_magic::          Magic Invisible Stone
+* st-knight::                   Knight Stone
 * st-laserswitch::              Laser Switch
 * st-lasertimeswitch::          Laser Time Switch
 * st-lightpassenger::           Light Passenger
@@ -2860,7 +2896,7 @@ Signal ("it(20 1)", "it(1 1)")
 * st-rubberband::               Rubberband Stone
 * st-scissors::                 Scissors Stone
 * st-shogun-<sml>::             Shogun Stones
-* st-stone_break::              Breakable Stone
+* st-stonebrush::               Brush Stone
 * st-swap::                     Swap Stones
 * st-switch::                   Ordinary Switches
 * st-thief::                    Thiefs
@@ -2871,7 +2907,7 @@ Signal ("it(20 1)", "it(1 1)")
 * st-yinyang::                  Yin-Yang Stones
 @end menu
 
-@node Stone List, st-actorimpulse, Stones, Stones
+@node Stone List, Breakable Stones, Stones, Stones
 @subsection Stone List
 
 @strong{Simple stones}
@@ -3077,22 +3113,154 @@ st-wood-growing
 st-yinyang@{1..3@}
 @end example
 
+@node Breakable Stones, Oxyd Compatibility Stones, Stone List, Stones
+@subsection Breakable Stones
 
-@node st-actorimpulse, st-chameleon, Stone List, Stones
+A list of all breakable stones and what may break them. Messages are
+given in quotation marks. ``pyro'' is short for dynamite, bombs,
+bombstones, ``ignite'', ``expl'' and ``bombstone''.
+
+@table @code
+@item st-stone_break, st-rock3_break, st-break_gray
+hammer, laser, pyro
+@item st-break_acblack
+@ref{ac-blackball} with hammer, laser, pyro
+@item st-break_acwhite
+@ref{ac-whiteball} with hammer, laser, pyro
+@item st-break_bolder
+hammer, laser, bolder, ``trigger'', (pyro?)
+@item st-break_invisible
+hammer after using a brush
+@item st-laserbreak
+laser, pyro
+@item st-rock3_movebreak
+hammer, pyro; this stone is movable
+@item st-plain_break
+hammer, laser, pyro; falls into @ref{fl-abyss}
+@item st-plain_cracked
+hammer, pyro
+@item st-plain_move
+pyro; this stone is movable; falls into @ref{fl-abyss},
+@ref{fl-water} and @ref{fl-swamp}
+@item st-bug
+@ref{ac-bug}
+@item st-fart
+hammer, laser; see also @ref{st-fart}
+@item st-bombstone
+bombs, bombstones, ``expl'', ``bombstone''; see also @ref{st-bombs}
+@item st-brake
+laser, bombs, ``expl''; see also @ref{st-brake}
+@item st-puzzle
+see @ref{st-puzzle}
+@end table
+
+For the mentioned objects see @ref{it-hammer}, @ref{it-dynamite},
+@ref{it-blackbomb}, @ref{st-bombs}, @ref{st-bolder}, @ref{it-brush}.
+
+
+@node Oxyd Compatibility Stones, st-actorimpulse, Breakable Stones, Stones
+@subsection Oxyd Compatibility Stones
+
+@code{st-magic} disappears when hit strong enough.
+
+@code{st-dummy} prints its own Oxyd code when hit.
+
+@code{st-peroxyd-0xb8}, @code{st-peroxyd-0xb9} and @code{st-oxyd-0x18}
+just seem to destroy themselves on creation, the former two creating
+@code{fl-normal} beneath them.  Their purpose in the original games is
+unknown.
+
+
+@node st-actorimpulse, st-[black/white], Oxyd Compatibility Stones, Stones
 @subsection st-actorimpulse: Bumper Stones
 
 These stones apply an impulse to actors that touch them.  The amount
 of force applied can be controlled by setting
-@ref{enigma.BumperForce} accordingly (the default is 800).
-Alternatively, the @code{force} attribute can be used to set this
-factor for @emph{individual} bumper stones.
+@code{enigma.BumperForce} (see @ref{Variables}) accordingly (the
+default is 800). Alternatively, the @code{force} attribute can be used
+to set this factor for @emph{individual} bumper stones.
+
+@strong{Attributes}
+
+@table @code
+@item force
+factor of the transmitted force (default 800)
+@item hit_factor
+factor of the transmitted force (overrides @code{force})
+@item hit_distortion_xx, hit_distortion_xy, hit_distortion_yx, hit_distortion_yy
+define a matrix to be applied to the force (default ((1,0),(0,1)))
+@end table
 
 @strong{Variants}
 
-The invisible variant, st-actorimpulse_invisible can be
+The invisible variant, @code{st-actorimpulse_invisible} can be
 ``painted'' with an @ref{it-brush}.
 
-@node st-chameleon, st-chess_[black/white], st-actorimpulse, Stones
+
+@node st-[black/white], st-block, st-actorimpulse, Stones
+@subsection st-[black/white]: Black and white stones
+
+These stones only let black respectively white marbles pass.
+
+@strong{Variants}
+
+@code{st-black} and @code{st-white} come in four flavors each:
+@code{st-black1} and @code{st-white1} are not transparent at all,
+@code{...2} has a diagonal bar, @code{...3} a cross and @code{...4}
+only consists of a black or white frame.
+
+See @ref{st-grate} for further stones which only special actors may
+pass.
+
+
+@node st-block, st-bombs, st-[black/white], Stones
+@subsection st-block: Solid Block
+
+This stone is movable and sinks on @ref{fl-abyss}, @ref{fl-water} and
+@ref{fl-swamp}.
+
+
+@node st-bombs, st-brake, st-block, Stones
+@subsection st-bombs: Bombstone
+
+When hit, these @code{st-bombs} adds an @ref{it-blackbomb} to the
+inventory.  It can be destroyed with explosions from
+@ref{it-blackbomb}, @ref{it-whitebomb} and other bombstones (see
+@ref{Breakable Stones}.  When exploding, it destroys items beneath
+it.
+
+@strong{Messages}
+
+@table @code
+@item expl, bombstone
+destroy stone
+@end table
+
+
+@node st-brake, st-brick_magic, st-bombs, Stones
+@subsection st-brake: Brake
+
+This stone can be picked up as item @ref{it-brake}.  It can be used to
+block @ref{st-bolder}.  It destroys @ref{it-blocker} and can itself be
+destroyed by lasers and explosions from bombs (@ref{it-blackbomb},
+@ref{it-whitebomb}).
+
+@strong{Messages}
+
+@table @code
+@item expl
+destroy stone
+@end table
+
+
+@node st-brick_magic, st-chameleon, st-brake, Stones
+@subsection st-brick_magic: Magic Brick Stone
+
+At first sight identical with @code{st-brick}, this stone becomes
+transparent when hit with an @ref{it-magicwand}.
+
+
+@node st-chameleon, st-chess_[black/white], st-brick_magic, Stones
 @subsection st-chameleon: Chameleon Stone
 
 This stone takes on the look of the floor beneath it.  Actors can
@@ -3141,8 +3309,8 @@ steps) and @code{direction2} (one step). You can use the @code{NORTH},
 @node st-coinslot, st-death, st-chess_[black/white], Stones
 @subsection st-coinslot
 
-A switch that can be activated with coins.  The more coins you put in,
-the longer the switch will stay activated.
+A switch that can be activated with coins (see @ref{it-coin}). The
+more coins you put in, the longer the switch will stay activated.
 
 @strong{Attributes}
 
@@ -3156,7 +3324,10 @@ As usual
 @subsection st-death: Skull Stones
 
 Simply kills all marbles that touch it (except when protected by an
-umbrella).
+@ref{it-umbrella}).
+
+The invisible variant @code{st-death_invisible} becomes visible while
+using @ref{it-glasses}.
 
 @strong{Variants}
 
@@ -3206,6 +3377,8 @@ easier in easy game mode.
 
 The fart stone has the unpleasant habit of ``blowing off'' when
 triggered (by actor hit or signal) and will close all Oxyd stones.
+It can be destroyed with lasers and @ref{it-hammer}, see also
+@ref{Breakable Stones}.
 
 @strong{Messages}
 
@@ -3244,11 +3417,14 @@ A switch that is activated by inserting a floppy disk (see @ref{it-floppy}).
 @item action
 @end table
 
-@node st-grate, st-laserswitch, st-floppy, Stones
+@node st-grate, st-invisible_magic, st-floppy, Stones
 @subsection st-grate: Grates
 
 Floating grates, mainly decorative.  Flying objects (jumping marbles,
 rotors, etc.) cannot pass, objects moving on the floor can.
+
+See @ref{st-[black/white]} for further stones that let only some
+actors pass.
 
 @strong{Variants}
 
@@ -3258,7 +3434,26 @@ rotors, etc.) cannot pass, objects moving on the floor can.
 @item st-grate3
 @end table
 
-@node st-laserswitch, st-lasertimeswitch, st-grate, Stones
+
+@node st-invisible_magic, st-knight, st-grate, Stones
+@subsection st-invisible_magic: Magic Invisible Stone
+
+This stone is initially invisible and transparent and turns into
+@code{st-greenbrown} when touched with @ref{it-magicwand}. Compare
+with @ref{st-stonebrush}.
+
+
+@node st-knight, st-laserswitch, st-invisible_magic, Stones
+@subsection st-knight: Knight Stone
+
+Also called ``black knight stone'', this stone destroys all marbles
+that hit it, as long as they are not protected by @ref{it-umbrella}
+or wield an @ref{it-sword}.  By hitting @code{st-knight} with an
+@code{it-sword} four times the knight stone spits out a cheeky remark
+and can be passed thereon, even without a sword.
+
+
+@node st-laserswitch, st-lasertimeswitch, st-knight, Stones
 @subsection st-laserswitch: Laser Switch
 
 This switch is @code{on} while hit by a laserbeam
@@ -3276,12 +3471,14 @@ Inverts the on/off state of the switch
 as usual
 @end table
 
+
 @node st-lasertimeswitch, st-lightpassenger, st-laserswitch, Stones
 @subsection st-lasertimeswitch: Laser Time Switch
 
 This switch is a mix between @ref{st-laserswitch} and @ref{st-timeswitch}.
 
-@node st-lightpassenger, , , Stones
+
+@node st-lightpassenger, st-oneway, st-lasertimeswitch, Stones
 @subsection st-lightpassenger: Light Passenger
 
 The light passenger skates on a laser beam and may push up to one
@@ -3336,7 +3533,7 @@ with parameter 0: deactivating, else activating
 @end table
 
 
-@node st-oneway, st-oxyd, st-lasertimeswitch, Stones
+@node st-oneway, st-oxyd, st-lightpassenger, Stones
 @subsection st-oneway: One-way Stones
 
 This stone can be passed by the marble in only one direction. (Or, to
@@ -3354,7 +3551,14 @@ color.
 
 @table @code
 @item st-oneway
-@item st-oneway-[nesw]
+@item st-oneway-[nesw]@strong{Attributes}
+
+@table @code
+@item hit_factor
+factor of the transmitted force (default 20)
+@item hit_distortion_xx, hit_distortion_xy, hit_distortion_yx, hit_distortion_yy
+define a matrix to be applied to the force (default 1,0,0,1)
+@end table
 @item st-oneway_black
 @item st-oneway_black-[nesw]
 @item st-oneway_white
@@ -3477,7 +3681,7 @@ The minimal length of the rubberband (default: 0)
 This stone cuts all rubber bands attached to an actor that touches it.
 
 
-@node st-shogun-<sml>, st-stone_break, st-scissors, Stones
+@node st-shogun-<sml>, st-stonebrush, st-scissors, Stones
 @subsection st-shogun-<sml>: Shogun Stones
 
 These stones come in three basic variants: small (@code{s}), medium
@@ -3490,14 +3694,15 @@ The shogun stones trigger shogun items (see @ref{it-shogun}).
 Shogun stones don't ignite bombs when pushed over them.
 
 
-@node st-stone_break, st-swap, st-shogun-<sml>, Stones
-@subsection st-stone_break: Breakable Stone
+@node st-stonebrush, st-swap, st-shogun-<sml>, Stones
+@subsection st-stonebrush: Brush Stone
 
-This stone can be destroyed by an actor having a hammer and by laser,
-dynamite, bombs and bombstones.
+This stone is initially invisible and turns into @code{st-rock4} when
+hit with an @ref{it-brush}, respectively into @code{st-likeoxydc-open}
+in Per.Oxyd compatibility mode. Compare with @ref{st-invisible_magic}.
 
 
-@node st-swap, st-switch, st-stone_break, Stones
+@node st-swap, st-switch, st-stonebrush, Stones
 @subsection st-swap: Swap Stone
 
 This stone can exchange its position with other neighboring stones
@@ -3615,20 +3820,28 @@ Inverts the on/off state of the switch.
 
 Hit this window heavily with your marble to blast it into smithereens.
 
+
 @node st-wood, st-yinyang, st-window, Stones
 @subsection st-wood: Wooden Stone
 
-This stone is movable.  If moved into abyss, water or swamp it builds
-a wooden plank.
+This stone is movable.  If moved into @ref{fl-abyss}, @ref{fl-water} or
+@ref{fl-swamp} it builds a wooden plank (@code{fl-stwood1} or
+@code{fl-stwood2}).  In Oxyd 1 compatibility mode @code{st-wood} only
+checks for floor when it is moved or when it receives the message
+``fall''.
 
 Note: There are two flavors of @code{st-wood} which may be specified
 by using @code{st-wood1} or @code{st-wood2}.
 
+@code{st-wood-growing} is a growing version of @code{st-wood}, it
+results from using a particular @ref{it-seed}.
+
+
 @node st-yinyang,  , st-wood, Stones
 @subsection st-yinyang: Yin-Yang Stones
 
-Yin-Yang stones change into @ref{st-white} or @ref{st-black}
-if you touch them.
+Yin-Yang stones change into @code{st-white1} or @code{st-black1}
+if you touch them (see @ref{st-[black/white]}).
 
 There are several flavors of this stone:
 
