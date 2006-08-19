@@ -8,7 +8,6 @@
       <el:copyright>Copyright © 2002-2003 Petr Machata</el:copyright>
       <el:license el:type="GPL v2.0 or above" el:open="true"/>
       <el:compatibility el:enigma="0.92">
-      <el:compatibility el:enigma="0.92">
         <el:dependency el:path="lib/natmaze" el:id="lib/natmaze" el:release="1" el:preload="false"/>
       </el:compatibility>
       <el:modes el:easy="false" el:single="false" el:network="false"/>
