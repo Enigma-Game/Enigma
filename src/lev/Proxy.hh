@@ -135,6 +135,7 @@ namespace enigma { namespace lev {
         Proxy::pathType getNormPathType();
         std::string getAbsLevelPath();
         void loadDependency(std::string depId);
+        void release();
     private:
         static Proxy *currentLevel;
         static std::map<std::string, Proxy *> cache;
@@ -171,7 +172,6 @@ namespace enigma { namespace lev {
                 int levelScoreVersion, int levelRelease, bool levelHasEasymode,
                 GameType levelCompatibilty, levelStatusType status);
         ~Proxy();
-        void release();
         void load(bool onlyMetadata);
         void loadLuaCode();
         void processDependencies();   

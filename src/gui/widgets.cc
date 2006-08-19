@@ -69,6 +69,20 @@ void Widget::resize (int w, int h) {
     area.w = w; area.h = h; 
 }
 
+bool Widget::on_event(const SDL_Event &e) {
+    switch (e.type) {
+    case SDL_KEYDOWN:
+        modifierKeys = e.key.keysym.mod;
+        mouseButton = SDL_BUTTON_LEFT;
+        break;
+    case SDL_MOUSEBUTTONDOWN:
+        modifierKeys = SDL_GetModState();
+        mouseButton = e.button.button;
+        break;
+    }
+    return false;
+}
+
 /* -------------------- Image -------------------- */
 
 void Image::draw (ecl::GC &gc, const ecl::Rect &/*r*/) {
@@ -555,6 +569,7 @@ PushButton::PushButton() : m_pressedp (false) {
 }
 
 bool PushButton::on_event(const SDL_Event &e) {
+    Widget::on_event(e);
     bool was_pressed = m_pressedp;
 
     switch (e.type) {

@@ -375,6 +375,14 @@ void Client::on_keydown(SDL_Event &e)
         case SDLK_a:
             server::Msg_Command ("restart");
             break;
+        case SDLK_F3: 
+            if (keymod & KMOD_SHIFT) {
+                // force a reload from file
+                lev::Proxy * curProxy = lev::Proxy::loadedLevel();
+                if (curProxy != NULL)
+                    curProxy->release();
+                server::Msg_Command ("restart");
+            }
         default:
             break;
         };

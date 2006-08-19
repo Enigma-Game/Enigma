@@ -65,7 +65,10 @@ namespace enigma { namespace gui {
             set_area (r);
         }
 
-        virtual bool on_event(const SDL_Event &/*e*/) { return false; }
+        virtual bool on_event(const SDL_Event &/*e*/);
+        Uint8 lastMouseButton() {return mouseButton;}
+        SDLMod lastModifierKeys() { return modifierKeys; }
+        
 
         virtual void move (int x, int y);
         virtual void resize (int w, int h);
@@ -106,6 +109,8 @@ namespace enigma { namespace gui {
         ecl::Rect        area;
         Container      *m_parent;
         ActionListener *m_listener;
+        SDLMod  modifierKeys;
+        Uint8   mouseButton;
     };
 
 #if 0

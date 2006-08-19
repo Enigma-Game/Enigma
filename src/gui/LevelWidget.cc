@@ -298,7 +298,7 @@ namespace enigma { namespace gui {
     
     bool LevelWidget::on_event(const SDL_Event &e) 
     {
-        bool handled = false;
+        bool handled = Widget::on_event(e);
     
         switch (e.type) {
         case SDL_MOUSEMOTION:
@@ -336,7 +336,7 @@ namespace enigma { namespace gui {
                     sound::SoundEvent ("menuok");
                     iselected = ifirst+i;
                     syncToIndexMgr();
-                    if (SDL_GetModState() & KMOD_CTRL) {
+                    if (SDL_GetModState() & KMOD_CTRL && !(SDL_GetModState() & KMOD_SHIFT)) {
                         // control key pressed - level inspector
                         LevelInspector m(curIndex->getProxy(iselected));
                         m.manage();

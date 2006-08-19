@@ -28,6 +28,7 @@
 #include "server.hh"
 #include "video.hh"
 #include "lev/Index.hh"
+#include "lev/Proxy.hh"
 
 #include <cassert>
 
@@ -150,9 +151,16 @@ namespace enigma { namespace gui {
             Menu::quit();
         }
         else if (w == restart) {
+            if (w->lastModifierKeys() & KMOD_CTRL && w->lastModifierKeys() & KMOD_SHIFT) {
+                // force a reload from file
+                lev::Proxy * curProxy = lev::Proxy::loadedLevel();
+                if (curProxy != NULL)
+                    curProxy->release();
+            }
             client::Stop ();
             server::Msg_LoadLevel(ind->getCurrent(), false);
             Menu::quit();
+            
         }
         else if (w == options) {
             enigma::gui::ShowOptionsMenu (0);

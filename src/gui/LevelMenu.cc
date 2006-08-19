@@ -212,13 +212,6 @@ namespace enigma { namespace gui {
                 default: handled=false; break;
                 }
             }
-    // right mouse button used with priority for level inspector
-    //         else if (e.type == SDL_MOUSEBUTTONDOWN
-    //                  && e.button.button == SDL_BUTTON_RIGHT)
-    //         {
-    //             Menu::quit();
-    //             handled=true;
-    //         }
             else
                 handled = Menu::on_event (e);
         }
@@ -230,6 +223,12 @@ namespace enigma { namespace gui {
         if (w==levelwidget) {
             lev::Index *ind = lev::Index::getCurrentIndex();
             int ilevel = ind->getCurrentPosition();
+            if (w->lastModifierKeys() & KMOD_CTRL && w->lastModifierKeys() & KMOD_SHIFT) {
+                // force a reload from file
+                lev::Proxy * curProxy = lev::Proxy::loadedLevel();
+                if (curProxy != NULL)
+                    curProxy->release();
+            }
     
             if ((unsigned)ilevel < ind->size()) {
                 if (ind->mayPlayLevel(ilevel+1)) {
