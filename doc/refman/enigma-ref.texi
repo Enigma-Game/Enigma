@@ -2437,8 +2437,11 @@ i.e., neither to modify them nor to delete them without notice.
 * Common Attributes::           Common attributes for single floor tiles
 * Special floor tiles::         List of special floors
 * Regular floor tiles::         List of regular floors
+* fl-abyss::                    Abyss
 * fl-nomouse::                  No-mouse-floor
+* fl-swamp::                    Swamp
 * fl-thief::                    Thief Floor
+* fl-water::                    Water
 @end menu
 
 @node Common Attributes, Special floor tiles, Floors, Floors
@@ -2477,7 +2480,7 @@ fl-water
 fl-nomouse
 @end example
 
-@node Regular floor tiles, fl-nomouse, Special floor tiles, Floors
+@node Regular floor tiles, fl-abyss, Special floor tiles, Floors
 @subsection Regular floor tiles
 
 @example
@@ -2540,12 +2543,35 @@ fl-wood
 fl-woven
 @end example
 
-@node fl-nomouse, fl-thief, Regular floor tiles, Floors
+
+@node fl-abyss, fl-nomouse, Regular floor tiles, Floors
+@subsection fl-abyss
+
+Kills marbles that roll onto it, unless they're protected by
+@ref{it-umbrella}.  @ref{st-wood} transforms this floor into
+@code{fl-stwood}.
+
+
+@node fl-nomouse, fl-swamp, fl-abyss, Floors
 @subsection fl-nomouse
 
 This floor prevents a player from controlling the marble.
 
-@node fl-thief, , fl-nomouse, Floors
+
+@node fl-swamp, fl-thief, fl-nomouse, Floors
+@subsection fl-swamp
+
+Kills marbles that roll onto it, unless they're protected by
+@ref{it-umbrella}.  @ref{st-wood} transforms this floor into
+@code{fl-stwood}.
+
+Once in the swamp, marbles constantly sink with the speed
+given by @code{enigma.SwampSinkSpeed} (see @ref{Variables})
+and may raise again when moving fast enough (compare with
+@ref{fl-water}).
+
+
+@node fl-thief, fl-water, fl-swamp, Floors
 @subsection fl-thief
 
 This floor steals one item from the players inventory.
@@ -2553,15 +2579,31 @@ It looks like the simple floor @code{fl-bluegray}.
 Compare with @code{st-thief} (@ref{st-thief}).
 
 
+@node fl-water, , fl-thief, Floors
+@subsection fl-water
+
+Kills marbles that roll onto it, unless they're protected by
+@ref{it-umbrella}.  @ref{st-wood} transforms this floor into
+@code{fl-stwood}. 
+
+Once in the water, marbles constantly sink with the speed
+given by @code{enigma.WaterSinkSpeed} (see @ref{Variables}).
+In constrast to @ref{fl-swamp} they can't raise again, as
+long as they're in the water.
+
+
 @node Items, Stones, Floors, Objects
 @section Items
 
 @menu
 * Item List::                   A complete list of all items
+* it-blackbomb::                Black Bomb
+* it-blocker::                  Blocker Item
 * it-brake::                    Brake Item
 * it-brush::                    Brush
 * it-document::                 Scrolls of Paper
 * it-drop::                     Transmuting Liquid
+* it-dynamite::                 Dynamite
 * it-floppy::                   Floppy Disk
 * it-hammer::                   Hammer
 * it-hollow::                   Pits in the floor
@@ -2569,10 +2611,12 @@ Compare with @code{st-thief} (@ref{st-thief}).
 * it-pencil::                   Pencil
 * it-ring::                     Ring
 * it-sword::                    Sword
+* it-umbrella::                 Umbrella
 * it-vortex::                   Vortices for Teleporting
+* it-whitebomb::                White Bomb
 @end menu
 
-@node Item List, it-brake, Items, Items
+@node Item List, it-blackbomb, Items, Items
 @subsection Item List
 
 @example
@@ -2688,8 +2732,59 @@ it-wrench
 it-yinyang
 @end example
 
+@c -------------------- Black Bomb --------------------
+@node it-blackbomb, it-blocker, Item List, Items
+@subsection it-blackbomb: Black Bomb
+
+This item can't be picked up, but received from @ref{st-bombs}.  It
+can be ignited by lasers, fire and other explosions (other
+@code{it-blackbomb}, @ref{it-whitebomb}, @ref{it-dynamite}), messages
+``ignite'', ``expl'' and ``explosion'' and by pushing stones over them
+(except for @ref{st-shogun-<sml>} and, in Oxyd compatibility mode,
+@ref{st-wood}).
+
+When exploding, @code{it-blackbomb} ignites or destroys neighbouring
+items and destroys its own floor tile by replacing it against
+@code{fl-abyss}. See also @ref{it-whitebomb} for a stronger version.
+
+Black bombs are removed by bombstone-explosions (see @ref{st-bombs})
+without exploding.
+
+@strong{Messages}
+
+@table @code
+@item ignite, expl
+ignite, then explode
+@item explode
+explode instantly
+@item bombstone
+remove it without explosion
+@end table
+
+@c -------------------- Blocker Item --------------------
+@node it-blocker, it-brake, it-blackbomb, Items
+@subsection it-blocker: Blocker Item
+
+This item is the shrinked form of @ref{st-blocker}.  When it is hit by
+@ref{st-bolder}, it becomes @code{st-blocker} again.  It can be
+destroyed with @ref{it-brake}.
+
+@strong{Messages}
+
+@table @code
+@item trigger, openclose
+If shrinked, grow. Otherwise: change internal state, only sensible
+while a stone is on top of @code{it-blocker}.
+@item open, close
+These are complicated, but in most cases @code{close} makes the item
+grow. Consult the source code for details.
+@item signal
+1: open, 0: close
+@end table
+
+
 @c -------------------- Brake Item --------------------
-@node it-brake, it-brush, Item List, Items
+@node it-brake, it-brush, it-blocker, Items
 @subsection it-brake: Brake
 
 When used, this item creates an @ref{st-brake}, which itself can be
@@ -2732,14 +2827,33 @@ Document(1,1, "Hello World")
 @end example
 
 @c -------------------- Drop --------------------
-@node it-drop, it-floppy, it-document, Items
+@node it-drop, it-dynamite, it-document, Items
 @subsection it-drop: Transmuting Liquid
 
 Transforms the marble into an @ref{ac-rotor} for a short time.
 Can be used multiple times.
 
+@c -------------------- Dynamite --------------------
+@node it-dynamite, it-floppy, it-drop, Items
+@subsection it-dynamite: Dynamite
+
+@code{it-dynamite} can be ignited by dropping it, by lasers, fire,
+other explosions (@ref{it-blackbomb}, @ref{it-whitebomb}, other
+@code{it-dynamite} and @ref{st-bombs}).  While burning, it can't be
+picked up.  During explosion, it ignites neighbouring items and leaves
+an @ref{it-hollow} behind.
+
+@strong{Messages}
+
+@table @code
+@item ignite, expl, bombstone
+ignite, then explode
+@item explode
+explode instantly
+@end table
+
 @c -------------------- Floppy --------------------
-@node it-floppy, it-hammer, it-drop, Items
+@node it-floppy, it-hammer, it-dynamite, Items
 @subsection it-floppy: Floppy Disk
 
 The floppy disk is needed to activate the Floppy switch (see
@@ -2829,14 +2943,26 @@ Both marbles exchange their positions.
 @end table
 
 @c -------------------- Sword --------------------
-@node it-sword, it-vortex, it-ring, Items
+@node it-sword, it-umbrella, it-ring, Items
 @subsection it-sword: Sword
 
 Used to neutralize @ref{st-knight}.  Laser-transforms into
 @ref{it-hammer} and vice versa.
 
+@c -------------------- Umbrella --------------------
+@node it-umbrella, it-vortex, it-sword, Items
+@subsection it-umbrella: Umbrella
+
+@code{it-umbrella} protects a marble from @ref{st-death},
+@ref{st-knight}, @ref{st-thief}, @ref{fl-abyss}, @ref{fl-water},
+@ref{fl-swamp}, @ref{fl-thief}, explosions, moving stones
+and the ``shatter'' and ``fall''-messages.
+
+@code{it-umbrella} can be destroyed by laserlight and is the result of
+laser-transforming an @code{it-coin1} (see @ref{it-coin}).
+
 @c -------------------- Vortex -------------------- 
-@node it-vortex,  , it-sword, Items
+@node it-vortex, it-whitebomb, it-umbrella, Items
 @subsection it-vortex: Vortex
 
 Vortices, like wormholes, can be used to teleport marbles.  In the
@@ -2861,6 +2987,33 @@ Signal ("it(10 1)", "it(1 1)")
 Signal ("it(20 1)", "it(1 1)")
 @end example
 
+@c -------------------- White Bomb --------------------
+@node it-whitebomb, , it-vortex, Items
+@subsection it-whitebomb: White Bomb
+
+This item is the stronger version of @ref{it-blackbomb}, and can't be
+picked up also.  It can be ignited by lasers, fire and other 
+explosions (@ref{it-blackbomb}, other @code{it-whitebomb},
+@ref{it-dynamite}), messages ``ignite'', ``expl'' and ``explosion''
+and by pushing stones over them (except for @ref{st-shogun-<sml>} and,
+in Oxyd compatibility mode, @ref{st-wood}).
+
+When exploding, @code{it-whitebomb} ignites or destroys neighbouring
+items and destroys all nine neighbouring floor tiles by replacing them
+with @code{fl-abyss}.
+
+@strong{Messages}
+
+@table @code
+@item ignite, expl
+ignite, then explode
+@item explode
+explode instantly
+@end table
+
+Note that, in contrast to @ref{it-blackbomb}, white bombs are not
+removed from @ref{st-bombs}-explosions.
+
 
 @node Stones, Actors, Items, Objects
 @section Stones
@@ -2870,22 +3023,31 @@ Signal ("it(20 1)", "it(1 1)")
 * Breakable Stones::            A summary of all breakable stones
 * Oxyd Compatibility Stones::   Special stones for oxyd compatibility and debugging
 * st-actorimpulse::             Bumper Stones
-* st-[black/white]::            Black and white stones
+* st-[black/white]::            Black and White Stones
+* st-[black/white]balls::       Blackballs Stone and Whiteballs Stone
 * st-block::                    Movable and sinkable stone
+* st-blocker::                  Shrinkable Blocker Stone
+* st-bolder::                   Bolder (or Arrow) Stone
 * st-bombs::                    Bombstone
 * st-brake::                    Brake
 * st-brick_magic::              Magic Brick Stone
 * st-chameleon::                Chameleon Stone
+* st-charge::                   Charge Stones
 * st-chess_[black/white]::      Chess (Knight) Stone
+* st-coffee::                   Coffee Stone
 * st-coinslot::                 Coin Slot Switch
 * st-death::                    Skull Stones
 * st-disco::                    Disco Stones
 * st-easymode::                 Easy Mode Stone
+* st-explosion::                Explosion Stone
+* st-fakeoxyda::                Movable Fake Oxyd Stone
 * st-fart::                     The Infamous Fart Stones
 * st-flash::                    Flash Stone
 * st-floppy::                   Floppy Switch
+* st-fourswitch::               Fourswitch
 * st-grate::                    Various Grates
 * st-invisible_magic::          Magic Invisible Stone
+* st-key::                      Key (or Lock) Stone
 * st-knight::                   Knight Stone
 * st-laserswitch::              Laser Switch
 * st-lasertimeswitch::          Laser Time Switch
@@ -2896,7 +3058,9 @@ Signal ("it(20 1)", "it(1 1)")
 * st-rubberband::               Rubberband Stone
 * st-scissors::                 Scissors Stone
 * st-shogun-<sml>::             Shogun Stones
+* st-spitter::                  Spitter Stone
 * st-stonebrush::               Brush Stone
+* st-surprise::                 Surprise Stone
 * st-swap::                     Swap Stones
 * st-switch::                   Ordinary Switches
 * st-thief::                    Thiefs
@@ -3118,7 +3282,7 @@ st-yinyang@{1..3@}
 
 A list of all breakable stones and what may break them. Messages are
 given in quotation marks. ``pyro'' is short for dynamite, bombs,
-bombstones, ``ignite'', ``expl'' and ``bombstone''.
+bombstones, fire, ``ignite'', ``expl'' and ``bombstone''.
 
 @table @code
 @item st-stone_break, st-rock3_break, st-break_gray
@@ -3144,6 +3308,8 @@ pyro; this stone is movable; falls into @ref{fl-abyss},
 @ref{fl-water} and @ref{fl-swamp}
 @item st-bug
 @ref{ac-bug}
+@item st-breaking
+breaks instantly, looks like @code{st-rock3}
 @item st-fart
 hammer, laser; see also @ref{st-fart}
 @item st-bombstone
@@ -3184,11 +3350,12 @@ to set this factor for @emph{individual} bumper stones.
 
 @table @code
 @item force
-factor of the transmitted force (default 800)
+factor of the transmitted force (overrides @code{enigma.BumperForce})
 @item hit_factor
-factor of the transmitted force (overrides @code{force})
+factor of the transmitted force (overrides @code{enigma.BumperForce}
+and @code{force})
 @item hit_distortion_xx, hit_distortion_xy, hit_distortion_yx, hit_distortion_yy
-define a matrix to be applied to the force (default ((1,0),(0,1)))
+define a matrix to be applied to the force (default @code{((1,0),(0,1))})
 @end table
 
 @strong{Variants}
@@ -3197,7 +3364,7 @@ The invisible variant, @code{st-actorimpulse_invisible} can be
 ``painted'' with an @ref{it-brush}.
 
 
-@node st-[black/white], st-block, st-actorimpulse, Stones
+@node st-[black/white], st-[black/white]balls, st-actorimpulse, Stones
 @subsection st-[black/white]: Black and white stones
 
 These stones only let black respectively white marbles pass.
@@ -3213,14 +3380,83 @@ See @ref{st-grate} for further stones which only special actors may
 pass.
 
 
-@node st-block, st-bombs, st-[black/white], Stones
+@node st-[black/white]balls, st-block, st-[black/white], Stones
+@subsection st-[black/white]balls: Blackballs and Whiteballs Stones
+
+Mainly used decorative, this stone also has a special function: When
+it receives a message from a stone, which is just hit by a black
+(resp. white) marble, it sends signal 1 to the neighbouring stones
+West and East of it and 0 to North and South; or vice versa, depending
+on the position of the message-sending stone.
+
+A typical construction for this is an @code{st-blackballs} surrounded
+by @code{st-door} and @code{it-sensor}, with @code{st-blackballs} as
+target of the action of @code{it-sensor}.  When in this situation a
+black marble hits one of the closed doors, the door lets
+@code{it-sensor} perform its action, sending a message to
+@code{st-blackballs}.  This then opens the knocked door and the door in
+the opposite direction, while closing the doors in the perpendicular
+directions.  However, when @code{it-sensor} triggers because of the
+marble entering it, @code{st-blackballs} won't trigger as there is no
+collision causing this event.
+
+
+@node st-block, st-blocker, st-[black/white]balls, Stones
 @subsection st-block: Solid Block
 
 This stone is movable and sinks on @ref{fl-abyss}, @ref{fl-water} and
 @ref{fl-swamp}.
 
 
-@node st-bombs, st-brake, st-block, Stones
+@node st-blocker, st-bolder, st-block, Stones
+@subsection st-blocker: Shrinkable Blocker Stone
+
+This stone shrinks to @ref{it-blocker} when hit by an
+@ref{st-bolder} and vice versa.
+
+@strong{Messages}
+
+@table @code
+@item trigger, openclose, open, close
+shrink (open) / grow (close)
+@item signal
+1: shrink, 0: grow
+@end table
+
+Note that @code{st-blocker} becomes a new object when shrinking, such
+that the messages @code{close} and @code{signal (0)} only make sense
+during transformation.
+
+
+@node st-bolder, st-bombs, st-blocker, Stones
+@subsection st-bolder: Bolder (or Arrow) Stone
+
+This stone runs in the direction given by the arrow on its picture.
+When a stone blocks its way, it triggers it (e.g. @ref{st-oxyd},
+@ref{st-stoneimpulse}), marbles are shattered.
+
+Bolder stones fall into @ref{fl-abyss}, but cross @ref{fl-water}
+unchanged.  @ref{it-magicwand} and lasers reverse its direction.
+@ref{st-rotator} changes its direction according to the rotators
+direction.
+
+@strong{Attributes}
+
+@table @code
+@item direction
+@code{EAST}, @code{NORTH}, @code{SOUTH} or @code{WEST}
+@end table
+
+@strong{Messages}
+
+@table @code
+@item direction
+Change direction to the direction in the second argument,
+e.g. @code{SendMessage(mystone, "direction", WEST)}.
+@end table
+
+
+@node st-bombs, st-brake, st-bolder, Stones
 @subsection st-bombs: Bombstone
 
 When hit, these @code{st-bombs} adds an @ref{it-blackbomb} to the
@@ -3260,7 +3496,7 @@ At first sight identical with @code{st-brick}, this stone becomes
 transparent when hit with an @ref{it-magicwand}.
 
 
-@node st-chameleon, st-chess_[black/white], st-brick_magic, Stones
+@node st-chameleon, st-charge, st-brick_magic, Stones
 @subsection st-chameleon: Chameleon Stone
 
 This stone takes on the look of the floor beneath it.  Actors can
@@ -3268,7 +3504,36 @@ move through it, so these stones are perfect for hiding stuff under
 them...
 
 
-@node st-chess_[black/white], st-coinslot, st-chameleon, Stones
+@node st-charge, st-chess_[black/white], st-chameleon, Stones
+@subsection st-charge: Charge Stones
+
+When hit, the marble is provided with a constant electrostatic charge,
+given by the @code{charge}-attribute of @code{st-charge}.  The charge
+is confined to be between -1.0 and +1.0.  Actors with charges are
+drawn together respectively pushed apart by a force given by
+multiplication of their charges and the factor
+@code{enigma.ElectricForce} (see @ref{Variables}) and divided by their
+relative distance.
+
+@strong{Attributes}
+
+@table @code
+@item charge
+@end table
+
+@strong{Variants}
+
+@table @code
+@item st-chargeplus
+charge +1.0
+@item st-chargeminus
+charge -1.0
+@item st-chargezero
+charge 0.0
+@end table
+
+
+@node st-chess_[black/white], st-coffee, st-charge, Stones
 @subsection st-chess_[black/white]: Chess (Knight) Stone
 
 When hit, a chess stone makes a knight move: two steps in direction of
@@ -3306,7 +3571,15 @@ steps) and @code{direction2} (one step). You can use the @code{NORTH},
 @end table
 
 
-@node st-coinslot, st-death, st-chess_[black/white], Stones
+@node st-coffee, st-coinslot, st-chess_[black/white], Stones
+@subsection st-coffee
+
+This stone is non-transparent at first and becomes transparent and
+movable when hit (@code{st-glass_move}). See @ref{st-fakeoxyda} for a
+similar stone.
+
+
+@node st-coinslot, st-death, st-coffee, Stones
 @subsection st-coinslot
 
 A switch that can be activated with coins (see @ref{it-coin}). The
@@ -3360,7 +3633,8 @@ disco stones; with parameter smaller than 1, darken them.
 @item st-disco-dark
 @end table
 
-@node st-easymode, st-fart, st-disco, Stones
+
+@node st-easymode, st-explosion, st-disco, Stones
 @subsection st-easymode: Easy Mode Stone
 
 In easy game mode this stone converts the floor at its position to
@@ -3372,7 +3646,23 @@ This stone is commonly used to hide danger areas (water holes, abyss)
 or to insert helper items (umbrellas, seeds, etc.) that make the level
 easier in easy game mode.
 
-@node st-fart, st-flash, st-easymode, Stones
+
+@node st-explosion, st-fakeoxyda, st-easymode, Stones
+@subsection st-explosion: Explosion Stone
+
+This stone mimics an explosion when set, and destroys itself
+afterwards.  Actors in contact with it are shattered.
+
+
+@node st-fakeoxyda, st-fart, st-explosion, Stones
+@subsection st-fakeoxyda: Movable Fake Oxyd Stone
+
+This stone looks like an @ref{st-oxyd} of flavor @code{a}, yet it
+transforms into the movable and transparent @code{st-glass1_move} when
+hit. See @ref{st-coffee} for a similar stone.
+
+
+@node st-fart, st-flash, st-fakeoxyda, Stones
 @subsection st-fart: Fart Stone
 
 The fart stone has the unpleasant habit of ``blowing off'' when
@@ -3400,10 +3690,10 @@ versa, when the white marble hits the flash stone.
 @item hit_factor
 factor of the transmitted force (default 20)
 @item hit_distortion_xx, hit_distortion_xy, hit_distortion_yx, hit_distortion_yy
-define a matrix to be applied to the force (default 1,0,0,1)
+define a matrix to be applied to the force (default @code{((1,0),(0,1))})
 @end table
 
-@node st-floppy, st-grate, st-flash, Stones
+@node st-floppy, st-fourswitch, st-flash, Stones
 @subsection st-floppy: Floppy Switch
 
 A switch that is activated by inserting a floppy disk (see @ref{it-floppy}).
@@ -3417,7 +3707,35 @@ A switch that is activated by inserting a floppy disk (see @ref{it-floppy}).
 @item action
 @end table
 
-@node st-grate, st-invisible_magic, st-floppy, Stones
+
+@node st-fourswitch, st-grate, st-floppy, Stones
+@subsection st-fourswitch: Fourswitch
+
+When hit, this stone visually turns its pointer and performs the
+action given by the @code{action/target}-pair.
+
+@strong{Attributes}
+
+@table @code
+@item on
+1: @code{EAST} or @code{WEST}, 0: @code{NORTH} or @code{SOUTH}
+@item action, target
+as usual
+@end table
+
+@strong{Messages}
+
+@table @code
+@item trigger, signal
+turn as if hit with a marble
+@end table
+
+Note that no @code{direction}-attribute nor -message is implemented
+yet.  When using the direction in a level, you have to count the hits
+yourself: The stone always starts with direction @code{NORTH}.
+
+
+@node st-grate, st-invisible_magic, st-fourswitch, Stones
 @subsection st-grate: Grates
 
 Floating grates, mainly decorative.  Flying objects (jumping marbles,
@@ -3435,7 +3753,7 @@ actors pass.
 @end table
 
 
-@node st-invisible_magic, st-knight, st-grate, Stones
+@node st-invisible_magic, st-key, st-grate, Stones
 @subsection st-invisible_magic: Magic Invisible Stone
 
 This stone is initially invisible and transparent and turns into
@@ -3443,7 +3761,40 @@ This stone is initially invisible and transparent and turns into
 with @ref{st-stonebrush}.
 
 
-@node st-knight, st-laserswitch, st-invisible_magic, Stones
+@node st-key, st-knight, st-invisible_magic, Stones
+@subsection st-key: Key (or Lock) Stone
+
+When the right @ref{it-key} is used on this stone, it performs the
+action given by the @code{action/target}-pair.  For this, the key has
+to have the same @code{keycode}-attribute as the stone.
+
+In Enigma compatibility mode, the key remains in the stone and can't
+be used until removed from it. In all other modes, you keep the key.
+
+@strong{Attributes}
+
+@table @code
+@item keycode
+a numerical code determining the correct key
+@item on
+1: key used, 0: no key
+@item action, target
+as usual
+@end table
+
+@strong{Variants}
+
+@table @code
+@item st-key_a
+keycode is 1
+@item st-key_b
+keycode is 2
+@item st-key_c
+keycode is 3
+@end table
+
+
+@node st-knight, st-laserswitch, st-key, Stones
 @subsection st-knight: Knight Stone
 
 Also called ``black knight stone'', this stone destroys all marbles
@@ -3679,9 +4030,18 @@ The minimal length of the rubberband (default: 0)
 @subsection st-scissors: Scissors Stone
 
 This stone cuts all rubber bands attached to an actor that touches it.
+When at least one rubber band is cut, it performs the action given in
+the @code{action/target}-pair.
+
+@strong{Attributes}
+
+@table @code
+@item target, action
+as usual
+@end table
 
 
-@node st-shogun-<sml>, st-stonebrush, st-scissors, Stones
+@node st-shogun-<sml>, st-spitter, st-scissors, Stones
 @subsection st-shogun-<sml>: Shogun Stones
 
 These stones come in three basic variants: small (@code{s}), medium
@@ -3694,7 +4054,27 @@ The shogun stones trigger shogun items (see @ref{it-shogun}).
 Shogun stones don't ignite bombs when pushed over them.
 
 
-@node st-stonebrush, st-swap, st-shogun-<sml>, Stones
+@node st-spitter, st-stonebrush, st-shogun-<sml>, Stones
+@subsection st-spitter: Spitter Stone
+
+When hit, an @ref{it-extralife} from the inventory of the hitting
+marble is transformed into a cannonball (@ref{ac-cannonball}) which
+can open @ref{st-oxyd}, destroy items and floor tiles (replacing them
+by @ref{fl-abyss}).  The initial velocity of the cannonball can be
+varied by using the @code{hit_factor}- and
+@code{hit_distortion_*}-attributes.
+
+@strong{Attributes}
+
+@table @code
+@item hit_factor
+factor of the transmitted force (default 1.0)
+@item hit_distortion_xx, hit_distortion_xy, hit_distortion_yx, hit_distortion_yy
+define a matrix to be applied to the force (default @code{((1,0),(0,1))})
+@end table
+
+
+@node st-stonebrush, st-surprise, st-spitter, Stones
 @subsection st-stonebrush: Brush Stone
 
 This stone is initially invisible and turns into @code{st-rock4} when
@@ -3702,7 +4082,18 @@ hit with an @ref{it-brush}, respectively into @code{st-likeoxydc-open}
 in Per.Oxyd compatibility mode. Compare with @ref{st-invisible_magic}.
 
 
-@node st-swap, st-switch, st-stonebrush, Stones
+@node st-surprise, st-swap, st-stonebrush, Stones
+@subsection st-surprise: Surprise Stone
+
+When hit, this stone randomly transforms into one of @code{st-grate1},
+@code{st-death}, @code{st-glass1_hole}, @code{st-magic},
+@code{st-knight}, @code{st-thief}, @code{st-plain_break},
+@code{st-plain_breaking}, or another @code{st-surprise}
+(see @ref{st-grate}, @ref{st-death}, @ref{Oxyd Compatibility Stones},
+@ref{st-knight}, @ref{st-thief}, and @ref{Breakable Stones})
+
+
+@node st-swap, st-switch, st-surprise, Stones
 @subsection st-swap: Swap Stone
 
 This stone can exchange its position with other neighboring stones
@@ -4011,26 +4402,27 @@ Default: @code{TRUE}.
 @end defvar
 
 @defvar enigma.ShowMoves
-@code{TRUE} or @code{FALSE}.  This is only used in the Sokoban level
-pack to display a move counter in the inventory.
+@code{TRUE} or @code{FALSE}.  This is preferably used in Sokoban
+levels to display a move counter in the inventory.
 Default: @code{FALSE}.
 @end defvar
 
 @defvar enigma.Brittleness
 A value between 0 and 1, denoting the probability that a brittle floor
 plate desintegrates further when an actor enters or leaves it.  1
-means that the floor will always crack, 0 that it is indestructible.
-Default: 0.5.
+means that the floor will always crack, 0 that it is indestructible
+(see @ref{it-crack}).  Default: 0.5.
 @end defvar
 
 @defvar enigma.BumperForce
 The amount of force applied to an actor that hits an
-@code{st-actorimpulse} stone.  @ref{st-actorimpulse}.
+@ref{st-actorimpulse} stone.
 Default: 200.0.
 @end defvar
 
 @defvar enigma.ElectricForce
-A force multiplier for all electric forces between actors. 
+A force multiplier for all electric forces between actors,
+see @ref{st-charge}.
 Default: 15.0.
 @end defvar
 
@@ -4041,40 +4433,43 @@ Default: 1.0.
 
 @defvar enigma.FlatForce
 A global downward force.  This is currently only applied on floors of
-type @code{fl-space}.  Default: 0.
+type @ref{fl-space-force} and obsolete since introduction of the
+@code{force_[x/y]}-attributes.  Default: 0.
 @end defvar
 
 @defvar enigma.HoleForce
-A force factor that affects the steepness of hollows and hills.
-Default: 1.0.
+A force factor that affects the steepness of hollows and hills (see
+@ref{Hills and Hollows}.  Default: 1.0.
 @end defvar
 
 @defvar enigma.MagnetForce
-A force multiplier for magnetic fields.  Default: 30.0.
+A force multiplier for magnetic fields (see @ref{it-magnet}).
+Default: 30.0.
 @end defvar
 
 @defvar enigma.MagnetRange
-The range of magnetic fields.  Default: 10.0.
+The range of magnetic fields (see @ref{it-magnet}).  Default: 10.0.
 @end defvar
 
 @defvar enigma.SlopeForce
-A force multiplier for sloped floor tiles.  Default: 25.0.
+A force multiplier for sloped floor tiles (see @ref{st-gradient}).
+Default: 25.0.
 @end defvar
 
 @defvar enigma.WaterSinkSpeed
-How quickly balls sink in water.  Default: 1000.0.
+How quickly balls sink in @ref{fl-water}.  Default: 1000.0.
 @end defvar
 
 @defvar enigma.SwampSinkSpeed
-How quickly balls sink in swamp.  Default: 4.0.
+How quickly balls sink in @ref{fl-swamp}.  Default: 4.0.
 @end defvar
 
 @defvar enigma.WormholeForce
-A force multiplier for wormholes.  Default: 30.0.
+A force multiplier for @ref{it-wormhole}.  Default: 30.0.
 @end defvar
 
 @defvar enigma.WormholeRange
-The range of worm holes.  Default: 10.0.
+The range of @ref{it-wormhole}.  Default: 10.0.
 @end defvar
 
 
