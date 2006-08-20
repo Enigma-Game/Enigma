@@ -3038,6 +3038,7 @@ removed from @ref{st-bombs}-explosions.
 * st-coinslot::                 Coin Slot Switch
 * st-death::                    Skull Stones
 * st-disco::                    Disco Stones
+* st-door::                     Doors
 * st-easymode::                 Easy Mode Stone
 * st-explosion::                Explosion Stone
 * st-fakeoxyda::                Movable Fake Oxyd Stone
@@ -3049,23 +3050,32 @@ removed from @ref{st-bombs}-explosions.
 * st-invisible_magic::          Magic Invisible Stone
 * st-key::                      Key (or Lock) Stone
 * st-knight::                   Knight Stone
+* st-laser::                    Laser Stones
 * st-laserswitch::              Laser Switch
 * st-lasertimeswitch::          Laser Time Switch
 * st-lightpassenger::           Light Passenger
+* st-mail::                     Mail Stones
+* st-mirror::                   Mirror Stones
 * st-oneway::                   One-way Stones
 * st-oxyd::                     The Famous Oxyd Stones
+* st-plain::                    Plain Stones
 * st-polarswitch::              Light Switch in Polarizator Style
+* st-pull::                     Pull Stone
+* st-rotator::                  Rotator Stone
 * st-rubberband::               Rubberband Stone
 * st-scissors::                 Scissors Stone
 * st-shogun-<sml>::             Shogun Stones
 * st-spitter::                  Spitter Stone
 * st-stonebrush::               Brush Stone
+* st-stoneimpulse::             Impulse Stones
 * st-surprise::                 Surprise Stone
 * st-swap::                     Swap Stones
 * st-switch::                   Ordinary Switches
 * st-thief::                    Thiefs
 * st-timer::                    Timers
 * st-timeswitch::               Time Switch
+* st-turnstile::                Turnstiles
+* st-volcano::                  Volcano
 * st-window::                   Breakable Window
 * st-wood::                     Wooden Stones
 * st-yinyang::                  Yin-Yang Stones
@@ -3315,13 +3325,17 @@ hammer, laser; see also @ref{st-fart}
 @item st-bombstone
 bombs, bombstones, ``expl'', ``bombstone''; see also @ref{st-bombs}
 @item st-brake
-laser, bombs, ``expl''; see also @ref{st-brake}
+laser, bombs, ``expl''; see @ref{st-brake}
 @item st-puzzle
 see @ref{st-puzzle}
+@item st-volcano_active
+hammer; see @ref{st-volcano}
 @end table
 
 For the mentioned objects see @ref{it-hammer}, @ref{it-dynamite},
 @ref{it-blackbomb}, @ref{st-bombs}, @ref{st-bolder}, @ref{it-brush}.
+Also compare @ref{st-plain}, as @code{st-plain_cracked} results from
+@code{st-plain} when hit by a laser beam.
 
 
 @node Oxyd Compatibility Stones, st-actorimpulse, Breakable Stones, Stones
@@ -3609,7 +3623,7 @@ using @ref{it-glasses}.
 @item st-death_invisible
 @end table
 
-@node st-disco, st-easymode, st-death, Stones
+@node st-disco, st-door, st-death, Stones
 @subsection st-disco: Disco Stones
 
 Darkens everything that is underneath the stone (much like tinted
@@ -3632,6 +3646,67 @@ disco stones; with parameter smaller than 1, darken them.
 @item st-disco-medium
 @item st-disco-dark
 @end table
+
+
+@node st-door, st-easymode, st-disco, Stones
+@subsection st-door: Doors
+
+Doors are designed to let actors pass or not, depended on their
+internal state, which can be changed by triggers and other objects in
+game. There is a family of ``standard doors'' (referred to as
+@code{st-door}-variants) as well as three single variants
+(@code{st-door_a}, @code{st-door_b}, @code{st-door_c}), which differ
+in design and behaviour.
+
+@code{st-door}-variants let actors and laser beams pass in all
+directions when they are opened, and block those perpendicular to the
+doors when @code{st-door} is closed. The other three have no
+distinguished directions, they let actors and laser beams pass if and
+only if they're open.
+
+When an @code{st-door}-variant is hit, the item at the doors position
+performs its @code{action/target}-pair (you can use all items for
+this). There is nothing similar for the other variants.
+
+@code{st-door}-variants do not hold @ref{it-trigger} down.
+
+@strong{Attributes}
+
+@table @code
+@item type
+@code{h} (horizontal) or @code{v} (vertical): only
+@code{st-door}-variants.
+@end table
+
+@strong{Messages}
+
+@table @code
+@item open, close, openclose
+as they say
+@item signal
+0: close, 1: open
+@end table
+
+@strong{Variants}
+
+@table @code
+@item st-door
+equals st-door-h
+@item st-door-h
+@item st-door-v
+@item st-door-h-open
+@item st-door-v-open
+@item st-door_a
+@item st-door_b
+@item st-door_c
+@end table
+
+The first five all have the same design, the last three differ:
+@code{st-door_a} looks like @ref{st-oxyd} of flavor @code{a} when
+closed and like @code{st-grate} when open, @code{st-door_b} like
+@code{st-plain} and shrinks when opened, @code{st-door_c} also like
+@code{st-plain}, but @code{st-grate3} when opened.  Note that this is
+just design, they don't behave the same way.
 
 
 @node st-easymode, st-explosion, st-disco, Stones
@@ -3794,7 +3869,7 @@ keycode is 3
 @end table
 
 
-@node st-knight, st-laserswitch, st-key, Stones
+@node st-knight, st-laser, st-key, Stones
 @subsection st-knight: Knight Stone
 
 Also called ``black knight stone'', this stone destroys all marbles
@@ -3804,7 +3879,44 @@ or wield an @ref{it-sword}.  By hitting @code{st-knight} with an
 and can be passed thereon, even without a sword.
 
 
-@node st-laserswitch, st-lasertimeswitch, st-knight, Stones
+@node st-laser, st-laserswitch, st-knight, Stones
+@subsection st-laser: Laser Stone
+
+@code{st-laser} emits a laser beam in a specified direction while
+activated.  Note that a laser stone starts deactivated, but you can
+attach an @code{on=TRUE}-attribute to it to initialize it in an
+activated state.
+
+@strong{Attributes}
+
+@table @code
+@item on
+@item dir
+direction of the laser beam (use @code{SOUTH, EAST, NORTH, WEST}; read-only)
+@end table
+
+@strong{Messages}
+
+@table @code
+@item on, off, onoff
+as usual
+@end table
+
+@strong{Variants}
+
+@table @code
+@item st-laser
+standard direction is @code{EAST}
+@item st-laser-w
+@item st-laser-s
+@item st-laser-e
+@item st-laser-n
+@end table
+
+For redirecting and forking laser beams, see @ref{st-mirror}.
+
+
+@node st-laserswitch, st-lasertimeswitch, st-laser, Stones
 @subsection st-laserswitch: Laser Switch
 
 This switch is @code{on} while hit by a laserbeam
@@ -3829,7 +3941,7 @@ as usual
 This switch is a mix between @ref{st-laserswitch} and @ref{st-timeswitch}.
 
 
-@node st-lightpassenger, st-oneway, st-lasertimeswitch, Stones
+@node st-lightpassenger, st-mail, st-lasertimeswitch, Stones
 @subsection st-lightpassenger: Light Passenger
 
 The light passenger skates on a laser beam and may push up to one
@@ -3845,8 +3957,8 @@ blocking stone, which may move it, but may also have other effects.
 E.g. a turnstile turns around and an impulse-stone starts pulsing,
 but it does not open oxyds (this is intended).
 
-The light passenger can't be pushed by a marble, but e.g. by an
-impulse- or pull-stone.
+The light passenger can't be pushed by actors, but e.g. by
+@ref{st-stoneimpulse}.
 
 The speed of the light passenger can be changed with the
 @code{interval}-attribute (default 50 ms, which is quite fast) and may
@@ -3869,9 +3981,11 @@ i.e. the sum of gradient-force and @code{force_x/y}-attributes.
 @item interval
 overrides the standard speed of the light passenger
 @item friction_factor
-involves friction into the speed of the light passenger (sensible: 1.0)
+involves friction into the speed of the light passenger (sensible:
+1.0, default 0.0)
 @item gradient_factor
-involves gradients into the speed of the light passenger (sensible: 0.02)
+involves gradients into the speed of the light passenger (sensible:
+0.02, default 0.0)
 @end table
 
 @strong{Messages}
@@ -3884,7 +3998,67 @@ with parameter 0: deactivating, else activating
 @end table
 
 
-@node st-oneway, st-oxyd, st-lightpassenger, Stones
+@node st-mail, st-mirror, st-lightpassenger, Stones
+@subsection st-mail: Mail Stones
+
+When hit, these stones take the first item out of the players
+inventory and drop it at their exit or the exit of the appending
+@ref{it-pipe}-structure. If this position is blocked (e.g. by another
+item), no item is taken from inventory.
+
+@strong{Variants}
+
+@table @code
+@item st-mail-w
+@item st-mail-e
+@item st-mail-s
+@item st-mail-n
+@end table
+
+
+@node st-mirror, st-oneway, st-mail, Stones
+@subsection st-mirror: Mirror Stones
+
+These stones redirect and fork laser beams. They can be movable or
+non-movable, semi-transparent or non-transparent, plane or triangular
+and have one of four orientations.  When hit, the mirror turns 90
+degrees clockwise.
+
+@strong{Attributes}
+
+@table @code
+@item movable
+@item transparent
+@item orientation
+@end table
+
+@strong{Messages}
+
+@table @code
+@item trigger, turn
+rotate clockwise
+@item signal
+0: do nothing, else: rotate clockwise
+@item mirror-north, mirror-east, mirror-south, mirror-west
+set orientation
+@end table
+
+@strong{Variants}
+
+There is a total of 32 mirrors, the names are constructed in the
+following way: Start with @code{st-mirror}. For a plane mirror, add
+@code{p} and one of the orientations @code{|,/,-,\\} (the last one is
+the backslash and has to be masked by doubling). For a triangular
+mirror, instead add @code{3} and one of @code{v,<,>,^}. For a
+semi-transparent mirror, add a @code{t}. Finally, for a movable
+version, add an @code{m}.
+
+Or, use @code{st-pmirror} and @code{st-3mirror} and set the attributes
+accordingly, with defaults @code{/} or @code{v}, non-transparent and
+non-movable.
+
+
+@node st-oneway, st-oxyd, st-mirror, Stones
 @subsection st-oneway: One-way Stones
 
 This stone can be passed by the marble in only one direction. (Or, to
@@ -3898,18 +4072,14 @@ pass, and two colored ones, @code{st-oneway_black} and
 @code{st-oneway_white}, which completely block marbles of the other
 color.
 
+When hit with an @ref{it-magicwand}, @code{st-oneway} flips its
+direction.
+
 @strong{Variants}
 
 @table @code
 @item st-oneway
-@item st-oneway-[nesw]@strong{Attributes}
-
-@table @code
-@item hit_factor
-factor of the transmitted force (default 20)
-@item hit_distortion_xx, hit_distortion_xy, hit_distortion_yx, hit_distortion_yy
-define a matrix to be applied to the force (default 1,0,0,1)
-@end table
+@item st-oneway-[nesw]
 @item st-oneway_black
 @item st-oneway_black-[nesw]
 @item st-oneway_white
@@ -3917,7 +4087,6 @@ define a matrix to be applied to the force (default 1,0,0,1)
 @end table
 
 @strong{Attributes}
-
 
 @table @code
 @item orientation
@@ -3942,7 +4111,7 @@ Both these messages flip the direction of the arrow.
 @end table
 
 
-@node st-oxyd, st-polarswitch, st-oneway, Stones
+@node st-oxyd, st-plain, st-oneway, Stones
 @subsection st-oxyd: Oxyd Stones
 
 Oxyd stones are characterized by two attributes: Their flavor and
@@ -3978,7 +4147,46 @@ Open the stone (useful for opening Oxyd stones using switches)
 @end table
 
 
-@node st-polarswitch, st-rubberband, st-oxyd, Stones
+@node st-plain, st-polarswitch, st-oxyd, Stones
+@subsection st-plain: Plain Stones
+
+These stones trigger between solid and hollow when they receive a
+@code{trigger}- or @code{signal}-message.
+
+The solid version additionally becomes @code{st-plain_cracked} when hit
+by a laser beam and can then be destroyed with an @ref{it-hammer} or
+explosions (see @ref{Breakable Stones}).  The hollow version is
+transparent for lasers.  Note that @code{st-plain_cracked} doesn't
+become transparent by messages.
+
+As @code{st-plain} is a frequent design scheme, you might want to use
+a version that doesn't transform under laser light. For this purpose,
+use @code{st-rock3} or one of the closed doors @code{st-door_b} or
+@code{st-door_c} (see @ref{st-door}). 
+
+@strong{Messages}
+
+@table @code
+@item trigger, signal
+switch between solid and hollow
+@end table
+
+@strong{Variants}
+
+@table @code
+@item st-plain
+@item st-plain_hole
+@end table
+
+Note that there are more stones starting with ``st-plain'', but none
+of them has the ability to trigger between solid and hollow:
+@code{st-plain_move}, @code{st-plain_breaking},
+@code{st-plain_falling}, @code{st-plain_break} and
+@code{st-plain-cracked}.  See @ref{Breakable Stones} for them, and
+@ref{st-door} for stones with similar functions like @code{st-plain}.
+
+
+@node st-polarswitch, st-pull, st-plain, Stones
 @subsection st-polarswitch: Light Switch
 
 When hit, this stone changes transparency for laser
@@ -4004,7 +4212,35 @@ on = lighten, off = darken, onoff = toggle
 @end table
 
 
-@node st-rubberband, st-scissors, st-polarswitch, Stones
+@node st-pull, st-rotator, st-polarswitch, Stones
+@subsection st-pull: Pull Stone
+
+When pushed, this stone acts like pulled, regardless of the source of
+the impulse.  Actors on the destination field are pulled through it,
+such that they are not caged under them.
+
+
+@node st-rotator, st-rubberband, st-pull, Stones
+@subsection st-rotator: Rotator Stone
+
+Rotator stones come in four flavors: Clockwise or counterclockwise
+rotation and movable or not movable.  They send impulses to
+neighboring stones, thus pushing them in the direction given by the
+rotation.  @ref{st-bolder} additionally change their direction to the
+one they are pushed to.  @code{st-rotator} changes direction when hit
+with an @ref{it-wrench} or by a laser beam.
+
+@strong{Variants}
+
+@table @code
+@item st-rotator-right
+@item st-rotator-left
+@item st-rotator_move-right
+@item st-rotator_move-left
+@end table
+
+
+@node st-rubberband, st-scissors, st-rotator, Stones
 @subsection st-rubberband: Rubberband Stone
 
 If hit by a marble, this stone first removes existing connections with
@@ -4074,7 +4310,7 @@ define a matrix to be applied to the force (default @code{((1,0),(0,1))})
 @end table
 
 
-@node st-stonebrush, st-surprise, st-spitter, Stones
+@node st-stonebrush, st-stoneimpulse, st-spitter, Stones
 @subsection st-stonebrush: Brush Stone
 
 This stone is initially invisible and turns into @code{st-rock4} when
@@ -4082,7 +4318,37 @@ hit with an @ref{it-brush}, respectively into @code{st-likeoxydc-open}
 in Per.Oxyd compatibility mode. Compare with @ref{st-invisible_magic}.
 
 
-@node st-surprise, st-swap, st-stonebrush, Stones
+@node st-stoneimpulse, st-surprise, st-stonebrush, Stones
+@subsection st-stoneimpulse: Impulse Stones
+
+These stones give impulses to their neighbors when they receive such
+themselves or when hit by a laser beam (only when laser beam is
+turned on or changed, not the whole time).
+
+@strong{Messages}
+
+@table @code
+@item trigger
+Pulse as if pulse arrived from direction given in second argument to
+SendMessage (like in @code{SendMessage(mystone, "trigger",
+NORTH}). Use @code{NODIR} if no direction shall be assumed.
+@item signal
+0: do nothing, else: start pulsing
+@end table
+
+@strong{Variants}
+
+@table @code
+@item st-stoneimpulse
+@item st-stoneimpulse-hollow
+not activated by lasers; blocks laser and may shatter actors while
+pulsing
+@item st-stoneimpulse_movable
+movable version; pulses after move
+@end table
+
+
+@node st-surprise, st-swap, st-stoneimpulse, Stones
 @subsection st-surprise: Surprise Stone
 
 When hit, this stone randomly transforms into one of @code{st-grate1},
@@ -4188,8 +4454,7 @@ set_stone("st-timer", 10,10,
 @end example
 
 
-
-@node st-timeswitch, st-window, st-timer, Stones
+@node st-timeswitch, st-turnstile, st-timer, Stones
 @subsection st-timeswitch: Time Switch
 
 When this switch is touched by an actor, it switches @code{on}
@@ -4206,7 +4471,79 @@ The delay in seconds after which the switch goes @code{off}.
 Inverts the on/off state of the switch.
 @end table
 
-@node st-window, st-wood, st-timeswitch, Stones
+
+@node st-turnstile, st-volcano, st-timeswitch, Stones
+@subsection st-turnstile: Turnstiles
+
+A turnstile consists of the pivot (@code{st-turnstile} or
+@code{st-turnstile-green}) and up to four arms
+(@code{st-turnstile-[w/e/s/n]}). When hit by an actor or by another
+impulse (e.g. @ref{st-lightpassenger} or @ref{st-stoneimpulse}), the
+whole complex turns around by 90 degrees.  The red standard version
+takes only the actor hitting the turnstile with it to the other side
+and shatters all others in its surrounding, while the green version
+takes all actors to the other side, regardless of who gave the impulse
+to it.
+
+The turnstile may be blocked by other stones (even movable ones).
+Items are handled during rotation as if a stone is pushed over them.
+
+@strong{Messages to the pivot}
+
+@table @code
+@item signal
+0: rotate clockwise, 1: rotate counterclockwise
+@end table
+
+@strong{Variants}
+
+@table @code
+@item st-turnstile
+@item st-turnstile-green
+@item st-turnstile-e
+@item st-turnstile-s
+@item st-turnstile-n
+@item st-turnstile-w
+@end table
+
+
+@node st-volcano, st-window, st-turnstile, Stones
+@subsection st-volcano: Volcano
+
+This stone duplicates itself and spreads out very fast.  During one
+``life-cycle'', it starts as @code{it-seed_volcano} (see
+@ref{it-seed}), grows as @code{st-volcano-growing} (during which it
+shatters nearby marbles), becomes @code{st-volcano_active} when
+mature, spreads new @code{it-seed_volcano} on neighboring tiles and
+becomes inactive after some random time period.
+
+Seeds are spread to randomly chosen neighboring tiles on which are no
+other stones.  Other items are destroyed by this.
+
+While active (not while growing and not while inactive), a volcano
+stone can be broken with @ref{it-hammer} (see @ref{Breakable Stones}).
+
+@strong{Messages}
+
+@table @code
+@item trigger
+Makes an inactive stone active again.
+@end table
+
+@strong{Variants}
+
+@table @code
+@item st-volcano
+starts inactive
+@item st-volcano_growing
+@item st-volcano_active
+@item st-volcano_inactive
+@end table
+
+See also @ref{it-seed}.
+
+
+@node st-window, st-wood, st-volcano, Stones
 @subsection st-window: Breakable Stone
 
 Hit this window heavily with your marble to blast it into smithereens.
@@ -4452,7 +4789,7 @@ The range of magnetic fields (see @ref{it-magnet}).  Default: 10.0.
 @end defvar
 
 @defvar enigma.SlopeForce
-A force multiplier for sloped floor tiles (see @ref{st-gradient}).
+A force multiplier for sloped floor tiles (see @ref{fl-gradient}).
 Default: 25.0.
 @end defvar
 
