@@ -1,27 +1,21 @@
 -- Here are some testlevels, demonstrations, unfinished Ideas, specific bugtests, (currently) unplayable levels etc...
 --------------------------------------------------------------------------------
+------------XML-templates-------------------------------------------------------
+{file=experimental/template1                name="Template 1"          author="Raoul Bourquin"}
+{file=experimental/template2                name="Template 2"          author="Raoul Bourquin"}
+{file=experimental/template3                name="Template 3"          author="Raoul Bourquin"}
 
-{file=experimental/key                  name="Key"                author="Martin Hawlisch, Siegfried Fennig"}
-{file=experimental/level2b              name="?"                  author="Siegfried Fennig"}
-
-------------Demos---------------------------------------------------------------
-
+--------------------------------------------------------------------------------
+{file=experimental/testimpulses         name="Impulstest"         author="Enigma Team"}
+{file=experimental/wolfamongsheep       name="Wolf Among Sheep"   author="illmind"}
 {file=experimental/randompuzzles        name="Puzzle Labor"       author="Raoul Bourquin"}
 {file=experimental/puzzle_demo          name="Puzzle Demo"        author="Raoul Bourquin"}
 {file=experimental/items                name="All Items"          author="Raoul Bourquin"}
-{file=experimental/demo_callback        name="Demo Callback"      author="Ronald Lamprecht"}
+
+------------Currently unsolvable or not working---------------------------------
+{file=experimental/wb2                  name="Impossible?"        author="Jon Sneyers"}
+{file=experimental/ralf14               name="Escape?"            author="Ralf Westram" par_time=79,Stephanie }
 
 ------------Specific Bugtests---------------------------------------------------
 -- Bugtests for recent bugs are on our FTP-Server
 -- Look at ftp://ftp.berlios.de/pub/enigma-game/bug_attachments
-
-{file=experimental/testimpulses         name="Impulstest"         author="?"}
-{file=experimental/wolfamongsheep       name="Wolf Among Sheep"   author="illmind"}
-
-------------Currently unsolvable or not working---------------------------------
-
-{file=experimental/ralf14               name="Escape?"            author="Ralf Westram" par_time=79,Stephanie }
-{file=experimental/luc16                name="Flipper"            author="Lukas Schueller"}
-{file=experimental/wb1_1                name="Hurry!"             author="Jon Sneyers"}
-{file=experimental/wb2                  name="Impossible?"        author="Jon Sneyers"}
-

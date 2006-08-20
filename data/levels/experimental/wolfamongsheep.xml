@@ -1,9 +1,21 @@
--- wolf among sheep
-
--- -- -- -- -- -- -- -- -- -- --
--- Copyright (c) 2005 illmind --
--- -- -- -- -- -- -- -- -- -- --
-
+<?xml version="1.0" encoding="UTF-8" standalone="no" ?>
+<el:level xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://enigma-game.org/schema/level/1 level.xsd" xmlns:el="http://enigma-game.org/schema/level/1">
+  <el:protected>
+    <el:info el:type="level">
+      <el:identity el:title="Wolf Among Sheep" el:subtitle="" el:id="wolfamongsheep"/>
+      <el:version el:score="1" el:release="1" el:revision="0" el:status="released"/>
+      <el:author  el:name="illmind" el:email="" el:homepage=""/>
+      <el:copyright>Copyright © 2005 illmind</el:copyright>
+      <el:license el:type="GPL v2.0 or above" el:open="true"/>
+      <el:compatibility el:enigma="0.92">
+      </el:compatibility>
+      <el:modes el:easy="false" el:single="true" el:network="false"/>
+      <el:comments>
+        <el:code>this is just a fun level to take the game engine to its max power.</el:code>
+      </el:comments>
+      <el:score el:easy="-" el:difficult="-"/>
+    </el:info>
+    <el:luamain><![CDATA[
 -- level dimensions and standards
 levelw = 20
 levelh = 13
@@ -222,22 +234,11 @@ set_actor("ac-whiteball", 14.5, 11.5, {player=1})
 set_actor("ac-whiteball", 15.5, 11.5, {player=1})
 set_actor("ac-whiteball", 16.5, 11.5, {player=1})
 set_actor("ac-whiteball", 17.5, 11.5, {player=1})
-
--- this is just a fun level to take the game engine to its max power
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+    ]]></el:luamain>
+    <el:i18n>
+      <el:string el:key="title">
+        <el:english el:translate="false"/>
+      </el:string>
+    </el:i18n>
+  </el:protected>
+</el:level>

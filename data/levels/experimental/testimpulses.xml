@@ -1,13 +1,26 @@
--- A test level to test implementation of impulses
-
-Require("levels/lib/ralf.lua")
-
+<?xml version="1.0" encoding="UTF-8" standalone="no" ?>
+<el:level xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://enigma-game.org/schema/level/1 level.xsd" xmlns:el="http://enigma-game.org/schema/level/1">
+  <el:protected>
+    <el:info el:type="level">
+      <el:identity el:title="Impulstest" el:subtitle="" el:id="testimpulses"/>
+      <el:version el:score="1" el:release="1" el:revision="0" el:status="released"/>
+      <el:author  el:name="Enigma Team" el:email="" el:homepage=""/>
+      <el:copyright>Copyright © Enigma Team</el:copyright>
+      <el:license el:type="GPL v2.0 or above" el:open="true"/>
+      <el:compatibility el:enigma="0.92">
+       <el:dependency el:path="lib/ralf" el:id="lib/ralf" el:release="1" el:preload="true"/>
+      </el:compatibility>
+      <el:modes el:easy="false" el:single="true" el:network="false"/>
+      <el:comments>
+        <el:code>A test level to test implementation of impulses</el:code>
+      </el:comments>
+      <el:score el:easy="-" el:difficult="-"/>
+    </el:info>
+    <el:luamain><![CDATA[
 debug_mode()
 
 floortile = "fl-tigris"
 walltile = "st-rock3"
-
--- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- --
 
 level={
    "########################################",
@@ -38,8 +51,6 @@ level={
    "########################################",
 }
 
--- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- --
-
 function trigger_test()
    set_stone("st-blocker",2,17,{name="b1"})
    set_stone("st-blocker",2,18,{name="b2"})
@@ -48,13 +59,11 @@ function trigger_test()
    set_stone("st-switch", 5,18,{action="trigger", target="b2"});
 end
 
--- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- --
-
 cells={}
 
 -- documentation
 
-cells["1"]=cell{{{document, "Sometimes the turnstiles rotate two steps"}}}
+cells["1"]=cell{{{document, "text1"}}}
 
 -- basics
 
@@ -100,28 +109,19 @@ cells["w"] = cell{parent=cells[" "], item="it-magicwand"}
 
 cells["P"] = cell{parent=cells[" "], stone="st-pull"}
 
--- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- --
-
 rs_create_world(level,cells)
 display.SetFollowMode(display.FOLLOW_SCROLLING)
 oxyd_shuffle()
 
 trigger_test()
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+    ]]></el:luamain>
+    <el:i18n>
+      <el:string el:key="title">
+        <el:english el:translate="false"/>
+      </el:string>
+      <el:string el:key="text1">
+        <el:english el:translate="false">Sometimes the turnstiles rotate two steps</el:english>
+      </el:string> 
+    </el:i18n>
+  </el:protected>
+</el:level>

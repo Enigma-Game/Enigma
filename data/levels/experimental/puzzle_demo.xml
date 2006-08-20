@@ -1,13 +1,25 @@
--- Puzzle Demo, a tech-demonstration for Enigma
--- Copyright (C) 2006 Raoul Bourquin
--- Licensed under GPL v2.0 or above 
--- use with libpuzzle >0.95
-
+<?xml version="1.0" encoding="UTF-8" standalone="no" ?>
+<el:level xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://enigma-game.org/schema/level/1 level.xsd" xmlns:el="http://enigma-game.org/schema/level/1">
+  <el:protected>
+    <el:info el:type="level">
+      <el:identity el:title="Puzzle Demo" el:subtitle="" el:id="puzzle_demo"/>
+      <el:version el:score="1" el:release="1" el:revision="0" el:status="released"/>
+      <el:author  el:name="Raoul Bourquin" el:email="" el:homepage=""/>
+      <el:copyright>Copyright © 2006 Raoul Bourquin</el:copyright>
+      <el:license el:type="GPL v2.0 or above" el:open="true"/>
+      <el:compatibility el:enigma="0.92">
+       <el:dependency el:path="lib/libpuzzle" el:id="lib/libpuzzle" el:release="1" el:preload="true"/>
+      </el:compatibility>
+      <el:modes el:easy="false" el:single="true" el:network="false"/>
+      <el:comments>
+        <el:code>Lua 5.1 and XML converted by Leveladministrators</el:code>
+      </el:comments>
+      <el:score el:easy="-" el:difficult="-"/>
+    </el:info>
+    <el:luamain><![CDATA[
 -- GENERAL --
-Require("levels/lib/libpuzzle.lua")
 levelw = 39
 levelh = 25
-
 
 create_world(levelw, levelh)
 
@@ -131,3 +143,11 @@ set_item("it-document", 23, 16, {text="Room 4: Some things, you can do with pseu
   puzzle({{1,1,1},{1,2,1},{1,1,1}},27,14,"red","no")
 
   puzzle({{1,1,1,1},{2,0,0,1},{0,2,0,1},{1,1,1,1},{0,1,0,0},{0,1,0,2},{2,1,1,1}},32,15,"blue","no")
+    ]]></el:luamain>
+    <el:i18n>
+      <el:string el:key="title">
+        <el:english el:translate="false"/>
+      </el:string>
+    </el:i18n>
+  </el:protected>
+</el:level>
