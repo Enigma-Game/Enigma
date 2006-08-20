@@ -1210,17 +1210,20 @@ void world::AddRubberBand (Actor *a, Actor *a2, const RubberBandData &d)
     level->m_rubberbands.push_back(new RubberBand (a, a2, rbd));
 }
 
-void world::KillRubberBands (Actor *a)
+bool world::KillRubberBands (Actor *a)
 {
+    bool didKill = false;
     for (unsigned i=0; i<level->m_rubberbands.size(); ) {
         RubberBand &r = *level->m_rubberbands[i];
         if (r.get_actor() == a || r.get_actor2() == a) {
             delete &r;
             level->m_rubberbands.erase(level->m_rubberbands.begin()+i);
+            didKill = true;
             continue;       // don't increment i
         }
         ++i;
     }
+    return didKill;
 }
 
 

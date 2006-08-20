@@ -3213,10 +3213,10 @@ namespace
 
         // ItemHolder interface
         bool is_full() const {
-            return m_contents.size() == BAGSIZE;
+            return m_contents.size() >= BAGSIZE;
         }
         void add_item (Item *it) {
-            ASSERT(!is_full(), XLevelRuntime, "Bag: trying to add item though full");
+            // thiefs may add items beyond pick up limit BAGSIZE
             m_contents.insert (m_contents.begin(), it);
         }
 

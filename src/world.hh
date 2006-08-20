@@ -206,7 +206,7 @@ namespace world
     void AddRubberBand (Actor *a, Actor *a2, const RubberBandData &d);
 
     /*! Remove all rubber bands connected to `a'. */
-    void KillRubberBands (Actor *a);
+    bool KillRubberBands (Actor *a);
 
     /*! Remove the rubber band between `a' and `st'.  If `st' is 0,
       all rubber bands connecting `a' to a stone will be cut. */

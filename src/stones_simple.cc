@@ -1066,7 +1066,8 @@ namespace
         CLONEOBJ(ScissorsStone);
         DECL_TRAITS;
         void actor_hit(const StoneContact &sc) {
-            world::KillRubberBands (sc.actor);
+            if (world::KillRubberBands (sc.actor))
+                world::PerformAction(this, false);
             sound_event("scissors");
             set_anim("st-scissors-snip");
         }
@@ -1347,8 +1348,10 @@ namespace
 
         enum State { IDLE, EMERGING, RETREATING, CAPTURED } state;
         Actor *m_affected_actor;
+        Item * bag;
     public:
         ThiefStone();
+        virtual ~ThiefStone();
     private:
         void steal_from_player();
 
@@ -1364,7 +1367,12 @@ namespace
 }
 
 ThiefStone::ThiefStone() 
-: state(IDLE), m_affected_actor (0) {}
+: state(IDLE), m_affected_actor (0), bag(NULL) {}
+
+ThiefStone::~ThiefStone() {
+    if (bag != NULL)
+        delete bag;
+}
 
 void ThiefStone::actor_hit(const StoneContact &sc) {
     if (state==IDLE) {
@@ -1398,8 +1406,10 @@ void ThiefStone::steal_from_player()
     if (m_affected_actor && !m_affected_actor->has_shield()) {
         enigma::Inventory *inv = player::GetInventory(m_affected_actor);
         if (inv && inv->size() > 0) {
+            if (bag == NULL)
+                bag = world::MakeItem(it_bag);
             int i = IntegerRand (0, int (inv->size()-1));
-            delete inv->yield_item(i);
+            dynamic_cast<ItemHolder *>(bag)->add_item(inv->yield_item(i));
             player::RedrawInventory (inv);
             sound_event("thief");
         }
@@ -1409,6 +1419,16 @@ void ThiefStone::steal_from_player()
 Value ThiefStone::message(const string &msg, const Value &v) {
     if(msg == "capture" && state == IDLE) {
         state = CAPTURED;
+        Item * it =  world::GetItem(get_pos());
+        
+        // add items on grid pos that can be picked up to our bag
+        if (it != NULL && !(it->get_traits().flags & itf_static) && bag != NULL) {
+            dynamic_cast<ItemHolder *>(bag)->add_item(world::YieldItem(get_pos()));            
+        }
+        // dop bag if pos is not occupied by a static item
+        if (world::GetItem(get_pos()) == NULL)
+            world::SetItem(get_pos(), bag);
+        bag = NULL;
         set_anim(string(get_kind()) + "-captured");
         return Value(1);
     } else
