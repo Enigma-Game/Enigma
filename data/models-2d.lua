@@ -1125,9 +1125,11 @@ function make_chess(colour)
     local f1 = buildframes(img1, 120)
     --local f2 = buildframes(img2, 40)
     local f2 = f1
+    local f3 = buildframes(img1, 500)
     def_anim("st-chess"..colour.."-disappearing", f1);
     def_anim("st-chess"..colour.."-appearing", reverseframes(f1))
     def_anim("st-chess"..colour.."-captured", f2);
+    def_anim("st-chess"..colour.."-swamp", f3);
     def_roundstone("st-chess"..colour, img1[1])
 end
 

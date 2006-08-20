@@ -2918,9 +2918,11 @@ namespace
         ChessStone (int color) : Stone("st-chess") {
             newcolor = color;
             Stone::set_attrib("color", color);
-            set_state(IDLE);
             destination = GridPos(0,0);
             capture_retry = 0;
+            rememberFalling = false;
+            rememberSwamp = false;
+            state = IDLE;
         }
         virtual ~ChessStone() {
             GameTimer.remove_alarm (this);
@@ -2933,20 +2935,24 @@ namespace
         void alarm();
     private:
         // Variables and Constants
-        enum State {IDLE, APPEARING, DISAPPEARING, CAPTURING, CAPTURED} state;
+        enum State {IDLE, APPEARING, DISAPPEARING, CAPTURING,
+                    CAPTURED, FALLING, SWAMP} state;
         GridPos destination;
         int newcolor;  // Buffers a color-changing message while not IDLE.
         int capture_retry;
         static const int max_capture_retry = 20;
         static double capture_interval;
         static double hit_threshold;
+        bool rememberFalling;
+        bool rememberSwamp;
 
         // Methods
         string get_model_name();
         Value maybe_move_to(Direction dir1, Direction dir2);
         virtual Value message_move(Direction dir1, Direction dir2);
-        void set_state(State newstate);
+        bool try_state(State newstate);
         void set_color(int color);
+        void on_floor_change();
     };
     double ChessStone::capture_interval = 0.1;
     double ChessStone::hit_threshold = 3.0;
@@ -2963,23 +2969,29 @@ namespace
         Stone *st;
         switch (state) {
         case DISAPPEARING:
-            set_state(APPEARING);
-            st = GetStone(destination);
-            if(st) {
-                // Something went wrong while killing the old
-                // stone, or maybe a third one intervened.
-                // Don't move, just reappear at old position.                
-            } else {
-                move_stone(destination, "movesmall");
-                SendMessage(GetFloor(destination), "capture");
+            if(try_state(APPEARING)) {
+                st = GetStone(destination);
+                if(st) {
+                    // Something went wrong while killing the old
+                    // stone, or maybe a third one intervened.
+                    // Don't move, just reappear at old position.                
+                } else {
+                    move_stone(destination, "movesmall");
+                    SendMessage(GetFloor(destination), "capture");
+                }
+                // maybe a floor-change has happened, but during
+                // state APPEARING this doesn't mean anything:
+                set_anim(get_model_name()+"-appearing");
             }
-            set_anim(get_model_name()+"-appearing");           
             break;
         case APPEARING:
-            set_state(IDLE);
-            init_model();
+            if(try_state(IDLE))
+            // Maybe falling in the meantime? Otherwise:
+                init_model();
             break;
         case CAPTURED:
+        case FALLING:
+        case SWAMP:
             KillStone(get_pos());
             break;
         default:
@@ -2991,45 +3003,52 @@ namespace
          if (player::WieldedItemIs (sc.actor, "it-magicwand")) {
              sound_event ("stonepaint");
              set_color(1 - int_attrib("color"));
+             // If not IDLE, color will be set next time IDLE is set.
          } else if ((sc.actor->get_attrib("blackball") && int_attrib("color") == 0)
                     || (sc.actor->get_attrib("whiteball") && int_attrib("color") == 1)) {
             V2 v = sc.actor->get_vel();
             Direction dir1 = get_push_direction(sc);
-            if(state == IDLE && dir1 != NODIR) {
-                Direction dir2 = NODIR;
-                if (dir1 == SOUTH || dir1 == NORTH) {
-                    dir2 = v[0] >  hit_threshold ? EAST :
-                           v[0] < -hit_threshold ? WEST : NODIR;
-                } else {
-                    dir2 = v[1] >  hit_threshold ? SOUTH :
-                           v[1] < -hit_threshold ? NORTH : NODIR;
-                }
-                if(dir2 == NODIR)  return;
-                maybe_move_to(dir1, dir2);
+            if(dir1 == NODIR)  return;
+            Direction dir2 = NODIR;
+            if (dir1 == SOUTH || dir1 == NORTH) {
+                dir2 = v[0] >  hit_threshold ? EAST :
+                       v[0] < -hit_threshold ? WEST : NODIR;
+            } else {
+                dir2 = v[1] >  hit_threshold ? SOUTH :
+                       v[1] < -hit_threshold ? NORTH : NODIR;
             }
+            if(dir2 == NODIR)  return;
+            // maybe_move_to tests for state == IDLE by itself.
+            maybe_move_to(dir1, dir2);
         }
     }
 
     Value ChessStone::maybe_move_to(Direction dir1, Direction dir2) {
-        destination = move(move(move(get_pos(), dir1), dir1), dir2);
-        if(!IsInsideLevel(destination))  return Value();
-        if(!GetStone(destination)) {
-            // Simple case: Just move.
-            set_state(DISAPPEARING);
-            set_anim(get_model_name() + "-disappearing");
-            return Value(1);
-        } else {
-            // Test stone. Is it opposite chess stone or totally another one?
-            Stone *st = GetStone(destination);
-            const Value *col = get_attrib("color");
-            if(to_int(SendMessage(st, "capture", Value(get_model_name()))) ) {
-                // Give it some time for animation, then replace it.
-                set_state(CAPTURING);
-                GameTimer.set_alarm(this, capture_interval, false);
-                capture_retry = 0;
-                return Value(1);
+        if(state == IDLE) {
+            destination = move(move(move(get_pos(), dir1), dir1), dir2);
+            if(!IsInsideLevel(destination))  return Value();
+            if(!GetStone(destination)) {
+                // Simple case: Just move.
+                if(try_state(DISAPPEARING)) {
+                    set_anim(get_model_name() + "-disappearing");
+                    return Value(1);
+                } else
+                    return Value();
+            } else {
+                // Test stone. Is it opposite chess stone or totally another one?
+                Stone *st = GetStone(destination);
+                const Value *col = get_attrib("color");
+                if(to_int(SendMessage(st, "capture", Value(get_model_name()))) ) {
+                    // Give it some time for animation, then replace it.
+                    ASSERT(try_state(CAPTURING), XLevelRuntime,
+                        "ChessStone: strange things happening in maybe_move_to");
+                    // must work, because state is IDLE
+                    GameTimer.set_alarm(this, capture_interval, false);
+                    capture_retry = 0;
+                    return Value(1);
+                }
+                return Value();
             }
-            return Value();
         }
     }
 
@@ -3037,8 +3056,8 @@ namespace
         switch(state) {
         case CAPTURING:
             if(!GetStone(destination)) {
-                set_state(DISAPPEARING);
-                set_anim(get_model_name() + "-disappearing");
+                if(try_state(DISAPPEARING))
+                    set_anim(get_model_name() + "-disappearing");
                 break;
             } else if(capture_retry < max_capture_retry) {
                 ++capture_retry;
@@ -3046,19 +3065,22 @@ namespace
             } else {
                 // Cancel efforts to capture foreign stone.
                 capture_retry = 0;
-                set_state(IDLE);
+                try_state(IDLE);
             }
+            break;
+        default:
+           ASSERT(0, XLevelRuntime, "ChessStone: inconsistent state in alarm()");
         }
     }
 
     Value ChessStone::message(const string &msg, const Value &v) {
         if(msg == "capture") {
-            if(state == IDLE && to_string(v) != get_model_name()) {
-                set_state(CAPTURED);
-                set_anim(get_model_name() + "-captured");
-                return Value(1);
-            } else
-                return Value();
+            if(state == IDLE && to_string(v) != get_model_name())
+                if(try_state(CAPTURED)) {
+                    set_anim(get_model_name() + "-captured");
+                    return Value(1);
+                }
+            return Value();
         } else if(msg == "move_nne") { return message_move(NORTH, EAST); }
         else   if(msg == "move_een") { return message_move(EAST, NORTH); }
         else   if(msg == "move_ees") { return message_move(EAST, SOUTH); }
@@ -3080,17 +3102,35 @@ namespace
 
     Value ChessStone::message_move(Direction dir1, Direction dir2) {
         // Restrict message-moves to chess-knight-moves
+        // state == IDLE is tested by maybe_move_to.
         if((((dir1==NORTH || dir1==SOUTH) && (dir2==EAST || dir2==WEST))
-           || ((dir1==EAST || dir1==WEST) && (dir2==SOUTH || dir2==NORTH)))
-           && state == IDLE)
+           || ((dir1==EAST || dir1==WEST) && (dir2==SOUTH || dir2==NORTH))))
             return maybe_move_to(dir1, dir2);
         return Value();
     }
 
-    void ChessStone::set_state(State newstate) {
-        state = newstate;
-        if(state == IDLE && newcolor != int_attrib("color"))
-            set_color(newcolor);
+    bool ChessStone::try_state(State newstate) {
+        if (state != FALLING && state != SWAMP) {
+            // Switch to FALLING or SWAMP only when IDLE,
+            // but remember them!
+            if (newstate == FALLING)
+                rememberFalling = true;
+            else if (newstate == SWAMP)
+                rememberSwamp = true;
+            else
+                state = newstate;        
+            if(state == IDLE && newcolor != int_attrib("color"))
+                set_color(newcolor);
+            if(state == IDLE && rememberFalling) {
+                state = FALLING;
+                set_anim(get_model_name() + "-disappearing");
+            }
+            if(state == IDLE && rememberSwamp) {
+                state = SWAMP;
+                set_anim(get_model_name() + "-swamp");
+            }
+        }
+        return state == newstate;
     }
 
     void ChessStone::set_attrib(const string& key, const Value &val) {
@@ -3112,6 +3152,14 @@ namespace
             // Remember this color and set it the next time IDLE is set.
             newcolor = color;
         }
+    }
+
+    void ChessStone::on_floor_change() {
+        Floor *fl = GetFloor(get_pos());
+        if (fl->is_kind("fl-abyss"))
+            try_state(FALLING);
+        if (fl->is_kind("fl-swamp"))
+            try_state(SWAMP);
     }
 }
 
