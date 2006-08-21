@@ -2438,11 +2438,19 @@ i.e., neither to modify them nor to delete them without notice.
 * Special floor tiles::         List of special floors
 * Regular floor tiles::         List of regular floors
 * fl-abyss::                    Abyss
+* fl-ac[black/white]::          Blackmarble and Whitemarble Floor
+* fl-bridge::                   Bridge
+* fl-dummy::                    Dummy floor
+* fl-gradient::                 Gradient
+* fl-ice::                      Ice
 * fl-nomouse::                  No-mouse-floor
+* fl-space::                    Space Floor
+* fl-space-force::              Space Floor with Vertical Force
 * fl-swamp::                    Swamp
 * fl-thief::                    Thief Floor
 * fl-water::                    Water
 @end menu
+
 
 @node Common Attributes, Special floor tiles, Floors, Floors
 @subsection Common Attributes
@@ -2458,8 +2466,9 @@ defines a horizontal flat force
 defines a vertical flat force
 @end table
 
-On gradients, @code{force_x} and @code{force_y} are additive to the
-gradient's standard force.
+On @ref{fl-gradient}, @code{force_x} and @code{force_y} are additive
+to the gradient's standard force.
+
 
 @node Special floor tiles, Regular floor tiles, Common Attributes, Floors
 @subsection Special floor tiles
@@ -2479,6 +2488,7 @@ fl-thief
 fl-water
 fl-nomouse
 @end example
+
 
 @node Regular floor tiles, fl-abyss, Special floor tiles, Floors
 @subsection Regular floor tiles
@@ -2544,7 +2554,7 @@ fl-woven
 @end example
 
 
-@node fl-abyss, fl-nomouse, Regular floor tiles, Floors
+@node fl-abyss, fl-ac[black/white], Regular floor tiles, Floors
 @subsection fl-abyss
 
 Kills marbles that roll onto it, unless they're protected by
@@ -2552,13 +2562,130 @@ Kills marbles that roll onto it, unless they're protected by
 @code{fl-stwood}.
 
 
-@node fl-nomouse, fl-swamp, fl-abyss, Floors
+@node fl-ac[black/white], fl-bridge, fl-abyss, Floors
+@subsection fl-ac[black/white]
+
+Marbles on this floor are controlled by player 0 only (who has
+@ref{ac-blackball} by default) respectively player 1 only
+(@ref{ac-whiteball} by default).
+
+
+@node fl-bridge, fl-dummy, fl-ac[black/white], Floors
+@subsection fl-bridge
+
+@code{fl-bridge} can be open (marbles fall into it) or closed (marbles
+may pass).  The state can be changed via messages.
+
+@code{fl-bridge} closes and re-opens automatically when a stone is
+pushed onto it.  Thus @ref{st-wood} and other stones don't fall into
+it, as they do on @ref{fl-abyss}.
+
+@strong{Attributes}
+
+@table @code
+@item type
+@code{a}, @code{x} or @code{y}
+@end table
+
+@strong{Messages}
+
+@table @code
+@item open, close, openclose
+as they say
+@item signal
+change state, like @code{openclose}
+@end table
+
+@strong{Variants}
+
+@table @code
+@item fl-bridge
+open by default
+@item fl-bridge-open
+@item fl-bridge-close
+@end table
+
+
+@node fl-dummy, fl-gradient, fl-bridge, Floors
+@subsection fl-dummy
+
+Prints its Oxyd code when entered.  Used for maintaining purposes.
+
+
+@node fl-gradient, fl-ice, fl-dummy, Floors
+@subsection fl-gradient
+
+Adds a horizontal, vertical or diagonal force to actors on it.  The
+strength of the force is determined by @code{enigma.SlopeForce} (see
+@ref{Variables}) or the attribute @code{force}.  It is additive to the
+force determined by the @code{force_[x/y]}-attributes (see @ref{Common
+Attributes}).
+
+@strong{Attributes}
+
+@table @code
+@item force
+overrides @code{enigma.SlopeForce}
+@item type
+between 1 and 24, determines the direction of the gradient and its design
+@end table
+
+Direction of the forces to certain types: 1 and 21: South, 2 and 22:
+North, 3 and 23: East, 4 and 24: West, 5 and 9: South-East, 6 and 11:
+South-West, 7 and 10: North-East, 8 and 12: North-West.
+
+@strong{Variants}
+
+@table @code
+@item fl-gradient
+type 1 by default
+@item fl-gradient1 .. fl-gradient12
+type is 1..12
+@item fl-gradient13 .. fl-gradient16
+types are 22, 21, 24 and 23 
+@end table
+
+The latter four gradients don't show an outline like the first twelve:
+They all look identical, and similar to @code{fl-gray}.  The remaining
+types show outlines that don't correspond to their forces (use them
+for tubes etc.).
+
+
+@node fl-ice, fl-nomouse, fl-gradient, Floors
+@subsection fl-ice
+
+Ice has very low friction and mousefactor, such that it's difficult to
+move on it.  You can use @ref{it-pin} and @code{enigma.IceFriction}
+(see @ref{Variables}) to ease the friction.
+
+
+@node fl-nomouse, fl-space, fl-ice, Floors
 @subsection fl-nomouse
 
-This floor prevents a player from controlling the marble.
+This floor prevents a player from controlling the marble
+(@code{mouseforce = 0}).
 
 
-@node fl-swamp, fl-thief, fl-nomouse, Floors
+@node fl-space, fl-space-force, fl-nomouse, Floors
+@subsection fl-space
+
+This floor prevents a player from controlling the marble
+(@code{mouseforce = 0}), but in contrast to @ref{fl-nomouse} there
+also is no friction, such that marbles seldom get stuck on space.
+
+
+@node fl-space-force, fl-swamp, fl-space, Floors
+@subsection fl-space-force
+
+This floor has (like @ref{fl-space}) no friction and no mouseforce,
+but adds a vertical force of the amount given in
+@code{enigma.FlatForce}.  This is obsolete since you can use
+@code{fl-space} with @code{force_y}-attribute (see @ref{Common
+Attributes}).  Note however, that the @code{force_y}-attribute of
+@code{fl-space-force} is overriden by @code{enigma.FlatForce}.
+
+
+@node fl-swamp, fl-thief, fl-space-force, Floors
 @subsection fl-swamp
 
 Kills marbles that roll onto it, unless they're protected by
@@ -3558,7 +3685,8 @@ chess stone of opposite colour or a thief stone (@ref{st-thief}) at
 the target position of a knight move, this stone is destroyed.
 
 When hit with a magic wand (@ref{it-magicwand}), a chess stone changes
-colour.
+colour.  Chess stones fall into @ref{fl-abyss} and sink in
+@ref{fl-swamp}, but cross @ref{fl-water} undamaged.
 
 @strong{Attributes}
 
@@ -4394,6 +4522,7 @@ Only white marbles can activate this switch
 as usual
 @end table
 
+
 @node st-thief, st-timer, st-switch, Stones
 @subsection st-thief: Thief Stone
 
@@ -4401,7 +4530,11 @@ Takes one item from inventory after when hit by the player's marble.
 Umbrellas protect against thievery.
 
 Thief stones can be destroyed with chess stones
-(@ref{st-chess_[black/white]}).
+(@ref{st-chess_[black/white]}).  They then leave an @ref{it-bag}
+behind, filled with the stolen items.  If the tile is already occupied
+by a item that could be picked up, it is added to the bag, if the item
+couldn't be picked up, no bag is produced (you can use this to
+suppress bag generation).
 
 Compare with @code{fl-thief} (@ref{fl-thief}).
 
@@ -4721,14 +4854,15 @@ be searched using @ref{enigma.GetNamedObject}.
 @node Variables, Functions, Objects, Top
 @chapter Variables
 
-This chapter describes the a few variables that can be changed from
+This chapter describes a few variables that can be changed from
 level descriptions to alter the behavior of the game engine or set
-default attributes for some particular objects.  In the latter case, the
-same effect can usually be achieved by setting the corresponding object
-attributes directly, but being able to specify a global default value it
-is often more convenient.  You can always override these default
-attribute values for specific objects by setting the appropriate object
-attributes.
+default attributes for some particular objects, or that carry
+interesting information about the context of the level.  In the second
+case, the same effect can usually be achieved by setting the
+corresponding object attributes directly, but being able to specify a
+global default value often is more convenient.  You can always
+override these default attribute values for specific objects by
+setting the appropriate object attributes.
 
 @defvar enigma.ConserveLevel
 @code{TRUE} or @code{FALSE}.  If @code{FALSE}, reload the level
@@ -4738,10 +4872,11 @@ landscapes or landscapes that are intended to be solved in one go.
 Default: @code{TRUE}.
 @end defvar
 
-@defvar enigma.ShowMoves
-@code{TRUE} or @code{FALSE}.  This is preferably used in Sokoban
-levels to display a move counter in the inventory.
-Default: @code{FALSE}.
+@defvar enigma.CreatingPreview
+@code{TRUE} or @code{FALSE}, read-only.  Use this to determine in a
+level whether it is just loaded to build a thumbnail.  If so, you can
+e.g. change the start-position of @ref{ac-blackball} to display
+another part of the level in the preview, or hide objects from it.
 @end defvar
 
 @defvar enigma.Brittleness
@@ -4774,6 +4909,11 @@ type @ref{fl-space-force} and obsolete since introduction of the
 @code{force_[x/y]}-attributes.  Default: 0.
 @end defvar
 
+@defvar enigma.IceFriction
+Friction of @ref{fl-ice} is multiplied with this constant. Default:
+1.0.
+@end defvar
+
 @defvar enigma.HoleForce
 A force factor that affects the steepness of hollows and hills (see
 @ref{Hills and Hollows}.  Default: 1.0.
@@ -4786,6 +4926,12 @@ Default: 30.0.
 
 @defvar enigma.MagnetRange
 The range of magnetic fields (see @ref{it-magnet}).  Default: 10.0.
+@end defvar
+
+@defvar enigma.ShowMoves
+@code{TRUE} or @code{FALSE}.  This is preferably used in Sokoban
+levels to display a move counter in the inventory.
+Default: @code{FALSE}.
 @end defvar
 
 @defvar enigma.SlopeForce
