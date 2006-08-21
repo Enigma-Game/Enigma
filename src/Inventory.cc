@@ -92,11 +92,14 @@ Item * Inventory::remove_item(Item *wanted)
 bool Inventory::is_full() const 
 {
     ItemHolder *holder = dynamic_cast<ItemHolder*>(get_item(0));
-    if (holder)
-        return holder->is_full(); 
-    return m_items.size() == max_items; 
+    if (holder && !holder->is_full())
+        return false; 
+    return m_items.size() >= max_items; 
 }
 
+bool Inventory::is_empty() const {
+    return m_items.size() == 0;
+}
 
 void Inventory::add_item(Item *i) 
 {
@@ -110,6 +113,21 @@ void Inventory::add_item(Item *i)
     }
 }
 
+void Inventory::takeItemsFrom(ItemHolder *ih) {
+    ItemHolder *holder = dynamic_cast<ItemHolder*>(get_item(0));
+    if (holder && !holder->is_full()) {
+        // first item is a bag and not full - do not refill items form one
+        // itemholder into another
+        return;
+    }
+    else {
+        while (m_items.size() < max_items && !ih->is_empty()) {
+            Item * it = ih->yield_first();
+            m_items.insert (m_items.begin(), it);
+        }
+        return;
+    }
+}
 
 void Inventory::rotate_left () 
 {

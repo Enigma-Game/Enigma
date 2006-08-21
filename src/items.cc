@@ -3211,32 +3211,47 @@ namespace
         enum { BAGSIZE = 13 };
         vector<Item *> m_contents;
 
-        // ItemHolder interface
-        bool is_full() const {
-            return m_contents.size() >= BAGSIZE;
-        }
-        void add_item (Item *it) {
-            // thiefs may add items beyond pick up limit BAGSIZE
-            m_contents.insert (m_contents.begin(), it);
-        }
-
         // Item interface
         bool actor_hit (Actor *a) {
-            if (Inventory *inv = player::MayPickup(a)) {
-                while (!inv->is_full() && !m_contents.empty()) {
-                    Item *it = m_contents[0];
-                    m_contents.erase (m_contents.begin());
-                    inv->add_item (it);
-                    player::RedrawInventory (inv);
+            if (Item::actor_hit(a)) {
+                if (Inventory *inv = player::MayPickup(a)) {
+                    std::vector<Item *>::size_type oldSize = m_contents.size();
+                    inv->takeItemsFrom(this);
+                    if (oldSize != m_contents.size() && inv->is_full()) {
+                        // some items have been picked up but the bag will not
+                        // be picked up (and cause the following actions)
+                        player::RedrawInventory (inv);
+                        sound_event ("pickup");
+                    }
+                    return true;
                 }
-                if (!m_contents.empty())
-                    sound_event ("pickup");
-                return true;
             }
             return false;
         }
 
     public:
+        // ItemHolder interface
+        virtual bool is_full() const {
+            return m_contents.size() >= BAGSIZE;
+        }
+        virtual void add_item (Item *it) {
+            // thiefs may add items beyond pick up limit BAGSIZE
+            m_contents.insert (m_contents.begin(), it);
+        }
+
+        virtual bool is_empty() const {
+            return m_contents.size() == 0;
+        }
+
+        virtual Item *yield_first() {
+            if (m_contents.size() > 0) {
+                Item *it = m_contents[0];
+                m_contents.erase (m_contents.begin());
+                return it;
+            }
+            return NULL;
+        }
+
         Bag()
         {}
 

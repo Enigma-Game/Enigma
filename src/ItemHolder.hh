@@ -17,9 +17,12 @@ namespace enigma
 
         //! Return true if not further object can be picked up
         virtual bool is_full() const = 0;
+        virtual bool is_empty() const = 0;
 
         //! Add another item
         virtual void add_item (world::Item *it) = 0;
+        virtual world::Item *yield_first() = 0;
+        virtual void takeItemsFrom(ItemHolder *ih) {return;}
     };
 }
 

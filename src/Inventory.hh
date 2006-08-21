@@ -35,7 +35,10 @@ namespace enigma
 
         // ---------- ItemHolder interface ----------
         bool is_full() const;
+        virtual bool is_empty() const;
         void add_item (Item *i);
+        virtual void takeItemsFrom(ItemHolder *ih);
+        virtual Item *yield_first();
 
         // ---------- Methods ----------
 
@@ -47,7 +50,6 @@ namespace enigma
         void rotate_right();
         Item *get_item (size_t idx) const;
         Item *yield_item (size_t idx);
-        Item *yield_first();
 
         int find(const std::string& kind, size_t start_idx = 0) const;
 
