@@ -35,7 +35,7 @@ namespace enigma { namespace lev {
                     0, 0, false, GAMET_UNKNOWN, STATUS_UNKNOWN); 
             proxies.push_back(aProxy);
             try {
-                aProxy->loadMetadata();
+                aProxy->loadMetadata(true);
             }
             catch (XLevelLoading &err) {
                 Log << "Level load error on '" << levelpaths[i] << "\n";

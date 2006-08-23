@@ -122,8 +122,10 @@ namespace enigma { namespace lev {
                     assert(indexPath != "#history"); // no relative paths on history
                     // relative level path
                     if (indexPath.empty())
+                        // levelpack on data/levels directory - depreceated
                         theNormLevelPath = levelPath.substr(2);
                     else
+                        // a subdirectory or zip
                         theNormLevelPath = indexPath + levelPath.substr(1);
                 } else {
                     theNormLevelPath = levelPath;
@@ -159,12 +161,12 @@ namespace enigma { namespace lev {
         Proxy *theProxy = new Proxy(false, pt_resource, indexPath + "/" + filename , "", "",
             "unknown", 0, 0, false, GAMET_UNKNOWN, STATUS_UNKNOWN);
         try {
-            theProxy->loadMetadata();
+            theProxy->loadMetadata(true);
         }
         catch (XLevelLoading &err) {
             Log << "autoRegisterLevel load error on '" << indexPath << "/"<< filename << "\n";
         }
-        if (theProxy->getId().empty()) {
+        if (theProxy->getId().empty() || theProxy->isLibraryFlag) {
             delete theProxy;
             theProxy = NULL;
         } else {
@@ -276,19 +278,25 @@ namespace enigma { namespace lev {
     }
     
     void Proxy::loadLevel() {
-        if (doc == NULL) {
-            load(false);
-        } else {
-            processDependencies();
-            loadLuaCode();
+        load(false, true);
+    }
+    
+    void Proxy::loadMetadata(bool expectLevel) {
+        load(true, expectLevel);
+    }
+    
+    void Proxy::load(bool onlyMetadata, bool expectLevel) {
+        if (doc != NULL) {
+            if (onlyMetadata)
+                // doc exists - metadata are loaded
+                return;
+            if (!isLibraryFlag != expectLevel)
+                    throw XLevelLoading(ecl::strf("Level - Library mismatch on %s", normLevelPath.c_str()));
+            // doc exists - we can directly load
+            loadDoc();
+            return;
         }
-    }
-    
-    void Proxy::loadMetadata() {
-        load(true);
-    }
-    
-    void Proxy::load(bool onlyMetadata) {
+
         bool useFileLoader = false;
         bool isXML = true;
         std::auto_ptr<std::istream> isptr;
@@ -327,8 +335,10 @@ namespace enigma { namespace lev {
             if(!app.resourceFS->findFile ("levels/" + normLevelPath + ".xml", 
                         absLevelPath, isptr) &&
                     !app.resourceFS->findFile ("levels/" + normLevelPath + ".lua", 
-                        absLevelPath, isptr))
-                throw XLevelLoading("Could not find level " + normLevelPath );
+                        absLevelPath, isptr)) {
+                std::string type = isLibraryFlag ? "library " : "level ";
+                throw XLevelLoading("Could not find " + type + normLevelPath );
+            }
         } else
             // error unknown type
             return;
@@ -433,21 +443,29 @@ namespace enigma { namespace lev {
 // todo: check metadata, handle shadowed levels
             } else {
                 // check metadata - currently just overwrite
+                isLibraryFlag = (getType() == "library") ? true : false;
+                if (!updateReleaseVersion())
+                    throw XLevelLoading(ecl::strf("Release version mismatch on %s: requested %d", normLevelPath.c_str(), releaseVersion));
                 getId();
                 getTitle();
                 getScoreVersion();
-                getReleaseVersion();
                 getRevisionNumber();
                 getLevelStatus();
                 getAuthor();
                 hasEasymode();
                 getScoreUnit();
                 if (!onlyMetadata){   
-                    processDependencies();
-                    loadLuaCode();
+                    if (!isLibraryFlag != expectLevel)
+                        throw XLevelLoading(ecl::strf("Level - Library mismatch on %s", normLevelPath.c_str()));
+                    loadDoc();
                 }
             }
         }
+    }
+    
+    void Proxy::loadDoc() {
+        processDependencies();
+        loadLuaCode();
     }
 
     void Proxy::processDependencies() {
@@ -488,16 +506,60 @@ namespace enigma { namespace lev {
     void Proxy::registerPreloadDependency(std::string depPath, std::string depId,
             int depRelease, bool depPreload, std::string depUrl) {
         // check if lib is already registered
+        for (int i=0 ; i<loadedLibs.size(); i++) {
+            if (loadedLibs[i]->getId() == depId)
+                if (loadedLibs[i]->getReleaseVersion() !=  depRelease)
+                    throw XLevelLoading(ecl::strf("declaration of incompatible library version: '%s' release %d - release %d already loaded",
+                            depId.c_str(), depRelease, loadedLibs[i]->getReleaseVersion()));
+                else
+                    return;
+        }        
+        for (int i=0 ; i<registeredLibs.size(); i++) {
+            if (registeredLibs[i]->getId() == depId)
+                if (registeredLibs[i]->getReleaseVersion() !=  depRelease)
+                    throw XLevelLoading(ecl::strf("declaration of incompatible library version: '%s' release %d - release %d already registered",
+                            depId.c_str(), depRelease, registeredLibs[i]->getReleaseVersion()));
+                else
+                    return;
+        } 
         
-        // find most up to date lib in requested release version
+        // resolve relative lib paths
+        if (depPath.find("./") == 0) {
+            // relative lib path
+            std::string levelDir;
+            std::string levelFilename;
+            if (ecl::split_path(normLevelPath, &levelDir, &levelFilename))
+                // the level is on subdirectory or in a zip
+                depPath = levelDir + "/" +  depPath.substr(2);
+            else
+                // level on data/levels directory - depreceated
+                depPath = depPath.substr(2);
+        }
+
+        // find lib in requested release version without or with release number
+        // in filename
         Proxy * depProxy = new Proxy(true, depPath.empty() ? pt_url : pt_resource,
-                depPath.empty() ? depUrl : depPath, depId, "", "", 0, depRelease,
-                false, GAMET_ENIGMA, STATUS_UNKNOWN);
+                (depPath.empty() ? depUrl : depPath) + ecl::strf("_%d",depRelease),
+                depId, "", "", 0, depRelease, false, GAMET_ENIGMA, STATUS_UNKNOWN);
+        try {
+            depProxy->loadMetadata(false);
+        } catch (XLevelLoading &err) {
+            delete depProxy;
+            depProxy = new Proxy(true, depPath.empty() ? pt_url : pt_resource,
+                    depPath.empty() ? depUrl : depPath, depId, "", "", 0, depRelease,
+                    false, GAMET_ENIGMA, STATUS_UNKNOWN);
+            try {
+                depProxy->loadMetadata(false);
+            } catch (XLevelLoading &err) {
+                delete depProxy;
+                throw err;
+            } 
+        }
                 
         // load and register lib
         if (depPreload) {
             loadedLibs.push_back(depProxy);
-            depProxy->load(false);
+            depProxy->load(false, false);
         } else {
             registeredLibs.push_back(depProxy);
         }
@@ -516,21 +578,21 @@ namespace enigma { namespace lev {
             if (registeredLibs[i]->getId() == depId) {
                 // library is registered to be loaded - do it
                 loadedLibs.push_back(registeredLibs[i]);
-                registeredLibs[i]->load(false);
+                registeredLibs[i]->load(false, false);
                 // delete form not yet loaded list
                 registeredLibs[i] = registeredLibs[registeredLibs.size() - 1];
                 registeredLibs.pop_back();
                 return;
             }
         }
-//        if (doc == NULL) {
-        if (true) {
+        if (doc == NULL) {
+//        if (true) {
 //            Log << "loadDependency " << depId << "\n";
             // handling for legacy Lua levels that did not register dependencies
             Proxy * depProxy = new Proxy(true, pt_resource, depId, depId, "", "", 0, 1,
                 false, GAMET_ENIGMA, STATUS_UNKNOWN);
             loadedLibs.push_back(depProxy);
-            depProxy->load(false);
+            depProxy->load(false, false);
             return;
         } else
             // xml levels have to register used libraries as dependencies
@@ -627,6 +689,14 @@ namespace enigma { namespace lev {
         return (translFound ? translation : english);
     }
     
+    std::string Proxy::getType() {
+        if (doc != NULL) {
+            return XMLtoUtf8(infoElem->getAttributeNS(levelNS, 
+                    Utf8ToXML("type").x_str())).c_str();
+        } else
+            return "";
+    }
+    
     std::string Proxy::getId() {
         // load level id only for volatile indices
         if (doc != NULL && (id.empty() || id[0] == '_')) {
@@ -650,14 +720,25 @@ namespace enigma { namespace lev {
         return scoreVersion;
     }
     
-    int Proxy::getReleaseVersion() {
+    bool Proxy::updateReleaseVersion() {
         if (doc != NULL) {
             DOMElement *versionElem = 
                     dynamic_cast<DOMElement *>(infoElem->getElementsByTagNameNS(
                     levelNS, Utf8ToXML("version").x_str())->item(0));
-            releaseVersion = XMLString::parseInt(versionElem->getAttributeNS(levelNS, 
+            int docRelease = XMLString::parseInt(versionElem->getAttributeNS(levelNS, 
                     Utf8ToXML("release").x_str()));
+            if (releaseVersion == 0) {
+                // set yet undetermined version
+                releaseVersion = docRelease;
+                return true;
+            } else if (releaseVersion != docRelease) {
+                return false;
+            }
         }
+        return true;
+    }
+    
+    int Proxy::getReleaseVersion() {
         return releaseVersion;
     }
     

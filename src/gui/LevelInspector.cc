@@ -185,7 +185,7 @@ LevelInspector::LevelInspector(lev::Proxy *aLevel):
         add(screenshot, Rect(vminfo->width-260-3*hmargin,vminfo->height-50,130,35));
     
         try {
-            aLevel->loadMetadata();
+            aLevel->loadMetadata(true);
         }
         catch (XLevelLoading &err) {
             std::vector<string> lines;

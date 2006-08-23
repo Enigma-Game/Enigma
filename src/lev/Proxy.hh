@@ -84,7 +84,7 @@ namespace enigma { namespace lev {
         static std::string search(std::string text);
 
         void loadLevel();
-        void loadMetadata();
+        void loadMetadata(bool expectLevel);
         
         /**
          * Retrieve and translate a level string. The key may be "title",
@@ -172,11 +172,14 @@ namespace enigma { namespace lev {
                 int levelScoreVersion, int levelRelease, bool levelHasEasymode,
                 GameType levelCompatibilty, levelStatusType status);
         ~Proxy();
-        void load(bool onlyMetadata);
+        void load(bool onlyMetadata, bool expectLevel);
+        void loadDoc();
         void loadLuaCode();
         void processDependencies();   
         void registerPreloadDependency(std::string depPath, std::string depId,
             int depRelease, bool depPreload, std::string depUrl);
+        std::string getType();
+        bool updateReleaseVersion();
         int scoreText2Int(std::string text);
     };
 }} // namespace enigma::lev
