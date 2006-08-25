@@ -117,7 +117,7 @@ void load_level(lev::Proxy *levelProxy)
 
     // first set default compatibility mode
     // (may be overidden by load_level (from Lua))
-    server::GameCompatibility = levelProxy->getCompatibility();
+    server::GameCompatibility = levelProxy->getEngineCompatibility();
     if (server::GameCompatibility == GAMET_UNKNOWN)
         // use default Comopatibility
         server::GameCompatibility = GAMET_ENIGMA;

@@ -113,7 +113,8 @@ namespace enigma { namespace lev {
         std::string getDedication(bool infoUsage);
         int getEasyScore();
         int getDifficultScore();
-        GameType getCompatibility();
+        GameType getEngineCompatibility();
+        double getEnigmaCompatibility();
         
         /**
          * the level address that can be used independent of a level pack
@@ -162,7 +163,7 @@ namespace enigma { namespace lev {
          * levels loaded from DAT-files do not. Thus we need to keep the type
          * info in the Proxy as an exception.
          */
-        GameType compatibility;
+        GameType engineCompatibility;
         XERCES_CPP_NAMESPACE_QUALIFIER DOMDocument *doc;
         XERCES_CPP_NAMESPACE_QUALIFIER DOMElement *infoElem;
         XERCES_CPP_NAMESPACE_QUALIFIER DOMNodeList *stringList;

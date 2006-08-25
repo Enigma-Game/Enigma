@@ -34,6 +34,7 @@
 #include <sstream>
 #include <xercesc/dom/DOM.hpp>
 #include <xercesc/util/XMLException.hpp>
+#include <xercesc/util/XMLDouble.hpp>
 #include <xercesc/util/XMLString.hpp>
 #include <xercesc/util/XMLUniDefs.hpp>
 #include <xercesc/framework/MemBufInputSource.hpp>
@@ -228,7 +229,7 @@ namespace enigma { namespace lev {
             id(levelId), title(levelTitle), author(levelAuthor),
             scoreVersion(levelScoreVersion), releaseVersion(levelRelease),
             revisionNumber(0), hasEasymodeFlag(levelHasEasymode), 
-            compatibility(levelCompatibilty), levelStatus (status), 
+            engineCompatibility(levelCompatibilty), levelStatus (status), 
             scoreUnit (duration), doc(NULL) {
     }
         
@@ -457,6 +458,8 @@ namespace enigma { namespace lev {
                 if (!onlyMetadata){   
                     if (!isLibraryFlag != expectLevel)
                         throw XLevelLoading(ecl::strf("Level - Library mismatch on %s", normLevelPath.c_str()));
+                    if (getEnigmaCompatibility() > ENIGMACOMPATIBITLITY)
+                        throw XLevelLoading(ecl::strf("Level is incompatible. Level requires Enigma %.2f or above", getEnigmaCompatibility()));
                     loadDoc();
                 }
             }
@@ -516,11 +519,18 @@ namespace enigma { namespace lev {
         }        
         for (int i=0 ; i<registeredLibs.size(); i++) {
             if (registeredLibs[i]->getId() == depId)
-                if (registeredLibs[i]->getReleaseVersion() !=  depRelease)
+                if (registeredLibs[i]->getReleaseVersion() !=  depRelease) {
                     throw XLevelLoading(ecl::strf("declaration of incompatible library version: '%s' release %d - release %d already registered",
                             depId.c_str(), depRelease, registeredLibs[i]->getReleaseVersion()));
-                else
+                } else if (depPreload == true) {
+                    // same lib but now load it directly - delete the no preload entry
+                    registeredLibs[i] = registeredLibs[registeredLibs.size() - 1];
+                    registeredLibs.pop_back();
+                    break;  // end search and do load lib
+                } else {
+                    // same lib and again no preload
                     return;
+                }
         } 
         
         // resolve relative lib paths
@@ -850,6 +860,20 @@ namespace enigma { namespace lev {
         return homepage;
     }
 
+    double Proxy::getEnigmaCompatibility() {
+        double value = 0.92;
+        if (doc != NULL) {
+            DOMElement *compatibilityElem = 
+                    dynamic_cast<DOMElement *>(infoElem->getElementsByTagNameNS(
+                    levelNS, Utf8ToXML("compatibility").x_str())->item(0));
+            XMLDouble * result = new XMLDouble(compatibilityElem->getAttributeNS(levelNS, 
+                    Utf8ToXML("enigma").x_str()));
+            value = result->getValue();
+            delete result;
+        }
+        return value;
+    }
+
     controlType Proxy::getControl() {
         controlType control = force;
         if (doc != NULL) {
@@ -962,8 +986,8 @@ namespace enigma { namespace lev {
         }
     }
     
-    GameType Proxy::getCompatibility() {
-        return compatibility;
+    GameType Proxy::getEngineCompatibility() {
+        return engineCompatibility;
     }
     
 }} // namespace enigma::lev

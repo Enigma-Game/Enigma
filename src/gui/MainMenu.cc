@@ -142,7 +142,7 @@ namespace enigma { namespace gui {
         int x0=(vminfo->width - logo->width())/2;
         int y0=30;
         blit(gc, x0, y0, logo);
-        f->render (gc, 5, vminfo->height - 20, "v" PACKAGE_VERSION);
+        f->render (gc, 5, vminfo->height - 20, app.getVersionInfo().c_str());
     }
     
     bool MainMenu::on_event (const SDL_Event &e) {

@@ -239,7 +239,7 @@ void Application::init(int argc, char **argv)
     // ----- Evaluate command line arguments.
     // start with simple actions that do not need further initialization
     if (ap.show_help || ap.show_version) {
-        printf("Enigma %s\n",PACKAGE_VERSION);
+        printf("Enigma %s\n", getVersionInfo().c_str());
         if (ap.show_help) usage();
         exit(0);
     }
@@ -347,6 +347,20 @@ void Application::init(int argc, char **argv)
 
 
     enigma::Randomize();
+}
+
+std::string Application::getVersionInfo() {
+    std::string versionInfo;
+    double enigmaVersion;
+    sscanf(PACKAGE_VERSION,"%4lf",&enigmaVersion);
+    if (enigmaVersion >= ENIGMACOMPATIBITLITY)
+        versionInfo = "v" PACKAGE_VERSION;
+    else {
+        versionInfo =  "v" PACKAGE_VERSION 
+            " (development version - v" + 
+            ecl::strf("%.2f",ENIGMACOMPATIBITLITY) + " compatibilty branch)";
+    }
+    return versionInfo;
 }
 
 void Application::initSysDatapaths(const std::string &prefFilename)

@@ -35,6 +35,7 @@
 #endif
 #include <xercesc/util/TransService.hpp>
 
+#define ENIGMACOMPATIBITLITY 1.00
 #define PREFFILENAME "enigmarc3.xml"
 #define RATINGSFILENAME "ratings.xml"
 
@@ -64,6 +65,7 @@ namespace enigma
         Application();
 
         void init(int argc, char **argv);
+        std::string getVersionInfo();
         void setLanguage(std::string newLanguage);
         /**
          * Define a new user path. Files stored to user path use the new path
