@@ -28,6 +28,7 @@ namespace enigma { namespace gui {
     public:
         LevelPackMenu();
         bool manageLevelMenu();
+        virtual bool manage();
 
         void on_action(Widget *w);
         void draw_background(ecl::GC &gc);
@@ -39,6 +40,8 @@ namespace enigma { namespace gui {
         Widget      *but_edit;
         Widget      *but_level;
         Widget      *but_main;
+        
+        void updateHighlight();
     };
 }} // namespace enigma::gui
 #endif

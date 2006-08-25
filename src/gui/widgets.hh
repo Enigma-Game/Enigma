@@ -303,6 +303,9 @@ namespace enigma { namespace gui {
 /* -------------------- Button -------------------- */
 
     class Button : public Widget {
+    public:
+        void setHighlight(bool shouldHighlight);
+        bool isHighlight();
     protected:
         Button();
 
@@ -311,6 +314,7 @@ namespace enigma { namespace gui {
         void activate();
         void deactivate();
         bool m_activep;
+        bool highlight;
     };
 
 

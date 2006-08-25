@@ -107,6 +107,11 @@ namespace enigma { namespace gui {
             }
         }       
     }
+
+    bool LevelPackMenu::manage() {
+        updateHighlight();
+        return Menu::manage();
+    }
     
     void LevelPackMenu::on_action(Widget *w) {
         if (w == but_main) {
@@ -118,6 +123,7 @@ namespace enigma { namespace gui {
                 // not ESC but Main button has been pressed in LevelMenu -
                 Menu::quit();
             }
+            updateHighlight();
             invalidate_all();            
         } else if (w == but_search) {
         } else {
@@ -127,8 +133,19 @@ namespace enigma { namespace gui {
                 // not ESC but Main button has been pressed in LevelMenu -
                 Menu::quit();
             }
+            updateHighlight();
             invalidate_all();
         }   
+    }
+    
+    void LevelPackMenu::updateHighlight() {
+        for (int i = 0; i < buttons.size(); i++) {
+            TextButton * button = dynamic_cast<TextButton *>(buttons[i]);
+            if (button->get_text() == lev::Index::getCurrentIndex()->getName())
+                button->setHighlight(true);
+            else
+                button->setHighlight(false);      
+        }
     }
     
     void LevelPackMenu::draw_background(ecl::GC &gc) {

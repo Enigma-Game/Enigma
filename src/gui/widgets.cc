@@ -482,7 +482,7 @@ void Label::naturalsize (int &w, int &h) const
 
 /* -------------------- Button -------------------- */
 
-Button::Button() : m_activep (false) {
+Button::Button() : m_activep (false), highlight (false) {
 }
 
 void Button::activate() 
@@ -497,19 +497,31 @@ void Button::deactivate() {
     invalidate();
 }
 
+void Button::setHighlight(bool shouldHighlight) {
+    highlight = shouldHighlight;
+    invalidate();
+}
+bool Button::isHighlight() {
+    return highlight;
+}
+
 void Button::draw(ecl::GC &gc, const ecl::Rect &r) {
     const int borderw = 4;
 
     ecl::Surface *s = enigma::GetImage (m_activep ? "buttonhl" : "button");
 
     if (s) {                    // Ugly, but hey, it works
-        set_color (gc, 0,0,0);
         Rect srcrect (0,0,borderw, borderw);
         Rect area = get_area();
 
         // background
+        if (highlight)
+            set_color (gc, 70, 70, 70);
+        else
+            set_color (gc, 0,0,0);
         box (gc, smaller(area, borderw));
 
+        set_color (gc, 0,0,0);
         // corners
         blit (gc, area.x, area.y, s, srcrect);
         srcrect.x += s->width()-borderw;
