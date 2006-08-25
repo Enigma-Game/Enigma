@@ -2559,7 +2559,9 @@ fl-woven
 
 Kills marbles that roll onto it, unless they're protected by
 @ref{it-umbrella}.  @ref{st-wood} transforms this floor into
-@code{fl-stwood}.
+@code{fl-stwood}.  Marbles may jump over @ref{fl-abyss} with an
+@ref{it-spring[1/2/board]}.  Compare with @ref{it-abyss},
+@ref{fl-water} and @ref{fl-swamp}.
 
 
 @node fl-ac[black/white], fl-bridge, fl-abyss, Floors
@@ -2610,6 +2612,8 @@ open by default
 @subsection fl-dummy
 
 Prints its Oxyd code when entered.  Used for maintaining purposes.
+Compare with @code{st-dummy} (@ref{Oxyd Compatibility Stones}) and
+@code{it-dummy} (@ref{System and Debug Items}).
 
 
 @node fl-gradient, fl-ice, fl-dummy, Floors
@@ -2695,8 +2699,10 @@ Kills marbles that roll onto it, unless they're protected by
 Once in the swamp, marbles constantly sink with the speed
 given by @code{enigma.SwampSinkSpeed} (see @ref{Variables})
 and may raise again when moving fast enough (compare with
-@ref{fl-water}).
+@ref{fl-water} and @ref{fl-abyss}).
 
+Marbles may jump over @ref{fl-swamp} with an
+@ref{it-spring[1/2/board]}.
 
 @node fl-thief, fl-water, fl-swamp, Floors
 @subsection fl-thief
@@ -2716,34 +2722,75 @@ Kills marbles that roll onto it, unless they're protected by
 Once in the water, marbles constantly sink with the speed
 given by @code{enigma.WaterSinkSpeed} (see @ref{Variables}).
 In constrast to @ref{fl-swamp} they can't raise again, as
-long as they're in the water.
+long as they're in the water. Also compare with @ref{fl-abyss}.
 
+Marbles may jump over @ref{fl-water} with an
+@ref{it-spring[1/2/board]}.
+
+
+@c ================== Items ====================
 
 @node Items, Stones, Floors, Objects
 @section Items
 
 @menu
 * Item List::                   A complete list of all items
+* System and Debug Items::      Items for System, Debug and Compatibility
+* Hills and Hollows::           Hills and Hollows
+* Fire and Extinguisher::       Fire and Extinguisher
+* it-abyss::                    Abyss as Item
+* it-bag::                      Bag
+* it-banana::                   Banana
 * it-blackbomb::                Black Bomb
 * it-blocker::                  Blocker Item
+* it-booze::                    Booze
 * it-brake::                    Brake Item
 * it-brush::                    Brush
+* it-cherry::                   Cherry
+* it-coffee::                   Coffee Pause Item
+* it-coin::                     Coins
+* it-crack::                    Cracks in the Floor
+* it-cross::                    Cross on the Floor
+* it-death::                    Death Item
 * it-document::                 Scrolls of Paper
 * it-drop::                     Transmuting Liquid
 * it-dynamite::                 Dynamite
+* it-extralife::                Extralife
+* it-flag[black/white]::        Black and White Flag
 * it-floppy::                   Floppy Disk
+* it-glasses::                  Glasses
 * it-hammer::                   Hammer
-* it-hollow::                   Pits in the floor
+* it-[h/v]strip::               Floor Strips
+* it-key::                      Key
+* it-landmine::                 Landmine
 * it-magicwand::                Magic Wand
+* it-magnet::                   Magnets
+* it-odometer::                 Odometer
 * it-pencil::                   Pencil
+* it-pin::                      Pin
+* it-pipe::                     Pipes
+* it-puller::                   Puller Items
 * it-ring::                     Ring
+* it-rubberband::               Rubberband
+* it-seed::                     Seeds
+* it-sensor::                   Sensor
+* it-shogun::                   Shogun Items
+* it-spade::                    Spade
+* it-spoon::                    Spoon
+* it-spring[1/2/board]::        Springs and Springboard
+* it-squashed::                 Squashed Fruit
 * it-sword::                    Sword
+* it-trigger::                  Trigger
 * it-umbrella::                 Umbrella
 * it-vortex::                   Vortices for Teleporting
+* it-weight::                   Weight
 * it-whitebomb::                White Bomb
+* it-wormhole::                 Wormhole
+* it-wrench::                   Wrench
+* it-yinyang::                  Yinyang Item
 @end menu
 
-@node Item List, it-blackbomb, Items, Items
+@node Item List
 @subsection Item List
 
 @example
@@ -2859,9 +2906,171 @@ it-wrench
 it-yinyang
 @end example
 
+
+@c -------------------- System and Debug Items --------------------
+@node System and Debug Items
+@subsection System and Debug Items
+
+There are several items that are not meant as items in the usual way:
+
+@table @code
+@item it-1pkillstone, it-2pkillstone
+Kills the stone on the same tile in single-player mode
+(resp. multi-player mode). Unused due to missing networking capability
+of Enigma.
+
+@item it-bridge-oxyd, it-bridge-oxyd_active
+Used for Oxyd compatibility to animate bridges. Use @ref{fl-bridge}
+instead.
+
+@item it-changefloor
+When in multi-player mode, this item exchanges @code{fl-acblack} and
+@code{fl-acwhite} below it (see @ref{fl-ac[black/white]}). Unused due
+to missing networking capability of Enigma.
+
+@item it-debris
+Animation of a breaking floor. Creates @ref{fl-abyss}, then kills
+itself.
+
+@item it-dummy
+Prints its own oxyd code when picked up or used. Compare
+@ref{fl-dummy} and @code{st-dummy} (@ref{Oxyd Compatibility Stones}).
+
+@item it-easykillstone
+Kills the stone on the same tile in easy mode; if it is one of
+@ref{st-death}, @ref{st-flash} or @ref{st-thief}, it is transformed to
+@ref{st-plain} instead.
+
+@item it-easykeepstone
+Kills the stone on the same tile in normal mode; no exceptions.
+
+@item it-explosion[1,2,3]
+Sets a visual explosion effect of strength 1 (no remainder), 2
+(@code{it-hollow} remains, see @ref{Hills and Hollows}) or 3
+(@code{it-debris} remains, shattering the floor).
+
+@item it-oxyd5f
+When a message is sent to this item, it performs its
+@code{action/target}-pair. Used for Oxyd compatibility only.
+
+@item it-signalfilter[0/1]
+Transforms signal 1 to signal 0 or 1, forgets signal 0. Used for Oxyd
+Compatibility only.
+
+@end table
+
+
+@c -------------------- Hills and Hollows  --------------------
+@node Hills and Hollows
+@subsection Hills and Hollows
+
+@code{it-hill} and @code{it-hollow} create small hills and hollows in
+the floor, @code{it-tinyhill} and @code{it-tinyhollow} are smaller
+versions.  The strength of the slope is given by
+@code{enigma.HoleForce} (see @ref{Variables}.
+
+When a stone is pushed over them or an @ref{it-spade} is used on them,
+they decrease their size: @code{it-hill} and @code{it-hollow} become
+@code{it-tinyhill} and @code{it-tinyhollow}, the latter two disappear
+completely.
+
+@strong{Messages}
+
+@table @code
+@item trigger
+Converts a hill to a hollow and vice versa.
+@item shovel
+Hills and hollows are replaced by their tiny versions; tiny ones are
+removed.
+@item signal
+0: become @code{it-hollow} or @code{it-tinyhollow}, 1: become
+@code{it-hill} or @code{it-tinyhill}
+@end table
+
+@strong{Attributes}
+
+@table @code
+@item essential
+only @code{it-tinyhollow} and @code{it-hollow}, see below
+@end table
+
+@strong{In Meditation Levels}
+
+If all existing @ref{ac-whiteball-small} are inside hollows
+(@code{it-hollow} or @code{it-tinyhollow}), the level succeeds.
+
+Use the @code{essential}-attribute if there are more holes than small
+whiteballs in a level and you want to determine which of the holes are
+needed to finish the level (1 means this hollow must be filled with a
+whiteball to end the level).
+
+For example: If you have many holes and 3 whiteballs, then set
+@code{essential=1} in 3 holes.  The game will end when the 3
+whiteballs are inside the 3 marked holes.
+
+Note that hollows might appear or disappear during the game, they are
+handled the same way as descriped.
+
+Also note that @code{it-tinyhollow} is supposed to help to succeed the
+level in Enigma-compatibility mode only.  However, at the moment it
+does so in other compatibility modes, too; take this as a bug:  Please
+don't use tiny hollows in meditations in non-Enigma compatibility
+modes.
+
+
+@c -------------------- Fire and Extinguisher  --------------------
+@node Fire and Extinguisher
+@subsection Fire and Extinguisher
+
+Use @code{it-burnable} to allow a floor tile to catch fire,
+@code{it-burnable_ignited} and @code{it-burnable_burning} to set
+already burning floor, @code{it-burnable_fireproof} to save floor from
+fire and @code{it-burnable_ash} for the unburnable remainders of a
+fire.
+
+Fire can spread via three ways: @code{it-burnable}, identical floor
+and other items that are burnable (most are).
+
+Use @code{it-extinguisher} to set @code{it-burnable_fireproof}. After
+using it once, it becomes @code{it-extinguisher_medium} which guards
+less floor, and itself becomes @code{it-extinguisher_empty}, which can
+be put down again.
+
+
+@c -------------------- Abyss as Item --------------------
+@node it-abyss
+@subsection it-abyss
+
+Use this to set an invisible alternative to @ref{fl-abyss}.  Note
+however, that @ref{st-wood} doesn't fill @code{it-abyss} as it does
+with @code{fl-abyss}.  Marbles may jump over @code{it-abyss} with an
+@code{it-spring[1/2/board]}, in contrast to @ref{it-death}.
+
+
+@c -------------------- Bag --------------------
+@node it-bag
+@subsection it-bag
+
+As long as @code{it-bag} is at the first place in the inventory, new
+items are put into the bag instead of the inventory, until the bag is
+full (13 items).  @code{it-bag} can be dropped.  When picked up again,
+items from the bag are put back into inventory (until it is full).
+
+@code{it-bag} is created by @ref{st-thief} when it is captured by
+@ref{st-chess_[black/white]}.
+
+
+@c -------------------- Banana --------------------
+@node it-banana
+@subsection it-banana
+
+@code{it-banana} transforms into @ref{it-cherry} when hit by a laser
+beam, and into @ref{it-squashed} when a stone is pushed over it.
+
+
 @c -------------------- Black Bomb --------------------
-@node it-blackbomb, it-blocker, Item List, Items
-@subsection it-blackbomb: Black Bomb
+@node it-blackbomb
+@subsection it-blackbomb
 
 This item can't be picked up, but received from @ref{st-bombs}.  It
 can be ignited by lasers, fire and other explosions (other
@@ -2889,8 +3098,8 @@ remove it without explosion
 @end table
 
 @c -------------------- Blocker Item --------------------
-@node it-blocker, it-brake, it-blackbomb, Items
-@subsection it-blocker: Blocker Item
+@node it-blocker
+@subsection it-blocker
 
 This item is the shrinked form of @ref{st-blocker}.  When it is hit by
 @ref{st-bolder}, it becomes @code{st-blocker} again.  It can be
@@ -2910,32 +3119,169 @@ grow. Consult the source code for details.
 @end table
 
 
+@c -------------------- Booze --------------------
+@node it-booze
+@subsection it-booze
+
+When used, the actor becomes slower for a short period of time.  Note
+that @code{it-booze} is still under development, behaviour might be
+changed.
+
+
 @c -------------------- Brake Item --------------------
-@node it-brake, it-brush, it-blocker, Items
-@subsection it-brake: Brake
+@node it-brake
+@subsection it-brake
 
 When used, this item creates an @ref{st-brake}, which itself can be
 picked up as @code{it-brake} again.  It can be used to destroy
 @ref{it-blocker}.
 
+
 @c -------------------- Brush --------------------
-@node it-brush, it-document, it-brake, Items
-@subsection it-brush: Brush
+@node it-brush
+@subsection it-brush
 
 This item can be used to make some invisible stones visible
 (@code{st-actorimpulse_invisible} (see @ref{st-actorimpulse}),
 @code{st-break_invisible} (see @ref{Breakable Stones}),
 @ref{st-stonebrush}) and to remove debris from the level
-(@ref{it-burnable_ash}, @ref{it-burnable_fireproof},
-@ref{it-squashed}, @ref{it-cross}).
+(@ref{it-cross}, @code{it-burnable_ash}, @code{it-burnable_fireproof},
+@code{it-squashed}, see @ref{Fire and Extinguisher}).
 
 The Per.Oxyd-compatibility stone @code{st-yinyang3} (see
 @ref{st-yinyang}) must be touched with an @code{it-brush} or
 @ref{it-magicwand} in order to activate it. 
 
+
+@c -------------------- Cherry --------------------
+@node it-cherry
+@subsection it-cherry
+
+When used, the marble becomes invisible for a short time
+(rotors and tops can't find it, marble can walk through glass).  When
+a stone is pushed over @code{it-cherry}, it becomes
+@ref{it-squashed}.
+
+
+@c -------------------- Coffee --------------------
+@node it-coffee
+@subsection it-coffee
+
+@code{it-coffee} is supposed to pause the game. Not implemented yet.
+
+
+@c -------------------- Coins --------------------
+@node it-coin
+@subsection it-coin
+
+Activates @ref{st-coinslot}. 
+
+When hit by a stone, @code{it-coin2} transforms into @code{it-coin4}
+and @code{it-coin1} into @code{it-coin2}.  A laser beam transforms
+@code{it-coin1}, @code{it-coin2}, and @code{it-coin4} into
+@ref{it-umbrella}, @ref{it-hammer}, and @ref{it-extralife}.
+
+@strong{Attributes}
+
+@table @code
+@item value
+Determines how long @ref{st-coinslot} keeps activated. Defaults:
+@code{it-coin1} 3.0, @code{it-coin2} 6.0, @code{it-coin4} 12.0.
+@end table
+
+@strong{Variants}
+
+@table @code
+@item it-coin1
+@item it-coin2
+@item it-coin4
+@end table
+
+
+@c -------------------- Cracks --------------------
+@node it-crack
+@subsection it-crack
+
+Represents cracks in the floor. @code{it-crack0} is invisible and
+grows to @code{it-crack1}, @code{it-crack2}, @code{it-crack3}, after
+which the floor desintegrates to @ref{fl-abyss}.
+
+The @code{brittleness}-attribute and
+@code{enigma.Brittleness}-variable determine the probability that a
+crack grows when an actor enters. When the crack grows, it spreads to
+neighboring unoccupied tiles.  If you want to suppress this, set
+@code{enigma.Brittleness} to 0.0 and the @code{brittleness}-attribute
+of the cracks to 0.5 (or whatever you like, also see @ref{Variables}).
+
+@strong{Attributes}
+
+@table @code
+@item type
+0, 1, 2, or 3
+@item fixed
+0: crack can grow, 1: crack doesn't grow
+@item brittleness
+overrides @code{enigma.Brittleness}
+@end table
+
+@strong{Messages}
+
+@table @code
+@item crack
+grow by one step
+@end table
+
+@strong{Variants}
+
+@table @code
+@item it-crack0
+@item it-crack1
+@item it-crack2
+@item it-crack3
+@end table
+
+
+@c -------------------- Cross --------------------
+@node it-cross
+@subsection it-cross
+
+Marks an interesting spot, can be created with an @ref{it-pencil} and
+removed with @ref{it-brush}.
+
+When a marble remains on the cross for at least 10 seconds,
+@code{it-cross} performs its @code{action/target} (only once, not
+every 10 seconds).  Similar functions have @ref{it-trigger} and
+@ref{it-sensor}.
+
+@strong{Attributes}
+
+@table @code
+@item action, target
+as usual
+@end table
+
+@strong{Variants}
+
+@table @code
+@item brush
+remove @code{it-cross}
+@item signal
+performs @code{action/target} with inverted signal-data, works only in
+Per.Oxyd-compatibility mode
+@end table
+
+
+@c -------------------- Death Item --------------------
+@node it-death
+@subsection it-death
+
+Kills a marble that touches it, even when it is jumping with
+@ref{it-spring[1/2/board]}, compare @ref{it-abyss}.
+
+
 @c -------------------- Document --------------------
-@node it-document, it-drop, it-brush, Items
-@subsection it-document: Scrolls of Paper
+@node it-document
+@subsection it-document
 
 This item looks like a piece of paper and contains text messages that
 can be displayed by activating the item.  
@@ -2954,21 +3300,21 @@ Document(1,1, "Hello World")
 @end example
 
 @c -------------------- Drop --------------------
-@node it-drop, it-dynamite, it-document, Items
-@subsection it-drop: Transmuting Liquid
+@node it-drop
+@subsection it-drop
 
 Transforms the marble into an @ref{ac-rotor} for a short time.
 Can be used multiple times.
 
 @c -------------------- Dynamite --------------------
-@node it-dynamite, it-floppy, it-drop, Items
-@subsection it-dynamite: Dynamite
+@node it-dynamite
+@subsection it-dynamite
 
 @code{it-dynamite} can be ignited by dropping it, by lasers, fire,
 other explosions (@ref{it-blackbomb}, @ref{it-whitebomb}, other
 @code{it-dynamite} and @ref{st-bombs}).  While burning, it can't be
 picked up.  During explosion, it ignites neighbouring items and leaves
-an @ref{it-hollow} behind.
+an @code{it-hollow} behind (see @ref{Hills and Hollows}).
 
 @strong{Messages}
 
@@ -2979,49 +3325,119 @@ ignite, then explode
 explode instantly
 @end table
 
+
+@c -------------------- Extralife --------------------
+@node it-extralife
+@subsection it-extralife
+
+Adds a life to the player's inventory.
+
+A laser beam transforms this into @ref{it-glasses}, and
+@code{it-extralife} itself results from @code{it-coin4} (see
+@ref{it-coin}).
+
+
+@c -------------------- Black and White Flag --------------------
+@node it-flag[black/white]
+@subsection it-flag[black/white]
+
+Marks the place, where @ref{ac-blackball} respectively
+@ref{ac-whiteball} respawn when killed.  For this purpose, they have
+to be used at least once.
+
+
 @c -------------------- Floppy --------------------
-@node it-floppy, it-hammer, it-dynamite, Items
-@subsection it-floppy: Floppy Disk
+@node it-floppy
+@subsection it-floppy
 
 The floppy disk is needed to activate the Floppy switch (see
 @ref{st-floppy}).
 
+
+@c -------------------- Glasses --------------------
+@node it-glasses
+@subsection it-glasses
+
+While @code{it-glasses} is in the inventory, hollow stones become
+invisible and @code{st-death_invisible} becomes visible (see
+@ref{st-death}).
+
+@code{it-glasses} breaks when a stone is pushed over it, and becomes
+the inactive version @code{it-glasses-broken}.  @code{it-glasses} is
+the result of the laser transformation of @ref{it-extralife}.
+
+@strong{Variants}
+
+@table @code
+@item it-glasses
+@item it-glasses-broken
+@end table
+
+
 @c -------------------- Hammer --------------------
-@node it-hammer, it-hollow, it-floppy, Items
-@subsection it-hammer: Hammer
+@node it-hammer
+@subsection it-hammer
 
 The hammer is used to destroy some stones, see @ref{Breakable
 Stones}. It also transforms into @ref{it-sword} when hit with a laser
 beam and is itself laser-transformation-result of @ref{it-sword} and
 @code{it-coin2} (see @ref{it-coin}).
 
-@c -------------------- Hollow --------------------
-@node it-hollow, it-magicwand, it-hammer, Items
-@subsection it-hollow: Hollows in the floor
 
-This item creates a hollow in the floor.
-If all existing @ref{ac-whiteball-small} are inside hollows the level succeeds.
+@c -------------------- Horizontal and Vertical Land Strip --------------------
+@node it-[h/v]strip
+@subsection it-[h/v]strip
+
+These items cover a small strip of the ground below them and provide a
+narrow bridge for the marble to safely pass @ref{fl-abyss},
+@ref{fl-swamp}, @ref{fl-water}, or any other floor.
+
+@strong{Variants}
+
+@table @code
+@item it-hstrip
+horizontal
+@item it-vstrip
+vertical
+@end table
+
+
+@c -------------------- Key --------------------
+@node it-key
+@subsection it-key
+
+Used to activate @ref{st-key}.
 
 @strong{Attributes}
 
 @table @code
-@item essential
-Whether the hollow must be filled with a whiteball to end the level (1
-means 'yes').
-
-Use this attribute if there are more holes than small whiteballs in a
-level and you want to determine which of the holes are needed to
-finish the level.
-
-For example: If you have many holes and 3 whiteballs, then set
-@code{essential=1} in 3 holes.  The game will end when the 3
-whiteballs are inside the 3 marked holes.
-
+@item keycode
+see @ref{st-key}
 @end table
 
+@strong{Variants}
+
+@table @code
+@item it-key_a
+keycode is 1
+@item it-key_b
+keycode is 2
+@item it-key_c
+keycode is 3
+@end table
+
+
+@c -------------------- Landmine --------------------
+@node it-landmine
+@subsection it-landmine
+
+Explodes when hit by a marble or by a stone, shatters the marble, and
+leaves an @code{it-hollow} behind (see @ref{Hills and Hollows}).
+
+
 @c -------------------- Magic Wand --------------------
-@node it-magicwand, it-pencil, it-hollow, Items
-@subsection it-magicwand: Magic Wand
+@node it-magicwand
+@subsection it-magicwand
 
 @itemize @bullet
 @item
@@ -3045,17 +3461,120 @@ Changes colour of a chess stone (@ref{st-chess_[black/white]}).
 Activates @code{st-yinyang3} (@ref{st-yinyang}).
 @end itemize
 
+
+@c -------------------- Magnet --------------------
+@node it-magnet
+@subsection it-magnet
+
+Attracts actors in its @code{range} with a force proportional to
+@code{strength} and the inverse of the distance.  The magnet can be on
+or off.
+
+@strong{Attributes}
+
+@table @code
+@item on
+@code{TRUE} or @code{FALSE}, see variants below
+@item strength
+default: 30
+@item range
+default: 1000 (quasi infinite)
+@end table
+
+@strong{Messages}
+
+@table @code
+@item on, off, onoff
+as usual
+@item signal
+0: off, 1: on
+@end table
+
+@strong{Variants}
+
+@table @code
+@item it-magnet
+by default off
+@item it-magnet-on
+@item it-magnet-off
+@end table
+
+
+@c -------------------- Odometer --------------------
+@node it-odometer
+@subsection it-odometer
+
+Supposed to measure the route the marble has rolled since picking up
+@code{it-odometer}.  Not implemented yet.
+
+
 @c -------------------- Pencil --------------------
-@node it-pencil, it-ring, it-hollow, Items
-@subsection it-pencil: Pencil
+@node it-pencil
+@subsection it-pencil
 
 Try to scratch an @ref{it-cross} into the floor, pencil is lost
 after this. Scratching onto ice results in a crack, scratching
 while flying or on certain floors results in dropping the pencil.
 
+
+@c -------------------- Pin --------------------
+@node it-pin
+@subsection it-pin
+
+While in inventory, @code{it-pin} increases the friction of the
+floor.  Used in conjunction with @ref{fl-ice}.
+
+
+@c -------------------- Pipes --------------------
+@node it-pipe
+@subsection it-pipe
+
+Pipes are used by @ref{st-mail} to transport items over large
+distances or onto unreachable grounds.  Pipes can be destroyed by
+explosions (like from @ref{it-blackbomb} or @ref{it-whitebomb}).
+
+@strong{Variants}
+
+@table @code
+@item it-pipe-e
+@item it-pipe-w
+@item it-pipe-s
+@item it-pipe-n
+@item it-pipe-es
+@item it-pipe-ne
+@item it-pipe-sw
+@item it-pipe-wn
+@item it-pipe-h
+horizontal
+@item it-pipe-v
+vertical
+@end table
+
+The first four variants depict endpoints of the pipe, they're of no
+use to @ref{st-mail} other than blocking the endpoint.
+
+
+@c -------------------- Puller --------------------
+@node it-puller
+@subsection it-puller
+
+When dropped, these items pull a stone from the direction they point
+to to their own position.  They explode during this, shattering
+marbles near them.
+
+@strong{Variants}
+
+@table @code
+@item it-puller-e
+@item it-puller-w
+@item it-puller-s
+@item it-puller-n
+@end table
+
+
 @c -------------------- Ring --------------------
-@node it-ring, it-sword, it-pencil, Items
-@subsection it-ring: Ring
+@node it-ring
+@subsection it-ring
 
 When a player drops this item, the marble is teleported.  The
 destination depends on the game mode:
@@ -3063,22 +3582,207 @@ destination depends on the game mode:
 @table @emph
 @item Single player levels:
 The marble is transported to its starting position or
-to the position of the last dropped @ref{it-flag}.
+to the position of the last dropped @ref{it-flag[black/white]}.
 
 @item Multi player levels:
-Both marbles exchange their positions.
+Both marbles exchange their positions.  In contrast to
+@ref{it-yinyang}, the positions are exchanged, not the players.
 @end table
 
+
+@c -------------------- Rubberband --------------------
+@node it-rubberband
+@subsection it-rubberband
+
+Supposed to connect two actors when used.  Not yet implemented.
+
+
+@c -------------------- Seeds --------------------
+@node it-seed
+@subsection it-seed
+
+There are three different seeds from which stones can grow:
+@code{it-seed} creates @ref{st-wood}, @code{it-seed_nowood} creates
+@code{st-greenbrown-growing}, which results in the unmovable simple
+stone @code{st-greenbrown}, and @code{it-seed_volcano}, which creates
+an @ref{st-volcano}.  The name of the seed is inherited to the new
+stone.
+
+In Oxyd-Magnum-compatibility mode, @code{it-seed} under
+@code{st-grate1} (see @ref{st-grate}) grows to the simple floor
+@code{fl-stwood} instead of destroying the grate.  In all other cases,
+stones at the position of the seed are replaced by the new stone.
+
+Seeds start growing on dropping them, on laser beams, stone hits and
+the @code{grow} and @code{signal}-messages.
+
+@strong{Messages}
+
+@table @code
+@item grow, signal
+start growing
+@end table
+
+@strong{Variants}
+
+@table @code
+@item it-seed
+@item it-seed_nowood
+@item it-seed_volcano
+@end table
+
+
+@c -------------------- Sensor --------------------
+@node it-sensor
+@subsection it-sensor
+
+This is an invisible, quiet and less extensive version of
+@ref{it-trigger}.  Whenever an actor enters it, it performs its
+@code{action/target}-pair, with second data @code{TRUE} for
+@code{it-sensor} and @code{FALSE} for @code{it-inversesensor}.
+Also compare @ref{it-cross}.
+
+@strong{Attributes}
+
+@table @code
+@item action, target
+as usual
+@end table
+
+@strong{Variants}
+
+@table @code
+@item it-sensor
+@item it-inversesensor
+@end table
+
+
+@c -------------------- Shogun Item --------------------
+@node it-shogun
+@subsection it-shogun
+
+Performs its @code{action/target}-pair when an @ref{st-shogun-<sml>}
+of fitting size covers it.
+
+@strong{Attributes}
+
+@table @code
+@c @item size  couldn't find this in code, though annonced in remark
+@item target, action
+as usual
+@end table
+
+@strong{Messages}
+
+@table @code
+@item noshogun
+deactivate
+@item shogun...
+used to activate or deactivate @code{it-shogun}
+@end table
+
+@strong{Variants}
+
+@table @code
+@item it-shogun-s
+@item it-shogun-m
+@item it-shogun-l
+@end table
+
+
+@c -------------------- Spade --------------------
+@node it-spade
+@subsection it-spade
+
+Decreases the size of an @code{it-hill} or @code{it-hollow} and
+removes @code{it-tinyhill} and @code{it-tinyhollow}, see @ref{Hills
+and Hollows}.
+
+
+@c -------------------- Spoon --------------------
+@node it-spoon
+@subsection it-spoon
+
+Shatters the marble.  Note that in contrast to F3, @code{it-spoon}
+only shatters the marble using it, not all of them.
+
+
+@c -------------------- Springs --------------------
+@node it-spring[1/2/board]
+@subsection it-spring[1/2/board]
+
+Springs let marbles jump, e.g. over @ref{fl-water}, @ref{fl-swamp},
+@ref{fl-abyss}, @ref{it-abyss}, and laser beams.  Note that you can't
+jump over stones or fire (@ref{Fire and Extinguisher}), and cannot
+pass @ref{st-grate} during the jump, even if you could on the ground.
+
+You can pick up and use @code{it-spring1} and @code{it-spring2}.  You
+keep the former in the inventory, but in general drop
+@code{it-spring2} when using.  @code{it-springboard} is fixed to the
+ground, you can only use it where it is.
+
+@strong{Variants}
+
+@table @code
+@item it-spring1
+@item it-spring2
+@item it-springboard
+@end table
+
+
+@c -------------------- Squashed Fruits --------------------
+@node it-squashed
+@subsection it-squashed
+
+The remnants of @ref{it-cherry} or @ref{it-banana} after pushing a
+stone over them.  Can be removed with @ref{it-brush}.
+
+
 @c -------------------- Sword --------------------
-@node it-sword, it-umbrella, it-ring, Items
-@subsection it-sword: Sword
+@node it-sword
+@subsection it-sword
 
 Used to neutralize @ref{st-knight}.  Laser-transforms into
 @ref{it-hammer} and vice versa.
 
+
+@c -------------------- Trigger --------------------
+@node it-trigger
+@subsection it-trigger
+
+When pushed down by an actor or a stone, this trigger performs its
+@code{action/target}-pair, and a second time when it is released
+again. As second data it uses @code{TRUE} when pressed, and
+@code{FALSE} if not. 
+
+Floating stones do not hold down a trigger, except of the tunnel
+puzzle-stone (see @ref{st-puzzle}). 
+
+@code{it-trigger} can be initialized as invisible with attribute
+@code{invisible = TRUE}.  Note that it still produces its
+click-sounds.  For a simpler version, see @ref{it-sensor}.  Also
+compare @ref{it-cross}.
+
+@strong{Attributes}
+
+@table @code
+@item invisible
+0.0 (visible) or 1.0 (invisible), by default 0.0
+@item action, target
+as usual
+@end table
+
+@strong{Messages}
+
+@table @code
+@item signal
+perform @code{action/target} according to second data
+@end table
+
+
 @c -------------------- Umbrella --------------------
-@node it-umbrella, it-vortex, it-sword, Items
-@subsection it-umbrella: Umbrella
+@node it-umbrella
+@subsection it-umbrella
 
 @code{it-umbrella} protects a marble from @ref{st-death},
 @ref{st-knight}, @ref{st-thief}, @ref{fl-abyss}, @ref{fl-water},
@@ -3088,16 +3792,17 @@ and the ``shatter'' and ``fall''-messages.
 @code{it-umbrella} can be destroyed by laserlight and is the result of
 laser-transforming an @code{it-coin1} (see @ref{it-coin}).
 
-@c -------------------- Vortex -------------------- 
-@node it-vortex, it-whitebomb, it-umbrella, Items
-@subsection it-vortex: Vortex
 
-Vortices, like wormholes, can be used to teleport marbles.  In the
-simplest case, every vortex is connected to exactly one other vortex.
-If there are multiple target vortices, the marble will be teleported
-to the first @emph{unblocked} target site.  Many levels in the
-original Oxyd games required the player to selectively block vortices
-to gain access to new parts of the level.
+@c -------------------- Vortex -------------------- 
+@node it-vortex
+@subsection it-vortex
+
+Vortices, like @ref{it-wormhole}, can be used to teleport marbles.  In
+the simplest case, every vortex is connected to exactly one other
+vortex. If there are multiple target vortices, the marble will be
+teleported to the first @emph{unblocked} target site.  Many levels in
+the original Oxyd games required the player to selectively block
+vortices to gain access to new parts of the level.
 
 @strong{Example}
 
@@ -3114,9 +3819,20 @@ Signal ("it(10 1)", "it(1 1)")
 Signal ("it(20 1)", "it(1 1)")
 @end example
 
+
+@c -------------------- Weight -------------------- 
+@node it-weight
+@subsection it-weight
+
+Heightens the mass of the marble (making it more difficult to
+accelerate and guide) and can't be dropped.  Note that it can still be
+stolen by @ref{st-thief} or @ref{fl-thief} and mailed away with
+@ref{st-mail}. 
+
+
 @c -------------------- White Bomb --------------------
-@node it-whitebomb, , it-vortex, Items
-@subsection it-whitebomb: White Bomb
+@node it-whitebomb
+@subsection it-whitebomb
 
 This item is the stronger version of @ref{it-blackbomb}, and can't be
 picked up also.  It can be ignited by lasers, fire and other 
@@ -3141,6 +3857,66 @@ explode instantly
 Note that, in contrast to @ref{it-blackbomb}, white bombs are not
 removed from @ref{st-bombs}-explosions.
 
+
+@c -------------------- Wormhole -------------------- 
+@node it-wormhole
+@subsection it-wormhole
+
+Teleports actors to the coordinates given by the @code{targetx}- and
+@code{targety}-attributes (compare @ref{it-vortex}).  In addition,
+wormholes have a variable force field, which can be switched on and
+off.
+
+After teleporting an actor, the wormhole's teleporting ability is
+switched off for a time period given by the @code{interval}-attribute,
+which is by default 0.0.
+
+@strong{Attributes}
+
+@table @code
+@item targetx, targety
+exit of the wormhole
+@item strength, range
+strength and range of the force field
+@item on
+whether force field is on
+@item interval
+minimal delay between two teleports
+@end table
+
+@strong{Messages}
+
+@table @code
+@item on, off, onoff
+as usual
+@item signal
+0: off, 1: on
+@end table
+
+@strong{Variants}
+
+@table @code
+@item it-wormhole
+@item it-wormhole-off
+wormhole without force field
+@end table
+
+
+@c -------------------- Wrench -------------------- 
+@node it-wrench
+@subsection it-wrench
+
+Changes direction of @ref{st-rotator}.
+
+
+@c -------------------- Yinyang Item -------------------- 
+@node it-yinyang
+@subsection it-yinyang
+
+Toggles between players.  Compare @ref{it-ring} in multiplayer mode.
+
+
+@c ===================  Stones  =======================
 
 @node Stones, Actors, Items, Objects
 @section Stones
@@ -3470,7 +4246,8 @@ Also compare @ref{st-plain}, as @code{st-plain_cracked} results from
 
 @code{st-magic} disappears when hit strong enough.
 
-@code{st-dummy} prints its own Oxyd code when hit.
+@code{st-dummy} prints its own Oxyd code when hit. Compare
+@code{it-dummy} (@ref{System and Debug Items}) and @ref{fl-dummy}.
 
 @code{st-peroxyd-0xb8}, @code{st-peroxyd-0xb9} and @code{st-oxyd-0x18}
 just seem to destroy themselves on creation, the former two creating
@@ -4285,7 +5062,7 @@ The solid version additionally becomes @code{st-plain_cracked} when hit
 by a laser beam and can then be destroyed with an @ref{it-hammer} or
 explosions (see @ref{Breakable Stones}).  The hollow version is
 transparent for lasers.  Note that @code{st-plain_cracked} doesn't
-become transparent by messages.
+become transparent nor hollow by messages.
 
 As @code{st-plain} is a frequent design scheme, you might want to use
 a version that doesn't transform under laser light. For this purpose,
@@ -4409,9 +5186,10 @@ as usual
 @subsection st-shogun-<sml>: Shogun Stones
 
 These stones come in three basic variants: small (@code{s}), medium
-(@code{m}) and large (@code{l}). The smaller ones can be pushed into
+(@code{m}) and large (@code{l}).  The smaller ones can be pushed into
 bigger ones, forming combined forms denoted by combinations of @code{s},
-@code{m} and @code{l}.
+@code{m} and @code{l}.  When hit, these combined stones split again
+into the smaller ones.
 
 The shogun stones trigger shogun items (see @ref{it-shogun}).
 
