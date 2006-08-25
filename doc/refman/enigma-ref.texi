@@ -2443,6 +2443,7 @@ i.e., neither to modify them nor to delete them without notice.
 * fl-dummy::                    Dummy floor
 * fl-gradient::                 Gradient
 * fl-ice::                      Ice
+* fl-inverse::                  Inverse Floor
 * fl-nomouse::                  No-mouse-floor
 * fl-space::                    Space Floor
 * fl-space-force::              Space Floor with Vertical Force
@@ -2480,13 +2481,17 @@ fl-acwhite
 fl-bridge( type )
 fl-bridge-closed( type )
 fl-bridge-open( type )
-fl-gradient( type )
-fl-gradient@{1..16@}
-fl-springboard
+fl-dummy
+fl-gradient( type force )
+fl-gradient@{1..16@}( force )
+fl-ice
+fl-ice_001
+fl-inverse
+fl-inverse2
+fl-nomouse
 fl-swamp
 fl-thief
 fl-water
-fl-nomouse
 @end example
 
 
@@ -2503,17 +2508,12 @@ fl-brick
 fl-bumps
 fl-concrete
 fl-darkgray
-fl-dummy
 fl-dunes
 fl-floor_001
 fl-gravel
 fl-gray
 fl-hay
 fl-himalaya
-fl-ice
-fl-ice_001
-fl-inverse
-fl-inverse2
 fl-leaves
 fl-leavesb
 fl-leavesc@{1..4@}
@@ -2542,6 +2542,7 @@ fl-samba2
 fl-sand
 fl-space
 fl-space-force
+fl-springboard
 fl-stone
 fl-stwood
 fl-stwood1
@@ -2655,15 +2656,38 @@ types show outlines that don't correspond to their forces (use them
 for tubes etc.).
 
 
-@node fl-ice, fl-nomouse, fl-gradient, Floors
+@node fl-ice, fl-inverse, fl-gradient, Floors
 @subsection fl-ice
 
 Ice has very low friction and mousefactor, such that it's difficult to
 move on it.  You can use @ref{it-pin} and @code{enigma.IceFriction}
 (see @ref{Variables}) to ease the friction.
 
+@strong{Variants}
 
-@node fl-nomouse, fl-space, fl-ice, Floors
+@table @code
+@item fl-ice
+@item fl-ice_001
+@end table
+
+@code{fl-ice_001} is a historical alias for @code{fl-ice} and
+shouldn't be used anymore.
+
+
+@node fl-inverse, fl-nomouse, fl-ice, Floors
+@subsection fl-ice
+
+Inverses the mouse movements (negative @code{mouseforce}).
+
+@strong{Variants}
+
+@table @code
+@item fl-inverse
+@item fl-inverse2
+@end table
+
+
+@node fl-nomouse, fl-space, fl-inverse, Floors
 @subsection fl-nomouse
 
 This floor prevents a player from controlling the marble
@@ -2703,6 +2727,7 @@ and may raise again when moving fast enough (compare with
 
 Marbles may jump over @ref{fl-swamp} with an
 @ref{it-spring[1/2/board]}.
+
 
 @node fl-thief, fl-water, fl-swamp, Floors
 @subsection fl-thief
@@ -2820,7 +2845,7 @@ it-coin1( value )
 it-coin2( value )
 it-coin4( value )
 it-crack@{0..3@} ( type fixed brittleness )
-it-cross
+it-cross( action target )
 it-debris
 it-document( text )
 it-drop
@@ -2842,9 +2867,9 @@ it-glasses
 it-glasses-broken
 it-hammer
 it-hill
-it-hollow
+it-hollow( essential )
 it-hstrip
-it-inversesensor
+it-inversesensor( action target )
 it-key( keycode )
 it-key_a
 it-key_b
@@ -2855,7 +2880,7 @@ it-magnet( on strength range )
 it-magnet-off( on strength range )
 it-magnet-on( on strength range )
 it-odometer
-it-oxyd5f
+it-oxyd5f( action target )
 it-pencil
 it-pin
 it-pipe-e
@@ -2877,12 +2902,12 @@ it-rubberband( object1 object2 length strength )
 it-seed
 it-seed_nowood
 it-seed_volcano
-it-sensor
-it-shogun-l
-it-shogun-m
-it-shogun-s
-it-signalfilter0
-it-signalfilter1
+it-sensor( action target )
+it-shogun-l( action target )
+it-shogun-m( action target )
+it-shogun-s( action target )
+it-signalfilter0( action target )
+it-signalfilter1( action target )
 it-spade
 it-spoon
 it-spring1
@@ -2892,16 +2917,16 @@ it-squashed
 it-surprise
 it-sword
 it-tinyhill
-it-tinyhollow
-it-trigger( invisible )
+it-tinyhollow( essential )
+it-trigger( action target invisible )
 it-umbrella
 it-vortex-closed( autoclose targetx targety )
 it-vortex-open( autoclose targetx targety )
 it-vstrip
 it-weight
 it-whitebomb
-it-wormhole( on targetx targety strength range )
-it-wormhole-off( on targetx targety strength range )
+it-wormhole( on targetx targety strength range interval )
+it-wormhole-off( on targetx targety strength range interval )
 it-wrench
 it-yinyang
 @end example
@@ -3025,7 +3050,7 @@ modes.
 Use @code{it-burnable} to allow a floor tile to catch fire,
 @code{it-burnable_ignited} and @code{it-burnable_burning} to set
 already burning floor, @code{it-burnable_fireproof} to save floor from
-fire and @code{it-burnable_ash} for the unburnable remainders of a
+fire and @code{it-burnable_ash} for the unburnable remnants of a
 fire.
 
 Fire can spread via three ways: @code{it-burnable}, identical floor
@@ -3097,6 +3122,14 @@ explode instantly
 remove it without explosion
 @end table
 
+@strong{Variants}
+
+@table @code
+@item it-blackbomb
+@item it-blackbomb_burning
+@end table
+
+
 @c -------------------- Blocker Item --------------------
 @node it-blocker
 @subsection it-blocker
@@ -3116,6 +3149,15 @@ These are complicated, but in most cases @code{close} makes the item
 grow. Consult the source code for details.
 @item signal
 1: open, 0: close
+@end table
+
+@strong{Variants}
+
+@table @code
+@item it-blocker
+@item it-blocker-new
+doesn't grow at once when @code{st-bolder} just arrives (acts as if
+recently shrinked)
 @end table
 
 
@@ -3144,9 +3186,10 @@ picked up as @code{it-brake} again.  It can be used to destroy
 This item can be used to make some invisible stones visible
 (@code{st-actorimpulse_invisible} (see @ref{st-actorimpulse}),
 @code{st-break_invisible} (see @ref{Breakable Stones}),
-@ref{st-stonebrush}) and to remove debris from the level
-(@ref{it-cross}, @code{it-burnable_ash}, @code{it-burnable_fireproof},
-@code{it-squashed}, see @ref{Fire and Extinguisher}).
+@code{st-stonebrush} (see @ref{st-invisible}) and to remove debris
+from the level (@ref{it-cross}, @code{it-burnable_ash},
+@code{it-burnable_fireproof}, @code{it-squashed}, see @ref{Fire and
+Extinguisher}).
 
 The Per.Oxyd-compatibility stone @code{st-yinyang3} (see
 @ref{st-yinyang}) must be touched with an @code{it-brush} or
@@ -3260,7 +3303,7 @@ every 10 seconds).  Similar functions have @ref{it-trigger} and
 as usual
 @end table
 
-@strong{Variants}
+@strong{Messages}
 
 @table @code
 @item brush
@@ -3276,7 +3319,8 @@ Per.Oxyd-compatibility mode
 @subsection it-death
 
 Kills a marble that touches it, even when it is jumping with
-@ref{it-spring[1/2/board]}, compare @ref{it-abyss}.
+@ref{it-spring[1/2/board]}, compare @ref{it-abyss}.  @ref{it-umbrella}
+protects the marble.
 
 
 @c -------------------- Document --------------------
@@ -3284,13 +3328,24 @@ Kills a marble that touches it, even when it is jumping with
 @subsection it-document
 
 This item looks like a piece of paper and contains text messages that
-can be displayed by activating the item.  
+can be displayed by activating the item.  It is destroyed by
+explosions (like @ref{it-blackbomb}, @ref{it-whitebomb},
+@ref{st-bombs} and also @ref{it-dynamite}).
 
 @strong{Attributes}
 
 @table @code
 @item text
 The message to be displayed.
+@end table
+
+@strong{Messages}
+
+@table @code
+@item expl, bombstone
+destroy
+@item ignite
+destroy if not in Oxyd compatibility mode
 @end table
 
 @strong{Example}
@@ -3418,12 +3473,14 @@ see @ref{st-key}
 @strong{Variants}
 
 @table @code
+@item it-key
+@code{keycode} is 1
 @item it-key_a
-keycode is 1
+@code{keycode} is 1
 @item it-key_b
-keycode is 2
+@code{keycode} is 2
 @item it-key_c
-keycode is 3
+@code{keycode} is 3
 @end table
 
 
@@ -3452,7 +3509,8 @@ clusters explode (@ref{st-puzzle}).
 @item
 Makes @code{st-brick_magic} transparent (@ref{st-brick_magic}).
 @item
-Makes @ref{st-invisible_magic} visible and non-transparent.
+Makes @code{st-invisible_magic} visible and non-transparent
+(@ref{st-invisible}).
 @item
 Makes rubberband stones movable (@ref{st-rubberband}).
 @item
@@ -3804,15 +3862,60 @@ teleported to the first @emph{unblocked} target site.  Many levels in
 the original Oxyd games required the player to selectively block
 vortices to gain access to new parts of the level.
 
+In a further contrast to wormholes, vortices can be open or closed,
+and when marbles exit, they jump out of them.  Furthermore, connecting
+vortices in a cycle works as expected and is standard (though not
+necessary), whereas connecting wormholes cyclic results in an
+error-message (as long as their @code{interval}-message isn't used).
+
+@strong{Attributes}
+
+@table @code
+@item targetx, targety
+destination of teleport
+@item autoclose
+not implemented yet, see variants below
+@end table
+
+@strong{Messages}
+
+@table @code
+@item open, close, openclose
+as they say
+@item trigger
+identical to @code{openclose}
+@item signal
+0: close, 1: open
+@item arrival
+used by the teleport-system, don't use in levels
+@end table
+
+@strong{Variants}
+
+@table @code
+@item it-vortex-open
+This vortex starts open and doesn't close when an actor jumps out of
+it. Default teleportation target is the own position, thus an actor
+keeps jumping in and out of it until moved away.
+@item it-vortex-closed
+This vortex starts closed and closes again when an actor jumps out of
+it.  If you want to create an open vortex that closes after an actor,
+send a @code{trigger}-message to @code{it-vortex-closed} on
+initialization.
+@end table
+
+Note that @code{it-vortex-open} and @code{it-vortex-closed} @emph{do
+behave differently}, in contrast to their names.
+
 @strong{Example}
 
 This example creates three vortices.  If the second vortex is blocked, a
 marble falling into the first one is transported to (20,1).
 
 @example
-set_item ("it-vortex", 1, 1)
-set_item ("it-vortex", 10,1)
-set_item ("it-vortex", 20,1)
+set_item ("it-vortex-open", 1, 1)
+set_item ("it-vortex-open", 10,1)
+set_item ("it-vortex-open", 20,1)
 Signal ("it(1 1)", "it(10 1)")
 Signal ("it(1 1)", "it(20 1)")
 Signal ("it(10 1)", "it(1 1)")
@@ -3950,7 +4053,7 @@ Toggles between players.  Compare @ref{it-ring} in multiplayer mode.
 * st-floppy::                   Floppy Switch
 * st-fourswitch::               Fourswitch
 * st-grate::                    Various Grates
-* st-invisible_magic::          Magic Invisible Stone
+* st-invisible::                Invisible Stones
 * st-key::                      Key (or Lock) Stone
 * st-knight::                   Knight Stone
 * st-laser::                    Laser Stones
@@ -3969,7 +4072,6 @@ Toggles between players.  Compare @ref{it-ring} in multiplayer mode.
 * st-scissors::                 Scissors Stone
 * st-shogun-<sml>::             Shogun Stones
 * st-spitter::                  Spitter Stone
-* st-stonebrush::               Brush Stone
 * st-stoneimpulse::             Impulse Stones
 * st-surprise::                 Surprise Stone
 * st-swap::                     Swap Stones
@@ -4009,13 +4111,11 @@ st-bumps
 st-camouflage
 st-dummy
 st-fakeoxyd( blinking )
-st-fakeoxyda
 st-glass
 st-glass[123]
 st-glass[12]_hole
 st-glass1_move
 st-glass_move
-st-grate@{1..3@}
 st-greenbrown
 st-greenbrown_hole
 st-greenbrown_move
@@ -4025,9 +4125,6 @@ st-marble
 st-marble_hole
 st-marble_move
 st-metal
-st-plain
-st-plain_hole
-st-plain_move
 st-redrock
 st-rock@{1..9@}
 st-rock[123]_hole
@@ -4046,14 +4143,15 @@ some action, either when hit by an actor, or all by themselves.
 
 @example
 st-3mirror( transparent movable orientation )
-st-actorimpulse
-st-actorimpulse_invisible
+st-actorimpulse( force hit_factor hit_distortion_[xx/xy/yx/yy] )
+st-actorimpulse_invisible( force hit_factor hit_distortion_[xx/xy/yx/yy] )
 st-black@{1..4@}
 st-blackballs
 st-block
 st-blocker
 st-blocker-growing
-st-bolder-[ensw]
+st-bolder( direction )
+st-bolder-[ensw]( direction )
 st-bombs
 st-brake
 st-break_acblack
@@ -4068,10 +4166,10 @@ st-chameleon
 st-chargeminus( charge )
 st-chargeplus( charge )
 st-chargezero( charge )
-st-chess_black( colour direction1 direction2 )
-st-chess_white( colour direction1 direction2 )
+st-chess_black( color direction1 direction2 )
+st-chess_white( color direction1 direction2 )
 st-coffee
-st-coinslot( on )
+st-coinslot( on action target )
 st-death
 st-death_invisible
 st-disco-dark
@@ -4085,23 +4183,27 @@ st-door-v-open( type )
 st-door_[abc]
 st-easymode
 st-explosion
+st-fakeoxyda
 st-fart
 st-flash( hit_factor hit_distortion_[xx,xy,yx,yy] )
-st-floppy( on )
-st-fourswitch( on )
+st-floppy( action target on )
+st-fourswitch( action target on )
+st-grate[123]
 st-greenbrown-growing
 st-invisible
 st-invisible_magic
-st-key( on keycode )
-st-key_[abc] ( on keycode )
+st-key( action target on keycode )
+st-key_[abc]( action target on keycode )
 st-knight
-st-laser-[ensw]( on )
+st-laser( dir on )
+st-laser-[ensw]( dir on )
 st-laserbreak
-st-laserswitch
-st-lasertimeswitch( delay )
+st-laserswitch( action target inverse )
+st-lasertimeswitch( action target inverse delay )
 st-lightpassenger( interval friction_factor gradient_factor )
 st-magic
 st-mail-[ensw]
+st-mirror*( movable transparent orientation )
 st-mirror-3<
 st-mirror-3<m
 st-mirror-3<t
@@ -4134,19 +4236,25 @@ st-mirror-p|
 st-mirror-p|m
 st-mirror-p|t
 st-mirror-p|tm
-st-oneway-[nesw]
-st-oneway_black-[nesw]
-st-oneway_white-[nesw]
+st-oneway( orientation )
+st-oneway-[nesw]( orientation )
+st-oneway_black( orientation )
+st-oneway_black-[nesw]( orientation )
+st-oneway_white( orientation )
+st-oneway_white-[nesw]( orientation )
 st-oxyd( flavor color )
 st-oxyd-0x18
 st-peroxyd-0xb8
 st-peroxyd-0xb9
+st-plain
 st-plain_break
 st-plain_breaking
 st-plain_cracked
 st-plain_falling
+st-plain_hole
+st-plain_move
 st-pmirror( transparent movable orientation )
-st-polarswitch
+st-polarswitch( on )
 st-pull
 st-puzzle-hollow( oxyd )
 st-puzzle-<nesw>( oxyd )
@@ -4159,9 +4267,9 @@ st-rotator-right
 st-rotator_move-left
 st-rotator_move-right
 st-rubberband( length strength minlength )
-st-scissors
-st-shogun-<sml>
-st-spitter
+st-scissors( action target )
+st-shogun-<sml>( holes )
+st-spitter( hit_factor hit_distortion_[xx/xy/yx/yy] )
 st-stone_break
 st-stonebrush
 st-stoneimpulse
@@ -4169,12 +4277,12 @@ st-stoneimpulse-hollow
 st-stoneimpulse_movable
 st-surprise
 st-swap
-st-switch( on )
-st-switch_black( on )
-st-switch_white( on )
+st-switch( action target on )
+st-switch_black( action target on )
+st-switch_white( action target on )
 st-thief
-st-timer( on interval loop invisible )
-st-timeswitch( delay )
+st-timer( action target on interval loop invisible )
+st-timeswitch( action target delay inverse )
 st-turnstile
 st-turnstile-green
 st-turnstile-[ensw]
@@ -4221,7 +4329,7 @@ pyro; this stone is movable; falls into @ref{fl-abyss},
 @ref{fl-water} and @ref{fl-swamp}
 @item st-bug
 @ref{ac-bug}
-@item st-breaking
+@item st-breaking, st-plain_breaking
 breaks instantly, looks like @code{st-rock3}
 @item st-fart
 hammer, laser; see also @ref{st-fart}
@@ -4308,7 +4416,7 @@ West and East of it and 0 to North and South; or vice versa, depending
 on the position of the message-sending stone.
 
 A typical construction for this is an @code{st-blackballs} surrounded
-by @code{st-door} and @code{it-sensor}, with @code{st-blackballs} as
+by @ref{st-door} and @ref{it-sensor}, with @code{st-blackballs} as
 target of the action of @code{it-sensor}.  When in this situation a
 black marble hits one of the closed doors, the door lets
 @code{it-sensor} perform its action, sending a message to
@@ -4345,6 +4453,13 @@ Note that @code{st-blocker} becomes a new object when shrinking, such
 that the messages @code{close} and @code{signal (0)} only make sense
 during transformation.
 
+@strong{Variants}
+
+@table @code
+@item st-blocker
+@item st-blocker-growing
+@end table
+
 
 @node st-bolder, st-bombs, st-blocker, Stones
 @subsection st-bolder: Bolder (or Arrow) Stone
@@ -4371,6 +4486,17 @@ direction.
 @item direction
 Change direction to the direction in the second argument,
 e.g. @code{SendMessage(mystone, "direction", WEST)}.
+@end table
+
+@strong{Variants}
+
+@table @code
+@item st-bolder
+default direction is @code{NORTH}
+@item st-bolder-w
+@item st-bolder-s
+@item st-bolder-e
+@item st-bolder-n
 @end table
 
 
@@ -4419,7 +4545,7 @@ transparent when hit with an @ref{it-magicwand}.
 
 This stone takes on the look of the floor beneath it.  Actors can
 move through it, so these stones are perfect for hiding stuff under
-them...
+them.  For solid, yet invisible stone-types see @ref{st-invisible}.
 
 
 @node st-charge, st-chess_[black/white], st-chameleon, Stones
@@ -4458,17 +4584,17 @@ When hit, a chess stone makes a knight move: two steps in direction of
 the hit plus one step in direction of the vertical velocity
 component. @code{st-chess_black} can only be moved with the black
 marble, @code{st-chess_white} only with the white. When there is a
-chess stone of opposite colour or a thief stone (@ref{st-thief}) at
+chess stone of opposite color or a thief stone (@ref{st-thief}) at
 the target position of a knight move, this stone is destroyed.
 
 When hit with a magic wand (@ref{it-magicwand}), a chess stone changes
-colour.  Chess stones fall into @ref{fl-abyss} and sink in
+color.  Chess stones fall into @ref{fl-abyss} and sink in
 @ref{fl-swamp}, but cross @ref{fl-water} undamaged.
 
 @strong{Attributes}
 
 @table @code
-@item colour
+@item color
 0 for black, 1 for white
 @item direction1, direction2
 Used by the @code{move}-message
@@ -4480,13 +4606,20 @@ Used by the @code{move}-message
 @item capture
 Destroy stone with capture-animation.
 @item flip
-Change colour.
+Change color.
 @item move_[nne, nnw, wwn, wws, ssw, sse, ees, een]
 Make a knight move.
 @item move
 Make a knight move defined by the attributes @code{direction1} (two
 steps) and @code{direction2} (one step). You can use the @code{NORTH},
 @code{SOUTH}, @code{EAST} and @code{WEST} constants for this.
+@end table
+
+@strong{Variants}
+
+@table @code
+@item st-chess_black
+@item st-chess_white
 @end table
 
 
@@ -4507,8 +4640,19 @@ more coins you put in, the longer the switch will stay activated.
 @strong{Attributes}
 
 @table @code
+@item on
+as usual
 @item target, action
 As usual
+@end table
+
+@strong{Messages}
+
+@table @code
+@item on, off, onoff
+as usual
+@item signal
+0: off, 1: on
 @end table
 
 
@@ -4528,11 +4672,17 @@ using @ref{it-glasses}.
 @item st-death_invisible
 @end table
 
+
 @node st-disco, st-door, st-death, Stones
 @subsection st-disco: Disco Stones
 
-Darkens everything that is underneath the stone (much like tinted
-glass).  Can be switched on and off (hence the name).
+A passable stone, which darkens everything that is underneath the
+stone (much like tinted glass).  Can be switched on and off (hence the
+name).
+
+When lightened or darkened, this stone also lightens and darkens
+neighboring @code{st-disco}, such that the light on a passage can be
+switched on and off just by sending one single message.
 
 @strong{Messages}
 
@@ -4715,14 +4865,17 @@ yet.  When using the direction in a level, you have to count the hits
 yourself: The stone always starts with direction @code{NORTH}.
 
 
-@node st-grate, st-invisible_magic, st-fourswitch, Stones
+@node st-grate, st-invisible, st-fourswitch, Stones
 @subsection st-grate: Grates
 
-Floating grates, mainly decorative.  Flying objects (jumping marbles,
-rotors, etc.) cannot pass, objects moving on the floor can.
+Floating grates, mainly decorative.  @code{st-grate1} and
+@code{st-grate2} block jumping marbles, all other actors may pass.  In
+Oxyd compatibility mode, all actors may pass.  
 
-See @ref{st-[black/white]} for further stones that let only some
-actors pass.
+@code{st-grate3} lets only small marbles (@ref{ac-killerball} and
+@ref{ac-whiteball-small}) and @ref{ac-horse} pass. See
+@ref{st-[black/white]} for further stones that let only some actors
+pass.
 
 @strong{Variants}
 
@@ -4733,15 +4886,30 @@ actors pass.
 @end table
 
 
-@node st-invisible_magic, st-key, st-grate, Stones
-@subsection st-invisible_magic: Magic Invisible Stone
+@node st-invisible, st-key, st-grate, Stones
+@subsection st-invisible: Invisible Stones
 
-This stone is initially invisible and transparent and turns into
-@code{st-greenbrown} when touched with @ref{it-magicwand}. Compare
-with @ref{st-stonebrush}.
+@code{st-invisible} is invisible and non-transparent for lasers, and
+in contrast to @ref{st-chameleon}, it is solid.
+
+@code{st-stonebrush} initially equals @code{st-invisible}, but
+turns into @code{st-rock4} when hit with an @ref{it-brush},
+respectively into @code{st-likeoxydc-open} in Per.Oxyd compatibility
+mode.
+
+@code{st-invisible_magic} is invisible and transparent for lasers, and
+turns into @code{st-greenbrown} when touched with @ref{it-magicwand}.
+
+@strong{Variants}
+
+@table @code
+@item st-invisible
+@item st-invisible_magic
+@item st-stonebrush
+@end table
 
 
-@node st-key, st-knight, st-invisible_magic, Stones
+@node st-key, st-knight, st-invisible, Stones
 @subsection st-key: Key (or Lock) Stone
 
 When the right @ref{it-key} is used on this stone, it performs the
@@ -4765,13 +4933,19 @@ as usual
 @strong{Variants}
 
 @table @code
+@item st-key
+@code{keycode} is 0
 @item st-key_a
-keycode is 1
+@code{keycode} is 1
 @item st-key_b
-keycode is 2
+@code{keycode} is 2
 @item st-key_c
-keycode is 3
+@code{keycode} is 3
 @end table
+
+Note that @code{it-key} and @code{st-key} do not match by defaults,
+since the default keycodes are different.  Use @code{st-key_a}
+instead.
 
 
 @node st-knight, st-laser, st-key, Stones
@@ -4980,17 +5154,6 @@ color.
 When hit with an @ref{it-magicwand}, @code{st-oneway} flips its
 direction.
 
-@strong{Variants}
-
-@table @code
-@item st-oneway
-@item st-oneway-[nesw]
-@item st-oneway_black
-@item st-oneway_black-[nesw]
-@item st-oneway_white
-@item st-oneway_white-[nesw]
-@end table
-
 @strong{Attributes}
 
 @table @code
@@ -5010,9 +5173,19 @@ setting this attribute.
 Set the direction of the arrow during the game.  Simply setting the
 attribute @code{orientation} is not enough, since this does not update
 the stone's model on the screen.
-@item signal
-@item flip
+@item signal, flip
 Both these messages flip the direction of the arrow.
+@end table
+
+@strong{Variants}
+
+@table @code
+@item st-oneway
+@item st-oneway-[nesw]
+@item st-oneway_black
+@item st-oneway_black-[nesw]
+@item st-oneway_white
+@item st-oneway_white-[nesw]
 @end table
 
 
@@ -5026,7 +5199,7 @@ of the stone; it can be either `a' (opening like a flower), `b'
 attribute determines the color on the oxyd stone.
 
 @strong{Note}: You should rarely need to create Oxyd stones manually
-with @code{set_stone()}.  Use the predefined @code{oxyd()} function
+with @ref{set_stone}.  Use the predefined @ref{oxyd} function
 instead.  It will automatically take care of creating two Oxyd stones
 of every color.
 
@@ -5043,10 +5216,10 @@ a number between 0 and 7
 
 @table @code
 @item closeall
-Close all oxyd stones
+Close all oxyd stones.
 @item shuffle
 Interchange the colors of the oxyd stones in the current
-landscape. Use the @code{oxyd_shuffle()} function.
+landscape. Better use the @ref{oxyd_shuffle} function.
 @item trigger
 Open the stone (useful for opening Oxyd stones using switches)
 @end table
@@ -5191,12 +5364,23 @@ bigger ones, forming combined forms denoted by combinations of @code{s},
 @code{m} and @code{l}.  When hit, these combined stones split again
 into the smaller ones.
 
-The shogun stones trigger shogun items (see @ref{it-shogun}).
+The shogun stones trigger shogun items (see @ref{it-shogun}):  A
+single @code{st-shogun-s} triggers @code{it-shogun-s}, a combined
+@code{st-shogun-sm} triggers @code{it-shogun-m}, and the ultimative
+@code{st-shogun-sml} triggers @code{it-shogun-l}.
 
 Shogun stones don't ignite bombs when pushed over them.
 
+@strong{Attributes}
 
-@node st-spitter, st-stonebrush, st-shogun-<sml>, Stones
+@table @code
+@item holes
+between 1 and 7 (the three lower bits), used internally, thus
+read-only
+@end table
+
+
+@node st-spitter, st-stoneimpulse, st-shogun-<sml>, Stones
 @subsection st-spitter: Spitter Stone
 
 When hit, an @ref{it-extralife} from the inventory of the hitting
@@ -5216,15 +5400,7 @@ define a matrix to be applied to the force (default @code{((1,0),(0,1))})
 @end table
 
 
-@node st-stonebrush, st-stoneimpulse, st-spitter, Stones
-@subsection st-stonebrush: Brush Stone
-
-This stone is initially invisible and turns into @code{st-rock4} when
-hit with an @ref{it-brush}, respectively into @code{st-likeoxydc-open}
-in Per.Oxyd compatibility mode. Compare with @ref{st-invisible_magic}.
-
-
-@node st-stoneimpulse, st-surprise, st-stonebrush, Stones
+@node st-stoneimpulse, st-surprise, st-spitter, Stones
 @subsection st-stoneimpulse: Impulse Stones
 
 These stones give impulses to their neighbors when they receive such
@@ -5279,18 +5455,6 @@ other stones and may not be moved on empty fields.
 
 A simple switch. 
 
-@strong{Variants}
-
-@table @code
-@item st-switch
-All kinds of objects can activate this switch
-@item st-switch_black
-Only black marbles can activate this switch
-@item st-switch_white
-Only white marbles can activate this switch
-@end table
-
-
 @strong{Attributes}
 
 @table @code
@@ -5298,6 +5462,17 @@ Only white marbles can activate this switch
 1 (activate) or 0 (inactive)
 @item target, action
 as usual
+@end table
+
+@strong{Variants}
+
+@table @code
+@item st-switch
+All kinds of objects can activate this switch.
+@item st-switch_black
+Only black marbles can activate this switch.
+@item st-switch_white
+Only white marbles can activate this switch.
 @end table
 
 
@@ -5324,34 +5499,36 @@ Destroy thief stone with capture-animation (as if captured by a chess
 stone).
 @end table
 
+
 @node st-timer, st-timeswitch, st-thief, Stones
 @subsection st-timer: Timer Stone
 
 This stone can be used to trigger periodic events or to trigger one
-single event after a certain amount of time.
+single event after a certain amount of time.  When triggering, it
+performs its @code{action/target}-pair, the second data is 1 for every
+odd activation, and 0 for every even one.
 
 @strong{Attributes}
 
 @table @code
 @item on
-1 if the timer is running
+1 if the timer is running (default: 1)
 @item interval
-number of seconds before @code{action} is performed
+number of seconds before @code{action} is performed (default: 1.0)
 @item loop
-if 1, restart the timer after performing @code{action}
-@item action
-as usual
-@item target
+if 1, restart the timer after performing @code{action} (default: 1)
+@item action, target
 as usual
 @item invisible
-if 1, stone is invisible
+if 1, stone is invisible (default: 0)
 @end table
 
 @strong{Messages}
 @table @code
-@item on
-@item off
-@item onoff
+@item on, off, onoff
+as usual
+@item signal
+0: off, 1: on
 @end table
 
 
@@ -5380,6 +5557,8 @@ See also @ref{st-lasertimeswitch}.
 The delay in seconds after which the switch goes @code{off}.
 @item inverse=1
 Inverts the on/off state of the switch.
+@item action, target
+as usual
 @end table
 
 
@@ -5446,7 +5625,7 @@ Makes an inactive stone active again.
 @table @code
 @item st-volcano
 starts inactive
-@item st-volcano_growing
+@item st-volcano-growing
 @item st-volcano_active
 @item st-volcano_inactive
 @end table
@@ -5475,12 +5654,25 @@ by using @code{st-wood1} or @code{st-wood2}.
 @code{st-wood-growing} is a growing version of @code{st-wood}, it
 results from using a particular @ref{it-seed}.
 
+@strong{Variants}
+
+@table @code
+@item st-wood
+@item st-wood-growing
+@end table
+
 
 @node st-yinyang,  , st-wood, Stones
 @subsection st-yinyang: Yin-Yang Stones
 
 Yin-Yang stones change into @code{st-white1} or @code{st-black1}
 if you touch them (see @ref{st-[black/white]}).
+
+Actors get stuck inside the Yin-Yang Stone if they are starting
+there or when they warp there. They can be freed by changing the 
+color of the Yin-Yang Stone to their color.
+
+@strong{Variants}
 
 There are several flavors of this stone:
 
@@ -5495,31 +5687,29 @@ The Per.Oxyd compatible: You must hold @ref{it-magicwand} or
 marble.
 @end table
 
-Actors get stuck inside the Yin-Yang Stone if they are starting
-there or when they warp there. They can be freed by changing the 
-color of the Yin-Yang Stone to their color.
 
 @c ----------------------------------------------------------------------
 @node Actors, General object attributes, Stones, Objects
 @section Actors
 
 @menu
-* Actor Attributes::            Yin-Yang Stones
+* Actor Attributes::            Common attributes of actors
 * ac-blackball::                Black Marble
-* ac-whiteball::                White Marble
-* ac-whiteball-small::          Meditation Marble
+* ac-bug::                      Bug
+* ac-cannonball::               Cannonball
+* ac-horse::                    Horse
 * ac-killerball::               Small killer marble
 * ac-rotor::                    Rotor
 * ac-top::                      Spinning Top
-* ac-bug::                      Bug
-* ac-horse::                    Horse
+* ac-whiteball::                White Marble
+* ac-whiteball-small::          Meditation Marble
 @end menu
 
 Movable objects are called ``actors'' in Enigma.  The most common
 actor is, of course, the black marble, but there are others, including
 the white marble, the killerball and a few more:
 
-@node Actor Attributes, ac-blackball, Actors, Actors
+@node Actor Attributes
 @subsection Actor Attributes
 
 All actors share a set of common attributes that determine their
@@ -5529,7 +5719,9 @@ general behaviour:
 @item player
 The player ``owning'' this actor.  This is either 0 or 1 for the first
 or second player respectively.  Actors attached to a player can pick
-up items and can be respawned when they are killed.
+up items and can be respawned when they are killed (same player means
+same inventory).  Note: The controllers of the marble are given by the
+@code{controllers}-attribute
 
 @item mouseforce
 A factor that determines how much the actor accelerates when the mouse
@@ -5541,7 +5733,7 @@ forces can still exert a force on it).
 Determines which players may move this actor: 1=Player 1, 2=Player 2,
 3=both. By default, @code{ac-blackball}, @code{ac-whiteball} and
 @code{ac-whiteball-small} have their @code{controllers} attribute set
-to 1,2, and 3 respectively.
+to 1, 2, and 3 respectively.
 
 @item essential
 A non-zero value marks this actor as essential.  If
@@ -5551,71 +5743,163 @@ attribute for several actors, you should use the @emph{same value} for
 all of them!
 
 @item whiteball, blackball
-Used by color-sensitive stones (black/white switches for example) to
-determine whether the actor is the black or the white marble.  These
-attributes may disappear in future versions, please do not use them.
+@code{TRUE} or @code{FALSE}. Used by color-sensitive stones
+(black/white switches for example) to determine whether the actor is
+the black or the white marble.  These attributes may disappear in
+future versions, please do not use them.
 @end table
 
 
-@node ac-blackball, ac-whiteball, Actors, Actors
+@node ac-blackball
 @subsection ac-blackball
 
-mouseforce (default 1.0)
-color (default 0.0)
-blackball (default 1)
-player (default 0)
-controllers (default 1)
+This is the most common actor.
 
-@node ac-whiteball, ac-whiteball-small, ac-blackball, Actors
-@subsection ac-whiteball
+@strong{Attributes}
 
-mouseforce (default 1.0)
-color (default 1.0)
-whiteball (default 1)
-player (default 1)
-controllers (default 2)
+@table @code
+@item mouseforce (default 1.0)
+@item color (default 0.0)
+@item blackball (default 1)
+@item player (default 0)
+@item controllers (default 1)
+@end table
 
-@node ac-whiteball-small, ac-killerball, ac-whiteball, Actors
-@subsection ac-whiteball-small
 
-mouseforce (default 1.0)
-color (default 1.0)
-whiteball (default 1)
-controllers (default 3)
-
-@node ac-killerball, ac-rotor, ac-whiteball-small, Actors
-@subsection ac-killerball
-
-mouseforce (default 2.0)
-color (default 1.0)
-whiteball (default 1)
-controllers (default 3)
-
-@node ac-rotor, ac-top, ac-killerball, Actors
-@subsection ac-rotor
-
-range (default 5.0)
-force (default 10.0)
-gohome (default 1)
-
-@node ac-top, ac-bug, ac-rotor, Actors
-@subsection ac-top
-
-range (default 5.0)
-force (default 10.0)
-gohome (default 1)
-
-@node ac-bug, ac-horse, ac-top, Actors
+@node ac-bug
 @subsection ac-bug
 
-@node ac-horse,  , ac-bug, Actors
+A small, passive marble.  Can be used to break @code{st-bug} (see
+@ref{Breakable Stones}), to pass @code{st-grate3} (see @ref{st-grate})
+to open oxyds etc.  It can't shatter or die.
+
+@c @strong{Attributes}
+
+@c @table @code
+@c @end table
+
+
+@node ac-cannonball
+@subsection ac-cannonball
+
+Used by @ref{st-spitter} as a cannon ball. Don't use in levels.
+
+
+@node ac-horse
 @subsection ac-horse
 
-force (default 10.0)
-target1
-target2
-target3
-target4
+A slightly larger actor which shuttles between the targets given in
+its @code{target1}- to @code{target4}- attributes with a given
+@code{force}.  In future versions it's planned that marbles can ride
+@code{ac-horse} to surpass @ref{fl-abyss}, @ref{fl-water} etc.
+@code{ac-horse} can pass @code{st-grate3} (see @ref{st-grate}), open
+oxyds and much more, without shattering or dying.
+
+@strong{Attributes}
+
+@table @code
+@item force (default 10.0)
+@item target1
+@item target2
+@item target3
+@item target4
+@end table
+
+@strong{Example}
+
+The syntax of the @code{target}-attributes is a little bit
+uncommon. Here an example from the meditation @code{ral04_1}:
+
+@example
+set_actor("ac-horse",16.5, 6.5, @{force=6, target1="16 3",
+    target2="3 3", target3="3 9", target4="16 9" @})
+@end example
+
+The attribute consists of a string, holding the x- and y-coordinates
+separated by a blank.  The @code{ac-horse} in the example shuttles
+between the coordinates (16,3), (3,3), (3,9) and (16,9) on a
+rectangular route.  Note that there are only four targets allowed at
+the moment.
+
+
+@node ac-killerball
+@subsection ac-killerball
+
+A small marble, mostly controlled by the player, which shatters other
+marbles.
+
+@strong{Attributes}
+
+@table @code
+@item mouseforce (default 2.0)
+@item color (default 1.0)
+@item whiteball (default 1)
+@item controllers (default 3)
+@end table
+
+
+@node ac-rotor
+@subsection ac-rotor
+
+An actor which is actively attracted by marbles and shatters them.
+Compare @ref{ac-top}.
+
+@strong{Attributes}
+
+@table @code
+@item range (default 5.0)
+@item force (default 10.0)
+@item gohome (default 1)
+@end table
+
+
+@node ac-top
+@subsection ac-top
+
+An actor which is actively attracted by marbles and shatters them.
+Compare @ref{ac-rotor}.
+
+@strong{Attributes}
+
+@table @code
+@item range (default 5.0)
+@item force (default 10.0)
+@item gohome (default 1)
+@end table
+
+
+@node ac-whiteball
+@subsection ac-whiteball
+
+This marble is mostly played by another player or via
+@ref{it-yinyang}.
+
+@strong{Attributes}
+
+@table @code
+@item mouseforce (default 1.0)
+@item color (default 1.0)
+@item whiteball (default 1)
+@item player (default 1)
+@item controllers (default 2)
+@end table
+
+
+@node ac-whiteball-small
+@subsection ac-whiteball-small
+
+This is the meditation marble. In meditation levels, you have to place
+them in @code{it-hollow} or @code{it-tinyhollow} to succeed the level,
+see @ref{Hills and Hollows}.
+
+@strong{Attributes}
+
+@table @code
+@item mouseforce (default 1.0)
+@item color (default 1.0)
+@item whiteball (default 1)
+@item controllers (default 3)
+@end table
 
 
 @c ----------------------------------------------------------------------
