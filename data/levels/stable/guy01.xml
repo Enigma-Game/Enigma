@@ -3,7 +3,7 @@
   <el:protected>
     <el:info el:type="level">
       <el:identity el:title="Guitar" el:subtitle="" el:id="guy01"/>
-      <el:version el:score="1" el:release="1" el:revision="0" el:status="released"/>
+      <el:version el:score="1" el:release="1" el:revision="0" el:status="stable"/>
       <el:author  el:name="Guy Busser" el:email="" el:homepage=""/>
       <el:copyright>Copyright © 2005 Guy Busser</el:copyright>
       <el:license el:type="GPL v2.0 or above" el:open="true"/>
