@@ -141,6 +141,11 @@ assumed to be an update to the zip.
 @section Startup Switches
 
 @table @asis
+@item @b{-@w{}-assert}
+A switch for Enigma developers that forces all debugging assertions, even
+expensive ones, to be evaluated. The additionally evaluated checks look like
+@samp{ASSERT(noAssert || long_lasting_check(), XLevelRuntime, "remark");}.
+
 @item @b{-@w{}-data -d path}
 A switch for Enigma developers that allows to add an additional path to the
 resource paths that preceeds the system path (@pxref{Startup Switches}). A
@@ -582,7 +587,7 @@ Let us have a first view on complete simple @samp{Hello World} level in the new 
       <@i{el}:@b{identity} @i{el}:@b{title}="@var{Demo Simple}" @i{el}:@b{id}="@var{20060210ral001}"/>
       <@i{el}:@b{version} @i{el}:@b{score}="@var{1}" @i{el}:@b{release}="@var{1}" @i{el}:@b{revision}="@var{0}" @i{el}:@b{status}="@var{stable}"/>
       <@i{el}:@b{author}  @i{el}:@b{name}="@var{Ronald Lamprecht}"/>
-      <@i{el}:@b{copyright}>@var{Copyright � 2006 Ronald Lamprecht}</@i{el}:@b{copyright}>
+      <@i{el}:@b{copyright}>@var{Copyright @copyright{} 2006 Ronald Lamprecht}</@i{el}:@b{copyright}>
       <@i{el}:@b{license} @i{el}:@b{type}="@var{GPL v2.0 or above}" @i{el}:@b{open}="@var{true}"/>
       <@i{el}:@b{compatibility} @i{el}:@b{enigma}="@var{0.92}"/>
       <@i{el}:@b{modes} @i{el}:@b{easy}="@var{false}" @i{el}:@b{single}="@var{true}" @i{el}:@b{network}="@var{false}"/>
@@ -634,6 +639,7 @@ parts:
 * Internationalization (i18n)::
 * Usage::
 * Update and Upgrade::
+* Libraries::
 @end menu
 
 @node Getting Started with Levels, XML Level structure, Level Basics, Level Basics
@@ -912,7 +918,7 @@ Let us have a look on all supported subnodes of info with typically used attribu
   <@i{el}:@b{identity} @i{el}:@b{title}="@var{Demo I18N}" @i{el}:@b{subtitle}="@var{Translate or let it be translated}" @i{el}:@b{id}="@var{20060211ral002}"/>
   <@i{el}:@b{version} @i{el}:@b{score}="@var{1}" @i{el}:@b{release}="@var{1}" @i{el}:@b{revision}="@var{0}" @i{el}:@b{status}="@var{experimental}"/>
   <@i{el}:@b{author}  @i{el}:@b{name}="@var{Ronald Lamprecht}" @i{el}:@b{email}="@var{ral@@users.berlios.de}"/>
-  <@i{el}:@b{copyright}>@var{Copyright � 2006 Ronald Lamprecht}</@i{el}:@b{copyright}>
+  <@i{el}:@b{copyright}>@var{Copyright @copyright{} 2006 Ronald Lamprecht}</@i{el}:@b{copyright}>
   <@i{el}:@b{license} @i{el}:@b{type}="@var{GPL v2.0 or above}" @i{el}:@b{open}="@var{true}"/>
   <@i{el}:@b{compatibility} @i{el}:@b{enigma}="@var{0.92}"/>
   <@i{el}:@b{modes} @i{el}:@b{easy}="@var{false}" @i{el}:@b{single}="@var{true}" @i{el}:@b{network}="@var{false}"/>
@@ -944,6 +950,9 @@ the dependency node-element. See @ref{<compatibility>}.
 @samp{multilevel} are descriptions for multiple levels at once. The main purpose
 is to support foreign game level formats like the Sokoban level format which
 describes usually a whole set of level maps in a single file.
+
+@item @b{quantity}, @i{optional}
+The number of levels contained in a multilevel file.
 
 @end table
 
@@ -1033,17 +1042,14 @@ As levels can be edited with any text editor or different special Enigma level
 editors there is no control about the uniqueness. Thus we have to provide a
 simple convention to avoid any possible id clashes:
 
-@var{@b{YYYYMMDDuserNN}}
+@var{@b{YYYYMMDDuserNNN}}
 
 Where @samp{YYYY},@samp{MM},@samp{DD} is the date of the creation of the first
-experimental version, @samp{user} stand for a user specific name and @samp{NN} for the
-user specific level creation number. F.e. my level called @samp{Firefox} has
-the id @samp{20060213ral03}. The last part of the id, the level creation number,
-is just ever increasing. Even if the level gets never released and ends up just
-as an experiment, do not recycle the numbers! There is no relationship between
-this number and the number that may be part of the level's filename. F.e. the
-@samp{Firefox} has the filename @samp{ral01.xml}. The id is a Enigma level 
-system id and is never exposed to users.
+experimental version, @samp{user} stand for a user specific name and @samp{NNN}
+for a random number. F.e. my level called @samp{Houdini} has the id 
+@samp{20060816ral719}. Of course all level created on the same day have to
+differ in the random number part. The id is a Enigma level system id and is 
+never exposed to users.
 
 For backward compatibility legacy levels keep their former filename as the
 new level id and do not fit in the name schema given above. But that does not
@@ -1068,7 +1074,8 @@ This element provides the versioning information for the system.
 
 @table @asis
 @item @b{score}, @i{required}
-The score version is given as an integer. New level versions need to increase the
+The score version is given as a positiv integer number. New levels start with 
+score verison "1". New level versions need to increase the
 score version number if the level modifications cause different solutions with 
 uncomparable score values. Of course level authors should be very restrictive 
 with such modifications.
@@ -1082,7 +1089,8 @@ This attribute is the logical equivalence to the Enigma 0.92 @samp{index.txt} at
 @samp{revision}.
 
 @item @b{release}, @i{required} 
-The technical release version is given as an integer. New level versions need to 
+The technical release version is given as a positiv integer number. New levels
+start with release version "1". New level versions need to 
 increase the release version number if the level modifications either cause technical
 incompatibilities with previous Enigma releases or the scoring version has been
 increased.
@@ -1180,7 +1188,7 @@ The element itself is empty - no content is allowed.
 
 The standardized location for a copyright message of the author:
 @example
-<@i{el}:@b{copyright}>@var{Copyright � 2006 Ronald Lamprecht}</@i{el}:@b{copyright}>
+<@i{el}:@b{copyright}>@var{Copyright @copyright{} 2006 Ronald Lamprecht}</@i{el}:@b{copyright}>
 @end example
 
 @b{Attributes:}
@@ -1227,7 +1235,7 @@ make use of identification of the level via the type attribute.
 @subsection <compatibility>
 
 @example
-<@i{el}:@b{compatibility} @i{el}:@b{enigma}="@var{0.92}">
+<@i{el}:@b{compatibility} @i{el}:@b{enigma}="@var{0.92}" @i{el}:@b{engine}="@var{enigma}">
   <@i{el}:@b{dependency} @i{el}:@b{path}="@var{lib/natmaze}" @i{el}:@b{id}="@var{lib/natmaze}" @i{el}:@b{release}="@var{1}" @i{el}:@b{preload}="@var{true}" @i{el}:@b{url}="@var{http://anywhere.xxx/mypage/natmaze.xml}"/>
   <@i{el}:@b{externaldata} @i{el}:@b{path}="@var{./extfile}" @i{el}:@b{url}="@var{http://anywhere.xxx/mypage/extdata.xml}"/>
   <@i{el}:@b{editor} @i{el}:@b{name}="@var{none}" @i{el}:@b{version}="@var{}"/>
@@ -1240,6 +1248,10 @@ make use of identification of the level via the type attribute.
 @item @b{enigma}, @i{required}
 The minimal Enigma release number required for compatibility.
 
+@item @b{engine}, @i{optional}, values = "enigma", "oxyd1", "per.oxyd", "oxyd.extra", "oxyd.magnum"; default = "enigma"
+The required engine compatibility mode that influences the behaviour of various
+objects. This attribute is only evaluated for levels. Libraries ignore this
+attribute.
 @end table
 
 @b{Contents - Elements:}
@@ -1257,10 +1269,12 @@ several libraries conforms strictly to the sequence of their dependencies elemen
 @b{Attributes:}
 @table @asis
 @item @b{path}, @i{required}
-The resource path of the library without it's suffix. As most libraries are
-stored in the @samp{lib} subdirectory of Enigma's @samp{levels} directory the
-resource path will be in most cases like the one in the example above: 
-@samp{lib/ant}.
+The resource path of the library without it's suffix and any release extension.
+As most libraries are stored in the @samp{lib} subdirectory of Enigma's 
+@samp{levels} directory the resource path will be in most cases like the one in 
+the example above: @samp{lib/ant}. This is the valid path for the library file 
+that may be either @samp{levels/lib/ant.xml} or @samp{levels/lib/ant.lua} or 
+@samp{levels/lib/ant_1.xml}.
 
 But libraries can also be totally level pack specific. In this case you may use
 a relative resource path like @samp{./mylib} and store the library in the level
@@ -1551,9 +1565,15 @@ none
 
 @b{Contents:}
 
-This element takes the main Lua code as its contents. All other possible
-libraries that are declared as dependencies and Lua chunks supplied by XML 
-elements are preloaded. 
+This element takes the main Lua code as its contents. 
+
+All other possible libraries that are declared as dependencies and Lua chunks 
+supplied by XML elements are preloaded as described in @ref{<compatibility>}.
+Generally there is no more need to use Lua functions like @samp{Require} to load
+libraries. Just in case you need to control the point of execution were the
+library has to be loaded you can declare the library with the attribute
+@samp{el:preload="false"}. You should use the new function @ref{enigma.LoadLib}
+to load the library.
 
 The Lua code itself that is enclosed in a XML CDATA section. This limitates the
 Lua code to not use the reserved end marker @samp{]]>}. Any occurence has to be
@@ -1582,7 +1602,7 @@ level:
       </@i{el}:@b{string}>
       <@i{el}:@b{string} @i{el}:@b{key}="@var{subtitle}">
         <@i{el}:@b{english} @i{el}:@b{translate}="@var{true}"/>
-        <@i{el}:@b{translation} @i{el}:@b{lang}="@var{de}">@var{�bersetzten oder �bersetzten lassen}</@i{el}:@b{translation}>
+        <@i{el}:@b{translation} @i{el}:@b{lang}="@var{de}">@var{@"Ubersetzten oder @"ubersetzten lassen}</@i{el}:@b{translation}>
       </@i{el}:@b{string}>
       <@i{el}:@b{string} @i{el}:@b{key}="@var{hint1}">
         <@i{el}:@b{english} @i{el}:@b{comment}="@var{Let 'right' be ambiguous: correct and opposite of left - if not possible choose correct">Read the right document}</@i{el}:@b{english}>
@@ -1721,7 +1741,7 @@ comments we decided to support a similar Lua compatible XML format. We call it
 --xml--       <el:identity el:title="Demo Simple" el:id="20060210ral001"/>
 --xml--       <el:version el:score="1" el:release="1" el:revision="0" el:status="stable"/>
 --xml--       <el:author  el:name="Ronald Lamprecht"/>
---xml--       <el:copyright>Copyright � 2006 Ronald Lamprecht</el:copyright>
+--xml--       <el:copyright>Copyright @copyright{} 2006 Ronald Lamprecht</el:copyright>
 --xml--       <el:license el:type="GPL2" el:open="true">GPL v2.0 or above</el:license>
 --xml--       <el:compatibility el:enigma="0.92"/>
 --xml--       <el:modes el:easy="false" el:single="true" el:network="false"/>
@@ -1789,7 +1809,7 @@ Possible validation tools are the Xerces-C sample application
 @url{http://www.freexmleditor.com/, Exchanger XML Lite}. Such editors will provide
 you with selections of all possible elements and attributes at each position.
 
-@node Update and Upgrade, , Usage, Level Basics
+@node Update and Upgrade, Libraries , Usage, Level Basics
 @section Update and Upgrade
 
 Enigma is capable to load new level versions as we provide all necessary 
@@ -1802,7 +1822,7 @@ author to be compatible in scoring and dependencies. In the protected info
 element the author should provide a download address for automatic updates:
 
 @example
-<@i{el}:@b{update} @i{el}:@b{url}="@var{http://myLevelServer.org/path/level_01.xml}"/>
+<@i{el}:@b{update} @i{el}:@b{url}="@var{http://myLevelServer.org/path/level_1.xml}"/>
 @end example
 
 @b{Attributes:}
@@ -1823,7 +1843,7 @@ previous release with a final revision that just adds an upgrade element that
 announces the new release:
 
 @example
-<@i{el}:@b{upgrade} @i{el}:@b{url}="@var{http://myLevelServer.org/path/level_02.xml}" @i{el}:@b{release}="@var{2}"/>
+<@i{el}:@b{upgrade} @i{el}:@b{url}="@var{http://myLevelServer.org/path/level_2.xml}" @i{el}:@b{release}="@var{2}"/>
 @end example
 
 @b{Attributes:}
@@ -1842,6 +1862,96 @@ As the author cannot update all distributed levels himself to announce the
 availability of the new release we added another upgrade element in the public
 section. Level administrators can use this element for the same purpose with
 the same syntax without modifying the authors protected section.
+
+@node Libraries, , Update and Upgrade, Level Basics
+@section Libraries
+
+Libraries are collections of Lua functions for reusage in many levels. To make
+use of a libray you have to declare it as an dependency as described in
+@ref{<compatibility>}. If you preload the library that is all you have to do to
+use the library. Otherwise you can use the function @ref{enigma.LoadLib} to
+load the library at a certain point of execution.
+
+Enigma provides several very usefull libraries. You fill find them on the system
+path in the subdirectory @samp{levels/lib}. Most of them are document in line.
+For @{ant} you will find a seperate documentation file @samp{doc/ant_lua.txt}.
+
+In this section we will concentrate on the aspects of writing and maintaing
+libraries:
+
+@menu
+* Writing a Library::
+* Maintaining a Library::
+@end menu
+
+@node Writing a Library, Maintaining a Library, Libraries, Libraries
+@subsection Writing a Library
+
+Library files are nearly identical to level files. The main difference is the
+attribute @samp{el:type} in the @samp{info} element which should be set to 
+@samp{library}. All other elements and attributes have to be provided as they
+have to be for levels. Of course all scoring related attributes will never be
+evaluated and should be set to defaults.
+
+Libraries may depend on others, they have to provide an id and a release number.
+Several releases of a library can coexist and they can be updated and upgraded
+if the necessary information is given. Of course libraries may contain document
+strings that can be localized if the @samp{i18n} elements are provided.
+
+The @samp{el:luamain} element takes the complete Lua code as it does for levels.
+Lets have a look at the essential XML parts of a library:
+
+@example
+<?xml version="1.0" encoding="@var{UTF-8}" standalone="no" ?>
+<@i{el}:@b{level} xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="@i{http://enigma-game.org/schema/level/1 level.xsd}" xmlns:@i{el}="@i{http://enigma-game.org/schema/level/1}">
+  <@i{el}:@b{protected} >
+    <@i{el}:@b{info} @i{el}:@b{type}="@var{library}">
+      <@i{el}:@b{identity} @i{el}:@b{title}="" @i{el}:@b{id}="@var{lib/ant}"/>
+      <@i{el}:@b{version} @i{el}:@b{score}="@var{1}" @i{el}:@b{release}="@var{1}" @i{el}:@b{revision}="@var{0}" @i{el}:@b{status}="@var{released}"/>
+      <@i{el}:@b{author}  @i{el}:@b{name}="@var{Petr Machata}"/>
+      <@i{el}:@b{copyright}>@var{Copyright @copyright{} 2002-2003 Petr Machata}</@i{el}:@b{copyright}>
+      <@i{el}:@b{license} @i{el}:@b{type}="@var{GPL v2.0 or above}" @i{el}:@b{open}="@var{true}"/>
+      <@i{el}:@b{compatibility} @i{el}:@b{enigma}="@var{0.92}">
+        <@i{el}:@b{dependency} @i{el}:@b{path}="@var{lib/natmaze}" @i{el}:@b{id}="@var{lib/natmaze}" @i{el}:@b{release}="@var{1}" @i{el}:@b{preload}="@var{false}">
+      </@i{el}:@b{compatibility}>      
+      <@i{el}:@b{modes} @i{el}:@b{easy}="@var{false}" @i{el}:@b{single}="@var{false}" @i{el}:@b{network}="@var{false}"/>
+      <@i{el}:@b{score} @i{el}:@b{easy}="@var{-}" @i{el}:@b{difficult}="@var{-}"/>
+    </@i{el}:@b{info}>
+    <@i{el}:@b{luamain}><![CDATA[
+    ...
+    ]]></@i{el}:@b{luamain}>
+    <@i{el}:@b{i18n}/>
+  </@i{el}:@b{protected}>
+</@i{el}:@b{level}>
+@end example
+
+@node Maintaining a Library, , Writing a Library, Libraries
+@subsection Maintaining a Library
+
+Libraries may exist in different releases and revisions. Library versions that
+just differ in the revision denote compatible versions. Library versions that
+introduce incompatibilities have to differ in the release number. But as existing
+leves may depend on the legacy behaviour of the older release both library
+release versions have to be maintained and distributed with Enigma at the same
+time.
+
+To coexist these different library releases have to follow a strict naming
+scheme. Every library has a base name. In the example above it is @samp{lib/ant}.
+The filename of a given release is the basename with addition of an underscore
+and the release number plus suffix xml. Thus release 2 of @samp{lib/ant} has
+to be stored as @samp{lib/ant_2.xml}.
+
+If you look at the lib directory you may wonder that most library files are
+stored without release number addition to the basename. This is due to 0.92
+Lua level format compatibility support. One, and of course only one, release of
+each library can be stored without release number addition to the basename.
+This version will be loaded from pure Lua levels that do not provide any
+information of the required library release.
+
+In case a library file with complete filename is not present the default library 
+file without release number addition will be loaded for XML load requests, too.
+But the future belongs to the new naming scheme and every new library should
+follow it from the beginning.
 
 @ignore
 
@@ -6025,6 +6135,7 @@ The range of @ref{it-wormhole}.  Default: 10.0.
 @menu
 * AddRubberBand::               Creating rubber bands
 * CreateWorld::                 
+* enigma.LoadLib::              Loading a not preloaded library
 * enigma.AddConstantForce::     
 * enigma.GetNamedObject::       
 * SendMessage::                 Sending messages to objects
@@ -6061,7 +6172,7 @@ AddRubberBand(ac, st, 50, 10)
 @end example
 
 @c ......................................................................
-@node CreateWorld, enigma.AddConstantForce, AddRubberBand, Functions
+@node CreateWorld, enigma.LoadLib, AddRubberBand, Functions
 @section CreateWorld
 
 @defun CreateWorld (width, heigth)
@@ -6082,7 +6193,19 @@ wide 39x13 or 20x25, three screens 58x13 or 20x37.
 @end defun
 
 @c ......................................................................
-@node enigma.AddConstantForce, enigma.GetNamedObject, CreateWorld, Functions
+@node enigma.LoadLib, enigma.AddConstantForce, CreateWorld, Functions
+@section enigma.LoadLib
+
+@defun enigma.LoadLib (libraryId)
+
+This function loads a Lua level library that has previously been declared in
+@ref{<compatibility>} at a given point of code execution. If the library is
+declared with @samp{el:preload="true"} no Lua function call is necessary.
+The @var{libraryId} is the same as in the declaration. 
+@end defun
+
+@c ......................................................................
+@node enigma.AddConstantForce, enigma.GetNamedObject, enigma.LoadLib, Functions
 @section enigma.AddConstantForce
 
 @defun enigma.AddConstantForce (gravity_x, gravity_y)
