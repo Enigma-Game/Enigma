@@ -45,7 +45,7 @@ namespace enigma { namespace gui {
         std::string scoreToString(int score, lev::Proxy *aLevel);
         void dispatchBottomLines(int &bestScoreHolderLines, 
             int &creditsLines, int &dedicationLines, int &levelPathLines,
-            int &annotationLines, int numLines, int width);
+            int &annotationLines, int &compatibilityLines, int numLines, int width);
         // Variables.
         gui::Widget *back;
         gui::Widget *screenshot;

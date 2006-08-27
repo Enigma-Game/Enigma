@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<xs:schema xmlns:xs='http://www.w3.org/2001/XMLSchema' targetNamespace="http://enigma-game.org/schema/level/1" xmlns:el="http://enigma-game.org/schema/level/1" elementFormDefault="qualified" attributeFormDefault="qualified" version="0.4" xml:lang="en">
+<xs:schema xmlns:xs='http://www.w3.org/2001/XMLSchema' targetNamespace="http://enigma-game.org/schema/level/1" xmlns:el="http://enigma-game.org/schema/level/1" elementFormDefault="qualified" attributeFormDefault="qualified" version="0.5" xml:lang="en">
   <xs:annotation>
     <xs:documentation>
       XML schema definitions for Enigma levels
@@ -30,8 +30,8 @@
                     </xs:element> <!-- identity -->
                     <xs:element name="version" minOccurs="1" maxOccurs="1">
                       <xs:complexType>
-                        <xs:attribute name="score" type="xs:unsignedShort" use="required"/>
-                        <xs:attribute name="release" type="xs:unsignedShort" use="required"/>
+                        <xs:attribute name="score" type="xs:positiveInteger" use="required"/>
+                        <xs:attribute name="release" type="xs:positiveInteger" use="required"/>
                         <xs:attribute name="revision" use="required">
                           <xs:simpleType>
                             <xs:union memberTypes="xs:unsignedShort el:revisionType"/>
@@ -91,6 +91,7 @@
                           </xs:element> <!-- extensions -->
                         </xs:sequence>
                         <xs:attribute name="enigma" type="xs:float" use="required"/>
+                        <xs:attribute name="engine" type="xs:string" use="optional" default="enigma"/>
                       </xs:complexType>
                     </xs:element> <!-- compatibility -->
                     <xs:element name="modes" minOccurs="1" maxOccurs="1">
@@ -157,6 +158,7 @@
 
                   </xs:sequence>
                   <xs:attribute name="type" type="el:fileType" use="required"/>
+                  <xs:attribute name="quantity" type="xs:positiveInteger" use="optional" default="1"/>
                 </xs:complexType>
               </xs:element> <!-- info -->
               

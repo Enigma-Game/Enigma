@@ -301,17 +301,19 @@ LevelInspector::LevelInspector(lev::Proxy *aLevel):
         BuildVList versionT(this, Rect(vminfo->width-100/2-90-2*hmargin,vmargin+5*25+4*vspacing+16,100,25), 2);
         versionT.add(new Label(N_("Version"), HALIGN_CENTER));
         BuildVList versionST(this, Rect(vminfo->width-110-90-2*hmargin,vmargin+6*25+5*vspacing+16,110,25), 2);
-        if (aLevel->getLevelStatus() == lev::STATUS_RELEASED)
+        if (highres || aLevel->getLevelStatus() == lev::STATUS_RELEASED)
             versionST.add(new Label(N_("Score: "), HALIGN_RIGHT));
         else
             versionST.add(new Label(N_("Status: "), HALIGN_RIGHT));
         versionST.add(new Label(N_("Release: "), HALIGN_RIGHT));
         versionST.add(new Label(N_("Revision: "), HALIGN_RIGHT));
+        if (highres)
+            versionST.add(new Label(N_("Status: "), HALIGN_RIGHT));
         versionST.add(new Label(N_("Control: "), HALIGN_RIGHT));
         versionST.add(new Label(N_("Target: "), HALIGN_RIGHT));
 
         BuildVList version(this, Rect(vminfo->width-80-2*hmargin,vmargin+6*25+5*vspacing+16,80+2*hmargin,25), 2);
-        if (aLevel->getLevelStatus() == lev::STATUS_RELEASED)
+        if (highres || aLevel->getLevelStatus() == lev::STATUS_RELEASED)
             version.add(new MonospacedLabel(ecl::strf("%6d", aLevel->getScoreVersion()).c_str(),
                     '8', " 0123456789", HALIGN_LEFT));
         else if (aLevel->getLevelStatus() == lev::STATUS_STABLE)
@@ -327,6 +329,18 @@ LevelInspector::LevelInspector(lev::Proxy *aLevel):
                 '8', " 0123456789", HALIGN_LEFT));
         version.add(new MonospacedLabel(ecl::strf("%6d", aLevel->getRevisionNumber()).c_str(),
                 '8', " 0123456789", HALIGN_LEFT));
+        if (highres)
+            if (aLevel->getLevelStatus() == lev::STATUS_RELEASED)
+                version.add(new Label(N_("released"), HALIGN_LEFT));
+            else if (aLevel->getLevelStatus() == lev::STATUS_STABLE)
+                version.add(new Label(N_("stable"), HALIGN_LEFT));
+            else if (aLevel->getLevelStatus() == lev::STATUS_TEST)
+                version.add(new Label(N_("test"), HALIGN_LEFT));
+            else if (aLevel->getLevelStatus() == lev::STATUS_EXPERIMENTAL)
+                version.add(new Label(N_("experimental"), HALIGN_LEFT));
+            else
+                version.add(new Label(N_("unknown"), HALIGN_LEFT));
+        
         switch (aLevel->getControl()) {
             case lev::force:
                 version.add(new Label(N_("force"), HALIGN_LEFT));
@@ -354,10 +368,11 @@ LevelInspector::LevelInspector(lev::Proxy *aLevel):
         int dedicationLines = 0;
         int levelPathLines = 0;
         int annotationLines = 0; 
+        int compatibilityLines = 0; 
         int vnext = vmargin+ (highres?12:11)*25+(highres?10:9)*vspacing+2*16;
         int textwidth = vminfo->width-3*hmargin-110-10;
         dispatchBottomLines(bestScoreHolderLines, creditsLines, dedicationLines,
-                levelPathLines, annotationLines, 
+                levelPathLines, annotationLines, compatibilityLines,
                 (vminfo->height-(vnext)-60)/27, textwidth);
         if (bestScoreHolderLines == 1) {
             add(new Label(N_("Best Score Holders: "), HALIGN_RIGHT),Rect(hmargin,vnext,200,25));
@@ -416,6 +431,13 @@ LevelInspector::LevelInspector(lev::Proxy *aLevel):
                 add(new Label(workString, HALIGN_LEFT), Rect(hmargin+110+10,vnext,textwidth,25));
             }
             vnext += (25 + vspacing);
+        }
+        if (compatibilityLines >= 1) {
+            add(new Label(N_("Compatibility: "), HALIGN_RIGHT),Rect(hmargin,vnext,110,25));
+            std::string compString = ecl::strf("Enigma v%.2f  /  ", levelProxy->getEnigmaCompatibility()) +
+                    GetGameTypeName(levelProxy->getEngineCompatibility());
+            add(new Label(compString , HALIGN_LEFT),Rect(hmargin+110+10, vnext, textwidth, 25));
+            vnext += (25 + vspacing)*compatibilityLines;
         }
         if (annotationLines >= 1) {
             add(new Label(N_("Annotation: "), HALIGN_RIGHT),Rect(hmargin,vnext,110,25));
@@ -510,12 +532,12 @@ LevelInspector::LevelInspector(lev::Proxy *aLevel):
     
     void LevelInspector::dispatchBottomLines(int &bestScoreHolderLines, 
             int &creditsLines, int &dedicationLines, int &levelPathLines,
-            int &annotationLines, int numLines, int width) {
-        enum botType {holder, credits, dedication, path, annotation};
+            int &annotationLines, int &compatibilityLines, int numLines, int width) {
+        enum botType {holder, credits, dedication, path, annotation, compatibility};
         const int sequenceSize = 13;
         botType sequence[sequenceSize] = {credits, dedication, annotation, path,
                 holder, annotation, path, credits, dedication, annotation,  credits,
-                dedication, annotation};
+                compatibility, annotation};
         int j = 0;
         std::string creditsString = levelProxy->getCredits(true);
         std::string dedicationString = levelProxy->getDedication(true);
@@ -555,6 +577,10 @@ LevelInspector::LevelInspector(lev::Proxy *aLevel):
                         break;
                     case annotation: 
                         annotationLines++;
+                        assigned = true;
+                        break;
+                    case compatibility: 
+                        compatibilityLines++;
                         assigned = true;
                         break;
                 }

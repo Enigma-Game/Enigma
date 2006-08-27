@@ -455,11 +455,10 @@ namespace enigma { namespace lev {
                 getAuthor();
                 hasEasymode();
                 getScoreUnit();
+                getEngineCompatibility();
                 if (!onlyMetadata){   
                     if (!isLibraryFlag != expectLevel)
                         throw XLevelLoading(ecl::strf("Level - Library mismatch on %s", normLevelPath.c_str()));
-                    if (getEnigmaCompatibility() > ENIGMACOMPATIBITLITY)
-                        throw XLevelLoading(ecl::strf("Level is incompatible. Level requires Enigma %.2f or above", getEnigmaCompatibility()));
                     loadDoc();
                 }
             }
@@ -467,6 +466,9 @@ namespace enigma { namespace lev {
     }
     
     void Proxy::loadDoc() {
+        if (getEnigmaCompatibility() > ENIGMACOMPATIBITLITY)
+            throw XLevelLoading(ecl::strf("Level is incompatible: %s requires Enigma %.2f or above", 
+                    absLevelPath.c_str(), getEnigmaCompatibility()));
         processDependencies();
         loadLuaCode();
     }
@@ -874,6 +876,18 @@ namespace enigma { namespace lev {
         return value;
     }
 
+    GameType Proxy::getEngineCompatibility() {
+        if (doc != NULL) {
+            DOMElement *authorElem = 
+                    dynamic_cast<DOMElement *>(infoElem->getElementsByTagNameNS(
+                    levelNS, Utf8ToXML("compatibility").x_str())->item(0));
+            engineCompatibility = GetGameType(XMLtoUtf8(authorElem->getAttributeNS(levelNS, 
+                    Utf8ToXML("engine").x_str())).c_str());
+        }
+        return engineCompatibility;
+    }
+
+
     controlType Proxy::getControl() {
         controlType control = force;
         if (doc != NULL) {
@@ -984,10 +998,5 @@ namespace enigma { namespace lev {
                 return atoi(text.substr(0,colon).c_str()) * 60 +
                         atoi(text.substr(colon+1).c_str());
         }
-    }
-    
-    GameType Proxy::getEngineCompatibility() {
-        return engineCompatibility;
-    }
-    
+    }    
 }} // namespace enigma::lev

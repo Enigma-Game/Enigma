@@ -525,28 +525,13 @@ void server::Msg_MouseForce (const ecl::V2 &f) {
 
 
 void server::SetCompatibility(const char *version) {
-    static const char *versionName[GAMET_COUNT+1] = {
-        "enigma", // same indices as enum GameType
-        "oxyd1",
-        "per.oxyd",
-        "oxyd.extra",
-        "oxyd.magnum",
-        0
-    };
-
-    GameType type = GAMET_UNKNOWN;
-    for (int v = 0; v<GAMET_COUNT; ++v) {
-        if (0 == strcmp(version, versionName[v])) {
-            type = GameType(v);
-            break;
-        }
-    }
+    GameType type = GetGameType(version);
 
     if (type == GAMET_UNKNOWN) {
         fprintf(stderr, "Invalid compatibility mode '%s' (ignored. using enigma behavior)\n", version);
         fprintf(stderr, "Valid modes:");
         for (int v = 0; v<GAMET_COUNT; ++v)
-            fprintf(stderr, " %s", versionName[v]);
+            fprintf(stderr, " %s", GetGameTypeName((GameType)v).c_str());
         fprintf(stderr, "\n");
         type = GAMET_ENIGMA;
     }

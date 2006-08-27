@@ -64,6 +64,9 @@ namespace enigma
         GAMET_UNKNOWN
     };
 
+    GameType GetGameType(std::string name);
+    std::string GetGameTypeName(GameType type);
+
 /* -------------------- Resource Management -------------------- */
 
     class ImageCache : public ecl::PtrCache<ecl::Surface> {

@@ -31,6 +31,35 @@ using namespace ecl;
 using namespace enigma;
 
 
+/* -------------------- Game Type -------------------- */
+
+static const char *versionName[GAMET_COUNT+1] = {
+    "enigma", // same indices as enum GameType
+    "oxyd1",
+    "per.oxyd",
+    "oxyd.extra",
+    "oxyd.magnum",
+    0
+};
+
+GameType enigma::GetGameType(std::string name) {
+    GameType type = GAMET_UNKNOWN;
+    for (int v = 0; v<GAMET_COUNT; ++v) {
+        if (0 == strcmp(name.c_str(), versionName[v])) {
+            type = GameType(v);
+            break;
+        }
+    }
+    return type;
+}
+
+std::string enigma::GetGameTypeName(GameType type) {
+    if (type >= GAMET_FIRST && type <= GAMET_LAST)
+        return versionName[type];
+    else
+        return "unknown";
+}
+
 /* -------------------- Direction -------------------- */
 
 Direction enigma::reverse(Direction d) {
