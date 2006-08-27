@@ -2,24 +2,24 @@
 <el:level xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://enigma-game.org/schema/level/1 level.xsd" xmlns:el="http://enigma-game.org/schema/level/1">
   <el:protected >
     <el:info el:type="level">
-      <el:identity el:title="Basketball" el:subtitle="Pass the ball in time" el:id="20060213ral005"/>
-      <el:version el:score="0" el:release="0" el:revision="$Revision: 3 $" el:status="experimental"/>
+      <el:identity el:title="Toreador" el:id="20060213ral004"/>
+      <el:version el:score="1" el:release="1" el:revision="$Revision: 25 $" el:status="released"/>
       <el:author  el:name="Ronald Lamprecht" el:email="ral@users.berlios.de"/>
       <el:copyright>Copyright © 2006 Ronald Lamprecht</el:copyright>
       <el:license el:type="GPL v2.0 or above" el:open="true"/>
-      <el:compatibility el:enigma="0.93"/>
-      <el:modes el:easy="false" el:single="true" el:network="false"/>
+      <el:compatibility el:enigma="1.00"/>
+      <el:modes el:easy="true" el:single="true" el:network="false"/>
       <el:comments>
         <el:credits el:showinfo="true" el:showstart="false">Thanks to Nat Pryce for his libs and code examples</el:credits>
         <el:code>Lua 5.1</el:code>
       </el:comments>
-      <el:score el:easy="-" el:difficult="0:47"/>
+      <el:score el:easy="0:28" el:difficult="1:56"/>
     </el:info>
     <el:luamain><![CDATA[
 enigma.ConserveLevel = FALSE
-math_floor = floor
 
 set_oxyd = oxyd
+math_floor = floor
 
 function oxyd( x, y, tiles )
     return set_oxyd( x, y )
@@ -134,31 +134,39 @@ end
 oxyd_default_flavor = "a"
 
 tiles = {}
-tiles[" "] = {floor("fl-bluegray")}
-tiles["#"] = {inherit(" "), stone("st-glass")}
-tiles["b"] = {inherit(" "), stone("st-glass3")}
+tiles["-"] = {floor("fl-rock")}
+tiles[" "] = {floor("fl-hay")}
+tiles[","] = {floor("fl-wood")}
+tiles["B"] = {inherit(" "), stone("st-black4")}
+tiles["W"] = {inherit(" "), stone("st-white4")}
+tiles["#"] = {inherit(" "), stone("st-marble")}
+if difficult then
+    tiles["f"] = {inherit(" "), stone("st-fart")}
+else
+    tiles["f"] = {inherit(" "), oxyd}
+end
 tiles["x"] = {inherit(" "), oxyd}
 
-tiles["yb"] = {inherit(" "), item("it-yinyang")}
-tiles["yw"] = {inherit(" "), item("it-yinyang")}
+tiles["yb"] = {inherit("B"), item("it-yinyang")}
+tiles["yw"] = {inherit("W"), item("it-yinyang")}
 
 tiles["1"] = {inherit("yb"), actor("ac-blackball", {player=0})}
 tiles["2"] = {inherit("yw"), actor("ac-whiteball", {player=1, controllers=2})}
-tiles["8"] = {inherit(" "), actor("ac-top",{force=20, range=20, attacknearest=1, prefercurrent=1})}
+tiles["8"] = {inherit(" "), actor("ac-top",{force=26, range=20, attacknearest=1, prefercurrent=0.8})}
 
 create_world_from_map( tiles, {
 "####################",
-"#         8        #",
-"#                  #",
-"#                  #",
-"#                  #",
-"# xxx          xxx #",
-"# xbx   1  2   xbx #",
-"# xxx          xxx #",
-"#                  #",
-"#                  #",
-"#                  #",
-"#        8         #",
+"#  WWW        BBB  #",
+"#           8      #",
+"# x              x #",
+"#     x     x      #",
+"#B                W#",
+"#1       ff       2#",
+"#B                W#",
+"#     x     x      #",
+"# x              x #",
+"#       8          #",
+"#  WWW        BBB  #",
 "####################"
 })
 
@@ -166,11 +174,8 @@ oxyd_shuffle()
     ]]></el:luamain>
     <el:i18n>
       <el:string el:key="title">
-        <el:english el:translate="false"/>
-      </el:string>
-      <el:string el:key="subtitle">
         <el:english el:translate="true"/>
-        <el:translation el:lang="de">Rechtzeitige Ballabgabe</el:translation>
+        <el:translation el:lang="de">Torero</el:translation>
       </el:string>
     </el:i18n>
   </el:protected>

@@ -3,7 +3,7 @@
   <el:protected >
     <el:info el:type="level">
       <el:identity el:title="Meditation Disturbance" el:subtitle="Hit by a bolting horse" el:id="20060429ral006"/>
-      <el:version el:score="1" el:release="1" el:revision="$Revision: 15 $" el:status="stable"/>
+      <el:version el:score="1" el:release="1" el:revision="$Revision: 25 $" el:status="released"/>
       <el:author  el:name="Ronald Lamprecht" el:email="ral@users.berlios.de"/>
       <el:copyright>Copyright © 2006 Ronald Lamprecht</el:copyright>
       <el:license el:type="GPL v2.0 or above" el:open="true"/>
@@ -51,3 +51,4 @@ set_actor("ac-horse",16.5, 6.5, {force=horseforce, target1="16 3", target2="3 3"
     </el:i18n>
   </el:protected>
 </el:level>
+

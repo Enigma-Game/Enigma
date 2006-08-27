@@ -1,10 +1,10 @@
 {  file=enigma_vi/welcometopack6_1  name="Welcome"  author="Martin Hawlisch"  indexname=welcometopack6  easymode=1  par_time_normal=33,Raoul  int=2  dex=1  pat=3  kno=1  spe=4  }
 {  file=enigma_vi/richi06_1  name="A-way"  author="Richi Buetzer"  indexname=richi06  par_time=3,Raoul  int=2  dex=2  pat=1  kno=6  spe=1  }
-{  file=enigma_vi/ral02_1  name="Toreador"  author="Ronald Lamprecht"  indexname=20060213ral004  par_time=10,Andreas  int=2  dex=3  pat=1  kno=4  spe=4  }
+{  file=enigma_vi/ral02_1  name="Toreador"  author="Ronald Lamprecht"  indexname=20060213ral004  easymode=1 par_time=10,Andreas  int=2  dex=3  pat=1  kno=4  spe=4  }
 {  file=enigma_vi/luc29_1  name="Laser Splitting"  author="Lukas Schueller"  indexname=luc29  par_time=498,Andreas  int=4  dex=3  pat=3  kno=4  spe=1  }
 {  file=enigma_vi/raoul13_1  name="Oxydrings"  author="Raoul Bourquin"  indexname=raoul13  par_time=5,Raoul  int=2  dex=1  pat=2  kno=4  spe=1  }
 {  file=enigma_vi/andreas22_1  name="Pac Marble"  author="Andreas Lochmann"  indexname=andreas22  par_time=37,Raoul  int=1  dex=3  pat=2  kno=2  spe=3  }
-{  file=enigma_vi/ral03_1  name="Basketball"  author="Ronald Lamprecht"  indexname=20060213ral005  par_time=43,Raoul  int=2  dex=3  pat=4  kno=5  spe=4  }
+{  file=enigma_vi/ral03_2  name="Basketball"  author="Ronald Lamprecht"  indexname=20060213ral005  revision=2 easymode=1 par_time=43,Raoul  int=2  dex=3  pat=4  kno=5  spe=4  }
 {  file=enigma_vi/andreas26_1  name="Orbitting"  author="Andreas Lochmann"  indexname=andreas26  easymode=1  int=4  dex=3  pat=4  kno=4  spe=3  }
 {  file=enigma_vi/spaceman04_1  name="Evil"  author="Spaceman"  indexname=spaceman4  int=2  dex=1  pat=4  kno=3  spe=1  }
 {  file=enigma_vi/ral04_1  name="- Meditation Disturbance -"  author="Ronald Lambrecht"  indexname=20060429ral006  easymode=1  par_time_normal=32,Andreas  par_time_easy=25,Andreas  int=2  dex=1  pat=3  kno=4  spe=4  }
