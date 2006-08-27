@@ -5960,8 +5960,17 @@ Compare @ref{ac-top}.
 @item range (default 5.0)
 @item force (default 10.0)
 @item gohome (default 1)
-@end table
+@item attacknearest (default FALSE)
+in case of multiple balls the default behaviour for rotors is to attac the
+center of all balls. If this flag is set to @samp{TRUE} the nearest ball will
+be attacked.
 
+@item prefercurrent (default 0.0)
+with values from 0.0 to 1.0 the likelyhood is expressed that the rotor hunts
+the current controlled ball instead of the otherwise attacked aim. You will
+usually use this attribute in combination with @samp{attacknearest=TRUE}. The
+Level @samp{Toreador} is an example of the behaviour of rotors.
+@end table
 
 @node ac-top
 @subsection ac-top
@@ -5975,6 +5984,17 @@ Compare @ref{ac-rotor}.
 @item range (default 5.0)
 @item force (default 10.0)
 @item gohome (default 1)
+@item attacknearest (default FALSE)
+in case of multiple balls the default behaviour for rotors is to attac the
+center of all balls. If this flag is set to @samp{TRUE} the nearest ball will
+be attacked.
+
+@item prefercurrent (default 0.0)
+with values from 0.0 to 1.0 the likelyhood is expressed that the rotor hunts
+the current controlled ball instead of the otherwise attacked aim. You will
+usually use this attribute in combination with @samp{attacknearest=TRUE}. The
+Level @samp{Toreador} is an example of the behaviour of rotors.
+
 @end table
 
 
