@@ -20,17 +20,17 @@ levelw = 20
 create_world(levelw, levelh)
 
 function renderLine( line, pattern)
-	for i=1, strlen(pattern) do
-		local c = strsub( pattern, i, i)
-  		if c=="x" then
-			oxyd(i-1,line)
+    for i=1, strlen(pattern) do
+        local c = strsub( pattern, i, i)
+          if c=="x" then
+            oxyd(i-1,line)
         elseif c=="#" then
             set_stone("st-glass",i-1,line)
             set_floor("fl-sahara",i-1,line)
         elseif c==" " then
             set_floor("fl-sahara",i-1,line)
-		end
-	end	
+        end
+    end    
 end
 
 renderLine(00 , "####################")
