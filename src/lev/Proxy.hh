@@ -82,6 +82,7 @@ namespace enigma { namespace lev {
         static Proxy *autoRegisterLevel(std::string indexPath, std::string filename);
 
         static std::string search(std::string text);
+        static void Proxy::countLevels();
 
         void loadLevel();
         void loadMetadata(bool expectLevel);

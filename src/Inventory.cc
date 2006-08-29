@@ -103,10 +103,12 @@ bool Inventory::is_empty() const {
 
 void Inventory::add_item(Item *i) 
 {
-    ItemHolder *holder = dynamic_cast<ItemHolder*>(get_item(0));
-    if (holder && !holder->is_full()) {
-        // first item is a bag and not full
-        holder->add_item (i);
+    ItemHolder *firstHolder = dynamic_cast<ItemHolder*>(get_item(0));
+    ItemHolder *addHolder = dynamic_cast<ItemHolder*>(i);
+    if (firstHolder && !firstHolder->is_full() &&  
+            (addHolder == NULL || !addHolder->is_empty())) {
+        // first item is a bag and not full and add item is not an empty bag
+        firstHolder->add_item (i);
     }
     else {
         m_items.insert (m_items.begin(), i);

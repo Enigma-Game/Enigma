@@ -297,7 +297,7 @@ void Application::init(int argc, char **argv)
     std::vector<std::string> emptyList;
     lev::Index::registerIndex(new lev::VolatileIndex("Search Result",
                 INDEX_DEFAULT_GROUP, emptyList));
-    
+    lev::Proxy::countLevels();
 
     // ----- Initialize object repositories
     world::Init();
@@ -345,6 +345,7 @@ void Application::init(int argc, char **argv)
     oxyd::Init();
     oxyd::ChangeSoundset(options::GetInt("SoundSet"), 1);
 
+    lev::Proxy::countLevels();
 
     enigma::Randomize();
 }

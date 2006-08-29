@@ -218,6 +218,34 @@ namespace enigma { namespace lev {
         std::for_each(cache.begin(), cache.end(), do_search);
         return (searchIndex->size() > 0) ? searchIndex->getName() : "";
     }
+    
+    void Proxy::countLevels() {
+        int countProxy = 0;
+        int countLegacy = 0;
+        int countStable = 0;
+        int countReleased = 0;
+        map<std::string, short> ids;
+        for (std::map<std::string, Proxy *>::iterator i= cache.begin(); i != cache.end(); i++) {
+            Proxy * candidate = (*i).second;
+            countProxy++;
+            if (candidate->getNormPathType() == pt_oxyd)
+                countLegacy++;
+            else if (candidate->getLevelStatus() == STATUS_STABLE)
+                ids[candidate->getId()];
+            else if (candidate->getLevelStatus() == STATUS_RELEASED)
+                ++ids[candidate->getId()];
+        }
+        for (std::map<std::string, short>::iterator i= ids.begin(); i != ids.end(); i++) {
+            if ((*i).second == 0)
+                countStable++;
+            else
+                countReleased++;
+        }
+        
+        Log << "Proxy count: " << countReleased <<" released, " 
+            << countStable << " stable, " << countLegacy << " legacy, "
+            << countProxy << " total\n";
+    }
 
     
 
