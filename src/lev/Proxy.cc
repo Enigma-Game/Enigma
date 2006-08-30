@@ -427,9 +427,14 @@ namespace enigma { namespace lev {
                     // handle pure lua
                     // load plain lua file
                     doc = NULL;
+                    const char *buffer = reinterpret_cast<const char *>(&levelCode[0]);
+                    // add debugging info to lua code
+                    std::string luaCode = "--@" + absLevelPath + "\n" + 
+                                buffer;
                     lua_State *L = lua::LevelState();
-                    if (lua::Dobuffer(L, levelCode) != 0) {
-                        throw XLevelLoading (lua::LastError(L));
+                    if (luaL_dostring(L, luaCode.c_str() ) != 0) {
+                        lua_setglobal (L, "_LASTERROR");
+                        throw XLevelLoading(lua::LastError(L));
                     }
                 }
             }
@@ -644,8 +649,11 @@ namespace enigma { namespace lev {
         DOMNodeList * luamainList = doc->getElementsByTagNameNS(levelNS, Utf8ToXML("luamain").x_str());
         if (luamainList->getLength() == 1) {
             DOMElement *luamain  = dynamic_cast<DOMElement *>(luamainList->item(0));
-            if (luaL_dostring(L, XMLtoUtf8(luamain->getTextContent()).c_str() ) != 0) {
-	      lua_setglobal (L, "_LASTERROR");
+            // add debugging info to lua code
+            std::string luaCode = "--@" + absLevelPath + "\n" + 
+                        XMLtoUtf8(luamain->getTextContent()).c_str();
+            if (luaL_dostring(L, luaCode.c_str() ) != 0) {
+                lua_setglobal (L, "_LASTERROR");
                 throw XLevelLoading(lua::LastError(L));
             }
         } else {

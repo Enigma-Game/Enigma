@@ -86,9 +86,41 @@ namespace
 	assert (!"Should never get there!");
     }
 
+    void throwLuaError(lua_State * L, const char * message) {
+        std::string backtrace = message;
+        backtrace += "\nBacktrace:\n";
+        lua_Debug dbgInfo;
+        int frame = 0;
+        while (lua_getstack(L, frame, &dbgInfo)) {
+            lua_getinfo(L, "Sl", &dbgInfo);
+            if (dbgInfo.source[0] == '@')
+                // lua code loaded from file
+                backtrace += ecl::strf("#%d %s: %d\n", frame, dbgInfo.source,
+                                dbgInfo.currentline);
+            else if (dbgInfo.source[0] == '-' && dbgInfo.source[1] == '-' &&
+                dbgInfo.source[2] == '@') {
+                // lua code loaded from string
+                std::string code = dbgInfo.source;
+                std::string::size_type slashPosFilenameEnd = code.find('\n');
+                std::string::size_type slashPosLineStart;
+                std::string::size_type slashPosLineEnd = slashPosFilenameEnd;
+                for (int i = 1; i < dbgInfo.currentline; i++) {
+                    slashPosLineStart = slashPosLineEnd;
+                    slashPosLineEnd = code.find('\n', slashPosLineStart + 1);
+                }
+                backtrace += ecl::strf("#%d %s: %d\n  (%s)\n", frame, 
+                        code.substr(2, slashPosFilenameEnd - 2).c_str(),
+                        dbgInfo.currentline - 1,
+                        code.substr(slashPosLineStart + 1, slashPosLineEnd - 
+                                slashPosLineStart - 1).c_str());
+            }
+            frame++;
+        }
+        luaL_error(L, backtrace.c_str());
+        
+    }
 }
 
-
 /* -------------------- Helper routines -------------------- */
 
 using enigma::Value;
@@ -129,7 +161,7 @@ to_value(lua_State *L, int idx)
     case LUA_TNUMBER: return Value(lua_tonumber(L,idx));
     case LUA_TSTRING: return Value(lua_tostring(L,idx));
     case LUA_TBOOLEAN: return (lua_toboolean(L,idx)) ? Value(1) : Value();
-    default: luaL_error(L,"Cannot convert type to Value.");
+    default: throwLuaError(L,"Cannot convert type to Value.");
     }
     return Value();
 }
@@ -147,7 +179,7 @@ to_object(lua_State *L, int idx)
         return 0;
 
     if (!is_object(L,idx)) {
-        luaL_error(L, "Cannot convert type to an Object");
+        throwLuaError(L, "Cannot convert type to an Object");
         return 0;
     }
     return static_cast<Object*>(*(static_cast<void**>(lua_touserdata(L,idx))));
@@ -177,9 +209,11 @@ int lua::MakeObject (lua_State *L)
 {
     const char *name = lua_tostring(L, 1);
     if (!name) {
-        luaL_error(L, "MakeObject: string expected as argument");
+        throwLuaError(L, "MakeObject: string expected as argument");
     }
     Object *obj = world::MakeObject(name);
+    if (obj == NULL)
+        throwLuaError(L, ecl::strf("MakeObject: unknown object name '%s'", name).c_str());
     pushobject(L, obj);
     return 1;
 }
@@ -200,7 +234,7 @@ en_set_attrib(lua_State *L)
     if (obj && key)
         obj->set_attrib(key, to_value(L, 3));
     else
-        luaL_error(L, strf("SetAttrib: invalid object or attribute name '%s'", key).c_str());
+        throwLuaError(L, strf("SetAttrib: invalid object or attribute name '%s'", key).c_str());
     return 0;
 }
 
@@ -211,16 +245,16 @@ en_get_attrib(lua_State *L)
     const char *key = lua_tostring(L,2);
 
     if (!obj) {
-        luaL_error(L, "GetAttrib: invalid object");
+        throwLuaError(L, "GetAttrib: invalid object");
         return 0;
     }
     if (!key) {
-        luaL_error(L, "GetAttrib: invalid key");
+        throwLuaError(L, "GetAttrib: invalid key");
         return 0;
     }
 
     if (0 == strcmp(key, "kind")) {
-        luaL_error(L, "GetAttrib: illegal attribute, use GetKind()");
+        throwLuaError(L, "GetAttrib: illegal attribute, use GetKind()");
         return 0;
     }
 
@@ -240,7 +274,7 @@ en_get_kind(lua_State *L)
     Object *obj = to_object(L,1);
 
     if (!obj) {
-        luaL_error(L, "GetKind: invalid object");
+        throwLuaError(L, "GetKind: invalid object");
         return 0;
     }
 
@@ -270,9 +304,9 @@ en_set_floor(lua_State *L)
     else if (is_object(L,3)) {
         fl = static_cast<Floor*>(*(static_cast<void**> (lua_touserdata(L,3))));
     	if( ! fl)
-	    luaL_error(L, "object is no valid floor");
+	    throwLuaError(L, "object is no valid floor");
     } else
-        luaL_error(L, "argument 3 must be an Object or nil");
+        throwLuaError(L, "argument 3 must be an Object or nil");
     world::SetFloor(GridPos(x,y), fl);
     return 0;
 }
@@ -283,8 +317,9 @@ en_set_item(lua_State *L)
     int x = round_down<int>(lua_tonumber(L, 1));
     int y = round_down<int>(lua_tonumber(L, 2));
     Item *it = dynamic_cast<Item*>(to_object(L, 3));
-    if( ! it)
-        luaL_error(L, "object is no valid item");
+    if( ! it) {
+        throwLuaError(L, "object is no valid item");
+    }
     world::SetItem(GridPos(x,y), it);
     return 0;
 }
@@ -296,7 +331,7 @@ en_set_stone(lua_State *L)
     int y = round_down<int>(lua_tonumber(L, 2));
     Stone *st = dynamic_cast<Stone*>(to_object(L, 3));
     if( ! st)
-        luaL_error(L, "object is no valid stone");
+        throwLuaError(L, "object is no valid stone");
     world::SetStone(GridPos(x,y), st);
     return 0;
 }
@@ -324,7 +359,7 @@ en_set_actor(lua_State *L)
     double y = lua_tonumber(L,2);
     Actor *ac = dynamic_cast<Actor*>(to_object(L, 3));
     if( ! ac)
-        luaL_error(L, "object is no valid actor");
+        throwLuaError(L, "object is no valid actor");
     world::AddActor(x, y, ac);
     return 0;
 }
@@ -337,16 +372,16 @@ en_send_message(lua_State *L)
     const char *msg = lua_tostring(L, 2);
     Value v;
     if (!msg)
-        luaL_error(L,"Illegal message");
+        throwLuaError(L,"Illegal message");
     else if (obj) {
         try {
             v = world::SendMessage (obj, msg, to_value(L, 3));
         }
         catch (const XLevelRuntime &e) {
-            luaL_error (L, e.what());
+            throwLuaError (L, e.what());
         }
         catch (...) {
-            luaL_error (L, "uncaught exception");
+            throwLuaError (L, "uncaught exception");
         }
     }
     push_value(L, v);
@@ -383,16 +418,16 @@ int lua::EmitSound (lua_State *L)
     const char *soundname = lua_tostring(L, 2);
 
     if (!soundname)
-        luaL_error(L,"Illegal sound");
+        throwLuaError(L,"Illegal sound");
     else if (obj) {
         GridObject *gobj = dynamic_cast<GridObject*>(obj);
         if (gobj) {
             if (!gobj->sound_event (soundname)) 
-                luaL_error(L, strf("Can't find sound '%s'", soundname).c_str());
+                throwLuaError(L, strf("Can't find sound '%s'", soundname).c_str());
         }
     }
     else
-        luaL_error(L, "EmitSound: invalid object");
+        throwLuaError(L, "EmitSound: invalid object");
 
     return 0;
 }
@@ -404,9 +439,9 @@ en_name_object(lua_State *L)
     const char *name = lua_tostring(L,2);
 
     if (!obj) 
-        luaL_error(L, "NameObject: Illegal object");
+        throwLuaError(L, "NameObject: Illegal object");
     else if (!name) 
-        luaL_error(L, "NameObject: Illegal name");
+        throwLuaError(L, "NameObject: Illegal name");
     else
         world::NameObject(obj, name);
 
@@ -456,7 +491,7 @@ en_get_pos(lua_State *L)
     GridPos  p;
 
     if (!obj) {
-        luaL_error(L, "GetPos: Illegal object");
+        throwLuaError(L, "GetPos: Illegal object");
         return 0;
     }
 
@@ -494,14 +529,14 @@ en_add_rubber_band (lua_State *L)
     d.minlength = lua_tonumber (L, 5);
 
     if (!a1)
-        luaL_error(L, "AddRubberBand: First argument must be an actor\n");
+        throwLuaError(L, "AddRubberBand: First argument must be an actor\n");
     else {
         if (a2)
             world::AddRubberBand (a1, a2, d);
         else if (st)
             world::AddRubberBand (a1, st, d);
         else
-            luaL_error(L, "AddRubberBand: Second argument must be actor or stone\n");
+            throwLuaError(L, "AddRubberBand: Second argument must be actor or stone\n");
     }
     return 0;
 }
@@ -520,7 +555,7 @@ en_is_solved(lua_State *L)
     // - filename is no longer a useful reference for levels
     // - levels should not depend on external data for reasons of
     //   network compatibility and level journaling
-    luaL_error(L, "Usage of depreceated function \"IsSolved()\"");
+    throwLuaError(L, "Usage of depreceated function \"IsSolved()\"");
 
 //    const char  *levelname = lua_tostring(L,1);
 //    int          solved    = 0;
@@ -548,7 +583,7 @@ en_add_scramble(lua_State *L)
     if (found && found[0]) 
         world::AddScramble(GridPos(x,y), enigma::Direction(found-allowed));
     else 
-        luaL_error(L, "AddScramble: Third argument must be one character of \"wsen\"");
+        throwLuaError(L, "AddScramble: Third argument must be one character of \"wsen\"");
 
     return 0;
 }
@@ -570,9 +605,9 @@ en_add_signal (lua_State *L) {
     GridLoc source, target;
 
     if (sourcestr == 0 || !to_gridloc(sourcestr, source))
-        luaL_error (L, "AddSignal: invalid source descriptor");
+        throwLuaError (L, "AddSignal: invalid source descriptor");
     if (targetstr == 0 || !to_gridloc(targetstr, target)) 
-        luaL_error (L, "AddSignal: invalid target descriptor");
+        throwLuaError (L, "AddSignal: invalid target descriptor");
     if (msg == 0)
         msg = "signal";
 
@@ -587,7 +622,7 @@ int loadLib(lua_State *L)
     try {
         curProxy->loadDependency(id);
     } catch (XLevelLoading &err) {
-        luaL_error(L, err.what());
+        throwLuaError(L, err.what());
     }
     return 1;
 }
