@@ -1100,20 +1100,64 @@ do
    def_shmodel("st-stoneimpulse-hollow-anim2", "stoneimpulse-hollow-anim2", "sh-floating")
 end
 
------------------
--- Thief stone --
------------------
+---------------------------
+-- Thief stone and floor --
+---------------------------
 do
-    local img1 = def_subimages("st-thief", {h=7})
-    local img2 = def_subimages("st-thief-captured", {h=12})
-    local f1 = buildframes(img1, 80)
+    -- Base images
+
+    local stonebase = "st-bluegray"
+    local floorbase = "fl-bluegray"
+    local thiefovl = def_subimages("thief-template", {h = 7})
+    local capturedovl = def_subimages("thief-captured-template", {h = 12})
+
+    -- Creating st-thief
+
+    local names = {}
+    for j = 1, getn(thiefovl) do
+        names[j] = "st-thief"..format("_%04d", j)
+        display.DefineComposite(names[j], stonebase, thiefovl[j])
+    end
+
+    local f1 = buildframes(names, 80)
+    def_anim("pre-st-thief-emerge", f1)
+    def_anim("pre-st-thief-retreat", reverseframes(f1))
+    def_roundstone("st-thief", stonebase)
+    def_roundstone("st-thief-emerge", "pre-st-thief-emerge")
+    def_roundstone("st-thief-retreat", "pre-st-thief-retreat")
+
+    -- Creating st-thief-captured
+    --
+    --   Note that this is done without template, as the whole
+    --   stone has to disappear (e.g. via shrinking)
+
+    local img2 = def_subimages("st-thief-captured", {h = 12})
     local f2 = buildframes(img2, 80)
-    def_anim("thief-emerge", f1)
-    def_anim("thief-retreat", reverseframes(f1))
     def_anim("st-thief-captured", f2)
-    def_roundstone("st-thief", img1[1])
-    def_roundstone("st-thief-emerge", "thief-emerge")
-    def_roundstone("st-thief-retreat", "thief-retreat")    
+
+    -- Creating fl-thief
+
+    local floornames = {}
+    local floorcaptured = {}
+    local floorbases = def_subimages(floorbase, {h=4, modelname="fl-thief-base"})
+    for k = 1,4 do
+      floornames[k] = {}
+      for j = 1, getn(thiefovl) do
+        floornames[k][j] = "fl-thief"..k..format("_%04d", j)
+        display.DefineComposite(floornames[k][j], floorbases[k], thiefovl[j])
+      end
+      floorcaptured[k] = {}
+      for j = 1, getn(capturedovl) do
+        floorcaptured[k][j] = "fl-thief"..k.."-captured"..format("_%04d", j)
+        display.DefineComposite(floorcaptured[k][j], floorbases[k], capturedovl[j])
+      end
+      local f3 = buildframes(floornames[k], 80)
+      local f4 = buildframes(floorcaptured[k], 80)
+      def_alias("fl-thief"..k, floorbases[k])
+      def_anim("fl-thief"..k.."-emerge", f3)
+      def_anim("fl-thief"..k.."-retreat", reverseframes(f3))
+      def_anim("fl-thief"..k.."-captured", f4)
+    end
 end
 
 -----------------
