@@ -32,7 +32,8 @@ namespace enigma { namespace lev {
     std::map<std::string, Index *> Index::indices;
     std::map<std::string, std::vector<Index *> *> Index::indexGroups;
     Index * Index::currentIndex = NULL;
-    
+    std::map<std::string, std::string> Index::nullExtensions;
+            
     void Index::registerIndex(Index *anIndex) {
         if (anIndex == NULL)
             return;
@@ -58,11 +59,12 @@ namespace enigma { namespace lev {
         }
         
         // insert according to user prefs or index defaults
-        
-        // else append
-        group->push_back(anIndex);
-        anIndex->indexGroup = groupName;
-        
+        std::vector<Index *>::iterator itg;
+        for (itg = group->begin(); itg != group->end() && 
+                (*itg)->indexDefaultLocation <= anIndex->indexDefaultLocation; 
+                itg++) {
+        }
+        group->insert(itg, anIndex);        
     }
      
     Index * Index::findIndex(std::string anIndexName) {
@@ -157,8 +159,9 @@ namespace enigma { namespace lev {
             return NULL;
     }
     
-    Index::Index(std::string anIndexName, std::string aGroupName) : 
+    Index::Index(std::string anIndexName, std::string aGroupName, double defaultLocation) : 
             indexName (anIndexName), indexGroup (aGroupName),
+            indexDefaultLocation (defaultLocation),
             currentPosition (0), screenFirstPosition (0) {
     }
     
@@ -274,12 +277,24 @@ namespace enigma { namespace lev {
         return proxies.size();
     }
 
-    void Index::appendProxy(Proxy * newLevel) {
+    void Index::appendProxy(Proxy * newLevel, controlType varCtrl,
+                scoreUnitType varUnit, std::string varTarget,
+                std::map<std::string, std::string> varExtensions) {
         proxies.push_back(newLevel);
     }
 
     void Index::clear() {
 //        proxies.clear();
+    }
+    
+    void Index::updateFromProxies() {
+        for (int i = 0, l = proxies.size();  i < l; i++) {
+            try {
+                proxies[i]->loadMetadata(true);
+            } catch (XLevelLoading &err) {
+                // silently ignore errors
+            }
+        }
     }
 
     /* ---------- LevelPack interface ---------- */

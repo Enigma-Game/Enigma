@@ -50,6 +50,12 @@ namespace enigma
          * @param toTranscode utf-8 coded string
          */
         Utf8ToXML(const std::string * const toTranscode);
+        /**
+         * Makes a transcoding to the local code page.
+         *
+         * @param toTranscode utf-8 coded string
+         */
+        Utf8ToXML(const std::string toTranscode);
         ~Utf8ToXML();
 
         /**

@@ -112,6 +112,8 @@ enigma_SOURCES = 		\
 	Utf8ToXML.hh		\
 	util.cc 		\
 	util.hh			\
+	utilXML.cc		\
+	utilXML.hh		\
 	video.cc 		\
 	video.hh		\
 	world.cc 		\

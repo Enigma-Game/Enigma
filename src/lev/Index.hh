@@ -59,7 +59,8 @@ namespace enigma { namespace lev {
          * Convention: method names *Level() can take int pos or Proxy as arg.
          */
         Index(std::string anIndexName = "Unnamed Pack", 
-                std::string aGroupName = INDEX_DEFAULT_GROUP);
+                std::string aGroupName = INDEX_DEFAULT_GROUP, 
+                double defaultLocation = 200000);
         ~Index();
         
         std::string getName();
@@ -76,8 +77,11 @@ namespace enigma { namespace lev {
                 
         /*! Return number of levels */
         virtual int size() const;
-        virtual void appendProxy(Proxy * newLevel);
+        virtual void appendProxy(Proxy * newLevel, controlType varCtrl = force,
+                scoreUnitType varUnit = duration, std::string varTarget = "time",
+                std::map<std::string, std::string> varExtensions = nullExtensions);
         virtual void clear();
+        void updateFromProxies();
 
         // ---------- LevelPack legacy methods ---to be renamed ------- */
        /*! Return the default SoundSet (see options::SoundSet for meaning) */
@@ -96,6 +100,7 @@ namespace enigma { namespace lev {
         int currentPosition; // 0,...
         int screenFirstPosition; // LevelWidget ifirst
         std::vector<Proxy *> proxies;
+        static std::map<std::string, std::string> nullExtensions;
     
     private:
         /**

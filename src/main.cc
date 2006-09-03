@@ -291,13 +291,12 @@ void Application::init(int argc, char **argv)
 //        levels::AddHistoryLevelPack ();
     if (!ap.levelnames.empty()) {
         lev::Index::registerIndex(new lev::VolatileIndex("Quick Test Levels",
-                INDEX_DEFAULT_GROUP, ap.levelnames));
+                INDEX_DEFAULT_GROUP, ap.levelnames, 154000));
         lev::Index::setCurrentIndex("Quick Test Levels");
     }
     std::vector<std::string> emptyList;
     lev::Index::registerIndex(new lev::VolatileIndex("Search Result",
-                INDEX_DEFAULT_GROUP, emptyList));
-    lev::Proxy::countLevels();
+                INDEX_DEFAULT_GROUP, emptyList, 155000));
 
     // ----- Initialize object repositories
     world::Init();
@@ -656,6 +655,8 @@ static void shutdown()
     sound::Shutdown();
     enet_deinitialize();
     lev::RatingManager::instance()->save();
+    if (lev::PersistentIndex::historyIndex != NULL) 
+        lev::PersistentIndex::historyIndex->save();
     app.prefs->shutdown();
     options::Save();
     lua::ShutdownGlobal();

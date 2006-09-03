@@ -77,7 +77,8 @@ namespace enigma { namespace lev {
         static Proxy *registerLevel(std::string levelPath, std::string indexPath,
                 std::string levelId, std::string levelTitle, std::string levelAuthor,
                 int levelScoreVersion, int levelRelease, bool levelHasEasymode,
-                GameType levelCompatibilty, levelStatusType status =STATUS_RELEASED);
+                GameType levelCompatibilty, levelStatusType status =STATUS_RELEASED,
+                int levelRevision = 0);
         
         static Proxy *autoRegisterLevel(std::string indexPath, std::string filename);
 
@@ -172,7 +173,7 @@ namespace enigma { namespace lev {
         Proxy(bool proxyIsLibrary, pathType thePathType, std::string theNormLevelPath,
                 std::string levelId, std::string levelTitle, std::string levelAuthor,
                 int levelScoreVersion, int levelRelease, bool levelHasEasymode,
-                GameType levelCompatibilty, levelStatusType status);
+                GameType levelCompatibilty, levelStatusType status, int levelRevision = 0);
         ~Proxy();
         void load(bool onlyMetadata, bool expectLevel);
         void loadDoc();

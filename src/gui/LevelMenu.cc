@@ -233,11 +233,7 @@ namespace enigma { namespace gui {
             if ((unsigned)ilevel < ind->size()) {
                 if (ind->mayPlayLevel(ilevel+1)) {
                     game::StartGame();
-//                    if (levels::IsHistory(lp))
-//                        // the played level is now the first in history
-//                        ilevel = 0;
-//                    else
-                        ilevel = ind->getCurrentPosition();
+                    ilevel = ind->getCurrentPosition();
                     invalidate_all();
                     ind->setCurrentPosition(ilevel);
                     levelwidget->syncFromIndexMgr();

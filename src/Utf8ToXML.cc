@@ -33,6 +33,10 @@ namespace enigma
     Utf8ToXML::Utf8ToXML(const std::string * const toTranscode) {
         init(toTranscode->c_str());
     }
+    
+    Utf8ToXML::Utf8ToXML(const std::string toTranscode) {
+        init(toTranscode.c_str());
+    }
 
     void Utf8ToXML::init(const char * const toTranscode) {
         unsigned int srcLength = std::strlen(toTranscode) + 1;

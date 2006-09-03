@@ -30,6 +30,7 @@
 #include "world.hh"
 #include "nls.hh"
 #include "lev/Index.hh"
+#include "lev/PersistentIndex.hh"
 #include "lev/Proxy.hh"
 #include "lev/RatingManager.hh"
 #include "lev/ScoreManager.hh"
@@ -880,7 +881,8 @@ void client::Msg_AdvanceLevel (lev::LevelAdvanceMode mode) {
 
     lev::Index *ind = lev::Index::getCurrentIndex();
     // log last played level
-//    levels::AddHistory(server::CurrentLevelPack, server::CurrentLevel);
+    lev::PersistentIndex::addCurrentToHistory();
+
     if (ind->advanceLevel(mode)) {
         // now we may advance
         server::Msg_LoadLevel(ind->getCurrent(), false);

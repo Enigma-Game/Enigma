@@ -24,6 +24,7 @@
 #include "main.hh"
 #include "nls.hh"
 #include "oxyd_internal.hh"
+#include "utilXML.hh"
 #include "Utf8ToXML.hh"
 #include "XMLtoUtf8.hh"
 #include "lev/Index.hh"
@@ -55,16 +56,7 @@ using namespace std;
 using namespace enigma;
 XERCES_CPP_NAMESPACE_USE 
 
-namespace enigma { namespace lev {
-    bool boolValue(const XMLCh * const string) {
-        std::string boolString = XMLtoUtf8(string).c_str();
-        if (boolString == "true" ||  boolString == "1")
-            return true;
-        else
-            // we need no further investigation due to XML validation
-            return false;
-    }
-     
+namespace enigma { namespace lev {     
     // http://enigma-game.org/schema/level/1
     const XMLCh Proxy::levelNS[] = {
             chLatin_h, chLatin_t, chLatin_t, chLatin_p, chColon, chForwardSlash,
@@ -97,7 +89,7 @@ namespace enigma { namespace lev {
     Proxy * Proxy::registerLevel(std::string levelPath, std::string indexPath,
             std::string levelId, std::string levelTitle, std::string levelAuthor,
             int levelScoreVersion, int levelRelease, bool levelHasEasymode,
-            GameType levelCompatibilty, levelStatusType status) {
+            GameType levelCompatibilty, levelStatusType status, int levelRevision) {
         Proxy *theProxy;
         pathType thePathType = pt_resource;
         std::string theNormLevelPath;
@@ -153,7 +145,7 @@ namespace enigma { namespace lev {
         // create new proxy
         theProxy = new Proxy(false, thePathType, theNormLevelPath, levelId, levelTitle,
             levelAuthor, levelScoreVersion, levelRelease, levelHasEasymode, 
-            levelCompatibilty, status);
+            levelCompatibilty, status, levelRevision);
         cache.insert(std::make_pair(cacheKey, theProxy));
         return theProxy;
     }
@@ -172,7 +164,7 @@ namespace enigma { namespace lev {
             theProxy = NULL;
         } else {
             // eliminate duplicates and register
-            Log << "autoRegisterLevel register '" << indexPath << "/"<< filename << "\n";
+//            Log << "autoRegisterLevel register '" << indexPath << "/"<< filename << "\n";
             std::string cacheKey = theProxy->getNormLevelPath() + theProxy->getId() + 
                     ecl::strf("%d", theProxy->getReleaseVersion());
             std::map<std::string, Proxy *>::iterator i = cache.find(cacheKey);
@@ -252,11 +244,11 @@ namespace enigma { namespace lev {
     Proxy::Proxy(bool proxyIsLibrary, pathType thePathType, std::string theNormLevelPath,
             std::string levelId, std::string levelTitle, std::string levelAuthor,
             int levelScoreVersion, int levelRelease, bool levelHasEasymode,
-            GameType levelCompatibilty,levelStatusType status) :  
+            GameType levelCompatibilty,levelStatusType status, int levelRevision) :  
             isLibraryFlag (proxyIsLibrary), normPathType(thePathType), normLevelPath(theNormLevelPath), 
             id(levelId), title(levelTitle), author(levelAuthor),
             scoreVersion(levelScoreVersion), releaseVersion(levelRelease),
-            revisionNumber(0), hasEasymodeFlag(levelHasEasymode), 
+            revisionNumber(levelRevision), hasEasymodeFlag(levelHasEasymode), 
             engineCompatibility(levelCompatibilty), levelStatus (status), 
             scoreUnit (duration), doc(NULL) {
     }
@@ -515,7 +507,7 @@ namespace enigma { namespace lev {
         if (doc != NULL) {
             DOMNodeList *depList = infoElem->getElementsByTagNameNS(
                     levelNS, Utf8ToXML("dependency").x_str());
-            for (int i = 0, l = depList-> getLength();  i < l; i++) {
+            for (int i = 0, l = depList->getLength();  i < l; i++) {
                 DOMElement *depElem = dynamic_cast<DOMElement *>(depList->item(i));
                 std::string depPath;
                 std::string depId;

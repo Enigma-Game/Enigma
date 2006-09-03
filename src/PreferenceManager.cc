@@ -152,6 +152,7 @@ namespace enigma {
 #else
             XMLFormatTarget *myFormTarget = new LocalFileFormatTarget(app.prefPath.c_str());
             result = app.domSer->writeNode(myFormTarget, *doc);            
+            delete myFormTarget;   // flush
 #endif
         }
         catch (const XMLException& toCatch) {

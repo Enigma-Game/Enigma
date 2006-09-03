@@ -121,6 +121,7 @@ namespace enigma
         void prepend_zip (const string &filename);
         void setDataPath (const string &p);
         std::string getDataPath();
+        std::vector<std::string> getPaths();
 
         /**
          * Search first occurence of a file on the GameFS. The file can be

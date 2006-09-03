@@ -23,6 +23,7 @@
 #include "nls.hh"
 #include "video.hh"
 #include "lev/Index.hh"
+#include "lev/PersistentIndex.hh"
 
 
 using namespace ecl;
@@ -117,6 +118,9 @@ namespace enigma { namespace gui {
         if (w == but_main) {
             Menu::quit();
         } else if (w == but_edit) {
+//            lev::Index::getCurrentIndex()->updateFromProxies();
+//            lev::PersistentIndex * pi = dynamic_cast<lev::PersistentIndex *>(lev::Index::getCurrentIndex());
+//            pi->deletesave();
         } else if (w == but_level) {
             LevelMenu m;
             if (m.manage() && m.isMainQuit()) {

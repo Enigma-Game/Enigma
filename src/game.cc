@@ -25,6 +25,7 @@
 #include "server.hh"
 #include "world.hh"
 #include "sound.hh"
+#include "lev/PersistentIndex.hh"
 
 #include "ecl_sdl.hh"
 #include <cassert>
@@ -112,7 +113,7 @@ void game::StartGame ()
 //             dtime = 0.5;
     }
     // add last played level
-//    levels::AddHistory(server::CurrentLevelPack, server::CurrentLevel);
+    lev::PersistentIndex::addCurrentToHistory();
 
     video::ShowMouse();
 }

@@ -24,61 +24,565 @@
 #include "file.hh"
 #include "options.hh"
 #include "oxyd.hh"
-
+#include "LocalToXML.hh"
+#include "utilXML.hh"
+#include "Utf8ToXML.hh"
+#include "XMLtoUtf8.hh"
+#include "ecl_system.hh"
 
 #include <fstream>
+#include <iostream>
+#include <sstream>
+#include <set>
+#include <xercesc/dom/DOM.hpp>
+#include <xercesc/util/XMLException.hpp>
+#include <xercesc/util/XMLDouble.hpp>
+#include <xercesc/util/XMLString.hpp>
+#include <xercesc/util/XMLUniDefs.hpp>
+#include <xercesc/framework/MemBufInputSource.hpp>
+#include <xercesc/framework/Wrapper4InputSource.hpp>
+#include <xercesc/util/XercesVersion.hpp>
+#if _XERCES_VERSION < 30000
+#include <xercesc/framework/LocalFileFormatTarget.hpp>
+#endif
+
+using namespace std;
+XERCES_CPP_NAMESPACE_USE 
 
 namespace enigma { namespace lev {
+    Variation::Variation(controlType ctrlValue, scoreUnitType unitValue,
+            std::string targetValue) : ctrl (ctrlValue),
+            unit (unitValue), target (targetValue) {
+    }
 
+    bool Variation::operator == (const Variation& otherVar) {
+        return ctrl == otherVar.ctrl && unit == otherVar.unit &&
+            target == otherVar.target && extensions == otherVar.extensions;
+    }
+    
+    PersistentIndex * PersistentIndex::historyIndex = NULL;
+    
     void PersistentIndex::registerPersistentIndices() {
-        // register dirs and zips with xml-indices incl auto 
-        
-        // register auto not yet registered new files
-        PersistentIndex * autoIndex = new PersistentIndex("/levels/auto", "Auto");
-        DirIter * dirIter = DirIter::instance(app.userPath + "/levels/auto");
+        DirIter * dirIter;
         DirEntry dirEntry;
-        while (dirIter->get_next(dirEntry) && !dirEntry.is_dir) {
-            if ((dirEntry.name.rfind(".xml") == dirEntry.name.size() - 4) ||
-                    (dirEntry.name.rfind(".lua") == dirEntry.name.size() - 4)) {
-                Proxy * newProxy = Proxy::autoRegisterLevel("auto", 
-                        dirEntry.name.substr(0, dirEntry.name.size() - 4));
-                if (newProxy != NULL) {
-                    // first check that the proxy is not in the index
-                    //  - may occur if the level is stored as .xml and .lua in the folder
-                    
-                    // is it is new, add it
-                    autoIndex->appendProxy(newProxy);
+        
+        // SysemPath: register dirs and zips with xml-indices 
+        std::vector<std::string> sysPaths = app.systemFS->getPaths();
+        std::set<std::string> candidates;
+        std::set<std::string> candidates2;
+        std::set<std::string> registered;
+        for (int i = 0; i < sysPaths.size(); i++) {
+            dirIter = DirIter::instance(sysPaths[i] + "/levels");
+            while (dirIter->get_next(dirEntry)) {
+                if (dirEntry.is_dir && dirEntry.name != "." && dirEntry.name != ".." &&
+                        dirEntry.name != ".svn" && dirEntry.name != "cross") {
+                    candidates.insert(dirEntry.name);
+                }
+                else {
+                    std::string::size_type zipPos = dirEntry.name.rfind(".zip");
+                    if (zipPos != std::string::npos && zipPos == dirEntry.name.size() - 4) {
+                        candidates.insert(dirEntry.name.substr(0, dirEntry.name.size() - 4));
+                    }
+                }
+            }
+            delete dirIter;
+        }
+
+        for (std::set<std::string>::iterator i = candidates.begin(); 
+                i != candidates.end(); i++) {
+//            Log << "PersistentIndexCandidate1 " << *i <<"\n";
+            PersistentIndex * anIndex = new PersistentIndex(*i, true);
+            if (!(anIndex->getName().empty())) {
+                Index::registerIndex(anIndex);
+                registered.insert(*i);
+            } else {
+                delete anIndex;
+            }
+        }
+
+        //TODO add system cross indices
+        
+        
+        // UserPath: register dirs and zips with xml-indices excl auto
+        dirIter = DirIter::instance(app.userPath + "/levels");
+        while (dirIter->get_next(dirEntry)) {
+            if (dirEntry.is_dir && dirEntry.name != "." && dirEntry.name != ".." &&
+                    dirEntry.name != ".svn" && dirEntry.name != "auto" &&
+                    dirEntry.name != "cross" && dirEntry.name != "legacy_dat") {
+                if (registered.find(dirEntry.name) == registered.end())
+                    candidates2.insert(dirEntry.name);
+            }
+            else {
+                std::string::size_type zipPos = dirEntry.name.rfind(".zip");
+                if (zipPos != std::string::npos && zipPos == dirEntry.name.size() - 4) {
+                    if (registered.find(dirEntry.name) == registered.end()) 
+                        candidates2.insert(dirEntry.name.substr(0, dirEntry.name.size() - 4));
+                }
+            }
+        }
+        delete dirIter;
+
+        candidates2.insert("");
+        for (std::set<std::string>::iterator i = candidates2.begin(); 
+                i != candidates2.end(); i++) {
+//            Log << "PersistentIndexCandidate2 " << *i <<"\n";
+            PersistentIndex * anIndex = new PersistentIndex(*i, false);
+            if (!(anIndex->getName().empty())) {
+                Index::registerIndex(anIndex);
+                registered.insert(*i);
+            } else {
+                delete anIndex;
+            }
+        }
+        
+       
+        //add user cross indices
+        dirIter = DirIter::instance(app.userPath + "/levels/cross");
+        while (dirIter->get_next(dirEntry)) {
+            if (!dirEntry.is_dir && dirEntry.name.size() > 4 && 
+                    (dirEntry.name.rfind(".xml") == dirEntry.name.size() - 4)) {
+//                Log << "PersistentIndexCandidate4 " << dirEntry.name <<"\n";
+                PersistentIndex * anIndex = new PersistentIndex("cross", false, "", dirEntry.name);
+                if (!(anIndex->getName().empty())) {
+                    Index::registerIndex(anIndex);
+                } else {
+                    delete anIndex;
+                }
+            }
+        }
+        delete dirIter;
+         
+        // register auto not yet registered new files
+        PersistentIndex * autoIndex = new PersistentIndex("auto", false, "Auto");
+        autoIndex->indexDefaultLocation = 152000;
+        dirIter = DirIter::instance(app.userPath + "/levels/auto");
+        while (dirIter->get_next(dirEntry)) { 
+            if( !dirEntry.is_dir) {
+                if (dirEntry.name.size() > 4 && (
+                        (dirEntry.name.rfind(".xml") == dirEntry.name.size() - 4) ||
+                        (dirEntry.name.rfind(".lua") == dirEntry.name.size() - 4))) {
+                    Proxy * newProxy = Proxy::autoRegisterLevel("auto", 
+                            dirEntry.name.substr(0, dirEntry.name.size() - 4));
+                    if (newProxy != NULL) {
+                        // first check that the proxy is not in the index
+                        //  - may occur if the level is stored as .xml and .lua in the folder
+                        
+                        // is it is new, add it
+                        autoIndex->appendProxy(newProxy);
+                    }
                 }
             }
         }
         delete dirIter;
         Index::registerIndex(autoIndex);
+        
+        // check if history is available - else generate a new index
+        Index * foundHistory = Index::findIndex("History");
+        if ( foundHistory != NULL) {
+            historyIndex = dynamic_cast<PersistentIndex *>(foundHistory);
+        } else {
+            historyIndex = new PersistentIndex("cross", false, "History", "history.xml");
+            historyIndex->indexDefaultLocation = 153000;
+            Index::registerIndex(historyIndex);
+        }
+    }
+    
+    void PersistentIndex::addCurrentToHistory() {
+        Variation var;
+        PersistentIndex * curIndex = dynamic_cast<PersistentIndex *>(Index::getCurrentIndex());
+        if (curIndex != NULL)
+            var = curIndex->getVariation(curIndex->getCurrentPosition());
+        historyIndex->insertProxy(0, Index::getCurrentProxy(), false, var.ctrl, var.unit,
+                var.target, var.extensions);
+        historyIndex->setCurrentPosition(0);  // last played is always current in history
     }
 
-    PersistentIndex::PersistentIndex(std::string thePackPath,  
+    PersistentIndex::PersistentIndex(std::string thePackPath, bool systemOnly, 
             std::string anIndexName, std::string theIndexFilename, 
             std::string aGroupName) : 
             Index(anIndexName, aGroupName), packPath (thePackPath), 
-            indexFilename(theIndexFilename) {
-        Log << "PersistentIndex AddLevelPack " << thePackPath << " - " << anIndexName << "\n";
-        lev::RatingManager *theRatingMgr = lev::RatingManager::instance();
-        
+            indexFilename(theIndexFilename), isModified (false), doc(NULL) {
+//        Log << "PersistentIndex AddLevelPack " << thePackPath << " - " << anIndexName <<  " - " << indexDefaultLocation <<"\n";
+        if (thePackPath == "auto")
+            return;    // as long as Auto is not editable
+
+        std::auto_ptr<std::istream> isptr;
+        ByteVec indexCode;
+        std::string errMessage;
+        absIndexPath = "";
+        std::string relIndexPath = "levels/" + thePackPath + "/" + theIndexFilename;
+        if ((!systemOnly && app.resourceFS->findFile(relIndexPath, absIndexPath, isptr)) ||
+                (systemOnly && app.systemFS->findFile(relIndexPath, absIndexPath, isptr))) {
+            // preload index file or zipped index
+            if (isptr.get() != NULL) {
+                // zipped file
+                Readfile (*isptr, indexCode);
+            } else {
+                // plain file
+                std::basic_ifstream<char> ifs(absIndexPath.c_str(), ios::binary | ios::in);
+                Readfile(ifs, indexCode);
+            }
+            try {
+                std::ostringstream errStream;
+                app.domParserErrorHandler->resetErrors();
+                app.domParserErrorHandler->reportToOstream(&errStream);
+                app.domParserSchemaResolver->resetResolver();
+                app.domParserSchemaResolver->addSchemaId("index.xsd","index.xsd");
+                // preloaded  xml or zipped xml
+                std::auto_ptr<Wrapper4InputSource> domInputIndexSource ( new Wrapper4InputSource(
+                        new MemBufInputSource(reinterpret_cast<const XMLByte *>(&(indexCode[0])),
+                        indexCode.size(), absIndexPath.c_str(), false)));
+                doc = app.domParser->parse(*domInputIndexSource);
+
+                if (doc != NULL && !app.domParserErrorHandler->getSawErrors()) {
+                    infoElem = dynamic_cast<DOMElement *>(doc->getElementsByTagName(
+                            Utf8ToXML("info").x_str())->item(0));
+                    levelsElem = dynamic_cast<DOMElement *>(doc->getElementsByTagName(
+                            Utf8ToXML("levels").x_str())->item(0));
+                }
+
+                if(app.domParserErrorHandler->getSawErrors()) {
+                    errMessage = errStream.str();
+                }
+                app.domParserErrorHandler->reportToNull();  // do not report to errStream any more
+            }
+            catch (...) {
+                errMessage = "Unexpected XML Exception on load of index\n";
+            }
+            if (!errMessage.empty()) {
+                if (doc != NULL) {
+                    doc->release();           // empty or errornous doc 
+                    doc = NULL;
+                }
+                Log << errMessage;   // make long error messages readable
+                return;
+            } else if (doc != NULL) {
+                //TODO check if an updated index exists for system packs
+                indexName = XMLtoUtf8(infoElem->getAttribute( 
+                        Utf8ToXML("title").x_str())).c_str();                
+                indexGroup = XMLtoUtf8(infoElem->getAttribute( 
+                        Utf8ToXML("group").x_str())).c_str();                
+                owner = XMLtoUtf8(infoElem->getAttribute( 
+                        Utf8ToXML("owner").x_str())).c_str();                
+                XMLDouble * result = new XMLDouble(infoElem->getAttribute( 
+                        Utf8ToXML("location").x_str()));
+                indexDefaultLocation = result->getValue();
+                DOMNodeList *levelList = levelsElem->getElementsByTagName(
+                        Utf8ToXML("level").x_str());
+                std::set<std::string> knownAttributes;
+                knownAttributes.insert("_seq");
+                knownAttributes.insert("_title");
+                knownAttributes.insert("_xpath");
+                knownAttributes.insert("id");
+                knownAttributes.insert("author");
+                knownAttributes.insert("score");
+                knownAttributes.insert("rel");
+                knownAttributes.insert("rev");
+                knownAttributes.insert("easy");
+                knownAttributes.insert("ctrl");
+                knownAttributes.insert("unit");
+                knownAttributes.insert("target");
+                for (int i = 0, l = levelList->getLength();  i < l; i++) {
+                    DOMElement *levelElem = dynamic_cast<DOMElement *>(levelList->item(i));
+                    std::string path = XMLtoUtf8(levelElem->getAttribute( 
+                            Utf8ToXML("_xpath").x_str())).c_str();
+                    std::string id = XMLtoUtf8(levelElem->getAttribute( 
+                            Utf8ToXML("id").x_str())).c_str();
+                    std::string title = XMLtoUtf8(levelElem->getAttribute( 
+                            Utf8ToXML("_title").x_str())).c_str();
+                    std::string author = XMLtoUtf8(levelElem->getAttribute( 
+                            Utf8ToXML("author").x_str())).c_str();
+                    int scoreVersion = XMLString::parseInt(levelElem->getAttribute( 
+                            Utf8ToXML("score").x_str()));
+                    int releaseVersion = XMLString::parseInt(levelElem->getAttribute( 
+                            Utf8ToXML("rel").x_str()));
+                    int revisionVersion = XMLString::parseInt(levelElem->getAttribute( 
+                            Utf8ToXML("rev").x_str()));
+                    bool hasEasymodeFlag = boolValue(levelElem->getAttribute( 
+                            Utf8ToXML("easy").x_str()));
+                    Proxy * newProxy = Proxy::registerLevel(path, thePackPath, id, title,
+                            author, scoreVersion, releaseVersion, hasEasymodeFlag, 
+                            GAMET_ENIGMA, STATUS_RELEASED, revisionVersion);
+                    Variation var;
+                    std::string controlString = XMLtoUtf8(levelElem->getAttribute( 
+                            Utf8ToXML("ctrl").x_str())).c_str();
+                    if (controlString == "balance")
+                        var.ctrl = balance;
+                    else if  (controlString == "key")
+                        var.ctrl = key;
+                    else if  (controlString == "other")
+                        var.ctrl = other;
+                    std::string txt = XMLtoUtf8(levelElem->getAttribute( 
+                        Utf8ToXML("unit").x_str())).c_str();
+                    if (txt == "number")
+                        var.unit = number;
+                    else
+                        // default
+                        var.unit = duration;
+                    var.target = XMLtoUtf8(levelElem->getAttribute( 
+                            Utf8ToXML("target").x_str())).c_str();
+                    DOMNamedNodeMap * attrMap = levelElem->getAttributes();
+                    for (int j = 0, k = attrMap->getLength();  j < k; j++) {
+                        DOMAttr * levelAttr = dynamic_cast<DOMAttr *>(attrMap->item(j));
+                        std::string attrName = XMLtoUtf8(levelAttr->getName()).c_str();
+                        if (knownAttributes.find(attrName) == knownAttributes.end()) {
+                            Log << "PersistentIndex Load unknown Attribut: " << attrName << "\n";
+                            var.extensions[attrName]= XMLtoUtf8(levelAttr->getValue()).c_str();
+                        }
+                        
+                    }
+                    appendProxy(newProxy, var.ctrl, var.unit, var.target, var.extensions);                 
+                }
+            }
+        }        
     }
         
-    PersistentIndex::~PersistentIndex() {}
+    PersistentIndex::~PersistentIndex() {
+       if (doc != NULL)
+           doc->release();
+    }
     
     void PersistentIndex::clear() {
         proxies.clear();
     }
     
+    void PersistentIndex::appendProxy(Proxy * newLevel, controlType varCtrl,
+                scoreUnitType varUnit, std::string varTarget,
+                std::map<std::string, std::string> varExtensions) {
+        proxies.push_back(newLevel);
+        
+        Variation var(varCtrl, varUnit, varTarget);
+        var.extensions = varExtensions;
+        variations.push_back(var);
+    }
+
+    void PersistentIndex::insertProxy(int pos, Proxy * newLevel, bool allowDuplicates,
+                controlType varCtrl, scoreUnitType varUnit, std::string varTarget,
+                std::map<std::string, std::string> varExtensions) {
+        // TODO Assert pos >= size
+        
+        Variation var(varCtrl, varUnit, varTarget);
+        var.extensions = varExtensions;
+        
+        std::vector<Proxy *>::iterator itProxy = proxies.begin();
+        std::vector<Variation>::iterator itVar = variations.begin();
+        if (!allowDuplicates) {
+            // delete duplicates
+            while (itProxy != proxies.end()) {
+                if (*itProxy == newLevel && *itVar == var) {
+                    Log << "History Duplicat found\n";
+                    itProxy = proxies.erase(itProxy);
+                    itVar = variations.erase(itVar);
+                }
+                if (itProxy != proxies.end())
+                    itProxy++; itVar++;
+            }
+        }
+        
+        itProxy = proxies.begin();
+        itVar = variations.begin();
+        for (int i = 0; i < pos; i++) {
+                itProxy++; itVar++;
+        }
+        proxies.insert(itProxy, newLevel);
+        variations.insert(itVar, var);
+    }
+    
+    Variation PersistentIndex::getVariation(int pos) {
+        // TODO Assert pos
+        return variations[pos];
+    }
+
+    void PersistentIndex::deletesave() {
+        std::vector<Proxy *>::iterator it = proxies.begin();
+        it++; it++; it++;
+        proxies.erase(it);
+        std::vector<Variation>::iterator itv = variations.begin();
+        itv++; itv++; itv++;
+        variations.erase(itv);
+        save();
+    }
+    
+    bool PersistentIndex::save() {
+        bool result = true;
+        
+        if (doc == NULL) {
+            std::string errMessage;
+            std::string indexTemplatePath;
+            if (app.systemFS->findFile( "schemas/index.xml" , indexTemplatePath)) {
+                try {
+                    std::ostringstream errStream;
+                    app.domParserErrorHandler->resetErrors();
+                    app.domParserErrorHandler->reportToOstream(&errStream);
+                    app.domParserSchemaResolver->resetResolver();
+                    app.domParserSchemaResolver->addSchemaId("index.xsd","index.xsd");
+                    doc = app.domParser->parseURI(indexTemplatePath.c_str());
+                    if (doc != NULL && !app.domParserErrorHandler->getSawErrors()) {
+                        infoElem = dynamic_cast<DOMElement *>(doc->getElementsByTagName(
+                                Utf8ToXML("info").x_str())->item(0));
+                        levelsElem = dynamic_cast<DOMElement *>(doc->getElementsByTagName(
+                                Utf8ToXML("levels").x_str())->item(0));
+                    }
+                     if(app.domParserErrorHandler->getSawErrors()) {
+                        errMessage = errStream.str();
+                    }
+                    app.domParserErrorHandler->reportToNull();  // do not report to errStream any more
+                }
+                catch (...) {
+                    errMessage = "Unexpected XML Exception on load of index\n";
+                }
+                if (!errMessage.empty()) {
+                    if (doc != NULL) {
+                        doc->release();           // empty or errornous doc 
+                        doc == NULL;
+                    }
+                    Log << errMessage;   // make long error messages readable
+                    return false;
+                }
+            } else
+                // TODO add error handling
+                return false;
+        }
+        
+        // 
+        
+        infoElem->setAttribute( Utf8ToXML("title").x_str(), 
+                Utf8ToXML(&indexName).x_str());
+        infoElem->setAttribute( Utf8ToXML("group").x_str(), 
+                Utf8ToXML(INDEX_DEFAULT_GROUP).x_str());
+        infoElem->setAttribute( Utf8ToXML("location").x_str(),
+                Utf8ToXML(ecl::strf("%g",indexDefaultLocation)).x_str());
+        DOMNodeList *levelsChildList = levelsElem->getChildNodes();
+        int levelsChildCount = levelsChildList->getLength();
+        // delete no more used level elements
+        for (int i = 0; i < levelsChildCount; i++) {
+            // delete all elements of list, as the list is dynamically updated -
+            // we can not recycle level elements as they may be reordered and
+            // their attributes are not identical
+            levelsElem->removeChild(levelsChildList->item(0));
+        }
+        DOMElement * levelElem;
+        // add level elements
+        for (int i = 0; i < size(); i++) {
+            // add a new element
+            levelElem = doc->createElement(Utf8ToXML("level").x_str());
+            levelsElem->appendChild(levelElem);   // insert it at the end
+            
+            Proxy * level = getProxy(i);
+            // convert Proxy normLevelPath to pack local path ./* if possible
+            std::string xpath = level->getNormLevelPath();
+            if (xpath.find(packPath + "/") == 0)
+                xpath = "." + xpath.substr(packPath.size());
+            else if (packPath.empty() && xpath.find("/") == std::string::npos)
+                xpath = "./" + xpath;
+            levelElem->setAttribute( Utf8ToXML("_xpath").x_str(),
+                    Utf8ToXML(xpath).x_str());
+            levelElem->setAttribute( Utf8ToXML("id").x_str(),
+                    Utf8ToXML(level->getId()).x_str());
+            levelElem->setAttribute( Utf8ToXML("_title").x_str(),
+                    Utf8ToXML(level->getTitle()).x_str());
+            levelElem->setAttribute( Utf8ToXML("author").x_str(),
+                    Utf8ToXML(level->getAuthor()).x_str());
+            levelElem->setAttribute( Utf8ToXML("score").x_str(),
+                    Utf8ToXML(ecl::strf("%d",level->getScoreVersion())).x_str());
+            levelElem->setAttribute( Utf8ToXML("rel").x_str(),
+                    Utf8ToXML(ecl::strf("%d",level->getReleaseVersion())).x_str());
+            levelElem->setAttribute( Utf8ToXML("rev").x_str(),
+                    Utf8ToXML(ecl::strf("%d",level->getRevisionNumber())).x_str());
+            levelElem->setAttribute( Utf8ToXML("easy").x_str(),
+                    Utf8ToXML(level->hasEasymode() ? "true" : "false").x_str());
+            std::string control;
+            switch (variations[i].ctrl) {
+            case lev::force:
+                control = "force"; break;
+            case lev::balance:
+                control = "balance"; break;
+            case lev::key:
+                control = "key"; break;
+            default:
+                control = "other"; break;
+            }
+            levelElem->setAttribute( Utf8ToXML("ctrl").x_str(),
+                    Utf8ToXML(control).x_str());
+            std::string unit;
+            switch (variations[i].unit) {
+            case lev::duration:
+                unit = "duration"; break;
+            case lev::number:
+                unit = "number"; break;
+            }
+            levelElem->setAttribute( Utf8ToXML("unit").x_str(),
+                    Utf8ToXML(unit).x_str());
+            levelElem->setAttribute( Utf8ToXML("target").x_str(),
+                    Utf8ToXML(variations[i].target).x_str());
+            for (std::map<std::string, std::string>::iterator j= variations[i].extensions.begin(); 
+                    j != variations[i].extensions.end(); j++) {
+//                Log << "Persistent save extension: " << (*j).first << " - " << (*j).second << "\n";
+                levelElem->setAttribute( Utf8ToXML((*j).first).x_str(),
+                        Utf8ToXML((*j).second).x_str());
+            }
+        }       
+        
+        // update the sequence number of the levels
+        DOMNodeList *levList = levelsElem->getElementsByTagName(
+                Utf8ToXML("level").x_str());
+        for (int i = 0, l = levList-> getLength();  i < l; i++) {
+            DOMElement *levElem = dynamic_cast<DOMElement *>(levList->item(i));
+            levElem->setAttribute( Utf8ToXML("_seq").x_str(),
+                    Utf8ToXML(ecl::strf("%d",i+1)).x_str());           
+        }
+        
+        stripIgnorableWhitespace(doc->getDocumentElement());
+
+        std::string path = app.userPath + "/levels/" + packPath + "/" + indexFilename;
+        try {
+            // auto-create the directory if necessary
+            std::string directory;
+            if (ecl::split_path (path, &directory, 0) && !ecl::FolderExists(directory)) {
+                ecl::FolderCreate (directory);
+            }
+
+#if _XERCES_VERSION >= 30000
+            result = app.domSer->writeToURI(doc, LocalToXML(& path).x_str());
+#else
+            XMLFormatTarget *myFormTarget = new LocalFileFormatTarget(path.c_str());
+            result = app.domSer->writeNode(myFormTarget, *doc);
+            delete myFormTarget;   // flush
+#endif
+        }
+        catch (const XMLException& toCatch) {
+            char* message = XMLString::transcode(toCatch.getMessage());
+            cerr << "Exception on save of index: "
+                 << message << "\n";
+            XMLString::release(&message);
+            result = false;
+        }
+        catch (const DOMException& toCatch) {
+            char* message = XMLString::transcode(toCatch.msg);
+            cerr << "Exception on save of index: "
+                 << message << "\n";
+            XMLString::release(&message);
+            result = false;
+        }
+        catch (...) {
+            cerr << "Unexpected exception on save of index\n" ;
+            result = false;
+        }
+        if (!result)
+            Log << "Index save fault on " << path << " \n";
+        else
+            Log << "Index save " << path << " o.k.\n";
+        
+        return result;
+    }
 
 
     PersistentIndex::PersistentIndex(std::istream *legacyIndexStream, 
             std::string thePackPath, bool isZip, std::string anIndexName, 
             std::string theIndexFilename) : 
             Index(anIndexName, INDEX_DEFAULT_GROUP), 
-            indexFilename(theIndexFilename) {
-//        Log << "PersistentIndex convert legacy index " << thePackPath << " - " << anIndexName << "\n";
+            indexFilename(theIndexFilename), isModified (false), doc(NULL) {
+        Log << "PersistentIndex convert 0.92 index " << thePackPath << " - " << anIndexName <<"\n";
         lev::RatingManager *theRatingMgr = lev::RatingManager::instance();
 
         // prepare Proxy coding of pack path -        
@@ -89,7 +593,6 @@ namespace enigma { namespace lev {
             packPath = thePackPath.substr(7);
         }
 
-        
         int linenumber = 0;
         try {
             std::string line;
@@ -233,7 +736,6 @@ namespace enigma { namespace lev {
                     }
                 }
                 
-                
                 // register Proxy
                 appendProxy(Proxy::registerLevel(filename, packPath,
                         (indexname.empty() ? filename : indexname), name, author, 
@@ -246,7 +748,11 @@ namespace enigma { namespace lev {
         } catch (const XLevelPackInit &e) {
             std::string xerror = ecl::strf("in line %i: %s", linenumber, e.what());
             throw XLevelPackInit (xerror);
-        }  
+        }
+        
+        // convert to XML
+        updateFromProxies();
+        save();
     }
 
     void PersistentIndex::parsePar(const string& par, int& par_value, std::string& par_text) 
@@ -265,14 +771,14 @@ namespace enigma { namespace lev {
     }
 
     void AddLevelPack (const char *init_file, const char *indexName) {
-        Log << "Index AddLevelPack " << init_file << "\n";
+//        Log << "Index AddLevelPack " << init_file << "\n";
         if (Index::findIndex(indexName) == NULL) {
             std::string absPath;
             if (app.resourceFS->findFile(init_file, absPath)) {
                 try {
                     std::string path = init_file;
-                    std::string dir;
-                    std::string filename;
+                    std::string dir = "";
+                    std::string filename = "";
                     ecl::split_path(path, &dir, &filename);
                     std::ifstream is(absPath.c_str());
                 
@@ -291,7 +797,7 @@ namespace enigma { namespace lev {
     }
 
     void AddZippedLevelPack (const char *zipfile) {
-        Log << "Index AddZippedLevelPack " << zipfile << "\n";
+//        Log << "Index AddZippedLevelPack " << zipfile << "\n";
         using namespace std;
         using namespace ecl;
         string absPath;

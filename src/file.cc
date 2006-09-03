@@ -52,6 +52,7 @@ namespace
     public:
         DirIterOS (const std::string &path) : m_dir (NULL), m_entry (NULL) {
             open (path);
+            dir_path = path;
         }
         virtual ~DirIterOS () {
             if (m_dir != NULL)
@@ -67,12 +68,14 @@ namespace
             m_entry = readdir(m_dir);
             if (m_entry != NULL) {
                 entry.name = m_entry->d_name;
-                entry.is_dir = false;
+//                entry.is_dir = false;
+                entry.is_dir = ecl::FolderExists(dir_path + "/" + entry.name);
                 return true;
             }
             return false;
         }
     private:
+        std::string    dir_path;
         DIR           *m_dir;
         struct dirent *m_entry;
     };
@@ -104,7 +107,8 @@ namespace
         bool get_next (DirEntry &entry) {
             if (m_handle != INVALID_HANDLE_VALUE) {
                 entry.name = m_dir.cFileName;
-                entry.is_dir = false;
+//                entry.is_dir = false;
+                entry.is_dir = m_dir.dwFileAttributes & FILE_ATTRIBUTE_DIRECTORY;
                 if (!FindNextFile (m_handle, &m_dir)) 
                     close();
                 return true;
@@ -198,6 +202,15 @@ std::string GameFS::getDataPath() {
         path += e.location;
     }
     return path;
+}
+
+std::vector<std::string> GameFS::getPaths() {
+    std::vector<std::string> paths;
+    for (unsigned i=0, size=entries.size(); i < size; ++i) {
+        const FSEntry &e = entries[i];
+        paths.push_back(e.location);
+    }
+    return paths;
 }
 
 bool GameFS::findFile (const string &filename, string &dest) const 
