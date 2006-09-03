@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no" ?>
+<index xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="index.xsd">
+
+  <info enigma="1.00" group="Default" location="183000" network="false" owner="" release="1" revision="1" title="Experimental"/>
+
+  <attributes/>
+
+  <levels>
+    <level _seq="1" _title="Template 1" _xpath="./template1" author="AUTHOR" ctrl="force" easy="false" id="experimental/template1" rel="1" rev="0" score="1" target="time" unit="duration"/>
+    <level _seq="2" _title="Template 2" _xpath="./template2" author="AUTHOR" ctrl="force" easy="false" id="experimental/template2" rel="1" rev="0" score="1" target="time" unit="duration"/>
+    <level _seq="3" _title="Template 3" _xpath="./template3" author="AUTHOR" ctrl="force" easy="false" id="experimental/template3" rel="1" rev="0" score="1" target="time" unit="duration"/>
+    <level _seq="4" _title="Impulstest" _xpath="./testimpulses" author="Enigma Team" ctrl="force" easy="false" id="experimental/testimpulses" rel="1" rev="0" score="1" target="time" unit="duration"/>
+    <level _seq="5" _title="Wolf Among Sheep" _xpath="./wolfamongsheep" author="illmind" ctrl="force" easy="false" id="experimental/wolfamongsheep" rel="1" rev="0" score="1" target="time" unit="duration"/>
+    <level _seq="6" _title="Puzzle Labor" _xpath="./randompuzzles" author="Raoul Bourquin" ctrl="force" easy="false" id="experimental/randompuzzles" rel="1" rev="0" score="1" target="time" unit="duration"/>
+    <level _seq="7" _title="Puzzle Demo" _xpath="./puzzle_demo" author="Raoul Bourquin" ctrl="force" easy="false" id="experimental/puzzle_demo" rel="1" rev="0" score="1" target="time" unit="duration"/>
+    <level _seq="8" _title="All Items" _xpath="./items" author="Raoul Bourquin" ctrl="force" easy="false" id="experimental/items" rel="1" rev="0" score="1" target="time" unit="duration"/>
+    <level _seq="9" _title="Impossible?" _xpath="./wb2" author="Jon Sneyers" ctrl="force" easy="false" id="experimental/wb2" rel="1" rev="0" score="1" target="time" unit="duration"/>
+    <level _seq="10" _title="Escape?" _xpath="./ralf14" author="Ralf Westram" ctrl="force" easy="false" id="experimental/ralf14" rel="1" rev="0" score="1" target="time" unit="duration"/>
+  </levels>
+
+</index>
