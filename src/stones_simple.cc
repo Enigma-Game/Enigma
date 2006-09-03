@@ -1265,6 +1265,8 @@ namespace
 
         enum State { IDLE, FARTING, BREAKING };
         State state;
+        bool rememberBreaking;  // set true if an explosion or break-message
+                                // or such occured while farting
 
         void change_state(State newstate);
         void animcb();
@@ -1275,7 +1277,7 @@ namespace
             change_state(BREAKING);
         }
     public:
-        FartStone() : state(IDLE) 
+        FartStone() : state(IDLE), rememberBreaking(false) 
         {}
     };
     DEF_TRAITS(FartStone, "st-fart", st_fart);
@@ -1290,6 +1292,8 @@ void FartStone::change_state(State newstate)
     case IDLE:
         state = IDLE;
         init_model();
+        if (rememberBreaking)
+            change_state(BREAKING);
         break;
     case FARTING:
     case BREAKING:
@@ -1304,7 +1308,8 @@ void FartStone::change_state(State newstate)
             else
                 set_anim("st-farting");
             state = newstate;
-        }
+        } else if (state == FARTING && newstate == BREAKING)
+            rememberBreaking = true;
         break;
     }
 }
