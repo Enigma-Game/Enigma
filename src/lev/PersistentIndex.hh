@@ -75,7 +75,7 @@ namespace enigma { namespace lev {
                 std::string varTarget = "time",
                 std::map<std::string, std::string> varExtensions = nullExtensions);
         Variation getVariation(int pos);
-    void deletesave(); // tmp test
+        void erase(int pos);
         bool save();
     protected:
         std::string packPath;  // "auto", "",...

@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no" ?>
+<index xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="index.xsd">
+
+  <info enigma="1.00" group="Default" location="192000" network="false" owner="" release="1" revision="1" title="Netplay"/>
+
+  <attributes/>
+
+  <levels>
+    <level _seq="1" _title="Dependants" _xpath="enigma_iii/ant25_1" author="Petr Machata" ctrl="force" easy="false" id="ant25" rel="1" rev="0" score="1" target="time" unit="duration"/>
+    <level _seq="2" _title="Spiders" _xpath="enigma_v/ant26_1" author="Petr Machata" ctrl="force" easy="false" id="ant26" rel="1" rev="0" score="1" target="time" unit="duration"/>
+    <level _seq="3" _title="Wild" _xpath="enigma_iii/ant28_1" author="Petr Machata" ctrl="force" easy="false" id="ant28" rel="1" rev="0" score="1" target="time" unit="duration"/>
+    <level _seq="4" _title="Symmetry" _xpath="enigma_iv/ant31_1" author="Petr Machata" ctrl="force" easy="false" id="ant31" rel="1" rev="0" score="1" target="time" unit="duration"/>
+    <level _seq="5" _title="Table Hockey" _xpath="enigma_v/capkoh01_1" author="capkoh" ctrl="force" easy="false" id="capkoh01" rel="1" rev="0" score="1" target="time" unit="duration"/>
+    <level _seq="6" _title="Deadend" _xpath="enigma_iii/daniel07_1" author="Daniel Heck" ctrl="force" easy="false" id="deadend" rel="1" rev="0" score="1" target="time" unit="duration"/>
+    <level _seq="7" _title="Checkerboard" _xpath="enigma_iii/duffy08_1" author="Jacob Scott" ctrl="force" easy="false" id="duffy8" rel="1" rev="0" score="1" target="time" unit="duration"/>
+    <level _seq="8" _title="Plan Ahead" _xpath="enigma_v/duffy114_1" author="Jacob Scott" ctrl="force" easy="false" id="duffy114" rel="1" rev="0" score="1" target="time" unit="duration"/>
+    <level _seq="9" _title="Action at a Distance" _xpath="enigma_iv/duffy121_1" author="Jacob Scott" ctrl="force" easy="false" id="duffy121" rel="1" rev="0" score="1" target="time" unit="duration"/>
+    <level _seq="10" _title="Triple-Maze" _xpath="enigma_iv/duffy125_1" author="Jacob Scott" ctrl="force" easy="false" id="duffy125" rel="1" rev="0" score="1" target="time" unit="duration"/>
+    <level _seq="11" _title="Double-Spiral" _xpath="enigma_iv/duffy17_1" author="Jacob Scott" ctrl="force" easy="false" id="duffy17" rel="1" rev="0" score="1" target="time" unit="duration"/>
+    <level _seq="12" _title="Teamwork" _xpath="enigma_iii/duffy25_1" author="Jacob Scott" ctrl="force" easy="false" id="duffy25" rel="1" rev="0" score="1" target="time" unit="duration"/>
+    <level _seq="13" _title="Little Bit of Everything" _xpath="enigma_iv/duffy34_1" author="Jacob Scott" ctrl="force" easy="false" id="duffy34" rel="1" rev="0" score="1" target="time" unit="duration"/>
+    <level _seq="14" _title="Labyrinth of Puzzles" _xpath="enigma_iv/duffy35_1" author="Jacob Scott" ctrl="force" easy="false" id="duffy35" rel="1" rev="0" score="1" target="time" unit="duration"/>
+    <level _seq="15" _title="Fool the Warden" _xpath="enigma_iii/duffy37_1" author="Jacob Scott" ctrl="force" easy="false" id="duffy37" rel="1" rev="0" score="1" target="time" unit="duration"/>
+    <level _seq="16" _title="Cover Your Ears" _xpath="enigma_iii/duffy40_1" author="Jacob Scott" ctrl="force" easy="false" id="duffy40" rel="1" rev="0" score="1" target="time" unit="duration"/>
+    <level _seq="17" _title="Take Turns" _xpath="enigma_v/duffy50_1" author="Jacob Scott" ctrl="force" easy="false" id="duffy50" rel="1" rev="0" score="1" target="time" unit="duration"/>
+    <level _seq="18" _title="Crossfire" _xpath="enigma_v/duffy56_1" author="Jacob Scott" ctrl="force" easy="false" id="duffy56" rel="1" rev="0" score="1" target="time" unit="duration"/>
+    <level _seq="19" _title="deja-vu" _xpath="enigma_iii/illmind09_1" author="illmind" ctrl="force" easy="false" id="illmind09" rel="1" rev="0" score="1" target="time" unit="duration"/>
+    <level _seq="20" _title="Tripple Threat" _xpath="enigma_iii/illmind10_1" author="illmind" ctrl="force" easy="false" id="illmind10" rel="1" rev="0" score="1" target="time" unit="duration"/>
+    <level _seq="21" _title="Double play" _xpath="enigma_v/just06_1" author="JuSt" ctrl="force" easy="false" id="just06" rel="1" rev="0" score="1" target="time" unit="duration"/>
+    <level _seq="22" _title="Manamana" _xpath="enigma_iii/just07_1" author="JuSt" ctrl="force" easy="false" id="just07" rel="1" rev="0" score="1" target="time" unit="duration"/>
+    <level _seq="23" _title="No way out?" _xpath="enigma_v/just08_1" author="JuSt" ctrl="force" easy="false" id="just08" rel="1" rev="0" score="1" target="time" unit="duration"/>
+    <level _seq="24" _title="Coloured Doors" _xpath="enigma_iii/luc03_1" author="Lukas Schueller" ctrl="force" easy="false" id="luc03" rel="1" rev="0" score="1" target="time" unit="duration"/>
+    <level _seq="25" _title="Teamplay Doors" _xpath="enigma_iii/luc09_1" author="Lukas Schueller" ctrl="force" easy="false" id="luc09" rel="1" rev="0" score="1" target="time" unit="duration"/>
+    <level _seq="26" _title="Water Castle" _xpath="enigma_v/luc21_1" author="Lukas Schueller" ctrl="force" easy="false" id="luc21" rel="1" rev="0" score="1" target="time" unit="duration"/>
+    <level _seq="27" _title="Pneumatic Delivery" _xpath="enigma_v/malla01_1" author="Manuel Koenig" ctrl="force" easy="false" id="malla01" rel="1" rev="0" score="1" target="time" unit="duration"/>
+    <level _seq="28" _title="Gods of Enigma II" _xpath="enigma_v/mp02_1" author="moonpearl" ctrl="force" easy="false" id="mp02" rel="1" rev="0" score="1" target="time" unit="duration"/>
+    <level _seq="29" _title="Toreador" _xpath="enigma_vi/ral02_1" author="Ronald Lamprecht" ctrl="force" easy="true" id="20060213ral004" rel="1" rev="25" score="1" target="time" unit="duration"/>
+    <level _seq="30" _title="Basketball" _xpath="enigma_vi/ral03_2" author="Ronald Lamprecht" ctrl="force" easy="false" id="20060213ral005" rel="1" rev="0" score="1" target="time" unit="duration"/>
+    <level _seq="31" _title="Oxydmoron" _xpath="enigma_vi/raoul14_1" author="Raoul Bourquin" ctrl="force" easy="true" id="raoul14" rel="1" rev="0" score="1" target="time" unit="duration"/>
+    <level _seq="32" _title="Venice I" _xpath="enigma_v/raoul16_1" author="Raoul Bourquin" ctrl="force" easy="false" id="raoul16" rel="1" rev="0" score="1" target="time" unit="duration"/>
+    <level _seq="33" _title="Venice II" _xpath="enigma_v/raoul17_1" author="Raoul Bourquin" ctrl="force" easy="false" id="raoul17" rel="1" rev="0" score="1" target="time" unit="duration"/>
+    <level _seq="34" _title="Switch-Switch" _xpath="enigma_iv/raywick02_1" author="Ray Wick" ctrl="force" easy="false" id="RayWick002" rel="1" rev="0" score="1" target="time" unit="duration"/>
+    <level _seq="35" _title="Fatal Attraction III" _xpath="enigma_v/spaceman03_1" author="Spaceman" ctrl="force" easy="false" id="spaceman3" rel="1" rev="0" score="1" target="time" unit="duration"/>
+    <level _seq="36" _title="Overshoot" _xpath="enigma_iii/ss02_1" author="Sven Siggelkow" ctrl="force" easy="true" id="ss2" rel="1" rev="0" score="1" target="time" unit="duration"/>
+    <level _seq="37" _title="Bridge Builders" _xpath="enigma_iii/wb04_1" author="Jon 'WB' Sneyers" ctrl="force" easy="false" id="wb4" rel="1" rev="0" score="1" target="time" unit="duration"/>
+    <level _seq="38" _title="Block its way!" _xpath="enigma_iii/wb05_1" author="Jon 'WB' Sneyers" ctrl="force" easy="false" id="wb5" rel="1" rev="0" score="1" target="time" unit="duration"/>
+  </levels>
+
+</index>

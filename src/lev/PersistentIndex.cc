@@ -100,15 +100,32 @@ namespace enigma { namespace lev {
             }
         }
 
-        //TODO add system cross indices
-        
+        //add system cross indices
+        for (int i = 0; i < sysPaths.size(); i++) {
+            dirIter = DirIter::instance(sysPaths[i] + "/levels/enigma_cross");
+            while (dirIter->get_next(dirEntry)) {
+                if (!dirEntry.is_dir && dirEntry.name.size() > 4 && 
+                        (dirEntry.name.rfind(".xml") == dirEntry.name.size() - 4)) {
+//                    Log << "PersistentIndexCandidate scorss " << dirEntry.name <<"\n";
+                    PersistentIndex * anIndex = new PersistentIndex("enigma_cross", true, "", dirEntry.name);
+                    if (!(anIndex->getName().empty()) && 
+                            Index::findIndex(anIndex->getName()) == NULL) {
+                        Index::registerIndex(anIndex);
+                    } else {
+                        delete anIndex;
+                    }
+                }
+            }
+        }
+        delete dirIter;
         
         // UserPath: register dirs and zips with xml-indices excl auto
         dirIter = DirIter::instance(app.userPath + "/levels");
         while (dirIter->get_next(dirEntry)) {
             if (dirEntry.is_dir && dirEntry.name != "." && dirEntry.name != ".." &&
                     dirEntry.name != ".svn" && dirEntry.name != "auto" &&
-                    dirEntry.name != "cross" && dirEntry.name != "legacy_dat") {
+                    dirEntry.name != "cross" && dirEntry.name != "enigma_cross" && 
+                    dirEntry.name != "legacy_dat") {
                 if (registered.find(dirEntry.name) == registered.end())
                     candidates2.insert(dirEntry.name);
             }
@@ -194,6 +211,8 @@ namespace enigma { namespace lev {
             var = curIndex->getVariation(curIndex->getCurrentPosition());
         historyIndex->insertProxy(0, Index::getCurrentProxy(), false, var.ctrl, var.unit,
                 var.target, var.extensions);
+        if (historyIndex->size() > 100)
+            historyIndex->erase(historyIndex->size() - 1);
         historyIndex->setCurrentPosition(0);  // last played is always current in history
     }
 
@@ -393,14 +412,14 @@ namespace enigma { namespace lev {
         return variations[pos];
     }
 
-    void PersistentIndex::deletesave() {
-        std::vector<Proxy *>::iterator it = proxies.begin();
-        it++; it++; it++;
-        proxies.erase(it);
-        std::vector<Variation>::iterator itv = variations.begin();
-        itv++; itv++; itv++;
-        variations.erase(itv);
-        save();
+    void PersistentIndex::erase(int pos) {
+        std::vector<Proxy *>::iterator itProxy = proxies.begin();
+        std::vector<Variation>::iterator itVar = variations.begin();
+        for (int i = 0; i < pos; i++) {
+                itProxy++; itVar++;
+        }
+        proxies.erase(itProxy);
+        variations.erase(itVar);
     }
     
     bool PersistentIndex::save() {

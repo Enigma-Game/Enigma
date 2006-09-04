@@ -327,6 +327,7 @@ AC_CONFIG_FILES([Makefile m4/Makefile  intl/Makefile
            data/levels/enigma_v/Makefile
            data/levels/enigma_vi/Makefile
            data/levels/enigma_vii/Makefile
+           data/levels/enigma_cross/Makefile
            data/levels/esprit/Makefile
            data/levels/oxyd/Makefile
            data/levels/peroxyd/Makefile
