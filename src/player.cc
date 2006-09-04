@@ -403,15 +403,18 @@ static void CheckDeadActors()
             for (size_t i = 0; i<actors.size(); ++i) {
                 Actor *a = actors[i];
                 if (a->is_dead()) {
-                    if (has_extralive(pl)) {
+                    // Commented out the following lines: extralifes shouldn't
+                    // have a meaning in ConserveLevel == false, but I don't
+                    // understand these lines.  -- Andreas
+                    //if (has_extralive(pl)) {
                         leveldat.remove_extralife(a);
                         reset_level = true;
-                    }
-                    else {
-                        players[pl].out_of_lives = true;
-                        if (pl == icurrent_player)
-                            toggle_player = true;
-                    }
+	            //}
+                    //else {
+                    //    players[pl].out_of_lives = true;
+                    //    if (pl == icurrent_player)
+                    //        toggle_player = true;
+                    //}
                     break;
                 }
                 else
