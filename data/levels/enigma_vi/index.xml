@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no" ?>
 <index xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="index.xsd">
 
-  <info enigma="1.00" group="Default" location="53000" network="false" owner="" release="1" revision="1" title="Enigma VI"/>
+  <info enigma="1.00" group="Enigma" location="700" network="false" owner="Enigma Team" release="1" revision="1" title="Enigma VI"/>
 
   <attributes/>
 
@@ -16,7 +16,7 @@
     <level _seq="8" _title="Take the Earth" _xpath="./andreas26_1" author="Andreas Lochmann" ctrl="force" easy="true" id="andreas26" rel="1" rev="0" score="1" target="time" unit="duration"/>
     <level _seq="9" _title="Evil" _xpath="./spaceman04_1" author="Spaceman" ctrl="force" easy="false" id="spaceman4" rel="1" rev="0" score="1" target="time" unit="duration"/>
     <level _seq="10" _title="Meditation Disturbance" _xpath="./ral04_1" author="Ronald Lamprecht" ctrl="force" easy="true" id="20060429ral006" rel="1" rev="25" score="1" target="time" unit="duration"/>
-    <level _seq="11" _title="Banana Republic" _xpath="./alain26_1" author="Alain Busser" ctrl="force" easy="false" id="alain26" rel="1" rev="0" score="1" target="time" unit="duration"/>
+    <level _seq="11" _title="Im-pull-se" _xpath="./ralf07_1" author="Ralf Westram" ctrl="force" easy="false" id="ralf07" rel="1" rev="0" score="1" target="time" unit="duration"/>
     <level _seq="12" _title="Zeus" _xpath="./raoul19_1" author="Raoul Bourquin" ctrl="force" easy="true" id="raoul19" rel="1" rev="0" score="1" target="time" unit="duration"/>
     <level _seq="13" _title="Rhapsody on Cracks" _xpath="./ral06_1" author="Ronald Lamprecht" ctrl="force" easy="true" id="20060510ral008" rel="1" rev="25" score="1" target="time" unit="duration"/>
     <level _seq="14" _title="Prepare Your Defense" _xpath="./duffy132_1" author="Jacob Scott" ctrl="force" easy="false" id="duffy132" rel="1" rev="0" score="1" target="time" unit="duration"/>
@@ -33,9 +33,8 @@
     <level _seq="25" _title="Chess, Bugs &amp; Rock'n'Roll" _xpath="./andreas31_1" author="Andreas Lochmann" ctrl="force" easy="false" id="andreas31" rel="1" rev="0" score="1" target="time" unit="duration"/>
     <level _seq="26" _title="Chessing Positions" _xpath="./raoul22_1" author="Raoul Bourquin" ctrl="force" easy="false" id="raoul22" rel="1" rev="0" score="1" target="time" unit="duration"/>
     <level _seq="27" _title="Just a Maze?" _xpath="./duffy12_1" author="Jacob Scott" ctrl="force" easy="false" id="duffy12" rel="1" rev="0" score="1" target="time" unit="duration"/>
-    <level _seq="28" _title="Im-pull-se" _xpath="./ralf07_1" author="Ralf Westram" ctrl="force" easy="false" id="ralf07" rel="1" rev="0" score="1" target="time" unit="duration"/>
-    <level _seq="29" _title="pool with a pole" _xpath="./alain23_1" author="Alain Busser" ctrl="force" easy="false" id="alain23" rel="1" rev="0" score="1" target="time" unit="duration"/>
-    <level _seq="30" _title="Hot Meditation" _xpath="./ral08_1" author="Ronald Lamprecht" ctrl="force" easy="true" id="20060527ral010" rel="1" rev="26" score="1" target="time" unit="duration"/>
+    <level _seq="28" _title="pool with a pole" _xpath="./alain23_1" author="Alain Busser" ctrl="force" easy="false" id="alain23" rel="1" rev="0" score="1" target="time" unit="duration"/>
+    <level _seq="29" _title="Hot Meditation" _xpath="./ral08_1" author="Ronald Lamprecht" ctrl="force" easy="true" id="20060527ral010" rel="1" rev="26" score="1" target="time" unit="duration"/>
   </levels>
 
 </index>

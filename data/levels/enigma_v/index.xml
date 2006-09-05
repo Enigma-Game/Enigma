@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no" ?>
 <index xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="index.xsd">
 
-  <info enigma="1.00" group="Default" location="52800" network="false" owner="" release="1" revision="1" title="Enigma V"/>
+  <info enigma="1.00" group="Enigma" location="600" network="false" owner="Enigma Team" release="1" revision="1" title="Enigma V"/>
 
   <attributes/>
 
@@ -56,12 +56,12 @@
     <level _seq="48" _title="Crossfire" _xpath="./duffy56_1" author="Jacob Scott" ctrl="force" easy="false" id="duffy56" rel="1" rev="0" score="1" target="time" unit="duration"/>
     <level _seq="49" _title="Swamp of Balls" _xpath="./luc08_1" author="Lukas Schueller" ctrl="force" easy="false" id="luc08" rel="1" rev="0" score="1" target="time" unit="duration"/>
     <level _seq="50" _title="Anticipation" _xpath="./duffy67_1" author="Jacob Scott" ctrl="force" easy="false" id="duffy67" rel="1" rev="0" score="1" target="time" unit="duration"/>
-    <level _seq="51" _title="Where's the Money?" _xpath="./ss06_1" author="Sven Siggelkow" ctrl="force" easy="true" id="ss6" rel="1" rev="0" score="1" target="time" unit="duration"/>
+    <level _seq="51" _title="Build Up and Tear Down" _xpath="./duffy70_1" author="Jacob Scott" ctrl="force" easy="false" id="duffy70" rel="1" rev="0" score="1" target="time" unit="duration"/>
     <level _seq="52" _title="Designed with love" _xpath="./just01_1" author="JuSt" ctrl="force" easy="false" id="just01" rel="1" rev="0" score="1" target="time" unit="duration"/>
     <level _seq="53" _title="A bayou by you" _xpath="./alain21_1" author="Alain Busser" ctrl="force" easy="false" id="alain21" rel="1" rev="0" score="1" target="time" unit="duration"/>
     <level _seq="54" _title="Mirror Shop" _xpath="./siegfried25_1" author="Siegfried Fennig" ctrl="force" easy="false" id="level9a" rel="1" rev="0" score="1" target="time" unit="duration"/>
     <level _seq="55" _title="Blet" _xpath="./alain24_1" author="Alain Busser" ctrl="force" easy="false" id="alain24" rel="1" rev="0" score="1" target="time" unit="duration"/>
-    <level _seq="56" _title="Build Up and Tear Down" _xpath="./duffy70_1" author="Jacob Scott" ctrl="force" easy="false" id="duffy70" rel="1" rev="0" score="1" target="time" unit="duration"/>
+    <level _seq="56" _title="Banana Republic" _xpath="./alain26_1" author="Alain Busser" ctrl="force" easy="false" id="alain26" rel="1" rev="0" score="1" target="time" unit="duration"/>
     <level _seq="57" _title="Too Heavy?" _xpath="./martin101_1" author="Martin Hawlisch" ctrl="force" easy="true" id="martin101" rel="1" rev="0" score="1" target="time" unit="duration"/>
     <level _seq="58" _title="Now What?" _xpath="./duffy127_1" author="Jacob Scott" ctrl="force" easy="false" id="duffy127" rel="1" rev="0" score="1" target="time" unit="duration"/>
     <level _seq="59" _title="Pneumatic Delivery" _xpath="./malla01_1" author="Manuel Koenig" ctrl="force" easy="false" id="malla01" rel="1" rev="0" score="1" target="time" unit="duration"/>
