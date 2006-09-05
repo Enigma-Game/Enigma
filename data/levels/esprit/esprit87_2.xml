@@ -16,6 +16,7 @@
       <el:score el:easy="-" el:difficult="-"/>
     </el:info>
     <el:luamain><![CDATA[
+--easymode has been added
 levelw = 20
 levelh = 13
 create_world(levelw, levelh)

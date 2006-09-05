@@ -16,6 +16,7 @@
       <el:score el:easy="-" el:difficult="-"/>
     </el:info>
     <el:luamain><![CDATA[
+--time constants changed in Enigma
 function floor( floor_type, attribs )
     return function( x, y )
         set_floor( floor_type, x, y, attribs or {} )
