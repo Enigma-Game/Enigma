@@ -319,7 +319,7 @@ AC_CONFIG_FILES([Makefile m4/Makefile  intl/Makefile
            data/gfx40/Makefile
            data/gfx48/Makefile
            data/levels/Makefile
-           data/levels/tutorial/Makefile
+           data/levels/enigma_tutorial/Makefile
            data/levels/enigma_i/Makefile
            data/levels/enigma_ii/Makefile
            data/levels/enigma_iii/Makefile
@@ -328,17 +328,17 @@ AC_CONFIG_FILES([Makefile m4/Makefile  intl/Makefile
            data/levels/enigma_vi/Makefile
            data/levels/enigma_vii/Makefile
            data/levels/enigma_cross/Makefile
-           data/levels/esprit/Makefile
-           data/levels/oxyd/Makefile
-           data/levels/peroxyd/Makefile
-           data/levels/oxydmagnum/Makefile
-           data/levels/oxydextra/Makefile
+           data/levels/enigma_esprit/Makefile
+           data/levels/enigma_oxyd/Makefile
+           data/levels/enigma_peroxyd/Makefile
+           data/levels/enigma_oxydmagnum/Makefile
+           data/levels/enigma_oxydextra/Makefile
            data/levels/experimental/Makefile
            data/levels/stable/Makefile
            data/levels/lib/Makefile
-           data/levels/sokoban/Makefile
-           data/levels/microban/Makefile
-           data/levels/mas_microban/Makefile
+           data/levels/enigma_sokoban/Makefile
+           data/levels/enigma_microban/Makefile
+           data/levels/enigma_mas_microban/Makefile
            data/levels/patches/Makefile
            data/levels/png_temp/Makefile
            data/fonts/Makefile

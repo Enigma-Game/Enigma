@@ -1,3 +1,3 @@
-pkgdatadir = $(datadir)/@PACKAGE@/levels/esprit
-pkgdata_DATA = $(wildcard $(srcdir)/*.png $(srcdir)/*.txt $(srcdir)/*.xml)
+pkgdatadir = $(datadir)/@PACKAGE@/levels/enigma_esprit
+pkgdata_DATA = $(wildcard $(srcdir)/*.xml)
 EXTRA_DIST = 00makepreviews.sh $(pkgdata_DATA)

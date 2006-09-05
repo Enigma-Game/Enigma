@@ -1,3 +1,3 @@
-pkgdatadir = $(datadir)/@PACKAGE@/levels/oxydmagnum
-pkgdata_DATA = $(wildcard $(srcdir)/*.png $(srcdir)/*.txt $(srcdir)/*.xml)
+pkgdatadir = $(datadir)/@PACKAGE@/levels/enigma_oxydmagnum
+pkgdata_DATA = $(wildcard $(srcdir)/*.xml)
 EXTRA_DIST = 00makepreviews.sh $(pkgdata_DATA)
