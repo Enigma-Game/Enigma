@@ -333,12 +333,12 @@ AC_CONFIG_FILES([Makefile m4/Makefile  intl/Makefile
            data/levels/enigma_peroxyd/Makefile
            data/levels/enigma_oxydmagnum/Makefile
            data/levels/enigma_oxydextra/Makefile
-           data/levels/experimental/Makefile
-           data/levels/stable/Makefile
-           data/levels/lib/Makefile
+           data/levels/enigma_experimental/Makefile
+           data/levels/enigma_stable/Makefile
            data/levels/enigma_sokoban/Makefile
            data/levels/enigma_microban/Makefile
            data/levels/enigma_mas_microban/Makefile
+           data/levels/lib/Makefile
            data/levels/patches/Makefile
            data/levels/png_temp/Makefile
            data/fonts/Makefile

@@ -1,3 +1,3 @@
-pkgdatadir = $(datadir)/@PACKAGE@/levels/stable
-pkgdata_DATA = $(wildcard $(srcdir)/*.png $(srcdir)/*.txt $(srcdir)/*.xml) index_stable.txt
+pkgdatadir = $(datadir)/@PACKAGE@/levels/enigma_stable
+pkgdata_DATA = $(wildcard $(srcdir)/*.xml)
 EXTRA_DIST = 00makepreviews.sh $(pkgdata_DATA)

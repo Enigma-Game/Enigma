@@ -173,9 +173,9 @@
     <level _seq="165" _title="Chessing Positions" _xpath="enigma_vi/raoul22_1" author="Raoul Bourquin" ctrl="force" easy="false" id="raoul22" rel="1" rev="0" score="1" target="time" unit="duration"/>
     <level _seq="166" _title="pool with a pole" _xpath="enigma_vi/alain23_1" author="Alain Busser" ctrl="force" easy="false" id="alain23" rel="1" rev="0" score="1" target="time" unit="duration"/>
     <level _seq="167" _title="Hot Meditation" _xpath="enigma_vi/ral08_1" author="Ronald Lamprecht" ctrl="force" easy="true" id="20060527ral010" rel="1" rev="26" score="1" target="time" unit="duration"/>
-    <level _seq="168" _title="Twisting by the Pool" _xpath="stable/alain28_1" author="Alain Busser" ctrl="force" easy="false" id="alain28" rel="1" rev="0" score="1" target="time" unit="duration"/>
-    <level _seq="169" _title="Jump into Meditation" _xpath="stable/ral07_1" author="Ronald Lamprecht" ctrl="force" easy="true" id="20060525ral009" rel="1" rev="25" score="1" target="time" unit="duration"/>
-    <level _seq="170" _title="- Meditation -" _xpath="stable/raoul18_1" author="Raoul Bourquin" ctrl="force" easy="true" id="raoul18" rel="1" rev="0" score="1" target="time" unit="duration"/>
+    <level _seq="168" _title="Twisting by the Pool" _xpath="enigma_stable/alain28" author="Alain Busser" ctrl="force" easy="false" id="alain28" rel="1" rev="0" score="1" target="time" unit="duration"/>
+    <level _seq="169" _title="Jump into Meditation" _xpath="enigma_stable/ral07_1" author="Ronald Lamprecht" ctrl="force" easy="true" id="20060525ral009" rel="1" rev="25" score="1" target="time" unit="duration"/>
+    <level _seq="170" _title="- Meditation -" _xpath="enigma_stable/raoul18" author="Raoul Bourquin" ctrl="force" easy="true" id="raoul18" rel="1" rev="0" score="1" target="time" unit="duration"/>
   </levels>
 
 </index>
