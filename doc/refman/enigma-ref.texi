@@ -1874,7 +1874,8 @@ load the library at a certain point of execution.
 
 Enigma provides several very usefull libraries. You fill find them on the system
 path in the subdirectory @samp{levels/lib}. Most of them are document in line.
-For @{ant} you will find a seperate documentation file @samp{doc/ant_lua.txt}.
+For @samp{ant} you will find a seperate documentation file
+@samp{doc/ant_lua.txt}.
 
 In this section we will concentrate on the aspects of writing and maintaing
 libraries:
@@ -2680,7 +2681,8 @@ Kills marbles that roll onto it, unless they're protected by
 
 Marbles on this floor are controlled by player 0 only (who has
 @ref{ac-blackball} by default) respectively player 1 only
-(@ref{ac-whiteball} by default).
+(@ref{ac-whiteball} by default).  See @ref{it-changefloor} for an item
+interacting with these floors.
 
 
 @node fl-bridge, fl-dummy, fl-ac[black/white], Floors
@@ -2881,6 +2883,7 @@ Marbles may jump over @ref{fl-water} with an
 * it-booze::                    Booze
 * it-brake::                    Brake Item
 * it-brush::                    Brush
+* it-changefloor::              Changefloor Item
 * it-cherry::                   Cherry
 * it-coffee::                   Coffee Pause Item
 * it-coin::                     Coins
@@ -3057,11 +3060,6 @@ of Enigma.
 @item it-bridge-oxyd, it-bridge-oxyd_active
 Used for Oxyd compatibility to animate bridges. Use @ref{fl-bridge}
 instead.
-
-@item it-changefloor
-When in multi-player mode, this item exchanges @code{fl-acblack} and
-@code{fl-acwhite} below it (see @ref{fl-ac[black/white]}). Unused due
-to missing networking capability of Enigma.
 
 @item it-debris
 Animation of a breaking floor. Creates @ref{fl-abyss}, then kills
@@ -3304,6 +3302,17 @@ Extinguisher}).
 The Per.Oxyd-compatibility stone @code{st-yinyang3} (see
 @ref{st-yinyang}) must be touched with an @code{it-brush} or
 @ref{it-magicwand} in order to activate it. 
+
+
+@c -------------------- Changefloor Item --------------------
+@node it-changefloor
+@subsection it-changefloor
+
+When in multi-player mode, this item exchanges @code{fl-acblack} and
+@code{fl-acwhite} below it after an actor has left it (see
+@ref{fl-ac[black/white]}).  This way the marble can't roll back
+as easily as before.  Try the original Per.Oxyd Link Level 69 to see
+this scarcely used item in action.
 
 
 @c -------------------- Cherry --------------------
@@ -4413,7 +4422,7 @@ st-yinyang@{1..3@}
 
 A list of all breakable stones and what may break them. Messages are
 given in quotation marks. ``pyro'' is short for dynamite, bombs,
-bombstones, fire, ``ignite'', ``expl'' and ``bombstone''.
+bombstones, ``ignite'', ``expl'' and ``bombstone''.
 
 @table @code
 @item st-stone_break, st-rock3_break, st-break_gray
