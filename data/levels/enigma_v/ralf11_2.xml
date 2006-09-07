@@ -3,7 +3,7 @@
   <el:protected>
     <el:info el:type="level">
       <el:identity el:title="Swamp Stomp" el:subtitle="" el:id="ralf11"/>
-      <el:version el:score="2" el:release="2" el:revision="0" el:status="released"/>
+      <el:version el:score="2" el:release="2" el:revision="1" el:status="released"/>
       <el:author  el:name="Ralf Westram" el:email="amgine@reallysoft.de" el:homepage=""/>
       <el:copyright>Copyright © 2003 Ralf Westram</el:copyright>
       <el:license el:type="GPL v2.0 or above" el:open="true"/>
@@ -74,13 +74,13 @@ else
    cells["7"] = cell{parent={{gradient,SLOPE_SMALL_NW}},stone=blocker}
 end
 
-cells["B"] = cell{parent=cells[" "],actor={"ac-blackball", {player=0,essential=0}}}
+cells["B"] = cell{parent=cells[" "],actor={"ac-blackball", {player=0,essential=1}}}
 cells["W"] = cell{parent=cells[" "],actor={"ac-whiteball", {essential=1,controllers=0}}}
 cells["o"] = cell{oxyd}
 
 rs_create_world(level,cells)
 enigma.AllowTogglePlayer = FALSE
-enigma.ConserveLevel = FALSE
+enigma.ConserveLevel = TRUE
 oxyd_shuffle()
     ]]></el:luamain>
     <el:i18n>
