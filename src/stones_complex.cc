@@ -2968,27 +2968,32 @@ namespace
     void ChessStone::animcb() {
         Stone *st;
         switch (state) {
-        case DISAPPEARING:
-            if(try_state(APPEARING)) {
-                st = GetStone(destination);
-                if(st) {
-                    // Something went wrong while killing the old
-                    // stone, or maybe a third one intervened.
-                    // Don't move, just reappear at old position.                
-                } else {
-                    move_stone(destination, "movesmall");
-                    SendMessage(GetFloor(destination), "capture");
-                }
-                // maybe a floor-change has happened, but during
-                // state APPEARING this doesn't mean anything:
-                set_anim(get_model_name()+"-appearing");
-            }
-            break;
         case APPEARING:
             if(try_state(IDLE))
             // Maybe falling in the meantime? Otherwise:
                 init_model();
             break;
+        case DISAPPEARING:
+            // Maybe the floor has changed into swamp or abyss?
+            if(!rememberFalling && !rememberSwamp) {
+                if(try_state(APPEARING)) {
+                    st = GetStone(destination);
+                    if(st) {
+                        // Something went wrong while killing the old
+                        // stone, or maybe a third one intervened.
+                        // Don't move, just reappear at old position.                
+                    } else {
+                        move_stone(destination, "movesmall");
+                        SendMessage(GetFloor(destination), "capture");
+                    }
+                    // maybe a floor-change has happened, but during
+                    // state APPEARING this doesn't mean anything:
+                    set_anim(get_model_name()+"-appearing");
+                }
+                break;
+            }
+            // Else: If floor is swamp or abyss, kill the stone. Do this
+            // just by continuing to the next case:
         case CAPTURED:
         case FALLING:
         case SWAMP:
