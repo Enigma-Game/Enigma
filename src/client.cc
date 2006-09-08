@@ -490,7 +490,7 @@ void Client::show_help()
     video::TempInputGrab grab(false);
 
     helptext_ingame[15] = options::GetBool("TimeHunting")
-        ? _("Skip to next non-par level")
+        ? _("Skip to next level for best score hunt")
         : _("Skip to next unsolved level");
 
     video::ShowMouse();
@@ -723,19 +723,19 @@ void Client::level_finished()
     if (par_time > 0) {
         if (best_user_time<0 || best_user_time>par_time) {
             if (level_time == par_time)
-                text = string(_("Exactly the par time by "))+par_name+"!";
+                text = string(_("Exactly the best score of "))+par_name+"!";
             else if (level_time<par_time)
-                text = _("Great! A new par time!");
+                text = _("Great! A new best score!");
         }
     }
     if (text.length() == 0 && best_user_time>0) {
         if (level_time == best_user_time) {
-            text = _("Again your personal best time...");
+            text = _("Again your personal best score...");
             if (options::GetBool("TimeHunting"))
                 timehunt_restart = true; // when hunting yourself: Equal is too slow
         }
         else if (level_time<best_user_time)
-            text = _("New personal best time!");
+            text = _("New personal best score!");
     }
 
     if (options::GetBool("TimeHunting") &&
@@ -753,9 +753,9 @@ void Client::level_finished()
             }
             text += strf("%d:%02d ", static_cast<int> (behind/60)%100, behind%60);
             if (with_par) 
-                text += _("behind par time.");
-            else
                 text += _("behind best time.");
+            else
+                text += _("behind your best time.");
 
             timehunt_restart = true; // time hunt failed -> repeat level
         }
@@ -804,9 +804,9 @@ void Client::level_loaded()
         string displayed_info = "";
         if (m_hunt_against_time>0) {
             if (hunted == "you")
-                displayed_info = _("Your best time: ");
+                displayed_info = _("Your best score: ");
             else
-                displayed_info = _("Par to beat: ");
+                displayed_info = _("Best score to beat: ");
             displayed_info += ecl::strf("%d:%02d", (m_hunt_against_time/60)%100, 
                     m_hunt_against_time%60);
 //+ _(" by ") +hunted;

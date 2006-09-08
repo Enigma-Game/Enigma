@@ -274,6 +274,7 @@ LevelInspector::LevelInspector(lev::Proxy *aLevel):
         BuildVList scoresST(this, Rect(vminfo->width/2-100-20,vmargin+6*25+5*vspacing+16,100,25), 2);
         scoresST.add(new Label(N_("You: "), HALIGN_RIGHT));
         scoresST.add(new Label(N_("Best: "), HALIGN_RIGHT));
+// TRANSLATORS: PAR = professional average rate - an expression used by golfers
         scoresST.add(new Label(N_("PAR: "), HALIGN_RIGHT));
         scoresST.add(new Label(N_("Author: "), HALIGN_RIGHT));
         scoresST.add(new Label(N_("Solved %: "), HALIGN_RIGHT));

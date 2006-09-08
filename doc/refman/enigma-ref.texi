@@ -30,7 +30,8 @@ It describes Enigma version 1.00.
 * Objects::                     Description of all objects in Enigma
 * Variables::                   Lua variables that influence the game
 * Functions::                   Predefined functions
-* Index::                       
+* Function Index::
+* Concept Index::
 @end menu
 
 @node  Running Enigma, Level Basics, Top, Top
@@ -63,6 +64,7 @@ can list these paths either by pressing @key{F2} within the main menu or by
 starting Enigma with the switch @option{--log} (@pxref{Startup Switches}) and looking at the console output.
 
 @table @asis
+@cindex preferences path
 @item @b{Preferences Path}
 This is the path to the file that stores your preferences concerning application
 options. This file is usually located at your @env{HOME} directory. For @env{HOME}-less
@@ -87,6 +89,7 @@ testing purposes, too.
 In all cases the preferences filename will be hidden by a leading @samp{.} in the
 filename.
 
+@cindex user path
 @item @b{User Path}
 This is the main path to the users Enigma data. All updates, user installed
 levels and user written levels, the users scores, history and usually the
@@ -102,6 +105,7 @@ You can define an own path within the @ref{User Options}. By this means you
 can store your Enigma user data on a memory stick or you can store them on
 a shared partition and use them alternatively from two Enigma installations.
 
+@cindex user image path
 @item @b{User Image Path}
 This is a second path to the users Enigma data that is used to access images
 like screenshots and thumbnails of levels. Usually this path is identical to 
@@ -111,11 +115,13 @@ Just in case you make many screenshots and have limited resources on the main
 @samp{User Path} you may want to store the images on another path. You can 
 define an own path within the @ref{User Options}.
 
+@cindex system path
 @item @b{System Path}
 This path gives you the location of all system resources that are distributed
 with Enigma. Here you will find the levels, libraries, etc. A first class 
 address to look for examples if you start writing own levels.
 
+@cindex resource paths
 @item @b{Resource Paths}
 This is a list of paths. Every version independent resource is looked up on all 
 paths in this list and loaded from the first occurence.
@@ -125,6 +131,8 @@ Have a look at this list if you are observe difference between a source and the
 runtime behaviour. You may have looked at a file that was hidden by another on
 a preceeding path in this list.
 
+@cindex l10n path
+@cindex localization path
 @item @b{l10n Path}
 This path shows the directory that contains the localization data.
 
@@ -512,8 +520,95 @@ uncontinuous spectra.
 @node Scores,, Public Ratings, Level Info
 @subsection Scores
 
+
 @node  Levelpack Basics, Level Basics, Running Enigma, Top
 @chapter Levelpack Basics
+
+Knowing the basics of running Enigma you may wonder how levels are organized in
+levelpacks and how you can add levels or complete levelpacks to Enigma.
+
+@cindex crossreference
+@cindex crossindex
+@cindex levelpack
+@cindex index
+Levelpacks are sorted collections of levels that consist of an index and optional
+attached level sources. Not all level sources of a levelpack have to be included
+within the levelpack itself. A levelpack can crossreference levels stored in
+other levelpacks. If a levelpack has no own level sources and consists only
+of crossreferences we speak of a crossindex as the levelpack is just represented
+by a single index file.
+
+These definitions suite well to all versions of Enigma. But up to Enigma 0.92
+levelpacks needed to be manually edited and the registration of levelpacks
+was a little bit cryptic. Thus we decided to rewrite the complete levelpack 
+system for Enigma 1.0 and tried to make it versatile and easy to use. We did set 
+us the following aims:
+
+@itemize @bullet
+@item 
+an @samp{Auto} levelpack that allows level addition by drag and drop of the
+level source
+
+@item
+levelpack addition by just copying the files to the userpath
+
+@item
+autodetection of all levelpacks without editing any registration files
+
+@item
+commandline supplied levels as a standard levelpack
+
+@item
+a @samp{History} levelpack with crossreferences of last played levels
+
+@item
+level search results as a levelpack of crossreferences
+
+@item
+zipped levelpacks that are just archives of levelpack directories and its files
+
+@item
+grouping of levelpacks in the menu
+
+@item
+integrated editor to create and modify new levelpacks
+
+@item
+updates of levelpacks without updating Enigma itself
+
+@item
+automatic convertion of Enigma 0.92 levelpacks
+
+@end itemize
+
+Some of these features work seamless. You can use them immediately from the
+levelpack menu. For others you may need to know where to place files. We will
+explain these details in the following sections:
+
+@menu
+* Getting Started with Levelpacks::
+* Converting 0.92 Levelpacks::
+* Zip Levelpacks::
+* Grouping and Sorting Levelpacks::
+@end menu
+
+@node Getting Started with Levelpacks, Converting 0.92 Levelpacks, Levelpack Basics, Levelpack Basics
+@section Getting Started with Levelpacks
+
+One of the outstanding features of Enigma is its extendibility by new levels.
+And the community of users usually provides us every week several new great levels.
+
+
+
+@node Converting 0.92 Levelpacks, Zip Levelpacks, Getting Started with Levelpacks, Levelpack Basics
+@section Converting 0.92 Levelpacks
+
+@node Zip Levelpacks, Grouping and Sorting Levelpacks, Converting 0.92 Levelpacks, Levelpack Basics
+@section Zip Levelpacks
+
+@node Grouping and Sorting Levelpacks, , Zip Levelpacks, Levelpack Basics
+@section Grouping and Sorting Levelpacks
+
 
 @node  Level Basics, Objects, Levelpack Basics, Top
 @chapter Level Basics
@@ -6910,12 +7005,17 @@ set_stone("st-invisible", 7, 9)     -- do the same
 
 @end ignore
 
-@node Index,  , Functions, Top
-@unnumbered Index
+@node Function Index, Concept Index, Functions, Top
+@unnumbered Function Index
 
 @syncodeindex vr tp
 @syncodeindex fn tp
 
 @printindex tp
+
+@node Concept Index,  , Function Index, Top
+@unnumbered Concept Index
+
+@printindex cp
 
 @bye

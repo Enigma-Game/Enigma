@@ -188,7 +188,7 @@ namespace enigma { namespace gui {
                 case SDLK_BACKSPACE: previous_levelpack(); break;
                 case SDLK_F1:
                     if (options::GetBool("TimeHunting"))
-                        helptext_levelmenu[5] = N_("Select next non-par level");
+                        helptext_levelmenu[5] = N_("Select next level for best score hunt");
                     else
                         helptext_levelmenu[5] = N_("Select next unsolved level");
             
@@ -291,7 +291,7 @@ namespace enigma { namespace gui {
     
             if (options::GetBool("TimeHunting")) {
                 int pct = 100* scm->countBestScore(ind, difficulty)/ size;
-                lbl_statistics->set_text(ecl::strf(_("%d%% par"), pct));
+                lbl_statistics->set_text(ecl::strf(_("%d%% best"), pct));
             }
             else {
                 int pct = 100* scm->countSolved(ind, difficulty) / size;
@@ -333,19 +333,19 @@ namespace enigma { namespace gui {
                     if (par_time>0) {
                         int below = par_time-best_user_time;
                         if (below == 0)
-                            par_text = _("That's par.");
+                            par_text = _("That's best score.");
                         else if (below>0)
-                            par_text = strf(_("That's %d:%02d below par."),
+                            par_text = strf(_("That's %d:%02d below best time."),
                                             below/60, below%60);
                     }
                 }
     
                 if (par_text.length() == 0 && par_time>0) {
                     if (par_name.length())
-                        par_text = strf(_("Par by %s: %d:%02d"), 
+                        par_text = strf(_("Best score by %s: %d:%02d"), 
                                         par_name.c_str(), par_time/60, par_time%60);
                     else
-                        par_text = strf(_("Par: %d:%02d"), par_time/60, par_time%60);
+                        par_text = strf(_("Best score: %d:%02d"), par_time/60, par_time%60);
                 }
     
                 string time_text;
