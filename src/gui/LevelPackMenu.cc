@@ -73,7 +73,7 @@ namespace enigma { namespace gui {
         but_search = new StaticTextButton(N_("Search"), this);
         but_edit = new StaticTextButton(N_("Edit"), this);
         but_level = new StaticTextButton(N_("Start Game"), this);
-        but_main = new StaticTextButton(N_("Main"), this);
+        but_main = new StaticTextButton(N_("Main Menu"), this);
         
         hl = new HList;
         hl->set_spacing (10);

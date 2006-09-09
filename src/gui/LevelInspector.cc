@@ -273,7 +273,7 @@ LevelInspector::LevelInspector(lev::Proxy *aLevel):
 
         BuildVList scoresST(this, Rect(vminfo->width/2-100-20,vmargin+6*25+5*vspacing+16,100,25), 2);
         scoresST.add(new Label(N_("You: "), HALIGN_RIGHT));
-        scoresST.add(new Label(N_("Best: "), HALIGN_RIGHT));
+        scoresST.add(new Label(N_("World: "), HALIGN_RIGHT));
 // TRANSLATORS: PAR = professional average rate - an expression used by golfers
         scoresST.add(new Label(N_("PAR: "), HALIGN_RIGHT));
         scoresST.add(new Label(N_("Author: "), HALIGN_RIGHT));
@@ -376,7 +376,7 @@ LevelInspector::LevelInspector(lev::Proxy *aLevel):
                 levelPathLines, annotationLines, compatibilityLines,
                 (vminfo->height-(vnext)-60)/27, textwidth);
         if (bestScoreHolderLines == 1) {
-            add(new Label(N_("Best Score Holders: "), HALIGN_RIGHT),Rect(hmargin,vnext,200,25));
+            add(new Label(N_("World Record Holders: "), HALIGN_RIGHT),Rect(hmargin,vnext,200,25));
             std::string holders;
             if (withEasy) {
                 holders = theRatingMgr->getBestScoreEasyHolder(aLevel);
@@ -447,8 +447,8 @@ LevelInspector::LevelInspector(lev::Proxy *aLevel):
         }
         add(new Label(N_("Rating: "), HALIGN_RIGHT),Rect(hmargin,vnext,110,25));
 //         add(new RatingButton(aLevel),Rect(hmargin+110+10,vnext,40,25));
-        add(new Label(N_("Average: "), HALIGN_RIGHT),Rect(hmargin+110+10+40+20,vnext,95,25));
-        add(new Label(theRatingMgr->getAverageRating(aLevel), HALIGN_RIGHT),Rect(hmargin+110+10+40+20+95+10,vnext,25,25));
+        add(new Label(N_("Average: "), HALIGN_RIGHT),Rect(hmargin+110+10+40+20,vnext,105,25));
+        add(new Label(theRatingMgr->getAverageRating(aLevel), HALIGN_RIGHT),Rect(hmargin+110+10+40+20+105+10,vnext,25,25));
     }
     
     LevelInspector::~LevelInspector () {

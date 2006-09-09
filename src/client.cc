@@ -723,19 +723,19 @@ void Client::level_finished()
     if (par_time > 0) {
         if (best_user_time<0 || best_user_time>par_time) {
             if (level_time == par_time)
-                text = string(_("Exactly the best score of "))+par_name+"!";
+                text = string(_("Exactly the world record of "))+par_name+"!";
             else if (level_time<par_time)
-                text = _("Great! A new best score!");
+                text = _("Great! A new world record!");
         }
     }
     if (text.length() == 0 && best_user_time>0) {
         if (level_time == best_user_time) {
-            text = _("Again your personal best score...");
+            text = _("Again your personal record...");
             if (options::GetBool("TimeHunting"))
                 timehunt_restart = true; // when hunting yourself: Equal is too slow
         }
         else if (level_time<best_user_time)
-            text = _("New personal best score!");
+            text = _("New personal record!");
     }
 
     if (options::GetBool("TimeHunting") &&
@@ -746,16 +746,16 @@ void Client::level_finished()
 
         if (behind>0) {
             if (best_user_time>0 && level_time<best_user_time && with_par) {
-                text = _("Your best, ");
+                text = _("Your record, ");
             }
             else {
                 text = "";
             }
             text += strf("%d:%02d ", static_cast<int> (behind/60)%100, behind%60);
             if (with_par) 
-                text += _("behind best time.");
+                text += _("behind world record.");
             else
-                text += _("behind your best time.");
+                text += _("behind your record.");
 
             timehunt_restart = true; // time hunt failed -> repeat level
         }
@@ -804,9 +804,9 @@ void Client::level_loaded()
         string displayed_info = "";
         if (m_hunt_against_time>0) {
             if (hunted == "you")
-                displayed_info = _("Your best score: ");
+                displayed_info = _("Your record: ");
             else
-                displayed_info = _("Best score to beat: ");
+                displayed_info = _("World record to beat: ");
             displayed_info += ecl::strf("%d:%02d", (m_hunt_against_time/60)%100, 
                     m_hunt_against_time%60);
 //+ _(" by ") +hunted;

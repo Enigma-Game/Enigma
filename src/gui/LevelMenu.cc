@@ -58,7 +58,7 @@ namespace enigma { namespace gui {
     LevelMenu::LevelMenu()
     : but_unsolved   (new ImageButton("ic-unsolved", "ic-unsolved1", this)), 
     //  but_tournament (new TournamentButton),
-      but_back       (new StaticTextButton(N_("Back"), this)),
+      but_back       (new StaticTextButton(N_("Main Menu"), this)),
       but_difficulty (new DifficultyButton),
       but_levelpack  (new StaticTextButton(N_("Level Pack"), this)),
       lbl_lpinfo     (new Label("")),
@@ -333,19 +333,19 @@ namespace enigma { namespace gui {
                     if (par_time>0) {
                         int below = par_time-best_user_time;
                         if (below == 0)
-                            par_text = _("That's best score.");
+                            par_text = _("That's world record.");
                         else if (below>0)
-                            par_text = strf(_("That's %d:%02d below best time."),
+                            par_text = strf(_("That's %d:%02d below world record."),
                                             below/60, below%60);
                     }
                 }
     
                 if (par_text.length() == 0 && par_time>0) {
                     if (par_name.length())
-                        par_text = strf(_("Best score by %s: %d:%02d"), 
+                        par_text = strf(_("World record by %s: %d:%02d"), 
                                         par_name.c_str(), par_time/60, par_time%60);
                     else
-                        par_text = strf(_("Best score: %d:%02d"), par_time/60, par_time%60);
+                        par_text = strf(_("World record: %d:%02d"), par_time/60, par_time%60);
                 }
     
                 string time_text;
