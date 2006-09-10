@@ -555,8 +555,8 @@ void Client::draw_screen()
         const video::VMInfo *vminfo = video::GetInfo();
         int width = vminfo->width - 120;
         for (unsigned i=0; i<lines.size(); ) {
-            std::string::size_type breakPos = f->breakString( lines[i], 
-                    " ", width);
+            std::string::size_type breakPos = ecl::breakString (f, lines[i], 
+                                                                " ", width);
             f->render(gc, x,  y, lines[i].substr(0,breakPos).c_str());
             y += yskip;
             if (breakPos != lines[i].size()) {

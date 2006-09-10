@@ -95,7 +95,8 @@ namespace enigma { namespace lev {
                 currentIndex->setCurrentPosition(app.prefs->getInt("CurrentPosition"));
             
             // fallback to "Tutorial" pack
-            else if (setCurrentIndex("Tutorial"));
+            else if (setCurrentIndex("Tutorial"))
+                ;
                         
             // fallback to any pack
             else if (!indices.empty()) {

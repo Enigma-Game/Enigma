@@ -453,7 +453,7 @@ namespace enigma { namespace lev {
                 if (!errMessage.empty()) {
                     if (doc != NULL) {
                         doc->release();           // empty or errornous doc 
-                        doc == NULL;
+                        doc = NULL;
                     }
                     Log << errMessage;   // make long error messages readable
                     return false;

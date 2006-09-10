@@ -280,7 +280,7 @@ namespace enigma { namespace gui {
         pathtext[i++] = N_("Preferences Path:");
         work = app.prefPath;
         do {
-            std::string::size_type breakPos = menufont->breakString(work,"/\\", width);
+            std::string::size_type breakPos = breakString(menufont, work,"/\\", width);
             pathstrings[i] = "    " + work.substr(0,breakPos);
             pathtext[i] = pathstrings[i].c_str();
             work = work.substr(breakPos);
@@ -290,7 +290,7 @@ namespace enigma { namespace gui {
         pathtext[i++] = N_("User Path:");
         work = app.userPath;
         do {
-            std::string::size_type breakPos = menufont->breakString(work,"/\\", width);
+            std::string::size_type breakPos = breakString(menufont, work,"/\\", width);
             pathstrings[i] = "    " + work.substr(0,breakPos);
             pathtext[i] = pathstrings[i].c_str();
             work = work.substr(breakPos);
@@ -300,7 +300,7 @@ namespace enigma { namespace gui {
         pathtext[i++] = N_("User Image Path:");
         work = app.userImagePath;
         do {
-            std::string::size_type breakPos = menufont->breakString(work,"/\\", width);
+            std::string::size_type breakPos = breakString(menufont, work,"/\\", width);
             pathstrings[i] = "    " + work.substr(0,breakPos);
             pathtext[i] = pathstrings[i].c_str();
             work = work.substr(breakPos);
@@ -310,7 +310,7 @@ namespace enigma { namespace gui {
         pathtext[i++] = N_("System Path:");
         work = app.systemFS->getDataPath();
         do {
-            std::string::size_type breakPos = menufont->breakString(work,"/\\", width);
+            std::string::size_type breakPos = breakString(menufont, work,"/\\", width);
             pathstrings[i] = "    " + work.substr(0,breakPos);
             pathtext[i] = pathstrings[i].c_str();
             work = work.substr(breakPos);
@@ -320,7 +320,7 @@ namespace enigma { namespace gui {
         pathtext[i++] = N_("Resource Paths:");
         work = app.resourceFS->getDataPath();
         do {
-            std::string::size_type breakPos = menufont->breakString(work,"/\\", width);
+            std::string::size_type breakPos = breakString(menufont, work,"/\\", width);
             pathstrings[i] = "    " + work.substr(0,breakPos);
             pathtext[i] = pathstrings[i].c_str();
             work = work.substr(breakPos);
@@ -330,7 +330,7 @@ namespace enigma { namespace gui {
         pathtext[i++] = N_("L10n Path:");
         work = app.l10nPath;
         do {
-            std::string::size_type breakPos = menufont->breakString(work,"/\\", width);
+            std::string::size_type breakPos = breakString(menufont, work,"/\\", width);
             pathstrings[i] = "    " + work.substr(0,breakPos);
             pathtext[i] = pathstrings[i].c_str();
             work = work.substr(breakPos);

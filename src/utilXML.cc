@@ -36,18 +36,17 @@ namespace enigma
     }
     
     void stripIgnorableWhitespace(DOMElement * elem) {
-        DOMNode * checkChild = elem->getFirstChild();
-        DOMNode * nextChild;
+        DOMNode * child = elem->getFirstChild();
+        DOMNode * next;
 
-        for (checkChild = elem->getFirstChild(); checkChild != NULL;
-                checkChild = nextChild) {
-            nextChild = checkChild->getNextSibling();
-            if (checkChild->getNodeType() == DOMNode::TEXT_NODE) {
-                if (dynamic_cast<DOMText *>(checkChild)->isIgnorableWhitespace()) {
-                    elem->removeChild(checkChild);
+        for (child = elem->getFirstChild(); child != NULL; child = next) {
+            next = child->getNextSibling();
+            if (child->getNodeType() == DOMNode::TEXT_NODE) {
+                if (dynamic_cast<DOMText *>(child)->isIgnorableWhitespace()) {
+                    elem->removeChild(child);
                 }
-            } else if (checkChild->getNodeType() == DOMNode::ELEMENT_NODE) {
-                DOMElement * childElem = dynamic_cast<DOMElement *>(checkChild);
+            } else if (child->getNodeType() == DOMNode::ELEMENT_NODE) {
+                DOMElement * childElem = dynamic_cast<DOMElement *>(child);
                 if (childElem != NULL)
                     stripIgnorableWhitespace(childElem);
             }

@@ -38,9 +38,14 @@ namespace ecl
 	virtual Surface *render(const char *str) = 0;
         virtual void render(const GC &gc, int x, int y, 
                             const char *str) = 0;
-        virtual std::string::size_type breakString(const std::string &theString, 
-                const std::string &breakChars, const int width);
+        
     };
+
+    std::string::size_type breakString(Font *font,
+                                       const std::string &theString, 
+                                       const std::string &breakChars, 
+                                       int targetWidth);
+    
 
     /** Load a bitmap font with image FILENAME and font metric
       DESCRNAME. */

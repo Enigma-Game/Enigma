@@ -37,42 +37,35 @@ int Font::get_width(const char *str)
     return w;
 }
 
-std::string::size_type Font::breakString(const std::string &theString,
-        const std::string &breakChars, const int width) {
-    std::string::size_type lastpos = std::string::npos;
+
+std::string::size_type 
+ecl::breakString (Font *font,
+                  const std::string &str,
+                  const std::string &breakChars, 
+                  int targetWidth)
+{
+    if (font->get_width (str.c_str()) <= targetWidth)
+        return str.size();     // the complete string fits into a line
+
+    bool breakFound = false;
     std::string::size_type pos = 0;
-    do {
-        std::string::size_type nextpos = theString.find_first_of(breakChars, pos);
-        if (nextpos == std::string::npos) {
-            // there is no further break pos
-            if (lastpos == std::string::npos) {
-                // there was no break at all
-                return theString.size();
-            } else {
-                if (get_width(theString.c_str()) <= width) { 
-                    // the complete string fits into a line
-                    return theString.size();
-                } else {
-                    // just the last chunk was too much
-                    return lastpos;
-                }
-            }
-        } else {
-            if (get_width(theString.substr(0, nextpos+1).c_str()) <= width) { 
-                lastpos = nextpos+1;
-                pos = lastpos;
-            } else {
-                // now the string is too long
-                if (lastpos == std::string::npos) {
-                    // but there is no other break before
-                    return nextpos+1;
-                } else {
-                    return lastpos;
-                }
-            }
-        }
-    } while (true);
+    while (true) {
+        std::string::size_type nextpos = str.find_first_of (breakChars, pos);
+
+        if (nextpos == std::string::npos)
+            // no more line breaks
+            return breakFound ? pos : str.size();
+        
+        if (font->get_width (str.substr(0, nextpos+1).c_str()) > targetWidth)
+            // now the string is too long
+            return breakFound ? pos : nextpos + 1;
+            
+        pos = nextpos+1;
+        breakFound = true;
+    } 
 }
+
+
 
 //
 // Bitmap fonts

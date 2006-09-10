@@ -24,9 +24,9 @@ using namespace ecl;
 using namespace std;
 
 namespace enigma { namespace gui {
-
+    
     MonospacedLabel::MonospacedLabel (const std::string &text, char widthSample,
-            std::string monospaceCharacters, HAlignment halign,  VAlignment valign) :
+                                      std::string monospaceCharacters, HAlignment halign,  VAlignment valign) :
             Label (text, halign, valign), sampleChar (widthSample),
             monoChars (monospaceCharacters) {
     }
@@ -35,7 +35,7 @@ namespace enigma { namespace gui {
         Font *f = m_font;
         int w, h;
         naturalsize (w, h);
-    
+        
         int x = get_x(), y=get_y();
         switch (m_halign) {
         case HALIGN_LEFT: break;
@@ -74,7 +74,7 @@ namespace enigma { namespace gui {
         int len = strlen(translation);
         int monoWidth = m_font->get_width(sampleChar);
         for (int i = 0; i<len; i++) {
-        if (monoChars.empty() || monoChars.find_first_of(translation[i]) != 
+            if (monoChars.empty() || monoChars.find_first_of(translation[i]) != 
                     std::string::npos) {
                 w += monoWidth;
             } else {
