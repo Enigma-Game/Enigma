@@ -31,7 +31,10 @@ namespace enigma { namespace lev {
 
     std::map<std::string, Index *> Index::indices;
     std::map<std::string, std::vector<Index *> *> Index::indexGroups;
+    std::map<std::string, std::string> Index::groupSelectedIndex; // tmp
+    std::map<std::string, int> Index::groupSelectedColumn;  // tmp
     Index * Index::currentIndex = NULL;
+    std::string Index::currentGroup;
     std::map<std::string, std::string> Index::nullExtensions;
             
     void Index::registerIndex(Index *anIndex) {
@@ -43,7 +46,7 @@ namespace enigma { namespace lev {
             
         indices.insert(std::make_pair(anIndex->getName(), anIndex));
         
-        std::string groupName = INDEX_DEFAULT_GROUP;  // used if no group is supplied
+        std::string groupName = anIndex->indexGroup;  // used if no group is supplied
         std::vector<Index *> * group;
         // check preferences for assigned group
         
@@ -56,6 +59,8 @@ namespace enigma { namespace lev {
             // make the group
             group = new std::vector<Index *>;
             indexGroups.insert(std::make_pair(groupName, group));
+            groupSelectedIndex.insert(std::make_pair(groupName, anIndex->getName()));
+            groupSelectedColumn.insert(std::make_pair(groupName, 0));
         }
         
         // insert according to user prefs or index defaults
@@ -79,6 +84,26 @@ namespace enigma { namespace lev {
             return NULL;
     }
 
+    std::string Index::getCurrentGroup() {
+        if (currentIndex == NULL)
+            // initialize current group
+            getCurrentIndex();
+        return currentGroup;
+    }
+    
+    void Index::setCurrentGroup(std::string groupName) {
+        currentGroup = groupName;
+        setCurrentIndex(getGroupSelectedIndex(groupName));
+    }
+    
+    std::vector<std::string> Index::getGroupNames() {
+        std::vector<std::string> names;
+        std::map<std::string, std::vector<Index *> *>::iterator it;
+        for (it = indexGroups.begin(); it != indexGroups.end(); it++)
+            names.push_back(it->first);
+        return names;
+    }
+    
     std::vector<Index *> * Index::getGroup(Index * anIndex) {
         std::map<std::string, std::vector<Index *> *>::iterator i = indexGroups.find(anIndex->getGroupName());
         if (i != indexGroups.end()) {
@@ -86,6 +111,32 @@ namespace enigma { namespace lev {
         } else {
             return NULL;
         }
+    }
+
+    std::string Index::getGroupSelectedIndex(std::string groupName) {
+        std::map<std::string, std::string>::iterator i = groupSelectedIndex.find(groupName);
+        if (i != groupSelectedIndex.end()) {
+            return i->second;
+        } else {
+            return "";
+        }
+    }
+    
+    int Index::getGroupSelectedColumn(std::string groupName) {
+        std::map<std::string, int>::iterator i = groupSelectedColumn.find(groupName);
+        if (i != groupSelectedColumn.end()) {
+            return i->second;
+        } else {
+            return INDEX_GROUP_COLUMN_UNKNOWN;
+        }
+    }
+    
+    void Index::setGroupSelectedIndex(std::string groupName, std::string indexName) {
+        groupSelectedIndex[groupName] = indexName;
+    }
+    
+    void Index::setGroupSelectedColumn(std::string groupName, int column) {
+        groupSelectedColumn[groupName] = column;
     }
     
     Index * Index::getCurrentIndex() {
@@ -119,8 +170,11 @@ namespace enigma { namespace lev {
             if (newIndex != currentIndex) {
                 oxyd::ChangeSoundset(newIndex->get_default_SoundSet(), -1);
                 app.prefs->setPref("CurrentIndex", anIndexName);
+                currentIndex = newIndex;
+                currentGroup = currentIndex->getGroupName();
+                setGroupSelectedIndex(currentGroup, currentIndex->getName());
+                setGroupSelectedColumn(currentGroup, INDEX_GROUP_COLUMN_UNKNOWN);
             }
-            currentIndex = newIndex;
             return true;
         }
         return false;

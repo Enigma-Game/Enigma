@@ -25,65 +25,209 @@
 #include "lev/Index.hh"
 #include "lev/PersistentIndex.hh"
 
+#include "main.hh"
 
 using namespace ecl;
 using namespace std;
 
 namespace enigma { namespace gui {
 /* -------------------- Level Pack Menu -------------------- */
+    std::map<std::string, std::string> LevelPackMenu::groupLastSelectedIndex;
+    std::map<std::string, int> LevelPackMenu::groupLastSelectedColumn;
     
-    LevelPackMenu::LevelPackMenu()
-//        : m_selection(-1)
-    {
+    LevelPackMenu::LevelPackMenu() : packsHList (NULL), groupsVList (NULL),
+            scrollLeft (NULL), scrollRight(NULL) {
         const video::VMInfo &vminfo = *video::GetInfo();
-        HList *hl;
-
-#define PACKMODES 3
-        struct ppm { int rectw, recth; } packmodeparam[PACKMODES] = {
-            { 160, 40 },            // up to 3*10 = 30 levelpacks (640x480)
-            { 150, 30 },            // up to 4*13 = 52 levelpacks
-            { 120, 25 },            // up to 5*15 = 75 levelpacks
-        };
-    
-        std::vector<lev::Index *> * group = lev::Index::getGroup(INDEX_DEFAULT_GROUP);
-        unsigned packcount = group->size();
-
-        for (unsigned i=0; i<packcount; ++i) {
-            lev::Index *lp = (*group)[i];
-            buttons.push_back(new UntranslatedStaticTextButton(lp->getName(), this));
-        }
-            
-        Rect buttonarea = ecl::Screen::get_instance()->size();
-        buttonarea.h = buttonarea.h - 120;
-        bool finished   = false;
-    
-        for (int mode = 0; !finished && mode < PACKMODES; ++mode) {
-            ppm&          ppm = packmodeparam[mode];
-            VTableBuilder builder(this, buttonarea, Rect(0,0,ppm.rectw,ppm.recth), 5, 5);
-    
-            finished = builder.finish(buttons);
-        }
-    
-        Assert <XGeneric> (finished, strf("LevelpackMenu Layout error (too many levelpacks: %i - try in higher resolution)", packcount));
-#undef PACKMODES
-
-        center();
-        
-        // Create buttons
+        vm = vminfo.videomode;
+       
+        // Create buttons - positioning identical to Levelmenu
+        but_new = new StaticTextButton(N_("New Pack"), this);
         but_search = new StaticTextButton(N_("Search"), this);
-        but_edit = new StaticTextButton(N_("Edit"), this);
         but_level = new StaticTextButton(N_("Start Game"), this);
         but_main = new StaticTextButton(N_("Main Menu"), this);
         
-        hl = new HList;
-        hl->set_spacing (10);
-        hl->set_alignment (HALIGN_CENTER, VALIGN_TOP);
-        hl->set_default_size (140, 40);
-        hl->add_back (but_search);
-        hl->add_back (but_edit);
-        hl->add_back (but_level);
-        hl->add_back (but_main);
-        this->add (hl, Rect(10, vminfo.height-60, vminfo.width-10, 40));
+        commandHList = new HList;
+        commandHList->set_spacing(10);
+        commandHList->set_alignment(HALIGN_CENTER, VALIGN_TOP);
+        commandHList->set_default_size(140, 35);
+        commandHList->add_back(but_new);
+        commandHList->add_back(but_search);
+        commandHList->add_back(but_level);
+        commandHList->add_back(but_main);
+        this->add(commandHList, Rect(10, vminfo.height-50, vminfo.width-20, 35));
+        
+    }
+    
+    void LevelPackMenu::setupMenu() {
+        static struct SpacingConfig {
+            int packcolumns, rows;
+            int vmargin, vrow_row;
+            int hmargin, hgroup_pack, hscrollbutton, hscroll_pack, hpack_pack;
+        } param[video::VM_COUNT] = {
+            {  // VM_640x480
+                2, 9,
+                15, 10,
+                20, 36, 22, 10, 20
+            },
+            {  // VM_640x512
+                2, 9,
+                15, 10,
+                20, 36, 22, 10, 20
+            },
+            {  // VM_800x600
+                3, 11,
+                15, 13,
+                15, 36, 22, 10, 15
+            },
+            {  // VM_1024x768
+                4, 15,
+                15, 10,
+                30, 36, 22, 12, 20
+            }
+        };
+        
+        if (groupsVList != NULL) {
+            groupsVList->clear();
+            remove_child(groupsVList);
+            delete groupsVList;
+            groupsVList = NULL;
+        }
+        
+        if (packsHList != NULL) {
+            packsHList->clear();
+            remove_child(packsHList);
+            delete packsHList;
+            packsHList = NULL;
+        }
+        
+        if (scrollLeft != NULL) {
+            remove_child(scrollLeft);
+            delete scrollLeft;
+            scrollLeft = NULL;
+        }
+        if (scrollRight != NULL) {
+            remove_child(scrollRight);
+            delete scrollRight;
+            scrollRight =  NULL;
+        }
+        
+        packButtons.clear();
+        groupButtons.clear();
+        
+        std::vector<std::string> groupNames = lev::Index::getGroupNames();
+        groupsVList = new VList; 
+        groupsVList->set_spacing(param[vm].vrow_row);
+        groupsVList->set_alignment(HALIGN_LEFT, VALIGN_CENTER);
+        groupsVList->set_default_size(160, 35);
+        
+        for (int i = 0; i < groupNames.size(); i++) {
+            TextButton * button = new UntranslatedStaticTextButton(groupNames[i], this);
+            groupButtons.push_back(button);
+            groupsVList->add_back(button);
+        }
+
+        this->add(groupsVList, Rect(param[vm].hmargin, param[vm].vmargin, 
+                160, param[vm].rows * 35 + 
+                (param[vm].rows - 1) * param[vm].vrow_row));
+        
+        std::string curGroupName = lev::Index::getCurrentGroup();
+        std::vector<lev::Index *> * group = lev::Index::getGroup(curGroupName);
+        unsigned packCount = group->size();
+        
+        int posCurrentIndex = getIndexPosition(group, lev::Index::getCurrentIndex()->getName());
+        int selectedColumn = lev::Index::getGroupSelectedColumn(curGroupName);
+        int colCurrentIndex = 0;
+        int nextPack = 0;        // pack displayed at top of first display column
+        
+        if (selectedColumn != INDEX_GROUP_COLUMN_UNKNOWN || 
+                groupLastSelectedIndex.find(curGroupName) == groupLastSelectedIndex.end()) {
+            colCurrentIndex = checkColumn(param[vm].rows, param[vm].packcolumns,
+                    packCount, posCurrentIndex, selectedColumn);
+            nextPack = (posCurrentIndex / param[vm].rows - colCurrentIndex) * param[vm].rows;
+        } else {
+            // the user selected a new level pack and the column was not yet
+            // calculated: we try to keep the display unchanged in respect of
+            // of the last selected pack and if necessary scroll minimum amount
+            // of columns 
+            int posLastIndex = getIndexPosition(group,groupLastSelectedIndex[curGroupName]);
+            int colLastIndex = checkColumn(param[vm].rows, param[vm].packcolumns,
+                    packCount, posLastIndex, groupLastSelectedColumn[curGroupName]);
+            nextPack = (posLastIndex / param[vm].rows - colLastIndex) * param[vm].rows;
+            if (posCurrentIndex < nextPack) {
+                // current index would be left of display - we need to scroll left
+                nextPack -= (((nextPack - posCurrentIndex - 1)/param[vm].rows) + 1) *
+                        param[vm].rows;
+                colCurrentIndex = 0;
+            } else if (posCurrentIndex < nextPack + param[vm].rows * param[vm].packcolumns) {
+                // current index is still visible - keep nextPack
+                colCurrentIndex = (posCurrentIndex - nextPack) / param[vm].rows;
+            } else {
+                // current index would be right of display - we need to scroll right
+                nextPack += (((posCurrentIndex - nextPack)/param[vm].rows) - 
+                        (param[vm].packcolumns - 1)) * param[vm].rows;
+                colCurrentIndex = param[vm].packcolumns - 1;                
+            }
+        }
+        
+        bool needRightScroll = packCount > nextPack + param[vm].rows * param[vm].packcolumns;
+        bool needLeftScroll = nextPack > 0;
+
+        lev::Index::setGroupSelectedColumn(curGroupName, colCurrentIndex);
+        groupLastSelectedIndex[curGroupName] = lev::Index::getCurrentIndex()->getName();
+        groupLastSelectedColumn[curGroupName] = colCurrentIndex;
+        
+        packsHList = new HList; 
+        packsHList->set_spacing(param[vm].hpack_pack);
+        packsHList->set_alignment(HALIGN_CENTER, VALIGN_TOP);
+        packsHList->set_default_size(160, param[vm].rows*35 + 
+                (param[vm].rows - 1) * param[vm].vrow_row);
+        
+        for (int col = 0; col < param[vm].packcolumns; col++) {
+            if (packCount - nextPack > 0) {
+                VList * pl = new VList;
+                pl->set_spacing (param[vm].vrow_row);
+                // first column is centered - if it is full it is like top alignment:
+                pl->set_alignment (HALIGN_LEFT, col == 0 ? VALIGN_CENTER : VALIGN_TOP);
+                pl->set_default_size (160, 35);
+                for (int row = 0; row < param[vm].rows; row++) {
+                    if (nextPack < packCount) {
+                        lev::Index *ind = (*group)[nextPack];
+                        TextButton * button = new UntranslatedStaticTextButton(ind->getName(), this);
+                        packButtons.push_back(button);
+                        pl->add_back(button);
+                        nextPack++;
+                    } else
+                        break;
+                }
+                packsHList->add_back(pl);               
+            } else
+                break;
+        }
+
+        this->add(packsHList, Rect(param[vm].hmargin + 160 + param[vm].hgroup_pack +
+                param[vm].hscrollbutton + param[vm].hscroll_pack, 
+                param[vm].vmargin, 
+                param[vm].packcolumns * 160 + (param[vm].packcolumns - 1) * 
+                param[vm].hpack_pack, 
+                param[vm].rows * 35 + 
+                (param[vm].rows - 1) * param[vm].vrow_row));
+        
+        if (needLeftScroll) {
+            scrollLeft = new ImageButton("ic-left", "ic-left1", this);
+            this->add(scrollLeft, Rect(param[vm].hmargin + 160 + param[vm].hgroup_pack,
+                    param[vm].vmargin + param[vm].rows / 2 * (35 + param[vm].vrow_row),
+                    param[vm].hscrollbutton, 35));
+        }
+                
+        if (needRightScroll) {
+            scrollRight = new ImageButton("ic-right", "ic-right1", this);
+            this->add(scrollRight, Rect(param[vm].hmargin + 160 + param[vm].hgroup_pack +
+                    param[vm].hscrollbutton + 2 * param[vm].hscroll_pack +
+                    param[vm].packcolumns * 160 + (param[vm].packcolumns - 1) * 
+                    param[vm].hpack_pack,
+                    param[vm].vmargin + param[vm].rows / 2 * (35 + param[vm].vrow_row),
+                    param[vm].hscrollbutton, 35));
+        }
     }
     
     bool LevelPackMenu::manageLevelMenu() {
@@ -110,6 +254,7 @@ namespace enigma { namespace gui {
     }
 
     bool LevelPackMenu::manage() {
+        setupMenu();
         updateHighlight();
         return Menu::manage();
     }
@@ -117,35 +262,68 @@ namespace enigma { namespace gui {
     void LevelPackMenu::on_action(Widget *w) {
         if (w == but_main) {
             Menu::quit();
-        } else if (w == but_edit) {
+        } else if (w == but_new) {
 //            lev::Index::getCurrentIndex()->updateFromProxies();
-//            lev::PersistentIndex * pi = dynamic_cast<lev::PersistentIndex *>(lev::Index::getCurrentIndex());
-//            pi->deletesave();
         } else if (w == but_level) {
             LevelMenu m;
             if (m.manage() && m.isMainQuit()) {
                 // not ESC but Main button has been pressed in LevelMenu -
                 Menu::quit();
             }
+            setupMenu();
             updateHighlight();
             invalidate_all();            
         } else if (w == but_search) {
-        } else {
+//            hl->remove_child(but_edit);
+            invalidate_all();            
+        } else if (w->get_parent() == groupsVList){
+            lev::Index::setCurrentGroup(dynamic_cast<TextButton *>(w)->get_text());
+            reset_active_widget();  // we will delete it with setup
+            setupMenu();
+            updateHighlight();
+            invalidate_all();
+        } else if (w->get_parent()->get_parent() == packsHList){
             lev::Index::setCurrentIndex(dynamic_cast<TextButton *>(w)->get_text());
             LevelMenu m;
             if (m.manage() && m.isMainQuit()) {
                 // not ESC but Main button has been pressed in LevelMenu -
                 Menu::quit();
+                return;
             }
+            reset_active_widget();  // we will delete it with setup
+            setupMenu();
             updateHighlight();
             invalidate_all();
-        }   
+        } else if (w == scrollLeft) {
+            std::string curGroupName = lev::Index::getCurrentGroup();
+            lev::Index::setGroupSelectedColumn(curGroupName,
+                    lev::Index::getGroupSelectedColumn(curGroupName) + 1);
+            reset_active_widget();  // we will delete it with setup
+            setupMenu();
+            updateHighlight();
+            invalidate_all();
+        } else if (w == scrollRight) {
+            std::string curGroupName = lev::Index::getCurrentGroup();
+            lev::Index::setGroupSelectedColumn(curGroupName,
+                    lev::Index::getGroupSelectedColumn(curGroupName) - 1);
+            reset_active_widget();  // we will delete it with setup
+            setupMenu();
+            updateHighlight();
+            invalidate_all();
+        }
     }
     
     void LevelPackMenu::updateHighlight() {
-        for (int i = 0; i < buttons.size(); i++) {
-            TextButton * button = dynamic_cast<TextButton *>(buttons[i]);
+        for (int i = 0; i < packButtons.size(); i++) {
+            TextButton * button = packButtons[i];
             if (button->get_text() == lev::Index::getCurrentIndex()->getName())
+                button->setHighlight(true);
+            else
+                button->setHighlight(false);      
+        }
+        for (int i = 0; i < groupButtons.size(); i++) {
+            TextButton * button = groupButtons[i];
+            if (button->get_text() == lev::Index::getCurrentGroup())
                 button->setHighlight(true);
             else
                 button->setHighlight(false);      
@@ -156,5 +334,29 @@ namespace enigma { namespace gui {
         video::SetCaption(("Enigma - Level Pack Menu"));
         blit(gc, 0,0, enigma::GetImage("menu_bg", ".jpg"));
     }
+    
+    int LevelPackMenu::getIndexPosition(std::vector<lev::Index *> * group, std::string indexName) {
+        std::vector<lev::Index *>::iterator it;
+        int i = 0;
+        for (it = group->begin(); it != group->end(); it++, i++) {
+            if ((*it)->getName() == indexName) {
+                return i;
+            }
+        }
+        return -1;
+    }
+    
+    int LevelPackMenu::checkColumn(int rows, int columns, int size, 
+            int position, int oldColumn) {
+        int naturalColumn = position / rows;
+        int numColumns = (size - 1) / rows + 1;
+        if (oldColumn == INDEX_GROUP_COLUMN_UNKNOWN)
+            return naturalColumn;
+        else
+            return ecl::Clamp<int>(oldColumn, naturalColumn - 
+                    ((numColumns > columns) ? (numColumns - columns) : 0), 
+                    naturalColumn);
+    }
+    
 
 }} // namespace enigma::gui

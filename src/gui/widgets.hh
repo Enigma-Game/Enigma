@@ -163,6 +163,7 @@ namespace enigma { namespace gui {
         ~Container();
 
         void add_child (Widget *w);
+        virtual void remove_child (Widget *w);
         virtual void reconfigure_child (Widget *w);
 
         Widget *find_widget(int x, int y);
@@ -208,6 +209,7 @@ namespace enigma { namespace gui {
         };
 
         void add_back (Widget *w, ExpansionMode m = List::TIGHT);
+        virtual void remove_child (Widget *w);
 
         void set_default_size (int w, int h);
         void set_alignment (HAlignment halign, VAlignment valign);
@@ -262,7 +264,7 @@ namespace enigma { namespace gui {
 
     private:
         // List interface
-        virtual void recalc() {}
+        virtual void recalc();
 
     };
 

@@ -162,6 +162,14 @@ void Container::add_child (Widget *w) {
     }
 }
 
+void Container::remove_child (Widget *w) {
+    for (iterator it = begin(); it != end(); it++) {
+        if (*it == w) {
+            m_widgets.erase(it);
+            return;
+        }
+    }
+}
 
 void Container::draw (ecl::GC& gc, const ecl::Rect &r) {
     for (iterator i=begin(); i!=end(); ++i) {
@@ -276,6 +284,11 @@ List::List (int spacing)
   m_halign (HALIGN_LEFT),
   m_valign (VALIGN_TOP)
 {}
+
+void List::remove_child (Widget *w) {
+    Container::remove_child(w);
+    recalc();
+}
 
 void List::set_spacing (int pixels)
 {
@@ -411,6 +424,50 @@ void HList::recalc()
         (*i)->move (x, y);
         (*i)->resize (w, get_h());
         x += w + get_spacing();
+    }
+}
+
+
+/* -------------------- VList -------------------- */
+
+void VList::recalc()
+{
+    int targeth = this->get_h(); // The available space
+    int naturalh= calc_minimum_height();
+    int excessh = targeth - naturalh;
+
+    int num_expand = std::count (m_expansionmodes.begin(),
+                                 m_expansionmodes.end(),
+                                 List::EXPAND);
+
+    WidgetList::iterator i = m_widgets.begin(),
+        end = m_widgets.end();
+    int x = get_x(), y = get_y();
+    size_t j = 0;
+
+    if (num_expand == 0 && excessh > 0) {
+        switch (m_valign) {
+        case VALIGN_CENTER:
+            y += excessh / 2;
+            excessh = 0;
+            break;
+        default:
+            break;
+        }
+    }
+
+    for (; i != end; ++i, ++j) {
+        int w, h;
+        List::get_size (*i, w, h);
+
+        if (excessh > 0 && m_expansionmodes[j] == List::EXPAND) {
+            h += excessh / num_expand;
+            excessh -= excessh / num_expand;
+            num_expand -= 1;
+        }
+        (*i)->move (x, y);
+        (*i)->resize (get_w(), h);
+        y += h + get_spacing();
     }
 }
 

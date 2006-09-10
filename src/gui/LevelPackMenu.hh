@@ -20,6 +20,11 @@
 #define GUI_LEVELPACKMENU_HH_INCLUDED
 
 #include "gui/Menu.hh"
+#include "video.hh"
+#include "lev/Index.hh"
+
+#include <map>
+#include <string>
 
 namespace enigma { namespace gui {
 /* -------------------- LevelPackMenu -------------------- */
@@ -34,14 +39,27 @@ namespace enigma { namespace gui {
         void draw_background(ecl::GC &gc);
 
     private:
-        std::vector<Widget *> buttons;
-//        int m_selection;
+        static std::map<std::string, std::string> groupLastSelectedIndex;
+        static std::map<std::string, int> groupLastSelectedColumn;
+        
+        video::VideoModes vm;
+        std::vector<TextButton *> packButtons;
+        std::vector<TextButton *> groupButtons;
+
+        HList       *packsHList;
+        ImageButton *scrollLeft;
+        ImageButton *scrollRight;        
+        VList       *groupsVList;
+        HList       *commandHList;
         Widget      *but_search;
-        Widget      *but_edit;
+        Widget      *but_new;
         Widget      *but_level;
         Widget      *but_main;
         
+        void setupMenu();
         void updateHighlight();
+        int getIndexPosition(std::vector<lev::Index *> * group, std::string indexName);
+        int checkColumn(int rows, int columns, int size, int position, int oldColumn);
     };
 }} // namespace enigma::gui
 #endif

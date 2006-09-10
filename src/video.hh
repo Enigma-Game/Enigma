@@ -38,6 +38,7 @@ namespace video
     };
 
     struct VMInfo {
+        VideoModes  videomode;
         int width, height;      // Screen width and height in pixels
         int tile_size;          // Tile size in pixels
         const char *name;       // Menu text 

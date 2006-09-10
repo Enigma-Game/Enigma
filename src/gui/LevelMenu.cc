@@ -89,7 +89,7 @@ namespace enigma { namespace gui {
         hl->add_back (but_unsolved);
         hl->add_back (but_difficulty);
         hl->add_back (but_back);
-        this->add (hl, Rect(c.leftborder, Y3, vminfo.width-10, c.buttonh));
+        this->add (hl, Rect(c.leftborder, Y3, vminfo.width-20, c.buttonh));
         
     //     BuildHList hlist1(this, Rect(c.leftborder, Y3, c.buttonw, c.buttonh), 10);
     //     hlist1.add (but_levelpack);

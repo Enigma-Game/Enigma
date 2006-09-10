@@ -26,6 +26,7 @@
 #include <vector>
 
 #define INDEX_DEFAULT_GROUP "Default"
+#define INDEX_GROUP_COLUMN_UNKNOWN -1000
 
 namespace enigma { namespace lev {    
     enum LevelAdvanceMode {
@@ -53,7 +54,14 @@ namespace enigma { namespace lev {
         static Index * nextGroupIndex();
         static Index * previousGroupIndex();
         static Proxy * getCurrentProxy();
+        static std::string getCurrentGroup();
+        static void setCurrentGroup(std::string groupName);
+        static std::vector<std::string> getGroupNames();
         static std::vector<Index *> * getGroup(std::string groupName);
+        static std::string getGroupSelectedIndex(std::string groupName);
+        static int getGroupSelectedColumn(std::string groupName);
+        static void setGroupSelectedIndex(std::string groupName, std::string indexName);
+        static void setGroupSelectedColumn(std::string groupName, int column);
         
         /**
          * Convention: method names *Level() can take int pos or Proxy as arg.
@@ -114,6 +122,8 @@ namespace enigma { namespace lev {
          * Every index is listed in the group the user asigned it to.
          */
         static std::map<std::string, std::vector<Index *> *> indexGroups;
+        static std::map<std::string, std::string> groupSelectedIndex; // tmp
+        static std::map<std::string, int> groupSelectedColumn;  // tmp
         
         /**
          * Current active index. This index is selected in the Levelpack menu,
@@ -121,6 +131,7 @@ namespace enigma { namespace lev {
          * It's default is the "Tutorial" index.
          */
         static Index * currentIndex;
+        static std::string currentGroup;
         static std::vector<Index *> * getGroup(Index * anIndex);
 
     };

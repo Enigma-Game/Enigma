@@ -311,7 +311,7 @@ namespace
     /*! List of available video modes. */
     video::VMInfo video_modes[] = {
         { 
-            640, 480, 32, "640x480", 
+            VM_640x480, 640, 480, 32, "640x480", 
             "models-32.lua", "gfx32/",
             120, 78, "thumbs32",     // thumbnail size/directory
             Rect (0, 0, 640, 416),   // game area
@@ -323,7 +323,7 @@ namespace
             VM_None, true,
         },
         { 
-            640, 512, 32, "640x512", 
+            VM_640x512, 640, 512, 32, "640x512", 
             "models-32.lua", "gfx32/",
             120, 78, "thumbs32",     // thumbnail size/directory
             Rect (0, 0, 640, 416),   // game area
@@ -336,7 +336,7 @@ namespace
             false,              // 640x512 is deprecated!
         },
         { 
-            800, 600, 40, "800x600", 
+            VM_800x600, 800, 600, 40, "800x600", 
             "models-40.lua", "gfx40/",
 //            160, 104, "thumbs40",    // thumbnail size/directory
             120, 78, "thumbs32",
@@ -349,7 +349,7 @@ namespace
             VM_640x480, true,
         },
         { 
-            1024, 768, 48, "1024x768", 
+            VM_1024x768, 1024, 768, 48, "1024x768", 
             "models-48.lua", "gfx48/",
 //            160, 104, "thumbs40",    // thumbnail size/directory
             120, 78, "thumbs32",
