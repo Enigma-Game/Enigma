@@ -6173,6 +6173,15 @@ Default: @code{TRUE}.
 level whether it is just loaded to build a thumbnail.  If so, you can
 e.g. change the start-position of @ref{ac-blackball} to display
 another part of the level in the preview, or hide objects from it.
+When changing the initial position, it might be advantageous to also
+set the follow-mode to smooth (@ref{display.SetFollowMode}):
+@example
+if enigma.CreatingPreview then
+  display.SetFollowMode(display.FOLLOW_SMOOTH)
+else
+  display.SetFollowMode(...)
+end
+@end example
 @end defvar
 
 @defvar enigma.Brittleness
