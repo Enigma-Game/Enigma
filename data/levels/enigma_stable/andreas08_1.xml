@@ -3,18 +3,18 @@
   <el:protected>
     <el:info el:type="level">
       <el:identity el:title="Tropical Island" el:subtitle="" el:id="andreas08"/>
-      <el:version el:score="1" el:release="1" el:revision="0" el:status="stable"/>
+      <el:version el:score="1" el:release="1" el:revision="0" el:status="released"/>
       <el:author  el:name="Andreas Lochmann" el:email="" el:homepage=""/>
       <el:copyright>Copyright © 2006 Andreas Lochmann</el:copyright>
       <el:license el:type="GPL v2.0 or above" el:open="true"/>
       <el:compatibility el:enigma="0.92">
        <el:dependency el:path="lib/ant" el:id="lib/ant" el:release="1" el:preload="true"/>
       </el:compatibility>
-      <el:modes el:easy="false" el:single="true" el:network="false"/>
+      <el:modes el:easy="true" el:single="true" el:network="false"/>
       <el:comments>
         <el:code>Lua 5.1 and XML converted by Leveladministrators</el:code>
       </el:comments>
-      <el:score el:easy="-" el:difficult="-"/>
+      <el:score el:easy="01:20" el:difficult="01:26"/>
     </el:info>
     <el:luamain><![CDATA[
 -- Created with the help of BBE 1.05

@@ -2,8 +2,8 @@
 <el:level xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://enigma-game.org/schema/level/1 level.xsd" xmlns:el="http://enigma-game.org/schema/level/1">
   <el:protected>
     <el:info el:type="level">
-      <el:identity el:title="Friend or Foe?" el:subtitle="" el:id="andreas05"/>
-      <el:version el:score="1" el:release="1" el:revision="0" el:status="stable"/>
+      <el:identity el:title="Lissajous' Revenge" el:subtitle="" el:id="andreas12"/>
+      <el:version el:score="1" el:release="1" el:revision="0" el:status="released"/>
       <el:author  el:name="Andreas Lochmann" el:email="" el:homepage=""/>
       <el:copyright>Copyright © 2005 Andreas Lochmann</el:copyright>
       <el:license el:type="GPL v2.0 or above" el:open="true"/>
@@ -14,7 +14,7 @@
       <el:comments>
         <el:code>Lua 5.1 and XML converted by Leveladministrators</el:code>
       </el:comments>
-      <el:score el:easy="-" el:difficult="-"/>
+      <el:score el:easy="00:13" el:difficult="00:22"/>
     </el:info>
     <el:luamain><![CDATA[
 -- Created with the help of BBE 1.05
@@ -36,53 +36,41 @@ actors[" "]=cell{}
 stones[" "]=cell{}
 cells[" "]=cell{}
 items[" "]=cell{}
-cells["!"]=cell{floor="fl-black"}
-stones["!"]=cell{stone="st-rock5"}
-stones["#"]=cell{stone="st-rock6"}
-stones["$"]=cell{parent={{file_oxyd,"a"}}}
-cells["#"]=cell{floor="fl-normal"}
-cells["$"]=cell{floor="fl-light"}
-cells["%"]=cell{floor="fl-bluegreen"}
-cells["&"]=cell{floor="fl-red"}
+cells["!"]=cell{floor="fl-normal"}
+stones["!"]=cell{stone="st-rock6"}
+cells["#"]=cell{floor="fl-water"}
+cells["$"]=cell{floor="fl-swamp"}
+if difficult then
+  cells["-"]=cell{floor="fl-water"}
+else
+  cells["-"]=cell{floor="fl-swamp"}
+end
+stones["#"]=cell{parent={{file_oxyd,"b"}}}
+cells["%"]=cell{floor="fl-bluegreenx"}
 function ac_blackball(x,y)
 n=""
 p=0
 f=0
- if (x==6) and (y==6) then
-  n="ac6x6"
+ if (x==10) and (y==6) then
+  n="ac10x6"
   p=0
   mf=1
  end
-set_actor("ac-blackball",x+0.5,y+0.5,{player=p,name=n,mouseforce=mf})
+set_actor("ac-blackball",x,y+0.5,{player=p,name=n,mouseforce=mf})
 end
 actors["!"]=cell{parent={{ac_blackball}}}
-stones["%"]=cell{stone="st-rock7"}
-function ac_top(x,y)
-n=""
-r=0
-f=0
- init=false
- if (x==13) and (y==6) then
-  n="ac13x6"
-  r=10
-  f=10
-  init=FALSE
- end
-set_actor("ac-top",x+0.5,y+0.5,{range=r,force=f,name=n,gohome=init})
-end
-actors["#"]=cell{parent={{ac_top}}}
 level={"!!!!!!!!!!!!!!!!!!!!",
-       "!$%$%$%$%$%$%$%$%$%$",
-       "!%&%&%&%&%&%&%&%&%&!",
-       "!$%$%$%$%$%$%$%$%$%$",
-       "!%&%&%&%&%&%&%&%&%&!",
-       "!$%$%$%$%$%$%$%$%$%$",
-       "!%&%&%&%&%&%&%&%&%&!",
-       "!$%$%$%$%$%$%$%$%$%$",
-       "!%&%&%&%&%&%&%&%&%&!",
-       "!$%$%$%$%$%$%$%$%$%$",
-       "!%&%&%&%&%&%&%&%&%&!",
-       "!$%$%$%$%$%$%$%$%$%$",
+       "!##$$$$$$$$$$$$$$##!",
+       "!#$$$$###$$###$$$$#!",
+       "!$$$$$#$-$$-$#$$$$$!",
+       "!$$##--$$$$$$--##$$!",
+       "!$$#$$$$$$$$$$$$#$$!",
+       "!$$---$$$%%$$$---$$!",
+       "!$$#$$$$$$$$$$$$#$$!",
+       "!$$##--$$$$$$--##$$!",
+       "!$$$$$#$-$$-$#$$$$$!",
+       "!#$$$$###$$###$$$$#!",
+       "!##$$$$$$$$$$$$$$##!",
        "!!!!!!!!!!!!!!!!!!!!"}
    acmap={"                    ",
           "                    ",
@@ -90,7 +78,7 @@ level={"!!!!!!!!!!!!!!!!!!!!",
           "                    ",
           "                    ",
           "                    ",
-          "      !      #      ",
+          "          !         ",
           "                    ",
           "                    ",
           "                    ",
@@ -110,32 +98,48 @@ level={"!!!!!!!!!!!!!!!!!!!!",
          "                    ",
          "                    ",
          "                    "}
- stmap={"!#$#!#$#!#!#!#!#!#!#",
-        "#         #%#%#%#%#%",
-        "$           !#!#!#!#",
-        "#          %#%#%#%#%",
-        "!         !#$   $#!#",
-        "#                 #%",
-        "$                  $",
-        "#                 #%",
-        "!         !#$   $#!#",
-        "#          %#%#%#%#%",
-        "$           !#!#!#!#",
-        "#         #%#%#%#%#%",
-        "!#$#!#$#!#!#!#!#!#!#"}
+ stmap={"!!!!!!!!!!!!!!!!!!!!",
+        "!                  !",
+        "!                  !",
+        "!      #    #      !",
+        "!                  !",
+        "!   #          #   !",
+        "!                  !",
+        "!   #          #   !",
+        "!                  !",
+        "!      #    #      !",
+        "!                  !",
+        "!                  !",
+        "!!!!!!!!!!!!!!!!!!!!"}
+-- stolen from Nat Pryce ("When Gravity Fails")
+TIMER_INTERVAL1 = 0.1
+TIMER_INTERVAL2 = 0.1231
+LOOP_DURATION = 2.0
+TICK_ANGLE1_DELTA = 360.0 * TIMER_INTERVAL1/LOOP_DURATION
+TICK_ANGLE2_DELTA = 360.0 * TIMER_INTERVAL2/LOOP_DURATION
+GRAVITY = 20.0
+angle1 = 90.0
+angle2 = 90.0
+gravity_x = 0
+gravity_y = 0
+function spin_gravity()
+    angle1 = mod( angle1 + TICK_ANGLE1_DELTA, 360.0 )
+    angle2 = mod( angle2 + TICK_ANGLE2_DELTA, 360.0 )
+    set_gravity()
+end
+function set_gravity()
+    gravity_x = cos(angle1) * GRAVITY
+    gravity_y = sin(angle2) * GRAVITY
+    enigma.AddConstantForce( gravity_x, gravity_y )
+end
 create_world_by_map(level)
 draw_map(0,0,stmap,stones)
 draw_map(0,0,itmap,items)
 draw_map(0,0,acmap,actors)
-if difficult then
-  AddRubberBand(enigma.GetNamedObject("ac13x6"),enigma.GetNamedObject("ac6x6"),15,0)
-  AddRubberBand(enigma.GetNamedObject("ac6x6"),enigma.GetStone(0,6),8,0)
-  AddRubberBand(enigma.GetNamedObject("ac13x6"),enigma.GetStone(19,6),15,0)
-else
-  AddRubberBand(enigma.GetNamedObject("ac13x6"),enigma.GetNamedObject("ac6x6"),8,0)
-  AddRubberBand(enigma.GetNamedObject("ac6x6"),enigma.GetStone(0,6),8,0)
-  AddRubberBand(enigma.GetNamedObject("ac13x6"),enigma.GetStone(19,6),8,0)
-end 
+set_stone( "st-timer", 0, 0,
+           {target="spin_gravity", action="callback",
+            name="timer", interval=0.1} )
+enigma.ConserveLevel = FALSE
 oxyd_shuffle()
     ]]></el:luamain>
     <el:i18n>

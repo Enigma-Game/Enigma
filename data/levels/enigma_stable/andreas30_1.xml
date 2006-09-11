@@ -3,7 +3,7 @@
   <el:protected>
     <el:info el:type="level">
       <el:identity el:title="The Stable" el:subtitle="" el:id="andreas30"/>
-      <el:version el:score="1" el:release="1" el:revision="0" el:status="stable"/>
+      <el:version el:score="1" el:release="1" el:revision="0" el:status="released"/>
       <el:author  el:name="Andreas Lochmann" el:email="" el:homepage=""/>
       <el:copyright>Copyright © 2006 Andreas Lochmann</el:copyright>
       <el:license el:type="GPL v2.0 or above" el:open="true"/>
@@ -14,10 +14,11 @@
       <el:comments>
         <el:code>Lua 5.1 and XML converted by Leveladministrators</el:code>
       </el:comments>
-      <el:score el:easy="-" el:difficult="-"/>
+      <el:score el:easy="-" el:difficult="02:07"/>
     </el:info>
     <el:luamain><![CDATA[
 -- Constructed with the help of BBE.
+-- Solvable in 35 pushes (or less?).
 function file_oxyd(x,y,f)
     oxyd_default_flavor=f
     oxyd(x,y)
@@ -27,6 +28,7 @@ levelw=20
 enigma.FlatForce=30
 enigma.SlopeForce=30
 enigma.ElectricForce=30
+enigma.ShowMoves=TRUE
 cells={}
 items={}
 actors={}

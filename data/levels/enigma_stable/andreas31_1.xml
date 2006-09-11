@@ -3,7 +3,7 @@
   <el:protected>
     <el:info el:type="level">
       <el:identity el:title="Chess, Bugs &amp; Rock'n'Roll" el:subtitle="" el:id="andreas31"/>
-      <el:version el:score="1" el:release="1" el:revision="0" el:status="stable"/>
+      <el:version el:score="1" el:release="1" el:revision="0" el:status="released"/>
       <el:author  el:name="Andreas Lochmann" el:email="" el:homepage=""/>
       <el:copyright>Copyright © 2006 Andreas Lochmann</el:copyright>
       <el:license el:type="GPL v2.0 or above" el:open="true"/>
@@ -14,7 +14,7 @@
       <el:comments>
         <el:code>Lua 5.1 and XML converted by Leveladministrators</el:code>
       </el:comments>
-      <el:score el:easy="-" el:difficult="-"/>
+      <el:score el:easy="-" el:difficult="05:50"/>
     </el:info>
     <el:luamain><![CDATA[
 -- Constructed with the help of BBE 1.05.
@@ -50,15 +50,16 @@ function trigger_call()
   SendMessage(enigma.GetNamedObject("chess"..tostring(random(1,chess_number))), msg)
 end
 myfloor = {}
-myfloor[1] = "fl-lightgray"
-myfloor[2] = "fl-darkgray"
-myfloor[3] = "fl-light"
-myfloor[4] = "fl-lightgray"
-myfloor[5] = "fl-lightgray"
-myfloor[6] = "fl-lightgray"
+myfloor[1] = "fl-black"     -- "fl-lightgray"
+myfloor[2] = "fl-darkgray"  -- "fl-darkgray"
+myfloor[3] = "fl-black"     -- "fl-light"
+myfloor[4] = "fl-wood"      -- "fl-lightgray"
+myfloor[5] = "fl-black"     -- "fl-lightgray"
+myfloor[6] = "fl-black"     -- "fl-lightgray"
 function set_grad(x, y, gx, gy)
   set_floor(myfloor[random(1,6)], x, y,
-    {force_x = gx * 30 + random(-5, 5), force_y = gy * 30 + random(-5, 5)})
+    {force_x = gx * 30 + random(-5, 5), force_y = gy * 30 + random(-5, 5),
+    friction = 3.0, mouseforce = 1.6})
 end
 function set_blackball(x,y)
   set_actor("ac-blackball", x + 0.5, y + 0.5, {mouseforce = 2.0, player = 0})
@@ -71,16 +72,16 @@ actors[" "]=cell{}
 stones[" "]=cell{}
 cells[" "]=cell{}
 items[" "]=cell{}
-cells["!"]=cell{floor="fl-lightgray"}
-cells["#"]=cell{parent={{set_grad, 1, 1}}}
+cells["!"]=cell{floor="fl-wood"}
+cells["#"]=cell{parent={{set_grad, 0.8, 0.8}}}
 cells["$"]=cell{parent={{set_grad, 0, -1}}}
-cells["%"]=cell{parent={{set_grad, 1, -1}}}
+cells["%"]=cell{parent={{set_grad, 0.8, -0.8}}}
 cells["&"]=cell{parent={{set_grad, 1, 0}}}
 cells["'"]=cell{parent={{set_grad, 0, 1}}}
 cells[")"]=cell{parent={{set_grad, -1, 0}}}
-cells[","]=cell{parent={{set_grad, -1, 1}}}
-cells["-"]=cell{parent={{set_grad, -1, -1}}}
-stones["!"]=cell{stone="st-rock6"}
+cells[","]=cell{parent={{set_grad, -0.8, 0.8}}}
+cells["-"]=cell{parent={{set_grad, -0.8, -0.8}}}
+stones["!"]=cell{stone="st-redrock"}   -- st-rock6
 stones["#"]=cell{parent={{file_oxyd,"b"}}}
 stones["C"]=cell{parent={{set_chess}}}
 stones["$"]=cell{stone="st-bug"}
