@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2002,2003,2004,2005,2006 Daniel Heck
+ * Copyright (C) 2002,2003,2004,2005,2006 Daniel Heck, Ronald Lamprecht
  *
  * This program is free software; you can redistribute it and/or
  * modify it under the terms of the GNU General Public License
@@ -34,9 +34,12 @@ namespace enigma { namespace gui {
 /* -------------------- Level Pack Menu -------------------- */
     std::map<std::string, std::string> LevelPackMenu::groupLastSelectedIndex;
     std::map<std::string, int> LevelPackMenu::groupLastSelectedColumn;
+    std::string LevelPackMenu::lastGroupName;
+    int LevelPackMenu::firstDisplayedGroup = 0;
     
     LevelPackMenu::LevelPackMenu() : packsHList (NULL), groupsVList (NULL),
-            scrollLeft (NULL), scrollRight(NULL) {
+            scrollLeft (NULL), scrollRight (NULL), scrollUp (NULL),
+            scrollDown (NULL) {
         const video::VMInfo &vminfo = *video::GetInfo();
         vm = vminfo.videomode;
        
@@ -91,6 +94,8 @@ namespace enigma { namespace gui {
             remove_child(groupsVList);
             delete groupsVList;
             groupsVList = NULL;
+            scrollUp = NULL;   // deleted with groupsVList
+            scrollDown = NULL; // deleted with groupsVList
         }
         
         if (packsHList != NULL) {
@@ -115,22 +120,70 @@ namespace enigma { namespace gui {
         groupButtons.clear();
         
         std::vector<std::string> groupNames = lev::Index::getGroupNames();
+        int groupCount = groupNames.size();
+        std::string curGroupName = lev::Index::getCurrentGroup();
+        bool needUpScroll = false;
+        bool needDownScroll = false;
+        int numDisplayGroups = param[vm].rows;
+        int usedGroupRows = (groupCount > numDisplayGroups) ? numDisplayGroups : groupCount;
+        
+        // correct scroll attempts and screen resolution changes
+        firstDisplayedGroup = ecl::Clamp<int>(firstDisplayedGroup, 0, 
+            (groupCount > numDisplayGroups) ? groupCount - numDisplayGroups : 0);
+        needUpScroll = firstDisplayedGroup > 0;
+        needDownScroll = firstDisplayedGroup < groupCount - numDisplayGroups;
+        if (curGroupName != lastGroupName) {
+            // group changed by indirect user action - ensure it is visible
+            int curGroupPos = getGroupPosition(&groupNames, curGroupName);
+            if (curGroupPos != -1) {
+                if (curGroupPos <= firstDisplayedGroup ) {
+                    if (curGroupPos <= 1) {
+                        needUpScroll = false;
+                        firstDisplayedGroup = 0;
+                    } else {
+                        needUpScroll = true;
+                        firstDisplayedGroup = curGroupPos -1;
+                    }
+                    needDownScroll = firstDisplayedGroup < groupCount - numDisplayGroups;
+                } else if (curGroupPos >= firstDisplayedGroup + numDisplayGroups) {
+                    if (curGroupPos >= groupCount - 1) {
+                        needDownScroll = false;
+                        firstDisplayedGroup = groupCount - numDisplayGroups;
+                    } else {
+                        needDownScroll = true;
+                        firstDisplayedGroup = curGroupPos - numDisplayGroups + 1;
+                    }
+                    needUpScroll = firstDisplayedGroup > 0;
+                }
+            }
+        }
+        
+        
         groupsVList = new VList; 
         groupsVList->set_spacing(param[vm].vrow_row);
         groupsVList->set_alignment(HALIGN_LEFT, VALIGN_CENTER);
         groupsVList->set_default_size(160, 35);
         
-        for (int i = 0; i < groupNames.size(); i++) {
-            TextButton * button = new UntranslatedStaticTextButton(groupNames[i], this);
-            groupButtons.push_back(button);
-            groupsVList->add_back(button);
+        for (int i = 0; i < usedGroupRows; i++) {
+            if (i == 0 && needUpScroll) {
+                scrollUp = new ImageButton("ic-up", "ic-up1", this);
+                groupsVList->add_back(scrollUp);
+            } else if (i == usedGroupRows -1 && needDownScroll) {
+                scrollDown = new ImageButton("ic-down", "ic-down1", this);
+                groupsVList->add_back(scrollDown);
+            } else {
+                TextButton * button = new UntranslatedStaticTextButton(
+                        groupNames[firstDisplayedGroup + i], this);;
+                groupButtons.push_back(button);
+                groupsVList->add_back(button);
+            }
         }
 
         this->add(groupsVList, Rect(param[vm].hmargin, param[vm].vmargin, 
                 160, param[vm].rows * 35 + 
                 (param[vm].rows - 1) * param[vm].vrow_row));
         
-        std::string curGroupName = lev::Index::getCurrentGroup();
+        lastGroupName = curGroupName;
         std::vector<lev::Index *> * group = lev::Index::getGroup(curGroupName);
         unsigned packCount = group->size();
         
@@ -276,6 +329,18 @@ namespace enigma { namespace gui {
         } else if (w == but_search) {
 //            hl->remove_child(but_edit);
             invalidate_all();            
+        } else if (w == scrollUp) {
+            firstDisplayedGroup--;
+            reset_active_widget();  // we will delete it with setup
+            setupMenu();
+            updateHighlight();
+            invalidate_all();            
+        } else if (w == scrollDown) {
+            firstDisplayedGroup++;
+            reset_active_widget();  // we will delete it with setup
+            setupMenu();
+            updateHighlight();
+            invalidate_all();            
         } else if (w->get_parent() == groupsVList){
             lev::Index::setCurrentGroup(dynamic_cast<TextButton *>(w)->get_text());
             reset_active_widget();  // we will delete it with setup
@@ -333,6 +398,17 @@ namespace enigma { namespace gui {
     void LevelPackMenu::draw_background(ecl::GC &gc) {
         video::SetCaption(("Enigma - Level Pack Menu"));
         blit(gc, 0,0, enigma::GetImage("menu_bg", ".jpg"));
+    }
+    
+    int LevelPackMenu::getGroupPosition(std::vector<std::string> * groups, std::string groupName) {
+        std::vector<std::string>::iterator it;
+        int i = 0;
+        for (it = groups->begin(); it != groups->end(); it++, i++) {
+            if ((*it) == groupName) {
+                return i;
+            }
+        }
+        return -1;
     }
     
     int LevelPackMenu::getIndexPosition(std::vector<lev::Index *> * group, std::string indexName) {

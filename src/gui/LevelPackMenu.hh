@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2002,2003,2004,2005,2006 Daniel Heck
+ * Copyright (C) 2002,2003,2004,2005,2006 Daniel Heck, Ronald Lamprecht
  *
  * This program is free software; you can redistribute it and/or
  * modify it under the terms of the GNU General Public License
@@ -41,6 +41,8 @@ namespace enigma { namespace gui {
     private:
         static std::map<std::string, std::string> groupLastSelectedIndex;
         static std::map<std::string, int> groupLastSelectedColumn;
+        static std::string lastGroupName;
+        static int firstDisplayedGroup;
         
         video::VideoModes vm;
         std::vector<TextButton *> packButtons;
@@ -49,6 +51,8 @@ namespace enigma { namespace gui {
         HList       *packsHList;
         ImageButton *scrollLeft;
         ImageButton *scrollRight;        
+        ImageButton *scrollUp;        
+        ImageButton *scrollDown;        
         VList       *groupsVList;
         HList       *commandHList;
         Widget      *but_search;
@@ -58,6 +62,7 @@ namespace enigma { namespace gui {
         
         void setupMenu();
         void updateHighlight();
+        int getGroupPosition(std::vector<std::string> * groups, std::string groupName);
         int getIndexPosition(std::vector<lev::Index *> * group, std::string indexName);
         int checkColumn(int rows, int columns, int size, int position, int oldColumn);
     };
