@@ -282,22 +282,6 @@ void Application::init(int argc, char **argv)
     // set message language
     init_i18n();
     
-    // ----- Load level packs
-    lev::PersistentIndex::registerPersistentIndices();
-//    lua_State *L = lua::GlobalState();
-    lua::Dofile(L, "levels/index.lua");
-    lua::DoSubfolderfile(L, "levels", "index.lua");
-    lua::Dofile(L, "levels/index_user.lua");
-//        levels::AddHistoryLevelPack ();
-    if (!ap.levelnames.empty()) {
-        lev::Index::registerIndex(new lev::VolatileIndex("Quick Test Levels",
-                INDEX_DEFAULT_GROUP, ap.levelnames, 154000));
-        lev::Index::setCurrentIndex("Quick Test Levels");
-    }
-    std::vector<std::string> emptyList;
-    lev::Index::registerIndex(new lev::VolatileIndex("Search Result",
-                INDEX_DEFAULT_GROUP, emptyList, 155000));
-
     // ----- Initialize object repositories
     world::Init();
     if (ap.dumpinfo) {
@@ -339,6 +323,20 @@ void Application::init(int argc, char **argv)
 
     // ----- Load models
     display::Init();
+
+    // ----- Load level packs
+    lev::PersistentIndex::registerPersistentIndices();
+    lua::Dofile(L, "levels/index.lua");
+    lua::DoSubfolderfile(L, "levels", "index.lua");
+    lua::Dofile(L, "levels/index_user.lua");
+    if (!ap.levelnames.empty()) {
+        lev::Index::registerIndex(new lev::VolatileIndex("Quick Test Levels",
+                INDEX_DEFAULT_GROUP, ap.levelnames, 154000));
+        lev::Index::setCurrentIndex("Quick Test Levels");
+    }
+    std::vector<std::string> emptyList;
+    lev::Index::registerIndex(new lev::VolatileIndex("Search Result",
+                INDEX_DEFAULT_GROUP, emptyList, 155000));
 
     // ----- Load oxyd data files
     oxyd::Init();

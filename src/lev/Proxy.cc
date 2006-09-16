@@ -470,8 +470,10 @@ namespace enigma { namespace lev {
             } else {
                 // check metadata - currently just overwrite
                 isLibraryFlag = (getType() == "library") ? true : false;
-                if (!updateReleaseVersion())
-                    throw XLevelLoading(ecl::strf("Release version mismatch on %s: requested %d", normLevelPath.c_str(), releaseVersion));
+                if (!updateReleaseVersion()) {
+                    release();   // avoid load success on a second read attempt
+                    throw XLevelLoading(ecl::strf("Release version mismatch on %s: requested %d\n", normLevelPath.c_str(), releaseVersion));
+                }
                 getId();
                 getTitle();
                 getScoreVersion();

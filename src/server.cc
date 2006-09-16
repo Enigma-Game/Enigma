@@ -150,6 +150,20 @@ void load_level(lev::Proxy *levelProxy)
             throw XLevelLoading(msg);
         }
     }
+    catch (XLevelRuntime &err) {
+        std::string levelPathString = 
+            (levelProxy->getNormPathType() == lev::Proxy::pt_resource) ?
+            levelProxy->getAbsLevelPath() : levelProxy->getNormLevelPath();
+        std::string msg = _("Server Error: could not load level '")
+                               + levelPathString + "'\n"
+                               + err.what();
+        if (!CreatingPreview) {
+            client::Msg_Error(msg);
+            state = sv_idle;
+        } else {
+            throw XLevelLoading(msg);
+        }
+    }
 }
 
 
