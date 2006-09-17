@@ -22,6 +22,7 @@
 #include "gui/Menu.hh"
 #include "gui/LevelWidget.hh"
 #include "lev/Proxy.hh"
+#include "lev/Index.hh"
 
 
 namespace enigma { namespace gui {
@@ -61,8 +62,8 @@ namespace enigma { namespace gui {
 
 
         Widget *pgup, *pgdown, *start, *end;
-        Widget      *but_unsolved;      // Next unsolved level button
-        Widget      *but_tournament;
+        Widget      *but_advancemode;      // Next unsolved level button
+        Widget      *but_next;
         Widget      *but_back;          // "Back" button
         Widget      *but_difficulty;        // "Difficulty" button
         TextButton  *but_levelpack;     // "Levelpack" button
@@ -78,13 +79,23 @@ namespace enigma { namespace gui {
 
 /* -------------------- Buttons -------------------- */
 
-    class DifficultyButton : public TextButton {
-        // TextButton interface.
-        std::string get_text() const;
+    class DifficultyButton : public ImageButton {
         // ActionListener interface.
         void on_action(Widget *);
     public:
         DifficultyButton();
+    private:
+        void update();
+    };
+
+    class AdvanceModeButton : public ImageButton {
+        // ActionListener interface.
+        void on_action(Widget *);
+    public:
+        AdvanceModeButton();
+    private:
+        lev::NextLevelMode mode();
+        void update();
     };
 
 }} // namespace enigma::gui

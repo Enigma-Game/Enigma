@@ -164,12 +164,14 @@ namespace enigma { namespace gui {
         }
         else if (w == options) {
             enigma::gui::ShowOptionsMenu (0);
-            Menu::quit();
+            invalidate_all();
+//            Menu::quit();
         }
         else if (w == info) {
             LevelInspector m(ind->getCurrent());
             m.manage();
-            Menu::quit();
+            invalidate_all();
+//            Menu::quit();
         }
     }
 }} // namespace enigma::gui

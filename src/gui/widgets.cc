@@ -835,6 +835,11 @@ ImageButton::ImageButton(const string &unselected,
     set_listener(al);
 }
 
+void ImageButton::set_images(const string &unselected, const string &selected) {
+    fname_sel = selected;
+    fname_unsel = unselected;
+}
+
 void ImageButton::draw(ecl::GC &gc, const ecl::Rect &r) {
     Button::draw(gc, r);
     string &fname = is_pressed() ? fname_sel : fname_unsel;

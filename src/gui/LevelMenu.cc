@@ -40,14 +40,14 @@ namespace enigma { namespace gui {
 /* -------------------- Level Menu -------------------- */
     
     struct LevelMenuConfig {
-        int buttonw, buttonh;
+        int buttonw, ibuttonw, buttonh;
         int lbuttonw, lbuttonh;
         ecl::Rect previewarea;
         int thumbsy;                // y coordinate of thumbnail window
         int leftborder;
     
         LevelMenuConfig (const ecl::Rect &screen)
-        : buttonw (140), buttonh (35),
+        : buttonw (140), ibuttonw (90), buttonh (35),
           lbuttonw (140), lbuttonh (100),
           previewarea (10, 60, screen.w-50, screen.h-130),
           thumbsy (60),
@@ -56,7 +56,8 @@ namespace enigma { namespace gui {
     };
     
     LevelMenu::LevelMenu()
-    : but_unsolved   (new ImageButton("ic-unsolved", "ic-unsolved1", this)), 
+    : but_advancemode (new AdvanceModeButton),
+      but_next       (new ImageButton("ic-next", "ic-next1", this)),
     //  but_tournament (new TournamentButton),
       but_back       (new StaticTextButton(N_("Main Menu"), this)),
       but_difficulty (new DifficultyButton),
@@ -67,7 +68,7 @@ namespace enigma { namespace gui {
       lbl_levelinfo  (new Label("", HALIGN_LEFT)),
       shown_text_ttl(-1.0)
     {
-        HList *hl;
+        HList *hl, *hll, *hlr ;
     
         const video::VMInfo &vminfo = *video::GetInfo();
     
@@ -81,14 +82,27 @@ namespace enigma { namespace gui {
     
     
         // Create buttons
+        hll = new HList;
+        hll->set_spacing (10);
+        hll->set_alignment (HALIGN_CENTER, VALIGN_TOP);
+        hll->set_default_size (c.ibuttonw, c.buttonh);
+        hll->add_back (but_advancemode);
+        hll->add_back (but_next);
+        hll->add_back (but_difficulty);
+        
+        hlr = new HList;
+        hlr->set_spacing (10);
+        hlr->set_alignment (HALIGN_CENTER, VALIGN_TOP);
+        hlr->set_default_size (c.buttonw, c.buttonh);
+        hlr->add_back (but_levelpack);
+        hlr->add_back (but_back);
+        
         hl = new HList;
         hl->set_spacing (10);
         hl->set_alignment (HALIGN_CENTER, VALIGN_TOP);
-        hl->set_default_size (c.buttonw, c.buttonh);
-        hl->add_back (but_levelpack);
-        hl->add_back (but_unsolved);
-        hl->add_back (but_difficulty);
-        hl->add_back (but_back);
+        hl->set_default_size (2*c.buttonw + 10, c.buttonh);
+        hl->add_back (hll);
+        hl->add_back (hlr);
         this->add (hl, Rect(c.leftborder, Y3, vminfo.width-20, c.buttonh));
         
     //     BuildHList hlist1(this, Rect(c.leftborder, Y3, c.buttonw, c.buttonh), 10);
@@ -252,7 +266,7 @@ namespace enigma { namespace gui {
             levelwidget->start();
         } else if (w == end) {
             levelwidget->end();
-        } else if (w == but_unsolved) {
+        } else if (w == but_next) {
             next_unsolved();
         } else if (w == but_levelpack) {
             main_quit = false;
@@ -403,15 +417,15 @@ namespace enigma { namespace gui {
 
     /* -------------------- DifficultyButton -------------------- */
     
-    DifficultyButton::DifficultyButton() : TextButton(this) {
+    DifficultyButton::DifficultyButton() : ImageButton("completed","completed",this) {
+        update();
     }
     
-    string DifficultyButton::get_text() const 
-    {
+    void DifficultyButton::update() {
         if (options::GetDifficulty() == DIFFICULTY_EASY)
-            return _("Difficulty: Easy");
+            ImageButton::set_images("completed-easy","completed");
         else
-            return _("Difficulty: Normal");
+            ImageButton::set_images("completed","completed-easy");
     }
     
     void DifficultyButton::on_action(Widget *) 
@@ -419,6 +433,53 @@ namespace enigma { namespace gui {
         int newdifficulty = (DIFFICULTY_EASY+DIFFICULTY_HARD) - options::GetDifficulty();
         options::SetOption("Difficulty", newdifficulty);
         options::MustRestartLevel = true;
+        update();
+        invalidate();
+    }
+    
+    /* -------------------- AdvanceModeButton -------------------- */
+    
+    AdvanceModeButton::AdvanceModeButton() : ImageButton("","",this) {
+        update();
+    }
+    
+    lev::NextLevelMode AdvanceModeButton::mode() {
+        if (options::GetBool("SkipSolvedLevels")) 
+            return lev::NEXT_LEVEL_UNSOLVED;
+        if (options::GetBool("TimeHunting"))
+            return lev::NEXT_LEVEL_NOT_BEST;
+        return lev::NEXT_LEVEL_STRICTLY;
+    }
+    
+    void AdvanceModeButton::update() {
+        switch (mode()) {
+        case lev::NEXT_LEVEL_STRICTLY :
+            ImageButton::set_images("ic-strictlynext","ic-unsolved");
+            break;        
+        case lev::NEXT_LEVEL_UNSOLVED :
+            ImageButton::set_images("ic-unsolved", "par");
+            break;
+        case lev::NEXT_LEVEL_NOT_BEST :
+            ImageButton::set_images("par", "ic-strictlynext");
+        }
+    }
+    
+    void AdvanceModeButton::on_action(Widget *) 
+    {
+        switch (mode()) {
+        case lev::NEXT_LEVEL_STRICTLY :
+            options::SetOption("SkipSolvedLevels", true);
+            options::SetOption("TimeHunting", false);
+            break;        
+        case lev::NEXT_LEVEL_UNSOLVED :
+            options::SetOption("SkipSolvedLevels", false);
+            options::SetOption("TimeHunting", true);
+            break;
+        case lev::NEXT_LEVEL_NOT_BEST :
+            options::SetOption("SkipSolvedLevels", false);
+            options::SetOption("TimeHunting", false);
+        }
+        update();
         invalidate();
     }
     

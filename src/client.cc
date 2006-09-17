@@ -79,7 +79,7 @@ namespace
             text += _(" by ") + tmp;
         tmp = level->getLocalizedString("subtitle");
         if (!tmp.empty() && tmp != "subtitle")
-           text += string(" - ")+ tmp; 
+           text += string(" - \"")+ tmp + "\""; 
         tmp = level->getCredits(false);
         if (!tmp.empty())
             text += string(" - Credits: ")+ tmp; 
