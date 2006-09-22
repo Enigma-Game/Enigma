@@ -581,7 +581,7 @@ automatic convertion of Enigma 0.92 levelpacks
 
 @end itemize
 
-Some of these features work seamless. You can use them immediately from the
+Some of these features work seamlessy. You can use them immediately from the
 levelpack menu. For others you may need to know where to place files. We will
 explain these details in the following sections:
 
@@ -598,13 +598,127 @@ explain these details in the following sections:
 One of the outstanding features of Enigma is its extendibility by new levels.
 And the community of users usually provides us every week several new great levels.
 
+Adding a new level that you receive as an XML file is very simple. Locate the
+subdirectory @samp{levels/auto} on your @samp{user path} (@pxref{Locating Resources}).
+Just copy the level file to this folder and restart Enigma. The new level will be
+part of the @samp{Auto} levelpack and can be played like any other level.
 
+Please note that errornous or incompatible levels are displayed with an error
+icon in the level menu. Of course an attempt to run such a level will result in
+an error message. Have a look at the level metadata with the levelinspector 
+(@pxref{Level Info}) to identify the required compatibility version and contact
+the author via the address in case of level code errors.
+
+A second way to run new levels is to add the address of the level files to the
+commandline (@pxref{Startup Switches}). This way you can play levels that are
+stored anywhere. Even Url addresses of levels stored in the internet may be used.
+Levels added to the commandline are accessable via the @samp{Quick Test Levels}
+levelpack. 
+
+If you want to run an old fashioned Lua level that was written for Enigma 0.92
+or earlier you may try to start it via the commandline. These old levels miss
+necessary metadata for auto detection. But commandline supplied levels are 
+treated as temporary levels that are available just for a single run of Enigma.
+The missing data is substituted by reasonable defaults. You will have good 
+chances that the level will run, but scoring and copy, past and linking of
+such levels is not possible.
+
+Besides single new levels the community may provide you with complete levelpacks,
+too. These levelpacks may occur as directories with levels, zip archives or single
+XML files. All of them can be installed by simple copying the files. But we have
+to distinguish the three formats.
+
+Levelpacks that are distributed as directories with level files and an index file
+in it have just to be copied to the subdirectory @samp{levels} on your @samp{user path}
+(@pxref{Locating Resources}).
+
+Levelpacks that are distributed as zip archives have to be copied to the subdirectory
+@samp{levels} on your @samp{user path}. There is no need to unpack the zip even
+though it is possible as described in the section @ref{Zip Levelpacks}.
+
+Levelpacks that are distributed as a single XML index file have to copied to the
+subdirectory @samp{levels/cross} on your @samp{user path}.
+
+After restarting Enigma all new levelpacks should be accessable via the levelpack
+menu.
+
+That is all you need to know to be able to add new levels and levelpacks for
+testing and playing. If your main interest lies in writing own levels you may 
+want to preceed directly to chapter @ref{Level Basics}. The rest of this chapter
+explains how to arrange and sort existing levels in own levelpacks.
 
 @node Converting 0.92 Levelpacks, Zip Levelpacks, Getting Started with Levelpacks, Levelpack Basics
 @section Converting 0.92 Levelpacks
 
+With the changes of the levelpack index format it is necessary to convert old
+levelpacks. Even though the main work is done automatically just by starting
+Enigma a few special cases remain that need manual preparations. Furtheron some 
+cleanup after the autoconvertion may be useful.
+
+If you used to maintain your levelpacks within the Enigma system levels directory
+you should now copy your own levelpacks from the old Enigma version to the @samp{user path}
+subdir @samp{levels} (@pxref{Locating Resources}). The @samp{user path} exists
+on all systems and as Enigma 1.00 will never write to the system levels directory
+updates and convertions will only be performed on the @samp{user path}. If you
+registered your levelpacks on the system levels directory within the @samp{index.lua}
+file you need to copy these registration lines to a file names @samp{index_user.lua}
+which you shoud store on your @samp{user path}.
+
+If you maintained several own levelpacks Enigma 0.92 allowed you to keep them
+in several subdirectories of the @samp{levels} directory. But you were also allowed
+to keep all level files and different indices in the @samp{levels} directroy
+itself. In this last case you will run into trouble with the auto convertion as
+Enigma 1.00 allows only one levelpack with attached level files per directory.
+In this case we recommend a step by step convertion: in every step provide only
+one old index for convertion. Enigma will convert this index to an new @samp{index.xml}.
+Move this new index together with all levels to a subdirectory and convert the
+next levelpack.
+
+A last special case occurs if you had an old index stored in @samp{levels} that
+referenced level files in different subdirectories of @samp{levels}. As Enigma 0.92
+did not had a concept of cross references and Enigma 1.00 requires all level files
+attached to a levelpack to be stored in a single subdirectory the convertion
+algorithm needs to guess the correct subdirectory. It just takes the subdirectory
+of the first level. If this does not fit you may need to clean up your 0.92
+levelpack prior to convertion.
+
+All other standard levelpacks should be converted without problems. The convertion
+is just performed once. As soon as the new @samp{index.xml} exists only this 
+index is used. Thus after a careful check you may remove the old @samp{index.txt}.
+We recommend to keep a backup of the old index until you completly switched to
+Enigma 1.00.
+
+In the case that you used an own levelpack in the zip format you will find a
+subdirectory named with the base name of the zip archive in your user @samp{levels}
+directory. Within this directory the converted @samp{index.xml} is stored. You
+may want to exchange the old @samp{index.txt} in the zip with the new index.
+Afterwards you can delete the subdirectory as the index will be loaded directly
+from the zip archive.
+
+After converting your levelpacks we strongly recommend that you update your own
+levels to the new XML format as described in @ref{Level Basics}.
+
 @node Zip Levelpacks, Grouping and Sorting Levelpacks, Converting 0.92 Levelpacks, Levelpack Basics
 @section Zip Levelpacks
+
+Besides the classical levelpack format of a subdirectory of @samp{levels} with
+an @samp{index.xml} and several level files Enigma 1.00 provides a compatible
+zip archive format. This zip allows you to reduce resources and to ease distribution
+of levelpacks.
+
+The compatibility is 100%. If you have a classical subdirectory levelpack you
+can simply zip the complete subdirectory and name the zip with the name of the 
+subdirectory plus standard @samp{.zip} suffix. Now you can completly remove the
+subdirectory and the levelpack is autodetected and fully playable. Even cross
+references into this levelpacks will not be broken!
+
+On the other hand you are allowed to expand every zip levelpack to a subdirectory
+with index and level files. Again everything runs and no crossreferences are
+broken.
+
+If you keep both, files contained in the subdirectory preceed files in the zip
+archive. Thus updates of single files are stored in subdirectories in parallel
+to existing zip archives.
 
 @node Grouping and Sorting Levelpacks, , Zip Levelpacks, Levelpack Basics
 @section Grouping and Sorting Levelpacks
@@ -6262,7 +6376,7 @@ The range of @ref{it-wormhole}.  Default: 10.0.
 
 
 
-@node Functions, Index, Variables, Top
+@node Functions, Function Index, Variables, Top
 @chapter Functions
 
 @menu
