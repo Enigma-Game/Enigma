@@ -428,9 +428,9 @@ namespace enigma { namespace gui {
                     const std::string &selected,
                     ActionListener    *al = 0);
         void set_images(const std::string &unselected, const std::string &selected);
-    private:
         // Widget interface.
-        void        draw(ecl::GC &gc, const ecl::Rect &r);
+        virtual void draw(ecl::GC &gc, const ecl::Rect &r);
+    private:
         std::string fname_sel, fname_unsel;
     };
 

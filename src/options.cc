@@ -71,7 +71,7 @@ namespace enigma_options
 {
     bool LevelStatusChanged = false;
 //    bool MustRestart        = false;
-    bool MustRestartLevel   = false;
+//    bool MustRestartLevel   = false;
 }
 
 
@@ -97,21 +97,21 @@ bool options::HasOption (const char *name, std::string &value) {
 
 void options::SetOption (const char *name, double value)
 {
-    app.prefs->setPref(name, value);
+    app.prefs->setProperty(name, value);
 }
 
 void options::SetOption (const char *name, const std::string &value)
 {
-    app.prefs->setPref(name, value);
+    app.prefs->setProperty(name, value);
 }
 
 void options::GetOption (const char *name, double &value)
 {
-    app.prefs->getPref(name, value);
+    app.prefs->getProperty(name, value);
 }
 
 void options::GetOption (const char *name, std::string &value) {
-    app.prefs->getPref(name, value);
+    app.prefs->getProperty(name, value);
 } 
 
 bool options::GetBool (const char *name) {
@@ -225,10 +225,10 @@ options::SetLevelStatus(const std::string &levelname,
     UpdateLevelStatus(levelname, stat);
 }
 
-int options::GetDifficulty()
-{
-    return GetInt ("Difficulty");
-}
+//int options::GetDifficulty()
+//{
+//    return GetInt ("Difficulty");
+//}
 
 /* Determine name of the user's personal configuration file. */
 static std::string

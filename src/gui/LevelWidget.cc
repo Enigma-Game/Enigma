@@ -26,6 +26,7 @@
 #include "nls.hh"
 #include "options.hh"
 #include "sound.hh"
+#include "StateManager.hh"
 #include "video.hh"
 #include "file.hh"
 #include "lev/Proxy.hh"
@@ -218,7 +219,7 @@ namespace enigma { namespace gui {
     
         if (showScore) {
             // Draw solved/changed icons on top of level preview
-            if (options::GetDifficulty() == DIFFICULTY_HARD) {
+            if (app.state->getInt("Difficulty") == DIFFICULTY_HARD) {
                 // draw golden medal over silber medal
                 if (scoreMgr->isSolved(proxy, DIFFICULTY_EASY))
                     blit (gc, x, y, img_easy);
@@ -234,11 +235,11 @@ namespace enigma { namespace gui {
             }
         
             // Add warning sign if level has been changed since player solved it
-            if (scoreMgr->isOutdated(proxy, options::GetDifficulty()))
+            if (scoreMgr->isOutdated(proxy, app.state->getInt("Difficulty")))
                 blit (gc, x-3, y-3, img_changed);
         
             // Add time icon if par has been reached
-            if (scoreMgr->bestScoreReached(proxy, options::GetDifficulty()))
+            if (scoreMgr->bestScoreReached(proxy, app.state->getInt("Difficulty")))
                 blit(gc, x+30, y+12, img_par);
         }
     

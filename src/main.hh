@@ -21,6 +21,7 @@
 
 #include "file.hh"
 #include "PreferenceManager.hh"
+#include "StateManager.hh"
 #include "DOMErrorReporter.hh"
 #include "DOMSchemaResolver.hh"
 #include <string>
@@ -154,6 +155,11 @@ namespace enigma
         PreferenceManager * prefs;
         
         /**
+         * the singleton instance of our state manager.
+         */
+        StateManager * state;
+        
+        /**
          * A xerces transcoder for utf-8.
          */
         XERCES_CPP_NAMESPACE_QUALIFIER XMLTranscoder   *xmlUtf8Transcoder;
@@ -198,6 +204,7 @@ namespace enigma
          * The error handler attached to the domSer
          */
         DOMErrorReporter *domSerErrorHandler;
+        bool errorInit;
 
 
     private:

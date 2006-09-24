@@ -29,6 +29,7 @@
 #include "options.hh"
 #include "server.hh"
 #include "sound.hh"
+#include "StateManager.hh"
 #include "video.hh"
 #include "lev/Index.hh"
 
@@ -201,7 +202,7 @@ namespace enigma { namespace gui {
                 case SDLK_SPACE: next_levelpack(); break;
                 case SDLK_BACKSPACE: previous_levelpack(); break;
                 case SDLK_F1:
-                    if (options::GetBool("TimeHunting"))
+                    if (app.state->getInt("NextLevelMode") == lev::NEXT_LEVEL_NOT_BEST)
                         helptext_levelmenu[5] = N_("Select next level for best score hunt");
                     else
                         helptext_levelmenu[5] = N_("Select next unsolved level");
@@ -214,13 +215,13 @@ namespace enigma { namespace gui {
                     break;
                 case SDLK_u: {
                     lev::ScoreManager::instance()->markUnsolved(lev::Index::getCurrentProxy(), 
-                            options::GetDifficulty());
+                            app.state->getInt("Difficulty"));
                     invalidate_all(); 
                     break;    
                 }      
                 case SDLK_s:
                     lev::ScoreManager::instance()->markSolved(lev::Index::getCurrentProxy(), 
-                            options::GetDifficulty());
+                            app.state->getInt("Difficulty"));
                     invalidate_all();
                     break;
                 default: handled=false; break;
@@ -287,7 +288,7 @@ namespace enigma { namespace gui {
         int size = ind->size();
         lev::ScoreManager *scm = lev::ScoreManager::instance();
         lev::Proxy *curProxy = ind->getCurrent();
-        int difficulty = options::GetDifficulty();
+        int difficulty = app.state->getInt("Difficulty");
         
         lbl_lpinfo->set_text(ecl::strf(_("%s: %d levels"),
                 ind->getName().c_str(), size));
@@ -303,7 +304,7 @@ namespace enigma { namespace gui {
     
             // Display levelpack statistics (percentage of solved levels)
     
-            if (options::GetBool("TimeHunting")) {
+            if (app.state->getInt("NextLevelMode") == lev::NEXT_LEVEL_NOT_BEST) {
                 int pct = 100* scm->countBestScore(ind, difficulty)/ size;
                 lbl_statistics->set_text(ecl::strf(_("%d%% best"), pct));
             }
@@ -389,7 +390,7 @@ namespace enigma { namespace gui {
     void LevelMenu::next_unsolved() 
     {
         lev::Index *ind = lev::Index::getCurrentIndex();
-        if (ind->advanceLevel(lev::ADVANCE_UNSOLVED)) {
+        if (ind->advanceLevel(lev::ADVANCE_NEXT_MODE)) {
             levelwidget->syncFromIndexMgr();
         } else
             show_text(_("No further unsolved level available!"));
@@ -422,7 +423,7 @@ namespace enigma { namespace gui {
     }
     
     void DifficultyButton::update() {
-        if (options::GetDifficulty() == DIFFICULTY_EASY)
+        if (app.state->getInt("Difficulty") == DIFFICULTY_EASY)
             ImageButton::set_images("completed-easy","completed");
         else
             ImageButton::set_images("completed","completed-easy");
@@ -430,11 +431,14 @@ namespace enigma { namespace gui {
     
     void DifficultyButton::on_action(Widget *) 
     {
-        int newdifficulty = (DIFFICULTY_EASY+DIFFICULTY_HARD) - options::GetDifficulty();
-        options::SetOption("Difficulty", newdifficulty);
-        options::MustRestartLevel = true;
-        update();
+        int newdifficulty = (DIFFICULTY_EASY+DIFFICULTY_HARD) - app.state->getInt("Difficulty");
+        app.state->setProperty("Difficulty", newdifficulty);        update();
         invalidate();
+    }
+
+    void DifficultyButton::draw(ecl::GC &gc, const ecl::Rect &r) {
+        update();
+        ImageButton::draw(gc, r);
     }
     
     /* -------------------- AdvanceModeButton -------------------- */
@@ -442,42 +446,34 @@ namespace enigma { namespace gui {
     AdvanceModeButton::AdvanceModeButton() : ImageButton("","",this) {
         update();
     }
-    
-    lev::NextLevelMode AdvanceModeButton::mode() {
-        if (options::GetBool("SkipSolvedLevels")) 
-            return lev::NEXT_LEVEL_UNSOLVED;
-        if (options::GetBool("TimeHunting"))
-            return lev::NEXT_LEVEL_NOT_BEST;
-        return lev::NEXT_LEVEL_STRICTLY;
-    }
-    
+        
     void AdvanceModeButton::update() {
-        switch (mode()) {
-        case lev::NEXT_LEVEL_STRICTLY :
-            ImageButton::set_images("ic-strictlynext","ic-unsolved");
-            break;        
+        switch (app.state->getInt("NextLevelMode")) {
         case lev::NEXT_LEVEL_UNSOLVED :
             ImageButton::set_images("ic-unsolved", "par");
             break;
         case lev::NEXT_LEVEL_NOT_BEST :
             ImageButton::set_images("par", "ic-strictlynext");
+            break;
+        case lev::NEXT_LEVEL_STRICTLY : // use as default, too
+        default:
+            ImageButton::set_images("ic-strictlynext","ic-unsolved");
+            break;        
         }
     }
     
     void AdvanceModeButton::on_action(Widget *) 
     {
-        switch (mode()) {
+        switch (app.state->getInt("NextLevelMode")) {
         case lev::NEXT_LEVEL_STRICTLY :
-            options::SetOption("SkipSolvedLevels", true);
-            options::SetOption("TimeHunting", false);
+            app.state->setProperty("NextLevelMode", lev::NEXT_LEVEL_UNSOLVED);
             break;        
         case lev::NEXT_LEVEL_UNSOLVED :
-            options::SetOption("SkipSolvedLevels", false);
-            options::SetOption("TimeHunting", true);
+            app.state->setProperty("NextLevelMode", lev::NEXT_LEVEL_NOT_BEST);
             break;
         case lev::NEXT_LEVEL_NOT_BEST :
-            options::SetOption("SkipSolvedLevels", false);
-            options::SetOption("TimeHunting", false);
+        default:
+            app.state->setProperty("NextLevelMode", lev::NEXT_LEVEL_STRICTLY);
         }
         update();
         invalidate();

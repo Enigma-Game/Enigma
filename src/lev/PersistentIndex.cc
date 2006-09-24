@@ -442,7 +442,7 @@ namespace enigma { namespace lev {
                         levelsElem = dynamic_cast<DOMElement *>(doc->getElementsByTagName(
                                 Utf8ToXML("levels").x_str())->item(0));
                     }
-                     if(app.domParserErrorHandler->getSawErrors()) {
+                    if(app.domParserErrorHandler->getSawErrors()) {
                         errMessage = errStream.str();
                     }
                     app.domParserErrorHandler->reportToNull();  // do not report to errStream any more

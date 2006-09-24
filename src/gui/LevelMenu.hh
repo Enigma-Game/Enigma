@@ -84,6 +84,7 @@ namespace enigma { namespace gui {
         void on_action(Widget *);
     public:
         DifficultyButton();
+        virtual void draw(ecl::GC &gc, const ecl::Rect &r);
     private:
         void update();
     };
@@ -94,7 +95,6 @@ namespace enigma { namespace gui {
     public:
         AdvanceModeButton();
     private:
-        lev::NextLevelMode mode();
         void update();
     };
 

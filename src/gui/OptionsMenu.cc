@@ -400,8 +400,11 @@ namespace enigma { namespace gui {
 
         BuildVList bottomlabels (this, Rect(-label_width, Max(l.y, r.y), label_width, but_height), spacing);
         BuildVList bottom (this, Rect(0, Max(l.y, r.y), vminfo->width - 2*hmargin - label_width, but_height), spacing);
+        bottomlabels.add (new Label(N_("User name: "), HALIGN_RIGHT));
         bottomlabels.add (new Label(N_("User path: "), HALIGN_RIGHT));
         bottomlabels.add (new Label(N_("User image path: "), HALIGN_RIGHT));
+        userNameTF = new TextField(app.state->getString("UserName"));
+        bottom.add (userNameTF);
         userPathTF = new TextField(XMLtoUtf8(LocalToXML(app.userPath.c_str()).x_str()).c_str());
         bottom.add (userPathTF);
         userImagePathTF = new TextField(XMLtoUtf8(LocalToXML(app.userImagePath.c_str()).x_str()).c_str());
@@ -432,6 +435,7 @@ namespace enigma { namespace gui {
 //    }
     
     void OptionsMenu::quit() {
+        app.state->setProperty("UserName", userNameTF->getText());
         app.setUserPath(XMLtoLocal(Utf8ToXML(userPathTF->getText().c_str()).x_str()).c_str());
         app.setUserImagePath(XMLtoLocal(Utf8ToXML(userImagePathTF->getText().c_str()).x_str()).c_str());
         Menu::quit();

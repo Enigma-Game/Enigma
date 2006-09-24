@@ -69,7 +69,7 @@ namespace enigma_options
       current level (e.g. Difficulty changed during the game).  When
       'MustRestartLevel' is set to true, the current level will
       restart w/o any further questions. */
-    extern bool MustRestartLevel;
+//    extern bool MustRestartLevel;
 
 /* -------------------- Functions -------------------- */
 
@@ -99,7 +99,7 @@ namespace enigma_options
     void SetLevelStatus(const std::string &levelname,
                         const LevelStatus &stat);
 
-    int GetDifficulty();
+//    int GetDifficulty();
 
 
     /*! Set the sound and music volume to the values in SoundVolume

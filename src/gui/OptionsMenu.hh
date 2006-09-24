@@ -43,6 +43,7 @@ namespace enigma { namespace gui {
 
         // Variables.
         gui::Widget *back, *fullscreen, *language;
+        gui::TextField *userNameTF;
         gui::TextField *userPathTF;
         gui::TextField *userImagePathTF;
         gui::Label  *m_restartinfo;

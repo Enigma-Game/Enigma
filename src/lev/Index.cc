@@ -23,6 +23,7 @@
 #include "options.hh"
 #include "oxyd.hh"
 #include "PreferenceManager.hh"
+#include "StateManager.hh"
 #include "lev/ScoreManager.hh"
 #include "lev/RatingManager.hh"
 
@@ -31,12 +32,21 @@ namespace enigma { namespace lev {
 
     std::map<std::string, Index *> Index::indices;
     std::map<std::string, std::vector<Index *> *> Index::indexGroups;
-    std::map<std::string, std::string> Index::groupSelectedIndex; // tmp
-    std::map<std::string, int> Index::groupSelectedColumn;  // tmp
+
     Index * Index::currentIndex = NULL;
     std::string Index::currentGroup;
     std::map<std::string, std::string> Index::nullExtensions;
             
+    void Index::initGroups() {
+        ASSERT(indexGroups.empty(), XFrontend, "Reinitialization of groups");
+        std::vector<std::string> groupNames = getGroupNames();
+        for (int i = 0; i < groupNames.size(); i++) {
+            std::vector<Index *> *group = new std::vector<Index *>;
+            indexGroups.insert(std::make_pair(groupNames[i], group));
+        }
+        currentGroup = app.state->getString("CurrentGroup");
+    }
+    
     void Index::registerIndex(Index *anIndex) {
         if (anIndex == NULL)
             return;
@@ -52,24 +62,47 @@ namespace enigma { namespace lev {
         
         // if no prefs ask for index default group
         
-        std::map<std::string, std::vector<Index *> *>::iterator i = indexGroups.find(groupName);
-        if (i != indexGroups.end()) {
-            group = i->second;
-        } else {
-            // make the group
-            group = new std::vector<Index *>;
-            indexGroups.insert(std::make_pair(groupName, group));
-            groupSelectedIndex.insert(std::make_pair(groupName, anIndex->getName()));
-            groupSelectedColumn.insert(std::make_pair(groupName, 0));
+        // make new group if not existing
+        if (groupName != INDEX_EVERY_GROUP) {
+            std::map<std::string, std::vector<Index *> *>::iterator i = indexGroups.find(groupName);
+            if (i != indexGroups.end()) {
+                group = i->second;
+            } else {
+                // make the group
+                group = new std::vector<Index *>;
+                indexGroups.insert(std::make_pair(groupName, group));
+                app.state->addGroup(groupName, anIndex->getName(), 0);
+                
+                // fill group with indices that appear in every group
+                std::map<std::string, Index *>::iterator iti;
+                for (iti = indices.begin(); iti != indices.end(); iti++)
+                    if ((*iti).second->getGroupName() == INDEX_EVERY_GROUP)
+                        addIndexToGroup((*iti).second, group);
+            }
         }
         
-        // insert according to user prefs or index defaults
+        if (groupName != INDEX_EVERY_GROUP) {
+            // insert according to user prefs or index defaults
+            addIndexToGroup(anIndex, group);
+            addIndexToGroup(anIndex, getGroup(INDEX_ALL_PACKS));        
+        } else {
+            // add index to all groups inclusive INDEX_ALL_PACKS
+            std::map<std::string, std::vector<Index *> *>::iterator itg;
+            for (itg = indexGroups.begin(); itg != indexGroups.end(); itg++)
+                addIndexToGroup(anIndex, (*itg).second);
+        }
+        // register index in state.xml and update current position, first with last values        
+        app.state->addIndex(anIndex->getName(), "", 0, 
+                anIndex->currentPosition, anIndex->screenFirstPosition);
+    }
+    
+    void Index::addIndexToGroup(Index *anIndex, std::vector<Index *> * aGroup) {
         std::vector<Index *>::iterator itg;
-        for (itg = group->begin(); itg != group->end() && 
+        for (itg = aGroup->begin(); itg != aGroup->end() && 
                 (*itg)->indexDefaultLocation <= anIndex->indexDefaultLocation; 
                 itg++) {
         }
-        group->insert(itg, anIndex);        
+        aGroup->insert(itg, anIndex);
     }
      
     Index * Index::findIndex(std::string anIndexName) {
@@ -92,15 +125,18 @@ namespace enigma { namespace lev {
     }
     
     void Index::setCurrentGroup(std::string groupName) {
+        // set group - even "All Packs"
+        app.state->setProperty("CurrentGroup", groupName);
         currentGroup = groupName;
+        
+        // set current index for desired group - this resets again the group, 
+        // but not for "All Packs" as it is not the index natural group
         setCurrentIndex(getGroupSelectedIndex(groupName));
     }
     
     std::vector<std::string> Index::getGroupNames() {
         std::vector<std::string> names;
-        std::map<std::string, std::vector<Index *> *>::iterator it;
-        for (it = indexGroups.begin(); it != indexGroups.end(); it++)
-            names.push_back(it->first);
+        app.state->getGroupNames(&names);
         return names;
     }
     
@@ -114,36 +150,37 @@ namespace enigma { namespace lev {
     }
 
     std::string Index::getGroupSelectedIndex(std::string groupName) {
-        std::map<std::string, std::string>::iterator i = groupSelectedIndex.find(groupName);
-        if (i != groupSelectedIndex.end()) {
-            return i->second;
-        } else {
-            return "";
-        }
+        return app.state->getGroupSelectedIndex(groupName);
     }
     
     int Index::getGroupSelectedColumn(std::string groupName) {
-        std::map<std::string, int>::iterator i = groupSelectedColumn.find(groupName);
-        if (i != groupSelectedColumn.end()) {
-            return i->second;
-        } else {
+        std::string columnString = app.state->getGroupSelectedColumn(groupName);
+        if (columnString.empty())
             return INDEX_GROUP_COLUMN_UNKNOWN;
+        else {
+            int col = INDEX_GROUP_COLUMN_UNKNOWN;
+            std::sscanf(columnString.c_str(), "%i", &col);
+            return col;
         }
     }
     
     void Index::setGroupSelectedIndex(std::string groupName, std::string indexName) {
-        groupSelectedIndex[groupName] = indexName;
+        app.state->setGroupSelectedIndex(groupName, indexName);
     }
     
     void Index::setGroupSelectedColumn(std::string groupName, int column) {
-        groupSelectedColumn[groupName] = column;
+        if (column == INDEX_GROUP_COLUMN_UNKNOWN)       
+            app.state->setGroupSelectedColumn(groupName, "");
+        else
+            app.state->setGroupSelectedColumn(groupName, ecl::strf("%d",column));
     }
     
     Index * Index::getCurrentIndex() {
         if (currentIndex == NULL) {
             // first look for user preference
-            if (setCurrentIndex(app.prefs->getString("CurrentIndex")))
-                currentIndex->setCurrentPosition(app.prefs->getInt("CurrentPosition"));
+            if (setCurrentIndex(app.state->getGroupSelectedIndex(
+                    app.state->getString("CurrentGroup"))))
+                ;
             
             // fallback to "Tutorial" pack
             else if (setCurrentIndex("Tutorial"))
@@ -169,11 +206,17 @@ namespace enigma { namespace lev {
         if (newIndex != NULL) {
             if (newIndex != currentIndex) {
                 oxyd::ChangeSoundset(newIndex->get_default_SoundSet(), -1);
-                app.prefs->setPref("CurrentIndex", anIndexName);
                 currentIndex = newIndex;
-                currentGroup = currentIndex->getGroupName();
-                setGroupSelectedIndex(currentGroup, currentIndex->getName());
-                setGroupSelectedColumn(currentGroup, INDEX_GROUP_COLUMN_UNKNOWN);
+                std::string group = currentIndex->getGroupName();
+                if (group != INDEX_EVERY_GROUP && 
+                        app.state->getString("CurrentGroup") != INDEX_ALL_PACKS) {
+                    app.state->setProperty("CurrentGroup", group);
+                    currentGroup = group;
+                }
+                if (getGroupSelectedIndex(currentGroup) != currentIndex->getName()) {
+                    setGroupSelectedIndex(currentGroup, currentIndex->getName());
+                    setGroupSelectedColumn(currentGroup, INDEX_GROUP_COLUMN_UNKNOWN);
+                }
             }
             return true;
         }
@@ -250,8 +293,7 @@ namespace enigma { namespace lev {
 
         //
         currentPosition = newPos;
-        if (currentIndex == this)
-            app.prefs->setPref("CurrentPosition",newPos);
+        app.state->setIndexCurpos(getName(), currentPosition);
     }
 
     int Index::getScreenFirstPosition() {
@@ -260,6 +302,7 @@ namespace enigma { namespace lev {
     
     void Index::setScreenFirstPosition(int iFirstPos) {
         screenFirstPosition = iFirstPos;
+        app.state->setIndexCurfirst(getName(), screenFirstPosition);
     }
     
     bool Index::mayPlayLevel(int levelNumber) {
@@ -274,22 +317,16 @@ namespace enigma { namespace lev {
     }
     
     bool Index::advanceLevel(LevelAdvanceMode advMode) {
-        bool skip_solved  = options::GetBool("SkipSolvedLevels");
-        bool take_non_par = options::GetBool("TimeHunting");
-        NextLevelMode nextMode = NEXT_LEVEL_STRICTLY;
+        NextLevelMode nextMode = static_cast<NextLevelMode>(app.state->getInt("NextLevelMode"));
     
         switch (advMode) {
-        case ADVANCE_NEXT_MODE:
-            if (skip_solved) 
-                nextMode = NEXT_LEVEL_UNSOLVED;
-            if (take_non_par)
-                nextMode = NEXT_LEVEL_NOT_BEST;
-            break;
         case ADVANCE_STRICTLY:
             nextMode = NEXT_LEVEL_STRICTLY;
             break;
         case ADVANCE_UNSOLVED:
             nextMode = NEXT_LEVEL_UNSOLVED;
+            break;
+        default:
             break;
         };
 
@@ -298,7 +335,7 @@ namespace enigma { namespace lev {
         int newPos = currentPosition;
         lev::ScoreManager *scm = lev::ScoreManager::instance();
         lev::RatingManager *ratingMgr = lev::RatingManager::instance();
-        int    difficulty     = options::GetDifficulty();
+        int    difficulty     = app.state->getInt("Difficulty");
         
         while (newPos < max - 1 && !found) {
             ++newPos;

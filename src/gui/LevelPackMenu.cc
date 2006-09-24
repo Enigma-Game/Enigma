@@ -20,6 +20,7 @@
 #include "gui/LevelPackMenu.hh"
 #include "gui/LevelMenu.hh"
 #include "ecl.hh"
+#include "errors.hh"
 #include "nls.hh"
 #include "video.hh"
 #include "lev/Index.hh"
@@ -185,6 +186,7 @@ namespace enigma { namespace gui {
         
         lastGroupName = curGroupName;
         std::vector<lev::Index *> * group = lev::Index::getGroup(curGroupName);
+        ASSERT(group != NULL, XFrontend,"");
         unsigned packCount = group->size();
         
         int posCurrentIndex = getIndexPosition(group, lev::Index::getCurrentIndex()->getName());
@@ -427,7 +429,7 @@ namespace enigma { namespace gui {
         int naturalColumn = position / rows;
         int numColumns = (size - 1) / rows + 1;
         if (oldColumn == INDEX_GROUP_COLUMN_UNKNOWN)
-            return naturalColumn;
+            return (naturalColumn > columns) ? columns - 1 : naturalColumn;
         else
             return ecl::Clamp<int>(oldColumn, naturalColumn - 
                     ((numColumns > columns) ? (numColumns - columns) : 0), 

@@ -29,6 +29,7 @@
 #include "player.hh"
 #include "world.hh"
 #include "nls.hh"
+#include "StateManager.hh"
 #include "lev/Index.hh"
 #include "lev/PersistentIndex.hh"
 #include "lev/Proxy.hh"
@@ -489,7 +490,7 @@ void Client::show_help()
     server::Msg_Pause (true);
     video::TempInputGrab grab(false);
 
-    helptext_ingame[15] = options::GetBool("TimeHunting")
+    helptext_ingame[15] = app.state->getInt("NextLevelMode") == lev::NEXT_LEVEL_NOT_BEST
         ? _("Skip to next level for best score hunt")
         : _("Skip to next unsolved level");
 
@@ -504,7 +505,7 @@ void Client::show_help()
     server::Msg_Pause (false);
     game::ResetGameTimer();
 
-    if (options::GetBool("TimeHunting")) 
+    if (app.state->getInt("NextLevelMode") == lev::NEXT_LEVEL_NOT_BEST) 
         server::Msg_Command ("restart"); // inhibit cheating
 
 }
@@ -532,7 +533,7 @@ void Client::show_menu()
     server::Msg_Pause (false);
     game::ResetGameTimer();
 
-    if (options::GetBool("TimeHunting")) 
+    if (app.state->getInt("NextLevelMode") == lev::NEXT_LEVEL_NOT_BEST) 
         server::Msg_Command ("restart"); // inhibit cheating
 
 }
@@ -581,13 +582,13 @@ std::string Client::init_hunted_time()
 {
     std::string hunted;
     m_hunt_against_time = 0;
-    if (options::GetBool("TimeHunting")) {
+    if (app.state->getInt("NextLevelMode") == lev::NEXT_LEVEL_NOT_BEST) {
         lev::Index *ind = lev::Index::getCurrentIndex();
         lev::ScoreManager *scm = lev::ScoreManager::instance();
         lev::Proxy *curProxy = ind->getCurrent();
         lev::RatingManager *ratingMgr = lev::RatingManager::instance();
         
-        int   difficulty     = options::GetDifficulty();
+        int   difficulty     = app.state->getInt("Difficulty");
         int   par_time       = ratingMgr->getBestScore(curProxy, difficulty);
         int   best_user_time = scm->getBestUserScore(curProxy, difficulty);
 
@@ -631,7 +632,7 @@ void Client::tick (double dtime)
     }
 
     case cls_game:
-        if (options::GetBool("TimeHunting")) {
+        if (app.state->getInt("NextLevelMode") == lev::NEXT_LEVEL_NOT_BEST) {
             int old_second = round_nearest<int> (m_total_game_time);
             int second     = round_nearest<int> (m_total_game_time + dtime);
 
@@ -641,7 +642,7 @@ void Client::tick (double dtime)
                     lev::ScoreManager *scm = lev::ScoreManager::instance();
                     lev::Proxy *curProxy = ind->getCurrent();
                     lev::RatingManager *ratingMgr = lev::RatingManager::instance();
-                    int    difficulty     = options::GetDifficulty();
+                    int    difficulty     = app.state->getInt("Difficulty");
                     int    par_time       = ratingMgr->getBestScore(curProxy, difficulty);
                     int    best_user_time = scm->getBestUserScore(curProxy, difficulty);
                     string message;
@@ -710,7 +711,7 @@ void Client::level_finished()
     lev::ScoreManager *scm = lev::ScoreManager::instance();
     lev::Proxy *curProxy = ind->getCurrent();
     lev::RatingManager *ratingMgr = lev::RatingManager::instance();
-    int    difficulty     = options::GetDifficulty();
+    int    difficulty     = app.state->getInt("Difficulty");
     int    par_time       = ratingMgr->getBestScore(curProxy, difficulty);
     int    best_user_time = scm->getBestUserScore(curProxy, difficulty);
     string par_name       = ratingMgr->getBestScoreHolder(curProxy, difficulty);
@@ -731,14 +732,14 @@ void Client::level_finished()
     if (text.length() == 0 && best_user_time>0) {
         if (level_time == best_user_time) {
             text = _("Again your personal record...");
-            if (options::GetBool("TimeHunting"))
+            if (app.state->getInt("NextLevelMode") == lev::NEXT_LEVEL_NOT_BEST)
                 timehunt_restart = true; // when hunting yourself: Equal is too slow
         }
         else if (level_time<best_user_time)
             text = _("New personal record!");
     }
 
-    if (options::GetBool("TimeHunting") &&
+    if (app.state->getInt("NextLevelMode") == lev::NEXT_LEVEL_NOT_BEST &&
         (par_time>0 || best_user_time>0))
     {
         bool with_par = best_user_time == -1 || (par_time >0 && par_time<best_user_time);

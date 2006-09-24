@@ -26,6 +26,8 @@
 #include <vector>
 
 #define INDEX_DEFAULT_GROUP "Default"
+#define INDEX_EVERY_GROUP "Every Group"
+#define INDEX_ALL_PACKS "All Packs"
 #define INDEX_GROUP_COLUMN_UNKNOWN -1000
 
 namespace enigma { namespace lev {    
@@ -47,6 +49,7 @@ namespace enigma { namespace lev {
      */
     class Index  {
     public:
+        static void initGroups();
         static void registerIndex(Index *anIndex);
         static Index * findIndex(std::string anIndexName);
         static Index * getCurrentIndex();
@@ -122,8 +125,6 @@ namespace enigma { namespace lev {
          * Every index is listed in the group the user asigned it to.
          */
         static std::map<std::string, std::vector<Index *> *> indexGroups;
-        static std::map<std::string, std::string> groupSelectedIndex; // tmp
-        static std::map<std::string, int> groupSelectedColumn;  // tmp
         
         /**
          * Current active index. This index is selected in the Levelpack menu,
@@ -132,7 +133,9 @@ namespace enigma { namespace lev {
          */
         static Index * currentIndex;
         static std::string currentGroup;
+        
         static std::vector<Index *> * getGroup(Index * anIndex);
+        static void addIndexToGroup(Index *anIndex, std::vector<Index *> * aGroup);
 
     };
 

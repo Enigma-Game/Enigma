@@ -22,11 +22,15 @@
 #include "DOMErrorReporter.hh"
 #include "DOMSchemaResolver.hh"
 #include "LocalToXML.hh"
+#include "nls.hh"
 #include "Utf8ToXML.hh"
+#include "utilXML.hh"
 #include "options.hh"
 #include "XMLtoLocal.hh"
 #include "XMLtoUtf8.hh"
 #include "ecl_system.hh"
+#include "gui/ErrorMenu.hh"
+
 #include <iostream>
 #include <xercesc/dom/DOM.hpp>
 #include <xercesc/util/XMLDouble.hpp>
@@ -72,6 +76,8 @@ namespace enigma {
                 // update existing XML prefs from possibly newer template:
                 // use user prefs and copy new properties from template
                 doc = app.domParser->parseURI(app.prefPath.c_str());
+                propertiesElem = dynamic_cast<DOMElement *>(doc->getElementsByTagName(
+                        Utf8ToXML("preferences").x_str())->item(0));
                 // The following algorithm is not optimized - O(n^2)!
                 DOMDocument * prefTemplate = app.domParser->parseURI(prefTemplatePath.c_str());
                 DOMNodeList * tmplPropList = prefTemplate->getElementsByTagName(
@@ -100,7 +106,9 @@ namespace enigma {
                 // update from LUA options to XML preferences:
                 // use the template, copy LUA option values and save it later as prefs
                 doc = app.domParser->parseURI(prefTemplatePath.c_str());
-                DOMNodeList * propList = doc->getElementsByTagName(Utf8ToXML("property").x_str());
+                propertiesElem = dynamic_cast<DOMElement *>(doc->getElementsByTagName(
+                        Utf8ToXML("preferences").x_str())->item(0));
+                DOMNodeList * propList = propertiesElem->getElementsByTagName(Utf8ToXML("property").x_str());
                 for (int i = 0, l = propList-> getLength(); i < l; i++) {
                     DOMElement * property  = dynamic_cast<DOMElement *>(propList->item(i));
                     const XMLCh * key = property->getAttribute(Utf8ToXML("key").x_str());
@@ -142,9 +150,12 @@ namespace enigma {
     
     bool PreferenceManager::save() {
         bool result = true;
+        std::string errMessage;
         
         if (doc == NULL)
             return true;
+
+        stripIgnorableWhitespace(doc->getDocumentElement());
         
         try {
 #if _XERCES_VERSION >= 30000
@@ -154,28 +165,24 @@ namespace enigma {
             result = app.domSer->writeNode(myFormTarget, *doc);            
             delete myFormTarget;   // flush
 #endif
-        }
-        catch (const XMLException& toCatch) {
-            char* message = XMLString::transcode(toCatch.getMessage());
-            cerr << "Exception on save of preferences: "
-                 << message << "\n";
-            XMLString::release(&message);
+        } catch (const XMLException& toCatch) {
+            errMessage = std::string("Exception on save of preferences: \n") + 
+                    XMLtoUtf8(toCatch.getMessage()).c_str() + "\n";
+            result = false;
+        } catch (const DOMException& toCatch) {
+            errMessage = std::string("Exception on save of preferences: \n") + 
+                    XMLtoUtf8(toCatch.getMessage()).c_str() + "\n";
+            result = false;
+        } catch (...) {
+            errMessage = "Unexpected exception on save of preferences\n" ;
             result = false;
         }
-        catch (const DOMException& toCatch) {
-            char* message = XMLString::transcode(toCatch.msg);
-            cerr << "Exception on save of preferences: "
-                 << message << "\n";
-            XMLString::release(&message);
-            result = false;
-        }
-        catch (...) {
-            cerr << "Unexpected exception on save of preferences\n" ;
-            result = false;
-        }
-        if (!result)
-            Log << "Preferences save fault\n";
-        else
+        
+        if (!result) {
+            cerr << errMessage;
+            gui::ErrorMenu m(errMessage, N_("Continue"));
+            m.manage();          
+        } else
             Log << "Preferences save o.k.\n";
         
         return result;
@@ -183,133 +190,10 @@ namespace enigma {
 
     void PreferenceManager::shutdown() {
         save();
-        doc->release();
+        if (doc != NULL)
+            doc->release();
         doc = NULL;
     }
     
-    void PreferenceManager::setPref(const char *prefName, const std::string &value) {
-        DOMElement * property = getProperty(prefName);
-        
-        property->setAttribute(Utf8ToXML("value").x_str(),
-                Utf8ToXML(&value).x_str());
-    }
-    
-    void PreferenceManager::getPref(const char *prefName, std::string &value) {
-        DOMElement * property;
-        bool propFound = hasProperty(prefName, &property);
-        if (propFound) {
-            value = XMLtoUtf8(property->getAttribute(Utf8ToXML("value").x_str())).c_str();
-        }
-    }
-
-    std::string PreferenceManager::getString(const char *prefName) {
-        std::string value;
-        getPref(prefName, value);
-        return value;
-    }
-    
-    void PreferenceManager::setPref(const char *prefName, const double &value) {
-        char printedValue[20];
-        sprintf(printedValue, "%.7g", value);
-        DOMElement * property = getProperty(prefName);
-        property->setAttribute(Utf8ToXML("value").x_str(), 
-                Utf8ToXML(printedValue).x_str());
-    }
-    
-    void PreferenceManager::getPref(const char *prefName, double &value) {
-        DOMElement * property;
-        bool propFound = hasProperty(prefName, &property);
-        if (propFound) {
-            XMLDouble * result = new XMLDouble(property->getAttribute(Utf8ToXML("value").x_str()));
-            value = result->getValue();
-            delete result;
-        }
-    }
-
-    double PreferenceManager::getDouble(const char *prefName) {
-        double value = 0;
-        getPref (prefName, value);
-        return value;
-    }
-    
-    void PreferenceManager::setPref(const char *prefName, const int &value) {
-        char printedValue[20];
-        sprintf(printedValue, "%d", value);
-        DOMElement * property = getProperty(prefName);
-
-        property->setAttribute(Utf8ToXML("value").x_str(), 
-                Utf8ToXML(printedValue).x_str());
-    }
-    
-    void PreferenceManager::getPref(const char *prefName, int &value) {
-        DOMElement * property;
-        bool propFound = hasProperty(prefName, &property);
-        if (propFound) {
-            value = XMLString::parseInt(property->getAttribute(Utf8ToXML("value").x_str()));
-        }
-    }
-
-    int PreferenceManager::getInt(const char *prefName) {
-        int value = 0;
-        getPref (prefName, value);
-        return value;
-    }
-    
-    void PreferenceManager::setPref(const char *prefName, const bool &value) {
-        int i = (value ? 1: 0);
-        setPref(prefName, i);
-    }
-    
-    void PreferenceManager::getPref(const char *prefName, bool &value) {
-        int result;
-        getPref(prefName, result);
-        value = ((result == 0) ? false: true);
-    }
-
-    bool PreferenceManager::getBool(const char *prefName) {
-        bool value = 0;
-        getPref (prefName, value);
-        return value;
-    }
-    
-    DOMElement * PreferenceManager::getProperty(const char *prefName) {
-        XMLCh * key = XMLString::replicate(Utf8ToXML(prefName).x_str());
-        DOMElement * property;
-        bool propFound = hasProperty(prefName, &property);
-
-        if (!propFound) {
-            DOMElement * newProperty = doc->createElement (Utf8ToXML("property").x_str());
-            newProperty->setAttribute(Utf8ToXML("key").x_str(), key);
-            // insert it at the end of the existing properties
-            property->getParentNode()->insertBefore(newProperty, property->getNextSibling());
-            property = newProperty;
-         }
-        XMLString::release(&key);
-        return property;
-    }
-    
-    bool PreferenceManager::hasProperty(const char *prefName, DOMElement ** element) {
-        return hasProperty(Utf8ToXML(prefName).x_str(), element);
-    }
-        
-    bool PreferenceManager::hasProperty(const XMLCh * key, DOMElement ** element) {
-        bool propFound = false;
-        DOMElement * property;
-
-// Xerces 3.0 has no full XPath support - otherwise the following simple
-// statement would suffice and not be aborted with NOT_SUPPORTED_ERR.
-//        doc->evaluate(Utf8ToXML("//property[@key='...']").x_str(), doc, NULL, 0, NULL);
-
-        DOMNodeList * propList = doc->getElementsByTagName(Utf8ToXML("property").x_str());
-        for (int i = 0, l = propList-> getLength(); i < l && !propFound; i++) {
-            property  = dynamic_cast<DOMElement *>(propList->item(i));
-            if (XMLString::equals(key, 
-                    property->getAttribute(Utf8ToXML("key").x_str()))) {
-                propFound = true;
-            }
-        }
-        * element = property;
-        return propFound;
-    }
 } // namespace enigma
 

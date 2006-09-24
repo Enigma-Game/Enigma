@@ -251,7 +251,7 @@ namespace enigma { namespace lev {
             char str[22];
             std::strftime(str, 22, "%Y-%m-%dT%H:%M:%SZ", std::gmtime(&currentTime));
             std::string currentTimeString = str;
-            app.prefs->setPref("RatingsUpdateTime", currentTimeString);
+            app.prefs->setProperty("RatingsUpdateTime", currentTimeString);
         }
         
         if (result == updated)

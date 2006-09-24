@@ -97,11 +97,15 @@ enigma_SOURCES = 		\
 	player.hh		\
 	PreferenceManager.cc	\
 	PreferenceManager.hh	\
+	PropertyManager.cc	\
+	PropertyManager.hh	\
 	server.cc 		\
 	server.hh		\
 	sound.cc 		\
 	sound.hh 		\
 	sound_internal.hh	\
+	StateManager.cc		\
+	StateManager.hh		\
 	stones.cc 		\
 	stones.hh 		\
 	stones_internal.hh 	\

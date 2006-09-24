@@ -28,6 +28,7 @@
 #include "gui/ScreenshotViewer.hh"
 #include "lev/RatingManager.hh"
 #include "lev/ScoreManager.hh"
+#include "StateManager.hh"
 
 
 #include <vector>
@@ -442,6 +443,7 @@ LevelInspector::LevelInspector(lev::Proxy *aLevel):
         }
         if (annotationLines >= 1) {
             add(new Label(N_("Annotation: "), HALIGN_RIGHT),Rect(hmargin,vnext,110,25));
+            annotation->set_text(app.state->getAnnotation(levelProxy->getId()));
             add(annotation, Rect(hmargin+110+10, vnext, textwidth, 25));
             vnext += (25 + vspacing)*annotationLines;
         }
@@ -460,6 +462,11 @@ LevelInspector::LevelInspector(lev::Proxy *aLevel):
     
     void LevelInspector::on_action(gui::Widget *w) {
         if (w == back) {
+            // save annotation - but avoid to save unnecessary empty annotations
+            if (!annotation->getText().empty() || 
+                    !app.state->getAnnotation(levelProxy->getId()).empty()) {
+                app.state->setAnnotation(levelProxy->getId(), annotation->getText());
+            }
             Menu::quit();
         } else if (w == screenshot) {
             ScreenshotViewer m(levelProxy);

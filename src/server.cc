@@ -28,6 +28,7 @@
 #include "options.hh"
 #include "player.hh"
 #include "player.hh"
+#include "StateManager.hh"
 #include "world.hh"
 
 #include "enet/enet.h"
@@ -446,10 +447,10 @@ void server::Msg_Command (const string &cmd)
 
     // ------------------------------ quick options
     else if (cmd == "easy") {
-        if (options::GetInt("Difficulty") == DIFFICULTY_HARD) {
+        if (app.state->getInt("Difficulty") == DIFFICULTY_HARD) {
             if (curProxy->hasEasymode()) {
                 client::Msg_ShowText("Restarting in easy mode", false, 2);
-                options::SetOption("Difficulty", DIFFICULTY_EASY);
+                app.state->setProperty("Difficulty", DIFFICULTY_EASY);
                 server::Msg_Command("restart");
             }
             else
@@ -459,8 +460,8 @@ void server::Msg_Command (const string &cmd)
             client::Msg_ShowText("Already in easy mode.", false, 2);
     }
     else if (cmd == "noeasy") {
-        if (options::GetInt("Difficulty") == DIFFICULTY_EASY) {
-            options::SetOption("Difficulty", DIFFICULTY_HARD);
+        if (app.state->getInt("Difficulty") == DIFFICULTY_EASY) {
+            app.state->setProperty("Difficulty", DIFFICULTY_HARD);
             if (curProxy->hasEasymode()) {
                 client::Msg_ShowText("Restarting in normal mode", false, 2);
                 server::Msg_Command("restart");
@@ -556,7 +557,7 @@ void server::SetCompatibility(const char *version) {
 
 enigma::Difficulty server::GetDifficulty()
 {
-    int i= options::GetInt ("Difficulty");
+    int i= app.state->getInt ("Difficulty");
     if (i == DIFFICULTY_EASY && !server::CreatingPreview)
         return DIFFICULTY_EASY;
     else

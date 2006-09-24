@@ -222,7 +222,8 @@ Application::Application()
   nograb        (false),
   language      (""),
   defaultLanguage (""),
-  argumentLanguage ("")
+  argumentLanguage (""),
+  errorInit (false)
 {
 }
 
@@ -306,6 +307,7 @@ void Application::init(int argc, char **argv)
     video::SetMouseCursor(enigma::LoadImage("cur-magic"), 4, 4);
     video::ShowMouse();
     SDL_ShowCursor(0);
+    errorInit = true;
 
     // ----- Initialize sound subsystem
     lua::DoSubfolderfile (L, "sound", "sound.lua");
@@ -324,7 +326,11 @@ void Application::init(int argc, char **argv)
     // ----- Load models
     display::Init();
 
-    // ----- Load level packs
+    // initialize application state
+    state = StateManager::instance();
+
+    // ----- Load level packs -- needs state
+    lev::Index::initGroups();
     lev::PersistentIndex::registerPersistentIndices();
     lua::Dofile(L, "levels/index.lua");
     lua::DoSubfolderfile(L, "levels", "index.lua");
@@ -619,7 +625,7 @@ void Application::setUserPath(std::string newPath) {
         resourceFS->prepend_dir(userPath);
         
         // set the new path as the users preference - the standard path is saved as ""
-        prefs->setPref("UserPath", std::string(XMLtoUtf8(LocalToXML(&prefUserPath).x_str()).c_str()));
+        prefs->setProperty("UserPath", std::string(XMLtoUtf8(LocalToXML(&prefUserPath).x_str()).c_str()));
     }
 }
 
@@ -638,7 +644,7 @@ void Application::setUserImagePath(std::string newPath) {
             resourceFS->prepend_dir(userImagePath);
 
         // set the new path as the users preference - the standard path is saved as ""
-        prefs->setPref("UserImagePath", std::string(XMLtoUtf8(LocalToXML(&prefUserImagePath).x_str()).c_str()));
+        prefs->setProperty("UserImagePath", std::string(XMLtoUtf8(LocalToXML(&prefUserImagePath).x_str()).c_str()));
     }
 }
 
@@ -648,14 +654,17 @@ static void shutdown()
 {
     oxyd::Shutdown();
     world::Shutdown();
-    video::Shutdown();
     display::Shutdown();
-    sound::Shutdown();
-    enet_deinitialize();
     lev::RatingManager::instance()->save();
     if (lev::PersistentIndex::historyIndex != NULL) 
         lev::PersistentIndex::historyIndex->save();
+    app.state->shutdown();
     app.prefs->shutdown();
+    // now we shutdown SDL - no error reports will be possible!
+    app.errorInit = false;
+    video::Shutdown();
+    sound::Shutdown();
+    enet_deinitialize();
     options::Save();
     lua::ShutdownGlobal();
     XMLPlatformUtils::Terminate();
@@ -673,8 +682,10 @@ int main(int argc, char** argv)
     catch (XFrontend &e) {
         cerr << "Error: " << e.what() << endl;
         std::string message = _("Fatal Error that causes the application to quit:\n\n");
-        gui::ErrorMenu m(message + e.what(), N_("Quit"));
-        m.manage();
+        if (app.errorInit) {
+            gui::ErrorMenu m(message + e.what(), N_("Quit"));
+            m.manage();
+        }
     }
     catch (ecl::XGeneric &e) {
         cerr << "Error: " << e.what() << endl;

@@ -19,10 +19,7 @@
 #ifndef PREFMGR_HH_INCLUDED
 #define PREFMGR_HH_INCLUDED
 
-#include <string>
-#include <xercesc/util/XercesVersion.hpp>
-#include <xercesc/dom/DOMDocument.hpp>
-#include <xercesc/dom/DOMElement.hpp>
+#include "PropertyManager.hh"
 
 namespace enigma
 {
@@ -41,54 +38,17 @@ namespace enigma
      * reference values and return C++ default values if the named preference
      * does not exist.</p>
      */
-    class PreferenceManager {
+    class PreferenceManager : public PropertyManager {
     public:
         static PreferenceManager *instance();
         ~PreferenceManager();
-        bool save();
+        virtual bool save();
         void shutdown();
         
-        void setPref(const char *prefName, const std::string &value);
-        void getPref(const char *prefName, std::string &value);
-        std::string getString(const char *prefName);
-        void setPref(const char *prefName, const double &value);
-        void getPref(const char *prefName, double &value);
-        double getDouble(const char *prefName);
-        void setPref(const char *prefName, const int &value);
-        void getPref(const char *prefName, int &value);
-        int  getInt(const char *prefName);
-        void setPref(const char *prefName, const bool &value);
-        void getPref(const char *prefName, bool &value);
-        bool getBool(const char *prefName);
     protected:
         PreferenceManager();
     private:
         static PreferenceManager *theSingleton;
-        XERCES_CPP_NAMESPACE_QUALIFIER DOMDocument *doc;
-        
-        /**
-         * force a return of a property element with the given name as key.
-         * @param prefName  the name of the searched or new property
-         * @return  the property element with the given key name.
-         */
-        XERCES_CPP_NAMESPACE_QUALIFIER DOMElement * getProperty(const char *prefName);
-
-        /**
-         * checks if a property exists.
-         * @param prefName the preference name.
-         * @param element  the searched property element or the last property 
-         *                 element found in the preference list (for append usage).
-         * @return validity of element.
-         */
-         bool hasProperty(const char *prefName, XERCES_CPP_NAMESPACE_QUALIFIER DOMElement ** element);
-        /**
-         * checks if a property exists.
-         * @param key     the preference name.
-         * @param element the searched property element or the last property 
-         *                element found in the preference list (for append usage).
-         * @return validity of element.
-         */
-        bool hasProperty(const XMLCh * key, XERCES_CPP_NAMESPACE_QUALIFIER DOMElement ** element);
     };
 } // namespace enigma
 #endif
