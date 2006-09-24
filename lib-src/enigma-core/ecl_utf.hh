@@ -81,5 +81,5 @@ namespace ecl
 		UTF8** targetStart, UTF8* targetEnd, ConversionFlags flags);
 		
 
-    std::vector<unsigned char> * utf8CharSizes(std::string * utf8String);
+    void utf8CharSizes(const std::string &utf8String, std::vector<unsigned char> &sizes);
 } //namespace ecl

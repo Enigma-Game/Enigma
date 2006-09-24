@@ -169,18 +169,15 @@ namespace ecl
         return result;
     }
     
-    std::vector<unsigned char> * utf8CharSizes(std::string * utf8String) {
-        std::vector<unsigned char> * sizes = new std::vector<unsigned char>();
-        int i;
-        unsigned char c;
-        int charSize;
-        int length = utf8String->size();
+    void utf8CharSizes(const std::string &utf8String, std::vector<unsigned char> &sizes) 
+    {
+        int length = utf8String.size();
         
-        for (i = 0; i < length; i += charSize) {
-            c = (*utf8String)[i];
-            charSize = trailingBytesForUTF8[c] + 1;
-            sizes->push_back(charSize);
+        for (int i = 0; i < length; ) {
+            unsigned char c = utf8String[i];
+            int charSize = trailingBytesForUTF8[c] + 1;
+            sizes.push_back(charSize);
+            i += charSize;
         }
-        return sizes;
     }
 } //namespace ecl

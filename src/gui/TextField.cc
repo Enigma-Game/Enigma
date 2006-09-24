@@ -46,23 +46,16 @@ TextField::TextField(const std::string &t, ActionListener *al) : cursorTime(0),
     }
     set_listener(al);
     textPreCursor = t;
-    charSizesPreCursor = ecl::utf8CharSizes(&textPreCursor);
+    ecl::utf8CharSizes(textPreCursor, charSizesPreCursor);
     textPostCursor= "";
-    charSizesPostCursor = new std::vector<unsigned char>();
-}
-
-TextField::~TextField() {
-    delete charSizesPreCursor;
-    delete charSizesPostCursor;
 }
 
 void TextField::set_text(const std::string &t) {
     textPreCursor = t;
-    delete charSizesPreCursor;
-    charSizesPreCursor = ecl::utf8CharSizes(&textPreCursor);
+    charSizesPreCursor.clear();
+    ecl::utf8CharSizes(textPreCursor, charSizesPreCursor);
     textPostCursor= "";
-    delete charSizesPostCursor;
-    charSizesPostCursor = new std::vector<unsigned char>();
+    charSizesPostCursor.clear();
 }
 
 std::string TextField::getText() {
@@ -125,9 +118,9 @@ bool TextField::on_event(const SDL_Event &e) {
             switch (e.key.keysym.sym) {
                 case SDLK_RIGHT:
                     if(textPostCursor.size() > 0) {
-                        int size = charSizesPostCursor->back();
-                        charSizesPostCursor->pop_back();
-                        charSizesPreCursor->push_back(size);
+                        int size = charSizesPostCursor.back();
+                        charSizesPostCursor.pop_back();
+                        charSizesPreCursor.push_back(size);
                         textPreCursor.append(textPostCursor, 0, size);
                         textPostCursor.erase(0, size); 
                     }
@@ -136,9 +129,9 @@ bool TextField::on_event(const SDL_Event &e) {
                     break;
                 case SDLK_LEFT:
                     if(textPreCursor.size() > 0) {
-                        int size = charSizesPreCursor->back();
-                        charSizesPreCursor->pop_back();
-                        charSizesPostCursor->push_back(size);
+                        int size = charSizesPreCursor.back();
+                        charSizesPreCursor.pop_back();
+                        charSizesPostCursor.push_back(size);
                         textPostCursor.insert(0, textPreCursor.substr(textPreCursor.size() - size));
                         textPreCursor.erase(textPreCursor.size() - size); 
                     }
@@ -150,13 +143,12 @@ bool TextField::on_event(const SDL_Event &e) {
                     break;
                 case SDLK_HOME:
                     if(textPreCursor.size() > 0) {
-                        int size;
                         int i;
-                        int preChars = charSizesPreCursor->size();
+                        int preChars = charSizesPreCursor.size();
                         for (i = 0; i < preChars; i++) {
-                            size = charSizesPreCursor->back();
-                            charSizesPreCursor->pop_back();
-                            charSizesPostCursor->push_back(size);
+                            int size = charSizesPreCursor.back();
+                            charSizesPreCursor.pop_back();
+                            charSizesPostCursor.push_back(size);
                         }
                         textPostCursor.insert(0, textPreCursor);
                         textPreCursor.clear(); 
@@ -168,11 +160,11 @@ bool TextField::on_event(const SDL_Event &e) {
                     if(textPostCursor.size() > 0) {
                         int size;
                         int i;
-                        int postChars = charSizesPostCursor->size();
+                        int postChars = charSizesPostCursor.size();
                         for (i = 0; i < postChars; i++) {
-                            size = charSizesPostCursor->back();
-                            charSizesPostCursor->pop_back();
-                            charSizesPreCursor->push_back(size);
+                            size = charSizesPostCursor.back();
+                            charSizesPostCursor.pop_back();
+                            charSizesPreCursor.push_back(size);
                         }
                         textPreCursor.append(textPostCursor);
                         textPostCursor.clear(); 
@@ -182,18 +174,18 @@ bool TextField::on_event(const SDL_Event &e) {
                     break;
                 case SDLK_DELETE:
                     if(textPostCursor.size() > 0) {
-                        int size = charSizesPostCursor->back();
+                        int size = charSizesPostCursor.back();
                         textPostCursor.erase(0, size); 
-                        charSizesPostCursor->pop_back();
+                        charSizesPostCursor.pop_back();
                     }
                     invalidate();
                     handeled = true;
                     break;
                 case SDLK_BACKSPACE:
                     if(textPreCursor.size() > 0) {
-                       int size = charSizesPreCursor->back();
+                       int size = charSizesPreCursor.back();
                         textPreCursor.erase(textPreCursor.size() - size); 
-                        charSizesPreCursor->pop_back();
+                        charSizesPreCursor.pop_back();
                     }
                     invalidate();
                     handeled = true;
@@ -236,7 +228,7 @@ bool TextField::on_event(const SDL_Event &e) {
                                 &utf8Ptr, utf8Char + 4, strictConversion);
                         *utf8Ptr = 0;
                         textPreCursor += (const char *)utf8Char;
-                        charSizesPreCursor->push_back(utf8Ptr - utf8Char);
+                        charSizesPreCursor.push_back(utf8Ptr - utf8Char);
 
                         invalidate();
                         handeled = true;

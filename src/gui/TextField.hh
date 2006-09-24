@@ -44,7 +44,6 @@ namespace enigma { namespace gui {
          * @param al  currently unused
          */
         TextField(const std::string &t = "", ActionListener *al=0);
-        ~TextField();
         
         /**
          * resets the input string.
@@ -74,14 +73,14 @@ namespace enigma { namespace gui {
          * a byte vector describing for each utf-8 character the number of 
          * occupied bytes in the string.
          */
-        std::vector<unsigned char> * charSizesPreCursor;
+        std::vector<unsigned char> charSizesPreCursor;
         
          /**
          * a byte vector describing for each utf-8 character the number of 
          * occupied bytes in the string. This vector is in reverse order to
          * the string itself!!
          */
-        std::vector<unsigned char> * charSizesPostCursor;
+        std::vector<unsigned char> charSizesPostCursor;
         static ecl::Font *menufont;
     };
 }} // namespace enigma::gui
