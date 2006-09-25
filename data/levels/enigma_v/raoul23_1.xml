@@ -12,7 +12,7 @@
        <el:dependency el:path="lib/libpuzzle" el:id="lib/libpuzzle" el:release="1" el:preload="true"/>
       </el:compatibility>
       <el:modes el:easy="true" el:single="true" el:network="true"/>
-      <el:score el:easy="-" el:difficult="-"/>
+      <el:score el:easy="-" el:difficult="7:29"/>
     </el:info>
     <el:luamain><![CDATA[
 function file_oxyd(x,y,f)
