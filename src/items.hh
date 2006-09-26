@@ -57,6 +57,7 @@ namespace world
         it_crack2,
         it_crack3,
         it_cross,
+        it_death,
         it_debris,
         it_document,
         it_drop,

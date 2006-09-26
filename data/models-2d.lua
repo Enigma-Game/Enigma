@@ -594,6 +594,13 @@ end
 -- def_alias("it-sensor", "invisible")
 -- def_alias("it-inversesensor", "invisible")
 
+-- it-death --
+do
+   local img = def_subimages("it-death", {h=4})
+   def_alias("it-death", img[1])
+   def_anim("it-death-anim", buildframes(img, 100))
+end
+
 ------------------
 -- STONE MODELS --
 ------------------

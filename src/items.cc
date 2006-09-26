@@ -3305,6 +3305,37 @@ namespace
     DEF_TRAITS(Pencil, "it-pencil", it_pencil);
 }
 
+/* -------------------- it-death -------------------- */
+namespace
+{
+    class Death : public Item {
+        CLONEOBJ(Death);
+        DECL_TRAITS;
+
+        bool active;
+
+        bool actor_hit(Actor *a) {
+            ActorInfo &ai = * a->get_actorinfo();
+            if (!ai.grabbed) {
+                SendMessage(a, "shatter");
+                if (!active) {
+                    active=true;
+                    set_anim("it-death-anim");
+                }
+            }
+            return false;
+        } 
+
+    protected:
+        void animcb() { set_model("it-death"); active=false; }
+
+    public:
+        Death() : active(false) {}
+    };
+
+    DEF_TRAITSF(Death, "it-death", it_death, itf_static | itf_indestructible);
+}
+
 
 //----------------------------------------
 // Remaining items (still need to be implemented)
@@ -3533,6 +3564,7 @@ void world::InitItems()
     RegisterItem (new Coin4);
     Crack::setup();
     RegisterItem (new Cross);
+    RegisterItem (new Death);
     RegisterItem (new Debris);
     RegisterItem (new Document);
     RegisterItem (new Drop);
