@@ -10,7 +10,7 @@
       <el:compatibility el:enigma="0.92">
        <el:dependency el:path="lib/natmaze" el:id="lib/natmaze" el:release="1" el:preload="true"/>
       </el:compatibility>
-      <el:modes el:easy="true" el:single="true" el:network="false"/>
+      <el:modes el:easy="false" el:single="true" el:network="false"/>
       <el:comments>
         <el:credits>Thanks to Nat Pryce for his natmaze.lua script</el:credits>
         <el:code>Lua 5.1 and XML converted by Leveladministrators</el:code>
