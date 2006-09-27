@@ -94,6 +94,10 @@ namespace enigma { namespace lev {
         // register index in state.xml and update current position, first with last values        
         app.state->addIndex(anIndex->getName(), "", 0, 
                 anIndex->currentPosition, anIndex->screenFirstPosition);
+        // reset positions that are out of range - this may happen due to
+        // modified levelpacks (updates, deleted levels in auto, new commandline)
+        if (anIndex->currentPosition < 0 || anIndex->currentPosition > anIndex->size())
+            anIndex->currentPosition = 0;
     }
     
     void Index::addIndexToGroup(Index *anIndex, std::vector<Index *> * aGroup) {
@@ -106,8 +110,13 @@ namespace enigma { namespace lev {
     }
      
     Index * Index::findIndex(std::string anIndexName) {
+        std::string::size_type lastChar = anIndexName.find_last_not_of(" ");
+        if (lastChar == std::string::npos)
+            // the name is effectively an empty string
+            return NULL;
+
         // stip of trailing and leading spaces
-        std::string name = anIndexName.substr(0 , anIndexName.find_last_not_of(" ")+1);
+        std::string name = anIndexName.substr(0 , lastChar + 1);
         name = name.substr(anIndexName.find_first_not_of(" "));
         
         std::map<std::string, Index *>::iterator i = indices.find(name);
@@ -129,9 +138,31 @@ namespace enigma { namespace lev {
         app.state->setProperty("CurrentGroup", groupName);
         currentGroup = groupName;
         
-        // set current index for desired group - this resets again the group, 
-        // but not for "All Packs" as it is not the index natural group
-        setCurrentIndex(getGroupSelectedIndex(groupName));
+        // set current index for desired group
+        std::string indexName = getGroupSelectedIndex(groupName);
+        Index * newIndex = findIndex(indexName);
+        std::string indexGroupName;
+        
+        if (newIndex != NULL)
+            indexGroupName = newIndex->getGroupName();
+        
+        if (newIndex != NULL && (indexGroupName == groupName ||
+                indexGroupName == INDEX_EVERY_GROUP || 
+                groupName == INDEX_ALL_PACKS)) {
+            // set the groups current index as main current index
+            setCurrentIndex(indexName);
+        } else {
+            // the groups current index is no longer available or did change the 
+            // group -- reset the groups current index
+            std::vector<Index *> * group  = getGroup(groupName);
+            if (group->size() > 0) {
+                setCurrentIndex((*group)[0]->getName());
+            } else {
+                // the group is empty -- delete group current index entry and
+                // leave the apps current index unchanged
+                setGroupSelectedIndex(groupName,"");
+            }
+        }
     }
     
     std::vector<std::string> Index::getGroupNames() {
