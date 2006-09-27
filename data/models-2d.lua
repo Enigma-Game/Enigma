@@ -709,7 +709,10 @@ def_stone("st-brownie", "sh-round")
 def_stone("st-stone1")
 def_stone("st-stone2")
 def_stone("st-bumps")
+
 def_stone("st-camouflage")
+def_alias("st-camouflage_move", "st-camouflage")
+def_alias("st-camouflage_hole", "st-camouflage")
 
 def_alias("st-laserbreak", "st-rock3")
 def_alias("st-laserbreak-anim", "st-rock3_break-anim")
