@@ -378,7 +378,9 @@ namespace world
     void DefineSimpleStoneMovable (const string &kind, const string &sound, 
                                    int glass);
 
-    void DefineSimpleFloor(const string &kind, double friction, double mousefactor);
+    void DefineSimpleFloor(const string &kind, double friction,
+                           double mousefactor, bool burnable,
+                           const string &firetransform);
 
     /* Register a new object. */
     void Register (Object *obj);

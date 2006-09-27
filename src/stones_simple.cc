@@ -937,18 +937,22 @@ set_stone("st-wood", 10,10)
 \endverbatim
 
 Note: There are two flavors of st-wood which may be specified
-by using st-wood1 or st-wood2.
+by using st-wood1 or st-wood2, and a third kind: st-flrock, which
+creates the unburnable fl-rock.
 
 \image html st-wood.png
 */
 namespace
 {
     class WoodenStone : public Stone {
-	CLONEOBJ(WoodenStone);
+        CLONEOBJ(WoodenStone);
     public:
-        WoodenStone(const char *kind) : Stone(kind) {}
+        WoodenStone(const char *kind, const char *floorkind_) :
+            Stone(kind), floorkind(floorkind_) {}
 
     private:
+        const char *floorkind;
+
         void fall() {
             GridPos p = get_pos();
             if (world::IsLevelBorder(p))
@@ -957,7 +961,7 @@ namespace
             if (Floor *fl = GetFloor(p)) {
                 const string &k = fl->get_kind();
                 if (k == "fl-abyss" || k=="fl-water" || k=="fl-swamp") {
-                    SetFloor(p, MakeFloor(is_kind("st-wood1") ? "fl-stwood1" : "fl-stwood2"));
+                    SetFloor(p, MakeFloor(floorkind));
                     KillStone(p);
                 }
             }
@@ -989,12 +993,15 @@ namespace
       st-wood2. */
     class RandomWoodenStone : public Stone {
     public:
-	RandomWoodenStone() : Stone("st-wood") {}
+        RandomWoodenStone() : Stone("st-wood") {}
     private:
-	Stone *clone() {
-	    return new WoodenStone (IntegerRand(0, 1) ? "st-wood1" :  "st-wood2");
-	}
-	void dispose() {delete this;}
+        Stone *clone() {
+            if(IntegerRand(0,1) == 0)
+                return new WoodenStone("st-wood1", "fl-stwood1");
+            else
+                return new WoodenStone("st-wood2", "fl-stwood2");
+        }
+        void dispose() {delete this;}
     };
 }
 
@@ -2261,8 +2268,9 @@ void stones::Init_simple()
     Register(new Window);
 
     Register(new RandomWoodenStone); // random flavor
-    Register(new WoodenStone("st-wood1")); // horizontal planks
-    Register(new WoodenStone("st-wood2")); // vertical planks
+    Register(new WoodenStone("st-wood1", "fl-stwood1")); // horizontal planks
+    Register(new WoodenStone("st-wood2", "fl-stwood2")); // vertical planks
+    Register(new WoodenStone("st-flrock", "fl-rock"));
     Register(new WoodenStone_Growing);
     Register(new GreenbrownStone_Growing);
     Register(new VolcanoStone_Growing);

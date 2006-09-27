@@ -1,6 +1,6 @@
 /*
 ** Lua binding: editor
-** Generated automatically by tolua++-1.0.92 on Tue Aug  8 00:12:41 2006.
+** Generated automatically by tolua++-1.0.92 on Wed Sep 27 01:52:17 2006.
 */
 
 #ifndef __cplusplus

@@ -629,7 +629,7 @@ namespace
     public:
         Hill() : HillHollow(HILL) {}
     };
-    DEF_TRAITSF(Hill, "it-hill", it_hill, itf_static);
+    DEF_TRAITSF(Hill, "it-hill", it_hill, itf_static | itf_fireproof);
 
     class TinyHill : public HillHollow {
         CLONEOBJ(TinyHill);
@@ -637,7 +637,7 @@ namespace
     public:
         TinyHill() : HillHollow(TINYHILL) {}
     };
-    DEF_TRAITSF(TinyHill, "it-tinyhill", it_tinyhill, itf_static);
+    DEF_TRAITSF(TinyHill, "it-tinyhill", it_tinyhill, itf_static | itf_fireproof);
 
     /*
      * Hollows are special in that they can end the current level
@@ -663,7 +663,7 @@ namespace
         Actor *whiteball;   // The small white ball that is currently being tracked
         Uint32 enter_time;  // ... when did it enter the hollow?
     };
-    DEF_TRAITSF(Hollow, "it-hollow", it_hollow, itf_static);
+    DEF_TRAITSF(Hollow, "it-hollow", it_hollow, itf_static | itf_fireproof);
 
 
     class TinyHollow : public Hollow {
@@ -682,7 +682,7 @@ namespace
     public:
         TinyHollow() : Hollow(TINYHOLLOW) {}
     };
-    DEF_TRAITSF(TinyHollow, "it-tinyhollow", it_tinyhollow, itf_static);
+    DEF_TRAITSF(TinyHollow, "it-tinyhollow", it_tinyhollow, itf_static | itf_fireproof);
 
 }
 
@@ -1106,6 +1106,10 @@ namespace
                 change_state(BURNING);
             else if (msg == "explode") // currently unused in c++ code
                 explode();
+            else if (msg == "heat") {  // used by fire-system
+                change_state(BURNING);
+                return Value(1.0);  // caught message -> no fire!
+            }
             return Value();
         }
         void animcb() { explode(); }
@@ -1121,7 +1125,7 @@ namespace
         }
     };
     DEF_TRAITSF(Dynamite, "it-dynamite", it_dynamite,
-                itf_indestructible);
+                itf_indestructible | itf_fireproof);
 }
 
 // ----------------------------
@@ -1143,6 +1147,10 @@ namespace
                 burn();
             else if (msg == "explode" )
                 explode();
+            else if (msg == "heat") {  // used by fire-system
+                burn();
+                return Value(1.0);  // caught message -> no fire!
+            }
             return Value();
         }
 
@@ -1226,7 +1234,7 @@ namespace
         }
     };
     DEF_TRAITSF(BlackBomb, "it-blackbomb", it_blackbomb, 
-                itf_static| itf_indestructible);
+                itf_static | itf_indestructible | itf_fireproof);
 
     class BlackBombBurning : public BlackBomb {
         CLONEOBJ(BlackBombBurning);
@@ -1236,7 +1244,7 @@ namespace
     };
     DEF_TRAITSF(BlackBombBurning, "it-blackbomb_burning", 
                 it_blackbomb_burning, 
-                itf_static | itf_indestructible | itf_norespawn);
+                itf_static | itf_indestructible | itf_norespawn | itf_fireproof);
 }
 
 
@@ -1265,7 +1273,7 @@ namespace
         {}
     };
     DEF_TRAITSF(WhiteBomb, "it-whitebomb", it_whitebomb, 
-                itf_static | itf_indestructible);
+                itf_static | itf_indestructible | itf_fireproof);
 }
 
 
@@ -2240,11 +2248,11 @@ namespace
     private:
         Crack(int type=0) 
         : state(IDLE), anim_end(false)
-	    {
-	        set_attrib("type", type);
-	        set_attrib("fixed", 0.0);
-            set_attrib("brittleness", Value());
-	    }
+            {
+                set_attrib("type", type);
+                set_attrib("fixed", 0.0);
+                set_attrib("brittleness", Value());
+             }
 
         enum State { IDLE, CRACKING1, CRACKING2 } state;
         bool anim_end;
@@ -2309,7 +2317,7 @@ namespace
                 SendMessage(a, "fall");
             return false;
         }
-        virtual Value message(const string &msg, const Value &/*val*/) {
+        virtual Value message(const string &msg, const Value &val) {
             if (msg == "crack" && state==IDLE && !is_fixed()) {
                 int type = get_type();
                 if ((type == 0 && do_crack()) || (type > 0)) {
@@ -2317,6 +2325,11 @@ namespace
                     sound_event ("crack");
                     init_model();
                 }
+            }
+            if (msg == "heat") {
+                sound_event ("crack");
+                replace(it_debris);
+                return Value(1.0);
             }
             return Value();
         }
@@ -2333,10 +2346,10 @@ namespace
         }
     };
     ItemTraits Crack::traits[4] = {
-        {"it-crack0", it_crack0, itf_static | itf_indestructible, 0.0},
-        {"it-crack1", it_crack1, itf_static | itf_indestructible, 0.0},
-        {"it-crack2", it_crack2, itf_static | itf_indestructible, 0.0},
-        {"it-crack3", it_crack3, itf_static | itf_indestructible, 0.0}
+        {"it-crack0", it_crack0, itf_static | itf_indestructible | itf_fireproof, 0.0},
+        {"it-crack1", it_crack1, itf_static | itf_indestructible | itf_fireproof, 0.0},
+        {"it-crack2", it_crack2, itf_static | itf_indestructible | itf_fireproof, 0.0},
+        {"it-crack3", it_crack3, itf_static | itf_indestructible | itf_fireproof, 0.0}
     };
 }
 
@@ -2360,7 +2373,7 @@ namespace
         Debris() {}
     };
     DEF_TRAITSF(Debris, "it-debris", it_debris, 
-                itf_static | itf_animation | itf_indestructible);
+                itf_static | itf_animation | itf_indestructible | itf_fireproof);
 }
 
 
@@ -2368,10 +2381,12 @@ namespace
 
 namespace
 {
-    /*! This items can burn. The fire spreads and destroys items and actors. */
+    /* Used for animations and interfaces of fire. Study    */
+    /* floors.hh and floors.cc for the fire implementation. */
+
     class Burnable : public Item {
-	CLONEOBJ(Burnable);
-        DECL_TRAITS_ARRAY(5, state);
+        CLONEOBJ(Burnable);
+        DECL_TRAITS_ARRAY(6, state);
     public:
         static void setup() {
             RegisterItem (new Burnable(IDLE));
@@ -2379,83 +2394,52 @@ namespace
             RegisterItem (new Burnable(BURNING));
             RegisterItem (new Burnable(FIREPROOF));
             RegisterItem (new Burnable(ASH));
+            RegisterItem (new Burnable(OIL));
         }
     private:
-	enum State { IDLE, IGNITE, BURNING, FIREPROOF, ASH };
-	Burnable (State initstate) {
-	    state = initstate;
-	}
-	State state;
+        enum State { IDLE, IGNITE, BURNING, FIREPROOF, ASH, OIL };
+        Burnable (State initstate) {
+            state = initstate;
+        }
+        State state;
 
-	virtual Value message (const string &msg, const Value &);
- 	void animcb();
-	bool actor_hit (Actor *a);
-	void ignite (GridPos p);
+        virtual Value message (const string &msg, const Value &v);
+        void animcb();
+        bool actor_hit(Actor *a);
+        void init_model();
     };
 
-    ItemTraits Burnable::traits[5] = {
+    ItemTraits Burnable::traits[6] = {
         {"it-burnable",           it_burnable,           itf_static, 0.0},
-        {"it-burnable_ignited",   it_burnable_ignited,   itf_static | itf_animation, 0.0},
-        {"it-burnable_burning",   it_burnable_burning,   itf_static | itf_animation, 0.0},
-        {"it-burnable_fireproof", it_burnable_fireproof, itf_static, 0.0},
-        {"it-burnable_ash",       it_burnable_ash,       itf_static, 0.0},
+        {"it-burnable_ignited",   it_burnable_ignited,   
+             itf_static | itf_animation | itf_fireproof, 0.0},
+        {"it-burnable_burning",   it_burnable_burning,
+             itf_static | itf_animation | itf_fireproof, 0.0},
+        {"it-burnable_fireproof", it_burnable_fireproof,
+             itf_static | itf_fireproof, 0.0},
+        {"it-burnable_ash",       it_burnable_ash,
+             itf_static | itf_fireproof, 0.0},
+        {"it-burnable_oil",       it_burnable_oil,       itf_static, 0.0},
     };
 }
 
-Value Burnable::message(const string &msg, const Value &)
+Value Burnable::message(const string &msg, const Value &v)
 {
-    if ((msg == "trigger" || msg == "ignite" || msg == "expl") && state==IDLE) {
-        state = IGNITE; // start burning
-        init_model();
-    } else if (msg == "extinguish") {   // stop / never start burning
+    if (msg == "extinguish") {   // stop / never start burning
         state = FIREPROOF;
         init_model();
     } else if (msg == "brush" && (state == ASH || state == FIREPROOF)) {
         kill();                 // The brush cleans the floor
+    } else if (Floor *fl = GetFloor(get_pos())) {
+        if (msg == "trigger" || msg == "ignite" || msg == "expl")
+            return SendMessage(fl, "ignite");
     }
-    return Value();
+    return Item::message(msg, v);
 }
 
 void Burnable::animcb() {
-    GridPos p = get_pos();
-    if (state == IGNITE || state == BURNING) {
-        bool spread = true;
-        if( Stone *st = GetStone( p)) {
-            if( ! st->is_floating())
-                spread = false; // only hollow stones allow the fire to spread
-
-            string model = st->get_kind();
-            if( model == "st-wood1" || model == "st-wood2") {
-                KillStone( p); // The fire has burnt away the wooden stone
-                spread = true;
-            }
-        }
-
-        // spread to neighbouring tiles
-        if (spread) {
-            if (DoubleRand(0, 1) > 0.3) ignite (move(p, NORTH));
-            if (DoubleRand(0, 1) > 0.3) ignite (move(p, EAST));
-            if (DoubleRand(0, 1) > 0.3) ignite (move(p, SOUTH));
-            if (DoubleRand(0, 1) > 0.3) ignite (move(p, WEST));
-        }
-    }
-    if (state == IGNITE) {
-        state = BURNING;
-        init_model();
-    } else if (state == BURNING) {  // stop burning after some random time
-        if (DoubleRand(0, 1) > 0.7) {
-            if (Floor *fl = GetFloor( p)) { // The fire has burnt away the wooden floor
-                string model = fl->get_kind();
-                if (model == "fl-wood" || model == "fl-stwood")
-                    SetFloor( p, MakeFloor("fl-abyss"));
-            }
-            state = ASH;
-        } else {
-            state = BURNING;
-        }
-
-        init_model();
-    }
+    if(Floor *fl = GetFloor(get_pos()))
+        fl->on_burnable_animcb(state == IGNITE);
 }
 
 bool Burnable::actor_hit(Actor *a) {
@@ -2464,59 +2448,15 @@ bool Burnable::actor_hit(Actor *a) {
     return false;
 }
 
-void Burnable::ignite (GridPos p) 
-{
-    bool only_ignite = false;
-
-    if (Stone *st = GetStone( p)) {
-        if (! st->is_floating() && ! st->is_movable())
-            return; // Stone does not allow to ignite.
-        if (st->is_movable())
-            only_ignite = true; // only ignit burnable items
-    }
-
-    Item *it = GetItem(p);
-    switch (get_id(it)) {
-    case it_none:
-        if (!only_ignite) {    // spread on the same floor (if stone allows)
-            if (Floor *fl1 = GetFloor (get_pos())) {
-                string model1 = fl1->get_kind();
-                if (Floor *fl2 = GetFloor(p)) {
-                    string model2 = fl2->get_kind();
-                    if (model1 == model2)
-                        SetItem (p, it_burnable);
-                }
-            }
-        }
-        break;
-
-    case it_burnable: case it_dynamite: case it_blackbomb: case it_whitebomb:
-        // ignite burnable items
-        SendMessage (it, "ignite");
-        break;
-
-    case it_crack0: case it_crack1: case it_crack2: case it_crack3:
-        // cracks are not strong enough
-        SetItem (p, it_debris);
-        break;
-
-    case it_extinguisher:
-    case it_burnable_ignited:	// only ignite once
-    case it_burnable_burning:	// dont re-ignite floor, to get a nicer animation
-    case it_burnable_fireproof:
-    case it_burnable_ash:
-    case it_hill: case it_tinyhill:
-    case it_hollow: case it_tinyhollow:
-        // these don't burn
-        break;
-    default:
-        // all other items burn
-        SetItem (p, it_burnable_ignited);
-        //SendMessage (it, "ignite");
-        break;
-    }
+void Burnable::init_model() {
+    if(state == OIL) {
+        string mymodel = "it-burnable_oil";
+        int r = IntegerRand(1,4);
+        mymodel = mymodel + ((string) (r==1?"1":r==2?"2":r==3?"3":"4"));
+        set_model(mymodel.c_str());
+    } else
+        Item::init_model();
 }
-
 
 
 /* -------------------- Fire Extinguisher -------------------- */
@@ -2557,7 +2497,7 @@ namespace
     ItemTraits Extinguisher::traits[3] = {
         {"it-extinguisher_empty",  it_extinguisher_empty,  itf_none, 0.0},
         {"it-extinguisher_medium", it_extinguisher_medium, itf_none, 0.0},
-        {"it-extinguisher",        it_extinguisher,        itf_none, 0.0},
+        {"it-extinguisher",        it_extinguisher,        itf_fireproof, 0.0},
     };
 }
 

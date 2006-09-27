@@ -16,8 +16,13 @@
       <el:score el:easy="-" el:difficult="-"/>
     </el:info>
     <el:luamain><![CDATA[
+-- Set oxyd1-compatibility-mode to suppress water-heating-animation
+--  Andreas Sep.'06
+
 levelw = 20
 levelh = 13
+
+enigma.SetCompatibility("oxyd1")
 
 create_world(levelw, levelh)
 oxyd_default_flavor = "a"
@@ -88,7 +93,7 @@ end
 
 function apr1()
 
-        if month == "April" then
+        if month == "April" then        
 
 --               01234567890123456789
 renderLine(00 , "wwwwwwwwwwwwwwwwwwww")

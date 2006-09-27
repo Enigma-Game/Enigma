@@ -1,6 +1,6 @@
 /*
 ** Lua binding: enigma
-** Generated automatically by tolua++-1.0.92 on Tue Aug  8 00:12:41 2006.
+** Generated automatically by tolua++-1.0.92 on Wed Sep 27 01:52:17 2006.
 */
 
 #ifndef __cplusplus
@@ -1028,7 +1028,9 @@ static int tolua_enigma_world_DefineSimpleFloor00(lua_State* tolua_S)
      !tolua_isstring(tolua_S,1,0,&tolua_err) ||
      !tolua_isnumber(tolua_S,2,0,&tolua_err) ||
      !tolua_isnumber(tolua_S,3,0,&tolua_err) ||
-     !tolua_isnoobj(tolua_S,4,&tolua_err)
+     !tolua_isboolean(tolua_S,4,0,&tolua_err) ||
+     !tolua_isstring(tolua_S,5,0,&tolua_err) ||
+     !tolua_isnoobj(tolua_S,6,&tolua_err)
  )
   goto tolua_lerror;
  else
@@ -1037,8 +1039,10 @@ static int tolua_enigma_world_DefineSimpleFloor00(lua_State* tolua_S)
   const char* kind = ((const char*)  tolua_tostring(tolua_S,1,0));
   double friction = ((double)  tolua_tonumber(tolua_S,2,0));
   double mousefactor = ((double)  tolua_tonumber(tolua_S,3,0));
+  bool burnable = ((bool)  tolua_toboolean(tolua_S,4,0));
+  const char* firetransform = ((const char*)  tolua_tostring(tolua_S,5,0));
   {
-   DefineSimpleFloor(kind,friction,mousefactor);
+   DefineSimpleFloor(kind,friction,mousefactor,burnable,firetransform);
   }
  }
  return 0;

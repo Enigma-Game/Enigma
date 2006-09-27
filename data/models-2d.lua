@@ -414,6 +414,20 @@ frames = buildframes(namelist,70)
 def_anim("fl-bridgey-opening", frames)
 def_anim("fl-bridgey-closing", reverseframes(frames))
 
+------------------------
+-- Heating animations --
+------------------------
+
+function heating_animation(basemodel)
+    local img = def_subimages(basemodel.."-heating", {h=8});    
+    local f = buildframes(img, 240)
+    def_anim(basemodel.."-heating", f);
+end
+
+heating_animation("fl-ice")
+heating_animation("fl-water")
+heating_animation("fl-swamp")
+
 --------------------------------------------------------------------------
 --                           ITEM MODELS                                --
 --------------------------------------------------------------------------
@@ -525,6 +539,8 @@ do
    def_alias("it-extinguisher_empty", img[3])
 end
 
+-- Oil --
+def_subimages("it-burnable_oil", {h=4})
 
 -- Magnet --
 def_image("it-magnet-off")
@@ -720,11 +736,12 @@ def_alias("st-glass2_hole", "st-glass2")
 def_stone("st-metal")
 def_alias("st-metal_hole", "st-metal")
 def_stone("st-blue-sand")
+def_stone("st-flrock")
 
 do
    local sh=def_subimages("sh-round2-growing", {h=3,imgw=ShadowSize,imgh=ShadowSize})
 
-   -- Wooden stone --
+   -- Wooden stones --
    do
       def_subimages("st-wood", {modelname="st-wood-fg",h=2})
       def_shmodel("st-wood1", "st-wood-fg1", "sh-round")

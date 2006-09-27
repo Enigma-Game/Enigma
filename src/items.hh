@@ -45,6 +45,7 @@ namespace world
         it_burnable_ignited,
         it_burnable_burning,
         it_burnable_ash,
+        it_burnable_oil,
         it_changefloor,
         it_cherry,
         it_cherry_crushed,
@@ -152,6 +153,7 @@ namespace world
         itf_invisible = 8,      //!< Item has no visible model
         itf_inflammable = 16,   //!< Burns when hit by laser beam
         itf_norespawn = 32,     //!< Don't respawn balls on top of this item
+        itf_fireproof = 64,     //!< This item can't burn by fire
     };
 
     struct ItemTraits {

@@ -16,6 +16,9 @@
       <el:score el:easy="-" el:difficult="-"/>
     </el:info>
     <el:luamain><![CDATA[
+-- Small changes to the eternal-fire to make the sun look less pulsating
+  -- Andreas Sep.'06
+
 rooms_wide=11
 rooms_high=5
 
@@ -191,11 +194,11 @@ function renderLine( line, pattern)
             set_floor("fl-metal",i-1,line)
         elseif c=="S" then
            set_item("it-burnable_ignited",i-1,line)
-            set_floor("fl-sahara",i-1,line)
+            set_floor("fl-sahara",i-1,line, {burnable=TRUE, noash=TRUE, secure=TRUE})
         elseif c=="T" then
            set_item("it-burnable_ignited",i-1,line)
            set_stone( "st-invisible", i-1, line)
-            set_floor("fl-sahara",i-1,line)
+            set_floor("fl-sahara",i-1,line, {burnable=TRUE, noash=TRUE, eternal=TRUE})
         elseif c=="q" then
            set_item("it-umbrella",i-1,line)
            set_floor("fl-metal",i-1,line)
@@ -575,7 +578,7 @@ set_item("it-burnable_ignited",0,44)
 
 end
 
-set_stone( "st-timer", 210, 0, {interval=1.5,action="callback", target="timer_handler"})
+--set_stone( "st-timer", 210, 0, {interval=1.5,action="callback", target="timer_handler"})
 
 display.SetFollowMode(display.FOLLOW_SCROLLING)
     ]]></el:luamain>

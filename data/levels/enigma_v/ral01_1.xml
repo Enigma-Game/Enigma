@@ -3,7 +3,7 @@
   <el:protected >
     <el:info el:type="level">
       <el:identity el:title="Firefox" el:subtitle="Fire or be fired" el:id="20060213ral003"/>
-      <el:version el:score="1" el:release="1" el:revision="$Revision: 25 $" el:status="released"/>
+      <el:version el:score="1" el:release="1" el:revision="$Revision: 26 $" el:status="released"/>
       <el:author  el:name="Ronald Lamprecht" el:email="ral@users.berlios.de"/>
       <el:copyright>Copyright © 2006 Ronald Lamprecht</el:copyright>
       <el:license el:type="GPL v2.0 or above" el:open="true"/>
@@ -19,6 +19,8 @@
       <el:score el:easy="7:54" el:difficult="9:45"/>
     </el:info>
     <el:luamain><![CDATA[
+-- Replaced st-wood by st-flrock to support new fire system. -- Andreas 27.9.06
+
 enigma.ConserveLevel = FALSE
 
 set_oxyd = oxyd
@@ -103,7 +105,7 @@ tiles["e"] = {inherit("."), item("it-extinguisher_empty",{name="extinguisher1"})
 tiles["f"] = {inherit("."), item("it-extinguisher")}
 tiles["T"] = {inherit("."), item("it-document",{text="Do you think a bushman would start to search an extinguisher in the cellar in case of a wall of fire is approaching? Be a Firefox - you have the first 5 items to deal with, no more no less!"})}
 tiles["I0"] = {inherit("i"), item("it-crack0")}
-tiles["="] = {inherit("I0"), stone("st-wood")}
+tiles["="] = {inherit("I0"), stone("st-flrock")}
 tiles["I"] =  tiles["I0"]
 tiles["I3"] = {inherit("i"), item("it-crack3")}
 tiles["I1"] = {inherit("i"), item("it-crack1")}
@@ -117,7 +119,7 @@ tiles["S"] = {inherit("S1"), stone("st-oneway_black-s")}
 tiles["t"] = {inherit("."), stone("st-laser-n",{on=1})}
 tiles["n"] = {inherit("."), stone("st-laser-n",{name="laser1",on=0})}
 tiles["s"] = {inherit("."), stone("st-laser-s",{on=1})}
-tiles["w"] = {inherit("."), stone("st-wood")}
+tiles["w"] = {inherit("."), stone("st-flrock")}
 tiles["B"] = {inherit(" "), stone("st-bombs")}
 tiles["b"] = {inherit("."), item("it-blackbomb")}
 tiles["x"] = {inherit("."), oxyd}
@@ -134,14 +136,14 @@ if difficult then
     tiles["7"] =  tiles["e"]
     tiles["8"] =  tiles["a"]
     tiles["9"] =  tiles["d"]
-    tiles["%"] = {inherit("I3"), stone("st-wood")}
+    tiles["%"] = {inherit("I3"), stone("st-flrock")}
 else
     tiles["5"] =  tiles["d"]
     tiles["6"] =  tiles["a"]
     tiles["7"] =  tiles["h"]
     tiles["8"] =  tiles["e"]
     tiles["9"] =  tiles["h"]
-    tiles["%"] = {inherit("I1"), stone("st-wood")}
+    tiles["%"] = {inherit("I1"), stone("st-flrock")}
 end
 
 

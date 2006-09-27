@@ -1442,6 +1442,8 @@ namespace
         }
         else
             SetItem(p, explosion_item);
+        if (Floor *floor = GetFloor(p))
+            SendMessage(floor, "expl");
     }
 }
 
@@ -1453,12 +1455,14 @@ void world::SendExplosionEffect(GridPos center, ExplosionType type)
         GridPos  dest            = get_neighbour (center, a+1);
         Item    *item            = GetItem (dest);
         Stone   *stone           = GetStone (dest);
+        Floor   *floor           = GetFloor (dest);
         bool     direct_neighbor = a<4;
 
         switch (type) {
         case EXPLOSION_DYNAMITE:
             if (stone) SendMessage(stone, "ignite");
             if (item) SendMessage(item, "ignite");
+            if (floor) SendMessage(floor, "ignite");
             break;
 
         case EXPLOSION_BLACKBOMB:
@@ -1468,6 +1472,7 @@ void world::SendExplosionEffect(GridPos center, ExplosionType type)
             else {
                 if (stone) SendMessage(stone, "ignite");
                 if (item) SendMessage(item, "ignite");
+                if (floor) SendMessage(floor, "ignite");
             }
             break;
 
@@ -1479,6 +1484,7 @@ void world::SendExplosionEffect(GridPos center, ExplosionType type)
             if (direct_neighbor) {
                 if (stone) SendMessage(stone, "bombstone");
                 if (item) SendMessage(item, "bombstone");
+                if (floor) SendMessage(floor, "bombstone");
             }
             break;
 
@@ -1988,10 +1994,13 @@ void world::DisposeObject(Object *o) {
     }
 }
 
-void world::DefineSimpleFloor(const std::string &kind,
-                              double friction, double mousefactor)
+void world::DefineSimpleFloor(const std::string &kind, double friction,
+                              double mousefactor, bool burnable,
+                              const std::string &firetransform)
 {
-    Register(new Floor(kind.c_str(), friction, mousefactor));
+    Register(new Floor(kind.c_str(), friction, mousefactor,
+             flf_default, burnable ? flft_burnable : flft_default,
+             firetransform.c_str(), ""));
 }
 
 void world::DumpObjectInfo() {

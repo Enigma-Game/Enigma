@@ -35,23 +35,54 @@ namespace world
         fl_space
     };
 
+    enum FloorFireType {
+        flft_default   = 0,
+        flft_burnable  = 0x01,  // Floor behaves as if it-burnable lies on it.
+        flft_ignitable = 0x02,  // Ignite on bomb explosions. Not used.
+        flft_noash     = 0x04,  // Don't leave ash behind; floor might burn again.
+        flft_burnagain = 0x08,  // Not used yet, nor implemented; see flft_noash.
+        flft_eternal   = 0x10,  // Fire doesn't stop burning by itself.
+        flft_secure    = 0x20,  // Secures fire and heat-effects when neighbors burn.
+        flft_fastfire  = 0x40   // Suppress use of fire_countdown, resulting in faster fire.
+        // Note that only flft_burnable and flft_noash are really used as traits.
+        // The others are 0 by default for all floors, but used as selectors
+        // for has_firetype. (Future use for special floors not excluded.)
+    };
+
     struct FloorTraits {
         // Variables
-        string     name;
-        double     friction;
-        double     mousefactor;
-        FloorFlags flags;
+        string         name;
+        double         friction;
+        double         mousefactor;
+        FloorFlags     flags;
+        FloorFireType  firetype;
+        string         firetransform;  // fire on the same tile
+        string         heattransform;  // fire on neighboring tile
 
         // Constructor
-        FloorTraits (const char *n, double f, double m, FloorFlags flags_)
-        : name(n), friction(f), mousefactor(m), flags(flags_)
+        FloorTraits (const char *n, double f, double m,
+                     FloorFlags flags_, FloorFireType flft = flft_default,
+                     const char *ft = "", const char *ht = "")
+            : name(n), friction(f), mousefactor(m), flags(flags_),
+              firetype(flft), firetransform(ft), heattransform(ht)
         {}
-     };
+    };
+
+    enum FloorHeatFlags {
+        // These are used as second argument to try_heating and try_ignite,
+        // they contain the context of a call.
+        flhf_message = 0,     // Source is a user-message.
+        flhf_fire    = 0x01,  // Source is fire.
+        flhf_first   = 0x02,  // First heat message from a burning site.
+        flhf_last    = 0x04   // Last heat message from a burning site.        
+    };
 
     class Floor : public GridObject {
     public:
         Floor (const FloorTraits &tr);
-        Floor (const char *kind, double friction, double mfactor, FloorFlags flags=flf_default);
+        Floor (const char *kind, double friction_, double mfactor,
+               FloorFlags flags=flf_default, FloorFireType flft = flft_default,
+               const char *firetransform_ = "", const char *heattransform_ = "");
 
         // Object interface
         Floor *clone();
@@ -74,17 +105,37 @@ namespace world
 
         virtual void get_sink_speed (double &sinkspeed, double &raisespeed) const;
         virtual bool is_destructible() const;
+
+        virtual void animcb();
+        void on_burnable_animcb(bool justIgnited);  // Called by burnable-items on it.
+
     protected:
         // GridObject interface
         void set_model (const std::string &mname);
         display::Model *get_model ();
         void kill_model (GridPos p);
+        // Fire interface
+        virtual bool has_firetype(FloorFireType selector);
+        virtual string get_firetransform();
+        virtual string get_heattransform(bool override_mode);
+        void heat_neighbor(Direction dir, FloorHeatFlags flhf);        
+        int get_fire_countdown();
+        virtual bool on_heattransform(Direction sourcedir, FloorHeatFlags flhf);
+
     private:
         virtual void on_actorhit(Actor * /*a*/) {}
+        // Fire logic
+        Value try_heating(Direction sourcedir, FloorHeatFlags flhf);
+        Value try_ignite(Direction sourcedir, FloorHeatFlags flhf);
+        Value force_fire();
+
         FloorTraits traits;
+        bool heating_animation;
+        int fire_countdown;  // used to delay ignition, default is 1.
     };
 
     void InitFloors();
+
 }
 
 #endif

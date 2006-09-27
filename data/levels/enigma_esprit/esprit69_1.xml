@@ -16,8 +16,11 @@
       <el:score el:easy="-" el:difficult="-"/>
     </el:info>
     <el:luamain><![CDATA[
+-- Added non-Enigma-compatibility-mode to support fire correctly -- Andreas Sep.06
+
 levelw = 39
 levelh = 13
+enigma.SetCompatibility("oxyd1")
 create_world(levelw, levelh)
 oxyd_default_flavor = "b"
 set_actor("ac-blackball", 27.5,6.5)

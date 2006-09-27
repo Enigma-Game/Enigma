@@ -16,6 +16,9 @@
       <el:score el:easy="-" el:difficult="-"/>
     </el:info>
     <el:luamain><![CDATA[
+-- Added burnable-attribute to floor to support fire correctly
+-- (Compatibility-mode allows the key to be used twice!) -- Andreas Sep.06
+
 levelw = 39
 levelh = 13
 display.SetFollowMode(display.FOLLOW_SCROLLING)
@@ -25,6 +28,9 @@ set_actor("ac-blackball", 2.5,6.5)
 
 fill_floor("fl-black", 0,0, levelw,levelh)
 fill_items( "it-burnable", 0, 0, 24, 13)
+for x = 0, 23 do for y = 0, levelh - 1 do
+  SetAttrib(enigma.GetFloor(x,y), "burnable", 1.0)
+end end
 draw_floor("fl-metal",{24,0},{0,1},13)
 
 function renderLine( line, pattern)
