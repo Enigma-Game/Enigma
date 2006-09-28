@@ -66,13 +66,14 @@ function renderLine( line, pattern)
         elseif c=="h" then
             doorh(i-1,line, {name="door1"})
         elseif c=="a" then
-                set_stone("st-key_a", i-1,line, {action="callback", target="riendutout"})
+            set_stone("st-key_a", i-1,line, {action="callback", target="riendutout"})
         elseif c=="x" then
             set_stone("st-knight", i-1,line)
         elseif c=="1" then
             set_attrib(laser(i-1,line,FALSE, SOUTH), "name", "lasero")
         elseif c=="d" then
             document(i-1,line,"text1")
+            document(i-1,line+1,"text3")
         elseif c=="o" then
             oxyd(i-1,line)
         end
@@ -135,6 +136,9 @@ SendMessage("lasero","on")
       </el:string> 
       <el:string el:key="text2">
         <el:english el:translate="false">You have been seen using a forbidden key; costa guardia are chasing you now; El Dictator too.</el:english>
+      </el:string> 
+      <el:string el:key="text3">
+        <el:english el:translate="false">Hasta la Enigma !!!</el:english>
       </el:string> 
     </el:i18n>
   </el:protected>
