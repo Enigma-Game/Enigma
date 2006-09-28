@@ -270,7 +270,7 @@ dnl ----------------------------------------
 
 AC_MSG_CHECKING(whether to build lua using c++)
 AC_ARG_ENABLE(cxxlua,
-  AS_HELP_STRING(--enable-cxxlua, Build Lua with C++ [default=no, except on MingW32]),,if test "$MINGW32" = yes; then enable_cxxlua=yes; else enable_cxxlua=no;fi)
+  AS_HELP_STRING(--enable-cxxlua, Build Lua with C++ [default=yes]),,enable_cxxlua=yes)
 if test "x$enable_cxxlua" = xyes; then
   CXXFLAGS="$CXXFLAGS -DCXXLUA"
   AC_MSG_RESULT(yes)
