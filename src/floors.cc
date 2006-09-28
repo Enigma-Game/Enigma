@@ -205,8 +205,9 @@ Value Floor::try_ignite(Direction sourcedir, FloorHeatFlags flhf) {
     if(heating_animation)
         return Value();
 
-    // No or floating stone -> Burns items and replicate.
-    // Movable stone -> Only burn items.
+    // No or floating stone -> Burn items and replicate.
+    // Movable stone && non-enigma-mode -> Only burn items.
+    // Movable stone && enigma-mode -> Burn items and replicate.
     // Else -> Don't do anything.
     bool no_closing_stone = true;
     if (Stone *st = GetStone(p)) {
@@ -228,11 +229,10 @@ Value Floor::try_ignite(Direction sourcedir, FloorHeatFlags flhf) {
                 // of this item:
                 if(!has_flags(it, itf_fireproof))
                     return force_fire();
-            } else if (no_closing_stone) {
-                // Just spread, but not under movable stones.
-                // Use the fire-countdown to delay fire without it-burnable,
-                // but not in case of a message or a secure+last call or a
-                // fastfire-floor.
+            } else {
+                // Just spread. Use the fire-countdown to delay fire without
+                // it-burnable, but not in case of a message or a secure+last
+                // call or a fastfire-floor.
                 if(    (get_fire_countdown() == 0) || (flhf == flhf_message)
                     || (has_firetype(flft_fastfire))
                     || (((bool) (flhf & flhf_last)) && has_firetype(flft_secure)))
@@ -242,11 +242,10 @@ Value Floor::try_ignite(Direction sourcedir, FloorHeatFlags flhf) {
         }
     } else {  // non-Enigma-mode
         if(has_firetype(flft_burnable) || flhf == flhf_message) {
-            // In non-Enigma-mode we only get here when there is a
-            // burnable item on the floor, or the burnable attribute
-            // is set (e.g. as part of replication). A fireproof item
-            // doesn't allow to get here. (Note: We don't check a
-            // second time for no_closing_stone.)
+            // We only get here when there is a burnable item or the
+            // burnable attribute is set (e.g. as part of replication).
+            // A fireproof item doesn't allow to get here. (Note: We
+            // don't check a second time for no_closing_stone.)
             return force_fire();
         } else {
             // This floor doesn't burn by default or by item. But, in
