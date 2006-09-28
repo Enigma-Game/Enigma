@@ -60,21 +60,22 @@ function spade()
     holk[1]=random(4)-1
     holl[1]=random(2)-1
     for n=2,nhol do
-        for m=1,1 do
+        repeat
             ii=random(4)-1
             jj=random(3)-1
             kk=random(4)-1
             ll=random(2)-1
             vazy=1
+            m = 0
             for p=1,n do
                 if holi[p]==ii and holj[p]==jj and holk[p]==kk and holl[p]==ll then
                     vazy=0
                 end
                 if vazy==0 then
-                    m=m-1
+                    m=m+1
                 end
             end
-        end
+        until m == 0
         holi[n]=ii
         holj[n]=jj
         holk[n]=kk

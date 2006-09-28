@@ -198,13 +198,10 @@ function okokok()
         take1(j)
         display_choice()
         if hurra1==1 then
-            for i=1,1 do -- Now Big Brother enters in action -- -- -- -- -- -- -- -- -- --
+            repeat -- Now Big Brother enters in action -- -- -- -- -- -- -- -- -- --
                 BB_choice=random(6)+6
                 som=tab[BB_choice]
-                if som==0 then
-                    i=i-1
-                end
-            end
+            until som ~= 0
         else
             bouh=1
         end
