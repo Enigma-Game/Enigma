@@ -20,7 +20,7 @@ levelw = 20
 levelh = 25
 
 create_world(levelw, levelh)
-oxyd_default_flavor = "b"       -- Default flavor for oxyd stones.
+oxyd_default_flavor = "b"
 
 set_actor("ac-blackball", 4.5,22)
 set_item("it-extralife",13,1)

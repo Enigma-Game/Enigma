@@ -71,7 +71,6 @@ draw_stones( "st-rock3", { 9,7}, {0,1}, 5)
 draw_stones( "st-rock3", {11,7}, {0,1}, 5)
 draw_stones( "st-rock3", {13,7}, {0,1}, 5)
 
-
 set_item( "it-hollow", 6,11, {name="h1"})
 set_item( "it-hollow", 8,11, {name="h2"})
 set_item( "it-hollow",10,11, {name="h3"})
@@ -81,7 +80,6 @@ set_item("it-trigger", 6, 8, {invisible=1, action="callback", target="trigger_h1
 set_item("it-trigger", 8, 8, {invisible=1, action="callback", target="trigger_h2"})
 set_item("it-trigger",10, 8, {invisible=1, action="callback", target="trigger_h3"})
 set_item("it-trigger",12, 8, {invisible=1, action="callback", target="trigger_h4"})
-
 
 set_actor("ac-whiteball-small", 2.7,5, {player=0, mouseforce=1})
 set_actor("ac-whiteball-small",17.3,5, {player=0, mouseforce=1})

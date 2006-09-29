@@ -2,7 +2,7 @@
 <el:level xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://enigma-game.org/schema/level/1 level.xsd" xmlns:el="http://enigma-game.org/schema/level/1">
   <el:protected>
     <el:info el:type="level">
-      <el:identity el:title="esprit  13 - Spin Cycle" el:subtitle="" el:id="martin34"/>
+      <el:identity el:title="esprit  13" el:subtitle="Spin Cycle" el:id="martin34"/>
       <el:version el:score="1" el:release="1" el:revision="0" el:status="released"/>
       <el:author  el:name="Martin Hawlisch" el:email="" el:homepage=""/>
       <el:copyright>Copyright © 0036 Martin Hawlisch</el:copyright>
@@ -30,7 +30,6 @@ draw_stones( stone, { 6,8}, {1,0}, 8)
 draw_stones( stone, { 5,5}, {1,0},10)
 draw_stones( stone, { 5,6}, {1,0},10)
 draw_stones( stone, { 5,7}, {1,0},10)
-
 
 draw_floor("fl-gradient", { 2,11}, {1,0}, 16, {type=14})
 draw_floor("fl-gradient", { 4, 3}, {1,0}, 12, {type=16})

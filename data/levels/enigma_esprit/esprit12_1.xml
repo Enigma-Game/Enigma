@@ -19,7 +19,7 @@
 levelw = 20
 levelh = 13
 create_world(levelw, levelh)
-oxyd_default_flavor = "b"       -- Default flavor for oxyd stones.
+oxyd_default_flavor = "b"
 
 set_actor("ac-blackball", 11.5,4.5)
 draw_checkerboard_floor( "fl-woven", "fl-bluegreenx", 0, 0,levelw,levelh)

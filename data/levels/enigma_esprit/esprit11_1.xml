@@ -20,7 +20,7 @@ levelw = 20
 levelh = 109
 create_world(levelw, levelh)
 enigma.SlopeForce = 70
-oxyd_default_flavor = "b"       -- Default flavor for oxyd stones.
+oxyd_default_flavor = "b"
 
 set_actor("ac-blackball", 10.5,6.5)
 

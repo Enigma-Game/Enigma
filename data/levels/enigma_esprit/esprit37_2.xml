@@ -30,10 +30,8 @@ set_actor("ac-blackball", 11.5,8.5, {player=0})
 --set_actor("ac-rotor", 1.5,9.5, {range=30, force=40}) 
 ghosts_set_ghost(1,9,"ac-rotor",1,ghosts_direction_intelligent,
                     {range=0, force=40, gohome=FALSE})
-
 --fill_floor("fl-sand",0,0,levelw,levelh)
 ghosts_set_railarea(0,0,levelw,levelh,1,"fl-sand")
-
 function renderLine( line, pattern)
     for i=1, strlen(pattern) do
       local c = strsub( pattern, i, i)
@@ -82,7 +80,6 @@ renderLine(09 , "#   # ##### #### # #")
 renderLine(10 , "##### #O  . . O#6# #")
 renderLine(11 , "#     #   . .  # # #")
 renderLine(12 , "# ######### #### # #")
-
 renderLine(13 , "# #2             # #")
 renderLine(14 , "# ####### # #### # #")
 renderLine(15 , "#       # # #O # # #")
@@ -96,16 +93,13 @@ renderLine(22 , "# # #######8# #### #")
 renderLine(23 , "#           #      #")
 renderLine(24 , "####################")
 --               01234567890123456789
-
 state_s1 = 1
 state_s2 = 1
 state_s3 = 1
 state_s4 = 1
-
 function msgthisdoor(x,y,msg)  
   SendMessage(enigma.GetStone(x,y), msg)
 end
-
 function checkmydoors()
   local msg
   if      (state_s1 == 0) and (state_s2 == 0)
@@ -123,7 +117,6 @@ function checkmydoors()
   msgthisdoor(13,17,msg)
   msgthisdoor(14,17,msg)
 end
-
 state_s1 = 1
 function s1()
   state_s1 = 1 - state_s1
@@ -144,9 +137,7 @@ function s4()
   state_s4 = 1 - state_s4
   checkmydoors()
 end
-
 oxyd_shuffle()
-
 ghosts_init(0,0)
 if difficult then
   enigma.SlopeForce=20
