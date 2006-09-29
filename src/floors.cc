@@ -151,15 +151,15 @@ void Floor::add_force (Actor *, V2 &f)
  *        source fire stops next time
  *    - start heat-transformation on first fire call but not yet
  *        transforming and only in Enigma-mode
- *    - In non-Enigma-mode (resp. Enigma-mode), spread to other floors
- *        of the same kind (resp. burnable floors) by chance or message
+ *    - In Enigma-mode (resp. non-Enigma-mode), spread to other burnable
+ *        floors (resp. floors of the same kind) by chance or message
  *        or last+secure, if none of the first two methods worked, but
  *        delayed by firecountdown to simulate the old system, but not
  *        if message or last+secure or fastfire-attribute set: Then spread
  *        without countdown. Don't do any of these when there is a movable
  *        stone on it.
  *    - And don't do any of the former three if there is a stone on it,
- *        which is neither floating nor movable.
+ *        which is not floating (in non-Enigma-mode: neither movable).
  *  Have I forgotten something?
  */
 
@@ -206,8 +206,8 @@ Value Floor::try_ignite(Direction sourcedir, FloorHeatFlags flhf) {
         return Value();
 
     // No or floating stone -> Burn items and replicate.
-    // Movable stone && non-enigma-mode -> Only burn items.
     // Movable stone && enigma-mode -> Burn items and replicate.
+    // Movable stone && non-enigma-mode -> Only burn items.
     // Else -> Don't do anything.
     bool no_closing_stone = true;
     if (Stone *st = GetStone(p)) {

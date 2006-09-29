@@ -2496,7 +2496,7 @@ namespace
 
     ItemTraits Extinguisher::traits[3] = {
         {"it-extinguisher_empty",  it_extinguisher_empty,  itf_none, 0.0},
-        {"it-extinguisher_medium", it_extinguisher_medium, itf_none, 0.0},
+        {"it-extinguisher_medium", it_extinguisher_medium, itf_fireproof, 0.0},
         {"it-extinguisher",        it_extinguisher,        itf_fireproof, 0.0},
     };
 }

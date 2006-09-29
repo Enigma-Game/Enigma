@@ -247,7 +247,8 @@ oxyd_shuffle()
         <el:english el:translate="false"/>
       </el:string>
       <el:string el:key="text1">
-        <el:english el:translate="false">A Stone, a Tree, and Trees be Three,   --   For to Defeat the Enemy,   --   Between Might Lay   --   A Secret Way!   --   (If this you see, then press F3.)</el:english>
+        <el:english el:translate="true">A Stone, a Tree, and Trees be Three,   --   For to Defeat the Enemy,   --   Between Might Lay   --   A Secret Way!   --   (If this you see, press Shift-F3.)</el:english>
+        <el:translation el:lang="de">Erst ein Stein und dreimal Baum,   --   da liegt ein geheimer Raum.   --   Und ist nun dieser Text vorbei,   --   wart' nicht lang, drück Shift-F3.</el:translation>
       </el:string> 
     </el:i18n>
   </el:protected>

@@ -209,10 +209,12 @@ oxyd_shuffle()
     ]]></el:luamain>
     <el:i18n>
       <el:string el:key="title">
-        <el:english el:translate="false"/>
+        <el:english el:translate="true"/>
+        <el:translation el:lang="de">Der Fliesen-Mäher</el:translation>
       </el:string>
       <el:string el:key="text1">
-        <el:english el:translate="false">No hint today ...    Those flagstones pass away ...    The docu stands alone ...    Why is it so alone?    --    This hint today ...    Why is it on this side ...    The reaper passing by ...    Could know the reason why!     (orig. by Herman's Hermits)   </el:english>
+        <el:english el:translate="true" el:comment="Difficult to translate. If you have no idea, just say: Why is the hint on this side? The Reaper should know it.">No hint today ...    Those flagstones pass away ...    The docu stands alone ...    Why is it so alone?    --    This hint today ...    Why is it on this side ...    The reaper passing by ...    Could know the reason why!     (orig. by Herman's Hermits)   </el:english>
+        <el:translation el:lang="de">Warum ist der Hinweis auf dieser Seite?        Sollte der Mäher das vielleicht wissen?</el:translation>
       </el:string> 
     </el:i18n>
   </el:protected>

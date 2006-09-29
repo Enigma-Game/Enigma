@@ -138,7 +138,7 @@ function renderLine( line, pattern)
       oxyd(i-1,line)
     end
   end
- end	
+ end  
 end
 
 -- choosing a row -- -- -- -- -- -- -- -- -- -- -- -- -- --
@@ -179,204 +179,204 @@ end
 function display_game()
  if difficult then
 -- -- -- -- -- -- -- -- -- -- --  display Blackball's stones
-	for i=1,6 do
-		for j=1,8 do
-			enigma.KillStone(j,i)
-			enigma.KillStone(9+j,i)
-			enigma.KillStone(22+j,i)
-			enigma.KillStone(31+j,i)
-		end
-	end
-	for i=1,6 do
-		som_1=tab1[i]
-		s_10=0
-		if som_1>=10 then
-			repeat
-				s_10=s_10+1
-				som_1=som_1-10
-			until som_1<10
-		end
-		if som_1<5 then
-			s_5=0
-		else
-			s_5=1
-			som_1=som_1-5
-		end
-		s_1=som_1
-		if s_10>0 then for j=1,s_10 do set_stone("st-yellow",j,i) end end
-		if s_5>0 then for j=s_10+1,s_10+s_5 do set_stone("st-rock5",j,i) end end
-		if s_1>0 then for j=s_10+s_5+1,s_10+s_5+s_1 do set_stone("st-blue-sand",j,i) end end
-		if ghost[i]>=0 then
-			for j=s_10+s_5+s_1+1,s_10+s_5+s_1+ghost[i] do
-				set_stone("st-glass",j,i)
-			end
-		end
-	end
-	for i=1,6 do
-		som_1=tab1[6+i]
-		s_10=0
-		if som_1>=10 then
-			repeat
-				s_10=s_10+1
-				som_1=som_1-10				
-			until som_1 < 10
-		end
-		if som_1<5 then
-			s_5=0
-		else
-			s_5=1
-			som_1=som_1-5
-		end
-		s_1=som_1
-		if s_10>0 then for j=1,s_10 do set_stone("st-yellow",9+j,7-i) end end
-		if s_5>0 then for j=s_10+1,s_10+s_5 do set_stone("st-rock5",9+j,7-i) end end
-		if s_1>0 then for j=s_10+s_5+1,s_10+s_5+s_1 do set_stone("st-blue-sand",9+j,7-i) end end
-		if ghost[6+i]>=0 then
-			for j=s_10+s_5+s_1+1,s_10+s_5+s_1+ghost[6+i] do
-				set_stone("st-glass",9+j,7-i)
-			end
-		end
-	end
+  for i=1,6 do
+    for j=1,8 do
+      enigma.KillStone(j,i)
+      enigma.KillStone(9+j,i)
+      enigma.KillStone(22+j,i)
+      enigma.KillStone(31+j,i)
+    end
+  end
+  for i=1,6 do
+    som_1=tab1[i]
+    s_10=0
+    if som_1>=10 then
+      repeat
+        s_10=s_10+1
+        som_1=som_1-10
+      until som_1<10
+    end
+    if som_1<5 then
+      s_5=0
+    else
+      s_5=1
+      som_1=som_1-5
+    end
+    s_1=som_1
+    if s_10>0 then for j=1,s_10 do set_stone("st-yellow",j,i) end end
+    if s_5>0 then for j=s_10+1,s_10+s_5 do set_stone("st-rock5",j,i) end end
+    if s_1>0 then for j=s_10+s_5+1,s_10+s_5+s_1 do set_stone("st-blue-sand",j,i) end end
+    if ghost[i]>=0 then
+      for j=s_10+s_5+s_1+1,s_10+s_5+s_1+ghost[i] do
+        set_stone("st-glass",j,i)
+      end
+    end
+  end
+  for i=1,6 do
+    som_1=tab1[6+i]
+    s_10=0
+    if som_1>=10 then
+      repeat
+        s_10=s_10+1
+        som_1=som_1-10        
+      until som_1 < 10
+    end
+    if som_1<5 then
+      s_5=0
+    else
+      s_5=1
+      som_1=som_1-5
+    end
+    s_1=som_1
+    if s_10>0 then for j=1,s_10 do set_stone("st-yellow",9+j,7-i) end end
+    if s_5>0 then for j=s_10+1,s_10+s_5 do set_stone("st-rock5",9+j,7-i) end end
+    if s_1>0 then for j=s_10+s_5+1,s_10+s_5+s_1 do set_stone("st-blue-sand",9+j,7-i) end end
+    if ghost[6+i]>=0 then
+      for j=s_10+s_5+s_1+1,s_10+s_5+s_1+ghost[6+i] do
+        set_stone("st-glass",9+j,7-i)
+      end
+    end
+  end
 -- -- -- -- -- -- -- -- -- -- -- -- -- --       display Big Brother's stones
-	for i=1,6 do
-		som_2=tab2[i]
-		s_10=0
-		if som_2>=10 then
-			repeat
-				s_10=s_10+1
-				som_2=som_2-10
-			until som_2 < 10
-		end
-		if som_2<5 then
-			s_5=0
-		else
-			s_5=1
-			som_2=som_2-5
-		end
-		s_1=som_2
-		if s_10>0 then for j=1,s_10 do set_stone("st-yellow",31+j,7-i) end end
-		if s_5>0 then for j=s_10+1,s_10+s_5 do set_stone("st-rock5",31+j,7-i) end end
-		if s_1>0 then for j=s_10+s_5+1,s_10+s_5+s_1 do set_stone("st-blue-sand",31+j,7-i) end end
-	end
-	for i=1,6 do
-		som_2=tab2[6+i]
-		s_10=0
-		if som_2>=10 then
-			repeat
-				s_10=s_10+1
-				som_2=som_2-10
-			until som_2 < 10
-		end
-		if som_2<5 then
-			s_5=0
-		else
-			s_5=1
-			som_2=som_2-5
-		end
-		s_1=som_2
-		if s_10>0 then for j=1,s_10 do set_stone("st-yellow",22+j,i) end end
-		if s_5>0 then for j=s_10+1,s_10+s_5 do set_stone("st-rock5",22+j,i) end end
-		if s_1>0 then for j=s_10+s_5+1,s_10+s_5+s_1 do set_stone("st-blue-sand",22+j,i) end end
-	end
+  for i=1,6 do
+    som_2=tab2[i]
+    s_10=0
+    if som_2>=10 then
+      repeat
+        s_10=s_10+1
+        som_2=som_2-10
+      until som_2 < 10
+    end
+    if som_2<5 then
+      s_5=0
+    else
+      s_5=1
+      som_2=som_2-5
+    end
+    s_1=som_2
+    if s_10>0 then for j=1,s_10 do set_stone("st-yellow",31+j,7-i) end end
+    if s_5>0 then for j=s_10+1,s_10+s_5 do set_stone("st-rock5",31+j,7-i) end end
+    if s_1>0 then for j=s_10+s_5+1,s_10+s_5+s_1 do set_stone("st-blue-sand",31+j,7-i) end end
+  end
+  for i=1,6 do
+    som_2=tab2[6+i]
+    s_10=0
+    if som_2>=10 then
+      repeat
+        s_10=s_10+1
+        som_2=som_2-10
+      until som_2 < 10
+    end
+    if som_2<5 then
+      s_5=0
+    else
+      s_5=1
+      som_2=som_2-5
+    end
+    s_1=som_2
+    if s_10>0 then for j=1,s_10 do set_stone("st-yellow",22+j,i) end end
+    if s_5>0 then for j=s_10+1,s_10+s_5 do set_stone("st-rock5",22+j,i) end end
+    if s_1>0 then for j=s_10+s_5+1,s_10+s_5+s_1 do set_stone("st-blue-sand",22+j,i) end end
+  end
  else
-	for i=1,6 do
-		for j=1,48 do
-			enigma.KillStone(50-j,i)
-			enigma.KillStone(54+j,7-i)
-		end
-		num=tab[i]
-		if num>=0 then
-			for j=1,num do
-				set_stone("st-rock3",50-j,i)
-			end
-		end
-		if ghost[i]>=0 then
-			for j=1,ghost[i] do
-				set_stone("st-glass",50-num-j,i)
-			end
-		end
-		num=tab[i+6]
-		if num>=0 then
-			for j=1,num do
-				set_stone("st-rock3",54+j,7-i)
-			end
-		end
-		if ghost[i+6]>=0 then
-			for j=1,ghost[i+6] do
-				set_stone("st-glass",54+num+j,7-i)
-			end
-		end
-	end
-	for i=1,48 do
-		enigma.KillStone(50-i,10)
-		enigma.KillStone(54+i,10)
-	end
-	if gain1>0 then
-		for i=1,gain1 do
-			set_stone("st-rock3",50-i,10)
-		end
-	end
-	if gain2>0 then
-		for i=1,gain2 do
-			set_stone("st-rock3",54+i,10)
-		end
-	end
+  for i=1,6 do
+    for j=1,48 do
+      enigma.KillStone(50-j,i)
+      enigma.KillStone(54+j,7-i)
+    end
+    num=tab[i]
+    if num>=0 then
+      for j=1,num do
+        set_stone("st-rock3",50-j,i)
+      end
+    end
+    if ghost[i]>=0 then
+      for j=1,ghost[i] do
+        set_stone("st-glass",50-num-j,i)
+      end
+    end
+    num=tab[i+6]
+    if num>=0 then
+      for j=1,num do
+        set_stone("st-rock3",54+j,7-i)
+      end
+    end
+    if ghost[i+6]>=0 then
+      for j=1,ghost[i+6] do
+        set_stone("st-glass",54+num+j,7-i)
+      end
+    end
+  end
+  for i=1,48 do
+    enigma.KillStone(50-i,10)
+    enigma.KillStone(54+i,10)
+  end
+  if gain1>0 then
+    for i=1,gain1 do
+      set_stone("st-rock3",50-i,10)
+    end
+  end
+  if gain2>0 then
+    for i=1,gain2 do
+      set_stone("st-rock3",54+i,10)
+    end
+  end
  end
 end
 
 function display_choice()
  if difficult then
- 	for i=1,6 do
-		set_floor("fl-leaves",0,i)
-		set_floor("fl-leaves",9,i)
-		set_floor("fl-leaves",18,i)
-		set_floor("fl-leaves",22,i)
-	end
-	set_floor("fl-water",0,my_choice)
-	set_floor("fl-water",9,my_choice)
-	set_floor("fl-water",18,my_choice)
-	set_floor("fl-red",22,7-BB_choice)
-	td1=0
-	for i=1,12 do
-		ghost[i]=0
-	end
-	for i=1,6 do td1=td1+tab1[i] end
-	if td1>0 then
-		som3=tab1[my_choice]
-		j=my_choice
-		for i=1,som3 do
-			j=j+1
-			if j==13 then j=1 end
-			ghost[j]=ghost[j]+1
-		end
-	else
-		som3=tab1[13-my_choice]
-		j=13-my_choice
-		for i=1,som3 do
-			j=j+1
-			if j==13 then j=1 end
-			ghost[j]=ghost[j]+1
-		end
-	end
-	display_game()
+   for i=1,6 do
+    set_floor("fl-leaves",0,i)
+    set_floor("fl-leaves",9,i)
+    set_floor("fl-leaves",18,i)
+    set_floor("fl-leaves",22,i)
+  end
+  set_floor("fl-water",0,my_choice)
+  set_floor("fl-water",9,my_choice)
+  set_floor("fl-water",18,my_choice)
+  set_floor("fl-red",22,7-BB_choice)
+  td1=0
+  for i=1,12 do
+    ghost[i]=0
+  end
+  for i=1,6 do td1=td1+tab1[i] end
+  if td1>0 then
+    som3=tab1[my_choice]
+    j=my_choice
+    for i=1,som3 do
+      j=j+1
+      if j==13 then j=1 end
+      ghost[j]=ghost[j]+1
+    end
+  else
+    som3=tab1[13-my_choice]
+    j=13-my_choice
+    for i=1,som3 do
+      j=j+1
+      if j==13 then j=1 end
+      ghost[j]=ghost[j]+1
+    end
+  end
+  display_game()
 else
-	for i=1,6 do
-		set_floor("fl-hay",50,i)
-		set_floor("fl-hay",54,7-i)
-	end
-	for i=1,12 do
-		ghost[i]=0
-	end
-	som3=tab[my_choice]
-	j=my_choice
-	for i=1,som3 do
-		j=j+1
-		if j==13 then j=1 end
-		ghost[j]=ghost[j]+1
-	end
-	display_game()
-	set_floor("fl-water",50,my_choice)
-	set_floor("fl-red",54,13-BB_choice)
+  for i=1,6 do
+    set_floor("fl-hay",50,i)
+    set_floor("fl-hay",54,7-i)
+  end
+  for i=1,12 do
+    ghost[i]=0
+  end
+  som3=tab[my_choice]
+  j=my_choice
+  for i=1,som3 do
+    j=j+1
+    if j==13 then j=1 end
+    ghost[j]=ghost[j]+1
+  end
+  display_game()
+  set_floor("fl-water",50,my_choice)
+  set_floor("fl-red",54,13-BB_choice)
  end
 end
 
@@ -384,323 +384,323 @@ end
 
 function okokok()
  if difficult then -- katro version (Madagasikara)
-	t1=0
-	for i=1,12 do t1=t1+tab1[i] end
-	t2=0
-	for i=1,12 do t2=t2+tab2[i] end
-	if t1>0 or t2>0 then
-		test1=0
-		for i=1,6 do test1=test1+tab1[i] end
-		if test1>0 and tab1[my_choice]==0 then unable=1 else unable=0 end
-	if unable==0 then
-		if test1>0 then
-			sow1(my_choice)
-		else
-		 if t1>1 then
-			sow1(13-my_choice)
-		 else
-			los=1
-		 end
-		end
-		test2=0
-		for i=1,6 do test2=test2+tab2[i] end
-		if test2>0 then
-			BB_choice=7
-			score=0
-			to_choose=0
-			for n=1,6 do
-				BB_choice=BB_choice-1
-				gsum=tab2[BB_choice]
-				jj=BB_choice
-				if gsum>0 then
-					repeat
-						jj=jj+1
-						if jj==13 then jj=1 end
-						if gsum>1 then gsum=gsum-1 end
-					until gsum <= 1
-					if score<tab1[jj] then score=tab1[jj] to_choose=BB_choice end
-				end
-			end
-			if score>0 then
-				BB_choice=to_choose
-			else
-				repeat
-					r=random(6)					
-				until tab2[r] ~= 0
-				BB_choice=r
-			end
-			sow2(BB_choice)
-		else
-		 if t2>1 then
-			BB_choice=6
-			score=0
-			to_choose=0
-			for n=1,6 do
-				BB_choice=BB_choice+1
-				gsum=tab2[BB_choice]
-				jj=BB_choice
-				if gsum>0 then
-					repeat
-						jj=jj+1
-						if jj==13 then jj=1 end
-						if gsum>0 then gsum=gsum-1 end
-					until gsum <= 0
-					if score<tab1[jj] then score=tab1[jj] to_choose=BB_choice end
-				end
-			end
-			if score>0 then
-				BB_choice=to_choose
-			elseif test2>0 then
-				repeat
-					r=random(6)
-				until tab2[6+r]~=0
-				BB_choice=13-r
-			end
-			sow2(BB_choice)
-		 else
-			won=1
-		 end
-		end
-	end
-	elseif t1<=1 then
-			los=1
-	elseif t2<=1 then
-			won=1
-	end
-	display_game()
-	display_choice()
-	if won==1 then
-		SendMessage("sesame","open")
-	end
-	if los==1 then
-		document(20,10,"text18")
-	end
+  t1=0
+  for i=1,12 do t1=t1+tab1[i] end
+  t2=0
+  for i=1,12 do t2=t2+tab2[i] end
+  if t1>0 or t2>0 then
+    test1=0
+    for i=1,6 do test1=test1+tab1[i] end
+    if test1>0 and tab1[my_choice]==0 then unable=1 else unable=0 end
+  if unable==0 then
+    if test1>0 then
+      sow1(my_choice)
+    else
+     if t1>1 then
+      sow1(13-my_choice)
+     else
+      los=1
+     end
+    end
+    test2=0
+    for i=1,6 do test2=test2+tab2[i] end
+    if test2>0 then
+      BB_choice=7
+      score=0
+      to_choose=0
+      for n=1,6 do
+        BB_choice=BB_choice-1
+        gsum=tab2[BB_choice]
+        jj=BB_choice
+        if gsum>0 then
+          repeat
+            jj=jj+1
+            if jj==13 then jj=1 end
+            if gsum>1 then gsum=gsum-1 end
+          until gsum <= 1
+          if score<tab1[jj] then score=tab1[jj] to_choose=BB_choice end
+        end
+      end
+      if score>0 then
+        BB_choice=to_choose
+      else
+        repeat
+          r=random(6)          
+        until tab2[r] ~= 0
+        BB_choice=r
+      end
+      sow2(BB_choice)
+    else
+     if t2>1 then
+      BB_choice=6
+      score=0
+      to_choose=0
+      for n=1,6 do
+        BB_choice=BB_choice+1
+        gsum=tab2[BB_choice]
+        jj=BB_choice
+        if gsum>0 then
+          repeat
+            jj=jj+1
+            if jj==13 then jj=1 end
+            if gsum>0 then gsum=gsum-1 end
+          until gsum <= 0
+          if score<tab1[jj] then score=tab1[jj] to_choose=BB_choice end
+        end
+      end
+      if score>0 then
+        BB_choice=to_choose
+      elseif test2>0 then
+        repeat
+          r=random(6)
+        until tab2[6+r]~=0
+        BB_choice=13-r
+      end
+      sow2(BB_choice)
+     else
+      won=1
+     end
+    end
+  end
+  elseif t1<=1 then
+      los=1
+  elseif t2<=1 then
+      won=1
+  end
+  display_game()
+  display_choice()
+  if won==1 then
+    SendMessage("sesame","open")
+  end
+  if los==1 then
+    document(20,10,"text18")
+  end
  else -- -- -- -- -- -- -- -- -- -- -- -- -- -- awale version
-	my_goods=0
-	for i=1,6 do my_goods=my_goods+tab[i] end
-	if my_goods==0 then
-		document(52,9,"text7")
-		SendMessage("sesame","open")
-	end
-	som=tab[my_choice]
-	if som>0 then
-		tab[my_choice]=0
-		j=my_choice
-		for i=1,som do
-			j=j+1
-			if j==13 then j=1 end
-			tab[j]=tab[j]+1
-		end
-		take1(j)
-		BB_goods=0
-		for i=7,12 do BB_goods=BB_goods+tab[i] end
-		if BB_goods==0 then hurra1=0 end
-		display_choice()
-		if hurra1==1 then
-			repeat -- Now Big Brother enters in action -- -- -- -- -- -- -- -- -- --
-				BB_choice=random(6)+6
-				som=tab[BB_choice]
-			until som ~= 0
-		else
-			bouh=1
-		end
-		for i=7,12 do -- Big Brother tries to avoid a danger -- -- -- -- -- -- -- -- --
-			if tab[i]==1 or tab[i]==2 then
-				for j=1,6 do
-					if tab[i]==j-i then
-						BB_choice=i
-					end
-				end
-			end
-		end
-		for i=1,6 do -- but Big Brother prefers to attack than defend himself -- -- -- --
-			if tab[i]==1 or tab[i]==2 then
-				for j=7,12 do
-					if tab[j]==12+i-j then
-						BB_choice=j
-					end
-				end
-			end
-		end
-		som=tab[BB_choice]
-		tab[BB_choice]=0
-		j=BB_choice
-		for i=1,som do
-			j=j+1
-			if j==13 then j=1 end
-			tab[j]=tab[j]+1
-		end
-		take2(j)
-		display_game()
-		dammit0=0
-		for i=1,6 do
-			if tab[i]>0 then dammit0=1 end
-		end
-		if dammit1==0 or gain1>=24 then
-			won=1
-		end
-		dammit1=dammit0
-		if won==1 then
-			document(52,9,"text7")
-			SendMessage("sesame","open")
-		end
-		hurra0=0
-		for i=1,6 do
-			if tab[6+i]>0 then hurra0=1 end
-		end
-		if gain2>=24 then
-			bouh=1
-		end
-		hurra1=hurra0
-		if bouh==1 then
-			document(52,9,"text8")
-		end
-	end
+  my_goods=0
+  for i=1,6 do my_goods=my_goods+tab[i] end
+  if my_goods==0 then
+    document(52,9,"text7")
+    SendMessage("sesame","open")
+  end
+  som=tab[my_choice]
+  if som>0 then
+    tab[my_choice]=0
+    j=my_choice
+    for i=1,som do
+      j=j+1
+      if j==13 then j=1 end
+      tab[j]=tab[j]+1
+    end
+    take1(j)
+    BB_goods=0
+    for i=7,12 do BB_goods=BB_goods+tab[i] end
+    if BB_goods==0 then hurra1=0 end
+    display_choice()
+    if hurra1==1 then
+      repeat -- Now Big Brother enters in action -- -- -- -- -- -- -- -- -- --
+        BB_choice=random(6)+6
+        som=tab[BB_choice]
+      until som ~= 0
+    else
+      bouh=1
+    end
+    for i=7,12 do -- Big Brother tries to avoid a danger -- -- -- -- -- -- -- -- --
+      if tab[i]==1 or tab[i]==2 then
+        for j=1,6 do
+          if tab[i]==j-i then
+            BB_choice=i
+          end
+        end
+      end
+    end
+    for i=1,6 do -- but Big Brother prefers to attack than defend himself -- -- -- --
+      if tab[i]==1 or tab[i]==2 then
+        for j=7,12 do
+          if tab[j]==12+i-j then
+            BB_choice=j
+          end
+        end
+      end
+    end
+    som=tab[BB_choice]
+    tab[BB_choice]=0
+    j=BB_choice
+    for i=1,som do
+      j=j+1
+      if j==13 then j=1 end
+      tab[j]=tab[j]+1
+    end
+    take2(j)
+    display_game()
+    dammit0=0
+    for i=1,6 do
+      if tab[i]>0 then dammit0=1 end
+    end
+    if dammit1==0 or gain1>=24 then
+      won=1
+    end
+    dammit1=dammit0
+    if won==1 then
+      document(52,9,"text7")
+      SendMessage("sesame","open")
+    end
+    hurra0=0
+    for i=1,6 do
+      if tab[6+i]>0 then hurra0=1 end
+    end
+    if gain2>=24 then
+      bouh=1
+    end
+    hurra1=hurra0
+    if bouh==1 then
+      document(52,9,"text8")
+    end
+  end
  end
 end
 
 function take2(case)
-	if case<7 then
-		compt1=tab[case]
-		if compt1==2 or compt1==3 then
-			gain2=gain2+compt1
-			tab[case]=0
-			if case>1 then
-				take2(case-1)
-			end
-		end
-	end
+  if case<7 then
+    compt1=tab[case]
+    if compt1==2 or compt1==3 then
+      gain2=gain2+compt1
+      tab[case]=0
+      if case>1 then
+        take2(case-1)
+      end
+    end
+  end
 end
 
 function take1(case)
-	if case>6 then
-		compt2=tab[case]
-		if compt2==2 or compt2==3 then
-			gain1=gain1+compt2
-			tab[case]=0
-			if case>7 then
-				take1(case-1)
-			end
-		end
-	end
+  if case>6 then
+    compt2=tab[case]
+    if compt2==2 or compt2==3 then
+      gain1=gain1+compt2
+      tab[case]=0
+      if case>7 then
+        take1(case-1)
+      end
+    end
+  end
 end
 
 
 function sow1(case)-- Blackball sows with sorrow
-	error1=0
-	if tab1[case]>0 and los==0 then
-		compt1=tab1[case]
-		tab1[case]=0
-		j=case
-		repeat
-			j=j+1
-			if j==13 then j=1 end
-			tab1[j]=tab1[j]+1
-			compt1=compt1-1			
-		until compt1 <= 0
-	else
-		error1=1
-	end
-	if error1==0 and tab1[j]>1 then
-		sow_take1(j)
-	end
+  error1=0
+  if tab1[case]>0 and los==0 then
+    compt1=tab1[case]
+    tab1[case]=0
+    j=case
+    repeat
+      j=j+1
+      if j==13 then j=1 end
+      tab1[j]=tab1[j]+1
+      compt1=compt1-1      
+    until compt1 <= 0
+  else
+    error1=1
+  end
+  if error1==0 and tab1[j]>1 then
+    sow_take1(j)
+  end
 end
 
 function sow_take1(case)-- sow and take
-	error1=0
-	if tab1[case]>0 and los==0 then
-		compt1=tab1[case]
-		tab1[case]=0
-		if case>6 then -- the only way to take stones
-		empty2=0
-		for i=1,6 do empty2=empty2+tab2[i+6] end
-		  if empty2>0 then
-			compt1=compt1+tab2[19-case]
-			tab2[19-case]=0
-		  else
-			compt1=compt1+tab2[13-case]
-			tab2[13-case]=0
-		  end
-		end
-		j=case
-		repeat
-			j=j+1
-			if j==13 then j=1 end
-			tab1[j]=tab1[j]+1
-			compt1=compt1-1
-		until compt1 <= 0
-	else
-		error1=1
-	end
-	if error1==0 and tab1[j]>1 then
-		sow_take1(j)
-	end
+  error1=0
+  if tab1[case]>0 and los==0 then
+    compt1=tab1[case]
+    tab1[case]=0
+    if case>6 then -- the only way to take stones
+    empty2=0
+    for i=1,6 do empty2=empty2+tab2[i+6] end
+      if empty2>0 then
+      compt1=compt1+tab2[19-case]
+      tab2[19-case]=0
+      else
+      compt1=compt1+tab2[13-case]
+      tab2[13-case]=0
+      end
+    end
+    j=case
+    repeat
+      j=j+1
+      if j==13 then j=1 end
+      tab1[j]=tab1[j]+1
+      compt1=compt1-1
+    until compt1 <= 0
+  else
+    error1=1
+  end
+  if error1==0 and tab1[j]>1 then
+    sow_take1(j)
+  end
 end
 
 function sow2(case)
-	if tab2[case]>0 and won==0 then
-		compt2=tab2[case]
-		tab2[case]=0
-		j=case
-		repeat
-			j=j+1
-			if j==13 then j=1 end
-			tab2[j]=tab2[j]+1
-			compt2=compt2-1
-		until compt2 <= 0
-		if tab2[j]>1 and won==0 then
-			sow_take2(j)
-		end
-	end
+  if tab2[case]>0 and won==0 then
+    compt2=tab2[case]
+    tab2[case]=0
+    j=case
+    repeat
+      j=j+1
+      if j==13 then j=1 end
+      tab2[j]=tab2[j]+1
+      compt2=compt2-1
+    until compt2 <= 0
+    if tab2[j]>1 and won==0 then
+      sow_take2(j)
+    end
+  end
 end
 
 function sow_take2(case)
-	if tab2[case]>0 and won==0 then
-		compt2=tab2[case]
-		tab2[case]=0
-		if case>6 then
-		empty1=0
-		for i=1,6 do empty1=empty1+tab1[i+6] end
-		  if empty1>0 then
-			compt2=compt2+tab1[19-case]
-			tab1[19-case]=0
-		  else
-			compt2=compt2+tab1[13-case]
-			tab1[13-case]=0
-		  end
-		end
-		j=case
-		repeat
-			j=j+1
-			if j==13 then j=1 end
-			tab2[j]=tab2[j]+1
-			compt2=compt2-1
-		until compt2 <= 0
-		if tab2[j]>1 and won==0 then
-			sow_take2(j)
-		end
-	end
+  if tab2[case]>0 and won==0 then
+    compt2=tab2[case]
+    tab2[case]=0
+    if case>6 then
+    empty1=0
+    for i=1,6 do empty1=empty1+tab1[i+6] end
+      if empty1>0 then
+      compt2=compt2+tab1[19-case]
+      tab1[19-case]=0
+      else
+      compt2=compt2+tab1[13-case]
+      tab1[13-case]=0
+      end
+    end
+    j=case
+    repeat
+      j=j+1
+      if j==13 then j=1 end
+      tab2[j]=tab2[j]+1
+      compt2=compt2-1
+    until compt2 <= 0
+    if tab2[j]>1 and won==0 then
+      sow_take2(j)
+    end
+  end
 end
 
 
 function reset()
-	gain1=0
-	gain2=0
-	dammit1=1
-	hurra1=1
-	won=0
-	bouh=0
-	for i=1,12 do
-		tab[i]=4
-		tab1[i]=2
-		tab2[i]=2
-		ghost[i]=0
-	end
-	display_game()
-	my_choice=random(6)
-	if difficult then BB_choice=random(6) else BB_choice=6+random(6) end
-	won=0
-	los=0
+  gain1=0
+  gain2=0
+  dammit1=1
+  hurra1=1
+  won=0
+  bouh=0
+  for i=1,12 do
+    tab[i]=4
+    tab1[i]=2
+    tab2[i]=2
+    ghost[i]=0
+  end
+  display_game()
+  my_choice=random(6)
+  if difficult then BB_choice=random(6) else BB_choice=6+random(6) end
+  won=0
+  los=0
 end
 
 if difficult then
@@ -802,7 +802,7 @@ oxyd_shuffle()
         <el:english el:translate="true">This katro game comes from Madagascar; in Easy mode there is an african Awale.</el:english>
       </el:string> 
       <el:string el:key="text18">
-        <el:english el:translate="true">Only reset or shift+F3 can make things evolve...</el:english>
+        <el:english el:translate="true">Only reset or Shift+F3 can make things evolve...</el:english>
       </el:string> 
     </el:i18n>
   </el:protected>
