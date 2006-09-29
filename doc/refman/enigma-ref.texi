@@ -2747,7 +2747,9 @@ i.e., neither to modify them nor to delete them without notice.
 * Items::                       
 * Stones::                      
 * Actors::                      
-* General object attributes::   
+* General object attributes::
+* The 1.0-Fire System::
+* Differences between Compatibility Modes::
 @end menu
 
 @node Floors, Items, Objects, Objects
@@ -3309,7 +3311,7 @@ Compatibility only.
 @code{it-hill} and @code{it-hollow} create small hills and hollows in
 the floor, @code{it-tinyhill} and @code{it-tinyhollow} are smaller
 versions.  The strength of the slope is given by
-@code{enigma.HoleForce} (see @ref{Variables}.
+@code{enigma.HoleForce} (see @ref{Variables}).
 
 When a stone is pushed over them or an @ref{it-spade} is used on them,
 they decrease their size: @code{it-hill} and @code{it-hollow} become
@@ -3364,20 +3366,27 @@ modes.
 @node Fire and Extinguisher
 @subsection Fire and Extinguisher
 
-Use @code{it-burnable} to allow a floor tile to catch fire,
-@code{it-burnable_ignited} and @code{it-burnable_burning} to set
-already burning floor, @code{it-burnable_fireproof} to save floor from
-fire and @code{it-burnable_ash} for the unburnable remnants of a
-fire.
+Compare @ref{The 1.0-Fire System}.
 
-Fire can spread via three ways: @code{it-burnable}, identical floor
-and other items that are burnable (most are).
+There are six items special to the fire system:
+@itemize
+@item Use @code{it-burnable} to allow a floor tile to catch fire, and
+ignites from explosions like from @ref{it-dynamite}, @ref{it-blackbomb}
+and @ref{it-whitebomb}.
+@item @code{it-burnable_oil} is the visible variant of the invisible
+@code{it-burnable}.
+@item @code{it-burnable_ignited} carries the starting-animation of
+fire. Use the @code{setfire}-message to a floor instead.
+@item @code{it-burnable_burning} carries the animation of burning
+fire. Use @code{setfire} instead.
+@item @code{it-burnable_ash} is the unburnable remnant of a fire.
+@item @code{it-burnable_fireproof} saves a floor from fire.
+@end itemize
 
 Use @code{it-extinguisher} to set @code{it-burnable_fireproof}. After
 using it once, it becomes @code{it-extinguisher_medium} which guards
 less floor, and itself becomes @code{it-extinguisher_empty}, which can
-be put down again.
-
+be laid down again.
 
 @c -------------------- Abyss as Item --------------------
 @node it-abyss
@@ -6259,6 +6268,213 @@ see @ref{Hills and Hollows}.
 All objects may be given a @code{name} attribute. Such @emph{named objects} can
 be searched using @ref{enigma.GetNamedObject}.
 @end table
+
+@c ----------------------------------------------------------------------
+@node The 1.0-Fire System,  , Actors, Objects
+@section The 1.0-Fire System
+
+The 1.0-version of Enigma introduces a new fire system, making use of
+attributes and messages of the floor tiles. The default fire, once
+ignited, spreads over the landscape and destroys items, marbles and
+@ref{st-wood}. It spreads along those floor tiles that are marked
+``burnable'' by default (like @code{fl-hay} or @code{fl-wood1}), by
+attribute (setting @code{enigma.SetAttrib(myfloor, "burnable", TRUE)})
+or by one of two items that indicate burnability: the invisible
+@code{it-burnable} and the visible @code{it-burnable_oil}. On a
+burning floor, all items are detroyed. However, some items deny the
+floor to burn, like @code{it-hollow} (see @ref{Hills and Hollows}) or
+@ref{it-dynamite} (which is ignited instead).
+
+Fire can be ignited in three standard ways:
+@itemize @bullet
+@item The @code{setfire}-message sets fire to a floor if it is
+burnable and the item on it allows it to burn (unburnable items like
+@code{it-dynamite} are not ignited by this!).
+@item The @code{heat}-message ignites burnable floors as does
+@code{setfire}, but also initiate a heat-transformation of the floor
+(see below) and ignite items on it.
+@item The @code{ignite} and @code{expl}-messages that are used by
+@code{it-dynamite}, @ref{it-blackbomb} and @ref{it-whitebomb} can
+initiate fire via @code{it-burnable[_oil]} or if the
+@code{ignitable}-attribute of the floor is set (off by default).
+@item Fire in the neighborhood, see below.
+@end itemize
+
+If needed, the @code{forcefire}-message can be used to set fire to
+unburnable floors. Internally, it is equivalent to manually setting
+@code{it-burnable_ignited}, the last method (which was quite famous in
+0.92) should be avoided in future, to allow a further development of
+the fire-system.
+
+Fire does the following:
+@itemize @bullet
+@item It kills @ref{st-wood} above it.
+@item It heats its neighboring tiles, which might result in a
+``heat-transform'' of the floor (see below).
+@item It might ignite or destroy items on its neighbor, this concerns
+@code{it-dynamite}, @code{it-blackbomb}, @code{it-whitebomb} and
+@ref{it-crack}.
+@item It might set fire to its neighbor.
+@end itemize
+
+Fire stops burning after a random amount of time, as long as the
+@code{eternal}-attribute of the floor is not set. When it stops
+burning, it might replace the floor by another kind
+(``fire-transform''), this is: Wooden floors are replaced by
+@ref{fl-abyss}, leaves are replaced by @code{fl-dunes}. Finally, it
+puts @code{it-burnable_ash} on the floor, which prohibits a second
+fire and which can be removed with @ref{it-brush}. However, ash is not
+set if the floor is @code{fl-abyss} or the @code{noash}-attribute is
+set.
+
+As the spreading of fire is a random event, in 0.92 a level author
+couldn't be sure that a particular item was ignited or fire was
+set. In 1.0 these can be assured by setting the
+@code{secure}-attribute: When a burnable floor with
+@code{secure}-attribute is near fire, it will eventually catch fire,
+items on it are ignited etc.
+
+In 0.92 there were two speeds of fire: When using @code{it-burnable},
+fire spread much faster as without. This is still the same in
+1.0. However, you can set the @code{fastfire}-attribute to fasten up
+the fire without setting the invisible @code{it-burnable}. 
+
+Fire that burns under a stone is not allowed to spread, only exception
+are non-floating stones (as @ref{st-grate}), and @ref{st-wood}, which
+is destroyed by fire.
+
+You can stop fire with @code{it-extinguisher}, which creates the
+fireproof @code{it-burnable_fireproof}.
+
+Compare with @ref{Fire and Extinguisher}.
+
+@strong{Heat-Transformations}
+
+When a fire starts to burn near @ref{fl-ice}, this melts to
+@ref{fl-water}. In the same sense, @code{fl-water} boils to
+@ref{fl-swamp}, and this again to @code{fl-dunes}. In contrast to most
+other fire-related actions, this is not random, but always and only
+happens, when a nearby fire starts to burn.
+
+Examples: Put an @ref{st-flrock} on @code{fl-ice}. A fire will melt
+the ice, and @code{st-flrock} creates a fireproof and safe way to the
+other side. If you use @ref{st-wood} instead, @code{fl-stwood} is
+created, which presumably catchs fire and leaves @code{fl-abyss}
+behind. A similar combination is @code{fl-water} with
+@ref{st-chess_[black/white]}.
+
+If you want to suppress this transformation, you can switch to
+a non-Enigma-compatibility-mode, see the following section.
+
+@strong{Differences between 1.0 and 0.92}
+
+The old fire system of Enigma versions up to 0.92 differs from
+the 1.0 version mainly in the following points:
+
+@itemize @bullet
+@item no fire-transform except @code{fl-[st]wood} to @code{fl-abyss}
+@item no heat-transformations
+@item ash on fl-abyss
+@item no difference between different floors
+@item replication via same-floor-pattern instead of
+burnable-floor-pattern: 0.92 didn't distinguish between burnable and
+unburnable floors. Instead, fire was allowed to spread to floors of
+the same kind slowly.
+@item burnable items always catch fire: In 1.0 a burnable item (except
+for @code{it-burnable} and @code{it-burnable_oil} themselves) on an
+unburnable floor won't catch fire, in 0.92 it did.
+@end itemize
+
+A good model of the 0.92-system can be attained via the
+compatibility-modes: All non-Enigma-modes (see @ref{Differences
+between Compatibility Modes} and @ref{<compatibility>}) feature a
+version which only marginally differs from 0.92-fire, yet allowing
+some of the new achievements, like secure- or eternal-fire.
+
+@strong{Burnable and Unburnable Floors}
+
+The following floors are unburnable: @code{fl-abyss*, fl-ac*,
+fl-black, fl-brick, fl-bridge*, fl-bumps, fl-concrete, fl-dummy,
+fl-dunes, fl-gradient*, fl-gravel, fl-gray, fl-himalaya, fl-ice*,
+fl-inverse, fl-inverse2, fl-darkgray, fl-metal*, fl-mortar,
+fl-normal*, fl-rock, fl-sahara, fl-sand, fl-space*, fl-springboard,
+fl-stone, fl-swamp, fl-water, fl-white} 
+
+The following floors are burnable: @code{fl-bluegray, fl-bluegreen*,
+fl-hay, fl-light, fl-lightgray, fl-marble, fl-red, fl-rough*,
+fl-tigris, fl-woven*, fl-trigger}
+
+The following floors are burnable and leave @code{fl-dunes} behind:
+@code{fl-leaves*}
+
+The following floors are burnable and leave @code{fl-abyss} behind:
+@code{fl-floor_001, fl-plank, fl-samba*, fl-stwood*, fl-wood*}
+
+
+
+@c ----------------------------------------------------------------------
+@node Differences between Compatibility Modes,  , Actors, Objects
+@section Differences between Compatibility Modes
+
+Although Enigma was inspired by the original Oxyd-series, there are
+some differences between the current Enigma engine and the Oxyds as
+well as between the Oxyds themselves. Using the compatibility-section
+of the xml-metadata (see @ref{<compatibility>}) or the
+@ref{enigma.SetCompatibility}-function, it's possible to activate some
+of these behaviours. Here's a list of the currently implemented
+differences, not all of them are mentioned at the corresponding
+sections above: 
+
+@strong{All non-Enigma modes @code{(oxyd1, oxyd.magnum,
+per.oxyd, oxyd.extra)}}
+
+@itemize @bullet
+@item Keep @ref{it-key} when using @ref{st-key}.
+@item Oxyd-stones (@ref{st-oxyd}) must blink before they can be
+ultimately opened (pairs must be hit with some time delay).
+@item The non-Enigma modes feature a model of the 0.92-Fire System
+(see @ref{The 1.0-Fire System}).
+@item @ref{it-squashed} and @ref{it-cross} can't be removed with
+@ref{it-brush}.
+@item @ref{it-pencil} is without function.
+@item Tiny hollows shouldn't be allowed as endpoints in meditations
+(see @ref{Hills and Hollows}).
+@end itemize
+
+@strong{@code{oxyd1}-compatibility}
+
+@itemize @bullet
+@item Flying actors may pass @code{st-grate1} and @code{st-grate2}
+(see @ref{st-grate}).
+@item @ref{st-wood} only falls when moved.
+@item The @code{ignite}-message (e.g. by @ref{it-dynamite}) doesn't
+kill @ref{it-document}.
+@item Bombs (@ref{it-blackbomb}, @ref{it-whitebomb}) aren't ignited
+when @ref{st-wood} is pushed over them (see
+@code{oxydmagnum}-compatibility).
+@end itemize
+
+@strong{@code{oxyd.magnum}-compatibility}
+
+@itemize @bullet
+@item @ref{it-seed} grows to @code{fl-stwood} under @code{st-grate1}
+(@ref{st-grate}), not to @ref{st-wood}.
+@item Bombs (@ref{it-blackbomb}, @ref{it-whitebomb}) aren't ignited
+when @ref{st-wood} is pushed over them (see
+@code{oxyd1}-compatibility).
+@end itemize
+
+@strong{@code{per.oxyd}-compatibility}
+
+@itemize @bullet
+@item When painted with @ref{it-brush}, @code{st-stonebrush} (see
+@ref{st-invisible}) becomes @code{st-likeoxydc-open} instead of
+@code{st-rock4}.
+@item @ref{it-hammer} doesn't laser-transform into @ref{it-sword}.
+@item @ref{it-umbrella} doesn't explode in laser-light.
+@item @ref{it-cross} inverts signals it receives.
+@end itemize
+
 
 @c ======================================================================
 @node Variables, Functions, Objects, Top
