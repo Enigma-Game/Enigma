@@ -26,7 +26,7 @@ stone="st-blue-sand"
 borderFloor="fl-sahara"
 
 -- Trick zum definieren von Fake-Floor
-world.DefineSimpleFloor("fl-water-1", 6.4, 2.0)
+world.DefineSimpleFloor("fl-water-1", 6.4, 2.0, false, "")
 display.DefineAlias("fl-water-1", "fl-water")
 
 -- Floor Layer

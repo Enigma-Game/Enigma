@@ -168,15 +168,27 @@
     <level _seq="160" _title="Rhapsody on Cracks" _xpath="enigma_stable/ral06_1" author="Ronald Lamprecht" ctrl="force" easy="true" id="20060510ral008" rel="1" rev="0" score="1" target="time" unit="duration"/>
     <level _seq="161" _title="Jump into Meditation" _xpath="enigma_stable/ral07_1" author="Ronald Lamprecht" ctrl="force" easy="true" id="20060525ral009" rel="1" rev="25" score="1" target="time" unit="duration"/>
     <level _seq="162" _title="Hot Meditation" _xpath="enigma_stable/ral08_1" author="Ronald Lamprecht" ctrl="force" easy="true" id="20060527ral010" rel="1" rev="0" score="1" target="time" unit="duration"/>
-    <level _seq="163" _title="Persecution Mania" _xpath="enigma_stable/ral12_1" author="Ronald Lamprecht" ctrl="force" easy="true" id="20060911ral294" rel="1" rev="0" score="1" target="time" unit="duration"/>
-    <level _seq="164" _title="Fatal Attraction I" _xpath="enigma_stable/spaceman1" author="Spaceman" ctrl="force" easy="false" id="enigma_stable/spaceman1" rel="1" rev="0" score="1" target="time" unit="duration"/>
-    <level _seq="165" _title="Fatal Attraction II" _xpath="enigma_stable/spaceman2" author="Spaceman" ctrl="force" easy="false" id="enigma_stable/spaceman2" rel="1" rev="0" score="1" target="time" unit="duration"/>
-    <level _seq="166" _title="Fatal Attraction III" _xpath="enigma_stable/spaceman3" author="Spaceman" ctrl="force" easy="false" id="enigma_stable/spaceman3" rel="1" rev="0" score="1" target="time" unit="duration"/>
-    <level _seq="167" _title="Evil" _xpath="enigma_stable/spaceman4" author="Spaceman" ctrl="force" easy="false" id="enigma_stable/spaceman4" rel="1" rev="0" score="1" target="time" unit="duration"/>
-    <level _seq="168" _title="Encased" _xpath="enigma_stable/xerxes01" author="Xerxes M. Dynatos" ctrl="force" easy="false" id="enigma_stable/xerxes01" rel="1" rev="0" score="1" target="time" unit="duration"/>
-    <level _seq="169" _title="Dirt Clod" _xpath="enigma_stable/xerxes02" author="Xerxes M. Dynatos" ctrl="force" easy="false" id="enigma_stable/xerxes02" rel="1" rev="0" score="1" target="time" unit="duration"/>
-    <level _seq="170" _title="Trigger Happy" _xpath="enigma_stable/xerxes03" author="Xerxes M. Dynatos" ctrl="force" easy="false" id="enigma_stable/xerxes03" rel="1" rev="0" score="1" target="time" unit="duration"/>
-    <level _seq="171" _title="The Aztec Temple" _xpath="enigma_stable/zogga01_1" author="Dominik Lehmann" ctrl="force" easy="true" id="enigma_stable/zogga01" rel="1" rev="0" score="1" target="time" unit="duration"/>
+    <level _seq="163" _title="Houdini" _xpath="enigma_stable/ral11_1" author="Ronald Lamprecht" ctrl="force" easy="true" id="20060816ral719" rel="1" rev="0" score="1" target="time" unit="duration"/>
+    <level _seq="164" _title="Persecution Mania" _xpath="enigma_stable/ral12_1" author="Ronald Lamprecht" ctrl="force" easy="true" id="20060911ral294" rel="1" rev="0" score="1" target="time" unit="duration"/>
+    <level _seq="165" _title="Fatal Attraction I" _xpath="enigma_stable/spaceman1" author="Spaceman" ctrl="force" easy="false" id="enigma_stable/spaceman1" rel="1" rev="0" score="1" target="time" unit="duration"/>
+    <level _seq="166" _title="Fatal Attraction II" _xpath="enigma_stable/spaceman2" author="Spaceman" ctrl="force" easy="false" id="enigma_stable/spaceman2" rel="1" rev="0" score="1" target="time" unit="duration"/>
+    <level _seq="167" _title="Fatal Attraction III" _xpath="enigma_stable/spaceman3" author="Spaceman" ctrl="force" easy="false" id="enigma_stable/spaceman3" rel="1" rev="0" score="1" target="time" unit="duration"/>
+    <level _seq="168" _title="Evil" _xpath="enigma_stable/spaceman4" author="Spaceman" ctrl="force" easy="false" id="enigma_stable/spaceman4" rel="1" rev="0" score="1" target="time" unit="duration"/>
+    <level _seq="169" _title="Encased" _xpath="enigma_stable/xerxes01" author="Xerxes M. Dynatos" ctrl="force" easy="false" id="enigma_stable/xerxes01" rel="1" rev="0" score="1" target="time" unit="duration"/>
+    <level _seq="170" _title="Dirt Clod" _xpath="enigma_stable/xerxes02" author="Xerxes M. Dynatos" ctrl="force" easy="false" id="enigma_stable/xerxes02" rel="1" rev="0" score="1" target="time" unit="duration"/>
+    <level _seq="171" _title="Trigger Happy" _xpath="enigma_stable/xerxes03" author="Xerxes M. Dynatos" ctrl="force" easy="false" id="enigma_stable/xerxes03" rel="1" rev="0" score="1" target="time" unit="duration"/>
+    <level _seq="172" _title="The Aztec Temple" _xpath="enigma_stable/zogga01_1" author="Dominik Lehmann" ctrl="force" easy="true" id="enigma_stable/zogga01" rel="1" rev="0" score="1" target="time" unit="duration"/>
+    <level _seq="173" _title="No Memory" _xpath="enigma_stable/edward01_1" author="Edward" ctrl="force" easy="false" id="enigma_stable/edward01" rel="1" rev="1" score="1" target="time" unit="duration"/>
+    <level _seq="174" _title="Edwards Second Level" _xpath="enigma_stable/edward02_1" author="Edward" ctrl="force" easy="false" id="enigma_stable/edward02" rel="1" rev="1" score="1" target="time" unit="duration"/>
+    <level _seq="175" _title="Dialers" _xpath="enigma_stable/edward05_1" author="Edward" ctrl="force" easy="true" id="enigma_stable/edward05" rel="1" rev="1" score="1" target="time" unit="duration"/>
+    <level _seq="176" _title="- Meditation -" _xpath="enigma_stable/edward10_1" author="Edward" ctrl="force" easy="true" id="enigma_stable/edward10" rel="1" rev="1" score="1" target="time" unit="duration"/>
+    <level _seq="177" _title="Edwards Mountain" _xpath="enigma_stable/edward11_1" author="Edward" ctrl="force" easy="true" id="enigma_stable/edward11" rel="1" rev="1" score="1" target="time" unit="duration"/>
+    <level _seq="178" _title="Holes!" _xpath="enigma_stable/edward14_1" author="Edward" ctrl="force" easy="false" id="enigma_stable/edward14" rel="1" rev="1" score="1" target="time" unit="duration"/>
+    <level _seq="179" _title="Random space" _xpath="enigma_stable/edward21_1" author="Edward" ctrl="force" easy="false" id="enigma_stable/edward21" rel="1" rev="1" score="1" target="time" unit="duration"/>
+    <level _seq="180" _title="Wormhole Madness!" _xpath="enigma_stable/edward24_1" author="Edward" ctrl="force" easy="false" id="enigma_stable/edward24" rel="1" rev="1" score="1" target="time" unit="duration"/>
+    <level _seq="181" _title="Space City" _xpath="enigma_stable/edward25_1" author="Edward" ctrl="force" easy="false" id="enigma_stable/edward25" rel="1" rev="1" score="1" target="time" unit="duration"/>
+    <level _seq="182" _title="Just another pretty level" _xpath="enigma_stable/edward26_1" author="Edward" ctrl="force" easy="true" id="enigma_stable/edward26" rel="1" rev="1" score="1" target="time" unit="duration"/>
+    <level _seq="183" _title="- Meditation -" _xpath="enigma_stable/edward30_1" author="Edward" ctrl="force" easy="true" id="enigma_stable/edward30" rel="1" rev="1" score="1" target="time" unit="duration"/>
   </levels>
 
 </index>
