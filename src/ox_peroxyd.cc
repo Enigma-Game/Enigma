@@ -286,13 +286,13 @@ const char *oxyd::peroxyd_stone_map[256] = {
     "st-mail-s",                // PerOxyd stone 0x72
     "st-door-h",                // PerOxyd stone 0x73
     "st-door-v",                // PerOxyd stone 0x74
-    "st-rock2",                 // PerOxyd stone 0x75 looks like a white version of st-rock2 (common was 'st-rock2')
+    "st-metal",                 // PerOxyd stone 0x75 looks like a white version of st-rock2 (common was 'st-rock2')
     "st-stonebrush",            // PerOxyd stone 0x76
     "st-door-h-open",           // PerOxyd stone 0x77
     "st-door-v-open",           // PerOxyd stone 0x78
     "st-white1",                // PerOxyd stone 0x79 (Can be either st-white1 or st-white4)
     "st-black1",                // PerOxyd stone 0x7a (Can be either st-black1 or st-black4)
-    "st-rock2_hole",            // PerOxyd stone 0x7b (because it looks similar...)(only link level 79)
+    "st-metal_hole",            // PerOxyd stone 0x7b (because it looks similar...)(only link level 79)
     0,                          // PerOxyd stone 0x7c (probably complex stone, behavior unknown)(only levels: 23 142, these levels are identical!)
     "st-yinyang3",              // PerOxyd stone 0x7d
     "st-break_acwhite",         // PerOxyd stone 0x7e
@@ -310,8 +310,8 @@ const char *oxyd::peroxyd_stone_map[256] = {
     "st-rock6",                 // PerOxyd stone 0x8a
     "st-blue-sand",             // PerOxyd stone 0x8b
     "st-rock1",                 // PerOxyd stone 0x8c
-    "st-metal",                 // PerOxyd stone 0x8d (simple border stone, not exactly st-metal...)(only link level 92)
-    "st-metal",                 // PerOxyd stone 0x8e
+    "st-rock2",                 // PerOxyd stone 0x8d (simple border stone, not exactly st-rock2 ...)(only link level 92)
+    "st-rock2",                 // PerOxyd stone 0x8e
     UNUSED,                     // PerOxyd stone 0x8f
     "st-rock8",                 // PerOxyd stone 0x90
     "st-rotator_move-left",     // PerOxyd stone 0x91

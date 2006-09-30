@@ -64,8 +64,8 @@ end
 draw_full(4,1,12,11,0)
 
 -- Special
-set_actor("ac-whiteball-small", 4.5,1.5, {player=0})
-set_actor("ac-whiteball-small", 15.5,11.5, {player=0})
+set_actor("ac-whiteball-small", 4.5,1.5, {player=0, essential=1})
+set_actor("ac-whiteball-small", 15.5,11.5, {player=0, essential=1})
     ]]></el:luamain>
     <el:i18n>
       <el:string el:key="title">

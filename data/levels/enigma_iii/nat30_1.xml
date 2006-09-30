@@ -65,16 +65,16 @@ set_item("it-hollow", level_width-3, 2)
 set_item("it-hollow", 2, level_height-3)
 set_item("it-hollow", level_width-3, level_height-3)
 
-if options.Difficulty == HARD then
+if difficult then
     alt_mouseforce = -1
 else
     alt_mouseforce = 1
 end
 
-set_actor("ac-whiteball-small", 10, 2, {player=0, mouseforce=alt_mouseforce})
-set_actor("ac-whiteball-small", 10, 5, {player=0})
-set_actor("ac-whiteball-small", 10, 8, {player=0})
-set_actor("ac-whiteball-small", 10, 11, {player=0, mouseforce=alt_mouseforce})
+set_actor("ac-whiteball-small", 10, 2, {player=0, mouseforce=alt_mouseforce, essential=1})
+set_actor("ac-whiteball-small", 10, 5, {player=0, essential=1})
+set_actor("ac-whiteball-small", 10, 8, {player=0, essential=1})
+set_actor("ac-whiteball-small", 10, 11, {player=0, mouseforce=alt_mouseforce, essential=1})
 
 
 sumo( top, level_width/4, level_height/2, 1.25, 10000, blackball, 10 )

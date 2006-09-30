@@ -32,7 +32,7 @@ end
 
 function maze_floor(x,y)
     set_floor("fl-abyss_fake",x,y)
-    set_actor("ac-whiteball-small", x+0.5, y+0.5, {essential=0,controllers=2})
+    set_actor("ac-whiteball-small", x+0.5, y+0.5, {controllers=0})
 end
 
 function maze_wall(x,y)

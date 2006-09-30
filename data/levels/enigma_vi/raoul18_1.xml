@@ -110,9 +110,9 @@ else
 end
 
 -- Actors:
-set_actor("ac-whiteball-small", 17.5,3.5, {player=0})  
-set_actor("ac-whiteball-small", 15.5,6.5, {player=0})  
-set_actor("ac-whiteball-small", 17.5,9.5, {player=0})
+set_actor("ac-whiteball-small", 17.5,3.5, {player=0, essential=1})  
+set_actor("ac-whiteball-small", 15.5,6.5, {player=0, essential=1})  
+set_actor("ac-whiteball-small", 17.5,9.5, {player=0, essential=1})
     ]]></el:luamain>
     <el:i18n>
       <el:string el:key="title">

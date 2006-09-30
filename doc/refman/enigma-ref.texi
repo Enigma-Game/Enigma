@@ -6591,19 +6591,40 @@ The range of @ref{it-wormhole}.  Default: 10.0.
 @end defvar
 
 
-
 @node Functions, Function Index, Variables, Top
 @chapter Functions
 
 @menu
 * AddRubberBand::               Creating rubber bands
-* CreateWorld::                 
-* enigma.LoadLib::              Loading a not preloaded library
-* enigma.AddConstantForce::     
-* enigma.GetNamedObject::       
-* SendMessage::                 Sending messages to objects
-* draw_checkerboard_floor::     
+* CreateWorld::                 Create the Level
 * draw_border::                 Drawing a border of stones
+* draw_checkerboard_floor::     Draws a checkerboard
+* draw_floor::                  Draws a line of floortiles
+* draw_items::                  Draws a line of items
+* draw_stones::                 Draws a line of stones
+* enigma.AddConstantForce::     Add a constant force
+* enigma.GetAttrib::            Get an objects attribute
+* enigma.GetNamedObject::       Get an objects name 
+* enigma.GetKind::              Get an objects kind
+* enigma.KillFloor::            Kills a floortile
+* enigma.KillItem::             Kills an item
+* enigma.KillStone::            Kills a stone
+* enigma.LoadLib::              Loading a not preloaded library
+* enigma.NameObject::           Set the name of an object
+* enigma.SetAttrib::            Set an attribute of an object
+* enigma.SetAttribs::           Set multiple attributes of an object
+* enigma.SetDefaultAttribs::    Set default attributes
+* fill_floor::                  Fills a rectangle with a floortile
+* fill_items::                  Fills a rectangle with an item
+* fill_stones::                 Fills a rectangle with a stone
+* MakeObject::                  Creates an object
+* SendMessage::                 Sending messages to objects
+* set_floor::                   Set a single floortile
+* set_item::                    Set a single item
+* set_stone::                   Set a single stone
+* set_stones::                  Set a list of stones
+
+
 @end menu
 
 @c ......................................................................
@@ -6656,16 +6677,190 @@ wide 39x13 or 20x25, three screens 58x13 or 20x37.
 @end defun
 
 @c ......................................................................
-@node enigma.LoadLib, enigma.AddConstantForce, CreateWorld, Functions
-@section enigma.LoadLib
+@node  draw_border,  , draw_checkerboard_floor, Functions
+@section draw_border
 
-@defun enigma.LoadLib (libraryId)
+@defun draw_border (stonename, x,y, w,h)
 
-This function loads a Lua level library that has previously been declared in
-@ref{<compatibility>} at a given point of code execution. If the library is
-declared with @samp{el:preload="true"} no Lua function call is necessary.
-The @var{libraryId} is the same as in the declaration. 
+This function adds a border of stones to your level.  If invoked with
+only one argument, this border encloses the whole level.
+
+@table @var
+@item stonename
+The name of the border stone.
+@item x,y
+(optional) Coordinates of upper-left corner. (0,0) if omitted.
+@item w,h
+(optional) Width and height of border.
+@end table
+
 @end defun
+
+@subsection Example
+
+@example
+draw_border("st-marble")
+draw_border("st-greenbrown", 0,5,3,3)
+@end example
+
+@c ......................................................................
+@node  draw_checkerboard_floor, draw_border, SendMessage, Functions
+@section draw_checkerboard_floor
+
+@defun draw_checkerboard_floor (name1, name2, x, y, w, h, attribs)
+
+This function draws checkerboard composed of two selected floor
+types. @var{name1} and @var{name2} are names of floor objects. See
+@ref{set_floor} for further details.
+
+@table @var
+@item name1, name2
+Names of floor objects
+@item x, y
+Location of left top corner of checkerboard area. Note that upper left
+map corner is [0,0].
+@item w, h
+Size of generated checkerboard.
+@item attribs
+Table of attribute names and corresponding values:
+@code{@{attrib1=value1, attrib2=value2, ...@}}. These attributes,
+together with default attributes, are passed to each tile of the
+generated checkerboard.
+@end table
+
+@end defun
+
+@subsection Example
+
+@example
+draw_checkerboard_floor("fl-abyss", "fl-rough", 2, 2, 23, 11)
+draw_checkerboard_floor("fl-normal", "fl-inverse", 0, 0, levelw, levelh) -- racetrack
+@end example
+
+@c ......................................................................
+@node  draw_floor,  , draw_checkerboard_floor, Functions
+@section draw_floor
+
+@defun draw_floor (floorname, location, increment, count , attribs)
+
+Description: Use this function to add several floor objects
+to your level in periodical distances. How does it work? At first it
+places the floor to location. Then it moves by
+increment, and again places given floor. And again and again
+- so many times as defined by count.
+@table @var
+@item Floorname 
+Name of floor object.
+@item Location
+This is Lua table with two elements:
+@{x,y@}. They represent the location of first floor object
+@item Increment: Another Lua table with two elements:
+@{dx,dy@}. dx is the increment per step in x-axis,
+dy is increment per step in y-axis. Often this function is
+used to add a row of floors in one direction, and then
+Increment looks like this: @{1,0@} or
+@{0,1@}.
+@item Count
+Number of steps to proceed.
+@item Attribs
+Table of attribute names and corresponding values:
+@{attrib1=value1, attrib2=value2, ...@}. It represents the
+attributes to be passed to each created floor. You can omit this
+argument.
+@end table
+
+@end defun
+
+@subsection Example
+
+@example
+draw_floor("fl-abyss", @{3,0@}, @{0,1@}, level_height)
+draw_floor("fl-gradient", @{15, 5@}, @{1,0@}, 4, @{type=1@})
+draw_floor("fl-water", @{level_width-4,3@}, @{0,1@}, level_height-6)
+@end example
+
+
+@c ......................................................................
+@node  draw_floor,  , draw_checkerboard_floor, Functions
+@section draw_items
+
+@defun draw_items (itemname, location, increment, count [, attribs])
+
+Description: This function adds to your level several item
+objects in periodical distances. It works much like draw_floor
+except that it adds items instead of floors.
+@table @var
+@item Itemname
+Name of item object.
+@item Location
+This is Lua table with two elements:
+@{x,y@}. They represent the location of first item that you
+want to add to map.
+@item Increment: Another Lua table with two elements:
+@{dx,dy@}. dx is the increment per step in x-axis,
+dy is increment per step in y-axis.
+@item Count
+Number of steps to proceed.
+@item Attribs
+Table of attribute names and corresponding values:
+@{attrib1=value1, attrib2=value2, ...@}. It represents the
+attributes to be passed to each created item. You may omit this
+argument.
+@end table
+
+@end defun
+
+@subsection Example
+
+@example
+draw_items("it-trigger", @{3,3@}, @{2,0@}, 8)
+draw_items("it-tinyhill", @{5,3@}, @{2,0@}, 7)
+@end example
+
+@c ......................................................................
+@node  draw_floor,  , draw_checkerboard_floor, Functions
+@section draw_stones
+
+@defun draw_stones (stonename, location, increment, count [, attribs])
+
+Description: This function adds to your level several stones
+in periodical distances. It works much like draw_floor
+except that it adds stones instead of floors.
+@table @var
+@item Stonename
+Name of stone object.
+@item Location
+This is Lua table with two elements:
+@{x,y@}. They represent the location of first stone to be
+placed to map.
+@item Increment
+Another Lua table with two elements:
+@{dx,dy@}. dx is the increment per step in x-axis,
+dy is increment per step in y-axis.
+@item Count
+Total number of stones to add.
+@item Attribs
+Table of attribute names and corresponding values:
+@{attrib1=value1, attrib2=value2, ...@}. It represents the
+attributes to be passed to each created stone. You may omit this
+argument.
+@end table
+
+@end defun
+
+@subsection Example
+
+@example
+draw_stones("st-grate1", @{9,1@},@{0,1@}, 5)
+draw_stones("st-stone_break", @{21,1@}, @{1,0@}, 10)
+
+function draw_border(stonename, x0, y0, w, h)
+    draw_stones(stonename, @{x0,y0@}, @{1,0@}, w)
+    draw_stones(stonename, @{x0,y0+h-1@},@{1,0@}, w)
+    draw_stones(stonename, @{x0,y0@}, @{0,1@}, h)
+    draw_stones(stonename, @{x0+w-1,y0@},@{0,1@}, h)
+end
+@end example
 
 @c ......................................................................
 @node enigma.AddConstantForce, enigma.GetNamedObject, enigma.LoadLib, Functions
@@ -6685,6 +6880,28 @@ adds gravity in vertical direction (positive means downwards).
 @end defun
 
 @c ......................................................................
+@node enigma.AddConstantForce, enigma.GetNamedObject, enigma.LoadLib, Functions
+@section enigma.GetAttrib
+
+@defun GetAttrib (object, attribname)
+
+Description: The function is similar to SetAttrib, except
+that it doesn't set the attribute, but return current attribute
+value. Function arguments have the same meaning like in
+SetAttrib, see its description. Also note
+GetKind.
+@table @var
+@end table
+
+@end defun
+
+@subsection Example
+
+@example
+local bolder_dir = GetAttrib(bolder1, "direction")
+@end example
+
+@c ......................................................................
 @node enigma.GetNamedObject, SendMessage, enigma.AddConstantForce, Functions
 @section enigma.GetNamedObject
 
@@ -6702,6 +6919,320 @@ with value @var{objname}.  It returns a reference to the object or
 set_stone("st-wood", 7, 11, @{name="woodie"@})
 ...
 local Woodie = enigma.GetNamedObject("woodie")
+@end example
+
+@c ......................................................................
+@node enigma.GetNamedObject, SendMessage, enigma.AddConstantForce, Functions
+@section enigma.GetKind
+
+@defun enigma.GetKind(object)
+
+Description: This function returns the kind of an object.
+@end defun
+
+@subsection Example
+
+@example
+set_stone("st-wood", 7, 11)
+...
+local mystone=enigma.GetStone(7,11)
+local mystonetype = enigma.GetKind(mystone)
+
+mystonekind will be "st-wood"
+@end example
+
+@c ......................................................................
+@node enigma.AddConstantForce, enigma.GetNamedObject, enigma.LoadLib, Functions
+@section enigma.KillFloor
+
+@defun enigma.KillFloor (x, y)
+
+Kills the floor tile at position (x,y).
+
+@table @var
+@item x, y
+Koordinates of the floortile to kill.
+@end table
+
+@end defun
+
+@c ......................................................................
+@node enigma.AddConstantForce, enigma.GetNamedObject, enigma.LoadLib, Functions
+@section enigma.KillItem
+
+@defun enigma.KillItem (x, y)
+
+Kills the item at position (x,y).
+
+@table @var
+@item x, y
+Koordinates of the item to kill.
+@end table
+
+@end defun
+
+@c ......................................................................
+@node enigma.AddConstantForce, enigma.GetNamedObject, enigma.LoadLib, Functions
+@section enigma.KillStone
+
+@defun enigma.KillStone (x, y)
+
+Kills the stone tile at position (x,y).
+
+@table @var
+@item x, y
+Koordinates of the stone to kill.
+@end table
+
+@end defun
+
+@c ......................................................................
+@node enigma.LoadLib, enigma.AddConstantForce, CreateWorld, Functions
+@section enigma.LoadLib
+
+@defun enigma.LoadLib (libraryId)
+
+This function loads a Lua level library that has previously been declared in
+@ref{<compatibility>} at a given point of code execution. If the library is
+declared with @samp{el:preload="true"} no Lua function call is necessary.
+The @var{libraryId} is the same as in the declaration. 
+@end defun
+
+@c ......................................................................
+@node enigma.AddConstantForce, enigma.GetNamedObject, enigma.LoadLib, Functions
+@section enigma.NameObject
+
+@defun enigma.NameObject (object, value)
+
+Description: Gives the name value to object.
+
+@table @var
+@end table
+
+@end defun
+
+@c ......................................................................
+@node enigma.AddConstantForce, enigma.GetNamedObject, enigma.LoadLib, Functions
+@section enigma.SetAttrib
+
+@defun enigma.SetAttrib (object, attribname, value)
+
+Description: The function sets the given attribute of a
+given object to given value. If you try to pass unknown attribute to
+an object, enigma will ignore it (i.e. nothing happens).
+@table @var
+@item Object
+The variable that holds the object. Every function
+that creates an object returns the variable representing freshly added
+object. That's right what should be passed to SetAttrib. (See example).
+@item Attribname
+Name of the attribute. See the description of
+objects to learn which object knows what attributes.
+@item Value
+New value of attribute.
+@end table
+
+@end defun
+
+@subsection Examples
+
+@example
+local ls = set_stone("st-laser", 1, 4, {on=FALSE, dir=NORTH})
+set_attrib(ls, "name", "laser")
+
+-- (also "on" and "dir" are attributes in this example)
+@end example
+
+@c ......................................................................
+@node enigma.AddConstantForce, enigma.GetNamedObject, enigma.LoadLib, Functions
+@section enigma.SetAttribs
+
+@defun enigma.set_attribs (object, attribs)
+
+Description: This function sets several attributes at a
+time. The only thing it does is call SetAttrib as many times as needed to set
+values of all desired attributes.
+@table @var
+@item Object
+Value that holds the object, whose attributes are
+about to change.
+@item Attribs
+Table of attribute names and corresponding values:
+@{attrib1=value1, attrib2=value2, ...@}
+@end table
+
+@end defun
+
+@subsection Examples
+
+@example
+local ls = set_stone("st-laser", 1, 4, {on=FALSE, dir=NORTH})
+... (some lua code) ...
+set_attribs(ls, {on=TRUE, dir=WEST})
+@end example
+
+@c ......................................................................
+@node enigma.AddConstantForce, enigma.GetNamedObject, enigma.LoadLib, Functions
+@section enigma.SetDefaultAttribs
+
+@defun enigma.SetDefaultAttribs (objectname, attribs)
+
+Description: Use this function if there are several objects
+of same kind, that have attributes (all or just some) with same
+value. For example if there are twenty wormholes with strength of 10,
+you can set the strength of 10 as a default value for all
+wormholes.
+
+Notes: Default attributes can be overriden or several extra
+attributes can be assigned to object. The attributes specified at
+creation time (using set_floor, set_item, set_stone
+functions) override default attributes specified by
+SetDefaultAttribs.
+@table @var
+@item Objname may be name of any enigma stone, floor or
+item. In most cases this is wormhole, because it's usual to have
+several wormholes with same strength and range, while it's not very
+common to have for example all doors vertical or all bolders facing
+west.
+@item Attribs
+Table of keys and corresponding values:
+@{attrib1=value1, attrib2=value2, ...@}
+@end table
+
+@end defun
+
+@subsection Examples
+
+@example
+SetDefaultAttribs("it-wormhole", @{range=1.0, strength=10@})
+set_item("it-wormhole", 11, 6, @{targetx="48.5",targety="56.5"@})
+@end example
+
+@c ......................................................................
+@node enigma.AddConstantForce, enigma.GetNamedObject, enigma.LoadLib, Functions
+@section fill_floor
+
+@defun fill_floor (floorname)
+fill_floor (floorname, x, y, w, h)
+
+Description: This function fills an area of map with
+selected floor type.
+@table @var
+@item Floorname
+Name of floor object. If this is the only argument to the function,
+whole map area is filled with this kind of floor.
+@item x, y
+Coordinates of upper left corner of filled area. Note
+that upper left square of map is at coordinates [0,0]. If those
+arguments are omitted, zero is passed instead.
+@item w, h
+Size of filled area. If any of these arguments is
+omitted, level width or height respectively is passed by default.
+@end table
+
+@end defun
+
+@subsection Examples
+
+@example
+fill_floor("fl-space", 0,0, level_width,level_height)  -- these two lines
+fill_floor("fl-space")                                 -- do the same
+fill_floor("fl-gray", 1, 1, level_width-2, level_height-2)
+fill_floor("fl-water", 24,47, 11,1)
+@end example
+
+@c ......................................................................
+@node enigma.AddConstantForce, enigma.GetNamedObject, enigma.LoadLib, Functions
+@section fill_items
+
+@defun fill_items (itemname, x, y, w, h)
+
+Description: This function fills an area of map with
+items of selected kind.
+
+Note: Please note that in contrast to function fill_floor, this function
+doesn't have any default attributes and no parametter may be omitted.
+
+(strange, no one ever used this function in their map ...)
+@table @var
+@item Itemname
+Name of item object.
+@item x, y
+Coordinates of upper left corner of filled area. Note
+that upper left square of map is at coordinates [0,0].
+@item w, h
+Size of filled area - w is width and
+h is height.
+@end table
+
+@end defun
+
+@subsection Examples
+
+@example
+fill_items("it-wormhole", 1, 1, 3, 3) -- field of 3x3 wormholes
+@end example
+
+@c ......................................................................
+@node enigma.AddConstantForce, enigma.GetNamedObject, enigma.LoadLib, Functions
+@section fill_stones
+
+@defun fill_stones (stonename, x, y, w, h)
+
+Description: This function fills an area of map with
+stones of selected kind.
+
+Note: Please note thatin contrast to function fill_floor,
+this function doesn't have any default attributes and no parametter may be omitted.
+@table @var
+@item Stonename
+Name of stone object.
+@item x, y
+Coordinates of upper left corner of filled area. Note
+that upper left square of map is at coordinates [0,0].
+@item w, h
+Size of filled area - w is width and h is height.
+@end table
+
+@end defun
+
+@subsection Examples
+
+@example
+fill_stones("st-chameleon", 1, 1, 18, 11)
+fill_stones("st-grate1", 1, 5, 5, 7)
+fill_stones("st-death", 9, 5, 2, 2)
+@end example
+
+@c ......................................................................
+@node  draw_floor,  , draw_checkerboard_floor, Functions
+@section MakeObject
+
+@defun MakeObject (objname, attribs)
+
+Description: The function MakeObject is used internally by
+other functions, like set_floor, set_item or
+set_stone.
+It takes care of creating the object and sets up all desired
+attributes, including default ones
+@table @var
+@item Objname
+Name of internal enigma object. It can be name of
+any floor, stone or item.
+@item Attribs
+Table of attribute names and corresponding values:
+@{attrib1=value1, attrib2=value2, ...@}
+@end table
+
+@end defun
+
+@subsection Example
+
+@example
+Example: To my best knowledge, no one uses this function in
+their levels. You should rather use set_floor/stone/item functions for
+creating particular enigma objects. If you need this function, you are
+probably guru and you don't need this manual either.
 @end example
 
 @c ......................................................................
@@ -6741,608 +7272,151 @@ SendMessage("bolder1", "direction", WEST)
 @end example
 
 @c ......................................................................
-@node  draw_checkerboard_floor, draw_border, SendMessage, Functions
-@section draw_checkerboard_floor
+@node enigma.AddConstantForce, enigma.GetNamedObject, enigma.LoadLib, Functions
+@section set_floor
 
-@defun draw_checkerboard_floor (name1, name2, x, y, w, h, attribs)
+@defun set_floor (floorname, x, y, attribs)
 
-This function draws checkerboard composed of two selected floor
-types. @var{name1} and @var{name2} are names of floor objects. See
-@ref{set_floor} for further details.
-
-@table @var
-@item name1, name2
-Names of floor objects
-@item x, y
-Location of left top corner of checkerboard area. Note that upper left
-map corner is [0,0].
-@item w, h
-Size of generated checkerboard.
-@item attribs
-Table of attribute names and corresponding values:
-@code{@{attrib1=value1, attrib2=value2, ...@}}. These attributes,
-together with default attributes, are passed to each tile of the
-generated checkerboard.
-@end table
-
-@end defun
-
-@subsection Example
-
-@example
-draw_checkerboard_floor("fl-abyss", "fl-rough", 2, 2, 23, 11)
-draw_checkerboard_floor("fl-normal", "fl-inverse", 0, 0, levelw, levelh) -- racetrack
-@end example
-
-
-@c ......................................................................
-@node  draw_border,  , draw_checkerboard_floor, Functions
-@section draw_border
-
-@defun draw_border (stonename, x,y, w,h)
-
-This function adds a border of stones to your level.  If invoked with
-only one argument, this border encloses the whole level.
-
-@table @var
-@item stonename
-The name of the border stone.
-@item x,y
-(optional) Coordinates of upper-left corner. (0,0) if omitted.
-@item w,h
-(optional) Width and height of border.
-@end table
-
-@end defun
-
-@subsection Example
-
-@example
-draw_border("st-marble")
-draw_border("st-greenbrown", 0,5,3,3)
-@end example
-
-@ignore
-@c ......................................................................
-@c @node ,,,
-@c @section 
-
-@defun 
-
-@table @var
-@end table
-
-@end defun
-
-@subsection Example
-
-@example
-@end example
-
-@end ignore
-
-
-@ignore
-
-<para><a name="draw_floor01"></a>
-<h3>draw_floor</h3>
-<para>Syntax:
-<code>draw_floor(floorname, location, increment, count, attribs)</code>
-</para>
-
-<para>Description: Use this function to add several floor objects
-to your level in periodical distances. How does it work? At first it
-places the floor to <em>location</em>. Then it moves by
-<em>increment</em>, and again places given floor. And again and again
-- so many times as defined by <em>count</em>.</para>
-
-<para>Floorname: Name of floor object. See
-<a href="#set_floor01">set_floor</a> for further details.</para>
-
-<para>Location: This is Lua table with two elements:
-<tt>{x,y}</tt>. They represent the location of first floor object
-you want to add to map.</para>
-
-<para>Increment: Another Lua table with two elements:
-<tt>{dx,dy}</tt>. <em>dx</em> is the increment per step in x-axis,
-<em>dy</em> is increment per step in y-axis. Often this function is
-used to add a row of floors in one direction, and then
-<em>Increment</em> looks like this: <tt>{1,0}</tt> or
-<tt>{0,1}</tt>.</para>
-
-<para>Count: Number of steps to proceed.</para>
-
-<para>Attribs: Table of attribute names and corresponding values:
-<tt>{attrib1=value1, attrib2=value2, ...}</tt>. It represents the
-attributes to be passed to each created floor. You can omit this
-argument.</para>
-
-<para>Example:
-<pre>
-draw_floor("fl-abyss", {3,0}, {0,1}, level_height)
-draw_floor("fl-gradient", {15, 5}, {1,0}, 4, {type=1})
-draw_floor("fl-water", {level_width-4,3}, {0,1}, level_height-6)
-</pre></para>
-</para>
-
-
-
-<para><a name="draw_items01"></a>
-<h3>draw_items</h3>
-<para>Syntax:
-<code>draw_items(itemname, location, increment, count, attribs)</code>
-</para>
-
-<para>Description: This function adds to your level several item
-objects in periodical distances. It works much like
-<a href="#draw_floor01">draw_floor</a> except that it adds items instead
-of floors.</para>
-
-<para>Itemname: Name of item object. See
-<a href="#set_item01">set_item</a> for further details.</para>
-
-<para>Location: This is Lua table with two elements:
-<tt>{x,y}</tt>. They represent the location of first item that you
-want to add to map.</para>
-
-<para>Increment: Another Lua table with two elements:
-<tt>{dx,dy}</tt>. <em>dx</em> is the increment per step in x-axis,
-<em>dy</em> is increment per step in y-axis.</para>
-
-<para>Count: Number of steps to proceed.</para>
-
-<para>Attribs: Table of attribute names and corresponding values:
-<tt>{attrib1=value1, attrib2=value2, ...}</tt>. It represents the
-attributes to be passed to each created item. You may omit this
-argument.</para>
-
-<para>Example:
-<pre>
-draw_items("it-trigger", {3,3}, {2,0}, 8)
-draw_items("it-tinyhill", {5,3}, {2,0}, 7)
-</pre></para>
-</para>
-
-
-
-<para><a name="draw_stones01"></a>
-<h3>draw_stones</h3>
-<para>Syntax:
-<code>draw_stones(stonename, location, increment, count, attribs)</code>
-</para>
-
-<para>Description: This function adds to your level several stones
-in periodical distances. It works much like
-<a href="#draw_floor01">draw_floor</a> except that it adds stones instead of
-floors.</para>
-
-<para>Stonename: Name of stone object. See
-<a href="#set_stone01">set_stone</a> for further details.</para>
-
-<para>Location: This is Lua table with two elements:
-<tt>{x,y}</tt>. They represent the location of first stone to be
-placed to map.</para>
-
-<para>Increment: Another Lua table with two elements:
-<tt>{dx,dy}</tt>. <em>dx</em> is the increment per step in x-axis,
-<em>dy</em> is increment per step in y-axis.</para>
-
-<para>Count: Total number of stones to add.</para>
-
-<para>Attribs: Table of attribute names and corresponding values:
-<tt>{attrib1=value1, attrib2=value2, ...}</tt>. It represents the
-attributes to be passed to each created stone. You may omit this
-argument.</para>
-
-<para>Example:
-<pre>
-draw_stones("st-grate1", {9,1},{0,1}, 5)
-draw_stones("st-stone_break", {21,1}, {1,0}, 10)
-
-function draw_border(stonename, x0, y0, w, h)
-    draw_stones(stonename, {x0,y0}, {1,0}, w)
-    draw_stones(stonename, {x0,y0+h-1},{1,0}, w)
-    draw_stones(stonename, {x0,y0}, {0,1}, h)
-    draw_stones(stonename, {x0+w-1,y0},{0,1}, h)
-end
-</pre></para>
-</para>
-
-
-
-<para><a name="fill_floor01"></a>
-<h3>fill_floor</h3>
-<para>Syntax:
-<code>fill_floor(floorname)</code>
-<code>fill_floor(floorname, x, y, w, h)</code>
-</para>
-
-<para>Description: This function fills an area of map with
-selected floor type.</para>
-
-<para>Floorname: Name of floor object. See <a
-href="#set_floor01">set_floor</a> for further details. If this is the
-only argument to the function, whole map area is filled with this kind
-of floor.</para>
-
-<para>x, y: Coordinates of upper left corner of filled area. Note
-that upper left square of map is at coordinates [0,0]. If those
-arguments are omitted, zero is passed instead.</para>
-
-<para>w, h: Size of filled area. If any of these arguments is
-omitted, level width or height respectively is passed by default.</para>
-
-<para>Example:
-<pre>
-fill_floor("fl-space", 0,0, level_width,level_height)  -- these two lines
-fill_floor("fl-space")                                 -- do the same
-fill_floor("fl-gray", 1, 1, level_width-2, level_height-2)
-fill_floor("fl-water", 24,47, 11,1)
-</pre></para>
-</para>
-
-
-
-<para><a name="fill_items01"></a>
-<h3>fill_items</h3>
-<para>Syntax:
-<code>fill_items(itemname, x, y, w, h)</code>
-</para>
-
-<para>Description: This function fills an area of map with
-items of selected kind.</para>
-
-<para>Itemname: Name of item object. See
-<a href="#set_item01">set_item</a> for further details.</para>
-
-<para>x, y: Coordinates of upper left corner of filled area. Note
-that upper left square of map is at coordinates [0,0].</para>
-
-<para>w, h: Size of filled area - <em>w</em> is width and
-<em>h</em> is height.</para>
-
-<para>Note: Please note thatin contrast to function <a
-href="#fill_floor01">fill_floor</a>, this function doesn't have any
-default attributes and no parametter may be omitted.</para>
-
-<para>Example:
-<pre>
--- (strange, no one ever used this function in their map...)
-fill_items("it-wormhole", 1, 1, 3, 3) -- field of 3x3 wormholes
-</pre></para>
-</para>
-
-
-
-<para><a name="fill_stones01"></a>
-<h3>fill_stones</h3>
-<para>Syntax:
-<code>fill_stones(stonename, x, y, w, h)</code>
-</para>
-
-<para>Description: This function fills an area of map with
-stones of selected kind.</para>
-
-<para>Stonename: Name of stone object. See
-<a href="#set_stone01">set_stone</a> for further details.</para>
-
-<para>x, y: Coordinates of upper left corner of filled area. Note
-that upper left square of map is at coordinates [0,0].</para>
-
-<para>w, h: Size of filled area - <em>w</em> is width and
-<em>h</em> is height.</para>
-
-<para>Note: Please note thatin contrast to function <a
-href="#fill_floor01">fill_floor</a>, this function doesn't have any
-default attributes and no parametter may be omitted.</para>
-
-<para>Example:
-<pre>
-fill_stones("st-chameleon", 1, 1, 18, 11)
-fill_stones("st-grate1", 1, 5, 5, 7)
-fill_stones("st-death", 9, 5, 2, 2)
-</pre></para>
-</para>
-
-
-
-<para><a name="GetAttrib01"></a>
-<h3>GetAttrib</h3>
-<para>Syntax:
-<code>GetAttrib(object, attribname)</code></para>
-
-<para>Description: The function is similar to SetAttrib, except
-that it doesn't set the attribute, but return current attribute
-value. Function arguments have the same meaning like in
-<a href="#SetAttrib01">SetAttrib</a>, see its description. Also note
-<a href="#GetKind01">GetKind</a>.
-</para>
-
-<para>Example:
-<pre>
-local bolder_dir = GetAttrib(bolder1, "direction")
-</pre></para>
-</para>
-
-
-
-<para><a name="GetKind01"></a>
-<h3>GetKind</h3>
-<para>Syntax:
-<code>GetKind(object)</code></para>
-
-<para>Description: The function is a work-around for
-GetAttrib("kind"), which does not work for items.
-</para>
-
-<para>Example:
-<pre>
-local stone_kind = GetKind(stone1)
-</pre></para>
-</para>
-
-
-
-<para><a name="MakeObject01"></a>
-<h3>MakeObject</h3>
-<para>Syntax:
-<code>MakeObject(objname, attribs)</code></para>
-
-<para>Description: The function MakeObject is used internally by
-other functions, like <a href="#set_floor01">set_floor</a>,
-<a href="#set_item01">set_item</a> or
-<a href="#set_stone01">set_stone</a>.
-It takes care of creating the object and sets up all desired
-attributes, including <a href="#SetDefaultAttribs01">default
-ones</a>.
-</para>
-
-<para>Objname: Name of internal enigma object. It can be name of
-any floor, stone or item.</para>
-
-<para>Attribs: Table of attribute names and corresponding values:
-<tt>{attrib1=value1, attrib2=value2, ...}</tt></para>
-
-<para>Example: To my best knowledge, no one uses this function in
-their levels. You should rather use set_floor/stone/item functions for
-creating particular enigma objects. If you need this function, you are
-probably guru and you don't need this manual either.</para>
-</para>
-
-
-
-<para><a name="SetAttrib01"></a>
-<h3>SetAttrib</h3>
-<para>Syntax:
-<code>SetAttrib(object, attribname, value)</code></para>
-
-<para>Description: The function sets the given attribute of a
-given object to given value. If you try to pass unknown attribute to
-an object, enigma will ignore it (i.e. nothing happens).</para>
-
-<para>Object: The variable that holds the object. Every function
-that creates an object returns the variable representing freshly added
-object. That's right what should be passed to SetAttrib. (See example).</para>
-
-<para>Attribname: Name of the attribute. See the description of
-objects to learn which object knows what attributes.</para>
-
-<para>Value: New value of attribute.</para>
-
-<para>Example:
-<pre>
-local ls = set_stone("st-laser", 1, 4, {on=FALSE, dir=NORTH})
-set_attrib(ls, "name", "laser")
-</pre>
-(also "on" and "dir" are attributes in this example)</para>
-</para>
-
-
-
-
-<para><a name="set_attribs01"></a>
-<h3>set_attribs</h3>
-<para>Syntax:
-<code>set_attribs(object, attribs)</code></para>
-
-<para>Description: This function sets several attributes at a
-time. The only thing it does is call <a
-href="#SetAttrib01">SetAttrib</a> as many times as needed to set
-values of all desired attributes.</para>
-
-<para>Object: Value that holds the object, whose attributes are
-about to change.</para>
-
-<para>Attribs: Table of attribute names and corresponding values:
-<tt>{attrib1=value1, attrib2=value2, ...}</tt></para>
-
-<para>Example:
-<pre>
-local ls = set_stone("st-laser", 1, 4, {on=FALSE, dir=NORTH})
-... (some lua code) ...
-set_attribs(ls, {on=TRUE, dir=WEST})
-</pre></para>
-</para>
-
-
-
-
-<para><a name="SetDefaultAttribs01"></a>
-<h3>SetDefaultAttribs</h3>
-<para>Syntax:
-<code>CreateWorld(objname, attribs)</code></para>
-
-<para>Description: Use this function if there are several objects
-of same kind, that have attributes (all or just some) with same
-value. For example if there are twenty wormholes with strength of 10,
-you can set the strength of 10 as a default value for all
-wormholes.</para>
-
-<para>Objname may be name of any enigma stone, floor or
-item. In most cases this is wormhole, because it's usual to have
-several wormholes with same strength and range, while it's not very
-common to have for example all doors vertical or all bolders facing
-west.</para>
-
-<para>Attribs: Table of keys and corresponding values:
-<tt>{attrib1=value1, attrib2=value2, ...}</tt></para>
-
-<para>Notes: Default attributes can be overriden or several extra
-attributes can be assigned to object. The attributes specified at
-creation time (using <a href="#set_floor01">set_floor</a>, <a
-href="#set_item01">set_item</a>, <a href="#set_stone01">set_stone</a>
-functions) override default attributes specified by
-SetDefaultAttribs.</para>
-
-<para>Example:
-<pre>
-SetDefaultAttribs("it-wormhole", {range=1.0, strength=10})
-set_item("it-wormhole", 11, 6, {targetx="48.5",targety="56.5"})
-</pre></para>
-</para>
-
-
-
-<para><a name="set_floor01"></a>
-<h3>set_floor</h3>
-<para>Syntax:
-<code>set_floor(floorname, x, y, attribs)</code></para>
-
-<para>Description: As you would expect, this function creates a
+Description: As you would expect, this function creates a
 floor at given [x,y] position in enigma level, and passes all
-necessary <a href="#SetDefaultAttribs01">default attributes</a> and
-attributes passed in <em>attribs</em> argument.</para>
-
-<para>Floorname: Enigma internal object name. The name should be
+necessary default attributes and
+attributes passed in attribs argument.
+@table @var
+@item Floorname
+ Enigma internal object name. The name should be
 the name of floor (they typically start with "fl-" prefix). In fact,
 it is possible to add a stone object as a floor, but strange things
-happen. Generally nothing you would like to use in your levels.</para>
+happen. Generally nothing you would like to use in your levels.
+@item x, y 
+Location where you want the floor to be placed. Note
+that level coordinates begin with zero (see CreateWorld).
+@item Attribs
+Table of attribute names and corresponding values:
+@{attrib1=value1, attrib2=value2, ...@}
+@end table
 
-<para>x, y Location where you want the floor to be placed. Note
-that level coordinates begin with zero (see
-<a href="#CreateWorld01">CreateWorld</a>).</para>
+@end defun
 
-<para>Attribs: Table of attribute names and corresponding values:
-<tt>{attrib1=value1, attrib2=value2, ...}</tt></para>
+@subsection Examples
 
-<para>Example:
-<pre>
+@example
 function setup_gradient_rose(x,y)
-   set_floor("fl-gradient", x, y+1, {type=1})
-   set_floor("fl-gradient", x, y-1, {type=2})
-   set_floor("fl-gradient", x+1, y, {type=3})
-   set_floor("fl-gradient", x-1, y, {type=4})
+   set_floor("fl-gradient", x, y+1, @{type=1@})
+   set_floor("fl-gradient", x, y-1, @{type=2@})
+   set_floor("fl-gradient", x+1, y, @{type=3@})
+   set_floor("fl-gradient", x-1, y, @{type=4@})
 end
-</pre></para>
-</para>
+@end example
 
+@c ......................................................................
+@node enigma.AddConstantForce, enigma.GetNamedObject, enigma.LoadLib, Functions
+@section set_item
 
+@defun set_item (itemname, x, y, attribs)
 
-<para><a name="set_item01"></a>
-<h3>set_item</h3>
-<para>Syntax:
-<code>set_item(itemname, x, y, attribs)</code></para>
-
-<para>Description: This function is very similar to the one named
-<a href="#set_floor01">set_floor</a>, describer earlier. It creates an
+Description: This function is very similar to the one named
+set_floor, describer earlier. It creates an
 item at given position. Items in enigma are all those magic wands,
 brushes, coins, triggers, bombs and also for example the laser ray or
-crackles. There can be only one single item on each position.</para>
+crackles. There can be only one single item on each position.
 
-<para>Itemname: Enigma internal object name. The name has to be
-the name of item (they typically start with "it-" prefix). Enigma
-won't let you create an item from other object that just item.</para>
-
-<para>x, y Location where you want the item to be placed. Note
-that level coordinates begin with zero (see
-<a href="#CreateWorld01">CreateWorld</a>).</para>
-
-<para>Attribs: Table of attribute names and corresponding values:
-<tt>{attrib1=value1, attrib2=value2, ...}</tt></para>
-
-<para>Note: The rule of single item per field also means, that
+Note: The rule of single item per field also means, that
 laser cannot "overshoot" magic wand or trigger, that you cannot drop
 item to cracked floor etc. It may look like disadvantage, but on the
 other hand, it can be used as an advantage (see for example the level
-named "Follow the Light" in "Oxyd Clones" package).</para>
+named "Follow the Light" in "Oxyd Clones" package).
+@table @var
+@item Itemname
+Enigma internal object name. The name has to be
+the name of item (they typically start with "it-" prefix). Enigma
+won't let you create an item from other object that just item.
+@item x, y
+Location where you want the item to be placed. Note
+that level coordinates begin with zero (see CreateWorld).
+@item Attribs
+Table of attribute names and corresponding values:
+@{attrib1=value1, attrib2=value2, ...@}
+@end table
 
-<para>Example:
-<pre>
-set_item("it-trigger", 34, 3, {action="openclose", target="bridge1"})
-</pre></para>
-</para>
+@end defun
 
+@subsection Examples
 
+@example
+set_item("it-trigger", 34, 3, @{action="openclose", target="bridge1"@})
+@end example
 
-<para><a name="set_stone01"></a>
-<h3>set_stone</h3>
-<para>Syntax:
-<code>set_stone(stonename, x, y, attribs)</code></para>
+@c ......................................................................
+@node enigma.AddConstantForce, enigma.GetNamedObject, enigma.LoadLib, Functions
+@section set_stone
 
-<para>Description: This function is very similar to the one named
-<a href="#set_floor01">set_floor</a>, describer earlier. It places the
+@defun set_stone (stonename, x, y, attribs)
+
+Description: This function is very similar to the one named
+set_floor, describer earlier. It places the
 stone to desired location. Stones in enigma are all walls, glass
 blocks, death's heads, and also doors, switches, lasers, bolders and
-lots of other special enigma objects.</para>
-
-<para>Stonename: Enigma internal stone name. The name has to be
+lots of other special enigma objects.
+@table @var
+@item Stonename
+Enigma internal stone name. The name has to be
 the name of stone (they typically start with "st-" prefix). Enigma
-won't let you create the stone from other object that just stone.</para>
+won't let you create the stone from other object that just stone.
+@item x, y
+Location where you want the stone to be placed. Note
+that level coordinates begin with zero (see CreateWorld).
+@item Attribs
+Table of attribute names and corresponding values:
+@{attrib1=value1, attrib2=value2, ...@}
+@end table
 
-<para>x, y Location where you want the stone to be placed. Note
-that level coordinates begin with zero (see
-<a href="#CreateWorld01">CreateWorld</a>).</para>
+@end defun
 
-<para>Attribs: Table of attribute names and corresponding values:
-<tt>{attrib1=value1, attrib2=value2, ...}</tt></para>
+@subsection Examples
 
-<para>Example:
-<pre>
-set_stone("st-door", 18,  6, {name="door01", type="h"})
-set_stone("st-bolder", 2, 11, {name="bolder01", direction=NORTH})
-</pre></para>
-</para>
+@example
+set_stone("st-door", 18,  6, @{name="door01", type="h"@})
+set_stone("st-bolder", 2, 11, @{name="bolder01", direction=NORTH@})
+@end example
 
+@c ......................................................................
+@node enigma.AddConstantForce, enigma.GetNamedObject, enigma.LoadLib, Functions
+@section set_stones
 
+@defun set_stones (stonename, positions, attribs)
 
-<para><a name="set_stones01"></a>
-<h3>set_stones</h3>
-<para>Syntax:
-<code>set_stones(stonename, positions, attribs)</code></para>
+Description: This function is somehow similar to draw_stones.
+ It can place several stones to locations all over the map.
+The locations to which the stones will be placed are listed in argument
+positions.
+@table @var
+@item Stonename
+Enigma internal stone name.
+@item Positions
+Table of stone locations. Its format is like this:
+@{loc1, loc2, ...@}, where each location is
+@{x,y@}. Together it looks like this: @{@{x1,y1@}, @{x2,y2@},
+...@}.
+@item Attribs
+Table of attribute names and corresponding values:
+@{attrib1=value1, attrib2=value2, ...@}. Those attributes will
+be passed to created stones together with default attributes. You may omit this
+attribute.
+@end table
 
-<para>Description: This function is somehow similar to <a
-href="#draw_stones01">draw_stones</a>. It can place several stones to
-locations all over the map. The locations to which the stones will be
-placed are listed in argument <em>positions</em>.</para>
+@end defun
 
-<para>Stonename: Enigma internal stone name. See <a
-href="#set_stone01">set_stone</a> for further details.</para>
+@subsection Examples
 
-<para>Positions Table of stone locations. Its format is like this:
-<tt>{loc1, loc2, ...}</tt>, where each location is
-<tt>{x,y}</tt>. Together it looks like this: <tt>{{x1,y1}, {x2,y2},
-...}</tt>.</para>
-
-<para>Attribs: Table of attribute names and corresponding values:
-<tt>{attrib1=value1, attrib2=value2, ...}</tt>. Those attributes will
-be passed to created stones together with <a
-href="#SetDefaultAttribs01">default attributes</a>. You may omit this
-attribute.</para>
-
-<para>Example:
-<pre>
-set_stones("st-glass", {{1,6},{1,12},{34,1},{34,2},{35,2},{36,1},{36,2}})
-set_stones(bordertile, {{34, 1}, {34, 5}, {34, 7}, {34, 11}})
-set_stones("st-invisible", {{7,9}}) -- these two lines
+@example
+set_stones("st-glass", @{@{1,6@},@{1,12@},@{34,1@},@{34,2@},@{35,2@},@{36,1@},@{36,2@}@})
+set_stones(bordertile, @{@{34, 1@}, @{34, 5@}, @{34, 7@}, @{34, 11@}@})
+...
+set_stones("st-invisible", @{@{7,9@}@}) -- these two lines
 set_stone("st-invisible", 7, 9)     -- do the same
-</pre></para>
-</para>
+@end example
 
-
-<h2>Functions and variables internal to Enigma</h2>
-    display.SetFollowMode(display.FOLLOW_SCREEN)
-
-@end ignore
+@c ......................................................................
 
 @node Function Index, Concept Index, Functions, Top
 @unnumbered Function Index

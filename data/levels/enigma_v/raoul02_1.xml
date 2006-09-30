@@ -144,9 +144,9 @@ yp3=0+random(11)
   yp3=0+random(11)
  end
 
-set_actor("ac-whiteball-small", xp1+.5,yp1+.5, {player=0})
-set_actor("ac-whiteball-small", xp2+.5,yp2+.5, {player=0})
-set_actor("ac-whiteball-small", xp3+.5,yp3+.5, {player=0})
+set_actor("ac-whiteball-small", xp1+.5,yp1+.5, {player=0, essential=1})
+set_actor("ac-whiteball-small", xp2+.5,yp2+.5, {player=0, essential=1})
+set_actor("ac-whiteball-small", xp3+.5,yp3+.5, {player=0, essential=1})
     ]]></el:luamain>
     <el:i18n>
       <el:string el:key="title">

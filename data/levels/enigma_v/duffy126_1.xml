@@ -129,9 +129,9 @@ function renderLine( line, pattern)
         elseif c == "~" then
            set_floor("fl-water",i-1,line)
         elseif c=="z" then
-           set_actor("ac-blackball", i-1,line+.5, {essential=1,player=0})
+           set_actor("ac-blackball", i-1,line+.5, {player=0,essential=1})
         elseif c=="y" then
-           set_actor("ac-whiteball", i-.5,line+.5, {player=1})
+           set_actor("ac-whiteball", i-.5,line+.5, {player=1,essential=1})
         elseif c=="w" then
            set_actor("ac-killerball", i-.5,line+.5, {player=1,mouseforce=0})
             set_floor("fl-ice_001",i-1,line)

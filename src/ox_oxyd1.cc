@@ -251,7 +251,7 @@ const char *oxyd::oxyd1_stone_map[256] = {
     "st-puzzle2-w",             // Oxyd1 stone 0x5f
     "st-puzzle2-e",             // Oxyd1 stone 0x60
     "st-puzzle2-nesw",          // Oxyd1 stone 0x61
-    "st-rock2_hole",            // Oxyd1 stone 0x62 ???
+    "st-metal_hole",            // Oxyd1 stone 0x62 ???
     "st-laserbreak",            // Oxyd1 stone 0x63
     "st-fakeoxyda",             // Oxyd1 stone 0x64
     UNUSED,                     // Oxyd1 stone 0x65
@@ -270,7 +270,7 @@ const char *oxyd::oxyd1_stone_map[256] = {
     "st-mail-s",                // Oxyd1 stone 0x72
     "st-door-h",                // Oxyd1 stone 0x73
     "st-door-v",                // Oxyd1 stone 0x74
-    "st-rock2",                 // Oxyd1 stone 0x75
+    "st-metal",                 // Oxyd1 stone 0x75
     "st-invisible",             // Oxyd1 stone 0x76
     "st-door-h-open",           // Oxyd1 stone 0x77
     "st-door-v-open",           // Oxyd1 stone 0x78
@@ -287,8 +287,8 @@ const char *oxyd::oxyd1_stone_map[256] = {
     UNUSED,                     // Oxyd1 stone 0x83
     UNUSED,                     // Oxyd1 stone 0x84
     UNUSED,                     // Oxyd1 stone 0x85
-    "st-rock2_hole",            // Oxyd1 stone 0x86
-    "st-metal",                 // Oxyd1 stone 0x87
+    "st-metal_hole",            // Oxyd1 stone 0x86
+    "st-rock2",                 // Oxyd1 stone 0x87
     UNUSED,                     // Oxyd1 stone 0x88
     UNUSED,                     // Oxyd1 stone 0x89
     "st-stone1",                // Oxyd1 stone 0x8a

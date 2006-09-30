@@ -19,10 +19,13 @@
 levelw = 20
 levelh = 13
 create_world(levelw, levelh)
-set_actor("ac-blackball",2,3.5)
-set_actor("ac-whiteball-small", 17.5,6.5,{player=0,controllers=1})
+
+set_actor("ac-blackball",2,3.5,{essential=1})
+set_actor("ac-whiteball-small", 17.5,6.5,{player=0,controllers=1,essential=1})
+
 fill_floor("fl-rough",0,0,levelw,levelh)
 local laser1 = laser(14,2, TRUE, EAST)
+
 function renderLine( line, pattern)
     for i=1, strlen(pattern) do
       local c = strsub( pattern, i, i)
@@ -32,7 +35,7 @@ function renderLine( line, pattern)
          set_item("it-hollow", i-1,line,{essential=1})
       elseif c=="b" then
          if difficult==FALSE then
-          set_item("it-spade", i-1,line)
+      set_item("it-spade", i-1,line)
          end
       elseif c=="G" then
          set_stone("st-white1", i-1,line)
@@ -61,8 +64,8 @@ function renderLine( line, pattern)
       elseif c=="l" then
          set_floor("fl-leaves", i-1,line)
       elseif c=="O" then
-     oxyd(i-1,line)
-        end
+         oxyd(i-1,line)
+      end
     end
 end
 --               01234567890123456789

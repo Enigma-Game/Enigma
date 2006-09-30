@@ -20,7 +20,7 @@
 levelw = 20
 levelh = 13
 create_world(levelw, levelh)
-enigma.ConserveLevel = FALSE
+enigma.ConserveLevel = TRUE
 
 -- FLOOR --
 fill_floor("fl-abyss", 0,0,20,13)
@@ -71,9 +71,9 @@ if not difficult then
  ac2=set_actor("ac-whiteball-small", 10,6.5,{player=0,essential=1})
  ac3=set_actor("ac-whiteball-small", 10,10.5,{player=0,essential=1})
 else
- ac1=set_actor("ac-whiteball-small", 10,2.5,{essential=0,controllers=2})
+ ac1=set_actor("ac-whiteball-small", 10,2.5,{essential=1,controllers=2})
  ac2=set_actor("ac-whiteball-small", 10,6.5,{player=0,essential=1})
- ac3=set_actor("ac-whiteball-small", 10,10.5,{essential=0,controllers=2})
+ ac3=set_actor("ac-whiteball-small", 10,10.5,{essential=1,controllers=2})
 end
 
 AddRubberBand(ac1,ac2,4,3)

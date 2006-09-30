@@ -29,10 +29,10 @@ function renderLine(line,pattern)
 			set_floor("fl-gradient",i-1,line,{type="22"})
 		elseif c=="*" then
 			set_floor("fl-wood",i-1,line)
-			set_item("it-wormhole",i-1,line,{targetx=5.5,targety=7.5})
+			set_item("it-wormhole",i-1,line,{targetx=7.5,targety=8.5})
 		elseif c=="0" then
 			set_floor("fl-wood",i-1,line)
-			set_item("it-wormhole",i-1,line,{targetx=10.5,targety=7.5})			
+			set_item("it-wormhole",i-1,line,{targetx=12.5,targety=8.5})			
 		elseif c=="O" then
 			set_floor("fl-wood",i-1,line)
 			set_item("it-hollow",i-1,line)
