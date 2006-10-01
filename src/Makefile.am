@@ -137,12 +137,16 @@ enigma_SOURCES = 		\
 	gui/LevelInspector.hh	\
 	gui/LevelMenu.cc	\
 	gui/LevelMenu.hh	\
+	gui/LevelPackConfig.cc	\
+	gui/LevelPackConfig.hh	\
 	gui/LevelPackMenu.cc	\
 	gui/LevelPackMenu.hh	\
 	gui/LevelPreviewCache.cc \
 	gui/LevelPreviewCache.hh \
 	gui/LevelWidget.cc	\
 	gui/LevelWidget.hh	\
+	gui/LPGroupConfig.cc	\
+	gui/LPGroupConfig.hh	\
 	gui/MainMenu.cc		\
 	gui/MainMenu.hh		\
 	gui/Menu.cc		\

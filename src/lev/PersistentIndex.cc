@@ -280,7 +280,8 @@ namespace enigma { namespace lev {
                 indexName = XMLtoUtf8(infoElem->getAttribute( 
                         Utf8ToXML("title").x_str())).c_str();                
                 indexGroup = XMLtoUtf8(infoElem->getAttribute( 
-                        Utf8ToXML("group").x_str())).c_str();                
+                        Utf8ToXML("group").x_str())).c_str();
+                defaultGroup = indexGroup;
                 owner = XMLtoUtf8(infoElem->getAttribute( 
                         Utf8ToXML("owner").x_str())).c_str();                
                 XMLDouble * result = new XMLDouble(infoElem->getAttribute( 

@@ -51,12 +51,16 @@ namespace enigma
         std::string getGroupSelectedColumn(std::string groupName);
         void setGroupSelectedIndex(std::string groupName, std::string indexName);
         void setGroupSelectedColumn(std::string groupName, std::string column);
-        void addGroup(std::string groupName, std::string indexName, int column);
+        void addGroup(std::string groupName, std::string indexName, int column); // update or append
+        void insertGroup(int pos, std::string groupName, std::string indexName, std::string column); // no duplicate check, pos -1 is append
+        void deleteGroup(std::string groupName);
+        void renameGroup(std::string oldName, std::string newName);
         
-        void addIndex(std::string indexName, std::string groupName, double location,
+        void addIndex(std::string indexName, std::string &groupName, double location,
                 int &curpos, int &curfirst);
         void setIndexCurpos(std::string indexName, int curpos);
         void setIndexCurfirst(std::string indexName, int curfirst);
+        void setIndexGroup(std::string indexName, std::string groupName);
         
         std::string getAnnotation(std::string id);
         void setAnnotation(std::string id, std::string annotation);

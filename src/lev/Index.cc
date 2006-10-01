@@ -56,9 +56,24 @@ namespace enigma { namespace lev {
             
         indices.insert(std::make_pair(anIndex->getName(), anIndex));
         
-        std::string groupName = anIndex->indexGroup;  // used if no group is supplied
+        
+        // register index in state.xml and update current position, first with last values        
+        std::string groupName = "";
+        app.state->addIndex(anIndex->getName(), groupName, 0, 
+                anIndex->currentPosition, anIndex->screenFirstPosition);
+
+        // reset positions that are out of range - this may happen due to
+        // modified levelpacks (updates, deleted levels in auto, new commandline)
+        if (anIndex->currentPosition < 0 || anIndex->currentPosition > anIndex->size())
+            anIndex->currentPosition = 0;
+
+        // check user preferences for assigned group
+        if (!groupName.empty())
+            anIndex->indexGroup = groupName;  // use users preference
+        else
+            groupName = anIndex->indexGroup;  // use index default group
+            
         std::vector<Index *> * group;
-        // check preferences for assigned group
         
         // if no prefs ask for index default group
         
@@ -91,13 +106,6 @@ namespace enigma { namespace lev {
             for (itg = indexGroups.begin(); itg != indexGroups.end(); itg++)
                 addIndexToGroup(anIndex, (*itg).second);
         }
-        // register index in state.xml and update current position, first with last values        
-        app.state->addIndex(anIndex->getName(), "", 0, 
-                anIndex->currentPosition, anIndex->screenFirstPosition);
-        // reset positions that are out of range - this may happen due to
-        // modified levelpacks (updates, deleted levels in auto, new commandline)
-        if (anIndex->currentPosition < 0 || anIndex->currentPosition > anIndex->size())
-            anIndex->currentPosition = 0;
     }
     
     void Index::addIndexToGroup(Index *anIndex, std::vector<Index *> * aGroup) {
@@ -107,6 +115,17 @@ namespace enigma { namespace lev {
                 itg++) {
         }
         aGroup->insert(itg, anIndex);
+    }
+    
+    void Index::removeIndexFromGroup(Index *anIndex, std::string groupName) {
+        std::vector<Index *> *theGroup = indexGroups[groupName];
+        std::vector<Index *>::iterator itg;
+        for (itg = theGroup->begin(); itg != theGroup->end(); itg++) {
+            if ((*itg) == anIndex) {
+                 theGroup->erase(itg);
+                 return;
+            }
+        }   
     }
      
     Index * Index::findIndex(std::string anIndexName) {
@@ -163,6 +182,7 @@ namespace enigma { namespace lev {
                 setGroupSelectedIndex(groupName,"");
             }
         }
+//        Log << "Index setCurrentGroup: wanted " << groupName << " - got " << currentGroup << " - idxGroup " << indexGroupName <<"\n";
     }
     
     std::vector<std::string> Index::getGroupNames() {
@@ -179,7 +199,78 @@ namespace enigma { namespace lev {
             return NULL;
         }
     }
+    
+    void Index::deleteGroup(std::string groupName) {
+        std::vector<Index *> * theGroup = getGroup(groupName);
+        if (theGroup != NULL) {
+            indexGroups.erase(groupName);
+            delete theGroup;
+        }
 
+        if (currentGroup == groupName) {
+            std::vector<std::string> groups = getGroupNames();
+            for (int i = 0; i < groups.size(); i++) {
+                if (groups[i] == groupName) {
+                    if (i > 0) {
+                        setCurrentGroup(groups[i-1]);
+                    } else {
+                        ASSERT (groups.size() > 1, XFrontend, "Delete of last existing group.");
+                        setCurrentGroup(groups[1]);
+                    }
+                    break;
+                } 
+            }
+        }
+        app.state->deleteGroup(groupName);
+    }
+    
+    void Index::moveGroup(std::string groupName, int newPos) {
+        std::string indexName = app.state->getGroupSelectedIndex(groupName);
+        std::string column = app.state->getGroupSelectedColumn(groupName);
+        app.state->deleteGroup(groupName);
+        app.state->insertGroup(newPos, groupName, indexName, column);
+    }
+    
+    void Index::renameGroup(std::string oldName, std::string newName) {
+        // rename state group element
+        app.state->renameGroup(oldName, newName);
+
+        // rename map of groups
+        std::vector<Index *> * group = getGroup(oldName);
+        indexGroups.erase(oldName);
+        indexGroups.insert(std::make_pair(newName, group));
+        
+        // rename group name in indices
+        for (int i = 0; i < group->size(); i++) {
+            if ((*group)[i]->getGroupName() == oldName) {
+                (*group)[i]->indexGroup = newName;
+                // set group as users choice for index in state
+                app.state->setIndexGroup((*group)[i]->getName(), newName);
+            }
+        }
+        
+        // handle currentGroup
+        if (currentGroup == oldName) {
+            currentGroup = newName;
+            app.state->setProperty("CurrentGroup", newName);
+        }
+    }
+
+    void Index::insertGroup(std::string groupName, int newPos) {
+        // make the group
+        std::vector<Index *> *group = new std::vector<Index *>;
+        indexGroups.insert(std::make_pair(groupName, group));
+        app.state->insertGroup(newPos, groupName, "", "");
+        
+        // fill group with indices that appear in every group
+        std::map<std::string, Index *>::iterator iti;
+        for (iti = indices.begin(); iti != indices.end(); iti++)
+            if ((*iti).second->getGroupName() == INDEX_EVERY_GROUP)
+                addIndexToGroup((*iti).second, group);
+        
+        setCurrentGroup(groupName);
+    }
+    
     std::string Index::getGroupSelectedIndex(std::string groupName) {
         return app.state->getGroupSelectedIndex(groupName);
     }
@@ -289,7 +380,7 @@ namespace enigma { namespace lev {
     }
     
     Index::Index(std::string anIndexName, std::string aGroupName, double defaultLocation) : 
-            indexName (anIndexName), indexGroup (aGroupName),
+            indexName (anIndexName), indexGroup (aGroupName), defaultGroup (aGroupName),
             indexDefaultLocation (defaultLocation),
             currentPosition (0), screenFirstPosition (0) {
     }
@@ -303,6 +394,73 @@ namespace enigma { namespace lev {
     std::string Index::getGroupName() {
         return indexGroup;
     }
+    
+    std::string Index::getDefaultGroupName() {
+        return defaultGroup;
+    }
+
+    void Index::moveToGroup(std::string newGroupName) {
+        // remove from old group
+        if (indexGroup != INDEX_EVERY_GROUP) {
+            // remove index from the unique group
+            removeIndexFromGroup(this, indexGroup);
+            removeIndexFromGroup(this, INDEX_ALL_PACKS);      
+        } else {
+            // remove index from all groups inclusive INDEX_ALL_PACKS
+            std::vector<std::string> groupNames = getGroupNames();
+            for (int i = 0; i < groupNames.size(); i++)
+                removeIndexFromGroup(this, groupNames[i]);
+        }
+        
+        // create group if not existing
+        if (newGroupName != INDEX_EVERY_GROUP) {
+            std::map<std::string, std::vector<Index *> *>::iterator i = indexGroups.find(newGroupName);
+            if (i == indexGroups.end()) {
+                // make the group
+                std::vector<Index *> *group = new std::vector<Index *>;
+                indexGroups.insert(std::make_pair(newGroupName, group));
+                app.state->addGroup(newGroupName, indexName, 0);
+                
+                // fill group with indices that appear in every group
+                std::map<std::string, Index *>::iterator iti;
+                for (iti = indices.begin(); iti != indices.end(); iti++)
+                    if ((*iti).second->getGroupName() == INDEX_EVERY_GROUP)
+                        addIndexToGroup((*iti).second, group);
+            }
+        }
+        
+        
+        indexGroup = newGroupName;
+        
+        // add to new group
+        if (newGroupName != INDEX_EVERY_GROUP) {
+            // insert according to user prefs or index defaults
+            addIndexToGroup(this, getGroup(newGroupName));
+            addIndexToGroup(this, getGroup(INDEX_ALL_PACKS));        
+        } else {
+            // add index to all groups inclusive INDEX_ALL_PACKS
+            std::map<std::string, std::vector<Index *> *>::iterator itg;
+            for (itg = indexGroups.begin(); itg != indexGroups.end(); itg++)
+                addIndexToGroup(this, (*itg).second);
+        }
+               
+        // store new group as users state
+        app.state->setIndexGroup(indexName,
+                newGroupName == defaultGroup ? "" : newGroupName);
+
+        // select this index with its new group if it is the current Index
+        if (this == currentIndex) {
+            if (indexGroup != INDEX_EVERY_GROUP && 
+                    app.state->getString("CurrentGroup") != INDEX_ALL_PACKS) {
+                app.state->setProperty("CurrentGroup", indexGroup);
+                    currentGroup = indexGroup;
+                }
+                if (getGroupSelectedIndex(currentGroup) != currentIndex->getName()) {
+                    setGroupSelectedIndex(currentGroup, currentIndex->getName());
+                    setGroupSelectedColumn(currentGroup, INDEX_GROUP_COLUMN_UNKNOWN);
+                }
+        }
+}
     
     int Index::getCurrentPosition() {
         return currentPosition;

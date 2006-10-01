@@ -19,6 +19,8 @@
  
 #include "gui/LevelPackMenu.hh"
 #include "gui/LevelMenu.hh"
+#include "gui/LPGroupConfig.hh"
+#include "gui/LevelPackConfig.hh"
 #include "ecl.hh"
 #include "errors.hh"
 #include "nls.hh"
@@ -45,7 +47,7 @@ namespace enigma { namespace gui {
         vm = vminfo.videomode;
        
         // Create buttons - positioning identical to Levelmenu
-        but_new = new StaticTextButton(N_("New Pack"), this);
+        but_new = new StaticTextButton(N_("New Group"), this);
         but_search = new StaticTextButton(N_("Search"), this);
         but_level = new StaticTextButton(N_("Start Game"), this);
         but_main = new StaticTextButton(N_("Main Menu"), this);
@@ -146,14 +148,16 @@ namespace enigma { namespace gui {
                         firstDisplayedGroup = curGroupPos -1;
                     }
                     needDownScroll = firstDisplayedGroup < groupCount - numDisplayGroups;
-                } else if (curGroupPos >= firstDisplayedGroup + numDisplayGroups) {
-                    if (curGroupPos >= groupCount - 1) {
+                } else if (curGroupPos >= firstDisplayedGroup + numDisplayGroups - 1) {
+                    if (curGroupPos >= groupCount - 2) {
                         needDownScroll = false;
                         firstDisplayedGroup = groupCount - numDisplayGroups;
                     } else {
                         needDownScroll = true;
-                        firstDisplayedGroup = curGroupPos - numDisplayGroups + 1;
+                        firstDisplayedGroup = curGroupPos - numDisplayGroups + 2;
                     }
+                    if (firstDisplayedGroup < 0)
+                        firstDisplayedGroup = 0;
                     needUpScroll = firstDisplayedGroup > 0;
                 }
             }
@@ -318,6 +322,11 @@ namespace enigma { namespace gui {
         if (w == but_main) {
             Menu::quit();
         } else if (w == but_new) {
+            LPGroupConfig m("");
+            m.manage();
+            setupMenu();
+            updateHighlight();
+            invalidate_all();            
 //            lev::Index::getCurrentIndex()->updateFromProxies();
         } else if (w == but_level) {
             LevelMenu m;
@@ -329,7 +338,7 @@ namespace enigma { namespace gui {
             updateHighlight();
             invalidate_all();            
         } else if (w == but_search) {
-//            hl->remove_child(but_edit);
+
             invalidate_all();            
         } else if (w == scrollUp) {
             firstDisplayedGroup--;
@@ -345,17 +354,33 @@ namespace enigma { namespace gui {
             invalidate_all();            
         } else if (w->get_parent() == groupsVList){
             lev::Index::setCurrentGroup(dynamic_cast<TextButton *>(w)->get_text());
+            if ((w->lastMouseButton() == SDL_BUTTON_RIGHT ||
+                     w->lastModifierKeys() & KMOD_CTRL) &&
+                     dynamic_cast<TextButton *>(w)->get_text() != INDEX_ALL_PACKS) {
+                // configure group
+                // INDEX_ALL_PACKS cannot be renamed, deleted, no packs can be created
+                LPGroupConfig m(dynamic_cast<TextButton *>(w)->get_text());
+                m.manage();
+                lastGroupName = "";  // the group may have moved, force a recalc
+            }
             reset_active_widget();  // we will delete it with setup
             setupMenu();
             updateHighlight();
             invalidate_all();
         } else if (w->get_parent()->get_parent() == packsHList){
             lev::Index::setCurrentIndex(dynamic_cast<TextButton *>(w)->get_text());
-            LevelMenu m;
-            if (m.manage() && m.isMainQuit()) {
-                // not ESC but Main button has been pressed in LevelMenu -
-                Menu::quit();
-                return;
+            if (w->lastMouseButton() == SDL_BUTTON_RIGHT ||
+                     w->lastModifierKeys() & KMOD_CTRL) {
+                // configure levelpack index
+                LevelPackConfig m(dynamic_cast<TextButton *>(w)->get_text());
+                m.manage();
+            } else {
+                LevelMenu m;
+                if (m.manage() && m.isMainQuit()) {
+                    // not ESC but Main button has been pressed in LevelMenu -
+                    Menu::quit();
+                    return;
+                }
             }
             reset_active_widget();  // we will delete it with setup
             setupMenu();

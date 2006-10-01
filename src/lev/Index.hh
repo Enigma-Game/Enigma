@@ -65,6 +65,10 @@ namespace enigma { namespace lev {
         static int getGroupSelectedColumn(std::string groupName);
         static void setGroupSelectedIndex(std::string groupName, std::string indexName);
         static void setGroupSelectedColumn(std::string groupName, int column);
+        static void deleteGroup(std::string groupName);
+        static void moveGroup(std::string groupName, int newPos);
+        static void renameGroup(std::string oldName, std::string newName);
+        static void insertGroup(std::string groupName, int newPos);
         
         /**
          * Convention: method names *Level() can take int pos or Proxy as arg.
@@ -76,6 +80,9 @@ namespace enigma { namespace lev {
         
         std::string getName();
         std::string getGroupName();
+        std::string getDefaultGroupName();
+        void moveToGroup(std::string groupName);
+
         int getCurrentPosition(); // 0 .. size-1
         int getCurrentLevel(); // 1 .. size
         Proxy * getCurrent();
@@ -107,6 +114,7 @@ namespace enigma { namespace lev {
     protected:
         std::string indexName;
         std::string indexGroup;
+        std::string defaultGroup;
         double indexDefaultLocation;
         int currentPosition; // 0,...
         int screenFirstPosition; // LevelWidget ifirst
@@ -136,6 +144,7 @@ namespace enigma { namespace lev {
         
         static std::vector<Index *> * getGroup(Index * anIndex);
         static void addIndexToGroup(Index *anIndex, std::vector<Index *> * aGroup);
+        static void removeIndexFromGroup(Index *anIndex, std::string groupName);
 
     };
 
