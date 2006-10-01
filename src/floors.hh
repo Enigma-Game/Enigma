@@ -128,6 +128,7 @@ namespace world
         Value try_heating(Direction sourcedir, FloorHeatFlags flhf);
         Value try_ignite(Direction sourcedir, FloorHeatFlags flhf);
         Value force_fire();
+        Value stop_fire(bool is_message);
 
         FloorTraits traits;
         bool heating_animation;

@@ -58,6 +58,7 @@ Value Floor::message(const string &msg, const Value &val) {
     //                 or maybe set fire to it (if burnable).
     // "setfire"  : Just try to make fire (if burnable).
     // "forcefire": Force fire, even on unburnable floor.
+    // "stopfire" : Stop fire, put ash but don't transform floor.
     if(msg == "heat")
         return try_heating(NODIR, flhf_message);
     if((msg == "ignite" || msg == "expl") && has_firetype(flft_ignitable))
@@ -66,6 +67,8 @@ Value Floor::message(const string &msg, const Value &val) {
         return try_ignite(NODIR, flhf_message);
     if(msg == "forcefire")
         return force_fire();
+    if(msg == "stopfire")
+        return stop_fire(true);
     return Object::message(msg, val);
 }
 
@@ -140,7 +143,7 @@ void Floor::add_force (Actor *, V2 &f)
  *        - thereby by it-dynamite or it-*bomb + "ignitable"
  *    - fire in the neighborhood (see below)
  *  On the floor itself it does
- *    - kill st-wood on it
+ *    - inform stones on it -> e.g. kill st-wood, st-hay
  *    - keep on burning by chance or if eternal-attribute set
  *    - when stop burning
  *        - replace floor by floor given in floor-transform,
@@ -151,6 +154,7 @@ void Floor::add_force (Actor *, V2 &f)
  *        source fire stops next time
  *    - start heat-transformation on first fire call but not yet
  *        transforming and only in Enigma-mode
+ *    - inform neighboring stones about fire
  *    - In Enigma-mode (resp. non-Enigma-mode), spread to other burnable
  *        floors (resp. floors of the same kind) by chance or message
  *        or last+secure, if none of the first two methods worked, but
@@ -209,8 +213,10 @@ Value Floor::try_ignite(Direction sourcedir, FloorHeatFlags flhf) {
     // Movable stone && enigma-mode -> Burn items and replicate.
     // Movable stone && non-enigma-mode -> Only burn items.
     // Else -> Don't do anything.
+    // Special case: "st-flrock": No fire at all!
     bool no_closing_stone = true;
     if (Stone *st = GetStone(p)) {
+        string model = st->get_kind();
         if (st->is_movable())
             no_closing_stone = false;
         else if(!st->is_floating())
@@ -267,24 +273,26 @@ Value Floor::try_ignite(Direction sourcedir, FloorHeatFlags flhf) {
 
 Value Floor::try_heating(Direction sourcedir, FloorHeatFlags flhf) {
     // First of all: How are we allowed to react at all?
-    // There are three branches of heating:
+    // There are four branches of heating:
     //
     //  1) item-transformation (e.g. igniting it-dynamite, *not* burning!)
     //  2) floor-heat-transformation (e.g. melting ice)
-    //  3) fire
+    //  3) stone-heat-transformation (e.g. fireblocker st-flrock, itemfreeze)
+    //  4) fire
     //
-    //  a) Always do (1),(2),(3) if try_heating is called from
+    //  a) Always do (1),(2),(3),(4) if try_heating is called from
     //     a "heat"-message by the user/level.
     //  b) Always do (2) if this is the first call of a regular fire
     //     (checked in on_heattransform).
-    //  c) Always do (1) and (3) if this is the last call of a regular
+    //  c) Always do (1), (3) and (4) if this is the last call of a regular
     //     fire and the secure-attribute is set (so ignition is safe).
-    //  d) Else, do (1) and (3) with probability 0.7, and always both.
-    //  e) However, if (1) or (2) led to success, then never do (3),
+    //  d) Else, do (1), (3) and (4) with probability 0.7, and always both.
+    //  e) However, if (1), (2) or (3) led to success, then never do (4),
     //     this way we prevent fire to disturb any transformations.
     //
     bool secure = ((bool) (flhf & flhf_last)) && has_firetype(flft_secure);
     bool doItem = (flhf == flhf_message) || secure || DoubleRand(0, 1) > 0.3;
+    bool doStone = doItem;
     bool doIgnite = doItem;
     bool reaction_happened = false;
     // Heat item -> destroy cracks, ignite bombs...
@@ -293,8 +301,13 @@ Value Floor::try_heating(Direction sourcedir, FloorHeatFlags flhf) {
             if(to_int(SendMessage(it, "heat", Value(sourcedir))) != 0.0)
                 reaction_happened = true;        
     // Maybe also transform floor?
-    reaction_happened = reaction_happened || on_heattransform(sourcedir, flhf);
-    // Not item nor floor reacted? Then try to ignite the floor!
+    reaction_happened = on_heattransform(sourcedir, flhf) || reaction_happened;
+    // Maybe transform stone, or stone blocks fire?
+    if(doStone)
+        if(Stone *st = GetStone(get_pos()))
+            if(to_int(SendMessage(st, "heat", Value(sourcedir))) != 0.0)
+                reaction_happened = true;
+    // Not item nor floor nor stone reacted? Then try to ignite the floor!
     // (Note: try_ignite also tests for the heating animation:
     //        No fire during transformation allowed!)
     if(doIgnite && !reaction_happened)
@@ -321,19 +334,45 @@ void Floor::heat_neighbor(Direction dir, FloorHeatFlags flhf) {
     }
 }
 
+Value Floor::stop_fire(bool is_message) {
+    // stop burning
+    //   -> kill burnable-item
+    //   -> transform floor?
+    //   -> put ash?  (depends on the new floor!)
+    //   -> reset fire-countdown to 1
+    GridPos p = get_pos();
+
+    // is_message indicates use of the stopfire-message,
+    // so we have to check if there is fire at all.
+    if(is_message)
+        if(Item *it = GetItem(p)) {
+            ItemID id = get_id(it);
+            if(id != it_burnable_burning && id != it_burnable_ignited)
+                return Value();  // no fire
+        } else
+            return Value(); // no item == no fire
+
+    KillItem(p);
+    fire_countdown = 1;
+    if(!is_message && get_firetransform() != "")
+        SetFloor(p, MakeFloor(get_firetransform().c_str()));
+    // Remember, at this point "this" may be destroyed.
+    if(!GetFloor(p)->has_firetype(flft_noash))
+        SetItem(p, it_burnable_ash);
+    return Value(1.0); // fire extinguished  
+}
+
 void Floor::on_burnable_animcb(bool justIgnited) {
     GridPos p = get_pos();
     // Analyse and maybe kill stone: May the fire spread?
     bool spread = true;
     if( Stone *st = GetStone(p)) {
-        if(!st->is_floating())
-            spread = false; // only hollow stones allow the fire to spread
-        string model = st->get_kind();
-        // @@@ FIXME: Realise this as a fire-message to the stone instead!
-        if( model == "st-wood1" || model == "st-wood2") {
-            KillStone(p); // The fire has burnt away the wooden stone
+        // Return true on fire-message to allow fire to spread.
+        // Floating stones also allow spreading. Don't use an
+        // OR-statement as the message might kill the stone.
+        spread = st->is_floating();
+        if(to_int(SendMessage(st, "fire")) != 0.0)
             spread = true;
-        }
     }
     // Will we stop this time with burning?
     bool cont_fire = justIgnited || has_firetype(flft_eternal) || DoubleRand(0,1) < 0.7;
@@ -345,24 +384,12 @@ void Floor::on_burnable_animcb(bool justIgnited) {
         heat_neighbor(SOUTH, flhf);
         heat_neighbor(WEST,  flhf);
     }
-    if(cont_fire) {
+    if(cont_fire)
         // continue burning
         //   -> put animation
         SetItem(p, it_burnable_burning);
-    } else {
-        // stop burning
-        //   -> kill burnable-item
-        //   -> transform floor?
-        //   -> put ash?  (depends on the new floor!)
-        //   -> reset fire-countdown to 1
-        KillItem(p);
-        if(get_firetransform() != "")
-            SetFloor(p, MakeFloor(get_firetransform().c_str()));
-        // Remember, at this point "this" may be destroyed.
-        if(!GetFloor(p)->has_firetype(flft_noash))
-            SetItem(p, it_burnable_ash);
-        fire_countdown = 1;
-    }
+    else
+        stop_fire(false);
 }
 
 bool Floor::has_firetype(FloorFireType selector) {

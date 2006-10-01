@@ -937,8 +937,10 @@ set_stone("st-wood", 10,10)
 \endverbatim
 
 Note: There are two flavors of st-wood which may be specified
-by using st-wood1 or st-wood2, and a third kind: st-flrock, which
-creates the unburnable fl-rock.
+by using st-wood1 or st-wood2, and a two related kinds: st-flrock,
+which creates the unburnable fl-rock and denies fire under it, and 
+the burnable st-hay, which leaves the burnable but stable fl-hay
+behind.
 
 \image html st-wood.png
 */
@@ -947,20 +949,22 @@ namespace
     class WoodenStone : public Stone {
         CLONEOBJ(WoodenStone);
     public:
-        WoodenStone(const char *kind, const char *floorkind_) :
-            Stone(kind), floorkind(floorkind_) {}
+        WoodenStone(const char *kind, const char *floorkind_, bool blockfire_ = false) :
+            Stone(kind), floorkind(floorkind_), blockfire(blockfire_) {}
 
     private:
         const char *floorkind;
+        bool blockfire;
 
-        void fall() {
+        void maybe_fall_or_stopfire() {
             GridPos p = get_pos();
             if (world::IsLevelBorder(p))
                 return;
-
             if (Floor *fl = GetFloor(p)) {
                 const string &k = fl->get_kind();
-                if (k == "fl-abyss" || k=="fl-water" || k=="fl-swamp") {
+                if(blockfire)
+                    SendMessage(fl, "stopfire");
+                if (k == "fl-abyss" || k == "fl-water" || k == "fl-swamp") {
                     SetFloor(p, MakeFloor(floorkind));
                     KillStone(p);
                 }
@@ -968,15 +972,20 @@ namespace
         }
 
         virtual Value message (const string &msg, const Value &) {
-            if (msg == "fall")
-                fall();
+            if (msg == "fire" && !blockfire) {
+                KillStone(get_pos());
+                return Value(1.0);  // allow fire to spread
+            } else if (msg == "heat" && blockfire) {
+                return Value(1.0);  // block fire
+            } else if (msg == "fall")
+                maybe_fall_or_stopfire();
             return Value();
         }
 
         // in oxyd1 only fall when moving
         void on_move() {
             if (server::GameCompatibility == GAMET_OXYD1)
-                fall();
+                maybe_fall_or_stopfire();
             else
                 Stone::on_move();
         }
@@ -984,7 +993,7 @@ namespace
         // other oxyds versions: fall everytime the floor changes
         void on_floor_change() {
             if (server::GameCompatibility != GAMET_OXYD1)
-                fall();
+                maybe_fall_or_stopfire();
         }
         bool is_movable () const { return true; }
     };
@@ -2270,7 +2279,8 @@ void stones::Init_simple()
     Register(new RandomWoodenStone); // random flavor
     Register(new WoodenStone("st-wood1", "fl-stwood1")); // horizontal planks
     Register(new WoodenStone("st-wood2", "fl-stwood2")); // vertical planks
-    Register(new WoodenStone("st-flrock", "fl-rock"));
+    Register(new WoodenStone("st-flrock", "fl-rock", true));
+    Register(new WoodenStone("st-flhay", "fl-hay"));
     Register(new WoodenStone_Growing);
     Register(new GreenbrownStone_Growing);
     Register(new VolcanoStone_Growing);

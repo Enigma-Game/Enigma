@@ -3059,6 +3059,7 @@ This floor steals one item from the players inventory.
 It looks like the simple floor @code{fl-bluegray}.
 Compare with @code{st-thief} (@ref{st-thief}).
 
+Sorry, not implemented yet.
 
 @node fl-water, , fl-thief, Floors
 @subsection fl-water
@@ -4678,6 +4679,8 @@ laser, bombs, ``expl''; see @ref{st-brake}
 see @ref{st-puzzle}
 @item st-volcano_active
 hammer; see @ref{st-volcano}
+@item st-firebreak
+fire; sorry, not implemented yet
 @end table
 
 For the mentioned objects see @ref{it-hammer}, @ref{it-dynamite},
@@ -5991,11 +5994,28 @@ by using @code{st-wood1} or @code{st-wood2}.
 @code{st-wood-growing} is a growing version of @code{st-wood}, it
 results from using a particular @ref{it-seed}.
 
+@code{st-flhay} and @code{st-flrock} are movable, too, and create
+@code{fl-hay} respectively @code{fl-rock} when moved into
+@code{fl-abyss}, @code{fl-water} or @code{fl-swamp}.  The difference
+to @code{st-wood} is that @code{fl-hay} doesn't become @code{fl-abyss}
+when burning and @code{fl-rock} doesn't burn at all.
+
+When there is fire under @code{st-wood} or @code{st-flhay}, they burn
+away.  In contrast to this, @code{st-flrock} extinguishes fire, as it
+is pushed over it (see @ref{The 1.0-Fire System}).  This distinguishes
+it from all other movable stones.  Fire that is extinguishes in this
+way might leave @code{it-burnable_ash} behind, but the floor does not
+fire-transform.
+
 @strong{Variants}
 
 @table @code
 @item st-wood
+@item st-wood1
+@item st-wood2
 @item st-wood-growing
+@item st-flrock
+@item st-flhay
 @end table
 
 
@@ -6340,11 +6360,16 @@ fire spread much faster as without. This is still the same in
 the fire without setting the invisible @code{it-burnable}. 
 
 Fire that burns under a stone is not allowed to spread, only exception
-are non-floating stones (as @ref{st-grate}), and @ref{st-wood}, which
-is destroyed by fire.
+are non-floating stones (as @ref{st-grate}), and those stones which
+are destroyed by fire anyway (see @ref{st-wood}-variants and
+@code{st-firebreak} (@ref{Breakable Stones})).
 
 You can stop fire with @code{it-extinguisher}, which creates the
-fireproof @code{it-burnable_fireproof}.
+fireproof @code{it-burnable_fireproof}. Another way to stop fire is to
+push the totally inert @code{st-flrock} (see @ref{st-wood}) over
+it: This is the only movable stone that doesn't allow fire under it. A
+final way to stop fire is to send the @code{stopfire}-message to a
+floor, which works the same way as @code{st-flrock}.
 
 Compare with @ref{Fire and Extinguisher}.
 
