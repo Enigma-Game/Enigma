@@ -7,7 +7,7 @@
       <el:author  el:name="Siegfried Fennig" el:email="" el:homepage=""/>
       <el:copyright>Copyright © 2003 Siegfried Fennig</el:copyright>
       <el:license el:type="GPL version 2" el:open="true"/>
-      <el:compatibility el:enigma="0.92">
+      <el:compatibility el:enigma="0.92" el:engine="oxyd1">
       </el:compatibility>
       <el:modes el:easy="false" el:single="true" el:network="false"/>
       <el:comments>
@@ -21,7 +21,7 @@ levelh = 73
 
 create_world(levelw, levelh)
 enigma.ConserveLevel = FALSE
-enigma.SetCompatibility("oxyd1")
+
 oxyd_default_flavor = "a"
 fill_floor("fl-abyss")
 fill_floor("fl-rough", 0, 0, level_width, 48)

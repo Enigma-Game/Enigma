@@ -7,7 +7,7 @@
       <el:author  el:name="Sven Siggelkow" el:email="" el:homepage=""/>
       <el:copyright>Copyright © 2003 Sven Siggelkow</el:copyright>
       <el:license el:type="GPL v2.0 or above" el:open="true"/>
-      <el:compatibility el:enigma="0.92">
+      <el:compatibility el:enigma="0.92" el:engine="oxyd.magnum">
        <el:dependency el:path="lib/ant" el:id="lib/ant" el:release="1" el:preload="true"/>
       </el:compatibility>
       <el:modes el:easy="true" el:single="true" el:network="false"/>
@@ -20,7 +20,6 @@
 -- Feb.'06: Replaced some characters to get pure ASCII, Raoul 
 -- FIXME: if openclose message for it-vortex is ok functions ss01-ss08 can be replaced action="openclose" in trigger attributes
              
-enigma.SetCompatibility("oxyd.magnum")                                                               
 cells={}
 cells[" "]=cell{floor="fl-rock"}
 cells["#"]=cell{stone="st-rock2"}

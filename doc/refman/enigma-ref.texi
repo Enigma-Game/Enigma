@@ -7187,16 +7187,24 @@ set_item("it-wormhole", 11, 6, @{targetx="48.5",targety="56.5"@})
 @defun enigma.SetCompatibility (compatibility)
 
 This function sets the compatibility of a level. Because in every of the original
-oxyd games certain objects may have a different behavior, there exist for each game
+oxyd games certain objects may have a different behavior, there exists for each game
 a compatibility mode. Enigma itself has also a compatibilitiy mode, it's the default.
+
+Note: This function is depreceated. Set the compatibility information in the 
+xml-node @ref{<compatibility>} instead.
 
 Possible values for compatibility are:
 @table @var
 @item oxyd1
-@item peroxyd
-@item oxydmagnum
-@item oxydextra
+Oxyd1-mode
+@item per.oxyd
+Per.Oxyd-mode
+@item oxyd.magnum
+OxydMagnum-mode
+@item oxyd.extra
+Oxydextra-mode
 @item enigma
+Enigma-mode
 
 @end table
 

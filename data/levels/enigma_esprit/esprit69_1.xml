@@ -7,7 +7,7 @@
       <el:author  el:name="Sven Siggelkow" el:email="" el:homepage=""/>
       <el:copyright>Copyright © 2003 Sven Siggelkow</el:copyright>
       <el:license el:type="GPL v2.0 or above" el:open="true"/>
-      <el:compatibility el:enigma="0.92">
+      <el:compatibility el:enigma="0.92" el:engine="oxyd1">
       </el:compatibility>
       <el:modes el:easy="false" el:single="true" el:network="false"/>
       <el:comments>
@@ -20,7 +20,6 @@
 
 levelw = 39
 levelh = 13
-enigma.SetCompatibility("oxyd1")
 create_world(levelw, levelh)
 oxyd_default_flavor = "b"
 set_actor("ac-blackball", 27.5,6.5)

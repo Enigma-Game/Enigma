@@ -7,7 +7,7 @@
       <el:author  el:name="Jacob Scott" el:email="" el:homepage=""/>
       <el:copyright>Copyright © 203 Jacob Scott</el:copyright>
       <el:license el:type="GPL v2.0 or above" el:open="true"/>
-      <el:compatibility el:enigma="0.92">
+      <el:compatibility el:enigma="0.92" el:engine="oxyd1">
       </el:compatibility>
       <el:modes el:easy="false" el:single="true" el:network="false"/>
       <el:comments>
@@ -22,7 +22,6 @@ levelh=13
 create_world( levelw, levelh)
 
 fill_floor("fl-rough", 0,0,levelw,levelh)
-enigma.SetCompatibility("oxyd1")
 enigma.ConserveLevel=FALSE
 
 function renderLine( line, pattern)

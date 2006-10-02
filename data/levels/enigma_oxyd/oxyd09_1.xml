@@ -7,7 +7,7 @@
       <el:author  el:name="Siegfried Fennig" el:email="" el:homepage=""/>
       <el:copyright>Copyright © 2003 Siegfried Fennig</el:copyright>
       <el:license el:type="GPL version 2" el:open="true"/>
-      <el:compatibility el:enigma="0.92">
+      <el:compatibility el:enigma="0.92" el:engine="oxyd1">
       </el:compatibility>
       <el:modes el:easy="false" el:single="true" el:network="false"/>
       <el:comments>
@@ -22,7 +22,7 @@ levelh = 13
 create_world(levelw, levelh)
 draw_border("st-wood")
 enigma.ConserveLevel = FALSE
-enigma.SetCompatibility("oxyd1")
+
 oxyd_default_flavor = "d"
 fill_floor("fl-wood")
 function renderLine( line, pattern)
