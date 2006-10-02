@@ -170,8 +170,8 @@ namespace enigma { namespace lev {
         delete dirIter;
          
         // register auto not yet registered new files
-        PersistentIndex * autoIndex = new PersistentIndex("auto", false, "Auto");
-        autoIndex->indexDefaultLocation = 152000;
+        PersistentIndex * autoIndex = new PersistentIndex("auto", false, INDEX_AUTO_PACK_NAME);
+        autoIndex->indexDefaultLocation = INDEX_AUTO_PACK_LOCATION;
         dirIter = DirIter::instance(app.userPath + "/levels/auto");
         while (dirIter->get_next(dirEntry)) { 
             if( !dirEntry.is_dir) {
@@ -198,8 +198,8 @@ namespace enigma { namespace lev {
         if ( foundHistory != NULL) {
             historyIndex = dynamic_cast<PersistentIndex *>(foundHistory);
         } else {
-            historyIndex = new PersistentIndex("cross", false, "History", "history.xml");
-            historyIndex->indexDefaultLocation = 153000;
+            historyIndex = new PersistentIndex("cross", false, INDEX_HISTORY_PACK_NAME, "history.xml");
+            historyIndex->indexDefaultLocation = INDEX_HISTORY_PACK_LOCATION;
             Index::registerIndex(historyIndex);
         }
     }
@@ -469,7 +469,7 @@ namespace enigma { namespace lev {
         infoElem->setAttribute( Utf8ToXML("title").x_str(), 
                 Utf8ToXML(&indexName).x_str());
         infoElem->setAttribute( Utf8ToXML("group").x_str(), 
-                Utf8ToXML(INDEX_DEFAULT_GROUP).x_str());
+                Utf8ToXML(&defaultGroup).x_str());
         infoElem->setAttribute( Utf8ToXML("location").x_str(),
                 Utf8ToXML(ecl::strf("%g",indexDefaultLocation)).x_str());
         DOMNodeList *levelsChildList = levelsElem->getChildNodes();
@@ -600,7 +600,7 @@ namespace enigma { namespace lev {
     PersistentIndex::PersistentIndex(std::istream *legacyIndexStream, 
             std::string thePackPath, bool isZip, std::string anIndexName, 
             std::string theIndexFilename) : 
-            Index(anIndexName, INDEX_DEFAULT_GROUP), 
+            Index(anIndexName, INDEX_DEFAULT_GROUP, Index::getNextUserLocation()), 
             indexFilename(theIndexFilename), isModified (false), doc(NULL) {
         Log << "PersistentIndex convert 0.92 index " << thePackPath << " - " << anIndexName <<"\n";
         lev::RatingManager *theRatingMgr = lev::RatingManager::instance();

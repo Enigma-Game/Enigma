@@ -378,6 +378,22 @@ namespace enigma { namespace lev {
         else 
             return NULL;
     }
+
+    double Index::getNextUserLocation() {
+        double lastUsed = INDEX_USER_PACK_LOCATION;
+        std::map<std::string, Index *>::iterator iti;
+        for (iti = indices.begin(); iti != indices.end(); iti++) {
+            double indexLocation = (*iti).second->indexDefaultLocation;
+            if (indexLocation > lastUsed && indexLocation < INDEX_DEFAULT_PACK_LOCATION) {
+                lastUsed = indexLocation;
+            }
+        }
+        if (lastUsed + 999 < INDEX_DEFAULT_PACK_LOCATION)
+            return lastUsed + 100;
+        else
+            return 0.9 * lastUsed + INDEX_DEFAULT_PACK_LOCATION / 10;
+    }
+    
     
     Index::Index(std::string anIndexName, std::string aGroupName, double defaultLocation) : 
             indexName (anIndexName), indexGroup (aGroupName), defaultGroup (aGroupName),

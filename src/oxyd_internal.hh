@@ -172,6 +172,7 @@ namespace oxyd
         OxydVersion get_version () const {
             return m_datfile->getVersion();
         }
+        int get_default_location() const;
 
         /* ---------- Variables ---------- */
         DatFile     *m_datfile; // just a reference (owned by GameInfo)

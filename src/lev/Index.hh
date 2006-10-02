@@ -25,10 +25,28 @@
 #include <string>
 #include <vector>
 
-#define INDEX_DEFAULT_GROUP "Default"
+#define INDEX_DEFAULT_GROUP "User"
 #define INDEX_EVERY_GROUP "Every Group"
 #define INDEX_ALL_PACKS "All Packs"
+
+#define INDEX_STARTUP_PACK_NAME   "Startup Levels"
+#define INDEX_AUTO_PACK_NAME      "Auto Folder"
+#define INDEX_HISTORY_PACK_NAME   "History"
+#define INDEX_SEARCH_PACK_NAME    "Search Result"
+#define INDEX_CLIPBOARD_PACK_NAME "Clipboard"
+
+#define INDEX_STARTUP_PACK_LOCATION   5100
+#define INDEX_AUTO_PACK_LOCATION      5200
+#define INDEX_HISTORY_PACK_LOCATION   5300 
+#define INDEX_SEARCH_PACK_LOCATION    5400
+#define INDEX_CLIPBOARD_PACK_LOCATION 5500
+
+#define INDEX_USER_PACK_LOCATION     50000
+#define INDEX_DEFAULT_PACK_LOCATION  69000
+
 #define INDEX_GROUP_COLUMN_UNKNOWN -1000
+
+
 
 namespace enigma { namespace lev {    
     enum LevelAdvanceMode {
@@ -69,13 +87,14 @@ namespace enigma { namespace lev {
         static void moveGroup(std::string groupName, int newPos);
         static void renameGroup(std::string oldName, std::string newName);
         static void insertGroup(std::string groupName, int newPos);
+        static double getNextUserLocation();
         
         /**
          * Convention: method names *Level() can take int pos or Proxy as arg.
          */
         Index(std::string anIndexName = "Unnamed Pack", 
                 std::string aGroupName = INDEX_DEFAULT_GROUP, 
-                double defaultLocation = 200000);
+                double defaultLocation = INDEX_DEFAULT_PACK_LOCATION);
         ~Index();
         
         std::string getName();

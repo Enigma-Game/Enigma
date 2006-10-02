@@ -751,7 +751,10 @@ LevelPack_Oxyd::LevelPack_Oxyd (OxydVersion ver, DatFile *dat,
             nlevels++;
         }
     }
+    // post initialization of superclass Index based on dat file values
     indexName = get_name();
+    indexGroup = defaultGroup = "Dongleware";
+    indexDefaultLocation = get_default_location();
     Log << "Levelpack '" << get_name() << "' has " << nlevels << " levels." << endl;
 }
 
@@ -787,6 +790,18 @@ string LevelPack_Oxyd::get_name() const
     };
     OxydVersion v = get_version();
     return level_index[0]>99 ? names2p[v] : names1p[v];
+}
+
+int LevelPack_Oxyd::get_default_location() const 
+{
+    static const int location1p[] = {
+        90100, 90700, 90800, 90300, 90500
+    };
+    static const int location2p[] = {
+        90200, 0, 0, 90400, 90600
+    };
+    OxydVersion v = get_version();
+    return level_index[0]>99 ? location2p[v] : location1p[v];
 }
 
 void LevelPack_Oxyd::load_oxyd_level (size_t index) 

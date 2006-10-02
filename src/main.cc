@@ -336,13 +336,13 @@ void Application::init(int argc, char **argv)
     lua::DoSubfolderfile(L, "levels", "index.lua");
     lua::Dofile(L, "levels/index_user.lua");
     if (!ap.levelnames.empty()) {
-        lev::Index::registerIndex(new lev::VolatileIndex("Quick Test Levels",
-                INDEX_DEFAULT_GROUP, ap.levelnames, 154000));
-        lev::Index::setCurrentIndex("Quick Test Levels");
+        lev::Index::registerIndex(new lev::VolatileIndex(INDEX_STARTUP_PACK_NAME,
+                INDEX_EVERY_GROUP, ap.levelnames, INDEX_STARTUP_PACK_LOCATION));
+        lev::Index::setCurrentIndex(INDEX_STARTUP_PACK_NAME);
     }
     std::vector<std::string> emptyList;
-    lev::Index::registerIndex(new lev::VolatileIndex("Search Result",
-                INDEX_DEFAULT_GROUP, emptyList, 155000));
+    lev::Index::registerIndex(new lev::VolatileIndex(INDEX_SEARCH_PACK_NAME,
+                INDEX_DEFAULT_GROUP, emptyList, INDEX_SEARCH_PACK_LOCATION));
 
     // ----- Load oxyd data files
     oxyd::Init();
