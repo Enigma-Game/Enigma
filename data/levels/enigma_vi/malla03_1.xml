@@ -4,8 +4,8 @@
     <el:info el:type="level">
       <el:identity el:title="Step gently!" el:subtitle="" el:id="malla3"/>
       <el:version el:score="1" el:release="1" el:revision="0" el:status="released"/>
-      <el:author  el:name="Manuel Koenig" el:email="" el:homepage=""/>
-      <el:copyright>Copyright © 2006 Manuel Koenig</el:copyright>
+      <el:author  el:name="Manuel König" el:email="" el:homepage=""/>
+      <el:copyright>Copyright © 2006 Manuel König</el:copyright>
       <el:license el:type="GPL v2.0 or above" el:open="true"/>
       <el:compatibility el:enigma="0.92">
       </el:compatibility>
@@ -20,35 +20,75 @@ levelw = 20
 levelh = 13
 create_world(levelw, levelh)
 
-fill_floor("fl-wood")
-fill_floor("fl-abyss", 0, 11, 20, 2) 
+fill_floor("fl-abyss") 
 
-draw_border("st-metal", 0, 0, 20, 11)
-fill_stones("st-metal", 1, 10, 18, 1) -- delete this line, if display.ResizeGameArea (20,11) is set
-fill_stones("st-metal", 9, 1, 2, 9) 
+draw_border("st-metal", 0, 1,20,11)
+fill_stones("st-metal", 9, 2, 2, 9) 
 
-oxyd(0,4)
-oxyd(5,10)
-oxyd(9,1)
-oxyd(10,9)
-oxyd(14,0)
-oxyd(19,7)
-
-for n=1,72 do
-    set_floor("fl-bridge", ((n-1)/9)+1 , mod((n-1),9)+1, {name="bridge"..n})
-    set_item("it-trigger", ((n-1)/9)+11, mod((n-1),9)+1, {target="bridge"..n , action="openclose"})
+-- set the bridges in the left part:
+n=0
+for i=1,9 do
+    for j=1,8 do
+        set_floor("fl-bridge", j , 1+i, {name="bridge"..n})
+        set_floor("fl-metal",j+10,1+i)
+        set_item("it-trigger", j+10,1+i, {target="bridge"..n , action="openclose"})
+        n=n+1
+    end
 end
 
-set_floor("fl-acblack", 4, 5)
-set_floor("fl-acwhite", 14, 5)
-set_item("it-yinyang", 14, 5)
-set_item("it-yinyang", 4, 5)
+-- Prepare initial Positions:
+set_floor("fl-acblack", 4, 6)
+set_floor("fl-acwhite", 14, 6)
+set_item("it-yinyang", 14, 6)
+set_item("it-yinyang", 4, 6)
 
-local ac1 = set_actor("ac-blackball", 4.5, 5.5, {player=0})
-local ac2 = set_actor("ac-whiteball", 14.5,5.5, {player=1}) 
-local ac3 = set_actor("ac-whiteball-small", 15.5, 5.5, {controllers=0})
+set_actor("ac-blackball", 4.5, 6.5, {player=0})
+wb = set_actor("ac-whiteball", 14.5,6.5, {player=1}) 
+swb = set_actor("ac-whiteball-small", 15.5, 6.5, {controllers=0})
 
-AddRubberBand(ac2, ac3, 50, 0.2)
+AddRubberBand(wb, swb, 50, 0.2)
+
+--Oxyds:
+-- UGLY: Overwriting border_stones with the oxyds!!
+
+if difficult then
+    o=4
+else
+    o=3
+end
+
+--Oxyd in the left part:
+for i=1,o do
+    repeat
+        r=random(1,2)
+        if r ==1 then -- Oxyd in the horizontal line
+            x=random(1,8)
+            y=random(0,1)*10+1
+        else -- Oxyd in the vertical line
+            x=random(0,1)*9
+            y=random(2,10)
+        end
+    until
+        enigma.GetKind(enigma.GetStone(x,y)) ~= "st-oxyd"
+    oxyd(x,y)
+end
+
+--Oxyd in the right part:
+for i=1,o do
+    repeat
+        r=random(1,2)
+        if r ==1 then -- Oxyd in the horizontal line
+            x=random(1,8)+10
+            y=random(0,1)*10+1
+        else -- Oxyd in the vertical line
+            x=random(0,1)*9+10
+            y=random(2,10)
+        end
+    until
+        enigma.GetKind(enigma.GetStone(x,y)) ~= "st-oxyd"
+    oxyd(x,y)
+end
+
 oxyd_shuffle()
     ]]></el:luamain>
     <el:i18n>

@@ -1,5 +1,7 @@
 # info_TEXINFOS = enigma-ref.texi
 
+SUBDIRS = images
+
 HTML = enigma-ref.html
 
 EXTRA_DIST = enigma-ref.texi enigma-t2h.init $(HTML)
@@ -15,3 +17,8 @@ enigma-ref.html: $(srcdir)/enigma-ref.texi $(srcdir)/enigma-t2h.init
 	else \
 	  echo "Warning: texi2html not found"; \
 	fi
+
+pdf: refman.pdf
+
+%.pdf: %.texi
+	texi2pdf $<

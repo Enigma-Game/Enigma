@@ -92,7 +92,7 @@ oxyd(18,11)
 oxyd_default_flavor = "d"
 oxyd_shuffle()
 
-set_actor("ac-blackball", 10, 6+0.5, {player=0,essential=1})
+set_actor("ac-blackball", 10, 6+0.5, {player=0})
 oxyd_shuffle()
     ]]></el:luamain>
     <el:i18n>

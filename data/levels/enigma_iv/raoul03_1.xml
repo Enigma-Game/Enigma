@@ -173,18 +173,18 @@ set_floor("fl-gradient6",10 ,9)
 set_floor("fl-gradient8",10 ,10)
 
 -- ACTORS --
-local ac1=set_actor("ac-blackball", 10,10, {player=0,essential=1})
+local ac1=set_actor("ac-blackball", 10,10, {player=0})
 
-set_actor("ac-killerball", 3,3 , {essential=0,controllers=2})
-set_actor("ac-killerball", 3,12, {essential=0,controllers=2})
-set_actor("ac-killerball", 12,3, {essential=0,controllers=2})
-set_actor("ac-killerball", 12,12, {essential=0,controllers=2})
+set_actor("ac-killerball", 3,3 , {essential=0,controllers=0})
+set_actor("ac-killerball", 3,12, {essential=0,controllers=0})
+set_actor("ac-killerball", 12,3, {essential=0,controllers=0})
+set_actor("ac-killerball", 12,12, {essential=0,controllers=0})
 
 if difficult then
- set_actor("ac-killerball", 7,7 , {essential=0,controllers=2})
- set_actor("ac-killerball", 7,16 , {essential=0,controllers=2})
- set_actor("ac-killerball", 16,7, {essential=0,controllers=2})
- set_actor("ac-killerball", 16,16, {essential=0,controllers=2})
+ set_actor("ac-killerball", 7,7 , {essential=0,controllers=0})
+ set_actor("ac-killerball", 7,16 , {essential=0,controllers=0})
+ set_actor("ac-killerball", 16,7, {essential=0,controllers=0})
+ set_actor("ac-killerball", 16,16, {essential=0,controllers=0})
 end
 
 -- OXYD --
