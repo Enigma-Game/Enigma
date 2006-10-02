@@ -3773,9 +3773,10 @@ the result of the laser transformation of @ref{it-extralife}.
 @subsection it-hammer
 
 The hammer is used to destroy some stones, see @ref{Breakable
-Stones}. It also transforms into @ref{it-sword} when hit with a laser
-beam and is itself laser-transformation-result of @ref{it-sword} and
-@code{it-coin2} (see @ref{it-coin}).
+Stones} and @ref{st-lightpassenger}. It also transforms into
+@ref{it-sword} when hit with a laser beam and is itself
+laser-transformation-result of @ref{it-sword} and @code{it-coin2} (see
+@ref{it-coin}).
 
 
 @c -------------------- Horizontal and Vertical Land Strip --------------------
@@ -4680,6 +4681,8 @@ laser, bombs, ``expl''; see @ref{st-brake}
 see @ref{st-puzzle}
 @item st-volcano_active
 hammer; see @ref{st-volcano}
+@item st-lightpassenger
+hammer when active and trapped; see @ref{st-lightpassenger}
 @item st-firebreak
 fire; sorry, not implemented yet
 @end table
@@ -5395,6 +5398,15 @@ with @code{base} the value of the @code{interval}-attribute,
 and @code{gradient} the parallel part of the force of the floor,
 i.e. the sum of gradient-force and @code{force_x/y}-attributes.
 
+The light passenger can be switched on and off by messages (see
+below), and appears as @code{st-glass2} when inactive.  The variant
+@code{st-lightpassenger_off} is deactivated from the beginning.
+
+When an active @code{st-lightpassenger} is trapped between exactly two
+opposing light beams or light beams from all four directions, it
+starts blinking.  In this state, it can be destroyed with
+@ref{it-hammer}.
+
 @strong{Attributes}
 
 @table @code
@@ -5415,6 +5427,13 @@ involves gradients into the speed of the light passenger (sensible:
 trigger between activated and deactivated (= no skating)
 @item signal
 with parameter 0: deactivating, else activating
+@end table
+
+@strong{Variants}
+
+@table @code
+@item st-lightpassenger
+@item st-lightpassenger_off
 @end table
 
 
@@ -6382,7 +6401,7 @@ When a fire starts to burn near @ref{fl-ice}, this melts to
 other fire-related actions, this is not random, but always and only
 happens, when a nearby fire starts to burn.
 
-Examples: Put an @ref{st-flrock} on @code{fl-ice}. A fire will melt
+Examples: Put an @code{st-flrock} on @code{fl-ice}. A fire will melt
 the ice, and @code{st-flrock} creates a fireproof and safe way to the
 other side. If you use @ref{st-wood} instead, @code{fl-stwood} is
 created, which presumably catchs fire and leaves @code{fl-abyss}

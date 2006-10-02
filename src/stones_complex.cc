@@ -3168,6 +3168,191 @@ namespace
     }
 }
 
+
+/* -------------------- Light Passenger Stone -------------------- */
+namespace
+{
+    class LightPassengerStone : public PhotoStone, public TimeHandler {
+        CLONEOBJ(LightPassengerStone);
+        DECL_TRAITS;
+    public:
+        LightPassengerStone(bool active_) : PhotoStone("st-lightpassenger"),
+            skateDir (NODIR), state(active_ ? ACTIVE : INACTIVE),
+            isLighted (false) { }
+
+    virtual ~LightPassengerStone() {
+        GameTimer.remove_alarm (this);
+    }
+
+    private:
+        Direction skateDir;
+        //bool isActive;
+        bool isLighted;
+        enum State {INACTIVE, ACTIVE, BLINK, BREAK} state;
+        //bool isBlinking;
+
+        void on_creation(GridPos p) {
+            PhotoStone::on_creation(p);
+            photo_activate();
+        }
+        void on_removal(GridPos p) {
+            photo_deactivate();
+            PhotoStone::on_removal(p);
+        }
+        void init_model() {
+            switch(state) {
+            case INACTIVE:
+                set_anim("st-lightpassenger_off"); break;
+            case ACTIVE:
+                set_anim("st-lightpassenger"); break;
+            case BLINK:
+                set_anim("st-lightpassenger-blink"); break;
+            case BREAK:
+                GridPos p = get_pos();
+                bool NorthSouth = lasers::LightFrom(p,NORTH) &&
+		    lasers::LightFrom(p,SOUTH);
+                bool EastWest = lasers::LightFrom(p,EAST) &&
+		    lasers::LightFrom(p,WEST);
+                sound_event ("stonedestroy");
+                if(NorthSouth && !EastWest)
+                    set_anim("st-lightpassenger-break-v");
+                else if(!NorthSouth && EastWest)
+                    set_anim("st-lightpassenger-break-h");
+                else // and this even in case the laser recently disappeared
+                    set_anim("st-lightpassenger-break-hv");
+                break;
+            }
+        }
+        void animcb() {
+            ASSERT(state == BREAK, XLevelRuntime,
+                "LightPassengerStone: animcb called with inconsistent state");
+            KillStone(get_pos());
+        }
+        void notify_laseroff() {
+            if (isLighted) GameTimer.remove_alarm(this);
+            isLighted = false;
+            if(state == BLINK) {                
+                state = ACTIVE;
+                init_model();
+            }
+        }
+        void notify_laseron() {
+            if (!isLighted) GameTimer.set_alarm(this, get_interval(), false);
+            isLighted = true;
+        }        
+
+        double get_interval() {
+            /*  Interval is calculated from
+                        1 + friction_factor * friction
+            interval = -------------------------------- * baseinterval
+                        1 + gradient_factor * gradient
+                and min-maxed to sensible values. "gradient" is just
+                the force resulting from floor->add_force. "baseinterval"
+                is 50 ms or the interval given in "interval".
+            */
+            double base = 0.05;
+            if (const Value *v = this->get_attrib("interval")) 
+                base = to_double(*v);
+            if (const Value *f = this->get_attrib("friction_factor"))
+                base *= 1.0 + to_double(*f) * GetFloor(get_pos())->friction();
+            if (const Value *g = this->get_attrib("gradient_factor"))
+                if (skateDir != NODIR) {
+                    V2 vec = V2(0.0,0.0);
+                    double quot = 0;
+                    GetFloor(get_pos())->add_force(0, vec);
+                    quot = skateDir == NORTH ? -vec[1] : skateDir == SOUTH ? vec[1] :
+                        skateDir == EAST ? vec[0] : skateDir == WEST ? -vec[0] : 0;
+                    base /= max(1.0 + to_double(*g) * quot, 0.01);                    
+                }
+            return max(base, 0.02);
+        }
+
+        void set_on(bool newon){
+            if(state == INACTIVE && newon) {
+                state = ACTIVE;
+                init_model();
+                if(isLighted)
+                    GameTimer.set_alarm(this, get_interval(), false);
+            } else if((state == ACTIVE || state == BLINK) && !newon) {
+                state = INACTIVE;
+                init_model();
+                skateDir = NODIR;
+            }
+        }
+
+        virtual Value message (const string &msg, const Value &v) {
+            if      (msg == "onoff")   set_on(state == INACTIVE);
+            else if (msg == "signal")  set_on(to_int(v) != 0);
+            else if (msg == "on")      set_on(true);
+            else if (msg == "off")     set_on(false);
+            else if (msg == "trigger") set_on(state == INACTIVE);
+            return Value();
+        }
+
+        void alarm() {
+            if(isLighted && (state == ACTIVE || state == BLINK)) {
+                GridPos p = get_pos();
+                int toSouth =    (lasers::LightFrom(p,NORTH)?1:0)
+                               + (lasers::LightFrom(p,SOUTH)?-1:0);
+                int toWest =   (lasers::LightFrom(p,EAST)?1:0)
+                             + (lasers::LightFrom(p,WEST)?-1:0);
+                if(toSouth * toWest != 0) {
+                    // Light is coming from two directions. Choose the one you are
+                    // *not* coming from (thus changing beams), in doubt: random.
+                    if(skateDir == NORTH || skateDir == SOUTH)
+                        toSouth = 0;
+                    if(skateDir == EAST || skateDir == WEST)
+                        toWest = 0;
+                    if(skateDir == NODIR) {
+                        toSouth = IntegerRand(0,1) ? 0 : toSouth;
+                        toWest = toSouth ? 0 : toWest;
+                    }
+                }
+                skateDir = (toSouth == 1) ? SOUTH : (toSouth == -1) ? NORTH :
+                    (toWest == 1) ? WEST : (toWest == -1) ? EAST : NODIR;
+                if(skateDir == NODIR && state != BLINK) {
+                    // No direction but lighted? Seems to be lasers from
+                    // two opposite directions. Be sure and then start blinking.
+                    if(lasers::LightFrom(p,EAST) || lasers::LightFrom(p,WEST) ||
+                       lasers::LightFrom(p,NORTH) || lasers::LightFrom(p,SOUTH)) {
+                        state = BLINK;
+                        init_model();
+                    }
+                } else if(skateDir != NODIR) {
+                    if(state == BLINK) {
+                        state == ACTIVE;
+                        init_model();
+                    }
+                    if(GetStone(move(p, skateDir))) {
+                        // Skipping each second turn makes the passenger stone seem
+                        // slower when pushing another stone. This looks more
+                        // natural. That's why impulse is delayed:
+                        send_impulse(move(p, skateDir), skateDir, get_interval());
+                    }
+                    move_stone(skateDir);
+                }
+                GameTimer.set_alarm(this, get_interval(), false);
+            }
+        }
+        
+        void on_impulse(const Impulse &impulse) {
+            Actor *a = dynamic_cast<Actor*>(impulse.sender);
+            if(!a && (!isLighted || state == INACTIVE))
+                move_stone(impulse.dir);
+        }
+        void actor_hit(const StoneContact &sc) {
+            Actor *a = sc.actor;
+            if(a && state == BLINK && player::WieldedItemIs(a, "it-hammer")) {
+                state = BREAK;
+                init_model();
+            }
+        }
+        bool is_movable () const { return false; }
+    };
+    
+    DEF_TRAITS(LightPassengerStone,"st-lightpassenger", st_lightpassenger);
+}
+
 // --------------------------------------------------------------------------------
 
 void stones::Init_complex()
@@ -3316,4 +3501,7 @@ void stones::Init_complex()
 
     Register("st-chess_black", new ChessStone(0));
     Register("st-chess_white", new ChessStone(1));
+
+    Register("st-lightpassenger", new LightPassengerStone(true));
+    Register("st-lightpassenger_off", new LightPassengerStone(false));
 }

@@ -1578,8 +1578,18 @@ end
 -- Light Passenger Stone --
 ---------------------------
 do
-    def_image("st-lightpassenger")
-    def_shmodel("st-lightpassenger", "st-lightpassenger", "sh-solid")
+    local img = def_subimages("st-lightpassenger", {h=7})
+    def_shmodel("st-lightpassenger", img[1], "sh-glass")
+    def_alias("st-lightpassenger_off", "st-glass2")
+    local frames={img[2], img[3], img[4], img[5], img[6], img[7]}
+    def_anim("st-lightpassenger-blink1", pingpong(buildframes(frames, 75)), TRUE)
+    def_shmodel("st-lightpassenger-blink", "st-lightpassenger-blink1", "sh-glass")
+    img = def_subimages("st-lightpassenger-break-v", {h=7})
+    def_anim("st-lightpassenger-break-v", buildframes(img, 50), FALSE)
+    img = def_subimages("st-lightpassenger-break-h", {h=7})
+    def_anim("st-lightpassenger-break-h", buildframes(img, 50), FALSE)
+    img = def_subimages("st-lightpassenger-break-hv", {h=7})
+    def_anim("st-lightpassenger-break-hv", buildframes(img, 50), FALSE)
 end
 
 -------------
