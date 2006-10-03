@@ -364,6 +364,7 @@ namespace enigma { namespace lev {
     
     void PersistentIndex::clear() {
         proxies.clear();
+        currentPosition = 0;
     }
     
     void PersistentIndex::appendProxy(Proxy * newLevel, controlType varCtrl,

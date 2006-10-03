@@ -141,6 +141,15 @@ namespace enigma { namespace gui {
                     return;
                 }
             }
+            if (newName == INDEX_EVERY_GROUP) {
+                errorLabel->set_text(N_("Error: \"Every group\" is a reserved group name"));
+                return;
+            }
+            if (newName.size() > 2 && newName[0] == '[' 
+                    && newName[newName.size() -1] == ']') {
+                errorLabel->set_text(N_("Error: group name must not be enclosed in square brackets"));
+                return;
+            }
                 
             
             if (oldGroupName.empty()) {

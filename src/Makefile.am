@@ -157,6 +157,8 @@ enigma_SOURCES = 		\
 	gui/OptionsMenu.hh	\
 	gui/ScreenshotViewer.cc	\
 	gui/ScreenshotViewer.hh	\
+	gui/SearchMenu.cc	\
+	gui/SearchMenu.hh	\
 	gui/TextField.cc	\
 	gui/TextField.hh	\
 	gui/widgets.cc		\

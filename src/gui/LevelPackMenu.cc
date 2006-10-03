@@ -21,6 +21,7 @@
 #include "gui/LevelMenu.hh"
 #include "gui/LPGroupConfig.hh"
 #include "gui/LevelPackConfig.hh"
+#include "gui/SearchMenu.hh"
 #include "ecl.hh"
 #include "errors.hh"
 #include "nls.hh"
@@ -338,7 +339,10 @@ namespace enigma { namespace gui {
             updateHighlight();
             invalidate_all();            
         } else if (w == but_search) {
-
+            SearchMenu m;
+            m.manage();
+            setupMenu();
+            updateHighlight();
             invalidate_all();            
         } else if (w == scrollUp) {
             firstDisplayedGroup--;

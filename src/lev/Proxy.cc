@@ -161,8 +161,8 @@ namespace enigma { namespace lev {
             Log << "autoRegisterLevel load error on '" << indexPath << "/"<< filename << "\n";
             std::string message = _("Error on auto registration of levelfile: ");
             message += indexPath + "/" + filename + ".[xml/lua]\n\n";
+            message += _("Note: the level will not show up in the \"Auto Folder\" levelpack!\n\n");
             message += err.what();
-            message += _("\n\nNote: the level will not show up in the \"Auto Folder\" levelpack!");
             gui::ErrorMenu m(message, N_("Continue"));
             m.manage();
         }
