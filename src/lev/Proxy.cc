@@ -20,6 +20,7 @@
 
 #include "ecl_system.hh"
 #include "errors.hh"
+#include "gui/ErrorMenu.hh"
 #include "lua.hh"
 #include "main.hh"
 #include "nls.hh"
@@ -158,6 +159,12 @@ namespace enigma { namespace lev {
         }
         catch (XLevelLoading &err) {
             Log << "autoRegisterLevel load error on '" << indexPath << "/"<< filename << "\n";
+            std::string message = _("Error on auto registration of levelfile: ");
+            message += indexPath + "/" + filename + ".[xml/lua]\n\n";
+            message += err.what();
+            message += _("\n\nNote: the level will not show up in the \"Auto Folder\" levelpack!");
+            gui::ErrorMenu m(message, N_("Continue"));
+            m.manage();
         }
         if (theProxy->getId().empty() || theProxy->isLibraryFlag) {
             delete theProxy;
