@@ -2959,9 +2959,9 @@ overrides @code{enigma.SlopeForce}
 between 1 and 24, determines the direction of the gradient and its design
 @end table
 
-Direction of the forces to certain types: 1 and 21: South, 2 and 22:
-North, 3 and 23: East, 4 and 24: West, 5 and 9: South-East, 6 and 11:
-South-West, 7 and 10: North-East, 8 and 12: North-West.
+Direction of the forces to certain types: 1 and 21: south, 2 and 22:
+north, 3 and 23: east, 4 and 24: west, 5 and 9: south-east, 6 and 11:
+south-west, 7 and 10: north-east, 8 and 12: north-west.
 
 @strong{Variants}
 
@@ -2999,7 +2999,7 @@ shouldn't be used anymore.
 
 
 @node fl-inverse, fl-nomouse, fl-ice, Floors
-@subsection fl-ice
+@subsection fl-inverse
 
 Inverses the mouse movements (negative @code{mouseforce}).
 
@@ -4407,6 +4407,7 @@ Toggles between players.  Compare @ref{it-ring} in multiplayer mode.
 * st-plain::                    Plain Stones
 * st-polarswitch::              Light Switch in Polarizator Style
 * st-pull::                     Pull Stone
+* st-puzzle::                   Puzzle Stones
 * st-rotator::                  Rotator Stone
 * st-rubberband::               Rubberband Stone
 * st-scissors::                 Scissors Stone
@@ -4756,7 +4757,7 @@ pass.
 Mainly used decorative, this stone also has a special function: When
 it receives a message from a stone, which is just hit by a black
 (resp. white) marble, it sends signal 1 to the neighbouring stones
-West and East of it and 0 to North and South; or vice versa, depending
+west and east of it and 0 to north and south; or vice versa, depending
 on the position of the message-sending stone.
 
 A typical construction for this is an @code{st-blackballs} surrounded
@@ -5650,15 +5651,111 @@ on = lighten, off = darken, onoff = toggle
 @end table
 
 
-@node st-pull, st-rotator, st-polarswitch, Stones
+@node st-pull, st-puzzle, st-polarswitch, Stones
 @subsection st-pull: Pull Stone
 
 When pushed, this stone acts like pulled, regardless of the source of
 the impulse.  Actors on the destination field are pulled through it,
-such that they are not caged under them.
+such that they are not caged under them.  Hollow stones on the
+position of the actor exchange their position with the pull-stone.
+Note however, that the special combination of @ref{st-brake} and
+@code{st-pull} is lethal for the marble.
 
 
-@node st-rotator, st-rubberband, st-pull, Stones
+@node st-puzzle, st-rotator, st-pull, Stones
+@subsection st-puzzle: Puzzle Stones
+
+Puzzle stones can construct large clusters of stones, that move
+together and can be destroyed together.  There are two families, blue
+and yellow puzzle stones, that behave different (the yellow ones are
+compatible to the puzzle stones in the original Oxyd-Game). Each of
+these families again consists of several variants that differ in the
+location of soccets to which neighboring puzzle stones can be
+attached.  A cluster is complete as soon as all soccets are connected
+to soccets of other puzzle stones of the same color.
+
+Laser beams make all complete puzzle clusters explode. Besides this,
+yellow, non-complete puzzle cluster rotate on a laser beam (means: the
+lightened row or column rotates by one stone position).  Non-complete
+blue clusters don't react on lasers. 
+
+If a complete cluster is moved fully onto a combination of
+@ref{fl-water} and @ref{fl-abyss}, it becomes a bridge of
+@code{fl-gray}, similar to @ref{st-wood}.  A non-complete cluster
+forms a bridge only on @ref{fl-water}, and only if it the wielded item
+is not @ref{it-magicwand}.  Note that in contrast to @code{st-wood},
+puzzle stones only become bridges after they are moved, they don't
+react on changing the floor.
+
+There also is a single hollow variant for each of the two colors,
+@code{st-puzzle-hollow} and @code{st-puzzle2-hollow}.  It acts as if
+it had soccets to all four directions, but is still hollow.  However,
+these stones are the only hollow ones that press down
+@ref{it-trigger}. 
+
+When an actor hits:
+@itemize @bullet
+@item a yellow complete cluster, it explodes;
+@item a single yellow puzzle stone, it moves;
+@item a yellow  uncomplete cluster, it rotates;
+@item a blue complete cluster with @code{it-magicwand}, it explodes;
+@item a blue complete cluster without @code{it-magicwand}, it moves;
+@item a blue uncomplete cluster with @code{it-magicwand}, it rotates.
+@end itemize
+Note that an exploding cluster can shatter the marble.
+
+In the current implementation, moving a puzzle stone over an item
+doesn't change it.  This affects e.g. @ref{it-coin} (that don't
+transform), @ref{Hills and Hollows} (that don't diminish),
+@ref{it-blackbomb} and @ref{it-whitebomb} (that don't explode).  Be
+aware when using these items together with @code{it-puzzle} that
+future implementations of Enigma might change this behaviour.
+
+
+@strong{Messages}
+
+@table @code
+@item scramble
+internal message used to scramble a puzzle using secondary
+information; use @ref{AddScramble} and @ref{SetScrambleIntensity} to
+scramble a puzzle in a level instead or make use of one of the
+libraries (@code{ant} and @code{libpuzzle} both offer this
+possibility)
+@end table
+
+@strong{Attributes}
+
+@table @code
+@item connections
+A number between 1 an 16.  Each bit in (connections-1) corresponds to
+a socket on one of the four faces.  You will normally simply use
+one of the Lua constants @code{PUZ_0000} to @code{PUZ_1111}.
+@item oxyd
+0, if the puzzle stone is blue; 1, if it is yellow
+(@code{st-puzzle2-*})
+@end table
+
+@strong{Variants}
+
+@table @code
+@item st-puzzle-hollow
+blue hollow puzzle stone
+@item st-puzzle-<nesw>
+blue solid puzzle stone
+@item st-puzzle2-hollow
+yellow hollow puzzle stone
+@item st-puzzle2-<nesw>
+yellow solid puzzle stone
+@end table
+
+The term @code{<nesw>} denotes all non-empty substrings of
+@code{nesw}, describing the directions to which there are soccets on
+the stone.  Examples: @code{st-puzzle-nw} is a blue puzzle stone with
+connections going north and west, @code{st-puzzle2-esw} is a yellow
+puzzle stone with connections to the east, south and west.
+
+
+@node st-rotator, st-rubberband, st-puzzle, Stones
 @subsection st-rotator: Rotator Stone
 
 Rotator stones come in four flavors: Clockwise or counterclockwise
