@@ -61,7 +61,7 @@ namespace enigma {
         std::string prefTemplatePath;
         bool haveXMLProperties = (ecl::FileExists(app.prefPath)) ? true : false;
         
-        if (!app.systemFS->findFile( PREFFILENAME , prefTemplatePath)) {
+        if (!app.systemFS->findFile( std::string("schemas/") + PREFFILENAME , prefTemplatePath)) {
             cerr << "Preferences: no template found\n";
             exit(-1);
         }
@@ -77,7 +77,7 @@ namespace enigma {
                 // use user prefs and copy new properties from template
                 doc = app.domParser->parseURI(app.prefPath.c_str());
                 propertiesElem = dynamic_cast<DOMElement *>(doc->getElementsByTagName(
-                        Utf8ToXML("preferences").x_str())->item(0));
+                        Utf8ToXML("properties").x_str())->item(0));
                 // The following algorithm is not optimized - O(n^2)!
                 DOMDocument * prefTemplate = app.domParser->parseURI(prefTemplatePath.c_str());
                 DOMNodeList * tmplPropList = prefTemplate->getElementsByTagName(
@@ -95,9 +95,7 @@ namespace enigma {
                             Log << "Preferences: copy new Property failed!\n";
                         } else {
                             // insert it at the end of the existing user properties
-                            lastUserProperty->getParentNode()->insertBefore(
-                                     dynamic_cast<DOMElement *>(newProperty), 
-                                     lastUserProperty->getNextSibling());
+                            propertiesElem->appendChild(dynamic_cast<DOMElement *>(newProperty));
                         }
                     }
                 }
@@ -107,7 +105,7 @@ namespace enigma {
                 // use the template, copy LUA option values and save it later as prefs
                 doc = app.domParser->parseURI(prefTemplatePath.c_str());
                 propertiesElem = dynamic_cast<DOMElement *>(doc->getElementsByTagName(
-                        Utf8ToXML("preferences").x_str())->item(0));
+                        Utf8ToXML("properties").x_str())->item(0));
                 DOMNodeList * propList = propertiesElem->getElementsByTagName(Utf8ToXML("property").x_str());
                 for (int i = 0, l = propList-> getLength(); i < l; i++) {
                     DOMElement * property  = dynamic_cast<DOMElement *>(propList->item(i));

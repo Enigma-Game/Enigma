@@ -268,7 +268,7 @@ public:
 
     HistoryProxy();
     ~HistoryProxy() {
-        if (!--instances) options::SetOption("History", content);
+        if (!--instances) app.state->setProperty("CommandHistory", content);
     }
 };
 
@@ -277,7 +277,7 @@ int    HistoryProxy::instances = 0;
 
 HistoryProxy::HistoryProxy() {
     if (!instances++) {
-        content = options::GetString("History");
+        content = app.state->getString("CommandHistory");
         if (content.find(HSEP) == string::npos) content = string(1, HSEP);
     }
 }

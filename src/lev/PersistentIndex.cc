@@ -390,7 +390,7 @@ namespace enigma { namespace lev {
             // delete duplicates
             while (itProxy != proxies.end()) {
                 if (*itProxy == newLevel && *itVar == var) {
-                    Log << "History Duplicat found\n";
+//                    Log << "History Duplicat found\n";
                     itProxy = proxies.erase(itProxy);
                     itVar = variations.erase(itVar);
                 }
