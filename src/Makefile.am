@@ -43,7 +43,7 @@ enigma_SOURCES = 		\
 	editor_impl.hh		\
 	enigma.cc 		\
 	enigma.hh		\
-	errorrs.hh		\
+	errors.hh		\
 	file.cc 		\
 	file.hh 		\
 	file_zip.cc 		\
@@ -101,6 +101,7 @@ enigma_SOURCES = 		\
 	PropertyManager.hh	\
 	server.cc 		\
 	server.hh		\
+	server_internal.hh	\
 	sound.cc 		\
 	sound.hh 		\
 	sound_internal.hh	\
