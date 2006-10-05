@@ -188,13 +188,15 @@ namespace enigma { namespace gui {
             }
         } else if (w == but_delete) {
             std::vector<lev::Index *> * indices = lev::Index::getGroup(oldGroupName);
-            for (int i = 0; i < indices->size(); i++) {
-                if ((*indices)[i]->getGroupName() != INDEX_EVERY_GROUP) {
-                    errorLabel->set_text(N_("Error: group not empty"));
-                    return;
+            if (indices != NULL) {
+                for (int i = 0; i < indices->size(); i++) {
+                    if ((*indices)[i]->getGroupName() != INDEX_EVERY_GROUP) {
+                        errorLabel->set_text(N_("Error: group not empty"));
+                        return;
+                    }
                 }
+                lev::Index::deleteGroup(oldGroupName);
             }
-            lev::Index::deleteGroup(oldGroupName);
             Menu::quit();
         } else if (w == but_newPack) {
 //            LevelPackConfig m("");
