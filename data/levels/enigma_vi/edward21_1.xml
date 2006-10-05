@@ -9,11 +9,11 @@
       <el:license el:type="Donated to Enigma under the projects license" el:open="true"/>
       <el:compatibility el:enigma="0.92">
       </el:compatibility>
-      <el:modes el:easy="false" el:single="true" el:network="false"/>
+      <el:modes el:easy="true" el:single="true" el:network="false"/>
       <el:comments>
         <el:code>Lua 5.1 and XML converted by Leveladministrators</el:code>
       </el:comments>
-      <el:score el:easy="-" el:difficult="-"/>
+      <el:score el:easy="-" el:difficult="1:35"/>
     </el:info>
     <el:luamain><![CDATA[
 create_world(20,37)
@@ -33,16 +33,16 @@ for x=0, 19 do
   for y=0, 36 do
     if (x ~= 1) or (y ~= 1) then
       if random(0,30*options.Difficulty)==1 then
-        set_stone("st-rubberband",x,y)
-        set_floor("fl-wood",x+1,y)
-        set_floor("fl-wood",x-1,y)
-        set_floor("fl-wood",x,y+1)
-        set_floor("fl-wood",x,y-1)
-        if options.Difficulty==1 then
-	    set_floor("fl-wood",x+1,y+1)
-          set_floor("fl-wood",x-1,y+1)
-          set_floor("fl-wood",x-1,y-1)
-          set_floor("fl-wood",x+1,y-1)
+         set_stone("st-rubberband",x,y)
+         set_floor("fl-wood",x+1,y)
+         set_floor("fl-wood",x-1,y)
+         set_floor("fl-wood",x,y+1)
+         set_floor("fl-wood",x,y-1)
+        if not difficult then
+         set_floor("fl-wood",x+1,y+1)
+         set_floor("fl-wood",x-1,y+1)
+         set_floor("fl-wood",x-1,y-1)
+         set_floor("fl-wood",x+1,y-1)
         end
       end
       if random(0,100)==1 then
@@ -69,5 +69,3 @@ oxyd_shuffle()
     </el:i18n>
   </el:protected>
 </el:level>
-
-

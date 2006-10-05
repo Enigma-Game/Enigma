@@ -13,7 +13,7 @@
       <el:comments>
         <el:code>Lua 5.1 and XML converted by Leveladministrators</el:code>
       </el:comments>
-      <el:score el:easy="-" el:difficult="-"/>
+      <el:score el:easy="-" el:difficult="6:31"/>
     </el:info>
     <el:luamain><![CDATA[
 create_world(77,37)
@@ -21,23 +21,23 @@ create_world(77,37)
 fill_floor("fl-space",0,0,80,40)
 
 function renderLine(line,pattern)
-	for i=1, strlen(pattern) do
-		local c=strsub(pattern,i,i)
-		if c=="#" then
-			set_floor("fl-metal",i-1,line)
-			set_stone("st-black4",i-1,line)
-		elseif c=="=" then
-			set_floor("fl-metal",i-1,line)
-		elseif c=="X" then
-			oxyd(i-1,line)
-		elseif c=="x" then
-			set_stone("st-grate1",i-1,line)
-		elseif c=="o" then
-			set_stone("st-grate2",i-1,line)
-		elseif c=="x" then
-			set_stone("st-glass3",i-1,line)
-		end
-	end
+    for i=1, strlen(pattern) do
+        local c=strsub(pattern,i,i)
+        if c=="#" then
+            set_floor("fl-metal",i-1,line)
+            set_stone("st-black4",i-1,line)
+        elseif c=="=" then
+            set_floor("fl-metal",i-1,line)
+        elseif c=="X" then
+            oxyd(i-1,line)
+        elseif c=="x" then
+            set_stone("st-grate1",i-1,line)
+        elseif c=="o" then
+            set_stone("st-grate2",i-1,line)
+        elseif c=="x" then
+            set_stone("st-glass3",i-1,line)
+        end
+    end
 end
 
 draw_border("st-actorimpulse")
@@ -98,5 +98,3 @@ set_actor("ac-blackball",39.5,18.5,{player=0})
     </el:i18n>
   </el:protected>
 </el:level>
-
-

@@ -13,7 +13,7 @@
       <el:comments>
         <el:code>Lua 5.1 and XML converted by Leveladministrators</el:code>
       </el:comments>
-      <el:score el:easy="-" el:difficult="-"/>
+      <el:score el:easy="2:13" el:difficult="2:18"/>
     </el:info>
     <el:luamain><![CDATA[
 create_world(20,13)
@@ -23,90 +23,90 @@ oxyd_default_flavor = "a"
 doorcounter = 0
 
 function renderLine(line,pattern)
-	for i=1, strlen(pattern) do
-		local c=strsub(pattern,i,i)
+    for i=1, strlen(pattern) do
+        local c=strsub(pattern,i,i)
 
-		if c=="#" then
-			set_stone("st-plain",i-1,line)
-		elseif c=="." then
-			set_floor("fl-metal",i-1,line)
-		elseif c=="X" then
-			oxyd(i-1,line)
+        if c=="#" then
+            set_stone("st-plain",i-1,line)
+        elseif c=="." then
+            set_floor("fl-metal",i-1,line)
+        elseif c=="X" then
+            oxyd(i-1,line)
 
-		elseif c=="0" then
-			set_stone("st-fourswitch",i-1,line,{action="open",target="d0"})
-		elseif c=="1" then
-			set_stone("st-fourswitch",i-1,line,{action="open",target="d1"})
-		elseif c=="2" then
-			set_stone("st-fourswitch",i-1,line,{action="open",target="d2"})
-		elseif c=="3" then
-			set_stone("st-fourswitch",i-1,line,{action="open",target="d3"})
-		elseif c=="4" then
-			set_stone("st-fourswitch",i-1,line,{action="open",target="d4"})
-		elseif c=="5" then
-			set_stone("st-fourswitch",i-1,line,{action="open",target="d5"})
-		elseif c=="F" then
-			set_stone("st-fourswitch",i-1,line)
+        elseif c=="0" then
+            set_stone("st-fourswitch",i-1,line,{action="open",target="d0"})
+        elseif c=="1" then
+            set_stone("st-fourswitch",i-1,line,{action="open",target="d1"})
+        elseif c=="2" then
+            set_stone("st-fourswitch",i-1,line,{action="open",target="d2"})
+        elseif c=="3" then
+            set_stone("st-fourswitch",i-1,line,{action="open",target="d3"})
+        elseif c=="4" then
+            set_stone("st-fourswitch",i-1,line,{action="open",target="d4"})
+        elseif c=="5" then
+            set_stone("st-fourswitch",i-1,line,{action="open",target="d5"})
+        elseif c=="F" then
+            set_stone("st-fourswitch",i-1,line)
 
-		elseif c=="O" then
-			set_item("it-vortex-open",i-1,line,{name="15B",targetx=17.5,targety=2.5})
-			set_floor("fl-metal",i-1,line)
-		elseif c=="o" then
-			set_item("it-vortex-open",i-1,line,{name="18C",targetx=14.5,targety=1.5})
-			set_floor("fl-metal",i-1,line)
-		elseif c=="Q" then
-			set_item("it-vortex-open",i-1,line,{targetx=1.5,targety=11.5})
-			set_floor("fl-metal",i-1,line)
-		elseif c=="q" then
-			set_item("it-vortex-open",i-1,line,{targetx=10.5,targety=7.5})
-			set_stone("st-door_a",i-1,line,{name="blocker"})
-			set_floor("fl-metal",i-1,line)
+        elseif c=="O" then
+            set_item("it-vortex-open",i-1,line,{name="15B",targetx=17.5,targety=2.5})
+            set_floor("fl-metal",i-1,line)
+        elseif c=="o" then
+            set_item("it-vortex-open",i-1,line,{name="18C",targetx=14.5,targety=1.5})
+            set_floor("fl-metal",i-1,line)
+        elseif c=="Q" then
+            set_item("it-vortex-open",i-1,line,{targetx=1.5,targety=11.5})
+            set_floor("fl-metal",i-1,line)
+        elseif c=="q" then
+            set_item("it-vortex-open",i-1,line,{targetx=10.5,targety=7.5})
+            set_stone("st-door_a",i-1,line,{name="blocker"})
+            set_floor("fl-metal",i-1,line)
 
-		elseif c=="v" then
-			set_floor("fl-gradient1",i-1,line,{type=1})
-		elseif c=="^" then
-			set_floor("fl-gradient1",i-1,line,{type=2})
-		elseif c==">" then
-			set_floor("fl-gradient1",i-1,line,{type=3})
-		elseif c=="<" then
-			set_floor("fl-gradient1",i-1,line,{type=4})
-		elseif c=="l" then
-			set_floor("fl-gradient1",i-1,line,{type=5})
-		elseif c=="L" then
-			set_floor("fl-gradient1",i-1,line,{type=7})
-		elseif c=="r" then
-			set_floor("fl-gradient1",i-1,line,{type=6})
-		elseif c=="R" then
-			set_floor("fl-gradient1",i-1,line,{type=8})
-		elseif c=="a" then
-			set_floor("fl-gradient1",i-1,line,{type=9})
-		elseif c=="b" then
-			set_floor("fl-gradient1",i-1,line,{type=10})
-		elseif c=="c" then
-			set_floor("fl-gradient1",i-1,line,{type=11})
-		elseif c=="d" then
-			set_floor("fl-gradient1",i-1,line,{type=12})
+        elseif c=="v" then
+            set_floor("fl-gradient1",i-1,line,{type=1})
+        elseif c=="^" then
+            set_floor("fl-gradient1",i-1,line,{type=2})
+        elseif c==">" then
+            set_floor("fl-gradient1",i-1,line,{type=3})
+        elseif c=="<" then
+            set_floor("fl-gradient1",i-1,line,{type=4})
+        elseif c=="l" then
+            set_floor("fl-gradient1",i-1,line,{type=5})
+        elseif c=="L" then
+            set_floor("fl-gradient1",i-1,line,{type=7})
+        elseif c=="r" then
+            set_floor("fl-gradient1",i-1,line,{type=6})
+        elseif c=="R" then
+            set_floor("fl-gradient1",i-1,line,{type=8})
+        elseif c=="a" then
+            set_floor("fl-gradient1",i-1,line,{type=9})
+        elseif c=="b" then
+            set_floor("fl-gradient1",i-1,line,{type=10})
+        elseif c=="c" then
+            set_floor("fl-gradient1",i-1,line,{type=11})
+        elseif c=="d" then
+            set_floor("fl-gradient1",i-1,line,{type=12})
 
-		elseif c=="D" then
-			set_stone("st-door-v",i-1,line,{name="d"..tostring(5-doorcounter)})
-			doorcounter = doorcounter + 1
-			if (not Difficult) then
-				set_floor("fl-abyss",i-1,line, {friction=0} )
-			else
-				set_floor("fl-abyss",i-1,line, {friction=0.1} )
-			end
+        elseif c=="D" then
+            set_stone("st-door-v",i-1,line,{name="d"..tostring(5-doorcounter)})
+            doorcounter = doorcounter + 1
+            if (not difficult) then
+                set_floor("fl-abyss",i-1,line, {friction=0} )
+            else
+                set_floor("fl-abyss",i-1,line, {friction=0.1} )
+            end
 
-		elseif c=="x" then
-			set_item("it-trigger",i-1,line,{action="open",target="blocker"})
+        elseif c=="x" then
+            set_item("it-trigger",i-1,line,{action="open",target="blocker"})
 
-		elseif c=="-" then
-			if (not Difficult) then
-				set_floor("fl-abyss",i-1,line, {friction=0})
-			else
-				set_floor("fl-abyss",i-1,line, {friction=0.1})
-			end
-		end
-	end
+        elseif c=="-" then
+            if (not difficult) then
+                set_floor("fl-abyss",i-1,line, {friction=0})
+            else
+                set_floor("fl-abyss",i-1,line, {friction=0.1})
+            end
+        end
+    end
 end
 
 renderLine(00,"########X###########")
@@ -130,10 +130,8 @@ set_actor("ac-bug",5,6)
     ]]></el:luamain>
     <el:i18n>
       <el:string el:key="title">
-        <el:english el:translate="false"/>
+        <el:english el:translate="true"/>
       </el:string>
     </el:i18n>
   </el:protected>
 </el:level>
-
-

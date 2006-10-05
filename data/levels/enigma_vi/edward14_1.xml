@@ -13,7 +13,7 @@
       <el:comments>
         <el:code>Lua 5.1 and XML converted by Leveladministrators</el:code>
       </el:comments>
-      <el:score el:easy="-" el:difficult="-"/>
+      <el:score el:easy="-" el:difficult="1:11"/>
     </el:info>
     <el:luamain><![CDATA[
 create_world(20,13)
@@ -21,24 +21,16 @@ create_world(20,13)
 draw_border("st-glass")
 
 function oxydline(line,p)
-	for i=1, strlen(p) do
-		local c=strsub(p,i,i)
-		if c=="#" then
-			if (not Difficult) then
-				set_floor("fl-white",i-1,line)
-			else
-				set_floor("fl-acwhite",i-1,line)
-			end
-		elseif c==" " then
-			if (not Difficult) then
-				set_floor("fl-black",i-1,line)
-			else
-				set_floor("fl-acblack",i-1,line)
-			end
-	    elseif c=="x" then
-	       oxyd(i-1,line)
-		end
-	end
+    for i=1, strlen(p) do
+        local c=strsub(p,i,i)
+        if c=="#" then
+            set_floor("fl-white",i-1,line)
+        elseif c==" " then
+            set_floor("fl-black",i-1,line)
+        elseif c=="x" then
+            oxyd(i-1,line)
+        end
+    end
 end
 
 oxydline(00,"                    ")
@@ -57,9 +49,9 @@ oxydline(12,"                    ")
 
 --Holes with random target:
 for y=1, 11 do
-	for x=1,18 do
-		set_item("it-vortex-open",x,y,{targetx=random(1,18)+.5,targety=random(1,11)+.5})
-	end
+    for x=1,18 do
+        set_item("it-vortex-open",x,y,{targetx=random(1,18)+.5,targety=random(1,11)+.5})
+    end
 end
 
 --ugly: overwriting items!
@@ -80,5 +72,3 @@ set_item("it-yinyang",x,y)
     </el:i18n>
   </el:protected>
 </el:level>
-
-

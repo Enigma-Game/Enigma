@@ -13,7 +13,7 @@
       <el:comments>
         <el:code>Lua 5.1 and XML converted by Leveladministrators</el:code>
       </el:comments>
-      <el:score el:easy="-" el:difficult="-"/>
+      <el:score el:easy="1:27" el:difficult="1:57"/>
     </el:info>
     <el:luamain><![CDATA[
 create_world(21,21)
@@ -23,56 +23,56 @@ fill_floor("fl-abyss",0,0,21,21)
 oxyd_default_flavor = "d"
 
 function renderLine(line,pattern)
-	for i=1, strlen(pattern) do
-		local c=strsub(pattern,i,i)
-		if c=="#" then
-			set_stone("st-metal",i-1,line)
-		elseif c=="=" then
-			set_floor("fl-normal",i-1,line)
-		elseif c=="X" then
-			oxyd(i-1,line)
-		elseif c=="-" then
-			set_floor("fl-gradient",i-1,line,{type=random(21,24)})
-		elseif c==">" then
-			set_floor("fl-gradient",i-1,line,{type=3})
-		elseif c=="<" then
-			set_floor("fl-gradient",i-1,line,{type=4})
-		elseif c=="v" then
-			set_floor("fl-gradient",i-1,line,{type=1})
-		elseif c=="^" then
-			set_floor("fl-gradient",i-1,line,{type=2})
-		elseif c=="W" then
-			set_stone("st-break_acwhite",i-1,line)
-			set_floor("fl-normal",i-1,line)
-		elseif c=="B" then
-			set_stone("st-break_acblack",i-1,line)
-			set_floor("fl-normal",i-1,line)
-		elseif c=="[" then
-			set_floor("fl-gradient",i-1,line,{type=5})
-		elseif c=="]" then
-			set_floor("fl-gradient",i-1,line,{type=6})
-		elseif c=="(" then
-			set_floor("fl-gradient",i-1,line,{type=7})
-		elseif c==")" then
-			set_floor("fl-gradient",i-1,line,{type=8})
-		elseif c=="{" then
-			set_floor("fl-gradient",i-1,line,{type=9})
-		elseif c=="}" then
-			set_floor("fl-gradient",i-1,line,{type=10})
-		elseif c=="W" then
-			set_stone("st-break_acwhite",i-1,line)
-			set_floor("fl-normal",i-1,line)
-		elseif c=="B" then
-			set_stone("st-break_acblack",i-1,line)
-			set_floor("fl-normal",i-1,line)
-		elseif c=="w" then
-			set_stone("st-white1",i-1,line)
-			set_floor("fl-normal",i-1,line)
-		elseif c=="b" then
-			set_stone("st-black1",i-1,line)
-			set_floor("fl-normal",i-1,line)
-		end
-	end
+    for i=1, strlen(pattern) do
+        local c=strsub(pattern,i,i)
+        if c=="#" then
+            set_stone("st-metal",i-1,line)
+        elseif c=="=" then
+            set_floor("fl-normal",i-1,line)
+        elseif c=="X" then
+            oxyd(i-1,line)
+        elseif c=="-" then
+            set_floor("fl-gradient",i-1,line,{type=random(21,24)})
+        elseif c==">" then
+            set_floor("fl-gradient",i-1,line,{type=3})
+        elseif c=="<" then
+            set_floor("fl-gradient",i-1,line,{type=4})
+        elseif c=="v" then
+            set_floor("fl-gradient",i-1,line,{type=1})
+        elseif c=="^" then
+            set_floor("fl-gradient",i-1,line,{type=2})
+        elseif c=="W" then
+            set_stone("st-break_acwhite",i-1,line)
+            set_floor("fl-normal",i-1,line)
+        elseif c=="B" then
+            set_stone("st-break_acblack",i-1,line)
+            set_floor("fl-normal",i-1,line)
+        elseif c=="[" then
+            set_floor("fl-gradient",i-1,line,{type=5})
+        elseif c=="]" then
+            set_floor("fl-gradient",i-1,line,{type=6})
+        elseif c=="(" then
+            set_floor("fl-gradient",i-1,line,{type=7})
+        elseif c==")" then
+            set_floor("fl-gradient",i-1,line,{type=8})
+        elseif c=="{" then
+            set_floor("fl-gradient",i-1,line,{type=9})
+        elseif c=="}" then
+            set_floor("fl-gradient",i-1,line,{type=10})
+        elseif c=="W" then
+            set_stone("st-break_acwhite",i-1,line)
+            set_floor("fl-normal",i-1,line)
+        elseif c=="B" then
+            set_stone("st-break_acblack",i-1,line)
+            set_floor("fl-normal",i-1,line)
+        elseif c=="w" then
+            set_stone("st-white1",i-1,line)
+            set_floor("fl-normal",i-1,line)
+        elseif c=="b" then
+            set_stone("st-black1",i-1,line)
+            set_floor("fl-normal",i-1,line)
+        end
+    end
 end
 
 if not difficult then
@@ -144,5 +144,3 @@ oxyd_shuffle()
     </el:i18n>
   </el:protected>
 </el:level>
-
-

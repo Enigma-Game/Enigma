@@ -13,7 +13,7 @@
       <el:comments>
         <el:code>Lua 5.1 and XML converted by Leveladministrators</el:code>
       </el:comments>
-      <el:score el:easy="-" el:difficult="-"/>
+      <el:score el:easy="0:43" el:difficult="0:23"/>
     </el:info>
     <el:luamain><![CDATA[
 create_world(20,13)
@@ -22,18 +22,18 @@ fill_floor("fl-abyss",0,0,20,13)
 fill_floor("fl-ice",4,3,12,7)
 
 function renderLine(line,pattern)
-	for i=1, strlen(pattern) do
-		local c=strsub(pattern,i,i)
-		if c=="#" then
-			set_stone("st-stoneimpulse",i-1,line)
-		elseif c=="*" then
-			set_stone("st-stoneimpulse-hollow",i-1,line)
-		elseif c=="0" then
-			set_actor("ac-whiteball-small",i-1+0.5,line+0.5,{player=0})
-		elseif c=="O" then
-			set_item("it-hollow",i-1,line)
-		end
-	end
+    for i=1, strlen(pattern) do
+        local c=strsub(pattern,i,i)
+        if c=="#" then
+            set_stone("st-stoneimpulse",i-1,line)
+        elseif c=="*" then
+            set_stone("st-stoneimpulse-hollow",i-1,line)
+        elseif c=="0" then
+            set_actor("ac-whiteball-small",i-1+0.5,line+0.5,{player=0})
+        elseif c=="O" then
+            set_item("it-hollow",i-1,line)
+        end
+    end
 end
 
 if not difficult then
@@ -87,5 +87,3 @@ document(9,6,"text1")
     </el:i18n>
   </el:protected>
 </el:level>
-
-

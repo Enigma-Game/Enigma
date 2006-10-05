@@ -13,7 +13,7 @@
       <el:comments>
         <el:code>Lua 5.1 and XML converted by Leveladministrators</el:code>
       </el:comments>
-      <el:score el:easy="-" el:difficult="-"/>
+      <el:score el:easy="-" el:difficult="2:17"/>
     </el:info>
     <el:luamain><![CDATA[
 create_world(20,13)
@@ -21,18 +21,18 @@ create_world(20,13)
 fill_floor("fl-black",0,0,20,13)
 
 function renderLine(line,pattern)
-	for i=1, strlen(pattern) do
-		local c=strsub(pattern,i,i)
-		if c=="#" then
-			set_stone("st-block",i-1,line)
-		elseif c=="0" then
-			set_actor("ac-blackball",i-1,line+.5,{player=0})
-		elseif c=="X" then
-			oxyd(i-1,line)
-		elseif c=="x" then
-			set_stone("st-fakeoxyd",i-1,line)
-		end
-	end
+    for i=1, strlen(pattern) do
+        local c=strsub(pattern,i,i)
+        if c=="#" then
+            set_stone("st-block",i-1,line)
+        elseif c=="0" then
+            set_actor("ac-blackball",i-1,line+.5,{player=0})
+        elseif c=="X" then
+            oxyd(i-1,line)
+        elseif c=="x" then
+            set_stone("st-fakeoxyd",i-1,line)
+        end
+    end
 end
 
 renderLine(00,"## ######  ###### ##")
@@ -71,10 +71,8 @@ oxyd_shuffle()
     ]]></el:luamain>
     <el:i18n>
       <el:string el:key="title">
-        <el:english el:translate="false"/>
+        <el:english el:translate="true"/>
       </el:string>
     </el:i18n>
   </el:protected>
 </el:level>
-
-

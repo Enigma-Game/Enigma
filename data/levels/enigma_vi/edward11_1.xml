@@ -13,7 +13,7 @@
       <el:comments>
         <el:code>Lua 5.1 and XML converted by Leveladministrators</el:code>
       </el:comments>
-      <el:score el:easy="-" el:difficult="-"/>
+      <el:score el:easy="-" el:difficult="2:43"/>
     </el:info>
     <el:luamain><![CDATA[
 create_world(20,13)
@@ -21,60 +21,60 @@ create_world(20,13)
 fill_floor("fl-brick")
 
 function renderLine(line,pattern)
-	for i=1, strlen(pattern) do
-		local c=strsub(pattern,i,i)
-		if c=="#" then
-			set_stone("st-brick",i-1,line)
-		elseif c=="." then
-			set_floor("fl-abyss",i-1,line)
-		elseif c=="-" then
-			if not Difficult then
-				set_floor("fl-gradient",i-1,line,{type=23})
-			else
-				set_floor("fl-gradient",i-1,line,{type=random(21,22)})
-			end
-		elseif c=="X" then
-			oxyd(i-1,line)
-		elseif c=="<" then
-			oneway(i-1,line,WEST)
-		elseif c==">" then
-			oneway(i-1,line,EAST)
-		elseif c=="^" then
-			oneway(i-1,line,NORTH)
-		elseif c=="O" then
-			oneway(i-1,line,SOUTH)
-		elseif c=="0" then
-			set_actor("ac-blackball",i-1,line)
-		elseif c=="l" then
-			set_stone("st-laser-e",i-1,line,{name="laser"})
-		elseif c=="|" then
-			set_stone("st-door-v",i-1,line)
-		elseif c=="S" then
-			set_stone("st-switch",i-1,line,{action="onoff",target="laser"})
-		elseif c=="x" then
-			set_stone("st-fart",i-1,line)
-		elseif c=="+" then
-			set_stone("st-yinyang1",i-1,line)
-		elseif c=="1" then
-			set_floor("fl-gradient",i-1,line,{type=1})
-		elseif c=="2" then
-			set_floor("fl-gradient",i-1,line,{type=2})
-		elseif c=="3" then
-			set_floor("fl-gradient",i-1,line,{type=3})
-		elseif c=="4" then
-			set_floor("fl-gradient",i-1,line,{type=4})
-		elseif c=="5" then
-			set_floor("fl-gradient",i-1,line,{type=9})
-		elseif c=="6" then
-			set_floor("fl-gradient",i-1,line,{type=10})
-		elseif c=="7" then
-			set_floor("fl-gradient",i-1,line,{type=11})
-		elseif c=="8" then
-			set_floor("fl-gradient",i-1,line,{type=12})
-		elseif c=="o" then
-			set_item("it-vortex-open",i-1,line,{targetx=9.5,targety=10.5})
-		end
-	end
+    for i=1, strlen(pattern) do
+        local c=strsub(pattern,i,i)
+        if c=="#" then
+            set_stone("st-brick",i-1,line)
+        elseif c=="." then
+            set_floor("fl-abyss",i-1,line)
+        elseif c=="-" then
+            if not difficult then
+                set_floor("fl-gradient",i-1,line,{type=23})
+            else
+                set_floor("fl-gradient",i-1,line,{type=random(21,22)})
+            end
+        elseif c=="X" then
+            oxyd(i-1,line)
+        elseif c=="<" then
+            oneway(i-1,line,WEST)
+        elseif c==">" then
+            oneway(i-1,line,EAST)
+        elseif c=="^" then
+            oneway(i-1,line,NORTH)
+        elseif c=="O" then
+            oneway(i-1,line,SOUTH)
+        elseif c=="0" then
+            set_actor("ac-blackball",i-1,line)
+        elseif c=="l" then
+            set_stone("st-laser-e",i-1,line,{name="laser"})
+        elseif c=="|" then
+            set_stone("st-door-v",i-1,line)
+        elseif c=="S" then
+            set_stone("st-switch",i-1,line,{action="onoff",target="laser"})
+        elseif c=="x" then
+            set_stone("st-fart",i-1,line)
+        elseif c=="+" then
+            set_stone("st-yinyang1",i-1,line)
+        elseif c=="1" then
+            set_floor("fl-gradient",i-1,line,{type=1})
+        elseif c=="2" then
+            set_floor("fl-gradient",i-1,line,{type=2})
+        elseif c=="3" then
+            set_floor("fl-gradient",i-1,line,{type=3})
+        elseif c=="4" then
+            set_floor("fl-gradient",i-1,line,{type=4})
+        elseif c=="5" then
+            set_floor("fl-gradient",i-1,line,{type=9})
+        elseif c=="6" then
+            set_floor("fl-gradient",i-1,line,{type=10})
+        elseif c=="7" then
+            set_floor("fl-gradient",i-1,line,{type=11})
+        elseif c=="8" then
+            set_floor("fl-gradient",i-1,line,{type=12})
+        elseif c=="o" then
+            set_item("it-vortex-open",i-1,line,{targetx=9.5,targety=10.5})
+        end
+    end
 end
 
 renderLine(00,"####################")
@@ -100,14 +100,11 @@ set_stone("st-switch",18,1,{action="openclose",target="door2"})
 set_stone("st-fourswitch",17,1,{action="openclose",target="door3"})
 
 oxyd_shuffle()
-
     ]]></el:luamain>
     <el:i18n>
       <el:string el:key="title">
-        <el:english el:translate="false"/>
+        <el:english el:translate="true"/>
       </el:string>
     </el:i18n>
   </el:protected>
 </el:level>
-
-
