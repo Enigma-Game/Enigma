@@ -41,7 +41,6 @@ namespace enigma { namespace gui {
         // Private methods.
         void show_credits();
         void show_paths();
-        void show_help();
         void show_text( const char *text[]);
         void build_menu();
 

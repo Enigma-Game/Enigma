@@ -240,28 +240,24 @@ namespace enigma { namespace gui {
     void MainMenu::show_credits () 
     {
         static const char *credit_text[] = {
-            N_("Project maintainer:"),
-            "  DANIEL HECK",
-            " ",
             N_("Main developers:"),
-            "  SIEGFRIED FENNIG, MARTIN HAWLISCH, PETR MACHATA,",
-            "  JACOB SCOTT, SVEN SIGGELKOW, RALF WESTRAM",
+            N_("  RONALD LAMPRECHT (maintainer)"),
+            N_("  RAOUL BOURQUIN"),
+            N_("  ANDREAS LOCHMANN"),
             " ",
             N_("Special Thanks To:"),
-            N_("  JOHANNES FORTMANN (graphics), JEREMY SAWICKI (oxydlib),"),
-            N_("  MEINOLF SCHNEIDER (game idea, level design), ANDREW \"NECROS\" SEGA (menu music)"),
-            N_("  NAT PRYCE & JOHN 'WB' SNEYERS (levels)"),
+            N_("  DANIEL HECK (project founder)"),
+            N_("  MEINOLF SCHNEIDER (game idea, level design)"),
             " ",
-            N_("Please see the manual for more detailed credits."),
+            N_("Please refer to the manual for full credits."),
             " ",
             N_("Home Page: http://www.nongnu.org/enigma"),
             N_("Contact: enigma-devel@nongnu.org"),
             " ",
             N_("Enigma is free software and may be distributed under the"),
-            N_("terms of the GNU General Public License, version 2.  See"),
-            N_("the accompanying COPYING.GPL for details."),
+            N_("terms of the GNU General Public License, version 2."),
             " ",
-            N_("Copyright (C) 2002-2005 Daniel Heck and contributors."),
+            N_("Copyright (C) 2002-2006 Daniel Heck and contributors."),
             0
         };
     
@@ -338,73 +334,6 @@ namespace enigma { namespace gui {
         } while(!work.empty() );
         pathtext[i++] = 0;
         show_text(pathtext);
-    }
-    
-    void MainMenu::show_help () 
-    {
-        static const char *screen1[] = {
-            "Introduction:",
-            "",
-            "The idea behind Enigma is simple: In most levels your job is to find",
-            "pairs of \"Oxyd\" stones (you will recognize them when you see them)",
-            "with matching colors. You have to open all oxyd stones but they only",
-            "stay open when opening two stones of the same color one after",
-            "another. Just play the first levels in the \"Oxyd & Co\" group and you",
-            "will get the idea.",
-            "In some other levels, called \"meditation landscapes\" you have a",
-            "different job: You control a couple of small white marbles",
-            "simultaneously and have to put each of them into a pit on the floor.",
-            "",
-            "Moving around:",
-            "",
-            "You control the marble by moving around the mouse into the desired",
-            "direction. But be careful, because the marble has some mass and",
-            "the floor some friction, the marble needs some time to accelerate or",
-            "stop.",
-            "Larger levels scroll when you reach the outermost part of the visible",
-            "part on the screen.",
-            "",
-            0
-        };
-        static const char *screen2[] = {
-            "The Floor:",
-            "",
-            "On most types of floor you can move around riskless but the speed",
-            "of your marble may vary.",
-            "When moving into abyss or water you will die.",
-            "Ice is very slippery.",
-            "You cannot control your marble in space.",
-            "",
-            "Items and Inventory:",
-            "",
-            "In many levels you can see different items. You can pick them up",
-            "by simply rolling over them. The items are then stored in your",
-            "inventory, which you control using the left and right mouse button.",
-            "The leftmost item will be activated when pressing the left mouse",
-            "button and you can rotate the items using the right mouse button.",
-            "Some items can mutate when hit by a laser or crushed by a stone.",
-            "",
-            0
-        };
-        static const char *screen3[] = {
-            "Stones:",
-            "",
-            "Most stones  are nothing more than walls.",
-            "Many stones are movable when hit strong enough.",
-            "The wooden stone will build new floor if moved into water, space or",
-            "abyss.",
-            "Others can be destroyed using a hammer, dynamite or a laser.",
-            "Doors can be opened using a switch or trigger hidden somewhere",
-            "around in the level.",
-            "Some magic stones can be changed when hit using a magic wand.",
-            "And some depend on the color of your marble.",
-            "",
-            0
-        };
-    
-        show_text (screen1);
-        show_text (screen2);
-        show_text (screen3);
     }
     
 /* -------------------- Functions -------------------- */
