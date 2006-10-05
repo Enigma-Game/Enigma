@@ -100,7 +100,7 @@ function renderLine(line,pattern)
             set_item("it-trigger",i-1,line,{action="open",target="blocker"})
 
         elseif c=="-" then
-            if (not difficult) then
+            if not difficult then
                 set_floor("fl-abyss",i-1,line, {friction=0})
             else
                 set_floor("fl-abyss",i-1,line, {friction=0.1})

@@ -20,7 +20,7 @@
 
 #if defined(PLAIN_SPEC_ONLY)
 // This is used from lib-src/oxydlib/EnigmaNames.cpp.
-// 
+//
 // defining PLAIN_SPEC_ONLY only shows xxx_floor_map, xxx_stone_map and xxx_item_map
 // Note:  the xxx_item_map changes it's type (ItemID -> const char *)
 
@@ -220,7 +220,7 @@ const char *oxyd::oxydmag_stone_map[256] = {
     "st-puzzle2-w",             // Oxyd1 stone 0x5f
     "st-puzzle2-e",             // Oxyd1 stone 0x60
     "st-puzzle2-nesw",          // Oxyd1 stone 0x61
-    "st-metal_hole",            // OxydMagnum stone 0x62
+    "st-metal_hole",            // OxydMagnum stone 0x62  (st-explosive: like st-metal, but explodes when touched ...)
     "st-plain_break",           // OxydMagnum stone 0x63
     "st-fakeoxyda",             // OxydMagnum stone 0x64
     UNUSED,                     // OxydMagnum stone 0x65
@@ -239,7 +239,7 @@ const char *oxyd::oxydmag_stone_map[256] = {
     "st-mail-s",                // OxydMagnum stone 0x72
     "st-door-h",                // OxydMagnum stone 0x73
     "st-door-v",                // OxydMagnum stone 0x74
-    "st-metal",                 // OxydMagnum stone 0x75 (common was 'st-metal')
+    "st-metal",                 // OxydMagnum stone 0x75
     "st-invisible",             // OxydMagnum stone 0x76
     UNUSED,                     // OxydMagnum stone 0x77
     "st-door-v-open",           // OxydMagnum stone 0x78 (st-door-h-open was wrong, look at level #32)

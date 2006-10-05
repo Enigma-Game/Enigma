@@ -20,7 +20,7 @@
 
 #if defined(PLAIN_SPEC_ONLY)
 // This is used from lib-src/oxydlib/EnigmaNames.cpp.
-// 
+//
 // defining PLAIN_SPEC_ONLY only shows xxx_floor_map, xxx_stone_map and xxx_item_map
 // Note:  the xxx_item_map changes it's type (ItemID -> const char *)
 
@@ -251,7 +251,7 @@ const char *oxyd::oxyd1_stone_map[256] = {
     "st-puzzle2-w",             // Oxyd1 stone 0x5f
     "st-puzzle2-e",             // Oxyd1 stone 0x60
     "st-puzzle2-nesw",          // Oxyd1 stone 0x61
-    "st-metal_hole",            // Oxyd1 stone 0x62 ???
+    "st-metal_hole",            // Oxyd1 stone 0x62
     "st-laserbreak",            // Oxyd1 stone 0x63
     "st-fakeoxyda",             // Oxyd1 stone 0x64
     UNUSED,                     // Oxyd1 stone 0x65

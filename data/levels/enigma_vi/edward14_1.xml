@@ -67,7 +67,7 @@ set_item("it-yinyang",x,y)
     ]]></el:luamain>
     <el:i18n>
       <el:string el:key="title">
-        <el:english el:translate="false"/>
+        <el:english el:translate="true"/>
       </el:string>
     </el:i18n>
   </el:protected>

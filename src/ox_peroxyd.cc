@@ -20,7 +20,7 @@
 
 #if defined(PLAIN_SPEC_ONLY)
 // This is used from lib-src/oxydlib/EnigmaNames.cpp.
-// 
+//
 // defining PLAIN_SPEC_ONLY only shows xxx_floor_map, xxx_stone_map and xxx_item_map
 // Note:  the xxx_item_map changes it's type (ItemID -> const char *)
 
@@ -57,7 +57,7 @@ Stone *PerOxydLoader::make_stone (int type, int x, int y)
 }
 
 
-
+
 /* -------------------- Per.Oxyd level pack -------------------- */
 
 LP_PerOxyd::LP_PerOxyd (DatFile *dat, bool twoplayers)
@@ -70,9 +70,9 @@ LP_PerOxyd::LP_PerOxyd (DatFile *dat, bool twoplayers)
 
 void LP_PerOxyd::load (const OxydLib::Level &level)
 {
-    LoaderConfig c (needs_twoplayers(), 
-                    get_gamemode(), 
-                    peroxyd_floor_map, 
+    LoaderConfig c (needs_twoplayers(),
+                    get_gamemode(),
+                    peroxyd_floor_map,
                     peroxyd_item_map,
                     peroxyd_stone_map);
     c.id_timer  = 0x2e;
@@ -166,7 +166,7 @@ const char *oxyd::peroxyd_floor_map[256] = {
     "fl-gradient13",            // PerOxyd floor 0x4f (flat force up, beige)        (maybe gradient22?)
     "fl-black",                 // PerOxyd floor 0x50 (flat force down, dark olive) (maybe gradient21?)
     "fl-white",                 // PerOxyd floor 0x51 (flat force left, beige)      (maybe gradient24?)
-    "fl-black",                 // PerOxyd floor 0x52 (flat force right, dark olive)(maybe gradient23?)   
+    "fl-black",                 // PerOxyd floor 0x52 (flat force right, dark olive)(maybe gradient23?)
     "fl-floor_001",             // PerOxyd floor 0x53
     UNUSED,                     // PerOxyd floor 0x54
     "fl-plank",                 // PerOxyd floor 0x55
@@ -264,7 +264,7 @@ const char *oxyd::peroxyd_stone_map[256] = {
     "st-puzzle-hollow",         // PerOxyd stone 0x5c
     "st-laserbreak",            // PerOxyd stone 0x5d
     "st-coffee",                // PerOxyd stone 0x5e
-    "st-shogun",                // PerOxyd stone 0x5f (oxyd with a hole, movable...strange stone!)(st-shogun as workaround)(only link level 74)
+    "st-shogun",                // PerOxyd stone 0x5f (oxyd with a hole, movable ... strange stone! st-shogun as workaround, only link level 74)
     "st-disco-dark",            // PerOxyd stone 0x60
     "st-disco-medium",          // PerOxyd stone 0x61
     "st-bombs",                 // PerOxyd stone 0x62
@@ -286,13 +286,13 @@ const char *oxyd::peroxyd_stone_map[256] = {
     "st-mail-s",                // PerOxyd stone 0x72
     "st-door-h",                // PerOxyd stone 0x73
     "st-door-v",                // PerOxyd stone 0x74
-    "st-metal",                 // PerOxyd stone 0x75 looks like a white version of st-rock2 (common was 'st-rock2')
+    "st-metal",                 // PerOxyd stone 0x75
     "st-stonebrush",            // PerOxyd stone 0x76
     "st-door-h-open",           // PerOxyd stone 0x77
     "st-door-v-open",           // PerOxyd stone 0x78
     "st-white1",                // PerOxyd stone 0x79 (Can be either st-white1 or st-white4)
     "st-black1",                // PerOxyd stone 0x7a (Can be either st-black1 or st-black4)
-    "st-metal_hole",            // PerOxyd stone 0x7b (because it looks similar...)(only link level 79)
+    "st-metal_hole",            // PerOxyd stone 0x7b (because it looks similar ...; only link level 79)
     0,                          // PerOxyd stone 0x7c (probably complex stone, behavior unknown)(only levels: 23 142, these levels are identical!)
     "st-yinyang3",              // PerOxyd stone 0x7d
     "st-break_acwhite",         // PerOxyd stone 0x7e
@@ -310,7 +310,7 @@ const char *oxyd::peroxyd_stone_map[256] = {
     "st-rock6",                 // PerOxyd stone 0x8a
     "st-blue-sand",             // PerOxyd stone 0x8b
     "st-rock1",                 // PerOxyd stone 0x8c
-    "st-rock2",                 // PerOxyd stone 0x8d (simple border stone, not exactly st-rock2 ...)(only link level 92)
+    "st-rock2",                 // PerOxyd stone 0x8d (simple border stone, not exactly st-rock2 ...; only link level 92)
     "st-rock2",                 // PerOxyd stone 0x8e
     UNUSED,                     // PerOxyd stone 0x8f
     "st-rock8",                 // PerOxyd stone 0x90
@@ -324,7 +324,7 @@ const char *oxyd::peroxyd_stone_map[256] = {
     "st-grate3",                // PerOxyd stone 0x98
     "st-blocker",               // PerOxyd stone 0x99
     "st-grate1",                // PerOxyd stone 0x9a
-    "st-rock2_hole",            // PerOxyd stone 0x9b
+    "st-metal_hole",            // PerOxyd stone 0x9b
     "st-stone1",                // PerOxyd stone 0x9c
     "st-fart",                  // PerOxyd stone 0x9d
     "st-turnstile",             // PerOxyd stone 0x9e
@@ -369,7 +369,7 @@ ITEMMAPTYPE oxyd::peroxyd_item_map[256] = {
     ITEMSPEC(it_cherry),                  // 0x06
     ITEMSPEC(it_umbrella),                // 0x07
     ITEMSPEC(it_glasses),                 // 0x08
-    ITEMSPEC(it_glasses_broken),          // 0x09 
+    ITEMSPEC(it_glasses_broken),          // 0x09
     ITEMSPEC(it_dynamite),                // 0x0a
     ITEMSPEC(it_blackbomb),               // 0x0b
     ITEMSPEC(it_whitebomb),               // 0x0c
@@ -426,7 +426,7 @@ ITEMMAPTYPE oxyd::peroxyd_item_map[256] = {
     ITEMSPEC(it_changefloor),             // 0x3f
     ITEMSPEC(it_trigger),                 // 0x40
     ITEMSPEC(it_brush),                   // 0x41
-    ITEMSPEC(it_banana),                  // 0x42 
+    ITEMSPEC(it_banana),                  // 0x42
     ITEMSPEC(it_pencil),                  // 0x43
     ITEMSPEC(it_brake),                   // 0x44
     ITEMSPEC(it_squashed),                // 0x45
@@ -480,7 +480,7 @@ ITEMMAPTYPE oxyd::peroxyd_item_map[256] = {
     ITEMSPEC(it_UNUSED),                  // 0x75
     ITEMSPEC(it_easykillstone),           // 0x76
     ITEMSPEC(it_easykeepstone),           // 0x77
-    ITEMSPEC(it_2pkillstone),             // 0x78 
+    ITEMSPEC(it_2pkillstone),             // 0x78
     ITEMSPEC(it_1pkillstone),             // 0x79
     // codes >= 0x7a are unused
 };
