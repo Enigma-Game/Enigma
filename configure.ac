@@ -79,16 +79,7 @@ AC_CHECK_HEADERS([dirent.h])
 dnl ======================================================================
 dnl Check for libraries
 dnl ======================================================================
-AM_PATH_SDL(1.2.0)
-AC_SUBST(SDL_LIBS)
-AC_SUBST(SDL_CFLAGS)
-
-dnl The flags are now substituted inside the Makefile, but not used for the
-dnl rest of the script. So we manually put them in. This is necessary if
-dnl SDL has not been installed in the canonical locations.
-CFLAGS="$CFLAGS $SDL_CFLAGS"
-CXXFLAGS="$CXXFLAGS $SDL_CFLAGS"
-LIBS="$LIBS $SDL_LIBS"
+AC_SEARCH_LIBS([dlopen], [dl])
 
 dnl When using the included gettext package from the /intl subdir
 dnl /intl needs to be added to the list of include folders
@@ -96,12 +87,27 @@ if test "$BUILD_INCLUDED_LIBINTL" = yes; then
    CXXFLAGS="$CXXFLAGS -I\$(top_srcdir)/intl"
 fi
 
-
 dnl This is to check for winmm which must be included to satisfy enet
 dnl when compiling under mingw32
 if test "$MINGW32" = yes; then
    AC_CHECK_LIB(winmm,main)
 fi
+
+dnl Save a _NOSDL state set of flags for compilation of tools
+CFLAGS_NOSDL="$CFLAGS"
+CXXFLAGS_NOSDL="$CXXFLAGS"
+LIBS_NOSDL="$LIBS"
+
+AM_PATH_SDL(1.2.0)
+AC_SUBST(SDL_LIBS)
+AC_SUBST(SDL_CFLAGS)
+dnl The flags are now substituted inside the Makefile, but not used for the
+dnl rest of the script. So we manually put them in. This is necessary if
+dnl SDL has not been installed in the canonical locations.
+
+CFLAGS="$CFLAGS $SDL_CFLAGS"
+CXXFLAGS="$CXXFLAGS $SDL_CFLAGS"
+LIBS="$LIBS $SDL_LIBS"
 
 dnl ----------------------------------------
 dnl Check for SDL image library
@@ -140,6 +146,15 @@ else
   AC_DEFINE(HAVE_SDLTTF, , [Whether SDL_ttf library was found during configure])
 fi
 
+SDL_LIBS="$SDL_LIBS -lSDL_ttf"
+
+dnl ---------------------------------------
+dnl Restoring variables to _NOSDL State
+dnl ---------------------------------------
+
+CFLAGS="$CFLAGS_NOSDL"
+CXXFLAGS="$CXXFLAGS_NOSDL"
+LIBS="$LIBS_NOSDL"
 
 dnl ----------------------------------------
 dnl Check for libpng
