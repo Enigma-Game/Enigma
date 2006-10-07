@@ -49,22 +49,11 @@ cells["D"]=cell{stone={face="st-door", attr={name="doorB", type="v"}}}
 cells["d"]=cell{item= {face="it-trigger", attr={action="openclose", target="doorB"}}}
 cells["C"]=cell{stone={face="st-door", attr={name="doorC", type="h"}}}
 cells["c"]=cell{item= {face="it-trigger", attr={action="openclose", target="doorC"}}}
-cells["O"]=cell{actor={face="ac-blackball", attr={player=0}}}
-cells["o"]=cell{actor={face="ac-whiteball", attr={player=1}}}
+cells["O"]=cell{actor={face="ac-blackball", attr={player=0, essential=1}}}
+cells["o"]=cell{actor={face="ac-whiteball", attr={player=1, essential=1}}}
 cells["0"]=oxyd
 cells["y"]=cell{item= {face="it-yinyang"}}
 cells["+"]=cell{{{document, "text1"}}}
-
--- Diffyculty settings had no effect ('1' and '2' are unused)
--- commented out --ralf
---
---if difficult == false then
-    --cells["1"]=cells[";"]
-    --cells["2"]=cells["#"]
---else
-    --cells["1"]=oxyd
-    --cells["2"]=oxyd
---end
 
 level = {
 --  012345678901234567890123456789012345678

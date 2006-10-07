@@ -64,6 +64,8 @@ x=random(1,18)
 y=random(3,9)
 set_actor("ac-whiteball",x+0.5,y+0.5,{player=1})
 set_item("it-yinyang",x,y)
+
+oxyd_shuffle()
     ]]></el:luamain>
     <el:i18n>
       <el:string el:key="title">

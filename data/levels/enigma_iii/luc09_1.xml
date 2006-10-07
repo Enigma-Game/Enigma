@@ -140,6 +140,7 @@ create_world_by_map(level)
 oxyd_shuffle()
 SendMessage(enigma.GetNamedObject("doorz"), "open");
 display.SetFollowMode(display.FOLLOW_SCROLLING)
+enigma.ConserveLevel=FALSE
     ]]></el:luamain>
     <el:i18n>
       <el:string el:key="title">

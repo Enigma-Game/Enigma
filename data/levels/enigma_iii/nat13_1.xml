@@ -109,8 +109,8 @@ oxyd_shuffle()
 -- Actors
 -----------------------------------------------------------------------------
 
-set_actor( "ac-blackball", 3.5, 5.5 )
-set_actor( "ac-whiteball", 3.5, 7.5, {player=0,controllers=0} )
+set_actor( "ac-blackball", 3.5, 5.5, {player=1, essential=1})
+set_actor( "ac-whiteball", 3.5, 7.5, {player=0,controllers=0, essential=1} )
     ]]></el:luamain>
     <el:i18n>
       <el:string el:key="title">

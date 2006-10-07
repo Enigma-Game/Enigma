@@ -56,14 +56,12 @@ set_stone( WALL, level_width-3, 1 )
 set_stone( "st-scissors", level_width-1, level_height-5 )
 set_stone( "st-oneway_white", level_width-3, level_height-5,
            {orientation=EAST} )
-draw_floor( "fl-gradient", {level_width-2,3}, {0,1}, level_height-5,
-            {type=FLAT_FORCE_N} )
+draw_floor( "fl-gradient", {level_width-2,3}, {0,1}, level_height-5, {type=FLAT_FORCE_N} )
 
 
 bolder1 = set_stone( "st-bolder-e", 3, 3)
-ball1 = set_actor( "ac-whiteball", 3.5, 5.5, 
-                   {player=1,controllers=0} )
-if options.Difficulty == 1 then -- easy
+ball1 = set_actor( "ac-whiteball", 3.5, 5.5, {player=1,controllers=0, essential=1} )
+if not difficult then
     AddRubberBand( ball1, bolder1, 10, 1 )
 else
     killer1 = set_actor( "ac-killerball", 3.5, 5, {controllers=0} )
@@ -72,9 +70,8 @@ else
 end
 
 bolder2 = set_stone( "st-bolder-s", level_width-4, 3)
-ball2 = set_actor( "ac-whiteball", level_width-5.5, 3.5, 
-                   {player=1,controllers=0} )
-if options.Difficulty == 1 then -- easy
+ball2 = set_actor( "ac-whiteball", level_width-5.5, 3.5, {player=1,controllers=0, essential=1} )
+if not difficult then
     AddRubberBand( ball2, bolder2, 10, 1 )
 else
     killer2 = set_actor( "ac-killerball", level_width-5, 3.5, {controllers=0} )
@@ -83,9 +80,8 @@ else
 end
 
 bolder3 = set_stone( "st-bolder-w", level_width-4, level_height-4)
-ball3 = set_actor( "ac-whiteball", level_width-3.5, level_height-5.5, 
-                   {player=1,controllers=0} )
-if options.Difficulty == 1 then -- easy
+ball3 = set_actor( "ac-whiteball", level_width-3.5, level_height-5.5, {player=1,controllers=0, essential=1} )
+if not difficult then
     AddRubberBand( ball3, bolder3, 10, 1 )
 else
     killer3 = set_actor( "ac-killerball", level_width-3.5, level_height-5, {controllers=0} )
@@ -94,9 +90,8 @@ else
 end
 
 bolder4 = set_stone( "st-bolder-n", 3, level_height-4)
-ball4 = set_actor( "ac-whiteball", 5.5, level_height-3.5, 
-                   {player=1,controllers=0} )
-if options.Difficulty == 1 then -- easy
+ball4 = set_actor( "ac-whiteball", 5.5, level_height-3.5, {player=1,controllers=0, essential=1} )
+if not difficult then
     AddRubberBand( ball4, bolder4, 10, 1 )
 else
     killer4 = set_actor( "ac-killerball", 5, level_height-3.5, {controllers=0} )
@@ -104,8 +99,7 @@ else
     AddRubberBand( ball4, killer4, 10, 0.5 )
 end
 
-set_actor( "ac-blackball", level_width/2, 8, 
-           {player=0,controllers=1} )
+set_actor( "ac-blackball", level_width/2, 8, {player=0,controllers=1, essential=1} )
     ]]></el:luamain>
     <el:i18n>
       <el:string el:key="title">

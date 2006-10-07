@@ -48,8 +48,8 @@ oxyd(11,7)
 
 oxyd_shuffle()
 
-local ac1 = set_actor("ac-blackball", 10, 4.5)
-local ac2 = set_actor("ac-whiteball", 10, 9.5, {player=0, mouseforce=0})
+local ac1 = set_actor("ac-blackball", 10, 4.5, {essential=1})
+local ac2 = set_actor("ac-whiteball", 10, 9.5, {player=0, mouseforce=0, essential=1})
 
 AddRubberBand( ac1, ac2, 6, 5)
     ]]></el:luamain>

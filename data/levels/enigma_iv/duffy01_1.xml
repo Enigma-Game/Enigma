@@ -105,8 +105,8 @@ shogundot3(8,2, {target="door2", action="openclose"})
 hollow(1,1)
 hollow(18,2)
 
-set_actor("ac-whiteball-small", 8,2, {player=0})
-set_actor("ac-whiteball-small", 2,9, {player=0})
+set_actor("ac-whiteball-small", 8,2, {player=0, essential=1})
+set_actor("ac-whiteball-small", 2,9, {player=0, essential=1})
     ]]></el:luamain>
     <el:i18n>
       <el:string el:key="title">

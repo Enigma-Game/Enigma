@@ -119,8 +119,8 @@ else
   writeLine(12,"ED#BD########BID#BIH")
 end
 
-set_actor("ac-blackball",18.5,11.5,{player="0"})
-set_actor("ac-whiteball",14.5,7.5)
+set_actor("ac-blackball",18.5,11.5,{player=0})
+set_actor("ac-whiteball",14.5,7.5,{essential=1})
 
 oxyd_shuffle()
     ]]></el:luamain>

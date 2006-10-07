@@ -38,7 +38,7 @@ function renderLine(line,pattern)
             set_item("it-hollow",i-1,line)
         elseif c=="o" then
             set_floor("fl-wood",i-1,line)
-            set_actor("ac-whiteball-small",(i-1)+.5,line+.5,{player=0})
+            set_actor("ac-whiteball-small",(i-1)+.5,line+.5,{player=0, essential=1})
         elseif c=="-" then
             set_floor("fl-wood",i-1,line)
         end
