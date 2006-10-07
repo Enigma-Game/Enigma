@@ -248,10 +248,17 @@ namespace enigma { namespace lev {
                 app.domParserSchemaResolver->resetResolver();
                 app.domParserSchemaResolver->addSchemaId("index.xsd","index.xsd");
                 // preloaded  xml or zipped xml
+#if _XERCES_VERSION >= 30000
+                std::auto_ptr<DOMLSInput> domInputIndexSource ( new Wrapper4InputSource(
+                        new MemBufInputSource(reinterpret_cast<const XMLByte *>(&(indexCode[0])),
+                        indexCode.size(), absIndexPath.c_str(), false)));
+                doc = app.domParser->parse(domInputIndexSource.get());
+#else    
                 std::auto_ptr<Wrapper4InputSource> domInputIndexSource ( new Wrapper4InputSource(
                         new MemBufInputSource(reinterpret_cast<const XMLByte *>(&(indexCode[0])),
                         indexCode.size(), absIndexPath.c_str(), false)));
                 doc = app.domParser->parse(*domInputIndexSource);
+#endif
 
                 if (doc != NULL && !app.domParserErrorHandler->getSawErrors()) {
                     infoElem = dynamic_cast<DOMElement *>(doc->getElementsByTagName(

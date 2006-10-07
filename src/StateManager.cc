@@ -141,7 +141,7 @@ namespace enigma {
         }
 
         if (!result) {
-            cerr << errMessage;
+            cerr << XMLtoLocal(Utf8ToXML(errMessage.c_str()).x_str()).c_str();
             gui::ErrorMenu m(errMessage, N_("Continue"));
             m.manage();          
         } else

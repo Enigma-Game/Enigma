@@ -64,7 +64,7 @@ namespace enigma { namespace lev {
 
         // reset positions that are out of range - this may happen due to
         // modified levelpacks (updates, deleted levels in auto, new commandline)
-        if (anIndex->currentPosition < 0 || anIndex->currentPosition > anIndex->size())
+        if (anIndex->currentPosition < 0 || anIndex->currentPosition >= anIndex->size())
             anIndex->currentPosition = 0;
 
         // check user preferences for assigned group
