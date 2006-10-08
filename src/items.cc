@@ -1225,13 +1225,6 @@ namespace
             SendExplosionEffect(p, EXPLOSION_BLACKBOMB);
             replace (it_explosion3);
         }
-        virtual Value message(const string &msg, const Value &val) {
-            if (msg == "bombstone")
-                kill();
-            else
-                BombBase::message(msg, val);
-            return Value();
-        }
     };
     DEF_TRAITSF(BlackBomb, "it-blackbomb", it_blackbomb, 
                 itf_static | itf_indestructible | itf_fireproof);
@@ -1267,7 +1260,6 @@ namespace
             SendExplosionEffect(p, EXPLOSION_WHITEBOMB);
         }
 
-        // WhiteBomb does not react on message "bombstone" in Oxyd1
     public:
         WhiteBomb() 
         {}

@@ -1716,10 +1716,12 @@ namespace
         CLONEOBJ(BombStone);
         const char *collision_sound() {return "stone";}
     public:
-        BombStone() : Stone("st-bombs"),state(IDLE) {}
+        BombStone(const char* kind_, const char* itemkind_) :
+            Stone(kind_), state(IDLE), itemkind(itemkind_) {}
     private:
         enum State { IDLE, BREAK };
         State state;
+        const char* itemkind;
         void actor_hit (const StoneContact &sc);
         void change_state (State newstate);
         void animcb();
@@ -1730,9 +1732,10 @@ namespace
 void BombStone::change_state (State newstate) 
 {
     if (state == IDLE && newstate==BREAK) {
+        string model = get_kind();
         state = newstate;
         sound_event ("stonedestroy");
-        set_anim("st-bombs-anim");
+        set_anim(model + "-anim");
     }
 }
 
@@ -1742,7 +1745,10 @@ void BombStone::animcb()
     GridPos p = get_pos();
     SendExplosionEffect(p, EXPLOSION_BOMBSTONE);
     KillStone(p);
-    SetItem(p, it_explosion1);
+    if(Item *it = GetItem(get_pos())) {
+        SendMessage(it, "ignite");
+    } else
+        SetItem(p, it_explosion1);
 }
 
 Value BombStone::message(const string &msg, const Value &) 
@@ -1756,7 +1762,7 @@ void BombStone::actor_hit(const StoneContact &sc)
 {
     if (enigma::Inventory *inv = player::GetInventory(sc.actor)) {
         if (!inv->is_full()) {
-            Item *it = MakeItem("it-blackbomb");
+            Item *it = MakeItem(itemkind);
             inv->add_item(it);
             player::RedrawInventory (inv);
         }
@@ -2110,7 +2116,9 @@ void stones::Init_simple()
     BlackWhiteStone::setup();
 
     Register(new BlockStone);
-    Register(new BombStone);
+    Register(new BombStone("st-bombs", "it-blackbomb"));
+    Register(new BombStone("st-dynamite", "it-dynamite"));
+    Register(new BombStone("st-whitebombs", "it-whitebomb"));
     Register(new BrakeStone);
 
     Register(new Break_acblack);

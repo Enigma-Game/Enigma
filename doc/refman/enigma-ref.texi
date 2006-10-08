@@ -3512,17 +3512,15 @@ beam, and into @ref{it-squashed} when a stone is pushed over it.
 
 This item can't be picked up, but received from @ref{st-bombs}.  It
 can be ignited by lasers, fire and other explosions (other
-@code{it-blackbomb}, @ref{it-whitebomb}, @ref{it-dynamite}), messages
-``ignite'', ``expl'' and ``explosion'' and by pushing stones over them
-(except for @ref{st-shogun-<sml>} and, in Oxyd compatibility mode,
+@code{it-blackbomb}, @ref{it-whitebomb}, @ref{it-dynamite}, exploding
+@code{st-bombs} above them), messages ``ignite'', ``expl'' and
+``explosion'' and by pushing stones over them (except for
+@ref{st-shogun-<sml>} and, in Oxyd compatibility mode,
 @ref{st-wood}).
 
-When exploding, @code{it-blackbomb} ignites or destroys neighbouring
+When exploding, @code{it-blackbomb} ignites or destroys neighboring
 items and destroys its own floor tile by replacing it against
 @code{fl-abyss}. See also @ref{it-whitebomb} for a stronger version.
-
-Black bombs are removed by bombstone-explosions (see @ref{st-bombs})
-without exploding.
 
 @strong{Messages}
 
@@ -3531,8 +3529,6 @@ without exploding.
 ignite, then explode
 @item explode
 explode instantly
-@item bombstone
-remove it without explosion
 @end table
 
 @strong{Variants}
@@ -4608,6 +4604,7 @@ st-door-h-open( type )
 st-door-v( type )
 st-door-v-open( type )
 st-door_[abc]
+st-dynamite
 st-easymode
 st-explosion
 st-fakeoxyda
@@ -4721,6 +4718,7 @@ st-volcano_active
 st-volcano_inactive
 st-white@{1..4@}
 st-whiteballs
+st-whitebombs
 st-window
 st-wood
 st-wood-growing
@@ -4762,7 +4760,7 @@ pyro; this stone is movable; falls into @ref{fl-abyss},
 breaks instantly, looks like @code{st-rock3}
 @item st-fart
 hammer, laser; see also @ref{st-fart}
-@item st-bombstone
+@item st-bombs, st-dynamite, st-whitebombs
 bombs, bombstones, ``expl'', ``bombstone''; see also @ref{st-bombs}
 @item st-brake
 laser, bombs, ``expl''; see @ref{st-brake}
@@ -4972,19 +4970,32 @@ default direction is @code{NORTH}
 
 
 @node st-bombs, st-brake, st-bolder, Stones
-@subsection st-bombs: Bombstone
+@subsection st-bombs: Bombstones
 
-When hit, these @code{st-bombs} adds an @ref{it-blackbomb} to the
+When hit, @code{st-bombs} adds an @ref{it-blackbomb} to the
 inventory.  It can be destroyed with explosions from
 @ref{it-blackbomb}, @ref{it-whitebomb} and other bombstones (see
-@ref{Breakable Stones}.  When exploding, it destroys items beneath
-it.
+@ref{Breakable Stones}).  When exploding, it ignites items below it. It
+also ignites @ref{it-dynamite} beneath it, but not @code{it-blackbomb}
+or @code{it-whitebomb}.
+
+There are two more variants of @code{st-bombs}, that differ in that
+they dispense @code{it-dynamite} and @code{it-whitebomb}:
+@code{st-dynamite} and @code{st-whitebomb}
 
 @strong{Messages}
 
 @table @code
 @item expl, bombstone
 destroy stone
+@end table
+
+@strong{Variants}
+
+@table @code
+@item st-bombs
+@item st-dynamite
+@item st-whitebombs
 @end table
 
 

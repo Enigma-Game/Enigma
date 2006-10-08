@@ -1217,15 +1217,19 @@ do
     def_roundstone("st-timeroff", "st-timer1")
 end
 
------------
--- Bombs --
------------
+-----------------
+-- Bomb Stones --
+-----------------
 
-do
-    local n=def_subimages("st-bombs", {h=7})
-    def_roundstone("st-bombs", "st-bombs1")
-    def_anim("st-bombs-anim", buildframes(n,50))
+function make_bombstone(name)
+    local n=def_subimages(name, {h=7})
+    def_roundstone(name, name.."1")
+    def_anim(name.."-anim", buildframes(n,50))
 end
+
+make_bombstone("st-bombs")
+make_bombstone("st-dynamite")
+make_bombstone("st-whitebombs")
 
 ----------------
 -- Mail stone --

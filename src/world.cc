@@ -1468,8 +1468,8 @@ void world::SendExplosionEffect(GridPos center, ExplosionType type)
         case EXPLOSION_BLACKBOMB:
             if (direct_neighbor) {
                 explosion (dest, it_explosion1);
-            } 
-            else {
+            } else {
+                // Note: should not ignite in non-enigma-mode!
                 if (stone) SendMessage(stone, "ignite");
                 if (item) SendMessage(item, "ignite");
                 if (floor) SendMessage(floor, "ignite");
@@ -1477,7 +1477,9 @@ void world::SendExplosionEffect(GridPos center, ExplosionType type)
             break;
 
         case EXPLOSION_WHITEBOMB:
-            explosion (dest, it_explosion3);
+            // Note: at least in oxyd1 only direct neighbors
+            // explode, and the others not even ignite
+            explosion (dest, it_explosion3);            
             break;
 
         case EXPLOSION_BOMBSTONE:
