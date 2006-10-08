@@ -78,8 +78,14 @@ renderLine( 36, "###############################################################
 
 oxyd_shuffle()
 
-set_actor("ac-blackball", 70, 16)
-display.SetFollowMode(display.FOLLOW_SCROLLING)
+-- Added CreatingPreview-section to show part of maze: Andreas, Oct 06
+if enigma.CreatingPreview then
+  set_actor("ac-blackball", 51.5, 35.5)
+  display.SetFollowMode(display.FOLLOW_SMOOTH)
+else
+  set_actor("ac-blackball", 70, 16)
+  display.SetFollowMode(display.FOLLOW_SCROLLING)
+end
     ]]></el:luamain>
     <el:i18n>
       <el:string el:key="title">

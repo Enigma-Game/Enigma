@@ -107,6 +107,19 @@ set_funcs(add_intact, {{1,1},{1,6},{1,11},{18,1},{18,6},{18,11}})
 oxyd_shuffle()
 
 actor(1,1)
+
+-- Added CreatingPreview-section to show some abyss in preview: Andreas, Oct 06
+if enigma.CreatingPreview then
+   set_floor("fl-abyss", 10, 7)
+   set_floor("fl-abyss", 10, 6)
+   set_floor("fl-abyss", 11, 6)
+   set_floor("fl-abyss", 12, 6)
+   set_item("it-crack3", 12, 5)
+   set_item("it-explosion1", 11, 5)
+   set_item("it-explosion1", 12, 4)
+   set_item("it-explosion1", 13, 5)
+end
+
     ]]></el:luamain>
     <el:i18n>
       <el:string el:key="title">

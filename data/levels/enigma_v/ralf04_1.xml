@@ -611,6 +611,12 @@ end
 rs_create_world(level,cells,floorcell)
 stone_done(1)
 stone_done(0)
+
+-- Added CreatingPreview-section to show stones in preview: Andreas, Oct 06
+if enigma.CreatingPreview then
+  fill_stones("st-brownie", 4, 2, 2, 2)
+  fill_stones("st-bluegray", 8, 12, 4, 1)
+end
     ]]></el:luamain>
     <el:i18n>
       <el:string el:key="title">
