@@ -6716,8 +6716,7 @@ of these behaviours. Here's a list of the currently implemented
 differences, not all of them are mentioned at the corresponding
 sections above: 
 
-@strong{All non-Enigma modes @code{(oxyd1, oxyd.magnum,
-per.oxyd, oxyd.extra)}}
+@strong{All non-Enigma modes @code{(oxyd1, per.oxyd, oxyd.magnum, oxyd.extra)}}
 
 @itemize @bullet
 @item Keep @ref{it-key} when using @ref{st-key}.
@@ -6732,9 +6731,12 @@ ultimately opened (pairs must be hit with some time delay).
 (see @ref{Hills and Hollows}).
 @end itemize
 
+
 @strong{@code{oxyd1}-compatibility}
 
 @itemize @bullet
+@item @ref{it-seed} grows to @code{fl-stwood} under @code{st-grate1}
+(@ref{st-grate}), not to @ref{st-wood}.
 @item Flying actors may pass @code{st-grate1} and @code{st-grate2}
 (see @ref{st-grate}).
 @item @ref{st-wood} only falls when moved.
@@ -6745,15 +6747,6 @@ when @ref{st-wood} is pushed over them (see
 @code{oxydmagnum}-compatibility).
 @end itemize
 
-@strong{@code{oxyd.magnum}-compatibility}
-
-@itemize @bullet
-@item @ref{it-seed} grows to @code{fl-stwood} under @code{st-grate1}
-(@ref{st-grate}), not to @ref{st-wood}.
-@item Bombs (@ref{it-blackbomb}, @ref{it-whitebomb}) aren't ignited
-when @ref{st-wood} is pushed over them (see
-@code{oxyd1}-compatibility).
-@end itemize
 
 @strong{@code{per.oxyd}-compatibility}
 
@@ -6765,6 +6758,18 @@ when @ref{st-wood} is pushed over them (see
 @item @ref{it-umbrella} doesn't explode in laser-light.
 @item @ref{it-cross} inverts signals it receives.
 @end itemize
+
+
+@strong{@code{oxyd.magnum}-compatibility}
+
+@itemize @bullet
+@item @ref{it-seed} grows to @code{fl-stwood} under @code{st-grate1}
+(@ref{st-grate}), not to @ref{st-wood}.
+@item Bombs (@ref{it-blackbomb}, @ref{it-whitebomb}) aren't ignited
+when @ref{st-wood} is pushed over them (see
+@code{oxyd1}-compatibility).
+@end itemize
+
 
 
 @c ======================================================================

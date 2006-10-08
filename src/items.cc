@@ -1377,8 +1377,8 @@ namespace
 
         void animcb() {
             GridPos p= get_pos();
-            if (enigma_server::GameCompatibility == GAMET_OXYDMAGNUM
-                && get_stone_name() == "st-wood-growing" && GetStone(p)) {
+            if ((server::GameCompatibility == GAMET_OXYDMAGNUM || server::GameCompatibility == GAMET_OXYD1) &&
+                (get_stone_name() == "st-wood-growing" && GetStone(p))) {
                 string model = GetStone(p)->get_kind();
                 if (model == "st-grate1") {
                     SetFloor(p, MakeFloor("fl-stwood"));
