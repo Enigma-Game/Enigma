@@ -120,7 +120,7 @@ function renderLine( line, pattern)
         elseif c=="L" then
              set_stone("st-oneway-w", i-1,line)
         elseif c=="?" then
-           fill_floor("fl-ice_001",i-2,line,19,12)
+           fill_floor("fl-ice",i-2,line,19,12)
         elseif c=="b" then
             yy1( "black",  i-1, line)
         elseif c=="l" then

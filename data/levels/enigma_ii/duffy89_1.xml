@@ -46,7 +46,7 @@ function renderLine( line, pattern)
             set_floor("fl-space",i-1,line)
             set_stone("st-greenbrown_hole",i-1,line)
         elseif c=="I" then
-            set_floor("fl-ice_001",i-1,line)
+            set_floor("fl-ice",i-1,line)
             set_stone("st-greenbrown_hole",i-1,line)
         elseif c=="x" then
            set_stone("st-greenbrown_hole",i-1,line)

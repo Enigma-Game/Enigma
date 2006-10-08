@@ -19,7 +19,7 @@
 -- Environment
 CreateWorld(20, 13) 
 draw_border("st-actorimpulse")
-fill_floor("fl-ice_001", 0,0, 20,13)
+fill_floor("fl-ice", 0,0, 20,13)
 set_stone("st-death", 3,3)
 set_stone("st-death", 3,9)
 set_stone("st-death", 16,3)

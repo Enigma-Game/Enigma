@@ -349,8 +349,7 @@ def_floors{"fl-springboard"}
 def_image("fl-normal")
 def_randfloor_si("fl-hay", 4)
 def_floors{"fl-floor_001"}
-def_floors{"fl-ice_001"}
-def_alias("fl-ice", "fl-ice_001")
+def_floors{"fl-ice"}
 def_floors{"fl-stone"}
 def_alias("fl-normal_x", "fl-normal")
 def_floors{"fl-dummy"}

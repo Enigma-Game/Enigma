@@ -18,7 +18,7 @@
     <el:luamain><![CDATA[
 create_world( 20, 13 )
 fill_floor( "fl-samba" )
-fill_floor( "fl-ice_001", 7, 1, level_width-8, level_height-2 )
+fill_floor( "fl-ice", 7, 1, level_width-8, level_height-2 )
 fill_floor( "fl-samba", 1, 1, 6, level_height-2 )
 
 draw_border( "st-actorimpulse")

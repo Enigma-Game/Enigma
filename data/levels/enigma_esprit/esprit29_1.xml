@@ -31,7 +31,7 @@ function renderLine( line, pattern)
       if c ==   "#" then
          set_floor("fl-normal", i-1,line)
       elseif c=="I" then
-         set_floor("fl-ice_001", i-1,line)
+         set_floor("fl-ice", i-1,line)
       elseif c=="L" then
          set_item("it-extralife",i-1,line)
          set_floor("fl-normal", i-1,line)      

@@ -82,7 +82,7 @@ oxyd_shuffle()
 function funcc1()
    x=random(21)-1
    y=random(13)-1
-   set_floor("fl-ice_001",x,y)
+   set_floor("fl-ice",x,y)
 end
     ]]></el:luamain>
     <el:i18n>

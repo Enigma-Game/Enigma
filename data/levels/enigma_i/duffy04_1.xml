@@ -127,7 +127,7 @@ function renderLine( line, pattern)
             draw_stones("st-glass", {i-1,line},{1,0}, 1)
             set_item("it-magicwand",i-1,line)
         elseif c=="I" then
-            fill_floor("fl-ice_001", i-1,line, 1,1)
+            fill_floor("fl-ice", i-1,line, 1,1)
             draw_stones("st-glass", {i-1,line},{1,0}, 1)
             set_item("it-magicwand",i-1,line)
         elseif c=="T" then

@@ -145,7 +145,7 @@ function basis3( x, y)
        set_floor("fl-gradient",   x-1, y+3,         {type=11})
        set_floor("fl-gradient",   x+7, y+3,         {type=9})
        draw_floor("fl-gradient", {x,y+3}, {1,0}, 7, {type=1})
-       fill_floor("fl-ice_001",   x,y, 7, 3)
+       fill_floor("fl-ice",   x,y, 7, 3)
 end
 
 basis3 (19, 4)

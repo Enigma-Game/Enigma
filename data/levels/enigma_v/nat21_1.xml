@@ -38,7 +38,7 @@ function random_real( min, max, precision )
 end
 
 create_world( 20, 14 )
-fill_floor( "fl-ice_001" )
+fill_floor( "fl-ice" )
 
 draw_stones( "st-rock5", {0,0}, {0,1}, level_height )
 draw_stones( "st-rock5", {level_width-1,0}, {0,1}, level_height )

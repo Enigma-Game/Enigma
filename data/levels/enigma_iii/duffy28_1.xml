@@ -58,7 +58,7 @@ function renderLine( line, pattern)
         elseif c=="d" then
             fill_floor("fl-inverse", i-1,line, 1,1)
         elseif c=="e" then
-            fill_floor("fl-ice_001", i-1,line, 1,1)
+            fill_floor("fl-ice", i-1,line, 1,1)
         elseif c=="f" then
             fill_floor("fl-marble", i-1,line, 1,1)
         elseif c=="g" then

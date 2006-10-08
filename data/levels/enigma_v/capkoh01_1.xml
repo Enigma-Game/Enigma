@@ -31,8 +31,8 @@ end
 
 -- Floor Layer
 fill_floor("fl-wood")
-fill_floor("fl-ice_001", 15, 1, 2, 4)
-fill_floor("fl-ice_001", 17, 3, 2, 2)
+fill_floor("fl-ice", 15, 1, 2, 4)
+fill_floor("fl-ice", 17, 3, 2, 2)
 
 -- Item Layer
 set_item("it-hammer", 12, 1)

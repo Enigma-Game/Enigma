@@ -21,7 +21,7 @@ levelh = 13
 create_world(levelw, levelh)
 oxyd_default_flavor = "a"
 set_actor("ac-blackball", 3.5, 6.5)
-fill_floor("fl-ice_001")
+fill_floor("fl-ice")
 
 function renderLine( line, pattern)
     for i=1, strlen(pattern) do

@@ -30,7 +30,7 @@ function renderLine( line, pattern)
             set_stone( "st-greenbrown", i-1, line)
         elseif c =="@" then
             set_stone( "st-glass", i-1, line)
-            fill_floor("fl-ice_001", i-1,line, 1,1)
+            fill_floor("fl-ice", i-1,line, 1,1)
         elseif c == "g" then
             set_stone("st-oxyd", i-1, line,{color="0",name="o1"})
         elseif c == "h" then

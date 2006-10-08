@@ -35,7 +35,7 @@ function renderLine( line, pattern)
         if c =="#" then
             set_stone( "st-greenbrown", i-1, line)
         elseif c =="0" then
-            set_floor("fl-ice_001",i-1,line)
+            set_floor("fl-ice",i-1,line)
             set_item("it-pin",i-1,line)
         elseif c =="s" then
             set_stone( "st-greenbrown", i-1, line)
@@ -54,7 +54,7 @@ function renderLine( line, pattern)
              set_item("it-vortex-open", i-1, line)
         elseif c =="?" then
             set_stone( "st-greenbrown", i-1, line)
-            set_floor("fl-ice_001",i-1,line)
+            set_floor("fl-ice",i-1,line)
         elseif c =="x" then
             set_stone( "st-greenbrown", i-1, line)
             set_floor("fl-swamp",i-1,line)
@@ -103,13 +103,13 @@ function renderLine( line, pattern)
             set_floor("fl-hay",i-1,line)
         elseif c =="F" then
             set_stone( "st-flash", i-1, line)
-            set_floor("fl-ice_001",i-1,line)
+            set_floor("fl-ice",i-1,line)
         elseif c =="a" then
             set_stone( "st-actorimpulse", i-1, line)
-            set_floor("fl-ice_001",i-1,line)
+            set_floor("fl-ice",i-1,line)
         elseif c =="Y" then
             set_stone( "st-yinyang1", i-1, line)
-            set_floor("fl-ice_001",i-1,line)
+            set_floor("fl-ice",i-1,line)
         elseif c =="S" then
             set_stone( "st-surprise", i-1, line)
         elseif c =="L" then
@@ -134,7 +134,7 @@ function renderLine( line, pattern)
            set_actor("ac-whiteball", i-.5,line+.5, {player=1,essential=1})
         elseif c=="w" then
            set_actor("ac-killerball", i-.5,line+.5, {player=1,mouseforce=0})
-            set_floor("fl-ice_001",i-1,line)
+            set_floor("fl-ice",i-1,line)
         elseif c=="R" then
            set_actor("ac-rotor", i-.5,line+.5, {force=30,range=8})
         elseif c=="N" then
@@ -154,7 +154,7 @@ function renderLine( line, pattern)
             set_floor("fl-space",i-1,line-1)
             set_floor("fl-space",i-1,line+1)
         elseif c=="i" then
-            set_floor("fl-ice_001",i-1,line)
+            set_floor("fl-ice",i-1,line)
         elseif c=="n" then
             set_floor("fl-normal",i-1,line)
         elseif c=="j" then

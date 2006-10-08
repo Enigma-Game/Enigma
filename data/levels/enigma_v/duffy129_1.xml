@@ -33,7 +33,7 @@ function renderLine( line, pattern)
             set_stone( "st-rock1", i-1, line)
         elseif c =="$" then
             set_stone( "st-rock1", i-1, line)
-            set_floor("fl-ice_001",i-1,line)
+            set_floor("fl-ice",i-1,line)
         elseif c =="^" then
             set_stone( "st-rock1", i-1, line)
             set_floor("fl-sand",i-1,line)
@@ -52,7 +52,7 @@ function renderLine( line, pattern)
            abyss(i-1,line)
         elseif c == ";" then
            oxyd( i-1, line)
-            set_floor("fl-ice_001",i-1,line)
+            set_floor("fl-ice",i-1,line)
         elseif c == "*" then
             set_stone( "st-brownie", i-1, line)
                 elseif c == "!" then
@@ -72,7 +72,7 @@ function renderLine( line, pattern)
         elseif c=="=" then
             set_floor("fl-space",i-1,line)
         elseif c=="Y" then
-            set_floor("fl-ice_001",i-1,line)
+            set_floor("fl-ice",i-1,line)
         elseif c=="n" then
             set_floor("fl-sand",i-1,line)
         elseif c=="p" then
@@ -104,18 +104,18 @@ function renderLine( line, pattern)
            set_actor("ac-rotor", i-.5,line+.5, {player=1, mouseforce=0, range=3, force=10})
         elseif c == "v" then
            set_actor("ac-rotor", i-.5,line+.5, {player=1, mouseforce=0, range=10, force=5})
-            set_floor("fl-ice_001",i-1,line)
+            set_floor("fl-ice",i-1,line)
         elseif c == "?" then
            set_actor("ac-top", i-.5,line+.5, {player=1, mouseforce=0, range=0, force=0})
-            set_floor("fl-ice_001",i-1,line)
+            set_floor("fl-ice",i-1,line)
         elseif c == "W" then
            set_actor("ac-top", i-.5,line+.5, {player=1, mouseforce=0, range=5, force=5})
-            set_floor("fl-ice_001",i-1,line)
+            set_floor("fl-ice",i-1,line)
         elseif c == "b" then
             yy1( "black",  i-1, line)
         elseif c == "F" then
             yy1( "black",  i-1, line)
-            set_floor("fl-ice_001",i-1,line)
+            set_floor("fl-ice",i-1,line)
         elseif c=="T" then
            set_stone("st-turnstile",i-1,line)
         elseif c=="n" then
@@ -179,7 +179,7 @@ function renderLine( line, pattern)
             set_stone( "st-floppy", i-1,line,{action="openclose",target="door5"})
         elseif c=="m" then
             set_item("it-floppy", i-1,line)
-            set_floor("fl-ice_001",i-1,line)
+            set_floor("fl-ice",i-1,line)
         elseif c=="J" then
            set_item("it-springboard",i-1,line)
         elseif c=="t" then

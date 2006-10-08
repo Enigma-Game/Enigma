@@ -19,7 +19,7 @@
 create_world( 20, 13)
 oxyd_default_flavor = "a"
 
-fill_floor( "fl-ice_001")
+fill_floor( "fl-ice")
 
 draw_border( "st-actorimpulse")
 

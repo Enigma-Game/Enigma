@@ -92,7 +92,7 @@ function renderLine( line, pattern)
         elseif c=="M" then
            fill_floor("fl-metal",i-2,line,20,12)
         elseif c=="I" then
-           fill_floor("fl-ice_001",i-1,line,19,11)
+           fill_floor("fl-ice",i-1,line,19,11)
         elseif c=="l" then
            fill_floor("fl-leaves",i-2,line-1,20,12)
         elseif c=="p" then
@@ -100,7 +100,7 @@ function renderLine( line, pattern)
         elseif c=="t" then
            set_floor("fl-sand",i-1,line)
         elseif c=="i" then
-           set_floor("fl-ice_001",i-1,line)
+           set_floor("fl-ice",i-1,line)
         elseif c=="c" then
             set_item("it-coin1", i-1,line)
         elseif c=="C" then

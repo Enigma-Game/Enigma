@@ -57,7 +57,7 @@ function renderLine( line, pattern)
             set_floor("fl-space",i-1,line)
             set_stone("st-invisible",i-1,line)
         elseif c == "$" then
-            set_floor("fl-ice_001",i-1,line)
+            set_floor("fl-ice",i-1,line)
             set_stone("st-invisible",i-1,line)
         elseif c == "!" then
             abyss(i-1,line)
@@ -65,7 +65,7 @@ function renderLine( line, pattern)
             set_floor("fl-water",i-1,line)
         elseif c=="z" then
             set_actor("ac-blackball", i-1,line, {player=0})
-            set_floor("fl-ice_001",i-1,line)
+            set_floor("fl-ice",i-1,line)
         elseif c == "g" then
             draw_stones("st-grate1",{i-1,line}, {1,1}, 1)
         elseif c=="+" then
@@ -73,7 +73,7 @@ function renderLine( line, pattern)
         elseif c=="=" then
             set_floor("fl-space",i-1,line)
         elseif c=="I" then
-            set_floor("fl-ice_001",i-1,line)
+            set_floor("fl-ice",i-1,line)
         elseif c == "A" then
             set_stone("st-oxyd",i-1,line,{color="0"})
         elseif c == "B" then
@@ -88,13 +88,13 @@ function renderLine( line, pattern)
             set_stone("st-oxyd",i-1,line,{color="6",name="oxyd3"})
         elseif c == "a" then
             set_stone("st-switch", i-1,line, {action="callback",target="funcc1"})
-            set_floor("fl-ice_001",i-1,line)
+            set_floor("fl-ice",i-1,line)
         elseif c == "b" then
             set_stone("st-switch", i-1,line, {action="callback",target="funcc2"})
-            set_floor("fl-ice_001",i-1,line)
+            set_floor("fl-ice",i-1,line)
         elseif c == "c" then
             set_stone("st-switch", i-1,line, {action="callback",target="funcc3"})
-            set_floor("fl-ice_001",i-1,line)
+            set_floor("fl-ice",i-1,line)
         end
     end
 end

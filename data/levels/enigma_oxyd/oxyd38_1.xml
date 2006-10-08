@@ -55,9 +55,9 @@ function renderLine( line, pattern)
       elseif c == "+" then
          set_item("it-tinyhill",i-1,line)
       elseif c == "I" then
-         set_floor("fl-ice_001",i-1,line)
+         set_floor("fl-ice",i-1,line)
       elseif c == "j" then
-         set_floor("fl-ice_001",i-1,line)
+         set_floor("fl-ice",i-1,line)
      set_item("it-crack0",i-1,line)
       elseif c == "n" then
          set_floor("fl-normal",  i-1,  line)
@@ -80,7 +80,7 @@ function renderLine( line, pattern)
          set_stone("st-timeswitch",i-1,line,{target = "vortex1", action = "open"})
       elseif c == "2" then
          set_item("it-vortex-closed", i-1,line, {name="vortex2", targetx = 1.5, targety =  5.5})
-         set_floor("fl-ice_001",i-1,line)
+         set_floor("fl-ice",i-1,line)
       elseif c == "x" then
          set_stone("st-timeswitch",i-1,line,{target = "vortex2", action = "open"})
       elseif c == "3" then

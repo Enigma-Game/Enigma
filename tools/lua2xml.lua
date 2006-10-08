@@ -374,9 +374,6 @@ function enigma.KillStone (x, y)   lua2xml:set_table (lua2xml.st, x, y, nil) end
 function enigma.GetItem (x, y)     return lua2xml.it[x][y] end
 
 function enigma.MakeObject (name)
-    if name == "fl-ice_001" then
-        name = "fl-ice"
-    end
     return {name=name, attribs = {}}
 end
 

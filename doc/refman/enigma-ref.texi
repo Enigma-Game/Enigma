@@ -2899,7 +2899,6 @@ fl-dummy
 fl-gradient( type force )
 fl-gradient@{1..16@}( force )
 fl-ice
-fl-ice_001
 fl-inverse
 fl-inverse2
 fl-nomouse
@@ -3082,12 +3081,7 @@ move on it.  You can use @ref{it-pin} and @code{enigma.IceFriction}
 
 @table @code
 @item fl-ice
-@item fl-ice_001
 @end table
-
-@code{fl-ice_001} is a historical alias for @code{fl-ice} and
-shouldn't be used anymore.
-
 
 @node fl-inverse, fl-nomouse, fl-ice, Floors
 @subsection fl-inverse

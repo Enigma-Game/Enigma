@@ -18,7 +18,7 @@
     </el:info>
     <el:luamain><![CDATA[
 cells={}
-cells[" "]=cell{floor="fl-ice_001"}
+cells[" "]=cell{floor="fl-ice"}
 cells["#"]=cell{stone="st-rock5"}
 cells["I"]=cell{stone="st-actorimpulse"}
 cells["-"]=abyss

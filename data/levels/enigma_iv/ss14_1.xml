@@ -47,18 +47,18 @@ function renderLine( line, pattern)
       elseif c=="|" then                
          set_item("it-vstrip",i-1,line)
       elseif c=="i" then                
-         set_floor("fl-ice_001",i-1,line)
+         set_floor("fl-ice",i-1,line)
       elseif c=="F" then                
          set_stone("st-fakeoxyd",i-1,line)
       elseif c=="I" then                
          set_stone("st-actorimpulse_invisible",i-1,line)
-         set_floor("fl-ice_001",i-1,line)
+         set_floor("fl-ice",i-1,line)
       elseif c=="c" then                
          set_stone("st-actorimpulse_invisible",i-1,line)
-         --set_floor("fl-ice_001",i-1,line)
+         --set_floor("fl-ice",i-1,line)
       elseif c=="h" then                
          hollow(i-1,line)
-         set_floor("fl-ice_001",i-1,line)
+         set_floor("fl-ice",i-1,line)
       elseif c=="k" then
        set_stone("st-knight",i-1,line)
       elseif c=="<" then

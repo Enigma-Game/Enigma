@@ -53,7 +53,7 @@ function renderLine( line, pattern)
         elseif c=="=" then
             set_floor("fl-space",i-1,line)
         elseif c=="i" then
-            set_floor("fl-ice_001",i-1,line)
+            set_floor("fl-ice",i-1,line)
         elseif c=="1" then
             set_item("it-trigger", i-1,line, {invisible=1,action="callback", target="funcc1"})
         elseif c=="2" then

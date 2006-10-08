@@ -19,7 +19,7 @@
 levelh = 10 
 create_world( 20, levelh*13-levelh+1)
 
-fill_floor("fl-ice_001")
+fill_floor("fl-ice")
 
 if not difficult then
     wall_stone = "st-actorimpulse_invisible"

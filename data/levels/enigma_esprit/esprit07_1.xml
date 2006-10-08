@@ -23,7 +23,7 @@ oxyd_default_flavor = "b"       -- Default flavor for oxyd stones.
 
 set_actor("ac-blackball", 2.5,6.5)
 
-fill_floor("fl-ice_001")
+fill_floor("fl-ice")
 function renderLine( line, pattern)
     for i=1, strlen(pattern) do
       local c = strsub( pattern, i, i)

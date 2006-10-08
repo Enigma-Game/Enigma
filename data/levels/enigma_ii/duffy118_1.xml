@@ -164,7 +164,7 @@ end
             donefloor=1
          end
          if floornum<ice_001p and donefloor==0 then
-            set_floor("fl-ice_001",i,j)
+            set_floor("fl-ice",i,j)
             donefloor=1
          end
          if floornum<metalp and donefloor==0 then

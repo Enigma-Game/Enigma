@@ -19,7 +19,7 @@
 create_world( 20, 25)
 
 draw_border( "st-rock6")
-fill_floor("fl-ice_001")
+fill_floor("fl-ice")
 
 draw_stones("st-rock6", { 1,12}, {1,0},8)
 draw_stones("st-rock6", {11,12}, {1,0},8)

@@ -3229,7 +3229,7 @@ namespace
                 */
                 if (model == "fl-abyss" || model == "fl-water" || model == "fl-swamp") {
                     return ITEM_KEEP;
-                } else  if (model == "fl-ice" || model == "fl-ice_001") {
+                } else  if (model == "fl-ice") {
                     SetItem (p, it_crack1);
                 } else {
                     SetItem (p, it_cross);

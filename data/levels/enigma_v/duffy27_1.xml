@@ -30,7 +30,7 @@ function renderLine( line, pattern)
             set_stone( "st-greenbrown", i-1, line)
         elseif c =="@" then
             set_stone( "st-glass", i-1, line)
-            fill_floor("fl-ice_001", i-1,line, 1,1)
+            fill_floor("fl-ice", i-1,line, 1,1)
         elseif c == "o" then
             oxyd( i-1, line)
             abyss(i-1,line)
@@ -158,7 +158,7 @@ function timer_handler()
             end
         end    
     elseif mytimer==13 then       
-        fill_floor("fl-ice_001", 4,0, 12,1)
+        fill_floor("fl-ice", 4,0, 12,1)
         fill_floor("fl-hay", 5,2, 10,10)
         mytimer=-1
         if gatenum==0 then
