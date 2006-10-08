@@ -4454,6 +4454,7 @@ Toggles between players.  Compare @ref{it-ring} in multiplayer mode.
 * Breakable Stones::            A summary of all breakable stones
 * Oxyd Compatibility Stones::   Special stones for oxyd compatibility and debugging
 * st-actorimpulse::             Bumper Stones
+* st-big[brick/bluesand]::      Big Stones
 * st-[black/white]::            Black and White Stones
 * st-[black/white]balls::       Blackballs Stone and Whiteballs Stone
 * st-block::                    Movable and sinkable stone
@@ -4526,8 +4527,6 @@ a, b, c), and @code{@{1..9@}} indicates a sequence of numbers.
 
 @example
 st-beads
-st-bigbluesand-<nesw>
-st-bigbrick-<nesw>
 st-blue-sand
 st-bluegray
 st-bluegray_hole
@@ -4571,6 +4570,8 @@ some action, either when hit by an actor, or all by themselves.
 st-3mirror( transparent movable orientation )
 st-actorimpulse( force hit_factor hit_distortion_[xx/xy/yx/yy] )
 st-actorimpulse_invisible( force hit_factor hit_distortion_[xx/xy/yx/yy] )
+st-bigbluesand-<nesw>
+st-bigbrick-<nesw>
 st-black@{1..4@}
 st-blackballs
 st-block
@@ -4612,7 +4613,9 @@ st-explosion
 st-fakeoxyda
 st-fart
 st-flash( hit_factor hit_distortion_[xx,xy,yx,yy] )
+st-flhay
 st-floppy( action target on )
+st-flrock
 st-fourswitch( action target on )
 st-grate[123]
 st-greenbrown-growing
@@ -4793,7 +4796,7 @@ just seem to destroy themselves on creation, the former two creating
 unknown.
 
 
-@node st-actorimpulse, st-[black/white], Oxyd Compatibility Stones, Stones
+@node st-actorimpulse, st-big[brick/bluesand], Oxyd Compatibility Stones, Stones
 @subsection st-actorimpulse: Bumper Stones
 
 These stones apply an impulse to actors that touch them.  The amount
@@ -4819,8 +4822,46 @@ define a matrix to be applied to the force (default @code{((1,0),(0,1))})
 The invisible variant, @code{st-actorimpulse_invisible} can be
 ``painted'' with an @ref{it-brush}.
 
+@node st-big[brick/bluesand], st-[black/white], st-actorimpulse, Stones
+@subsection st-big[brick/bluesand]: Big Stones
 
-@node st-[black/white], st-[black/white]balls, st-actorimpulse, Stones
+These stones are used to construct big clusters of stones that
+visually seem like one big stone.  Though mainly decorative, they also
+have a small special ability, as they are the only stones that can't
+be swapped with @ref{st-swap} or @ref{st-pull}.
+
+@strong{Attributes}
+
+@table @code
+@item connections
+A number between 1 an 16.  Each bit in (connections-1) corresponds to
+an open face of the stone.  You will normally simply use one of the
+Lua constants @code{PUZ_0000} to @code{PUZ_1111}.
+@end table
+
+@strong{Variants}
+
+There are two families of big stones, that differ in design:
+@code{st-bigbrick-<nesw>} (similar to @code{st-brick}) and
+@code{st-bigbluesand-<nesw>} (similar to @code{st-blue-sand}). 
+
+The term @code{<nesw>} denotes all non-empty substrings of
+@code{nesw}, describing the directions to which the single parts are
+open. Examples: @code{st-bigbluesand-nw} is a blue stone with border
+on the south and east side, @code{st-bigbrick-esw} is a brick-type
+stone which connects to the east, south and west, and has a border on
+the north side.
+
+The use of @code{st-bigbrick} and @code{st-bigbluesand} without
+attachment instead of @code{st-brick} and @code{st-blue-sand} is
+depreceated, as they might become redefined in future.  Note however,
+that @code{st-brick} and @code{st-blue-sand} both are swappable like
+normal stones.
+
+See @ref{st-puzzle} for another kind of cluster-building stones.
+
+
+@node st-[black/white], st-[black/white]balls, st-big[brick/bluesand], Stones
 @subsection st-[black/white]: Black and white stones
 
 These stones only let black respectively white marbles pass.
@@ -5746,6 +5787,11 @@ position of the actor exchange their position with the pull-stone.
 Note however, that the special combination of @ref{st-brake} and
 @code{st-pull} is lethal for the marble.
 
+The only stones that cannot be pulled, are
+@ref{st-big[brick/bluesand]}.  Use them to make sure that an
+@code{st-pull} can't get out of a restricted area when you use e.g.
+@ref{st-rotator} or other objects that @code{st-pull} reacts on.
+
 
 @node st-puzzle, st-rotator, st-pull, Stones
 @subsection st-puzzle: Puzzle Stones
@@ -5838,6 +5884,9 @@ The term @code{<nesw>} denotes all non-empty substrings of
 the stone.  Examples: @code{st-puzzle-nw} is a blue puzzle stone with
 connections going north and west, @code{st-puzzle2-esw} is a yellow
 puzzle stone with connections to the east, south and west.
+
+See @ref{st-big[brick/bluesand]} for other kinds of cluster-building
+stones.
 
 
 @node st-rotator, st-rubberband, st-puzzle, Stones
@@ -5990,6 +6039,10 @@ This stone can exchange its position with other neighboring stones
 if it is hit hard enough.  In a way, this makes swap stones a kind
 of "movable stone", except that they can be only exchanged with
 other stones and may not be moved on empty fields.
+
+The only stones that cannot be swapped, are
+@ref{st-big[brick/bluesand]}.  Use them to make sure that an
+@code{st-swap} can't get out of a restricted area.
 
 
 @node st-switch, st-thief, st-swap, Stones

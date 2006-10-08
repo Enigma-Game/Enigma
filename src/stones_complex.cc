@@ -826,7 +826,8 @@ namespace
         BigBrick(int connections)
         : ConnectiveStone("st-bigbrick", connections)
         {}
-    };
+        bool is_removable() const { return false; }
+   };
 }
 
 /* -------------------- BigBlueSand -------------------- */
@@ -837,10 +838,11 @@ namespace
 {
     class BigBlueSand : public ConnectiveStone {
         CLONEOBJ(BigBlueSand);
-        public:
-            BigBlueSand(int connections)
-            : ConnectiveStone("st-bigbluesand", connections)
-            {}
+    public:
+        BigBlueSand(int connections)
+        : ConnectiveStone("st-bigbluesand", connections)
+        {}
+        bool is_removable() const { return false; }
     };
 }
 
@@ -2953,6 +2955,9 @@ namespace
         bool try_state(State newstate);
         void set_color(int color);
         void on_floor_change();
+
+        // Interface for st-swap and st-pull
+        bool is_removable() const { return state == IDLE; }
     };
     double ChessStone::capture_interval = 0.1;
     double ChessStone::hit_threshold = 3.0;
