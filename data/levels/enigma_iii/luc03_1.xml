@@ -111,8 +111,8 @@ oxyd_shuffle()
 --set actors
 set_item("it-yinyang",8,6)
 set_item("it-yinyang",11,6)
-set_actor("ac-blackball",8.5,6.5,{player=0})
-set_actor("ac-whiteball",11.5,6.5,{player=1})
+set_actor("ac-blackball",8.5,6.5,{player=0, essential=1})
+set_actor("ac-whiteball",11.5,6.5,{player=1, essential=1})
     ]]></el:luamain>
     <el:i18n>
       <el:string el:key="title">

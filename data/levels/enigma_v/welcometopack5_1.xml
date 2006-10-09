@@ -20,7 +20,6 @@
 levelw = 20
 levelh = 13
 create_world(levelw, levelh)
-enigma.ConserveLevel = FALSE
 
 -- DESIGN --
 boden="fl-metal"

@@ -44,7 +44,7 @@ using enigma::Value;
 using enigma::DoubleRand;
 using ecl::V2;
 
-
+
 /* -------------------- Macros -------------------- */
 
 #define DEF_ITEM(classname, kindname, kindid)   \
@@ -82,7 +82,7 @@ using ecl::V2;
 #define DEF_TRAITSR(classname, name, id, radius)         \
     ItemTraits classname::traits = { name, id, 0, radius }
 
-
+
 /* -------------------- Item implementation -------------------- */
 
 Item::Item()
@@ -92,7 +92,7 @@ void Item::kill() {
     KillItem(get_pos());
 }
 
-void Item::replace(ItemID id) 
+void Item::replace(ItemID id)
 {
     Item *newitem = MakeItem (id);
     TransferObjectName (this, newitem);
@@ -105,7 +105,7 @@ const char *Item::get_kind() const
     return get_traits().name;
 }
 
-string Item::get_inventory_model() 
+string Item::get_inventory_model()
 {
     return get_kind();
 }
@@ -115,7 +115,7 @@ void Item::init_model()
     const ItemTraits &tr = get_traits();
     if (tr.flags & itf_invisible)
         set_model("invisible");
-    else if (tr.flags & itf_animation) 
+    else if (tr.flags & itf_animation)
         set_anim(tr.name);
     else
         set_model(tr.name);
@@ -127,7 +127,7 @@ void Item::stone_change (Stone * /*st*/) {
 void Item::on_stonehit (Stone * /*st*/) {
 }
 
-void Item::on_laserhit(Direction) 
+void Item::on_laserhit(Direction)
 {
     if (get_traits().flags & itf_inflammable)
         replace (it_explosion1);
@@ -150,14 +150,14 @@ bool Item::can_drop_at (GridPos p) {
     return GetItem(p) == 0;
 }
 
-ItemAction Item::activate(Actor* /*a*/, GridPos /*p*/) { 
-    return ITEM_DROP; 
+ItemAction Item::activate(Actor* /*a*/, GridPos /*p*/) {
+    return ITEM_DROP;
 }
 
-void Item::add_force(Actor *, V2 &) { 
+void Item::add_force(Actor *, V2 &) {
 }
 
-bool Item::actor_hit(Actor *actor) 
+bool Item::actor_hit(Actor *actor)
 {
     const ItemTraits &tr = get_traits();
     if (tr.flags & itf_static)
@@ -170,7 +170,7 @@ bool Item::actor_hit(Actor *actor)
     }
 }
 
-
+
 /* -------------------- OnOffItem -------------------- */
 namespace
 {
@@ -181,8 +181,8 @@ namespace
             set_attrib("on", onoff);
         }
 
-        bool is_on() const { 
-            return int_attrib("on") == 1; 
+        bool is_on() const {
+            return int_attrib("on") == 1;
         }
 
         void set_on (bool newon) {
@@ -211,7 +211,7 @@ namespace
 }
 
 
-
+
 /* -------------------- Various simple items -------------------- */
 
 namespace
@@ -224,7 +224,7 @@ namespace
     DEF_ITEMF(Coffee,   "it-coffee", it_coffee, itf_inflammable);
 }
 
-
+
 /* -------------------- DummyItem -------------------- */
 namespace
 {
@@ -269,7 +269,7 @@ namespace
     class Squashed : public Item {
         CLONEOBJ(Squashed);
         DECL_TRAITS;
-        
+
         virtual Value on_message (const Message &m) {
             if (enigma_server::GameCompatibility == GAMET_ENIGMA) {
                 if (m.message == "brush")
@@ -278,7 +278,7 @@ namespace
             return Value();
         }
 
-        
+
     public:
         Squashed() {
         }
@@ -405,7 +405,7 @@ namespace
         CLONEOBJ(Umbrella);
         DECL_TRAITS;
         void on_laserhit (Direction) {
-            if (server::GameCompatibility != enigma::GAMET_PEROXYD) 
+            if (server::GameCompatibility != enigma::GAMET_PEROXYD)
                 replace(it_explosion1);
         }
         ItemAction activate(Actor *a, GridPos) {
@@ -429,13 +429,13 @@ namespace
             return ITEM_DROP;
         }
     public:
-        Spoon() 
+        Spoon()
         {}
     };
     DEF_TRAITS(Spoon, "it-spoon", it_spoon);
 }
 
-
+
 /* -------------------- Keys -------------------- */
 namespace
 {
@@ -448,7 +448,7 @@ namespace
                 // Oxyd uses signals from keys to key switches to
                 // determine which keys activate which key hole.
                 GridPos keystonepos;
-                for (int idx=0; GetSignalTargetPos (this, keystonepos, idx); ++idx) { 
+                for (int idx=0; GetSignalTargetPos (this, keystonepos, idx); ++idx) {
                     Stone *st = GetStone(keystonepos);
                     if (st && st->is_kind("st-key"))
                         st->set_attrib("keycode",
@@ -460,10 +460,10 @@ namespace
 
     public:
         enum SubType { KEY1, KEY2, KEY3 } subtype;
-    	Key(SubType type = KEY1) 
+    	Key(SubType type = KEY1)
         : subtype(type)
         {
-            set_attrib("keycode", subtype+1); 
+            set_attrib("keycode", subtype+1);
         }
     };
 
@@ -494,7 +494,7 @@ namespace
 }
 
 
-
+
 /* -------------------- Brush -------------------- */
 namespace
 {
@@ -514,7 +514,7 @@ namespace
     DEF_TRAITSF(Brush, "it-brush", it_brush, itf_inflammable);
 }
 
-
+
 /* -------------------- Coins -------------------- */
 
 // :value    1,2,4: how many time-units this coin buys
@@ -535,7 +535,7 @@ namespace
 
     public:
         Coin1() {
-            set_attrib ("value", 3.0); 
+            set_attrib ("value", 3.0);
         }
     };
     DEF_TRAITS(Coin1, "it-coin1", it_coin1);
@@ -576,7 +576,7 @@ namespace
     DEF_TRAITS(Coin4, "it-coin4", it_coin4);
 }
 
-
+
 /* -------------------- Hills and Hollows -------------------- */
 
 /** \page it-hills Hills and Hollows
@@ -608,8 +608,8 @@ namespace
         Type get_type() const { return m_type; }
 
     private:
-        double get_forcefac() const { 
-            return m_forcefac[m_type] * server::HoleForce; 
+        double get_forcefac() const {
+            return m_forcefac[m_type] * server::HoleForce;
         }
         void shovel();
 
@@ -667,10 +667,10 @@ namespace
 
 
     class TinyHollow : public Hollow {
-        TinyHollow *clone() { 
-            TinyHollow *o = new TinyHollow(*this); 
+        TinyHollow *clone() {
+            TinyHollow *o = new TinyHollow(*this);
             if (enigma_server::GameCompatibility == GAMET_ENIGMA)
-                instances.push_back(o); 
+                instances.push_back(o);
             return o;
         }
         void dispose() {
@@ -686,7 +686,7 @@ namespace
 
 }
 
-
+
 /* ---------- HillHollow ---------- */
 
 double HillHollow::m_radius[4] = {0.5, 0.5, 0.3, 0.3};
@@ -841,7 +841,7 @@ void Hollow::setup_successor(Item *newitem) {
     }
 }
 
-
+
 /* -------------------- Springs -------------------- */
 
 /** \page it-spring Spring
@@ -891,7 +891,7 @@ namespace
     DEF_TRAITS(Spring2, "it-spring2", it_spring2);
 }
 
-
+
 /* -------------------- Springboard -------------------- */
 namespace
 {
@@ -919,7 +919,7 @@ namespace
     DEF_TRAITSF(Springboard, "it-springboard", it_springboard, itf_static);
 }
 
-
+
 /* -------------------- Brake -------------------- */
 
 // Brake is only used to hold st-brake while it is in an inventory
@@ -956,7 +956,7 @@ namespace
     DEF_TRAITS(Brake, "it-brake", it_brake);
 }
 
-
+
 /* -------------------- Explosion -------------------- */
 namespace
 {
@@ -982,10 +982,10 @@ namespace
             kill();
         }
     public:
-        Explosion1() 
+        Explosion1()
         {}
     };
-    DEF_TRAITSF(Explosion1, "it-explosion1", it_explosion1, 
+    DEF_TRAITSF(Explosion1, "it-explosion1", it_explosion1,
                 itf_static | itf_animation | itf_indestructible | itf_norespawn);
 
     // Explode and leave a hole in the ground.
@@ -1001,7 +1001,7 @@ namespace
                     kill();
         }
     public:
-        Explosion2() 
+        Explosion2()
         {}
     };
     DEF_TRAITSF(Explosion2, "it-explosion2", it_explosion2,
@@ -1030,7 +1030,7 @@ namespace
 
 
 
-
+
 /* -------------------- Document -------------------- */
 namespace
 {
@@ -1074,7 +1074,7 @@ namespace
     DEF_TRAITSF(Document, "it-document", it_document, itf_inflammable);
 }
 
-
+
 /* -------------------- Dynamite -------------------- */
 namespace
 {
@@ -1133,12 +1133,12 @@ namespace
 // ----------------------------
 // base class for BlackBomb and WhiteBomb
 
-namespace 
+namespace
 {
     class BombBase : public Item {
     public:
         BombBase (bool burning = false)
-        : m_burning(burning) 
+        : m_burning(burning)
         {}
 
     protected:
@@ -1185,7 +1185,7 @@ namespace
             switch (server::GameCompatibility) {
             case GAMET_OXYD1:
             case GAMET_OXYDMAGNUM:
-                if (!st->is_kind("st-wood?")) 
+                if (!st->is_kind("st-wood?"))
                     // st-wood does not cause bombs to explode
                     explode();
                 break;
@@ -1214,8 +1214,8 @@ namespace
         CLONEOBJ(BlackBomb);
         DECL_TRAITS;
     public:
-        BlackBomb (bool burning=false) 
-        : BombBase(burning) 
+        BlackBomb (bool burning=false)
+        : BombBase(burning)
         {}
     private:
         const char *burn_anim() const { return "it-blackbomb-burning"; }
@@ -1226,7 +1226,7 @@ namespace
             replace (it_explosion3);
         }
     };
-    DEF_TRAITSF(BlackBomb, "it-blackbomb", it_blackbomb, 
+    DEF_TRAITSF(BlackBomb, "it-blackbomb", it_blackbomb,
                 itf_static | itf_indestructible | itf_fireproof);
 
     class BlackBombBurning : public BlackBomb {
@@ -1235,12 +1235,12 @@ namespace
     public:
         BlackBombBurning() : BlackBomb(true) {}
     };
-    DEF_TRAITSF(BlackBombBurning, "it-blackbomb_burning", 
-                it_blackbomb_burning, 
+    DEF_TRAITSF(BlackBombBurning, "it-blackbomb_burning",
+                it_blackbomb_burning,
                 itf_static | itf_indestructible | itf_norespawn | itf_fireproof);
 }
 
-
+
 /* -------------------- White bomb -------------------- */
 
 /*! When a white bombs explode, they destroy the floor tile underneath
@@ -1261,14 +1261,14 @@ namespace
         }
 
     public:
-        WhiteBomb() 
+        WhiteBomb()
         {}
     };
-    DEF_TRAITSF(WhiteBomb, "it-whitebomb", it_whitebomb, 
+    DEF_TRAITSF(WhiteBomb, "it-whitebomb", it_whitebomb,
                 itf_static | itf_indestructible | itf_fireproof);
 }
 
-
+
 /* -------------------- Trigger -------------------- */
 namespace
 {
@@ -1294,7 +1294,7 @@ namespace
         virtual Value on_message (const Message &m) {
             if (m.message == "signal") {
                 PerformAction (this, to_double (m.value) != 0.0);
-            } 
+            }
             else if (m.message == "init") {
                 update_state();
             }
@@ -1302,7 +1302,7 @@ namespace
         }
     };
 
-    DEF_TRAITSF(Trigger, "it-trigger", it_trigger, 
+    DEF_TRAITSF(Trigger, "it-trigger", it_trigger,
                 itf_static | itf_indestructible);
 }
 
@@ -1344,7 +1344,7 @@ void Trigger::update_state()
     }
 }
 
-
+
 /* -------------------- Seed -------------------- */
 namespace
 {
@@ -1394,7 +1394,7 @@ namespace
 
         virtual const char* get_stone_name() = 0;
     public:
-        Seed () 
+        Seed ()
         : activep(false)
         {}
     };
@@ -1418,7 +1418,7 @@ namespace
         DECL_TRAITS;
 
         const char* get_stone_name() {
-            return "st-greenbrown-growing"; 
+            return "st-greenbrown-growing";
         }
     public:
         SeedNowood()
@@ -1440,7 +1440,7 @@ namespace
     DEF_TRAITSR(SeedVolcano, "it-seed_volcano", it_seed_volcano, 0.2f);
 }
 
-
+
 /* -------------------- Shogun dot -------------------- */
 
 /** \page it-shogun Shogun Dot
@@ -1463,7 +1463,7 @@ namespace
     private:
         enum SubType { SMALL, MEDIUM, LARGE };
         ShogunDot(SubType size);
-    
+
         virtual Value message(const string &str, const Value &v);
         void stone_change(Stone *st);
 
@@ -1471,7 +1471,7 @@ namespace
         bool activated;
         SubType subtype;
     };
-    
+
     ItemTraits ShogunDot::traits[3] = {
         { "it-shogun-s", it_shogun_s, itf_static, 0.0 },
         { "it-shogun-m", it_shogun_m, itf_static, 0.0 },
@@ -1514,15 +1514,15 @@ Value ShogunDot::message(const string &str, const Value &/*v*/) {
     return Value();
 }
 
-
+
 /* -------------------- Magnet -------------------- */
 namespace
 {
     class Magnet : public OnOffItem {
         class Magnet_FF : public world::ForceField {
         public:
-            Magnet_FF() 
-            : m_active(false), strength(30), range(1000) 
+            Magnet_FF()
+            : m_active(false), strength(30), range(1000)
             {}
 
             void set_pos(GridPos p) { center = p.center(); }
@@ -1533,7 +1533,7 @@ namespace
                 if (m_active) {
                     V2 dv = center - a->get_pos();
                     double dist = length(dv);
-                    
+
                     if (dist >= 0.2 && dist < range)
                         f += 0.6* strength * dv / (dist*dist);
                 }
@@ -1587,7 +1587,7 @@ namespace
     };
 }
 
-
+
 /* -------------------- Wormhole -------------------- */
 
 /** \page it-wormhole Worm hole
@@ -1620,7 +1620,7 @@ namespace
         void add_force(Actor *a, V2 &f) {
             V2 b = center - a->get_pos();
             double bb = square(b);
-            if (bb < rangesquared && bb>0) 
+            if (bb < rangesquared && bb>0)
                 f += (strength/bb)*b;
         }
 
@@ -1728,7 +1728,7 @@ bool WormHole::get_target(V2 &targetpos) {
     }
 }
 
-bool WormHole::actor_hit(Actor *actor) 
+bool WormHole::actor_hit(Actor *actor)
 {
     ASSERT(!justWarping, XLevelRuntime, "WormHole:: Recursion detected!");
     if (state == TELEPORT_IDLE && near_center_p(actor)) {
@@ -1761,7 +1761,7 @@ void WormHole::init_model() {
         set_anim("it-wormhole-off");
 }
 
-
+
 /* -------------------- Vortex -------------------- */
 
 /** \page it-vortex Vortex
@@ -1809,8 +1809,8 @@ namespace
 
         // Private methods
 
-        V2 vec_to_center (V2 v) { 
-            return v-get_pos().center(); 
+        V2 vec_to_center (V2 v) {
+            return v-get_pos().center();
         }
         bool near_center_p (Actor *a) {
             return length(vec_to_center(a->get_pos())) < RANGE;
@@ -1830,10 +1830,10 @@ namespace
         bool is_open() const { return state == OPEN; }
 
         // Variables
-        enum State { 
-            OPEN, 
-            CLOSED, 
-            OPENING, 
+        enum State {
+            OPEN,
+            CLOSED,
+            OPENING,
             CLOSING,
             WARPING,
             EMITTING,
@@ -1867,7 +1867,7 @@ Vortex::Vortex(bool opened)
     set_attrib ("targety", Value());
 }
 
-void Vortex::prepare_for_warp (Actor *actor) 
+void Vortex::prepare_for_warp (Actor *actor)
 {
     SendMessage(actor, "fallvortex");
     m_target_index = 0;
@@ -1878,20 +1878,20 @@ void Vortex::prepare_for_warp (Actor *actor)
 }
 
 
-bool Vortex::actor_hit (Actor *actor) 
+bool Vortex::actor_hit (Actor *actor)
 {
     if (state == OPEN && near_center_p(actor) && actor->can_be_warped())
         prepare_for_warp (actor);
     return false;
 }
 
-Value Vortex::message(const string &msg, const Value &val) 
+Value Vortex::message(const string &msg, const Value &val)
 {
     if (msg == "signal") {
         int ival = to_int(val);
         if (ival != 0)
             open();
-        else 
+        else
             close();
     }
     else if (msg == "openclose" || msg == "trigger")
@@ -1906,11 +1906,11 @@ Value Vortex::message(const string &msg, const Value &val)
 
 void Vortex::init_model() {
     switch(state) {
-    case WARPING: 
-    case OPEN:   
+    case WARPING:
+    case OPEN:
     case EMITTING:
     case SWALLOWING:
-        set_model("it-vortex-open"); 
+        set_model("it-vortex-open");
         break;
     case CLOSED: set_model("it-vortex-closed"); break;
     case OPENING: set_anim("it-vortex-opening"); break;
@@ -1933,7 +1933,7 @@ void Vortex::open() {
     if (state == CLOSING) {
         state = OPENING;
         get_model()->reverse(); // reverse animation
-    } 
+    }
     else if (state == CLOSED) {
         state = OPENING;
         sound_event ("vortexopen");
@@ -1945,7 +1945,7 @@ void Vortex::close() {
     if (state == OPENING) {
         state = CLOSING;
         get_model()->reverse(); // reverse animation
-    } 
+    }
     else if (state == OPEN) {
         state = CLOSING;
         sound_event ("vortexclose");
@@ -1954,13 +1954,13 @@ void Vortex::close() {
 }
 
 void Vortex::openclose() {
-    if (state == OPEN || state == OPENING) 
+    if (state == OPEN || state == OPENING)
         close();
     else
         open();
 }
 
-bool Vortex::get_target_by_index (int idx, V2 &target) 
+bool Vortex::get_target_by_index (int idx, V2 &target)
 {
     GridPos targetpos;
     // signals take precedence over targetx, targety attributes
@@ -1988,7 +1988,7 @@ void Vortex::alarm() {
         state = WARPING;
         sound_event ("hitfloor");
         perform_warp();
-    } else 
+    } else
         ASSERT (0, XLevelRuntime, "Vortex: alarm called with inconsistent state");
 }
 
@@ -1997,7 +1997,7 @@ void Vortex::emit_actor () {
     world::WarpActor (m_actor_being_warped, v[0], v[1], false);
     SendMessage (m_actor_being_warped, "rise");
     m_actor_being_warped = 0;
-    
+
     state = OPEN;
     if (this != m_target_vortex && close_after_warp)
         close();
@@ -2013,7 +2013,7 @@ void Vortex::warp_to(const V2 &target) {
         close();
 }
 
-void Vortex::perform_warp() 
+void Vortex::perform_warp()
 {
     if (!m_actor_being_warped)
         return;
@@ -2036,7 +2036,7 @@ void Vortex::perform_warp()
                 // is destination vortex blocked? redirect
                 m_target_index += 1;
                 client::Msg_Sparkle (v_target);
-                world::WarpActor (m_actor_being_warped, 
+                world::WarpActor (m_actor_being_warped,
                                   v_target[0], v_target[1], false);
                 GameTimer.set_alarm(this, 0.4, false);
             }
@@ -2077,7 +2077,7 @@ void Vortex::perform_warp()
     }
 }
 
-
+
 /* -------------------- YinYang item -------------------- */
 namespace
 {
@@ -2085,7 +2085,7 @@ namespace
         CLONEOBJ(YinYang);
         DECL_TRAITS;
     public:
-        YinYang() 
+        YinYang()
         {}
 
         string get_inventory_model() {
@@ -2106,7 +2106,7 @@ namespace
     DEF_TRAITS(YinYang, "it-yinyang", it_yinyang);
 }
 
-
+
 /* -------------------- Spade -------------------- */
 namespace
 {
@@ -2128,7 +2128,7 @@ namespace
     DEF_TRAITS(Spade, "it-spade", it_spade);
 }
 
-
+
 /* -------------------- Pipes -------------------- */
 namespace
 {
@@ -2145,26 +2145,26 @@ namespace
         }
     public:
         static void setup() {
-            for (int i=0; i<10; ++i) 
+            for (int i=0; i<10; ++i)
                 RegisterItem (new Pipe (i));
         }
     };
 
     ItemTraits Pipe::traits[] = {
         {"it-pipe-e",  it_pipe_e,  itf_none, 0.0 },
-        {"it-pipe-w",  it_pipe_w,  itf_none, 0.0 }, 
-        {"it-pipe-s",  it_pipe_s,  itf_none, 0.0 }, 
+        {"it-pipe-w",  it_pipe_w,  itf_none, 0.0 },
+        {"it-pipe-s",  it_pipe_s,  itf_none, 0.0 },
         {"it-pipe-n",  it_pipe_n,  itf_none, 0.0 },
-        {"it-pipe-es", it_pipe_es, itf_none, 0.0 }, 
-        {"it-pipe-ne", it_pipe_ne, itf_none, 0.0 }, 
-        {"it-pipe-sw", it_pipe_sw, itf_none, 0.0 }, 
+        {"it-pipe-es", it_pipe_es, itf_none, 0.0 },
+        {"it-pipe-ne", it_pipe_ne, itf_none, 0.0 },
+        {"it-pipe-sw", it_pipe_sw, itf_none, 0.0 },
         {"it-pipe-wn", it_pipe_wn, itf_none, 0.0 },
         {"it-pipe-h",  it_pipe_h,  itf_none, 0.0 },
         {"it-pipe-v",  it_pipe_v,  itf_none, 0.0 },
     };
 }
 
-
+
 /* -------------------- Pullers -------------------- */
 namespace
 {
@@ -2201,7 +2201,7 @@ namespace
 	    return m_direction;
 	}
 
-        Puller(Direction dir) 
+        Puller(Direction dir)
         : active(false), m_direction(dir)
 	{ }
     public:
@@ -2221,7 +2221,7 @@ namespace
     };
 }
 
-
+
 /* -------------------- Cracks -------------------- */
 namespace
 {
@@ -2238,7 +2238,7 @@ namespace
         }
 
     private:
-        Crack(int type=0) 
+        Crack(int type=0)
         : state(IDLE), anim_end(false)
             {
                 set_attrib("type", type);
@@ -2249,7 +2249,7 @@ namespace
         enum State { IDLE, CRACKING1, CRACKING2 } state;
         bool anim_end;
 
-        int get_type() const { 
+        int get_type() const {
             int t = int_attrib("type");
             return ecl::Clamp(t, 0, 4);
         }
@@ -2352,8 +2352,8 @@ namespace
         CLONEOBJ(Debris);
         DECL_TRAITS;
 
-        bool actor_hit(Actor *a) { 
-            SendMessage(a, "fall"); 
+        bool actor_hit(Actor *a) {
+            SendMessage(a, "fall");
             return false;
         }
         void animcb() {
@@ -2364,11 +2364,11 @@ namespace
     public:
         Debris() {}
     };
-    DEF_TRAITSF(Debris, "it-debris", it_debris, 
+    DEF_TRAITSF(Debris, "it-debris", it_debris,
                 itf_static | itf_animation | itf_indestructible | itf_fireproof);
 }
 
-
+
 /* -------------------- Burning floor -------------------- */
 
 namespace
@@ -2403,7 +2403,7 @@ namespace
 
     ItemTraits Burnable::traits[6] = {
         {"it-burnable",           it_burnable,           itf_static, 0.0},
-        {"it-burnable_ignited",   it_burnable_ignited,   
+        {"it-burnable_ignited",   it_burnable_ignited,
              itf_static | itf_animation | itf_fireproof, 0.0},
         {"it-burnable_burning",   it_burnable_burning,
              itf_static | itf_animation | itf_fireproof, 0.0},
@@ -2450,7 +2450,7 @@ void Burnable::init_model() {
         Item::init_model();
 }
 
-
+
 /* -------------------- Fire Extinguisher -------------------- */
 namespace
 {
@@ -2493,7 +2493,7 @@ namespace
     };
 }
 
-ItemAction Extinguisher::activate(Actor *a, GridPos p) 
+ItemAction Extinguisher::activate(Actor *a, GridPos p)
 {
     int load = get_load();
     if (load > 0) {
@@ -2522,7 +2522,7 @@ ItemAction Extinguisher::activate(Actor *a, GridPos p)
     return ITEM_DROP;
 }
 
-
+
 /* -------------------- Flags -------------------- */
 
 namespace
@@ -2565,7 +2565,7 @@ namespace
 }
 
 
-
+
 /* -------------------- Blocker item -------------------- */
 
 namespace
@@ -2607,7 +2607,7 @@ Blocker::Blocker(bool shrinked_recently)
 : state(shrinked_recently ? SHRINKED : IDLE)
 {}
 
-void Blocker::on_creation (GridPos p) 
+void Blocker::on_creation (GridPos p)
 {
     if (state == SHRINKED) {
         GameTimer.set_alarm(this, 0.5, false);
@@ -2615,13 +2615,13 @@ void Blocker::on_creation (GridPos p)
     Item::on_creation(p);
 }
 
-void Blocker::on_removal(GridPos p) 
+void Blocker::on_removal(GridPos p)
 {
     change_state(IDLE);
     Item::on_removal(p);
 }
 
-void Blocker::change_state(State new_state) 
+void Blocker::change_state(State new_state)
 {
     if (state != new_state) {
         if (state == SHRINKED)
@@ -2633,7 +2633,7 @@ void Blocker::change_state(State new_state)
 }
 
 
-void Blocker::grow() 
+void Blocker::grow()
 {
     Stone *st = world::MakeStone("st-blocker-growing");
     world::SetStone(get_pos(), st);
@@ -2641,7 +2641,7 @@ void Blocker::grow()
     kill();
 }
 
-void Blocker::alarm() 
+void Blocker::alarm()
 {
     if (state == SHRINKED) { // BolderStone did not arrive in time
         change_state(IDLE);
@@ -2649,7 +2649,7 @@ void Blocker::alarm()
 }
 
 
-Value Blocker::message(const string &msg, const Value &val) 
+Value Blocker::message(const string &msg, const Value &val)
 {
     if (msg == "trigger" || msg == "openclose") {
         switch (state) {
@@ -2749,7 +2749,7 @@ void Blocker::stone_change(Stone *st)
     }
 }
 
-
+
 /* -------------------- Ring -------------------- */
 namespace
 {
@@ -2800,7 +2800,7 @@ namespace
     public:
         OxydBridge() {}
     };
-    DEF_TRAITSF (OxydBridge, "it-bridge-oxyd", it_bridge_oxyd, 
+    DEF_TRAITSF (OxydBridge, "it-bridge-oxyd", it_bridge_oxyd,
                  itf_static | itf_indestructible | itf_invisible);
 
     class OxydBridgeActive : public OxydBridge {
@@ -2818,7 +2818,7 @@ namespace
                 itf_static | itf_indestructible | itf_invisible);
 }
 
-
+
 /* -------------------- Sensors -------------------- */
 
 
@@ -2851,9 +2851,9 @@ namespace
     DEF_TRAITSF(InverseSensor, "it-inversesensor", it_inversesensor, itf_static | itf_invisible);
 }
 
-
+
 /* -------------------- Signal filters -------------------- */
-namespace 
+namespace
 {
     class SignalFilterItem : public Item {
         CLONEOBJ(SignalFilterItem);
@@ -2890,7 +2890,7 @@ namespace
     };
 }
 
-
+
 /* -------------------- EasyKillStone -------------------- */
 
 /*
@@ -2916,11 +2916,11 @@ namespace
     public:
         EasyKillStone() {}
     };
-    DEF_TRAITSF(EasyKillStone, "it-easykillstone", 
+    DEF_TRAITSF(EasyKillStone, "it-easykillstone",
                 it_easykillstone, itf_invisible);
 }
 
-Value EasyKillStone::on_message (const Message &m ) 
+Value EasyKillStone::on_message (const Message &m )
 {
     if (m.message == "init") {
         // does not work in on_creation() because items are created
@@ -2943,7 +2943,7 @@ Value EasyKillStone::on_message (const Message &m )
 }
 
 
-
+
 /* -------------------- EasyKeepStone -------------------- */
 namespace
 {
@@ -3005,7 +3005,7 @@ namespace
     DEF_TRAITSF(TwoPKillStone, "it-2pkillstone", it_2pkillstone, itf_invisible);
 }
 
-
+
 /* -------------------- Glasses -------------------- */
 namespace
 {
@@ -3030,13 +3030,13 @@ namespace
             replace (it_glasses_broken);
         }
     public:
-        Glasses() 
+        Glasses()
         {}
     };
     DEF_TRAITS(Glasses, "it-glasses", it_glasses);
 }
 
-
+
 /* -------------------- Invisible abyss -------------------- */
 namespace
 {
@@ -3053,7 +3053,7 @@ namespace
     DEF_TRAITSF(InvisibleAbyss, "it-abyss", it_abyss, itf_static | itf_invisible);
 }
 
-
+
 /* -------------------- Landmine -------------------- */
 namespace
 {
@@ -3069,20 +3069,20 @@ namespace
         bool actor_hit (Actor *a) {
             const double ITEM_RADIUS = 0.3;
             double dist = length(a->get_pos() - get_pos().center());
-            if (dist < ITEM_RADIUS) 
+            if (dist < ITEM_RADIUS)
 		explode();
             return false;
         }
 
         void on_stonehit(Stone *) { explode(); }
     public:
-        Landmine() 
+        Landmine()
         {}
     };
     DEF_TRAITSF(Landmine, "it-landmine", it_landmine, itf_static);
 }
 
-
+
 /* -------------------- Cross -------------------- */
 namespace
 {
@@ -3125,7 +3125,7 @@ namespace
     public:
         Cross() : m_active(false) {
         }
-        
+
         virtual ~Cross() {
             GameTimer.remove_alarm (this);
         }
@@ -3256,7 +3256,7 @@ namespace
                 }
             }
             return false;
-        } 
+        }
 
     protected:
         void animcb() { set_model("it-death"); active=false; }
@@ -3274,22 +3274,6 @@ namespace
 //----------------------------------------
 namespace
 {
-    class Rubberband : public Item {
-    	CLONEOBJ(Rubberband);
-        DECL_TRAITS;
-
-        void activate(Actor *actor) {
-        }
-    public:
-    	Rubberband() {
-            set_attrib("object1", Value());
-            set_attrib("object2", Value());
-            set_attrib("length", Value());
-            set_attrib("strength", Value());
-        }
-    };
-    DEF_TRAITS(Rubberband, "it-rubberband", it_rubberband);
-
     class HStrip : public Item {
         CLONEOBJ(HStrip);
         DECL_TRAITS;
@@ -3299,7 +3283,7 @@ namespace
         bool covers_floor(ecl::V2 pos) const {
             if (GridPos(pos) != get_pos())
                 return false;
-            
+
             const double MAXDIST = 6.0/32;
             double ycenter = get_pos().y + 0.5;
             return (fabs(pos[1] - ycenter) > MAXDIST) ? false : true;
@@ -3316,7 +3300,7 @@ namespace
         bool covers_floor(ecl::V2 pos) const {
             if (GridPos(pos) != get_pos())
                 return false;
-            
+
             const double MAXDIST = 5.0/32;
             double xcenter = get_pos().x + 0.5;
             return (fabs(pos[0] - xcenter) > MAXDIST) ? false : true;
@@ -3346,7 +3330,7 @@ namespace
 }
 
 /* -------------------- ChangeFloorItem -------------------- */
-namespace 
+namespace
 {
     class ChangeFloorItem : public Item {
         CLONEOBJ(ChangeFloorItem);
@@ -3361,7 +3345,7 @@ namespace
                     SetFloor (p, MakeFloor(a));
             }
         }
-        
+
         void actor_leave (Actor *) {
             if (server::TwoPlayerGame) {
                 // two players: black / white tile
@@ -3391,7 +3375,7 @@ namespace
         Oxyd5fItem()
         {}
     };
-    DEF_TRAITSF(Oxyd5fItem, "it-oxyd5f", it_oxyd5f, 
+    DEF_TRAITSF(Oxyd5fItem, "it-oxyd5f", it_oxyd5f,
                 itf_static | itf_invisible);
 }
 
@@ -3428,10 +3412,10 @@ namespace
         {}
 
         // TimerHandler interface
-        virtual void alarm() 
+        virtual void alarm()
         {
             replace_actor (rotor, old);
-            
+
             delete rotor;
             delete this;
         }
@@ -3467,13 +3451,71 @@ namespace
         }
 
     public:
-        Drop() 
-        {}
+        Drop() {}
     };
     DEF_TRAITS(Drop, "it-drop", it_drop);
 }
 
-
+/* -------------------- Rubberband -------------------- */
+namespace
+{
+    class Rubberband : public Item {
+        CLONEOBJ(Rubberband);
+        DECL_TRAITS;
+
+        ItemAction activate(Actor *a, GridPos p) {
+            if (Item *it=GetItem(p)) {
+                return ITEM_KEEP;
+            }
+            // Default values for the rubberband:
+            double strength = 10.0;
+            double length = 1.0;
+            double minlength = 0.0;
+            double_attrib ("strength", &strength);
+            double_attrib ("length", &length);
+            double_attrib ("minlength", &minlength);
+
+            world::RubberBandData rbd;
+            rbd.strength = strength;
+            rbd.length = length;
+            rbd.minlength = minlength;
+
+            // Target to connect to, default: ""
+            string target = "";
+            string_attrib("target",&target);
+            // TODO: Multiple Targets!
+            // TODO: Target for black and target for white marble?
+            // TODO: MultiplayerGame: Defaulttarget is second actor!
+
+            // The mode attribute "scissor" defines, if when using an it-rubberband,
+            // other rubberbands to the actor will be cut of or not, true means they will. false is default.
+            enigma::Value const *scissorValue = get_attrib("scissor");
+            bool isScissor = (scissorValue == NULL)? false : to_bool(*scissorValue);
+
+            // Get actor or stone with the name, given in "connect_to":
+            Actor *target_actor = dynamic_cast<Actor*>(GetNamedObject(target));
+            Stone *target_stone = dynamic_cast<Stone*>(GetNamedObject(target));
+
+            // Target does NOT exist, Drop Item
+            if((!target_actor)&&(!target_stone)) return ITEM_DROP;
+
+            if (isScissor)
+                world::KillRubberBands (a);
+
+            if (target_actor)
+                world::AddRubberBand (a,target_actor,rbd);
+            else
+                world::AddRubberBand (a,target_stone,rbd);
+
+            return ITEM_KILL;
+        }
+
+    public:
+        Rubberband() {}
+    };
+    DEF_TRAITS(Rubberband, "it-rubberband", it_rubberband);
+}
+
 /* -------------------- Functions -------------------- */
 
 void world::InitItems()
@@ -3568,4 +3610,6 @@ void world::InitItems()
     RegisterItem (new WormHole(false));
     RegisterItem (new WormHole(true));
     RegisterItem (new YinYang);
+
+    RegisterItem (new Rubberband);
 }

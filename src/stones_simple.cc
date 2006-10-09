@@ -1135,9 +1135,16 @@ namespace
             rbd.length = length;
             rbd.minlength = minlength;
 
+            // The mode attribute "scissor" defines, if when touching an st-rubberband,
+            // other rubberbands to the actor will be cut of or not, true means they will. true is default.
+            enigma::Value const *scissorValue = get_attrib("scissor");
+            bool isScissor = (scissorValue == NULL)? true : to_bool(*scissorValue);
+
             if (!world::HasRubberBand (sc.actor, this)) {
                 sound_event ("rubberband");
-                world::KillRubberBand (sc.actor, (Stone*)0);
+                if (isScissor) {
+                    world::KillRubberBand (sc.actor, (Stone*)0);
+                }
                 world::AddRubberBand (sc.actor, this, rbd);
             }
 //             if (player::wielded_item_is (sc.actor, "it-magicwand"))

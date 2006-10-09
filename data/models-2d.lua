@@ -450,7 +450,7 @@ do
         "it-puller-n", "it-puller-e", "it-puller-s", "it-puller-w",
         "it-odometer",
         "it-flagblack", "it-flagwhite",
-        "it-ring", "it-pin", "it-bag","it-drop"
+        "it-ring", "it-pin", "it-bag", "it-drop", "it-rubberband" 
     }
 --    def_tiles("items", itemtiles)
     DefineTiles ("items", itemtiles)

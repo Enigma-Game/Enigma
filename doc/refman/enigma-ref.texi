@@ -3309,7 +3309,7 @@ it-puller-n
 it-puller-s
 it-puller-w
 it-ring
-it-rubberband( object1 object2 length strength )
+it-rubberband( target length strength minlength scissor)
 it-seed
 it-seed_nowood
 it-seed_volcano
@@ -4073,8 +4073,34 @@ Both marbles exchange their positions.  In contrast to
 @node it-rubberband
 @subsection it-rubberband
 
-Supposed to connect two actors when used.  Not yet implemented.
+Connects the actor using it with a target. This target can be an other actor or a stone.
+The target is determined by its name-attribute. If the target doesn't exist,
+the it-rubberband will be dropped.
 
+@strong{Attributes}
+
+@table @code
+@item target
+The target to connect with. It has to be an the name of an other actor or a stone.
+@item length
+The natural length of the rubberband (default: 1)
+@item strength
+The strength of the rubberband (default: 10)
+@item minlength
+The minimal length of the rubberband (default: 0)
+@item scissor
+Boolean value defining if already existing rubberbands to the actor should be cut off.
+(Default: false)
+@end table
+
+@subsection Examples
+
+@example
+set_stones("st-glass", 5, 5, @{name="MyRubberTarget1"@})
+...
+-- When used, this it-rubberband will connect the actor with the glassstone.
+set_item("it-rubberband", 3, 5, @{target="MyRubberTarget1"@})
+@end example
 
 @c -------------------- Seeds --------------------
 @node it-seed
@@ -4692,7 +4718,7 @@ st-rotator-left
 st-rotator-right
 st-rotator_move-left
 st-rotator_move-right
-st-rubberband( length strength minlength )
+st-rubberband( length strength minlength scissor)
 st-scissors( action target )
 st-shogun-<sml>( holes )
 st-spitter( hit_factor hit_distortion_[xx/xy/yx/yy] )
@@ -5939,6 +5965,9 @@ The natural length of the rubberband (default: 1)
 The strength of the rubberband (default: 10)
 @item minlength
 The minimal length of the rubberband (default: 0)
+@item scissor
+Boolean value defining if already existing rubberbands to other Stones should be cut off.
+(Default: true)
 @end table
 
 

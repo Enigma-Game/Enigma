@@ -27,6 +27,7 @@ stateB = 0
 stateC = 0
 stateD = 0
 stateE = 0
+
 function TriggerA()
   if stateA == 0 then
     SendMessage(enigma.GetNamedObject("doorz"), "close");
@@ -34,6 +35,7 @@ function TriggerA()
   end
   stateA = 1 - stateA
 end
+
 function TriggerB()
   if stateB == 0 then
     SendMessage(enigma.GetNamedObject("doorz"), "open");
@@ -42,6 +44,7 @@ function TriggerB()
   end
   stateB = 1 - stateB
 end
+
 function TriggerC()
   if stateC == 0 then
     SendMessage(enigma.GetNamedObject("doorb"), "close");
@@ -50,6 +53,7 @@ function TriggerC()
   stateC = 1 - stateC
   TriggerA()
 end
+
 function TriggerD()
   if stateD == 0 then
     SendMessage(enigma.GetNamedObject("doorc"), "close");
@@ -58,6 +62,7 @@ function TriggerD()
   stateD = 1 - stateD
   TriggerB()
 end
+
 function TriggerE()
   if stateE == 0 then
     SendMessage(enigma.GetNamedObject("doora"), "open");
@@ -69,7 +74,9 @@ function TriggerE()
   stateE = 1 - stateE
   --TriggerC()
 end
+
 multiplayer_mode()
+
 cells={}
 cells[" "]=cell{floor="fl-himalaya"}
 cells["#"]=cell{stone="st-plain"}
@@ -120,25 +127,25 @@ map_cell_meaning("q", cell{item={"it-trigger", {action="openclose", target="door
 map_cell_meaning("r", cell{item={"it-trigger", {action="openclose", target="doorr"}}})
 map_cell_meaning("s", cell{item={"it-trigger", {action="openclose", target="doors"}}})
 level = {
-  "############################:::::::::::",
-  "#  E    f######    M N #   0:::::::::::",
-  "#  ###   ######    ###O#   #:::::::::::",
-  "#  De#   gHiJkL    # P #   0:::::::::::",
-  "#  ###   ######    #Q###   #:::::::::::",
-  "#1 Cd#   ######    # R S   0:::::::::::",
-  "#  ####F####################:::::::::::",
-  "#2 Bc#   ######   #m n x   0:::::::::::",
-  "#  ###   ######   # x o    #:::::::::::",
-  "#  Ab#   GhIjKl    x p x   0:::::::::::",
-  "#  ###   ######   # q x    #:::::::::::",
-  "#  Za#   ######   #x r s   0:::::::::::",
-  "############################:::::::::::"
+  "#############################",
+  "#  E    f######    M N #   0#",
+  "#  ###   ######    ###O#   ##",
+  "#  De#   gHiJkL    # P #   0#",
+  "#  ###   ######    #Q###   ##",
+  "#1 Cd#   ######    # R S   0#",
+  "#  ####F#####################",
+  "#2 Bc#   ######   #m n x   0#",
+  "#  ###   ######   # x o    ##",
+  "#  Ab#   GhIjKl    x p x   0#",
+  "#  ###   ######   # q x    ##",
+  "#  Za#   ######   #x r s   0#",
+  "#############################"
 }
-oxyd_default_flavor = "a"
 set_default_parent(cells[" "])
 create_world_by_map(level)
+oxyd_default_flavor = "a"
 oxyd_shuffle()
-SendMessage(enigma.GetNamedObject("doorz"), "open");
+SendMessage(enigma.GetNamedObject("doorz"), "open")
 display.SetFollowMode(display.FOLLOW_SCROLLING)
 enigma.ConserveLevel=FALSE
     ]]></el:luamain>
