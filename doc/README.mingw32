@@ -178,7 +178,7 @@ xerces-c
   cp etc/xerces-mingw-config.sh to base directory of xerces-c
   edit xerces-mingw-config.sh - add your CROSSPREFIX/bin to PATH, 
     use your TARGET as commandprefix
-  execute "xerces-mingw-config.sh --prefix=CROSSPATH --disable-transcoder-icu --disable-transcoder-windows
+  execute "xerces-mingw-config.sh --prefix=CROSSPATH --disable-transcoder-icu --disable-transcoder-windows --disable-netaccessor-curl
   PATH=CROSSPREFIX/bin:$PATH (the path defined at the beginning!)
   make
   make install (as root with PATH=CROSSPREFIX/bin:$PATH)

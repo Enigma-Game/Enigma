@@ -331,6 +331,7 @@ void Application::init(int argc, char **argv)
 
     // ----- Load level packs -- needs state
     lev::Index::initGroups();
+    oxyd::Init();  // Load oxyd data files - must be first to create correct proxies
     lev::PersistentIndex::registerPersistentIndices();
     lua::Dofile(L, "levels/index.lua");
     lua::DoSubfolderfile(L, "levels", "index.lua");
@@ -344,8 +345,6 @@ void Application::init(int argc, char **argv)
     lev::Index::registerIndex(new lev::VolatileIndex(INDEX_SEARCH_PACK_NAME,
                 INDEX_DEFAULT_GROUP, emptyList, INDEX_SEARCH_PACK_LOCATION));
 
-    // ----- Load oxyd data files
-    oxyd::Init();
     oxyd::ChangeSoundset(options::GetInt("SoundSet"), 1);
 
     lev::Proxy::countLevels();
