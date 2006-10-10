@@ -30,14 +30,11 @@ namespace enigma { namespace gui {
 
     class LevelMenu : public Menu {
     public:
-//        LevelMenu(levels::LevelPack *lp, unsigned long pos);
         LevelMenu();
 
         // Rotate through levels and packs
         void next_levelpack();
         void previous_levelpack();
-//        int get_position() const;
-//        void set_position(int pos);
         void show_text(const string& text);
         bool isMainQuit();
 
@@ -46,7 +43,6 @@ namespace enigma { namespace gui {
         void next_unsolved();
 
         void updateIndex();
-//        void set_levelpack (unsigned index);
 
         // Menu interface.
         void tick (double time);

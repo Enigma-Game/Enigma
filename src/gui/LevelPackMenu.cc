@@ -339,8 +339,16 @@ namespace enigma { namespace gui {
             updateHighlight();
             invalidate_all();            
         } else if (w == but_search) {
-            SearchMenu m;
-            m.manage();
+            SearchMenu ml;
+            ml.manage();
+            if (ml.isSearchQuit()) {
+                // show search result levelpack
+                LevelMenu ml;
+                if (ml.manage() && ml.isMainQuit()) {
+                    // not ESC but Main button has been pressed in LevelMenu -
+                    Menu::quit();
+                }
+            }
             setupMenu();
             updateHighlight();
             invalidate_all();            

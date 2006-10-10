@@ -30,10 +30,13 @@ namespace enigma { namespace gui {
         
         void on_action(Widget *w);
         void draw_background(ecl::GC &gc);
+        bool isSearchQuit();
+        
     private:
         TextField   *shallowSearch;
         Widget      *but_ignore;
         Widget      *but_search;
+        bool         didSearch;
     };
 
 }} // namespace enigma::gui

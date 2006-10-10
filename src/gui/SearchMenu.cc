@@ -33,7 +33,7 @@ using namespace std;
 
 namespace enigma { namespace gui {
 
-     SearchMenu::SearchMenu() {
+     SearchMenu::SearchMenu() : didSearch (false) {
         const video::VMInfo &vminfo = *video::GetInfo();
         
         VList * searchVList = new VList;
@@ -67,9 +67,14 @@ namespace enigma { namespace gui {
         this->add(commandHList, Rect(10, vminfo.height-50, vminfo.width-20, 35));
     }
     
+    bool SearchMenu::isSearchQuit() {
+        return didSearch;
+    }
+    
     void SearchMenu::on_action(Widget *w) {
         if (w == but_search) {
             lev::Index::setCurrentIndex(lev::Proxy::search(shallowSearch->getText()));
+            didSearch = true;
             Menu::quit();
         } else if (w == but_ignore) {
             Menu::quit();

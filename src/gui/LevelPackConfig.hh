@@ -43,6 +43,7 @@ namespace enigma { namespace gui {
         
         void on_action(Widget *w);
         void draw_background(ecl::GC &gc);
+        bool isUndoQuit();
     private:
         lev::Index  *packIndex;
         TextField   *tf_packName;
@@ -52,9 +53,11 @@ namespace enigma { namespace gui {
         Widget      *but_up;
         Widget      *but_down;
         Widget      *but_edit;
-        Widget      *but_delete;
+        Widget      *but_update;
         Widget      *but_ignore;
         Widget      *but_back;
+        bool         isReasignOnly;
+        bool         undo_quit;
     };
 
 }} // namespace enigma::gui

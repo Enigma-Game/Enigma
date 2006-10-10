@@ -426,6 +426,8 @@ namespace enigma { namespace lev {
             std::vector<std::string> groupNames = getGroupNames();
             for (int i = 0; i < groupNames.size(); i++)
                 removeIndexFromGroup(this, groupNames[i]);
+            // declare this index as not belonging to any group
+            indexGroup = "";
         }
         
         // create group if not existing

@@ -189,19 +189,27 @@ namespace enigma { namespace gui {
         } else if (w == but_delete) {
             std::vector<lev::Index *> * indices = lev::Index::getGroup(oldGroupName);
             if (indices != NULL) {
-                for (int i = 0; i < indices->size(); i++) {
+                // reassign remaining indices from back to front to keep the
+                // group vector valid
+                for (int i = indices->size() - 1; i >= 0; i--) {
                     if ((*indices)[i]->getGroupName() != INDEX_EVERY_GROUP) {
-                        errorLabel->set_text(N_("Error: group not empty"));
-                        return;
+                        LevelPackConfig m((*indices)[i]->getName(), oldGroupName, true);
+                        if (!m.manage() || m.isUndoQuit()) {
+                            errorLabel->set_text(N_("Error: group not empty"));
+                            invalidate_all();
+                            return;
+                        } 
                     }
                 }
                 lev::Index::deleteGroup(oldGroupName);
             }
             Menu::quit();
         } else if (w == but_newPack) {
+            errorLabel->set_text(("Sorry - creation of new levelpack not yet implemented."));
+            invalidate_all();
 //            LevelPackConfig m("");
 //            m.manage();
-            Menu::quit();            
+//            Menu::quit();            
         }
     }
     

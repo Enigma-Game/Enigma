@@ -50,7 +50,7 @@ namespace enigma { namespace gui {
     
     
     LevelPackConfig::LevelPackConfig(std::string indexName, std::string groupName,
-            bool forceGroupReasign) {
+            bool forceGroupReasign) : isReasignOnly (forceGroupReasign), undo_quit (false) {
         const video::VMInfo &vminfo = *video::GetInfo();
         
         // TODO handle empty indexName as new Index
@@ -112,10 +112,13 @@ namespace enigma { namespace gui {
      
         errorLabel = new Label("", HALIGN_CENTER);
         this->add(errorLabel, Rect(10, vminfo.height-100, vminfo.width-20, 35));
+        
+        if (isReasignOnly) 
+            errorLabel->set_text(N_("Please reasign levelpack to another group for group deletion"));
        
         // Create buttons - positioning identical to Levelmenu
-        but_edit = new StaticTextButton(N_("Edit Pack"), this);
-        but_delete = new StaticTextButton(N_("Delete Pack"), this);
+        but_edit = new StaticTextButton(N_("Compose Pack"), this);
+        but_update = new StaticTextButton(N_("Update Pack"), this);
         but_ignore = new StaticTextButton(N_("Undo"), this);
         but_back = new StaticTextButton(N_("Ok"), this);
         
@@ -123,11 +126,20 @@ namespace enigma { namespace gui {
         commandHList->set_spacing(10);
         commandHList->set_alignment(HALIGN_CENTER, VALIGN_TOP);
         commandHList->set_default_size(140, 35);
-        commandHList->add_back(but_edit);
-        commandHList->add_back(but_delete);
+        if (isReasignOnly) {
+            commandHList->add_back(new Label());
+            commandHList->add_back(new Label());
+        } else {
+            commandHList->add_back(but_edit);
+            commandHList->add_back(but_update);
+        }
         commandHList->add_back(but_ignore);
         commandHList->add_back(but_back);
         this->add(commandHList, Rect(10, vminfo.height-50, vminfo.width-20, 35));
+    }
+    
+    bool LevelPackConfig::isUndoQuit() {
+        return undo_quit;
     }
     
     void LevelPackConfig::on_action(Widget *w) {
@@ -140,11 +152,20 @@ namespace enigma { namespace gui {
                     newGroupName = newGroupName.substr(1, newGroupName.size() - 2);
                 }
                 packIndex->moveToGroup(newGroupName);
+            } else if (isReasignOnly) {
+                // the user did not reasign - take as an undo request
+                undo_quit = true;
             }
             Menu::quit();
         } else if (w == but_ignore) {
+            undo_quit = true;
             Menu::quit();
+        } else if (w == but_update) {
+            errorLabel->set_text(("Sorry - update not yet implemented."));
+            invalidate_all();
         } else if (w == but_edit) {
+            errorLabel->set_text(("Sorry - compose not yet implemented."));
+            invalidate_all();
         }
     }
     
