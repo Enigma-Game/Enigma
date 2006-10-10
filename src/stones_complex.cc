@@ -3447,7 +3447,7 @@ void stones::Init_complex()
     Register("st-puzzle2-esw", new PuzzleStone(8, true));
     Register("st-puzzle2-nesw", new PuzzleStone(16, true));
 
-    Register("st-bigbrick", new BigBrick(1));
+    //Register("st-bigbrick", new BigBrick(1));  // use st-brick instead
     Register("st-bigbrick-n", new BigBrick(9));
     Register("st-bigbrick-e", new BigBrick(5));
     Register("st-bigbrick-s", new BigBrick(3));
@@ -3464,7 +3464,7 @@ void stones::Init_complex()
     Register("st-bigbrick-esw", new BigBrick(8));
     Register("st-bigbrick-nesw", new BigBrick(16));
     
-    Register("st-bigbluesand", new BigBlueSand(1));
+    //Register("st-bigbluesand", new BigBlueSand(1));  // use st-blue-sand instead
     Register("st-bigbluesand-n", new BigBlueSand(9));
     Register("st-bigbluesand-e", new BigBlueSand(5));
     Register("st-bigbluesand-s", new BigBlueSand(3));

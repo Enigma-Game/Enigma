@@ -4876,11 +4876,10 @@ on the south and east side, @code{st-bigbrick-esw} is a brick-type
 stone which connects to the east, south and west, and has a border on
 the north side.
 
-The use of @code{st-bigbrick} and @code{st-bigbluesand} without
-attachment instead of @code{st-brick} and @code{st-blue-sand} is
-depreceated, as they might become redefined in future.  Note however,
-that @code{st-brick} and @code{st-blue-sand} both are swappable like
-normal stones.
+@code{st-bigbrick} and @code{st-bigbluesand} without suffix are not
+defined. Use @code{st-brick} and @code{st-blue-sand} to set single
+stones of these designs.  Note however, that these stones both are
+swappable and pullable like normal stones.
 
 See @ref{st-puzzle} for another kind of cluster-building stones.
 
