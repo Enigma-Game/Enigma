@@ -19,7 +19,7 @@
     <el:luamain><![CDATA[
 -- Feb.'06: Replaced some characters to get pure ASCII, Raoul 
                                                                
-world.DefineSimpleStoneMovable("oneway_move", "st-rock2", 0)
+world.DefineSimpleStoneMovable("oneway_move", "metal", 0)
 
 display.DefineAlias("oneway_move", "st-oneway_black-n")
 

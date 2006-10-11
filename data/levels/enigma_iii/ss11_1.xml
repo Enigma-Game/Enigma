@@ -17,7 +17,7 @@
       <el:score el:easy="-" el:difficult="-"/>
     </el:info>
     <el:luamain><![CDATA[
-world.DefineSimpleStoneMovable("invisible_move", "st-rock2", 0)
+world.DefineSimpleStoneMovable("invisible_move", "metal", 0)
 display.DefineAlias("invisible_move", "st-invisible")
 
 cells={}
