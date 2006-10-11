@@ -24,9 +24,9 @@ fill_floor( "fl-abyss")
 fill_floor( "fl-metal", 0, 2, 7, 9)
 fill_floor( "fl-metal",13, 2, 7, 9)
 
-fill_floor( "fl-gradient", 7, 4, 6, 1, {type=1})
+fill_floor( "fl-gradient1", 7, 4, 6, 1)
 fill_floor( "fl-metal", 7, 6, 6, 1)
-fill_floor( "fl-gradient", 7, 8, 6, 1, {type=2})
+fill_floor( "fl-gradient2", 7, 8, 6, 1)
 
 draw_stones( "st-woven", { 0,2}, {0,1}, 9)
 draw_stones( "st-woven", {19,2}, {0,1}, 9)
