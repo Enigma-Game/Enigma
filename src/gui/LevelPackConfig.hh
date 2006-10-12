@@ -45,10 +45,19 @@ namespace enigma { namespace gui {
         void draw_background(ecl::GC &gc);
         bool isUndoQuit();
     private:
+        void updateLocationList();
+        
         lev::Index  *packIndex;
         TextField   *tf_packName;
         GroupButton *groupButton;
-        int          initialPosition;
+        int          intialGroupPosition;
+        Label       *pre2Index;
+        Label       *pre1Index;
+        Label       *thisIndex;
+        Label       *post1Index;
+        Label       *post2Index;
+        Widget      *scrollUp;
+        Widget      *scrollDown;
         Label       *errorLabel;
         Widget      *but_up;
         Widget      *but_down;
@@ -58,6 +67,9 @@ namespace enigma { namespace gui {
         Widget      *but_back;
         bool         isReasignOnly;
         bool         undo_quit;
+        std::vector<std::string> locationList;
+        int         position;       // new position of index in locationList that the user selected
+        int         oldPosition;    // position of index when entering menu, -1 for new index
     };
 
 }} // namespace enigma::gui

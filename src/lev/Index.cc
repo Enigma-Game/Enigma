@@ -59,9 +59,14 @@ namespace enigma { namespace lev {
         
         // register index in state.xml and update current position, first with last values        
         std::string groupName = "";
-        app.state->addIndex(anIndex->getName(), groupName, 0, 
+        double stateLocation = 0;
+        app.state->addIndex(anIndex->getName(), groupName, stateLocation, 
                 anIndex->currentPosition, anIndex->screenFirstPosition);
 
+        // user location for index?
+        if (stateLocation > 0)
+            anIndex->indexLocation = stateLocation;
+            
         // reset positions that are out of range - this may happen due to
         // modified levelpacks (updates, deleted levels in auto, new commandline)
         if (anIndex->currentPosition < 0 || anIndex->currentPosition >= anIndex->size())
@@ -111,7 +116,7 @@ namespace enigma { namespace lev {
     void Index::addIndexToGroup(Index *anIndex, std::vector<Index *> * aGroup) {
         std::vector<Index *>::iterator itg;
         for (itg = aGroup->begin(); itg != aGroup->end() && 
-                (*itg)->indexDefaultLocation <= anIndex->indexDefaultLocation; 
+                (*itg)->indexLocation <= anIndex->indexLocation; 
                 itg++) {
         }
         aGroup->insert(itg, anIndex);
@@ -189,15 +194,6 @@ namespace enigma { namespace lev {
         std::vector<std::string> names;
         app.state->getGroupNames(&names);
         return names;
-    }
-    
-    std::vector<Index *> * Index::getGroup(Index * anIndex) {
-        std::map<std::string, std::vector<Index *> *>::iterator i = indexGroups.find(anIndex->getGroupName());
-        if (i != indexGroups.end()) {
-            return i->second;
-        } else {
-            return NULL;
-        }
     }
     
     void Index::deleteGroup(std::string groupName) {
@@ -346,7 +342,7 @@ namespace enigma { namespace lev {
     }
     
     Index * Index::nextGroupIndex() {
-        std::vector<Index *> * curGroup = getGroup(currentIndex);
+        std::vector<Index *> * curGroup = getGroup(currentGroup);
         ASSERT(curGroup != NULL, XFrontend, "");
         
         for (int i = 0; i < curGroup->size() - 1; i++) {
@@ -357,7 +353,7 @@ namespace enigma { namespace lev {
     }
     
     Index * Index::previousGroupIndex() {
-        std::vector<Index *> * curGroup = getGroup(currentIndex);
+        std::vector<Index *> * curGroup = getGroup(currentGroup);
         ASSERT(curGroup != NULL, XFrontend, "");
 
         for (int i = 1; i < curGroup->size(); i++) {
@@ -383,9 +379,9 @@ namespace enigma { namespace lev {
         double lastUsed = INDEX_USER_PACK_LOCATION;
         std::map<std::string, Index *>::iterator iti;
         for (iti = indices.begin(); iti != indices.end(); iti++) {
-            double indexLocation = (*iti).second->indexDefaultLocation;
-            if (indexLocation > lastUsed && indexLocation < INDEX_DEFAULT_PACK_LOCATION) {
-                lastUsed = indexLocation;
+            double idxLocation = (*iti).second->indexLocation;
+            if (idxLocation > lastUsed && idxLocation < INDEX_DEFAULT_PACK_LOCATION) {
+                lastUsed = idxLocation;
             }
         }
         if (lastUsed + 999 < INDEX_DEFAULT_PACK_LOCATION)
@@ -397,7 +393,7 @@ namespace enigma { namespace lev {
     
     Index::Index(std::string anIndexName, std::string aGroupName, double defaultLocation) : 
             indexName (anIndexName), indexGroup (aGroupName), defaultGroup (aGroupName),
-            indexDefaultLocation (defaultLocation),
+            indexLocation (defaultLocation), indexDefaultLocation (defaultLocation),
             currentPosition (0), screenFirstPosition (0) {
     }
     
@@ -413,6 +409,10 @@ namespace enigma { namespace lev {
     
     std::string Index::getDefaultGroupName() {
         return defaultGroup;
+    }
+    
+    double Index::getLocation() {
+        return indexLocation;
     }
 
     void Index::moveToGroup(std::string newGroupName) {
@@ -478,7 +478,71 @@ namespace enigma { namespace lev {
                     setGroupSelectedColumn(currentGroup, INDEX_GROUP_COLUMN_UNKNOWN);
                 }
         }
-}
+    }
+    
+    int indexLocationCompare(Index * first, Index * second) {
+        return first->getLocation() < second->getLocation();
+    }
+    
+    void Index::locateBehind(std::string predName) {
+        double predLocation = 0;
+        double succLocation = 0;
+        double newLocation;
+        std::string predGroup;
+        std::string succGroup;
+        std::vector<Index *> * allGroup = getGroup(INDEX_ALL_PACKS);
+        if (predName.empty()) {
+            succLocation = (*allGroup)[0]->indexLocation;
+            succGroup = (*allGroup)[0]->indexGroup;
+        } else {
+            for (int i = 0; i < allGroup->size(); i++) {
+                if ((*allGroup)[i]->getName() == predName) {
+                    predLocation = (*allGroup)[i]->indexLocation;
+                    predGroup = (*allGroup)[i]->indexGroup;
+                    int succ = 0;
+                    if ((i+1 < allGroup->size()) && ((*allGroup)[i+1] != this)) {
+                        succ = i + 1;
+                    } else if (i+2 < allGroup->size()) {
+                        succ = i + 2;
+                    }
+                    if (succ > 0) {
+                        succLocation = (*allGroup)[succ]->indexLocation;
+                        succGroup = (*allGroup)[succ]->indexGroup;
+                    }
+                    break;
+                }
+            }
+        }
+        ASSERT (!(predLocation == 0 && succLocation == 0), XFrontend, "");
+        if (predLocation == 0) {
+            if (succGroup == indexGroup) {
+                newLocation = succLocation * 0.98;
+            } else {
+                newLocation = succLocation * 0.75;
+            }
+        } else if (succLocation == 0) {
+            if (predGroup == indexGroup) {
+                newLocation = predLocation + 100;
+            } else {
+                newLocation = predLocation + 10000;
+            }
+        } else if ((predGroup == indexGroup && succGroup == indexGroup) ||
+                (predGroup != indexGroup && succGroup != indexGroup)){
+            newLocation = (predLocation + succLocation) / 2;
+        } else if (predGroup == indexGroup) {
+            newLocation = 0.95 * predLocation + 0.05 * succLocation;
+        } else {
+            newLocation = 0.05 * predLocation + 0.95 * succLocation;
+        }
+//        Log << "newLocation " << newLocation << "\n";
+        indexLocation = newLocation;
+        app.state->setIndexLocation(indexName, indexLocation);
+        
+        // reorder all groups according to new location
+        std::map<std::string, std::vector<Index *> *>::iterator itg;
+        for (itg = indexGroups.begin(); itg != indexGroups.end(); itg++) 
+            std::sort((*itg).second->begin(), (*itg).second->end(), indexLocationCompare);
+    }
     
     int Index::getCurrentPosition() {
         return currentPosition;

@@ -72,12 +72,12 @@ namespace enigma { namespace gui {
         }
         // add pseudo group "[Every Group]"
         groups.push_back(std::string("[") + INDEX_EVERY_GROUP +"]");
-        initialPosition = groups.size() - 1;   // INDEX_EVERY_GROUP as default
+        intialGroupPosition = groups.size() - 1;   // INDEX_EVERY_GROUP as default
         // mark index's default group with square brackets and find current group
         bool defaultGroupFound = false;
         for (int i = 0; i < groups.size(); i++) {
             if (groups[i] == packIndex->getGroupName()) {
-                initialPosition = i;
+                intialGroupPosition = i;
             }
             if (groups[i] == packIndex->getDefaultGroupName()) {
                 groups[i] = std::string("[") + groups[i] +"]";
@@ -87,31 +87,93 @@ namespace enigma { namespace gui {
         if (!defaultGroupFound)  {
             groups.push_back(std::string("[") + packIndex->getDefaultGroupName() +"]");
         }
-        groupButton = new GroupButton(groups, initialPosition);
+        groupButton = new GroupButton(groups, intialGroupPosition);
+
+        // index location list setup
+        std::vector<lev::Index *> * allIndices = lev::Index::getGroup(INDEX_ALL_PACKS);
+        for (int i = 0; i < allIndices->size(); i++)
+            locationList.push_back((*allIndices)[i]->getName());
+        position = -1;
+        for (int i = 0; i < locationList.size(); i++) {
+            if (locationList[i] == indexName) {
+                position = i;
+                break;
+            } 
+        }
+        oldPosition = position;
+        if (position < 0) { // may be improved by last User Index + 100 ...
+            locationList.push_back(indexName);
+            position = locationList.size() - 1;
+        }
 
         VList * titleLeftVList = new VList;
-        titleLeftVList->set_spacing(12);
+        titleLeftVList->set_spacing(11);
         titleLeftVList->set_alignment(HALIGN_LEFT, VALIGN_CENTER);
-        titleLeftVList->set_default_size(160, 35);
+        titleLeftVList->set_default_size(140, 35);
         Label * titleLabel = new Label(N_("Levelpack:"), HALIGN_RIGHT);
+        Label * ownerLabel = new Label(N_("Owner:"), HALIGN_RIGHT);
         Label * groupLabel = new Label(N_("Group:"), HALIGN_RIGHT);
+        Label * loactionLabel1 = new Label(N_("Location"), HALIGN_LEFT);
+        Label * loactionLabel2 = new Label(N_("in [All Packs]:"), HALIGN_RIGHT);
         titleLeftVList->add_back(titleLabel);
+        if (!isReasignOnly) {
+           titleLeftVList->add_back(ownerLabel);
+        }
         titleLeftVList->add_back(groupLabel);
+        if (!isReasignOnly) {        
+            titleLeftVList->add_back(new Label());
+            titleLeftVList->add_back(loactionLabel1);
+            titleLeftVList->add_back(loactionLabel2);
+            titleLeftVList->add_back(new Label());
+            titleLeftVList->add_back(new Label());
+        }
         
         VList * valueLeftVList = new VList;
-        valueLeftVList->set_spacing(12);
+        valueLeftVList->set_spacing(11);
         valueLeftVList->set_alignment(HALIGN_LEFT, VALIGN_CENTER);
         valueLeftVList->set_default_size(160, 35);
 
         Label * titleValue = new Label(indexName, HALIGN_CENTER);
-        valueLeftVList->add_back(titleValue);
-        valueLeftVList->add_back(groupButton);
+        pre2Index = new Label();
+        pre1Index = new Label();
+        thisIndex = new Label();
+        post1Index = new Label();
+        post2Index = new Label();
 
-        this->add(titleLeftVList, Rect(vminfo.width/2 - 290, 0, 160, vminfo.height-100));
-        this->add(valueLeftVList, Rect(vminfo.width/2 - 80, 0, 160, vminfo.height-100));
+        valueLeftVList->add_back(titleValue);
+        if (!isReasignOnly) {        
+            valueLeftVList->add_back(new Label());
+        }
+        valueLeftVList->add_back(groupButton);
+        if (!isReasignOnly) {        
+            valueLeftVList->add_back(pre2Index);
+            valueLeftVList->add_back(pre1Index);
+            valueLeftVList->add_back(thisIndex);
+            valueLeftVList->add_back(post1Index);
+            valueLeftVList->add_back(post2Index);
+        }
+
+        VList * scrollVList = new VList;
+        scrollVList->set_spacing(12);
+        scrollVList->set_alignment(HALIGN_LEFT, VALIGN_CENTER);
+        scrollVList->set_default_size(30, 35);
+
+        scrollUp = new ImageButton("ic-up", "ic-up1", this);
+        scrollDown = new ImageButton("ic-down", "ic-down1", this);
+        scrollVList->add_back(scrollUp);
+        scrollVList->add_back(scrollDown);
+
+        if (isReasignOnly) {        
+            this->add(titleLeftVList, Rect(vminfo.width/2 - 270, 15, 140, vminfo.height-97));
+            this->add(valueLeftVList, Rect(vminfo.width/2 - 80, 15, 160, vminfo.height-97));
+        } else {
+            this->add(titleLeftVList, Rect(vminfo.width/2 - 300, 15, 140, vminfo.height-97));
+            this->add(valueLeftVList, Rect(vminfo.width/2 - 140, 15, 160, vminfo.height-97));
+            this->add(scrollVList, Rect(vminfo.width/2 + 30, 15+3*(35+12), 30, 5*35+4*12));
+        }
      
         errorLabel = new Label("", HALIGN_CENTER);
-        this->add(errorLabel, Rect(10, vminfo.height-100, vminfo.width-20, 35));
+        this->add(errorLabel, Rect(10, vminfo.height-97, vminfo.width-20, 35));
         
         if (isReasignOnly) 
             errorLabel->set_text(N_("Please reasign levelpack to another group for group deletion"));
@@ -136,6 +198,16 @@ namespace enigma { namespace gui {
         commandHList->add_back(but_ignore);
         commandHList->add_back(but_back);
         this->add(commandHList, Rect(10, vminfo.height-50, vminfo.width-20, 35));
+        
+        updateLocationList();
+    }
+    
+    void LevelPackConfig::updateLocationList() {
+        pre2Index->set_text((position > 1) ? locationList[position - 2] : "");
+        pre1Index->set_text((position > 0) ? locationList[position - 1] : "");
+        thisIndex->set_text(packIndex->getName());
+        post1Index->set_text((position < locationList.size() - 1) ? locationList[position + 1] : "");
+        post2Index->set_text((position < locationList.size() - 2) ? locationList[position + 2] : "");        
     }
     
     bool LevelPackConfig::isUndoQuit() {
@@ -144,7 +216,7 @@ namespace enigma { namespace gui {
     
     void LevelPackConfig::on_action(Widget *w) {
         if (w == but_back) {
-            if (groupButton->get_value() != initialPosition) {
+            if (groupButton->get_value() != intialGroupPosition) {
                 std::string newGroupName = groupButton->get_text(groupButton->get_value());
                 // strip off square brackets used to mark default and pseudo groups
                 if (newGroupName.size() > 2 && newGroupName[0] == '[' && 
@@ -156,6 +228,8 @@ namespace enigma { namespace gui {
                 // the user did not reasign - take as an undo request
                 undo_quit = true;
             }
+            if (position != oldPosition)
+                packIndex->locateBehind(position > 0 ? locationList[position - 1] : "");
             Menu::quit();
         } else if (w == but_ignore) {
             undo_quit = true;
@@ -166,6 +240,24 @@ namespace enigma { namespace gui {
         } else if (w == but_edit) {
             errorLabel->set_text(("Sorry - compose not yet implemented."));
             invalidate_all();
+        } else if (w == scrollUp) {
+            if (position > 0) {
+                std::string tmp = locationList[position];
+                locationList[position] = locationList[position - 1];
+                locationList[position - 1] = tmp;
+                position--;
+                updateLocationList();
+                invalidate_all();
+            }
+        } else if (w == scrollDown) {
+            if (position < locationList.size() - 1) {
+                std::string tmp = locationList[position];
+                locationList[position] = locationList[position + 1];
+                locationList[position + 1] = tmp;
+                position++;
+                updateLocationList();
+                invalidate_all();
+            }
         }
     }
     

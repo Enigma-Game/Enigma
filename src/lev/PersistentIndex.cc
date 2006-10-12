@@ -20,7 +20,9 @@
 #include "lev/Proxy.hh"
 #include "lev/RatingManager.hh"
 #include "errors.hh"
+#include "gui/ErrorMenu.hh"
 #include "main.hh"
+#include "nls.hh"
 #include "file.hh"
 #include "options.hh"
 #include "oxyd.hh"
@@ -172,6 +174,7 @@ namespace enigma { namespace lev {
         // register auto not yet registered new files
         PersistentIndex * autoIndex = new PersistentIndex("auto", false, INDEX_AUTO_PACK_NAME);
         autoIndex->indexDefaultLocation = INDEX_AUTO_PACK_LOCATION;
+        autoIndex->indexLocation = INDEX_AUTO_PACK_LOCATION;
         dirIter = DirIter::instance(app.userPath + "/levels/auto");
         while (dirIter->get_next(dirEntry)) { 
             if( !dirEntry.is_dir) {
@@ -200,6 +203,7 @@ namespace enigma { namespace lev {
         } else {
             historyIndex = new PersistentIndex("cross", false, INDEX_HISTORY_PACK_NAME, "history.xml");
             historyIndex->indexDefaultLocation = INDEX_HISTORY_PACK_LOCATION;
+            historyIndex->indexLocation = INDEX_HISTORY_PACK_LOCATION;
             Index::registerIndex(historyIndex);
         }
     }
@@ -281,6 +285,12 @@ namespace enigma { namespace lev {
                     doc = NULL;
                 }
                 Log << errMessage;   // make long error messages readable
+                std::string message = _("Error on  registration of levelpack index: \n");
+                message += absIndexPath + "\n\n";
+                message += _("Note: the levelpack will not show up!\n\n");
+                message += errMessage;
+                gui::ErrorMenu m(message, N_("Continue"));
+                m.manage();
                 return;
             } else if (doc != NULL) {
                 //TODO check if an updated index exists for system packs
@@ -294,6 +304,7 @@ namespace enigma { namespace lev {
                 XMLDouble * result = new XMLDouble(infoElem->getAttribute( 
                         Utf8ToXML("location").x_str()));
                 indexDefaultLocation = result->getValue();
+                indexLocation = indexDefaultLocation;
                 DOMNodeList *levelList = levelsElem->getElementsByTagName(
                         Utf8ToXML("level").x_str());
                 std::set<std::string> knownAttributes;

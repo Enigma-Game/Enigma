@@ -56,8 +56,9 @@ namespace enigma
         void deleteGroup(std::string groupName);
         void renameGroup(std::string oldName, std::string newName);
         
-        void addIndex(std::string indexName, std::string &groupName, double location,
+        void addIndex(std::string indexName, std::string &groupName, double &location,
                 int &curpos, int &curfirst);
+        void setIndexLocation(std::string indexName, double location);
         void setIndexCurpos(std::string indexName, int curpos);
         void setIndexCurfirst(std::string indexName, int curfirst);
         void setIndexGroup(std::string indexName, std::string groupName);

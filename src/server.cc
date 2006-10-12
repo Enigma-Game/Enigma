@@ -116,17 +116,18 @@ void load_level(lev::Proxy *levelProxy)
 {
     server::PrepareLevel();
 
-    // first set default compatibility mode
-    // (may be overidden by load_level (from Lua))
-    server::GameCompatibility = levelProxy->getEngineCompatibility();
-    if (server::GameCompatibility == GAMET_UNKNOWN)
-        // use default Comopatibility
-        server::GameCompatibility = GAMET_ENIGMA;
-    
-    // clear inventory before level load and give us 2 extralives
-    player::NewGame();
-
     try {
+        // first set default compatibility mode
+        // (may be overidden by load_level (from Lua))
+        server::GameCompatibility = levelProxy->getEngineCompatibility();
+        if (server::GameCompatibility == GAMET_UNKNOWN)
+            // use default Comopatibility
+            // server::GameCompatibility = GAMET_ENIGMA;
+            throw XLevelLoading("unknown engine compatibility");
+        
+        // clear inventory before level load and give us 2 extralives
+        player::NewGame();
+
         levelProxy->loadLevel();
 //            server::CurrentLevel = static_cast<unsigned> (ilevel);
         game::ResetGameTimer();

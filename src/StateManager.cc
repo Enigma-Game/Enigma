@@ -259,12 +259,15 @@ namespace enigma {
     
     
     void StateManager::addIndex(std::string indexName, std::string &groupName, 
-            double location, int &curpos, int &curfirst) {
-        // check if index exists - do not user attributes with defaults
+            double &location, int &curpos, int &curfirst) {
+        // check if index exists - get user attributes
         for (int i = 0, l = indexList-> getLength(); i < l; i++) {
             DOMElement * index = dynamic_cast<DOMElement *>(indexList->item(i));
             if (indexName == XMLtoUtf8(index->getAttribute(Utf8ToXML("title").x_str())).c_str()) {
                 groupName = XMLtoUtf8(index->getAttribute(Utf8ToXML("group").x_str())).c_str();
+                XMLDouble * result = new XMLDouble(index->getAttribute(Utf8ToXML("location").x_str()));
+                location = result->getValue();
+                delete result;
                 curpos = XMLString::parseInt(index->getAttribute(Utf8ToXML("curposition").x_str()));
                 curfirst = XMLString::parseInt(index->getAttribute(Utf8ToXML("curfirst").x_str()));
                 return;
@@ -278,6 +281,17 @@ namespace enigma {
         index->setAttribute(Utf8ToXML("curfirst").x_str(), Utf8ToXML(ecl::strf("%d",0)).x_str());
         index->setAttribute(Utf8ToXML("curposition").x_str(), Utf8ToXML(ecl::strf("%d",0)).x_str());
         indicesElem->appendChild(index);
+    }
+    
+    void StateManager::setIndexLocation(std::string indexName, double location) {
+        // search index and set attribute
+        for (int i = 0, l = indexList-> getLength(); i < l; i++) {
+            DOMElement * index = dynamic_cast<DOMElement *>(indexList->item(i));
+            if (indexName == XMLtoUtf8(index->getAttribute(Utf8ToXML("title").x_str())).c_str()) {
+                index->setAttribute(Utf8ToXML("location").x_str(), Utf8ToXML(ecl::strf("%.15g",location)).x_str());
+                return;
+            }
+        }
     }
     
     void StateManager::setIndexCurpos(std::string indexName, int curpos) {

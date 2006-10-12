@@ -100,7 +100,9 @@ namespace enigma { namespace lev {
         std::string getName();
         std::string getGroupName();
         std::string getDefaultGroupName();
+        double getLocation();
         void moveToGroup(std::string groupName);
+        void locateBehind(std::string indexName);
 
         int getCurrentPosition(); // 0 .. size-1
         int getCurrentLevel(); // 1 .. size
@@ -133,6 +135,7 @@ namespace enigma { namespace lev {
     protected:
         std::string indexName;
         std::string indexGroup;
+        double indexLocation;
         std::string defaultGroup;
         double indexDefaultLocation;
         int currentPosition; // 0,...
@@ -161,7 +164,6 @@ namespace enigma { namespace lev {
         static Index * currentIndex;
         static std::string currentGroup;
         
-        static std::vector<Index *> * getGroup(Index * anIndex);
         static void addIndexToGroup(Index *anIndex, std::vector<Index *> * aGroup);
         static void removeIndexFromGroup(Index *anIndex, std::string groupName);
 

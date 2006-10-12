@@ -25,7 +25,7 @@
 
 namespace enigma { namespace gui {
     /**
-     * A singelton manager for level previews with autocaching.
+     * A singleton manager for level previews with autocaching.
      * Clients just need to know the level proxy to request a preview.
      * <p>
      * Previews will be loaded from levelpack bundles if provided. These

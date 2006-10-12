@@ -755,6 +755,7 @@ LevelPack_Oxyd::LevelPack_Oxyd (OxydVersion ver, DatFile *dat,
     indexName = get_name();
     indexGroup = defaultGroup = "Dongleware";
     indexDefaultLocation = get_default_location();
+    indexLocation = indexDefaultLocation;
     Log << "Levelpack '" << get_name() << "' has " << nlevels << " levels." << endl;
 }
 
