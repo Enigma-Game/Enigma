@@ -6710,14 +6710,14 @@ between Compatibility Modes} and @ref{<compatibility>}) feature a
 version which only marginally differs from 0.92-fire, yet allowing
 some of the new achievements, like secure- or eternal-fire.
 
-@strong{Burnable and Unburnable Floors}
+@strong{Burnable and Fireproof Floors}
 
-The following floors are unburnable: @code{fl-abyss*, fl-ac*,
-fl-black, fl-brick, fl-bridge*, fl-bumps, fl-concrete, fl-dummy,
-fl-dunes, fl-gradient*, fl-gravel, fl-gray, fl-himalaya, fl-ice*,
-fl-inverse, fl-inverse2, fl-darkgray, fl-metal*, fl-mortar,
-fl-normal*, fl-rock, fl-sahara, fl-sand, fl-space*, fl-springboard,
-fl-stone, fl-swamp, fl-water, fl-white} 
+The following floors are fireproof (don't burn by default):
+@code{fl-abyss*, fl-ac*, fl-black, fl-brick, fl-bridge*, fl-bumps,
+fl-concrete, fl-dummy, fl-dunes, fl-gradient*, fl-gravel, fl-gray,
+fl-himalaya, fl-ice*, fl-inverse, fl-inverse2, fl-darkgray, fl-metal*,
+fl-mortar, fl-normal*, fl-rock, fl-sahara, fl-sand, fl-space*,
+fl-springboard, fl-stone, fl-swamp, fl-water, fl-white}
 
 The following floors are burnable: @code{fl-bluegray, fl-bluegreen*,
 fl-hay, fl-light, fl-lightgray, fl-marble, fl-red, fl-rough*,
@@ -6729,6 +6729,29 @@ The following floors are burnable and leave @code{fl-dunes} behind:
 The following floors are burnable and leave @code{fl-abyss} behind:
 @code{fl-floor_001, fl-plank, fl-samba*, fl-stwood*, fl-wood*}
 
+@strong{Fireproof Items}
+
+Most items are passively burnable, this is: An item is destroyed by
+fire, if and only if the floor could burn all by itself.  However,
+there are some items with individual reactions (@code{it-burnable,
+it-burnable_oil, it-dynamite, it-blackbomb, it-whitebomb, it-crack*})
+and some items that are completely fireproof. These are:
+@code{it-hollow, it-tinyhollow, it-hill, it-tinyhill, it-vortex*,
+it-burnable_fireproof, it-burnable_ash, it-extinguisher,
+it-extinguisher_medium, it-sensor, it-inversesensor, it-abyss,
+it-changefloor}, all items of section @ref{System and Debug Items}
+(@code{it-[1/2]pkillstone, it-bridge-oxyd*, it-debris, it-dummy,
+it-easy[kill/keep]stone, it-explosion*, it-oxyd5f,
+it-signalfilter[0/1]}) and the fire animations themselves:
+@code{it-burnable_ignited} and @code{it-burnable_burning}.
+
+Note that @code{it-extinguisher_empty, it-trigger} (visible and
+invisible), @code{it-landmine} and @code{it-death} are passively
+burnable.  In particular, @code{it-landmine} does not explode and does
+not create @code{it-hollow} when burning.
+
+If you need to save a passively burnable item from fire, simply set a
+fireproof floor like @code{fl-sand} or @code{fl-rock} below it.
 
 
 @c ----------------------------------------------------------------------

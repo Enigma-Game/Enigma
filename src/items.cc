@@ -243,7 +243,7 @@ namespace
     public:
         Dummyitem() {}
     };
-    DEF_TRAITS(Dummyitem, "it-dummy", it_dummy);
+    DEF_TRAITSF(Dummyitem, "it-dummy", it_dummy, itf_fireproof);
 
 /* -------------------- Cherry -------------------- */
 
@@ -418,6 +418,7 @@ namespace
     DEF_TRAITS (Umbrella, "it-umbrella", it_umbrella);
 }
 
+/* -------------------- Spoon -------------------- */
 namespace
 {
     class Spoon : public Item {
@@ -434,7 +435,6 @@ namespace
     };
     DEF_TRAITS(Spoon, "it-spoon", it_spoon);
 }
-
 
 /* -------------------- Keys -------------------- */
 namespace
@@ -985,8 +985,8 @@ namespace
         Explosion1()
         {}
     };
-    DEF_TRAITSF(Explosion1, "it-explosion1", it_explosion1,
-                itf_static | itf_animation | itf_indestructible | itf_norespawn);
+    DEF_TRAITSF(Explosion1, "it-explosion1", it_explosion1, itf_static |
+                itf_animation | itf_indestructible | itf_norespawn | itf_fireproof);
 
     // Explode and leave a hole in the ground.
     class Explosion2 : public Explosion {
@@ -1004,8 +1004,8 @@ namespace
         Explosion2()
         {}
     };
-    DEF_TRAITSF(Explosion2, "it-explosion2", it_explosion2,
-                itf_static | itf_animation | itf_indestructible | itf_norespawn);
+    DEF_TRAITSF(Explosion2, "it-explosion2", it_explosion2, itf_static |
+                itf_animation | itf_indestructible | itf_norespawn | itf_fireproof);
 
 
     // Explode and shatter the floor.
@@ -1024,8 +1024,8 @@ namespace
         Explosion3()
         {}
     };
-    DEF_TRAITSF(Explosion3, "it-explosion3", it_explosion3,
-                itf_static | itf_animation | itf_indestructible | itf_norespawn);
+    DEF_TRAITSF(Explosion3, "it-explosion3", it_explosion3, itf_static |
+                itf_animation | itf_indestructible | itf_norespawn | itf_fireproof);
 }
 
 
@@ -1848,8 +1848,8 @@ namespace
     };
 
     ItemTraits Vortex::traits[2] = {
-        {"it-vortex-closed", it_vortex_closed, itf_static, 0.0},
-        {"it-vortex-open", it_vortex_open,     itf_static, 0.0}
+        {"it-vortex-closed", it_vortex_closed, itf_static | itf_fireproof, 0.0},
+        {"it-vortex-open", it_vortex_open,     itf_static | itf_fireproof, 0.0}
     };
 
     const double Vortex::RANGE = 0.5/2;
@@ -2800,8 +2800,8 @@ namespace
     public:
         OxydBridge() {}
     };
-    DEF_TRAITSF (OxydBridge, "it-bridge-oxyd", it_bridge_oxyd,
-                 itf_static | itf_indestructible | itf_invisible);
+    DEF_TRAITSF(OxydBridge, "it-bridge-oxyd", it_bridge_oxyd,
+                itf_static | itf_indestructible | itf_invisible | itf_fireproof);
 
     class OxydBridgeActive : public OxydBridge {
         CLONEOBJ(OxydBridgeActive);
@@ -2815,7 +2815,7 @@ namespace
         OxydBridgeActive() {}
     };
     DEF_TRAITSF(OxydBridgeActive, "it-bridge-oxyd_active", it_bridge_oxyd_active,
-                itf_static | itf_indestructible | itf_invisible);
+                itf_static | itf_indestructible | itf_invisible | itf_fireproof);
 }
 
 
@@ -2836,7 +2836,8 @@ namespace
             PerformAction (this, true);
         }
     };
-    DEF_TRAITSF (Sensor, "it-sensor", it_sensor, itf_static | itf_invisible);
+    DEF_TRAITSF(Sensor, "it-sensor", it_sensor,
+                itf_static | itf_invisible | itf_fireproof);
 
     class InverseSensor : public Item {
         CLONEOBJ(InverseSensor);
@@ -2848,7 +2849,8 @@ namespace
             PerformAction (this, false);
         }
     };
-    DEF_TRAITSF(InverseSensor, "it-inversesensor", it_inversesensor, itf_static | itf_invisible);
+    DEF_TRAITSF(InverseSensor, "it-inversesensor", it_inversesensor,
+                itf_static | itf_invisible | itf_fireproof);
 }
 
 
@@ -2885,8 +2887,10 @@ namespace
         }
     };
     ItemTraits SignalFilterItem::traits[2] = {
-        {"it-signalfilter0", it_signalfilter0, itf_static | itf_invisible, 0.0},
-        {"it-signalfilter1", it_signalfilter1, itf_static | itf_invisible, 0.0},
+        {"it-signalfilter0", it_signalfilter0,
+            itf_static | itf_invisible | itf_fireproof, 0.0},
+        {"it-signalfilter1", it_signalfilter1,
+            itf_static | itf_invisible | itf_fireproof, 0.0},
     };
 }
 
@@ -2917,7 +2921,7 @@ namespace
         EasyKillStone() {}
     };
     DEF_TRAITSF(EasyKillStone, "it-easykillstone",
-                it_easykillstone, itf_invisible);
+                it_easykillstone, itf_invisible | itf_fireproof);
 }
 
 Value EasyKillStone::on_message (const Message &m )
@@ -2942,8 +2946,6 @@ Value EasyKillStone::on_message (const Message &m )
     return Value();
 }
 
-
-
 /* -------------------- EasyKeepStone -------------------- */
 namespace
 {
@@ -2964,7 +2966,8 @@ namespace
     public:
         EasyKeepStone() {}
     };
-    DEF_TRAITSF(EasyKeepStone, "it-easykeepstone", it_easykeepstone, itf_invisible);
+    DEF_TRAITSF(EasyKeepStone, "it-easykeepstone", it_easykeepstone,
+                itf_invisible | itf_fireproof);
 }
 
 /* -------------------- SingleKillStone -------------------- */
@@ -2985,7 +2988,8 @@ namespace
     public:
         OnePKillStone () {}
     };
-    DEF_TRAITSF(OnePKillStone, "it-1pkillstone", it_1pkillstone, itf_invisible);
+    DEF_TRAITSF(OnePKillStone, "it-1pkillstone", it_1pkillstone,
+                itf_invisible | itf_fireproof);
 
     class TwoPKillStone : public Item {
         CLONEOBJ (TwoPKillStone);
@@ -3002,7 +3006,8 @@ namespace
     public:
         TwoPKillStone () {}
     };
-    DEF_TRAITSF(TwoPKillStone, "it-2pkillstone", it_2pkillstone, itf_invisible);
+    DEF_TRAITSF(TwoPKillStone, "it-2pkillstone", it_2pkillstone,
+                itf_invisible | itf_fireproof);
 }
 
 
@@ -3050,7 +3055,8 @@ namespace
     public:
         InvisibleAbyss() {}
     };
-    DEF_TRAITSF(InvisibleAbyss, "it-abyss", it_abyss, itf_static | itf_invisible);
+    DEF_TRAITSF(InvisibleAbyss, "it-abyss", it_abyss,
+                itf_static | itf_invisible | itf_fireproof);
 }
 
 
@@ -3361,7 +3367,7 @@ namespace
         }
     };
     DEF_TRAITSF(ChangeFloorItem, "it-changefloor", it_changefloor,
-                itf_static | itf_invisible);
+                itf_static | itf_invisible | itf_fireproof);
 
     class Oxyd5fItem : public Item {
         CLONEOBJ(Oxyd5fItem);
@@ -3376,7 +3382,7 @@ namespace
         {}
     };
     DEF_TRAITSF(Oxyd5fItem, "it-oxyd5f", it_oxyd5f,
-                itf_static | itf_invisible);
+                itf_static | itf_invisible | itf_fireproof);
 }
 
 /* -------------------- Drop -------------------- */
