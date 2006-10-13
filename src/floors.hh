@@ -32,7 +32,8 @@ namespace world
         fl_abyss,
         fl_water,
         fl_swamp,
-        fl_space
+        fl_space,
+        fl_thief
     };
 
     enum FloorFireType {

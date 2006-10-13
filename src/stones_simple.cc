@@ -1451,9 +1451,9 @@ Value ThiefStone::message(const string &msg, const Value &v) {
         
         // add items on grid pos that can be picked up to our bag
         if (it != NULL && !(it->get_traits().flags & itf_static) && bag != NULL) {
-            dynamic_cast<ItemHolder *>(bag)->add_item(world::YieldItem(get_pos()));            
+            dynamic_cast<ItemHolder *>(bag)->add_item(world::YieldItem(get_pos()));
         }
-        // dop bag if pos is not occupied by a static item
+        // drop bag if pos is not occupied by a static item
         if (world::GetItem(get_pos()) == NULL)
             world::SetItem(get_pos(), bag);
         bag = NULL;

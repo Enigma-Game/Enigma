@@ -427,6 +427,7 @@ heating_animation("fl-ice")
 heating_animation("fl-water")
 heating_animation("fl-swamp")
 
+
 --------------------------------------------------------------------------
 --                           ITEM MODELS                                --
 --------------------------------------------------------------------------
@@ -1185,6 +1186,17 @@ do
       def_anim("fl-thief"..k.."-retreat", reverseframes(f3))
       def_anim("fl-thief"..k.."-captured", f4)
     end
+
+--do
+--    local img = def_subimages("fl-thief", {h=7})
+--    local f = buildframes(img, 80)
+--    def_anim("thief-emerge", f)
+--    def_anim("thief-retreat", reverseframes(f))
+--    def_roundstone("fl-thief", img[1])
+--    def_roundstone("fl-thief-emerge", "thief-emerge")
+--    def_roundstone("fl-thief-retreat", "thief-retreat")
+--end
+
 end
 
 -----------------

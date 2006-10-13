@@ -17,6 +17,7 @@
  *
  */
 
+#include "Inventory.hh"
 #include "errors.hh"
 #include "player.hh"
 #include "server.hh"
@@ -824,6 +825,105 @@ void Bridge::animcb()
     }
 }
 
+/* -------------------- Thief Floor -------------------- */
+namespace{
+    class Thief : public Floor {
+        CLONEOBJ(Thief);
+    public:
+        Thief();
+    private:
+        string modelname;
+        enum State { IDLE, EMERGING, RETREATING, CAPTURED } state;
+        Actor *m_affected_actor;
+        Item *bag;
+        string get_modelname();
+        void init_model();
+        void actor_enter(Actor* a);
+        void animcb();
+        void steal_from_player();
+        virtual Value message(const string &msg, const Value &v);        
+    };
+}
+
+Thief::Thief() 
+: Floor("fl-thief", 2.0, 1),
+  state(IDLE), m_affected_actor (0), modelname(""), bag(NULL) { }
+
+string Thief::get_modelname() {
+    if(modelname == "") {
+        // initialize on first call
+        int r = IntegerRand(1,4);
+        modelname = string("fl-thief")
+            + ((string) (r==1?"1":r==2?"2":r==3?"3":"4"));
+    }
+    return modelname;
+}
+
+void Thief::init_model() {
+    set_model(get_modelname());
+}
+
+void Thief::actor_enter(Actor *a) {
+    if (state==IDLE) {
+        set_anim(get_modelname() + string("-emerge"));
+        state = EMERGING;
+        m_affected_actor = a;
+    }
+}
+
+void Thief::animcb() {
+    switch (state) {
+    case EMERGING:
+        steal_from_player();
+        state = RETREATING;
+        set_anim(get_modelname() + string("-retreat"));
+        break;
+    case RETREATING:
+        state = IDLE;
+        init_model();
+        break;
+    case CAPTURED:
+        // Floor is not killed or replaced - it just keeps inactive.
+        init_model();
+        break;
+    default:
+        ASSERT(0, XLevelRuntime, "Thief (floor): animcb called with inconsistent state");
+    }
+}
+
+void Thief::steal_from_player() 
+{
+    if (m_affected_actor && !m_affected_actor->has_shield()) {
+        enigma::Inventory *inv = player::GetInventory(m_affected_actor);
+        if (inv && inv->size() > 0) {
+            if (bag == NULL)
+                bag = world::MakeItem(it_bag);
+            int i = IntegerRand (0, int (inv->size()-1));
+            dynamic_cast<ItemHolder *>(bag)->add_item(inv->yield_item(i));
+            player::RedrawInventory (inv);
+            sound_event("thief");
+        }
+    }
+}
+
+Value Thief::message(const string &msg, const Value &v) {
+    if(msg == "capture" && state == IDLE) {
+        state = CAPTURED;
+        Item * it =  world::GetItem(get_pos());
+        
+        // add items on grid pos that can be picked up to our bag
+        if (it != NULL && !(it->get_traits().flags & itf_static) && bag != NULL) {
+            dynamic_cast<ItemHolder *>(bag)->add_item(world::YieldItem(get_pos()));
+        }
+        // drop bag if pos is not occupied by a static item
+        if (world::GetItem(get_pos()) == NULL)
+            world::SetItem(get_pos(), bag);
+        bag = NULL;
+        set_anim(get_modelname() + string("-captured"));
+        return Value(1);
+    } else
+        return Floor::message(msg, v);
+}
 
 //----------------------------------------
 // Black and white tiles
@@ -872,6 +972,7 @@ void world::InitFloors()
     Register(new Bridge);
     Register("fl-bridge-open", new Bridge(true));
     Register("fl-bridge-closed", new Bridge(false));
+    Register(new Thief);
     Register(new WhiteTile);
     Register(new BlackTile);
     Register(new SpaceForce);

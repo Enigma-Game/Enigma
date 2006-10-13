@@ -3143,9 +3143,13 @@ Marbles may jump over @ref{fl-swamp} with an
 
 This floor steals one item from the players inventory.
 It looks like the simple floor @code{fl-bluegray}.
-Compare with @code{st-thief} (@ref{st-thief}).
+Compare with @code{st-thief} (@ref{st-thief}). Like this,
+@code{fl-thief} can be deactivated with @ref{st-chess_[black/white]},
+leaving an @ref{it-bag} behind filled with the items the thief stole
+from the actors (plus possibly the item that already lay on the
+floor if it could be picked up; if it is a static item, no
+@code{it-bag} is produced). 
 
-Sorry, not implemented yet.
 
 @node fl-water, , fl-thief, Floors
 @subsection fl-water
@@ -3494,8 +3498,8 @@ items are put into the bag instead of the inventory, until the bag is
 full (13 items).  @code{it-bag} can be dropped.  When picked up again,
 items from the bag are put back into inventory (until it is full).
 
-@code{it-bag} is created by @ref{st-thief} when it is captured by
-@ref{st-chess_[black/white]}.
+@code{it-bag} is created by @ref{st-thief} and @ref{fl-thief} when
+they're captured by @ref{st-chess_[black/white]}.
 
 
 @c -------------------- Banana --------------------
@@ -5098,6 +5102,8 @@ When hit with a magic wand (@ref{it-magicwand}), a chess stone changes
 color.  Chess stones fall into @ref{fl-abyss} and sink in
 @ref{fl-swamp}, but cross @ref{fl-water} undamaged.
 
+Chess stones inactivate @ref{fl-thief}.
+
 @strong{Attributes}
 
 @table @code
@@ -6119,7 +6125,7 @@ Umbrellas protect against thievery.
 Thief stones can be destroyed with chess stones
 (@ref{st-chess_[black/white]}).  They then leave an @ref{it-bag}
 behind, filled with the stolen items.  If the tile is already occupied
-by a item that could be picked up, it is added to the bag, if the item
+by an item that could be picked up, it is added to the bag, if the item
 couldn't be picked up, no bag is produced (you can use this to
 suppress bag generation).
 
@@ -6898,7 +6904,7 @@ Friction of @ref{fl-ice} is multiplied with this constant. Default:
 
 @defvar enigma.HoleForce
 A force factor that affects the steepness of hollows and hills (see
-@ref{Hills and Hollows}.  Default: 1.0.
+@ref{Hills and Hollows}).  Default: 1.0.
 @end defvar
 
 @defvar enigma.MagnetForce
