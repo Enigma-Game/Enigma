@@ -175,7 +175,8 @@ LevelInspector::LevelInspector(lev::Proxy *aLevel):
         back (new StaticTextButton(N_("Ok"), this)),
         screenshot (new StaticTextButton(N_("Screenshot"), this))
     {
-        previewImage = LevelPreviewCache::instance()->getPreview(aLevel);
+        bool didGenerate;  // dummy
+        previewImage = LevelPreviewCache::instance()->getPreview(aLevel, true, didGenerate);
         const video::VMInfo *vminfo = video::GetInfo();
         vspacing = vminfo->height < 500 ? 2 :(vminfo->height < 650 ? 3 : 4);
         vmargin = vminfo->height < 500 ? 10 :(vminfo->height < 650 ?  20 : 30);

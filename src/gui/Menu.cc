@@ -68,10 +68,10 @@ namespace enigma { namespace gui {
             while (SDL_PollEvent(&e)) {
                 handle_event(e);
             }
-            refresh();
             SDL_Delay(10);
             if(active_widget) active_widget->tick(0.01);
             tick (0.01);
+            refresh();
         }
         sound::SoundEvent ("menuexit");
         return !abortp;

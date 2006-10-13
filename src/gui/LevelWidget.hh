@@ -39,6 +39,7 @@ namespace enigma { namespace gui {
 
         //---------- Widget interface ----------//
         void draw(ecl::GC &gc, const ecl::Rect &r);
+        void tick (double time);
 
         void set_listener(ActionListener *al) {
             listener = al;
@@ -64,8 +65,9 @@ namespace enigma { namespace gui {
         void scroll_up(int lines);
         void scroll_down(int lines);
         void set_selected (int newfirst, int newsel);
-        void draw_level_preview (ecl::GC &gc, int x, int y, 
-               lev::Proxy *proxy, bool selected, bool showScore, bool locked);
+        bool draw_level_preview (ecl::GC &gc, int x, int y, 
+               lev::Proxy *proxy, bool selected, bool showScore, bool locked,
+               bool allowGeneration, bool &didGenerate);
 
         bool handle_keydown (const SDL_Event *e);
         bool handle_mousedown (const SDL_Event *e);
@@ -83,6 +85,9 @@ namespace enigma { namespace gui {
         int  buttonw;   // pixelwidth of a button
         int  buttonh;   // pixelheight of a button
         std::vector<ecl::Rect>  m_areas; // Screen areas occupied by level previews
+        std::vector<bool> pending_redraws;
+        bool isInvalidateUptodate;
+        double lastUpdate;
 
         // some image pointers for efficiency
         ecl::Surface *img_easy;

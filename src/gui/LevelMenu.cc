@@ -155,6 +155,7 @@ namespace enigma { namespace gui {
     
     void LevelMenu::tick(double dtime) 
     {
+        levelwidget->tick(dtime);
         static double timeaccu = 0.0;
     
         // info texts disappear after some time

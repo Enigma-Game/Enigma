@@ -57,7 +57,8 @@ namespace enigma { namespace gui {
         static LevelPreviewCache *instance();
         ~LevelPreviewCache();
 
-        ecl::Surface *getPreview (lev::Proxy *levelProxy);
+        ecl::Surface *getPreview (lev::Proxy *levelProxy, 
+            bool allowGeneration, bool &didGenerate);
         ecl::Surface *updatePreview (lev::Proxy *levelProxy);
         void clear();
     protected:

@@ -52,7 +52,9 @@ namespace enigma { namespace gui {
         imgCache.clear();
     }
         
-    Surface *LevelPreviewCache::getPreview(lev::Proxy *levelProxy) {
+    Surface *LevelPreviewCache::getPreview(lev::Proxy *levelProxy, 
+            bool allowGeneration, bool &didGenerate) {
+        didGenerate = false;
         std::string mapIndex = levelProxy->getId() + 
                 ecl::strf("#%d", levelProxy->getReleaseVersion());
         // first look in cache
@@ -100,13 +102,15 @@ namespace enigma { namespace gui {
             surface = imgCache.get(previewFullPath);
 
         // generate new preview otherwise
-        if (!surface) {
+        if (!surface && allowGeneration) {
             surface = newPreview(levelProxy);
             if (surface) {
                 imgCache.store(previewSubPath, surface); // insert in imgCache
                 savePreview(levelProxy, surface);        // save on filesystem
-            } else 
+            } else {
                 surface = enigma::GetImage("error");
+            }
+            didGenerate = true;
         }
 
         // update index

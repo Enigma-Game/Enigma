@@ -43,7 +43,7 @@ namespace enigma { namespace gui {
     : width (0),
       height (0),
       m_areas(),
-      listener(0)
+      listener(0), isInvalidateUptodate (true), lastUpdate (0)
     {
         const video::VMInfo &vminfo = *video::GetInfo();
     
@@ -115,11 +115,17 @@ namespace enigma { namespace gui {
         int newFirst = ifirst;
         int newSelected = iselected;
         for (; nlines; --nlines) {
-            if (newFirst < width)
+            if (newFirst == 0) { 
                 break;
-            newFirst -= width;
-            if (newSelected >= newFirst+width*height)
-                newSelected -= width;
+            } else if (newFirst < width) {
+                newFirst = 0;
+                if (newSelected >= width*height)
+                    newSelected = width*height - 1;                
+            } else {
+                newFirst -= width;
+                if (newSelected >= newFirst+width*height)
+                    newSelected -= width;
+            }
         }
         set_selected (newFirst, newSelected);
     }
@@ -196,12 +202,14 @@ namespace enigma { namespace gui {
         }
     }
                 
-    void LevelWidget::draw_level_preview (ecl::GC &gc, int x, int y, 
-            lev::Proxy *proxy, bool selected, bool showScore, bool locked) 
-    {
+    bool LevelWidget::draw_level_preview (ecl::GC &gc, int x, int y, 
+            lev::Proxy *proxy, bool selected, bool showScore, bool locked,
+            bool allowGeneration, bool &didGenerate) { 
         // Draw button with level preview
     
-        Surface *img = preview_cache->getPreview(proxy);
+        Surface *img = preview_cache->getPreview(proxy, allowGeneration, didGenerate);
+        if (img == NULL)
+            return false;
    
         if (selected) {
             blit (gc, x-4, y-4, img_border);
@@ -242,7 +250,7 @@ namespace enigma { namespace gui {
             if (scoreMgr->bestScoreReached(proxy, app.state->getInt("Difficulty")))
                 blit(gc, x+30, y+12, img_par);
         }
-    
+        return true;
     }
     
     void LevelWidget::draw (ecl::GC &gc, const ecl::Rect &r)
@@ -255,6 +263,7 @@ namespace enigma { namespace gui {
         const int vgap = Max(0, (get_h() - height*buttonh)/ (height-1));
     
         unsigned i=ifirst;          // level index
+        bool allowGeneration = true;
     
         for (int y=0; y<height; y++)
         {
@@ -270,18 +279,34 @@ namespace enigma { namespace gui {
                 if (!(r.overlaps(buttonarea) || r.w == 0))
                     continue;       // r.w==0 if repainting whole screen
     
-                if( (i-ifirst) >= m_areas.size())
+                if( (i-ifirst) >= m_areas.size()) {
                     m_areas.push_back(buttonarea);
-                else
+                    pending_redraws.push_back(false);
+                } else {
                     m_areas[(i-ifirst)] = buttonarea;
-    
+                }
                 // Draw level preview
                 lev::Proxy *levelProxy = curIndex->getProxy(i);
                 int imgx = xpos+(buttonw-imgw)/2;
                 int imgy = ypos + 4;
                 if (levelProxy != NULL) {
-                    draw_level_preview (gc, imgx, imgy, levelProxy, 
-                            i == iselected, true, !curIndex->mayPlayLevel(i+1));
+                    bool didGenerate;
+                    bool didDraw = draw_level_preview (gc, imgx, imgy, levelProxy, 
+                            i == iselected, true, !curIndex->mayPlayLevel(i+1),
+                            allowGeneration, didGenerate);
+                    if (didGenerate) {
+                        // do not generate more than 1 preview from level source
+                        // per draw call
+                        allowGeneration = false;
+                    }
+                    if (didDraw) {
+                        pending_redraws[(i-ifirst)] = false;
+                    } else {
+                        // the button is not drawn - mark it to be drawn on
+                        // a future tick
+                        pending_redraws[(i-ifirst)] = true;
+                        isInvalidateUptodate = false;
+                    }
                 }
                 // Draw level name
                 Font    *smallfnt = enigma::GetFont("levelmenu");
@@ -292,9 +317,28 @@ namespace enigma { namespace gui {
                                   caption);
             }
         }
-      done_painting:
+        done_painting:
         m_areas.resize (i-ifirst); // Remove unused areas (if any) from the list
         return;
+    }
+    
+    void LevelWidget::tick (double time) {
+        if (!isInvalidateUptodate) {
+            // invalidate just 1 button for redraw
+            bool isFirst = true;
+            for (int i = 0; i < pending_redraws.size(); i++) {
+                if (pending_redraws[i] == true) {
+                    if (isFirst) {
+                        invalidate_area(m_areas[i]);
+                        isInvalidateUptodate = true;
+                        isFirst = false;
+                    } else {
+                        isInvalidateUptodate = false;
+                        return;
+                    }
+                }
+            }
+        }
     }
     
     bool LevelWidget::on_event(const SDL_Event &e) 
