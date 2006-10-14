@@ -3035,8 +3035,22 @@ namespace
 
     Value ChessStone::maybe_move_to(Direction dir1, Direction dir2) {
         if(state == IDLE) {
-            destination = move(move(move(get_pos(), dir1), dir1), dir2);
+            // check for fire, step by step
+            destination = move(get_pos(), dir1);
+            if(Item *it = GetItem(destination))
+                if(get_id(it) == it_burnable_burning)
+                    return Value();
+            destination = move(destination, dir2);
+            if(Item *it = GetItem(destination))
+                if(get_id(it) == it_burnable_burning)
+                    return Value();
+            destination = move(destination, dir1);
+            if(Item *it = GetItem(destination))
+                if(get_id(it) == it_burnable_burning)
+                    return Value();
+            // check for boundary
             if(!IsInsideLevel(destination))  return Value();
+            // check for stone
             if(!GetStone(destination)) {
                 // Simple case: Just move.
                 if(try_state(DISAPPEARING)) {

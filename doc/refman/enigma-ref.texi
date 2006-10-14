@@ -5100,9 +5100,15 @@ the target position of a knight move, this stone is destroyed.
 
 When hit with a magic wand (@ref{it-magicwand}), a chess stone changes
 color.  Chess stones fall into @ref{fl-abyss} and sink in
-@ref{fl-swamp}, but cross @ref{fl-water} undamaged.
+@ref{fl-swamp}, but cross @ref{fl-water} undamaged.  They inactivate
+@ref{fl-thief}.
 
-Chess stones inactivate @ref{fl-thief}.
+Chess stones can't jump over or into fire (see @ref{The 1.0-Fire
+System}).  At least, a chess knight is brave enough not to get in
+panic when fire starts to burn beneath.  Note that fire can't ignite
+the floor below an @code{st-chess_[black/white]}, in this context it
+acts like an immovable stone.  In the same sense, they don't act on
+impulses of @ref{st-stoneimpulse} or similar stones.
 
 @strong{Attributes}
 

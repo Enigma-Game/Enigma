@@ -78,6 +78,7 @@ namespace world
         int         flags;
         Material    material;
         double      restitution;
+        // Note that many properties of stones are implemented as functions.
     };
 
     /*! Things that may happen when an actor hits a stone. */
@@ -103,10 +104,13 @@ namespace world
 
         virtual StoneResponse collision_response(const StoneContact &sc);
 
+        /*! Is this stone movable? Affects impulse-stones, fire, ordinary pushes... */
         virtual bool   is_movable() const { return false;}
+
+        /*! Can a swap-stone or pull-stone swap this stone? */
         virtual bool   is_removable() const { return true; }
 
-        /*! Is this stone floating above the floor? */
+        /*! Is this stone floating above the floor (e.g. actors may pass)? */
         virtual bool   is_floating() const { return false; }
         
         /*! Can laser beams pass through stone? Return is_floating() by default. */
