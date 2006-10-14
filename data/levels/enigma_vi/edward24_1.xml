@@ -49,14 +49,23 @@ set_stone("st-oneway-n",37,24)
 set_stone("st-oneway-s",20,12)
 set_stone("st-oneway-s",37,12)
 
-set_item("it-wormhole",random(20,37),random(13,23),{targetx=2,targety=2,strength=10,range=10})
-set_item("it-wormhole",random(20,37),random(13,23),{targetx=2,targety=18,strength=10,range=10})
-set_item("it-wormhole",random(20,37),random(13,23),{targetx=2,targety=35,strength=10,range=10})
-set_item("it-wormhole",random(20,37),random(13,23),{targetx=25,targety=2,strength=10,range=10})
-set_item("it-wormhole",random(20,37),random(13,23),{targetx=25,targety=35,strength=10,range=10})
-set_item("it-wormhole",random(20,37),random(13,23),{targetx=56,targety=2,strength=10,range=10})
-set_item("it-wormhole",random(20,37),random(13,23),{targetx=56,targety=18,strength=10,range=10})
-set_item("it-wormhole",random(20,37),random(13,23),{targetx=56,targety=35,strength=10,range=10})
+function set_wormhole_to(tx, ty)
+  local x, y
+  repeat
+    x = random(21,36)
+    y = random(14,22)
+  until enigma.GetItem(x,y) == nil
+  set_item("it-wormhole", x, y, {targetx=tx, targety=y, strength=10, range=10})
+end
+
+set_wormhole_to(2,2)
+set_wormhole_to(2,18)
+set_wormhole_to(2,35)
+set_wormhole_to(25,2)
+set_wormhole_to(25,35)
+set_wormhole_to(56,2)
+set_wormhole_to(56,18)
+set_wormhole_to(56,35)
 
 set_actor("ac-blackball",29,18.5,{player=0})
 

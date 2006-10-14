@@ -2836,8 +2836,7 @@ namespace
             PerformAction (this, true);
         }
     };
-    DEF_TRAITSF(Sensor, "it-sensor", it_sensor,
-                itf_static | itf_invisible | itf_fireproof);
+    DEF_TRAITSF(Sensor, "it-sensor", it_sensor, itf_static | itf_invisible);
 
     class InverseSensor : public Item {
         CLONEOBJ(InverseSensor);
@@ -2850,7 +2849,7 @@ namespace
         }
     };
     DEF_TRAITSF(InverseSensor, "it-inversesensor", it_inversesensor,
-                itf_static | itf_invisible | itf_fireproof);
+                itf_static | itf_invisible);
 }
 
 
@@ -3367,7 +3366,7 @@ namespace
         }
     };
     DEF_TRAITSF(ChangeFloorItem, "it-changefloor", it_changefloor,
-                itf_static | itf_invisible | itf_fireproof);
+                itf_static | itf_invisible);
 
     class Oxyd5fItem : public Item {
         CLONEOBJ(Oxyd5fItem);

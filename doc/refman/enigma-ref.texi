@@ -6635,6 +6635,9 @@ Fire does the following:
 @code{it-dynamite}, @code{it-blackbomb}, @code{it-whitebomb} and
 @ref{it-crack}.
 @item It might set fire to its neighbor.
+@item It shatters marbles that are not protected with
+@ref{it-umbrella}. Note that in future versions, jumping over fire
+with @ref{it-spring[1/2/board]} might get allowed.
 @end itemize
 
 Fire stops burning after a random amount of time, as long as the
@@ -6744,20 +6747,26 @@ it-burnable_oil, it-dynamite, it-blackbomb, it-whitebomb, it-crack*})
 and some items that are completely fireproof. These are:
 @code{it-hollow, it-tinyhollow, it-hill, it-tinyhill, it-vortex*,
 it-burnable_fireproof, it-burnable_ash, it-extinguisher,
-it-extinguisher_medium, it-sensor, it-inversesensor, it-abyss,
-it-changefloor}, all items of section @ref{System and Debug Items}
-(@code{it-[1/2]pkillstone, it-bridge-oxyd*, it-debris, it-dummy,
-it-easy[kill/keep]stone, it-explosion*, it-oxyd5f,
-it-signalfilter[0/1]}) and the fire animations themselves:
+it-extinguisher_medium, it-abyss}, all items of section @ref{System
+and Debug Items} (@code{it-[1/2]pkillstone, it-bridge-oxyd*,
+it-debris, it-dummy, it-easy[kill/keep]stone, it-explosion*,
+it-oxyd5f, it-signalfilter[0/1]}) and the fire animations themselves:
 @code{it-burnable_ignited} and @code{it-burnable_burning}.
 
 Note that @code{it-extinguisher_empty, it-trigger} (visible and
-invisible), @code{it-landmine} and @code{it-death} are passively
-burnable.  In particular, @code{it-landmine} does not explode and does
-not create @code{it-hollow} when burning.
+invisible), @code{it-landmine}, @code{it-changefloor} and
+@code{it-death} are passively burnable.  In particular,
+@code{it-landmine} does not explode and does not create
+@code{it-hollow} when burning. The reaction of @ref{it-sensor} and
+@code{it-inversesensor} towards fire might be changed in future
+versions.
 
 If you need to save a passively burnable item from fire, simply set a
-fireproof floor like @code{fl-sand} or @code{fl-rock} below it.
+fireproof floor like @code{fl-sand} or @code{fl-rock} below it. This
+normally is the case when using @ref{it-[h/v]strip} and
+@ref{it-changefloor}. However, you can use the
+@code{burnable}-attribute in these cases to force burnability of the
+floors.
 
 
 @c ----------------------------------------------------------------------
