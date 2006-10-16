@@ -329,7 +329,7 @@ function puzzle2(x, y, conn)
     return set_stone("st-puzzle", x,y, {connections=conn,oxyd=1})
 end
 function bigbrick(x, y, conn)
-   return set_stone("st-bigbrick",x,y,{connections=conn})
+   return set_stone("st-bigbrick-n",x,y,{connections=conn})
 end
 
 --
