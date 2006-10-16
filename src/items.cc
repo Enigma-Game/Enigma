@@ -3469,9 +3469,6 @@ namespace
         DECL_TRAITS;
 
         ItemAction activate(Actor *a, GridPos p) {
-            if (Item *it=GetItem(p)) {
-                return ITEM_KEEP;
-            }
             // Default values for the rubberband:
             double strength = 10.0;
             double length = 1.0;
@@ -3507,6 +3504,7 @@ namespace
             if (isScissor)
                 world::KillRubberBands (a);
 
+            sound_event ("rubberband");
             if (target_actor)
                 world::AddRubberBand (a,target_actor,rbd);
             else
