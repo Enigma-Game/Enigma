@@ -13,7 +13,7 @@
       <el:comments>
         <el:code>Lua 5.1 and XML converted by Leveladministrators</el:code>
       </el:comments>
-      <el:score el:easy="-" el:difficult="-"/>
+      <el:score el:easy="-" el:difficult="3:38"/>
     </el:info>
     <el:luamain><![CDATA[
 levelw = 40
@@ -138,10 +138,12 @@ display.SetFollowMode(display.FOLLOW_SCROLLING)
     ]]></el:luamain>
     <el:i18n>
       <el:string el:key="title">
-        <el:english el:translate="false"/>
+        <el:english el:translate="true" el:comment="There are coins and wood boxes (pirate's troves) and alimentary junks like seeds, empty bottles and bananas."/>
+        <el:translation el:lang="fr">Ile aux pirates</el:translation>
       </el:string>
       <el:string el:key="text1">
         <el:english el:translate="true">The pirates have lost several hidden things on this island ...</el:english>
+        <el:translation el:lang="fr">Les pirates ont perdu beaucoup d'objets dans le sous-sol...</el:translation>
       </el:string> 
     </el:i18n>
   </el:protected>

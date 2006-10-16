@@ -13,7 +13,7 @@
       <el:comments>
         <el:code>Lua 5.1 and XML converted by Leveladministrators</el:code>
       </el:comments>
-      <el:score el:easy="-" el:difficult="-"/>
+      <el:score el:easy="-" el:difficult="0:53"/>
     </el:info>
     <el:luamain><![CDATA[
 levelw = 20
@@ -391,46 +391,60 @@ oxyd_shuffle()
         <el:english el:translate="false"/>
       </el:string>
       <el:string el:key="text1">
-        <el:english el:translate="true">Your uncle Sir Blackball has been murdered last night in his manor, in one of his 6 rooms, by one of the weapons which are in the cellar; the suspects are the shy Mrs Peacock, the secret Colonel Mustard, the absent-minded Professor Plum, the mysterious Rev. Green, the nurse Mrs Whiteball, who discovered the corpse, and Miss Scarlett whose beauty might be fatal ... you must find who killed your uncle, where and how.</el:english>
+        <el:english el:translate="true" el:comment="The persons and objects are from the Agatha-Christie-like game 'Cluedo'; their names tend to change from country to country; Mr. White has been changed to 'Whiteball' to make it more 'enigma'.">Your uncle Sir Blackball has been murdered last night in his manor, in one of his 6 rooms, by one of the weapons which are in the cellar; the suspects are the shy Mrs Peacock, the secret Colonel Mustard, the absent-minded Professor Plum, the mysterious Rev. Green, the nurse Mrs Whiteball, who discovered the corpse, and Miss Scarlett whose beauty might be fatal ... you must find who killed your uncle, where and how.</el:english>
+        <el:translation el:lang="fr">Votre oncle Sir Blackball est mort cette nuit dans l'une des six chambres de son manoir; le meurtrier s'est servi de l'une des armes qui sont dans l'armoire du vestibule; les suspects sont la timide Madame Pervenche, le secret Colonel Moutarde, le distrait Professeur Violet, l'actif Docteur Olive, la femme de chambre Madame Blancheboule, et la magnifique Mademoiselle Rose ... Vous devez trouver qui est le meutrier de votre oncle, quelle est l'arme du crime et quel est le lieu du crime.</el:translation>
       </el:string> 
       <el:string el:key="text2">
         <el:english el:translate="true">This room is not the crime scene.</el:english>
+        <el:translation el:lang="fr">Cette chambre n'est pas le lieu du crime.</el:translation>
       </el:string>
       <el:string el:key="text3">
         <el:english el:translate="true">The murderer is not Mrs Peacock.</el:english>
+        <el:translation el:lang="fr">Madame Pervenche n'est pas le meutrier.</el:translation>
       </el:string>  
       <el:string el:key="text4">
         <el:english el:translate="true">The murderer is not Colonel Mustard.</el:english>
-      </el:string>  
+         <el:translation el:lang="fr">Le Colonel Moutarde n'est pas le meutrier.</el:translation>
+     </el:string>  
       <el:string el:key="text5">
         <el:english el:translate="true">The murderer is not Professor Plum.</el:english>
+        <el:translation el:lang="fr">Le Professeur Violet n'est pas le meutrier.</el:translation>
       </el:string>  
       <el:string el:key="text6">
         <el:english el:translate="true">The murderer is not Reverend Green.</el:english>
+        <el:translation el:lang="fr">Le docteur Olive n'est pas le meutrier.</el:translation>
       </el:string>  
       <el:string el:key="text7">
         <el:english el:translate="true">The murderer is not Mrs Whiteball.</el:english>
+        <el:translation el:lang="fr">Madame Blancheboule n'est pas le meutrier.</el:translation>
       </el:string>  
       <el:string el:key="text8">
         <el:english el:translate="true">The murderer is not Miss Scarlett.</el:english>
+        <el:translation el:lang="fr">Mademoiselle Rose n'est pas le meutrier.</el:translation>
       </el:string>  
       <el:string el:key="text9">
         <el:english el:translate="true">Sir Blackball has not been killed with the bomb.</el:english>
+        <el:translation el:lang="fr">La bombe n'est pas l'arme du crime.</el:translation>
       </el:string>  
       <el:string el:key="text10">
         <el:english el:translate="true">Sir Blackball has not been killed with the dagger.</el:english>
+        <el:translation el:lang="fr">La dague n'est pas l'arme du crime.</el:translation>
       </el:string>  
       <el:string el:key="text11">
         <el:english el:translate="true">Sir Blackball has not been killed with poison.</el:english>
+        <el:translation el:lang="fr">Le poison n'est pas l'arme du crime.</el:translation>
       </el:string>  
       <el:string el:key="text12">
         <el:english el:translate="true">Sir Blackball has not been killed with the wrench.</el:english>
+        <el:translation el:lang="fr">La clef anglaise n'est pas l'arme du crime.</el:translation>
       </el:string>  
       <el:string el:key="text13">
         <el:english el:translate="true">Sir Blackball has not been killed with the candlestick.</el:english>
+        <el:translation el:lang="fr">Le chandelier n'est pas l'arme du crime.</el:translation>
       </el:string>  
       <el:string el:key="text14">
         <el:english el:translate="true">Sir Blackball has not been killed with the hammer.</el:english>
+        <el:translation el:lang="fr">Le marteau n'est pas l'arme du crime.</el:translation>
       </el:string>  
     </el:i18n>
   </el:protected>

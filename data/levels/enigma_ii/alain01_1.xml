@@ -14,7 +14,7 @@
       <el:comments>
         <el:code>Lua 5.1 and XML converted by Leveladministrators</el:code>
       </el:comments>
-      <el:score el:easy="-" el:difficult="-"/>
+      <el:score el:easy="-" el:difficult="0:42"/>
     </el:info>
     <el:luamain><![CDATA[
 -- an illustration of the famous Epimenides paradox
@@ -89,13 +89,15 @@ oxyd_shuffle()
     ]]></el:luamain>
     <el:i18n>
       <el:string el:key="title">
-        <el:english el:translate="false"/>
+        <el:english el:translate="false" el:comment="Buridan invented this paradox: A:'B is false' and B:'A is true'; it is not necessary to play to this level."/>
       </el:string>
       <el:string el:key="text1">
-        <el:english el:translate="true">The other document lies and the left wormhole is the right one.</el:english>
+        <el:english el:translate="true" el:comment="wordplay between 'right' (converse of left) and 'right' (true); not necessary to translate.">The other document lies and the left wormhole is the right one.</el:english>
+        <el:translation el:lang="fr">L'autre document ment.</el:translation>
       </el:string> 
       <el:string el:key="text2">
-        <el:english el:translate="true">The other document tells the truth and the other wormhole has been left on the right side.</el:english>
+        <el:english el:translate="true" el:comment="wordplay between 'left (converse of right) and 'been left' (abandonned); not necessary to translate.">The other document tells the truth and the other wormhole has been left on the right side.</el:english>
+        <el:translation el:lang="fr">L'autre document dit vrai.</el:translation>
       </el:string> 
     </el:i18n>
   </el:protected>

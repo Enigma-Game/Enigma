@@ -9,11 +9,11 @@
       <el:license el:type="GPL v2.0 or above" el:open="true"/>
       <el:compatibility el:enigma="0.92">
       </el:compatibility>
-      <el:modes el:easy="false" el:single="true" el:network="false"/>
+      <el:modes el:easy="true" el:single="true" el:network="false"/>
       <el:comments>
         <el:code>Lua 5.1 and XML converted by Leveladministrators</el:code>
       </el:comments>
-      <el:score el:easy="-" el:difficult="-"/>
+      <el:score el:easy="1:24" el:difficult="0:28"/>
     </el:info>
     <el:luamain><![CDATA[
 levelw = 20
@@ -295,9 +295,11 @@ oxyd_shuffle()
       </el:string>
       <el:string el:key="text1">
         <el:english el:translate="true">When you change the color of one square, the colors of the 2 nearest squares change as well; you must get as much green squares as possible.</el:english>
+        <el:translation el:lang="fr">En changeant la couleur d'une pastille, les deux pastilles adjacentes changent aussi de couleur; le but du jeu est d'obtenir le plus grand nombre possible de pastilles vertes.</el:translation>
       </el:string> 
       <el:string el:key="text2">
         <el:english el:translate="true">You are only allowed to change a color when it is surrounded by the other color.</el:english>
+        <el:translation el:lang="fr">Vous ne pouvez changer une pastille que dans l'un des deux cas suivants: rouge-vert-rouge, ou vert-rouge-vert.</el:translation>
       </el:string> 
     </el:i18n>
   </el:protected>

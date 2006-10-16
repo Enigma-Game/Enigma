@@ -13,7 +13,7 @@
       <el:comments>
         <el:code>Lua 5.1 and XML converted by Leveladministrators</el:code>
       </el:comments>
-      <el:score el:easy="-" el:difficult="-"/>
+      <el:score el:easy="-" el:difficult="0:04"/>
     </el:info>
     <el:luamain><![CDATA[
 -- Set oxyd1-compatibility-mode to suppress water-heating-animation
@@ -136,19 +136,24 @@ oxyd_shuffle()
     ]]></el:luamain>
     <el:i18n>
       <el:string el:key="title">
-        <el:english el:translate="false"/>
+        <el:english el:translate="true" el:comment="in France it is an habit to tell jokes (what seems true is false) on april 1st, and these jokes are called 'april fishes'."/>
+        <el:translation el:lang="fr">Poisson d'avril.</el:translation>
       </el:string>
       <el:string el:key="text1">
         <el:english el:translate="true">Do you REALLY want to do this???</el:english>
+        <el:translation el:lang="fr">Vous y tenez VRAIMENT???</el:translation>
       </el:string> 
       <el:string el:key="text2">
         <el:english el:translate="true">Didn't your mother tell you that you should not spend your money in such a careless manner?</el:english>
+        <el:translation el:lang="fr">Votre maman ne vous a jamais dit de ne pas gaspiller ainsi votre argent?.</el:translation>
       </el:string> 
       <el:string el:key="text3">
         <el:english el:translate="true">What is the current month?</el:english>
+        <el:translation el:lang="fr">Quel mois sommes-nous?</el:translation>
       </el:string> 
       <el:string el:key="text4">
         <el:english el:translate="true">What is this level's name?</el:english>
+        <el:translation el:lang="fr">Quel est le titre de ce jeu?</el:translation>
       </el:string> 
     </el:i18n>
   </el:protected>

@@ -13,7 +13,7 @@
       <el:comments>
         <el:code>Lua 5.1 and XML converted by Leveladministrators</el:code>
       </el:comments>
-      <el:score el:easy="-" el:difficult="-"/>
+      <el:score el:easy="-" el:difficult="1:57"/>
     </el:info>
     <el:luamain><![CDATA[
 levelw = 20
@@ -104,10 +104,12 @@ oxyd_shuffle()
     ]]></el:luamain>
     <el:i18n>
       <el:string el:key="title">
-        <el:english el:translate="false"/>
+        <el:english el:translate="true"/>
+        <el:translation el:lang="fr">Cambriolage de stocks de bois</el:translation>
       </el:string>
       <el:string el:key="text1">
         <el:english el:translate="false">Gotcha!</el:english>
+        <el:translation el:lang="fr">Je vous ai bien eu!</el:translation>
       </el:string> 
     </el:i18n>
   </el:protected>

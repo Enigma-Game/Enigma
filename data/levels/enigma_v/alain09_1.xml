@@ -13,7 +13,7 @@
       <el:comments>
         <el:code>Lua 5.1 and XML converted by Leveladministrators</el:code>
       </el:comments>
-      <el:score el:easy="-" el:difficult="-"/>
+      <el:score el:easy="-" el:difficult="2:30"/>
     </el:info>
     <el:luamain><![CDATA[
 levelw = 20
@@ -107,10 +107,12 @@ oxyd_shuffle()
     ]]></el:luamain>
     <el:i18n>
       <el:string el:key="title">
-        <el:english el:translate="false"/>
+        <el:english el:translate="true"/>
+        <el:translation el:lang="fr">Envoie-moi les clefs!</el:translation>
       </el:string>
       <el:string el:key="text1">
         <el:english el:translate="true">ALL the keys!!!</el:english>
+        <el:translation el:lang="fr">TOUTES les clefs!!!</el:translation>
       </el:string> 
     </el:i18n>
   </el:protected>

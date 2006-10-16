@@ -13,7 +13,7 @@
       <el:comments>
         <el:code>Lua 5.1 and XML converted by Leveladministrators</el:code>
       </el:comments>
-      <el:score el:easy="-" el:difficult="-"/>
+      <el:score el:easy="-" el:difficult="2:14"/>
     </el:info>
     <el:luamain><![CDATA[
 levelw = 20
@@ -279,12 +279,15 @@ oxyd_shuffle()
       </el:string>
       <el:string el:key="text1">
         <el:english el:translate="true">This switch is to validate your guess.</el:english>
+        <el:translation el:lang="fr">Ce bouton valide votre choix.</el:translation>
       </el:string> 
       <el:string el:key="text2">
         <el:english el:translate="true">This switch is to reset the game.</el:english>
+        <el:translation el:lang="fr">Ce bouton recommence le jeu.</el:translation>
       </el:string> 
       <el:string el:key="text3">
         <el:english el:translate="true">Each color appears at most once; each good color gives whites if not at the good place, blacks if it is also well placed.</el:english>
+        <el:translation el:lang="fr">Chaque couleur n'existe qu'une fois au plus; un blanc pour une couleur bonne; un noir pour une couleur bonne et au bon endroit.</el:translation>
       </el:string> 
     </el:i18n>
   </el:protected>

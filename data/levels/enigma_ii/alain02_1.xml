@@ -13,7 +13,7 @@
       <el:comments>
         <el:code>Lua 5.1 and XML converted by Leveladministrators</el:code>
       </el:comments>
-      <el:score el:easy="-" el:difficult="-"/>
+      <el:score el:easy="-" el:difficult="1:01"/>
     </el:info>
     <el:luamain><![CDATA[
 -- Jan.'06: Added visualization of options  Andreas
@@ -290,12 +290,15 @@ end
       </el:string>
       <el:string el:key="text1">
         <el:english el:translate="true">You play against Big Brother; each player in turn deletes 1, 2 or 3 stones; the one who deletes the last stone LOOSES!!!</el:english>
+        <el:translation el:lang="fr">Vous jouez contre Big Brother; chacun son tour efface 1, 2 ou 3 pierres au choix; celui qui efface l'ultime pierre PERD!!!</el:translation>
       </el:string> 
       <el:string el:key="text2">
         <el:english el:translate="true">Now you begin this game.</el:english>
+        <el:translation el:lang="fr">A votre tour de commencer la partie.</el:translation>
       </el:string> 
       <el:string el:key="text3">
         <el:english el:translate="true">Poor little blackball ... SHIFT+F3!!!</el:english>
+        <el:translation el:lang="fr">Perdu ... SHIFT+F3!!!</el:translation>
       </el:string> 
     </el:i18n>
   </el:protected>

@@ -13,7 +13,7 @@
       <el:comments>
         <el:code>Lua 5.1 and XML converted by Leveladministrators</el:code>
       </el:comments>
-      <el:score el:easy="-" el:difficult="-"/>
+      <el:score el:easy="-" el:difficult="1:52"/>
     </el:info>
     <el:luamain><![CDATA[
 levelw = 39
@@ -132,10 +132,12 @@ SendMessage("lasero","on")
         <el:english el:translate="false"/>
       </el:string>
       <el:string el:key="text1">
-        <el:english el:translate="false">Caramba!! El Dictator has muchos pesos in his cristal safe but muchos costa guardia too; Hay!! Poor Bola Negra has only frutos and a lasero!!!</el:english>
+        <el:english el:translate="true" el:comment="This is not real spanish, only an ambience">Caramba!! El Dictator has muchos pesos in his cristal safe but muchos costa guardia too; Hay!! Poor Bola Negra has only frutos and a lasero!!!</el:english>
+        <el:translation el:lang="fr">El Dictator a muchos pesetas dans son coffre de cristal mais muchos guardians; Caramba! Bola Negra n'a que des frutos et un lasero!!!</el:translation>
       </el:string> 
       <el:string el:key="text2">
         <el:english el:translate="false">You have been seen using a forbidden key; costa guardia are chasing you now; El Dictator too.</el:english>
+        <el:translation el:lang="fr">On vous a vu utiliser une clef interdite; les costa guardia vous pourchassent!</el:translation>
       </el:string> 
       <el:string el:key="text3">
         <el:english el:translate="false">Hasta la Enigma !!!</el:english>

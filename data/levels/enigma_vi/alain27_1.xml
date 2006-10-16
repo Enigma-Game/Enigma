@@ -7,14 +7,14 @@
       <el:author  el:name="Alain Busser" el:email="" el:homepage=""/>
       <el:copyright>Copyright © 2005 Alain Busser</el:copyright>
       <el:license el:type="GPL v2.0 or above" el:open="true"/>
-      <el:compatibility el:enigma="1.0">
+      <el:compatibility el:enigma="0.92">
        <el:dependency el:path="lib/andreas_itemfreeze" el:id="lib/andreas_itemfreeze" el:release="1" el:preload="true"/>
       </el:compatibility>
       <el:modes el:easy="true" el:single="true" el:network="false"/>
       <el:comments>
         <el:code>Lua 5.1 and XML converted by Leveladministrators</el:code>
       </el:comments>
-      <el:score el:easy="-" el:difficult="-"/>
+      <el:score el:easy="4:14" el:difficult="6:38"/>
     </el:info>
     <el:luamain><![CDATA[
 -- Modified by Raoul

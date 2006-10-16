@@ -13,7 +13,7 @@
       <el:comments>
         <el:code>Lua 5.1 and XML converted by Leveladministrators</el:code>
       </el:comments>
-      <el:score el:easy="-" el:difficult="-"/>
+      <el:score el:easy="-" el:difficult="1:45"/>
     </el:info>
     <el:luamain><![CDATA[
 levelw = 42
@@ -128,7 +128,8 @@ oxyd_shuffle()
     ]]></el:luamain>
     <el:i18n>
       <el:string el:key="title">
-        <el:english el:translate="false"/>
+        <el:english el:translate="true" el:comment="this level has been inspired by the labyrinth of Chartres cathedral, which represents the difficult road that leads to wisdom"/>
+        <el:translation el:lang="fr">En route vers le Paradis</el:translation>
       </el:string>
     </el:i18n>
   </el:protected>
