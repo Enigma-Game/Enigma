@@ -19,6 +19,23 @@
     <el:luamain><![CDATA[    
 --debug_mode()
 
+if enigma.CreatingPreview then
+level={
+   "                 *b*",
+   "################ *b*",
+   " ^  ^  ^  ^  ^ # *b*",
+   "<+><+=-+><+=-+># *b*",
+   " v  v  v  v  v # *b*",
+   " ^  ^  ^  ^  ^ # *b*",
+   "<+><+=-+><+=-+># *b*",
+   " v  v  v  v  v # *b*",
+   "    ^  ^  ^  ^ # *b*",
+   "   <] <+><+><+># *b*",
+   "    |a =  |  v # *b*",
+   "    =  |  =  ^ # *b*",
+   "   <+-=+><+><+># *b*",
+}
+else
 level={
    "*************************",
    "o bbbbbbbbbbbbbbbbbbbbbb*",
@@ -43,6 +60,7 @@ level={
    "*                       *",
    "*************************",
 }
+end
 
 switchpad={
    " x  x ",
@@ -56,15 +74,23 @@ switchpad={
 bridges=0
 function set_bridge(x,y)
    bridges = bridges+1
-   set_floor("fl-bridge",x,y,{name="bridge"..bridges})
+   if enigma.CreatingPreview then
+      set_floor("fl-bridge-closed",x,y,{name="bridge"..bridges})
+   else
+      set_floor("fl-bridge",x,y,{name="bridge"..bridges})
+   end
 end
 
 switches=0
 function set_switch(x,y,toggle)
    switches=switches+1
-   set_item("it-trigger",x,y,{action="openclose",target="bridge"..switches})
-   if (toggle==1) then
-      SendMessage("bridge"..switches, "openclose")
+   if enigma.CreatingPreview then
+      set_item("it-trigger",x,y)
+   else
+      set_item("it-trigger",x,y,{action="openclose",target="bridge"..switches})
+      if (toggle==1) then
+         SendMessage("bridge"..switches, "openclose")
+      end
    end
 end
 
@@ -138,7 +164,11 @@ cells["t"] = cell{parent=cells[" "],stone={face="st-timer",attr={action="callbac
 
 rs_create_world(level,cells)
 
-set_pad(switchpad,xlo+13,ylo+7)
+if enigma.CreatingPreview then
+  set_pad(switchpad,xlo+8,ylo+4)
+else
+  set_pad(switchpad,xlo+13,ylo+7)
+end
 
 display.SetFollowMode(display.FOLLOW_SMOOTH)
 oxyd_shuffle()

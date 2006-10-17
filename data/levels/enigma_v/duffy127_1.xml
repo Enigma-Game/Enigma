@@ -202,26 +202,36 @@ sc2=enigma.GetNamedObject("sc2")
 --enigma.SendMessage(q,"open",nil)
 --enigma.SendMessage(r,"open",nil)
 
-enigma.SendMessage(a,"open",nil)
-enigma.SendMessage(b,"open",nil)
-enigma.SendMessage(c,"open",nil)
-enigma.SendMessage(d,"open",nil)
-enigma.SendMessage(e,"open",nil)
-enigma.SendMessage(f,"open",nil)
-enigma.SendMessage(i,"open",nil)
-enigma.SendMessage(j,"open",nil)
-enigma.SendMessage(k,"open",nil)
-enigma.SendMessage(l,"open",nil)
-enigma.SendMessage(m,"open",nil)
-enigma.SendMessage(o,"open",nil)
-enigma.SendMessage(p,"open",nil)
-enigma.SendMessage(s,"open",nil)
-enigma.SendMessage(t,"open",nil)
-enigma.SendMessage(u,"open",nil)
-enigma.SendMessage(v,"open",nil)
-enigma.SendMessage(w,"open",nil)
-enigma.SendMessage(x,"open",nil)
-enigma.SendMessage(y,"open",nil)
+-- wrapped some code into this function to ease preview-creation, Andreas Oct.'06
+
+function open_at_start(obj)
+  if enigma.CreatingPreview then
+    set_stone("st-grate1", enigma.GetPos(obj))
+  else
+    enigma.SendMessage(obj, "open", nil)
+  end
+end
+
+open_at_start(a)
+open_at_start(b)
+open_at_start(c)
+open_at_start(d)
+open_at_start(e)
+open_at_start(f)
+open_at_start(i)
+open_at_start(j)
+open_at_start(k)
+open_at_start(l)
+open_at_start(m)
+open_at_start(o)
+open_at_start(p)
+open_at_start(s)
+open_at_start(t)
+open_at_start(u)
+open_at_start(v)
+open_at_start(w)
+open_at_start(x)
+open_at_start(y)
 
 -- 1 1 1 1 1
 --
