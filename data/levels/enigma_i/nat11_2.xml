@@ -16,6 +16,8 @@
       <el:score el:easy="-" el:difficult="-"/>
     </el:info>
     <el:luamain><![CDATA[
+enigma.ConserveLevel=FALSE
+
 --time constants changed in Enigma
 function floor( floor_type, attribs )
     return function( x, y )

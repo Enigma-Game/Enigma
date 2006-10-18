@@ -55,7 +55,7 @@ function set_wormhole_to(tx, ty)
     x = random(21,36)
     y = random(14,22)
   until enigma.GetItem(x,y) == nil
-  set_item("it-wormhole", x, y, {targetx=tx, targety=y, strength=10, range=10})
+  set_item("it-wormhole", x, y, {targetx=tx, targety=ty, strength=10, range=10})
 end
 
 set_wormhole_to(2,2)

@@ -82,7 +82,7 @@ oxyd(level_width-1, 0)
 oxyd(0,level_height-1)
 --oxyd_shuffle()
 
-set_actor("ac-blackball", 10,8.5)
+set_actor("ac-blackball", 18.5, 6.5)
     ]]></el:luamain>
     <el:i18n>
       <el:string el:key="title">
