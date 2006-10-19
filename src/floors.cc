@@ -840,7 +840,7 @@ namespace{
         void init_model();
         void actor_enter(Actor* a);
         void animcb();
-        void steal_from_player();
+        void steal();
         virtual Value message(const string &msg, const Value &v);        
     };
 }
@@ -874,7 +874,7 @@ void Thief::actor_enter(Actor *a) {
 void Thief::animcb() {
     switch (state) {
     case EMERGING:
-        steal_from_player();
+        steal();
         state = RETREATING;
         set_anim(get_modelname() + string("-retreat"));
         break;
@@ -891,8 +891,10 @@ void Thief::animcb() {
     }
 }
 
-void Thief::steal_from_player() 
+void Thief::steal() 
 {
+    bool didSteal = false;
+    // steal from player
     if (m_affected_actor && !m_affected_actor->has_shield()) {
         enigma::Inventory *inv = player::GetInventory(m_affected_actor);
         if (inv && inv->size() > 0) {
@@ -901,9 +903,19 @@ void Thief::steal_from_player()
             int i = IntegerRand (0, int (inv->size()-1));
             dynamic_cast<ItemHolder *>(bag)->add_item(inv->yield_item(i));
             player::RedrawInventory (inv);
-            sound_event("thief");
         }
     }
+    // steal from grid
+    if(Item *it = GetItem(get_pos())) {
+        if (!(it->get_traits().flags & itf_static)) {
+            if (bag == NULL)
+                bag = world::MakeItem(it_bag);
+            dynamic_cast<ItemHolder *>(bag)->add_item(world::YieldItem(get_pos())); 
+            didSteal = true;
+        }
+    }
+    if (didSteal)
+        sound_event("thief");
 }
 
 Value Thief::message(const string &msg, const Value &v) {
