@@ -94,6 +94,7 @@ namespace enigma { namespace lev {
                 i != candidates.end(); i++) {
 //            Log << "PersistentIndexCandidate1 " << *i <<"\n";
             PersistentIndex * anIndex = new PersistentIndex(*i, true);
+            anIndex->isUserOwned = false;
             if (!(anIndex->getName().empty())) {
                 Index::registerIndex(anIndex);
                 registered.insert(*i);
@@ -109,7 +110,9 @@ namespace enigma { namespace lev {
                 if (!dirEntry.is_dir && dirEntry.name.size() > 4 && 
                         (dirEntry.name.rfind(".xml") == dirEntry.name.size() - 4)) {
 //                    Log << "PersistentIndexCandidate scorss " << dirEntry.name <<"\n";
-                    PersistentIndex * anIndex = new PersistentIndex("enigma_cross", true, "", dirEntry.name);
+                    PersistentIndex * anIndex = new PersistentIndex("enigma_cross", true,
+                            INDEX_DEFAULT_PACK_LOCATION, "", dirEntry.name);
+                    anIndex->isUserOwned = false;
                     if (!(anIndex->getName().empty()) && 
                             Index::findIndex(anIndex->getName()) == NULL) {
                         Index::registerIndex(anIndex);
@@ -161,7 +164,8 @@ namespace enigma { namespace lev {
             if (!dirEntry.is_dir && dirEntry.name.size() > 4 && 
                     (dirEntry.name.rfind(".xml") == dirEntry.name.size() - 4)) {
 //                Log << "PersistentIndexCandidate4 " << dirEntry.name <<"\n";
-                PersistentIndex * anIndex = new PersistentIndex("cross", false, "", dirEntry.name);
+                PersistentIndex * anIndex = new PersistentIndex("cross", false, 
+                        INDEX_DEFAULT_PACK_LOCATION, "", dirEntry.name);
                 if (!(anIndex->getName().empty())) {
                     Index::registerIndex(anIndex);
                 } else {
@@ -170,11 +174,11 @@ namespace enigma { namespace lev {
             }
         }
         delete dirIter;
-         
+        
         // register auto not yet registered new files
-        PersistentIndex * autoIndex = new PersistentIndex("auto", false, INDEX_AUTO_PACK_NAME);
-        autoIndex->indexDefaultLocation = INDEX_AUTO_PACK_LOCATION;
-        autoIndex->indexLocation = INDEX_AUTO_PACK_LOCATION;
+        PersistentIndex * autoIndex = new PersistentIndex("auto", false, 
+                INDEX_AUTO_PACK_LOCATION, INDEX_AUTO_PACK_NAME);
+        autoIndex->isEditable = false;
         dirIter = DirIter::instance(app.userPath + "/levels/auto");
         while (dirIter->get_next(dirEntry)) { 
             if( !dirEntry.is_dir) {
@@ -201,11 +205,11 @@ namespace enigma { namespace lev {
         if ( foundHistory != NULL) {
             historyIndex = dynamic_cast<PersistentIndex *>(foundHistory);
         } else {
-            historyIndex = new PersistentIndex("cross", false, INDEX_HISTORY_PACK_NAME, "history.xml");
-            historyIndex->indexDefaultLocation = INDEX_HISTORY_PACK_LOCATION;
-            historyIndex->indexLocation = INDEX_HISTORY_PACK_LOCATION;
+            historyIndex = new PersistentIndex("cross", false, INDEX_HISTORY_PACK_LOCATION, 
+                    INDEX_HISTORY_PACK_NAME, "history.xml");
             Index::registerIndex(historyIndex);
         }
+        historyIndex->isEditable = false;
     }
     
     void PersistentIndex::addCurrentToHistory() {
@@ -221,12 +225,15 @@ namespace enigma { namespace lev {
     }
 
     PersistentIndex::PersistentIndex(std::string thePackPath, bool systemOnly, 
-            std::string anIndexName, std::string theIndexFilename, 
-            std::string aGroupName) : 
-            Index(anIndexName, aGroupName), packPath (thePackPath), 
-            indexFilename(theIndexFilename), isModified (false), doc(NULL) {
+            double defaultLocation, std::string anIndexName, 
+            std::string theIndexFilename, std::string aGroupName) : 
+            Index(anIndexName, aGroupName, defaultLocation), packPath (thePackPath), 
+            indexFilename(theIndexFilename), isModified (false),
+            isUserOwned (true), isEditable (true), release (1), revision (1),
+            compatibility (1.00), doc(NULL) {
 //        Log << "PersistentIndex AddLevelPack " << thePackPath << " - " << anIndexName <<  " - " << indexDefaultLocation <<"\n";
-        if (thePackPath == "auto")
+        // auto and new levelpacks are not loadable
+        if (thePackPath == " " || thePackPath == "auto")
             return;    // as long as Auto is not editable
 
         std::auto_ptr<std::istream> isptr;
@@ -301,10 +308,19 @@ namespace enigma { namespace lev {
                 defaultGroup = indexGroup;
                 owner = XMLtoUtf8(infoElem->getAttribute( 
                         Utf8ToXML("owner").x_str())).c_str();                
+                release = XMLString::parseInt(infoElem->getAttribute( 
+                        Utf8ToXML("release").x_str()));
+                revision = XMLString::parseInt(infoElem->getAttribute( 
+                        Utf8ToXML("revision").x_str()));
                 XMLDouble * result = new XMLDouble(infoElem->getAttribute( 
+                        Utf8ToXML("enigma").x_str()));
+                compatibility = result->getValue();
+                delete result;
+                result = new XMLDouble(infoElem->getAttribute( 
                         Utf8ToXML("location").x_str()));
                 indexDefaultLocation = result->getValue();
                 indexLocation = indexDefaultLocation;
+                delete result;
                 DOMNodeList *levelList = levelsElem->getElementsByTagName(
                         Utf8ToXML("level").x_str());
                 std::set<std::string> knownAttributes;
@@ -380,6 +396,90 @@ namespace enigma { namespace lev {
            doc->release();
     }
     
+    bool PersistentIndex::setName(std::string newName) {
+        if (findIndex(newName) != NULL)
+            return false;  // do not allow duplicate names
+        
+        // substitute spaces by underscores
+        std::string fileName = newName;
+        std::string::size_type pos = fileName.find_first_of(' ', 0);
+        while (pos != std::string::npos) {
+            fileName.replace(pos, 1,"_");
+            pos = fileName.find_first_of(' ', pos+1);
+        }
+        
+        if (packPath == " " || (packPath == "cross" && indexFilename == INDEX_STD_FILENAME)) {
+            // generate usabale path name and check it it usable
+            if (fileName == "cross" || fileName == "enigma_cross" ||
+                    fileName == "legacy_dat" || fileName == "auto" ||
+                    fileName == "history") {
+                return false;
+            } 
+            // check if the name would conflict with existing files
+            std::auto_ptr<std::istream> isptr; // dummy
+            absIndexPath = "";
+            std::string relIndexPath1 = "levels/" + fileName + "/" + INDEX_STD_FILENAME;
+            std::string relIndexPath2 = "levels/cross/" + fileName + ".xml";
+            if (app.resourceFS->findFile(relIndexPath1, absIndexPath, isptr) ||
+                    app.resourceFS->findFile(relIndexPath2, absIndexPath, isptr)) {
+                return false;
+            }
+            if (packPath == " ") {
+                packPath = fileName;
+                indexFilename = INDEX_STD_FILENAME;
+            } else
+                indexFilename = fileName + ".xml";
+        }
+        
+        renameIndex(newName);  // Index maps
+        return true;
+    }
+    
+    bool PersistentIndex::isCross() {
+        return packPath == "cross" || packPath == "enigma_cross";
+    }
+    
+    void PersistentIndex::markNewAsCross(){
+        if (packPath == " ")
+            packPath = "cross";
+    }
+    
+    std::string PersistentIndex::getOwner() {
+        return owner;
+    }
+    
+    void PersistentIndex::setOwner(std::string newOwner) {
+        owner = newOwner;
+    }
+    
+    int PersistentIndex::getRelease() {
+        return release;
+    }
+    
+    void PersistentIndex::setRelease(int newRelease) {
+        release = newRelease;
+    }
+    
+    int PersistentIndex::getRevision() {
+        return revision;
+    }
+    
+    void PersistentIndex::setRevision(int newRevision) {
+        revision = newRevision;
+    }
+    
+    double PersistentIndex::getCompatibility() {
+        return compatibility;
+    }
+    
+    void PersistentIndex::setCompatibility(double newCompatibility) {
+        compatibility = newCompatibility;
+    }
+
+    bool PersistentIndex::isUserEditable() {
+        return isEditable && (isUserOwned || WizardMode);
+    }
+    
     void PersistentIndex::clear() {
         proxies.clear();
         currentPosition = 0;
@@ -442,7 +542,7 @@ namespace enigma { namespace lev {
         variations.erase(itVar);
     }
     
-    bool PersistentIndex::save() {
+    bool PersistentIndex::save(bool allowOverwrite) {
         bool result = true;
         
         if (doc == NULL) {
@@ -489,6 +589,14 @@ namespace enigma { namespace lev {
                 Utf8ToXML(&indexName).x_str());
         infoElem->setAttribute( Utf8ToXML("group").x_str(), 
                 Utf8ToXML(&defaultGroup).x_str());
+        infoElem->setAttribute( Utf8ToXML("owner").x_str(), 
+                Utf8ToXML(&owner).x_str());
+        infoElem->setAttribute( Utf8ToXML("release").x_str(),
+                Utf8ToXML(ecl::strf("%d",release)).x_str());
+        infoElem->setAttribute( Utf8ToXML("revision").x_str(),
+                Utf8ToXML(ecl::strf("%d",revision)).x_str());
+        infoElem->setAttribute( Utf8ToXML("enigma").x_str(),
+                Utf8ToXML(ecl::strf("%g",compatibility)).x_str());
         infoElem->setAttribute( Utf8ToXML("location").x_str(),
                 Utf8ToXML(ecl::strf("%g",indexDefaultLocation)).x_str());
         DOMNodeList *levelsChildList = levelsElem->getChildNodes();
@@ -574,43 +682,46 @@ namespace enigma { namespace lev {
         stripIgnorableWhitespace(doc->getDocumentElement());
 
         std::string path = app.userPath + "/levels/" + packPath + "/" + indexFilename;
-        try {
-            // auto-create the directory if necessary
-            std::string directory;
-            if (ecl::split_path (path, &directory, 0) && !ecl::FolderExists(directory)) {
-                ecl::FolderCreate (directory);
-            }
-
+        if (allowOverwrite || !ecl::FileExists(path)) {
+            try {
+                // auto-create the directory if necessary
+                std::string directory;
+                if (ecl::split_path (path, &directory, 0) && !ecl::FolderExists(directory)) {
+                    ecl::FolderCreate (directory);
+                }
+    
 #if _XERCES_VERSION >= 30000
-            result = app.domSer->writeToURI(doc, LocalToXML(& path).x_str());
+                result = app.domSer->writeToURI(doc, LocalToXML(& path).x_str());
 #else
-            XMLFormatTarget *myFormTarget = new LocalFileFormatTarget(path.c_str());
-            result = app.domSer->writeNode(myFormTarget, *doc);
-            delete myFormTarget;   // flush
+                XMLFormatTarget *myFormTarget = new LocalFileFormatTarget(path.c_str());
+                result = app.domSer->writeNode(myFormTarget, *doc);
+                delete myFormTarget;   // flush
 #endif
-        }
-        catch (const XMLException& toCatch) {
-            char* message = XMLString::transcode(toCatch.getMessage());
-            cerr << "Exception on save of index: "
-                 << message << "\n";
-            XMLString::release(&message);
+            }
+            catch (const XMLException& toCatch) {
+                char* message = XMLString::transcode(toCatch.getMessage());
+                cerr << "Exception on save of index: "
+                     << message << "\n";
+                XMLString::release(&message);
+                result = false;
+            }
+            catch (const DOMException& toCatch) {
+                char* message = XMLString::transcode(toCatch.msg);
+                cerr << "Exception on save of index: "
+                     << message << "\n";
+                XMLString::release(&message);
+                result = false;
+            }
+            catch (...) {
+                cerr << "Unexpected exception on save of index\n" ;
+                result = false;
+            }
+            if (!result)
+                Log << "Index save fault on " << path << " \n";
+            else
+                Log << "Index save " << path << " o.k.\n";
+        } else
             result = false;
-        }
-        catch (const DOMException& toCatch) {
-            char* message = XMLString::transcode(toCatch.msg);
-            cerr << "Exception on save of index: "
-                 << message << "\n";
-            XMLString::release(&message);
-            result = false;
-        }
-        catch (...) {
-            cerr << "Unexpected exception on save of index\n" ;
-            result = false;
-        }
-        if (!result)
-            Log << "Index save fault on " << path << " \n";
-        else
-            Log << "Index save " << path << " o.k.\n";
         
         return result;
     }
@@ -620,7 +731,9 @@ namespace enigma { namespace lev {
             std::string thePackPath, bool isZip, std::string anIndexName, 
             std::string theIndexFilename) : 
             Index(anIndexName, INDEX_DEFAULT_GROUP, Index::getNextUserLocation()), 
-            indexFilename(theIndexFilename), isModified (false), doc(NULL) {
+            indexFilename(theIndexFilename), isModified (false), 
+            isUserOwned (true), isEditable (true), release (1), revision (1),
+            compatibility (1.00), doc(NULL) {
         Log << "PersistentIndex convert 0.92 index " << thePackPath << " - " << anIndexName <<"\n";
         lev::RatingManager *theRatingMgr = lev::RatingManager::instance();
 
@@ -790,8 +903,12 @@ namespace enigma { namespace lev {
         }
         
         // convert to XML
+        
         updateFromProxies();
-        save();
+        
+        // save but do not overwrite existing index.xml - would be a second conversion, 
+        // but the user may already have modified the index.xml
+        save(false);  
     }
 
     void PersistentIndex::parsePar(const string& par, int& par_value, std::string& par_text) 

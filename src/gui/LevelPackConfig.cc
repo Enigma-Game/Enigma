@@ -31,7 +31,8 @@ using namespace std;
 
 namespace enigma { namespace gui {
     GroupButton::GroupButton(std::vector<std::string> groups, int pos) : 
-            ValueButton(0, groups.size() - 1), position (pos), groupNames (groups) {
+            ValueButton(0, groups.size() - 1), 
+            position (pos), groupNames (groups) {
         init();
     }
     
@@ -47,16 +48,54 @@ namespace enigma { namespace gui {
         return groupNames[value];
     }
     
+    /* ------------------- LevelmodeButton -------------------- */
+    
+    LevelmodeButton::LevelmodeButton(bool initialMode) : 
+            ImageButton("ic-link_copy","ic-link_copy",this), mode (initialMode) {
+        update();
+    }
+    
+    bool LevelmodeButton::isLinkOnly() {
+        return mode;
+    }
+    
+    void LevelmodeButton::update() {
+        if (mode)
+            ImageButton::set_images("ic-link","ic-link_copy");
+        else
+            ImageButton::set_images("ic-link_copy","ic-link");
+    }
+    
+    void LevelmodeButton::on_action(Widget *) 
+    {
+        mode = !mode;
+        update();
+        invalidate();
+    }
+
+    void LevelmodeButton::draw(ecl::GC &gc, const ecl::Rect &r) {
+        update();
+        ImageButton::draw(gc, r);
+    }
+    
     
     
     LevelPackConfig::LevelPackConfig(std::string indexName, std::string groupName,
-            bool forceGroupReasign) : isReasignOnly (forceGroupReasign), undo_quit (false) {
+            bool forceGroupReasign) : isReasignOnly (forceGroupReasign), 
+            undo_quit (false), didEditMetaData (false), titleTF (NULL) {
         const video::VMInfo &vminfo = *video::GetInfo();
         
-        // TODO handle empty indexName as new Index
-        
-        packIndex = lev::Index::findIndex(indexName);
+        if (indexName.empty())
+            // new levelpack
+            packIndex = new lev::PersistentIndex(" ", false,
+                    INDEX_DEFAULT_PACK_LOCATION,  "", 
+                    INDEX_STD_FILENAME, lev::Index::getCurrentGroup()); // mark as incomplete
+        else
+            packIndex = lev::Index::findIndex(indexName);
         ASSERT (packIndex != NULL, XFrontend, "not existing index Name");
+        persIndex = dynamic_cast<lev::PersistentIndex *>(packIndex);
+        isPersistent = (persIndex != NULL);
+        isEditable = isPersistent ? persIndex->isUserEditable() : false;
         
         // build a list of allowed group
         std::vector<std::string> groups = lev::Index::getGroupNames();
@@ -101,7 +140,8 @@ namespace enigma { namespace gui {
             } 
         }
         oldPosition = position;
-        if (position < 0) { // may be improved by last User Index + 100 ...
+        if (position < 0) { 
+            // append new levelpack as last
             locationList.push_back(indexName);
             position = locationList.size() - 1;
         }
@@ -128,21 +168,23 @@ namespace enigma { namespace gui {
             titleLeftVList->add_back(new Label());
         }
         
-        VList * valueLeftVList = new VList;
+        valueLeftVList = new VList;
         valueLeftVList->set_spacing(11);
         valueLeftVList->set_alignment(HALIGN_LEFT, VALIGN_CENTER);
         valueLeftVList->set_default_size(160, 35);
 
-        Label * titleValue = new Label(indexName, HALIGN_CENTER);
+        titleValueLabel = new Label(indexName, HALIGN_CENTER);
+        ownerValueLabel = new Label(isPersistent ? persIndex->getOwner() : "System");
+        
         pre2Index = new Label();
         pre1Index = new Label();
         thisIndex = new Label();
         post1Index = new Label();
         post2Index = new Label();
 
-        valueLeftVList->add_back(titleValue);
+        valueLeftVList->add_back(titleValueLabel);
         if (!isReasignOnly) {        
-            valueLeftVList->add_back(new Label());
+            valueLeftVList->add_back(ownerValueLabel);
         }
         valueLeftVList->add_back(groupButton);
         if (!isReasignOnly) {        
@@ -163,15 +205,90 @@ namespace enigma { namespace gui {
         scrollVList->add_back(scrollUp);
         scrollVList->add_back(scrollDown);
 
+        VList * metaVList = new VList;
+        metaVList->set_spacing(12);
+        metaVList->set_alignment(HALIGN_LEFT, VALIGN_CENTER);
+        metaVList->set_default_size(140, 35);
+        
+        if (isEditable)
+            but_metadata = new StaticTextButton(N_("Edit Metadata"), this);
+        else
+            but_metadata = new Label();
+        Label * releaseLabel = new Label(N_("Release:"), HALIGN_RIGHT);
+        Label * revisionLabel = new Label(N_("Revision:"), HALIGN_RIGHT);
+        Label * compatibilityLabel = new Label(N_("Compatibility:"), HALIGN_RIGHT);
+        Label * defLocationLabel = new Label(N_("Default Location:"), HALIGN_RIGHT);
+        Label * crossmodeLabel = new Label(N_("Level types:"), HALIGN_RIGHT);
+        
+        if (!isReasignOnly) {
+            metaVList->add_back(but_metadata);
+            metaVList->add_back(new Label());
+#ifdef ENABLE_EXPERIMENTAL
+            metaVList->add_back(releaseLabel);
+            metaVList->add_back(revisionLabel);
+#else
+            metaVList->add_back(new Label());
+            metaVList->add_back(new Label());
+#endif
+            metaVList->add_back(crossmodeLabel);
+#ifdef ENABLE_EXPERIMENTAL
+            metaVList->add_back(compatibilityLabel);
+#else
+            metaVList->add_back(new Label());
+#endif
+            metaVList->add_back(defLocationLabel);
+            metaVList->add_back(new Label());
+        }
+
+        valueMetaVList = new VList;
+        valueMetaVList->set_spacing(12);
+        valueMetaVList->set_alignment(HALIGN_CENTER, VALIGN_CENTER);
+        valueMetaVList->set_default_size(75, 35);
+        Widget * levelmodeWidget;
+        if (indexName.empty()){
+            levelmode = new LevelmodeButton(false);
+            levelmodeWidget = levelmode;
+        } else {
+            levelmodeWidget = new Image(isPersistent && !(persIndex->isCross()) ?
+                    "ic-link_copy" : "ic-link");
+        }
+        defLocationValueLabel = new Label(ecl::strf("%g", packIndex->getDefaultLocation()));
+        releaseValueLabel = new Label(isPersistent ? ecl::strf("%d", persIndex->getRelease()) : "-");
+        revisionValueLabel = new Label(isPersistent ? ecl::strf("%d", persIndex->getRevision()) : "-");
+        compatibilityValueLabel = new Label(isPersistent ? ecl::strf("%.2f", persIndex->getCompatibility()) : "-");
+        
+        if (!isReasignOnly) {
+            valueMetaVList->add_back(new Label());
+            valueMetaVList->add_back(new Label());
+#ifdef ENABLE_EXPERIMENTAL
+            valueMetaVList->add_back(releaseValueLabel);
+            valueMetaVList->add_back(revisionValueLabel);
+#else
+            valueMetaVList->add_back(new Label());
+            valueMetaVList->add_back(new Label());
+#endif
+            valueMetaVList->add_back(levelmodeWidget);
+#ifdef ENABLE_EXPERIMENTAL
+            valueMetaVList->add_back(compatibilityValueLabel);
+#else
+            valueMetaVList->add_back(new Label());
+#endif
+            valueMetaVList->add_back(defLocationValueLabel);
+            valueMetaVList->add_back(new Label());
+        }
+        
+
         if (isReasignOnly) {        
             this->add(titleLeftVList, Rect(vminfo.width/2 - 270, 15, 140, vminfo.height-97));
             this->add(valueLeftVList, Rect(vminfo.width/2 - 80, 15, 160, vminfo.height-97));
         } else {
             this->add(titleLeftVList, Rect(vminfo.width/2 - 300, 15, 140, vminfo.height-97));
             this->add(valueLeftVList, Rect(vminfo.width/2 - 140, 15, 160, vminfo.height-97));
-            this->add(scrollVList, Rect(vminfo.width/2 + 30, 15+3*(35+12), 30, 5*35+4*12));
+            this->add(scrollVList, Rect(vminfo.width/2 + 30, 15+3*(35+12) + (vminfo.height-480)/2, 30, 5*35+4*12));
+            this->add(metaVList, Rect(vminfo.width/2 + 80, 15, 140, vminfo.height-97));
+            this->add(valueMetaVList, Rect(vminfo.width/2 + 235, 15, 75, vminfo.height-97));
         }
-     
+    
         errorLabel = new Label("", HALIGN_CENTER);
         this->add(errorLabel, Rect(10, vminfo.height-97, vminfo.width-20, 35));
         
@@ -200,38 +317,170 @@ namespace enigma { namespace gui {
         this->add(commandHList, Rect(10, vminfo.height-50, vminfo.width-20, 35));
         
         updateLocationList();
+        if (indexName.empty())
+            // new levelpack
+            switchToMetadataEdit();
     }
     
     void LevelPackConfig::updateLocationList() {
         pre2Index->set_text((position > 1) ? locationList[position - 2] : "");
         pre1Index->set_text((position > 0) ? locationList[position - 1] : "");
-        thisIndex->set_text(packIndex->getName());
+        thisIndex->set_text(didEditMetaData ? titleTF->getText() : packIndex->getName());
         post1Index->set_text((position < locationList.size() - 1) ? locationList[position + 1] : "");
         post2Index->set_text((position < locationList.size() - 2) ? locationList[position + 2] : "");        
+    }
+    
+    void LevelPackConfig::switchToMetadataEdit() {
+        if (!didEditMetaData) {
+            didEditMetaData = true;
+            titleTF = new TextField(titleValueLabel->getText(), this); 
+            valueLeftVList->exchange_child(titleValueLabel, titleTF);
+            delete titleValueLabel;
+            ownerTF = new TextField(ownerValueLabel->getText()); 
+            valueLeftVList->exchange_child(ownerValueLabel, ownerTF);
+            delete ownerValueLabel;
+            defLocationTF = new TextField(defLocationValueLabel->getText()); 
+            valueMetaVList->exchange_child(defLocationValueLabel, defLocationTF);
+            delete defLocationValueLabel;
+#ifdef ENABLE_EXPERIMENTAL
+            releaseTF = new TextField(releaseValueLabel->getText()); 
+            valueMetaVList->exchange_child(releaseValueLabel, releaseTF);
+            delete releaseValueLabel;
+            revisionTF = new TextField(revisionValueLabel->getText()); 
+            valueMetaVList->exchange_child(revisionValueLabel, revisionTF);
+            delete revisionValueLabel;
+            compatibilityTF = new TextField(compatibilityValueLabel->getText()); 
+            valueMetaVList->exchange_child(compatibilityValueLabel, compatibilityTF);
+            delete compatibilityValueLabel;
+#endif
+        }
     }
     
     bool LevelPackConfig::isUndoQuit() {
         return undo_quit;
     }
     
+    bool LevelPackConfig::doChanges() {
+        // change metadata
+        if (didEditMetaData) {
+            // the Index is persistent, user editabel and the user did switch to edit mode
+            bool needSave = false;
+            bool isNewIndex = persIndex->getName().empty();
+            
+            // check for valid input 
+            // title
+            std::string newtitle = titleTF->getText();
+            std::string::size_type lastChar = newtitle.find_last_not_of(" ");
+            if (lastChar == std::string::npos) {
+                // the title is effectively an empty string
+                errorLabel->set_text(N_("Error: empty title not allowed - press \"Undo\" to exit without modifications"));
+                return false;
+            }   
+            // strip off trailing and leading spaces
+            newtitle = newtitle.substr(0 , lastChar + 1);
+            newtitle = newtitle.substr(newtitle.find_first_not_of(" "));
+            if (newtitle != persIndex->getName()) {
+                if (isNewIndex) {
+                    // check for filename usability of title
+                    const std::string validChars("_- #0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ");
+                    if (newtitle.find_first_not_of(validChars, 0) != std::string::npos) {
+                        errorLabel->set_text(N_("Error: use only \"a-zA-Z0-9 _-#\" for levelpack title"));
+                        return false;               
+                    }
+                    
+                    // set packPath to cross if link only
+                    if (levelmode->isLinkOnly())
+                        persIndex->markNewAsCross();
+                }
+                if (!persIndex->setName(newtitle)) {
+                    errorLabel->set_text(N_("Error: title already in use - choose another title"));
+                    return false;
+                }
+                needSave = true;                
+            }
+
+            // check rest for need of save
+            if (ownerTF->getText() != persIndex->getOwner()) {
+                persIndex->setOwner(ownerTF->getText());
+                needSave = true;
+            }
+            if (defLocationTF->getText() != ecl::strf("%g", packIndex->getDefaultLocation())) {
+                double d = 0;
+                // check value - keep old value on error 
+                if ((sscanf(defLocationTF->getText().c_str(),"%lg", &d) == 1) &&
+                        d > 0) {
+                    packIndex->setDefaultLocation(d);
+                    needSave = true;
+                }
+            }
+            
+#ifdef ENABLE_EXPERIMENTAL
+            if (releaseTF->getText() != ecl::strf("%d", persIndex->getRelease())) {
+                int i = 0;
+                // check value - keep old value on error 
+                if ((sscanf(releaseTF->getText().c_str(),"%d", &i) == 1) &&
+                        i > 0) {
+                    persIndex->setRelease(i);
+                    needSave = true;
+                }
+            }
+            if (revisionTF->getText() != ecl::strf("%d", persIndex->getRevision())) {
+                int i = 0;
+                // check value - keep old value on error 
+                if ((sscanf(revisionTF->getText().c_str(),"%d", &i) == 1) &&
+                        i > 0) {
+                    persIndex->setRevision(i);
+                    needSave = true;
+                }
+            }
+            if (compatibilityTF->getText() != ecl::strf("%.2f", persIndex->getCompatibility())) {
+                double d = 0;
+                // check value - keep old value on error 
+                if ((sscanf(compatibilityTF->getText().c_str(),"%lg", &d) == 1) &&
+                        d >= 1) {
+                    persIndex->setCompatibility(d);
+                    needSave = true;
+                }
+            }
+#endif
+            
+            // save
+            if (needSave)
+                persIndex->save();
+            if (isNewIndex)
+                lev::Index::registerIndex(persIndex);
+        }
+        // regroup
+        if (groupButton->get_value() != intialGroupPosition) {
+            std::string newGroupName = groupButton->get_text(groupButton->get_value());
+            // strip off square brackets used to mark default and pseudo groups
+            if (newGroupName.size() > 2 && newGroupName[0] == '[' && 
+                    newGroupName[newGroupName.size() -1] == ']') {
+                newGroupName = newGroupName.substr(1, newGroupName.size() - 2);
+            }
+            packIndex->moveToGroup(newGroupName);
+        } else if (isReasignOnly) {
+            // the user did not reasign - take as an undo request
+            undo_quit = true;
+        }
+        // relocate
+        if (position != oldPosition)
+            packIndex->locateBehind(position > 0 ? locationList[position - 1] : "");
+        
+        return true;
+    }
+    
     void LevelPackConfig::on_action(Widget *w) {
         if (w == but_back) {
-            if (groupButton->get_value() != intialGroupPosition) {
-                std::string newGroupName = groupButton->get_text(groupButton->get_value());
-                // strip off square brackets used to mark default and pseudo groups
-                if (newGroupName.size() > 2 && newGroupName[0] == '[' && 
-                        newGroupName[newGroupName.size() -1] == ']') {
-                    newGroupName = newGroupName.substr(1, newGroupName.size() - 2);
-                }
-                packIndex->moveToGroup(newGroupName);
-            } else if (isReasignOnly) {
-                // the user did not reasign - take as an undo request
-                undo_quit = true;
-            }
-            if (position != oldPosition)
-                packIndex->locateBehind(position > 0 ? locationList[position - 1] : "");
-            Menu::quit();
+            if (doChanges())
+                Menu::quit();
+            else
+                invalidate_all();
         } else if (w == but_ignore) {
+            if (packIndex->getName().empty()) {
+                Log << "delete empty index\n";
+                delete packIndex;
+            }
             undo_quit = true;
             Menu::quit();
         } else if (w == but_update) {
@@ -258,6 +507,11 @@ namespace enigma { namespace gui {
                 updateLocationList();
                 invalidate_all();
             }
+        } else if (w == but_metadata && !didEditMetaData) {
+            switchToMetadataEdit();
+            invalidate_all();
+        } else if (w == titleTF && w != NULL) {
+            thisIndex->set_text(titleTF->getText());
         }
     }
     

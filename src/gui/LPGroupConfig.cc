@@ -119,53 +119,60 @@ namespace enigma { namespace gui {
         post2Group->set_text((position < groups.size() - 2) ? groups[position + 2] : "");        
     }
     
+    bool LPGroupConfig::doChanges() {
+        // rename first for consistency
+        std::string newName = tf_groupName->getText();
+        std::string::size_type lastChar = newName.find_last_not_of(" ");
+        if (lastChar == std::string::npos) {
+            // the name is effectively an empty string
+            errorLabel->set_text(N_("Error: empty group name not allowed - press \"Undo\" to exit without modifications"));
+            return false;
+        }
+
+        // strip off trailing and leading spaces
+        newName = newName.substr(0 , lastChar + 1);
+        newName = newName.substr(newName.find_first_not_of(" "));
+        
+        // check if new group name is unique
+        for (int i = 0; i < groups.size(); i++) {
+            if (i != position && groups[i] == newName) {
+                errorLabel->set_text(N_("Error: group name is a duplicate of an existing group"));
+                return false;
+            }
+        }
+        if (newName == INDEX_EVERY_GROUP) {
+            errorLabel->set_text(N_("Error: \"Every group\" is a reserved group name"));
+            return false;
+        }
+        if (newName.size() > 2 && newName[0] == '[' 
+                && newName[newName.size() -1] == ']') {
+            errorLabel->set_text(N_("Error: group name must not be enclosed in square brackets"));
+            return false;
+        }
+            
+        
+        if (oldGroupName.empty()) {
+            // menu called without an existing group
+            lev::Index::insertGroup(newName, position);
+        } else {
+            // menu called with an existing group
+            if (newName != oldGroupName)
+                lev::Index::renameGroup(oldGroupName, newName);
+            
+            if (oldPosition >= 0 && position != oldPosition) {
+                // move the group to the new position
+                lev::Index::moveGroup(newName, position);
+            }
+        }
+        return true;
+    }
+    
     void LPGroupConfig::on_action(Widget *w) {
         if (w == but_ok) {
-            // rename first for consistency
-            std::string newName = tf_groupName->getText();
-            std::string::size_type lastChar = newName.find_last_not_of(" ");
-            if (lastChar == std::string::npos) {
-                // the name is effectively an empty string
-                errorLabel->set_text(N_("Error: empty group name not allowed - press \"Undo\" to exit without modifications"));
-                return;
-            }
-    
-            // strip off trailing and leading spaces
-            newName = newName.substr(0 , lastChar + 1);
-            newName = newName.substr(newName.find_first_not_of(" "));
-            
-            // check if new group name is unique
-            for (int i = 0; i < groups.size(); i++) {
-                if (i != position && groups[i] == newName) {
-                    errorLabel->set_text(N_("Error: group name is a duplicate of an existing group"));
-                    return;
-                }
-            }
-            if (newName == INDEX_EVERY_GROUP) {
-                errorLabel->set_text(N_("Error: \"Every group\" is a reserved group name"));
-                return;
-            }
-            if (newName.size() > 2 && newName[0] == '[' 
-                    && newName[newName.size() -1] == ']') {
-                errorLabel->set_text(N_("Error: group name must not be enclosed in square brackets"));
-                return;
-            }
-                
-            
-            if (oldGroupName.empty()) {
-                // menu called without an existing group
-                lev::Index::insertGroup(newName, position);
-            } else {
-                // menu called with an existing group
-                if (newName != oldGroupName)
-                    lev::Index::renameGroup(oldGroupName, newName);
-                
-                if (oldPosition >= 0 && position != oldPosition) {
-                    // move the group to the new position
-                    lev::Index::moveGroup(newName, position);
-                }
-            }
-            Menu::quit();
+            if (doChanges())
+                Menu::quit();
+            else
+                invalidate_all();
         } else if (w == but_ignore) {
             Menu::quit();
         } else if (w == scrollUp) {
@@ -205,11 +212,13 @@ namespace enigma { namespace gui {
             }
             Menu::quit();
         } else if (w == but_newPack) {
-            errorLabel->set_text(("Sorry - creation of new levelpack not yet implemented."));
-            invalidate_all();
-//            LevelPackConfig m("");
-//            m.manage();
-//            Menu::quit();            
+            if (doChanges()) {
+                LevelPackConfig m("");
+                m.manage();
+                Menu::quit();
+            } else {
+                invalidate_all();
+            }
         }
     }
     

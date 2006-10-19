@@ -49,6 +49,7 @@ namespace enigma { namespace gui {
         bool manageLevelMenu();
         virtual bool manage();
 
+        bool on_event (const SDL_Event &e);
         void on_action(Widget *w);
         void draw_background(ecl::GC &gc);
 

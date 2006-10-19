@@ -283,6 +283,17 @@ namespace enigma {
         indicesElem->appendChild(index);
     }
     
+    void StateManager::setIndexName(std::string oldName, std::string newName) {
+        // search index and set attribute
+        for (int i = 0, l = indexList-> getLength(); i < l; i++) {
+            DOMElement * index = dynamic_cast<DOMElement *>(indexList->item(i));
+            if (oldName == XMLtoUtf8(index->getAttribute(Utf8ToXML("title").x_str())).c_str()) {
+                index->setAttribute(Utf8ToXML("title").x_str(), Utf8ToXML(newName).x_str());
+                return;
+            }
+        }        
+    }
+    
     void StateManager::setIndexLocation(std::string indexName, double location) {
         // search index and set attribute
         for (int i = 0, l = indexList-> getLength(); i < l; i++) {
@@ -315,8 +326,7 @@ namespace enigma {
             }
         }
     }
-    
-        
+           
     void StateManager::setIndexGroup(std::string indexName, std::string groupName) {
         // search index and set attribute
         for (int i = 0, l = indexList-> getLength(); i < l; i++) {

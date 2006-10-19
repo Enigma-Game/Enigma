@@ -22,6 +22,7 @@
 #include "gui/LPGroupConfig.hh"
 #include "gui/LevelPackConfig.hh"
 #include "gui/SearchMenu.hh"
+#include "gui/HelpMenu.hh"
 #include "ecl.hh"
 #include "errors.hh"
 #include "nls.hh"
@@ -40,6 +41,14 @@ namespace enigma { namespace gui {
     std::map<std::string, int> LevelPackMenu::groupLastSelectedColumn;
     std::string LevelPackMenu::lastGroupName;
     int LevelPackMenu::firstDisplayedGroup = 0;
+
+    static const char *helptext[] = {
+        N_("Left column:"),              N_("Levelpack groups"),
+        N_("Right columns:"),            N_("Levelpacks of selected group"),
+        N_("Left click:"),               N_("Select group or levelpack"),
+        N_("Right or control click:"),   N_("Configure group or levelpack"),
+        0
+    };
     
     LevelPackMenu::LevelPackMenu() : packsHList (NULL), groupsVList (NULL),
             scrollLeft (NULL), scrollRight (NULL), scrollUp (NULL),
@@ -317,6 +326,23 @@ namespace enigma { namespace gui {
         setupMenu();
         updateHighlight();
         return Menu::manage();
+    }
+    
+    bool LevelPackMenu::on_event (const SDL_Event &e) {
+        switch (e.type) {
+            case SDL_KEYDOWN:
+                SDLKey keysym = e.key.keysym.sym;
+                switch (keysym) {
+                case SDLK_F1:     
+                    displayHelp(helptext, 200);
+                    invalidate_all();
+                    return true;
+                default:
+                    break;
+                }
+                break;
+        }
+        return false;
     }
     
     void LevelPackMenu::on_action(Widget *w) {

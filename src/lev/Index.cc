@@ -414,6 +414,14 @@ namespace enigma { namespace lev {
     double Index::getLocation() {
         return indexLocation;
     }
+    
+    double Index::getDefaultLocation() {
+        return indexDefaultLocation;
+    }
+    
+    void Index::setDefaultLocation(double defLocation) {
+        indexDefaultLocation = defLocation;
+    }
 
     void Index::moveToGroup(std::string newGroupName) {
         // remove from old group
@@ -542,6 +550,13 @@ namespace enigma { namespace lev {
         std::map<std::string, std::vector<Index *> *>::iterator itg;
         for (itg = indexGroups.begin(); itg != indexGroups.end(); itg++) 
             std::sort((*itg).second->begin(), (*itg).second->end(), indexLocationCompare);
+    }
+    
+    void Index::renameIndex(std::string newName) {
+        indices.erase(indexName);
+        indices[newName] = this;
+        app.state->setIndexName(indexName, newName);
+        indexName = newName;
     }
     
     int Index::getCurrentPosition() {

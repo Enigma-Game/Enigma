@@ -101,8 +101,11 @@ namespace enigma { namespace lev {
         std::string getGroupName();
         std::string getDefaultGroupName();
         double getLocation();
+        double getDefaultLocation();
+        void setDefaultLocation(double defLocation);
         void moveToGroup(std::string groupName);
         void locateBehind(std::string indexName);
+        void renameIndex(std::string newName);
 
         int getCurrentPosition(); // 0 .. size-1
         int getCurrentLevel(); // 1 .. size

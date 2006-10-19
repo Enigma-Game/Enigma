@@ -109,6 +109,7 @@ void TextField::draw(ecl::GC &gc, const ecl::Rect &r) {
 
 bool TextField::on_event(const SDL_Event &e) {
     bool handeled = false;
+    bool modified = false;
     
     switch (e.type) {
         case SDL_MOUSEBUTTONDOWN:
@@ -180,6 +181,7 @@ bool TextField::on_event(const SDL_Event &e) {
                     }
                     invalidate();
                     handeled = true;
+                    modified = true;
                     break;
                 case SDLK_BACKSPACE:
                     if(textPreCursor.size() > 0) {
@@ -189,6 +191,7 @@ bool TextField::on_event(const SDL_Event &e) {
                     }
                     invalidate();
                     handeled = true;
+                    modified = true;
                     break;
                 case SDLK_ESCAPE:
                 case SDLK_DOWN:  
@@ -232,6 +235,7 @@ bool TextField::on_event(const SDL_Event &e) {
 
                         invalidate();
                         handeled = true;
+                        modified = true;
                         break;
                     }
                     if (e.key.keysym.sym < 300 || e.key.keysym.sym > 314 ){
@@ -245,6 +249,8 @@ bool TextField::on_event(const SDL_Event &e) {
         default:
             break;
     }
+    if (modified)
+        invoke_listener();
     return handeled;
 }
 

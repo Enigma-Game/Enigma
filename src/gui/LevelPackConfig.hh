@@ -22,6 +22,7 @@
 #include "gui/Menu.hh"
 #include "gui/TextField.hh"
 #include "lev/Index.hh"
+#include "lev/PersistentIndex.hh"
 
 namespace enigma { namespace gui {
 
@@ -36,6 +37,19 @@ namespace enigma { namespace gui {
         int position;
     };
 
+    class LevelmodeButton : public ImageButton {
+        // ActionListener interface.
+        void on_action(Widget *);
+    public:
+        LevelmodeButton(bool initialMode = false);
+        bool isLinkOnly();
+        virtual void draw(ecl::GC &gc, const ecl::Rect &r);
+    private:
+        void update();
+        bool mode;
+    };
+
+
     class LevelPackConfig : public gui::Menu {
     public:
         LevelPackConfig (std::string indexName, std::string groupName = "",
@@ -46,11 +60,31 @@ namespace enigma { namespace gui {
         bool isUndoQuit();
     private:
         void updateLocationList();
+        void switchToMetadataEdit();
+        bool doChanges();
         
         lev::Index  *packIndex;
+        lev::PersistentIndex *persIndex;
+        bool         isPersistent;
+        bool         isEditable;
         TextField   *tf_packName;
         GroupButton *groupButton;
         int          intialGroupPosition;
+        VList       *valueLeftVList;
+        Label       *titleValueLabel;
+        TextField   *titleTF;
+        Label       *ownerValueLabel;
+        TextField   *ownerTF;
+        VList       *valueMetaVList;
+        LevelmodeButton *levelmode;
+        Label       *defLocationValueLabel;
+        TextField   *defLocationTF;
+        Label       *releaseValueLabel;
+        TextField   *releaseTF;
+        Label       *revisionValueLabel;
+        TextField   *revisionTF;
+        Label       *compatibilityValueLabel;
+        TextField   *compatibilityTF;
         Label       *pre2Index;
         Label       *pre1Index;
         Label       *thisIndex;
@@ -59,6 +93,7 @@ namespace enigma { namespace gui {
         Widget      *scrollUp;
         Widget      *scrollDown;
         Label       *errorLabel;
+        Widget      *but_metadata;
         Widget      *but_up;
         Widget      *but_down;
         Widget      *but_edit;
@@ -66,6 +101,7 @@ namespace enigma { namespace gui {
         Widget      *but_ignore;
         Widget      *but_back;
         bool         isReasignOnly;
+        bool         didEditMetaData;
         bool         undo_quit;
         std::vector<std::string> locationList;
         int         position;       // new position of index in locationList that the user selected

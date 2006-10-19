@@ -31,6 +31,7 @@ namespace enigma { namespace gui {
         void draw_background(ecl::GC &gc);
     private:
         void updateGroupList();
+        bool doChanges();
         
         TextField   *tf_groupName;
         Label       *pre2Group;

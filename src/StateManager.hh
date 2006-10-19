@@ -58,6 +58,7 @@ namespace enigma
         
         void addIndex(std::string indexName, std::string &groupName, double &location,
                 int &curpos, int &curfirst);
+        void setIndexName(std::string oldName, std::string newName);
         void setIndexLocation(std::string indexName, double location);
         void setIndexCurpos(std::string indexName, int curpos);
         void setIndexCurfirst(std::string indexName, int curfirst);

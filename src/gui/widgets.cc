@@ -86,8 +86,15 @@ bool Widget::on_event(const SDL_Event &e) {
 /* -------------------- Image -------------------- */
 
 void Image::draw (ecl::GC &gc, const ecl::Rect &/*r*/) {
-    if (ecl::Surface *s = enigma::GetImage(imgname.c_str()))
-        blit(gc, get_x(), get_y(), s);
+//    if (ecl::Surface *s = enigma::GetImage(imgname.c_str()))
+//        blit(gc, get_x(), get_y(), s);
+    if (ecl::Surface *s = enigma::GetImage(imgname.c_str())) {
+        int w=s->width();
+        int h=s->height();
+        int x = get_x() + (get_w()-w)/2;
+        int y = get_y() + (get_h()-h)/2;
+        blit(gc, x, y, s);
+    }
 }
 
 
@@ -166,6 +173,16 @@ void Container::remove_child (Widget *w) {
     for (iterator it = begin(); it != end(); it++) {
         if (*it == w) {
             m_widgets.erase(it);
+            return;
+        }
+    }
+}
+
+void Container::exchange_child (Widget *oldChild, Widget *newChild) {
+    for (int i = 0; i < m_widgets.size(); i++) {
+        if (m_widgets[i] == oldChild) {
+            m_widgets[i] = newChild;
+            newChild->set_parent(this);
             return;
         }
     }
@@ -287,6 +304,11 @@ List::List (int spacing)
 
 void List::remove_child (Widget *w) {
     Container::remove_child(w);
+    recalc();
+}
+
+void List::exchange_child(Widget *oldChild, Widget *newChild) {
+    Container::exchange_child(oldChild, newChild);
     recalc();
 }
 
@@ -490,6 +512,10 @@ void Label::set_text (const std::string &text) {
         reconfigure();
         invalidate();
     }
+}
+
+string Label::getText() const {
+    return m_text;
 }
 
 void Label::set_font (ecl::Font *font) {

@@ -164,6 +164,7 @@ namespace enigma { namespace gui {
 
         void add_child (Widget *w);
         virtual void remove_child (Widget *w);
+        virtual void exchange_child (Widget *oldChild, Widget *newChild);
         virtual void reconfigure_child (Widget *w);
 
         Widget *find_widget(int x, int y);
@@ -210,6 +211,7 @@ namespace enigma { namespace gui {
 
         void add_back (Widget *w, ExpansionMode m = List::TIGHT);
         virtual void remove_child (Widget *w);
+        virtual void exchange_child (Widget *oldChild, Widget *newChild);
 
         void set_default_size (int w, int h);
         void set_alignment (HAlignment halign, VAlignment valign);
@@ -292,6 +294,7 @@ namespace enigma { namespace gui {
 
         // Methods
         void set_text (const std::string &text);
+        std::string getText() const;
         void set_font (ecl::Font *font);
         void set_alignment (HAlignment halign, VAlignment valign=VALIGN_CENTER);
     protected:

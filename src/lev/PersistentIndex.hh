@@ -56,8 +56,15 @@ namespace enigma { namespace lev {
         /**
          * Convention: method names *Level() can take int pos or Proxy as arg.
          */
-        PersistentIndex(std::string thePackPath, bool systemOnly, std::string anIndexName = "", 
-                std::string theIndexFilename = INDEX_STD_FILENAME, std::string aGroupName = INDEX_DEFAULT_GROUP);
+        /**
+         * 
+         * thePackPath " " for a new not yet defined path
+         */
+        PersistentIndex(std::string thePackPath, bool systemOnly, 
+                double defaultLocation = INDEX_DEFAULT_PACK_LOCATION,
+                std::string anIndexName = "",
+                std::string theIndexFilename = INDEX_STD_FILENAME, 
+                std::string aGroupName = INDEX_DEFAULT_GROUP);
         /**
          * Legacy 0.92 constructor - called once to convert the index to XML.
          * When the index has been stored as XML this constructor will not be
@@ -66,6 +73,18 @@ namespace enigma { namespace lev {
         PersistentIndex(std::istream *legacyIndex, std::string thePackPath,  bool isZip = false,
                 std::string anIndexName = "", std::string theIndexFilename = INDEX_STD_FILENAME);
         ~PersistentIndex();
+        bool setName(std::string newName);
+        std::string getOwner();
+        void setOwner(std::string newOwner);
+        int getRelease();
+        void setRelease(int newRelease);
+        int getRevision();
+        void setRevision(int newRevision);
+        double getCompatibility();
+        void setCompatibility(double newCompatibility);
+        bool isUserEditable();
+        bool isCross();
+        void markNewAsCross();
         virtual void clear();
         virtual void appendProxy(Proxy * newLevel, controlType varCtrl = force,
                 scoreUnitType varUnit = duration, std::string varTarget = "time",
@@ -76,15 +95,18 @@ namespace enigma { namespace lev {
                 std::map<std::string, std::string> varExtensions = nullExtensions);
         Variation getVariation(int pos);
         void erase(int pos);
-        bool save();
+        bool save(bool allowOverwrite = true);
     protected:
         std::string packPath;  // "auto", "",...
         std::string indexFilename;
         std::string owner;
         int release;
         int revision;
+        double compatibility;
         std::vector<Variation> variations;
         bool isModified;
+        bool isUserOwned;
+        bool isEditable;
     private:
         std::string absIndexPath;
         XERCES_CPP_NAMESPACE_QUALIFIER DOMDocument *doc;
