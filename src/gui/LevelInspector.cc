@@ -545,8 +545,8 @@ LevelInspector::LevelInspector(lev::Proxy *aLevel):
         enum botType {holder, credits, dedication, path, annotation, compatibility};
         const int sequenceSize = 13;
         botType sequence[sequenceSize] = {credits, dedication, annotation, path,
-                holder, annotation, path, credits, dedication, annotation,  credits,
-                compatibility, annotation};
+                holder, annotation, path, compatibility, credits, dedication, 
+                annotation, credits, annotation};
         int j = 0;
         std::string creditsString = levelProxy->getCredits(true);
         std::string dedicationString = levelProxy->getDedication(true);

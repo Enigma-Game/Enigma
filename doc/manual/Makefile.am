@@ -9,7 +9,7 @@ HTML =  $(wildcard enigma_*.html) \
 htmldir=@datadir@/doc/enigma
 html_DATA = $(HTML)
 
-EXTRA_DIST = enigma.texi enigma_de.texi $(html_DATA)
+EXTRA_DIST = enigma.texi enigma_de.texi enigma_fr.texi $(html_DATA)
 
 $(HTML) : enigma.texi
 	@if [ "${TEXI2HTML}" ]; then \
@@ -19,7 +19,7 @@ $(HTML) : enigma.texi
 	  echo "Warning: texi2html not found"; \
 	fi
 
-pdf: enigma.pdf enigma_de.pdf
+pdf: enigma.pdf enigma_de.pdf enigma_fr.pdf
 
 %.pdf: %.texi
 	texi2pdf $<
