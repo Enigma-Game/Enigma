@@ -489,11 +489,42 @@ namespace
 	    SendMessage(a, "booze");
 	    return ITEM_DROP;
 	}
+    void on_stonehit(Stone *) {
+        replace(it_booze_broken);
+    }
     };
     DEF_TRAITS(Booze, "it-booze", it_booze);
 }
 
+/* -------------------- Broken Booze -------------------- */
+namespace
+{
+    class BrokenBooze : public Item {
+        CLONEOBJ(BrokenBooze);
+        DECL_TRAITS;
 
+        bool actor_hit(Actor *a) {
+            ActorInfo &ai = * a->get_actorinfo();
+            if (!ai.grabbed && a->is_on_floor()) {
+                SendMessage(a, "shatter");
+            }
+            return false;
+        }
+
+        virtual Value on_message (const Message &m) {
+            if (enigma_server::GameCompatibility == GAMET_ENIGMA) {
+                if (m.message == "brush")
+                    KillItem(this->get_pos());
+            }
+            return Value();
+        }
+
+    public:
+        BrokenBooze() {}
+    };
+
+    DEF_TRAITSF(BrokenBooze, "it-booze-broken", it_booze_broken, itf_static | itf_indestructible);
+}
 
 /* -------------------- Brush -------------------- */
 namespace
@@ -1098,7 +1129,20 @@ namespace
             GridPos p = get_pos();
             SendExplosionEffect(p, EXPLOSION_DYNAMITE);
             sound_event ("dynamite");
-            SetItem(p, it_explosion2);
+            //SetItem(p, it_explosion2);
+            Floor *fl = GetFloor(p);
+            string model = fl->get_kind();
+            // SetItem(p, it_explosion2) only used by it-dynamite?
+            // If Yes, the following block could be places in the explosion class:
+            if (model == "fl-space") {
+                // In space, an it-dynamite explodes to an it-sherd:
+                replace(it_sherd);
+            } else if (model == "fl-ice") {
+                // In ice, an it-dynamite explodes to an it-crack2:
+                replace(it_crack2);
+            } else {
+                SetItem(p, it_explosion2);
+            }
         }
 
         virtual Value message(const string &msg, const Value &/*val*/) {
@@ -3273,10 +3317,7 @@ namespace
     DEF_TRAITSF(Death, "it-death", it_death, itf_static | itf_indestructible);
 }
 
-
-//----------------------------------------
-// Remaining items (still need to be implemented)
-//----------------------------------------
+/* -------------------- HStrip and VStrip -------------------- */
 namespace
 {
     class HStrip : public Item {
@@ -3531,6 +3572,7 @@ void world::InitItems()
     RegisterItem (new Blocker(false));
     RegisterItem (new Booze);
     RegisterItem (new Brake);
+    RegisterItem (new BrokenBooze);
     RegisterItem (new Brush);
     Burnable::setup();
     RegisterItem (new ChangeFloorItem);
@@ -3613,6 +3655,5 @@ void world::InitItems()
     RegisterItem (new WormHole(false));
     RegisterItem (new WormHole(true));
     RegisterItem (new YinYang);
-
     RegisterItem (new Rubberband);
 }

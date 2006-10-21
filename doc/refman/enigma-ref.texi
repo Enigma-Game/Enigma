@@ -2616,6 +2616,7 @@ Marbles may jump over @ref{fl-water} with an
 * it-blocker::                  Blocker Item
 * it-booze::                    Booze
 * it-brake::                    Brake Item
+* it-booze-broken::             Broken Booze
 * it-brush::                    Brush
 * it-changefloor::              Changefloor Item
 * it-cherry::                   Cherry
@@ -2679,6 +2680,7 @@ it-booze
 it-brake
 it-bridge-oxyd
 it-bridge-oxyd_active
+it-booze-broken
 it-brush
 it-burnable
 it-burnable_ash
@@ -3013,6 +3015,7 @@ recently shrinked)
 When used, the actor becomes slower for a short period of time.  Note
 that @code{it-booze} is still under development, behaviour might be
 changed.
+When hit by a stone, @code{it-booze} transforms into @code{it-booze-broken}.
 
 
 @c -------------------- Brake Item --------------------
@@ -3023,6 +3026,14 @@ When used, this item creates an @ref{st-brake}, which itself can be
 picked up as @code{it-brake} again.  It can be used to destroy
 @ref{it-blocker}.
 
+@c -------------------- Broken Booze --------------------
+@node it-booze-broken
+@subsection it-booze-broken
+
+The remnants of @ref{it-booze} after pushing a
+stone over it. Kills a marble that touches it, but not when it is jumping with
+@ref{it-spring[1/2/board]}, compare @ref{it-abyss} and @ref{it-death}.  @ref{it-umbrella}
+protects the marble. Can be removed with @ref{it-brush} while jumping over it.
 
 @c -------------------- Brush --------------------
 @node it-brush
@@ -3175,7 +3186,7 @@ Per.Oxyd-compatibility mode
 @subsection it-death
 
 Kills a marble that touches it, even when it is jumping with
-@ref{it-spring[1/2/board]}, compare @ref{it-abyss}.  @ref{it-umbrella}
+@ref{it-spring[1/2/board]}, compare @ref{it-abyss} and @ref{it-brokenbottle}.  @ref{it-umbrella}
 protects the marble.
 
 

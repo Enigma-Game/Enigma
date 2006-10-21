@@ -451,7 +451,7 @@ do
         "it-puller-n", "it-puller-e", "it-puller-s", "it-puller-w",
         "it-odometer",
         "it-flagblack", "it-flagwhite",
-        "it-ring", "it-pin", "it-bag", "it-drop", "it-rubberband" 
+        "it-ring", "it-pin", "it-bag", "it-drop", "it-rubberband"
     }
 --    def_tiles("items", itemtiles)
     DefineTiles ("items", itemtiles)
@@ -469,6 +469,8 @@ do
     local f=buildframes(n,150)
     def_anim("it-coffee", f, TRUE)
 end
+
+-- Some more Items
 
 def_images{
     "it-blackbomb",
@@ -490,6 +492,7 @@ def_images{
     "it-cross",
     "it-pencil",
     "it-squashed",
+    "it-booze-broken",
 }
 
 def_alias("it-key_a", "it-key")
@@ -589,6 +592,10 @@ DefineTiles("it-pipe", {
                 "it-pipe-e", "it-pipe-s", "it-pipe-es", "it-pipe-sw",
                 "it-pipe-h", "it-pipe-w", "it-pipe-n", "it-pipe-ne",
                 "it-pipe-wn", "it-pipe-v"})
+
+-- broken Bottle --
+-- Should get more models like oil!
+--def_subimages("it-brokenbottle", {h=1})
 
 -----------------
 -- Shogun dots --
