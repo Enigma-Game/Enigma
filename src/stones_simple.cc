@@ -2099,6 +2099,86 @@ namespace
 }
 
 
+/* -------------------- Fire breakable stones -------------------- */
+
+/* These stones mimic the behaviour of the plain-looking stones in
+   Oxyd. */
+namespace
+{
+    class Stone_firebreak : public Stone {
+        CLONEOBJ(Stone_firebreak);
+
+        const char *collision_sound() {return "stone";}
+
+        void break_me() {
+            sound_event("stonedestroy");
+            ReplaceStone(get_pos(), MakeStone("st-plain_breaking"));
+        }
+
+        virtual Value message (const string &msg, const Value &) {
+            if (msg =="heat" || msg == "fire") {
+                break_me();
+                return Value(1.0);
+            }
+            return Value();
+        }
+
+        void actor_hit(const StoneContact &sc) {
+            if (player::WieldedItemIs(sc.actor, "it-brush")) {
+                sound_event("stonepaint");
+                ReplaceStone(get_pos(), MakeStone("st-plain"));
+            } else
+                Stone::actor_hit(sc);
+        }
+
+    public:
+        Stone_firebreak() : Stone("st-firebreak") { }
+    };
+
+    class Stone_movefirebreak : public Stone {
+        CLONEOBJ(Stone_movefirebreak);
+
+        void break_me() {
+            sound_event("stonedestroy");
+            ReplaceStone(get_pos(), MakeStone("st-plain_breaking"));
+        }
+
+        virtual Value message (const string &msg, const Value &) {
+            if (msg =="fire")
+                break_me();
+            return Value();
+        }
+
+        void actor_hit(const StoneContact &sc) {
+            if (player::WieldedItemIs(sc.actor, "it-brush")) {
+                sound_event("stonepaint");
+                ReplaceStone(get_pos(), MakeStone("st-plain_move"));
+            } else
+                Stone::actor_hit(sc);
+        }
+
+        void on_move() {
+            GridPos p = get_pos();
+            if (Floor *fl = GetFloor (p)) {
+                if (fl->is_kind("fl-abyss")) {
+                    ReplaceStone (p, MakeStone("st-plain_falling"));
+                }
+                else if (fl->is_kind("fl-swamp") || fl->is_kind("fl-water")) {
+                    sound_event ("drown");
+                    client::Msg_Sparkle (p.center());
+                    KillStone (p);
+                }
+            }
+        }
+
+        bool is_movable () const { return true; }
+
+    public:
+        Stone_movefirebreak() : Stone("st-firebreak_move") { }
+    };
+}
+
+
 /* -------------------- Functions -------------------- */
 
 void world::DefineSimpleStone(const std::string &kind, 
@@ -2180,4 +2260,7 @@ void stones::Init_simple()
     Register(new YinYangStone3);
 
     Register(new PolarSwitchStone);
+
+    Register(new Stone_firebreak);
+    Register(new Stone_movefirebreak);
 }

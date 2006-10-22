@@ -749,6 +749,9 @@ def_stone("st-blue-sand")
 def_stone("st-flrock")
 def_stone("st-flhay")
 
+def_stone("st-firebreak")
+def_alias("st-firebreak_move", "st-firebreak")
+
 do
    local sh=def_subimages("sh-round2-growing", {h=3,imgw=ShadowSize,imgh=ShadowSize})
 

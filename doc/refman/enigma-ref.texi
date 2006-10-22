@@ -2280,7 +2280,7 @@ follow it from the beginning.
 @section Floors
 
 @menu
-* Common Attributes::           Common attributes for single floor tiles
+* Common Floor Attributes::     Common attributes for single floor tiles
 * Special floor tiles::         List of special floors
 * Regular floor tiles::         List of regular floors
 * fl-abyss::                    Abyss
@@ -2299,25 +2299,42 @@ follow it from the beginning.
 @end menu
 
 
-@node Common Attributes, Special floor tiles, Floors, Floors
-@subsection Common Attributes
+@node Common Floor Attributes, Special floor tiles, Floors, Floors
+@subsection Common Floor Attributes
+
+Standard attributes:
 
 @table @code
 @item friction
-overrides the default friction for this floor tile
+Overrides the default friction for this floor tile.
 @item mousefactor
-overrides the default mousefactor
-@item force_x
-defines a horizontal flat force
-@item force_y
-defines a vertical flat force
+Overrides the default mousefactor.
+@item force_x, force_y
+Define horizontal and vertical flat forces on the floor. On
+@ref{fl-gradient}, @code{force_x} and @code{force_y} are additive to
+the gradient's standard force.
 @end table
 
-On @ref{fl-gradient}, @code{force_x} and @code{force_y} are additive
-to the gradient's standard force.
+Attributes connected to @ref{The 1.0-Fire System} (all boolean):
+@table @code
+@item burnable
+Sets if the floor may burn.
+@item ignitable
+Sets if the floor gets ignited by explosions.
+@item secure
+Sets if the floor gets securely ignited and/or heated by neighbors.
+@item eternal
+Sets if the floor doesn't stop burning after awhile.
+@item noash
+Sets if the floor doesn't leave @code{it-burnable_ash} behind.
+@item fastfire
+Sets if the fire spreads fast.
+@item initfire
+Sets if the floor starts burning on initialisation.
+@end table
 
 
-@node Special floor tiles, Regular floor tiles, Common Attributes, Floors
+@node Special floor tiles, Regular floor tiles, Common Floor Attributes, Floors
 @subsection Special floor tiles
 
 @example
@@ -2470,7 +2487,7 @@ Adds a horizontal, vertical or diagonal force to actors on it.  The
 strength of the force is determined by @code{enigma.SlopeForce} (see
 @ref{Variables}) or the attribute @code{force}.  It is additive to the
 force determined by the @code{force_[x/y]}-attributes (see @ref{Common
-Attributes}).
+Floor Attributes}).
 
 @strong{Attributes}
 
@@ -2549,7 +2566,7 @@ also is no friction, such that marbles seldom get stuck on space.
 This floor has (like @ref{fl-space}) no friction and no mouseforce,
 but adds a vertical force of the amount given in
 @code{enigma.FlatForce}.  This is obsolete since you can use
-@code{fl-space} with @code{force_y}-attribute (see @ref{Common
+@code{fl-space} with @code{force_y}-attribute (see @ref{Common Floor
 Attributes}).  Note however, that the @code{force_y}-attribute of
 @code{fl-space-force} is overriden by @code{enigma.FlatForce}.
 
@@ -3035,6 +3052,7 @@ stone over it. Kills a marble that touches it, but not when it is jumping with
 @ref{it-spring[1/2/board]}, compare @ref{it-abyss} and @ref{it-death}.  @ref{it-umbrella}
 protects the marble. Can be removed with @ref{it-brush} while jumping over it.
 
+
 @c -------------------- Brush --------------------
 @node it-brush
 @subsection it-brush
@@ -3046,6 +3064,11 @@ This item can be used to make some invisible stones visible
 from the level (@ref{it-cross}, @code{it-burnable_ash},
 @code{it-burnable_fireproof}, @code{it-squashed}, see @ref{Fire and
 Extinguisher}).
+
+In addition, this item can be used to transform @code{st-firebreak}
+into @code{st-plain} and @code{st-firebreak_move} into
+@code{st-plain_move} (see @ref{st-firebreak[_move]} and
+@ref{st-plain}).
 
 The Per.Oxyd-compatibility stone @code{st-yinyang3} (see
 @ref{st-yinyang}) must be touched with an @code{it-brush} or
@@ -3441,6 +3464,11 @@ Supposed to measure the route the marble has rolled since picking up
 Try to scratch an @ref{it-cross} into the floor, pencil is lost
 after this. Scratching onto ice results in a crack, scratching
 while flying or on certain floors results in dropping the pencil.
+
+In addition, this item can be used to transform @code{st-plain} into
+@code{st-firebreak} and @code{st-plain_move} into
+@code{st-firebreak_move} (see @ref{st-plain} and
+@ref{st-firebreak[_move]}).
 
 
 @c -------------------- Pin --------------------
@@ -3944,6 +3972,7 @@ Toggles between players.  Compare @ref{it-ring} in multiplayer mode.
 * st-explosion::                Explosion Stone
 * st-fakeoxyda::                Movable Fake Oxyd Stone
 * st-fart::                     The Infamous Fart Stones
+* st-firebreak[_move]::         Firebreakable Stones
 * st-flash::                    Flash Stone
 * st-floppy::                   Floppy Switch
 * st-fourswitch::               Fourswitch
@@ -4082,6 +4111,8 @@ st-easymode
 st-explosion
 st-fakeoxyda
 st-fart
+st-firebreak
+st-firebreak_move
 st-flash( hit_factor hit_distortion_[xx,xy,yx,yy] )
 st-flhay
 st-floppy( action target on )
@@ -4226,7 +4257,7 @@ hammer, laser, pyro; falls into @ref{fl-abyss}
 hammer, pyro
 @item st-plain_move
 pyro; this stone is movable; falls into @ref{fl-abyss},
-@ref{fl-water} and @ref{fl-swamp}
+@ref{fl-water} and @ref{fl-swamp}; see also @ref{st-plain}
 @item st-bug
 @ref{ac-bug}
 @item st-breaking, st-plain_breaking
@@ -4244,13 +4275,17 @@ hammer; see @ref{st-volcano}
 @item st-lightpassenger
 hammer when active and trapped; see @ref{st-lightpassenger}
 @item st-firebreak
-fire; sorry, not implemented yet
+fire near the stone; see also @ref{st-firebreak[_move]}
+@item st-firebreak_move
+fire under the stone; movable; falls into @ref{fl-abyss},
+@ref{fl-water} and @ref{fl-swamp}; see also @ref{st-firebreak[_move]}
 @end table
 
 For the mentioned objects see @ref{it-hammer}, @ref{it-dynamite},
 @ref{it-blackbomb}, @ref{st-bombs}, @ref{st-bolder}, @ref{it-brush}.
 Also compare @ref{st-plain}, as @code{st-plain_cracked} results from
-@code{st-plain} when hit by a laser beam.
+@code{st-plain} when hit by a laser beam, and @code{st-plain[_move]}
+can be transformed into and out of @code{st-firebreak[_move]}.
 
 
 @node Oxyd Compatibility Stones, st-actorimpulse, Breakable Stones, Stones
@@ -4754,7 +4789,7 @@ transforms into the movable and transparent @code{st-glass1_move} when
 hit. See @ref{st-coffee} for a similar stone.
 
 
-@node st-fart, st-flash, st-fakeoxyda, Stones
+@node st-fart, st-firebreak[_move], st-fakeoxyda, Stones
 @subsection st-fart: Fart Stone
 
 The fart stone has the unpleasant habit of ``blowing off'' when
@@ -4769,7 +4804,40 @@ It can be destroyed with lasers and @ref{it-hammer}, see also
 blow off
 @end table
 
-@node st-flash, st-floppy, st-fart, Stones
+
+@node st-firebreak[_move], st-flash, st-fart, Stones
+@subsection st-firebreak[_move]: Firebreakable Stones
+
+@code{st-firebreak} gets destroyed when there is fire near it (see
+@ref{The 1.0-Fire System}). @code{st-firebreak_move} is movable and
+gets destroyed when there is fire below it, just like
+@ref{st-wood}. It falls into @ref{fl-water}, @ref{fl-abyss} and
+@ref{fl-swamp} (if you need it not to fall, use @ref{fl-bridge}
+instead).
+
+@code{st-firebreak} and @code{st-firebreak_move} are the results of
+@code{st-plain} and @code{st-plain_move} when using @ref{it-pencil} on
+them (see @ref{st-plain}), and can be reverted again by using
+@ref{it-brush}.
+
+@strong{Messages}
+
+@table @code
+@item fire
+@code{st-firebreak[_move]} breaks
+@item heat
+@code{st-firebreak} breaks
+@end table
+
+@strong{Variants}
+
+@table @code
+@item st-firebreak
+@item st-firebreak_move
+@end table
+
+
+@node st-flash, st-floppy, st-firebreak[_move], Stones
 @subsection st-flash: Flash Stone
 
 When the flash stone is hit by the black marble, an impulse will
@@ -5206,8 +5274,8 @@ Open the stone (useful for opening Oxyd stones using switches)
 @node st-plain, st-polarswitch, st-oxyd, Stones
 @subsection st-plain: Plain Stones
 
-These stones trigger between solid and hollow when they receive a
-@code{trigger}- or @code{signal}-message.
+@code{st-plain} and @code{st-plain_hole} trigger between solid and
+hollow when they receive a @code{trigger}- or @code{signal}-message.
 
 The solid version additionally becomes @code{st-plain_cracked} when hit
 by a laser beam and can then be destroyed with an @ref{it-hammer} or
@@ -5215,10 +5283,19 @@ explosions (see @ref{Breakable Stones}).  The hollow version is
 transparent for lasers.  Note that @code{st-plain_cracked} doesn't
 become transparent nor hollow by messages.
 
+@code{st-plain_move} is a movable and breakable stone (see
+@ref{Breakable Stones}) that looks identical to @code{st-plain}. It
+falls into @ref{fl-abyss}, @ref{fl-water} and @ref{fl-swamp}, but only
+when moved. @code{st-plain_move} and @code{st-plain} can be
+transformed into @ref{st-firebreak[_move]} with @ref{it-pencil}, and
+get reverted by @ref{it-brush}.
+
 As @code{st-plain} is a frequent design scheme, you might want to use
-a version that doesn't transform under laser light. For this purpose,
+a version that doesn't transform under laser light.  For this purpose,
 use @code{st-rock3} or one of the closed doors @code{st-door_b} or
-@code{st-door_c} (see @ref{st-door}). 
+@code{st-door_c} (see @ref{st-door}).  Further stones with the typical
+@code{st-plain}-design are @ref{st-chess_[black/white]} and the
+already mentioned @code{st-firebreak[_move]}.
 
 @strong{Messages}
 
@@ -6054,7 +6131,7 @@ burning floor, all items are detroyed. However, some items deny the
 floor to burn, like @code{it-hollow} (see @ref{Hills and Hollows}) or
 @ref{it-dynamite} (which is ignited instead).
 
-Fire can be ignited in three standard ways:
+Fire can be ignited in several standard ways:
 @itemize @bullet
 @item The @code{setfire}-message sets fire to a floor if it is
 burnable and the item on it allows it to burn (unburnable items like
@@ -6066,6 +6143,8 @@ burnable and the item on it allows it to burn (unburnable items like
 @code{it-dynamite}, @ref{it-blackbomb} and @ref{it-whitebomb} can
 initiate fire via @code{it-burnable[_oil]} or if the
 @code{ignitable}-attribute of the floor is set (off by default).
+@item The floor already starts burning on initialisation when the
+@code{initfire}-attribute is set (off by default).
 @item Fire in the neighborhood, see below.
 @end itemize
 
@@ -6114,7 +6193,8 @@ the fire without setting the invisible @code{it-burnable}.
 Fire that burns under a stone is not allowed to spread, only exception
 are non-floating stones (as @ref{st-grate}), and those stones which
 are destroyed by fire anyway (see @ref{st-wood}-variants and
-@code{st-firebreak} (@ref{Breakable Stones})).
+@ref{st-firebreak[_move]}). In contrast to this, fire might also
+spread to under a movable stone, but not further. 
 
 You can stop fire with @code{it-extinguisher}, which creates the
 fireproof @code{it-burnable_fireproof}. Another way to stop fire is to
@@ -6241,7 +6321,8 @@ ultimately opened (pairs must be hit with some time delay).
 (see @ref{The 1.0-Fire System}).
 @item @ref{it-squashed} and @ref{it-cross} can't be removed with
 @ref{it-brush}.
-@item @ref{it-pencil} is without function.
+@item Only function of @ref{it-pencil} is to turn
+@code{st-plain[_move]} into @code{st-firebreak[_move]}.
 @item Tiny hollows shouldn't be allowed as endpoints in meditations
 (see @ref{Hills and Hollows}).
 @end itemize

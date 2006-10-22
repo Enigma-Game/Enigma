@@ -55,11 +55,14 @@ void Floor::dispose() {
 }
 
 Value Floor::message(const string &msg, const Value &val) {
+    // "init"     : Start burning, if "initfire" is set.
     // "heat"     : Heat the item, heat-transform floor
     //                 or maybe set fire to it (if burnable).
     // "setfire"  : Just try to make fire (if burnable).
     // "forcefire": Force fire, even on unburnable floor.
     // "stopfire" : Stop fire, put ash but don't transform floor.
+    if(msg == "init" && has_firetype(flft_initfire))
+        return force_fire();
     if(msg == "heat")
         return try_heating(NODIR, flhf_message);
     if((msg == "ignite" || msg == "expl") && has_firetype(flft_ignitable))
@@ -143,6 +146,7 @@ void Floor::add_force (Actor *, V2 &f)
  *    - "expl" or "ignite" message if the "ignitable"-attribute is set
  *        - thereby by it-dynamite or it-*bomb + "ignitable"
  *    - fire in the neighborhood (see below)
+ *    - on initialisation ("init"-message) when "initfire"-attribute is set
  *  On the floor itself it does
  *    - inform stones on it -> e.g. kill st-wood, st-hay
  *    - keep on burning by chance or if eternal-attribute set
@@ -411,15 +415,17 @@ bool Floor::has_firetype(FloorFireType selector) {
     if(selector == flft_burnable)
         if(const Value *v = get_attrib("burnable"))  return to_int(*v) == 1;
     if(selector == flft_ignitable)
-        if(const Value *v = get_attrib("ignitable"))  return to_int(*v) == 1;
+        if(const Value *v = get_attrib("ignitable")) return to_int(*v) == 1;
     if(selector == flft_secure)
-        if(const Value *v = get_attrib("secure"))  return to_int(*v) == 1;
+        if(const Value *v = get_attrib("secure"))    return to_int(*v) == 1;
     if(selector == flft_eternal)
-        if(const Value *v = get_attrib("eternal"))  return to_int(*v) == 1;
+        if(const Value *v = get_attrib("eternal"))   return to_int(*v) == 1;
     if(selector == flft_noash)
-        if(const Value *v = get_attrib("noash"))  return to_int(*v) == 1;
+        if(const Value *v = get_attrib("noash"))     return to_int(*v) == 1;
     if(selector == flft_fastfire)
         if(const Value *v = get_attrib("fastfire"))  return to_int(*v) == 1;
+    if(selector == flft_initfire)
+        if(const Value *v = get_attrib("initfire"))  return to_int(*v) == 1;
     if(server::GameCompatibility == GAMET_ENIGMA)
         return traits.firetype & selector;
     // In non-Enigma-modes, without items on them, all floors behave the same:

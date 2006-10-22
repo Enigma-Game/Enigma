@@ -544,6 +544,18 @@ namespace
             }
             return Value();
         }
+        void actor_hit (const StoneContact &sc) {
+            if (player::WieldedItemIs (sc.actor, "it-pencil")) {
+                enigma::Inventory *inv = player::GetInventory(sc.actor);
+                if (inv && inv->size() > 0) {
+                    delete inv->yield_item(0);
+                    player::RedrawInventory(inv);
+                    sound_event("stonepaint");
+                    ReplaceStone(get_pos(), MakeStone("st-firebreak"));
+                }
+            } else
+                Stone::actor_hit(sc);
+        }
     public:
         PlainStone() : Stone("st-plain") {}
     };
@@ -685,6 +697,19 @@ namespace
 
         bool is_movable () const { return true; }
 
+        void actor_hit (const StoneContact &sc) {
+            if (player::WieldedItemIs (sc.actor, "it-pencil")) {
+                enigma::Inventory *inv = player::GetInventory(sc.actor);
+                if (inv && inv->size() > 0) {
+                    delete inv->yield_item(0);
+                    player::RedrawInventory(inv);
+                    sound_event("stonepaint");
+                    ReplaceStone(get_pos(), MakeStone("st-firebreak_move"));
+                }
+            } else
+                Stone::actor_hit(sc);
+        }
+
     public:
         PlainStone_Movable() : Stone("st-plain_move") {
         }
@@ -692,6 +717,8 @@ namespace
 }
 
 
+/* -------------------- Black- and Whiteballs Stones -------------------- */
+
 namespace
 {
     class BlackBallsStone : public Stone {

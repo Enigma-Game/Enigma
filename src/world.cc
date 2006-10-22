@@ -1115,7 +1115,7 @@ bool world::InitWorld()
         throw XLevelLoading("Error: No player 0 defined!");
 
     world::BroadcastMessage("init", Value(),
-                            GridLayerBits(GRID_ITEMS_BIT | GRID_STONES_BIT));
+        GridLayerBits(GRID_ITEMS_BIT | GRID_STONES_BIT | GRID_FLOOR_BIT));
 
     server::InitMoveCounter();
     STATUSBAR->show_move_counter (server::ShowMoves);

@@ -44,7 +44,8 @@ namespace world
         flft_burnagain = 0x08,  // Not used yet, nor implemented; see flft_noash.
         flft_eternal   = 0x10,  // Fire doesn't stop burning by itself.
         flft_secure    = 0x20,  // Secures fire and heat-effects when neighbors burn.
-        flft_fastfire  = 0x40   // Suppress use of fire_countdown, resulting in faster fire.
+        flft_fastfire  = 0x40,  // Suppress use of fire_countdown, resulting in faster fire.
+        flft_initfire  = 0x80   // Start burning (forcefire on init-message).
         // Note that only flft_burnable and flft_noash are really used as traits.
         // The others are 0 by default for all floors, but used as selectors
         // for has_firetype. (Future use for special floors not excluded.)
