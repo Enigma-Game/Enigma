@@ -87,6 +87,7 @@ namespace enigma { namespace lev {
 
         void loadLevel();
         void loadMetadata(bool expectLevel);
+        Proxy * copy(std::string newBasePath, std::string newPackPath, bool backup = true);
         
         /**
          * Retrieve and translate a level string. The key may be "title",

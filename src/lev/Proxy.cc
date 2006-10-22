@@ -309,6 +309,85 @@ namespace enigma { namespace lev {
         load(false, true);
     }
     
+    Proxy * Proxy::copy(std::string newBasePath, std::string newPackPath, bool backup) {
+        bool useFileLoader = false;
+        bool isXML = true;
+        std::auto_ptr<std::istream> isptr;
+        ByteVec levelCode;
+        std::string absLevelPath = "";
+        std::string filename;
+        std::string filenameBase; // without extension
+
+        if (normPathType == pt_oxyd) {
+            return NULL;
+        
+        // resolve resource path to filepath
+        } else if (normPathType == pt_absolute || normPathType == pt_url) { 
+            absLevelPath = normLevelPath;
+        } else if(normPathType == pt_resource) {
+            if(!app.resourceFS->findFile ("levels/" + normLevelPath + ".xml", 
+                        absLevelPath, isptr) &&
+                    !app.resourceFS->findFile ("levels/" + normLevelPath + ".lua", 
+                        absLevelPath, isptr)) {
+                return NULL;
+            }
+        } else
+            // error unknown type
+            return NULL;
+        
+        size_t lastSlash = absLevelPath.rfind ('/');
+        if (lastSlash == std::string::npos) {
+            filename = absLevelPath;
+        } else {
+            filename = absLevelPath.substr(lastSlash + 1);
+        }
+        
+        // xml or lua
+        size_t extbegin = filename.rfind('.');
+        if (extbegin != string::npos) {
+            std::string ext = filename.substr(extbegin);
+        
+            if ( ext != ".lua" && ext!= ".ell" && ext != ".xml" && ext != ".elx") {
+                return NULL;
+            } else {
+                filenameBase = filename.substr(0, extbegin); 
+            }
+        } else {
+                return NULL;
+        }
+        
+        // load
+        if (normPathType != pt_url) {
+            // preload plain Lua file or zipped level
+            if (isptr.get() != NULL) {
+                // zipped file
+                Readfile (*isptr, levelCode);
+            } else {
+                // plain file
+                basic_ifstream<char> ifs(absLevelPath.c_str(), ios::binary | ios::in);
+                Readfile (ifs, levelCode);
+            }
+            std::string oPath = newBasePath + "/" + newPackPath + "/" + filename;
+            if (backup) {
+                std::remove((oPath + "~").c_str());
+                std::rename(oPath.c_str(), (oPath + "~").c_str());
+            }
+            basic_ofstream<char> ofs(oPath.c_str(), ios::binary | ios::out);
+            for (int i = 0; i < levelCode.size(); i++) {
+                ofs << levelCode[i];
+            }
+            ofs.close();
+        } else {
+            // load XML via Xerces
+            return NULL;
+        }
+        
+        // create new proxy
+        return registerLevel(std::string("./")+filenameBase, newPackPath, id, title,
+                        author, scoreVersion, releaseVersion, hasEasymodeFlag, 
+                        engineCompatibility, levelStatus, revisionNumber);
+    }
+    
     void Proxy::loadMetadata(bool expectLevel) {
         load(true, expectLevel);
     }

@@ -73,6 +73,8 @@ namespace enigma { namespace lev {
         PersistentIndex(std::istream *legacyIndex, std::string thePackPath,  bool isZip = false,
                 std::string anIndexName = "", std::string theIndexFilename = INDEX_STD_FILENAME);
         ~PersistentIndex();
+        void loadDoc();
+        std::string getPackPath();
         bool setName(std::string newName);
         std::string getOwner();
         void setOwner(std::string newOwner);
@@ -95,6 +97,8 @@ namespace enigma { namespace lev {
                 std::map<std::string, std::string> varExtensions = nullExtensions);
         Variation getVariation(int pos);
         void erase(int pos);
+        void exchange(int pos1, int pos2);
+        virtual bool isSource(Proxy * aProxy);
         bool save(bool allowOverwrite = true);
     protected:
         std::string packPath;  // "auto", "",...

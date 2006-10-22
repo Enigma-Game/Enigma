@@ -559,6 +559,10 @@ namespace enigma { namespace lev {
         indexName = newName;
     }
     
+    bool Index::isSource(Proxy *) {
+        return false;
+    }
+    
     int Index::getCurrentPosition() {
         return currentPosition;
     }
@@ -600,6 +604,22 @@ namespace enigma { namespace lev {
             return proxies[pos];
         else
             return NULL;
+    }
+    
+    bool Index::containsProxy(Proxy * aProxy) {
+        for (int i = 0; i < proxies.size(); i++) {
+            if (proxies[i] == aProxy)
+                return true;
+        }
+        return false;
+    }
+    
+    bool Index::hasNormLevelPath(std::string path) {
+        for (int i = 0; i < proxies.size(); i++) {
+            if (proxies[i]->getNormLevelPath() == path)
+                return true;
+        }
+        return false;
     }
     
     bool Index::advanceLevel(LevelAdvanceMode advMode) {

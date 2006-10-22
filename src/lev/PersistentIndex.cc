@@ -301,99 +301,110 @@ namespace enigma { namespace lev {
                 return;
             } else if (doc != NULL) {
                 //TODO check if an updated index exists for system packs
-                indexName = XMLtoUtf8(infoElem->getAttribute( 
-                        Utf8ToXML("title").x_str())).c_str();                
-                indexGroup = XMLtoUtf8(infoElem->getAttribute( 
-                        Utf8ToXML("group").x_str())).c_str();
-                defaultGroup = indexGroup;
-                owner = XMLtoUtf8(infoElem->getAttribute( 
-                        Utf8ToXML("owner").x_str())).c_str();                
-                release = XMLString::parseInt(infoElem->getAttribute( 
-                        Utf8ToXML("release").x_str()));
-                revision = XMLString::parseInt(infoElem->getAttribute( 
-                        Utf8ToXML("revision").x_str()));
-                XMLDouble * result = new XMLDouble(infoElem->getAttribute( 
-                        Utf8ToXML("enigma").x_str()));
-                compatibility = result->getValue();
-                delete result;
-                result = new XMLDouble(infoElem->getAttribute( 
-                        Utf8ToXML("location").x_str()));
-                indexDefaultLocation = result->getValue();
-                indexLocation = indexDefaultLocation;
-                delete result;
-                DOMNodeList *levelList = levelsElem->getElementsByTagName(
-                        Utf8ToXML("level").x_str());
-                std::set<std::string> knownAttributes;
-                knownAttributes.insert("_seq");
-                knownAttributes.insert("_title");
-                knownAttributes.insert("_xpath");
-                knownAttributes.insert("id");
-                knownAttributes.insert("author");
-                knownAttributes.insert("score");
-                knownAttributes.insert("rel");
-                knownAttributes.insert("rev");
-                knownAttributes.insert("easy");
-                knownAttributes.insert("ctrl");
-                knownAttributes.insert("unit");
-                knownAttributes.insert("target");
-                for (int i = 0, l = levelList->getLength();  i < l; i++) {
-                    DOMElement *levelElem = dynamic_cast<DOMElement *>(levelList->item(i));
-                    std::string path = XMLtoUtf8(levelElem->getAttribute( 
-                            Utf8ToXML("_xpath").x_str())).c_str();
-                    std::string id = XMLtoUtf8(levelElem->getAttribute( 
-                            Utf8ToXML("id").x_str())).c_str();
-                    std::string title = XMLtoUtf8(levelElem->getAttribute( 
-                            Utf8ToXML("_title").x_str())).c_str();
-                    std::string author = XMLtoUtf8(levelElem->getAttribute( 
-                            Utf8ToXML("author").x_str())).c_str();
-                    int scoreVersion = XMLString::parseInt(levelElem->getAttribute( 
-                            Utf8ToXML("score").x_str()));
-                    int releaseVersion = XMLString::parseInt(levelElem->getAttribute( 
-                            Utf8ToXML("rel").x_str()));
-                    int revisionVersion = XMLString::parseInt(levelElem->getAttribute( 
-                            Utf8ToXML("rev").x_str()));
-                    bool hasEasymodeFlag = boolValue(levelElem->getAttribute( 
-                            Utf8ToXML("easy").x_str()));
-                    Proxy * newProxy = Proxy::registerLevel(path, thePackPath, id, title,
-                            author, scoreVersion, releaseVersion, hasEasymodeFlag, 
-                            GAMET_ENIGMA, STATUS_RELEASED, revisionVersion);
-                    Variation var;
-                    std::string controlString = XMLtoUtf8(levelElem->getAttribute( 
-                            Utf8ToXML("ctrl").x_str())).c_str();
-                    if (controlString == "balance")
-                        var.ctrl = balance;
-                    else if  (controlString == "key")
-                        var.ctrl = key;
-                    else if  (controlString == "other")
-                        var.ctrl = other;
-                    std::string txt = XMLtoUtf8(levelElem->getAttribute( 
-                        Utf8ToXML("unit").x_str())).c_str();
-                    if (txt == "number")
-                        var.unit = number;
-                    else
-                        // default
-                        var.unit = duration;
-                    var.target = XMLtoUtf8(levelElem->getAttribute( 
-                            Utf8ToXML("target").x_str())).c_str();
-                    DOMNamedNodeMap * attrMap = levelElem->getAttributes();
-                    for (int j = 0, k = attrMap->getLength();  j < k; j++) {
-                        DOMAttr * levelAttr = dynamic_cast<DOMAttr *>(attrMap->item(j));
-                        std::string attrName = XMLtoUtf8(levelAttr->getName()).c_str();
-                        if (knownAttributes.find(attrName) == knownAttributes.end()) {
-                            Log << "PersistentIndex Load unknown Attribut: " << attrName << "\n";
-                            var.extensions[attrName]= XMLtoUtf8(levelAttr->getValue()).c_str();
-                        }
-                        
-                    }
-                    appendProxy(newProxy, var.ctrl, var.unit, var.target, var.extensions);                 
-                }
+                loadDoc();
             }
         }        
+    }
+    
+    void PersistentIndex::loadDoc() {
+        if (doc != NULL) {
+            clear();  // allow a reload of an index
+            indexName = XMLtoUtf8(infoElem->getAttribute( 
+                    Utf8ToXML("title").x_str())).c_str();                
+            indexGroup = XMLtoUtf8(infoElem->getAttribute( 
+                    Utf8ToXML("group").x_str())).c_str();
+            defaultGroup = indexGroup;
+            owner = XMLtoUtf8(infoElem->getAttribute( 
+                    Utf8ToXML("owner").x_str())).c_str();                
+            release = XMLString::parseInt(infoElem->getAttribute( 
+                    Utf8ToXML("release").x_str()));
+            revision = XMLString::parseInt(infoElem->getAttribute( 
+                    Utf8ToXML("revision").x_str()));
+            XMLDouble * result = new XMLDouble(infoElem->getAttribute( 
+                    Utf8ToXML("enigma").x_str()));
+            compatibility = result->getValue();
+            delete result;
+            result = new XMLDouble(infoElem->getAttribute( 
+                    Utf8ToXML("location").x_str()));
+            indexDefaultLocation = result->getValue();
+            indexLocation = indexDefaultLocation;
+            delete result;
+            DOMNodeList *levelList = levelsElem->getElementsByTagName(
+                    Utf8ToXML("level").x_str());
+            std::set<std::string> knownAttributes;
+            knownAttributes.insert("_seq");
+            knownAttributes.insert("_title");
+            knownAttributes.insert("_xpath");
+            knownAttributes.insert("id");
+            knownAttributes.insert("author");
+            knownAttributes.insert("score");
+            knownAttributes.insert("rel");
+            knownAttributes.insert("rev");
+            knownAttributes.insert("easy");
+            knownAttributes.insert("ctrl");
+            knownAttributes.insert("unit");
+            knownAttributes.insert("target");
+            for (int i = 0, l = levelList->getLength();  i < l; i++) {
+                DOMElement *levelElem = dynamic_cast<DOMElement *>(levelList->item(i));
+                std::string path = XMLtoUtf8(levelElem->getAttribute( 
+                        Utf8ToXML("_xpath").x_str())).c_str();
+                std::string id = XMLtoUtf8(levelElem->getAttribute( 
+                        Utf8ToXML("id").x_str())).c_str();
+                std::string title = XMLtoUtf8(levelElem->getAttribute( 
+                        Utf8ToXML("_title").x_str())).c_str();
+                std::string author = XMLtoUtf8(levelElem->getAttribute( 
+                        Utf8ToXML("author").x_str())).c_str();
+                int scoreVersion = XMLString::parseInt(levelElem->getAttribute( 
+                        Utf8ToXML("score").x_str()));
+                int releaseVersion = XMLString::parseInt(levelElem->getAttribute( 
+                        Utf8ToXML("rel").x_str()));
+                int revisionVersion = XMLString::parseInt(levelElem->getAttribute( 
+                        Utf8ToXML("rev").x_str()));
+                bool hasEasymodeFlag = boolValue(levelElem->getAttribute( 
+                        Utf8ToXML("easy").x_str()));
+                Proxy * newProxy = Proxy::registerLevel(path, packPath, id, title,
+                        author, scoreVersion, releaseVersion, hasEasymodeFlag, 
+                        GAMET_ENIGMA, STATUS_RELEASED, revisionVersion);
+                Variation var;
+                std::string controlString = XMLtoUtf8(levelElem->getAttribute( 
+                        Utf8ToXML("ctrl").x_str())).c_str();
+                if (controlString == "balance")
+                    var.ctrl = balance;
+                else if  (controlString == "key")
+                    var.ctrl = key;
+                else if  (controlString == "other")
+                    var.ctrl = other;
+                std::string txt = XMLtoUtf8(levelElem->getAttribute( 
+                    Utf8ToXML("unit").x_str())).c_str();
+                if (txt == "number")
+                    var.unit = number;
+                else
+                    // default
+                    var.unit = duration;
+                var.target = XMLtoUtf8(levelElem->getAttribute( 
+                        Utf8ToXML("target").x_str())).c_str();
+                DOMNamedNodeMap * attrMap = levelElem->getAttributes();
+                for (int j = 0, k = attrMap->getLength();  j < k; j++) {
+                    DOMAttr * levelAttr = dynamic_cast<DOMAttr *>(attrMap->item(j));
+                    std::string attrName = XMLtoUtf8(levelAttr->getName()).c_str();
+                    if (knownAttributes.find(attrName) == knownAttributes.end()) {
+                        Log << "PersistentIndex Load unknown Attribut: " << attrName << "\n";
+                        var.extensions[attrName]= XMLtoUtf8(levelAttr->getValue()).c_str();
+                    }
+                    
+                }
+                appendProxy(newProxy, var.ctrl, var.unit, var.target, var.extensions);                 
+            }
+        }
     }
         
     PersistentIndex::~PersistentIndex() {
        if (doc != NULL)
            doc->release();
+    }
+    
+    std::string PersistentIndex::getPackPath() {
+        return packPath;
     }
     
     bool PersistentIndex::setName(std::string newName) {
@@ -482,6 +493,7 @@ namespace enigma { namespace lev {
     
     void PersistentIndex::clear() {
         proxies.clear();
+        variations.clear();
         currentPosition = 0;
     }
     
@@ -540,6 +552,38 @@ namespace enigma { namespace lev {
         }
         proxies.erase(itProxy);
         variations.erase(itVar);
+    }
+    
+    void PersistentIndex::exchange(int pos1, int pos2) {
+        Proxy * proxy = proxies[pos1];
+        proxies[pos1] = proxies[pos2];
+        proxies[pos2] = proxy;
+        Variation var = variations[pos1];
+        variations[pos1] = variations[pos2];
+        variations[pos2] = var;
+        if (getCurrentPosition() == pos1)
+            setCurrentPosition(pos2);
+        else if (getCurrentPosition() == pos2)
+            setCurrentPosition(pos1);
+    }
+    
+    bool PersistentIndex::isSource(Proxy * aProxy) {
+        std::string proxyPath = aProxy->getNormLevelPath();
+        if (proxyPath[0] == '#')
+            // Oxyd reference
+            return false;
+        else if (packPath.empty()) {
+            // old levelpack on levels directory
+            if (proxyPath.find('/') == std::string::npos)
+                return true;
+            else
+                return false;
+        } else {
+            if (proxyPath.find(packPath + "/") == 0) 
+                return true;
+            else
+                return false;
+        }
     }
     
     bool PersistentIndex::save(bool allowOverwrite) {

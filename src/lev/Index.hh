@@ -106,6 +106,7 @@ namespace enigma { namespace lev {
         void moveToGroup(std::string groupName);
         void locateBehind(std::string indexName);
         void renameIndex(std::string newName);
+        virtual bool isSource(Proxy * aProxy);
 
         int getCurrentPosition(); // 0 .. size-1
         int getCurrentLevel(); // 1 .. size
@@ -115,6 +116,8 @@ namespace enigma { namespace lev {
         void setScreenFirstPosition(int iFirstPos);
         virtual bool mayPlayLevel(int levelNumber);
         Proxy * getProxy(int pos);
+        bool containsProxy(Proxy * aProxy);
+        bool hasNormLevelPath(std::string path);
         virtual bool advanceLevel(LevelAdvanceMode advMode);
                 
         /*! Return number of levels */

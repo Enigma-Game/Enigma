@@ -39,11 +39,10 @@ using namespace std;
 namespace enigma { namespace gui {    
     /* -------------------- LevelWidget -------------------- */
     
-    LevelWidget::LevelWidget()
-    : width (0),
-      height (0),
-      m_areas(),
-      listener(0), isInvalidateUptodate (true), lastUpdate (0)
+    LevelWidget::LevelWidget(bool withScoreIcons, bool withEditBorder) : 
+            displayScoreIcons (withScoreIcons), displayEditBorder (withEditBorder),
+            width (0), height (0), m_areas(),
+            listener(0), isInvalidateUptodate (true), lastUpdate (0)
     {
         const video::VMInfo &vminfo = *video::GetInfo();
     
@@ -54,6 +53,8 @@ namespace enigma { namespace gui {
         ifirst = curIndex->getScreenFirstPosition();
         preview_cache = LevelPreviewCache::instance();
         scoreMgr = lev::ScoreManager::instance();
+        img_link        = enigma::GetImage("ic-link");
+        img_copy        = enigma::GetImage("ic-copy");
         img_easy        = enigma::GetImage("completed-easy");
         img_hard        = enigma::GetImage("completed");
         img_changed     = enigma::GetImage("changed");
@@ -61,6 +62,7 @@ namespace enigma { namespace gui {
 //        img_unknown     = enigma::GetImage("unknown");
         img_par         = enigma::GetImage("par");
         img_border      = enigma::GetImage("thumbborder");
+        img_editborder  = enigma::GetImage("editborder");
     }
     
     void LevelWidget::syncFromIndexMgr() {
@@ -203,7 +205,7 @@ namespace enigma { namespace gui {
     }
                 
     bool LevelWidget::draw_level_preview (ecl::GC &gc, int x, int y, 
-            lev::Proxy *proxy, bool selected, bool showScore, bool locked,
+            lev::Proxy *proxy, bool selected, bool isCross, bool locked,
             bool allowGeneration, bool &didGenerate) { 
         // Draw button with level preview
     
@@ -212,7 +214,7 @@ namespace enigma { namespace gui {
             return false;
    
         if (selected) {
-            blit (gc, x-4, y-4, img_border);
+            blit (gc, x-4, y-4, displayEditBorder ? img_editborder : img_border);
             blit (gc, x, y, img);
         }
         else {
@@ -225,7 +227,7 @@ namespace enigma { namespace gui {
         if (locked)
             blit (gc, x, y, img_unavailable);
     
-        if (showScore) {
+        if (displayScoreIcons) {
             // Draw solved/changed icons on top of level preview
             if (app.state->getInt("Difficulty") == DIFFICULTY_HARD) {
                 // draw golden medal over silber medal
@@ -249,6 +251,12 @@ namespace enigma { namespace gui {
             // Add time icon if par has been reached
             if (scoreMgr->bestScoreReached(proxy, app.state->getInt("Difficulty")))
                 blit(gc, x+30, y+12, img_par);
+        } else {
+            // Draw solved/changed icons on top of level preview
+            if (isCross) 
+                blit (gc, x+4, y+4, img_link);
+            else
+                blit (gc, x+4, y+4, img_copy);
         }
         return true;
     }
@@ -292,7 +300,8 @@ namespace enigma { namespace gui {
                 if (levelProxy != NULL) {
                     bool didGenerate;
                     bool didDraw = draw_level_preview (gc, imgx, imgy, levelProxy, 
-                            i == iselected, true, !curIndex->mayPlayLevel(i+1),
+                            i == iselected, !curIndex->isSource(levelProxy), 
+                            !curIndex->mayPlayLevel(i+1),
                             allowGeneration, didGenerate);
                     if (didGenerate) {
                         // do not generate more than 1 preview from level source
@@ -422,8 +431,18 @@ namespace enigma { namespace gui {
             invalidate();
             break;
         
-        case SDLK_LEFT:  set_current (iselected>1 ? iselected-1 : 0); break;
-        case SDLK_RIGHT: set_current (iselected+1); break;
+        case SDLK_LEFT:  
+            if (!(SDL_GetModState() & KMOD_ALT)) {
+                set_current (iselected>1 ? iselected-1 : 0); 
+                break;
+            } else
+                return false;
+        case SDLK_RIGHT:
+            if (!(SDL_GetModState() & KMOD_ALT)) {
+                 set_current (iselected+1);
+                 break;
+            } else
+                return false;
         case SDLK_DOWN:  set_current (iselected+width); break;
         case SDLK_UP:    set_current (iselected>width ? iselected-width : 0); break;
         case SDLK_PAGEDOWN: page_down(); break;

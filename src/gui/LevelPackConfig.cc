@@ -18,6 +18,7 @@
  */
  
 #include "gui/LevelPackConfig.hh"
+#include "gui/LevelPackComposer.hh"
 #include "ecl.hh"
 #include "errors.hh"
 #include "nls.hh"
@@ -297,7 +298,12 @@ namespace enigma { namespace gui {
        
         // Create buttons - positioning identical to Levelmenu
         but_edit = new StaticTextButton(N_("Compose Pack"), this);
-        but_update = new StaticTextButton(N_("Update Pack"), this);
+//        but_update = new StaticTextButton(N_("Update Pack"), this);
+#if 0
+        // fake gettext to register the following strings for I18N
+        _("Update Pack")
+#endif
+        but_update = new Label();
         but_ignore = new StaticTextButton(N_("Undo"), this);
         but_back = new StaticTextButton(N_("Ok"), this);
         
@@ -478,7 +484,7 @@ namespace enigma { namespace gui {
                 invalidate_all();
         } else if (w == but_ignore) {
             if (packIndex->getName().empty()) {
-                Log << "delete empty index\n";
+//                Log << "delete empty index\n";
                 delete packIndex;
             }
             undo_quit = true;
@@ -487,8 +493,15 @@ namespace enigma { namespace gui {
             errorLabel->set_text(("Sorry - update not yet implemented."));
             invalidate_all();
         } else if (w == but_edit) {
-            errorLabel->set_text(("Sorry - compose not yet implemented."));
-            invalidate_all();
+            if (doChanges()) {
+                LevelPackComposer m(isEditable);
+                m.manage();
+                Menu::quit();
+            } else {
+                invalidate_all();
+            }
+//            errorLabel->set_text(("Sorry - compose not yet implemented."));
+//            invalidate_all();
         } else if (w == scrollUp) {
             if (position > 0) {
                 std::string tmp = locationList[position];

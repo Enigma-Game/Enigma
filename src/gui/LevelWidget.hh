@@ -35,7 +35,7 @@ namespace enigma { namespace gui {
      */
     class LevelWidget : public Widget {
     public:
-        LevelWidget();
+        LevelWidget(bool withScoreIcons = true, bool withEditBorder = false);
 
         //---------- Widget interface ----------//
         void draw(ecl::GC &gc, const ecl::Rect &r);
@@ -66,13 +66,15 @@ namespace enigma { namespace gui {
         void scroll_down(int lines);
         void set_selected (int newfirst, int newsel);
         bool draw_level_preview (ecl::GC &gc, int x, int y, 
-               lev::Proxy *proxy, bool selected, bool showScore, bool locked,
+               lev::Proxy *proxy, bool selected, bool isCross, bool locked,
                bool allowGeneration, bool &didGenerate);
 
         bool handle_keydown (const SDL_Event *e);
         bool handle_mousedown (const SDL_Event *e);
 
         //---------- Variables ----------//
+        bool    displayScoreIcons;
+        bool    displayEditBorder;
         LevelPreviewCache *preview_cache;
         lev::ScoreManager *scoreMgr;
         lev::Index        *curIndex;
@@ -90,6 +92,9 @@ namespace enigma { namespace gui {
         double lastUpdate;
 
         // some image pointers for efficiency
+        ecl::Surface *img_link;
+        ecl::Surface *img_copy;
+        ecl::Surface *img_feather;
         ecl::Surface *img_easy;
         ecl::Surface *img_hard;
         ecl::Surface *img_changed;
@@ -97,6 +102,7 @@ namespace enigma { namespace gui {
     //    Surface *img_unknown;
         ecl::Surface *img_par;
         ecl::Surface *img_border;
+        ecl::Surface *img_editborder;
     };
 
 }} // namespace enigma::gui
