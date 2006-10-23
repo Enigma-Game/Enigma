@@ -870,7 +870,9 @@ void Thief::init_model() {
 }
 
 void Thief::actor_enter(Actor *a) {
-    if (state==IDLE) {
+    ActorID id = get_id(a);
+    if ((state == IDLE) && (id == ac_blackball || id == ac_whiteball
+       || id == ac_meditation || id == ac_killerball)) {
         set_anim(get_modelname() + string("-emerge"));
         state = EMERGING;
         m_affected_actor = a;

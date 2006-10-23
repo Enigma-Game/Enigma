@@ -1403,7 +1403,9 @@ ThiefStone::~ThiefStone() {
 }
 
 void ThiefStone::actor_hit(const StoneContact &sc) {
-    if (state==IDLE) {
+    ActorID id = get_id(sc.actor);
+    if ((state == IDLE) && (id == ac_blackball || id == ac_whiteball
+       || id == ac_meditation || id == ac_killerball)) {
         set_anim("st-thief-emerge");
         state = EMERGING;
         m_affected_actor = sc.actor;
