@@ -34,7 +34,9 @@ namespace enigma { namespace gui {
         ok          (new gui::StaticTextButton(N_("Ok"), this)),
         cfg         (xoffset_)
     {
-        add(ok, Rect(640-170,480-60,150,40));
+        const video::VMInfo &vminfo = *video::GetInfo();
+        
+        add(ok, Rect(vminfo.width-170,vminfo.height-60,150,40));
     }
     
     bool HelpMenu::on_event (const SDL_Event &e) 
@@ -55,14 +57,17 @@ namespace enigma { namespace gui {
     
     void HelpMenu::draw_background (ecl::GC &gc) 
     {
+        const video::VMInfo &vminfo = *video::GetInfo();
+
         blit(gc, 0,0, enigma::GetImage("menu_bg", ".jpg"));
         Font *f = enigma::GetFont(cfg.fontname.c_str());
     
-        int y = cfg.y0;
+        int y = cfg.y0 + (vminfo.height - 480)/2;
+        int x = (vminfo.width-640)/2;
         for (int i = 0; helptext[i]; i += 2) 
         {
-            f->render (gc, cfg.x0, y, _(helptext[i]));    // translate
-            f->render (gc, cfg.x1, y, _(helptext[i+1]));  // translate
+            f->render (gc, cfg.x0 + x, y, _(helptext[i]));    // translate
+            f->render (gc, cfg.x1 + x, y, _(helptext[i+1]));  // translate
             y += cfg.yskip;
         }
     }

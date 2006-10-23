@@ -59,7 +59,6 @@ namespace enigma { namespace gui {
     LevelMenu::LevelMenu()
     : but_advancemode (new AdvanceModeButton),
       but_next       (new ImageButton("ic-next", "ic-next1", this)),
-    //  but_tournament (new TournamentButton),
       but_back       (new StaticTextButton(N_("Main Menu"), this)),
       but_difficulty (new DifficultyButton),
       but_levelpack  (new StaticTextButton(N_("Level Pack"), this)),
@@ -105,16 +104,7 @@ namespace enigma { namespace gui {
         hl->add_back (hll);
         hl->add_back (hlr);
         this->add (hl, Rect(c.leftborder, Y3, vminfo.width-20, c.buttonh));
-        
-    //     BuildHList hlist1(this, Rect(c.leftborder, Y3, c.buttonw, c.buttonh), 10);
-    //     hlist1.add (but_levelpack);
-    // //    hlist1.add (but_tournament);
-    //     hlist1.add (but_unsolved);
-    //     hlist1.add (but_difficulty);
-    //     but_difficulty->set_listener(this);
-    // //        hlist1.add (newgame);
-    //     hlist1.add (but_back);
-    
+            
         // Add navigation buttons
         pgup     = new ImageButton("ic-up", "ic-up1", this);
         pgdown   = new ImageButton("ic-down", "ic-down1", this);
@@ -170,12 +160,6 @@ namespace enigma { namespace gui {
             timeaccu = 0.0;
         }
     
-        // automatically create thumbnails in the background
-    //     if (int idx = levelwidget->missing_thumbnail()) {
-    
-    //         invalidate_all();
-    //     }
-    
     }
     
     static const char *helptext_levelmenu[] = {
@@ -188,6 +172,8 @@ namespace enigma { namespace gui {
         "u",                        N_("Mark current level as Unsolved"),
     //    "s",                        N_("Mark current level as Solved"),
         N_("Alt+Return:"),          N_("Switch between fullscreen and window"),
+        N_("Left click:"),               N_("Play selected level"),
+        N_("Right or control click:"),   N_("Inspect selected level"),
         0
     };
     
@@ -204,7 +190,7 @@ namespace enigma { namespace gui {
                 case SDLK_BACKSPACE: previous_levelpack(); break;
                 case SDLK_F1:
                     if (app.state->getInt("NextLevelMode") == lev::NEXT_LEVEL_NOT_BEST)
-                        helptext_levelmenu[5] = N_("Select next level for best score hunt");
+                        helptext_levelmenu[5] = N_("Select next level for world record hunt");
                     else
                         helptext_levelmenu[5] = N_("Select next unsolved level");
             

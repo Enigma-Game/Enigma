@@ -32,9 +32,9 @@ namespace enigma { namespace gui {
         std::string fontname;
     
         HelpMenuConfig (int xoffset) {
-            x0       = 60;
+            x0       = 40;
             x1       = x0 + xoffset;
-            y0       = 60;
+            y0       = 40;
             yskip    = 30;
             fontname = "menufont";
         }

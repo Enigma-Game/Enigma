@@ -164,6 +164,11 @@ namespace enigma { namespace gui {
                         if (isEditable) {
                             int pos = curIndex->getCurrentPosition();
                             lev::Proxy * curProxy = curIndex->getCurrent();
+                            if (curProxy == NULL) {
+                                // levelpack is empty
+                                handled=true;
+                                break;
+                            }
                             if (curIndex->isSource(curProxy) && 
                                     backups.find(curProxy->getNormLevelPath()) == backups.end()) {
                                 // mark as deletion candidate - the final check

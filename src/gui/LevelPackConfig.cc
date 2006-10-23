@@ -453,8 +453,10 @@ namespace enigma { namespace gui {
             // save
             if (needSave)
                 persIndex->save();
-            if (isNewIndex)
+            if (isNewIndex) {
                 lev::Index::registerIndex(persIndex);
+                lev::Index::setCurrentIndex(persIndex->getName());
+            }
         }
         // regroup
         if (groupButton->get_value() != intialGroupPosition) {
@@ -484,7 +486,6 @@ namespace enigma { namespace gui {
                 invalidate_all();
         } else if (w == but_ignore) {
             if (packIndex->getName().empty()) {
-//                Log << "delete empty index\n";
                 delete packIndex;
             }
             undo_quit = true;
@@ -500,8 +501,6 @@ namespace enigma { namespace gui {
             } else {
                 invalidate_all();
             }
-//            errorLabel->set_text(("Sorry - compose not yet implemented."));
-//            invalidate_all();
         } else if (w == scrollUp) {
             if (position > 0) {
                 std::string tmp = locationList[position];
