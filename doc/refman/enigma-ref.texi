@@ -2913,8 +2913,8 @@ Compare @ref{The 1.0-Fire System}.
 There are six items special to the fire system:
 @itemize
 @item Use @code{it-burnable} to allow a floor tile to catch fire, and
-ignites from explosions like from @ref{it-dynamite}, @ref{it-blackbomb}
-and @ref{it-whitebomb}.
+it ignites from explosions like from @ref{it-dynamite},
+@ref{it-blackbomb} and @ref{it-whitebomb}.
 @item @code{it-burnable_oil} is the visible variant of the invisible
 @code{it-burnable}.
 @item @code{it-burnable_ignited} carries the starting-animation of
@@ -6128,12 +6128,12 @@ be searched using @ref{enigma.GetNamedObject}.
 The 1.0-version of Enigma introduces a new fire system, making use of
 attributes and messages of the floor tiles. The default fire, once
 ignited, spreads over the landscape and destroys items, marbles and
-@ref{st-wood}. It spreads along those floor tiles that are marked
+some stones. It spreads along those floor tiles that are marked
 ``burnable'' by default (like @code{fl-hay} or @code{fl-wood1}), by
 attribute (setting @code{enigma.SetAttrib(myfloor, "burnable", TRUE)})
 or by one of two items that indicate burnability: the invisible
 @code{it-burnable} and the visible @code{it-burnable_oil}. On a
-burning floor, all items are detroyed. However, some items deny the
+burning floor, all items are destroyed. However, some items deny the
 floor to burn, like @code{it-hollow} (see @ref{Hills and Hollows}) or
 @ref{it-dynamite} (which is ignited instead).
 
@@ -6162,7 +6162,8 @@ the fire-system.
 
 Fire does the following:
 @itemize @bullet
-@item It kills @ref{st-wood} above it.
+@item It kills @ref{st-wood} and @ref{st-firebreak[_move]} above it
+(in case of @code{st-firebreak}: beneath it).
 @item It heats its neighboring tiles, which might result in a
 ``heat-transform'' of the floor (see below).
 @item It might ignite or destroy items on its neighbor, this concerns
@@ -6253,6 +6254,11 @@ compatibility-modes: All non-Enigma-modes (see @ref{Differences
 between Compatibility Modes} and @ref{<compatibility>}) feature a
 version which only marginally differs from 0.92-fire, yet allowing
 some of the new achievements, like secure- or eternal-fire.
+
+Note that in 0.92, fire-transformation happened at the beginning of
+the fire, which manifested in the so called ``burning-abyss''-bug.
+Besides other details, this differs the original 0.92-system from the
+one in 1.0-non-Enigma-mode.
 
 @strong{Burnable and Fireproof Floors}
 
