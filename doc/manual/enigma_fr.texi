@@ -21,7 +21,7 @@ notice and this notice are preserved.
 @sp 2
 @center Copyright @copyright{} 2003, 2004, 2005 Daniel Heck (@email{dheck@@gmx.de})
 @c @title Enigma Manuel
-@c @subtitle pour version 0.80
+@c @subtitle pour version 1.0
 @c @author Daniel Heck (@email{dheck@@gmx.de})
 @page
 @vskip 0pt plus 1filll
@@ -32,7 +32,7 @@ notice and this notice are preserved.
 
 @ifnottex
 @node Haut, Introduction, (dir), (dir)
-@Haut Enigma
+@top Enigma
 
 Ce manuel d@'ecrit comment installer Enigma et y jouer.  Il correspond
 @`a Enigma version @value{VERSION}.
@@ -126,13 +126,13 @@ Cr@'edits
 
 
 @node A propos, Installation, Introduction, Introduction
-@section A propos Enigma
+@section A propos d'Enigma
 
 Dans les ann@'ees 1990 (peu apr@`es l'@'epoque de N@'eanderthal), l'un des jeux sur ordinateur les plus
-intrigants qui soient s'appelait « Oxyd »; il a @'et@'e diffus@'e sur Atari ST puis sur de nombreuses autres
-plates-formes par une firme r@'epondant au doux nom de « Dongleware ». Malgr@'e de nombreuses
+intrigants qui soient s'appelait 'Oxyd'; il a @'et@'e diffus@'e sur Atari ST puis sur de nombreuses autres
+plates-formes par une firme r@'epondant au doux nom de 'Dongleware'. Malgr@'e de nombreuses
 recherches arch@'eologiques men@'ees conjointement par Lara Croft, Sydney Fox et Indiana Jones, on
-n'a jamais prouv@'e l'existence d'un « Oxyd 2 »; n@'eanmoins il y a eu successivement Per.Oxyd, Oxyd
+n'a jamais prouv@'e l'existence d'un 'Oxyd 2'; n@'eanmoins il y a eu successivement Per.Oxyd, Oxyd
 Magnum puis Oxyd Extra. En 2002 Dongleware a abandonn@'e ses activit@'es dans le secteur du jeu et
 le jeu Oxyd.
 Enigma est un clone d'Oxyd (quelques diff@'erences mais globalement c'est le m@^eme principe). M@^eme
@@ -164,7 +164,7 @@ L'installation n'est pas n@'ecessaire, il suffit d'ex@'ecuter le fichier
 @end table
 
 En cas de probl@`emes d'installations, des conseils sont disponibles sur 
-enigma-devel@nongnu.org (dans la langue de Shakespeare toutefois).
+enigma-devel@@nongnu.org (dans la langue de Shakespeare toutefois).
 Si Enigma ne fonctionne pas sur votre ordinateur, n'h@'esitez pas @`a 
 demander de l'aide sur la liste (@email{enigma-devel@@nongnu.org}).
 
@@ -181,15 +181,15 @@ demander de l'aide sur la liste (@email{enigma-devel@@nongnu.org}).
 
 @c @table @strong
 @c @item Windows
-@c le dossier « data » cr@'e@'e @`a l'installation d'Enigma; typiquement c'est C:\Program
+@c le dossier 'data' cr@'e@'e @`a l'installation d'Enigma; typiquement c'est C:\Program
 @c Files\Enigma\data
 
 @c @item Unix / OS X
 @c Il y a deux emplacements possibles, l'un au niveau du syst@`eme (typiquement
-@c « /usr/local/share/enigma »), l'autre au niveau de l'utilisateur courant (un fichier appel@'e « ".enigma »
-@c dans le r@'epertoire « home »).
+@c '/usr/local/share/enigma'), l'autre au niveau de l'utilisateur courant (un fichier appel@'e '".enigma'
+@c dans le r@'epertoire 'home').
 
-@c Tout ce qu'il reste @`a faire est de copier les fichiers suivants dans le r@'epertoire « data » (en n'oubliant
+@c Tout ce qu'il reste @`a faire est de copier les fichiers suivants dans le r@'epertoire 'data' (en n'oubliant
 @c pas que sous Unix la casse doit @^etre respect@'ee):
 
 @c @multitable {Oxyd magnum gold} {@file{oxyd1ibm.dat}}
@@ -201,9 +201,9 @@ demander de l'aide sur la liste (@email{enigma-devel@@nongnu.org}).
 @c @item Oxyd magnum gold	@tab @file{oxydmgg.dat}
 @c @end multitable
 
-@c Per.Oxyd et Oxyd 1 sont « dongleware » (un r@'egime proche du shareware) et peuvent @^etre
-@c t@'el@'echarg@'es sur le net (essayez de soumettre @`a votre moteur de recherche favori, les mots « oxyd » et
-@c « abandonware »). Par contre les autres fichiers sont toujours commerciaux et il n'est autoris@'e de les
+@c Per.Oxyd et Oxyd 1 sont 'dongleware' (un r@'egime proche du shareware) et peuvent @^etre
+@c t@'el@'echarg@'es sur le net (essayez de soumettre @`a votre moteur de recherche favori, les mots 'oxyd' et
+@c 'abandonware'). Par contre les autres fichiers sont toujours commerciaux et il n'est autoris@'e de les
 @c utiliser que si on poss@`ede une copie acquise l@'egalement. Pour des questions de droit d'auteur, il n'est
 @c pas question d'inclure aucun des fichiers mentionn@'es ci-dessus, dans Enigma; inutile de le demander
 @c donc...
@@ -212,7 +212,7 @@ demander de l'aide sur la liste (@email{enigma-devel@@nongnu.org}).
 @section Distribuer Enigma
 
 Enigma est couvert par la licence GPL (Gnu Public licence) de GNU (ce qui signifie que le nom de
-son site Internet est tr@`es gödelien...); le texte de cette licence est fourni avec la distribution Enigma:
+son site Internet est tr@`es g@"delien...); le texte de cette licence est fourni avec la distribution Enigma:
 Si tout ce que vous voulez faire d'Enigma est y jouer (apr@`es tout il est fait pour @,{c}a ! ): Vous ne
 voudrez probablement pas lire ladite licence; dans ce cas elle stipule que vous avez le droit de jouer
 @`a Enigma, d'y faire jouer vos amis, de le leur distribuer, de le promouvoir !
@@ -236,7 +236,7 @@ commercial.
 
 Au lancement du jeu, appara@^it le menu principal @`a partir duquel on peut commencer @`a jouer (plut@^ot
 facile), quitter le jeu (ceci peut n@'ecessiter une d@'esintoxication...) ou r@'egler des options de jeu. Les
-paragraphes suivants expliquent une parties des r@'eglages; le reste se trouve normalement @`a l'usage.
+paragraphes suivants expliquent une partie des r@'eglages; le reste se trouve normalement @`a l'usage.
 
 @menu
 * Le menu des niveaux::           Choisir un niveau
@@ -247,18 +247,18 @@ paragraphes suivants expliquent une parties des r@'eglages; le reste se trouve n
 @node Le menu des niveaux, Options de jeu, Comment commencer, Comment commencer
 @subsection Le menu des niveaux
 
-En cliquant sur « nouveau jeu » on voit l'@'ecran des paysages qui ressemble @`a ceci:
+En cliquant sur 'nouveau jeu' on voit l'@'ecran des paysages qui ressemble @`a ceci:
 
 @image{images/levelmenu,,7cm}
 
 On y voit, en haut, des informations sur le niveau s@'electionn@'e et le chapitre courant, puis au milieu
 de l'@'ecran, des repr@'esentations des niveaux disponibles, et en bas des boutons. Pour jouer un des
 niveaux, il suffit de cliquer sur le dessin du paysage tel qu'on le voit @`a l'@'ecran, ou d'appuyer sur
-« Entr@'ee » d@`es qu'il est s@'electionn@'e; les ascenseurs @`a droite permettent de faire d@'efiler les paysages
+'Entr@'ee' d@`es qu'il est s@'electionn@'e; les ascenseurs @`a droite permettent de faire d@'efiler les paysages
 du chapitre courant.
-Les m@'edailles d'argent repr@'esentent les paysages d@'ej@`a r@'esolus en mode « Facile », les m@'edailles d'or
-repr@'esentent les paysages r@'esolus en mode « Normal ». Pour aller directement au prochain paysage
-non r@'esolu, un appui sur « F5 » ou un clic sur le bouton repr@'esentant 2 m@'edailles fait l'affaire.
+Les m@'edailles d'argent repr@'esentent les paysages d@'ej@`a r@'esolus en mode 'Facile', les m@'edailles d'or
+repr@'esentent les paysages r@'esolus en mode 'Normal'. Pour aller directement au prochain paysage
+non r@'esolu, un appui sur 'F5' ou un clic sur le bouton repr@'esentant 2 m@'edailles fait l'affaire.
 Si jamais les m@'edailles sont accompagn@'ees d'un autre symbole, cela signifie que le niveau a @'et@'e
 modifi@'e depuis la derni@`ere fois qu'on y a jou@'e. Les touches suivantes pr@'esentent un int@'er@^et dans cet
 @'ecran:
@@ -364,7 +364,7 @@ Permet de choisir entre les modes st@'er@'eo et le mode mono.
 @subsection Paysages normaux
 
 L'id@'ee de base est assez simple: Vous commandez une boule noire qui doit effleurer dans le bon
-ordre des pierres magiques appel@'ees « oxydes », et qui ressemblent @`a ceci:
+ordre des pierres magiques appel@'ees 'oxydes', et qui ressemblent @`a ceci:
 
 @image{images/st-oxyds,,0.7cm}
 
@@ -417,7 +417,7 @@ Certains objets sont d@'ecrits au chapitre 3.
 H@'elas non: Ce n'est pas un jeu en r@'eseau; il n'y a d'ailleurs pas de niveaux avec vraiment deux
 joueurs, mais des niveaux @`a un joueur peuvent comporter deux boules pilotables par ledit joueur: La
 d@'ej@`a connue boule noire, et une autre qui est blanche; un tel niveau se reconna@^it @`a la pr@'esence d'un
-objet en forme de « yin-yang » dans l'inventaire; cet objet permet de choisir laquelle des deux
+objet en forme de 'yin-yang' dans l'inventaire; cet objet permet de choisir laquelle des deux
 boules on souhaite piloter:
 
 @image{images/intro-twoplayer,,7cm}
@@ -427,7 +427,7 @@ boules on souhaite piloter:
 @subsection Paysages de m@'editation
 
 Certains niveaux sont tr@`es particuliers en ce qu'ils n'ont ni boule noire, ni oxydes: Ce sont les
-niveaux « meditation ». Ils comprennent de petites boules blanches, @`a caser dans des creux:
+niveaux 'meditation'. Ils comprennent de petites boules blanches, @`a caser dans des creux:
 
 @image{images/intro-meditation,,3cm}
 
@@ -510,7 +510,7 @@ Retour @`a l'@'ecran des niveaux
 
 Il y a trois sortes d'explosifs, que voici du moins dangereux au plus redoutable:
 
-@image{images/it-Explosifs,,0.7cm}
+@image{images/it-Explosives,,0.7cm}
 
 Le b@^aton de dynamite ne d@'etruit que les objets les plus fragiles; son utilit@'e est essentiellement de
 mettre le feu aux bombes.
@@ -533,7 +533,7 @@ en fin d'immunit@'e.
 @node Drapeaux,  , Parapluies, Outils
 @subsection Drapeaux
 
-@image{images/it-Drapeaux,,0.7cm}
+@image{images/it-flags,,0.7cm}
 
 Les drapeaux permettent de g@'erer le karma des boules: Normalement si un boule qui a encore des
 vies en r@'eserve meurt, elle ressuscite au point de d@'epart du niveau; si on a pr@'ealablement d@'epos@'e un
@@ -568,7 +568,7 @@ drapeau est conforme @`a celle de la boule sur laquelle il agit.
 Il y a deux sortes de t@^etes de mort: Celle qui est repr@'esent@'ee ci-dessus, et une variante que seules les
 boules noires porteuses de lunettes peuvent voir. Au moindre contact, elles tuent les boules.
 Le chevalier noir est @'egalement mortel pour les boules d@'esarm@'ees.
-Il y a des tueurs mobiles: Les « tops » (toupies) et les « rotors » (croix tournantes); ils sont attir@'es
+Il y a des tueurs mobiles: Les 'tops' (toupies) et les 'rotors' (croix tournantes); ils sont attir@'es
 par leur victime, laquelle a de pr@'ef@'erence une forme sph@'erique et une couleur noire...
 
 @node Pierres d'@'echange, Miroirs, Pierres mortelles, Pierres
@@ -577,8 +577,8 @@ par leur victime, laquelle a de pr@'ef@'erence une forme sph@'erique et une coul
 @image{images/st-swap,,0.7cm}
 
 En espace ext@'erieur, une pierre d'@'echange est immobile. Mais si on la pousse vers une pierre
-adjacente, elle @'echange sa position avec celle de sa voisine, elle est donc utile pour « faire bouger »
-des pierres immobiles. Mais elle-m@^eme ne peut @^etre boug@'ee que gr@^ace @`a des pierres « normales ».
+adjacente, elle @'echange sa position avec celle de sa voisine, elle est donc utile pour 'faire bouger'
+des pierres immobiles. Mais elle-m@^eme ne peut @^etre boug@'ee que gr@^ace @`a des pierres 'normales'.
 
 @c @node Lasers, Miroirs, Pierres d'@'echange, Pierres
 @c @subsection Lasers
@@ -588,7 +588,7 @@ des pierres immobiles. Mais elle-m@^eme ne peut @^etre boug@'ee que gr@^ace @`a 
 @node Miroirs, Pierres magiques, Pierres d'@'echange, Pierres
 @subsection Miroirs
 
-@image{images/st-Miroirs,,0.7cm}
+@image{images/st-mirrors,,0.7cm}
 
 Les mirroirs (@`a droite sur la photo) r@'efl@'echissent les rayons laser, soit en arri@`ere s'ils sont
 perpendiculaires @`a ceux-ci, soit @`a angle droit s'ils font un angle de 45° par rapport @`a ceux-ci. Les
@@ -606,7 +606,7 @@ d'un laser allum@'e...
 
 @image{images/st-magic,,0.7cm}
 
-Les pierres « magiques » sont un reliquat d'Oxyd et n'ont aucun effet dans Enigma; elles
+Les pierres 'magiques' sont un reliquat d'Oxyd et n'ont aucun effet dans Enigma; elles
 apparaissent lors de l'importation d'un niveau d'Oxyd et sont cens@'ees dispar@^itre au toucher
 
 @node Pierres Shogun, Pierres @'electriques, Pierres magiques, Pierres
@@ -674,7 +674,7 @@ Ce chapitre contient des indices pour certains des niveaux les plus difficiles.
 On vous conseille vraiment de ne @emph{pas} lire les indices tant que vous n'@^etes pas
 compl@`etement bloqu@'es.  Certains niveaux sont vraiment
 difficiles (m@^eme les champions d'Enigma ne peuvent les r@'esoudre en moins de quelques heures).
-Certains niveaux sont plus faciles en mode « facile » (voir section 2.1.2)
+Certains niveaux sont plus faciles en mode 'facile' (voir section 2.1.2)
 
 @menu
 * Tutoriel::                    Promenade dans 'advanced tutorial'
@@ -684,9 +684,9 @@ Certains niveaux sont plus faciles en mode « facile » (voir section 2.1.2)
 @node Tutoriel, Indices, Triche, Triche
 @section Promenade dans Advanced Tutorial
 
-Cette section a @'et@'e @'ecrite par Jakob Scott, le cr@'eateur des niveaux « tutorial ». Les niveaux du
-chapitre « tutorial » sont cens@'es @^etre faciles, @`a l'exception du dernier d'entre eux (« advanced
-tutorial »), auquel les paragraphes suivants sont consacr@'es. Premier conseil: Lire tous les documents
+Cette section a @'et@'e @'ecrite par Jakob Scott, le cr@'eateur des niveaux 'tutorial'. Les niveaux du
+chapitre 'tutorial' sont cens@'es @^etre faciles, @`a l'exception du dernier d'entre eux ('advanced
+tutorial'), auquel les paragraphes suivants sont consacr@'es. Premier conseil: Lire tous les documents
 de chaque chambre d@`es qu'on y entre.
 Le but de ce jeu est donc de trouver, et toucher, toutes les oxydes du niveau, lequel est divis@'e en une
 vingtaine de chambres, regroup@'ees en trois zones: La zone 1 est compos@'ee de chambres o@`u on
@@ -759,9 +759,9 @@ Traverser les trois portes.
 
 Chambre 1: Il faut que le rayon du laser atteigne la pierre noire: Pousser le miroir qui est en bas @`a
 gauche, d'un carreau vers le bas et le toucher doucement jusqu'@`a ce qu'il soit orient@'e comme ceci:
-« \ »; pousser le miroir qui est en haut @`a gauche de 8 carreaux vers la gauche et un carreau vers le
-bas, puis l'orienter comme ceci: « / »; pousser le miroir qui est en haut @`a droite de 2 carreaux vers le
-haut et 3 carreaux vers la droite, puis l'orienter ainsi: « / ». Actionner l'interrupteur pour allumer le
+'\'; pousser le miroir qui est en haut @`a gauche de 8 carreaux vers la gauche et un carreau vers le
+bas, puis l'orienter comme ceci: '/'; pousser le miroir qui est en haut @`a droite de 2 carreaux vers le
+haut et 3 carreaux vers la droite, puis l'orienter ainsi: '/'. Actionner l'interrupteur pour allumer le
 laser, tout en @'evitant son rayon; quand le pont sur la droite est construit, le traverser vers la droite.
 Chambre 2: Ramasser quelques pi@`eces; retourner dans la chambre pr@'ec@'edente; en @'eteignant, puis
 rallumant, le laser, irradier avec son rayon, une des pi@`eces de monnaie: Elle se se transforme en
@@ -1042,9 +1042,6 @@ Musique du menu (Pentagonal Dreams)
 
 @item David W. Skinner
 Beaucoup des niveaux Sokoban; voir @uref{http://users.bentonrea.com/~sasquatch/sokoban}
-
-@end table
-
 
 @end table
 
