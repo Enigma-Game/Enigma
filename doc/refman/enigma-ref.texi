@@ -2632,8 +2632,8 @@ Marbles may jump over @ref{fl-water} with an
 * it-blackbomb::                Black Bomb
 * it-blocker::                  Blocker Item
 * it-booze::                    Booze
-* it-brake::                    Brake Item
 * it-booze-broken::             Broken Booze
+* it-brake::                    Brake Item
 * it-brush::                    Brush
 * it-changefloor::              Changefloor Item
 * it-cherry::                   Cherry
@@ -2694,10 +2694,10 @@ it-blackbomb_burning
 it-blocker
 it-blocker-new
 it-booze
+it-booze-broken
 it-brake
 it-bridge-oxyd
 it-bridge-oxyd_active
-it-booze-broken
 it-brush
 it-burnable
 it-burnable_ash
@@ -2937,7 +2937,8 @@ be laid down again.
 Use this to set an invisible alternative to @ref{fl-abyss}.  Note
 however, that @ref{st-wood} doesn't fill @code{it-abyss} as it does
 with @code{fl-abyss}.  Marbles may jump over @code{it-abyss} with an
-@code{it-spring[1/2/board]}, in contrast to @ref{it-death}.
+@code{it-spring[1/2/board]}, in contrast to @ref{it-death}.  Also
+compare to @ref{it-booze-broken}.
 
 
 @c -------------------- Bag --------------------
@@ -3032,7 +3033,20 @@ recently shrinked)
 When used, the actor becomes slower for a short period of time.  Note
 that @code{it-booze} is still under development, behaviour might be
 changed.
-When hit by a stone, @code{it-booze} transforms into @code{it-booze-broken}.
+
+When hit by a stone, @code{it-booze} transforms into
+@ref{it-booze-broken}.
+
+
+@c -------------------- Broken Booze --------------------
+@node it-booze-broken
+@subsection it-booze-broken
+
+The remnants of @ref{it-booze} after pushing a
+stone over it. Kills a marble that touches it, but not when it is jumping with
+@ref{it-spring[1/2/board]} or protected by @ref{it-umbrella}, compare
+@ref{it-abyss} and @ref{it-death}.  Can be removed with @ref{it-brush}
+while jumping over it or otherwise protected.
 
 
 @c -------------------- Brake Item --------------------
@@ -3043,15 +3057,6 @@ When used, this item creates an @ref{st-brake}, which itself can be
 picked up as @code{it-brake} again.  It can be used to destroy
 @ref{it-blocker}.
 
-@c -------------------- Broken Booze --------------------
-@node it-booze-broken
-@subsection it-booze-broken
-
-The remnants of @ref{it-booze} after pushing a
-stone over it. Kills a marble that touches it, but not when it is jumping with
-@ref{it-spring[1/2/board]}, compare @ref{it-abyss} and @ref{it-death}.  @ref{it-umbrella}
-protects the marble. Can be removed with @ref{it-brush} while jumping over it.
-
 
 @c -------------------- Brush --------------------
 @node it-brush
@@ -3061,9 +3066,10 @@ This item can be used to make some invisible stones visible
 (@code{st-actorimpulse_invisible} (see @ref{st-actorimpulse}),
 @code{st-break_invisible} (see @ref{Breakable Stones}),
 @code{st-stonebrush} (see @ref{st-invisible}) and to remove debris
-from the level (@ref{it-cross}, @code{it-burnable_ash},
-@code{it-burnable_fireproof}, @code{it-squashed}, see @ref{Fire and
-Extinguisher}).
+from the level (@ref{it-cross}, @ref{it-squashed},
+@ref{it-booze-broken}, @code{it-glasses-broken} (see
+@ref{it-glasses}), @code{it-burnable_ash},
+@code{it-burnable_fireproof} (see @ref{Fire and Extinguisher})).
 
 In addition, this item can be used to transform @code{st-firebreak}
 into @code{st-plain} and @code{st-firebreak_move} into
@@ -3209,8 +3215,8 @@ Per.Oxyd-compatibility mode
 @subsection it-death
 
 Kills a marble that touches it, even when it is jumping with
-@ref{it-spring[1/2/board]}, compare @ref{it-abyss} and @ref{it-brokenbottle}.  @ref{it-umbrella}
-protects the marble.
+@ref{it-spring[1/2/board]}, compare @ref{it-abyss} and
+@ref{it-booze-broken}.  @ref{it-umbrella} protects the marble.
 
 
 @c -------------------- Document --------------------
@@ -6325,6 +6331,8 @@ ultimately opened (pairs must be hit with some time delay).
 @code{st-plain[_move]} into @code{st-firebreak[_move]}.
 @item Tiny hollows shouldn't be allowed as endpoints in meditations
 (see @ref{Hills and Hollows}).
+@item @ref{it-booze} doesn't break to @ref{it-booze-broken} when a
+stone is pushed over it.
 @end itemize
 
 

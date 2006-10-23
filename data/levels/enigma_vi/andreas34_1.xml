@@ -15,7 +15,7 @@
       <el:comments>
         <el:code>Lua 5.1 and XML converted by Leveladministrators</el:code>
       </el:comments>
-      <el:score el:easy="-" el:difficult="10:20"/>
+      <el:score el:easy="-" el:difficult="05:45"/>
     </el:info>
     <el:luamain><![CDATA[
 
@@ -53,7 +53,11 @@ cells[" "]=cell{}
 items[" "]=cell{}
 cells["!"]=cell{floor="fl-sand"}
 cells["#"]=cell{floor="fl-abyss"}
-cells["$"]=cell{parent={{set_eternal_fire}}}
+if enigma.CreatingPreview then
+  cells["$"]=cell{floor="fl-hay", item="it-burnable_burning"}
+else
+  cells["$"]=cell{floor={"fl-dunes", {eternal=TRUE, burnable=TRUE, initfire=TRUE}}}
+end
 stones["!"]=cell{stone=mys}
 stones["-"]=cell{stone=mys}
 stones["I"]=cell{stone=mys}

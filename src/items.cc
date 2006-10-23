@@ -490,6 +490,7 @@ namespace
 	    return ITEM_DROP;
 	}
     void on_stonehit(Stone *) {
+        sound_event("shatter");
         replace(it_booze_broken);
     }
     };
