@@ -79,6 +79,7 @@ namespace enigma
         void Suicide();
 
         void AddActor (unsigned iplayer, Actor *a);
+        bool HasActor(unsigned iplayer, Actor *a);
         Actor *ReplaceActor (unsigned iplayer, Actor *old, Actor *a);
         Actor *GetMainActor (unsigned iplayer);
 

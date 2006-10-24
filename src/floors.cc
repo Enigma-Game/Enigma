@@ -841,6 +841,7 @@ namespace{
         string modelname;
         enum State { IDLE, EMERGING, RETREATING, CAPTURED } state;
         Actor *m_affected_actor;
+        int affected_player;
         Item *bag;
         string get_modelname();
         void init_model();
@@ -853,7 +854,7 @@ namespace{
 
 Thief::Thief() 
 : Floor("fl-thief", 2.0, 1),
-  state(IDLE), m_affected_actor (0), modelname(""), bag(NULL) { }
+  state(IDLE), m_affected_actor (0), affected_player (-1), modelname(""), bag(NULL) { }
 
 string Thief::get_modelname() {
     if(modelname == "") {
@@ -871,11 +872,12 @@ void Thief::init_model() {
 
 void Thief::actor_enter(Actor *a) {
     ActorID id = get_id(a);
-    if ((state == IDLE) && (id == ac_blackball || id == ac_whiteball
-       || id == ac_meditation || id == ac_killerball)) {
+    if (state == IDLE) {
         set_anim(get_modelname() + string("-emerge"));
         state = EMERGING;
         m_affected_actor = a;
+        affected_player = -1;
+        m_affected_actor->int_attrib("player", &affected_player);
     }
 }
 
@@ -902,8 +904,10 @@ void Thief::animcb() {
 void Thief::steal() 
 {
     bool didSteal = false;
-    // steal from player
-    if (m_affected_actor && !m_affected_actor->has_shield()) {
+    // steal from player -- the actor that hit the thief may no longer exist!
+    if (m_affected_actor && affected_player >= 0 &&
+            player::HasActor(affected_player, m_affected_actor) && 
+            !m_affected_actor->has_shield()) {
         enigma::Inventory *inv = player::GetInventory(m_affected_actor);
         if (inv && inv->size() > 0) {
             if (bag == NULL)

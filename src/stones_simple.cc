@@ -1390,12 +1390,13 @@ namespace
         virtual Value message(const string &msg, const Value &v);        
 
         const char *collision_sound() { return "cloth"; }
+        int affected_player;
     };
     DEF_TRAITS(ThiefStone, "st-thief", st_thief);
 }
 
 ThiefStone::ThiefStone() 
-: state(IDLE), m_affected_actor (0), bag(NULL) {}
+: state(IDLE), m_affected_actor (0), affected_player (-1), bag(NULL) {}
 
 ThiefStone::~ThiefStone() {
     if (bag != NULL)
@@ -1404,11 +1405,12 @@ ThiefStone::~ThiefStone() {
 
 void ThiefStone::actor_hit(const StoneContact &sc) {
     ActorID id = get_id(sc.actor);
-    if ((state == IDLE) && (id == ac_blackball || id == ac_whiteball
-       || id == ac_meditation || id == ac_killerball)) {
+    if (state == IDLE) {
         set_anim("st-thief-emerge");
         state = EMERGING;
         m_affected_actor = sc.actor;
+        affected_player = -1;
+        m_affected_actor->int_attrib("player", &affected_player);
     }
 }
 
@@ -1433,7 +1435,10 @@ void ThiefStone::animcb() {
 
 void ThiefStone::steal_from_player() 
 {
-    if (m_affected_actor && !m_affected_actor->has_shield()) {
+    // the actor that hit the thief may no longer exist!
+    if (m_affected_actor && affected_player >= 0 &&
+            player::HasActor(affected_player, m_affected_actor) && 
+            !m_affected_actor->has_shield()) {
         enigma::Inventory *inv = player::GetInventory(m_affected_actor);
         if (inv && inv->size() > 0) {
             if (bag == NULL)
