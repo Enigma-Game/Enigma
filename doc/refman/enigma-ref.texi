@@ -5655,10 +5655,7 @@ Only white marbles can activate this switch.
 @subsection st-thief: Thief Stone
 
 Takes one item from inventory shortly after hit by a player's marble.
-@ref{it-umbrella} protects against thievery.  Note that only
-@ref{ac-blackball}, @ref{ac-whiteball}, @ref{ac-whiteball-small} and
-@ref{ac-killerball} activate the thief, so @ref{it-drop} protects,
-too.
+@ref{it-umbrella} protects against thievery.
 
 Thief stones can be destroyed with chess stones
 (@ref{st-chess_[black/white]}).  They then leave an @ref{it-bag}
