@@ -616,13 +616,13 @@ a @samp{History} levelpack with crossreferences of last played levels
 level search results as a levelpack of crossreferences
 
 @item
-zipped levelpacks that are just archives of levelpack directories and its files
+zipped levelpacks that are just archives of levelpack directories and their files
 
 @item
 grouping of levelpacks in the menu
 
 @item
-integrated editor to create and modify new levelpacks
+integrated composer to create and modify new levelpacks
 
 @item
 updates of levelpacks without updating Enigma itself
@@ -641,6 +641,9 @@ explain these details in the following sections:
 * Converting 0.92 Levelpacks::
 * Zip Levelpacks::
 * Grouping and Sorting Levelpacks::
+* Creating New Levelpacks::
+* Modifying and Deleting Levelpacks::
+* Composing Levelpacks::
 @end menu
 
 @node Getting Started with Levelpacks, Converting 0.92 Levelpacks, Levelpack Basics, Levelpack Basics
@@ -771,7 +774,7 @@ If you keep both, files contained in the subdirectory preceed files in the zip
 archive. Thus updates of single files are stored in subdirectories in parallel
 to existing zip archives.
 
-@node Grouping and Sorting Levelpacks, , Zip Levelpacks, Levelpack Basics
+@node Grouping and Sorting Levelpacks, Creating New Levelpacks, Zip Levelpacks, Levelpack Basics
 @section Grouping and Sorting Levelpacks
 
 As the number of levelpacks increased it got necessary to sort and group the
@@ -819,6 +822,43 @@ levelpack in every group. The @samp{Startup Levels} group has this assignment
 by default. The second square bracket enclosed name is the default group of the
 levelpack itself. It is a hint for you and allows you to reassign a levelpack
 to the default group even if you meanwhile have deleted the group.
+
+@node Creating New Levelpacks, Modifying and Deleting Levelpacks, Grouping and Sorting Levelpacks, Levelpack Basics
+@section Creating New Levelpacks
+
+To create a new levelpack you simply select the group to which you want to add
+the new pack. This is most likly the @samp{User} group. Right or ctrl click on
+the group and simply click on the @samp{New Levelpack} button. The levelpack
+configuration menu will be called that allows you to enter all important
+data for the creation of a levelpack.
+
+First you should enter a name for the levelpack. You are limited to characters
+that can be used for filenames, too. Alphanumerical characters A-Za-z0-9 and
+space, underscore and hyphen are usable. Note that you may rename the pack
+lateron for a better suitable display name (@pxref{Modifying and Deleting Levelpacks}).
+
+Furtheron you should decide wheter you want a levelpack that can contain level
+sources or just a crossreference levelpack. The first one is useful for storing
+own self written levels or levels that you download yourself from the internet.
+The crossreference levelpacks are for your favorite collections where you just
+reference existing levels of other levelpacks with your own personal sorting.
+You set the selected type with the @samp{Level types} button which uses symbols
+for references and carbon copies.
+
+Default Location
+
+Owner
+
+Undo, Ok,
+
+Compose Pack
+
+@node Modifying and Deleting Levelpacks, Composing Levelpacks, Creating New Levelpacks, Levelpack Basics
+@section Modifying and Deleting Levelpacks
+
+@node Composing Levelpacks, , Modifying and Deleting Levelpacks, Levelpack Basics
+@section Composing Levelpacks
+
 
 @node  Level Basics, Objects, Levelpack Basics, Top
 @chapter Level Basics
@@ -5908,33 +5948,45 @@ All actors share a set of common attributes that determine their
 general behaviour:
 
 @table @code
-@item player
+@item @b{player} values: 0, 1, nil; default: nil 
 The player ``owning'' this actor.  This is either 0 or 1 for the first
 or second player respectively.  Actors attached to a player can pick
 up items and can be respawned when they are killed (same player means
 same inventory).  Note: The controllers of the marble are given by the
 @code{controllers}-attribute
 
-@item mouseforce
+@item @b{mouseforce} values: float; default: 1.0
 A factor that determines how much the actor accelerates when the mouse
 is moved.  Default is 1, use higher values for fast moving actors.  If
 set to 0, the actor cannot be moved with the mouse (but external
 forces can still exert a force on it).
 
-@item controllers
-Determines which players may move this actor: 1=Player 1, 2=Player 2,
-3=both. By default, @code{ac-blackball}, @code{ac-whiteball} and
+@item @b{controllers} values: 0, 1, 2, 3
+Determines which players may move this actor: 1=Player 0, 2=Player 1,
+3=both, 0=none. By default, @code{ac-blackball}, @code{ac-whiteball} and
 @code{ac-whiteball-small} have their @code{controllers} attribute set
-to 1, 2, and 3 respectively.
+to 1, 2, and 3 respectively. Use value 0 if you want a passive actor.
 
-@item essential
-A non-zero value marks this actor as essential.  If
-@code{essential=1}, the game restarts if @code{1} of all essential
-actors can't resurrect (analog for higher values).  If you set the
-attribute for several actors, you should use the @emph{same value} for
-all of them!
+@item @b{essential} values: 0, 1, -1
+Describes the necessity of an actor to be alive in case of multiple actors being
+attached to a player. A value 0 marks an actor as not essential. The player
+may well continue to play with other actors that he controls which are still
+alive. A value of -1
+marks an actor as totally necessary. If such an actor cannot be resurrected
+after a death the player is essentially dead. A value of 1 marks an actor as
+partially essental. Not the actor itself needs to survive but the number of
+actors of its kind controlled by the player need to be larger than the number
+of actors with value 1. F.e. marking 3 out of 5 small whiteballs with 1 means
+that the player is dead if no longer 3 small whiteballs are alive. See 
+@ref{Variables} @samp{enigma.ConserveLevel} for more details about restart of levels.
 
-@item whiteball, blackball
+@item @b{essential_id} values: string; default: model name of actor
+As a player may control actors of different kind at the same time the 
+essentialness of actors is limited to its kind via this id. It is possible
+to group actors of different kind into an essential group via this id. The
+engine keeps this id even if actors are transformed into other kinds.
+
+@item @b{whiteball}, @b{blackball} @i{depreceated}
 @code{TRUE} or @code{FALSE}. Used by color-sensitive stones
 (black/white switches for example) to determine whether the actor is
 the black or the white marble.  These attributes may disappear in
@@ -6399,15 +6451,29 @@ global default value often is more convenient.  You can always
 override these default attribute values for specific objects by
 setting the appropriate object attributes.
 
-@defvar enigma.ConserveLevel
-@code{TRUE} or @code{FALSE}.  If @code{FALSE}, reload the level
-whenever the an actor that is controlled by a player (i.e., one that
-has the @code{player} attribute set) dies.  Often used in meditation
-landscapes or landscapes that are intended to be solved in one go.
-Default: @code{TRUE}.
+@defvar enigma.ConserveLevel values: @code{TRUE}, @code{FALSE}; default: @code{TRUE} 
+The conserve mode determines if a dead actor will be resurrected in case of
+extralives in the gamers inventory. 
+
+If @code{TRUE} dead actors attached to a
+player will be resurrected as long as extralives are available. If a player has
+no living actor to control or is missing the actors essential constraints 
+(@pxref{Actor Attributes}) the
+player is dead. The level may still continue if a second player is alive. If
+the gamer has a yinyang in his inventory in single user mode the control switches
+to the second player. If all players are dead a new level game is started.
+
+If the conserve mode is @code{FALSE} no actors will be resurrected. As soon as the
+player is dead and the control cannot switch toanother player all dead actors
+are resurrected by usage of extralives and the level is restartet without
+finishing the level game.
+
+Use @code{FALSE} if the level cannot be solved in case of resurrected actors.
+In all other cases mode @code{TRUE} with proper usage of actors essential 
+constraints will be preferable (@pxref{Actor Attributes}).
 @end defvar
 
-@defvar enigma.CreatingPreview
+@defvar enigma.CreatingPreview 
 @code{TRUE} or @code{FALSE}, read-only.  Use this to determine in a
 level whether it is just loaded to build a thumbnail.  If so, you can
 e.g. change the start-position of @ref{ac-blackball} to display
