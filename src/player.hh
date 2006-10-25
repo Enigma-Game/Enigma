@@ -36,7 +36,7 @@ namespace enigma
     namespace player {
 
         /*! Start a new game for two virtual players. */
-        void NewGame();
+        void NewGame(bool isRestart);
 
         /*! This is called whenever a new level is reached in a running
           game.  The inventories of all players are cleaned up, i.e., all
@@ -48,7 +48,7 @@ namespace enigma
 
         /*! Called after the loading a level but before starting the
           game.  It initializes the inventory. */
-        void LevelLoaded();
+        void LevelLoaded(bool isRestart);
 
         /*! Called as soon as the current level is finished; it removes
           the actors of all players from the level. */

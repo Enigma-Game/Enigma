@@ -788,7 +788,7 @@ void Client::level_finished()
 #define snprintf _snprintf
 #endif
 
-void Client::level_loaded()
+void Client::level_loaded(bool isRestart)
 {
     lev::Index *ind = lev::Index::getCurrentIndex();
     lev::ScoreManager *scm = lev::ScoreManager::instance();
@@ -831,7 +831,8 @@ void Client::level_loaded()
     GC gc(video::BackBuffer());
     display::DrawAll(gc);
 
-    m_effect.reset (video::MakeEffect (video::TM_PUSH_RANDOM, video::BackBuffer()));
+    m_effect.reset (video::MakeEffect ((isRestart ? video::TM_SQUARES :
+            video::TM_PUSH_RANDOM), video::BackBuffer()));
     m_cheater = false;
     m_state   = cls_preparing_game;
 }
@@ -864,9 +865,9 @@ bool client::NetworkStart()
     return CLIENT.network_start();
 }
 
-void client::Msg_LevelLoaded() 
+void client::Msg_LevelLoaded(bool isRestart)
 {
-    CLIENT.level_loaded();
+    CLIENT.level_loaded(isRestart);
 }
 
 void client::Tick (double dtime) {

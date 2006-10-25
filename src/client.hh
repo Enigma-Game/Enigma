@@ -42,7 +42,7 @@ namespace enigma_client
     
     void Msg_AdvanceLevel (lev::LevelAdvanceMode mode);
 
-    void Msg_LevelLoaded();
+    void Msg_LevelLoaded(bool isRestart);
 
     void Msg_PlayerPosition (unsigned iplayer, const ecl::V2 &pos);
 

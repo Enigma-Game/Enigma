@@ -125,6 +125,7 @@ namespace enigma_server
 
     void Tick (double dtime);
     void RestartLevel();
+    bool IsRestartingLevel();
     void FinishLevel();
 
     void SetCompatibility(const char *version); // set compatibility (from lua)

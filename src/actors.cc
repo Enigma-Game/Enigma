@@ -53,7 +53,7 @@ Actor::Actor (const ActorTraits &tr)
   m_sprite(),
   startingpos(), 
   respawnpos(), use_respawnpos(false),
-  spikes(false)
+  spikes(false), controllers (0)
 {
     set_attrib("mouseforce", 0.0);
 

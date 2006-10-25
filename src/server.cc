@@ -53,6 +53,7 @@ namespace enigma_server
         sv_running,
         sv_paused,
         sv_restart_level,
+        sv_restart_game,
         sv_finished,
     };
 
@@ -112,7 +113,7 @@ namespace
     ENetHost           *network_host       = 0;
 }
 
-void load_level(lev::Proxy *levelProxy)
+void load_level(lev::Proxy *levelProxy, bool isRestart)
 {
     server::PrepareLevel();
 
@@ -126,7 +127,7 @@ void load_level(lev::Proxy *levelProxy)
             throw XLevelLoading("unknown engine compatibility");
         
         // clear inventory before level load and give us 2 extralives
-        player::NewGame();
+        player::NewGame(isRestart);
 
         levelProxy->loadLevel();
 //            server::CurrentLevel = static_cast<unsigned> (ilevel);
@@ -134,8 +135,8 @@ void load_level(lev::Proxy *levelProxy)
 
         world::InitWorld();
         if (!CreatingPreview) {
-                player::LevelLoaded();
-                client::Msg_LevelLoaded();
+                player::LevelLoaded(isRestart);
+                client::Msg_LevelLoaded(isRestart);
         }
     }
     catch (XLevelLoading &err) {
@@ -276,10 +277,14 @@ void server::RestartLevel()
     }
 }
 
+bool server::IsRestartingLevel() {
+    return state == sv_restart_level;
+}
+
 void server::Msg_RestartGame() 
 {
     if (state == sv_running || state == sv_finished) {
-        state = sv_restart_level;
+        state = sv_restart_game;
         current_state_dtime = 0;
     }
 }
@@ -311,10 +316,11 @@ void server::Tick (double dtime)
         gametick (dtime);
         break;
     case sv_restart_level:
+    case sv_restart_game:
         current_state_dtime += dtime;
         if (current_state_dtime >= 1.0) {
             lev::Index *ind = lev::Index::getCurrentIndex();
-            load_level(ind->getCurrent());
+            load_level(ind->getCurrent(), (state == sv_restart_level));
         } else {
             gametick(dtime);
         }
@@ -337,7 +343,7 @@ void server::Msg_SetLevelPack (const std::string &name) {
 
 void server::Msg_LoadLevel (lev::Proxy *levelProxy, bool isPreview) {
     server::CreatingPreview = isPreview;
-    load_level(levelProxy);
+    load_level(levelProxy, false);
 }
 
 

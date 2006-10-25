@@ -109,7 +109,7 @@ namespace
 
         void handle_message(Message *msg);
 
-        void level_loaded();
+        void level_loaded(bool isRestart);
         void level_finished();
 
         void error (const std::string &text);

@@ -19,6 +19,7 @@
 #include "player.hh"
 #include "Inventory.hh"
 #include "display.hh"
+#include "errors.hh"
 #include "sound.hh"
 #include "client.hh"
 #include "server.hh"
@@ -144,9 +145,25 @@ namespace
 
 /* -------------------- Functions -------------------- */
 
-void player::NewGame () 
-{
+void player::NewGame (bool isRestart) {
     int nplayers = 2;           // Always prepare for two players
+    std::vector<int> extralives(2);
+
+    // calculate number of extralives
+    for (int i=0; i<nplayers; ++i) {
+        if (isRestart) {
+            // count existing number of extralives
+            int idxLife = -1;
+            extralives[i] = -1;
+            do {
+                ++extralives[i];
+                idxLife = players[i].inventory.find("it-extralife", ++idxLife);
+            } while (idxLife != -1);
+        } else {
+            // new game provides 2 extralives
+            extralives[i] = 2;
+        }
+    }
 
     players.clear();
     players.resize(nplayers);
@@ -154,8 +171,8 @@ void player::NewGame ()
     for (int i=0; i<nplayers; ++i) {
         Inventory *inv = GetInventory(i);
 
-        inv->add_item (MakeItem (world::it_extralife));
-        inv->add_item (MakeItem (world::it_extralife));
+        for (int j = 0 ; j < extralives[i]; j++)
+            inv->add_item (MakeItem (world::it_extralife));
     }
 }
 
@@ -168,7 +185,7 @@ void player::AddYinYang ()
     }
 }
 
-void player::LevelLoaded()
+void player::LevelLoaded(bool isRestart)
 {
     if (server::TwoPlayerGame && server::SingleComputerGame)
         AddYinYang();
@@ -344,15 +361,23 @@ void player::SwapPlayers()
     }
 }
 
-static bool has_extralive(unsigned pl) {
-    return players[pl].inventory.find("it-extralife") != -1;
+static bool has_extralive(unsigned pl, unsigned num) {
+    size_t idx = 0;
+    for (int i = 0; i < num; i++) {
+        int idxLife = players[pl].inventory.find("it-extralife", idx);
+        if (idxLife == -1)
+            return false;
+        else
+            idx = idxLife + 1;
+    }
+    return true;
 }
 
 static bool resurrect_actor (unsigned pl, Actor *a) 
 {
     assert(server::ConserveLevel); // no resurrection otherwise!
 
-    bool has_life = has_extralive(pl);
+    bool has_life = has_extralive(pl, 1);
     if (has_life)
         leveldat.resurrect_actor(a); // = resurrect with delay
     else
@@ -366,80 +391,97 @@ static void CheckDeadActors()
     const unsigned NO_PLAYER        = UINT_MAX;
     unsigned       toggle_to_player = NO_PLAYER;
     bool           new_game         = false; // complete restart (new lives)
-    bool           reset_level      = false; // reset items etc.
 
-    if (server::ConserveLevel) {
-        // to live means to be not dead and to be able to move
-        for (unsigned pl = 0; pl<players.size(); ++pl) {
-            vector<Actor*>& actors           = players[pl].actors;
-            bool            has_living_actor = false;
-            int             dead_essentials  = 0;
+    // to live means to be not dead and to be able to move
+    for (unsigned pl = 0; pl<players.size(); ++pl) {
+        vector<Actor*>& actors           = players[pl].actors;
+        bool            has_living_actor = false;  // controllable and living
+        std::map<std::string, int> essMap; 
+        std::map<std::string, int>::iterator itEss; 
 
-            for (size_t i=0; i<actors.size(); ++i) {
-                Actor *a = actors[i];
+        for (size_t i=0; i<actors.size(); ++i) {
+            Actor *a = actors[i];
+            std::string essId = a->get_traits().name;
+            int essential = a->int_attrib("essential");
+            // count number of necessary actors per kind
+            if (essential == 1)
+                --essMap[essId];
 
-                if (!a->is_dead() || resurrect_actor(pl, a)) {
-                    if (a->get_mouseforce() != 0.0)
-                        has_living_actor = true;
+            if (!a->is_dead() ||
+                    (server::ConserveLevel && resurrect_actor(pl, a))) {
+                // actor is still alive
+                if (a->controlled_by(pl) && a->get_mouseforce() != 0.0) {
+                    has_living_actor = true;
                 }
-                else {
-                    // player is dead and could not resurrect
-                    int essential = a->int_attrib("essential");
-                    if (essential>0) {
-                        dead_essentials++;
-                        if (dead_essentials >= essential)
-                            new_game = true;
-                    }
-                }
-            }
-
-            if (has_living_actor) {
-                if (toggle_to_player == NO_PLAYER)
-                    toggle_to_player = pl;
+                // count number of alive actors per kind
+                if (essential >= 0)
+                    ++essMap[essId];
             }
             else {
-                if (pl == icurrent_player)
-                    toggle_player = true;
+                // player is dead and could not resurrect
+                if (essential == -1) {
+                    // actor is personnally essential but dead
+                    new_game = true;
+                }
             }
         }
+        // check if for any kind we have less living actors as required
+        for (itEss = essMap.begin(); itEss != essMap.end(); itEss++) {
+            if ((*itEss).second < 0)
+                new_game = true;
+        }
 
-        // if no_living_player -> toggle_player is true and toggle_to_player is NO_PLAYER
-        // => new_game is set to true below
+        if (has_living_actor) {
+            if (toggle_to_player == NO_PLAYER)
+                toggle_to_player = pl;
+        }
+        else {
+            if (pl == icurrent_player)
+                // check if player has yinyang for single gamer mode
+                if (player::GetInventory(pl)->find("it-yinyang",0) >= 0)
+                    toggle_player = true;
+                else
+                    new_game = true;
+        }
     }
-    else {                  // ConserveLevel == false
+
+    // if no_living_player -> toggle_player is true and toggle_to_player is NO_PLAYER
+    // => new_game is set to true below
+
+    if ((server::ConserveLevel == false) && !server::IsRestartingLevel() && 
+            (new_game || (toggle_player && toggle_to_player == NO_PLAYER))) {
+        // check if we have enough extralives for a restart instead of new game
+        std::vector<int> numDead;
+        bool reset_level = true;
         for (unsigned pl = 0; pl<players.size(); ++pl) {
-            vector<Actor*>& actors         = players[pl].actors;
-            bool            has_living_actor = false;
+            numDead.push_back(0);
+            vector<Actor*>& actors = players[pl].actors;
             for (size_t i = 0; i<actors.size(); ++i) {
                 Actor *a = actors[i];
                 if (a->is_dead()) {
-                    if (has_extralive(pl)) {
-                        leveldat.remove_extralife(a);
-                        reset_level = true;
-	            }
-                    else {
-                        players[pl].out_of_lives = true;
-                        if (pl == icurrent_player)
-                            toggle_player = true;
-                    }
-                    break;
+                    numDead[pl]++;
                 }
-                else
-                    has_living_actor = true;
-
             }
-
-            if (has_living_actor) {
-                if (toggle_to_player == NO_PLAYER)
-                    toggle_to_player = pl;
+            if (!has_extralive(pl, numDead[pl])) {
+                reset_level = false;
+                break;
             }
+        }
+        if (reset_level) {
+            for (unsigned pl = 0; pl<players.size(); ++pl) {
+                Inventory *inv = player::GetInventory(pl);
+                for (int i=0; i<numDead[pl]; i++) {
+                    int idx = inv->find("it-extralife");
+                    ASSERT (idx != -1, XLevelRuntime, "Missing extralife for restart of level");
+                    delete inv->yield_item(idx);
+                }
+            }
+            server::RestartLevel(); // should restart w/o scrolling
+            return;
         }
     }
 
-    if (reset_level) {
-        server::RestartLevel(); // should restart w/o scrolling
-    }
-    else if (new_game) {
+    if (new_game) {
         server::Msg_RestartGame();
     }
     else if (toggle_player) {
@@ -448,7 +490,6 @@ static void CheckDeadActors()
         else
             player::SetCurrentPlayer(toggle_to_player);
     }
-
 }
 
 Actor *player::GetMainActor (unsigned iplayer) 
