@@ -29,11 +29,11 @@ function writeLine( line, cells)
     elseif(c =="o") then
       oxyd(i-1,line)
     elseif(c =="0") then
-      set_actor("ac-blackball",i-0.5,line+0.5,{player="0"})
+      set_actor("ac-blackball",i-0.5,line+0.5,{player=0})
       set_item("it-yinyang",i-1,line)
       set_floor("fl-acwhite",i-1,line)
     elseif(c =="1") then
-      set_actor("ac-whiteball",i-0.5,line+0.5,{player="1"})
+      set_actor("ac-whiteball",i-0.5,line+0.5,{player=1, essential=1})
       set_item("it-yinyang",i-1,line)
     end
   end

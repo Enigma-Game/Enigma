@@ -22,6 +22,7 @@ levelh = 40
 create_world(levelw, levelh)
 oxyd_default_flavor = "b"
 display.SetFollowMode(display.FOLLOW_SCROLLING)
+enigma.ConserveLevel=FALSE
 fill_floor("fl-leaves", 0,0, level_width,level_height)
 
 function renderLine( line, pattern)
@@ -29,6 +30,7 @@ function renderLine( line, pattern)
         local c = strsub( pattern, i, i)
         if c =="#" then
             set_stone( "st-greenbrown", i-1, line)
+            set_floor("fl-sand",i-1,line)
         elseif c=="*" then
             set_stone( "st-wood2", i-1, line)
         elseif c=="." then
@@ -59,6 +61,7 @@ function renderLine( line, pattern)
             set_actor("ac-blackball", i-.5,line+.5, {name="maroon",player=0})
         elseif c=="o" then
             oxyd(i-1,line)
+            set_floor("fl-sand",i-1,line)
         elseif c=="p" then
             set_stone("st-fakeoxyd",i-1,line)
         end

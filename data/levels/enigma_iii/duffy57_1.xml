@@ -35,9 +35,9 @@ function renderLine( line, pattern)
         elseif c == "!" then
             abyss(i-1,line)
         elseif c=="w" then
-           set_actor("ac-whiteball-small", i-.5,line+.5, {player=0,mouseforce=0})
+           set_actor("ac-whiteball-small", i-.5,line+.5, {player=1, mouseforce=0, essential=1})
         elseif c=="W" then
-           set_actor("ac-whiteball-small", i-1,line+.5, {player=0,mouseforce=0})
+           set_actor("ac-whiteball-small", i-1,line+.5, {player=1, mouseforce=0, essential=1})
         elseif c == "g" then
             draw_stones("st-grate1",{i-1,line}, {1,1}, 1)
         elseif c=="+" then
@@ -54,7 +54,7 @@ function renderLine( line, pattern)
         elseif c=="R" then
            set_actor("ac-rotor", i-1,line+.5, {attacknearest=0, player=1, mouseforce=0, range=40, force=60})
         elseif c=="z" then
-                    set_actor("ac-blackball", i-.5,line+.5)
+           set_actor("ac-blackball", i-.5,line+.5, {player=0, essential=1})
          end
     end    
 end

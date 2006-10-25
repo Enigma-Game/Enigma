@@ -379,8 +379,8 @@ set_stone("st-laserswitch", 53, 36, {action="callback", target="lsi3", on="1", n
 
 -- Actor Layer
 set_actor("ac-horse", 106.5, 29.5)
-set_actor("ac-blackball", 124.5, 6.5, {player="0", mouseforce="0.2"})
-set_actor("ac-whiteball", 132.5, 30.5, {player="1", mouseforce="1"})
+set_actor("ac-blackball", 124.5, 6.5, {player=0, mouseforce=0.2})
+set_actor("ac-whiteball", 132.5, 30.5, {player=1, mouseforce=1, essential=1})
 
 -- oxyd_shuffle()
     ]]></el:luamain>

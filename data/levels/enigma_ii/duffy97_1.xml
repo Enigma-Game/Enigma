@@ -46,7 +46,7 @@ function renderLine( line, pattern)
         elseif c =="G" then
             set_stone( "st-rock6", i-1, line)
         elseif c =="H" then
-            set_stone( "st-metal", i-1, line)
+            set_stone( "st-rock2", i-1, line)
         elseif c =="I" then
             set_stone( "st-rock3", i-1, line)
         elseif c == "o" then
@@ -100,7 +100,7 @@ function renderLine( line, pattern)
         elseif c=="W" then
             doorv( i-1,line, {name="door8"})
         end
-    end    
+    end	
 end
 
 renderLine(00,"##########################################################")
@@ -121,7 +121,7 @@ renderLine(14,"#  I     II     D  #  o  P      Q  o  #  H     BB     G  #")
 renderLine(15,"#     #      #     #     #      #     #     #      #     #")
 renderLine(16,"### #####  ##### #####R#####  #####S##### #####  ##### ###")
 renderLine(17,"#     #      #     #     #      #     #     #      #     #")
-renderLine(18,"#  H     GG     G            z           A     CC     E  #")
+renderLine(18,"#  H     GG     G            z           A     CC     I  #")
 renderLine(19,"#     #      #     #     #      #     #     #      #     #")
 renderLine(20,"### #####  ##### #####T#####  #####U##### #####  ##### ###")
 renderLine(21,"#     #      #     #     #      #     #     #      #     #")
@@ -129,23 +129,23 @@ renderLine(22,"#  C     FF     G  #  o  V      W  o  #  E     HH     D  #")
 renderLine(23,"#     #      #     #     #      #     #     #      #     #")
 renderLine(24,"#########  #################  #################  #########")
 renderLine(25,"#     #      #     #     #      #     #     #      #     #")
-renderLine(26,"#  C     II     G  #  G     HH     E  #  A     AA     A  #")
+renderLine(26,"#  C     II     B  #  G     GG     E  #  A     AA     A  #")
 renderLine(27,"#     #      #     #     #      #     #    1#     2#    3#")
 renderLine(28,"### #####  ##### ##### #####  ##### ##### #####  ##### ###")
 renderLine(29,"#     #      #     #     #      #     #     #      #     #")
-renderLine(30,"#  G     GG     E     A     FF     I     A     AA     A  #")
+renderLine(30,"#  G     BB     E     E     FF     C     A     AA     A  #")
 renderLine(31,"#     #      #     #     #      #     #    4#     5#    6#")
 renderLine(32,"### #####  ##### ##### #####  ##### ##### #####  ##### ###")
 renderLine(33,"#     #      #     #     #      #     #     #      #     #")
-renderLine(34,"#  I     CC     D  #  A     BB     H  #  A     AA     A  #")
+renderLine(34,"#  I     CC     H  #  A     AA     H  #  A     AA     A  #")
 renderLine(35,"#     #      #     #     #      #     #    7#     8#    9#")
 renderLine(36,"##########################################################")
 
--- I I H
+-- C I A
 --      
--- E B A
+-- E G A
 --      
--- C F B
+-- F F D
 
 oxyd_shuffle()
 
@@ -165,7 +165,7 @@ function typechange(x,y,newtype)
     elseif newtype ==7 then
         set_stone( "st-rock6", x, y)
     elseif newtype ==8 then
-        set_stone( "st-metal", x, y)
+        set_stone( "st-rock2", x, y)
     elseif newtype ==9 then
         set_stone( "st-rock3", x, y)
     end
@@ -319,11 +319,11 @@ function funcc9()
     funcc10()
 end
 
--- I I H
+-- C I A
 --      
--- E B A
+-- E G A
 --      
--- C F B
+-- F F D
 
 doorsopen=0
 ff10=0
@@ -340,7 +340,7 @@ function funcc10()
             SendMessage("door8","close")
             doorsopen=0
         end
-        if type1==9 and type2==9 and type3==8 and type4==5 and type5==2 and type6==1 and type7==3 and type8==6 and type9==2 then
+        if type1==3 and type2==9 and type3==1 and type4==5 and type5==7 and type6==1 and type7==6 and type8==6 and type9==4 then
             if doorsopen==0 then
                 SendMessage("door1","open")
                 SendMessage("door2","open")

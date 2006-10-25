@@ -30,10 +30,13 @@ function renderLine( line, pattern)
             set_stone( "st-greenbrown", i-1, line)
         elseif c == "o" then
             oxyd( i-1, line)
-                elseif c == "!" then
+        elseif c == "!" then
             abyss(i-1,line)
         elseif c == "=" then
             fill_floor("fl-bluegreen", i-1,line, 1,1)
+        elseif c == "f" then
+            set_floor("fl-bluegreen", i-1,line)
+            set_item("it-flagblack", i-1,line)
         elseif c == "+" then
             fill_floor("fl-space", i-1,line, 1,1)
         elseif c == "z" then
@@ -53,12 +56,18 @@ renderLine(03,"!=+++++++=!!=+!!+!=!")
 renderLine(04,"!+!!+!!!!+!!!++!+!o!")
 renderLine(05,"!=++=!=+++++=!+++!!!")
 renderLine(06,"!!!!!!+!!+!!+!!=++=!")
-renderLine(07,"!!oz=+++++++=!!!+!+!")
+
 renderLine(08,"!!!!!!+!!+!!!!!!+!+!")
 renderLine(09,"!=+++++++=!=++++++=!")
 renderLine(10,"!+!!!!+!!!!+!!!!+!!!")
 renderLine(11,"!=++++=!!!!=++++=!!!")
 renderLine(12,"!!!!!!!!!!!!!!!!!!!!")
+
+if not difficult then
+    renderLine(07,"!!ozf+++++++=!!!+!+!")
+else
+    renderLine(07,"!!oz=+++++++=!!!+!+!")
+end
 
 oxyd_shuffle()
     ]]></el:luamain>
