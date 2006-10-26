@@ -57,6 +57,8 @@ namespace enigma { namespace gui {
          */
         std::string getText();
         
+        bool wasLastActionReturn();
+        
         // Widget interface.
         virtual void tick (double dtime);
         virtual bool on_event(const SDL_Event &/*e*/);
@@ -81,6 +83,7 @@ namespace enigma { namespace gui {
          * the string itself!!
          */
         std::vector<unsigned char> charSizesPostCursor;
+        bool isLastActionReturn;
         static ecl::Font *menufont;
     };
 }} // namespace enigma::gui

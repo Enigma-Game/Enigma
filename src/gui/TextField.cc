@@ -40,7 +40,7 @@ using namespace std;
 ecl::Font *TextField::menufont = 0;
 
 TextField::TextField(const std::string &t, ActionListener *al) : cursorTime(0),
-        showCursor(true) {
+        showCursor(true), isLastActionReturn (false) {
     if (menufont == 0) {
         menufont = enigma::GetFont("menufont");
     }
@@ -62,6 +62,10 @@ std::string TextField::getText() {
     string total = textPreCursor;
     total += textPostCursor;
     return total;
+}
+
+bool TextField::wasLastActionReturn() {
+    return isLastActionReturn;
 }
 
 void TextField::tick (double dtime) {
@@ -117,6 +121,11 @@ bool TextField::on_event(const SDL_Event &e) {
             break;
         case SDL_KEYDOWN:
             switch (e.key.keysym.sym) {
+                case SDLK_RETURN:
+                    handeled = true;
+                    isLastActionReturn = true;
+                    invoke_listener();
+                    break;                    
                 case SDLK_RIGHT:
                     if(textPostCursor.size() > 0) {
                         int size = charSizesPostCursor.back();
@@ -249,8 +258,10 @@ bool TextField::on_event(const SDL_Event &e) {
         default:
             break;
     }
-    if (modified)
+    if (modified) {
+        isLastActionReturn = false;
         invoke_listener();
+    }
     return handeled;
 }
 

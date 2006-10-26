@@ -42,7 +42,7 @@ namespace enigma { namespace gui {
         searchVList->set_default_size(380, 35);
         Label * shallowTitle = new Label(N_("Shallow Search:"), HALIGN_LEFT);
         Label * shallowHelp = new Label(N_("case independent search in title, author, filename"), HALIGN_RIGHT);
-        shallowSearch = new TextField();
+        shallowSearch = new TextField("", this);
         
         searchVList->add_back(shallowTitle);
         searchVList->add_back(shallowHelp);
@@ -72,7 +72,8 @@ namespace enigma { namespace gui {
     }
     
     void SearchMenu::on_action(Widget *w) {
-        if (w == but_search) {
+        if (w == but_search || 
+                (w == shallowSearch && shallowSearch->wasLastActionReturn())) {
             lev::Index::setCurrentIndex(lev::Proxy::search(shallowSearch->getText()));
             didSearch = true;
             Menu::quit();
