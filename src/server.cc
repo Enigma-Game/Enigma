@@ -431,7 +431,7 @@ void server::Msg_Command (const string &cmd)
     }
     else if (cmd == "restart") {
         player::Suicide();
-        server::RestartLevel();
+        server::Msg_RestartGame();
     }
     else if (cmd == "abort") {
         client::Msg_Command(cmd);

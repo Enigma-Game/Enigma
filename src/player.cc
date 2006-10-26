@@ -140,6 +140,7 @@ namespace
     LevelLocalData leveldat;
     PlayerList     players(2);     // this currently has always size 2
     unsigned       icurrent_player = 0;
+    std::vector<Actor *> unassignedActors;
 }
 
 
@@ -174,6 +175,8 @@ void player::NewGame (bool isRestart) {
         for (int j = 0 ; j < extralives[i]; j++)
             inv->add_item (MakeItem (world::it_extralife));
     }
+    
+    unassignedActors.clear();
 }
 
 void player::AddYinYang ()
@@ -385,6 +388,10 @@ static bool resurrect_actor (unsigned pl, Actor *a)
     return has_life;
 }
 
+void player::AddUnassignedActor (Actor *a) {
+    unassignedActors.push_back(a);
+}
+
 static void CheckDeadActors() 
 {
     bool           toggle_player    = false;
@@ -393,24 +400,26 @@ static void CheckDeadActors()
     bool           new_game         = false; // complete restart (new lives)
 
     // to live means to be not dead and to be able to move
-    for (unsigned pl = 0; pl<players.size(); ++pl) {
-        vector<Actor*>& actors           = players[pl].actors;
+    for (int pl = -1; pl<(int)players.size(); ++pl) {  // -1 are unassigned actors
+        vector<Actor*>& actors  = (pl == -1) ? unassignedActors : players[pl].actors;
         bool            has_living_actor = false;  // controllable and living
         std::map<std::string, int> essMap; 
         std::map<std::string, int>::iterator itEss; 
 
         for (size_t i=0; i<actors.size(); ++i) {
             Actor *a = actors[i];
-            std::string essId = a->get_traits().name;
+            std::string essId;
+            if (!a->string_attrib ("essential_id", &essId))
+                essId = a->get_traits().name;
             int essential = a->int_attrib("essential");
             // count number of necessary actors per kind
             if (essential == 1)
                 --essMap[essId];
 
             if (!a->is_dead() ||
-                    (server::ConserveLevel && resurrect_actor(pl, a))) {
+                    (pl >= 0 && server::ConserveLevel && resurrect_actor(pl, a))) {
                 // actor is still alive
-                if (a->controlled_by(pl) && a->get_mouseforce() != 0.0) {
+                if (pl >= 0 && a->controlled_by(pl) && a->get_mouseforce() != 0.0) {
                     has_living_actor = true;
                 }
                 // count number of alive actors per kind

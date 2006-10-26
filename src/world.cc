@@ -1106,6 +1106,8 @@ bool world::InitWorld()
         if (a->int_attrib("player", &iplayer)) {
             player::AddActor(iplayer,a);
             if (iplayer == 0) seen_player0 = true;
+        } else {
+            player::AddUnassignedActor(a);
         }
     }
 

@@ -3487,6 +3487,11 @@ namespace
                 rotor->set_attrib ("controllers", Value (iplayer+1));
                 rotor->set_attrib ("player", Value (iplayer));
                 rotor->set_attrib ("gohome", Value (0.0));
+                rotor->set_attrib ("essential", Value(a->int_attrib("essential")));
+                std::string essId;
+                if (!a->string_attrib ("essential_id", &essId))
+                    essId = a->get_traits().name;
+                rotor->set_attrib ("essential_id", Value(essId));
 
                 replace_actor (a, rotor);
 
