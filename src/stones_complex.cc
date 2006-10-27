@@ -2146,6 +2146,7 @@ namespace
         OxydStone();
 
         static void shuffle_colors();
+        virtual bool is_removable() const;
     private:
         enum State { CLOSED, OPEN, OPENING, CLOSING, BLINKING };
         State state;
@@ -2368,6 +2369,14 @@ void OxydStone::on_creation (GridPos)
     string_attrib("flavor", &flavor);
     set_model(string("st-oxyd") + flavor);
     photo_activate();
+}
+
+bool OxydStone::is_removable() const {
+    const Value* isStatic = get_attrib("static");
+    if (isStatic != NULL)
+        return !to_bool(*isStatic);
+    else
+        return true;
 }
 
 void OxydStone::on_removal(GridPos p) 

@@ -401,7 +401,10 @@ void SwapStone::on_impulse(const Impulse& impulse)
         GridPos oldp = get_pos();
         GridPos newp = move(oldp, impulse.dir);
 
-        if (!IsLevelBorder(newp)) {
+        // never swap beyond the world and for non enigma modes do not swap to
+        // border as well.
+        if (IsInsideLevel(newp) &&
+                (server::GameCompatibility == GAMET_ENIGMA || !IsLevelBorder(newp))) {
             Stone *other = GetStone(newp);
             if (other && other->is_removable()) {
                 SwapStone *newStone = new SwapStone;

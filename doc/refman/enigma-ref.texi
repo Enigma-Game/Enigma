@@ -5305,6 +5305,8 @@ of every color.
 `a', `b', `c', or `d'
 @item color
 a number between 0 and 7
+@item static
+true, false (default) - static oxyds may not be swapped
 @end table
 
 @strong{Messages}
