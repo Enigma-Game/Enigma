@@ -29,9 +29,9 @@ set_stone( "st-rotator-left", 0, level_height-2 )
 
 bolder1 = set_stone( "st-bolder-n", 1, 6)
 bolder2 = set_stone( "st-bolder-s", level_width-2, 6)
-white = set_actor( "ac-whiteball", level_width/2, level_height/2,{player=0,controllers=0,essential=1} )
-killer1 = set_actor( "ac-killerball", 5.5, level_height/2, {controllers=0} )
-killer2 = set_actor( "ac-killerball", level_width-5.5, level_height/2, {controllers=0} )
+white = set_actor( "ac-whiteball", level_width/2, level_height/2,{player=1, controllers=0, essential=1} )
+killer1 = set_actor( "ac-killerball", 5.5, level_height/2, {player=1, controllers=0} )
+killer2 = set_actor( "ac-killerball", level_width-5.5, level_height/2, {player=1, controllers=0} )
 
 AddRubberBand( killer1, bolder1, 10, 4 )
 AddRubberBand( killer1, white, 2, 1 )
@@ -45,7 +45,7 @@ oxyd(6,12)
 oxyd(13,12)
 oxyd_shuffle()
 
-set_actor( "ac-blackball", level_width/2, 7.5, {essential=1})
+set_actor( "ac-blackball", level_width/2, 7.5, {player=0, essential=1})
     ]]></el:luamain>
     <el:i18n>
       <el:string el:key="title">

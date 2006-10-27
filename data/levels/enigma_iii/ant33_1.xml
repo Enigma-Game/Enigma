@@ -41,11 +41,39 @@ cells["A"]=cell{item={"it-trigger", {action="callback", target="action_A"}}}
 cells["B"]=cell{{{switch, "doorB", "openclose"}}}
 cells["b"]=cell{{cells["`"], {doorv, {name="doorB"}}}}
 
-success_C =function() send_message_named("doorC", "open", nil); end;
-failed_C  =function() send_message_named("doorC", "close", nil); end;
-states_C  =bool_table(3, 0, bool_and, success_C, failed_C)
-action_C  =function() cell{{{bool_set, states_C}}}() end
-cells["C"]=cell{item={"it-trigger", {action="callback", target="action_C"}}}
+-- commented out by Raoul, oct 06 to repair this level for Enigma 1.0
+--success_C =function() send_message_named("doorC", "open", nil); end;
+--failed_C  =function() send_message_named("doorC", "close", nil); end;
+--states_C  =bool_table(3, 0, bool_and, success_C, failed_C)
+--action_C  =function() cell{{{bool_set, states_C}}}() end
+--cells["C"]=cell{item={"it-trigger", {action="callback", target="success_C"}}}
+
+-- Workaround for the 5 lines above:
+t1, t2, t3 = 0,0,0
+
+function test_C(onoff, sender)
+    local nr_tr = enigma.GetAttrib(sender, "door_nr")
+
+    if nr_tr == 1 then
+        t1=1-t1
+    elseif nr_tr == 2 then
+        t2=1-t2
+    elseif nr_tr ==3 then
+        t3=1-t3
+    end
+
+    if t1==1 and t2==1 and t3==1 then --open door
+        send_message_named("doorC", "open", nil)
+    else -- close door
+        send_message_named("doorC", "close", nil)
+    end
+end
+
+cells["I"]=cell{item={"it-trigger", {action="callback", target="test_C", door_nr=1}}}
+cells["J"]=cell{item={"it-trigger", {action="callback", target="test_C", door_nr=2}}}
+cells["K"]=cell{item={"it-trigger", {action="callback", target="test_C", door_nr=3}}}
+-- /Workaround
+
 cells["c"]=cell{{{doorh, {name="doorC"}}}}
 
 cells["E"]=cell{{{switch, "doorE", "close"}}}
@@ -68,9 +96,9 @@ level = {
    "#2`````````````````````w``````````````````.`````````<^vvv#>>>>>>``>vvvv>>>>>>>```````w```````````````````.` E*  &*#",
    "#####``````````````#####``````````````````#````````````>>b^^`````#-#>>>v^^^^D`^^^^^^^^^^^^`````##############* 0 *#",
    "....################...###########################################s#############################            #*   *#",
-   "#####              #####                            W W W# W   C #c# ..     #                  #      ======#* 0 *#",
-   "#O  A                  W.                           W  W  W W  C     ..                       W.   %W =XX   e* + *#",
-   "#   #           ########                            W W  # W   C     ..     #                  #      =W    #*****#",
+   "#####              #####                            W W W# W   I #c# ..     #                  #      ======#* 0 *#",
+   "#O  A                  W.                           W  W  W W  J     ..                       W.   %W =XX   e* + *#",
+   "#   #           ########                            W W  # W   K     ..     #                  #      =W    #*****#",
    "#################......#########################################################################      =     #######",
    "...............................................................................................##############......",
    "..................................................................................................................."

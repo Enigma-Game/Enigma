@@ -43,11 +43,9 @@ function renderLine( line, pattern)
             --            abyss(i-1,line)
             fill_floor("fl-water", i-1,line, 1,1)
         elseif c=="z" then
-            local ac0=set_actor("ac-blackball", i,line+.5, {name="ac0"})
+            local ac0=set_actor("ac-blackball", i,line+.5, {player=0, essential=1, name="ac0"})
         elseif c=="W" then
-            local ac1=set_actor("ac-killerball", i,line+.5, {player=1, mouseforce=1,name="ac1"})
-        elseif c=="i" then
-            set_actor("ac-rotor", i-.5,line+.5, {player=1, mouseforce=0, range=28, force=50})
+            local ac1=set_actor("ac-killerball", i,line+.5, {player=1, mouseforce=0, name="ac1"})
         elseif c == "g" then
             draw_stones("st-grate1",{i-1,line}, {1,1}, 1)
         elseif c=="+" then
@@ -135,7 +133,7 @@ oxyd_shuffle()
 ac0=enigma.GetNamedObject("ac0")
 ac1=enigma.GetNamedObject("ac1")
 
-enigma.AddRubberBand(ac0,ac1,1,7)
+enigma.AddRubberBand(ac0,ac1,2,7)
 
 ff1=0
 function funcc1()
