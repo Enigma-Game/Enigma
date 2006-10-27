@@ -4,7 +4,8 @@ SUBDIRS = enigma_tutorial enigma_i enigma_ii enigma_iii enigma_iv enigma_v \
 	enigma_oxydextra \
 	enigma_sokoban enigma_microban enigma_mas_microban \
 	enigma_experimental enigma_stable \
-	enigma_cross patches lib png_temp
+	enigma_cross \
+    patches lib
 
 pkgdatadir = $(datadir)/@PACKAGE@/levels
 pkgdata_DATA = $(wildcard $(srcdir)/*.lua $(srcdir)/*.xml)
