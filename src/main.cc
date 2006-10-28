@@ -345,7 +345,7 @@ void Application::init(int argc, char **argv)
     lev::Index::registerIndex(new lev::VolatileIndex(INDEX_SEARCH_PACK_NAME,
                 INDEX_DEFAULT_GROUP, emptyList, INDEX_SEARCH_PACK_LOCATION));
 
-    oxyd::ChangeSoundset(options::GetInt("SoundSet"), 1);
+    oxyd::ChangeSoundset(options::GetInt("SoundSet"), false);
 
     lev::Proxy::countLevels();
 

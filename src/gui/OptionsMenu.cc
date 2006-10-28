@@ -155,57 +155,50 @@ namespace enigma { namespace gui {
 
     /* -------------------- SoundSetButton -------------------- */
     
-    SoundSetButton::SoundSetButton()
-    : ValueButton(0, int(OxydLib::OxydVersion_PerOxyd)+2)
-    {
+    SoundSetButton::SoundSetButton() : ValueButton(0, 1) {
+        using namespace OxydLib;
+        
+        availableSoundSets.push_back(0);
+        availableSoundSetsTitles.push_back(_("Default"));
+        availableSoundSets.push_back(1);
+        availableSoundSetsTitles.push_back("Enigma");
+        int numAvail = 2;
+        for (int i = OxydVersion_First; i<= OxydVersion_Last; i++) {
+            if (oxyd::FoundOxyd(OxydVersion(i))) {
+                availableSoundSets.push_back(i+2);
+                std::string title;
+                switch (i) {
+                case OxydVersion_Oxyd1:          title = "Oxyd"; break;
+                case OxydVersion_OxydMagnum:     title = "Magnum"; break;
+                case OxydVersion_OxydMagnumGold: title = "Mag.Gold"; break;
+                case OxydVersion_OxydExtra:      title = "Extra"; break;
+                case OxydVersion_PerOxyd:        title = "Per.Oxyd"; break;
+                default:      title = "unknown"; break;
+                }
+                availableSoundSetsTitles.push_back(title);
+                numAvail++;
+            }
+        }
+        setMaxValue(numAvail - 1);
         init();
     }
     
-    bool SoundSetButton::hasSoundSet(int value) {
-        if (value<2) return true;
-        return oxyd::FoundOxyd(OxydLib::OxydVersion(value-2));
-    }
-    
-    int SoundSetButton::get_value() const 
-    {
-        return options::GetInt("SoundSet"); 
+    int SoundSetButton::get_value() const {
+        int soundSet = options::GetInt("SoundSet");
+        for (int i = 0; i < availableSoundSets.size(); i++) {
+            if (availableSoundSets[i] == soundSet)
+                return i;
+        }
+        return 0;  // default soundset
     }
     
     void SoundSetButton::set_value(int value) {
-        int old  = options::GetInt("SoundSet");
-        options::SetOption("SoundSet", value);
-        if (!hasSoundSet(options::GetInt("SoundSet"))) {
-            if (old < options::GetInt("SoundSet")) 
-                inc_value(1);
-            else 
-                inc_value(-1);
-            return;
-        }
-        oxyd::ChangeSoundset(options::GetInt("SoundSet"), -1);
+        options::SetOption("SoundSet", availableSoundSets[value]);
+        oxyd::ChangeSoundset(availableSoundSets[value], false);        
     }
     
-    string SoundSetButton::get_text(int value) const 
-    {
-        using namespace OxydLib;
-    
-        string sound_set;
-        switch (value) {
-        case 0: sound_set = _("Default"); break;
-        case 1: sound_set = "Enigma"; break;
-        default :
-            switch (OxydVersion(options::GetInt("SoundSet")-2)) {
-            case OxydVersion_Oxyd1:          sound_set = "Oxyd"; break;
-            case OxydVersion_OxydMagnum:     sound_set = "Magnum"; break;
-            case OxydVersion_OxydMagnumGold: sound_set = "Mag.Gold"; break;
-            case OxydVersion_OxydExtra:      sound_set = "Extra"; break;
-            case OxydVersion_PerOxyd:        sound_set = "Per.Oxyd"; break;
-            default :
-                fprintf(stderr, "Invalid soundset %i\n", value);
-                break;
-            }
-            break;
-        }
-        return sound_set;
+    string SoundSetButton::get_text(int value) const {
+        return availableSoundSetsTitles[value];
     }
     
     

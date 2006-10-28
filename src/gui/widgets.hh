@@ -404,6 +404,7 @@ namespace enigma { namespace gui {
 
         virtual int get_value() const     = 0;
         virtual void set_value(int value) = 0;
+        void setMaxValue(int max);
 
         bool inc_value(int offset);
 

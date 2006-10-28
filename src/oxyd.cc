@@ -1047,25 +1047,29 @@ bool oxyd::FoundOxyd (OxydVersion ver) {
 }
 
 
-void oxyd::ChangeSoundset (int sound_set, int default_sound_set) 
+void oxyd::ChangeSoundset(int new_sound_set, bool isDefault) 
 {
-    ASSERT(sound_set >= 0 && sound_set <= OxydVersion_Count + 1 &&
-            (default_sound_set == -1 || 
-            default_sound_set >= OxydVersion_First + 1 &&  
-            default_sound_set <= OxydVersion_Count + 1 ), XFrontend, 
-            "Illegal Soundset requested");
-    static int last_default_sound_set = 1;
-
-    // if called without knowing default sound set
-    // take last default or default to enigma
-    // (e.g when called from option menu from inside game)
-    if (default_sound_set == -1)
-        default_sound_set = last_default_sound_set;
-    else
-        last_default_sound_set = default_sound_set;
-
-    if (sound_set == 0) {       // use specific soundset for each levelpack
-        sound_set = default_sound_set;
+    static int last_default_sound_set = 1; // default is Enigma
+    static int last_user_sound_set = 0;    // user selection of default 
+    int sound_set = last_user_sound_set;
+    
+    if (isDefault) {
+        // new levelpack sets a default soundset
+        ASSERT(new_sound_set > 0, XFrontend, "Default Soundset 0");
+        
+        // remember current default
+        last_default_sound_set = new_sound_set;
+        
+        // select it if default is users selection
+        if (last_user_sound_set == 0)
+            sound_set = new_sound_set;
+    } else {
+        // user selects a soundset 
+        last_user_sound_set = new_sound_set;
+        if (new_sound_set == 0) 
+            sound_set = last_default_sound_set;
+        else
+            sound_set = new_sound_set;
     }
 
     if (sound_set == active_soundset) {

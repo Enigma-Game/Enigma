@@ -360,7 +360,10 @@ en_set_actor(lua_State *L)
     Actor *ac = dynamic_cast<Actor*>(to_object(L, 3));
     if( ! ac)
         throwLuaError(L, "object is no valid actor");
-    world::AddActor(x, y, ac);
+    if (world::IsInsideLevel(GridPos(round_down<int>(x), round_down<int>(y))))
+        world::AddActor(x, y, ac);
+    else
+        throwLuaError(L, "position is outside of world");
     return 0;
 }
 

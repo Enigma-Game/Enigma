@@ -323,7 +323,7 @@ namespace enigma { namespace lev {
         Index * newIndex = findIndex(anIndexName);
         if (newIndex != NULL) {
             if (newIndex != currentIndex) {
-                oxyd::ChangeSoundset(newIndex->get_default_SoundSet(), -1);
+                oxyd::ChangeSoundset(newIndex->get_default_SoundSet(), true);
                 currentIndex = newIndex;
                 std::string group = currentIndex->getGroupName();
                 if (group != INDEX_EVERY_GROUP && 
@@ -700,7 +700,7 @@ namespace enigma { namespace lev {
 
     /*! Return the default SoundSet (see options::SoundSet for meaning) */
     int Index::get_default_SoundSet() const { 
-        return 0;
+        return 1;
     }
 
     /*! Returns true if it's a twoplayer levelpack, but has no

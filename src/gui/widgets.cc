@@ -800,6 +800,10 @@ ValueButton::ValueButton(int min_value_, int max_value_)
 {
 }
 
+void ValueButton::setMaxValue(int max) {
+    max_value = max;
+}
+
 void ValueButton::init() {
     update_value(-1, get_value()); // fixes wrong values (e.g. from .enimarc)
 }

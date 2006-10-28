@@ -68,14 +68,15 @@ namespace enigma { namespace gui {
 
 
     class SoundSetButton : public ValueButton {
+    public:
+        SoundSetButton();
         int get_value() const;
         void set_value(int value);
         std::string get_text(int value) const;
-
-        bool hasSoundSet(int value);
-
-    public:
-        SoundSetButton();
+        
+    private:
+        std::vector<int> availableSoundSets;
+        std::vector<std::string> availableSoundSetsTitles;
     };
 
     class LanguageButton : public ValueButton {

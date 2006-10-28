@@ -28,8 +28,13 @@ namespace oxyd
 
     bool FoundOxyd (OxydLib::OxydVersion ver);
 
-    /* Toggle used soundset */
-    void ChangeSoundset(int sound_set, int default_sound_set);
+    /**
+     * Select soundset or set default soundset.
+     * @arg new_sound_set  Enigma = 1, OxydVersion number +2, or 0 for "use default"
+     * @arg isDefault      true if a levelpack declares it default soundset,
+     *                     false if the user selected soundset is given 
+     */
+    void ChangeSoundset(int new_sound_set, bool isDefault);
 }
 
 #endif
