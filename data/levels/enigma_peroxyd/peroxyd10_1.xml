@@ -33,10 +33,10 @@ hollow(level_width-4,level_height-4)
 hollow(level_width-4, 3)
 hollow(3,level_height-4)
 
-set_actor("ac-whiteball-small", 6.7,5.7, {player=0, mouseforce=1})
-set_actor("ac-whiteball-small",13.3,5.7, {player=0, mouseforce=1})
-set_actor("ac-whiteball-small", 6.7,7.3, {player=0, mouseforce=1})
-set_actor("ac-whiteball-small",13.3,7.3, {player=0, mouseforce=1})
+set_actor("ac-whiteball-small", 6.7,5.7, {player=0, mouseforce=1, essential=1})
+set_actor("ac-whiteball-small",13.3,5.7, {player=0, mouseforce=1, essential=1})
+set_actor("ac-whiteball-small", 6.7,7.3, {player=0, mouseforce=1, essential=1})
+set_actor("ac-whiteball-small",13.3,7.3, {player=0, mouseforce=1, essential=1})
     ]]></el:luamain>
     <el:i18n>
       <el:string el:key="title">

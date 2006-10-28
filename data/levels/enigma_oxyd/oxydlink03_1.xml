@@ -2,7 +2,7 @@
 <el:level xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://enigma-game.org/schema/level/1 level.xsd" xmlns:el="http://enigma-game.org/schema/level/1">
   <el:protected>
     <el:info el:type="level">
-      <el:identity el:title="OxydLink 3" el:subtitle="" el:id="oxyd2p3"/>
+      <el:identity el:title="Oxyd Link 3" el:subtitle="Oxyd Link 3" el:id="oxyd2p3"/>
       <el:version el:score="1" el:release="1" el:revision="0" el:status="released"/>
       <el:author  el:name="Raoul Bourquin" el:email="" el:homepage=""/>
       <el:copyright>Copyright © 2005 Raoul Bourquin</el:copyright>
@@ -10,11 +10,11 @@
       <el:compatibility el:enigma="0.92" el:engine="oxyd1">
        <el:dependency el:path="lib/ant" el:id="lib/ant" el:release="1" el:preload="true"/>
       </el:compatibility>
-      <el:modes el:easy="false" el:single="true" el:network="false"/>
+      <el:modes el:easy="false" el:single="true" el:network="true"/>
       <el:comments>
         <el:code>Lua 5.1 and XML converted by Leveladministrators</el:code>
       </el:comments>
-      <el:score el:easy="-" el:difficult="-"/>
+      <el:score el:easy="-" el:difficult="1:37"/>
     </el:info>
     <el:luamain><![CDATA[
 function file_oxyd(x,y,f)
