@@ -4221,7 +4221,7 @@ st-oneway_black( orientation )
 st-oneway_black-[nesw]( orientation )
 st-oneway_white( orientation )
 st-oneway_white-[nesw]( orientation )
-st-oxyd( flavor color )
+st-oxyd( flavor color static )
 st-oxyd-0x18
 st-peroxyd-0xb8
 st-peroxyd-0xb9
@@ -4383,7 +4383,8 @@ The invisible variant, @code{st-actorimpulse_invisible} can be
 These stones are used to construct big clusters of stones that
 visually seem like one big stone.  Though mainly decorative, they also
 have a small special ability, as they are the only stones that can't
-be swapped with @ref{st-swap} or @ref{st-pull}.
+be swapped with @ref{st-swap} or @ref{st-pull} (besides @ref{st-oxyd}
+with true @code{static}-attribute).
 
 @strong{Attributes}
 
@@ -4391,7 +4392,7 @@ be swapped with @ref{st-swap} or @ref{st-pull}.
 @item connections
 A number between 1 an 16.  Each bit in (connections-1) corresponds to
 an open face of the stone.  You will normally simply use one of the
-Lua constants @code{PUZ_0000} to @code{PUZ_1111}.
+Lua constants @code{PUZ_0001} to @code{PUZ_1111}.
 @end table
 
 @strong{Variants}
@@ -5291,7 +5292,9 @@ Oxyd stones are characterized by two attributes: Their flavor and
 their color.  The @code{flavor} only affects the visual representation
 of the stone; it can be either `a' (opening like a flower), `b'
 (displaying a fade-in animation), `c', or `d'.  The @code{color}
-attribute determines the color on the oxyd stone.
+attribute determines the color on the oxyd stone.  The @code{static}
+attribute declares the oxyd stone to be unswappable/unpullable (see
+@ref{st-swap} and @ref{st-pull}).
 
 @strong{Note}: You should rarely need to create Oxyd stones manually
 with @ref{set_stone}.  Use the predefined @ref{oxyd} function
@@ -5306,7 +5309,8 @@ of every color.
 @item color
 a number between 0 and 7
 @item static
-true, false (default) - static oxyds may not be swapped
+@code{true}, @code{false} (default) - static oxyds may not be swapped
+or pulled
 @end table
 
 @strong{Messages}
@@ -5410,7 +5414,15 @@ The only stones that cannot be pulled, are
 @ref{st-big[brick/bluesand]}.  Use them to make sure that an
 @code{st-pull} can't get out of a restricted area when you use e.g.
 @ref{st-rotator} or other objects that @code{st-pull} reacts on.
+In addition, you can declare @ref{st-oxyd} to be unswappable by
+attribute @code{static}.
 
+Note that, in non-Enigma-modes, @code{st-pull} may not get pulled into
+the border of the level.  This behaviour might change in future
+versions.
+
+For a stone with similar function and restrictions, see @ref{st-swap}.
+ 
 
 @node st-puzzle, st-rotator, st-pull, Stones
 @subsection st-puzzle: Puzzle Stones
@@ -5664,7 +5676,14 @@ other stones and may not be moved on empty fields.
 
 The only stones that cannot be swapped, are
 @ref{st-big[brick/bluesand]}.  Use them to make sure that an
-@code{st-swap} can't get out of a restricted area.
+@code{st-swap} can't get out of a restricted area.  In addition, you
+can declare @ref{st-oxyd} to be unswappable by attribute
+@code{static}.
+
+Note that, in non-Enigma-modes, @code{st-swap} may not swap into the
+border of the level.  This behaviour might change in future versions.
+
+For a stone with similar function and restrictions, see @ref{st-pull}.
 
 
 @node st-switch, st-thief, st-swap, Stones
@@ -6396,6 +6415,8 @@ ultimately opened (pairs must be hit with some time delay).
 (see @ref{Hills and Hollows}).
 @item @ref{it-booze} doesn't break to @ref{it-booze-broken} when a
 stone is pushed over it.
+@item @ref{st-swap} and @ref{st-pull} may not swap/pull into the level
+border.
 @end itemize
 
 
