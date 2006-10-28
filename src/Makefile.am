@@ -134,6 +134,8 @@ enigma_SOURCES = 		\
 	gui/GameMenu.hh		\
 	gui/HelpMenu.cc		\
 	gui/HelpMenu.hh		\
+	gui/InfoMenu.cc		\
+	gui/InfoMenu.hh		\
 	gui/LevelInspector.cc	\
 	gui/LevelInspector.hh	\
 	gui/LevelMenu.cc	\

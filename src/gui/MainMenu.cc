@@ -21,6 +21,7 @@
 #include "gui/LevelMenu.hh"
 #include "gui/OptionsMenu.hh"
 #include "gui/HelpMenu.hh"
+#include "gui/InfoMenu.hh"
 #include "gui/LevelPackMenu.hh"
 #include "gui/LevelPreviewCache.hh"
 #include "display.hh"
@@ -105,6 +106,41 @@ namespace enigma { namespace gui {
     
     
     /* -------------------- Main menu -------------------- */
+    static const char *credit_text[] = {
+        N_("Main developers of the 1.0 release:"),
+        N_("  RONALD LAMPRECHT (lead)"),
+        "  RAOUL BOURQUIN",
+        "  ANDREAS LOCHMANN",
+        " ",
+        N_("Special Thanks To:"),
+        N_("  DANIEL HECK (project founder)"),
+        N_("  MEINOLF SCHNEIDER (game idea, level design)"),
+        " ",
+        N_("Please refer to the manual or the next pages for full credits."),
+        " ",
+        N_("Home Page: http://www.nongnu.org/enigma"),
+        N_("Contact: enigma-devel@nongnu.org"),
+        " ",
+        N_("Enigma is free software and may be distributed under the"),
+        N_("terms of the GNU General Public License, version 2."),
+        " ",
+        N_("Copyright (C) 2002-2006 Daniel Heck and contributors."),
+        0,
+        N_("Main developer of all releases:"),
+        " ",
+        "  Siegfried Fenning (Level design, graphics)",
+        "  Martin Hawlisch (Level design, graphics, programming)",
+        "  Daniel Heck (Main developer, graphics, documentation)",
+        "  Petr Machata (Level design, programming)",
+        "  Nat Pryce (Level design)",
+        "  Sven Siggelkow (Level design an special Oxyd expertise)",
+        "  Ralf Westram (Programming, level design)",
+        0,
+        N_("Special Thanks:"),
+        0,
+        N_("Contributors:"),
+        0,
+    };
     
     MainMenu::MainMenu() 
     {
@@ -122,7 +158,6 @@ namespace enigma { namespace gui {
         m_netgame   = b.add (new StaticTextButton (N_("Network Game"), this));
         leveled     = b.add(new StaticTextButton(N_("Editor"), this));
     #endif
-    //    manual      = b.add(new StaticTextButton("Manual", this));
         options     = b.add(new StaticTextButton(N_("Options"), this));
         credits     = b.add(new StaticTextButton(N_("Credits"), this));
         quit        = b.add(new StaticTextButton(N_("Quit"), this));
@@ -164,24 +199,17 @@ namespace enigma { namespace gui {
 
     void MainMenu::on_action(Widget *w) 
     {
-        if (w == m_startgame) {
-//            LevelMenu m(LevelPacks[0], options::GetInt("LevelMenuPosition"));
-//            LevelMenu m;  
-//            m.manage();
-            
+        if (w == m_startgame) {            
             LevelPackMenu m;
             m.manageLevelMenu();
-//            options::SetOption("LevelMenuPosition", m.get_position());
             invalidate_all();
-    //     }
-    //     else if (w == manual) {
-    //         show_help ();
         } else if (w == m_levelpack) {
             LevelPackMenu m;
             m.manage();
             invalidate_all();
         } else if (w == credits) {
-            show_credits ();
+            displayInfo(credit_text, 4);
+            invalidate_all();
         } else if (w == options) {
             ShowOptionsMenu(0);
     
@@ -211,59 +239,7 @@ namespace enigma { namespace gui {
             invalidate_all();
         }
     }
-    
-    
-    void MainMenu::show_text( const char *text[]) 
-    {
-        Screen *scr = video::GetScreen ();
-        GC gc (scr->get_surface());
-        blit (gc, 0,0, enigma::GetImage("menu_bg", ".jpg"));
-    
-    
-        Font *f = enigma::GetFont("menufont");
-        for (int i=0; text[i]; ++i)
-        {
-            const char *t = _(text[i]);
-            f->render (gc, 40, 20+i*f->get_height(), t);
-        }
-        scr->update_all ();
-        scr->flush_updates();
-    
-        SDL_Event e;
-        for (;;) {
-            SDL_WaitEvent(&e);
-            if (e.type == SDL_KEYDOWN || e.type == SDL_MOUSEBUTTONDOWN)
-                break;
-        }
-    }
-    
-    void MainMenu::show_credits () 
-    {
-        static const char *credit_text[] = {
-            N_("Main developers:"),
-            N_("  RONALD LAMPRECHT (maintainer)"),
-            N_("  RAOUL BOURQUIN"),
-            N_("  ANDREAS LOCHMANN"),
-            " ",
-            N_("Special Thanks To:"),
-            N_("  DANIEL HECK (project founder)"),
-            N_("  MEINOLF SCHNEIDER (game idea, level design)"),
-            " ",
-            N_("Please refer to the manual for full credits."),
-            " ",
-            N_("Home Page: http://www.nongnu.org/enigma"),
-            N_("Contact: enigma-devel@nongnu.org"),
-            " ",
-            N_("Enigma is free software and may be distributed under the"),
-            N_("terms of the GNU General Public License, version 2."),
-            " ",
-            N_("Copyright (C) 2002-2006 Daniel Heck and contributors."),
-            0
-        };
-    
-        show_text(credit_text);
-    }
-    
+        
     void MainMenu::show_paths() {
         const char *pathtext[25];
         std::string pathstrings[25];
@@ -333,7 +309,7 @@ namespace enigma { namespace gui {
             i++;
         } while(!work.empty() );
         pathtext[i++] = 0;
-        show_text(pathtext);
+        displayInfo(pathtext, 1);
     }
     
 /* -------------------- Functions -------------------- */

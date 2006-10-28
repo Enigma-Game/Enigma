@@ -39,9 +39,7 @@ namespace enigma { namespace gui {
         void on_action(Widget *w);
 
         // Private methods.
-        void show_credits();
         void show_paths();
-        void show_text( const char *text[]);
         void build_menu();
 
         // Variables.
