@@ -405,15 +405,15 @@ namespace enigma { namespace gui {
 
     /* -------------------- DifficultyButton -------------------- */
     
-    DifficultyButton::DifficultyButton() : ImageButton("completed","completed",this) {
+    DifficultyButton::DifficultyButton() : ImageButton("ic-easymode","ic-easymode",this) {
         update();
     }
     
     void DifficultyButton::update() {
         if (app.state->getInt("Difficulty") == DIFFICULTY_EASY)
-            ImageButton::set_images("completed-easy","completed");
+            ImageButton::set_images("ic-easymode","ic-normalmode");
         else
-            ImageButton::set_images("completed","completed-easy");
+            ImageButton::set_images("ic-normalmode","ic-easymode");
     }
     
     void DifficultyButton::on_action(Widget *) 

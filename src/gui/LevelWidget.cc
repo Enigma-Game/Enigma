@@ -55,6 +55,7 @@ namespace enigma { namespace gui {
         scoreMgr = lev::ScoreManager::instance();
         img_link        = enigma::GetImage("ic-link");
         img_copy        = enigma::GetImage("ic-copy");
+        img_feather     = enigma::GetImage("ic-feather");
         img_easy        = enigma::GetImage("completed-easy");
         img_hard        = enigma::GetImage("completed");
         img_changed     = enigma::GetImage("changed");
@@ -229,19 +230,36 @@ namespace enigma { namespace gui {
     
         if (displayScoreIcons) {
             // Draw solved/changed icons on top of level preview
+            // Easy/difficult mode and solved status:
+            //   None: Level not beaten - no easy mode available
+            //   Feather: Level not beaten - easy mode available
+            //   Feather + Gold: Level beaten in normal mode - easy available
+            //   Silver: Level beaten in easy mode (normal mode available)
+            //   Gold: Level beaten in normal mode - easy not availabe
+            //   Silver + Gold: Level beaten in all modes - easy available
+            Surface *useAsEasy = NULL;
+            Surface *useAsDifficult = NULL;
+            if (proxy->hasEasymode()) {
+                useAsEasy = img_feather;
+                if (scoreMgr->isSolved(proxy, DIFFICULTY_EASY))
+                    useAsEasy = img_easy;
+            }
+            if (scoreMgr->isSolved(proxy, DIFFICULTY_HARD))
+                useAsDifficult = img_hard;
+            
             if (app.state->getInt("Difficulty") == DIFFICULTY_HARD) {
                 // draw golden medal over silber medal
-                if (scoreMgr->isSolved(proxy, DIFFICULTY_EASY))
-                    blit (gc, x, y, img_easy);
-                if (scoreMgr->isSolved(proxy, DIFFICULTY_HARD))
-                    blit (gc, x+5, y, img_hard);
+                if (useAsEasy != NULL)
+                    blit (gc, x, y, useAsEasy);
+                if (useAsDifficult != NULL)
+                    blit (gc, x+5, y, useAsDifficult);
             }
             else {
                 // draw silver medal over golden medal
-                if (scoreMgr->isSolved(proxy, DIFFICULTY_HARD))
-                    blit (gc, x+5, y, img_hard);
-                if (scoreMgr->isSolved(proxy, DIFFICULTY_EASY))
-                    blit (gc, x, y, img_easy);
+                if (useAsDifficult != NULL)
+                    blit (gc, x+5, y, useAsDifficult);
+                if (useAsEasy != NULL)
+                    blit (gc, x, y, useAsEasy);
             }
         
             // Add warning sign if level has been changed since player solved it
