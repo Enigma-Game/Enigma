@@ -11,6 +11,7 @@ pkgdata_DATA = \
 	models-48.lua \
 	init.lua \
 	startup.lua \
-	compat.lua
+	compat.lua \
+	security.lua
 
 EXTRA_DIST = $(pkgdata_DATA)

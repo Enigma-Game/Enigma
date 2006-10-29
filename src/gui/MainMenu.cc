@@ -156,6 +156,7 @@ namespace enigma { namespace gui {
         "  Jens-Christian Korth (Level design)",
         "  Manuel Koenig (Level design, bug reports)",
         "  Dominik Lehmann (Level design)",
+        0,
         "  Edward Leuf (Feedback, bug reports)",
         "  Ingo van Lil (Feedback, bug reports)",
         "  Frank van der Loo (Dutch translation)",
@@ -240,7 +241,7 @@ namespace enigma { namespace gui {
             m.manage();
             invalidate_all();
         } else if (w == credits) {
-            displayInfo(credit_text, 4);
+            displayInfo(credit_text, 5);
             invalidate_all();
         } else if (w == options) {
             ShowOptionsMenu(0);

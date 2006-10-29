@@ -266,7 +266,9 @@ void server::PrepareLevel()
     if (lua::DoSysFile(L, "init.lua") != lua::NO_LUAERROR) {
         throw XLevelLoading("While processing 'init.lua':\n"+lua::LastError(L));
     }
-
+    if (lua::DoSysFile(L, "security.lua") != lua::NO_LUAERROR) {
+        throw XLevelLoading("While processing 'security.lua':\n"+lua::LastError(L));
+    }
 }
 
 void server::RestartLevel() 
