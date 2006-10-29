@@ -4,8 +4,8 @@
     <el:info el:type="level">
       <el:identity el:title="Impossible?" el:subtitle="" el:id="wb2_exp"/>
       <el:version el:score="1" el:release="1" el:revision="0" el:status="experimental"/>
-      <el:author  el:name="Jon Sneyers" el:email="" el:homepage=""/>
-      <el:copyright>Copyright © 2003 Jon Sneyers</el:copyright>
+      <el:author  el:name="Jon 'WB' Sneyers" el:email="" el:homepage=""/>
+      <el:copyright>Copyright © 2003 Jon 'WB' Sneyers</el:copyright>
       <el:license el:type="GPL v2.0 or above" el:open="true"/>
       <el:compatibility el:enigma="0.92">
        <el:dependency el:path="lib/ant" el:id="lib/ant" el:release="1" el:preload="true"/>

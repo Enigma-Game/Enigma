@@ -4,8 +4,8 @@
     <el:info el:type="level">
       <el:identity el:title="Pneumatic Delivery" el:subtitle="" el:id="malla01"/>
       <el:version el:score="1" el:release="1" el:revision="0" el:status="released"/>
-      <el:author  el:name="Manuel Koenig" el:email="" el:homepage=""/>
-      <el:copyright>Copyright © 2004 Manuel Koenig</el:copyright>
+      <el:author  el:name="Manuel König" el:email="" el:homepage=""/>
+      <el:copyright>Copyright © 2004 Manuel König</el:copyright>
       <el:license el:type="GPL v2.0 or above" el:open="true"/>
       <el:compatibility el:enigma="0.92">
        <el:dependency el:path="lib/ant" el:id="lib/ant" el:release="1" el:preload="true"/>
