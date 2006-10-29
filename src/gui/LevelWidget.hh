@@ -101,6 +101,8 @@ namespace enigma { namespace gui {
         ecl::Surface *img_unavailable;
     //    Surface *img_unknown;
         ecl::Surface *img_par;
+        ecl::Surface *img_wrEasy;
+        ecl::Surface *img_wrDifficult;
         ecl::Surface *img_border;
         ecl::Surface *img_editborder;
     };

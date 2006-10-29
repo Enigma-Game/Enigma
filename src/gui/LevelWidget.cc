@@ -62,6 +62,8 @@ namespace enigma { namespace gui {
         img_unavailable = enigma::GetImage("unavailable");
 //        img_unknown     = enigma::GetImage("unknown");
         img_par         = enigma::GetImage("par");
+        img_wrEasy      = enigma::GetImage("ic-wr-easy");
+        img_wrDifficult = enigma::GetImage("ic-wr-difficult");
         img_border      = enigma::GetImage("thumbborder");
         img_editborder  = enigma::GetImage("editborder");
     }
@@ -266,9 +268,11 @@ namespace enigma { namespace gui {
             if (scoreMgr->isOutdated(proxy, app.state->getInt("Difficulty")))
                 blit (gc, x-3, y-3, img_changed);
         
-            // Add time icon if par has been reached
+            // Add icon if worldrecord
             if (scoreMgr->bestScoreReached(proxy, app.state->getInt("Difficulty")))
-                blit(gc, x+30, y+12, img_par);
+                blit(gc, x+35, y+5, 
+                        (app.state->getInt("Difficulty") != DIFFICULTY_HARD &&
+                        proxy->hasEasymode()) ? img_wrEasy : img_wrDifficult);
         } else {
             // Draw solved/changed icons on top of level preview
             if (isCross) 

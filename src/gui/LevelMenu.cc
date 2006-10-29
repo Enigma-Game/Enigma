@@ -437,10 +437,10 @@ namespace enigma { namespace gui {
     void AdvanceModeButton::update() {
         switch (app.state->getInt("NextLevelMode")) {
         case lev::NEXT_LEVEL_UNSOLVED :
-            ImageButton::set_images("ic-unsolved", "par");
+            ImageButton::set_images("ic-unsolved", "ic-worldrecord");
             break;
         case lev::NEXT_LEVEL_NOT_BEST :
-            ImageButton::set_images("par", "ic-strictlynext");
+            ImageButton::set_images("ic-worldrecord", "ic-strictlynext");
             break;
         case lev::NEXT_LEVEL_STRICTLY : // use as default, too
         default:
