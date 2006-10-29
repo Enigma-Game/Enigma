@@ -4155,7 +4155,7 @@ st-door-h-open( type )
 st-door-v( type )
 st-door-v-open( type )
 st-door_[abc]
-st-dynamite
+@c st-dynamite
 st-easymode
 st-explosion
 st-fakeoxyda
@@ -4271,7 +4271,7 @@ st-volcano_active
 st-volcano_inactive
 st-white@{1..4@}
 st-whiteballs
-st-whitebombs
+@c st-whitebombs
 st-window
 st-wood
 st-wood-growing
@@ -4313,7 +4313,8 @@ pyro; this stone is movable; falls into @ref{fl-abyss},
 breaks instantly, looks like @code{st-rock3}
 @item st-fart
 hammer, laser; see also @ref{st-fart}
-@item st-bombs, st-dynamite, st-whitebombs
+@item st-bombs
+@c st-dynamite, st-whitebombs
 bombs, bombstones, ``expl'', ``bombstone''; see also @ref{st-bombs}
 @item st-brake
 laser, bombs, ``expl''; see @ref{st-brake}
@@ -4536,9 +4537,9 @@ inventory.  It can be destroyed with explosions from
 also ignites @ref{it-dynamite} beneath it, but not @code{it-blackbomb}
 or @code{it-whitebomb}.
 
-There are two more variants of @code{st-bombs}, that differ in that
-they dispense @code{it-dynamite} and @code{it-whitebomb}:
-@code{st-dynamite} and @code{st-whitebomb}
+@c There are two more variants of @code{st-bombs}, that differ in that
+@c they dispense @code{it-dynamite} and @code{it-whitebomb}:
+@c @code{st-dynamite} and @code{st-whitebomb}
 
 @strong{Messages}
 
@@ -4547,13 +4548,13 @@ they dispense @code{it-dynamite} and @code{it-whitebomb}:
 destroy stone
 @end table
 
-@strong{Variants}
+@c @strong{Variants}
 
-@table @code
-@item st-bombs
-@item st-dynamite
-@item st-whitebombs
-@end table
+@c @table @code
+@c @item st-bombs
+@c @item st-dynamite
+@c @item st-whitebombs
+@c @end table
 
 
 @node st-brake, st-brick_magic, st-bombs, Stones

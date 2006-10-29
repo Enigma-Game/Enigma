@@ -2214,8 +2214,8 @@ void stones::Init_simple()
 
     Register(new BlockStone);
     Register(new BombStone("st-bombs", "it-blackbomb"));
-    Register(new BombStone("st-dynamite", "it-dynamite"));
-    Register(new BombStone("st-whitebombs", "it-whitebomb"));
+    //Register(new BombStone("st-dynamite", "it-dynamite"));
+    //Register(new BombStone("st-whitebombs", "it-whitebomb"));
     Register(new BrakeStone);
 
     Register(new Break_acblack);
