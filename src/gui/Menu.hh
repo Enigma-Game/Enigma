@@ -83,84 +83,6 @@ namespace enigma { namespace gui {
         ecl::Rect pos() const { return r; }
     };
 
-    class VTableBuilder {
-        Menu     *m_menu;
-        ecl::Rect  m_targetarea;
-        ecl::Rect  m_widgetsize;
-        int       m_vspacing, m_hspacing;
-        
-    public:
-        VTableBuilder (Menu *menu, const ecl::Rect &targetarea, const ecl::Rect &widgetsize,
-                       int   vspacing, int hspacing)
-        : m_menu(menu),
-          m_targetarea(targetarea),
-          m_widgetsize(widgetsize),
-          m_vspacing(vspacing),
-          m_hspacing(hspacing)
-        {}
-
-        bool finish(std::vector<Widget*> widgets) {
-            // if finish returns false, no widgets have been added to the menu
-            // because the layout failed.
-
-            if (widgets.empty())
-                return true;
-
-            int count       = (int) widgets.size();
-            int max_columns = (m_targetarea.w+m_vspacing) / (m_widgetsize.w+m_vspacing);
-            int max_rows    = (m_targetarea.h+m_hspacing) / (m_widgetsize.h+m_hspacing);
-            int min_columns = ((count-1) / max_rows)+1;
-            int min_rows    = ((count-1) / max_columns)+1;
-            
-            if (min_columns>max_columns || min_rows>max_rows)
-                return false;   // layout not possible
-
-            double aspect_ratio = fabs(max_columns/static_cast<double>(max_rows));
-            double best_diff    = 1000; // really bad
-            int    best_free    = 20; // really bad
-            int    best_cols    = -1;
-            int    best_rows    = -1;
-
-            for (int cols = min_columns; cols <= max_columns; ++cols)
-                for (int rows = min_rows; rows <= max_rows; ++rows) {
-                    int elements = rows*cols;
-                    int Free     = elements-count;
-
-                    if (Free >= 0) {
-                        double curr_aspect_ratio = fabs(cols/static_cast<double>(rows));
-                        double curr_diff         = fabs(aspect_ratio-curr_aspect_ratio);
-                        
-                        if (Free<best_free || (Free == best_free && curr_diff<best_diff)) {
-                            best_diff = curr_diff;
-                            best_free = Free;
-                            best_cols = cols;
-                            best_rows = rows;
-                        }
-                    }
-                }
-
-            if (best_cols == -1)
-                return false;
-
-            // layout succeeded -> add widgets to Menu
-
-            int i=0;
-            int x=0;
-            for (int col = 0; col < best_cols && i<count; col++) {
-                int y=0;
-                for (int row=0; row < best_rows && i<count; row++, i++) {
-                    ecl::Rect rr(x, y, m_widgetsize.w, m_widgetsize.h);
-                    m_menu->add(widgets[i], rr);
-                    // widgets[i]->move (x, y);
-                    widgets[i]  = 0; // widget now owned by m_menu
-                    y            += m_widgetsize.h + m_vspacing;
-                }
-                x += m_widgetsize.w + m_hspacing;
-            }
-            return true;
-        }
-    };
-
     class BuildHList {
         ecl::Rect r;
         Menu *container;
@@ -185,24 +107,5 @@ namespace enigma { namespace gui {
         ecl::Rect pos() const { return r; }
     };
 
-
-    class BuildTable {
-        Container *container;
-        int columns;
-        int current_column;
-        int rowheight;
-
-    public:
-        BuildTable (Container *container_, int columns_, int rowheight_)
-        : container(container_) , 
-          columns (columns_),
-          current_column (0),
-          rowheight (rowheight_)
-        {}
-   
-        void add (Widget *w) {
-
-        }
-    };
 }} // namespace enigma::gui
 #endif
