@@ -245,7 +245,7 @@ for i=1,18 do
     set_stone("st-switch", i,5,{action="callback", target="wup"..tostring(i), on=0})
     set_stone("st-switch", i,7,{action="callback", target="wdw"..tostring(i), on=1})    
 end
-randomseed( enigma.GetTicks() )
+
 for i=1,18 do
     -- rows 4,6 and 8 doesn't mean anything!    
     for j=4,8 do

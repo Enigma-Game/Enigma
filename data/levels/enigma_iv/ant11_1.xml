@@ -155,7 +155,6 @@ level = {
 }
 
 -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- --
-randomseed(enigma.GetTicks())
 set_default_parent(cells[" "])
 create_world_by_map(level)
 oxyd_shuffle()

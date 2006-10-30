@@ -16,8 +16,6 @@
       <el:score el:easy="-" el:difficult="-"/>
     </el:info>
     <el:luamain><![CDATA[
-randomseed(enigma.GetTicks())
-
 create_world(58,37)
 draw_border("st-glass1")
 fill_floor("fl-leaves")

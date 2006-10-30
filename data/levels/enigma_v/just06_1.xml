@@ -137,7 +137,6 @@ stmap = {"!!!!!!!!!!!!!!!!!!!!*!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!>>>>!",
          "!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!>>>>!"}
 
 function scrambling (map, char)
-  randomseed(enigma.GetTicks())
   numstones = 0
   xpos = {}
   ypos = {}

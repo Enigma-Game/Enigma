@@ -16,8 +16,6 @@
       <el:score el:easy="-" el:difficult="-"/>
     </el:info>
     <el:luamain><![CDATA[
-randomseed(enigma.GetTicks())
-
 floortile1 = "fl-space"
 floortile2 = "fl-metal"
 floortile3 = "fl-gradient"

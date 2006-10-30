@@ -17,7 +17,6 @@
     </el:info>
     <el:luamain><![CDATA[
 enigma.ConserveLevel=FALSE
-randomseed( enigma.GetTicks() )
 
 function point( x, y )
     return {x=x,y=y}

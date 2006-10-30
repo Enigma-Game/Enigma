@@ -63,11 +63,9 @@ level = {
    "####################"
 }
 
-randomseed(666)
 oxyd_default_flavor = "b"
 set_default_parent(cells[" "])
 create_world_by_map(level)
-randomseed(enigma.GetTicks())
 oxyd_shuffle()
     ]]></el:luamain>
     <el:i18n>

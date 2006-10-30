@@ -17,8 +17,6 @@
       <el:score el:easy="-" el:difficult="-"/>
     </el:info>
     <el:luamain><![CDATA[
-randomseed( enigma.GetTicks() )
-
 send_message = SendMessage
 
 function send_message_to_group( group, message, arg )

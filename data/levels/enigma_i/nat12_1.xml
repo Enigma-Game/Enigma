@@ -232,8 +232,6 @@ end
 ---------------------------------------------------------------
 -- Create the world
 
-randomseed( enigma.GetTicks() )
-
 create_world( 20, 13 )
 
 fill_floor( "fl-leaves")

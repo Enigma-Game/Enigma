@@ -1329,7 +1329,6 @@ function play_sokoban(level,num)
    local tries = 80
    local ok = 0
 
-   randomseed(enigma.GetTicks())
    choose_symmetry()
 
    if (w>20 or h>13) then
@@ -1350,7 +1349,6 @@ function play_sokoban(level,num)
 
    while ((tries > 0) and (maxoxyds > 0) and (ok == 0)) do
       init(num-1)
-      randomseed(enigma.GetTicks())
       rs_create_world(level,cells,set_spacecell,set_spacecell)
 
       enigma.ConserveLevel = FALSE

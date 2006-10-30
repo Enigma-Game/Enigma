@@ -161,8 +161,6 @@ stoneface = { -- define different faces for the stones
 }
 
 -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- --
-
-randomseed(enigma.GetTicks())
 realstonenum = getn(stonedef) -- number of real different stones
 stonefacenum = getn(stoneface)
 stonexsize = {} -- calculated below

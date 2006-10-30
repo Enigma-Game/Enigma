@@ -76,7 +76,6 @@ level = {
    "####################"
 }
 
-randomseed(enigma.GetTicks())
 set_default_parent(cells[" "])
 oxyd_default_flavor = "b"
 create_world_by_map(level)

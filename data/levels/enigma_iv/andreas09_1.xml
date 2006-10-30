@@ -117,7 +117,7 @@ create_world_by_map(level)
 draw_map(0,0,stmap,stones)
 draw_map(0,0,itmap,items)
 draw_map(0,0,acmap,actors)
-randomseed( enigma.GetTicks() )
+
 colour = {}
 uhrlaeuft = 1.0
 richtung = 1.0

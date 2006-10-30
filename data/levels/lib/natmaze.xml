@@ -116,8 +116,6 @@ function new_kruskal_maze( width, height )
     local zones = {}
     local zone_count = width*height
     
-    randomseed( enigma.GetTicks() )
-    
     while zone_count > 1 do
         wall = remove_random_element( walls )
         local x1 = wall.cellx

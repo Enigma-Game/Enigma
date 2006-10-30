@@ -29,7 +29,6 @@ stone  = cell{stone="st-glass"}
 tiles  = cell{{{randomfloor, {normal, invert}}}}
 mask   = cell{stone="st-chameleon"}
 -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- --
-randomseed(666)
 
 create_world(20, 13)
 fill_world_func(tiles)

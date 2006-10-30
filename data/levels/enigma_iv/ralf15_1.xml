@@ -39,8 +39,6 @@ else
    seed = 8375
 end
 
-randomseed(seed)
-
 function randstone(x,y)
    local r = random(1,7)
    local st = "st-death"
