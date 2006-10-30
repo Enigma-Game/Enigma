@@ -693,7 +693,7 @@ namespace
 
         // Variables.
         Actor *whiteball;   // The small white ball that is currently being tracked
-        Uint32 enter_time;  // ... when did it enter the hollow?
+        double enter_time;  // ... when did it enter the hollow?
     };
     DEF_TRAITSF(Hollow, "it-hollow", it_hollow, itf_static | itf_fireproof);
 
@@ -816,7 +816,7 @@ bool Hollow::actor_hit(Actor *a)
         if (whiteball==0 && get_id(a)==ac_meditation && near_center_p(a))
         {
             whiteball  = a;
-            enter_time = SDL_GetTicks();
+            enter_time = server::LevelTime;
         }
         else if (whiteball==a) {
             if (!near_center_p(a))
@@ -839,7 +839,7 @@ void Hollow::actor_leave(Actor *)
    the level. */
 void Hollow::check_if_level_finished()
 {
-    const unsigned MINTIME = 1000;
+    const double MINTIME = 1.0;
 
     unsigned wcnt     = 0;      // counts normal hollows with whiteball
     unsigned ess_wcnt = 0;      // counts essential hollows with whiteball
@@ -851,7 +851,7 @@ void Hollow::check_if_level_finished()
         const Hollow& h         = **hi;
         bool          essential = h.int_attrib("essential") != 0;
 
-        if (h.whiteball && (SDL_GetTicks() - h.enter_time) >= MINTIME) {
+        if (h.whiteball && (server::LevelTime - h.enter_time) >= MINTIME) {
             if (essential) ess_wcnt++;
             else           wcnt++;
         }

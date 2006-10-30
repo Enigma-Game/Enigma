@@ -49,8 +49,7 @@ namespace enigma_server
 
 /* -------------------- Per-level settings -------------------- */
 
-    // The number of seconds passed since the game started.  Used as
-    // the time stamp in network packets.
+    // The number of seconds passed since the level game started.
     extern double LevelTime;
 
     // True: do not reset level when player dies
