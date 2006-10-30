@@ -23,10 +23,26 @@ cells[" "]=cell{floor="fl-rough"}
 cells["#"]=cell{stone="st-rock3"}
 
 doors={}
-open_doors=cell{{{send_group_message, doors, "openclose", nil; mode=-1}}}
-close_trap=cell{{{send_message_named, "bridgeA", "close", nil; mode=-1}}}
+
+-- Workaround
+-- To avoid an error in ant.xml
+-- Commented out by Raoul, oct 06 to repair this level for Enigma 1.0
+--open_doors=cell{{{send_group_message, doors, "openclose", nil; mode=-1}}}
+--close_trap=cell{{{send_message_named, "bridgeA", "close", nil; mode=-1}}}
+
+function open_doors()
+    SendMessage("bridgeA", "openclose")
+    SendMessage("doorA", "openclose")
+end
+
+function close_trap()
+    SendMessage("bridgeA","close")
+end
+-- /Workaround
+
 cells["T"]=cell{{{add_multifloor, "fl-bridge", doors, {name="bridgeA"}}}}
 cells["|"]=cell{{{add_multistone, "st-door", doors, {type="v", name="doorA"}}}}
+
 cells["C"]=cell{stone={"st-coinslot", {action="openclose", target="doorA"}}}
 cells["t"]=cell{item= {"it-trigger",  {action="openclose", target="doorA"}}}
 cells["S"]=cell{stone={"st-switch",   {action="callback",  target="open_doors"}}}

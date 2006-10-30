@@ -12,7 +12,9 @@
       </el:compatibility>
       <el:modes el:easy="false" el:single="true" el:network="false"/>
       <el:comments>
-        <el:code>Lua 5.1 and XML converted by Leveladministrators</el:code>
+        <el:code>Lua 5.1 and XML converted by Leveladministrators
+        Line 14, 15 added by Raoul for 1.0 release, oct 06
+        </el:code>
       </el:comments>
       <el:score el:easy="-" el:difficult="-"/>
     </el:info>
@@ -62,7 +64,9 @@
          "#              &&& M  K        #$#    #b#",--10
          "bS      W          #gKK        #0#   N#b#",--11
          "bb#########################l###########b#",--12
-         "bbbbbbbbbbb bbbbbbbbbbbbbbbbbbbbbbbbbbbb#" --13
+         "bS#bbbbbbbb bbbbbbbbbbbbbbbbbbbbbbbbbbbb#",--13
+         "b##b#####################################",--14
+         "bbbb#                                    " --15
     --00000000001111111111222222222233333333334
     --01234567890123456789012345678901234567890
       }
