@@ -6,8 +6,8 @@
   <attributes/>
 
   <levels>
-    <level _seq="1" _title="Welcome" _xpath="./welcometopack6_1" author="Raoul Bourquin" ctrl="force" easy="false" id="welcometopack6" rel="1" rev="0" score="1" target="time" unit="duration"/>
-    <level _seq="2" _title="A-way" _xpath="./richi06_1" author="Richi" ctrl="force" easy="false" id="richi06" rel="1" rev="0" score="1" target="time" unit="duration"/>
+    <level _seq="1" _title="Welcome" _xpath="./welcometopack6_1" author="Raoul Bourquin" ctrl="force" easy="true" id="welcometopack6" rel="1" rev="0" score="1" target="time" unit="duration"/>
+    <level _seq="2" _title="A-way" _xpath="./richi06_1" author="Richi Bützer" ctrl="force" easy="false" id="richi06" rel="1" rev="0" score="1" target="time" unit="duration"/>
     <level _seq="3" _title="Toreador" _xpath="./ral02_1" author="Ronald Lamprecht" ctrl="force" easy="true" id="20060213ral004" rel="1" rev="25" score="1" target="time" unit="duration"/>
     <level _seq="4" _title="Laser Splitting" _xpath="./luc29_1" author="Lukas Schueller" ctrl="force" easy="false" id="luc29" rel="1" rev="0" score="1" target="time" unit="duration"/>
     <level _seq="5" _title="Oxydrings" _xpath="./raoul13_1" author="Raoul Bourquin" ctrl="force" easy="false" id="raoul13" rel="1" rev="0" score="1" target="time" unit="duration"/>
@@ -18,13 +18,13 @@
     <level _seq="10" _title="Meditation Disturbance" _xpath="./ral04_1" author="Ronald Lamprecht" ctrl="force" easy="true" id="20060429ral006" rel="1" rev="33" score="1" target="time" unit="duration"/>
     <level _seq="11" _title="Im-pull-se" _xpath="./ralf07_1" author="Ralf Westram" ctrl="force" easy="false" id="ralf07" rel="1" rev="0" score="1" target="time" unit="duration"/>
     <level _seq="12" _title="Zeus" _xpath="./raoul19_1" author="Raoul Bourquin" ctrl="force" easy="true" id="raoul19" rel="1" rev="0" score="1" target="time" unit="duration"/>
-    <level _seq="13" _title="Rhapsody on Cracks" _xpath="./ral06_1" author="Ronald Lamprecht" ctrl="force" easy="true" id="20060510ral008" rel="1" rev="27" score="1" target="time" unit="duration"/>
+    <level _seq="13" _title="Rhapsody on Cracks" _xpath="./ral06_1" author="Ronald Lamprecht" ctrl="force" easy="true" id="20060510ral008" rel="1" rev="42" score="1" target="time" unit="duration"/>
     <level _seq="14" _title="Prepare Your Defense" _xpath="./duffy132_1" author="Jacob Scott" ctrl="force" easy="false" id="duffy132" rel="1" rev="0" score="1" target="time" unit="duration"/>
     <level _seq="15" _title="Cold Way" _xpath="./raoul21_1" author="Raoul Bourquin" ctrl="force" easy="false" id="raoul21" rel="1" rev="0" score="1" target="time" unit="duration"/>
     <level _seq="16" _title="Laserpowered" _xpath="./raoul20_1" author="Raoul Bourquin" ctrl="force" easy="true" id="raoul20" rel="1" rev="0" score="1" target="time" unit="duration"/>
     <level _seq="17" _title="Oxydmoron" _xpath="./raoul14_1" author="Raoul Bourquin" ctrl="force" easy="true" id="raoul14" rel="1" rev="0" score="1" target="time" unit="duration"/>
     <level _seq="18" _title="Bomb raider" _xpath="./alain27_1" author="Alain Busser" ctrl="force" easy="true" id="alain27" rel="1" rev="0" score="1" target="time" unit="duration"/>
-    <level _seq="19" _title="Dancing on Light Beams" _xpath="./andreas28_1" author="Andreas Lochmann" ctrl="force" easy="false" id="andreas28" rel="1" rev="0" score="1" target="time" unit="duration"/>
+    <level _seq="19" _title="Dancing on Light Beams" _xpath="./andreas28_1" author="Andreas Lochmann" ctrl="force" easy="true" id="andreas28" rel="1" rev="0" score="1" target="time" unit="duration"/>
     <level _seq="20" _title="- Meditation -" _xpath="./alain25_1" author="Alain Busser + Raoul Bourquin" ctrl="force" easy="false" id="alain25" rel="1" rev="0" score="1" target="time" unit="duration"/>
     <level _seq="21" _title="ZigZag" _xpath="./ralf06_1" author="Ralf Westram" ctrl="force" easy="true" id="ralf06" rel="1" rev="0" score="1" target="time" unit="duration"/>
     <level _seq="22" _title="Just Stay Calm" _xpath="./duffy116_1" author="Jacob Scott" ctrl="force" easy="false" id="duffy116" rel="1" rev="0" score="1" target="time" unit="duration"/>
@@ -33,12 +33,12 @@
     <level _seq="25" _title="Chess, Bugs &amp; Rock'n'Roll" _xpath="./andreas31_1" author="Andreas Lochmann" ctrl="force" easy="false" id="andreas31" rel="1" rev="0" score="1" target="time" unit="duration"/>
     <level _seq="26" _title="Chessing Positions" _xpath="./raoul22_1" author="Raoul Bourquin" ctrl="force" easy="false" id="raoul22" rel="1" rev="0" score="1" target="time" unit="duration"/>
     <level _seq="27" _title="Just a Maze?" _xpath="./duffy12_1" author="Jacob Scott" ctrl="force" easy="false" id="duffy12" rel="1" rev="0" score="1" target="time" unit="duration"/>
-    <level _seq="28" _title="Twisting by the Pool" _xpath="./alain23_1" author="Alain Busser" ctrl="force" easy="false" id="alain23" rel="1" rev="0" score="1" target="time" unit="duration"/>
-    <level _seq="29" _title="Hot Meditation" _xpath="./ral08_1" author="Ronald Lamprecht" ctrl="force" easy="true" id="20060527ral010" rel="1" rev="27" score="1" target="time" unit="duration"/>
+    <level _seq="28" _title="Twisting by the pool" _xpath="./alain23_1" author="Alain Busser" ctrl="force" easy="true" id="alain23" rel="1" rev="0" score="1" target="time" unit="duration"/>
+    <level _seq="29" _title="Hot Meditation" _xpath="./ral08_1" author="Ronald Lamprecht" ctrl="force" easy="true" id="20060527ral010" rel="1" rev="42" score="1" target="time" unit="duration"/>
     <level _seq="30" _title="Pool with a pole" _xpath="./alain28_1" author="Alain Busser" ctrl="force" easy="false" id="alain28" rel="1" rev="0" score="1" target="time" unit="duration"/>
-    <level _seq="31" _title="Step gently!" _xpath="./malla03_1" author="Manuel Koenig" ctrl="force" easy="false" id="malla03" rel="1" rev="0" score="1" target="time" unit="duration"/>
+    <level _seq="31" _title="Step gently!" _xpath="./malla03_1" author="Manuel König" ctrl="force" easy="false" id="malla03" rel="1" rev="0" score="1" target="time" unit="duration"/>
     <level _seq="32" _title="- Meditation -" _xpath="./raoul18_1" author="Raoul Bourquin" ctrl="force" easy="true" id="raoul18" rel="1" rev="0" score="1" target="time" unit="duration"/>
-    <level _seq="33" _title="Jump into Meditation" _xpath="./ral07_1" author="Ronald Lamprecht" ctrl="force" easy="true" id="20060525ral009" rel="1" rev="27" score="1" target="time" unit="duration"/>
+    <level _seq="33" _title="Jump into Meditation" _xpath="./ral07_1" author="Ronald Lamprecht" ctrl="force" easy="true" id="20060525ral009" rel="1" rev="42" score="1" target="time" unit="duration"/>
     <level _seq="34" _title="Houdini" _xpath="./ral11_1" author="Ronald Lamprecht" ctrl="force" easy="true" id="20060816ral719" rel="1" rev="29" score="1" target="time" unit="duration"/>
     <level _seq="35" _title="Persecution Mania" _xpath="./ral12_1" author="Ronald Lamprecht" ctrl="force" easy="true" id="20060911ral294" rel="1" rev="34" score="1" target="time" unit="duration"/>
     <level _seq="36" _title="The Aztec Temple" _xpath="./zogga01_1" author="Dominik Lehmann" ctrl="force" easy="true" id="zogga01" rel="1" rev="0" score="1" target="time" unit="duration"/>
@@ -57,7 +57,7 @@
     <level _seq="49" _title="Procrustes" _xpath="./andreas34_1" author="Andreas Lochmann" ctrl="force" easy="false" id="andreas34" rel="1" rev="0" score="1" target="time" unit="duration"/>
     <level _seq="50" _title="- Meditation -" _xpath="./andreas36_1" author="Andreas Lochmann" ctrl="force" easy="false" id="andreas36" rel="1" rev="0" score="1" target="time" unit="duration"/>
     <level _seq="51" _title="Troy" _xpath="./andreas37_1" author="Andreas Lochmann" ctrl="force" easy="false" id="andreas37" rel="1" rev="0" score="1" target="time" unit="duration"/>
-    <level _seq="52" _title="Ben Hur" _xpath="./ral13_1" author="Ronald Lamprecht" ctrl="force" easy="true" id="20061011ral390" rel="1" rev="0" score="1" target="time" unit="duration"/>
+    <level _seq="52" _title="Ben Hur" _xpath="./ral13_1" author="Ronald Lamprecht" ctrl="force" easy="true" id="20061011ral390" rel="1" rev="37" score="1" target="time" unit="duration"/>
     <level _seq="53" _title="Alcatraz" _xpath="./ralf14_1" author="Ralf Westram" ctrl="force" easy="true" id="ralf14" rel="1" rev="0" score="1" target="time" unit="duration"/>
     <level _seq="54" _title="Bodyguard" _xpath="./ral10_1" author="Ronald Lamprecht" ctrl="force" easy="true" id="20060730ral012" rel="1" rev="41" score="1" target="time" unit="duration"/>
   </levels>

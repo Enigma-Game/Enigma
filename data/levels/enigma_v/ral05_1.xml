@@ -3,7 +3,7 @@
   <el:protected >
     <el:info el:type="level">
       <el:identity el:title ="Catwalk Meditation" el:id="20060505ral007"/>
-      <el:version el:score="1" el:release="1" el:revision="$Revision: 27 $" el:status="released"/>
+      <el:version el:score="1" el:release="1" el:revision="$Revision: 42 $" el:status="released"/>
       <el:author  el:name="Ronald Lamprecht" el:email="ral@users.berlios.de"/>
       <el:copyright>Copyright © 2006 Ronald Lamprecht</el:copyright>
       <el:license el:type="GPL v2.0 or above" el:open="true"/>
@@ -140,7 +140,7 @@ end
 
 tiles["o"] = {inherit("."), item("it-tinyhollow")}
 
-tiles["1"] = {inherit("."), actor("ac-whiteball-small", {player=0})}
+tiles["1"] = {inherit("."), actor("ac-whiteball-small", {player=0, essential=1})}
 
 function nocompress()
     kill_stone(1, 6)

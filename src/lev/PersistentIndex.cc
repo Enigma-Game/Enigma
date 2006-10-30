@@ -640,7 +640,7 @@ namespace enigma { namespace lev {
         infoElem->setAttribute( Utf8ToXML("revision").x_str(),
                 Utf8ToXML(ecl::strf("%d",revision)).x_str());
         infoElem->setAttribute( Utf8ToXML("enigma").x_str(),
-                Utf8ToXML(ecl::strf("%g",compatibility)).x_str());
+                Utf8ToXML(ecl::strf("%.2f",compatibility)).x_str());
         infoElem->setAttribute( Utf8ToXML("location").x_str(),
                 Utf8ToXML(ecl::strf("%g",indexDefaultLocation)).x_str());
         DOMNodeList *levelsChildList = levelsElem->getChildNodes();
