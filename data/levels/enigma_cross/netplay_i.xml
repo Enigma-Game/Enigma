@@ -7,10 +7,10 @@
 
   <levels>
     <level _seq="1" _title="Bridge Builders" _xpath="enigma_iii/wb04_1" author="Jon 'WB' Sneyers" ctrl="force" easy="false" id="wb4" rel="1" rev="0" score="1" target="time" unit="duration"/>
-    <level _seq="2" _title="Teamplay Doors" _xpath="enigma_iii/luc09_1" author="Lukas Schueller" ctrl="force" easy="false" id="luc09" rel="1" rev="0" score="1" target="time" unit="duration"/>
+    <level _seq="2" _title="Teamplay Doors" _xpath="enigma_iii/luc09_1" author="Lukas Schüller" ctrl="force" easy="false" id="luc09" rel="1" rev="0" score="1" target="time" unit="duration"/>
     <level _seq="3" _title="Checkerboard" _xpath="enigma_iii/duffy08_1" author="Jacob Scott" ctrl="force" easy="false" id="duffy8" rel="1" rev="0" score="1" target="time" unit="duration"/>
     <level _seq="4" _title="Deadend" _xpath="enigma_iii/daniel07_1" author="Daniel Heck" ctrl="force" easy="false" id="deadend" rel="1" rev="0" score="1" target="time" unit="duration"/>
-    <level _seq="5" _title="Coloured Doors" _xpath="enigma_iii/luc03_1" author="Lukas Schueller" ctrl="force" easy="false" id="luc03" rel="1" rev="0" score="1" target="time" unit="duration"/>
+    <level _seq="5" _title="Coloured Doors" _xpath="enigma_iii/luc03_1" author="Lukas Schüller" ctrl="force" easy="false" id="luc03" rel="1" rev="0" score="1" target="time" unit="duration"/>
     <level _seq="6" _title="deja-vu" _xpath="enigma_iii/illmind09_1" author="illmind" ctrl="force" easy="false" id="illmind09" rel="1" rev="0" score="1" target="time" unit="duration"/>
     <level _seq="7" _title="Dependants" _xpath="enigma_iii/ant25_1" author="Petr Machata" ctrl="force" easy="false" id="ant25" rel="1" rev="0" score="1" target="time" unit="duration"/>
     <level _seq="8" _title="Wild" _xpath="enigma_iii/ant28_1" author="Petr Machata" ctrl="force" easy="false" id="ant28" rel="1" rev="0" score="1" target="time" unit="duration"/>
@@ -28,7 +28,7 @@
     <level _seq="20" _title="Little Bit of Everything" _xpath="enigma_iv/duffy34_1" author="Jacob Scott" ctrl="force" easy="false" id="duffy34" rel="1" rev="0" score="1" target="time" unit="duration"/>
     <level _seq="21" _title="Triple-Maze" _xpath="enigma_iv/duffy125_1" author="Jacob Scott" ctrl="force" easy="false" id="duffy125" rel="1" rev="0" score="1" target="time" unit="duration"/>
     <level _seq="22" _title="Action at a Distance" _xpath="enigma_iv/duffy121_1" author="Jacob Scott" ctrl="force" easy="false" id="duffy121" rel="1" rev="0" score="1" target="time" unit="duration"/>
-    <level _seq="23" _title="Water Castle" _xpath="enigma_v/luc21_1" author="Lukas Schueller" ctrl="force" easy="false" id="luc21" rel="1" rev="0" score="1" target="time" unit="duration"/>
+    <level _seq="23" _title="Water Castle" _xpath="enigma_v/luc21_1" author="Lukas Schüller" ctrl="force" easy="false" id="luc21" rel="1" rev="0" score="1" target="time" unit="duration"/>
     <level _seq="24" _title="Spiders" _xpath="enigma_v/ant26_1" author="Petr Machata" ctrl="force" easy="false" id="ant26" rel="1" rev="0" score="1" target="time" unit="duration"/>
     <level _seq="25" _title="Table Hockey" _xpath="enigma_v/capkoh01_1" author="capkoh" ctrl="force" easy="false" id="capkoh01" rel="1" rev="0" score="1" target="time" unit="duration"/>
     <level _seq="26" _title="Double play" _xpath="enigma_v/just06_1" author="JuSt" ctrl="force" easy="false" id="just06" rel="1" rev="0" score="1" target="time" unit="duration"/>
@@ -43,7 +43,7 @@
     <level _seq="35" _title="Fatal Attraction III" _xpath="enigma_v/spaceman03_1" author="Spaceman" ctrl="force" easy="false" id="spaceman3" rel="1" rev="0" score="1" target="time" unit="duration"/>
     <level _seq="36" _title="Spacestation" _xpath="enigma_v/raoul23_1" author="Raoul Bourquin" ctrl="force" easy="true" id="raoul23" rel="1" rev="0" score="1" target="time" unit="duration"/>
     <level _seq="37" _title="Toreador" _xpath="enigma_vi/ral02_1" author="Ronald Lamprecht" ctrl="force" easy="true" id="20060213ral004" rel="1" rev="25" score="1" target="time" unit="duration"/>
-    <level _seq="38" _title="Basketball" _xpath="enigma_vi/ral03_2" author="Ronald Lamprecht" ctrl="force" easy="true" id="20060213ral005" rel="2" rev="25" score="2" target="time" unit="duration"/>
+    <level _seq="38" _title="Basketball" _xpath="enigma_vi/ral03_2" author="Ronald Lamprecht" ctrl="force" easy="true" id="20060213ral005" rel="2" rev="33" score="2" target="time" unit="duration"/>
     <level _seq="39" _title="Oxydmoron" _xpath="enigma_vi/raoul14_1" author="Raoul Bourquin" ctrl="force" easy="true" id="raoul14" rel="1" rev="0" score="1" target="time" unit="duration"/>
     <level _seq="40" _title="Checkmate I" _xpath="enigma_vi/andreas29_1" author="Andreas Lochmann" ctrl="force" easy="false" id="andreas29" rel="1" rev="0" score="1" target="time" unit="duration"/>
   </levels>

@@ -6,11 +6,11 @@
   <attributes/>
 
   <levels>
-    <level _seq="1" _title="Welcome" _xpath="./welcometopack4_1" author="Raoul Bourquin" ctrl="force" easy="false" id="welcometopack4" rel="1" rev="0" score="1" target="time" unit="duration"/>
+    <level _seq="1" _title="Welcome" _xpath="./welcometopack4_1" author="Raoul Bourquin" ctrl="force" easy="true" id="welcometopack4" rel="1" rev="0" score="1" target="time" unit="duration"/>
     <level _seq="2" _title="Happy New Year" _xpath="./duffy76_1" author="Jacob Scott" ctrl="force" easy="false" id="duffy76" rel="1" rev="0" score="1" target="time" unit="duration"/>
     <level _seq="3" _title="Wood robbing" _xpath="./alain08_1" author="Alain Busser" ctrl="force" easy="false" id="alain08" rel="1" rev="0" score="1" target="time" unit="duration"/>
     <level _seq="4" _title="Termites" _xpath="./duffy104_1" author="Jacob Scott" ctrl="force" easy="false" id="duffy104" rel="1" rev="0" score="1" target="time" unit="duration"/>
-    <level _seq="5" _title="Hurry!" _xpath="./wb01_2" author="Jon 'WB' Sneyers" ctrl="force" easy="true" id="wb1" rel="2" rev="0" score="2" target="time" unit="duration"/>
+    <level _seq="5" _title="Hurry!" _xpath="./wb01_2" author="Jon 'WB' Sneyers" ctrl="force" easy="true" id="wb1" rel="2" rev="1" score="2" target="time" unit="duration"/>
     <level _seq="6" _title="TNT Shortage?" _xpath="./siegfried74_1" author="Siegfried Fennig" ctrl="force" easy="false" id="siegfried74" rel="1" rev="0" score="1" target="time" unit="duration"/>
     <level _seq="7" _title="AntiMaze" _xpath="./luc02_2" author="Lukas Schüller" ctrl="force" easy="false" id="luc02" rel="2" rev="0" score="1" target="time" unit="duration"/>
     <level _seq="8" _title="Boulder-Puzzle" _xpath="./duffy06_1" author="Jacob Scott" ctrl="force" easy="false" id="duffy6" rel="1" rev="0" score="1" target="time" unit="duration"/>
@@ -56,7 +56,7 @@
     <level _seq="48" _title="Artillery" _xpath="./duffy111_1" author="Jacob Scott" ctrl="force" easy="false" id="duffy111" rel="1" rev="0" score="1" target="time" unit="duration"/>
     <level _seq="49" _title="What's the Problem?" _xpath="./ss14_1" author="Sven Siggelkow" ctrl="force" easy="true" id="ss14" rel="1" rev="0" score="1" target="time" unit="duration"/>
     <level _seq="50" _title="Walls Of Sadness" _xpath="./ss12_1" author="Sven Siggelkow" ctrl="force" easy="true" id="ss12" rel="1" rev="0" score="1" target="time" unit="duration"/>
-    <level _seq="51" _title="Pull it!" _xpath="./luc14_1" author="Lukas Schüller" ctrl="force" easy="true" id="luc14" rel="1" rev="0" score="1" target="time" unit="duration"/>
+    <level _seq="51" _title="Pull it!" _xpath="./luc14_1" author="Lukas Schüller" ctrl="force" easy="false" id="luc14" rel="1" rev="0" score="1" target="time" unit="duration"/>
     <level _seq="52" _title="FIRE, FIRE!" _xpath="./ss07_1" author="Sven Siggelkow" ctrl="force" easy="false" id="ss7" rel="1" rev="0" score="1" target="time" unit="duration"/>
     <level _seq="53" _title="Chain Reaction" _xpath="./siegfried17_1" author="Siegfried Fennig" ctrl="force" easy="false" id="level5e" rel="1" rev="0" score="1" target="time" unit="duration"/>
     <level _seq="54" _title="Fire Safety" _xpath="./duffy83_1" author="Jacob Scott" ctrl="force" easy="false" id="duffy83" rel="1" rev="0" score="1" target="time" unit="duration"/>
@@ -74,7 +74,7 @@
     <level _seq="66" _title="Snowball Fight" _xpath="./nat14_1" author="Nat Pryce" ctrl="force" easy="false" id="nat14" rel="1" rev="0" score="1" target="time" unit="duration"/>
     <level _seq="67" _title="U-Swap" _xpath="./ralf15_1" author="Ralf Westram" ctrl="force" easy="true" id="ralf15" rel="1" rev="0" score="1" target="time" unit="duration"/>
     <level _seq="68" _title="Triple-Maze" _xpath="./duffy125_1" author="Jacob Scott" ctrl="force" easy="false" id="duffy125" rel="1" rev="0" score="1" target="time" unit="duration"/>
-    <level _seq="69" _title="The Dark Outside" _xpath="./andreas16_1" author="Andreas Lochmann" ctrl="force" easy="true" id="andreas16" rel="1" rev="0" score="1" target="time" unit="duration"/>
+    <level _seq="69" _title="The Dark Outside" _xpath="./andreas16_1" author="Andreas Lochmann" ctrl="force" easy="true" id="andreas16" rel="1" rev="1" score="1" target="time" unit="duration"/>
     <level _seq="70" _title="Electric Meditation" _xpath="./duffy123_1" author="Jacob Scott" ctrl="force" easy="true" id="duffy123" rel="1" rev="0" score="1" target="time" unit="duration"/>
     <level _seq="71" _title="Seed Puzzle" _xpath="./duffy77_1" author="Jacob Scott" ctrl="force" easy="false" id="duffy77" rel="1" rev="0" score="1" target="time" unit="duration"/>
     <level _seq="72" _title="Action at a Distance" _xpath="./duffy121_1" author="Jacob Scott" ctrl="force" easy="false" id="duffy121" rel="1" rev="0" score="1" target="time" unit="duration"/>

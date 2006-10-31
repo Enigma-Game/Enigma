@@ -24,7 +24,7 @@
     <level _seq="16" _title="Is It Easy?" _xpath="./martin06_1" author="Martin Hawlisch" ctrl="force" easy="false" id="martin06" rel="1" rev="0" score="1" target="time" unit="duration"/>
     <level _seq="17" _title="Ice Skating" _xpath="./siegfried22_1" author="Siegfried Fennig" ctrl="force" easy="false" id="level7a" rel="1" rev="0" score="1" target="time" unit="duration"/>
     <level _seq="18" _title="Hostile World" _xpath="./rb01_1" author="Roberto Bardin" ctrl="force" easy="true" id="rb01" rel="1" rev="0" score="1" target="time" unit="duration"/>
-    <level _seq="19" _title="The Big Swamp" _xpath="./luc10_1" author="Lukas Schüller" ctrl="force" easy="true" id="luc10" rel="1" rev="0" score="1" target="time" unit="duration"/>
+    <level _seq="19" _title="The Big Swamp" _xpath="./luc10_1" author="Lukas Schüller" ctrl="force" easy="false" id="luc10" rel="1" rev="0" score="1" target="time" unit="duration"/>
     <level _seq="20" _title="- Meditation -" _xpath="./siegfried33_1" author="anonymous" ctrl="force" easy="false" id="meditation1" rel="1" rev="0" score="1" target="time" unit="duration"/>
     <level _seq="21" _title="Do Not Dive" _xpath="./martin74_1" author="Martin Hawlisch" ctrl="force" easy="false" id="martin74" rel="1" rev="0" score="1" target="time" unit="duration"/>
     <level _seq="22" _title="Bendixxon" _xpath="./alain06_1" author="Alain Busser" ctrl="force" easy="false" id="alain06" rel="1" rev="0" score="1" target="time" unit="duration"/>
@@ -44,9 +44,9 @@
     <level _seq="36" _title="Space Travels" _xpath="./siegfried30_1" author="Siegfried Fennig" ctrl="force" easy="false" id="level10b" rel="1" rev="0" score="1" target="time" unit="duration"/>
     <level _seq="37" _title=".J.U.M.P." _xpath="./martin60_1" author="Martin Hawlisch" ctrl="force" easy="false" id="martin60" rel="1" rev="0" score="1" target="time" unit="duration"/>
     <level _seq="38" _title="Encased" _xpath="./xerxes01_1" author="Xerxes M. Dynatos" ctrl="force" easy="false" id="xerxes01" rel="1" rev="0" score="1" target="time" unit="duration"/>
-    <level _seq="39" _title="Without Tremor" _xpath="./richi04_1" author="Richi" ctrl="force" easy="false" id="richi04" rel="1" rev="0" score="1" target="time" unit="duration"/>
+    <level _seq="39" _title="Without Tremor" _xpath="./richi04_1" author="Richi Bützer" ctrl="force" easy="false" id="richi04" rel="1" rev="0" score="1" target="time" unit="duration"/>
     <level _seq="40" _title="- Meditation -" _xpath="./alain04_1" author="Alain Busser" ctrl="force" easy="false" id="alain04" rel="1" rev="0" score="1" target="time" unit="duration"/>
-    <level _seq="41" _title="Light Barrier" _xpath="./richi03_1" author="Richi" ctrl="force" easy="false" id="richi03" rel="1" rev="0" score="1" target="time" unit="duration"/>
+    <level _seq="41" _title="Light Barrier" _xpath="./richi03_1" author="Richi Bützer" ctrl="force" easy="false" id="richi03" rel="1" rev="0" score="1" target="time" unit="duration"/>
     <level _seq="42" _title="Basement" _xpath="./siegfried26_1" author="Siegfried Fennig" ctrl="force" easy="false" id="level9c" rel="1" rev="0" score="1" target="time" unit="duration"/>
     <level _seq="43" _title="Sokoban Revival" _xpath="./martin04_1" author="Martin Hawlisch" ctrl="force" easy="false" id="martin04" rel="1" rev="0" score="1" target="time" unit="duration"/>
     <level _seq="44" _title="Dead Ball Walking" _xpath="./illmind08_1" author="illmind" ctrl="force" easy="false" id="illmind08" rel="1" rev="0" score="1" target="time" unit="duration"/>
@@ -57,11 +57,11 @@
     <level _seq="49" _title="Hall of Glass" _xpath="./martin86_1" author="Martin Hawlisch" ctrl="force" easy="false" id="martin86" rel="1" rev="0" score="1" target="time" unit="duration"/>
     <level _seq="50" _title="- Meditation -" _xpath="./siegfried36_1" author="Siegfried Fennig" ctrl="force" easy="false" id="meditation15" rel="1" rev="0" score="1" target="time" unit="duration"/>
     <level _seq="51" _title="Deadly Cross" _xpath="./martin84_1" author="Martin Hawlisch" ctrl="force" easy="false" id="martin84" rel="1" rev="0" score="1" target="time" unit="duration"/>
-    <level _seq="52" _title="The Enigmhanoi Towers" _xpath="./alain05_1" author="Alain Busser" ctrl="force" easy="false" id="alain05" rel="1" rev="0" score="1" target="time" unit="duration"/>
-    <level _seq="53" _title="Mirror Room" _xpath="./luc12_1" author="Lukas Schüller" ctrl="force" easy="true" id="luc12" rel="1" rev="0" score="1" target="time" unit="duration"/>
+    <level _seq="52" _title="The Enigmhanoi Towers" _xpath="./alain05_1" author="Alain Busser" ctrl="force" easy="true" id="alain05" rel="1" rev="0" score="1" target="time" unit="duration"/>
+    <level _seq="53" _title="Mirror Room" _xpath="./luc12_1" author="Lukas Schüller" ctrl="force" easy="false" id="luc12" rel="1" rev="0" score="1" target="time" unit="duration"/>
     <level _seq="54" _title="Annoying little balls" _xpath="./wb09_2" author="Jon 'WB' Sneyers" ctrl="force" easy="false" id="wb9" rel="2" rev="0" score="2" target="time" unit="duration"/>
-    <level _seq="55" _title="Mirror Room II" _xpath="./luc17_1" author="Lukas Schüller" ctrl="force" easy="true" id="luc17" rel="1" rev="0" score="1" target="time" unit="duration"/>
-    <level _seq="56" _title="Castle Maze" _xpath="./luc19_1" author="Lukas Schüller" ctrl="force" easy="true" id="luc19" rel="1" rev="0" score="1" target="time" unit="duration"/>
+    <level _seq="55" _title="Mirror Room II" _xpath="./luc17_1" author="Lukas Schüller" ctrl="force" easy="false" id="luc17" rel="1" rev="0" score="1" target="time" unit="duration"/>
+    <level _seq="56" _title="Castle Maze" _xpath="./luc19_1" author="Lukas Schüller" ctrl="force" easy="false" id="luc19" rel="1" rev="0" score="1" target="time" unit="duration"/>
     <level _seq="57" _title="Light Switches" _xpath="./martin08_1" author="Martin Hawlisch" ctrl="force" easy="false" id="martin08" rel="1" rev="0" score="1" target="time" unit="duration"/>
     <level _seq="58" _title="Islands" _xpath="./duffy10_1" author="Jacob Scott" ctrl="force" easy="false" id="duffy10" rel="1" rev="0" score="1" target="time" unit="duration"/>
     <level _seq="59" _title="Simon Says" _xpath="./nat12_1" author="Nat Pryce" ctrl="force" easy="false" id="nat12" rel="1" rev="0" score="1" target="time" unit="duration"/>
@@ -91,7 +91,7 @@
     <level _seq="83" _title="Watery Grave" _xpath="./martin37_1" author="Martin Hawlisch" ctrl="force" easy="false" id="martin37" rel="1" rev="0" score="1" target="time" unit="duration"/>
     <level _seq="84" _title="Escher's World" _xpath="./ant09_1" author="Petr Machata" ctrl="force" easy="false" id="ant09" rel="1" rev="0" score="1" target="time" unit="duration"/>
     <level _seq="85" _title="Balancing Act" _xpath="./nat09_1" author="Nat Pryce" ctrl="force" easy="false" id="nat9" rel="1" rev="0" score="1" target="time" unit="duration"/>
-    <level _seq="86" _title="Floppy Floors" _xpath="./andreas24_1" author="Andreas Lochmann" ctrl="force" easy="true" id="andreas24" rel="1" rev="0" score="1" target="time" unit="duration"/>
+    <level _seq="86" _title="Floppy Floors" _xpath="./andreas24_1" author="Andreas Lochmann" ctrl="force" easy="true" id="andreas24" rel="1" rev="1" score="1" target="time" unit="duration"/>
     <level _seq="87" _title="Space Tubes" _xpath="./duffy13_1" author="Jacob Scott" ctrl="force" easy="false" id="duffy13" rel="1" rev="0" score="1" target="time" unit="duration"/>
     <level _seq="88" _title="Balance" _xpath="./erich01_1" author="Erich Schubert" ctrl="force" easy="false" id="balance" rel="1" rev="0" score="1" target="time" unit="duration"/>
     <level _seq="89" _title="More Space Tubes" _xpath="./duffy33_1" author="Jacob Scott" ctrl="force" easy="false" id="duffy33" rel="1" rev="0" score="1" target="time" unit="duration"/>
