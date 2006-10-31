@@ -1,7 +1,7 @@
 PNG = $(wildcard $(srcdir)/*.png)
 PDF = $(addprefix $(builddir), $(addsuffix .pdf, $(basename $(notdir $(PNG)))))
 
-pngdir=@datadir@/doc/refman/images
+pngdir=@datadir@/doc/enigma/reference/images
 png_DATA=$(PNG)
 
 SUFFIXES = .png .pdf

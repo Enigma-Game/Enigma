@@ -12,6 +12,7 @@ pkgdata_DATA = \
 	init.lua \
 	startup.lua \
 	compat.lua \
-	security.lua
+	security.lua \
+	ratings.xml
 
 EXTRA_DIST = $(pkgdata_DATA)
