@@ -2,7 +2,7 @@
 #
 # This file creates a w32 binary release
 #
-VERSION=@VERSION@
+VERSION=@PACKAGE_VERSION@
 DDIR="`pwd`/Enigma-$VERSION"
 SDIR=@top_srcdir@
 BDIR=@top_builddir@

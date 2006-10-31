@@ -837,7 +837,7 @@ that can be used for filenames, too. Alphanumerical characters A-Za-z0-9 and
 space, underscore and hyphen are usable. Note that you may rename the pack
 lateron for a better suitable display name (@pxref{Modifying and Deleting Levelpacks}).
 
-Furtheron you should decide wheter you want a levelpack that can contain level
+Furtheron you should decide whether you want a levelpack that can contain level
 sources or just a crossreference levelpack. The first one is useful for storing
 own self written levels or levels that you download yourself from the internet.
 The crossreference levelpacks are for your favorite collections where you just
@@ -845,19 +845,97 @@ reference existing levels of other levelpacks with your own personal sorting.
 You set the selected type with the @samp{Level types} button which uses symbols
 for references and carbon copies.
 
-Default Location
+The @samp{Default Location} is a number that determines the sorting location 
+within levelpack groups as long as the levelpack has not been resorted manually
+(@pxref{Grouping and Sorting Levelpacks}). This default value is only relevant
+if you distribute your levelpack and want to ensure that the users will find
+your levelpack at a proper location. The value given after creating a new
+levelpack should work fine in most circumstances.
 
-Owner
+You may declare yourself as owner or creator of the levelpack. This just a
+string for identification purposes.
 
-Undo, Ok,
+Finally when you completed the configuration you can create the levelpack by
+clickling @samp{OK}. The levelpack will be created on your @samp{userpath} 
+(@pxref{Locating Resources}).
 
-Compose Pack
+If you decide not to create a new levelpack just click @samp{Undo}. Nothing
+will be created or changed in this case.
+
+If you want to set up immediatly the new levelpack you can click directly on
+@samp{Compose Pack}. The levelpack will be created and you can use the composer
+to fill it with levels.
 
 @node Modifying and Deleting Levelpacks, Composing Levelpacks, Creating New Levelpacks, Levelpack Basics
 @section Modifying and Deleting Levelpacks
 
+To modify a levelpack right or ctrl click on its button in the levelpack menu.
+You will see the metadata for all levelpacks. But only for your own levelpacks
+that are stored on your @samp{userpath} a button @samp{Edit Metadata} will show
+up. Clicking on it allows you to edit the metadata.
+
+It is possible to rename the levelpack, but the filenames will not be changed
+any more. The new name will be used as the logical levelpack name that shows
+up in Enigma.
+
+Other attributes that can be modified are the @samp{Default Location} and the 
+@samp{Owner}. 
+
+Note that it is not possible to change the levelpack type lateron. You have to
+create a new levelpack of proper type and copy the levels by 
+@ref{Composing Levelpacks}.
+
+We do not provide a levelpack deletion function to avoid uninteded loss of levelsources.
+But the deletion of a levelpack is as simple as deleting the complete levelpack
+directory on your @samp{userpath}. For crossreference levelpacks you have to
+delete just the index XML file on the @samp{levels/cross} subdirectory of your
+@samp{userpath}.
+
 @node Composing Levelpacks, , Modifying and Deleting Levelpacks, Levelpack Basics
 @section Composing Levelpacks
+
+You can change the levels of a levelpack by the levelpack composer. You call it
+by right or ctrl clicking on the levelpack button in the levelpack menu and
+clicking on the @samp{Compose Pack} button in the levelpack configuration menu.
+
+The composer looks quite similar to the levelmenu but it provides other
+functionallity. All commands are listed in the F1 help menu. First you may note
+that the levels are bordered red if you compose your own levelpacks. This is a
+warning as you can modify these levelpacks. System levelpacks as the distributed
+Enigma levelpacks will border the levels in gray as you can use the composer only
+for copying levels to the clipboard.
+
+The clipboard allows you to select levels in one or several levelpacks and to
+insert these levels as reference or as copy to your own levelpacks. First clear
+the clipboard by @samp{Shift delete}. Then select within the composer levels
+from any levelpack you want. Add them by @samp{Shift click}. They will show up
+in the upper text lines in the composer. Return to the levelpack where you want
+to add the levels. Select the level behind which you want to add the levels. Use
+@samp{F8} to insert the levels of the clipboard as references. If you edit a
+levelpack that can take level copies you may use @samp{F9} to insert the levels
+of the clipboard as file copies.
+
+As soon as you modify the levelpack a small red triangle in the upper left corner
+signals the modification. Leaving the composer via button @samp{OK} finalizes all
+changes. Leaving the composer via button @samp{Undo} reverts all changes.
+
+Besides addition of levels you can delete levels by usage of the @samp{delete}
+button. Note that the level files itself will be deleted if you delete a level
+that is not just a reference. Be careful with all levels that have the document
+icon on its preview. Deletions can be reverted by the @samp{Undo} button.
+
+All levels can be resorted by @samp{alt left arrow} and @samp{alt right arrow}.
+The new sorting is shown up directly and saved by the @samp{OK} button.
+
+The @samp{F5} button updates the index from the levels. This is very useful if
+you edit levels yourself. Changes in title, revision, easy mode support etc.
+will be noticed by the levelpack. All levels of the levelpack are updated at once.
+
+By usage of the Auto levelpack and the composer you can setup levelpacks of your
+own levels as follows. Create a new levelpack, add the level files to the @samp{auto}
+folder, restart Enigma, add the levels from the @samp{auto} folder to the clipboard,
+insert the levelpack by the composer to your levelpack as copies, delete the
+unused level file copies from the @samp{auto} folder.
 
 
 @node  Level Basics, Objects, Levelpack Basics, Top

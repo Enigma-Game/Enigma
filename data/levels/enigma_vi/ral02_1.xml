@@ -3,7 +3,7 @@
   <el:protected >
     <el:info el:type="level">
       <el:identity el:title="Toreador" el:id="20060213ral004"/>
-      <el:version el:score="1" el:release="1" el:revision="$Revision: 25 $" el:status="released"/>
+      <el:version el:score="1" el:release="1" el:revision="$Revision: 43 $" el:status="released"/>
       <el:author  el:name="Ronald Lamprecht" el:email="ral@users.berlios.de"/>
       <el:copyright>Copyright © 2006 Ronald Lamprecht</el:copyright>
       <el:license el:type="GPL v2.0 or above" el:open="true"/>
@@ -150,8 +150,8 @@ tiles["x"] = {inherit(" "), oxyd}
 tiles["yb"] = {inherit("B"), item("it-yinyang")}
 tiles["yw"] = {inherit("W"), item("it-yinyang")}
 
-tiles["1"] = {inherit("yb"), actor("ac-blackball", {player=0})}
-tiles["2"] = {inherit("yw"), actor("ac-whiteball", {player=1, controllers=2})}
+tiles["1"] = {inherit("yb"), actor("ac-blackball", {essential=1})}
+tiles["2"] = {inherit("yw"), actor("ac-whiteball", {essential=1})}
 tiles["8"] = {inherit(" "), actor("ac-top",{force=26, range=20, attacknearest=1, prefercurrent=0.8})}
 
 create_world_from_map( tiles, {
