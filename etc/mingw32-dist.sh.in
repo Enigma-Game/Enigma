@@ -119,9 +119,6 @@ function copy_doc
     cptext doc/objects.txt	doc/objects.txt
     cptext doc/README.mingw32   doc/README-mingw32.txt
     cptext doc/sound.lua        doc/sound.lua
-    cpbuiltfile doc/refman/enigma-ref.html doc/
-    cpfile doc/demo_simple.xml	doc/
-    cpfile doc/demo_i18n.xml	doc/
     cpfile doc/lua2xml		doc/
     cpfile doc/xml2lua		doc/
     cpfile doc/functions.html	doc/
@@ -137,6 +134,17 @@ function copy_manual
     mkdir $DDIR/manual $DDIR/manual/images
     cpfile doc/manual/images/*.png manual/images
     cpbuiltfile doc/manual/*.html manual
+}
+
+#
+# Copy reference manual
+#
+function copy_refman
+{
+    echo "... copying reference manual"
+    mkdir $DDIR/reference $DDIR/reference/images
+    cpfile doc/refman/images/*.png reference/images
+    cpbuiltfile doc/refman/*.html reference
 }
 
 #
@@ -191,6 +199,7 @@ mkdir $DDIR
 
 copy_data
 copy_manual
+copy_refman
 copy_doc
 
 cp $BDIR/etc/enigma.nsi $DDIR/enigma.nsi
