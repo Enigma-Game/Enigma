@@ -294,6 +294,7 @@ namespace enigma { namespace gui {
 
         // Methods
         void set_text (const std::string &text);
+        virtual std::string get_text() const;  // translated
         std::string getText() const;
         void set_font (ecl::Font *font);
         void set_alignment (HAlignment halign, VAlignment valign=VALIGN_CENTER);
@@ -303,6 +304,18 @@ namespace enigma { namespace gui {
         ecl::Font   *m_font;
         HAlignment  m_halign;
         VAlignment  m_valign;
+    };
+
+/* -------------------- UntranslatedLabel -------------------- */
+
+    class UntranslatedLabel : public Label {
+    public:
+        UntranslatedLabel(const std::string &text="",
+               HAlignment halign=HALIGN_CENTER, 
+               VAlignment valign=VALIGN_CENTER);
+
+        // TextButton interface.
+        virtual std::string get_text() const;
     };
 
 /* -------------------- Button -------------------- */

@@ -567,7 +567,10 @@ namespace enigma { namespace lev {
                     release();   // avoid load success on a second read attempt
                     throw XLevelLoading(ecl::strf("Release version mismatch on %s: requested %d\n", normLevelPath.c_str(), releaseVersion));
                 }
-                getId();
+                if (!updateId()) {
+                    release();   // avoid load success on a second read attempt
+                    throw XLevelLoading(ecl::strf("Id mismatch on %s: requested %s\n", normLevelPath.c_str(), id.c_str()));
+                }
                 getTitle();
                 getScoreVersion();
                 getRevisionNumber();
@@ -832,15 +835,24 @@ namespace enigma { namespace lev {
             return "";
     }
     
-    std::string Proxy::getId() {
-        // load level id only for volatile indices
-        if (doc != NULL && (id.empty() || id[0] == '_')) {
+    bool Proxy::updateId() {
+        if (doc != NULL) {
             DOMElement *identityElem = 
                     dynamic_cast<DOMElement *>(infoElem->getElementsByTagNameNS(
                     levelNS, Utf8ToXML("identity").x_str())->item(0));
-            id = XMLtoUtf8(identityElem->getAttributeNS(levelNS, 
+            std::string docId = XMLtoUtf8(identityElem->getAttributeNS(levelNS, 
                     Utf8ToXML("id").x_str())).c_str();
-        }       
+            if (id.empty() || id[0] == '_') {
+                // set yet undetermined id (auto folder, command line,...)
+                id = docId;
+                return true;
+            } else if (id != docId)
+                return false;
+        }
+        return true;
+    }
+    
+    std::string Proxy::getId() {
         return id;
     }
     

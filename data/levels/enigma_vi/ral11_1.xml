@@ -3,11 +3,11 @@
   <el:protected >
     <el:info el:type="level">
       <el:identity el:title="Houdini" el:subtitle="Escape by Chaining Thieves" el:id="20060816ral719"/>
-      <el:version el:score="1" el:release="1" el:revision="$Revision: 29 $" el:status="released"/>
+      <el:version el:score="1" el:release="1" el:revision="$Revision: 45 $" el:status="released"/>
       <el:author  el:name="Ronald Lamprecht" el:email="ral@users.berlios.de"/>
       <el:copyright>Copyright © 2006 Ronald Lamprecht</el:copyright>
       <el:license el:type="GPL v2.0 or above" el:open="true"/>
-      <el:compatibility el:enigma="1.0">
+      <el:compatibility el:enigma="1.00">
       </el:compatibility>
       <el:modes el:easy="true" el:single="true" el:network="false"/>
       <el:comments>
@@ -113,7 +113,7 @@ tiles["Y"] = {inherit("T"), item("it-document",{text="Treasure"})}
 tiles["P"] = {inherit("l"), stone("st-pull")}
 tiles["R"] = {inherit(" "), stone("st-rubberband", {name="rubber"})}
 tiles["S"] = {inherit(" "), stone("st-scissors", {action="open", target="doorA"})}
-tiles["A0"] = {inherit("*"), item("it-document",{text="Atreju"})}
+tiles["A0"] = {inherit("*"), item("it-document",{text="Atreyu"})}
 tiles["A"] = {inherit("A0"), stone("st-door-h", {name="doorA"})}
 tiles["E"] = {inherit(" "), stone("st-swap")}
 tiles["G"] = {inherit("s"), stone("st-glass1")}
@@ -195,9 +195,9 @@ oxyd_shuffle()
         <el:english el:translate="true" el:comment="Escape as unchaining"/>
         <el:translation el:lang="de">Entfesselung durch Gefangennahme von Dieben</el:translation>
       </el:string>
-      <el:string el:key="Atreju">
-        <el:english el:translate="true" >Remember Atrejus Horse!</el:english>
-        <el:translation el:lang="de">Denke an das Pferd von Atreju!</el:translation>
+      <el:string el:key="Atreyu">
+        <el:english el:translate="true" el:comment="Characters of Michael Ende's fantasy novel 'The Neverending Story'">Remember Atreyu's horse Atrax!</el:english>
+        <el:translation el:lang="de">Denke an Atrax, das Pferd von Atréju!</el:translation>
       </el:string>
       <el:string el:key="Unquilty">
         <el:english el:translate="true" >I am unguilty! I've never stolen anything!</el:english>

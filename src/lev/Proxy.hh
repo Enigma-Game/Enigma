@@ -183,6 +183,7 @@ namespace enigma { namespace lev {
         void registerPreloadDependency(std::string depPath, std::string depId,
             int depRelease, bool depPreload, std::string depUrl);
         std::string getType();
+        bool updateId();
         bool updateReleaseVersion();
         int scoreText2Int(std::string text);
     };

@@ -61,11 +61,11 @@ namespace enigma { namespace gui {
         groupsVList->set_default_size(160, 35);
         
         Label * positionLabel = new Label(N_("Position:"), HALIGN_LEFT);
-        pre2Group = new Label("");
-        pre1Group = new Label("");
+        pre2Group = new UntranslatedLabel("");
+        pre1Group = new UntranslatedLabel("");
         tf_groupName = new TextField(groupName);
-        post1Group = new Label("");
-        post2Group = new Label("");
+        post1Group = new UntranslatedLabel("");
+        post2Group = new UntranslatedLabel("");
         Label * dummyLabel = new Label("");
 
         groupsVList->add_back(positionLabel);

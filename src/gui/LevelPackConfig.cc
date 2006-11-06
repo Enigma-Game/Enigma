@@ -174,14 +174,14 @@ namespace enigma { namespace gui {
         valueLeftVList->set_alignment(HALIGN_LEFT, VALIGN_CENTER);
         valueLeftVList->set_default_size(160, 35);
 
-        titleValueLabel = new Label(indexName, HALIGN_CENTER);
-        ownerValueLabel = new Label(isPersistent ? persIndex->getOwner() : "System");
+        titleValueLabel = new UntranslatedLabel(indexName, HALIGN_CENTER);
+        ownerValueLabel = new UntranslatedLabel(isPersistent ? persIndex->getOwner() : "System");
         
-        pre2Index = new Label();
-        pre1Index = new Label();
-        thisIndex = new Label();
-        post1Index = new Label();
-        post2Index = new Label();
+        pre2Index = new UntranslatedLabel();
+        pre1Index = new UntranslatedLabel();
+        thisIndex = new UntranslatedLabel();
+        post1Index = new UntranslatedLabel();
+        post2Index = new UntranslatedLabel();
 
         valueLeftVList->add_back(titleValueLabel);
         if (!isReasignOnly) {        

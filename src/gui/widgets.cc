@@ -514,6 +514,10 @@ void Label::set_text (const std::string &text) {
     }
 }
 
+string Label::get_text() const {
+    return _(m_text.c_str());
+}
+
 string Label::getText() const {
     return m_text;
 }
@@ -544,7 +548,7 @@ void Label::draw (ecl::GC &gc, const ecl::Rect &)
     case VALIGN_CENTER: y += (get_h()-h)/2; break;
     }
     // translate if not an empty string
-    f->render (gc, x, y, m_text == "" ? "" : _(m_text.c_str()));
+    f->render (gc, x, y, m_text == "" ? "" : get_text().c_str());
 }
 
 void Label::set_alignment (HAlignment halign, VAlignment valign) {
@@ -559,10 +563,21 @@ void Label::naturalsize (int &w, int &h) const
 {
     h = m_font->get_height();
     // width of translation if not an empty string
-    w = m_font->get_width (m_text == "" ? "" : _(m_text.c_str()));
+    w = m_font->get_width (m_text == "" ? "" : get_text().c_str());
 }
 
 
+/* -------------------- UntranslatedLabel -------------------- */
+
+UntranslatedLabel::UntranslatedLabel (const std::string &text,
+        HAlignment halign, VAlignment valign) : Label(text, halign, valign) {
+}
+
+string UntranslatedLabel::get_text() const {
+    return Label::m_text;
+}
+
+
 /* -------------------- Button -------------------- */
 
 Button::Button() : m_activep (false), highlight (false) {
