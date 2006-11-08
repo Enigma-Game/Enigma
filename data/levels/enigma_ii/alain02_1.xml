@@ -297,8 +297,8 @@ end
         <el:translation el:lang="fr">A votre tour de commencer la partie.</el:translation>
       </el:string> 
       <el:string el:key="text3">
-        <el:english el:translate="true">Poor little blackball ... SHIFT+F3!!!</el:english>
-        <el:translation el:lang="fr">Perdu ... SHIFT+F3!!!</el:translation>
+        <el:english el:translate="true">Poor little blackball ... 'SHIFT+F3'!!!</el:english>
+        <el:translation el:lang="fr">Perdu ... 'SHIFT+F3'!!!</el:translation>
       </el:string> 
     </el:i18n>
   </el:protected>

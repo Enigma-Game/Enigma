@@ -137,7 +137,7 @@ oxyd_shuffle()
       </el:string>
       <el:string el:key="text1">
         <el:english el:translate="true" el:comment="alligators=tops, mosquitoes=tops and zombies=death stones">The most dangerous animals of the bayou are the alligators, the mosquitoes ... and the zombies! (But the zombies at least, don't move ...)</el:english>
-        <el:translation el:lang="fr">Les animaux les plus dangereux du bayou sont les alligators, les moustiques ... et les zombies! Mais les zombies, au moins, ne bougent pas...</el:translation>
+        <el:translation el:lang="fr">Les animaux les plus dangereux du bayou sont les alligators, les moustiques ... et les zombies! Mais les zombies, au moins, ne bougent pas ...</el:translation>
       </el:string> 
     </el:i18n>
   </el:protected>

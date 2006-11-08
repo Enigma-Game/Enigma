@@ -819,8 +819,8 @@ oxyd_shuffle()
         <el:translation el:lang="fr">Ce katro est la version malgache du jeu; en mode 'facile' il y a un awale africain.</el:translation>
       </el:string> 
       <el:string el:key="text18">
-        <el:english el:translate="true">Only reset or Shift+F3 can make things evolve...</el:english>
-        <el:translation el:lang="fr">Perdu! Actionner le bouton 'reset' ou le redoutable 'shift+F3'...</el:translation>
+        <el:english el:translate="true">Only reset or 'Shift+F3' can make things evolve ...</el:english>
+        <el:translation el:lang="fr">Perdu! Actionner le bouton 'reset' ou le redoutable 'shift+F3' ...</el:translation>
       </el:string> 
     </el:i18n>
   </el:protected>

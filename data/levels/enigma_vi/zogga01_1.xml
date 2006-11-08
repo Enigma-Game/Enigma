@@ -17,39 +17,36 @@
       <el:score el:easy="-" el:difficult="-"/>
     </el:info>
     <el:luamain><![CDATA[
-
--- Title: The Aztec Temple
--- Author: Dominik Lehmann
 -- Date: 06-15-2006
 
 -- Lua Code --
 
 Story={
-"Welcome to Chile! Eight hours ago, your plane arrived at the Airport of \"Llamas\", which is a small village surrounded by unexplored jungle terrain. Now you find yourself in front of an impressing temple, which seems to be a relict of the ancient Aztec ages. But the temple is in a surprising good condition...",
-"Next to the giant doors of the temple you see a chromed sign: \"Restauration due to: G. G. Goshers, A.D. 1998\". And the smaller sign beneath says: \"Property of G. G. Goshers. Trespassing prohibited!\". Now you recognize the dog kennels built up along the front side of the temple. \"Goshers made this ancient relict a fortress\", you think, \"this cannot be legal, for Goshers recieved promotion from the UK Government. I'll try to call him to account!\"",
-"This guard doesn't seem to be very alert.",
-"This lake is obviously due to Goshers. I think the way there in the south is the right one.",
-"There's an inscription on the old wall, saying in spanish: \"Don't touch everything you see! It could be the last you touch!\"",
-"Chromed sign: \"Control of the wilds' cage.\"",
-"Oooh, this slope is steep! Don't try to touch the skull!",
-"This building down there looks like a prison. Let's see if I can get out, of what purpose it is... Ah, there's a sign. And it's chromed as well. Goshers seems to have a favour for chromed signs. It says: \"Natives prison\".",
-"Getting beyond the prison building was a real good idea. But now you have to cross this lake. Be thrifty with those boxes!",
-"Now, spotting through the grilled prison windows, you recognize a native woman being imprisoned there. Obviously Goshers locked all natives, who disturbed his \"work\", trying to enter the temple and getting rich on the treasures of the Aztecs. Maybe it's useful to be accompanied by someone, who knows the secrets of the jungle and this temple...",
-"Since the white man there freed me from the prison, he certainly cannot be as evil as this Goshers is. Perhaps he wants to end the mastery of Goshers and free my people. And even if this is not the case, it's better to be free than imprisoned. I think I should thank him.",
-"You meet the English adventurer in the front of the prison. \"Hello, I'm Xila!\", you tell him in broken English. After he introduced himself as well, both of you begin to work out a plan against the evil G. G. Goshers.",
-"This is a really hard puzzle. The English man will have to help me, if this enigma is to be solved.",
-"You wonder, what this switch could trigger.",
-"Xila knows how to drain the lake!",
-"Lucky you was finding this hollow. It prevents you from drawning.",
-"This stone of glass does certainly fullfill a purpose...",
-"It's funny, that such a temple does have a side entrance.",
-"Be careful! There are sensors in the walls.",
-"After the huge doors of the old temple have opened, you see, that the entrance is protected by 11 knights, armed with spears. These guards are very dangerous. Without a sword you'll never be able to enter. Be careful. There're not only knights, but also thieves.",
-"\"Congratulations. You just managed to enter this old Aztec Temple.\"",
-"\"You've been smarter than I expected. But you'll never enter the treasure room nor escape from here!\"",
-"\"I, Goshers, will certainly be able to get rid of one of my archenemies, by just killing you!\"",
-"\"Run for your life!\"",
-"Xila and you just entered the Diamond Room of the old Aztec Temple. By taking him back to Great Britain and redering him to the police, the evil majesty of Gerald Gregory Goshers has found its end. Congratulations on the success of your expedition!"
+"text1",
+"text2",
+"text3",
+"text4",
+"text5",
+"text6",
+"text7",
+"text8",
+"text9",
+"text10",
+"text11",
+"text12",
+"text13",
+"text14",
+"text15",
+"text16",
+"text17",
+"text18",
+"text19",
+"text20",
+"text21",
+"text22",
+"text23",
+"text24",
+"text25",
 }
 
 create_world(41,37)
@@ -568,6 +565,81 @@ end
       <el:string el:key="title">
         <el:english el:translate="false"/>
       </el:string>
+      <el:string el:key="text1">
+        <el:english el:translate="true">Welcome to Chile! Eight hours ago, your plane arrived at the Airport of "Llamas", which is a small village surrounded by unexplored jungle terrain. Now you find yourself in front of an impressing temple, which seems to be a relict of the ancient Aztec ages. But the temple is in a surprising good condition ...</el:english>
+      </el:string> 
+      <el:string el:key="text2">
+        <el:english el:translate="true">Next to the giant doors of the temple you see a chromed sign: "Restauration due to: G. G. Goshers, A.D. 1998". And the smaller sign beneath says: "Property of G. G. Goshers. Trespassing prohibited!". Now you recognize the dog kennels built up along the front side of the temple. "Goshers made this ancient relict a fortress", you think, "this cannot be legal, for Goshers recieved promotion from the UK Government. I'll try to call him to account!"</el:english>
+      </el:string> 
+      <el:string el:key="text3">
+        <el:english el:translate="true">This guard doesn't seem to be very alert.</el:english>
+      </el:string> 
+      <el:string el:key="text4">
+        <el:english el:translate="true">This lake is obviously due to Goshers. I think the way there in the south is the right one.</el:english>
+      </el:string> 
+      <el:string el:key="text5">
+        <el:english el:translate="true">There's an inscription on the old wall, saying in spanish: "Don't touch everything you see! It could be the last you touch!"</el:english>
+      </el:string> 
+      <el:string el:key="text6">
+        <el:english el:translate="true">Chromed sign: "Control of the wilds' cage."</el:english>
+      </el:string> 
+      <el:string el:key="text7">
+        <el:english el:translate="true">Oooh, this slope is steep! Don't try to touch the skull!</el:english>
+      </el:string> 
+      <el:string el:key="text8">
+        <el:english el:translate="true">This building down there looks like a prison. Let's see if I can get out, of what purpose it is... Ah, there's a sign. And it's chromed as well. Goshers seems to have a favour for chromed signs. It says: "Natives prison".</el:english>
+      </el:string> 
+      <el:string el:key="text9">
+        <el:english el:translate="true">Getting beyond the prison building was a real good idea. But now you have to cross this lake. Be thrifty with those boxes!</el:english>
+      </el:string> 
+      <el:string el:key="text10">
+        <el:english el:translate="true">Now, spotting through the grilled prison windows, you recognize a native woman being imprisoned there. Obviously Goshers locked all natives, who disturbed his "work", trying to enter the temple and getting rich on the treasures of the Aztecs. Maybe it's useful to be accompanied by someone, who knows the secrets of the jungle and this temple ...</el:english>
+      </el:string> 
+      <el:string el:key="text11">
+        <el:english el:translate="true">Since the white man there freed me from the prison, he certainly cannot be as evil as this Goshers is. Perhaps he wants to end the mastery of Goshers and free my people. And even if this is not the case, it's better to be free than imprisoned. I think I should thank him.</el:english>
+      </el:string> 
+      <el:string el:key="text12">
+        <el:english el:translate="true">You meet the English adventurer in the front of the prison. "Hello, I'm Xila!", you tell him in broken English. After he introduced himself as well, both of you begin to work out a plan against the evil G. G. Goshers.</el:english>
+      </el:string>
+      <el:string el:key="text13">
+        <el:english el:translate="true">This is a really hard puzzle. The English man will have to help me, if this enigma is to be solved.</el:english>
+      </el:string> 
+      <el:string el:key="text14">
+        <el:english el:translate="true">You wonder, what this switch could trigger.</el:english>
+      </el:string> 
+      <el:string el:key="text15">
+        <el:english el:translate="true">Xila knows how to drain the lake!</el:english>
+      </el:string> 
+      <el:string el:key="text16">
+        <el:english el:translate="true">Lucky you was finding this hollow. It prevents you from drawning.</el:english>
+      </el:string> 
+      <el:string el:key="text17">
+        <el:english el:translate="true">This stone of glass does certainly fullfill a purpose ...</el:english>
+      </el:string> 
+      <el:string el:key="text18">
+        <el:english el:translate="true">It's funny, that such a temple does have a side entrance.</el:english>
+      </el:string> 
+      <el:string el:key="text19">
+        <el:english el:translate="true">Be careful! There are sensors in the walls.</el:english>
+      </el:string> 
+      <el:string el:key="text20">
+        <el:english el:translate="true">After the huge doors of the old temple have opened, you see, that the entrance is protected by 11 knights, armed with spears. These guards are very dangerous. Without a sword you'll never be able to enter. Be careful. There're not only knights, but also thieves.</el:english>
+      </el:string> 
+      <el:string el:key="text21">
+        <el:english el:translate="true">"Congratulations. You just managed to enter this old Aztec Temple."</el:english>
+      </el:string> 
+      <el:string el:key="text22">
+        <el:english el:translate="true">"You've been smarter than I expected. But you'll never enter the treasure room nor escape from here!"</el:english>
+      </el:string> 
+      <el:string el:key="text23">
+        <el:english el:translate="true">"I, Goshers, will certainly be able to get rid of one of my archenemies, by just killing you!"</el:english>
+      </el:string> 
+      <el:string el:key="text24">
+        <el:english el:translate="true">"Run for your life!"</el:english>
+      </el:string>
+      <el:string el:key="text25">
+        <el:english el:translate="true">Xila and you just entered the Diamond Room of the old Aztec Temple. By taking him back to Great Britain and redering him to the police, the evil majesty of Gerald Gregory Goshers has found its end. Congratulations on the success of your expedition!</el:english>
+      </el:string> 
     </el:i18n>
   </el:protected>
 </el:level>
