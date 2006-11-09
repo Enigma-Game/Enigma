@@ -8,15 +8,15 @@
   <levels>
     <level _seq="1" _title="Demo Simple" _xpath="./demo_simple" author="Ronald Lamprecht" ctrl="force" easy="false" id="20060210ral001" rel="1" rev="1" score="1" target="time" unit="duration"/>
     <level _seq="2" _title="Demo I18N" _xpath="./demo_i18n" author="Ronald Lamprecht" ctrl="force" easy="false" id="20060211ral002" rel="1" rev="2" score="1" target="time" unit="duration"/>
-    <level _seq="3" _title="Template 1" _xpath="./template1" author="AUTHOR" ctrl="force" easy="false" id="enigma_experimental/template1" rel="1" rev="0" score="1" target="time" unit="duration"/>
-    <level _seq="4" _title="Template 2" _xpath="./template2" author="AUTHOR" ctrl="force" easy="false" id="enigma_experimental/template2" rel="1" rev="0" score="1" target="time" unit="duration"/>
-    <level _seq="5" _title="Template 3" _xpath="./template3" author="AUTHOR" ctrl="force" easy="false" id="enigma_experimental/template3" rel="1" rev="0" score="1" target="time" unit="duration"/>
-    <level _seq="6" _title="Impulstest" _xpath="./testimpulses" author="Enigma Team" ctrl="force" easy="false" id="enigma_experimental/testimpulses" rel="1" rev="0" score="1" target="time" unit="duration"/>
-    <level _seq="7" _title="Wolf Among Sheep" _xpath="./wolfamongsheep" author="illmind" ctrl="force" easy="false" id="enigma_experimental/wolfamongsheep" rel="1" rev="0" score="1" target="time" unit="duration"/>
-    <level _seq="8" _title="Puzzle Labor" _xpath="./randompuzzles" author="Raoul Bourquin" ctrl="force" easy="false" id="enigma_experimental/randompuzzles" rel="1" rev="0" score="1" target="time" unit="duration"/>
-    <level _seq="9" _title="Puzzle Demo" _xpath="./puzzle_demo" author="Raoul Bourquin" ctrl="force" easy="false" id="enigma_experimental/puzzle_demo" rel="1" rev="0" score="1" target="time" unit="duration"/>
-    <level _seq="10" _title="All Items" _xpath="./items" author="Raoul Bourquin" ctrl="force" easy="false" id="enigma_experimental/items" rel="1" rev="0" score="1" target="time" unit="duration"/>
-    <level _seq="11" _title="Impossible?" _xpath="./wb2" author="Jon 'WB' Sneyers" ctrl="force" easy="false" id="enigma_experimental/wb2" rel="1" rev="0" score="1" target="time" unit="duration"/>
+    <level _seq="3" _title="Template 1" _xpath="./template1" author="AUTHOR" ctrl="force" easy="false" id="template1" rel="1" rev="0" score="1" target="time" unit="duration"/>
+    <level _seq="4" _title="Template 2" _xpath="./template2" author="AUTHOR" ctrl="force" easy="false" id="template2" rel="1" rev="0" score="1" target="time" unit="duration"/>
+    <level _seq="5" _title="Template 3" _xpath="./template3" author="AUTHOR" ctrl="force" easy="false" id="template3" rel="1" rev="0" score="1" target="time" unit="duration"/>
+    <level _seq="6" _title="Impulstest" _xpath="./testimpulses" author="Enigma Team" ctrl="force" easy="false" id="testimpulses" rel="1" rev="0" score="1" target="time" unit="duration"/>
+    <level _seq="7" _title="Wolf Among Sheep" _xpath="./wolfamongsheep" author="illmind" ctrl="force" easy="false" id="wolfamongsheep" rel="1" rev="0" score="1" target="time" unit="duration"/>
+    <level _seq="8" _title="Puzzle Labor" _xpath="./randompuzzles" author="Raoul Bourquin" ctrl="force" easy="false" id="randompuzzles" rel="1" rev="0" score="1" target="time" unit="duration"/>
+    <level _seq="9" _title="Puzzle Demo" _xpath="./puzzle_demo" author="Raoul Bourquin" ctrl="force" easy="false" id="puzzle_demo" rel="1" rev="0" score="1" target="time" unit="duration"/>
+    <level _seq="10" _title="All Items" _xpath="./items" author="Raoul Bourquin" ctrl="force" easy="false" id="items" rel="1" rev="0" score="1" target="time" unit="duration"/>
+    <level _seq="11" _title="Impossible?" _xpath="./wb2" author="Jon 'WB' Sneyers" ctrl="force" easy="false" id="wb2_exp" rel="1" rev="0" score="1" target="time" unit="duration"/>
   </levels>
 
 </index>
