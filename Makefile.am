@@ -23,3 +23,9 @@ pos:
 macapp:
 	cd src && $(MAKE) $(AM_MAKEFLAGS) bundle && $(MAKE) $(AM_MAKEFLAGS) bundle-fw && $(MAKE) $(AM_MAKEFLAGS) bundle-dmg
 
+pdf:
+	cd doc/manual/images && $(MAKE) pdf
+	cd doc/manual && $(MAKE) pdf
+	cd doc/refman/images && $(MAKE) pdf
+	cd doc/refman && $(MAKE) pdf
+

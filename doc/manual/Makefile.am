@@ -2,19 +2,19 @@
 
 SUBDIRS = images
 
-HTML =  $(wildcard enigma_*.html) \
-	enigma.html \
-	index.html
+TEXI = $(wildcard $(srcdir)/enigma*.texi)
+HTML = $(addprefix $(builddir), $(addsuffix .html, $(basename $(notdir $(TEXI)))))
+
 
 htmldir=@datadir@/doc/enigma
 html_DATA = $(HTML)
 
-EXTRA_DIST = enigma.texi enigma_de.texi enigma_fr.texi $(html_DATA)
+EXTRA_DIST = $(TEXI) $(html_DATA)
 
-$(HTML) : enigma.texi
+%.html : %.texi
 	@if [ "${TEXI2HTML}" ]; then \
 	  echo "Running texi2html"; \
-	  ${TEXI2HTML} -toc_file=index.html -split=chapter -output=. -nosec_nav $(srcdir)/enigma.texi; \
+	  ${TEXI2HTML} -nosec_nav $<; \
 	else \
 	  echo "Warning: texi2html not found"; \
 	fi
@@ -22,4 +22,4 @@ $(HTML) : enigma.texi
 pdf: enigma.pdf enigma_de.pdf enigma_fr.pdf
 
 %.pdf: %.texi
-	texi2pdf $<
+	texi2dvi --pdf $<

@@ -18,7 +18,7 @@ enigma-ref.html: $(srcdir)/enigma-ref.texi $(srcdir)/enigma-t2h.init
 	  echo "Warning: texi2html not found"; \
 	fi
 
-pdf: refman.pdf
+pdf: enigma-ref.pdf
 
 %.pdf: %.texi
-	texi2pdf $<
+	texi2dvi --pdf $<
