@@ -136,6 +136,7 @@ namespace enigma { namespace gui {
         "  Andreas Lochmann ()",
         "  Petr Machata (Level design, programming)",
         "  Nat Pryce (Level design)",
+        "  Jacob Scott (Level design)",
         "  Sven Siggelkow (Level design an special Oxyd expertise)",
         "  Ralf Westram (Programming, level design)",
         0,

@@ -569,8 +569,41 @@ uncontinuous spectra.
 @node Privat Annotations and Ratings, Screenshots, Versions, Level Info
 @subsection Privat Annotations and Ratings
 
+The textfield allows you to enter an annotation for a level that you can review
+on later replays. Note that the current textfield may not allow you to enter all
+characters and needs the mouse cursor to remain within its boundaries. But it
+should work for entering short annotations that may be very useful lateron.
+
+Annotations are stored in your private applications @samp{state.xml} file. There
+is one annotation per level independent of the level version.
+
+You may rate the levels, too. Just click on the ratings button. Values go from
+0 to 10 with an additional @samp{-} for abstention. 0 stands for a poor level
+that you think is not worth playing, 5 for an average level and 10 for the
+ultimate best levels. Try to use all values in your ratings.
+
+The ratings are stored together with the scores and will be evaluated
+annonymously. The resulting average rating of all users is displayed for your
+information. Note that different ratings are possible for different score versions
+of the same level. This makes sense as levels may improve on suggestions of
+users. As long as you do not rerate a new version of a level your rating from
+a previous version in inherited.
+
 @node Screenshots, , Privat Annotations and Ratings, Level Info
 @subsection Screenshots
+
+While playing a level you can make screenshots by pressing @key{F10}. You can make
+several screenshots in sequence for documentation purposes. Each will be stored
+with a unique image filename. With help of the level inspector you can view the
+screenshots directly from within Enigma. Just click on the screenshot button to
+view the first image. 
+
+As any buttons would disturb the view of a screenshot all functions are keyboard
+commands. Press @key{F1} to get a help. @key{ESC} returns to the level inspector. 
+@key{Page Up} and @key{Page Down} will show the previous and next screenshot.
+If you scroll down behind the last screenshot the "missing" screenshot file is named.
+This may be a useful hint were to search the other screenshot files on your
+@samp{user image path} (@pxref{Locating Resources}).
 
 @node  Levelpack Basics, Level Basics, Running Enigma, Top
 @chapter Levelpack Basics
