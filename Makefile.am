@@ -20,6 +20,9 @@ pot:
 pos:
 	cd po && $(MAKE) $(AM_MAKEFLAGS) update-po
 
+gmo:
+	cd po && $(MAKE) $(AM_MAKEFLAGS) update-gmo
+
 macapp:
 	cd src && $(MAKE) $(AM_MAKEFLAGS) bundle && $(MAKE) $(AM_MAKEFLAGS) bundle-fw && $(MAKE) $(AM_MAKEFLAGS) bundle-dmg
 
