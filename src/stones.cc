@@ -682,6 +682,7 @@ namespace
             return Value();
         }
         void on_move() {
+            Stone::on_move();
             GridPos p = get_pos();
             if (Floor *fl = GetFloor (p)) {
                 if (fl->is_kind("fl-abyss")) {

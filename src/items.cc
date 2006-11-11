@@ -701,13 +701,11 @@ namespace
     class TinyHollow : public Hollow {
         TinyHollow *clone() {
             TinyHollow *o = new TinyHollow(*this);
-            if (enigma_server::GameCompatibility == GAMET_ENIGMA)
-                instances.push_back(o);
+            instances.push_back(o);
             return o;
         }
         void dispose() {
-            if (enigma_server::GameCompatibility == GAMET_ENIGMA)
-                instances.erase(find(instances.begin(), instances.end(), this));
+            instances.erase(find(instances.begin(), instances.end(), this));
             delete this;
         }
         DECL_TRAITS;

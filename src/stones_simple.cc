@@ -987,10 +987,9 @@ namespace
 
         // in oxyd1 only fall when moving
         void on_move() {
+            Stone::on_move();
             if (server::GameCompatibility == GAMET_OXYD1)
                 maybe_fall_or_stopfire();
-            else
-                Stone::on_move();
         }
 
         // other oxyds versions: fall everytime the floor changes

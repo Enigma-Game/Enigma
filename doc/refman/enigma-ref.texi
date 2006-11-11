@@ -176,7 +176,9 @@ from the shell with the current working directory on the main directory via
 Just list the available startup switches to the output and terminate.
 
 @item @b{-@w{}-lang -l lang}
-...
+A switch that allows to override any other language preference. The language
+is given in the common 2 character sequence as @samp{fr} for French or @samp{ru}
+for Russian.
 
 @item @b{-@w{}-log}
 This switch turns on logging of internal information to the standard output.
@@ -184,13 +186,15 @@ Windows users will find an file called @samp{stdout.txt} in the current working
 directory. The output will f.e. list the paths described in @ref{Locating Resources}.
 
 @item @b{-@w{}-nograb}
-...
+A switch for Enigma developers that causes Enigma not to grab the mouse. Levels
+can hardly be played in this mode, but it makes it possible to debug the
+application in its core parts.
 
 @item @b{-@w{}-nomusic}
-...
+Start Enigma without playing backgroud music.
 
 @item @b{-@w{}-nosound}
-...
+Start Enigma with sounds being switched off.
 
 @item @b{-@w{}-pref -p filename}
 The name of an alternative preferences file without the leading dot for hidden
@@ -198,10 +202,10 @@ filenames. This switch is a pure Enigma developer support feature as described
 in @ref{Locating Resources}.
 
 @item @b{-@w{}-version}
-...
+Just print the version number to the output and terminate.
 
 @item @b{-@w{}-window -w}
-...
+Start Enigma in window mode instead of screen mode.
 
 @end table
 
@@ -228,6 +232,12 @@ by default only visible if you supplied levels on the commandline.
 @table @asis
 @item @b{Ratings update}
 Please keep this option on the value @samp{Never} until release of Enigma 1.00.
+
+@item @b{User name}
+Enter your user name that will be attached to the scores. Please have a look at
+the Enigma home page for user names already in use and choose a new unique name.
+It is possible to change the user name at any point of time without loosing any
+scores.
 
 @item @b{User path}
 This textfield allows you to define an arbitrary directory for your Enigma user
@@ -563,8 +573,47 @@ uncontinuous spectra.
 @node Scores, Versions, Public Ratings, Level Info
 @subsection Scores
 
+The score columns show your and some comparison values for the difficult and
+for the easy mode if the levels supports it.
+
+The world record is the best score that was retransmitted to the enigma team.
+The holders of the world record are listed below. 
+
+The PAR value is the "professional average rating" of the level. It is the 
+harmonic average of all scores that have been retransmitted. But we take only 
+into account scores from players that have solved a certain number of levels.
+Opposed to the world record that will be very difficult to gain the PAR value
+is a much more realistic aim for an ambitioned player. Within the level menu
+levels are marked with a speeding blackball if you are equal or better than PAR.
+
+The authors value is another reference score. Most authors are not keen on
+holding the world record of their own levels. But they will likley know the
+fastest way to solve the level. If your score is much higher than the authors
+score a simpler solution to solve the level may exist.
+
+The solved number is the number of players who solved this level in the given
+score version.
+
+The solved percentage is the relation of player who solved this level to the
+number of players who retransmitted scores. Actually we take only those players
+in account that could have solved the level. F.e. players that did retransmit
+scores before the level was written without updating afterwards are not taken 
+into account. A low percentage is a hint for a level that is not easy to solve.
+
 @node Versions, Privat Annotations and Ratings, Scores, Level Info
 @subsection Versions
+
+The version column shows detail information about the level. Read chapter Level
+Basics node @pxref{<version>} and @pxref{<modes>} for explanation of the
+values.
+
+For you as a player the @samp{Score} version number can be of some interest.
+If solve a level with a certain score it may happen that in a updated Enigma
+release the level appears with a red triangle in the level menu. Even though
+the level menu displays the medals showing that you solved the level the score
+values will not be displayed any more. This is due to a incompatible level
+update that requires a new solution with different incomparable score values.
+The author will increase the score version number in such a case.
 
 @node Privat Annotations and Ratings, Screenshots, Versions, Level Info
 @subsection Privat Annotations and Ratings
