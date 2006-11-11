@@ -155,6 +155,7 @@ namespace enigma { namespace lev {
         std::string urlIncrementalUpdate;
         short updateMinDelay;
         Rating * findRating(Proxy * levelProxy);
+        Rating * registerNewRating(Proxy * levelProxy);
         
         /**
          * Loads the ratings from a given URI and updates the cached ratings.

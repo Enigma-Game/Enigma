@@ -378,6 +378,31 @@ namespace enigma { namespace lev {
         return;
     }
     
+    Rating * RatingManager::registerNewRating(Proxy * levelProxy) {
+        std::string cacheKey = levelProxy->getId() + "#" + 
+                ecl::strf("%d", levelProxy->getScoreVersion());
+        std::map<std::string, Rating *>::iterator it = cache.find(cacheKey);
+        if (it != cache.end()) {
+            return it->second;
+        }
+        Rating *theRating = new Rating();
+        cache.insert(std::make_pair(cacheKey, theRating));
+        didAddRatings = true;
+        return theRating;        
+    }
+
+    Rating * RatingManager::findRating(Proxy * levelProxy) {
+        std::string cacheKey = levelProxy->getId() + "#" + 
+                ecl::strf("%d", levelProxy->getScoreVersion());
+        std::map<std::string, Rating *>::iterator it = cache.find(cacheKey);
+        if (it != cache.end()) {
+            Rating * theRating = it->second;
+            return theRating;
+        } else {
+            return NULL;
+        }
+    }
+    
     short RatingManager::getIntelligence(Proxy *levelProxy) {
         Rating * theRating = findRating(levelProxy);
         if (theRating != NULL) {
@@ -387,7 +412,7 @@ namespace enigma { namespace lev {
     }
 
     void RatingManager::setIntelligence(Proxy *levelProxy, short intelligence) {
-        Rating * theRating = findRating(levelProxy);
+        Rating * theRating = registerNewRating(levelProxy);
         if (theRating != NULL) {
             theRating->intelligence = intelligence;
             didEditRatings = true;
@@ -403,7 +428,7 @@ namespace enigma { namespace lev {
     }
     
     void RatingManager::setDexterity(Proxy *levelProxy, short dexterity) {
-        Rating * theRating = findRating(levelProxy);
+        Rating * theRating = registerNewRating(levelProxy);
         if (theRating != NULL) {
             theRating->dexterity = dexterity;
             didEditRatings = true;
@@ -420,7 +445,7 @@ namespace enigma { namespace lev {
     }
     
     void RatingManager::setPatience(Proxy *levelProxy, short patience) {
-        Rating * theRating = findRating(levelProxy);
+        Rating * theRating = registerNewRating(levelProxy);
         if (theRating != NULL) {
             theRating->patience = patience;
             didEditRatings = true;
@@ -437,7 +462,7 @@ namespace enigma { namespace lev {
     }
     
     void RatingManager::setKnowledge(Proxy *levelProxy, short knowledge) {
-        Rating * theRating = findRating(levelProxy);
+        Rating * theRating = registerNewRating(levelProxy);
         if (theRating != NULL) {
             theRating->knowledge = knowledge;
             didEditRatings = true;
@@ -454,7 +479,7 @@ namespace enigma { namespace lev {
     }
 
     void RatingManager::setSpeed(Proxy *levelProxy, short speed) {
-        Rating * theRating = findRating(levelProxy);
+        Rating * theRating = registerNewRating(levelProxy);
         if (theRating != NULL) {
             theRating->speed = speed;
             didEditRatings = true;
@@ -524,19 +549,7 @@ namespace enigma { namespace lev {
         }
         return "";
     }
-    Rating * RatingManager::findRating(Proxy * levelProxy) {
-        char txt[5];
-        snprintf(txt, sizeof(txt), "%d", levelProxy->getScoreVersion());        
-        std::string cacheKey = levelProxy->getId() + "#" + txt;
-        std::map<std::string, Rating *>::iterator i = cache.find(cacheKey);
-        if (i != cache.end()) {
-            Rating * theRating = i->second;
-//            Log << "Rating cache hit for " << levelProxy->getId() <<"\n";
-            return theRating;
-        } else {
-            return NULL;
-        }
-    }
+    
     short RatingManager::getParScoreEasy(Proxy *levelProxy) {
         Rating * theRating = findRating(levelProxy);
         if (theRating != NULL) {
