@@ -624,7 +624,8 @@ void OxydLoader::connect_rubberbands ()
         }
         else {
             GridPos p(rb.getSecondEndPieceX(), rb.getSecondEndPieceY());
-            world::AddRubberBand (actor, world::GetStone(p), rbd);
+            if (world::GetStone(p) != NULL) // Fix for MagnumGold Level #108
+                world::AddRubberBand (actor, world::GetStone(p), rbd); 
         }
     }
 }

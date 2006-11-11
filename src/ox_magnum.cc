@@ -130,7 +130,7 @@ const char *oxyd::oxydmag_floor_map[256] = {
     UNUSED,                     // OxydMagnum floor 0x57
     "fl-darkgray",              // OxydMagnum floor 0x58
     "fl-leaves",                // OxydMagnum floor 0x59
-    0,                          // OxydMagnum floor 0x5a (Level 121 ?)(Probably Oxyd Magnum Gold levels)
+    "fl-normal",                // OxydMagnum floor 0x5a (Only Oxyd Magnum Gold #119,120)
     "fl-plank",                 // OxydMagnum floor 0x5b
     // codes >= 0x5c are unused
 };
