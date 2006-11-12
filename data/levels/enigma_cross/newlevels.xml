@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no" ?>
 <index xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="index.xsd">
 
-  <info enigma="1.00" group="Facets" location="15400" network="false" owner="Enigma Team" release="1" revision="1" title="Enigma 1.00 new"/>
+  <info enigma="1.00" group="Facets" location="15400" network="false" owner="Enigma Team" release="1" revision="2" title="Enigma 1.00 new"/>
 
   <attributes/>
 
@@ -45,7 +45,7 @@
     <level _seq="37" _title="Laser Paradise" _xpath="enigma_ii/illmind05_1" author="illmind" ctrl="force" easy="false" id="illmind05" rel="1" rev="0" score="1" target="time" unit="duration"/>
     <level _seq="38" _title="Spaceleast" _xpath="enigma_ii/andreas15_1" author="Andreas Lochmann" ctrl="force" easy="true" id="andreas15" rel="1" rev="0" score="1" target="time" unit="duration"/>
     <level _seq="39" _title="The Fuze" _xpath="enigma_ii/capkoh02_1" author="capkoh" ctrl="force" easy="false" id="capkoh02" rel="1" rev="0" score="1" target="time" unit="duration"/>
-    <level _seq="40" _title="Bounce Out" _xpath="enigma_ii/ihope01_1" author="ihope" ctrl="force" easy="false" id="ih-bounceout" rel="1" rev="0" score="1" target="time" unit="duration"/>
+    <level _seq="40" _title="- Meditation -" _xpath="enigma_vi/edward10_1" author="Edward" ctrl="force" easy="false" id="edward10" rel="1" rev="1" score="1" target="time" unit="duration"/>
     <level _seq="41" _title="Knight Moves" _xpath="enigma_ii/illmind04_1" author="illmind" ctrl="force" easy="false" id="illmind04" rel="1" rev="0" score="1" target="time" unit="duration"/>
     <level _seq="42" _title="Buridan" _xpath="enigma_ii/alain01_1" author="Alain Busser" ctrl="force" easy="false" id="alain01" rel="1" rev="0" score="1" target="time" unit="duration"/>
     <level _seq="43" _title="Moure-Switches" _xpath="enigma_ii/andreas10_1" author="Andreas Lochmann" ctrl="force" easy="true" id="andreas10" rel="1" rev="0" score="1" target="time" unit="duration"/>
@@ -183,20 +183,19 @@
     <level _seq="175" _title="No Memory" _xpath="enigma_vi/edward01_1" author="Edward" ctrl="force" easy="false" id="edward01" rel="1" rev="1" score="1" target="time" unit="duration"/>
     <level _seq="176" _title="Edwards Second Level" _xpath="enigma_vi/edward02_1" author="Edward" ctrl="force" easy="false" id="edward02" rel="1" rev="1" score="1" target="time" unit="duration"/>
     <level _seq="177" _title="Dialers" _xpath="enigma_vi/edward05_1" author="Edward" ctrl="force" easy="true" id="edward05" rel="1" rev="1" score="1" target="time" unit="duration"/>
-    <level _seq="178" _title="- Meditation -" _xpath="enigma_vi/edward10_1" author="Edward" ctrl="force" easy="false" id="edward10" rel="1" rev="1" score="1" target="time" unit="duration"/>
-    <level _seq="179" _title="Edwards Mountain" _xpath="enigma_vi/edward11_1" author="Edward" ctrl="force" easy="true" id="edward11" rel="1" rev="1" score="1" target="time" unit="duration"/>
-    <level _seq="180" _title="Holes!" _xpath="enigma_vi/edward14_1" author="Edward" ctrl="force" easy="false" id="edward14" rel="1" rev="1" score="1" target="time" unit="duration"/>
-    <level _seq="181" _title="Random space" _xpath="enigma_vi/edward21_1" author="Edward" ctrl="force" easy="true" id="edward21" rel="1" rev="1" score="1" target="time" unit="duration"/>
-    <level _seq="182" _title="Wormhole Madness!" _xpath="enigma_vi/edward24_1" author="Edward" ctrl="force" easy="false" id="edward24" rel="1" rev="1" score="1" target="time" unit="duration"/>
-    <level _seq="183" _title="Space City" _xpath="enigma_vi/edward25_1" author="Edward" ctrl="force" easy="false" id="edward25" rel="1" rev="1" score="1" target="time" unit="duration"/>
-    <level _seq="184" _title="Just another pretty level" _xpath="enigma_vi/edward26_1" author="Edward" ctrl="force" easy="true" id="edward26" rel="1" rev="1" score="1" target="time" unit="duration"/>
-    <level _seq="185" _title="- Meditation -" _xpath="enigma_vi/edward30_1" author="Edward" ctrl="force" easy="true" id="edward30" rel="1" rev="1" score="1" target="time" unit="duration"/>
-    <level _seq="186" _title="- Meditation -" _xpath="enigma_vi/raoul24_1" author="Raoul Bourquin" ctrl="force" easy="false" id="raoul24" rel="1" rev="0" score="1" target="time" unit="duration"/>
-    <level _seq="187" _title="Procrustes" _xpath="enigma_vi/andreas34_1" author="Andreas Lochmann" ctrl="force" easy="false" id="andreas34" rel="1" rev="0" score="1" target="time" unit="duration"/>
-    <level _seq="188" _title="- Meditation -" _xpath="enigma_vi/andreas36_1" author="Andreas Lochmann" ctrl="force" easy="false" id="andreas36" rel="1" rev="0" score="1" target="time" unit="duration"/>
-    <level _seq="189" _title="Troy" _xpath="enigma_vi/andreas37_1" author="Andreas Lochmann" ctrl="force" easy="false" id="andreas37" rel="1" rev="0" score="1" target="time" unit="duration"/>
-    <level _seq="190" _title="Ben Hur" _xpath="enigma_vi/ral13_1" author="Ronald Lamprecht" ctrl="force" easy="true" id="20061011ral390" rel="1" rev="37" score="1" target="time" unit="duration"/>
-    <level _seq="191" _title="Bodyguard" _xpath="enigma_vi/ral10_1" author="Ronald Lamprecht" ctrl="force" easy="true" id="20060730ral012" rel="1" rev="41" score="1" target="time" unit="duration"/>
+    <level _seq="178" _title="Edwards Mountain" _xpath="enigma_vi/edward11_1" author="Edward" ctrl="force" easy="true" id="edward11" rel="1" rev="1" score="1" target="time" unit="duration"/>
+    <level _seq="179" _title="Holes!" _xpath="enigma_vi/edward14_1" author="Edward" ctrl="force" easy="false" id="edward14" rel="1" rev="1" score="1" target="time" unit="duration"/>
+    <level _seq="180" _title="Random space" _xpath="enigma_vi/edward21_1" author="Edward" ctrl="force" easy="true" id="edward21" rel="1" rev="1" score="1" target="time" unit="duration"/>
+    <level _seq="181" _title="Wormhole Madness!" _xpath="enigma_vi/edward24_1" author="Edward" ctrl="force" easy="false" id="edward24" rel="1" rev="1" score="1" target="time" unit="duration"/>
+    <level _seq="182" _title="Space City" _xpath="enigma_vi/edward25_1" author="Edward" ctrl="force" easy="false" id="edward25" rel="1" rev="1" score="1" target="time" unit="duration"/>
+    <level _seq="183" _title="Just another pretty level" _xpath="enigma_vi/edward26_1" author="Edward" ctrl="force" easy="true" id="edward26" rel="1" rev="1" score="1" target="time" unit="duration"/>
+    <level _seq="184" _title="- Meditation -" _xpath="enigma_vi/edward30_1" author="Edward" ctrl="force" easy="true" id="edward30" rel="1" rev="1" score="1" target="time" unit="duration"/>
+    <level _seq="185" _title="- Meditation -" _xpath="enigma_vi/raoul24_1" author="Raoul Bourquin" ctrl="force" easy="false" id="raoul24" rel="1" rev="0" score="1" target="time" unit="duration"/>
+    <level _seq="186" _title="Procrustes" _xpath="enigma_vi/andreas34_1" author="Andreas Lochmann" ctrl="force" easy="false" id="andreas34" rel="1" rev="0" score="1" target="time" unit="duration"/>
+    <level _seq="187" _title="- Meditation -" _xpath="enigma_vi/andreas36_1" author="Andreas Lochmann" ctrl="force" easy="false" id="andreas36" rel="1" rev="0" score="1" target="time" unit="duration"/>
+    <level _seq="188" _title="Troy" _xpath="enigma_vi/andreas37_1" author="Andreas Lochmann" ctrl="force" easy="false" id="andreas37" rel="1" rev="0" score="1" target="time" unit="duration"/>
+    <level _seq="189" _title="Ben Hur" _xpath="enigma_vi/ral13_1" author="Ronald Lamprecht" ctrl="force" easy="true" id="20061011ral390" rel="1" rev="37" score="1" target="time" unit="duration"/>
+    <level _seq="190" _title="Bodyguard" _xpath="enigma_vi/ral10_1" author="Ronald Lamprecht" ctrl="force" easy="true" id="20060730ral012" rel="1" rev="41" score="1" target="time" unit="duration"/>
   </levels>
 
 </index>
