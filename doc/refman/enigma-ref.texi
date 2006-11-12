@@ -3098,12 +3098,6 @@ whiteballs are inside the 3 marked holes.
 Note that hollows might appear or disappear during the game, they are
 handled the same way as descriped.
 
-Also note that @code{it-tinyhollow} is supposed to help to succeed the
-level in Enigma-compatibility mode only.  However, at the moment it
-does so in other compatibility modes, too; take this as a bug:  Please
-don't use tiny hollows in meditations in non-Enigma compatibility
-modes.
-
 
 @c -------------------- Fire and Extinguisher  --------------------
 @node Fire and Extinguisher
@@ -6572,8 +6566,6 @@ ultimately opened (pairs must be hit with some time delay).
 @ref{it-brush}.
 @item Only function of @ref{it-pencil} is to turn
 @code{st-plain[_move]} into @code{st-firebreak[_move]}.
-@item Tiny hollows shouldn't be allowed as endpoints in meditations
-(see @ref{Hills and Hollows}).
 @item @ref{it-booze} doesn't break to @ref{it-booze-broken} when a
 stone is pushed over it.
 @item @ref{st-swap} and @ref{st-pull} may not swap/pull into the level
