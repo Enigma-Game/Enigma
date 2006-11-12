@@ -214,14 +214,18 @@ namespace enigma { namespace lev {
     
     void PersistentIndex::addCurrentToHistory() {
         Variation var;
-        PersistentIndex * curIndex = dynamic_cast<PersistentIndex *>(Index::getCurrentIndex());
-        if (curIndex != NULL)
-            var = curIndex->getVariation(curIndex->getCurrentPosition());
-        historyIndex->insertProxy(0, Index::getCurrentProxy(), false, var.ctrl, var.unit,
-                var.target, var.extensions);
-        if (historyIndex->size() > 100)
-            historyIndex->erase(historyIndex->size() - 1);
-        historyIndex->setCurrentPosition(0);  // last played is always current in history
+        Proxy * curProxy = Index::getCurrentProxy();
+        // remember all but commandline absolute and relative paths
+        if (curProxy->getNormPathType() != Proxy::pt_absolute) {
+            PersistentIndex * curIndex = dynamic_cast<PersistentIndex *>(Index::getCurrentIndex());
+            if (curIndex != NULL)
+                var = curIndex->getVariation(curIndex->getCurrentPosition());
+            historyIndex->insertProxy(0, curProxy, false, var.ctrl, var.unit,
+                    var.target, var.extensions);
+            if (historyIndex->size() > 100)
+                historyIndex->erase(historyIndex->size() - 1);
+            historyIndex->setCurrentPosition(0);  // last played is always current in history
+        }
     }
 
     PersistentIndex::PersistentIndex(std::string thePackPath, bool systemOnly, 

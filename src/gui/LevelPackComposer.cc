@@ -23,6 +23,7 @@
 #include "enigma.hh"
 #include "errors.hh"
 #include "nls.hh"
+#include "sound.hh"
 #include "video.hh"
 #include "lev/Index.hh"
 
@@ -275,10 +276,17 @@ namespace enigma { namespace gui {
             int ilevel = ind->getCurrentPosition();
             if (w->lastModifierKeys() & KMOD_SHIFT) {
                 lev::Variation var;
-                if (curIndex != NULL)
-                    var = curIndex->getVariation(curIndex->getCurrentPosition());
-                clipboard->appendProxy(lev::Index::getCurrentProxy(), var.ctrl, 
-                        var.unit, var.target, var.extensions);
+                lev::Proxy * curProxy = lev::Index::getCurrentProxy();
+                if (curProxy->getNormPathType() != lev::Proxy::pt_absolute) {
+                    // all but absolute commandline proxies may be put on the clipboard
+                    if (curIndex != NULL)
+                        var = curIndex->getVariation(curIndex->getCurrentPosition());
+                    clipboard->appendProxy(curProxy, var.ctrl, 
+                            var.unit, var.target, var.extensions);
+                    sound::SoundEvent ("menuok");
+                } else {
+                    sound::SoundEvent ("menustop");
+                }
             }
         } else if (w == but_back) {
             if (isModified) {

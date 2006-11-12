@@ -33,7 +33,7 @@ namespace enigma { namespace lev {
             levelCount++;
             Proxy * aProxy = Proxy::registerLevel(levelpaths[i], "#commandline",
                     ecl::strf("_%d",levelCount), ecl::strf("Level %d", i), "unknown",
-                    0, 0, false, GAMET_UNKNOWN, STATUS_UNKNOWN); 
+                    1, 0, false, GAMET_UNKNOWN, STATUS_UNKNOWN); 
             proxies.push_back(aProxy);
             try {
                 aProxy->loadMetadata(true);

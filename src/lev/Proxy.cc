@@ -153,7 +153,7 @@ namespace enigma { namespace lev {
     
     Proxy * Proxy::autoRegisterLevel(std::string indexPath, std::string filename) {
         Proxy *theProxy = new Proxy(false, pt_resource, indexPath + "/" + filename , "", "",
-            "unknown", 0, 0, false, GAMET_UNKNOWN, STATUS_UNKNOWN);
+            "unknown", 1, 0, false, GAMET_UNKNOWN, STATUS_UNKNOWN);
         try {
             theProxy->loadMetadata(true);
         }
@@ -521,6 +521,11 @@ namespace enigma { namespace lev {
                         lua_setglobal (L, "_LASTERROR");
                         throw XLevelLoading(lua::LastError(L));
                     }
+                } else {
+                    // ensure that metadata are consistent - called for all
+                    // new commanline lua levels
+                    if (releaseVersion == 0)
+                        releaseVersion = 1;
                 }
             }
         }
