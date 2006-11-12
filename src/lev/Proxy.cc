@@ -246,7 +246,14 @@ namespace enigma { namespace lev {
             << countProxy << " total\n";
     }
 
-    
+    std::set<std::string> Proxy::getLevelIds(bool withEasy) {
+        std::set<std::string> result;
+        for (std::map<std::string, Proxy *>::iterator i= cache.begin(); i != cache.end(); i++) {
+            if ((*i).second->hasEasymode() == withEasy)
+                result.insert((*i).second->getId());
+        }
+        return result;
+    }
 
     Proxy::Proxy(bool proxyIsLibrary, pathType thePathType, std::string theNormLevelPath,
             std::string levelId, std::string levelTitle, std::string levelAuthor,

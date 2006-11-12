@@ -550,6 +550,19 @@ namespace enigma { namespace lev {
         return "";
     }
     
+    
+    short RatingManager::getParScore(Proxy *levelProxy, int difficulty) {
+        switch (difficulty) {
+            case DIFFICULTY_EASY:
+                return getParScoreEasy(levelProxy);
+            case DIFFICULTY_HARD:
+                return getParScoreDifficult(levelProxy);
+            default:
+                ecl::Assert <XFrontend> (false, "RatingManager::getParScore illegal difficulty");
+        }
+                
+    }
+    
     short RatingManager::getParScoreEasy(Proxy *levelProxy) {
         Rating * theRating = findRating(levelProxy);
         if (theRating != NULL) {
@@ -625,7 +638,7 @@ namespace enigma { namespace lev {
             s = ecl::strf("%3.2d", rat);
             s.insert(2,1,'.');
         } else {
-            s = "";
+            s = "-";
         }
         return s;
     }

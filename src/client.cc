@@ -773,8 +773,8 @@ void Client::level_finished()
         scm->updateUserScore(curProxy, difficulty, level_time);
 
         if (options::LevelStatusChanged) {
-            // save options (just in case Enigma crashes when loading next level)
-            options::Save();
+            // save score (just in case Enigma crashes when loading next level)
+            lev::ScoreManager::instance()->save();
         }
     }
 

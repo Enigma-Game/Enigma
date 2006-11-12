@@ -148,27 +148,27 @@ namespace enigma { namespace gui {
         lev::Proxy *theLevel;        
     };
     
-//     class RatingButton : public ValueButton {
-//         int get_value() const     { 
-//             return theRatingMgr->getSpeed(theLevel);
-//         }
-//         void set_value(int value) { 
-//             theRatingMgr->setSpeed(theLevel, value);
-//         }
-//     
-//         string get_text(int value) const  {
-//             return strf("%d", value);
-//         }
-//     public:
-//         RatingButton(lev::Proxy  *aLevel) : ValueButton(0, 5), 
-//                 theLevel (aLevel) {
-//             theRatingMgr = lev::RatingManager::instance();
-//             init();
-//         }
-//     private:
-//         lev::RatingManager *theRatingMgr;
-//         lev::Proxy *theLevel;        
-//     };
+     class RatingButton : public ValueButton {
+         int get_value() const     { 
+             return theScoreMgr->getRating(theLevel);
+         }
+         void set_value(int value) { 
+             theScoreMgr->setRating(theLevel, value);
+         }
+     
+         string get_text(int value) const  {
+             return (value == -1) ? "-" : ecl::strf("%d", value);
+         }
+     public:
+         RatingButton(lev::Proxy  *aLevel) : ValueButton(-1, 10), 
+                 theLevel (aLevel) {
+             theScoreMgr = lev::ScoreManager::instance();
+             init();
+         }
+     private:
+         lev::ScoreManager *theScoreMgr;
+         lev::Proxy *theLevel;        
+     };
     
 LevelInspector::LevelInspector(lev::Proxy *aLevel):
         levelProxy(aLevel), annotation (new TextField()),
@@ -449,7 +449,7 @@ LevelInspector::LevelInspector(lev::Proxy *aLevel):
             vnext += (25 + vspacing)*annotationLines;
         }
         add(new Label(N_("Rating: "), HALIGN_RIGHT),Rect(hmargin,vnext,110,25));
-//         add(new RatingButton(aLevel),Rect(hmargin+110+10,vnext,40,25));
+        add(new RatingButton(aLevel),Rect(hmargin+110+10,vnext,40,25));
         add(new Label(N_("Average: "), HALIGN_RIGHT),Rect(hmargin+110+10+40+20,vnext,105,25));
         add(new Label(theRatingMgr->getAverageRating(aLevel), HALIGN_RIGHT),Rect(hmargin+110+10+40+20+105+10,vnext,25,25));
     }

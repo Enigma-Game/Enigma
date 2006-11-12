@@ -20,82 +20,590 @@
 #include "lev/ScoreManager.hh"
 #include "enigma.hh"
 #include "errors.hh"
+#include "DOMErrorReporter.hh"
+#include "DOMSchemaResolver.hh"
+#include "LocalToXML.hh"
+#include "Utf8ToXML.hh"
+#include "utilXML.hh"
+#include "XMLtoLocal.hh"
+#include "XMLtoUtf8.hh"
+#include "ecl_system.hh"
+#include "gui/ErrorMenu.hh"
+#include "nls.hh"
+#include "file.hh"
 
 #include "main.hh"
 #include "options.hh"
 
+#include <ctime>
+#include <iostream>
+#include <fstream>
+#include <sstream>
+#include <xercesc/dom/DOM.hpp>
+#include <xercesc/util/XMLDouble.hpp>
+#include <xercesc/util/XMLString.hpp>
+#include <xercesc/util/XMLUniDefs.hpp>
+#include <xercesc/util/PlatformUtils.hpp>
+#include <xercesc/util/XercesVersion.hpp>
+#include <xercesc/framework/MemBufInputSource.hpp>
+#include <xercesc/framework/Wrapper4InputSource.hpp>
+#if _XERCES_VERSION < 30000
+#include <xercesc/framework/LocalFileFormatTarget.hpp>
+#include <xercesc/framework/MemBufFormatTarget.hpp>
+#endif
+
+
 using namespace std;
 using namespace enigma;
-
-
+XERCES_CPP_NAMESPACE_USE 
 
 namespace enigma { namespace lev {
     ScoreManager *ScoreManager::theSingleton = 0;
+    unsigned ScoreManager::ctab[256];
+    unsigned ScoreManager::pol = 0x1021;
     
     ScoreManager* ScoreManager::instance() {
         if (theSingleton == 0) {
+            for (unsigned i = 0; i < 256; i++) {
+                unsigned r = i << 8;
+                for (int j = 0; j < 8; j++) {
+                    bool bit = (r & 0x8000) != 0;
+                    r <<= 1;
+                    if (bit)
+                        r ^= pol;
+                }
+                ctab[i] = r & 0xFFFF;
+            }
             theSingleton = new ScoreManager();
         }
         return theSingleton;
     }
 
-    ScoreManager::ScoreManager() {
+    ScoreManager::ScoreManager() : hasValidUserId (false) {
+        sec("");
         ratingMgr = lev::RatingManager::instance();
+        std::string scorePath;
+        std::string errMessage;
+        bool isTemplate = false;
+        bool hasValidStateUserId = false;
+        std::string stateUserId = app.state->getString("UserId"); 
+        
+        if (stateUserId.length() == 16 && 
+                stateUserId.find_first_not_of("01234567890ABCDEF") == std::string::npos) {
+            unsigned i1, i2, i3, i4; 
+            sscanf(stateUserId.c_str(),"%4lX%4lX%4lX%4lX", &i1, &i2, &i3, &i4);
+            if ((i4 == (i1 ^ i2 ^ i3)) && stateUserId != "0000000000000000") {
+                hasValidStateUserId = true;
+                Log << "User id '" << stateUserId << "'\n";
+            }
+        }
+        
+        if (!app.resourceFS->findFile( "enigma.score" , scorePath)) {
+            isTemplate = true;
+            if (!app.systemFS->findFile( "schemas/score.xml" , scorePath)) {
+                throw XFrontend("Cannot load application score template!");
+            }
+        }
+
+        try {
+            std::ostringstream errStream;
+            app.domParserErrorHandler->resetErrors();
+            app.domParserErrorHandler->reportToOstream(&errStream);
+            app.domParserSchemaResolver->resetResolver();
+            app.domParserSchemaResolver->addSchemaId("score.xsd","score.xsd");
+
+            if (isTemplate)
+                doc = app.domParser->parseURI(scorePath.c_str());
+            else {
+                std::basic_ifstream<char> ifs(scorePath.c_str(), ios::binary | ios::in);
+                std::string zipFile;
+                char c;
+                while (ifs.get(c))
+                    zipFile += (char)(c ^ 0xE5);
+                std::istringstream zipStream(zipFile);
+                std::ostringstream content;
+                readFromZipStream(zipStream, content);
+                std::string score = content.str();
+ #if _XERCES_VERSION >= 30000
+                std::auto_ptr<DOMLSInput> domInputScoreSource ( new Wrapper4InputSource(
+                        new MemBufInputSource(reinterpret_cast<const XMLByte *>(score.c_str()),
+                        score.size(), "", false)));
+                doc = app.domParser->parse(domInputScoreSource.get());
+#else    
+                std::auto_ptr<Wrapper4InputSource> domInputScoreSource ( new Wrapper4InputSource(
+                        new MemBufInputSource(reinterpret_cast<const XMLByte *>(score.c_str()),
+                        score.size(), "", false)));
+                doc = app.domParser->parse(*domInputScoreSource);
+#endif
+                
+            }
+            if (doc != NULL && !app.domParserErrorHandler->getSawErrors()) {
+                propertiesElem = dynamic_cast<DOMElement *>(doc->getElementsByTagName(
+                        Utf8ToXML("properties").x_str())->item(0));
+                levelsElem = dynamic_cast<DOMElement *>(doc->getElementsByTagName(
+                        Utf8ToXML("levels").x_str())->item(0));
+                levelList = levelsElem->getElementsByTagName(Utf8ToXML("level").x_str());
+                
+                userId = getString("UserId");
+                if (hasValidStateUserId && userId == stateUserId) {
+                    hasValidUserId = true;
+                    for (int i = 0, l = levelList->getLength(); i < l; i++) {
+                        DOMElement * levelElem  = dynamic_cast<DOMElement *>(levelList->item(i));
+                        std::string levelId = XMLtoUtf8(levelElem->getAttribute(Utf8ToXML("id").x_str())).c_str();
+                        std::string scoreVersion = XMLtoUtf8(levelElem->getAttribute(Utf8ToXML("version").x_str())).c_str();
+                        DOMNamedNodeMap * attrXMap = levelElem->getAttributes();
+                        std::map<std::string, std::string> attrMap;
+                        for (int j = 0, k = attrXMap->getLength();  j < k; j++) {
+                            DOMAttr * levelAttr = dynamic_cast<DOMAttr *>(attrXMap->item(j));
+                            std::string attrName = XMLtoUtf8(levelAttr->getName()).c_str();
+                            if (attrName != "sec" && levelAttr->getSpecified())
+                                attrMap[attrName] = XMLtoUtf8(levelAttr->getValue()).c_str();
+                        }
+                        std::string target;
+                        std::map<std::string, std::string>::iterator it;
+                        for (it = attrMap.begin(); it != attrMap.end(); it++)
+                            target += (*it).second;
+                        target += userId;
+                        if (sec(target) != XMLtoUtf8(levelElem->getAttribute(Utf8ToXML("sec").x_str())).c_str()) {
+                            Log << "Faulty score entry deletion: " << levelId << " - version: " << scoreVersion << "\n";
+                            levelsElem->removeChild(levelElem);
+                            --i; --l;
+                            continue;
+                        }
+
+                        std::string cacheKey = levelId + "#" + scoreVersion;
+                        allLevelScores[cacheKey] = levelElem;
+                        std::map<std::string,  DOMElement *>::iterator its;
+                        its = curLevelScores.find(levelId);
+                        if (its == curLevelScores.end()) {
+                            curLevelScores[levelId] = levelElem;
+                        } else {
+                            // another scoreversion for this level exists - compare versions
+                            int previousVersion = XMLString::parseInt(its->second->getAttribute(
+                                    Utf8ToXML("version").x_str()));
+                            int thisVersion = XMLString::parseInt(levelElem->getAttribute(
+                                    Utf8ToXML("version").x_str()));
+                            if (thisVersion > previousVersion)
+                                curLevelScores[levelId] = levelElem;
+                        }
+                    }
+                } else if (isTemplate && userId.empty()) {
+                    if (hasValidStateUserId) {
+                        userId = stateUserId;
+                        setProperty("UserId", userId);
+                        hasValidUserId = true;
+                    } else {
+                        // create first part of user id based on time stamp
+                        unsigned id = rand() & 0xFFFFFFFF;
+                        userId = ecl::strf("%.8lX",id);
+                        // we need a second random part as 2 users may start Enigma
+                        // within the same second - we postpone this part till we save
+                    }
+                    // do not allow existing level entries
+                    int levelCount = levelList->getLength();
+                    for (int i = 0; i < levelCount; i++) {
+                        levelsElem->removeChild(levelList->item(0));
+                    }
+                } else {
+                    errMessage = "Mismatch of state.xml and enigma.score.\n";
+                    errMessage += "Restore both from your backup or remove enigma.score\n";
+                    errMessage += "to restart with an empty score file\n";
+                    doc->release();
+                    throw XFrontend("");
+                }
+                // update from 0.92
+                
+                // check if already updated
+                didUpgrade = (getString("Upgrade") == "true") || 
+                        (!isTemplate && (upgradeSum() != getString("Upgrade")));
+                if (!didUpgrade) {
+                    if (!hasValidUserId) {
+                        unsigned id3 = idFromLegacyScore();
+                        if (id3 <= 0xFFFF) {
+                            Log << "idFromLegacyScore\n";
+                            finishUserId(id3);
+                        }
+                    }
+                    if (hasValidUserId)
+                        if (upgradeLegacy())
+                            didUpgrade = true;
+                }
+                
+            }
+            if(app.domParserErrorHandler->getSawErrors()) {
+                errMessage = errStream.str();
+            }
+            app.domParserErrorHandler->reportToNull();  // do not report to errStream any more
+        }
+        catch (...) {
+            if (errMessage.empty())
+                errMessage = "Unexpected XML Exception on load of score\n";
+        }
+        if (!errMessage.empty()) {
+            throw XFrontend("Cannot load application score file: " + scorePath +
+                    "\nError: " + errMessage);
+        }
+        
+        
     }
 
     ScoreManager::~ScoreManager() {
+        if (doc != NULL)
+            shutdown();
     }
+
+    void ScoreManager::finishUserId(unsigned id3) {
+        unsigned i1, i2, i3, i4; 
+        sscanf(userId.c_str(),"%4lX%4lX", &i1, &i2);
+        i3 = id3 & 0xFFFF;
+        i4 = (i1 ^ i2 ^ i3);
+        userId += ecl::strf("%.4lX%.4lX",i3, i4);
+        app.state->setProperty("UserId", userId);
+        setProperty("UserId", userId);
+        hasValidUserId = true;
+    }
+    
+    std::string ScoreManager::sec(std::string target) {
+        int len = target.size();
+        unsigned r = 0;
+        const char *p = target.c_str();
+        
+        while (len--)
+            r = (r<<8 & 0xFFFF) ^ ctab[(r >> 8) ^ *p++];
+        return ecl::strf("%.4lX", r); 
+    }
+
+    bool ScoreManager::save() {
+        bool result = true;
+        std::string errMessage;
+        
+        if (doc == NULL)
+            return true;
+
+        int count = getInt("Count");
+        setProperty("Count", ++count);
+        
+        setProperty("UserName", app.state->getString("UserName"));
+        
+        if (!hasValidUserId) {
+            finishUserId(std::time(NULL) & 0xFFFF);
+        }
+        
+        for (int i = 0, l = levelList->getLength(); i < l; i++) {
+            DOMElement * levelElem  = dynamic_cast<DOMElement *>(levelList->item(i));
+            DOMNamedNodeMap * attrXMap = levelElem->getAttributes();
+            std::map<std::string, std::string> attrMap;
+            for (int j = 0, k = attrXMap->getLength();  j < k; j++) {
+                DOMAttr * levelAttr = dynamic_cast<DOMAttr *>(attrXMap->item(j));
+                std::string attrName = XMLtoUtf8(levelAttr->getName()).c_str();
+                if (attrName != "sec" && levelAttr->getSpecified())
+                    attrMap[attrName] = XMLtoUtf8(levelAttr->getValue()).c_str();
+            }
+            std::string target;
+            std::map<std::string, std::string>::iterator it;
+            for (it = attrMap.begin(); it != attrMap.end(); it++)
+                target += (*it).second;
+            target += userId;
+            levelElem->setAttribute(Utf8ToXML("sec").x_str(), 
+                    Utf8ToXML(sec(target)).x_str());
+        }
+        
+        if (!didUpgrade)
+            setProperty("Upgrade", upgradeSum());
+        else
+            setProperty("Upgrade", std::string("true"));
+
+        stripIgnorableWhitespace(doc->getDocumentElement());
+//        std::string path = app.userPath + "/score.xml";
+        std::string zipPath = app.userPath + "/enigma.score";
+        
+        // backup score every 10th save as we save after each level completion once
+        if (count%10 == 0) {
+            std::remove((zipPath + "~2").c_str());
+            std::rename((zipPath + "~1").c_str(), (zipPath + "~2").c_str());
+            std::rename((zipPath).c_str(), (zipPath + "~1").c_str());
+        }
+        
+        try {
+#if _XERCES_VERSION >= 30000
+//            result = app.domSer->writeToURI(doc, LocalToXML(& path).x_str());
+            std::string contents(XMLtoUtf8(app.domSer->writeToString(doc)).c_str());
+            contents.replace(contents.find("UTF-16"), 6, "UTF-8"); // adapt encoding info
+#else
+//            XMLFormatTarget *myFormTarget = new LocalFileFormatTarget(path.c_str());
+//            result = app.domSer->writeNode(myFormTarget, *doc);            
+//            delete myFormTarget;   // flush
+            
+            MemBufFormatTarget *memFormTarget = new MemBufFormatTarget();
+            result = app.domSer->writeNode(memFormTarget, *doc);
+            std::string contents(
+                    reinterpret_cast<const char *>(memFormTarget->getRawBuffer()),
+                    memFormTarget->getLen());
+            delete memFormTarget;
+#endif
+            std::istringstream contentStream(contents);
+            std::ostringstream zippedStream;
+            writeToZip(zippedStream, "score.xml", contentStream);
+            std::ofstream of( zipPath.c_str(), ios::out | ios::binary );
+            std::string zipScore = zippedStream.str();
+            for (int i=0; i<zipScore.size(); i++)
+                of << (char)(zipScore[i] ^ 0xE5);
+        } catch (const XMLException& toCatch) {
+            errMessage = std::string("Exception on save of score: \n") + 
+                    XMLtoUtf8(toCatch.getMessage()).c_str() + "\n";
+            result = false;
+        } catch (const DOMException& toCatch) {
+            errMessage = std::string("Exception on save of score: \n") + 
+                    XMLtoUtf8(toCatch.getMessage()).c_str() + "\n";
+            result = false;
+        } catch (...) {
+            errMessage = "Unexpected exception on save of score\n" ;
+            result = false;
+        }
+
+        if (!result) {
+            if (count%10 == 0) {
+                std::rename((zipPath + "~1").c_str(), (zipPath).c_str());
+                std::rename((zipPath + "~2").c_str(), (zipPath + "~1").c_str());
+            }
+            cerr << XMLtoLocal(Utf8ToXML(errMessage.c_str()).x_str()).c_str();
+            gui::ErrorMenu m(errMessage, N_("Continue"));
+            m.manage();          
+        } else
+            Log << "Score save o.k.\n";
+        
+        return result;
+    }
+
+    void ScoreManager::shutdown() {
+        save();
+        if (doc != NULL)
+            doc->release();
+        doc = NULL;
+    }
+
 
     bool ScoreManager::isSolved(lev::Proxy *levelProxy, int difficulty) {
         ecl::Assert <XFrontend> (difficulty >= DIFFICULTY_EASY &&  
                 difficulty <= DIFFICULTY_ANY, "ScoreManager::isSolved illegal difficulty");
-        return isSolvedLegacy(levelProxy, difficulty);
+        if (difficulty == DIFFICULTY_EASY && !levelProxy->hasEasymode())
+            difficulty = DIFFICULTY_HARD;
+        
+        DOMElement * level = getLevel(levelProxy);
+        if (level != NULL) {
+            const XMLCh *attr = level->getAttribute(Utf8ToXML((difficulty == DIFFICULTY_HARD) ? "diff1" : "easy1").x_str());
+            int score = (XMLString::stringLen(attr) > 0) ? XMLString::parseInt(attr) : -1;
+            return score != SCORE_UNSOLVED;
+        } else
+            return false;
     }
 
     bool ScoreManager::isOutdated(lev::Proxy *levelProxy, int difficulty) {
         ecl::Assert <XFrontend> (difficulty >= DIFFICULTY_EASY &&  
                 difficulty <= DIFFICULTY_HARD, "ScoreManager::isOutdated illegal difficulty");
-        return isOutdatedLegacy(levelProxy, difficulty);
+        if (difficulty == DIFFICULTY_EASY && !levelProxy->hasEasymode())
+            difficulty = DIFFICULTY_HARD;
+        
+        DOMElement * level = getLevel(levelProxy);
+        if (level != NULL && XMLString::parseInt(level->getAttribute(
+                Utf8ToXML("version").x_str())) == levelProxy->getScoreVersion()) {
+            const XMLCh *attr = level->getAttribute(Utf8ToXML((difficulty == DIFFICULTY_HARD) ? "diff1" : "easy1").x_str());
+            int score = (XMLString::stringLen(attr) > 0) ? XMLString::parseInt(attr) : -1;
+            return score == SCORE_SOLVED;
+        } else if (level != NULL && XMLString::parseInt(level->getAttribute(
+                Utf8ToXML("version").x_str())) != levelProxy->getScoreVersion()){
+            return true;
+        } else
+            return false;
     }
 
     int ScoreManager::getBestUserScore(lev::Proxy *levelProxy, int difficulty) {
         ecl::Assert <XFrontend> (difficulty >= DIFFICULTY_EASY &&  
                 difficulty <= DIFFICULTY_HARD, "ScoreManager::getBestUserScore illegal difficulty");
-        return getBestUserScoreLegacy(levelProxy, difficulty);
+        if (difficulty == DIFFICULTY_EASY && !levelProxy->hasEasymode())
+            difficulty = DIFFICULTY_HARD;
+        
+        DOMElement * level = getLevel(levelProxy);
+        if (level == NULL || XMLString::parseInt(level->getAttribute(
+                Utf8ToXML("version").x_str())) != levelProxy->getScoreVersion()) {
+            return SCORE_UNSOLVED;
+        }
+        const XMLCh *attr = level->getAttribute(Utf8ToXML((difficulty == DIFFICULTY_HARD) ? "diff1" : "easy1").x_str());
+        int score = (XMLString::stringLen(attr) > 0) ? XMLString::parseInt(attr) : -1;
+        return (score < 0) ? SCORE_UNSOLVED : score;
     }
 
-    void ScoreManager::updateUserScore(lev::Proxy *levelProxy, int difficulty, int score) {
+    void ScoreManager::updateUserScore(lev::Proxy *levelProxy, int difficulty, 
+            int score, double enigmaRelease) {
         ecl::Assert <XFrontend> (difficulty >= DIFFICULTY_EASY &&  
                 difficulty <= DIFFICULTY_HARD, "ScoreManager::updateUserScore illegal difficulty");
-        if (levelProxy->getLevelStatus() == lev::STATUS_RELEASED)
-            updateUserScoreLegacy(levelProxy, difficulty, score);
+        if (levelProxy->getLevelStatus() != lev::STATUS_RELEASED)
+            return;
+        
+        if (difficulty == DIFFICULTY_EASY && !levelProxy->hasEasymode())
+            difficulty = DIFFICULTY_HARD;
+        
+        if (!hasValidUserId) {
+            finishUserId(std::time(NULL) & 0xFFFF);
+        }
+        
+        DOMElement * level = getCreateLevel(levelProxy);
+        
+        // get the current newest scoreversion of the level - it exists now
+        DOMElement * curLevel = curLevelScores[levelProxy->getId()];
+        if (curLevel != level) {
+            // this levelversion is older than the current one
+            // update the current one concerning the solved status
+            const XMLCh * attr = curLevel->getAttribute(Utf8ToXML((difficulty == DIFFICULTY_HARD) ? "diff1" : "easy1").x_str());
+            int curScore1 = (XMLString::stringLen(attr) > 0) ? XMLString::parseInt(attr) : -1;
+            if (curScore1 == SCORE_UNSOLVED) {
+                curLevel->setAttribute(Utf8ToXML((difficulty == DIFFICULTY_HARD) ? "diff1" : "easy1").x_str(),
+                        Utf8ToXML(ecl::strf("%d",SCORE_SOLVED)).x_str());
+                curLevel->setAttribute(Utf8ToXML((difficulty == DIFFICULTY_HARD) ? "diff1rel" : "easy1rel").x_str(),
+                        Utf8ToXML(ecl::strf("%.2f",enigmaRelease)).x_str());              
+            }
+        }
+        // update this levelversion
+        const XMLCh *attr;
+        // read attributes - for new elements the XML defaults are not yet given
+        attr = level->getAttribute(Utf8ToXML((difficulty == DIFFICULTY_HARD) ? "diff1" : "easy1").x_str());
+        int score1 = (XMLString::stringLen(attr) > 0) ? XMLString::parseInt(attr) : -1;
+        attr = level->getAttribute(Utf8ToXML((difficulty == DIFFICULTY_HARD) ? "diff2" : "easy2").x_str());
+        int score2 = (XMLString::stringLen(attr) > 0) ? XMLString::parseInt(attr) : -1;
+        attr = level->getAttribute(Utf8ToXML((difficulty == DIFFICULTY_HARD) ? "diff1rel" : "easy1rel").x_str());
+        double rel1 = 0.92; // default
+        if (XMLString::stringLen(attr) > 0) {
+            XMLDouble * result = new XMLDouble(attr);
+            rel1 = result->getValue();
+            delete result;
+        }
+        attr = level->getAttribute(Utf8ToXML((difficulty == DIFFICULTY_HARD) ? "diff2rel" : "easy2rel").x_str());
+        double rel2 = 0.92; // default
+        if (XMLString::stringLen(attr) > 0) {
+            XMLDouble * result = new XMLDouble(attr);
+            rel2 = result->getValue();
+            delete result;
+        }
+        
+        bool score1mod = false;
+        bool score2mod = false;
+        if (score1 < 0) {
+            // the level has not yet been solved in this scoreversion
+            score1 = score;
+            rel1 = enigmaRelease;
+            score1mod = true;
+        } else if (score < score1) {
+            // new best score
+            if (rel1 > rel2 && rel1 > enigmaRelease) {
+                // remember old best score if it is played with newest Enigma version
+                score2 = score1;
+                rel2 = rel1;
+                score2mod = true;                
+            }
+            score1 = score;
+            rel1 = enigmaRelease;
+            score1mod = true;
+        } else if (score == score1) {
+            if (rel1 < enigmaRelease) {
+                // update the Enigma release version for top score
+                rel1 = enigmaRelease;
+                score1mod = true;
+            }
+        } else if (rel1 < enigmaRelease) {
+            // score > score1 but played with a more recent Enigma version
+            // check if we should save it as score2
+            if (score2 < 0) {
+                // second best score and no valid score2 yet
+                score2 = score;
+                rel2 = enigmaRelease;
+                score2mod = true;
+            } else if (score < score2) {
+                // score better than previous second best score
+                if (rel2 <= enigmaRelease) {
+                    score2 = score;
+                    rel2 = enigmaRelease;
+                    score2mod = true;
+                }
+            } else if (rel2 < enigmaRelease) {
+                // we remember the second best score played with the most recent 
+                // Enigma version
+                score2 = score;
+                rel2 = enigmaRelease;
+                score2mod = true;
+            }
+        }
+        if (score1mod) {
+            level->setAttribute(Utf8ToXML((difficulty == DIFFICULTY_HARD) ? "diff1" : "easy1").x_str(),
+                    Utf8ToXML(ecl::strf("%d",score1)).x_str());
+            level->setAttribute(Utf8ToXML((difficulty == DIFFICULTY_HARD) ? "diff1rel" : "easy1rel").x_str(),
+                    Utf8ToXML(ecl::strf("%.2f",rel1)).x_str());
+        }
+        if (score2mod) {
+            level->setAttribute(Utf8ToXML((difficulty == DIFFICULTY_HARD) ? "diff2" : "easy2").x_str(),
+                    Utf8ToXML(ecl::strf("%d",score2)).x_str());
+            level->setAttribute(Utf8ToXML((difficulty == DIFFICULTY_HARD) ? "diff2rel" : "easy2rel").x_str(),
+                    Utf8ToXML(ecl::strf("%.2f",rel2)).x_str());
+        }
+        
     }
     
     bool ScoreManager::bestScoreReached(lev::Proxy *levelProxy, int difficulty) {
+        if (difficulty == DIFFICULTY_EASY && !levelProxy->hasEasymode())
+            difficulty = DIFFICULTY_HARD;
+        
         int bestUserScore = getBestUserScore(levelProxy, difficulty);
-        if (ratingMgr == NULL)
-            Log << "ratingMgr is NULL\n";
         int bestScore = ratingMgr->getBestScore(levelProxy, difficulty);
         return bestUserScore>0 && (bestScore<0 || bestUserScore <= bestScore);
+    }
+    
+    bool ScoreManager::parScoreReached(lev::Proxy *levelProxy, int difficulty) {
+        if (difficulty == DIFFICULTY_EASY && !levelProxy->hasEasymode())
+            difficulty = DIFFICULTY_HARD;
+        
+        int bestUserScore = getBestUserScore(levelProxy, difficulty);
+        int parScore = ratingMgr->getParScore(levelProxy, difficulty);
+        return bestUserScore>0 && (parScore<0 || bestUserScore <= parScore);
     }
     
     void ScoreManager::markUnsolved(lev::Proxy *levelProxy, int difficulty) {
         ecl::Assert <XFrontend> (difficulty >= DIFFICULTY_EASY &&  
                 difficulty <= DIFFICULTY_ANY, "ScoreManager::markUnsolved illegal difficulty");
-        if (!levelProxy->hasEasymode()) {
-            difficulty = DIFFICULTY_ANY;
+        DOMElement * level = getLevel(levelProxy);
+        if (level != NULL || XMLString::parseInt(level->getAttribute(
+                Utf8ToXML("version").x_str())) == levelProxy->getScoreVersion()) {
+            const XMLCh *attr = level->getAttribute(Utf8ToXML((difficulty == DIFFICULTY_HARD) ? "diff1" : "easy1").x_str());
+            int score = (XMLString::stringLen(attr) > 0) ? XMLString::parseInt(attr) : -1;
+            if (score != SCORE_UNSOLVED) {
+                level->setAttribute(Utf8ToXML((difficulty == DIFFICULTY_HARD) ? "diff1" : "easy1").x_str(),
+                    Utf8ToXML(ecl::strf("%d",SCORE_UNSOLVED)).x_str());
+            }
         }
-        markUnsolvedLegacy(levelProxy, difficulty);
     }
     
     void ScoreManager::markSolved(lev::Proxy *levelProxy, int difficulty) {
         ecl::Assert <XFrontend> (difficulty >= DIFFICULTY_EASY &&  
                 difficulty <= DIFFICULTY_ANY, "ScoreManager::markSolved illegal difficulty");
         if (enigma::WizardMode) {
-            if (!levelProxy->hasEasymode()) {
-                difficulty = DIFFICULTY_HARD;
+            if (!hasValidUserId) {
+                finishUserId(std::time(NULL) & 0xFFFF);
             }
-            markSolvedLegacy(levelProxy, difficulty);
+            DOMElement * level = getLevel(levelProxy);
+            if (level != NULL && XMLString::parseInt(level->getAttribute(
+                    Utf8ToXML("version").x_str())) == levelProxy->getScoreVersion()) {
+                const XMLCh *attr = level->getAttribute(Utf8ToXML((difficulty == DIFFICULTY_HARD) ? "diff1" : "easy1").x_str());
+                int score = (XMLString::stringLen(attr) > 0) ? XMLString::parseInt(attr) : -1;
+                if (score != SCORE_UNSOLVED)
+                    return;  // avoid deleting existing scores
+            }
+            // reset the score to solved but no score value
+            updateUserScore(levelProxy, difficulty, 99*60+59); // store max possible score
+            level = getLevel(levelProxy);
+            // check if score is created - it may be NULL if level is not released
+            if (level != NULL && XMLString::parseInt(level->getAttribute(
+                    Utf8ToXML("version").x_str())) == levelProxy->getScoreVersion()) {
+                level->setAttribute(Utf8ToXML((difficulty == DIFFICULTY_HARD) ? "diff1" : "easy1").x_str(),
+                        Utf8ToXML(ecl::strf("%d",SCORE_SOLVED)).x_str());
+            }
         }
     }
 
@@ -120,124 +628,272 @@ namespace enigma { namespace lev {
         }
         return num;
     }  
+    
+    void ScoreManager::setRating(lev::Proxy *levelProxy, int rating) {
+        if (!hasValidUserId) {
+            finishUserId(std::time(NULL) & 0xFFFF);
+        }
+        if (rating == -1) {
+            DOMElement * level = getLevel(levelProxy);
+            if (level == NULL)
+               return;
+            else if (XMLString::parseInt(level->getAttribute(
+                    Utf8ToXML("version").x_str())) == levelProxy->getScoreVersion()) {
+                const XMLCh *attr = level->getAttribute(Utf8ToXML("rating").x_str());
+                int oldRating = (XMLString::stringLen(attr) > 0) ? XMLString::parseInt(attr) : -1;
+                if (oldRating != -1) 
+                    level->setAttribute(Utf8ToXML("rating").x_str(),
+                        Utf8ToXML(ecl::strf("%d",rating)).x_str());
+                return;
+            } else
+                // no level score entry for this score version exists - -1 is default
+                return;
+        } else if (rating != getRating(levelProxy)) {
+            DOMElement * level = getCreateLevel(levelProxy);
+            level->setAttribute(Utf8ToXML("rating").x_str(),
+                    Utf8ToXML(ecl::strf("%d",rating)).x_str());
+            return;
+        }
+    }
+    
+    int ScoreManager::getRating(lev::Proxy *levelProxy) {
+        DOMElement * level = getLevel(levelProxy);
+        if (level == NULL)
+            return -1;
+        else {
+            const XMLCh *attr = level->getAttribute(Utf8ToXML("rating").x_str());
+            return (XMLString::stringLen(attr) > 0) ? XMLString::parseInt(attr) : -1; 
+        }
+    }
+    
+    DOMElement * ScoreManager::getLevel(lev::Proxy *levelProxy) {
+        std::map<std::string,  DOMElement *>::iterator it;
+        std::string cacheKey = levelProxy->getId() + "#" + ecl::strf("%d", levelProxy->getScoreVersion());
+        it = allLevelScores.find(cacheKey);
+        if (it != allLevelScores.end()) {
+            return it->second;
+        } else {
+            it = curLevelScores.find(levelProxy->getId());
+            if (it != curLevelScores.end()) {
+                return it->second;
+            } else {
+                return NULL;
+            }
+        }
+    }
+    
+    DOMElement * ScoreManager::getCreateLevel(lev::Proxy *levelProxy) {
+        DOMElement * level = getLevel(levelProxy);
+        if (level == NULL || XMLString::parseInt(level->getAttribute(
+                Utf8ToXML("version").x_str())) != levelProxy->getScoreVersion()) {
+            // no level score entry for this scoreversion exists - create it
+            DOMElement * newLevel = doc->createElement (Utf8ToXML("level").x_str());
+            newLevel->setAttribute(Utf8ToXML("id").x_str(), Utf8ToXML(levelProxy->getId()).x_str());
+            newLevel->setAttribute(Utf8ToXML("version").x_str(),  Utf8ToXML(ecl::strf("%d",levelProxy->getScoreVersion())).x_str());
+            newLevel->setAttribute(Utf8ToXML("sec").x_str(), Utf8ToXML("crc").x_str());
+            
+            levelsElem->appendChild(newLevel);
+            std::string cacheKey = levelProxy->getId() + "#" + ecl::strf("%d", levelProxy->getScoreVersion());
+            allLevelScores[cacheKey] = newLevel;
+            if (level != NULL && XMLString::parseInt(level->getAttribute(
+                    Utf8ToXML("version").x_str())) <  levelProxy->getScoreVersion()) {
+                // this new levelversion is newer than the previous current one
+                // update solved status form previous current one
+                const XMLCh * attr = level->getAttribute(Utf8ToXML("diff1").x_str());
+                int scoreDiff = (XMLString::stringLen(attr) > 0) ? XMLString::parseInt(attr) : -1;
+                if (scoreDiff != SCORE_UNSOLVED) {
+                    newLevel->setAttribute(Utf8ToXML("diff1").x_str(), Utf8ToXML(ecl::strf("%d",SCORE_SOLVED)).x_str());
+                    newLevel->setAttribute(Utf8ToXML("diff1rel").x_str(),
+                           level->getAttribute(Utf8ToXML("diff1rel").x_str()));
+                }
+                attr = level->getAttribute(Utf8ToXML("easy1").x_str());
+                int scoreEasy = (XMLString::stringLen(attr) > 0) ? XMLString::parseInt(attr) : -1;
+                if (scoreEasy != SCORE_UNSOLVED) {
+                    newLevel->setAttribute(Utf8ToXML("easy1").x_str(), Utf8ToXML(ecl::strf("%d",SCORE_SOLVED)).x_str());
+                    newLevel->setAttribute(Utf8ToXML("easy1rel").x_str(),
+                           level->getAttribute(Utf8ToXML("easy1rel").x_str()));
+                }
+                attr = level->getAttribute(Utf8ToXML("rating").x_str());
+                int oldRating = (XMLString::stringLen(attr) > 0) ? XMLString::parseInt(attr) : -1;
+                if (oldRating != -1) {
+                    newLevel->setAttribute(Utf8ToXML("rating").x_str(),
+                        Utf8ToXML(ecl::strf("%d",oldRating)).x_str());
+                }
+                curLevelScores[levelProxy->getId()] = newLevel;
+            } else if (level == NULL) {
+                curLevelScores[levelProxy->getId()] = newLevel;
+            }
+            level = newLevel;
+        }
+        return level;
+    }
 
     // Legacy 0.92 
-    bool ScoreManager::isSolvedLegacy(lev::Proxy *levelProxy, int difficulty) {
-        options::LevelStatus levelstat;
-    
-        if (options::GetLevelStatus (levelProxy->getId(), levelstat))
-            return ((levelstat.finished & difficulty) ||
-                    (!levelProxy->hasEasymode() && levelstat.finished));
-        return false;
-    }
-
-    bool ScoreManager::isOutdatedLegacy(lev::Proxy *levelProxy, int difficulty) {
-        if (isSolvedLegacy(levelProxy, difficulty)) {
-            options::LevelStatus levelstat;
-            if (options::GetLevelStatus (levelProxy->getId(), levelstat))
-                return levelProxy->getScoreVersion() > levelstat.solved_revision;
-        }
-        return false;
-    }
-    
-    int ScoreManager::getBestUserScoreLegacy(lev::Proxy *levelProxy, int difficulty) {
-        options::LevelStatus levelstat;
-    
-        int best_user_time = -1;
-        if (options::GetLevelStatus(levelProxy->getId(), levelstat)) {
-            if (levelProxy->hasEasymode()) {
-                if ((levelstat.finished & difficulty) != 0) {
-                    best_user_time = (difficulty == DIFFICULTY_HARD) // XXX should use difficulty parameter
-                        ? levelstat.time_hard 
-                        : levelstat.time_easy;
+    unsigned ScoreManager::idFromLegacyScore() {
+        unsigned id3 = 0;
+        int bits = 0;
+        bool hasLevels = false; 
+        for (int mode = 0; mode<2; mode++) {
+            bool withEasy = (mode == 0) ? false : true;
+            std::set<std::string> levelIds = Proxy::getLevelIds(withEasy);
+            for (std::set<std::string>::iterator it = levelIds.begin(); it != levelIds.end(); it++) {
+                options::LevelStatus levelstat;
+                if (options::GetLevelStatus (*it, levelstat)) {
+                    hasLevels = true;
+                    int diffScore = levelstat.time_hard;
+                    if (diffScore > 0) {
+                        id3 <<= 1;
+                        id3 |= (diffScore & 1);
+                        bits++;
+                        if (bits >= 16)
+                            return id3 & 0xFFFF;
+                    }
                 }
             }
-            else {
-                // If level is the same in easy and hard mode use the user's
-                // best time in either difficulty level.
-                if (levelstat.finished) {
-                    if (levelstat.time_hard > 0) 
-                        best_user_time = levelstat.time_hard;
-                    if (levelstat.time_easy > 0 && (levelstat.time_easy < best_user_time || best_user_time<0))
-                        best_user_time = levelstat.time_easy;
+        }
+        if (hasLevels)
+            return id3 & 0xFFFF;
+        else
+            return 0x10000;
+    }
+    
+    std::string ScoreManager::upgradeSum() {
+        std::string scores;
+        for (int i = 0, l = levelList->getLength(); i < l; i++) {
+            DOMElement * level  = dynamic_cast<DOMElement *>(levelList->item(i));
+            const XMLCh *attr = level->getAttribute(Utf8ToXML("diff1").x_str());
+            int score = (XMLString::stringLen(attr) > 0) ? XMLString::parseInt(attr) : -1;
+            if (score >= 0)
+                scores += ecl::strf("%d", score);
+            attr = level->getAttribute(Utf8ToXML("easy1").x_str());
+            score = (XMLString::stringLen(attr) > 0) ? XMLString::parseInt(attr) : -1;
+            if (score >= 0)
+                scores += ecl::strf("%d", score);
+        }
+        return sec(scores);
+    }
+    
+    bool ScoreManager::upgradeLegacy() {
+        bool result = false;
+        // it is likely that the user has tested 1.00 and solved a few levels
+        // before he updates from his enigma.rc2
+        for (int mode = 0; mode<2; mode++) {
+            // first levels without easy, then those with easy
+            bool withEasy = (mode == 0) ? false : true;
+            std::set<std::string> levelIds = Proxy::getLevelIds(withEasy);
+            for (std::set<std::string>::iterator it = levelIds.begin(); it != levelIds.end(); it++) {
+                options::LevelStatus levelstat;
+                if (options::GetLevelStatus (*it, levelstat)) {
+                    result = true;
+                    int diffScore = levelstat.time_hard;
+                    if (!withEasy) {
+                        // 0.92 scores could be saved at either place
+                        if (levelstat.time_easy > 0 && (levelstat.time_easy < diffScore || diffScore<0))
+                            diffScore = levelstat.time_easy;
+                    }
+                    bool solvedDiff = ((levelstat.finished & DIFFICULTY_HARD) ||
+                            (!withEasy && levelstat.finished)) &&
+                            diffScore != SCORE_UNSOLVED;
+                    int easyScore = levelstat.time_easy;
+                    bool solvedEasy = (levelstat.finished & DIFFICULTY_EASY) &&
+                            easyScore != SCORE_UNSOLVED;
+                    
+                    std::map<std::string,  DOMElement *>::iterator itx;
+                    // do we have to update a score entry for a higher version ?
+                    itx = curLevelScores.find(*it);
+                    bool isMostRecent = true;
+                    if (itx != curLevelScores.end() &&
+                            levelstat.solved_revision < XMLString::parseInt(
+                                (*itx).second->getAttribute(Utf8ToXML("version").x_str()))) {
+                        isMostRecent = false;
+                        if (solvedDiff) {
+                            const XMLCh *attr = (*itx).second->getAttribute(Utf8ToXML("diff1").x_str());
+                            int curDiff = (XMLString::stringLen(attr) > 0) ? XMLString::parseInt(attr) : -1;
+                            if (curDiff == SCORE_UNSOLVED) {
+                                (*itx).second->setAttribute(Utf8ToXML("diff1").x_str(),
+                                        Utf8ToXML(ecl::strf("%d",SCORE_SOLVED)).x_str());
+                                (*itx).second->setAttribute(Utf8ToXML("diff1rel").x_str(),
+                                        Utf8ToXML("0.92").x_str());
+                            }
+                        }
+                        if (withEasy && solvedEasy) {
+                            const XMLCh *attr = (*itx).second->getAttribute(Utf8ToXML("easy1").x_str());
+                            int curEasy = (XMLString::stringLen(attr) > 0) ? XMLString::parseInt(attr) : -1;
+                            if (curEasy == SCORE_UNSOLVED) {
+                                (*itx).second->setAttribute(Utf8ToXML("easy1").x_str(),
+                                        Utf8ToXML(ecl::strf("%d",SCORE_SOLVED)).x_str());
+                                (*itx).second->setAttribute(Utf8ToXML("easy1rel").x_str(),
+                                        Utf8ToXML("0.92").x_str());
+                            }
+                        }
+                    } 
+                    // do we have already an score entry for this version?
+                    std::string cacheKey = *it + "#" + ecl::strf("%d", levelstat.solved_revision);
+                    itx = allLevelScores.find(cacheKey);
+                    if (itx != allLevelScores.end() &&
+                            levelstat.solved_revision == XMLString::parseInt(
+                                (*itx).second->getAttribute(Utf8ToXML("version").x_str()))) {
+                        // check if old score is better than current one
+                        if (solvedDiff) {
+                            const XMLCh *attr = (*itx).second->getAttribute(Utf8ToXML("diff1").x_str());
+                            int curDiff = (XMLString::stringLen(attr) > 0) ? XMLString::parseInt(attr) : -1;
+                            if (diffScore < curDiff || curDiff < 0) {
+                                if (curDiff >= 0) {
+                                    // backup current best score as second
+                                    (*itx).second->setAttribute(Utf8ToXML("diff2").x_str(),
+                                        Utf8ToXML(ecl::strf("%d",curDiff)).x_str());
+                                    (*itx).second->setAttribute(Utf8ToXML("diff2rel").x_str(),
+                                        (*itx).second->getAttribute(Utf8ToXML("diff1rel").x_str()));
+                                }
+                                (*itx).second->setAttribute(Utf8ToXML("diff1").x_str(),
+                                        Utf8ToXML(ecl::strf("%d",diffScore)).x_str());
+                                (*itx).second->setAttribute(Utf8ToXML("diff1rel").x_str(),
+                                        Utf8ToXML("0.92").x_str());
+                            }
+                        }
+                        if (withEasy && solvedEasy) {
+                            const XMLCh *attr = (*itx).second->getAttribute(Utf8ToXML("easy1").x_str());
+                            int curEasy = (XMLString::stringLen(attr) > 0) ? XMLString::parseInt(attr) : -1;
+                            if (easyScore < curEasy || curEasy < 0) {
+                                if (curEasy >= 0) {
+                                    // backup current best score as second
+                                    (*itx).second->setAttribute(Utf8ToXML("easy2").x_str(),
+                                        Utf8ToXML(ecl::strf("%d",curEasy)).x_str());
+                                    (*itx).second->setAttribute(Utf8ToXML("easy2rel").x_str(),
+                                        (*itx).second->getAttribute(Utf8ToXML("easy1rel").x_str()));
+                                }
+                                (*itx).second->setAttribute(Utf8ToXML("easy1").x_str(),
+                                        Utf8ToXML(ecl::strf("%d",easyScore)).x_str());
+                                (*itx).second->setAttribute(Utf8ToXML("easy1rel").x_str(),
+                                        Utf8ToXML("0.92").x_str());
+                            }
+                        }                        
+                    } else if (solvedDiff || (withEasy && solvedEasy)) {
+                        // we need a new entry for this version
+                        DOMElement * newLevel = doc->createElement (Utf8ToXML("level").x_str());
+                        newLevel->setAttribute(Utf8ToXML("id").x_str(), Utf8ToXML(*it).x_str());
+                        newLevel->setAttribute(Utf8ToXML("version").x_str(),  Utf8ToXML(ecl::strf("%d",levelstat.solved_revision)).x_str());
+                        if (solvedDiff) {
+                            newLevel->setAttribute(Utf8ToXML("diff1").x_str(),
+                                    Utf8ToXML(ecl::strf("%d",diffScore)).x_str());
+                            newLevel->setAttribute(Utf8ToXML("diff1rel").x_str(),
+                                    Utf8ToXML("0.92").x_str());
+                        }
+                        if (withEasy && solvedEasy) {
+                            newLevel->setAttribute(Utf8ToXML("easy1").x_str(),
+                                    Utf8ToXML(ecl::strf("%d",easyScore)).x_str());
+                            newLevel->setAttribute(Utf8ToXML("easy1rel").x_str(),
+                                    Utf8ToXML("0.92").x_str());
+                        }
+                        newLevel->setAttribute(Utf8ToXML("sec").x_str(), Utf8ToXML("crc").x_str());
+                        levelsElem->appendChild(newLevel);
+                        allLevelScores[cacheKey] = newLevel;
+                        if (isMostRecent)
+                            curLevelScores[*it] = newLevel;
+                    }
                 }
             }
-            if (levelstat.solved_revision < levelProxy->getScoreVersion())
-                best_user_time = -1;
         }
-        ecl::Assert <XFrontend> (best_user_time >= -1, "ScoreManager::getBestUserScoreLegacy illegal score");
-        return best_user_time;
+        return result;
     }
-
-    void ScoreManager::updateUserScoreLegacy(lev::Proxy *levelProxy, int difficulty, int time) {
-        int revision = levelProxy->getScoreVersion();
-        options::LevelStatus levelstat (-1, -1, difficulty, revision);
-    
-        if (options::GetLevelStatus(levelProxy->getId(), levelstat)) {
-            if (levelstat.finished == 0 || 
-                (levelstat.solved_revision >= 1 && levelstat.solved_revision < revision))
-            {
-                // reset level status if level marked as not finished (the
-                // user can do so explicitly in the level menu) or if only
-                // an old revision of the level was solved.
-                levelstat.time_hard = -1;
-                levelstat.time_easy = -1;
-                levelstat.finished  = 0;
-            }
-            levelstat.finished        |= difficulty;
-            levelstat.solved_revision  = revision;
-        }
-    
-        bool new_record = false;
-        int& time_curr  = (difficulty == enigma::DIFFICULTY_EASY) 
-            ? levelstat.time_easy : levelstat.time_hard;
-    
-        if (time_curr > time || time_curr == -1) {
-            time_curr  = time;
-            new_record = true;
-        }
-        options::SetLevelStatus(levelProxy->getId(), levelstat);
-    }
-
-    void ScoreManager::markUnsolvedLegacy(lev::Proxy *levelProxy, int difficulty) {
-        options::LevelStatus levelstat;
-        if (options::GetLevelStatus(levelProxy->getId(), levelstat)) {
-            if ((levelstat.finished & difficulty) != 0) {
-                levelstat.finished  &= ~difficulty;
-                if (difficulty & DIFFICULTY_EASY)
-                    levelstat.time_easy = -1;
-                if (difficulty & DIFFICULTY_HARD)
-                    levelstat.time_hard = -1;
-                options::SetLevelStatus(levelProxy->getId(), levelstat);
-            }
-        }
-    }
-    
-    void ScoreManager::markSolvedLegacy(lev::Proxy *levelProxy, int difficulty) {
-        options::LevelStatus levelstat;
-        options::GetLevelStatus(levelProxy->getId(), levelstat);
-        if (levelstat.solved_revision == levelProxy->getScoreVersion()) { 
-            if ((levelstat.finished & difficulty) != difficulty ) {
-                levelstat.finished  |= difficulty;
-                // Note: we should reset the time_hard/easy too but 0.92 did not do
-                // - in 1.00 this problem will not occur!
-                if (difficulty & DIFFICULTY_EASY)
-                    levelstat.time_easy = -1;
-                if (difficulty & DIFFICULTY_HARD)
-                    levelstat.time_hard = -1;
-                options::SetLevelStatus(levelProxy->getId(), levelstat);
-            }
-        } else {
-            levelstat.solved_revision = levelProxy->getScoreVersion();
-            levelstat.finished = difficulty;
-            // Note: we should reset the time_hard/easy too but 0.92 did not do
-            // - in 1.00 this problem will not occur!
-            if (difficulty & DIFFICULTY_EASY)
-                levelstat.time_easy = -1;
-            if (difficulty & DIFFICULTY_HARD)
-                levelstat.time_hard = -1;
-            options::SetLevelStatus(levelProxy->getId(), levelstat);
-        }
-    }
-
 }} // namespace enigma::lev

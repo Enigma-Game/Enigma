@@ -268,11 +268,14 @@ namespace enigma { namespace gui {
             if (scoreMgr->isOutdated(proxy, app.state->getInt("Difficulty")))
                 blit (gc, x-3, y-3, img_changed);
         
-            // Add icon if worldrecord
-            if (scoreMgr->bestScoreReached(proxy, app.state->getInt("Difficulty")))
+            // Add icon if worldrecord or par
+            if (scoreMgr->bestScoreReached(proxy, app.state->getInt("Difficulty"))) {
                 blit(gc, x+35, y+5, 
                         (app.state->getInt("Difficulty") != DIFFICULTY_HARD &&
                         proxy->hasEasymode()) ? img_wrEasy : img_wrDifficult);
+            } else if (scoreMgr->parScoreReached(proxy, app.state->getInt("Difficulty"))){
+                blit(gc, x+30, y+12, img_par);
+            }
         } else {
             // Draw solved/changed icons on top of level preview
             if (isCross) 

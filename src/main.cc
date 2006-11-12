@@ -39,6 +39,7 @@
 #include "lev/RatingManager.hh"
 #include "lev/VolatileIndex.hh"
 #include "lev/PersistentIndex.hh"
+#include "lev/ScoreManager.hh"
 
 #include "enet/enet.h"
 
@@ -349,7 +350,11 @@ void Application::init(int argc, char **argv)
 
     lev::Proxy::countLevels();
 
+    // initialize random
     enigma::Randomize();
+    
+    // initialize score -- needs random init
+    lev::ScoreManager::instance();
 }
 
 std::string Application::getVersionInfo() {
@@ -657,6 +662,7 @@ static void shutdown()
     lev::RatingManager::instance()->save();
     if (lev::PersistentIndex::historyIndex != NULL) 
         lev::PersistentIndex::historyIndex->save();
+    lev::ScoreManager::instance()->shutdown();
     app.state->shutdown();
     app.prefs->shutdown();
     // now we shutdown SDL - no error reports will be possible!
@@ -664,7 +670,6 @@ static void shutdown()
     video::Shutdown();
     sound::Shutdown();
     enet_deinitialize();
-    options::Save();
     lua::ShutdownGlobal();
     XMLPlatformUtils::Terminate();
     delete ::nullbuffer;

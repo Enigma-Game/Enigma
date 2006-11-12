@@ -19,11 +19,15 @@
 #ifndef SCOREMGR_HH_INCLUDED
 #define SCOREMGR_HH_INCLUDED
 
+#include "PropertyManager.hh"
 #include "lev/Proxy.hh"
 #include "lev/RatingManager.hh"
 #include "lev/Index.hh"
+#include "main.hh"
 
 #include <string>
+#include <map>
+#include <xercesc/dom/DOMElement.hpp>
 
 namespace enigma { namespace lev {
     // Constants
@@ -43,10 +47,13 @@ namespace enigma { namespace lev {
      * as difficult mode scores. All requests for easy mode scores return the
      * difficult mode scores in this case.
      */
-    class ScoreManager {
+    class ScoreManager : public PropertyManager{
     public:
         static ScoreManager *instance();
         ~ScoreManager();
+        virtual bool save();
+        void shutdown();
+
         /**
          * Returns true if the level has been solved for the given difficulty
          * in any score version.
@@ -69,13 +76,15 @@ namespace enigma { namespace lev {
         /**
          * 
          */
-        void updateUserScore(lev::Proxy *levelProxy, int difficulty, int score);
+        void updateUserScore(lev::Proxy *levelProxy, int difficulty, int score,
+                double enigmaRelease = ENIGMACOMPATIBITLITY);
         /**
          * Returns true if the users best score is equal or better than the
          * official best score for the given difficulty
          * @arg difficulty  DIFFICULTY_EASY, DIFFICULTY_HARD
          */
         bool bestScoreReached(lev::Proxy *levelProxy, int difficulty);
+        bool parScoreReached(lev::Proxy *levelProxy, int difficulty);
         /**
          * Resets the user score status to unsolved for the given diffculty.
          * If the level has no easy mode the score for the difficult mode
@@ -91,17 +100,31 @@ namespace enigma { namespace lev {
         void markSolved(lev::Proxy *levelProxy, int difficulty);
         int countSolved(lev::Index *ind, int difficulty);
         int countBestScore(lev::Index *ind, int difficulty);
+        void setRating(lev::Proxy *levelProxy, int rating);
+        int getRating(lev::Proxy *levelProxy);
     protected:
         ScoreManager();
     private:
         static ScoreManager *theSingleton;
+        static unsigned ctab[256];
+        static unsigned pol;
         RatingManager *ratingMgr;
-        bool isSolvedLegacy(lev::Proxy *levelProxy, int difficulty);  
-        bool isOutdatedLegacy(lev::Proxy *levelProxy, int difficulty);      
-        int getBestUserScoreLegacy(lev::Proxy *levelProxy, int difficulty);
-        void updateUserScoreLegacy(lev::Proxy *levelProxy, int difficulty, int score);
-        void markUnsolvedLegacy(lev::Proxy *levelProxy, int difficulty);
-        void markSolvedLegacy(lev::Proxy *levelProxy, int difficulty);
+        XERCES_CPP_NAMESPACE_QUALIFIER DOMElement *levelsElem;
+        XERCES_CPP_NAMESPACE_QUALIFIER DOMNodeList * levelList;
+        std::map<std::string, XERCES_CPP_NAMESPACE_QUALIFIER DOMElement *> allLevelScores; // all scoreversions for each level
+        std::map<std::string, XERCES_CPP_NAMESPACE_QUALIFIER DOMElement *> curLevelScores; // most current scoreversion for each level
+        std::string userId;
+        bool hasValidUserId;
+        bool didUpgrade;
+        
+        void finishUserId(unsigned id3);
+        std::string sec(std::string target);
+        XERCES_CPP_NAMESPACE_QUALIFIER DOMElement * getLevel(lev::Proxy *levelProxy);
+        XERCES_CPP_NAMESPACE_QUALIFIER DOMElement * getCreateLevel(lev::Proxy *levelProxy);
+        
+        unsigned idFromLegacyScore();
+        std::string upgradeSum();
+        bool upgradeLegacy();
     };
 }} // namespace enigma::lev
 

@@ -94,22 +94,10 @@ namespace enigma_options
     bool GetLevelStatus (const std::string &levelname,
                          LevelStatus &stat);
 
-    /*! Set the status of a particular level.  The previous entry (if
-      available) for this level is discarded. */
-    void SetLevelStatus(const std::string &levelname,
-                        const LevelStatus &stat);
-
-//    int GetDifficulty();
-
 
     /*! Set the sound and music volume to the values in SoundVolume
       and MusicVolume. */
     void UpdateVolume();
-
-    /*! Save the current set of options to the user's configuration
-      file. (Either ~/.enigmarc on Unix systems or ./enigmarc.lua on
-      Win32. */
-    bool Save ();
 
     /*! Try to load the user's configuration file.  Returns true if
       successful. */

@@ -213,23 +213,6 @@ bool options::GetLevelStatus (const std::string &levelname,
 }
 
 
-void
-options::SetLevelStatus(const std::string &levelname,
-                        const LevelStatus &stat)
-{
-    LevelStatus oldstat;
-    if (GetLevelStatus(levelname, oldstat))
-        if (oldstat == stat)
-            return;             // If nothing changed, return
-
-    UpdateLevelStatus(levelname, stat);
-}
-
-//int options::GetDifficulty()
-//{
-//    return GetInt ("Difficulty");
-//}
-
 /* Determine name of the user's personal configuration file. */
 static std::string
 Personal_ConfigurationFileName()
@@ -264,27 +247,6 @@ Windows_ConfigurationFileName()
 
 #endif
 
-
-bool options::Save ()
-{
-#ifdef __MINGW32__
-    std::string fname;
-    if (!getenv("HOME"))        // if HOME undefined
-        fname    = Windows_ConfigurationFileName();
-    else
-        fname    = Personal_ConfigurationFileName();
-#else
-    std::string fname = Personal_ConfigurationFileName();
-#endif
-
-    if (lua::CallFunc(lua::GlobalState(), "SaveOptions", fname+"2", NULL) == 0) {
-        LevelStatusChanged = false;
-        return true;
-    }
-    
-    throw XLevelRuntime(std::string("Calling 'SaveOptions' failed:\n")+lua::LastError(lua::GlobalState()));
-    // return false; // was never used
-}
 
 static bool
 load_from_file (const std::string &fname)

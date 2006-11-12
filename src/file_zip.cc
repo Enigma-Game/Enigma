@@ -23,10 +23,15 @@
 
 #include "file.hh"
 #include "zipios++/zipfile.h"
+#include "zipios++/zipoutputstream.h"
+#include "zipios++/zipoutputstreambuf.h"
+#include "zipios++/zipinputstreambuf.h"
 #include <istream>
+#include <ostream>
 
 using namespace enigma;
 using namespace std;
+using namespace zipios;
 
 static std::auto_ptr<zipios::ZipFile> zip;
 static std::string lastZipPath;
@@ -36,22 +41,44 @@ bool enigma::findInZip(std::string zipPath, std::string zippedFilename1,
         std::string zippedFilename2, string &dest, 
         std::auto_ptr<std::istream> &isresult) {
 
-        // reuse last opened zip if possible
-        if (lastZipPath != zipPath) {
-             zip.reset (new zipios::ZipFile (zipPath));
-             lastZipPath = zipPath;
-        }
-        std::auto_ptr<istream> isptr (zip->getInputStream (zippedFilename2));
-        if(isptr.get() != 0) {
-            isresult = isptr;
-            dest = zippedFilename2;
-            return true;
-        }
-        isptr.reset(zip->getInputStream (zippedFilename1));
-        if(isptr.get() != 0) {
-            isresult = isptr;
-            dest = zippedFilename1;
-            return true;
-        }
-        return false;
+    // reuse last opened zip if possible
+    if (lastZipPath != zipPath) {
+         zip.reset (new zipios::ZipFile (zipPath));
+         lastZipPath = zipPath;
+    }
+    std::auto_ptr<istream> isptr (zip->getInputStream (zippedFilename2));
+    if(isptr.get() != 0) {
+        isresult = isptr;
+        dest = zippedFilename2;
+        return true;
+    }
+    isptr.reset(zip->getInputStream (zippedFilename1));
+    if(isptr.get() != 0) {
+        isresult = isptr;
+        dest = zippedFilename1;
+        return true;
+    }
+    return false;
+}
+
+bool enigma::writeToZip(std::string zipPath, std::string filename, std::istream &contents) {
+    ZipOutputStream zos(zipPath);
+    zos.putNextEntry(ZipCDirEntry(filename));
+    zos << contents.rdbuf();
+    return true;
+}
+
+bool enigma::writeToZip(std::ostream &zipStream, std::string filename, std::istream &contents) {
+    ZipOutputStreambuf zos(zipStream.rdbuf());
+    zos.putNextEntry(ZipCDirEntry(filename));
+    std::ostream ozs( &zos );
+    ozs << contents.rdbuf();
+    return true;
+}
+
+bool enigma::readFromZipStream(std::istream &zipFile, std::ostream &contents) {
+    ZipInputStreambuf zis(zipFile.rdbuf());
+    std::istream is( &zis );
+    contents << is.rdbuf();
+    return true;
 }

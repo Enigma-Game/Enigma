@@ -19,6 +19,10 @@
 #ifndef ENIGMA_MAIN_HH
 #define ENIGMA_MAIN_HH
 
+#define ENIGMACOMPATIBITLITY 1.00
+#define PREFFILENAME "enigmarc.xml"
+#define RATINGSFILENAME "ratings.xml"
+
 #include "file.hh"
 #include "PreferenceManager.hh"
 #include "StateManager.hh"
@@ -35,10 +39,6 @@
 #include <xercesc/dom/DOMBuilder.hpp>
 #endif
 #include <xercesc/util/TransService.hpp>
-
-#define ENIGMACOMPATIBITLITY 1.00
-#define PREFFILENAME "enigmarc.xml"
-#define RATINGSFILENAME "ratings.xml"
 
 namespace enigma
 {

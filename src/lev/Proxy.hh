@@ -22,6 +22,7 @@
 #include "enigma.hh"
 
 #include <map>
+#include <set>
 #include <string>
 #include <xercesc/dom/DOMDocument.hpp>
 
@@ -84,6 +85,7 @@ namespace enigma { namespace lev {
 
         static std::string search(std::string text);
         static void countLevels();
+        static std::set<std::string> getLevelIds(bool withEasy);
 
         void loadLevel();
         void loadMetadata(bool expectLevel);

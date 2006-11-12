@@ -133,6 +133,7 @@ namespace enigma { namespace lev {
         std::string getBestScoreEasyHolder(Proxy *levelProxy);
         short getBestScoreDifficult(Proxy *levelProxy);
         std::string getBestScoreDifficultHolder(Proxy *levelProxy);
+        short getParScore(Proxy *levelProxy, int difficulty);
         short getParScoreEasy(Proxy *levelProxy);
         short getParScoreDifficult(Proxy *levelProxy);
         short getNumSolvedEasy(Proxy *levelProxy);
