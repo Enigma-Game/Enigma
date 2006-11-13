@@ -255,6 +255,14 @@ namespace enigma { namespace lev {
         return result;
     }
 
+    std::set<Proxy *> Proxy::getProxies() {
+        std::set<Proxy *> result;
+        for (std::map<std::string, Proxy *>::iterator i= cache.begin(); i != cache.end(); i++) {
+            result.insert((*i).second);
+        }
+        return result;
+    }
+
     Proxy::Proxy(bool proxyIsLibrary, pathType thePathType, std::string theNormLevelPath,
             std::string levelId, std::string levelTitle, std::string levelAuthor,
             int levelScoreVersion, int levelRelease, bool levelHasEasymode,

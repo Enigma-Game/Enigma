@@ -86,6 +86,7 @@ namespace enigma { namespace lev {
         static std::string search(std::string text);
         static void countLevels();
         static std::set<std::string> getLevelIds(bool withEasy);
+        static std::set<Proxy *> getProxies();
 
         void loadLevel();
         void loadMetadata(bool expectLevel);

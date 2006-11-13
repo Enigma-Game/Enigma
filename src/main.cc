@@ -22,6 +22,7 @@
 #include "lua.hh"
 #include "gui/MainMenu.hh"
 #include "gui/ErrorMenu.hh"
+#include "gui/LevelPreviewCache.hh"
 #include "options.hh"
 #include "oxyd.hh"
 #include "sound.hh"
@@ -135,7 +136,7 @@ namespace
 
         // Variables.
         bool nosound, nomusic, show_help, show_version, do_log, do_assert, force_window;
-        bool dumpinfo;
+        bool dumpinfo, makepreview;
         string gamename;
         string datapath;
         string preffilename;
@@ -161,7 +162,7 @@ namespace
 AP::AP() : ArgParser (app.args.begin(), app.args.end())
 {
     nosound  = nomusic = show_help = show_version = do_log = do_assert = force_window = false;
-    dumpinfo = false;
+    dumpinfo = makepreview = false;
     gamename = "";
     datapath = "";
     preffilename = PREFFILENAME;
@@ -175,6 +176,7 @@ AP::AP() : ArgParser (app.args.begin(), app.args.end())
     def (&do_log,               "log");
     def (&do_assert,            "assert");
     def (&dumpinfo,             "dumpinfo");
+    def (&makepreview,          "makepreview");
     def (&force_window,         "window", 'w');
     def (OPT_GAME,              "game", true);
     def (OPT_DATA,              "data", 'd', true);
@@ -218,14 +220,9 @@ void AP::on_argument (const string &arg)
 
 /* -------------------- Application -------------------- */
 
-Application::Application()
-: wizard_mode   (false),
-  nograb        (false),
-  language      (""),
-  defaultLanguage (""),
-  argumentLanguage (""),
-  errorInit (false)
-{
+Application::Application() : wizard_mode (false), nograb (false), language (""),
+        defaultLanguage (""), argumentLanguage (""), errorInit (false),
+        isMakePreviews (false) {
 }
 
 
@@ -244,6 +241,14 @@ void Application::init(int argc, char **argv)
         printf("Enigma %s\n", getVersionInfo().c_str());
         if (ap.show_help) usage();
         exit(0);
+    }
+    
+    //
+    if (ap.makepreview) {
+        ap.force_window = true;
+        ap.nosound = true;
+        ap.nomusic = true;
+        isMakePreviews = true;
     }
 
     // initialize logfile -- needs ap
@@ -270,12 +275,15 @@ void Application::init(int argc, char **argv)
     // initialize preferences -- needs LUA, XML
     if (!options::Load()) {
         fprintf(stderr, _("Error in configuration file.\n"));
-  	fprintf(stderr, lua::LastError (lua::GlobalState()).c_str());
+      	fprintf(stderr, lua::LastError (lua::GlobalState()).c_str());
     }     
     prefs = PreferenceManager::instance();
     
     if (ap.force_window) {
         options::SetOption("FullScreen", false);
+    }
+    if (isMakePreviews) {
+        options::SetOption("VideoMode", 0);
     }
 
     // initialize user data paths -- needs preferences, system datapaths
@@ -332,19 +340,22 @@ void Application::init(int argc, char **argv)
 
     // ----- Load level packs -- needs state
     lev::Index::initGroups();
-    oxyd::Init();  // Load oxyd data files - must be first to create correct proxies
-    lev::PersistentIndex::registerPersistentIndices();
-    lua::Dofile(L, "levels/index.lua");
-    lua::DoSubfolderfile(L, "levels", "index.lua");
-    lua::Dofile(L, "levels/index_user.lua");
-    if (!ap.levelnames.empty()) {
-        lev::Index::registerIndex(new lev::VolatileIndex(INDEX_STARTUP_PACK_NAME,
-                INDEX_EVERY_GROUP, ap.levelnames, INDEX_STARTUP_PACK_LOCATION));
-        lev::Index::setCurrentIndex(INDEX_STARTUP_PACK_NAME);
+    if (!isMakePreviews)
+        oxyd::Init();  // Load oxyd data files - must be first to create correct proxies
+    lev::PersistentIndex::registerPersistentIndices(ap.makepreview);
+    if (!isMakePreviews) {
+        lua::Dofile(L, "levels/index.lua");
+        lua::DoSubfolderfile(L, "levels", "index.lua");
+        lua::Dofile(L, "levels/index_user.lua");
+        if (!ap.levelnames.empty()) {
+            lev::Index::registerIndex(new lev::VolatileIndex(INDEX_STARTUP_PACK_NAME,
+                    INDEX_EVERY_GROUP, ap.levelnames, INDEX_STARTUP_PACK_LOCATION));
+            lev::Index::setCurrentIndex(INDEX_STARTUP_PACK_NAME);
+        }
+        std::vector<std::string> emptyList;
+        lev::Index::registerIndex(new lev::VolatileIndex(INDEX_SEARCH_PACK_NAME,
+                    INDEX_DEFAULT_GROUP, emptyList, INDEX_SEARCH_PACK_LOCATION));
     }
-    std::vector<std::string> emptyList;
-    lev::Index::registerIndex(new lev::VolatileIndex(INDEX_SEARCH_PACK_NAME,
-                INDEX_DEFAULT_GROUP, emptyList, INDEX_SEARCH_PACK_LOCATION));
 
     oxyd::ChangeSoundset(options::GetInt("SoundSet"), false);
 
@@ -352,6 +363,37 @@ void Application::init(int argc, char **argv)
 
     // initialize random
     enigma::Randomize();
+    
+    //
+    if (isMakePreviews) {
+        std::set<lev::Proxy *> proxies = lev::Proxy::getProxies();
+        int size = proxies.size();
+        std::set<lev::Proxy *>::iterator it;
+        std::string message = ecl::strf("Make %d previews on system path '%s'",
+                size, systemAppDataPath.c_str());
+        Log << message;
+            
+        Screen *scr = video::GetScreen();
+        GC gc (scr->get_surface());
+        Font *f = enigma::GetFont("menufont");
+        f->render (gc, 80, 240, message.c_str());
+        set_color(gc, 200,200,200);
+        hline(gc, 170, 280, 300);
+        hline(gc, 170, 300, 300);
+        vline(gc, 170, 280, 20);
+        vline(gc, 470, 280, 20);
+        scr->update_all ();
+        scr->flush_updates();
+        
+        int i = 0;
+        for (it = proxies.begin(); it != proxies.end(); it++, i++) {
+            gui::LevelPreviewCache::makeSystemPreview(*it, systemAppDataPath);
+            vline(gc, 170 + i*300 / size, 280, 20);
+            scr->update_all ();
+            scr->flush_updates();
+        }
+        return;
+    }
     
     // initialize score -- needs random init
     lev::ScoreManager::instance();
@@ -654,17 +696,19 @@ void Application::setUserImagePath(std::string newPath) {
 
 /* -------------------- Functions -------------------- */
 
-static void shutdown() 
+void Application::shutdown() 
 {
     oxyd::Shutdown();
     world::Shutdown();
     display::Shutdown();
-    lev::RatingManager::instance()->save();
-    if (lev::PersistentIndex::historyIndex != NULL) 
-        lev::PersistentIndex::historyIndex->save();
-    lev::ScoreManager::instance()->shutdown();
-    app.state->shutdown();
-    app.prefs->shutdown();
+    if (!isMakePreviews) { // avoid saves on preview generation
+        lev::RatingManager::instance()->save();
+        if (lev::PersistentIndex::historyIndex != NULL) 
+            lev::PersistentIndex::historyIndex->save();
+        lev::ScoreManager::instance()->shutdown();
+        app.state->shutdown();
+        app.prefs->shutdown();
+    }
     // now we shutdown SDL - no error reports will be possible!
     app.errorInit = false;
     video::Shutdown();
@@ -679,8 +723,9 @@ int main(int argc, char** argv)
 {
     try {
         app.init(argc,argv);
-        gui::ShowMainMenu();
-        shutdown();
+        if (!app.isMakePreviews)
+            gui::ShowMainMenu();
+        app.shutdown();
         return 0;
     }
     catch (XFrontend &e) {

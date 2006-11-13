@@ -158,6 +158,21 @@ namespace enigma { namespace gui {
         if (ecl::split_path (savePath, &directory, 0) && !ecl::FolderExists(directory)) {
             ecl::FolderCreate (directory);
         }
-        ecl::SavePNG (s, savePath);
+        ecl::SavePNG(s, savePath);
+    }
+    
+    void LevelPreviewCache::makeSystemPreview(lev::Proxy *levelProxy, std::string systemDataPath) {
+        std::string savePath = systemDataPath + "/levels/" + levelProxy->getNormLevelPath() + ".png";
+        // auto-create the directory if necessary -- on an installed Enigma
+        // distribution this is of course unnecessary, but you start Enigma
+        // without prior installation. This is useful to get a directory with
+        // just the previews.
+        string directory;
+        if (ecl::split_path (savePath, &directory, 0) && !ecl::FolderExists(directory)) {
+            ecl::FolderCreate (directory);
+        }
+        ecl::Surface * s = newPreview(levelProxy);
+        if (s != NULL)
+            ecl::SavePNG(s, savePath);
     }
 }} // namespace enigma::gui

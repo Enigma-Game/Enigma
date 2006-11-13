@@ -55,6 +55,7 @@ namespace enigma { namespace gui {
     class LevelPreviewCache {
     public:
         static LevelPreviewCache *instance();
+        static void makeSystemPreview(lev::Proxy *levelProxy, std::string systemDataPath);
         ~LevelPreviewCache();
 
         ecl::Surface *getPreview (lev::Proxy *levelProxy, 
@@ -73,7 +74,7 @@ namespace enigma { namespace gui {
 
         // ---------- Internal methods ----------
 
-        ecl::Surface *newPreview (lev::Proxy *levelProxy);
+        static ecl::Surface *newPreview (lev::Proxy *levelProxy);
         std::string makePreviewPath(lev::Proxy *levelProxy);
         void savePreview(lev::Proxy *levelProxy, ecl::Surface *s);
 

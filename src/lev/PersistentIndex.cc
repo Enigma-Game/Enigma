@@ -64,7 +64,7 @@ namespace enigma { namespace lev {
     
     PersistentIndex * PersistentIndex::historyIndex = NULL;
     
-    void PersistentIndex::registerPersistentIndices() {
+    void PersistentIndex::registerPersistentIndices(bool onlySystemIndices) {
         DirIter * dirIter;
         DirEntry dirEntry;
         
@@ -123,6 +123,9 @@ namespace enigma { namespace lev {
             }
         }
         delete dirIter;
+        
+        if (onlySystemIndices)
+            return;
         
         // UserPath: register dirs and zips with xml-indices excl auto
         dirIter = DirIter::instance(app.userPath + "/levels");

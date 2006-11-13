@@ -49,7 +49,7 @@ namespace enigma { namespace lev {
      */
     class PersistentIndex : public Index  {
     public:
-        static void registerPersistentIndices();
+        static void registerPersistentIndices(bool onlySystemIndices);
         static PersistentIndex * historyIndex;
         static void addCurrentToHistory();
         

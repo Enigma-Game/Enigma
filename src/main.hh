@@ -66,6 +66,7 @@ namespace enigma
         Application();
 
         void init(int argc, char **argv);
+        void shutdown();
         std::string getVersionInfo();
         void setLanguage(std::string newLanguage);
         /**
@@ -205,7 +206,7 @@ namespace enigma
          */
         DOMErrorReporter *domSerErrorHandler;
         bool errorInit;
-
+        bool isMakePreviews;
 
     private:
         void initSysDatapaths(const std::string &prefFilename);
