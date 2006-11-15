@@ -100,6 +100,7 @@ namespace enigma { namespace lev {
         void markSolved(lev::Proxy *levelProxy, int difficulty);
         int countSolved(lev::Index *ind, int difficulty);
         int countBestScore(lev::Index *ind, int difficulty);
+        int countParScore(lev::Index *ind, int difficulty);
         void setRating(lev::Proxy *levelProxy, int rating);
         int getRating(lev::Proxy *levelProxy);
     protected:

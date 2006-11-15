@@ -458,7 +458,7 @@ msgstr "Eingabe:"
 
 #: src/gui/LevelMenu.cc:170 src/gui/LevelMenu.cc:175
 msgid "Play selected level"
-msgstr "gewähltes Level starten"
+msgstr "gewählten Level starten"
 
 #: src/gui/LevelMenu.cc:171
 msgid "Back/Space:"
@@ -504,7 +504,7 @@ msgstr "%s: %d Level"
 #: src/gui/LevelMenu.cc:296
 #, c-format
 msgid "%d%% best"
-msgstr "%d%% gelöst"
+msgstr "%d%% Weltrekord"
 
 #: src/gui/LevelMenu.cc:300
 #, c-format
@@ -589,16 +589,16 @@ msgstr "Um diese Gruppe zu löschen, ordnen Sie bitte das Levelpaket einer ander
 
 #: src/gui/LevelPackConfig.cc:300
 msgid "Compose Pack"
-msgstr "Stelle Paket zusammen"
+msgstr "Paketiere"
 
 #: src/gui/LevelPackConfig.cc:304
 msgid "Update Pack"
-msgstr "Aktualisiere Paket"
+msgstr "Aktualisiere"
 
 #: src/gui/LevelPackConfig.cc:307 src/gui/LPGroupConfig.cc:99
 #: src/gui/SearchMenu.cc:56
 msgid "Undo"
-msgstr "Rückgängig"
+msgstr "Annullieren"
 
 #: src/gui/LevelPackConfig.cc:308 src/gui/LPGroupConfig.cc:100
 #: src/gui/LevelInspector.cc:175 src/gui/HelpMenu.cc:34
@@ -636,11 +636,11 @@ msgstr "Levelpakete der gewählten Gruppe"
 
 #: src/gui/LevelPackMenu.cc:48
 msgid "Select group or levelpack"
-msgstr "Wählen Sie eine Gruppe oder ein Paket"
+msgstr "Gruppe oder Paket auswählen"
 
 #: src/gui/LevelPackMenu.cc:49
 msgid "Configure group or levelpack"
-msgstr "Konfiguriere Gruppe oder Paket"
+msgstr "Gruppe oder Paket konfigurieren"
 
 #: src/gui/LevelPackMenu.cc:60
 msgid "New Group"
@@ -648,7 +648,7 @@ msgstr "Neue Gruppe"
 
 #: src/gui/LevelPackMenu.cc:61 src/gui/SearchMenu.cc:57
 msgid "Search"
-msgstr "Suche"
+msgstr "Suchen"
 
 #: src/gui/LPGroupConfig.cc:63
 msgid "Position:"
@@ -710,7 +710,7 @@ msgstr "Einfache Suche:"
 
 #: src/gui/SearchMenu.cc:44
 msgid "case independent search in title, author, filename"
-msgstr "Suche in Titel, Autorname, Dateiname. Grossbuchstaben werden nicht unterschieden."
+msgstr "Suche in Titel, Autorname, Dateiname unabhängig von Gross-/Kleinschreibung."
 
 #: src/gui/LevelInspector.cc:176
 msgid "Screenshot"

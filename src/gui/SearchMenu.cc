@@ -35,20 +35,22 @@ namespace enigma { namespace gui {
 
      SearchMenu::SearchMenu() : didSearch (false) {
         const video::VMInfo &vminfo = *video::GetInfo();
+        ecl::Font *menufont = enigma::GetFont("menufont");
         
-        VList * searchVList = new VList;
-        searchVList->set_spacing(15);
-        searchVList->set_alignment(HALIGN_LEFT, VALIGN_CENTER);
-        searchVList->set_default_size(380, 35);
         Label * shallowTitle = new Label(N_("Shallow Search:"), HALIGN_LEFT);
-        Label * shallowHelp = new Label(N_("case independent search in title, author, filename"), HALIGN_RIGHT);
+// TRANSLATORS: the translation can have double size of the english text 
+        std::string helpText = _("case independent search in title, author, filename");
+        std::string workString = helpText;
+        std::string::size_type breakPos = breakString(menufont, workString, 
+                    " ", 380);
+        Label * shallowHelp1 = new UntranslatedLabel(workString.substr(0,breakPos), HALIGN_LEFT);
+        Label * shallowHelp2 = new UntranslatedLabel(workString.substr(breakPos), HALIGN_LEFT);
         shallowSearch = new TextField("", this);
         
-        searchVList->add_back(shallowTitle);
-        searchVList->add_back(shallowHelp);
-        searchVList->add_back(shallowSearch);
-        
-        this->add(searchVList, Rect(vminfo.width/2 - 190, 0, 380, vminfo.height-100));
+        this->add(shallowTitle, Rect(vminfo.width/2 - 190, vminfo.height/2 - 100, 380, 35));
+        this->add(shallowHelp1, Rect(vminfo.width/2 - 190, vminfo.height/2 - 40, 380, 25));
+        this->add(shallowHelp2, Rect(vminfo.width/2 - 190, vminfo.height/2 - 10, 380, 25));
+        this->add(shallowSearch, Rect(vminfo.width/2 - 190, vminfo.height/2 + 55, 380, 35));
        
         // Create buttons - positioning identical to Levelmenu
         Label * dummy1 = new Label();

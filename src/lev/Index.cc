@@ -646,17 +646,21 @@ namespace enigma { namespace lev {
         while (newPos < max - 1 && !found) {
             ++newPos;
     
-            if (nextMode == NEXT_LEVEL_UNSOLVED || nextMode == NEXT_LEVEL_NOT_BEST) {
+            if (nextMode == NEXT_LEVEL_UNSOLVED || nextMode == NEXT_LEVEL_NOT_BEST ||
+                    nextMode ==  NEXT_LEVEL_OVER_PAR) {
                 bool solved = scm->isSolved(proxies[newPos], difficulty);
                 if (!solved) // always play unsolved levels
                     found = true;
                 else { // solved levels
                     if (nextMode == NEXT_LEVEL_NOT_BEST) {
-                        int  par_time       = ratingMgr->getBestScore(proxies[newPos], difficulty);
+                        int  par_time = ratingMgr->getBestScore(proxies[newPos], difficulty);
                         int  best_user_time = scm->getBestUserScore(proxies[newPos], difficulty);
-                        bool need_par       = best_user_time<0 || (par_time>0 && best_user_time>par_time);
-    
-                        if (need_par)
+                        if (best_user_time<0 || (par_time>0 && best_user_time>par_time))
+                            found = true;
+                    } else if (nextMode == NEXT_LEVEL_OVER_PAR) {
+                        int  par_time = ratingMgr->getParScore(proxies[newPos], difficulty);
+                        int  best_user_time = scm->getBestUserScore(proxies[newPos], difficulty);
+                        if (best_user_time<0 || (par_time>0 && best_user_time>par_time))
                             found = true;
                     }
                }

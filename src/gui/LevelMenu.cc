@@ -295,6 +295,10 @@ namespace enigma { namespace gui {
                 int pct = 100* scm->countBestScore(ind, difficulty)/ size;
                 lbl_statistics->set_text(ecl::strf(_("%d%% best"), pct));
             }
+            else if (app.state->getInt("NextLevelMode") == lev::NEXT_LEVEL_OVER_PAR) {
+                int pct = 100* scm->countParScore(ind, difficulty)/ size;
+                lbl_statistics->set_text(ecl::strf(_("%d%% par"), pct));
+            }
             else {
                 int pct = 100* scm->countSolved(ind, difficulty) / size;
                 lbl_statistics->set_text(ecl::strf(_("%d%% solved"), pct));
@@ -318,41 +322,51 @@ namespace enigma { namespace gui {
                 lbl_levelinfo->set_text(shown_text);
             }
             else {
-                // TODO prepare vor scores that are not time based!
+                // TODO prepare for scores that are not time based!
                 char txt[200];
                 lev::RatingManager *ratingMgr = lev::RatingManager::instance();
-                int    par_time       = ratingMgr->getBestScore(curProxy, difficulty);
-                int    best_user_time = scm->getBestUserScore(curProxy, difficulty);
-                string par_name       = ratingMgr->getBestScoreHolder(curProxy, difficulty);
+                int wr_time    = ratingMgr->getBestScore(curProxy, difficulty);
+                int par_time   = ratingMgr->getParScore(curProxy, difficulty);
+                bool is_par    = scm->parScoreReached(curProxy, difficulty);
+                int best_user_time = scm->getBestUserScore(curProxy, difficulty);
+                string wr_name = ratingMgr->getBestScoreHolder(curProxy, difficulty);
     
                 string your_time;
-                string par_text;
+                string wr_text;
     
                 if (best_user_time>0) {
                     your_time = strf(_("Your time: %d:%02d"),
-                                     best_user_time/60, best_user_time%60);
+                             best_user_time/60, best_user_time%60);
     
-                    if (par_time>0) {
-                        int below = par_time-best_user_time;
+                    if (wr_time>0) {
+                        int below = wr_time - best_user_time;
                         if (below == 0)
-                            par_text = _("That's world record.");
+                            wr_text = _("That's world record.");
                         else if (below>0)
-                            par_text = strf(_("That's %d:%02d below world record."),
-                                            below/60, below%60);
+                            wr_text = strf(_("That's %d:%02d below world record."),
+                                    below/60, below%60);
                     }
                 }
     
-                if (par_text.length() == 0 && par_time>0) {
-                    if (par_name.length())
-                        par_text = strf(_("World record by %s: %d:%02d"), 
-                                        par_name.c_str(), par_time/60, par_time%60);
+                if (wr_text.length() == 0 && wr_time>0) {
+                    if (wr_name.length())
+                        if (is_par || par_time < 0)
+                            wr_text = strf(_("World record by %s: %d:%02d"), 
+                                    wr_name.c_str(), wr_time/60, wr_time%60);
+                        else
+                            wr_text = strf(_("Par: %d:%02d World record by %s: %d:%02d"), 
+                                    par_time/60, par_time%60, wr_name.c_str(), wr_time/60, wr_time%60);
                     else
-                        par_text = strf(_("World record: %d:%02d"), par_time/60, par_time%60);
+                        if (is_par || par_time < 0)
+                            wr_text = strf(_("World record: %d:%02d"), wr_time/60, wr_time%60);
+                        else
+                            wr_text = strf(_("Par: %d:%02d World record: %d:%02d"), 
+                                    par_time/60, par_time%60, wr_time/60, wr_time%60);
                 }
     
                 string time_text;
-                if (your_time.length()>0)   time_text = your_time+"  "+par_text;
-                else                        time_text = your_time+par_text;
+                if (your_time.length()>0)   time_text = your_time+"  "+wr_text;
+                else                        time_text = your_time+wr_text;
     
                 lbl_levelinfo->set_text(time_text.c_str());
             }
@@ -437,7 +451,10 @@ namespace enigma { namespace gui {
     void AdvanceModeButton::update() {
         switch (app.state->getInt("NextLevelMode")) {
         case lev::NEXT_LEVEL_UNSOLVED :
-            ImageButton::set_images("ic-unsolved", "ic-worldrecord");
+            ImageButton::set_images("ic-unsolved", "par");
+            break;
+        case lev::NEXT_LEVEL_OVER_PAR :
+            ImageButton::set_images("par", "ic-worldrecord");
             break;
         case lev::NEXT_LEVEL_NOT_BEST :
             ImageButton::set_images("ic-worldrecord", "ic-strictlynext");
@@ -456,6 +473,9 @@ namespace enigma { namespace gui {
             app.state->setProperty("NextLevelMode", lev::NEXT_LEVEL_UNSOLVED);
             break;        
         case lev::NEXT_LEVEL_UNSOLVED :
+            app.state->setProperty("NextLevelMode", lev::NEXT_LEVEL_OVER_PAR);
+            break;
+        case lev::NEXT_LEVEL_OVER_PAR :
             app.state->setProperty("NextLevelMode", lev::NEXT_LEVEL_NOT_BEST);
             break;
         case lev::NEXT_LEVEL_NOT_BEST :

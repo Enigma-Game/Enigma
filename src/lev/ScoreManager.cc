@@ -629,6 +629,17 @@ namespace enigma { namespace lev {
         return num;
     }  
     
+    int ScoreManager::countParScore(lev::Index *ind, int difficulty) {
+        int i;
+        int size = ind->size();
+        int num = 0;
+        for (i=0 ; i < size; i++) {
+            if (parScoreReached(ind->getProxy(i),difficulty))
+                num++;
+        }
+        return num;
+    }  
+    
     void ScoreManager::setRating(lev::Proxy *levelProxy, int rating) {
         if (!hasValidUserId) {
             finishUserId(std::time(NULL) & 0xFFFF);

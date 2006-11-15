@@ -589,15 +589,15 @@ std::string Client::init_hunted_time()
         lev::RatingManager *ratingMgr = lev::RatingManager::instance();
         
         int   difficulty     = app.state->getInt("Difficulty");
-        int   par_time       = ratingMgr->getBestScore(curProxy, difficulty);
+        int   wr_time       = ratingMgr->getBestScore(curProxy, difficulty);
         int   best_user_time = scm->getBestUserScore(curProxy, difficulty);
 
-        if (best_user_time>0 && (par_time == -1 || best_user_time<par_time)) {
+        if (best_user_time>0 && (wr_time == -1 || best_user_time<wr_time)) {
             m_hunt_against_time = best_user_time;
             hunted              = "you";
         }
-        else if (par_time>0) {
-            m_hunt_against_time = par_time;
+        else if (wr_time>0) {
+            m_hunt_against_time = wr_time;
             hunted              = ratingMgr->getBestScoreHolder(curProxy, difficulty);
         }
 
@@ -643,11 +643,11 @@ void Client::tick (double dtime)
                     lev::Proxy *curProxy = ind->getCurrent();
                     lev::RatingManager *ratingMgr = lev::RatingManager::instance();
                     int    difficulty     = app.state->getInt("Difficulty");
-                    int    par_time       = ratingMgr->getBestScore(curProxy, difficulty);
+                    int    wr_time       = ratingMgr->getBestScore(curProxy, difficulty);
                     int    best_user_time = scm->getBestUserScore(curProxy, difficulty);
                     string message;
 
-                    if (par_time>0 && (best_user_time<0 || best_user_time>par_time)) {
+                    if (wr_time>0 && (best_user_time<0 || best_user_time>wr_time)) {
                         message = string(_("Too slow for ")) + 
                             ratingMgr->getBestScoreHolder(curProxy, difficulty) +
                             ".. [Ctrl-A]";
@@ -712,20 +712,21 @@ void Client::level_finished()
     lev::Proxy *curProxy = ind->getCurrent();
     lev::RatingManager *ratingMgr = lev::RatingManager::instance();
     int    difficulty     = app.state->getInt("Difficulty");
-    int    par_time       = ratingMgr->getBestScore(curProxy, difficulty);
+    int    wr_time       = ratingMgr->getBestScore(curProxy, difficulty);
     int    best_user_time = scm->getBestUserScore(curProxy, difficulty);
     string par_name       = ratingMgr->getBestScoreHolder(curProxy, difficulty);
+    int par_time   = ratingMgr->getParScore(curProxy, difficulty);
 
     int    level_time     = round_nearest<int> (m_total_game_time);
 
     string      text;
     bool        timehunt_restart = false;
 
-    if (par_time > 0) {
-        if (best_user_time<0 || best_user_time>par_time) {
-            if (level_time == par_time)
+    if (wr_time > 0) {
+        if (best_user_time<0 || best_user_time>wr_time) {
+            if (level_time == wr_time)
                 text = string(_("Exactly the world record of "))+par_name+"!";
-            else if (level_time<par_time)
+            else if (level_time<wr_time)
                 text = _("Great! A new world record!");
         }
     }
@@ -736,14 +737,19 @@ void Client::level_finished()
                 timehunt_restart = true; // when hunting yourself: Equal is too slow
         }
         else if (level_time<best_user_time)
-            text = _("New personal record!");
+            if (par_time >= 0 && level_time <= par_time)
+                text = _("New personal record - better than par!");
+            else if (par_time >= 0)
+                text = _("New personal record, but over par!");
+            else
+                text = _("New personal record!");
     }
 
     if (app.state->getInt("NextLevelMode") == lev::NEXT_LEVEL_NOT_BEST &&
-        (par_time>0 || best_user_time>0))
+        (wr_time>0 || best_user_time>0))
     {
-        bool with_par = best_user_time == -1 || (par_time >0 && par_time<best_user_time);
-        int  behind   = level_time - (with_par ? par_time : best_user_time);
+        bool with_par = best_user_time == -1 || (wr_time >0 && wr_time<best_user_time);
+        int  behind   = level_time - (with_par ? wr_time : best_user_time);
 
         if (behind>0) {
             if (best_user_time>0 && level_time<best_user_time && with_par) {
@@ -762,8 +768,14 @@ void Client::level_finished()
         }
     }
 
-    if (text.length() == 0)
-        text = _("Level finished!");
+    if (text.length() == 0) {
+        if (par_time >= 0 && level_time <= par_time)
+            text = _("Level finished - better than par!");
+        else if (par_time >= 0)
+            text = _("Level finished, but over par!");
+        else
+            text = _("Level finished!");
+    }
     if (m_cheater)
         text += _(" Cheater!");
 

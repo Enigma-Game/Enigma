@@ -159,7 +159,7 @@ namespace enigma { namespace gui {
         using namespace OxydLib;
         
         availableSoundSets.push_back(0);
-        availableSoundSetsTitles.push_back(_("Default"));
+        availableSoundSetsTitles.push_back(N_("Default"));
         availableSoundSets.push_back(1);
         availableSoundSetsTitles.push_back("Enigma");
         int numAvail = 2;
@@ -198,7 +198,7 @@ namespace enigma { namespace gui {
     }
     
     string SoundSetButton::get_text(int value) const {
-        return availableSoundSetsTitles[value];
+        return _(availableSoundSetsTitles[value].c_str());
     }
     
     
