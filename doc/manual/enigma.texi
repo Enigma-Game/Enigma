@@ -94,9 +94,9 @@ Stones
 * Lethal Stones::               
 * Swap Stones::                 
 * Mirrors::                     
-* Magic Stones::                
+* Oneway Stones::                
 * Shogun Stones::               
-* Electric Stones::             
+* Bolder Stones::             
 * Puzzle Stones::               
 * Mail Stones::                 
 
@@ -556,6 +556,15 @@ Return to the level menu immediately
 @node Game Objects, Spoilers, The Game, Top
 @chapter Game Objects
 
+There are dozens of different game objects you will see in Enigma's
+levels. We just want to describe a small assorted set of them here. If
+you're new to Enigma, you might want to start with the levels in the
+tutorial pack? Just start Enigma, choose ``Level Pack'', then the
+button ``Enigma'' in the upper-left corner, then ``Tutorial'' on the
+right. Start with the first level ``Oxyd Stones 1''. The tutorial will
+show you the most important objects and ideas, and some of the easier
+levels of Enigma.
+
 @menu
 * Items::                       
 * Stones::                      
@@ -626,9 +635,9 @@ point of the black and the white marble respectively.
 * Lethal Stones::               
 * Swap Stones::                 
 * Mirrors::                     
-* Magic Stones::                
+* Oneway Stones::                
 * Shogun Stones::               
-* Electric Stones::             
+* Bolder Stones::             
 * Puzzle Stones::               
 * Mail Stones::                 
 @end menu
@@ -665,7 +674,7 @@ another is consequently to repeatedly interchange it with other
 
 @c Both interesting and da
 
-@node Mirrors, Magic Stones, Swap Stones, Stones
+@node Mirrors, Oneway Stones, Swap Stones, Stones
 @subsection Mirrors
 
 @image{images/st-mirrors,,0.7cm}
@@ -692,17 +701,19 @@ You can turn mirrors by touching them lightly with your marble.  But be
 careful with mirrors that is already inside a laser beam, it is easy to
 inadvertently destroy your marble!
 
-@node Magic Stones, Shogun Stones, Mirrors, Stones
-@subsection Magic Stones
+@node Oneway Stones, Shogun Stones, Mirrors, Stones
+@subsection Oneway Stones
 
-@image{images/st-magic,,0.7cm}
+@image{images/st-oneway,,0.7cm}
 
-Magic stones are a relic from the old Oxyd games, where they were used
-as a copy protection scheme.  Since they do not serve a real purpose in
-Enigma, you will encounter them only if you use Enigma to play levels
-from Oxyd.  Simply hit them with your marble to get rid of them.
+One can only pass these stones in one direction. Whole labyrinths can
+be build out of them, but mostly they force you to complete one part
+of the level before passing to the next one.
 
-@node Shogun Stones, Electric Stones, Magic Stones, Stones
+You have problems with a oneway stone that blocks your way? Maybe a
+magic item is able to help you...
+
+@node Shogun Stones, Bolder Stones, Oneway Stones, Stones
 @subsection Shogun Stones
 
 @image{images/st-shogun,,0.7cm}
@@ -720,18 +731,22 @@ larger holes.  If you want to activate a medium sized dot, for
 example, you have to first place a shogun stone with a medium sized
 hole on it and then push a small-holed stone into the bigger one.
 
-@node Electric Stones, Puzzle Stones, Shogun Stones, Stones
-@subsection Electric Stones
+@node Bolder Stones, Puzzle Stones, Shogun Stones, Stones
+@subsection Bolder Stones
 
-Electric stones can be used to put an electric charge on one of your
-marbles or any other movable object.  Objects can carry either a
-positive or a negative charge (or no charge at all, which is the
-default).  Electrically charged objects behave like regular objects if
-they are far apart.  If they are close together, however, they either
-repel or attract each other, depending on whether they carry like or
-unlike charges.
+@image{images/st-bolder,,0.7cm}
 
-@node Puzzle Stones, Mail Stones, Electric Stones, Stones
+Bolder stones are travelling stones--they move in the direction
+shown by the arrow on them until they bump into another stone. Maybe
+they block your way and you have to get rid of them some way or the
+other. But never, never stand in front of one, as it shatters your
+marble instantly, when the bolder stone overruns it!
+
+However, you might make use of them, too, as they are able to open
+oxyds, when they bump into them. And you can redirect the bolder
+stones in several ways...
+
+@node Puzzle Stones, Mail Stones, Bolder Stones, Stones
 @subsection Puzzle Stones
 
 Puzzle stones derive their name from the fact that individual stones
