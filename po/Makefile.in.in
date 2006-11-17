@@ -102,8 +102,10 @@ stamp-po: $(srcdir)/$(DOMAIN).pot
 $(DOMAIN).pot-update: $(POTFILES) $(srcdir)/POTFILES.in remove-potcdate.sed
 	rm level_i18n.cc
 	find ../data/levels -name '.svn' -prune -o -type d -exec cp ../data/schemas/level.xsd '{}' \;
-	find ../data/levels -name '.svn' -prune -o -name 'enigma_cross' -prune -o -name '*.xml' -type f ! -name 'index.xml' -exec Xalan -v -e UTF-8 '{}' ../tools/i18n.xsl \; >> level_i18n.cc
+	find ../data/levels -name '.svn' -prune -o -name 'enigma_cross' -prune -o -name '*.xml' -type f ! -name 'index.xml' -exec Xalan -v -e UTF-8 '{}' ../tools/i18n.xsl \; >> level_i18n.tmp
 	find ../data/levels -name '.svn' -prune -o -name level.xsd  -exec rm '{}' \;
+	lua ../tools/sub_quote_gettext.lua level_i18n.tmp > level_i18n.cc
+	rm level_i18n.tmp
 	$(XGETTEXT) --default-domain=$(DOMAIN) --directory=$(top_srcdir) \
 	  --add-comments=TRANSLATORS: $(XGETTEXT_OPTIONS) \
 	  --files-from=$(srcdir)/POTFILES.in \
