@@ -2,10 +2,10 @@
 @afourpaper
 
 @c @include{version.texi}
-@set VERSION 0.92
+@set VERSION 1.00
 
 @copying
-Copyright @copyright{} 2003, 2004, 2005 Daniel Heck
+Copyright @copyright{} 2003, 2004, 2005, 2006 Daniel Heck, Ronald Lamprecht
 
 Copying and distribution of this file, with or without modification,
 are permitted in any medium without royalty provided the copyright
@@ -20,9 +20,6 @@ notice and this notice are preserved.
 @center for version @value{VERSION}
 @sp 2
 @center Copyright @copyright{} 2003, 2004, 2005 Daniel Heck (@email{dheck@@gmx.de})
-@c @title Enigma Manual
-@c @subtitle for version 0.80
-@c @author Daniel Heck (@email{dheck@@gmx.de})
 @page
 @vskip 0pt plus 1filll
 @insertcopying
@@ -37,7 +34,7 @@ notice and this notice are preserved.
 This manual describes how to install and play Enigma.  It corresponds
 to Enigma version @value{VERSION}.
 
-Copyright @copyright{} 2003, 2004, 2005 Daniel Heck
+Copyright @copyright{} 2003, 2004, 2005, 2006 Daniel Heck, Ronald Lamprecht
 
 Copying and distribution of this file, with or without modification,
 are permitted in any medium without royalty provided the copyright
@@ -49,9 +46,11 @@ notice and this notice are preserved.
 * Introduction::                Getting started with Enigma
 * The Game::                    How to play Enigma
 * Game Objects::                Description of some game objects
+* Advanced Topics::             Futher features and administration
 * Spoilers::                    Tips for some difficult levels
 * Credits::                     Credits and `Thank You's
 
+@ignore
 @detailmenu
  --- The Detailed Node Listing ---
 
@@ -113,6 +112,7 @@ Credits
 * Utilized Software::           
 
 @end detailmenu
+@end ignore
 @end menu
 
 @node Introduction, The Game, Top, Top
@@ -128,6 +128,28 @@ Credits
 @node About, Installation, Introduction, Introduction
 @section About Enigma
 
+Enigma is one of the most intriguing puzzle games with more than 550 unique
+levels. Like many other puzzle games it tests and improves the skills of
+logic, memory and strategy. But in Enigma you have to control a marble in
+a world of physical forces. Thus it is a challenge of dexterity, too.
+
+The Enigma project was founded to keep the gaming idea of the Oxyd game series
+alive when Dongleware, the publisher of Oxyd, decided in 2002 to leave the
+gaming business and to abandon Oxyd. Fans of this famous game will have their 
+d@'ej@`a-vu. But Enigma adapted the gaming idea of many other famous games like
+Sokoban, Tetris by adding a new touch to each of them with new unique twists.
+Including all d@'ej@`a-vu's we count more than 970 levels in Enigma's
+distribution.
+
+Provided you like puzzle games and have a steady hand Enigma will give you
+a long term entertainment. The object of the game is to find and uncover pairs
+of identically colored @samp{Oxyd} stones. Simple? Yes. Easy? Certainly not! 
+Hidden traps, vast mazes, laser beams, and, most of all, countless hairy puzzles 
+usually block your direct way to the Oxyd stones... .The versatility of game 
+objects and the dynamic level format will provide you always new worlds to 
+explore. 
+
+@ignore
 Enigma is a tribute to and a re-implementation of Oxyd, one of the
 most original and intriguing computer games of the 1990's.  Oxyd first
 appeared on the Atari ST, but was later ported to many other platforms
@@ -139,6 +161,11 @@ Enigma is a clone of Oxyd---with a few unique twists, but altogether
 very true to the original.  Even if you have never played Oxyd, there's
 a good chance that you will enjoy Enigma, provided you like puzzle games
 and have a steady hand.
+@end ignore
+
+Enigma is available for Windows, Mac OS X, and most flavors of Linux and other 
+modern Unices. It has been translated to many languages. Even this manual is
+available in several languages.
 
 There is an official @uref{http://www.nongnu.org/enigma, homepage} for
 Enigma that contains screenshots, downloads, latest news, and the most
@@ -276,14 +303,16 @@ self-explanatory.
 
 @menu
 * The Level Menu::              Choose the next level
+* The Level Pack Menu::         Select a level pack
 * Game options::                Adapt Enigma to you preferences
+* The Level Inspector::         Detail information about a level
 @end menu
 
 
 @node The Level Menu, Game options, Getting Started, Getting Started
 @subsection The Level Menu
 
-Pressing ``New Game'' in the main menu leads you to the level menu,
+Pressing ``Start Game'' in the main menu leads you to the level menu,
 which looks something like this:
 
 @image{images/levelmenu,,7cm}
@@ -300,9 +329,37 @@ press @key{RET}.
 
 The level menu labels the levels that you already solved with a small
 medal in the upper left corner of the preview image (a silver medal if
-you solved it in easy mode, a gold medal otherwise).  You can jump to
-the next unsolved level either by pressing @key{F5} or by pushing the
-button with the two medals in the bottom row.
+you solved it in easy mode, a gold medal otherwise). You switch between
+these two modes with the center button in the buttom row. Highlighted silver
+medal with a feather stands for easy mode and the highlighted gold medal
+stands for the normal, more difficult, mode.
+
+All levels support the normal mode but not all support a different easy mode
+version. Therefore levels with easy mode are either labeled with a feather,
+in case you did not yet solve it, or with a silver medal if you solved the level
+in easy mode.
+
+You can jump to the next level either by pressing @key{F5} or by pushing the
+@key{>>|} button in the bottom row. The meaning of "next" depends on the
+advancemode that you selected with the left most icon button in the bottom row.
+
+A steady black marble icon stands for strictly next. You will get the next level
+in the levelpack independent of the solvage status of the level.
+
+The icon that displays medals that are ready for honoring stands for next 
+unsolved mode. You will get the next level that you did not yet solve.
+
+The speeding black marble icon stands for the par mode. Par is the professional
+average rating for a level. It stands for a score that is reasonably reachable
+for a skilled player. Levels with scores equal or below this value will be 
+marked with the speeding marble icon. If you select the par mode the next
+level with a score below par will be selected.
+
+Finally we provide a world icon for the world record hunt mode. If your score
+is the best score ever recorded you will be honored with the world record icon.
+If you select this mode a level will be played again and again until you
+reach the world record. Of course a world record is a seldom event. But you may
+use this mode just for training purposes and to lower your score a little bit.
 
 The level may be additionally labeled with a small red triangle with an exclamation 
 mark in the upper left corner. This sign should inform you that the level
@@ -312,7 +369,7 @@ You can navigate the level menu with the following keys:
 
 @table @kbd
 @item @key{ESC}
-Return to main menu
+Return to the last menu
 
 @item @key{F1}
 Show online help
@@ -334,28 +391,35 @@ Move to previous level pack
 
 @end table
 
-@c At first, only 10 levels in every level pack are available for
-@c playing.  The other levels are ``locked'', as indicated by the lock
-@c symbol in the preview image.  The unlocked levels can be played in any
-@c order, and for every completed level, a new level will become
-@c unlocked.
+@node The Level Pack Menu, Game options, The Level Menu, Getting Started
+@subsection The Level Pack Menu
 
 Enigma comes with many levels.  Many, many levels, in fact.  To keeps
-things orderly, they have been organized into six ``level packs'':
+things orderly, they have been organized into ``level packs''. And meanwhile
+we had to organize the levelpacks themselves into ``groups''. You select
+the levelpack in the Level Pack Menu to which you can navigate either from
+the main menu or the Level Menu.
+
+This Menu shows the groups in the left column and the levelpacks of the 
+selected group in the other columns to the right. The standard groups of the
+distribution are:
 
 @itemize @bullet
-@item Tutorial
-@item Enigma
-@item Enigma 2
-@item Oxyds
-@item Esprit
-@item Sokoban
+@item @b{Enigma} - levels that are written just for Enigma 
+@item @b{D@'ej@`a-vu} - levels that you may have seen before
+@item @b{Sokoban}
+@item @b{Facets} - special sortings and views of the levels above
+@item @b{User} - personal levels and levelpacks like History, Autofolder generated by the 
+system for the user.
+@item @b{Development} - templates and unfinished levels from the Enigma Team
+@item @b{All Packs}
 @end itemize
 
-To move between the different level packs, either use the @key{Space}
-and @key{Backspace} keys, or press the ``Level Pack'' button.
+Left clicks select a group or a levelpack. 
 
-@node Game options,  , The Level Menu, Getting Started
+For description of further features of levelpacks see @ref{User Levelpacks}.
+
+@node Game options, The Level Inspector, The Level Pack Menu, Getting Started
 @subsection Game Options
 
 The options menu allows you to adapt Enigma to your preferences
@@ -377,16 +441,6 @@ Determines how quickly your marble accelerates when you move the
 mouse.  You can use the left and right arrow key to change the mouse
 speed during the game.
 
-@item Skip Solved Levels
-If this option is active, Enigma automatically skips levels that have
-already been solved.
-
-@item Time hunt
-Set this option to `Yes' if you are mainly interested in setting new
-time records.  Enigma will automatically restart the current landscape
-if you are too slow. During Time hunt 'Skip Solved Levels' toggles whether
-to skip levels were par was already reached.
-
 @item Sound volume
 The volume of sound effects during the game.
 
@@ -403,8 +457,47 @@ The volume of the background music in the menu.
 
 @item Stereo
 Toggle between ``normal'' stereo, ``reversed'' stereo, and mono sound.
+
+@item Ratings update
+If set to @samp{Auto} Enigma will try to download new rating data from time
+to time. This will update public ratings, world records, par scores, etc..
+@xref{Registering Scores}.
+
+@item User name
+Enter your name or alias that you want be attached to your records if you
+upload the enigma.score. @xref{Registering Scores}.
+
+@item User path
+The path where Enigma stores all your user data. Refere to the reference manual
+for more information.
+
+@item Use image path
+The path where Enigma stores all your user image data. Refere to the reference
+manual for more information.
+
 @end table
 
+@node The Level Inspector, ,Game options, Getting Started
+@subsection The Level Inspector
+
+To view more detail information about a level you can call the level inspector.
+Just right or control click on the levelpreview in the level menu.
+
+You can compare your scores to the worldrecord, the par, the level authors
+score. Even some figures about how many players solved a levels are provided.
+
+Besides all the other information that is described in detail in the reference
+manual you can enter a small annotation to a level and can rate the level.
+
+Please note the annotation textfield may allow you just to enter ASCII 
+characters depending on the system Enigma is running.
+
+The rating is your personal impression of the level. @samp{-} stands for no
+opinion. 0 - for very bad, 5 - for average, 10 - for best of best. The ratings
+will be sent back with your scores (@pxref{Registering Scores}).
+
+Last but not least you can use the Level Inspector to view screenshots that 
+you made while playing a level (@pxref{Controls}).
 
 @node Rules of the Game, Controls, Getting Started, The Game
 @section Rules of the Game
@@ -553,7 +646,7 @@ Toggle between fullscreen and windowed display
 Return to the level menu immediately
 @end table
 
-@node Game Objects, Spoilers, The Game, Top
+@node Game Objects, Advanced Topics, The Game, Top
 @chapter Game Objects
 
 There are dozens of different game objects you will see in Enigma's
@@ -798,7 +891,78 @@ objects that afterwards block the pipeline, so be careful!
 @c @node Elastics and Scissors,  , Bolder Stones, Stones
 @c @subsection Elastics and Scissors
 
-@node Spoilers, Credits, Game Objects, Top
+@node Advanced Topics, Spoilers, Game Objects, Top
+@chapter Advanced Topics
+
+@menu
+* User Levelpacks::             History, Search Results and Auto
+* Backup::                      What to backup for security
+* Registering Scores::          Let the world know your success
+* Updating Enigma::             Keeping scores and levels on an update
+@end menu
+
+@node User Levelpacks, Registering Scores, Advanced Topics, Advanced Topics
+@section User Levelpacks
+
+@ref{The Level Pack Menu} provides some additional features. The @samp{User}
+group has three initially empty levelpacks: @samp{Auto Folder}, @samp{History} and
+@samp{Search Result}.
+
+By clicking on the @samp{Search} button in the levelpack menu you may search in
+the pool of levels. Just move the mouse to the textfield and enter the string to
+search. You may search within author, title and filename. The search is case 
+insensitve. F.e. you can search for "jump". The resulting levels will be 
+provided as a levelpack called "Search Results".
+
+The levelpack @samp{History} ist set up automatically with every level you play.
+This may be useful if you look for a level you played last week but do not know
+the keywords to search for.
+
+The @samp{Auto Folder} is levelpack for addition of new levels that you 
+download from the Internet or write yourself. The folder in which you should
+store the levels is @samp{levels/auto} on the @samp{User Path} as shown in
+@ref{Game options}. Levels in this folder are autoregistered on startup of
+Enigma.
+
+Enigma provides many more useful features beyond the scope of this manual.
+Please read the reference manual for more details.
+
+@node Backup, Registering Scores, User Levelpacks, Advanced Topics
+@section Backup
+
+If you want to backup your scores and other Enigma data look at the 
+@ref{Game options} and backup the folder @samp{User Path}. The key files
+are @samp{enigma.score} and @samp{state.xml}. Both need to be reinstalled
+after a crash or a switch to another system to continue your play with
+the previous scores and annotations you made.
+
+@node Registering Scores, Updating Enigma, Backup, Advanced Topics
+@section Registering Scores
+
+For registration of your scores you need to send us the @samp{enigma.score}
+file located at the folder @samp{User Path}. Please look at the projects
+homepage for the address and policy.
+
+To receive the updated world record score lists you just need to enable
+the option @samp{Ratings Update}.
+
+@node Updating Enigma, , Backup, Advanced Topics
+@section Updating Enigma
+
+If you have installed Enigma 0.92 or an earlier version and want to update to
+Enigma 1.00 you should first backup any levels that you added yourself to
+the Enigma installtion directories. After that you can safely deinstall the
+old version and install the new one.
+
+The old score file @samp{~/.enigmarc2} for systems with a @samp{HOME} environment
+variable or @samp{.../Application Data/enigmarc.lua2} for HOMEless Windows systems
+is converted automatically to the new score format. You can remove the old score
+after the first successfull run of Enigma 1.00.
+
+If you want to readd levels that you saved from the old installation please
+read the reference manual.
+
+@node Spoilers, Credits, Advanced Topics, Top
 @chapter Spoilers
 
 This chapter contains hints for some of the difficult levels.  You are

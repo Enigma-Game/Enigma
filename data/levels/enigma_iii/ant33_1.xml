@@ -46,7 +46,7 @@ cells["b"]=cell{{cells["`"], {doorv, {name="doorB"}}}}
 --failed_C  =function() send_message_named("doorC", "close", nil); end;
 --states_C  =bool_table(3, 0, bool_and, success_C, failed_C)
 --action_C  =function() cell{{{bool_set, states_C}}}() end
---cells["C"]=cell{item={"it-trigger", {action="callback", target="success_C"}}}
+--cells["C"]=cell{item={"it-trigger", {action="callback", target="action_C"}}}
 
 -- Workaround for the 5 lines above:
 t1, t2, t3 = 0,0,0
