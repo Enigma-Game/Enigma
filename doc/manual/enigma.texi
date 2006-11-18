@@ -45,7 +45,7 @@ notice and this notice are preserved.
 @menu
 * Introduction::                Getting started with Enigma
 * The Game::                    How to play Enigma
-* Game Objects::                Description of some game objects
+* Some Game Objects::           Description of some game objects
 * Advanced Topics::             Futher features and administration
 * Spoilers::                    Tips for some difficult levels
 * Credits::                     Credits and `Thank You's
@@ -77,7 +77,7 @@ Rules of the Game
 * Two-player landscapes::       
 * Meditation landscapes::       
 
-Game Objects
+Some Game Objects
 
 * Items::                       
 * Stones::                      
@@ -145,7 +145,7 @@ Provided you like puzzle games and have a steady hand Enigma will give you
 a long term entertainment. The object of the game is to find and uncover pairs
 of identically colored @samp{Oxyd} stones. Simple? Yes. Easy? Certainly not! 
 Hidden traps, vast mazes, laser beams, and, most of all, countless hairy puzzles 
-usually block your direct way to the Oxyd stones... .The versatility of game 
+usually block your direct way to the Oxyd stones ... The versatility of game 
 objects and the dynamic level format will provide you always new worlds to 
 explore. 
 
@@ -282,7 +282,7 @@ The preceding two paragraphs are no substitute for the real license,
 but a summary of its main traits in plain English.  Please consult the
 GPL or ask if you are unsure or if you need to know more details.
 
-@node The Game, Game Objects, Introduction, Top
+@node The Game, Some Game Objects, Introduction, Top
 @chapter The Game
 
 @menu
@@ -567,7 +567,8 @@ being the best-known object in this category).
 
 Last but not least: Don't feel discouraged by the apparent complexity
 of the game---the behaviour of most object will become clear in due
-course.  Some of the obscurer objects are explained in @ref{Game Objects}.
+course.  Some of the obscurer objects are explained in @ref{Some Game
+Objects}.
 
 @node Two-player landscapes, Meditation landscapes, Normal landscapes, Rules of the Game
 @subsection Two-player landscapes
@@ -646,8 +647,8 @@ Toggle between fullscreen and windowed display
 Return to the level menu immediately
 @end table
 
-@node Game Objects, Advanced Topics, The Game, Top
-@chapter Game Objects
+@node Some Game Objects, Advanced Topics, The Game, Top
+@chapter Some Game Objects
 
 There are dozens of different game objects you will see in Enigma's
 levels. We just want to describe a small assorted set of them here. If
@@ -669,7 +670,7 @@ levels of Enigma.
 @c @node Predators,,,
 @c @subsection Predators
 
-@node Items, Stones, Game Objects, Game Objects
+@node Items, Stones, Some Game Objects, Some Game Objects
 @section Items
 
 @menu
@@ -721,7 +722,7 @@ point of the black and the white marble respectively.
 @c @node Elastic Band,  , Teleporters, Items
 @c @subsection Elastic Band
 
-@node Stones,  , Items, Game Objects
+@node Stones,  , Items, Some Game Objects
 @section Stones  
 
 @menu
@@ -891,7 +892,7 @@ objects that afterwards block the pipeline, so be careful!
 @c @node Elastics and Scissors,  , Bolder Stones, Stones
 @c @subsection Elastics and Scissors
 
-@node Advanced Topics, Spoilers, Game Objects, Top
+@node Advanced Topics, Spoilers, Some Game Objects, Top
 @chapter Advanced Topics
 
 @menu
@@ -951,7 +952,7 @@ the option @samp{Ratings Update}.
 
 If you have installed Enigma 0.92 or an earlier version and want to update to
 Enigma 1.00 you should first backup any levels that you added yourself to
-the Enigma installtion directories. After that you can safely deinstall the
+the Enigma installation directories. After that you can safely deinstall the
 old version and install the new one.
 
 The old score file @samp{~/.enigmarc2} for systems with a @samp{HOME} environment
@@ -959,7 +960,7 @@ variable or @samp{.../Application Data/enigmarc.lua2} for HOMEless Windows syste
 is converted automatically to the new score format. You can remove the old score
 after the first successfull run of Enigma 1.00.
 
-If you want to readd levels that you saved from the old installation please
+If you want to read levels that you saved from the old installation please
 read the reference manual.
 
 @node Spoilers, Credits, Advanced Topics, Top
@@ -1193,7 +1194,7 @@ One of the blue dots behaves differently.  Make use of that fact!
 @item I/80: Meditation
 Align the marbles horizontally. 
 
-@item II/15: Knock Knock
+@item II/15: Knock Knock!
 Knock the walls.
 
 @item II/27: Twelve doors
@@ -1201,7 +1202,7 @@ You opened all the doors and still can't get through?  You must have
 missed something!
 
 @item II/40: Space Meditation
-Ever heard of the three-body-problem?
+Ever heard of the three-body problem?
 
 @item II/44: Pharaos' Tombs
 Learn from ``Easy Shifting...''.
@@ -1236,9 +1237,6 @@ Step careful in the ladder.
 @item II/100: Patterns
 Is there an echo?
 
-@item III/9: What's the Problem?
-Decoys all over the place... this is a meditation landscape.
-
 @item III/14: Use the PIN
 ... or use your favourite encyclopedia if you don't recall the right
 number.
@@ -1268,6 +1266,9 @@ their little igloos -- Deep under the snow shield.
 
 @item III/43: The Ditch
 You can't solve this level without a broken ego.
+
+@item III/49: What's the Problem?
+Decoys all over the place... this is a meditation landscape.
 
 @item III/95: Jump and Run
 There's a spring hidden under a mirror.
@@ -1306,7 +1307,7 @@ The trigger hurts you? Destroy it!
 It processes.
 
 @item IV/65: Little Bit of Everything
-Use F3.
+Find a way to shatter.
 
 @item V/15: Solvable?
 Does WNSE remind you of something?
@@ -1315,7 +1316,7 @@ Does WNSE remind you of something?
 Admitted, this level is evil. There's a seed hidden near your starting
 point.
 
-@item V/22: Space Pirates
+@item V/24: Space Pirates
 This one is tricky.  Ignite a bomb near the wooden stones.
 
 @item V/32: Walk the Plank
@@ -1340,11 +1341,11 @@ There's a better hint hidden under the oxyd.
 @item V/91: Firefox
 Floor burns faster.
 
-@item V/96: Prepare Your Defense
-The laser changes more than items.
-
-@item VI/7: Orbitting
+@item VI/8: Orbitting
 Don't let anything touch the borders.
+
+@item VI/23: Prepare Your Defense
+The laser changes more than items.
 
 @item esprit 43
 Sacrifice to the volcano.
