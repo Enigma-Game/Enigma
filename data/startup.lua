@@ -335,28 +335,28 @@ soundtable_enigma = {
     coinslotoff    = "",
     coinsloton     = "st-coinslot",
     crack          = "",
-    doorclose      = "doorclose",
-    dooropen       = "dooropen",
+    doorclose      = "doorclose",  -- missing
+    dooropen       = "dooropen",   -- missing
     drown          = "drown",
-    dynamite       = "dynamite",
-    electric       = "st-stone",				-- replace 
-    exit           = Sound { file="exit", global=1 },
+    dynamite       = "explosion2", -- replace?
+    electric       = "st-stone",   -- replace
+    exit           = Sound { file="exit", global=1 },  -- missing
     extinguish     = "",
     fakeoxyd       = Sound { file="st-fakeoxyd", volume=0.3 },
-    falldown       = "falldown",
+    falldown       = "falldown",   -- missing, unused (falling is shatter!)
     fart           = "fart",
-    finished       = Sound { file="finished", global=1 },
+    finished       = Sound { file="finished", global=1 },  -- missing
     floordestroy   = "",
     fourswitch     = "st-switch", 
-    glass          = "glass",
-    hitfloor       = "stone",
+    glass          = "st-metal",   -- replace
+    hitfloor       = "stone",      -- missing, used by it-vortex
     impulse        = "",
-    intro          = Sound { file="intro", global=1 },
+    intro          = Sound { file="intro", global=1 },  -- missing
     invrotate      = Sound { file="invrotate", global=1 },
     itemtransform  = "st-magic",
     jump           = "boink",
     jumppad        = "",
-    landmine       = "",
+    landmine       = "explosion2",  -- replace?
     laserloop      = "",
     laseron        = "st-laser",
     laseroff       = "",
@@ -374,7 +374,7 @@ soundtable_enigma = {
     movebig        = "st-move",
     moveslow       = "st-move",
     movesmall      = "st-move",
-    oxydclose      = "st-oxydclose",
+    oxydclose      = "st-oxydclose",  -- missing, not neccessary I think
     oxydopen       = "st-oxydopen",
     oxydopened     = "st-oxydopened",
     pickup         = Sound {file="pickup", global=1},
@@ -382,9 +382,9 @@ soundtable_enigma = {
     puzzlerotate   = "st-move",
     rubberband     = "boing",
     scissors       = "",
-    seedgrow       = "seedgrow",
+    seedgrow       = "seedgrow",  -- missing
     shatter        = "shatter",
-    shattersmall   = "shattersmall",
+    shattersmall   = "shatter",   -- replace, "shattersmall" is missing
     shogunoff      = "",
     shogunon       = "",
     skull          = "",
@@ -395,23 +395,23 @@ soundtable_enigma = {
     stonepaint     = "st-magic",
     stonetransform = "st-magic",
     swamp          = "swamped",
-    switchmarbles  = "warp",
+    switchmarbles  = "warp",      -- missing
     switchoff      = "",
     switchon       = "st-switch",
     switchplayer   = "switch",
     sword          = "",
-    thief          = "thief",
+    thief          = "thief",     -- missing
     triggerdown    = "it-triggerdown",
     triggerup      = "it-triggerup",
-    turnstileleft  = "turnstileleft",
-    turnstileright = "turnstileright",
+    turnstileleft  = "turnstileleft",  -- missing
+    turnstileright = "turnstileright", -- missing
     umbrellaoff    = "",
     umbrellaon     = "",
     umbrellawarn   = "",
-    unlock         = "unlock",
-    vortexclose    = "doorclose",
-    vortexopen     = "dooropen",
-    warp           = "warp",
+    unlock         = "unlock",    -- missing
+    vortexclose    = "doorclose", -- missing
+    vortexopen     = "dooropen",  -- missing
+    warp           = "warp",      -- missing, maybe suck2?
     whitebomb      = "explosion1",
     wood           = "wood",
     yinyang        = "st-magic",

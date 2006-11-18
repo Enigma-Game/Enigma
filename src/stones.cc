@@ -491,6 +491,7 @@ namespace
         CLONEOBJ(BreakingStone);
 
         void init_model() {
+            sound_event("stonedestroy");
             set_anim("st-breaking");
         }
 

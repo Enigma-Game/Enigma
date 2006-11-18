@@ -825,7 +825,8 @@ void World::handle_stone_contact (StoneContact &sc)
 
                     if (!slow_collision) {
                         client::Msg_Sparkle (sc.contact_point);
-                        double volume = std::max (1.0, length(ai.vel)/2);
+                        double volume = std::max (0.25, length(ai.vel)/8);
+                        volume = std::min (1.0, volume);
                         sound::SoundEvent (sc.sound.c_str(), sc.contact_point, volume);
                     }
                 }
@@ -919,6 +920,7 @@ void World::handle_actor_contact (size_t i, size_t j)
 
             if (!has_nearby_contact (a1.contacts, contact)) {
                 double volume = length (force) * ActorTimeStep;
+                volume = std::min(1.0, volume);
                 if (volume > 0.4)
                     sound::SoundEvent ("ballcollision", contact.pos, volume);
             }
