@@ -14,7 +14,7 @@
       <el:comments>
         <el:code>Lua 5.1 and XML converted by Leveladministrators</el:code>
       </el:comments>
-      <el:score el:easy="-" el:difficult="03:46"/>
+      <el:score el:easy="-" el:difficult="02:26"/>
     </el:info>
     <el:luamain><![CDATA[
 -- Created with the help of BBE 1.05
@@ -47,7 +47,7 @@ cells["%"]=cell{floor="fl-sand"}
 cells["&"]=cell{floor="fl-sand"}
 cells["'"]=cell{floor="fl-bluegray"}
 
-items["!"]=cell{}  --{item="it-cherry"}
+items["!"]=cell{} --{item="it-cherry"}
 items["#"]=cell{item={"it-trigger", {action = "open", target="door1"}}}
 
 actors["!"]=cell{parent={{ac_blackball}}}
@@ -62,15 +62,15 @@ level={"!!!!!!!!!!!!!!!!!!!!",
        "!$%%%$%!!!&%%$$$$!!!",
        "!%!&%$$!!!!$%%$%%%!!",
        "!$%$%%$$$!!!&%!$%%$!",
-       "!$$%%%$%%%!!!%%$$$%!",
-       "!%&$%!$$&%!!!&%%%!%!",
+       "!$$%%%$%%$!!!%%$$$%!",
+       "!%&$%!$$&!!!!&%%%!%!",
        "!%%$$&$%%&&!!!$%$%$!",
        "!&!&%%%&%%!!!!!%$$$!",
-       "!$%%%$%%$$!!$!!%%$$!",
+       "!$%!$$%!$$!!$!!%%$$!",
        "!%$%$$$%$!!$%$!!!$%!",
-       "!!$$%%$$!!%$&%%%!$!!",
+       "!!$$$$$$!!%$&%%%!$!!",
        "!!%$%&%!!%&!%%&%$$!!",
-       "!&%&%%$!$$%$$$%%$$$!",
+       "!&%&%%$!$$!$$$%%$$$!",
        "!&%!$$$%%$%$!$%&!$%!",
        "!!&%$$%&%%&%$$$%%&%!",
        "!$&$$$%%&$%&%%$$$$&!",

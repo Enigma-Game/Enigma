@@ -229,7 +229,7 @@ function soundstring_timercallback()
   elseif  s == "."  then  play = ""  -- this is a forced pause
   end
   if play ~= "" then
-    enigma.EmitSound(soundstone, play)
+    enigma.EmitSound(soundfloor, play)
   end
 end
 -- The level itself
@@ -315,8 +315,9 @@ create_world_by_map(level)
 draw_map(0,0,stmap,stones)
 draw_map(0,0,itmap,items)
 draw_map(0,0,acmap,actors)
-soundstone = set_stone("st-timer", 0, 14, {action="callback",
+set_stone("st-timer", 0, 14, {action="callback",
   target="soundstring_timercallback", interval=0.3})
+soundfloor = enigma.GetFloor(10, 6)
     ]]></el:luamain>
     <el:i18n>
       <el:string el:key="title">
