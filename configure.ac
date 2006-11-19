@@ -316,12 +316,6 @@ else
 fi
 
 dnl ----------------------------------------------------------
-dnl Setup default search path for game data
-dnl ----------------------------------------------------------
-FC_EXPAND_DIR(ENIGMA_DATADIR, "$datadir/enigma")
-AC_DEFINE_UNQUOTED(SYSTEM_DATA_DIR, "$ENIGMA_DATADIR", [Default data directory])
-
-dnl ----------------------------------------------------------
 dnl Configure libraries
 dnl ----------------------------------------------------------
 AC_CONFIG_SUBDIRS(lib-src/zipios++)

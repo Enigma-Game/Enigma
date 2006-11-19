@@ -11,6 +11,7 @@ EXTRA_DIST = \
 
 
 CXXFLAGS = @CXXFLAGS@\
+	-DSYSTEM_DATA_DIR=\"$(datadir)/enigma\" \
 	-DLOCALEDIR=\"$(localedir)\" \
 	-I$(top_srcdir)/lib-src/zipios++  \
 	-I$(top_builddir)/lib-src/zipios++ \
