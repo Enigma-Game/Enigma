@@ -145,7 +145,8 @@ namespace enigma { namespace gui {
         "  Jeremy Sawicki  (Oxydlib)",
         "  Erich Schubert  (Debian packages)",
         "  Andrew \'Necros\' Sega (Menu music \'Pentagonal Dreams\')",
-        "  \'Cellar of Rats\'  (Sound effects)",
+// waiting for licence to add the sounds
+//        "  \'Cellar of Rats\'  (Sound effects)", 
         "  David W. Skinner  (Many Sokoban Levels)",
         0,
         N_("Contributors:"),

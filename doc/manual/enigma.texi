@@ -5,7 +5,7 @@
 @set VERSION 1.00
 
 @copying
-Copyright @copyright{} 2003, 2004, 2005, 2006 Daniel Heck, Ronald Lamprecht
+Copyright @copyright{} 2003, 2004, 2005, 2006 Daniel Heck and other contributors
 
 Copying and distribution of this file, with or without modification,
 are permitted in any medium without royalty provided the copyright
@@ -34,7 +34,7 @@ notice and this notice are preserved.
 This manual describes how to install and play Enigma.  It corresponds
 to Enigma version @value{VERSION}.
 
-Copyright @copyright{} 2003, 2004, 2005, 2006 Daniel Heck, Ronald Lamprecht
+Copyright @copyright{} 2003, 2004, 2005, 2006 Daniel Heck and other contributors
 
 Copying and distribution of this file, with or without modification,
 are permitted in any medium without royalty provided the copyright
@@ -50,69 +50,6 @@ notice and this notice are preserved.
 * Spoilers::                    Tips for some difficult levels
 * Credits::                     Credits and `Thank You's
 
-@ignore
-@detailmenu
- --- The Detailed Node Listing ---
-
-Introduction
-
-* About::                       Some facts about Enigma
-* Installation::                Getting and installing Enigma
-* Distributing Enigma::         Give copies to your friends!
-
-The Game
-
-* Getting Started::             Navigating the menus and starting a game
-* Rules of the Game::           How to play Enigma
-* Controls::                    Keyboard and mouse commands
-
-Getting Started
-
-* The Level Menu::              Choose the next level
-* Game options::                Adapt Enigma to you preferences
-
-Rules of the Game
-
-* Normal landscapes::           
-* Two-player landscapes::       
-* Meditation landscapes::       
-
-Some Game Objects
-
-* Items::                       
-* Stones::                      
-
-Items
-
-* Explosives::                  Dynamite and bombs
-* Umbrellas::                   
-* Flags::                       Setting the respawn point
-
-Stones  
-
-* Lethal Stones::               
-* Swap Stones::                 
-* Mirrors::                     
-* Oneway Stones::                
-* Shogun Stones::               
-* Bolder Stones::             
-* Puzzle Stones::               
-* Mail Stones::                 
-
-Spoilers
-
-* Tutorial::                    Walkthrough for `Advanced Tutorial'
-* Hints::                       Hints for Several Levels
-
-Credits
-
-* Main developers::             
-* Special Thanks::              
-* Contributors::                
-* Utilized Software::           
-
-@end detailmenu
-@end ignore
 @end menu
 
 @node Introduction, The Game, Top, Top
@@ -129,17 +66,9 @@ Credits
 @section About Enigma
 
 Enigma is one of the most intriguing puzzle games with more than 550 unique
-levels. Like many other puzzle games it tests and improves the skills of
-logic, memory and strategy. But in Enigma you have to control a marble in
-a world of physical forces. Thus it is a challenge of dexterity, too.
-
-The Enigma project was founded to keep the gaming idea of the Oxyd game series
-alive when Dongleware, the publisher of Oxyd, decided in 2002 to leave the
-gaming business and to abandon Oxyd. Fans of this famous game will have their 
-d@'ej@`a-vu. But Enigma adapted the gaming idea of many other famous games like
-Sokoban, Tetris by adding a new touch to each of them with new unique twists.
-Including all d@'ej@`a-vu's we count more than 970 levels in Enigma's
-distribution.
+dedicated levels. Like many other puzzle games it tests and improves the skills
+of logic, memory and strategy. But in Enigma you have to control a marble in
+a world of physical forces what can be a major challenge of dexterity.
 
 Provided you like puzzle games and have a steady hand Enigma will give you
 a long term entertainment. The object of the game is to find and uncover pairs
@@ -149,19 +78,13 @@ usually block your direct way to the Oxyd stones ... The versatility of game
 objects and the dynamic level format will provide you always new worlds to 
 explore. 
 
-@ignore
-Enigma is a tribute to and a re-implementation of Oxyd, one of the
-most original and intriguing computer games of the 1990's.  Oxyd first
-appeared on the Atari ST, but was later ported to many other platforms
-and extended into a series of four games: Oxyd 1, Per.Oxyd, Oxyd
-magnum, and Oxyd extra.  In 2002 Dongleware, the publisher of Oxyd,
-finally decided to leave the gaming business and to abandon Oxyd.
-
-Enigma is a clone of Oxyd---with a few unique twists, but altogether
-very true to the original.  Even if you have never played Oxyd, there's
-a good chance that you will enjoy Enigma, provided you like puzzle games
-and have a steady hand.
-@end ignore
+The Enigma project was founded to keep the gaming idea of the Oxyd game series
+alive when Dongleware, the publisher of Oxyd, decided in 2002 to leave the
+gaming business and to abandon Oxyd. Fans of this famous game will have their 
+d@'ej@`a-vu. But Enigma is inspired by many other popular games. Enigma with
+its unique twists adds a new touch to each of them. Did you ever play Sokoban
+with chess horses to be pushed? Have your d@'ej@`a-vu's for some games in single
+levels for others like Sokoban in complete levelpacks of many levels.
 
 Enigma is available for Windows, Mac OS X, and most flavors of Linux and other 
 modern Unices. It has been translated to many languages. Even this manual is
@@ -210,55 +133,6 @@ information. If you cannot get Enigma to work on your computer, feel
 free to ask for help on the Enigma mailing list
 (@email{enigma-devel@@nongnu.org}).
 
-@c @node Emulating Oxyd, Distributing Enigma, Installation, Introduction
-@c @section Emulating Oxyd
-
-@c As mentioned in the introduction, Enigma started out as a clone of
-@c Oyxd.  By now, Enigma is finally capable of emulating most of Oxyd's
-@c core functionality, although the gaming experience isn't perfect yet.
-@c Enigma still lacks some of Oxyd's game objects, and features like
-@c network support are completely missing.  What @emph{does} work,
-@c however, is importing Oxyd's sound effects and playing many of the
-@c original levels.
-
-@c Enigma will automatically import every Oxyd data file it can find.
-@c By default it searches for data files in the following places:
-
-@c @table @strong
-@c @item Windows
-@c There's a @file{data} folder in Enigma's installation directory, the
-@c location of which you can specify in the installation program.
-@c This is usually something like @file{C:\Program Files\Enigma\data}.
-
-@c @item Unix / OS X
-@c There are two possible data directories on Unix-like systems: firstly
-@c the system-wide directory (something like
-@c @file{/usr/local/share/enigma} or @file{/usr/share/games/enigma},
-@c depending on your configuration), and secondly a per-user directory
-@c called @file{.enigma} in your home directory.
-@c @end table
-
-@c All you have to do is copy one/any/all of the following files to
-@c Enigma's data directory (remember that case @emph{does} matter on
-@c Unix-like operating systems):
-
-@c @multitable {Oxyd magnum gold} {@file{oxyd1ibm.dat}}
-@c @item @strong{Game}	@tab @strong{Data file}
-@c @item Per.Oxyd		@tab @file{peroxyd.dat}
-@c @item Oxyd 1		@tab @file{oxyd1ibm.dat}
-@c @item Oxyd extra	@tab @file{oxydex.dat}
-@c @item Oxyd magnum	@tab @file{oxydmibm.dat}
-@c @item Oxyd magnum gold	@tab @file{oxydmgg.dat}
-@c @end multitable
-
-@c Per.Oxyd and Oxyd 1 are ``dongleware'' (i.e., some kind of shareware)
-@c and can be downloaded freely from the Internet (search for ``oxyd
-@c abandonware''; Google is your friend).  Oxyd extra and Oxyd magnum were
-@c regular commercial games, so you may use the data files only if you have
-@c a legal copy of these games.  Please do not ask us to send you copies of
-@c any Oxyd version---we won't.  Oxyd may have been abandoned, but it's
-@c still copyrighted, and we respect that.
-
 @node Distributing Enigma,  , Installation, Introduction
 @section Distributing Enigma
 
@@ -299,7 +173,7 @@ After starting Enigma, you will be confronted with the main menu, from
 where you can start a new game, set some options, or leave the game if
 you've had enough.  The following sections will give you a quick tour
 of the level menu and the options menu; everything else is hopefully
-self-explanatory.
+self-explanatory. Many menus provide an online help. Just press F1.
 
 @menu
 * The Level Menu::              Choose the next level
@@ -1439,8 +1313,9 @@ Original game idea--@emph{Thanks}!
 @item Andrew ``Necros'' Sega
 Menu music (@emph{Pentagonal Dreams})
 
-@item ``Cellar of Rats''
-Sound effects
+@c waiting for licence to add the sounds
+@c @item ``Cellar of Rats''
+@c Sound effects
 
 @item David W. Skinner
 Many Sokoban levels from
