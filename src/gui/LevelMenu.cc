@@ -66,7 +66,7 @@ namespace enigma { namespace gui {
       lbl_statistics (new Label("")),
       lbl_levelname  (new Label("", HALIGN_LEFT)),
       lbl_levelinfo  (new Label("", HALIGN_LEFT)),
-      shown_text_ttl(-1.0)
+      shown_text_ttl(-1.0), main_quit (false)
     {
         HList *hl, *hll, *hlr ;
     

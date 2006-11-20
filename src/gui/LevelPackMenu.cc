@@ -52,7 +52,7 @@ namespace enigma { namespace gui {
     
     LevelPackMenu::LevelPackMenu() : packsHList (NULL), groupsVList (NULL),
             scrollLeft (NULL), scrollRight (NULL), scrollUp (NULL),
-            scrollDown (NULL) {
+            scrollDown (NULL), isLevelMenuSubmenu (false) {
         const video::VMInfo &vminfo = *video::GetInfo();
         vm = vminfo.videomode;
        
@@ -312,6 +312,7 @@ namespace enigma { namespace gui {
             }
             if (!finished) {
                 // the user left LevelMenu via LevelPack button 
+                this->isLevelMenuSubmenu = true;
                 if (this->manage()) {
                     // not ESC - the user pressed Main button
                     finished = true;
@@ -353,12 +354,12 @@ namespace enigma { namespace gui {
             m.manage();
             setupMenu();
             updateHighlight();
-            invalidate_all();            
-//            lev::Index::getCurrentIndex()->updateFromProxies();
+            invalidate_all();
         } else if (w == but_level) {
             LevelMenu m;
-            if (m.manage() && m.isMainQuit()) {
-                // not ESC but Main button has been pressed in LevelMenu -
+            if (!m.manage() && isLevelMenuSubmenu || m.isMainQuit()) {
+                // ESC in LevelMenu in case we are a submenu of LevelMenu or
+                // Main button has been pressed in LevelMenu 
                 Menu::quit();
             }
             setupMenu();
@@ -370,8 +371,9 @@ namespace enigma { namespace gui {
             if (ml.isSearchQuit()) {
                 // show search result levelpack
                 LevelMenu ml;
-                if (ml.manage() && ml.isMainQuit()) {
-                    // not ESC but Main button has been pressed in LevelMenu -
+                if (!ml.manage() && isLevelMenuSubmenu || ml.isMainQuit()) {
+                    // ESC in LevelMenu in cade we are a submenu of LevelMenu or
+                    // Main button has been pressed in LevelMenu
                     Menu::quit();
                 }
             }
@@ -414,8 +416,9 @@ namespace enigma { namespace gui {
                 m.manage();
             } else {
                 LevelMenu m;
-                if (m.manage() && m.isMainQuit()) {
-                    // not ESC but Main button has been pressed in LevelMenu -
+                if (!m.manage() && isLevelMenuSubmenu || m.isMainQuit()) {
+                    // ESC in LevelMenu in case we are a submenu of LevelMenu or
+                    // Main button has been pressed in LevelMenu
                     Menu::quit();
                     return;
                 }

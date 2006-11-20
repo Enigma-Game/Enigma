@@ -75,6 +75,8 @@ namespace enigma { namespace gui {
         Widget      *but_level;
         Widget      *but_main;
         
+        bool         isLevelMenuSubmenu;
+        
         void setupMenu();
         void updateHighlight();
         int getGroupPosition(std::vector<std::string> * groups, std::string groupName);
