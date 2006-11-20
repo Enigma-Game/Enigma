@@ -5,10 +5,10 @@
 #
 msgid ""
 msgstr ""
-"Project-Id-Version: Enigma 0.90\n"
+"Project-Id-Version: Enigma 1.00\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2006-11-17 21:21+0100\n"
-"PO-Revision-Date: 2006-11-012 18:07+0100\n"
+"PO-Revision-Date: 2006-11-20 18:07+0100\n"
 "Last-Translator:  Alain Busser\n"
 "Language-Team: French\n"
 "MIME-Version: 1.0\n"
@@ -125,9 +125,8 @@ msgid "Switch between fullscreen and window"
 msgstr "Alterner les modes plein écran et fenêtrée"
 
 #: src/client.cc:494
-#, fuzzy
 msgid "Skip to next level for best score hunt"
-msgstr "Saute au prochain niveau"
+msgstr "Saute au prochain niveau pour battre un record"
 
 #: src/client.cc:495
 msgid "Skip to next unsolved level"
@@ -142,32 +141,26 @@ msgid "You are slow today.. [Ctrl-A]"
 msgstr "Vous êtes lent aujourd'hui.. [Ctrl-A]"
 
 #: src/client.cc:728
-#, fuzzy
 msgid "Exactly the world record of "
 msgstr "Exactement le même temps que "
 
 #: src/client.cc:730
-#, fuzzy
 msgid "Great! A new world record!"
-msgstr "Bravo! Un nouveau record!"
+msgstr "Bravo! Un nouveau record du monde!"
 
 #: src/client.cc:735
-#, fuzzy
 msgid "Again your personal record..."
 msgstr "Encore votre temps perso..."
 
 #: src/client.cc:741
-#, fuzzy
 msgid "New personal record - better than par!"
-msgstr "Nouveau record personnel!"
+msgstr "Nouveau record personnel-meilleur que le PAR!"
 
 #: src/client.cc:743
-#, fuzzy
 msgid "New personal record, but over par!"
-msgstr "Nouveau record personnel!"
+msgstr "Nouveau record personnel, quoique moins bon que le PAR!"
 
 #: src/client.cc:745
-#, fuzzy
 msgid "New personal record!"
 msgstr "Nouveau record personnel!"
 
@@ -184,14 +177,12 @@ msgid "behind your record."
 msgstr "moins que votre record"
 
 #: src/client.cc:773
-#, fuzzy
 msgid "Level finished - better than par!"
-msgstr "Niveau terminé!"
+msgstr "Niveau terminé, meilleur que le PAR!"
 
 #: src/client.cc:775
-#, fuzzy
 msgid "Level finished, but over par!"
-msgstr "Niveau terminé!"
+msgstr "Niveau terminé, mais moins bon que le PAR!"
 
 #: src/client.cc:777
 msgid "Level finished!"
@@ -202,9 +193,9 @@ msgid " Cheater!"
 msgstr " Escroc!"
 
 #: src/client.cc:810
-#, fuzzy, c-format
+#, c-format
 msgid "Enigma pack %s - level #%d: %s"
-msgstr "Enigma niveau #%d: %s"
+msgstr "Enigmapack %s, niveau #%d: %s"
 
 #: src/client.cc:820
 msgid "Your record: "
@@ -212,7 +203,7 @@ msgstr "Votre record: "
 
 #: src/client.cc:822
 msgid "World record to beat: "
-msgstr "Record mondial � battre: "
+msgstr "Record mondial à battre: "
 
 #: src/main.cc:277
 #, c-format
@@ -230,9 +221,9 @@ msgid "Error Application Data directory does not exist.\n"
 msgstr "Erreur: Le répertoire de données n'existe pas.\n"
 
 #: src/main.cc:517 src/main.cc:566
-#, fuzzy, c-format
+#, c-format
 msgid "Error in XML initialization.\n"
-msgstr "Erreur dans le fichier de configuration.\n"
+msgstr "Erreur dans le fichier d'initialisation.\n"
 
 #: src/main.cc:733
 msgid ""
@@ -260,9 +251,8 @@ msgid "Back"
 msgstr "Retour"
 
 #: src/gui/MainMenu.cc:110
-#, fuzzy
 msgid "Main developers of the 1.0 release:"
-msgstr "Principaux développeurs:"
+msgstr "Principaux développeurs pour la version 1.0:"
 
 #: src/gui/MainMenu.cc:111
 msgid "  RONALD LAMPRECHT (lead)"
@@ -277,14 +267,12 @@ msgid "  DANIEL HECK (project founder)"
 msgstr "  DANIEL HECK (fondateur du projet)"
 
 #: src/gui/MainMenu.cc:117
-#, fuzzy
 msgid "  MEINOLF SCHNEIDER (game idea, level design)"
 msgstr ""
 "  MEINOLF SCHNEIDER (idée du jeu), ANDREW \\\"NECROS\\\" SEGA (musique du "
 "menu)"
 
 #: src/gui/MainMenu.cc:119
-#, fuzzy
 msgid "Please refer to the manual or the next pages for full credits."
 msgstr "Lisez la documentation pour plus d'informations."
 
@@ -301,21 +289,18 @@ msgid "Enigma is free software and may be distributed under the"
 msgstr "Enigma est un logiciel libre et peut être distribué sous les"
 
 #: src/gui/MainMenu.cc:125
-#, fuzzy
 msgid "terms of the GNU General Public License, version 2."
-msgstr "termes de la GNU General Public License, version 2. Voyez"
+msgstr "termes de la GNU General Public License, version 2."
 
 #: src/gui/MainMenu.cc:127
 msgid "Copyright (C) 2002-2006 Daniel Heck and contributors."
 msgstr "Copyright (C) 2002-2006 Daniel Heck et contributeurs."
 
 #: src/gui/MainMenu.cc:129
-#, fuzzy
 msgid "Main developer of all releases:"
-msgstr "Principaux développeurs:"
+msgstr "Principal développeur:"
 
 #: src/gui/MainMenu.cc:143
-#, fuzzy
 msgid "Special Thanks:"
 msgstr "Remerciements spéciaux à:"
 
@@ -328,7 +313,6 @@ msgid "Level Pack"
 msgstr "Pack de niveau"
 
 #: src/gui/MainMenu.cc:204
-#, fuzzy
 msgid "Network Game"
 msgstr "Jeu en réseau"
 
@@ -395,7 +379,6 @@ msgid "Auto"
 msgstr "Automatique"
 
 #: src/gui/OptionsMenu.cc:122
-#, fuzzy
 msgid "Never"
 msgstr "Jamais"
 
@@ -405,7 +388,7 @@ msgstr "Défaut"
 
 #: src/gui/OptionsMenu.cc:233
 msgid "reversed"
-msgstr "inversé"
+msgstr "inversée"
 
 #: src/gui/OptionsMenu.cc:234
 msgid "mono"
@@ -413,7 +396,7 @@ msgstr "mono"
 
 #: src/gui/OptionsMenu.cc:235
 msgid "normal"
-msgstr "difficile"
+msgstr "normale"
 
 #: src/gui/OptionsMenu.cc:296 src/gui/LevelInspector.cc:329
 #: src/gui/LevelInspector.cc:345 src/gui/LevelInspector.cc:358
@@ -457,9 +440,8 @@ msgid "Stereo: "
 msgstr "Stéréo: "
 
 #: src/gui/OptionsMenu.cc:382
-#, fuzzy
 msgid "Ratings update: "
-msgstr "Langue: "
+msgstr "Mise  à jour des records: "
 
 #: src/gui/OptionsMenu.cc:396
 msgid "User name: "
@@ -474,7 +456,6 @@ msgid "User image path: "
 msgstr "Chemin images: "
 
 #: src/gui/LevelMenu.cc:62 src/gui/LevelPackMenu.cc:63
-#, fuzzy
 msgid "Main Menu"
 msgstr "Enigma - Menu principal"
 
@@ -519,9 +500,8 @@ msgid "Right or control click:"
 msgstr "Clic droit ou control-clic:"
 
 #: src/gui/LevelMenu.cc:176
-#, fuzzy
 msgid "Inspect selected level"
-msgstr "Joue au paysage sélectionné"
+msgstr "Examine le paysage sélectionné"
 
 #: src/gui/LevelMenu.cc:193
 msgid "Select next level for world record hunt"
@@ -541,14 +521,14 @@ msgid "%s: %d levels"
 msgstr "%s: %d niveaux"
 
 #: src/gui/LevelMenu.cc:296
-#, fuzzy, c-format
+#, c-format
 msgid "%d%% best"
 msgstr "%d%% meilleurs"
 
 #: src/gui/LevelMenu.cc:300
 #, c-format
 msgid "%d%% par"
-msgstr ""
+msgstr "PAR %d%%"
 
 #: src/gui/LevelMenu.cc:304
 #, c-format
@@ -575,100 +555,91 @@ msgid "World record by %s: %d:%02d"
 msgstr "Record du monde par %s: %d:%02d"
 
 #: src/gui/LevelMenu.cc:357
-#, fuzzy, c-format
+#, c-format
 msgid "Par: %d:%02d World record by %s: %d:%02d"
-msgstr "Record du monde par %s: %d:%02d"
+msgstr "PAR: %d:%02d Record du monde par %s: %d:%02d"
 
 #: src/gui/LevelMenu.cc:361
-#, fuzzy, c-format
+#, c-format
 msgid "World record: %d:%02d"
-msgstr "Votre temps: %d:%02d"
+msgstr "Record du monde: %d:%02d"
 
 #: src/gui/LevelMenu.cc:363
-#, fuzzy, c-format
+#, c-format
 msgid "Par: %d:%02d World record: %d:%02d"
-msgstr "Votre temps: %d:%02d"
+msgstr "PAR: %d:%02d Record mondial: %d:%02d"
 
 #: src/gui/LevelMenu.cc:397
-#, fuzzy
 msgid "No further unsolved level available!"
 msgstr "Pas davantage de niveaux non résolus!"
 
 #: src/gui/LevelPackComposer.cc:40
-#, fuzzy
 msgid "Shift click:"
-msgstr "clic gauche:"
+msgstr "Shift+clic gauche:"
 
 #: src/gui/LevelPackComposer.cc:40
 msgid "Add to clipboard"
-msgstr ""
+msgstr "Ajouter au presse-papiers"
 
 #: src/gui/LevelPackComposer.cc:41
 msgid "Shift delete:"
-msgstr ""
+msgstr "Shift suppr"
 
 #: src/gui/LevelPackComposer.cc:41
 msgid "Clear clipboard"
-msgstr ""
+msgstr "Effacer le presse-papiers"
 
 #: src/gui/LevelPackComposer.cc:42
-#, fuzzy
 msgid "F8:"
-msgstr "F5:"
+msgstr "F8:"
 
 #: src/gui/LevelPackComposer.cc:42
 msgid "Insert clipboard as reference"
-msgstr ""
+msgstr "Insérer le presse-papiers comme référence"
 
 #: src/gui/LevelPackComposer.cc:43
-#, fuzzy
 msgid "F9:"
-msgstr "F5:"
+msgstr "F9:"
 
 #: src/gui/LevelPackComposer.cc:43
 msgid "Insert clipboard as copy"
-msgstr ""
+msgstr "Insérer le presse-papiers comme copie"
 
 #: src/gui/LevelPackComposer.cc:45
-#, fuzzy
 msgid "Alt left arrow:"
-msgstr "Flèches gauche et droite:"
+msgstr "Alt+Flèches gauche et droite:"
 
 #: src/gui/LevelPackComposer.cc:45
 msgid "Exchange level with predecessor"
-msgstr ""
+msgstr "Echanger ce niveau avec le précédent"
 
 #: src/gui/LevelPackComposer.cc:46
-#, fuzzy
 msgid "Alt right arrow:"
-msgstr "Flèches gauche et droite:"
+msgstr "Alt+Flèche droite:"
 
 #: src/gui/LevelPackComposer.cc:46
 msgid "Exchange level with successor"
-msgstr ""
+msgstr "Echanger ce niveau avec le suivant"
 
 #: src/gui/LevelPackComposer.cc:47
-#, fuzzy
 msgid "Delete:"
-msgstr "Version:"
+msgstr "Effacer:"
 
 #: src/gui/LevelPackComposer.cc:47
-#, fuzzy
 msgid "Delete level"
-msgstr "Choisissez un paysage"
+msgstr "Effacer un paysage"
 
 #: src/gui/LevelPackComposer.cc:48
 msgid "Update index from levels"
-msgstr ""
+msgstr "Actualiser l'index des niveaux"
 
 #: src/gui/LevelPackComposer.cc:53
-#, fuzzy
 msgid "F10"
 msgstr "F10:"
 
 #: src/gui/LevelPackComposer.cc:54
 msgid "Move clipboard levels"
-msgstr ""
+msgstr "Déplacer le presse-papier des niveaux"
 
 #: src/gui/LevelPackComposer.cc:118 src/gui/LevelPackConfig.cc:307
 #: src/gui/LPGroupConfig.cc:99 src/gui/SearchMenu.cc:58
@@ -682,12 +653,11 @@ msgid "Ok"
 msgstr "OK"
 
 #: src/gui/LevelPackComposer.cc:362
-#, fuzzy, c-format
+#, c-format
 msgid "Clipboard: %d levels"
-msgstr "%s: %d niveaux"
+msgstr "Presse-papiers: %d niveaux"
 
 #: src/gui/LevelPackConfig.cc:154
-#, fuzzy
 msgid "Levelpack:"
 msgstr "Pack de niveau"
 
@@ -728,13 +698,12 @@ msgid "Default Location:"
 msgstr "Emplacement par défaut:"
 
 #: src/gui/LevelPackConfig.cc:222
-#, fuzzy
 msgid "Level types:"
-msgstr "Pack de niveau"
+msgstr "Types de niveau"
 
 #: src/gui/LevelPackConfig.cc:297
 msgid "Please reasign levelpack to another group for group deletion"
-msgstr "Veuillez réassigner le pack � un autre groupe pour détruire ce groupe"
+msgstr "Veuillez réassigner le pack àun autre groupe pour détruire ce groupe"
 
 #: src/gui/LevelPackConfig.cc:300
 msgid "Compose Pack"
@@ -758,31 +727,27 @@ msgstr ""
 
 #: src/gui/LevelPackConfig.cc:402
 msgid "Error: title already in use - choose another title"
-msgstr "Erreur: Titre déj� utilisé - choisissez un autre titre"
+msgstr "Erreur: Titre déjàutilisé - choisissez un autre titre"
 
 #: src/gui/LevelPackMenu.cc:46
-#, fuzzy
 msgid "Left column:"
-msgstr "Bouton gauche:"
+msgstr "Colonne de gauche:"
 
 #: src/gui/LevelPackMenu.cc:46
-#, fuzzy
 msgid "Levelpack groups"
-msgstr "Pack de niveau"
+msgstr "Groupe de packs de niveau"
 
 #: src/gui/LevelPackMenu.cc:47
-#, fuzzy
 msgid "Right columns:"
-msgstr "Bouton droit:"
+msgstr "Colonne de droite:"
 
 #: src/gui/LevelPackMenu.cc:47
 msgid "Levelpacks of selected group"
 msgstr "Packs de niveau du groupe sélectionné"
 
 #: src/gui/LevelPackMenu.cc:48
-#, fuzzy
 msgid "Select group or levelpack"
-msgstr "Choisissez un paysage"
+msgstr "Choisissez un groupe ou un pack de niveaux"
 
 #: src/gui/LevelPackMenu.cc:49
 msgid "Configure group or levelpack"
@@ -801,13 +766,12 @@ msgid "Position:"
 msgstr "Position:"
 
 #: src/gui/LPGroupConfig.cc:97
-#, fuzzy
 msgid "New Pack"
-msgstr "Pack de niveau"
+msgstr "Nouveau pack de niveaux"
 
 #: src/gui/LPGroupConfig.cc:98
 msgid "Delete Group"
-msgstr "Effecer groupe"
+msgstr "Effacer groupe"
 
 #: src/gui/LPGroupConfig.cc:128
 msgid ""
@@ -819,7 +783,7 @@ msgstr ""
 
 #: src/gui/LPGroupConfig.cc:139
 msgid "Error: group name is a duplicate of an existing group"
-msgstr "Erreur: Le nom du groupe est déj� pris"
+msgstr "Erreur: Le nom du groupe est déjàpris"
 
 #: src/gui/LPGroupConfig.cc:144
 msgid "Error: \"Every group\" is a reserved group name"
@@ -838,21 +802,18 @@ msgid "Page Up:"
 msgstr "Monter d'une page:"
 
 #: src/gui/ScreenshotViewer.cc:36
-#, fuzzy
 msgid "Show previous screenshot"
-msgstr "écran précédent"
+msgstr "Montrer écran précédent"
 
 #: src/gui/ScreenshotViewer.cc:37
 msgid "Page Down:"
 msgstr "Descendre d'une page:"
 
 #: src/gui/ScreenshotViewer.cc:37
-#, fuzzy
 msgid "Show next screenshot"
-msgstr "écran suivant"
+msgstr "Montrer écran suivant"
 
 #: src/gui/ScreenshotViewer.cc:105
-#, fuzzy
 msgid "No screenshot available:"
 msgstr "Pas davantage de niveaux non résolus!"
 
@@ -866,14 +827,12 @@ msgid "case independent search in title, author, filename"
 msgstr "recherche sur titre, auteur, nom du niveau"
 
 #: src/gui/LevelInspector.cc:176
-#, fuzzy
 msgid "Screenshot"
 msgstr "Réalise une copie d'écran"
 
 #: src/gui/LevelInspector.cc:221
-#, fuzzy
 msgid "Level: "
-msgstr "Pack de niveau"
+msgstr "Niveau"
 
 #: src/gui/LevelInspector.cc:223 src/gui/LevelInspector.cc:281
 msgid "Author: "
@@ -908,14 +867,12 @@ msgid "Knowledge: "
 msgstr "Connaissance: "
 
 #: src/gui/LevelInspector.cc:252
-#, fuzzy
 msgid "Speed: "
-msgstr "Vitesse souris: "
+msgstr "Chasse au temps: "
 
 #: src/gui/LevelInspector.cc:253
-#, fuzzy
 msgid "Difficulty: "
-msgstr "Difficulté: Facile"
+msgstr "Difficulté: "
 
 #: src/gui/LevelInspector.cc:274
 msgid "Scores"
@@ -932,17 +889,15 @@ msgstr "Monde: "
 #. TRANSLATORS: PAR = professional average rate - an expression used by golfers
 #: src/gui/LevelInspector.cc:280
 msgid "PAR: "
-msgstr "Classement pro: "
+msgstr "Classement pro (PAR): "
 
 #: src/gui/LevelInspector.cc:282
-#, fuzzy
 msgid "Solved %: "
-msgstr "Saute paysages résolus: "
+msgstr "Paysages résolus %: "
 
 #: src/gui/LevelInspector.cc:283
-#, fuzzy
 msgid "Solved #: "
-msgstr "Saute paysages résolus: "
+msgstr "Paysages résolus #: "
 
 #: src/gui/LevelInspector.cc:305
 msgid "Version"
@@ -985,7 +940,6 @@ msgid "experimental"
 msgstr "expérimental"
 
 #: src/gui/LevelInspector.cc:337
-#, fuzzy
 msgid "released"
 msgstr "publié"
 
@@ -1018,7 +972,6 @@ msgid "World Record Holders: "
 msgstr "Détenteurs du record du monde: "
 
 #: src/gui/LevelInspector.cc:397
-#, fuzzy
 msgid "Credits: "
 msgstr "Crédits"
 
@@ -1027,9 +980,8 @@ msgid "Dedication: "
 msgstr "Dédié �: "
 
 #: src/gui/LevelInspector.cc:419
-#, fuzzy
 msgid "Level Path: "
-msgstr "Pack de niveau"
+msgstr "Chemin du niveau"
 
 #: src/gui/LevelInspector.cc:439
 msgid "Compatibility: "
@@ -1056,18 +1008,16 @@ msgid "Restart Level"
 msgstr "Recommencer le niveau"
 
 #: src/gui/GameMenu.cc:49
-#, fuzzy
 msgid "Level Info"
-msgstr "Pack de niveau"
+msgstr "Infos sur le niveau"
 
 #: src/gui/GameMenu.cc:50
 msgid "Abort Level"
 msgstr "Abandonner le niveau"
 
 #: src/lev/Proxy.cc:162
-#, fuzzy
 msgid "Error on auto registration of levelfile: "
-msgstr "Erreur dans le fichier de configuration.\n"
+msgstr "Erreur dans l'enregistrement automatique du fichier de configuration. "
 
 #: src/lev/Proxy.cc:164
 msgid ""
@@ -1080,11 +1030,11 @@ msgstr ""
 #: src/lev/Proxy.cc:166 src/lev/PersistentIndex.cc:306 src/d_models.cc:210
 #: src/d_models.cc:224 src/PreferenceManager.cc:181 src/StateManager.cc:145
 msgid "Continue"
-msgstr "Continuez"
+msgstr "Continuer"
 
 #: src/lev/PersistentIndex.cc:302
 msgid "Error on  registration of levelpack index: \n"
-msgstr "Erreur � l'enregistrement de l'index des niveaux: \n"
+msgstr "Erreur à l'enregistrement de l'index des niveaux: \n"
 
 #: src/lev/PersistentIndex.cc:304
 msgid ""
@@ -1105,7 +1055,7 @@ msgid "Your installation may be incomplete or invalid.\n"
 msgstr "Votre installation peut être incomplète ou invalide.\n"
 
 #: src/lua.cc:807
-#, fuzzy, c-format
+#, c-format
 msgid "There was an error loading '%s'.\n"
 msgstr "Erreur au chargement de '%s'.\n"
 
@@ -1122,13 +1072,13 @@ msgid ""
 msgstr ""
 "\n"
 "\n"
-"Cette erreur peut amener le jeu � se comporter étrangement!"
+"Cette erreur peut amener le jeu à se comporter étrangement!"
 
 #  level: "Easy Shifting.."
 #  author: "Ralf Westram" email "amgine@reallysoft.de"
 #: po/level_i18n.cc:46
 msgid "Dedicated to my friend Frank."
-msgstr "Dédié � mon ami Frank."
+msgstr "Dédié à  mon ami Frank."
 
 #  level: "Easy Shifting.."
 #  author: "Ralf Westram" email "amgine@reallysoft.de"
@@ -1250,7 +1200,6 @@ msgstr ""
 #  author: "Alain Busser" email ""
 #  use: "A votre tour de commencer la partie."
 #: po/level_i18n.cc:175
-#, fuzzy
 msgid "Now you begin this game."
 msgstr "A vous de jouer."
 
@@ -1258,9 +1207,8 @@ msgstr "A vous de jouer."
 #  author: "Alain Busser" email ""
 #  use: "Perdu ... 'SHIFT+F3'!!!"
 #: po/level_i18n.cc:177
-#, fuzzy
 msgid "Poor little blackball ... 'SHIFT+F3'!!!"
-msgstr "Perdu ... SHIFT+F3!!!"
+msgstr "Perdu ... 'SHIFT+F3'!!!"
 
 #  level: "- Meditation -"
 #  author: "Edward" email ""
@@ -1439,7 +1387,7 @@ msgstr "Deux choses sont CACHEES!"
 #  author: "capkoh" email ""
 #: po/level_i18n.cc:386
 msgid "Third stone from the rock is the hole!"
-msgstr "La troisième pierre � partir du rocher est le trou!"
+msgstr "La troisième pierre à partir du rocher est le trou!"
 
 #  level: "Patterns of Impulse"
 #  author: "Andreas Lochmann" email ""
@@ -1489,7 +1437,7 @@ msgstr "DEMARRER."
 #  use: "EFFACE."
 #: po/level_i18n.cc:436
 msgid "CLEAR"
-msgstr "EFFACE."
+msgstr "EFFACER."
 
 #  level: "Run Like Hell"
 #  author: "Ralf Westram" email "amgine@reallysoft.de"
@@ -1502,7 +1450,7 @@ msgstr "On se calme!"
 #  comment: "read from the right"
 #: po/level_i18n.cc:454
 msgid ".moor txen eht ot teg ot syaw owt era erehT"
-msgstr ".erbmahc eniahcorp al � revirra ruop seiov xued a y lI"
+msgstr ".erbmahc eniahcorp al à revirra ruop seiov xued a y lI"
 
 #  level: "Wood robbing"
 #  author: "Alain Busser" email ""
@@ -1558,7 +1506,7 @@ msgid ""
 "Greetings, adventurer!    The road ahead is long and dangerous, so be "
 "careful!"
 msgstr ""
-"Salut � toi, aventurier!      Le chemin qui t'attend est long  et dangereux, "
+"Salut à toi, aventurier!      Le chemin qui t'attend est long  et dangereux, "
 "alors fais attention!"
 
 #  level: "Big Adventures"
@@ -1590,14 +1538,14 @@ msgid ""
 "why!     (orig. by Herman's Hermits)   "
 msgstr ""
 "D'un côté, pourquoi le document est-il de côté... de ce côté? ... D'un autre "
-"côté, le ramasseur de drapeaux qui marche � côté aura ma peau ... Lui doit "
+"côté, le ramasseur de drapeaux qui marche à côté aura ma peau ... Lui doit "
 "savoir pourquoi le document est ici ... Si, si!"
 
 #  level: "What's the Problem?"
 #  author: "Sven Siggelkow" email ""
 #: po/level_i18n.cc:582
 msgid "Alfred Nobel says: This is definitely a meditation landscape!"
-msgstr "Alfred Nobel dit qu'il y a vraiment � méditer dans ce paysage!"
+msgstr "Alfred Nobel dit qu'il y a vraiment à méditer dans ce paysage!"
 
 #  level: "How solid?"
 #  author: "Andreas Lochmann" email ""
@@ -1805,7 +1753,7 @@ msgstr "Il y a au moins deux moyens de casser le mur."
 #  author: "Ralf Westram" email ""
 #: po/level_i18n.cc:793
 msgid "It is a well known secret that a few prisioners did escape."
-msgstr "Un secret bien connu: Peu de prisonniers ont réussi � s'évader."
+msgstr "Un secret bien connu: Peu de prisonniers ont réussi à s'évader."
 
 #  level: "Alcatraz"
 #  author: "Ralf Westram" email ""
@@ -1835,6 +1783,10 @@ msgid ""
 "to be a relict of the ancient Aztec ages. But the temple is in a surprising "
 "good condition ..."
 msgstr ""
+"Bienvenue au Chili! Il y a huit heures, votre avion s'est posé sur le  "
+"petit aéroport de Llamas, un petit village au milieu d'une jungle  "
+"inexplorée. Maintenant vous vous trouvez au fronton d'un gigantesque temple  "
+"qui semble dater des aztèques; mais ce temple est remarquablement bien conservé ..."
 
 #  level: "The Aztec Temple"
 #  author: "Dominik Lehmann" email ""
@@ -1848,12 +1800,18 @@ msgid ""
 "Goshers recieved promotion from the UK Government. I'll try to call him to "
 "account!\""
 msgstr ""
+"A côté des portes géantes du temple, un panneau chromé indique: \"Restauration  "
+"menée  par G. G. Goshers en 1998\". Et en-dessous, en plus petit, est gravé:  "
+"\"Propriété  de G. G. Goshers. Entrée interdite!\". A ce moment vous apercevez  "
+"les deux chenils construits sur le côté du temple. \"Goshers a fait de ce temple  "
+"une forteresse\", pensez-vous, \"c'est illégal puisque Goshers travaille pour le  "
+"gouvernement américain. Je vais lui téléphoner pour lui demander des comptes!\"   "
 
 #  level: "The Aztec Temple"
 #  author: "Dominik Lehmann" email ""
 #: po/level_i18n.cc:832
 msgid "This guard doesn't seem to be very alert."
-msgstr ""
+msgstr "Ce gardien n'a pas l'air très éveillé.  "
 
 #  level: "The Aztec Temple"
 #  author: "Dominik Lehmann" email ""
@@ -1862,6 +1820,8 @@ msgid ""
 "This lake is obviously due to Goshers. I think the way there in the south is "
 "the right one."
 msgstr ""
+"Ce lac est visiblement l'oeuvre de Goshers. Je pense que le chemin vers  "
+"le Sud est le bon."
 
 #  level: "The Aztec Temple"
 #  author: "Dominik Lehmann" email ""
@@ -1870,18 +1830,20 @@ msgid ""
 "There's an inscription on the old wall, saying in spanish: \"Don't touch "
 "everything you see! It could be the last you touch!\""
 msgstr ""
+"Une inscription sur le vieux mur dit en espagnol: \"Ne touchez pas  "
+"tout ce que vous voyez! Ce pourrait être la dernière chose que vous touchiez!\""
 
 #  level: "The Aztec Temple"
 #  author: "Dominik Lehmann" email ""
 #: po/level_i18n.cc:835
 msgid "Chromed sign: \"Control of the wilds' cage.\""
-msgstr ""
+msgstr "Panneau chromé: \"Contrôle des bêtes sauvages.\" "
 
 #  level: "The Aztec Temple"
 #  author: "Dominik Lehmann" email ""
 #: po/level_i18n.cc:836
 msgid "Oooh, this slope is steep! Don't try to touch the skull!"
-msgstr ""
+msgstr "Oooh, que la pente est raide! N'essayez pas de toucher le crâne! "
 
 #  level: "The Aztec Temple"
 #  author: "Dominik Lehmann" email ""
@@ -1891,6 +1853,9 @@ msgid ""
 "what purpose it is... Ah, there's a sign. And it's chromed as well. Goshers "
 "seems to have a favour for chromed signs. It says: \"Natives prison\"."
 msgstr ""
+"Ce bâtiment en bas ressemble à une prison. Allons voir de plus près. "
+"Ah, il y a un panneau. Et il est aussi chromé. Goshers semble aimer les  "
+"panneaux chromés. Celui-ci dit: \"Prison des indigènes\". "
 
 #  level: "The Aztec Temple"
 #  author: "Dominik Lehmann" email ""
@@ -1899,6 +1864,8 @@ msgid ""
 "Getting beyond the prison building was a real good idea. But now you have to "
 "cross this lake. Be thrifty with those boxes!"
 msgstr ""
+"Aller au-delàde la prison était vraiment une bonne idée. Mais maintenant  "
+"il vous reste à traverser ce lac. Soyez économe avec ces boîtes!  "
 
 #  level: "The Aztec Temple"
 #  author: "Dominik Lehmann" email ""
@@ -1910,6 +1877,11 @@ msgid ""
 "treasures of the Aztecs. Maybe it's useful to be accompanied by someone, who "
 "knows the secrets of the jungle and this temple ..."
 msgstr ""
+"Au travers du grillage d'une fenêtrée de la prison, vous apercevez  "
+"une indigène emprisonnée. Visiblement Goshers a enfermé tous les autochtones  "
+"qui pouvaient interrompre son \"oeuvre\", consistant à essayer de pénétrer  "
+"le temple et empocher le trésor des aztèques. La compagnie de quelqu'un qui  "
+"connaît les secrets de la jungle et du temple n'est peut-être pas superflue ..."
 
 #  level: "The Aztec Temple"
 #  author: "Dominik Lehmann" email ""
@@ -1920,6 +1892,10 @@ msgid ""
 "and free my people. And even if this is not the case, it's better to be free "
 "than imprisoned. I think I should thank him."
 msgstr ""
+"Homme blanc avoir délivré Xila; il ne doit pas être aussi "
+"mauvais que ce Goshers. Il pourrait mettre fin au règne de Goshers et  "
+"affranchir mon peuple. Et même si ce n'est pas le cas, il vaut mieux être  "
+"libre qu'en prison. Je crois que je devrais le remercier."
 
 #  level: "The Aztec Temple"
 #  author: "Dominik Lehmann" email ""
@@ -1929,6 +1905,10 @@ msgid ""
 "Xila!\", you tell him in broken English. After he introduced himself as "
 "well, both of you begin to work out a plan against the evil G. G. Goshers."
 msgstr ""
+"Vous rencontrez l'aventurier anglais au fronton de la prison. \"Bonjour, mon "
+"nom est Xila!\", lui dites-vous dans un Anglais très approximatif. Lorsqu'il "
+"s'est présenté àson tour, vous élaborez à deux un plan pour combattre  "
+"le démoniaque Goshers."
 
 #  level: "The Aztec Temple"
 #  author: "Dominik Lehmann" email ""
@@ -1937,42 +1917,44 @@ msgid ""
 "This is a really hard puzzle. The English man will have to help me, if this "
 "enigma is to be solved."
 msgstr ""
+"Cette énigme être vraiment difficile. Il me faudra l'aide de l'Anglais  "
+"pour la résoudre."
 
 #  level: "The Aztec Temple"
 #  author: "Dominik Lehmann" email ""
 #: po/level_i18n.cc:843
 msgid "You wonder, what this switch could trigger."
-msgstr ""
+msgstr "Vous vous demandez ce que cet interrupteur peut déclencher."
 
 #  level: "The Aztec Temple"
 #  author: "Dominik Lehmann" email ""
 #: po/level_i18n.cc:844
 msgid "Xila knows how to drain the lake!"
-msgstr ""
+msgstr "Xila savoir comment assécher le lac."
 
 #  level: "The Aztec Temple"
 #  author: "Dominik Lehmann" email ""
 #: po/level_i18n.cc:845
 msgid "Lucky you was finding this hollow. It prevents you from drawning."
-msgstr ""
+msgstr "Cette grotte est providentielle. Elle vous sauve de la noyade."
 
 #  level: "The Aztec Temple"
 #  author: "Dominik Lehmann" email ""
 #: po/level_i18n.cc:846
 msgid "This stone of glass does certainly fullfill a purpose ..."
-msgstr ""
+msgstr "Cette pierre de cristal doit certainement avoir un but ..."
 
 #  level: "The Aztec Temple"
 #  author: "Dominik Lehmann" email ""
 #: po/level_i18n.cc:847
 msgid "It's funny, that such a temple does have a side entrance."
-msgstr ""
+msgstr "Etrange, que ce genre de temple ait une entrée latérale."
 
 #  level: "The Aztec Temple"
 #  author: "Dominik Lehmann" email ""
 #: po/level_i18n.cc:848
 msgid "Be careful! There are sensors in the walls."
-msgstr ""
+msgstr "Attention aux capteurs dans le mur."
 
 #  level: "The Aztec Temple"
 #  author: "Dominik Lehmann" email ""
@@ -1983,12 +1965,16 @@ msgid ""
 "very dangerous. Without a sword you'll never be able to enter. Be careful. "
 "There're not only knights, but also thieves."
 msgstr ""
+"Une fois que les lourdes portes du temple se sont ouvertes, vous constatez  "
+"que son entrée est protégée par 11 chevaliers armés de lances. Ils sont si  "
+"dangereux que sans épée vous ne pourrez jamais entrer. Attention, ils sont  "
+"aussi voleurs."
 
 #  level: "The Aztec Temple"
 #  author: "Dominik Lehmann" email ""
 #: po/level_i18n.cc:850
 msgid "\"Congratulations. You just managed to enter this old Aztec Temple.\""
-msgstr ""
+msgstr "\"Bravo. Vous avez réussi à entrer dans ce vieux Temple Aztèque.\" "
 
 #  level: "The Aztec Temple"
 #  author: "Dominik Lehmann" email ""
@@ -1996,7 +1982,8 @@ msgstr ""
 msgid ""
 "\"You've been smarter than I expected. But you'll never enter the treasure "
 "room nor escape from here!\""
-msgstr ""
+msgstr "\"Vous avez été plus malin que je ne l'aurais cru. Mais la chambre du trésor, "
+"vous n'y entrerez ni n'en sortirez jamais!\""
 
 #  level: "The Aztec Temple"
 #  author: "Dominik Lehmann" email ""
@@ -2004,13 +1991,14 @@ msgstr ""
 msgid ""
 "\"I, Goshers, will certainly be able to get rid of one of my archenemies, by "
 "just killing you!\""
-msgstr ""
+msgstr "\"Moi Goshers saurai me débarasser définitivement de mes ennemis,  "
+"rien qu'en vous tuant vous!\"  "
 
 #  level: "The Aztec Temple"
 #  author: "Dominik Lehmann" email ""
 #: po/level_i18n.cc:853
 msgid "\"Run for your life!\""
-msgstr ""
+msgstr "\"Courez si vous tenez à la vie!\""
 
 #  level: "The Aztec Temple"
 #  author: "Dominik Lehmann" email ""
@@ -2021,6 +2009,10 @@ msgid ""
 "majesty of Gerald Gregory Goshers has found its end. Congratulations on the "
 "success of your expedition!"
 msgstr ""
+"Xila et vous venez d'entrer dans la Chambre Aux Diamants du vieux  "
+"temple. En le ramenant en Grande-Bretagne pour le remettre à la Police de  "
+"Sa Majesté, vous avez mis fin aux exactions de Gerald Gregory Goshers.  "
+"Votre expédition est un succès! "
 
 #  level: "Basketball"
 #  author: "Ronald Lamprecht" email "ral@users.berlios.de"
@@ -2057,7 +2049,7 @@ msgstr "Caravane des voleurs"
 #  author: "Ronald Lamprecht" email "ral@users.berlios.de"
 #: po/level_i18n.cc:896
 msgid "Keys from left to right are NE, NW, SE, SW."
-msgstr "Les clés sont, de gauche � droite: NE, NW, SE et SW."
+msgstr "Les clés sont, de gauche à droite: NE, NW, SE et SW."
 
 #  level: "Dialers"
 #  author: "Edward" email ""
@@ -2088,9 +2080,8 @@ msgstr "Pour vous évader, enchaînez les voleurs"
 #  author: "Ronald Lamprecht" email "ral@users.berlios.de"
 #  comment: "Characters of Michael Ende's fantasy novel 'The Neverending Story'"
 #: po/level_i18n.cc:933
-#, fuzzy
 msgid "Remember Atreyu's horse Atrax!"
-msgstr "Souvenez-vous du cheval de Troie!"
+msgstr "Souvenez-vous d'Atrax, le cheval d'Atrejus!"
 
 #  level: "Houdini"
 #  author: "Ronald Lamprecht" email "ral@users.berlios.de"
@@ -2169,7 +2160,7 @@ msgstr "L'explosion fait disparaître des morceaux de tuyau!"
 #  author: "Sven Siggelkow" email ""
 #: po/level_i18n.cc:1183
 msgid "Business hours from 8am to 4pm"
-msgstr "Heures de bureau: De 8 heures � 16 heures"
+msgstr "Heures de bureau: De 8 heures à 16 heures"
 
 #  level: "Take a Break"
 #  author: "Siegfried Fennig" email ""
@@ -2238,7 +2229,7 @@ msgid ""
 "Welcome to Enigma!  This tutorial I (Jacob Scott) made will help you learn "
 "how to play."
 msgstr ""
-"Bienvenue dans Enigma!   Ce tutoriel de Jacob Scott vous aidera � apprendre "
+"Bienvenue dans Enigma!   Ce tutoriel de Jacob Scott vous aidera à apprendre "
 "comment y jouer."
 
 #  level: "Advanced Tutorial"
@@ -2352,7 +2343,7 @@ msgid ""
 "Watch what happens when you go over those triggers.  See if you can get the "
 "extra ball."
 msgstr ""
-"Regardez ce qui se passe quand vous allez sur un trigger. Arriverez-vous � "
+"Regardez ce qui se passe quand vous allez sur un trigger. Arriverez-vous à "
 "attraper la boule noire supplémentaire?"
 
 #  level: "Advanced Tutorial"
@@ -2405,7 +2396,7 @@ msgid ""
 "Maybe there is a reason ..."
 msgstr ""
 "Cette chambre paraît nue, mais elle contient une vie supplémentaire. Peut-"
-"être y a-t-il une raison � cela ..."
+"être y a-t-il une raison à cela ..."
 
 #  level: "Advanced Tutorial"
 #  author: "Jacob Scott" email ""
@@ -2428,7 +2419,7 @@ msgid ""
 msgstr ""
 "Beaucoup d'objets changent lorsqu'ils sont atteints par un rayon laser. "
 "Essayer sur quelques pièces. Essayez aussi d'écraser une pièce avec un bloc "
-"de bois. Les pierres � droite sont des chevaliers -- Il faut une épée pour "
+"de bois. Les pierres à droite sont des chevaliers -- Il faut une épée pour "
 "les battre, pour pouvoir passer."
 
 #  level: "Advanced Tutorial"
@@ -2466,7 +2457,7 @@ msgid ""
 "will lose one of the balls)."
 msgstr ""
 "La zone en bas de l'écran est votre inventaire -- quand vous ramassez des "
-"choses, c'est l� qu'elles aboutissent (avec un maximum de douze). Pour "
+"choses, c'est làqu'elles aboutissent (avec un maximum de douze). Pour "
 "parcourir l'inventaire, utilisez le bouton droit de la souris ou le bouton "
 "'tab'. Pour déposer ou utiliser un objet, utilisez le bouton gauche de la "
 "souris. Certains objets, comme le présent document, ne peuvent être déposés "
@@ -2489,14 +2480,14 @@ msgid ""
 "block.                            Take the spoon and use it once the white "
 "ball is through (hit it hard)."
 msgstr ""
-"Vous êtes bien sûr censés aller au-del� de ces portes closes en haut de "
+"Vous êtes bien sûr censés aller au-delàde ces portes closes en haut de "
 "l'écran.                       Essayez de suivre la pente au bas de l'écran "
 "pour voir ce qui est sur la gauche.                                 Ne vous "
 "occupez pas encore du trigger.                                  Si vous "
-"pouviez pousser la bille blanche au travers des pierres � sens unique "
+"pouviez pousser la bille blanche au travers des pierres à sens unique "
 "(celles avec des flèches), elle pourrait rouler vers le bas et aboutir au "
-"trigger.                  Vous aurez � y aller aussi mais vous ne pourrez "
-"pas passer par les pierres � sens unique blanches. Quand la bille blanche "
+"trigger.                  Vous aurez à y aller aussi mais vous ne pourrez "
+"pas passer par les pierres à sens unique blanches. Quand la bille blanche "
 "est lancée (fort), utilisez la cuillère."
 
 #  level: "Advanced Tutorial"
@@ -2508,10 +2499,10 @@ msgid ""
 "remember a door that you weren't able to open?).  The bluish line is a "
 "window -- bridge the water before you do anything with it."
 msgstr ""
-"La pierre en haut � droite est un interrupteur. Touchez-le -- il y a des "
-"chances que ce soit utile � quelque chose. En l'occurence cet interrupteur "
+"La pierre en haut à droite est un interrupteur. Touchez-le -- il y a des "
+"chances que ce soit utile à quelque chose. En l'occurence cet interrupteur "
 "ouvre et ferme une porte (vous souvenez-vous d'une porte que vous n'arriviez "
-"pas � ouvrir?). Le trait bleuâtre est une fenêtre -- faites un pont au-"
+"pas à ouvrir?). Le trait bleuâtre est une fenêtre -- faites un pont au-"
 "dessus de l'eau avant de faire quoi que ce soit avec."
 
 #  level: "Advanced Tutorial"
@@ -2557,7 +2548,7 @@ msgid ""
 "nevertheless be aware when you see one: After some time-period anything "
 "might happen ..."
 msgstr ""
-"La pierre qui ressemble � un oscilloscope est une minuterie. Vous ne pouvez "
+"La pierre qui ressemble à un oscilloscope est une minuterie. Vous ne pouvez "
 "pas interagir avec, mais soyez tout de même vigilants quand vous en voyez "
 "une: Au bout d'un certain temps, quelque chose risque d'arriver..."
 
@@ -2569,7 +2560,7 @@ msgid ""
 "can only pass them in one direction.                Mazes are cherished "
 "elements of Enigma - you will see lots of them."
 msgstr ""
-"Les pierres avec des flèches sont des pierres � sens unique. Ce qui signifie "
+"Les pierres avec des flèches sont des pierres à sens unique. Ce qui signifie "
 "bien sûr qu'on ne peut les parcourir que dans un sens.                 Les "
 "labyrinthes sont une pièce de choix dans Enigma. Vous en verrez souvent."
 
@@ -2632,7 +2623,7 @@ msgid ""
 "used to."
 msgstr ""
 "Utilisez le bouton de droite pour parcourir votre inventaire, c'est-�-dire "
-"la barre en bas de l'écran. Et devinez � quoi peuvent servir les trois "
+"la barre en bas de l'écran. Et devinez à quoi peuvent servir les trois "
 "outils que vous y voyez."
 
 #  level: "Items"
@@ -2659,7 +2650,7 @@ msgid ""
 msgstr ""
 "Mais avant, regardez le dernier tutoriel préparé spécialement pour vous par "
 "Jacob. Considérez-le comme une sorte d'examen. Il est vraiment difficile, "
-"alors ne désespérez pas si vous n'en venez pas � bout la première fois. Au "
+"alors ne désespérez pas si vous n'en venez pas à bout la première fois. Au "
 "revoir!"
 
 #  level: "Bye!"
@@ -2694,20 +2685,20 @@ msgstr "Mémorisez les couleurs."
 #  author: "Martin Hawlisch" email ""
 #: po/level_i18n.cc:1406
 msgid "Some stones look exactly like the Oxyd stones!"
-msgstr "Il y a des pierres qui ressemblent beaucoup � des oxydes!"
+msgstr "Il y a des pierres qui ressemblent beaucoup à des oxydes!"
 
 #  level: "Movement 1"
 #  author: "Martin Hawlisch" email ""
 #: po/level_i18n.cc:1410
 msgid "Learn to move your black ball properly."
-msgstr "Apprenez � bouger correctement votre boule noire."
+msgstr "Apprenez à bouger correctement votre boule noire."
 
 #  level: "Movement 2"
 #  author: "Martin Hawlisch" email ""
 #: po/level_i18n.cc:1414
 msgid "Prepare for even more mouse gymnastics in the next levels."
 msgstr ""
-"Préparez-vous � encore plus de sport de souris dans les niveaux suivants."
+"Préparez-vous à encore plus de sport de souris dans les niveaux suivants."
 
 #  level: "Movement 3"
 #  author: "Martin Hawlisch" email ""
@@ -2719,7 +2710,7 @@ msgstr "Prenez votre temps ..."
 #  author: "Martin Hawlisch" email ""
 #: po/level_i18n.cc:1422
 msgid "Don't touch everything!"
-msgstr "Ne touchez pas � tout!"
+msgstr "Ne touchez pas à tout!"
 
 #  level: "Movement 5"
 #  author: "Martin Hawlisch" email ""
@@ -2779,7 +2770,7 @@ msgstr "Lisez la feuille adroite"
 #  comment: "the correct one and not the right positioned one"
 #: po/level_i18n.cc:1565
 msgid "The right one, not the right one!"
-msgstr "La feuille � droite, pas la feuille adroite!"
+msgstr "La feuille à droite, pas la feuille adroite!"
 
 #  level: "The Document"
 #  author: "Jacob Scott" email ""
@@ -2838,7 +2829,7 @@ msgid ""
 "A turn consists in taking the walnuts of a row behind the windowy walls and "
 "sowing them 1 by 1 in the following rows."
 msgstr ""
-"Un tour de jeu consiste � prendre les graines d'une case et les semer une "
+"Un tour de jeu consiste à prendre les graines d'une case et les semer une "
 "par une dans les cases suivantes."
 
 #  level: "Enigmawale"
@@ -2911,7 +2902,7 @@ msgid ""
 "A turn consists in taking the stones of a row and sowing them 1 by 1 in "
 "one's other rows, counterclockwise, coming back to the beginning."
 msgstr ""
-"Un tour de jeu consiste � prendre les graines d'une case et les semer une "
+"Un tour de jeu consiste à prendre les graines d'une case et les semer une "
 "par une dans le sens giratoire, éventuellement en faisant plusieurs tours."
 
 #  level: "Enigmawale"
@@ -2974,9 +2965,8 @@ msgstr ""
 #  author: "Alain Busser" email ""
 #  use: "Perdu! Actionner le bouton 'reset' ou le redoutable 'shift+F3' ..."
 #: po/level_i18n.cc:1709
-#, fuzzy
 msgid "Only reset or 'Shift+F3' can make things evolve ..."
-msgstr "Perdu! Actionnez le bouton 'reset' ou le redoutable 'shift+F3'..."
+msgstr "Perdu! Actionnez le bouton 'reset' ou le redoutable 'shift+F3' ..."
 
 #  level: "Welcome to the Machine"
 #  author: "Ralf Westram" email "amgine@reallysoft.de"
@@ -3077,7 +3067,7 @@ msgid ""
 "5 items to deal with, no more no less!"
 msgstr ""
 "Croyez-vous qu'un homme de la brousse chercherait un extincteur dans la cave "
-"s'il voit le feu approcher? Soyez un champion du feu - vous avez 5 objets � "
+"s'il voit le feu approcher? Soyez un champion du feu - vous avez 5 objets à "
 "gérer, pas un de plus, pas un de moins!"
 
 #  level: "Firefox"
@@ -3096,7 +3086,7 @@ msgstr ""
 msgid ""
 "OOPS! The maze is broken! Prepare to repair the maze before you destroy it."
 msgstr ""
-"Argh! Le labyrinthe est tout cassé! Préparez-vous � le réparer avant de le "
+"Argh! Le labyrinthe est tout cassé! Préparez-vous à le réparer avant de le "
 "détruire"
 
 #  level: "Pirates Island"
@@ -3124,7 +3114,7 @@ msgstr "Ce n'est pas si facile."
 #  author: "Spaceman" email ""
 #: po/level_i18n.cc:1997
 msgid "Don't get too attracted!"
-msgstr "Une leçon � tirer: Ne vous laissez pas trop attirer!"
+msgstr "Une leçon à tirer: Ne vous laissez pas trop attirer!"
 
 #  level: "Laser Path"
 #  author: "Andreas Lochmann" email ""
@@ -3175,7 +3165,7 @@ msgid ""
 "There's a trigger one step to the left. If you could keep it depressed, it "
 "would help you a lot if you go back! "
 msgstr ""
-"Il y a un trigger � gauche. Si vous pouviez le garder appuyé, cela vous "
+"Il y a un trigger à gauche. Si vous pouviez le garder appuyé, cela vous "
 "aiderait beaucoup au retour! "
 
 #  level: "No way out?"
@@ -3194,7 +3184,7 @@ msgstr "Il vous manque quelque chose?"
 #  author: "Spaceman" email ""
 #: po/level_i18n.cc:2053
 msgid "Don't get attracted!"
-msgstr "Résistez � l'attraction!"
+msgstr "Résistez à l'attraction!"
 
 #  level: "Print 23"
 #  author: "Richi Bützer" email ""
@@ -3275,7 +3265,7 @@ msgid ""
 "Fwahahaha!"
 msgstr ""
 "Cela ne se peut! Aucun mortel ne peut atteindre les Oxydes sacrées! Mettez-"
-"vous encore une fois � l'épreuve! Niarf, niarf, niarf!"
+"vous encore une fois à l'épreuve! Niarf, niarf, niarf!"
 
 #  level: "Walk The Plank"
 #  author: "Nat Pryce" email ""
@@ -3329,7 +3319,7 @@ msgid ""
 "back. Hazy is the swampe where the Magick of the Ancients is buryed; the "
 "lair of Whiteballs the dragon thu shalt avoyd in feare of awaken him ..."
 msgstr ""
-"Puyssants sont les Chevalyers des Temps Anciens qui gardent les Pyerres oxyd "
+"Puissants sont les Chevalyers des Temps Anciens qui gardent les Pyerres oxyd "
 "elfyques, et nombreux sont les Espryts qui hantent le chemin qui y conduyt; "
 "bien des aventuryers ont voulu voler la Dague Magyque mais personne n'en est "
 "jamais revenu. Brumeux est le Marais qui recouvre la Magye des Ancyens; "
@@ -3364,7 +3354,7 @@ msgstr ""
 msgid ""
 "This is my first landscape, dedicated to my father. I hope you'll enjoy it!"
 msgstr ""
-"Ceci est mon premier paysage, dédié � mon père. J'espère que vous "
+"Ceci est mon premier paysage, dédié à mon père. J'espère que vous "
 "l'apprécierez"
 
 #  level: "Gods of Enigma II"
@@ -3376,7 +3366,7 @@ msgid ""
 "Fwahahahaha!"
 msgstr ""
 "Encore vous? Ce coup-ci on ne vous laissera pas passer! Voyez ces oxydes? "
-"Vous ne pourrez les atteindre qu'en vous emparant des Quatre Outils Sacrés!"
+"Vous ne pourrez les atteindre qu'en vous emparant des Quatre Outils Sacrés! "
 "Seulement ils sont bien gardés!"
 
 #  level: "Gods of Enigma II"
@@ -3525,7 +3515,7 @@ msgid ""
 "You are only allowed to change a color when it is surrounded by the other "
 "color."
 msgstr ""
-"Vous ne pouvez changer une pastille que si elle est entourée  � gauche et � "
+"Vous ne pouvez changer une pastille que si elle est entourée  à gauche et à "
 "droite par des pastilles de l'autre couleur."
 
 #  level: "Psycho Pushing"
@@ -3598,7 +3588,7 @@ msgstr "Regardez de près!"
 #  author: "Jacob Scott" email ""
 #: po/level_i18n.cc:2724
 msgid "The left-most room is important!"
-msgstr "La chambre tout � gauche est importante!"
+msgstr "La chambre tout à gauche est importante!"
 
 #  level: "Control Panel"
 #  author: "Jacob Scott" email ""
@@ -3714,7 +3704,7 @@ msgid ""
 "prove me wrong: you have to be faster than my champion!"
 msgstr ""
 "Je ne crois pas que vous soyez la boule noire. Je ne vous laisserai passer "
-"que si vous réussissez � battre mon champion en étant plus rapide que lui!"
+"que si vous réussissez à battre mon champion en étant plus rapide que lui!"
 
 #  level: "Unfair!"
 #  author: "Petr Machata" email ""
@@ -3754,7 +3744,7 @@ msgstr "Regardez ... Ils sont par ici!"
 #  author: "Siegfried Fennig" email ""
 #: po/level_i18n.cc:2939
 msgid "Watch your step!"
-msgstr "Attention � la marche!"
+msgstr "Attention à la marche!"
 
 #  level: "Laser Castle"
 #  author: "Andreas Lochmann" email ""
@@ -3819,7 +3809,6 @@ msgstr "Souvenez-vous:    42"
 #  level: "esprit 73"
 #  author: "Sven Siggelkow" email ""
 #: po/level_i18n.cc:3204
-#, fuzzy
 msgid "If you think this is to easy, then play -Bavarian Madness-"
 msgstr "Si vous trouvez ce niveau trop facile, essayez -Bavarian Madness-"
 
@@ -3843,9 +3832,8 @@ msgstr "Si vous n'avez pas gagné, c'est que vous avez perdu!"
 
 #  level: "The Aztec Temple"
 #  author: "Dominik Lehmann" email ""
-#, fuzzy
 #~ msgid "Chromed sign: "
-#~ msgstr "Crédits"
+#~ msgstr "Panneau chromé"
 
 #~ msgid "Skip to next non-par level"
 #~ msgstr "Saute au prochain niveau"
@@ -3871,9 +3859,8 @@ msgstr "Si vous n'avez pas gagné, c'est que vous avez perdu!"
 #~ msgid "Time hunt: "
 #~ msgstr "Chasse au temps: "
 
-#, fuzzy
 #~ msgid "Select next non-par level"
-#~ msgstr "Saute au prochain niveau"
+#~ msgstr "Saute au prochain niveau autre que PAR"
 
 #~ msgid "That's par."
 #~ msgstr "C'est un par."
@@ -3884,7 +3871,6 @@ msgstr "Si vous n'avez pas gagné, c'est que vous avez perdu!"
 #~ msgid "Difficulty: Normal"
 #~ msgstr "Difficulté: Difficile"
 
-#, fuzzy
 #~ msgid "Edit"
 #~ msgstr "Modifier"
 
