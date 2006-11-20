@@ -17,6 +17,8 @@
     </el:info>
     <el:luamain><![CDATA[
 create_world(20, 13)
+enigma.ConserveLevel=FALSE
+
 draw_border("st-metal")
 fill_floor("fl-gray")
 

@@ -3,7 +3,7 @@
   <el:protected>
     <el:info el:type="level">
       <el:identity el:title="Oiltrace" el:subtitle="Mark stones burnable" el:id="raoul25"/>
-      <el:version el:score="1" el:release="1" el:revision="0" el:status="released"/>
+      <el:version el:score="1" el:release="1" el:revision="1" el:status="released"/>
       <el:author  el:name="Raoul Bourquin" el:email="" el:homepage=""/>
       <el:copyright>Copyright © 2006 Raoul Bourquin</el:copyright>
       <el:license el:type="GPL v2.0 or above" el:open="true"/>
@@ -33,13 +33,26 @@ function renderLine( line, pattern)
             set_stone("st-plain_break",i-1,line)
             set_floor("fl-sahara",i-1,line)
         elseif c=="B" then
-            set_stone("st-plain",i-1,line)
+            set_stone("st-plain_move",i-1,line)
             set_floor("fl-sahara",i-1,line,{secure=true})
             set_item("it-burnable_oil",i-1,line)
         elseif c=="F" then
             set_stone("st-firebreak",i-1,line)
             set_floor("fl-sahara",i-1,line,{secure=true})
+        elseif c=="Y" then
+            set_stone("st-break_invisible",i-1,line)
+            set_floor("fl-sahara",i-1,line,{secure=true})
+        elseif c=="G" then
+            set_stone("st-grate1",i-1,line)
+            set_floor("fl-sahara",i-1,line,{secure=true})
             set_item("it-burnable_oil",i-1,line)
+        elseif c=="Z" then
+            set_stone("st-plain_break",i-1,line)
+            set_floor("fl-sahara",i-1,line)
+            set_item("it-cross",i-1,line)
+        elseif c=="H" then
+            set_stone("st-grate1",i-1,line)
+            set_floor("fl-water",i-1,line,{secure=true})
 
         elseif c==" " then
             set_floor("fl-sahara",i-1,line)
@@ -70,17 +83,17 @@ function renderLine( line, pattern)
 end
 
 renderLine(00 , "####################")
-renderLine(01 , "#  #ppp# #ooo~#~ooo#")
-renderLine(02 , "#  #~p~#oBo~o~~oo~o#")
+renderLine(01 , "#  #ppp# #GGo~#~oGG#")
+renderLine(02 , "#  #~p~#oBG~o~~oo~G#")
 renderLine(03 , "#  #~b##o#o~o~oo~oo#")
 renderLine(04 , "#  #~d#oo#o~ooo~oo~#")
-renderLine(05 , "#  ##X#o~#oo~##BB###")
-renderLine(06 , "#o    #o~#~o##ooooo#")
-renderLine(07 , "#oo  h#oo#oo#o~~~~o#")
-renderLine(08 , "#F#XX###o#o~Bo~OO~o#")
-renderLine(09 , "#oooooc#o#ooBo~OO~o#")
-renderLine(10 , "#o~~~###oB ~#o~~~~o#")
-renderLine(11 , "#oooooooo#~~#ooooo##")
+renderLine(05 , "#  ##X#o~#oo~###B###")
+renderLine(06 , "#o    #o~#~o##oGGoo#")
+renderLine(07 , "#oo  h#oo#oo#o~HH~o#")
+renderLine(08 , "#F#ZZ###o#o~#GHOOHG#")
+renderLine(09 , "#oooooc#o#ooBGHOOHG#")
+renderLine(10 , "#o~~~###oBY~#o~HH~o#")
+renderLine(11 , "#oooooooo#~~#ooGGo##")
 renderLine(12 , "###################~")
 
 oxyd_shuffle()
