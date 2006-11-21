@@ -97,6 +97,13 @@ namespace enigma { namespace lev {
         time.tm_sec  = 00;
         time.tm_isdst = false;
         ratingVersion = std::mktime(&time);
+        if(app.state->getString("RatingsUpdateTime").empty()) {
+            // guarantee usable "RatingsUpdateTime"
+            char str[22];
+            std::strftime(str, 22, "%Y-%m-%dT%H:%M:%SZ", std::gmtime(&ratingVersion));
+            std::string currentTimeString = str;
+            app.state->setProperty("RatingsUpdateTime", currentTimeString);
+        }
         std::string sysRatingPath;
         std::string userRatingPath;
         if (app.systemFS->findFile(RATINGSFILENAME, sysRatingPath)) {
@@ -230,7 +237,7 @@ namespace enigma { namespace lev {
         // check if an update is allowed
         std::time_t currentWeirdTime = std::mktime(gmtime(&currentTime));
         double updateDelay = std::difftime(currentWeirdTime, 
-                timeValue(app.prefs->getString("RatingsUpdateTime"))); 
+                timeValue(app.state->getString("RatingsUpdateTime"))); 
         if (updateDelay/86400 < updateMinDelay) {
             Log << "Rating update not yet allowed: " <<updateDelay<< " s\n";
             return;
@@ -251,7 +258,7 @@ namespace enigma { namespace lev {
             char str[22];
             std::strftime(str, 22, "%Y-%m-%dT%H:%M:%SZ", std::gmtime(&currentTime));
             std::string currentTimeString = str;
-            app.prefs->setProperty("RatingsUpdateTime", currentTimeString);
+            app.state->setProperty("RatingsUpdateTime", currentTimeString);
         }
         
         if (result == updated)
