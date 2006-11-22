@@ -1,5 +1,5 @@
 # Process this file with autoconf to produce a configure script.
-AC_INIT([enigma],[1.00-alpha])
+AC_INIT([enigma],[1.00-beta])
 AC_PREREQ(2.59)
 AC_CANONICAL_BUILD
 AC_CANONICAL_TARGET
