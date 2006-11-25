@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no" ?>
 <ratings xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="ratings.xsd">
-  <update date="2006-11-21T23:22:47Z" delay="5" urlFull="http://www.nongnu.org/enigma/ratings/ratings.xml" urlIncremental="http://www.nongnu.org/enigma/ratings/ratings_i001.xml"/>
+  <update date="2006-11-25T10:16:30Z" delay="5" urlFull="http://www.nongnu.org/enigma/ratings/ratings.xml" urlIncremental="http://www.nongnu.org/enigma/ratings/ratings_i001.xml"/>
   <levels>
     <level avgur="-1" bsd="-1" bsdh="" bse="-1" bseh="" dex="4" id="20060213ral003" int="4" kno="5" pard="-1" pare="-1" pat="4" solvnd="0" solvne="0" solvpd="0" solvpe="0" spe="3" sv="1"/>
     <level avgur="-1" bsd="10" bsdh="Andreas" bse="10" bseh="Andreas" dex="3" id="20060213ral004" int="2" kno="4" pard="-1" pare="-1" pat="1" solvnd="0" solvne="0" solvpd="0" solvpe="0" spe="4" sv="1"/>
@@ -168,12 +168,12 @@
     <level avgur="-1" bsd="232" bsdh="Johannes" bse="232" bseh="Johannes" dex="0" id="Sokoban/xsok_84" int="0" kno="0" pard="-1" pare="-1" pat="0" solvnd="0" solvne="0" solvpd="0" solvpe="0" spe="0" sv="1"/>
     <level avgur="-1" bsd="556" bsdh="Johannes" bse="360" bseh="Johannes" dex="0" id="Sokoban/xsok_86" int="0" kno="0" pard="-1" pare="-1" pat="0" solvnd="0" solvne="0" solvpd="0" solvpe="0" spe="0" sv="1"/>
     <level avgur="-1" bsd="25" bsdh="Ralf" bse="25" bseh="Ralf" dex="0" id="Sokoban/xsok_intro" int="0" kno="0" pard="-1" pare="-1" pat="0" solvnd="0" solvne="0" solvpd="0" solvpe="0" spe="0" sv="1"/>
-    <level avgur="-1" bsd="-1" bsdh="" bse="-1" bseh="" dex="0" id="a_tut01" int="0" kno="0" pard="-1" pare="-1" pat="0" solvnd="0" solvne="0" solvpd="0" solvpe="0" spe="0" sv="1"/>
-    <level avgur="-1" bsd="-1" bsdh="" bse="-1" bseh="" dex="0" id="a_tut02" int="0" kno="0" pard="-1" pare="-1" pat="0" solvnd="0" solvne="0" solvpd="0" solvpe="0" spe="0" sv="1"/>
-    <level avgur="-1" bsd="-1" bsdh="" bse="-1" bseh="" dex="0" id="a_tut03" int="0" kno="0" pard="-1" pare="-1" pat="0" solvnd="0" solvne="0" solvpd="0" solvpe="0" spe="0" sv="1"/>
-    <level avgur="-1" bsd="-1" bsdh="" bse="-1" bseh="" dex="0" id="a_tut04" int="0" kno="0" pard="-1" pare="-1" pat="0" solvnd="0" solvne="0" solvpd="0" solvpe="0" spe="0" sv="1"/>
-    <level avgur="-1" bsd="-1" bsdh="" bse="-1" bseh="" dex="0" id="a_tut05" int="0" kno="0" pard="-1" pare="-1" pat="0" solvnd="0" solvne="0" solvpd="0" solvpe="0" spe="0" sv="1"/>
-    <level avgur="-1" bsd="-1" bsdh="" bse="-1" bseh="" dex="0" id="a_tut06" int="0" kno="0" pard="-1" pare="-1" pat="0" solvnd="0" solvne="0" solvpd="0" solvpe="0" spe="0" sv="1"/>
+    <level avgur="-1" bsd="-1" bsdh="" bse="-1" bseh="" dex="1" id="a_tut01" int="2" kno="2" pard="-1" pare="-1" pat="2" solvnd="0" solvne="0" solvpd="0" solvpe="0" spe="1" sv="1"/>
+    <level avgur="-1" bsd="-1" bsdh="" bse="-1" bseh="" dex="1" id="a_tut02" int="2" kno="2" pard="-1" pare="-1" pat="2" solvnd="0" solvne="0" solvpd="0" solvpe="0" spe="1" sv="1"/>
+    <level avgur="-1" bsd="-1" bsdh="" bse="-1" bseh="" dex="2" id="a_tut03" int="2" kno="2" pard="-1" pare="-1" pat="2" solvnd="0" solvne="0" solvpd="0" solvpe="0" spe="1" sv="1"/>
+    <level avgur="-1" bsd="-1" bsdh="" bse="-1" bseh="" dex="2" id="a_tut04" int="1" kno="3" pard="-1" pare="-1" pat="2" solvnd="0" solvne="0" solvpd="0" solvpe="0" spe="1" sv="1"/>
+    <level avgur="-1" bsd="-1" bsdh="" bse="-1" bseh="" dex="1" id="a_tut05" int="2" kno="2" pard="-1" pare="-1" pat="1" solvnd="0" solvne="0" solvpd="0" solvpe="0" spe="1" sv="1"/>
+    <level avgur="-1" bsd="-1" bsdh="" bse="-1" bseh="" dex="1" id="a_tut06" int="2" kno="1" pard="-1" pare="-1" pat="2" solvnd="0" solvne="0" solvpd="0" solvpe="0" spe="1" sv="1"/>
     <level avgur="-1" bsd="24" bsdh="Raoul" bse="24" bseh="Raoul" dex="2" id="alain01" int="3" kno="5" pard="-1" pare="-1" pat="2" solvnd="0" solvne="0" solvpd="0" solvpe="0" spe="1" sv="1"/>
     <level avgur="-1" bsd="22" bsdh="Raoul" bse="22" bseh="Raoul" dex="2" id="alain02" int="4" kno="6" pard="-1" pare="-1" pat="2" solvnd="0" solvne="0" solvpd="0" solvpe="0" spe="1" sv="1"/>
     <level avgur="-1" bsd="6" bsdh="Raoul" bse="6" bseh="Raoul" dex="1" id="alain03" int="1" kno="2" pard="-1" pare="-1" pat="1" solvnd="0" solvne="0" solvpd="0" solvpe="0" spe="1" sv="1"/>
@@ -232,7 +232,7 @@
     <level avgur="-1" bsd="-1" bsdh="" bse="-1" bseh="" dex="3" id="andreas33" int="2" kno="4" pard="-1" pare="-1" pat="2" solvnd="0" solvne="0" solvpd="0" solvpe="0" spe="3" sv="1"/>
     <level avgur="-1" bsd="-1" bsdh="" bse="-1" bseh="" dex="3" id="andreas34" int="4" kno="4" pard="-1" pare="-1" pat="3" solvnd="0" solvne="0" solvpd="0" solvpe="0" spe="1" sv="1"/>
     <level avgur="-1" bsd="-1" bsdh="" bse="-1" bseh="" dex="1" id="andreas36" int="1" kno="2" pard="-1" pare="-1" pat="4" solvnd="0" solvne="0" solvpd="0" solvpe="0" spe="1" sv="1"/>
-    <level avgur="-1" bsd="-1" bsdh="" bse="-1" bseh="" dex="4" id="andreas37" int="3" kno="5" pard="-1" pare="-1" pat="4" solvnd="0" solvne="0" solvpd="0" solvpe="0" spe="1" sv="1"/>
+    <level avgur="-1" bsd="-1" bsdh="" bse="-1" bseh="" dex="4" id="andreas37" int="3" kno="5" pard="-1" pare="-1" pat="4" solvnd="0" solvne="0" solvpd="0" solvpe="0" spe="2" sv="1"/>
     <level avgur="-1" bsd="-1" bsdh="" bse="-1" bseh="" dex="2" id="andreas38" int="3" kno="4" pard="-1" pare="-1" pat="3" solvnd="0" solvne="0" solvpd="0" solvpe="0" spe="1" sv="1"/>
     <level avgur="-1" bsd="-1" bsdh="" bse="-1" bseh="" dex="3" id="andreas39" int="4" kno="5" pard="-1" pare="-1" pat="3" solvnd="0" solvne="0" solvpd="0" solvpe="0" spe="4" sv="1"/>
     <level avgur="-1" bsd="-1" bsdh="" bse="-1" bseh="" dex="3" id="andreas40" int="3" kno="5" pard="-1" pare="-1" pat="3" solvnd="0" solvne="0" solvpd="0" solvpe="0" spe="3" sv="1"/>
@@ -453,7 +453,7 @@
     <level avgur="-1" bsd="-1" bsdh="" bse="-1" bseh="" dex="3" id="just06" int="4" kno="4" pard="-1" pare="-1" pat="3" solvnd="0" solvne="0" solvpd="0" solvpe="0" spe="2" sv="1"/>
     <level avgur="-1" bsd="-1" bsdh="" bse="-1" bseh="" dex="3" id="just07" int="4" kno="6" pard="-1" pare="-1" pat="3" solvnd="0" solvne="0" solvpd="0" solvpe="0" spe="2" sv="1"/>
     <level avgur="-1" bsd="-1" bsdh="" bse="-1" bseh="" dex="4" id="just08" int="3" kno="4" pard="-1" pare="-1" pat="4" solvnd="0" solvne="0" solvpd="0" solvpe="0" spe="2" sv="1"/>
-    <level avgur="-1" bsd="29" bsdh="Duffy" bse="29" bseh="Duffy" dex="2" id="lasers101" int="1" kno="3" pard="-1" pare="-1" pat="2" solvnd="0" solvne="0" solvpd="0" solvpe="0" spe="1" sv="1"/>
+    <level avgur="-1" bsd="29" bsdh="Duffy" bse="29" bseh="Duffy" dex="2" id="lasers101" int="2" kno="3" pard="-1" pare="-1" pat="2" solvnd="0" solvne="0" solvpd="0" solvpe="0" spe="1" sv="1"/>
     <level avgur="-1" bsd="16" bsdh="Duffy" bse="16" bseh="Duffy" dex="1" id="level10a" int="2" kno="4" pard="-1" pare="-1" pat="2" solvnd="0" solvne="0" solvpd="0" solvpe="0" spe="1" sv="1"/>
     <level avgur="-1" bsd="224" bsdh="Duffy" bse="224" bseh="Duffy" dex="1" id="level10b" int="4" kno="4" pard="-1" pare="-1" pat="3" solvnd="0" solvne="0" solvpd="0" solvpe="0" spe="1" sv="1"/>
     <level avgur="-1" bsd="43" bsdh="Duffy" bse="43" bseh="Duffy" dex="2" id="level10c" int="3" kno="4" pard="-1" pare="-1" pat="1" solvnd="0" solvne="0" solvpd="0" solvpe="0" spe="1" sv="1"/>
@@ -544,20 +544,20 @@
     <level avgur="-1" bsd="498" bsdh="Andreas" bse="498" bseh="Andreas" dex="3" id="luc29" int="4" kno="4" pard="-1" pare="-1" pat="3" solvnd="0" solvne="0" solvpd="0" solvpe="0" spe="1" sv="1"/>
     <level avgur="-1" bsd="-1" bsdh="" bse="-1" bseh="" dex="3" id="luc30" int="2" kno="4" pard="-1" pare="-1" pat="4" solvnd="0" solvne="0" solvpd="0" solvpe="0" spe="3" sv="1"/>
     <level avgur="-1" bsd="-1" bsdh="" bse="-1" bseh="" dex="3" id="luc31" int="4" kno="2" pard="-1" pare="-1" pat="3" solvnd="0" solvne="0" solvpd="0" solvpe="0" spe="1" sv="1"/>
-    <level avgur="-1" bsd="-1" bsdh="" bse="-1" bseh="" dex="0" id="m_tutor/adv_tutorial" int="0" kno="0" pard="-1" pare="-1" pat="0" solvnd="0" solvne="0" solvpd="0" solvpe="0" spe="0" sv="1"/>
-    <level avgur="-1" bsd="5" bsdh="Ralf" bse="4" bseh="Ralf" dex="0" id="m_tutor/m_med1" int="0" kno="0" pard="-1" pare="-1" pat="0" solvnd="0" solvne="0" solvpd="0" solvpe="0" spe="0" sv="2"/>
-    <level avgur="-1" bsd="9" bsdh="Ralf" bse="6" bseh="Ralf" dex="0" id="m_tutor/m_med2" int="0" kno="0" pard="-1" pare="-1" pat="0" solvnd="0" solvne="0" solvpd="0" solvpe="0" spe="0" sv="2"/>
-    <level avgur="-1" bsd="4" bsdh="Ralf" bse="2" bseh="Ralf" dex="0" id="m_tutor/m_tut1" int="0" kno="0" pard="-1" pare="-1" pat="0" solvnd="0" solvne="0" solvpd="0" solvpe="0" spe="0" sv="2"/>
-    <level avgur="-1" bsd="-1" bsdh="" bse="-1" bseh="" dex="0" id="m_tutor/m_tut10" int="0" kno="0" pard="-1" pare="-1" pat="0" solvnd="0" solvne="0" solvpd="0" solvpe="0" spe="0" sv="1"/>
-    <level avgur="-1" bsd="-1" bsdh="" bse="-1" bseh="" dex="0" id="m_tutor/m_tut11" int="0" kno="0" pard="-1" pare="-1" pat="0" solvnd="0" solvne="0" solvpd="0" solvpe="0" spe="0" sv="1"/>
-    <level avgur="-1" bsd="19" bsdh="Ralf" bse="7" bseh="Ralf" dex="0" id="m_tutor/m_tut2" int="0" kno="0" pard="-1" pare="-1" pat="0" solvnd="0" solvne="0" solvpd="0" solvpe="0" spe="0" sv="2"/>
-    <level avgur="-1" bsd="37" bsdh="Ralf" bse="15" bseh="Ralf" dex="0" id="m_tutor/m_tut3" int="0" kno="0" pard="-1" pare="-1" pat="0" solvnd="0" solvne="0" solvpd="0" solvpe="0" spe="0" sv="2"/>
-    <level avgur="-1" bsd="9" bsdh="Ralf" bse="2" bseh="Ralf" dex="0" id="m_tutor/m_tut4" int="0" kno="0" pard="-1" pare="-1" pat="0" solvnd="0" solvne="0" solvpd="0" solvpe="0" spe="0" sv="2"/>
-    <level avgur="-1" bsd="10" bsdh="Ralf" bse="6" bseh="Ralf" dex="0" id="m_tutor/m_tut5" int="0" kno="0" pard="-1" pare="-1" pat="0" solvnd="0" solvne="0" solvpd="0" solvpe="0" spe="0" sv="2"/>
-    <level avgur="-1" bsd="61" bsdh="Ralf" bse="20" bseh="Ralf" dex="0" id="m_tutor/m_tut6" int="0" kno="0" pard="-1" pare="-1" pat="0" solvnd="0" solvne="0" solvpd="0" solvpe="0" spe="0" sv="2"/>
-    <level avgur="-1" bsd="32" bsdh="Ralf" bse="19" bseh="Ralf" dex="0" id="m_tutor/m_tut7" int="0" kno="0" pard="-1" pare="-1" pat="0" solvnd="0" solvne="0" solvpd="0" solvpe="0" spe="0" sv="2"/>
-    <level avgur="-1" bsd="29" bsdh="Ralf" bse="11" bseh="Ralf" dex="0" id="m_tutor/m_tut8" int="0" kno="0" pard="-1" pare="-1" pat="0" solvnd="0" solvne="0" solvpd="0" solvpe="0" spe="0" sv="2"/>
-    <level avgur="-1" bsd="88" bsdh="Ralf" bse="13" bseh="Ralf" dex="0" id="m_tutor/m_tut9" int="0" kno="0" pard="-1" pare="-1" pat="0" solvnd="0" solvne="0" solvpd="0" solvpe="0" spe="0" sv="2"/>
+    <level avgur="-1" bsd="-1" bsdh="" bse="-1" bseh="" dex="3" id="m_tutor/adv_tutorial" int="4" kno="3" pard="-1" pare="-1" pat="4" solvnd="0" solvne="0" solvpd="0" solvpe="0" spe="2" sv="1"/>
+    <level avgur="-1" bsd="5" bsdh="Ralf" bse="4" bseh="Ralf" dex="1" id="m_tutor/m_med1" int="1" kno="2" pard="-1" pare="-1" pat="1" solvnd="0" solvne="0" solvpd="0" solvpe="0" spe="1" sv="2"/>
+    <level avgur="-1" bsd="9" bsdh="Ralf" bse="6" bseh="Ralf" dex="1" id="m_tutor/m_med2" int="1" kno="2" pard="-1" pare="-1" pat="1" solvnd="0" solvne="0" solvpd="0" solvpe="0" spe="1" sv="2"/>
+    <level avgur="-1" bsd="4" bsdh="Ralf" bse="2" bseh="Ralf" dex="1" id="m_tutor/m_tut1" int="1" kno="1" pard="-1" pare="-1" pat="1" solvnd="0" solvne="0" solvpd="0" solvpe="0" spe="1" sv="2"/>
+    <level avgur="-1" bsd="-1" bsdh="" bse="-1" bseh="" dex="2" id="m_tutor/m_tut10" int="1" kno="2" pard="-1" pare="-1" pat="1" solvnd="0" solvne="0" solvpd="0" solvpe="0" spe="2" sv="1"/>
+    <level avgur="-1" bsd="-1" bsdh="" bse="-1" bseh="" dex="3" id="m_tutor/m_tut11" int="1" kno="1" pard="-1" pare="-1" pat="1" solvnd="0" solvne="0" solvpd="0" solvpe="0" spe="1" sv="1"/>
+    <level avgur="-1" bsd="19" bsdh="Ralf" bse="7" bseh="Ralf" dex="1" id="m_tutor/m_tut2" int="1" kno="1" pard="-1" pare="-1" pat="1" solvnd="0" solvne="0" solvpd="0" solvpe="0" spe="1" sv="2"/>
+    <level avgur="-1" bsd="37" bsdh="Ralf" bse="15" bseh="Ralf" dex="1" id="m_tutor/m_tut3" int="2" kno="1" pard="-1" pare="-1" pat="2" solvnd="0" solvne="0" solvpd="0" solvpe="0" spe="1" sv="2"/>
+    <level avgur="-1" bsd="9" bsdh="Ralf" bse="2" bseh="Ralf" dex="1" id="m_tutor/m_tut4" int="1" kno="1" pard="-1" pare="-1" pat="1" solvnd="0" solvne="0" solvpd="0" solvpe="0" spe="1" sv="2"/>
+    <level avgur="-1" bsd="10" bsdh="Ralf" bse="6" bseh="Ralf" dex="1" id="m_tutor/m_tut5" int="1" kno="1" pard="-1" pare="-1" pat="2" solvnd="0" solvne="0" solvpd="0" solvpe="0" spe="1" sv="2"/>
+    <level avgur="-1" bsd="61" bsdh="Ralf" bse="20" bseh="Ralf" dex="1" id="m_tutor/m_tut6" int="1" kno="1" pard="-1" pare="-1" pat="2" solvnd="0" solvne="0" solvpd="0" solvpe="0" spe="1" sv="2"/>
+    <level avgur="-1" bsd="32" bsdh="Ralf" bse="19" bseh="Ralf" dex="2" id="m_tutor/m_tut7" int="1" kno="1" pard="-1" pare="-1" pat="2" solvnd="0" solvne="0" solvpd="0" solvpe="0" spe="1" sv="2"/>
+    <level avgur="-1" bsd="29" bsdh="Ralf" bse="11" bseh="Ralf" dex="1" id="m_tutor/m_tut8" int="1" kno="1" pard="-1" pare="-1" pat="3" solvnd="0" solvne="0" solvpd="0" solvpe="0" spe="1" sv="2"/>
+    <level avgur="-1" bsd="88" bsdh="Ralf" bse="13" bseh="Ralf" dex="1" id="m_tutor/m_tut9" int="2" kno="3" pard="-1" pare="-1" pat="2" solvnd="0" solvne="0" solvpd="0" solvpe="0" spe="1" sv="2"/>
     <level avgur="-1" bsd="131" bsdh="Andreas" bse="131" bseh="Andreas" dex="2" id="magnum82" int="4" kno="4" pard="-1" pare="-1" pat="2" solvnd="0" solvne="0" solvpd="0" solvpe="0" spe="2" sv="1"/>
     <level avgur="-1" bsd="-1" bsdh="" bse="-1" bseh="" dex="3" id="malla01" int="4" kno="5" pard="-1" pare="-1" pat="3" solvnd="0" solvne="0" solvpd="0" solvpe="0" spe="1" sv="1"/>
     <level avgur="-1" bsd="-1" bsdh="" bse="-1" bseh="" dex="3" id="malla03" int="2" kno="4" pard="-1" pare="-1" pat="3" solvnd="0" solvne="0" solvpd="0" solvpe="0" spe="1" sv="1"/>
