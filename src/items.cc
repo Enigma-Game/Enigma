@@ -1135,7 +1135,9 @@ namespace
             // If Yes, the following block could be places in the explosion class:
             if (model == "fl-space") {
                 // In space, an it-dynamite explodes to an it-sherd:
-                replace(it_sherd);
+                // HOT FIX
+                //replace(it_sherd);
+                replace(it_hollow);
             } else if (model == "fl-ice") {
                 // In ice, an it-dynamite explodes to an it-crack2:
                 replace(it_crack2);
