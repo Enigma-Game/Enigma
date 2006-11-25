@@ -158,7 +158,7 @@ namespace oxyd
         int get_default_SoundSet() const;
         bool needs_twoplayers() const;
     protected:
-        virtual bool has_easymode(size_t /*index*/) const { return true; }
+        virtual bool has_easymode(size_t /*index*/) const;
         GameMode get_gamemode() const;
 
     private:
@@ -202,7 +202,7 @@ namespace oxyd
         void load (const Level &);
     public:
         LP_PerOxyd (DatFile *dat, bool twoplayers);
-
+        static bool hasEasymode(size_t index);
     };
 
     class LP_OxydMagnum : public LevelPack_Oxyd {

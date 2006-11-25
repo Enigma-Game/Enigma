@@ -747,7 +747,7 @@ LevelPack_Oxyd::LevelPack_Oxyd (OxydVersion ver, DatFile *dat,
                      "#" + get_name() + "#" + txt,  "#" + get_name(),
                     ecl::strf ("Import %s %d", get_name().c_str(), nlevels), 
                     ecl::strf ("%s #%d", get_name().c_str(), nlevels+1), 
-                    "Dongleware", 1, 1, has_easymode(nlevels), get_gametype());
+                    "Dongleware", 1, 1, has_easymode(i), get_gametype());
             proxies.push_back(aProxy);
             nlevels++;
         }
@@ -769,6 +769,13 @@ int LevelPack_Oxyd::get_default_SoundSet() const
 bool LevelPack_Oxyd::needs_twoplayers() const 
 {
     return m_twoplayers;
+}
+
+bool LevelPack_Oxyd::has_easymode(size_t index) const {
+     if (get_version() != OxydVersion_PerOxyd)
+         return false;
+     else 
+        return LP_PerOxyd::hasEasymode(index);
 }
 
 GameType LevelPack_Oxyd::get_gametype() const 

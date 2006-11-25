@@ -80,6 +80,32 @@ void LP_PerOxyd::load (const OxydLib::Level &level)
     PerOxydLoader (level, c).load();
 }
 
+bool LP_PerOxyd::hasEasymode(size_t index) {
+    static const bool easymode_map[200] = { // 1-100 single, 101 - 200 netplay
+        true, true, true, true, true, true, true, true, true, true,  //  1 -  10
+        true, true, true, true, true, true, true, true, true, true,  // 11 -  20
+        true, true, true, true, true, true, true, true, true, true,  // 21 -  30
+        true, true, true, true, true, true, true, true, true, true,  // 31 -  40
+        true, true, true, true, true, true, true, true, true, true,  // 41 -  50
+        true, true, true, true, true, true, true, true, true, true,  // 51 -  60
+        true, true, true, true, true, true, true, true, true, true,  // 61 -  70
+        true, true, true, true, true, true, true, true, true, true,  // 71 -  80
+        true, true, true, true, true, true, true, true, true, true,  // 81 -  90
+        true, true, true, true, true, true, true, true, true, true,  // 91 - 100
+        true, true, true, true, true, true, true, true, true, true,  //101 - 110
+        true, true, true, true, true, true, true, true, true, true,  //111 - 120
+        true, true, true, true, true, true, true, true, true, true,  //121 - 130
+        true, true, true, true, true, true, true, true, true, true,  //131 - 140
+        true, true, true, true, true, true, true, true, true, true,  //141 - 150
+        true, true, true, true, true, true, true, true, true, true,  //151 - 160
+        true, true, true, true, true, true, true, true, true, true,  //161 - 170
+        true, true, true, true, true, true, true, true, true, true,  //171 - 180
+        true, true, true, true, true, true, true, true, true, true,  //181 - 190
+        true, true, true, true, true, true, true, true, true, true   //191 - 200
+    };
+    return easymode_map[index];
+}
+
 #endif // PLAIN_SPEC_ONLY
 // only tables following!
 
