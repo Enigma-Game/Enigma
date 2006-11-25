@@ -569,7 +569,7 @@ namespace enigma { namespace lev {
         ecl::Assert <XFrontend> (difficulty >= DIFFICULTY_EASY &&  
                 difficulty <= DIFFICULTY_ANY, "ScoreManager::markUnsolved illegal difficulty");
         DOMElement * level = getLevel(levelProxy);
-        if (level != NULL || XMLString::parseInt(level->getAttribute(
+        if (level != NULL && XMLString::parseInt(level->getAttribute(
                 Utf8ToXML("version").x_str())) == levelProxy->getScoreVersion()) {
             const XMLCh *attr = level->getAttribute(Utf8ToXML((difficulty == DIFFICULTY_HARD) ? "diff1" : "easy1").x_str());
             int score = (XMLString::stringLen(attr) > 0) ? XMLString::parseInt(attr) : -1;
