@@ -26,10 +26,16 @@ enigma.ConserveLevel=FALSE
 
 fill_floor("fl-himalaya", 0,0, levelw,levelh)
 fill_floor("fl-leaves", 14,7, 4,3)
-fill_items( "it-burnable", 1, 1, 18, 11)
+fill_items("it-burnable", 1, 1, 18, 11)
 enigma.KillItem(16,7)
 enigma.KillItem(17,8)
 enigma.KillItem(16,9)
+
+for x = 1, levelw - 2 do
+  for y = 1, levelh - 2 do
+    enigma.SetAttrib(enigma.GetFloor(x,y), "burnable", TRUE)
+  end
+end
 
 function renderLine( line, pattern)
     for i=1, strlen(pattern) do
