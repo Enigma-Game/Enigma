@@ -1477,6 +1477,7 @@ void PuzzleStone::actor_hit(const StoneContact &sc)
             if (GetStone(dest) == 0) {
                 Stone *puzz = YieldStone(c[0]);
                 SetStone(dest, puzz);
+                puzz->on_move();
                 sound_event ("movesmall");
             } else
                 maybe_rotate_cluster (rotate_dir);
