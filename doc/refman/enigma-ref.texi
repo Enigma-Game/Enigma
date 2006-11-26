@@ -5402,8 +5402,9 @@ pass, and two colored ones, @code{st-oneway_black} and
 @code{st-oneway_white}, which completely block marbles of the other
 color.
 
-When hit with an @ref{it-magicwand}, @code{st-oneway} flips its
-direction.
+When hit with an @ref{it-magicwand}, the standard @code{st-oneway}
+flips its direction, the variants @code{st-oneway_black} and
+@code{st-oneway_white} do not.
 
 @strong{Attributes}
 
