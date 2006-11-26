@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: Enigma 1.00\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2006-11-22 23:27+0100\n"
-"PO-Revision-Date: 2006-11-05\n"
+"PO-Revision-Date: 2006-11-26\n"
 "Last-Translator: Máté Lehel Juhász <jmatel@cs.elte.hu>\n"
 "Language-Team: Hungarian\n"
 "MIME-Version: 1.0\n"
@@ -153,14 +153,12 @@ msgid "Again your personal record..."
 msgstr "Ismét az Ön egyéni csúcsa..."
 
 #: src/client.cc:741
-#, fuzzy
 msgid "New personal record - better than par!"
-msgstr "Új egyéni csúcs!"
+msgstr "Új egyéni csúcs - jobb mint a par!"
 
 #: src/client.cc:743
-#, fuzzy
 msgid "New personal record, but over par!"
-msgstr "Új egyéni csúcs!"
+msgstr "Új egyéni csúcs, de a par fölött!"
 
 #: src/client.cc:745
 msgid "New personal record!"
@@ -179,14 +177,12 @@ msgid "behind your record."
 msgstr "idővel maradt le az egyéni csúcstól."
 
 #: src/client.cc:773
-#, fuzzy
 msgid "Level finished - better than par!"
-msgstr "Pálya befejezve!"
+msgstr "Pálya befejezve - jobb mint a par!"
 
 #: src/client.cc:775
-#, fuzzy
 msgid "Level finished, but over par!"
-msgstr "Pálya befejezve!"
+msgstr "Pálya befejezve, de a par fölött!"
 
 #: src/client.cc:777
 msgid "Level finished!"
@@ -230,7 +226,7 @@ msgid "Error in XML initialization.\n"
 msgstr "Hiba az XML inicializálása során.\n"
 
 #: src/main.cc:733
-msgid ""
+msgid 
 "Fatal Error that causes the application to quit:\n"
 "\n"
 msgstr ""
@@ -559,9 +555,9 @@ msgid "World record by %s: %d:%02d"
 msgstr "%s tartja a világcsúcsot: %d:%02d"
 
 #: src/gui/LevelMenu.cc:357
-#, fuzzy, c-format
+#, c-format
 msgid "Par: %d:%02d World record by %s: %d:%02d"
-msgstr "%s tartja a világcsúcsot: %d:%02d"
+msgstr "Par: %d:%02d %s tartja a világcsúcsot: %d:%02d"
 
 #: src/gui/LevelMenu.cc:361
 #, c-format
@@ -569,89 +565,82 @@ msgid "World record: %d:%02d"
 msgstr "Világcsúcs: %d:%02d"
 
 #: src/gui/LevelMenu.cc:363
-#, fuzzy, c-format
+#, c-format
 msgid "Par: %d:%02d World record: %d:%02d"
-msgstr "Világcsúcs: %d:%02d"
+msgstr "Par: %d:%02d Világcsúcs: %d:%02d"
 
 #: src/gui/LevelMenu.cc:397
 msgid "No further unsolved level available!"
 msgstr "Nincs további elérhető megoldatlan pálya!"
 
 #: src/gui/LevelPackComposer.cc:40
-#, fuzzy
 msgid "Shift click:"
-msgstr "Bal egérgomb:"
+msgstr "Shift és egérgomb:"
 
 #: src/gui/LevelPackComposer.cc:40
 msgid "Add to clipboard"
-msgstr ""
+msgstr "Vagólapra helyezés"
 
 #: src/gui/LevelPackComposer.cc:41
 msgid "Shift delete:"
-msgstr ""
+msgstr "Shift és törlés:"
 
 #: src/gui/LevelPackComposer.cc:41
 msgid "Clear clipboard"
-msgstr ""
+msgstr "Vágólap törlése"
 
 #: src/gui/LevelPackComposer.cc:42
-#, fuzzy
 msgid "F8:"
-msgstr "F5:"
+msgstr "F8:"
 
 #: src/gui/LevelPackComposer.cc:42
 msgid "Insert clipboard as reference"
-msgstr ""
+msgstr "Vágólap tartalmának beillesztése hivatkozásként"
 
 #: src/gui/LevelPackComposer.cc:43
-#, fuzzy
 msgid "F9:"
-msgstr "F5:"
+msgstr "F9:"
 
 #: src/gui/LevelPackComposer.cc:43
 msgid "Insert clipboard as copy"
-msgstr ""
+msgstr "Vágólap tartalmának bemásolása"
 
 #: src/gui/LevelPackComposer.cc:45
-#, fuzzy
 msgid "Alt left arrow:"
-msgstr "Bal/jobb nyíl:"
+msgstr "Alt és balra nyíl:"
 
 #: src/gui/LevelPackComposer.cc:45
 msgid "Exchange level with predecessor"
-msgstr ""
+msgstr "Pálya kicserélése a megelőzővel"
 
 #: src/gui/LevelPackComposer.cc:46
-#, fuzzy
 msgid "Alt right arrow:"
-msgstr "Bal/jobb nyíl:"
+msgstr "Alt és jobbra nyíl:"
 
 #: src/gui/LevelPackComposer.cc:46
 msgid "Exchange level with successor"
-msgstr ""
+msgstr "Pálya kicserélése a rákövetkezővel"
 
 #: src/gui/LevelPackComposer.cc:47
-#, fuzzy
 msgid "Delete:"
-msgstr "Kiadás:"
+msgstr "Törlés:"
 
 #: src/gui/LevelPackComposer.cc:47
-#, fuzzy
 msgid "Delete level"
-msgstr "Pálya választása"
+msgstr "Pálya törlése"
 
 #: src/gui/LevelPackComposer.cc:48
+#, fuzzy
 msgid "Update index from levels"
-msgstr ""
+msgstr "A jegyzék frissítése"
 
 #: src/gui/LevelPackComposer.cc:53
-#, fuzzy
 msgid "F10"
-msgstr "F10:"
+msgstr "F10"
 
 #: src/gui/LevelPackComposer.cc:54
 msgid "Move clipboard levels"
-msgstr ""
+msgstr "Vágólapon lévő pályák mozgatása"
 
 #: src/gui/LevelPackComposer.cc:118 src/gui/LevelPackConfig.cc:307
 #: src/gui/LPGroupConfig.cc:99 src/gui/SearchMenu.cc:58
@@ -665,9 +654,9 @@ msgid "Ok"
 msgstr "Ok"
 
 #: src/gui/LevelPackComposer.cc:362
-#, fuzzy, c-format
+#, c-format
 msgid "Clipboard: %d levels"
-msgstr "%s: %d pálya"
+msgstr "Vágólap: %d pálya"
 
 #: src/gui/LevelPackConfig.cc:154
 msgid "Levelpack:"
@@ -836,7 +825,7 @@ msgstr "Felületes Keresés:"
 #. TRANSLATORS: the translation can have double size of the english text
 #: src/gui/SearchMenu.cc:42
 msgid "case independent search in title, author, filename"
-msgstr "keresés a címek, alkotók és fájlnevek közt"
+msgstr "keresés a címek, alkotók és fájlnevek közt, nagybetű és kisbetű különbségére tekintet nélkül"
 
 #: src/gui/LevelInspector.cc:176
 msgid "Screenshot"
@@ -1136,7 +1125,7 @@ msgstr "A másik dokumentum hazudik, a bal oldali féreglyuk a jobb."
 msgid ""
 "The other document tells the truth and the other wormhole has been left on "
 "the right side."
-msgstr "A másik dokumentum igazat mond, a másik féreglyuk jobbra ballagott."
+msgstr "A másik dokumentum igazat mond, a jobb oldali féreglyuk balul üt ki."
 
 #  level: "Domain of Mysteries"
 #  author: "Siegfried Fennig" email ""
@@ -1164,8 +1153,8 @@ msgid ""
 "Between Might Lay   --   A Secret Way!   --   (If this you see, press Shift-"
 "F3.)"
 msgstr ""
-"Egy kő, egy fa, és fából három,  --  Hogy legyőzze ellenét,  --  Hogyha "
-"kutat  --  Lelhet utat  --  (S ha ezt látja, Shift-F3-at nyomjon!)"
+"Egy kő, egy fa, és fából három,  --  Hogy a rosszt legyőzze, barátom,  --  Hogyha "
+"kutat  --  Lelhet utat  --  (S nyomjon Shift-F3-at, ne várjon!)"
 
 #  level: "Laser Paradise"
 #  author: "illmind" email ""
@@ -1210,9 +1199,8 @@ msgstr "Most Ön kezd."
 #  level: "Enignimm"
 #  author: "Alain Busser" email ""
 #: po/level_i18n.cc:177
-#, fuzzy
 msgid "Poor little blackball ... 'SHIFT+F3'!!!"
-msgstr "Szegény kis fekete golyó ... SHIFT+F3!!!"
+msgstr "Szegény kis fekete golyó ... 'SHIFT+F3'!!!"
 
 #  level: "- Meditation -"
 #  author: "Edward" email ""
@@ -1354,7 +1342,7 @@ msgstr ""
 msgid ""
 "And if your tries grow out of bound,           then shame on you, eyes to "
 "the ground!"
-msgstr "Ha minden próba kárba vész,           szégyenkezve a földre nézz!"
+msgstr "Ha minden próba kárba vészen,           szégyenkezve a földre nézzen!"
 
 #  level: "Disk Royal"
 #  author: "illmind" email ""
@@ -1539,7 +1527,7 @@ msgstr ""
 #  author: "Sven Siggelkow" email ""
 #: po/level_i18n.cc:582
 msgid "Alfred Nobel says: This is definitely a meditation landscape!"
-msgstr "Alfred Nobel azt mondja: Ez bizonyára egy meditációs terep!"
+msgstr "Alfred Nobel azt mondja: Ez bizonyára egy meditációs terep"
 
 #  level: "How solid?"
 #  author: "Andreas Lochmann" email ""
@@ -1726,7 +1714,7 @@ msgstr "Al Capone kiképző tábora."
 #  author: "Ralf Westram" email ""
 #: po/level_i18n.cc:792
 msgid "There are at least two patterns to break through the wall."
-msgstr "Legalább két minta szerint lehet kitörni a falon."
+msgstr "Legalább két módon lehet kitörni a falon."
 
 #  level: "Alcatraz"
 #  author: "Ralf Westram" email ""
@@ -1762,6 +1750,10 @@ msgid ""
 "to be a relict of the ancient Aztec ages. But the temple is in a surprising "
 "good condition ..."
 msgstr ""
+"Üdvözöljük Chilében! Nyolc órával ezelőtt megérkezett az Ön repülőgépe "
+"\"Llamas\" repterén, egy kis faluban, amit felfedezetlen őserdő vesz körül. "
+"Most egy lenyűgöző templom előtt találja magát, amiről úgy tűnik, az ősi "
+"azték korokból maradt hátra. De a templom meglepően jó állapotban van..."
 
 #  level: "The Aztec Temple"
 #  author: "Dominik Lehmann" email ""
@@ -1775,12 +1767,18 @@ msgid ""
 "Goshers recieved promotion from the UK Government. I'll try to call him to "
 "account!\""
 msgstr ""
+"A templom hatalmas ajtaja mellett egy krómozott feliratot lát: \"Felújította "
+"G. G. Goshers, i. sz. 1998\". Az alatta lévő kisebbik tábla azt mondja: "
+"\"G. G. Goshers tulajdona. Tilos az átjárás!\". Most ismeri fel a templom "
+"oldala mellett felépült kutyaólokat. A következőkre gondol: \"Goshers "
+"átalakította ezt az ősi maradványt egy erődítménnyé. Ez nem lehet törvényes, "
+"hiszen Goshers a brit kormánytól kapott támogatást. Felelősségre fogom vonni!"
 
 #  level: "The Aztec Temple"
 #  author: "Dominik Lehmann" email ""
 #: po/level_i18n.cc:838
 msgid "This guard doesn't seem to be very alert."
-msgstr ""
+msgstr "Ez az őr nem tűnik túl ébernek."
 
 #  level: "The Aztec Temple"
 #  author: "Dominik Lehmann" email ""
@@ -1789,6 +1787,7 @@ msgid ""
 "This lake is obviously due to Goshers. I think the way there in the south is "
 "the right one."
 msgstr ""
+"Ezt a tavat nyilván Goshers készítette. Azt hiszem, a délen lévő út a jó."
 
 #  level: "The Aztec Temple"
 #  author: "Dominik Lehmann" email ""
@@ -1797,18 +1796,20 @@ msgid ""
 "There's an inscription on the old wall, saying in spanish: \"Don't touch "
 "everything you see! It could be the last you touch!\""
 msgstr ""
+"Egy felirat van az öreg falon, ami azt mondja spanyolul: \"Ne nyúljon semmihez, "
+"amit lát! Az utolsó lesz, amit megérint!\""
 
 #  level: "The Aztec Temple"
 #  author: "Dominik Lehmann" email ""
 #: po/level_i18n.cc:841
 msgid "Chromed sign: \"Control of the wilds' cage.\""
-msgstr ""
+msgstr "Krómozott felirat: \"A vadak ketrecének vezérlője\""
 
 #  level: "The Aztec Temple"
 #  author: "Dominik Lehmann" email ""
 #: po/level_i18n.cc:842
 msgid "Oooh, this slope is steep! Don't try to touch the skull!"
-msgstr ""
+msgstr "Hoppá, ez a lejtő meredek! Ne próbálja megérinteni a koponyát!"
 
 #  level: "The Aztec Temple"
 #  author: "Dominik Lehmann" email ""
@@ -1818,6 +1819,9 @@ msgid ""
 "what purpose it is... Ah, there's a sign. And it's chromed as well. Goshers "
 "seems to have a favour for chromed signs. It says: \"Natives prison\"."
 msgstr ""
+"Ez az épület itt lent börtönnek tűnik. Nézzük, ha ki tudok jutni, hogy milyen "
+"célt szolgál... Á, ott egy felirat. Ez is krómozott. Úgy tűnik, Goshers "
+"kedveli a krómozott feliratokat. Azt írja: \"Bennszülött börtön\"."
 
 #  level: "The Aztec Temple"
 #  author: "Dominik Lehmann" email ""
@@ -1826,6 +1830,8 @@ msgid ""
 "Getting beyond the prison building was a real good idea. But now you have to "
 "cross this lake. Be thrifty with those boxes!"
 msgstr ""
+"Igazán jó ötlet volt a börtön hátulján kimenni. De most át kell jutni ezen a "
+"tavon. Takarékoskodjon azokkal a dobozokkal!"
 
 #  level: "The Aztec Temple"
 #  author: "Dominik Lehmann" email ""
@@ -1837,6 +1843,11 @@ msgid ""
 "treasures of the Aztecs. Maybe it's useful to be accompanied by someone, who "
 "knows the secrets of the jungle and this temple ..."
 msgstr ""
+"Most a börtön rácsozott ablakán keresztül megpillant egy bebörtönzött bennszülött "
+"nőt. Nyilvánvalóan Goshers minden bennszülöttet bezárt, aki zavarta őt a "
+"\"munkájában\", hogy bejusson a templomba, és megszerezze az aztékok kincseit. "
+"Talán hasznos, hogy olyan valakinek a társaságában legyünk, aki ismeri az őserdőnek "
+"és ennek a templomnak a titkait..."
 
 #  level: "The Aztec Temple"
 #  author: "Dominik Lehmann" email ""
@@ -1847,6 +1858,10 @@ msgid ""
 "and free my people. And even if this is not the case, it's better to be free "
 "than imprisoned. I think I should thank him."
 msgstr ""
+"Mivel az a fehér ember megszabadított a börtönből, biztosan nem lehet olyan "
+"gonosz, mint Goshers. Talán véget akar vetni Goshers uralmának, és felszabadítani "
+"népemet. És ha nem is ez a helyzet, akkor is jobb szabadnak lenni, mint "
+"bebörtönözve. Azt hiszem, illene megköszönönnöm neki."
 
 #  level: "The Aztec Temple"
 #  author: "Dominik Lehmann" email ""
@@ -1856,6 +1871,9 @@ msgid ""
 "Xila!\", you tell him in broken English. After he introduced himself as "
 "well, both of you begin to work out a plan against the evil G. G. Goshers."
 msgstr ""
+"A börtön előtt találkozik az angol kalandorral. \"Üdv, én Xila vagyok!\", "
+"mondja neki törött angolsággal. Miután ő is bemutatkozott, Önök ketten "
+"hozzálátnak egy tervhez a gonosz G. G. Goshers ellen."
 
 #  level: "The Aztec Temple"
 #  author: "Dominik Lehmann" email ""
@@ -1864,42 +1882,44 @@ msgid ""
 "This is a really hard puzzle. The English man will have to help me, if this "
 "enigma is to be solved."
 msgstr ""
+"Ez egy nagyon nehéz rejtvény. Az angol embernek segítenie kell nekem, ha "
+"ezt az enigmát meg akarom oldani."
 
 #  level: "The Aztec Temple"
 #  author: "Dominik Lehmann" email ""
 #: po/level_i18n.cc:849
 msgid "You wonder, what this switch could trigger."
-msgstr ""
+msgstr "Ön eltöpreng, mit csinál ez a kapcsoló."
 
 #  level: "The Aztec Temple"
 #  author: "Dominik Lehmann" email ""
 #: po/level_i18n.cc:850
 msgid "Xila knows how to drain the lake!"
-msgstr ""
+msgstr "Xila tudja, hogyan kell lecsapolni a tavat!"
 
 #  level: "The Aztec Temple"
 #  author: "Dominik Lehmann" email ""
 #: po/level_i18n.cc:851
 msgid "Lucky you was finding this hollow. It prevents you from drawning."
-msgstr ""
+msgstr "Szerencse, hogy megtalálta ezt az üreget. Megóvja Önt a fulladástól."
 
 #  level: "The Aztec Temple"
 #  author: "Dominik Lehmann" email ""
 #: po/level_i18n.cc:852
 msgid "This stone of glass does certainly fullfill a purpose ..."
-msgstr ""
+msgstr "Ennek az üvegajtónak biztosan van valamilyen célja..."
 
 #  level: "The Aztec Temple"
 #  author: "Dominik Lehmann" email ""
 #: po/level_i18n.cc:853
 msgid "It's funny, that such a temple does have a side entrance."
-msgstr ""
+msgstr "Furcsa, hogy egy ilyen templomnak van oldalbejárata."
 
 #  level: "The Aztec Temple"
 #  author: "Dominik Lehmann" email ""
 #: po/level_i18n.cc:854
 msgid "Be careful! There are sensors in the walls."
-msgstr ""
+msgstr "Legyen óvatos! A falakban érzékelők vannak!"
 
 #  level: "The Aztec Temple"
 #  author: "Dominik Lehmann" email ""
@@ -1910,12 +1930,16 @@ msgid ""
 "very dangerous. Without a sword you'll never be able to enter. Be careful. "
 "There're not only knights, but also thieves."
 msgstr ""
+"Miután a templom hatalmas ajtajai megnyíltak, látja, hogy a bejáratot "
+"11 lándzsás lovag őrzi. Ezek a lovagok nagyon veszélyesek. Kard nélkül "
+"sose lesz képes bejutni. Legyen óvatos, nem csak lovagok, hanem tolvajok "
+"is vannak itt."
 
 #  level: "The Aztec Temple"
 #  author: "Dominik Lehmann" email ""
 #: po/level_i18n.cc:856
 msgid "\"Congratulations. You just managed to enter this old Aztec Temple.\""
-msgstr ""
+msgstr "\"Gratulálunk. Sikerült bejutnia ebbe a régi azték templomba.\""
 
 #  level: "The Aztec Temple"
 #  author: "Dominik Lehmann" email ""
@@ -1924,6 +1948,8 @@ msgid ""
 "\"You've been smarter than I expected. But you'll never enter the treasure "
 "room nor escape from here!\""
 msgstr ""
+"\"Ön okosabb volt, mint vártam. De soha nem fog eljutni a kincses terembe, "
+"sem innen kijutni!\""
 
 #  level: "The Aztec Temple"
 #  author: "Dominik Lehmann" email ""
@@ -1932,12 +1958,14 @@ msgid ""
 "\"I, Goshers, will certainly be able to get rid of one of my archenemies, by "
 "just killing you!\""
 msgstr ""
+"\"Én, Goshers, biztosan megszabadulok főellenségeim egyikétől, amint megölöm "
+"magát!\""
 
 #  level: "The Aztec Temple"
 #  author: "Dominik Lehmann" email ""
 #: po/level_i18n.cc:859
 msgid "\"Run for your life!\""
-msgstr ""
+msgstr "\"Fusson, ha kedves az élete!\""
 
 #  level: "The Aztec Temple"
 #  author: "Dominik Lehmann" email ""
@@ -1948,6 +1976,10 @@ msgid ""
 "majesty of Gerald Gregory Goshers has found its end. Congratulations on the "
 "success of your expedition!"
 msgstr ""
+"Xila és Ön éppen most léptek be a Gyémánt Terembe az öreg azték templomban. "
+"Amint visszaviszik őt Nagy Britanniába és átadják őt a rendőrségnek, "
+"Gerald Gregory Goshers gonosz hatalmának vége. Gratulálunk az expedíció "
+"sikeréhez!"
 
 #  level: "Basketball"
 #  author: "Ronald Lamprecht" email "ral@users.berlios.de"
@@ -2001,7 +2033,6 @@ msgstr "Edward Hegye"
 #  level: "Procrustes"
 #  author: "Andreas Lochmann" email ""
 #: po/level_i18n.cc:933
-#, fuzzy
 msgid "Procrustes"
 msgstr "Prokrusztész"
 
@@ -2016,9 +2047,8 @@ msgstr "Meneküljön tolvajok láncolásával"
 #  author: "Ronald Lamprecht" email "ral@users.berlios.de"
 #  comment: "Characters of Michael Ende's fantasy novel 'The Neverending Story'"
 #: po/level_i18n.cc:942
-#, fuzzy
 msgid "Remember Atreyu's horse Atrax!"
-msgstr "Emlékezzen Atrejus Lóra!"
+msgstr "Emlékezzen Atráskó lovára!"
 
 #  level: "Houdini"
 #  author: "Ronald Lamprecht" email "ral@users.berlios.de"
@@ -2072,7 +2102,7 @@ msgstr "Feleakkora a baj, ha megosztjuk mással"
 #  author: "Ronald Lamprecht" email "ral@users.berlios.de"
 #: po/level_i18n.cc:1006
 msgid "The art of steering a quadriga"
-msgstr "A quadriga kormányzásának művészete"
+msgstr "A kvadriga kormányzásának művészete"
 
 #  level: "Ben Hur"
 #  author: "Ronald Lamprecht" email "ral@users.berlios.de"
@@ -2166,7 +2196,7 @@ msgid ""
 "Welcome to Enigma!  This tutorial I (Jacob Scott) made will help you learn "
 "how to play."
 msgstr ""
-"Üdvözlöm az Engima-ban!  Ez az oktatópálya, amit én (Jacob Scott) "
+"Üdvözlöm az Engimában!  Ez az oktatópálya, amit én (Jacob Scott) "
 "készítettem, segíteni fog Önnek a játék megtanulásában."
 
 #  level: "Advanced Tutorial"
@@ -2218,8 +2248,8 @@ msgid ""
 "Notice that you can't push a row of two or more blocks.  Also, blocks can't "
 "be on the same squares as grates but you can."
 msgstr ""
-"Vegye észre, hogy egy legalább két dobozból álló sort nem képes eltolni.  "
-"Továbbá egy doboz nem lehet egy mezőn egy ráccsal, de Ön igen."
+"Vegye észre, hogy egy legalább két dobozból álló sort nem képes eltolni. "
+"Aztán egy doboz nem lehet egy mezőn egy ráccsal, de Ön igen."
 
 #  level: "Advanced Tutorial"
 #  author: "Jacob Scott" email ""
@@ -2453,7 +2483,7 @@ msgid ""
 "was.                      It might be convenient to close the gate."
 msgstr ""
 "Az egy rotor volt (olyan, mint a pörgettyű).  Bizonyos pályákon sok rotor és "
-"pörgettyű van, hogy megnehezítsék őket.                            De lehet, "
+"pörgettyű van, hogy megnehezítsék azokat.                            De lehet, "
 "hogy ennek a rotornak van valami célja. Talán eljuttathatná arra a váltóra, "
 "ami a fehér kanál közelében volt.                      Kényelmes lehet "
 "előtte bezárni a kaput."
@@ -2528,7 +2558,7 @@ msgstr ""
 #: po/level_i18n.cc:1391
 msgid ""
 "Remember?  There are different kinds of floors.  And these are steep ..."
-msgstr "Emlékszik?  Különféle talajok vannak, és ezek meredekek..."
+msgstr "Emlékszik?  Különféle talajok vannak.  És ezek meredekek..."
 
 #  level: "Blocks and Slopes"
 #  author: "Andreas Lochmann" email ""
@@ -2746,7 +2776,7 @@ msgstr "Ugyanaz a szoba, új tükrök..."
 #  comment: "because there is a 'w' letter in 'awale' as many 'w' letters have been used in these texts; it is not necessary to translate this feature"
 #: po/level_i18n.cc:1687
 msgid "The witch of this switch waits for your wish."
-msgstr "Ezzek a kapcsolóval fejezheti be a lépést"
+msgstr "Ezzel a kapcsolóval fejezheti be a lépést"
 
 #  level: "Enigmawale"
 #  author: "Alain Busser" email ""
@@ -2879,9 +2909,8 @@ msgstr ""
 #  level: "Enigmawale"
 #  author: "Alain Busser" email ""
 #: po/level_i18n.cc:1721
-#, fuzzy
 msgid "Only reset or 'Shift+F3' can make things evolve ..."
-msgstr "Csak az újrakezdés vagy a Shift+F3 hozhat változást..."
+msgstr "Csak az újrakezdés vagy a 'Shift+F3' hozhat változást..."
 
 #  level: "Welcome to the Machine"
 #  author: "Ralf Westram" email "amgine@reallysoft.de"
@@ -2961,7 +2990,7 @@ msgstr "Ez egy meditációs terep, helyezzen egy kis golyót minden lyukba..."
 #  comment: "Set fire or die"
 #: po/level_i18n.cc:1965
 msgid "Fire or be fired"
-msgstr "Tüzelj vagy égj!"
+msgstr "Tüzeljen vagy égjen!"
 
 #  level: "Firefox"
 #  author: "Ronald Lamprecht" email "ral@users.berlios.de"
@@ -3219,7 +3248,7 @@ msgid ""
 msgstr ""
 "Nagyok a régi idők lovagjai, akik a tündék oxyd köveit birtokolják, és sokan "
 "vannak a szellemek, kik a hozzájuk vezető úton állnak. Rengetegen voltak a "
-"kalandorok, kik megpróbálták ellopni Aylendilt, a kardot, de egy sem tért "
+"kalandorok, kik megpróbálták ellopni Elendilt, a kardot, de egy sem tért "
 "vissza. Ködös a mocsár, ahol a ősök varázsa el van ásva. Kerüld el a "
 "Fehérgolyók odvát, ahol a sárkány lakik, félve, hogy felébred..."
 
