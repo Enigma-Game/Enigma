@@ -42,53 +42,6 @@ namespace ecl
         return static_cast<T>(floor(v));
     }
 
-#if defined(i386) && defined (__GNUC__)
-
-    template <>
-    inline
-    int round_nearest<int, double> (double v)
-    {
-	int result;
-	int oldcword, cword;
-	__asm__ __volatile__ (
-            "fnstcw	%2\n\t"
-            "movw	%2, %%ax\n\t"
-            "andb       $243, %%ah\n\t"
-            "movw	%%ax, %3\n\t"
-            "fldcw	%3\n\t"
-            "fistl	%0\n\t"
-            "fldcw	%2\n\t"
-            : "=m" (result)
-            : "t" (v), "m" (oldcword), "m" (cword)
-            : "%eax"		// clobbers eax
-            );
-	return result;
-    }
-
-
-    template <>
-    inline
-    int round_down<int, double> (double v)
-    {
-	int result;
-	int oldcword, cword;
-	__asm__ __volatile__ (
-            "fnstcw	%2\n\t"
-            "movw	%2, %%ax\n\t"
-            "andb       $243, %%ah\n\t"
-            "orb        $4, %%ah\n\t"
-            "movw	%%ax, %3\n\t"
-            "fldcw	%3\n\t"
-            "fistl	%0\n\t"
-            "fldcw	%2\n\t"
-            : "=m" (result)
-            : "t" (v), "m" (oldcword), "m" (cword)
-            : "%eax"		// clobbers eax
-            );
-	return result;
-    }
-
-#endif
 
 /* -------------------- Vector class -------------------- */
 
