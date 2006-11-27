@@ -324,6 +324,10 @@ Level Packs}.
 The options menu allows you to adapt Enigma to your preferences.
 
 @table @strong
+@item Language
+Choose the language for the menus and (if available) for the
+in-level-documents.
+
 @item Fullscreen
 Toggles between full screen and windowed display.  You can also use
 @kbd{Alt-@key{RET}} to do this, even when you are not in the options
@@ -334,6 +338,9 @@ to switch from window to full screen or vice versa.
 This button lets you change the video mode used by Enigma. Enigma does
 not switch the video mode immediately but waits until you return to the
 main menu.
+
+@item Gamma correction
+If neccessary, adjust here the brightness of the display.
 
 @item Mouse speed
 Determines how quickly your marble accelerates when you move the
@@ -359,7 +366,7 @@ Toggle between ``normal'' stereo, ``reversed'' stereo, and mono sound.
 
 @item Ratings update
 If set to @samp{Auto} Enigma will try to download new rating data from time
-to time. This will update public ratings, world records, par scores, etc..
+to time. This will update public ratings, world records, par scores, etc.
 @xref{Registering Scores}.
 
 @item User name
@@ -465,7 +472,7 @@ a particular object in the first slot of your inventory (the magic wand
 being the best-known object in this category).
 
 Last but not least: Don't feel discouraged by the apparent complexity
-of the game---the behaviour of most object will become clear in due
+of the game---the behaviour of most objects will become clear in due
 course.  Some of the obscurer objects are explained in @ref{Some Game
 Objects}.
 
@@ -540,7 +547,8 @@ Decrease mouse speed
 Increase mouse speed
 
 @item Alt-@key{RET}
-Toggle between full screen and windowed display
+Toggle between full screen and windowed display (doesn't work on all
+systems immediately)
 
 @item Alt-X
 Return to the level menu immediately
@@ -610,8 +618,8 @@ to a safe place.
 @image{images/it-flags,,0.7cm}
 
 Flags are primarily useful on long and dangerous journeys.  If your
-marble is destroyed, the new marble will appear where where you last
-dropped a flat, instead of at the beginning of the level.  There are two
+marble is destroyed, the new marble will appear where you last
+dropped a flag, instead of at the beginning of the level.  There are two
 types of flags: a black one and a white one, which set the starting
 point of the black and the white marble respectively.
 
@@ -801,7 +809,7 @@ objects that afterwards block the pipeline, so be careful!
 * Updating Enigma::             Keeping scores and levels on an update
 @end menu
 
-@node User Level Packs, Registering Scores, Advanced Topics, Advanced Topics
+@node User Level Packs, Backup, Advanced Topics, Advanced Topics
 @section User Level Packs
 
 @ref{The Level Pack Menu} provides some additional features. The
@@ -847,7 +855,7 @@ homepage for more detailed instructions.
 To automatically download the updated world record score lists you just need to
 enable the option @samp{Ratings Update}.
 
-@node Updating Enigma, , Backup, Advanced Topics
+@node Updating Enigma, , Registering Scores, Advanced Topics
 @section Updating Enigma
 
 If you did not customize your old Enigma version simply deinstall the old
@@ -875,7 +883,7 @@ This chapter contains hints for some of the difficult levels.  You are
 strongly advised @emph{not} to read the spoilers unless you are
 completely stuck.  Some levels are intentionally difficult and even
 veteran Enigma players need hours to solve them.  Some levels are
-easier to solve in easy game mode (@pxref{Game options}).
+easier to solve in easy game mode (@pxref{The Level Menu}).
 
 @menu
 * Tutorial::                    Walkthrough for `Advanced Tutorial'
@@ -1336,7 +1344,7 @@ Designer of the ``Dustismo'' font
 Oxyd file format reverse engineering, Oxydlib
 
 @item Erich Schubert
-Debian packages
+Debian/Ubuntu packages
 
 @item Meinolf Schneider
 Original game idea--@emph{Thanks}!
