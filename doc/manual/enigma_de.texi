@@ -35,7 +35,7 @@ dieser Abschnitt erhalten bleiben.
 @node Top, Einleitung, (dir), (dir)
 @top Enigma
 
-Dieses Handuch beschreibt die Installation und das Spielprinzip von
+Dieses Handbuch beschreibt die Installation und das Spielprinzip von
 Enigma.  Es bezieht sich auf Enigma Version @value{VERSION}.
 
 Copyright @copyright{} 2003, 2004, 2005, 2006 Daniel Heck und Beitragende
@@ -62,7 +62,7 @@ dieser Abschnitt erhalten bleiben.
 @menu
 * Über Enigma::                 Einige Fakten über Enigma
 * Installation::                Woher und wie installiert man Enigma
-* Verbreiten von Enigma::       Gib Kopien an Deine Freunde!
+* Verbreiten von Enigma::       Geben Sie Kopien an Ihre Freunde weiter!
 @end menu
 
 
@@ -71,14 +71,14 @@ dieser Abschnitt erhalten bleiben.
 
 Zu sagen, Enigma sei ein Rätselspiel, ist eine
 Untertreibung. Tatsächlich ist Enigma eine riesige Sammlung von
-Rätseln, jedes seiner 550 einzigartigen Level fordert die Intelligenz,
-Geschicklichkeit und wahre Willensstärke seines Spielers aufs
-Neue. Enigma ist einfach zu erlernen, herausfordernd zu spielen und
-schwer zu schlagen. Es ist für fast alle Altersklassen geeignet. Es
-enthält hunderte von Leveln. Und als ob das noch nicht genug wäre, ist
-es zudem vollständig frei. Wenn Du Puzzlespiele magst und eine ruhige
-Hand hast, wird Enigma Dich wahrscheinlich für Stunden nicht aus
-seinem Bann lassen.
+Rätseln, jede seiner 550 einzigartigen Landschaften fordert die
+Intelligenz, Geschicklichkeit und wahre Willensstärke seines Spielers
+aufs Neue. Enigma ist einfach zu erlernen, herausfordernd zu spielen
+und schwer zu schlagen. Es ist für fast alle Altersklassen
+geeignet. Es enthält Hunderte von Landschaften (Leveln). Und als ob
+das noch nicht genug wäre, ist es zudem vollständig frei. Wenn Sie
+Puzzle- und Rätselspiele mögen, und eine ruhige Hand haben, wird Sie
+Enigma wahrscheinlich für Stunden nicht aus seinem Bann lassen.
 
 Das Ziel des Spieles ist es, Paare identisch gefärbter
 @samp{Oxydsteine} zu finden und aufzudecken. Einfaches Prinzip?
@@ -104,18 +104,18 @@ Unixversionen. Es wurde in viele Sprachen übersetzt, sogar dieses
 Handbuch ist in mehreren Sprachen erhältlich.
 
 Die offizielle @uref{http://www.nongnu.org/enigma, Homepage} von Enigma
-versucht, die wichtigsten Informationen rund um Enigma zu sammeln: hier
-findest Du Bildschirmfotos, die aktuellsten Versionen, Informationen
+versucht, die wichtigsten Informationen rund um Enigma zu sammeln: Hier
+finden Sie Bildschirmfotos, die aktuellsten Versionen, Informationen
 @"uber die Weiterentwicklung von Enigma und au@ss{}erdem die aktuellste
 Ausgabe dieses @uref{http://www.nongnu.org/enigma/manual, Handbuchs}.
 Die Entwickler von Enigma k@"onnen jederzeit unter der Email-Adresse
 @email{enigma-devel@@nongnu.org} erreicht werden.
 
-Enigma ist freie Software, d.h. Du bist ausdr@"ucklich dazu
-aufgefordert, m@"oglichst viele Kopien an Deine Freunde zu verteilen
+Enigma ist freie Software, d.h. Sie sind ausdr@"ucklich dazu
+aufgefordert, m@"oglichst viele Kopien an Ihre Freunde zu verteilen
 (@pxref{Verbreiten von Enigma}).  Enigma wird von einer kleinen Gruppe
 von Freiwilligen entwickelt, und wir alle arbeiten in unserer Freizeit.
-Wenn Dir das Spiel gef@"allt, w@"urden wir uns @"uber eine kleine
+Wenn Ihnen das Spiel gef@"allt, w@"urden wir uns @"uber eine kleine
 Email an die oben genannte Adresse sehr freuen, sozusagen als kleine
 Anerkennung und Belohnung f@"ur die unz@"ahligen Stunden, die wir in
 Enigma investiert haben.
@@ -153,7 +153,7 @@ Enigma auf Ihrem Rechner zum Laufen zu bringen, z@"ogern Sie bitte nicht,
 uns unter @email{enigma-devel@@nongnu.org} um Unterst@"utzung zu bitten.
 
 @node Verbreiten von Enigma,  , Installation, Einleitung
-@section Verbreitung von Enigma
+@section Verbreiten von Enigma
 
 Enigma ist freie Software und darf gem@"a@ss{} den Bedingungen der GNU General
 Public License (GPL) verbreitet werden.  Die englische Fassung dieser
@@ -197,13 +197,14 @@ Einstellungen @"andern oder das Spiel wieder verlassen k@"onnen, sobald
 Sie genug haben.  Die folgenden Abschnitte werden Ihnen einen kurzen
 @"Uberblick @"uber das Level-Men@"u und das Options-Men@"u geben,
 in der Hoffnung, dass sich der Rest von selbst erschlie@ss{}t. Zu den
-meisten Menüs kann man mit @key{F1} eine Hilfe aufrufen. 
+meisten Menüs kann man mit @key{F1} eine Hilfe aufrufen. Die Begriffe
+``Level'' und ``Landschaft'' werden synonym verwendet.
 
 @menu
-* Das Level-Menü::               Wähle das nächste Level
+* Das Level-Menü::               Wähle die nächste Landschaft
 * Das Levelpaket-Menü::          Bestimme ein Levelpaket
 * Einstellungen::                Passe Enigma an
-* Der Level-Inspektor::          Detailierte Informationen über ein Level
+* Der Level-Inspektor::          Detailierte Informationen über eine Landschaft
 @end menu
 
 
@@ -228,46 +229,49 @@ navigieren.  Um ein neues Spiel zu starten, klicken Sie einfach auf das
 gew@"unschte Vorschaubildchen oder Sie dr@"ucken die Eingabetaste, um
 die momentan ausgew@"ahlte Landschaft zu starten.
 
-Enigma has two difficulty settings: ``easy'' and ``normal.''  To
-switch between easy and normal difficulty, press the center button in
-the bottom row: switch to the icon displaying a silver medal with a
-feather if you prefer simpler levels, or to the gold medal for the
-normal, more difficult, game mode.
+Enigma verfügt über zwei Schwierigkeitsgrade: ``einfach'' und
+``normal''. Um zwischen diesen umzuschalten, drücken Sie den mittleren
+Knopf in der untersten Zeile: Schalten Sie die Silbermedaille mit der
+Feder ein, wenn Sie einfachere Landschaften bevorzugen, oder die
+Goldmedaille für den normalen, schwierigeren Modus.
 
-Not all levels are available in a simplified version; those that do
-are marked with a feather (if you did not solve it yet) or with a
-silver medal in the upper left corner of their preview image.
+Nicht alle Landschaften besitzen eine vereinfachte Version;
+diejenigen, die eine besitzen, sind durch eine Feder gekennzeichnet
+(sofern Sie sie noch nicht gelöst haben) oder mit einem Silbermedaille
+in der oberen linken Ecke des Vorschaubilds.
 
-You can jump to the next level either by pressing @key{F5} or by pushing the
-@key{>>|} button in the bottom row. The meaning of ``next'' in the
-previous sentence depends on the
-mode that you selected with the left-most icon button in the bottom row.
+Sie können zur nächsten Landschaft springen, indem Sie entweder
+@key{F5} betätigen oder auf den @key{>>|}-Knopf in der untersten Zeile
+klicken. Die Bedeutung von ``nächste Landschaft'' hängt dabei davon
+ab, welchen Modus Sie im auf dem Knopf ganz links-unten eingestellt
+haben.
 
 @itemize @bullet
 @item 
-A steady black marble icon stands for ``strictly next''. You will get the next level
-in the level pack regardless of whether you already solved that level
-or not.
+Eine stehende schwarze Kugel steht für ``definitiv nächste''. Sie
+werden damit zur nächsten Landschaft im Paket kommen, unabhängig
+davon, ob Sie diese Landschaft schonmal gelöst haben oder nicht.
 
 @item
-@c TODO: ``ready for awarding? also: use verb instead of -ing
-The icon that displays medals that are ready for honoring stands for next 
-unsolved mode. In this mode the @key{>>|} buttons moves to the next
-unsolved level.
+Das Medaillenpaar bezeichnet die ``nächste ungelöste Landschaft''. Der
+@key{>>|}-Knopf führt sie dabei zur nächsten Landschaft, die im
+gewählten Schwierigkeitsgrad noch ungelöst ist.
 
 @item
-The icon with the speeding black marble stands for the par mode. Par is the professional
-average rating for a level.  This represents a score that should be reachable
-for a skilled player. Levels where your score is equal to or lower
-than this par value will be 
-marked with the speeding marble icon. In this mode the
-@key{>>|}  button moves to the next level with a score below par.
+Die beschleunigende Kugel steht für den Par-Modus. Par (``professional
+average rating'') bezeichnet ein gutes Ergebnis, das von guten
+Spielern erreicht werden sollte. Landschaften, in denen Sie ebenso
+schnell wie Par oder schneller waren, werden mit einer ebensolchen
+beschleunigenden Kugel gekennzeichnet. Im Par-Modus springt der
+@key{>>|}-Knopf zur nächten Landschaft, für die Sie Par noch nicht
+erreicht haben.
 
 @item
-Finally a world icon is provided for the world record hunt mode. If your score
-is the best score ever recorded you will be honored with the world record icon.
-If you select this mode a level will be played again and again until you
-reach the world record. 
+Schließlich steht der Globus für die Weltrekordjagd. Wenn Ihr Ergebnis
+das weltbeste bekannte Ergebnis ist, so werden Sie durch einen Globus
+über dem Vorschaubild der Landschaft geehrt. In diesem Modus wird eine
+Landschaft wieder und wieder gespielt, bis Sie den Weltrekord erreicht
+haben. 
 
 @c Of course, a world record is a rare event. But you may
 @c use this mode just for training purposes and to lower your score a little bit.
@@ -278,7 +282,7 @@ roten Dreieck mit Ausrufezeichen markiert: das Symbol signalisiert, dass
 die Landschaft aktualisiert wurde, seit Sie sie zuletzt gel@"ost
 haben. Sie sehen dies wahrscheinlich nur nach einem Update von Enigma.
 
-Im Landschafts-Men@"u können folgende Tastaturk@"urzeln verwendet werden:
+Im Level-Men@"u können folgende Tastaturk@"urzel verwendet werden:
 
 @table @kbd
 @item @key{ESC}
@@ -288,18 +292,18 @@ R@"uckkehr zum Hauptmen@"u
 Hilfe
 
 @item @key{F5}
-Zur n@"achsten Landschaft, entspricht dem @key{>>|} button
+Zur n@"achsten Landschaft, entspricht dem @key{>>|}-Knopf
 
 @item Pfeiltasten
 Auswahl einer Landschaft
 
 @item @key{Eingabe}
-Ausgw@"ahlte Landschaft spielen
+Ausgew@"ahlte Landschaft spielen
 
 @item @key{Leertaste}
 N@"achstes Landschaftspaket
 
-@item @key{Backspace}           @c TODO: 
+@item @key{Backspace}
 Voriges Landschaftspaket
 
 @end table
@@ -307,34 +311,41 @@ Voriges Landschaftspaket
 @node Das Levelpaket-Menü, Einstellungen, Das Level-Menü, Ganz zu Anfang
 @subsection Das Levelpaket-Menü
 
-Enigma comes with many levels.  Many, many levels, in fact.  To keeps
-things orderly, they have been organized into ``level packs''.  And 
-because every release of Enigma added more levels, we even 
-had to organize the level packs themselves into ``groups''.  But
-luckily, this is all a lot easier than it sounds.
+Enigma enthält bereits viele Landschaften. Sehr, sehr viele, um genau
+zu sein. Um etwas Ordnung hineinzubringen, wurden die Landschaften in
+``Levelpaketen'' zusammengefasst. Und da mit jeder neuen Version von
+Enigma neue Landschaften hinzukamen, mussten wir inzwischen sogar die
+Levelpakete selber zu ``Gruppen'' zusammenfassen. Aber keine Sorge, es
+ist alles viel einfacher als es jetzt vielleicht klingt.
 
-To select the level pack, you have to enter the ``Level Pack'' menu to
-which is accessible from the main menu or the level menu.
+Um ein Levelpaket auszuwählen, wechseln Sie ins ``Levelpaket''-Menü,
+in das Sie vom Hauptmenü oder vom Level-Menü aus kommen können. 
 
-This menu shows the groups in the left column and the level packs of the 
-selected group in the other columns to the right.  The official groups
-that ship with Enigma are the following:
+In der linken Spalte sind die Gruppen aufgeführt, rechts die
+Levelpakete in der ausgewählten Gruppe. Die offiziellen,
+voreingestellten Gruppen von Enigma sind die folgenden:
 
 @itemize @bullet
-@item @b{Enigma} - levels that are written just for Enigma 
-@item @b{D@'ej@`a-vu} - levels that you may have seen before
+@item @b{Enigma} - Landschaften speziell für Enigma 
+@item @b{D@'ej@`a-vu} - Landschaften, die Sie vielleicht schonmal
+gesehen haben
 @item @b{Sokoban}
-@item @b{Facets} - special sortings and views of the levels above
-@item @b{User} - personal levels and level packs like History, automatically generated by the 
-system for the user.
-@item @b{Development} - templates and unfinished levels from the Enigma Team
-@item @b{All Packs}
+@item @b{Facets} - Spezielle Sortierungen und Blickweisen auf die
+Landschaften aus den vorigen Gruppen
+@item @b{User} - Eigene Landschaften und Levelpakete, darunter die
+``History'', die die Landschaften enthält, die zuletzt von Ihnen
+gespielt wurden, ``Search Result'' (Suchergebnisse) und ``Auto'', ein
+automatisch erstelltes Levelpaket für einzelne selbsterzeugte Landschaften.
+@item @b{Development} - Vorlagen und unvollendete Landschaften vom
+Enigma Team
+@item @b{All Packs} - Alle Pakete zusammen.
 @end itemize
 
-Left clicks select a group or a level pack. 
+Mit einem Linksklick können Sie eine Gruppe und dann ein Levelpaket
+auswählen. 
 
-For description of further features of level packs see @ref{User
-Level Packs}.
+Für eine weitere Beschreibung der Levelpakete lesen Sie bitte
+@ref{Eigene Levelpakete}.
 
 @node Einstellungen, Der Level-Inspektor, Das Levelpaket-Menü, Ganz zu Anfang
 @subsection Einstellungen
@@ -392,9 +403,9 @@ versuchen, aktuelle Bewertungen herunterzuladen. Dies betrifft
 @xref{Ergebnisse hochladen}.
 
 @item Spielername
-Gib hier den Namen oder Alias ein, der zusammen mit Deinen Ergebnissen
-angezeigt werden soll, wenn Du enigma.score
-hochlädst. @xref{Ergebnisse hochladen}.
+Geben Sie hier den Namen oder Alias ein, der zusammen mit Ihren
+Ergebnissen angezeigt werden soll, wenn Sie enigma.score
+hochladen. @xref{Ergebnisse hochladen}.
 
 @item Userpfad
 Das Verzeichnis, in dem Enigma die Nutzerdaten speichert. Details
@@ -409,24 +420,33 @@ im Referenzhandbuch.
 @node Der Level-Inspektor, , Einstellungen, Ganz zu Anfang
 @subsection Der Level-Inspektor
 
-To view more detail information about a level you can call the level inspector.
-Just right or control click on the level's preview image in the level menu.
+Um genauere Details über eine Landschaft zu erfahren, können Sie mit
+einem Rechtsklick oder Kontroll-Klick auf das Vorschaubild einer
+Landschaft den Level-Inspektor aufrufen.
 
-You can compare your scores to the world record, the par, the level author's
-score. Even some statistics about how many players solved a level are provided.
+Hier können Sie Ihre Ergebnisse mit dem Weltrekord für diese
+Landschaft, mit dem Par und den Ergebnissen des Levelautors selber
+vergleichen. Es wird sogar eine Statistik dazu angezeigt, wieviele
+andere  Spielere diese Landschaft bereits gelöst haben.
 
-Besides all the other information that is described in detail in the reference
-manual you can enter a small annotation to a level and can rate the level.
+Neben weiteren Informationen, die im Referenz-Handbuch beschrieben
+werden, können Sie auch eine kurze Anmerkung zur Landschaft
+hinterlassen und sie bewerten.
 
-Please note the annotation text field may allow you just to enter ASCII 
-characters depending on the system Enigma is running.
+Beachten Sie bitte, dass das Textfeld für die Anmerkung möglicherweise
+nur ASCII-Zeichen erlaubt, abhängig vom System, auf dem Enigma
+läuft. Vermeiden Sie also notfalls Umlaute, Akzente und Sonderzeichen.
 
-The rating is your personal impression of the level. @samp{-} stands for no
-opinion. 0 - for very bad, 5 - for average, 10 - for best of best. The ratings
-will be sent back with your scores (@pxref{Ergebnisse hochladen}).
+Die Bewertung ganz links-unten ist Ihr persönlicher Eindruck von der
+Landschaft, den Sie durch einen Linksklick einstellen können. @samp{-}
+steht dabei für keine Meinung, 0 für sehr schlecht, 5 ist Durchschnitt
+und 10 steht für die beste unter den guten Landschaften. Ihre
+Bewertung können Sie uns zusammen mit Ihren Ergebnissen zuschicken
+(@pxref{Ergebnisse hochladen}).
 
-Last but not least you can use the Level Inspector to view screen shots that 
-you made while playing a level (@pxref{Steuerung}).
+Schließlich können Sie den Level-Inspektor auch dazu verwenden, die
+Bildschirmphotos zu betrachten, die Sie während des Spielens dieser
+Landschaft aufgenommen haben (@pxref{Steuerung}).
 
 
 @node Spielregeln, Steuerung, Ganz zu Anfang, Das Spiel
@@ -444,7 +464,7 @@ werden synonym verwendet.
 @node Gewöhnliche Landschaften, Zwei-Spieler Landschaften, Spielregeln, Spielregeln
 @subsection Gew@"ohnliche Landschaften
 
-Die grundlegende Idee hinter Enigma is recht einfach: in den meisten
+Die grundlegende Idee hinter Enigma ist recht einfach: In den meisten
 Landschaften steuern Sie eine kleine schwarze Kugel, und Ihr Ziel ist
 es, identische Paare sogenannter @emph{Oxyd-Steine} zu finden und zu
 @"offnen.  Geschlossene Oxyd-Steine sehen folgenderma@ss{}en aus (es gibt
@@ -601,14 +621,16 @@ Kehre zur@"uck zum Landschaftsmen@"u
 @node Einige Spielobjekte, Fortgeschrittene Themen, Das Spiel, Top
 @chapter Einige Spielobjekte
 
-There are dozens of different game objects you will see in Enigma's
-levels. We just want to describe a small assorted set of them here. If
-you're new to Enigma, you might want to start with the levels in the
-tutorial pack? Just start Enigma, choose ``Level Pack'', then the
-button ``Enigma'' in the upper-left corner, then ``Tutorial'' on the
-right. Start with the first level ``Oxyd Stones 1''. The tutorial will
-show you the most important objects and ideas, and some of the easier
-levels of Enigma.
+Es gibt Dutzende verschiedener Spielobjekte, die Sie in Enigmas
+Landschaften kennenlernen werden. Hier wollen wir nur eine kleine
+Auswahl davon beschreiben, auf die Sie vielleicht häufiger treffen
+werden. Wenn das Spielprinzip von Enigma für Sie neu ist, wollen Sie
+vielleicht zuerst mit den Tutoriallandschaften beginnen? Starten Sie
+dafür einfach Enigma, wählen Sie ``Levelpaket'' dann den Knopf
+``Enigma'' ganz links-oben, dann ``Tutorial'' auf der rechten
+Seite. Beginnen Sie mit der ersten Level ``Oxyd Stones 1''. Das
+Tutorial zeigt Ihnen die wichtigsten Spielobjekte und -ideen, und
+zum Üben einige der einfacheren Landschaften aus Enigmas Levelpaketen.
 
 @menu
 * Gegenstände::                 
@@ -752,12 +774,13 @@ kann Sie schnell das Leben einer Kugel kosten!
 
 @image{images/st-oneway,,0.7cm}
 
-One can only pass these stones in one direction. Whole labyrinths can
-be build out of them, but mostly they force you to complete one part
-of the level before passing to the next one.
+Man kann diese Steine nur in einer Richtung passieren. Ganze
+Labyrinthe können aus ihnen gebaut werden, aber meistens zwingen sie
+Sie einfach nur dazu, einen Teil der Landschaft zu beenden, bevor Sie
+zum nächsten Teil übergehen.
 
-You have problems with a oneway stone that blocks your way? Maybe a
-magic item is able to help you...
+Sie haben Probleme mit Einbahn-Steinen, die Ihnen den Weg blockieren?
+Vielleicht kann Ihnen ein magischer Gegenstand helfen...
 
 @node Shogunsteine, Bolder-Steine, Einbahn-Steine, Steine
 @subsection Shogunsteine
@@ -784,15 +807,18 @@ verh@"ahlt es sich entsprechend.
 
 @image{images/st-bolder,,0.7cm}
 
-Bolder stones move in the direction
-shown by the arrow on them until they bump into another stone.  Maybe
-they block your way and you have to get rid of them some way or the
-other. But never, never stand in front of one, as it shatters your
-marble instantly, when the bolder stone overruns it!
+Bolder-Steine bewegen sich in die Richtung, die durch den Pfeil auf
+ihnen angezeigt wird; solange, bis sie auf einen anderen Stein
+stoßen. Vielleicht blockieren die Bolder-Steine Ihren Weg, und Sie
+müssen sie auf die eine oder andere Weise loswerden. Aber stellen Sie
+Ihre Kugel niemals, niemals direkt vor einen Bolder-Stein, wenn er auf
+sie zukommt, weil er Ihre Kugel zerschlagen wird, wenn er sie
+überrollt!
 
-However, you might make use of them, too, as they are able to open
-oxyds, when they bump into them. And you can redirect the bolder
-stones in several ways...
+Allerdings können Sie sich die Bolder-Steine auch zu Nutze machen,
+denn sie sind in der Lage, Oxydsteine zu öffnen, wenn sie in sie
+hineinlaufen. Und mit verschiedenen Hilfsmitteln können Sie die
+Bolder-Steine auch gezielt umlenken...
 
 @node Puzzle-Steine, Poststeine, Bolder-Steine, Steine
 @subsection Puzzle-Steine
@@ -856,14 +882,14 @@ das danach den Postweg versperrt!
 @chapter Fortgeschrittene Themen
 
 @menu
-* User Level Packs::            History, Search Results and Auto
-* Backup::                      What to backup for security
+* Eigene Levelpakete::          History, Search Results and Auto
+* Backups::                     What to backup for security
 * Ergebnisse hochladen::        Let the world know your success
-* Updating Enigma::             Keeping scores and levels on an update
+* Enigma updaten::              Keeping scores and levels on an update
 @end menu
 
-@node User Level Packs, Backup, Fortgeschrittene Themen, Fortgeschrittene Themen
-@section User Level Packs
+@node Eigene Levelpakete, Backups, Fortgeschrittene Themen, Fortgeschrittene Themen
+@section Eigene Levelpakete
 
 @ref{Das Levelpaket-Menü} provides some additional features. The
 @samp{User} group has three level packs that are initially empty:
@@ -888,8 +914,8 @@ loaded by Enigma when it starts.
 Enigma provides many more useful features beyond the scope of this manual.
 Please read the reference manual for more details.
 
-@node Backup, Ergebnisse hochladen, User Level Packs, Fortgeschrittene Themen
-@section Backup
+@node Backups, Ergebnisse hochladen, Eigene Levelpakete, Fortgeschrittene Themen
+@section Backups
 
 If you are afraid of losing all your scores due to a hard drive
 failure, or if you want to transfer your scores from one computer to
@@ -898,7 +924,7 @@ information.  To do that, first look up @samp{User Path} from Enigma's
 @ref{Einstellungen} menu.  You can simply back up that folder---the
 important files are @samp{enigma.score} and @samp{state.xml}.
 
-@node Ergebnisse hochladen, Updating Enigma, Backup, Fortgeschrittene Themen
+@node Ergebnisse hochladen, Enigma updaten, Backups, Fortgeschrittene Themen
 @section Ergebnisse hochladen
 
 For registration of your scores you need to send us the @samp{enigma.score}
@@ -908,8 +934,8 @@ homepage for more detailed instructions.
 To automatically download the updated world record score lists you just need to
 enable the option @samp{Ratings Update}.
 
-@node Updating Enigma, , Ergebnisse hochladen, Fortgeschrittene Themen
-@section Updating Enigma
+@node Enigma updaten, , Ergebnisse hochladen, Fortgeschrittene Themen
+@section Enigma updaten
 
 If you did not customize your old Enigma version simply deinstall the old
 version and install the new one. That is all you have to do as your scores will
@@ -1134,311 +1160,208 @@ stones (the black stones).  You win!
 @table @strong
 
 @item I/6: Welcome to the Machine
-The message near the upper-right corner contains an important hint.
+Die Nachricht in der oberen rechten Ecke enthält eine wichtige Nachricht.
 
 @item I/8: Easy?
-Put the first shogun stone in the upper left corner, and the second
-one @emph{above} the rightmost shogun dot.
+Schieben Sie den ersten Shogunstein in die linke obere Ecke und den
+zweiten in das Feld @emph{über} dem am weitesten rechts gelegenen Punkt.
 
 @item I/31: Where Am I?
-Make use of the wooden stones if you have lost your way. 
+Nutzen Sie die Holzsteine, falls Sie den Überblick verlieren. 
 
 @item I/32: The Grim Reaper
-Ever thought of turning your mouse upside-down???
+Haben Sie schonmal daran gedacht, Ihre Maus umzudrehen???
 
 @item I/43: Sokoban Revival
-Remember? This was the first level in the original Sokoban...  So it
-can't be that hard!
+Erinnern Sie sich? Die erste Lagerhalle im originalen Sokoban sah
+genauso aus... So schwierig kann es also nicht sein!
 
 @item I/65: Lasers 101
-Push two of the mirrors to the top and one to the bottom.  By moving the
-mirrors around and by aiming carefully you can hit all of the Oxyd
-stones with a laser beam.
+Schieben Sie zwei der Spiegel an den oberen und einen an den unteren
+Rand. Wenn Sie die Spiegel geeignet verschieben und sorgfältig zielen,
+können Sie alle Oxyd-Steine mit dem Laser erreichen.
 
 @item I/72: Way to Go
-One of the blue dots behaves differently.  Make use of that fact!
+Einer der blauen Punkte verhält sich anders als die anderen. Nutzen
+Sie das aus!
 
 @item I/80: Meditation
-Align the marbles horizontally. 
-
-@item II/15: Knock Knock!
-Knock the walls.
-
-@item II/27: Twelve doors
-You opened all the doors and still can't get through?  You must have
-missed something!
-
-@item II/40: Space Meditation
-Ever heard of the three-body problem?
-
-@item II/44: Pharaos' Tombs
-Learn from ``Easy Shifting...''.
-
-@item II/56: Easy Shifting...
-Learn from ``Running Rings''.
-
-@item II/57: Floppy Swapping
-First, find the floppy disk and the magic wand, you will need them.
-Second, always keep the floppy and the wand with you.  Third, some
-stones look alike but don't behave alike.
-
-@item II/59: The Disappearing Block
-Jam the laser.
-
-@item II/65: Laser Magic
-It's time to learn a few things about object transformations.
-Experiment!
-
-@item II/69: Question of Speed
-Or rather: Question of Seed???  
-
-@item II/77: Push Your Way
-Find the magic wand first! 
-
-@item II/97: Tool Time
-Hide dangerous tools from children.
-
-@item II/99: Domain of Mysteries
-Step careful in the ladder.
-
-@item II/100: Patterns
-Is there an echo?
-
-@item III/14: Use the PIN
-... or use your favourite encyclopedia if you don't recall the right
-number.
-
-@item III/16: Control Panel
-The message in the left room tells you how to arrange the blocks on the
-first rows of triggers.  From there, use the color codes indicated in
-the left room. 
-
-@item III/22: Portable Laser
-Be grateful!
-
-@item III/27: Tricks and Traps
-Cannot get out of the first screen? Focus on the small blinking dot
-first.  Cannot find the last Oxyd stone? Activate three of the large
-blinking dots on the first screen and the small one on the third screen.
-
-@item III/28: Wells
-Afraid to die?
-
-@item III/29: Push? Pull!
-One swap up -- One swap down -- Puzzle to the right -- then keep on!
-
-@item III/40: Snow White
-Three little eskimoes -- Wand'ring on an ice field -- Couldn't find
-their little igloos -- Deep under the snow shield.
-
-@item III/43: The Ditch
-You can't solve this level without a broken ego.
-
-@item III/49: What's the Problem?
-Decoys all over the place... this is a meditation landscape.
-
-@item III/95: Jump and Run
-There's a spring hidden under a mirror.
-
-@item IV/6: TNT Shortage?
-It's easier with a hammer!
-
-@item IV/17: Flood Gates
-Carefully flooding certain areas can be useful. Do not leave the first
-room without activating the lower switch. The many switches on the
-lower left all do the same.
-
-@item IV/25: Light Switches
-Jam the lasers in case you're not fast enough. 
-
-@item IV/27: Robbery
-Enter the bank through cracks in the floor. 
-
-@item IV/34: Running Rings
-Learn from ``Pharao's Tomb''.
-
-@item IV/39: How Many Spirals?
-Some people jump out of the window when there's fire -- do it the
-other way around.
-
-@item IV/47: Just Moving Blocks?
-Too many wooden blocks? How could you remove one?
-
-@item IV/48: Artillery
-The cannonball also opens oxyds.
-
-@item IV/54: Fire Safety
-The trigger hurts you? Destroy it!
-
-@item IV/64: The Flagstone Reaper
-It processes.
-
-@item IV/65: Little Bit of Everything
-Find a way to shatter.
-
-@item V/15: Solvable?
-Does WNSE remind you of something?
-
-@item V/16: Draggers
-Admitted, this level is evil. There's a seed hidden near your starting
-point.
-
-@item V/24: Space Pirates
-This one is tricky.  Ignite a bomb near the wooden stones.
-
-@item V/32: Walk the Plank
-Not enough of a pirate to master the this level?  There is a
-different, easier route.
-
-@item V/34: Island of Safety
-First analyse one-hundreds.
-
-@item V/45: Psycho Pushing
-Hit and race.
-
-@item V/58: Now What?
-When you see the cross, what should the array show next?
-
-@item V/78: Don't Be Greedy
-There's a better hint somewhere in this manual.
-
-@item V/89: Ice-Bomb
-There's a better hint hidden under the oxyd.
-
-@item V/91: Firefox
-Floor burns faster.
-
-@item VI/8: Orbitting
-Don't let anything touch the borders.
-
-@item VI/23: Prepare Your Defense
-The laser changes more than items.
-
-@item esprit 43
-Sacrifice to the volcano.
-
-@item esprit 52
-Play it to the date.
-
-@item esprit 100
-Blast the corner.
-
-@item Oxyd Magnum 99 (level 22): Letter Bomb
-Bomb the bomb stones.
-
-@item PerOxyd 49 (level 22): Hidden Treasure
-Make sure you always have access to the room with the switch on the
-floor.  Then search for the second screen with the ``hidden
-treasure''.
-
-@end table
-
-
-
-@table @strong
-
-@item #3: Pharaohs' Tombs
-Nehmen Sie nicht das Papyrus.
-
-@item #5: Sokoban Revival
-Erinnern Sie sich?  Die erste Lagerhalle im originalen Sokoban sah
-genauso aus...  So schwierig kann es also nicht sein!
-
-@item #9: Floppy Swapping
-Erstens, suchen Sie zun@"achst die beiden Disketten und den Zauberstab,
-Sie werden sie ben@"otigen.  Zweitens, tragen Sie diese drei Objekte immer
-bei sich.  Drittens, einige Steine sehen identisch aus, sind es aber
-nicht.
-
-@item #14: Lasers 101
-Schieben Sie zwei der Spiegel an den oberen und einen an den unteren
-Rand.  Wenn Sie die Spiel geeignet verschieben und sorgf@"altig zielen,
-k@"onnen Sie alle Oxyd-Steine mit dem Laser erreichen.
-
-@item #15: The Grim Reaper
-Haben Sie schon einmal daran gedacht, Ihre Maus zumzudrehen???
-
-@item #16: Knock Knock
-H@"oren und sehen Sie genau hin.
-
-@item #22: Way to Go
-Einer der blauen Punkte verh@"alt sich anders als die anderen.  Nutzen Sie
-das aus!
-
-@item #29: Push Your Way
-Suchen Sie zun@"achst den Zauberstab!
-
-@item #30: Meditation
 Richten Sie die Kugeln horizontal aus.
 
-@item #32: Space Pirates
-Diese Landschaft ist knifflig.  Z@"unden Sie eine Bombe in der N@"ahe der
-Holzsteine.
+@item II/15: Knock Knock!
+Klopfen Sie an den Wänden.
 
-@item #37: Twelve doors
-Sie haben alle T@"uren ge@"offnet und kommen immer noch nicht durch? Sie
-scheinen etwas @"ubersehen zu haben!
+@item II/27: Twelve doors
+Sie haben alle Türen geöffnet und kommen immer noch nicht durch? Sie
+scheinen etwas übersehen zu haben!
 
-@item #48: Tricks and Traps
-Sie kommen nicht aus dem ersten Raum? Richten Sie Ihre Aufmerksamkeit
-zun@"achst auf den kleinen blinkenden Punkt.  Sie finden den letzten
-Oxyd-Stein nicht? Aktivieren Sie drei gro@ss{}e blinkende Punkte im ersten
-Bild und den kleinen im dritten.
+@item II/40: Space Meditation
+Kennen Sie das Dreikörperproblem?
 
-@item #56: Hidden Treasure
-Stellen Sie sicher, dass Sie immer in den Raum mit dem Bodenschalter
-haben.  Suchen Sie dann nach dem zweiten Bildschirm mit dem
-``versteckten Schatz''.
+@item II/44: Pharaos' Tombs
+Lernen Sie aus ``Easy Shifting...''.
 
-@item #71: Light Switches
-Blockieren Sie die Laser wenn Sie nicht schnell genug sind.
+@item II/56: Easy Shifting...
+Lernen Sie aus ``Running Rings''.
 
-@item #81: Flood Gates
-Das vorsichtige @"Uberfluten von Gebieten kann hilfreich sein.  Legen Sie
-auf jeden Fall den untern Schalter im ersten Raum um.
+@item II/57: Floppy Swapping
+Erstens, suchen Sie zunächst die Diskette und den Zauberstab, Sie
+werden sie benötigen. Zweitens, tragen Sie diese zwei Objekte immer
+bei sich. Drittens, einige Steine sehen identisch aus, sind es aber
+nicht.
 
-@item #96: Where Am I?
-Nutzen Sie die Holzsteine falls Sie den @"Uberblick verlieren.
+@item II/59: The Disappearing Block
+Blockieren Sie den Laser.
 
-@item #110: Draggers
-Zugegeben, die Landschaft ist b@"osartig.  Ein Steinsamen ist in der N@"ahe
-der Startposition versteckt.
+@item II/65: Laser Magic
+Es ist an der Zeit, einige Grundlagen über Objekt-Transformationen zu
+lernen. Experimentieren Sie!
 
-@item #113: Robbery
-Dringen Sie durch br@"uchige Bodenplatten in die Bank ein.
+@item II/69: Question of Speed
+Gibt es einen langSAMEN Lösungsweg???
 
-@item #115: Laser Magic
-Es ist an der Zeit, einige Grundlagen @"uber Objekt-Transformationen zu
-lernen.  Experimentieren Sie!
+@item II/77: Push Your Way
+Suchen Sie zunächst den Zauberstab!
 
-@item #135: Control Panel
-Die Nachricht im linken Raum erkl@"art, wie Sie die Steine auf der
-ersten Schalterreihe platzieren m@"ussen.  Danach folgen Sie einfach den
-im linken Raum angegebenen Farbcodes.
+@item II/97: Tool Time
+Halten Sie gefährliche Werkzeuge vor Kindern versteckt.
 
-@end table
+@item II/99: Domain of Mysteries
+Seien Sie vorsichtig in der Leiter.
 
-@table @strong
-@item #12: Easy?
-Schieben Sie den ersten Shogunstein in die obere linke Ecke und den
-zweiten in das Feld @emph{@"uber} dem am weitesten rechts gelegenen
-Punkt.
+@item II/100: Patterns
+Gibt es hier ein Echo?
 
-@item #16: Wells
-Haben Sie Angst vor dem Tod?
-
-@item #33: Welcome to the Machine
-Die Nachricht in der oberen rechten Ecke enth@"alt einen wichtigen Tipp.
-
-@item #34: Use the PIN
-... oder greifen Sie zur Enzyklop@"adie Ihrer Wahl, falls Sie die Nummer
+@item III/14: Use the PIN
+... oder greifen Sie zur Enzyklopädie Ihrer Wahl, falls Sie die Nummer
 vergessen haben.
 
-@item #62: TNT Shortage?
+@item III/16: Control Panel
+Die Nachricht im linken Raum erklärt, wie Sie die Steine auf der
+ersten Schalterreihe platzieren müssen. Danach folgen Sie einfach den
+im linken Raum angegebenen Farbcodes.
+
+@item III/22: Portable Laser
+Beachten Sie das Gitter!
+
+@item III/27: Tricks and Traps
+Sie kommen nicht aus dem ersten Raum? Richten Sie Ihre Aufmerksamkeit
+zunächst auf den kleinen blinkenden Punkt. Sie finden den letzten
+Oxyd-Stein nicht? Aktivieren Sie drei große blinkende Punkte im ersten
+Bild und den kleinen im dritten.
+
+@item III/28: Wells
+Haben Sie Angst vor dem Tod?
+
+@item III/29: Push? Pull!
+Einmal nach oben wechseln -- einmal nach unten wechseln - Puzzle
+rechts daneben -- dann weiter machen!
+
+@item III/40: Snow White
+Drei kleine Eskimos -- wandern auf dem Schneefeld -- suchten ihre drei
+Iglos -- auf die der weiße Schnee fällt.
+
+@item III/43: The Ditch
+Man kann dieses Level nicht ohne gebrochenes Ego lösen.
+
+@item III/49: What's the Problem?
+Falsche Fährten überall... es ist eine Meditationslandschaft.
+
+@item III/95: Jump and Run
+Da liegt eine Feder unter einem Spiegel.
+
+@item IV/6: TNT Shortage?
 Mit einem Hammer geht's leichter!
 
-@item #68: What's the Problem?
-Falsche F@"ahrten @"uberall... es ist eine Meditationslandschaft.
+@item IV/17: Flood Gates
+Das vorsichtige Überfluten von Gebieten kann hilfreich sein. Legen Sie
+auf jeden Fall den unteren Schalter im ersten Raum um. Die vielen
+Schalter unten links wirken alle gleich.
+
+@item IV/25: Light Switches
+Blockieren Sie die Laser, wenn Sie nicht schnell genug sind. 
+
+@item IV/27: Robbery
+Dringen Sie durch brüchige Bodenplatten in die Bank ein. 
+
+@item IV/34: Running Rings
+Lernen Sie aus ``Pharao's Tomb''.
+
+@item IV/39: How Many Spirals?
+Manche Menschen springen aus dem Fenster, wenn's brennt -- machen Sie
+es umgekehrt.
+
+@item IV/47: Just Moving Blocks?
+Zuviele Holzkisten? Wie könnten Sie eine entfernen?
+
+@item IV/48: Artillery
+Die Kanonenkugel öffnet auch Oxydsteine.
+
+@item IV/54: Fire Safety
+Der Bodenschalter nervt? Zerstören Sie ihn!
+
+@item IV/64: The Flagstone Reaper
+Er verarbeitet.
+
+@item IV/65: Little Bit of Everything
+Finden Sie einen Weg, eine Kugel zu zerschmettern.
+
+@item V/15: Solvable?
+Erinnert Sie WNSE an irgend etwas?
+
+@item V/16: Draggers
+Zugegeben, diese Landschaft ist bösartig. Ein Steinsamen ist in der
+Nähe der Startposition versteckt.
+
+@item V/24: Space Pirates
+Diese Landschaft ist knifflig. Zünden Sie eine Bombe in der Nähe der
+Holzsteine.
+
+@item V/32: Walk the Plank
+Nicht Pirat genug, diese Landschaft zu meistern? Es gibt einen
+anderen, einfacheren Weg.
+
+@item V/34: Island of Safety
+Untersuchen Sie zuerst Einhunderte.
+
+@item V/45: Psycho Pushing
+Schalten und rennen.
+
+@item V/58: Now What?
+Wenn Sie das Kreuz sehen, was sollte wohl als nächstes im Feld zu
+sehen sein?
+
+@item V/78: Don't Be Greedy
+In diesem Handbuch gibt es einen besseren Hinweis.
+
+@item V/89: Ice-Bomb
+Unter dem Oxyd-Stein liegt ein besserer Hinweis versteckt.
+
+@item V/91: Firefox
+Boden brennt schneller.
+
+@item VI/8: Orbitting
+Lassen Sie nichts die Wände berühren.
+
+@item VI/23: Prepare Your Defense
+Der Laser kann nicht nur Gegenstände ändern.
+
+@item esprit 43
+Opfern Sie dem Vulkan.
+
+@item esprit 52
+Spielen Sie es zeitig.
+
+@item esprit 100
+Bomben Sie in der Ecke.
+
+@item Oxyd Magnum 99 (level 22): Letter Bomb
+Zerstören Sie die Bombensteine.
+
+@item PerOxyd 49 (level 22): Hidden Treasure
+Stellen Sie sicher, dass Sie immer Zugang zu dem Raum mit dem
+Bodenschalter haben. Suchen Sie dann nach dem zweiten Bildschirm mit
+dem ``versteckten Schatz''.
 
 @end table
 
