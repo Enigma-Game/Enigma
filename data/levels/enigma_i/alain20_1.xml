@@ -752,7 +752,7 @@ oxyd_shuffle()
       </el:string>
       <el:string el:key="text1">
         <el:english el:translate="true" el:comment="because there is a 'w' letter in 'awale' as many 'w' letters have been used in these texts; it is not necessary to translate this feature">The witch of this switch waits for your wish.</el:english>
-        <el:translation el:lang="fr">Entrez votre choix.</el:translation>
+        <el:translation el:lang="fr">Wouah! Entrez votre choix.</el:translation>
       </el:string> 
       <el:string el:key="text2">
         <el:english el:translate="true">The witch of this switch resets the awale game.</el:english>
@@ -760,7 +760,7 @@ oxyd_shuffle()
       </el:string> 
       <el:string el:key="text3">
         <el:english el:translate="true">A turn consists in taking the walnuts of a row behind the windowy walls and sowing them 1 by 1 in the following rows.</el:english>
-        <el:translation el:lang="fr">Un tour de jeu, c'est prendre les graines d'une case et les semer une par une dans les cases suivantes.</el:translation>
+        <el:translation el:lang="fr">Un tour de jeu consiste à prendre les graines d'une case et les semer une par une dans les cases suivantes.</el:translation>
       </el:string> 
       <el:string el:key="text4">
         <el:english el:translate="true">Warning: What awaits the wailing warrior at the end of a turn? If there are 2 or 3 walnuts in a row, they are a warm award for the warrior, as are the walnuts in the rows which are in the way to this row, if they are 2 or 3 per row.</el:english>
@@ -772,11 +772,11 @@ oxyd_shuffle()
       </el:string> 
       <el:string el:key="text6">
         <el:english el:translate="true">When a warrior has awarded more than half the walnuts, he wins. What does he win? The way to the waiting oxyds he wants.</el:english>
-        <el:translation el:lang="fr">Si un joueur a plus de 24 graines, il gagne.</el:translation>
+        <el:translation el:lang="fr">Si un joueur a plus de 24 graines, il gagne. Que gagne-t-il? Le droit d'occire les oxydes.</el:translation>
       </el:string> 
       <el:string el:key="text7">
         <el:english el:translate="true">Congratulations! You are the most aware awale player of the valley ...</el:english>
-        <el:translation el:lang="fr">Bravo! Vous avalez l'awale!</el:translation>
+        <el:translation el:lang="fr">Bravo! Vous avez avalé l'awale!</el:translation>
       </el:string> 
       <el:string el:key="text8">
         <el:english el:translate="true">Lost in the savannah? Don't wait and walk on the way to the reset switch on the far left ...</el:english>
@@ -784,7 +784,7 @@ oxyd_shuffle()
       </el:string> 
       <el:string el:key="text9">
         <el:english el:translate="true">Validate your choice here.</el:english>
-        <el:translation el:lang="fr">Validation du choix.</el:translation>
+        <el:translation el:lang="fr">Validez votre choix ici.</el:translation>
       </el:string> 
       <el:string el:key="text10">
         <el:english el:translate="true">Reset the game.</el:english>
@@ -792,7 +792,7 @@ oxyd_shuffle()
      </el:string> 
       <el:string el:key="text11">
         <el:english el:translate="true">A turn consists in taking the stones of a row and sowing them 1 by 1 in one's other rows, counterclockwise, coming back to the beginning.</el:english>
-        <el:translation el:lang="fr">Un tour de jeu, c'est prendre les graines d'une case et les semer une par une dans le sens giratoire.</el:translation>
+        <el:translation el:lang="fr">Un tour de jeu consiste à prendre les graines d'une case et les semer une par une dans le sens giratoire, éventuellement en faisant plusieurs tours.</el:translation>
       </el:string> 
       <el:string el:key="text12">
         <el:english el:translate="true">At the end of a turn, if the last stone falls in a nonempty row, one takes the stones of the facing row if there is any, and repeats a turn.</el:english>
@@ -820,7 +820,7 @@ oxyd_shuffle()
       </el:string> 
       <el:string el:key="text18">
         <el:english el:translate="true">Only reset or 'Shift+F3' can make things evolve ...</el:english>
-        <el:translation el:lang="fr">Perdu! Actionner le bouton 'reset' ou le redoutable 'shift+F3' ...</el:translation>
+        <el:translation el:lang="fr">Perdu! Actionnez le bouton 'reset' ou le redoutable 'shift+F3' ...</el:translation>
       </el:string> 
     </el:i18n>
   </el:protected>
