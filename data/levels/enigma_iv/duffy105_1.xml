@@ -38,16 +38,10 @@ function renderLine( line, pattern)
             oxyd( i-1, line)
         elseif c == "*" then
             set_stone( "st-brownie", i-1, line)
-                elseif c == "!" then
-            abyss(i-1,line)
         elseif c == "~" then
            set_floor("fl-water",i-1,line)
-        elseif c=="z" then
-           set_actor("ac-blackball", i-1,line+.5, {player=0})
-        elseif c=="y" then
-           set_actor("ac-whiteball", i-1,line+.5, {player=1})
         elseif c=="w" then
-           set_actor("ac-whiteball-small", i-.5,line+.5, {player=0})
+           set_actor("ac-whiteball-small", i-.5,line+.5, {player=0, essential=1})
         elseif c == "g" then
             draw_stones("st-grate1",{i-1,line}, {1,1}, 1)
         elseif c=="+" then

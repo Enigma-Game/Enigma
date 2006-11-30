@@ -29,9 +29,9 @@ cells["*"]=cell{parent={{add_multicell, puzzles}}}
 smallmarbles={}
 bigmarbles={}
 cells["y"]=cell{item={face="it-yinyang"}}
-cells["o"]=cell{parent={cells[" "],{add_multiactor, "ac-whiteball-small", smallmarbles, {player=0, mouseforce=0}}}}
-cells["O"]=cell{parent={cells["y"],{add_multiactor, "ac-blackball", bigmarbles, {player=0}}}}
-cells["Q"]=cell{parent={cells["y"],{add_multiactor, "ac-whiteball", bigmarbles, {player=1}}}}
+cells["o"]=cell{parent={cells[" "],{add_multiactor, "ac-whiteball-small", smallmarbles, {mouseforce=0, essential=1}}}}
+cells["O"]=cell{parent={cells["y"],{add_multiactor, "ac-blackball", bigmarbles, {player=0, essential=1}}}}
+cells["Q"]=cell{parent={cells["y"],{add_multiactor, "ac-whiteball", bigmarbles, {player=1, essential=1}}}}
 
 cells["A"]=cell{stone={face="st-door", attr={name="doorA", type="h"}}}
 cells["B"]=cell{stone={face="st-door", attr={name="doorB", type="h"}}}

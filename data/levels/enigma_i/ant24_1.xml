@@ -29,7 +29,7 @@ cells["*"]=cell{{{add_multicell, puzzles}}}
 
 cells["O"]=cell{item="it-hollow"}
 cells["@"]=cell{{{wormhole, 2.5, 2.5, {range=1, strength=10}}}}
-cells["o"]=cell{actor={"ac-whiteball-small", {player=0, mouseforce=1}}}
+cells["o"]=cell{actor={"ac-whiteball-small", {player=0, mouseforce=1, essential=1}}}
 cells["6"]=cell{{cells["o"], cells["_"]}}
 
 level = {

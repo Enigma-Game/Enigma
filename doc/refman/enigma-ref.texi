@@ -6641,7 +6641,7 @@ the gamer has a yinyang in his inventory in single user mode the control switche
 to the second player. If all players are dead a new level game is started.
 
 If the conserve mode is @code{FALSE} no actors will be resurrected. As soon as the
-player is dead and the control cannot switch toanother player all dead actors
+player is dead and the control cannot switch to another player all dead actors
 are resurrected by usage of extralives and the level is restartet without
 finishing the level game.
 

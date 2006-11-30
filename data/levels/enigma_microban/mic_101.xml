@@ -10,7 +10,7 @@
       <el:compatibility el:enigma="0.92">
        <el:dependency el:path="lib/ralf_sokoban" el:id="lib/ralf_sokoban" el:release="1" el:preload="true"/>
       </el:compatibility>
-      <el:modes el:easy="false" el:single="true" el:network="false"/>
+      <el:modes el:easy="true" el:single="true" el:network="false"/>
       <el:comments>
         <el:code>Converted to enigma format by Ralf Westram with friendly permission from David W Skinner.</el:code>
       </el:comments>

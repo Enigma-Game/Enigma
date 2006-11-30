@@ -17,9 +17,8 @@
     </el:info>
     <el:luamain><![CDATA[
 create_world( 20, 13)
-if (difficult) then
-    enigma.ConserveLevel=FALSE
-end
+enigma.ConserveLevel=FALSE
+
 oxyd_default_flavor = "a"
 
 fill_floor( "fl-abyss", 0, 0, level_width, 2)
@@ -47,13 +46,15 @@ oxyd(15, 6)
 oxyd(15, 8)
 oxyd_shuffle()
 
-set_actor("ac-blackball", 10, 7.5)
-if (difficult) then
-    set_actor("ac-whiteball-small", 10, 5.5, {player=0})
+set_actor("ac-blackball", 10, 7.5, {player=0, controllers=1, essential=-1})
+
+if not difficult then
+    set_actor("ac-killerball", 10, 5.5, {player=0, controllers=1, mouseforce=1})
 else
-    set_actor("ac-killerball", 10, 5.5, {mouseforce=1,controllers=1})
+    set_actor("ac-whiteball-small", 10, 5.5, {player=0, controllers=1, essential=-1})
 end
-set_actor("ac-whiteball-small", 10,11.5, {player=0, mouseforce=1})
+
+set_actor("ac-whiteball-small", 10,11.5, {player=0, controllers=1})
     ]]></el:luamain>
     <el:i18n>
       <el:string el:key="title">
