@@ -16,7 +16,7 @@ dieser Abschnitt erhalten bleiben.
 @setfilename enigma.info
 @settitle Enigma Handbuch
 @titlepage
-@image{images/logo}
+@center @image{images/logo}
 @center @titlefont{Enigma Handbuch}
 @center f@"ur Version @value{VERSION}
 @sp 2
@@ -89,7 +89,7 @@ Oxydsteinen. Enigmas Spielobjekte (von denen Hunderte existieren,
 so dass keine Langeweile aufkommen kann) interagieren auf viele
 unerwartete Weisen, and da viele von ihnen den Gesetzen der Physik
 gehorchen (bzw. Enigmas spezieller Version der Physik), ist es nicht
-immer einfach, sie mit der Maus zu kontrollieren...
+immer einfach, sie mit der Maus zu kontrollieren ...
 
 Das ursprüngliche Ziel des Enigma-Projektes war es, den Geist der
 Oxyd-Spiele-Serie am Leben zu erhalten, nachdem ihr Verleger 2002
@@ -780,7 +780,7 @@ Sie einfach nur dazu, einen Teil der Landschaft zu beenden, bevor Sie
 zum nächsten Teil übergehen.
 
 Sie haben Probleme mit Einbahn-Steinen, die Ihnen den Weg blockieren?
-Vielleicht kann Ihnen ein magischer Gegenstand helfen...
+Vielleicht kann Ihnen ein magischer Gegenstand helfen ...
 
 @node Shogunsteine, Bolder-Steine, Einbahn-Steine, Steine
 @subsection Shogunsteine
@@ -818,7 +818,7 @@ sie zukommt, weil er Ihre Kugel zerschlagen wird, wenn er sie
 Allerdings können Sie sich die Bolder-Steine auch zu Nutze machen,
 denn sie sind in der Lage, Oxydsteine zu öffnen, wenn sie in sie
 hineinlaufen. Und mit verschiedenen Hilfsmitteln können Sie die
-Bolder-Steine auch gezielt umlenken...
+Bolder-Steine auch gezielt umlenken ...
 
 @node Puzzle-Steine, Poststeine, Bolder-Steine, Steine
 @subsection Puzzle-Steine
@@ -963,104 +963,105 @@ Landschaften in Enigma.  Lesen Sie diese Hinweise bitte nur dann, wenn
 Sie wirklich verzweifelt sind und nicht mehr weiter wissen.  Einige
 Landschaften sind absichtlich schwer und selbst Enigma-Veteranen
 ben@"otigen Stunden um sie zu knacken.  Einige Landschaften lassen sich
-im einfachen Spielmodus (@pxref{Das Level-Menü}) leichter l@"osen.
+im einfachen Spielmodus (@pxref{Das Level-Men@"u}) leichter l@"osen.
 
 @menu
-* Tutorial::                    Komplettlösung für `Advanced Tutorial'
-* Tipps::                       Hinweise für einige Landschaften
+* Tutorial::                    Komplettl@"osung f@"ur `Advanced Tutorial'
+* Tipps::                       Hinweise f@"ur einige Landschaften
 @end menu
 
 @node Tutorial, Tipps, Tipps und Tricks, Tipps und Tricks
 @section Tutorial
 
-The landscapes in the ``Tutorial'' level pack are supposed to be easy.
-Except for the last one, which is not...  This section of the manual was
-contributed by Jacob Scott.
+Die Landschaften aus dem ``Tutorial'' Levelpack sind normalerweise einfach.
+Eine Ausnahme bildet die letzte Landschaft, welche nicht gerade einfach ist ...
+@c This section of the manual was contributed by Jacob Scott.
 
-This walkthrough is for my level ``Advanced Tutorial'' in the
-``Tutorial'' level pack (to change level packs, click on ``Level Pack''
-at the bottom-left of the screen and select a level pack).  While you
-are playing, you should read all the documents in a room as soon as
-possible.
+Diese Schritt-f@"ur-Schritt Anleitung ist f@"ur die Landschaft ``Advanced Tutorial''
+im ``Tutorial'' Levelpack.
+@c (to change level packs, click on ``Level Pack''
+@c the bottom-left of the screen and select a level pack).
+W@"ahrend Sie spielen, sollten Sie alle Dokumente eines Raumes so bald wie m@"oglich
+lesen
 
-The final goal for this level, as for most Enigma levels, is to find and
-hit ``Oxyd'' stones with your black ball.  When you hit an oxyd stone, it
-opens and shows a color.  If you hit two oxyd stones of the same color in
-a row, they will both stay open.  Once you've matched up all pairs of
-oxyd stones in a level, you have completed the level.
+Das Ziel in dieser Landschaft ist es, wie in den meisten Landschaften in Enigma, die
+``Oxydsteine'' zu finden und mit der schwarzen Kugel zu @"offnen. Wenn Sie einen
+Oxydstein ber@"uhren, @"offnet er sich und zeigt eine Farbe. Wenn Sie nacheinander
+zwei Oxydsteine mit der gleichen Farbe @"offnen, bleiben sie beide offen.
+Sobald Sie alle Oxydsteine einer Landschaft in dieser Art ge@"offnet haben,
+haben Sie die Landschaft geschafft.
 
-The level contains about twenty rooms, organized into three separate
-areas.  In the first area, you will be encounter some of the basic
-blocks and floor types you will see in Enigma levels and solve a couple
-of simple puzzles.  The second area is more challenging and will
-introduce you to a useful technique in outthinking an active enemy.  The
-third and final area leads you to experiment with more advanced
-interactions between Enigma objects.  In this particular level, all of
-the oxyd stones can be found in a single room at the end of area 3.
+Diese Landschaft hat etwa zwanzig R@"aume, unterteilt in drei Gebiete. Im ersten
+Gebiete werden Sie den grundlegenden Steinen und B@"oden der Enigmalandschaften
+begegnen und einige einfache R@"atsel l@"osen. Der zweite Gebiet ist etwas
+anspruchsvoller und Sie werden eine n@"utzliche Technik kennen lernen, um aktive
+Feinde zu kontrollieren. Der dritte und letzte Gebiet wird Sie mit
+komplizierteren Interaktionen zwischen den Objekten in Enigma experimentieren
+lassen. In dieser speziellen Landschaft sind alle Oxydsteine in einem einzigen
+Raum am Ende des dritten Gebiets untergebracht.
 
 @subsection Gebiet 1
 
-You start in a room surrounded by immovable walls except for a gap to
-the right, some water near the bottom-left, and a closed gate near the
-top-left.
+Sie starten in einem Raum, der von unbeweglichen Wandsteinen umgeben ist. Eine
+kleine L@"ucken rechts, etwas Wasser unten links und eine geschlossene T@"ur oben
+rechts sind die einzigen Ausnahmen.
 
-Room 1: Go through the gap in the wall to the right.
+Raum 1: Gehen Sie durch die L@"ucke in der rechten Wand.
 
-Room 2: Simply avoid the blocks with pictures of skulls on them.
+Raum 2: Meiden Sie einfach die Steine mit den Totenk@"opfen.
 
-Room 3: Push the four wooden blocks into the water in the same row to
-create a bridge to the opposite bank.  Now hit the blackish blocks to the
-right.  Move the tan blocks out of the way (maybe to the left) and
-bridge to the right with the two wooden blocks.
+Raum 3: Schieben Sie vier Holzkisten, eine nach der anderen, in einer Reihe ins
+Wasser um eine Br@"ucke zu bauen. Schieben Sie jetzt die grauen Bl@"ocke ins Wasser.
+Nun schaffen Sie die braunen Bl@"ocke aus dem Weg (etwa nach links) und bauen mit
+zwei Holzkisten eine Br@"ucke nach rechts.
 
-Room 4: Go close to the top.  When it begins to chase you, lead it to
-the left and around the blocks in the center of the room.  Once the top
-is far enough away from the entrance to the next room, run through.
+Raum 4: Gehen Sie nahe an den Kreisel heran. Wenn er beginnt, Sie zu jagen,
+locken Sie ihn nach links, um die Steine in der Mitte herum. Sobald der Kreisel
+weit genug vom Durchgang in den n@"achsten Raum entfernt ist, rennen Sie hindurch.
 
-Room 5: The only dangers here are the skulls near the bottom of the
-room.  The first floor type is metal---this floor is similar to the
-``leaves'' floor that you have been traveling on so far.  The next floor
-type is ``red''---it is somewhat difficult to slow down or speed up on
-this floor.  The third floor type is ice---there is little friction on
-this floor.  The last floor type is space---there is no friction here;
-you can't change velocity (speed and direction) when you are on this
-type of floor.
+Raum 5: Die einzige Gefahr sind die Totenk@"opfe am unteren Ende des Raumes. Der
+erste Boden besteht aus Metall---dieser Boden ist @"ahnlich wie der ``Laubboden'',
+auf dem Sie bisher gegangen sind. Der n@"achste Boden ist ``Rot''---es ist nicht
+ganz einfach um darauf zu bremsen oder zu beschleunigen. Der dritte Boden
+besteht aus Eis---Sie haben darauf sehr wenig Reibung. Der letzten Boden ist
+Weltall---hier gibt es keine Reibung; Sie k@"onnen darauf weder ihre
+Geschwindigkeit noch ihre Laufrichtung @"andern.
 
-Room 6: Simply go over the slopes.  Then exit to the left by passing over
-the ``inverse'' floor---when you are on this type of floor and you push
-the mouse (or similar controller) in one direction, the ball speeds up
-in the opposite direction (if you are having trouble here, try turning
-your mouse around 180 degrees).
+Raum 6: Gehen Sie einfach @"uber diese schr@"agen Abh@"ange. Dann gehen Sie nach links
+heraus @"uber so genannten ``Invers''-boden---wenn Sie auf diesem Boden sind und
+die Maus (oder ein @"ahnliches Ger@"at) in eine Richtung bewegen, wird die Kugel
+sich in die entgegen gesetzte Richtung bewegen. (Wenn Sie hiermit Probleme
+haben, versuchen Sie ihre Maus um 180 Grad zu drehen).
 
-Room 7: Try to get the extra ball by putting the movable block on the
-lower trigger.  First hit it up one square and then left six
-squares.  Next hit it five squares down and two squares to the right.
-Finally hit it one square up and one square to the left. Take the extra
-ball and then put the block on the other trigger to open the gate in the
-left wall of the room.
+Raum 7: Versuchen Sie ein Extraleben zu bekommen, indem Sie den Klotz auf den
+unteren Schalter bewegen. Schieben Sie ihn zuerst ein Feld nach oben, dann sechs
+Felder nach links, f@"unf nach unten und zwei nach rechts. Schlussendlich noch ein
+Feld nach oben und eines nach links. Holen Sie dann das Extraleben und schieben
+Sie den Block auf den anderen Schalter um die T@"ur in den n@"achsten Raum zu @"offnen. 
 
-Room 8: Take the dynamite (you will have to go on the ice) and drop it
-in front of the yellow blocks to blow them up and get past.  The spade
-is unnecessary but you should still experiment with it.
+Raum 8: Nehmen Sie das Dynamit (dazu m@"ussen Sie auf das Eis gehen) und legen Sie
+es vor die gelblichen Bl@"ocke um sie zu sprengen und so einen Durchgang zu
+erhalten. Der Spaten hat hier keinen Zweck, aber sie sollten seine
+Funktionsweise trotzdem kennen.
 
-Room 9: Hit the lowest movable block to the left.  Now the boulders
-trying to go to the right are blocking your path.  Hit the rightmost
-movable block (to the left or to the right) to let the boulders
-past.  Take the magic wand (don't accidentally hit any boulders when
-the magic wand is in the front of your inventory) and hit the movable
-block above the water down.  Now go back to the right of the room, put
-the magic wand in the front of your inventory, and hit the top three
-boulders of the long column (try not to get run over by any
-boulders).  Hit the leftmost movable block to the left and go into the
-next room.
+Raum 9: Stossen Sie den untersten verschiebbaren Block nach links. Nun
+versperren die Bolder, die nach rechts dr@"angen, Ihren Weg. Stossen Sie den
+beweglichen Klotz ganz rechts (nach links oder nach rechts) um die Bolder
+vorbeigehen zu lassen. Nehmen Sie den Zauberstab (ber@"uhren Sie nicht
+unvorsichtigerweise einen Bolder, wenn der Stab an vorderster Stelle in Ihrem
+Inventar ist) und schieben Sie den beweglichen Block oben ins Wasser. Nun gehen
+Sie wieder nach rechts und nehmen den Zauberstab an die erste Stelle Ihren
+Inventars und ber@"uhren die ersten drei Bolder der langen Reihe (Passen Sei auf,
+um nicht von Boldern @"uberrannt zu werden). Schieben Sie den beweglichen Block
+ganz links nach links und gehen Sie in den n@"achsten Raum.
 
-Room 10: Hit the switch.  Now hit the two tan blocks up (one square
-each).  Hit the middle (from top to bottom) wooden block to the left and
-the wooden block that used to be right above it up into the water.  Hit
-the rest of the blocks into the water in the same column (try not to
-drown).  Now hit the window (the blue line) with high speed.  Take the
-ball and cross over to the bridge into the first room.  From there go
-through the open gate.
+Raum 10: Bet@"atigen Sie den Schalter. Nun schieben Sie die braunen Kl@"otze nach
+oben (je ein Feld). Schieben Sie die mittlere (von unten nach oben) Holzkiste
+nach links, und diejenige rechts dar@"uber ins Wasser. Schieben Sie die restlichen
+Holzkisten in der gleichen Reihe ins Wasser (Aufpassen, nicht ertrinken!). Nun
+schlagen Sie das Fenster (die blaue Linie) mit grosser Geschwindigkeit ein.
+Nehmen Sie das Extraleben und gehen Sie @"uber die Br@"ucke nach oben in den ersten
+Raum und dann durch die offene T@"ur nach oben.
 
 @subsection Gebiet 2
 
@@ -1160,53 +1161,53 @@ stones (the black stones).  You win!
 @table @strong
 
 @item I/6: Welcome to the Machine
-Die Nachricht in der oberen rechten Ecke enthält eine wichtige Nachricht.
+Die Nachricht in der oberen rechten Ecke enth@"alt eine wichtige Nachricht.
 
 @item I/8: Easy?
 Schieben Sie den ersten Shogunstein in die linke obere Ecke und den
-zweiten in das Feld @emph{über} dem am weitesten rechts gelegenen Punkt.
+zweiten in das Feld @emph{@"uber} dem am weitesten rechts gelegenen Punkt.
 
 @item I/31: Where Am I?
-Nutzen Sie die Holzsteine, falls Sie den Überblick verlieren. 
+Nutzen Sie die Holzsteine, falls Sie den @"Uberblick verlieren. 
 
 @item I/32: The Grim Reaper
 Haben Sie schonmal daran gedacht, Ihre Maus umzudrehen???
 
 @item I/43: Sokoban Revival
 Erinnern Sie sich? Die erste Lagerhalle im originalen Sokoban sah
-genauso aus... So schwierig kann es also nicht sein!
+genauso aus ... So schwierig kann es also nicht sein!
 
 @item I/65: Lasers 101
 Schieben Sie zwei der Spiegel an den oberen und einen an den unteren
-Rand. Wenn Sie die Spiegel geeignet verschieben und sorgfältig zielen,
-können Sie alle Oxyd-Steine mit dem Laser erreichen.
+Rand. Wenn Sie die Spiegel geeignet verschieben und sorgf@"altig zielen,
+k@"onnen Sie alle Oxyd-Steine mit dem Laser erreichen.
 
 @item I/72: Way to Go
-Einer der blauen Punkte verhält sich anders als die anderen. Nutzen
+Einer der blauen Punkte verh@"alt sich anders als die anderen. Nutzen
 Sie das aus!
 
 @item I/80: Meditation
 Richten Sie die Kugeln horizontal aus.
 
 @item II/15: Knock Knock!
-Klopfen Sie an den Wänden.
+Klopfen Sie an den W@"anden.
 
 @item II/27: Twelve doors
-Sie haben alle Türen geöffnet und kommen immer noch nicht durch? Sie
-scheinen etwas übersehen zu haben!
+Sie haben alle T@"uren ge@"offnet und kommen immer noch nicht durch? Sie
+scheinen etwas @"ubersehen zu haben!
 
 @item II/40: Space Meditation
-Kennen Sie das Dreikörperproblem?
+Kennen Sie das Dreik@"orperproblem?
 
 @item II/44: Pharaos' Tombs
-Lernen Sie aus ``Easy Shifting...''.
+Lernen Sie aus ``Easy Shifting ...''.
 
-@item II/56: Easy Shifting...
+@item II/56: Easy Shifting ...
 Lernen Sie aus ``Running Rings''.
 
 @item II/57: Floppy Swapping
-Erstens, suchen Sie zunächst die Diskette und den Zauberstab, Sie
-werden sie benötigen. Zweitens, tragen Sie diese zwei Objekte immer
+Erstens, suchen Sie zun@"achst die Diskette und den Zauberstab, Sie
+werden sie ben@"otigen. Zweitens, tragen Sie diese zwei Objekte immer
 bei sich. Drittens, einige Steine sehen identisch aus, sind es aber
 nicht.
 
@@ -1214,17 +1215,17 @@ nicht.
 Blockieren Sie den Laser.
 
 @item II/65: Laser Magic
-Es ist an der Zeit, einige Grundlagen über Objekt-Transformationen zu
+Es ist an der Zeit, einige Grundlagen @"uber Objekt-Transformationen zu
 lernen. Experimentieren Sie!
 
 @item II/69: Question of Speed
-Gibt es einen langSAMEN Lösungsweg???
+Gibt es einen langSAMEN L@"osungsweg???
 
 @item II/77: Push Your Way
-Suchen Sie zunächst den Zauberstab!
+Suchen Sie zun@"achst den Zauberstab!
 
 @item II/97: Tool Time
-Halten Sie gefährliche Werkzeuge vor Kindern versteckt.
+Halten Sie gef@"ahrliche Werkzeuge vor Kindern versteckt.
 
 @item II/99: Domain of Mysteries
 Seien Sie vorsichtig in der Leiter.
@@ -1233,12 +1234,12 @@ Seien Sie vorsichtig in der Leiter.
 Gibt es hier ein Echo?
 
 @item III/14: Use the PIN
-... oder greifen Sie zur Enzyklopädie Ihrer Wahl, falls Sie die Nummer
+... oder greifen Sie zur Enzyklop@"adie Ihrer Wahl, falls Sie die Nummer
 vergessen haben.
 
 @item III/16: Control Panel
-Die Nachricht im linken Raum erklärt, wie Sie die Steine auf der
-ersten Schalterreihe platzieren müssen. Danach folgen Sie einfach den
+Die Nachricht im linken Raum erkl@"art, wie Sie die Steine auf der
+ersten Schalterreihe platzieren m@"ussen. Danach folgen Sie einfach den
 im linken Raum angegebenen Farbcodes.
 
 @item III/22: Portable Laser
@@ -1246,7 +1247,7 @@ Beachten Sie das Gitter!
 
 @item III/27: Tricks and Traps
 Sie kommen nicht aus dem ersten Raum? Richten Sie Ihre Aufmerksamkeit
-zunächst auf den kleinen blinkenden Punkt. Sie finden den letzten
+zun@"achst auf den kleinen blinkenden Punkt. Sie finden den letzten
 Oxyd-Stein nicht? Aktivieren Sie drei große blinkende Punkte im ersten
 Bild und den kleinen im dritten.
 
@@ -1259,13 +1260,13 @@ rechts daneben -- dann weiter machen!
 
 @item III/40: Snow White
 Drei kleine Eskimos -- wandern auf dem Schneefeld -- suchten ihre drei
-Iglos -- auf die der weiße Schnee fällt.
+Iglos -- auf die der weiße Schnee f@"allt.
 
 @item III/43: The Ditch
-Man kann dieses Level nicht ohne gebrochenes Ego lösen.
+Man kann dieses Level nicht ohne gebrochenes Ego l@"osen.
 
 @item III/49: What's the Problem?
-Falsche Fährten überall... es ist eine Meditationslandschaft.
+Falsche F@"ahrten @"uberall ... es ist eine Meditationslandschaft.
 
 @item III/95: Jump and Run
 Da liegt eine Feder unter einem Spiegel.
@@ -1274,7 +1275,7 @@ Da liegt eine Feder unter einem Spiegel.
 Mit einem Hammer geht's leichter!
 
 @item IV/17: Flood Gates
-Das vorsichtige Überfluten von Gebieten kann hilfreich sein. Legen Sie
+Das vorsichtige @"Uberfluten von Gebieten kann hilfreich sein. Legen Sie
 auf jeden Fall den unteren Schalter im ersten Raum um. Die vielen
 Schalter unten links wirken alle gleich.
 
@@ -1282,7 +1283,7 @@ Schalter unten links wirken alle gleich.
 Blockieren Sie die Laser, wenn Sie nicht schnell genug sind. 
 
 @item IV/27: Robbery
-Dringen Sie durch brüchige Bodenplatten in die Bank ein. 
+Dringen Sie durch br@"uchige Bodenplatten in die Bank ein. 
 
 @item IV/34: Running Rings
 Lernen Sie aus ``Pharao's Tomb''.
@@ -1292,13 +1293,13 @@ Manche Menschen springen aus dem Fenster, wenn's brennt -- machen Sie
 es umgekehrt.
 
 @item IV/47: Just Moving Blocks?
-Zuviele Holzkisten? Wie könnten Sie eine entfernen?
+Zuviele Holzkisten? Wie k@"onnten Sie eine entfernen?
 
 @item IV/48: Artillery
-Die Kanonenkugel öffnet auch Oxydsteine.
+Die Kanonenkugel @"offnet auch Oxydsteine.
 
 @item IV/54: Fire Safety
-Der Bodenschalter nervt? Zerstören Sie ihn!
+Der Bodenschalter nervt? Zerst@"oren Sie ihn!
 
 @item IV/64: The Flagstone Reaper
 Er verarbeitet.
@@ -1310,11 +1311,11 @@ Finden Sie einen Weg, eine Kugel zu zerschmettern.
 Erinnert Sie WNSE an irgend etwas?
 
 @item V/16: Draggers
-Zugegeben, diese Landschaft ist bösartig. Ein Steinsamen ist in der
-Nähe der Startposition versteckt.
+Zugegeben, diese Landschaft ist b@"osartig. Ein Steinsamen ist in der
+N@"ahe der Startposition versteckt.
 
 @item V/24: Space Pirates
-Diese Landschaft ist knifflig. Zünden Sie eine Bombe in der Nähe der
+Diese Landschaft ist knifflig. Z@"unden Sie eine Bombe in der N@"ahe der
 Holzsteine.
 
 @item V/32: Walk the Plank
@@ -1328,7 +1329,7 @@ Untersuchen Sie zuerst Einhunderte.
 Schalten und rennen.
 
 @item V/58: Now What?
-Wenn Sie das Kreuz sehen, was sollte wohl als nächstes im Feld zu
+Wenn Sie das Kreuz sehen, was sollte wohl als n@"achstes im Feld zu
 sehen sein?
 
 @item V/78: Don't Be Greedy
@@ -1341,10 +1342,10 @@ Unter dem Oxyd-Stein liegt ein besserer Hinweis versteckt.
 Boden brennt schneller.
 
 @item VI/8: Orbitting
-Lassen Sie nichts die Wände berühren.
+Lassen Sie nichts die W@"ande ber@"uhren.
 
 @item VI/23: Prepare Your Defense
-Der Laser kann nicht nur Gegenstände ändern.
+Der Laser kann nicht nur Gegenst@"ande @"andern.
 
 @item esprit 43
 Opfern Sie dem Vulkan.
@@ -1356,7 +1357,7 @@ Spielen Sie es zeitig.
 Bomben Sie in der Ecke.
 
 @item Oxyd Magnum 99 (level 22): Letter Bomb
-Zerstören Sie die Bombensteine.
+Zerst@"oren Sie die Bombensteine.
 
 @item PerOxyd 49 (level 22): Hidden Treasure
 Stellen Sie sicher, dass Sie immer Zugang zu dem Raum mit dem
@@ -1382,7 +1383,7 @@ dem ``versteckten Schatz''.
 @table @strong
 
 @item Raoul Bourquin
-Landschaftsverwaltung und -design, zahlreiche unschätzbare Erweiterungen
+Landschaftsverwaltung und -design, zahlreiche unsch@"atzbare Erweiterungen
 
 @item Siegfried Fennig
 Landschaftsdesign, Grafik
@@ -1421,22 +1422,22 @@ Programmierung, Landschaftsdesign
 
 @table @strong
 @item Johannes Fortmann
-Mac OS X Portierung, Programmierunterstützung, Grafik
+Mac OS X Portierung, Programmierunterst@"utzung, Grafik
 
 @item Dustin Norlander
 Designer der Schriftart ``Dustismo''
 
 @item Jeremy Sawicki
-Entschlüsselung des Oxyd-Dateiformats, Oxydlib
+Entschl@"usselung des Oxyd-Dateiformats, Oxydlib
 
 @item Erich Schubert
 Debian/Ubuntu-Pakete
 
 @item Meinolf Schneider
-Ursprüngliche Spielidee--@emph{Vielen Dank}!
+Urspr@"ungliche Spielidee--@emph{Vielen Dank}!
 
 @item Andrew ``Necros'' Sega
-Menü-Musik (@emph{Pentagonal Dreams})
+Men@"u-Musik (@emph{Pentagonal Dreams})
 
 @c waiting for licence to add the sounds
 @c @item ``Cellar of Rats''
@@ -1451,7 +1452,7 @@ Viele Sokoban-Landschaften von
 @node Danksagungen, Verwendete Software, Spezieller Dank, Autoren und Danksagungen
 @section Danksagungen
 
-Für verschiedene kleinere Beiträge danken wir:
+F@"ur verschiedene kleinere Beitr@"age danken wir:
 
 @itemize @bullet
 
@@ -1459,7 +1460,7 @@ Für verschiedene kleinere Beiträge danken wir:
 Roberto Bardin (Landschaftsdesign)
 
 @item
-Alain Busser (Landschaftsdesign, französische Übersetzung und Handbuch)
+Alain Busser (Landschaftsdesign, franz@"osische @"Ubersetzung und Handbuch)
 
 @item
 Guy Busser (Landschaftsdesign)
@@ -1471,7 +1472,7 @@ Richi B@"utzer (Landschaftsdesign)
 capkoh (Landschaftsdesign)
 
 @item
-Serge Dremuk (Russische Übersetzung)
+Serge Dremuk (Russische @"Ubersetzung)
 
 @item
 Xerxes M. Dynatos (Landschaftsdesign)
@@ -1492,10 +1493,10 @@ Immanuel Herrmann (Landschaftsdesign)
 illmind (Landschaftsdesign)
 
 @item
-M@'at@'e Lehel Juh@'asz (Ungarische Übersetzung)
+M@'at@'e Lehel Juh@'asz (Ungarische @"Ubersetzung)
 
 @item
-Samuele Kaplun (Italienische Übersetzung)
+Samuele Kaplun (Italienische @"Ubersetzung)
 
 @item
 Jens-Christian Korth (Landschaftsdesign)
@@ -1513,19 +1514,19 @@ Edward Leuf (Feedback, Fehlerberichte)
 Ingo van Lil (Feedback, Fehlerberichte)
 
 @item
-Frank van der Loo (Niederländische Übersetzung)
+Frank van der Loo (Niederl@"andische @"Ubersetzung)
 
 @item
 Sidney Markowitz (Mac OS X Portierung)
 
 @item
-Samuel El?as Mart@'inez ?lvarez (Spanische Übersetzung)
+Samuel El?as Mart@'inez ?lvarez (Spanische @"Ubersetzung)
 
 @item
 moonpearl (Landschaftsdesign)
 
 @item
-Daniel Nylander (Schwedische Übersetzung)
+Daniel Nylander (Schwedische @"Ubersetzung)
 
 @item
 Peter Santo (Landschaftsdesign)
@@ -1558,7 +1559,7 @@ Michael Terry (.desktop file)
 Ray Wick (Landschaftsdesign)
 
 @item
-Joe Wreschnig (Manual page für Unix)
+Joe Wreschnig (Manual page f@"ur Unix)
 
 @end itemize
 
