@@ -408,7 +408,7 @@ I solved the level right after understanding it. -> pat 1
 I needed some time but is wasn't boring. -> pat 2
 
 @item
-Okay, some minutes. But the landscape is nice... -> pat 3
+Okay, some minutes. But the landscape is nice @enddots{} -> pat 3
 
 @item
 I know what to do, but it doesn't seem to end. -> pat 4
@@ -492,11 +492,11 @@ Cracks, floor-springs, wormholes etc. are all items, seeds can grow
 inside stones, laser is blocked by all items, killer-balls don't sink
 in water, ``Space Meditation''-kind collisions, holding down the
 mouse-button, invisibility lets you go through glass, jumping over
-lasers...
+lasers @enddots{}
 
 @item
 Spitter-stones, surprise-stones, levels like ``Enigris'' or ``Flood
-Gates''...
+Gates'' @enddots{}
 
 @end enumerate
 
@@ -1238,7 +1238,7 @@ every ten seconds to the object named ``fart''.
 
 These commands place a couple of oxyd stones in the level.  The
 @code{oxyd} command internally uses @code{set_stone("st-oxyd", x,y,
-...)}  to create the stones, but it additionally assigns sensible
+@dots{})}  to create the stones, but it additionally assigns sensible
 values to some of the oxyd stones' attributes (most notably the
 color).  The command on line 14 permutes the colors on the oxyd stones
 currently in the landscape.
@@ -1431,8 +1431,8 @@ Let us have a look on all supported subnodes of info with typically used attribu
   <@i{el}:@b{compatibility} @i{el}:@b{enigma}="@var{0.92}"/>
   <@i{el}:@b{modes} @i{el}:@b{easy}="@var{false}" @i{el}:@b{single}="@var{true}" @i{el}:@b{network}="@var{false}"/>
   <@i{el}:@b{comments}/>
-  <@i{el}:@b{update} @i{el}:@b{url}="@var{http://...}"/>
-  <@i{el}:@b{upgrade} @i{el}:@b{url}="@var{http://...}" @i{el}:@b{release}="@var{2}"/>
+  <@i{el}:@b{update} @i{el}:@b{url}="@var{http://@dots{}}"/>
+  <@i{el}:@b{upgrade} @i{el}:@b{url}="@var{http://@dots{}}" @i{el}:@b{release}="@var{2}"/>
   <@i{el}:@b{score} @i{el}:@b{easy}="@var{-}" @i{el}:@b{difficult}="@var{-}"/>
 </@i{el}:@b{info}>
 @end example
@@ -2427,7 +2427,7 @@ Lets have a look at the essential XML parts of a library:
       <@i{el}:@b{score} @i{el}:@b{easy}="@var{-}" @i{el}:@b{difficult}="@var{-}"/>
     </@i{el}:@b{info}>
     <@i{el}:@b{luamain}><![CDATA[
-    ...
+    @dots{}
     ]]></@i{el}:@b{luamain}>
     <@i{el}:@b{i18n}/>
   </@i{el}:@b{protected}>
@@ -3773,7 +3773,7 @@ Boolean value defining if already existing rubberbands to the actor should be cu
 
 @example
 set_stones("st-glass", 5, 5, @{name="MyRubberTarget1"@})
-...
+@dots{}
 -- When used, this it-rubberband will connect the actor with the glassstone.
 set_item("it-rubberband", 3, 5, @{target="MyRubberTarget1"@})
 @end example
@@ -3858,7 +3858,7 @@ as usual
 @table @code
 @item noshogun
 deactivate
-@item shogun...
+@item shogun @enddots{}
 used to activate or deactivate @code{it-shogun}
 @end table
 
@@ -4580,7 +4580,7 @@ These stones only let black respectively white marbles pass.
 
 @code{st-black} and @code{st-white} come in four flavors each:
 @code{st-black1} and @code{st-white1} are not transparent at all,
-@code{...2} has a diagonal bar, @code{...3} a cross and @code{...4}
+@code{@dots{}2} has a diagonal bar, @code{@dots{}3} a cross and @code{@dots{}4}
 only consists of a black or white frame.
 
 See @ref{st-grate} for further stones which only special actors may
@@ -6661,7 +6661,7 @@ set the follow-mode to smooth (@ref{display.SetFollowMode}):
 if enigma.CreatingPreview then
   display.SetFollowMode(display.FOLLOW_SMOOTH)
 else
-  display.SetFollowMode(...)
+  display.SetFollowMode(@dots{})
 end
 @end example
 @end defvar
@@ -6902,7 +6902,7 @@ map corner is [0,0].
 Size of generated checkerboard.
 @item attribs
 Table of attribute names and corresponding values:
-@code{@{attrib1=value1, attrib2=value2, ...@}}. These attributes,
+@code{@{attrib1=value1, attrib2=value2, @dots{}@}}. These attributes,
 together with default attributes, are passed to each tile of the
 generated checkerboard.
 @end table
@@ -6943,7 +6943,7 @@ Increment looks like this: @{1,0@} or
 Number of steps to proceed.
 @item Attribs
 Table of attribute names and corresponding values:
-@{attrib1=value1, attrib2=value2, ...@}. It represents the
+@{attrib1=value1, attrib2=value2, @dots{}@}. It represents the
 attributes to be passed to each created floor. You can omit this
 argument.
 @end table
@@ -6982,7 +6982,7 @@ dy is increment per step in y-axis.
 Number of steps to proceed.
 @item Attribs
 Table of attribute names and corresponding values:
-@{attrib1=value1, attrib2=value2, ...@}. It represents the
+@{attrib1=value1, attrib2=value2, @dots{}@}. It represents the
 attributes to be passed to each created item. You may omit this
 argument.
 @end table
@@ -7020,7 +7020,7 @@ dy is increment per step in y-axis.
 Total number of stones to add.
 @item Attribs
 Table of attribute names and corresponding values:
-@{attrib1=value1, attrib2=value2, ...@}. It represents the
+@{attrib1=value1, attrib2=value2, @dots{}@}. It represents the
 attributes to be passed to each created stone. You may omit this
 argument.
 @end table
@@ -7096,7 +7096,7 @@ with value @var{objname}.  It returns a reference to the object or
 
 @example
 set_stone("st-wood", 7, 11, @{name="woodie"@})
-...
+@dots{}
 local Woodie = enigma.GetNamedObject("woodie")
 @end example
 
@@ -7113,7 +7113,7 @@ Description: This function returns the kind of an object.
 
 @example
 set_stone("st-wood", 7, 11)
-...
+@dots{}
 local mystone=enigma.GetStone(7,11)
 local mystonetype = enigma.GetKind(mystone)
 
@@ -7237,7 +7237,7 @@ Value that holds the object, whose attributes are
 about to change.
 @item Attribs
 Table of attribute names and corresponding values:
-@{attrib1=value1, attrib2=value2, ...@}
+@{attrib1=value1, attrib2=value2, @dots{}@}
 @end table
 
 @end defun
@@ -7246,7 +7246,7 @@ Table of attribute names and corresponding values:
 
 @example
 local ls = set_stone("st-laser", 1, 4, @{on=FALSE, dir=NORTH@})
-... (some lua code) ...
+@dots{} (some lua code) @dots{}
 set_attribs(ls, @{on=TRUE, dir=WEST@})
 @end example
 
@@ -7275,7 +7275,7 @@ common to have for example all doors vertical or all bolders facing
 west.
 @item Attribs
 Table of keys and corresponding values:
-@{attrib1=value1, attrib2=value2, ...@}
+@{attrib1=value1, attrib2=value2, @dots{}@}
 @end table
 
 @end defun
@@ -7362,7 +7362,7 @@ items of selected kind.
 Note: Please note that in contrast to function fill_floor, this function
 doesn't have any default attributes and no parametter may be omitted.
 
-(strange, no one ever used this function in their map ...)
+(strange, no one ever used this function in their map @enddots{})
 @table @var
 @item Itemname
 Name of item object.
@@ -7430,7 +7430,7 @@ Name of internal enigma object. It can be name of
 any floor, stone or item.
 @item Attribs
 Table of attribute names and corresponding values:
-@{attrib1=value1, attrib2=value2, ...@}
+@{attrib1=value1, attrib2=value2, @dots{}@}
 @end table
 
 @end defun
@@ -7470,13 +7470,13 @@ Some specific messages expect some additional data (e.g. message
 
 @example
 set_stone("st-laser-s", 2, 2, @{name="laser3", on=FALSE@})
-...
+@dots{}
 SendMessage("laser3", "onoff")
 @end example
 
 @example
 set_stone("st-bolder", 7, 11, @{name="bolder1", direction=SOUTH@})
-...
+@dots{}
 SendMessage("bolder1", "direction", WEST)
 @end example
 
@@ -7501,7 +7501,7 @@ Location where you want the floor to be placed. Note
 that level coordinates begin with zero (see CreateWorld).
 @item Attribs
 Table of attribute names and corresponding values:
-@{attrib1=value1, attrib2=value2, ...@}
+@{attrib1=value1, attrib2=value2, @dots{}@}
 @end table
 
 @end defun
@@ -7544,7 +7544,7 @@ Location where you want the item to be placed. Note
 that level coordinates begin with zero (see CreateWorld).
 @item Attribs
 Table of attribute names and corresponding values:
-@{attrib1=value1, attrib2=value2, ...@}
+@{attrib1=value1, attrib2=value2, @dots{}@}
 @end table
 
 @end defun
@@ -7576,7 +7576,7 @@ Location where you want the stone to be placed. Note
 that level coordinates begin with zero (see CreateWorld).
 @item Attribs
 Table of attribute names and corresponding values:
-@{attrib1=value1, attrib2=value2, ...@}
+@{attrib1=value1, attrib2=value2, @dots{}@}
 @end table
 
 @end defun
@@ -7603,12 +7603,12 @@ positions.
 Enigma internal stone name.
 @item Positions
 Table of stone locations. Its format is like this:
-@{loc1, loc2, ...@}, where each location is
+@{loc1, loc2, @dots{}@}, where each location is
 @{x,y@}. Together it looks like this: @{@{x1,y1@}, @{x2,y2@},
-...@}.
+@dots{}@}.
 @item Attribs
 Table of attribute names and corresponding values:
-@{attrib1=value1, attrib2=value2, ...@}. Those attributes will
+@{attrib1=value1, attrib2=value2, @dots{}@}. Those attributes will
 be passed to created stones together with default attributes. You may omit this
 attribute.
 @end table
@@ -7620,7 +7620,7 @@ attribute.
 @example
 set_stones("st-glass", @{@{1,6@},@{1,12@},@{34,1@},@{34,2@},@{35,2@},@{36,1@},@{36,2@}@})
 set_stones(bordertile, @{@{34, 1@}, @{34, 5@}, @{34, 7@}, @{34, 11@}@})
-...
+@dots{}
 set_stones("st-invisible", @{@{7,9@}@}) -- these two lines
 set_stone("st-invisible", 7, 9)     -- do the same
 @end example

@@ -151,7 +151,7 @@ d'installation diff@`ere selon la plate-forme:
 
 @table @strong
 @item Windows
-Le jeu est fourni sous la forme d'un ex@'ecutable, qu'il suffit ... d'@'ex@'ecuter !
+Le jeu est fourni sous la forme d'un ex@'ecutable, qu'il suffit @dots{} d'@'ex@'ecuter !
 
 @item Unix
 Il existe des ex@'ecutables binaires pour SuSe, Debian et RedHat; pour les autres, l'usage est de
@@ -206,13 +206,13 @@ demander de l'aide sur la liste (@email{enigma-devel@@nongnu.org}).
 @c 'abandonware'). Par contre les autres fichiers sont toujours commerciaux et il n'est autoris@'e de les
 @c utiliser que si on poss@`ede une copie acquise l@'egalement. Pour des questions de droit d'auteur, il n'est
 @c pas question d'inclure aucun des fichiers mentionn@'es ci-dessus, dans Enigma; inutile de le demander
-@c donc...
+@c donc @enddots{}
 
 @node Distribuer Enigma,  , Installation, Introduction
 @section Distribuer Enigma
 
 Enigma est couvert par la licence GPL (Gnu Public licence) de GNU (ce qui signifie que le nom de
-son site Internet est tr@`es g@"delien...); le texte de cette licence est fourni avec la distribution Enigma:
+son site Internet est tr@`es g@"delien @enddots{}); le texte de cette licence est fourni avec la distribution Enigma:
 Si tout ce que vous voulez faire d'Enigma est y jouer (apr@`es tout il est fait pour @,{c}a ! ): Vous ne
 voudrez probablement pas lire ladite licence; dans ce cas elle stipule que vous avez le droit de jouer
 @`a Enigma, d'y faire jouer vos amis, de le leur distribuer, de le promouvoir !
@@ -235,7 +235,7 @@ commercial.
 @section Comment commencer
 
 Au lancement du jeu, appara@^it le menu principal @`a partir duquel on peut commencer @`a jouer (plut@^ot
-facile), quitter le jeu (ceci peut n@'ecessiter une d@'esintoxication...) ou r@'egler des options de jeu. Les
+facile), quitter le jeu (ceci peut n@'ecessiter une d@'esintoxication @enddots{}) ou r@'egler des options de jeu. Les
 paragraphes suivants expliquent une partie des r@'eglages; le reste se trouve normalement @`a l'usage.
 
 @menu
@@ -376,12 +376,12 @@ le point d'interrogation montre que l'oxyde est ouverte; il s'agit d'une oxyde b
 
 Si on touche une oxyde d'une autre couleur, la pr@'ecedente se referme. Si on touche une oxyde de la
 m@^eme couleur, les deux restent d@'efinitivement ouvertes (du moins jusqu'@`a ce qu'une pierre p@'eteuse
-fasse son naus@'eabond office !...); ci-dessus les deux oxydes vertes sont d@'efinitivement ouvertes.
+fasse son naus@'eabond office ! @enddots{}); ci-dessus les deux oxydes vertes sont d@'efinitivement ouvertes.
 Si on ne peut pas toucher directement une oxyde, on peut utiliser le rayon d'un laser pour ce faire,
 mais les lasers d@'etruisent les boules noires !
 
 @emph{Au fait: Si vous n'avez pas encore essay@'e de jouer @`a quelques paysages d'Enigma, le moment est
-appropri@'e...!}
+appropri@'e @enddots{}!}
 
 Pour ramasser un outil, il suffit de rouler dessus avec la boule noire (elle est tr@`es l@'eg@`ere et d'ailleurs
 fragile); en bas de l'@'ecran de jeu on voit l'inventaire des outils actuellement en possession de la
@@ -432,7 +432,7 @@ niveaux 'meditation'. Ils comprennent de petites boules blanches, @`a caser dans
 @image{images/intro-meditation,,3cm}
 
 d@`es que chaque boule blanche s'est immobilis@'ee dans son propre creux, le niveau est fini. Le nom
-de m@'editation vient de ce que souvent, pour les r@'eussir, ces niveaux requi@`erent calme et lenteur...
+de m@'editation vient de ce que souvent, pour les r@'eussir, ces niveaux requi@`erent calme et lenteur @enddots{}
 
 @node Contr@^oles,  , R@`egles du jeu, Le jeu
 @section Contr@^oles
@@ -569,7 +569,7 @@ Il y a deux sortes de t@^etes de mort: Celle qui est repr@'esent@'ee ci-dessus, 
 boules noires porteuses de lunettes peuvent voir. Au moindre contact, elles tuent les boules.
 Le chevalier noir est @'egalement mortel pour les boules d@'esarm@'ees.
 Il y a des tueurs mobiles: Les 'tops' (toupies) et les 'rotors' (croix tournantes); ils sont attir@'es
-par leur victime, laquelle a de pr@'ef@'erence une forme sph@'erique et une couleur noire...
+par leur victime, laquelle a de pr@'ef@'erence une forme sph@'erique et une couleur noire @enddots{}
 
 @node Pierres d'@'echange, Miroirs, Pierres mortelles, Pierres
 @subsection Pierres d'@'echange
@@ -599,7 +599,7 @@ le rayon est divis@'e en deux, une partie qui est r@'efl@'echie et une partie qu
 (au milieu de la photo). Ils peuvent @^etre soit mobiles (en les poussant fort avec la boule noire) soit
 immobiles. Mais dans les deux cas on peut les orienter en les touchant avec la boule.
 La manipulation des prismes et miroirs est dangereuse pour les boules noires si elle est men@'ee pr@`es
-d'un laser allum@'e...
+d'un laser allum@'e @enddots{}
 
 @node Pierres magiques, Pierres Shogun, Miroirs, Pierres
 @subsection Pierres magiques
@@ -823,7 +823,7 @@ D@'ej@`a entendu parler du probl@`eme des trois corps?
 @item II/44: Pharaos' Tombs
 Une astuce pour ce niveau se trouve dans ``Easy shifting'.
 
-@item II/56: Easy Shifting...
+@item II/56: Easy Shifting @enddots{}
 Une astuce pour ce niveau se trouve dans ``Running Rings''.
 
 @item II/57: Floppy Swapping
