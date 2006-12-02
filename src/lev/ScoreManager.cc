@@ -79,7 +79,7 @@ namespace enigma { namespace lev {
         return theSingleton;
     }
 
-    ScoreManager::ScoreManager() : hasValidUserId (false) {
+    ScoreManager::ScoreManager() : hasValidUserId (false), isModified (false) {
         sec("");
         ratingMgr = lev::RatingManager::instance();
         std::string scorePath;
@@ -188,6 +188,7 @@ namespace enigma { namespace lev {
                         }
                     }
                 } else if (isTemplate && userId.empty()) {
+                    isModified = true;
                     if (hasValidStateUserId) {
                         userId = stateUserId;
                         setProperty("UserId", userId);
@@ -225,8 +226,10 @@ namespace enigma { namespace lev {
                         }
                     }
                     if (hasValidUserId)
-                        if (upgradeLegacy())
+                        if (upgradeLegacy()) {
+                            isModified = true;
                             didUpgrade = true;
+                        }
                 }
                 
             }
@@ -277,7 +280,7 @@ namespace enigma { namespace lev {
         bool result = true;
         std::string errMessage;
         
-        if (doc == NULL)
+        if (doc == NULL || !isModified)
             return true;
 
         int count = getInt("Count");
@@ -457,6 +460,7 @@ namespace enigma { namespace lev {
             const XMLCh * attr = curLevel->getAttribute(Utf8ToXML((difficulty == DIFFICULTY_HARD) ? "diff1" : "easy1").x_str());
             int curScore1 = (XMLString::stringLen(attr) > 0) ? XMLString::parseInt(attr) : -1;
             if (curScore1 == SCORE_UNSOLVED) {
+                isModified = true;
                 curLevel->setAttribute(Utf8ToXML((difficulty == DIFFICULTY_HARD) ? "diff1" : "easy1").x_str(),
                         Utf8ToXML(ecl::strf("%d",SCORE_SOLVED)).x_str());
                 curLevel->setAttribute(Utf8ToXML((difficulty == DIFFICULTY_HARD) ? "diff1rel" : "easy1rel").x_str(),
@@ -533,12 +537,14 @@ namespace enigma { namespace lev {
             }
         }
         if (score1mod) {
+            isModified = true;
             level->setAttribute(Utf8ToXML((difficulty == DIFFICULTY_HARD) ? "diff1" : "easy1").x_str(),
                     Utf8ToXML(ecl::strf("%d",score1)).x_str());
             level->setAttribute(Utf8ToXML((difficulty == DIFFICULTY_HARD) ? "diff1rel" : "easy1rel").x_str(),
                     Utf8ToXML(ecl::strf("%.2f",rel1)).x_str());
         }
         if (score2mod) {
+            isModified = true;
             level->setAttribute(Utf8ToXML((difficulty == DIFFICULTY_HARD) ? "diff2" : "easy2").x_str(),
                     Utf8ToXML(ecl::strf("%d",score2)).x_str());
             level->setAttribute(Utf8ToXML((difficulty == DIFFICULTY_HARD) ? "diff2rel" : "easy2rel").x_str(),
@@ -574,6 +580,7 @@ namespace enigma { namespace lev {
             const XMLCh *attr = level->getAttribute(Utf8ToXML((difficulty == DIFFICULTY_HARD) ? "diff1" : "easy1").x_str());
             int score = (XMLString::stringLen(attr) > 0) ? XMLString::parseInt(attr) : -1;
             if (score != SCORE_UNSOLVED) {
+                isModified = true;
                 level->setAttribute(Utf8ToXML((difficulty == DIFFICULTY_HARD) ? "diff1" : "easy1").x_str(),
                     Utf8ToXML(ecl::strf("%d",SCORE_UNSOLVED)).x_str());
             }
@@ -601,6 +608,7 @@ namespace enigma { namespace lev {
             // check if score is created - it may be NULL if level is not released
             if (level != NULL && XMLString::parseInt(level->getAttribute(
                     Utf8ToXML("version").x_str())) == levelProxy->getScoreVersion()) {
+                isModified = true;
                 level->setAttribute(Utf8ToXML((difficulty == DIFFICULTY_HARD) ? "diff1" : "easy1").x_str(),
                         Utf8ToXML(ecl::strf("%d",SCORE_SOLVED)).x_str());
             }
@@ -652,15 +660,18 @@ namespace enigma { namespace lev {
                     Utf8ToXML("version").x_str())) == levelProxy->getScoreVersion()) {
                 const XMLCh *attr = level->getAttribute(Utf8ToXML("rating").x_str());
                 int oldRating = (XMLString::stringLen(attr) > 0) ? XMLString::parseInt(attr) : -1;
-                if (oldRating != -1) 
+                if (oldRating != -1) {
+                    isModified = true;
                     level->setAttribute(Utf8ToXML("rating").x_str(),
                         Utf8ToXML(ecl::strf("%d",rating)).x_str());
+                }
                 return;
             } else
                 // no level score entry for this score version exists - -1 is default
                 return;
         } else if (rating != getRating(levelProxy)) {
             DOMElement * level = getCreateLevel(levelProxy);
+            isModified = true;
             level->setAttribute(Utf8ToXML("rating").x_str(),
                     Utf8ToXML(ecl::strf("%d",rating)).x_str());
             return;
@@ -698,6 +709,7 @@ namespace enigma { namespace lev {
         if (level == NULL || XMLString::parseInt(level->getAttribute(
                 Utf8ToXML("version").x_str())) != levelProxy->getScoreVersion()) {
             // no level score entry for this scoreversion exists - create it
+            isModified = true;
             DOMElement * newLevel = doc->createElement (Utf8ToXML("level").x_str());
             newLevel->setAttribute(Utf8ToXML("id").x_str(), Utf8ToXML(levelProxy->getId()).x_str());
             newLevel->setAttribute(Utf8ToXML("version").x_str(),  Utf8ToXML(ecl::strf("%d",levelProxy->getScoreVersion())).x_str());

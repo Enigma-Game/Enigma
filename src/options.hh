@@ -58,9 +58,6 @@ namespace enigma_options
 
 /* -------------------- Variables -------------------- */
 
-    /*! True if any LevelStatus differs from last saved state. */
-    extern bool LevelStatusChanged;
-
     /*! An option was changed that will not take effect until Enigma is
       restarted. */
 //    extern bool MustRestart;

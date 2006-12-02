@@ -162,8 +162,6 @@ std::string options::GetString (const char *name)
 static void UpdateLevelStatus(const std::string &levelname,
                               const options::LevelStatus &stat)
 {
-    options::LevelStatusChanged = true;
-
     lua_State *L = lua::GlobalState();
 
     int oldtop = lua_gettop(L);

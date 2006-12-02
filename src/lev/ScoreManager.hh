@@ -117,6 +117,7 @@ namespace enigma { namespace lev {
         std::string userId;
         bool hasValidUserId;
         bool didUpgrade;
+        bool isModified;
         
         void finishUserId(unsigned id3);
         std::string sec(std::string target);

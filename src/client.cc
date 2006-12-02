@@ -784,10 +784,9 @@ void Client::level_finished()
     if (!m_cheater) {
         scm->updateUserScore(curProxy, difficulty, level_time);
 
-        if (options::LevelStatusChanged) {
-            // save score (just in case Enigma crashes when loading next level)
-            lev::ScoreManager::instance()->save();
-        }
+        // save score (just in case Enigma crashes when loading next level)
+        lev::ScoreManager::instance()->save();
+
     }
 
     if (timehunt_restart)
