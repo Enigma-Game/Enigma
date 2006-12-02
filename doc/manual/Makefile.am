@@ -3,7 +3,7 @@
 SUBDIRS = images
 
 TEXI = $(wildcard $(srcdir)/enigma*.texi)
-HTML = $(addprefix $(builddir), $(addsuffix .html, $(basename $(notdir $(TEXI)))))
+HTML = $(addprefix $(if $(builddir),$(builddir)/,), $(addsuffix .html, $(basename $(notdir $(TEXI)))))
 
 
 htmldir=@datadir@/doc/enigma
