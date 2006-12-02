@@ -6,33 +6,6 @@ noinst_LIBRARIES = liblua.a
 
 EXTRA_DIST = README
 
-if LINUX
-
-CFLAGSDEFAULT = @CFLAGS@\
-	-DLUA_USE_LINUX
-
-else
-
-CFLAGSDEFAULT= @CFLAGS@ 
-
-endif
-
-
-if CXXLUA
-
-## Compile as c++
-CXXLUAFLAGS = -x c++ @CXXFLAGS@
-
-else
-
-CXXLUAFLAGS=
-
-endif
-
-
-CFLAGS = $(CFLAGSDEFAULT) $(CXXLUAFLAGS)
-
-
 liblua_a_SOURCES = \
  lapi.c lauxlib.c lbaselib.c lcode.c ldblib.c ldebug.c \
  ldo.c ldump.c lfunc.c lgc.c linit.c liolib.c llex.c \
@@ -44,5 +17,12 @@ liblua_a_SOURCES = \
  luaconf.h lualib.h lundump.h lvm.h lzio.h tolua++.h \
  tolua_event.c tolua_event.h tolua_is.c tolua_map.c tolua_push.c \
  tolua_to.c
+liblua_a_CFLAGS = $(AM_CFLAGS)
 
+if LINUX
+liblua_a_CFLAGS += -DLUA_USE_LINUX
+endif
 
+if CXXLUA
+liblua_a_CFLAGS += -x c++ $(AM_CXXFLAGS) $(CXXFLAGS)
+endif

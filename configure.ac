@@ -7,6 +7,7 @@ AC_CONFIG_SRCDIR([src/enigma.cc])
 
 AM_INIT_AUTOMAKE(AC_PACKAGE_TARNAME, AC_PACKAGE_VERSION, -)
 AC_CONFIG_HEADERS([src/config.h])
+AC_GNU_SOURCE
 
 ALL_LINGUAS="de fr nl it es sv ru hu"
 AC_SUBST(ALL_LINGUAS)
@@ -39,6 +40,7 @@ dnl Check for programs
 dnl ======================================================================
 CXXTMPFLAGS="$CXXFLAGS"
 AC_PROG_CC
+AM_PROG_CC_C_O
 AC_PROG_CXX
 AC_PROG_CPP
 AC_PROG_RANLIB
