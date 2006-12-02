@@ -345,7 +345,7 @@ Mit einem Linksklick können Sie eine Gruppe und dann ein Levelpaket
 auswählen. 
 
 Für eine weitere Beschreibung der Levelpakete lesen Sie bitte
-@ref{Eigene Levelpakete}.
+@ref{User-Levelpakete}.
 
 @node Einstellungen, Der Level-Inspektor, Das Levelpaket-Menü, Ganz zu Anfang
 @subsection Einstellungen
@@ -882,78 +882,94 @@ das danach den Postweg versperrt!
 @chapter Fortgeschrittene Themen
 
 @menu
-* Eigene Levelpakete::          History, Search Results and Auto
+* User-Levelpakete::            History, Search Results and Auto
 * Backups::                     What to backup for security
 * Ergebnisse hochladen::        Let the world know your success
 * Enigma updaten::              Keeping scores and levels on an update
 @end menu
 
-@node Eigene Levelpakete, Backups, Fortgeschrittene Themen, Fortgeschrittene Themen
-@section Eigene Levelpakete
+@node User-Levelpakete, Backups, Fortgeschrittene Themen, Fortgeschrittene Themen
+@section User-Levelpakete
 
-@ref{Das Levelpaket-Menü} provides some additional features. The
-@samp{User} group has three level packs that are initially empty:
-@samp{Auto Folder}, @samp{History} and @samp{Search Result}.
+@ref{Das Levelpaket-Menü} erlaubt einige weitere Möglichkeiten. Die
+@samp{User}-Gruppe enthält drei anfangs leere Levelpakete:
+@samp{Auto Folder}, @samp{History} und @samp{Search Result}.
 
-By clicking on the @samp{Search} button in the level pack menu you can search in
-the pool of levels. Just move the mouse to the text field and enter the string to
-search. You may search within author, title and file name. The search is case 
-insensitve. For example, you can search for the string ``jump''. The resulting levels will be 
-provided as a level pack called ``Search Results''.
+Durch einen Klick auf den @samp{Suchen}-Knopf im Levelpaket-Menü
+können Sie unter allen Landschaften nach Stichwörtern suchen. Bewegen
+Sie einfach die Maus auf das erscheinende Textfeld und geben Sie das
+Stichwort ein, es kann sich auf den Autor, Titel und auch den
+Dateinamen beziehen. Groß- und Kleinschreibung wird dabei nicht
+beachtet. Wenn Sie beispielsweise nach ``jump'' suchen, werden Ihnen
+daraufhin im Levelpaket @samp{Search Results} alle Landschaften mit
+diesem Stichwort angezeigt, beispielsweise ``Jump!'', ``No Jumping
+Necessary'' und ``Jump Pads''. 
 
-The level pack @samp{History} is updated automatically with every level you play.
-This may be useful if you look for a level you played last week but do not know
-the keywords to search for.
+Das Levelpaket @samp{History} enthält Querverweise auf die von Ihnen
+zuletzt gespielten Landschaft. Es kann von Vorteil sein, wenn Sie nach
+einer Landschaft suchen, zu der Ihnen aber kein Suchwort einfällt.
 
-The @samp{Auto Folder} is a level pack that you can use to add new
-levels, for example levels you download from the Internet or write yourself. The folder in which you should
-store the levels is @samp{levels/auto} on the @samp{User Path} as shown in
-@ref{Einstellungen}. Levels in this folder are automatically found and
-loaded by Enigma when it starts.
+@samp{Auto Folder} ist ein Levelpaket, dem Sie sehr einfach neue
+Landschaften hinzufügen können, beispielsweise Landschaften, die Sie
+aus dem Internet heruntergeladen oder selber erstellt haben. Kopieren
+Sie dafür die Leveldatei in das Unterverzeichnis @samp{levels/auto} im
+@samp{Userpfad}-Verzeichnis, wie es unter @ref{Einstellungen}
+angezeigt wird. Dieses Verzeichnis wird bei jedem Neustart von
+Enigma durchsucht und die Landschaften dem Levelpaket @samp{Auto
+Folder} hinzugefügt.
 
-Enigma provides many more useful features beyond the scope of this manual.
-Please read the reference manual for more details.
+Enigma bietet noch eine Reihe weiterer nützlicher Features, die über
+den Rahmen dieses Handbuchs hinausgehen. Sie können aber alle Details
+hierzu im Referenz-Handbuch nachlesen.
 
-@node Backups, Ergebnisse hochladen, Eigene Levelpakete, Fortgeschrittene Themen
+@node Backups, Ergebnisse hochladen, User-Levelpakete, Fortgeschrittene Themen
 @section Backups
 
-If you are afraid of losing all your scores due to a hard drive
-failure, or if you want to transfer your scores from one computer to
-another, it is helpful to know how to back up Enigma's status
-information.  To do that, first look up @samp{User Path} from Enigma's
-@ref{Einstellungen} menu.  You can simply back up that folder---the
-important files are @samp{enigma.score} and @samp{state.xml}.
+Wenn Sie befürchten, Ihre Spielergebnisse durch einen
+Festplatten-Fehler zu verlieren, oder einfach nur auf einen anderen
+Rechner übertragen möchten, sollten Sie wissen, wie man ein Backup von
+Enigma macht: Im @ref{Einstellungen}-Menü finden Sie unter dem Eintrag
+@samp{Userpfad} das aktuelle Verzeichnis, in dem auch Ihre
+Spielergebnisse abgespeichert werden. Sie können das gesamte
+Verzeichnis sichern, oder nur die für die Ergebnisse wichtigen Dateien
+@samp{enigma.score} und @samp{state.xml}.
 
 @node Ergebnisse hochladen, Enigma updaten, Backups, Fortgeschrittene Themen
 @section Ergebnisse hochladen
 
-For registration of your scores you need to send us the @samp{enigma.score}
-file located at the folder @samp{User Path}. Please look at the project
-homepage for more detailed instructions.
+Um Ihre Spielergebnisse registrieren zu lassen, schicken Sie uns bitte
+die Datei @samp{enigma.score} aus dem
+@samp{Userpfad}-Verzeichnis. Details finden Sie auf unserer
+Projekthomepage.
 
-To automatically download the updated world record score lists you just need to
-enable the option @samp{Ratings Update}.
+Um automatisch die aktuellste Weltrekordliste herunterzuladen,
+aktivieren Sie einfach die Option @samp{Update Bewertungen} im
+@ref{Einstellungen}-Menü.
 
 @node Enigma updaten, , Ergebnisse hochladen, Fortgeschrittene Themen
 @section Enigma updaten
 
-If you did not customize your old Enigma version simply deinstall the old
-version and install the new one. That is all you have to do as your scores will
-be updated automatically.
+Sofern Sie Ihre alte Enigma-Version nicht persönlich angepasst haben,
+deinstallieren Sie die alte Version einfach und installieren danach
+die neue. Ihre Ergebnisse werden dabei automatisch übernommen. 
 
-Just in case you added levels to the Enigma installation directories you have
-to backup them prior deinstallation. After that you can safely deinstall the
-old version and install the new one.
+Falls Sie dagegen selber Landschaften den Installationsverzeichnissen
+von Enigma hinzugefügt hatten, sollten Sie sie vor der Deinstallation
+sichern. Danach können Sie sicher die alte Version deinstallieren und
+die neue installieren.
 
 @c TODO: too technical (HOMEless, environment variable)@item
 @c TODO: split in two sentences
-The old score file @samp{~/.enigmarc2} for systems with a @samp{HOME} environment
-variable or @samp{.../Application Data/enigmarc.lua2} for HOMEless Windows systems
-is converted automatically to the new score format. You can remove the old score
-after the first successful run of Enigma 1.00.
+Die alte Ergebnisse werden beim ersten Start von Enigma automatisch
+übernommen (@samp{~/.enigmarc2} auf Systemen mit
+@samp{HOME}-Umgebungsvariable bzw. @samp{.../Application
+Data/enigmarc.lua2} auf einigen Windows-Systemen). Sie können die
+alten Dateien folglich nach dem ersten erfolgreichen Starten von
+Enigma 1.00 löschen. 
 
-If you want to read levels that you saved from the old installation please
-read the reference manual.
+Falls Sie Landschaften aus Ihrer alten Version nach Enigma 1.00
+übernehmen möchten, konsultieren Sie bitte das Referenz-Handbuch, da
+sich das Levelformat verändert hat.
 
 @node Tipps und Tricks, Autoren und Danksagungen, Fortgeschrittene Themen, Top
 @chapter Tipps und Tricks
