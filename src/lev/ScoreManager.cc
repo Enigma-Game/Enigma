@@ -91,11 +91,20 @@ namespace enigma { namespace lev {
         if (stateUserId.length() == 16 && 
                 stateUserId.find_first_not_of("01234567890ABCDEF") == std::string::npos) {
             unsigned i1, i2, i3, i4; 
-            sscanf(stateUserId.c_str(),"%4lX%4lX%4lX%4lX", &i1, &i2, &i3, &i4);
+            std::istringstream s1(stateUserId.substr(0, 4));
+            std::istringstream s2(stateUserId.substr(4, 4));
+            std::istringstream s3(stateUserId.substr(8, 4));
+            std::istringstream s4(stateUserId.substr(12, 4));
+            s1 >> std::hex >> i1;
+            s2 >> std::hex >> i2;
+            s3 >> std::hex >> i3;
+            s4 >> std::hex >> i4;
             if ((i4 == (i1 ^ i2 ^ i3)) && stateUserId != "0000000000000000") {
                 hasValidStateUserId = true;
                 Log << "User id '" << stateUserId << "'\n";
-            }
+            } else 
+                Log << "Bad user id '" << ecl::strf("%.4lX %.4lX %.4lX %.4lX",i1, i2,i3, i4) << "'\n";
+                
         }
         
         if (!app.resourceFS->findFile( "enigma.score" , scorePath)) {
@@ -257,7 +266,10 @@ namespace enigma { namespace lev {
 
     void ScoreManager::finishUserId(unsigned id3) {
         unsigned i1, i2, i3, i4; 
-        sscanf(userId.c_str(),"%4lX%4lX", &i1, &i2);
+        std::istringstream s1(userId.substr(0, 4));
+        std::istringstream s2(userId.substr(4, 4));
+        s1 >> std::hex >> i1;
+        s2 >> std::hex >> i2;
         i3 = id3 & 0xFFFF;
         i4 = (i1 ^ i2 ^ i3);
         userId += ecl::strf("%.4lX%.4lX",i3, i4);
