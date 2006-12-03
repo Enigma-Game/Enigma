@@ -3,14 +3,14 @@
   <el:protected>
     <el:info el:type="level">
       <el:identity el:title="Don't Touch" el:subtitle="" el:id="raoul07"/>
-      <el:version el:score="1" el:release="1" el:revision="0" el:status="released"/>
+      <el:version el:score="2" el:release="2" el:revision="1" el:status="released"/>
       <el:author  el:name="Raoul Bourquin" el:email="raoul@users.berlios.de" el:homepage=""/>
       <el:copyright>Copyright © 2006 Raoul Bourquin</el:copyright>
       <el:license el:type="GPL v2.0 or above" el:open="true"/>
       <el:compatibility el:enigma="0.92">
        <el:dependency el:path="lib/natmaze" el:id="lib/natmaze" el:release="1" el:preload="true"/>
       </el:compatibility>
-      <el:modes el:easy="false" el:single="true" el:network="false"/>
+      <el:modes el:easy="true" el:single="true" el:network="false"/>
       <el:comments>
         <el:code>Lua 5.1 and XML converted by Leveladministrators</el:code>
       </el:comments>
@@ -68,6 +68,8 @@ cells = {}
 
 -- World
 create_world( 20, 13 )
+oxyd_default_flavor = "b"
+
 originx=1
 originy=1
 draw_maze()
@@ -75,15 +77,26 @@ draw_maze()
 originx=10
 originy=1
 draw_maze()
+
 draw_border("st-stoneimpulse")
 fill_floor("fl-black")
 
-oxyd(1,1)
-oxyd(1,11)
-oxyd(18,1)
-oxyd(18,11)
-oxyd_default_flavor = "d"
-oxyd_shuffle()
+if not difficult then
+    oxyd(0,1)
+    oxyd(0,11)
+    oxyd(19,1)
+    oxyd(19,11)
+else
+    oxyd(0,1)
+    oxyd(0,11)
+    oxyd(19,1)
+    oxyd(19,11)
+    oxyd(1,0)
+    oxyd(1,12)
+    oxyd(18,0)
+    oxyd(18,12)
+    set_item("it-extralife",10,6)
+end
 
 set_stone("st-grate1",10,6)
 set_actor("ac-blackball", 10+0.5, 6+0.5, {player=0})
