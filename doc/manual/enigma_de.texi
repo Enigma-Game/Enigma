@@ -52,7 +52,7 @@ dieser Abschnitt erhalten bleiben.
 * Das Spiel::                   Spielprinzipien
 * Einige Spielobjekte::         Beschreibung einiger Objekte im Spiel
 * Fortgeschrittene Themen::     Weitere Features und Verwaltung
-* Tipps und Tricks::            Tipps für einige schwierige Levels
+* Tipps und Tricks::            Tipps f@"ur einige schwierige Levels
 * Autoren und Danksagungen::    Credits und `Thank You's
 @end menu
 
@@ -60,48 +60,48 @@ dieser Abschnitt erhalten bleiben.
 @chapter Einleitung
 
 @menu
-* Über Enigma::                 Einige Fakten über Enigma
+* Ueber Enigma::                Einige Fakten @"uber Enigma
 * Installation::                Woher und wie installiert man Enigma
 * Verbreiten von Enigma::       Geben Sie Kopien an Ihre Freunde weiter!
 @end menu
 
 
-@node Über Enigma, Installation, Einleitung, Einleitung
+@node Ueber Enigma, Installation, Einleitung, Einleitung
 @section @"Uber Enigma
 
-Zu sagen, Enigma sei ein Rätselspiel, ist eine
-Untertreibung. Tatsächlich ist Enigma eine riesige Sammlung von
-Rätseln, jede seiner 550 einzigartigen Landschaften fordert die
-Intelligenz, Geschicklichkeit und wahre Willensstärke seines Spielers
+Zu sagen, Enigma sei ein R@"atselspiel, ist eine
+Untertreibung. Tats@"achlich ist Enigma eine riesige Sammlung von
+R@"atseln, jede seiner 550 einzigartigen Landschaften fordert die
+Intelligenz, Geschicklichkeit und wahre Willensst@"arke seines Spielers
 aufs Neue. Enigma ist einfach zu erlernen, herausfordernd zu spielen
-und schwer zu schlagen. Es ist für fast alle Altersklassen
-geeignet. Es enthält Hunderte von Landschaften (Leveln). Und als ob
-das noch nicht genug wäre, ist es zudem vollständig frei. Wenn Sie
-Puzzle- und Rätselspiele mögen, und eine ruhige Hand haben, wird Sie
-Enigma wahrscheinlich für Stunden nicht aus seinem Bann lassen.
+und schwer zu schlagen. Es ist f@"ur fast alle Altersklassen
+geeignet. Es enth@"alt Hunderte von Landschaften (Leveln). Und als ob
+das noch nicht genug w@"are, ist es zudem vollst@"andig frei. Wenn Sie
+Puzzle- und R@"atselspiele m@"ogen, und eine ruhige Hand haben, wird Sie
+Enigma wahrscheinlich f@"ur Stunden nicht aus seinem Bann lassen.
 
-Das Ziel des Spieles ist es, Paare identisch gefärbter
+Das Ziel des Spieles ist es, Paare identisch gef@"arbter
 @samp{Oxydsteine} zu finden und aufzudecken. Einfaches Prinzip?
 Bestimmt. Einfach zu meistern? Sicherlich nicht! Versteckte Fallen,
 riesige Labyrinthe, Laserstrahlen und nicht zuletzt zahllose haarige
-Rätsel blockieren für gewöhnlich den direkten Weg zu den
+R@"atsel blockieren f@"ur gew@"ohnlich den direkten Weg zu den
 Oxydsteinen. Enigmas Spielobjekte (von denen Hunderte existieren,
 so dass keine Langeweile aufkommen kann) interagieren auf viele
 unerwartete Weisen, and da viele von ihnen den Gesetzen der Physik
 gehorchen (bzw. Enigmas spezieller Version der Physik), ist es nicht
 immer einfach, sie mit der Maus zu kontrollieren @enddots{}
 
-Das ursprüngliche Ziel des Enigma-Projektes war es, den Geist der
+Das urspr@"ungliche Ziel des Enigma-Projektes war es, den Geist der
 Oxyd-Spiele-Serie am Leben zu erhalten, nachdem ihr Verleger 2002
-entschied, das Spielegeschäft zu verlassen. Fans dieses berühmten
-Spiels werden ihre D@'ej@`a-vus erleben. Aber über die Jahre hat
-Enigma auch die Ideen zahlloser weiterer berühmter Spiele in sich
-aufgenommen und ihnen seinen eigenen, ganz persönlichen Twist
-hinzugefügt.
+entschied, das Spielegesch@"aft zu verlassen. Fans dieses ber@"uhmten
+Spiels werden ihre D@'ej@`a-vus erleben. Aber @"uber die Jahre hat
+Enigma auch die Ideen zahlloser weiterer ber@"uhmter Spiele in sich
+aufgenommen und ihnen seinen eigenen, ganz pers@"onlichen Twist
+hinzugef@"ugt.
 
-Enigma gibt es für Windows, Mac OS X und die meisten Linux- und
-Unixversionen. Es wurde in viele Sprachen übersetzt, sogar dieses
-Handbuch ist in mehreren Sprachen erhältlich.
+Enigma gibt es f@"ur Windows, Mac OS X und die meisten Linux- und
+Unixversionen. Es wurde in viele Sprachen @"ubersetzt, sogar dieses
+Handbuch ist in mehreren Sprachen erh@"altlich.
 
 Die offizielle @uref{http://www.nongnu.org/enigma, Homepage} von Enigma
 versucht, die wichtigsten Informationen rund um Enigma zu sammeln: Hier
@@ -121,7 +121,7 @@ Anerkennung und Belohnung f@"ur die unz@"ahligen Stunden, die wir in
 Enigma investiert haben.
 
 
-@node Installation, Verbreiten von Enigma, Über Enigma, Einleitung
+@node Installation, Verbreiten von Enigma, Ueber Enigma, Einleitung
 @section Installation
 
 Die aktuellste Version von Enigma findet sich stets auf der offiziellen
@@ -139,7 +139,7 @@ Computer und f@"uhren Sie sie aus, um die Installation zu starten.
 Vorgefertigte Pakete existieren f@"ur einige verbreitete
 Linux-Distributionen wie SUSE, Redhat und Debian.  F@"ur andere
 Unix-@"ahnliche Betriebssysteme steht ist das Neukompilieren der
-Quellcodes sicher die einfachste Lösung.
+Quellcodes sicher die einfachste L@"osung.
 
 @item Mac OS X
 Unter OS X ist keine Installation n@"otig; entpacken Sie einfach die
@@ -182,7 +182,7 @@ Enigma-Mailingliste.
 @chapter Das Spiel
 
 @menu
-* Ganz zu Anfang::             Durch die Menüs navigieren und starten
+* Ganz zu Anfang::             Durch die Men@"us navigieren und starten
 * Spielregeln::                Wie man Enigma spielt
 * Steuerung::                  Tastatur und Mauskommandos
 @end menu
@@ -197,19 +197,19 @@ Einstellungen @"andern oder das Spiel wieder verlassen k@"onnen, sobald
 Sie genug haben.  Die folgenden Abschnitte werden Ihnen einen kurzen
 @"Uberblick @"uber das Level-Men@"u und das Options-Men@"u geben,
 in der Hoffnung, dass sich der Rest von selbst erschlie@ss{}t. Zu den
-meisten Menüs kann man mit @key{F1} eine Hilfe aufrufen. Die Begriffe
+meisten Men@"us kann man mit @key{F1} eine Hilfe aufrufen. Die Begriffe
 ``Level'' und ``Landschaft'' werden synonym verwendet.
 
 @menu
-* Das Level-Menü::               Wähle die nächste Landschaft
-* Das Levelpaket-Menü::          Bestimme ein Levelpaket
+* Das Level-Menue::              W@"ahle die n@"achste Landschaft
+* Das Levelpaket-Menue::         Bestimme ein Levelpaket
 * Einstellungen::                Passe Enigma an
-* Der Level-Inspektor::          Detailierte Informationen über eine Landschaft
+* Der Level-Inspektor::          Detailierte Informationen @"uber eine Landschaft
 @end menu
 
 
-@node Das Level-Menü, Das Levelpaket-Menü, Ganz zu Anfang, Ganz zu Anfang
-@subsection Das Level-Menü
+@node Das Level-Menue, Das Levelpaket-Menue, Ganz zu Anfang, Ganz zu Anfang
+@subsection Das Level-Men@"u
 
 Wenn Sie im Hauptmen@"u den Eintrag ``Spiel starten'' anw@"ahlen,
 landen Sie im Level-Men@"u, das ungef@"ahr folgenderma@ss{}en
@@ -229,47 +229,47 @@ navigieren.  Um ein neues Spiel zu starten, klicken Sie einfach auf das
 gew@"unschte Vorschaubildchen oder Sie dr@"ucken die Eingabetaste, um
 die momentan ausgew@"ahlte Landschaft zu starten.
 
-Enigma verfügt über zwei Schwierigkeitsgrade: ``einfach'' und
-``normal''. Um zwischen diesen umzuschalten, drücken Sie den mittleren
+Enigma verf@"ugt @"uber zwei Schwierigkeitsgrade: ``einfach'' und
+``normal''. Um zwischen diesen umzuschalten, dr@"ucken Sie den mittleren
 Knopf in der untersten Zeile: Schalten Sie die Silbermedaille mit der
 Feder ein, wenn Sie einfachere Landschaften bevorzugen, oder die
-Goldmedaille für den normalen, schwierigeren Modus.
+Goldmedaille f@"ur den normalen, schwierigeren Modus.
 
 Nicht alle Landschaften besitzen eine vereinfachte Version;
 diejenigen, die eine besitzen, sind durch eine Feder gekennzeichnet
-(sofern Sie sie noch nicht gelöst haben) oder mit einem Silbermedaille
+(sofern Sie sie noch nicht gel@"ost haben) oder mit einem Silbermedaille
 in der oberen linken Ecke des Vorschaubilds.
 
-Sie können zur nächsten Landschaft springen, indem Sie entweder
-@key{F5} betätigen oder auf den @key{>>|}-Knopf in der untersten Zeile
-klicken. Die Bedeutung von ``nächste Landschaft'' hängt dabei davon
+Sie k@"onnen zur n@"achsten Landschaft springen, indem Sie entweder
+@key{F5} bet@"atigen oder auf den @key{>>|}-Knopf in der untersten Zeile
+klicken. Die Bedeutung von ``n@"achste Landschaft'' h@"angt dabei davon
 ab, welchen Modus Sie im auf dem Knopf ganz links-unten eingestellt
 haben.
 
 @itemize @bullet
 @item 
-Eine stehende schwarze Kugel steht für ``definitiv nächste''. Sie
-werden damit zur nächsten Landschaft im Paket kommen, unabhängig
-davon, ob Sie diese Landschaft schonmal gelöst haben oder nicht.
+Eine stehende schwarze Kugel steht f@"ur ``definitiv n@"achste''. Sie
+werden damit zur n@"achsten Landschaft im Paket kommen, unabh@"angig
+davon, ob Sie diese Landschaft schonmal gel@"ost haben oder nicht.
 
 @item
-Das Medaillenpaar bezeichnet die ``nächste ungelöste Landschaft''. Der
-@key{>>|}-Knopf führt sie dabei zur nächsten Landschaft, die im
-gewählten Schwierigkeitsgrad noch ungelöst ist.
+Das Medaillenpaar bezeichnet die ``n@"achste ungel@"oste Landschaft''. Der
+@key{>>|}-Knopf f@"uhrt sie dabei zur n@"achsten Landschaft, die im
+gew@"ahlten Schwierigkeitsgrad noch ungel@"ost ist.
 
 @item
-Die beschleunigende Kugel steht für den Par-Modus. Par (``professional
+Die beschleunigende Kugel steht f@"ur den Par-Modus. Par (``professional
 average rating'') bezeichnet ein gutes Ergebnis, das von guten
 Spielern erreicht werden sollte. Landschaften, in denen Sie ebenso
 schnell wie Par oder schneller waren, werden mit einer ebensolchen
 beschleunigenden Kugel gekennzeichnet. Im Par-Modus springt der
-@key{>>|}-Knopf zur nächten Landschaft, für die Sie Par noch nicht
+@key{>>|}-Knopf zur n@"achten Landschaft, f@"ur die Sie Par noch nicht
 erreicht haben.
 
 @item
-Schließlich steht der Globus für die Weltrekordjagd. Wenn Ihr Ergebnis
+Schlie@ss{}lich steht der Globus f@"ur die Weltrekordjagd. Wenn Ihr Ergebnis
 das weltbeste bekannte Ergebnis ist, so werden Sie durch einen Globus
-über dem Vorschaubild der Landschaft geehrt. In diesem Modus wird eine
+@"uber dem Vorschaubild der Landschaft geehrt. In diesem Modus wird eine
 Landschaft wieder und wieder gespielt, bis Sie den Weltrekord erreicht
 haben. 
 
@@ -282,7 +282,7 @@ roten Dreieck mit Ausrufezeichen markiert: das Symbol signalisiert, dass
 die Landschaft aktualisiert wurde, seit Sie sie zuletzt gel@"ost
 haben. Sie sehen dies wahrscheinlich nur nach einem Update von Enigma.
 
-Im Level-Men@"u können folgende Tastaturk@"urzel verwendet werden:
+Im Level-Men@"u k@"onnen folgende Tastaturk@"urzel verwendet werden:
 
 @table @kbd
 @item @key{ESC}
@@ -308,46 +308,46 @@ Voriges Landschaftspaket
 
 @end table
 
-@node Das Levelpaket-Menü, Einstellungen, Das Level-Menü, Ganz zu Anfang
-@subsection Das Levelpaket-Menü
+@node Das Levelpaket-Menue, Einstellungen, Das Level-Menue, Ganz zu Anfang
+@subsection Das Levelpaket-Men@"u
 
-Enigma enthält bereits viele Landschaften. Sehr, sehr viele, um genau
+Enigma enth@"alt bereits viele Landschaften. Sehr, sehr viele, um genau
 zu sein. Um etwas Ordnung hineinzubringen, wurden die Landschaften in
 ``Levelpaketen'' zusammengefasst. Und da mit jeder neuen Version von
 Enigma neue Landschaften hinzukamen, mussten wir inzwischen sogar die
 Levelpakete selber zu ``Gruppen'' zusammenfassen. Aber keine Sorge, es
 ist alles viel einfacher als es jetzt vielleicht klingt.
 
-Um ein Levelpaket auszuwählen, wechseln Sie ins ``Levelpaket''-Menü,
-in das Sie vom Hauptmenü oder vom Level-Menü aus kommen können. 
+Um ein Levelpaket auszuw@"ahlen, wechseln Sie ins ``Levelpaket''-Men@"u,
+in das Sie vom Hauptmen@"u oder vom Level-Men@"u aus kommen k@"onnen. 
 
-In der linken Spalte sind die Gruppen aufgeführt, rechts die
-Levelpakete in der ausgewählten Gruppe. Die offiziellen,
+In der linken Spalte sind die Gruppen aufgef@"uhrt, rechts die
+Levelpakete in der ausgew@"ahlten Gruppe. Die offiziellen,
 voreingestellten Gruppen von Enigma sind die folgenden:
 
 @itemize @bullet
-@item @b{Enigma} - Landschaften speziell für Enigma 
+@item @b{Enigma} - Landschaften speziell f@"ur Enigma 
 @item @b{D@'ej@`a-vu} - Landschaften, die Sie vielleicht schonmal
 gesehen haben
 @item @b{Sokoban}
 @item @b{Facets} - Spezielle Sortierungen und Blickweisen auf die
 Landschaften aus den vorigen Gruppen
 @item @b{User} - Eigene Landschaften und Levelpakete, darunter die
-``History'', die die Landschaften enthält, die zuletzt von Ihnen
+``History'', die die Landschaften enth@"alt, die zuletzt von Ihnen
 gespielt wurden, ``Search Result'' (Suchergebnisse) und ``Auto'', ein
-automatisch erstelltes Levelpaket für einzelne selbsterzeugte Landschaften.
+automatisch erstelltes Levelpaket f@"ur einzelne selbsterzeugte Landschaften.
 @item @b{Development} - Vorlagen und unvollendete Landschaften vom
 Enigma Team
 @item @b{All Packs} - Alle Pakete zusammen.
 @end itemize
 
-Mit einem Linksklick können Sie eine Gruppe und dann ein Levelpaket
-auswählen. 
+Mit einem Linksklick k@"onnen Sie eine Gruppe und dann ein Levelpaket
+ausw@"ahlen. 
 
-Für eine weitere Beschreibung der Levelpakete lesen Sie bitte
+F@"ur eine weitere Beschreibung der Levelpakete lesen Sie bitte
 @ref{User-Levelpakete}.
 
-@node Einstellungen, Der Level-Inspektor, Das Levelpaket-Menü, Ganz zu Anfang
+@node Einstellungen, Der Level-Inspektor, Das Levelpaket-Menue, Ganz zu Anfang
 @subsection Einstellungen
 
 Das Optionsmen@"u erm@"oglichst es Ihnen, Enigma an Ihre Vorlieben anzupassen.
@@ -356,7 +356,7 @@ Das Optionsmen@"u erm@"oglichst es Ihnen, Enigma an Ihre Vorlieben anzupassen.
 @table @strong
 @item Sprache (Language)
 W@"ahlen Sie hier die Sprache, in der die Nachrichten in den Men@"us
-und (falls verfügbar) in den Leveln dargestellt werden.
+und (falls verf@"ugbar) in den Leveln dargestellt werden.
 
 @item Vollbild
 Schaltet zwischen Vollbild- und Fensterdarstellung um.  Sie k@"onnen dazu
@@ -399,7 +399,7 @@ und Mono-Klang.
 @item Update Bewertungen
 Auf der Einstellung @samp{Auto} wird Enigma von Zeit zu Zeit
 versuchen, aktuelle Bewertungen herunterzuladen. Dies betrifft
-öffentliche Bewertungen, Weltrekorde, PAR-Zeiten etc.
+@"offentliche Bewertungen, Weltrekorde, PAR-Zeiten etc.
 @xref{Ergebnisse hochladen}.
 
 @item Spielername
@@ -420,32 +420,32 @@ im Referenzhandbuch.
 @node Der Level-Inspektor, , Einstellungen, Ganz zu Anfang
 @subsection Der Level-Inspektor
 
-Um genauere Details über eine Landschaft zu erfahren, können Sie mit
+Um genauere Details @"uber eine Landschaft zu erfahren, k@"onnen Sie mit
 einem Rechtsklick oder Kontroll-Klick auf das Vorschaubild einer
 Landschaft den Level-Inspektor aufrufen.
 
-Hier können Sie Ihre Ergebnisse mit dem Weltrekord für diese
+Hier k@"onnen Sie Ihre Ergebnisse mit dem Weltrekord f@"ur diese
 Landschaft, mit dem Par und den Ergebnissen des Levelautors selber
 vergleichen. Es wird sogar eine Statistik dazu angezeigt, wieviele
-andere  Spielere diese Landschaft bereits gelöst haben.
+andere  Spielere diese Landschaft bereits gel@"ost haben.
 
 Neben weiteren Informationen, die im Referenz-Handbuch beschrieben
-werden, können Sie auch eine kurze Anmerkung zur Landschaft
+werden, k@"onnen Sie auch eine kurze Anmerkung zur Landschaft
 hinterlassen und sie bewerten.
 
-Beachten Sie bitte, dass das Textfeld für die Anmerkung möglicherweise
-nur ASCII-Zeichen erlaubt, abhängig vom System, auf dem Enigma
-läuft. Vermeiden Sie also notfalls Umlaute, Akzente und Sonderzeichen.
+Beachten Sie bitte, dass das Textfeld f@"ur die Anmerkung m@"oglicherweise
+nur ASCII-Zeichen erlaubt, abh@"angig vom System, auf dem Enigma
+l@"auft. Vermeiden Sie also notfalls Umlaute, Akzente und Sonderzeichen.
 
-Die Bewertung ganz links-unten ist Ihr persönlicher Eindruck von der
-Landschaft, den Sie durch einen Linksklick einstellen können. @samp{-}
-steht dabei für keine Meinung, 0 für sehr schlecht, 5 ist Durchschnitt
-und 10 steht für die beste unter den guten Landschaften. Ihre
-Bewertung können Sie uns zusammen mit Ihren Ergebnissen zuschicken
+Die Bewertung ganz links-unten ist Ihr pers@"onlicher Eindruck von der
+Landschaft, den Sie durch einen Linksklick einstellen k@"onnen. @samp{-}
+steht dabei f@"ur keine Meinung, 0 f@"ur sehr schlecht, 5 ist Durchschnitt
+und 10 steht f@"ur die beste unter den guten Landschaften. Ihre
+Bewertung k@"onnen Sie uns zusammen mit Ihren Ergebnissen zuschicken
 (@pxref{Ergebnisse hochladen}).
 
-Schließlich können Sie den Level-Inspektor auch dazu verwenden, die
-Bildschirmphotos zu betrachten, die Sie während des Spielens dieser
+Schlie@ss{}lich k@"onnen Sie den Level-Inspektor auch dazu verwenden, die
+Bildschirmphotos zu betrachten, die Sie w@"ahrend des Spielens dieser
 Landschaft aufgenommen haben (@pxref{Steuerung}).
 
 
@@ -453,7 +453,7 @@ Landschaft aufgenommen haben (@pxref{Steuerung}).
 @section Spielregeln
 
 @menu
-* Gewöhnliche Landschaften::
+* Gewoehnliche Landschaften::
 * Zwei-Spieler Landschaften::
 * Meditations-Landschaften::
 @end menu
@@ -461,7 +461,7 @@ Landschaft aufgenommen haben (@pxref{Steuerung}).
 Um Verwirrungen vorzubeugen: Die Begriffe ``Level'' und ``Landschaft''
 werden synonym verwendet.
 
-@node Gewöhnliche Landschaften, Zwei-Spieler Landschaften, Spielregeln, Spielregeln
+@node Gewoehnliche Landschaften, Zwei-Spieler Landschaften, Spielregeln, Spielregeln
 @subsection Gew@"ohnliche Landschaften
 
 Die grundlegende Idee hinter Enigma ist recht einfach: In den meisten
@@ -524,7 +524,7 @@ Br@"ucke baut, indem man Holzsteine ins Wasser hineinschiebt:
 H@"aufig interagieren Spielobjekte auf @"uberraschende Weise:
 Gegenst@"ande, die auf dem Boden liegen k@"onnen beispielsweise mit
 Laserstrahlen oder beweglichen Steinen transformiert werden.  Und viele
-Steine verhalten sich bei Berührung anders als normal wenn Sie bestimmte
+Steine verhalten sich bei Ber@"uhrung anders als normal wenn Sie bestimmte
 Gegenst@"ande im ersten Eintrag Ihres Inventars haben (der Zauberstab
 ist der ber@"uhmteste Vertreter dieser Gattung).
 
@@ -534,11 +534,11 @@ meisten Objekte wird im Laufe der Zeit klar werden.  Einige der
 merkw@"urdigeren Objekte werden au@ss{}erdem in @ref{Einige Spielobjekte}
 n@"aher vorgestellt..
 
-@node Zwei-Spieler Landschaften, Meditations-Landschaften, Gewöhnliche Landschaften, Spielregeln
+@node Zwei-Spieler Landschaften, Meditations-Landschaften, Gewoehnliche Landschaften, Spielregeln
 @subsection Zwei-Spieler Landschaften
 
 Zun@"achst eine schlechte Nachricht: Bislang unterst@"utzt Enigma noch keine
-Spiele über lokale Netzwerke oder das Internet.  In dieser Hinsicht sind also
+Spiele @"uber lokale Netzwerke oder das Internet.  In dieser Hinsicht sind also
 Zwei-Spieler Landschaften in Wirklichkeit Ein-Spieler Landschaften, in
 denen Sie zwischen zwei Kugeln hin- und herschalten k@"onnen: die schwarze
 Kugel kennen Sie bereits, und eine zus@"atzliche wei@ss{}e Kugel.
@@ -623,30 +623,30 @@ Kehre zur@"uck zum Landschaftsmen@"u
 
 Es gibt Dutzende verschiedener Spielobjekte, die Sie in Enigmas
 Landschaften kennenlernen werden. Hier wollen wir nur eine kleine
-Auswahl davon beschreiben, auf die Sie vielleicht häufiger treffen
-werden. Wenn das Spielprinzip von Enigma für Sie neu ist, wollen Sie
+Auswahl davon beschreiben, auf die Sie vielleicht h@"aufiger treffen
+werden. Wenn das Spielprinzip von Enigma f@"ur Sie neu ist, wollen Sie
 vielleicht zuerst mit den Tutoriallandschaften beginnen? Starten Sie
-dafür einfach Enigma, wählen Sie ``Levelpaket'' dann den Knopf
+daf@"ur einfach Enigma, w@"ahlen Sie ``Levelpaket'' dann den Knopf
 ``Enigma'' ganz links-oben, dann ``Tutorial'' auf der rechten
 Seite. Beginnen Sie mit der ersten Level ``Oxyd Stones 1''. Das
 Tutorial zeigt Ihnen die wichtigsten Spielobjekte und -ideen, und
-zum Üben einige der einfacheren Landschaften aus Enigmas Levelpaketen.
+zum @"Uben einige der einfacheren Landschaften aus Enigmas Levelpaketen.
 
 @menu
-* Gegenstände::                 
+* Gegenstaende::                 
 * Steine::                      
 @end menu
 
-@node Gegenstände, Steine, Einige Spielobjekte, Einige Spielobjekte
+@node Gegenstaende, Steine, Einige Spielobjekte, Einige Spielobjekte
 @section Gegenst@"ande
 
 @menu
 * Sprengstoffe::
 * Regenschirme::
-* Fähnchen::
+* Faehnchen::
 @end menu
 
-@node Sprengstoffe, Regenschirme, Gegenstände, Gegenstände
+@node Sprengstoffe, Regenschirme, Gegenstaende, Gegenstaende
 @subsection Sprengstoffe
 
 @image{images/it-explosives,,0.7cm}
@@ -663,7 +663,7 @@ Mittel der Wahl.  Wei@ss{}e Bomben haben die kombinierte Sprengladung
 von f@"unf schwarzen Bomben---bringen Sie ihre Kugel auf sichere Distanz
 wenn Sie eine von ihnen brennen sehen!
 
-@node Regenschirme, Fähnchen, Sprengstoffe, Gegenstände
+@node Regenschirme, Faehnchen, Sprengstoffe, Gegenstaende
 @subsection Regenschirme
 
 @image{images/it-umbrella,,0.7cm}
@@ -673,9 +673,9 @@ genau zu sein) unverwundbar zu machen.  Solange wie ein Schirm aktiv
 ist, wird ein wei@ss{}er blinkender Ring um Ihre Kugel herum angezeigt.
 Sobald der Halo anf@"angt zu flackern ist Eile angesagt: Ihnen bleiben
 dann nur noch 3 Sekunden, um Ihre Kugel in sicheres Terrain zu
-manövrieren.
+man@"ovrieren.
 
-@node Fähnchen,  , Regenschirme, Gegenstände
+@node Faehnchen,  , Regenschirme, Gegenstaende
 @subsection F@"ahnchen
 
 @image{images/it-flags,,0.7cm}
@@ -688,11 +688,11 @@ existieren zwei verschiedene Fahnen: eine schwarze und eine wei@ss{}e,
 die jeweils die Startposition der schwarzen oder wei@ss{}en Kugel
 festlegen.
 
-@node Steine,  , Gegenstände, Einige Spielobjekte
+@node Steine,  , Gegenstaende, Einige Spielobjekte
 @section Steine  
 
 @menu
-* Tödliche Steine::             
+* Toedliche Steine::             
 * Wechselsteine::               
 * Spiegel::                     
 * Einbahn-Steine::                
@@ -702,10 +702,11 @@ festlegen.
 * Poststeine::                  
 @end menu
 
-@node Tödliche Steine, Wechselsteine, Steine, Steine
-@subsection Tödliche Steine
+@node Toedliche Steine, Wechselsteine, Steine, Steine
+@subsection T@"odliche Steine
 
 @image{images/st-lethal,,0.7cm}
+
 Um zwei Steinarten sollten Sie auf jeden Fall einen m@"oglichst gro@ss{}en
 Bogen schlagen, zumindest solange Sie keinen Schirm haben, um Ihre
 kostbare Kugel zu sch@"utzen.
@@ -721,7 +722,7 @@ gew@"ohnlich hat er kein gesteigertes Interesse, sie passieren zu
 lassen.  Bringen Sie ein gutes Argument mit, mit dem sie ihn
 ``@"uberzeugen'' k@"onnen.
 
-@node Wechselsteine, Spiegel, Tödliche Steine, Steine
+@node Wechselsteine, Spiegel, Toedliche Steine, Steine
 @subsection Wechselsteine
 
 @image{images/st-swap,,0.7cm}
@@ -775,9 +776,9 @@ kann Sie schnell das Leben einer Kugel kosten!
 @image{images/st-oneway,,0.7cm}
 
 Man kann diese Steine nur in einer Richtung passieren. Ganze
-Labyrinthe können aus ihnen gebaut werden, aber meistens zwingen sie
+Labyrinthe k@"onnen aus ihnen gebaut werden, aber meistens zwingen sie
 Sie einfach nur dazu, einen Teil der Landschaft zu beenden, bevor Sie
-zum nächsten Teil übergehen.
+zum n@"achsten Teil @"ubergehen.
 
 Sie haben Probleme mit Einbahn-Steinen, die Ihnen den Weg blockieren?
 Vielleicht kann Ihnen ein magischer Gegenstand helfen @enddots{}
@@ -809,15 +810,15 @@ verh@"ahlt es sich entsprechend.
 
 Bolder-Steine bewegen sich in die Richtung, die durch den Pfeil auf
 ihnen angezeigt wird; solange, bis sie auf einen anderen Stein
-stoßen. Vielleicht blockieren die Bolder-Steine Ihren Weg, und Sie
-müssen sie auf die eine oder andere Weise loswerden. Aber stellen Sie
+sto@ss{}en. Vielleicht blockieren die Bolder-Steine Ihren Weg, und Sie
+m@"ussen sie auf die eine oder andere Weise loswerden. Aber stellen Sie
 Ihre Kugel niemals, niemals direkt vor einen Bolder-Stein, wenn er auf
 sie zukommt, weil er Ihre Kugel zerschlagen wird, wenn er sie
-überrollt!
+@"uberrollt!
 
-Allerdings können Sie sich die Bolder-Steine auch zu Nutze machen,
-denn sie sind in der Lage, Oxydsteine zu öffnen, wenn sie in sie
-hineinlaufen. Und mit verschiedenen Hilfsmitteln können Sie die
+Allerdings k@"onnen Sie sich die Bolder-Steine auch zu Nutze machen,
+denn sie sind in der Lage, Oxydsteine zu @"offnen, wenn sie in sie
+hineinlaufen. Und mit verschiedenen Hilfsmitteln k@"onnen Sie die
 Bolder-Steine auch gezielt umlenken @enddots{}
 
 @node Puzzle-Steine, Poststeine, Bolder-Steine, Steine
@@ -891,47 +892,47 @@ das danach den Postweg versperrt!
 @node User-Levelpakete, Backups, Fortgeschrittene Themen, Fortgeschrittene Themen
 @section User-Levelpakete
 
-@ref{Das Levelpaket-Menü} erlaubt einige weitere Möglichkeiten. Die
-@samp{User}-Gruppe enthält drei anfangs leere Levelpakete:
+@ref{Das Levelpaket-Menue} erlaubt einige weitere M@"oglichkeiten. Die
+@samp{User}-Gruppe enth@"alt drei anfangs leere Levelpakete:
 @samp{Auto Folder}, @samp{History} und @samp{Search Result}.
 
-Durch einen Klick auf den @samp{Suchen}-Knopf im Levelpaket-Menü
-können Sie unter allen Landschaften nach Stichwörtern suchen. Bewegen
+Durch einen Klick auf den @samp{Suchen}-Knopf im Levelpaket-Men@"u
+k@"onnen Sie unter allen Landschaften nach Stichw@"ortern suchen. Bewegen
 Sie einfach die Maus auf das erscheinende Textfeld und geben Sie das
 Stichwort ein, es kann sich auf den Autor, Titel und auch den
-Dateinamen beziehen. Groß- und Kleinschreibung wird dabei nicht
+Dateinamen beziehen. Gro@ss{}- und Kleinschreibung wird dabei nicht
 beachtet. Wenn Sie beispielsweise nach ``jump'' suchen, werden Ihnen
 daraufhin im Levelpaket @samp{Search Results} alle Landschaften mit
 diesem Stichwort angezeigt, beispielsweise ``Jump!'', ``No Jumping
 Necessary'' und ``Jump Pads''. 
 
-Das Levelpaket @samp{History} enthält Querverweise auf die von Ihnen
+Das Levelpaket @samp{History} enth@"alt Querverweise auf die von Ihnen
 zuletzt gespielten Landschaft. Es kann von Vorteil sein, wenn Sie nach
-einer Landschaft suchen, zu der Ihnen aber kein Suchwort einfällt.
+einer Landschaft suchen, zu der Ihnen aber kein Suchwort einf@"allt.
 
 @samp{Auto Folder} ist ein Levelpaket, dem Sie sehr einfach neue
-Landschaften hinzufügen können, beispielsweise Landschaften, die Sie
+Landschaften hinzuf@"ugen k@"onnen, beispielsweise Landschaften, die Sie
 aus dem Internet heruntergeladen oder selber erstellt haben. Kopieren
-Sie dafür die Leveldatei in das Unterverzeichnis @samp{levels/auto} im
+Sie daf@"ur die Leveldatei in das Unterverzeichnis @samp{levels/auto} im
 @samp{Userpfad}-Verzeichnis, wie es unter @ref{Einstellungen}
 angezeigt wird. Dieses Verzeichnis wird bei jedem Neustart von
 Enigma durchsucht und die Landschaften dem Levelpaket @samp{Auto
-Folder} hinzugefügt.
+Folder} hinzugef@"ugt.
 
-Enigma bietet noch eine Reihe weiterer nützlicher Features, die über
-den Rahmen dieses Handbuchs hinausgehen. Sie können aber alle Details
+Enigma bietet noch eine Reihe weiterer n@"utzlicher Features, die @"uber
+den Rahmen dieses Handbuchs hinausgehen. Sie k@"onnen aber alle Details
 hierzu im Referenz-Handbuch nachlesen.
 
 @node Backups, Ergebnisse hochladen, User-Levelpakete, Fortgeschrittene Themen
 @section Backups
 
-Wenn Sie befürchten, Ihre Spielergebnisse durch einen
+Wenn Sie bef@"urchten, Ihre Spielergebnisse durch einen
 Festplatten-Fehler zu verlieren, oder einfach nur auf einen anderen
-Rechner übertragen möchten, sollten Sie wissen, wie man ein Backup von
-Enigma macht: Im @ref{Einstellungen}-Menü finden Sie unter dem Eintrag
+Rechner @"ubertragen m@"ochten, sollten Sie wissen, wie man ein Backup von
+Enigma macht: Im @ref{Einstellungen}-Men@"u finden Sie unter dem Eintrag
 @samp{Userpfad} das aktuelle Verzeichnis, in dem auch Ihre
-Spielergebnisse abgespeichert werden. Sie können das gesamte
-Verzeichnis sichern, oder nur die für die Ergebnisse wichtigen Dateien
+Spielergebnisse abgespeichert werden. Sie k@"onnen das gesamte
+Verzeichnis sichern, oder nur die f@"ur die Ergebnisse wichtigen Dateien
 @samp{enigma.score} und @samp{state.xml}.
 
 @node Ergebnisse hochladen, Enigma updaten, Backups, Fortgeschrittene Themen
@@ -944,32 +945,32 @@ Projekthomepage.
 
 Um automatisch die aktuellste Weltrekordliste herunterzuladen,
 aktivieren Sie einfach die Option @samp{Update Bewertungen} im
-@ref{Einstellungen}-Menü.
+@ref{Einstellungen}-Men@"u.
 
 @node Enigma updaten, , Ergebnisse hochladen, Fortgeschrittene Themen
 @section Enigma updaten
 
-Sofern Sie Ihre alte Enigma-Version nicht persönlich angepasst haben,
+Sofern Sie Ihre alte Enigma-Version nicht pers@"onlich angepasst haben,
 deinstallieren Sie die alte Version einfach und installieren danach
-die neue. Ihre Ergebnisse werden dabei automatisch übernommen. 
+die neue. Ihre Ergebnisse werden dabei automatisch @"ubernommen. 
 
 Falls Sie dagegen selber Landschaften den Installationsverzeichnissen
-von Enigma hinzugefügt hatten, sollten Sie sie vor der Deinstallation
-sichern. Danach können Sie sicher die alte Version deinstallieren und
+von Enigma hinzugef@"ugt hatten, sollten Sie sie vor der Deinstallation
+sichern. Danach k@"onnen Sie sicher die alte Version deinstallieren und
 die neue installieren.
 
 @c TODO: too technical (HOMEless, environment variable)@item
 @c TODO: split in two sentences
 Die alte Ergebnisse werden beim ersten Start von Enigma automatisch
-übernommen (@samp{~/.enigmarc2} auf Systemen mit
+@"ubernommen (@samp{~/.enigmarc2} auf Systemen mit
 @samp{HOME}-Umgebungsvariable bzw. @samp{.../Application
-Data/enigmarc.lua2} auf einigen Windows-Systemen). Sie können die
+Data/enigmarc.lua2} auf einigen Windows-Systemen). Sie k@"onnen die
 alten Dateien folglich nach dem ersten erfolgreichen Starten von
-Enigma 1.00 löschen. 
+Enigma 1.00 l@"oschen. 
 
 Falls Sie Landschaften aus Ihrer alten Version nach Enigma 1.00
-übernehmen möchten, konsultieren Sie bitte das Referenz-Handbuch, da
-sich das Levelformat verändert hat.
+@"ubernehmen m@"ochten, konsultieren Sie bitte das Referenz-Handbuch, da
+sich das Levelformat ver@"andert hat.
 
 @node Tipps und Tricks, Autoren und Danksagungen, Fortgeschrittene Themen, Top
 @chapter Tipps und Tricks
@@ -979,7 +980,7 @@ Landschaften in Enigma.  Lesen Sie diese Hinweise bitte nur dann, wenn
 Sie wirklich verzweifelt sind und nicht mehr weiter wissen.  Einige
 Landschaften sind absichtlich schwer und selbst Enigma-Veteranen
 ben@"otigen Stunden um sie zu knacken.  Einige Landschaften lassen sich
-im einfachen Spielmodus (@pxref{Das Level-Men@"u}) leichter l@"osen.
+im einfachen Spielmodus (@pxref{Das Level-Menue}) leichter l@"osen.
 
 @menu
 * Tutorial::                    Komplettl@"osung f@"ur `Advanced Tutorial'
@@ -989,14 +990,15 @@ im einfachen Spielmodus (@pxref{Das Level-Men@"u}) leichter l@"osen.
 @node Tutorial, Tipps, Tipps und Tricks, Tipps und Tricks
 @section Tutorial
 
-Die Landschaften aus dem "Tutorial" Levelpack sind normalerweise einfach.
-Eine Ausnahme bildet die letzte Landschaft, welches nicht gerade einfach ist @enddots{}
-@c This section of the manual was contributed by Jacob Scott.
+Die Landschaften aus dem "Tutorial"-Levelpaket sind normalerweise einfach.
+Eine Ausnahme bildet die letzte Landschaft, welche deutlich schwerer
+ist @enddots{}  Dieser Teil des Handbuchs wurde von Jacob Scott
+beigetragen.
 
 Diese Schritt-f@"ur-Schritt Anleitung ist f@"ur die Landschaft ``Advanced Tutorial''
 im ``Tutorial'' Levelpack.
-W@"ahrend Sie spielen, sollten Sie alle Dokumente eines Raumes so bald wie m@"oglich
-lesen
+W@"ahrend Sie spielen, sollten Sie alle Dokumente eines Raumes so fr@"uh wie m@"oglich
+lesen.
 
 Das Ziel in dieser Landschaft ist es, wie in den meisten Landschaften in Enigma, die
 ``Oxydsteine'' zu finden und mit der schwarzen Kugel zu @"offnen. Wenn Sie einen
@@ -1006,18 +1008,18 @@ Sobald Sie alle Oxydsteine einer Landschaft in dieser Art ge@"offnet haben,
 haben Sie die Landschaft geschafft.
 
 Diese Landschaft hat etwa zwanzig R@"aume, unterteilt in drei Gebiete. Im ersten
-Gebiete werden Sie den grundlegenden Steinen und B@"oden der Enigmalandschaften
-begegnen und einige einfache R@"atsel l@"osen. Der zweite Gebiet ist etwas
-anspruchsvoller und Sie werden eine n@"utzliche Technik kennen lernen, um aktive
-Feinde zu kontrollieren. Der dritte und letzte Gebiet wird Sie mit
-komplizierteren Interaktionen zwischen den Objekten in Enigma experimentieren
-lassen. In dieser speziellen Landschaft sind alle Oxydsteine in einem einzigen
-Raum am Ende des dritten Gebiets untergebracht.
+Gebiet werden Sie den grundlegenden Steinen und Bodentypen der Enigmalandschaften
+begegnen und einige einfache R@"atsel l@"osen. Das zweite Gebiet ist etwas
+anspruchsvoller und Sie werden eine n@"utzliche Technik kennen lernen,
+um bewegliche Feinde zu kontrollieren. Das dritte und letzte Gebiet l@"asst Sie mit
+komplizierteren Interaktionen zwischen den Spielobjekten
+experimentieren. In dieser speziellen Landschaft sind alle Oxydsteine
+in einem einzigen Raum am Ende des dritten Gebiets untergebracht.
 
 @subsection Gebiet 1
 
 Sie starten in einem Raum, der von unbeweglichen Wandsteinen umgeben ist. Eine
-kleine L@"ucken rechts, etwas Wasser unten links und eine geschlossene T@"ur oben
+kleine L@"ucke rechts, etwas Wasser unten links und eine geschlossene T@"ur oben
 rechts sind die einzigen Ausnahmen.
 
 Raum 1: Gehen Sie durch die L@"ucke in der rechten Wand.
@@ -1025,8 +1027,8 @@ Raum 1: Gehen Sie durch die L@"ucke in der rechten Wand.
 Raum 2: Meiden Sie einfach die Steine mit den Totenk@"opfen.
 
 Raum 3: Schieben Sie vier Holzkisten, eine nach der anderen, in einer Reihe ins
-Wasser um eine Br@"ucke zu bauen. Schieben Sie jetzt die grauen Bl@"ocke ins Wasser.
-Nun schaffen Sie die braunen Bl@"ocke aus dem Weg (etwas nach links) und bauen mit
+Wasser, um eine Br@"ucke zu bauen. Schieben Sie jetzt die grauen Bl@"ocke ins Wasser.
+Nun schaffen Sie die braunen Bl@"ocke aus dem Weg (etwa nach links) und bauen mit
 zwei Holzkisten eine Br@"ucke nach rechts.
 
 Raum 4: Gehen Sie nahe an den Kreisel heran. Wenn er beginnt, Sie zu jagen,
@@ -1034,18 +1036,19 @@ locken Sie ihn nach links, um die Steine in der Mitte herum. Sobald der Kreisel
 weit genug vom Durchgang in den n@"achsten Raum entfernt ist, rennen Sie hindurch.
 
 Raum 5: Die einzige Gefahr sind die Totenk@"opfe am unteren Ende des Raumes. Der
-erste Boden besteht aus Metall---dieser Boden ist @"ahnlich wie der ``Laubboden'',
+erste Boden besteht aus Metall---dieser Boden ist @"ahnlich dem ``Laubboden'',
 auf dem Sie bisher gegangen sind. Der n@"achste Boden ist ``Rot''---es ist nicht
 ganz einfach um darauf zu bremsen oder zu beschleunigen. Der dritte Boden
-besteht aus Eis---Sie haben darauf sehr wenig Reibung. Der letzten Boden ist
+besteht aus Eis---Sie haben darauf sehr wenig Reibung. Der letzte Boden ist
 Weltall---hier gibt es keine Reibung; Sie k@"onnen darauf weder ihre
 Geschwindigkeit noch ihre Laufrichtung @"andern.
 
-Raum 6: Gehen Sie einfach @"uber diese schr@"agen Abh@"ange. Dann gehen Sie nach links
-heraus @"uber so genannten ``Invers''-boden---wenn Sie auf diesem Boden sind und
-die Maus (oder ein @"ahnliches Ger@"at) in eine Richtung bewegen, wird die Kugel
-sich in die entgegen gesetzte Richtung bewegen. (Wenn Sie hiermit Probleme
-haben, versuchen Sie ihre Maus um 180 Grad zu drehen).
+Raum 6: @"Uberqueren Sie einfach die schr@"agen Abh@"ange. Dann gehen Sie nach links
+heraus @"uber den so genannten ``Invers''-Boden---wenn Sie auf diesem
+Boden sind und die Maus (oder ein @"ahnliches Ger@"at) in eine
+Richtung bewegen, wird die Kugel sich in die entgegengesetzte Richtung
+bewegen. (Wenn Sie hiermit Probleme haben, versuchen Sie Ihre Maus um
+180 Grad zu drehen).
 
 Raum 7: Versuchen Sie ein Extraleben zu bekommen, indem Sie den Klotz auf den
 unteren Schalter bewegen. Schieben Sie ihn zuerst ein Feld nach oben, dann sechs
@@ -1055,11 +1058,11 @@ Sie den Block auf den anderen Schalter um die T@"ur in den n@"achsten Raum zu @"
 
 Raum 8: Nehmen Sie das Dynamit (dazu m@"ussen Sie auf das Eis gehen) und legen Sie
 es vor die gelblichen Bl@"ocke um sie zu sprengen und so einen Durchgang zu
-erhalten. Der Spaten hat hier keinen Zweck, aber sie sollten seine
+erhalten. Der Spaten hat hier keinen Zweck, aber Sie sollten seine
 Funktionsweise trotzdem kennen.
 
-Raum 9: Stossen Sie den untersten verschiebbaren Block nach links. Nun
-versperren die Bolder, die nach rechts dr@"angen, Ihren Weg. Stossen Sie den
+Raum 9: Sto@ss{}en Sie den untersten verschiebbaren Block nach links. Nun
+versperren die Bolder, die nach rechts dr@"angen, Ihren Weg. Sto@ss{}en Sie den
 beweglichen Klotz ganz rechts (nach links oder nach rechts) um die Bolder
 vorbeigehen zu lassen. Nehmen Sie den Zauberstab (ber@"uhren Sie nicht
 unvorsichtigerweise einen Bolder, wenn der Stab an vorderster Stelle in Ihrem
@@ -1073,66 +1076,68 @@ Raum 10: Bet@"atigen Sie den Schalter. Nun schieben Sie die braunen Kl@"otze nac
 oben (je ein Feld). Schieben Sie die mittlere (von unten nach oben) Holzkiste
 nach links, und diejenige rechts dar@"uber ins Wasser. Schieben Sie die restlichen
 Holzkisten in der gleichen Reihe ins Wasser (Aufpassen, nicht ertrinken!). Nun
-schlagen Sie das Fenster (die blaue Linie) mit grosser Geschwindigkeit ein.
+schlagen Sie das Fenster (die blaue Linie) mit gro@ss{}er Geschwindigkeit ein.
 Nehmen Sie das Extraleben und gehen Sie @"uber die Br@"ucke nach oben in den ersten
 Raum und dann durch die offene T@"ur nach oben.
 
 @subsection Gebiet 2
 
-Im zweiten Gebiet werden Sie einen Rotor antreffen. Das ist ein lebendiger Feind
-Ihrer schwarzen Kugel. Verschiedene Rotoren k@"onnen sich unterschiedlich
-verhalten, aber sie sind nie sehr intelligent. Die L@"osung, um an ihnen vorbei
-zu kommen ist, sie so aus zu tricksen, dass sie das tun, was Sie wollen; dabei
-m@"ussen Sie versuchen, sich m@"oglichst aus der Gefahr heraus zu halten. 
+Im zweiten Gebiet werden Sie einen Rotor antreffen. Das ist ein
+beweglicher Feind Ihrer schwarzen Kugel. Verschiedene Rotoren k@"onnen
+sich unterschiedlich verhalten, aber sie sind nie sehr
+intelligent. Die L@"osung, um an ihnen vorbei zu kommen ist, sie so
+auszutricksen, dass sie das tun, was Sie wollen; dabei m@"ussen Sie
+versuchen, sich m@"oglichst aus der Gefahr heraus zu halten. 
 
 Schauen Sie sich hier etwas um, aber fassen sie den beweglichen Block noch nicht
 an. Sie m@"ussen durch diese drei geschlossenen T@"uren da oben gehen.
 
-Erste T@"ure: Schieben Sie die weisse Kugel nach links aus der Sackgasse heraus
+Erste T@"ur: Schieben Sie die wei@ss{}e Kugel nach links aus der Sackgasse heraus
 (aber gehen Sie dabei noch nicht durch den Einbahnblock). Das wird vielleicht
-einige Versuche brauchen. Nehmen Sie den L@"offel auf und stossen Sie die weisse
-Kugel durch den weissen Einbahnblock, aber fest genug, dass sie nicht darunter
+einige Versuche brauchen. Nehmen Sie den L@"offel auf und sto@ss{}en Sie die wei@ss{}e
+Kugel durch den wei@ss{}en Einbahnblock, aber fest genug, dass sie nicht darunter
 stecken bleibt. Nun gehen Sie durch den schwarzen Einbahnblock und schieben die
-weisse Kugel dem Weg entlang. Stossen Sie die weisse Kugel durch den n@"achsten
-Einbahnblock, auch hier m@"oglichst fest. Sobald die weisse Kugel hindurch ist und
+wei@ss{}e Kugel den Weg entlang. Sto@ss{}en Sie die wei@ss{}e Kugel durch den n@"achsten
+Einbahnblock, auch hier m@"oglichst fest. Sobald die wei@ss{}e Kugel hindurch ist und
 den Abhang hinunter rollt, benutzen Sie den L@"offel; Sie beginnen am Anfang der
 Landschaft neu und sind nicht l@"anger gefangen. Gehen Sie nun wieder in den oberen
 Raum---die erste T@"ur ist jetzt offen.
 
-Zweite T@"ure: Schieben sie den beweglichen Block im Raum ganz rechts nach rechts
+Zweite T@"ur: Schieben sie den beweglichen Block im Raum ganz rechts nach rechts
 und rennen Sie schnell weg. Ein Dokument mit n@"utzlichen Informationen liegt nun
-in der T@"ure zwischen Gebiet 1 und 2. Locken Sie den Rotor (indem Sie ihn dazu
+in der T@"ur zwischen Gebiet 1 und 2. Locken Sie den Rotor (indem Sie ihn dazu
 bringen Sie zu jagen, so wie Sie es mit dem Kreisel getan haben) @"uber die Mauer
-rechts der T@"ure, die die beiden Gebiete verbindet. Rennen Sie durch die T@"ure
-und @"uber die Br@"ucke in den Raum unter Ihnen. Bet@"atigen Sie den Schalter um die
-T@"ure zu schliessen und gehen Sie dann in den Raum, in dem Sie urspr@"unglich
-starteten. Sie werden den Rotor nicht l@"anger sehen---er kann nicht in den Raum
-kommen, in dem Sie gerade jetzt sind---aber wenn Sie genau hinschauen, werden
-Sie sehen, wo er etwa ist. Das Ziel ist es hier, ohne sich selbst in Gefahr zu
-begeben, den Rotor auf einen Schalter zu bringen, so, dass er eine T@"ure f@"ur Sie
+rechts der T@"ure, die die beiden Gebiete verbindet. Rennen Sie durch die T@"ur
+und @"uber die Br@"ucke in den Raum unter Ihnen. Bet@"atigen Sie den
+Schalter, um die T@"ur zu schlie@ss{}en und gehen Sie dann in den Raum, in
+dem Sie urspr@"unglich starteten. Sie werden den Rotor nicht l@"anger
+sehen---er kann nicht in den Raum kommen, in dem Sie gerade jetzt
+sind---aber wenn Sie genau hinschauen, werden Sie sehen, wo er etwa
+ist. Das Ziel ist es hier, ohne sich selbst in Gefahr zu begeben, den
+Rotor auf einen Schalter zu bringen, so, dass er eine T@"ure f@"ur Sie
 @"offnet. Bringen Sie ihn dazu, Ihnen von oben rechts nach oben links zu folgen.
 Er sollte von einigen Abh@"angen nach links geschoben werden. Bringen Sie ihn
 links nach unten, bis er nicht mehr weiter kann und Sie den Ton eines Schalter
 h@"oren. bet@"atigen Sie den Schalter unten an der Br@"ucken und gehen Sie zur@"uck in
 das Gebiet zwei. Die zweite T@"ure ist nun offen.
 
-Dritte T@"ure: Schieben Sie den beweglichen Block, unter dem der Rotor sich
-versteckt hatte auf den Schalter in der n@"ahe. Gehen Sie nach links---die dritte
-T@"ure ist jetzt auch offen. Gehen Sie durch diese drei T@"uren.
+Dritte T@"ur: Schieben Sie den beweglichen Block, unter dem der Rotor sich
+versteckt hatte auf den Schalter in der N@"ahe. Gehen Sie nach links---die dritte
+T@"ur ist jetzt auch offen. Gehen Sie durch diese drei T@"uren.
 
 @subsection Gebiet 3
 
 In Gebiet drei m@"ussen Sie die Interaktion zwischen verschiedenen Objekten von
 Enigma n@"aher untersuchen. Hier werden sie Laser, Spiegel und M@"unzen finden. Sie
 werden ein einfaches Laser-Spiegel Problem l@"osen m@"ussen, um den Laser auf einen
-bestimmten Stein zu lenken, welcher eine Br@"ucke in den n@"achsten Raum schliessen
+bestimmten Stein zu lenken, welcher eine Br@"ucke in den n@"achsten Raum schlie@ss{}en
 wird. Um durch die n@"achsten R@"aume zu kommen, m@"ussen Sie einige neue Gegenst@"ande
 erschaffen, indem sie den Laser auf gewisse, bereits vorhandene, Dinge lenken.
 
 Im ersten Teil von Gebiet drei sind drei Spiegel, ein Laser und ein Schalter
 vorhanden.
 
-Raum 1: Sie m@"ussen den Laser auf den schwarzen Stein umlenken. Stossen Sie den
+Raum 1: Sie m@"ussen den Laser auf den schwarzen Stein umlenken. Sto@ss{}en Sie den
 Spiegel links unten ein Feld nach unten (er sollte nun genau 30 Felder direkt
 links vom Laser stehen) und richten Sie ihn so aus, dass er wie ein ``\''
 aussieht; dies machen Sie, indem Sie ihn vorsichtig ber@"uhren. Schieben Sie den
@@ -1144,10 +1149,10 @@ letzten Spiegel und ein Feld unter dem schwarzen Stein stehen). Richten Sie ihn
 so aus: ``/''. Schalten Sie nun den Laser an, indem Sie den Schalter bet@"atigen;
 meiden Sie den Strahl! Gehen Sie nun @"uber die Br@"ucke nach rechts.
 
-Raum 2: Nehmen Sie einige M@"unzen mit und gehen Sie zur@"uck in den letzten Raum.
-Bestrahlen Sie die M@"unzen mit dem Laser, indem Sie ihn an- und abschalten.
+Raum 2: Nehmen Sie einige M@"unzen mit und gehen Sie zur@"uck in den vorigen Raum.
+Bestrahlen Sie eine der M@"unzen mit dem Laser, indem Sie ihn an- und abschalten.
 Nehmen Sie das umgewandelte Objekt (einen Regenschirm), und wiederholen Sie den
-Prozess mindestens ein weiteres mal. Legen Sie nun eine M@"unzen neben einen
+Prozess mindestens ein weiteres Mal. Legen Sie nun eine M@"unze neben einen
 Spiegel und schieben Sie ihn dar@"uber. Bestrahlen Sie auch diese M@"unze mit einem
 Wert von 5, um einen Hammer zu erzeugen. Bestrahlen Sie den Hammer
 (indem Sie den Laser nochmals aus- und einschalten), um ein Schwert zu erzeugen.
@@ -1155,19 +1160,19 @@ Falls Sie mehr Extraleben wollen, schieben Sie einen Spiegel zwei Mal @"uber ein
 M@"unze und bestrahlen Sie diese M@"unze mit einem Wert von 10 (dem maximal
 m@"oglichen) mit dem Laser. Um in den Raum mit den Rittern zur@"uck zu kommen,
 richten Sie die Spiegel wieder wie vorhin aus, entfernen Sie alle Objekte, die
-den Strahl blockieren k@"onnten und schalten Sie den Laser ein. Ben@"utzen Sie nun
+den Strahl blockieren k@"onnten und schalten Sie den Laser ein. Benutzen Sie nun
 die rechte Maustaste oder die ``Tab''-Taste um das Schwert an die erste Stelle
 (ganz nach links) in Ihrem Inventar zu bekommen. K@"ampfen Sie mit den Rittern
 (schlagen Sie sie jeweils 4 Mal), um einen Durchgang zu bekommen.
 
-Raum 3: Benutzen Sie einen Regenschirm um @"uber den Abyss nach unten zu fliegen
-und dann in den Raum rechts hinein zu gehen. Wenn der Ring um Ihre Kugel zu
-blinken beginnt, ist die Wirkung bald vorbei, benutzen Sie rechtzeitig einen
-weiteren Regenschirm.
+Raum 3: Benutzen Sie einen Regenschirm, um @"uber den Abgrund nach
+unten zu fliegen und dann in den Raum rechts hinein zu gehen. Wenn der
+Ring um Ihre Kugel zu blinken beginnt, ist die Wirkung bald vorbei,
+benutzen Sie rechtzeitig einen weiteren Regenschirm.
 
 Raum 4: @"Offnen Sie einfach alle Oxydsteine in der richtigen Reihenfolge, so dass
 jeweils gleichfarbige ge@"offnet bleiben. Vermeiden Sie es, die Furzsteine zu
-ber@"uhren! Sie haben die Landschaft nun geschafft!
+ber@"uhren. Sie haben die Landschaft nun geschafft!
 
 @node Tipps,  , Tutorial, Tipps und Tricks
 @section Tipps
@@ -1262,7 +1267,7 @@ Beachten Sie das Gitter!
 @item III/27: Tricks and Traps
 Sie kommen nicht aus dem ersten Raum? Richten Sie Ihre Aufmerksamkeit
 zun@"achst auf den kleinen blinkenden Punkt. Sie finden den letzten
-Oxyd-Stein nicht? Aktivieren Sie drei große blinkende Punkte im ersten
+Oxyd-Stein nicht? Aktivieren Sie drei gro@ss{}e blinkende Punkte im ersten
 Bild und den kleinen im dritten.
 
 @item III/28: Wells
@@ -1274,7 +1279,7 @@ rechts daneben -- dann weiter machen!
 
 @item III/40: Snow White
 Drei kleine Eskimos -- wandern auf dem Schneefeld -- suchten ihre drei
-Iglos -- auf die der weiße Schnee f@"allt.
+Iglos -- auf die der wei@ss{}e Schnee f@"allt.
 
 @item III/43: The Ditch
 Man kann dieses Level nicht ohne gebrochenes Ego l@"osen.
