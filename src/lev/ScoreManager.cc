@@ -89,7 +89,7 @@ namespace enigma { namespace lev {
         std::string stateUserId = app.state->getString("UserId"); 
         
         if (stateUserId.length() == 16 && 
-                stateUserId.find_first_not_of("01234567890ABCDEF") == std::string::npos) {
+                stateUserId.find_first_not_of("0123456789ABCDEF") == std::string::npos) {
             unsigned i1, i2, i3, i4; 
             std::istringstream s1(stateUserId.substr(0, 4));
             std::istringstream s2(stateUserId.substr(4, 4));
@@ -358,9 +358,30 @@ namespace enigma { namespace lev {
 #endif
             std::istringstream contentStream(contents);
             std::ostringstream zippedStream;
-            writeToZip(zippedStream, "score.xml", contentStream);
+            writeToZip(zippedStream, "score.xml", contents.size(), contentStream);
             std::ofstream of( zipPath.c_str(), ios::out | ios::binary );
             std::string zipScore = zippedStream.str();
+            
+            // patch zipios++ malformed output
+            // assumptions: just one file named "score.xml" (9 chars)
+            unsigned cdirOffset = zipScore.size() - 22 - 46 - 9;
+            unsigned compressedSize = cdirOffset - 30 - 9;
+            zipScore.replace(cdirOffset + 20, 1, 1, (char)(compressedSize & 0xFF));
+            zipScore.replace(cdirOffset + 21, 1, 1, (char)((compressedSize & 0xFF00) >> 8));
+            zipScore.replace(cdirOffset + 22, 1, 1, (char)((compressedSize & 0xFF0000) >> 16));
+            zipScore.replace(cdirOffset + 23, 1, 1, (char)((compressedSize & 0xFF000000) >> 24));
+            std::string dataDescr = "\x50\x4B\x07\x08" + zipScore.substr(cdirOffset + 16, 12);
+            zipScore.replace(6, 1 , 1, '\x08'); // general purpose bit flag
+            zipScore.replace(14, 12, 12, '\x00');
+            zipScore.replace(cdirOffset + 8, 1 , 1, '\x08'); // general purpose bit flag
+            zipScore.replace(cdirOffset + 38, 8, 8, '\x00'); // external file attr, offset local header
+            zipScore.insert(cdirOffset, dataDescr);
+            cdirOffset += 16;
+            zipScore.replace(zipScore.size() - 6, 1, 1, (char)(cdirOffset & 0xFF));
+            zipScore.replace(zipScore.size() - 5, 1, 1, (char)((cdirOffset & 0xFF00) >> 8));
+            zipScore.replace(zipScore.size() - 4, 1, 1, (char)((cdirOffset & 0xFF0000) >> 16));
+            zipScore.replace(zipScore.size() - 3, 1, 1, (char)((cdirOffset & 0xFF000000) >> 24));
+            
             for (int i=0; i<zipScore.size(); i++)
                 of << (char)(zipScore[i] ^ 0xE5);
         } catch (const XMLException& toCatch) {
