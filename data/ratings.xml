@@ -1,8 +1,9 @@
-<?xml version="1.0" encoding="UTF-8"?>
+<?xml version="1.0" encoding="UTF-8" standalone="no" ?>
 <ratings xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="ratings.xsd">
-  <update date="2006-11-25T10:16:30Z" delay="5" urlFull="http://www.nongnu.org/enigma/ratings/ratings.xml" urlIncremental="http://www.nongnu.org/enigma/ratings/ratings_i002.xml"/>
+  <update date="2006-12-05T21:13:08Z" delay="5" urlFull="http://www.nongnu.org/enigma/ratings/ratings.xml" urlIncremental="http://www.nongnu.org/enigma/ratings/ratings_i002.xml"/>
   <levels>
     <level avgur="-1" bsd="-1" bsdh="" bse="-1" bseh="" dex="4" id="20060213ral003" int="4" kno="5" pard="-1" pare="-1" pat="4" solvnd="0" solvne="0" solvpd="0" solvpe="0" spe="3" sv="1"/>
+    <level avgur="-1" bsd="-1" bsdh="" bse="-1" bseh="" dex="0" id="20060213ral003" int="0" kno="0" pard="-1" pare="-1" pat="0" solvnd="0" solvne="0" solvpd="0" solvpe="0" spe="0" sv="2"/>
     <level avgur="-1" bsd="10" bsdh="Andreas" bse="10" bseh="Andreas" dex="3" id="20060213ral004" int="2" kno="4" pard="-1" pare="-1" pat="1" solvnd="0" solvne="0" solvpd="0" solvpe="0" spe="4" sv="1"/>
     <level avgur="-1" bsd="43" bsdh="Raoul" bse="43" bseh="Raoul" dex="3" id="20060213ral005" int="2" kno="5" pard="-1" pare="-1" pat="4" solvnd="0" solvne="0" solvpd="0" solvpe="0" spe="4" sv="1"/>
     <level avgur="-1" bsd="-1" bsdh="" bse="-1" bseh="" dex="4" id="20060213ral005" int="2" kno="5" pard="-1" pare="-1" pat="2" solvnd="0" solvne="0" solvpd="0" solvpe="0" spe="4" sv="2"/>
@@ -15,6 +16,7 @@
     <level avgur="-1" bsd="-1" bsdh="" bse="-1" bseh="" dex="4" id="20060816ral719" int="5" kno="5" pard="-1" pare="-1" pat="5" solvnd="0" solvne="0" solvpd="0" solvpe="0" spe="1" sv="1"/>
     <level avgur="-1" bsd="-1" bsdh="" bse="-1" bseh="" dex="4" id="20060911ral294" int="2" kno="5" pard="-1" pare="-1" pat="3" solvnd="0" solvne="0" solvpd="0" solvpe="0" spe="3" sv="1"/>
     <level avgur="-1" bsd="-1" bsdh="" bse="-1" bseh="" dex="4" id="20061011ral390" int="2" kno="4" pard="-1" pare="-1" pat="4" solvnd="0" solvne="0" solvpd="0" solvpe="0" spe="1" sv="1"/>
+    <level avgur="-1" bsd="-1" bsdh="" bse="-1" bseh="" dex="0" id="20061120malaire901" int="0" kno="0" pard="-1" pare="-1" pat="0" solvnd="0" solvne="0" solvpd="0" solvpe="0" spe="0" sv="1"/>
     <level avgur="-1" bsd="288" bsdh="Duffy" bse="288" bseh="Duffy" dex="4" id="RayWick001" int="4" kno="4" pard="-1" pare="-1" pat="2" solvnd="0" solvne="0" solvpd="0" solvpe="0" spe="2" sv="1"/>
     <level avgur="-1" bsd="49" bsdh="Stephanie" bse="49" bseh="Stephanie" dex="3" id="RayWick002" int="3" kno="4" pard="-1" pare="-1" pat="3" solvnd="0" solvne="0" solvpd="0" solvpe="0" spe="1" sv="1"/>
     <level avgur="-1" bsd="36" bsdh="Duffy" bse="36" bseh="Duffy" dex="3" id="RayWick003" int="3" kno="5" pard="-1" pare="-1" pat="1" solvnd="0" solvne="0" solvpd="0" solvpe="0" spe="1" sv="1"/>
@@ -90,11 +92,11 @@
     <level avgur="-1" bsd="625" bsdh="Ralf" bse="158" bseh="Ralf" dex="0" id="Sokoban/mmic_124" int="0" kno="0" pard="-1" pare="-1" pat="0" solvnd="0" solvne="0" solvpd="0" solvpe="0" spe="0" sv="1"/>
     <level avgur="-1" bsd="76" bsdh="Ralf" bse="45" bseh="Ralf" dex="0" id="Sokoban/mmic_127" int="0" kno="0" pard="-1" pare="-1" pat="0" solvnd="0" solvne="0" solvpd="0" solvpe="0" spe="0" sv="1"/>
     <level avgur="-1" bsd="18" bsdh="Ralf" bse="18" bseh="Ralf" dex="0" id="Sokoban/mmic_17" int="0" kno="0" pard="-1" pare="-1" pat="0" solvnd="0" solvne="0" solvpd="0" solvpe="0" spe="0" sv="1"/>
-    <level avgur="-1" bsd="49" bsdh="Erich" bse="49" bseh="Erich" dex="0" id="Sokoban/mmic_19" int="0" kno="0" pard="-1" pare="-1" pat="0" solvnd="0" solvne="0" solvpd="0" solvpe="0" spe="0" sv="1"/>
+    <level avgur="-1" bsd="49" bsdh="erich" bse="49" bseh="erich" dex="0" id="Sokoban/mmic_19" int="0" kno="0" pard="-1" pare="-1" pat="0" solvnd="0" solvne="0" solvpd="0" solvpe="0" spe="0" sv="1"/>
     <level avgur="-1" bsd="24" bsdh="Ralf" bse="24" bseh="Ralf" dex="0" id="Sokoban/mmic_20" int="0" kno="0" pard="-1" pare="-1" pat="0" solvnd="0" solvne="0" solvpd="0" solvpe="0" spe="0" sv="1"/>
     <level avgur="-1" bsd="29" bsdh="Duffy" bse="22" bseh="Ralf" dex="0" id="Sokoban/mmic_25" int="0" kno="0" pard="-1" pare="-1" pat="0" solvnd="0" solvne="0" solvpd="0" solvpe="0" spe="0" sv="1"/>
     <level avgur="-1" bsd="21" bsdh="Ralf" bse="21" bseh="Ralf" dex="0" id="Sokoban/mmic_28" int="0" kno="0" pard="-1" pare="-1" pat="0" solvnd="0" solvne="0" solvpd="0" solvpe="0" spe="0" sv="1"/>
-    <level avgur="-1" bsd="71" bsdh="Erich" bse="71" bseh="Erich" dex="0" id="Sokoban/mmic_30" int="0" kno="0" pard="-1" pare="-1" pat="0" solvnd="0" solvne="0" solvpd="0" solvpe="0" spe="0" sv="1"/>
+    <level avgur="-1" bsd="71" bsdh="erich" bse="71" bseh="erich" dex="0" id="Sokoban/mmic_30" int="0" kno="0" pard="-1" pare="-1" pat="0" solvnd="0" solvne="0" solvpd="0" solvpe="0" spe="0" sv="1"/>
     <level avgur="-1" bsd="50" bsdh="Ralf" bse="50" bseh="Ralf" dex="0" id="Sokoban/mmic_32" int="0" kno="0" pard="-1" pare="-1" pat="0" solvnd="0" solvne="0" solvpd="0" solvpe="0" spe="0" sv="1"/>
     <level avgur="-1" bsd="145" bsdh="Johannes" bse="145" bseh="Johannes" dex="0" id="Sokoban/mmic_35" int="0" kno="0" pard="-1" pare="-1" pat="0" solvnd="0" solvne="0" solvpd="0" solvpe="0" spe="0" sv="1"/>
     <level avgur="-1" bsd="45" bsdh="Stephanie" bse="45" bseh="Stephanie" dex="0" id="Sokoban/mmic_36" int="0" kno="0" pard="-1" pare="-1" pat="0" solvnd="0" solvne="0" solvpd="0" solvpe="0" spe="0" sv="1"/>
@@ -103,19 +105,19 @@
     <level avgur="-1" bsd="34" bsdh="Stephanie" bse="34" bseh="Stephanie" dex="0" id="Sokoban/mmic_40" int="0" kno="0" pard="-1" pare="-1" pat="0" solvnd="0" solvne="0" solvpd="0" solvpe="0" spe="0" sv="1"/>
     <level avgur="-1" bsd="34" bsdh="Ralf" bse="34" bseh="Ralf" dex="0" id="Sokoban/mmic_41" int="0" kno="0" pard="-1" pare="-1" pat="0" solvnd="0" solvne="0" solvpd="0" solvpe="0" spe="0" sv="1"/>
     <level avgur="-1" bsd="97" bsdh="Stephanie" bse="97" bseh="Stephanie" dex="0" id="Sokoban/mmic_42" int="0" kno="0" pard="-1" pare="-1" pat="0" solvnd="0" solvne="0" solvpd="0" solvpe="0" spe="0" sv="1"/>
-    <level avgur="-1" bsd="70" bsdh="Erich" bse="42" bseh="Ralf" dex="0" id="Sokoban/mmic_43" int="0" kno="0" pard="-1" pare="-1" pat="0" solvnd="0" solvne="0" solvpd="0" solvpe="0" spe="0" sv="1"/>
+    <level avgur="-1" bsd="70" bsdh="erich" bse="42" bseh="Ralf" dex="0" id="Sokoban/mmic_43" int="0" kno="0" pard="-1" pare="-1" pat="0" solvnd="0" solvne="0" solvpd="0" solvpe="0" spe="0" sv="1"/>
     <level avgur="-1" bsd="168" bsdh="Stephanie" bse="168" bseh="Stephanie" dex="0" id="Sokoban/mmic_46" int="0" kno="0" pard="-1" pare="-1" pat="0" solvnd="0" solvne="0" solvpd="0" solvpe="0" spe="0" sv="1"/>
-    <level avgur="-1" bsd="71" bsdh="Erich" bse="71" bseh="Erich" dex="0" id="Sokoban/mmic_47" int="0" kno="0" pard="-1" pare="-1" pat="0" solvnd="0" solvne="0" solvpd="0" solvpe="0" spe="0" sv="1"/>
+    <level avgur="-1" bsd="71" bsdh="erich" bse="71" bseh="erich" dex="0" id="Sokoban/mmic_47" int="0" kno="0" pard="-1" pare="-1" pat="0" solvnd="0" solvne="0" solvpd="0" solvpe="0" spe="0" sv="1"/>
     <level avgur="-1" bsd="74" bsdh="Daniel" bse="74" bseh="Daniel" dex="0" id="Sokoban/mmic_48" int="0" kno="0" pard="-1" pare="-1" pat="0" solvnd="0" solvne="0" solvpd="0" solvpe="0" spe="0" sv="1"/>
-    <level avgur="-1" bsd="67" bsdh="Erich" bse="67" bseh="Erich" dex="0" id="Sokoban/mmic_51" int="0" kno="0" pard="-1" pare="-1" pat="0" solvnd="0" solvne="0" solvpd="0" solvpe="0" spe="0" sv="1"/>
-    <level avgur="-1" bsd="127" bsdh="Erich" bse="127" bseh="Erich" dex="0" id="Sokoban/mmic_55" int="0" kno="0" pard="-1" pare="-1" pat="0" solvnd="0" solvne="0" solvpd="0" solvpe="0" spe="0" sv="1"/>
+    <level avgur="-1" bsd="67" bsdh="erich" bse="67" bseh="erich" dex="0" id="Sokoban/mmic_51" int="0" kno="0" pard="-1" pare="-1" pat="0" solvnd="0" solvne="0" solvpd="0" solvpe="0" spe="0" sv="1"/>
+    <level avgur="-1" bsd="127" bsdh="erich" bse="127" bseh="erich" dex="0" id="Sokoban/mmic_55" int="0" kno="0" pard="-1" pare="-1" pat="0" solvnd="0" solvne="0" solvpd="0" solvpe="0" spe="0" sv="1"/>
     <level avgur="-1" bsd="74" bsdh="Stephanie" bse="44" bseh="Stephanie" dex="0" id="Sokoban/mmic_56" int="0" kno="0" pard="-1" pare="-1" pat="0" solvnd="0" solvne="0" solvpd="0" solvpe="0" spe="0" sv="1"/>
     <level avgur="-1" bsd="30" bsdh="Ralf" bse="30" bseh="Ralf" dex="0" id="Sokoban/mmic_57" int="0" kno="0" pard="-1" pare="-1" pat="0" solvnd="0" solvne="0" solvpd="0" solvpe="0" spe="0" sv="1"/>
     <level avgur="-1" bsd="71" bsdh="Ronald" bse="71" bseh="Ronald" dex="0" id="Sokoban/mmic_58" int="0" kno="0" pard="-1" pare="-1" pat="0" solvnd="0" solvne="0" solvpd="0" solvpe="0" spe="0" sv="1"/>
     <level avgur="-1" bsd="148" bsdh="Draknek" bse="148" bseh="Draknek" dex="0" id="Sokoban/mmic_66" int="0" kno="0" pard="-1" pare="-1" pat="0" solvnd="0" solvne="0" solvpd="0" solvpe="0" spe="0" sv="1"/>
     <level avgur="-1" bsd="79" bsdh="Duffy" bse="79" bseh="Duffy" dex="0" id="Sokoban/mmic_68" int="0" kno="0" pard="-1" pare="-1" pat="0" solvnd="0" solvne="0" solvpd="0" solvpe="0" spe="0" sv="1"/>
     <level avgur="-1" bsd="84" bsdh="Draknek" bse="84" bseh="Draknek" dex="0" id="Sokoban/mmic_71" int="0" kno="0" pard="-1" pare="-1" pat="0" solvnd="0" solvne="0" solvpd="0" solvpe="0" spe="0" sv="1"/>
-    <level avgur="-1" bsd="120" bsdh="Erich" bse="120" bseh="Erich" dex="0" id="Sokoban/mmic_73" int="0" kno="0" pard="-1" pare="-1" pat="0" solvnd="0" solvne="0" solvpd="0" solvpe="0" spe="0" sv="1"/>
+    <level avgur="-1" bsd="120" bsdh="erich" bse="120" bseh="erich" dex="0" id="Sokoban/mmic_73" int="0" kno="0" pard="-1" pare="-1" pat="0" solvnd="0" solvne="0" solvpd="0" solvpe="0" spe="0" sv="1"/>
     <level avgur="-1" bsd="142" bsdh="Draknek" bse="142" bseh="Draknek" dex="0" id="Sokoban/mmic_74" int="0" kno="0" pard="-1" pare="-1" pat="0" solvnd="0" solvne="0" solvpd="0" solvpe="0" spe="0" sv="1"/>
     <level avgur="-1" bsd="195" bsdh="Stephanie" bse="195" bseh="Stephanie" dex="0" id="Sokoban/mmic_75" int="0" kno="0" pard="-1" pare="-1" pat="0" solvnd="0" solvne="0" solvpd="0" solvpe="0" spe="0" sv="1"/>
     <level avgur="-1" bsd="118" bsdh="Markus" bse="118" bseh="Markus" dex="0" id="Sokoban/mmic_76" int="0" kno="0" pard="-1" pare="-1" pat="0" solvnd="0" solvne="0" solvpd="0" solvpe="0" spe="0" sv="1"/>
@@ -126,7 +128,7 @@
     <level avgur="-1" bsd="50" bsdh="Stephanie" bse="50" bseh="Stephanie" dex="0" id="Sokoban/mmic_88" int="0" kno="0" pard="-1" pare="-1" pat="0" solvnd="0" solvne="0" solvpd="0" solvpe="0" spe="0" sv="1"/>
     <level avgur="-1" bsd="103" bsdh="Markus" bse="103" bseh="Markus" dex="0" id="Sokoban/mmic_89" int="0" kno="0" pard="-1" pare="-1" pat="0" solvnd="0" solvne="0" solvpd="0" solvpe="0" spe="0" sv="1"/>
     <level avgur="-1" bsd="110" bsdh="Ralf" bse="110" bseh="Ralf" dex="0" id="Sokoban/mmic_90" int="0" kno="0" pard="-1" pare="-1" pat="0" solvnd="0" solvne="0" solvpd="0" solvpe="0" spe="0" sv="2"/>
-    <level avgur="-1" bsd="128" bsdh="Erich" bse="128" bseh="Erich" dex="0" id="Sokoban/mmic_95" int="0" kno="0" pard="-1" pare="-1" pat="0" solvnd="0" solvne="0" solvpd="0" solvpe="0" spe="0" sv="1"/>
+    <level avgur="-1" bsd="128" bsdh="erich" bse="128" bseh="erich" dex="0" id="Sokoban/mmic_95" int="0" kno="0" pard="-1" pare="-1" pat="0" solvnd="0" solvne="0" solvpd="0" solvpe="0" spe="0" sv="1"/>
     <level avgur="-1" bsd="168" bsdh="Ralf" bse="168" bseh="Ralf" dex="0" id="Sokoban/mmic_96" int="0" kno="0" pard="-1" pare="-1" pat="0" solvnd="0" solvne="0" solvpd="0" solvpe="0" spe="0" sv="1"/>
     <level avgur="-1" bsd="113" bsdh="Johannes" bse="113" bseh="Johannes" dex="0" id="Sokoban/mmic_99" int="0" kno="0" pard="-1" pare="-1" pat="0" solvnd="0" solvne="0" solvpd="0" solvpe="0" spe="0" sv="1"/>
     <level avgur="-1" bsd="-1" bsdh="" bse="-1" bseh="" dex="0" id="Sokoban/msas_11" int="0" kno="0" pard="-1" pare="-1" pat="0" solvnd="0" solvne="0" solvpd="0" solvpe="0" spe="0" sv="1"/>
@@ -222,6 +224,7 @@
     <level avgur="-1" bsd="58" bsdh="Raoul" bse="58" bseh="Raoul" dex="2" id="andreas21" int="4" kno="6" pard="-1" pare="-1" pat="3" solvnd="0" solvne="0" solvpd="0" solvpe="0" spe="1" sv="1"/>
     <level avgur="-1" bsd="37" bsdh="Raoul" bse="37" bseh="Raoul" dex="3" id="andreas22" int="1" kno="2" pard="-1" pare="-1" pat="2" solvnd="0" solvne="0" solvpd="0" solvpe="0" spe="3" sv="1"/>
     <level avgur="-1" bsd="-1" bsdh="" bse="-1" bseh="" dex="3" id="andreas24" int="3" kno="2" pard="-1" pare="-1" pat="3" solvnd="0" solvne="0" solvpd="0" solvpe="0" spe="1" sv="1"/>
+    <level avgur="-1" bsd="-1" bsdh="" bse="-1" bseh="" dex="0" id="andreas25" int="0" kno="0" pard="-1" pare="-1" pat="0" solvnd="0" solvne="0" solvpd="0" solvpe="0" spe="0" sv="1"/>
     <level avgur="-1" bsd="-1" bsdh="" bse="77" bseh="Andreas" dex="1" id="andreas25" int="3" kno="6" pard="-1" pare="-1" pat="4" solvnd="0" solvne="0" solvpd="0" solvpe="0" spe="1" sv="2"/>
     <level avgur="-1" bsd="-1" bsdh="" bse="-1" bseh="" dex="3" id="andreas26" int="4" kno="4" pard="-1" pare="-1" pat="4" solvnd="0" solvne="0" solvpd="0" solvpe="0" spe="3" sv="1"/>
     <level avgur="-1" bsd="127" bsdh="Raoul" bse="-1" bseh="" dex="1" id="andreas27" int="3" kno="6" pard="-1" pare="-1" pat="3" solvnd="0" solvne="0" solvpd="0" solvpe="0" spe="3" sv="1"/>
@@ -738,6 +741,8 @@
     <level avgur="-1" bsd="11" bsdh="Duffy" bse="11" bseh="Duffy" dex="2" id="oxm020" int="1" kno="2" pard="-1" pare="-1" pat="1" solvnd="0" solvne="0" solvpd="0" solvpe="0" spe="1" sv="1"/>
     <level avgur="-1" bsd="55" bsdh="Duffy" bse="55" bseh="Duffy" dex="3" id="oxm021" int="2" kno="3" pard="-1" pare="-1" pat="2" solvnd="0" solvne="0" solvpd="0" solvpe="0" spe="1" sv="1"/>
     <level avgur="-1" bsd="10" bsdh="Duffy" bse="10" bseh="Duffy" dex="3" id="oxm023" int="2" kno="4" pard="-1" pare="-1" pat="2" solvnd="0" solvne="0" solvpd="0" solvpe="0" spe="1" sv="1"/>
+    <level avgur="-1" bsd="-1" bsdh="" bse="-1" bseh="" dex="0" id="oxm08" int="0" kno="0" pard="-1" pare="-1" pat="0" solvnd="0" solvne="0" solvpd="0" solvpe="0" spe="0" sv="1"/>
+    <level avgur="-1" bsd="-1" bsdh="" bse="-1" bseh="" dex="0" id="oxm14" int="0" kno="0" pard="-1" pare="-1" pat="0" solvnd="0" solvne="0" solvpd="0" solvpe="0" spe="0" sv="1"/>
     <level avgur="-1" bsd="-1" bsdh="" bse="-1" bseh="" dex="2" id="oxyd1" int="1" kno="2" pard="-1" pare="-1" pat="1" solvnd="0" solvne="0" solvpd="0" solvpe="0" spe="3" sv="1"/>
     <level avgur="-1" bsd="-1" bsdh="" bse="-1" bseh="" dex="1" id="oxyd20" int="1" kno="2" pard="-1" pare="-1" pat="3" solvnd="0" solvne="0" solvpd="0" solvpe="0" spe="1" sv="1"/>
     <level avgur="-1" bsd="-1" bsdh="" bse="-1" bseh="" dex="2" id="oxyd2p1" int="1" kno="4" pard="-1" pare="-1" pat="1" solvnd="0" solvne="0" solvpd="0" solvpe="0" spe="2" sv="1"/>
@@ -749,6 +754,9 @@
     <level avgur="-1" bsd="29" bsdh="Andreas" bse="29" bseh="Andreas" dex="2" id="oxyd77" int="2" kno="2" pard="-1" pare="-1" pat="1" solvnd="0" solvne="0" solvpd="0" solvpe="0" spe="1" sv="1"/>
     <level avgur="-1" bsd="-1" bsdh="" bse="-1" bseh="" dex="5" id="oxyd90" int="1" kno="4" pard="-1" pare="-1" pat="4" solvnd="0" solvne="0" solvpd="0" solvpe="0" spe="1" sv="1"/>
     <level avgur="-1" bsd="14" bsdh="Andreas" bse="14" bseh="Andreas" dex="2" id="oxydmagnum40" int="1" kno="4" pard="-1" pare="-1" pat="1" solvnd="0" solvne="0" solvpd="0" solvpe="0" spe="1" sv="1"/>
+    <level avgur="-1" bsd="-1" bsdh="" bse="-1" bseh="" dex="0" id="oxydmagnumgold17" int="0" kno="0" pard="-1" pare="-1" pat="0" solvnd="0" solvne="0" solvpd="0" solvpe="0" spe="0" sv="1"/>
+    <level avgur="-1" bsd="-1" bsdh="" bse="-1" bseh="" dex="0" id="oxydmagnumgold18" int="0" kno="0" pard="-1" pare="-1" pat="0" solvnd="0" solvne="0" solvpd="0" solvpe="0" spe="0" sv="1"/>
+    <level avgur="-1" bsd="-1" bsdh="" bse="-1" bseh="" dex="0" id="oxydmagnumgold19" int="0" kno="0" pard="-1" pare="-1" pat="0" solvnd="0" solvne="0" solvpd="0" solvpe="0" spe="0" sv="1"/>
     <level avgur="-1" bsd="50" bsdh="Andreas" bse="50" bseh="Andreas" dex="2" id="peroxyd2p13" int="3" kno="4" pard="-1" pare="-1" pat="2" solvnd="0" solvne="0" solvpd="0" solvpe="0" spe="1" sv="1"/>
     <level avgur="-1" bsd="96" bsdh="Andreas" bse="96" bseh="Andreas" dex="2" id="peroxyd2p6" int="3" kno="4" pard="-1" pare="-1" pat="2" solvnd="0" solvne="0" solvpd="0" solvpe="0" spe="1" sv="1"/>
     <level avgur="-1" bsd="-1" bsdh="" bse="-1" bseh="" dex="2" id="peroxyd30" int="1" kno="4" pard="-1" pare="-1" pat="3" solvnd="0" solvne="0" solvpd="0" solvpe="0" spe="1" sv="1"/>
@@ -771,7 +779,7 @@
     <level avgur="-1" bsd="192" bsdh="Ralf" bse="91" bseh="Ralf" dex="4" id="ralf11" int="2" kno="4" pard="-1" pare="-1" pat="4" solvnd="0" solvne="0" solvpd="0" solvpe="0" spe="3" sv="2"/>
     <level avgur="-1" bsd="145" bsdh="Daniel" bse="184" bseh="Ralf" dex="3" id="ralf12" int="4" kno="4" pard="-1" pare="-1" pat="3" solvnd="0" solvne="0" solvpd="0" solvpe="0" spe="1" sv="1"/>
     <level avgur="-1" bsd="-1" bsdh="" bse="-1" bseh="" dex="3" id="ralf14" int="5" kno="4" pard="-1" pare="-1" pat="4" solvnd="0" solvne="0" solvpd="0" solvpe="0" spe="1" sv="1"/>
-    <level avgur="-1" bsd="276" bsdh="Duffy" bse="287" bseh="Erich" dex="4" id="ralf15" int="3" kno="4" pard="-1" pare="-1" pat="5" solvnd="0" solvne="0" solvpd="0" solvpe="0" spe="3" sv="1"/>
+    <level avgur="-1" bsd="276" bsdh="Duffy" bse="287" bseh="erich" dex="4" id="ralf15" int="3" kno="4" pard="-1" pare="-1" pat="5" solvnd="0" solvne="0" solvpd="0" solvpe="0" spe="3" sv="1"/>
     <level avgur="-1" bsd="109" bsdh="Raoul" bse="109" bseh="Raoul" dex="2" id="ralf_pento1" int="4" kno="6" pard="-1" pare="-1" pat="3" solvnd="0" solvne="0" solvpd="0" solvpe="0" spe="1" sv="1"/>
     <level avgur="-1" bsd="747" bsdh="Ralf" bse="747" bseh="Ralf" dex="1" id="ralf_pento2" int="4" kno="6" pard="-1" pare="-1" pat="4" solvnd="0" solvne="0" solvpd="0" solvpe="0" spe="1" sv="1"/>
     <level avgur="-1" bsd="-1" bsdh="" bse="-1" bseh="" dex="1" id="ralf_pento3" int="4" kno="6" pard="-1" pare="-1" pat="4" solvnd="0" solvne="0" solvpd="0" solvpe="0" spe="1" sv="1"/>
@@ -801,6 +809,7 @@
     <level avgur="-1" bsd="-1" bsdh="" bse="-1" bseh="" dex="3" id="raoul23" int="3" kno="6" pard="-1" pare="-1" pat="4" solvnd="0" solvne="0" solvpd="0" solvpe="0" spe="1" sv="1"/>
     <level avgur="-1" bsd="-1" bsdh="" bse="-1" bseh="" dex="2" id="raoul24" int="1" kno="5" pard="-1" pare="-1" pat="3" solvnd="0" solvne="0" solvpd="0" solvpe="0" spe="1" sv="1"/>
     <level avgur="-1" bsd="-1" bsdh="" bse="-1" bseh="" dex="3" id="raoul25" int="3" kno="5" pard="-1" pare="-1" pat="3" solvnd="0" solvne="0" solvpd="0" solvpe="0" spe="4" sv="1"/>
+    <level avgur="-1" bsd="-1" bsdh="" bse="-1" bseh="" dex="0" id="raoul26" int="0" kno="0" pard="-1" pare="-1" pat="0" solvnd="0" solvne="0" solvpd="0" solvpe="0" spe="0" sv="1"/>
     <level avgur="-1" bsd="8" bsdh="Raoul" bse="-1" bseh="" dex="4" id="rb01" int="2" kno="3" pard="-1" pare="-1" pat="1" solvnd="0" solvne="0" solvpd="0" solvpe="0" spe="4" sv="1"/>
     <level avgur="-1" bsd="36" bsdh="Raoul" bse="36" bseh="Raoul" dex="3" id="rb02" int="3" kno="2" pard="-1" pare="-1" pat="2" solvnd="0" solvne="0" solvpd="0" solvpe="0" spe="1" sv="1"/>
     <level avgur="-1" bsd="30" bsdh="Raoul" bse="30" bseh="Raoul" dex="4" id="richi01" int="4" kno="5" pard="-1" pare="-1" pat="2" solvnd="0" solvne="0" solvpd="0" solvpe="0" spe="1" sv="1"/>
@@ -853,7 +862,7 @@
     <level avgur="-1" bsd="53" bsdh="Raoul" bse="53" bseh="Raoul" dex="3" id="ss1" int="4" kno="4" pard="-1" pare="-1" pat="3" solvnd="0" solvne="0" solvpd="0" solvpe="0" spe="1" sv="1"/>
     <level avgur="-1" bsd="60" bsdh="Raoul" bse="-1" bseh="" dex="3" id="ss10" int="4" kno="5" pard="-1" pare="-1" pat="2" solvnd="0" solvne="0" solvpd="0" solvpe="0" spe="3" sv="1"/>
     <level avgur="-1" bsd="81" bsdh="Stephanie" bse="81" bseh="Stephanie" dex="3" id="ss11" int="2" kno="4" pard="-1" pare="-1" pat="5" solvnd="0" solvne="0" solvpd="0" solvpe="0" spe="1" sv="1"/>
-    <level avgur="-1" bsd="66" bsdh="Duffy" bse="48" bseh="Erich" dex="5" id="ss12" int="2" kno="3" pard="-1" pare="-1" pat="4" solvnd="0" solvne="0" solvpd="0" solvpe="0" spe="1" sv="1"/>
+    <level avgur="-1" bsd="66" bsdh="Duffy" bse="48" bseh="erich" dex="5" id="ss12" int="2" kno="3" pard="-1" pare="-1" pat="4" solvnd="0" solvne="0" solvpd="0" solvpe="0" spe="1" sv="1"/>
     <level avgur="-1" bsd="39" bsdh="Ralf" bse="39" bseh="Stephanie" dex="2" id="ss13" int="3" kno="3" pard="-1" pare="-1" pat="4" solvnd="0" solvne="0" solvpd="0" solvpe="0" spe="1" sv="1"/>
     <level avgur="-1" bsd="79" bsdh="Duffy" bse="71" bseh="Johannes" dex="3" id="ss14" int="3" kno="4" pard="-1" pare="-1" pat="4" solvnd="0" solvne="0" solvpd="0" solvpe="0" spe="1" sv="1"/>
     <level avgur="-1" bsd="29" bsdh="Stephanie" bse="29" bseh="Stephanie" dex="1" id="ss15" int="4" kno="4" pard="-1" pare="-1" pat="4" solvnd="0" solvne="0" solvpd="0" solvpe="0" spe="1" sv="1"/>
@@ -941,6 +950,7 @@
     <level avgur="-1" bsd="-1" bsdh="" bse="-1" bseh="" dex="2" id="ss_ox38" int="3" kno="4" pard="-1" pare="-1" pat="4" solvnd="0" solvne="0" solvpd="0" solvpe="0" spe="1" sv="1"/>
     <level avgur="-1" bsd="105" bsdh="Duffy" bse="105" bseh="Duffy" dex="3" id="ss_pox11" int="2" kno="6" pard="-1" pare="-1" pat="4" solvnd="0" solvne="0" solvpd="0" solvpe="0" spe="2" sv="1"/>
     <level avgur="-1" bsd="32" bsdh="Stephanie" bse="32" bseh="Stephanie" dex="3" id="ss_pox55" int="3" kno="4" pard="-1" pare="-1" pat="3" solvnd="0" solvne="0" solvpd="0" solvpe="0" spe="3" sv="2"/>
+    <level avgur="-1" bsd="-1" bsdh="" bse="-1" bseh="" dex="0" id="wb1" int="0" kno="0" pard="-1" pare="-1" pat="0" solvnd="0" solvne="0" solvpd="0" solvpe="0" spe="0" sv="2"/>
     <level avgur="-1" bsd="32" bsdh="Raoul" bse="32" bseh="Raoul" dex="2" id="wb10" int="1" kno="3" pard="-1" pare="-1" pat="2" solvnd="0" solvne="0" solvpd="0" solvpe="0" spe="1" sv="1"/>
     <level avgur="-1" bsd="523" bsdh="Raoul" bse="523" bseh="Raoul" dex="3" id="wb11" int="3" kno="4" pard="-1" pare="-1" pat="3" solvnd="0" solvne="0" solvpd="0" solvpe="0" spe="1" sv="1"/>
     <level avgur="-1" bsd="787" bsdh="Johannes" bse="787" bseh="Johannes" dex="3" id="wb12" int="4" kno="3" pard="-1" pare="-1" pat="3" solvnd="0" solvne="0" solvpd="0" solvpe="0" spe="3" sv="1"/>
