@@ -1,0 +1,74 @@
+<?xml version="1.0" encoding="utf-8" standalone="no" ?>
+<el:level xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+  xsi:schemaLocation="http://enigma-game.org/schema/level/1 level.xsd"
+  xmlns:el="http://enigma-game.org/schema/level/1">
+  <el:protected >
+    <el:info el:type="level">
+      <el:identity el:title="Laser Jump"
+        el:subtitle="A very simple Level"
+        el:id="20060628ulf001"/>
+      <el:version el:score="1" el:release="1" el:revision="0" el:status="released"/>
+      <el:author  el:name="Ulf Stegemann" el:email="ulf-enigma@zeitform.de"
+        el:homepage="http://ulf.zeitform.de"/>
+      <el:copyright>Copyright © 2006 Ulf Stegemann</el:copyright>
+      <el:license el:type="GPL v2.0 or above" el:open="true"/>
+      <el:compatibility el:enigma="0.92"/>
+      <el:modes el:easy="false" el:single="true" el:network="false" el:control="force"
+        el:scoreunit="duration" el:scoretarget="time"/>
+      <el:score el:easy="-" el:difficult="00:09"/>
+    </el:info>
+    <el:luamain><![CDATA[
+
+-- GENERAL --
+levelw = 20
+levelh = 13
+enigma.ConserveLevel=FALSE
+
+-- FUNCTIONS --
+function DropToDeath()
+   SendMessage("laser1","onoff")
+   fill_floor("fl-bridge-open",0,0,level_width,level_height)
+   draw_floor("fl-bluegreen",{10,11},{0,1},1)
+end
+
+-- LANDSCAPE --
+create_world(levelw, levelh)
+draw_border("st-bluegray")
+fill_floor("fl-bluegreen",0,0, level_width,level_height)
+
+-- FLOORS --
+draw_floor("fl-abyss",{10,1},{0,1},11)
+
+-- STONES --
+draw_stones("st-grate1",{9,1},{0,1},11)
+set_stone("st-switch",10,12,{on=TRUE,action="callback",target="DropToDeath"})
+set_stone("st-lasertimeswitch",11,0)
+set_stone("st-laser-n",11,12,{on=TRUE,name="laser1"})
+set_stone("st-bluegray_hole",9,0)
+
+-- ITEMS --
+set_item("it-seed",9,3)
+set_item("it-spring2",9,0)
+
+-- OXYDS --
+set_stone("st-oxyd",3,3,{color="1",flavor="c"})
+set_stone("st-oxyd",16,9,{color="1",flavor="c"})
+
+-- ACTOR --
+set_actor("ac-blackball", 3,6.5)
+
+    ]]></el:luamain>
+    <el:i18n>
+      <el:string el:key="title">
+        <el:english el:translate="true"/>
+        <el:translation el:lang="de">Laser Sprung</el:translation>
+      </el:string>
+      <el:string el:key="subtitle">
+        <el:english el:translate="true"/>
+        <el:translation el:lang="de">Ein sehr einfaches Level</el:translation>
+      </el:string>
+     </el:i18n>
+  </el:protected>
+</el:level>
+
+

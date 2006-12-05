@@ -3,7 +3,7 @@
   <el:protected>
     <el:info el:type="level">
       <el:identity el:title="Kaleidoscope" el:subtitle="" el:id="duffy118"/>
-      <el:version el:score="1" el:release="1" el:revision="0" el:status="released"/>
+      <el:version el:score="1" el:release="1" el:revision="1" el:status="released"/>
       <el:author  el:name="Jacob Scott" el:email="" el:homepage=""/>
       <el:copyright>Copyright © 2004 Jacob Scott</el:copyright>
       <el:license el:type="GPL v2.0 or above" el:open="true"/>
@@ -75,6 +75,9 @@ renderLine(12,"XXXXXXXXXXXXXXXXXXXX ")
 
 oxyd_shuffle()
 
+starting=1
+
+
 sandp=3
 bluegreenp=6
 spacep=12
@@ -119,6 +122,7 @@ fftimer=0
 skiprandom=0
 
 function funcctimer()
+tryagain=0
 if fftimer==0 then
 skiprandom=1
 fftimer=1
@@ -132,9 +136,23 @@ if skiprandom==0 then
       else
 changefloor=1
 end
+change(i,j)
+end
+end
+starting=0
+end
+
+function change(i,j)
       if changefloor==1 then
          donefloor=0
-         floornum=random(108)-1
+if starting==1 and i==14 and j==6 then
+floornum=random(102)-1
+	 if floornum>5 then
+	 floornum=floornum+6
+end
+else
+floornum=random(108)-1
+end
          if floornum<sandp and donefloor==0 then
             set_floor("fl-sand",i,j)
             donefloor=1
@@ -144,8 +162,8 @@ end
             donefloor=1
          end
          if floornum<spacep and donefloor==0 then
-            set_floor("fl-space",i,j)
-            donefloor=1
+               set_floor("fl-space",i,j)
+               donefloor=1
          end
          if floornum<inversep and donefloor==0 then
             set_floor("fl-inverse",i,j)
@@ -342,11 +360,10 @@ end
 -- springboardp=94
 
       end
-     end
-    end
- end
+end
 
 funcctimer()
+
     ]]></el:luamain>
     <el:i18n>
       <el:string el:key="title">
