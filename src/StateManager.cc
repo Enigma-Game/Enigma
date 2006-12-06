@@ -116,9 +116,19 @@ namespace enigma {
         if (doc == NULL)
             return true;
 
+        int count = getInt("Count");
+        setProperty("Count", ++count);
+
         stripIgnorableWhitespace(doc->getDocumentElement());
         std::string path = app.userPath + "/state.xml";
         
+        // backup state every 10th save 
+        if (count%10 == 0) {
+            std::remove((path + "~2").c_str());
+            std::rename((path + "~1").c_str(), (path + "~2").c_str());
+            std::rename((path).c_str(), (path + "~1").c_str());
+        }
+
         try {
 #if _XERCES_VERSION >= 30000
             result = app.domSer->writeToURI(doc, LocalToXML(& path).x_str());
@@ -141,6 +151,10 @@ namespace enigma {
         }
 
         if (!result) {
+            if (count%10 == 0) {
+                std::rename((path + "~1").c_str(), (path).c_str());
+                std::rename((path + "~2").c_str(), (path + "~1").c_str());
+            }
             cerr << XMLtoLocal(Utf8ToXML(errMessage.c_str()).x_str()).c_str();
             gui::ErrorMenu m(errMessage, N_("Continue"));
             m.manage();          
