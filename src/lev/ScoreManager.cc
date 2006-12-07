@@ -684,6 +684,36 @@ namespace enigma { namespace lev {
         return num;
     }  
     
+    double ScoreManager::calcHCP(lev::Index *ind, int difficulty) {
+        int i;
+        int size = ind->size();
+        double hcp = 0;
+        for (i=0 ; i < size; i++) {
+            double score = getBestUserScore(ind->getProxy(i), difficulty);
+            double par = ratingMgr->getParScore(ind->getProxy(i), difficulty);
+            double dhcp = 0;
+            if (score == SCORE_UNSOLVED) {
+                dhcp = 1;
+            } else if (score == SCORE_SOLVED) {
+                dhcp = 0.7;
+            } else if (score >= par && par > 0) {
+                dhcp = log10(score/par);
+                if (dhcp > 0.7)
+                    dhcp = 0.7;
+            } else if (score < par && par > 0) {
+                dhcp = log(score/par) / log(2);
+                if (dhcp < -3)
+                    dhcp = -3;
+            } else { // par <= 0 no par
+                dhcp = -3;
+            }
+            hcp += dhcp;
+            //Log << "calcHCP " << i << " - " << dhcp << "\n";
+        }
+        return hcp;
+        //Log << "calcHCP sum " << hcp << "\n";
+    }  
+    
     void ScoreManager::setRating(lev::Proxy *levelProxy, int rating) {
         if (!hasValidUserId) {
             finishUserId(std::time(NULL) & 0xFFFF);

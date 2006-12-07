@@ -297,7 +297,8 @@ namespace enigma { namespace gui {
             }
             else if (app.state->getInt("NextLevelMode") == lev::NEXT_LEVEL_OVER_PAR) {
                 int pct = 100* scm->countParScore(ind, difficulty)/ size;
-                lbl_statistics->set_text(ecl::strf(_("%d%% par"), pct));
+                double hcp = scm->calcHCP(ind, difficulty);
+                lbl_statistics->set_text(ecl::strf(_("%d%% par, hcp %.1f"), pct, hcp));
             }
             else {
                 int pct = 100* scm->countSolved(ind, difficulty) / size;
