@@ -35,6 +35,7 @@
 #include "main.hh"
 #include "options.hh"
 
+#include <cmath>
 #include <ctime>
 #include <iostream>
 #include <fstream>
@@ -701,7 +702,7 @@ namespace enigma { namespace lev {
                 if (dhcp > 0.7)
                     dhcp = 0.7;
             } else if (score < par && par > 0) {
-                dhcp = log(score/par) / log(2);
+                dhcp = log(score/par) / log(2.0);
                 if (dhcp < -3)
                     dhcp = -3;
             } else { // par <= 0 no par
