@@ -179,9 +179,11 @@ LevelInspector::LevelInspector(lev::Proxy *aLevel):
         previewImage = LevelPreviewCache::instance()->getPreview(aLevel, true, didGenerate);
         const video::VMInfo *vminfo = video::GetInfo();
         vspacing = vminfo->height < 500 ? 2 :(vminfo->height < 650 ? 3 : 4);
+        vspacing2 = vminfo->height < 500 ? 16 :(vminfo->height < 650 ? 14 : 16);
         vmargin = vminfo->height < 500 ? 10 :(vminfo->height < 650 ?  20 : 30);
         hmargin = vminfo->width < 660 ? 10 : (vminfo->width < 900 ? 20 : 30);
         bool highres = vminfo->height > 650 ? true : false;
+        bool lowres = vminfo->height < 600 ? true : false;
     
         add(back, Rect(vminfo->width-130-2*hmargin,vminfo->height-50,130,35));
         add(screenshot, Rect(vminfo->width-260-3*hmargin,vminfo->height-50,130,35));
@@ -242,48 +244,48 @@ LevelInspector::LevelInspector(lev::Proxy *aLevel):
         address.add(new Label(levelProxy->getContact(), HALIGN_LEFT));
         address.add(new Label(levelProxy->getHomepage(), HALIGN_LEFT));
         
-        BuildVList ratingPubT(this, Rect(hmargin+65,vmargin+5*25+4*vspacing+16, 130,25), 2);
+        BuildVList ratingPubT(this, Rect(hmargin+65,vmargin+5*25+4*vspacing+vspacing2, 130,25), 2);
         ratingPubT.add(new Label(N_("Public Ratings"), HALIGN_CENTER));
-        BuildVList ratingPubST(this, Rect(hmargin,vmargin+6*25+5*vspacing+16, 130,25), 2);
+        BuildVList ratingPubST(this, Rect(hmargin,vmargin+6*25+5*vspacing+vspacing2, 130,25), 2);
         ratingPubST.add(new Label(N_("Intelligence: "), HALIGN_RIGHT));
         ratingPubST.add(new Label(N_("Dexterity: "), HALIGN_RIGHT));
         ratingPubST.add(new Label(N_("Patience: "), HALIGN_RIGHT));
         ratingPubST.add(new Label(N_("Knowledge: "), HALIGN_RIGHT));
         ratingPubST.add(new Label(N_("Speed: "), HALIGN_RIGHT));
-        if (highres) ratingPubST.add(new Label(N_("Difficulty: "), HALIGN_RIGHT));
+        if (!lowres) ratingPubST.add(new Label(N_("Difficulty: "), HALIGN_RIGHT));
 
         
-        BuildVList ratingPub(this, Rect(hmargin+130+15,vmargin+6*25+5*vspacing+16, 30,25), 2);
+        BuildVList ratingPub(this, Rect(hmargin+130+15,vmargin+6*25+5*vspacing+vspacing2, 30,25), 2);
         if (WizardMode) {
             ratingPub.add(new IntelligenceButton(aLevel));
             ratingPub.add(new DexterityButton(aLevel));
             ratingPub.add(new PatienceButton(aLevel));
             ratingPub.add(new KnowledgeButton(aLevel));
             ratingPub.add(new SpeedButton(aLevel));
-            if (highres) ratingPub.add(new MonospacedLabel(ratingToString(theRatingMgr->getDifficulty(aLevel)).c_str(),'8', " 0123456789", HALIGN_CENTER));
+            if (!lowres) ratingPub.add(new MonospacedLabel(ratingToString(theRatingMgr->getDifficulty(aLevel)).c_str(),'8', " 0123456789", HALIGN_CENTER));
         } else {
             ratingPub.add(new MonospacedLabel(ratingToString(theRatingMgr->getIntelligence(aLevel)).c_str(),'8', " 0123456789", HALIGN_CENTER));
             ratingPub.add(new MonospacedLabel(ratingToString(theRatingMgr->getDexterity(aLevel)).c_str(),'8', " 0123456789", HALIGN_CENTER));
             ratingPub.add(new MonospacedLabel(ratingToString(theRatingMgr->getPatience(aLevel)).c_str(),'8', " 0123456789", HALIGN_CENTER));
             ratingPub.add(new MonospacedLabel(ratingToString(theRatingMgr->getKnowledge(aLevel)).c_str(),'8', " 0123456789", HALIGN_CENTER));
             ratingPub.add(new MonospacedLabel(ratingToString(theRatingMgr->getSpeed(aLevel)).c_str(),'8', " 0123456789", HALIGN_CENTER));
-            if (highres) ratingPub.add(new MonospacedLabel(ratingToString(theRatingMgr->getDifficulty(aLevel)).c_str(),'8', " 0123456789", HALIGN_CENTER));
+            if (!lowres) ratingPub.add(new MonospacedLabel(ratingToString(theRatingMgr->getDifficulty(aLevel)).c_str(),'8', " 0123456789", HALIGN_CENTER));
         }
         
-        BuildVList scoresT(this, Rect(vminfo->width/2-100-20,vmargin+5*25+4*vspacing+16,100,25), 2);
+        BuildVList scoresT(this, Rect(vminfo->width/2-100-20,vmargin+5*25+4*vspacing+vspacing2,100,25), 2);
         scoresT.add(new Label(N_("Scores"), HALIGN_RIGHT));
 
-        BuildVList scoresST(this, Rect(vminfo->width/2-100-20,vmargin+6*25+5*vspacing+16,100,25), 2);
+        BuildVList scoresST(this, Rect(vminfo->width/2-100-20,vmargin+6*25+5*vspacing+vspacing2,100,25), 2);
         scoresST.add(new Label(N_("You: "), HALIGN_RIGHT));
         scoresST.add(new Label(N_("World: "), HALIGN_RIGHT));
 // TRANSLATORS: PAR = professional average rate - an expression used by golfers
         scoresST.add(new Label(N_("PAR: "), HALIGN_RIGHT));
         scoresST.add(new Label(N_("Author: "), HALIGN_RIGHT));
         scoresST.add(new Label(N_("Solved %: "), HALIGN_RIGHT));
-        if (highres) scoresST.add(new Label(N_("Solved #: "), HALIGN_RIGHT));
+        if (!lowres) scoresST.add(new Label(N_("Solved #: "), HALIGN_RIGHT));
     
         BuildVList scores(this, Rect(vminfo->width/2-15+(withEasy?0:20),
-                vmargin+6*25+5*vspacing+16,(withEasy?117:54),25), 2);
+                vmargin+6*25+5*vspacing+vspacing2,(withEasy?117:54),25), 2);
         scores.add(new MonospacedLabel(scoreToString(theScoreMgr->getBestUserScore(aLevel, DIFFICULTY_EASY),
             theScoreMgr->getBestUserScore(aLevel, DIFFICULTY_HARD),aLevel,true).c_str(),'8', " 0123456789", HALIGN_CENTER));
         scores.add(new MonospacedLabel(scoreToString(theRatingMgr->getBestScoreEasy(aLevel),
@@ -296,27 +298,27 @@ LevelInspector::LevelInspector(lev::Proxy *aLevel):
             " /" + theRatingMgr->getPcSolvedDifficult(aLevel) + " ").c_str() :
             (theRatingMgr->getPcSolvedDifficult(aLevel) + " ").c_str(),
             '8', " 0123456789", HALIGN_CENTER));
-        if (highres) scores.add(new MonospacedLabel(withEasy ? (ecl::strf("%5d", theRatingMgr->getNumSolvedEasy(aLevel)) + 
+        if (!lowres) scores.add(new MonospacedLabel(withEasy ? (ecl::strf("%5d", theRatingMgr->getNumSolvedEasy(aLevel)) + 
             " /" + ecl::strf("%5d", theRatingMgr->getNumSolvedDifficult(aLevel)) + " ").c_str() :
             (ecl::strf("%5d", theRatingMgr->getNumSolvedDifficult(aLevel)) + " ").c_str(),
             '8', " 0123456789", HALIGN_CENTER));        
         
-        BuildVList versionT(this, Rect(vminfo->width-100/2-90-2*hmargin,vmargin+5*25+4*vspacing+16,100,25), 2);
+        BuildVList versionT(this, Rect(vminfo->width-100/2-90-2*hmargin,vmargin+5*25+4*vspacing+vspacing2,100,25), 2);
         versionT.add(new Label(N_("Version"), HALIGN_CENTER));
-        BuildVList versionST(this, Rect(vminfo->width-110-90-2*hmargin,vmargin+6*25+5*vspacing+16,110,25), 2);
-        if (highres || aLevel->getLevelStatus() == lev::STATUS_RELEASED)
+        BuildVList versionST(this, Rect(vminfo->width-110-90-2*hmargin,vmargin+6*25+5*vspacing+vspacing2,110,25), 2);
+        if (!lowres || aLevel->getLevelStatus() == lev::STATUS_RELEASED)
             versionST.add(new Label(N_("Score: "), HALIGN_RIGHT));
         else
             versionST.add(new Label(N_("Status: "), HALIGN_RIGHT));
         versionST.add(new Label(N_("Release: "), HALIGN_RIGHT));
         versionST.add(new Label(N_("Revision: "), HALIGN_RIGHT));
-        if (highres)
+        if (!lowres)
             versionST.add(new Label(N_("Status: "), HALIGN_RIGHT));
         versionST.add(new Label(N_("Control: "), HALIGN_RIGHT));
         versionST.add(new Label(N_("Target: "), HALIGN_RIGHT));
 
-        BuildVList version(this, Rect(vminfo->width-80-2*hmargin,vmargin+6*25+5*vspacing+16,80+2*hmargin,25), 2);
-        if (highres || aLevel->getLevelStatus() == lev::STATUS_RELEASED)
+        BuildVList version(this, Rect(vminfo->width-80-2*hmargin,vmargin+6*25+5*vspacing+vspacing2,80+2*hmargin,25), 2);
+        if (!lowres || aLevel->getLevelStatus() == lev::STATUS_RELEASED)
             version.add(new MonospacedLabel(ecl::strf("%6d", aLevel->getScoreVersion()).c_str(),
                     '8', " 0123456789", HALIGN_LEFT));
         else if (aLevel->getLevelStatus() == lev::STATUS_STABLE)
@@ -332,7 +334,7 @@ LevelInspector::LevelInspector(lev::Proxy *aLevel):
                 '8', " 0123456789", HALIGN_LEFT));
         version.add(new MonospacedLabel(ecl::strf("%6d", aLevel->getRevisionNumber()).c_str(),
                 '8', " 0123456789", HALIGN_LEFT));
-        if (highres)
+        if (!lowres)
             if (aLevel->getLevelStatus() == lev::STATUS_RELEASED)
                 version.add(new Label(N_("released"), HALIGN_LEFT));
             else if (aLevel->getLevelStatus() == lev::STATUS_STABLE)
@@ -372,11 +374,11 @@ LevelInspector::LevelInspector(lev::Proxy *aLevel):
         int levelPathLines = 0;
         int annotationLines = 0; 
         int compatibilityLines = 0; 
-        int vnext = vmargin+ (highres?12:11)*25+(highres?10:9)*vspacing+2*16;
+        int vnext = vmargin+ (lowres?11:12)*25+(lowres?9:10)*vspacing+2*vspacing2;
         int textwidth = vminfo->width-3*hmargin-110-10;
         dispatchBottomLines(bestScoreHolderLines, creditsLines, dedicationLines,
                 levelPathLines, annotationLines, compatibilityLines,
-                (vminfo->height-(vnext)-60)/27, textwidth);
+                (vminfo->height-vnext-vmargin-25-vspacing2)/27, textwidth);
         if (bestScoreHolderLines == 1) {
             add(new Label(N_("World Record Holders: "), HALIGN_RIGHT),Rect(hmargin,vnext,200,25));
             std::string holders;
@@ -448,6 +450,7 @@ LevelInspector::LevelInspector(lev::Proxy *aLevel):
             add(annotation, Rect(hmargin+110+10, vnext, textwidth, 25));
             vnext += (25 + vspacing)*annotationLines;
         }
+        vnext += vspacing2 - vspacing;
         add(new Label(N_("Rating: "), HALIGN_RIGHT),Rect(hmargin,vnext,110,25));
         add(new RatingButton(aLevel),Rect(hmargin+110+10,vnext,40,25));
         add(new Label(N_("Average: "), HALIGN_RIGHT),Rect(hmargin+110+10+40+20,vnext,105,25));
@@ -484,10 +487,10 @@ LevelInspector::LevelInspector(lev::Proxy *aLevel):
         Surface *img_hard = enigma::GetImage("completed");
         if (withEasy) {
             Surface *img_easy = enigma::GetImage("completed-easy");
-            blit (gc, vminfo->width/2-4, vmargin+5*25+4*vspacing+16, img_easy);
-            blit (gc, vminfo->width/2-4+63, vmargin+5*25+4*vspacing+16, img_hard);
+            blit (gc, vminfo->width/2-4, vmargin+5*25+4*vspacing+vspacing2, img_easy);
+            blit (gc, vminfo->width/2-4+63, vmargin+5*25+4*vspacing+vspacing2, img_hard);
         } else {
-            blit (gc, vminfo->width/2-4+20, vmargin+5*25+4*vspacing+16, img_hard);
+            blit (gc, vminfo->width/2-4+20, vmargin+5*25+4*vspacing+vspacing2, img_hard);
         }
     }
     

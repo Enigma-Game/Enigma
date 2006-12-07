@@ -54,6 +54,7 @@ namespace enigma { namespace gui {
         lev::Proxy  *levelProxy;
         std::string levelPathString;
         int vspacing;
+        int vspacing2;
         int vmargin;
         int hmargin;
         bool withEasy;
