@@ -245,7 +245,22 @@ namespace enigma { namespace lev {
         Log << "Rating update allowed\n";
         
         // do update
-        loadResult result = loadURI(urlIncrementalUpdate);
+        bool didUpdate = false;
+        loadResult result;
+        std::string oldUrlIncrementalUpdate;
+        std::string oldUrlFullUpdate;
+        do {
+            Log << "Ratings update from '" << urlIncrementalUpdate << "'\n";
+            oldUrlIncrementalUpdate = urlIncrementalUpdate;
+            oldUrlFullUpdate = urlFullUpdate;
+            result = loadURI(urlIncrementalUpdate);
+            if (result == updated)
+                didUpdate = true;
+        } while (result != error && 
+                oldUrlIncrementalUpdate != urlIncrementalUpdate &&
+                oldUrlIncrementalUpdate != oldUrlFullUpdate);
+                
+
         if (result == error) {
             // check if we are allowed for an full update
             if (updateDelay/86400 > 3 * updateMinDelay) {
@@ -261,7 +276,7 @@ namespace enigma { namespace lev {
             app.state->setProperty("RatingsUpdateTime", currentTimeString);
         }
         
-        if (result == updated)
+        if (didUpdate)
             didAddRatings = true;  // we need to save the cache
         else if (result == checked)
             ;   // the update had no new ratings
