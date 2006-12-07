@@ -50,6 +50,7 @@ levels or write own levels as described in the following chapters.
 * Startup Switches::
 * User Options::
 * Level Info::
+* Handicap and PAR::           Background to score evaluation and HCP
 @end menu
 
 @node Locating Resources, Startup Switches, Running Enigma, Running Enigma
@@ -265,7 +266,7 @@ the next start Enigma will locate user data at the new location exclusively.
 
 @end table
 
-@node Level Info,, User Options, Running Enigma
+@node Level Info, Handicap and PAR, User Options, Running Enigma
 @section Level Info
 
 @cindex levelinspector
@@ -653,6 +654,57 @@ commands. Press @key{F1} to get a help. @key{ESC} returns to the level inspector
 If you scroll down behind the last screenshot the "missing" screenshot file is named.
 This may be a useful hint were to search the other screenshot files on your
 @samp{user image path} (@pxref{Locating Resources}).
+
+@node Handicap and PAR, , Level Info, Running Enigma
+@section Handicap and PAR
+
+As PAR (@pxref{Scores}) describes the difficulty of a level the handicap @samp{hcp}
+describes your ability to solve levels in PAR. The handicap is always related
+to a levelpack or group of levelpacks. For each levelpack you can see your
+handicap in the level menu if you select the PAR mode by clicking on the lower
+left button until the speeding black marble appears. The value is displayed in
+the upper right corner together with the number of levels you solved in PAR.
+
+The handicap is similar to the golfers handicap. A low value is better than a
+high value. If you solve all levels exactly in PAR your handicap will be 0. If
+you are even better than PAR your handicap will be negativ. Players can use
+this value to compare their overall abilities.
+
+Just for those of you that want to know the details of this score rating system
+of PAR and handicap some additional information that others may well skip to the
+next chapter @ref{Levelpack Basics}.
+
+We request all users to send their scores. All scores are evaluated for world
+records and counts of level solvage rates and numbers. 
+
+But for the PAR calculation we take only scores from users into account that have 
+solved more than a certain rate of levels (currently about 10% of the levels).
+For every level we calculate the harmonic average of the scores of these 
+@samp{professionals}. Professionals that did not solve a level are taken into
+account with the 10 fold world record score. The harmonic average calculates as
+
+harm.avg. = N / (sum_[j=1..N] 1/score_j) )
+
+It weights small times with a greater weight than large solvage times.
+
+The handicap is a sum of values that describe your scores in relationship to
+the PAR value of a level. As it has to take into account that you have no score
+at all or that no PAR value exists some exception rules have to be applied to
+the addends:
+
+@multitable @columnfractions .1 .15 .75
+@item @bullet @tab + 1.0 @tab for each unsolved level
+@item @bullet @tab + log10(score/par) @tab for each solved level with existing par if score >= par
+@item @bullet @tab + 0.7 @tab as upper limit for each solved level with existing par if score >= par
+@item @bullet @tab + log2(score/par) @tab for each solved level with existing par if score < par
+@item @bullet @tab - 3.0 @tab as lower limit and as value for levels without par
+@end multitable
+
+Note that each score that is better than PAR results in a negative addend and
+thus reduces your handicap. For a levelpack with 100 levels the handicap will
+be in the range of +100 to -300. Handicaps are stated with one digit behind
+the decimal point.
+
 
 @node  Levelpack Basics, Level Basics, Running Enigma, Top
 @chapter Levelpack Basics
