@@ -411,15 +411,15 @@ msgstr "Pantalla completa: "
 
 #: src/gui/OptionsMenu.cc:363
 msgid "Video mode: "
-msgstr "Modo de vÃ­deo"
+msgstr "Modo de v­deo"
 
 #: src/gui/OptionsMenu.cc:364
 msgid "Gamma correction: "
-msgstr "CorrecciÃ³n gamma"
+msgstr "Correcci³n gamma"
 
 #: src/gui/OptionsMenu.cc:365
 msgid "Mouse speed: "
-msgstr "Velocidad del ratÃ³n: "
+msgstr "Velocidad del rat³n: "
 
 #: src/gui/OptionsMenu.cc:378
 msgid "Sound volume: "
@@ -555,7 +555,7 @@ msgstr "Record de %s: %d:%02d"
 #: src/gui/LevelMenu.cc:357
 #, c-format
 msgid "Par: %d:%02d World record by %s: %d:%02d"
-msgstr "Record de %s: %d:%02d"
+msgstr "Par: %d:%02d Record de %s: %d:%02d"
 
 #: src/gui/LevelMenu.cc:361
 #, c-format
@@ -565,7 +565,7 @@ msgstr "Tu marca: %d:%02d"
 #: src/gui/LevelMenu.cc:363
 #, c-format
 msgid "Par: %d:%02d World record: %d:%02d"
-msgstr "Tu marca: %d:%02d"
+msgstr "Par: %d:%02d Tu marca: %d:%02d"
 
 #: src/gui/LevelMenu.cc:397
 msgid "No further unsolved level available!"
@@ -653,7 +653,7 @@ msgstr "De acuerdo"
 #: src/gui/LevelPackComposer.cc:362
 #, c-format
 msgid "Clipboard: %d levels"
-msgstr "%s: %d niveles"
+msgstr "El fichero: %d niveles"
 
 #: src/gui/LevelPackConfig.cc:154
 msgid "Levelpack:"
@@ -1007,7 +1007,7 @@ msgstr "Abandonar nivel"
 
 #: src/lev/Proxy.cc:162
 msgid "Error on auto registration of levelfile: "
-msgstr "Error en fichero de configuración.\n"
+msgstr "Error en fichero de configuración."
 
 #: src/lev/Proxy.cc:164
 msgid ""
@@ -1045,7 +1045,7 @@ msgstr "La instalación puede estar incompleta o inválida.\n"
 #: src/lua.cc:807
 #, c-format
 msgid "There was an error loading '%s'.\n"
-msgstr "Error al cargar 'startup.lua'.\n"
+msgstr "Error al cargar '%s'.\n"
 
 #: src/lua.cc:809
 #, c-format
@@ -1258,13 +1258,13 @@ msgid "Make a Sword, & Umbrella."
 msgstr "Haz una espada, & un paraguas"
 
 #  level: "Growing Boxes"
-#  author: "Lukas SchÃ¼ller" email "Lucky_Luc@web.de"
+#  author: "Lukas Sch¼ller" email "Lucky_Luc@web.de"
 #: po/level_i18n.cc:281
 msgid "You'd need a portable box!"
 msgstr "Necesitas una caja portatil"
 
 #  level: "Growing Boxes"
-#  author: "Lukas SchÃ¼ller" email "Lucky_Luc@web.de"
+#  author: "Lukas Sch¼ller" email "Lucky_Luc@web.de"
 #: po/level_i18n.cc:282
 msgid ""
 "Congratulations! You found a seed! Try to use it behind the grate (and move "
@@ -1273,7 +1273,7 @@ msgstr "Felicidades! encontraste una semilla! Pruebalo atras del grato (y marcha
 "lo más rapido que puedas)"
 
 #  level: "Growing Boxes"
-#  author: "Lukas SchÃ¼ller" email "Lucky_Luc@web.de"
+#  author: "Lukas Sch¼ller" email "Lucky_Luc@web.de"
 #: po/level_i18n.cc:283
 msgid ""
 "Remember that you can't fill a closed bridge with a "
@@ -1285,13 +1285,13 @@ msgstr ""
 "tercer semilla de otra manera!"
 
 #  level: "Growing Boxes"
-#  author: "Lukas SchÃ¼ller" email "Lucky_Luc@web.de"
+#  author: "Lukas Sch¼ller" email "Lucky_Luc@web.de"
 #: po/level_i18n.cc:284
 msgid "There are different kinds of seeds ... Try to use them!"
 msgstr "Ay diferentes semillas ... Usalas!"
 
 #  level: "Growing Boxes"
-#  author: "Lukas SchÃ¼ller" email "Lucky_Luc@web.de"
+#  author: "Lukas Sch¼ller" email "Lucky_Luc@web.de"
 #  comment: "read from the right"
 #: po/level_i18n.cc:286
 msgid "Noitcerid etisoppo eht yrt! Tuo syaw owt? Rorrim, rorrim ..."
@@ -2568,7 +2568,7 @@ msgid "Congratulations!"
 msgstr ""
 
 #  level: "Mirror Room II"
-#  author: "Lukas SchÃ¼ller" email "Lucky_Luc@web.de"
+#  author: "Lukas Sch¼ller" email "Lucky_Luc@web.de"
 #: po/level_i18n.cc:1654
 msgid "Same room, new mirrors ..."
 msgstr ""
@@ -2717,7 +2717,7 @@ msgid ""
 msgstr ""
 
 #  level: "Flying"
-#  author: "Lukas SchÃ¼ller" email "Lucky_Luc@web.de"
+#  author: "Lukas Sch¼ller" email "Lucky_Luc@web.de"
 #: po/level_i18n.cc:1819
 msgid "You can fly a little time, if you use the umbrella."
 msgstr ""
@@ -2895,7 +2895,7 @@ msgid "Don't get attracted!"
 msgstr "No te dejes admirar"
 
 #  level: "Print 23"
-#  author: "Richi BÃ¼tzer" email ""
+#  author: "Richi B¼tzer" email ""
 #: po/level_i18n.cc:2075
 msgid ""
 "If you have never heard about Brainf***, visit e.g. http://en.wikipedia.org/"
@@ -3038,7 +3038,7 @@ msgstr "Porque tiene que haber siempre un volcán activo y un pueblo de habitant
 "que comen canicas en una isla tropical?"
 
 #  level: "Pneumatic Delivery"
-#  author: "Manuel KÃ¶nig" email ""
+#  author: "Manuel K¶nig" email ""
 #: po/level_i18n.cc:2149
 msgid ""
 "This is my first landscape, dedicated to my father. I hope you'll enjoy it!"
@@ -3313,7 +3313,7 @@ msgid "You  have  lost  ..."
 msgstr "Perdiste ..."
 
 #  level: "The Ditch"
-#  author: "Richi BÃ¼tzer" email ""
+#  author: "Richi B¼tzer" email ""
 #: po/level_i18n.cc:2857
 msgid "Risk your life ..."
 msgstr "Riesga tu vida ..."
