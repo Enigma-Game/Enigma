@@ -711,8 +711,7 @@ namespace enigma { namespace lev {
             hcp += dhcp;
             //Log << "calcHCP " << i << " - " << dhcp << "\n";
         }
-        return hcp;
-        //Log << "calcHCP sum " << hcp << "\n";
+        return hcp*100.0/size;
     }  
     
     void ScoreManager::setRating(lev::Proxy *levelProxy, int rating) {

@@ -693,17 +693,18 @@ at all or that no PAR value exists some exception rules have to be applied to
 the addends:
 
 @multitable @columnfractions .1 .15 .75
-@item @bullet @tab + 1.0 @tab for each unsolved level
-@item @bullet @tab + log10(score/par) @tab for each solved level with existing par if score >= par
-@item @bullet @tab + 0.7 @tab as upper limit for each solved level with existing par if score >= par
-@item @bullet @tab + log2(score/par) @tab for each solved level with existing par if score < par
-@item @bullet @tab - 3.0 @tab as lower limit and as value for levels without par
+@item @bullet{ } @tab + 1.0 @tab for each unsolved level
+@item @bullet{ } @tab + log10(score/par) @tab for each solved level with existing par if score >= par
+@item @bullet{ } @tab + 0.7 @tab as upper limit for each solved level with existing par if score >= par
+@item @bullet{ } @tab + log2(score/par) @tab for each solved level with existing par if score < par
+@item @bullet{ } @tab - 3.0 @tab as lower limit and as value for levels without par
 @end multitable
 
 Note that each score that is better than PAR results in a negative addend and
 thus reduces your handicap. For a levelpack with 100 levels the handicap will
-be in the range of +100 to -300. Handicaps are stated with one digit behind
-the decimal point.
+be in the range of +100 to -300. For levelpacks with more or less levels the
+sum will be scaled by a factor 100/size to result in comparable handicap values.
+Handicaps are stated with one digit behind the decimal point.
 
 
 @node  Levelpack Basics, Level Basics, Running Enigma, Top
