@@ -109,10 +109,10 @@ function copy_doc
 {
     echo "... copying documentation"
     mkdir $DDIR/doc
+    mkdir $DDIR/attachments
     cptext README 		README.txt
-    cptext NEWS 		NEWS.txt
-    cptext COPYING 		doc/COPYING.txt
-    cptext CHANGES 		doc/CHANGES.txt
+    cptext COPYING 		COPYING.txt
+    cptext CHANGES 		CHANGES.txt
     cptext etc/README-SDL.txt 	doc/README-SDL.txt
     cptext doc/ant_lua.txt 	doc/ant_lua.txt
     cptext doc/sounds.txt	doc/sounds.txt

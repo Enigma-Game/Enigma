@@ -7,7 +7,7 @@ SUBDIRS = m4 lib-src tools intl src data doc po etc
 EXTRA_DIST = enigma CHANGES ChangeLog.tla
 
 docdir = @datadir@/doc/enigma
-doc_DATA = README NEWS CHANGES COPYING
+doc_DATA = README CHANGES COPYING
 
 ACLOCAL_AMFLAGS = -I m4
 

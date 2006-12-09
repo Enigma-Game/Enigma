@@ -129,7 +129,7 @@ namespace enigma { namespace gui {
         N_("Main developer of all releases:"),
         " ",
         "  Raoul Bourquin  (Level admin. & design, all over invaluable additions)",
-        "  Siegfried Fenning  (Level design, graphics)",
+        "  Siegfried Fennig  (Level design, graphics)",
         "  Martin Hawlisch  (Level design, graphics, programming)",
         "  Daniel Heck  (Main developer, graphics, documentation)",
         "  Ronald Lamprecht  (XML, Gui, portability, core prog., documentation)",
@@ -164,21 +164,23 @@ namespace enigma { namespace gui {
         "  Immanuel Herrmann  (Level design)",
         "  illmind  (Level design)",
         "  Máté Lehel Juhász  (Hungarian translation)",
+        0,
         "  Samuele Kaplun  (Italian translation)",
         "  Jens-Christian Korth  (Level design)",
         "  Manuel König  (Level design, bug reports)",
         "  Markus Laire  (Level design)",
-        0,
         "  Dominik Lehmann  (Level design)",
         "  Edward Leuf  (Feedback, bug reports)",
         "  Ingo van Lil  (Feedback, bug reports)",
         "  Frank van der Loo  (Dutch translation)",
         "  Sidney Markowitz  (Mac OS X port)",
         "  moonpearl  (Level design)",
+        "  Krishnamurti L.L.V. Nunes (Portuguese translation)",
         "  Daniel Nylander  (Swedish translation)",
         "  Peter Santo  (Level design)",
         "  Lukas Schüller  (Level design)",
         "  Achim Settelmeier  (RPM specfile)",
+        0,
         "  Jon Sneyers  (Level design)",
         "  Spaceman  (Level design)",
         "  Ulf Stegemann  (Level design)",
@@ -257,7 +259,7 @@ namespace enigma { namespace gui {
             m.manage();
             invalidate_all();
         } else if (w == credits) {
-            displayInfo(credit_text, 5);
+            displayInfo(credit_text, 6);
             invalidate_all();
         } else if (w == options) {
             ShowOptionsMenu(0);

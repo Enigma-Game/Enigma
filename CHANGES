@@ -1,3 +1,43 @@
+Changes in Version 1.00
+=======================
+
+User-Visible changes
+--------------------
+
+    - 200++ new levels, fixes to all broken levels
+    - new levelpack sorting
+    - grouping of levelpacks
+    - level inspector for viewing ratings and statistic information about levels
+    - screenshot viewer
+    - personal annotations and rating of levels
+    - score registration and download of world records and statistic information
+    - PAR and handicap as messures for a player
+    - drop & play of new levels and new levelpacks
+    - history and search of levels
+    - composer for own levelpacks and levelpack groups
+    - instant language change
+    - Translations of level titles and documents
+    - Swedish, Russian, Hungarian, Portugese translation
+    - German and French manuals
+    - 100++ pages Reference manual
+
+Internal changes
+----------------
+
+    - XMLification of all data files
+    - reengineering of level and levelpack
+    - catch many errors intenally, display messages, continue or clean shutdown
+    - portability issues - Unix, Windows, MacOS as unified platform
+    - switch from Lua 4.* to Lua 5.1.1, from tolua to tolua++
+    - switch return value of messages from void/nil to Value
+    - added sender object as second argument to callback function
+    - improved rewrite of fire
+    - st-chess, st-laserpassenger
+    - small whitballs can jump
+    - icons polish
+    - sound additions, volume reduction on stone hit
+    (for a complete list see svn commit messages at berlios.de)
+
 Changes in Version 0.92
 =======================
 
@@ -11,9 +51,8 @@ User-Visible changes
 
     - Ice is working again
     - Cannonballs are working again
-    - Spanish translation (thanks to Samuel Elías Martínez Álvarez)
+    - Spanish translation (thanks to Samuel Elías Martínez �?lvarez)
     - New application icon on Windows (thanks to Tobias Schmidbauer)
-
 
 
 Changes in Version 0.91
@@ -23,7 +62,6 @@ Internal changes
 ----------------
 
     - removed fl-ice_001 
-
     - new game variable enigma.IceFriction
 
 
@@ -34,25 +72,15 @@ User-Visible Changes
 --------------------
 
     * Support for internationalized text
-
     * Support for 800x600 and 1024x768 video modes
-
     * Many new levels
-
     * Tutorial levels for new players
-
     * Much improved support for loading Oxyd levels
-
     * New game mode: Time hunt
-
     * Can reorder inventory with TAB key
-
     * Support for gamma correction on some systems
-
     * New command line options: --dumpinfo, --lang, --data
-
     * Removed --8bpp command line option
-
     * Removed support for 8bit graphics
 
 

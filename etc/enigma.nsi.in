@@ -40,6 +40,7 @@ Section "Enigma (required)"
   File /r "${SDIR}\doc"
   File /r "${SDIR}\manual"
   File /r "${SDIR}\reference"
+  File /r "${SDIR}\attachments"
   File    "${SDIR}\*.*"
   ; Write the installation path into the registry
   WriteRegStr HKLM SOFTWARE\Enigma "Install_Dir" "$INSTDIR"
