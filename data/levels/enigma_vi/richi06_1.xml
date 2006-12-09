@@ -49,78 +49,114 @@ oxyd(18,11)
 set_actor("ac-blackball", 1.5, 6.5, {player="0", mouseforce="1", name="actor"})
 
 -- Code-Sektion
-weg={}
-i=0
-aktX=2
-aktY=1+random(10)
-vorvorrichtung=2
-vorrichtung=2
-rnd=2
 actor=enigma.GetNamedObject("actor")
-verschwunden=FALSE
+verschwunden=false
 verdeckt={}
+weg={}
+anz_felder=0
 
 -- finde Weg
-while aktX<16 do
-   if aktX<4 then
-    aktX=aktX+1
-   elseif vorrichtung==2 then
-       if rnd==1 and vorvorrichtung~=3 then aktY=aktY-1
-       elseif rnd==3 and vorvorrichtung~=1 then aktY=aktY+1
-       else aktX=aktX+1 end
-   elseif vorrichtung==1 then
-       if rnd==1 and vorvorrichtung~=3 then aktY=aktY-1
-       else aktX=aktX+1 end
-   else
-       if rnd==3 and vorvorrichtung~=1 then aktY=aktY+1
-       else aktX=aktX+1 end
-   end
+function find_way()
+    i=0
+    aktX=2
+    aktY=1+random(10)
+    vorvorrichtung=2
+    vorrichtung=2
+    rnd=2
 
-   vorvorrichtung=vorrichtung
-   vorrichtung=rnd
-   rnd=random(3)
+    while aktX<16 do
+        if aktX<4 then
+            aktX=aktX+1
+        elseif vorrichtung==2 then
+            if rnd==1 and vorvorrichtung~=3 then aktY=aktY-1
+            elseif rnd==3 and vorvorrichtung~=1 then aktY=aktY+1
+            else aktX=aktX+1 end
+        elseif vorrichtung==1 then
+            if rnd==1 and vorvorrichtung~=3 then aktY=aktY-1
+            else aktX=aktX+1 end
+        else
+            if rnd==3 and vorvorrichtung~=1 then aktY=aktY+1
+            else aktX=aktX+1 end
+        end
 
-   if(aktY<1) then aktY=aktY+1
-   elseif(aktY>11) then aktY=aktY-1
-   else i=i+1 weg[i]={aktX,aktY} end
-   
+        vorvorrichtung=vorrichtung
+        vorrichtung=rnd
+        rnd=random(3)
+
+        if(aktY<1) then aktY=aktY+1
+        elseif(aktY>11) then aktY=aktY-1
+        else
+            i=i+1
+            weg[i]={aktX,aktY}
+            anz_felder=anz_felder+1 
+        end
+    end
 end
 
 -- zeichne Weg
-for i,val in pairs(weg) do
-    set_floor(visibleFloor,weg[i][1],weg[i][2])
-       set_item("it-trigger", weg[i][1],weg[i][2], {action="callback", target="einzelanzeige", invisible=TRUE})
+function draw_way()
+    for i,val in pairs(weg) do
+        set_floor(visibleFloor,weg[i][1],weg[i][2])
+        set_item("it-trigger", weg[i][1],weg[i][2], {action="callback", target="einzelanzeige", invisible=TRUE})
+    end
 end
 
 -- loesche Weg
 function verschwinde()
-   if verschwunden==FALSE then
-       for i, val in pairs(weg)
-       do
-           set_floor("fl-water-1",weg[i][1],weg[i][2])
-           verdeckt[weg[i][1]..weg[i][2]]=TRUE
-       end
-      if not difficult then
-         set_floor(normalFloor,7,weg[7][2]) 
-         set_floor(normalFloor,12,weg[12][2])
-         set_item("it-extralife",7,weg[7][2])
-         set_item("it-extralife",12,weg[12][2])
-      end
-   end
-   verschwunden=TRUE
+    if verschwunden==false then
+        for i, val in pairs(weg) do
+            set_floor("fl-water-1",weg[i][1],weg[i][2])
+            verdeckt[weg[i][1]..weg[i][2]]=true
+        end
+        if not difficult then
+            index_i=bin_search_in_weg(7)
+            set_floor(normalFloor,7,weg[index_i][2]) 
+            set_item("it-extralife",7,weg[index_i][2])
+            index_i=bin_search_in_weg(12)
+            set_floor(normalFloor,12,weg[index_i][2]) 
+            set_item("it-extralife",12,weg[index_i][2])
+        end
+    end
+    verschwunden=true
 end
 
 -- mache aktuelles Feld sichtbar
 function einzelanzeige()
-   if verschwunden==FALSE then
-    verschwinde()
-   end
-   x,y=enigma.GetPos(actor)
-   if verdeckt[x..y]==TRUE then
-       set_floor(normalFloor,x,y)
-   end
-   verdeckt[x..y]=FALSE
+    if verschwunden==false then
+        verschwinde()
+    end
+    x,y=enigma.GetPos(actor)
+    if verdeckt[x..y]==true then
+        set_floor(normalFloor,x,y)
+    end
+    verdeckt[x..y]=false
 end
+
+-- suche feld [x=bekannt, y=?]
+function bin_search_in_weg(feld)
+    found=false
+    first=1
+    middle=nil
+    last=anz_felder
+
+    while found==false and first<=last do 
+        middle=first+(math.floor((last-first)/2))    
+        if weg[middle][1]==feld then
+            found=true
+        else
+            if feld <= weg[middle][1] then      
+                last=middle-1       
+            else
+                first=middle+1
+            end
+        end
+    end
+    return middle
+end
+
+-- DO IT
+find_way()
+draw_way()
     ]]></el:luamain>
     <el:i18n>
       <el:string el:key="title">

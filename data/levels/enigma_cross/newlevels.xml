@@ -204,14 +204,8 @@
     <level _seq="196" _title="Puzzle Puzzles" _xpath="enigma_vi/raoul26_1" author="Raoul Bourquin" ctrl="force" easy="true" id="raoul26" rel="1" rev="22" score="1" target="time" unit="duration"/>
     <level _seq="197" _title="Checkmate II" _xpath="enigma_vi/andreas35_1" author="Andreas Lochmann" ctrl="force" easy="false" id="andreas35" rel="1" rev="1" score="1" target="time" unit="duration"/>
     <level _seq="198" _title="be quick or be dead" _xpath="enigma_vi/illmind12_1" author="illmind" ctrl="force" easy="true" id="illmind12" rel="1" rev="0" score="1" target="time" unit="duration"/>
-    <level _seq="199" _title="Laser Jump" _xpath="enigma_vi/ulf01_1" author="Ulf Stegemann" ctrl="force" easy="false" id="20060628ulf001" rel="1" rev="0" score="1" target="time" unit="duration"/>
-    <level _seq="200" _title="Tarzan" _xpath="enigma_vi/ulf03_1" author="Ulf Stegemann" ctrl="force" easy="true" id="20060629ulf003" rel="1" rev="0" score="1" target="time" unit="duration"/>
-    <level _seq="201" _title="Simple Space" _xpath="enigma_vi/ulf02_1" author="Ulf Stegemann" ctrl="force" easy="false" id="20060628ulf002" rel="1" rev="0" score="1" target="time" unit="duration"/>
-    <level _seq="202" _title="Crete" _xpath="enigma_vi/ulf05_1" author="Ulf Stegemann" ctrl="force" easy="true" id="20060712lab002" rel="1" rev="0" score="1" target="time" unit="duration"/>
-    <level _seq="203" _title="Reims" _xpath="enigma_vi/ulf07_1" author="Ulf Stegemann" ctrl="force" easy="true" id="20060714lab005" rel="1" rev="0" score="1" target="time" unit="duration"/>
-    <level _seq="204" _title="Roman" _xpath="enigma_vi/ulf08_1" author="Ulf Stegemann" ctrl="force" easy="true" id="20060713lab003" rel="1" rev="0" score="1" target="time" unit="duration"/>
-    <level _seq="205" _title="Liger" _xpath="enigma_vi/ulf06_1" author="Ulf Stegemann" ctrl="force" easy="true" id="20060717lab006" rel="1" rev="0" score="1" target="time" unit="duration"/>
-    <level _seq="206" _title="Amiens" _xpath="enigma_vi/ulf04_1" author="Ulf Stegemann" ctrl="force" easy="true" id="20060714lab004" rel="1" rev="0" score="1" target="time" unit="duration"/>
+    <level _seq="199" _title="Tarzan" _xpath="enigma_vi/ulf03_1" author="Ulf Stegemann" ctrl="force" easy="true" id="20060629ulf003" rel="1" rev="0" score="1" target="time" unit="duration"/>
+    <level _seq="200" _title="Simple Space" _xpath="enigma_vi/ulf02_1" author="Ulf Stegemann" ctrl="force" easy="false" id="20060628ulf002" rel="1" rev="0" score="1" target="time" unit="duration"/>
   </levels>
 
 </index>
