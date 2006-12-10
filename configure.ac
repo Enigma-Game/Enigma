@@ -358,8 +358,8 @@ AC_CONFIG_FILES([Makefile m4/Makefile  intl/Makefile
 	   doc/images/Makefile
 	   doc/manual/Makefile
 	   doc/manual/images/Makefile
-	   doc/refman/Makefile
-	   doc/refman/images/Makefile
+	   doc/reference/Makefile
+	   doc/reference/images/Makefile
 	   etc/Makefile
            lib-src/Makefile
 	   lib-src/oxydlib/Makefile

@@ -4,7 +4,7 @@
 #   src   -> tools, lib-src
 #
 SUBDIRS = m4 lib-src tools intl src data doc po etc
-EXTRA_DIST = enigma CHANGES ChangeLog.tla
+EXTRA_DIST = enigma CHANGES
 
 docdir = @datadir@/doc/enigma
 doc_DATA = README CHANGES COPYING
@@ -29,6 +29,6 @@ macapp:
 pdf:
 	cd doc/manual/images && $(MAKE) pdf
 	cd doc/manual && $(MAKE) pdf
-	cd doc/refman/images && $(MAKE) pdf
-	cd doc/refman && $(MAKE) pdf
+	cd doc/reference/images && $(MAKE) pdf
+	cd doc/reference && $(MAKE) pdf
 

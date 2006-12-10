@@ -119,12 +119,12 @@ function copy_doc
     cpfile doc/images/favicon.png	images/
     cpfile doc/images/menu_bg.jpg	images/
 #    cptext etc/README-SDL.txt 	attachments/README-SDL.txt
-    cptext doc/ant_lua.txt 	reference/ant_lua.txt
-    cptext doc/sounds.txt	reference/sounds.txt
+    cptext doc/reference/ant_lua.txt 	reference/ant_lua.txt
+    cptext doc/reference/sounds.txt	reference/sounds.txt
 #    cptext doc/README.mingw32   doc/README-mingw32.txt
-    cptext doc/sound.lua        reference/sound.lua
-    cpfile doc/lua2xml		reference/
-    cpfile doc/xml2lua		reference/
+    cptext doc/reference/sound.lua      reference/sound.lua
+    cpfile doc/reference/lua2xml	reference/
+    cpfile doc/reference/xml2lua	reference/
 }
 
 #
@@ -145,8 +145,8 @@ function copy_refman
 {
     echo "... copying reference manual"
     mkdir $DDIR/reference $DDIR/reference/images
-    cpfile doc/refman/images/*.png reference/images
-    cpbuiltfile doc/refman/*.html reference
+    cpfile doc/reference/images/*.png reference/images
+    cpbuiltfile doc/reference/*.html reference
 }
 
 #

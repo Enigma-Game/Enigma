@@ -4,10 +4,11 @@ SUBDIRS = images
 
 HTML = enigma-ref.html
 
-EXTRA_DIST = enigma-ref.texi enigma-t2h.init $(HTML)
+refdir=@datadir@/doc/enigma/reference
+ref_DATA = $(HTML) ant_lua.txt sounds.txt sound.lua lua2xml xml2lua
 
-htmldir=@datadir@/doc/enigma/reference
-html_DATA = $(HTML)
+EXTRA_DIST = enigma-ref.texi enigma-t2h.init $(ref_DATA)
+
 
 enigma-ref.html: $(srcdir)/enigma-ref.texi $(srcdir)/enigma-t2h.init
 	@if [ "${TEXI2HTML}" ]; then \
