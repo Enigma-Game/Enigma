@@ -3,7 +3,7 @@
   <el:protected>
     <el:info el:type="level">
       <el:identity el:title="Precision" el:subtitle="Per.Oxyd 53" el:id="siegfried93"/>
-      <el:version el:score="1" el:release="1" el:revision="0" el:status="released"/>
+      <el:version el:score="2" el:release="2" el:revision="1" el:status="released"/>
       <el:author  el:name="Siegfried Fennig" el:email="" el:homepage=""/>
       <el:copyright>Copyright © 2003 Siegfried Fennig</el:copyright>
       <el:license el:type="GPL version 2" el:open="true"/>
@@ -32,7 +32,7 @@ function renderLine( line, pattern)
       elseif c == "N" then
          set_stone("st-oneway-n",i-1,line)
       elseif c == "W" then
-         set_stone("st-oneway",i-1,line)
+         set_stone("st-oneway-w",i-1,line)
       elseif c == "w" then
          set_stone("st-wood",i-1,line)
       elseif c == "1" then
