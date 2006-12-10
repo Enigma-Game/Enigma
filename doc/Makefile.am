@@ -2,8 +2,7 @@ SUBDIRS = images manual refman
 
 
 docdir=@datadir@/doc/enigma/reference
-doc_DATA = functions.html functions.css ant_lua.txt CREATING-LEVELS sounds.txt objects.txt sound.lua\
-	lua2xml xml2lua
+doc_DATA = ant_lua.txt sounds.txt sound.lua lua2xml xml2lua
 
 EXTRA_DIST = enigma.6 HACKING TODO README.mingw32 REQUIREMENTS $(doc_DATA)
 

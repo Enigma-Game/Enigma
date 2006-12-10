@@ -686,6 +686,7 @@ namespace enigma { namespace lev {
     }  
     
     double ScoreManager::calcHCP(lev::Index *ind, int difficulty) {
+        static double log_2 = log(2.0);
         int i;
         int size = ind->size();
         double hcp = 0;
@@ -702,14 +703,13 @@ namespace enigma { namespace lev {
                 if (dhcp > 0.7)
                     dhcp = 0.7;
             } else if (score < par && par > 0) {
-                dhcp = log(score/par) / log(2.0);
+                dhcp = log(score/par) / log_2;
                 if (dhcp < -3)
                     dhcp = -3;
             } else { // par <= 0 no par
                 dhcp = -3;
             }
             hcp += dhcp;
-            //Log << "calcHCP " << i << " - " << dhcp << "\n";
         }
         return hcp*100.0/size;
     }  
