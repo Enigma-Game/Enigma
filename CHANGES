@@ -17,7 +17,7 @@ User-Visible changes
     - composer for own levelpacks and levelpack groups
     - instant language change
     - Translations of level titles and documents
-    - Swedish, Russian, Hungarian, Portugese translation
+    - Swedish, Russian, Hungarian, Portuguese translation
     - German and French manuals
     - 100++ pages Reference manual
 
@@ -31,12 +31,27 @@ Internal changes
     - switch from Lua 4.* to Lua 5.1.1, from tolua to tolua++
     - switch return value of messages from void/nil to Value
     - added sender object as second argument to callback function
-    - improved rewrite of fire
-    - st-chess, st-laserpassenger
-    - small whitballs can jump
+    - common floor attributes (gradient, mouseforce, friction)
+    - border stones are swappable
+    - improved fire system: eternal, secure fire, heat transformation, ...
+    - new stones: st-chess, st-lightpassenger, st-polarswitch, st-redrock,
+        st-firebreak[_move], st-bigbluesand-<nesw>, st-camouflage
+    - new floors: fl-thief, fl-nomouse, fl-woven_orange
+    - new items: it-rubberband, it-booze-broken, it-death, it-drop
+    - removed: fl-ice_001
+    - it-pencil -> it-cross, it-crack
+    - it-brush -> it-cross, it-squashed
+    - st-scissor actions
+    - bigbricks unswappable and unpullable
+    - st-flash/actorimpulse*/spitter : distorted forces
+    - small whiteballs can jump
+    - new libraries: andreas_itemfreeze, andreas_ghosts, libpuzzle, libterrain
     - icons polish
     - sound additions, volume reduction on stone hit
-    (for a complete list see svn commit messages at berlios.de)
+    
+    for details on the subjects read the reference manual, for a complete list 
+    of changes see svn commit messages at berlios.de:
+    http://svn.berlios.de/wsvn/enigma-game/tags/1.00/?op=log&rev=0&sc=0&isdir=1)
 
 Changes in Version 0.92
 =======================
