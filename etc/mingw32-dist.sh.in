@@ -108,11 +108,17 @@ function copy_data
 function copy_doc
 {
     echo "... copying documentation"
+    mkdir $DDIR/images
     mkdir $DDIR/doc
     mkdir $DDIR/attachments
     cptext README 		README.txt
     cptext COPYING 		COPYING.txt
     cptext CHANGES 		CHANGES.txt
+    cptext index.html 		index.html
+    cptext images/enigma2.css	images/enigma2.css
+    cpfile images/navbar.png	images/
+    cpfile images/favicon.png	images/
+    cpfile images/menu_bg.jpg	images/
     cptext etc/README-SDL.txt 	doc/README-SDL.txt
     cptext doc/ant_lua.txt 	doc/ant_lua.txt
     cptext doc/sounds.txt	doc/sounds.txt

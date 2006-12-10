@@ -37,6 +37,7 @@ Section "Enigma (required)"
 
   ; Put file there
   File /r "${SDIR}\data"
+  File /r "${SDIR}\images"
   File /r "${SDIR}\doc"
   File /r "${SDIR}\manual"
   File /r "${SDIR}\reference"

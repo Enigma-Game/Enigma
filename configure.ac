@@ -355,9 +355,10 @@ AC_CONFIG_FILES([Makefile m4/Makefile  intl/Makefile
            data/sound/Makefile
            data/schemas/Makefile
 	   doc/Makefile
+	   doc/images/Makefile
 	   doc/manual/Makefile
 	   doc/manual/images/Makefile
-       doc/refman/Makefile
+	   doc/refman/Makefile
 	   doc/refman/images/Makefile
 	   etc/Makefile
            lib-src/Makefile
