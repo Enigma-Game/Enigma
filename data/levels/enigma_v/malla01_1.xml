@@ -3,7 +3,7 @@
   <el:protected>
     <el:info el:type="level">
       <el:identity el:title="Pneumatic Delivery" el:subtitle="" el:id="malla01"/>
-      <el:version el:score="1" el:release="1" el:revision="0" el:status="released"/>
+      <el:version el:score="1" el:release="1" el:revision="1" el:status="released"/>
       <el:author  el:name="Manuel König" el:email="" el:homepage=""/>
       <el:copyright>Copyright © 2004 Manuel König</el:copyright>
       <el:license el:type="GPL v2.0 or above" el:open="true"/>
@@ -24,7 +24,7 @@ display.DefineAlias("st-c-invisible_grate","st-invisible")
 
 cells={}
 cells[" "]=cell{floor="fl-wood"}
-cells["+"]=cell{item={"it-sensor", {action="callback", target="disable_conserve_level"}}}
+cells["+"]=cell{item="it-seed_nowood"}
 cells["#"]=cell{stone="st-rock5"}
 cells["A"]=cell{stone="st-black4"}
 cells["a"]=cell{stone="st-white4"}
@@ -195,10 +195,6 @@ scramble(15,5,"s")
 scramble(18,8,"w")
 scramble(17,8,"n")
 --       -- [/PUZZLE] --
-
-function disable_conserve_level ()
-enigma.ConserveLevel = FALSE
-end
 
 d1=enigma.GetNamedObject("door1")
 d3=enigma.GetNamedObject("door3")

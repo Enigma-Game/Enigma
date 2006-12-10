@@ -454,7 +454,7 @@ LevelInspector::LevelInspector(lev::Proxy *aLevel):
         add(new Label(N_("Rating: "), HALIGN_RIGHT),Rect(hmargin,vnext,110,25));
         add(new RatingButton(aLevel),Rect(hmargin+110+10,vnext,40,25));
         add(new Label(N_("Average: "), HALIGN_RIGHT),Rect(hmargin+110+10+40+20,vnext,105,25));
-        add(new Label(theRatingMgr->getAverageRating(aLevel), HALIGN_RIGHT),Rect(hmargin+110+10+40+20+105+10,vnext,25,25));
+        add(new Label(theRatingMgr->getAverageRating(aLevel), HALIGN_RIGHT),Rect(hmargin+110+10+40+18+105+6,vnext,31,25));
     }
     
     LevelInspector::~LevelInspector () {
