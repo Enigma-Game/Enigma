@@ -40,7 +40,6 @@ Section "Enigma (required)"
   File /r "${SDIR}\images"
   File /r "${SDIR}\manual"
   File /r "${SDIR}\reference"
-  File /r "${SDIR}\attachments"
   File    "${SDIR}\*.*"
   ; Write the installation path into the registry
   WriteRegStr HKLM SOFTWARE\Enigma "Install_Dir" "$INSTDIR"
@@ -53,10 +52,9 @@ SectionEnd
 ; optional section
 Section "Start Menu Shortcuts"
   CreateDirectory "$SMPROGRAMS\Enigma"
-  CreateShortCut "$SMPROGRAMS\Enigma\Uninstall.lnk" "$INSTDIR\uninstall.exe" "" "$INSTDIR\uninstall.exe" 0
   CreateShortCut "$SMPROGRAMS\Enigma\Enigma.lnk" "$INSTDIR\enigma.exe" "" "$INSTDIR\enigma.exe" 0
-  CreateShortCut "$SMPROGRAMS\Enigma\Manual.lnk" "$INSTDIR\manual\enigma.html" "" "$INSTDIR\manual\enigma.html" 0
-  CreateShortCut "$SMPROGRAMS\Enigma\Reference.lnk" "$INSTDIR\reference\enigma-ref.html" "" "$INSTDIR\reference\enigma-ref.html" 0
+  CreateShortCut "$SMPROGRAMS\Enigma\Documentation.lnk" "$INSTDIR\index.html" "" "$INSTDIR\index.html" 0
+  CreateShortCut "$SMPROGRAMS\Enigma\Uninstall.lnk" "$INSTDIR\uninstall.exe" "" "$INSTDIR\uninstall.exe" 0
 SectionEnd
 
 ; uninstall stuff

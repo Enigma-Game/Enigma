@@ -38,7 +38,7 @@ make install \
 #########################################################################
 %files
 %defattr(-,root,root)
-%doc README AUTHORS ChangeLog COPYING INSTALL NEWS doc/TODO
+%doc README AUTHORS CHANGES COPYING INSTALL 
 # %doc doc/HACKING doc/functions.html doc/functions.css
 # %doc doc/manual/* doc/manual/images/*
 %{prefix}/share/enigma

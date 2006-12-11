@@ -526,9 +526,9 @@ msgid "%d%% best"
 msgstr "%d%% mejor"
 
 #: src/gui/LevelMenu.cc:301
-#, fuzzy, c-format
+#, c-format
 msgid "%d%% par, hcp %.1f"
-msgstr "%d%% record"
+msgstr "%d%% record, hcp %.1f"
 
 #: src/gui/LevelMenu.cc:305
 #, c-format

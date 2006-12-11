@@ -110,9 +110,9 @@ function copy_doc
     echo "... copying documentation"
     mkdir $DDIR/images
     mkdir $DDIR/attachments
-    cptext README 		README.txt
-    cptext COPYING 		COPYING.txt
-    cptext CHANGES 		CHANGES.txt
+    cptext README 		README
+    cptext COPYING 		COPYING
+    cptext CHANGES 		CHANGES
     cptext doc/index.html 		index.html
     cptext doc/images/enigma2.css	images/enigma2.css
     cpfile doc/images/navbar.png	images/

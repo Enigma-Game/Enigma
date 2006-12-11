@@ -4,10 +4,10 @@
 # 
 msgid ""
 msgstr ""
-"Project-Id-Version: Enigma 0.90\n"
+"Project-Id-Version: Enigma 1.00\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2006-12-10 18:42+0100\n"
-"PO-Revision-Date: 2006-11-28 19:43+0100\n"
+"PO-Revision-Date: 2006-12-11 17:05+0100\n"
 "Last-Translator: Daniel Heck <dheck@gmx.de>\n"
 "Language-Team: Enigma developers <enigma-devel@nongnu.org>\n"
 "MIME-Version: 1.0\n"
@@ -523,7 +523,7 @@ msgid "%d%% best"
 msgstr "%d%% Weltrekord"
 
 #: src/gui/LevelMenu.cc:301
-#, fuzzy, c-format
+#, c-format
 msgid "%d%% par, hcp %.1f"
 msgstr "%d%% par, hcp %.1f"
 
@@ -2040,7 +2040,7 @@ msgstr "Die Schlüssel von links nach rechts sind NO, NW, SO, SW."
 #  author: "illmind" email "support@mag-heut.net"
 #: po/level_i18n.cc:912
 msgid "illmind's be quick or be dead"
-msgstr ""
+msgstr "illminds sei schnell oder tot"
 
 #  level: "Dialers"
 #  author: "Edward" email ""
@@ -2122,7 +2122,7 @@ msgstr "Erinnerst Du Dich an 'Changing Positions'?"
 #  use: "Ein wirklich nerviges Level"
 #: po/level_i18n.cc:979
 msgid "A really annoying Level"
-msgstr ""
+msgstr "Ein wirklich nerviges Level"
 
 #  level: "Persecution Mania"
 #  author: "Ronald Lamprecht" email "ral@users.berlios.de"
@@ -2143,7 +2143,7 @@ msgstr "Geteiltes Leid ist halbes Leid!"
 #  use: "Im Dschungel herumhängen"
 #: po/level_i18n.cc:1012
 msgid "Hanging around in the Jungle"
-msgstr ""
+msgstr "Im Dschungel herumhängen"
 
 #  level: "Ben Hur"
 #  author: "Ronald Lamprecht" email "ral@users.berlios.de"
@@ -2189,7 +2189,7 @@ msgstr "Vergiss den Laser, versuche es mit Gewalt!"
 #  use: "Freier Fall mit tödlichen Folgen!"
 #: po/level_i18n.cc:1275
 msgid "Free fall with fatal consequences!"
-msgstr ""
+msgstr "Freier Fall mit tödlichen Folgen!"
 
 #  level: "Minor Obstacle"
 #  author: "Siegfried Fennig" email ""
@@ -3570,21 +3570,21 @@ msgstr "Beachten Sie die Wasserlöcher!"
 #  use: "Steine ändern sich!"
 #: po/level_i18n.cc:2697
 msgid "Bricks change!"
-msgstr ""
+msgstr "Steine ändern sich!"
 
 #  level: "Per.Oxyd 27"
 #  author: "Ulf Stegemann" email "ulf-enigma@zeitform.de"
 #  use: "Falls Dir das zu einfach ist, versuche die normale Schwierigkeitstufe."
 #: po/level_i18n.cc:2708
 msgid "If you think that's to easy, try \"Difficulty: Normal\"."
-msgstr ""
+msgstr "Falls Dir das zu einfach ist, versuche die normale Schwierigkeitstufe."
 
 #  level: "Per.Oxyd 27"
 #  author: "Ulf Stegemann" email "ulf-enigma@zeitform.de"
 #  use: "Falls Dir das zu schwer ist, versuche die leichte Schwierigkeitstufe."
 #: po/level_i18n.cc:2710
 msgid "If you think that's to hard, try \"Difficulty: Easy\"."
-msgstr ""
+msgstr "Falls Dir das zu schwer ist, versuche die leichte Schwierigkeitstufe."
 
 #  level: "Handle With Care"
 #  author: "Martin Hawlisch" email ""
@@ -3774,42 +3774,42 @@ msgstr "Ein Schloss liegt vor Dir ... hüte Dich vor den Wächtern!"
 #  use: "Wenn Du schonmal an bestimmten Orten warst"
 #: po/level_i18n.cc:3055
 msgid "when  you've  been  particular  places"
-msgstr ""
+msgstr "Wenn Du schonmal an bestimmten Orten warst"
 
 #  level: "deja-vu"
 #  author: "illmind" email "support@mag-heut.net"
 #  use: "die Du noch nie zuvor gesehen hast"
 #: po/level_i18n.cc:3057
 msgid "that  you  know  you've  never  seen  before"
-msgstr ""
+msgstr "die Du noch nie zuvor gesehen hast"
 
 #  level: "deja-vu"
 #  author: "illmind" email "support@mag-heut.net"
 #  use: "kannst Du Dir da sicher sein ?"
 #: po/level_i18n.cc:3059
 msgid "can  you  be  sure?"
-msgstr ""
+msgstr "kannst Du Dir da sicher sein ?"
 
 #  level: "deja-vu"
 #  author: "illmind" email "support@mag-heut.net"
 #  use: "Fühlt sich an, als sei ich hier bereits gewesen"
 #: po/level_i18n.cc:3061
 msgid "feel  like  I've  been  here  before"
-msgstr ""
+msgstr "Fühlt sich an, als sei ich hier bereits gewesen"
 
 #  level: "deja-vu"
 #  author: "illmind" email "support@mag-heut.net"
 #  use: "frei übersetzter Textauszug von Iron Maiden's - Deja-Vu"
 #: po/level_i18n.cc:3063
 msgid "quote:  Iron  Maiden   -   Deja-Vu"
-msgstr ""
+msgstr "frei übersetzter Textauszug von Iron Maiden's - Deja-Vu"
 
 #  level: "deja-vu"
 #  author: "illmind" email "support@mag-heut.net"
 #  use: "um illmind's deja vu zu spühren versuche die linke obere Ecke ..."
 #: po/level_i18n.cc:3065
 msgid "for  illmind's  deja  vu  try  the  top  left  corner  ..."
-msgstr ""
+msgstr  "um illmind's deja vu zu spühren versuche die linke obere Ecke ..."
 
 #  level: "Welcome"
 #  author: "Raoul Bourquin" email ""
