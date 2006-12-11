@@ -37,7 +37,7 @@ cells["w"]=cell{floor="fl-leaves",stone="st-grate1"}
 cells["x"]=cell{floor="fl-leaves",stone="st-wood"}
 cells["Z"]=cell{floor="fl-light",stone="st-grate1"}
 cells["O"]=cell{parent=cells["<"],actor={"ac-blackball",{player=0}}}
-cells["r"]=cell{stone="st-rock4"}
+cells["r"]=cell{stone="st-rock10"}
 cells["a"]=cell{floor="fl-leaves",item={face="it-trigger"}}
 cells["A"]=cell{floor="fl-leaves",stone={face="st-door", attr={name="doorA", type="h"}}}
 cells["B"]=cell{floor="fl-leaves",stone={face="st-door", attr={name="doorB", type="h"}}}

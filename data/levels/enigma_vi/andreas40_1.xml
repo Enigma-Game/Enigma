@@ -106,7 +106,7 @@ cells["%"]=cell{floor="fl-stwood"}
 cells["&"]=cell{floor="fl-abyss"}
 cells["1"]=cell{floor={"fl-bridge-open", {type = "y", name = "bridge1"}}}
 cells["2"]=cell{floor={"fl-bridge-open", {type = "y", name = "bridge2"}}}
-stones["!"]=cell{stone="st-rock4"}
+stones["!"]=cell{stone="st-rock10"}
 stones["#"]=cell{stone="st-block"}
 stones["$"]=cell{stone={"st-key_b", {action="callback", target="switchfunc1"}}}
 stones["%"]=cell{stone={"st-key_a", {action="callback", target="switchfunc2"}}}

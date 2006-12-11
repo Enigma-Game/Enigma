@@ -35,7 +35,7 @@ function renderLine( line, pattern)
     for i=1, strlen(pattern) do
         local c = strsub( pattern, i, i)
         if c =="#" then
-            set_stone( "st-rock4", i-1, line)
+            set_stone( "st-rock10", i-1, line)
         elseif c =="X" then
             set_stone( "st-death", i-1, line)
         elseif c =="F" then
