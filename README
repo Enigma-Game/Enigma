@@ -1,22 +1,28 @@
 About Enigma
 ============
 
-Enigma is a tribute to and a re-implementation of one of the most
-original and intriguing computer games of the 1990's: Oxyd.  Your
-objective is easily explained: find and uncover all pairs of identical
-Oxyd stones in each landscape.  Sounds simple?  It would be, if it
-weren't for hidden traps, vast mazes, insurmountable obstacles and
-innumerable puzzles blocking your direct way to the Oxyd stones...
+Enigma is a unique puzzle game, with influences from almost every game
+genre.  Your objective is easily explained: you control a small black
+marble with your mouse and have to find and uncover all pairs of
+identical Oxyd stones in each landscape.  Simple? Yes.  Easy? It would
+be, if it weren't for hidden traps, vast mazes, insurmountable
+obstacles and innumerable puzzles blocking your direct way to the Oxyd
+stones... If you like puzzle games and have a steady hand, Enigma's
+more than 500 levels will probably keep you busy for hours on end.
 
-Enigma is not nearly finished and help is always appreciated.  If you
-enjoy programming, painting, recording sound effects, or designing
-levels, you can always join our development mailing list at
+Enigma is developed by a small group of volunteers, and help is always
+appreciated.  If you like Enigma and want to contribute to its future,
+you are welcome to join us on our development mailing list at
 
     http://mail.nongnu.org/mailman/listinfo/enigma-devel
 
 or simply send email to 
 
     enigma-devel@nongnu.org
+
+Every kind of contribution is welcome, whether it is programming,
+documentation, graphics, sound effects, or simply good advice.
+
 
 The official Enigma homepage can be found at
 
@@ -38,7 +44,7 @@ or simply start with the tutorial levels included with the game.
 Installation
 ============
 
-Installation on Windows and MacOS X is straightforward: Simply download
+Installation on Windows and Mac OS X is straightforward: Simply download
 the appropriate .exe or .dmg file and start it with a double click.
 
 Things get a little more complicated for other operating systems,
@@ -61,41 +67,15 @@ bugs you.
 Compiling Enigma
 ================
 
-This section briefly describes how to compile Enigma on a Unix machine.
-If you are interested in building Enigma on Windows, please see the
-documentation in `doc/README.mingw'.
+This section briefly describes how to compile Enigma on a Unix
+machine.  If you want to build Enigma on Windows or Mac OS X, please
+see the documentation in `doc/README.mingw32' and `doc/README.macosx',
+respectively.
 
-If you want to compile Enigma from source, you must have the following
-programs and libraries installed
+For a list of libraries and programs that must be installed to compile
+Enigma, please refer to `doc/REQUIREMENTS' for a complete list.
 
-    * A C++ compiler
-    
-      GNU C++ 2.95.4, 3.3 and 3.4 are officially supported, older
-      versions may not work.  If you use another C++ compiler, your
-      mileage may vary.  The Intel C++ compiler used to work, but we
-      haven't tested it in a long time.
-      
-    * SDL >= 1.2 
-    
-      http://www.libsdl.org
-      
-    * SDL_mixer >= 1.2.4 
-    
-      http://www.libsdl.org/projects/SDL_mixer
-      
-    * SDL_image >= 1.2.0 
-    
-      http://www.libsdl.org/projects/SDL_image
-      
-    * SDL_ttf >= 2.0.6 
-
-      http://www.libsdl.org/projects/SDL_ttf
-    
-These should already come with most reasonably up-to-date Linux
-distributions, but you may have to install the development packages of
-the libraries if you want to compile Enigma from source. 
-
-Installation should now be as easy as typing
+Once you have everything installed, building Enigma is as easy as typing
 
     ./configure && make && make install
 
