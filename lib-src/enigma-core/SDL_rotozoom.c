@@ -351,20 +351,24 @@ int zoomSurfaceRGBA(SDL_Surface * src, SDL_Surface * dst, int smooth)
          */
         csx = 0;
         csax = sax;
+        int sum = 0;
         for (x = 0; x < dst->w + smooth; x++) {
             csax[x] = csx;
             csx &= 0xffff;
             csx += sx;
-            if ((csx >> 16) >= src->w)
+            sum += sx;
+            if ((sum >> 16) >= src->w - smooth)
                 csx -= sx;
         }
         csy = 0;
         csay = say;
+        sum = 0;
         for (y = 0; y < dst->h + smooth; y++) {
             csay[y] = csy;
             csy &= 0xffff;
             csy += sy;
-            if ((csy >> 16) >= src->h)
+            sum += sy;
+            if ((sum >> 16) >= src->h - smooth)
                 csy -= sy;
         }
 
