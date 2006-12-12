@@ -71,7 +71,7 @@ This is the path to the file that stores your preferences concerning application
 options. This file is usually located at your @env{HOME} directory. For @env{HOME}-less
 Windows users it is stored in the @samp{Application Data\Enigma} directory. As
 it is the third version in the history of Enigma the file is named 
-@samp{.enigmarc3.xml} by default. 
+@samp{.enigmarc.xml} by default. 
 
 It is recommended to backup this file, even though it contains only few data that
 can be quickly reconfigured.

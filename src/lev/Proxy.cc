@@ -203,6 +203,7 @@ namespace enigma { namespace lev {
         Proxy * candidate = pair.second;
         if (searchText.containedBy(candidate->getNormLevelPath()) ||
                 searchText.containedBy(candidate->getTitle()) ||
+                searchText.containedBy(candidate->getId()) ||
                 searchText.containedBy(candidate->getAuthor())) {
             searchIndex->appendProxy(candidate);
 //            Log << "Search result: " << pair.first << " - is - " << candidate->getTitle() << "\n";
