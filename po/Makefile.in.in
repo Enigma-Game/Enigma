@@ -19,6 +19,7 @@ SHELL = /bin/sh
 srcdir = @srcdir@
 top_srcdir = @top_srcdir@
 VPATH = @srcdir@
+builddir = @builddir@
 
 prefix = @prefix@
 exec_prefix = @exec_prefix@
@@ -28,7 +29,8 @@ gettextsrcdir = $(datadir)/gettext/po
 
 INSTALL = @INSTALL@
 INSTALL_DATA = @INSTALL_DATA@
-MKINSTALLDIRS = @install_sh@ -d
+MKINSTALLDIRS = @MKINSTALLDIRS@ 
+#install_sh@ -d
 mkinstalldirs = $(SHELL) $(MKINSTALLDIRS)
 
 GMSGFMT = @GMSGFMT@
@@ -100,12 +102,12 @@ stamp-po: $(srcdir)/$(DOMAIN).pot
 # This target rebuilds $(DOMAIN).pot; it is an expensive operation.
 # Note that $(DOMAIN).pot is not touched if it doesn't need to be changed.
 $(DOMAIN).pot-update: $(POTFILES) $(srcdir)/POTFILES.in remove-potcdate.sed
-	rm -f level_i18n.cc
-	find ../data/levels -name '.svn' -prune -o -type d -exec cp ../data/schemas/level.xsd '{}' \;
-	find ../data/levels -name '.svn' -prune -o -name 'enigma_cross' -prune -o -name '*.xml' -type f ! -name 'index.xml' -exec Xalan -v -e UTF-8 '{}' ../tools/i18n.xsl \; >> level_i18n.tmp
-	find ../data/levels -name '.svn' -prune -o -name level.xsd  -exec rm '{}' \;
-	lua ../tools/sub_quote_gettext.lua level_i18n.tmp > level_i18n.cc
-	rm level_i18n.tmp
+	rm -f $(builddir)/level_i18n.cc
+	find $(top_srcdir)/data/levels -name '.svn' -prune -o -type d -exec cp $(top_srcdir)/data/schemas/level.xsd '{}' \;
+	find $(top_srcdir)/data/levels -name '.svn' -prune -o -name 'enigma_cross' -prune -o -name '*.xml' -type f ! -name 'index.xml' -exec Xalan -v -e UTF-8 '{}' $(top_srcdir)/tools/i18n.xsl \; >> $(builddir)/level_i18n.tmp
+	find $(top_srcdir)/data/levels -name '.svn' -prune -o -name level.xsd  -exec rm '{}' \;
+	lua $(top_srcdir)/tools/sub_quote_gettext.lua $(builddir)/level_i18n.tmp > $(builddir)/level_i18n.cc
+	rm -f $(builddir)/level_i18n.tmp
 	$(XGETTEXT) --default-domain=$(DOMAIN) --directory=$(top_srcdir) \
 	  --add-comments=TRANSLATORS: $(XGETTEXT_OPTIONS) \
 	  --files-from=$(srcdir)/POTFILES.in \
@@ -144,13 +146,15 @@ $(POFILES): $(srcdir)/$(DOMAIN).pot
 	  test "$(srcdir)" = . && cdcmd="" || cdcmd="cd $(srcdir) && "; \
 	  echo "$${cdcmd}$(MSGMERGE_UPDATE) $${lang}.po $(DOMAIN).pot"; \
 	  cd $(srcdir) && $(MSGMERGE_UPDATE) $${lang}.po $(DOMAIN).pot; \
-	  if test -f "$(srcdir)/level_i18n.cc"; then \
-	    lua ../tools/merge_level_i18n.lua $${lang}; \
+	  if test -f "$(builddir)/level_i18n.cc"; then \
+	    (cd $(builddir); \
+	     lua $(top_srcdir)/tools/merge_level_i18n.lua $${lang}); \
 	  fi \
 	else \
 	  $(MAKE) $${lang}.po-create; \
-	  if test -f "$(srcdir)/level_i18n.cc"; then \
-	    lua ../tools/merge_level_i18n.lua $${lang}; \
+	  if test -f "$(builddir)/level_i18n.cc"; then \
+	    (cd $(builddir); \
+             lua $(top_srcdir)/tools/merge_level_i18n.lua $${lang}); \
 	  fi \
 	fi
 
@@ -355,7 +359,8 @@ update-po: Makefile
 	  else \
 	    if mv -f $$tmpdir/$$lang.new.po $$lang.po; then \
 	      :; \
-	      lua ../tools/merge_level_i18n.lua $${lang}; \
+	      (cd $(srcdir); \
+		lua $(top_srcdir)/tools/merge_level_i18n.lua $${lang}); \
 	    else \
 	      echo "msgmerge for $$lang.po failed: cannot move $$tmpdir/$$lang.new.po to $$lang.po" 1>&2; \
 	      exit 1; \
