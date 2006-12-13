@@ -15,11 +15,11 @@ notice and this notice are preserved.
 @setfilename enigma.info
 @settitle Enigma Manual
 @titlepage
-@image{images/logo}
+@center @image{images/logo}
 @center @titlefont{Enigma Manual}
 @center for version @value{VERSION}
 @sp 2
-@center Copyright @copyright{} 2003, 2004, 2005 Daniel Heck (@email{dheck@@gmx.de})
+@center Copyright @copyright{} 2003, 2004, 2005, 2006 Daniel Heck (@email{dheck@@gmx.de})
 @page
 @vskip 0pt plus 1filll
 @insertcopying
