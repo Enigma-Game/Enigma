@@ -41,9 +41,10 @@ function renderLine( line, pattern)
             set_floor("fl-water",i-1,line)
         elseif c=="J" then
             set_stone("st-glass",i-1,line)
-            set_floor("fl-black",i-1,line,{friction="7.0", mousefactor="2.0"})
+            set_floor("fl-gradient1",i-1,line)
         elseif c=="D" then
             set_stone("st-death",i-1,line)
+            set_floor("fl-black",i-1,line,{friction="7.0", mousefactor="2.0"})
         elseif c=="S" then
             set_stone("st-blue-sand",i-1,line)
         elseif c=="P" then
@@ -196,7 +197,7 @@ else
     renderLine(05 , "~#O4v1O##DDD##===3a~~-S------~~~G-G-Mo..")
     renderLine(06 , "~#>>~<<======Y====>-l------S-~~~MGM-G~H.")
     renderLine(07 , "~#O3^2O##DDD##===4b~~~S----S-~~~~~~-~~~.")
-    renderLine(08 , "~##O^O##~~~~~#HGvb~~~~S-S-SS-~~~-------.")
+    renderLine(08 , "~##O^O##~~~~~#HJvb~~~~S-S-SS-~~~-------.")
     renderLine(09 , "~~#####~~~~~~~~~~~~~~~~~~----G~~-~~~~~~.")
     renderLine(10 , "~~~~~~~~~~~~~~~~~~~~~~~~~-~~GG~~-~~~~...")
     renderLine(11 , "~~~~~~~~~~~~~~~~~~~~~H~~~-~~~~~~-~~~H~~~")
@@ -229,8 +230,8 @@ end
 
 ---- FUNCTIONS ----
 function set_random_mirror(x,y,m)
-    r=random(1,3)
-    strg={"|","/","-"}
+    r=random(1,4)  
+    strg={"|","/","-","\\"}
     kind=strg[r]
     set_stone("st-mirror-p"..kind..m,x,y)
 end
