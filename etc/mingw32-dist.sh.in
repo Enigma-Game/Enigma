@@ -109,19 +109,20 @@ function copy_doc
 {
     echo "... copying documentation"
     mkdir $DDIR/images
-    mkdir $DDIR/attachments
-    cptext README 		README
-    cptext COPYING 		COPYING
-    cptext CHANGES 		CHANGES
+    cptext README                       README
+    cptext COPYING                      COPYING
+    cptext CHANGES                      CHANGES
+    cptext ACKNOWLEDGEMENTS 		ACKNOWLEDGEMENTS
     cptext doc/index.html 		index.html
+    cptext doc/gpl.txt   		gpl.txt
+    cptext doc/lgpl.txt 		lgpl.txt
     cptext doc/images/enigma2.css	images/enigma2.css
     cpfile doc/images/navbar.png	images/
     cpfile doc/images/favicon.png	images/
     cpfile doc/images/menu_bg.jpg	images/
-#    cptext etc/README-SDL.txt 	attachments/README-SDL.txt
+    cptext etc/README-SDL.txt 	        README-SDL.txt
     cptext doc/reference/ant_lua.txt 	reference/ant_lua.txt
     cptext doc/reference/sounds.txt	reference/sounds.txt
-#    cptext doc/README.mingw32   doc/README-mingw32.txt
     cptext doc/reference/sound.lua      reference/sound.lua
     cpfile doc/reference/lua2xml	reference/
     cpfile doc/reference/xml2lua	reference/

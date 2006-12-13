@@ -12,12 +12,14 @@ Packager: Daniel Heck <dheck@gmx.de>
 Source: enigma-%{version}.tar.gz
 
 %description
-Enigma is a tribute to and a re-implementation of one of the most               
-original and intriguing computer games of the 1990's: Oxyd.  Your               
-objective is easily explained: find and uncover all pairs of identical          
-Oxyd stones in each landscape.  Sounds simple?  It would be, if it              
-weren't for hidden traps, vast mazes, insurmountable obstacles and              
-innumerable puzzles blocking your direct way to the Oxyd stones...              
+Enigma is a unique puzzle game, with influences from almost every game
+genre.  Your objective is easily explained: you control a small black
+marble with your mouse and have to find and uncover all pairs of
+identical Oxyd stones in each landscape.  Simple? Yes.  Easy? It would
+be, if it weren't for hidden traps, vast mazes, insurmountable
+obstacles and innumerable puzzles blocking your direct way to the Oxyd
+stones... If you like puzzle games and have a steady hand, Enigma's
+more than 500 levels will probably keep you busy for hours on end.
 
 #########################################################################
 %clean
