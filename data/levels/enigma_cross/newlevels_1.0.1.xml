@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no" ?>
+<index xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="index.xsd">
+
+  <info enigma="1.00" group="Facets" location="15500" network="false" owner="Enigma Team" release="1" revision="1" title="Enigma 1.01 new"/>
+
+  <attributes/>
+
+  <levels>
+    <level _seq="1" _title="Walk the line" _xpath="enigma_vi/erich02_1" author="Erich Schubert" ctrl="force" easy="true" id="erich02" rel="1" rev="0" score="1" target="time" unit="duration"/>
+    <level _seq="2" _title="Knights &amp; Boxes" _xpath="enigma_vi/johannes01_1" author="Johannes Laire" ctrl="force" easy="false" id="20061201johannes313" rel="1" rev="0" score="1" target="time" unit="duration"/>
+    <level _seq="3" _title="Knight's Journey" _xpath="enigma_vi/johannes02_1" author="Johannes Laire" ctrl="force" easy="false" id="20061210johannes313" rel="1" rev="0" score="1" target="time" unit="duration"/>
+  </levels>
+
+</index>
