@@ -14,7 +14,7 @@
       <el:comments>
         <el:credits el:showinfo="true " el:showstart="false ">Thanks to Ronald for developing and debugging this level.</el:credits>
       </el:comments>
-      <el:score el:easy="-" el:difficult="-"/>
+      <el:score el:easy="10:21" el:difficult="8:21"/>
     </el:info>
     <el:luamain><![CDATA[
 -- GENERAL --
