@@ -430,7 +430,8 @@ void Layer<T>::set(GridPos p, T *x) {
 
 World::World(int ww, int hh) 
 : fields(ww,hh),
-  preparing_level(true)
+  preparing_level(true),
+  leftmost_actor (NULL), rightmost_actor (NULL)
 {
     w = ww;
     h = hh;
@@ -490,11 +491,118 @@ void World::add_actor (Actor *a, const V2 &pos)
 {
     actorlist.push_back(a);
     a->get_actorinfo()->pos = pos;
+    
+    bool didInsert = false;
+    Actor *next = leftmost_actor;
+    Actor *previous = NULL;
+    do {
+        if (next == NULL && previous == NULL) {
+            // first actor
+            leftmost_actor = a;
+            rightmost_actor = a;
+            a->left = NULL;
+            a->right = NULL;
+            didInsert = true;
+        } else if (next == NULL) {
+            // right of last actor
+            previous->right = a;
+            a->left = previous;
+            a->right = NULL;
+            rightmost_actor = a;
+            didInsert = true;            
+        } else if (next->m_actorinfo.pos[0] >= pos[0]) {
+            // insert left of next actor
+            if (previous != NULL) {
+                previous->right = a;
+                a->left = previous;
+            } else {
+                leftmost_actor = a;
+                a->left = NULL;
+            }
+            a->right = next;
+            next->left = a;
+            didInsert = true;                        
+        } else {
+            // try next
+            previous = next;
+            next = next->right;
+        }
+    } while (!didInsert);
+    
     if (!preparing_level) {
         // if game is already running, call on_creation() from here
         a->on_creation(pos);
     }
 }
+
+Actor * World::yield_actor(Actor *a) {
+    ActorList::iterator i = find(actorlist.begin(), actorlist.end(), a);
+    if (i != actorlist.end()) {
+        actorlist.erase(i);
+        
+        if (a->left == NULL)
+            leftmost_actor = a->right;
+        else
+            a->left->right = a->right;
+        
+        if (a->right == NULL)
+            rightmost_actor = a->left;
+        else
+            a->right->left = a->left;    
+
+        a->left = NULL;
+        a->right = NULL;
+        
+        GrabActor(a);
+        return a;
+    }
+    return NULL;
+}
+
+void World::exchange_actors(Actor *a1, Actor *a2) {
+    ActorInfo *info1 = a1->get_actorinfo();
+    ActorInfo *info2 = a2->get_actorinfo();
+
+    swap(info1->pos, info2->pos);
+    swap(info1->oldpos, info2->oldpos);
+    
+    if (a1->left == NULL) {
+        leftmost_actor = a2;
+    } else if (a1->left == a2) {  // a1 is right neighbour of a2
+        a1->left = a1;            // fake for subsequent swap 
+    } else {
+        a1->left->right = a2;
+    }
+    
+    if (a1->right == NULL) {
+        rightmost_actor = a2;
+    } else if (a1->right == a2) {  // a2 is right neighbour of a1
+        a1->right = a1;            // fake for subsequent swap 
+    } else {
+        a1->right->left = a2;
+    }
+    
+    if (a2->left == NULL) {
+        leftmost_actor = a1;
+    } else if (a2->left = a1 ) {  // a2 is right neighbour of a1
+        a2->left = a2;            // fake for subsequent swap 
+    } else {
+        a2->left->right = a1;
+    }
+    
+    if (a2->right == NULL) {
+        rightmost_actor = a1;
+    } else if (a2->right = a1) {  // a1 is right neighbour of a2
+        a2->right = a2;           // fake for subsequent swap
+    } else {
+        a2->right->left = a1;
+    }
+    
+    swap(a1->left, a2->left);
+    swap(a1->right, a2->right);
+    
+}
+
 
 void World::tick (double dtime)
 {
@@ -515,6 +623,11 @@ void World::tick (double dtime)
     GameTimer.tick(dtime);
 
     lasers::RecalcLightNow();   // recalculate laser beams if necessary
+    
+    for (Actor *a = leftmost_actor; a != NULL; a = a->right) {
+        if (a->right && (a->m_actorinfo.pos[0] > a->right->m_actorinfo.pos[0]))
+            Log << "World - wrong actor sorting in linked list!\n";
+    }
 }
 
 /* ---------- Puzzle scrambling -------------------- */
@@ -857,34 +970,26 @@ namespace {
 };
 
 void World::handle_actor_contacts () {
-    size_t nactors = actorlist.size();
-    vector<ActorEntry> xlist (nactors);
-
-    for (size_t i=0; i<nactors; ++i) {
-        ActorInfo *ai = actorlist[i]->get_actorinfo();
-        xlist[i] = ActorEntry (ai->pos[0], i);
-    }
-    sort (xlist.begin(), xlist.end());
-    for (size_t i=0; i<nactors; ++i) {
-        size_t a1 = xlist[i].idx;
-        ActorInfo &ai1 = *actorlist[a1]->get_actorinfo();
-        double r1 = ai1.radius;
-        double x1 = ai1.pos[0];
-        for (size_t j=i+1; j<nactors; ++j) {
-            size_t a2 = xlist[j].idx;
-            if (xlist[j].pos - x1 < r1 + get_radius(actorlist[a2])) 
-                handle_actor_contact (a1, a2);
-            else
-                break;
+    Actor *a = leftmost_actor;
+    while (a != NULL) {
+        Actor *candidate = a->right;
+        double max_x = a->m_actorinfo.pos[0] + a->m_actorinfo.radius 
+                + Actor::max_radius;
+        while (candidate != NULL && candidate->m_actorinfo.pos[0] <= max_x) {
+            double ydist = candidate->m_actorinfo.pos[1] - a->m_actorinfo.pos[1];
+            ydist = (ydist < 0) ? -ydist : ydist;
+            if (ydist <= 2*Actor::max_radius) {
+                handle_actor_contact(a, candidate);
+            }
+            candidate = candidate->right;
         }
+        a = a->right;
     }
 }
 
-void World::handle_actor_contact (size_t i, size_t j)
+void World::handle_actor_contact(Actor *actor1, Actor *actor2)
 {
-    Actor *actor1 = actorlist[i];
     ActorInfo &a1 = *actor1->get_actorinfo();
-    Actor *actor2 = actorlist[j];
     ActorInfo &a2 = *actor2->get_actorinfo();
 
     if (a1.ignore_contacts || a2.ignore_contacts)
@@ -1027,6 +1132,7 @@ void World::advance_actor (Actor *a, double dtime)
 
     ai.vel += dtime * force / ai.mass;
     ai.pos += dtime * ai.vel;
+    did_move_actor(a);
 
     // Limit maximum velocity
     double q = length(ai.vel) / MAXVEL;
@@ -1034,7 +1140,62 @@ void World::advance_actor (Actor *a, double dtime)
         ai.vel /= q;
 }
 
-
+void World::did_move_actor(Actor *a) {
+    double ax = a->m_actorinfo.pos[0];
+    Actor *old_left = a->left;
+    Actor *old_right = a->right;
+    Actor *new_left = old_left;
+    Actor *new_right = old_right;
+    // find new position in actor list
+    while (new_left != NULL && new_left->m_actorinfo.pos[0] > ax) {
+        new_left = new_left->left;
+    };
+    while (new_right != NULL && new_right->m_actorinfo.pos[0] < ax) {
+        new_right = new_right->right;
+    };
+    if (new_left != old_left || new_right != old_right) {
+        // remove from old position
+        if (old_left == NULL) {
+            leftmost_actor = old_right;
+            old_right->left = NULL;
+        } else if (old_right == NULL) {
+            rightmost_actor = old_left;
+            old_left->right = NULL;
+        } else {
+            old_left->right = old_right;
+            old_right->left = old_left;
+        }
+        // insert at new position
+        if (new_left != old_left) {
+            // did move to left side
+            if (new_left == NULL) {
+                a->left = NULL;
+                a->right = leftmost_actor;
+                leftmost_actor->left = a;
+                leftmost_actor = a;
+            } else {
+                a->left = new_left;
+                a->right = new_left->right;
+                new_left->right = a;
+                a->right->left = a;
+            }
+        } else if (new_right != old_right) {
+            // did move to right side
+            if (new_right == NULL) {
+                a->right = NULL;
+                a->left = rightmost_actor;
+                rightmost_actor->right = a;
+                rightmost_actor = a;
+            } else {
+                a->right = new_right;
+                a->left = new_right->left;
+                new_right->left = a;
+                a->left->right = a;
+            }
+        }
+    }
+    
+}
 
 void World::handle_delayed_impulses (double dtime)
 {
@@ -1626,15 +1787,13 @@ void world::AddActor (Actor *a)
     level->add_actor (a);
 }
 
+void  world::DidMoveActor(Actor *a) {
+    level->did_move_actor(a);
+}
+
 Actor * world::YieldActor(Actor *a) 
 {
-    ActorList::iterator i=find(level->actorlist.begin(), level->actorlist.end(), a);
-    if (i != level->actorlist.end()) {
-        level->actorlist.erase(i);
-        GrabActor(a);
-        return a;
-    }
-    return 0;
+    return level->yield_actor(a);
 }
 
 void world::KillActor (Actor *a) {
@@ -1702,12 +1861,7 @@ Actor *world::FindOtherMarble(Actor *thisMarble)
 bool world::ExchangeMarbles(Actor *marble1) {
     Actor *marble2 = FindOtherMarble(marble1);
     if (marble2) {
-        ActorInfo *info1 = marble1->get_actorinfo();
-        ActorInfo *info2 = marble2->get_actorinfo();
-
-        swap(info1->pos, info2->pos);
-        swap(info1->oldpos, info2->oldpos);
-
+        level->exchange_actors(marble1, marble2);
         return true;
     }
     return false;

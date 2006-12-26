@@ -70,9 +70,9 @@ namespace world
         ecl::V2 pos;		// Absolute position
         ecl::V2 vel;		// Velocity
         ecl::V2 forceacc;        // Force accumulator
-	double charge;		// Electric charge
-	double mass;		// Mass
-	double radius;		// Radius of the ball
+        double charge;		// Electric charge
+        double mass;		// Mass
+        double radius;		// Radius of the ball
         bool   grabbed;		// Actor not controlled by the physics engine
         bool   ignore_contacts; // Do not perform collision handling
 
@@ -91,7 +91,10 @@ namespace world
 
 
     class Actor : public Object, public display::ModelCallback {
+        friend class World;
     public:
+        static const double max_radius;
+        
         // ModelCallback interface
         void animcb ();
 
@@ -110,7 +113,7 @@ namespace world
         virtual void on_respawn (const ecl::V2 &pos);
 
         virtual bool is_dead() const = 0;
-	virtual bool is_movable() const { return true; }
+        virtual bool is_movable() const { return true; }
         virtual bool is_flying() const { return false; }
         virtual bool is_on_floor() const { return true; }
         virtual bool is_drunken() const { return false; }
@@ -173,6 +176,8 @@ namespace world
 
     private:
         /* ---------- Variables ---------- */
+        Actor       *left;   // x-coordinate sorted double linked list
+        Actor       *right;
         ActorInfo             m_actorinfo;
         display::SpriteHandle m_sprite;
         ecl::V2                startingpos;

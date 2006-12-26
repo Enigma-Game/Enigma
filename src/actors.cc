@@ -34,8 +34,8 @@ using ecl::V2;
 
 #include "actors_internal.hh"
 
+const double Actor::max_radius = 24.0/64;
 
-
 /* -------------------- Helper functions -------------------- */
 
 
@@ -53,7 +53,7 @@ Actor::Actor (const ActorTraits &tr)
   m_sprite(),
   startingpos(), 
   respawnpos(), use_respawnpos(false),
-  spikes(false), controllers (0)
+  spikes(false), controllers (0), left (NULL), right (NULL)
 {
     set_attrib("mouseforce", 0.0);
 
@@ -147,6 +147,7 @@ void Actor::on_respawn (const ecl::V2 &/*pos*/) {
 
 void Actor::warp(const ecl::V2 &newpos) {
     m_actorinfo.pos = newpos;
+    DidMoveActor(this);
     m_actorinfo.vel = V2();
     m_sprite.move (newpos);
     move ();

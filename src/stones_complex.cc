@@ -301,12 +301,11 @@ void PullStone::on_impulse(const Impulse& impulse)
     vector<Actor*>::iterator e = found_actors.end();
     for (vector<Actor*>::iterator i = found_actors.begin(); i != e; ++i) {
         Actor     *actor     = *i;
-        ActorInfo *ai        = actor->get_actorinfo();
-        GridPos    actor_pos(ai->pos);
+        GridPos    actor_pos(actor->get_pos());
 
         if (actor_pos == newPos) { // if the actor is in the dest field
-            V2 vel = ai->vel;
-            V2 mid_dest = ai->pos;
+            V2 vel = actor->get_vel();
+            V2 mid_dest = actor->get_pos();
 
             mid_dest[0] = ecl::Clamp<double> (mid_dest[0], oldPos.x+0.01, oldPos.x+0.99);
             mid_dest[1] = ecl::Clamp<double> (mid_dest[1], oldPos.y+0.01, oldPos.y+0.99);
