@@ -282,6 +282,23 @@ else
 fi
 
 dnl ----------------------------------------
+dnl Check for profiling
+dnl ----------------------------------------
+
+AC_MSG_CHECKING(whether to profile the game)
+AC_ARG_ENABLE(profile,
+  AS_HELP_STRING(--enable-profile,Compile with profiling option for gdb), ,
+  enable_profile=no
+)
+if test "x$enable_profile" = xyes; then
+	CXXFLAGS="$CXXFLAGS -pg"
+	AC_MSG_RESULT(yes)
+else
+	CXXFLAGS="$CXXFLAGS"
+	AC_MSG_RESULT(no)
+fi
+
+dnl ----------------------------------------
 dnl Check for C++ Lua
 dnl ----------------------------------------
 
