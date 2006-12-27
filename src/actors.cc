@@ -297,13 +297,10 @@ void RotorBase::think (double dtime)
     }
 
     vector<Actor *> actors;
-    GetActorsInRange (get_pos(), range, actors);
+    GetFriendlyActorsInRange (get_pos(), range, actors);
     for (size_t i=0; i<actors.size(); ++i) {
         Actor *a = actors[i];
-        ActorID id = get_id (a);
-        if ((id == ac_whiteball || id == ac_blackball || id == ac_meditation) 
-            && a->is_movable() && !a->is_invisible())
-        {
+        if (a->is_movable() && !a->is_invisible()) {
             V2 v = a->get_pos() - get_pos();
             if (attack_nearest && !attackCurrentOnly ||
                     attackCurrentOnly && a == player::GetMainActor(

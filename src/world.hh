@@ -298,6 +298,10 @@ namespace world
       false if none were found. */
     bool GetActorsInRange (ecl::V2 center, double range, std::vector<Actor*> &actors);
 
+    /*! Find all ac-blackball, ac-whiteball and ac-meditation at most RANGE units
+      away from CENTER.  Returns false if none were found. */
+    bool GetFriendlyActorsInRange (ecl::V2 center, double range, std::vector<Actor*> &actors);
+
     /*! Find all actors that are inside 'pos'.  Returns false if none
       were found. */
     bool GetActorsInsideField (const GridPos& pos, std::vector<Actor*>& actors);

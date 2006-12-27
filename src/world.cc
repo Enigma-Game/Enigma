@@ -1890,6 +1890,20 @@ bool world::GetActorsInRange (ecl::V2 center, double range,
     return !actors.empty();
 }
 
+bool world::GetFriendlyActorsInRange (ecl::V2 center, double range,
+                                      vector<Actor*>& actors)
+{
+    ActorList &al = level->actorlist;
+    for (ActorList::iterator i=al.begin(); i!=al.end(); ++i) {
+        Actor *a = *i;
+        ActorID id = get_id (a);
+        if (id == ac_whiteball || id == ac_blackball || id == ac_meditation)
+            if (length(a->get_pos() - center) < range)
+                actors.push_back(a);
+    }
+    return !actors.empty();
+}
+
 bool world::GetActorsInsideField (const GridPos& pos, vector<Actor*>& actors)
 {
     ActorList &al = level->actorlist;

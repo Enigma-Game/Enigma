@@ -840,13 +840,17 @@ void SpriteHandle::set_callback (ModelCallback *cb) const {
 }
 
 void SpriteHandle::hide() const {
-    layer->get_sprite(id)->visible = false;
-    layer->get_sprite(id)->mayNeedRedraw = false;
+    if(layer->get_sprite(id)->visible) {
+        layer->get_sprite(id)->visible = false;
+        layer->get_sprite(id)->mayNeedRedraw = false;
+    }
 }
 
 void SpriteHandle::show() const {
-    layer->get_sprite(id)->visible = true;
-    layer->get_sprite(id)->mayNeedRedraw = true;
+    if(not layer->get_sprite(id)->visible) {
+        layer->get_sprite(id)->visible = true;
+        layer->get_sprite(id)->mayNeedRedraw = true;
+    }
 }
 
 
