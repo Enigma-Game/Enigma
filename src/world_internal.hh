@@ -27,7 +27,7 @@ namespace world
     typedef ecl::Array2<Field> FieldArray;
 
     typedef vector<ForceField*>  ForceList;
-    typedef vector<StoneContact> StoneContactList;
+//    typedef vector<StoneContact> StoneContactList;
     typedef vector<Actor*>       ActorList;
     typedef vector<Signal>       SignalList;
 
@@ -280,7 +280,8 @@ namespace world
         void advance_actor (Actor *a, double h);
         void move_actors (double dtime);
         void find_contact_with_stone (Actor *a, GridPos p, StoneContact &c);
-        void find_stone_contacts (Actor *a, StoneContactList &cl);
+        void find_stone_contacts (Actor *a, StoneContact &c0, StoneContact &c1,
+                StoneContact &c2);
         void handle_stone_contact (StoneContact &sc);
         void handle_actor_contacts ();
         void handle_actor_contact (Actor *actor1, Actor *actor2);
@@ -290,6 +291,8 @@ namespace world
         void stone_change (GridPos p);
 
     public:
+    
+        static const double contact_e;  // epsilon distant limit for contacts 
 
         /* ---------- Variables ---------- */
 

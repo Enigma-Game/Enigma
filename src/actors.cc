@@ -182,7 +182,7 @@ void Actor::move ()
             st->actor_inside (this);
     }
     // move the actor and save the position
-    m_actorinfo.oldpos = m_actorinfo.pos;
+//    m_actorinfo.oldpos = m_actorinfo.pos;
 }
 
 void Actor::move_screen () {

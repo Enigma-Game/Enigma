@@ -79,7 +79,7 @@ namespace world
 	// Variables used internally by the physics engine
 
         ecl::V2 last_pos;        // Position before current tick
-	ecl::V2 oldpos;		// Backup position for enter/leave notification
+//        ecl::V2 oldpos;		// Backup position for enter/leave notification
         ecl::V2 force;		// Force used during tick
         ecl::V2 collforce;
         ContactList contacts;

@@ -113,7 +113,8 @@ ActorInfo::ActorInfo()
 : pos(), vel(), forceacc(),
   charge(0), mass(1), radius(1),
   grabbed(false), ignore_contacts (false),
-  last_pos(), oldpos(), force(),
+  last_pos(), force(),
+//  last_pos(), oldpos(), force(),
   contacts(), new_contacts()
 {}
 
@@ -428,6 +429,8 @@ void Layer<T>::set(GridPos p, T *x) {
 
 /* -------------------- World -------------------- */
 
+const double World::contact_e = 0.02;  // epsilon distant limit for contacts
+
 World::World(int ww, int hh) 
 : fields(ww,hh),
   preparing_level(true),
@@ -564,7 +567,7 @@ void World::exchange_actors(Actor *a1, Actor *a2) {
     ActorInfo *info2 = a2->get_actorinfo();
 
     swap(info1->pos, info2->pos);
-    swap(info1->oldpos, info2->oldpos);
+//    swap(info1->oldpos, info2->oldpos);
     
     if (a1->left == NULL) {
         leftmost_actor = a2;
@@ -623,11 +626,6 @@ void World::tick (double dtime)
     GameTimer.tick(dtime);
 
     lasers::RecalcLightNow();   // recalculate laser beams if necessary
-    
-    for (Actor *a = leftmost_actor; a != NULL; a = a->right) {
-        if (a->right && (a->m_actorinfo.pos[0] > a->right->m_actorinfo.pos[0]))
-            Log << "World - wrong actor sorting in linked list!\n";
-    }
 }
 
 /* ---------- Puzzle scrambling -------------------- */
@@ -758,22 +756,6 @@ V2 World::get_global_force (Actor *a)
 
 /* -------------------- Collision handling -------------------- */
 
-struct Ball {
-    ecl::V2 c;                   // center
-    double r;                   // radius
-};
-
-struct Oblong {
-    ecl::V2 c;                   // center
-    double w;                   // width
-    double h;                   // height
-    double erad;                // edge radius
-};
-
-// static void contact_ball_oblong ()
-// {
-// }
-
 /* Determine whether an actor is in contact with a stone at position
    `p'.  The result is returned in `c'.  Three situations can occur:
 
@@ -788,28 +770,22 @@ struct Oblong {
       is filled is filled with information about the closest feature
       on the stone and `is_contact' is set to false. 
 */
-void World::find_contact_with_stone (Actor *a, GridPos p, StoneContact &c) 
+void World::find_contact_with_stone(Actor *a, GridPos p, StoneContact &c) 
 {
     c.is_contact = false;
-
-    const ActorInfo &ai = *a->get_actorinfo();
-    double r = ai.radius;
-//     Ball b (a->get_pos(), ai.radius);
-//     Oblong o (p.center(), 1, 1, 2.0 / 32);
-
-    V2 centerdist = a->get_pos() - p.center();
-    if  (square (centerdist) > 1.0)
-        return;
 
     Stone *stone = world::GetStone(p);
     if (!stone)
         return;
 
+    const ActorInfo &ai = *a->get_actorinfo();
+    double r = ai.radius;
+
     int x = p.x, y = p.y;
 
     double ax = ai.pos[0];
     double ay = ai.pos[1];
-    const double contact_e = 0.02;
+//    const double contact_e = 0.02;
     const double erad = 2.0/32; // edge radius
 
     // Closest feature == north or south face of the stone?
@@ -875,32 +851,72 @@ void World::find_contact_with_stone (Actor *a, GridPos p, StoneContact &c)
     }
 }
 
-void World::find_stone_contacts (Actor *a, StoneContactList &cl)
-{
+void World::find_stone_contacts(Actor *a, StoneContact &c0, StoneContact &c1,
+        StoneContact &c2) {
+    // time critical routine that is performance optimized
+    
+    c0.is_contact = false;
+    c1.is_contact = false;
+    c2.is_contact = false;
+    
     ActorInfo &ai = *a->get_actorinfo();
-    ecl::Rect r(round_down<int>(ai.pos[0]-0.5), round_down<int>(ai.pos[1]-0.5), 1, 1);
-
-    static StoneContact contacts[2][2];
-
-    // Test for collisions with the nearby stones
-    int ncontacts = 0;
-    for (int i=r.w; i>=0; --i) {
-        for (int j=r.h; j>=0; --j) {
-            GridPos p (r.x + i, r.y + j);
-            find_contact_with_stone(a, p, contacts[i][j]);
-            ncontacts += contacts[i][j].is_contact;
+    double re = ai.radius + contact_e;
+    GridPos g = GridPos(round_down<int>(ai.pos[0]), round_down<int>(ai.pos[1]));
+    double x = ai.pos[0];
+    double y = ai.pos[1];
+    
+    // distinguish 9 squares within gridpos that may cause contacts
+    // low cost reduction of cases that need to be examined in detail
+    if (y - g.y < re) {
+        // upper grid part
+        if (x - g.x < re) {
+            // upper left edge
+            find_contact_with_stone(a, GridPos(g.x - 1, g.y - 1), c0);
+            find_contact_with_stone(a, GridPos(g.x, g.y - 1), c1);
+            find_contact_with_stone(a, GridPos(g.x - 1, g.y), c2);
+            maybe_join_contacts (c0, c1);
+            maybe_join_contacts (c0, c2);
+        } else if (-x + (g.x + 1) < re) {
+            // upper right edge
+            find_contact_with_stone(a, GridPos(g.x, g.y - 1), c0);
+            find_contact_with_stone(a, GridPos(g.x + 1, g.y -1), c1);
+            find_contact_with_stone(a, GridPos(g.x + 1, g.y), c2);
+            maybe_join_contacts (c0, c1);
+            maybe_join_contacts (c1, c2);
+        } else {
+            // upper middle part
+            find_contact_with_stone(a, GridPos(g.x, g.y - 1), c0);
         }
-    }
-    if (ncontacts > 0) {
-        maybe_join_contacts (contacts[0][0], contacts[1][0]);
-        maybe_join_contacts (contacts[0][0], contacts[0][1]);
-        maybe_join_contacts (contacts[1][0], contacts[1][1]);
-        maybe_join_contacts (contacts[0][1], contacts[1][1]);
-
-        for (int i=0; i<=r.w; i++)
-            for (int j=0; j<=r.h; j++)
-                if (contacts[i][j].is_contact)
-                    cl.push_back(contacts[i][j]);
+    } else if (-y + (g.y +1) < re) {
+        // lower grid part
+        if (x - g.x < re) {
+            // lower left edge
+            find_contact_with_stone(a, GridPos(g.x - 1, g.y), c0);
+            find_contact_with_stone(a, GridPos(g.x - 1, g.y + 1), c1);
+            find_contact_with_stone(a, GridPos(g.x, g.y + 1), c2);
+            maybe_join_contacts (c0, c1);
+            maybe_join_contacts (c1, c2);
+        } else if (-x + (g.x + 1) < re) {
+            // lower right edge
+            find_contact_with_stone(a, GridPos(g.x + 1, g.y), c0);
+            find_contact_with_stone(a, GridPos(g.x, g.y +1), c1);
+            find_contact_with_stone(a, GridPos(g.x + 1, g.y + 1), c2);
+            maybe_join_contacts (c0, c2);
+            maybe_join_contacts (c1, c2);
+        } else {
+            // lower middle part
+            find_contact_with_stone(a, GridPos(g.x, g.y + 1), c0);
+        }
+    } else {
+        // middle grid part
+        if (x - g.x < re) {
+            // left middle part
+            find_contact_with_stone(a, GridPos(g.x - 1, g.y), c0);
+        } else if (-x + (g.x + 1) < re) {
+            // right middle part
+            find_contact_with_stone(a, GridPos(g.x + 1, g.y), c0);
+        }
+        // no contact possible if actor in center of grid
     }
 }
 
@@ -1035,6 +1051,8 @@ void World::handle_actor_contact(Actor *actor1, Actor *actor2)
 
 void World::handle_contacts (unsigned actoridx) 
 {
+    static StoneContact contacts[3];
+
     Actor *actor1 = actorlist[actoridx];
     ActorInfo &a1 = *actor1->get_actorinfo();
 
@@ -1042,10 +1060,13 @@ void World::handle_contacts (unsigned actoridx)
         return;
 
     // Handle contacts with stones
-    StoneContactList cl;
-    find_stone_contacts(actor1, cl);
-    for (StoneContactList::iterator i=cl.begin(); i != cl.end(); ++i)
-        handle_stone_contact (*i);
+    find_stone_contacts(actor1, contacts[0], contacts[1], contacts[2]);
+    if (contacts[0].is_contact)
+        handle_stone_contact(contacts[0]);
+    if (contacts[1].is_contact)
+        handle_stone_contact(contacts[1]);
+    if (contacts[2].is_contact)
+        handle_stone_contact(contacts[2]);
 }
 
 /* -------------------- Actor Motion -------------------- */
