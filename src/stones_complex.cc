@@ -3282,7 +3282,7 @@ namespace
             if (const Value *v = this->get_attrib("interval")) 
                 base = to_double(*v);
             if (const Value *f = this->get_attrib("friction_factor"))
-                base *= 1.0 + to_double(*f) * GetFloor(get_pos())->friction();
+                base *= 1.0 + to_double(*f) * GetFloor(get_pos())->get_friction();
             if (const Value *g = this->get_attrib("gradient_factor"))
                 if (skateDir != NODIR) {
                     V2 vec = V2(0.0,0.0);

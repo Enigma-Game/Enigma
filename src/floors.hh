@@ -65,8 +65,8 @@ namespace world
         FloorTraits (const char *n, double f, double m,
                      FloorFlags flags_, FloorFireType flft = flft_default,
                      const char *ft = "", const char *ht = "")
-            : name(n), friction(f), mousefactor(m), flags(flags_),
-              firetype(flft), firetransform(ft), heattransform(ht)
+            : name(n), friction(f), mousefactor(m),
+              flags(flags_), firetype(flft), firetransform(ft), heattransform(ht)
         {}
     };
 
@@ -83,14 +83,14 @@ namespace world
     public:
         Floor (const FloorTraits &tr);
         Floor (const char *kind, double friction_, double mfactor,
-               FloorFlags flags=flf_default, FloorFireType flft = flft_default,
+               FloorFlags flags = flf_default, FloorFireType flft = flft_default,
                const char *firetransform_ = "", const char *heattransform_ = "");
 
         // Object interface
         Floor *clone();
         void dispose();
         virtual Value message(const string& msg, const Value &val);
-
+        virtual void set_attrib (const string& key, const Value &val);
 
         // Floor interface
         virtual ecl::V2 process_mouseforce (Actor *a, ecl::V2 force);
@@ -102,8 +102,8 @@ namespace world
         virtual void stone_change(Stone *) {}
         virtual void actor_contact (Actor *) {}
 
-        virtual double friction() const;
-        virtual double mousefactor() const;
+        virtual double get_friction() const;
+        virtual double get_mousefactor() const;
 
         virtual void get_sink_speed (double &sinkspeed, double &raisespeed) const;
         virtual bool is_destructible() const;
@@ -132,9 +132,13 @@ namespace world
         Value force_fire();
         Value stop_fire(bool is_message);
 
+        // Traits and variables
         FloorTraits traits;
         bool heating_animation;
         int fire_countdown;  // used to delay ignition, default is 1.
+        double var_friction;
+        double var_mousefactor;
+        ecl::V2 var_floorforce;
     };
 
     void InitFloors();

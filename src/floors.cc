@@ -30,13 +30,15 @@ using namespace std;
 using namespace enigma;
 using namespace world;
 
-Floor::Floor(const char *kind, double friction_, double mfactor,
-             FloorFlags flags, FloorFireType flft,
-             const char *firetransform_, const char *heattransform_)
+Floor::Floor(const char *kind, double friction_, double mfactor, FloorFlags flags,
+             FloorFireType flft, const char *firetransform_, const char *heattransform_)
 : GridObject (kind),
   traits (kind, friction_, mfactor, flags, flft, firetransform_, heattransform_),
   heating_animation(false),
-  fire_countdown(1)
+  fire_countdown(1),
+  var_floorforce(),
+  var_mousefactor(mfactor),
+  var_friction(friction_)
 {}
 
 Floor::Floor (const FloorTraits &tr)
@@ -78,27 +80,36 @@ Value Floor::message(const string &msg, const Value &val) {
 
 ecl::V2 Floor::process_mouseforce (Actor *a, ecl::V2 force) {
     if (a->controlled_by(player::CurrentPlayer()))
-        return mousefactor() * force;
+        return get_mousefactor() * force;
     else
         return ecl::V2();
+}
+
+void Floor::set_attrib (const string& key, const Value &val)
+{
+    if (key == "mousefactor")
+        var_mousefactor = to_double(val);
+    else if (key == "friction")
+        var_friction = to_double(val);
+    else if (key == "force_x")
+        var_floorforce[0] = to_double(val);
+    else if (key == "force_y")
+        var_floorforce[1] = to_double(val);
+    Object::set_attrib (key, val);
 }
 
 void Floor::get_sink_speed (double &sinkspeed, double &raisespeed) const {
 //     sinkspeed = raisespeed = 0.0;
 }
 
-double Floor::friction() const 
+double Floor::get_friction() const 
 { 
-    if (const Value *v = this->get_attrib("friction")) 
-        return to_double(*v);
-    return traits.friction; 
+    return var_friction; 
 }
 
-double Floor::mousefactor() const 
+double Floor::get_mousefactor() const 
 { 
-    if (const Value *v = this->get_attrib("mousefactor")) 
-        return to_double(*v);
-    return traits.mousefactor; 
+    return var_mousefactor; 
 }
 
 bool Floor::is_destructible() const 
@@ -124,12 +135,7 @@ void Floor::kill_model (GridPos p)
 void Floor::add_force (Actor *, V2 &f)
 {
     // Note that actor == 0 is possible from lightpassenger-calculation.
-    if(const Value *x = this->get_attrib("force_x")) {
-        f[0] += to_double(*x);
-    }
-    if(const Value *y = this->get_attrib("force_y")) {
-        f[1] += to_double(*y);
-    }
+    f += var_floorforce;
 }
 
 /* -------------- Fire Handling -------------- */
@@ -466,7 +472,7 @@ namespace
         Ice() : Floor ("fl-ice", 0.1, 0.1, flf_default, flft_default, "",
             "fl-water") { }
 
-        virtual double friction() const {
+        virtual double get_friction() const {
             return 0.1 * server::IceFriction;
         }
     };
@@ -494,8 +500,8 @@ namespace
     class Swamp : public Floor {
         CLONEOBJ(Swamp);
     public:
-        Swamp() : Floor("fl-swamp", 13, 1.0, flf_indestructible, flft_default, "",
-            "fl-dunes") {}
+        Swamp() : Floor("fl-swamp", 13, 1.0, flf_indestructible, flft_default,
+            "", "fl-dunes") {}
     private:
         bool is_destructible() const {return false;}
         
@@ -619,7 +625,7 @@ void Gradient::set_attrib (const string& key, const Value &val)
         use_forcefac = true;
         forcefac = to_double (val);
     }
-    Object::set_attrib (key, val);
+    Floor::set_attrib (key, val);
 }
 
 
@@ -961,7 +967,7 @@ namespace
 
         ecl::V2 process_mouseforce (Actor *, ecl::V2 force) {
             if (player::CurrentPlayer() == 0)
-                return mousefactor() * force;
+                return get_mousefactor() * force;
             else
                 return ecl::V2();
         }
@@ -974,7 +980,7 @@ namespace
 
         ecl::V2 process_mouseforce (Actor *, ecl::V2 force) {
             if (player::CurrentPlayer() == 1)
-                return mousefactor() * force;
+                return get_mousefactor() * force;
             else
                 return ecl::V2();
         }

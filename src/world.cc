@@ -702,7 +702,7 @@ V2 World::get_local_force (Actor *a)
             add_mouseforce (a, floor, f);
 
             // Friction
-            double friction = floor->friction();
+            double friction = floor->get_friction();
             if (a->has_spikes())
                 friction += 7.0;
 
