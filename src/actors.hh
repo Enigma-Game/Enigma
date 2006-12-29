@@ -43,6 +43,7 @@ namespace world
     struct ActorTraits {
         const char *name;
         ActorID     id;
+        unsigned    id_mask;
         float       radius;
         float       default_mass;
     };
@@ -92,6 +93,7 @@ namespace world
 
     class Actor : public Object, public display::ModelCallback {
         friend class World;
+        friend class ActorsInRangeIterator;
     public:
         static const double max_radius;
         
@@ -204,6 +206,19 @@ namespace world
     inline double get_charge (const Actor *a) { 
         return a->get_actorinfo().charge; 
     }
+    
+    class ActorsInRangeIterator {
+        public:
+            ActorsInRangeIterator(Actor *center, double range, unsigned type_mask);
+            Actor *next();
+        private:
+            Actor *centerActor;
+            double xCenter;
+            Actor *previousActor;
+            Direction dir;
+            double rangeDist;
+            unsigned typeMask;
+    };
 
 /* -------------------- Global Functions -------------------- */
 

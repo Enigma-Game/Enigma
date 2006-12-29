@@ -36,6 +36,47 @@ using ecl::V2;
 
 const double Actor::max_radius = 24.0/64;
 
+
+/* -------------------- ActorsInRangeIterator -------------------- */
+
+ActorsInRangeIterator::ActorsInRangeIterator(Actor *center, double range, 
+        unsigned type_mask) : centerActor (center), previousActor (center),
+        dir (WEST), rangeDist (range), typeMask (type_mask) {
+    xCenter = center->m_actorinfo.pos[0];
+}
+
+Actor * ActorsInRangeIterator::next() {
+    bool ready = false;
+    while(!ready) {
+        if (previousActor != NULL) {
+            if (dir == WEST) {
+                previousActor = previousActor->left;
+            } else {
+                previousActor = previousActor->right;
+            }
+        }
+        if (dir == WEST && (previousActor == NULL 
+                || xCenter - previousActor->m_actorinfo.pos[0] > rangeDist)) {
+            previousActor = centerActor->right;
+            dir = EAST;
+        }
+        if (dir == EAST && (previousActor == NULL
+                || previousActor->m_actorinfo.pos[0] - xCenter > rangeDist)) {
+            ready = true;
+            continue;
+        }
+        unsigned id_mask = previousActor->get_traits().id_mask;
+        if (id_mask & typeMask) {
+            if (length(previousActor->m_actorinfo.pos - centerActor->m_actorinfo.pos) 
+                    < rangeDist) {
+                ready = true;
+            }
+        }
+    }
+    return previousActor;
+}
+
+
 /* -------------------- Helper functions -------------------- */
 
 
@@ -83,7 +124,7 @@ const ecl::V2 &Actor::get_pos() const
 
 
 double Actor::get_max_radius() {
-    return 24/64.0;
+    return max_radius;
 }
 
 void Actor::think(double /*dtime*/) {
@@ -247,6 +288,8 @@ namespace
 {
     /*! The base class for rotors and spinning tops. */
     class RotorBase : public Actor {
+    public:
+        void   set_attrib (const string& key, const Value &val);
     protected:
         RotorBase(const ActorTraits &tr);
     private:
@@ -261,7 +304,12 @@ namespace
 	    SendMessage(a, "shatter");
 	}
 
-        bool attackCurrentOnly;
+        double range;
+        double force;
+        bool   gohome;
+        bool   attacknearest;
+        double prefercurrent;
+        bool   attackCurrentOnly;
         double timeKeepAttackStrategy;
     };
 }
@@ -276,33 +324,40 @@ RotorBase::RotorBase(const ActorTraits &tr)
     set_attrib ("prefercurrent", 0.0);
 }
 
+void RotorBase::set_attrib(const string& key, const Value &val)
+{
+    if (key == "range")
+        range = to_double(val);
+    else if (key == "force") 
+        force = to_double(val);
+    else if (key == "gohome") 
+        gohome = (to_int(val) != 0);
+    else if (key == "attacknearest") 
+        attacknearest = (to_int(val) != 0);
+    else if (key == "prefercurrent") 
+        prefercurrent = to_double(val);
+    Actor::set_attrib (key, val);
+}
+
 void RotorBase::think (double dtime)
 {
-    double range = 0, force = 0;
-    double_attrib("range", &range);
-    double_attrib("force", &force);
-
-    force /= 6;
+    double cforce = force/6;
 
     Actor *target = 0;
     V2     target_vec;
-    bool attack_nearest = (int_attrib ("attacknearest") != 0);
-
-    double preferCurrent;
-    double_attrib("prefercurrent", &preferCurrent);
     timeKeepAttackStrategy  -= dtime;
     if (timeKeepAttackStrategy < 0) {
         timeKeepAttackStrategy = enigma::DoubleRand(0.8, 1.6);
-        attackCurrentOnly = (enigma::DoubleRand(0.0, 1.0) < preferCurrent);
+        attackCurrentOnly = (enigma::DoubleRand(0.0, 1.0) < prefercurrent);
     }
 
-    vector<Actor *> actors;
-    GetFriendlyActorsInRange (get_pos(), range, actors);
-    for (size_t i=0; i<actors.size(); ++i) {
-        Actor *a = actors[i];
+    ActorsInRangeIterator air_it = ActorsInRangeIterator(this, range,
+            1<<ac_whiteball | 1<<ac_blackball | 1<<ac_meditation);
+    Actor *a;
+    while((a = air_it.next()) != NULL) {
         if (a->is_movable() && !a->is_invisible()) {
             V2 v = a->get_pos() - get_pos();
-            if (attack_nearest && !attackCurrentOnly ||
+            if (attacknearest && !attackCurrentOnly ||
                     attackCurrentOnly && a == player::GetMainActor(
                     player::CurrentPlayer())) {
                 if (!target || (length(v) < length(target_vec))) {
@@ -316,7 +371,7 @@ void RotorBase::think (double dtime)
         }
     }
 
-    if (!target && int_attrib("gohome")) { 
+    if (!target && gohome) { 
         // no actors focussed -> return to start position
         target_vec = get_respawnpos()-get_pos();
     }
@@ -325,7 +380,7 @@ void RotorBase::think (double dtime)
 
     if (target_dist > 0.2)
         target_vec.normalize();
-    add_force (target_vec * force);
+    add_force (target_vec * cforce);
 
     Actor::think(dtime);
 }
@@ -347,6 +402,7 @@ namespace
 ActorTraits Rotor::traits = {
     "ac-rotor",                 // name
     ac_rotor,                   // id
+    1<<ac_rotor,                // id_mask
     22.0f/64,                   // radius
     0.8f                        // mass
 };
@@ -368,6 +424,7 @@ namespace
 ActorTraits Top::traits = {
     "ac-top",                   // name
     ac_top,                     // id
+    1<<ac_top,                  // id_mask
     16.0f/64,                   // radius
     0.8f                        // mass
 };
@@ -391,6 +448,7 @@ namespace
 ActorTraits Bug::traits = {
     "ac-bug",                   // name
     ac_bug,                     // id
+    1<<ac_bug,                  // id_mask
     12.0f/64,                   // radius
     0.7f                        // mass
 };
@@ -426,6 +484,7 @@ namespace
 ActorTraits Horse::traits = {
     "ac-horse",                 // name
     ac_horse,                   // id
+    1<<ac_horse,                // id_mask
     24.0f/64,                   // radius
     1.2f                        // mass
 };
@@ -509,6 +568,7 @@ namespace
 ActorTraits CannonBall::traits = {
     "ac-cannonball",            // name
     ac_cannonball,              // id
+    1<<ac_cannonball,           // id_mask
     24.0/64,                    // radius
     1.0                         // mass
 };
@@ -1138,6 +1198,7 @@ namespace
 ActorTraits BlackBall::traits = {
     "ac-blackball",             // name
     ac_blackball,               // id
+    1<<ac_blackball,            // id_mask
     19.0/64,                    // radius
     1.0                         // mass
 };
@@ -1145,6 +1206,7 @@ ActorTraits BlackBall::traits = {
 ActorTraits WhiteBall::traits = {
     "ac-whiteball",             // name
     ac_whiteball,               // id
+    1<<ac_whiteball,            // id_mask
     19.0/64,                    // radius
     1.0                         // mass
 };
@@ -1152,6 +1214,7 @@ ActorTraits WhiteBall::traits = {
 ActorTraits WhiteBall_Small::traits = {
     "ac-whiteball-small",       // name
     ac_meditation,              // id
+    1<<ac_meditation,           // id_mask
     13.0f/64,                   // radius
     0.7f                        // mass
 };
@@ -1159,6 +1222,7 @@ ActorTraits WhiteBall_Small::traits = {
 ActorTraits Killerball::traits = {
     "ac-killerball",            // name
     ac_killerball,              // id
+    1<<ac_killerball,           // id_mask
     13.0f/64,                   // radius
     0.7f                        // mass
 };
