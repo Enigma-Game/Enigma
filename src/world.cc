@@ -495,42 +495,21 @@ void World::add_actor (Actor *a, const V2 &pos)
     actorlist.push_back(a);
     a->get_actorinfo()->pos = pos;
     
-    bool didInsert = false;
-    Actor *next = leftmost_actor;
-    Actor *previous = NULL;
-    do {
-        if (next == NULL && previous == NULL) {
-            // first actor
-            leftmost_actor = a;
-            rightmost_actor = a;
-            a->left = NULL;
-            a->right = NULL;
-            didInsert = true;
-        } else if (next == NULL) {
-            // right of last actor
-            previous->right = a;
-            a->left = previous;
-            a->right = NULL;
-            rightmost_actor = a;
-            didInsert = true;            
-        } else if (next->m_actorinfo.pos[0] >= pos[0]) {
-            // insert left of next actor
-            if (previous != NULL) {
-                previous->right = a;
-                a->left = previous;
-            } else {
-                leftmost_actor = a;
-                a->left = NULL;
-            }
-            a->right = next;
-            next->left = a;
-            didInsert = true;                        
-        } else {
-            // try next
-            previous = next;
-            next = next->right;
-        }
-    } while (!didInsert);
+    // Insert the actor as new rightmost_actor and (maybe) sort.
+    // This makes use of did_move_actor. See version 1.1, rev.549
+    // for explicit code without did_move_actor.
+
+    Actor *oldright = rightmost_actor;
+
+    a->left = oldright; // might be NULL
+    a->right = NULL;
+    rightmost_actor = a;
+    if(leftmost_actor == NULL)
+        leftmost_actor = a;
+    if(oldright != NULL) {
+        oldright->right = a;
+        did_move_actor(a);
+    }
     
     if (!preparing_level) {
         // if game is already running, call on_creation() from here
@@ -563,47 +542,13 @@ Actor * World::yield_actor(Actor *a) {
 }
 
 void World::exchange_actors(Actor *a1, Actor *a2) {
-    ActorInfo *info1 = a1->get_actorinfo();
-    ActorInfo *info2 = a2->get_actorinfo();
-
-    swap(info1->pos, info2->pos);
-//    swap(info1->oldpos, info2->oldpos);
-    
-    if (a1->left == NULL) {
-        leftmost_actor = a2;
-    } else if (a1->left == a2) {  // a1 is right neighbour of a2
-        a1->left = a1;            // fake for subsequent swap 
-    } else {
-        a1->left->right = a2;
-    }
-    
-    if (a1->right == NULL) {
-        rightmost_actor = a2;
-    } else if (a1->right == a2) {  // a2 is right neighbour of a1
-        a1->right = a1;            // fake for subsequent swap 
-    } else {
-        a1->right->left = a2;
-    }
-    
-    if (a2->left == NULL) {
-        leftmost_actor = a1;
-    } else if (a2->left = a1 ) {  // a2 is right neighbour of a1
-        a2->left = a2;            // fake for subsequent swap 
-    } else {
-        a2->left->right = a1;
-    }
-    
-    if (a2->right == NULL) {
-        rightmost_actor = a1;
-    } else if (a2->right = a1) {  // a1 is right neighbour of a2
-        a2->right = a2;           // fake for subsequent swap
-    } else {
-        a2->right->left = a1;
-    }
-    
-    swap(a1->left, a2->left);
-    swap(a1->right, a2->right);
-    
+    // Exchange actor positions and sort via did_move_actor.
+    // A version without did_move_actor is in version 1.1, rev.549.
+    ecl::V2 oldpos_a1 = a1->get_actorinfo()->pos;
+    a1->get_actorinfo()->pos = a2->get_actorinfo()->pos;
+    did_move_actor(a1);
+    a2->get_actorinfo()->pos = oldpos_a1;
+    did_move_actor(a2);
 }
 
 
@@ -986,15 +931,17 @@ namespace {
 };
 
 void World::handle_actor_contacts () {
+    // For each actor, search for possible collisions with other actors.
+    // If there is a good chance for a collision, call handle_actor_contact.
     Actor *a = leftmost_actor;
     while (a != NULL) {
         Actor *candidate = a->right;
-        double max_x = a->m_actorinfo.pos[0] + a->m_actorinfo.radius 
-                + Actor::max_radius;
+        double actingradius = a->m_actorinfo.radius + Actor::max_radius;
+        double max_x = a->m_actorinfo.pos[0] + actingradius;
         while (candidate != NULL && candidate->m_actorinfo.pos[0] <= max_x) {
             double ydist = candidate->m_actorinfo.pos[1] - a->m_actorinfo.pos[1];
             ydist = (ydist < 0) ? -ydist : ydist;
-            if (ydist <= 2*Actor::max_radius) {
+            if (ydist <= actingradius) {
                 handle_actor_contact(a, candidate);
             }
             candidate = candidate->right;
@@ -1005,6 +952,8 @@ void World::handle_actor_contacts () {
 
 void World::handle_actor_contact(Actor *actor1, Actor *actor2)
 {
+    // Calculate if there is a collision between actor1 and actor2.
+
     ActorInfo &a1 = *actor1->get_actorinfo();
     ActorInfo &a2 = *actor2->get_actorinfo();
 
@@ -1033,9 +982,13 @@ void World::handle_actor_contact(Actor *actor1, Actor *actor2)
             a1.new_contacts.push_back (contact);
 
             double restitution = 1.0; //0.95;
-            double mu = a1.mass*a2.mass / (a1.mass + a2.mass); // reduced mass
 
-            V2 force = (restitution * 2 * mu * relspeed / ActorTimeStep) * n;
+            // Calculate doubled reduced mass:
+            double dmu = a1.mass;
+            if (a1.mass != a2.mass)
+                dmu = 2*a1.mass*a2.mass / (a1.mass + a2.mass);
+
+            V2 force = (restitution * dmu * relspeed / ActorTimeStep) * n;
             a1.collforce += force;
             a2.collforce -= force;
 
