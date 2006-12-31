@@ -63,6 +63,7 @@ Actor * ActorsInRangeIterator::next() {
         if (dir == EAST && (previousActor == NULL
                 || previousActor->m_actorinfo.pos[0] - xCenter > rangeDist)) {
             ready = true;
+            previousActor = NULL;
             continue;
         }
         unsigned id_mask = previousActor->get_traits().id_mask;
