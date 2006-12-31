@@ -93,13 +93,13 @@ namespace {
 
 /*! Find an already existing contact point in the ContactList that is
   similar to the second argument. */
-    bool has_nearby_contact (const ContactList &cl, const Contact &c)
+    bool has_nearby_contact (const Contact *ca, int ca_count, const Contact &c)
     {
         double posdelta = 0.2;
         double normaldelta = 0.1;
-        for (size_t i=0; i<cl.size(); ++i) {
-            if (length (cl[i].pos - c.pos) < posdelta
-                && length (cl[i].normal - c.normal) < normaldelta)
+        for (int i=0; i<ca_count; ++i) {
+            if (length (ca[i].pos - c.pos) < posdelta
+                && length (ca[i].normal - c.normal) < normaldelta)
                 return true;
         }
         return false;
@@ -109,17 +109,14 @@ namespace {
 
 /* -------------------- ActorInfo -------------------- */
 
-ActorInfo::ActorInfo()
-: pos(), vel(), forceacc(),
-  charge(0), mass(1), radius(1),
-  grabbed(false), ignore_contacts (false),
-  last_pos(), force(),
-//  last_pos(), oldpos(), force(),
-  contacts(), new_contacts()
-{}
+ActorInfo::ActorInfo() : pos(), gridpos(), field(NULL), vel(), forceacc(),
+        charge(0), mass(1), radius(1),
+        grabbed(false), ignore_contacts (false), force(),
+//        grabbed(false), ignore_contacts (false), last_pos(), force(),
+        contacts (&contacts_a[0]), last_contacts (&contacts_b[0]),
+        contacts_count (0), last_contacts_count (0) {
+}
 
-
-
 /* -------------------- Messages -------------------- */
 
 Message::Message ()
@@ -493,7 +490,9 @@ void World::add_actor (Actor *a)
 void World::add_actor (Actor *a, const V2 &pos)
 {
     actorlist.push_back(a);
-    a->get_actorinfo()->pos = pos;
+    a->m_actorinfo.pos = pos;
+    a->m_actorinfo.gridpos = GridPos(pos);
+    a->m_actorinfo.field = get_field(a->m_actorinfo.gridpos);
     
     // Insert the actor as new rightmost_actor and (maybe) sort.
     // This makes use of did_move_actor. See version 1.1, rev.549
@@ -638,8 +637,7 @@ V2 World::get_local_force (Actor *a)
     V2 f;
 
     if (a->is_on_floor()) {
-        const Field *field = GetField (a->get_gridpos());
-        if (Floor *floor = field->floor) {
+        if (Floor *floor = a->m_actorinfo.field->floor) {
             // Constant force
             m_flatforce.add_force(a, f);
 
@@ -663,7 +661,7 @@ V2 World::get_local_force (Actor *a)
             floor->add_force(a, f);
         }
 
-        if (Item *item = field->item) 
+        if (Item *item = a->m_actorinfo.field->item) 
             item->add_force(a, f);
     }
 
@@ -884,13 +882,17 @@ void World::handle_stone_contact (StoneContact &sc)
     Contact contact (sc.contact_point, sc.normal);
     
     if (sc.is_contact && sc.response == STONE_REBOUND) {
-        ai.new_contacts.push_back (contact);
+        ASSERT(ai.contacts_count < MAX_CONTACTS, XLevelRuntime, 
+                ecl::strf("Enigma Error - insufficient contacts: %d",
+                ai.contacts_count).c_str());
+        ai.contacts[ai.contacts_count++] = contact;
     }
     
     if (sc.is_collision) {
         if (!sc.ignore && sc.response == STONE_REBOUND) {
             bool slow_collision = length (ai.vel) < 0.3;
-            if (!has_nearby_contact(ai.contacts, contact)) {
+            if (!has_nearby_contact(ai.last_contacts, ai.last_contacts_count, 
+                    contact)) {
                 if (Stone *stone = world::GetStone(sc.stonepos)) {
                     CurrentCollisionActor = a;
                     if (slow_collision) stone->actor_touch(sc);
@@ -977,9 +979,15 @@ void World::handle_actor_contact(Actor *actor1, Actor *actor2)
 
         if (reboundp) {
             Contact contact (a2.pos + n*a2.radius, -n);
-            a2.new_contacts.push_back (contact);
+            ASSERT(a2.contacts_count < MAX_CONTACTS, XLevelRuntime, 
+                    ecl::strf("Enigma Error - insufficient contacts: %d",
+                    a2.contacts_count).c_str());
+            a2.contacts[a2.contacts_count++] = contact;
             contact.normal = n;
-            a1.new_contacts.push_back (contact);
+            ASSERT(a1.contacts_count < MAX_CONTACTS, XLevelRuntime, 
+                    ecl::strf("Enigma Error - insufficient contacts: %d",
+                    a1.contacts_count).c_str());
+            a1.contacts[a1.contacts_count++] = contact;            
 
             double restitution = 1.0; //0.95;
 
@@ -992,7 +1000,8 @@ void World::handle_actor_contact(Actor *actor1, Actor *actor2)
             a1.collforce += force;
             a2.collforce -= force;
 
-            if (!has_nearby_contact (a1.contacts, contact)) {
+            if (!has_nearby_contact (a1.last_contacts, a1.last_contacts_count, 
+                    contact)) {
                 double volume = length (force) * ActorTimeStep;
                 volume = std::min(1.0, volume);
                 if (volume > 0.4)
@@ -1050,8 +1059,12 @@ void World::move_actors (double dtime)
 
             ai.forceacc  = V2();
             ai.collforce = V2();
-            ai.last_pos  = ai.pos;
-            ai.new_contacts.clear();
+//            ai.last_pos  = ai.pos;
+            // swap contacts and clear contacts
+            ai.last_contacts = ai.contacts;
+            ai.last_contacts_count = ai.contacts_count;
+            ai.contacts = ai.contacts_a;
+            ai.contacts_count = 0;
         }
         
         handle_actor_contacts();
@@ -1061,8 +1074,6 @@ void World::move_actors (double dtime)
         for (unsigned i=0; i<nactors; ++i) {
             Actor     *a  = actorlist[i];
             ActorInfo &ai = * a->get_actorinfo();
-
-            swap (ai.contacts, ai.new_contacts);
 
             if (!a->can_move()) {
                 if (length(ai.force) > 30)
@@ -1094,7 +1105,7 @@ void World::advance_actor (Actor *a, double dtime)
 
     // If the actor is currently in contact with other objects, remove
     // the force components in the direction of these objects.
-    for (unsigned i=0; i<ai.contacts.size(); ++i)
+    for (unsigned i=0; i<ai.contacts_count; ++i)
     {
         const V2 &normal = ai.contacts[i].normal;
         double normal_component = normal * force;
@@ -1115,6 +1126,9 @@ void World::advance_actor (Actor *a, double dtime)
 }
 
 void World::did_move_actor(Actor *a) {
+    a->m_actorinfo.gridpos = GridPos(a->m_actorinfo.pos);
+    a->m_actorinfo.field = get_field(a->m_actorinfo.gridpos);
+    
     double ax = a->m_actorinfo.pos[0];
     Actor *old_left = a->left;
     Actor *old_right = a->right;

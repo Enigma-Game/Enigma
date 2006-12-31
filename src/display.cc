@@ -959,7 +959,7 @@ void DL_Sprites::draw (ecl::GC &gc, const WorldArea &a, int /*x*/, int /*y*/)
 void DL_Sprites::draw_sprites (bool drawshadowp, GC &gc) {
     SpriteList &sl = sprites;
 
-    for (unsigned i=0; i<sl.size(); ++i) {
+    for (unsigned i=0, sl_size=sl.size() ; i<sl_size; ++i) {
         Sprite *s = sl[i];
         if (s && s->model && s->visible) {
             int sx, sy;

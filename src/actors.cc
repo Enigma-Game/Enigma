@@ -129,10 +129,9 @@ double Actor::get_max_radius() {
 }
 
 void Actor::think(double /*dtime*/) {
-    const Field *f = GetField (get_gridpos());
-    if (f) {
-        Floor *fl = f->floor;
-        Item *it = f->item;
+    if (m_actorinfo.field) {
+        Floor *fl = m_actorinfo.field->floor;
+        Item *it = m_actorinfo.field->item;
         bool item_covers_floor = (it && it->covers_floor(m_actorinfo.pos));
         if (!item_covers_floor && fl && this->is_on_floor())
             fl->actor_contact(this);
@@ -197,18 +196,15 @@ void Actor::warp(const ecl::V2 &newpos) {
 
 void Actor::move () 
 {
-    GridPos ofield = gridpos;
-    gridpos = GridPos (m_actorinfo.pos);
-
-    if (const Field *f = GetField (gridpos)) {
-        if (gridpos != ofield) {
+    if (m_actorinfo.field) {
+        if (m_actorinfo.gridpos != last_gridpos) {
             // Actor entered a new field -> notify floor and item objects
-            if (Floor *fl = f->floor)
+            if (Floor *fl = m_actorinfo.field->floor)
                 fl->actor_enter (this);
-            if (Item *it = f->item)
+            if (Item *it = m_actorinfo.field->item)
                 it->actor_enter (this);
 
-            if (const Field *of = GetField (ofield)) {
+            if (const Field *of = GetField(last_gridpos)) {
                 if (Floor *fl = of->floor)
                     fl->actor_leave (this);
                 if (Item *it = of->item)
@@ -216,15 +212,14 @@ void Actor::move ()
             }
         }
 
-        Item *it = f->item;
+        Item *it = m_actorinfo.field->item;
         if (it && it->actor_hit(this))
-            player::PickupItem (this, gridpos);
+            player::PickupItem (this, m_actorinfo.gridpos);
 
-        if (Stone *st = f->stone)
+        if (Stone *st = m_actorinfo.field->stone)
             st->actor_inside (this);
     }
-    // move the actor and save the position
-//    m_actorinfo.oldpos = m_actorinfo.pos;
+    last_gridpos = m_actorinfo.gridpos;
 }
 
 void Actor::move_screen () {
@@ -880,8 +875,8 @@ void BasicBall::sink (double dtime)
     double sink_speed  = 0.0;
     double raise_speed = 0.0;   // at this velocity don't sink; above: raise
 
-    Item *it = GetItem(get_gridpos());
-    Floor *fl = GetFloor (get_gridpos());
+    Floor *fl = m_actorinfo.field->floor;
+    Item *it = m_actorinfo.field->item;
     if (!(it != NULL && it->covers_floor(get_pos())) && fl != NULL)
         fl->get_sink_speed (sink_speed, raise_speed);
     
