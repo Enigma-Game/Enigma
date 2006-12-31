@@ -385,7 +385,7 @@ def_randfloor_si("fl-sahara", 4)
 def_randfloor_si("fl-tigris", 4)
 def_randfloor_si("fl-samba", 2)
 def_randfloor_si("fl-himalaya", 4)
-def_floors{"fl-woven_orange"}
+def_floors{"fl-nomouse"}
 
 --
 -- Bridges

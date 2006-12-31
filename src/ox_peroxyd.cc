@@ -104,7 +104,7 @@ bool LP_PerOxyd::hasEasymode(size_t index) {
         false, true,  false, false, true,  true,  true,  true,  true,  true   // 191 - 200
     };
     return easymode_map[index];
-} 
+}
 
 #endif // PLAIN_SPEC_ONLY
 // only tables following!
@@ -197,7 +197,7 @@ const char *oxyd::peroxyd_floor_map[256] = {
     UNUSED,                     // PerOxyd floor 0x54
     "fl-plank",                 // PerOxyd floor 0x55
     UNUSED,                     // PerOxyd floor 0x56
-    "fl-woven_orange",          // PerOxyd floor 0x57 (only used in Link-Level 91, friction (2.5) questionable!)
+    "fl-nomouse",               // PerOxyd floor 0x57 (only used in Link-Level 91, friction (2.5) questionable!)
     UNUSED,                     // PerOxyd floor 0x58
     UNUSED,                     // PerOxyd floor 0x59
     UNUSED,                     // PerOxyd floor 0x5a
