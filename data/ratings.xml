@@ -1,6 +1,6 @@
-<?xml version="1.0" encoding="UTF-8"?>
+<?xml version="1.0" encoding="UTF-8" standalone="no" ?>
 <ratings xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="ratings.xsd">
-  <update date="2006-12-10T22:11:08Z" delay="5" urlFull="http://www.nongnu.org/enigma/ratings/ratings.xml" urlIncremental="http://www.nongnu.org/enigma/ratings/ratings_i003.xml"/>
+  <update date="2006-12-31T12:51:05Z" delay="5" urlFull="http://www.nongnu.org/enigma/ratings/ratings.xml" urlIncremental="http://www.nongnu.org/enigma/ratings/ratings_i003.xml"/>
   <levels>
     <level avgur="-1" bsd="-1" bsdh="" bse="-1" bseh="" dex="4" id="20060213ral003" int="4" kno="5" pard="-1" pare="-1" pat="4" solvnd="0" solvne="0" solvpd="0" solvpe="0" spe="3" sv="1"/>
     <level avgur="-1" bsd="584" bsdh="Ronald" bse="377" bseh="Ronald" dex="4" id="20060213ral003" int="4" kno="5" pard="3212" pare="2074" pat="4" solvnd="1" solvne="1" solvpd="909" solvpe="909" spe="3" sv="2"/>
@@ -761,12 +761,15 @@
     <level avgur="-1" bsd="232" bsdh="Andreas" bse="232" bseh="Andreas" dex="1" id="oxyd70" int="3" kno="4" pard="-1" pare="-1" pat="2" solvnd="0" solvne="0" solvpd="0" solvpe="0" spe="1" sv="1"/>
     <level avgur="-1" bsd="29" bsdh="Andreas" bse="29" bseh="Andreas" dex="2" id="oxyd77" int="2" kno="2" pard="-1" pare="-1" pat="1" solvnd="0" solvne="0" solvpd="0" solvpe="0" spe="1" sv="1"/>
     <level avgur="-1" bsd="-1" bsdh="" bse="-1" bseh="" dex="5" id="oxyd90" int="1" kno="4" pard="-1" pare="-1" pat="4" solvnd="0" solvne="0" solvpd="0" solvpe="0" spe="1" sv="1"/>
+    <level avgur="-1" bsd="-1" bsdh="" bse="-1" bseh="" dex="3" id="oxydlink31" int="4" kno="5" pard="-1" pare="-1" pat="3" solvnd="0" solvne="0" solvpd="0" solvpe="0" spe="1" sv="1"/>
     <level avgur="-1" bsd="6" bsdh="Stupid" bse="14" bseh="Andreas" dex="2" id="oxydmagnum40" int="1" kno="4" pard="24" pare="-1" pat="1" solvnd="3" solvne="0" solvpd="2727" solvpe="0" spe="1" sv="1"/>
     <level avgur="-1" bsd="20" bsdh="Ronald" bse="-1" bseh="" dex="3" id="oxydmagnumgold17" int="1" kno="4" pard="100" pare="-1" pat="1" solvnd="2" solvne="0" solvpd="1818" solvpe="0" spe="1" sv="1"/>
     <level avgur="-1" bsd="78" bsdh="Ronald" bse="-1" bseh="" dex="2" id="oxydmagnumgold18" int="2" kno="4" pard="429" pare="-1" pat="2" solvnd="1" solvne="0" solvpd="909" solvpe="0" spe="1" sv="1"/>
     <level avgur="-1" bsd="14" bsdh="Ronald" bse="-1" bseh="" dex="3" id="oxydmagnumgold19" int="2" kno="4" pard="68" pare="-1" pat="3" solvnd="2" solvne="0" solvpd="1818" solvpe="0" spe="1" sv="1"/>
     <level avgur="-1" bsd="40" bsdh="Ronald" bse="50" bseh="Andreas" dex="2" id="peroxyd2p13" int="3" kno="4" pard="220" pare="-1" pat="2" solvnd="1" solvne="0" solvpd="909" solvpe="0" spe="1" sv="1"/>
     <level avgur="-1" bsd="96" bsdh="Andreas" bse="96" bseh="Andreas" dex="2" id="peroxyd2p6" int="3" kno="4" pard="-1" pare="-1" pat="2" solvnd="0" solvne="0" solvpd="0" solvpe="0" spe="1" sv="1"/>
+    <level avgur="-1" bsd="-1" bsdh="" bse="-1" bseh="" dex="3" id="peroxyd2p61" int="4" kno="4" pard="-1" pare="-1" pat="3" solvnd="0" solvne="0" solvpd="0" solvpe="0" spe="1" sv="1"/>
+    <level avgur="-1" bsd="-1" bsdh="" bse="-1" bseh="" dex="2" id="peroxyd2p64" int="3" kno="4" pard="-1" pare="-1" pat="2" solvnd="0" solvne="0" solvpd="0" solvpe="0" spe="1" sv="1"/>
     <level avgur="-1" bsd="76" bsdh="Ronald" bse="8" bseh="Ronald" dex="2" id="peroxyd30" int="1" kno="4" pard="418" pare="44" pat="3" solvnd="1" solvne="1" solvpd="909" solvpe="909" spe="1" sv="1"/>
     <level avgur="-1" bsd="97" bsdh="Andreas" bse="97" bseh="Andreas" dex="3" id="peroxyd62" int="3" kno="4" pard="601" pare="-1" pat="3" solvnd="1" solvne="0" solvpd="909" solvpe="0" spe="1" sv="1"/>
     <level avgur="-1" bsd="80" bsdh="Andreas" bse="80" bseh="Andreas" dex="3" id="peroxyd88" int="2" kno="4" pard="-1" pare="-1" pat="2" solvnd="0" solvne="0" solvpd="0" solvpe="0" spe="1" sv="1"/>
