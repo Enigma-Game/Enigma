@@ -223,6 +223,12 @@ namespace world
             BorderStone() : Stone("borderstone") {}
             Stone *clone() { return this; }
             void dispose() {}
+            virtual const StoneTraits &get_traits() const {
+                static StoneTraits border_traits = {
+                        "INVALID", st_borderstone, stf_none, material_stone, 1.0
+                };
+                return border_traits;
+            }
         };
 
         BorderStone borderstone;

@@ -2023,7 +2023,9 @@ void GameDisplay::resize_game_area (int w, int h)
 
 /* -------------------- Global functions -------------------- */
 
-void display::Init() {
+void display::Init(bool show_fps) {
+    if (show_fps)        // keep ShowFPS on false for screen resolution changes
+        ShowFPS = true;  
     InitModels();
 
     const video::VMInfo *vminfo = video::GetInfo();

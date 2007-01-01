@@ -230,7 +230,7 @@ namespace display
     void ToggleFlag(DisplayFlags flag);
 
 
-    void Init();
+    void Init(bool show_fps = false);
     void Shutdown();
 
     void            NewWorld (int w, int h);

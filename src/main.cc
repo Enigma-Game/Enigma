@@ -136,7 +136,7 @@ namespace
 
         // Variables.
         bool nosound, nomusic, show_help, show_version, do_log, do_assert, force_window;
-        bool dumpinfo, makepreview;
+        bool dumpinfo, makepreview, show_fps;
         string gamename;
         string datapath;
         string preffilename;
@@ -162,7 +162,7 @@ namespace
 AP::AP() : ArgParser (app.args.begin(), app.args.end())
 {
     nosound  = nomusic = show_help = show_version = do_log = do_assert = force_window = false;
-    dumpinfo = makepreview = false;
+    dumpinfo = makepreview = show_fps = false;
     gamename = "";
     datapath = "";
     preffilename = PREFFILENAME;
@@ -177,6 +177,7 @@ AP::AP() : ArgParser (app.args.begin(), app.args.end())
     def (&do_assert,            "assert");
     def (&dumpinfo,             "dumpinfo");
     def (&makepreview,          "makepreview");
+    def (&show_fps,             "showfps");
     def (&force_window,         "window", 'w');
     def (OPT_GAME,              "game", true);
     def (OPT_DATA,              "data", 'd', true);
@@ -333,7 +334,7 @@ void Application::init(int argc, char **argv)
     }
 
     // ----- Load models
-    display::Init();
+    display::Init(ap.show_fps);
 
     // initialize application state
     state = StateManager::instance();
