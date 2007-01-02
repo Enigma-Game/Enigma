@@ -1695,6 +1695,7 @@ namespace
 
     protected:
         virtual ~WormHole() {
+            ASSERT(!justWarping, XLevelRuntime, "Tried to kill a busy wormhole. Please use another way.");
             GameTimer.remove_alarm (this);
         }
     private:
