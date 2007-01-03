@@ -616,17 +616,23 @@ void DisplayEngine::update_layer (DisplayLayer *l, WorldArea wa)
 
     int x2 = wa.x+wa.w;
     int y2 = wa.y+wa.h;
+    int y2m1 = y2 - 1;
 
     clip(gc, get_area());
-    int xpos0, ypos;
-    world_to_screen (V2(wa.x, wa.y), &xpos0, &ypos);
+    int xpos, ypos0;
+    world_to_screen (V2(wa.x, wa.y), &xpos, &ypos0);
 
     l->prepare_draw (wa);
-    for (int y=wa.y; y<y2; y++, ypos += m_tileh) {
-        int xpos = xpos0;
-        for (int x=wa.x; x<x2; x++, xpos += m_tilew) {
+    for (int x=wa.x; x<x2; x++, xpos += m_tilew) {
+        int ypos = ypos0;
+        for (int y=wa.y; y<y2; y++, ypos += m_tileh) {
             if (m_redrawp(x,y) == 1)
-                l->draw (gc, WorldArea(x,y,1,1), xpos, ypos);
+                if (y<y2m1 && m_redrawp(x,y+1) == 1) {
+                    l->draw (gc, WorldArea(x,y,1,2), xpos, ypos);
+                    y++;
+                    ypos += m_tileh;
+                } else
+                    l->draw (gc, WorldArea(x,y,1,1), xpos, ypos);
         }
     }
     l->draw_onepass (gc);
