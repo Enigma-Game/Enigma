@@ -265,6 +265,10 @@ namespace enigma { namespace lev {
             shutdown();
     }
 
+    void ScoreManager::markModified() {
+        isModified = true;
+    }
+    
     void ScoreManager::finishUserId(unsigned id3) {
         unsigned i1, i2, i3, i4; 
         std::istringstream s1(userId.substr(0, 4));
@@ -886,6 +890,12 @@ namespace enigma { namespace lev {
                     int easyScore = levelstat.time_easy;
                     bool solvedEasy = (levelstat.finished & DIFFICULTY_EASY) &&
                             easyScore != SCORE_UNSOLVED;
+                    
+                    // limit scores to 99*60+59 - they need to fit in a short for XML
+                    if (diffScore > SCORE_MAX)
+                        diffScore = SCORE_MAX;
+                    if (easyScore > SCORE_MAX)
+                        easyScore = SCORE_MAX;
                     
                     std::map<std::string,  DOMElement *>::iterator itx;
                     // do we have to update a score entry for a higher version ?

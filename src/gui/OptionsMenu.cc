@@ -20,6 +20,7 @@
 #include "gui/OptionsMenu.hh"
 #include "ecl.hh"
 #include "enigma.hh"
+#include "lev/ScoreManager.hh"
 #include "LocalToXML.hh"
 #include "main.hh"
 #include "nls.hh"
@@ -364,8 +365,6 @@ namespace enigma { namespace gui {
         leftlabels.add (new Label(N_("Video mode: "), HALIGN_RIGHT));
         leftlabels.add (new Label(N_("Gamma correction: "), HALIGN_RIGHT));
         leftlabels.add (new Label(N_("Mouse speed: "), HALIGN_RIGHT));
-//        leftlabels.add (new Label(N_("Skip solved levels: "), HALIGN_RIGHT));
-//        leftlabels.add (new Label(N_("Time hunt: "), HALIGN_RIGHT));
     
         language = new LanguageButton(this);
         left.add (language);
@@ -373,8 +372,6 @@ namespace enigma { namespace gui {
         left.add (new VideoModeButton);
         left.add (new GammaButton);
         left.add (new MouseSpeedButton);
-//        left.add (new SkipSolvedButton);
-//        left.add (new TimeHuntButton);
     
         rightlabels.add (new Label(N_("Sound volume: "), HALIGN_RIGHT));
         rightlabels.add (new Label(N_("Sound set: "), HALIGN_RIGHT));
@@ -429,8 +426,14 @@ namespace enigma { namespace gui {
 //    }
     
     void OptionsMenu::quit() {
+        std::string tfUserPathLocal = XMLtoLocal(Utf8ToXML(userPathTF->getText().c_str()).x_str()).c_str(); 
+        if ((app.state->getString("UserName") != userNameTF->getText())
+                || (app.userPath != tfUserPathLocal)) {
+            // ensure that enigma.score is saved with new Username or to new location
+            lev::ScoreManager::instance()->markModified();
+        }
         app.state->setProperty("UserName", userNameTF->getText());
-        app.setUserPath(XMLtoLocal(Utf8ToXML(userPathTF->getText().c_str()).x_str()).c_str());
+        app.setUserPath(tfUserPathLocal.c_str());
         app.setUserImagePath(XMLtoLocal(Utf8ToXML(userImagePathTF->getText().c_str()).x_str()).c_str());
         Menu::quit();
     }

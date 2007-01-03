@@ -51,6 +51,7 @@ namespace enigma { namespace lev {
     public:
         static ScoreManager *instance();
         ~ScoreManager();
+        void markModified();
         virtual bool save();
         void shutdown();
 
