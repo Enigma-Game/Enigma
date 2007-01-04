@@ -25,6 +25,7 @@
 #include "main.hh"
 #include "nls.hh"
 #include "oxyd_internal.hh"
+#include "server.hh"
 #include "utilXML.hh"
 #include "Utf8ToXML.hh"
 #include "XMLtoUtf8.hh"
@@ -613,6 +614,7 @@ namespace enigma { namespace lev {
         if (getEnigmaCompatibility() > ENIGMACOMPATIBITLITY)
             throw XLevelLoading(ecl::strf("Level is incompatible: %s requires Enigma %.2f or above", 
                     absLevelPath.c_str(), getEnigmaCompatibility()));
+        server::SetCompatibility(this);
         processDependencies();
         loadLuaCode();
     }

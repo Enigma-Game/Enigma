@@ -128,7 +128,8 @@ namespace enigma_server
     void FinishLevel();
 
     void SetCompatibility(const char *version); // set compatibility (from lua)
-
+    void SetCompatibility(lev::Proxy *levelProxy); // set compatibility from xml
+    
     enigma::Difficulty GetDifficulty();
 
     // move counter
