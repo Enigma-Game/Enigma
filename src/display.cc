@@ -878,6 +878,8 @@ void DL_Sprites::new_world (int w, int h) {
     ModelLayer::new_world (w,h);
     delete_sequence (sprites.begin(), sprites.end());
     sprites.clear();
+    Sprite *dummy = NULL;
+    bottomSprites.assign(w, dummy);
     numsprites = 0;
 }
 
@@ -890,13 +892,13 @@ void DL_Sprites::move_sprite (SpriteId id, const ecl::V2& newpos)
 
     if (newx != sprite->screenpos[0] || newy != sprite->screenpos[1] ||
             sprite->mayNeedRedraw ) {
-        redraw_sprite_region(id); // make sure old sprite is removed
+        redraw_sprite_region(id, false); // make sure old sprite is removed
         sprite->pos = newpos;
         sprite->screenpos[0] = newx;
         sprite->screenpos[1] = newy;
         if (Anim2d* anim = dynamic_cast<Anim2d*>(sprite->model))
             anim->move (newx, newy);
-        redraw_sprite_region(id); // draw new sprite
+        redraw_sprite_region(id, true); // draw new sprite
     }
 }
 
@@ -923,7 +925,7 @@ SpriteId DL_Sprites::add_sprite (Sprite *sprite)
     get_engine()->world_to_video (sprite->pos, &sprite->screenpos[0], &sprite->screenpos[1]);
     if (Model *m = sprite->model)
         m->expose (this, sprite->screenpos[0], sprite->screenpos[1]);
-    redraw_sprite_region(id);
+    redraw_sprite_region(id, true);
     numsprites += 1;
     return id;
 }
@@ -931,20 +933,20 @@ SpriteId DL_Sprites::add_sprite (Sprite *sprite)
 void DL_Sprites::replace_sprite (SpriteId id, Model *m) {
     Sprite *sprite = sprites[id];
     if (Model *old = sprite->model) {
-        redraw_sprite_region(id);
+        redraw_sprite_region(id, false);
         old->remove (this);
         delete old;
     }
     sprite->model = m;
     if (m) {
         m->expose (this, sprite->screenpos[0], sprite->screenpos[1]);
-        redraw_sprite_region(id);
+        redraw_sprite_region(id, true);
     }
 }
 
 void DL_Sprites::kill_sprite (SpriteId id) {
     if (Sprite *sprite = sprites[id]) {
-        redraw_sprite_region(id);
+        redraw_sprite_region(id, false);
         if (Model *m = sprite->model) {
             m->remove (this);
         }
@@ -958,22 +960,28 @@ void DL_Sprites::draw (ecl::GC &gc, const WorldArea &a, int /*x*/, int /*y*/)
 {
     DisplayEngine *engine = get_engine();
     clip (gc, intersect (engine->get_area(), engine->world_to_screen(a)));
-    draw_sprites (false, gc);
+    draw_sprites (false, gc, a);
 }
 
 
-void DL_Sprites::draw_sprites (bool drawshadowp, GC &gc) {
+void DL_Sprites::draw_sprites (bool drawshadowp, GC &gc, const WorldArea &a) {
     SpriteList &sl = sprites;
 
-    for (unsigned i=0, sl_size=sl.size() ; i<sl_size; ++i) {
-        Sprite *s = sl[i];
-        if (s && s->model && s->visible) {
-            int sx, sy;
-            get_engine()->world_to_screen(s->pos, &sx, &sy);
-            if (drawshadowp)
-                s->model->draw_shadow(gc, sx, sy);
-            else
-                s->model->draw(gc, sx, sy);
+//    for (unsigned i=0, sl_size=sl.size() ; i<sl_size; ++i) {
+//        Sprite *s = sl[i];
+    int gx = a.x;
+    for (int i = 0; i < a.w; i++, gx++) {
+        int m = gx%3;
+        Sprite *s = bottomSprites[gx];
+        for ( ; s != NULL; s = s->above[m]) {
+            if (s && s->model && s->visible) {
+                int sx, sy;
+                get_engine()->world_to_screen(s->pos, &sx, &sy);
+                if (drawshadowp)
+                    s->model->draw_shadow(gc, sx, sy);
+                else
+                    s->model->draw(gc, sx, sy);
+            }
         }
     }
 }
@@ -983,7 +991,7 @@ void DL_Sprites::draw_onepass (ecl::GC &gc)
 //     draw_sprites (false, gc);
 }
 
-void DL_Sprites::redraw_sprite_region (SpriteId id) 
+void DL_Sprites::redraw_sprite_region (SpriteId id, bool is_add) 
 {
     Sprite *s = sprites[id];
     if (s && s->model) {
@@ -994,6 +1002,33 @@ void DL_Sprites::redraw_sprite_region (SpriteId id)
         DisplayEngine *e = get_engine();
         e->video_to_world (r, redrawr);
         e->mark_redraw_area (redrawr);
+        
+        int x = redrawr.x;
+        for (int i = 0; i < redrawr.w; i++, x++) {
+            if (x >= 0 && x < e->get_width()) {
+                int m = x%3;
+                if (is_add) {
+                    if (bottomSprites[x] != NULL)
+                        bottomSprites[x]->beneath[m] = s;
+                    s->above[m] = bottomSprites[x];
+                    s->beneath[m] = NULL;
+                    bottomSprites[x] = s;
+                } else {  // remove
+                    if (bottomSprites[x] == s) {
+                        bottomSprites[x] = s->above[m];
+                        if (s->above[m] != NULL)
+                            s->above[m]->beneath[m] = NULL;
+                    } else {
+                        if (s->above[m] != NULL) {
+                            s->above[m]->beneath[m] = s->beneath[m];
+                        }
+                        if (s->beneath[m] != NULL) {
+                            s->beneath[m]->above[m] = s->above[m];
+                        }
+                    }
+                }           
+            }
+        }
     }
 }
 
@@ -1522,14 +1557,20 @@ void DL_Shadows::draw(GC &gc, int xpos, int ypos, int x, int y) {
                 set_color (gc2, 255, 255, 255);
                 box (gc2, buffer->size());
             }
-            for (unsigned i=0; i<m_sprites->sprites.size(); ++i) {
-                if (Sprite *sp = m_sprites->sprites[i]) {
+            
+//            for (unsigned i=0; i<m_sprites->sprites.size(); ++i) {
+//                if (Sprite *sp = m_sprites->sprites[i]) {
+//                    
+            int m = x%3;
+            Sprite *sp = m_sprites->bottomSprites[x];
+            for ( ; sp != NULL; sp = sp->above[m]) {
+                            
                     if (sp->visible && sp->model) {
                         int sx = round_nearest<int>(sp->pos[0]*tilew) - x*tilew;
                         int sy = round_nearest<int>(sp->pos[1]*tileh) - y*tileh;
                         sp->model->draw_shadow(gc2, sx, sy);
                     }
-                }
+//                }
             }
             blit(gc, xpos, ypos, buffer);
         }
