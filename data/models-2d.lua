@@ -15,7 +15,6 @@
 -- with this program; if not, write to the Free Software Foundation, Inc.,
 -- 59 Temple Place, Suite 330, Boston, MA 02111-1307, USA.
 --
--- $Id: models-2d.lua,v 1.124 2004/05/27 20:30:47 dheck Exp $
 ------------------------------------------------------------------------
 
 -- This file defines the models used in Enigma.
@@ -25,7 +24,6 @@ dofile(FindDataFile("models.lua"))
 def_image("dummy")
 def_image("invisible")
 
-TRUE, FALSE = 1, 0
 
 function SpriteImages(spriteimg, n, offsetfactor, padding)
     local factor = offsetfactor or 0.5
@@ -52,14 +50,14 @@ function SpriteAnim(name, images, shadows, framelen, loop)
     local nframes = getn(images)
     for i=1,getn(images) do
         def_shmodel(name..i, images[i], shadows[mod (i, getn(shadows))] )
-        tinsert(frames, name..i)
+        table.insert(frames, name..i)
     end
     def_anim (name, buildframes(frames, framelen), loop)
 end
 
 function Sprite(descr)
     local imgfile = descr.imgfile or descr.name
-    local loop    = descr.loop or FALSE
+    local loop    = descr.loop or false
     local img     = SpriteImages(imgfile, descr.nimages, 0.5, descr.padding)
     def_anim(descr.name, buildframes(img, descr.framelen), loop)
 end
@@ -79,9 +77,9 @@ do
     frames={}
     for i=1,9 do
         def_shmodel("ac-top"..i, img[i], "sh-top")
-        tinsert(frames, "ac-top"..i)
+        table.insert(frames, "ac-top"..i)
     end
-    def_anim("ac-top", buildframes(frames, 25), TRUE)
+    def_anim("ac-top", buildframes(frames, 25), true)
 end
 
 -----------
@@ -94,9 +92,9 @@ do
     frames={}
     for i=1,9 do
         def_shmodel("ac-rotor"..i, fg[i], bg[i])
-        tinsert(frames, "ac-rotor"..i)
+        table.insert(frames, "ac-rotor"..i)
     end
-    def_anim("ac-rotor", buildframes(frames, 30), TRUE)
+    def_anim("ac-rotor", buildframes(frames, 30), true)
 end
 
 -----------
@@ -115,20 +113,20 @@ do
     local fg,img
 
     -- Normal
-    SpriteImage ("sh-whiteball-small", 0.4, 0.3)
-    SpriteImage ("fg-whiteball-small", 0.5, 0.3) 
+    SpriteImage ("sh-whiteball-small", 0.4, 0.41)
+    SpriteImage ("fg-whiteball-small", 0.5, 0.43) 
     def_shmodel("ac-whiteball-small", "fg-whiteball-small", "sh-whiteball-small")
     def_alias ("ac-whiteball-small-shine", "ac-whiteball-small")
 
     -- Falling
-    img=SpriteImages ("ac-whiteball-small-fall", 5)
-    tinsert(img, "invisible")
+    img=SpriteImages ("ac-whiteball-small-fall", 5, 0.5, 0.43)
+    table.insert(img, "invisible")
     def_anim("ac-whiteball-small-fall", composeframes(img,{70,65,60,55,50,30}))
     def_alias("ac-whiteball-small-fallen", "invisible")
 
     -- Appearing / disappearing
     def_anim("ac-whiteball-small-appear", reverseframes(buildframes(img, 25)))
-    def_anim("ac-whiteball-small-disappear", buildframes(img, 25))
+    def_anim("ac-whiteball-small-disappear", buildframes(img, 35))
 
     -- Shattering
     img=SpriteImages ("ac-whiteball-small-shatter", 5)
@@ -154,7 +152,7 @@ do
     frames   = {}
     for i=1,4 do
         def_shmodel("sb-jump"..i, namelist[i], shadows[i])
-        tinsert(frames, "sb-jump"..i)
+        table.insert(frames, "sb-jump"..i)
     end
     def_anim("ac-whiteball-small-jump", pingpong(buildframes(frames, 70)))
 end
@@ -195,8 +193,8 @@ do
     local img,f,sh
 
     -- Normal
-    sh = SpriteImage("sh-blackball", 0.4, 0.2)
-    img = SpriteImages("fg-blackball", 2, 0.5, 0.25)
+    sh = SpriteImage("sh-blackball", 0.4, 0.29)
+    img = SpriteImages("fg-blackball", 2, 0.5, 0.34)
     def_shmodel("ac-blackball", "fg-blackball1", "sh-blackball")
     def_shmodel("ac-blackball-shine", "fg-blackball2", "sh-blackball")
 
@@ -208,7 +206,7 @@ do
 
     -- Appearing / disappearing
     def_anim("ac-blackball-appear", reverseframes(buildframes(img, 25)))
-    def_anim("ac-blackball-disappear", buildframes(img, 25))
+    def_anim("ac-blackball-disappear", buildframes(img, 35))
 
     def_alias("ac-blackball-shattered", "ac-blackball-shatter5")
 end
@@ -224,7 +222,7 @@ do
 
     -- Normal
     def_alias("sh-whiteball", "sh-blackball")
-    img=SpriteImage ("fg-whiteball")
+    img=SpriteImage ("fg-whiteball", 0.5, 0.34)
 --    def_image("fg-wb", {filename="ac-whiteball", xoff=-9, yoff=-9})
     def_shmodel("ac-whiteball", "fg-whiteball", "sh-whiteball")
     def_alias("ac-whiteball-shine", "ac-whiteball")
@@ -237,7 +235,7 @@ do
 
     -- Appearing / disappearing
     def_anim("ac-whiteball-appear", reverseframes(buildframes(img, 25)))
-    def_anim("ac-whiteball-disappear", buildframes(img, 25))
+    def_anim("ac-whiteball-disappear", buildframes(img, 35))
 
     -- Shattering
 
@@ -251,7 +249,7 @@ do
     frames   = {}
     for i=1,4 do
         def_shmodel("bb-jump"..i, namelist[i], shadows[i])
-        tinsert(frames, "bb-jump"..i)
+        table.insert(frames, "bb-jump"..i)
     end
     def_anim("ac-blackball-jump", pingpong(buildframes(frames, 70)))
 
@@ -259,7 +257,7 @@ do
     frames   = {}
     for i=1,4 do
         def_shmodel("wb-jump"..i, namelist[i], shadows[i])
-        tinsert(frames, "wb-jump"..i)
+        table.insert(frames, "wb-jump"..i)
     end
     def_anim("ac-whiteball-jump", pingpong(buildframes(frames, 70)))
 end
@@ -461,13 +459,13 @@ end
 do
     local models={"it-puller-n", "it-puller-e", "it-puller-s", "it-puller-w"}
     local frames=buildframes(models, 100)
-    def_anim("it-puller-active", repeatanim(frames, 4), FALSE)
+    def_anim("it-puller-active", repeatanim(frames, 4), false)
 end
 
 do
     local n=def_subimages("it-coffee", {h=4})
     local f=buildframes(n,150)
-    def_anim("it-coffee", f, TRUE)
+    def_anim("it-coffee", f, true)
 end
 
 -- Some more Items
@@ -553,7 +551,7 @@ def_anim("it-magnet-on", frames, 1)
 -- Wormhole --
 do
     local f = buildframes(def_subimages("it-wormhole", {h=2}), 100)
-    def_anim("it-wormhole", f, TRUE)
+    def_anim("it-wormhole", f, true)
     def_alias("it-wormhole-off", "it-wormhole1")
 end
 
@@ -775,7 +773,7 @@ do
       def_roundstone("st-blocker", n[1])
       frames={}
       for i=4,2,-1 do
-         tinsert(frames, "st-blocker"..i)
+         table.insert(frames, "st-blocker"..i)
       end
       def_anim("blocker-growing-fg", buildframes(frames, 60))
       def_anim("blocker-growing-bg", buildframes(sh, 60))
@@ -791,10 +789,10 @@ def_alias("st-volcano-growing", "st-blocker-growing")
 -- Rotator stones
 do
     local n=def_subimages("st-rotator-left", {h=8})
-    def_anim("st-rotator-left-anim", buildframes(n, 70), FALSE)
+    def_anim("st-rotator-left-anim", buildframes(n, 70), false)
     def_roundstone("st-rotator-left", "st-rotator-left-anim")
     n=def_subimages("st-rotator-right", {h=8})
-    def_anim("st-rotator-right-anim", buildframes(n, 70), FALSE)
+    def_anim("st-rotator-right-anim", buildframes(n, 70), false)
     def_roundstone("st-rotator-right", "st-rotator-right-anim")
 end
 
@@ -994,7 +992,7 @@ do
 
         -- compose these images into an animation
         frames = pingpong(buildframes(names, 100))
-        def_anim(n.."-anim", frames, TRUE)
+        def_anim(n.."-anim", frames, true)
 
         -- and finally add a shadow to make the model complete
         def_shmodel(n, n.."-anim", shadow[flavor])
@@ -1119,10 +1117,10 @@ do
    namelist = def_subimages("st-stoneimpulse", {h=4})
    def_roundstone("st-stoneimpulse", namelist[1])
    frames={}
-   for i=1,4 do tinsert(frames, namelist[i]) end
+   for i=1,4 do table.insert(frames, namelist[i]) end
    def_anim("stoneimpulse-anim1", buildframes(frames, 55))
    def_roundstone("st-stoneimpulse-anim1", "stoneimpulse-anim1")
-   tinsert(frames, namelist[4]) -- add 1 frame to make closing anim longer!
+   table.insert(frames, namelist[4]) -- add 1 frame to make closing anim longer!
    def_anim("stoneimpulse-anim2", reverseframes(buildframes(frames, 55)))
    def_roundstone("st-stoneimpulse-anim2", "stoneimpulse-anim2")
 end
@@ -1131,10 +1129,10 @@ do
    namelist = def_subimages("st-stoneimpulse-hollow", {h=4})
    def_shmodel("st-stoneimpulse-hollow", namelist[1], "sh-floating")
    frames={}
-   for i=1,4 do tinsert(frames, namelist[i]) end
+   for i=1,4 do table.insert(frames, namelist[i]) end
    def_anim("stoneimpulse-hollow-anim1", buildframes(frames, 55))
    def_shmodel("st-stoneimpulse-hollow-anim1", "stoneimpulse-hollow-anim1", "sh-floating")
-   tinsert(frames, namelist[4]) -- add 1 frame to make closing anim longer!
+   table.insert(frames, namelist[4]) -- add 1 frame to make closing anim longer!
    def_anim("stoneimpulse-hollow-anim2", reverseframes(buildframes(frames, 55)))
    def_shmodel("st-stoneimpulse-hollow-anim2", "stoneimpulse-hollow-anim2", "sh-floating")
 end
@@ -1556,12 +1554,12 @@ do
     function def_bolder(orient, start)
        local animname="st-bolder"..orient.."a"
        local frames={img[start], img[start+1], img[start+2]}
-       def_anim(animname, buildframes(frames, 120), FALSE)
+       def_anim(animname, buildframes(frames, 120), false)
        def_shmodel("st-bolder-"..orient, animname, "sh-round")
 
        animname="st-bolder-"..orient.."-fall-anim"
        frames={imgfall[start],imgfall[start+1],imgfall[start+2]}
-       def_anim(animname, buildframes(frames, 120), FALSE)
+       def_anim(animname, buildframes(frames, 120), false)
     end
 
     def_bolder("n",1)
@@ -1608,14 +1606,14 @@ do
     def_shmodel("st-lightpassenger", img[1], "sh-glass")
     def_alias("st-lightpassenger_off", "st-glass2")
     local frames={img[2], img[3], img[4], img[5], img[6], img[7]}
-    def_anim("st-lightpassenger-blink1", pingpong(buildframes(frames, 75)), TRUE)
+    def_anim("st-lightpassenger-blink1", pingpong(buildframes(frames, 75)), true)
     def_shmodel("st-lightpassenger-blink", "st-lightpassenger-blink1", "sh-glass")
     img = def_subimages("st-lightpassenger-break-v", {h=7})
-    def_anim("st-lightpassenger-break-v", buildframes(img, 50), FALSE)
+    def_anim("st-lightpassenger-break-v", buildframes(img, 50), false)
     img = def_subimages("st-lightpassenger-break-h", {h=7})
-    def_anim("st-lightpassenger-break-h", buildframes(img, 50), FALSE)
+    def_anim("st-lightpassenger-break-h", buildframes(img, 50), false)
     img = def_subimages("st-lightpassenger-break-hv", {h=7})
-    def_anim("st-lightpassenger-break-hv", buildframes(img, 50), FALSE)
+    def_anim("st-lightpassenger-break-hv", buildframes(img, 50), false)
 end
 
 -------------
@@ -1641,13 +1639,13 @@ Sprite{
     name     = "halo",
     nimages  = 2,
     framelen = 30,
-    loop     = TRUE
+    loop     = true
 }
 Sprite{
     name     = "halo-blink",
     nimages  = 2,
     framelen = 30,
-    loop     = TRUE
+    loop     = true
 }
 
 -- Halo for small balls --
@@ -1655,13 +1653,13 @@ Sprite{
     name     = "halo-small",
     nimages  = 2,
     framelen = 30,
-    loop     = TRUE
+    loop     = true
 }
 Sprite{
     name     = "halo-small-blink",
     nimages  = 2,
     framelen = 30,
-    loop     = TRUE
+    loop     = true
 }
 
 Progress(100, "Loading Oxyd levels")

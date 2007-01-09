@@ -24,6 +24,7 @@
 #include "player.hh"
 #include "Inventory.hh"
 #include "stones_internal.hh"
+//#include "main.hh"
 
 #include "ecl_util.hh"
 
@@ -2272,7 +2273,7 @@ void OxydStone::change_state(State newstate)
         break;
 
     case OPEN:
-	if (oldstate == CLOSED) {
+    	if (oldstate == CLOSED) {
             sound_event("oxydopen");
             sound_event("oxydopened");
             set_anim(modelname+"-opening");
@@ -2282,8 +2283,7 @@ void OxydStone::change_state(State newstate)
         /* If this was the last closed oxyd stone, finish the
            level */
         if (find_if(instances.begin(),instances.end(),not_open)
-            ==instances.end())
-        {
+                == instances.end()) {
             server::FinishLevel();
         }
         break;
@@ -2306,7 +2306,7 @@ void OxydStone::change_state(State newstate)
         sound_event("oxydclose");
         if (oldstate == OPENING)
             get_model()->reverse();
-	else if (oldstate == BLINKING || oldstate == OPEN) {
+    	else if (oldstate == BLINKING || oldstate == OPEN) {
             set_anim(modelname + "-closing");
         }
         break;

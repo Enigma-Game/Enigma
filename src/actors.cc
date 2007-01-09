@@ -23,6 +23,7 @@
 #include "sound.hh"
 #include "server.hh"
 #include "world.hh"
+//#include "main.hh"
 
 #include <iostream>
 #include <set>
