@@ -126,7 +126,7 @@ do
 
     -- Appearing / disappearing
     def_anim("ac-whiteball-small-appear", reverseframes(buildframes(img, 25)))
-    def_anim("ac-whiteball-small-disappear", buildframes(img, 35))
+    def_anim("ac-whiteball-small-disappear", buildframes(img, 25))
 
     -- Shattering
     img=SpriteImages ("ac-whiteball-small-shatter", 5)
@@ -194,7 +194,7 @@ do
 
     -- Normal
     sh = SpriteImage("sh-blackball", 0.4, 0.29)
-    img = SpriteImages("fg-blackball", 2, 0.5, 0.34)
+    img = SpriteImages("fg-blackball", 2, 0.5, 0.32)
     def_shmodel("ac-blackball", "fg-blackball1", "sh-blackball")
     def_shmodel("ac-blackball-shine", "fg-blackball2", "sh-blackball")
 
@@ -206,7 +206,7 @@ do
 
     -- Appearing / disappearing
     def_anim("ac-blackball-appear", reverseframes(buildframes(img, 25)))
-    def_anim("ac-blackball-disappear", buildframes(img, 35))
+    def_anim("ac-blackball-disappear", buildframes(img, 25))
 
     def_alias("ac-blackball-shattered", "ac-blackball-shatter5")
 end
@@ -222,7 +222,7 @@ do
 
     -- Normal
     def_alias("sh-whiteball", "sh-blackball")
-    img=SpriteImage ("fg-whiteball", 0.5, 0.34)
+    img=SpriteImage ("fg-whiteball", 0.5, 0.32)
 --    def_image("fg-wb", {filename="ac-whiteball", xoff=-9, yoff=-9})
     def_shmodel("ac-whiteball", "fg-whiteball", "sh-whiteball")
     def_alias("ac-whiteball-shine", "ac-whiteball")
@@ -235,7 +235,7 @@ do
 
     -- Appearing / disappearing
     def_anim("ac-whiteball-appear", reverseframes(buildframes(img, 25)))
-    def_anim("ac-whiteball-disappear", buildframes(img, 35))
+    def_anim("ac-whiteball-disappear", buildframes(img, 25))
 
     -- Shattering
 

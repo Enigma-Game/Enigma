@@ -33,14 +33,14 @@ namespace display
 /* -------------------- Image -------------------- */
 
     struct Image {
-	// Variables.
-	ecl::Surface *surface;
-	ecl::Rect     rect;      // location of image inside surface
-	int          refcount;  // reference count, initialized to 1
+        // Variables.
+        ecl::Surface *surface;
+        ecl::Rect     rect;      // location of image inside surface
+        int          refcount;  // reference count, initialized to 1
 
         // Constructors.
-	Image(ecl::Surface *sfc);
-	Image(ecl::Surface *sfc, const ecl::Rect &r);
+        Image(ecl::Surface *sfc);
+        Image(ecl::Surface *sfc, const ecl::Rect &r);
     };
 
     void incref (Image *i);
@@ -50,18 +50,18 @@ namespace display
 /* -------------------- ImageModel -------------------- */
 
     class ImageModel : public Model {
-	Image* image;
-	int xoff, yoff;         // relative origin of the image
+        Image* image;
+        int xoff, yoff;         // relative origin of the image
     public:
         // Constructors
-	ImageModel (Image *i, int xo, int yo);
-	ImageModel (Surface *s, int xo, int yo);
-	ImageModel (Surface *s, const ecl::Rect &r, int xo, int yo);
-	~ImageModel();
+        ImageModel (Image *i, int xo, int yo);
+        ImageModel (Surface *s, int xo, int yo);
+        ImageModel (Surface *s, const ecl::Rect &r, int xo, int yo);
+        ~ImageModel();
 	
         // Model interface
         void   draw(ecl::GC &gc, int x, int y);
-	Model *clone();
+        Model *clone();
         void   get_extension (ecl::Rect &r);
         Image *get_image() { return image; }
     };
@@ -77,8 +77,8 @@ namespace display
         void expose (ModelLayer *ml, int vx, int vy);
         void remove (ModelLayer *ml);
 
-	void set_callback(ModelCallback *cb);
-	void reverse();
+        void set_callback(ModelCallback *cb);
+        void reverse();
         void restart();
         void draw (ecl::GC &gc, int x, int y);
         void draw_shadow (ecl::GC &gc, int x, int y);
@@ -89,6 +89,7 @@ namespace display
 
     private:
         Model *model, *shade;
+        ecl::Rect extension;  // bounding extesion of model and shade
     };
 
 /* -------------------- CompositeModel -------------------- */
@@ -115,7 +116,7 @@ namespace display
         }
 
         // Model interface
-	Model *get_shadow() const { return bg->get_shadow(); }
+        Model *get_shadow() const { return bg->get_shadow(); }
         virtual void expose (ModelLayer *ml, int vx, int vy) {
             fg->expose (ml, vx, vy);
 //            bg->expose (ml, vx, vy);
@@ -203,7 +204,7 @@ namespace display
         /* ---------- Model interface ---------- */
         void draw(ecl::GC &gc, int x, int y);
         void draw_shadow(ecl::GC &gc, int x, int y);
-        Model *clone() { return new Anim2d(rep); }
+        Model *clone() { return new Anim2d(rep, extension); }
         void reverse() { reversep = !reversep; }
         void restart ();
 
@@ -218,7 +219,7 @@ namespace display
         void get_extension (ecl::Rect &r);
 
     private:
-        Anim2d(AnimRep *r);
+        Anim2d(AnimRep *r, ecl::Rect &ext_r);
 
         /* ---------- Variables ---------- */
         AnimRep *rep;
@@ -229,6 +230,7 @@ namespace display
         bool    reversep;       // Play the animation in reverse direction
 
         int videox, videoy;     // Video coordinates of sprite
+        ecl::Rect extension;    // bounding extension of all frames
         ModelCallback *callback;
     };
 
