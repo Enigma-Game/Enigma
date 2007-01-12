@@ -37,8 +37,8 @@ namespace ecl
 ** constructor or assignment operator.
 */
     class Nocopy {
-        Nocopy(const Nocopy&);
-        Nocopy& operator=(const Nocopy&);
+        Nocopy(const Nocopy&);            // not implemented to cause compiler error message on usage!
+        Nocopy& operator=(const Nocopy&); // not implemented to cause compiler error message on usage!
     public:
         Nocopy() {}
     };

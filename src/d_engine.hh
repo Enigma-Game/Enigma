@@ -197,12 +197,11 @@ namespace display
         int          screenpos[2];
         SpriteLayer  layer;
         bool         visible;
-        bool         mayNeedRedraw;
         Sprite *     above[3];
         Sprite *     beneath[3];
 
         Sprite (const V2 & p, SpriteLayer l, Model *m)
-        : model(m), pos(p), layer(l), visible(true), mayNeedRedraw(false)
+        : model(m), pos(p), layer(l), visible(true)
         {
             screenpos[0] = screenpos[1] = 0;
             above[0] = above[1] = above[2] = NULL;
@@ -229,7 +228,7 @@ namespace display
         void move_sprite (SpriteId, const ecl::V2& newpos);
         void replace_sprite (SpriteId id, Model *m);
 
-        void redraw_sprite_region (SpriteId id, bool is_add);
+        void redraw_sprite_region (SpriteId id);
         void draw_sprites (bool shades, ecl::GC &gc, const WorldArea &a);
 
         Model *get_model (SpriteId id) { return sprites[id]->model; }
@@ -243,6 +242,8 @@ namespace display
         SpriteList bottomSprites; // bottom sprite for each x
 
     private:
+        void update_sprite_region (Sprite * s, bool is_add, bool is_redraw_only = false);
+        
         // ModelLayer interface
         virtual void tick (double /*dtime*/);
 

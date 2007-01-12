@@ -846,16 +846,22 @@ void SpriteHandle::set_callback (ModelCallback *cb) const {
 }
 
 void SpriteHandle::hide() const {
-    if(layer->get_sprite(id)->visible) {
-        layer->get_sprite(id)->visible = false;
-        layer->get_sprite(id)->mayNeedRedraw = false;
+    if (layer) {
+        Sprite * s = layer->get_sprite(id);
+        if(s->visible) {
+            s->visible = false;
+            layer->redraw_sprite_region(id);
+        }
     }
 }
 
 void SpriteHandle::show() const {
-    if(not layer->get_sprite(id)->visible) {
-        layer->get_sprite(id)->visible = true;
-        layer->get_sprite(id)->mayNeedRedraw = true;
+    if (layer) {
+        Sprite * s = layer->get_sprite(id);
+        if(!s->visible) {
+            s->visible = true;
+            layer->redraw_sprite_region(id);
+        }
     }
 }
 
@@ -890,15 +896,14 @@ void DL_Sprites::move_sprite (SpriteId id, const ecl::V2& newpos)
     int newx, newy;
     get_engine()->world_to_video (newpos, &newx, &newy);
 
-    if (newx != sprite->screenpos[0] || newy != sprite->screenpos[1] ||
-            sprite->mayNeedRedraw ) {
-        redraw_sprite_region(id, false); // make sure old sprite is removed
+    if (newx != sprite->screenpos[0] || newy != sprite->screenpos[1]) {
+        update_sprite_region(sprite, false); // make sure old sprite is removed
         sprite->pos = newpos;
         sprite->screenpos[0] = newx;
         sprite->screenpos[1] = newy;
         if (Anim2d* anim = dynamic_cast<Anim2d*>(sprite->model))
             anim->move (newx, newy);
-        redraw_sprite_region(id, true); // draw new sprite
+        update_sprite_region(sprite, true); // draw new sprite
     }
 }
 
@@ -925,7 +930,7 @@ SpriteId DL_Sprites::add_sprite (Sprite *sprite)
     get_engine()->world_to_video (sprite->pos, &sprite->screenpos[0], &sprite->screenpos[1]);
     if (Model *m = sprite->model)
         m->expose (this, sprite->screenpos[0], sprite->screenpos[1]);
-    redraw_sprite_region(id, true);
+    update_sprite_region(sprite, true);
     numsprites += 1;
     return id;
 }
@@ -933,20 +938,20 @@ SpriteId DL_Sprites::add_sprite (Sprite *sprite)
 void DL_Sprites::replace_sprite (SpriteId id, Model *m) {
     Sprite *sprite = sprites[id];
     if (Model *old = sprite->model) {
-        redraw_sprite_region(id, false);
+        update_sprite_region(sprite, false);
         old->remove (this);
         delete old;
     }
     sprite->model = m;
     if (m) {
         m->expose (this, sprite->screenpos[0], sprite->screenpos[1]);
-        redraw_sprite_region(id, true);
+        update_sprite_region(sprite, true);
     }
 }
 
 void DL_Sprites::kill_sprite (SpriteId id) {
     if (Sprite *sprite = sprites[id]) {
-        redraw_sprite_region(id, false);
+        update_sprite_region(sprite, false);
         if (Model *m = sprite->model) {
             m->remove (this);
         }
@@ -991,9 +996,12 @@ void DL_Sprites::draw_onepass (ecl::GC &gc)
 //     draw_sprites (false, gc);
 }
 
-void DL_Sprites::redraw_sprite_region (SpriteId id, bool is_add) 
-{
+void DL_Sprites::redraw_sprite_region (SpriteId id) {
     Sprite *s = sprites[id];
+    update_sprite_region(s, true, true);
+}
+
+void DL_Sprites::update_sprite_region (Sprite * s, bool is_add, bool is_redraw_only) {
     if (s && s->model) {
         Rect r, redrawr;
         s->model->get_extension (r);
@@ -1002,6 +1010,8 @@ void DL_Sprites::redraw_sprite_region (SpriteId id, bool is_add)
         DisplayEngine *e = get_engine();
         e->video_to_world (r, redrawr);
         e->mark_redraw_area (redrawr);
+        if (is_redraw_only)
+            return;
         
         int x = redrawr.x;
         for (int i = 0; i < redrawr.w; i++, x++) {
