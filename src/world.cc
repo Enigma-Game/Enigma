@@ -966,7 +966,7 @@ void World::handle_actor_contact(Actor *actor1, Actor *actor2)
     V2 n = a1.pos - a2.pos; // normal to contact surface
     double dist = n.normalize();
     double overlap = a1.radius + a2.radius - dist;
-    if (overlap > 0 && !a2.grabbed) {
+    if (overlap > 0 && !a1.grabbed && !a2.grabbed) {
         double relspeed = (a2.vel-a1.vel)*n;
 
         if (relspeed < 0)   // not moving towards each other
