@@ -3,12 +3,12 @@
   <el:protected>
     <el:info el:type="level">
       <el:identity el:title="Oxyd-Puzzle" el:subtitle="" el:id="raoul05"/>
-      <el:version el:score="1" el:release="1" el:revision="0" el:status="released"/>
+      <el:version el:score="1" el:release="1" el:revision="1" el:status="released"/>
       <el:author  el:name="Raoul Bourquin" el:email="raoul@users.berlios.de" el:homepage=""/>
       <el:copyright>Copyright © 2005,2006 Raoul Bourquin</el:copyright>
       <el:license el:type="GPL v2.0 or above" el:open="true"/>
-      <el:compatibility el:enigma="0.92">
-       <el:dependency el:path="lib/libpuzzle" el:id="lib/libpuzzle" el:release="1" el:preload="true"/>
+      <el:compatibility el:enigma="1.00">
+       <el:dependency el:path="lib/libpuzzle_2" el:id="lib/libpuzzle" el:release="2" el:preload="true"/>
       </el:compatibility>
       <el:modes el:easy="false" el:single="true" el:network="false"/>
       <el:comments>
@@ -70,7 +70,7 @@ onemal=0
 oxyd_default_flavor = "b"
 
 --RANDOM TILES FOR UPPER ROW:
-tiles={{{1,1,0},{0,1,0},{0,1,1}},{{0,1,1},{0,1,0},{1,1,0}},{{0,1,1},{1,1,0},{1,0,0}},{{1,1,0},{0,1,1},{0,0,1}},{{0,1,0},{1,1,1},{0,1,0}},{{1,1,1},{0,1,0},{0,1,0}},{{0,1,0},{0,1,0},{1,1,1}},{{1,1,1},{1,0,0},{1,0,0}},{{1,1,1},{0,0,1},{0,0,1}},{{0,1,0},{1,1,1},{1,0,0}},{{0,1,0},{1,1,1},{0,0,1}},{{1,1,0},{0,1,1},{0,1,0}},{{0,1,1},{1,1,0},{0,1,0}}}
+tiles={{"## "," # "," ##"},{" ##"," # ","## "},{" ##","## ","#  "},{"## "," ##","  #"},{" # ","###"," # "},{"###"," # "," # "},{" # "," # ","###"},{"###","#  ","#  "},{"###","  #","  #"},{" # ","###","#  "},{" # ","###","  #"},{"## "," ##"," # "},{" ##","## "," # "}}
 chosen_tiles_up={}    
 leftcorners={{4,1},{9,1},{14,1}}
 
@@ -87,15 +87,13 @@ end
 for fields=1,3 do
  for i=1,3 do
   for j=1,3 do
-   if chosen_tiles_up[fields][i][j]==0 then
     set_stone("st-glass2_hole",leftcorners[fields][1]+j-1,leftcorners[fields][2]+i-1)
-   end
   end
  end
 end
 
 --RANDOM TILES FOR LOWER ROW:
-tiles={{{1,1,0},{0,1,0},{0,1,1}},{{0,1,1},{0,1,0},{1,1,0}},{{1,0,0},{1,1,0},{0,1,1}},{{0,0,1},{0,1,1},{1,1,0}},{{0,1,0},{1,1,1},{0,1,0}},{{1,1,1},{0,1,0},{0,1,0}},{{0,1,0},{0,1,0},{1,1,1}},{{1,0,0},{1,0,0},{1,1,1}},{{0,0,1},{0,0,1},{1,1,1}},{{1,0,0},{1,1,1},{0,1,0}},{{0,0,1},{1,1,1},{0,1,0}},{{1,1,0},{0,1,1},{0,1,0}},{{0,1,1},{1,1,0},{0,1,0}}}
+tiles={{"## "," # "," ##"},{" ##"," # ","## "},{"#  ","## "," ##"},{"  #"," ##","## "},{" # ","###"," # "},{"###"," # "," # "},{" # "," # ","###"},{"#  ","#  ","###"},{"  #","  #","###"},{"#  ","###"," # "},{"  #","###"," # "},{"## "," ##"," # "},{" ##","## "," # "}}
 chosen_tiles_lo={}
 leftcorners={{3,9},{8,9},{13,9}}
 
@@ -112,9 +110,7 @@ end
 for fields=1,3 do
  for i=1,3 do
   for j=1,3 do
-   if chosen_tiles_lo[fields][i][j]==0 then
     set_stone("st-glass2_hole",leftcorners[fields][1]+j-1,leftcorners[fields][2]+i-1)
-   end
   end
  end
 end
@@ -149,37 +145,37 @@ end
 
 --Wrap-Funktionen
 function wrap1()
- puzzle(chosen_tiles_up[1],4,1,"red")
+ puzzle(chosen_tiles_up[1],{4,1},"redpuzzle","permutation")
  da[1]=1
  do_test()
 end
 
 function wrap2()
- puzzle(chosen_tiles_up[2],9,1,"red")
+ puzzle(chosen_tiles_up[2],{9,1},"redpuzzle","permutation")
  da[2]=1
  do_test()
 end
 
 function wrap3()
- puzzle(chosen_tiles_up[3],14,1,"red")
+ puzzle(chosen_tiles_up[3],{14,1},"redpuzzle","permutation")
  da[3]=1
  do_test()
 end
 
 function wrap4()
- puzzle(chosen_tiles_lo[1],3,9,"red")
+ puzzle(chosen_tiles_lo[1],{3,9},"redpuzzle","permutation")
  da[4]=1
  do_test()
 end
 
 function wrap5()
- puzzle(chosen_tiles_lo[2],8,9,"red")
+ puzzle(chosen_tiles_lo[2],{8,9},"redpuzzle","permutation")
  da[5]=1
  do_test()
 end
 
 function wrap6()
- puzzle(chosen_tiles_lo[3],13,9,"red")
+ puzzle(chosen_tiles_lo[3],{13,9},"redpuzzle","permutation")
  da[6]=1
  do_test()
 end
