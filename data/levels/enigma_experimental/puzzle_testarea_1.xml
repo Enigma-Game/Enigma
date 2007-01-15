@@ -3,7 +3,7 @@
   <el:protected>
     <el:info el:type="level">
       <el:identity el:title="Puzzle Labor" el:subtitle="Testlevel to examine new puzzles" el:id="puzzle_testarea"/>
-      <el:version el:score="1" el:release="1" el:revision="0" el:status="stable"/>
+      <el:version el:score="1" el:release="1" el:revision="1" el:status="stable"/>
       <el:author  el:name="Raoul Bourquin" el:email="" el:homepage=""/>
       <el:copyright>Copyright © 2005, 2007 Raoul Bourquin</el:copyright>
       <el:license el:type="GPL v2.0 or above" el:open="true"/>
@@ -43,12 +43,15 @@ local ac2=set_actor("ac-whiteball", 21.5,2.5, {player=1, essential = 1})
 set_item("it-yinyang",1,1)
 set_item("it-yinyang",21,2)
 
+set_item("it-document",2,7,{text="Increment the num_permutation, beginning with 1."})
+set_item("it-document",2,8,{text="Reset the num_permutation to nil (random default)."})
+
 set_item("it-document",17,11,{text="Clear"})
 
 set_item("it-document",21,5,{text="With the switches at the right, you can determine the layout of the desired puzzle."})
 set_item("it-document",21,6,{text="Switch up means stone, switch down means no stone at that position."})
 set_item("it-document",21,7,{text="After you set up the layout, hit the switch at the top and return to the left screen."})
-set_item("it-document",21,1,{text="Store the figure the draw it."})
+set_item("it-document",21,1,{text="Store the figure to draw it."})
 set_item("it-document",21,11,{text="Reset all switches."})
 
 set_item("it-document",1,10,{text="Which Stonetype? Possible are: \"st-puzzle\", \"st-puzzle2\", \"st-bigbrick\" or \"st-bigbluesand\"."})
@@ -67,6 +70,8 @@ set_stone("st-switch", 18, 5, {action="callback",target="draw_permutation",name=
 -- Clear the canvas:
 set_stone("st-switch", 18, 11, {action="callback",target="remove_puzzle",name="clear"})
 
+set_stone("st-switch", 1, 7, {action="callback",target="increment_num_permutations",name="num"})
+set_stone("st-switch", 1, 8, {action="callback",target="reset_num_permutations",name="rnum"})
 set_stone("st-switch", 1, 11, {action="callback",target="stone_kind_switch",name="kind"})
 
 -- Right room:
@@ -98,17 +103,18 @@ kind_pointer = 1
 
 charmap = defaultmap
 
+local num_permutations = nil
 -- Functions to draw the puzzle:
 function draw_none()
     puzzle(charmap,{7,3},stone_kind[kind_pointer],"none")
 end
 
 function draw_random()
-    puzzle(charmap,{7,3},stone_kind[kind_pointer],"random")
+    puzzle(charmap,{7,3},stone_kind[kind_pointer],"random",num_permutations)
 end
 
 function draw_permutation()
-    puzzle(charmap,{7,3},stone_kind[kind_pointer],"permutation")
+    puzzle(charmap,{7,3},stone_kind[kind_pointer],"permutation",num_permutations)
 end
 
 -- Clear:
@@ -127,6 +133,20 @@ function stone_kind_switch()
         kind_pointer = 1
     end
     set_item("it-document",2,11,{text="Stonekind set to: "..stone_kind[kind_pointer]})
+end
+
+function increment_num_permutations()
+    if num_permutations == nil then
+        num_permutations = 1
+    else
+        num_permutations = num_permutations +1
+    end
+    set_item("it-document",2,7,{text="Num_Permutations set to: "..tostring(num_permutations)})
+end
+
+function reset_num_permutations()
+    num_permutations = nil
+    set_item("it-document",2,7,{text="Num_Permutations set to: "..tostring(num_permutations)})
 end
 --------------------------------------------------------------------------------
 -- Reset the switches

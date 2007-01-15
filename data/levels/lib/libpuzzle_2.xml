@@ -3,7 +3,7 @@
   <el:protected>
     <el:info el:type="library">
       <el:identity el:title="" el:id="lib/libpuzzle"/>
-      <el:version el:score="2" el:release="2" el:revision="2" el:status="released"/>
+      <el:version el:score="2" el:release="2" el:revision="3" el:status="released"/>
       <el:author  el:name="Raoul Bourquin" el:email="" el:homepage=""/>
       <el:copyright>Copyright © 2005, 2006, 2007 Raoul Bourquin</el:copyright>
       <el:license el:type="GPL v2.0 or above" el:open="true"/>
@@ -22,7 +22,10 @@
 -- map: a charmap with the puzzle
 -- corner: top left corner, array {x,y}
 -- type: type of stone to use, one of these: "redpuzzle","bluepuzzle","bigbrick" or "bigbluesand"
--- shuffle: shuffle method, one of these: "none","random" or "permutation"
+-- shuffle_method: shuffle method, one of these: "none","random" or "permutation"
+-- num_shuffles: Given number of shuffles to do. If not set, it will be a random number:
+--  -> in the intervall [num_pieces; num_pieces+random(1,num_pieces)] for the random shuffle method
+--  -> in the intervall [num_permutations; num_permutations + math.random(1,num_pieces)] for the permutation shuffle method
 --
 -- Globals:
 -- puzzle_map: the arraymap with the puzzle layout.
@@ -41,10 +44,11 @@
 -- 
 -- shuffle = "none"
 --
+-- num_shuffles = nil (-> random number will be determined!)
 --------------------------------------------------------------------------------
 --------------------------------------------------------------------------------
 -- Wrapper to set a puzzle
-function puzzle(map, corner, type, shuffle)
+function puzzle(map, corner, type, shuffle_method, num_shuffles)
     -- Are all parameters set?
     -- If no, set the default for the missing ones.
     if map == nil then
@@ -59,25 +63,29 @@ function puzzle(map, corner, type, shuffle)
     if shuffle == nil then
         shuffle = "none"
     end
+    -- Default (random) values for num_shuffles is set in the shuffle-functions.
 
     -- IS THE map VALID?
     -- Is the map bigger than 0 x 0 ?
     local x, y = get_charmap_size(map)
     if x < 1 or y < 1 then
-        error("puzzle(map, corner, type, shuffle): Map "..tostring(x).." x "..tostring(y).." is too small!\n")
+        error("puzzle(map, corner, type, shuffle_method, num_shuffles): Map "..tostring(x).." x "..tostring(y).." is too small!\n")
     end
     -- Is the map rectangular?
     is_rectangular(map)
     -- If there is no error until here, the map is ok
     -- IS THE corner VALID?
     if corner[1] < 0 or corner[2] < 0 then
-        error("puzzle(map, corner, type, shuffle): Invalid value for top left map corner! "..tostring(corner[1])..";"..tostring(corner[2])..". It has to be >= (0;0).\n")
+        error("puzzle(map, corner, type, shuffle_method, num_shuffles): Invalid value for top left map corner! "..tostring(corner[1])..";"..tostring(corner[2])..". It has to be >= (0;0).\n")
     end
     -- IS THE type VALID?
     local stone_type = is_valid_type(type)
     -- IS VALID shuffle?
-    local shuffle_method = is_valid_shuffle(shuffle)
-
+    local method = is_valid_shuffle(shuffle_method)
+    -- IS num_shuffle VALID?
+    if num_shuffles ~= nil and num_shuffles < 1 then
+        error("puzzle(map, corner, type, shuffle_method, num_shuffles): num_shuffles has illegal value "..tostring(num_shuffles).."! It has to be >= 1 or nil.\n") 
+    end
     -- If there is no error until here, all parameters are ok
     -- Beginn with the work.
 
@@ -88,12 +96,12 @@ function puzzle(map, corner, type, shuffle)
     get_parts(puzzle_map)
 
     -- Determine the shuffle method to use.
-    if shuffle_method == 1 then
+    if method == 1 then
         shuffle_parts_with_noshuffle()
-    elseif shuffle_method == 2 then
-        shuffle_parts_with_random()
-    elseif shuffle_method == 3 then
-        shuffle_parts_with_permutation()
+    elseif method == 2 then
+        shuffle_parts_with_random(num_shuffles)
+    elseif method == 3 then
+        shuffle_parts_with_permutation(num_shuffles)
     end
 
     plot_puzzle(corner,stone_type)
@@ -140,7 +148,7 @@ function is_rectangular(map)
     for i=1, y_size do
         local temp = string.len(map[i])
         if temp ~= buffer then
-            error("puzzle(map, corner, type, shuffle): Map in not rectangular!\n")
+            error("puzzle(map, corner, type, shuffle_method, num_shuffles): Map in not rectangular!\n")
         end
     end
     return 0
@@ -157,7 +165,7 @@ function is_valid_type(type)
     elseif type == "bigbluesand" then
         stone = "st-bigbluesand"
     else
-        error("puzzle(map, corner, type, shuffle): Invald type \""..tostring(type).."\"! It has to be one of these types: \"redpuzzle\",\"bluepuzzle\",\"bigbrick\" or \"bigbluesand\".")
+        error("puzzle(map, corner, type, shuffle_method, num_shuffles): Invald type \""..tostring(type).."\"! It has to be one of these types: \"redpuzzle\",\"bluepuzzle\",\"bigbrick\" or \"bigbluesand\".")
     end
     return stone
 end
@@ -171,7 +179,7 @@ function is_valid_shuffle(shufflemethod)
     elseif shufflemethod == "permutation" then
         method = 3
     else
-        error("puzzle(map, corner, type, shuffle): Invald shuffle \""..tostring(shufflemethod).."\"! It has to be one of these methodes: \"none\",\"random\" or \"permutation\".")
+        error("puzzle(map, corner, type, shuffle_method, num_shuffles): Invald shuffle \""..tostring(shufflemethod).."\"! It has to be one of these methodes: \"none\",\"random\" or \"permutation\".")
     end
     return method
 end
@@ -397,11 +405,18 @@ function swap_parts(k,l)
     return 0
 end
 
-function shuffle_parts_with_random()
-
+function shuffle_parts_with_random(num_swaps)
+    -- How many swaps we will do?
     local number_swaps = 0
+
     local number_parts = get_array_size(parttable)
-    number_swaps = number_parts + math.random(1,number_parts)
+    -- Is there a number of swaps to do given?
+    if num_swaps == nil then
+        -- If not, determine a random number:
+        number_swaps = number_parts + math.random(1,number_parts)
+    else
+        number_swaps = num_swaps
+    end
 
     local i = 0
     for i=1, number_swaps do
@@ -571,7 +586,7 @@ function use_permutation(n)
     return 0
 end
 --------------------------------------------------------------------------------
-function shuffle_parts_with_permutation()
+function shuffle_parts_with_permutation(num_permutations)
     -- New map with the parts in their proper location.
     new_partmap()
 
@@ -579,13 +594,22 @@ function shuffle_parts_with_permutation()
     scan_puzzle_for_permutations()
 
     -- How many puzzlestones are in the current cluster?
-    local anz_pieces = table.getn(parttable)
+    local num_pieces = table.getn(parttable)
 
-    -- How many permutation we have?
+    -- How many possible permutation we have?
     local anz_permutations = table.getn(permutations)
 
     if anz_permutations > 0 then
-        local num_permutations_to_do = anz_permutations + math.random(1,anz_pieces)
+        -- The number of permutations we will use
+        local num_permutations_to_do
+
+        if num_permutations == nil then
+        -- If there is no number of permutations to do given, determine a random one:
+            num_permutations_to_do = anz_permutations + math.random(1,num_pieces)
+        else
+            num_permutations_to_do = num_permutations
+        end
+
         local i = 0
         for i=1, num_permutations_to_do do
             r = math.random(1,anz_permutations)

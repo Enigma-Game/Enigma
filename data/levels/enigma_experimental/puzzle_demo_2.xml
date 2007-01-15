@@ -86,6 +86,8 @@ set_item("it-magicwand", 2, 7)
 set_item("it-document", 11, 7, {text="Room 1: Some general things you can do with libpuzzle"})
 set_item("it-document", 8, 18, {text="The red puzzles, generated with permutations, are ALL solvable."})
 set_item("it-document", 11, 18, {text="The blue ones, generated with random, aren't!"})
+set_item("it-document", 2, 22, {text="This figure is solvable with max. 3 hits!"})
+set_item("it-document", 17, 14, {text="This figure is solvable with max. 4 hits!"})
 set_item("it-document", 28, 8, {text="Room 2: Every figure in here, the +/T/L, all are solvable because they are generated  from the solved puzzle with permutations."})
 set_item("it-document", 23, 16, {text="Room 4: Some things, you can do with pseude pieces: open puzzle clusters ..."})
 set_item("it-document", 8, 30, {text="Room 5: Some things, you can do with Bigbricks ..."})
@@ -144,6 +146,7 @@ set_item("it-document", 26, 27, {text="Room 6: Some things, you can do with Bigb
 
 -- Third room:
 -- Shows the difference between random and permutation shuffle.
+-- And with specify the num_shuffles parameter
 
   puzzle({"#","#","#"},{11,20},"bluepuzzle","random")
   puzzle({"#","#","#","#"},{13,19},"bluepuzzle","random")
@@ -154,6 +157,14 @@ set_item("it-document", 26, 27, {text="Room 6: Some things, you can do with Bigb
   puzzle({"#","#","#","#"},{6,14},"redpuzzle","permutation")
   puzzle({"#","#","#","#","#"},{4,14},"redpuzzle","permutation")
   puzzle({"#","#","#","#","#","#"},{2,14},"redpuzzle","permutation")
+
+  puzzle({"## ##",
+          " ### ",
+          "## ##"},{11,14},"redpuzzle","permutation",4)
+
+  puzzle({"## ##",
+          " ### ",
+          "## ##"},{4,20},"bluepuzzle","permutation",3)
 
 -- Fourth room:
 -- Shows the wonderfull possibilities of pseudo_pieces.
