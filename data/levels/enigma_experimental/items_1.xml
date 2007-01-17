@@ -3,7 +3,7 @@
   <el:protected>
     <el:info el:type="level">
       <el:identity el:title="All Items" el:subtitle="Testlevel with all Items" el:id="items"/>
-      <el:version el:score="1" el:release="1" el:revision="1" el:status="stable"/>
+      <el:version el:score="1" el:release="1" el:revision="2" el:status="stable"/>
       <el:author  el:name="Raoul Bourquin" el:email="" el:homepage=""/>
       <el:copyright>Copyright © 2006, 2007 Raoul Bourquin</el:copyright>
       <el:license el:type="GPL v2.0 or above" el:open="true"/>
@@ -37,7 +37,10 @@ draw_border(wand)
 set_item("it-document", 10, 6, {text="text1"})
 
 -- ACTORS --
-actor1=set_actor("ac-blackball", 4.5,4.5, {player=0})
+set_actor("ac-blackball", 4.5,4.5, {player=0})
+set_actor("ac-whiteball", 6.5,4.5, {player=1})
+set_item("it-yinyang",4,4)
+set_item("it-yinyang",6,4)
 
 -- Funktionen
 -- VARS
