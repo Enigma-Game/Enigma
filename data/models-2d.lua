@@ -101,7 +101,7 @@ end
 -- Horse --
 -----------
 do
-    SpriteImage ("fg-horse")
+    SpriteImage ("fg-horse",0.5,0.19)
     SpriteImage ("sh-horse", 0.4)
     def_shmodel ("ac-horse", "fg-horse", "sh-horse")
 end
@@ -274,7 +274,7 @@ def_alias ("ac-cannonball", "ac-blackball-jump")
 -- Bug --
 ---------
 do
-    SpriteImage("fg-bug")
+    SpriteImage("fg-bug",0.5,0.44)
     def_shmodel("ac-bug", "fg-bug", "sh-whiteball-small")
 end
 
