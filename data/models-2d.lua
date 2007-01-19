@@ -24,6 +24,9 @@ dofile(FindDataFile("models.lua"))
 def_image("dummy")
 def_image("invisible")
 
+------------------------------------------------------------------------
+-- padding is calculated as:
+-- padding = (1.25 - 2*Actorradius)/2
 
 function SpriteImages(spriteimg, n, offsetfactor, padding)
     local factor = offsetfactor or 0.5
