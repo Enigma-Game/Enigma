@@ -133,7 +133,7 @@ an incoming beam).
 
         // Private methods.
         void emit_light();
-        Direction get_dir() const {return Direction(int_attrib("dir"));}
+        Direction get_dir() const {return to_direction(getAttr("dir"));}
 
         // Stone interface.
         void on_creation (GridPos p);
@@ -446,11 +446,11 @@ namespace
     protected:
         MirrorStone(const char *name, bool movable=false, bool transparent=false);
 
-        bool is_transparent() const { return int_attrib("transparent") != 0; }
-        bool is_movable() const { return int_attrib("movable") != 0; }
+        bool is_transparent() const { return getAttr("transparent") != 0; }
+        bool is_movable() const { return getAttr("movable") != 0; }
 
         void set_orientation(int o) { set_attrib("orientation", o); }
-        int get_orientation() { return int_attrib("orientation"); }
+        int get_orientation() { return getAttr("orientation"); }
 
         void emit_light(Direction dir) {
             if (!has_dir(outdirs, dir))

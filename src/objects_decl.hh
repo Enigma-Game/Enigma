@@ -57,15 +57,19 @@ namespace world
 
         typedef ecl::AssocList<std::string, Value> AttribMap;
 
-        bool string_attrib (const string &name, string *val) const;
-        int  int_attrib (const string &name) const;
-        bool int_attrib (const string &name, int *val) const;
-        bool double_attrib (const string &name, double *val) const;
-
         bool is_kind(const char *kind) const;
         bool is_kind(const string& kind) const;
 
         const AttribMap &get_attribs() const { return attribs; }
+        
+        /**
+         * Get an attribute or a special given default value. This method
+         * gets attributes like the simple argumented getAttr method but
+         * returns the given default value instead of a DEFAULT value if
+         * no explicit attribute exists.
+         */
+        Value getAttr(const string &key, Value defaultValue) const;
+
 
         /* ---------- Helper routines ---------- */
 
@@ -79,7 +83,31 @@ namespace world
         virtual Value on_message (const Message &m);
         virtual Value message(const string& msg, const Value &val);
         virtual void set_attrib(const string& key, const Value &val);
-        virtual const Value* get_attrib(const string& key) const;
+        
+        /**
+         * Get an attribute that has been set or that stands as a proxy for a
+         * trait or ivar. Object itself will just return attribute values
+         * that are stored in its attribute map. For not existing attributes
+         * a value of type DEFAULT is returned.
+         * 
+         * Subclasses may override this method to supply values of traits or
+         * ivars. This way levels can gain read access to attributes that can
+         * not to be stored in the attribute map due to performance reasons.
+         */
+        virtual Value getAttr(const string &key) const;
+        
+        /**
+         * Get the attribute, traits, ivar or default value for a given key.
+         * This is the main access method for object values that returns
+         * the best available value known for a key. It resolves attributes,
+         * uses proxy values for ivars and traits, uses class defaults,
+         * world defaults or system defaults.
+         * 
+         * This is a template method. Subclass have to override the method
+         * <code>getDefaultValue()</code> to supply proper class defaults.
+         * All other defaults are resolved by this method
+         */
+        Value getValue(const string &key) const;
 
         virtual Object *clone()=0;
         virtual void dispose()=0;
@@ -88,7 +116,10 @@ namespace world
 
         virtual void warning(const char *format, ...) const;
 
+    protected:
+        virtual Value getDefaultValue(const string &key) const;
     private:
+        const Value* get_attrib(const string& key) const;
         AttribMap attribs;
     };
 

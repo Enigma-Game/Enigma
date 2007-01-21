@@ -492,16 +492,11 @@ Horse::Horse()
   m_target()
 {
     set_attrib("force", Value(10.0));
-    set_attrib("target1", Value());
-    set_attrib("target2", Value());
-    set_attrib("target3", Value());
-    set_attrib("target4", Value());
 }
  
 void Horse::think (double /* dtime */) 
 {
-    double force = 0;
-    double_attrib("force", &force);
+    double force = getAttr("force");
     update_target ();
     if (m_targetidx != -1) {
         add_force (normalize(m_target - get_pos()) * force);
@@ -518,7 +513,9 @@ bool Horse::try_target (int idx) {
     string targetstr;
     GridLoc loc;
 
-    if (!string_attrib (attrs[idx-1], &targetstr))
+    if (Value v = getAttr(attrs[idx-1]))
+        targetstr = v.get_string();
+    else
         return false;
     
     to_gridloc(targetstr.c_str(), loc);

@@ -100,11 +100,9 @@ void Object::on_levelinit() {
 }
 
 
-const char *
-Object::get_kind() const
-{
+const char * Object::get_kind() const {      // To be made pure virtual
     const Value *v = get_attrib("kind");
-    ASSERT(v && v->get_type()==Value::STRING, XLevelRuntime,
+    ASSERT(v && v->getType() == Value::STRING, XLevelRuntime,
         "Object: attribute kind is not of type string (found in get_kind)");
     return v->get_string();
 }
@@ -120,10 +118,12 @@ bool Object::is_kind(const string& kind_templ) const {
 }
 
 void Object::set_attrib(const string& key, const Value& val) {
-    attribs[key] = val;//.insert (key, val);
+    if (val)         // only set non-default values
+        attribs[key] = val;  //.insert (key, val);
 }
 
-const Value* Object::get_attrib(const string& key) const {
+const Value* Object::get_attrib(const string& key) const { // To be delete as soon as
+                                                           // get_kind() has no need of it
     AttribMap::const_iterator i = attribs.find(key);
     if (i == attribs.end())
         return 0;
@@ -131,43 +131,29 @@ const Value* Object::get_attrib(const string& key) const {
         return &i->second;
 }
 
-bool Object::string_attrib(const string &name, string *val) const {
-    if (const Value *v = get_attrib(name)) {
-        if (v->get_type() != Value::NIL) {
-            const char *s = to_string(*v);
-            if (s != 0) {
-                *val = s;
-                return true;
-            }
-        }
-    }
-    return false;
+Value Object::getAttr(const string& key) const {
+    AttribMap::const_iterator i = attribs.find(key);
+    if (i == attribs.end())
+        return Value(Value::DEFAULT);
+    else
+        return i->second;
 }
 
-int Object::int_attrib(const string &name) const {
-    if (const Value *v = get_attrib(name))
-        return to_int(*v);
-    return 0;
+Value Object::getAttr(const string& key, Value defaultValue) const {
+    if (Value v = getAttr(key))
+        return v;
+    else
+        return defaultValue;
 }
 
-bool Object::int_attrib(const string &name, int *val) const {
-    if (const Value *v = get_attrib(name)) {
-        *val = to_int(*v);
-        return true;
-    }
-    return false;
+Value Object::getValue(const string& key) const {
+    return getAttr(key);       // TODO write template method
 }
 
-
-bool Object::double_attrib(const string &name, double *val) const {
-    if (const Value *v = get_attrib(name)) {
-        if (v->get_type() != Value::NIL) {
-            *val = to_double(*v);
-            return true;
-        }
-    }
-    return false;
+Value Object::getDefaultValue(const string &key) const {
+    return Value(Value::DEFAULT);
 }
+
 
 /* Send an impulse to position 'dest' into direction dir.  If 'dest'
    contains a stone, on_impulse() is called for that stone */

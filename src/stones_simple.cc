@@ -187,7 +187,7 @@ namespace
 
         StoneResponse collision_response(const StoneContact &/*sc*/) {
             static int lastCode = -1;
-            int        code     = int_attrib("code");
+            int        code     = getAttr("code");
             if (code != lastCode) {
                 fprintf(stderr, "Collision with stone 0x%02x\n", code);
                 lastCode = code;
@@ -724,7 +724,7 @@ namespace
         Break_acwhite() : BreakableStone("st-break_acwhite") {}
     private:
         bool may_be_broken_by(Actor *a) const {
-            return a->get_attrib("whiteball") &&
+            return (a->getAttr("whiteball") != 0) &&
                 player::WieldedItemIs (a, "it-hammer");
         }
     };
@@ -754,7 +754,7 @@ namespace
         Break_acblack() : BreakableStone("st-break_acblack") {}
     private:
         bool may_be_broken_by(Actor *a) const {
-            return a->get_attrib("blackball") &&
+            return (a->getAttr("blackball") != 0) &&
                 player::WieldedItemIs (a, "it-hammer");
         }
     };
@@ -1125,12 +1125,9 @@ namespace
         DECL_TRAITS;
 
         void actor_hit(const StoneContact &sc) {
-            double strength = 10.0;
-            double length = 1.0;
-            double minlength = 0.0;
-            double_attrib ("strength", &strength);
-            double_attrib ("length", &length);
-            double_attrib ("minlength", &minlength);
+            double strength = getAttr("strength", 10.0);
+            double length = getAttr("length", 1.0);
+            double minlength = getAttr("minlength");
 
             world::RubberBandData rbd;
             rbd.strength = strength;
@@ -1139,8 +1136,7 @@ namespace
 
             // The mode attribute "scissor" defines, if when touching an st-rubberband,
             // other rubberbands to the actor will be cut of or not, true means they will. true is default.
-            enigma::Value const *scissorValue = get_attrib("scissor");
-            bool isScissor = (scissorValue == NULL)? true : to_bool(*scissorValue);
+            bool isScissor = to_bool(getAttr("scissor"));
 
             if (!world::HasRubberBand (sc.actor, this)) {
                 sound_event ("rubberband");
@@ -1228,12 +1224,10 @@ namespace
         int m_signalvalue;
 
         double get_interval() const {
-            double interval = 100;
-            double_attrib("interval", &interval);
-            return interval;
+            return getAttr("interval", 100);
         }
         void init_model() {
-            if (int_attrib("invisible")) {
+            if (getAttr("invisible") == 1) {
                 set_model("invisible");
             }
             else {
@@ -1411,8 +1405,7 @@ void ThiefStone::actor_hit(const StoneContact &sc) {
         set_anim("st-thief-emerge");
         state = EMERGING;
         m_affected_actor = sc.actor;
-        affected_player = -1;
-        m_affected_actor->int_attrib("player", &affected_player);
+        affected_player = m_affected_actor->getAttr("player", -1);
     }
 }
 
@@ -1490,8 +1483,7 @@ namespace
                 // actor_hit is called before reflect, but the force added below
                 // is applied to actor after the reflection.
 
-                double forcefac = server::BumperForce;
-                double_attrib("force", &forcefac);
+                double forcefac = getAttr("force", server::BumperForce);
 
                 V2 vec = normalize(sc.actor->get_pos() - get_pos().center());
                 sc.actor->add_force (distortedVelocity(vec, forcefac));                
@@ -1617,11 +1609,11 @@ namespace
 
         StoneResponse collision_response(const StoneContact &sc) {
             if (m_type < 4) {
-                return (sc.actor->get_attrib("blackball")) ? 
+                return (sc.actor->getAttr("blackball") != 0) ? 
                     STONE_PASS : STONE_REBOUND;
             }
             else {
-                return (sc.actor->get_attrib("whiteball")) ? 
+                return (sc.actor->getAttr("whiteball") != 0) ? 
                     STONE_PASS : STONE_REBOUND;
             }
         }
@@ -1685,8 +1677,8 @@ namespace
 
     private:
         void actor_hit(const StoneContact &sc) {
-            if      (sc.actor->get_attrib("blackball")) turn_white();
-            else if (sc.actor->get_attrib("whiteball")) turn_black();
+            if      (sc.actor->getAttr("blackball") != 0) turn_white();
+            else if (sc.actor->getAttr("whiteball") != 0) turn_black();
         }
     };
 
@@ -1696,8 +1688,8 @@ namespace
         YinYangStone2() : YinYangStone("st-yinyang2") {}
     private:
         void actor_hit(const StoneContact &sc) {
-            if      (sc.actor->get_attrib("blackball")) turn_black();
-            else if (sc.actor->get_attrib("whiteball")) turn_white();
+            if      (sc.actor->getAttr("blackball") != 0) turn_black();
+            else if (sc.actor->getAttr("whiteball") != 0) turn_white();
         }
     };
 
@@ -1713,9 +1705,9 @@ namespace
             if (player::WieldedItemIs (sc.actor, "it-magicwand") ||
                 player::WieldedItemIs (sc.actor, "it-brush"))
             {
-                if      (sc.actor->get_attrib("blackball")) 
+                if      (sc.actor->getAttr("blackball") != 0) 
                     turn_white("st-white4");
-                else if (sc.actor->get_attrib("whiteball")) 
+                else if (sc.actor->getAttr("whiteball") != 0) 
                     turn_black("st-black4");
             }
         }
@@ -1793,7 +1785,7 @@ namespace
         CLONEOBJ(MagicStone);
         DECL_TRAITS;
         void actor_hit(const StoneContact &sc) {
-            if (sc.actor->get_attrib("player") && 
+            if (sc.actor->getAttr("player") && 
                 sc.actor->get_vel() * sc.normal < -4)
             {
                 KillStone(get_pos());

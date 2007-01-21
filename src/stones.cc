@@ -191,24 +191,13 @@ void Stone::on_move() {
    If components are not set, use ((1,0),(0,1)) as
    default matrix, resp. defaultfactor as hit_factor. */
 ecl::V2 Stone::distortedVelocity (ecl::V2 vel, double defaultfactor = 1.0) {
-    ecl::V2 newvel(0,0);    
-    if(const Value *xx = this->get_attrib("hit_distortion_xx"))
-        newvel[0] += to_double(*xx) * vel[0];
-    else
-        newvel[0] += vel[0];
-    if(const Value *xy = this->get_attrib("hit_distortion_xy"))
-        newvel[0] += to_double(*xy) * vel[1];
-    if(const Value *yx = this->get_attrib("hit_distortion_yx"))
-        newvel[1] += to_double(*yx) * vel[0];
-    if(const Value *yy = this->get_attrib("hit_distortion_yy"))
-        newvel[1] += to_double(*yy) * vel[1];
-    else
-        newvel[1] += vel[1];
-    if (const Value *factor = this->get_attrib("hit_factor"))
-        newvel *= to_double(*factor);
-    else
-        newvel *= defaultfactor;    
-    return newvel;
+    ecl::V2 newvel;
+    double factor = this->getAttr("hit_factor", defaultfactor);
+    newvel[0] = (double)(this->getAttr("hit_distortion_xx", 1)) * vel[0]
+                + (double)(this->getAttr("hit_distortion_xy")) * vel[1];
+    newvel[1] = (double)(this->getAttr("hit_distortion_yx")) * vel[0]
+                + (double)(this->getAttr("hit_distortion_yy", 1)) * vel[1];
+    return newvel * factor;
 }
 
 
@@ -262,8 +251,7 @@ namespace
         }
     private:
         double get_charge() {
-            double q = 0;
-            double_attrib("charge", &q);
+            double q = getAttr("charge");
             return max(-1.0, min(1.0, q));
         }
         void animcb() { init_model(); }

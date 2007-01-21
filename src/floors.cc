@@ -418,23 +418,25 @@ bool Floor::has_firetype(FloorFireType selector) {
                 return (selector == flft_burnable) && !has_flags(it, itf_fireproof);
         }
     }
-    if(selector == flft_burnable)
-        if(const Value *v = get_attrib("burnable"))  return to_int(*v) == 1;
-    if(selector == flft_ignitable)
-        if(const Value *v = get_attrib("ignitable")) return to_int(*v) == 1;
-    if(selector == flft_secure)
-        if(const Value *v = get_attrib("secure"))    return to_int(*v) == 1;
-    if(selector == flft_eternal)
-        if(const Value *v = get_attrib("eternal"))   return to_int(*v) == 1;
-    if(selector == flft_noash)
-        if(const Value *v = get_attrib("noash"))     return to_int(*v) == 1;
-    if(selector == flft_fastfire)
-        if(const Value *v = get_attrib("fastfire"))  return to_int(*v) == 1;
-    if(selector == flft_initfire)
-        if(const Value *v = get_attrib("initfire"))  return to_int(*v) == 1;
-    if(server::GameCompatibility == GAMET_ENIGMA)
-        return traits.firetype & selector;
+    if ((server::GameCompatibility == GAMET_ENIGMA) && (traits.firetype & selector))
+        return true;
     // In non-Enigma-modes, without items on them, all floors behave the same:
+    switch (selector) {
+        case flft_burnable :
+            return getAttr("burnable") != 0;   // no !=0 compare if attribute is boolean
+        case flft_ignitable :
+            return getAttr("ignitable") != 0;  //  ...
+        case flft_secure :
+            return getAttr("secure") != 0;
+        case flft_eternal :
+            return getAttr("eternal") != 0;
+        case flft_noash :
+            return getAttr("noash") != 0;
+        case flft_fastfire :
+            return getAttr("fastfire") != 0;
+        case flft_initfire :
+            return getAttr("initfire") != 0;
+    }
     return false;
 }
 
@@ -554,7 +556,7 @@ namespace
     private:
         void actor_enter(Actor *) {
             static int lastCode = -1;
-            int        code     = int_attrib("code");
+            int        code     = getAttr("code");
             if (lastCode != code) {
                 fprintf(stderr, "Entering floor 0x%x\n", code);
                 lastCode = code;
@@ -708,7 +710,7 @@ namespace
 
         char get_type() const {
             string type = "a";
-            string_attrib("type", &type);
+            if (Value v = getAttr("type")) type = v.get_string();
             return type[0];
         }
 
@@ -883,7 +885,7 @@ void Thief::actor_enter(Actor *a) {
         state = EMERGING;
         m_affected_actor = a;
         affected_player = -1;
-        m_affected_actor->int_attrib("player", &affected_player);
+        if (Value v = m_affected_actor->getAttr("player")) affected_player = v;
     }
 }
 

@@ -88,7 +88,7 @@ namespace stones
         }
 
         bool is_on() const { 
-            return int_attrib("on") == 1; 
+            return getAttr("on") == 1; 
         }
 
         virtual void set_on(bool newon) {

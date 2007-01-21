@@ -121,25 +121,54 @@ enigma::rotate(DirectionBits d, bool clockwise)
     return d;
 }
 
-
+
 /* -------------------- Value implementation -------------------- */
 
-Value::Value(const char* str)
-: type(STRING)
-{
+Value::Value() : type (NIL) {
+}
+
+Value::Value(const char* str) : type (STRING) {
     val.str = new char[strlen(str)+1];
     strcpy(val.str, str);
 }
 
-Value::~Value() 
-{ 
+Value::Value(double d) : type (DOUBLE) {
+     val.dval = d;
+}
+
+Value::Value(int i) : type (DOUBLE) {
+     val.dval = i;
+}
+
+Value::Value(bool b) {
+     if (b) {
+        type = DOUBLE;
+        val.dval = 1;
+     } else
+        type = NIL;
+}
+
+Value::Value(Type t) : type (t) {
+    switch (t) {
+        case DOUBLE :
+            val.dval = 0;
+            break;
+        case STRING :
+            val.str = new char[1];
+            val.str[0] = 0;
+            break;
+        case OBJECT :
+            // tbd
+            break;
+    }
+}
+
+Value::~Value() { 
     clear(); 
 }
 
 
-Value::Value(const string& str)
-: type(STRING)
-{
+Value::Value(const string& str) : type(STRING) {
     val.str = new char[str.length()+1];
     strcpy(val.str, str.c_str());
 }
@@ -153,7 +182,7 @@ Value& Value::operator= (const Value& other) {
         if (other.type == STRING) {
             assign(other.val.str);
         } else {
-	    clear();
+            clear();
             type = other.type;
             val = other.val;
         }
@@ -161,6 +190,76 @@ Value& Value::operator= (const Value& other) {
     return *this;
 }
 
+bool Value::operator==(const Value& other) const {
+    if (type != other.type)
+        return false;
+    else
+        switch (type) {
+            case DOUBLE :
+                return val.dval == other.val.dval;
+            case STRING :
+                return strcmp(val.str, other.val.str) == 0;
+            case OBJECT :
+                return false; // tbd
+        }
+    return true;
+}
+
+bool Value::operator!=(const Value& other) const {
+    return ! (*this == other);
+}
+
+bool Value::operator==(int i) const {
+    return (int) *this == i;
+}
+
+bool Value::operator!=(int i) const {
+    return (int) *this != i;
+}
+
+Value::operator bool() const {
+    if (isDefault())
+        return false;
+    else
+        return true;
+}
+
+Value::operator double() const {
+    switch (type) {
+        case DOUBLE: 
+            return val.dval;
+        case STRING:
+            return atof(val.str);  // TODO use strtod and eval remaining part of string
+        default:
+            return 0.0;
+    }
+}
+
+Value::operator int() const {
+    switch (type) {
+        case DOUBLE:
+            return round_nearest<int>(val.dval);
+        case STRING: 
+            return atoi(val.str);  //TODO use strtol and eval remaining part of string
+    default: return 0;
+    }
+}
+
+Value::operator const char*() const {
+    static std::string s;
+    switch (type) {
+        case Value::DOUBLE:
+            s = ecl::strf("%f", val.dval);
+            return s.c_str();
+        case Value::STRING: 
+            return val.str;
+        case Value::NIL:
+        case Value::DEFAULT:
+        default: 
+            s.clear();
+            return s.c_str();
+    }
+}
 
 void Value::assign(const char* s) {
     clear();
@@ -169,11 +268,9 @@ void Value::assign(const char* s) {
     strcpy(val.str, s);
 }
 
-void Value::assign(double d) 
-{ 
+void Value::assign(double d) { 
     clear(); type=DOUBLE; val.dval=d; 
 }
-
 
 void Value::clear() {
     if (type == STRING)
@@ -181,117 +278,58 @@ void Value::clear() {
     type = NIL;
 }
 
-double Value::get_double() const throw()
-{
+Value::Type Value::getType() const {
+    return type;
+}
+
+double Value::get_double() const throw(){
     ASSERT(type == DOUBLE, XLevelRuntime, "get_double: type not double");
     return val.dval;
 }
 
-const char* Value::get_string() const throw()
-{
+const char* Value::get_string() const throw() {
     ASSERT(type == STRING, XLevelRuntime, "get_string: type not string");
     return val.str;
 }
 
-Buffer& enigma::operator<<(Buffer& buf, const Value& val)
-{
-    buf << Uint8(val.get_type());
-
-    switch (val.get_type()) {
-    case Value::NIL:
-        break;
-    case Value::DOUBLE:
-        buf << val.get_double();
-        break;
-    case Value::STRING:
-        {
-            const char* str = val.get_string();
-            buf << (Uint16)strlen(str);
-            buf.write(str, strlen(str));
-        } break;
-    }
-    return buf;
+bool Value::isDefault() const {
+    return type == DEFAULT;
 }
 
-// Buffer& enigma::operator>>(Buffer& buf, Value& val)
-// {
-//     Uint8 type = Value::NIL;
-//     buf >> type;
+std::string Value::to_string() const{
+    return std::string(*this);
+}
 
-//     switch (type) {
-//     case Value::NIL:
-//         // ## fixme
-//         break;
-//     case Value::DOUBLE:
-//         {
-//             double tmp;
-//             if (buf >> tmp)
-//                 val = Value(tmp);
-//         } break;
-//     case Value::STRING:
-//         {
-//             Uint16 len;
-//             if (buf >> len) {
-//                 char* tmp = new char[len+1];
-//                 tmp[len] = 0;
-//                 if (buf.read(tmp, len))
-//                     val.assign(tmp);
-//                 delete[] tmp;
-//             }
-//         } break;
-//     }
-//     return buf;
-// }
+bool Value::to_bool() const {
+    switch (type) {
+        case NIL :
+        case DEFAULT :
+            return false;
+        default :
+            return true;
+    }
+}
+
 
 int enigma::to_int(const Value &v) {
-    switch (v.get_type()) {
-    case Value::DOUBLE: return round_nearest<int>(v.get_double());
-    case Value::STRING: return atoi(v.get_string());
-    default: return 0;
-    }
+    return v;
 }
 
 bool enigma::to_bool(const Value &v) {
-    return (v.get_type() != Value::NIL);
+    return v.to_bool();
 }
 
 double enigma::to_double(const Value &v) {
-    switch (v.get_type()) {
-    case Value::DOUBLE: return v.get_double();
-    case Value::STRING: return atof(v.get_string());
-    default: return 0;
-    }
+    return v;
 }
 
-#ifdef _MSC_VER
-#define snprintf _snprintf
-#endif
-
-const char * enigma::to_string(const Value &v) {
-    static char buf[30];
-    switch (v.get_type()) {
-    case Value::NIL: return "";
-    case Value::DOUBLE:
-        snprintf(buf, sizeof(buf), "%f", v.get_double());
-        return buf;
-    case Value::STRING: return v.get_string();
-    default: return 0;
-    }
+std::string enigma::to_string(const Value &v) {
+    return v.to_string();
 }
 
 Direction enigma::to_direction (const Value &v) {
     int val = Clamp(to_int(v), 0, 3);
     return static_cast<Direction>(val);
-}
-
-ostream& enigma::operator<<(ostream& os, const Value& val)
-{
-    switch (val.get_type()) {
-    case Value::NIL:   os << "nil"; break;
-    case Value::DOUBLE: os << val.get_double(); break;
-    case Value::STRING: os << val.get_string(); break;
-    }
-    return os;
 }
 
 /* -------------------- GridPos -------------------- */

@@ -475,9 +475,8 @@ void World::name_object (Object *obj, const std::string &name)
 void World::unname (Object *obj)
 {
     ASSERT(obj, XLevelRuntime, "unname: no object given");
-    string name;
-    if (obj->string_attrib("name", &name)) {
-        m_objnames.remove(name);
+    if (Value v = obj->getAttr("name")) {
+        m_objnames.remove(v.to_string());
         obj->set_attrib("name", "");
     }
 }
@@ -1254,9 +1253,9 @@ bool world::InitWorld()
         a->on_creation(a->get_actorinfo()->pos);
         a->message ("init", Value());
 
-        int iplayer;
-        if (a->int_attrib("player", &iplayer)) {
-            player::AddActor(iplayer,a);
+        if (Value v = a->getAttr("player")) {
+            int iplayer = v;
+            player::AddActor(iplayer, a);
             if (iplayer == 0) seen_player0 = true;
         } else {
             player::AddUnassignedActor(a);
@@ -1289,7 +1288,8 @@ void world::SetMouseForce(V2 f)
 void world::NameObject(Object *obj, const std::string &name)
 {
     string old_name;
-    if (obj->string_attrib("name", &old_name)) {
+    if (Value v = obj->getAttr("name")) {
+        old_name = v.to_string();
         obj->warning("name '%s' overwritten by '%s'",
                      old_name.c_str(), name.c_str());
         UnnameObject(obj);
@@ -1304,13 +1304,12 @@ void world::UnnameObject(Object *obj)
 
 void world::TransferObjectName (Object *source, Object *target)
 {
-    string name;
-    if (source->string_attrib("name", &name)) {
+    if (Value v = source->getAttr("name")) {
+        string name(v);
         UnnameObject(source);
-        string targetName;
-        if (target->string_attrib("name", &targetName)) {
+        if (Value v = target->getAttr("name")) {
             target->warning("name '%s' overwritten by '%s'",
-                            targetName.c_str(), name.c_str());
+                            v.to_string().c_str(), name.c_str());
             UnnameObject(target);
         }
         NameObject(target, name);
@@ -1552,10 +1551,9 @@ void world::BroadcastMessage (const std::string& msg,
 void world::PerformAction (Object *o, bool onoff) 
 {
     string action = "idle";
-    string target;
+    string target(o->getAttr("target"));
 
-    o->string_attrib("action", &action);
-    o->string_attrib("target", &target);
+    if (Value v = o->getAttr("action")) action = v.to_string();
 
 #if defined(VERBOSE_MESSAGES)
     o->warning("PerformAction action=%s target=%s", action.c_str(), target.c_str());

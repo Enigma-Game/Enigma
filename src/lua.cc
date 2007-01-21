@@ -76,14 +76,14 @@ namespace
     lua::Error _lua_err_code (int i)
     {
         switch (i) {
-	case 0: return NO_LUAERROR;
-	case LUA_ERRRUN: return ERRRUN;
-	case LUA_ERRFILE: return ERRFILE;
-	case LUA_ERRSYNTAX: return ERRSYNTAX;
-	case LUA_ERRMEM: return ERRMEM;
-	case LUA_ERRERR: return ERRERR;
-	}
-	assert (!"Should never get there!");
+            case 0: return NO_LUAERROR;
+            case LUA_ERRRUN: return ERRRUN;
+            case LUA_ERRFILE: return ERRFILE;
+            case LUA_ERRSYNTAX: return ERRSYNTAX;
+            case LUA_ERRMEM: return ERRMEM;
+            case LUA_ERRERR: return ERRERR;
+        }
+        assert (!"Should never get there!");
     }
 
     void throwLuaError(lua_State * L, const char * message) {
@@ -146,10 +146,17 @@ void lua::SetSoundTable (const char *name)
 static void
 push_value(lua_State *L, const Value &val)
 {
-    switch (val.get_type()) {
-    case Value::NIL: lua_pushnil(L); break;
-    case Value::DOUBLE: lua_pushnumber(L, to_double(val)); break;
-    case Value::STRING: lua_pushstring(L, to_string(val)); break;
+    switch (val.getType()) {
+        case Value::NIL:
+        case Value::DEFAULT :
+            lua_pushnil(L);
+            break;
+        case Value::DOUBLE:
+            lua_pushnumber(L, val.get_double());
+            break;
+        case Value::STRING:
+            lua_pushstring(L, val.get_string());
+            break;
     }
 }
 
@@ -258,13 +265,7 @@ en_get_attrib(lua_State *L)
         return 0;
     }
 
-    const Value *v =  obj->get_attrib(key);
-    if (!v) {
-        // unknown attribute
-        lua_pushnil(L);
-    }
-    else
-        push_value(L, *v);
+    push_value(L, obj->getAttr(key));
     return 1;
 }
 

@@ -235,8 +235,8 @@ Inventory * player::GetInventory (int iplayer)
 
 Inventory * player::GetInventory (Actor *a) 
 {
-    if (const Value *v = a->get_attrib("player"))
-        return GetInventory(to_int(*v));
+    if (Value v = a->getAttr("player"))
+        return GetInventory((int)v);
     return 0;
 }
 
@@ -285,10 +285,8 @@ void player::SetRespawnPositions(GridPos pos, bool black)
         vector<Actor *> &al = players[i].actors;
 
         for (unsigned j=0; j<al.size(); ++j) {
-            const Value *val = al[j]->get_attrib(black ? "blackball" : "whiteball");
-            if (val) {
+            if (al[j]->getAttr(black ? "blackball" : "whiteball"))
                 al[j]->set_respawnpos(center);
-            }
         }
     }
 }
@@ -299,10 +297,8 @@ void player::RemoveRespawnPositions(bool black) {
         vector<Actor *> &al = players[i].actors;
 
         for (unsigned j=0; j<al.size(); ++j) {
-            const Value *val = al[j]->get_attrib(black ? "blackball" : "whiteball");
-            if (val) {
+            if (al[j]->getAttr(black ? "blackball" : "whiteball"))
                 al[j]->remove_respawnpos();
-            }
         }
     }
 }
@@ -409,9 +405,11 @@ static void CheckDeadActors()
         for (size_t i=0; i<actors.size(); ++i) {
             Actor *a = actors[i];
             std::string essId;
-            if (!a->string_attrib ("essential_id", &essId))
+            if (Value v = a->getAttr("essential_id"))
+                essId = v.to_string();
+            else
                 essId = a->get_traits().name;
-            int essential = a->int_attrib("essential");
+            int essential = a->getAttr("essential");
             // count number of necessary actors per kind
             if (essential == 1)
                 --essMap[essId];
@@ -536,7 +534,7 @@ void player::InhibitPickup(bool flag) {
 Inventory *player::MayPickup(Actor *a) 
 {
     int iplayer=-1;
-    a->int_attrib("player", &iplayer);
+    if (Value v = a->getAttr("player")) iplayer = v;
     if (iplayer < 0 || (unsigned)iplayer >= players.size()) {
         //        cerr << "PickupItem: illegal 'player' entry\n";
         return 0;

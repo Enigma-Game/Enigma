@@ -93,21 +93,21 @@ namespace
         for (unsigned y=0; y<sgrid.getHeight(); ++y)
             for (unsigned x=0; x<sgrid.getWidth(); ++x)
                 if (Stone *st = world::GetStone(GridPos(x, y)))
-                    if (int code = st->int_attrib("code"))
+                    if (int code = st->getAttr("code"))
                         stones.insert(code);
 
         const Grid &igrid = level.getGrid (GridType_Objects);
         for (unsigned y=0; y<igrid.getHeight(); ++y)
             for (unsigned x=0; x<igrid.getWidth(); ++x)
                 if (Item *it = world::GetItem(GridPos(x, y)))
-                    if (int code = it->int_attrib("code"))
+                    if (int code = it->getAttr("code"))
                         items.insert(code);
 
         const Grid &fgrid = level.getGrid (GridType_Objects);
         for (unsigned y=0; y<fgrid.getHeight(); ++y)
             for (unsigned x=0; x<fgrid.getWidth(); ++x)
                 if (world::Floor *fl = world::GetFloor(GridPos(x, y)))
-                    if (int code = fl->int_attrib("code"))
+                    if (int code = fl->getAttr("code"))
                         floors.insert(code);
 
         if (!stones.empty()) {
