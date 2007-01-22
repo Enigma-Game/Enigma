@@ -418,26 +418,26 @@ bool Floor::has_firetype(FloorFireType selector) {
                 return (selector == flft_burnable) && !has_flags(it, itf_fireproof);
         }
     }
-    if ((server::GameCompatibility == GAMET_ENIGMA) && (traits.firetype & selector))
-        return true;
+    bool dflt = (server::GameCompatibility == GAMET_ENIGMA) 
+            && (traits.firetype & selector);
     // In non-Enigma-modes, without items on them, all floors behave the same:
     switch (selector) {
         case flft_burnable :
-            return getAttr("burnable") != 0;   // no !=0 compare if attribute is boolean
+            return getAttr("burnable", dflt).to_bool();
         case flft_ignitable :
-            return getAttr("ignitable") != 0;  //  ...
+            return getAttr("ignitable", dflt).to_bool();
         case flft_secure :
-            return getAttr("secure") != 0;
+            return getAttr("secure", dflt).to_bool();
         case flft_eternal :
-            return getAttr("eternal") != 0;
+            return getAttr("eternal", dflt).to_bool();
         case flft_noash :
-            return getAttr("noash") != 0;
+            return getAttr("noash", dflt).to_bool();
         case flft_fastfire :
-            return getAttr("fastfire") != 0;
+            return getAttr("fastfire", dflt).to_bool();
         case flft_initfire :
-            return getAttr("initfire") != 0;
+            return getAttr("initfire", dflt).to_bool();
     }
-    return false;
+    return dflt;
 }
 
 void Floor::animcb() {
