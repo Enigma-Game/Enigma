@@ -3,7 +3,7 @@
   <el:protected>
     <el:info el:type="library">
       <el:identity el:title="" el:id="lib/libflood"/>
-      <el:version el:score="1" el:release="1" el:revision="5" el:status="released"/>
+      <el:version el:score="1" el:release="1" el:revision="6" el:status="released"/>
       <el:author  el:name="Raoul Bourquin" el:email="" el:homepage=""/>
       <el:copyright>Copyright © 2007 Raoul Bourquin</el:copyright>
       <el:license el:type="GPL v2.0 or above" el:open="true"/>
@@ -21,37 +21,67 @@
 --------------------------------------------------------------------------------
 -- REFERENCE --
 ---------------
--- Used Globals:
--- land_map
--- top_left
--- flood_method
--- flood_map
--- flood_front
--- to_flood
+-- Parameters:
+--
+-- land_map: Charmap containig the landscape with the (un)floodable floors
+-- Allowed chars: "#" : unfloodable
+--                " " : floodable, not yet flooded
+--                "~" : flooded (is water)
+--
+-- top_left: Array with the real levelcoordinates of the top left corner.
+-- 
+-- flood_method: Method to determine the next tiles.
+-- This can be: 1 : only examine the north, east, south and west field
+--              2 : examine all 8 neighbour fields
+--
+-- Used Globals (interesting for programmers only):
+-- flood_map: Arraymap with the current state of the flood, starts as copy of land_map
+-- flood_front: Coordinates of all tiles to examine in this step
+-- to_flood: All tiles that will be flooded at the end of this step
 
 -- Defaults:
-land_map = {"~"}
-top_left = {0,0}
-flood_method = 1
+-- Declare all as local to avoid a conflict with variables maybe used by the levelauthors
+local land_map = nil
+local top_left = nil
+local flood_method = nil
+local flood_map = nil
+local flood_front = nil
+local to_flood = nil
 
 function init_flood(new_map, corner, method)
-    land_map = new_map
-    top_left = corner
-    flood_method = method
+    -- Set defaults if no values are given:
+    if new_map ~= nil then
+        land_map = new_map
+    else
+        land_map = {"~"}
+    end
+    if corner ~= nil then
+        top_left = corner
+    else
+        top_left = {0,0}
+    end
+    if flood_method ~= nil then
+        flood_method = method
+    else
+        flood_method = 1
+    end
 
     -- Is the map bigger than 0 x 0 ?
     local x, y = get_map_size(land_map)
     if x < 1 or y < 1 then
-        error("init_flood(new_map, corner): Map "..tostring(x).." x "..tostring(y).." is too small!\n")
+        error("init_flood(new_map, corner, method): Map "..tostring(x).." x "..tostring(y).." is too small!\n")
     end
     -- Is the map rectangular?
     is_rectangular()
-    -- Test top_left for valid koordinates
-    if top_left[1] <= 0 or top_left[2] <= 0 then
-        error("init_flood(new_map, corner): Invalid value for top left map corner! "..tostring(top_left[1])..";"..tostring(top_left[2]).."\n")
+    -- Test top_left corner for valid koordinates
+    -- We do not test, if the map is bigger than the level!
+    -- The bottom right corner may lie outside of the level -> flood_it will raise an error ...
+    if top_left[1] < 0 or top_left[2] < 0 then
+        error("init_flood(new_map, corner, method): Invalid value for top left map corner! "..tostring(top_left[1])..";"..tostring(top_left[2]).."\n")
     end
+    -- Valid flood method?
     if flood_method ~= 1 and flood_method ~= 2 then
-        error("init_flood(new_map, corner, method): Invalid value for method: "..tostring(method).."! Values are [1,2].\n")
+        error("init_flood(new_map, corner, method): Invalid value for method: "..tostring(method).."! Values are 1 or 2.\n")
     end
 
     -- Build up the flood_map table.
@@ -69,6 +99,9 @@ function do_flood()
     new_to_flood()
     -- Iterate over all elements in flood_front to find the tiles, we have to flood.
     local flood_front_size = table.getn(flood_front)
+    -- DEBUG:
+    --print("Flood Front has size: "..tostring(flood_front_size))
+    
     local k,v
     for k,v in pairs(flood_front) do
         local akt_pos = flood_front[k]
@@ -78,16 +111,22 @@ function do_flood()
             examine_field_all8(akt_pos[1], akt_pos[2])
         end
     end
+
     -- Write the to_flood to flood_front.
     clear_flood_front()
     copy_to_flood_to_flood_front()
     -- We don't need to update the flood_map, because we updated it in
     -- examine_field_neighbour(x,y). This improves performance a big bit!
     --update_flood_map()
-    -- FLOOD !
+    -- FLOOD!
     flood_it(to_flood,top_left)
     return 0
 end
+--------------------------------------------------------------------------------
+-- Export public functions:
+-- Not yet used
+--init_flood = init_flood
+--do_flood = do_flood
 --------------------------------------------------------------------------------
 --------------------------------------------------------------------------------
 -- Get the dimensions of the land_map:
@@ -104,6 +143,7 @@ function get_flood_map_size(flood_map)
     return x_size, y_size
 end
 
+-- This function is not used anymore
 function is_inside_map(x,y)
     -- Test, if x and y are inside the flood_map. If no, raise an error.
     local x_size, y_size = get_flood_map_size(flood_map)
@@ -118,24 +158,24 @@ end
 function is_on_border(x,y)
     -- Test, if x and y are on the flood_map border.
     local x_size, y_size = get_flood_map_size(flood_map)
-    local on_x, on_y = 0, 0
-    -- Is x on a border?
+    local on_left, on_right, on_top, on_bottom = false, false, false, false
     if x == 1 then
         -- is on left border
-        on_y = 1
-    elseif x == x_size then
-        -- is on right border
-        on_y = 2
+        on_left = true
     end
-    -- Is y on a border?
+    if x == x_size then
+        -- is on right border
+        on_right = true
+    end
     if y == 1 then
         -- is on top border
-        on_x = 1
-    elseif y == y_size then
-        -- is on bottom border
-        on_x = 2
+        on_top = true
     end
-    return on_x, on_y
+    if y == y_size then
+        -- is on bottom border
+        on_bottom = true
+    end
+    return on_left, on_right, on_top, on_bottom
 end
 
 function is_rectangular()
@@ -146,7 +186,7 @@ function is_rectangular()
     for i=1, y_size do
         temp = string.len(land_map[i])
         if temp ~= buffer then
-            error("is_rectangular(): Map in not rectangular!\n")
+            error("init_flood(new_map, corner, method): Map is not rectangular!\n")
         end
     end
     return 0
@@ -160,13 +200,16 @@ end
 
 function parse_this_char(akt_char)
     if akt_char == "#" then
+        -- Unfloodable
         return 0
     elseif akt_char == " " then
+        -- Floodable, not yet flooded
         return 1
     elseif akt_char == "~" then
+        -- Floodable, flooded
         return 2
     else
-        error("parse_this_char(akt_char): Illegal char \""..akt_char.."\" in the map! Valid chars are: [#, ,~].\n")
+        error("init_flood(new_map, corner, method): Illegal char \""..akt_char.."\" in the map! Valid chars are: [#, ,~].\n")
     end
 end
 
@@ -188,11 +231,12 @@ function build_up_flood_map(land_map)
 end
 --------------------------------------------------------------------------------
 function modify_flood_map(x,y,type)
-    is_inside_map(x,y)
+    -- Not needed, calls from within this lib are valid
+    --is_inside_map(x,y)
     -- type valid?
-    if type ~= 0 and type ~= 1 and type ~= 2 then
-        error("modify_flood_map(x,y,type): Illegal type! "..tostring(type).."\n")
-    end
+    --if type ~= 0 and type ~= 1 and type ~= 2 then
+    --    error("modify_flood_map(x,y,type): Illegal type! "..tostring(type).."\n")
+    --end
     flood_map[y][x] = type
     return 0
 end
@@ -222,7 +266,7 @@ function search_initial_water()
         end
     end
     if has_any_water == 0 then
-        error("search_initial_water(): No Water found! Please set at least 1 Water tile!\n")
+        error("init_flood(new_map, corner, method): No water found! Please set at least 1 water tile!\n")
     end
     return 0
 end
@@ -244,23 +288,24 @@ end
 -- Method 1:
 function examine_field_nesw(x,y)
     -- Check, if x or y is out of the flood_map bounds
-    is_inside_map(x,y)
+    -- Not needed, calls from within this lib are valid
+    --is_inside_map(x,y)
 
-    local x_border, y_border = is_on_border(x,y)
+    local on_left, on_right, on_top, on_bottom = is_on_border(x,y)
     -- NORTH
-    if x_border ~= 1 then
+    if not on_top then
         examine_field_neighbour(x,y-1)
     end
     -- EAST
-    if y_border ~= 2 then
+    if not on_right then
         examine_field_neighbour(x+1,y)
     end
     -- SOUTH
-    if x_border ~= 2 then
+    if not on_bottom then
         examine_field_neighbour(x,y+1)
     end
     -- WEST
-    if y_border ~= 1 then
+    if not on_left then
         examine_field_neighbour(x-1,y)
     end
     return 0
@@ -269,35 +314,38 @@ end
 -- Method 2:
 function examine_field_all8(x,y)
     -- Check, if x or y is out of the flood_map bounds
-    is_inside_map(x,y)
+    -- Not needed, calls from within this lib are valid
+    --is_inside_map(x,y)
 
-    local x_border, y_border = is_on_border(x,y)
+    local on_left, on_right, on_top, on_bottom = is_on_border(x,y)
     -- NORTH
-    if x_border ~= 1 then
+    if not on_top then
         examine_field_neighbour(x,y-1)
-        if y_border ~= 1 then
+        -- Check also for north-west and north-east
+        if not on_left then
             examine_field_neighbour(x-1,y-1)
         end
-        if y_border ~= 2 then
+        if not on_right then
             examine_field_neighbour(x+1,y-1)
         end
     end
     -- EAST
-    if y_border ~= 2 then
+    if not on_right then
         examine_field_neighbour(x+1,y)
     end
     -- SOUTH
-    if x_border ~= 2 then
+    if not on_bottom then
         examine_field_neighbour(x,y+1)
-        if y_border ~= 1 then
+        -- Check also for south-west and south-east
+        if not on_left then
             examine_field_neighbour(x-1,y+1)
         end
-        if y_border ~= 2 then
+        if not on_right then
             examine_field_neighbour(x+1,y+1)
         end
     end
     -- WEST
-    if y_border ~= 1 then
+    if not on_left then
         examine_field_neighbour(x-1,y)
     end
     return 0
