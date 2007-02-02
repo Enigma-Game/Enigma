@@ -111,17 +111,20 @@ static std::fstream logfile;
 
 static void usage()
 {
-    printf("Usage: %s [options] [level files]\n\n"
+    printf("Usage: %s [OPTION]... [levelfile.xml]...\n\n"
            "Available options :\n\n"
-           "    --nosound      Disable music and sound\n"
-           "    --nomusic      Disable music\n"
-           "    --window -w    Run in a window; do not enter fullscreen mode\n"
-           "    --help -h      Show this help\n"
-           "    --version      Print the executable's version number\n"
-           "    --nograb       Do not use exclusive mouse/keyboard access\n"
+           "    --assert       Evaluate all debugging assertions\n"
            "    --data -d path Load data from additional directory\n"
+           "    --help -h      Show this help\n"
            "    --lang -l lang Set game language\n"
+           "    --log          Turn on logging to the standard output\n"
+           "    --nograb       Do not use exclusive mouse/keyboard access\n"
+           "    --nomusic      Disable music\n"
+           "    --nosound      Disable music and sound effects\n"
            "    --pref -p file Use filename for preferences\n"
+           "    --showfps      Show the framerate (FPS) during the Game\n"
+           "    --version      Print the executable's version number\n"
+           "    --window -w    Run in a window; do not enter fullscreen mode\n"
            "\n",
            app.progCallPath.c_str()
            );

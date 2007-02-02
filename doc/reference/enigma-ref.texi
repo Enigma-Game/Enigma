@@ -192,7 +192,7 @@ can hardly be played in this mode, but it makes it possible to debug the
 application in its core parts.
 
 @item @b{-@w{}-nomusic}
-Start Enigma without playing backgroud music.
+Start Enigma without playing background music.
 
 @item @b{-@w{}-nosound}
 Start Enigma with sounds being switched off.
@@ -201,6 +201,9 @@ Start Enigma with sounds being switched off.
 The name of an alternative preferences file without the leading dot for hidden
 filenames. This switch is a pure Enigma developer support feature as described
 in @ref{Locating Resources}.
+
+@item @b{-@w{}-showfps}
+Show the framerate (FPS) during the Game.
 
 @item @b{-@w{}-version}
 Just print the version number to the output and terminate.

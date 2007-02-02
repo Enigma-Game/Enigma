@@ -1136,7 +1136,7 @@ namespace
 
             // The mode attribute "scissor" defines, if when touching an st-rubberband,
             // other rubberbands to the actor will be cut of or not, true means they will. true is default.
-            bool isScissor = to_bool(getAttr("scissor"));
+            bool isScissor = to_bool(getAttr("scissor","true"));
 
             if (!world::HasRubberBand (sc.actor, this)) {
                 sound_event ("rubberband");
@@ -1145,7 +1145,7 @@ namespace
                 }
                 world::AddRubberBand (sc.actor, this, rbd);
             }
-//             if (player::wielded_item_is (sc.actor, "it-magicwand"))
+            // if (player::wielded_item_is (sc.actor, "it-magicwand"))
             maybe_push_stone (sc);
         }
 
@@ -1154,9 +1154,6 @@ namespace
             if (a && player::WieldedItemIs (a, "it-magicwand"))
                 move_stone(impulse.dir);
         }
-
-        
-
     public:
         RubberBandStone () {
             set_attrib("length", 1.0);
