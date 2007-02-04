@@ -3950,8 +3950,10 @@ only shatters the marble using it, not all of them.
 
 Springs let marbles jump, e.g. over @ref{fl-water}, @ref{fl-swamp},
 @ref{fl-abyss}, @ref{it-abyss}, and laser beams.  Note that you can't
-jump over stones or fire (@ref{Fire and Extinguisher}), and cannot
-pass @ref{st-grate} during the jump, even if you could on the ground.
+jump over any kind of stone, and cannot pass @ref{st-grate} during the
+jump, even if you could on the ground.  The interplay of jumping and
+fire (@ref{The 1.0-Fire System}) will be target of future changes,
+don't use them together yet.
 
 You can pick up and use @code{it-spring1} and @code{it-spring2}.  You
 keep the former in the inventory, but in general drop
@@ -4568,7 +4570,7 @@ unknown.
 These stones apply an impulse to actors that touch them.  The amount
 of force applied can be controlled by setting
 @code{enigma.BumperForce} (see @ref{Variables}) accordingly (the
-default is 800). Alternatively, the @code{force} attribute can be used
+default is 200). Alternatively, the @code{force} attribute can be used
 to set this factor for @emph{individual} bumper stones.
 
 @strong{Attributes}
@@ -6026,6 +6028,18 @@ to it.
 The turnstile may be blocked by other stones (even movable ones).
 Items are handled during rotation as if a stone is pushed over them.
 
+When a turnstile-pivot rotates, it subsequently performs its
+@code{action/target}-pair, with secondary data 0 if it rotates
+clockwise, 1 if counterclockwise.  If you send a signal to a pivot (or
+otherwise try to rotate it), which is already rotating, the signal
+will be discarded.  This way you can concatenate several turnstiles to
+a complex which simultaneously rotates (or only in certain parts),
+without constructing an endless loop.
+
+When two green turnstiles are intertwined, one them is hit and an
+actor would be transported, then the second turnstile will be hit,
+too.
+
 @strong{Messages to the pivot}
 
 @table @code
@@ -6459,8 +6473,8 @@ Fire does the following:
 @ref{it-crack}.
 @item It might set fire to its neighbor.
 @item It shatters marbles that are not protected with
-@ref{it-umbrella}. Note that in future versions, jumping over fire
-with @ref{it-spring[1/2/board]} might get allowed.
+@ref{it-umbrella}. Note that in future versions, jumping over
+fire with @ref{it-spring[1/2/board]} might get allowed.
 @end itemize
 
 Fire stops burning after a random amount of time, as long as the
