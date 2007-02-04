@@ -3,7 +3,7 @@
   <el:protected >
     <el:info el:type="level">
       <el:identity el:title="Houdini" el:subtitle="Escape by Chaining Thieves" el:id="20060816ral719"/>
-      <el:version el:score="1" el:release="1" el:revision="$Revision: 45 $" el:status="released"/>
+      <el:version el:score="1" el:release="1" el:revision="$Revision: 52 $" el:status="released"/>
       <el:author  el:name="Ronald Lamprecht" el:email="ral@users.berlios.de"/>
       <el:copyright>Copyright © 2006 Ronald Lamprecht</el:copyright>
       <el:license el:type="GPL v2.0 or above" el:open="true"/>
@@ -107,7 +107,7 @@ tiles["."] = {inherit(" "), stone("st-bluegray_hole")}
 tiles[","] = {inherit("l"), stone("st-bluegray_hole")}
 tiles["T"] = {inherit(" "), stone("st-thief")}
 tiles["t"] = {inherit("l"), stone("st-thief")}
-tiles["U"] = {inherit("T"), item("it-document",{text="Unquilty"})}
+tiles["U"] = {inherit("T"), item("it-document",{text="Innocent"})}
 tiles["V"] = {inherit("T"), item("it-document",{text="Pirates"})}
 tiles["Y"] = {inherit("T"), item("it-document",{text="Treasure"})}
 tiles["P"] = {inherit("l"), stone("st-pull")}
@@ -199,8 +199,8 @@ oxyd_shuffle()
         <el:english el:translate="true" el:comment="Characters of Michael Ende's fantasy novel 'The Neverending Story'">Remember Atreyu's horse Atrax!</el:english>
         <el:translation el:lang="de">Denke an Atrax, das Pferd von Atréju!</el:translation>
       </el:string>
-      <el:string el:key="Unquilty">
-        <el:english el:translate="true" >I am unguilty! I've never stolen anything!</el:english>
+      <el:string el:key="Innocent">
+        <el:english el:translate="true" >I am innocent! I've never stolen anything!</el:english>
         <el:translation el:lang="de">Ich bin unschuldig! Ich habe nie etwas gestohlen!</el:translation>
       </el:string>
       <el:string el:key="Pirates">

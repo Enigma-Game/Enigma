@@ -3,13 +3,13 @@
   <el:protected>
     <el:info el:type="level">
       <el:identity el:title="Double-Spiral" el:subtitle="" el:id="duffy17"/>
-      <el:version el:score="1" el:release="1" el:revision="0" el:status="released"/>
+      <el:version el:score="2" el:release="2" el:revision="1" el:status="released"/>
       <el:author  el:name="Jacob Scott" el:email="" el:homepage=""/>
       <el:copyright>Copyright © 2003 Jacob Scott</el:copyright>
       <el:license el:type="GPL v2.0 or above" el:open="true"/>
       <el:compatibility el:enigma="0.92">
       </el:compatibility>
-      <el:modes el:easy="false" el:single="true" el:network="false"/>
+      <el:modes el:easy="false" el:single="true" el:network="true"/>
       <el:comments>
         <el:code>Lua 5.1 and XML converted by Leveladministrators</el:code>
       </el:comments>
@@ -20,7 +20,7 @@ levelw=50
 levelh=50
 
 create_world( levelw, levelh)
-enigma.TwoPlayerGame = TRUE
+enigma.ConserveLevel = FALSE
 
 fill_floor("fl-metal", 0,0,levelw,levelh)
 
@@ -31,8 +31,8 @@ function renderLine( line, pattern)
             set_stone( "st-greenbrown", i-1, line)
         elseif c == "o" then
             oxyd( i-1, line)
-                elseif c == "!" then
---            abyss(i-1,line)
+        elseif c == "!" then
+            --abyss(i-1,line)
             fill_floor("fl-water", i-1,line, 1,1)
         elseif c == "s" then
             set_stone("st-stoneimpulse", i-1,line)
@@ -54,8 +54,10 @@ function renderLine( line, pattern)
             set_floor("fl-gradient",  i-1,  line, {type=10})
         elseif c=="z" then
             set_actor("ac-blackball", i-.5,line+.5)
+            set_item("it-yinyang", i-1, line)
         elseif c=="y" then
             set_actor("ac-whiteball", i-.5,line+.5)
+            set_item("it-yinyang", i-1, line)
         elseif c=="+" then
             set_stone( "st-wood", i-1, line)
             fill_floor("fl-leaves", i-1,line, 1,1)
@@ -97,7 +99,6 @@ function renderLine( line, pattern)
             set_stone("st-floppy", i-1, line, {action="openclose", target="door2"})
         elseif c=="U" then
             set_stone("st-floppy", i-1, line, {action="openclose", target="door3"})
-
         elseif c=="f" then
             set_item("it-floppy", i-1, line)
         elseif c=="K" then
@@ -111,7 +112,7 @@ function renderLine( line, pattern)
         elseif c == "w" then
             yy1( "white",  i-1, line)
         elseif c == "X" then
-                    draw_stones("st-yinyang1", { i-1,line}, {0,1},1)
+            draw_stones("st-yinyang1", { i-1,line}, {0,1},1)
         elseif c=="P" then
             set_item("it-brush",i-1,line)
         elseif c=="p" then

@@ -3,7 +3,7 @@
   <el:protected>
     <el:info el:type="level">
       <el:identity el:title="- Meditation -" el:subtitle="" el:id="edward30"/>
-      <el:version el:score="1" el:release="1" el:revision="1" el:status="released"/>
+      <el:version el:score="1" el:release="1" el:revision="2" el:status="released"/>
       <el:author  el:name="Edward" el:email="" el:homepage=""/>
       <el:copyright>Copyright © 2006 Edward</el:copyright>
      <el:license el:type="Donated to Enigma under the projects license" el:open="true"/>
@@ -82,7 +82,7 @@ document(9,6,"text1")
         <el:english el:translate="false"/>
       </el:string>
       <el:string el:key="text1">
-        <el:english el:translate="true">Can you rest in your bed, when all else is hectic?</el:english>
+        <el:english el:translate="true">Can you relax amid all this chaos?</el:english>
       </el:string> 
     </el:i18n>
   </el:protected>

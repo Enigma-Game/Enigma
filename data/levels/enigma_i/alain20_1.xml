@@ -3,7 +3,7 @@
   <el:protected>
     <el:info el:type="level">
       <el:identity el:title="Enigmawale" el:subtitle="" el:id="alain20"/>
-      <el:version el:score="1" el:release="1" el:revision="0" el:status="released"/>
+      <el:version el:score="1" el:release="1" el:revision="1" el:status="released"/>
       <el:author  el:name="Alain Busser" el:email="" el:homepage=""/>
       <el:copyright>Copyright © 2006 Alain Busser</el:copyright>
       <el:license el:type="GPL v2.0 or above" el:open="true"/>
@@ -799,7 +799,7 @@ oxyd_shuffle()
         <el:translation el:lang="fr">A la fin d'un tour, on prend les graines de la case d'en face et on recommence un tour.</el:translation>
       </el:string> 
       <el:string el:key="text13">
-        <el:english el:translate="true">A turn begins in one of the most left rows, unless impossible.</el:english>
+        <el:english el:translate="true">A turn begins in one of the leftmost rows, unless impossible.</el:english>
         <el:translation el:lang="fr">Un tour commence par une des cases de gauche, si possible; sinon on commence par une des cases de droite.</el:translation>
       </el:string> 
       <el:string el:key="text14">
