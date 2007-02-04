@@ -185,7 +185,7 @@ namespace enigma { namespace gui {
         "  Spaceman  (Level design)",
         "  Ulf Stegemann  (Level design)",
         "  Jürgen Sticht  (Level design)",
-        "  Mikke Surakka (Finish translation)",
+        "  Mikke Surakka (Finnish translation)",
         "  Andrzej Szombierski  (Level design)",
         "  Tacvek  (Lua 5.1 upgrade)",
         "  Michael Terry  (.desktop file)",
