@@ -205,7 +205,16 @@ namespace enigma { namespace lev {
                         hasValidUserId = true;
                     } else {
                         // create first part of user id based on time stamp
-                        unsigned id = rand() & 0xFFFFFFFF;
+                        unsigned id;
+                        if (RAND_MAX > 0x10000) {
+                            id = std::rand() & 0xFFFFFFFF;
+                        } else {
+                            // MinGW 3.4.2 and maybe other configs
+                            unsigned t = std::time(NULL);
+                            std::srand(t >> 15);
+                            id = (std::rand() << 16) ^ (t & 0xFFFF);
+                            enigma::Randomize();
+                        }
                         userId = ecl::strf("%.8lX",id);
                         // we need a second random part as 2 users may start Enigma
                         // within the same second - we postpone this part till we save
@@ -216,10 +225,22 @@ namespace enigma { namespace lev {
                         levelsElem->removeChild(levelList->item(0));
                     }
                 } else {
-                    errMessage = "Mismatch of state.xml and enigma.score.\n";
-                    errMessage += "Restore both from your backup or remove enigma.score\n";
-                    errMessage += "to restart with an empty score file\n";
                     doc->release();
+                    // rename faulty score file as backup and give Enigma a chance
+                    // to recreate a new good score file
+                    std::string scoreBasePath = app.userPath + "/enigma.score";
+                    std::string backupPath = scoreBasePath + "~s1";
+                    int i = 1;
+                    while (ecl::FileExists(backupPath)) {
+                        backupPath = scoreBasePath + ecl::strf("~s%d", ++i);
+                    }       
+                    std::rename(scoreBasePath.c_str(), backupPath.c_str());
+                    
+                    errMessage = "Mismatch of state.xml and enigma.score.\n";
+                    errMessage += "Your current faulty score file is backed up to:\n";
+                    errMessage += backupPath + "\n";
+                    errMessage += "Restore both from your backup or just restart\n";
+                    errMessage += "Enigma to retry with an empty score file\n";
                     throw XFrontend("");
                 }
                 // update from 0.92
@@ -600,7 +621,7 @@ namespace enigma { namespace lev {
         
         int bestUserScore = getBestUserScore(levelProxy, difficulty);
         int bestScore = ratingMgr->getBestScore(levelProxy, difficulty);
-        return bestUserScore>0 && (bestScore<0 || bestUserScore <= bestScore);
+        return bestUserScore>=0 && (bestScore<0 || bestUserScore <= bestScore);
     }
     
     bool ScoreManager::parScoreReached(lev::Proxy *levelProxy, int difficulty) {
@@ -609,7 +630,7 @@ namespace enigma { namespace lev {
         
         int bestUserScore = getBestUserScore(levelProxy, difficulty);
         int parScore = ratingMgr->getParScore(levelProxy, difficulty);
-        return bestUserScore>0 && (parScore<0 || bestUserScore <= parScore);
+        return bestUserScore>=0 && (parScore<0 || bestUserScore <= parScore);
     }
     
     void ScoreManager::markUnsolved(lev::Proxy *levelProxy, int difficulty) {
