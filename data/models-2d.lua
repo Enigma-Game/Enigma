@@ -104,7 +104,7 @@ end
 -- Horse --
 -----------
 do
-    SpriteImage ("fg-horse",0.5,0.19)
+    SpriteImage ("fg-horse",0.5,0.18)
     SpriteImage ("sh-horse", 0.4)
     def_shmodel ("ac-horse", "fg-horse", "sh-horse")
 end
