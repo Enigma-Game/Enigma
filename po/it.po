@@ -1,20 +1,21 @@
-# translation of enigma.po to Italiano
-# Copyright (C) 2005 Free Software Foundation, Inc.
+# translation of enigma.po to
+# Copyright (C) 2005, 2007 Free Software Foundation, Inc.
 # This file is distributed under the same license as the PACKAGE package.
-# Samuele Kaplun <kaplun@aliceposta.it>, 2005.
 #
+# Samuele Kaplun <kaplun@aliceposta.it>, 2005.
+# Samuele Kaplun <Samuele.Kaplun@cern.ch>, 2007.
 msgid ""
 msgstr ""
 "Project-Id-Version: enigma\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2006-12-10 18:42+0100\n"
-"PO-Revision-Date: 2005-02-07 22:42+0100\n"
-"Last-Translator: Samuele Kaplun <kaplun@aliceposta.it>\n"
-"Language-Team: Italiano <kde-i18n-it@kde.org>\n"
+"PO-Revision-Date: 2007-01-14 19:36+0100\n"
+"Last-Translator: Samuele Kaplun <Samuele.Kaplun@cern.ch>\n"
+"Language-Team:  <it@li.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Generator: KBabel 1.10\n"
+"X-Generator: KBabel 1.11.4\n"
 "Plural-Forms:  nplurals=2; plural=(n != 1);\n"
 
 #: src/server.cc:146 src/server.cc:160 src/gui/LevelInspector.cc:196
@@ -127,9 +128,8 @@ msgid "Switch between fullscreen and window"
 msgstr "Alterna finestra a modalità tutto schermo"
 
 #: src/client.cc:494
-#, fuzzy
 msgid "Skip to next level for best score hunt"
-msgstr "Salta al prossimo livello"
+msgstr "Salta al prossimo livello per la caccia al miglior punteggio"
 
 #: src/client.cc:495
 msgid "Skip to next unsolved level"
@@ -144,59 +144,48 @@ msgid "You are slow today.. [Ctrl-A]"
 msgstr "Sei lento oggi.. [Ctrl-A]"
 
 #: src/client.cc:728
-#, fuzzy
 msgid "Exactly the world record of "
-msgstr "Esattamente il tempo par di "
+msgstr "Esattamente il record mondiale di "
 
 #: src/client.cc:730
-#, fuzzy
 msgid "Great! A new world record!"
-msgstr "Grande! Un nuovo tempo par!"
+msgstr "Grande! Un nuovo record mondiale!"
 
 #: src/client.cc:735
-#, fuzzy
 msgid "Again your personal record..."
-msgstr "Di nuovo il tuo tempo migliore..."
+msgstr "Di nuovo il tuo record personale..."
 
 #: src/client.cc:741
-#, fuzzy
 msgid "New personal record - better than par!"
-msgstr "Nuovo miglior tempo personale!"
+msgstr "Nuovo record personale - meglio del par!"
 
 #: src/client.cc:743
-#, fuzzy
 msgid "New personal record, but over par!"
-msgstr "Nuovo miglior tempo personale!"
+msgstr "Nuovo record personale, ma oltre al par!"
 
 #: src/client.cc:745
-#, fuzzy
 msgid "New personal record!"
-msgstr "Nuovo miglior tempo personale!"
+msgstr "Nuovo record personale!"
 
 #: src/client.cc:756
-#, fuzzy
 msgid "Your record, "
-msgstr "Il tuo miglior, "
+msgstr "Il tuo record, "
 
 #: src/client.cc:763
-#, fuzzy
 msgid "behind world record."
-msgstr "dietro al tempo par."
+msgstr "dietro al record mondiale."
 
 #: src/client.cc:765
-#, fuzzy
 msgid "behind your record."
-msgstr "dietro al tempo par."
+msgstr "dietro al tuo record."
 
 #: src/client.cc:773
-#, fuzzy
 msgid "Level finished - better than par!"
-msgstr "Livello terminato!"
+msgstr "Livello terminato - meglio del par!"
 
 #: src/client.cc:775
-#, fuzzy
 msgid "Level finished, but over par!"
-msgstr "Livello terminato!"
+msgstr "Livello terminato, ma oltre al par!"
 
 #: src/client.cc:777
 msgid "Level finished!"
@@ -207,18 +196,17 @@ msgid " Cheater!"
 msgstr " Imbroglione!"
 
 #: src/client.cc:809
-#, fuzzy, c-format
+#, c-format
 msgid "Enigma pack %s - level #%d: %s"
-msgstr "Livello Enigma #%d: %s"
+msgstr "Pacchetto Enigma %s - livello #%d: %s"
 
 #: src/client.cc:819
 msgid "Your record: "
-msgstr ""
+msgstr "Il tuo record:"
 
 #: src/client.cc:821
-#, fuzzy
 msgid "World record to beat: "
-msgstr "Par da battere: "
+msgstr "Record mondiale da battere: "
 
 #: src/main.cc:277
 #, c-format
@@ -228,23 +216,25 @@ msgstr "Errore nel file di configurazione.\n"
 #: src/main.cc:479 src/main.cc:497
 #, c-format
 msgid "Error Home directory does not exist.\n"
-msgstr ""
+msgstr "Errore la cartella Home non esiste.\n"
 
 #: src/main.cc:489
 #, c-format
 msgid "Error Application Data directory does not exist.\n"
-msgstr ""
+msgstr "Errore la cartella Application Data non esiste.\n"
 
 #: src/main.cc:517 src/main.cc:566
-#, fuzzy, c-format
+#, c-format
 msgid "Error in XML initialization.\n"
-msgstr "Errore nel file di configurazione.\n"
+msgstr "Errore nell'inizializzazione XML.\n"
 
 #: src/main.cc:733
 msgid ""
 "Fatal Error that causes the application to quit:\n"
 "\n"
 msgstr ""
+"Errore Fatale che causa la chiusura dell'applicazione:\n"
+"\n"
 
 #: src/main.cc:735 src/gui/MainMenu.cc:214
 msgid "Quit"
@@ -256,7 +246,7 @@ msgstr "Inizia partita"
 
 #: src/gui/MainMenu.cc:71
 msgid "Join Game"
-msgstr ""
+msgstr "Unisciti al Gioco"
 
 #: src/gui/MainMenu.cc:72 src/gui/OptionsMenu.cc:343
 #: src/gui/ScreenshotViewer.cc:34
@@ -265,11 +255,11 @@ msgstr "Indietro"
 
 #: src/gui/MainMenu.cc:110
 msgid "Main developers of the 1.0 release:"
-msgstr ""
+msgstr "Sviluppatori principali della release 1.0:"
 
 #: src/gui/MainMenu.cc:111
 msgid "  RONALD LAMPRECHT (lead)"
-msgstr ""
+msgstr "  RONALD LAMPRECHT (capo)"
 
 #: src/gui/MainMenu.cc:115
 msgid "Special Thanks To:"
@@ -277,19 +267,15 @@ msgstr "Un Grazie Particolare va a:"
 
 #: src/gui/MainMenu.cc:116
 msgid "  DANIEL HECK (project founder)"
-msgstr ""
+msgstr "  DANIEL HECK (fondatore del progetto)"
 
 #: src/gui/MainMenu.cc:117
-#, fuzzy
 msgid "  MEINOLF SCHNEIDER (game idea, level design)"
-msgstr ""
-"  MEINOLF SCHNEIDER (idea del gioco), ANDREW \"NECROS\" SEGA (menu della "
-"musica)"
+msgstr "  MEINOLF SCHNEIDER (idea del gioco, progettazione livelli)"
 
 #: src/gui/MainMenu.cc:119
-#, fuzzy
 msgid "Please refer to the manual or the next pages for full credits."
-msgstr "Per favore, guarda il manuale per ulteriori ringraziamenti."
+msgstr "Per favore, fai riferimento al manuale o alle pagine che seguono per i ringraziamenti completi."
 
 #: src/gui/MainMenu.cc:121
 msgid "Home Page: http://www.nongnu.org/enigma"
@@ -304,37 +290,32 @@ msgid "Enigma is free software and may be distributed under the"
 msgstr "Enigma è un software libero e può essere distribuito sotto ai"
 
 #: src/gui/MainMenu.cc:125
-#, fuzzy
 msgid "terms of the GNU General Public License, version 2."
-msgstr "termini della GNU General Public License, versione 2.  Guarda"
+msgstr "termini della GNU General Public License, versione 2."
 
 #: src/gui/MainMenu.cc:127
-#, fuzzy
 msgid "Copyright (C) 2002-2006 Daniel Heck and contributors."
-msgstr "Copyright (C) 2002-2004 Daniel Heck ed i collaboratori."
+msgstr "Copyright (C) 2002-2006 Daniel Heck ed collaboratori."
 
 #: src/gui/MainMenu.cc:129
 msgid "Main developer of all releases:"
-msgstr ""
+msgstr "Sviluppatori principali di tutte le release:"
 
 #: src/gui/MainMenu.cc:143
-#, fuzzy
 msgid "Special Thanks:"
 msgstr "Un Grazie Particolare va a:"
 
 #: src/gui/MainMenu.cc:152
-#, fuzzy
 msgid "Contributors:"
-msgstr "Principali collaboratori:"
+msgstr "Collaboratori:"
 
 #: src/gui/MainMenu.cc:207 src/gui/LevelMenu.cc:64
 msgid "Level Pack"
 msgstr "Pacchetto di livelli"
 
 #: src/gui/MainMenu.cc:209
-#, fuzzy
 msgid "Network Game"
-msgstr "Inizia partita"
+msgstr "Gioco in Rete"
 
 #: src/gui/MainMenu.cc:210
 msgid "Editor"
@@ -350,27 +331,27 @@ msgstr "Riconoscimenti"
 
 #: src/gui/MainMenu.cc:303
 msgid "Preferences Path:"
-msgstr ""
+msgstr "Percorso delle Preferenze:"
 
 #: src/gui/MainMenu.cc:313
 msgid "User Path:"
-msgstr ""
+msgstr "Percorso dell'Utente:"
 
 #: src/gui/MainMenu.cc:323
 msgid "User Image Path:"
-msgstr ""
+msgstr "Percorso Immagini dell'Utente:"
 
 #: src/gui/MainMenu.cc:333
 msgid "System Path:"
-msgstr ""
+msgstr "Percorso di Sistema:"
 
 #: src/gui/MainMenu.cc:343
 msgid "Resource Paths:"
-msgstr ""
+msgstr "Percorso delle Risorse:"
 
 #: src/gui/MainMenu.cc:353
 msgid "L10n Path:"
-msgstr ""
+msgstr "Percorso L10n:"
 
 #: src/gui/OptionsMenu.cc:71 src/gui/OptionsMenu.cc:92
 msgid "muted"
@@ -396,12 +377,11 @@ msgstr "No"
 
 #: src/gui/OptionsMenu.cc:122
 msgid "Auto"
-msgstr ""
+msgstr "Auto"
 
 #: src/gui/OptionsMenu.cc:122
-#, fuzzy
 msgid "Never"
-msgstr "invertito"
+msgstr "Mai"
 
 #: src/gui/OptionsMenu.cc:162
 msgid "Default"
@@ -461,26 +441,24 @@ msgid "Stereo: "
 msgstr "Stereo: "
 
 #: src/gui/OptionsMenu.cc:383
-#, fuzzy
 msgid "Ratings update: "
-msgstr "Lingua: "
+msgstr "Aggiorna valutazioni: "
 
 #: src/gui/OptionsMenu.cc:397
 msgid "User name: "
-msgstr ""
+msgstr "Nome utente: "
 
 #: src/gui/OptionsMenu.cc:398
 msgid "User path: "
-msgstr ""
+msgstr "Percorso dell'utente: "
 
 #: src/gui/OptionsMenu.cc:399
 msgid "User image path: "
-msgstr ""
+msgstr "Percorso immagini dell'utente: "
 
 #: src/gui/LevelMenu.cc:62 src/gui/LevelPackMenu.cc:63
-#, fuzzy
 msgid "Main Menu"
-msgstr "Enigma - Menu Principale"
+msgstr "Menu Principale"
 
 #: src/gui/LevelMenu.cc:166
 msgid "Skip to main menu"
@@ -516,20 +494,19 @@ msgstr "Segna livello corrente come Irrisolto"
 
 #: src/gui/LevelMenu.cc:175 src/gui/LevelPackMenu.cc:48
 msgid "Left click:"
-msgstr ""
+msgstr "Clic sinistro:"
 
 #: src/gui/LevelMenu.cc:176 src/gui/LevelPackMenu.cc:49
 msgid "Right or control click:"
-msgstr ""
+msgstr "Clic destro o control clic:"
 
 #: src/gui/LevelMenu.cc:176
-#, fuzzy
 msgid "Inspect selected level"
-msgstr "Gioca livello selezionato"
+msgstr "Analizza livello selezionato"
 
 #: src/gui/LevelMenu.cc:193
 msgid "Select next level for world record hunt"
-msgstr ""
+msgstr "Seleziona il prossimo livello per la caccia al record mondiale"
 
 #: src/gui/LevelMenu.cc:195
 msgid "Select next unsolved level"
@@ -545,14 +522,14 @@ msgid "%s: %d levels"
 msgstr "%s: %d livelli"
 
 #: src/gui/LevelMenu.cc:296
-#, fuzzy, c-format
+#, c-format
 msgid "%d%% best"
-msgstr "%d%% risolto"
+msgstr "%d%% migliore"
 
 #: src/gui/LevelMenu.cc:301
-#, fuzzy, c-format
+#, c-format
 msgid "%d%% par, hcp %.1f"
-msgstr "%d%% par"
+msgstr "%d%% par, hcp %.1f"
 
 #: src/gui/LevelMenu.cc:305
 #, c-format
@@ -566,484 +543,456 @@ msgstr "Il tuo tempo: %d:%02d"
 
 #: src/gui/LevelMenu.cc:345
 msgid "That's world record."
-msgstr ""
+msgstr "Questo è il record mondiale."
 
 #: src/gui/LevelMenu.cc:347
-#, fuzzy, c-format
+#, c-format
 msgid "That's %d:%02d below world record."
-msgstr "Questo è %d:%02d sotto al par."
+msgstr "Questo è %d:%02d al di sotto del record mondiale."
 
 #: src/gui/LevelMenu.cc:355
-#, fuzzy, c-format
+#, c-format
 msgid "World record by %s: %d:%02d"
-msgstr "Par di %s: %d:%02d"
+msgstr "Record mondiale di %s: %d:%02d"
 
 #: src/gui/LevelMenu.cc:358
-#, fuzzy, c-format
+#, c-format
 msgid "Par: %d:%02d World record by %s: %d:%02d"
-msgstr "Par di %s: %d:%02d"
+msgstr "Par: %d:%02d record mondiale di %s: %d:%02d"
 
 #: src/gui/LevelMenu.cc:362
-#, fuzzy, c-format
+#, c-format
 msgid "World record: %d:%02d"
-msgstr "Il tuo tempo: %d:%02d"
+msgstr "Record mondiale: %d:%02d"
 
 #: src/gui/LevelMenu.cc:364
-#, fuzzy, c-format
+#, c-format
 msgid "Par: %d:%02d World record: %d:%02d"
-msgstr "Il tuo tempo: %d:%02d"
+msgstr "Par: %d:%02d record mondiale: %d:%02d"
 
 #: src/gui/LevelMenu.cc:398
-#, fuzzy
 msgid "No further unsolved level available!"
 msgstr "Nessun altro livello irrisolto disponibile!"
 
 #: src/gui/LevelPackComposer.cc:40
 msgid "Shift click:"
-msgstr ""
+msgstr "Maiusc clic:"
 
 #: src/gui/LevelPackComposer.cc:40
 msgid "Add to clipboard"
-msgstr ""
+msgstr "Aggiungi agli appunti"
 
 #: src/gui/LevelPackComposer.cc:41
 msgid "Shift delete:"
-msgstr ""
+msgstr "Maiusc canc:"
 
 #: src/gui/LevelPackComposer.cc:41
 msgid "Clear clipboard"
-msgstr ""
+msgstr "Cancella appunti"
 
 #: src/gui/LevelPackComposer.cc:42
-#, fuzzy
 msgid "F8:"
-msgstr "F5:"
+msgstr "F8:"
 
 #: src/gui/LevelPackComposer.cc:42
 msgid "Insert clipboard as reference"
-msgstr ""
+msgstr "Inserisci appunti come riferimento"
 
 #: src/gui/LevelPackComposer.cc:43
-#, fuzzy
 msgid "F9:"
-msgstr "F5:"
+msgstr "F9:"
 
 #: src/gui/LevelPackComposer.cc:43
 msgid "Insert clipboard as copy"
-msgstr ""
+msgstr "Inserisci appunti come copia"
 
 #: src/gui/LevelPackComposer.cc:45
-#, fuzzy
 msgid "Alt left arrow:"
-msgstr "Freccia sinistra/destra:"
+msgstr "Alt freccia sinistra:"
 
 #: src/gui/LevelPackComposer.cc:45
 msgid "Exchange level with predecessor"
-msgstr ""
+msgstr "Scambia livello col precedente"
 
 #: src/gui/LevelPackComposer.cc:46
-#, fuzzy
 msgid "Alt right arrow:"
-msgstr "Freccia sinistra/destra:"
+msgstr "Alt freccia destra:"
 
 #: src/gui/LevelPackComposer.cc:46
 msgid "Exchange level with successor"
-msgstr ""
+msgstr "Scambia livello col successivo"
 
 #: src/gui/LevelPackComposer.cc:47
 msgid "Delete:"
-msgstr ""
+msgstr "Canc:"
 
 #: src/gui/LevelPackComposer.cc:47
-#, fuzzy
 msgid "Delete level"
-msgstr "Seleziona livello"
+msgstr "Cancella livello"
 
 #: src/gui/LevelPackComposer.cc:48
 msgid "Update index from levels"
-msgstr ""
+msgstr "Aggiorna l'indice dai livelli"
 
 #: src/gui/LevelPackComposer.cc:53
-#, fuzzy
 msgid "F10"
-msgstr "F10:"
+msgstr "F10"
 
 #: src/gui/LevelPackComposer.cc:54
 msgid "Move clipboard levels"
-msgstr ""
+msgstr "Sposta livelli contenuti negli appunti"
 
 #: src/gui/LevelPackComposer.cc:118 src/gui/LevelPackConfig.cc:307
 #: src/gui/LPGroupConfig.cc:99 src/gui/SearchMenu.cc:58
 msgid "Undo"
-msgstr ""
+msgstr "Annulla"
 
 #: src/gui/LevelPackComposer.cc:119 src/gui/LevelPackConfig.cc:308
 #: src/gui/LPGroupConfig.cc:100 src/gui/LevelInspector.cc:175
 #: src/gui/HelpMenu.cc:34
 msgid "Ok"
-msgstr ""
+msgstr "Ok"
 
 #: src/gui/LevelPackComposer.cc:362
-#, fuzzy, c-format
+#, c-format
 msgid "Clipboard: %d levels"
-msgstr "%s: %d livelli"
+msgstr "Appunti: %d livelli"
 
 #: src/gui/LevelPackConfig.cc:154
-#, fuzzy
 msgid "Levelpack:"
-msgstr "Pacchetto di livelli"
+msgstr "Pacchetto di livelli:"
 
 #: src/gui/LevelPackConfig.cc:155
 msgid "Owner:"
-msgstr ""
+msgstr "Proprietario:"
 
 #: src/gui/LevelPackConfig.cc:156 src/gui/LPGroupConfig.cc:55
 msgid "Group:"
-msgstr ""
+msgstr "Gruppo:"
 
 #: src/gui/LevelPackConfig.cc:157
 msgid "Location"
-msgstr ""
+msgstr "Posizione"
 
 #: src/gui/LevelPackConfig.cc:158
 msgid "in [All Packs]:"
-msgstr ""
+msgstr "in [Tutti i Pacchetti]:"
 
 #: src/gui/LevelPackConfig.cc:215
 msgid "Edit Metadata"
-msgstr ""
+msgstr "Modifica Metadati"
 
 #: src/gui/LevelPackConfig.cc:218
 msgid "Release:"
-msgstr ""
+msgstr "Release:"
 
 #: src/gui/LevelPackConfig.cc:219
 msgid "Revision:"
-msgstr ""
+msgstr "Revisione:"
 
 #: src/gui/LevelPackConfig.cc:220
 msgid "Compatibility:"
-msgstr ""
+msgstr "Compatibilità:"
 
 #: src/gui/LevelPackConfig.cc:221
 msgid "Default Location:"
-msgstr ""
+msgstr "Posizione predefinita:"
 
 #: src/gui/LevelPackConfig.cc:222
-#, fuzzy
 msgid "Level types:"
-msgstr "Pacchetto di livelli"
+msgstr "Tipo di livelli:"
 
 #: src/gui/LevelPackConfig.cc:297
 msgid "Please reasign levelpack to another group for group deletion"
-msgstr ""
+msgstr "Per favore, riassegna il pacchetto di livello ad un altro gruppo per la cancellazione del gruppo"
 
 #: src/gui/LevelPackConfig.cc:300
 msgid "Compose Pack"
-msgstr ""
+msgstr "Componi Pacchetto"
 
 #: src/gui/LevelPackConfig.cc:304
 msgid "Update Pack"
-msgstr ""
+msgstr "Aggiorna Pacchetto"
 
 #: src/gui/LevelPackConfig.cc:382
-msgid ""
-"Error: empty title not allowed - press \"Undo\" to exit without modifications"
-msgstr ""
+msgid "Error: empty title not allowed - press \"Undo\" to exit without modifications"
+msgstr "Errore: titolo vuoto non ammesso - premi \"Annulla\" per uscire senza modifiche"
 
 #: src/gui/LevelPackConfig.cc:393
 msgid "Error: use only \"a-zA-Z0-9 _-#\" for levelpack title"
-msgstr ""
+msgstr "Errore: utilizza solo \"a-zA-Z0-9 _-#\" per il titolo del pacchetto di livelli"
 
 #: src/gui/LevelPackConfig.cc:402
 msgid "Error: title already in use - choose another title"
-msgstr ""
+msgstr "Errore: titolo già in uso - scegli un altro titolo"
 
 #: src/gui/LevelPackMenu.cc:46
-#, fuzzy
 msgid "Left column:"
-msgstr "Pulsante sinistro del mouse:"
+msgstr "Colonna sinistra:"
 
 #: src/gui/LevelPackMenu.cc:46
-#, fuzzy
 msgid "Levelpack groups"
-msgstr "Pacchetto di livelli"
+msgstr "Gruppi di pacchetti di livelli"
 
 #: src/gui/LevelPackMenu.cc:47
-#, fuzzy
 msgid "Right columns:"
-msgstr "Pulsante destro del mouse:"
+msgstr "Colonne a destra:"
 
 #: src/gui/LevelPackMenu.cc:47
 msgid "Levelpacks of selected group"
-msgstr ""
+msgstr "Pacchetti di livelli del gruppo selezionato"
 
 #: src/gui/LevelPackMenu.cc:48
-#, fuzzy
 msgid "Select group or levelpack"
-msgstr "Seleziona livello"
+msgstr "Seleziona gruppo o pacchetto di livelli"
 
 #: src/gui/LevelPackMenu.cc:49
 msgid "Configure group or levelpack"
-msgstr ""
+msgstr "Configura gruppo o pacchetto di livelli"
 
 #: src/gui/LevelPackMenu.cc:60
 msgid "New Group"
-msgstr ""
+msgstr "Nuovo Gruppo"
 
 #: src/gui/LevelPackMenu.cc:61 src/gui/SearchMenu.cc:59
 msgid "Search"
-msgstr ""
+msgstr "Cerca"
 
 #: src/gui/LPGroupConfig.cc:63
 msgid "Position:"
-msgstr ""
+msgstr "Posizione:"
 
 #: src/gui/LPGroupConfig.cc:97
-#, fuzzy
 msgid "New Pack"
-msgstr "Pacchetto di livelli"
+msgstr "Nuovo Pacchetto"
 
 #: src/gui/LPGroupConfig.cc:98
 msgid "Delete Group"
-msgstr ""
+msgstr "Rimuovi Gruppo"
 
 #: src/gui/LPGroupConfig.cc:128
 msgid ""
 "Error: empty group name not allowed - press \"Undo\" to exit without "
 "modifications"
-msgstr ""
+msgstr "Errore: nome vuoto del gruppo non ammesso - premi \"Annulla\" per uscire senza modifiche"
 
 #: src/gui/LPGroupConfig.cc:139
 msgid "Error: group name is a duplicate of an existing group"
-msgstr ""
+msgstr "Errore: il nome del gruppo è identico a quello di un gruppo esistente"
 
 #: src/gui/LPGroupConfig.cc:144
 msgid "Error: \"Every group\" is a reserved group name"
-msgstr ""
+msgstr "Errore: \"Ogni gruppo\" è un nome di gruppo riservato"
 
 #: src/gui/LPGroupConfig.cc:149
 msgid "Error: group name must not be enclosed in square brackets"
-msgstr ""
+msgstr "Errore: il nome del gruppo non deve essere racchiuso fra parentesi quadre"
 
 #: src/gui/LPGroupConfig.cc:205
 msgid "Error: group not empty"
-msgstr ""
+msgstr "Errore: gruppo non vuoto"
 
 #: src/gui/ScreenshotViewer.cc:36
 msgid "Page Up:"
-msgstr ""
+msgstr "Pag Su:"
 
 #: src/gui/ScreenshotViewer.cc:36
-#, fuzzy
 msgid "Show previous screenshot"
-msgstr "Crea uno screenshot"
+msgstr "Visualizza schermata precedente"
 
 #: src/gui/ScreenshotViewer.cc:37
 msgid "Page Down:"
-msgstr ""
+msgstr "Pag Giù:"
 
 #: src/gui/ScreenshotViewer.cc:37
-#, fuzzy
 msgid "Show next screenshot"
-msgstr "Crea uno screenshot"
+msgstr "Visualizza schermata successiva"
 
 #: src/gui/ScreenshotViewer.cc:105
-#, fuzzy
 msgid "No screenshot available:"
-msgstr "Nessun altro livello irrisolto disponibile!"
+msgstr "Nessuna schermata disponibile:"
 
 #: src/gui/SearchMenu.cc:40
 msgid "Shallow Search:"
-msgstr ""
+msgstr "Ricerca non approfondita:"
 
 #. TRANSLATORS: the translation can have double size of the english text
 #: src/gui/SearchMenu.cc:42
 msgid "case independent search in title, author, filename"
-msgstr ""
+msgstr "ricerca indipendente da maiuscole/minuscole in titolo, autore, nome del file"
 
 #: src/gui/LevelInspector.cc:176
-#, fuzzy
 msgid "Screenshot"
-msgstr "Crea uno screenshot"
+msgstr "Schermata"
 
 #: src/gui/LevelInspector.cc:223
-#, fuzzy
 msgid "Level: "
-msgstr "Pacchetto di livelli"
+msgstr "Livello: "
 
 #: src/gui/LevelInspector.cc:225 src/gui/LevelInspector.cc:283
 msgid "Author: "
-msgstr ""
+msgstr "Autore: "
 
 #: src/gui/LevelInspector.cc:226
 msgid "Contact: "
-msgstr ""
+msgstr "Contatto: "
 
 #: src/gui/LevelInspector.cc:227
 msgid "Homepage: "
-msgstr ""
+msgstr "Sito web: "
 
 #: src/gui/LevelInspector.cc:248
 msgid "Public Ratings"
-msgstr ""
+msgstr "Punteggio pubblico"
 
 #: src/gui/LevelInspector.cc:250
 msgid "Intelligence: "
-msgstr ""
+msgstr "Intelligenza: "
 
 #: src/gui/LevelInspector.cc:251
 msgid "Dexterity: "
-msgstr ""
+msgstr "Destrezza: "
 
 #: src/gui/LevelInspector.cc:252
 msgid "Patience: "
-msgstr ""
+msgstr "Pazienza: "
 
 #: src/gui/LevelInspector.cc:253
 msgid "Knowledge: "
-msgstr ""
+msgstr "Conoscenza: "
 
 #: src/gui/LevelInspector.cc:254
-#, fuzzy
 msgid "Speed: "
-msgstr "Stereo: "
+msgstr "Rapidità: "
 
 #: src/gui/LevelInspector.cc:255
-#, fuzzy
 msgid "Difficulty: "
-msgstr "Difficoltà: Semplice"
+msgstr "Difficoltà: "
 
 #: src/gui/LevelInspector.cc:276
 msgid "Scores"
-msgstr ""
+msgstr "Punti"
 
 #: src/gui/LevelInspector.cc:279
 msgid "You: "
-msgstr ""
+msgstr "Tu: "
 
 #: src/gui/LevelInspector.cc:280
 msgid "World: "
-msgstr ""
+msgstr "Mondo: "
 
 #. TRANSLATORS: PAR = professional average rate - an expression used by golfers
 #: src/gui/LevelInspector.cc:282
 msgid "PAR: "
-msgstr ""
+msgstr "PAR: "
 
 #: src/gui/LevelInspector.cc:284
-#, fuzzy
 msgid "Solved %: "
-msgstr "Salta livelli risolti: "
+msgstr "Risolto %: "
 
 #: src/gui/LevelInspector.cc:285
-#, fuzzy
 msgid "Solved #: "
-msgstr "Salta livelli risolti: "
+msgstr "Risolto #: "
 
 #: src/gui/LevelInspector.cc:307
 msgid "Version"
-msgstr ""
+msgstr "Versione"
 
 #: src/gui/LevelInspector.cc:310
-#, fuzzy
 msgid "Score: "
-msgstr "Stereo: "
+msgstr "Punti: "
 
 #: src/gui/LevelInspector.cc:312 src/gui/LevelInspector.cc:316
 msgid "Status: "
-msgstr ""
+msgstr "Stato: "
 
 #: src/gui/LevelInspector.cc:313
 msgid "Release: "
-msgstr ""
+msgstr "Release: "
 
 #: src/gui/LevelInspector.cc:314
 msgid "Revision: "
-msgstr ""
+msgstr "Revisione: "
 
 #: src/gui/LevelInspector.cc:317
 msgid "Control: "
-msgstr ""
+msgstr "Controllo: "
 
 #: src/gui/LevelInspector.cc:318
 msgid "Target: "
-msgstr ""
+msgstr "Obiettivo: "
 
 #: src/gui/LevelInspector.cc:325 src/gui/LevelInspector.cc:341
 msgid "stable"
-msgstr ""
+msgstr "stabile"
 
 #: src/gui/LevelInspector.cc:327 src/gui/LevelInspector.cc:343
 msgid "test"
-msgstr ""
+msgstr "test"
 
 #: src/gui/LevelInspector.cc:329 src/gui/LevelInspector.cc:345
 msgid "experimental"
-msgstr ""
+msgstr "sperimentale"
 
 #: src/gui/LevelInspector.cc:339
-#, fuzzy
 msgid "released"
-msgstr "invertito"
+msgstr "rilasciato"
 
 #: src/gui/LevelInspector.cc:351
 msgid "force"
-msgstr ""
+msgstr "forza"
 
 #: src/gui/LevelInspector.cc:354
 msgid "balance"
-msgstr ""
+msgstr "equilibrio"
 
 #: src/gui/LevelInspector.cc:357
 msgid "key"
-msgstr ""
+msgstr "chiave"
 
 #: src/gui/LevelInspector.cc:365
 msgid "time"
-msgstr ""
+msgstr "tempo"
 
 #: src/gui/LevelInspector.cc:366
 msgid "pushes"
-msgstr ""
+msgstr "spinte"
 
 #: src/gui/LevelInspector.cc:367
 msgid "moves"
-msgstr ""
+msgstr "spostamenti"
 
 #: src/gui/LevelInspector.cc:383
 msgid "World Record Holders: "
-msgstr ""
+msgstr "Detentori record mondiale: "
 
 #: src/gui/LevelInspector.cc:399
-#, fuzzy
 msgid "Credits: "
-msgstr "Riconoscimenti"
+msgstr "Riconoscimenti: "
 
 #: src/gui/LevelInspector.cc:410
 msgid "Dedication: "
-msgstr ""
+msgstr "Dedica: "
 
 #: src/gui/LevelInspector.cc:421
-#, fuzzy
 msgid "Level Path: "
-msgstr "Pacchetto di livelli"
+msgstr "Percorso Livello: "
 
 #: src/gui/LevelInspector.cc:441
 msgid "Compatibility: "
-msgstr ""
+msgstr "Compatibilità: "
 
 #: src/gui/LevelInspector.cc:448
 msgid "Annotation: "
-msgstr ""
+msgstr "Annotazione: "
 
 #: src/gui/LevelInspector.cc:454
 msgid "Rating: "
-msgstr ""
+msgstr "Valutazione: "
 
 #: src/gui/LevelInspector.cc:456
 msgid "Average: "
-msgstr ""
+msgstr "Media: "
 
 #: src/gui/GameMenu.cc:46
 msgid "Resume Level"
@@ -1054,44 +1003,46 @@ msgid "Restart Level"
 msgstr "Ricomincia Livello"
 
 #: src/gui/GameMenu.cc:49
-#, fuzzy
 msgid "Level Info"
-msgstr "Pacchetto di livelli"
+msgstr "Informazioni livello"
 
 #: src/gui/GameMenu.cc:50
 msgid "Abort Level"
 msgstr "Annulla Livello"
 
 #: src/lev/Proxy.cc:162
-#, fuzzy
 msgid "Error on auto registration of levelfile: "
-msgstr "Errore nel file di configurazione.\n"
+msgstr "Errore nell'auto-registrazione del file del livello: "
 
 #: src/lev/Proxy.cc:164
 msgid ""
 "Note: the level will not show up in the \"Auto Folder\" levelpack!\n"
 "\n"
 msgstr ""
+"Nota: il livello non sarà visibile nel pacchetto di livello \"Cartella Auto\"\n"
+"\n"
 
 #: src/lev/Proxy.cc:166 src/lev/PersistentIndex.cc:306 src/d_models.cc:210
 #: src/d_models.cc:224 src/PreferenceManager.cc:181 src/StateManager.cc:159
 msgid "Continue"
-msgstr ""
+msgstr "Continua"
 
 #: src/lev/PersistentIndex.cc:302
 msgid "Error on  registration of levelpack index: \n"
-msgstr ""
+msgstr "Errore nella registrazione dell'indice del pacchetto di livello: \n"
 
 #: src/lev/PersistentIndex.cc:304
 msgid ""
 "Note: the levelpack will not show up!\n"
 "\n"
 msgstr ""
+"Nota: il pacchetto di livello non sarà visibile!\n"
+"\n"
 
 #: src/lua.cc:800
 #, c-format
 msgid "Cannot find '%s'.\n"
-msgstr ""
+msgstr "Impossibile trovare '%s'.\n"
 
 #: src/lua.cc:801 src/lua.cc:808
 #, c-format
@@ -1099,14 +1050,14 @@ msgid "Your installation may be incomplete or invalid.\n"
 msgstr "La tua installazione potrebbe essere incompleta o non valida.\n"
 
 #: src/lua.cc:807
-#, fuzzy, c-format
+#, c-format
 msgid "There was an error loading '%s'.\n"
-msgstr "C'è stato un errore nel caricamento di 'startup.lua'.\n"
+msgstr "C'è stato un errore nel caricamento di '%s'.\n"
 
 #: src/lua.cc:809
 #, c-format
 msgid "Error: '%s'\n"
-msgstr ""
+msgstr "Errore: '%s'\n"
 
 #: src/d_models.cc:209 src/d_models.cc:223
 msgid ""
@@ -1114,49 +1065,52 @@ msgid ""
 "\n"
 "This error may cause the application to behave strange!"
 msgstr ""
+"\n"
+"\n"
+"Questo errore può causare un comportamento anomalo dell'applicazione!"
 
 #  level: "Easy Shifting.."
 #  author: "Ralf Westram" email "amgine@reallysoft.de"
 #: po/level_i18n.cc:46
 msgid "Dedicated to my friend Frank."
-msgstr ""
+msgstr "Dedicato al mio amico Frank."
 
 #  level: "Easy Shifting.."
 #  author: "Ralf Westram" email "amgine@reallysoft.de"
 #: po/level_i18n.cc:47
 msgid "This level is quite straightforward, isn't it? Just continue .. ;-)"
-msgstr ""
+msgstr "Questo livello è piuttosto diretto, o no? Continua pure .. ;-)"
 
 #  level: "Pentomino V"
 #  author: "Ralf Westram" email "amgine@reallysoft.de"
 #: po/level_i18n.cc:57
 msgid "And last not least: 3*20 = 60"
-msgstr ""
+msgstr "Infine ma non per importanza: 3*20 = 60"
 
 #  level: "Do It Yourself"
 #  author: "Martin Hawlisch" email ""
 #: po/level_i18n.cc:64
 msgid "Take some money and build yourself the tools you need."
-msgstr ""
+msgstr "Procurati un po' di denaro e costruisciti gli strumenti di cui hai bisogno."
 
 #  level: "Laser Magic"
 #  author: "Petr Machata" email ""
 #: po/level_i18n.cc:86
 msgid "Give it another try ..."
-msgstr ""
+msgstr "Tenta ancora ..."
 
 #  level: "Knight Moves"
 #  author: "illmind" email "support@mag-heut.net"
 #: po/level_i18n.cc:90
 msgid "So,  where  are  the  knights?  -  you'll  be  sorry  you  asked!"
-msgstr ""
+msgstr "Perciò,  dove  sono  i  cavalieri?  -  ti  pentirai  di  averlo  domandato!"
 
 #  level: "Buridan"
 #  author: "Alain Busser" email ""
 #  comment: "wordplay between 'right' (converse of left) and 'right' (true); not necessary to translate."
 #: po/level_i18n.cc:105
 msgid "The other document lies and the left wormhole is the right one."
-msgstr ""
+msgstr "L'altro documento mente e il passaggio di sinistra è quello corretto."
 
 #  level: "Buridan"
 #  author: "Alain Busser" email ""
@@ -1165,25 +1119,25 @@ msgstr ""
 msgid ""
 "The other document tells the truth and the other wormhole has been left on "
 "the right side."
-msgstr ""
+msgstr "L'altro documento dice la verità e l'altro passaggio è stato lasciato sul lato destro."
 
 #  level: "Domain of Mysteries"
 #  author: "Siegfried Fennig" email ""
 #: po/level_i18n.cc:124
 msgid "Press F3 or finish."
-msgstr ""
+msgstr "Premi F3 per terminare."
 
 #  level: "Turn Around"
 #  author: "Andreas Lochmann" email ""
 #: po/level_i18n.cc:134
 msgid "Just a hint: Try the easy-mode first ..."
-msgstr ""
+msgstr "Solo un consiglio: Prova la modalità semplificata prima ..."
 
 #  level: "Turn Around"
 #  author: "Andreas Lochmann" email ""
 #: po/level_i18n.cc:135
 msgid "Don't think too long ... it's easy!"
-msgstr ""
+msgstr "Non pensarci troppo a lungo ... è semplice!"
 
 #  level: "Robin's Wood"
 #  author: "Andreas Lochmann" email ""
@@ -1193,31 +1147,33 @@ msgid ""
 "Between Might Lay   --   A Secret Way!   --   (If this you see, press Shift-"
 "F3.)"
 msgstr ""
+"A Stone, a Tree, and Trees be Three,   --   For to Defeat the Enemy,   --   "
+"Between Might Lay   --   A Secret Way!   --   (If this you see, press Shift-"
+"F3.)"
 
 #  level: "Laser Paradise"
 #  author: "illmind" email "support@mag-heut.net"
 #: po/level_i18n.cc:153
 msgid "...  now  go  back  and  get  the  hammer!"
-msgstr ""
+msgstr "...  adesso  torna  indietro  e  prendi  il  martello!"
 
 #  level: "Pharaoh's Tomb"
 #  author: "Siegfried Fennig" email ""
 #: po/level_i18n.cc:160
 msgid "Some stones are movable."
-msgstr ""
+msgstr "Alcune pietre possono essere spostate."
 
 #  level: "Pharaoh's Tomb"
 #  author: "Siegfried Fennig" email ""
 #: po/level_i18n.cc:161
-#, fuzzy
 msgid "You lost!"
-msgstr "Il tuo miglior, "
+msgstr "Hai perso!"
 
 #  level: "Pentomino I"
 #  author: "Ralf Westram" email "amgine@reallysoft.de"
 #: po/level_i18n.cc:165
 msgid "Five form twelve!"
-msgstr ""
+msgstr "Cinque formano dodici!"
 
 #  level: "Enignimm"
 #  author: "Alain Busser" email ""
@@ -1225,26 +1181,25 @@ msgstr ""
 msgid ""
 "You play against Big Brother; each player in turn deletes 1, 2 or 3 stones; "
 "the one who deletes the last stone LOOSES!!!"
-msgstr ""
+msgstr "Giochi contro il Grande Fratello; ogni giocatore a turno cancella 1, 2 o 3 pietre; l'ultimo che cancella l'ultima pietra PERDE!!!"
 
 #  level: "Enignimm"
 #  author: "Alain Busser" email ""
 #: po/level_i18n.cc:175
-#, fuzzy
 msgid "Now you begin this game."
-msgstr "Nessuna musica durante il gioco"
+msgstr "Adesso inizi questo gioco."
 
 #  level: "Enignimm"
 #  author: "Alain Busser" email ""
 #: po/level_i18n.cc:177
 msgid "Poor little blackball ... 'SHIFT+F3'!!!"
-msgstr ""
+msgstr "Povera piccola palla nera ... 'MAIUSC+F3'!!!"
 
 #  level: "- Meditation -"
 #  author: "Edward" email ""
 #: po/level_i18n.cc:196
 msgid "- Meditation -"
-msgstr ""
+msgstr "- Meditazione -"
 
 #  level: "Khun Phan"
 #  author: "Ralf Westram" email "amgine@reallysoft.de"
@@ -1252,13 +1207,13 @@ msgstr ""
 msgid ""
 "One of the puzzle stones needs to be placed onto the trigger "
 "field.                       Guess which ... :)"
-msgstr ""
+msgstr "Una delle pietre puzzle deve essere posta su un terreno ad innesco                       Indovia quale ... :)"
 
 #  level: "Khun Phan"
 #  author: "Ralf Westram" email "amgine@reallysoft.de"
 #: po/level_i18n.cc:210
 msgid "The level preview might help ..."
-msgstr ""
+msgstr "L'anteprima del livello potrebbe aiutare ..."
 
 #  level: "Welcome"
 #  author: "Raoul Bourquin" email ""
@@ -1266,25 +1221,25 @@ msgstr ""
 #: po/level_i18n.cc:1755 po/level_i18n.cc:1971 po/level_i18n.cc:2971
 #: po/level_i18n.cc:3079
 msgid "Welcome"
-msgstr ""
+msgstr "Benvenuto"
 
 #  level: "Welcome"
 #  author: "Raoul Bourquin" email ""
 #: po/level_i18n.cc:234
 msgid "Welcome to Enigma II"
-msgstr ""
+msgstr "Benvenuto ad Enigma II"
 
 #  level: "Enigmastermind"
 #  author: "Alain Busser" email ""
 #: po/level_i18n.cc:239
 msgid "This switch is to validate your guess."
-msgstr ""
+msgstr "Questo interruttore è per verificare la tua ipotesi."
 
 #  level: "Enigmastermind"
 #  author: "Alain Busser" email ""
 #: po/level_i18n.cc:241
 msgid "This switch is to reset the game."
-msgstr ""
+msgstr "Questo interruttore è per ricominciare il gioco."
 
 #  level: "Enigmastermind"
 #  author: "Alain Busser" email ""
@@ -1292,26 +1247,26 @@ msgstr ""
 msgid ""
 "Each color appears at most once; each good color gives whites if not at the "
 "good place, blacks if it is also well placed."
-msgstr ""
+msgstr "Ogni colore appare al massimo una volta; ogni buon colore dà bianco se non si trova nella giusta posizione, nero se è anche ben posizionato."
 
 #  level: "Road to Eden"
 #  author: "Alain Busser" email ""
 #  comment: "this level has been inspired by the labyrinth of Chartres cathedral, which represents the difficult road that leads to wisdom"
 #: po/level_i18n.cc:255
 msgid "Road to Eden"
-msgstr ""
+msgstr "Strada per il Paradiso"
 
 #  level: "Tool Time"
 #  author: "Barry & Lori Mead" email "bmead15@cox.net"
 #: po/level_i18n.cc:262
 msgid "Make a Sword, & Umbrella."
-msgstr ""
+msgstr "Fai una Spada, & un Ombrello."
 
 #  level: "Growing Boxes"
 #  author: "Lukas Schüller" email "Lucky_Luc@web.de"
 #: po/level_i18n.cc:281
 msgid "You'd need a portable box!"
-msgstr ""
+msgstr "Avresti bisogno di una scatola portatile!"
 
 #  level: "Growing Boxes"
 #  author: "Lukas Schüller" email "Lucky_Luc@web.de"
@@ -1319,7 +1274,7 @@ msgstr ""
 msgid ""
 "Congratulations! You found a seed! Try to use it behind the grate (and move "
 "away quickly)"
-msgstr ""
+msgstr "Congratulazioni! Hai trovato un seme! Prova ad utilizzarlo dietro ad una grata (e a rimuoverlo rapidamente)"
 
 #  level: "Growing Boxes"
 #  author: "Lukas Schüller" email "Lucky_Luc@web.de"
@@ -1328,40 +1283,39 @@ msgid ""
 "Remember that you can't fill a closed bridge with a "
 "box ...                                           but maybe you can use the "
 "3rd seed differently!"
-msgstr ""
+msgstr "Ricordati che non puoi riempire un ponte chiuso con una scatola ...                                           ma forse puoi utilizzare il terzo seme differentemente!"
 
 #  level: "Growing Boxes"
 #  author: "Lukas Schüller" email "Lucky_Luc@web.de"
 #: po/level_i18n.cc:284
 msgid "There are different kinds of seeds ... Try to use them!"
-msgstr ""
+msgstr "Ci sono differente tipi di semi ... Prova ad utilizzarli!"
 
 #  level: "Growing Boxes"
 #  author: "Lukas Schüller" email "Lucky_Luc@web.de"
 #  comment: "read from the right"
 #: po/level_i18n.cc:286
 msgid "Noitcerid etisoppo eht yrt! Tuo syaw owt? Rorrim, rorrim ..."
-msgstr ""
+msgstr "Atsoppo enoizerid al avorp! Aticsu id eiv eud? Oihcceps, oihcceps ..."
 
 #  level: "Pentomino III"
 #  author: "Ralf Westram" email "amgine@reallysoft.de"
 #: po/level_i18n.cc:290
 msgid "Simply 5*12 ..."
-msgstr ""
+msgstr "Semplicemente 5*12 ..."
 
 #  level: "Black Holes"
 #  author: "Siegfried Fennig" email ""
 #: po/level_i18n.cc:312
 msgid "Beware! Black holes!"
-msgstr ""
+msgstr "Attento! Buchi neri!"
 
 #  level: "Moure-Switches"
 #  author: "Andreas Lochmann" email ""
 #  comment: "The sequence of the four elements is important, as they are connected to the colors of the floor."
 #: po/level_i18n.cc:342
-msgid ""
-"Our full attention should deserve:           Air and Fire, Water, Earth."
-msgstr ""
+msgid "Our full attention should deserve:           Air and Fire, Water, Earth."
+msgstr "Merita la nostra completa attenzione:           Aria e Fuoco, Acqua e Terra."
 
 #  level: "Moure-Switches"
 #  author: "Andreas Lochmann" email ""
@@ -1370,37 +1324,37 @@ msgstr ""
 msgid ""
 "And if your tries grow out of bound,           then shame on you, eyes to "
 "the ground!"
-msgstr ""
+msgstr "E se i tuoi tentativi crescono senza controllo,            La vergogna su di te, occhi sul pavimento!"
 
 #  level: "Disk Royal"
 #  author: "illmind" email "support@mag-heut.net"
 #: po/level_i18n.cc:367
 msgid "is  black  always  beautiful?"
-msgstr ""
+msgstr "il  nero  è  sempre  bello?"
 
 #  level: "It's Magic"
 #  author: "Martin Hawlisch" email ""
 #: po/level_i18n.cc:374
 msgid "Do not use too much magic!"
-msgstr ""
+msgstr "Non utilizzare troppa magia!"
 
 #  level: "The Fuze"
 #  author: "capkoh" email ""
 #: po/level_i18n.cc:384
 msgid "End of way!"
-msgstr ""
+msgstr "Non si passa!"
 
 #  level: "The Fuze"
 #  author: "capkoh" email ""
 #: po/level_i18n.cc:385
 msgid "There are two HIDDEN items!"
-msgstr ""
+msgstr "Ci sono due elementi NASCOSTI!"
 
 #  level: "The Fuze"
 #  author: "capkoh" email ""
 #: po/level_i18n.cc:386
 msgid "Third stone from the rock is the hole!"
-msgstr ""
+msgstr "La terza pietra dalla roccia è il buco!"
 
 #  level: "Patterns of Impulse"
 #  author: "Andreas Lochmann" email ""
@@ -1408,74 +1362,74 @@ msgstr ""
 msgid ""
 "As long as there is motion around the oxyd-stones, you won't reach them.   "
 "So: Don't lose control of the level! It's possible."
-msgstr ""
+msgstr "Fintanto che c'è movimento attorno alle pietre-oxyd, non le raggiungerai.   Perciò: Non perdere il controllo del livello! È possibile."
 
 #  level: "NO Trespassing"
 #  author: "Martin Hawlisch" email ""
 #: po/level_i18n.cc:406
 msgid "! -  DANGER  -  NO TRESPASSING  -  DANGER  - !"
-msgstr ""
+msgstr "! -  PERICOLO  -  VIETATO OLTREPASSARE  -  PERICOLO  - !"
 
 #  level: "Light Switches"
 #  author: "Siegfried Fennig" email ""
 #: po/level_i18n.cc:422
 msgid "Danger ... laser beams!"
-msgstr ""
+msgstr "Pericolo ... raggi laser!"
 
 #  level: "The Life Game"
 #  author: "Alain Busser" email ""
 #: po/level_i18n.cc:430
 msgid "The Life Game"
-msgstr ""
+msgstr "Il Gioco della Vita"
 
 #  level: "The Life Game"
 #  author: "Alain Busser" email ""
 #: po/level_i18n.cc:432
 msgid "The nine switches in square serve to configure the initial population."
-msgstr ""
+msgstr "I nove interruttori formanti il quadrato servono per configurare la popolazione iniziale."
 
 #  level: "The Life Game"
 #  author: "Alain Busser" email ""
 #: po/level_i18n.cc:434
 msgid "START"
-msgstr ""
+msgstr "INIZIO"
 
 #  level: "The Life Game"
 #  author: "Alain Busser" email ""
 #: po/level_i18n.cc:436
 msgid "CLEAR"
-msgstr ""
+msgstr "CANCELLA"
 
 #  level: "Run Like Hell"
 #  author: "Ralf Westram" email "amgine@reallysoft.de"
 #: po/level_i18n.cc:446
 msgid "Calm down!"
-msgstr ""
+msgstr "Calmati!"
 
 #  level: "Bizarro World"
 #  author: "Jacob Scott" email ""
 #  comment: "read from the right"
 #: po/level_i18n.cc:454
 msgid ".moor txen eht ot teg ot syaw owt era erehT"
-msgstr ""
+msgstr ".aznats amissorp al eregnuiggar rep idom eud onos iC"
 
 #  level: "Wood robbing"
 #  author: "Alain Busser" email ""
 #: po/level_i18n.cc:465
 msgid "Wood robbing"
-msgstr ""
+msgstr "Furto di legna"
 
 #  level: "The Race"
 #  author: "Jacob Scott" email ""
 #: po/level_i18n.cc:487 po/level_i18n.cc:1862
 msgid "It's a race!"
-msgstr ""
+msgstr "È una gara!"
 
 #  level: "Little Puzzles"
 #  author: "Jon 'WB' Sneyers" email ""
 #: po/level_i18n.cc:509
 msgid "Oops ... you're stuck ...     Try again ..."
-msgstr ""
+msgstr "Oops ... sei bloccato ...     Prova ancora ..."
 
 #  level: "Little Puzzles"
 #  author: "Jon 'WB' Sneyers" email ""
@@ -1483,25 +1437,25 @@ msgstr ""
 msgid ""
 "Congratulations, you reached this side ...      but can you get to the "
 "oxyds? "
-msgstr ""
+msgstr "Congratulazioni, hai raggiunto questo lato ...      ma puoi arrivare alle pietre oxyd?"
 
 #  level: "Little Puzzles"
 #  author: "Jon 'WB' Sneyers" email ""
 #: po/level_i18n.cc:511
 msgid "Well done!"
-msgstr ""
+msgstr "Ben fatto!"
 
 #  level: "Where is it?"
 #  author: "Barry & Lori Mead" email "bmead15@cox.net"
 #: po/level_i18n.cc:515
 msgid "Paint Ahead!"
-msgstr ""
+msgstr "Dipingi avanti!"
 
 #  level: "Big Adventures"
 #  author: "Jon 'WB' Sneyers" email ""
 #: po/level_i18n.cc:552
 msgid "Too many wooden blocks!  Try the other way ..."
-msgstr ""
+msgstr "Troppi blocchi di legno!  Prova in un altro modo ..."
 
 #  level: "Big Adventures"
 #  author: "Jon 'WB' Sneyers" email ""
@@ -1509,25 +1463,25 @@ msgstr ""
 msgid ""
 "Greetings, adventurer!    The road ahead is long and dangerous, so be "
 "careful!"
-msgstr ""
+msgstr "Saluti, avventuriero!    La strada che ti si para davanti e lunga e pericolosa, perciò sii prudente!"
 
 #  level: "Big Adventures"
 #  author: "Jon 'WB' Sneyers" email ""
 #: po/level_i18n.cc:554
 msgid "Well done, adventurer!    Good luck!"
-msgstr ""
+msgstr "Ben fatto, avventuriero!    Buona fortuna!"
 
 #  level: "Big Adventures"
 #  author: "Jon 'WB' Sneyers" email ""
 #: po/level_i18n.cc:555
 msgid "Congratulations, adventurer!  You did it!"
-msgstr ""
+msgstr "Congratulazioni, avventuriero!  Ce l'hai fatta!"
 
 #  level: "The Flagstone Reaper"
 #  author: "Andreas Lochmann" email ""
 #: po/level_i18n.cc:560
 msgid "The Flagstone Reaper"
-msgstr ""
+msgstr "Il Mietitore di Bandiere"
 
 #  level: "The Flagstone Reaper"
 #  author: "Andreas Lochmann" email ""
@@ -1544,7 +1498,7 @@ msgstr ""
 #  author: "Sven Siggelkow" email ""
 #: po/level_i18n.cc:582
 msgid "Alfred Nobel says: This is definitely a meditation landscape!"
-msgstr ""
+msgstr "Alfred Nobel dice: Questo è decisamente un paesaggio meditativo!"
 
 #  level: "How solid?"
 #  author: "Andreas Lochmann" email ""
@@ -1558,6 +1512,11 @@ msgid ""
 "any.)                                                                                                                  "
 "(Really!)"
 msgstr ""
+"Non sei stato abbastanza rapido; prova"
+"F3.                                                                              "
+"(O ricerca delle pietre non-solide, se vuoi.)                                                                                                        "
+"(Ma non ne troverai.)                                                                                                                  "
+"(Sul serio!)"
 
 #  level: "How solid?"
 #  author: "Andreas Lochmann" email ""
@@ -1569,36 +1528,39 @@ msgid ""
 "me!                                                                               "
 "Really!"
 msgstr ""
+"Puoi credermi: tutte le pietre che vedi in questo livello sono solide!                                                                                      "
+"Puoi veramente credermi!                                                                               "
+"Sul serio!"
 
 #  level: "The Dark Outside"
 #  author: "Andreas Lochmann" email ""
 #: po/level_i18n.cc:633
 msgid "What a pity, and there's so much paint left ..."
-msgstr ""
+msgstr "Che peccato, ed è rimasto ancora così tanto da dipingere ..."
 
 #  level: "Running Stone"
 #  author: "Christoph & Anita" email ""
 #: po/level_i18n.cc:643
 msgid "A hammer destroys some black stones."
-msgstr ""
+msgstr "Un martello distrugge alcune pietre nere."
 
 #  level: "Running Stone"
 #  author: "Christoph & Anita" email ""
 #: po/level_i18n.cc:644
 msgid "Watch out for a disappearing stone."
-msgstr ""
+msgstr "Fai attenzione ad una pietra che scompare."
 
 #  level: "Sleeping Serpent"
 #  author: "Raoul Bourquin" email "raoul@users.berlios.de"
 #: po/level_i18n.cc:672
 msgid "Don't wake it up!"
-msgstr ""
+msgstr "Non svegliarlo!"
 
 #  level: "Welcome"
 #  author: "Raoul Bourquin" email ""
 #: po/level_i18n.cc:690
 msgid "Welcome to Enigma IV"
-msgstr ""
+msgstr "Benvenuto ad Enigma IV"
 
 #  level: "Cluenigma"
 #  author: "Alain Busser" email ""
@@ -1611,133 +1573,133 @@ msgid ""
 "Professor Plum, the mysterious Rev. Green, the nurse Mrs Whiteball, who "
 "discovered the corpse, and Miss Scarlett whose beauty might be fatal ... you "
 "must find who killed your uncle, where and how."
-msgstr ""
+msgstr "Tuo zio Sir Pallanera è stato assassinato la sera passata nella suo castello, in una delle sue 6 stanze, da una delle armi che si trovano in cantina; i sospettati sono la timida Sig.ra Pavone, il Colonnello segreto Mostarda, lo svanito Professor Prugna, il misterioso Reverendo Verde, l'infermiera Sig.ra Pallabianca, che ha scoperto il cadavere e la Sig.na Scarlatta la cui bellezza potrebbe essere fatale ... devi trovare chi ha ucciso tuo zio, dove e come."
 
 #  level: "Cluenigma"
 #  author: "Alain Busser" email ""
 #: po/level_i18n.cc:737
 msgid "This room is not the crime scene."
-msgstr ""
+msgstr "Questa non è la scena del crimine."
 
 #  level: "Cluenigma"
 #  author: "Alain Busser" email ""
 #: po/level_i18n.cc:739
 msgid "The murderer is not Mrs Peacock."
-msgstr ""
+msgstr "L'assassino non è la Sig.ra Pavone"
 
 #  level: "Cluenigma"
 #  author: "Alain Busser" email ""
 #: po/level_i18n.cc:741
 msgid "The murderer is not Colonel Mustard."
-msgstr ""
+msgstr "L'assassino non è il Colonnello Mostarda"
 
 #  level: "Cluenigma"
 #  author: "Alain Busser" email ""
 #: po/level_i18n.cc:743
 msgid "The murderer is not Professor Plum."
-msgstr ""
+msgstr "L'assassino non è il Professor Prugna."
 
 #  level: "Cluenigma"
 #  author: "Alain Busser" email ""
 #: po/level_i18n.cc:745
 msgid "The murderer is not Reverend Green."
-msgstr ""
+msgstr "L'assassino non è il Reverendo Verde."
 
 #  level: "Cluenigma"
 #  author: "Alain Busser" email ""
 #: po/level_i18n.cc:747
 msgid "The murderer is not Mrs Whiteball."
-msgstr ""
+msgstr "L'assassino non è la Sig.ra Pallabianca."
 
 #  level: "Cluenigma"
 #  author: "Alain Busser" email ""
 #: po/level_i18n.cc:749
 msgid "The murderer is not Miss Scarlett."
-msgstr ""
+msgstr "L'assassino non è la Sig.na Scarlatta."
 
 #  level: "Cluenigma"
 #  author: "Alain Busser" email ""
 #: po/level_i18n.cc:751
 msgid "Sir Blackball has not been killed with the bomb."
-msgstr ""
+msgstr "Sir. Pallanera non è stato uscciso con la bomba."
 
 #  level: "Cluenigma"
 #  author: "Alain Busser" email ""
 #: po/level_i18n.cc:753
 msgid "Sir Blackball has not been killed with the dagger."
-msgstr ""
+msgstr "Sir Pallanera non è stato ucciso con il pugnale."
 
 #  level: "Cluenigma"
 #  author: "Alain Busser" email ""
 #: po/level_i18n.cc:755
 msgid "Sir Blackball has not been killed with poison."
-msgstr ""
+msgstr "Sir Pallanera non è stato ucciso dal veleno."
 
 #  level: "Cluenigma"
 #  author: "Alain Busser" email ""
 #: po/level_i18n.cc:757
 msgid "Sir Blackball has not been killed with the wrench."
-msgstr ""
+msgstr "Sir Pallanera non è stato ucciso con la chiave inglese."
 
 #  level: "Cluenigma"
 #  author: "Alain Busser" email ""
 #: po/level_i18n.cc:759
 msgid "Sir Blackball has not been killed with the candlestick."
-msgstr ""
+msgstr "Sir Pallanera non è stato ucciso con il candelabro."
 
 #  level: "Cluenigma"
 #  author: "Alain Busser" email ""
 #: po/level_i18n.cc:761
 msgid "Sir Blackball has not been killed with the hammer."
-msgstr ""
+msgstr "Sir Pallanera non è stato ucciso con il martello."
 
 #  level: "No Memory"
 #  author: "Edward" email ""
 #: po/level_i18n.cc:774
 msgid "No Memory"
-msgstr ""
+msgstr "Memoria Vuota"
 
 #  level: "Holes!"
 #  author: "Edward" email ""
 #: po/level_i18n.cc:778
 msgid "Holes!"
-msgstr ""
+msgstr "Buchi!"
 
 #  level: "Alcatraz"
 #  author: "Ralf Westram" email ""
 #: po/level_i18n.cc:791
 msgid "Al Capone's training camp."
-msgstr ""
+msgstr "Campo di addestramento di Al Capone!."
 
 #  level: "Alcatraz"
 #  author: "Ralf Westram" email ""
 #: po/level_i18n.cc:792
 msgid "There are at least two patterns to break through the wall."
-msgstr ""
+msgstr "Ci sono almeno due schemi per irrompere attraverso il muro."
 
 #  level: "Alcatraz"
 #  author: "Ralf Westram" email ""
 #: po/level_i18n.cc:793
 msgid "It is a well known secret that a few prisioners did escape."
-msgstr ""
+msgstr "È un segreto ben noto che alcuni prigionieri sono scappati."
 
 #  level: "Alcatraz"
 #  author: "Ralf Westram" email ""
 #: po/level_i18n.cc:794
 msgid "A window in the wall would be really nice."
-msgstr ""
+msgstr "Una finestra nel muro sarebbe decisamente utile."
 
 #  level: "Welcome"
 #  author: "Raoul Bourquin" email ""
 #: po/level_i18n.cc:809
 msgid "Welcome to Enigma VI"
-msgstr ""
+msgstr "Benvenuto a Enigma VI"
 
 #  level: "Toreador"
 #  author: "Ronald Lamprecht" email "ral@users.berlios.de"
 #: po/level_i18n.cc:823
 msgid "Toreador"
-msgstr ""
+msgstr "Toreador"
 
 #  level: "The Aztec Temple"
 #  author: "Dominik Lehmann" email ""
@@ -2445,8 +2407,7 @@ msgstr ""
 #  level: "Blocks and Slopes"
 #  author: "Andreas Lochmann" email ""
 #: po/level_i18n.cc:1417
-msgid ""
-"Remember?  There are different kinds of floors.  And these are steep ..."
+msgid "Remember?  There are different kinds of floors.  And these are steep ..."
 msgstr ""
 
 #  level: "Blocks and Slopes"
@@ -2562,8 +2523,7 @@ msgstr ""
 #  level: "Meditation 1"
 #  author: "Martin Hawlisch" email ""
 #: po/level_i18n.cc:1472
-msgid ""
-"Move all small marbles into the holes. Only one marble per hole is allowed."
+msgid "Move all small marbles into the holes. Only one marble per hole is allowed."
 msgstr ""
 
 #  level: "Template 1"
@@ -2862,8 +2822,7 @@ msgstr ""
 #  level: "Firefox"
 #  author: "Ronald Lamprecht" email "ral@users.berlios.de"
 #: po/level_i18n.cc:1998
-msgid ""
-"OOPS! The maze is broken! Prepare to repair the maze before you destroy it."
+msgid "OOPS! The maze is broken! Prepare to repair the maze before you destroy it."
 msgstr ""
 
 #  level: "Pirates Island"
@@ -3095,8 +3054,7 @@ msgstr ""
 #  level: "Pneumatic Delivery"
 #  author: "Manuel König" email ""
 #: po/level_i18n.cc:2175
-msgid ""
-"This is my first landscape, dedicated to my father. I hope you'll enjoy it!"
+msgid "This is my first landscape, dedicated to my father. I hope you'll enjoy it!"
 msgstr ""
 
 #  level: "Gods of Enigma II"
@@ -3589,67 +3547,3 @@ msgstr ""
 msgid "If you haven't won, you've lost!"
 msgstr ""
 
-#, fuzzy
-#~ msgid "Chromed sign: "
-#~ msgstr "Riconoscimenti"
-
-#~ msgid "Skip to next non-par level"
-#~ msgstr "Salta al prossimo livello non-par"
-
-#~ msgid "behind best time."
-#~ msgstr "dietro al miglior tempo."
-
-#~ msgid "Your best time: "
-#~ msgstr "Il tuo tempo miglior: "
-
-#~ msgid "Project maintainer:"
-#~ msgstr "Maintainer del progetto:"
-
-#~ msgid "  JOHANNES FORTMANN (graphics), JEREMY SAWICKI (oxydlib),"
-#~ msgstr "  JOHANNES FORTMANN (grafica), JEREMY SAWICKI (oxydlib),"
-
-#~ msgid "  NAT PRYCE & JOHN 'WB' SNEYERS (levels)"
-#~ msgstr "  NAT PRYCE & JOHN 'WB' SNEYERS (livelli)"
-
-#~ msgid "the accompanying COPYING.GPL for details."
-#~ msgstr "il file COPYING.GPL incluso per i dettagli."
-
-#~ msgid "Skip solved levels: "
-#~ msgstr "Salta livelli risolti: "
-
-#~ msgid "Time hunt: "
-#~ msgstr "Sfida a cronometro: "
-
-#~ msgid "Select next non-par level"
-#~ msgstr "Seleziona prossimo livello non-par"
-
-#~ msgid "That's par."
-#~ msgstr "Questo è par."
-
-#~ msgid "Par: %d:%02d"
-#~ msgstr "Par: %d:%02d"
-
-#~ msgid "Difficulty: Easy"
-#~ msgstr "Difficoltà: Semplice"
-
-#~ msgid "Difficulty: Normal"
-#~ msgstr "Difficoltà: Normale"
-
-#, fuzzy
-#~ msgid "Edit"
-#~ msgstr "Editor"
-
-#~ msgid "Tournament"
-#~ msgstr "Torneo"
-
-#~ msgid "Training"
-#~ msgstr "Allenamento"
-
-#~ msgid "Please restart Enigma to activate your changes!"
-#~ msgstr "Per favore, riavvia Enigma per attivare le tue modifiche!"
-
-#~ msgid "Enigma - Level Pack Menu"
-#~ msgstr "Enigma - Menu Pacchetto Livelli"
-
-#~ msgid "Enigma - Options Menu"
-#~ msgstr "Enigma - Menu delle Opzioni"
