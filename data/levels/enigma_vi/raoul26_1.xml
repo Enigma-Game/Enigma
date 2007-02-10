@@ -3,7 +3,7 @@
   <el:protected>
     <el:info el:type="level">
       <el:identity el:title="Puzzle Puzzles" el:subtitle="look forward!" el:id="raoul26"/>
-      <el:version el:score="1" el:release="1" el:revision="23" el:status="released"/>
+      <el:version el:score="1" el:release="1" el:revision="24" el:status="released"/>
       <el:author  el:name="Raoul Bourquin" el:email="" el:homepage=""/>
       <el:copyright>Copyright © 2006 Raoul Bourquin</el:copyright>
       <el:license el:type="GPL v2.0 or above" el:open="true"/>
@@ -279,6 +279,7 @@ function set_water_2()
 
     enigma.KillItem(33,24)
 end
+
 ---- PUZZLES ----
   -- W
   puzzle({" ##",
@@ -286,9 +287,8 @@ end
           "#  "},{23,6},"bluepuzzle","none")
   -- Z
   puzzle({" ##",
-          " + ",
+          " * ",
           "## "},{32,18},"bluepuzzle","none")
-  set_stone("st-puzzle-hollow",33,19)
   -- shell_lower_part
   puzzle({"## ##",
           " ### ",
@@ -297,18 +297,15 @@ end
   puzzle({" # ",
           "###"},{32,29},"bluepuzzle","permutation")
   -- -
-  puzzle({"#+#"},{34,3},"bluepuzzle","none")
-  set_stone("st-puzzle-hollow",35,3)
+  puzzle({"#*#"},{34,3},"bluepuzzle","none")
   -- |
   puzzle({"#",
-          "+",
+          "*",
           "#"},{33,2},"bluepuzzle","none")
-  set_stone("st-puzzle-hollow",33,3)
   -- T
   puzzle({"  #",
-          "#+#",
+          "#*#",
           "  #"},{33,7},"bluepuzzle","none")
-  set_stone("st-puzzle-hollow",34,8)
 
 ---- ITEMS ----
 set_item("it-magicwand",33,28)

@@ -122,7 +122,7 @@ set_item("it-document", 26, 27, {text="Room 6: Some things, you can do with Bigb
   puzzle({"  # ",
           " ## ",
           " #  ",
-          " ###",
+          " #*#",
           "   #",
           "####"},{5,4},"bluepuzzle","none")
 
@@ -177,10 +177,10 @@ set_item("it-document", 26, 27, {text="Room 6: Some things, you can do with Bigb
 
   puzzle({"##+#","#  #","#+##"},{26,20},"bluepuzzle","none")
 
-  puzzle({"###","#+#","###"},{27,14},"redpuzzle","none")
+  puzzle({"#*#","#+#","#*#"},{27,14},"redpuzzle","none")
 
-  puzzle({"####",
-          "+  #",
+  puzzle({"##*#",
+          "+  *",
           " + #",
           "####",
           " #  ",
@@ -198,7 +198,7 @@ set_item("it-document", 26, 27, {text="Room 6: Some things, you can do with Bigb
 
   puzzle({"### #",
           "#   #",
-          "# ###"},{3,32},"bigbrick","none")
+          "#*###"},{3,32},"bigbrick","none")
 
   puzzle({"###","# #"},{9,33},"bigbrick","random")
 
@@ -238,7 +238,7 @@ set_item("it-document", 26, 27, {text="Room 6: Some things, you can do with Bigb
           "## ##"},{29,30},"bigbluesand","none")
 
   puzzle({"  ##+",
-          " ##  ",
+          " *#  ",
           "##   ",
           "#    ",
           "+    "},{34,32},"bigbluesand","none")
