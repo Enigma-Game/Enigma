@@ -1196,8 +1196,8 @@ msgstr "Tämä kytkin aloittaa pelin uudelleen."
 
 #: po/level_i18n.cc:243
 msgid ""
-"Each color appears at most once; each good color gives whites if not at the "
-"good place, blacks if it is also well placed."
+"Each color appears once. Each correct color produces whites in the wrong "
+"place, blacks in the right one."
 msgstr ""
 "Jokainen väri ilmestyy enintään kerran; jokainen hyvä väri antaa valkoista jo"
 "s ei ole hyvällä paikalla, mustaa jos se on myös hyvällä paikalla."
@@ -1249,15 +1249,12 @@ msgid "Beware! Black holes!"
 msgstr "Ole varuillasi! Musta-aukkoja!"
 
 #: po/level_i18n.cc:342
-msgid ""
-"Our full attention should deserve:           Air and Fire, Water, Earth."
+msgid "Our full attention this is worth:           Air and Fire, Water, Earth."
 msgstr ""
 "Meidän täysi huomio pitäisi ansaista:           Ilma ja Tuli, Vesi, Maa."
 
 #: po/level_i18n.cc:345
-msgid ""
-"And if your tries grow out of bound,           then shame on you, eyes to "
-"the ground!"
+msgid "And if your answer can’t be found           then shame on you, eyes to the ground!"
 msgstr ""
 "Ja jos yrittät kasvattaa ulos rajoilta,           sitten häpeä päällesi, s"
 "ilmät maahan!"
@@ -1271,7 +1268,7 @@ msgid "Do not use too much magic!"
 msgstr "Älä käytä liikaa taikaa!"
 
 #: po/level_i18n.cc:384
-msgid "End of way!"
+msgid "Dead end!"
 msgstr "Tien loppu!"
 
 #: po/level_i18n.cc:385
@@ -1545,11 +1542,10 @@ msgstr "Toreadori"
 
 #: po/level_i18n.cc:836
 msgid ""
-"Welcome to Chile! Eight hours ago, your plane arrived at the Airport of "
-"\"Llamas\", which is a small village surrounded by unexplored jungle "
-"terrain. Now you find yourself in front of an impressing temple, which seems "
-"to be a relict of the ancient Aztec ages. But the temple is in a surprising "
-"good condition ..."
+"Welcome to Mexico! Eight hours ago, your plane arrived at the Airport "
+"of \"Coatlicue\", which is a small village surrounded by unexplored jungle "
+"terrain. Now you find yourself in front of an impressive temple, which seems "
+"to be a relic of the ancient Aztec empire. But the temple is in surprisingly good condition ..."
 msgstr ""
 "Tervetuloa Chileen! Kahdeksan tuntia sitten, koneesi saapui \"Laamojen\" "
 "lentokentälle, mikä on pieni kylä tutkimattoman viidakkomaaston ympäröimänä. "
@@ -1558,13 +1554,12 @@ msgstr ""
 
 #: po/level_i18n.cc:837
 msgid ""
-"Next to the giant doors of the temple you see a chromed sign: \"Restauration "
-"due to: G. G. Goshers, A.D. 1998\". And the smaller sign beneath says: "
-"\"Property of G. G. Goshers. Trespassing prohibited!\". Now you recognize "
-"the dog kennels built up along the front side of the temple. \"Goshers made "
-"this ancient relict a fortress\", you think, \"this cannot be legal, for "
-"Goshers recieved promotion from the UK Government. I'll try to call him to "
-"account!\""
+"Next to the giant doors of the temple you see a chrome sign: \"Restoration by: "
+"G. G. Goshers, A.D. 1998\". A smaller sign beneath says: \"Property of G. G. "
+"Goshers. Trespassing prohibited!\". Now you notice the dog kennels built up "
+"along the front side of the temple. \"Goshers made this ancient relic a "
+"fortress\", you think, \"this cannot be legal, for Goshers received funding "
+"from the UK Government. I'll try to call him to account!\""
 msgstr ""
 "Jättimäisten ovien vieressä näet kroomatun kyltin: \"Restaurointi J. J. Jumalisten "
 "toimesta, Vuonna 1998 jKr\". Ja pienemmässä kyltissä alapuolella lukee: "
@@ -1575,38 +1570,34 @@ msgstr ""
 " tunnustamaan!\""
 
 #: po/level_i18n.cc:838
-msgid "This guard doesn't seem to be very alert."
+msgid "This guard doesn’t notice me."
 msgstr "Tämä vartija ei näytä olevan kovin varuillaan."
 
 #: po/level_i18n.cc:839
-msgid ""
-"This lake is obviously due to Goshers. I think the way there in the south is "
-"the right one."
+msgid "This lake was obviously made by Goshers. I think the correct way is south."
 msgstr ""
 "Tämä järvi on ilmiselvästi Jumalisten ansiota. Luulenpa että tie tuolla "
 "eteläpuolella on se oikea."
 
 #: po/level_i18n.cc:840
-msgid ""
-"There's an inscription on the old wall, saying in spanish: \"Don't touch "
-"everything you see! It could be the last you touch!\""
+msgid "There's an inscription on the old wall, saying in spanish: \"Careful! "
+"What you touch could be the last thing you touch!\""
 msgstr ""
 "Vanhassa seinässä on inskriptio, espanjaksi: \"Älä koske kaikkeen mitä näet! "
 "Se voi olla se viimeinen mihin kosket!\""
 
 #: po/level_i18n.cc:841
-msgid "Chromed sign: \"Control of the wilds' cage.\""
+msgid "Chrome sign: \"Control of the beast’s cage.\""
 msgstr "Kroomattu kyltti: \"Erämaiden ohjausten häkki.\""
 
 #: po/level_i18n.cc:842
-msgid "Oooh, this slope is steep! Don't try to touch the skull!"
+msgid "Oooh, this slope is steep! Try not to touch the skull!"
 msgstr "Oooh, tämä rinne on jyrkkä! Älä yritä koskea pääkalloon!"
 
 #: po/level_i18n.cc:843
-msgid ""
-"This building down there looks like a prison. Let's see if I can get out, of "
-"what purpose it is... Ah, there's a sign. And it's chromed as well. Goshers "
-"seems to have a favour for chromed signs. It says: \"Natives prison\"."
+msgid "This building down there looks like a prison. Let's see if I can "
+"determine its purpose ... Ah, there's another chrome sign. Goshers seems to "
+"favour chrome signs. It says: \"Natives’ prison\"."
 msgstr ""
 "Tämä rakennus tuollapäin näyttää vankilalta. Katsotaan jos pääsen ulos, "
 "ihan minkä syyn takia... Ah, tuossa on kyltti. Ja se on kroomattu myöskin. "
@@ -1614,20 +1605,18 @@ msgstr ""
 "\"Paikallisten vankila\"."
 
 #: po/level_i18n.cc:844
-msgid ""
-"Getting beyond the prison building was a real good idea. But now you have to "
-"cross this lake. Be thrifty with those boxes!"
+msgid "Getting beyond the prison building was a really good idea. But now you "
+"have to cross this lake. Be thrifty with those boxes!"
 msgstr ""
 "Pääseminen vankilarakennuksen toiselle puolelle oli tosi hyvä idea. Mutta nyt "
 "sinun täytyy ylittää tämä järvi. Ole taloudellinen noiden laatikoiden kanssa!"
 
 #: po/level_i18n.cc:845
-msgid ""
-"Now, spotting through the grilled prison windows, you recognize a native "
-"woman being imprisoned there. Obviously Goshers locked all natives, who "
-"disturbed his \"work\", trying to enter the temple and getting rich on the "
-"treasures of the Aztecs. Maybe it's useful to be accompanied by someone, who "
-"knows the secrets of the jungle and this temple ..."
+msgid "Now, peering through the grilled prison windows, you see a native woman "
+"imprisoned there. Obviously Goshers locked up all the natives, who disturbed "
+"his \"work\"; trying to enter the temple and to get rich from the treasures of "
+"the Aztecs. It might be helpful to be accompanied by someone, who knows the "
+"secrets of the jungle and this temple ..."
 msgstr ""
 "Nyt, huomataakseen vankilan kalteri-ikkunan läpi, tunnistat paikallisen "
 "naisen joka on vangittuna siellä. Ilmiselvästi Jumaliste lukitsi kaikki "
@@ -1667,7 +1656,7 @@ msgstr ""
 "jos tämän arvoituksen on tarkoitus tulla ratkaistuksi."
 
 #: po/level_i18n.cc:849
-msgid "You wonder, what this switch could trigger."
+msgid "You wonder what this switch could trigger."
 msgstr "Ihmettelet, mitä tämä kytkin laukaisisi."
 
 #: po/level_i18n.cc:850
@@ -1675,15 +1664,15 @@ msgid "Xila knows how to drain the lake!"
 msgstr "Xila tietää kuinka tyhjennetään järvi!"
 
 #: po/level_i18n.cc:851
-msgid "Lucky you was finding this hollow. It prevents you from drawning."
+msgid "You were lucky to find this hole. It prevents you from drowning."
 msgstr "Olit onnekas löytääksesi tämän onkalon. Se estää sinua hukkumasta."
 
 #: po/level_i18n.cc:852
-msgid "This stone of glass does certainly fullfill a purpose ..."
+msgid "This glass stone must fulfill a purpose ..."
 msgstr "Tämä lasinen kivi todellakin täyttää merkityksen ..."
 
 #: po/level_i18n.cc:853
-msgid "It's funny, that such a temple does have a side entrance."
+msgid "It's funny that such a temple should have a side entrance."
 msgstr "On hassua, että tälläisella temppelillä on sisäänkäynti sivussa."
 
 #: po/level_i18n.cc:854
@@ -1691,11 +1680,10 @@ msgid "Be careful! There are sensors in the walls."
 msgstr "Ole varovainen! Seinissä on sensoreita."
 
 #: po/level_i18n.cc:855
-msgid ""
-"After the huge doors of the old temple have opened, you see, that the "
-"entrance is protected by 11 knights, armed with spears. These guards are "
-"very dangerous. Without a sword you'll never be able to enter. Be careful. "
-"There're not only knights, but also thieves."
+msgid "After the huge doors of the old temple have opened, you see, that the "
+"entrance is protected by 11 knights, armed with spears. These guards are very "
+"dangerous. Without a sword you'll never be able to enter. Be careful. There "
+"are not only knights, but also thieves."
 msgstr ""
 "Vanhan temppelin jättimäisten ovien avautumisen jälkeen, näet, että sisäänkäyntiä "
 "suojaa 11 ritaria, aseistautuneet keihäillä. Nämä vartijat ovat erittäin vaarallisia. "
@@ -1715,9 +1703,7 @@ msgstr ""
 "luokse tai pääse pakenemaan täältä!\""
 
 #: po/level_i18n.cc:858
-msgid ""
-"\"I, Goshers, will certainly be able to get rid of one of my archenemies, by "
-"just killing you!\""
+msgid "\"I, Goshers, will certainly be able to rid myself of one of my archenemies by just killing you!\""
 msgstr ""
 "\"Minulla, Jumalistella, on varmasti kykenevä hankkiutumaan eroon yhdestä minun "
 "päävihollisistani, vain tappamalla sinut!\""
@@ -1727,10 +1713,9 @@ msgid "\"Run for your life!\""
 msgstr "\"Juokse henkesi edestä!\""
 
 #: po/level_i18n.cc:860
-msgid ""
-"Xila and you just entered the Diamond Room of the old Aztec Temple. By "
-"taking him back to Great Britain and redering him to the police, the evil "
-"majesty of Gerald Gregory Goshers has found its end. Congratulations on the "
+msgid "Xila and you just entered the Diamond Room of the old Aztec Temple. By "
+"taking him back to Great Britain and rendering him to the police, you have "
+"ended the evil career of Gerald Gregory Goshers. Congratulations on the "
 "success of your expedition!"
 msgstr ""
 "Xila ja sinä saavuitte juuri vanhan Asteekkien Temppelin Timanttihuoneeseen. "
@@ -1787,7 +1772,7 @@ msgid "Remember Atreyu's horse Atrax!"
 msgstr "Muista Atreyun hevonen Atrax!"
 
 #: po/level_i18n.cc:954
-msgid "I am unguilty! I've never stolen anything!"
+msgid "I am innocent! I've never stolen anything!"
 msgstr "Olen syytön! En ole koskaan varastanut mitään!"
 
 #: po/level_i18n.cc:956
@@ -1803,7 +1788,7 @@ msgid "A closed door gives a better overview!"
 msgstr "Suljettu ovi antaa paremman näkökulman!"
 
 #: po/level_i18n.cc:964
-msgid "Can you rest in your bed, when all else is hectic?"
+msgid "Can you relax amid all this chaos?"
 msgstr "Voitko levätä sängyssäsi, kun kaikki muut ovat kiireisiä?"
 
 #: po/level_i18n.cc:971
@@ -2201,7 +2186,7 @@ msgstr ""
 #: po/level_i18n.cc:1422
 msgid ""
 "The bright light beam is a laser beam.   Don't get to close to it!   But it "
-"has its usages ...    You can use the mirrors to direct the laser to its "
+"has its uses ...    You can use the mirrors to direct the laser to its "
 "targets.   From these, only the light-gray ones are movable, just try it!"
 msgstr ""
 "Kirkas valosäde on laaserisäde.   Älä mene liian lähelle sitä!   Mutta sillä "
@@ -2422,7 +2407,7 @@ msgstr ""
 "kivet kohtaavaan riviin jos siellä on yhtään, ja toistaa vuoron."
 
 #: po/level_i18n.cc:1737
-msgid "A turn begins in one of the most left rows, unless impossible."
+msgid "A turn begins in one of the leftmost rows, unless impossible."
 msgstr "Vuoro alkaa yhdessä vasemmanpuoleisimmissa rivissä, ellei mahdotonta."
 
 #: po/level_i18n.cc:1739
@@ -2472,7 +2457,7 @@ msgstr ""
 "punainen-kivi-kivi."
 
 #: po/level_i18n.cc:1845
-msgid "You can fly a little time, if you use the umbrella."
+msgid "You can fly for a short time if you use the umbrella."
 msgstr "Voit lentää hetken, jos käytät sateenvarjoa."
 
 #: po/level_i18n.cc:1855
@@ -2513,9 +2498,9 @@ msgstr "Ammu tai tule ammutuksi"
 
 #: po/level_i18n.cc:1994
 msgid ""
-"Do you think a bushman would start to search an extinguisher in the cellar "
-"in case of a wall of fire is approaching? Be a Firefox - you have the first "
-"5 items to deal with, no more no less!"
+"Do you think a bushman would start to search for an extinguisher in the cellar "
+"if a wall of fire were approaching? Be a Firefox - you have the first 5 items "
+"to deal with, no more no less!"
 msgstr ""
 "Luuletko että puskamies aloittaisi etsinnän sammuttimeen kellarissa paloseinän "
 "saapumisen tapauksessa? Ole Tuliketto - sinulla on ensimmäiset 5 esinettä "
@@ -2565,7 +2550,7 @@ msgstr ""
 "vartijoita myös; Hay!! Heikolla Bola Negral o vain hedelmii ja leiseriä!!!"
 
 #: po/level_i18n.cc:2050
-msgid "Did you really think, this one is so easy?"
+msgid "Did you really think this one was so easy!?"
 msgstr "Luulitko todella, tämä on niin helppoa?"
 
 #: po/level_i18n.cc:2052
@@ -2653,7 +2638,7 @@ msgstr "Todista kärsivällisyytesi Veden Testissä!"
 #: po/level_i18n.cc:2117
 msgid ""
 "This can't be! No mortal can reach our Holy Oxyds! Prove yourself once more! "
-"Fwahahaha!"
+"Bwahahahaha!"
 msgstr ""
 "Tämä ei voi olla! Kukaan kuolevainen ei kykene saavuttamaan meidän pyhiä "
 "Oxydeja! Todisa itsesi vielä kerran! Hähähähähä!"
@@ -2675,7 +2660,7 @@ msgstr ""
 "kallistu laidan yli."
 
 #: po/level_i18n.cc:2139
-msgid "Could you need something?"
+msgid "Do you need something?"
 msgstr "Voisitko tarvita jotain?"
 
 #: po/level_i18n.cc:2147
@@ -2727,7 +2712,7 @@ msgstr ""
 msgid ""
 "You again! We won't let you pass this time! See these Oxyds? You can't reach "
 "them unless you rob our Four Holy Items! But they are well guarded! "
-"Fwahahahaha!"
+"Bwahahahaha!"
 msgstr ""
 "Sinä taas! Emme salli sinun menevän tällä kertaa! Näetkö nämä Oxydit? Et voi "
 "saavuttaa niitä ellet ryöstä meidän Neljää Pyhää Esinettä! Mutta ne ovat "
@@ -2742,7 +2727,7 @@ msgstr ""
 "tiesi Pyhälle Vasaralle!"
 
 #: po/level_i18n.cc:2184
-msgid "Try again! Fwahahaha!"
+msgid "Try again! Bwahahahaha!"
 msgstr "Yritä Uudelleen! Hähhähhää!"
 
 #: po/level_i18n.cc:2185
@@ -2770,7 +2755,7 @@ msgstr ""
 "Etsi sitten tiesi Pyhälle Yin-Yangille!"
 
 #: po/level_i18n.cc:2191
-msgid "Look carefully at anything!"
+msgid "Look carefully at everything!"
 msgstr "Katso varovasti mihin vain!"
 
 #: po/level_i18n.cc:2192
@@ -2824,7 +2809,7 @@ msgstr "Mikä on tämän tason nimi?"
 #: po/level_i18n.cc:2321
 msgid ""
 "When you change the color of one square, the colors of the 2 nearest squares "
-"change as well; you must get as much green squares as possible."
+"change as well; you must get as many green squares as possible."
 msgstr ""
 "Kun vaihdat yhden neliön väriä, 2 lähimmän neliön värit vaihtuvat myös; "
 "sinun täytyy saada mahdollisimman monta vihreää neliötä kuin mahdollista."

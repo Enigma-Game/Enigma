@@ -1292,7 +1292,9 @@ msgstr "Deze schakelaar reset het spel."
 #  level: "Enigmastermind"
 #  author: "Alain Busser" email ""
 #: po/level_i18n.cc:243
-msgid "Each color appears at most once; each good color gives whites if not at the good place, blacks if it is also well placed."
+msgid ""
+"Each color appears once. Each correct color produces whites in the wrong "
+"place, blacks in the right one."
 msgstr "Elke kleur verschijnt maximaal een keer; elke goede kleur levert wit op als hij op de verkeerde plek staat, zwart als hij op de goede plek staat."
 
 #  level: "Road to Eden"
@@ -1309,32 +1311,32 @@ msgid "Make a Sword, & Umbrella."
 msgstr "Maak een Zwaard, & Paraplu."
 
 #  level: "Growing Boxes"
-#  author: "Lukas Schüller" email "Lucky_Luc@web.de"
+#  author: "Lukas SchÃ¼ller" email "Lucky_Luc@web.de"
 #: po/level_i18n.cc:281
 #, fuzzy
 msgid "You'd need a portable box!"
 msgstr "U hebt een verplaatsbare doos nodig!"
 
 #  level: "Growing Boxes"
-#  author: "Lukas Schüller" email "Lucky_Luc@web.de"
+#  author: "Lukas SchÃ¼ller" email "Lucky_Luc@web.de"
 #: po/level_i18n.cc:282
 msgid "Congratulations! You found a seed! Try to use it behind the grate (and move away quickly)"
 msgstr ""
 
 #  level: "Growing Boxes"
-#  author: "Lukas Schüller" email "Lucky_Luc@web.de"
+#  author: "Lukas SchÃ¼ller" email "Lucky_Luc@web.de"
 #: po/level_i18n.cc:283
 msgid "Remember that you can't fill a closed bridge with a box ...                                           but maybe you can use the 3rd seed differently!"
 msgstr ""
 
 #  level: "Growing Boxes"
-#  author: "Lukas Schüller" email "Lucky_Luc@web.de"
+#  author: "Lukas SchÃ¼ller" email "Lucky_Luc@web.de"
 #: po/level_i18n.cc:284
 msgid "There are different kinds of seeds ... Try to use them!"
 msgstr "Er zijn verschillende soorten zaden ... Probeer ze te gebruiken!"
 
 #  level: "Growing Boxes"
-#  author: "Lukas Schüller" email "Lucky_Luc@web.de"
+#  author: "Lukas SchÃ¼ller" email "Lucky_Luc@web.de"
 #  comment: "read from the right"
 #: po/level_i18n.cc:286
 msgid "Noitcerid etisoppo eht yrt! Tuo syaw owt? Rorrim, rorrim ..."
@@ -1356,14 +1358,14 @@ msgstr "Pas op! Zwarte gaten!"
 #  author: "Andreas Lochmann" email ""
 #  comment: "The sequence of the four elements is important, as they are connected to the colors of the floor."
 #: po/level_i18n.cc:342
-msgid "Our full attention should deserve:           Air and Fire, Water, Earth."
+msgid "Our full attention this is worth:           Air and Fire, Water, Earth."
 msgstr ""
 
 #  level: "Moure-Switches"
 #  author: "Andreas Lochmann" email ""
 #  comment: "Just a hint to regard the floor."
 #: po/level_i18n.cc:345
-msgid "And if your tries grow out of bound,           then shame on you, eyes to the ground!"
+msgid "And if your answer can’t be found           then shame on you, eyes to the ground!"
 msgstr ""
 
 #  level: "Disk Royal"
@@ -1381,7 +1383,7 @@ msgstr "Gebruik niet te veel magie!"
 #  level: "The Fuze"
 #  author: "capkoh" email ""
 #: po/level_i18n.cc:384
-msgid "End of way!"
+msgid "Dead end!"
 msgstr ""
 
 #  level: "The Fuze"
@@ -1425,7 +1427,7 @@ msgstr ""
 #: po/level_i18n.cc:432
 #, fuzzy
 msgid "The nine switches in square serve to configure the initial population."
-msgstr "De negen schakelaars dienen om de initi�le populatie in te stellen."
+msgstr "De negen schakelaars dienen om de initiële populatie in te stellen."
 
 #  level: "The Life Game"
 #  author: "Alain Busser" email ""
@@ -1522,7 +1524,7 @@ msgstr ""
 
 #  level: "The Flagstone Reaper"
 #  author: "Andreas Lochmann" email ""
-#  comment: "Difficult to translate. If you have no idea, just say: Why is the hint on this side? The Reaper should know it."
+#  comment: "Difficult to translate. If you have no idea, just say: Why on this side does this message sit? The Reaper has a use for it."
 #: po/level_i18n.cc:563
 msgid "No hint today ...    Those flagstones pass away ...    The docu stands alone ...    Why is it so alone?    --    This hint today ...    Why is it on this side ...    The reaper passing by ...    Could know the reason why!     (orig. by Herman's Hermits)   "
 msgstr ""
@@ -1720,62 +1722,80 @@ msgstr "Toreador"
 #  author: "Dominik Lehmann" email ""
 #: po/level_i18n.cc:830
 #, fuzzy
-msgid "Welcome to Chile! Eight hours ago, your plane arrived at the Airport of \"Llamas\", which is a small village surrounded by unexplored jungle terrain. Now you find yourself in front of an impressing temple, which seems to be a relict of the ancient Aztec ages. But the temple is in a surprising good condition ..."
+msgid ""
+"Welcome to Mexico! Eight hours ago, your plane arrived at the Airport "
+"of \"Coatlicue\", which is a small village surrounded by unexplored jungle "
+"terrain. Now you find yourself in front of an impressive temple, which seems "
+"to be a relic of the ancient Aztec empire. But the temple is in surprisingly good condition ..."
 msgstr "Welkom in Chili! Acht uur geleden arriveerde uw vliegtuig op het \"Llamas\" vliegveld. Een klein dorp omgeven door onbekend jungle terrein. U bevindt zich nu voor een indrukwekkende tempel, die een overblijfsel uit de Azteekse tijd lijkt te zijn. Maar de tempel is in verrassend goede staat ..."
 
 #  level: "The Aztec Temple"
 #  author: "Dominik Lehmann" email ""
 #: po/level_i18n.cc:831
 #, fuzzy
-msgid "Next to the giant doors of the temple you see a chromed sign: \"Restauration due to: G. G. Goshers, A.D. 1998\". And the smaller sign beneath says: \"Property of G. G. Goshers. Trespassing prohibited!\". Now you recognize the dog kennels built up along the front side of the temple. \"Goshers made this ancient relict a fortress\", you think, \"this cannot be legal, for Goshers recieved promotion from the UK Government. I'll try to call him to account!\""
+msgid ""
+"Next to the giant doors of the temple you see a chrome sign: \"Restoration by: "
+"G. G. Goshers, A.D. 1998\". A smaller sign beneath says: \"Property of G. G. "
+"Goshers. Trespassing prohibited!\". Now you notice the dog kennels built up "
+"along the front side of the temple. \"Goshers made this ancient relic a "
+"fortress\", you think, \"this cannot be legal, for Goshers received funding "
+"from the UK Government. I'll try to call him to account!\""
 msgstr "Naast de reusachtige deuren van de tempel ziet u een verchroomd bordje: \"Gerestaureerd door: G. G. Goshers, A.D. 1998\". En het kleinere bordje daaronder: \"Eigendom van G. G. Goshers. Verboden toegang!\". Nu herkent u de hondenkennels gebouwd langs de voorzijde van de tempel. U denkt \"Goshers heeft een fort gemaakt van deze oude tempel\", \"dit kan niet toegestaan zijn, aangezien Goshers promotie heeft gekregen van de overheid van de VK. Ik zal hem eens bellen ter verantwoording!\""
 
 #  level: "The Aztec Temple"
 #  author: "Dominik Lehmann" email ""
 #: po/level_i18n.cc:832
-msgid "This guard doesn't seem to be very alert."
+msgid "This guard doesn’t notice me."
 msgstr "De bewaker lijkt niet erg alert."
 
 #  level: "The Aztec Temple"
 #  author: "Dominik Lehmann" email ""
 #: po/level_i18n.cc:833
-msgid "This lake is obviously due to Goshers. I think the way there in the south is the right one."
+msgid "This lake was obviously made by Goshers. I think the correct way is south."
 msgstr ""
 
 #  level: "The Aztec Temple"
 #  author: "Dominik Lehmann" email ""
 #: po/level_i18n.cc:834
-msgid "There's an inscription on the old wall, saying in spanish: \"Don't touch everything you see! It could be the last you touch!\""
+msgid "There's an inscription on the old wall, saying in spanish: \"Careful! "
+"What you touch could be the last thing you touch!\""
 msgstr ""
 
 #  level: "The Aztec Temple"
 #  author: "Dominik Lehmann" email ""
 #: po/level_i18n.cc:835
-msgid "Chromed sign: \"Control of the wilds' cage.\""
+msgid "Chrome sign: \"Control of the beast’s cage.\""
 msgstr ""
 
 #  level: "The Aztec Temple"
 #  author: "Dominik Lehmann" email ""
 #: po/level_i18n.cc:836
-msgid "Oooh, this slope is steep! Don't try to touch the skull!"
+msgid "Oooh, this slope is steep! Try not to touch the skull!"
 msgstr "Oooh, deze helling is steil! Raak de schedel niet aan!"
 
 #  level: "The Aztec Temple"
 #  author: "Dominik Lehmann" email ""
 #: po/level_i18n.cc:837
-msgid "This building down there looks like a prison. Let's see if I can get out, of what purpose it is... Ah, there's a sign. And it's chromed as well. Goshers seems to have a favour for chromed signs. It says: \"Natives prison\"."
+msgid "This building down there looks like a prison. Let's see if I can "
+"determine its purpose ... Ah, there's another chrome sign. Goshers seems to "
+"favour chrome signs. It says: \"Natives’ prison\"."
 msgstr ""
 
 #  level: "The Aztec Temple"
 #  author: "Dominik Lehmann" email ""
 #: po/level_i18n.cc:838
-msgid "Getting beyond the prison building was a real good idea. But now you have to cross this lake. Be thrifty with those boxes!"
+msgid "Getting beyond the prison building was a really good idea. But now you "
+"have to cross this lake. Be thrifty with those boxes!"
 msgstr ""
 
 #  level: "The Aztec Temple"
 #  author: "Dominik Lehmann" email ""
 #: po/level_i18n.cc:839
-msgid "Now, spotting through the grilled prison windows, you recognize a native woman being imprisoned there. Obviously Goshers locked all natives, who disturbed his \"work\", trying to enter the temple and getting rich on the treasures of the Aztecs. Maybe it's useful to be accompanied by someone, who knows the secrets of the jungle and this temple ..."
+msgid "Now, peering through the grilled prison windows, you see a native woman "
+"imprisoned there. Obviously Goshers locked up all the natives, who disturbed "
+"his \"work\"; trying to enter the temple and to get rich from the treasures of "
+"the Aztecs. It might be helpful to be accompanied by someone, who knows the "
+"secrets of the jungle and this temple ..."
 msgstr ""
 
 #  level: "The Aztec Temple"
@@ -1799,7 +1819,7 @@ msgstr ""
 #  level: "The Aztec Temple"
 #  author: "Dominik Lehmann" email ""
 #: po/level_i18n.cc:843
-msgid "You wonder, what this switch could trigger."
+msgid "You wonder what this switch could trigger."
 msgstr "U vraagt u af waar deze schakelaar voor dient."
 
 #  level: "The Aztec Temple"
@@ -1811,19 +1831,19 @@ msgstr ""
 #  level: "The Aztec Temple"
 #  author: "Dominik Lehmann" email ""
 #: po/level_i18n.cc:845
-msgid "Lucky you was finding this hollow. It prevents you from drawning."
+msgid "You were lucky to find this hole. It prevents you from drowning."
 msgstr ""
 
 #  level: "The Aztec Temple"
 #  author: "Dominik Lehmann" email ""
 #: po/level_i18n.cc:846
-msgid "This stone of glass does certainly fullfill a purpose ..."
+msgid "This glass stone must fulfill a purpose ..."
 msgstr "Deze glazen steen heeft niet noodzakelijk een doel ..."
 
 #  level: "The Aztec Temple"
 #  author: "Dominik Lehmann" email ""
 #: po/level_i18n.cc:847
-msgid "It's funny, that such a temple does have a side entrance."
+msgid "It's funny that such a temple should have a side entrance."
 msgstr "Grappig, dat zo'n tempel een zij-ingang heeft."
 
 #  level: "The Aztec Temple"
@@ -1835,7 +1855,10 @@ msgstr "Pas op! Er zitten sensoren in de muren."
 #  level: "The Aztec Temple"
 #  author: "Dominik Lehmann" email ""
 #: po/level_i18n.cc:849
-msgid "After the huge doors of the old temple have opened, you see, that the entrance is protected by 11 knights, armed with spears. These guards are very dangerous. Without a sword you'll never be able to enter. Be careful. There're not only knights, but also thieves."
+msgid "After the huge doors of the old temple have opened, you see, that the "
+"entrance is protected by 11 knights, armed with spears. These guards are very "
+"dangerous. Without a sword you'll never be able to enter. Be careful. There "
+"are not only knights, but also thieves."
 msgstr "Nadat de enorme deuren van de oude tempel open gingen, ziet u, dat de ingang bewaakt wordt door 11 ridders, bewapend met speren. Deze bewakers zijn erg gevaarlijk. Zonder een zwaard zal het u nooit lukken binnen te komen. Wees voorzichtig. Er zijn niet alleen ridders, maar ook dieven."
 
 #  level: "The Aztec Temple"
@@ -1853,7 +1876,7 @@ msgstr "\"U bent slimmer dan ik dacht. Maar u zult nooit de schatkamer bereiken 
 #  level: "The Aztec Temple"
 #  author: "Dominik Lehmann" email ""
 #: po/level_i18n.cc:852
-msgid "\"I, Goshers, will certainly be able to get rid of one of my archenemies, by just killing you!\""
+msgid "\"I, Goshers, will certainly be able to rid myself of one of my archenemies by just killing you!\""
 msgstr ""
 
 #  level: "The Aztec Temple"
@@ -1865,7 +1888,10 @@ msgstr "\"Ren voor uw leven!\""
 #  level: "The Aztec Temple"
 #  author: "Dominik Lehmann" email ""
 #: po/level_i18n.cc:854
-msgid "Xila and you just entered the Diamond Room of the old Aztec Temple. By taking him back to Great Britain and redering him to the police, the evil majesty of Gerald Gregory Goshers has found its end. Congratulations on the success of your expedition!"
+msgid "Xila and you just entered the Diamond Room of the old Aztec Temple. By "
+"taking him back to Great Britain and rendering him to the police, you have "
+"ended the evil career of Gerald Gregory Goshers. Congratulations on the "
+"success of your expedition!"
 msgstr ""
 
 #  level: "Basketball"
@@ -1941,7 +1967,7 @@ msgstr "Onthoud de kleuren."
 #  level: "Houdini"
 #  author: "Ronald Lamprecht" email "ral@users.berlios.de"
 #: po/level_i18n.cc:935
-msgid "I am unguilty! I've never stolen anything!"
+msgid "I am innocent! I've never stolen anything!"
 msgstr "Ik ben onschuldig! Ik heb nog nooit iets gestolen!"
 
 #  level: "Houdini"
@@ -1965,7 +1991,7 @@ msgstr ""
 #  level: "- Meditation -"
 #  author: "Edward" email ""
 #: po/level_i18n.cc:945
-msgid "Can you rest in your bed, when all else is hectic?"
+msgid "Can you relax amid all this chaos?"
 msgstr ""
 
 #  level: "Chessing Positions"
@@ -2295,7 +2321,10 @@ msgstr "Kan men meer doen met houten blokken?   Ja!  Zie de volgende levels."
 #  level: "Lasers and Mirrors"
 #  author: "Andreas Lochmann" email ""
 #: po/level_i18n.cc:1384
-msgid "The bright light beam is a laser beam.   Don't get to close to it!   But it has its usages ...    You can use the mirrors to direct the laser to its targets.   From these, only the light-gray ones are movable, just try it!"
+msgid ""
+"The bright light beam is a laser beam.   Don't get to close to it!   But it "
+"has its uses ...    You can use the mirrors to direct the laser to its "
+"targets.   From these, only the light-gray ones are movable, just try it!"
 msgstr "De heldere lichtstraal is een laserstraal.  Kom niet te dicht bij!  Maar hij is bruikbaar ...U kunt de laser op de doelen richten met spiegels.  Alleen de lichtgrijze spiegels zijn verplaatsbaar, probeer maar!"
 
 #  level: "Items"
@@ -2446,7 +2475,7 @@ msgid "Congratulations!"
 msgstr "Gefeliciteerd!"
 
 #  level: "Mirror Room II"
-#  author: "Lukas Schüller" email "Lucky_Luc@web.de"
+#  author: "Lukas SchÃ¼ller" email "Lucky_Luc@web.de"
 #: po/level_i18n.cc:1642
 msgid "Same room, new mirrors ..."
 msgstr "Zelfde kamer, nieuwe spiegels ..."
@@ -2528,7 +2557,7 @@ msgstr ""
 #  level: "Enigmawale"
 #  author: "Alain Busser" email ""
 #: po/level_i18n.cc:1699
-msgid "A turn begins in one of the most left rows, unless impossible."
+msgid "A turn begins in one of the leftmost rows, unless impossible."
 msgstr "Een beurt begint in een van meest linkse rijen, tenzij dat onmogelijk is."
 
 #  level: "Enigmawale"
@@ -2574,9 +2603,9 @@ msgid "Maintenance code: metal-stone-stone-stone-red-yellow-yellow-red-red-stone
 msgstr ""
 
 #  level: "Flying"
-#  author: "Lukas Schüller" email "Lucky_Luc@web.de"
+#  author: "Lukas SchÃ¼ller" email "Lucky_Luc@web.de"
 #: po/level_i18n.cc:1807
-msgid "You can fly a little time, if you use the umbrella."
+msgid "You can fly for a short time if you use the umbrella."
 msgstr "U kunt korte tijd vliegen, als u de paraplu gebruikt."
 
 #  level: "Is It Easy?"
@@ -2639,7 +2668,10 @@ msgstr ""
 #  author: "Ronald Lamprecht" email "ral@users.berlios.de"
 #  comment: "Firefox in sense of clever in handling fire"
 #: po/level_i18n.cc:1956
-msgid "Do you think a bushman would start to search an extinguisher in the cellar in case of a wall of fire is approaching? Be a Firefox - you have the first 5 items to deal with, no more no less!"
+msgid ""
+"Do you think a bushman would start to search for an extinguisher in the cellar "
+"if a wall of fire were approaching? Be a Firefox - you have the first 5 items "
+"to deal with, no more no less!"
 msgstr ""
 
 #  level: "Firefox"
@@ -2698,7 +2730,7 @@ msgstr "Caramba!! El Dictator heeft muchos pesos in zijn kristallen kluis maar o
 #  level: "Designed with love"
 #  author: "JuSt" email ""
 #: po/level_i18n.cc:2012
-msgid "Did you really think, this one is so easy?"
+msgid "Did you really think this one was so easy!?"
 msgstr "Dacht u echt dat deze zo makkelijk zou zijn?"
 
 #  level: "Designed with love"
@@ -2744,7 +2776,7 @@ msgid "Don't get attracted!"
 msgstr ""
 
 #  level: "Print 23"
-#  author: "Richi Bützer" email ""
+#  author: "Richi BÃ¼tzer" email ""
 #: po/level_i18n.cc:2063
 msgid "If you have never heard about Brainf***, visit e.g. http://en.wikipedia.org/wiki/Brainfuck before you try to solve this level."
 msgstr "Als u nog nooit van Brainf*** gehoord hebt, bezoek bijv. http://en.wikipedia.org/wiki/Brainfuck voor u probeert dit level op te lossen."
@@ -2806,7 +2838,7 @@ msgstr "Bewijs uw geduld in de WaterTest!"
 #  level: "Gods of Enigma"
 #  author: "moonpearl" email ""
 #: po/level_i18n.cc:2079
-msgid "This can't be! No mortal can reach our Holy Oxyds! Prove yourself once more! Fwahahaha!"
+msgid "This can't be! No mortal can reach our Holy Oxyds! Prove yourself once more! Bwahahahaha!"
 msgstr "Dit kan niet waar zijn! Geen sterveling kan onze Heilige Oxyds bereiken! Bewijs uzelf nogmaals! Fwahahaha!"
 
 #  level: "Walk The Plank"
@@ -2824,7 +2856,7 @@ msgstr "Om zeeziekte te genezen moet u een groot bankbiljet tussen uw tanden hou
 #  level: "Lifes' Cross"
 #  author: "Raoul Bourquin" email "raoul@users.berlios.de"
 #: po/level_i18n.cc:2104
-msgid "Could you need something?"
+msgid "Do you need something?"
 msgstr ""
 
 #  level: "Send me the keys !"
@@ -2860,7 +2892,7 @@ msgid "Why has there always to be an active volcano and a village of marble-eati
 msgstr "Waarom moet er altijd een actieve vulkaan en een dorp vol knikker-etende inboorlingen zijn op een tropisch eiland?"
 
 #  level: "Pneumatic Delivery"
-#  author: "Manuel König" email ""
+#  author: "Manuel KÃ¶nig" email ""
 #: po/level_i18n.cc:2140
 msgid "This is my first landscape, dedicated to my father. I hope you'll enjoy it!"
 msgstr "Dit is mijn eerste landschap, opgedragen aan mijn vader. I hoop dat u het leuk vindt!"
@@ -2868,7 +2900,7 @@ msgstr "Dit is mijn eerste landschap, opgedragen aan mijn vader. I hoop dat u he
 #  level: "Gods of Enigma II"
 #  author: "moonpearl" email ""
 #: po/level_i18n.cc:2147
-msgid "You again! We won't let you pass this time! See these Oxyds? You can't reach them unless you rob our Four Holy Items! But they are well guarded! Fwahahahaha!"
+msgid "You again! We won't let you pass this time! See these Oxyds? You can't reach them unless you rob our Four Holy Items! But they are well guarded! Bwahahahaha!"
 msgstr ""
 
 #  level: "Gods of Enigma II"
@@ -2880,7 +2912,7 @@ msgstr ""
 #  level: "Gods of Enigma II"
 #  author: "moonpearl" email ""
 #: po/level_i18n.cc:2149
-msgid "Try again! Fwahahaha!"
+msgid "Try again! Bwahahahaha!"
 msgstr "Probeer opnieuw! Fwahahaha!"
 
 #  level: "Gods of Enigma II"
@@ -2905,7 +2937,7 @@ msgstr ""
 #  author: "JuSt" email ""
 #: po/level_i18n.cc:2156
 #, fuzzy
-msgid "Look carefully at anything!"
+msgid "Look carefully at everything!"
 msgstr "Kijk goed naar alles!"
 
 #  level: "Doors forever"
@@ -2972,7 +3004,9 @@ msgstr "Wat is de naam van dit level?"
 #  level: "Blet"
 #  author: "Alain Busser" email ""
 #: po/level_i18n.cc:2286
-msgid "When you change the color of one square, the colors of the 2 nearest squares change as well; you must get as much green squares as possible."
+msgid ""
+"When you change the color of one square, the colors of the 2 nearest squares "
+"change as well; you must get as many green squares as possible."
 msgstr "Als u de kleur van een vierkant verandert, veranderen de kleuren van de 2 dichtstbijzijnde vierkanten ook; u moet zoveel mogelijk groene vierkanten krijgen."
 
 #  level: "Blet"
@@ -3102,7 +3136,7 @@ msgid "You  have  lost  ..."
 msgstr "U  heeft  verloren  ..."
 
 #  level: "The Ditch"
-#  author: "Richi Bützer" email ""
+#  author: "Richi BÃ¼tzer" email ""
 #: po/level_i18n.cc:2848
 msgid "Risk your life ..."
 msgstr "Riskeer uw leven ..."

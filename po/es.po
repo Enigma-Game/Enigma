@@ -1239,8 +1239,8 @@ msgstr "Este fichador es para renovar el juego"
 #  author: "Alain Busser" email ""
 #: po/level_i18n.cc:243
 msgid ""
-"Each color appears at most once; each good color gives whites if not at the "
-"good place, blacks if it is also well placed."
+"Each color appears once. Each correct color produces whites in the wrong "
+"place, blacks in the right one."
 msgstr "Cada color aparece más que una vez; cada color cambia al blanco si esta "
 "mal situado, y al negro si esta bien situado."
 
@@ -1258,13 +1258,13 @@ msgid "Make a Sword, & Umbrella."
 msgstr "Haz una espada, & un paraguas"
 
 #  level: "Growing Boxes"
-#  author: "Lukas SchÃ¼ller" email "Lucky_Luc@web.de"
+#  author: "Lukas Schüller" email "Lucky_Luc@web.de"
 #: po/level_i18n.cc:281
 msgid "You'd need a portable box!"
 msgstr "Necesitas una caja portatil"
 
 #  level: "Growing Boxes"
-#  author: "Lukas SchÃ¼ller" email "Lucky_Luc@web.de"
+#  author: "Lukas Schüller" email "Lucky_Luc@web.de"
 #: po/level_i18n.cc:282
 msgid ""
 "Congratulations! You found a seed! Try to use it behind the grate (and move "
@@ -1273,7 +1273,7 @@ msgstr "Felicidades! encontraste una semilla! Pruebalo atras del grato (y marcha
 "lo más rapido que puedas)"
 
 #  level: "Growing Boxes"
-#  author: "Lukas SchÃ¼ller" email "Lucky_Luc@web.de"
+#  author: "Lukas Schüller" email "Lucky_Luc@web.de"
 #: po/level_i18n.cc:283
 msgid ""
 "Remember that you can't fill a closed bridge with a "
@@ -1285,13 +1285,13 @@ msgstr ""
 "tercer semilla de otra manera!"
 
 #  level: "Growing Boxes"
-#  author: "Lukas SchÃ¼ller" email "Lucky_Luc@web.de"
+#  author: "Lukas Schüller" email "Lucky_Luc@web.de"
 #: po/level_i18n.cc:284
 msgid "There are different kinds of seeds ... Try to use them!"
 msgstr "Ay diferentes semillas ... Usalas!"
 
 #  level: "Growing Boxes"
-#  author: "Lukas SchÃ¼ller" email "Lucky_Luc@web.de"
+#  author: "Lukas Schüller" email "Lucky_Luc@web.de"
 #  comment: "read from the right"
 #: po/level_i18n.cc:286
 msgid "Noitcerid etisoppo eht yrt! Tuo syaw owt? Rorrim, rorrim ..."
@@ -1313,8 +1313,7 @@ msgstr "Cuidado! Agujeros negros!"
 #  author: "Andreas Lochmann" email ""
 #  comment: "The sequence of the four elements is important, as they are connected to the colors of the floor."
 #: po/level_i18n.cc:342
-msgid ""
-"Our full attention should deserve:           Air and Fire, Water, Earth."
+msgid "Our full attention this is worth:           Air and Fire, Water, Earth."
 msgstr ""
 "nuestra atención:				    Aira y fuego, agua, tierra."
 
@@ -1322,9 +1321,7 @@ msgstr ""
 #  author: "Andreas Lochmann" email ""
 #  comment: "Just a hint to regard the floor."
 #: po/level_i18n.cc:345
-msgid ""
-"And if your tries grow out of bound,           then shame on you, eyes to "
-"the ground!"
+msgid "And if your answer can’t be found           then shame on you, eyes to the ground!"
 msgstr ""
 
 #  level: "Disk Royal"
@@ -1342,7 +1339,7 @@ msgstr ""
 #  level: "The Fuze"
 #  author: "capkoh" email ""
 #: po/level_i18n.cc:384
-msgid "End of way!"
+msgid "Dead end!"
 msgstr ""
 
 #  level: "The Fuze"
@@ -1486,7 +1483,7 @@ msgstr ""
 
 #  level: "The Flagstone Reaper"
 #  author: "Andreas Lochmann" email ""
-#  comment: "Difficult to translate. If you have no idea, just say: Why is the hint on this side? The Reaper should know it."
+#  comment: "Difficult to translate. If you have no idea, just say: Why on this side does this message sit? The Reaper has a use for it."
 #: po/level_i18n.cc:563
 msgid ""
 "No hint today ...    Those flagstones pass away ...    The docu stands "
@@ -1698,86 +1695,78 @@ msgstr ""
 #  author: "Dominik Lehmann" email ""
 #: po/level_i18n.cc:836
 msgid ""
-"Welcome to Chile! Eight hours ago, your plane arrived at the Airport of "
-"\"Llamas\", which is a small village surrounded by unexplored jungle "
-"terrain. Now you find yourself in front of an impressing temple, which seems "
-"to be a relict of the ancient Aztec ages. But the temple is in a surprising "
-"good condition ..."
+"Welcome to Mexico! Eight hours ago, your plane arrived at the Airport "
+"of \"Coatlicue\", which is a small village surrounded by unexplored jungle "
+"terrain. Now you find yourself in front of an impressive temple, which seems "
+"to be a relic of the ancient Aztec empire. But the temple is in surprisingly good condition ..."
 msgstr ""
 
 #  level: "The Aztec Temple"
 #  author: "Dominik Lehmann" email ""
 #: po/level_i18n.cc:837
 msgid ""
-"Next to the giant doors of the temple you see a chromed sign: \"Restauration "
-"due to: G. G. Goshers, A.D. 1998\". And the smaller sign beneath says: "
-"\"Property of G. G. Goshers. Trespassing prohibited!\". Now you recognize "
-"the dog kennels built up along the front side of the temple. \"Goshers made "
-"this ancient relict a fortress\", you think, \"this cannot be legal, for "
-"Goshers recieved promotion from the UK Government. I'll try to call him to "
-"account!\""
+"Next to the giant doors of the temple you see a chrome sign: \"Restoration by: "
+"G. G. Goshers, A.D. 1998\". A smaller sign beneath says: \"Property of G. G. "
+"Goshers. Trespassing prohibited!\". Now you notice the dog kennels built up "
+"along the front side of the temple. \"Goshers made this ancient relic a "
+"fortress\", you think, \"this cannot be legal, for Goshers received funding "
+"from the UK Government. I'll try to call him to account!\""
 msgstr ""
 
 #  level: "The Aztec Temple"
 #  author: "Dominik Lehmann" email ""
 #: po/level_i18n.cc:838
-msgid "This guard doesn't seem to be very alert."
+msgid "This guard doesn’t notice me."
 msgstr ""
 
 #  level: "The Aztec Temple"
 #  author: "Dominik Lehmann" email ""
 #: po/level_i18n.cc:839
-msgid ""
-"This lake is obviously due to Goshers. I think the way there in the south is "
-"the right one."
+msgid "This lake was obviously made by Goshers. I think the correct way is south."
 msgstr ""
 
 #  level: "The Aztec Temple"
 #  author: "Dominik Lehmann" email ""
 #: po/level_i18n.cc:840
-msgid ""
-"There's an inscription on the old wall, saying in spanish: \"Don't touch "
-"everything you see! It could be the last you touch!\""
+msgid "There's an inscription on the old wall, saying in spanish: \"Careful! "
+"What you touch could be the last thing you touch!\""
 msgstr ""
 
 #  level: "The Aztec Temple"
 #  author: "Dominik Lehmann" email ""
 #: po/level_i18n.cc:841
-msgid "Chromed sign: \"Control of the wilds' cage.\""
+msgid "Chrome sign: \"Control of the beast’s cage.\""
 msgstr ""
 
 #  level: "The Aztec Temple"
 #  author: "Dominik Lehmann" email ""
 #: po/level_i18n.cc:842
-msgid "Oooh, this slope is steep! Don't try to touch the skull!"
+msgid "Oooh, this slope is steep! Try not to touch the skull!"
 msgstr ""
 
 #  level: "The Aztec Temple"
 #  author: "Dominik Lehmann" email ""
 #: po/level_i18n.cc:843
-msgid ""
-"This building down there looks like a prison. Let's see if I can get out, of "
-"what purpose it is... Ah, there's a sign. And it's chromed as well. Goshers "
-"seems to have a favour for chromed signs. It says: \"Natives prison\"."
+msgid "This building down there looks like a prison. Let's see if I can "
+"determine its purpose ... Ah, there's another chrome sign. Goshers seems to "
+"favour chrome signs. It says: \"Natives’ prison\"."
 msgstr ""
 
 #  level: "The Aztec Temple"
 #  author: "Dominik Lehmann" email ""
 #: po/level_i18n.cc:844
-msgid ""
-"Getting beyond the prison building was a real good idea. But now you have to "
-"cross this lake. Be thrifty with those boxes!"
+msgid "Getting beyond the prison building was a really good idea. But now you "
+"have to cross this lake. Be thrifty with those boxes!"
 msgstr ""
 
 #  level: "The Aztec Temple"
 #  author: "Dominik Lehmann" email ""
 #: po/level_i18n.cc:845
-msgid ""
-"Now, spotting through the grilled prison windows, you recognize a native "
-"woman being imprisoned there. Obviously Goshers locked all natives, who "
-"disturbed his \"work\", trying to enter the temple and getting rich on the "
-"treasures of the Aztecs. Maybe it's useful to be accompanied by someone, who "
-"knows the secrets of the jungle and this temple ..."
+msgid "Now, peering through the grilled prison windows, you see a native woman "
+"imprisoned there. Obviously Goshers locked up all the natives, who disturbed "
+"his \"work\"; trying to enter the temple and to get rich from the treasures of "
+"the Aztecs. It might be helpful to be accompanied by someone, who knows the "
+"secrets of the jungle and this temple ..."
 msgstr ""
 
 #  level: "The Aztec Temple"
@@ -1810,7 +1799,7 @@ msgstr ""
 #  level: "The Aztec Temple"
 #  author: "Dominik Lehmann" email ""
 #: po/level_i18n.cc:849
-msgid "You wonder, what this switch could trigger."
+msgid "You wonder what this switch could trigger."
 msgstr ""
 
 #  level: "The Aztec Temple"
@@ -1822,19 +1811,19 @@ msgstr ""
 #  level: "The Aztec Temple"
 #  author: "Dominik Lehmann" email ""
 #: po/level_i18n.cc:851
-msgid "Lucky you was finding this hollow. It prevents you from drawning."
+msgid "You were lucky to find this hole. It prevents you from drowning."
 msgstr ""
 
 #  level: "The Aztec Temple"
 #  author: "Dominik Lehmann" email ""
 #: po/level_i18n.cc:852
-msgid "This stone of glass does certainly fullfill a purpose ..."
+msgid "This glass stone must fulfill a purpose ..."
 msgstr ""
 
 #  level: "The Aztec Temple"
 #  author: "Dominik Lehmann" email ""
 #: po/level_i18n.cc:853
-msgid "It's funny, that such a temple does have a side entrance."
+msgid "It's funny that such a temple should have a side entrance."
 msgstr ""
 
 #  level: "The Aztec Temple"
@@ -1846,11 +1835,10 @@ msgstr ""
 #  level: "The Aztec Temple"
 #  author: "Dominik Lehmann" email ""
 #: po/level_i18n.cc:855
-msgid ""
-"After the huge doors of the old temple have opened, you see, that the "
-"entrance is protected by 11 knights, armed with spears. These guards are "
-"very dangerous. Without a sword you'll never be able to enter. Be careful. "
-"There're not only knights, but also thieves."
+msgid "After the huge doors of the old temple have opened, you see, that the "
+"entrance is protected by 11 knights, armed with spears. These guards are very "
+"dangerous. Without a sword you'll never be able to enter. Be careful. There "
+"are not only knights, but also thieves."
 msgstr ""
 
 #  level: "The Aztec Temple"
@@ -1870,9 +1858,7 @@ msgstr ""
 #  level: "The Aztec Temple"
 #  author: "Dominik Lehmann" email ""
 #: po/level_i18n.cc:858
-msgid ""
-"\"I, Goshers, will certainly be able to get rid of one of my archenemies, by "
-"just killing you!\""
+msgid "\"I, Goshers, will certainly be able to rid myself of one of my archenemies by just killing you!\""
 msgstr ""
 
 #  level: "The Aztec Temple"
@@ -1884,10 +1870,9 @@ msgstr ""
 #  level: "The Aztec Temple"
 #  author: "Dominik Lehmann" email ""
 #: po/level_i18n.cc:860
-msgid ""
-"Xila and you just entered the Diamond Room of the old Aztec Temple. By "
-"taking him back to Great Britain and redering him to the police, the evil "
-"majesty of Gerald Gregory Goshers has found its end. Congratulations on the "
+msgid "Xila and you just entered the Diamond Room of the old Aztec Temple. By "
+"taking him back to Great Britain and rendering him to the police, you have "
+"ended the evil career of Gerald Gregory Goshers. Congratulations on the "
 "success of your expedition!"
 msgstr ""
 
@@ -1963,7 +1948,7 @@ msgstr ""
 #  level: "Houdini"
 #  author: "Ronald Lamprecht" email "ral@users.berlios.de"
 #: po/level_i18n.cc:944
-msgid "I am unguilty! I've never stolen anything!"
+msgid "I am innocent! I've never stolen anything!"
 msgstr ""
 
 #  level: "Houdini"
@@ -1987,7 +1972,7 @@ msgstr ""
 #  level: "- Meditation -"
 #  author: "Edward" email ""
 #: po/level_i18n.cc:954
-msgid "Can you rest in your bed, when all else is hectic?"
+msgid "Can you relax amid all this chaos?"
 msgstr ""
 
 #  level: "Chessing Positions"
@@ -2399,7 +2384,7 @@ msgstr ""
 #: po/level_i18n.cc:1396
 msgid ""
 "The bright light beam is a laser beam.   Don't get to close to it!   But it "
-"has its usages ...    You can use the mirrors to direct the laser to its "
+"has its uses ...    You can use the mirrors to direct the laser to its "
 "targets.   From these, only the light-gray ones are movable, just try it!"
 msgstr ""
 
@@ -2568,7 +2553,7 @@ msgid "Congratulations!"
 msgstr ""
 
 #  level: "Mirror Room II"
-#  author: "Lukas SchÃ¼ller" email "Lucky_Luc@web.de"
+#  author: "Lukas Schüller" email "Lucky_Luc@web.de"
 #: po/level_i18n.cc:1654
 msgid "Same room, new mirrors ..."
 msgstr ""
@@ -2663,7 +2648,7 @@ msgstr ""
 #  level: "Enigmawale"
 #  author: "Alain Busser" email ""
 #: po/level_i18n.cc:1711
-msgid "A turn begins in one of the most left rows, unless impossible."
+msgid "A turn begins in one of the leftmost rows, unless impossible."
 msgstr ""
 
 #  level: "Enigmawale"
@@ -2717,9 +2702,9 @@ msgid ""
 msgstr ""
 
 #  level: "Flying"
-#  author: "Lukas SchÃ¼ller" email "Lucky_Luc@web.de"
+#  author: "Lukas Schüller" email "Lucky_Luc@web.de"
 #: po/level_i18n.cc:1819
-msgid "You can fly a little time, if you use the umbrella."
+msgid "You can fly for a short time if you use the umbrella."
 msgstr ""
 
 #  level: "Is It Easy?"
@@ -2783,9 +2768,9 @@ msgstr "Fuego o que seas fuegado"
 #  comment: "Firefox in sense of clever in handling fire"
 #: po/level_i18n.cc:1968
 msgid ""
-"Do you think a bushman would start to search an extinguisher in the cellar "
-"in case of a wall of fire is approaching? Be a Firefox - you have the first "
-"5 items to deal with, no more no less!"
+"Do you think a bushman would start to search for an extinguisher in the cellar "
+"if a wall of fire were approaching? Be a Firefox - you have the first 5 items "
+"to deal with, no more no less!"
 msgstr ""
 
 #  level: "Firefox"
@@ -2847,7 +2832,7 @@ msgstr "Caramba!! El Dictator has muchos pesos in his cristal safe but muchos co
 #  level: "Designed with love"
 #  author: "JuSt" email ""
 #: po/level_i18n.cc:2024
-msgid "Did you really think, this one is so easy?"
+msgid "Did you really think this one was so easy!?"
 msgstr "Pensabas que este nivel era facil?"
 
 #  level: "Designed with love"
@@ -2895,7 +2880,7 @@ msgid "Don't get attracted!"
 msgstr "No te dejes admirar"
 
 #  level: "Print 23"
-#  author: "Richi BÃ¼tzer" email ""
+#  author: "Richi Bützer" email ""
 #: po/level_i18n.cc:2075
 msgid ""
 "If you have never heard about Brainf***, visit e.g. http://en.wikipedia.org/"
@@ -2966,7 +2951,7 @@ msgstr "Ten paciencia en la prueba del agua"
 #: po/level_i18n.cc:2091
 msgid ""
 "This can't be! No mortal can reach our Holy Oxyds! Prove yourself once more! "
-"Fwahahaha!"
+"Bwahahahaha!"
 msgstr "No puede ser nadie llega hasta los Oxyds santos! Prueba otra vez! "
 "JEJEJEJEJE!"
 
@@ -2990,7 +2975,7 @@ msgstr "Para curar la enfermedad del mar coge un billete y metetelo entre los di
 #  level: "Lifes' Cross"
 #  author: "Raoul Bourquin" email "raoul@users.berlios.de"
 #: po/level_i18n.cc:2113
-msgid "Could you need something?"
+msgid "Do you need something?"
 msgstr "Podrias necesitar algo??"
 
 #  level: "Send me the keys !"
@@ -3050,7 +3035,7 @@ msgstr "Es mi primer tierra, dedicado a mi padre. Espero que te guste!"
 msgid ""
 "You again! We won't let you pass this time! See these Oxyds? You can't reach "
 "them unless you rob our Four Holy Items! But they are well guarded! "
-"Fwahahahaha!"
+"Bwahahahaha!"
 msgstr "Tu otra vez! Esta vez no te dejamos pasar! ves estos Oxyds? No llegas "
 "hasta que no has robado nuestros 4 objetos santos! Pero estan bien escondidos! "
 "JEJEJEJEJE!"
@@ -3067,7 +3052,7 @@ msgstr "Fuego quema y deshace ... Quieres deshacer piedras blocantes? Pues cava 
 #  level: "Gods of Enigma II"
 #  author: "moonpearl" email ""
 #: po/level_i18n.cc:2158
-msgid "Try again! Fwahahaha!"
+msgid "Try again! Bwahahahaha!"
 msgstr "Prueba de nuevo! JEJEJEJE"
 
 #  level: "Gods of Enigma II"
@@ -3100,7 +3085,7 @@ msgstr "Agua moja ... Quieres cambiar mente con tu compañero? Pues encuentra "
 #  level: "Doors forever"
 #  author: "JuSt" email ""
 #: po/level_i18n.cc:2165
-msgid "Look carefully at anything!"
+msgid "Look carefully at everything!"
 msgstr "Mira a todo con cuidado"
 
 #  level: "Doors forever"
@@ -3174,7 +3159,7 @@ msgstr "Como se llama este nivel?"
 #: po/level_i18n.cc:2295
 msgid ""
 "When you change the color of one square, the colors of the 2 nearest squares "
-"change as well; you must get as much green squares as possible."
+"change as well; you must get as many green squares as possible."
 msgstr "Si cambias el color de un cuadro, los colores de los 2 cuadros más cerca "
 "cambián también; tienes que conseguir lo más posible de cuadros verdes."
 
@@ -3313,7 +3298,7 @@ msgid "You  have  lost  ..."
 msgstr "Perdiste ..."
 
 #  level: "The Ditch"
-#  author: "Richi BÃ¼tzer" email ""
+#  author: "Richi Bützer" email ""
 #: po/level_i18n.cc:2857
 msgid "Risk your life ..."
 msgstr "Riesga tu vida ..."
