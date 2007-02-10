@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: Enigma 1.00\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2006-12-10 18:42+0100\n"
-"PO-Revision-Date: 2007-01-02 20:16+0200\n"
+"PO-Revision-Date: 2007-01-04 22:34+0200\n"
 "Last-Translator: Mikke Surakka <Iceshark7@gmail.com>\n"
 "Language-Team: Finnish\n"
 "MIME-Version: 1.0\n"
@@ -1571,7 +1571,7 @@ msgstr ""
 "\"J. J. Jumalisten omaisuutta. Läpikulku kielletty!\". Nyt huomaat koirankopit, "
 "jotka on rakennettu temppelin etupuolen myötä. \"Jumaliste teki tämän reliktin "
 "linnoitukseksi\", ajattelet, \"tämä ei voi olla laillista, Jumalisten saamansa "
-"Yhdistyneiden Kansakuntien Hallituksen ylennystä varten. Yritän saada hänet "
+"Suomen Hallituksen ylennystä varten. Yritän saada hänet "
 " tunnustamaan!\""
 
 #: po/level_i18n.cc:838
@@ -1734,7 +1734,7 @@ msgid ""
 "success of your expedition!"
 msgstr ""
 "Xila ja sinä saavuitte juuri vanhan Asteekkien Temppelin Timanttihuoneeseen. "
-"Viemällä hänet takaisin Isoon-Britanniaan ja ilmiantaakseen hänet poliisille, "
+"Viemällä hänet takaisin Suomeen ja ilmiantaakseen hänet poliisille, "
 "paha majesteetti Jaska Jorma Jumaliste on löytänyt loppunsa. Onneksi olkoon "
 "onnistuneesta tutkimusretkestäsi!"
 
@@ -2322,11 +2322,11 @@ msgstr "Se oikea, ei se oikea!"
 
 #: po/level_i18n.cc:1670
 msgid "What do you want the first gate to do?"
-msgstr "Mitä haluat portin ensimmäiseksi tekevän?"
+msgstr "Mitä haluat portin ensimmäiseksi tekevän? (Kirjoita vastaus englanniksi)"
 
 #: po/level_i18n.cc:1671
 msgid "Opposite"
-msgstr "Vastakkainen"
+msgstr "Vastakkainen (Kirjoita vastaus englanniksi)"
 
 #: po/level_i18n.cc:1672
 msgid ""
@@ -2335,7 +2335,7 @@ msgid ""
 msgstr ""
 "Jos kymmenen on yhtäkuin kolme, viisi on yhtäkuin neljä, kaksi on yhtäkuin "
 "kolme, neljä on yhtäkuin neljä, ja kolmetoista on yhtäkuin kahdeksan, "
-"minkä kanssa yhdeksän on yhtäkuin?"
+"minkä kanssa yhdeksän on yhtäkuin? (Kirjoita vastaus englanniksi)"
 
 #: po/level_i18n.cc:1673
 msgid "Congratulations!"
