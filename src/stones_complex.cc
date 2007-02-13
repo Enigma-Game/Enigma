@@ -2767,8 +2767,8 @@ void Turnstile_Pivot_Base::handleActorsAndItems(bool clockwise, Object *impulse_
         const int rot_index[4][8] = {
             { 6,  0, 0,  2, 2,  4, 4,  6 }, // anticlockwise
             { 2,  2, 4,  4, 6,  6, 0,  0 }, // clockwise
-            { 6, -1, 0, -1, 2, -1, 4, -1 }, // anticlockwise (oxyd-compatible)
-            { 2, -1, 4, -1, 6, -1, 0, -1 }, // clockwise (oxyd-compatible)
+            { 6,  0, 0,  2, 2,  4, 4,  6 }, // anticlockwise (oxyd-compatible)
+            { 2,  2, 4,  4, 6,  6, 0,  0 }, // clockwise (oxyd-compatible)
         };
 
         bool compatible = oxyd_compatible();
