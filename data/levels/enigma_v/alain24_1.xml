@@ -3,7 +3,7 @@
   <el:protected>
     <el:info el:type="level">
       <el:identity el:title="Blet" el:subtitle="" el:id="alain24"/>
-      <el:version el:score="1" el:release="1" el:revision="0" el:status="released"/>
+      <el:version el:score="1" el:release="1" el:revision="1" el:status="released"/>
       <el:author  el:name="Alain Busser" el:email="" el:homepage=""/>
       <el:copyright>Copyright © 2006 Alain Busser</el:copyright>
       <el:license el:type="GPL v2.0 or above" el:open="true"/>
@@ -281,7 +281,6 @@ renderLine(11 , "                    ")
 renderLine(12 , "               V/V/o")
 --               01234567890123456789
 
-
 if difficult then
     document(6,7,"text2")
 end
@@ -294,7 +293,7 @@ oxyd_shuffle()
         <el:english el:translate="false"/>
       </el:string>
       <el:string el:key="text1">
-        <el:english el:translate="true">When you change the color of one square, the colors of the 2 nearest squares change as well; you must get as much green squares as possible.</el:english>
+        <el:english el:translate="true">When you change the color of one square, the colors of the 2 nearest squares change as well; you must get as many green squares as possible.</el:english>
         <el:translation el:lang="fr">En changeant la couleur d'une pastille, les deux pastilles adjacentes changent aussi de couleur; le but du jeu est d'obtenir le plus grand nombre possible de pastilles vertes.</el:translation>
       </el:string> 
       <el:string el:key="text2">

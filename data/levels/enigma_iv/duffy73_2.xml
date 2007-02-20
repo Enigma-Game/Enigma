@@ -3,7 +3,7 @@
   <el:protected>
     <el:info el:type="level">
       <el:identity el:title="Bizarro World" el:subtitle="" el:id="duffy73"/>
-      <el:version el:score="1" el:release="1" el:revision="0" el:status="released"/>
+      <el:version el:score="2" el:release="2" el:revision="1" el:status="released"/>
       <el:author  el:name="Jacob Scott" el:email="" el:homepage=""/>
       <el:copyright>Copyright © 2003 Jacob Scott</el:copyright>
       <el:license el:type="GPL v2.0 or above" el:open="true"/>
@@ -282,7 +282,7 @@ renderLine(38,"I                            HJJJJJJJJv llllll % llp   #   l     
 renderLine(39,"I                            HJJJJJJJJv lzllSl   lll   ##% leeeerrrrll 3d1  %lllPlllP~wwwllwww~PbAaAaaAaBAAblllsssvlgllRiiiiiiiiiiUUU    f                                I")
 renderLine(40,"I                        f   HJJJJJJJJv llllll %         %           l rie  %lllPlllP~wwwllwww~PbabAbBBaBbablllsssvlgllRiiiiiiiiiiUUU                                     I")
 renderLine(41,"If     f                     HJJJJJJJJv        &xxxxxx^^^%TTTT  7uuuu9 9u7  %lllPlllP~llllllll~P:aBBbbbaBAAblllsssvlgllRiiiiiiiiiiUUU            f                        I")
-renderLine(42,"I               f            %%%%%%%%%%%%%%%%%%&xx@@@x^@@l===T  e7uu9r  l  lqlClVlllWlll?ly/ll;qAABaaAbABaBblllsss%ggllRiiiiiiiiiiUUU                       f             I")
+renderLine(42,"I               f            %%%%%%%%%%%%%%%%%%&xx@@@x^@@l===T  e7uu9r  l  lRlClVlllWlll?ly/ll;qAABaaAbABaBblllsss%ggllRiiiiiiiiiiUUU                       f             I")
 renderLine(43,"I                               f     #x@@cx@@@cxx@@@x^@@%TT=T  ee79rr llxll%lllPlllP~llllllll~P:bBabAaabaBblllsss%$$$$$iiiiiiiiiiUUU                                     I")
 renderLine(44,"I         f                         f #x@@cx@@@cxx@@@x^cc%===T  ee13rr lxxlx%lllPlllP~wwwllwww~PbAAABBBBBAAbxxxx^m%oooP$iiiiiiiiiiUUU                              f     fI")
 renderLine(45,"If                          f         #xxxxxxxx^^^^^^^^xx%=TTT  e1dd3r llxlx%lllPlllP~wwwllwww~PbBabbaAabbaaxxxx^l$lllo$iiiiiiiiiiUUU   f       f        f                I")
@@ -523,10 +523,10 @@ oxyd_shuffle()
 bridgebb=enigma.GetNamedObject("bridgeb0")
 SendMessage(bridgebb,"close")
 
-SendMessage("switch1","on")
-SendMessage("switch2","on")
-SendMessage("switch3","on")
-SendMessage("switch4","on")
+--SendMessage("switch1","on")
+--SendMessage("switch2","on")
+--SendMessage("switch3","on")
+--SendMessage("switch4","on")
 SendMessage("switch5","on")
     ]]></el:luamain>
     <el:i18n>
