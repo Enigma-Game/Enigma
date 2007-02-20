@@ -27,10 +27,10 @@ oxyd_default_flavor="d"
 fill_floor("fl-rough")
 
 function renderLine( line, pattern)
-	for i=1, strlen(pattern) do
-		local c = strsub( pattern, i, i)
-  		if c=="O" then
-			oxyd(i-1,line)
+    for i=1, strlen(pattern) do
+        local c = strsub( pattern, i, i)
+          if c=="O" then
+            oxyd(i-1,line)
         elseif c=="#" then
             set_stone("st-rock1",i-1,line)
             set_floor("fl-black",i-1,line,{friction="7.0", mousefactor="2.0"})
@@ -146,8 +146,8 @@ function renderLine( line, pattern)
             set_floor("fl-gradient11",i-1,line)
         elseif c=="d" then
             set_floor("fl-gradient12",i-1,line)
-		end
-	end
+        end
+    end
 end
 
 if not difficult then
