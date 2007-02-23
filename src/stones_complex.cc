@@ -2493,23 +2493,6 @@ namespace
     public:
         Turnstile_W(): Turnstile_Arm("st-turnstile-w") {}
     };
-
-    /*
-    **
-    */
-    class Turnstile_Corner : public Stone {
-        CLONEOBJ(Turnstile_Corner);
-
-        void init_model() {
-            set_anim ("st-turnstile-corner");
-        }
-        void animcb() {
-            KillStone(get_pos());
-        }
-    public:
-        Turnstile_Corner() : Stone("st-turnstile-corner")
-        {}
-    };
 }
 
 
@@ -2764,15 +2747,13 @@ void Turnstile_Pivot_Base::handleActorsAndItems(bool clockwise, Object *impulse_
         if (idx_source == -1) 
             continue;       // actor inside pivot -- should not happen
 
-        const int rot_index[4][8] = {
-            { 6,  0, 0,  2, 2,  4, 4,  6 }, // anticlockwise
-            { 2,  2, 4,  4, 6,  6, 0,  0 }, // clockwise
-            { 6,  0, 0,  2, 2,  4, 4,  6 }, // anticlockwise (oxyd-compatible)
-            { 2,  2, 4,  4, 6,  6, 0,  0 }, // clockwise (oxyd-compatible)
+        const int rot_index[2][8] = { // same for both versions, see rev.611
+            { 6,  6, 0,  0, 2,  2, 4,  4 }, // anticlockwise
+            { 2,  4, 4,  6, 6,  0, 0,  2 }  // clockwise
         };
 
         bool compatible = oxyd_compatible();
-        int  idx_target = rot_index[clockwise+2*compatible][idx_source]; // destination index
+        int  idx_target = rot_index[clockwise][idx_source]; // destination index
         bool do_warp = arm_seen[idx_source]; // move the actor along with the turnstile?
 
         if (compatible) {
@@ -2785,7 +2766,14 @@ void Turnstile_Pivot_Base::handleActorsAndItems(bool clockwise, Object *impulse_
         if (!do_warp) 
             continue;
 
+        // Pushing an actor out of the level results in a shatter (no warp) instead
         GridPos ac_target_pos(pv_pos.x+to_x[idx_target], pv_pos.y+to_y[idx_target]);
+
+        if(!IsInsideLevel(ac_target_pos)) {
+            SendMessage(ac, "shatter");
+            continue;
+        }
+
         world::WarpActor(ac, ac_target_pos.x+.5, ac_target_pos.y+.5, false);
 
         if (Stone *st = GetStone(ac_target_pos)) {

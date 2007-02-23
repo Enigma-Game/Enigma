@@ -1644,6 +1644,8 @@ void world::KillActor (Actor *a) {
 void world::WarpActor(Actor *a, double newx, double newy, bool keep_velocity)
 {
     V2 newpos = V2(newx, newy);
+    ASSERT(IsInsideLevel(GridPos(newpos)), XLevelRuntime,
+        "WarpActor: Tried to warp actor out of level grid. (And hyperspace travel is not implemented yet, sorry.)");
     if (!keep_velocity)
         a->get_actorinfo()->vel = V2();
     a->warp(newpos);
