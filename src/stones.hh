@@ -91,6 +91,7 @@ namespace world
     public:
         Stone();
         Stone(const char *kind);
+        ~Stone();
 
         /* ---------- Virtual functions ---------- */
         virtual Stone *clone() = 0;

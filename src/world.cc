@@ -1770,6 +1770,19 @@ void world::addDelayedImpulse (const Impulse& impulse, double delay,
     level->delayed_impulses.push_back(DelayedImpulse(impulse, delay, estimated_receiver));
 }
 
+void world::revokeDelayedImpulses(const Stone *target)
+{
+    // Revokes delayed impulses to and from target
+    ImpulseList::iterator i = level->delayed_impulses.begin(),
+        end = level->delayed_impulses.end();
+    while (i != end) {
+        if (i->is_receiver(target) || i->is_sender(target))
+            i = level->delayed_impulses.erase(i);
+        else
+            ++i;
+    }
+}
+
 void world::Tick(double dtime) {
     level->tick (dtime);
 }

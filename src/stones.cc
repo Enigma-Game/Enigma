@@ -115,6 +115,8 @@ Stone::Stone(const char * kind)
 : GridObject (kind)
 {}
 
+Stone::~Stone() { revokeDelayedImpulses(this); }
+
 const StoneTraits &Stone::get_traits() const
 {
     static StoneTraits default_traits = {

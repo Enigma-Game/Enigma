@@ -138,6 +138,14 @@ namespace world
 
         const GridPos& destination() const { return impulse.dest; }
 
+        bool is_receiver(const Stone *target) const {
+            return target == receiver;
+        }
+
+        bool is_sender(const Stone *target) const {
+            return target == impulse.sender;
+        }
+
         void send_impulse(Stone *target) const {
 
             // @@@ FIXME: the test for equality of Stones sometimes fails
@@ -149,7 +157,7 @@ namespace world
             //
             // Possible fix : add unique ID to all objects
 
-            if (target == receiver) { 
+            if (is_receiver(target)) { 
                 // if object did not change since impulse was initiated
                 target->on_impulse(impulse);
             }
