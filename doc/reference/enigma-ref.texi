@@ -6040,6 +6040,11 @@ When two green turnstiles are intertwined, one them is hit and an
 actor would be transported, then the second turnstile will be hit,
 too.
 
+When an actor is to be warped outside of the level by a turnstile
+(which only happens with a green one directly at the levelborder), the
+actor is shattered instead of warped. This is the only case in which a
+green turnstile is able to shatter a marble.
+
 @strong{Messages to the pivot}
 
 @table @code
