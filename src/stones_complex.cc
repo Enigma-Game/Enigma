@@ -2747,13 +2747,25 @@ void Turnstile_Pivot_Base::handleActorsAndItems(bool clockwise, Object *impulse_
         if (idx_source == -1) 
             continue;       // actor inside pivot -- should not happen
 
-        const int rot_index[2][8] = { // same for both versions, see rev.611
-            { 6,  6, 0,  0, 2,  2, 4,  4 }, // anticlockwise
-            { 2,  4, 4,  6, 6,  0, 0,  2 }  // clockwise
+        const int rot_index[4][8] = {
+            // The warp-destinations for actors. Why different destinations
+            // for oxyd/non-oxyd-type turnstiles? Imagine the actor on position
+            // 1 (North of pivot), the turnstile rotates anticlockwise. Then
+            // a green turnstile-arm, if at all, would push the actor one field
+            // to the left (position 0). Now assume it's a red turnstile. If the
+            // actor is to be warped, it has to be the one that activated the
+            // turnstile. Yet it is on position 1, in principle not able to
+            // hit an arm. But it can, if it hits fast enough on the edge of
+            // pivot and left arm. In this case, the actor should be handled
+            // as if on position 1, thus warping to 6.
+            { 6,  0, 0,  2, 2,  4, 4,  6 }, // anticlockwise
+            { 2,  2, 4,  4, 6,  6, 0,  0 }, // clockwise
+            { 6,  6, 0,  0, 2,  2, 4,  4 }, // anticlockwise (oxyd-compatible)
+            { 2,  4, 4,  6, 6,  0, 0,  2 }, // clockwise (oxyd-compatible)
         };
 
         bool compatible = oxyd_compatible();
-        int  idx_target = rot_index[clockwise][idx_source]; // destination index
+        int  idx_target = rot_index[clockwise+2*compatible][idx_source]; // destination index
         bool do_warp = arm_seen[idx_source]; // move the actor along with the turnstile?
 
         if (compatible) {
