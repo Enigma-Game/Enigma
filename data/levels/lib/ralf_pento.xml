@@ -3,7 +3,7 @@
   <el:protected>
     <el:info el:type="library">
       <el:identity el:title="" el:id="lib/ralf_pento"/>
-      <el:version el:score="1" el:release="1" el:revision="0" el:status="released"/>
+      <el:version el:score="1" el:release="1" el:revision="1" el:status="released"/>
       <el:author  el:name="Ralf Westram" el:email="amgine@reallysoft.de" el:homepage=""/>
       <el:copyright>Copyright © Dec 2004 Ralf Westram</el:copyright>
       <el:license el:type="GPL v2.0 or above" el:open="true"/>
@@ -479,7 +479,7 @@ function sw_kill()
    if (picked_up("thors")==1) then
       local it = enigma.GetItem(thorspos.x,thorspos.y)
       if (it==nil) then
-         document(thorspos.x,thorspos.y,"Drop the hammer!")
+         document(thorspos.x,thorspos.y,"DropHammer")
       end
    else
       local x,y = enigma.GetPos(enigma.GetNamedObject("thors"))
@@ -522,6 +522,9 @@ function early_check()
 end
     ]]></el:luamain>
     <el:i18n>
+      <el:string el:key="DropHammer">
+        <el:english el:translate="true">Drop the hammer on side of a pentomino and use the switch!</el:english>
+      </el:string> 
     </el:i18n>
   </el:protected>
 </el:level>

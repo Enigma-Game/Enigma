@@ -3,7 +3,7 @@
   <el:protected >
     <el:info el:type="level">
       <el:identity el:title="Firefox" el:subtitle="Fire or be fired" el:id="20060213ral003"/>
-      <el:version el:score="2" el:release="2" el:revision="$Revision: 54 $" el:status="released"/>
+      <el:version el:score="2" el:release="2" el:revision="$Revision: 56 $" el:status="released"/>
       <el:author  el:name="Ronald Lamprecht" el:email="ral@users.berlios.de"/>
       <el:copyright>Copyright © 2006 Ronald Lamprecht</el:copyright>
       <el:license el:type="GPL v2.0 or above" el:open="true"/>
@@ -103,7 +103,7 @@ tiles["L"] = {inherit("."), item("it-extralife")}
 tiles["a"] = {inherit("."), item("it-booze")}
 tiles["e"] = {inherit("."), item("it-extinguisher_empty",{name="extinguisher1"})}
 tiles["f"] = {inherit("."), item("it-extinguisher")}
-tiles["T"] = {inherit("."), item("it-document",{text="Do you think a bushman would start to search for an extinguisher in the cellar in case of a wall of fire were approaching? Be a Firefox - you have the first 5 items to deal with, no more no less!"})}
+tiles["T"] = {inherit("."), item("it-document",{text="Do you think a bushman would start to search for an extinguisher in the cellar if a wall of fire were approaching? Be a Firefox - you have the first 5 items to deal with, no more no less!"})}
 tiles["I0"] = {inherit("i"), item("it-crack0")}
 tiles["="] = {inherit("."), stone("st-wood")}
 tiles["I"] =  tiles["I0"]
@@ -351,8 +351,8 @@ oxyd_shuffle()
         <el:english el:translate="true" el:comment="Set fire or die"/>
         <el:translation el:lang="de">Brenne oder verbrenne</el:translation>
       </el:string>
-      <el:string el:key="Do you think a bushman would start to search for an extinguisher in the cellar in case of a wall of fire were approaching? Be a Firefox - you have the first 5 items to deal with, no more no less!">
-        <el:english el:comment="Firefox in sense of clever in handling fire">Do you think a bushman would start to search for an extinguisher in the cellar in case of a wall of fire were approaching? Be a Firefox - you have the first 5 items to deal with, no more no less!</el:english>
+      <el:string el:key="Do you think a bushman would start to search for an extinguisher in the cellar if a wall of fire were approaching? Be a Firefox - you have the first 5 items to deal with, no more no less!">
+        <el:english el:comment="Firefox in sense of clever in handling fire">Do you think a bushman would start to search for an extinguisher in the cellar if a wall of fire were approaching? Be a Firefox - you have the first 5 items to deal with, no more no less!</el:english>
         <el:translation el:lang="de">Würde ein Buschmann anfangen einen Feuerlöscher im Keller zu suchen, wenn eine Feuerwalze naht? Sei ein Fuchs im Feuer - es gibt nur die ersten 5 Gegenstände die zur Lösung beitragen können!</el:translation>
       </el:string>
       <el:string el:key="You can extinguish fire with water. This is a good place to refill your extinguisher. Be aware, water is rare!">
