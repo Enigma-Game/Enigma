@@ -3,7 +3,7 @@
   <el:protected>
     <el:info el:type="level">
       <el:identity el:title="The Cage" el:subtitle="" el:id="qq2"/>
-      <el:version el:score="1" el:release="1" el:revision="1" el:status="released"/>
+      <el:version el:score="1" el:release="1" el:revision="0" el:status="released"/>
       <el:author  el:name="Andrzej Szombierski" el:email="" el:homepage=""/>
       <el:copyright>Copyright © Andrzej Szombierski</el:copyright>
       <el:license el:type="see Lua code below" el:open="true"/>
@@ -157,7 +157,6 @@ end
 -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- --
 
 create_world( strlen(level[1]), getn(level) )
-enigma.ConserveLevel=FALSE
 fill_floor("fl-leaves")
     
 for y,line in pairs(level) do

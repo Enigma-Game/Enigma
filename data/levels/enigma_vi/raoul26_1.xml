@@ -3,12 +3,12 @@
   <el:protected>
     <el:info el:type="level">
       <el:identity el:title="Puzzle Puzzles" el:subtitle="look forward!" el:id="raoul26"/>
-      <el:version el:score="1" el:release="1" el:revision="24" el:status="released"/>
+      <el:version el:score="1" el:release="1" el:revision="22" el:status="released"/>
       <el:author  el:name="Raoul Bourquin" el:email="" el:homepage=""/>
       <el:copyright>Copyright © 2006 Raoul Bourquin</el:copyright>
       <el:license el:type="GPL v2.0 or above" el:open="true"/>
       <el:compatibility el:enigma="1.0">
-       <el:dependency el:path="lib/libpuzzle_2" el:id="lib/libpuzzle" el:release="2" el:preload="true"/>
+       <el:dependency el:path="lib/libpuzzle" el:id="lib/libpuzzle" el:release="1" el:preload="true"/>
       </el:compatibility>
       <el:modes el:easy="true" el:single="true" el:network="false"/>
       <el:comments>
@@ -27,10 +27,10 @@ oxyd_default_flavor="d"
 fill_floor("fl-rough")
 
 function renderLine( line, pattern)
-    for i=1, strlen(pattern) do
-        local c = strsub( pattern, i, i)
-          if c=="O" then
-            oxyd(i-1,line)
+	for i=1, strlen(pattern) do
+		local c = strsub( pattern, i, i)
+  		if c=="O" then
+			oxyd(i-1,line)
         elseif c=="#" then
             set_stone("st-rock1",i-1,line)
             set_floor("fl-black",i-1,line,{friction="7.0", mousefactor="2.0"})
@@ -146,8 +146,8 @@ function renderLine( line, pattern)
             set_floor("fl-gradient11",i-1,line)
         elseif c=="d" then
             set_floor("fl-gradient12",i-1,line)
-        end
-    end
+		end
+	end
 end
 
 if not difficult then
@@ -279,33 +279,26 @@ function set_water_2()
 
     enigma.KillItem(33,24)
 end
-
 ---- PUZZLES ----
   -- W
-  puzzle({" ##",
-          "## ",
-          "#  "},{23,6},"bluepuzzle","none")
+  puzzle({{0,1,1},{1,1,0},{1,0,0}},23,6,"blue","no")
   -- Z
-  puzzle({" ##",
-          " * ",
-          "## "},{32,18},"bluepuzzle","none")
+  puzzle({{0,1,1},{0,2,0},{1,1,0}},32,18,"blue","no")
+  set_stone("st-puzzle-hollow",33,19)
   -- shell_lower_part
-  puzzle({"## ##",
-          " ### ",
-          "  #  "},{31,31},"bluepuzzle","permutation")
+  shuffle_method="permutation"
+  puzzle({{1,1,0,1,1},{0,1,1,1,0},{0,0,1,0,0}},31,31,"blue","yes")
   -- shell_upper_part
-  puzzle({" # ",
-          "###"},{32,29},"bluepuzzle","permutation")
+  puzzle({{0,1,0},{1,1,1}},32,29,"blue","yes")
   -- -
-  puzzle({"#*#"},{34,3},"bluepuzzle","none")
+  puzzle({{1,2,1}},34,3,"blue","no")
+  set_stone("st-puzzle-hollow",35,3)
   -- |
-  puzzle({"#",
-          "*",
-          "#"},{33,2},"bluepuzzle","none")
+  puzzle({{1},{2},{1}},33,2,"blue","no")
+  set_stone("st-puzzle-hollow",33,3)
   -- T
-  puzzle({"  #",
-          "#*#",
-          "  #"},{33,7},"bluepuzzle","none")
+  puzzle({{0,0,1},{1,2,1},{0,0,1}},33,7,"blue","no")
+  set_stone("st-puzzle-hollow",34,8)
 
 ---- ITEMS ----
 set_item("it-magicwand",33,28)

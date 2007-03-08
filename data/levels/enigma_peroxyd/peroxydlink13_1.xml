@@ -3,12 +3,12 @@
   <el:protected>
     <el:info el:type="level">
       <el:identity el:title="Per.Oxyd Link 13" el:subtitle="Per.Oxyd Link 13" el:id="peroxyd2p13"/>
-      <el:version el:score="1" el:release="1" el:revision="1" el:status="released"/>
+      <el:version el:score="1" el:release="1" el:revision="0" el:status="released"/>
       <el:author  el:name="Raoul Bourquin" el:email="" el:homepage=""/>
       <el:copyright>Copyright © 2006 Raoul Bourquin</el:copyright>
       <el:license el:type="GPL v2.0 or above" el:open="true"/>
       <el:compatibility el:enigma="0.92" el:engine="per.oxyd">
-       <el:dependency el:path="lib/libpuzzle_2" el:id="lib/libpuzzle" el:release="2" el:preload="true"/>
+       <el:dependency el:path="lib/libpuzzle" el:id="lib/libpuzzle" el:release="1" el:preload="true"/>
       </el:compatibility>
       <el:modes el:easy="false" el:single="true" el:network="true"/>
       <el:comments>
@@ -64,55 +64,30 @@ set_item("it-yinyang",3,3)
 set_item("it-yinyang",3,8)
 
 --THE PUZZLES:
-puzzle({"#",
-        "#",
-        "#",
-        "#",
-        "#"},{5,4},"bluepuzzle","none")
+must_shuffle=0
+art=""
 
-puzzle({"    ###########",
-        "    #          ",
-        "    #          ",
-        "    #          ",
-        "#####          "},{6,4},"bluepuzzle","none")
+puzzle({{1},{1},{1},{1},{1}},5,4)
 
-puzzle({"#####"},{14,8},"bluepuzzle","none")
+puzzle({{0,0,0,0,1,1,1,1,1,1,1,1,1,1,1},{0,0,0,0,1,0,0,0,0,0,0,0,0,0,0,0},{0,0,0,0,1,0,0,0,0,0,0,0,0,0,0,0},{0,0,0,0,1,0,0,0,0,0,0,0,0,0,0,0},{1,1,1,1,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0}},6,4)
 
-puzzle({"###",
-        "  #",
-        "  #",
-        "  #",
-        "  #"},{23,4},"bluepuzzle","none")
+puzzle({{1,1,1,1,1}},14,8)
 
-puzzle({"  #  ",
-        "#####",
-        "  #  ",
-        "  #  ",
-        "  #  ",
-        "#####",
-        "  #  "},{30,3},"bluepuzzle","none")
+puzzle({{1,1,1},{0,0,1},{0,0,1},{0,0,1},{0,0,1}},23,4)
+
+puzzle({{0,0,1,0,0},{1,1,1,1,1},{0,0,1,0,0},{0,0,1,0,0},{0,0,1,0,0},{1,1,1,1,1},{0,0,1,0,0}},30,3)
 
 --Oben
-puzzle({"#",
-        "#",
-        "#"},{44,2},"bluepuzzle","none")
-puzzle({"# ",
-        "#+"},{45,3},"bluepuzzle","none")
-puzzle({"#",
-        "#"},{46,4},"bluepuzzle","none")
-puzzle({"+#",
-        " #"},{46,3},"bluepuzzle","none")
+puzzle({{1},{1},{1}},44,2)
+puzzle({{1,0},{1,2}},45,3)
+puzzle({{1},{1}},46,4)
+puzzle({{2,1},{0,1}},46,3)
 
 --Unten
-puzzle({"#",
-        "#",
-        "#"},{44,8},"bluepuzzle","none")
-puzzle({"#+",
-        "# "},{45,8},"bluepuzzle","none")
-puzzle({"#",
-        "#"},{46,7},"bluepuzzle","none")
-puzzle({" #",
-        "+#"},{46,8},"bluepuzzle","none")
+puzzle({{1},{1},{1}},44,8)
+puzzle({{1,2},{1,0}},45,8)
+puzzle({{1},{1}},46,7)
+puzzle({{0,1},{2,1}},46,8)
     ]]></el:luamain>
     <el:i18n>
       <el:string el:key="title">

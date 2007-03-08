@@ -5,8 +5,8 @@
       <el:identity el:title="So Many Doors" el:subtitle="Oxyd 93" el:id="level9b"/>
       <el:version el:score="1" el:release="1" el:revision="0" el:status="released"/>
       <el:author  el:name="Siegfried Fennig" el:email="" el:homepage=""/>
-      <el:copyright>Copyright © 2003 Siegfried Fennig</el:copyright>
-      <el:license el:type="GPL version 2" el:open="true"/>
+      <el:copyright>Copyright © 2006 Siegfried Fennig</el:copyright>
+      <el:license el:type="see Lua code below" el:open="true"/>
       <el:compatibility el:enigma="0.92" el:engine="oxyd1">
       </el:compatibility>
       <el:modes el:easy="false" el:single="true" el:network="false"/>
@@ -16,6 +16,12 @@
       <el:score el:easy="-" el:difficult="-"/>
     </el:info>
     <el:luamain><![CDATA[
+--
+-- A level for Enigma
+--
+-- Copyright (c) 2003 Siegfried Fennig
+-- Licensed under the GPL version 2.
+
 levelw = 20
 levelh = 25
 
@@ -95,6 +101,18 @@ set_stone("st-door",13, 3, {name="door12", type="h"})
 set_attrib(laser( 9,12, TRUE, NORTH), "name", "laser1")
 
 set_actor("ac-blackball",9.5,6.5)
+
+
+
+
+
+
+
+
+
+
+
+
     ]]></el:luamain>
     <el:i18n>
       <el:string el:key="title">

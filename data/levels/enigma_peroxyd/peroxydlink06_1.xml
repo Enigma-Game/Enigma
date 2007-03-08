@@ -3,12 +3,12 @@
   <el:protected>
     <el:info el:type="level">
       <el:identity el:title="Per.Oxyd Link 6" el:subtitle="Per.Oxyd Link 6" el:id="peroxyd2p6"/>
-      <el:version el:score="1" el:release="1" el:revision="1" el:status="released"/>
+      <el:version el:score="1" el:release="1" el:revision="0" el:status="released"/>
       <el:author  el:name="Raoul Bourquin" el:email="" el:homepage=""/>
       <el:copyright>Copyright © 2006 Raoul Bourquin</el:copyright>
       <el:license el:type="GPL v2.0 or above" el:open="true"/>
-      <el:compatibility el:enigma="1.00" el:engine="per.oxyd">
-       <el:dependency el:path="lib/libpuzzle_2" el:id="lib/libpuzzle" el:release="2" el:preload="true"/>
+      <el:compatibility el:enigma="0.92" el:engine="per.oxyd">
+       <el:dependency el:path="lib/libpuzzle" el:id="lib/libpuzzle" el:release="1" el:preload="true"/>
       </el:compatibility>
       <el:modes el:easy="false" el:single="true" el:network="true"/>
       <el:comments>
@@ -32,7 +32,7 @@ function renderLine( line, pattern)
           if c=="x" then
             oxyd(i-1,line)
                 elseif c=="#" then
-                    set_stone("st-rock2",i-1,line)
+            set_stone("st-rock2",i-1,line)
                    
                 elseif c==" " then
                    set_floor("fl-concrete",i-1,line)
@@ -41,6 +41,7 @@ function renderLine( line, pattern)
                    set_stone("st-black1",i-1,line)
                 elseif c=="w" then
                    set_stone("st-white1",i-1,line)
+
         end
     end    
 end
@@ -80,12 +81,7 @@ set_actor("ac-whiteball", 11.5,15.5, {player=1})
 set_item("it-yinyang", 11,5)
 set_item("it-yinyang", 11,15)
 
-puzzle({"##########",
-        "#        #",
-        "#        #",
-        "#        #",
-        "#        #",
-        "##########"},{14,10},"bluepuzzle","none")
+puzzle({{1,1,1,1,1,1,1,1,1,1},{1,0,0,0,0,0,0,0,0,1},{1,0,0,0,0,0,0,0,0,1},{1,0,0,0,0,0,0,0,0,1},{1,0,0,0,0,0,0,0,0,1},{1,1,1,1,1,1,1,1,1,1}},14,10,"blue","no")
     ]]></el:luamain>
     <el:i18n>
       <el:string el:key="title">

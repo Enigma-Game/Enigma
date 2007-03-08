@@ -3,12 +3,12 @@
   <el:protected>
     <el:info el:type="level">
       <el:identity el:title="Per.Oxyd 62" el:subtitle="Per.Oxyd 62" el:id="peroxyd62"/>
-      <el:version el:score="1" el:release="1" el:revision="1" el:status="released"/>
+      <el:version el:score="1" el:release="1" el:revision="0" el:status="released"/>
       <el:author  el:name="Raoul Bourquin" el:email="" el:homepage=""/>
       <el:copyright>Copyright © 2005 Raoul Bourquin</el:copyright>
       <el:license el:type="GPL v2.0 or above" el:open="true"/>
-      <el:compatibility el:enigma="1.00" el:engine="per.oxyd">
-       <el:dependency el:path="lib/libpuzzle_2" el:id="lib/libpuzzle" el:release="2" el:preload="true"/>
+      <el:compatibility el:enigma="0.92" el:engine="per.oxyd">
+       <el:dependency el:path="lib/libpuzzle" el:id="lib/libpuzzle" el:release="1" el:preload="true"/>
       </el:compatibility>
       <el:modes el:easy="false" el:single="true" el:network="false"/>
       <el:comments>
@@ -55,10 +55,10 @@ function renderLine( line, pattern)
                 elseif c=="a" then
                    set_floor("fl-abyss",i-1,line)
 
-                elseif c=="f" then
-                   set_item("it-flagblack",i-1,line)
-                elseif c=="s" then
-                   set_item("it-spring1",i-1,line)
+        elseif c=="f" then
+           set_item("it-flagblack",i-1,line)
+        elseif c=="s" then
+           set_item("it-spring1",i-1,line)
         end
     end    
 end
@@ -77,8 +77,7 @@ renderLine(10 , "#####  S S S #        #    www     T  #")
 renderLine(11 , "#######################################")
 renderLine(12 , "                                       ")
 
-puzzle({"##",
-        "##"},{24,8},"bluepuzzle","none")
+puzzle({{1,1},{1,1}},24,8,"blue","no")
 
 -- Special
 set_item("it-document", 17, 10, {text="text1"})

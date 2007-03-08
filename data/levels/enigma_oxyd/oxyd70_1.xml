@@ -3,12 +3,12 @@
   <el:protected>
     <el:info el:type="level">
       <el:identity el:title="Oxyd 70" el:subtitle="Oxyd 70" el:id="oxyd70"/>
-      <el:version el:score="1" el:release="1" el:revision="1" el:status="released"/>
+      <el:version el:score="1" el:release="1" el:revision="0" el:status="released"/>
       <el:author  el:name="Raoul Bourquin" el:email="" el:homepage=""/>
       <el:copyright>Copyright © 2005 Raoul Bourquin</el:copyright>
       <el:license el:type="GPL v2.0 or above" el:open="true"/>
-      <el:compatibility el:enigma="1.00" el:engine="oxyd1">
-       <el:dependency el:path="lib/libpuzzle_2" el:id="lib/libpuzzle" el:release="2" el:preload="true"/>
+      <el:compatibility el:enigma="0.92" el:engine="oxyd1">
+       <el:dependency el:path="lib/libpuzzle" el:id="lib/libpuzzle" el:release="1" el:preload="true"/>
       </el:compatibility>
       <el:modes el:easy="false" el:single="true" el:network="false"/>
       <el:comments>
@@ -34,7 +34,7 @@ function renderLine( line, pattern)
                 elseif c=="H" then
                         set_stone("st-metal_hole",i-1,line)
                 elseif c==" " then
-                        set_floor("fl-brick",i-1,line)
+            set_floor("fl-brick",i-1,line)
 
                 elseif c=="a" then
                         set_stone("st-bigbrick-sw",i-1,line)
@@ -84,17 +84,8 @@ set_actor("ac-whiteball-small", 10,10.5, {player=0})
 set_actor("ac-whiteball-small", 10,14.5, {player=0})
 set_actor("ac-whiteball-small", 10,20.5, {player=0})  
 
-puzzle({"  #  #  ",
-        "  #  #  ",
-        "########",
-        "  #  #  ",
-        "  #  #  "},{6,5},"redpuzzle","permutation")
-
-puzzle({"  #  #  ",
-        "  #  #  ",
-        "########",
-        "  #  #  ",
-        "  #  #  "},{6,15},"redpuzzle","none")
+puzzle({{0,0,1,0,0,1,0,0},{0,0,1,0,0,1,0,0},{1,1,1,1,1,1,1,1},{0,0,1,0,0,1,0,0},{0,0,1,0,0,1,0,0}},6,5,"red","yes")
+puzzle({{0,0,1,0,0,1,0,0},{0,0,1,0,0,1,0,0},{1,1,1,1,1,1,1,1},{0,0,1,0,0,1,0,0},{0,0,1,0,0,1,0,0}},6,15,"red","no")
     ]]></el:luamain>
     <el:i18n>
       <el:string el:key="title">

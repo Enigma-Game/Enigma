@@ -3,14 +3,14 @@
   <el:protected>
     <el:info el:type="level">
       <el:identity el:title="esprit 37" el:subtitle="esprit 37" el:id="ss_esp37"/>
-      <el:version el:score="3" el:release="3" el:revision="1" el:status="released"/>
+      <el:version el:score="2" el:release="2" el:revision="0" el:status="released"/>
       <el:author  el:name="Sven Siggelkow" el:email="" el:homepage=""/>
       <el:copyright>Copyright © 2003 Sven Siggelkow</el:copyright>
       <el:license el:type="GPL v2.0 or above" el:open="true"/>
       <el:compatibility el:enigma="0.92">
        <el:dependency el:path="lib/andreas_ghosts" el:id="lib/andreas_ghosts" el:release="1" el:preload="true"/>
       </el:compatibility>
-      <el:modes el:easy="true" el:single="true" el:network="false"/>
+      <el:modes el:easy="false" el:single="true" el:network="false"/>
       <el:comments>
         <el:code>Lua 5.1 and XML converted by Leveladministrators</el:code>
       </el:comments>
@@ -26,45 +26,43 @@ levelw = 20
 levelh = 25
 create_world(levelw, levelh)
 oxyd_default_flavor = "c"       -- Default flavor for oxyd stones.
-
 set_actor("ac-blackball", 11.5,8.5, {player=0})
 --set_actor("ac-rotor", 1.5,9.5, {range=30, force=40}) 
 ghosts_set_ghost(1,9,"ac-rotor",1,ghosts_direction_intelligent,
                     {range=0, force=40, gohome=FALSE})
 --fill_floor("fl-sand",0,0,levelw,levelh)
 ghosts_set_railarea(0,0,levelw,levelh,1,"fl-sand")
-
 function renderLine( line, pattern)
     for i=1, strlen(pattern) do
-        local c = strsub( pattern, i, i)
-        if c ==   "#" then
-            set_stone("st-rock1", i-1,line)
-        elseif c=="1" then
-            set_item("it-wormhole", i-1,line, {targetx="4.5", targety="17.5",strength=0})         
-        elseif c=="2" then
-            set_item("it-wormhole", i-1,line, {targetx="1.5", targety="2.5",strength=0})   
-        elseif c=="3" then
-            set_item("it-wormhole", i-1,line, {targetx="4.5", targety="13.5",strength=0})   
-        elseif c=="5" then
-            puzzle(i-1,line, 7)  
-            set_item("it-trigger", i-1,line, {action="callback", target="s1"})
-        elseif c=="A" then
-            set_item("it-trigger", i-1,line, {action="callback", target="s2"})
-        elseif c=="B" then
-            set_item("it-trigger", i-1,line, {action="callback", target="s3"})
-        elseif c=="C" then
-            set_item("it-trigger", i-1,line, {action="callback", target="s4"})
-        elseif c=="6" then
-            puzzle(i-1,line, 4)      
-        elseif c=="7" then
-            puzzle(i-1,line, 13)        
-        elseif c=="8" then
-            puzzle(i-1,line, 10)  
-            --set_item("it-magicwand",i-1,line)
-        elseif c=="." then
-            set_stone("st-door_b", i-1,line, {type="v"})   
-        elseif c=="O" then
-            oxyd(i-1,line)
+      local c = strsub( pattern, i, i)
+      if c ==   "#" then
+         set_stone("st-rock1", i-1,line)
+      elseif c=="1" then
+     set_item("it-wormhole", i-1,line, {targetx="4.5", targety="17.5",strength=0})         
+      elseif c=="2" then
+     set_item("it-wormhole", i-1,line, {targetx="1.5", targety="2.5",strength=0})   
+      elseif c=="3" then
+     set_item("it-wormhole", i-1,line, {targetx="4.5", targety="13.5",strength=0})   
+      elseif c=="5" then
+         puzzle(i-1,line, 7)  
+         set_item("it-trigger", i-1,line, {action="callback", target="s1"})
+      elseif c=="A" then
+         set_item("it-trigger", i-1,line, {action="callback", target="s2"})
+      elseif c=="B" then
+         set_item("it-trigger", i-1,line, {action="callback", target="s3"})
+      elseif c=="C" then
+         set_item("it-trigger", i-1,line, {action="callback", target="s4"})
+      elseif c=="6" then
+         puzzle(i-1,line, 4)      
+      elseif c=="7" then
+         puzzle(i-1,line, 13)        
+      elseif c=="8" then
+         puzzle(i-1,line, 10)  
+         --set_item("it-magicwand",i-1,line)
+      elseif c=="." then
+         set_stone("st-door_b", i-1,line, {type="v"})   
+      elseif c=="O" then
+     oxyd(i-1,line)
         end
     end  
 end
@@ -100,9 +98,8 @@ state_s2 = 1
 state_s3 = 1
 state_s4 = 1
 function msgthisdoor(x,y,msg)  
-    SendMessage(enigma.GetStone(x,y), msg)
+  SendMessage(enigma.GetStone(x,y), msg)
 end
-
 function checkmydoors()
   local msg
   if      (state_s1 == 0) and (state_s2 == 0)
@@ -120,34 +117,28 @@ function checkmydoors()
   msgthisdoor(13,17,msg)
   msgthisdoor(14,17,msg)
 end
-
 state_s1 = 1
 function s1()
   state_s1 = 1 - state_s1
   checkmydoors()
 end
-
 state_s2 = 1
 function s2()
   state_s2 = 1 - state_s2
   checkmydoors()
 end
-
 state_s3 = 1
 function s3()
   state_s3 = 1 - state_s3
   checkmydoors()
 end
-
 state_s4 = 1
 function s4()
   state_s4 = 1 - state_s4
   checkmydoors()
 end
-
 oxyd_shuffle()
 ghosts_init(0,0)
-
 if difficult then
   enigma.SlopeForce=20
 end

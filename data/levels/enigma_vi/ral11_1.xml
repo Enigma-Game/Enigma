@@ -3,7 +3,7 @@
   <el:protected >
     <el:info el:type="level">
       <el:identity el:title="Houdini" el:subtitle="Escape by Chaining Thieves" el:id="20060816ral719"/>
-      <el:version el:score="2" el:release="2" el:revision="$Revision: 55 $" el:status="released"/>
+      <el:version el:score="1" el:release="1" el:revision="$Revision: 45 $" el:status="released"/>
       <el:author  el:name="Ronald Lamprecht" el:email="ral@users.berlios.de"/>
       <el:copyright>Copyright © 2006 Ronald Lamprecht</el:copyright>
       <el:license el:type="GPL v2.0 or above" el:open="true"/>
@@ -11,10 +11,9 @@
       </el:compatibility>
       <el:modes el:easy="true" el:single="true" el:network="false"/>
       <el:comments>
-        <el:credits el:showinfo="true" el:showstart="false">John, JuSt, Ale for testing and feedback</el:credits>
         <el:code>network playable if the yinyang items are removed</el:code>
       </el:comments>
-      <el:score el:easy="-" el:difficult="-"/>
+      <el:score el:easy="20:17" el:difficult="26:38"/>
     </el:info>
     <el:luamain><![CDATA[
 
@@ -75,11 +74,11 @@ function create_tile( tiles, x, y, tile_type )
     local constructors = tiles[tile_type]
 
     if constructors then
-    for i = 1,getn(constructors) do
-        constructors[i](x,y,tiles)
-    end
+	for i = 1,getn(constructors) do
+	    constructors[i](x,y,tiles)
+	end
     else
-    error("invalid tile identifier " .. tile_type )
+	error("invalid tile identifier " .. tile_type )
     end
 end
 
@@ -90,7 +89,6 @@ tiles[" "] = {floor("fl-wood")}
 tiles["-"] = {floor("fl-abyss")}
 tiles["_"] = {floor("fl-water")}
 tiles["*"] = {floor("fl-swamp")}
-tiles["SS"] = {inherit("*"), item("it-seed")}
 tiles["b"] = {inherit(" "), item("it-brake")}
 tiles["h"] = {inherit(" "), item("it-sword")}
 tiles["s"] = {inherit(" "), item("it-spring2")}
@@ -109,7 +107,7 @@ tiles["."] = {inherit(" "), stone("st-bluegray_hole")}
 tiles[","] = {inherit("l"), stone("st-bluegray_hole")}
 tiles["T"] = {inherit(" "), stone("st-thief")}
 tiles["t"] = {inherit("l"), stone("st-thief")}
-tiles["U"] = {inherit("T"), item("it-document",{text="Innocent"})}
+tiles["U"] = {inherit("T"), item("it-document",{text="Unquilty"})}
 tiles["V"] = {inherit("T"), item("it-document",{text="Pirates"})}
 tiles["Y"] = {inherit("T"), item("it-document",{text="Treasure"})}
 tiles["P"] = {inherit("l"), stone("st-pull")}
@@ -122,7 +120,7 @@ tiles["G"] = {inherit("s"), stone("st-glass1")}
 tiles["g"] = {inherit(" "), stone("st-grate1")}
 tiles["H"] = {inherit(" "), stone("st-wood1")}
 tiles["M"] = {inherit("-D"), stone("st-mail-n")}
-tiles["m"] = {inherit("-D"), stone("st-coinslot", {action="onoff", target="laser"})}
+tiles["m"] = {inherit("-"), stone("st-coinslot", {action="onoff", target="laser"})}
 tiles["L"] = {inherit("-D"), stone("st-laser-s", {name="laser",on=0})}
 tiles["D0"] = {inherit(" "), item("it-document",{text="CloseDoor"})}
 tiles["D"] = {inherit("D0"), stone("st-door_b", {name="doorB"})}
@@ -141,12 +139,8 @@ tiles["2"] = {inherit("y"), actor("ac-whiteball", {player=1, controllers=2})}
 
 if difficult then
     tiles["I"] = {inherit(" "), item("it-trigger",{action="callback", target="swamp"})}
-    tiles["J"] = tiles[" "]
-    tiles["Q"] = {inherit("SS"), stone("st-thief")}
 else
     tiles["I"] = tiles[" "]
-    tiles["J"] = tiles["j"]
-    tiles["Q"] = tiles["U"]
 end
 
 function swamp()
@@ -156,10 +150,10 @@ end
 create_world_from_map( tiles, {
 "####################",
 "# x=w.t.+.U...+=##x#",
-"##_=s++.T.+.T..=  _#",
+"##_= ++.T.+.T..=  _#",
 "#g =-..V++++..T= g #",
-"# I=-c+..+Q.+.+=   #",
-"#  =J+++T,+.+Y+=   #",
+"# I=-c+..+U.+.+=   #",
+"#  =j+++T,+.+Y+=   #",
 "#  =2+.U.++T+..=   #",
 "#  = T.+.T..+.Tm   #",
 "#FC=M==========L=DK#",
@@ -205,8 +199,8 @@ oxyd_shuffle()
         <el:english el:translate="true" el:comment="Characters of Michael Ende's fantasy novel 'The Neverending Story'">Remember Atreyu's horse Atrax!</el:english>
         <el:translation el:lang="de">Denke an Atrax, das Pferd von Atréju!</el:translation>
       </el:string>
-      <el:string el:key="Innocent">
-        <el:english el:translate="true" >I am innocent! I've never stolen anything!</el:english>
+      <el:string el:key="Unquilty">
+        <el:english el:translate="true" >I am unguilty! I've never stolen anything!</el:english>
         <el:translation el:lang="de">Ich bin unschuldig! Ich habe nie etwas gestohlen!</el:translation>
       </el:string>
       <el:string el:key="Pirates">

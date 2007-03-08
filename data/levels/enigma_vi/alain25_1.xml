@@ -3,13 +3,13 @@
   <el:protected>
     <el:info el:type="level">
       <el:identity el:title="- Meditation -" el:subtitle="Pauli" el:id="alain25"/>
-      <el:version el:score="2" el:release="2" el:revision="1" el:status="released"/>
+      <el:version el:score="1" el:release="1" el:revision="0" el:status="released"/>
       <el:author  el:name="Alain Busser + Raoul Bourquin" el:email="" el:homepage=""/>
       <el:copyright>Copyright © 2006 Alain Busser + Raoul Bourquin</el:copyright>
       <el:license el:type="GPL v2.0 or above" el:open="true"/>
       <el:compatibility el:enigma="0.92">
       </el:compatibility>
-      <el:modes el:easy="true" el:single="true" el:network="false"/>
+      <el:modes el:easy="false" el:single="true" el:network="false"/>
       <el:comments>
         <el:code>Lua 5.1 and XML converted by Leveladministrators</el:code>
       </el:comments>
@@ -34,9 +34,9 @@ function renderLine( line, pattern)
             set_item("it-hollow", i-1, line)
         elseif c=="*" then
             set_item("it-trigger",i-1,line,{invisible=1,action="callback",target="mix"})
-            --set_floor("fl-leavesb",i-1,line)
-            circle(i-1,line)
-        elseif c=="z" then
+                        --set_floor("fl-leavesb",i-1,line)
+                        circle(i-1,line)
+          elseif c=="z" then
             set_actor("ac-whiteball-small", i-.5,line+.5, {player=0})
         end
     end    
@@ -88,32 +88,32 @@ end
 
 --draw the green circles:
 function circle(x,y)
-    t=random(1,4)
-    if t==1 then
-        xk=x
-        yk=y
-    elseif t==2 then
-        xk=x-1
-        yk=y
-    elseif t==3 then
-        xk=x-1
-        yk=y-1
-    elseif t==4 then
-        xk=x
-        yk=y-1
-    end
+ t=random(1,4)
+ if t==1 then
+  xk=x
+  yk=y
+ elseif t==2 then
+  xk=x-1
+  yk=y
+ elseif t==3 then
+  xk=x-1
+  yk=y-1
+ elseif t==4 then
+  xk=x
+  yk=y-1
+ end
  
-    if difficult then
-        set_floor("fl-leavesd1",xk,yk)
-        set_floor("fl-leavesd3",xk+1,yk)
-        set_floor("fl-leavesd2",xk,yk+1)
-        set_floor("fl-leavesd4",xk+1,yk+1)
-    else
-        set_floor("fl-leavesc4",xk,yk)
-        set_floor("fl-leavesc2",xk+1,yk)
-        set_floor("fl-leavesc3",xk,yk+1)
-        set_floor("fl-leavesc1",xk+1,yk+1)
-    end
+ if difficult then
+  set_floor("fl-leavesd1",xk,yk)
+  set_floor("fl-leavesd3",xk+1,yk)
+  set_floor("fl-leavesd2",xk,yk+1)
+  set_floor("fl-leavesd4",xk+1,yk+1)
+ else
+  set_floor("fl-leavesc4",xk,yk)
+  set_floor("fl-leavesc2",xk+1,yk)
+  set_floor("fl-leavesc3",xk,yk+1)
+  set_floor("fl-leavesc1",xk+1,yk+1)
+ end
 end
 
 --               01234567890123456789

@@ -20,10 +20,10 @@ levelw = 20
 create_world(levelw, levelh)
 
 function renderLine( line, pattern)
-    for i=1, strlen(pattern) do
-        local c = strsub( pattern, i, i)
-          if c=="O" then
-            oxyd(i-1,line)
+	for i=1, strlen(pattern) do
+		local c = strsub( pattern, i, i)
+  		if c=="O" then
+			oxyd(i-1,line)
             set_floor("fl-water",i-1,line)
 
         elseif c=="#" then
@@ -78,8 +78,8 @@ function renderLine( line, pattern)
         elseif c=="o" then
             set_item("it-burnable_oil",i-1,line)
             set_floor("fl-sahara",i-1,line,{secure=true})
-        end
-    end    
+		end
+	end	
 end
 
 renderLine(00 , "####################")

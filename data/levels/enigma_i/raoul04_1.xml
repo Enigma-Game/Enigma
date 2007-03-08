@@ -3,7 +3,7 @@
   <el:protected>
     <el:info el:type="level">
       <el:identity el:title="- Meditation -" el:subtitle="" el:id="raoul04"/>
-      <el:version el:score="1" el:release="1" el:revision="1" el:status="released"/>
+      <el:version el:score="1" el:release="1" el:revision="0" el:status="released"/>
       <el:author  el:name="Raoul Bourquin" el:email="raoul@users.berlios.de" el:homepage=""/>
       <el:copyright>Copyright © 2005 Raoul Bourquin</el:copyright>
       <el:license el:type="GPL v2.0 or above" el:open="true"/>
@@ -85,10 +85,10 @@ set_item("it-hollow", 2, 10);
 set_item("it-hollow", 17, 2);
 set_item("it-hollow", 17, 10);
 
-set_actor("ac-whiteball-small", 10,2.5, {player=0, essential=1})
-set_actor("ac-whiteball-small", 10,10.5, {player=0, essential=1})
-set_actor("ac-whiteball-small", 2.5,6.5, {player=0, essential=1})
-set_actor("ac-whiteball-small", 17.5,6.5, {player=0, essential=1})
+set_actor("ac-whiteball-small", 10,2.5, {player=0})
+set_actor("ac-whiteball-small", 10,10.5, {player=0})
+set_actor("ac-whiteball-small", 2.5,6.5, {player=0})
+set_actor("ac-whiteball-small", 17.5,6.5, {player=0})
     ]]></el:luamain>
     <el:i18n>
       <el:string el:key="title">

@@ -3,12 +3,11 @@
   <el:protected>
     <el:info el:type="level">
       <el:identity el:title="Doors forever" el:subtitle="" el:id="just03"/>
-      <el:version el:score="1" el:release="1" el:revision="2" el:status="released"/>
+      <el:version el:score="1" el:release="1" el:revision="0" el:status="released"/>
       <el:author  el:name="JuSt" el:email="" el:homepage=""/>
       <el:copyright>Copyright © 2005 JuSt</el:copyright>
       <el:license el:type="GPL v2.0 or above" el:open="true"/>
-      <el:compatibility el:enigma="1.00">
-       <el:dependency el:path="lib/libpuzzle_2" el:id="lib/libpuzzle" el:release="2" el:preload="true"/>
+      <el:compatibility el:enigma="0.92">
       </el:compatibility>
       <el:modes el:easy="true" el:single="true" el:network="false"/>
       <el:comments>
@@ -20,22 +19,25 @@
 levelw=21
 levelh=25
 
+create_world( levelw, levelh)
+
+-- fill_floor("fl-bluegray", 0,0,levelw,levelh)
 enigma.ConserveLevel=FALSE
 
-create_world( levelw, levelh)
 
 function renderFloor(line, pattern)
     for i=1, strlen(pattern) do
-        local c = strsub (pattern, i, i)
-        if c == " " then
-            set_floor ("fl-bluegray", i-1, line)
-        elseif c == "1" then
-            set_floor ("fl-abyss", i-1, line)
-        elseif c == "2" then
-            set_floor ("fl-water", i-1, line)
+        local c = strsub( pattern, i, i)
+        if c ==" " then
+            fill_floor("fl-bluegray", i-1, line)
+        elseif c =="1" then
+            fill_floor( "fl-abyss", i-1, line)
+        elseif c =="2" then
+            fill_floor( "fl-water", i-1, line)
         end
     end
 end
+
 
 function renderLine(line, pattern)
     for i=1, strlen(pattern) do
@@ -140,6 +142,7 @@ function renderLine(line, pattern)
     end    
 end
 
+
 function renderItem(line, pattern)
     for i=1, strlen(pattern) do
         local c = strsub( pattern, i, i)
@@ -225,6 +228,27 @@ function renderItem(line, pattern)
     end    
 end
 
+
+function puzzling()
+  xpos =   { 9, 10, 11, 11, 11, 10, 11, 11, 12}        -- X-Koordinaten der Puzzelsteine
+  ypos =   {10, 10, 10, 11, 12, 13, 13, 14, 14}        -- Y-Koordinaten      "
+  stones = { 2,  4,  5,  5,  6, 11, 11, 12, 13}        -- Puzzelstein-Typen, die gebraucht werden
+  anzstones = 9                                        -- Anzahl der Puzzelsteine
+  --
+  for i = 1, anzstones do
+    ok = 0
+    repeat
+      xx = random(anzstones)
+      if not (stones[xx] == 0) then
+        puzzle2(xpos[i], ypos[i], stones[xx])
+        stones[xx] = 0
+        ok = 1
+      end
+    until ok == 1
+  end
+end
+
+
 function mag_on ()
   SendMessage ("mm1", "on")
   SendMessage ("mm2", "on")
@@ -233,6 +257,7 @@ function mag_on ()
   SendMessage ("mm5", "on")
 end
 
+
 function mag_off ()
   SendMessage ("mm1", "off")
   SendMessage ("mm2", "off")
@@ -240,6 +265,8 @@ function mag_off ()
   SendMessage ("mm4", "off")
   SendMessage ("mm5", "off")
 end
+
+
 
 --             -----------------------
 renderFloor(00,"                     ")
@@ -325,18 +352,14 @@ renderItem(23," yM              c+  ")
 renderItem(24,"             d e     ")
 --            -----------------------
 
-puzzle({"### ",
-        "  # ",
-        "  # ",
-        " ## ",
-        "  ##"},{9,10},"redpuzzle","permutation")
+puzzling ()
     ]]></el:luamain>
     <el:i18n>
       <el:string el:key="title">
         <el:english el:translate="false"/>
       </el:string>
       <el:string el:key="text1">
-        <el:english el:translate="true">Look carefully at everything!</el:english>
+        <el:english el:translate="true">Look carefully at anything!</el:english>
       </el:string> 
       <el:string el:key="text2">
         <el:english el:translate="true">Do you need a helping hand?</el:english>

@@ -147,8 +147,8 @@ function change(i,j)
          donefloor=0
 if starting==1 and i==14 and j==6 then
 floornum=random(102)-1
-     if floornum>5 then
-     floornum=floornum+6
+	 if floornum>5 then
+	 floornum=floornum+6
 end
 else
 floornum=random(108)-1

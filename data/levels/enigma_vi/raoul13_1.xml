@@ -3,12 +3,12 @@
   <el:protected>
     <el:info el:type="level">
       <el:identity el:title="Oxydrings" el:subtitle="" el:id="raoul13"/>
-      <el:version el:score="1" el:release="1" el:revision="1" el:status="released"/>
+      <el:version el:score="1" el:release="1" el:revision="0" el:status="released"/>
       <el:author  el:name="Raoul Bourquin" el:email="raoul@users.berlios.de" el:homepage=""/>
       <el:copyright>Copyright © 2006 Raoul Bourquin</el:copyright>
       <el:license el:type="GPL v2.0 or above" el:open="true"/>
       <el:compatibility el:enigma="0.92">
-       <el:dependency el:path="lib/libpuzzle_2" el:id="lib/libpuzzle" el:release="2" el:preload="true"/>
+       <el:dependency el:path="lib/libpuzzle" el:id="lib/libpuzzle" el:release="1" el:preload="true"/>
       </el:compatibility>
       <el:modes el:easy="false" el:single="true" el:network="false"/>
       <el:comments>
@@ -71,16 +71,7 @@ oxyd_default_flavor = "d"
 oxyd_shuffle()
 
 -- RINGS --
-puzzle({"####         ####",
-        "#  #         #  #",
-        "#  ###########  #",
-        "####         ####",
-        "  #           #  ",
-        "  #           #  ",
-        "####         ####",
-        "#  ###########  #",
-        "#  #         #  #",
-        "####         ####"},{2,2},"bluepuzzle","none")
+puzzle({{1,1,1,1,0,0,0,0,0,0,0,0,0,1,1,1,1},{1,0,0,1,0,0,0,0,0,0,0,0,0,1,0,0,1},{1,0,0,1,1,1,1,1,1,1,1,1,1,1,0,0,1},{1,1,1,1,0,0,0,0,0,0,0,0,0,1,1,1,1},{0,0,1,0,0,0,0,0,0,0,0,0,0,0,1,0,0},{0,0,1,0,0,0,0,0,0,0,0,0,0,0,1,0,0},{1,1,1,1,0,0,0,0,0,0,0,0,0,1,1,1,1},{1,0,0,1,1,1,1,1,1,1,1,1,1,1,0,0,1},{1,0,0,1,0,0,0,0,0,0,0,0,0,1,0,0,1},{1,1,1,1,0,0,0,0,0,0,0,0,0,1,1,1,1}},2,2,"blue","no")
     ]]></el:luamain>
     <el:i18n>
       <el:string el:key="title">

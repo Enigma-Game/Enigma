@@ -3,7 +3,7 @@
   <el:protected>
     <el:info el:type="level">
       <el:identity el:title="Moure-Switches" el:subtitle="" el:id="andreas10"/>
-      <el:version el:score="1" el:release="1" el:revision="1" el:status="released"/>
+      <el:version el:score="1" el:release="1" el:revision="0" el:status="released"/>
       <el:author  el:name="Andreas Lochmann" el:email="" el:homepage=""/>
       <el:copyright>Copyright © 2005 Andreas Lochmann</el:copyright>
       <el:license el:type="GPL v2.0 or above" el:open="true"/>
@@ -291,11 +291,11 @@ oxyd_shuffle()
         <el:english el:translate="false"/>
       </el:string>
       <el:string el:key="text1">
-        <el:english el:translate="true" el:comment="The sequence of the four elements is important, as they are connected to the colors of the floor.">Our full attention this is worth:           Air and Fire, Water, Earth.</el:english>
+        <el:english el:translate="true" el:comment="The sequence of the four elements is important, as they are connected to the colors of the floor.">Our full attention should deserve:           Air and Fire, Water, Earth.</el:english>
         <el:translation el:lang="de">Das erste Ziel unseres Denkens werde:           Luft und Feuer, Wasser, Erde.</el:translation>
       </el:string> 
       <el:string el:key="text2">
-        <el:english el:translate="true" el:comment="Just a hint to regard the floor.">And if your answer can’t be found           then shame on you, eyes to the ground!</el:english>
+        <el:english el:translate="true" el:comment="Just a hint to regard the floor.">And if your tries grow out of bound,           then shame on you, eyes to the ground!</el:english>
         <el:translation el:lang="de">Und kannst Du Rätsel nicht genießen,           dann wirf Deinen Blick mal auf die Fliesen!</el:translation>
       </el:string> 
     </el:i18n>

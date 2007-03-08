@@ -3,7 +3,7 @@
   <el:protected>
     <el:info el:type="level">
       <el:identity el:title="Teamplay Doors" el:subtitle="" el:id="luc09"/>
-      <el:version el:score="1" el:release="1" el:revision="1" el:status="released"/>
+      <el:version el:score="1" el:release="1" el:revision="0" el:status="released"/>
       <el:author  el:name="Lukas Schüller" el:email="Lucky_Luc@web.de" el:homepage=""/>
       <el:copyright>Copyright © 2005 Lukas Schüller</el:copyright>
       <el:license el:type="GPL v2.0 or above" el:open="true"/>
@@ -75,6 +75,8 @@ function TriggerE()
   --TriggerC()
 end
 
+multiplayer_mode()
+
 cells={}
 cells[" "]=cell{floor="fl-himalaya"}
 cells["#"]=cell{stone="st-plain"}
@@ -124,7 +126,6 @@ map_cell_meaning("p", cell{item={"it-trigger", {action="openclose", target="door
 map_cell_meaning("q", cell{item={"it-trigger", {action="openclose", target="doorq"}}})
 map_cell_meaning("r", cell{item={"it-trigger", {action="openclose", target="doorr"}}})
 map_cell_meaning("s", cell{item={"it-trigger", {action="openclose", target="doors"}}})
-
 level = {
   "#############################",
   "#  E    f######    M N #   0#",
@@ -140,21 +141,13 @@ level = {
   "#  Za#   ######   #x r s   0#",
   "#############################"
 }
-
 set_default_parent(cells[" "])
-
 create_world_by_map(level)
-display.SetFollowMode(display.FOLLOW_SCROLLING)
-enigma.ConserveLevel=FALSE
-
 oxyd_default_flavor = "a"
 oxyd_shuffle()
 SendMessage(enigma.GetNamedObject("doorz"), "open")
-
-set_actor("ac-blackball",1.5,5.5,{player=0, essential=1})
-set_actor("ac-whiteball",1.5,7.5,{player=1, essential=1})
-set_item("it-yinyang",1,5)
-set_item("it-yinyang",1,7)
+display.SetFollowMode(display.FOLLOW_SCROLLING)
+enigma.ConserveLevel=FALSE
     ]]></el:luamain>
     <el:i18n>
       <el:string el:key="title">

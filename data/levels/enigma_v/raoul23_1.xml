@@ -3,13 +3,13 @@
   <el:protected>
     <el:info el:type="level">
       <el:identity el:title="Spacestation" el:subtitle="" el:id="raoul23"/>
-      <el:version el:score="1" el:release="1" el:revision="2" el:status="released"/>
+      <el:version el:score="1" el:release="1" el:revision="0" el:status="released"/>
       <el:author  el:name="Raoul Bourquin" el:email="raoul@users.berlios.de" el:homepage=""/>
       <el:copyright>Copyright © 2006 Raoul Bourquin</el:copyright>
       <el:license el:type="GPL v2.0 or above" el:open="true"/>
       <el:compatibility el:enigma="1.0">
        <el:dependency el:path="lib/ant" el:id="lib/ant" el:release="1" el:preload="true"/>
-       <el:dependency el:path="lib/libpuzzle_2" el:id="lib/libpuzzle" el:release="2" el:preload="true"/>
+       <el:dependency el:path="lib/libpuzzle" el:id="lib/libpuzzle" el:release="1" el:preload="true"/>
       </el:compatibility>
       <el:modes el:easy="true" el:single="true" el:network="true"/>
       <el:score el:easy="-" el:difficult="7:29"/>
@@ -19,12 +19,10 @@ function file_oxyd(x,y,f)
     oxyd_default_flavor=f
     oxyd(x,y)
 end
-
 levelh=37
 levelw=39
 cells={}
 stones={}
-
 stones[" "]=cell{}
 cells[" "]=cell{}
 cells[" "]=cell{floor="fl-abyss"}
@@ -241,21 +239,17 @@ prepare_room_1()
 -- "Things":
 function set_thing(x,y,init)
     if init==1 then
-        puzzle({"#*#",
-                "# #",
-                "###"},{x,y},"bluepuzzle","none")
+        puzzle({{1,2,1},{1,0,1},{1,1,1}},x,y,"blue","no")
+        set_stone("st-puzzle-hollow",x+1,y)
     elseif init==2 then
-        puzzle({"###",
-                "# *",
-                "###"},{x,y},"bluepuzzle","none")
+        puzzle({{1,1,1},{1,0,2},{1,1,1}},x,y,"blue","no")
+        set_stone("st-puzzle-hollow",x+2,y+1)
     elseif init==3 then
-        puzzle({"###",
-                "# #",
-                "#*#"},{x,y},"bluepuzzle","none")
+        puzzle({{1,1,1},{1,0,1},{1,2,1}},x,y,"blue","no")
+        set_stone("st-puzzle-hollow",x+1,y+2)
     elseif init==4 then    
-        puzzle({"###",
-                "* #",
-                "###"},{x,y},"bluepuzzle","none")
+        puzzle({{1,1,1},{2,0,1},{1,1,1}},x,y,"blue","no")
+        set_stone("st-puzzle-hollow",x,y+1)
     end
 end
 -- set all of these "things"
@@ -410,8 +404,9 @@ function prepare_room_3()
     set_trigger_o()
     set_trigger_u()
 end
-
-prepare_room_3()
+--function generate_further_level()
+    prepare_room_3()
+--end
     ]]></el:luamain>
     <el:i18n>
       <el:string el:key="title">
