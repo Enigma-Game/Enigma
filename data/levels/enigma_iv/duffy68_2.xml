@@ -3,7 +3,7 @@
   <el:protected>
     <el:info el:type="level">
       <el:identity el:title="What a Mess" el:subtitle="" el:id="duffy68"/>
-      <el:version el:score="1" el:release="1" el:revision="0" el:status="released"/>
+      <el:version el:score="2" el:release="2" el:revision="1" el:status="released"/>
       <el:author  el:name="Jacob Scott" el:email="" el:homepage=""/>
       <el:copyright>Copyright © 2003 Jacob Scott</el:copyright>
       <el:license el:type="GPL v2.0 or above" el:open="true"/>
@@ -21,6 +21,8 @@ levelh=13
 
 create_world( levelw, levelh)
 enigma.ConserveLevel=FALSE
+
+enigma.Brittleness=0
 
 fill_floor("fl-leaves", 0,0,levelw,levelh)
 
@@ -45,7 +47,7 @@ function renderLine( line, pattern)
         elseif c == "~" then
             set_floor("fl-water",i-1,line)
         elseif c=="z" then
-            set_actor("ac-blackball", i-1,line)
+            set_actor("ac-blackball",i,line)
         elseif c == "g" then
             draw_stones("st-grate1",{i-1,line}, {1,1}, 1)
         elseif c=="+" then
@@ -76,8 +78,6 @@ function renderLine( line, pattern)
             set_item("it-blackbomb",i-1,line)
         elseif c =="b" then
             set_item("it-blackbomb",i-1,line)
-        elseif c == "S" then
-            set_item("it-ring",i-1,line)
         elseif c=="f" then    
             set_item("it-floppy", i-1,line)
         elseif c=="F" then
@@ -106,6 +106,12 @@ function renderLine( line, pattern)
             puzzle(i-1,line,PUZ_1000)
         elseif c=="s" then
             set_stone( "st-stoneimpulse", i-1, line)
+        elseif c == "p" then
+          set_item("it-wormhole",i-1,line,{strength=0,targetx=7.5,targety=8.5})
+        elseif c == "q" then
+          set_item("it-wormhole",i-1,line,{strength=0,targetx=12.5,targety=8.5})
+ elseif c == "c" then
+set_item("it-crack3",i-1,line)
         end
     end
 end
@@ -116,12 +122,12 @@ renderLine(02,"sb+ !T###DD###   J##")
 renderLine(03,"#^#V###      ###U###")
 renderLine(04,"sbbb  #      #     #")
 renderLine(05,"s+  ++L      R     #")
-renderLine(06,"s+ + +L   z  R * * #")
+renderLine(06,"s+ + +L  z   R * * #")
 renderLine(07,"s+  + #      #  *  #")
-renderLine(08,"#~~~~~#      # *u* #")
+renderLine(08,"#~~~~~#c    c# *u* #")
 renderLine(09,"#~~~~~###12###!u*u!#")
 renderLine(10,"#&~~~&#o#34#o#!*u*!#")
-renderLine(11,"#f~~~SK      FSu uk#")
+renderLine(11,"#f~~~pK      Fqu uk#")
 renderLine(12,"####################")
 
 oxyd_shuffle()
