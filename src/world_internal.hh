@@ -275,6 +275,8 @@ namespace world
 
         void tick_actor(Actor *a, double dtime);
 
+        void revoke_delayed_impulses(const Stone *target);
+
     private:
 
         /* ---------- Private methods ---------- */
@@ -292,7 +294,6 @@ namespace world
         void handle_actor_contact (size_t a1, size_t a2);
         void handle_contacts (unsigned actoridx);
         void handle_delayed_impulses (double dtime);
-
         void stone_change (GridPos p);
 
     public:

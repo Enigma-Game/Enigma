@@ -1053,6 +1053,19 @@ void World::handle_delayed_impulses (double dtime)
     }
 }
 
+void World::revoke_delayed_impulses(const Stone *target) {
+    // Revokes delayed impulses to and from target
+    ImpulseList::iterator i = delayed_impulses.begin(),
+        end = delayed_impulses.end();
+    while (i != end) {
+        if (i->is_receiver(target) || i->is_sender(target))
+            i = delayed_impulses.erase(i);
+        else
+            ++i;
+    }
+}
+
+
 void World::stone_change(GridPos p) 
 {
     if (const Field *f = GetField (p)) {
@@ -1770,17 +1783,12 @@ void world::addDelayedImpulse (const Impulse& impulse, double delay,
     level->delayed_impulses.push_back(DelayedImpulse(impulse, delay, estimated_receiver));
 }
 
-void world::revokeDelayedImpulses(const Stone *target)
-{
-    // Revokes delayed impulses to and from target
-    ImpulseList::iterator i = level->delayed_impulses.begin(),
-        end = level->delayed_impulses.end();
-    while (i != end) {
-        if (i->is_receiver(target) || i->is_sender(target))
-            i = level->delayed_impulses.erase(i);
-        else
-            ++i;
-    }
+void world::revokeDelayedImpulses(const Stone *target) {
+    // Any stone may call this function on deletion.
+    // When the repository shuts down no world is existing thus check
+    // world first.
+    if (level.get() != NULL) 
+        level->revoke_delayed_impulses(target);
 }
 
 void world::Tick(double dtime) {

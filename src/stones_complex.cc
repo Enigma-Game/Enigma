@@ -2766,13 +2766,16 @@ void Turnstile_Pivot_Base::handleActorsAndItems(bool clockwise, Object *impulse_
 
         bool compatible = oxyd_compatible();
         int  idx_target = rot_index[clockwise+2*compatible][idx_source]; // destination index
-        bool do_warp = arm_seen[idx_source]; // move the actor along with the turnstile?
+        bool do_warp = false; // move the actor along with the turnstile?
 
         if (compatible) {
             // Move only the actor that hit the turnstile in Oxyd mode
             do_warp = (ac == dynamic_cast<Actor*>(impulse_sender));
             if (!do_warp && arm_seen[idx_source])
                 SendMessage(ac, "shatter"); // hit by an arm
+        } else { // green turnstile
+            // move all actors only if pushed by an arm
+            do_warp = arm_seen[idx_source];
         }
 
         if (!do_warp) 
