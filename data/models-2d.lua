@@ -65,9 +65,9 @@ function Sprite(descr)
     def_anim(descr.name, buildframes(img, descr.framelen), loop)
 end
 
---------------------------------------------------------------------
---                           ACTOR MODELS                         --
---------------------------------------------------------------------
+--------------------------------------------------------------------------------
+--                                 ACTOR MODELS                               --
+--------------------------------------------------------------------------------
 Progress(0, "Loading sprite models")
 
 ------------------
@@ -286,9 +286,9 @@ def_image("inv-blackball")
 def_image("inv-whiteball")
 
 
-------------------
--- Floor models --
-------------------
+--------------------------------------------------------------------------------
+--                                Floor models                                --
+--------------------------------------------------------------------------------
 Progress(10, "Loading floor models")
 
 function def_floors(floorlist)
@@ -429,158 +429,189 @@ heating_animation("fl-water")
 heating_animation("fl-swamp")
 
 
---------------------------------------------------------------------------
---                           ITEM MODELS                                --
---------------------------------------------------------------------------
+--------------------------------------------------------------------------------
+--                                ITEM MODELS                                 --
+--------------------------------------------------------------------------------
 Progress(20, "Loading item models")
+------------------------------------------------------
+-- Single-Image-Items, non animated, e.g. it-banana --
+------------------------------------------------------
 
-do
---    def_image("items")
-    local itemtiles={
-        "it-brush", "it-floppy",
-        "it-document", "it-hammer",
-        "it-key", "it-spade",
-        "it-umbrella", "it-extralife",
-        "it-hill", "it-hollow", "it-tinyhill", "it-tinyhollow",
-        "it-laserh", "it-laserv", "it-laserhv",
-        "it-magicwand",
-        "it-spring1", "it-spring2",
-        "it-sword",
-        "it-surprise",
-        "it-trigger", "it-trigger1",
-        "it-yinyang", "it-yanying",
-        "it-puller-n", "it-puller-e", "it-puller-s", "it-puller-w",
-        "it-odometer",
-        "it-flagblack", "it-flagwhite",
-        "it-ring", "it-pin", "it-bag", "it-drop", "it-rubberband"
-    }
---    def_tiles("items", itemtiles)
-    DefineTiles ("items", itemtiles)
-end
-
--- Puller animation
-do
-    local models={"it-puller-n", "it-puller-e", "it-puller-s", "it-puller-w"}
-    local frames=buildframes(models, 100)
-    def_anim("it-puller-active", repeatanim(frames, 4), false)
-end
-
-do
-    local n=def_subimages("it-coffee", {h=4})
-    local f=buildframes(n,150)
-    def_anim("it-coffee", f, true)
-end
-
--- Some more Items
-
-def_images{
+itemlist = {
+    "it-bag",
+    "it-banana",
     "it-blackbomb",
-    "it-whitebomb",
-    "it-dynamite",
-    "it-dummy",
     "it-blocker",
-    "it-wrench",
+    "it-booze",
+    "it-booze-broken",
+    "it-brush",
     "it-cherry",
+    "it-coin1",
+    "it-coin2",
+    "it-coin4",
+    "it-cross",
+    "it-document",
+    "it-drop",
+    "it-dummy",
+    "it-dynamite",
+    "it-extralife",
+    "it-flagblack",
+    "it-flagwhite",
+    "it-floppy",
     "it-glasses",
     "it-glasses-broken",
-    "it-weight",
-    "it-landmine",
+    "it-hammer",
+    "it-hill",
+    "it-hollow",
     "it-hstrip",
-    "it-vstrip",
-    "it-booze",
-    "it-banana", 
-    "it-spoon",
-    "it-cross",
+    "it-key",
+    "it-landmine",
+    "it-magicwand",
+    "it-odometer",
     "it-pencil",
+    "it-pin",
+    "it-ring",
+    "it-rubberband",
+    "it-spade",
+    "it-spoon",
     "it-squashed",
-    "it-booze-broken",
+    "it-spring1",
+    "it-spring2",
+    "it-surprise",
+    "it-sword",
+    "it-tinyhill",
+    "it-tinyhollow",
+    "it-umbrella",
+    "it-vstrip",
+    "it-weight",
+    "it-whitebomb",
+    "it-wrench"
 }
 
+def_images(itemlist)
+
+-- Aliases:
 def_alias("it-key_a", "it-key")
 def_alias("it-key_b", "it-key")
 def_alias("it-key_c", "it-key")
 
--- Seed --
+-- def_alias("it-bridge-oxyd", "invisible")
+-- def_alias("it-sensor", "invisible")
+-- def_alias("it-inversesensor", "invisible")
+
+--------------------------------------------------------------
+-- Multiple-Image-Items, non animated, e.g. it-nurnable-oil --
+--------------------------------------------------------------
+
+-- it-extinguisher --
 do
-    local n = def_subimages("it-seed", {h=5})
-    def_alias("it-seed", "it-seed1")
-    def_alias("it-seed_nowood", "it-seed")
-    def_alias("it-seed_volcano", "it-seed")
-    local f={
-        "it-seed1", "it-seed2", "it-seed1", "it-seed3", "it-seed1", "it-seed2",
-        "it-seed1", "it-seed4", "it-seed5", "it-seed4", "it-seed1",
-        "it-seed4", "it-seed5",
-    }
-    def_anim("it-seed-growing", buildframes(f, 120))
-end
-
--- Cracks --
-namelist=def_subimages("it-crack", {h=8})
---frames=buildframes({"it-crack4", "it-crack6", "it-crack7", "it-crack8"},90)
-frames=buildframes(namelist,50)
-def_anim("it-debris", frames)
-
-frames=buildframes({"it-crack4", "it-crack5"},120)
-def_anim("it-crack_anim1", frames)
-
-frames=buildframes({"it-crack6", "it-crack7", "it-crack8"},120)
-def_anim("it-crack_anim2", frames)
-
--- Burning Floor --
-frames=buildframes(def_subimages("it-burnable_ignite", {h=8}), 100)
-def_anim("it-burnable_ignited", frames)
-
-frames=buildframes(def_subimages("it-burnable_burning", {h=8}), 100)
-def_anim("it-burnable_burning", frames)
-
-def_images{ "it-burnable_ash", "it-burnable_fireproof"}
-def_alias("it-burnable", "invisible")
-
-do
-   local img = def_subimages("it-extinguisher", {h=3})
-   def_alias("it-extinguisher", img[1])
-   def_alias("it-extinguisher_medium", img[2])
-   def_alias("it-extinguisher_empty", img[3])
+    local img = def_subimages("it-extinguisher", {h=3})
+    def_alias("it-extinguisher", img[1])
+    def_alias("it-extinguisher_medium", img[2])
+    def_alias("it-extinguisher_empty", img[3])
 end
 
 -- Oil --
 def_subimages("it-burnable_oil", {h=4})
 
--- Magnet --
-def_image("it-magnet-off")
-frames=buildframes(def_subimages("it-magnet-on", {h=5}), 100)
-def_anim("it-magnet-on", frames, 1)
-
--- Wormhole --
+-- Laserbeams --
 do
-    local f = buildframes(def_subimages("it-wormhole", {h=2}), 100)
-    def_anim("it-wormhole", f, true)
-    def_alias("it-wormhole-off", "it-wormhole1")
+    local img = def_subimages("it-laser", {h=3})
+    def_alias("it-laserh", img[1])
+    def_alias("it-laserv", img[2])
+    def_alias("it-laserhv", img[3])
 end
 
--- Vortex --
-do
-   local img = def_subimages("it-vortex", {h=4})
-   def_alias("it-vortex-open", img[1])
-   def_alias("it-vortex-closed", img[4])
+-- it-pipe --
+DefineTiles("it-pipe", {"it-pipe-e", "it-pipe-s", "it-pipe-es", "it-pipe-sw", "it-pipe-h",
+                        "it-pipe-w", "it-pipe-n", "it-pipe-ne", "it-pipe-wn", "it-pipe-v"})
 
-   def_anim("it-vortex-opening", reverseframes(buildframes(img, 100)))
-   def_anim("it-vortex-closing", buildframes(img, 100))
+-- it-puller --
+do
+    local img = def_subimages("it-puller", {h=4})
+    def_alias("it-puller-n", img[1])
+    def_alias("it-puller-e", img[2])
+    def_alias("it-puller-s", img[3])
+    def_alias("it-puller-w", img[4])
 end
 
--- Coins --
-def_images{"it-coin1", "it-coin2", "it-coin4"}
+-- it-trigger --
+do
+-- Why does this not work??
+--    img = def_subimages("it-trigger", {h=2})
+--    def_alias("it-trigger", img[1])
+--    def_alias("it-trigger1", img[2])
+    DefineTiles("it-trigger", {"it-trigger","it-trigger1"})
+end
 
--- Burning dynamite --
-dyn_frames=buildframes(def_subimages("it-dynamite-burning", {h=15}), 100)
-def_anim("it-dynamite-burning", dyn_frames) --repeat_frames(dyn_frames,3,2))
+-- it-yinyang --
+do
+    local img = def_subimages("it-yinyang", {h=2})
+    def_alias("it-yinyang", img[1])
+    def_alias("it-yanying", img[2])
+end
 
--- Burning bomb --
-frames=buildframes(def_subimages("it-blackbomb-burning", {h=9}), 100)
+----------------------------------------
+-- Animated Items and Item Animations --
+----------------------------------------
+
+-- Burning black bomb --
+img = def_subimages("it-blackbomb-burning", {h=9})
+frames = buildframes(img, 100)
 def_anim("it-blackbomb-burning", frames) --repeat_frames(frames,3,2))
 
-frames=buildframes(def_subimages("it-whitebomb-burning", {h=9}), 100)
+-- Burning black bomb --
+img = def_subimages("it-whitebomb-burning", {h=9})
+frames = buildframes(img, 100)
 def_anim("it-whitebomb-burning", frames) --repeat_frames(frames,3,2))
+
+-- Burning dynamite --
+img = def_subimages("it-dynamite-burning", {h=15})
+frames = buildframes(img, 100)
+def_anim("it-dynamite-burning", frames) --repeat_frames(dyn_frames,3,2))
+
+-- Burning Floor --
+do
+    local img = def_subimages("it-burnable_ignite", {h=8})
+    local frames = buildframes(img, 100)
+    def_anim("it-burnable_ignited", frames)
+
+    img = def_subimages("it-burnable_burning", {h=8})
+    frames = buildframes(img, 100)
+    def_anim("it-burnable_burning", frames)
+
+    -- Simple items:
+    def_images({"it-burnable_ash", "it-burnable_fireproof"})
+    def_alias("it-burnable", "invisible")
+end
+
+-- it-coffee --
+do
+    local n = def_subimages("it-coffee", {h=4})
+    local frames = buildframes(n,150)
+    def_anim("it-coffee", frames, true)
+end
+
+-- Cracks --
+do
+    namelist = def_subimages("it-crack", {h=8})
+    --frames=buildframes({"it-crack4", "it-crack6", "it-crack7", "it-crack8"},90)
+    frames = buildframes(namelist,50)
+    def_anim("it-debris", frames)
+
+    frames = buildframes({"it-crack4", "it-crack5"},120)
+    def_anim("it-crack_anim1", frames)
+
+    frames = buildframes({"it-crack6", "it-crack7", "it-crack8"},120)
+    def_anim("it-crack_anim2", frames)
+end
+
+-- it-death --
+do
+    local img = def_subimages("it-death", {h=4})
+    def_alias("it-death", img[1])
+    def_anim("it-death-anim", buildframes(img, 100))
+end
 
 -- Explosion --
 def_anim_images("expl", {{"expl", 50}})
@@ -588,46 +619,67 @@ def_alias("it-explosion1", "expl")
 def_alias("it-explosion2", "expl")
 def_alias("it-explosion3", "expl")
 
--- Pipes --
-DefineTiles("it-pipe", {
-                "it-pipe-e", "it-pipe-s", "it-pipe-es", "it-pipe-sw",
-                "it-pipe-h", "it-pipe-w", "it-pipe-n", "it-pipe-ne",
-                "it-pipe-wn", "it-pipe-v"})
+-- it-magnet --
+def_image("it-magnet-off")
+img = def_subimages("it-magnet-on", {h=5})
+frames = buildframes(img, 100)
+def_anim("it-magnet-on", frames, 1)
 
--- broken Bottle --
--- Should get more models like oil!
---def_subimages("it-brokenbottle", {h=1})
+-- it-puller --
+do
+    local img = {"it-puller-n", "it-puller-e", "it-puller-s", "it-puller-w"}
+    local frames = buildframes(img, 100)
+    def_anim("it-puller-active", repeatanim(frames, 4), false)
+end
 
------------------
--- Shogun dots --
------------------
+-- it-seed --
+do
+    local n = def_subimages("it-seed", {h=5})
+    def_alias("it-seed", "it-seed1")
+    def_alias("it-seed_nowood", "it-seed")
+    def_alias("it-seed_volcano", "it-seed")
+    local frames = {
+        "it-seed1", "it-seed2", "it-seed1", "it-seed3", "it-seed1", "it-seed2",
+        "it-seed1", "it-seed4", "it-seed5", "it-seed4", "it-seed1",
+        "it-seed4", "it-seed5",
+    }
+    def_anim("it-seed-growing", buildframes(frames, 120))
+end
 
+-- it-shogun --
 NewAnim("it-shogun-s", {img="it-shogun-small", h=3, speed=160, pingpong=1, loop=1})
 NewAnim("it-shogun-m", {img="it-shogun-med",   h=3, speed=160, pingpong=1, loop=1})
 NewAnim("it-shogun-l", {img="it-shogun-big",   h=3, speed=160, pingpong=1, loop=1})
 
--- Springboard --
+-- it-springboard --
 do
-    local n = {"it-springboard1", "it-springboard2"}
-    DefineTiles ("it-springboard", n)
-    def_alias ("it-springboard", n[1])
-    def_anim("it-springboard_anim", buildframes(reverseframes(n),120))
+    local img = {"it-springboard1", "it-springboard2"}
+    DefineTiles ("it-springboard", img)
+    def_alias ("it-springboard", img[1])
+    def_anim("it-springboard_anim", buildframes(reverseframes(img),120))
 end
 
--- def_alias("it-bridge-oxyd", "invisible")
--- def_alias("it-sensor", "invisible")
--- def_alias("it-inversesensor", "invisible")
-
--- it-death --
+-- it-vortex --
 do
-   local img = def_subimages("it-death", {h=4})
-   def_alias("it-death", img[1])
-   def_anim("it-death-anim", buildframes(img, 100))
+    local img = def_subimages("it-vortex", {h=4})
+    def_alias("it-vortex-open", img[1])
+    def_alias("it-vortex-closed", img[4])
+
+    def_anim("it-vortex-opening", reverseframes(buildframes(img, 100)))
+    def_anim("it-vortex-closing", buildframes(img, 100))
 end
 
-------------------
--- STONE MODELS --
-------------------
+-- it-wormhole --
+do
+    local img = def_subimages("it-wormhole", {h=2})
+    local frames = buildframes(img, 100)
+    def_anim("it-wormhole", frames, true)
+    def_alias("it-wormhole-off", "it-wormhole1")
+end
+
+--------------------------------------------------------------------------------
+--                                STONE MODELS                                --
+--------------------------------------------------------------------------------
 Progress(30, "Loading stone models")
 
 -------------------
