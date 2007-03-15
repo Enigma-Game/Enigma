@@ -483,6 +483,13 @@ function sw_kill()
       end
    else
       local x,y = enigma.GetPos(enigma.GetNamedObject("thors"))
+      if enigma.GetStone(x,y) ~= nil then
+         local it = enigma.GetItem(thorspos.x,thorspos.y)
+         if (it==nil) then
+            document(thorspos.x,thorspos.y,"DropHammer2")
+         end
+         return
+      end
       local count = hammer(x-1,y)
       count = count + hammer(x+1,y)
       count = count + hammer(x,y-1)
@@ -524,6 +531,9 @@ end
     <el:i18n>
       <el:string el:key="DropHammer">
         <el:english el:translate="true">Drop the hammer on side of a pentomino and use the switch!</el:english>
+      </el:string> 
+      <el:string el:key="DropHammer2">
+        <el:english el:translate="true">Drop the hammer on side of a pentomino, not beneath it!</el:english>
       </el:string> 
     </el:i18n>
   </el:protected>
