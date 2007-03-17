@@ -73,7 +73,8 @@ namespace
         static vector<LaserBeam*> instances;
         static map<GridPos, int>  old_laser_positions;
     };
-    ItemTraits LaserBeam::traits = {"it-laserbeam", it_laserbeam, itf_indestructible, 0.0 };
+    ItemTraits LaserBeam::traits = {"it-laserbeam", it_laserbeam, 
+                                    itf_static | itf_indestructible, 0.0 };
 
 
 /* -------------------- Laser Stones -------------------- */
