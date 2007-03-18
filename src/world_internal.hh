@@ -122,14 +122,18 @@ namespace world
         Impulse      impulse;
         double       delay;
         const Stone *receiver;  // to test if stone has changed
+        bool         isReferenced;  // an itereator references this impulse
+        bool         isObsolete;    // the impulse should be deleted
 
         DelayedImpulse& operator = (const DelayedImpulse& other); // forbidden
     public:
         DelayedImpulse(const Impulse& impulse_, double delay_, const Stone *receiver_)
-        : impulse(impulse_), delay(delay_), receiver(receiver_) {}
+                : impulse(impulse_), delay(delay_), receiver(receiver_), 
+                isReferenced(false), isObsolete(false) {}
 
         DelayedImpulse(const DelayedImpulse& other)
-        : impulse(other.impulse), delay(other.delay), receiver(other.receiver) {}
+                : impulse(other.impulse), delay(other.delay), receiver(other.receiver),
+                isReferenced(other.isReferenced), isObsolete(other.isObsolete)  {}
 
         bool tick(double dtime) { // returns true if Impulse has to be sent NOW
             delay -= dtime;
@@ -144,6 +148,22 @@ namespace world
 
         bool is_sender(const Stone *target) const {
             return target == impulse.sender;
+        }
+        
+        bool is_referenced() const {
+            return isReferenced;
+        }
+        
+        void mark_referenced(bool state) {
+            isReferenced =  state;
+        }
+        
+        bool is_obsolete() const {
+            return isObsolete;
+        }
+        
+        void mark_obsolete() {
+            isObsolete = true;
         }
 
         void send_impulse(Stone *target) const {

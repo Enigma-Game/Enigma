@@ -479,14 +479,14 @@ function sw_kill()
    if (picked_up("thors")==1) then
       local it = enigma.GetItem(thorspos.x,thorspos.y)
       if (it==nil) then
-         document(thorspos.x,thorspos.y,"DropHammer")
+         document(thorspos.x,thorspos.y,"Drop the hammer on side of a pentomino and use the switch!")
       end
    else
       local x,y = enigma.GetPos(enigma.GetNamedObject("thors"))
       if enigma.GetStone(x,y) ~= nil then
          local it = enigma.GetItem(thorspos.x,thorspos.y)
          if (it==nil) then
-            document(thorspos.x,thorspos.y,"DropHammer2")
+            document(thorspos.x,thorspos.y,"Drop the hammer on side of a pentomino, not beneath it!")
          end
          return
       end
@@ -529,10 +529,10 @@ function early_check()
 end
     ]]></el:luamain>
     <el:i18n>
-      <el:string el:key="DropHammer">
+      <el:string el:key="Drop the hammer on side of a pentomino and use the switch!">
         <el:english el:translate="true">Drop the hammer on side of a pentomino and use the switch!</el:english>
       </el:string> 
-      <el:string el:key="DropHammer2">
+      <el:string el:key="Drop the hammer on side of a pentomino, not beneath it!">
         <el:english el:translate="true">Drop the hammer on side of a pentomino, not beneath it!</el:english>
       </el:string> 
     </el:i18n>

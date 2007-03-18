@@ -24,6 +24,7 @@
 #include "player.hh"
 #include "Inventory.hh"
 #include "stones_internal.hh"
+#include "actors.hh"
 
 #include "ecl_util.hh"
 
@@ -2726,9 +2727,8 @@ void Turnstile_Pivot_Base::handleActorsAndItems(bool clockwise, Object *impulse_
     // ---------- Handle actors in range ----------
     vector<Actor*> actorsInRange;
 
-    // tested range is sqrt(sqr(1.5)+sqr(0.5)) 
-    // = (radius swept by turnstile) + 19/64 ( = max. actor radius)
-    if (!GetActorsInRange(pv_pos.center(), 1.879, actorsInRange))
+    // tested range is sqrt(sqr(1.5)+sqr(1.5)) 
+    if (!GetActorsInRange(pv_pos.center(), 2.124, actorsInRange))
         return;
 
     vector<Actor*>::iterator iter = actorsInRange.begin(), end = actorsInRange.end();
@@ -2739,8 +2739,10 @@ void Turnstile_Pivot_Base::handleActorsAndItems(bool clockwise, Object *impulse_
         int dx  = ac_pos.x-pv_pos.x;
         int dy  = ac_pos.y-pv_pos.y;
 
-        // ignore if actor is not inside the turnstile
-        if (dx<-1 || dx>1 || dy<-1 || dy>1)
+        // ignore if actor is not inside the turnstile square or is not
+        // in distance of the the rotating arms
+        if ((dx<-1 || dx>1 || dy<-1 || dy>1) || 
+                (length(ac->get_pos() - pv_pos.center()) > 1.58114 + ac->get_actorinfo()->radius))
             continue;
 
         int idx_source = to_index[dx+1][dy+1];

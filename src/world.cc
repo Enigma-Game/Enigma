@@ -1046,8 +1046,9 @@ void World::handle_delayed_impulses (double dtime)
     while (i != end) {
         // shall the impulse take effect now ?
         if (i->tick(dtime)) {
+            i->mark_referenced(true);
             if (Stone *st = GetStone(i->destination()))
-                i->send_impulse(st);
+                i->send_impulse(st);  // may delete stones and revoke delayed impuleses!
             i = delayed_impulses.erase(i);
         }
         else
@@ -1060,10 +1061,16 @@ void World::revoke_delayed_impulses(const Stone *target) {
     ImpulseList::iterator i = delayed_impulses.begin(),
         end = delayed_impulses.end();
     while (i != end) {
-        if (i->is_receiver(target) || i->is_sender(target))
-            i = delayed_impulses.erase(i);
-        else
+        if (i->is_receiver(target) || i->is_sender(target)) {
+            if (i->is_referenced()) {
+                i->mark_obsolete();
+                ++i;
+            } else {
+                i = delayed_impulses.erase(i);
+            }
+        } else {
             ++i;
+        }
     }
 }
 
