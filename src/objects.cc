@@ -215,7 +215,7 @@ display::Model *GridObject::set_anim (const std::string &mname)
 
 bool GridObject::sound_event (const char *name)
 {
-    return sound::SoundEvent (name, get_pos().center(), 1.0);
+    return sound::SoundEvent (name, get_pos().center(), getVolume(name, this));
 }
 
 void GridObject::warning(const char *format, ...) const 

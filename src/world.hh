@@ -364,6 +364,10 @@ namespace world
     };
     void SendExplosionEffect (GridPos p, ExplosionType type);
 
+/* -------------------- Sound Damping -------------------- */
+
+    float getVolume(const char *name, Object *obj, float def_volume = 1.0);
+
 /* -------------------- Creation/Definition of objects -------------------- */
 
     Object *MakeObject (const char *kind);

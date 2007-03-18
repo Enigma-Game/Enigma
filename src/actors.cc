@@ -225,7 +225,7 @@ Value Actor::message(const string &m, const Value &) {
 }
 
 bool Actor::sound_event (const char *name) {
-    return sound::SoundEvent (name, get_pos());
+    return sound::SoundEvent (name, get_pos(), getVolume(name, this));
 }
 
 void Actor::set_attrib(const string& key, const Value &val)
