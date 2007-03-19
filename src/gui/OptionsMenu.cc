@@ -396,6 +396,8 @@ namespace enigma { namespace gui {
         bottomlabels.add (new Label(N_("User path: "), HALIGN_RIGHT));
         bottomlabels.add (new Label(N_("User image path: "), HALIGN_RIGHT));
         userNameTF = new TextField(app.state->getString("UserName"));
+        userNameTF->setMaxChars(20);
+        userNameTF->setInvalidChars("+");
         bottom.add (userNameTF);
         userPathTF = new TextField(XMLtoUtf8(LocalToXML(app.userPath.c_str()).x_str()).c_str());
         bottom.add (userPathTF);
@@ -433,7 +435,14 @@ namespace enigma { namespace gui {
             // ensure that enigma.score is saved with new Username or to new location
             lev::ScoreManager::instance()->markModified();
         }
-        app.state->setProperty("UserName", userNameTF->getText());
+        // strip off leading and trailing whitespace from user name
+        std::string userName = userNameTF->getText();
+        std::string::size_type firstChar = userName.find_first_not_of(" ");
+        std::string::size_type lastChar = userName.find_last_not_of(" ");
+        if (firstChar != std::string::npos)
+            app.state->setProperty("UserName", userName.substr(firstChar, lastChar - firstChar + 1));
+        else
+            app.state->setProperty("UserName", std::string(""));
         app.setUserPath(tfUserPathLocal.c_str());
         app.setUserImagePath(XMLtoLocal(Utf8ToXML(userImagePathTF->getText().c_str()).x_str()).c_str());
         Menu::quit();

@@ -61,10 +61,12 @@ namespace enigma { namespace gui {
     
     bool Menu::manage() {
         quitp=abortp=false;
+        SDL_Event e;
+        Uint32 enterTickTime = SDL_GetTicks(); // protection against ESC D.o.S. attacks
+        while (SDL_PollEvent(&e)) {}  // clear event queue
         draw_all();
         while (!(quitp || abortp)) {
             SCREEN->flush_updates();
-            SDL_Event e;
             while (SDL_PollEvent(&e)) {
                 handle_event(e);
             }
@@ -74,6 +76,11 @@ namespace enigma { namespace gui {
             refresh();
         }
         sound::SoundEvent ("menuexit");
+        // protection against ESC D.o.S. attacks
+        Uint32 menuTickDuration = SDL_GetTicks() - enterTickTime;
+        Uint32 minMenuTickDuration = 300;
+        if (menuTickDuration < minMenuTickDuration)
+            SDL_Delay(minMenuTickDuration - menuTickDuration);
         return !abortp;
     }
     
