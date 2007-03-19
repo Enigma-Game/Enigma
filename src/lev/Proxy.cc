@@ -849,7 +849,7 @@ namespace enigma { namespace lev {
                 protectedString = false;    // the next matching string is public
             }
         }
-        if (!keyFound) {
+        if (!keyFound && !english.empty()) {
             // string may originate from a lib - still try gettext
             std::string tmp = _(english.c_str());
             if (tmp != english) {
