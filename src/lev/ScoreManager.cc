@@ -357,12 +357,27 @@ namespace enigma { namespace lev {
         stripIgnorableWhitespace(doc->getDocumentElement());
 //        std::string path = app.userPath + "/score.xml";
         std::string zipPath = app.userPath + "/enigma.score";
+        std::string zipPathBackup = app.userPath + "/backup/enigma.score";
         
         // backup score every 10th save as we save after each level completion once
         if (count%10 == 0) {
-            std::remove((zipPath + "~2").c_str());
-            std::rename((zipPath + "~1").c_str(), (zipPath + "~2").c_str());
-            std::rename((zipPath).c_str(), (zipPath + "~1").c_str());
+            std::remove((zipPathBackup + "~2").c_str());
+            std::remove((zipPath + "~2").c_str()); // 1.00 bakups
+            if (ecl::FileExists(zipPath + "~1")) {
+                if (std::difftime(ecl::FileModTime(zipPath + "~1"),
+                        ecl::FileModTime(zipPathBackup + "~1")) > 0) {
+                    // backup 1 from 1.00 is newer than backup 1 on backup path
+                    if (Copyfile(zipPath + "~1", zipPathBackup + "~2"))
+                        std::remove((zipPath + "~1").c_str()); // 1.00 bakup
+                } else {
+                    // just in case off previous copy failure
+                    std::rename((zipPathBackup + "~1").c_str(), (zipPathBackup + "~2").c_str());
+                    std::remove((zipPath + "~1").c_str()); // 1.00 bakup
+                }
+            } else {
+                std::rename((zipPathBackup + "~1").c_str(), (zipPathBackup + "~2").c_str());
+            }
+            Copyfile(zipPath, zipPathBackup + "~1");
         }
         
         try {
@@ -428,8 +443,11 @@ namespace enigma { namespace lev {
 
         if (!result) {
             if (count%10 == 0) {
-                std::rename((zipPath + "~1").c_str(), (zipPath).c_str());
-                std::rename((zipPath + "~2").c_str(), (zipPath + "~1").c_str());
+                // restore backup in case of error
+                if (Copyfile(zipPathBackup + "~1", zipPath)) {
+                    std::remove((zipPathBackup + "~1").c_str());
+                    std::rename((zipPathBackup + "~2").c_str(), (zipPathBackup + "~1").c_str());
+                }
             }
             cerr << XMLtoLocal(Utf8ToXML(errMessage.c_str()).x_str()).c_str();
             gui::ErrorMenu m(errMessage, N_("Continue"));

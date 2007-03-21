@@ -81,6 +81,7 @@ namespace enigma { namespace gui {
         Uint32 minMenuTickDuration = 300;
         if (menuTickDuration < minMenuTickDuration)
             SDL_Delay(minMenuTickDuration - menuTickDuration);
+        while (SDL_PollEvent(&e)) {}  // clear event queue
         return !abortp;
     }
     

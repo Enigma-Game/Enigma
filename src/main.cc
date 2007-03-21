@@ -612,6 +612,8 @@ void Application::initUserDatapaths() {
         ecl::FolderCreate (userPath + "/levels/cross");
     if (!ecl::FolderExists(userPath + "/levels/legacy_dat"))
         ecl::FolderCreate (userPath + "/levels/legacy_dat");   
+    if (!ecl::FolderExists(userPath + "/backup"))
+        ecl::FolderCreate (userPath + "/backup");   
 }
 
 void Application::init_i18n()
