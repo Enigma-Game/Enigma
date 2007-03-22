@@ -58,6 +58,34 @@ using namespace std;
 using namespace enigma;
 XERCES_CPP_NAMESPACE_USE 
 
+namespace {
+#if _XERCES_VERSION >= 30000
+    class ScoreDomSerFilter : public DOMLSSerializerFilter {
+#else
+    class ScoreDomSerFilter : public DOMWriterFilter {
+#endif
+        public:
+            virtual short acceptNode(const DOMNode *node) const;
+            virtual unsigned long getWhatToShow () const {
+                return DOMNodeFilter::SHOW_ALL;
+            }
+            virtual void setWhatToShow (unsigned long toShow) {}
+    };
+    
+    short ScoreDomSerFilter::acceptNode(const DOMNode *node) const {
+        if (node->getNodeType () == DOMNode::ELEMENT_NODE &&
+                 std::string(XMLtoUtf8(node->getNodeName()).c_str()) == "level") {
+            const DOMElement *e = dynamic_cast<const DOMElement *>(node);
+            std::string id = XMLtoUtf8(e->getAttribute(Utf8ToXML("id").x_str())).c_str();
+            if (id.find("Import ") == 0) {
+                Log << "Score reject: " << id << "\n";
+                return DOMNodeFilter::FILTER_REJECT;
+            }
+        }
+        return DOMNodeFilter::FILTER_ACCEPT;
+    }
+}
+
 namespace enigma { namespace lev {
     ScoreManager *ScoreManager::theSingleton = 0;
     unsigned ScoreManager::ctab[256];
@@ -357,6 +385,7 @@ namespace enigma { namespace lev {
         stripIgnorableWhitespace(doc->getDocumentElement());
 //        std::string path = app.userPath + "/score.xml";
         std::string zipPath = app.userPath + "/enigma.score";
+        std::string zipPathNoDat = app.userPath + "/enigma_nodat.score";
         std::string zipPathBackup = app.userPath + "/backup/enigma.score";
         
         // backup score every 10th save as we save after each level completion once
@@ -381,53 +410,65 @@ namespace enigma { namespace lev {
         }
         
         try {
+            ScoreDomSerFilter serialFilter;
+            for (int j=0; j < 2; j++) { // save twice: first all, then without dat scores
 #if _XERCES_VERSION >= 30000
 //            result = app.domSer->writeToURI(doc, LocalToXML(& path).x_str());
-            std::string contents(XMLtoUtf8(app.domSer->writeToString(doc)).c_str());
-            contents.replace(contents.find("UTF-16"), 6, "UTF-8"); // adapt encoding info
+                if (j==1)
+                    (app.domSer)->setFilter(&serialFilter);
+                std::string contents(XMLtoUtf8(app.domSer->writeToString(doc)).c_str());
+                if (j==1)
+                    (app.domSer)->setFilter(NULL);
+                contents.replace(contents.find("UTF-16"), 6, "UTF-8"); // adapt encoding info
 #else
 //            XMLFormatTarget *myFormTarget = new LocalFileFormatTarget(path.c_str());
 //            result = app.domSer->writeNode(myFormTarget, *doc);            
 //            delete myFormTarget;   // flush
             
-            MemBufFormatTarget *memFormTarget = new MemBufFormatTarget();
-            result = app.domSer->writeNode(memFormTarget, *doc);
-            std::string contents(
-                    reinterpret_cast<const char *>(memFormTarget->getRawBuffer()),
-                    memFormTarget->getLen());
-            delete memFormTarget;
+                MemBufFormatTarget *memFormTarget = new MemBufFormatTarget();
+                if (j==1)
+                    app.domSer->setFilter(&serialFilter);
+                result = app.domSer->writeNode(memFormTarget, *doc);
+                if (j==1)
+                    app.domSer->setFilter(NULL);
+                std::string contents(
+                        reinterpret_cast<const char *>(memFormTarget->getRawBuffer()),
+                        memFormTarget->getLen());
+                delete memFormTarget;
 #endif
-            std::istringstream contentStream(contents);
-            std::ostringstream zippedStream;
-            writeToZip(zippedStream, "score.xml", contents.size(), contentStream);
-            std::ofstream of( zipPath.c_str(), ios::out | ios::binary );
-            std::string zipScore = zippedStream.str();
-            
-            // patch zipios++ malformed output
-            // assumptions: just one file named "score.xml" (9 chars)
-            if ((zipScore[0x06] & 0x08) == 0) {
-                Log << "Fixing Zipios++ output\n";
-                unsigned cdirOffset = zipScore.size() - 22 - 46 - 9;
-                unsigned compressedSize = cdirOffset - 30 - 9;
-                zipScore.replace(cdirOffset + 20, 1, 1, (char)(compressedSize & 0xFF));
-                zipScore.replace(cdirOffset + 21, 1, 1, (char)((compressedSize & 0xFF00) >> 8));
-                zipScore.replace(cdirOffset + 22, 1, 1, (char)((compressedSize & 0xFF0000) >> 16));
-                zipScore.replace(cdirOffset + 23, 1, 1, (char)((compressedSize & 0xFF000000) >> 24));
-                std::string dataDescr = "\x50\x4B\x07\x08" + zipScore.substr(cdirOffset + 16, 12);
-                zipScore.replace(6, 1 , 1, '\x08'); // general purpose bit flag
-                zipScore.replace(14, 12, 12, '\x00');
-                zipScore.replace(cdirOffset + 8, 1 , 1, '\x08'); // general purpose bit flag
-                zipScore.replace(cdirOffset + 38, 8, 8, '\x00'); // external file attr, offset local header
-                zipScore.insert(cdirOffset, dataDescr);
-                cdirOffset += 16;
-                zipScore.replace(zipScore.size() - 6, 1, 1, (char)(cdirOffset & 0xFF));
-                zipScore.replace(zipScore.size() - 5, 1, 1, (char)((cdirOffset & 0xFF00) >> 8));
-                zipScore.replace(zipScore.size() - 4, 1, 1, (char)((cdirOffset & 0xFF0000) >> 16));
-                zipScore.replace(zipScore.size() - 3, 1, 1, (char)((cdirOffset & 0xFF000000) >> 24));
+                std::istringstream contentStream(contents);
+                std::ostringstream zippedStream;
+                writeToZip(zippedStream, "score.xml", contents.size(), contentStream);
+                std::ofstream of( j==0 ? zipPath.c_str() : zipPathNoDat.c_str(),
+                        ios::out | ios::binary );
+                std::string zipScore = zippedStream.str();
+                
+                // patch zipios++ malformed output
+                // assumptions: just one file named "score.xml" (9 chars)
+                if ((zipScore[0x06] & 0x08) == 0) {
+                    Log << "Fixing Zipios++ output\n";
+                    unsigned cdirOffset = zipScore.size() - 22 - 46 - 9;
+                    unsigned compressedSize = cdirOffset - 30 - 9;
+                    zipScore.replace(cdirOffset + 20, 1, 1, (char)(compressedSize & 0xFF));
+                    zipScore.replace(cdirOffset + 21, 1, 1, (char)((compressedSize & 0xFF00) >> 8));
+                    zipScore.replace(cdirOffset + 22, 1, 1, (char)((compressedSize & 0xFF0000) >> 16));
+                    zipScore.replace(cdirOffset + 23, 1, 1, (char)((compressedSize & 0xFF000000) >> 24));
+                    std::string dataDescr = "\x50\x4B\x07\x08" + zipScore.substr(cdirOffset + 16, 12);
+                    zipScore.replace(6, 1 , 1, '\x08'); // general purpose bit flag
+                    zipScore.replace(14, 12, 12, '\x00');
+                    zipScore.replace(cdirOffset + 8, 1 , 1, '\x08'); // general purpose bit flag
+                    zipScore.replace(cdirOffset + 38, 8, 8, '\x00'); // external file attr, offset local header
+                    zipScore.insert(cdirOffset, dataDescr);
+                    cdirOffset += 16;
+                    zipScore.replace(zipScore.size() - 6, 1, 1, (char)(cdirOffset & 0xFF));
+                    zipScore.replace(zipScore.size() - 5, 1, 1, (char)((cdirOffset & 0xFF00) >> 8));
+                    zipScore.replace(zipScore.size() - 4, 1, 1, (char)((cdirOffset & 0xFF0000) >> 16));
+                    zipScore.replace(zipScore.size() - 3, 1, 1, (char)((cdirOffset & 0xFF000000) >> 24));
+                }
+                
+                for (int i=0; i<zipScore.size(); i++)
+                    of << (char)(zipScore[i] ^ 0xE5);
             }
-            
-            for (int i=0; i<zipScore.size(); i++)
-                of << (char)(zipScore[i] ^ 0xE5);
         } catch (const XMLException& toCatch) {
             errMessage = std::string("Exception on save of score: \n") + 
                     XMLtoUtf8(toCatch.getMessage()).c_str() + "\n";
