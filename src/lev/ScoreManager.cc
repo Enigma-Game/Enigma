@@ -78,7 +78,7 @@ namespace {
             const DOMElement *e = dynamic_cast<const DOMElement *>(node);
             std::string id = XMLtoUtf8(e->getAttribute(Utf8ToXML("id").x_str())).c_str();
             if (id.find("Import ") == 0) {
-                Log << "Score reject: " << id << "\n";
+                // reject scores for levels imported from dat files
                 return DOMNodeFilter::FILTER_REJECT;
             }
         }
@@ -358,6 +358,24 @@ namespace enigma { namespace lev {
             finishUserId(std::time(NULL) & 0xFFFF);
         }
         
+        if (userId.find("0000") == 0) {
+            Log << "ReId Windows 1.00 User Id: " << userId << "\n";
+            setProperty("UserId1.00", userId);
+            app.state->setProperty("UserId1.00", userId);
+            unsigned id1 = std::rand() & 0xFFFF;
+            userId.replace(0, 4, ecl::strf("%.4lX",id1));
+            unsigned id2, id3, id4;
+            std::istringstream s2(userId.substr(4, 4));
+            std::istringstream s3(userId.substr(8, 4));
+            s2 >> std::hex >> id2;
+            s3 >> std::hex >> id3;
+            id4 = (id1 ^ id2 ^ id3);
+            userId.replace(12, 4, ecl::strf("%.4lX",id4));
+            app.state->setProperty("UserId", userId);
+            setProperty("UserId", userId);
+            Log << "new id: " << userId << "\n";
+        }
+        
         for (int i = 0, l = levelList->getLength(); i < l; i++) {
             DOMElement * levelElem  = dynamic_cast<DOMElement *>(levelList->item(i));
             DOMNamedNodeMap * attrXMap = levelElem->getAttributes();
@@ -567,6 +585,9 @@ namespace enigma { namespace lev {
         if (difficulty == DIFFICULTY_EASY && !levelProxy->hasEasymode())
             difficulty = DIFFICULTY_HARD;
         
+        if (score > SCORE_MAX)
+            score = SCORE_MAX;  // distinguish from SCORE_SOLVED levels
+            
         if (!hasValidUserId) {
             finishUserId(std::time(NULL) & 0xFFFF);
         }

@@ -545,7 +545,8 @@ Inventory *player::MayPickup(Actor *a)
     Inventory *inv = GetInventory(iplayer);
     bool dont_pickup = players[iplayer].inhibit_pickup 
         || a->is_flying()
-        || inv->is_full();
+        || inv->is_full()
+        || a->is_dead();
 
     return dont_pickup ? 0 : inv;
 }

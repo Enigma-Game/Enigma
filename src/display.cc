@@ -188,9 +188,13 @@ void StatusBarImpl::redraw (ecl::GC &gc, const ScreenArea &r) {
 
         if (m_showtime_p) {
             double     abstime       = m_leveltime >= 0 ? m_leveltime : fabs(floor(m_leveltime));
-            int        minutes       = static_cast<int>(abstime/60) % 100;
+            int        minutes       = static_cast<int>(abstime/60);
             int        seconds       = static_cast<int>(abstime) % 60;
 
+            if (minutes >= 100) {
+                minutes = 99;
+                seconds = 59;
+            }
             snprintf(buf, BUFSIZE,
                      m_leveltime >= 0 ? "%d:%02d" : "-%d:%02d",
                      minutes, seconds);
