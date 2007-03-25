@@ -3,7 +3,7 @@
   <el:protected>
     <el:info el:type="level">
       <el:identity el:title="Red Herrings" el:subtitle="" el:id="20070116money001"/>
-      <el:version el:score="3" el:release="3" el:revision="0" el:status="released"/>
+      <el:version el:score="3" el:release="3" el:revision="1" el:status="released"/>
       <el:author el:name="Andy Geldmacher" el:email="" el:homepage="http://www.geldmacher.privat.t-online.de"/>
       <el:copyright>Copyright © 2007 Andy Geldmacher</el:copyright>
       <el:license el:type="GPL v2.0 or above" el:open="true"/>
@@ -69,7 +69,7 @@ stmap={"######aaaaag########",
        "#k    # kaa #b    b#",
        "# d####  #  c      #",
        "## #     #  c #  a##",
-       "j        #bb#b#bbc #",
+       "j        #bb# #bbc #",
        "# ########b a #  e #",
        "#         b aaa  a##",
        "i         b b a  #x#",
