@@ -3344,9 +3344,11 @@ this scarcely used item in action.
 @node it-cherry
 @subsection it-cherry
 
-When used, the marble becomes invisible for a short time
-(rotors and tops can't find it, marble can walk through glass).  When
-a stone is pushed over @code{it-cherry}, it becomes
+When used, the marble becomes invisible for a short time.
+Some benefits of this are that rotors and tops can't find it and
+it can walk through glass. There are some different glassstones, and not all
+may be passed when invisible. For details, see @ref{Glassstones}.
+When a stone is pushed over @code{it-cherry}, it becomes
 @ref{it-squashed}.
 
 
@@ -4204,6 +4206,7 @@ Toggles between players.  Compare @ref{it-ring} in multiplayer mode.
 
 @menu
 * Stone List::                  A complete list of all stones
+* Glassstones::                 A summary of all kinds of glassy stones
 * Breakable Stones::            A summary of all breakable stones
 * Oxyd Compatibility Stones::   Special stones for oxyd compatibility and debugging
 * st-actorimpulse::             Bumper Stones
@@ -4291,10 +4294,10 @@ st-camouflage
 st-dummy
 st-fakeoxyd( blinking )
 st-glass
+st-glass_move
 st-glass[123]
 st-glass[12]_hole
-st-glass1_move
-st-glass_move
+st-glass[12]_move
 st-greenbrown
 st-greenbrown_hole
 st-greenbrown_move
@@ -4485,7 +4488,31 @@ st-wood-growing
 st-yinyang@{1..3@}
 @end example
 
-@node Breakable Stones, Oxyd Compatibility Stones, Stone List, Stones
+@node Glassstones, Breakable Stones, Stone List, Stones
+@subsection Glassstones
+
+There are a few kinds of glassstones, all similar, but with different details.
+Some of them may be passed after the use of an @ref{it-cherry}, others will be
+just pushed. Some are transparent for lasers, but not all! This table shows their
+exact properties.
+
+@multitable {st-polarswitch (off)  } {actor is visible:  } {actor is invisible:  } {lasertransparent:  }
+@headitem stone: @tab actor is visible: @tab actor is invisible: @tab lasertransparent:
+@item st-glass @tab - @tab pass @tab yes
+@item st-glass_move @tab push @tab pass @tab yes
+@item st-glass1 @tab - @tab pass @tab yes
+@item st-glass1_move @tab push @tab push @tab yes
+@item st-glass1_hole @tab pass @tab pass @tab yes
+@item st-glass2 @tab - @tab pass @tab no
+@item st-glass2_move @tab push @tab push @tab no
+@item st-glass2_hole @tab pass @tab pass @tab yes
+@item st-glass3 @tab - @tab -@tab yes
+@item st-polarswitch (on) @tab toggle @tab pass @tab yes
+@item st-polarswitch (off) @tab toggle @tab pass @tab no
+@item st-beads @tab - @tab pass @tab no
+@end multitable
+
+@node Breakable Stones, Oxyd Compatibility Stones, Glassstones, Stones
 @subsection Breakable Stones
 
 A list of all breakable stones and what may break them. Messages are

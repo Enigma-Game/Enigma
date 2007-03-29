@@ -94,16 +94,26 @@ namespace
         const char *collision_sound() {
             return traits->sound.c_str();
         }
+
+        /** Different kinds of glassstones:
+         *  Stone:                 visible:     invisible:   lasertransparent:
+         *  st-glass               -            pass         Y
+         *  st-glass1              -            pass         Y
+         *  st-glass1_hole         pass         pass         Y
+         *  st-glass2              -            pass         N
+         *  st-glass2_hole         pass         pass         Y
+         *  st-glass3              -            -            Y
+         */
         StoneResponse collision_response(const StoneContact &sc) {
             if (traits->hollow)
                 return STONE_PASS;
-            if (traits->glass && sc.actor->is_invisible())
+            if (sc.actor->is_invisible() && ((traits->glass && !is_kind("st-glass3")) || is_kind("st-beads")) )
                 return STONE_PASS;
-            return STONE_REBOUND;
+            return Stone::collision_response(sc);
         }
 
         bool is_sticky (const Actor *actor) const {
-            if (traits->glass)
+            if (traits->glass || is_kind("st-beads"))
                 return !actor->is_invisible();
             return Stone::is_sticky(actor);
         }
@@ -111,8 +121,11 @@ namespace
         bool is_floating() const {
             return traits->hollow;
         }
-        bool is_transparent (Direction) const {
-            return traits->hollow || traits->glass;
+
+        bool is_transparent (Direction dir) const {
+            if (traits->hollow || (traits->glass && !is_kind("st-glass2")) )
+                return true;
+            return Stone::is_transparent(dir);
         }
 
         virtual Value on_message (const Message &m)
@@ -163,8 +176,29 @@ namespace
         const char *collision_sound() {
             return traits->sound.c_str();
         }
-        bool is_transparent (Direction) const {
-            return traits->glass;
+
+        /** Different kinds of movable glassstones:
+         *  Stone:                 visible:     invisible:   lasertransparent:
+         *  st-glass_move          push         pass         Y
+         *  st-glass1_move         push         push         Y
+         *  st-glass2_move         push         push         N
+         */
+        StoneResponse collision_response(const StoneContact &sc) {
+            if (traits->glass && sc.actor->is_invisible() && is_kind("st-glass_move"))
+                return STONE_PASS;
+            return Stone::collision_response(sc);
+        }
+
+        bool is_sticky (const Actor *actor) const {
+            if (traits->glass)
+                return !actor->is_invisible();
+            return Stone::is_sticky(actor);
+        }
+
+        bool is_transparent (Direction dir) const {
+            if (traits->glass && !is_kind("st-glass2_move"))
+                return true;
+            return Stone::is_transparent(dir);
         }
 
         bool is_movable() const { return true; }
@@ -2103,6 +2137,14 @@ namespace
         void init_model() { set_model(is_on() ? "st-glass1" : "st-glass2"); }
         bool is_transparent(Direction) const { return this->is_on(); }
         void notify_onoff(bool) { lasers::MaybeRecalcLight(this->get_pos()); }
+
+        StoneResponse collision_response(const StoneContact &sc) {
+            if (sc.actor->is_invisible())
+                return STONE_PASS;
+            return Stone::collision_response(sc);
+        }
+
+        bool is_sticky (const Actor *actor) const { return !actor->is_invisible(); }
     };
     DEF_TRAITS(PolarSwitchStone, "st-polarswitch", st_polarswitch);
 }
