@@ -13,8 +13,12 @@ EXTRA_DIST = $(TEXI) $(html_DATA)
 
 %.html : %.texi
 	@if [ "${TEXI2HTML}" ]; then \
-	  echo "Running texi2html"; \
-	  ${TEXI2HTML} -nosec_nav $<; \
+	  if test "$<" = "enigma_ru.texi"; then \
+            echo "skip ru manual"; \
+          else \
+            echo "Running texi2html"; \
+	    ${TEXI2HTML} -nosec_nav $<; \
+          fi \
 	else \
 	  echo "Warning: texi2html not found"; \
 	fi
