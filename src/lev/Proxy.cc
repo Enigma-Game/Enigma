@@ -172,7 +172,7 @@ namespace enigma { namespace lev {
             theProxy = NULL;
         } else {
             // eliminate duplicates and register
-//            Log << "autoRegisterLevel register '" << indexPath << "/"<< filename << "\n";
+//            Log << "autoRegisterLevel register '" << indexPath << "/"<< filename << " Title: " << theProxy->getTitle() <<"\n";
             std::string cacheKey = theProxy->getNormLevelPath() + theProxy->getId() + 
                     ecl::strf("%d", theProxy->getReleaseVersion());
             std::map<std::string, Proxy *>::iterator i = cache.find(cacheKey);
