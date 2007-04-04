@@ -23,6 +23,8 @@
 #include "actors.hh"
 #include "client.hh"
 #include "lua.hh"
+#include "lev/Index.hh"
+#include "lev/Proxy.hh"
 #include "main.hh"
 #include "nls.hh"
 #include "options.hh"
@@ -563,8 +565,10 @@ void server::SetCompatibility(lev::Proxy *levelProxy) {
 
 enigma::Difficulty server::GetDifficulty()
 {
+    lev::Index *ind = lev::Index::getCurrentIndex();
+    lev::Proxy *curProxy = ind->getCurrent();
     int i= app.state->getInt ("Difficulty");
-    if (i == DIFFICULTY_EASY && !server::CreatingPreview)
+    if (i == DIFFICULTY_EASY && !server::CreatingPreview && curProxy->hasEasymode())
         return DIFFICULTY_EASY;
     else
         return DIFFICULTY_HARD;
