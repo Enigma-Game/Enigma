@@ -3,7 +3,7 @@
   <el:protected>
     <el:info el:type="level">
       <el:identity el:title="The passage" el:subtitle="" el:id="just11"/>
-      <el:version el:score="1" el:release="1" el:revision="4" el:status="released"/>
+      <el:version el:score="1" el:release="1" el:revision="5" el:status="released"/>
       <el:author  el:name="JuSt" el:email="" el:homepage=""/>
       <el:copyright>Copyright © 2007 JuSt</el:copyright>
       <el:license el:type="GPL v2.0 or above" el:open="true"/>
@@ -147,7 +147,7 @@ set_stone("st-3mirror", 30, 20, {movable=FALSE, transparent=TRUE, orientation="4
 set_stones("st-pmirror", {{36, 20}, {25, 21}, {27, 21}, {27, 23}}, {movable=FALSE, transparent=TRUE, orientation="2"})
 set_stone("st-pmirror", 34, 21, {movable=FALSE, transparent=TRUE, orientation="1"})
 set_stone("st-laser", 32, 22, {dir=EAST, on="1"})
-set_stone("st-oneway", 25, 9, {orientation=WEST})
+set_stone("st-oneway", 25, 9, {orientation=EAST})
 set_stone("st-oneway", 27, 2, {orientation=EAST})
 set_stones("st-blocker", {{26, 3}, {26, 9}})
 draw_stones("st-grate1", {7, 13}, {1, 1}, 11)

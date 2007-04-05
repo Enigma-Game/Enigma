@@ -3,14 +3,14 @@
   <el:protected>
     <el:info el:type="level">
       <el:identity el:title="Pneumatic Delivery" el:subtitle="" el:id="malla01"/>
-      <el:version el:score="1" el:release="1" el:revision="1" el:status="released"/>
+      <el:version el:score="2" el:release="2" el:revision="2" el:status="released"/>
       <el:author  el:name="Manuel König" el:email="" el:homepage=""/>
       <el:copyright>Copyright © 2004 Manuel König</el:copyright>
       <el:license el:type="GPL v2.0 or above" el:open="true"/>
       <el:compatibility el:enigma="0.92">
        <el:dependency el:path="lib/ant" el:id="lib/ant" el:release="1" el:preload="true"/>
       </el:compatibility>
-      <el:modes el:easy="false" el:single="true" el:network="false"/>
+      <el:modes el:easy="true" el:single="true" el:network="true"/>
       <el:comments>
         <el:code>Lua 5.1 and XML converted by Leveladministrators</el:code>
       </el:comments>
@@ -24,7 +24,6 @@ display.DefineAlias("st-c-invisible_grate","st-invisible")
 
 cells={}
 cells[" "]=cell{floor="fl-wood"}
-cells["+"]=cell{item="it-seed_nowood"}
 cells["#"]=cell{stone="st-rock5"}
 cells["A"]=cell{stone="st-black4"}
 cells["a"]=cell{stone="st-white4"}
@@ -42,15 +41,21 @@ cells["G"]=cell{item="it-puller-s"}
 cells["g"]=cell{item="it-puller-w"}
 cells["H"]=cell{stone="st-stoneimpulse"}
 cells["h"]=cell{stone={"st-fourswitch", {action="callback", target="mirrorswitch"}}}
-cells["I"]=cell{stone="st-shogun-l"}
 cells["i"]=cell{stone="st-shogun-m"}
+cells["I"]=cell{stone="st-shogun-l"}
 cells["J"]=cell{stone="st-shogun-s", item={"it-shogun-l", {target="door2", action="openclose"}}}
 cells["j"]=cell{stone="st-rotator_move-left"}
+cells["K"]=cell{stone="st-knight"}
 cells["k"]=cell{item={"it-document", {text="text1"}}}
 cells["L"]=cell{stone={"st-laser-e", {name="laser", on=FALSE}}}
 cells["l"]=cell{stone={"st-switch_white", {target="laser", on=FALSE, action="onoff"}}}
+cells["m"]=cell{item="it-pipe-v"}
+cells["M"]=cell{item="it-pipe-h"}
 cells["N"]=cell{item="it-pipe-ne"}
+cells["n"]=cell{item="it-pipe-sw"}
 cells["Q"]=cell{stone={"st-laserswitch", {action="callback", target="lasertrigger1"}}}
+cells["P"]=cell{item="it-hammer"}
+cells["p"]=cell{stone="st-stone_break"}
 cells["q"]=cell{stone={"st-laserswitch", {action="callback", target="lasertrigger2"}}}
 cells["R"]=cell{stone={"st-laserswitch", {action="callback", target="lasertrigger3"}}}
 cells["r"]=cell{stone={"st-laserswitch", {action="callback", target="lasertrigger4"}}}
@@ -75,52 +80,61 @@ cells["3"]=cell{stone="st-c-invisible_grate"}
 puzzles2 = {}
 cells["?"]=cell{parent={{add_multicell, puzzles2}}}
 
-if (difficult) then
-cells["n"]=cell{item="it-pipe-sw"}
-cells["P"]=cell{item="it-hammer"}
-cells["p"]=cell{stone="st-stone_break"}
-cells["K"]=cell{stone="st-knight"}
-cells["$"]=cells["?"]
-cells["m"]=cell{item="it-pipe-v"}
-cells["M"]=cell{item="it-pipe-h"}
-else
-cells["n"]=cells[" "]
-cells["P"]=cells[" "]
-cells["p"]=cells[" "]
-cells["K"]=cells[" "]
-cells["m"]=cells[" "]
-cells["M"]=cells[" "]
+if difficult then
+    cells["$"]=cells["?"]
 end
 
-      level = {
-      --        1          2        3
-      --  012345678901234567890123456789012345678
-         "#######################################",
-         "# q      u  Q#    rxYx         #   #yM#",
-         "#            #     xxx     ## W wW ##n#",
-         "#L       U   X     x 1 v   # Wz Z#  Tm#",
-         "#            #  3$3A   ##### ### #  #k#",
-         "# t      V  R#???? #  Fb..##     #  #K#",
-         "#p############ ?N? #B###ecd#####C####0#",
-         "#s## X #  ,,I# ?m? #  #  . .........###",
-         "#mf# J H  j  X ????# 2# D. ec.. . ecd##",
-         "#G###H #i# # X3$3  #  ..cN. . .ec. .  #",
-         "#F#MPH   X # X     a    E+#ecdc ...#  #",
-         "#0hM S   X   #     #l0#####.. EG ..##K#",
-         "#####################################0#"
-      --  012345678901234567890123456789012345678
-      --        1          2        3
-      }
+if not difficult then
+    level = {
+    --            1         2         3
+    --  012345678901234567890123456789012345678
+        "#######################################",
+        "# q      u  Q#    rxYx         #   #y #",
+        "#            #     xxx     ## W wW ## #",
+        "#L       U   X     x 1 v   # Wz Z#  TN#",
+        "#            #  3$3A       # ### #  #k#",
+        "# t      V  R#???? #       #     #  # #",
+        "# ############ ?m? #B####C######C####0#",
+        "#s## X #  ,, # ? ? #  #     ........###",
+        "# f# J H     X ????# 2# D. ec.. . ecd##",
+        "# ###H #i# # X3$3  #  #.c.. . .ec  .  #",
+        "#F#M H   X #IX     a  D E #ecdc ...#  #",
+        "#0h  S   X   #     #l0c ###.. EG ..## #",
+        "#####################################0#"
+    --  012345678901234567890123456789012345678
+    --            1         2         3
+    }
+else
+    level = {
+    --             1         2         3
+    --   012345678901234567890123456789012345678
+        "#######################################",
+        "# q      u  Q#    rxYx         #   #yM#",
+        "#            #     xxx     ## W wW ##n#",
+        "#L       U   X     x 1 v   # Wz Z#  Tm#",
+        "#            #  3$3A   ##### ### #  #k#",
+        "# t      V  R#???? #  Fb..##     #  #K#",
+        "#p############ ?N? #B###ecd#####C####0#",
+        "#s## X #  ,,I# ?m? #  #  . .........###",
+        "#mf# J H  j  X ????# 2# D. ec.. . ecd##",
+        "#G###H #i# # X3$3  #  ..c.. . .ec. .  #",
+        "#F#MPH   X # X     a  D E #ecdc ...#  #",
+        "#0hMNS   X   #     #l0c ###.. EG ..##K#",
+        "#####################################0#"
+    --   012345678901234567890123456789012345678
+    --             1         2         3
+    }
+end
 
 --        -- [STONE DOOR] --
 stonedoorswitchgreen=0
 function stonedoor()
     if (stonedoorswitchgreen==0) then
-      stonedoorswitchgreen=1
-      set_stone("st-grate2", 31,1)
+        stonedoorswitchgreen=1
+        set_stone("st-grate2", 31,1)
     elseif (stonedoorswitchgreen==1) then
-      stonedoorswitchgreen=0
-      set_stone("st-rock5", 31,1)
+        stonedoorswitchgreen=0
+        set_stone("st-rock5", 31,1)
     end
 end
 --        -- [/STONE DOOR] --
@@ -133,20 +147,20 @@ function trigger3 () triggerdoor1(3) end
 doorsopen1=0
 
 function triggerdoor1(num)
-   switchesdoor1[num] = 1-switchesdoor1[num]
-   alldoor1=1
-   for x=1,3 do
-      if (switchesdoor1[x]==0) then
-         alldoor1 = 0
+    switchesdoor1[num] = 1-switchesdoor1[num]
+    alldoor1=1
+    for x=1,3 do
+        if (switchesdoor1[x]==0) then
+        alldoor1 = 0
     end
-   end
-   if (doorsopen1==0 and alldoor1==1) then
-      enigma.SendMessage(d1, "open", nil)
-      doorsopen1 = 1
-   elseif (doorsopen1==1 and alldoor1==0) then
-      enigma.SendMessage(d1, "close", nil)
-      doorsopen1 = 0
-   end
+    end
+    if (doorsopen1==0 and alldoor1==1) then
+        enigma.SendMessage(d1, "open", nil)
+        doorsopen1 = 1
+    elseif (doorsopen1==1 and alldoor1==0) then
+        enigma.SendMessage(d1, "close", nil)
+        doorsopen1 = 0
+    end
 end
 --       -- [/THREE TRIGGERS] --
 
@@ -166,28 +180,28 @@ function lasertrigger4 () triggerdoor3(4) end
 doorsopen3=0
 
 function triggerdoor3(num)
-   switchesdoor3[num] = 1-switchesdoor3[num]
-   allswitches3=1
-   for x=1,4 do
-      if (switchesdoor3[x]==0) then
-         allswitches3 = 0
+    switchesdoor3[num] = 1-switchesdoor3[num]
+    allswitches3=1
+    for x=1,4 do
+        if (switchesdoor3[x]==0) then
+        allswitches3 = 0
     end
-   end
-   if (doorsopen3==0 and allswitches3==1) then
-      enigma.SendMessage(d3, "open", nil)
-      doorsopen3 = 1
-   elseif (doorsopen3==1 and allswitches3==0) then
-      enigma.SendMessage(d3, "close", nil)
-      doorsopen3 = 0
-   end
+    end
+    if (doorsopen3==0 and allswitches3==1) then
+        enigma.SendMessage(d3, "open", nil)
+        doorsopen3 = 1
+    elseif (doorsopen3==1 and allswitches3==0) then
+        enigma.SendMessage(d3, "close", nil)
+        doorsopen3 = 0
+    end
 end
 --       -- [/LASERSWITCHES] --
 
-      oxyd_default_flavor = "d"
-      set_default_parent(cells[" "])
-      create_world_by_map(level)
+oxyd_default_flavor = "d"
+set_default_parent(cells[" "])
+create_world_by_map(level)
 
-      --       --  [PUZZLE] --
+--       --  [PUZZLE] --
 function scramble(x,y,d) enigma.AddScramble(x,y,d) end
 enigma.SetScrambleIntensity(50)
 scramble(14,5,"e")
@@ -209,17 +223,6 @@ set_floor("fl-abyss",25,10)
 set_floor("fl-wood",27,8)
 set_floor("fl-wood",34,8)
 set_floor("fl-wood",36,8)
-
-if (not difficult) then
-set_item("it-pipe-sw",25,5)
-set_item("it-pipe-v",25,6)
-set_item("it-pipe-v",25,7)
-set_item("it-pipe-h",26,9)
-set_item("it-pipe-h",26,9)
-set_item("it-pipe-h",3,10)
-set_item("it-pipe-h",33,7)
-set_item("it-pipe-v",37,1)
-end
 
 oxyd_shuffle()
     ]]></el:luamain>

@@ -127,7 +127,8 @@ end
         <el:english el:translate="false"/>
       </el:string>
       <el:string el:key="text1">
-        <el:english el:translate="true">Ob Schachfiguren laserresistent sind?</el:english>
+        <el:english el:translate="true"></el:english>
+        <el:translation el:lang="de">Ob Schachfiguren laserresistent sind?</el:translation>
       </el:string>
     </el:i18n>
   </el:protected>

@@ -80,7 +80,7 @@
     <level _seq="72" _title="Counterclockwise" _xpath="./ulf05_1" author="Ulf Stegemann" ctrl="force" easy="true" id="20070126ulf020" rel="1" rev="93" score="1" target="time" unit="duration"/>
     <level _seq="73" _title="Check the light" _xpath="./just10_1" author="JuSt" ctrl="force" easy="false" id="just10" rel="1" rev="4" score="1" target="time" unit="duration"/>
     <level _seq="74" _title="Twokoban I" _xpath="./raoul28" author="Raoul Bourquin" ctrl="force" easy="true" id="raoul28" rel="1" rev="0" score="1" target="time" unit="duration"/>
-    <level _seq="75" _title="The passage" _xpath="./just11_1" author="JuSt" ctrl="force" easy="false" id="just11" rel="1" rev="4" score="1" target="time" unit="duration"/>
+    <level _seq="75" _title="The passage" _xpath="./just11_1" author="JuSt" ctrl="force" easy="false" id="just11" rel="1" rev="5" score="1" target="time" unit="duration"/>
     <level _seq="76" _title="Magic triangle" _xpath="./just13_1" author="JuSt" ctrl="force" easy="false" id="just13" rel="1" rev="1" score="1" target="time" unit="duration"/>
     <level _seq="77" _title="Revolver" _xpath="./ral16_1" author="Ronald Lamprecht" ctrl="force" easy="true" id="20070214ral703" rel="1" rev="59" score="1" target="time" unit="duration"/>
     <level _seq="78" _title="Devil's bolder" _xpath="./just14_1" author="JuSt" ctrl="force" easy="true" id="just14" rel="1" rev="2" score="1" target="time" unit="duration"/>
@@ -89,6 +89,11 @@
     <level _seq="81" _title="Turnstiles for Two" _xpath="./ral17_1" author="Ronald Lamprecht" ctrl="force" easy="true" id="20070314ral189" rel="1" rev="64" score="1" target="time" unit="duration"/>
     <level _seq="82" _title="Polar Bears Paradise" _xpath="./ral19_1" author="Ronald Lamprecht" ctrl="force" easy="true" id="20070314ral394" rel="1" rev="63" score="1" target="time" unit="duration"/>
     <level _seq="83" _title="The wrong place?" _xpath="./just17_1" author="JuSt" ctrl="force" easy="false" id="just17" rel="1" rev="1" score="1" target="time" unit="duration"/>
+    <level _seq="84" _title="Cold Meditation" _xpath="./ral18_1" author="Ronald Lamprecht" ctrl="force" easy="true" id="20070314ral728" rel="1" rev="67" score="1" target="time" unit="duration"/>
+    <level _seq="85" _title="Same task ..." _xpath="./raoul29_1" author="Raoul Bourquin" ctrl="force" easy="true" id="raoul29" rel="1" rev="2" score="1" target="time" unit="duration"/>
+    <level _seq="86" _title="Industrial puzzles" _xpath="./raoul30_1" author="Raoul Bourquin" ctrl="force" easy="false" id="raoul30" rel="1" rev="3" score="1" target="time" unit="duration"/>
+    <level _seq="87" _title="Odyssey" _xpath="./ant39_1" author="Petr Machata" ctrl="force" easy="false" id="ant39" rel="1" rev="0" score="1" target="time" unit="duration"/>
+    <level _seq="88" _title="Tandem Chess" _xpath="./luc34_1" author="Lukas Schüller" ctrl="force" easy="false" id="luc342007" rel="1" rev="1" score="1" target="time" unit="duration"/>
   </levels>
 
 </index>

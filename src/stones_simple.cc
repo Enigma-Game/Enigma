@@ -85,7 +85,8 @@ namespace
         {}
     private:
         SimpleStone(const SimpleStone& other)
-        : Stone(other.get_kind()), traits(other.traits)
+        : Stone(other.get_kind()), traits(other.traits),
+          sunglasses(false)
         {}
 
         Stone *clone() { return new SimpleStone(*this); }
