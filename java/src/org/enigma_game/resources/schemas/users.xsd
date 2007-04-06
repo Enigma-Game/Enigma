@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xs:schema xmlns:xs='http://www.w3.org/2001/XMLSchema' version="0.1" xml:lang="en">
+  <xs:annotation>
+    <xs:documentation>
+      XML schema definitions for Enigma user
+      Copyright © 2007 Ronald Lamprecht
+      GPL2
+    </xs:documentation>
+  </xs:annotation>
+  <xs:element name="users">
+    <xs:annotation>
+      <xs:documentation>
+        User data:
+        id         - level id
+      </xs:documentation>
+    </xs:annotation>
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element name="user" minOccurs="0" maxOccurs="unbounded" >
+          <xs:complexType>
+            <xs:attribute name="id" type="xs:string" use="required"/>
+            <xs:attribute name="name" type="xs:string" use="required"/>
+            <xs:attribute name="newname" type="xs:string" use="optional" default=""/>
+            <xs:attribute name="savecount" type="xs:int" use="optional" default="0"/>
+            <xs:attribute name="ratcount" type="xs:int" use="optional" default="0"/>
+            <xs:attribute name="ratavg" type="xs:float" use="optional" default="-1"/>
+            <xs:attribute name="wrtotal" type="xs:int" use="optional" default="0"/>
+            <xs:attribute name="wrshared" type="xs:int" use="optional" default="0"/>
+            <xs:attribute name="solvedtotal" type="xs:float" use="optional" default="0"/>
+            <xs:attribute name="solvede" type="xs:string" use="optional" default="0/0"/>
+            <xs:attribute name="solvedd" type="xs:string" use="optional" default="0/0"/>
+            <xs:attribute name="hcptotal" type="xs:float" use="optional" default="100"/>
+            <xs:attribute name="hcpsolved" type="xs:float" use="optional" default="100"/>
+            <xs:anyAttribute namespace="##targetNamespace" processContents="skip"/>
+          </xs:complexType>
+        </xs:element> <!-- user -->
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element> <!-- users -->
+</xs:schema>

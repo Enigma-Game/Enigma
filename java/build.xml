@@ -1,0 +1,110 @@
+<?xml version="1.0"?>
+<project name="EnigmaUtil" default="all" basedir=".">
+    <description> 
+    Enigma utilities ant main build file
+    </description>
+        
+    <property name="src"   value="src"/>
+    <property name="build" value="build"/>
+    <property name="lib"   value="lib"/>
+    <property name="doc"   value="doc"/>
+    <patternset id="resources">
+	<include name="org/enigma_game/resources/**/*"/>
+    </patternset>
+    
+
+    <target name="init">  
+        <tstamp/>
+        <mkdir dir="${build}"/>
+        <mkdir dir="${lib}"/>
+        <mkdir dir="${doc}"/>
+    </target>
+
+    <!-- all -->
+    <target name="all" depends="init, app, jar, doc" 
+            description="Build the whole project">
+    </target>
+    
+    <!-- classes -->
+    <target name="classes" depends="init"
+            description="Compile modified java sources only">
+        <javac srcdir="${src}" destdir="${build}" source="5"/>
+    </target>
+    
+    <!-- app -->
+    <target name="app" depends="init"
+            description="Compile complete application">
+        <delete>
+	    <fileset dir="${build}" includes="**/*.class"/>
+	</delete>
+        <javac srcdir="${src}" destdir="${build}" source="5" debug="on"/>
+        <copy todir="${build}">
+	    <fileset dir="${src}">
+		<patternset refid="resources"/>
+	    </fileset>
+	</copy>
+        <copy todir="${build}/org/enigma_game/resources/schemas">
+            <fileset dir="../data/schemas/">
+                <include name="score.xsd"/>
+                <include name="index.xsd"/>
+                <include name="ratings.xsd"/>
+                <include name="ratings.xml"/>
+            </fileset>
+        </copy>
+        <copy todir="${build}/org/enigma_game/resources/levelpacks">
+            <fileset dir="../data/levels/enigma_cross">
+                <include name="*.xml"/>
+            </fileset>
+        </copy>
+        <copy todir="${build}/org/enigma_game/resources/levelpacks">
+            <fileset dir="../data/levels">
+                <include name="*/index.xml"/>
+            </fileset>
+            <mapper type="glob" from="*${file.separator}index.xml" to="*.xml"/>
+        </copy>
+    </target>
+    
+    <!-- run -->
+    <target name="run" 
+            description="Run application on build directory">
+        <java classname="org.enigma_game.EnigmaUtil" fork="true" dir="${build}">
+	    <assertions>
+	      <enable/>
+	    </assertions>
+	</java>
+	
+
+    </target>
+
+    <!-- jar -->
+    <target name="jar" depends="init, app"
+            description="Complile app and generate jar">
+        <jar destfile="${lib}/EnigmaUtil.jar" basedir="${build}">
+	    <manifest>
+		<attribute name="Main-Class" value="org.enigma_game.EnigmaUtil"/>
+	    </manifest>
+        </jar>
+    </target>
+    
+    <!-- doc -->
+    <target name="doc" depends="init"
+            description="Generate javadoc">
+	<delete>
+	    <fileset dir="${doc}" includes="**/*"/>
+	</delete>
+	<javadoc destdir="${doc}" source="5" author="true" Private="true">
+	    <packageset dir="${src}"/>
+	</javadoc>
+    </target>
+
+    <!-- clean -->
+    <target name="clean" description="Clean up all">
+	<delete dir="${build}"/>
+	<delete dir="${lib}"/>    
+	<delete dir="${doc}"/>
+	<delete>
+	    <fileset dir="${src}" defaultexcludes="no" includes="**/*~"/>
+	</delete>
+    </target>
+    
+</project>
