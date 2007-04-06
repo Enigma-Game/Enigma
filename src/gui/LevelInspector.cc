@@ -154,6 +154,9 @@ namespace enigma { namespace gui {
          }
          void set_value(int value) { 
              theScoreMgr->setRating(theLevel, value);
+             if (get_parent() != NULL) {
+                get_parent()->invalidate_all();
+             }
          }
      
          string get_text(int value) const  {
@@ -211,6 +214,7 @@ LevelInspector::LevelInspector(lev::Proxy *aLevel):
         lev::RatingManager *theRatingMgr = lev::RatingManager::instance();
         lev::ScoreManager  *theScoreMgr = lev::ScoreManager::instance();
         withEasy = aLevel->hasEasymode();
+        ratingInherited = theScoreMgr->isRatingInherited(aLevel);
         ecl::Font *menufont = enigma::GetFont("menufont");
         levelPathString = 
                 (levelProxy->getNormPathType() == lev::Proxy::pt_resource) ?
@@ -491,6 +495,13 @@ LevelInspector::LevelInspector(lev::Proxy *aLevel):
             blit (gc, vminfo->width/2-4+63, vmargin+5*25+4*vspacing+vspacing2, img_hard);
         } else {
             blit (gc, vminfo->width/2-4+20, vmargin+5*25+4*vspacing+vspacing2, img_hard);
+        }
+        Surface *img_changed = enigma::GetImage("changed");
+        ratingInherited = lev::ScoreManager::instance()->isRatingInherited(levelProxy);
+        if (ratingInherited) {
+            int numLines = vminfo->height < 500 ? 14 :(vminfo->height < 650 ? 18 : 19);
+            blit (gc, hmargin+110+10+40, vmargin + numLines*25 +
+                    (numLines-3)*vspacing + 3*vspacing2, img_changed);        
         }
     }
     

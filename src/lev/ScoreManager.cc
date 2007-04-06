@@ -824,8 +824,9 @@ namespace enigma { namespace lev {
             finishUserId(std::time(NULL) & 0xFFFF);
         }
         if (rating == -1) {
-            DOMElement * level = getLevel(levelProxy);
+            DOMElement *level = getLevel(levelProxy);
             if (level == NULL)
+                // no level score entry for this level - -1 is default anyway
                return;
             else if (XMLString::parseInt(level->getAttribute(
                     Utf8ToXML("version").x_str())) == levelProxy->getScoreVersion()) {
@@ -836,15 +837,29 @@ namespace enigma { namespace lev {
                     level->setAttribute(Utf8ToXML("rating").x_str(),
                         Utf8ToXML(ecl::strf("%d",rating)).x_str());
                 }
+                DOMAttr *irAttr = level->getAttributeNode(Utf8ToXML("rating-inherited").x_str());
+                if ((irAttr != NULL) && irAttr->getSpecified()) {
+                    // delete any inherited rating that may shadow a default of -1
+                    level->removeAttribute(Utf8ToXML("rating-inherited").x_str());
+                    isModified = true;
+                }
                 return;
-            } else
-                // no level score entry for this score version exists - -1 is default
+            } else {
+                // no level score entry for this score version exists - the user
+                // did set the rating to undefined.
+                DOMElement *level = getCreateLevel(levelProxy);
+                isModified = true;
+                level->setAttribute(Utf8ToXML("rating").x_str(),
+                        Utf8ToXML(ecl::strf("%d",rating)).x_str());
+                level->removeAttribute(Utf8ToXML("rating-inherited").x_str());
                 return;
+            }
         } else if (rating != getRating(levelProxy)) {
-            DOMElement * level = getCreateLevel(levelProxy);
+            DOMElement *level = getCreateLevel(levelProxy);
             isModified = true;
             level->setAttribute(Utf8ToXML("rating").x_str(),
                     Utf8ToXML(ecl::strf("%d",rating)).x_str());
+            level->removeAttribute(Utf8ToXML("rating-inherited").x_str());
             return;
         }
     }
@@ -855,7 +870,39 @@ namespace enigma { namespace lev {
             return -1;
         else {
             const XMLCh *attr = level->getAttribute(Utf8ToXML("rating").x_str());
-            return (XMLString::stringLen(attr) > 0) ? XMLString::parseInt(attr) : -1; 
+            int rating = (XMLString::stringLen(attr) > 0) ? XMLString::parseInt(attr) : -1;
+            if (rating == -1) {
+                attr = level->getAttribute(Utf8ToXML("rating-inherited").x_str());
+                int ratingInherited = (XMLString::stringLen(attr) > 0) ? XMLString::parseInt(attr) : -1;
+                if (ratingInherited >= 0)
+                    rating = ratingInherited;
+            }
+            return rating;
+        }
+    }
+    
+    bool ScoreManager::isRatingInherited(lev::Proxy *levelProxy) {
+        DOMElement * level = getLevel(levelProxy);
+        if (level == NULL)
+            return false;
+        if (XMLString::parseInt(level->getAttribute(
+                Utf8ToXML("version").x_str())) == levelProxy->getScoreVersion()) {
+            const XMLCh *attr = level->getAttribute(Utf8ToXML("rating").x_str());
+            int rating = (XMLString::stringLen(attr) > 0) ? XMLString::parseInt(attr) : -1;
+            if (rating == -1) {
+                attr = level->getAttribute(Utf8ToXML("rating-inherited").x_str());
+                int ratingInherited = (XMLString::stringLen(attr) > 0) ? XMLString::parseInt(attr) : -1;
+                if (ratingInherited >= 0)
+                    return true;
+            }
+            return false;
+        } else {
+            const XMLCh *attr = level->getAttribute(Utf8ToXML("rating").x_str());
+            int rating = (XMLString::stringLen(attr) > 0) ? XMLString::parseInt(attr) : -1;
+            if (rating == -1)
+                return false;
+            else
+                return true;
         }
     }
     
@@ -910,7 +957,7 @@ namespace enigma { namespace lev {
                 attr = level->getAttribute(Utf8ToXML("rating").x_str());
                 int oldRating = (XMLString::stringLen(attr) > 0) ? XMLString::parseInt(attr) : -1;
                 if (oldRating != -1) {
-                    newLevel->setAttribute(Utf8ToXML("rating").x_str(),
+                    newLevel->setAttribute(Utf8ToXML("rating-inherited").x_str(),
                         Utf8ToXML(ecl::strf("%d",oldRating)).x_str());
                 }
                 curLevelScores[levelProxy->getId()] = newLevel;

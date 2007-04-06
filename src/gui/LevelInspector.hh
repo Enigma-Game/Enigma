@@ -58,6 +58,7 @@ namespace enigma { namespace gui {
         int vmargin;
         int hmargin;
         bool withEasy;
+        bool ratingInherited;
     };
 
 }} // namespace enigma::gui
