@@ -364,6 +364,7 @@ namespace
     class SwapStone : public Stone, public TimeHandler {
     public:
         SwapStone();
+        ~SwapStone();
     private:
         // Object interface
         SwapStone *clone();
@@ -394,6 +395,10 @@ SwapStone::SwapStone()
   in_exchange_with(0),
   move_dir(NODIR)
 {}
+
+SwapStone::~SwapStone() {
+    GameTimer.remove_alarm(this);
+}
 
 SwapStone *SwapStone::clone() {
     SwapStone *other        = new SwapStone(*this);
@@ -1256,9 +1261,7 @@ namespace
             // set_on(true);   DOESN'T WORK! calls init_model()
         }
         
-        virtual ~TimerStone() {
-            GameTimer.remove_alarm (this);
-        }
+        virtual ~TimerStone();
     private:
         int m_signalvalue;
 
@@ -1298,9 +1301,13 @@ namespace
             if (newon)
                 set_alarm();
             else
-                GameTimer.remove_alarm (this);
+                GameTimer.remove_alarm(this);
         }
     };
+
+    TimerStone::~TimerStone() {
+        GameTimer.remove_alarm(this);
+    }
 }
 
 

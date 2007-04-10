@@ -1840,6 +1840,7 @@ namespace
         DECL_TRAITS_ARRAY(2, is_open());
     public:
         Vortex(bool opened);
+        virtual ~Vortex();
 
     private:
         static const double RANGE;
@@ -1911,6 +1912,12 @@ Vortex::Vortex(bool opened)
     set_attrib ("autoclose", Value());
     set_attrib ("targetx", Value());
     set_attrib ("targety", Value());
+}
+
+Vortex::~Vortex() {
+    ASSERT(state != WARPING && state != SWALLOWING && state != EMITTING,
+        XLevelRuntime, "Tried to kill a busy vortex. Please use another way.");
+    GameTimer.remove_alarm(this);
 }
 
 void Vortex::prepare_for_warp (Actor *actor)
@@ -2642,6 +2649,7 @@ namespace
         void alarm();
     public:
         Blocker(bool shrinked_recently);
+        ~Blocker();
     };
     DEF_TRAITSF(Blocker, "it-blocker", it_blocker, itf_static);
 };
@@ -2652,6 +2660,10 @@ const char * const Blocker::stateName[] = { "IDLE", "SHRINKED", "BOLDERED", "COV
 Blocker::Blocker(bool shrinked_recently)
 : state(shrinked_recently ? SHRINKED : IDLE)
 {}
+
+Blocker::~Blocker() {
+    GameTimer.remove_alarm (this);
+}
 
 void Blocker::on_creation (GridPos p)
 {
@@ -3176,12 +3188,14 @@ namespace
     public:
         Cross() : m_active(false) {
         }
-
-        virtual ~Cross() {
-            GameTimer.remove_alarm (this);
-        }
+        virtual ~Cross();
     };
     DEF_TRAITSF(Cross, "it-cross", it_cross, itf_static);
+
+    Cross::~Cross() {
+            GameTimer.remove_alarm(this);
+    }
+
 }
 
 /* -------------------- Bag -------------------- */

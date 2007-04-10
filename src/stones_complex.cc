@@ -204,6 +204,7 @@ PullStone::PullStone()
 {}
 
 PullStone::~PullStone() {
+    GameTimer.remove_alarm(this);
     delete pull_info;
 }
 
