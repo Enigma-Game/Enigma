@@ -48,7 +48,6 @@ cells["("]=cell{floor="fl-gradient11"}
 cells[")"]=cell{floor="fl-gradient2"}
 stones["#"]=cell{stone="st-stoneimpulse"}
 cells["*"]=cell{floor="fl-gradient1"}
--- cells["+"]=cell{floor="fl-rock1"}
 cells["+"]=cell{floor="fl-rock"}
 items["!"]=cell{item="it-trigger"}
 stones["$"]=cell{stone="st-rock1_move"}
@@ -62,7 +61,6 @@ cells["/"]=cell{floor="fl-gradient3"}
 cells["0"]=cell{floor="fl-gradient7"}
 stones["'"]=cell{parent={{file_oxyd,"a"}}}
 stones["("]=cell{stone="st-mirror-p-t"}
--- cells["1"]=cell{floor="fl-rock2"}
 cells["1"]=cell{floor="fl-rock"}
 items["$"]=cell{item="it-wormhole"}
 -- items["$"]=cell{item="it-vortex"}
