@@ -1695,7 +1695,6 @@ namespace
 
     protected:
         virtual ~WormHole() {
-            ASSERT(!justWarping, XLevelRuntime, "Tried to kill a busy wormhole. Please use another way.");
             GameTimer.remove_alarm (this);
         }
     private:
@@ -1709,10 +1708,7 @@ namespace
             Item::on_creation (p);
             set_forcefield();
         }
-        void on_removal (GridPos p) {
-            world::RemoveForceField(&ff);
-            Item::on_removal(p);
-        }
+        void on_removal (GridPos p);
 
         void set_forcefield() {
             if (is_on()) {
@@ -1807,6 +1803,12 @@ void WormHole::init_model() {
         set_anim("it-wormhole-off");
 }
 
+void WormHole::on_removal(GridPos p) {
+    GameTimer.remove_alarm (this);
+    world::RemoveForceField(&ff);
+    Item::on_removal(p);
+    ASSERT(!justWarping, XLevelRuntime, "Tried to kill a busy wormhole. Please use another way.");
+}
 
 /* -------------------- Vortex -------------------- */
 
@@ -1876,6 +1878,8 @@ namespace
 
         bool is_open() const { return state == OPEN; }
 
+        void on_removal(GridPos p);
+
         // Variables
         enum State {
             OPEN,
@@ -1915,9 +1919,14 @@ Vortex::Vortex(bool opened)
 }
 
 Vortex::~Vortex() {
+    GameTimer.remove_alarm(this);
+}
+
+void Vortex::on_removal(GridPos p) {
+    GameTimer.remove_alarm(this);
+    Item::on_removal(p);
     ASSERT(state != WARPING && state != SWALLOWING && state != EMITTING,
         XLevelRuntime, "Tried to kill a busy vortex. Please use another way.");
-    GameTimer.remove_alarm(this);
 }
 
 void Vortex::prepare_for_warp (Actor *actor)

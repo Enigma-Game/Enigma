@@ -2879,10 +2879,21 @@ void MailStone::actor_hit (const StoneContact &sc)
     }
 }
 
+/** About recursion detection while finding the end of a mailpipe
+ *  
+ *  Since there are no possibilities for forking a mailpipe, there is only one 
+ *  cause that may lead to a closed, circular mailpipe. This is if a pipeitem is
+ *  placed exactly under the mailstone. But not every pipepiece is dangerous,
+ *  there are some that can be placed under the mailstone without problems.
+ * 
+ *  The mailpipe is only closed to a circular one if the pipepiece under the
+ *  mailstone has the same 'output'-direction as the stone.
+ */
 GridPos MailStone::find_pipe_endpoint() 
 {
     GridPos p = get_pos();
     Direction move_dir = m_dir;
+    GridPos q = p; // Store the stonepos for recursion detection.
 
     while (move_dir != NODIR) {
         p.move (move_dir);
@@ -2921,6 +2932,9 @@ GridPos MailStone::find_pipe_endpoint()
             }
         } else
             move_dir = NODIR;
+
+        if (p == q)
+            ASSERT(move_dir != m_dir, XLevelRuntime, "Mailpipe is circular! Recursion detected!");   
     }
     return p;
 }
