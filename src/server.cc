@@ -497,8 +497,10 @@ void server::Msg_Command (const string &cmd)
     else if (cmd == "info") {
         string infotext       = 
             ecl::strf("Level #%i of '", ind->getCurrentLevel()) + ind->getName()
-            + "' (" + curProxy->getAbsLevelPath() + ")  -  \"" + curProxy->getTitle() + "\" by " + curProxy->getAuthor()
-            + ecl::strf(" (rev=%i)", curProxy->getReleaseVersion());
+            + "' (" + curProxy->getAbsLevelPath() + ")  -  \"" + curProxy->getTitle() 
+            + "\" by " + curProxy->getAuthor()
+            + ecl::strf(" (rev=%i,", curProxy->getReleaseVersion())
+            + "id=\"" + curProxy->getId() + "\")";
             
         client::Msg_ShowText(infotext, true);
     }

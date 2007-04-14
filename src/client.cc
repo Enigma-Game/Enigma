@@ -1,5 +1,6 @@
 /*
  * Copyright (C) 2004 Daniel Heck
+ * Copyright (C) 2006, 2007 Ronald Lamprecht
  *
  * This program is free software; you can redistribute it and/or
  * modify it under the terms of the GNU General Public License
@@ -533,9 +534,6 @@ void Client::show_menu()
     server::Msg_Pause (false);
     game::ResetGameTimer();
 
-    if (app.state->getInt("NextLevelMode") == lev::NEXT_LEVEL_NOT_BEST) 
-        server::Msg_Command ("restart"); // inhibit cheating
-
 }
 
 void Client::draw_screen()
@@ -657,7 +655,7 @@ void Client::tick (double dtime)
                     }
 
                     client::Msg_PlaySound("shatter", 1.0);
-                    Msg_ShowText(message, false, 2.0);
+                    Msg_ShowText(message, true, 2.0);
                 }
                 else {
                     if (old_second<second && // tick every second
@@ -823,7 +821,7 @@ void Client::level_loaded(bool isRestart)
                     m_hunt_against_time%60);
 //+ _(" by ") +hunted;
 // makes the string too long in many levels
-            Msg_ShowText (displayed_info, false, 4.0);
+            Msg_ShowText (displayed_info, true, 4.0);
         }
         else {
             displayed_info = displayedLevelInfo(curProxy);

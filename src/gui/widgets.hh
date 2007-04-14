@@ -215,6 +215,7 @@ namespace enigma { namespace gui {
 
         void set_default_size (int w, int h);
         void set_alignment (HAlignment halign, VAlignment valign);
+        virtual bool fits() = 0;
 
     protected:
         List(int spacing=5);
@@ -254,6 +255,7 @@ namespace enigma { namespace gui {
     class HList : public List {
     public:
         HList() : List() {}
+        virtual bool fits();
 
     private:
         // List interface
@@ -263,6 +265,7 @@ namespace enigma { namespace gui {
     class VList : public List {
     public:
         VList() : List() {}
+        virtual bool fits();
 
     private:
         // List interface
@@ -298,6 +301,7 @@ namespace enigma { namespace gui {
         std::string getText() const;
         void set_font (ecl::Font *font);
         void set_alignment (HAlignment halign, VAlignment valign=VALIGN_CENTER);
+        bool text_fits(double area_fraction = 1.0);
     protected:
         // Variables.
         std::string m_text;

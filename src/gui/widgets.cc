@@ -405,7 +405,6 @@ void List::set_alignment (HAlignment halign, VAlignment valign)
 
 
 
-
 /* -------------------- HList -------------------- */
 
 void HList::recalc()
@@ -447,6 +446,12 @@ void HList::recalc()
         (*i)->resize (w, get_h());
         x += w + get_spacing();
     }
+}
+
+bool HList::fits() {
+    int targetw = this->get_w(); // The available space
+    int naturalw= calc_minimum_width();
+    return targetw >= naturalw;
 }
 
 
@@ -493,6 +498,12 @@ void VList::recalc()
     }
 }
 
+bool VList::fits() {
+    int targeth = this->get_h(); // The available space
+    int naturalh= calc_minimum_height();
+    return targeth >= naturalh;
+}
+
 
 /* -------------------- Label -------------------- */
 
@@ -528,6 +539,12 @@ void Label::set_font (ecl::Font *font) {
         reconfigure();
         invalidate();
     }
+}
+
+bool Label::text_fits(double area_fraction) {
+    int w, h;
+    naturalsize (w, h);
+    return w <= get_w()*area_fraction;
 }
 
 void Label::draw (ecl::GC &gc, const ecl::Rect &) 

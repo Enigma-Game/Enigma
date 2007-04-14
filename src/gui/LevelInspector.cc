@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2006 Ronald Lamprecht
+ * Copyright (C) 2006, 2007 Ronald Lamprecht
  *
  * This program is free software; you can redistribute it and/or
  * modify it under the terms of the GNU General Public License
@@ -173,8 +173,8 @@ namespace enigma { namespace gui {
          lev::Proxy *theLevel;        
      };
     
-LevelInspector::LevelInspector(lev::Proxy *aLevel):
-        levelProxy(aLevel), annotation (new TextField()),
+LevelInspector::LevelInspector(lev::Proxy *aLevel, bool showDeveloperInfo):
+        levelProxy(aLevel), isDeveloperMode(showDeveloperInfo), annotation (new TextField()),
         back (new StaticTextButton(N_("Ok"), this)),
         screenshot (new StaticTextButton(N_("Screenshot"), this))
     {
@@ -378,10 +378,11 @@ LevelInspector::LevelInspector(lev::Proxy *aLevel):
         int levelPathLines = 0;
         int annotationLines = 0; 
         int compatibilityLines = 0; 
+        int idLines = 0; 
         int vnext = vmargin+ (lowres?11:12)*25+(lowres?9:10)*vspacing+2*vspacing2;
         int textwidth = vminfo->width-3*hmargin-110-10;
         dispatchBottomLines(bestScoreHolderLines, creditsLines, dedicationLines,
-                levelPathLines, annotationLines, compatibilityLines,
+                levelPathLines, annotationLines, compatibilityLines, idLines,
                 (vminfo->height-vnext-vmargin-25-vspacing2)/27, textwidth);
         if (bestScoreHolderLines == 1) {
             add(new Label(N_("World Record Holders: "), HALIGN_RIGHT),Rect(hmargin,vnext,200,25));
@@ -396,7 +397,52 @@ LevelInspector::LevelInspector(lev::Proxy *aLevel):
                 holders += " -";
             else
                 holders += theRatingMgr->getBestScoreDifficultHolder(aLevel);
-            add(new Label(holders, HALIGN_LEFT), Rect(hmargin+200+10,vnext,textwidth-90,25));
+            Label *wrLabel = new Label(holders, HALIGN_LEFT);
+            add(wrLabel, Rect(hmargin+200+10,vnext,textwidth-90,25));
+            if (!wrLabel->text_fits()) {
+                int cutEasy = 0;
+                int cutDiff = 0;
+                std::string diffHolders = theRatingMgr->getBestScoreDifficultHolder(aLevel);
+                if (withEasy) {
+                    std::string easyHolders = theRatingMgr->getBestScoreEasyHolder(aLevel);
+                    bool hasEasyHolders = !easyHolders.empty();
+                    bool hasDiffHolders = !diffHolders.empty();
+                    int limit = 10;
+                    do {
+                        std::string cutHolders;
+                        wrLabel->set_text(easyHolders);
+                        if (!wrLabel->text_fits(0.48)) {
+                            cutHolders = theRatingMgr->getBestScoreEasyHolder(aLevel, ++cutEasy);
+                            if (cutHolders.empty())
+                                cutEasy--;
+                            else
+                                easyHolders = cutHolders;
+                        }
+                        wrLabel->set_text(diffHolders);
+                        if (!wrLabel->text_fits(0.48)) {
+                            cutHolders = theRatingMgr->getBestScoreDifficultHolder(aLevel, ++cutDiff);
+                            if (cutHolders.empty())
+                                cutDiff--;
+                            else
+                                diffHolders = cutHolders;
+                        }
+                        holders = (hasEasyHolders ? easyHolders : std::string("  - "))
+                            + " / " + (hasDiffHolders ? diffHolders : std::string(" -"));
+                        wrLabel->set_text(holders);
+                        limit--;
+                    } while (!wrLabel->text_fits() && limit > 0);
+                } else {
+                    std::string cutHolders;
+                    do {
+                        cutHolders = theRatingMgr->getBestScoreDifficultHolder(aLevel, ++cutDiff);
+                        wrLabel->set_text(cutHolders);
+                    } while (!wrLabel->text_fits());
+                    if (cutHolders.empty()) {
+                        // we did cut off to many holders, take last attempt even if it was too long
+                        wrLabel->set_text(theRatingMgr->getBestScoreDifficultHolder(aLevel, --cutDiff));
+                    }
+                }
+            }
             vnext += 25 + vspacing;
         }
         if (creditsLines >= 1) {
@@ -441,6 +487,11 @@ LevelInspector::LevelInspector(lev::Proxy *aLevel):
             }
             vnext += (25 + vspacing);
         }
+        if (idLines >= 1) {
+            add(new Label(N_("Id: "), HALIGN_RIGHT),Rect(hmargin,vnext,110,25));
+            add(new Label(levelProxy->getId(), HALIGN_LEFT),Rect(hmargin+110+10, vnext, textwidth, 25));
+            vnext += (25 + vspacing)*idLines;
+        }
         if (compatibilityLines >= 1) {
             add(new Label(N_("Compatibility: "), HALIGN_RIGHT),Rect(hmargin,vnext,110,25));
             std::string compString = ecl::strf("Enigma v%.2f  /  ", levelProxy->getEnigmaCompatibility()) +
@@ -448,9 +499,9 @@ LevelInspector::LevelInspector(lev::Proxy *aLevel):
             add(new Label(compString , HALIGN_LEFT),Rect(hmargin+110+10, vnext, textwidth, 25));
             vnext += (25 + vspacing)*compatibilityLines;
         }
+        annotation->set_text(app.state->getAnnotation(levelProxy->getId())); // field needs to initialized for saves
         if (annotationLines >= 1) {
             add(new Label(N_("Annotation: "), HALIGN_RIGHT),Rect(hmargin,vnext,110,25));
-            annotation->set_text(app.state->getAnnotation(levelProxy->getId()));
             add(annotation, Rect(hmargin+110+10, vnext, textwidth, 25));
             vnext += (25 + vspacing)*annotationLines;
         }
@@ -464,8 +515,42 @@ LevelInspector::LevelInspector(lev::Proxy *aLevel):
     LevelInspector::~LevelInspector () {
     }
     
+    bool LevelInspector::isEndDeveloperMode() {
+        return isDeveloperMode;
+    }
+    
     bool LevelInspector::on_event (const SDL_Event &e) {
-        return false;
+        bool handled = false;
+        if (e.type == SDL_KEYDOWN) {
+            handled=true;
+            switch (e.key.keysym.sym) {
+            case SDLK_F2:
+                if (!isDeveloperMode) {
+                    if (!annotation->getText().empty() || 
+                            !app.state->getAnnotation(levelProxy->getId()).empty()) {
+                        app.state->setAnnotation(levelProxy->getId(), annotation->getText());
+                    }
+                    LevelInspector m(levelProxy, true);
+                    m.manage();
+                    if (m.isEndDeveloperMode()) {
+                        // reinit user input fields
+                        annotation->set_text(app.state->getAnnotation(levelProxy->getId()));
+                        invalidate_all();
+                    } else {
+                        Menu::quit();
+                    }
+                } else {
+                    if (!annotation->getText().empty() || 
+                            !app.state->getAnnotation(levelProxy->getId()).empty()) {
+                        app.state->setAnnotation(levelProxy->getId(), annotation->getText());
+                    }
+                    Menu::quit();
+                }
+                break;
+            default: handled=false; break;
+            }
+        }
+        return handled;
     }
     
     void LevelInspector::on_action(gui::Widget *w) {
@@ -475,6 +560,7 @@ LevelInspector::LevelInspector(lev::Proxy *aLevel):
                     !app.state->getAnnotation(levelProxy->getId()).empty()) {
                 app.state->setAnnotation(levelProxy->getId(), annotation->getText());
             }
+            isDeveloperMode = false;
             Menu::quit();
         } else if (w == screenshot) {
             ScreenshotViewer m(levelProxy);
@@ -485,7 +571,8 @@ LevelInspector::LevelInspector(lev::Proxy *aLevel):
     
     void LevelInspector::draw_background(ecl::GC &gc) {
         const video::VMInfo *vminfo = video::GetInfo();
-        video::SetCaption (("Enigma - Level Inspector"));
+        video::SetCaption((std::string("Enigma - Level ") + 
+            (isDeveloperMode ? "Developer " : "") + "Inspector").c_str());
         blit(gc, 0,0, enigma::GetImage("menu_bg", ".jpg"));
         blit(gc, vminfo->width-vminfo->thumbw-10-hmargin, vmargin, previewImage);
         Surface *img_hard = enigma::GetImage("completed");
@@ -555,12 +642,16 @@ LevelInspector::LevelInspector(lev::Proxy *aLevel):
     
     void LevelInspector::dispatchBottomLines(int &bestScoreHolderLines, 
             int &creditsLines, int &dedicationLines, int &levelPathLines,
-            int &annotationLines, int &compatibilityLines, int numLines, int width) {
-        enum botType {holder, credits, dedication, path, annotation, compatibility};
+            int &annotationLines, int &compatibilityLines, int &idLines, int numLines, int width) {
+        enum botType {holder, credits, dedication, path, annotation, compatibility, id};
         const int sequenceSize = 13;
-        botType sequence[sequenceSize] = {credits, dedication, annotation, path,
+        botType sequence1[sequenceSize] = {credits, dedication, annotation, path,
                 holder, annotation, path, compatibility, credits, dedication, 
                 annotation, credits, annotation};
+        botType sequence2[sequenceSize] = {id, path, compatibility, holder, path, 
+                annotation, annotation, credits, dedication,
+                credits, dedication, annotation, annotation};
+        botType *sequence = isDeveloperMode ? sequence2 : sequence1;
         int j = 0;
         std::string creditsString = levelProxy->getCredits(true);
         std::string dedicationString = levelProxy->getDedication(true);
@@ -604,6 +695,10 @@ LevelInspector::LevelInspector(lev::Proxy *aLevel):
                         break;
                     case compatibility: 
                         compatibilityLines++;
+                        assigned = true;
+                        break;
+                    case id: 
+                        idLines++;
                         assigned = true;
                         break;
                 }
