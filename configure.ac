@@ -346,6 +346,7 @@ AC_CONFIG_FILES([Makefile m4/Makefile  intl/Makefile
            data/gfx32/Makefile
            data/gfx40/Makefile
            data/gfx48/Makefile
+           data/gfx64/Makefile
            data/levels/Makefile
            data/levels/enigma_tutorial/Makefile
            data/levels/enigma_i/Makefile

@@ -1,4 +1,4 @@
-SUBDIRS = gfx fonts schemas levels sound gfx32 gfx40 gfx48 
+SUBDIRS = gfx fonts schemas levels sound gfx32 gfx40 gfx48 gfx64
 
 pkgdata_DATA = \
 	enigma_conf.lua \
