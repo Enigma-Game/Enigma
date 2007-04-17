@@ -347,11 +347,17 @@ namespace enigma { namespace gui {
         PushButton();
 
         bool is_pressed() { return m_pressedp; }
+        
     protected:
         bool on_event(const SDL_Event &e);
         void deactivate();
+        SDLKey getLastUpSym();
+        Uint8 getLastUpButton();
+        virtual bool soundOk(); 
     private:
         bool m_pressedp;
+        SDLKey lastUpSym;
+        Uint8 lastUpBotton;
     };
 
 /* -------------------- TextButton -------------------- */
@@ -429,10 +435,10 @@ namespace enigma { namespace gui {
         virtual std::string get_text() const;
 
         // Widget interface.
-        virtual bool on_event(const SDL_Event &e);
         virtual void on_action(Widget *w);
     protected:
         void init(); // called in ctor of derived
+        virtual bool soundOk(); 
     private:
         int min_value;
         int max_value;

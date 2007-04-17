@@ -193,9 +193,10 @@ namespace enigma { namespace lev {
                     if (newProxy != NULL) {
                         // first check that the proxy is not in the index
                         //  - may occur if the level is stored as .xml and .lua in the folder
-                        
-                        // is it is new, add it
-                        autoIndex->appendProxy(newProxy);
+                        if (!autoIndex->containsProxy(newProxy)) {
+                            // it is new, add it
+                            autoIndex->appendProxy(newProxy);
+                        }
                     }
                 }
             }
