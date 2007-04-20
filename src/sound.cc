@@ -1,5 +1,6 @@
 /*
  * Copyright (C) 2002,2003,2004 Daniel Heck
+ * Copyright (C) 2007 Andreas Lochmann
  *
  * This program is free software; you can redistribute it and/or
  * modify it under the terms of the GNU General Public License
@@ -16,11 +17,15 @@
  * 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.
  *
  */
+#include "errors.hh"
 #include "enigma.hh"
 #include "options.hh"
 #include "sound.hh"
 #include "main.hh"
-#include "lua.hh"
+#include "oxyd.hh"
+#include "oxydlib/OxydVersion.h"
+#include "nls.hh"
+#include "client.hh"
 
 #include "SDL.h"
 #include "SDL_mixer.h"
@@ -30,18 +35,10 @@
 #include <cassert>
 #include <memory>
 
-#ifndef CXXLUA
-extern "C" {
-#include "lua.h"
-}
-#else
-#include "lua.h"
-#endif 
-
-
 using namespace std;
 using namespace enigma;
 using namespace sound;
+using namespace OxydLib;
 
 #include "sound_internal.hh"
 
@@ -52,8 +49,8 @@ Mix_Chunk *ChunkFromRaw (const Uint8 *buf, Uint32 len,
                          int freq, int format, int channels);
 
 
-/* -------------------- SoundEffect implementation -------------------- */
-SoundEffect::SoundEffect ()
+/* -------------------- SoundEvent implementation -------------------- */
+SoundEvent::SoundEvent ()
 : name(""), has_position(false), position(),
   priority (0), volume (0.0),
   left (0), right(0), active (false),
@@ -61,12 +58,12 @@ SoundEffect::SoundEffect ()
 {
 }
 
-bool not_active (const SoundEffect &s)
+bool not_active (const SoundEvent &s)
 {
     return !s.active;
 }
 
-bool lower_priority (const SoundEffect &s, const SoundEffect &t)
+bool lower_priority (const SoundEvent &s, const SoundEvent &t)
 {
     return s.priority < t.priority;
 }
@@ -153,7 +150,6 @@ void SoundEngine_SDL::shutdown()
 void SoundEngine_SDL::clear_cache() 
 {
     for (ecl::Dict<Mix_Chunk*>::iterator it = wav_cache.begin(); it != wav_cache.end(); ++it)
-
         Mix_FreeChunk(it->second);
     wav_cache.clear();
 }
@@ -218,7 +214,7 @@ void SoundEngine_SDL::update_channel (int channel)
     // How far can sound travel?
     const double range = 30;    
 
-    SoundEffect &se = m_channelinfo[channel];
+    SoundEvent &se = m_channelinfo[channel];
 
     double volume;
     int    left;
@@ -249,7 +245,7 @@ void SoundEngine_SDL::update_channel (int channel)
 int SoundEngine_SDL::already_playing (const SoundName &name)
 {
     for (size_t i=0; i<m_channelinfo.size(); ++i) {
-        const SoundEffect &se = m_channelinfo[i];
+        const SoundEvent &se = m_channelinfo[i];
 
         if (se.active && se.name == name && se.playing_time < 0.05)
             return static_cast<int> (i);
@@ -269,48 +265,51 @@ Mix_Chunk *SoundEngine_SDL::cache_sound(const std::string &name)
         if (ch != 0)
             wav_cache.insert(name, ch);
         else
-	    enigma::Log << "Couldn't load sample '" << name << "': " << Mix_GetError() << endl;
+            enigma::Log << "Couldn't load sample '" << name << "': "
+                        << Mix_GetError() << endl;
         return ch;
     } else
         return i->second;
 }
 
-void SoundEngine_SDL::play_sound (const SoundEffect &s)
+bool SoundEngine_SDL::play_sound (const SoundEvent &s)
 {
     int channel = already_playing (s.name);
     if (channel != -1) {
         MutexLock (m_instance->m_mutex);
-        SoundEffect &se = m_channelinfo [channel];
+        SoundEvent &se = m_channelinfo [channel];
         if (se.has_position) {
             se.position = (se.position + s.position) / 2;
             update_channel (channel);
-            return;
+            return true;
         }
     }
     
     if (Mix_Chunk *chunk = cache_sound(s.name)) {
-	channel = -1; //Mix_GroupOldest(-1);
+        channel = -1; //Mix_GroupOldest(-1);
 
         channel = Mix_PlayChannel(channel, chunk, 0);
 
         if (channel != -1) {
             {
                 MutexLock (m_instance->m_mutex);
-                SoundEffect &se = m_channelinfo[channel];
+                SoundEvent &se = m_channelinfo[channel];
                 se = s;
                 se.active       = true;
                 se.playing_time = 0.0;
             }
             update_channel (channel);
         }
-    }
+        return true; // even if no free channel was found
+    } else
+        return false;
 }
 
 void SoundEngine_SDL::tick (double dtime)
 {
     MutexLock (m_instance->m_mutex);
     for (size_t i=0; i<m_channelinfo.size(); ++i) {
-        SoundEffect &se = m_channelinfo[i];
+        SoundEvent &se = m_channelinfo[i];
         if (se.active)
             se.playing_time += dtime;
     }
@@ -337,7 +336,7 @@ void SoundEngine_SDL::define_sound (
 void SoundEngine_SDL::channel_finished (int channel)
 {
     MutexLock (m_instance->m_mutex);
-    SoundEffect &se = m_instance->m_channelinfo[channel];
+    SoundEvent &se = m_instance->m_channelinfo[channel];
     se.active = false;
 }
 
@@ -378,7 +377,7 @@ void sound::Init()
 void sound::Shutdown() 
 {
     if (sound_engine.get())
-	sound_engine->shutdown();
+        sound_engine->shutdown();
 }
 
 void sound::Tick (double dtime)
@@ -418,12 +417,12 @@ void sound::SetListenerPosition (const ecl::V2 &pos)
     sound_engine->set_listenerpos (pos);
 }
 
-void sound::PlaySound (const SoundName &name, const ecl::V2 &pos, double volume, int priority) 
+bool sound::PlaySound (const SoundName &name, const ecl::V2 &pos, double volume, int priority) 
 {
     if (!sound_enabled)
-        return;
+        return false;
 
-    SoundEffect se;
+    SoundEvent se;
     se.name         = name;
     se.has_position = true;
     se.position     = pos;
@@ -431,12 +430,12 @@ void sound::PlaySound (const SoundName &name, const ecl::V2 &pos, double volume,
     se.volume       = volume * options::GetDouble("SoundVolume");
     se.left = se.right = 0;
 
-    sound_engine->play_sound (se);
+    return sound_engine->play_sound (se);
 }
 
-void sound::PlaySoundGlobal (const SoundName &name, double volume, int priority) 
+bool sound::PlaySoundGlobal (const SoundName &name, double volume, int priority) 
 {
-    SoundEffect se;
+    SoundEvent se;
     se.name         = name;
     se.has_position = false;
     se.position     = ecl::V2();
@@ -445,7 +444,7 @@ void sound::PlaySoundGlobal (const SoundName &name, double volume, int priority)
     se.left         = 255;
     se.right        = 255;
 
-    sound_engine->play_sound (se);
+    return sound_engine->play_sound (se);
 }
 
 void sound::FadeoutMusic() 
@@ -686,18 +685,352 @@ Mix_Chunk * ChunkFromRaw (const Uint8 *buf, Uint32 len,
     return chunk;
 }
 
-bool sound::SoundEvent (const std::string &eventname, const ecl::V2 &pos, double volume)
+
+/* ------------- Conversion and helper functions ------------- */
+
+/*! This function defines how to put soundset_key and eventname together to
+  create an eventkey. */
+
+string SoundEngine::effectKey(string effect_name, string soundset_name)
 {
-    lua_State *L = lua::GlobalState();
-
-    lua_getglobal (L, "SoundEvent");
-    lua_pushstring (L, eventname.c_str());
-    lua_pushnumber (L, pos[0]);
-    lua_pushnumber (L, pos[1]);
-    lua_pushnumber (L, volume);
-    lua_call (L, 4, 1);
-
-    int success = static_cast<int> (lua_tonumber (L, 1));
-    lua_pop (L, 1);
-    return success != 0;
+    if (soundset_name == "")
+        return getActiveSoundSetKey() + "#" + effect_name;
+    else
+        return soundset_name + "#" + effect_name;
 }
+
+/*! This function searches the known sound sets for a sound set with given
+  oxyd version, and returns the sound set name (or empty string if none). */
+
+string SoundEngine::getOxydSoundSet(OxydVersion oxyd_ver)
+{
+    for (SoundSetRepository::iterator i = sound_sets.begin();
+             i != sound_sets.end(); ++i)
+        if((*i).second.getOxydVersion() == oxyd_ver)
+            return (*i).first;
+    return "";
+}
+
+string sound::GetOxydSoundSet(OxydVersion oxyd_ver)
+{
+    return sound_engine->getOxydSoundSet(oxyd_ver);
+}
+
+/*! Enigma 1.00 only knew the option "SoundSet", which was an integer. This
+  was quite unhandy if one wanted to add additional sound sets. Since 1.01
+  Enigma features the option "SoundSetName". Still, old "SoundSet" is needed
+  if user wants to switch to <= 1.00 again; so here are the conversion
+  functions. Any user sound set is mapped to 0 ("Default").  */
+
+int SoundEngine::convertToOldSoundSetNumber(string soundset_name)
+{
+    if(soundset_name == "Default")  return 0;
+    if(soundset_name == "Enigma")   return 1;
+    SoundSet sd = sound_sets[soundset_name];
+    if(sd.isOxyd())
+        return ((int) sd.getOxydVersion()) + 2;
+    return 0;
+}
+
+string SoundEngine::convertFromOldSoundSetNumber(int soundset_number)
+{
+    if(soundset_number == 0)  return "Default";
+    if(soundset_number == 1)  return "Enigma";
+    return getOxydSoundSet((OxydVersion) (soundset_number - 2));
+}
+
+/* -------------------- Sound set handling -------------------- */
+
+/*! These functions fill in data for the sound sets, initialises and
+  activates them. Return false, if something went wrong, e.g. when an
+  oxyd sound set is mentioned to not accessible oxyd version. */
+
+bool SoundEngine::defineSoundSet(string soundset_name, string soundset_key,
+                                 int button_position)
+{
+    sound_sets[soundset_name] = SoundSet(soundset_key, button_position);
+    Log << "Added sound set '" << soundset_name << "' (key '" << soundset_key
+        << "') on position " << button_position << ".\n";
+    return true;
+}
+
+bool SoundEngine::defineSoundSetOxyd(string soundset_name, string soundset_key,
+                                     OxydVersion oxyd_ver, int button_position)
+{
+    if(oxyd::FoundOxyd(oxyd_ver)) {
+        sound_sets[soundset_name] =
+            SoundSet(soundset_key, button_position, (OxydVersion) oxyd_ver);
+        Log << "Added sound set '" << soundset_name << "' (key '" << soundset_key
+            << "') on position " << button_position << ".\n";
+        return true;
+    } else {
+        Log << "Skipped sound set '" << soundset_name << "'.\n";
+        return false;
+    }
+}
+
+bool SoundSet::activate()
+{
+    if(getSoundSetKey() == "")
+        return false;
+    if(isOxyd() &&  !oxyd::InitOxydSoundSet(getOxydVersion()))
+        return false;
+    sound_engine->setActiveSoundSetKey(getSoundSetKey());
+    return true;
+}
+
+void sound::InitSoundSets() {
+    sound_engine->initSoundSets();
+}
+
+void SoundEngine::initSoundSets()
+{
+    // Define sound sets
+    sound_sets.clear();
+    assert(sound_sets.empty());
+    assert(defineSoundSet ("Enigma",   "Enigma",  1));
+    int pos = 2; // position in options menu button
+    if (defineSoundSetOxyd ("Oxyd",     "Oxyd*",   OxydVersion_Oxyd1,          pos))  pos++;
+    if (defineSoundSetOxyd ("Magnum",   "Magnum*", OxydVersion_OxydMagnum,     pos))  pos++;
+    if (defineSoundSetOxyd ("Mag.Gold", "Magnum*", OxydVersion_OxydMagnumGold, pos))  pos++;
+    if (defineSoundSetOxyd ("Per.Oxyd", "Oxyd*",   OxydVersion_PerOxyd,        pos))  pos++;
+    if (defineSoundSetOxyd ("Extra",    "Oxyd*",   OxydVersion_OxydExtra,      pos))  pos++;
+    // Define user sound sets, as given by sound_effects
+    for (SoundEffectRepository::iterator i = sound_effects.begin();
+         i != sound_effects.end(); ++i) {
+        string soundset_key = (*i).second.getSoundSetKey();
+        bool found = false;
+        // ignore Oxyd* and Magnum* sound effects, if no 
+        if ((soundset_key != "Oxyd*") && (soundset_key != "Magnum*")) {
+            for (SoundSetRepository::iterator j = sound_sets.begin();
+                 j != sound_sets.end(); ++j)
+                if((*j).second.getSoundSetKey() == soundset_key)
+                    found = true;
+            if(!found)
+                if (defineSoundSet (soundset_key, soundset_key, pos))  pos++;
+        }
+    }
+    Log << "Found " << pos - 1 << " different sound sets.\n";
+    setSoundSetCount(pos - 1);
+    setDefaultSoundSet("Enigma");
+    // Extract sound set names and keys from options; activate!
+    string soundset_name = options::GetString("SoundSetName");
+    if (soundset_name == "") { // just switched from 1.00 to higher
+        soundset_name = convertFromOldSoundSetNumber(options::GetInt("SoundSet"));
+        options::SetOption("SoundSetName", soundset_name);
+    }
+    if (soundset_name == "Default")
+        soundset_name = getDefaultSoundSet();
+    clear_cache();
+    if (sound_sets[soundset_name].activate()) 
+        Log << "Activated sound set '" << soundset_name << "'.\n";
+    else {
+        // Fallback, happens e.g. when oxyd sound set can't be established or 
+        // a user soundset is given which doesn't exist anymore.
+        Log << "Warning: Soundset '" << soundset_name << "' not available.\n";
+        if (sound_sets["Enigma"].activate()) {
+            options::SetOption("SoundSetName", "Enigma");
+            options::SetOption("SoundSet", convertToOldSoundSetNumber("Enigma"));
+        } else
+            ASSERT(false, XFrontend,
+                "Soundsets defect and fallback 'Enigma' not available.");
+    }
+}
+
+void SoundEngine::setActiveSoundSet(string soundset_name)
+{
+    string soundset_key = sound_sets[soundset_name].getSoundSetKey();
+    if (soundset_key == getActiveSoundSetKey())
+        return;
+    if (soundset_key == "Default") {
+        Log << "Warning: Tried to choose 'Default' as effective sound set.\n";
+        return;
+    }
+    if (soundset_key == "") {
+        Log << "Warning: Tried to choose empty sound set key as effective sound set.\n";
+        return;
+    }
+    clear_cache();
+    if (sound_sets[soundset_name].activate()) {
+        Log << "Switched to sound set '" << soundset_name << "' (key '" 
+            << soundset_key << "').\n";
+    } else
+        Log << "Warning: Problems loading sound set '" << soundset_name << "' (key'"
+            << soundset_key << "').\n";
+}
+
+void sound::SetActiveSoundSet(string soundset_name)
+{
+    sound_engine->setActiveSoundSet(soundset_name);
+}
+
+void sound::SetDefaultSoundSet(string soundset_name)
+{
+    sound_engine->setDefaultSoundSet(soundset_name);
+    if(options::GetString("SoundSetName") == "Default")
+        SetActiveSoundSet(soundset_name);
+}
+
+string SoundEngine::getSoundSetByPosition(int button_position)
+{
+    for (SoundSetRepository::iterator i = sound_sets.begin();
+             i != sound_sets.end(); ++i)
+        if((*i).second.getButtonPosition() == button_position)
+            return (*i).first;
+    return "";
+}
+
+/* -------------------- Playing sound events -------------------- */
+
+/*! The first function creates an interface to add sound events to Enigma.
+  It is accessed via sound-defaults.lua and user sound definitions.
+  The second method is the interface between the formal SoundEffect
+  and the sound engine (via PlaySound[Global]). The last two functions
+  define the interface between level objects and SoundEffect. */
+
+void sound::DefineSoundEffect(string soundset_key, string name, string filename,
+                              double volume, bool loop, bool global, int priority,
+                              double damp_max, double damp_inc, double damp_mult,
+                              double damp_min, double damp_tick, string silence_string) {
+    assert(sound_engine.get());
+    if(soundset_key == "") {
+        Log << "Warning: Tried to define sound event '" << name
+            << "' without sound set key. Skipped.\n";
+        return;
+    }
+    sound_engine->defineSoundEffect(soundset_key, name,
+        SoundEffect(name, soundset_key, filename, volume, loop, global, priority,
+        damp_max, damp_inc, damp_mult, damp_min, damp_tick, silence_string));
+}
+
+bool SoundEffect::play(const ecl::V2 &pos, double vol, bool glob)
+{
+    if (filename == "") {
+        Log << "No soundfile given for sound event " << name << ".\n";
+        return false;
+    }
+    if (glob || global)
+        return PlaySoundGlobal (filename, volume * vol, priority);
+    else
+        return PlaySound (filename, pos, volume * vol, priority);
+}
+
+bool SoundEngine::emitSoundEvent (const std::string &eventname, const ecl::V2 &pos,
+                            double volume, bool force_global)
+{
+    string effectkey = effectKey(eventname);
+    SoundEffectRepository::iterator i = sound_effects.find(effectkey);
+    if (i == sound_effects.end()) {
+        Log << "Undefined sound event " << effectkey << " @ " 
+            << pos[0] << "," << pos[1] << "\n";
+        return false;
+    } else {
+        return (*i).second.play(pos, volume, force_global);
+    }
+}
+
+bool sound::EmitSoundEvent (const std::string &eventname, const ecl::V2 &pos,
+                            double volume, bool force_global)
+{
+    return sound_engine->emitSoundEvent(eventname, pos, volume, force_global);
+}
+
+bool sound::EmitSoundEventGlobal (const std::string &eventname, double volume)
+{
+    return sound_engine->emitSoundEvent(eventname, ecl::V2(), volume, true);
+}
+
+void SoundEngine::writeSilenceString (const std::string &eventname)
+{
+    string effectkey = effectKey(eventname);
+    SoundEffectRepository::iterator i = sound_effects.find(effectkey);
+    if (i != sound_effects.end()) {
+        string silence_string = (*i).second.getSilenceString();
+        if (silence_string != "")
+            client::Msg_ShowText (silence_string, true);
+    }
+}
+
+void sound::WriteSilenceString (const std::string &eventname)
+{
+    sound_engine->writeSilenceString(eventname);
+}
+
+/* -------------------- Sound damping implementation -------------------- */
+
+/*! These methods are connected to the sound damping mechanism, designed
+  to reduce the noise created by some objects like st-lightpassenger. */
+
+SoundDamping::SoundDamping(std::string effect_name_, const void *origin_)
+: effect_name(effect_name_), origin(origin_)
+{
+    damp = sound_engine->getDampingData(effect_name_);
+    factor = damp.incr;
+    //Log << "New damping entry " << effect_name << " with " << damp.incr << ".\n";
+}
+
+float SoundDamping::get_volume(float def_volume) {
+    if (factor < damp.maxi)
+        factor += damp.incr;
+    //Log << "  Found entry " << effect_name << ". Factor is now " << i->factor << ".\n";
+    float q = factor * damp.mult;
+    if (q > 1.0)
+        return def_volume / q;
+    return def_volume;
+}
+
+bool SoundDamping::tick() {
+    // return true, if this entity is to be destroyed.
+    factor *= damp.tick;
+    return (factor <= damp.mini);
+}
+
+/* -------------------- Sound option helpers -------------------- */
+
+/*! These functions are used in OptionsMenu.cc for the Soundset-Button. */
+
+int sound::GetOptionSoundSetCount()
+{        
+    return sound_engine->getSoundSetCount() + 1;
+}
+
+int sound::GetOptionSoundSet()
+{
+    string soundSet = options::GetString("SoundSetName");
+    if (soundSet == "Default")
+        return 0;
+    int pos = sound_engine->getButtonPosition(soundSet);
+    assert(pos > 0);
+    return pos;
+}
+
+void sound::SetOptionSoundSet(int value)
+{
+    if(value == 0) {
+        // settting to default sound set
+        if (options::GetString("SoundSetName") == "Default")
+            return;
+        options::SetOption("SoundSetName", "Default");
+        options::SetOption("SoundSet", sound_engine->convertToOldSoundSetNumber("Default"));
+        SetActiveSoundSet(sound_engine->getDefaultSoundSet());
+    } else {
+        string newSet = sound_engine->getSoundSetByPosition(value);
+        assert(newSet != "");
+        if (options::GetString("SoundSetName") == newSet)
+            return;
+        options::SetOption("SoundSetName", newSet);
+        options::SetOption("SoundSet", sound_engine->convertToOldSoundSetNumber(newSet));
+        SetActiveSoundSet(newSet);
+    }
+}
+
+string sound::GetOptionSoundSetText(int value)
+{
+    if(value == 0)
+        return N_("Default");
+    string soundset_name = sound_engine->getSoundSetByPosition(value);
+    if(soundset_name == "")
+        return "INVALID";
+    return soundset_name;
+}
+

@@ -111,3 +111,18 @@ module video
     void HideMouse();
     void ShowMouse();
 }
+
+/* -------------------- sound.cc -------------------- */
+
+$#include "sound.hh"
+$using namespace sound;
+
+module sound
+{
+    // Note that EmitSound is defined in lua.cc, due to its object reference.
+    void DefineSoundEffect(string table, string name, string filename,
+                           double volume, bool loop, bool global, int priority,
+                           double damp_max, double damp_inc, double damp_mult,
+                           double damp_min, double damp_tick, string silence_string);
+    void SetActiveSoundSet(string table);
+}

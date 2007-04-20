@@ -558,7 +558,7 @@ void player::PickupItem (Actor *a, GridPos p)
             item->on_pickup(a);
             inv->add_item(item);
             RedrawInventory (inv);
-            sound::SoundEvent ("pickup", p.center());
+            sound::EmitSoundEvent ("pickup", p.center());
         }
     }
 }
@@ -578,7 +578,7 @@ void player::PickupStoneAsItem (Actor *a, enigma::GridPos p)
                 world::DisposeObject (stone);
                 inv->add_item(item);
                 player::RedrawInventory(inv);
-                sound::SoundEvent ("pickup", p.center());
+                sound::EmitSoundEvent ("pickup", p.center());
             }
         }
     }
@@ -621,7 +621,7 @@ void player::ActivateFirstItem()
 
 void player::RotateInventory(int dir) 
 {
-    sound::SoundEvent ("invrotate", ecl::V2());
+    sound::EmitSoundEvent ("invrotate", ecl::V2());
     Inventory &inv = players[icurrent_player].inventory;
     if (dir == 1)
         inv.rotate_left ();

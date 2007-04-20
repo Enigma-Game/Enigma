@@ -2161,7 +2161,7 @@ namespace
             // Switch to other marble
             player::SwapPlayers();
             // play_sound("switch");   // don't! wrong coordinates!
-            sound::SoundEvent ("switchplayer", p.center());
+            sound::EmitSoundEvent ("switchplayer", p.center());
             return ITEM_KEEP;
         }
     };
@@ -2178,7 +2178,7 @@ namespace
 
         ItemAction activate(Actor *, GridPos p) {
             if (Item *it=GetItem(p)) {
-                sound::SoundEvent ("spade", p.center());
+                sound::EmitSoundEvent ("spade", p.center());
                 SendMessage(it, "shovel");
                 return ITEM_KEEP;
             }

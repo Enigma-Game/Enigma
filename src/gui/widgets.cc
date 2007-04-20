@@ -602,7 +602,7 @@ Button::Button() : m_activep (false), highlight (false) {
 
 void Button::activate() 
 {
-    sound::SoundEvent ("menuswitch");
+    sound::EmitSoundEvent ("menuswitch");
     m_activep = true;
     invalidate();
 }
@@ -729,7 +729,7 @@ bool PushButton::on_event(const SDL_Event &e) {
         invalidate();
         if (!m_pressedp) {
             if (soundOk())
-                sound::SoundEvent("menuok");
+                sound::EmitSoundEvent("menuok");
             invoke_listener();
         }
     }
@@ -894,12 +894,12 @@ void ValueButton::on_action(Widget *) {
         stop = true;
     }
     if (inc_value(incr)) {
-        sound::SoundEvent("menuswitch");
+        sound::EmitSoundEvent("menuswitch");
     } else {
         if (stop) {
-            sound::SoundEvent("menustop");
+            sound::EmitSoundEvent("menustop");
         } else {
-            sound::SoundEvent("menuswitch");
+            sound::EmitSoundEvent("menuswitch");
             if (incr == 1)
                 update_value(get_value(), min_value);
             else
@@ -908,9 +908,10 @@ void ValueButton::on_action(Widget *) {
     }
 }
 
-bool ValueButton::soundOk() {
+bool ValueButton::soundOk() {
     return false;
 }
+
 
 /* -------------------- ImageButton -------------------- */
 

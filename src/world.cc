@@ -829,7 +829,7 @@ void World::handle_stone_contact (StoneContact &sc)
                         double volume = std::max (0.25, length(ai.vel)/8);
                         volume = std::min (1.0, volume);
                         volume = getVolume(sc.sound.c_str(), a, volume);
-                        sound::SoundEvent (sc.sound.c_str(), sc.contact_point, volume);
+                        sound::EmitSoundEvent (sc.sound.c_str(), sc.contact_point, volume);
                     }
                 }
             }
@@ -923,8 +923,10 @@ void World::handle_actor_contact (size_t i, size_t j)
             if (!has_nearby_contact (a1.contacts, contact)) {
                 double volume = length (force) * ActorTimeStep;
                 volume = std::min(1.0, volume);
-                if (volume > 0.4)
-                    sound::SoundEvent ("ballcollision", contact.pos, volume);
+                if (volume > 0.4) {
+                    volume = getVolume("ballcollision", NULL, volume);
+                    sound::EmitSoundEvent ("ballcollision", contact.pos, volume);
+                }
             }
         }
     }
@@ -1076,24 +1078,7 @@ void World::revoke_delayed_impulses(const Stone *target) {
 
 void World::tick_sound_dampings ()
 {
-    /* tick_sound_dampings is only to be evaluated every 10th tick (0.1s).
-       Each damping factor is reduced by 0.9. This is less than the 10th
-       root of 0.5 (0.933), so after 1s the damping factor is reduced by more
-       than one half. If the factor shrinks under 0.5, it is considered 0.
-
-       Examples:
-         1) Frequency less than one sound event per 0.6 seconds.
-            Then there is no damping at all.
-         2) N events per second. For each event, factor (F) is raised by
-            one. And each 0.1 seconds it is multiplied with 0.9. We now
-            have N/10 events per 0.1 seconds, hence in equilibrium f
-            oscillates between
-                 f = (f + N/10) * 0.9   =>   f = N
-            and  f + N/10 = N * 1.1 (geometric series!).
-       In particular, for large enough N, f is approximately proportional
-       to N with half-life of less than a second. This is then evaluated
-       in getVolume. */
-    
+    // See sound.hh and sound.cc for details.
     static int counter = 0;
     ++counter;
 
@@ -1103,12 +1088,10 @@ void World::tick_sound_dampings ()
             end = level->sound_dampings.end();
         int count = 0;
         while (i != end) {
-            i->factor *= 0.933;
-            if (i->factor <= 0.5) {
+            if(i->tick()) // return true if damping entry should be deleted
                 i = level->sound_dampings.erase(i);
-            } else {
+            else
                 ++i;
-            }
         }
     }
 }
@@ -1840,33 +1823,16 @@ void world::revokeDelayedImpulses(const Stone *target) {
 
 float world::getVolume(const char *name, Object *obj, float def_volume)
 {
-    /* Return volume, if object OBJ wants to play sound event NAME with
-       default volume DEF_VOLUME. Often played sounds from always the
-       same object are damped to reduce noise-level. Note that OBJ == NULL
-       is explicitly allowed and used e.g. for all laser-sounds. 
-       The damping factor is increased by 1.0 for each event, and
-       multiplied with 0.9 each 0.1 seconds, thereby approximately equals
-       the average number of events per second (see tick_sound_dampings). */
-
+    // See sound.hh and sound.cc for details.
     SoundDampingList::iterator i = level->sound_dampings.begin(),
         end = level->sound_dampings.end();
-    //int count = 0; // only used for log-purposes
     while (i != end) {
-        //++count;
-        if ((i->origin == obj) && (i->event_name == name)) {
-            if (i->factor < 20.0)
-                ++(i->factor);
-	    //Log << "  Found entry " << count << ". Factor is now " << i->factor << ".\n";
-            float vol = def_volume;
-            if (i->factor > 1.0)
-                vol /= i->factor;
-            return vol;
-        }
+        if (i->is_equal(name, obj))
+            return i->get_volume(def_volume);
         ++i;
     }
-    // No entry found for this object. Create a new one with debt 1.
-    //Log << "Creating new entry.\n";
-    level->sound_dampings.push_back(SoundDamping(name, obj, 1));
+    // No entry found for this object. Create a new one.
+    level->sound_dampings.push_back(sound::SoundDamping(name, obj));
     return def_volume;
 }
 

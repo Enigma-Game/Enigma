@@ -369,8 +369,8 @@ void LaserBeam::all_emitted()
     }
 
     if (count) {
-        sound::SoundEvent ("laseron", ecl::V2(x/count+.5, y/count+.5),
-                           getVolume("laseron", NULL));
+        sound::EmitSoundEvent ("laseron", ecl::V2(x/count+.5, y/count+.5),
+                               getVolume("laseron", NULL));
     }
 
     old_laser_positions.clear();

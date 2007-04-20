@@ -237,13 +237,13 @@ bool TextField::on_event(const SDL_Event &e) {
                         }
                         else {
                             // chars like ctrl-a - ctrl-z
-                            sound::SoundEvent ("menustop");
+                            sound::EmitSoundEvent ("menustop");
                             break;
                         }
                         if ((maxChars >= 0 && (charSizesPreCursor.size() + charSizesPostCursor.size()) >= maxChars) ||
                                 realChar < 0x100 && invalidChars.find((char)realChar) != std::string::npos) {
                             // string too long or invalid char
-                            sound::SoundEvent ("menustop");
+                            sound::EmitSoundEvent ("menustop");
                             break;
                         }
                         unsigned char utf8Char[4];
@@ -264,7 +264,7 @@ bool TextField::on_event(const SDL_Event &e) {
                     if (e.key.keysym.sym < 300 || e.key.keysym.sym > 314 ){
                         // chars like PageUp, F1 but not key state modifier
                         // like shift, alt,...
-                        sound::SoundEvent ("menustop");
+                        sound::EmitSoundEvent ("menustop");
                     }
                     break;
             }

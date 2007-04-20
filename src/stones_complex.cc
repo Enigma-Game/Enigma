@@ -1853,7 +1853,7 @@ void ShogunStone::on_impulse(const Impulse& impulse) {
         NameObject(target, old_name);
 
     server::IncMoveCounter();
-    sound::SoundEvent ("movesmall", my_pos.center());
+    sound::EmitSoundEvent ("movesmall", my_pos.center());
 }
 
 

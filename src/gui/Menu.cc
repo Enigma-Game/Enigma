@@ -75,7 +75,7 @@ namespace enigma { namespace gui {
             tick (0.01);
             refresh();
         }
-        sound::SoundEvent ("menuexit");
+        sound::EmitSoundEvent ("menuexit");
         // protection against ESC D.o.S. attacks
         Uint32 menuTickDuration = SDL_GetTicks() - enterTickTime;
         Uint32 minMenuTickDuration = 300;
@@ -106,7 +106,7 @@ namespace enigma { namespace gui {
             switch_active_widget(next_widget);
         }
         else { // no more widgets into that direction found
-            sound::SoundEvent ("menustop");
+            sound::EmitSoundEvent ("menustop");
         }
     }
     

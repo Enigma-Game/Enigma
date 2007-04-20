@@ -75,9 +75,9 @@ namespace enigma { namespace gui {
             iselected = curIndex->getCurrentPosition();
             ifirst = curIndex->getScreenFirstPosition();
             invalidate();
-            sound::SoundEvent ("menumove");
+            sound::EmitSoundEvent ("menumove");
         } else if (iselected != curIndex->getCurrentPosition()) {
-            sound::SoundEvent ("menumove");            
+            sound::EmitSoundEvent ("menumove");            
         }
         // repair ifirst on boot and screen resolution changes
         set_selected(curIndex->getScreenFirstPosition(), 
@@ -191,9 +191,9 @@ namespace enigma { namespace gui {
             iselected = newsel;
     
             if (!m_areas.empty()) {
-                sound::SoundEvent ("menumove");
+                sound::EmitSoundEvent ("menumove");
                 if (oldsel != newsel) 
-                    sound::SoundEvent ("menuswitch");
+                    sound::EmitSoundEvent ("menuswitch");
                 invalidate();
             }
         }
@@ -201,7 +201,7 @@ namespace enigma { namespace gui {
             iselected = newsel;
     
             if (!m_areas.empty()) {
-                sound::SoundEvent ("menuswitch");
+                sound::EmitSoundEvent ("menuswitch");
                 invalidate_area(m_areas[oldsel-ifirst]); // old selection
                 invalidate_area(m_areas[iselected-ifirst]); // new selection
             }
@@ -414,7 +414,7 @@ namespace enigma { namespace gui {
             for (unsigned i=0; i<m_areas.size(); ++i)
                 if (m_areas[i].contains(e->button.x, e->button.y))
                 {
-                    sound::SoundEvent ("menuok");
+                    sound::EmitSoundEvent ("menuok");
                     iselected = ifirst+i;
                     syncToIndexMgr();
                     if (SDL_GetModState() & KMOD_CTRL && !(SDL_GetModState() & KMOD_SHIFT)) {
@@ -433,7 +433,7 @@ namespace enigma { namespace gui {
             for (unsigned i=0; i<m_areas.size(); ++i)
                 if (m_areas[i].contains(e->button.x, e->button.y))
                 {
-                    sound::SoundEvent ("menuok");
+                    sound::EmitSoundEvent ("menuok");
                     iselected = ifirst+i;
                     syncToIndexMgr();
                     LevelInspector m(curIndex->getProxy(iselected));

@@ -319,12 +319,13 @@ void Application::init(int argc, char **argv)
     errorInit = true;
 
     // ----- Initialize sound subsystem
-    lua::DoSubfolderfile (L, "sound", "sound.lua");
     if (ap.nosound)
         sound::DisableSound();
     else if (ap.nomusic)
         sound::DisableMusic();
     sound::Init();
+    lua::CheckedDoFile (L, app.systemFS, "sound-defaults.lua");
+    lua::DoSubfolderfile (L, "sound", "sound.lua");
 
     // ----- Initialize network layer
     if (enet_initialize () != 0) {
@@ -357,9 +358,10 @@ void Application::init(int argc, char **argv)
                     INDEX_DEFAULT_GROUP, emptyList, INDEX_SEARCH_PACK_LOCATION));
     }
 
-    oxyd::ChangeSoundset(options::GetInt("SoundSet"), false);
-
     lev::Proxy::countLevels();
+
+    // ----- Initialize sound tables -- needs sound, oxyd, video (error messages!)
+    sound::InitSoundSets();
 
     // initialize random
     enigma::Randomize();

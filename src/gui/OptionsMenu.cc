@@ -157,51 +157,23 @@ namespace enigma { namespace gui {
     /* -------------------- SoundSetButton -------------------- */
     
     SoundSetButton::SoundSetButton() : ValueButton(0, 1) {
-        using namespace OxydLib;
-        
-        availableSoundSets.push_back(0);
-        availableSoundSetsTitles.push_back(N_("Default"));
-        availableSoundSets.push_back(1);
-        availableSoundSetsTitles.push_back("Enigma");
-        int numAvail = 2;
-        for (int i = OxydVersion_First; i<= OxydVersion_Last; i++) {
-            if (oxyd::FoundOxyd(OxydVersion(i))) {
-                availableSoundSets.push_back(i+2);
-                std::string title;
-                switch (i) {
-                case OxydVersion_Oxyd1:          title = "Oxyd"; break;
-                case OxydVersion_OxydMagnum:     title = "Magnum"; break;
-                case OxydVersion_OxydMagnumGold: title = "Mag.Gold"; break;
-                case OxydVersion_OxydExtra:      title = "Extra"; break;
-                case OxydVersion_PerOxyd:        title = "Per.Oxyd"; break;
-                default:      title = "unknown"; break;
-                }
-                availableSoundSetsTitles.push_back(title);
-                numAvail++;
-            }
-        }
+        int numAvail = sound::GetOptionSoundSetCount();
         setMaxValue(numAvail - 1);
         init();
     }
-    
+
     int SoundSetButton::get_value() const {
-        int soundSet = options::GetInt("SoundSet");
-        for (int i = 0; i < availableSoundSets.size(); i++) {
-            if (availableSoundSets[i] == soundSet)
-                return i;
-        }
-        return 0;  // default soundset
+        return sound::GetOptionSoundSet();
     }
-    
+
     void SoundSetButton::set_value(int value) {
-        options::SetOption("SoundSet", availableSoundSets[value]);
-        oxyd::ChangeSoundset(availableSoundSets[value], false);        
+        sound::SetOptionSoundSet(value);
     }
-    
+
     string SoundSetButton::get_text(int value) const {
-        return _(availableSoundSetsTitles[value].c_str());
+        return _(sound::GetOptionSoundSetText(value).c_str());
     }
-    
+
     
     /* -------------------- StereoButton -------------------- */
     

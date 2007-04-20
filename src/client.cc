@@ -937,12 +937,12 @@ void client::Msg_PlaySound (const std::string &wavfile,
                             const ecl::V2 &pos,
                             double relative_volume)
 {
-    sound::SoundEvent (wavfile.c_str(), pos, relative_volume);
+    sound::EmitSoundEvent (wavfile.c_str(), pos, relative_volume);
 }
 
 void client::Msg_PlaySound (const std::string &wavfile, double relative_volume)
 {
-    sound::SoundEvent (wavfile.c_str(), V2(), relative_volume);
+    sound::EmitSoundEvent (wavfile.c_str(), V2(), relative_volume);
 }
 
 void client::Msg_Sparkle (const ecl::V2 &pos) {

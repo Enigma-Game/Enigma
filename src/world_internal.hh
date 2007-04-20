@@ -186,23 +186,6 @@ namespace world
 
     typedef list<DelayedImpulse> ImpulseList;
 
-/* -------------------- SoundDampingList ---------------- */
-
-/*! This class stores object addresses and assigns volumes to
-    sound events, based on the frequency of the event. */
-
-    class SoundDamping {
-    public:
-        const char *event_name;
-        const Object *origin;
-        float factor;
-
-        SoundDamping(const char *event_name_, const Object *origin_, float factor_)
-        : event_name(event_name_), origin(origin_), factor(factor_) {}
-    };
-
-    typedef list<SoundDamping> SoundDampingList;
-
 /* -------------------- Layer -------------------- */
 
     template <class T>
@@ -273,6 +256,9 @@ namespace world
         BorderStone borderstone;
     };
 
+/* ------------- Sound Damping List -------------- */
+
+typedef list<sound::SoundDamping> SoundDampingList;
 
 /* -------------------- World -------------------- */
 
@@ -354,7 +340,7 @@ namespace world
         ImpulseList          delayed_impulses;
         vector<GridPos>      changed_stones;
 
-        SoundDampingList     sound_dampings;
+        SoundDampingList     sound_dampings; // see sound.hh for details
 
         FloorLayer      fl_layer;
         ItemLayer       it_layer;
