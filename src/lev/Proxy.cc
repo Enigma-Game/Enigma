@@ -614,7 +614,9 @@ namespace enigma { namespace lev {
         if (getEnigmaCompatibility() > ENIGMACOMPATIBITLITY)
             throw XLevelLoading(ecl::strf("Level is incompatible: %s requires Enigma %.2f or above", 
                     absLevelPath.c_str(), getEnigmaCompatibility()));
-        server::SetCompatibility(this);
+	if (this == currentLevel) {
+	    server::SetCompatibility(this);
+	}
         processDependencies();
         loadLuaCode();
     }
