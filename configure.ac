@@ -356,6 +356,7 @@ AC_CONFIG_FILES([Makefile m4/Makefile  intl/Makefile
            data/schemas/Makefile
 	   doc/Makefile
 	   doc/images/Makefile
+	   doc/images/flags25x15/Makefile
 	   doc/manual/Makefile
 	   doc/manual/images/Makefile
 	   doc/reference/Makefile
