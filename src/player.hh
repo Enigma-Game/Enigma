@@ -71,7 +71,7 @@ namespace enigma
         unsigned NumberOfRealPlayers();
 
 
-        Inventory *MayPickup(Actor *a);
+        Inventory *MayPickup(Actor *a, Item *it);
         Inventory *GetInventory(int iplayer);
         Inventory *GetInventory(Actor *a);
         bool       WieldedItemIs(Actor *a, const std::string &kind);

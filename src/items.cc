@@ -3220,7 +3220,7 @@ namespace
         // Item interface
         bool actor_hit (Actor *a) {
             if (Item::actor_hit(a)) {
-                if (Inventory *inv = player::MayPickup(a)) {
+                if (Inventory *inv = player::MayPickup(a, NULL)) {
                     std::vector<Item *>::size_type oldSize = m_contents.size();
                     inv->takeItemsFrom(this);
                     if (oldSize != m_contents.size() && inv->is_full()) {
