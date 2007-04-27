@@ -758,6 +758,7 @@ void World::find_contact_with_stone (Actor *a, GridPos p, StoneContact &c)
         c.ignore   = false;
         c.actor    = a;
         c.stonepos = p;
+	c.stoneid  = stone->get_traits().id;
         c.response = stone->collision_response(c);
         c.sound    = stone->collision_sound();
     }
@@ -805,7 +806,7 @@ void World::handle_stone_contact (StoneContact &sc)
     ActorInfo &ai          = *a->get_actorinfo();
     double     restitution = 1.0; //0.85;
 
-    if (server::NoCollisions)
+    if (server::NoCollisions  && (sc.stoneid != st_borderstone))
         return;
 
     Contact contact (sc.contact_point, sc.normal);

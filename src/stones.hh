@@ -30,7 +30,8 @@ namespace world
         st_FIRST = 0,
         st_none = 0,
 
-        st_black1,
+        st_borderstone,
+	st_black1,
         st_black2,
         st_black3,
         st_black4,

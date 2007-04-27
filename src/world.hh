@@ -81,6 +81,7 @@ namespace world
         // Variables.
         Actor           *actor;
         GridPos         stonepos;
+	StoneID         stoneid;
         StoneResponse   response;
 
         V2      contact_point;  // Where do the shapes meet? (world coordinates)
