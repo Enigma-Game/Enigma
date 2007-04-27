@@ -115,7 +115,7 @@ end
 
 function create_world_from_map( tiles, map )
     create_world( strlen(map[1]), getn(map) )
-    
+
     for y = 1,getn(map) do
         local line = map[y]
         for x = 1,strlen(line) do
