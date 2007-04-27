@@ -11,6 +11,7 @@ pkgdata_DATA = \
 	models-48.lua \
 	init.lua \
 	startup.lua \
+	sound-defaults.lua \
 	compat.lua \
 	security.lua \
 	ratings.xml
