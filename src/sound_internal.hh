@@ -217,7 +217,7 @@ namespace
         Mix_Chunk *cache_sound(const std::string &name);
 
         void update_channel (int channel);
-        int already_playing (const SoundName &name);
+        int already_playing (const SoundEvent &s);
 
 
         static void channel_finished (int channel);

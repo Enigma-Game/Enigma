@@ -242,12 +242,14 @@ void SoundEngine_SDL::update_channel (int channel)
     Mix_Volume(channel, ecl::Clamp(mixvol, 0, MIX_MAX_VOLUME));
 }
 
-int SoundEngine_SDL::already_playing (const SoundName &name)
+int SoundEngine_SDL::already_playing (const SoundEvent &s)
 {
     for (size_t i=0; i<m_channelinfo.size(); ++i) {
         const SoundEvent &se = m_channelinfo[i];
 
-        if (se.active && se.name == name && se.playing_time < 0.05)
+        if (se.active && se.name == s.name && se.playing_time < 0.05
+            && (!se.has_position || !s.has_position ||
+		ecl::length(se.position - s.position) < 30))
             return static_cast<int> (i);
     }
     return -1;
@@ -274,7 +276,7 @@ Mix_Chunk *SoundEngine_SDL::cache_sound(const std::string &name)
 
 bool SoundEngine_SDL::play_sound (const SoundEvent &s)
 {
-    int channel = already_playing (s.name);
+    int channel = already_playing (s);
     if (channel != -1) {
         MutexLock (m_instance->m_mutex);
         SoundEvent &se = m_channelinfo [channel];
