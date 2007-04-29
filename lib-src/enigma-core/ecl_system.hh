@@ -21,6 +21,7 @@
 
 #include <string>
 #include <ctime>
+#include <set>
 
 namespace ecl
 {
@@ -38,6 +39,8 @@ namespace ecl
 
 #ifdef __MINGW32__
     std::string ApplicationDataPath();
+    void ToLowerCase(std::string &filename);
+    std::set<std::string> UniqueFilenameSet(std::set<std::string> inSet);
 #endif
 
 /* -------------------- Locales -------------------- */
