@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2006 Ronald Lamprecht
+ * Copyright (C) 2006, 2007 Ronald Lamprecht
  *
  * This program is free software; you can redistribute it and/or
  * modify it under the terms of the GNU General Public License
@@ -101,7 +101,7 @@ namespace enigma { namespace lev {
             dirIter = DirIter::instance(sysPaths[i] + "/levels");
             while (dirIter->get_next(dirEntry)) {
                 if (dirEntry.is_dir && dirEntry.name != "." && dirEntry.name != ".." &&
-                        dirEntry.name != ".svn" && dirEntry.name != "cross") {
+                        dirEntry.name != ".svn" && dirEntry.name != "enigma_cross") {
                     candidates.insert(dirEntry.name);
                 }
                 else {
