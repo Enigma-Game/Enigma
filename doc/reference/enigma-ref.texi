@@ -2721,7 +2721,7 @@ change state, like @code{openclose}
 @item fl-bridge
 open by default
 @item fl-bridge-open
-@item fl-bridge-close
+@item fl-bridge-closed
 @end table
 
 
@@ -4592,7 +4592,7 @@ unknown.
 These stones apply an impulse to actors that touch them.  The amount
 of force applied can be controlled by setting
 @code{enigma.BumperForce} (see @ref{Variables}) accordingly (the
-default is 800). Alternatively, the @code{force} attribute can be used
+default is 200). Alternatively, the @code{force} attribute can be used
 to set this factor for @emph{individual} bumper stones.
 
 @strong{Attributes}
