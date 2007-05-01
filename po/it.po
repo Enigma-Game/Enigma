@@ -1,3 +1,4 @@
+# translation of enigma-new.po to
 # translation of enigma.po to
 # Copyright (C) 2005, 2007 Free Software Foundation, Inc.
 # This file is distributed under the same license as the PACKAGE package.
@@ -6,10 +7,10 @@
 # Samuele Kaplun <Samuele.Kaplun@cern.ch>, 2007.
 msgid ""
 msgstr ""
-"Project-Id-Version: enigma\n"
+"Project-Id-Version: enigma-new\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2007-03-13 09:37+0100\n"
-"PO-Revision-Date: 2007-01-14 19:36+0100\n"
+"PO-Revision-Date: 2007-04-08 17:27+0200\n"
 "Last-Translator: Samuele Kaplun <Samuele.Kaplun@cern.ch>\n"
 "Language-Team:  <it@li.org>\n"
 "MIME-Version: 1.0\n"
@@ -719,8 +720,7 @@ msgid "Update Pack"
 msgstr "Aggiorna Pacchetto"
 
 #: src/gui/LevelPackConfig.cc:382
-msgid ""
-"Error: empty title not allowed - press \"Undo\" to exit without modifications"
+msgid "Error: empty title not allowed - press \"Undo\" to exit without modifications"
 msgstr ""
 "Errore: titolo vuoto non ammesso - premi \"Annulla\" per uscire senza "
 "modifiche"
@@ -797,8 +797,7 @@ msgstr "Errore: \"Ogni gruppo\" è un nome di gruppo riservato"
 
 #: src/gui/LPGroupConfig.cc:149
 msgid "Error: group name must not be enclosed in square brackets"
-msgstr ""
-"Errore: il nome del gruppo non deve essere racchiuso fra parentesi quadre"
+msgstr "Errore: il nome del gruppo non deve essere racchiuso fra parentesi quadre"
 
 #: src/gui/LPGroupConfig.cc:205
 msgid "Error: group not empty"
@@ -831,8 +830,7 @@ msgstr "Ricerca non approfondita:"
 #. TRANSLATORS: the translation can have double size of the english text
 #: src/gui/SearchMenu.cc:42
 msgid "case independent search in title, author, filename"
-msgstr ""
-"ricerca indipendente da maiuscole/minuscole in titolo, autore, nome del file"
+msgstr "ricerca indipendente da maiuscole/minuscole in titolo, autore, nome del file"
 
 #: src/gui/LevelInspector.cc:176
 msgid "Screenshot"
@@ -1086,8 +1084,9 @@ msgstr ""
 #  level: ""
 #  author: "Ralf Westram" email "amgine@reallysoft.de"
 #: po/level_i18n.cc:37
+#, fuzzy
 msgid "Drop the hammer on side of a pentomino and use the switch!"
-msgstr ""
+msgstr "Lascia il martello a lato del pentomino ed utilizza l'interruttore!"
 
 #  level: "Easy Shifting.."
 #  author: "Ralf Westram" email "amgine@reallysoft.de"
@@ -1111,8 +1110,7 @@ msgstr "Infine ma non per importanza: 3*20 = 60"
 #  author: "Martin Hawlisch" email ""
 #: po/level_i18n.cc:71
 msgid "Take some money and build yourself the tools you need."
-msgstr ""
-"Procurati un po' di denaro e costruisciti gli strumenti di cui hai bisogno."
+msgstr "Procurati un po' di denaro e costruisciti gli strumenti di cui hai bisogno."
 
 #  level: "Laser Magic"
 #  author: "Petr Machata" email ""
@@ -1124,8 +1122,7 @@ msgstr "Tenta ancora ..."
 #  author: "illmind" email "support@mag-heut.net"
 #: po/level_i18n.cc:97
 msgid "So,  where  are  the  knights?  -  you'll  be  sorry  you  asked!"
-msgstr ""
-"Perciò,  dove  sono  i  cavalieri?  -  ti  pentirai  di  averlo  domandato!"
+msgstr "Perciò,  dove  sono  i  cavalieri?  -  ti  pentirai  di  averlo  domandato!"
 
 #  level: "Buridan"
 #  author: "Alain Busser" email ""
@@ -1276,7 +1273,7 @@ msgid ""
 "Each color appears once. Each correct color produces whites in the wrong "
 "place, blacks in the right one."
 msgstr ""
-"Ogni colore appare al massimo una volta; ogni buon colore dà bianco se non "
+"Ogni colore appare una volta sola; ogni colore corretto dà bianco se non "
 "si trova nella giusta posizione, nero se è anche ben posizionato."
 
 #  level: "Road to Eden"
@@ -1350,8 +1347,7 @@ msgstr "Attento! Buchi neri!"
 #  comment: "The sequence of the four elements is important, as they are connected to the colors of the floor."
 #: po/level_i18n.cc:349
 msgid "Our full attention this is worth:           Air and Fire, Water, Earth."
-msgstr ""
-"Merita la nostra completa attenzione:           Aria e Fuoco, Acqua e Terra."
+msgstr "Merita la nostra completa attenzione:           Aria e Fuoco, Acqua, Terra."
 
 #  level: "Moure-Switches"
 #  author: "Andreas Lochmann" email ""
@@ -1360,9 +1356,7 @@ msgstr ""
 msgid ""
 "And if your answer can’t be found           then shame on you, eyes to the "
 "ground!"
-msgstr ""
-"E se i tuoi tentativi crescono senza controllo,            La vergogna su di "
-"te, occhi sul pavimento!"
+msgstr "E se non riesci a trovare la risposta,            Vergogna, occhi sul pavimento!"
 
 #  level: "Disk Royal"
 #  author: "illmind" email "support@mag-heut.net"
@@ -1382,13 +1376,13 @@ msgstr "Non utilizzare troppa magia!"
 msgid "Dead end!"
 msgstr "Non si passa!"
 
-#  level: "The Fuse"
+#  level: "The Fuze"
 #  author: "capkoh" email ""
 #: po/level_i18n.cc:392
 msgid "There are two HIDDEN items!"
 msgstr "Ci sono due elementi NASCOSTI!"
 
-#  level: "The Fuse"
+#  level: "The Fuze"
 #  author: "capkoh" email ""
 #: po/level_i18n.cc:393
 msgid "Third stone from the rock is the hole!"
@@ -1531,7 +1525,7 @@ msgstr "Il Mietitore di Bandiere"
 
 #  level: "The Flagstone Reaper"
 #  author: "Andreas Lochmann" email ""
-#  comment: "Difficult to translate. If you have no idea, just say: Why on this side does this message sit? The Reaper has a use for it"
+#  comment: "Difficult to translate. If you have no idea, just say: Why is the hint on this side? The Reaper should know it."
 #: po/level_i18n.cc:570
 msgid ""
 "No hint today ...    Those flagstones pass away ...    The docu stands "
@@ -1773,6 +1767,7 @@ msgstr "Toreador"
 #  level: "The Aztec Temple"
 #  author: "Dominik Lehmann" email ""
 #: po/level_i18n.cc:856
+#, fuzzy
 msgid ""
 "Welcome to Mexico! Eight hours ago, your plane arrived at the Airport of "
 "\"Coatlicue\", which is a small village surrounded by unexplored jungle "
@@ -1780,10 +1775,16 @@ msgid ""
 "to be a relic of the ancient Aztec empire. But the temple is in surprisingly "
 "good condition ..."
 msgstr ""
+"Benvenuto in Cile! Otto ore fa, il tuo areoplano è arrivato all'Aeroporto di "
+"\"Llamas\", un piccolo villaggio circondato da una giungla inesplorata. Ora "
+"ti trovi di fronte ad un tempio impressionante, che sembra un relitto "
+"dell'antica era degli Aztechi. Ma il tempio si trova in sorprendenti buone "
+"condizioni ..."
 
 #  level: "The Aztec Temple"
 #  author: "Dominik Lehmann" email ""
 #: po/level_i18n.cc:857
+#, fuzzy
 msgid ""
 "Next to the giant doors of the temple you see a chrome sign: \"Restoration "
 "by: G. G. Goshers, A.D. 1998\". A smaller sign beneath says: \"Property of "
@@ -1792,56 +1793,78 @@ msgid ""
 "relic a fortress\", you think, \"this cannot be legal, for Goshers received "
 "funding from the UK Government. I'll try to call him to account!\""
 msgstr ""
+"Accanto alla gigante porta del tempio vedi un segno cromato: \"Restauro ad "
+"opera di: G. G. Goshers, A.D. 1998\". E il piccolo segnale sottostante "
+"recita: \"Proprietà di G. G. Goshers. Proibito l'accesso!\". Adesso "
+"riconosci il canile costruito lungo la facciata del tempio. \"Goshers ha "
+"trasformato questo antico relitto in una fortezza\", pensi, \"questo non può "
+"essere legale, perciò Goshers deve aver ricevuto una promozione dal Governo "
+"Britannico. Cercherò di chiamarlo per farmi dare una spiegazione!\""
 
 #  level: "The Aztec Temple"
 #  author: "Dominik Lehmann" email ""
 #: po/level_i18n.cc:858
+#, fuzzy
 msgid "This guard doesn’t notice me."
-msgstr ""
+msgstr "Questa guardia non sembra essere molto attenta!"
 
 #  level: "The Aztec Temple"
 #  author: "Dominik Lehmann" email ""
 #: po/level_i18n.cc:859
-msgid ""
-"This lake was obviously made by Goshers. I think the correct way is south."
+#, fuzzy
+msgid "This lake was obviously made by Goshers. I think the correct way is south."
 msgstr ""
+"Questo lago deve essere ovviamente dovuto a Goshers. Penso che la strada a "
+"sud sia quella giusta."
 
 #  level: "The Aztec Temple"
 #  author: "Dominik Lehmann" email ""
 #: po/level_i18n.cc:860
+#, fuzzy
 msgid ""
 "There's an inscription on the old wall, saying in spanish: \"Careful! What "
 "you touch could be the last thing you touch!\""
 msgstr ""
+"C'è un'iscrizione sul vecchio muro, che dice in spagnolo: \"Non toccare "
+"tutto ciò che vedi! Potrebbe essere il tuo ultimo tocco!\""
 
 #  level: "The Aztec Temple"
 #  author: "Dominik Lehmann" email ""
 #: po/level_i18n.cc:861
+#, fuzzy
 msgid "Chrome sign: \"Control of the beast’s cage.\""
-msgstr ""
+msgstr "Segno cromato: \"Controllo della gabbia dei selvaggi.\""
 
 #  level: "The Aztec Temple"
 #  author: "Dominik Lehmann" email ""
 #: po/level_i18n.cc:862
+#, fuzzy
 msgid "Oooh, this slope is steep! Try not to touch the skull!"
-msgstr ""
+msgstr "Oooh, questo versante è ripido! Non toccare il teschio!"
 
 #  level: "The Aztec Temple"
 #  author: "Dominik Lehmann" email ""
 #: po/level_i18n.cc:863
+#, fuzzy
 msgid ""
 "This building down there looks like a prison. Let's see if I can determine "
 "its purpose ... Ah, there's another chrome sign. Goshers seems to favour "
 "chrome signs. It says: \"Natives’ prison\"."
 msgstr ""
+"Questa costruzione qua giù sembra una prigione. Vediamo se riesco a capire a "
+"cosa serve... Ah c'è un cartello. Ed è anche esso cromato. Goshers sembra "
+"amare i cartelli cromati. Dice: \"Prigione dei nativi\"."
 
 #  level: "The Aztec Temple"
 #  author: "Dominik Lehmann" email ""
 #: po/level_i18n.cc:864
+#, fuzzy
 msgid ""
 "Getting beyond the prison building was a really good idea. But now you have "
 "to cross this lake. Be thrifty with those boxes!"
 msgstr ""
+"Andare oltre la prigione è stata proprio una buona idea. Ma adesso dovrai "
+"attraversare questo lago. Sii parsimonioso con quelle scatole!"
 
 #  level: "The Aztec Temple"
 #  author: "Dominik Lehmann" email ""
@@ -2510,8 +2533,7 @@ msgstr ""
 #  level: "Blocks and Slopes"
 #  author: "Andreas Lochmann" email ""
 #: po/level_i18n.cc:1488
-msgid ""
-"Remember?  There are different kinds of floors.  And these are steep ..."
+msgid "Remember?  There are different kinds of floors.  And these are steep ..."
 msgstr ""
 
 #  level: "Blocks and Slopes"
@@ -2627,8 +2649,7 @@ msgstr ""
 #  level: "Meditation 1"
 #  author: "Martin Hawlisch" email ""
 #: po/level_i18n.cc:1543
-msgid ""
-"Move all small marbles into the holes. Only one marble per hole is allowed."
+msgid "Move all small marbles into the holes. Only one marble per hole is allowed."
 msgstr ""
 
 #  level: "Template 1"
@@ -2945,8 +2966,7 @@ msgstr ""
 #  level: "Firefox"
 #  author: "Ronald Lamprecht" email "ral@users.berlios.de"
 #: po/level_i18n.cc:2086
-msgid ""
-"OOPS! The maze is broken! Prepare to repair the maze before you destroy it."
+msgid "OOPS! The maze is broken! Prepare to repair the maze before you destroy it."
 msgstr ""
 
 #  level: "Pirates Island"
@@ -3178,8 +3198,7 @@ msgstr ""
 #  level: "Pneumatic Delivery"
 #  author: "Manuel König" email ""
 #: po/level_i18n.cc:2263
-msgid ""
-"This is my first landscape, dedicated to my father. I hope you'll enjoy it!"
+msgid "This is my first landscape, dedicated to my father. I hope you'll enjoy it!"
 msgstr ""
 
 #  level: "Gods of Enigma II"
@@ -3677,3 +3696,4 @@ msgstr ""
 #: po/level_i18n.cc:3458
 msgid "If you haven't won, you've lost!"
 msgstr ""
+
