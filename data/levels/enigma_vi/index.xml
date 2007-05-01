@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no" ?>
 <index xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="index.xsd">
 
-  <info enigma="1.00" group="Enigma" location="10700" network="false" owner="Enigma Team" release="1" revision="2" title="Enigma VI"/>
+  <info enigma="1.00" group="Enigma" location="10700" network="false" owner="Enigma Team" release="1" revision="3" title="Enigma VI"/>
 
   <attributes/>
 
@@ -68,23 +68,23 @@
     <level _seq="60" _title="Jump into Meditation" _xpath="./ral07_1" author="Ronald Lamprecht" ctrl="force" easy="true" id="20060525ral009" rel="1" rev="42" score="1" target="time" unit="duration"/>
     <level _seq="61" _title="River of Challenges" _xpath="./luc33_1" author="Lukas Schüller" ctrl="force" easy="true" id="luc332006" rel="1" rev="3" score="1" target="time" unit="duration"/>
     <level _seq="62" _title="Hot Hurdle Race" _xpath="./ulf04_1" author="Ulf Stegemann" ctrl="force" easy="true" id="20070124ulf019" rel="1" rev="93" score="1" target="time" unit="duration"/>
-    <level _seq="63" _title="Playing with lasers" _xpath="./just09_1" author="JuSt" ctrl="force" easy="false" id="just09_1" rel="1" rev="1" score="1" target="time" unit="duration"/>
+    <level _seq="63" _title="Playing with Lasers" _xpath="./just09_1" author="JuSt" ctrl="force" easy="false" id="just09_1" rel="1" rev="1" score="1" target="time" unit="duration"/>
     <level _seq="64" _title="Rotor Guards" _xpath="./duffy144_1" author="Jacob Scott" ctrl="force" easy="false" id="duffy144" rel="1" rev="0" score="1" target="time" unit="duration"/>
     <level _seq="65" _title="Knight's Journey" _xpath="./johannes02_1" author="Johannes Laire" ctrl="force" easy="false" id="20061210johannes313" rel="1" rev="0" score="1" target="time" unit="duration"/>
     <level _seq="66" _title="A Cooler Spot in Hell" _xpath="./andreas43_1" author="Andreas Lochmann" ctrl="force" easy="false" id="andreas43" rel="1" rev="2" score="1" target="time" unit="duration"/>
-    <level _seq="67" _title="Check the light" _xpath="./just10_1" author="JuSt" ctrl="force" easy="false" id="just10" rel="1" rev="4" score="1" target="time" unit="duration"/>
-    <level _seq="68" _title="The passage" _xpath="./just11_1" author="JuSt" ctrl="force" easy="false" id="just11" rel="1" rev="6" score="1" target="time" unit="duration"/>
-    <level _seq="69" _title="Devil's bolder" _xpath="./just14_1" author="JuSt" ctrl="force" easy="true" id="just14" rel="1" rev="2" score="1" target="time" unit="duration"/>
+    <level _seq="67" _title="Check the Light" _xpath="./just10_1" author="JuSt" ctrl="force" easy="false" id="just10" rel="1" rev="4" score="1" target="time" unit="duration"/>
+    <level _seq="68" _title="The Passage" _xpath="./just11_1" author="JuSt" ctrl="force" easy="false" id="just11" rel="1" rev="6" score="1" target="time" unit="duration"/>
+    <level _seq="69" _title="Devil's Bolder" _xpath="./just14_1" author="JuSt" ctrl="force" easy="true" id="just14" rel="1" rev="2" score="1" target="time" unit="duration"/>
     <level _seq="70" _title="Twisting by the pool" _xpath="./alain23_1" author="Alain Busser" ctrl="force" easy="true" id="alain23" rel="1" rev="0" score="1" target="time" unit="duration"/>
     <level _seq="71" _title="Revolver" _xpath="./ral16_1" author="Ronald Lamprecht" ctrl="force" easy="true" id="20070214ral703" rel="1" rev="59" score="1" target="time" unit="duration"/>
     <level _seq="72" _title="Same task ..." _xpath="./raoul29_1" author="Raoul Bourquin" ctrl="force" easy="true" id="raoul29" rel="1" rev="2" score="1" target="time" unit="duration"/>
     <level _seq="73" _title="ZigZag" _xpath="./ralf06_1" author="Ralf Westram" ctrl="force" easy="true" id="ralf06" rel="1" rev="0" score="1" target="time" unit="duration"/>
     <level _seq="74" _title="Houdini" _xpath="./ral11_2" author="Ronald Lamprecht" ctrl="force" easy="true" id="20060816ral719" rel="2" rev="58" score="2" target="time" unit="duration"/>
-    <level _seq="75" _title="The wrong place?" _xpath="./just17_1" author="JuSt" ctrl="force" easy="false" id="just17" rel="1" rev="1" score="1" target="time" unit="duration"/>
+    <level _seq="75" _title="The wrong Place?" _xpath="./just17_1" author="JuSt" ctrl="force" easy="false" id="just17" rel="1" rev="1" score="1" target="time" unit="duration"/>
     <level _seq="76" _title="Idempotency" _xpath="./duffy145_1" author="Jacob Scott" ctrl="force" easy="false" id="duffy145" rel="1" rev="0" score="1" target="time" unit="duration"/>
     <level _seq="77" _title="Turnstiles for Two" _xpath="./ral17_1" author="Ronald Lamprecht" ctrl="force" easy="true" id="20070314ral189" rel="1" rev="64" score="1" target="time" unit="duration"/>
     <level _seq="78" _title="jumping ball flash" _xpath="./illmind13_1" author="illmind" ctrl="force" easy="false" id="2007ill001" rel="1" rev="3" score="1" target="time" unit="duration"/>
-    <level _seq="79" _title="Quad Vortex" _xpath="./cel1_1" author="Johannes Laire, Jacob Scott, Raoul Bourquin, Andreas Lochmann" ctrl="force" easy="false" id="cel2007_364" rel="1" rev="0" score="1" target="time" unit="duration"/>
+    <level _seq="79" _title="Quadropolis" _xpath="./cel1_1" author="Johannes Laire, Jacob Scott, Raoul Bourquin, Andreas Lochmann" ctrl="force" easy="false" id="cel2007_364" rel="1" rev="0" score="1" target="time" unit="duration"/>
     <level _seq="80" _title="- Meditation -" _xpath="./raoul18_1" author="Raoul Bourquin" ctrl="force" easy="true" id="raoul18" rel="1" rev="0" score="1" target="time" unit="duration"/>
     <level _seq="81" _title="Magic Trinity" _xpath="./duffy146_1" author="Jacob Scott" ctrl="force" easy="false" id="duffy146" rel="1" rev="0" score="1" target="time" unit="duration"/>
     <level _seq="82" _title="Pontoon Bridges" _xpath="./duffy137_1" author="Jacob Scott" ctrl="force" easy="false" id="duffy137" rel="1" rev="0" score="1" target="time" unit="duration"/>
@@ -92,9 +92,9 @@
     <level _seq="84" _title="Blitz Chess" _xpath="./luc32_1" author="Lukas Schüller" ctrl="force" easy="false" id="luc322006" rel="1" rev="1" score="1" target="time" unit="duration"/>
     <level _seq="85" _title="One-Way Woods" _xpath="./duffy135_1" author="Jacob Scott" ctrl="force" easy="false" id="duffy135" rel="1" rev="0" score="1" target="time" unit="duration"/>
     <level _seq="86" _title="Tandem Chess" _xpath="./luc34_1" author="Lukas Schüller" ctrl="force" easy="false" id="luc342007" rel="1" rev="1" score="1" target="time" unit="duration"/>
-    <level _seq="87" _title="Your friend, the light" _xpath="./just15_1" author="JuSt" ctrl="force" easy="true" id="just15" rel="1" rev="2" score="1" target="time" unit="duration"/>
+    <level _seq="87" _title="Your Friend, the Light" _xpath="./just15_1" author="JuSt" ctrl="force" easy="true" id="just15" rel="1" rev="2" score="1" target="time" unit="duration"/>
     <level _seq="88" _title="Correspondence Chess" _xpath="./luc35_1" author="Lukas Schüller" ctrl="force" easy="true" id="luc352007" rel="1" rev="3" score="1" target="time" unit="duration"/>
-    <level _seq="89" _title="Magic triangle" _xpath="./just13_1" author="JuSt" ctrl="force" easy="false" id="just13" rel="1" rev="1" score="1" target="time" unit="duration"/>
+    <level _seq="89" _title="Magic Triangle" _xpath="./just13_1" author="JuSt" ctrl="force" easy="false" id="just13" rel="1" rev="1" score="1" target="time" unit="duration"/>
     <level _seq="90" _title="Group Trip to Meditation" _xpath="./duffy136_1" author="Jacob Scott" ctrl="force" easy="false" id="duffy136" rel="1" rev="0" score="1" target="time" unit="duration"/>
     <level _seq="91" _title="Twokoban I" _xpath="./raoul28_1" author="Raoul Bourquin" ctrl="force" easy="true" id="raoul28" rel="1" rev="0" score="1" target="time" unit="duration"/>
     <level _seq="92" _title="Oxyd Drilling" _xpath="./duffy140_1" author="Jacob Scott" ctrl="force" easy="false" id="duffy140" rel="1" rev="0" score="1" target="time" unit="duration"/>
@@ -103,8 +103,8 @@
     <level _seq="95" _title="Pleasure Garden" _xpath="./duffy134_1" author="Jacob Scott" ctrl="force" easy="false" id="duffy134" rel="1" rev="0" score="1" target="time" unit="duration"/>
     <level _seq="96" _title="Construction Workers" _xpath="./duffy142_1" author="Jacob Scott" ctrl="force" easy="false" id="duffy142" rel="1" rev="0" score="1" target="time" unit="duration"/>
     <level _seq="97" _title="City Life" _xpath="./joona03_1" author="Joona Laire" ctrl="force" easy="true" id="20061119joona503" rel="1" rev="0" score="1" target="time" unit="duration"/>
-    <level _seq="98" _title="Industrial puzzles" _xpath="./raoul30_1" author="Raoul Bourquin" ctrl="force" easy="false" id="raoul30" rel="1" rev="4" score="1" target="time" unit="duration"/>
-    <level _seq="99" _title="Polar Bears Paradise" _xpath="./ral19_1" author="Ronald Lamprecht" ctrl="force" easy="true" id="20070314ral394" rel="1" rev="63" score="1" target="time" unit="duration"/>
+    <level _seq="98" _title="Industrial Puzzles" _xpath="./raoul30_1" author="Raoul Bourquin" ctrl="force" easy="false" id="raoul30" rel="1" rev="4" score="1" target="time" unit="duration"/>
+    <level _seq="99" _title="Polar Bears' Paradise" _xpath="./ral19_1" author="Ronald Lamprecht" ctrl="force" easy="true" id="20070314ral394" rel="1" rev="68" score="1" target="time" unit="duration"/>
     <level _seq="100" _title="The Aztec Temple" _xpath="./zogga01_1" author="Dominik Lehmann" ctrl="force" easy="true" id="zogga01" rel="1" rev="1" score="1" target="time" unit="duration"/>
   </levels>
 

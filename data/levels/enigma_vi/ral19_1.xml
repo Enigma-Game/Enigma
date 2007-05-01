@@ -2,8 +2,8 @@
 <el:level xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://enigma-game.org/schema/level/1 level.xsd" xmlns:el="http://enigma-game.org/schema/level/1">
   <el:protected >
     <el:info el:type="level">
-      <el:identity el:title="Polar Bears Paradise" el:subtitle="Witch Hunt on Ice" el:id="20070314ral394"/>
-      <el:version el:score="1" el:release="1" el:revision="$Revision: 63 $" el:status="released"/>
+      <el:identity el:title="Polar Bears' Paradise" el:subtitle="Witch Hunt on Ice" el:id="20070314ral394"/>
+      <el:version el:score="1" el:release="1" el:revision="$Revision: 68 $" el:status="released"/>
       <el:author  el:name="Ronald Lamprecht" el:email="ral@users.berlios.de"/>
       <el:copyright>Copyright © 2006 Ronald Lamprecht</el:copyright>
       <el:license el:type="GPL v2.0 or above" el:open="true"/>
@@ -196,3 +196,4 @@ oxyd_shuffle()
     </el:i18n>
   </el:protected>
 </el:level>
+

@@ -2,7 +2,7 @@
 <el:level xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://enigma-game.org/schema/level/1 level.xsd" xmlns:el="http://enigma-game.org/schema/level/1">
   <el:protected>
     <el:info el:type="level">
-      <el:identity el:title="Check the light" el:subtitle="how to play chess with lasers" el:id="just10"/>
+      <el:identity el:title="Check the Light" el:subtitle="How to play chess with lasers" el:id="just10"/>
       <el:version el:score="1" el:release="1" el:revision="4" el:status="released"/>
       <el:author  el:name="JuSt" el:email="" el:homepage=""/>
       <el:copyright>Copyright © 2007 JuSt</el:copyright>
@@ -101,25 +101,25 @@ oxyd_shuffle()
 
 -- Functions
 function check_it()
-	local mystone = enigma.GetStone(5,5)
-	if mystone ~= nil then
-		local mystonekind = enigma.GetKind(mystone,"kind")
-		if mystonekind == "st-chess" then
-			SendMessage("laser3","off")
-			SendMessage("laser2","off")
-		end
-	end
+    local mystone = enigma.GetStone(5,5)
+    if mystone ~= nil then
+        local mystonekind = enigma.GetKind(mystone,"kind")
+        if mystonekind == "st-chess" then
+            SendMessage("laser3","off")
+            SendMessage("laser2","off")
+        end
+    end
 end
 
 function got_you()
-	SendMessage("door3","open")
-	SendMessage("laser4","on")
-	SendMessage("laser1","off")
-	SendMessage("door2","open")
+    SendMessage("door3","open")
+    SendMessage("laser4","on")
+    SendMessage("laser1","off")
+    SendMessage("door2","open")
 end
 
 function change_floors()
-	fill_floor("fl-wood", 5, 3, 1, 8)
+    fill_floor("fl-wood", 5, 3, 1, 8)
 end
   ]]></el:luamain>
     <el:i18n>

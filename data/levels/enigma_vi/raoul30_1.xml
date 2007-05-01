@@ -2,7 +2,7 @@
 <el:level xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://enigma-game.org/schema/level/1 level.xsd" xmlns:el="http://enigma-game.org/schema/level/1">
   <el:protected>
     <el:info el:type="level">
-      <el:identity el:title="Industrial puzzles" el:subtitle="" el:id="raoul30"/>
+      <el:identity el:title="Industrial Puzzles" el:subtitle="" el:id="raoul30"/>
       <el:version el:score="1" el:release="1" el:revision="4" el:status="released"/>
       <el:author  el:name="Raoul Bourquin" el:email="" el:homepage=""/>
       <el:copyright>Copyright © 2007 Raoul Bourquin</el:copyright>
@@ -24,8 +24,8 @@ enigma.ConserveLevel = FALSE
 fill_floor("fl-brick")
 
 function renderLine( line, pattern)
-	for i=1, strlen(pattern) do
-		local c = strsub( pattern, i, i)
+    for i=1, strlen(pattern) do
+        local c = strsub( pattern, i, i)
         if c=="#" then
             set_stone("st-brick",i-1, line)
         elseif c=="M" then
@@ -99,8 +99,8 @@ function renderLine( line, pattern)
         elseif c=="j" then
             set_floor("fl-abyss",i-1, line)
             set_item("it-hstrip",i-1, line)
-		end
-	end	
+        end
+    end
 end
 
 renderLine(00 , "#####vMM|||MMvPGGOOO")
@@ -171,7 +171,7 @@ puzzle({" ##",
         "#  "},{16,9},"redpuzzle","permutation")
 
 -- Special
-set_actor("ac-blackball", 1.5,1.5, {player=0})                    
+set_actor("ac-blackball", 1.5,1.5, {player=0})
     ]]></el:luamain>
     <el:i18n>
       <el:string el:key="title">

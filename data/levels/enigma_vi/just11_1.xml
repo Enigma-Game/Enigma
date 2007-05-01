@@ -2,7 +2,7 @@
 <el:level xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://enigma-game.org/schema/level/1 level.xsd" xmlns:el="http://enigma-game.org/schema/level/1">
   <el:protected>
     <el:info el:type="level">
-      <el:identity el:title="The passage" el:subtitle="" el:id="just11"/>
+      <el:identity el:title="The Passage" el:subtitle="" el:id="just11"/>
       <el:version el:score="1" el:release="1" el:revision="6" el:status="released"/>
       <el:author  el:name="JuSt" el:email="" el:homepage=""/>
       <el:copyright>Copyright © 2007 JuSt</el:copyright>
@@ -21,20 +21,20 @@ create_world(39, 25)
 -- Code
 switched = 0
 function trapped()
-	switched = switched + 1
-	if switched == 1 then
-		document(37, 10, "text2")
-	elseif switched == 2 then
-		document(37, 10, "text3")
-	elseif switched == 3 then
-		document(37, 10, "text4")
-		SendMessage ("laser1", "on")
-	elseif switched == 4 then
-		document(37, 10, "text5")
-		set_stone("st-blue-sand",37,7)
-	else
-		switched = 4
-	end
+    switched = switched + 1
+    if switched == 1 then
+        document(37, 10, "text2")
+    elseif switched == 2 then
+        document(37, 10, "text3")
+    elseif switched == 3 then
+        document(37, 10, "text4")
+        SendMessage ("laser1", "on")
+    elseif switched == 4 then
+        document(37, 10, "text5")
+        set_stone("st-blue-sand",37,7)
+    else
+        switched = 4
+    end
 end
 
 function bolder_run()
@@ -188,33 +188,33 @@ oxyd_shuffle()
         <el:english el:translate="false"/>
       </el:string>
       <el:string el:key="text1">
-        <el:english el:translate="true">Sorry, this switch is momentarily out of order.</el:english>
-        <el:translation el:lang="de">Dieser Schalter ist momentan leider außer Betrieb.</el:translation>     
-      </el:string> 
+        <el:english el:translate="true">Sorry, this switch is currently out of order.</el:english>
+        <el:translation el:lang="de">Dieser Schalter ist momentan leider außer Betrieb.</el:translation>
+      </el:string>
       <el:string el:key="text2">
-        <el:english el:translate="true">As i already told you, this switch is out of order!</el:english>
-        <el:translation el:lang="de">Ich habe Dir doch bereits mitgeteilt, dass dieser Schalter nicht funktioniert!</el:translation>     
-      </el:string> 
+        <el:english el:translate="true">As I already told you, this switch is out of order!</el:english>
+        <el:translation el:lang="de">Ich habe Dir doch bereits mitgeteilt, dass dieser Schalter nicht funktioniert!</el:translation>
+      </el:string>
       <el:string el:key="text3">
-        <el:english el:translate="true">How often do you want to try again?</el:english>
-        <el:translation el:lang="de">Wie oft willst Du es denn noch versuchen?</el:translation>     
-      </el:string> 
+        <el:english el:translate="true">How often are you going to try this?</el:english>
+        <el:translation el:lang="de">Wie oft willst Du es denn noch versuchen?</el:translation>
+      </el:string>
       <el:string el:key="text4">
-        <el:english el:translate="true">Was there a reaction? I'm not sure ...</el:english>
-        <el:translation el:lang="de">Tat sich da was? Ich bin nicht sicher ...</el:translation>     
-      </el:string> 
+        <el:english el:translate="true">Did anything happen? I'm not sure ...</el:english>
+        <el:translation el:lang="de">Tat sich da was? Ich bin nicht sicher ...</el:translation>
+      </el:string>
       <el:string el:key="text5">
-        <el:english el:translate="true">Congrates, now it works again!</el:english>
-        <el:translation el:lang="de">Glückwunsch, jetzt funktioniert er wieder!</el:translation>     
-      </el:string> 
+        <el:english el:translate="true">Congrats, now it works again!</el:english>
+        <el:translation el:lang="de">Glückwunsch, jetzt funktioniert er wieder!</el:translation>
+      </el:string>
       <el:string el:key="text6">
         <el:english el:translate="true">No hints available at the moment.</el:english>
-        <el:translation el:lang="de">Zur Zeit sind keine Tips verfügbar.</el:translation>     
-      </el:string> 
+        <el:translation el:lang="de">Zur Zeit sind keine Tips verfügbar.</el:translation>
+      </el:string>
       <el:string el:key="text7">
         <el:english el:translate="true">There is a passage right beneath this stone!</el:english>
-        <el:translation el:lang="de">Es gibt einen Durchgang direkt unter diesem Stein!</el:translation>     
-      </el:string> 
+        <el:translation el:lang="de">Es gibt einen Durchgang direkt unter diesem Stein!</el:translation>
+      </el:string>
     </el:i18n>
   </el:protected>
 </el:level>

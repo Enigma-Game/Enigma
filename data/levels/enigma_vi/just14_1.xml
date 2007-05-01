@@ -2,7 +2,7 @@
 <el:level xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://enigma-game.org/schema/level/1 level.xsd" xmlns:el="http://enigma-game.org/schema/level/1">
   <el:protected>
     <el:info el:type="level">
-      <el:identity el:title="Devil's bolder" el:subtitle="" el:id="just14"/>
+      <el:identity el:title="Devil's Bolder" el:subtitle="" el:id="just14"/>
       <el:version el:score="1" el:release="1" el:revision="2" el:status="released"/>
       <el:author  el:name="JuSt" el:email="" el:homepage=""/>
       <el:copyright>Copyright © 2007 JuSt</el:copyright>
@@ -23,14 +23,14 @@ oxyd_default_flavor="b"
 
 -- Code
 function bolderdir()
-	obj = enigma.GetNamedObject("bolder1")
-	if obj ~= nil then
-		dir = enigma.GetAttrib(obj, "direction")
-		repeat
-			newdir = random (0, 3)
-		until newdir ~= dir
-		SendMessage ("bolder1", "direction", newdir)
-	end
+    obj = enigma.GetNamedObject("bolder1")
+    if obj ~= nil then
+        dir = enigma.GetAttrib(obj, "direction")
+        repeat
+            newdir = random (0, 3)
+        until newdir ~= dir
+        SendMessage ("bolder1", "direction", newdir)
+    end
 end
 
 -- Floor Layer
@@ -60,28 +60,28 @@ set_floor("fl-water", 13, 12)
 rects = {{{3,1},{5,2}},{{1,3},{5,11}},{{6,1},{16,4}},{{18,1},{18,4}},{{7,6},{12,10}},{{13,6},{18,6}},{{14,8},{17,10}}}
 
 function set_obstacle(rect)
-	local left_border = rect[1][1]
-	local right_border = rect[2][1]
-	local top_border = rect[1][2]
-	local bottom_border = rect[2][2]
+    local left_border = rect[1][1]
+    local right_border = rect[2][1]
+    local top_border = rect[1][2]
+    local bottom_border = rect[2][2]
 
-	repeat
-		x = random(left_border, right_border)
-		y = random(top_border, bottom_border)
-	until enigma.GetItem(x,y) == nil -- until we won't overwrite another obstacle
-	set_item("it-blackbomb",x,y)
+    repeat
+        x = random(left_border, right_border)
+        y = random(top_border, bottom_border)
+    until enigma.GetItem(x,y) == nil -- until we won't overwrite another obstacle
+    set_item("it-blackbomb",x,y)
 end
 
 -- How many obstacles we set?
 if not difficult then
-	e = 2
+    e = 2
 else
-	e = 9
+    e = 9
 end
 
 for i = 1, e do
-	local r = random(1,7)
-	set_obstacle(rects[r])
+    local r = random(1,7)
+    set_obstacle(rects[r])
 end
 
 set_item("it-trigger", 1, 1, {action="callback", target="bolderdir", invisible=FALSE})
@@ -99,11 +99,11 @@ draw_stones("st-woven", {1, 12}, {1, 0}, 19)
 set_stone("st-woven", 19, 6)
 
 if difficult then
-	set_stone("st-woven", 2, 2)
-	set_stone("st-grate1", 2, 1)
-	set_stone("st-grate1", 1, 2)
+    set_stone("st-woven", 2, 2)
+    set_stone("st-grate1", 2, 1)
+    set_stone("st-grate1", 1, 2)
 else
-	set_stone("st-grate1", 1, 1)
+    set_stone("st-grate1", 1, 1)
 end
 
 set_stones("st-pmirror", {{6, 5}, {13, 7}}, {movable=FALSE, transparent=FALSE, orientation="3"})
