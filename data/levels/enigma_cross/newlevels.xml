@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no" ?>
 <index xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="index.xsd">
 
-  <info enigma="1.00" group="Facets" location="15400" network="false" owner="Enigma Team" release="1" revision="2" title="Enigma 1.00 new"/>
+  <info enigma="1.00" group="Facets" location="15400" network="false" owner="Enigma Team" release="1" revision="3" title="Enigma 1.00 new"/>
 
   <attributes/>
 
@@ -173,7 +173,7 @@
     <level _seq="165" _title="Chessing Positions" _xpath="enigma_vi/raoul22_1" author="Raoul Bourquin" ctrl="force" easy="false" id="raoul22" rel="1" rev="0" score="1" target="time" unit="duration"/>
     <level _seq="166" _title="Twisting by the pool" _xpath="enigma_vi/alain23_1" author="Alain Busser" ctrl="force" easy="true" id="alain23" rel="1" rev="0" score="1" target="time" unit="duration"/>
     <level _seq="167" _title="Hot Meditation" _xpath="enigma_vi/ral08_1" author="Ronald Lamprecht" ctrl="force" easy="true" id="20060527ral010" rel="1" rev="42" score="1" target="time" unit="duration"/>
-    <level _seq="168" _title="Pool with a pole" _xpath="enigma_vi/alain28_1" author="Alain Busser" ctrl="force" easy="false" id="alain28" rel="1" rev="0" score="1" target="time" unit="duration"/>
+    <level _seq="168" _title="Pool with a pole" _xpath="enigma_vii/alain28_1" author="Alain Busser" ctrl="force" easy="false" id="alain28" rel="1" rev="0" score="1" target="time" unit="duration"/>
     <level _seq="169" _title="Jump into Meditation" _xpath="enigma_vi/ral07_1" author="Ronald Lamprecht" ctrl="force" easy="true" id="20060525ral009" rel="1" rev="42" score="1" target="time" unit="duration"/>
     <level _seq="170" _title="- Meditation -" _xpath="enigma_vi/raoul18_1" author="Raoul Bourquin" ctrl="force" easy="true" id="raoul18" rel="1" rev="0" score="1" target="time" unit="duration"/>
     <level _seq="171" _title="Step gently!" _xpath="enigma_vi/malla03_2" author="Manuel König" ctrl="force" easy="true" id="malla03" rel="2" rev="2" score="2" target="time" unit="duration"/>
@@ -189,7 +189,7 @@
     <level _seq="181" _title="Wormhole Madness!" _xpath="enigma_vi/edward24_1" author="Edward" ctrl="force" easy="false" id="edward24" rel="1" rev="1" score="1" target="time" unit="duration"/>
     <level _seq="182" _title="Space City" _xpath="enigma_iii/edward25_1" author="Edward" ctrl="force" easy="false" id="edward25" rel="1" rev="1" score="1" target="time" unit="duration"/>
     <level _seq="183" _title="Just another pretty level" _xpath="enigma_vi/edward26_1" author="Edward" ctrl="force" easy="true" id="edward26" rel="1" rev="1" score="1" target="time" unit="duration"/>
-    <level _seq="184" _title="- Meditation -" _xpath="enigma_vi/edward30_1" author="Edward" ctrl="force" easy="true" id="edward30" rel="1" rev="2" score="1" target="time" unit="duration"/>
+    <level _seq="184" _title="- Meditation -" _xpath="enigma_vii/edward30_1" author="Edward" ctrl="force" easy="true" id="edward30" rel="1" rev="2" score="1" target="time" unit="duration"/>
     <level _seq="185" _title="- Meditation -" _xpath="enigma_vi/raoul24_1" author="Raoul Bourquin" ctrl="force" easy="false" id="raoul24" rel="1" rev="0" score="1" target="time" unit="duration"/>
     <level _seq="186" _title="Procrustes" _xpath="enigma_vi/andreas34_1" author="Andreas Lochmann" ctrl="force" easy="false" id="andreas34" rel="1" rev="2" score="1" target="time" unit="duration"/>
     <level _seq="187" _title="- Meditation -" _xpath="enigma_vi/andreas36_1" author="Andreas Lochmann" ctrl="force" easy="false" id="andreas36" rel="1" rev="0" score="1" target="time" unit="duration"/>
