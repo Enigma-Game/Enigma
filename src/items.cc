@@ -1804,7 +1804,6 @@ void WormHole::init_model() {
 }
 
 void WormHole::on_removal(GridPos p) {
-    GameTimer.remove_alarm (this);
     world::RemoveForceField(&ff);
     Item::on_removal(p);
     ASSERT(!justWarping, XLevelRuntime, "Tried to kill a busy wormhole. Please use another way.");
@@ -1923,7 +1922,6 @@ Vortex::~Vortex() {
 }
 
 void Vortex::on_removal(GridPos p) {
-    GameTimer.remove_alarm(this);
     Item::on_removal(p);
     ASSERT(state != WARPING && state != SWALLOWING && state != EMITTING,
         XLevelRuntime, "Tried to kill a busy vortex. Please use another way.");
