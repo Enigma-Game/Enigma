@@ -161,6 +161,7 @@ namespace enigma { namespace gui {
         "  Capkoh  (Level design)",
         "  Christoph & Anita  (Level design)",
         "  Дремук Сергей - Serge Dremuk  (Russian translation)",
+        "  Joseph Dunne  (Level design)",
         "  Xerxes M. Dynatos  (Level design)",
         "  Edward  (Level design)",
         "  Stephanie Fabian  (Invaluable bug reports)",
