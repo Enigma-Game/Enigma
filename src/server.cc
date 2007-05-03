@@ -111,6 +111,10 @@ namespace
     double             time_accu           = 0;
     double             current_state_dtime = 0;
     int                 move_counter; // counts movements of stones
+    lev::Index *currentIndex = NULL;  // volatile F6 jump back history
+    int currentLevel;
+    lev::Index *previousIndex = NULL;
+    int previousLevel;
     ENetAddress        network_address;
     ENetHost           *network_host       = 0;
 }
@@ -339,7 +343,28 @@ void server::Msg_SetLevelPack (const std::string &name) {
 
 void server::Msg_LoadLevel (lev::Proxy *levelProxy, bool isPreview) {
     server::CreatingPreview = isPreview;
+    if (!isPreview) {
+	// update F6 jump back history
+	if (currentIndex != lev::Index::getCurrentIndex() ||
+		currentLevel != currentIndex->getCurrentPosition()) {
+	    previousIndex = currentIndex;
+	    previousLevel = currentLevel;
+	    currentIndex = lev::Index::getCurrentIndex();
+	    currentLevel = currentIndex->getCurrentPosition();
+	}
+    }
     load_level(levelProxy, false);
+}
+
+void server::Msg_JumpBack() {
+    if (previousIndex != NULL) {
+	lev::Index::setCurrentIndex(previousIndex->getName());
+	previousIndex->setCurrentPosition(previousLevel);
+	currentIndex = previousIndex;
+	currentLevel = previousLevel;
+	Msg_LoadLevel(currentIndex->getProxy(currentLevel), false);
+	Msg_Command("restart");
+    }
 }
 
 

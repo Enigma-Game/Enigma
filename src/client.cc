@@ -436,6 +436,7 @@ void Client::on_keydown(SDL_Event &e)
 
         case SDLK_F4: Msg_AdvanceLevel(lev::ADVANCE_STRICTLY); break;
         case SDLK_F5: Msg_AdvanceLevel(lev::ADVANCE_UNSOLVED); break;
+        case SDLK_F6: Msg_JumpBack(); break;
 
         case SDLK_F10: {
             lev::Proxy *level = lev::Proxy::loadedLevel();
@@ -479,10 +480,11 @@ static const char *helptext_ingame[] = {
     N_("Shift+F3:"),                N_("Restart the current level"),
     N_("F4:"),                      N_("Skip to next level"),
     N_("F5:"),                      0, // see below
+    N_("F6:"),                      N_("Jump back to last level"),
     N_("F10:"),                     N_("Make screenshot"),
     N_("Left/right arrow:"),        N_("Change mouse speed"),
     N_("Alt+x:"),                   N_("Return to level menu"),
-    N_("Alt+Return:"),              N_("Switch between fullscreen and window"),
+//    N_("Alt+Return:"),              N_("Switch between fullscreen and window"),
     0
 };
 
@@ -900,6 +902,12 @@ void client::Msg_AdvanceLevel (lev::LevelAdvanceMode mode) {
     }
     else
         client::Msg_Command("abort");
+}
+
+void client::Msg_JumpBack() {
+    // log last played level
+    lev::PersistentIndex::addCurrentToHistory();
+    server::Msg_JumpBack();
 }
 
 bool client::AbortGameP() {
