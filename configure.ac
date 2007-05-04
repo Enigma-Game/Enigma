@@ -370,6 +370,7 @@ AC_CONFIG_FILES([Makefile m4/Makefile  intl/Makefile
 	   tools/Makefile
 	   etc/enigma.spec
 	   etc/enigma.nsi
+	   etc/Info.plist
 	   po/Makefile.in
 ])
 
