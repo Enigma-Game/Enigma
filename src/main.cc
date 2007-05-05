@@ -113,15 +113,15 @@ static void usage()
 {
     printf("Usage: %s [options] [level files]\n\n"
            "Available options :\n\n"
-           "    --nosound      Disable music and sound\n"
-           "    --nomusic      Disable music\n"
-           "    --window -w    Run in a window; do not enter fullscreen mode\n"
-           "    --help -h      Show this help\n"
-           "    --version      Print the executable's version number\n"
-           "    --nograb       Do not use exclusive mouse/keyboard access\n"
-           "    --data -d path Load data from additional directory\n"
-           "    --lang -l lang Set game language\n"
-           "    --pref -p file Use filename for preferences\n"
+           "    --nosound       Disable music and sound\n"
+           "    --nomusic       Disable music\n"
+           "    --window -w     Run in a window; do not enter fullscreen mode\n"
+           "    --help -h       Show this help\n"
+           "    --version       Print the executable's version number\n"
+           "    --nograb        Do not use exclusive mouse/keyboard access\n"
+           "    --data -d path  Load data from additional directory\n"
+           "    --lang -l lang  Set game language\n"
+           "    --pref -p file  Use filename or dirname for preferences\n"
            "\n",
            app.progCallPath.c_str()
            );
@@ -473,7 +473,17 @@ void Application::initSysDatapaths(const std::string &prefFilename)
     
     
     // prefPath
-    if (haveHome) {
+    if (prefFilename.find_first_of(ecl::PathSeparators) != std::string::npos) {
+        // pref is a path - absolute or home relative
+        prefPath = ecl::ExpandPath(prefFilename);
+        if (!ecl::FolderExists(prefPath))
+            if(!ecl::FolderCreate(prefPath)) {
+                fprintf(stderr, ("Error cannot create pref directory.\n"));
+                exit(1);
+            }
+        userStdPath = prefPath; // default if pref is a path
+        prefPath = prefPath + ecl::PathSeparator + "." + PREFFILENAME; // include pref in user data path
+    } else if (haveHome) {
         prefPath = ecl::ExpandPath("~");
         if (!ecl::FolderExists(prefPath))
             // may happen on Windows

@@ -29,7 +29,7 @@ end
 -- Set default values for options
 options = {
     MouseSpeed        = 7.0,
-    FullScreen        = 1,
+    FullScreen        = 0,
     Nozoom            = 1,
     InGameMusic       = 0,                  -- no music during the game
     Difficulty        = 2,                  -- hard
