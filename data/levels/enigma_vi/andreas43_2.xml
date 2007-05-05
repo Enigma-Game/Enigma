@@ -3,7 +3,7 @@
   <el:protected>
     <el:info el:type="level">
       <el:identity el:title="A Cooler Spot in Hell" el:subtitle="" el:id="andreas43"/>
-      <el:version el:score="1" el:release="1" el:revision="2" el:status="released"/>
+      <el:version el:score="2" el:release="2" el:revision="3" el:status="released"/>
       <el:author  el:name="Andreas Lochmann" el:email="" el:homepage=""/>
       <el:copyright>Copyright © 2006 Andreas Lochmann</el:copyright>
       <el:license el:type="GPL v2.0 or above" el:open="true"/>
@@ -96,8 +96,8 @@ renderLine( 0, ".....#...........#....##...........##..")
 renderLine( 1, "...e__ -____.#...c.#.bI  .#######....#.")
 renderLine( 2, "#..__C..#__J ..#__J_#.   .#_____#......")
 renderLine( 3, ".....I..o.c. ..___._#. .-.#_##J_#..   .")
-renderLine( 4, ".OK .dd T.#. .#_#..-.. .  #_##R__   S #")
-renderLine( 5, "... -  .b... .#_#.  ..I.. #C___##..   .")
+renderLine( 4, ".OK .dd T.#. .._#..-.. .  #_##R__   S #")
+renderLine( 5, "... -  .b..# .#_#.  ..I.. #C___##..   .")
 renderLine( 6, "...-....s..  .#_#   b# .. #_#_##.......")
 renderLine( 7, "... .      d..#_.. .#_d.. #___#......#.")
 renderLine( 8, ".OK ... ..-..##J#.-.__d.. ##  #......#.")
