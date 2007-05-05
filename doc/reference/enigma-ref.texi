@@ -202,6 +202,15 @@ The name of an alternative preferences file without the leading dot for hidden
 filenames. This switch is a pure Enigma developer support feature as described
 in @ref{Locating Resources}.
 
+@item @b{-@w{}-pref -p dirpath}
+The path of an alternative directory that contains the standard named preference
+file @samp{.enigmarc.xml}. If no preference file exists or the directory does
+not yet exist they are created. On creation of the preference file the user data
+path is set to the given dirpath per default. This allows to store all Enigma
+user data in a single directory that can be stored anywhere, e.g. on a USB stick.
+You always need to call Enigma with the above switch to use this new set up.
+Remember that a path with spaces needs to be quoted.
+
 @item @b{-@w{}-version}
 Just print the version number to the output and terminate.
 

@@ -39,6 +39,16 @@ string ecl::concat_paths (const string& path, const string& filename)
 bool ecl::split_path (const string& path, string* dir_part, string* filename_part)
 {
     size_t lslash = path.find_last_of (PathSeparators);
+    if (
+#ifdef __MINGW32__
+	    lslash == 2 && path[1] == ':' && (path[0] >= 'A' && path[0] <= 'Z')
+#else
+	    lslash == 0 
+#endif
+	    ) {
+	return false; // we cannot split the root directory apart
+    }
+    
     if (lslash == path.length()-1) // trailing slash
         return split_path(path.substr(0, lslash), dir_part, filename_part);
 
