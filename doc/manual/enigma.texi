@@ -1,11 +1,10 @@
 \input texinfo                              @c -*- texinfo -*-
 @afourpaper
 
-@c @include{version.texi}
-@set VERSION 1.00
+@set VERSION 1.01
 
 @copying
-Copyright @copyright{} 2003, 2004, 2005, 2006 Daniel Heck and other contributors
+Copyright @copyright{} 2003, 2004, 2005, 2006, 2007 Daniel Heck and other contributors
 
 Copying and distribution of this file, with or without modification,
 are permitted in any medium without royalty provided the copyright
@@ -16,11 +15,11 @@ notice and this notice are preserved.
 @settitle Enigma Manual
 @titlepage
 @center @image{images/logo}
+@sp 1
 @center @titlefont{Enigma Manual}
 @center for version @value{VERSION}
 @sp 2
-@center Copyright @copyright{} 2003, 2004, 2005, 2006 Daniel Heck
-(@email{dheck@@gmx.de})
+@center Copyright @copyright{} 2003, 2004, 2005, 2006, 2007 Daniel Heck (@email{dheck@@gmx.de})
 @page
 @vskip 0pt plus 1filll
 @insertcopying
@@ -35,7 +34,7 @@ notice and this notice are preserved.
 This manual describes how to install and play Enigma, and corresponds
 to Enigma version @value{VERSION}.
 
-Copyright @copyright{} 2003, 2004, 2005, 2006 Daniel Heck and other contributors
+Copyright @copyright{} 2003, 2004, 2005, 2006, 2007 Daniel Heck and other contributors
 
 Copying and distribution of this file, with or without modification,
 are permitted in any medium without royalty provided the copyright
@@ -1292,9 +1291,8 @@ floor.  Then search for the second screen with the ``hidden treasure''.
 @section Main developers
 
 @table @strong
-
 @item Raoul Bourquin
-Level administration & design, all over invaluable additions
+Level admininstration and design, homepage, overall invaluable additions
 
 @item Siegfried Fennig
 Level design, graphics
@@ -1306,10 +1304,10 @@ Level design, graphics, programming
 Main developer, graphics, documentation
 
 @item Ronald Lamprecht
-XML, Gui, portability, core programming, documentation
+XML, Gui, portability, core programming, documentation, homepage, score evaluation
 
 @item Andreas Lochmann
-Programming, level administration, level design, documentation
+Programming, level administration, level design, documentation, homepage
 
 @item Petr Machata
 Level design, programming
@@ -1335,30 +1333,37 @@ Programming, level design
 @item Johannes Fortmann
 Mac OS X port, some programming, graphics
 
-@item Dustin Norlander
-Designer of the ``Dustismo'' font
-
-@item Jeremy Sawicki
-Oxyd file format reverse engineering, Oxydlib
-
-@item Erich Schubert
-Debian/Ubuntu packages
-
-@item Meinolf Schneider
-Original game idea--@emph{Thanks}!
-
-@item Andrew ``Necros'' Sega
-Menu music (@emph{Pentagonal Dreams})
+@item illmind
+Forum mag-heut.net administration, Level design
 
 @c waiting for licence to add the sounds
 @c @item ``Cellar of Rats''
 @c Sound effects
 
+@item Jennifer Robertson
+Graphics second generation
+
+@item Jeremy Sawicki
+Oxyd file format reverse engineering, Oxydlib
+
+@item Meinolf Schneider
+Original game idea--@emph{Thanks}!
+
+@item Erich Schubert
+Debian/Ubuntu packages, level design
+
+@item Lukas Sch@"uller
+Level design
+
+@item Andrew ``Necros'' Sega
+Menu music (@emph{Pentagonal Dreams})
+
 @item David W. Skinner
 Many Sokoban levels from
 @uref{http://users.bentonrea.com/~sasquatch/sokoban}
 
-
+@item Clifford J. Tasner
+Music second generation, Proof reading
 @end table
 
 @node Contributors, Utilized Software, Special Thanks, Credits
@@ -1367,124 +1372,53 @@ Many Sokoban levels from
 For various smaller contributions, thanks go to:
 
 @itemize @bullet
-
-@item
-Roberto Bardin (Level design)
-
-@item
-Alain Busser (Level design, French translation, manual)
-
-@item
-Guy Busser (Level design)
-
-@item
-Richi B@"utzer (Level design)
-
-@item
-capkoh (Level design)
-
-@item
-Serge Dremuk (Russian translation)
-
-@item
-Xerxes M. Dynatos (Level design)
-
-@item
-Edward (Level design)
-
-@item 
-Stephanie Fabian (Invaluable bug reports)
-
-@item
-Roberto Garc@'ia (Spanish translation)
-
-@item 
-Edwin Groothuis (FreeBSD port)
-
-@item
-Immanuel Herrmann (Level design)
-
-@item
-illmind (Level design)
-
-@item
-M@'at@'e Lehel Juh@'asz (Hungarian translation)
-
-@item
-Samuele Kaplun (Italian translation)
-
-@item
-Jens-Christian Korth (Level design)
-
-@item
-Manuel K@"onig (Level design, bug reports)
-
-@item
-Markus Laire (Level design)
-
-@item
-Dominik Lehmann (Level design)
-
-@item
-Edward Leuf (Feedback, bug reports)
-
-@item
-Ingo van Lil (Feedback, bug reports)
-
-@item
-Frank van der Loo (Dutch translation)
-
-@item
-Sidney Markowitz (Mac OS X port)
-
-@item
-moonpearl (Level design)
-
-@item
-Krishnamurti Lelis Lima Vieira Nunes (Portuguese translation)
-
-@item
-Daniel Nylander (Swedish translation)
-
-@item
-Peter Santo (Level design)
-
-@item
-Lukas Sch@"uller (Level design)
-
-@item 
-Achim Settelmeier (RPM specfile)
-
-@item 
-Jon Sneyers (Level design)
-
-@item
-Spaceman (Level design)
-
-@item
-Ulf Stegemann (Level design)
-
-@item
-J@"urgen Sticht (Level design)
-
-@item
-Mikke Surakka (Finnish translation)
-
-@item 
-Andrzej Szombierski (Level design)
-
-@item
-Tacvek (Lua 5.1 upgrade)
-
-@item
-Michael Terry (.desktop file)
-
-@item
-Ray Wick (Level design)
-
-@item
-Joe Wreschnig (Manual page)
-
+@item Roberto Bardin (Level design)
+@item Alain Busser (Level design, French translation, manual)
+@item Guy Busser (Level design)
+@item Richi B@"utzer (Level design)
+@item capkoh (Level design)
+@item Christoph & Anita (Level design)
+@item Serge Dremuk (Russian translation)
+@item Joseph Dunne (Level design)
+@item Xerxes M. Dynatos (Level design)
+@item Edward (Level design)
+@item Stephanie Fabian (Invaluable bug reports)
+@item Roberto Garc@'ia (Spanish translation)
+@item Andy Geldmacher (Level design)
+@item Edwin Groothuis (FreeBSD port)
+@item Immanuel Herrmann (Level design)
+@item M@'at@'e Lehel Juh@'asz (Hungarian translation)
+@item Samuele Kaplun (Italian translation)
+@item Jens-Christian Korth (Level design)
+@item Manuel K@"onig (Level design, bug reports)
+@item Johannes Laire (Level design)
+@item Joona Laire (Level design)
+@item Markus Laire (Level design)
+@item Dominik Lehmann (Level design)
+@item Edward Leuf (Feedback, bug reports)
+@item Ingo van Lil (Feedback, bug reports)
+@item Frank van der Loo (Dutch translation)
+@item Sidney Markowitz (Mac OS X port)
+@item Barry & Lori Mead (Level design)
+@item Linda Mihalic (English proof reading)
+@item moonpearl (Level design)
+@item Krishnamurti Lelis Lima Vieira Nunes (Portuguese translation)
+@item Daniel Nylander (Swedish translation)
+@item Andreas Persenius (Level design)
+@item Peter Santo (Level design)
+@item Tobias Schmidbauer (Windows installer and icon)
+@item Achim Settelmeier (RPM specfile)
+@item Jon Sneyers (Level design)
+@item Spaceman (Level design)
+@item Ulf Stegemann (Level design)
+@item J@"urgen Sticht (Level design)
+@item Mikke Surakka (Finnish translation)
+@item Andrzej Szombierski (Level design)
+@item Tacvek (Lua 5.1 upgrade)
+@item Michael Terry (.desktop file)
+@item Ray Wick (Level design)
+@item Joe Wreschnig (Manual page)
+@item Yuriy Zhyromskiy (Russian Manual)
 @end itemize
 
 @node Utilized Software,  , Contributors, Credits

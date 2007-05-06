@@ -3,11 +3,11 @@
   <el:protected>
     <el:info el:type="level">
       <el:identity el:title="Pleasure Garden" el:subtitle="" el:id="duffy134"/>
-      <el:version el:score="1" el:release="1" el:revision="0" el:status="released"/>
+      <el:version el:score="1" el:release="1" el:revision="1" el:status="released"/>
       <el:author  el:name="Jacob Scott" el:email="" el:homepage=""/>
       <el:copyright>Copyright © 2007 Jacob Scott</el:copyright>
       <el:license el:type="GPL v2.0 or above" el:open="true"/>
-      <el:compatibility el:enigma="0.92">
+      <el:compatibility el:enigma="0.92" el:engine="oxyd1">
       </el:compatibility>
       <el:modes el:easy="false" el:single="true" el:network="false"/>
       <el:score el:easy="-" el:difficult="-"/>
@@ -17,7 +17,6 @@ levelw=77
 levelh=37
 
 create_world( levelw, levelh)
-enigma.SetCompatibility("oxyd1")
 
 fill_floor("fl-leaves", 0,0,levelw,levelh)
 

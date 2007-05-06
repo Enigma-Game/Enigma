@@ -2,11 +2,10 @@
 @afourpaper
 @documentlanguage de
 
-@c @include{version.texi}
-@set VERSION 1.00
+@set VERSION 1.01
 
 @copying
-Copyright @copyright{} 2003, 2004, 2005, 2006 Daniel Heck und Beitragende
+Copyright @copyright{} 2003, 2004, 2005, 2006, 2007 Daniel Heck und Beitragende
 
 Das Kopieren und Verteilen dieser Datei, mit oder ohne @"Anderungen, ist
 gestattet, unter der Voraussetzung, dass obiger Copyright-Vermerk und
@@ -17,13 +16,11 @@ dieser Abschnitt erhalten bleiben.
 @settitle Enigma Handbuch
 @titlepage
 @center @image{images/logo}
+@sp 1
 @center @titlefont{Enigma Handbuch}
 @center f@"ur Version @value{VERSION}
 @sp 2
-@center Copyright @copyright{} 2003, 2004, 2005, 2006 Daniel Heck (@email{dheck@@gmx.de})
-@c @title Enigma Handbuch
-@c @subtitle for version 0.90
-@c @author Daniel Heck (@email{dheck@@gmx.de})
+@center Copyright @copyright{} 2003, 2004, 2005, 2006, 2007 Daniel Heck (@email{dheck@@gmx.de})
 @page
 @vskip 0pt plus 1filll
 @insertcopying
@@ -38,12 +35,11 @@ dieser Abschnitt erhalten bleiben.
 Dieses Handbuch beschreibt die Installation und das Spielprinzip von
 Enigma.  Es bezieht sich auf Enigma Version @value{VERSION}.
 
-Copyright @copyright{} 2003, 2004, 2005, 2006 Daniel Heck und Beitragende
+Copyright @copyright{} 2003, 2004, 2005, 2006, 2007 Daniel Heck und Beitragende
 
 Das Kopieren und Verteilen dieser Datei, mit oder ohne @"Anderungen, ist
 gestattet, unter der Voraussetzung, dass obiger Copyright-Vermerk und
 dieser Abschnitt erhalten bleiben.
-
 @c @insertcopying
 @end ifnottex
 
@@ -1400,9 +1396,8 @@ dem ``versteckten Schatz''.
 @section Hauptentwickler
 
 @table @strong
-
 @item Raoul Bourquin
-Landschaftsverwaltung und -design, zahlreiche unsch@"atzbare Erweiterungen
+Landschaftsverwaltung und -design, Homepage, zahlreiche unsch@"atzbare Erweiterungen
 
 @item Siegfried Fennig
 Landschaftsdesign, Grafik
@@ -1414,10 +1409,10 @@ Landschaftsdesign, Grafik, Programmierung
 Hauptentwickler, Grafik, Dokumentation
 
 @item Ronald Lamprecht
-XML, Gui, Portierung, Kernel-Programmierung, Dokumentation
+XML, Gui, Portierung, Kernel-Programmierung, Dokumentation, Homepage, Auswertung
 
 @item Andreas Lochmann
-Programmierung, Landschaftsverwaltung und -design, Dokumentation
+Programmierung, Landschaftsverwaltung und -design, Dokumentation, Homepage
 
 @item Petr Machata
 Landschaftsdesign, Programmierung
@@ -1443,29 +1438,37 @@ Programmierung, Landschaftsdesign
 @item Johannes Fortmann
 Mac OS X Portierung, Programmierunterst@"utzung, Grafik
 
-@item Dustin Norlander
-Designer der Schriftart ``Dustismo''
-
-@item Jeremy Sawicki
-Entschl@"usselung des Oxyd-Dateiformats, Oxydlib
-
-@item Erich Schubert
-Debian/Ubuntu-Pakete
-
-@item Meinolf Schneider
-Urspr@"ungliche Spielidee--@emph{Vielen Dank}!
-
-@item Andrew ``Necros'' Sega
-Men@"u-Musik (@emph{Pentagonal Dreams})
+@item illmind
+Forum mag-heut.net Administration, Landschaftsdesign
 
 @c waiting for licence to add the sounds
 @c @item ``Cellar of Rats''
 @c Sound effects
 
+@item Jennifer Robertson
+Grafik der zweiten Generation
+
+@item Jeremy Sawicki
+Entschl@"usselung des Oxyd-Dateiformats, Oxydlib
+
+@item Meinolf Schneider
+Urspr@"ungliche Spielidee--@emph{Vielen Dank}!
+
+@item Erich Schubert
+Debian/Ubuntu-Pakete, Landschaftsdesign
+
+@item Lukas Sch@"uller
+Landschaftsdesign
+
+@item Andrew ``Necros'' Sega
+Men@"u-Musik (@emph{Pentagonal Dreams})
+
 @item David W. Skinner
 Viele Sokoban-Landschaften von
 @uref{http://users.bentonrea.com/~sasquatch/sokoban}
 
+@item Clifford J. Tasner
+Musik der zweiten Generation, Englisch Korrektur lesen
 @end table
 
 @node Danksagungen, Verwendete Software, Spezieller Dank, Autoren und Danksagungen
@@ -1474,124 +1477,53 @@ Viele Sokoban-Landschaften von
 F@"ur verschiedene kleinere Beitr@"age danken wir:
 
 @itemize @bullet
-
-@item
-Roberto Bardin (Landschaftsdesign)
-
-@item
-Alain Busser (Landschaftsdesign, franz@"osische @"Ubersetzung und Handbuch)
-
-@item
-Guy Busser (Landschaftsdesign)
-
-@item
-Richi B@"utzer (Landschaftsdesign)
-
-@item
-capkoh (Landschaftsdesign)
-
-@item
-Serge Dremuk (Russische @"Ubersetzung)
-
-@item
-Xerxes M. Dynatos (Landschaftsdesign)
-
-@item
-Edward (Landschaftsdesign)
-
-@item 
-Stephanie Fabian (Wertvolle Fehlerberichte)
-
-@item
-Roberto Garc@'ia (Spanische @"Ubersetzung)
-
-@item 
-Edwin Groothuis (FreeBSD Portierung)
-
-@item
-Immanuel Herrmann (Landschaftsdesign)
-
-@item
-illmind (Landschaftsdesign)
-
-@item
-M@'at@'e Lehel Juh@'asz (Ungarische @"Ubersetzung)
-
-@item
-Samuele Kaplun (Italienische @"Ubersetzung)
-
-@item
-Jens-Christian Korth (Landschaftsdesign)
-
-@item
-Manuel K@"onig (Landschaftsdesign, Fehlerberichte)
-
-@item
-Markus Laire (Landschaftsdesign)
-
-@item
-Dominik Lehmann (Landschaftsdesign)
-
-@item
-Edward Leuf (Feedback, Fehlerberichte)
-
-@item
-Ingo van Lil (Feedback, Fehlerberichte)
-
-@item
-Frank van der Loo (Niederl@"andische @"Ubersetzung)
-
-@item
-Sidney Markowitz (Mac OS X Portierung)
-
-@item
-moonpearl (Landschaftsdesign)
-
-@item
-Krishnamurti Lelis Lima Vieira Nunes (Portugiesische @"Ubersetzung)
-
-@item
-Daniel Nylander (Schwedische @"Ubersetzung)
-
-@item
-Peter Santo (Landschaftsdesign)
-
-@item
-Lukas Sch@"uller (Landschaftsdesign)
-
-@item 
-Achim Settelmeier (RPM specfile)
-
-@item 
-Jon Sneyers (Landschaftsdesign)
-
-@item
-Spaceman (Landschaftsdesign)
-
-@item
-Ulf Stegemann (Landschaftsdesign)
-
-@item
-J@"urgen Sticht (Landschaftsdesign)
-
-@item
-Mikke Surakka (Finnische @"Ubersetzung)
-
-@item 
-Andrzej Szombierski (Landschaftsdesign)
-
-@item
-Tacvek (Lua 5.1 Upgrade)
-
-@item
-Michael Terry (.desktop file)
-
-@item
-Ray Wick (Landschaftsdesign)
-
-@item
-Joe Wreschnig (Manual page f@"ur Unix)
-
+@item Roberto Bardin (Landschaftsdesign)
+@item Alain Busser (Landschaftsdesign, franz@"osische @"Ubersetzung und Handbuch)
+@item Guy Busser (Landschaftsdesign)
+@item Richi B@"utzer (Landschaftsdesign)
+@item capkoh (Landschaftsdesign)
+@item Christoph & Anita (Landschaftsdesign)
+@item Serge Dremuk (Russische @"Ubersetzung)
+@item Joseph Dunne (Landschaftsdesign)
+@item Xerxes M. Dynatos (Landschaftsdesign)
+@item Edward (Landschaftsdesign)
+@item Stephanie Fabian (Wertvolle Fehlerberichte)
+@item Roberto Garc@'ia (Spanische @"Ubersetzung)
+@item Andy Geldmacher (Landschaftsdesign)
+@item Edwin Groothuis (FreeBSD Portierung)
+@item Immanuel Herrmann (Landschaftsdesign)
+@item M@'at@'e Lehel Juh@'asz (Ungarische @"Ubersetzung)
+@item Samuele Kaplun (Italienische @"Ubersetzung)
+@item Jens-Christian Korth (Landschaftsdesign)
+@item Manuel K@"onig (Landschaftsdesign, Fehlerberichte)
+@item Johannes Laire (Landschaftsdesign)
+@item Joona Laire (Landschaftsdesign)
+@item Markus Laire (Landschaftsdesign)
+@item Dominik Lehmann (Landschaftsdesign)
+@item Edward Leuf (Feedback, Fehlerberichte)
+@item Ingo van Lil (Feedback, Fehlerberichte)
+@item Frank van der Loo (Niederl@"andische @"Ubersetzung)
+@item Sidney Markowitz (Mac OS X Portierung)
+@item Barry & Lori Mead (Landschaftsdesign)
+@item Linda Mihalic (Englisch Korrektur lesen)
+@item moonpearl (Landschaftsdesign)
+@item Krishnamurti Lelis Lima Vieira Nunes (Portugiesische @"Ubersetzung)
+@item Daniel Nylander (Schwedische @"Ubersetzung)
+@item Andreas Persenius (Landschaftsdesign)
+@item Peter Santo (Landschaftsdesign)
+@item Tobias Schmidbauer (Windows Installer und Icon)
+@item Achim Settelmeier (RPM specfile)
+@item Jon Sneyers (Landschaftsdesign)
+@item Spaceman (Landschaftsdesign)
+@item Ulf Stegemann (Landschaftsdesign)
+@item J@"urgen Sticht (Landschaftsdesign)
+@item Mikke Surakka (Finnische @"Ubersetzung)
+@item Andrzej Szombierski (Landschaftsdesign)
+@item Tacvek (Lua 5.1 Upgrade)
+@item Michael Terry (.desktop file)
+@item Ray Wick (Landschaftsdesign)
+@item Joe Wreschnig (Manual page f@"ur Unix)
+@item Yuriy Zhyromskiy (Russisches Manual)
 @end itemize
 
 @node Verwendete Software,  , Danksagungen, Autoren und Danksagungen

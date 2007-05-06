@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no" ?>
 <index xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="index.xsd">
 
-  <info enigma="1.00" group="Enigma" location="10700" network="false" owner="Enigma Team" release="1" revision="4" title="Enigma VI"/>
+  <info enigma="1.00" group="Enigma" location="10700" network="false" owner="Enigma Team" release="1" revision="5" title="Enigma VI"/>
 
   <attributes/>
 
@@ -100,8 +100,8 @@
     <level _seq="92" _title="Oxyd Drilling" _xpath="./duffy140_1" author="Jacob Scott" ctrl="force" easy="false" id="duffy140" rel="1" rev="0" score="1" target="time" unit="duration"/>
     <level _seq="93" _title="Parish Fair" _xpath="./duffy143_1" author="Jacob Scott" ctrl="force" easy="false" id="duffy143" rel="1" rev="0" score="1" target="time" unit="duration"/>
     <level _seq="94" _title="In the Middle" _xpath="./duffy141_1" author="Jacob Scott" ctrl="force" easy="false" id="duffy141" rel="1" rev="0" score="1" target="time" unit="duration"/>
-    <level _seq="95" _title="Pleasure Garden" _xpath="./duffy134_1" author="Jacob Scott" ctrl="force" easy="false" id="duffy134" rel="1" rev="0" score="1" target="time" unit="duration"/>
-    <level _seq="96" _title="Construction Workers" _xpath="./duffy142_1" author="Jacob Scott" ctrl="force" easy="false" id="duffy142" rel="1" rev="0" score="1" target="time" unit="duration"/>
+    <level _seq="95" _title="Pleasure Garden" _xpath="./duffy134_1" author="Jacob Scott" ctrl="force" easy="false" id="duffy134" rel="1" rev="1" score="1" target="time" unit="duration"/>
+    <level _seq="96" _title="Construction Workers" _xpath="./duffy142_1" author="Jacob Scott" ctrl="force" easy="false" id="duffy142" rel="1" rev="1" score="1" target="time" unit="duration"/>
     <level _seq="97" _title="City Life" _xpath="./joona03_1" author="Joona Laire" ctrl="force" easy="true" id="20061119joona503" rel="1" rev="0" score="1" target="time" unit="duration"/>
     <level _seq="98" _title="Industrial Puzzles" _xpath="./raoul30_1" author="Raoul Bourquin" ctrl="force" easy="false" id="raoul30" rel="1" rev="4" score="1" target="time" unit="duration"/>
     <level _seq="99" _title="Polar Bears' Paradise" _xpath="./ral19_1" author="Ronald Lamprecht" ctrl="force" easy="true" id="20070314ral394" rel="1" rev="68" score="1" target="time" unit="duration"/>
