@@ -7,14 +7,14 @@
       <el:identity el:title="Oxyd 11"
         el:subtitle="Oxyd 11"
         el:id="20061221ulf009"/>
-      <el:version el:score="1" el:release="1" el:revision="$Revision: 68 $" el:status="released"/>
+      <el:version el:score="1" el:release="1" el:revision="$Revision: 69 $" el:status="released"/>
       <el:author  el:name="Ulf Stegemann" el:email="ulf-enigma@zeitform.de"
         el:homepage="http://ulf.zeitform.de"/>
       <el:copyright>Copyright © 2006 Ulf Stegemann</el:copyright>
       <el:license el:type="GPL v2.0 or above" el:open="true"/>
       <el:compatibility el:enigma="0.92">
         <el:dependency el:path="lib/ant" el:id="lib/ant" el:release="1" el:preload="true"/>
-        <el:dependency el:path="lib/libpuzzle" el:id="lib/libpuzzle" el:release="1" el:preload="true"/>
+        <el:dependency el:path="lib/libpuzzle" el:id="lib/libpuzzle" el:release="2" el:preload="true"/>
       </el:compatibility>
       <el:modes el:easy="false" el:single="true" el:network="false" el:control="force"
         el:scoreunit="duration" el:scoretarget="time"/>
@@ -77,7 +77,9 @@ display.SetFollowMode(display.FOLLOW_SCREEN)
 
 -- PUZZLE --
 shuffle_method="permutation"
-puzzle({{1,1,1},{1,0,1},{1,1,1}},27,16,"red","yes")
+puzzle({"###",
+        "# #",
+        "###"},{27,16},"redpuzzle","permutation")
     ]]></el:luamain>
     <el:i18n>
       <el:string el:key="title">
