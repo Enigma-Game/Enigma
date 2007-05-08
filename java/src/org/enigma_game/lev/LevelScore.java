@@ -24,6 +24,7 @@ import org.enigma_game.lev.UserManager;
 
 public class LevelScore {
     Element elem;
+    LevelScore parentScore = null;
     static String currentRel = "1.00";
     boolean isDiffSolved = false;
     boolean isEasySolved = false;
@@ -117,6 +118,10 @@ public class LevelScore {
             bse = Integer.parseInt(bestScoreEasy);
         bseh = bestScoreEasyHolder;
         oldBseh.addAll(Arrays.asList(bseh.split("\\x2B"))); // "+"
+    }
+    
+    public void setParentScore(LevelScore parent) {
+        parentScore = parent;
     }
     
     public void renameUser(String oldname, String newname) {
@@ -213,6 +218,10 @@ public class LevelScore {
     
     public String getId() {
         return elem.getAttribute("id");
+    }
+    
+    public String getScoreVersion() {
+        return elem.getAttribute("sv");
     }
     
     public boolean hasUserDiffSolved() {
@@ -450,66 +459,81 @@ public class LevelScore {
         elem.setAttributeNS(null, "solvpd", Integer.toString(solvpd));
         
         int avgur = -1;
-        if (avgurNum >  0)
-            avgur = avgurSum * 10 / avgurNum;
+        if (avgurNum >  0 || (parentScore != null && parentScore.getRatingNum() > 0)) { 
+            int parentAddNum = 0;
+            double parentAddSum = 0;
+            if (parentScore != null && avgurNum < 10) {
+                if (parentScore.getRatingNum() > 10 - avgurNum) {
+                    parentAddNum = 10 - avgurNum;
+                    parentAddSum = parentAddNum * parentScore.getRatingAvg();
+                } else if (parentScore.getRatingNum() > 0) {
+                    parentAddNum = parentScore.getRatingNum();
+                    parentAddSum = parentAddNum * parentScore.getRatingAvg();
+                }
+            }
+            parentAddSum = 10 * parentAddSum;
+            avgur = (avgurSum * 10 + (int)parentAddSum) / (avgurNum + parentAddNum);
+        }
         elem.setAttributeNS(null, "avgur", Integer.toString(avgur));
         
         // worldrecord holder statistics
-        int numWRHolder = oldBsdh.size() + oldConfBsdh.size() + newConfBsdh.size();
-        if (numWRHolder > 1) {
-            for(String name : newConfBsdh) {
-                Integer n = wrSharers.get(name);
-                wrSharers.put(name, (n == null ? 1 : n+1));
-            }
-            for(String name : oldConfBsdh) {
-                Integer n = wrSharers.get(name);
-                wrSharers.put(name, (n == null ? 1 : n+1));
-            }
-            for(String name : oldBsdh) {
-                Integer n = wrSharers.get(name);
-                wrSharers.put(name, (n == null ? 1 : n+1));
-            }
-        } else {
-            for(String name : newConfBsdh) {
-                Integer n = wrHolders.get(name);
-                wrHolders.put(name, (n == null ? 1 : n+1));
-            }
-            for(String name : oldConfBsdh) {
-                Integer n = wrHolders.get(name);
-                wrHolders.put(name, (n == null ? 1 : n+1));
-            }
-            for(String name : oldBsdh) {
-                Integer n = wrHolders.get(name);
-                wrHolders.put(name, (n == null ? 1 : n+1));
-            }
-        }
-        if (hasEasy) {
-            numWRHolder = oldBseh.size() + oldConfBseh.size() + newConfBseh.size();
+        if (partOfCurDist) {
+            int numWRHolder = oldBsdh.size() + oldConfBsdh.size() + newConfBsdh.size();
             if (numWRHolder > 1) {
-                for(String name : newConfBseh) {
+                for(String name : newConfBsdh) {
                     Integer n = wrSharers.get(name);
                     wrSharers.put(name, (n == null ? 1 : n+1));
                 }
-                for(String name : oldConfBseh) {
+                for(String name : oldConfBsdh) {
                     Integer n = wrSharers.get(name);
                     wrSharers.put(name, (n == null ? 1 : n+1));
                 }
-                for(String name : oldBseh) {
+                for(String name : oldBsdh) {
                     Integer n = wrSharers.get(name);
                     wrSharers.put(name, (n == null ? 1 : n+1));
                 }
             } else {
-                for(String name : newConfBseh) {
+                for(String name : newConfBsdh) {
                     Integer n = wrHolders.get(name);
                     wrHolders.put(name, (n == null ? 1 : n+1));
                 }
-                for(String name : oldConfBseh) {
+                for(String name : oldConfBsdh) {
                     Integer n = wrHolders.get(name);
                     wrHolders.put(name, (n == null ? 1 : n+1));
                 }
-                for(String name : oldBseh) {
+                for(String name : oldBsdh) {
                     Integer n = wrHolders.get(name);
                     wrHolders.put(name, (n == null ? 1 : n+1));
+                }
+            }
+            if (hasEasy) {
+                numWRHolder = oldBseh.size() + oldConfBseh.size() + newConfBseh.size();
+                if (numWRHolder > 1) {
+                    for(String name : newConfBseh) {
+                        Integer n = wrSharers.get(name);
+                        wrSharers.put(name, (n == null ? 1 : n+1));
+                    }
+                    for(String name : oldConfBseh) {
+                        Integer n = wrSharers.get(name);
+                        wrSharers.put(name, (n == null ? 1 : n+1));
+                    }
+                    for(String name : oldBseh) {
+                        Integer n = wrSharers.get(name);
+                        wrSharers.put(name, (n == null ? 1 : n+1));
+                    }
+                } else {
+                    for(String name : newConfBseh) {
+                        Integer n = wrHolders.get(name);
+                        wrHolders.put(name, (n == null ? 1 : n+1));
+                    }
+                    for(String name : oldConfBseh) {
+                        Integer n = wrHolders.get(name);
+                        wrHolders.put(name, (n == null ? 1 : n+1));
+                    }
+                    for(String name : oldBseh) {
+                        Integer n = wrHolders.get(name);
+                        wrHolders.put(name, (n == null ? 1 : n+1));
+                    }
                 }
             }
         }

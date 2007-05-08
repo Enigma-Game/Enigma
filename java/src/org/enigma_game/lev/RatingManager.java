@@ -100,6 +100,9 @@ public class RatingManager {
         lpmgr = new LevelpackManager("enigma_vi");
         lpmgr.registerLevels(this);
         levelPacks.add(lpmgr);
+        lpmgr = new LevelpackManager("enigma_vii");
+        lpmgr.registerLevels(this);
+        levelPacks.add(lpmgr);
         lpmgr = new LevelpackManager("enigma_esprit");
         lpmgr.registerLevels(this);
         levelPacks.add(lpmgr);
@@ -126,14 +129,22 @@ public class RatingManager {
         levelPacks.add(lpmgr);
         
         for(Map.Entry<String, LevelScore> entry : levelScores.entrySet()) {
-            if (entry.getValue().isPartOfCurDist()) {
+            LevelScore lev = entry.getValue();
+            int sv = Integer.parseInt(lev.getScoreVersion());
+            if (sv > 1) {
+                LevelScore parentScore = getLevelScore(lev.getId(), Integer.toString(sv - 1));
+                if (parentScore != null) {
+                    lev.setParentScore(parentScore);
+                }
+            }
+            if (lev.isPartOfCurDist()) {
                 numDifficult++;
-                if (entry.getValue().hasEasyMode()) {
+                if (lev.hasEasyMode()) {
                     numEasy++;
                 }
             }
             if (!levelPattern.equals("")) {
-                entry.getValue().setFullEvaluation(levelPattern);
+                lev.setFullEvaluation(levelPattern);
             }
         }
     }
@@ -189,7 +200,7 @@ public class RatingManager {
         formatter.format("Solved diff %3d/%3d - easy %3d/%3d = %6.2f%%", userDiffCount,
                 numDifficult, userEasyCount, numEasy, solvedPercent);
         System.out.println(formatter.toString());
-        if (solvedPercent > 10.0) {
+        if (solvedPercent > 20.0) {
             isProfessional = true;
             numProf++;
         }
