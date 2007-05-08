@@ -227,14 +227,14 @@ tolua:
 
 #------------------ Packaging rules for Mac OSX ------------------------
 
-bundle_name := $(top_builddir)/etc/Enigma.app
+bundle_root := $(top_builddir)/etc/macfiles
+bundle_name := $(bundle_root)/Enigma.app
 # Special target to copy all needed game files to Enigma.app/Contents/Resources.
 # For Mac OS X bundle.
 .PHONY: bundle
 bundle:
-	-rm -rf $(bundle_name)/Contents
+	-rm -rf $(bundle_root)
 	mkdir -p $(bundle_name)/Contents/MacOS
-	mkdir -p $(bundle_name)/Contents/Resources
 	mkdir -p $(bundle_name)/Contents/Resources/data/
 	echo "APPL????" > $(bundle_name)/Contents/PkgInfo
 	cp $(top_builddir)/etc/Info.plist $(bundle_name)/Contents/
@@ -281,6 +281,40 @@ bundle-fw: enigma-fw-mosx
 	cp enigma-fw $(bundle_name)/Contents/MacOS/enigma
 	strip $(bundle_name)/Contents/MacOS/enigma
 
+# Special target to copy the doc files to the MacOS dmg staging area
+bundle_doc := $(bundle_root)/Documentation
+.PHONY: bundle-doc
+bundle-doc:
+	-rm -rf $(bundle_doc)
+	mkdir -p $(bundle_doc)/images/flags25x15
+	mkdir -p $(bundle_doc)/reference/images
+	mkdir -p $(bundle_doc)/manual/images
+	cp $(top_builddir)/README $(bundle_doc)/
+	cp $(top_builddir)/COPYING $(bundle_doc)/
+	cp $(top_builddir)/CHANGES $(bundle_doc)/
+	cp $(top_builddir)/ACKNOWLEDGEMENTS $(bundle_doc)/
+	cp $(top_builddir)/etc/README-SDL.txt $(bundle_doc)/
+	cp $(top_builddir)/doc/index.html $(bundle_doc)/
+	( cd $(bundle_root) ; ln -s ./Documentation/index.html index.html )
+	cp $(top_builddir)/doc/gpl.txt $(bundle_doc)/
+	cp $(top_builddir)/doc/lgpl.txt $(bundle_doc)/
+	cp $(top_builddir)/doc/images/enigma.css $(bundle_doc)/images/
+	cp $(top_builddir)/doc/images/nav_enigma.gif $(bundle_doc)/images/
+	cp $(top_builddir)/doc/images/nav_cornerul.gif $(bundle_doc)/images/
+	cp $(top_builddir)/doc/images/nav_cornerur.gif $(bundle_doc)/images/
+	cp $(top_builddir)/doc/images/favicon.png $(bundle_doc)/images/
+	cp $(top_builddir)/doc/images/menu_bg.jpg $(bundle_doc)/images/
+	cp $(top_builddir)/doc/images/flags25x15/*.png $(bundle_doc)/images/flags25x15/
+	cp $(top_builddir)/doc/reference/ant_lua.txt $(bundle_doc)/reference/
+	cp $(top_builddir)/doc/reference/sounds.txt $(bundle_doc)/reference/
+	cp $(top_builddir)/doc/reference/sound.lua $(bundle_doc)/reference/
+	cp $(top_builddir)/doc/reference/lua2xml $(bundle_doc)/reference/
+	cp $(top_builddir)/doc/reference/xml2lua $(bundle_doc)/reference/
+	cp $(top_builddir)/doc/manual/images/*.png $(bundle_doc)/manual/images/
+	cp $(top_builddir)/doc/manual/*.html $(bundle_doc)/manual/
+	cp $(top_builddir)/doc/reference/images/*.png $(bundle_doc)/reference/images/
+	cp $(top_builddir)/doc/reference/*.html $(bundle_doc)/reference/
+
 # Special target to create a binary linked with Mac OS X frameworks
 static_prefix := `$(SDL_CONFIG) --prefix`
 .PHONY: enigma-fw-mosx
@@ -290,5 +324,5 @@ enigma-fw-mosx: $(enigma_OBJECTS) $(enigma_DEPENDENCIES)
 # Special target to make a disk image of the bundled app
 .PHONY: bundle-dmg
 bundle-dmg:
-	hdiutil create  -ov -srcfolder $(bundle_name) -volname Enigma -imagekey zlib-level=6 $(top_builddir)/etc/enigma.dmg
+	hdiutil create  -ov -srcfolder $(bundle_root) -volname Enigma -imagekey zlib-level=6 $(top_builddir)/etc/enigma.dmg
 

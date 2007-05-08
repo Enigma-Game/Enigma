@@ -24,7 +24,7 @@ gmo:
 	cd po && $(MAKE) $(AM_MAKEFLAGS) update-gmo
 
 macapp:
-	cd src && $(MAKE) $(AM_MAKEFLAGS) bundle && $(MAKE) $(AM_MAKEFLAGS) bundle-fw && $(MAKE) $(AM_MAKEFLAGS) bundle-dmg
+	cd src && $(MAKE) $(AM_MAKEFLAGS) bundle && $(MAKE) $(AM_MAKEFLAGS) bundle-fw && $(MAKE) $(AM_MAKEFLAGS) bundle-doc && $(MAKE) $(AM_MAKEFLAGS) bundle-dmg
 
 pdf:
 	cd doc/manual/images && $(MAKE) pdf
