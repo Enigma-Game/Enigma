@@ -51,8 +51,8 @@ options = {
     MusicVolume      = 1.0,
     StereoSeparation = 10.0,
 
-    MenuMusicFile  = "sound/menu.s3m",
-    LevelMusicFile = "sound/Emilie.xm",
+    MenuMusicFile  = "soundsets/menu.s3m",
+    LevelMusicFile = "soundsets/Emilie.xm",
 
     Language = "",
     History = "",

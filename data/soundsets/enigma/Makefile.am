@@ -1,6 +1,5 @@
-pkgdatadir = $(datadir)/@PACKAGE@/sound
-pkgdata_DATA = menu.s3m \
-ballcollision.wav \
+pkgdatadir = $(datadir)/@PACKAGE@/soundsets/enigma
+pkgdata_DATA = ballcollision.wav \
 boing.wav \
 boink.wav \
 drip.wav \
@@ -33,6 +32,5 @@ st-switch.wav \
 st-thud.wav \
 swamped.wav \
 switch.wav
-# Emilie.xm 
 
 EXTRA_DIST = $(pkgdata_DATA)

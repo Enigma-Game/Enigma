@@ -325,7 +325,7 @@ void Application::init(int argc, char **argv)
         sound::DisableMusic();
     sound::Init();
     lua::CheckedDoFile (L, app.systemFS, "sound-defaults.lua");
-    lua::DoSubfolderfile (L, "sound", "sound.lua");
+    lua::DoSubfolderfile (L, "soundsets", "soundset.lua");
 
     // ----- Initialize network layer
     if (enet_initialize () != 0) {
