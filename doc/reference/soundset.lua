@@ -1,20 +1,20 @@
 --
 -- This file demonstrates how to add a sound set to Enigma.
 --
--- Sound effects are triggered by so-called "sound events".
--- These sound events usually have a name (like "dooropen") and
--- an associated location (the coordinates of the door) which
--- affects the way a sound effect is played.
+-- Sound effects are triggered by so-called "sound events". These sound
+-- events usually have a name (like "dooropen") and an associated location
+-- (the coordinates of the door) which affects the way a sound effect is
+-- played.
 --
--- The sound event is converted into a real sound effect using
--- tables similar to the one below.  Each entry in the table is
--- either a string like "st-coinslot", which is interpreted as
--- referring to file "st-coinslot.wav" and default properties or
--- a list of sound attributes enclosed in curly braces "{ ... }".
+-- The sound event is converted into a real sound effect using tables
+-- similar to the one below.  Each entry in the table is either a string
+-- like "enigma/st-coinslot", which is interpreted as the file
+-- "soundsets/enigma/st-coinslot.wav" with some default properties, or a
+-- list of sound attributes enclosed in curly braces "{ ... }".
 --
 -- Here is a complete example of such an attribute list:
 --
---      dooropen = { file="open-door", volume=0.9, priority=4, global=0 },
+--      dooropen = { file="my_soundset/open-door", volume=0.9, priority=4 },
 --
 -- The meaning of these attributes is as follows:
 --
@@ -25,7 +25,8 @@
 --
 --      priority - If many effects are active at the same time, high-priority
 --                 effects can replace lower-priority effects. Use an integer
---                 between 1 and 10 (default 1).
+--                 between 1 and 10 (default 1). This property does not yet
+--                 work within Enigma 1.01.
 --
 --      global   - Either "true" or "false".  If true, no stereo effects are
 --                 applied and there is no attenuation.  Used for menu sound,
@@ -43,28 +44,38 @@
 --                 damp_mult is an overall factor, damp_min defines a lower
 --                 bound for the damping entries (beyond which they are
 --                 removed from memory) and damp_tick the factor that's
---                 applied all 0.1 seconds. Defaults: 10.0, 1.0, 1.0, 0.5, 0.9.
+--                 applied all 0.1 seconds. See sound.hh for details.
+--                 Defaults: 10.0, 1.0, 1.0, 0.5, 0.9.
 --
 -- To design a new sound set, proceed as follows.
 --
--- 1) Create a new folder containing this file (named "sound.lua")
+-- 1) Create a new folder containing this file (named "soundset.lua")
 --    and the wav files you want to use.  
 --
--- 2) Move this new folder into Enigma's "sound" folder.  The directory
---    structure should look something like this
+-- 2) Move this new folder into Enigma's "soundsets" folder in your user path.
+--    (Possibly you have to create it.) The directory structure should look
+--    something like this:
 --
---      (user path)/sound/my_sounds/
---                                 /sound.lua
---                                 /a.wav
---                                 /b.wav
---                                 ...
+--      (user path)/soundsets/my_sounds/
+--                                     /soundset.lua
+--                                     /a.wav
+--                                     /b.wav
+--                                     ...
 --
--- 3) Run Enigma.  Since this file sets does not map any sound effect to a
---    wav file, you should hear nothing
+-- 3) Run Enigma.  Since this file's sound set does not map any sound effect
+--    to a wav file, you should hear nothing.
 --
 -- 4) Edit the contents of this file to your liking.  You can access the
---    default sound files directly, but remember to add the subfolder for
---    own sound files (like "{ file="my_sounds/b.wav" }").
+--    default sound files in the "soundsets/enigma" directory, e.g.:
+--        ...
+--        coinsloton = { file="enigma/st-coinslot" },
+--        ...
+--    When using own sound files, remember to add the subfolder, like in
+--        ...
+--        coinsloton = { file="my_sounds/b" },
+--        ...
+--    No extension ".wav"! It's added automatically. Make sure that the
+--    extension is in lower case letters.
 --
 -- 5) Replace "MY_SOUNDSET" by a suitable variable name, and "My Soundset"
 --    by the name you want to see in the sound options menu.  Remember to
