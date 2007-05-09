@@ -256,9 +256,10 @@ bundle:
 	mkdir -p $(bundle_name)/Contents/Resources/data/schemas
 	cp $(top_builddir)/data/schemas/*.xml $(bundle_name)/Contents/Resources/data/schemas
 	cp $(top_builddir)/data/schemas/*.xsd $(bundle_name)/Contents/Resources/data/schemas
-	mkdir -p $(bundle_name)/Contents/Resources/data/sound
-	cp $(top_builddir)/data/sound/*.wav $(bundle_name)/Contents/Resources/data/sound
-	cp $(top_builddir)/data/sound/*.s3m $(bundle_name)/Contents/Resources/data/sound
+	mkdir -p $(bundle_name)/Contents/Resources/data/soundsets
+	cp $(top_builddir)/data/soundsets/*.s3m $(bundle_name)/Contents/Resources/data/soundsets
+	mkdir -p $(bundle_name)/Contents/Resources/data/soundsets/enigma
+	cp $(top_builddir)/data/soundsets/enigma/*.wav $(bundle_name)/Contents/Resources/data/soundsets/enigma
 	mkdir -p $(bundle_name)/Contents/Resources/data/fonts
 	cp $(top_builddir)/data/fonts/*.png $(bundle_name)/Contents/Resources/data/fonts
 	cp $(top_builddir)/data/fonts/*.bmf $(bundle_name)/Contents/Resources/data/fonts
@@ -307,7 +308,7 @@ bundle-doc:
 	cp $(top_builddir)/doc/images/flags25x15/*.png $(bundle_doc)/images/flags25x15/
 	cp $(top_builddir)/doc/reference/ant_lua.txt $(bundle_doc)/reference/
 	cp $(top_builddir)/doc/reference/sounds.txt $(bundle_doc)/reference/
-	cp $(top_builddir)/doc/reference/sound.lua $(bundle_doc)/reference/
+	cp $(top_builddir)/doc/reference/soundsets.lua $(bundle_doc)/reference/
 	cp $(top_builddir)/doc/reference/lua2xml $(bundle_doc)/reference/
 	cp $(top_builddir)/doc/reference/xml2lua $(bundle_doc)/reference/
 	cp $(top_builddir)/doc/manual/images/*.png $(bundle_doc)/manual/images/
