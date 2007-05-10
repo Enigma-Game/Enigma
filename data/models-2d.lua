@@ -1664,4 +1664,4 @@ Sprite{
     loop     = TRUE
 }
 
-Progress(100, "Loading Oxyd levels")
+Progress(100, "Loading Enigma levels")
