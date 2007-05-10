@@ -29,7 +29,7 @@ namespace enigma
      * the application public ivar <code>app.prefs</code>.</p>
      * <p> During initialization old LUA stored options are convereted. New 
      * preferences with given default values are introduced to the user via the 
-     * template in the systen data directory (data/enigmarc3.xml).</p>
+     * template in the systen data directory (data/enigmarc.xml).</p>
      * <p>The storage location of the users preferences is determined by the
      * Application object.</p>
      * <p>The set and get methods for preferences take utf8 encoded preference

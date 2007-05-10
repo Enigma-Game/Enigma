@@ -256,8 +256,9 @@ bundle:
 	mkdir -p $(bundle_name)/Contents/Resources/data/schemas
 	cp $(top_builddir)/data/schemas/*.xml $(bundle_name)/Contents/Resources/data/schemas
 	cp $(top_builddir)/data/schemas/*.xsd $(bundle_name)/Contents/Resources/data/schemas
+	mkdir -p $(bundle_name)/Contents/Resources/data/sound
+	cp $(top_builddir)/data/sound/*.s3m $(bundle_name)/Contents/Resources/data/sound
 	mkdir -p $(bundle_name)/Contents/Resources/data/soundsets
-	cp $(top_builddir)/data/soundsets/*.s3m $(bundle_name)/Contents/Resources/data/soundsets
 	mkdir -p $(bundle_name)/Contents/Resources/data/soundsets/enigma
 	cp $(top_builddir)/data/soundsets/enigma/*.wav $(bundle_name)/Contents/Resources/data/soundsets/enigma
 	mkdir -p $(bundle_name)/Contents/Resources/data/fonts
