@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no" ?>
 <index xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="index.xsd">
 
-  <info enigma="1.00" group="Facets" location="15400" network="false" owner="Enigma Team" release="1" revision="3" title="Enigma 1.00 new"/>
+  <info enigma="1.00" group="Facets" location="15400" network="false" owner="Enigma Team" release="1" revision="4" title="Enigma 1.00 new"/>
 
   <attributes/>
 
@@ -161,7 +161,7 @@
     <level _seq="153" _title="Zeus" _xpath="enigma_vi/raoul19_1" author="Raoul Bourquin" ctrl="force" easy="true" id="raoul19" rel="1" rev="0" score="1" target="time" unit="duration"/>
     <level _seq="154" _title="Rhapsody on Cracks" _xpath="enigma_vi/ral06_1" author="Ronald Lamprecht" ctrl="force" easy="true" id="20060510ral008" rel="1" rev="42" score="1" target="time" unit="duration"/>
     <level _seq="155" _title="Prepare Your Defense" _xpath="enigma_vi/duffy132_1" author="Jacob Scott" ctrl="force" easy="false" id="duffy132" rel="1" rev="0" score="1" target="time" unit="duration"/>
-    <level _seq="156" _title="Cold Way" _xpath="enigma_vi/raoul21_1" author="Raoul Bourquin" ctrl="force" easy="false" id="raoul21" rel="1" rev="0" score="1" target="time" unit="duration"/>
+    <level _seq="156" _title="Cold Way" _xpath="enigma_vi/raoul21_1" author="Raoul Bourquin" ctrl="force" easy="false" id="raoul21" rel="1" rev="1" score="1" target="time" unit="duration"/>
     <level _seq="157" _title="Laserpowered" _xpath="enigma_vi/raoul20_1" author="Raoul Bourquin" ctrl="force" easy="true" id="raoul20" rel="1" rev="0" score="1" target="time" unit="duration"/>
     <level _seq="158" _title="Oxydmoron" _xpath="enigma_vi/raoul14_1" author="Raoul Bourquin" ctrl="force" easy="true" id="raoul14" rel="1" rev="0" score="1" target="time" unit="duration"/>
     <level _seq="159" _title="Bomb raider" _xpath="enigma_vi/alain27_1" author="Alain Busser" ctrl="force" easy="true" id="alain27" rel="1" rev="0" score="1" target="time" unit="duration"/>

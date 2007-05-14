@@ -109,8 +109,6 @@ namespace world
         it_seed_nowood,
         it_seed_volcano,
         it_sensor,
-        // HOT FIX
-        //it_sherd,
         it_shogun_s,
         it_shogun_m,
         it_shogun_l,
