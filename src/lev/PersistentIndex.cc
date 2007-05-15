@@ -462,7 +462,11 @@ namespace enigma { namespace lev {
                 indexFilename = fileName + ".xml";
         }
         
-        renameIndex(newName);  // Index maps
+        if (!getName().empty())
+            renameIndex(newName);  // Index maps
+        else
+            // a new unregistered levelpack is named the first time - just set the name
+            indexName = newName;
         return true;
     }
     
