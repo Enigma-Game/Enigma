@@ -163,10 +163,10 @@ namespace enigma { namespace lev {
 
         candidates2.insert("");
 #ifdef __MINGW32__
-	// eliminate logical duplicates as Windows does not distinguish
-	// upper and lower case filenames but we can have e.g. an uppercase zip
-	// and a lower case dir
-	candidates2 = ecl::UniqueFilenameSet(candidates2);
+        // eliminate logical duplicates as Windows does not distinguish
+        // upper and lower case filenames but we can have e.g. an uppercase zip
+        // and a lower case dir
+        candidates2 = ecl::UniqueFilenameSet(candidates2);
 #endif
         for (std::set<std::string>::iterator i = candidates2.begin(); 
                 i != candidates2.end(); i++) {
@@ -252,15 +252,23 @@ namespace enigma { namespace lev {
             isUserOwned (true), isEditable (true), release (1), revision (1),
             compatibility (1.00), doc(NULL) {
 //        Log << "PersistentIndex AddLevelPack " << thePackPath << " - " << anIndexName <<  " - " << indexDefaultLocation <<"\n";
+        load(systemOnly);
+    }
+    
+    void PersistentIndex::load(bool systemOnly, bool update) {
+        if (doc != NULL) {
+            doc->release();
+            doc = NULL;
+        }
         // auto and new levelpacks are not loadable
-        if (thePackPath == " " || thePackPath == "auto")
+        if (packPath == " " || packPath == "auto")
             return;    // as long as Auto is not editable
 
         std::auto_ptr<std::istream> isptr;
         ByteVec indexCode;
         std::string errMessage;
         absIndexPath = "";
-        std::string relIndexPath = "levels/" + thePackPath + "/" + theIndexFilename;
+        std::string relIndexPath = "levels/" + packPath + "/" + indexFilename;
         if ((!systemOnly && app.resourceFS->findFile(relIndexPath, absIndexPath, isptr)) ||
                 (systemOnly && app.systemFS->findFile(relIndexPath, absIndexPath, isptr))) {
             // preload index file or zipped index
@@ -278,22 +286,29 @@ namespace enigma { namespace lev {
                 app.domParserErrorHandler->reportToOstream(&errStream);
                 app.domParserSchemaResolver->resetResolver();
                 app.domParserSchemaResolver->addSchemaId("index.xsd","index.xsd");
-                // preloaded  xml or zipped xml
+                if (update) {
+                    // local xml file or URL
+                    doc = app.domParser->parseURI(indexUrl.c_str());
+                } else {
+                    // preloaded  xml or zipped xml
 #if _XERCES_VERSION >= 30000
-                std::auto_ptr<DOMLSInput> domInputIndexSource ( new Wrapper4InputSource(
-                        new MemBufInputSource(reinterpret_cast<const XMLByte *>(&(indexCode[0])),
-                        indexCode.size(), absIndexPath.c_str(), false)));
-                doc = app.domParser->parse(domInputIndexSource.get());
+                    std::auto_ptr<DOMLSInput> domInputIndexSource ( new Wrapper4InputSource(
+                            new MemBufInputSource(reinterpret_cast<const XMLByte *>(&(indexCode[0])),
+                            indexCode.size(), absIndexPath.c_str(), false)));
+                 doc = app.domParser->parse(domInputIndexSource.get());
 #else    
-                std::auto_ptr<Wrapper4InputSource> domInputIndexSource ( new Wrapper4InputSource(
-                        new MemBufInputSource(reinterpret_cast<const XMLByte *>(&(indexCode[0])),
-                        indexCode.size(), absIndexPath.c_str(), false)));
-                doc = app.domParser->parse(*domInputIndexSource);
+                    std::auto_ptr<Wrapper4InputSource> domInputIndexSource ( new Wrapper4InputSource(
+                            new MemBufInputSource(reinterpret_cast<const XMLByte *>(&(indexCode[0])),
+                            indexCode.size(), absIndexPath.c_str(), false)));
+                    doc = app.domParser->parse(*domInputIndexSource);
 #endif
+                }
 
                 if (doc != NULL && !app.domParserErrorHandler->getSawErrors()) {
                     infoElem = dynamic_cast<DOMElement *>(doc->getElementsByTagName(
                             Utf8ToXML("info").x_str())->item(0));
+                    updateElem = dynamic_cast<DOMElement *>(doc->getElementsByTagName(
+                            Utf8ToXML("update").x_str())->item(0));
                     levelsElem = dynamic_cast<DOMElement *>(doc->getElementsByTagName(
                             Utf8ToXML("levels").x_str())->item(0));
                 }
@@ -307,17 +322,28 @@ namespace enigma { namespace lev {
                 errMessage = "Unexpected XML Exception on load of index\n";
             }
             if (!errMessage.empty()) {
-                if (doc != NULL) {
-                    doc->release();           // empty or errornous doc 
-                    doc = NULL;
-                }
                 Log << errMessage;   // make long error messages readable
-                std::string message = _("Error on  registration of levelpack index: \n");
-                message += absIndexPath + "\n\n";
-                message += _("Note: the levelpack will not show up!\n\n");
-                message += errMessage;
+                std::string message;
+                if (update) {
+                    message = _("Error on  update of levelpack index: \n");
+                    message += absIndexPath + "\n\n";
+                    message += _("Note: the current version will be reloaded!\n\n");
+                    message += errMessage;
+                } else {
+                    if (doc != NULL) {
+                        doc->release();           // empty or errornous doc 
+                        doc = NULL;
+                    }
+                    message = _("Error on  registration of levelpack index: \n");
+                    message += absIndexPath + "\n\n";
+                    message += _("Note: the levelpack will not show up!\n\n");
+                    message += errMessage;
+                }
                 gui::ErrorMenu m(message, N_("Continue"));
                 m.manage();
+                if (update) {
+                    load(systemOnly, false);  // reload local version                    
+                }
                 return;
             } else if (doc != NULL) {
                 //TODO check if an updated index exists for system packs
@@ -349,6 +375,11 @@ namespace enigma { namespace lev {
             indexDefaultLocation = result->getValue();
             indexLocation = indexDefaultLocation;
             delete result;
+            
+            if (updateElem != NULL) {
+                indexUrl = XMLtoUtf8(updateElem->getAttribute( 
+                        Utf8ToXML("indexurl").x_str())).c_str();
+            }
             DOMNodeList *levelList = levelsElem->getElementsByTagName(
                     Utf8ToXML("level").x_str());
             std::set<std::string> knownAttributes;
@@ -468,6 +499,10 @@ namespace enigma { namespace lev {
             // a new unregistered levelpack is named the first time - just set the name
             indexName = newName;
         return true;
+    }
+    
+    bool PersistentIndex::isUpdatable() {
+        return (updateElem != NULL) && !indexUrl.empty();
     }
     
     bool PersistentIndex::isCross() {

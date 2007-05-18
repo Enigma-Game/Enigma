@@ -73,6 +73,7 @@ namespace enigma { namespace lev {
         PersistentIndex(std::istream *legacyIndex, std::string thePackPath,  bool isZip = false,
                 std::string anIndexName = "", std::string theIndexFilename = INDEX_STD_FILENAME);
         ~PersistentIndex();
+        void load(bool systemOnly, bool update = false);
         void loadDoc();
         std::string getPackPath();
         bool setName(std::string newName);
@@ -85,6 +86,7 @@ namespace enigma { namespace lev {
         double getCompatibility();
         void setCompatibility(double newCompatibility);
         bool isUserEditable();
+        bool isUpdatable();
         bool isCross();
         void markNewAsCross();
         virtual void clear();
@@ -111,11 +113,13 @@ namespace enigma { namespace lev {
         bool isModified;
         bool isUserOwned;
         bool isEditable;
+        std::string indexUrl;
     private:
 	static std::vector<PersistentIndex *> indexCandidates;
         std::string absIndexPath;
         XERCES_CPP_NAMESPACE_QUALIFIER DOMDocument *doc;
         XERCES_CPP_NAMESPACE_QUALIFIER DOMElement *infoElem;
+        XERCES_CPP_NAMESPACE_QUALIFIER DOMElement *updateElem;
         XERCES_CPP_NAMESPACE_QUALIFIER DOMElement *levelsElem;
         
 	static void checkCandidate(PersistentIndex * candidate);
