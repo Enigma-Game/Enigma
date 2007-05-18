@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no" ?>
 <index xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="index.xsd">
 
-  <info enigma="1.00" group="Enigma" location="10800" network="false" owner="Enigma Team" release="1" revision="3" title="Enigma VII"/>
+  <info enigma="1.00" group="Enigma" location="10800" network="false" owner="Enigma Team" release="1" revision="4" title="Enigma VII"/>
 
   <attributes/>
 
@@ -24,6 +24,7 @@
     <level _seq="16" _title="Advancing" _xpath="./joe01_1" author="Joseph Dunne" ctrl="force" easy="false" id="joe01" rel="1" rev="0" score="1" target="time" unit="duration"/>
     <level _seq="17" _title="Free Riders" _xpath="./duffy155_1" author="Jacob Scott" ctrl="force" easy="false" id="duffy155" rel="1" rev="0" score="1" target="time" unit="duration"/>
     <level _seq="18" _title="Meditation in Peace" _xpath="./ral20_1" author="Ronald Lamprecht" ctrl="force" easy="true" id="20070502ral466" rel="1" rev="70" score="1" target="time" unit="duration"/>
+    <level _seq="19" _title="Laser Squad" _xpath="./duffy153_1" author="Jacob Scott" ctrl="force" easy="false" id="duffy153" rel="1" rev="0" score="1" target="time" unit="duration"/>
   </levels>
 
 </index>

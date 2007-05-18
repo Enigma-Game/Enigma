@@ -11,9 +11,6 @@
        <el:dependency el:path="lib/libpuzzle" el:id="lib/libpuzzle" el:release="2" el:preload="true"/>
       </el:compatibility>
       <el:modes el:easy="false" el:single="true" el:network="false"/>
-      <el:comments>
-        <el:code>Lua 5.1 and XML converted by Leveladministrators</el:code>
-      </el:comments>
       <el:score el:easy="-" el:difficult="-"/>
     </el:info>
     <el:luamain><![CDATA[
@@ -26,13 +23,11 @@ create_world(levelw, levelh)
 function renderLine( line, pattern)
     for i=1, strlen(pattern) do
         local c = strsub( pattern, i, i)
-          if c=="x" then
-            --oxyd(i-1,line)
-                elseif c=="#" then
-                   set_stone("st-glass",i-1,line)
-                   set_floor("fl-black",i-1,line)
-                elseif c==" " then
-                   set_floor("fl-black",i-1,line)
+        if c=="#" then
+            set_stone("st-glass",i-1,line)
+            set_floor("fl-black",i-1,line)
+        elseif c==" " then
+            set_floor("fl-black",i-1,line)
         end
     end    
 end
