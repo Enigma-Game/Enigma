@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no" ?>
 <index xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="index.xsd">
 
-  <info enigma="1.00" group="Facets" location="15500" network="false" owner="Enigma Team" release="1" revision="6" title="Enigma 1.01 new"/>
+  <info enigma="1.00" group="Facets" location="15500" network="false" owner="Enigma Team" release="1" revision="7" title="Enigma 1.01 new"/>
 
   <attributes/>
 
@@ -61,6 +61,11 @@
     <level _seq="53" _title="Free Riders" _xpath="enigma_vii/duffy155_1" author="Jacob Scott" ctrl="force" easy="false" id="duffy155" rel="1" rev="0" score="1" target="time" unit="duration"/>
     <level _seq="54" _title="Meditation in Peace" _xpath="enigma_vii/ral20_1" author="Ronald Lamprecht" ctrl="force" easy="true" id="20070502ral466" rel="1" rev="70" score="1" target="time" unit="duration"/>
     <level _seq="55" _title="Laser Squad" _xpath="enigma_vii/duffy153_1" author="Jacob Scott" ctrl="force" easy="false" id="duffy153" rel="1" rev="0" score="1" target="time" unit="duration"/>
+    <level _seq="56" _title="Protected Exhibition" _xpath="enigma_vii/duffy156_1" author="Jacob Scott" ctrl="force" easy="true" id="duffy156" rel="1" rev="2" score="1" target="time" unit="duration"/>
+    <level _seq="57" _title="Oneway for White" _xpath="enigma_vii/duffy157_1" author="Jacob Scott" ctrl="force" easy="false" id="duffy157" rel="1" rev="0" score="1" target="time" unit="duration"/>
+    <level _seq="58" _title="Widgets in the Attic" _xpath="enigma_vii/duffy158_1" author="Jacob Scott" ctrl="force" easy="false" id="duffy158" rel="1" rev="0" score="1" target="time" unit="duration"/>
+    <level _seq="59" _title="The Wild Hunt" _xpath="enigma_vii/duffy159_1" author="Jacob Scott" ctrl="force" easy="false" id="duffy159" rel="1" rev="0" score="1" target="time" unit="duration"/>
+    <level _seq="60" _title="Mountain Climbing" _xpath="enigma_vii/joe10_1" author="Joseph Dunne" ctrl="force" easy="true" id="joe10" rel="1" rev="0" score="1" target="time" unit="duration"/>
   </levels>
 
 </index>
