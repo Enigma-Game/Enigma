@@ -298,7 +298,7 @@ namespace enigma { namespace gui {
        
         // Create buttons - positioning identical to Levelmenu
         but_edit = new StaticTextButton(N_("Compose Pack"), this);
-        if (isPersistent && persIndex->isUpdatable()) {
+        if (isPersistent && persIndex->isUpdatable() && persIndex->isCross()) {
             but_update = new StaticTextButton(N_("Update Pack"), this);
         } else {
             but_update = new Label();
