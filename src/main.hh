@@ -212,9 +212,12 @@ namespace enigma
         void initSysDatapaths(const std::string &prefFilename);
         void initXerces();
         void initUserDatapaths();
+        void updateMac1_00();
         std::string systemAppDataPath;    // dir path to the apps data
         std::string systemCmdDataPath;    // commandline override of systemAppDataPath
         std::string userStdPath;          // standard user data path
+        std::string userStdPathMac1_00;   // standard user data path as of Mac 1.00
+        
         void init_i18n();
     };
 

@@ -401,9 +401,10 @@ namespace enigma { namespace gui {
 //    }
     
     void OptionsMenu::quit() {
-        std::string tfUserPathLocal = XMLtoLocal(Utf8ToXML(userPathTF->getText().c_str()).x_str()).c_str(); 
+        std::string tfUserPathLocal = XMLtoLocal(Utf8ToXML(userPathTF->getText().c_str()).x_str()).c_str();
+        std::string tfUserImageLocal = XMLtoLocal(Utf8ToXML(userImagePathTF->getText().c_str()).x_str()).c_str();
         if ((app.state->getString("UserName") != userNameTF->getText())
-                || (app.userPath != tfUserPathLocal)) {
+                || (app.userPath != tfUserPathLocal ) || (app.userImagePath != tfUserImageLocal)) {
             // ensure that enigma.score is saved with new Username or to new location
             lev::ScoreManager::instance()->markModified();
         }
@@ -416,7 +417,7 @@ namespace enigma { namespace gui {
         else
             app.state->setProperty("UserName", std::string(""));
         app.setUserPath(tfUserPathLocal.c_str());
-        app.setUserImagePath(XMLtoLocal(Utf8ToXML(userImagePathTF->getText().c_str()).x_str()).c_str());
+        app.setUserImagePath(tfUserImageLocal.c_str());
         Menu::quit();
     }
 

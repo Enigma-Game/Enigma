@@ -27,7 +27,12 @@
 namespace enigma { namespace gui {
     class ErrorMenu : public Menu {
     public:
-        ErrorMenu (std::string message, std::string buttonTitle);
+        ErrorMenu (std::string message, std::string quitTitle);
+        ErrorMenu (std::string message, std::string quitTitle, std::string rejectTitle);
+        ErrorMenu (std::string message, std::string quitTitle, std::string rejectTitle,
+                std::string laterTitle);
+        bool isRejectQuit();
+        bool isLaterQuit();
     private:
         bool on_event           (const SDL_Event &e);
         void on_action          (gui::Widget *w);
@@ -35,6 +40,10 @@ namespace enigma { namespace gui {
     
         std::string  text;
         gui::Widget *quit;
+        gui::Widget *reject;
+        gui::Widget *later;
+        bool rejectQuit;
+        bool laterQuit;
     };
 }} // namespace enigma::gui
 #endif // GUI_ERRORMENU_HH_INCLUDED

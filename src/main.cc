@@ -318,6 +318,7 @@ void Application::init(int argc, char **argv)
     SDL_ShowCursor(0);
     errorInit = true;
 
+
     // ----- Initialize sound subsystem
     if (ap.nosound)
         sound::DisableSound();
@@ -362,6 +363,10 @@ void Application::init(int argc, char **argv)
 
     // ----- Initialize sound tables -- needs sound, oxyd, video (error messages!)
     sound::InitSoundSets();
+
+#if MACOSX
+    updateMac1_00();
+#endif
 
     // initialize random
     enigma::Randomize();
@@ -491,7 +496,12 @@ void Application::initSysDatapaths(const std::string &prefFilename)
                 fprintf(stderr, _("Error Home directory does not exist.\n"));
                 exit(1);
             }
+#ifdef MACOSX
+        userStdPathMac1_00 = prefPath + "/.enigma";
+        userStdPath = prefPath + "/Library/Enigma";
+#else
         userStdPath = prefPath + "/.enigma";
+#endif
         prefPath = prefPath + ecl::PathSeparator + "." + prefFilename;
 #ifdef __MINGW32__
     } else if (!winAppDataPath.empty()) {
@@ -582,11 +592,21 @@ void Application::initXerces() {
 
 void Application::initUserDatapaths() {
     // userPath
+#ifdef MACOSX
+    if (prefs->getBool("MacUpdate1.00") == false) {
+        userStdPath = userStdPathMac1_00;
+    }
+#endif
     userPath = prefs->getString("UserPath");
-    if (userPath.empty())
+    if (userPath.empty()) {
+#ifdef MACOSX
+        userPath = userStdPathMac1_00;  // empty prefs user path is 1.00 std user path 
+#else
         userPath = userStdPath;
-    else
+#endif
+    } else {
         userPath = XMLtoLocal(Utf8ToXML(userPath.c_str()).x_str()).c_str();
+    }
     Log << "userPath = \"" << userPath << "\"\n"; 
     
     // userImagePath
@@ -627,6 +647,30 @@ void Application::initUserDatapaths() {
     if (!ecl::FolderExists(userPath + "/backup"))
         ecl::FolderCreate (userPath + "/backup");   
 }
+
+#ifdef MACOSX
+void Application::updateMac1_00() {
+    if (!prefs->getBool("MacUpdate1.00") && 
+            prefs->getString("UserPath").empty() &&
+            prefs->getString("UserImagePath").empty()) {
+        gui::ErrorMenu m(ecl::strf(N_("Mac OS X upgrade from Enigma 1.00\n\nThe default user data path did change from\n  %s \n\nto the visable data path\n  %s \n\nIf ok Enigma will move your data to this new location.\nNote that you have to restart Enigma once for completion of this update."), userStdPathMac1_00.c_str(), userStdPath.c_str()),
+                N_("OK"), N_("Never"), N_("Remind"));
+        m.manage();
+        if (m.isRejectQuit()) {
+            prefs->setProperty("MacUpdate1.00", true);
+        } else if (m.isLaterQuit()) {
+            prefs->setProperty("MacUpdate1.00", false);
+        } else {  // OK move now
+            Log << "Mac update\n";
+            // move 
+            std::system("mkdir ~/LocalLibrary/Enigma; cd ~/.enigma; tar -cf - * | (cd ~/LocalLibrary/Enigma; tar -xf -); rm -rf ~/.enigma");
+            prefs->setProperty("MacUpdate1.00", true);
+            prefs->shutdown();
+            exit(0);
+        }
+    }
+}
+#endif
 
 void Application::init_i18n()
 {
@@ -685,6 +729,10 @@ void Application::setUserPath(std::string newPath) {
         resourceFS->prepend_dir(userPath);
         
         // set the new path as the users preference - the standard path is saved as ""
+#ifdef MACOSX
+        // 1.00 uses "" as "~/.enigma" - we have to store the complete path
+        if (prefUserPath.empty()) prefUserPath = userStdPath;
+#endif
         prefs->setProperty("UserPath", std::string(XMLtoUtf8(LocalToXML(&prefUserPath).x_str()).c_str()));
     }
 }
@@ -704,6 +752,10 @@ void Application::setUserImagePath(std::string newPath) {
             resourceFS->prepend_dir(userImagePath);
 
         // set the new path as the users preference - the standard path is saved as ""
+#ifdef MACOSX
+        // 1.00 uses "" as "~/.enigma" - we have to store the complete path
+        if (prefUserImagePath.empty()) prefUserImagePath = userStdPath;
+#endif
         prefs->setProperty("UserImagePath", std::string(XMLtoUtf8(LocalToXML(&prefUserImagePath).x_str()).c_str()));
     }
 }
