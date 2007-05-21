@@ -498,7 +498,7 @@ void Application::initSysDatapaths(const std::string &prefFilename)
             }
 #ifdef MACOSX
         userStdPathMac1_00 = prefPath + "/.enigma";
-        userStdPath = prefPath + "/Library/Enigma";
+        userStdPath = prefPath + "/Library/Application Support/Enigma";
 #else
         userStdPath = prefPath + "/.enigma";
 #endif
@@ -663,7 +663,7 @@ void Application::updateMac1_00() {
         } else {  // OK move now
             Log << "Mac update\n";
             // move 
-            std::system("mkdir ~/LocalLibrary/Enigma; cd ~/.enigma; tar -cf - * | (cd ~/LocalLibrary/Enigma; tar -xf -); rm -rf ~/.enigma");
+            std::system("mkdir ~/Library/Application Support/Enigma; cd ~/.enigma; tar -cf - * | (cd ~/Library/Application Support/Enigma; tar -xf -); rm -rf ~/.enigma");
             prefs->setProperty("MacUpdate1.00", true);
             prefs->shutdown();
             exit(0);

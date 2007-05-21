@@ -4,16 +4,17 @@ Changes in Version 1.01
 User-Visible changes
 --------------------
 
-    - 50++ new level
+    - 60++ new level
     - added easy mode to some existing levels
-    - Fixes of all levels with shortcuts
+    - fixes of all levels with known shortcuts
     - Finnish translation
     - French and Russian 1.0 manuals
-    - Sound damping for noisy levels
+    - support of updatable cross internet level packs
+    - sound damping for noisy levels
     - mouse wheel enabled for many buttons like user ratings, volume,...
     - logo cleaned
     - moved backup of score and state to backup subdirectory
-    - level menu optimization of level title display
+    - level menu string display optimization of level title, wr-holders,...
     - visualize inherited user rating in level inspector
     - vista compatible marble icon
     - windows installer reengineering to modern NSI
@@ -21,7 +22,7 @@ User-Visible changes
 Internal changes
 ----------------
 
-    - fix of various enigne bugs that did not yet show up with bundled levels
+    - fix of various engine bugs that did not yet show up with bundled levels
     - fixed properties of various glass stones
     - sound handling reengineering
     - support of user sound sets
@@ -95,7 +96,7 @@ User-Visible changes
 
     - Ice is working again
     - Cannonballs are working again
-    - Spanish translation (thanks to Samuel Elías Martínez �?lvarez)
+    - Spanish translation (thanks to Samuel Elías Martínez �?lvarez)
     - New application icon on Windows (thanks to Tobias Schmidbauer)
 
 
