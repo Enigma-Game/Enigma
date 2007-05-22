@@ -10,7 +10,9 @@ User-Visible changes
     - Finnish translation
     - French and Russian 1.0 manuals
     - support of updatable cross internet level packs
+    - return to last played level via F6
     - sound damping for noisy levels
+    - level developer inspector with developer attributes
     - mouse wheel enabled for many buttons like user ratings, volume,...
     - logo cleaned
     - moved backup of score and state to backup subdirectory
@@ -27,6 +29,7 @@ Internal changes
     - sound handling reengineering
     - support of user sound sets
     - autorecovery from state / score mismatches
+    - re-Id of Windows users
 
 Changes in Version 1.00
 =======================

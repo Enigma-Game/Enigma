@@ -663,7 +663,7 @@ void Application::updateMac1_00() {
         } else {  // OK move now
             Log << "Mac update\n";
             // move 
-            std::system("mkdir ~/Library/Application Support/Enigma; cd ~/.enigma; tar -cf - * | (cd ~/Library/Application Support/Enigma; tar -xf -); rm -rf ~/.enigma");
+            std::system(ecl::strf("mkdir '%s' && cd ~/.enigma && tar -cf - * | (cd '%s' && tar -xf -) && rm -rf ~/.enigma", userStdPath.c_str(), userStdPath.c_str()).c_str());
             prefs->setProperty("MacUpdate1.00", true);
             prefs->shutdown();
             exit(0);
