@@ -1,3 +1,4 @@
+# translation of it.po to
 # translation of enigma-new.po to
 # translation of enigma.po to
 # Copyright (C) 2005, 2007 Free Software Foundation, Inc.
@@ -7,10 +8,10 @@
 # Samuele Kaplun <Samuele.Kaplun@cern.ch>, 2007.
 msgid ""
 msgstr ""
-"Project-Id-Version: enigma-new\n"
+"Project-Id-Version: it\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2007-03-13 09:37+0100\n"
-"PO-Revision-Date: 2007-04-08 17:27+0200\n"
+"PO-Revision-Date: 2007-05-23 15:19+0200\n"
 "Last-Translator: Samuele Kaplun <Samuele.Kaplun@cern.ch>\n"
 "Language-Team:  <it@li.org>\n"
 "MIME-Version: 1.0\n"
@@ -1084,7 +1085,6 @@ msgstr ""
 #  level: ""
 #  author: "Ralf Westram" email "amgine@reallysoft.de"
 #: po/level_i18n.cc:37
-#, fuzzy
 msgid "Drop the hammer on side of a pentomino and use the switch!"
 msgstr "Lascia il martello a lato del pentomino ed utilizza l'interruttore!"
 
@@ -1714,13 +1714,13 @@ msgstr "Memoria Vuota"
 #  author: "Ulf Stegemann" email "ulf-enigma@zeitform.de"
 #: po/level_i18n.cc:786
 msgid "Hot Hurdle Race"
-msgstr ""
+msgstr "Calda gara ad ostacoli"
 
 #  level: "Hot Hurdle Race"
 #  author: "Ulf Stegemann" email "ulf-enigma@zeitform.de"
 #: po/level_i18n.cc:788
 msgid "Run for your life!"
-msgstr ""
+msgstr "Corri per la tua vita!"
 
 #  level: "Holes!"
 #  author: "Edward" email ""
@@ -1767,7 +1767,6 @@ msgstr "Toreador"
 #  level: "The Aztec Temple"
 #  author: "Dominik Lehmann" email ""
 #: po/level_i18n.cc:856
-#, fuzzy
 msgid ""
 "Welcome to Mexico! Eight hours ago, your plane arrived at the Airport of "
 "\"Coatlicue\", which is a small village surrounded by unexplored jungle "
@@ -1775,8 +1774,8 @@ msgid ""
 "to be a relic of the ancient Aztec empire. But the temple is in surprisingly "
 "good condition ..."
 msgstr ""
-"Benvenuto in Cile! Otto ore fa, il tuo areoplano è arrivato all'Aeroporto di "
-"\"Llamas\", un piccolo villaggio circondato da una giungla inesplorata. Ora "
+"Benvenuto in Messico! Otto ore fa, il tuo areoplano è arrivato all'Aeroporto di "
+"\"Coatlicue\", un piccolo villaggio circondato da una giungla inesplorata. Ora "
 "ti trovi di fronte ad un tempio impressionante, che sembra un relitto "
 "dell'antica era degli Aztechi. Ma il tempio si trova in sorprendenti buone "
 "condizioni ..."
@@ -1784,7 +1783,6 @@ msgstr ""
 #  level: "The Aztec Temple"
 #  author: "Dominik Lehmann" email ""
 #: po/level_i18n.cc:857
-#, fuzzy
 msgid ""
 "Next to the giant doors of the temple you see a chrome sign: \"Restoration "
 "by: G. G. Goshers, A.D. 1998\". A smaller sign beneath says: \"Property of "
@@ -1804,61 +1802,52 @@ msgstr ""
 #  level: "The Aztec Temple"
 #  author: "Dominik Lehmann" email ""
 #: po/level_i18n.cc:858
-#, fuzzy
 msgid "This guard doesn’t notice me."
-msgstr "Questa guardia non sembra essere molto attenta!"
+msgstr "Questa guardia non mi ha visto!"
 
 #  level: "The Aztec Temple"
 #  author: "Dominik Lehmann" email ""
 #: po/level_i18n.cc:859
-#, fuzzy
 msgid "This lake was obviously made by Goshers. I think the correct way is south."
 msgstr ""
-"Questo lago deve essere ovviamente dovuto a Goshers. Penso che la strada a "
+"Questo lago deve essere stato fatto ovviamente da Goshers. Penso che la strada a "
 "sud sia quella giusta."
 
 #  level: "The Aztec Temple"
 #  author: "Dominik Lehmann" email ""
 #: po/level_i18n.cc:860
-#, fuzzy
 msgid ""
 "There's an inscription on the old wall, saying in spanish: \"Careful! What "
 "you touch could be the last thing you touch!\""
-msgstr ""
-"C'è un'iscrizione sul vecchio muro, che dice in spagnolo: \"Non toccare "
-"tutto ciò che vedi! Potrebbe essere il tuo ultimo tocco!\""
+msgstr "C'è un'iscrizione sul vecchio muro, che dice in spagnolo: \"Fai attenzione! Ciò che tocchi potrebbe essere l'ultima cosa che tocchi nella tua vita!\""
 
 #  level: "The Aztec Temple"
 #  author: "Dominik Lehmann" email ""
 #: po/level_i18n.cc:861
-#, fuzzy
 msgid "Chrome sign: \"Control of the beast’s cage.\""
-msgstr "Segno cromato: \"Controllo della gabbia dei selvaggi.\""
+msgstr "Segno cromato: \"Controllo della gabbia delle bestie.\""
 
 #  level: "The Aztec Temple"
 #  author: "Dominik Lehmann" email ""
 #: po/level_i18n.cc:862
-#, fuzzy
 msgid "Oooh, this slope is steep! Try not to touch the skull!"
-msgstr "Oooh, questo versante è ripido! Non toccare il teschio!"
+msgstr "Oooh, questo versante è ripido! Cerca di non toccare il teschio!"
 
 #  level: "The Aztec Temple"
 #  author: "Dominik Lehmann" email ""
 #: po/level_i18n.cc:863
-#, fuzzy
 msgid ""
 "This building down there looks like a prison. Let's see if I can determine "
 "its purpose ... Ah, there's another chrome sign. Goshers seems to favour "
 "chrome signs. It says: \"Natives’ prison\"."
 msgstr ""
 "Questa costruzione qua giù sembra una prigione. Vediamo se riesco a capire a "
-"cosa serve... Ah c'è un cartello. Ed è anche esso cromato. Goshers sembra "
+"cosa serve... Ah c'è un'altro cartello cromato. Goshers sembra "
 "amare i cartelli cromati. Dice: \"Prigione dei nativi\"."
 
 #  level: "The Aztec Temple"
 #  author: "Dominik Lehmann" email ""
 #: po/level_i18n.cc:864
-#, fuzzy
 msgid ""
 "Getting beyond the prison building was a really good idea. But now you have "
 "to cross this lake. Be thrifty with those boxes!"
@@ -1875,7 +1864,7 @@ msgid ""
 "his \"work\"; trying to enter the temple and to get rich from the treasures "
 "of the Aztecs. It might be helpful to be accompanied by someone, who knows "
 "the secrets of the jungle and this temple ..."
-msgstr ""
+msgstr "Ora, osservando attraverso le inferriate della prigione, vedi una donna nativa imprigionata. Ovviamente Goshers ha rinchiuso tutti i nativi che han disturbato il suo \"lavoro\"; cercando di entrare nel tempio e di diventare ricco grazie ai tesori degli Aztechi. Potrebbe essere utile farsi accompagnare da qualcuno che conosca i segreti della giungla e di questo tempio ..."
 
 #  level: "The Aztec Temple"
 #  author: "Dominik Lehmann" email ""
@@ -1885,7 +1874,7 @@ msgid ""
 "as evil as this Goshers is. Perhaps he wants to end the mastery of Goshers "
 "and free my people. And even if this is not the case, it's better to be free "
 "than imprisoned. I think I should thank him."
-msgstr ""
+msgstr "Dato che quell'uomo bianco mi ha liberata dalla prigione, certamente non puo' essere cattivo come questo Goshers. Forse desidera fermare il dominio di Goshers e liberare il mio popolo. E anche se così non fosse, è meglio essere liberi che imprigionati. Penso che dovrei ringraziarlo."
 
 #  level: "The Aztec Temple"
 #  author: "Dominik Lehmann" email ""
@@ -3405,37 +3394,37 @@ msgstr ""
 #  author: "Ulf Stegemann" email "ulf-enigma@zeitform.de"
 #: po/level_i18n.cc:2804
 msgid "If you think that's to easy, try \"Difficulty: Normal\"."
-msgstr ""
+msgstr "Se pensi che sia troppo semplice, prova \"Difficoltà: Normale\"."
 
 #  level: "Per.Oxyd 27"
 #  author: "Ulf Stegemann" email "ulf-enigma@zeitform.de"
 #: po/level_i18n.cc:2806
 msgid "If you think that's to hard, try \"Difficulty: Easy\"."
-msgstr ""
+msgstr "Se pensi che sia troppo difficile, prova \"Difficoltà: Semplice\"."
 
 #  level: "Handle With Care"
 #  author: "Martin Hawlisch" email ""
 #: po/level_i18n.cc:2820
 msgid "Some stones and stone rows can be moved!"
-msgstr ""
+msgstr "Alcune pietre e righe di pietre possono essere spostate!"
 
 #  level: "Deadend"
 #  author: "Daniel Heck" email ""
 #: po/level_i18n.cc:2860
 msgid "Look closely!"
-msgstr ""
+msgstr "Guarda più attentamente!"
 
 #  level: "Control Panel"
 #  author: "Jacob Scott" email ""
 #: po/level_i18n.cc:2864
 msgid "The left-most room is important!"
-msgstr ""
+msgstr "La stanza più a sinistra è importante!"
 
 #  level: "Control Panel"
 #  author: "Jacob Scott" email ""
 #: po/level_i18n.cc:2865
 msgid "This is the control panel."
-msgstr ""
+msgstr "Questo è il pannello di controllo."
 
 #  level: "The Turtle"
 #  author: "Petr Machata" email ""
@@ -3443,31 +3432,31 @@ msgstr ""
 msgid ""
 "Welcome to the control room. Use the triggers and switches to plan the "
 "movement of the turtle. The switches are, clockwise: Add, Run and Restart."
-msgstr ""
+msgstr "Benvenuto nella stanza di controllo. Utilizza i grilletti e gli interruttori per pianificare gli spostamenti della tartaruga. Gli interruttori sono, in senso orario: Aggiungi, Corri e Riparti."
 
 #  level: "Emergency Exit"
 #  author: "Sven Siggelkow" email ""
 #: po/level_i18n.cc:2891
 msgid "Flood Control Dam #3 seems rather unstable. Be quick or be dead."
-msgstr ""
+msgstr "La diga per il controllo del flusso #3 sembra piuttosto instabile. Sii veloce o sarai morto."
 
 #  level: "Automatic Transmission"
 #  author: "Jacob Scott" email ""
 #: po/level_i18n.cc:2895
 msgid "The block near the top-left can move."
-msgstr ""
+msgstr "Il blocco vicino a in alto a sinistra può muoversi."
 
 #  level: "Bridge Builders"
 #  author: "Jon 'WB' Sneyers" email ""
 #: po/level_i18n.cc:2932
 msgid "White helps black, black helps white."
-msgstr ""
+msgstr "Il bianco aiuta il nero, il nero aiuta il bianco."
 
 #  level: "The Sargasso Sea"
 #  author: "Martin Hawlisch" email ""
 #: po/level_i18n.cc:2960
 msgid "This level is much bigger! Press F3!"
-msgstr ""
+msgstr "Questo livello è molto più grande! Premi F3!"
 
 #  level: "Waterworld"
 #  author: "illmind" email "support@mag-heut.net"
@@ -3475,61 +3464,61 @@ msgstr ""
 msgid ""
 "Remember  to  only  move  enough  stones  to  just  look  into  the  next  "
 "room  ..."
-msgstr ""
+msgstr "Ricorda  di  muovere  solo  le  pietre  sufficienti  a  vedere  nella  stanza  successiva  ..."
 
 #  level: "Waterworld"
 #  author: "illmind" email "support@mag-heut.net"
 #: po/level_i18n.cc:2974
 msgid "You  have  lost  ..."
-msgstr ""
+msgstr "Hai  perso  ..."
 
 #  level: "The Ditch"
 #  author: "Richi Bützer" email ""
 #: po/level_i18n.cc:2988
 msgid "Risk your life ..."
-msgstr ""
+msgstr "Rischia la tua vita ..."
 
 #  level: "Block its way!"
 #  author: "Jon 'WB' Sneyers" email ""
 #: po/level_i18n.cc:2992
 msgid "Don't forget to open the door ..."
-msgstr ""
+msgstr "Non ti scordare di aprire le porte..."
 
 #  level: "Block its way!"
 #  author: "Jon 'WB' Sneyers" email ""
 #: po/level_i18n.cc:2993
 msgid "Good Luck!"
-msgstr ""
+msgstr "Buona fortuna!"
 
 #  level: "Block its way!"
 #  author: "Jon 'WB' Sneyers" email ""
 #: po/level_i18n.cc:2994
 msgid "Hurry!"
-msgstr ""
+msgstr "Sbrigati!"
 
 #  level: "Block its way!"
 #  author: "Jon 'WB' Sneyers" email ""
 #: po/level_i18n.cc:2995
 msgid "Congratulations! (or try again)"
-msgstr ""
+msgstr "Congratulazioni! (o prova ancora)"
 
 #  level: "Block its way!"
 #  author: "Jon 'WB' Sneyers" email ""
 #: po/level_i18n.cc:2996
 msgid "Almost finished ..."
-msgstr ""
+msgstr "Quasi finito ..."
 
 #  level: "Push? Pull!"
 #  author: "Siegfried Fennig" email ""
 #: po/level_i18n.cc:3006
 msgid "Restart with F3 ..."
-msgstr ""
+msgstr "Ricomincia con F3"
 
 #  level: "The Safe"
 #  author: "Siegfried Fennig" email ""
 #: po/level_i18n.cc:3028
 msgid "It's a long way ..."
-msgstr ""
+msgstr "È una lunga strada..."
 
 #  level: "Unfair!"
 #  author: "Petr Machata" email ""
@@ -3537,13 +3526,13 @@ msgstr ""
 msgid ""
 "I don't believe that you are the Marble. I won't let you pass until you "
 "prove me wrong: you have to be faster than my champion!"
-msgstr ""
+msgstr "Non credo che tu sia il Marmo. Non ti lascerò passare finché non mi avrai provato che mi sto sbagliando: dovrai essere più veloce di questo mio campione!"
 
 #  level: "Unfair!"
 #  author: "Petr Machata" email ""
 #: po/level_i18n.cc:3045
 msgid "Congratulations! You may pass!"
-msgstr ""
+msgstr "Congratulazioni! Puoi passare!"
 
 #  level: "White Contrast"
 #  author: "illmind" email "support@mag-heut.net"
@@ -3551,61 +3540,61 @@ msgstr ""
 msgid ""
 "One  more  and  you  won't  get  this  hammer  until  you  don't  need  it  "
 "anymore!"
-msgstr ""
+msgstr "Ancora  uno  e  non  avrai  questo  martello  fino  a  quando  non  ne  avrai  bisogno  nuovamente!"
 
 #  level: "Hidden Danger"
 #  author: "Martin Hawlisch" email ""
 #: po/level_i18n.cc:3056
 msgid "The danger is not visible!!!"
-msgstr ""
+msgstr "Il pericolo è invisibile!!!"
 
 #  level: "Welcome"
 #  author: "Raoul Bourquin" email ""
 #: po/level_i18n.cc:3068
 msgid "Welcome to Enigma III"
-msgstr ""
+msgstr "Benvenuto a Enigma III"
 
 #  level: "- Snow White -"
 #  author: "Petr Machata" email ""
 #: po/level_i18n.cc:3075
 msgid "Look ... they're over there!"
-msgstr ""
+msgstr "Guarda ... sono laggiù!"
 
 #  level: "Jump And Run"
 #  author: "Siegfried Fennig" email ""
 #: po/level_i18n.cc:3079
 msgid "Watch your step!"
-msgstr ""
+msgstr "Fai attenzione a dove cammini!"
 
 #  level: "Laser Castle"
 #  author: "Andreas Lochmann" email ""
 #: po/level_i18n.cc:3119
 msgid "A castle lies before you ... beware of guardians!"
-msgstr ""
+msgstr "Dietro di te si trova un castello ... fai attenzione ai guardiani!"
 
 #  level: "deja-vu"
 #  author: "illmind" email "support@mag-heut.net"
 #: po/level_i18n.cc:3151
 msgid "when  you've  been  particular  places"
-msgstr ""
+msgstr "quando  sei  stato  in  posti  particolari"
 
 #  level: "deja-vu"
 #  author: "illmind" email "support@mag-heut.net"
 #: po/level_i18n.cc:3153
 msgid "that  you  know  you've  never  seen  before"
-msgstr ""
+msgstr "di  non  averlo  mai  visto  prima"
 
 #  level: "deja-vu"
 #  author: "illmind" email "support@mag-heut.net"
 #: po/level_i18n.cc:3155
 msgid "can  you  be  sure?"
-msgstr ""
+msgstr "puoi  esserne  certo?"
 
 #  level: "deja-vu"
 #  author: "illmind" email "support@mag-heut.net"
 #: po/level_i18n.cc:3157
 msgid "feel  like  I've  been  here  before"
-msgstr ""
+msgstr "mi  sembra  di essere  già  stato  qui"
 
 #  level: "deja-vu"
 #  author: "illmind" email "support@mag-heut.net"
@@ -3623,77 +3612,77 @@ msgstr ""
 #  author: "Raoul Bourquin" email ""
 #: po/level_i18n.cc:3176
 msgid "Welcome to Enigma VII"
-msgstr ""
+msgstr "Benvenuto a Enigma VII"
 
 #  level: "esprit 7"
 #  author: "Sven Siggelkow" email ""
 #: po/level_i18n.cc:3180
 msgid "Watch out, slippery!"
-msgstr ""
+msgstr "Occhio, scivoloso!"
 
 #  level: "Bank-O-Mat"
 #  author: "Sven Siggelkow" email ""
 #: po/level_i18n.cc:3193
 msgid "Sorry for inconvenience, the Bank-O-Mat is empty."
-msgstr ""
+msgstr "Ci scusiamo per il disagio, il Bank-O-Mat è vuoto."
 
 #  level: "esprit 8"
 #  author: "Sven Siggelkow" email ""
 #: po/level_i18n.cc:3221
 msgid "Umbrellas protect!"
-msgstr ""
+msgstr "Gli ombrelli proteggono!"
 
 #  level: "esprit 96"
 #  author: "Sven Siggelkow" email ""
 #: po/level_i18n.cc:3246
 msgid "It's easier with a shovel!"
-msgstr ""
+msgstr "È più semplice con una pala!"
 
 #  level: "esprit 52"
 #  author: "Sven Siggelkow" email ""
 #: po/level_i18n.cc:3253
 msgid "Sunday, bloody Sunday!"
-msgstr ""
+msgstr "Sunday, bloody Sunday!"
 
 #  level: "esprit 59"
 #  author: "Sven Siggelkow" email ""
 #: po/level_i18n.cc:3260
 msgid "Watch out!!"
-msgstr ""
+msgstr "Occhio!!"
 
 #  level: "esprit 3"
 #  author: "Martin Hawlisch" email ""
 #: po/level_i18n.cc:3297
 msgid "Can you see the hidden oxyd stones?"
-msgstr ""
+msgstr "Riesci a vedere le pietre oxyd nascoste?"
 
 #  level: "esprit 17"
 #  author: "Sven Siggelkow" email ""
 #: po/level_i18n.cc:3352
 msgid "Please remember:    42"
-msgstr ""
+msgstr "Per favore, ricorda:    42"
 
 #  level: "esprit 73"
 #  author: "Sven Siggelkow" email ""
 #: po/level_i18n.cc:3356
 msgid "If you think this is too easy, then play -Bavarian Madness-"
-msgstr ""
+msgstr "Se pensi che sia troppo semplice, allora prova -Bavarian Madness-"
 
 #  level: "esprit 92"
 #  author: "Sven Siggelkow" email ""
 #: po/level_i18n.cc:3369
 msgid "Take the key to the left first!"
-msgstr ""
+msgstr "Prendi prima la chiave a sinistra!"
 
 #  level: "esprit 5"
 #  author: "Martin Hawlisch" email ""
 #: po/level_i18n.cc:3385
 msgid "Easy?"
-msgstr ""
+msgstr "Semplice?"
 
 #  level: "esprit 94"
 #  author: "Sven Siggelkow" email ""
 #: po/level_i18n.cc:3458
 msgid "If you haven't won, you've lost!"
-msgstr ""
+msgstr "Se non hai vinto, hai perso!"
 

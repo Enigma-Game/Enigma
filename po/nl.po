@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: PAKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2007-03-13 09:37+0100\n"
-"PO-Revision-Date: 2007-04-08 23:40+0100\n"
+"PO-Revision-Date: 2007-05-22 22:45+0100\n"
 "Last-Translator: Frank van der Loo <frank_l@linuxmail.org>\n"
 "Language-Team: Dutch <nl@li.org>\n"
 "MIME-Version: 1.0\n"
@@ -136,7 +136,7 @@ msgstr "Schakel tussen volledig scherm en venster"
 #: src/client.cc:494
 #, fuzzy
 msgid "Skip to next level for best score hunt"
-msgstr "Volgend level"
+msgstr "Naar volgend level voor topscore-jacht"
 
 #: src/client.cc:495
 msgid "Skip to next unsolved level"
@@ -519,17 +519,16 @@ msgstr "Markeer huidig level als Onopgelost"
 #: src/gui/LevelMenu.cc:175
 #: src/gui/LevelPackMenu.cc:48
 msgid "Left click:"
-msgstr ""
+msgstr "Linkermuisknop:"
 
 #: src/gui/LevelMenu.cc:176
 #: src/gui/LevelPackMenu.cc:49
 msgid "Right or control click:"
-msgstr ""
+msgstr "Rechter- of Ctrl+muisknop:"
 
 #: src/gui/LevelMenu.cc:176
-#, fuzzy
 msgid "Inspect selected level"
-msgstr "Speel geselecteerd level"
+msgstr "Informatie over geselecteerd level"
 
 #: src/gui/LevelMenu.cc:193
 msgid "Select next level for world record hunt"
@@ -552,7 +551,7 @@ msgstr "%s: %d levels"
 #: src/gui/LevelMenu.cc:296
 #, fuzzy, c-format
 msgid "%d%% best"
-msgstr "%d%% "
+msgstr "%d%% topscore"
 
 #: src/gui/LevelMenu.cc:301
 #, fuzzy, c-format
@@ -624,7 +623,7 @@ msgstr "F8:"
 
 #: src/gui/LevelPackComposer.cc:42
 msgid "Insert clipboard as reference"
-msgstr ""
+msgstr "Voer klembord in als referentie"
 
 #: src/gui/LevelPackComposer.cc:43
 msgid "F9:"
@@ -632,7 +631,7 @@ msgstr "F9:"
 
 #: src/gui/LevelPackComposer.cc:43
 msgid "Insert clipboard as copy"
-msgstr ""
+msgstr "Voer klembord in als kopie"
 
 #: src/gui/LevelPackComposer.cc:45
 msgid "Alt left arrow:"
@@ -668,7 +667,7 @@ msgstr "F10"
 
 #: src/gui/LevelPackComposer.cc:54
 msgid "Move clipboard levels"
-msgstr ""
+msgstr "Verplaats klembord levels"
 
 #: src/gui/LevelPackComposer.cc:118
 #: src/gui/LevelPackConfig.cc:307
@@ -826,7 +825,7 @@ msgstr "Fout: groep niet leeg"
 
 #: src/gui/ScreenshotViewer.cc:36
 msgid "Page Up:"
-msgstr ""
+msgstr "Page Up:"
 
 #: src/gui/ScreenshotViewer.cc:36
 msgid "Show previous screenshot"
@@ -834,7 +833,7 @@ msgstr "Toon vorige schermafdruk"
 
 #: src/gui/ScreenshotViewer.cc:37
 msgid "Page Down:"
-msgstr ""
+msgstr "Page Down:"
 
 #: src/gui/ScreenshotViewer.cc:37
 msgid "Show next screenshot"
@@ -846,7 +845,7 @@ msgstr "Geen schermafdruk beschikbaar:"
 
 #: src/gui/SearchMenu.cc:40
 msgid "Shallow Search:"
-msgstr ""
+msgstr "Oppervlakkig Zoeken:"
 
 #. TRANSLATORS: the translation can have double size of the english text
 #: src/gui/SearchMenu.cc:42
@@ -1179,7 +1178,6 @@ msgstr "Druk op F3 op los op."
 #  level: "Turn Around"
 #  author: "Andreas Lochmann" email ""
 #: po/level_i18n.cc:141
-#, fuzzy
 msgid "Just a hint: Try the easy-mode first ..."
 msgstr "Een hint: Probeer de makkelijke modus eerst ..."
 
@@ -1314,13 +1312,13 @@ msgstr "U hebt een verplaatsbare doos nodig!"
 #  author: "Lukas Schüller" email "Lucky_Luc@web.de"
 #: po/level_i18n.cc:289
 msgid "Congratulations! You found a seed! Try to use it behind the grate (and move away quickly)"
-msgstr ""
+msgstr "Gefeliciteerd! U heeft een zaad gevonden! Gebruik het achter het rooster (en ga er snel achter vandaan)"
 
 #  level: "Growing Boxes"
 #  author: "Lukas Schüller" email "Lucky_Luc@web.de"
 #: po/level_i18n.cc:290
 msgid "Remember that you can't fill a closed bridge with a box ...                                           but maybe you can use the 3rd seed differently!"
-msgstr ""
+msgstr "U kunt een gesloten brug niet vullen met een doos ...                                           maar misschien kunt u het 3e zaad op een andere manier gebruiken!"
 
 #  level: "Growing Boxes"
 #  author: "Lukas Schüller" email "Lucky_Luc@web.de"
@@ -1412,16 +1410,14 @@ msgstr "Gevaar ... laserstralen!"
 #  level: "The Life Game"
 #  author: "Alain Busser" email ""
 #: po/level_i18n.cc:437
-#, fuzzy
 msgid "The Life Game"
 msgstr "Het Levensspel"
 
 #  level: "The Life Game"
 #  author: "Alain Busser" email ""
 #: po/level_i18n.cc:439
-#, fuzzy
 msgid "The nine switches in square serve to configure the initial population."
-msgstr "De negen schakelaars dienen om de initiÃ«le populatie in te stellen."
+msgstr "De negen schakelaars dienen om de beginpopulatie in te stellen."
 
 #  level: "The Life Game"
 #  author: "Alain Busser" email ""
@@ -1488,9 +1484,8 @@ msgstr "Verf Vooruit!"
 #  level: "Big Adventures"
 #  author: "Jon 'WB' Sneyers" email ""
 #: po/level_i18n.cc:559
-#, fuzzy
 msgid "Too many wooden blocks!  Try the other way ..."
-msgstr "Te veel houten blokken!  Probeer de andere weg ..."
+msgstr "Te veel houten blokken!  Probeer een andere route ..."
 
 #  level: "Big Adventures"
 #  author: "Jon 'WB' Sneyers" email ""
@@ -1767,9 +1762,8 @@ msgstr "Dit gebouw hier beneden lijkt op een gevangen. Eens kijken of ik achter 
 #  level: "The Aztec Temple"
 #  author: "Dominik Lehmann" email ""
 #: po/level_i18n.cc:864
-#, fuzzy
 msgid "Getting beyond the prison building was a really good idea. But now you have to cross this lake. Be thrifty with those boxes!"
-msgstr "Het was een goed idee om langs de gevangenis te gaan. Maar nu moet u dit meer oversteken. Wees zuinig met deze dozen!"
+msgstr "Het was een goed idee om de gevangenis voorbij te gaan. Maar nu moet u dit meer oversteken. Wees zuinig met deze dozen!"
 
 #  level: "The Aztec Temple"
 #  author: "Dominik Lehmann" email ""
@@ -1792,7 +1786,6 @@ msgstr "U ontmoet de Engelse avonturier voor de gevangenis. \"Hallo, ik ben Xila
 #  level: "The Aztec Temple"
 #  author: "Dominik Lehmann" email ""
 #: po/level_i18n.cc:868
-#, fuzzy
 msgid "This is a really hard puzzle. The English man will have to help me, if this enigma is to be solved."
 msgstr "Dit is echt een moeilijke puzzel. De Engelsman moet me helpen om dit op te lossen."
 
@@ -1952,9 +1945,8 @@ msgstr ""
 #  author: "Ronald Lamprecht" email "ral@users.berlios.de"
 #  comment: "Characters of Michael Ende's fantasy novel 'The Neverending Story'"
 #: po/level_i18n.cc:991
-#, fuzzy
 msgid "Remember Atreyu's horse Atrax!"
-msgstr "Onthoud de kleuren."
+msgstr "Onthoud Atreyu's paard Atrax!"
 
 #  level: "Houdini"
 #  author: "Ronald Lamprecht" email "ral@users.berlios.de"
@@ -2007,7 +1999,6 @@ msgstr "Vervolgingswaanzin"
 #  level: "Persecution Mania"
 #  author: "Ronald Lamprecht" email "ral@users.berlios.de"
 #: po/level_i18n.cc:1049
-#, fuzzy
 msgid "A problem shared is a problem halved!"
 msgstr "Een gedeeld probleem is een half probleem!"
 
@@ -2020,17 +2011,15 @@ msgstr "Rondhangen in de Jungle"
 #  level: "Ben Hur"
 #  author: "Ronald Lamprecht" email "ral@users.berlios.de"
 #: po/level_i18n.cc:1071
-#, fuzzy
 msgid "The art of steering a quadriga"
-msgstr "De kunst van het besturen van een quadriga"
+msgstr "Het besturen van een quadriga"
 
 #  level: "Ben Hur"
 #  author: "Ronald Lamprecht" email "ral@users.berlios.de"
 #  comment: "quater - historical death penalty to be devided in four parts"
 #: po/level_i18n.cc:1074
-#, fuzzy
 msgid "Dropping the spoon redeems from being quartered!"
-msgstr "De lepel laten vallen voorkomt te worden gevierendeeld!"
+msgstr "De lepel laten vallen voorkomt dat u gevierendeeld wordt!"
 
 #  level: "Letter Bomb"
 #  author: "Siegfried Fennig" email ""
@@ -2050,7 +2039,7 @@ msgstr "Delen van de buizen verdwijnen door explosies!"
 #  author: "Ulf Stegemann" email "ulf-enigma@zeitform.de"
 #: po/level_i18n.cc:1261
 msgid "Rotaryrotaryrot..."
-msgstr ""
+msgstr "Rotaryrotaryrot..."
 
 #  level: "The Amazing Maze"
 #  author: "Sven Siggelkow" email ""
@@ -2111,9 +2100,8 @@ msgstr "Dat was makkelijk, nietwaar!"
 #  level: "Oxyd 17"
 #  author: "Ulf Stegemann" email "ulf-enigma@zeitform.de"
 #: po/level_i18n.cc:1398
-#, fuzzy
 msgid "Nothing but thieves!! Try the mailbox."
-msgstr "Niks dan dieven!! Probeer de brievenbus."
+msgstr "Alleen maar dieven!! Probeer de brievenbus."
 
 #  level: "Twin Rooms"
 #  author: "Siegfried Fennig" email ""
@@ -2274,9 +2262,8 @@ msgstr ""
 #  level: "Advanced Tutorial"
 #  author: "Jacob Scott" email ""
 #: po/level_i18n.cc:1462
-#, fuzzy
 msgid "This area at the bottom of the screen is your inventory -- when you pick things up, they go here (there is a maximum of twelve).  To scroll through the inventory, use the right mouse button or the 'tab' key.  To drop or use an object, click the left mouse button.  Some objects, such as documents (like this one), can't be dropped but are instead used.  Those two balls in your inventory are your extra lives -- if you die in this level, you will restart at the beginning of the level if you have any balls left (and you will lose one of the balls)."
-msgstr "Het gebied onderin het scherm is uw inventaris -- alles wat u oppakt gaat daarheen (het maximum is twaalf). Gebruik de rechter muisknop of the 'tab' toets om door de inventaris te scrollen. Klik op de linker muisknop om een object te laten vallen of te gebruiken.  Sommige objecten zoals documenten (deze bijvoorbeeld), kunt u niet laten vallen en worden in plaats daarvan gebruikt.  De twee ballen in uw inventares zijn uw extra levens -- als u dood gaat in dit level, begint u opnieuw aan het begin van het level als u ballen over hebt (en u verliest een van de ballen)."
+msgstr "Het gebied onderin het scherm is uw inventaris -- alles wat u oppakt gaat daarheen (het maximum is twaalf).  Gebruik de rechter muisknop of the 'tab' toets om door de inventaris te scrollen.  Klik op de linker muisknop om een object te laten vallen of te gebruiken.  Sommige objecten, zoals documenten (deze bijvoorbeeld), kunt u niet laten vallen en worden in plaats daarvan gebruikt.  De twee ballen in uw inventaris zijn uw extra levens -- als u dood gaat in dit level en u heeft ballen over, begint u opnieuw aan het begin van het level (en u verliest een van de ballen)."
 
 #  level: "Advanced Tutorial"
 #  author: "Jacob Scott" email ""
@@ -2382,7 +2369,7 @@ msgstr "Maar voor dit, kijk eens naar het laatste tutoriallevel die Jacob voor u
 #: po/level_i18n.cc:1503
 #, fuzzy
 msgid "Well, I hope you enjoyed this tutorial-pack.   You will see most of these levels a second time in the Enigma packs, together with many new and much more difficult ones.   Just don't give up on them!"
-msgstr "Nou, ik hoop dat u dit tutorial-pack leuk vond.   U zult de meeste van deze levels nog eens terugzien in de Enigma packs, samen met veel nieuwe en veel moeilijker levels.   Geef het gewoon niet op!"
+msgstr "Nou, ik hoop dat u dit tutorial-pack leuk vond.   U zult de meeste van deze levels nog eens terugzien in de Enigma packs, samen met veel nieuwe en veel moeilijkere levels.   Geef het dus niet op!"
 
 #  level: "Oxyd Stones 1"
 #  author: "Martin Hawlisch" email ""
@@ -2411,7 +2398,6 @@ msgstr "Leer om met uw zwarte bal te bewegen."
 #  level: "Movement 2"
 #  author: "Martin Hawlisch" email ""
 #: po/level_i18n.cc:1523
-#, fuzzy
 msgid "Prepare for even more mouse gymnastics in the next levels."
 msgstr "In de volgende levels wacht nog meer muisgymnastiek."
 
@@ -2571,7 +2557,6 @@ msgstr "Als een krijger meer dan de helft van de walnoten heeft gekregen, wint h
 #  level: "Enigmawale"
 #  author: "Alain Busser" email ""
 #: po/level_i18n.cc:1813
-#, fuzzy
 msgid "Congratulations! You are the most aware awale player of the valley ..."
 msgstr "Gefeliciteerd! U bent de meest oplettende awale speler van de vallei ..."
 
@@ -2585,7 +2570,7 @@ msgstr "Verdwaald in de savanne? Wacht niet en ga op weg naar de reset schakelaa
 #  author: "Alain Busser" email ""
 #: po/level_i18n.cc:1817
 msgid "Validate your choice here."
-msgstr ""
+msgstr "Controleer uw keuze hier."
 
 #  level: "Enigmawale"
 #  author: "Alain Busser" email ""
@@ -2596,9 +2581,8 @@ msgstr "Reset het spel."
 #  level: "Enigmawale"
 #  author: "Alain Busser" email ""
 #: po/level_i18n.cc:1821
-#, fuzzy
 msgid "A turn consists in taking the stones of a row and sowing them 1 by 1 in one's other rows, counterclockwise, coming back to the beginning."
-msgstr "Een beurt bestaat uit de stenen uit een rij te pakken en 1 voor 1 tegen de klok in bij and"
+msgstr "Een beurt bestaat uit het pakken van een rij stenen en deze 1 voor 1 tegen de klok in bij de andere rijen aan te leggen, terugkomend bij het begin."
 
 #  level: "Enigmawale"
 #  author: "Alain Busser" email ""
@@ -2634,13 +2618,13 @@ msgstr "Een bruine steen is gelijk aan 5 blauwe stenen."
 #  author: "Alain Busser" email ""
 #: po/level_i18n.cc:1833
 msgid "This katro game comes from Madagascar; in Easy mode there is an african Awale."
-msgstr ""
+msgstr "Dit katro spel komt uit Madagascar; in de makkelijke modus is er een afrikaanse Awale."
 
 #  level: "Enigmawale"
 #  author: "Alain Busser" email ""
 #: po/level_i18n.cc:1835
 msgid "Only reset or 'Shift+F3' can make things evolve ..."
-msgstr ""
+msgstr "Alleen reset of 'Shift+F3' kan iets laten gebeuren ..."
 
 #  level: "Welcome to the Machine"
 #  author: "Ralf Westram" email "amgine@reallysoft.de"
@@ -2652,7 +2636,7 @@ msgstr "Delen met dezelfde kleur draaien altijd tegelijkertijd en op dezelfde ma
 #  author: "Ralf Westram" email "amgine@reallysoft.de"
 #: po/level_i18n.cc:1851
 msgid "Maintenance code: metal-stone-stone-stone-red-yellow-yellow-red-red-stone-stone."
-msgstr ""
+msgstr "Beheer code: metaal-steen-steen-steen-rood-geel-geel-rood-rood-steen-steen."
 
 #  level: "Flying"
 #  author: "Lukas Schüller" email "Lucky_Luc@web.de"
@@ -2727,9 +2711,8 @@ msgstr "Denk u dat een bosjesman een brandblusser gaat zoeken in de kelder als e
 #  level: "Firefox"
 #  author: "Ronald Lamprecht" email "ral@users.berlios.de"
 #: po/level_i18n.cc:2084
-#, fuzzy
 msgid "You can extinguish fire with water. This is a good place to refill your extinguisher. Be aware, water is rare!"
-msgstr "U kunt vuur blussen met water. Dit is een goede plek om uw blusser te vullen. Let op, water is zeldzaam!"
+msgstr "U kunt vuur blussen met water. Dit is een goede plek om uw blusser te vullen. Let op, water is schaars!"
 
 #  level: "Firefox"
 #  author: "Ronald Lamprecht" email "ral@users.berlios.de"
@@ -2766,13 +2749,12 @@ msgstr "Wordt niet te veel aangetrokken!"
 #  author: "Andreas Lochmann" email ""
 #: po/level_i18n.cc:2127
 msgid "Try the easy mode first ..."
-msgstr ""
+msgstr "Probeer de makkelijke modus eerst ..."
 
 #  level: "Banana Republic"
 #  author: "Alain Busser" email ""
 #  comment: "This is not real spanish, only an ambience"
 #: po/level_i18n.cc:2133
-#, fuzzy
 msgid "Caramba!! El Dictator has muchos pesos in his cristal safe but muchos costa guardia too; Hay!! Poor Bola Negra has only frutos and a lasero!!!"
 msgstr "Caramba!! El Dictator heeft muchos pesos in zijn kristallen kluis maar ook muchos costa guardia; Hay!! Arme Bola Negra heeft alleen frutos en een lasero!!!"
 
@@ -2968,23 +2950,20 @@ msgstr "Probeer opnieuw! Fwahahaha!"
 #  level: "Gods of Enigma II"
 #  author: "moonpearl" email ""
 #: po/level_i18n.cc:2273
-#, fuzzy
 msgid "Earth fills and lasts ... Want to replace missing floors? Then build your way to the Holy Seed!"
 msgstr "Aarde vult en blijft ... Wilt u ontbrekende vloeren vervangen? Bouw dan uw weg naar het Heilige Zaad!"
 
 #  level: "Gods of Enigma II"
 #  author: "moonpearl" email ""
 #: po/level_i18n.cc:2274
-#, fuzzy
 msgid "Air blows and goes by ... Want to jump across the void? Then make your way to the Holy Spring!"
-msgstr "Lucht blaast en gaat voorbij ... Wilt u over de leegte heenspringen? "
+msgstr "Lucht blaast en gaat voorbij ... Wilt u over de leegte heenspringen? Zorg er dan voor dat u de Heilige Veer bereikt!"
 
 #  level: "Gods of Enigma II"
 #  author: "moonpearl" email ""
 #: po/level_i18n.cc:2275
-#, fuzzy
 msgid "Water waves and shifts ... Want to trade minds with your partner? Then find your way to the Holy Yin-Yang!"
-msgstr "Water"
+msgstr "Water golft en bweegt ... Wilt u wisselen met uw partner? Zoek dan uw weg naar de Heilige Yin-Yang!"
 
 #  level: "Doors forever"
 #  author: "JuSt" email ""
@@ -3081,7 +3060,7 @@ msgstr "sst ... luister!"
 #  author: "Ulf Stegemann" email "ulf-enigma@zeitform.de"
 #: po/level_i18n.cc:2649
 msgid "Umbreallas protect you against oncomming boulder!"
-msgstr ""
+msgstr "Paraplu's beschermen u tegen boulders!"
 
 #  level: "Snugly Packed II"
 #  author: "Siegfried Fennig" email ""
@@ -3135,13 +3114,13 @@ msgstr "Stenen veranderen!"
 #  author: "Ulf Stegemann" email "ulf-enigma@zeitform.de"
 #: po/level_i18n.cc:2804
 msgid "If you think that's to easy, try \"Difficulty: Normal\"."
-msgstr ""
+msgstr "Als u dat te makkelijk vindt, probeer het eens met moeilijkheidsgraad \"Normaal\"."
 
 #  level: "Per.Oxyd 27"
 #  author: "Ulf Stegemann" email "ulf-enigma@zeitform.de"
 #: po/level_i18n.cc:2806
 msgid "If you think that's to hard, try \"Difficulty: Easy\"."
-msgstr ""
+msgstr "Als u dat te moeilijk vindt, probeer het eens met moeilijkheidsgraad \"Makkelijk\"."
 
 #  level: "Handle With Care"
 #  author: "Martin Hawlisch" email ""
@@ -3374,7 +3353,6 @@ msgstr "Het is makkelijker met een schep!"
 #  level: "esprit 52"
 #  author: "Sven Siggelkow" email ""
 #: po/level_i18n.cc:3253
-#, fuzzy
 msgid "Sunday, bloody Sunday!"
 msgstr "Zondag, bloedige zondag!"
 
