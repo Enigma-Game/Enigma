@@ -309,7 +309,7 @@ bundle-doc:
 	cp $(top_builddir)/doc/images/flags25x15/*.png $(bundle_doc)/images/flags25x15/
 	cp $(top_builddir)/doc/reference/ant_lua.txt $(bundle_doc)/reference/
 	cp $(top_builddir)/doc/reference/sounds.txt $(bundle_doc)/reference/
-	cp $(top_builddir)/doc/reference/soundsets.lua $(bundle_doc)/reference/
+	cp $(top_builddir)/doc/reference/soundset.lua $(bundle_doc)/reference/
 	cp $(top_builddir)/doc/reference/lua2xml $(bundle_doc)/reference/
 	cp $(top_builddir)/doc/reference/xml2lua $(bundle_doc)/reference/
 	cp $(top_builddir)/doc/manual/images/*.png $(bundle_doc)/manual/images/

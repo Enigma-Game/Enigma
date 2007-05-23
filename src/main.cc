@@ -592,11 +592,6 @@ void Application::initXerces() {
 
 void Application::initUserDatapaths() {
     // userPath
-#ifdef MACOSX
-    if (prefs->getBool("MacUpdate1.00") == false) {
-        userStdPath = userStdPathMac1_00;
-    }
-#endif
     userPath = prefs->getString("UserPath");
     if (userPath.empty()) {
 #ifdef MACOSX
@@ -611,10 +606,15 @@ void Application::initUserDatapaths() {
     
     // userImagePath
     userImagePath = prefs->getString("UserImagePath");
-    if (userImagePath.empty())
+    if (userImagePath.empty()) {
+#ifdef MACOSX
+        userImagePath = userStdPathMac1_00;  // empty prefs user path is 1.00 std user path 
+#else
         userImagePath = userStdPath;
-    else
+#endif
+    } else {
         userImagePath = XMLtoLocal(Utf8ToXML(userImagePath.c_str()).x_str()).c_str();
+    }
     Log << "userImagePath = \"" << userImagePath << "\"\n"; 
 
     // resourceFS
@@ -663,8 +663,10 @@ void Application::updateMac1_00() {
         } else {  // OK move now
             Log << "Mac update\n";
             // move 
-            std::system(ecl::strf("mkdir '%s' && cd ~/.enigma && tar -cf - * | (cd '%s' && tar -xf -) && rm -rf ~/.enigma", userStdPath.c_str(), userStdPath.c_str()).c_str());
-            prefs->setProperty("MacUpdate1.00", true);
+            std::system(ecl::strf("mkdir '%s' && cd ~/.enigma && tar -cf - * | (cd '%s' && tar -xf -) && cd ~ && rm -rf ~/.enigma", userStdPath.c_str(), userStdPath.c_str()).c_str());
+            setUserPath("");
+            setUserImagePath("");
+	    prefs->setProperty("MacUpdate1.00", true);
             prefs->shutdown();
             exit(0);
         }
