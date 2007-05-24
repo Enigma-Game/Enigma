@@ -342,8 +342,7 @@ void Application::init(int argc, char **argv)
 
     // ----- Load level packs -- needs state
     lev::Index::initGroups();
-    if (!isMakePreviews)
-        oxyd::Init();  // Load oxyd data files - must be first to create correct proxies
+    oxyd::Init(!isMakePreviews);  // Load oxyd data files - must be first to create correct proxies
     lev::PersistentIndex::registerPersistentIndices(ap.makepreview);
     if (!isMakePreviews) {
         lua::Dofile(L, "levels/index.lua");

@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Enigma 1.00\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2007-05-22 22:06+0200\n"
+"POT-Creation-Date: 2007-05-24 21:04+0200\n"
 "PO-Revision-Date: 2006-12-11 17:05+0100\n"
 "Last-Translator: Daniel Heck <dheck@gmx.de>\n"
 "Language-Team: Enigma developers <enigma-devel@nongnu.org>\n"
@@ -210,30 +210,30 @@ msgstr "Zu schlagender Rekord: "
 msgid "Error in configuration file.\n"
 msgstr "Fehler in Konfigurationsdatei.\n"
 
-#: src/main.cc:496 src/main.cc:519
+#: src/main.cc:495 src/main.cc:518
 #, c-format
 msgid "Error Home directory does not exist.\n"
 msgstr "Fehler: Heimverzeichnis existiert nicht.\n"
 
-#: src/main.cc:511
+#: src/main.cc:510
 #, c-format
 msgid "Error Application Data directory does not exist.\n"
 msgstr "Fehler: Programmdatenverzeichnis existiert nicht.\n"
 
-#: src/main.cc:539 src/main.cc:588
+#: src/main.cc:538 src/main.cc:587
 #, c-format
 msgid "Error in XML initialization.\n"
 msgstr "Fehler in der XML Initialisierung.\n"
 
-#: src/main.cc:656
+#: src/main.cc:663
 #, c-format
 msgid ""
 "Mac OS X upgrade from Enigma 1.00\n"
 "\n"
-"The default user data path did change from\n"
+"The default user data path has changed from\n"
 "  %s \n"
 "\n"
-"to the visable data path\n"
+"to the visible data path\n"
 "  %s \n"
 "\n"
 "If ok Enigma will move your data to this new location.\n"
@@ -247,22 +247,23 @@ msgstr ""
 "zum sichtbaren Daten Pfad\n"
 "  %s \n"
 "\n"
-"Falls Sie das wollen, wird Enigma Ihre Spieldaten an den neuen Ort verschieben.\n"
-"Sie müssen Enigma ein Mal neu starten, um das update zu vervollständigen."
+"Falls Sie das wollen, wird Enigma Ihre Spieldaten an den neuen Ort "
+"verschieben.\n"
+"Sie müssen Enigma ein Mal neu starten, um das Update zu vervollständigen."
 
-#: src/main.cc:657
+#: src/main.cc:664
 msgid "OK"
 msgstr "OK"
 
-#: src/main.cc:657 src/gui/OptionsMenu.cc:123
+#: src/main.cc:664 src/gui/OptionsMenu.cc:123
 msgid "Never"
 msgstr "Nie"
 
-#: src/main.cc:657
+#: src/main.cc:664
 msgid "Remind"
 msgstr "Erinnern"
 
-#: src/main.cc:799
+#: src/main.cc:808
 msgid ""
 "Fatal Error that causes the application to quit:\n"
 "\n"
@@ -270,7 +271,7 @@ msgstr ""
 "Fataler interner Fehler der eine Beendigung der Applikation erzwingt:\n"
 "\n"
 
-#: src/main.cc:801 src/gui/MainMenu.cc:227
+#: src/main.cc:810 src/gui/MainMenu.cc:227
 msgid "Quit"
 msgstr "Ende"
 
@@ -759,7 +760,8 @@ msgstr ""
 
 #: src/gui/LevelPackConfig.cc:393
 msgid "Error: use only \"a-zA-Z0-9 _-#\" for levelpack title"
-msgstr "Fehler: benützen Sie nur \"a-zA-Z0-9 _-#\" für den Titel des Levelpakets"
+msgstr ""
+"Fehler: benützen Sie nur \"a-zA-Z0-9 _-#\" für den Titel des Levelpakets"
 
 #: src/gui/LevelPackConfig.cc:402
 msgid "Error: title already in use - choose another title"
@@ -860,7 +862,8 @@ msgstr "Einfache Suche:"
 #. TRANSLATORS: the translation can have double size of the english text
 #: src/gui/SearchMenu.cc:42
 msgid "case independent search in title, author, filename"
-msgstr "Suche in Titel, Autorname, Dateiname unabhängig von Gross-/Kleinschreibung."
+msgstr ""
+"Suche in Titel, Autorname, Dateiname unabhängig von Gross-/Kleinschreibung."
 
 #: src/gui/LevelInspector.cc:179
 msgid "Screenshot"
@@ -1126,7 +1129,8 @@ msgstr ""
 #  author: "Ralf Westram" email "amgine@reallysoft.de"
 #: po/level_i18n.cc:37
 msgid "Drop the hammer on side of a pentomino and use the switch!"
-msgstr "Legen Sie den Hammer neben ein Pentomino und betätigen Sie den Schalter!"
+msgstr ""
+"Legen Sie den Hammer neben ein Pentomino und betätigen Sie den Schalter!"
 
 #  level: ""
 #  author: "Ralf Westram" email "amgine@reallysoft.de"
@@ -1144,7 +1148,8 @@ msgstr "Meinem Freund Frank gewidmet."
 #  author: "Ralf Westram" email "amgine@reallysoft.de"
 #: po/level_i18n.cc:55
 msgid "This level is quite straightforward, isn't it? Just continue .. ;-)"
-msgstr "Dieser Level ist recht geradlinig, nicht wahr? Mache einfach weiter ... ;-)"
+msgstr ""
+"Dieser Level ist recht geradlinig, nicht wahr? Mache einfach weiter ... ;-)"
 
 #  level: "Pentomino V"
 #  author: "Ralf Westram" email "amgine@reallysoft.de"
@@ -1369,14 +1374,16 @@ msgstr ""
 #  author: "Lukas Schüller" email "Lucky_Luc@web.de"
 #: po/level_i18n.cc:292
 msgid "There are different kinds of seeds ... Try to use them!"
-msgstr "Es gibt verschidene Sorten von Samen ... Versuche sie richtig zu benutzen!"
+msgstr ""
+"Es gibt verschidene Sorten von Samen ... Versuche sie richtig zu benutzen!"
 
 #  level: "Growing Boxes"
 #  author: "Lukas Schüller" email "Lucky_Luc@web.de"
 #  comment: "read from the right"
 #: po/level_i18n.cc:294
 msgid "Noitcerid etisoppo eht yrt! Tuo syaw owt? Rorrim, rorrim ..."
-msgstr "Gnuthcir eredna eid Ehcusrev! Nessuard hcan Egew Iewz? legeisP legeisP ..."
+msgstr ""
+"Gnuthcir eredna eid Ehcusrev! Nessuard hcan Egew Iewz? legeisP legeisP ..."
 
 #  level: "Pentomino III"
 #  author: "Ralf Westram" email "amgine@reallysoft.de"
@@ -1396,7 +1403,8 @@ msgstr "Achtung! Schwarze Löcher!"
 #  use: "Das erste Ziel unseres Denkens werde:           Luft und Feuer, Wasser, Erde."
 #: po/level_i18n.cc:350
 msgid "Our full attention this is worth:           Air and Fire, Water, Earth."
-msgstr "Das erste Ziel unseres Denkens werde:           Luft und Feuer, Wasser, Erde."
+msgstr ""
+"Das erste Ziel unseres Denkens werde:           Luft und Feuer, Wasser, Erde."
 
 #  level: "Moure-Switches"
 #  author: "Andreas Lochmann" email ""
@@ -2012,7 +2020,8 @@ msgstr "Xila weiss, wie man den See trocken legt!"
 #  author: "Dominik Lehmann" email ""
 #: po/level_i18n.cc:901
 msgid "You were lucky to find this hole. It prevents you from drowning."
-msgstr "Du Glücklicher hast dieses Loch gefunden. Es rettet Dich vor dem Ertrinken."
+msgstr ""
+"Du Glücklicher hast dieses Loch gefunden. Es rettet Dich vor dem Ertrinken."
 
 #  level: "The Aztec Temple"
 #  author: "Dominik Lehmann" email ""
@@ -2050,7 +2059,8 @@ msgstr ""
 #  author: "Dominik Lehmann" email ""
 #: po/level_i18n.cc:906
 msgid "\"Congratulations. You just managed to enter this old Aztec Temple.\""
-msgstr "\"Gratulation. Du bist in diesen alten Aztekentempel hinein gekommen.\""
+msgstr ""
+"\"Gratulation. Du bist in diesen alten Aztekentempel hinein gekommen.\""
 
 #  level: "The Aztec Temple"
 #  author: "Dominik Lehmann" email ""
@@ -2306,7 +2316,9 @@ msgstr "Dieser Schalter ist momentan leider außer Betrieb."
 #  use: "Ich habe Dir doch bereits mitgeteilt, dass dieser Schalter nicht funktioniert!"
 #: po/level_i18n.cc:1125
 msgid "As I already told you, this switch is out of order!"
-msgstr "Ich habe Dir doch bereits mitgeteilt, dass dieser Schalter nicht funktioniert!"
+msgstr ""
+"Ich habe Dir doch bereits mitgeteilt, dass dieser Schalter nicht "
+"funktioniert!"
 
 #  level: "The Passage"
 #  author: "JuSt" email ""
@@ -3025,8 +3037,10 @@ msgstr "Reibung und Beschleunigung hängen vom Bodentyp ab."
 #  level: "Meditation 1"
 #  author: "Martin Hawlisch" email ""
 #: po/level_i18n.cc:1674
-msgid "Move all small marbles into the holes. Only one marble per hole is allowed."
-msgstr "Lege alle kleinen Kugel in die Löcher. Nur eine Kugel pro Loch ist erlaubt."
+msgid ""
+"Move all small marbles into the holes. Only one marble per hole is allowed."
+msgstr ""
+"Lege alle kleinen Kugel in die Löcher. Nur eine Kugel pro Loch ist erlaubt."
 
 #  level: "Demo I18N"
 #  author: "Ronald Lamprecht" email "ral@users.berlios.de"
@@ -3124,7 +3138,8 @@ msgstr ""
 #  author: "Alain Busser" email ""
 #: po/level_i18n.cc:1937
 msgid "Warning: If one warrior's walls are empty, this awesome warrior wins."
-msgstr "Warnung: Wenn die Felder des einen Kriegers leer sind, gewinnt der andere."
+msgstr ""
+"Warnung: Wenn die Felder des einen Kriegers leer sind, gewinnt der andere."
 
 #  level: "Enigmawale"
 #  author: "Alain Busser" email ""
@@ -3302,7 +3317,8 @@ msgstr "Willkommen in Enigma V"
 #  author: "Sven Siggelkow" email ""
 #: po/level_i18n.cc:2201
 msgid "This is a meditation landscape: put a small marble into every hole ..."
-msgstr "Dies ist eine Meditationslandschaft: lege eine kleine Kugel in jedes Loch ..."
+msgstr ""
+"Dies ist eine Meditationslandschaft: lege eine kleine Kugel in jedes Loch ..."
 
 #  level: "Firefox"
 #  author: "Ronald Lamprecht" email "ral@users.berlios.de"
@@ -3358,7 +3374,8 @@ msgstr "Pirateninsel"
 #  author: "Alain Busser" email ""
 #: po/level_i18n.cc:2237
 msgid "The pirates have lost several hidden things on this island ..."
-msgstr "Die Piraten haben auf dieser Insel einige versteckte Dinge hinterlassen ..."
+msgstr ""
+"Die Piraten haben auf dieser Insel einige versteckte Dinge hinterlassen ..."
 
 #  level: "Elaborate"
 #  author: "Jacob Scott" email ""
@@ -3601,8 +3618,10 @@ msgstr ""
 #  level: "Pneumatic Delivery"
 #  author: "Manuel König" email ""
 #: po/level_i18n.cc:2394
-msgid "This is my first landscape, dedicated to my father. I hope you'll enjoy it!"
-msgstr "Dies ist mein erstes Level, gewidmet meinem Vater. Ich hoffe es gefällt Dir!"
+msgid ""
+"This is my first landscape, dedicated to my father. I hope you'll enjoy it!"
+msgstr ""
+"Dies ist mein erstes Level, gewidmet meinem Vater. Ich hoffe es gefällt Dir!"
 
 #  level: "Gods of Enigma II"
 #  author: "moonpearl" email ""
@@ -3883,7 +3902,8 @@ msgstr ""
 #  author: "Sven Siggelkow" email ""
 #: po/level_i18n.cc:3019
 msgid "Flood Control Dam #3 seems rather unstable. Be quick or be dead."
-msgstr "Flutkontrolldamm #3 scheint eher instabil. Fliehe schnell oder ertrinke."
+msgstr ""
+"Flutkontrolldamm #3 scheint eher instabil. Fliehe schnell oder ertrinke."
 
 #  level: "Automatic Transmission"
 #  author: "Jacob Scott" email ""
@@ -4081,8 +4101,9 @@ msgstr "Bestattung auf hoher See"
 msgid ""
 "Warning: Do not play this level for more than 10 minutes - you may suffer "
 "sea sickness yourself!"
-msgstr "Warnung: Spielen Sie diesen Level nicht für mehr als 10 Minuten - "
-"Sie können selber an Seekrankheit leiden!"
+msgstr ""
+"Warnung: Spielen Sie diesen Level nicht für mehr als 10 Minuten - Sie können "
+"selber an Seekrankheit leiden!"
 
 #  level: "Welcome"
 #  author: "Raoul Bourquin" email ""

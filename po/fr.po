@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Enigma 1.00\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2007-05-22 22:06+0200\n"
+"POT-Creation-Date: 2007-05-24 21:04+0200\n"
 "PO-Revision-Date: 2006-11-012 18:07+0100\n"
 "Last-Translator:  Alain Busser\n"
 "Language-Team: French\n"
@@ -212,49 +212,49 @@ msgstr "Record mondial à battre: "
 msgid "Error in configuration file.\n"
 msgstr "Erreur dans fichier configuration.\n"
 
-#: src/main.cc:496 src/main.cc:519
+#: src/main.cc:495 src/main.cc:518
 #, c-format
 msgid "Error Home directory does not exist.\n"
 msgstr "Erreur: Le répertoire 'home' n'existe pas.\n"
 
-#: src/main.cc:511
+#: src/main.cc:510
 #, c-format
 msgid "Error Application Data directory does not exist.\n"
 msgstr "Erreur: Le répertoire de données n'existe pas.\n"
 
-#: src/main.cc:539 src/main.cc:588
+#: src/main.cc:538 src/main.cc:587
 #, c-format
 msgid "Error in XML initialization.\n"
 msgstr "Erreur dans le fichier d'initialisation.\n"
 
-#: src/main.cc:656
+#: src/main.cc:663
 #, c-format
 msgid ""
 "Mac OS X upgrade from Enigma 1.00\n"
 "\n"
-"The default user data path did change from\n"
+"The default user data path has changed from\n"
 "  %s \n"
 "\n"
-"to the visable data path\n"
+"to the visible data path\n"
 "  %s \n"
 "\n"
 "If ok Enigma will move your data to this new location.\n"
 "Note that you have to restart Enigma once for completion of this update."
 msgstr ""
 
-#: src/main.cc:657
+#: src/main.cc:664
 msgid "OK"
 msgstr ""
 
-#: src/main.cc:657 src/gui/OptionsMenu.cc:123
+#: src/main.cc:664 src/gui/OptionsMenu.cc:123
 msgid "Never"
 msgstr "Jamais"
 
-#: src/main.cc:657
+#: src/main.cc:664
 msgid "Remind"
 msgstr ""
 
-#: src/main.cc:799
+#: src/main.cc:808
 msgid ""
 "Fatal Error that causes the application to quit:\n"
 "\n"
@@ -262,7 +262,7 @@ msgstr ""
 "Erreur fatale, l'application va quitter:\n"
 "\n"
 
-#: src/main.cc:801 src/gui/MainMenu.cc:227
+#: src/main.cc:810 src/gui/MainMenu.cc:227
 msgid "Quit"
 msgstr "Quitter"
 
