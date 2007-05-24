@@ -86,7 +86,7 @@ namespace enigma {
                     DOMElement *tmplProperty = dynamic_cast<DOMElement *>(tmplPropList->item(i));
                     const XMLCh * key = tmplProperty->getAttribute(Utf8ToXML("key").x_str());
                     DOMElement * lastUserProperty;
-                    if (!hasProperty(key, &lastUserProperty)) {
+                    if ((key[0] != chUnderscore) && !hasProperty(key, &lastUserProperty)) {
                         // a new property in the template
                         Log << "Preferences: add new Property \"" << XMLtoLocal(key) << "\"\n";
                         // make a copy

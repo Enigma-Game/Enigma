@@ -594,14 +594,14 @@ void Application::initUserDatapaths() {
     userPath = prefs->getString("UserPath");
     if (userPath.empty()) {
 #ifdef MACOSX
-        if (prefs->getInt("MacUpdate1.00") != 1)
+        if (prefs->getInt("_MacUpdate1.00") != 1)
 	    userPath = userStdPathMac1_00;  // empty prefs user path is 1.00 std user path
 	else {
 	    // first installation of Enigma on a Mac
 	    userPath = userStdPath;  // use the new path
 	    prefs->setProperty("UserPath", std::string(XMLtoUtf8(LocalToXML(&userPath).x_str()).c_str()));
 	    prefs->setProperty("UserImagePath", std::string(XMLtoUtf8(LocalToXML(&userPath).x_str()).c_str()));
-	    prefs->setProperty("MacUpdate1.00", 2);
+	    prefs->setProperty("_MacUpdate1.00", 2);
 	}
 #else
         userPath = userStdPath;
@@ -657,23 +657,23 @@ void Application::initUserDatapaths() {
 
 #ifdef MACOSX
 void Application::updateMac1_00() {
-    if (prefs->getInt("MacUpdate1.00") == 0 && 
+    if (prefs->getInt("_MacUpdate1.00") == 0 && 
             prefs->getString("UserPath").empty() &&
             prefs->getString("UserImagePath").empty()) {
         gui::ErrorMenu m(ecl::strf(N_("Mac OS X upgrade from Enigma 1.00\n\nThe default user data path has changed from\n  %s \n\nto the visible data path\n  %s \n\nIf ok Enigma will move your data to this new location.\nNote that you have to restart Enigma once for completion of this update."), userStdPathMac1_00.c_str(), userStdPath.c_str()),
                 N_("OK"), N_("Never"), N_("Remind"));
         m.manage();
         if (m.isRejectQuit()) {
-            prefs->setProperty("MacUpdate1.00", 2);
+            prefs->setProperty("_MacUpdate1.00", 2);
         } else if (m.isLaterQuit()) {
-            prefs->setProperty("MacUpdate1.00", 0);
+            prefs->setProperty("_MacUpdate1.00", 0);
         } else {  // OK move now
             Log << "Mac update\n";
             // move 
             std::system(ecl::strf("mkdir '%s' && cd ~/.enigma && tar -cf - * | (cd '%s' && tar -xf -) && cd ~ && rm -rf ~/.enigma", userStdPath.c_str(), userStdPath.c_str()).c_str());
             setUserPath("");
             setUserImagePath("");
-	    prefs->setProperty("MacUpdate1.00", 2);
+	    prefs->setProperty("_MacUpdate1.00", 2);
             prefs->shutdown();
             exit(0);
         }
