@@ -456,7 +456,7 @@ do
 end
 
 --------------------------------------------------------------
--- Multiple-Image-Items, non animated, e.g. it-nurnable-oil --
+-- Multiple-Image-Items, non animated, e.g. it-burnable-oil --
 --------------------------------------------------------------
 
 -- it-extinguisher --
@@ -662,7 +662,6 @@ do
     DefStone("st-blackballs")
     DefStone("st-block")
     DefStone("st-bluegray", "sh-round")
-    DefStone("st-bluegray_hole", "sh-round", {filename="st-bluegray"})
     DefStone("st-blue-sand")
     DefStone("st-brake", "sh-brake")
     DefStone("st-brick")
@@ -1467,6 +1466,7 @@ end
 -- Simple stone aliases --
 --------------------------
 do
+    DefAlias("st-bluegray_hole", "st-bluegray")
     DefAlias("st-breaking", "st-rock3_break-anim")
     DefAlias("st-camouflage_move", "st-camouflage")
     DefAlias("st-camouflage_hole", "st-camouflage")
@@ -1476,6 +1476,7 @@ do
     DefAlias("st-glass1_hole", "st-glass1")
     DefAlias("st-glass1_move", "st-glass1")
     DefAlias("st-glass2_hole", "st-glass2")
+    DefAlias("st-glass2_move", "st-glass2")
     DefAlias("st-greenbrown_hole", "st-greenbrown")
     DefAlias("st-greenbrown_move", "st-greenbrown")
     DefAlias("st-laserbreak", "st-rock3")
@@ -1558,5 +1559,4 @@ Sprite({
     loop     = true
 })
 
-Progress(100, "Loading Enigma levels")
-
+Progress(100, "Loading Enigma Levels")
