@@ -3,11 +3,12 @@
 # This file is distributed under the same license as the Enigma package.
 # Máté Lehel Juhász <jmatel@cs.elte.hu>, 2005, 2006, 2007.
 #
+#: po/level_i18n.cc:1044
 msgid ""
 msgstr ""
 "Project-Id-Version: Enigma 1.00\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2007-03-13 09:37+0100\n"
+"POT-Creation-Date: 2007-05-24 21:04+0200\n"
 "PO-Revision-Date: 2007-03-17\n"
 "Last-Translator: Máté Lehel Juhász <jmatel@cs.elte.hu>\n"
 "Language-Team: Hungarian\n"
@@ -15,120 +16,121 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 
-#: src/server.cc:138 src/server.cc:152 src/gui/LevelInspector.cc:196
+#: src/server.cc:144 src/server.cc:158 src/gui/LevelInspector.cc:199
 msgid "Server Error: could not load level '"
 msgstr "Kiszolgáló hiba: nem tudta betölteni a következő pályát: '"
 
-#: src/client.cc:65
+#: src/client.cc:66
 #, c-format
 msgid "Mouse speed: %d"
 msgstr "Egér sebessége: %d"
 
-#: src/client.cc:76
+#: src/client.cc:77
 msgid "Another nameless level"
 msgstr "Még egy névtelen pálya"
 
-#: src/client.cc:80
+#: src/client.cc:81
 msgid " by "
 msgstr ", készítette "
 
-#: src/client.cc:473
+#: src/client.cc:475
 msgid "Left mouse button:"
 msgstr "Bal egérgomb:"
 
-#: src/client.cc:473
+#: src/client.cc:475
 msgid "Activate/drop leftmost inventory item"
 msgstr "Bal oldali kézben lévő elem működésbe hozása/leejtése"
 
-#: src/client.cc:474
+#: src/client.cc:476
 msgid "Right mouse button:"
 msgstr "Jobb egérgomb:"
 
-#: src/client.cc:474
+#: src/client.cc:476
 msgid "Rotate inventory items"
 msgstr "Kézben lévő elemek váltogatása"
 
-#: src/client.cc:475 src/gui/LevelMenu.cc:166 src/gui/ScreenshotViewer.cc:34
+#: src/client.cc:477 src/gui/LevelMenu.cc:166 src/gui/ScreenshotViewer.cc:34
 msgid "Escape:"
 msgstr "Esc:"
 
-#: src/client.cc:475
+#: src/client.cc:477
 msgid "Show game menu"
 msgstr "Játék menü megjelenítése"
 
-#: src/client.cc:476
+#: src/client.cc:478
 msgid "F1:"
 msgstr "F1:"
 
-#: src/client.cc:476 src/gui/LevelMenu.cc:167 src/gui/ScreenshotViewer.cc:35
+#: src/client.cc:478 src/gui/LevelMenu.cc:167 src/gui/ScreenshotViewer.cc:35
 msgid "Show this help"
 msgstr "Ennek a súgó-képernyőnek a megjelenítése"
 
-#: src/client.cc:477
+#: src/client.cc:479
 msgid "F3:"
 msgstr "F3:"
 
-#: src/client.cc:477
+#: src/client.cc:479
 msgid "Kill current marble"
 msgstr "Jelenlegi golyó összetörése"
 
-#: src/client.cc:478
+#: src/client.cc:480
 msgid "Shift+F3:"
 msgstr "Shift+F3:"
 
-#: src/client.cc:478
+#: src/client.cc:480
 msgid "Restart the current level"
 msgstr "Jelenlegi pálya újrakezdése"
 
-#: src/client.cc:479
+#: src/client.cc:481
 msgid "F4:"
 msgstr "F4:"
 
-#: src/client.cc:479
+#: src/client.cc:481
 msgid "Skip to next level"
 msgstr "Ugrás a következő pályára"
 
-#: src/client.cc:480 src/gui/LevelPackComposer.cc:48
+#: src/client.cc:482 src/gui/LevelPackComposer.cc:48
 msgid "F5:"
 msgstr "F5:"
 
-#: src/client.cc:481
+#: src/client.cc:483
+#, fuzzy
+msgid "F6:"
+msgstr "F9:"
+
+#: src/client.cc:483
+msgid "Jump back to last level"
+msgstr ""
+
+#: src/client.cc:484
 msgid "F10:"
 msgstr "F10:"
 
-#: src/client.cc:481
+#: src/client.cc:484
 msgid "Make screenshot"
 msgstr "Pillanatkép készítése"
 
-#: src/client.cc:482
+#: src/client.cc:485
 msgid "Left/right arrow:"
 msgstr "Bal/jobb nyíl:"
 
-#: src/client.cc:482
+#: src/client.cc:485
 msgid "Change mouse speed"
 msgstr "Egér sebességének állítása"
 
-#: src/client.cc:483
+#: src/client.cc:486
 msgid "Alt+x:"
 msgstr "Alt+x:"
 
-#: src/client.cc:483
+#: src/client.cc:486
 msgid "Return to level menu"
 msgstr "Visszatérés a pályák menübe"
 
-#: src/client.cc:484 src/gui/LevelMenu.cc:174
-msgid "Alt+Return:"
-msgstr "Alt+Return:"
-
-#: src/client.cc:484 src/gui/LevelMenu.cc:174
-msgid "Switch between fullscreen and window"
-msgstr "Váltás teljes képernyő és ablak között"
-
-#: src/client.cc:494
+#: src/client.cc:497
 msgid "Skip to next level for best score hunt"
 msgstr "Ugrás a következő pályára legjobb pontszám vadászathoz"
 
-#: src/client.cc:495
+#: src/client.cc:498
 msgid "Skip to next unsolved level"
 msgstr "Ugrás a következő megoldatlan szintre"
 
@@ -210,22 +212,49 @@ msgstr "A megdöntendő világcsúcs:"
 msgid "Error in configuration file.\n"
 msgstr "Hiba a konfigurációs fájlban.\n"
 
-#: src/main.cc:479 src/main.cc:497
+#: src/main.cc:495 src/main.cc:518
 #, c-format
 msgid "Error Home directory does not exist.\n"
 msgstr "Hiba: A 'Home' könyvtár nem létezik.\n"
 
-#: src/main.cc:489
+#: src/main.cc:510
 #, c-format
 msgid "Error Application Data directory does not exist.\n"
 msgstr "Hiba: Az 'Application Data' könyvtár nem létezik.\n"
 
-#: src/main.cc:517 src/main.cc:566
+#: src/main.cc:538 src/main.cc:587
 #, c-format
 msgid "Error in XML initialization.\n"
 msgstr "Hiba az XML inicializálása során.\n"
 
-#: src/main.cc:733
+#: src/main.cc:663
+#, c-format
+msgid ""
+"Mac OS X upgrade from Enigma 1.00\n"
+"\n"
+"The default user data path has changed from\n"
+"  %s \n"
+"\n"
+"to the visible data path\n"
+"  %s \n"
+"\n"
+"If ok Enigma will move your data to this new location.\n"
+"Note that you have to restart Enigma once for completion of this update."
+msgstr ""
+
+#: src/main.cc:664
+msgid "OK"
+msgstr ""
+
+#: src/main.cc:664 src/gui/OptionsMenu.cc:123
+msgid "Never"
+msgstr "soha"
+
+#: src/main.cc:664
+msgid "Remind"
+msgstr ""
+
+#: src/main.cc:808
 msgid ""
 "Fatal Error that causes the application to quit:\n"
 "\n"
@@ -233,11 +262,11 @@ msgstr ""
 "Végzetes hiba, az alkalmazás kilép:\n"
 "\n"
 
-#: src/main.cc:735 src/gui/MainMenu.cc:215
+#: src/main.cc:810 src/gui/MainMenu.cc:227
 msgid "Quit"
 msgstr "Kilépés"
 
-#: src/gui/MainMenu.cc:70 src/gui/MainMenu.cc:207 src/gui/LevelPackMenu.cc:62
+#: src/gui/MainMenu.cc:70 src/gui/MainMenu.cc:219 src/gui/LevelPackMenu.cc:62
 msgid "Start Game"
 msgstr "Játék kezdete"
 
@@ -245,7 +274,7 @@ msgstr "Játék kezdete"
 msgid "Join Game"
 msgstr "Csatlakozás játékhoz"
 
-#: src/gui/MainMenu.cc:72 src/gui/OptionsMenu.cc:345
+#: src/gui/MainMenu.cc:72 src/gui/OptionsMenu.cc:317
 #: src/gui/ScreenshotViewer.cc:34
 msgid "Back"
 msgstr "Vissza"
@@ -293,7 +322,8 @@ msgid "terms of the GNU General Public License, version 2."
 msgstr "2. változat kikötéseinek értelmében lehet terjeszteni."
 
 #: src/gui/MainMenu.cc:127
-msgid "Copyright (C) 2002-2006 Daniel Heck and contributors."
+#, fuzzy
+msgid "Copyright (C) 2002-2007 Daniel Heck and contributors."
 msgstr "Copyright (C) 2002-2006 Daniel Heck és közreműködők."
 
 #: src/gui/MainMenu.cc:129
@@ -304,51 +334,51 @@ msgstr "Az összes kiadás fő fejlesztői:"
 msgid "Special Thanks:"
 msgstr "Különleges köszönet:"
 
-#: src/gui/MainMenu.cc:152
+#: src/gui/MainMenu.cc:156
 msgid "Contributors:"
 msgstr "Közreműködtek:"
 
-#: src/gui/MainMenu.cc:208 src/gui/LevelMenu.cc:64
+#: src/gui/MainMenu.cc:220 src/gui/LevelMenu.cc:64
 msgid "Level Pack"
 msgstr "Pályacsomag"
 
-#: src/gui/MainMenu.cc:210
+#: src/gui/MainMenu.cc:222
 msgid "Network Game"
 msgstr "Hálózati játék"
 
-#: src/gui/MainMenu.cc:211
+#: src/gui/MainMenu.cc:223
 msgid "Editor"
 msgstr "Szerkesztő"
 
-#: src/gui/MainMenu.cc:213 src/gui/GameMenu.cc:48
+#: src/gui/MainMenu.cc:225 src/gui/GameMenu.cc:48
 msgid "Options"
 msgstr "Beállítások"
 
-#: src/gui/MainMenu.cc:214
+#: src/gui/MainMenu.cc:226
 msgid "Credits"
 msgstr "Készítők"
 
-#: src/gui/MainMenu.cc:304
+#: src/gui/MainMenu.cc:316
 msgid "Preferences Path:"
 msgstr "Beállítások útvonala (Preferences Path):"
 
-#: src/gui/MainMenu.cc:314
+#: src/gui/MainMenu.cc:326
 msgid "User Path:"
 msgstr "Felhasználói útvonal (User Path):"
 
-#: src/gui/MainMenu.cc:324
+#: src/gui/MainMenu.cc:336
 msgid "User Image Path:"
 msgstr "Felhasználói képek útvonala (User Image Path):"
 
-#: src/gui/MainMenu.cc:334
+#: src/gui/MainMenu.cc:346
 msgid "System Path:"
 msgstr "Rendszer útvonal (System Path):"
 
-#: src/gui/MainMenu.cc:344
+#: src/gui/MainMenu.cc:356
 msgid "Resource Paths:"
 msgstr "Erőforrások útvonalai (Resource Paths):"
 
-#: src/gui/MainMenu.cc:354
+#: src/gui/MainMenu.cc:366
 msgid "L10n Path:"
 msgstr "Lokalizációs útvonal (L10n Path):"
 
@@ -365,12 +395,12 @@ msgid "No music in game"
 msgstr "Nincs zene a játékban"
 
 #: src/gui/OptionsMenu.cc:115 src/gui/OptionsMenu.cc:119
-#: src/gui/OptionsMenu.cc:246
+#: src/gui/OptionsMenu.cc:218
 msgid "Yes"
 msgstr "Igen"
 
 #: src/gui/OptionsMenu.cc:115 src/gui/OptionsMenu.cc:119
-#: src/gui/OptionsMenu.cc:246
+#: src/gui/OptionsMenu.cc:218
 msgid "No"
 msgstr "Nem"
 
@@ -378,80 +408,72 @@ msgstr "Nem"
 msgid "Auto"
 msgstr "magától"
 
-#: src/gui/OptionsMenu.cc:123
-msgid "Never"
-msgstr "soha"
-
-#: src/gui/OptionsMenu.cc:163
-msgid "Default"
-msgstr "alap"
-
-#: src/gui/OptionsMenu.cc:234
+#: src/gui/OptionsMenu.cc:206
 msgid "reversed"
 msgstr "fordított"
 
-#: src/gui/OptionsMenu.cc:235
+#: src/gui/OptionsMenu.cc:207
 msgid "mono"
 msgstr "monó"
 
-#: src/gui/OptionsMenu.cc:236
+#: src/gui/OptionsMenu.cc:208
 msgid "normal"
 msgstr "sztereó"
 
-#: src/gui/OptionsMenu.cc:299 src/gui/LevelInspector.cc:331
-#: src/gui/LevelInspector.cc:347 src/gui/LevelInspector.cc:360
+#: src/gui/OptionsMenu.cc:271 src/gui/LevelInspector.cc:335
+#: src/gui/LevelInspector.cc:351 src/gui/LevelInspector.cc:364
 msgid "unknown"
 msgstr "ismeretlen"
 
-#: src/gui/OptionsMenu.cc:364
+#: src/gui/OptionsMenu.cc:336
 msgid "Language: "
 msgstr "Nyelv: "
 
-#: src/gui/OptionsMenu.cc:365
+#: src/gui/OptionsMenu.cc:337
 msgid "Fullscreen: "
 msgstr "Teljes képernyő: "
 
-#: src/gui/OptionsMenu.cc:366
+#: src/gui/OptionsMenu.cc:338
 msgid "Video mode: "
 msgstr "Videó mód: "
 
-#: src/gui/OptionsMenu.cc:367
+#: src/gui/OptionsMenu.cc:339
 msgid "Gamma correction: "
 msgstr "Gamma korrekció: "
 
-#: src/gui/OptionsMenu.cc:368
+#: src/gui/OptionsMenu.cc:340
 msgid "Mouse speed: "
 msgstr "Egér sebessége: "
 
-#: src/gui/OptionsMenu.cc:377
+#: src/gui/OptionsMenu.cc:349
 msgid "Sound volume: "
 msgstr "Hangerő: "
 
-#: src/gui/OptionsMenu.cc:378
+#: src/gui/OptionsMenu.cc:350
 msgid "Sound set: "
 msgstr "Hangkészlet: "
 
-#: src/gui/OptionsMenu.cc:379
+#: src/gui/OptionsMenu.cc:351
 msgid "Music volume: "
 msgstr "Zene hangereje: "
 
-#: src/gui/OptionsMenu.cc:380
+#: src/gui/OptionsMenu.cc:352
 msgid "Stereo: "
 msgstr "Csatornák: "
 
-#: src/gui/OptionsMenu.cc:381
+#: src/gui/OptionsMenu.cc:353
 msgid "Ratings update: "
 msgstr "Minősítés frissítése: "
 
-#: src/gui/OptionsMenu.cc:395
+#: src/gui/OptionsMenu.cc:367
 msgid "User name: "
 msgstr "Felhasználó neve: "
 
-#: src/gui/OptionsMenu.cc:396
+#: src/gui/OptionsMenu.cc:368
 msgid "User path: "
 msgstr "Felhasználói útvonal: "
 
-#: src/gui/OptionsMenu.cc:397
+#: src/gui/OptionsMenu.cc:369
 msgid "User image path: "
 msgstr "Képek útvonala: "
 
@@ -490,6 +512,14 @@ msgstr "Előző/következő pályacsomag"
 #: src/gui/LevelMenu.cc:172
 msgid "Mark current level as Unsolved"
 msgstr "Jelenlegi pálya bejelölése mint 'Megoldatlan'"
+
+#: src/gui/LevelMenu.cc:174
+msgid "Alt+Return:"
+msgstr "Alt+Return:"
+
+#: src/gui/LevelMenu.cc:174
+msgid "Switch between fullscreen and window"
+msgstr "Váltás teljes képernyő és ablak között"
 
 #: src/gui/LevelMenu.cc:175 src/gui/LevelPackMenu.cc:48
 msgid "Left click:"
@@ -535,41 +565,41 @@ msgstr "%d%% par, hcp %.1f"
 msgid "%d%% solved"
 msgstr "%d%% megoldott"
 
-#: src/gui/LevelMenu.cc:339
+#: src/gui/LevelMenu.cc:340
 #, c-format
 msgid "Your time: %d:%02d"
 msgstr "Az Ön ideje: %d:%02d"
 
-#: src/gui/LevelMenu.cc:345
+#: src/gui/LevelMenu.cc:346
 msgid "That's world record."
 msgstr "Ez a világcsúcs"
 
-#: src/gui/LevelMenu.cc:347
+#: src/gui/LevelMenu.cc:348
 #, c-format
 msgid "That's %d:%02d below world record."
 msgstr "Ez %d:%02d idővel van a világcsúcs alatt."
 
-#: src/gui/LevelMenu.cc:355
-#, c-format
-msgid "World record by %s: %d:%02d"
-msgstr "%s tartja a világcsúcsot: %d:%02d"
-
 #: src/gui/LevelMenu.cc:358
-#, c-format
-msgid "Par: %d:%02d World record by %s: %d:%02d"
-msgstr "Par: %d:%02d %s tartja a világcsúcsot: %d:%02d"
-
-#: src/gui/LevelMenu.cc:362
 #, c-format
 msgid "World record: %d:%02d"
 msgstr "Világcsúcs: %d:%02d"
 
-#: src/gui/LevelMenu.cc:364
+#: src/gui/LevelMenu.cc:360
 #, c-format
 msgid "Par: %d:%02d World record: %d:%02d"
 msgstr "Par: %d:%02d Világcsúcs: %d:%02d"
 
-#: src/gui/LevelMenu.cc:398
+#: src/gui/LevelMenu.cc:374
+#, c-format
+msgid "World record by %s: %d:%02d"
+msgstr "%s tartja a világcsúcsot: %d:%02d"
+
+#: src/gui/LevelMenu.cc:377
+#, c-format
+msgid "Par: %d:%02d World record by %s: %d:%02d"
+msgstr "Par: %d:%02d %s tartja a világcsúcsot: %d:%02d"
+
+#: src/gui/LevelMenu.cc:407
 msgid "No further unsolved level available!"
 msgstr "Nincs további elérhető megoldatlan pálya!"
 
@@ -642,13 +672,13 @@ msgstr "F10"
 msgid "Move clipboard levels"
 msgstr "Vágólapon lévő pályák mozgatása"
 
-#: src/gui/LevelPackComposer.cc:118 src/gui/LevelPackConfig.cc:307
+#: src/gui/LevelPackComposer.cc:118 src/gui/LevelPackConfig.cc:306
 #: src/gui/LPGroupConfig.cc:99 src/gui/SearchMenu.cc:58
 msgid "Undo"
 msgstr "Vissza"
 
-#: src/gui/LevelPackComposer.cc:119 src/gui/LevelPackConfig.cc:308
-#: src/gui/LPGroupConfig.cc:100 src/gui/LevelInspector.cc:175
+#: src/gui/LevelPackComposer.cc:119 src/gui/LevelPackConfig.cc:307
+#: src/gui/LPGroupConfig.cc:100 src/gui/LevelInspector.cc:178
 #: src/gui/HelpMenu.cc:34
 msgid "Ok"
 msgstr "Ok"
@@ -711,11 +741,11 @@ msgstr ""
 msgid "Compose Pack"
 msgstr "Csomag felállása"
 
-#: src/gui/LevelPackConfig.cc:304
+#: src/gui/LevelPackConfig.cc:302
 msgid "Update Pack"
 msgstr "Csomag frissítése"
 
-#: src/gui/LevelPackConfig.cc:382
+#: src/gui/LevelPackConfig.cc:381
 msgid ""
 "Error: empty title not allowed - press \"Undo\" to exit without modifications"
 msgstr ""
@@ -829,176 +859,180 @@ msgstr ""
 "keresés a címek, alkotók és fájlnevek közt, nagybetű és kisbetű különbségére "
 "tekintet nélkül"
 
-#: src/gui/LevelInspector.cc:176
+#: src/gui/LevelInspector.cc:179
 msgid "Screenshot"
 msgstr "Pillanatkép"
 
-#: src/gui/LevelInspector.cc:223
+#: src/gui/LevelInspector.cc:227
 msgid "Level: "
 msgstr "Pálya: "
 
-#: src/gui/LevelInspector.cc:225 src/gui/LevelInspector.cc:283
+#: src/gui/LevelInspector.cc:229 src/gui/LevelInspector.cc:287
 msgid "Author: "
 msgstr "Alkotó: "
 
-#: src/gui/LevelInspector.cc:226
+#: src/gui/LevelInspector.cc:230
 msgid "Contact: "
 msgstr "Elérhetőség: "
 
-#: src/gui/LevelInspector.cc:227
+#: src/gui/LevelInspector.cc:231
 msgid "Homepage: "
 msgstr "Honlap: "
 
-#: src/gui/LevelInspector.cc:248
+#: src/gui/LevelInspector.cc:252
 msgid "Public Ratings"
 msgstr "Ált. minősítés"
 
-#: src/gui/LevelInspector.cc:250
+#: src/gui/LevelInspector.cc:254
 msgid "Intelligence: "
 msgstr "Gondolkodás: "
 
-#: src/gui/LevelInspector.cc:251
+#: src/gui/LevelInspector.cc:255
 msgid "Dexterity: "
 msgstr "Ügyesség: "
 
-#: src/gui/LevelInspector.cc:252
+#: src/gui/LevelInspector.cc:256
 msgid "Patience: "
 msgstr "Türelem: "
 
-#: src/gui/LevelInspector.cc:253
+#: src/gui/LevelInspector.cc:257
 msgid "Knowledge: "
 msgstr "Ismeret: "
 
-#: src/gui/LevelInspector.cc:254
+#: src/gui/LevelInspector.cc:258
 msgid "Speed: "
 msgstr "Gyorsaság: "
 
-#: src/gui/LevelInspector.cc:255
+#: src/gui/LevelInspector.cc:259
 msgid "Difficulty: "
 msgstr "Nehézség: "
 
-#: src/gui/LevelInspector.cc:276
+#: src/gui/LevelInspector.cc:280
 msgid "Scores"
 msgstr "Pontszámok"
 
-#: src/gui/LevelInspector.cc:279
+#: src/gui/LevelInspector.cc:283
 msgid "You: "
 msgstr "Ön: "
 
-#: src/gui/LevelInspector.cc:280
+#: src/gui/LevelInspector.cc:284
 msgid "World: "
 msgstr "Világ: "
 
 #. TRANSLATORS: PAR = professional average rate - an expression used by golfers
-#: src/gui/LevelInspector.cc:282
+#: src/gui/LevelInspector.cc:286
 msgid "PAR: "
 msgstr "PAR: "
 
-#: src/gui/LevelInspector.cc:284
+#: src/gui/LevelInspector.cc:288
 msgid "Solved %: "
 msgstr "Megoldva %: "
 
-#: src/gui/LevelInspector.cc:285
+#: src/gui/LevelInspector.cc:289
 msgid "Solved #: "
 msgstr "Megoldva #: "
 
-#: src/gui/LevelInspector.cc:307
+#: src/gui/LevelInspector.cc:311
 msgid "Version"
 msgstr "Verzió"
 
-#: src/gui/LevelInspector.cc:310
+#: src/gui/LevelInspector.cc:314
 msgid "Score: "
 msgstr "Jelzés: "
 
-#: src/gui/LevelInspector.cc:312 src/gui/LevelInspector.cc:316
+#: src/gui/LevelInspector.cc:316 src/gui/LevelInspector.cc:320
 msgid "Status: "
 msgstr "Állapot: "
 
-#: src/gui/LevelInspector.cc:313
+#: src/gui/LevelInspector.cc:317
 msgid "Release: "
 msgstr "Kiadás: "
 
-#: src/gui/LevelInspector.cc:314
+#: src/gui/LevelInspector.cc:318
 msgid "Revision: "
 msgstr "Átdolgozás: "
 
-#: src/gui/LevelInspector.cc:317
+#: src/gui/LevelInspector.cc:321
 msgid "Control: "
 msgstr "Irányítás: "
 
-#: src/gui/LevelInspector.cc:318
+#: src/gui/LevelInspector.cc:322
 msgid "Target: "
 msgstr "Cél: "
 
-#: src/gui/LevelInspector.cc:325 src/gui/LevelInspector.cc:341
+#: src/gui/LevelInspector.cc:329 src/gui/LevelInspector.cc:345
 msgid "stable"
 msgstr "stabil"
 
-#: src/gui/LevelInspector.cc:327 src/gui/LevelInspector.cc:343
+#: src/gui/LevelInspector.cc:331 src/gui/LevelInspector.cc:347
 msgid "test"
 msgstr "próba"
 
-#: src/gui/LevelInspector.cc:329 src/gui/LevelInspector.cc:345
+#: src/gui/LevelInspector.cc:333 src/gui/LevelInspector.cc:349
 msgid "experimental"
 msgstr "kísérleti"
 
-#: src/gui/LevelInspector.cc:339
+#: src/gui/LevelInspector.cc:343
 msgid "released"
 msgstr "kiadott"
 
-#: src/gui/LevelInspector.cc:351
+#: src/gui/LevelInspector.cc:355
 msgid "force"
 msgstr "erő"
 
-#: src/gui/LevelInspector.cc:354
+#: src/gui/LevelInspector.cc:358
 msgid "balance"
 msgstr "egyensúly"
 
-#: src/gui/LevelInspector.cc:357
+#: src/gui/LevelInspector.cc:361
 msgid "key"
 msgstr "kulcs"
 
-#: src/gui/LevelInspector.cc:365
+#: src/gui/LevelInspector.cc:369
 msgid "time"
 msgstr "idő"
 
-#: src/gui/LevelInspector.cc:366
+#: src/gui/LevelInspector.cc:370
 msgid "pushes"
 msgstr "mozdítások"
 
-#: src/gui/LevelInspector.cc:367
+#: src/gui/LevelInspector.cc:371
 msgid "moves"
 msgstr "lépések"
 
-#: src/gui/LevelInspector.cc:383
+#: src/gui/LevelInspector.cc:388
 msgid "World Record Holders: "
 msgstr "Világcsúcstartók: "
 
-#: src/gui/LevelInspector.cc:399
+#: src/gui/LevelInspector.cc:449
 msgid "Credits: "
 msgstr "Köszönet: "
 
-#: src/gui/LevelInspector.cc:410
+#: src/gui/LevelInspector.cc:460
 msgid "Dedication: "
 msgstr "Ajánlás: "
 
-#: src/gui/LevelInspector.cc:421
+#: src/gui/LevelInspector.cc:471
 msgid "Level Path: "
 msgstr "Elérési út: "
 
-#: src/gui/LevelInspector.cc:441
+#: src/gui/LevelInspector.cc:491
+msgid "Id: "
+msgstr ""
+
+#: src/gui/LevelInspector.cc:496
 msgid "Compatibility: "
 msgstr "Kompatibilitás: "
 
-#: src/gui/LevelInspector.cc:448
+#: src/gui/LevelInspector.cc:504
 msgid "Annotation: "
 msgstr "Jegyzet: "
 
-#: src/gui/LevelInspector.cc:454
+#: src/gui/LevelInspector.cc:509
 msgid "Rating: "
 msgstr "Minősítés: "
 
-#: src/gui/LevelInspector.cc:456
+#: src/gui/LevelInspector.cc:511
 msgid "Average: "
 msgstr "Átlag: "
 
@@ -1030,16 +1064,27 @@ msgstr ""
 "Megjegyzés: a pálya nem fog megjelenni az \"Auto Folder\" pályacsomagban!\n"
 "\n"
 
-#: src/lev/Proxy.cc:167 src/lev/PersistentIndex.cc:306 src/d_models.cc:210
-#: src/d_models.cc:224 src/PreferenceManager.cc:181 src/StateManager.cc:159
+#: src/lev/Proxy.cc:167 src/lev/PersistentIndex.cc:342 src/d_models.cc:210
+#: src/d_models.cc:224 src/PreferenceManager.cc:181 src/StateManager.cc:177
 msgid "Continue"
 msgstr "Folytatás"
 
-#: src/lev/PersistentIndex.cc:302
+#: src/lev/PersistentIndex.cc:328
+#, fuzzy
+msgid "Error on  update of levelpack index: \n"
+msgstr "Hiba a pályacsomag mutatójának betöltése során: \n"
+
+#: src/lev/PersistentIndex.cc:330
+msgid ""
+"Note: the current version will be reloaded!\n"
+"\n"
+msgstr ""
+
+#: src/lev/PersistentIndex.cc:337
 msgid "Error on  registration of levelpack index: \n"
 msgstr "Hiba a pályacsomag mutatójának betöltése során: \n"
 
-#: src/lev/PersistentIndex.cc:304
+#: src/lev/PersistentIndex.cc:339
 msgid ""
 "Note: the levelpack will not show up!\n"
 "\n"
@@ -1047,22 +1092,22 @@ msgstr ""
 "Megjegyzés: a pályacsomag nem fog megjelenni!\n"
 "\n"
 
-#: src/lua.cc:800
+#: src/lua.cc:792
 #, c-format
 msgid "Cannot find '%s'.\n"
 msgstr "A '%s' nem található.\n"
 
-#: src/lua.cc:801 src/lua.cc:808
+#: src/lua.cc:793 src/lua.cc:800
 #, c-format
 msgid "Your installation may be incomplete or invalid.\n"
 msgstr "Az Ön telepítése nem teljes vagy érvénytelen lehet.\n"
 
-#: src/lua.cc:807
+#: src/lua.cc:799
 #, c-format
 msgid "There was an error loading '%s'.\n"
 msgstr "Hiba történt a '%s' betöltése során.\n"
 
-#: src/lua.cc:809
+#: src/lua.cc:801
 #, c-format
 msgid "Error: '%s'\n"
 msgstr "Hiba: '%s'\n"
@@ -1081,53 +1126,58 @@ msgstr ""
 msgid "Drop the hammer on side of a pentomino and use the switch!"
 msgstr "Ejtse le a kalapácsot egy pentomino oldalán, és használja a kapcsolót!"
 
-#: po/level_i18n.cc:53
+#: po/level_i18n.cc:38
+#, fuzzy
+msgid "Drop the hammer on side of a pentomino, not beneath it!"
+msgstr "Ejtse le a kalapácsot egy pentomino oldalán, és használja a kapcsolót!"
+
+#: po/level_i18n.cc:54
 msgid "Dedicated to my friend Frank."
 msgstr "Barátomnak, Franknak ajánlva."
 
-#: po/level_i18n.cc:54
+#: po/level_i18n.cc:55
 msgid "This level is quite straightforward, isn't it? Just continue .. ;-)"
 msgstr "Ez a pálya egészen egyértelmű, nem? Csak folytassa .. ;-)"
 
-#: po/level_i18n.cc:64
+#: po/level_i18n.cc:65
 msgid "And last not least: 3*20 = 60"
 msgstr "Végül, de nem utolsó sorban: 3*20 = 60"
 
-#: po/level_i18n.cc:71
+#: po/level_i18n.cc:72
 msgid "Take some money and build yourself the tools you need."
 msgstr "Vigyen némi pénzt, és készítse el magának a szükséges eszközöket!"
 
-#: po/level_i18n.cc:93
+#: po/level_i18n.cc:94
 msgid "Give it another try ..."
 msgstr "Próbálja újra..."
 
-#: po/level_i18n.cc:97
+#: po/level_i18n.cc:98
 msgid "So,  where  are  the  knights?  -  you'll  be  sorry  you  asked!"
 msgstr "Tehát akkor, hol vannak a lovagok? -  Bánni fogja, hogy megkérdezte!"
 
-#: po/level_i18n.cc:112
+#: po/level_i18n.cc:113
 msgid "The other document lies and the left wormhole is the right one."
 msgstr "A másik dokumentum hazudik, a bal oldali féreglyuk a jobb."
 
-#: po/level_i18n.cc:115
+#: po/level_i18n.cc:116
 msgid ""
 "The other document tells the truth and the other wormhole has been left on "
 "the right side."
 msgstr "A másik dokumentum igazat mond, a jobb oldali féreglyuk balul üt ki."
 
-#: po/level_i18n.cc:131
+#: po/level_i18n.cc:132
 msgid "Press F3 or finish."
 msgstr "Nyomjon F3-at vagy fejezze be!"
 
-#: po/level_i18n.cc:141
+#: po/level_i18n.cc:142
 msgid "Just a hint: Try the easy-mode first ..."
 msgstr "Egy tipp: Próbálja először az egyszerű módot!"
 
-#: po/level_i18n.cc:142
+#: po/level_i18n.cc:143
 msgid "Don't think too long ... it's easy!"
 msgstr "Ne gondolkozzon túl sokáig ... egyszerű!"
 
-#: po/level_i18n.cc:147
+#: po/level_i18n.cc:148
 msgid ""
 "A Stone, a Tree, and Trees be Three,   --   For to Defeat the Enemy,   --   "
 "Between Might Lay   --   A Secret Way!   --   (If this you see, press Shift-"
@@ -1136,23 +1186,23 @@ msgstr ""
 "Egy kő, egy fa, és fából három,  --  Hogy a gazt legyőzze, barátom,  --  "
 "Hogyha kutat  --  Lelhet utat  --  (S nyomjon Shift-F3-at, ne várjon!)"
 
-#: po/level_i18n.cc:160
+#: po/level_i18n.cc:161
 msgid "...  now  go  back  and  get  the  hammer!"
 msgstr "... most menjen vissza a kalapácsért!"
 
-#: po/level_i18n.cc:167
+#: po/level_i18n.cc:168
 msgid "Some stones are movable."
 msgstr "Egyes kövek elmozdíthatók."
 
-#: po/level_i18n.cc:168
+#: po/level_i18n.cc:169
 msgid "You lost!"
 msgstr "Vesztett!"
 
-#: po/level_i18n.cc:172
+#: po/level_i18n.cc:173
 msgid "Five form twelve!"
 msgstr "Ötből tizenkettő!"
 
-#: po/level_i18n.cc:180
+#: po/level_i18n.cc:181
 msgid ""
 "You play against Big Brother; each player in turn deletes 1, 2 or 3 stones; "
 "the one who deletes the last stone LOOSES!!!"
@@ -1160,19 +1210,19 @@ msgstr ""
 "Ön a Nagy Testvér ellen játszik. A játékosok felváltva 1, 2 vagy 3 követ "
 "tüntetnek el. Amelyik játékos az utolsó követ tűnteti el, az VESZÍT!!!"
 
-#: po/level_i18n.cc:182
+#: po/level_i18n.cc:183
 msgid "Now you begin this game."
 msgstr "Most Ön kezd."
 
-#: po/level_i18n.cc:184
+#: po/level_i18n.cc:185
 msgid "Poor little blackball ... 'SHIFT+F3'!!!"
 msgstr "Szegény kis fekete golyó ... 'SHIFT+F3'!!!"
 
-#: po/level_i18n.cc:203
+#: po/level_i18n.cc:204
 msgid "- Meditation -"
 msgstr "- Meditáció -"
 
-#: po/level_i18n.cc:216
+#: po/level_i18n.cc:217
 msgid ""
 "One of the puzzle stones needs to be placed onto the trigger "
 "field.                       Guess which ... :)"
@@ -1180,29 +1230,29 @@ msgstr ""
 "Az egyik kirakós követ a váltómezőre kell helyezni.                       "
 "Találja ki, melyiket... :)"
 
-#: po/level_i18n.cc:217
+#: po/level_i18n.cc:218
 msgid "The level preview might help ..."
 msgstr "Az előkép segíthet..."
 
-#: po/level_i18n.cc:240 po/level_i18n.cc:696 po/level_i18n.cc:822
-#: po/level_i18n.cc:1843 po/level_i18n.cc:2059 po/level_i18n.cc:3067
-#: po/level_i18n.cc:3175
+#: po/level_i18n.cc:241 po/level_i18n.cc:697 po/level_i18n.cc:846
+#: po/level_i18n.cc:1971 po/level_i18n.cc:2187 po/level_i18n.cc:3195
+#: po/level_i18n.cc:3334
 msgid "Welcome"
 msgstr "Üdvözöljük!"
 
-#: po/level_i18n.cc:241
+#: po/level_i18n.cc:242
 msgid "Welcome to Enigma II"
 msgstr "Üdvözöljük az Enigma II-ben!"
 
-#: po/level_i18n.cc:246
+#: po/level_i18n.cc:247
 msgid "This switch is to validate your guess."
 msgstr "Ezzel a kapcsolóval ellenőrizheti a tippjét."
 
-#: po/level_i18n.cc:248
+#: po/level_i18n.cc:249
 msgid "This switch is to reset the game."
 msgstr "Ezzel a kapcsolóval újrakezdheti a játékot."
 
-#: po/level_i18n.cc:250
+#: po/level_i18n.cc:251
 msgid ""
 "Each color appears once. Each correct color produces whites in the wrong "
 "place, blacks in the right one."
@@ -1211,26 +1261,26 @@ msgstr ""
 "nincsen jó helyen, kap egy fehéret, és amelyik jó helyen van, azért egy "
 "feketét."
 
-#: po/level_i18n.cc:262
+#: po/level_i18n.cc:263
 msgid "Road to Eden"
 msgstr "Az Édenbe vezető út"
 
-#: po/level_i18n.cc:269
+#: po/level_i18n.cc:270
 msgid "Make a Sword, & Umbrella."
 msgstr "Készítsen egy kardot és egy esernyőt!"
 
-#: po/level_i18n.cc:288
+#: po/level_i18n.cc:289
 msgid "You'd need a portable box!"
 msgstr "Egy hordozható dobozra volna szüksége!"
 
-#: po/level_i18n.cc:289
+#: po/level_i18n.cc:290
 msgid ""
 "Congratulations! You found a seed! Try to use it behind the grate (and move "
 "away quickly)"
 msgstr ""
 "Gratulálok! Talált egy magot! Használja a rács mögött (és gyorsan menjen el)"
 
-#: po/level_i18n.cc:290
+#: po/level_i18n.cc:291
 msgid ""
 "Remember that you can't fill a closed bridge with a "
 "box ...                                           but maybe you can use the "
@@ -1240,54 +1290,54 @@ msgstr ""
 "betömni...                                           de talán a harmadik "
 "magot másra lehetne használni!"
 
-#: po/level_i18n.cc:291
+#: po/level_i18n.cc:292
 msgid "There are different kinds of seeds ... Try to use them!"
 msgstr "Több különböző fajtájú mag van... Próbálja ki őket!"
 
-#: po/level_i18n.cc:293
+#: po/level_i18n.cc:294
 msgid "Noitcerid etisoppo eht yrt! Tuo syaw owt? Rorrim, rorrim ..."
 msgstr "Nabnyári őzeknelle za ajlábórp! Túik ték? Mörküt, mörküt..."
 
-#: po/level_i18n.cc:297
+#: po/level_i18n.cc:298
 msgid "Simply 5*12 ..."
 msgstr "Egyszerűen 5*12..."
 
-#: po/level_i18n.cc:319
+#: po/level_i18n.cc:320
 msgid "Beware! Black holes!"
 msgstr "Vigyázzon! Fekete lyukak!"
 
-#: po/level_i18n.cc:349
+#: po/level_i18n.cc:350
 msgid "Our full attention this is worth:           Air and Fire, Water, Earth."
 msgstr ""
 "Teljes figyelmünket fordítsuk ezekre:           Levegő és Tűz, Víz, Föld."
 
-#: po/level_i18n.cc:352
+#: po/level_i18n.cc:353
 msgid ""
 "And if your answer can’t be found           then shame on you, eyes to the "
 "ground!"
 msgstr "Ha minden próba kárba vészen,           szégyenkezve a földre nézzen!"
 
-#: po/level_i18n.cc:374
+#: po/level_i18n.cc:375
 msgid "is  black  always  beautiful?"
 msgstr "mindig szép a fekete?"
 
-#: po/level_i18n.cc:381
+#: po/level_i18n.cc:382
 msgid "Do not use too much magic!"
 msgstr "Ne használjon túl sok varázslatot!"
 
-#: po/level_i18n.cc:391
+#: po/level_i18n.cc:392
 msgid "Dead end!"
 msgstr "Az út vége!"
 
-#: po/level_i18n.cc:392
+#: po/level_i18n.cc:393
 msgid "There are two HIDDEN items!"
 msgstr "Két REJTETT elem van!"
 
-#: po/level_i18n.cc:393
+#: po/level_i18n.cc:394
 msgid "Third stone from the rock is the hole!"
 msgstr "A sziklától a harmadik kő a lyuk!"
 
-#: po/level_i18n.cc:409
+#: po/level_i18n.cc:410
 msgid ""
 "As long as there is motion around the oxyd-stones, you won't reach them.   "
 "So: Don't lose control of the level! It's possible."
@@ -1295,56 +1345,56 @@ msgstr ""
 "Amíg mozgás van az oxyd kövek körül, nem fogja azokat elérni.   Tehát ne "
 "veszítse el vezérlését a pálya felett! Megoldható."
 
-#: po/level_i18n.cc:413
+#: po/level_i18n.cc:414
 msgid "! -  DANGER  -  NO TRESPASSING  -  DANGER  - !"
 msgstr "! -  VESZÉLY  -  TILOS AZ ÁTJÁRÁS  -  VESZÉLY  - !"
 
-#: po/level_i18n.cc:429
+#: po/level_i18n.cc:430
 msgid "Danger ... laser beams!"
 msgstr "Veszély... lézersugár!"
 
-#: po/level_i18n.cc:437
+#: po/level_i18n.cc:438
 msgid "The Life Game"
 msgstr "Az Életjáték"
 
-#: po/level_i18n.cc:439
+#: po/level_i18n.cc:440
 msgid "The nine switches in square serve to configure the initial population."
 msgstr ""
 "A négyzet alakban álló kapcsolók a kezdeti populáció beállítására szolgálnak."
 
-#: po/level_i18n.cc:441
+#: po/level_i18n.cc:442
 msgid "START"
 msgstr "START"
 
-#: po/level_i18n.cc:443
+#: po/level_i18n.cc:444
 msgid "CLEAR"
 msgstr "TÖRLÉS"
 
-#: po/level_i18n.cc:453
+#: po/level_i18n.cc:454
 msgid "Calm down!"
 msgstr "Nyugodjon meg!"
 
 #  level: "Easy Shifting.."
 #  author: "Ralf Westram" email "amgine@reallysoft.de"
-#: po/level_i18n.cc:464
+#: po/level_i18n.cc:465
 msgid ".moor txen eht ot teg ot syaw owt era erehT"
 msgstr ".abábozs őzektevök a tahtuj notú téK"
 
 #  level: "Easy Shifting.."
 #  author: "Ralf Westram" email "amgine@reallysoft.de"
-#: po/level_i18n.cc:472
+#: po/level_i18n.cc:473
 msgid "Wood robbing"
 msgstr "Erdei rablás"
 
-#: po/level_i18n.cc:494 po/level_i18n.cc:1950
+#: po/level_i18n.cc:495 po/level_i18n.cc:2078
 msgid "It's a race!"
 msgstr "Indul a verseny!"
 
-#: po/level_i18n.cc:516
+#: po/level_i18n.cc:517
 msgid "Oops ... you're stuck ...     Try again ..."
 msgstr "Hoppá... beragadt... Próbálja újra..."
 
-#: po/level_i18n.cc:517
+#: po/level_i18n.cc:518
 msgid ""
 "Congratulations, you reached this side ...      but can you get to the "
 "oxyds? "
@@ -1352,19 +1402,19 @@ msgstr ""
 "Gratulálunk, elérte ezt az oldalt...      De vajon el tud-e jutni az "
 "oxydokhoz?"
 
-#: po/level_i18n.cc:518
+#: po/level_i18n.cc:519
 msgid "Well done!"
 msgstr "Jó munka!"
 
-#: po/level_i18n.cc:522
+#: po/level_i18n.cc:523
 msgid "Paint Ahead!"
 msgstr "Festék a láthatáron!"
 
-#: po/level_i18n.cc:559
+#: po/level_i18n.cc:560
 msgid "Too many wooden blocks!  Try the other way ..."
 msgstr "Túl sok a fadoboz! Próbálja a másik irányban..."
 
-#: po/level_i18n.cc:560
+#: po/level_i18n.cc:561
 msgid ""
 "Greetings, adventurer!    The road ahead is long and dangerous, so be "
 "careful!"
@@ -1372,21 +1422,21 @@ msgstr ""
 "Üdvözlet, kalandor!   Az Ön előtt álló út hosszú és veszélyes, legyen hát "
 "óvatos!"
 
-#: po/level_i18n.cc:561
+#: po/level_i18n.cc:562
 msgid "Well done, adventurer!    Good luck!"
 msgstr "Jó munka volt, kalandor!    Sok szerencsét!"
 
-#: po/level_i18n.cc:562
+#: po/level_i18n.cc:563
 msgid "Congratulations, adventurer!  You did it!"
 msgstr "Gratulálunk, kalandor!  Megcsinálta!"
 
-#: po/level_i18n.cc:567
+#: po/level_i18n.cc:568
 msgid "The Flagstone Reaper"
 msgstr "A Járdakő Kaszás"
 
 #  level: "Pentomino V"
 #  author: "Ralf Westram" email "amgine@reallysoft.de"
-#: po/level_i18n.cc:570
+#: po/level_i18n.cc:571
 msgid ""
 "No hint today ...    Those flagstones pass away ...    The docu stands "
 "alone ...    Why is it so alone?    --    This hint today ...    Why is it "
@@ -1398,11 +1448,11 @@ msgstr ""
 "közelgő kaszás...    Megmondja, nem vitás!     (Herman's Hermits alapján "
 "félre fordítva)   "
 
-#: po/level_i18n.cc:589
+#: po/level_i18n.cc:590
 msgid "Alfred Nobel says: This is definitely a meditation landscape!"
 msgstr "Alfred Nobel azt mondja: Ez bizonyára egy meditációs terep"
 
-#: po/level_i18n.cc:629
+#: po/level_i18n.cc:630
 msgid ""
 "That wasn't fast enough; try "
 "F3.                                                                              "
@@ -1420,7 +1470,7 @@ msgstr ""
 "találni.)                                                                                                                  "
 "(Komolyan!)"
 
-#: po/level_i18n.cc:630
+#: po/level_i18n.cc:631
 msgid ""
 "You can believe me: All stones you see in this level are "
 "solid!                                                                                      "
@@ -1434,27 +1484,29 @@ msgstr ""
 "nekem!                                                                               "
 "Komolyan!"
 
-#: po/level_i18n.cc:640
+#  level: "Do It Yourself"
+#  author: "Martin Hawlisch" email ""
+#: po/level_i18n.cc:641
 msgid "What a pity, and there's so much paint left ..."
 msgstr "Milyen kár, pedig olyan sok festék maradt..."
 
-#: po/level_i18n.cc:650
+#: po/level_i18n.cc:651
 msgid "A hammer destroys some black stones."
 msgstr "Egy kalapács bizonyos fekete köveket összetör."
 
-#: po/level_i18n.cc:651
+#: po/level_i18n.cc:652
 msgid "Watch out for a disappearing stone."
 msgstr "Ügyeljen egy eltűnő kőre!"
 
-#: po/level_i18n.cc:679
+#: po/level_i18n.cc:680
 msgid "Don't wake it up!"
 msgstr "Ne ébressze fel!"
 
-#: po/level_i18n.cc:697
+#: po/level_i18n.cc:698
 msgid "Welcome to Enigma IV"
 msgstr "Üdvözöljük az Enigma IV-ben!"
 
-#: po/level_i18n.cc:742
+#: po/level_i18n.cc:743
 msgid ""
 "Your uncle Sir Blackball has been murdered last night in his manor, in one "
 "of his 6 rooms, by one of the weapons which are in the cellar; the suspects "
@@ -1470,99 +1522,115 @@ msgstr ""
 "holttestet megtalálta, és Miss Scarlett, akinek szépsége halálos lehet... "
 "Önnek kell kiderítenie, ki ölte meg a nagybátyját, hol, és mikor."
 
-#: po/level_i18n.cc:744
+#: po/level_i18n.cc:745
 msgid "This room is not the crime scene."
 msgstr "Ez a szoba nem a tett színhelye."
 
-#: po/level_i18n.cc:746
+#: po/level_i18n.cc:747
 msgid "The murderer is not Mrs Peacock."
 msgstr "Nem Mrs Peacock a gyilkos."
 
-#: po/level_i18n.cc:748
+#: po/level_i18n.cc:749
 msgid "The murderer is not Colonel Mustard."
 msgstr "Nem Colonel Mustard a gyilkos."
 
-#: po/level_i18n.cc:750
+#: po/level_i18n.cc:751
 msgid "The murderer is not Professor Plum."
 msgstr "Nem Professor Plum a gyilkos."
 
-#: po/level_i18n.cc:752
+#: po/level_i18n.cc:753
 msgid "The murderer is not Reverend Green."
 msgstr "Nem Reverend Green a gyilkos."
 
-#: po/level_i18n.cc:754
+#: po/level_i18n.cc:755
 msgid "The murderer is not Mrs Whiteball."
 msgstr "Nem Mrs Whiteball a gyilkos."
 
-#: po/level_i18n.cc:756
+#: po/level_i18n.cc:757
 msgid "The murderer is not Miss Scarlett."
 msgstr "Nem Miss Scarlett a gyilkos."
 
-#: po/level_i18n.cc:758
+#: po/level_i18n.cc:759
 msgid "Sir Blackball has not been killed with the bomb."
 msgstr "Sir Blackballt nem bombával ölték meg."
 
-#: po/level_i18n.cc:760
+#: po/level_i18n.cc:761
 msgid "Sir Blackball has not been killed with the dagger."
 msgstr "Sir Blackballt nem a tőrrel ölték meg."
 
-#: po/level_i18n.cc:762
+#: po/level_i18n.cc:763
 msgid "Sir Blackball has not been killed with poison."
 msgstr "Sir Blackballt nem méreggel ölték meg."
 
-#: po/level_i18n.cc:764
+#: po/level_i18n.cc:765
 msgid "Sir Blackball has not been killed with the wrench."
 msgstr "Sir Blackballt nem a franciakulccsal ölték meg."
 
-#: po/level_i18n.cc:766
+#: po/level_i18n.cc:767
 msgid "Sir Blackball has not been killed with the candlestick."
 msgstr "Sir Blackballt nem a gyertyatartóval ölték meg."
 
-#: po/level_i18n.cc:768
+#: po/level_i18n.cc:769
 msgid "Sir Blackball has not been killed with the hammer."
 msgstr "Sir Blackballt nem a kalapáccsal ölték meg."
 
-#: po/level_i18n.cc:781
+#: po/level_i18n.cc:780
+msgid "Rotor Guards"
+msgstr ""
+
+#: po/level_i18n.cc:782
+msgid "Hoisting guards with their own petard"
+msgstr ""
+
+#: po/level_i18n.cc:789
 msgid "No Memory"
 msgstr "Nincs Memória"
 
-#: po/level_i18n.cc:786
+#: po/level_i18n.cc:797
 msgid "Hot Hurdle Race"
 msgstr "Forró akadályfutás"
 
-#: po/level_i18n.cc:788
+#: po/level_i18n.cc:799
 msgid "Run for your life!"
 msgstr "\"Fusson, ha kedves az élete!\""
 
-#: po/level_i18n.cc:792
+#: po/level_i18n.cc:803
 msgid "Holes!"
 msgstr "Lyukak!"
 
-#: po/level_i18n.cc:805
+#: po/level_i18n.cc:819
 msgid "Al Capone's training camp."
 msgstr "Al Capone kiképző tábora."
 
-#: po/level_i18n.cc:806
+#: po/level_i18n.cc:820
 msgid "There are at least two patterns to break through the wall."
 msgstr "Legalább két módon lehet kitörni a falon."
 
-#: po/level_i18n.cc:807
+#: po/level_i18n.cc:821
 msgid "It is a well known secret that a few prisioners did escape."
 msgstr "Nyílt titok, hogy néhány rabnak sikerült megszöknie."
 
-#: po/level_i18n.cc:808
+#: po/level_i18n.cc:822
 msgid "A window in the wall would be really nice."
 msgstr "Igazán szép volna, ha lenne a falon ablak."
 
-#: po/level_i18n.cc:823
+#: po/level_i18n.cc:827
+msgid "Correspondence Chess"
+msgstr ""
+
+#: po/level_i18n.cc:829
+msgid "Send smartly!"
+msgstr ""
+
+#: po/level_i18n.cc:847
 msgid "Welcome to Enigma VI"
 msgstr "Üdvözöljük az Enigma VI-ben!"
 
-#: po/level_i18n.cc:843
+#: po/level_i18n.cc:870
 msgid "Toreador"
 msgstr "Torreádor"
 
-#: po/level_i18n.cc:856
+#: po/level_i18n.cc:886
 msgid ""
 "Welcome to Mexico! Eight hours ago, your plane arrived at the Airport of "
 "\"Coatlicue\", which is a small village surrounded by unexplored jungle "
@@ -1571,11 +1639,11 @@ msgid ""
 "good condition ..."
 msgstr ""
 "Üdvözöljük Mexikóban! Nyolc órával ezelőtt megérkezett az Ön repülőgépe "
-"\"Coatlicue\" repterére, egy kis faluba, amit felfedezetlen őserdő vesz körül. "
-"Most egy lenyűgöző templom előtt találja magát, amiről úgy tűnik, az ősi "
-"azték korokból maradt hátra. De a templom meglepően jó állapotban van..."
+"\"Coatlicue\" repterére, egy kis faluba, amit felfedezetlen őserdő vesz "
+"körül. Most egy lenyűgöző templom előtt találja magát, amiről úgy tűnik, az "
+"ősi azték korokból maradt hátra. De a templom meglepően jó állapotban van..."
 
-#: po/level_i18n.cc:857
+#: po/level_i18n.cc:887
 msgid ""
 "Next to the giant doors of the temple you see a chrome sign: \"Restoration "
 "by: G. G. Goshers, A.D. 1998\". A smaller sign beneath says: \"Property of "
@@ -1588,56 +1656,54 @@ msgstr ""
 "G. G. Goshers, i. sz. 1998\". Az alatta lévő kisebbik tábla azt mondja: \"G. "
 "G. Goshers tulajdona. Tilos az átjárás!\". Most veszi észre a templom oldala "
 "mellett felépült kutyaólakat. A következőkre gondol: \"Goshers erődítménnyé "
-"alakította át ezt az ősi maradványt. Ez nem lehet törvényes, hiszen "
-"Goshers a brit kormánytól kapott támogatást. Felelősségre fogom vonni!"
+"alakította át ezt az ősi maradványt. Ez nem lehet törvényes, hiszen Goshers "
+"a brit kormánytól kapott támogatást. Felelősségre fogom vonni!"
 
-#: po/level_i18n.cc:858
+#: po/level_i18n.cc:888
 msgid "This guard doesn’t notice me."
 msgstr "Ez az őr nem vesz észre engem."
 
-#: po/level_i18n.cc:859
+#: po/level_i18n.cc:889
 msgid ""
 "This lake was obviously made by Goshers. I think the correct way is south."
 msgstr ""
 "Ezt a tavat nyilván Goshers készítette. Azt hiszem, a helyes út délre van."
 
-#  level: "Laser Magic"
-#  author: "Petr Machata" email ""
-#: po/level_i18n.cc:860
+#: po/level_i18n.cc:890
 msgid ""
 "There's an inscription on the old wall, saying in spanish: \"Careful! What "
 "you touch could be the last thing you touch!\""
 msgstr ""
-"Egy felirat van az öreg falon, ami azt mondja spanyolul: \"Vigyázzon! "
-"Ha valamihez hozzáér, lehet, hogy az utolsó is lesz egyben!\""
+"Egy felirat van az öreg falon, ami azt mondja spanyolul: \"Vigyázzon! Ha "
+"valamihez hozzáér, lehet, hogy az utolsó is lesz egyben!\""
 
-#: po/level_i18n.cc:861
+#: po/level_i18n.cc:891
 msgid "Chrome sign: \"Control of the beast’s cage.\""
 msgstr "Krómozott felirat: \"A vad ketrecének vezérlője\""
 
-#: po/level_i18n.cc:862
+#: po/level_i18n.cc:892
 msgid "Oooh, this slope is steep! Try not to touch the skull!"
 msgstr "Hoppá, ez a lejtő meredek! Próbálja nem megérinteni a koponyát!"
 
-#: po/level_i18n.cc:863
+#: po/level_i18n.cc:893
 msgid ""
 "This building down there looks like a prison. Let's see if I can determine "
 "its purpose ... Ah, there's another chrome sign. Goshers seems to favour "
 "chrome signs. It says: \"Natives’ prison\"."
 msgstr ""
 "Ez az épület itt lent börtönnek tűnik. Lássuk csak, kitalálom-e, milyen célt "
-"szolgál... Á, itt is van egy krómozott felirat. "
-"Azt írja: \"A bennszülöttek börtön\"."
+"szolgál... Á, itt is van egy krómozott felirat. Azt írja: \"A bennszülöttek "
+"börtön\"."
 
-#: po/level_i18n.cc:864
+#: po/level_i18n.cc:894
 msgid ""
 "Getting beyond the prison building was a really good idea. But now you have "
 "to cross this lake. Be thrifty with those boxes!"
 msgstr ""
-"Igazán jó ötlet volt megkerülni a börtön épületét. De most át kell jutni ezen a "
-"tavon. Takarékoskodjon azokkal a dobozokkal!"
+"Igazán jó ötlet volt megkerülni a börtön épületét. De most át kell jutni "
+"ezen a tavon. Takarékoskodjon azokkal a dobozokkal!"
 
-#: po/level_i18n.cc:865
+#: po/level_i18n.cc:895
 msgid ""
 "Now, peering through the grilled prison windows, you see a native woman "
 "imprisoned there. Obviously Goshers locked up all the natives, who disturbed "
@@ -1648,10 +1714,10 @@ msgstr ""
 "Most a börtön rácsozott ablakán keresztül megpillant egy bebörtönzött "
 "bennszülött nőt. Nyilvánvalóan Goshers minden bennszülöttet bezárt, aki "
 "zavarta őt a \"munkájában\", hogy bejusson a templomba, és megszerezze az "
-"aztékok kincseit. Talán jól jöhet egy olyan ember társasága, "
-"aki ismeri az őserdőnek és ennek a templomnak a titkait..."
+"aztékok kincseit. Talán jól jöhet egy olyan ember társasága, aki ismeri az "
+"őserdőnek és ennek a templomnak a titkait..."
 
-#: po/level_i18n.cc:866
+#: po/level_i18n.cc:896
 msgid ""
 "Since the white man there freed me from the prison, he certainly cannot be "
 "as evil as this Goshers is. Perhaps he wants to end the mastery of Goshers "
@@ -1663,7 +1729,7 @@ msgstr ""
 "felszabadítani a népemet. És ha nem is ez a helyzet, akkor is jobb szabadnak "
 "lenni, mint bebörtönözve. Azt hiszem, illene megköszönönnöm neki."
 
-#: po/level_i18n.cc:867
+#: po/level_i18n.cc:897
 msgid ""
 "You meet the English adventurer in the front of the prison. \"Hello, I'm "
 "Xila!\", you tell him in broken English. After he introduced himself as "
@@ -1673,39 +1739,39 @@ msgstr ""
 "mondja neki tört angolsággal. Miután ő is bemutatkozott, Önök ketten "
 "hozzálátnak egy terv kidolgozásához a gonosz G. G. Goshers ellen."
 
-#: po/level_i18n.cc:868
+#: po/level_i18n.cc:898
 msgid ""
 "This is a really hard puzzle. The English man will have to help me, if this "
 "enigma is to be solved."
 msgstr ""
-"Ez egy nagyon nehéz rejtvény. Az angolnak segítenie kell nekem, ha ezt "
-"az enigmát meg akarom oldani."
+"Ez egy nagyon nehéz rejtvény. Az angolnak segítenie kell nekem, ha ezt az "
+"enigmát meg akarom oldani."
 
-#: po/level_i18n.cc:869
+#: po/level_i18n.cc:899
 msgid "You wonder what this switch could trigger."
 msgstr "Ön eltöpreng, kapcsol be ez a kapcsoló."
 
-#: po/level_i18n.cc:870
+#: po/level_i18n.cc:900
 msgid "Xila knows how to drain the lake!"
 msgstr "Xila tudja, hogyan kell lecsapolni a tavat!"
 
-#: po/level_i18n.cc:871
+#: po/level_i18n.cc:901
 msgid "You were lucky to find this hole. It prevents you from drowning."
 msgstr "Szerencse, hogy megtalálta ezt az üreget. Megóvja Önt a fulladástól."
 
-#: po/level_i18n.cc:872
+#: po/level_i18n.cc:902
 msgid "This glass stone must fulfill a purpose ..."
 msgstr "Ennek az üvegkőnek biztosan van valamilyen célja..."
 
-#: po/level_i18n.cc:873
+#: po/level_i18n.cc:903
 msgid "It's funny that such a temple should have a side entrance."
 msgstr "Szokatlan, hogy egy ilyen templomnak oldalbejárata legyen."
 
-#: po/level_i18n.cc:874
+#: po/level_i18n.cc:904
 msgid "Be careful! There are sensors in the walls."
 msgstr "Legyen óvatos! A falakban érzékelők vannak!"
 
-#: po/level_i18n.cc:875
+#: po/level_i18n.cc:905
 msgid ""
 "After the huge doors of the old temple have opened, you see, that the "
 "entrance is protected by 11 knights, armed with spears. These guards are "
@@ -1717,11 +1783,11 @@ msgstr ""
 "lesz képes bejutni. Legyen óvatos, nem csak lovagok, hanem tolvajok is "
 "vannak itt."
 
-#: po/level_i18n.cc:876
+#: po/level_i18n.cc:906
 msgid "\"Congratulations. You just managed to enter this old Aztec Temple.\""
 msgstr "\"Gratulálunk. Sikerült bejutnia ebbe az ősi azték templomba.\""
 
-#: po/level_i18n.cc:877
+#: po/level_i18n.cc:907
 msgid ""
 "\"You've been smarter than I expected. But you'll never enter the treasure "
 "room nor escape from here!\""
@@ -1729,7 +1795,7 @@ msgstr ""
 "\"Ön okosabb volt, mint vártam. De soha nem fog eljutni a kincseskamrába, "
 "sem kijutni innen!\""
 
-#: po/level_i18n.cc:878
+#: po/level_i18n.cc:908
 msgid ""
 "\"I, Goshers, will certainly be able to rid myself of one of my archenemies "
 "by just killing you!\""
@@ -1737,11 +1803,11 @@ msgstr ""
 "\"Én, Goshers, biztosan megszabadulok főellenségeim egyikétől, amint megölöm "
 "magát!\""
 
-#: po/level_i18n.cc:879
+#: po/level_i18n.cc:909
 msgid "\"Run for your life!\""
 msgstr "\"Fusson, ha kedves az élete!\""
 
-#: po/level_i18n.cc:880
+#: po/level_i18n.cc:910
 msgid ""
 "Xila and you just entered the Diamond Room of the old Aztec Temple. By "
 "taking him back to Great Britain and rendering him to the police, you have "
@@ -1749,189 +1815,265 @@ msgid ""
 "success of your expedition!"
 msgstr ""
 "Xila és Ön éppen most léptek be a Gyémántterembe az ősi azték templomban. "
-"Azzal, hogy visszavitte Gerald Gregory Goshers-t Nagy Britanniába, és átadta őt "
-"a rendőrségnek, egyben véget is vetett gonosz pályafutásának. "
-"Gratulálunk az expedíció sikeréhez!"
+"Azzal, hogy visszavitte Gerald Gregory Goshers-t Nagy Britanniába, és átadta "
+"őt a rendőrségnek, egyben véget is vetett gonosz pályafutásának. Gratulálunk "
+"az expedíció sikeréhez!"
 
-#  level: "Knight Moves"
-#  author: "illmind" email ""
-#: po/level_i18n.cc:900
+#: po/level_i18n.cc:927
+msgid "Magic Trinity"
+msgstr ""
+
+#: po/level_i18n.cc:938
 msgid "Pass the ball in time"
 msgstr "Passzolja időben a labdát!"
 
-#: po/level_i18n.cc:919
+#: po/level_i18n.cc:949
+msgid "Charging live ammunition"
+msgstr ""
+
+#: po/level_i18n.cc:957
+msgid "Pleasure Garden"
+msgstr ""
+
+#: po/level_i18n.cc:967
+msgid "Oxyd Drilling"
+msgstr ""
+
+#: po/level_i18n.cc:969
+msgid "Useful unsuccessful drillings"
+msgstr ""
+
+#: po/level_i18n.cc:973
 msgid "It isn't as easy as it looks."
 msgstr "Nem olyan könnyű, mint amilyennek látszik."
 
-#: po/level_i18n.cc:924
+#: po/level_i18n.cc:981
 msgid "Meditation Disturbance"
 msgstr "Meditáció zavarás"
 
-#: po/level_i18n.cc:927
+#: po/level_i18n.cc:984
 msgid "Hit by a bolting horse"
 msgstr "Belesújtott a ló"
 
-#: po/level_i18n.cc:935
+#: po/level_i18n.cc:992
 msgid "In the line of thieves"
 msgstr "A tolvajok sorában"
 
-#: po/level_i18n.cc:937
+#: po/level_i18n.cc:994
 msgid "Keys from left to right are NE, NW, SE, SW."
 msgstr "A kulcsok balról jobbra: ÉK, ÉNy, DK, DNy."
 
-#: po/level_i18n.cc:941
+#: po/level_i18n.cc:998
 msgid "illmind's be quick or be dead"
 msgstr "illmind 'legyen gyors vagy halott' pályája"
 
-#: po/level_i18n.cc:960
+#: po/level_i18n.cc:1015
+msgid "One-Way Woods"
+msgstr ""
+
+#: po/level_i18n.cc:1016
+msgid "Recycling by Swapping"
+msgstr ""
+
+#: po/level_i18n.cc:1032
 msgid "Dialers"
 msgstr "Hívók"
 
-#: po/level_i18n.cc:964
+#: po/level_i18n.cc:1039
 msgid "Edwards Mountain"
 msgstr "Edwards-hegy"
 
-#: po/level_i18n.cc:975
+#: po/level_i18n.cc:1058
 msgid "Blitz Chess"
 msgstr "Villámsakk"
 
-#: po/level_i18n.cc:977
+#: po/level_i18n.cc:1060
 msgid "Move fast!"
 msgstr "Lépjen gyorsan!"
 
-#: po/level_i18n.cc:982
+#: po/level_i18n.cc:1065
 msgid "Procrustes"
 msgstr "Prokrusztész"
 
-#: po/level_i18n.cc:988
+#: po/level_i18n.cc:1069
+msgid "illmind's jumping ball flash ..."
+msgstr ""
+
+#: po/level_i18n.cc:1070
+msgid "... of heaven comes the beast from the ..."
+msgstr ""
+
+#: po/level_i18n.cc:1071
+msgid "... t r a p p e d ..."
+msgstr ""
+
+#: po/level_i18n.cc:1077
 msgid "Escape by Chaining Thieves"
 msgstr "Meneküljön a tolvajok láncolásával"
 
-#: po/level_i18n.cc:991
+#: po/level_i18n.cc:1080
 msgid "Remember Atreyu's horse Atrax!"
 msgstr "Emlékezzen Atráskó lovára!"
 
-#: po/level_i18n.cc:993
+#: po/level_i18n.cc:1082
 msgid "I am innocent! I've never stolen anything!"
 msgstr "Ártatlan vagyok! Soha nem loptam semmit!"
 
-#: po/level_i18n.cc:995
+#: po/level_i18n.cc:1084
 msgid "It is said that pirates have taken the treasure."
 msgstr "Azt mondják, hogy a kalózok elvitték a kincset."
 
-#: po/level_i18n.cc:997
+#: po/level_i18n.cc:1086
 msgid "Pirates usually hide their treasure!"
 msgstr "A kalózok általában elrejtik a kincsüket."
 
-#: po/level_i18n.cc:999
+#: po/level_i18n.cc:1088
 msgid "A closed door gives a better overview!"
 msgstr "Egy bezárt ajtó jobb átlátást nyújt."
 
-#: po/level_i18n.cc:1003
-msgid "Can you relax amid all this chaos?"
-msgstr "Képes Ön pihenni a káosz közepén?"
-
-#: po/level_i18n.cc:1010
+#: po/level_i18n.cc:1098
 msgid "Remember 'Changing Positions'?"
 msgstr "Emlékszik a 'Changing Positions'-ra?"
 
-#: po/level_i18n.cc:1018
+#: po/level_i18n.cc:1112
 msgid "A really annoying Level"
 msgstr "Egy igazán bosszantó pálya"
 
-#: po/level_i18n.cc:1047
+#: po/level_i18n.cc:1123
+msgid "Sorry, this switch is currently out of order."
+msgstr ""
+
+#: po/level_i18n.cc:1125
+msgid "As I already told you, this switch is out of order!"
+msgstr ""
+
+#: po/level_i18n.cc:1127
+msgid "How often are you going to try this?"
+msgstr ""
+
+#: po/level_i18n.cc:1129
+msgid "Did anything happen? I'm not sure ..."
+msgstr ""
+
+#: po/level_i18n.cc:1131
+#, fuzzy
+msgid "Congrats, now it works again!"
+msgstr "Gratulálunk! (vagy próbálja újra)"
+
+#: po/level_i18n.cc:1133
+msgid "No hints available at the moment."
+msgstr ""
+
+#: po/level_i18n.cc:1135
+msgid "There is a passage right beneath this stone!"
+msgstr ""
+
+#: po/level_i18n.cc:1158
 msgid "Persecution Mania"
 msgstr "Üldözési Mánia"
 
-#: po/level_i18n.cc:1049
+#: po/level_i18n.cc:1160
 msgid "A problem shared is a problem halved!"
 msgstr "Feleakkora a baj, ha megosztjuk mással"
 
-#  level: "Buridan"
-#  author: "Alain Busser" email ""
-#  comment: "wordplay between 'right' (converse of left) and 'right' (true); not necessary to translate."
-#: po/level_i18n.cc:1054
+#: po/level_i18n.cc:1165
+msgid "Polar Bears' Paradise"
+msgstr ""
+
+#: po/level_i18n.cc:1167
+msgid "Witch Hunt on Ice"
+msgstr ""
+
+#: po/level_i18n.cc:1178
 msgid "Hanging around in the Jungle"
 msgstr "A dzsungelban lődörögve"
 
-#: po/level_i18n.cc:1071
+#: po/level_i18n.cc:1192
+msgid "Tandem Chess"
+msgstr ""
+
+#: po/level_i18n.cc:1194
+msgid "Work together!"
+msgstr ""
+
+#: po/level_i18n.cc:1202
 msgid "The art of steering a quadriga"
 msgstr "A kvadriga kormányzásának művészete"
 
-#: po/level_i18n.cc:1074
+#: po/level_i18n.cc:1205
 msgid "Dropping the spoon redeems from being quartered!"
 msgstr "Megmenekül a felnégyeléstől, ha elejti a kanalat!"
 
-#: po/level_i18n.cc:1255 po/level_i18n.cc:1633
+#: po/level_i18n.cc:1386 po/level_i18n.cc:1764
 msgid "Everything's been counted carefully!"
 msgstr "Mindent gondosan kiszámoltunk!"
 
-#: po/level_i18n.cc:1256 po/level_i18n.cc:1634
+#: po/level_i18n.cc:1387 po/level_i18n.cc:1765
 msgid "Parts of the tubes disappear during detonation!"
 msgstr "A robbantások hatósugarába kerülő csődarabok eltűnnek"
 
-#: po/level_i18n.cc:1261
+#: po/level_i18n.cc:1392
 msgid "Rotaryrotaryrot..."
 msgstr "Forgóforgófor..."
 
-#: po/level_i18n.cc:1265
+#: po/level_i18n.cc:1396
 msgid "Business hours from 8am to 4pm"
 msgstr "Nyitvatartás nyolctól négyig"
 
-#: po/level_i18n.cc:1281
+#: po/level_i18n.cc:1412
 msgid "Forget the laser, try using force!"
 msgstr "Felejtse el a lézert, próbálja erővel!"
 
-#: po/level_i18n.cc:1325
+#: po/level_i18n.cc:1456
 msgid "Free fall with fatal consequences!"
 msgstr "Szabadesés végzetes következményekkel!"
 
-#: po/level_i18n.cc:1332
+#: po/level_i18n.cc:1463
 msgid "Let there be light!"
 msgstr "Legyen világosság!"
 
-#: po/level_i18n.cc:1340 po/level_i18n.cc:1560
+#: po/level_i18n.cc:1471 po/level_i18n.cc:1691
 #, fuzzy
 msgid "It's easier with spikes!"
 msgstr "Egyszerűbb ásóval!"
 
-#: po/level_i18n.cc:1348
+#: po/level_i18n.cc:1479
 msgid "For heaven's sake ... don't drown!"
 msgstr "Az ég szerelmére... meg ne fulladjon!"
 
-#: po/level_i18n.cc:1358
+#: po/level_i18n.cc:1489
 msgid "You really will need every penny!"
 msgstr "Tényleg minden fillérre szüksége lesz!"
 
-#: po/level_i18n.cc:1380
+#: po/level_i18n.cc:1511
 msgid "No problem! Piece of cake!"
 msgstr "Semmi baj! Gyerekjáték!"
 
-#: po/level_i18n.cc:1381
+#: po/level_i18n.cc:1512
 msgid "It was easy, wasn't it!"
 msgstr "Könnyű volt, nem?"
 
-#: po/level_i18n.cc:1398
+#: po/level_i18n.cc:1529
 msgid "Nothing but thieves!! Try the mailbox."
 msgstr "Semmi más, csak tolvajok! Próbálja a levélszekrényt!"
 
-#: po/level_i18n.cc:1402
+#: po/level_i18n.cc:1533
 msgid "Don't believe all that you see!"
 msgstr "Ne higgyen el mindent, amit lát!"
 
-#: po/level_i18n.cc:1413
+#: po/level_i18n.cc:1544
 msgid "It's a ring!"
 msgstr "Ez egy gyűrű!"
 
-#: po/level_i18n.cc:1417
+#: po/level_i18n.cc:1548
 msgid "Umbrellas prevent free fall!"
 msgstr "Az ernyő megóv a szabadeséstől!"
 
-#: po/level_i18n.cc:1424
+#: po/level_i18n.cc:1555
 msgid "You need to be fast!"
 msgstr "Gyorsnak kell lennie!"
 
-#: po/level_i18n.cc:1440
+#: po/level_i18n.cc:1571
 msgid ""
 "Welcome to Enigma!  This tutorial I (Jacob Scott) made will help you learn "
 "how to play."
@@ -1939,7 +2081,7 @@ msgstr ""
 "Üdvözlöm az Engimában!  Ez az oktatópálya, amit én (Jacob Scott) "
 "készítettem, segíteni fog Önnek a játék megtanulásában."
 
-#: po/level_i18n.cc:1441
+#: po/level_i18n.cc:1572
 msgid ""
 "You control the black ball.  To pick up an object, just roll over it.  You "
 "can bounce off most walls (try it), but avoid the blue floor near the bottom "
@@ -1953,11 +2095,11 @@ msgstr ""
 "kezdje elölről a pályát az 'Esc' gombbal).  Amíg ezek az üzenetek futnak, ne "
 "nyomjon meg semmilyen gombot, mert akkor az üzenet véget ér."
 
-#: po/level_i18n.cc:1442
+#: po/level_i18n.cc:1573
 msgid "This is pretty self-explanatory."
 msgstr "Ez eléggé magáért beszél."
 
-#: po/level_i18n.cc:1443
+#: po/level_i18n.cc:1574
 msgid ""
 "Enigma is full of puzzles of various types.  In the next room, you will "
 "encounter your first one."
@@ -1965,7 +2107,7 @@ msgstr ""
 "Az Enigma tele van különféle típusú rejtvényekkel.  A következő szobában "
 "találkozik az elsővel."
 
-#: po/level_i18n.cc:1444
+#: po/level_i18n.cc:1575
 msgid ""
 "You can't walk on water!  Try pushing the blocks into the water to get to "
 "the other side."
@@ -1973,7 +2115,7 @@ msgstr ""
 "Nem tud a vizen járni!  Ahhoz, hogy a túloldalra jusson, próbálja benyomni a "
 "dobozokat a vízbe!"
 
-#: po/level_i18n.cc:1445
+#: po/level_i18n.cc:1576
 msgid ""
 "Notice that you can't push a row of two or more blocks.  Also, blocks can't "
 "be on the same squares as grates but you can."
@@ -1981,16 +2123,16 @@ msgstr ""
 "Vegye észre, hogy egy legalább két dobozból álló sort nem képes eltolni. "
 "Aztán egy doboz nem lehet egy mezőn egy ráccsal, de Ön igen."
 
-#: po/level_i18n.cc:1446
+#: po/level_i18n.cc:1577
 msgid ""
 "There are different types of blocks here.  Those black blocks sink when they "
 "fall into water.  The tan blocks don't sink but don't form bridges either."
 msgstr ""
 "Itt többféle doboz található.  Azok a fekete dobozok elsüllyednek, ha vízbe "
-"esnek.  A barna dobozok nem süllyednek el, de nem is lehet belőlük "
-"hidat építeni."
+"esnek.  A barna dobozok nem süllyednek el, de nem is lehet belőlük hidat "
+"építeni."
 
-#: po/level_i18n.cc:1447
+#: po/level_i18n.cc:1578
 msgid ""
 "That thing is a top -- it will destroy your ball if they touch.  Also, as "
 "long as you are close enough to it, the top will chase you.  If you die, you "
@@ -2004,7 +2146,7 @@ msgstr ""
 "valamilyen módon kikerülni a pörgettyűt, és jusson át a következő szobába "
 "(használhatja torlaszként a szoba közepén található tömböket)."
 
-#: po/level_i18n.cc:1448
+#: po/level_i18n.cc:1579
 msgid ""
 "Good job!  Notice that the top can't go beneath that block with a black "
 "outline -- you're safe."
@@ -2012,18 +2154,18 @@ msgstr ""
 "Jó munka volt!  Vegye észre, hogy a pörgettyű nem tud a fekete keretes doboz "
 "alá bemenni -- Ön biztonságban van."
 
-#: po/level_i18n.cc:1449
+#: po/level_i18n.cc:1580
 msgid "Those are different types of floors.  Try going over them."
 msgstr "Azok különböző fajtájú padlók.  Próbáljon keresztülmenni rajtuk."
 
-#: po/level_i18n.cc:1450
+#: po/level_i18n.cc:1581
 msgid ""
 "The grayish floors are slopes.  The white floor is inverse-floor (you will "
 "see)."
 msgstr ""
 "A szürkés padlók lejtők.  A fehér padló fordító hatású (majd meglátja)."
 
-#: po/level_i18n.cc:1451
+#: po/level_i18n.cc:1582
 msgid ""
 "Watch what happens when you go over those triggers.  See if you can get the "
 "extra ball."
@@ -2031,7 +2173,7 @@ msgstr ""
 "Figyelje meg, mi történik, amikor rááll a váltókra.  Meg tudja szerezni az "
 "extra labdát?"
 
-#: po/level_i18n.cc:1452
+#: po/level_i18n.cc:1583
 msgid ""
 "That's dynamite.  Try dropping some next to that yellowish wall (and moving "
 "out of the way)."
@@ -2039,11 +2181,11 @@ msgstr ""
 "Az dinamit.  Ejtsen le néhányat amellé a sárgás fal mellé (és menjen el az "
 "útból)!"
 
-#: po/level_i18n.cc:1453
+#: po/level_i18n.cc:1584
 msgid "Try using the spade on the holes caused by the dynamite."
 msgstr "Használja az ásót azon a lyukon, amit a dinamit ütött!"
 
-#: po/level_i18n.cc:1454
+#: po/level_i18n.cc:1585
 msgid ""
 "Those things are bolders -- try moving one of the tan blocks.  Don't fall "
 "into the water or abyss (the black floor)."
@@ -2051,7 +2193,7 @@ msgstr ""
 "Azok ott görgőkövek -- próbálja elmozdítani valamelyik barna dobozt!  Ne "
 "zuhanjon a vízbe vagy a szakadékba (a fekete padló)!"
 
-#: po/level_i18n.cc:1455
+#: po/level_i18n.cc:1586
 msgid ""
 "Take the magic wand and hit a bolder.  Try to let the row of three bolders "
 "pass the large column."
@@ -2059,11 +2201,11 @@ msgstr ""
 "Vegye el a varázspálcát, és üssön meg egy görgőkövet!  Próbálja meg elérni, "
 "hogy a három görgőkő sora elhagyja a nagy oszlopot!"
 
-#: po/level_i18n.cc:1456
+#: po/level_i18n.cc:1587
 msgid "Hit it hard enough!"
 msgstr "Üsse meg erősen!"
 
-#: po/level_i18n.cc:1457
+#: po/level_i18n.cc:1588
 msgid ""
 "It appears to be a simple room, but you're getting an extra ball anyway.  "
 "Maybe there is a reason ..."
@@ -2071,7 +2213,7 @@ msgstr ""
 "Ez egyszerű szobának tűnik, mégis kap egy extra golyót. Talán van valami "
 "oka..."
 
-#: po/level_i18n.cc:1458
+#: po/level_i18n.cc:1589
 msgid ""
 "Try to get the laser beam to hit that black stone, but don't get hit by it!  "
 "Use the mirrors to direct the beam."
@@ -2079,7 +2221,7 @@ msgstr ""
 "Érje el, hogy a lézersugár eltalálja a fekete követ anélkül, hogy Önt is "
 "eltalálná!  A sugár irányításához használja a tükröket!"
 
-#: po/level_i18n.cc:1459
+#: po/level_i18n.cc:1590
 msgid ""
 "Many objects change when hit with a laser beam.  Try hitting some of the "
 "coins with the laser beam.  Also, try hitting a block over a coin.  Those "
@@ -2092,7 +2234,7 @@ msgstr ""
 "(megérinteni őket) egy karddal (ami a kézben lévő elemek közt az első kell "
 "legyen), hogy keresztül juthasson rajtuk."
 
-#: po/level_i18n.cc:1460
+#: po/level_i18n.cc:1591
 msgid ""
 "Do you have any umbrellas?  Each one will give you approximately ten seconds "
 "of protection from danger (such as falling)."
@@ -2100,7 +2242,7 @@ msgstr ""
 "Van ernyője?  Minden egyes ernyő nagyjából tíz másodpercnyi védelmet nyújt a "
 "veszélyek ellen (többek közt a lezuhanástól)."
 
-#: po/level_i18n.cc:1461
+#: po/level_i18n.cc:1592
 msgid ""
 "Those black stones are fart stones -- they reset all progress made with the "
 "oxyd stones.  The other stones are the oxyd stones.  Match them up to win!"
@@ -2109,7 +2251,7 @@ msgstr ""
 "elfednek.  A többi kő oxyd kő.  Keresse meg a párokat, ezzel megnyeri a "
 "pályát!"
 
-#: po/level_i18n.cc:1462
+#: po/level_i18n.cc:1593
 msgid ""
 "This area at the bottom of the screen is your inventory -- when you pick "
 "things up, they go here (there is a maximum of twelve).  To scroll through "
@@ -2129,7 +2271,7 @@ msgstr ""
 "közt extra élet. Amennyiben meghal ezen a pályán, az elején fogja elölről "
 "kezdeni, ha van még golyója (és egyet közülük elveszt)."
 
-#: po/level_i18n.cc:1463
+#: po/level_i18n.cc:1594
 msgid ""
 "Naturally, you're supposed to go through those closed gates at the top of "
 "the screen.                         Try going down that slope near the "
@@ -2153,7 +2295,7 @@ msgstr ""
 "falon.                            Vegye el a kanalat, és használja, amint a "
 "fehér golyó eljutott a végére (üsse meg erősen)!"
 
-#: po/level_i18n.cc:1464
+#: po/level_i18n.cc:1595
 msgid ""
 "The stone in the top-right of the room is a switch.  Hit it -- it is "
 "probably useful.  In this case the switch opens and closes a door (Do you "
@@ -2165,7 +2307,7 @@ msgstr ""
 "ajtóra, amit nem volt képes kinyitni?).  A kékes vonal egy ablak -- építsen "
 "hidat a víz felett, mielőtt bármit is kezdene vele!"
 
-#: po/level_i18n.cc:1465
+#: po/level_i18n.cc:1596
 msgid ""
 "That was a rotor (similar to a top).  Some levels have many rotors and tops "
 "to make them difficult.                            However, maybe this rotor "
@@ -2178,15 +2320,15 @@ msgstr ""
 "váltóra, ami a fehér kanál közelében volt.                      Célszerű "
 "lehet előtte bezárni a kaput."
 
-#: po/level_i18n.cc:1469
+#: po/level_i18n.cc:1600
 msgid "Don't drown in the swamp."
 msgstr "Meg ne fulladjon a mocsárban!"
 
-#: po/level_i18n.cc:1473
+#: po/level_i18n.cc:1604
 msgid "Careful - you can not swim in the water."
 msgstr "Vigyázzon - nem tud úszni a vízben!"
 
-#: po/level_i18n.cc:1477
+#: po/level_i18n.cc:1608
 msgid ""
 "Those doors on the right block your way to the oxyds ... on the left you see "
 "some triggers. Maybe they are somehow connected?"
@@ -2194,7 +2336,7 @@ msgstr ""
 "A jobb oldalon lévő ajtók elállják az oxydokhoz vezető utat... a bal oldalon "
 "lát néhány váltót. Lehet, hogy van valami kapcsolat köztük?"
 
-#: po/level_i18n.cc:1481
+#: po/level_i18n.cc:1612
 msgid ""
 "This oscillating stone is a timer-stone. You cannot interact with it, but "
 "nevertheless be aware when you see one: After some time-period anything "
@@ -2203,17 +2345,17 @@ msgstr ""
 "Ez az oszcilláló kő egy időzítő kő. Nem tud vele kapcsolatba lépni, de "
 "tudjon róla, ha lát egyet: Egy bizonyos időtartam után bármi történhet..."
 
-#: po/level_i18n.cc:1482
+#: po/level_i18n.cc:1613
 msgid ""
 "The stones with arrows are one-way-stones. As you might have guessed, you "
 "can only pass them in one direction.                Mazes are cherished "
 "elements of Enigma - you will see lots of them."
 msgstr ""
-"A nyilas kövek egyirányú kövek. Amint azt kitalálhatta, csak egy irányban lehet "
-"átmenni rajtuk.                Az útvesztők az Enigma nagy becsben tartott "
-"elemei, sokkal fog találkozni."
+"A nyilas kövek egyirányú kövek. Amint azt kitalálhatta, csak egy irányban "
+"lehet átmenni rajtuk.                Az útvesztők az Enigma nagy becsben "
+"tartott elemei, sokkal fog találkozni."
 
-#: po/level_i18n.cc:1483
+#: po/level_i18n.cc:1614
 msgid ""
 "Well done!     When you have finished this level, let's play some example "
 "levels from the actual Enigma packs!"
@@ -2221,7 +2363,7 @@ msgstr ""
 "Jó munka volt!     Amikor befejezi ezt pályát, játsszon néhány példapályával "
 "a valódi Enigma csomagokból!"
 
-#: po/level_i18n.cc:1487
+#: po/level_i18n.cc:1618
 msgid ""
 "This wooden block is movable and heavy enough to hold down the trigger on "
 "the right.   Try to push it there!"
@@ -2229,12 +2371,12 @@ msgstr ""
 "Ez a fadoboz elmozdítható és elég nehéz ahhoz, hogy a jobb oldalon látható "
 "váltót lenyomja.   Próbálja meg odanyomni!"
 
-#: po/level_i18n.cc:1488
+#: po/level_i18n.cc:1619
 msgid ""
 "Remember?  There are different kinds of floors.  And these are steep ..."
 msgstr "Emlékszik?  Különféle padlók vannak.  És ezek meredekek..."
 
-#: po/level_i18n.cc:1489
+#: po/level_i18n.cc:1620
 msgid ""
 "Is there more one can do with wooden blocks?   Yes!  Just explore the next "
 "levels."
@@ -2242,7 +2384,7 @@ msgstr ""
 "Lehet mást is csinálni a fadobozokkal?   Igen!  Fedezze fel a követező "
 "pályákat!"
 
-#: po/level_i18n.cc:1493
+#: po/level_i18n.cc:1624
 msgid ""
 "The bright light beam is a laser beam.   Don't get to close to it!   But it "
 "has its uses ...    You can use the mirrors to direct the laser to its "
@@ -2252,7 +2394,7 @@ msgstr ""
 "maga haszna...    A lézert a tükrök segítségével irányíthatja célba. Ezek "
 "közül csak a világosszürkék elmozdíthatóak, próbálja csak ki!"
 
-#: po/level_i18n.cc:1497
+#: po/level_i18n.cc:1628
 msgid ""
 "Use the right mouse-button to rotate your inventory,  it's the bar at the "
 "bottom of the screen.   And guess what these three items down there can be "
@@ -2262,7 +2404,7 @@ msgstr ""
 "használja a jobb egérgombot!   Találja ki, mire használható ez a három elem "
 "ott lent."
 
-#: po/level_i18n.cc:1498
+#: po/level_i18n.cc:1629
 msgid ""
 "There are lots of different items to use in Enigma, as well as special "
 "floors and stones.   Let's explore some more of the actual Enigma levels!   "
@@ -2270,11 +2412,11 @@ msgid ""
 "some levels, there are hints."
 msgstr ""
 "Rengeteg különféle használható elem van az Enigma-ban, továbbá speciális "
-"padlók és kövek.  Tegyünk felfedezőutat néhány további Enigma pályán! "
-"Ha baja akadna egy pályával, tekintse meg a kézikönyvet:  Egyes "
-"pályákhoz útmutató is található."
+"padlók és kövek.  Tegyünk felfedezőutat néhány további Enigma pályán! Ha "
+"baja akadna egy pályával, tekintse meg a kézikönyvet:  Egyes pályákhoz "
+"útmutató is található."
 
-#: po/level_i18n.cc:1502
+#: po/level_i18n.cc:1633
 msgid ""
 "But before this, take a look at the final tutorial level Jacob devised for "
 "you.   See it as an exam, if you want to.   It's quite difficult, so don't "
@@ -2284,7 +2426,7 @@ msgstr ""
 "Tekintse vizsgának, ha gondolja.  Elég nehéz, úgyhogy ne keseredjen el, ha "
 "nem jut rajta keresztül elsőre.  Viszlát!"
 
-#: po/level_i18n.cc:1503
+#: po/level_i18n.cc:1634
 msgid ""
 "Well, I hope you enjoyed this tutorial-pack.   You will see most of these "
 "levels a second time in the Enigma packs, together with many new and much "
@@ -2294,7 +2436,7 @@ msgstr ""
 "ezeket a pályákat az Enigma csomagokban, sok új és jóval nehezebb pályával "
 "együtt. Csak ne adja fel őket!"
 
-#: po/level_i18n.cc:1507
+#: po/level_i18n.cc:1638
 msgid ""
 "The blue stones are Oxyd stones. Open them by touching them with your black "
 "marble."
@@ -2302,89 +2444,65 @@ msgstr ""
 "A kék kövek Oxyd kövek. Úgy nyithatja ki ezeket, hogy megérinti őket a "
 "fekete golyóval."
 
-#: po/level_i18n.cc:1511
+#: po/level_i18n.cc:1642
 msgid "Remember the colors."
 msgstr "Emlékezzen a színekre!"
 
-#: po/level_i18n.cc:1515
+#: po/level_i18n.cc:1646
 msgid "Some stones look exactly like the Oxyd stones!"
 msgstr "Egyes kövek pontosan úgy néznek ki, mint az Oxyd kövek!"
 
-#: po/level_i18n.cc:1519
+#: po/level_i18n.cc:1650
 msgid "Learn to move your black ball properly."
 msgstr "Tanulja meg helyesen irányítani a fekete golyót!"
 
-#: po/level_i18n.cc:1523
+#: po/level_i18n.cc:1654
 msgid "Prepare for even more mouse gymnastics in the next levels."
 msgstr "Készüljön fel még több egértornára a következő pályákon!"
 
-#: po/level_i18n.cc:1527
+#: po/level_i18n.cc:1658
 msgid "Take your time ..."
 msgstr "Nem kell sietni..."
 
-#: po/level_i18n.cc:1531
+#: po/level_i18n.cc:1662
 msgid "Don't touch everything!"
 msgstr "Ne érintsen meg mindent!"
 
-#: po/level_i18n.cc:1535
+#: po/level_i18n.cc:1666
 msgid "Levels can be larger than one screen."
 msgstr "Egy pálya nagyobb is lehet, mint egy képernyő."
 
-#: po/level_i18n.cc:1539
+#: po/level_i18n.cc:1670
 msgid "Friction and acceleration depend on the floor type."
 msgstr "A súrlódás és a gyorsulás a padló típusán múlik."
 
-#: po/level_i18n.cc:1543
+#: po/level_i18n.cc:1674
 msgid ""
 "Move all small marbles into the holes. Only one marble per hole is allowed."
 msgstr ""
 "Vigye mindegyik kis golyót a lyukakba. Egy lyukba csak egy golyót vihet."
 
-#: po/level_i18n.cc:1647
-msgid "Template for a simple level."
-msgstr "Sablon egyszerű pályához"
-
-#: po/level_i18n.cc:1651
-msgid "Template for a level with the RenderLine method."
-msgstr "Sablon RenderLine metódussal készült pályához"
-
-#: po/level_i18n.cc:1655
-msgid "Template for a level coded with the ant library."
-msgstr "Sablon az 'ant' könyvtárral lekódolt pályához"
-
-#: po/level_i18n.cc:1668
-msgid "Level with all floors of Enigma 1.00!"
-msgstr "Egy pálya, az Enigma 1.00 összes padlójával!"
-
-#: po/level_i18n.cc:1675
-msgid "Level with all items of Enigma 1.00!"
-msgstr "Egy pálya, az Enigma 1.00 összes elemével!"
-
-#: po/level_i18n.cc:1680
+#: po/level_i18n.cc:1809
 msgid "Translate or let it be translated"
 msgstr "Fordítsa le, vagy hagyja, hogy lefordítsák!"
 
-#: po/level_i18n.cc:1684
+#: po/level_i18n.cc:1813
 msgid "Read the right document"
 msgstr "Olvassa el a jobb dokumentumot!"
 
-#: po/level_i18n.cc:1687
+#: po/level_i18n.cc:1816
 msgid "The right one, not the right one!"
 msgstr "A jót, nem a jobb oldalit!"
 
-#: po/level_i18n.cc:1694
-msgid "Level with all stones of Enigma 1.00!"
-msgstr "Egy pálya, az Enigma 1.00 összes kövével!"
-
-#: po/level_i18n.cc:1758
+#: po/level_i18n.cc:1886
 msgid "What do you want the first gate to do?"
 msgstr "Mit tegyen az első kapu? (Mondja angolul!)"
 
-#: po/level_i18n.cc:1759
+#: po/level_i18n.cc:1887
 msgid "Opposite"
 msgstr "Az ellentéte (Mondja angolul!)"
 
-#: po/level_i18n.cc:1760
+#: po/level_i18n.cc:1888
 msgid ""
 "If ten equals three, five equals four, two equals three, four equals four, "
 "and thirteen equals eight, what does nine equal?"
@@ -2393,23 +2511,23 @@ msgstr ""
 "nyolc egyenlő öttel, a harminc pedig egyenlő héttel, mennyi lesz a húsz? "
 "(Mondja angolul!)"
 
-#: po/level_i18n.cc:1761
+#: po/level_i18n.cc:1889
 msgid "Congratulations!"
 msgstr "Gratulálok!"
 
-#: po/level_i18n.cc:1768
+#: po/level_i18n.cc:1896
 msgid "Same room, new mirrors ..."
 msgstr "Ugyanaz a szoba, új tükrök..."
 
-#: po/level_i18n.cc:1801
+#: po/level_i18n.cc:1929
 msgid "The witch of this switch waits for your wish."
 msgstr "Ezzel a kapcsolóval fejezheti be a lépést"
 
-#: po/level_i18n.cc:1803
+#: po/level_i18n.cc:1931
 msgid "The witch of this switch resets the awale game."
 msgstr "Ezzel a kapcsolóval kezdheti elölről az awale játékot"
 
-#: po/level_i18n.cc:1805
+#: po/level_i18n.cc:1933
 msgid ""
 "A turn consists in taking the walnuts of a row behind the windowy walls and "
 "sowing them 1 by 1 in the following rows."
@@ -2417,7 +2535,7 @@ msgstr ""
 "Egy kör abból áll, hogy a játékos elvesz egy sor követ, és egyesével "
 "szétosztja azokat a többi sorban, az óramutató járásával ellenkező irányban."
 
-#: po/level_i18n.cc:1807
+#: po/level_i18n.cc:1935
 msgid ""
 "Warning: What awaits the wailing warrior at the end of a turn? If there are "
 "2 or 3 walnuts in a row, they are a warm award for the warrior, as are the "
@@ -2427,11 +2545,11 @@ msgstr ""
 "Egy kör végén, ha az utolsó kő egy nemüres sorba kerül, a játékos elveszi a "
 "szemközti sorból az összes követ (ha van), és újrakezdi a kört."
 
-#: po/level_i18n.cc:1809
+#: po/level_i18n.cc:1937
 msgid "Warning: If one warrior's walls are empty, this awesome warrior wins."
 msgstr "Amelyik játékos fala kiürül, az nyer."
 
-#: po/level_i18n.cc:1811
+#: po/level_i18n.cc:1939
 msgid ""
 "When a warrior has awarded more than half the walnuts, he wins. What does he "
 "win? The way to the waiting oxyds he wants."
@@ -2439,25 +2557,25 @@ msgstr ""
 "A játék végén (amikor valamelyik játékos nem tud lépni) az a játékos nyer, "
 "akinek a legtöbb köve van."
 
-#: po/level_i18n.cc:1813
+#: po/level_i18n.cc:1941
 msgid "Congratulations! You are the most aware awale player of the valley ..."
 msgstr "Gratulálunk! Soha ne avuljon el awale tudása!"
 
-#: po/level_i18n.cc:1815
+#: po/level_i18n.cc:1943
 msgid ""
 "Lost in the savannah? Don't wait and walk on the way to the reset switch on "
 "the far left ..."
 msgstr "Ha vesztett, nyomja meg az újrakezdő gombot a pálya bal felén, hátul!"
 
-#: po/level_i18n.cc:1817
+#: po/level_i18n.cc:1945
 msgid "Validate your choice here."
 msgstr "Itt érvényesítheti a választását."
 
-#: po/level_i18n.cc:1819
+#: po/level_i18n.cc:1947
 msgid "Reset the game."
 msgstr "A játék újrakezdése."
 
-#: po/level_i18n.cc:1821
+#: po/level_i18n.cc:1949
 msgid ""
 "A turn consists in taking the stones of a row and sowing them 1 by 1 in "
 "one's other rows, counterclockwise, coming back to the beginning."
@@ -2465,7 +2583,7 @@ msgstr ""
 "Egy kör abból áll, hogy a játékos elvesz egy sor követ, és egyesével "
 "szétosztja azokat a többi sorban, az óramutató járásával ellenkező irányban."
 
-#: po/level_i18n.cc:1823
+#: po/level_i18n.cc:1951
 msgid ""
 "At the end of a turn, if the last stone falls in a nonempty row, one takes "
 "the stones of the facing row if there is any, and repeats a turn."
@@ -2473,11 +2591,11 @@ msgstr ""
 "Egy kör végén, ha az utolsó kő egy nemüres sorba kerül, a játékos elveszi a "
 "szemközti sorból az összes követ (ha van), és újrakezdi a kört."
 
-#: po/level_i18n.cc:1825
+#: po/level_i18n.cc:1953
 msgid "A turn begins in one of the leftmost rows, unless impossible."
 msgstr "Egy kör valamelyik bal oldali sorban kezdődik, ha lehetséges."
 
-#: po/level_i18n.cc:1827
+#: po/level_i18n.cc:1955
 msgid ""
 "At the end of the game (if one player cannot move anymore), the player who "
 "has the most stones wins."
@@ -2485,15 +2603,15 @@ msgstr ""
 "A játék végén (amikor valamelyik játékos nem tud lépni) az a játékos nyer, "
 "akinek a legtöbb köve van."
 
-#: po/level_i18n.cc:1829
+#: po/level_i18n.cc:1957
 msgid "A yellow stone stands for 10 blue stones (then for 2 brown stones)."
 msgstr "Egy sárga kő 10 kék kőnek felel meg (ami 2 barna kőnek)."
 
-#: po/level_i18n.cc:1831
+#: po/level_i18n.cc:1959
 msgid "A brown stone stands for 5 blue stones."
 msgstr "Egy barna kő 5 kék kőnek felel meg."
 
-#: po/level_i18n.cc:1833
+#: po/level_i18n.cc:1961
 msgid ""
 "This katro game comes from Madagascar; in Easy mode there is an african "
 "Awale."
@@ -2501,11 +2619,11 @@ msgstr ""
 "Ez a katro játék Madagaszkárról származik. Egyszerű módban van egy afrikai "
 "Awale."
 
-#: po/level_i18n.cc:1835
+#: po/level_i18n.cc:1963
 msgid "Only reset or 'Shift+F3' can make things evolve ..."
 msgstr "Csak az újrakezdés vagy a 'Shift+F3' hozhat változást..."
 
-#: po/level_i18n.cc:1850
+#: po/level_i18n.cc:1978
 msgid ""
 "Sections which have the same color always turn at the same time and in the "
 "same way."
@@ -2513,53 +2631,53 @@ msgstr ""
 "Azok a részek, melyeknek azonos a színük, mindig azonos időben és ugyanolyan "
 "módon váltanak."
 
-#: po/level_i18n.cc:1851
+#: po/level_i18n.cc:1979
 msgid ""
 "Maintenance code: metal-stone-stone-stone-red-yellow-yellow-red-red-stone-"
 "stone."
 msgstr "Karbantartó kód: fém-kő-kő-kő-piros-sárga-sárga-piros-piros-kő-kő."
 
-#: po/level_i18n.cc:1933
+#: po/level_i18n.cc:2061
 msgid "You can fly for a short time if you use the umbrella."
 msgstr "Esernyővel egy rövid ideig tud repülni."
 
-#: po/level_i18n.cc:1943
+#: po/level_i18n.cc:2071
 msgid " . . . There are more than two . . ."
 msgstr " . . . Kettőnél több van . . ."
 
-#: po/level_i18n.cc:2000
+#: po/level_i18n.cc:2128
 msgid "The Grim Reaper"
 msgstr "A Nagy Kaszás"
 
-#: po/level_i18n.cc:2012
+#: po/level_i18n.cc:2140
 msgid "The Enigmhanoi Towers"
 msgstr "Enigmhanoi Tornyai"
 
-#: po/level_i18n.cc:2014
+#: po/level_i18n.cc:2142
 msgid "Who speaks, does not know (Lao Tse)"
 msgstr "Aki beszél, nem tud (Lao-ce)"
 
-#: po/level_i18n.cc:2016
+#: po/level_i18n.cc:2144
 msgid "The wise man laughs (Lao Tse)"
 msgstr "A bölcs nevet (Lao-ce)"
 
-#: po/level_i18n.cc:2018
+#: po/level_i18n.cc:2146
 msgid "Who knows, does not speak (Lao Tse)"
 msgstr "Aki tud, nem beszél (Lao-ce)"
 
-#: po/level_i18n.cc:2060
+#: po/level_i18n.cc:2188
 msgid "Welcome to Enigma V"
 msgstr "Üdvözöljük az Engima V-ben!"
 
-#: po/level_i18n.cc:2073
+#: po/level_i18n.cc:2201
 msgid "This is a meditation landscape: put a small marble into every hole ..."
 msgstr "Ez egy meditációs terep, helyezzen egy kis golyót minden lyukba..."
 
-#: po/level_i18n.cc:2079
+#: po/level_i18n.cc:2207
 msgid "Fire or be fired"
 msgstr "Tüzeljen vagy égjen!"
 
-#: po/level_i18n.cc:2082
+#: po/level_i18n.cc:2210
 msgid ""
 "Do you think a bushman would start to search for an extinguisher in the "
 "cellar if a wall of fire were approaching? Be a Firefox - you have the first "
@@ -2569,7 +2687,7 @@ msgstr ""
 "pincében, amikor egy lángfal közeledik felé? Legyen hát a 'tűz mestere'! "
 "Rendelkezésére áll az első 5 elem, se több, se kevesebb!"
 
-#: po/level_i18n.cc:2084
+#: po/level_i18n.cc:2212
 msgid ""
 "You can extinguish fire with water. This is a good place to refill your "
 "extinguisher. Be aware, water is rare!"
@@ -2577,33 +2695,33 @@ msgstr ""
 "A tüzet vízzel tudja eloltani. Ez a hely alkalmas a tűzoltókészüléke "
 "újratöltésére. De ne felejtse, a víz ritka."
 
-#: po/level_i18n.cc:2086
+#: po/level_i18n.cc:2214
 msgid ""
 "OOPS! The maze is broken! Prepare to repair the maze before you destroy it."
 msgstr ""
 "Hoppá! A labirintus elromlott! Kezdje el megjavítani, mielőtt elpusztítja!"
 
-#: po/level_i18n.cc:2107
+#: po/level_i18n.cc:2235
 msgid "Pirates Island"
 msgstr "Kalóz Sziget"
 
-#: po/level_i18n.cc:2109
+#: po/level_i18n.cc:2237
 msgid "The pirates have lost several hidden things on this island ..."
 msgstr "A kalózok több rejtett tárgyat elhagytak ezen a szigeten..."
 
-#: po/level_i18n.cc:2113
+#: po/level_i18n.cc:2241
 msgid "It is not quite that easy."
 msgstr "Annyira azért nem könnyű."
 
-#: po/level_i18n.cc:2123
+#: po/level_i18n.cc:2251
 msgid "Don't get too attracted!"
 msgstr "Ne váljon túl vonzóvá!"
 
-#: po/level_i18n.cc:2127
+#: po/level_i18n.cc:2255
 msgid "Try the easy mode first ..."
 msgstr "Próbálja először az egyszerű módot..."
 
-#: po/level_i18n.cc:2133
+#: po/level_i18n.cc:2261
 msgid ""
 "Caramba!! El Dictator has muchos pesos in his cristal safe but muchos costa "
 "guardia too; Hay!! Poor Bola Negra has only frutos and a lasero!!!"
@@ -2611,23 +2729,23 @@ msgstr ""
 "Caramba! A diktátornak sok a pesoja a kristály páncélszekrényében, de sok a "
 "parti őre is. Hay, szegény fekete golyónak csak fruttója van és lézere!"
 
-#: po/level_i18n.cc:2138
+#: po/level_i18n.cc:2266
 msgid "Did you really think this one was so easy!?"
 msgstr "Komolyan azt gondolta, hogy ez olyan könnyű?"
 
-#: po/level_i18n.cc:2140
+#: po/level_i18n.cc:2268
 msgid "Did you forget something?"
 msgstr "Elfelejtett valamit?"
 
-#: po/level_i18n.cc:2142
+#: po/level_i18n.cc:2270
 msgid "Go on! There's no way back now!"
 msgstr "Menjen tovább! Már nincsen visszaút!"
 
-#: po/level_i18n.cc:2144
+#: po/level_i18n.cc:2272
 msgid "STOP! Not this way! There's a short-cut ..."
 msgstr "ÁLLJON! Ne erre menjen! Van egy rövidebb út..."
 
-#: po/level_i18n.cc:2146
+#: po/level_i18n.cc:2274
 msgid ""
 "There's a trigger one step to the left. If you could keep it depressed, it "
 "would help you a lot if you go back! "
@@ -2635,19 +2753,19 @@ msgstr ""
 "Van egy váltó egy lépéssel balra. Ha lenyomva tudná tartani, sokat segítene, "
 "ha vissza kellene mennie!"
 
-#: po/level_i18n.cc:2153
+#: po/level_i18n.cc:2281
 msgid "No way out?"
 msgstr "Nincs kiút?"
 
-#: po/level_i18n.cc:2154
+#: po/level_i18n.cc:2282
 msgid "Do you miss something?"
 msgstr "Hiányzik valami?"
 
-#: po/level_i18n.cc:2179
+#: po/level_i18n.cc:2307
 msgid "Don't get attracted!"
 msgstr "Ne váljon vonzóvá!"
 
-#: po/level_i18n.cc:2189
+#: po/level_i18n.cc:2317
 msgid ""
 "If you have never heard about Brainf***, visit e.g. http://en.wikipedia.org/"
 "wiki/Brainfuck before you try to solve this level."
@@ -2655,11 +2773,11 @@ msgstr ""
 "Ha még nem hallott a Brainf*** programozási nyelvről, nézze meg például a "
 "Wikipédián, mielőtt ezt a pályát megpróbálja megoldani!"
 
-#: po/level_i18n.cc:2193
+#: po/level_i18n.cc:2321
 msgid "Make an umbrella."
 msgstr "Készítsen ernyőt!"
 
-#: po/level_i18n.cc:2197
+#: po/level_i18n.cc:2325
 msgid ""
 "Beware, stranger! The ancient gods of Enigma have set many traps to protect "
 "their holy Oxyds! You will have to get through the Four Tests to prove your "
@@ -2669,35 +2787,35 @@ msgstr ""
 "hogy megvédjék szent Oxydjaikat! Ki kell állnia a Négy Próbát, hogy "
 "megmutassa, méltó az Oxydokra!"
 
-#: po/level_i18n.cc:2198
+#: po/level_i18n.cc:2326
 msgid "Prove your speed in the Test of Fire!"
 msgstr "Mutassa be gyorsaságát a Tűz Próbáján!"
 
-#: po/level_i18n.cc:2199
+#: po/level_i18n.cc:2327
 msgid "You have proven your worth! The ancients grant you a FLAG!"
 msgstr "Ön méltónak bizonyult! Az ősök egy ZÁSZLÓT adományoznak Önnek!"
 
-#: po/level_i18n.cc:2200
+#: po/level_i18n.cc:2328
 msgid "Prove your intelligence in the Test of Earth!"
 msgstr "Mutassa be gondolkodását a Föld Próbáján!"
 
-#: po/level_i18n.cc:2201
+#: po/level_i18n.cc:2329
 msgid "You have proven your worth! The ancients grant you a SPRING!"
 msgstr "Ön méltónak bizonyult! Az ősök egy RUGÓT adományoznak Önnek!"
 
-#: po/level_i18n.cc:2202
+#: po/level_i18n.cc:2330
 msgid "Prove your dexterity in the Test of Air!"
 msgstr "Mutassa be ügyességét a Levegő Próbáján!"
 
-#: po/level_i18n.cc:2203
+#: po/level_i18n.cc:2331
 msgid "You have proven your worth! The ancients grant you a NAIL!"
 msgstr "Ön méltónak bizonyult! Az ősök egy SZÖGET adományoznak Önnek!"
 
-#: po/level_i18n.cc:2204
+#: po/level_i18n.cc:2332
 msgid "Prove your patience in the Test of Water!"
 msgstr "Mutassa be türelmét a Víz Próbáján!"
 
-#: po/level_i18n.cc:2205
+#: po/level_i18n.cc:2333
 msgid ""
 "This can't be! No mortal can reach our Holy Oxyds! Prove yourself once more! "
 "Bwahahahaha!"
@@ -2705,15 +2823,15 @@ msgstr ""
 "Ez nem lehetséges! Nincs az a halandó, aki elérheti a mi Szent Oxydjainkat! "
 "Bizonyítson még egyszer! Hahahahaha!"
 
-#: po/level_i18n.cc:2212
+#: po/level_i18n.cc:2340
 msgid ""
 "Here lies Black Ball the pirate, marooned in the year 1802 after travelling "
 "in the wrong direction."
 msgstr ""
-"Itt nyugszik Fekete Golyó, a kalóz, akit ittrekedt 1802-ben, "
-"miután rossz irányba utazott."
+"Itt nyugszik Fekete Golyó, a kalóz, akit ittrekedt 1802-ben, miután rossz "
+"irányba utazott."
 
-#: po/level_i18n.cc:2213
+#: po/level_i18n.cc:2341
 msgid ""
 "To cure sea sickness hold a large bank note between your teeth and lean over "
 "the side."
@@ -2721,19 +2839,19 @@ msgstr ""
 "A tengeri betegség gyógyításához tartson egy hatalmas bankjegyet a fogai "
 "közt, és hajoljon ki oldalt!"
 
-#: po/level_i18n.cc:2227
+#: po/level_i18n.cc:2355
 msgid "Do you need something?"
 msgstr "Kellene valami?"
 
-#: po/level_i18n.cc:2235
+#: po/level_i18n.cc:2363
 msgid "Send me the keys !"
 msgstr "Küldje el a kulcsokat!"
 
-#: po/level_i18n.cc:2237
+#: po/level_i18n.cc:2365
 msgid "ALL the keys!!!"
 msgstr "MINDEN kulcsot!"
 
-#: po/level_i18n.cc:2246
+#: po/level_i18n.cc:2374
 msgid ""
 "Mightie art the Knightes of The Olde Ages who keepe the Elfic Oxyde Stones, "
 "and numerous art the Ghostes who lye in the waye to them; many art the "
@@ -2742,12 +2860,12 @@ msgid ""
 "lair of Whiteballs the dragon thu shalt avoyd in feare of awaken him ..."
 msgstr ""
 "Nagyok a régi idők lovagjai, akik a tündék oxydköveit birtokolják, és sokan "
-"vannak a szellemek, kik a hozzájuk vezető úton állnak lesben. Rengetegen vannak a "
-"kalandorok, kik megpróbálták ellopni Elendilt, a kardot, de egy sem tért "
-"vissza. Ködös a mocsár, ahol az ősök varázsa el van ásva. Kerülje el a "
+"vannak a szellemek, kik a hozzájuk vezető úton állnak lesben. Rengetegen "
+"vannak a kalandorok, kik megpróbálták ellopni Elendilt, a kardot, de egy sem "
+"tért vissza. Ködös a mocsár, ahol az ősök varázsa el van ásva. Kerülje el a "
 "Fehérgolyók odvát, ahol a sárkány lakik, félve, hogy felébred..."
 
-#: po/level_i18n.cc:2252
+#: po/level_i18n.cc:2380
 msgid ""
 "The most dangerous animals of the bayou are the alligators, the "
 "mosquitoes ... and the zombies! (But the zombies at least, don't move ...)"
@@ -2755,7 +2873,7 @@ msgstr ""
 "A mocsár legveszélyesebb lényei az aligátorok, a szúnyogok... és a zombik! "
 "(de a zombik legalább nem mozognak...)"
 
-#: po/level_i18n.cc:2256
+#: po/level_i18n.cc:2384
 msgid ""
 "Why has there always to be an active volcano and a village of marble-eating "
 "inhabitants on a tropical island?"
@@ -2763,12 +2881,12 @@ msgstr ""
 "Miért kell egy trópusi szigeten mindig legyen egy működő vulkán és egy golyó-"
 "evő bennszülöttekből álló falu?"
 
-#: po/level_i18n.cc:2263
+#: po/level_i18n.cc:2394
 msgid ""
 "This is my first landscape, dedicated to my father. I hope you'll enjoy it!"
 msgstr "Ez az első terepem, apámnak ajánlva. Remélem, Ön élvezni fogja!"
 
-#: po/level_i18n.cc:2270
+#: po/level_i18n.cc:2398
 msgid ""
 "You again! We won't let you pass this time! See these Oxyds? You can't reach "
 "them unless you rob our Four Holy Items! But they are well guarded! "
@@ -2778,7 +2896,7 @@ msgstr ""
 "érheti el őket, hacsak nem rabolja el a Négy Szent Elemet! Ám azokat jól "
 "őrzik! Hahahahaha!"
 
-#: po/level_i18n.cc:2271
+#: po/level_i18n.cc:2399
 msgid ""
 "Fire burns and destroys ... Want to remove blocking stones? Then dig your "
 "way to the Holy Hammer!"
@@ -2786,11 +2904,11 @@ msgstr ""
 "A tűz éget és pusztít... El akarja mozdítani a torlaszt képző köveket? Akkor "
 "ássa ki az utat a Szent Kalapácshoz!"
 
-#: po/level_i18n.cc:2272
+#: po/level_i18n.cc:2400
 msgid "Try again! Bwahahahaha!"
 msgstr "Próbálja újra! Hahahahaha!"
 
-#: po/level_i18n.cc:2273
+#: po/level_i18n.cc:2401
 msgid ""
 "Earth fills and lasts ... Want to replace missing floors? Then build your "
 "way to the Holy Seed!"
@@ -2798,7 +2916,7 @@ msgstr ""
 "A föld betölt és kitart... Ki akarja cserélni a hiányzó talajt? Akkor építse "
 "meg az utat a Szent Maghoz!"
 
-#: po/level_i18n.cc:2274
+#: po/level_i18n.cc:2402
 msgid ""
 "Air blows and goes by ... Want to jump across the void? Then make your way "
 "to the Holy Spring!"
@@ -2806,7 +2924,7 @@ msgstr ""
 "A levegő fúj és tovaszáll... Át akarja ugrani az űrt? Akkor tegye meg az "
 "utat a szent rugóhoz!"
 
-#: po/level_i18n.cc:2275
+#: po/level_i18n.cc:2403
 msgid ""
 "Water waves and shifts ... Want to trade minds with your partner? Then find "
 "your way to the Holy Yin-Yang!"
@@ -2814,19 +2932,19 @@ msgstr ""
 "A víz hullámzik és emelkedik... Elmét akar cserélni a partnerével? Akkor "
 "találja meg az utat a Szent Jin-Janghoz!"
 
-#: po/level_i18n.cc:2279
+#: po/level_i18n.cc:2407
 msgid "Look carefully at everything!"
 msgstr "Mindent alaposan nézzen meg!"
 
-#: po/level_i18n.cc:2280
+#: po/level_i18n.cc:2408
 msgid "Do you need a helping hand?"
 msgstr "Szüksége van segítségre?"
 
-#: po/level_i18n.cc:2299
+#: po/level_i18n.cc:2427
 msgid "Warning ... ... thieves!"
 msgstr "Figyelmeztetés ... ... tolvajok!"
 
-#: po/level_i18n.cc:2327
+#: po/level_i18n.cc:2455
 msgid ""
 "Remember Seed Puzzle 2? There was a similar problem. Or was it Portable "
 "Laser ...?"
@@ -2834,23 +2952,23 @@ msgstr ""
 "Emlékszik a 'Seed Puzzle 2'-re? Volt egy hasonló feladat. Vagy csak egy "
 "hordozható lézer volt? ..."
 
-#: po/level_i18n.cc:2332
+#: po/level_i18n.cc:2460
 msgid "Catwalk Meditation"
 msgstr "Palló meditáció"
 
-#: po/level_i18n.cc:2360
+#: po/level_i18n.cc:2488
 msgid "This level is symmetric ..."
 msgstr "Ez a pálya szimmetrikus..."
 
-#: po/level_i18n.cc:2390
+#: po/level_i18n.cc:2518
 msgid "April 1st"
 msgstr "Április elseje"
 
-#: po/level_i18n.cc:2392
+#: po/level_i18n.cc:2520
 msgid "Do you REALLY want to do this???"
 msgstr "TÉNYLEG ezt akarja csinálni?"
 
-#: po/level_i18n.cc:2394
+#: po/level_i18n.cc:2522
 msgid ""
 "Didn't your mother tell you that you should not spend your money in such a "
 "careless manner?"
@@ -2858,15 +2976,15 @@ msgstr ""
 "Az Ön anyukája soha nem mondta, hogy nem szabad a pénzét ilyen "
 "meggondolatlan módon költeni?"
 
-#: po/level_i18n.cc:2396
+#: po/level_i18n.cc:2524
 msgid "What is the current month?"
 msgstr "Mi a mostani hónap?"
 
-#: po/level_i18n.cc:2398
+#: po/level_i18n.cc:2526
 msgid "What is this level's name?"
 msgstr "Mi a pálya neve?"
 
-#: po/level_i18n.cc:2409
+#: po/level_i18n.cc:2537
 msgid ""
 "When you change the color of one square, the colors of the 2 nearest squares "
 "change as well; you must get as many green squares as possible."
@@ -2874,82 +2992,82 @@ msgstr ""
 "Amikor egy mező színét megváltoztatja, a két legközelebbi mező színe is "
 "megváltozik. A lehető legtöbb mezőt kell zöldre változtatni."
 
-#: po/level_i18n.cc:2411
+#: po/level_i18n.cc:2539
 msgid ""
 "You are only allowed to change a color when it is surrounded by the other "
 "color."
 msgstr ""
 "Csak akkor szabad megváltoztatni egy színt, ha a másik szín veszi körül."
 
-#: po/level_i18n.cc:2418
+#: po/level_i18n.cc:2546
 msgid "If I only had a bag."
 msgstr "Bárcsak volna egy zsákom!"
 
-#: po/level_i18n.cc:2419
+#: po/level_i18n.cc:2547
 msgid "shh ... listen!"
 msgstr "csitt... figyeljen!"
 
-#: po/level_i18n.cc:2649
+#: po/level_i18n.cc:2777
 msgid "Umbreallas protect you against oncomming boulder!"
 msgstr "Az ernyő megvédi Önt a közeledő görgőkőtől"
 
-#: po/level_i18n.cc:2686
+#: po/level_i18n.cc:2814
 msgid "Nothing can stop us!"
 msgstr "Semmi sem állíthat meg minket!"
 
-#: po/level_i18n.cc:2711
+#: po/level_i18n.cc:2839
 msgid "Dig in ..."
 msgstr "Lásson neki!"
 
-#: po/level_i18n.cc:2716
+#: po/level_i18n.cc:2844
 msgid "... did it!"
 msgstr "... megcsinálta!"
 
-#: po/level_i18n.cc:2726
+#: po/level_i18n.cc:2854
 msgid "Rest on the bright spot for a minute."
 msgstr "Maradjon a világos mezőn egy percig."
 
-#: po/level_i18n.cc:2727
+#: po/level_i18n.cc:2855
 msgid "You'll do anything you're told!"
 msgstr "Bármit megtenne, amit Önnek mondanak!"
 
-#: po/level_i18n.cc:2750
+#: po/level_i18n.cc:2878
 msgid "Did you bring your flag?"
 msgstr "Elhozta a zászlóját?"
 
-#: po/level_i18n.cc:2767
+#: po/level_i18n.cc:2895
 msgid "Watch out for water holes!"
 msgstr "Ügyeljen a vizes lyukakra!"
 
-#: po/level_i18n.cc:2793
+#: po/level_i18n.cc:2921
 msgid "Bricks change!"
 msgstr "A kövek változnak!"
 
-#: po/level_i18n.cc:2804
+#: po/level_i18n.cc:2932
 msgid "If you think that's to easy, try \"Difficulty: Normal\"."
 msgstr "Ha túl könnyűnek találja, próbálja rendes nehézséggel"
 
-#: po/level_i18n.cc:2806
+#: po/level_i18n.cc:2934
 msgid "If you think that's to hard, try \"Difficulty: Easy\"."
 msgstr "Ha túl nehéznek találja, prólja egyszerű nehézséggel"
 
-#: po/level_i18n.cc:2820
+#: po/level_i18n.cc:2948
 msgid "Some stones and stone rows can be moved!"
 msgstr "Bizonyos kövek és kősorok elmozdíthatóak!"
 
-#: po/level_i18n.cc:2860
+#: po/level_i18n.cc:2988
 msgid "Look closely!"
 msgstr "Nézze meg jobban!"
 
-#: po/level_i18n.cc:2864
+#: po/level_i18n.cc:2992
 msgid "The left-most room is important!"
 msgstr "A legbaloldalibb szoba fontos!"
 
-#: po/level_i18n.cc:2865
+#: po/level_i18n.cc:2993
 msgid "This is the control panel."
 msgstr "Ez a vezérlő pult."
 
-#: po/level_i18n.cc:2878
+#: po/level_i18n.cc:3006
 msgid ""
 "Welcome to the control room. Use the triggers and switches to plan the "
 "movement of the turtle. The switches are, clockwise: Add, Run and Restart."
@@ -2958,25 +3076,25 @@ msgstr ""
 "tervezheti meg a teknős útját. A kapcsolók, az óramutató járásának "
 "megfelelően: Hozzátesz, Futtat és Újrakezd."
 
-#: po/level_i18n.cc:2891
+#: po/level_i18n.cc:3019
 msgid "Flood Control Dam #3 seems rather unstable. Be quick or be dead."
 msgstr ""
 "A hármas számú árvízszabályozó gát igen ingatagnak tűnik. Siessen, vagy "
 "meghal."
 
-#: po/level_i18n.cc:2895
+#: po/level_i18n.cc:3023
 msgid "The block near the top-left can move."
 msgstr "A balfelső sarokban található tömb elmozdítható."
 
-#: po/level_i18n.cc:2932
+#: po/level_i18n.cc:3060
 msgid "White helps black, black helps white."
 msgstr "A fehér segíti a feketét, a fekete segíti a fehéret."
 
-#: po/level_i18n.cc:2960
+#: po/level_i18n.cc:3088
 msgid "This level is much bigger! Press F3!"
 msgstr "Ez a pálya sokkal nagyobb! Nyomjon F3-at!"
 
-#: po/level_i18n.cc:2973
+#: po/level_i18n.cc:3101
 msgid ""
 "Remember  to  only  move  enough  stones  to  just  look  into  the  next  "
 "room  ..."
@@ -2984,43 +3102,43 @@ msgstr ""
 "Ne felejtse, hogy éppen csak annyi követ mozdítson, hogy a következő szobába "
 "be tudjon nézni..."
 
-#: po/level_i18n.cc:2974
+#: po/level_i18n.cc:3102
 msgid "You  have  lost  ..."
 msgstr "Vesztett..."
 
-#: po/level_i18n.cc:2988
+#: po/level_i18n.cc:3116
 msgid "Risk your life ..."
 msgstr "Tegye kockára életét..."
 
-#: po/level_i18n.cc:2992
+#: po/level_i18n.cc:3120
 msgid "Don't forget to open the door ..."
 msgstr "Ne felejtse el kinyitni az ajtót..."
 
-#: po/level_i18n.cc:2993
+#: po/level_i18n.cc:3121
 msgid "Good Luck!"
 msgstr "Sok szerencsét!"
 
-#: po/level_i18n.cc:2994
+#: po/level_i18n.cc:3122
 msgid "Hurry!"
 msgstr "Siessen!"
 
-#: po/level_i18n.cc:2995
+#: po/level_i18n.cc:3123
 msgid "Congratulations! (or try again)"
 msgstr "Gratulálunk! (vagy próbálja újra)"
 
-#: po/level_i18n.cc:2996
+#: po/level_i18n.cc:3124
 msgid "Almost finished ..."
 msgstr "Majdnem kész..."
 
-#: po/level_i18n.cc:3006
+#: po/level_i18n.cc:3134
 msgid "Restart with F3 ..."
 msgstr "Kezdje újra F3-mal..."
 
-#: po/level_i18n.cc:3028
+#: po/level_i18n.cc:3156
 msgid "It's a long way ..."
 msgstr "Hosszú az út..."
 
-#: po/level_i18n.cc:3044
+#: po/level_i18n.cc:3172
 msgid ""
 "I don't believe that you are the Marble. I won't let you pass until you "
 "prove me wrong: you have to be faster than my champion!"
@@ -3028,111 +3146,162 @@ msgstr ""
 "Nem hiszem el, hogy Ön a Golyó. Nem engedem tovább, amíg be nem bizonyítja, "
 "hogy tévedek: gyorsabb kell legyen, mint a bajnokom!"
 
-#: po/level_i18n.cc:3045
+#: po/level_i18n.cc:3173
 msgid "Congratulations! You may pass!"
 msgstr "Gratulálok! Tovább mehet!"
 
-#: po/level_i18n.cc:3052
+#: po/level_i18n.cc:3180
 msgid ""
 "One  more  and  you  won't  get  this  hammer  until  you  don't  need  it  "
 "anymore!"
 msgstr "Még egy, és nem fogja megkapni a kalapácsot, csak mikor már nem kell!"
 
-#: po/level_i18n.cc:3056
+#: po/level_i18n.cc:3184
 msgid "The danger is not visible!!!"
 msgstr "A veszély nem látható!!!"
 
-#: po/level_i18n.cc:3068
+#: po/level_i18n.cc:3196
 msgid "Welcome to Enigma III"
 msgstr "Üdvözöljük az Enigma III-ban!"
 
-#: po/level_i18n.cc:3075
+#: po/level_i18n.cc:3203
 msgid "Look ... they're over there!"
 msgstr "Nézze... ott vannak!"
 
-#: po/level_i18n.cc:3079
+#: po/level_i18n.cc:3207
 msgid "Watch your step!"
 msgstr "Vigyázzon, hova lép!"
 
-#: po/level_i18n.cc:3119
+#: po/level_i18n.cc:3247
 msgid "A castle lies before you ... beware of guardians!"
 msgstr "Egy kastély áll Ön előtt... óvakodjon az őröktől!"
 
-#: po/level_i18n.cc:3151
+#: po/level_i18n.cc:3279
 msgid "when  you've  been  particular  places"
 msgstr "amikor bizonyos helyeken járt"
 
-#: po/level_i18n.cc:3153
+#: po/level_i18n.cc:3281
 msgid "that  you  know  you've  never  seen  before"
 msgstr "amiről tudja, hogy azelőtt soha nem látott"
 
-#: po/level_i18n.cc:3155
+#: po/level_i18n.cc:3283
 msgid "can  you  be  sure?"
 msgstr "hogyan is lehetne biztos benne?"
 
-#: po/level_i18n.cc:3157
+#: po/level_i18n.cc:3285
 msgid "feel  like  I've  been  here  before"
 msgstr "úgy érzem, itt már jártam"
 
-#: po/level_i18n.cc:3159
+#: po/level_i18n.cc:3287
 msgid "quote:  Iron  Maiden   -   Deja-Vu"
 msgstr "idézet: Iron Maiden - Deja-Vu"
 
-#: po/level_i18n.cc:3161
+#: po/level_i18n.cc:3289
 msgid "for  illmind's  deja  vu  try  the  top  left  corner  ..."
 msgstr "illmind deja-vu-jéhez próbálja a bal felső sarkot..."
 
-#: po/level_i18n.cc:3176
+#: po/level_i18n.cc:3315
+msgid "Funeral on Deep Sea"
+msgstr ""
+
+#: po/level_i18n.cc:3317
+msgid ""
+"Warning: Do not play this level for more than 10 minutes - you may suffer "
+"sea sickness yourself!"
+msgstr ""
+
+#: po/level_i18n.cc:3335
 msgid "Welcome to Enigma VII"
 msgstr "Üdvözöljük az Enigma VII-ben!"
 
-#: po/level_i18n.cc:3180
+#: po/level_i18n.cc:3343
+msgid "The Wild Hunt"
+msgstr ""
+
+#: po/level_i18n.cc:3362
+msgid "Can you relax amid all this chaos?"
+msgstr "Képes Ön pihenni a káosz közepén?"
+
+#: po/level_i18n.cc:3367
+msgid "Freeze by the Power of Light"
+msgstr ""
+
+#: po/level_i18n.cc:3375
+msgid "Free Riders"
+msgstr ""
+
+#: po/level_i18n.cc:3377
+msgid "Left or Right Drive?"
+msgstr ""
+
+#: po/level_i18n.cc:3390
 msgid "Watch out, slippery!"
 msgstr "Vigyázzon, csúszós!"
 
-#: po/level_i18n.cc:3193
+#: po/level_i18n.cc:3403
 msgid "Sorry for inconvenience, the Bank-O-Mat is empty."
 msgstr "Elnézést kérünk a kellemetlenségekért, a pénzautomata üres."
 
-#: po/level_i18n.cc:3221
+#: po/level_i18n.cc:3431
 msgid "Umbrellas protect!"
 msgstr "Az ernyők védenek!"
 
-#: po/level_i18n.cc:3246
+#: po/level_i18n.cc:3456
 msgid "It's easier with a shovel!"
 msgstr "Könnyebb ásóval!"
 
-#: po/level_i18n.cc:3253
+#: po/level_i18n.cc:3463
 msgid "Sunday, bloody Sunday!"
 msgstr "Szombat, nyavalyás szombat!"
 
-#: po/level_i18n.cc:3260
+#: po/level_i18n.cc:3470
 msgid "Watch out!!"
 msgstr "Vigyázzon!!"
 
-#: po/level_i18n.cc:3297
+#: po/level_i18n.cc:3507
 msgid "Can you see the hidden oxyd stones?"
 msgstr "Látja az elrejtett oxyd köveket?"
 
-#: po/level_i18n.cc:3352
+#: po/level_i18n.cc:3562
 msgid "Please remember:    42"
 msgstr "Ne felejtse:    42"
 
-#: po/level_i18n.cc:3356
+#: po/level_i18n.cc:3566
 msgid "If you think this is too easy, then play -Bavarian Madness-"
 msgstr "Ha azt gondolja, ez túl könnyű, játsszon 'Bavarian Madness'-t!"
 
-#: po/level_i18n.cc:3369
+#: po/level_i18n.cc:3579
 msgid "Take the key to the left first!"
 msgstr "Először a bal oldali kulcsot vegye el!"
 
-#: po/level_i18n.cc:3385
+#: po/level_i18n.cc:3595
 msgid "Easy?"
 msgstr "Könnyű?"
 
-#: po/level_i18n.cc:3458
+#: po/level_i18n.cc:3668
 msgid "If you haven't won, you've lost!"
 msgstr "Ha nem nyert, vesztett!"
+
+#~ msgid "Default"
+#~ msgstr "alap"
+
+#~ msgid "Template for a simple level."
+#~ msgstr "Sablon egyszerű pályához"
+
+#~ msgid "Template for a level with the RenderLine method."
+#~ msgstr "Sablon RenderLine metódussal készült pályához"
+
+#~ msgid "Template for a level coded with the ant library."
+#~ msgstr "Sablon az 'ant' könyvtárral lekódolt pályához"
+
+#~ msgid "Level with all floors of Enigma 1.00!"
+#~ msgstr "Egy pálya, az Enigma 1.00 összes padlójával!"
+
+#~ msgid "Level with all items of Enigma 1.00!"
+#~ msgstr "Egy pálya, az Enigma 1.00 összes elemével!"
+
+#~ msgid "Level with all stones of Enigma 1.00!"
+#~ msgstr "Egy pálya, az Enigma 1.00 összes kövével!"
 
 #~ msgid "Area closed"
 #~ msgstr "Lezárt terület"

@@ -1,5 +1,5 @@
 # Process this file with autoconf to produce a configure script.
-AC_INIT([enigma],[1.00])
+AC_INIT([enigma],[1.01])
 AC_PREREQ(2.59)
 AC_CANONICAL_BUILD
 AC_CANONICAL_TARGET
@@ -370,6 +370,7 @@ AC_CONFIG_FILES([Makefile m4/Makefile  intl/Makefile
            data/levels/lib/Makefile
            data/levels/patches/Makefile
            data/fonts/Makefile
+           data/sound/Makefile
            data/soundsets/Makefile
            data/soundsets/enigma/Makefile
            data/schemas/Makefile

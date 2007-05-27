@@ -7,7 +7,7 @@
       <el:author  el:name="AUTHOR" el:email="" el:homepage=""/>
       <el:copyright>Copyright © YEAR AUTHOR</el:copyright>
       <el:license el:type="GPL v2.0 or above" el:open="true"/>
-      <el:compatibility el:enigma="0.92">
+      <el:compatibility el:enigma="1.00">
        <el:dependency el:path="lib/ant" el:id="lib/ant" el:release="1" el:preload="true"/>
       </el:compatibility>
       <el:modes el:easy="false" el:single="true" el:network="false"/>
@@ -26,43 +26,43 @@ stones={}
 stones[" "]=cell{}
 cells[" "]=cell{}
 
-cells["!"]=cell{floor="fl-sahara"}
+cells["-"]=cell{floor="fl-sahara"}
 
-stones["!"]=cell{stone="st-glass"}
+stones["#"]=cell{stone="st-glass"}
 stones["x"]=cell{parent={{file_oxyd,"b"}}}
 
-level={"!!!!!!!!!!!!!!!!!!!!",
-       "!!!!!!!!!!!!!!!!!!!!",
-       "!!!!!!!!!!!!!!!!!!!!",
-       "!!!!!!!!!!!!!!!!!!!!",
-       "!!!!!!!!!!!!!!!!!!!!",
-       "!!!!!!!!!!!!!!!!!!!!",
-       "!!!!!!!!!!!!!!!!!!!!",
-       "!!!!!!!!!!!!!!!!!!!!",
-       "!!!!!!!!!!!!!!!!!!!!",
-       "!!!!!!!!!!!!!!!!!!!!",
-       "!!!!!!!!!!!!!!!!!!!!",
-       "!!!!!!!!!!!!!!!!!!!!",
-       "!!!!!!!!!!!!!!!!!!!!"}
+level={"--------------------",
+       "--------------------",
+       "--------------------",
+       "--------------------",
+       "--------------------",
+       "--------------------",
+       "--------------------",
+       "--------------------",
+       "--------------------",
+       "--------------------",
+       "--------------------",
+       "--------------------",
+       "--------------------"}
 
-stmap={"!!!!!!!!!!!!!!!!!!!!",
-       "!x                x!",
-       "!                  !",
-       "!                  !",
-       "!                  !",
-       "!                  !",
-       "!                  !",
-       "!                  !",
-       "!                  !",
-       "!                  !",
-       "!                  !",
-       "!x                x!",
-       "!!!!!!!!!!!!!!!!!!!!"}
+stmap={"####################",
+       "#x                x#",
+       "#                  #",
+       "#                  #",
+       "#                  #",
+       "#                  #",
+       "#                  #",
+       "#                  #",
+       "#                  #",
+       "#                  #",
+       "#                  #",
+       "#x                x#",
+       "####################"}
 
 create_world_by_map(level)
 draw_map(0,0,stmap,stones)
 
-set_actor("ac-blackball",10.5,1.5,{player=0,name="bb"})
+set_actor("ac-blackball",10.5,1.5,{player=0,name="blackball"})
 set_item("it-document",12,1,{text="text1"})
 
 oxyd_shuffle()
@@ -72,7 +72,7 @@ oxyd_shuffle()
         <el:english el:translate="false"/>
       </el:string>
       <el:string el:key="text1">
-        <el:english el:translate="true">Template for a level coded with the ant library.</el:english>
+        <el:english el:translate="false">Template for a level coded with the ant library.</el:english>
       </el:string> 
     </el:i18n>
   </el:protected>

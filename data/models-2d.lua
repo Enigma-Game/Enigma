@@ -1115,7 +1115,6 @@ do
       DefSubimages("st-wood", {modelname="st-wood-fg",h=2})
       DefShModel("st-wood1", "st-wood-fg1", "sh-round")
       DefShModel("st-wood2", "st-wood-fg2", "sh-round")
-
       local n=DefSubimages("st-wood-growing", {h=3})
       DefAnim("wood-growing-fg", BuildFrames(n, 130))
       DefAnim("wood-growing-bg", BuildFrames(sh, 130))
@@ -1559,4 +1558,5 @@ Sprite({
     loop     = true
 })
 
-Progress(100, "Loading levels")
+Progress(100, "Loading Enigma levels")
+

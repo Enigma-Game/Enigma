@@ -124,7 +124,7 @@ namespace enigma { namespace gui {
         N_("Enigma is free software and may be distributed under the"),
         N_("terms of the GNU General Public License, version 2."),
         " ",
-        N_("Copyright (C) 2002-2006 Daniel Heck and contributors."),
+        N_("Copyright (C) 2002-2007 Daniel Heck and contributors."),
         0,
         N_("Main developer of all releases:"),
         " ",

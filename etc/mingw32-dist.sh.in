@@ -87,8 +87,9 @@ function copy_data
     copy_levels
     mkdir $DDIR/data/fonts
     cp -p $SDIR/data/fonts/*.{bmf,png,txt,ttf} $DDIR/data/fonts
+    mkdir $DDIR/data/sound
+    cp -p $SDIR/data/sound/*.{ogg,s3m} $DDIR/data/sound
     mkdir $DDIR/data/soundsets 
-    cp -p $SDIR/data/soundsets/*.{ogg,s3m} $DDIR/data/soundsets
     mkdir $DDIR/data/soundsets/enigma 
     cp -p $SDIR/data/soundsets/enigma/*.wav $DDIR/data/soundsets/enigma
     mkdir $DDIR/data/thumbs
@@ -211,6 +212,9 @@ copy_refman
 copy_doc
 
 cp $BDIR/etc/enigma.nsi $DDIR/enigma.nsi
+cp $BDIR/etc/enigma-inst-lang.nsh $DDIR/enigma-inst-lang.nsh
+cp $BDIR/etc/enigma-inst-opt.ini $DDIR/enigma-inst-opt.ini
+cp $BDIR/etc/enigma-inst-welcome.bmp $DDIR/enigma-inst-welcome.bmp
 cp -p $BDIR/src/enigma.exe $DDIR/enigma.exe
 
 copy_dlls

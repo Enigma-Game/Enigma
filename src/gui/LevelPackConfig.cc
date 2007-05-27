@@ -262,17 +262,17 @@ namespace enigma { namespace gui {
             valueMetaVList->add_back(new Label());
             valueMetaVList->add_back(new Label());
 	    if (WizardMode) {
-		valueMetaVList->add_back(releaseValueLabel);
-		valueMetaVList->add_back(revisionValueLabel);
+            valueMetaVList->add_back(releaseValueLabel);
+            valueMetaVList->add_back(revisionValueLabel);
 	    } else {
             valueMetaVList->add_back(new Label());
             valueMetaVList->add_back(new Label());
 	    }
             valueMetaVList->add_back(levelmodeWidget);
 	    if (WizardMode) {
-		valueMetaVList->add_back(compatibilityValueLabel);
+            valueMetaVList->add_back(compatibilityValueLabel);
 	    } else {
-		valueMetaVList->add_back(new Label());
+            valueMetaVList->add_back(new Label());
 	    }
             valueMetaVList->add_back(defLocationValueLabel);
             valueMetaVList->add_back(new Label());
@@ -298,12 +298,11 @@ namespace enigma { namespace gui {
        
         // Create buttons - positioning identical to Levelmenu
         but_edit = new StaticTextButton(N_("Compose Pack"), this);
-//        but_update = new StaticTextButton(N_("Update Pack"), this);
-#if 0
-        // fake gettext to register the following strings for I18N
-        _("Update Pack")
-#endif
-        but_update = new Label();
+        if (isPersistent && persIndex->isUpdatable() && persIndex->isCross()) {
+            but_update = new StaticTextButton(N_("Update Pack"), this);
+        } else {
+            but_update = new Label();
+        }
         but_ignore = new StaticTextButton(N_("Undo"), this);
         but_back = new StaticTextButton(N_("Ok"), this);
         
@@ -421,35 +420,35 @@ namespace enigma { namespace gui {
                 }
             }
             
-	    if (WizardMode) {
-		if (releaseTF->getText() != ecl::strf("%d", persIndex->getRelease())) {
-		    int i = 0;
-		    // check value - keep old value on error 
-		    if ((sscanf(releaseTF->getText().c_str(),"%d", &i) == 1) &&
-			    i > 0) {
-			persIndex->setRelease(i);
-			needSave = true;
-		    }
-		}
-		if (revisionTF->getText() != ecl::strf("%d", persIndex->getRevision())) {
-		    int i = 0;
-		    // check value - keep old value on error 
-		    if ((sscanf(revisionTF->getText().c_str(),"%d", &i) == 1) &&
-			    i > 0) {
-			persIndex->setRevision(i);
-			needSave = true;
-		    }
-		}
-		if (compatibilityTF->getText() != ecl::strf("%.2f", persIndex->getCompatibility())) {
-		    double d = 0;
-		    // check value - keep old value on error 
-		    if ((sscanf(compatibilityTF->getText().c_str(),"%lg", &d) == 1) &&
-			    d >= 1) {
-			persIndex->setCompatibility(d);
-			needSave = true;
-		    }
-		}
-	    }
+            if (WizardMode) {
+                if (releaseTF->getText() != ecl::strf("%d", persIndex->getRelease())) {
+                    int i = 0;
+                    // check value - keep old value on error 
+                    if ((sscanf(releaseTF->getText().c_str(),"%d", &i) == 1) &&
+                	    i > 0) {
+                	persIndex->setRelease(i);
+                	needSave = true;
+                    }
+                }
+                if (revisionTF->getText() != ecl::strf("%d", persIndex->getRevision())) {
+                    int i = 0;
+                    // check value - keep old value on error 
+                    if ((sscanf(revisionTF->getText().c_str(),"%d", &i) == 1) &&
+                	    i > 0) {
+                	persIndex->setRevision(i);
+                	needSave = true;
+                    }
+                }
+                if (compatibilityTF->getText() != ecl::strf("%.2f", persIndex->getCompatibility())) {
+                    double d = 0;
+                    // check value - keep old value on error 
+                    if ((sscanf(compatibilityTF->getText().c_str(),"%lg", &d) == 1) &&
+                	    d >= 1) {
+                	persIndex->setCompatibility(d);
+                	needSave = true;
+                    }
+                }
+            }
             
             // save
             if (needSave)
@@ -492,7 +491,11 @@ namespace enigma { namespace gui {
             undo_quit = true;
             Menu::quit();
         } else if (w == but_update) {
-            errorLabel->set_text(("Sorry - update not yet implemented."));
+            if (isPersistent && doChanges()) {
+                persIndex->load(false, true);
+                persIndex->save(true);
+                Menu::quit();
+            }
             invalidate_all();
         } else if (w == but_edit) {
             if (doChanges()) {

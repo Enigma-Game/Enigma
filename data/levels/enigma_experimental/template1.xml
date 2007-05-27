@@ -7,7 +7,7 @@
       <el:author  el:name="AUTHOR" el:email="" el:homepage=""/>
       <el:copyright>Copyright © YEAR AUTHOR</el:copyright>
       <el:license el:type="GPL v2.0 or above" el:open="true"/>
-      <el:compatibility el:enigma="0.92">
+      <el:compatibility el:enigma="1.00">
       </el:compatibility>
       <el:modes el:easy="false" el:single="true" el:network="false"/>
       <el:score el:easy="-" el:difficult="-"/>
@@ -18,7 +18,6 @@ levelh = 13
 levelw = 20
 
 create_world(levelw, levelh)
-enigma.ConserveLevel = FALSE
 
 -- DESIGN --
 floor="fl-sahara"
@@ -50,7 +49,7 @@ oxyd_shuffle()
         <el:english el:translate="false"/>
       </el:string>
       <el:string el:key="text1">
-        <el:english el:translate="true">Template for a simple level.</el:english>
+        <el:english el:translate="false">Template for a simple level.</el:english>
       </el:string> 
     </el:i18n>
   </el:protected>

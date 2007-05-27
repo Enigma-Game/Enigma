@@ -3,11 +3,12 @@
 # This file is distributed under the same license as the PACKAGE package.
 # FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
 #
+#: po/level_i18n.cc:1044
 msgid ""
 msgstr ""
 "Project-Id-Version: Enigma 1.00\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2007-03-13 09:37+0100\n"
+"POT-Creation-Date: 2007-05-24 21:04+0200\n"
 "PO-Revision-Date: 2006-11-012 18:07+0100\n"
 "Last-Translator:  Alain Busser\n"
 "Language-Team: French\n"
@@ -15,120 +16,121 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 
-#: src/server.cc:138 src/server.cc:152 src/gui/LevelInspector.cc:196
+#: src/server.cc:144 src/server.cc:158 src/gui/LevelInspector.cc:199
 msgid "Server Error: could not load level '"
 msgstr "Erreur serveur: n'a pas pu charger le niveau '"
 
-#: src/client.cc:65
+#: src/client.cc:66
 #, c-format
 msgid "Mouse speed: %d"
 msgstr "Vitesse souris: %d"
 
-#: src/client.cc:76
+#: src/client.cc:77
 msgid "Another nameless level"
 msgstr "Un autre niveau sans nom"
 
-#: src/client.cc:80
+#: src/client.cc:81
 msgid " by "
 msgstr " par "
 
-#: src/client.cc:473
+#: src/client.cc:475
 msgid "Left mouse button:"
 msgstr "Bouton gauche:"
 
-#: src/client.cc:473
+#: src/client.cc:475
 msgid "Activate/drop leftmost inventory item"
 msgstr "Active/lache l'objet de l'inventaire"
 
-#: src/client.cc:474
+#: src/client.cc:476
 msgid "Right mouse button:"
 msgstr "Bouton droit:"
 
-#: src/client.cc:474
+#: src/client.cc:476
 msgid "Rotate inventory items"
 msgstr "Rotation inventaire"
 
-#: src/client.cc:475 src/gui/LevelMenu.cc:166 src/gui/ScreenshotViewer.cc:34
+#: src/client.cc:477 src/gui/LevelMenu.cc:166 src/gui/ScreenshotViewer.cc:34
 msgid "Escape:"
 msgstr "Echap:"
 
-#: src/client.cc:475
+#: src/client.cc:477
 msgid "Show game menu"
 msgstr "Voir le menu"
 
-#: src/client.cc:476
+#: src/client.cc:478
 msgid "F1:"
 msgstr "F1:"
 
-#: src/client.cc:476 src/gui/LevelMenu.cc:167 src/gui/ScreenshotViewer.cc:35
+#: src/client.cc:478 src/gui/LevelMenu.cc:167 src/gui/ScreenshotViewer.cc:35
 msgid "Show this help"
 msgstr "Affiche cette aide"
 
-#: src/client.cc:477
+#: src/client.cc:479
 msgid "F3:"
 msgstr "F3:"
 
-#: src/client.cc:477
+#: src/client.cc:479
 msgid "Kill current marble"
 msgstr "Tue votre bille"
 
-#: src/client.cc:478
+#: src/client.cc:480
 msgid "Shift+F3:"
 msgstr "Maj+F3:"
 
-#: src/client.cc:478
+#: src/client.cc:480
 msgid "Restart the current level"
 msgstr "Recommence le niveau actuel"
 
-#: src/client.cc:479
+#: src/client.cc:481
 msgid "F4:"
 msgstr "F4:"
 
-#: src/client.cc:479
+#: src/client.cc:481
 msgid "Skip to next level"
 msgstr "Saute au prochain niveau"
 
-#: src/client.cc:480 src/gui/LevelPackComposer.cc:48
+#: src/client.cc:482 src/gui/LevelPackComposer.cc:48
 msgid "F5:"
 msgstr "F5:"
 
-#: src/client.cc:481
+#: src/client.cc:483
+#, fuzzy
+msgid "F6:"
+msgstr "F9:"
+
+#: src/client.cc:483
+msgid "Jump back to last level"
+msgstr ""
+
+#: src/client.cc:484
 msgid "F10:"
 msgstr "F10:"
 
-#: src/client.cc:481
+#: src/client.cc:484
 msgid "Make screenshot"
 msgstr "Copie d'écran"
 
-#: src/client.cc:482
+#: src/client.cc:485
 msgid "Left/right arrow:"
 msgstr "Flèches gauche et droite:"
 
-#: src/client.cc:482
+#: src/client.cc:485
 msgid "Change mouse speed"
 msgstr "Change vitesse souris"
 
-#: src/client.cc:483
+#: src/client.cc:486
 msgid "Alt+x:"
 msgstr "Alt+x:"
 
-#: src/client.cc:483
+#: src/client.cc:486
 msgid "Return to level menu"
 msgstr "Retourne au menu des niveaux"
 
-#: src/client.cc:484 src/gui/LevelMenu.cc:174
-msgid "Alt+Return:"
-msgstr "Alt+Return:"
-
-#: src/client.cc:484 src/gui/LevelMenu.cc:174
-msgid "Switch between fullscreen and window"
-msgstr "Alterner les modes plein écran et fenêtrée"
-
-#: src/client.cc:494
+#: src/client.cc:497
 msgid "Skip to next level for best score hunt"
 msgstr "Saute au prochain niveau pour battre un record"
 
-#: src/client.cc:495
+#: src/client.cc:498
 msgid "Skip to next unsolved level"
 msgstr "Sauter au prochain niveau non résolu"
 
@@ -210,22 +212,49 @@ msgstr "Record mondial à battre: "
 msgid "Error in configuration file.\n"
 msgstr "Erreur dans fichier configuration.\n"
 
-#: src/main.cc:479 src/main.cc:497
+#: src/main.cc:495 src/main.cc:518
 #, c-format
 msgid "Error Home directory does not exist.\n"
 msgstr "Erreur: Le répertoire 'home' n'existe pas.\n"
 
-#: src/main.cc:489
+#: src/main.cc:510
 #, c-format
 msgid "Error Application Data directory does not exist.\n"
 msgstr "Erreur: Le répertoire de données n'existe pas.\n"
 
-#: src/main.cc:517 src/main.cc:566
+#: src/main.cc:538 src/main.cc:587
 #, c-format
 msgid "Error in XML initialization.\n"
 msgstr "Erreur dans le fichier d'initialisation.\n"
 
-#: src/main.cc:733
+#: src/main.cc:663
+#, c-format
+msgid ""
+"Mac OS X upgrade from Enigma 1.00\n"
+"\n"
+"The default user data path has changed from\n"
+"  %s \n"
+"\n"
+"to the visible data path\n"
+"  %s \n"
+"\n"
+"If ok Enigma will move your data to this new location.\n"
+"Note that you have to restart Enigma once for completion of this update."
+msgstr ""
+
+#: src/main.cc:664
+msgid "OK"
+msgstr ""
+
+#: src/main.cc:664 src/gui/OptionsMenu.cc:123
+msgid "Never"
+msgstr "Jamais"
+
+#: src/main.cc:664
+msgid "Remind"
+msgstr ""
+
+#: src/main.cc:808
 msgid ""
 "Fatal Error that causes the application to quit:\n"
 "\n"
@@ -233,11 +262,11 @@ msgstr ""
 "Erreur fatale, l'application va quitter:\n"
 "\n"
 
-#: src/main.cc:735 src/gui/MainMenu.cc:215
+#: src/main.cc:810 src/gui/MainMenu.cc:227
 msgid "Quit"
 msgstr "Quitter"
 
-#: src/gui/MainMenu.cc:70 src/gui/MainMenu.cc:207 src/gui/LevelPackMenu.cc:62
+#: src/gui/MainMenu.cc:70 src/gui/MainMenu.cc:219 src/gui/LevelPackMenu.cc:62
 msgid "Start Game"
 msgstr "Commencer partie"
 
@@ -245,7 +274,7 @@ msgstr "Commencer partie"
 msgid "Join Game"
 msgstr "Rejoindre partie"
 
-#: src/gui/MainMenu.cc:72 src/gui/OptionsMenu.cc:345
+#: src/gui/MainMenu.cc:72 src/gui/OptionsMenu.cc:317
 #: src/gui/ScreenshotViewer.cc:34
 msgid "Back"
 msgstr "Retour"
@@ -293,7 +322,8 @@ msgid "terms of the GNU General Public License, version 2."
 msgstr "termes de la GNU General Public License, version 2."
 
 #: src/gui/MainMenu.cc:127
-msgid "Copyright (C) 2002-2006 Daniel Heck and contributors."
+#, fuzzy
+msgid "Copyright (C) 2002-2007 Daniel Heck and contributors."
 msgstr "Copyright (C) 2002-2006 Daniel Heck et contributeurs."
 
 #: src/gui/MainMenu.cc:129
@@ -304,51 +334,51 @@ msgstr "Principal développeur:"
 msgid "Special Thanks:"
 msgstr "Remerciements spéciaux à:"
 
-#: src/gui/MainMenu.cc:152
+#: src/gui/MainMenu.cc:156
 msgid "Contributors:"
 msgstr "Contributeurs:"
 
-#: src/gui/MainMenu.cc:208 src/gui/LevelMenu.cc:64
+#: src/gui/MainMenu.cc:220 src/gui/LevelMenu.cc:64
 msgid "Level Pack"
 msgstr "Pack de niveau"
 
-#: src/gui/MainMenu.cc:210
+#: src/gui/MainMenu.cc:222
 msgid "Network Game"
 msgstr "Jeu en réseau"
 
-#: src/gui/MainMenu.cc:211
+#: src/gui/MainMenu.cc:223
 msgid "Editor"
 msgstr "Editeur"
 
-#: src/gui/MainMenu.cc:213 src/gui/GameMenu.cc:48
+#: src/gui/MainMenu.cc:225 src/gui/GameMenu.cc:48
 msgid "Options"
 msgstr "Options"
 
-#: src/gui/MainMenu.cc:214
+#: src/gui/MainMenu.cc:226
 msgid "Credits"
 msgstr "Crédits"
 
-#: src/gui/MainMenu.cc:304
+#: src/gui/MainMenu.cc:316
 msgid "Preferences Path:"
 msgstr "Chemin préférences:"
 
-#: src/gui/MainMenu.cc:314
+#: src/gui/MainMenu.cc:326
 msgid "User Path:"
 msgstr "Chemin utilisateur:"
 
-#: src/gui/MainMenu.cc:324
+#: src/gui/MainMenu.cc:336
 msgid "User Image Path:"
 msgstr "Chemin images:"
 
-#: src/gui/MainMenu.cc:334
+#: src/gui/MainMenu.cc:346
 msgid "System Path:"
 msgstr "Chemin système:"
 
-#: src/gui/MainMenu.cc:344
+#: src/gui/MainMenu.cc:356
 msgid "Resource Paths:"
 msgstr "Chemin ressources:"
 
-#: src/gui/MainMenu.cc:354
+#: src/gui/MainMenu.cc:366
 msgid "L10n Path:"
 msgstr "Chemin L10n"
 
@@ -365,12 +395,12 @@ msgid "No music in game"
 msgstr "Pas de musique dans le jeu"
 
 #: src/gui/OptionsMenu.cc:115 src/gui/OptionsMenu.cc:119
-#: src/gui/OptionsMenu.cc:246
+#: src/gui/OptionsMenu.cc:218
 msgid "Yes"
 msgstr "Oui"
 
 #: src/gui/OptionsMenu.cc:115 src/gui/OptionsMenu.cc:119
-#: src/gui/OptionsMenu.cc:246
+#: src/gui/OptionsMenu.cc:218
 msgid "No"
 msgstr "Non"
 
@@ -378,80 +408,72 @@ msgstr "Non"
 msgid "Auto"
 msgstr "Automatique"
 
-#: src/gui/OptionsMenu.cc:123
-msgid "Never"
-msgstr "Jamais"
-
-#: src/gui/OptionsMenu.cc:163
-msgid "Default"
-msgstr "Défaut"
-
-#: src/gui/OptionsMenu.cc:234
+#: src/gui/OptionsMenu.cc:206
 msgid "reversed"
 msgstr "inversée"
 
-#: src/gui/OptionsMenu.cc:235
+#: src/gui/OptionsMenu.cc:207
 msgid "mono"
 msgstr "mono"
 
-#: src/gui/OptionsMenu.cc:236
+#: src/gui/OptionsMenu.cc:208
 msgid "normal"
 msgstr "normale"
 
-#: src/gui/OptionsMenu.cc:299 src/gui/LevelInspector.cc:331
-#: src/gui/LevelInspector.cc:347 src/gui/LevelInspector.cc:360
+#: src/gui/OptionsMenu.cc:271 src/gui/LevelInspector.cc:335
+#: src/gui/LevelInspector.cc:351 src/gui/LevelInspector.cc:364
 msgid "unknown"
 msgstr "inconnu"
 
-#: src/gui/OptionsMenu.cc:364
+#: src/gui/OptionsMenu.cc:336
 msgid "Language: "
 msgstr "Langue: "
 
-#: src/gui/OptionsMenu.cc:365
+#: src/gui/OptionsMenu.cc:337
 msgid "Fullscreen: "
 msgstr "Plein écran: "
 
-#: src/gui/OptionsMenu.cc:366
+#: src/gui/OptionsMenu.cc:338
 msgid "Video mode: "
 msgstr "Mode Vidéo: "
 
-#: src/gui/OptionsMenu.cc:367
+#: src/gui/OptionsMenu.cc:339
 msgid "Gamma correction: "
 msgstr "Correction gamma: "
 
-#: src/gui/OptionsMenu.cc:368
+#: src/gui/OptionsMenu.cc:340
 msgid "Mouse speed: "
 msgstr "Vitesse souris: "
 
-#: src/gui/OptionsMenu.cc:377
+#: src/gui/OptionsMenu.cc:349
 msgid "Sound volume: "
 msgstr "Volume sonore: "
 
-#: src/gui/OptionsMenu.cc:378
+#: src/gui/OptionsMenu.cc:350
 msgid "Sound set: "
 msgstr "Jeu de sons: "
 
-#: src/gui/OptionsMenu.cc:379
+#: src/gui/OptionsMenu.cc:351
 msgid "Music volume: "
 msgstr "Volume musique: "
 
-#: src/gui/OptionsMenu.cc:380
+#: src/gui/OptionsMenu.cc:352
 msgid "Stereo: "
 msgstr "Stéréo: "
 
-#: src/gui/OptionsMenu.cc:381
+#: src/gui/OptionsMenu.cc:353
 msgid "Ratings update: "
 msgstr "Mise  à jour records: "
 
-#: src/gui/OptionsMenu.cc:395
+#: src/gui/OptionsMenu.cc:367
 msgid "User name: "
 msgstr "Nom utilisateur: "
 
-#: src/gui/OptionsMenu.cc:396
+#: src/gui/OptionsMenu.cc:368
 msgid "User path: "
 msgstr "Chemin utilisateur:"
 
-#: src/gui/OptionsMenu.cc:397
+#: src/gui/OptionsMenu.cc:369
 msgid "User image path: "
 msgstr "Chemin images: "
 
@@ -490,6 +512,14 @@ msgstr "Précédant/prochain pack de stages"
 #: src/gui/LevelMenu.cc:172
 msgid "Mark current level as Unsolved"
 msgstr "Marquer le paysage actuel comme non résolu"
+
+#: src/gui/LevelMenu.cc:174
+msgid "Alt+Return:"
+msgstr "Alt+Return:"
+
+#: src/gui/LevelMenu.cc:174
+msgid "Switch between fullscreen and window"
+msgstr "Alterner les modes plein écran et fenêtrée"
 
 #: src/gui/LevelMenu.cc:175 src/gui/LevelPackMenu.cc:48
 msgid "Left click:"
@@ -535,41 +565,41 @@ msgstr "PAR %d%%, hcp %.1f"
 msgid "%d%% solved"
 msgstr "%d%% résolus"
 
-#: src/gui/LevelMenu.cc:339
+#: src/gui/LevelMenu.cc:340
 #, c-format
 msgid "Your time: %d:%02d"
 msgstr "Votre temps: %d:%02d"
 
-#: src/gui/LevelMenu.cc:345
+#: src/gui/LevelMenu.cc:346
 msgid "That's world record."
 msgstr "Record du monde."
 
-#: src/gui/LevelMenu.cc:347
+#: src/gui/LevelMenu.cc:348
 #, c-format
 msgid "That's %d:%02d below world record."
 msgstr "C'est %d:%02d de moins que le record du monde."
 
-#: src/gui/LevelMenu.cc:355
-#, c-format
-msgid "World record by %s: %d:%02d"
-msgstr "Record du monde par %s: %d:%02d"
-
 #: src/gui/LevelMenu.cc:358
-#, c-format
-msgid "Par: %d:%02d World record by %s: %d:%02d"
-msgstr "PAR: %d:%02d Record du monde par %s: %d:%02d"
-
-#: src/gui/LevelMenu.cc:362
 #, c-format
 msgid "World record: %d:%02d"
 msgstr "Record du monde: %d:%02d"
 
-#: src/gui/LevelMenu.cc:364
+#: src/gui/LevelMenu.cc:360
 #, c-format
 msgid "Par: %d:%02d World record: %d:%02d"
 msgstr "PAR: %d:%02d Record mondial: %d:%02d"
 
-#: src/gui/LevelMenu.cc:398
+#: src/gui/LevelMenu.cc:374
+#, c-format
+msgid "World record by %s: %d:%02d"
+msgstr "Record du monde par %s: %d:%02d"
+
+#: src/gui/LevelMenu.cc:377
+#, c-format
+msgid "Par: %d:%02d World record by %s: %d:%02d"
+msgstr "PAR: %d:%02d Record du monde par %s: %d:%02d"
+
+#: src/gui/LevelMenu.cc:407
 msgid "No further unsolved level available!"
 msgstr "Pas davantage de niveaux non résolus!"
 
@@ -641,13 +671,13 @@ msgstr "F10:"
 msgid "Move clipboard levels"
 msgstr "Déplacer le presse-papier des niveaux"
 
-#: src/gui/LevelPackComposer.cc:118 src/gui/LevelPackConfig.cc:307
+#: src/gui/LevelPackComposer.cc:118 src/gui/LevelPackConfig.cc:306
 #: src/gui/LPGroupConfig.cc:99 src/gui/SearchMenu.cc:58
 msgid "Undo"
 msgstr "Défaire"
 
-#: src/gui/LevelPackComposer.cc:119 src/gui/LevelPackConfig.cc:308
-#: src/gui/LPGroupConfig.cc:100 src/gui/LevelInspector.cc:175
+#: src/gui/LevelPackComposer.cc:119 src/gui/LevelPackConfig.cc:307
+#: src/gui/LPGroupConfig.cc:100 src/gui/LevelInspector.cc:178
 #: src/gui/HelpMenu.cc:34
 msgid "Ok"
 msgstr "OK"
@@ -709,11 +739,11 @@ msgstr "Veuillez réassigner le pack àun autre groupe pour détruire ce groupe"
 msgid "Compose Pack"
 msgstr "Composer le pack"
 
-#: src/gui/LevelPackConfig.cc:304
+#: src/gui/LevelPackConfig.cc:302
 msgid "Update Pack"
 msgstr "Actualiser le pack"
 
-#: src/gui/LevelPackConfig.cc:382
+#: src/gui/LevelPackConfig.cc:381
 msgid ""
 "Error: empty title not allowed - press \"Undo\" to exit without modifications"
 msgstr ""
@@ -826,176 +856,180 @@ msgstr "Resserrer la recherche:"
 msgid "case independent search in title, author, filename"
 msgstr "recherche sur titre, auteur, nom du niveau"
 
-#: src/gui/LevelInspector.cc:176
+#: src/gui/LevelInspector.cc:179
 msgid "Screenshot"
 msgstr "Copie d'écran"
 
-#: src/gui/LevelInspector.cc:223
+#: src/gui/LevelInspector.cc:227
 msgid "Level: "
 msgstr "Niveau"
 
-#: src/gui/LevelInspector.cc:225 src/gui/LevelInspector.cc:283
+#: src/gui/LevelInspector.cc:229 src/gui/LevelInspector.cc:287
 msgid "Author: "
 msgstr "Auteur: "
 
-#: src/gui/LevelInspector.cc:226
+#: src/gui/LevelInspector.cc:230
 msgid "Contact: "
 msgstr "Contact: "
 
-#: src/gui/LevelInspector.cc:227
+#: src/gui/LevelInspector.cc:231
 msgid "Homepage: "
 msgstr "Site: "
 
-#: src/gui/LevelInspector.cc:248
+#: src/gui/LevelInspector.cc:252
 msgid "Public Ratings"
 msgstr "Catégories"
 
-#: src/gui/LevelInspector.cc:250
+#: src/gui/LevelInspector.cc:254
 msgid "Intelligence: "
 msgstr "Intelligence: "
 
-#: src/gui/LevelInspector.cc:251
+#: src/gui/LevelInspector.cc:255
 msgid "Dexterity: "
 msgstr "Dextérité: "
 
-#: src/gui/LevelInspector.cc:252
+#: src/gui/LevelInspector.cc:256
 msgid "Patience: "
 msgstr "Patience: "
 
-#: src/gui/LevelInspector.cc:253
+#: src/gui/LevelInspector.cc:257
 msgid "Knowledge: "
 msgstr "Connaissance: "
 
-#: src/gui/LevelInspector.cc:254
+#: src/gui/LevelInspector.cc:258
 msgid "Speed: "
 msgstr "Vitesse: "
 
-#: src/gui/LevelInspector.cc:255
+#: src/gui/LevelInspector.cc:259
 msgid "Difficulty: "
 msgstr "Difficulté: "
 
-#: src/gui/LevelInspector.cc:276
+#: src/gui/LevelInspector.cc:280
 msgid "Scores"
 msgstr "Scores"
 
-#: src/gui/LevelInspector.cc:279
+#: src/gui/LevelInspector.cc:283
 msgid "You: "
 msgstr "Vous: "
 
-#: src/gui/LevelInspector.cc:280
+#: src/gui/LevelInspector.cc:284
 msgid "World: "
 msgstr "Monde: "
 
 #. TRANSLATORS: PAR = professional average rate - an expression used by golfers
-#: src/gui/LevelInspector.cc:282
+#: src/gui/LevelInspector.cc:286
 msgid "PAR: "
 msgstr "PAR: "
 
-#: src/gui/LevelInspector.cc:284
+#: src/gui/LevelInspector.cc:288
 msgid "Solved %: "
 msgstr "Résolus %: "
 
-#: src/gui/LevelInspector.cc:285
+#: src/gui/LevelInspector.cc:289
 msgid "Solved #: "
 msgstr "Résolus #: "
 
-#: src/gui/LevelInspector.cc:307
+#: src/gui/LevelInspector.cc:311
 msgid "Version"
 msgstr "Version: "
 
-#: src/gui/LevelInspector.cc:310
+#: src/gui/LevelInspector.cc:314
 msgid "Score: "
 msgstr "Score: "
 
-#: src/gui/LevelInspector.cc:312 src/gui/LevelInspector.cc:316
+#: src/gui/LevelInspector.cc:316 src/gui/LevelInspector.cc:320
 msgid "Status: "
 msgstr "Etat: "
 
-#: src/gui/LevelInspector.cc:313
+#: src/gui/LevelInspector.cc:317
 msgid "Release: "
 msgstr "Version: "
 
-#: src/gui/LevelInspector.cc:314
+#: src/gui/LevelInspector.cc:318
 msgid "Revision: "
 msgstr "Révision: "
 
-#: src/gui/LevelInspector.cc:317
+#: src/gui/LevelInspector.cc:321
 msgid "Control: "
 msgstr "Contrôle: "
 
-#: src/gui/LevelInspector.cc:318
+#: src/gui/LevelInspector.cc:322
 msgid "Target: "
 msgstr "Cible: "
 
-#: src/gui/LevelInspector.cc:325 src/gui/LevelInspector.cc:341
+#: src/gui/LevelInspector.cc:329 src/gui/LevelInspector.cc:345
 msgid "stable"
 msgstr "stable"
 
-#: src/gui/LevelInspector.cc:327 src/gui/LevelInspector.cc:343
+#: src/gui/LevelInspector.cc:331 src/gui/LevelInspector.cc:347
 msgid "test"
 msgstr "test"
 
-#: src/gui/LevelInspector.cc:329 src/gui/LevelInspector.cc:345
+#: src/gui/LevelInspector.cc:333 src/gui/LevelInspector.cc:349
 msgid "experimental"
 msgstr "expérimental"
 
-#: src/gui/LevelInspector.cc:339
+#: src/gui/LevelInspector.cc:343
 msgid "released"
 msgstr "publié"
 
-#: src/gui/LevelInspector.cc:351
+#: src/gui/LevelInspector.cc:355
 msgid "force"
 msgstr "force"
 
-#: src/gui/LevelInspector.cc:354
+#: src/gui/LevelInspector.cc:358
 msgid "balance"
 msgstr "équilibre"
 
-#: src/gui/LevelInspector.cc:357
+#: src/gui/LevelInspector.cc:361
 msgid "key"
 msgstr "clé"
 
-#: src/gui/LevelInspector.cc:365
+#: src/gui/LevelInspector.cc:369
 msgid "time"
 msgstr "temps"
 
-#: src/gui/LevelInspector.cc:366
+#: src/gui/LevelInspector.cc:370
 msgid "pushes"
 msgstr "poussés"
 
-#: src/gui/LevelInspector.cc:367
+#: src/gui/LevelInspector.cc:371
 msgid "moves"
 msgstr "mouvements"
 
-#: src/gui/LevelInspector.cc:383
+#: src/gui/LevelInspector.cc:388
 msgid "World Record Holders: "
 msgstr "Record(wo)man : "
 
-#: src/gui/LevelInspector.cc:399
+#: src/gui/LevelInspector.cc:449
 msgid "Credits: "
 msgstr "Crédits"
 
-#: src/gui/LevelInspector.cc:410
+#: src/gui/LevelInspector.cc:460
 msgid "Dedication: "
 msgstr "Dédié �: "
 
-#: src/gui/LevelInspector.cc:421
+#: src/gui/LevelInspector.cc:471
 msgid "Level Path: "
 msgstr "Chemin: "
 
-#: src/gui/LevelInspector.cc:441
+#: src/gui/LevelInspector.cc:491
+msgid "Id: "
+msgstr ""
+
+#: src/gui/LevelInspector.cc:496
 msgid "Compatibility: "
 msgstr "Compatibilité: "
 
-#: src/gui/LevelInspector.cc:448
+#: src/gui/LevelInspector.cc:504
 msgid "Annotation: "
 msgstr "Annotation: "
 
-#: src/gui/LevelInspector.cc:454
+#: src/gui/LevelInspector.cc:509
 msgid "Rating: "
 msgstr "Note: "
 
-#: src/gui/LevelInspector.cc:456
+#: src/gui/LevelInspector.cc:511
 msgid "Average: "
 msgstr "Moyenne: "
 
@@ -1027,16 +1061,27 @@ msgstr ""
 "Note: le niveau n'apparaîtra pas dans \"Auto Folder\" levelpack!\n"
 "\n"
 
-#: src/lev/Proxy.cc:167 src/lev/PersistentIndex.cc:306 src/d_models.cc:210
-#: src/d_models.cc:224 src/PreferenceManager.cc:181 src/StateManager.cc:159
+#: src/lev/Proxy.cc:167 src/lev/PersistentIndex.cc:342 src/d_models.cc:210
+#: src/d_models.cc:224 src/PreferenceManager.cc:181 src/StateManager.cc:177
 msgid "Continue"
 msgstr "Continuer"
 
-#: src/lev/PersistentIndex.cc:302
+#: src/lev/PersistentIndex.cc:328
+#, fuzzy
+msgid "Error on  update of levelpack index: \n"
+msgstr "Erreur à l'enregistrement de l'index des niveaux: \n"
+
+#: src/lev/PersistentIndex.cc:330
+msgid ""
+"Note: the current version will be reloaded!\n"
+"\n"
+msgstr ""
+
+#: src/lev/PersistentIndex.cc:337
 msgid "Error on  registration of levelpack index: \n"
 msgstr "Erreur à l'enregistrement de l'index des niveaux: \n"
 
-#: src/lev/PersistentIndex.cc:304
+#: src/lev/PersistentIndex.cc:339
 msgid ""
 "Note: the levelpack will not show up!\n"
 "\n"
@@ -1044,22 +1089,22 @@ msgstr ""
 "Le pack de niveau n'apparaîtra pas!\n"
 "\n"
 
-#: src/lua.cc:800
+#: src/lua.cc:792
 #, c-format
 msgid "Cannot find '%s'.\n"
 msgstr "'%s' introuvable.\n"
 
-#: src/lua.cc:801 src/lua.cc:808
+#: src/lua.cc:793 src/lua.cc:800
 #, c-format
 msgid "Your installation may be incomplete or invalid.\n"
 msgstr "Votre installation peut être incomplète ou invalide.\n"
 
-#: src/lua.cc:807
+#: src/lua.cc:799
 #, c-format
 msgid "There was an error loading '%s'.\n"
 msgstr "Erreur au chargement de '%s'.\n"
 
-#: src/lua.cc:809
+#: src/lua.cc:801
 #, c-format
 msgid "Error: '%s'\n"
 msgstr "Erreur: '%s'\n"
@@ -1076,58 +1121,67 @@ msgstr ""
 
 #: po/level_i18n.cc:37
 msgid "Drop the hammer on side of a pentomino and use the switch!"
-msgstr "Laissez tomber ce marteau sur le côté du pentomino et utilisez l'interrupteur!"
+msgstr ""
+"Laissez tomber ce marteau sur le côté du pentomino et utilisez "
+"l'interrupteur!"
 
-#: po/level_i18n.cc:53
+#: po/level_i18n.cc:38
+#, fuzzy
+msgid "Drop the hammer on side of a pentomino, not beneath it!"
+msgstr ""
+"Laissez tomber ce marteau sur le côté du pentomino et utilisez "
+"l'interrupteur!"
+
+#: po/level_i18n.cc:54
 msgid "Dedicated to my friend Frank."
 msgstr "Dédié à  mon ami Frank."
 
-#: po/level_i18n.cc:54
+#: po/level_i18n.cc:55
 msgid "This level is quite straightforward, isn't it? Just continue .. ;-)"
 msgstr "Ce niveau est très simple, non? Continuez ..  ;-)"
 
-#: po/level_i18n.cc:64
+#: po/level_i18n.cc:65
 msgid "And last not least: 3*20 = 60"
 msgstr "Et enfin: 3*20 = 60"
 
-#: po/level_i18n.cc:71
+#: po/level_i18n.cc:72
 msgid "Take some money and build yourself the tools you need."
 msgstr ""
 "Prenez un peu d'argent et construisez vous-mêmes les  outils dont vous avez "
 "besoin."
 
-#: po/level_i18n.cc:93
+#: po/level_i18n.cc:94
 msgid "Give it another try ..."
 msgstr "Essayer encore une fois ..."
 
-#: po/level_i18n.cc:97
+#: po/level_i18n.cc:98
 msgid "So,  where  are  the  knights?  -  you'll  be  sorry  you  asked!"
 msgstr ""
 "Où sont les cavaliers?  -  vous allez regretter d'avoir posé la question!"
 
-#: po/level_i18n.cc:112
+#: po/level_i18n.cc:113
 msgid "The other document lies and the left wormhole is the right one."
 msgstr "L'autre document ment et la feuille de droite est gauche."
 
-#: po/level_i18n.cc:115
+#: po/level_i18n.cc:116
 msgid ""
 "The other document tells the truth and the other wormhole has been left on "
 "the right side."
 msgstr "L'autre document dit vrai et la feuille de gauche est adroite."
 
-#: po/level_i18n.cc:131
+#: po/level_i18n.cc:132
 msgid "Press F3 or finish."
 msgstr "Faites F3 ou finissez."
 
-#: po/level_i18n.cc:141
+#: po/level_i18n.cc:142
 msgid "Just a hint: Try the easy-mode first ..."
 msgstr "Indice: Essayez le mode Facile ..."
 
-#: po/level_i18n.cc:142
+#: po/level_i18n.cc:143
 msgid "Don't think too long ... it's easy!"
 msgstr "Ne réfléchissez pas trop ... c'est facile!"
 
-#: po/level_i18n.cc:147
+#: po/level_i18n.cc:148
 msgid ""
 "A Stone, a Tree, and Trees be Three,   --   For to Defeat the Enemy,   --   "
 "Between Might Lay   --   A Secret Way!   --   (If this you see, press Shift-"
@@ -1137,23 +1191,23 @@ msgstr ""
 "d'armes, -- Il se peut qu'il y ait -- Un chemin secret! --  (si  ceci voyez, "
 "F3 pressez)"
 
-#: po/level_i18n.cc:160
+#: po/level_i18n.cc:161
 msgid "...  now  go  back  and  get  the  hammer!"
 msgstr "... maintenant retournez chercher le marteau!"
 
-#: po/level_i18n.cc:167
+#: po/level_i18n.cc:168
 msgid "Some stones are movable."
 msgstr "On peut bouger certaines pierres."
 
-#: po/level_i18n.cc:168
+#: po/level_i18n.cc:169
 msgid "You lost!"
 msgstr "Perdu!"
 
-#: po/level_i18n.cc:172
+#: po/level_i18n.cc:173
 msgid "Five form twelve!"
 msgstr "Cinq font douze!"
 
-#: po/level_i18n.cc:180
+#: po/level_i18n.cc:181
 msgid ""
 "You play against Big Brother; each player in turn deletes 1, 2 or 3 stones; "
 "the one who deletes the last stone LOOSES!!!"
@@ -1161,19 +1215,19 @@ msgstr ""
 "Vous jouez contre Big Brother; chacun son tour efface 1, 2 ou 3  pierres au "
 "choix; celui qui efface la dernière pierre PERD!!!"
 
-#: po/level_i18n.cc:182
+#: po/level_i18n.cc:183
 msgid "Now you begin this game."
 msgstr "A vous de jouer."
 
-#: po/level_i18n.cc:184
+#: po/level_i18n.cc:185
 msgid "Poor little blackball ... 'SHIFT+F3'!!!"
 msgstr "Perdu ... 'SHIFT+F3'!!!"
 
-#: po/level_i18n.cc:203
+#: po/level_i18n.cc:204
 msgid "- Meditation -"
 msgstr "- Méditation -"
 
-#: po/level_i18n.cc:216
+#: po/level_i18n.cc:217
 msgid ""
 "One of the puzzle stones needs to be placed onto the trigger "
 "field.                       Guess which ... :)"
@@ -1181,29 +1235,29 @@ msgstr ""
 "L'un des puzzles doit être placé sur un des  triggers.                     "
 "Devinez lequel ...  :)"
 
-#: po/level_i18n.cc:217
+#: po/level_i18n.cc:218
 msgid "The level preview might help ..."
 msgstr "Un examen préliminaire du niveau peut aider ..."
 
-#: po/level_i18n.cc:240 po/level_i18n.cc:696 po/level_i18n.cc:822
-#: po/level_i18n.cc:1843 po/level_i18n.cc:2059 po/level_i18n.cc:3067
-#: po/level_i18n.cc:3175
+#: po/level_i18n.cc:241 po/level_i18n.cc:697 po/level_i18n.cc:846
+#: po/level_i18n.cc:1971 po/level_i18n.cc:2187 po/level_i18n.cc:3195
+#: po/level_i18n.cc:3334
 msgid "Welcome"
 msgstr "Bienvenue"
 
-#: po/level_i18n.cc:241
+#: po/level_i18n.cc:242
 msgid "Welcome to Enigma II"
 msgstr "Bienvenue dans Enigma II"
 
-#: po/level_i18n.cc:246
+#: po/level_i18n.cc:247
 msgid "This switch is to validate your guess."
 msgstr "Ce bouton valide votre choix."
 
-#: po/level_i18n.cc:248
+#: po/level_i18n.cc:249
 msgid "This switch is to reset the game."
 msgstr "Ce bouton recommence le jeu."
 
-#: po/level_i18n.cc:250
+#: po/level_i18n.cc:251
 msgid ""
 "Each color appears once. Each correct color produces whites in the wrong "
 "place, blacks in the right one."
@@ -1211,19 +1265,19 @@ msgstr ""
 "Chaque couleur n'existe qu'une fois au plus; un blanc représente une  bonne "
 "couleur; un noir représente une couleur bonne et bien placée."
 
-#: po/level_i18n.cc:262
+#: po/level_i18n.cc:263
 msgid "Road to Eden"
 msgstr "En route vers le Paradis"
 
-#: po/level_i18n.cc:269
+#: po/level_i18n.cc:270
 msgid "Make a Sword, & Umbrella."
 msgstr "Fabriquez une épée, hein, et des pépins"
 
-#: po/level_i18n.cc:288
+#: po/level_i18n.cc:289
 msgid "You'd need a portable box!"
 msgstr "Il vous faudrait une boîte portative!"
 
-#: po/level_i18n.cc:289
+#: po/level_i18n.cc:290
 msgid ""
 "Congratulations! You found a seed! Try to use it behind the grate (and move "
 "away quickly)"
@@ -1231,7 +1285,7 @@ msgstr ""
 "Félicitations! Vous avez trouvé une graine! Essayez-la sous la grille  (et "
 "dégagez vite de l�)"
 
-#: po/level_i18n.cc:290
+#: po/level_i18n.cc:291
 msgid ""
 "Remember that you can't fill a closed bridge with a "
 "box ...                                           but maybe you can use the "
@@ -1241,29 +1295,29 @@ msgstr ""
 "boîte ...                                     mais peut-être y a-t-il une  "
 "autre manière d'utiliser la troisième graine!"
 
-#: po/level_i18n.cc:291
+#: po/level_i18n.cc:292
 msgid "There are different kinds of seeds ... Try to use them!"
 msgstr "Il y a plusieurs sortes de graines ... Essayez-les!"
 
-#: po/level_i18n.cc:293
+#: po/level_i18n.cc:294
 msgid "Noitcerid etisoppo eht yrt! Tuo syaw owt? Rorrim, rorrim ..."
 msgstr "Eésoppo noitcerid al ! Seitros xued ? Riorim, riorim ..."
 
-#: po/level_i18n.cc:297
+#: po/level_i18n.cc:298
 msgid "Simply 5*12 ..."
 msgstr "Juste 5*12 ..."
 
-#: po/level_i18n.cc:319
+#: po/level_i18n.cc:320
 msgid "Beware! Black holes!"
 msgstr "Attention! Trous noirs!"
 
-#: po/level_i18n.cc:349
+#: po/level_i18n.cc:350
 msgid "Our full attention this is worth:           Air and Fire, Water, Earth."
 msgstr ""
 "Notre attention devrait se focaliser sur:              Air et Feu, Eau, "
 "Terre."
 
-#: po/level_i18n.cc:352
+#: po/level_i18n.cc:353
 msgid ""
 "And if your answer can’t be found           then shame on you, eyes to the "
 "ground!"
@@ -1271,27 +1325,27 @@ msgstr ""
 "Si vos essais vous mènent trop loin,        alors honte sur vous, face  "
 "contre terre!"
 
-#: po/level_i18n.cc:374
+#: po/level_i18n.cc:375
 msgid "is  black  always  beautiful?"
 msgstr "Le noir est-il toujours beau?"
 
-#: po/level_i18n.cc:381
+#: po/level_i18n.cc:382
 msgid "Do not use too much magic!"
 msgstr "N'abusez pas de la magie!"
 
-#: po/level_i18n.cc:391
+#: po/level_i18n.cc:392
 msgid "Dead end!"
 msgstr "Sans issue!"
 
-#: po/level_i18n.cc:392
+#: po/level_i18n.cc:393
 msgid "There are two HIDDEN items!"
 msgstr "Deux choses sont CACHEES!"
 
-#: po/level_i18n.cc:393
+#: po/level_i18n.cc:394
 msgid "Third stone from the rock is the hole!"
 msgstr "La troisième pierre à partir du rocher est le trou!"
 
-#: po/level_i18n.cc:409
+#: po/level_i18n.cc:410
 msgid ""
 "As long as there is motion around the oxyd-stones, you won't reach them.   "
 "So: Don't lose control of the level! It's possible."
@@ -1299,55 +1353,55 @@ msgstr ""
 "Tant qu'il y a du mouvement autour des oxydes, vous ne pouvez les atteindre. "
 "Aussi ne perdez pas conrôle sur ce niveau! C'est possible!"
 
-#: po/level_i18n.cc:413
+#: po/level_i18n.cc:414
 msgid "! -  DANGER  -  NO TRESPASSING  -  DANGER  - !"
 msgstr "! - DANGER - NE PAS FRANCHIR - DANGER - !"
 
-#: po/level_i18n.cc:429
+#: po/level_i18n.cc:430
 msgid "Danger ... laser beams!"
 msgstr "Danger ... rayons laser!"
 
-#: po/level_i18n.cc:437
+#: po/level_i18n.cc:438
 msgid "The Life Game"
 msgstr "Le jeu de la Vie"
 
-#: po/level_i18n.cc:439
+#: po/level_i18n.cc:440
 msgid "The nine switches in square serve to configure the initial population."
 msgstr "Les 9 interrupteurs en carré configurent la population initiale."
 
-#: po/level_i18n.cc:441
+#: po/level_i18n.cc:442
 msgid "START"
 msgstr "DEMARRER."
 
-#: po/level_i18n.cc:443
+#: po/level_i18n.cc:444
 msgid "CLEAR"
 msgstr "EFFACER."
 
-#: po/level_i18n.cc:453
+#: po/level_i18n.cc:454
 msgid "Calm down!"
 msgstr "On se calme!"
 
 #  level: "Easy Shifting.."
 #  author: "Ralf Westram" email "amgine@reallysoft.de"
-#: po/level_i18n.cc:464
+#: po/level_i18n.cc:465
 msgid ".moor txen eht ot teg ot syaw owt era erehT"
 msgstr ".erbmahc eniahcorp al à revirra ruop seiov xued a y lI"
 
 #  level: "Easy Shifting.."
 #  author: "Ralf Westram" email "amgine@reallysoft.de"
-#: po/level_i18n.cc:472
+#: po/level_i18n.cc:473
 msgid "Wood robbing"
 msgstr "Cambriolage de stocks de bois"
 
-#: po/level_i18n.cc:494 po/level_i18n.cc:1950
+#: po/level_i18n.cc:495 po/level_i18n.cc:2078
 msgid "It's a race!"
 msgstr "C'est la course!"
 
-#: po/level_i18n.cc:516
+#: po/level_i18n.cc:517
 msgid "Oops ... you're stuck ...     Try again ..."
 msgstr "Aie! Coincés! Réessayez..."
 
-#: po/level_i18n.cc:517
+#: po/level_i18n.cc:518
 msgid ""
 "Congratulations, you reached this side ...      but can you get to the "
 "oxyds? "
@@ -1355,19 +1409,19 @@ msgstr ""
 "Bravo, vous êtes de ce côté-ci ...     mais vous n'arrivez toujours  pas aux "
 "oxydes?"
 
-#: po/level_i18n.cc:518
+#: po/level_i18n.cc:519
 msgid "Well done!"
 msgstr "Bien joué!"
 
-#: po/level_i18n.cc:522
+#: po/level_i18n.cc:523
 msgid "Paint Ahead!"
 msgstr "Peignez devant!"
 
-#: po/level_i18n.cc:559
+#: po/level_i18n.cc:560
 msgid "Too many wooden blocks!  Try the other way ..."
 msgstr "Trop de blocs de bois?  Essayez l'autre chemin..."
 
-#: po/level_i18n.cc:560
+#: po/level_i18n.cc:561
 msgid ""
 "Greetings, adventurer!    The road ahead is long and dangerous, so be "
 "careful!"
@@ -1375,21 +1429,21 @@ msgstr ""
 "Salut à toi, aventurier!      Le chemin qui t'attend est long  et dangereux, "
 "alors fais attention!"
 
-#: po/level_i18n.cc:561
+#: po/level_i18n.cc:562
 msgid "Well done, adventurer!    Good luck!"
 msgstr "Bien joué, aventurier!      Bonne chance!"
 
-#: po/level_i18n.cc:562
+#: po/level_i18n.cc:563
 msgid "Congratulations, adventurer!  You did it!"
 msgstr "Bravo aventurier!  Tu y es arrivé!"
 
-#: po/level_i18n.cc:567
+#: po/level_i18n.cc:568
 msgid "The Flagstone Reaper"
 msgstr "Le ramasseur de drapeaux"
 
 #  level: "Pentomino V"
 #  author: "Ralf Westram" email "amgine@reallysoft.de"
-#: po/level_i18n.cc:570
+#: po/level_i18n.cc:571
 msgid ""
 "No hint today ...    Those flagstones pass away ...    The docu stands "
 "alone ...    Why is it so alone?    --    This hint today ...    Why is it "
@@ -1400,11 +1454,11 @@ msgstr ""
 "côté, le ramasseur de drapeaux qui marche à côté aura ma peau ... Lui doit "
 "savoir pourquoi le document est ici ... Si, si!"
 
-#: po/level_i18n.cc:589
+#: po/level_i18n.cc:590
 msgid "Alfred Nobel says: This is definitely a meditation landscape!"
 msgstr "Alfred Nobel dit qu'il y a vraiment à méditer dans ce paysage!"
 
-#: po/level_i18n.cc:629
+#: po/level_i18n.cc:630
 msgid ""
 "That wasn't fast enough; try "
 "F3.                                                                              "
@@ -1422,7 +1476,7 @@ msgstr ""
 "pas)                                                                                      "
 "(Vraiment!)"
 
-#: po/level_i18n.cc:630
+#: po/level_i18n.cc:631
 msgid ""
 "You can believe me: All stones you see in this level are "
 "solid!                                                                                      "
@@ -1436,27 +1490,29 @@ msgstr ""
 "croire!                                                                               "
 "Vraiment!"
 
-#: po/level_i18n.cc:640
+#  level: "Do It Yourself"
+#  author: "Martin Hawlisch" email ""
+#: po/level_i18n.cc:641
 msgid "What a pity, and there's so much paint left ..."
 msgstr "Quel dommage, et il reste encore tant de peinture ..."
 
-#: po/level_i18n.cc:650
+#: po/level_i18n.cc:651
 msgid "A hammer destroys some black stones."
 msgstr "Un marteau détruit certaines pierres noires."
 
-#: po/level_i18n.cc:651
+#: po/level_i18n.cc:652
 msgid "Watch out for a disappearing stone."
 msgstr "Guettez la disparition d'une pierre."
 
-#: po/level_i18n.cc:679
+#: po/level_i18n.cc:680
 msgid "Don't wake it up!"
 msgstr "Ne réveillez pas le serpent qui dort!"
 
-#: po/level_i18n.cc:697
+#: po/level_i18n.cc:698
 msgid "Welcome to Enigma IV"
 msgstr "Bienvenue dans Enigma IV"
 
-#: po/level_i18n.cc:742
+#: po/level_i18n.cc:743
 msgid ""
 "Your uncle Sir Blackball has been murdered last night in his manor, in one "
 "of his 6 rooms, by one of the weapons which are in the cellar; the suspects "
@@ -1473,99 +1529,115 @@ msgstr ""
 "magnifique Mademoiselle Rose ... Vous devez trouver qui est le meutrier de "
 "votre oncle, quelle est l'arme du crime et où le crime a eu lieu."
 
-#: po/level_i18n.cc:744
+#: po/level_i18n.cc:745
 msgid "This room is not the crime scene."
 msgstr "Cette chambre n'est pas le lieu du crime."
 
-#: po/level_i18n.cc:746
+#: po/level_i18n.cc:747
 msgid "The murderer is not Mrs Peacock."
 msgstr "Madame Pervenche n'est pas le meutrier."
 
-#: po/level_i18n.cc:748
+#: po/level_i18n.cc:749
 msgid "The murderer is not Colonel Mustard."
 msgstr "Le Colonel Moutarde n'est pas le meutrier."
 
-#: po/level_i18n.cc:750
+#: po/level_i18n.cc:751
 msgid "The murderer is not Professor Plum."
 msgstr "Le Professeur Violet n'est pas le meutrier."
 
-#: po/level_i18n.cc:752
+#: po/level_i18n.cc:753
 msgid "The murderer is not Reverend Green."
 msgstr "Le docteur Olive n'est pas le meutrier."
 
-#: po/level_i18n.cc:754
+#: po/level_i18n.cc:755
 msgid "The murderer is not Mrs Whiteball."
 msgstr "Madame Blanchebille n'est pas le meutrier."
 
-#: po/level_i18n.cc:756
+#: po/level_i18n.cc:757
 msgid "The murderer is not Miss Scarlett."
 msgstr "Mademoiselle Rose n'est pas le meutrier."
 
-#: po/level_i18n.cc:758
+#: po/level_i18n.cc:759
 msgid "Sir Blackball has not been killed with the bomb."
 msgstr "La bombe n'est pas l'arme du crime."
 
-#: po/level_i18n.cc:760
+#: po/level_i18n.cc:761
 msgid "Sir Blackball has not been killed with the dagger."
 msgstr "Le poignard n'est pas l'arme du crime."
 
-#: po/level_i18n.cc:762
+#: po/level_i18n.cc:763
 msgid "Sir Blackball has not been killed with poison."
 msgstr "Le poison n'est pas l'arme du crime."
 
-#: po/level_i18n.cc:764
+#: po/level_i18n.cc:765
 msgid "Sir Blackball has not been killed with the wrench."
 msgstr "La clé anglaise n'est pas l'arme du crime."
 
-#: po/level_i18n.cc:766
+#: po/level_i18n.cc:767
 msgid "Sir Blackball has not been killed with the candlestick."
 msgstr "Le chandelier n'est pas l'arme du crime."
 
-#: po/level_i18n.cc:768
+#: po/level_i18n.cc:769
 msgid "Sir Blackball has not been killed with the hammer."
 msgstr "Le marteau n'est pas l'arme du crime."
 
-#: po/level_i18n.cc:781
+#: po/level_i18n.cc:780
+msgid "Rotor Guards"
+msgstr ""
+
+#: po/level_i18n.cc:782
+msgid "Hoisting guards with their own petard"
+msgstr ""
+
+#: po/level_i18n.cc:789
 msgid "No Memory"
 msgstr "Pas de mémoire"
 
-#: po/level_i18n.cc:786
+#: po/level_i18n.cc:797
 msgid "Hot Hurdle Race"
 msgstr "Course d'obstacle de feu"
 
-#: po/level_i18n.cc:788
+#: po/level_i18n.cc:799
 msgid "Run for your life!"
 msgstr "\"Courez si vous tenez à la vie!\""
 
-#: po/level_i18n.cc:792
+#: po/level_i18n.cc:803
 msgid "Holes!"
 msgstr "Des trous!"
 
-#: po/level_i18n.cc:805
+#: po/level_i18n.cc:819
 msgid "Al Capone's training camp."
 msgstr "Le camp d'entraînement d'Al Capone."
 
-#: po/level_i18n.cc:806
+#: po/level_i18n.cc:820
 msgid "There are at least two patterns to break through the wall."
 msgstr "Il y a au moins deux moyens de casser le mur."
 
-#: po/level_i18n.cc:807
+#: po/level_i18n.cc:821
 msgid "It is a well known secret that a few prisioners did escape."
 msgstr "Un secret bien connu: Peu de prisonniers ont réussi à s'évader."
 
-#: po/level_i18n.cc:808
+#: po/level_i18n.cc:822
 msgid "A window in the wall would be really nice."
 msgstr "Une fenêtre dans le mur, ce serait vraiment bien."
 
-#: po/level_i18n.cc:823
+#: po/level_i18n.cc:827
+msgid "Correspondence Chess"
+msgstr ""
+
+#: po/level_i18n.cc:829
+msgid "Send smartly!"
+msgstr ""
+
+#: po/level_i18n.cc:847
 msgid "Welcome to Enigma VI"
 msgstr "Bienvenue dans Enigma VI"
 
-#: po/level_i18n.cc:843
+#: po/level_i18n.cc:870
 msgid "Toreador"
 msgstr "Toréador"
 
-#: po/level_i18n.cc:856
+#: po/level_i18n.cc:886
 msgid ""
 "Welcome to Mexico! Eight hours ago, your plane arrived at the Airport of "
 "\"Coatlicue\", which is a small village surrounded by unexplored jungle "
@@ -1573,12 +1645,13 @@ msgid ""
 "to be a relic of the ancient Aztec empire. But the temple is in surprisingly "
 "good condition ..."
 msgstr ""
-"Bienvenue au Mexique! Il y a huit heures, votre avion s'est posé sur le  petit "
-"aéroport de \"Coatlicue\", un petit village au milieu d'une jungle  inexplorée. "
-"Maintenant vous vous trouvez au fronton d'un gigantesque temple  qui semble "
-"dater des aztèques; mais ce temple est remarquablement bien conservé ..."
+"Bienvenue au Mexique! Il y a huit heures, votre avion s'est posé sur le  "
+"petit aéroport de \"Coatlicue\", un petit village au milieu d'une jungle  "
+"inexplorée. Maintenant vous vous trouvez au fronton d'un gigantesque temple  "
+"qui semble dater des aztèques; mais ce temple est remarquablement bien "
+"conservé ..."
 
-#: po/level_i18n.cc:857
+#: po/level_i18n.cc:887
 msgid ""
 "Next to the giant doors of the temple you see a chrome sign: \"Restoration "
 "by: G. G. Goshers, A.D. 1998\". A smaller sign beneath says: \"Property of "
@@ -1595,20 +1668,18 @@ msgstr ""
 "illégal puisque Goshers travaille pour le  gouvernement américain. Je vais "
 "lui téléphoner pour lui demander des comptes!\"   "
 
-#: po/level_i18n.cc:858
+#: po/level_i18n.cc:888
 msgid "This guard doesn’t notice me."
 msgstr "Ce gardien ne m'a pas vu.  "
 
-#: po/level_i18n.cc:859
+#: po/level_i18n.cc:889
 msgid ""
 "This lake was obviously made by Goshers. I think the correct way is south."
 msgstr ""
 "Ce lac est visiblement l'oeuvre de Goshers. Je pense que le chemin vers  le "
 "Sud est le bon."
 
-#  level: "Laser Magic"
-#  author: "Petr Machata" email ""
-#: po/level_i18n.cc:860
+#: po/level_i18n.cc:890
 msgid ""
 "There's an inscription on the old wall, saying in spanish: \"Careful! What "
 "you touch could be the last thing you touch!\""
@@ -1616,15 +1687,15 @@ msgstr ""
 "Une inscription sur le vieux mur dit en espagnol: \"Attention! Ce que vous "
 "touchez pourrait être la dernière chose que vous touchiez!\""
 
-#: po/level_i18n.cc:861
+#: po/level_i18n.cc:891
 msgid "Chrome sign: \"Control of the beast’s cage.\""
 msgstr "Panneau chromé: \"Contrôle des bêtes sauvages.\" "
 
-#: po/level_i18n.cc:862
+#: po/level_i18n.cc:892
 msgid "Oooh, this slope is steep! Try not to touch the skull!"
 msgstr "Oooh, que la pente est raide! Eessayez de ne pas de toucher le crâne! "
 
-#: po/level_i18n.cc:863
+#: po/level_i18n.cc:893
 msgid ""
 "This building down there looks like a prison. Let's see if I can determine "
 "its purpose ... Ah, there's another chrome sign. Goshers seems to favour "
@@ -1634,7 +1705,7 @@ msgstr ""
 "y a un panneau. Et il est aussi chromé. Goshers semble aimer les  panneaux "
 "chromés. Celui-ci dit: \"Prison des indigènes\". "
 
-#: po/level_i18n.cc:864
+#: po/level_i18n.cc:894
 msgid ""
 "Getting beyond the prison building was a really good idea. But now you have "
 "to cross this lake. Be thrifty with those boxes!"
@@ -1642,7 +1713,7 @@ msgstr ""
 "Aller au-delàde la prison était vraiment une bonne idée. Mais maintenant  il "
 "vous reste à traverser ce lac. Soyez économe avec ces boîtes!  "
 
-#: po/level_i18n.cc:865
+#: po/level_i18n.cc:895
 msgid ""
 "Now, peering through the grilled prison windows, you see a native woman "
 "imprisoned there. Obviously Goshers locked up all the natives, who disturbed "
@@ -1657,7 +1728,7 @@ msgstr ""
 "connaît les secrets de la jungle et du temple n'est peut-être pas "
 "superflue ..."
 
-#: po/level_i18n.cc:866
+#: po/level_i18n.cc:896
 msgid ""
 "Since the white man there freed me from the prison, he certainly cannot be "
 "as evil as this Goshers is. Perhaps he wants to end the mastery of Goshers "
@@ -1669,7 +1740,7 @@ msgstr ""
 "peuple. Et même si ce n'est pas le cas, il vaut mieux être  libre qu'en "
 "prison. Je crois que je devrais le remercier."
 
-#: po/level_i18n.cc:867
+#: po/level_i18n.cc:897
 msgid ""
 "You meet the English adventurer in the front of the prison. \"Hello, I'm "
 "Xila!\", you tell him in broken English. After he introduced himself as "
@@ -1680,7 +1751,7 @@ msgstr ""
 "s'est présenté àson tour, vous élaborez à deux un plan pour combattre  le "
 "démoniaque Goshers."
 
-#: po/level_i18n.cc:868
+#: po/level_i18n.cc:898
 msgid ""
 "This is a really hard puzzle. The English man will have to help me, if this "
 "enigma is to be solved."
@@ -1688,31 +1759,31 @@ msgstr ""
 "Cette énigme être vraiment difficile. Il me faudra l'aide de l'Anglais  pour "
 "la résoudre."
 
-#: po/level_i18n.cc:869
+#: po/level_i18n.cc:899
 msgid "You wonder what this switch could trigger."
 msgstr "Vous vous demandez ce que cet interrupteur peut déclencher."
 
-#: po/level_i18n.cc:870
+#: po/level_i18n.cc:900
 msgid "Xila knows how to drain the lake!"
 msgstr "Xila savoir comment assécher le lac."
 
-#: po/level_i18n.cc:871
+#: po/level_i18n.cc:901
 msgid "You were lucky to find this hole. It prevents you from drowning."
 msgstr "Cette grotte est providentielle. Elle vous sauve de la noyade."
 
-#: po/level_i18n.cc:872
+#: po/level_i18n.cc:902
 msgid "This glass stone must fulfill a purpose ..."
 msgstr "Cette pierre de cristal doit certainement avoir un but ..."
 
-#: po/level_i18n.cc:873
+#: po/level_i18n.cc:903
 msgid "It's funny that such a temple should have a side entrance."
 msgstr "Etrange, que ce genre de temple ait une entrée latérale."
 
-#: po/level_i18n.cc:874
+#: po/level_i18n.cc:904
 msgid "Be careful! There are sensors in the walls."
 msgstr "Attention aux capteurs dans le mur."
 
-#: po/level_i18n.cc:875
+#: po/level_i18n.cc:905
 msgid ""
 "After the huge doors of the old temple have opened, you see, that the "
 "entrance is protected by 11 knights, armed with spears. These guards are "
@@ -1724,11 +1795,11 @@ msgstr ""
 "dangereux que sans épée vous ne pourrez jamais entrer. Attention, il y a  "
 "aussi des voleurs."
 
-#: po/level_i18n.cc:876
+#: po/level_i18n.cc:906
 msgid "\"Congratulations. You just managed to enter this old Aztec Temple.\""
 msgstr "\"Bravo. Vous avez réussi à entrer dans ce vieux Temple Aztèque.\" "
 
-#: po/level_i18n.cc:877
+#: po/level_i18n.cc:907
 msgid ""
 "\"You've been smarter than I expected. But you'll never enter the treasure "
 "room nor escape from here!\""
@@ -1736,7 +1807,7 @@ msgstr ""
 "\"Vous avez été plus malin que je ne l'aurais cru. Mais la chambre du "
 "trésor, vous n'y entrerez ni n'en sortirez jamais!\""
 
-#: po/level_i18n.cc:878
+#: po/level_i18n.cc:908
 msgid ""
 "\"I, Goshers, will certainly be able to rid myself of one of my archenemies "
 "by just killing you!\""
@@ -1744,11 +1815,11 @@ msgstr ""
 "\"Moi Goshers saurai me débarasser définitivement de mes ennemis,  rien "
 "qu'en vous tuant vous!\"  "
 
-#: po/level_i18n.cc:879
+#: po/level_i18n.cc:909
 msgid "\"Run for your life!\""
 msgstr "\"Courez si vous tenez à la vie!\""
 
-#: po/level_i18n.cc:880
+#: po/level_i18n.cc:910
 msgid ""
 "Xila and you just entered the Diamond Room of the old Aztec Temple. By "
 "taking him back to Great Britain and rendering him to the police, you have "
@@ -1760,185 +1831,260 @@ msgstr ""
 "Majesté, vous avez mis fin aux exactions de Gerald Gregory Goshers.  Votre "
 "expédition est un succès! "
 
-#  level: "Knight Moves"
-#  author: "illmind" email ""
-#: po/level_i18n.cc:900
+#: po/level_i18n.cc:927
+msgid "Magic Trinity"
+msgstr ""
+
+#: po/level_i18n.cc:938
 msgid "Pass the ball in time"
 msgstr "Faites une passe dans les temps"
 
-#: po/level_i18n.cc:919
+#: po/level_i18n.cc:949
+msgid "Charging live ammunition"
+msgstr ""
+
+#: po/level_i18n.cc:957
+msgid "Pleasure Garden"
+msgstr ""
+
+#: po/level_i18n.cc:967
+msgid "Oxyd Drilling"
+msgstr ""
+
+#: po/level_i18n.cc:969
+msgid "Useful unsuccessful drillings"
+msgstr ""
+
+#: po/level_i18n.cc:973
 msgid "It isn't as easy as it looks."
 msgstr "Pas aussi facile que ça en a l'air."
 
-#: po/level_i18n.cc:924
+#: po/level_i18n.cc:981
 msgid "Meditation Disturbance"
 msgstr "Distrait de la méditation"
 
-#: po/level_i18n.cc:927
+#: po/level_i18n.cc:984
 msgid "Hit by a bolting horse"
 msgstr "Ruer dans les brancards"
 
-#: po/level_i18n.cc:935
+#: po/level_i18n.cc:992
 msgid "In the line of thieves"
 msgstr "Caravane des voleurs"
 
-#: po/level_i18n.cc:937
+#: po/level_i18n.cc:994
 msgid "Keys from left to right are NE, NW, SE, SW."
 msgstr "Les clés sont, de gauche à droite: NE, NW, SE et SW."
 
-#: po/level_i18n.cc:941
+#: po/level_i18n.cc:998
 msgid "illmind's be quick or be dead"
 msgstr "soyez rapide ou soyez mort"
 
-#: po/level_i18n.cc:960
+#: po/level_i18n.cc:1015
+msgid "One-Way Woods"
+msgstr ""
+
+#: po/level_i18n.cc:1016
+msgid "Recycling by Swapping"
+msgstr ""
+
+#: po/level_i18n.cc:1032
 msgid "Dialers"
 msgstr "Numéroteurs"
 
-#: po/level_i18n.cc:964
+#: po/level_i18n.cc:1039
 msgid "Edwards Mountain"
 msgstr "La montagne d'Edward"
 
-#: po/level_i18n.cc:975
+#: po/level_i18n.cc:1058
 msgid "Blitz Chess"
 msgstr "Echec en blitz"
 
-#: po/level_i18n.cc:977
+#: po/level_i18n.cc:1060
 msgid "Move fast!"
 msgstr "bougez vite!"
 
-#: po/level_i18n.cc:982
+#: po/level_i18n.cc:1065
 msgid "Procrustes"
 msgstr "Procuste"
 
-#: po/level_i18n.cc:988
+#: po/level_i18n.cc:1069
+msgid "illmind's jumping ball flash ..."
+msgstr ""
+
+#: po/level_i18n.cc:1070
+msgid "... of heaven comes the beast from the ..."
+msgstr ""
+
+#: po/level_i18n.cc:1071
+msgid "... t r a p p e d ..."
+msgstr ""
+
+#: po/level_i18n.cc:1077
 msgid "Escape by Chaining Thieves"
 msgstr "Pour vous évader, enchaînez les voleurs"
 
-#: po/level_i18n.cc:991
+#: po/level_i18n.cc:1080
 msgid "Remember Atreyu's horse Atrax!"
 msgstr "Souvenez-vous d'Atrax, le cheval d'Atrejus!"
 
-#: po/level_i18n.cc:993
+#: po/level_i18n.cc:1082
 msgid "I am innocent! I've never stolen anything!"
 msgstr "Je suis innocent! Je n'ai jamais rien volé!"
 
-#: po/level_i18n.cc:995
+#: po/level_i18n.cc:1084
 msgid "It is said that pirates have taken the treasure."
 msgstr "On dit que des pirates se sont emparés du trésor."
 
-#: po/level_i18n.cc:997
+#: po/level_i18n.cc:1086
 msgid "Pirates usually hide their treasure!"
 msgstr "Les pirates ont l'habitude de cacher leur trésor!"
 
-#: po/level_i18n.cc:999
+#: po/level_i18n.cc:1088
 msgid "A closed door gives a better overview!"
 msgstr "La vue est meilleure avec la porte fermée!"
 
-#: po/level_i18n.cc:1003
-msgid "Can you relax amid all this chaos?"
-msgstr "Pouvez-vous rester dans votre lit quand tout le reste est fébrile?"
-
-#: po/level_i18n.cc:1010
+#: po/level_i18n.cc:1098
 msgid "Remember 'Changing Positions'?"
 msgstr "Vous rappelez-vous 'changing positions'?"
 
-#: po/level_i18n.cc:1018
+#: po/level_i18n.cc:1112
 msgid "A really annoying Level"
 msgstr "un niveau vraiment ennuyeux"
 
-#: po/level_i18n.cc:1047
+#: po/level_i18n.cc:1123
+msgid "Sorry, this switch is currently out of order."
+msgstr ""
+
+#: po/level_i18n.cc:1125
+msgid "As I already told you, this switch is out of order!"
+msgstr ""
+
+#: po/level_i18n.cc:1127
+msgid "How often are you going to try this?"
+msgstr ""
+
+#: po/level_i18n.cc:1129
+msgid "Did anything happen? I'm not sure ..."
+msgstr ""
+
+#: po/level_i18n.cc:1131
+#, fuzzy
+msgid "Congrats, now it works again!"
+msgstr "Félicitations! (ou alors réessayez)"
+
+#: po/level_i18n.cc:1133
+msgid "No hints available at the moment."
+msgstr ""
+
+#: po/level_i18n.cc:1135
+msgid "There is a passage right beneath this stone!"
+msgstr ""
+
+#: po/level_i18n.cc:1158
 msgid "Persecution Mania"
 msgstr "Manie de la persécution"
 
-#: po/level_i18n.cc:1049
+#: po/level_i18n.cc:1160
 msgid "A problem shared is a problem halved!"
 msgstr "Un problème partagé est un demi-problème!"
 
-#  level: "Buridan"
-#  author: "Alain Busser" email ""
-#  comment: "wordplay between 'right' (converse of left) and 'right' (true); not necessary to translate."
-#  use: "L'autre document ment."
-#: po/level_i18n.cc:1054
+#: po/level_i18n.cc:1165
+msgid "Polar Bears' Paradise"
+msgstr ""
+
+#: po/level_i18n.cc:1167
+msgid "Witch Hunt on Ice"
+msgstr ""
+
+#: po/level_i18n.cc:1178
 msgid "Hanging around in the Jungle"
 msgstr "De liane en liane"
 
-#: po/level_i18n.cc:1071
+#: po/level_i18n.cc:1192
+msgid "Tandem Chess"
+msgstr ""
+
+#: po/level_i18n.cc:1194
+msgid "Work together!"
+msgstr ""
+
+#: po/level_i18n.cc:1202
 msgid "The art of steering a quadriga"
 msgstr "L'art de piloter un quadrige"
 
-#: po/level_i18n.cc:1074
+#: po/level_i18n.cc:1205
 msgid "Dropping the spoon redeems from being quartered!"
 msgstr "Lacher la cuillère rembourse l'écartèlement!"
 
-#: po/level_i18n.cc:1255 po/level_i18n.cc:1633
+#: po/level_i18n.cc:1386 po/level_i18n.cc:1764
 msgid "Everything's been counted carefully!"
 msgstr "Les pièces sont comptées"
 
-#: po/level_i18n.cc:1256 po/level_i18n.cc:1634
+#: po/level_i18n.cc:1387 po/level_i18n.cc:1765
 msgid "Parts of the tubes disappear during detonation!"
 msgstr "L'explosion fait disparaître des morceaux de tuyau!"
 
-#: po/level_i18n.cc:1261
+#: po/level_i18n.cc:1392
 msgid "Rotaryrotaryrot..."
 msgstr "tournertournertour..."
 
-#: po/level_i18n.cc:1265
+#: po/level_i18n.cc:1396
 msgid "Business hours from 8am to 4pm"
 msgstr "Heures de bureau: De 8 heures à 16 heures"
 
-#: po/level_i18n.cc:1281
+#: po/level_i18n.cc:1412
 msgid "Forget the laser, try using force!"
 msgstr "Oubliez le laser, essayez plutôt la force!"
 
-#: po/level_i18n.cc:1325
+#: po/level_i18n.cc:1456
 msgid "Free fall with fatal consequences!"
 msgstr "chute libre avec des conséquences fatales"
 
-#: po/level_i18n.cc:1332
+#: po/level_i18n.cc:1463
 msgid "Let there be light!"
 msgstr "Que la lumière soit!"
 
-#: po/level_i18n.cc:1340 po/level_i18n.cc:1560
+#: po/level_i18n.cc:1471 po/level_i18n.cc:1691
 msgid "It's easier with spikes!"
 msgstr "Ce serait plus facile avec une pelle!"
 
-#: po/level_i18n.cc:1348
+#: po/level_i18n.cc:1479
 msgid "For heaven's sake ... don't drown!"
 msgstr "Ne vous noyez pas!"
 
-#: po/level_i18n.cc:1358
+#: po/level_i18n.cc:1489
 msgid "You really will need every penny!"
 msgstr "Vous aurez vraiment besoin du moindre sou!"
 
-#: po/level_i18n.cc:1380
+#: po/level_i18n.cc:1511
 msgid "No problem! Piece of cake!"
 msgstr "Pas de problème! L'enfance de l'art!"
 
-#: po/level_i18n.cc:1381
+#: po/level_i18n.cc:1512
 msgid "It was easy, wasn't it!"
 msgstr "C'était facile, non?"
 
-#: po/level_i18n.cc:1398
+#: po/level_i18n.cc:1529
 msgid "Nothing but thieves!! Try the mailbox."
 msgstr "Tous des voleurs!! Essayez la boite aux lettres."
 
-#: po/level_i18n.cc:1402
+#: po/level_i18n.cc:1533
 msgid "Don't believe all that you see!"
 msgstr "Ne croyez pas tout ce que vous voyez!"
 
-#: po/level_i18n.cc:1413
+#: po/level_i18n.cc:1544
 msgid "It's a ring!"
 msgstr "C'est un anneau!"
 
-#: po/level_i18n.cc:1417
+#: po/level_i18n.cc:1548
 msgid "Umbrellas prevent free fall!"
 msgstr "Les parapluies peuvent servir de parachute!"
 
-#: po/level_i18n.cc:1424
+#: po/level_i18n.cc:1555
 msgid "You need to be fast!"
 msgstr "Vous devez être rapides!"
 
-#: po/level_i18n.cc:1440
+#: po/level_i18n.cc:1571
 msgid ""
 "Welcome to Enigma!  This tutorial I (Jacob Scott) made will help you learn "
 "how to play."
@@ -1946,7 +2092,7 @@ msgstr ""
 "Bienvenue dans Enigma!   Ce tutoriel de Jacob Scott vous aidera à apprendre "
 "comment y jouer."
 
-#: po/level_i18n.cc:1441
+#: po/level_i18n.cc:1572
 msgid ""
 "You control the black ball.  To pick up an object, just roll over it.  You "
 "can bounce off most walls (try it), but avoid the blue floor near the bottom "
@@ -1960,11 +2106,11 @@ msgstr ""
 "'Echap'). Pendant que ces messages défilent, ne cliquez pas et n'appuyez sur "
 "aucun bouton sinon le défilement s'arrête."
 
-#: po/level_i18n.cc:1442
+#: po/level_i18n.cc:1573
 msgid "This is pretty self-explanatory."
 msgstr "Ceci se passe d'explications."
 
-#: po/level_i18n.cc:1443
+#: po/level_i18n.cc:1574
 msgid ""
 "Enigma is full of puzzles of various types.  In the next room, you will "
 "encounter your first one."
@@ -1972,7 +2118,7 @@ msgstr ""
 "Enigma est riche en énigmes de toutes sortes; la première d'entre elles vous "
 "attend dans la prochaine chambre."
 
-#: po/level_i18n.cc:1444
+#: po/level_i18n.cc:1575
 msgid ""
 "You can't walk on water!  Try pushing the blocks into the water to get to "
 "the other side."
@@ -1980,7 +2126,7 @@ msgstr ""
 "Vous ne pouvez pas aller sur l'eau! Essayez de pousser les blocs dans l'eau "
 "pour aller sur l'autre rive."
 
-#: po/level_i18n.cc:1445
+#: po/level_i18n.cc:1576
 msgid ""
 "Notice that you can't push a row of two or more blocks.  Also, blocks can't "
 "be on the same squares as grates but you can."
@@ -1988,7 +2134,7 @@ msgstr ""
 "Remarquez que vous ne pouvez pas pousser plusieurs blocs en même temps. "
 "Aussi, les blocs ne peuvent passer au travers des grilles mais vous pouvez."
 
-#: po/level_i18n.cc:1446
+#: po/level_i18n.cc:1577
 msgid ""
 "There are different types of blocks here.  Those black blocks sink when they "
 "fall into water.  The tan blocks don't sink but don't form bridges either."
@@ -1997,7 +2143,7 @@ msgstr ""
 "pierres moins sombres au moins ne sombrent pas mais elles ne peuvent faire "
 "de pont pour autant."
 
-#: po/level_i18n.cc:1447
+#: po/level_i18n.cc:1578
 msgid ""
 "That thing is a top -- it will destroy your ball if they touch.  Also, as "
 "long as you are close enough to it, the top will chase you.  If you die, you "
@@ -2012,7 +2158,7 @@ msgstr ""
 "prochaine chambre (les pierres du centre de celle-ci peuvent servir de "
 "barricade)."
 
-#: po/level_i18n.cc:1448
+#: po/level_i18n.cc:1579
 msgid ""
 "Good job!  Notice that the top can't go beneath that block with a black "
 "outline -- you're safe."
@@ -2020,17 +2166,17 @@ msgstr ""
 "Bon travail!  Remarquez que la toupie ne peut traverser la pierre cerclée de "
 "noir -- vous êtes en sécurité."
 
-#: po/level_i18n.cc:1449
+#: po/level_i18n.cc:1580
 msgid "Those are different types of floors.  Try going over them."
 msgstr "Essayez les différentes sortes de sols."
 
-#: po/level_i18n.cc:1450
+#: po/level_i18n.cc:1581
 msgid ""
 "The grayish floors are slopes.  The white floor is inverse-floor (you will "
 "see)."
 msgstr "Le sol grisâtre est en pente.  Le sol blanc est inversé (vous verrez)."
 
-#: po/level_i18n.cc:1451
+#: po/level_i18n.cc:1582
 msgid ""
 "Watch what happens when you go over those triggers.  See if you can get the "
 "extra ball."
@@ -2038,7 +2184,7 @@ msgstr ""
 "Regardez ce qui se passe quand vous allez sur un trigger. Arriverez-vous à "
 "attraper la boule noire supplémentaire?"
 
-#: po/level_i18n.cc:1452
+#: po/level_i18n.cc:1583
 msgid ""
 "That's dynamite.  Try dropping some next to that yellowish wall (and moving "
 "out of the way)."
@@ -2046,11 +2192,11 @@ msgstr ""
 "Ceci est de la dynamite.   Essayez d'en déposer près du mur jaune (et "
 "dégagez !)."
 
-#: po/level_i18n.cc:1453
+#: po/level_i18n.cc:1584
 msgid "Try using the spade on the holes caused by the dynamite."
 msgstr "Essayez d'utiliser la pelle sur les trous creusés par la dynamite."
 
-#: po/level_i18n.cc:1454
+#: po/level_i18n.cc:1585
 msgid ""
 "Those things are bolders -- try moving one of the tan blocks.  Don't fall "
 "into the water or abyss (the black floor)."
@@ -2058,7 +2204,7 @@ msgstr ""
 "Ces objets sont des éboulis -- essayez de bouger une pierre bronzée.  Ne "
 "tombez pas dans l'eau ni dans le vide (sol noir)."
 
-#: po/level_i18n.cc:1455
+#: po/level_i18n.cc:1586
 msgid ""
 "Take the magic wand and hit a bolder.  Try to let the row of three bolders "
 "pass the large column."
@@ -2066,11 +2212,11 @@ msgstr ""
 "Touchez un éboulis avec la baguette magique. Essayez de faire passer la "
 "rangée de trois éboulis par la grande colonne."
 
-#: po/level_i18n.cc:1456
+#: po/level_i18n.cc:1587
 msgid "Hit it hard enough!"
 msgstr "Frappez assez fort!"
 
-#: po/level_i18n.cc:1457
+#: po/level_i18n.cc:1588
 msgid ""
 "It appears to be a simple room, but you're getting an extra ball anyway.  "
 "Maybe there is a reason ..."
@@ -2078,7 +2224,7 @@ msgstr ""
 "Cette chambre paraît nue, mais elle contient une vie supplémentaire. Peut-"
 "être y a-t-il une raison à cela ..."
 
-#: po/level_i18n.cc:1458
+#: po/level_i18n.cc:1589
 msgid ""
 "Try to get the laser beam to hit that black stone, but don't get hit by it!  "
 "Use the mirrors to direct the beam."
@@ -2086,7 +2232,7 @@ msgstr ""
 "Essayez d'atteindre la pierre noire avec un laser, mais évitez son rayon! "
 "Utilisez les miroirs pour diriger le rayon du laser."
 
-#: po/level_i18n.cc:1459
+#: po/level_i18n.cc:1590
 msgid ""
 "Many objects change when hit with a laser beam.  Try hitting some of the "
 "coins with the laser beam.  Also, try hitting a block over a coin.  Those "
@@ -2098,7 +2244,7 @@ msgstr ""
 "de bois. Les pierres à droite sont des chevaliers -- Il faut une épée pour "
 "les battre, pour pouvoir passer."
 
-#: po/level_i18n.cc:1460
+#: po/level_i18n.cc:1591
 msgid ""
 "Do you have any umbrellas?  Each one will give you approximately ten seconds "
 "of protection from danger (such as falling)."
@@ -2106,7 +2252,7 @@ msgstr ""
 "Chaque parapluie vous offre environ dix secondes de protection notamment "
 "contre les chutes)."
 
-#: po/level_i18n.cc:1461
+#: po/level_i18n.cc:1592
 msgid ""
 "Those black stones are fart stones -- they reset all progress made with the "
 "oxyd stones.  The other stones are the oxyd stones.  Match them up to win!"
@@ -2115,7 +2261,7 @@ msgstr ""
 "oxydes de ce niveau. Les autres pierres sont des oxydes. Associez-les et "
 "vous avez gagné."
 
-#: po/level_i18n.cc:1462
+#: po/level_i18n.cc:1593
 msgid ""
 "This area at the bottom of the screen is your inventory -- when you pick "
 "things up, they go here (there is a maximum of twelve).  To scroll through "
@@ -2135,7 +2281,7 @@ msgstr ""
 "vies supplémentaires: Si vous mourez dans ce niveau, vous retournez au "
 "début, avec une vie de moins."
 
-#: po/level_i18n.cc:1463
+#: po/level_i18n.cc:1594
 msgid ""
 "Naturally, you're supposed to go through those closed gates at the top of "
 "the screen.                         Try going down that slope near the "
@@ -2158,7 +2304,7 @@ msgstr ""
 "pas passer par les pierres à sens unique blanches. Quand la bille blanche "
 "est lancée (fort), utilisez la cuillère."
 
-#: po/level_i18n.cc:1464
+#: po/level_i18n.cc:1595
 msgid ""
 "The stone in the top-right of the room is a switch.  Hit it -- it is "
 "probably useful.  In this case the switch opens and closes a door (Do you "
@@ -2171,7 +2317,7 @@ msgstr ""
 "pas à ouvrir?). Le trait bleuâtre est une fenêtre -- faites un pont au-"
 "dessus de l'eau avant de faire quoi que ce soit avec."
 
-#: po/level_i18n.cc:1465
+#: po/level_i18n.cc:1596
 msgid ""
 "That was a rotor (similar to a top).  Some levels have many rotors and tops "
 "to make them difficult.                            However, maybe this rotor "
@@ -2182,15 +2328,15 @@ msgstr ""
 "de rotors et de toupies, ce qui les rend difficiles.                        "
 "Ce serait pratique de pouvoir fermer la porte."
 
-#: po/level_i18n.cc:1469
+#: po/level_i18n.cc:1600
 msgid "Don't drown in the swamp."
 msgstr "Ne vous enlisez pas dans le marais."
 
-#: po/level_i18n.cc:1473
+#: po/level_i18n.cc:1604
 msgid "Careful - you can not swim in the water."
 msgstr "Attention - Vous ne savez pas nager dans l'eau."
 
-#: po/level_i18n.cc:1477
+#: po/level_i18n.cc:1608
 msgid ""
 "Those doors on the right block your way to the oxyds ... on the left you see "
 "some triggers. Maybe they are somehow connected?"
@@ -2198,7 +2344,7 @@ msgstr ""
 "Ces portes sur la droite vous empêchent d'atteindre les oxydes ... Sur la "
 "gauche il y a des triggers: Y aurait-il un rapport ?"
 
-#: po/level_i18n.cc:1481
+#: po/level_i18n.cc:1612
 msgid ""
 "This oscillating stone is a timer-stone. You cannot interact with it, but "
 "nevertheless be aware when you see one: After some time-period anything "
@@ -2208,7 +2354,7 @@ msgstr ""
 "pas interagir avec, mais soyez tout de même vigilants quand vous en voyez "
 "une: Au bout d'un certain temps, quelque chose risque d'arriver..."
 
-#: po/level_i18n.cc:1482
+#: po/level_i18n.cc:1613
 msgid ""
 "The stones with arrows are one-way-stones. As you might have guessed, you "
 "can only pass them in one direction.                Mazes are cherished "
@@ -2218,14 +2364,14 @@ msgstr ""
 "bien sûr qu'on ne peut les parcourir que dans un sens.                 Les "
 "labyrinthes sont une pièce de choix dans Enigma. Vous en verrez souvent."
 
-#: po/level_i18n.cc:1483
+#: po/level_i18n.cc:1614
 msgid ""
 "Well done!     When you have finished this level, let's play some example "
 "levels from the actual Enigma packs!"
 msgstr ""
 "Bien! Après avoir fini ce niveau essayons quelques exemples du vrai Enigma!"
 
-#: po/level_i18n.cc:1487
+#: po/level_i18n.cc:1618
 msgid ""
 "This wooden block is movable and heavy enough to hold down the trigger on "
 "the right.   Try to push it there!"
@@ -2233,14 +2379,14 @@ msgstr ""
 "Le bloc de bois est mobile et suffisamment lourd pour maintenir le  trigger "
 "de droite enfoncé. Foncez vers celui-ci avec le bout de bois!"
 
-#: po/level_i18n.cc:1488
+#: po/level_i18n.cc:1619
 msgid ""
 "Remember?  There are different kinds of floors.  And these are steep ..."
 msgstr ""
 "Vous vous souvenez?  Il y a plusieurs sortes de sols.  Et ceux-ci sont en "
 "pente ..."
 
-#: po/level_i18n.cc:1489
+#: po/level_i18n.cc:1620
 msgid ""
 "Is there more one can do with wooden blocks?   Yes!  Just explore the next "
 "levels."
@@ -2248,7 +2394,7 @@ msgstr ""
 "Y a-t-il autre chose que l'on puisse faire avec ces bouts de bois?   Oui!   "
 "Explorez juste les prochains niveaux."
 
-#: po/level_i18n.cc:1493
+#: po/level_i18n.cc:1624
 msgid ""
 "The bright light beam is a laser beam.   Don't get to close to it!   But it "
 "has its uses ...    You can use the mirrors to direct the laser to its "
@@ -2258,7 +2404,7 @@ msgstr ""
 "utile ... Vous pouvez le détourner avec les miroirs pour l'envoyer vers ses "
 "cibles. Les miroirs gris clair sont mobiles, essayez!"
 
-#: po/level_i18n.cc:1497
+#: po/level_i18n.cc:1628
 msgid ""
 "Use the right mouse-button to rotate your inventory,  it's the bar at the "
 "bottom of the screen.   And guess what these three items down there can be "
@@ -2268,7 +2414,7 @@ msgstr ""
 "la barre en bas de l'écran. Et devinez à quoi peuvent servir les trois "
 "outils que vous y voyez."
 
-#: po/level_i18n.cc:1498
+#: po/level_i18n.cc:1629
 msgid ""
 "There are lots of different items to use in Enigma, as well as special "
 "floors and stones.   Let's explore some more of the actual Enigma levels!   "
@@ -2280,7 +2426,7 @@ msgstr ""
 "posent problème, consultez le manuel: Il contient des guides pour certains "
 "niveaux."
 
-#: po/level_i18n.cc:1502
+#: po/level_i18n.cc:1633
 msgid ""
 "But before this, take a look at the final tutorial level Jacob devised for "
 "you.   See it as an exam, if you want to.   It's quite difficult, so don't "
@@ -2291,7 +2437,7 @@ msgstr ""
 "alors ne désespérez pas si vous n'en venez pas à bout la première fois. Au "
 "revoir!"
 
-#: po/level_i18n.cc:1503
+#: po/level_i18n.cc:1634
 msgid ""
 "Well, I hope you enjoyed this tutorial-pack.   You will see most of these "
 "levels a second time in the Enigma packs, together with many new and much "
@@ -2301,7 +2447,7 @@ msgstr ""
 "niveaux dans les chapitres d'Enigma, avec beaucoup d'autres niveaux inédits "
 "et plus difficiles. Ne renoncez pas trop vite!"
 
-#: po/level_i18n.cc:1507
+#: po/level_i18n.cc:1638
 msgid ""
 "The blue stones are Oxyd stones. Open them by touching them with your black "
 "marble."
@@ -2309,91 +2455,67 @@ msgstr ""
 "Les pierres bleues sont des oxydes. Ouvrez-les en les touchant avec la boule "
 "noire "
 
-#: po/level_i18n.cc:1511
+#: po/level_i18n.cc:1642
 msgid "Remember the colors."
 msgstr "Mémorisez les couleurs."
 
-#: po/level_i18n.cc:1515
+#: po/level_i18n.cc:1646
 msgid "Some stones look exactly like the Oxyd stones!"
 msgstr "Il y a des pierres qui ressemblent beaucoup à des oxydes!"
 
-#: po/level_i18n.cc:1519
+#: po/level_i18n.cc:1650
 msgid "Learn to move your black ball properly."
 msgstr "Apprenez à bouger correctement votre boule noire."
 
-#: po/level_i18n.cc:1523
+#: po/level_i18n.cc:1654
 msgid "Prepare for even more mouse gymnastics in the next levels."
 msgstr ""
 "Préparez-vous à encore plus de sport de souris dans les niveaux suivants."
 
-#: po/level_i18n.cc:1527
+#: po/level_i18n.cc:1658
 msgid "Take your time ..."
 msgstr "Prenez votre temps ..."
 
-#: po/level_i18n.cc:1531
+#: po/level_i18n.cc:1662
 msgid "Don't touch everything!"
 msgstr "Ne touchez pas à tout!"
 
-#: po/level_i18n.cc:1535
+#: po/level_i18n.cc:1666
 msgid "Levels can be larger than one screen."
 msgstr "Les niveaux peuvent dépasser un écran."
 
-#: po/level_i18n.cc:1539
+#: po/level_i18n.cc:1670
 msgid "Friction and acceleration depend on the floor type."
 msgstr "Le frottement et l'accélération dépendent du type de terrain."
 
-#: po/level_i18n.cc:1543
+#: po/level_i18n.cc:1674
 msgid ""
 "Move all small marbles into the holes. Only one marble per hole is allowed."
 msgstr ""
 "Placez toutes les billes blanches dans les creux. Une seule bille  blanche "
 "doit être placée dans chaque creux."
 
-#: po/level_i18n.cc:1647
-msgid "Template for a simple level."
-msgstr "Gabarit pour un niveau simple."
-
-#: po/level_i18n.cc:1651
-msgid "Template for a level with the RenderLine method."
-msgstr "Gabarit pour un niveau avec la méthode 'Renderline'."
-
-#: po/level_i18n.cc:1655
-msgid "Template for a level coded with the ant library."
-msgstr "Gabarit pour un niveau utilisant la bibliothèque 'ant'."
-
-#: po/level_i18n.cc:1668
-msgid "Level with all floors of Enigma 1.00!"
-msgstr "Un niveau avec tous les sols de Enigma 1.00!"
-
-#: po/level_i18n.cc:1675
-msgid "Level with all items of Enigma 1.00!"
-msgstr "Un niveau avec tous les outils de Enigma 1.00!"
-
-#: po/level_i18n.cc:1680
+#: po/level_i18n.cc:1809
 msgid "Translate or let it be translated"
 msgstr "Traduire ou ne pas traduire , telle est la question"
 
-#: po/level_i18n.cc:1684
+#: po/level_i18n.cc:1813
 msgid "Read the right document"
 msgstr "Lisez la feuille adroite"
 
-#: po/level_i18n.cc:1687
+#: po/level_i18n.cc:1816
 msgid "The right one, not the right one!"
 msgstr "La feuille à droite, pas la feuille adroite!"
 
-#: po/level_i18n.cc:1694
-msgid "Level with all stones of Enigma 1.00!"
-msgstr "Un niveau avec tous les sols de Enigma 1.00"
-
-#: po/level_i18n.cc:1758
+#: po/level_i18n.cc:1886
 msgid "What do you want the first gate to do?"
 msgstr "Que voulez-vous que fasse la première porte (en anglais)"
 
-#: po/level_i18n.cc:1759
+#: po/level_i18n.cc:1887
 msgid "Opposite"
 msgstr "Le contraire (en anglais)"
 
-#: po/level_i18n.cc:1760
+#: po/level_i18n.cc:1888
 msgid ""
 "If ten equals three, five equals four, two equals three, four equals four, "
 "and thirteen equals eight, what does nine equal?"
@@ -2401,23 +2523,23 @@ msgstr ""
 "Si dix égalent trois, cinq égalent quatre, deux égalent trois, quatre "
 "égalent quatre, et treize égalent huit, que vaut neuf? (en anglais)"
 
-#: po/level_i18n.cc:1761
+#: po/level_i18n.cc:1889
 msgid "Congratulations!"
 msgstr "Bravo!"
 
-#: po/level_i18n.cc:1768
+#: po/level_i18n.cc:1896
 msgid "Same room, new mirrors ..."
 msgstr "Même endroit, nouveaux miroirs ..."
 
-#: po/level_i18n.cc:1801
+#: po/level_i18n.cc:1929
 msgid "The witch of this switch waits for your wish."
 msgstr "Wouah! Entrez votre choix."
 
-#: po/level_i18n.cc:1803
+#: po/level_i18n.cc:1931
 msgid "The witch of this switch resets the awale game."
 msgstr "Recommencer tout le jeu."
 
-#: po/level_i18n.cc:1805
+#: po/level_i18n.cc:1933
 msgid ""
 "A turn consists in taking the walnuts of a row behind the windowy walls and "
 "sowing them 1 by 1 in the following rows."
@@ -2425,7 +2547,7 @@ msgstr ""
 "Un tour de jeu consiste à prendre les graines d'une case et les semer une "
 "par une dans les cases suivantes."
 
-#: po/level_i18n.cc:1807
+#: po/level_i18n.cc:1935
 msgid ""
 "Warning: What awaits the wailing warrior at the end of a turn? If there are "
 "2 or 3 walnuts in a row, they are a warm award for the warrior, as are the "
@@ -2435,11 +2557,11 @@ msgstr ""
 "A la fin d'un tour, s'il y a 2 ou 3 graines dans la case, on les prend ainsi "
 "que celles des cases qui sont avant (si elles sont 2 ou 3)."
 
-#: po/level_i18n.cc:1809
+#: po/level_i18n.cc:1937
 msgid "Warning: If one warrior's walls are empty, this awesome warrior wins."
 msgstr "Le premier joueur qui s'est fait prendre toutes ses graines gagne."
 
-#: po/level_i18n.cc:1811
+#: po/level_i18n.cc:1939
 msgid ""
 "When a warrior has awarded more than half the walnuts, he wins. What does he "
 "win? The way to the waiting oxyds he wants."
@@ -2447,26 +2569,26 @@ msgstr ""
 "Si un joueur a plus de 24 graines, il gagne. Que gagne-t-il? Le droit "
 "d'occire les oxydes."
 
-#: po/level_i18n.cc:1813
+#: po/level_i18n.cc:1941
 msgid "Congratulations! You are the most aware awale player of the valley ..."
 msgstr "Bravo! Vous avez avalé l'awale!"
 
-#: po/level_i18n.cc:1815
+#: po/level_i18n.cc:1943
 msgid ""
 "Lost in the savannah? Don't wait and walk on the way to the reset switch on "
 "the far left ..."
 msgstr ""
 "Perdu! Le bouton pour recommencer le jeu est au bord gauche du paysage."
 
-#: po/level_i18n.cc:1817
+#: po/level_i18n.cc:1945
 msgid "Validate your choice here."
 msgstr "Validez votre choix ici."
 
-#: po/level_i18n.cc:1819
+#: po/level_i18n.cc:1947
 msgid "Reset the game."
 msgstr "Recommencer la partie."
 
-#: po/level_i18n.cc:1821
+#: po/level_i18n.cc:1949
 msgid ""
 "A turn consists in taking the stones of a row and sowing them 1 by 1 in "
 "one's other rows, counterclockwise, coming back to the beginning."
@@ -2474,7 +2596,7 @@ msgstr ""
 "Un tour de jeu consiste à prendre les graines d'une case et les semer une "
 "par une dans le sens giratoire, éventuellement en faisant plusieurs tours."
 
-#: po/level_i18n.cc:1823
+#: po/level_i18n.cc:1951
 msgid ""
 "At the end of a turn, if the last stone falls in a nonempty row, one takes "
 "the stones of the facing row if there is any, and repeats a turn."
@@ -2482,13 +2604,13 @@ msgstr ""
 "A la fin d'un tour, on prend les graines de la case d'en face et on "
 "recommence un tour."
 
-#: po/level_i18n.cc:1825
+#: po/level_i18n.cc:1953
 msgid "A turn begins in one of the leftmost rows, unless impossible."
 msgstr ""
 "Un tour commence par une des cases de gauche, si possible; sinon on commence "
 "par une des cases de droite."
 
-#: po/level_i18n.cc:1827
+#: po/level_i18n.cc:1955
 msgid ""
 "At the end of the game (if one player cannot move anymore), the player who "
 "has the most stones wins."
@@ -2496,15 +2618,15 @@ msgstr ""
 "La partie finit quand un joueur n'a plus de graines; celui qui en a le plus, "
 "gagne."
 
-#: po/level_i18n.cc:1829
+#: po/level_i18n.cc:1957
 msgid "A yellow stone stands for 10 blue stones (then for 2 brown stones)."
 msgstr "Un caillou jaune vaut 10 caillous bleus (donc 2 caillous marrons)."
 
-#: po/level_i18n.cc:1831
+#: po/level_i18n.cc:1959
 msgid "A brown stone stands for 5 blue stones."
 msgstr "Un caillou marron vaut 5 caillous bleus."
 
-#: po/level_i18n.cc:1833
+#: po/level_i18n.cc:1961
 msgid ""
 "This katro game comes from Madagascar; in Easy mode there is an african "
 "Awale."
@@ -2512,11 +2634,11 @@ msgstr ""
 "Ce katro est la version malgache du jeu; en mode 'facile' il y a un awale "
 "africain."
 
-#: po/level_i18n.cc:1835
+#: po/level_i18n.cc:1963
 msgid "Only reset or 'Shift+F3' can make things evolve ..."
 msgstr "Perdu! Actionnez le bouton 'reset' ou le redoutable 'shift+F3' ..."
 
-#: po/level_i18n.cc:1850
+#: po/level_i18n.cc:1978
 msgid ""
 "Sections which have the same color always turn at the same time and in the "
 "same way."
@@ -2524,7 +2646,7 @@ msgstr ""
 "Les sections ayant la même couleur tournent toujours en même temps et dans "
 "la même direction."
 
-#: po/level_i18n.cc:1851
+#: po/level_i18n.cc:1979
 msgid ""
 "Maintenance code: metal-stone-stone-stone-red-yellow-yellow-red-red-stone-"
 "stone."
@@ -2532,50 +2654,50 @@ msgstr ""
 "Fiche d'entretien: métal-pierre-pierre-pierre-rouge-jaune-jaune-rouge-rouge-"
 "pierre-"
 
-#: po/level_i18n.cc:1933
+#: po/level_i18n.cc:2061
 msgid "You can fly for a short time if you use the umbrella."
 msgstr ""
 "A l'instar de Mary Poppins, le parapluie vous permet de planer un certain "
 "temps."
 
-#: po/level_i18n.cc:1943
+#: po/level_i18n.cc:2071
 msgid " . . . There are more than two . . ."
 msgstr " . . . Il y en a plus que deux . . ."
 
-#: po/level_i18n.cc:2000
+#: po/level_i18n.cc:2128
 msgid "The Grim Reaper"
 msgstr "Qui sème le vent, récolte la tempête"
 
-#: po/level_i18n.cc:2012
+#: po/level_i18n.cc:2140
 msgid "The Enigmhanoi Towers"
 msgstr "Les tours d'Enigmhanoi"
 
-#: po/level_i18n.cc:2014
+#: po/level_i18n.cc:2142
 msgid "Who speaks, does not know (Lao Tse)"
 msgstr "Celui qui parle ne sait pas (Lao Tseu)"
 
-#: po/level_i18n.cc:2016
+#: po/level_i18n.cc:2144
 msgid "The wise man laughs (Lao Tse)"
 msgstr "Le sage, rit (Lao Tseu)"
 
-#: po/level_i18n.cc:2018
+#: po/level_i18n.cc:2146
 msgid "Who knows, does not speak (Lao Tse)"
 msgstr "Celui qui sait ne parle pas (Lao Tseu)"
 
-#: po/level_i18n.cc:2060
+#: po/level_i18n.cc:2188
 msgid "Welcome to Enigma V"
 msgstr "Bienvenue dans Enigma V"
 
-#: po/level_i18n.cc:2073
+#: po/level_i18n.cc:2201
 msgid "This is a meditation landscape: put a small marble into every hole ..."
 msgstr ""
 "Ceci est un niveau de méditation: Mettez une bille dans chaque trou ..."
 
-#: po/level_i18n.cc:2079
+#: po/level_i18n.cc:2207
 msgid "Fire or be fired"
 msgstr "Ce soir on vous met le feu"
 
-#: po/level_i18n.cc:2082
+#: po/level_i18n.cc:2210
 msgid ""
 "Do you think a bushman would start to search for an extinguisher in the "
 "cellar if a wall of fire were approaching? Be a Firefox - you have the first "
@@ -2585,7 +2707,7 @@ msgstr ""
 "s'il voit le feu approcher? Soyez un champion du feu - vous avez 5 objets à "
 "gérer, pas un de plus, pas un de moins!"
 
-#: po/level_i18n.cc:2084
+#: po/level_i18n.cc:2212
 msgid ""
 "You can extinguish fire with water. This is a good place to refill your "
 "extinguisher. Be aware, water is rare!"
@@ -2593,34 +2715,34 @@ msgstr ""
 "L'eau éteint le feu. Voici un bon endroit pour emplir votre extincteur. Mais "
 "l'eau est rare!"
 
-#: po/level_i18n.cc:2086
+#: po/level_i18n.cc:2214
 msgid ""
 "OOPS! The maze is broken! Prepare to repair the maze before you destroy it."
 msgstr ""
 "Argh! Le labyrinthe est tout cassé! Préparez-vous à le réparer avant de le "
 "détruire"
 
-#: po/level_i18n.cc:2107
+#: po/level_i18n.cc:2235
 msgid "Pirates Island"
 msgstr "Ile aux pirates"
 
-#: po/level_i18n.cc:2109
+#: po/level_i18n.cc:2237
 msgid "The pirates have lost several hidden things on this island ..."
 msgstr "Les pirates ont perdu beaucoup d'objets dans le sous-sol..."
 
-#: po/level_i18n.cc:2113
+#: po/level_i18n.cc:2241
 msgid "It is not quite that easy."
 msgstr "Ce n'est pas si facile."
 
-#: po/level_i18n.cc:2123
+#: po/level_i18n.cc:2251
 msgid "Don't get too attracted!"
 msgstr "Une leçon à tirer: Ne vous laissez pas trop attirer!"
 
-#: po/level_i18n.cc:2127
+#: po/level_i18n.cc:2255
 msgid "Try the easy mode first ..."
 msgstr "Essayez d'abord en mode Facile"
 
-#: po/level_i18n.cc:2133
+#: po/level_i18n.cc:2261
 msgid ""
 "Caramba!! El Dictator has muchos pesos in his cristal safe but muchos costa "
 "guardia too; Hay!! Poor Bola Negra has only frutos and a lasero!!!"
@@ -2628,23 +2750,23 @@ msgstr ""
 "El Dictator a muchos pesetas dans son coffre de cristal mais muchos "
 "guardians; Caramba! Bola Negra n'a que des frutos et un lasero!!!"
 
-#: po/level_i18n.cc:2138
+#: po/level_i18n.cc:2266
 msgid "Did you really think this one was so easy!?"
 msgstr "Vous avez réellement cru que celui-ci était si facile?"
 
-#: po/level_i18n.cc:2140
+#: po/level_i18n.cc:2268
 msgid "Did you forget something?"
 msgstr "Vous avez oublié quelque chose?"
 
-#: po/level_i18n.cc:2142
+#: po/level_i18n.cc:2270
 msgid "Go on! There's no way back now!"
 msgstr "En avant! Il n'est plus possible de retourner en arrière!"
 
-#: po/level_i18n.cc:2144
+#: po/level_i18n.cc:2272
 msgid "STOP! Not this way! There's a short-cut ..."
 msgstr "STOP! Pas par l�! Il y a un raccourci ..."
 
-#: po/level_i18n.cc:2146
+#: po/level_i18n.cc:2274
 msgid ""
 "There's a trigger one step to the left. If you could keep it depressed, it "
 "would help you a lot if you go back! "
@@ -2652,19 +2774,19 @@ msgstr ""
 "Il y a un trigger à gauche. Si vous pouviez le garder appuyé, cela vous "
 "aiderait beaucoup au retour! "
 
-#: po/level_i18n.cc:2153
+#: po/level_i18n.cc:2281
 msgid "No way out?"
 msgstr "Aucune issue?"
 
-#: po/level_i18n.cc:2154
+#: po/level_i18n.cc:2282
 msgid "Do you miss something?"
 msgstr "Il vous manque quelque chose?"
 
-#: po/level_i18n.cc:2179
+#: po/level_i18n.cc:2307
 msgid "Don't get attracted!"
 msgstr "Résistez à l'attraction!"
 
-#: po/level_i18n.cc:2189
+#: po/level_i18n.cc:2317
 msgid ""
 "If you have never heard about Brainf***, visit e.g. http://en.wikipedia.org/"
 "wiki/Brainfuck before you try to solve this level."
@@ -2673,11 +2795,11 @@ msgstr ""
 "en.wikipedia.org/wiki/Brainfuck vous en apprendra suffisamment pour "
 "affronter éffrontément ce niveau"
 
-#: po/level_i18n.cc:2193
+#: po/level_i18n.cc:2321
 msgid "Make an umbrella."
 msgstr "Fabriquez un parapluie."
 
-#: po/level_i18n.cc:2197
+#: po/level_i18n.cc:2325
 msgid ""
 "Beware, stranger! The ancient gods of Enigma have set many traps to protect "
 "their holy Oxyds! You will have to get through the Four Tests to prove your "
@@ -2687,35 +2809,35 @@ msgstr ""
 "Oxydes avec de nombreux pièges! Il te faudra réussir les Quatre Epreuves "
 "pour prouver ta valeur!"
 
-#: po/level_i18n.cc:2198
+#: po/level_i18n.cc:2326
 msgid "Prove your speed in the Test of Fire!"
 msgstr "Prouvez votre vitesse dans l'épreuve du Feu!"
 
-#: po/level_i18n.cc:2199
+#: po/level_i18n.cc:2327
 msgid "You have proven your worth! The ancients grant you a FLAG!"
 msgstr "Vous avez prouvé votre valeur! Les anciens vous remettent un DRAPEAU!"
 
-#: po/level_i18n.cc:2200
+#: po/level_i18n.cc:2328
 msgid "Prove your intelligence in the Test of Earth!"
 msgstr "Prouvez votre intelligence dans l'épreuve de la Terre!"
 
-#: po/level_i18n.cc:2201
+#: po/level_i18n.cc:2329
 msgid "You have proven your worth! The ancients grant you a SPRING!"
 msgstr "Vous avez prouvé votre valeur! Les anciens vous remettent un RESSORT!"
 
-#: po/level_i18n.cc:2202
+#: po/level_i18n.cc:2330
 msgid "Prove your dexterity in the Test of Air!"
 msgstr "Prouvez votre agilité dans l'épreuve de l'Air!"
 
-#: po/level_i18n.cc:2203
+#: po/level_i18n.cc:2331
 msgid "You have proven your worth! The ancients grant you a NAIL!"
 msgstr "Vous avez prouvé votre valeur! Les anciens vous remettent un CLOU!"
 
-#: po/level_i18n.cc:2204
+#: po/level_i18n.cc:2332
 msgid "Prove your patience in the Test of Water!"
 msgstr "Prouvez votre patience avec l'épreuve de l'Eau!"
 
-#: po/level_i18n.cc:2205
+#: po/level_i18n.cc:2333
 msgid ""
 "This can't be! No mortal can reach our Holy Oxyds! Prove yourself once more! "
 "Bwahahahaha!"
@@ -2723,7 +2845,7 @@ msgstr ""
 "Cela ne se peut! Aucun mortel ne peut atteindre les Oxydes sacrées! Mettez-"
 "vous encore une fois à l'épreuve! Niarf, niarf, niarf!"
 
-#: po/level_i18n.cc:2212
+#: po/level_i18n.cc:2340
 msgid ""
 "Here lies Black Ball the pirate, marooned in the year 1802 after travelling "
 "in the wrong direction."
@@ -2731,7 +2853,7 @@ msgstr ""
 "Ci-gît Boule-Noire le pirate, perdu corps et biens en l'an 1802 après avoir "
 "pris la mauvaise direction."
 
-#: po/level_i18n.cc:2213
+#: po/level_i18n.cc:2341
 msgid ""
 "To cure sea sickness hold a large bank note between your teeth and lean over "
 "the side."
@@ -2739,19 +2861,19 @@ msgstr ""
 "Le traitement contre le mal de mer: Tenez des gros billets entre vos dents, "
 "et dégobillez par-dessus bord"
 
-#: po/level_i18n.cc:2227
+#: po/level_i18n.cc:2355
 msgid "Do you need something?"
 msgstr "Se peut-il que vous ayez besoin de quelque chose?"
 
-#: po/level_i18n.cc:2235
+#: po/level_i18n.cc:2363
 msgid "Send me the keys !"
 msgstr "Envoie les clés!"
 
-#: po/level_i18n.cc:2237
+#: po/level_i18n.cc:2365
 msgid "ALL the keys!!!"
 msgstr "TOUTES les clés!!!"
 
-#: po/level_i18n.cc:2246
+#: po/level_i18n.cc:2374
 msgid ""
 "Mightie art the Knightes of The Olde Ages who keepe the Elfic Oxyde Stones, "
 "and numerous art the Ghostes who lye in the waye to them; many art the "
@@ -2766,7 +2888,7 @@ msgstr ""
 "l'antre de Billes-Blanches le Dragon tu ayviteras, de peur que de son "
 "sommeyl il sorte..."
 
-#: po/level_i18n.cc:2252
+#: po/level_i18n.cc:2380
 msgid ""
 "The most dangerous animals of the bayou are the alligators, the "
 "mosquitoes ... and the zombies! (But the zombies at least, don't move ...)"
@@ -2774,7 +2896,7 @@ msgstr ""
 "Les créatures les plus dangereuses des bayous sont les alligators, les "
 "moustiques ... et les zombies! (mais les zombies, au moins ne bougent pas...)"
 
-#: po/level_i18n.cc:2256
+#: po/level_i18n.cc:2384
 msgid ""
 "Why has there always to be an active volcano and a village of marble-eating "
 "inhabitants on a tropical island?"
@@ -2782,14 +2904,14 @@ msgstr ""
 "Pourquoi les Iles Tropicales sont-elles toujours infestées de cannibales "
 "ébénosphérophages et de volcans actifs?"
 
-#: po/level_i18n.cc:2263
+#: po/level_i18n.cc:2394
 msgid ""
 "This is my first landscape, dedicated to my father. I hope you'll enjoy it!"
 msgstr ""
 "Ceci est mon premier paysage, dédié à mon père. J'espère que vous "
 "l'apprécierez"
 
-#: po/level_i18n.cc:2270
+#: po/level_i18n.cc:2398
 msgid ""
 "You again! We won't let you pass this time! See these Oxyds? You can't reach "
 "them unless you rob our Four Holy Items! But they are well guarded! "
@@ -2799,7 +2921,7 @@ msgstr ""
 "Vous ne pourrez les atteindre qu'en vous emparant des Quatre Outils Sacrés! "
 "Seulement ils sont bien gardés!"
 
-#: po/level_i18n.cc:2271
+#: po/level_i18n.cc:2399
 msgid ""
 "Fire burns and destroys ... Want to remove blocking stones? Then dig your "
 "way to the Holy Hammer!"
@@ -2807,11 +2929,11 @@ msgstr ""
 "Le feu brûle et détruit ... Vous voulez dégager le passage? Ne vous mettez "
 "pas martel en tête et creusez-vous un chemin vers le Marteau sacré!"
 
-#: po/level_i18n.cc:2272
+#: po/level_i18n.cc:2400
 msgid "Try again! Bwahahahaha!"
 msgstr "Réessayez! Hahaha!"
 
-#: po/level_i18n.cc:2273
+#: po/level_i18n.cc:2401
 msgid ""
 "Earth fills and lasts ... Want to replace missing floors? Then build your "
 "way to the Holy Seed!"
@@ -2819,7 +2941,7 @@ msgstr ""
 "La terre est dure et elle dure ... Pour combler les sols manquants,  "
 "construisez-vous un chemein vers la Graine sacrée!"
 
-#: po/level_i18n.cc:2274
+#: po/level_i18n.cc:2402
 msgid ""
 "Air blows and goes by ... Want to jump across the void? Then make your way "
 "to the Holy Spring!"
@@ -2827,7 +2949,7 @@ msgstr ""
 "L'air souffle et s'en va ... Pour franchir le vide vous devez trouver  la "
 "voie vers le Ressort sacré!"
 
-#: po/level_i18n.cc:2275
+#: po/level_i18n.cc:2403
 msgid ""
 "Water waves and shifts ... Want to trade minds with your partner? Then find "
 "your way to the Holy Yin-Yang!"
@@ -2835,19 +2957,19 @@ msgstr ""
 "L'eau, ses vagues et ses courants ... Pour échanger quelques points  de vue "
 "avec votre alter ego vous devez trouver la voie vers le Yin-Yang sacré!"
 
-#: po/level_i18n.cc:2279
+#: po/level_i18n.cc:2407
 msgid "Look carefully at everything!"
 msgstr "regardez tout attentivement!"
 
-#: po/level_i18n.cc:2280
+#: po/level_i18n.cc:2408
 msgid "Do you need a helping hand?"
 msgstr "Besoin d'un coup de main?"
 
-#: po/level_i18n.cc:2299
+#: po/level_i18n.cc:2427
 msgid "Warning ... ... thieves!"
 msgstr "Aux voleurs!"
 
-#: po/level_i18n.cc:2327
+#: po/level_i18n.cc:2455
 msgid ""
 "Remember Seed Puzzle 2? There was a similar problem. Or was it Portable "
 "Laser ...?"
@@ -2855,23 +2977,23 @@ msgstr ""
 "Vouz rappelez-vous Seed Puzzle 2? Il y avait un problème analogue. Ou bien "
 "c'était dans Portable Laser ...?"
 
-#: po/level_i18n.cc:2332
+#: po/level_i18n.cc:2460
 msgid "Catwalk Meditation"
 msgstr "Méditation sur une gouttière"
 
-#: po/level_i18n.cc:2360
+#: po/level_i18n.cc:2488
 msgid "This level is symmetric ..."
 msgstr "Ce niveau est symétrique ..."
 
-#: po/level_i18n.cc:2390
+#: po/level_i18n.cc:2518
 msgid "April 1st"
 msgstr "Poisson d'avril."
 
-#: po/level_i18n.cc:2392
+#: po/level_i18n.cc:2520
 msgid "Do you REALLY want to do this???"
 msgstr "Vous voulez VRAIMENT faire ceci?"
 
-#: po/level_i18n.cc:2394
+#: po/level_i18n.cc:2522
 msgid ""
 "Didn't your mother tell you that you should not spend your money in such a "
 "careless manner?"
@@ -2879,15 +3001,15 @@ msgstr ""
 "Votre mère ne vous a-t-elle jamais conseillé de ne pas dépenser  votre "
 "argent de manière aussi inconsidérée?"
 
-#: po/level_i18n.cc:2396
+#: po/level_i18n.cc:2524
 msgid "What is the current month?"
 msgstr "Quel mois sommes-nous?"
 
-#: po/level_i18n.cc:2398
+#: po/level_i18n.cc:2526
 msgid "What is this level's name?"
 msgstr "Quel est le titre de ce jeu?"
 
-#: po/level_i18n.cc:2409
+#: po/level_i18n.cc:2537
 msgid ""
 "When you change the color of one square, the colors of the 2 nearest squares "
 "change as well; you must get as many green squares as possible."
@@ -2896,7 +3018,7 @@ msgstr ""
 "de ses voisines; vous devez obtenir le plus grand nombre possible  de "
 "pastilles vertes."
 
-#: po/level_i18n.cc:2411
+#: po/level_i18n.cc:2539
 msgid ""
 "You are only allowed to change a color when it is surrounded by the other "
 "color."
@@ -2904,75 +3026,75 @@ msgstr ""
 "Vous ne pouvez changer une pastille que si elle est entourée  à gauche et à "
 "droite par des pastilles de l'autre couleur."
 
-#: po/level_i18n.cc:2418
+#: po/level_i18n.cc:2546
 msgid "If I only had a bag."
 msgstr "Si seulement j'avais un sac."
 
-#: po/level_i18n.cc:2419
+#: po/level_i18n.cc:2547
 msgid "shh ... listen!"
 msgstr "chut ... écoutez!"
 
-#: po/level_i18n.cc:2649
+#: po/level_i18n.cc:2777
 msgid "Umbreallas protect you against oncomming boulder!"
 msgstr "Les parapluies protègent contre les prochains éboulis!"
 
-#: po/level_i18n.cc:2686
+#: po/level_i18n.cc:2814
 msgid "Nothing can stop us!"
 msgstr "Rien ne saurait nous arrêter!"
 
-#: po/level_i18n.cc:2711
+#: po/level_i18n.cc:2839
 msgid "Dig in ..."
 msgstr "Creusez ..."
 
-#: po/level_i18n.cc:2716
+#: po/level_i18n.cc:2844
 msgid "... did it!"
 msgstr "... c'est fait!"
 
-#: po/level_i18n.cc:2726
+#: po/level_i18n.cc:2854
 msgid "Rest on the bright spot for a minute."
 msgstr "Restez sur le point brillant pendant une minute."
 
-#: po/level_i18n.cc:2727
+#: po/level_i18n.cc:2855
 msgid "You'll do anything you're told!"
 msgstr "Faites tout ce qu'on vous dit de faire!"
 
-#: po/level_i18n.cc:2750
+#: po/level_i18n.cc:2878
 msgid "Did you bring your flag?"
 msgstr "Avez-vous pris votre drapeau avec vous?"
 
-#: po/level_i18n.cc:2767
+#: po/level_i18n.cc:2895
 msgid "Watch out for water holes!"
 msgstr "Attention aux flaques d'eau!"
 
-#: po/level_i18n.cc:2793
+#: po/level_i18n.cc:2921
 msgid "Bricks change!"
 msgstr "Les briquent changent!"
 
-#: po/level_i18n.cc:2804
+#: po/level_i18n.cc:2932
 msgid "If you think that's to easy, try \"Difficulty: Normal\"."
 msgstr "Si c'est trop facile, essayez \"Difficulté: Normal\"."
 
-#: po/level_i18n.cc:2806
+#: po/level_i18n.cc:2934
 msgid "If you think that's to hard, try \"Difficulty: Easy\"."
 msgstr "Si c'est trop diffcile, essayez \"Difficulté: Facile\"."
 
-#: po/level_i18n.cc:2820
+#: po/level_i18n.cc:2948
 msgid "Some stones and stone rows can be moved!"
 msgstr "Il y a des pierres et des rangées de pierres qui peuvent être bougées!"
 
-#: po/level_i18n.cc:2860
+#: po/level_i18n.cc:2988
 msgid "Look closely!"
 msgstr "Regardez de près!"
 
-#: po/level_i18n.cc:2864
+#: po/level_i18n.cc:2992
 msgid "The left-most room is important!"
 msgstr "La chambre tout à gauche est importante!"
 
-#: po/level_i18n.cc:2865
+#: po/level_i18n.cc:2993
 msgid "This is the control panel."
 msgstr "Ceci est le panneau de contrôle."
 
-#: po/level_i18n.cc:2878
+#: po/level_i18n.cc:3006
 msgid ""
 "Welcome to the control room. Use the triggers and switches to plan the "
 "movement of the turtle. The switches are, clockwise: Add, Run and Restart."
@@ -2982,23 +3104,23 @@ msgstr ""
 "sens  des aiguilles d'une montre, le sens des interrupteurs est le suivant: "
 "Ajouter, Exécuter et Redémarrer."
 
-#: po/level_i18n.cc:2891
+#: po/level_i18n.cc:3019
 msgid "Flood Control Dam #3 seems rather unstable. Be quick or be dead."
 msgstr "L'écluse numéro 3 semble assez peu fiable. Soyez rapide ou mort."
 
-#: po/level_i18n.cc:2895
+#: po/level_i18n.cc:3023
 msgid "The block near the top-left can move."
 msgstr "Le bloc près du haut gauche est mobile."
 
-#: po/level_i18n.cc:2932
+#: po/level_i18n.cc:3060
 msgid "White helps black, black helps white."
 msgstr "Le blanc aide le noir, le noir aide le blanc."
 
-#: po/level_i18n.cc:2960
+#: po/level_i18n.cc:3088
 msgid "This level is much bigger! Press F3!"
 msgstr "Ce niveau est bien plus grand! Faites F3!"
 
-#: po/level_i18n.cc:2973
+#: po/level_i18n.cc:3101
 msgid ""
 "Remember  to  only  move  enough  stones  to  just  look  into  the  next  "
 "room  ..."
@@ -3006,43 +3128,43 @@ msgstr ""
 "Rappelez-vous de ne bouger que le nombre de pierres nécessaire pour regarder "
 "dans la prochaine chambre ..."
 
-#: po/level_i18n.cc:2974
+#: po/level_i18n.cc:3102
 msgid "You  have  lost  ..."
 msgstr "Vous avez perdu ..."
 
-#: po/level_i18n.cc:2988
+#: po/level_i18n.cc:3116
 msgid "Risk your life ..."
 msgstr "Risquez votre vie ..."
 
-#: po/level_i18n.cc:2992
+#: po/level_i18n.cc:3120
 msgid "Don't forget to open the door ..."
 msgstr "N'oubliez pas d'ouvrir la porte ..."
 
-#: po/level_i18n.cc:2993
+#: po/level_i18n.cc:3121
 msgid "Good Luck!"
 msgstr "Bonne chance!"
 
-#: po/level_i18n.cc:2994
+#: po/level_i18n.cc:3122
 msgid "Hurry!"
 msgstr "Plus vite!"
 
-#: po/level_i18n.cc:2995
+#: po/level_i18n.cc:3123
 msgid "Congratulations! (or try again)"
 msgstr "Félicitations! (ou alors réessayez)"
 
-#: po/level_i18n.cc:2996
+#: po/level_i18n.cc:3124
 msgid "Almost finished ..."
 msgstr "Presque fini ..."
 
-#: po/level_i18n.cc:3006
+#: po/level_i18n.cc:3134
 msgid "Restart with F3 ..."
 msgstr "Redémarrez avec F3 ..."
 
-#: po/level_i18n.cc:3028
+#: po/level_i18n.cc:3156
 msgid "It's a long way ..."
 msgstr "C'est loin ..."
 
-#: po/level_i18n.cc:3044
+#: po/level_i18n.cc:3172
 msgid ""
 "I don't believe that you are the Marble. I won't let you pass until you "
 "prove me wrong: you have to be faster than my champion!"
@@ -3050,11 +3172,11 @@ msgstr ""
 "Je ne crois pas que vous soyez la boule noire. Je ne vous laisserai passer "
 "que si vous réussissez à battre mon champion en étant plus rapide que lui!"
 
-#: po/level_i18n.cc:3045
+#: po/level_i18n.cc:3173
 msgid "Congratulations! You may pass!"
 msgstr "Félicitations! Vous pouvez passer!"
 
-#: po/level_i18n.cc:3052
+#: po/level_i18n.cc:3180
 msgid ""
 "One  more  and  you  won't  get  this  hammer  until  you  don't  need  it  "
 "anymore!"
@@ -3062,101 +3184,152 @@ msgstr ""
 "Encore une fois et vous ne pourrez obtenir ce marteau que lorsque vous n'en "
 "aurez plus besoin!"
 
-#: po/level_i18n.cc:3056
+#: po/level_i18n.cc:3184
 msgid "The danger is not visible!!!"
 msgstr "Le danger n'est pas visible!!!"
 
-#: po/level_i18n.cc:3068
+#: po/level_i18n.cc:3196
 msgid "Welcome to Enigma III"
 msgstr "Bienvenue dans Enigma III"
 
-#: po/level_i18n.cc:3075
+#: po/level_i18n.cc:3203
 msgid "Look ... they're over there!"
 msgstr "Regardez ... Ils sont par ici!"
 
-#: po/level_i18n.cc:3079
+#: po/level_i18n.cc:3207
 msgid "Watch your step!"
 msgstr "Attention à la marche!"
 
-#: po/level_i18n.cc:3119
+#: po/level_i18n.cc:3247
 msgid "A castle lies before you ... beware of guardians!"
 msgstr "Il y a un château devant vous ... attention aux gardiens!"
 
-#: po/level_i18n.cc:3151
+#: po/level_i18n.cc:3279
 msgid "when  you've  been  particular  places"
 msgstr "lorsque vous avez été en des endroits particuliers"
 
-#: po/level_i18n.cc:3153
+#: po/level_i18n.cc:3281
 msgid "that  you  know  you've  never  seen  before"
 msgstr "que vous n'avez jamais vu auparavant"
 
-#: po/level_i18n.cc:3155
+#: po/level_i18n.cc:3283
 msgid "can  you  be  sure?"
 msgstr "en êtes-vous sur?"
 
-#: po/level_i18n.cc:3157
+#: po/level_i18n.cc:3285
 msgid "feel  like  I've  been  here  before"
 msgstr "c'est comme si j'avais déjà été ici auparavant"
 
-#: po/level_i18n.cc:3159
+#: po/level_i18n.cc:3287
 msgid "quote:  Iron  Maiden   -   Deja-Vu"
 msgstr "citation: Iron Maiden   -   Deja-Vu"
 
-#: po/level_i18n.cc:3161
+#: po/level_i18n.cc:3289
 msgid "for  illmind's  deja  vu  try  the  top  left  corner  ..."
 msgstr "pour avoir déjà vu illmind, essayez le coin en haut à gauche ..."
 
-#: po/level_i18n.cc:3176
+#: po/level_i18n.cc:3315
+msgid "Funeral on Deep Sea"
+msgstr ""
+
+#: po/level_i18n.cc:3317
+msgid ""
+"Warning: Do not play this level for more than 10 minutes - you may suffer "
+"sea sickness yourself!"
+msgstr ""
+
+#: po/level_i18n.cc:3335
 msgid "Welcome to Enigma VII"
 msgstr "Bienvenue dans Enigma VII"
 
-#: po/level_i18n.cc:3180
+#: po/level_i18n.cc:3343
+msgid "The Wild Hunt"
+msgstr ""
+
+#: po/level_i18n.cc:3362
+msgid "Can you relax amid all this chaos?"
+msgstr "Pouvez-vous rester dans votre lit quand tout le reste est fébrile?"
+
+#: po/level_i18n.cc:3367
+msgid "Freeze by the Power of Light"
+msgstr ""
+
+#: po/level_i18n.cc:3375
+msgid "Free Riders"
+msgstr ""
+
+#: po/level_i18n.cc:3377
+msgid "Left or Right Drive?"
+msgstr ""
+
+#: po/level_i18n.cc:3390
 msgid "Watch out, slippery!"
 msgstr "Attention, glissant!"
 
-#: po/level_i18n.cc:3193
+#: po/level_i18n.cc:3403
 msgid "Sorry for inconvenience, the Bank-O-Mat is empty."
 msgstr "Veuillez nous excuser pour ce désagrément, votre compte est soldé."
 
-#: po/level_i18n.cc:3221
+#: po/level_i18n.cc:3431
 msgid "Umbrellas protect!"
 msgstr "Les parapluies protègent"
 
-#: po/level_i18n.cc:3246
+#: po/level_i18n.cc:3456
 msgid "It's easier with a shovel!"
 msgstr "Ce serait plus facile avec une pelle!"
 
-#: po/level_i18n.cc:3253
+#: po/level_i18n.cc:3463
 msgid "Sunday, bloody Sunday!"
 msgstr "Dimanche mortel!"
 
-#: po/level_i18n.cc:3260
+#: po/level_i18n.cc:3470
 msgid "Watch out!!"
 msgstr "Faites gaffe!!"
 
-#: po/level_i18n.cc:3297
+#: po/level_i18n.cc:3507
 msgid "Can you see the hidden oxyd stones?"
 msgstr "Voyez-vous les oxydes cachées?"
 
-#: po/level_i18n.cc:3352
+#: po/level_i18n.cc:3562
 msgid "Please remember:    42"
 msgstr "Souvenez-vous:    42"
 
-#: po/level_i18n.cc:3356
+#: po/level_i18n.cc:3566
 msgid "If you think this is too easy, then play -Bavarian Madness-"
 msgstr "Si vous trouvez ce niveau trop facile, essayez -Bavarian Madness-"
 
-#: po/level_i18n.cc:3369
+#: po/level_i18n.cc:3579
 msgid "Take the key to the left first!"
 msgstr "Prenez la clé de gauche d'abord"
 
-#: po/level_i18n.cc:3385
+#: po/level_i18n.cc:3595
 msgid "Easy?"
 msgstr "Facile?"
 
-#: po/level_i18n.cc:3458
+#: po/level_i18n.cc:3668
 msgid "If you haven't won, you've lost!"
 msgstr "Si vous n'avez pas gagné, c'est que vous avez perdu!"
+
+#~ msgid "Default"
+#~ msgstr "Défaut"
+
+#~ msgid "Template for a simple level."
+#~ msgstr "Gabarit pour un niveau simple."
+
+#~ msgid "Template for a level with the RenderLine method."
+#~ msgstr "Gabarit pour un niveau avec la méthode 'Renderline'."
+
+#~ msgid "Template for a level coded with the ant library."
+#~ msgstr "Gabarit pour un niveau utilisant la bibliothèque 'ant'."
+
+#~ msgid "Level with all floors of Enigma 1.00!"
+#~ msgstr "Un niveau avec tous les sols de Enigma 1.00!"
+
+#~ msgid "Level with all items of Enigma 1.00!"
+#~ msgstr "Un niveau avec tous les outils de Enigma 1.00!"
+
+#~ msgid "Level with all stones of Enigma 1.00!"
+#~ msgstr "Un niveau avec tous les sols de Enigma 1.00"
 
 #~ msgid "Area closed"
 #~ msgstr "Zone interdite!"

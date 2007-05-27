@@ -27,7 +27,11 @@ EXTRA_DIST = \
 	enigma.icns \
 	mac-build.sh \
 	README-SDL.txt \
-	enigma.nsi
+	enigma.nsi.in \
+	enigma.nsi \
+	enigma-inst-lang.nsh \
+	enigma-inst-opt.ini \
+	enigma-inst-welcome.bmp
 
 MOSTLYCLEANFILES = \
 	enigma.dmg

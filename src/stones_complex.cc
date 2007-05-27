@@ -3197,10 +3197,12 @@ namespace
 
     void ChessStone::on_floor_change() {
         Floor *fl = GetFloor(get_pos());
-        if (fl->is_kind("fl-abyss"))
-            try_state(FALLING);
-        if (fl->is_kind("fl-swamp"))
-            try_state(SWAMP);
+        if (fl != NULL) {
+            if (fl->is_kind("fl-abyss"))
+                try_state(FALLING);
+            if (fl->is_kind("fl-swamp"))
+                try_state(SWAMP);
+        }
     }
 }
 

@@ -42,7 +42,6 @@ options = {
     -- 0   = 'enigma' for enigma, appropriate oxyd sound sets for oxyd versions
     -- 1   = 'enigma'
     -- 2.. = OxydVersion-2
-    SoundSetName     = "Enigma",
 
     SkipSolvedLevels = 0,
     TimeHunting      = 0,
@@ -51,8 +50,8 @@ options = {
     MusicVolume      = 1.0,
     StereoSeparation = 10.0,
 
-    MenuMusicFile  = "soundsets/menu.s3m",
-    LevelMusicFile = "soundsets/Emilie.xm",
+    MenuMusicFile  = "sound/menu.s3m",
+    LevelMusicFile = "sound/Emilie.xm",
 
     Language = "",
     History = "",

@@ -816,10 +816,10 @@ void SoundEngine::initSoundSets()
     setSoundSetCount(pos - 1);
     setDefaultSoundSet("Enigma");
     // Extract sound set names and keys from options; activate!
-    string soundset_name = options::GetString("SoundSetName");
+    string soundset_name = app.state->getString("SoundSetName");
     if (soundset_name == "") { // just switched from 1.00 to higher
         soundset_name = convertFromOldSoundSetNumber(options::GetInt("SoundSet"));
-        options::SetOption("SoundSetName", soundset_name);
+        app.state->setProperty("SoundSetName", soundset_name);
     }
     if (soundset_name == "Default")
         soundset_name = getDefaultSoundSet();
@@ -831,7 +831,7 @@ void SoundEngine::initSoundSets()
         // a user soundset is given which doesn't exist anymore.
         Log << "Warning: Soundset '" << soundset_name << "' not available.\n";
         if (sound_sets["Enigma"].activate()) {
-            options::SetOption("SoundSetName", "Enigma");
+            app.state->setProperty("SoundSetName", "Enigma");
             options::SetOption("SoundSet", convertToOldSoundSetNumber("Enigma"));
         } else
             ASSERT(false, XFrontend,
@@ -869,7 +869,7 @@ void sound::SetActiveSoundSet(string soundset_name)
 void sound::SetDefaultSoundSet(string soundset_name)
 {
     sound_engine->setDefaultSoundSet(soundset_name);
-    if(options::GetString("SoundSetName") == "Default")
+    if(app.state->getString("SoundSetName") == "Default")
         SetActiveSoundSet(soundset_name);
 }
 
@@ -998,7 +998,7 @@ int sound::GetOptionSoundSetCount()
 
 int sound::GetOptionSoundSet()
 {
-    string soundSet = options::GetString("SoundSetName");
+    string soundSet = app.state->getString("SoundSetName");
     if (soundSet == "Default")
         return 0;
     int pos = sound_engine->getButtonPosition(soundSet);
@@ -1010,17 +1010,17 @@ void sound::SetOptionSoundSet(int value)
 {
     if(value == 0) {
         // settting to default sound set
-        if (options::GetString("SoundSetName") == "Default")
+        if (app.state->getString("SoundSetName") == "Default")
             return;
-        options::SetOption("SoundSetName", "Default");
+        app.state->setProperty("SoundSetName", "Default");
         options::SetOption("SoundSet", sound_engine->convertToOldSoundSetNumber("Default"));
         SetActiveSoundSet(sound_engine->getDefaultSoundSet());
     } else {
         string newSet = sound_engine->getSoundSetByPosition(value);
         assert(newSet != "");
-        if (options::GetString("SoundSetName") == newSet)
+        if (app.state->getString("SoundSetName") == newSet)
             return;
-        options::SetOption("SoundSetName", newSet);
+        app.state->setProperty("SoundSetName", newSet);
         options::SetOption("SoundSet", sound_engine->convertToOldSoundSetNumber(newSet));
         SetActiveSoundSet(newSet);
     }

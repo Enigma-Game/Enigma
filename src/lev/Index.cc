@@ -52,8 +52,8 @@ namespace enigma { namespace lev {
             return;
         
         // check for uniqueness of index name
-	if (findIndex(anIndex->getName()) != NULL)
-	    return;
+        if (findIndex(anIndex->getName()) != NULL)
+            return;
             
         indices.insert(std::make_pair(anIndex->getName(), anIndex));
         
@@ -112,7 +112,7 @@ namespace enigma { namespace lev {
             for (itg = indexGroups.begin(); itg != indexGroups.end(); itg++)
                 addIndexToGroup(anIndex, (*itg).second);
         }
-	return;
+        return;
     }
     
     void Index::addIndexToGroup(Index *anIndex, std::vector<Index *> * aGroup) {

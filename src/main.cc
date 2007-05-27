@@ -322,6 +322,7 @@ void Application::init(int argc, char **argv)
     SDL_ShowCursor(0);
     errorInit = true;
 
+
     // ----- Initialize sound subsystem
     if (ap.nosound)
         sound::DisableSound();
@@ -345,8 +346,7 @@ void Application::init(int argc, char **argv)
 
     // ----- Load level packs -- needs state
     lev::Index::initGroups();
-    if (!isMakePreviews)
-        oxyd::Init();  // Load oxyd data files - must be first to create correct proxies
+    oxyd::Init(!isMakePreviews);  // Load oxyd data files - must be first to create correct proxies
     lev::PersistentIndex::registerPersistentIndices(ap.makepreview);
     if (!isMakePreviews) {
         lua::Dofile(L, "levels/index.lua");
@@ -366,6 +366,10 @@ void Application::init(int argc, char **argv)
 
     // ----- Initialize sound tables -- needs sound, oxyd, video (error messages!)
     sound::InitSoundSets();
+
+#if MACOSX
+    updateMac1_00();
+#endif
 
     // initialize random
     enigma::Randomize();
@@ -495,7 +499,12 @@ void Application::initSysDatapaths(const std::string &prefFilename)
                 fprintf(stderr, _("Error Home directory does not exist.\n"));
                 exit(1);
             }
+#ifdef MACOSX
+        userStdPathMac1_00 = prefPath + "/.enigma";
+        userStdPath = prefPath + "/Library/Application Support/Enigma";
+#else
         userStdPath = prefPath + "/.enigma";
+#endif
         prefPath = prefPath + ecl::PathSeparator + "." + prefFilename;
 #ifdef __MINGW32__
     } else if (!winAppDataPath.empty()) {
@@ -587,18 +596,36 @@ void Application::initXerces() {
 void Application::initUserDatapaths() {
     // userPath
     userPath = prefs->getString("UserPath");
-    if (userPath.empty())
+    if (userPath.empty()) {
+#ifdef MACOSX
+        if (prefs->getInt("_MacUpdate1.00") != 1)
+	    userPath = userStdPathMac1_00;  // empty prefs user path is 1.00 std user path
+	else {
+	    // first installation of Enigma on a Mac
+	    userPath = userStdPath;  // use the new path
+	    prefs->setProperty("UserPath", std::string(XMLtoUtf8(LocalToXML(&userPath).x_str()).c_str()));
+	    prefs->setProperty("UserImagePath", std::string(XMLtoUtf8(LocalToXML(&userPath).x_str()).c_str()));
+	    prefs->setProperty("_MacUpdate1.00", 2);
+	}
+#else
         userPath = userStdPath;
-    else
+#endif
+    } else {
         userPath = XMLtoLocal(Utf8ToXML(userPath.c_str()).x_str()).c_str();
+    }
     Log << "userPath = \"" << userPath << "\"\n"; 
     
     // userImagePath
     userImagePath = prefs->getString("UserImagePath");
-    if (userImagePath.empty())
+    if (userImagePath.empty()) {
+#ifdef MACOSX
+        userImagePath = userStdPathMac1_00;  // empty prefs user path is 1.00 std user path 
+#else
         userImagePath = userStdPath;
-    else
+#endif
+    } else {
         userImagePath = XMLtoLocal(Utf8ToXML(userImagePath.c_str()).x_str()).c_str();
+    }
     Log << "userImagePath = \"" << userImagePath << "\"\n"; 
 
     // resourceFS
@@ -631,6 +658,32 @@ void Application::initUserDatapaths() {
     if (!ecl::FolderExists(userPath + "/backup"))
         ecl::FolderCreate (userPath + "/backup");   
 }
+
+#ifdef MACOSX
+void Application::updateMac1_00() {
+    if (prefs->getInt("_MacUpdate1.00") == 0 && 
+            prefs->getString("UserPath").empty() &&
+            prefs->getString("UserImagePath").empty()) {
+        gui::ErrorMenu m(ecl::strf(N_("Mac OS X upgrade from Enigma 1.00\n\nThe default user data path has changed from\n  %s \n\nto the visible data path\n  %s \n\nIf ok Enigma will move your data to this new location.\nNote that you have to restart Enigma once for completion of this update."), userStdPathMac1_00.c_str(), userStdPath.c_str()),
+                N_("OK"), N_("Never"), N_("Remind"));
+        m.manage();
+        if (m.isRejectQuit()) {
+            prefs->setProperty("_MacUpdate1.00", 2);
+        } else if (m.isLaterQuit()) {
+            prefs->setProperty("_MacUpdate1.00", 0);
+        } else {  // OK move now
+            Log << "Mac update\n";
+            // move 
+            std::system(ecl::strf("mkdir '%s' && cd ~/.enigma && tar -cf - * | (cd '%s' && tar -xf -) && cd ~ && rm -rf ~/.enigma", userStdPath.c_str(), userStdPath.c_str()).c_str());
+            setUserPath("");
+            setUserImagePath("");
+	    prefs->setProperty("_MacUpdate1.00", 2);
+            prefs->shutdown();
+            exit(0);
+        }
+    }
+}
+#endif
 
 void Application::init_i18n()
 {
@@ -689,6 +742,10 @@ void Application::setUserPath(std::string newPath) {
         resourceFS->prepend_dir(userPath);
         
         // set the new path as the users preference - the standard path is saved as ""
+#ifdef MACOSX
+        // 1.00 uses "" as "~/.enigma" - we have to store the complete path
+        if (prefUserPath.empty()) prefUserPath = userStdPath;
+#endif
         prefs->setProperty("UserPath", std::string(XMLtoUtf8(LocalToXML(&prefUserPath).x_str()).c_str()));
     }
 }
@@ -708,6 +765,10 @@ void Application::setUserImagePath(std::string newPath) {
             resourceFS->prepend_dir(userImagePath);
 
         // set the new path as the users preference - the standard path is saved as ""
+#ifdef MACOSX
+        // 1.00 uses "" as "~/.enigma" - we have to store the complete path
+        if (prefUserImagePath.empty()) prefUserImagePath = userStdPath;
+#endif
         prefs->setProperty("UserImagePath", std::string(XMLtoUtf8(LocalToXML(&prefUserImagePath).x_str()).c_str()));
     }
 }

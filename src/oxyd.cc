@@ -944,12 +944,12 @@ GameInfo::~GameInfo() {
 }
 
 
-GameInfo::GameInfo (OxydVersion ver_, const string &game_, const string &datfile_name_)
+GameInfo::GameInfo (OxydVersion ver_, const string &game_, const string &datfile_name_, const bool searchDAT)
 : ver(ver_), game(game_), datfile(0), /*datfile_name(datfile_name_), */m_present(false)
 {
     string alt_datfile_name = "levels/legacy_dat/" + datfile_name_;
     string fname;
-    if (app.resourceFS->findFile (datfile_name_, datfile_path) ||
+    if (searchDAT && app.resourceFS->findFile (datfile_name_, datfile_path) ||
             app.resourceFS->findFile (alt_datfile_name, datfile_path)) {
         enigma::Log << "Found " << game << " data file\n";
         m_present = true;
@@ -1022,21 +1022,21 @@ namespace
 
 /* -------------------- Functions -------------------- */
 
-void oxyd::Init() 
+void oxyd::Init(bool searchDAT) 
 {
     games.clear();
     games.resize(OxydVersion_Count);
 
     games[OxydVersion_Oxyd1] 
-        = new GameInfo (OxydVersion_Oxyd1,          "Oxyd 1",           "oxyd1ibm.dat");
+        = new GameInfo (OxydVersion_Oxyd1,          "Oxyd 1",           "oxyd1ibm.dat", searchDAT);
     games[OxydVersion_OxydMagnum]     
-        = new GameInfo (OxydVersion_OxydMagnum,     "Oxyd magnum",      "oxydmibm.dat");
+        = new GameInfo (OxydVersion_OxydMagnum,     "Oxyd magnum",      "oxydmibm.dat", searchDAT);
     games[OxydVersion_OxydMagnumGold] 
-        = new GameInfo(OxydVersion_OxydMagnumGold, "Oxyd magnum gold", "oxydmgg.dat");
+        = new GameInfo(OxydVersion_OxydMagnumGold, "Oxyd magnum gold", "oxydmgg.dat", searchDAT);
     games[OxydVersion_OxydExtra]      
-        = new GameInfo(OxydVersion_OxydExtra,      "Oxyd extra",       "oxydex.dat");
+        = new GameInfo(OxydVersion_OxydExtra,      "Oxyd extra",       "oxydex.dat", searchDAT);
     games[OxydVersion_PerOxyd]        
-        = new GameInfo(OxydVersion_PerOxyd,        "Per.Oxyd",         "peroxyd.dat");
+        = new GameInfo(OxydVersion_PerOxyd,        "Per.Oxyd",         "peroxyd.dat", searchDAT);
 }
 
 void oxyd::Shutdown()

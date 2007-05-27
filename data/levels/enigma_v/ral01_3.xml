@@ -3,7 +3,7 @@
   <el:protected >
     <el:info el:type="level">
       <el:identity el:title="Firefox" el:subtitle="Fire or be fired" el:id="20060213ral003"/>
-      <el:version el:score="2" el:release="2" el:revision="$Revision: 56 $" el:status="released"/>
+      <el:version el:score="3" el:release="3" el:revision="$Revision: 72 $" el:status="released"/>
       <el:author  el:name="Ronald Lamprecht" el:email="ral@users.berlios.de"/>
       <el:copyright>Copyright © 2006 Ronald Lamprecht</el:copyright>
       <el:license el:type="GPL v2.0 or above" el:open="true"/>
@@ -25,9 +25,17 @@ enigma.ConserveLevel = FALSE
 
 set_oxyd = oxyd
 math_floor = floor
+oxyd_num = 0
 
 function oxyd( x, y, tiles )
     return set_oxyd( x, y )
+end
+
+function oxydnamed( x, y, tiles )
+    local o =  set_oxyd( x, y )
+    oxyd_num = oxyd_num + 1
+    SetAttrib(o, "name", "oxyd"..oxyd_num)
+    return o
 end
 
 function nothing(x, y, tiles)
@@ -97,13 +105,15 @@ tiles[","] = {floor("fl-wood", {secure = TRUE})}
 tiles["i"] = {floor("fl-ice", {secure = TRUE})}
 tiles[" "] = {inherit("."), item("it-burnable")}
 tiles[";"] = {inherit(","), item("it-burnable")}
+tiles["*"] = {inherit(","), item("it-cross")}
 tiles["d"] = {inherit("."), item("it-dynamite")}
 tiles["h"] = {inherit("."), item("it-weight")}
 tiles["L"] = {inherit("."), item("it-extralife")}
 tiles["a"] = {inherit("."), item("it-booze")}
+tiles["z"] = {inherit("."), item("it-hammer")}
 tiles["e"] = {inherit("."), item("it-extinguisher_empty",{name="extinguisher1"})}
-tiles["f"] = {inherit("."), item("it-extinguisher")}
-tiles["T"] = {inherit("."), item("it-document",{text="Do you think a bushman would start to search for an extinguisher in the cellar if a wall of fire were approaching? Be a Firefox - you have the first 5 items to deal with, no more no less!"})}
+tiles["f"] = {inherit("-"), item("it-extinguisher_medium")}
+tiles["T"] = {inherit("-"), item("it-document",{text="Do you think a bushman would start to search for an extinguisher in the cellar if a wall of fire were approaching? Be a Firefox - you have the first 5 items to deal with, no more no less!"})}
 tiles["I0"] = {inherit("i"), item("it-crack0")}
 tiles["="] = {inherit("."), stone("st-wood")}
 tiles["I"] =  tiles["I0"]
@@ -114,7 +124,7 @@ tiles["G"] = {inherit("."), stone("st-grate1")}
 tiles["#"] = {inherit("."), stone("st-marble")}
 tiles["$"] = {inherit(" "), stone("st-marble")}
 tiles["N1"] = {inherit("-"), item("it-trigger", {invisible=1})} -- anti cracking
-tiles["N"] = {inherit("."), stone("st-oneway_black-n")}
+tiles["N"] = {inherit(","), stone("st-oneway_black-n")}
 tiles["S1"] = {inherit("-"), item("it-trigger", {invisible=1, action="callback", target="helpbrokenmaze"})}
 tiles["S"] = {inherit("S1"), stone("st-oneway_black-s")}
 tiles["t"] = {inherit("."), stone("st-laser-n",{on=1})}
@@ -122,7 +132,14 @@ tiles["n"] = {inherit("."), stone("st-laser-n",{name="laser1",on=0})}
 tiles["s"] = {inherit("."), stone("st-laser-s",{on=1})}
 tiles["b"] = {inherit("."), item("it-blackbomb")}
 tiles["x"] = {inherit("."), oxyd}
+tiles["y"] = {inherit("."), oxydnamed}
 tiles["~"] = {floor("fl-water")}
+tiles["R"] = {inherit("."), stone("st-flrock")}
+tiles["H"] = {inherit("."), stone("st-flhay")}
+tiles["X1"] = {inherit("-"), item("it-cross")}
+tiles["X"] = {inherit("X1"), stone("st-break_gray")}
+tiles["j"] = {inherit("-"), item("it-sensor",{action="setfire", target="homefire"})}
+tiles["J"] = {floor("fl-hay", {secure = TRUE, name="homefire"})}
 
 tiles["1"] = {inherit(" "), actor("ac-blackball", {player=0})}
 tiles["2"] = {inherit("."), item("it-trigger", {invisible=1, action="on", target="laser1"})}
@@ -133,17 +150,19 @@ if difficult then
     tiles["5"] =  tiles["h"]
     tiles["6"] =  tiles["h"]
     tiles["7"] =  tiles["e"]
-    tiles["8"] =  tiles["a"]
+    tiles["8"] =  tiles["z"]
     tiles["9"] =  tiles["d"]
     tiles["%"] = {inherit("I3"), stone("st-flhay")}
     tiles["C"] = {inherit(","), item("it-cross")}
     tiles["c"] =  tiles["C"]
     tiles["B"] =  tiles["b"]
     tiles["w"] = {inherit("."), stone("st-flrock")}
+    tiles["g"] = {inherit("."), stone("st-grate1")}
     tiles["W"] =  tiles[","]
+    tiles["_"] = {inherit(";"), item("it-blackbomb")}
 else
     tiles["5"] =  tiles["d"]
-    tiles["6"] =  tiles["a"]
+    tiles["6"] =  tiles["z"]
     tiles["7"] =  tiles["h"]
     tiles["8"] =  tiles["e"]
     tiles["9"] =  tiles["h"]
@@ -152,7 +171,9 @@ else
     tiles["c"] =  tiles["."]
     tiles["B"] =  tiles["."]
     tiles["w"] = {inherit("."), stone("st-wood")}
+    tiles["g"] =  tiles["."]
     tiles["W"] =  tiles["."]
+    tiles["_"] =  tiles[";"]
 end
 
 
@@ -241,20 +262,20 @@ create_world_from_map( tiles, {
 "#                                     #",
 "#                                     #",
 "#                                     #",
-"# ===       w           ===           #",
+"# ===   g wg            ===           #",
 "###S##s##N###############x#############",
-"#  -  . WCcaw    3~#     #   #   #    #",
-"#     . B         -# ### # # # # # #22#",
-"#     .   B       ~#Tfx#   #   #   # 1#",
-"#     .           ~#################22#",
-"#     .B     ;;;G###           .   ;  #",
-"#     .      ;x;%  #           .   ;7 #",
-"#     .      ;;;% x#           .   ;  #",
-"#;;;###IIIIII#######    b      . 56;8 #",
-"#           d           .      .   ;  #",
-"#                       .      .   ;9 #",
-"#                       .      .   ;  #",
-"########################n######t#######"
+"#  -  . WCcaw    3~#     #   #   #  J #",
+"#     . B         -#X### # # # # # #22#",
+"#     .   B       ~#T#yH   #   #   # 1#",
+"#     .           ~#-###############22#",
+"#     .B     ;;;G###jf#        .   ,  #",
+"#     .      ;y;%  ####        .   ,  #",
+"#     .      ;_;% y#           .   ,7 #",
+"#;;;###IIIIII#######     b     . 56, 8#",
+"#           d            .     .   ,9 #",
+"#                        .     .   ,  #",
+"#                        .     .   ,  #",
+"#########################n#####t#######"
 })
 
 function helpbrokenmaze()
@@ -341,7 +362,13 @@ function render_broken_maze()
 end
 
 render_broken_maze()
-oxyd_shuffle()
+
+repeat
+  oxyd_shuffle()
+  local c1 = enigma.GetAttrib(enigma.GetNamedObject("oxyd1"), "color")
+  local c2 = enigma.GetAttrib(enigma.GetNamedObject("oxyd2"), "color")
+  local c3 = enigma.GetAttrib(enigma.GetNamedObject("oxyd3"), "color")
+until ((c1 ~= c2) and (c1 ~= c3) and (c2 ~= c3))
     ]]></el:luamain>
     <el:i18n>
       <el:string el:key="title">
