@@ -29,7 +29,7 @@ end
 -- Set default values for options
 options = {
     MouseSpeed        = 7.0,
-    FullScreen        = 1,
+    FullScreen        = 0,
     Nozoom            = 1,
     InGameMusic       = 0,                  -- no music during the game
     Difficulty        = 2,                  -- hard
@@ -42,16 +42,17 @@ options = {
     -- 0   = 'enigma' for enigma, appropriate oxyd sound sets for oxyd versions
     -- 1   = 'enigma'
     -- 2.. = OxydVersion-2
+    SoundSetName     = "Enigma",
 
     SkipSolvedLevels = 0,
     TimeHunting      = 0,
- 
+
     SoundVolume      = 1.0,
     MusicVolume      = 1.0,
     StereoSeparation = 10.0,
 
-    MenuMusicFile  = "sound/menu.s3m",
-    LevelMusicFile = "sound/Emilie.xm",
+    MenuMusicFile  = "soundsets/menu.s3m",
+    LevelMusicFile = "soundsets/Emilie.xm",
 
     Language = "",
     History = "",
@@ -169,9 +170,10 @@ mkoxydlikes("d")
 def_stone_glass("st-glass")
 def_stone_movable_glass("st-glass_move")
 def_stone_glass("st-glass1")
-def_stone_hollow("st-glass1_hole")
 def_stone_movable_glass("st-glass1_move")
+def_stone_hollow("st-glass1_hole")
 def_stone_glass("st-glass2")
+def_stone_movable_glass("st-glass2_move")
 def_stone_hollow("st-glass2_hole")
 def_stone_glass("st-glass3")
 
@@ -245,293 +247,3 @@ def_floor("fl-white",        3.0,   1.5,   false,   "")
 def_floor("fl-trigger",      3.0,   1.5,    true,   "")
 def_floor("fl-abyss_fake",   3.0,   2.0,   false,   "")
 
-----------------------------------------------------------------------
--- Sound handling
-----------------------------------------------------------------------
-
--- Create a new sound definition
-function Sound(t)
-    local tt = {}
-    tt.file     = t.file
-    tt.volume   = t.volume or 1.0
-    tt.loop     = t.loop or nil
-    tt.global   = t.global or nil
-    tt.priority = t.priority or 1
-    return tt
-end
-
--- Copy all key/value pairs only present in t1 to t2.
-function copy_missing (t1, t2)
-    for k,v in pairs(t1) do
-        if not t2[k] then
-            t2[k] = v
-        end
-    end
-end
-
-
--- The list of available sound tables
-soundtables = {}
-
--- The currently active sound table
-soundtable = {}
-soundtable_name = ""
-
-
-function AddSoundTable (name, t)
-    e = {}
-    e.name = name
-    e.table = t
-    soundtables[name] = e
-
-    -- current soundtable has been replaced
-    if (name == soundtable_name) then
-        ActivateSoundTable (name)
-    end
-end
-
-
-function ActivateSoundTable (name)
-    st = soundtables[name]
-    if st then
-        soundtable = st.table
-        soundtable_name = name
-    end
-end
-
-function SoundEvent (eventname, xpos, ypos, volume) 
-    local s = soundtable[eventname]
-    if s then
-        if type(s) == "string" then
-            enigma.PlaySound (s, xpos, ypos, volume, 1.0)
-        elseif s.global then
-            enigma.PlaySoundGlobal (s.file, s.volume * volume, s.priority)
-        else
-            enigma.PlaySound (s.file, xpos, ypos, s.volume * volume, s.priority)
-        end
-        return 1
-    end
-    print ("Undefined sound event " .. eventname .. " @ " .. xpos .. "," .. ypos)
-    return nil
-end
-
-
----------------------------------
--- Definition of sound effects --
----------------------------------
-
-------------------------
--- Enigma Sound table --
-------------------------
-
-soundtable_enigma = {
-    [""]           = "",        -- empty sound
-    ballcollision  = "ballcollision",
-    blackbomb      = "explosion1",
-    blockerdown    = "",
-    blockerup      = "",
-    booze          = "",
-    bumper         = "bumper",
-    cloth          = "st-thud",
-    coinslotoff    = "",
-    coinsloton     = "st-coinslot",
-    crack          = "",
-    doorclose      = "doorclose",  -- missing
-    dooropen       = "dooropen",   -- missing
-    drown          = "drown",
-    dynamite       = "explosion2", -- replace?
-    electric       = "st-stone",   -- replace
-    exit           = Sound { file="exit", global=1 },  -- missing
-    extinguish     = "",
-    fakeoxyd       = Sound { file="st-fakeoxyd", volume=0.3 },
-    falldown       = "falldown",   -- missing, unused (falling is shatter!)
-    fart           = "fart",
-    finished       = Sound { file="finished", global=1 },  -- missing
-    floordestroy   = "",
-    fourswitch     = "st-switch", 
-    glass          = "st-metal",   -- replace
-    hitfloor       = "stone",      -- missing, used by it-vortex
-    impulse        = "",
-    intro          = Sound { file="intro", global=1 },  -- missing
-    invrotate      = Sound { file="invrotate", global=1 },
-    itemtransform  = "st-magic",
-    jump           = "boink",
-    jumppad        = "",
-    landmine       = "explosion2",  -- replace?
-    laserloop      = "",
-    laseron        = "st-laser",
-    laseroff       = "",
-    lock           = "",
-    magneton       = "",
-    magnetoff      = "",
-    mail           = "",
-    menuexit        = Sound { file="menuexit", global=1 },
-    menumove        = Sound { file="menumove",global=1 },
-    menuok          = Sound { file="menuok",global=1 },
-    menustop        = Sound { file="menustop",global=1 },
-    menuswitch      = Sound { file="menuswitch",global=1 },
-    metal          = "st-metal",
-    mirrorturn     = "st-mirrorturn",
-    movebig        = "st-move",
-    moveslow       = "st-move",
-    movesmall      = "st-move",
-    oxydclose      = "st-oxydclose",  -- missing, not neccessary I think
-    oxydopen       = "st-oxydopen",
-    oxydopened     = "st-oxydopened",
-    pickup         = Sound {file="pickup", global=1},
-    puller         = "",
-    puzzlerotate   = "st-move",
-    rubberband     = "boing",
-    scissors       = "",
-    seedgrow       = "seedgrow",  -- missing
-    shatter        = "shatter",
-    shattersmall   = "shatter",   -- replace, "shattersmall" is missing
-    shogunoff      = "",
-    shogunon       = "",
-    skull          = "",
-    spade          = "",
-    squish         = "",
-    stone          = "st-stone",
-    stonedestroy   = "explosion0",
-    stonepaint     = "st-magic",
-    stonetransform = "st-magic",
-    swamp          = "swamped",
-    switchmarbles  = "warp",      -- missing
-    switchoff      = "",
-    switchon       = "st-switch",
-    switchplayer   = "switch",
-    sword          = "",
-    thief          = "thief",     -- missing
-    triggerdown    = "it-triggerdown",
-    triggerup      = "it-triggerup",
-    turnstileleft  = "turnstileleft",  -- missing
-    turnstileright = "turnstileright", -- missing
-    umbrellaoff    = "",
-    umbrellaon     = "",
-    umbrellawarn   = "",
-    unlock         = "unlock",    -- missing
-    vortexclose    = "doorclose", -- missing
-    vortexopen     = "dooropen",  -- missing
-    warp           = "warp",      -- missing, maybe suck2?
-    whitebomb      = "explosion1",
-    wood           = "wood",
-    yinyang        = "st-magic",
-}
-
-
-
-soundtable_oxyd = {
-    [""]           = "",        -- empty sound
-    ballcollision  = "OXKLICK3.SDD",
-    blackbomb      = "OXCRASH2.SDD",
-    blockerdown    = "",
-    blockerup      = "",
-    booze          = "",
-    bumper         = "OXWOUOU.SDD",
-    cloth          = "OXKLICK4.SDD",
-    coinslotoff    = "",
-    coinsloton     = "OXMONEY.SDD",
-    crack          = Sound { file="OXCRACK.SDD", volume=0.7 },
-    doorclose      = "OXMOTOR.SDD",
-    dooropen       = "OXMOTOR.SDD",
-    drown          = "OXBLOOP.SDD",
-    dynamite       = "OXCRASH1.SDD",
-    electric       = "OXKLICK6.SDD",
-    exit           = Sound { file="OXEXIT.SDD", global=1 },
-    extinguish     = "",
-    fakeoxyd       = "",
-    falldown       = "",
-    fart           = "OXUNTITL.SDD",
-    finished       = Sound { file="OXFINITO.SDD", global=1 },
-    floordestroy   = "OXCRASH2",
-    fourswitch     = "",
-    glass          = "OXKLICK1.SDD",
-    hitfloor       = "OXKLICK1.SDD",
-    impulse        = "OXWOUOU.SDD",
-    intro          = Sound { file="OXINTRO.SDD", global=1 },
-    invrotate      = Sound { file="OXINVROT.SDD", global=1 },
-    itemtransform  = "OXMAGIC1.SDD",
-    jump           = "OXJUMP.SDD",
-    jumppad        = "",
-    landmine       = "explosion1",
-    laserloop      = "",
-    laseron        = "OXLASER.SDD",
-    laseroff       = "",
-    lock           = "",
-    magneton       = "",
-    magnetoff      = "",
-    mail           = "",
-    metal          = "OXKLICK2.SDD",
-    mirrorturn     = "OXTURN.SDD",
-    movebig        = "OXMOVE.SDD",
-    moveslow       = "OXMOVE.SDD",
-    movesmall      = "OXMOVE.SDD",
-    oxydclose      = "OXMEMCL.SDD",
-    oxydopen       = "OXMEMOP.SDD",
-    oxydopened     = "OXMEMOK.SDD",
-    pickup         = "OXINVENT.SDD",
-    puller         = "OXPULLER.SDD",
-    puzzlerotate   = "OXMOVE.SDD",
-    rubberband     = "OXBOING.SDD",
-    scissors       = "OXCUT.SDD",
-    seedgrow       = "",
-    shatter        = "OXKLIRR.SDD",
-    shattersmall   = "OXKLIRR.SDD",
-    shogunoff      = "",
-    shogunon       = "",
-    skull          = "",
-    spade          = "",
-    squish         = "OXMATSCH.SDD",
-    stone          = "OXKLICK1.SDD",
-    stonedestroy   = "OXCRASH2.SDD",
-    stonepaint     = "OXMAGIC.SDD",
-    stonetransform = "OXMAGIC.SDD",
-    swamp          = "OXBLOOP.SDD",
-    switchmarbles  = "",
-    switchoff      = "",
-    switchon       = "",
-    switchplayer   = "",
-    sword          = "",
-    thief          = "OXTHIEF.SDD",
-    triggerdown    = "OXSWON.SDD",
-    triggerup      = "OXSWOFF.SDD",
-    turnstileleft  = "OXMAGIC4.SDD",
-    turnstileright = "OXMAGIC3.SDD",
-    umbrellaoff    = "",
-    umbrellaon     = "",
-    umbrellawarn   = "",
-    unlock         = "",
-    vortexclose    = "OXMOTOR.SDD",
-    vortexopen     = "OXMOTOR.SDD",
-    warp           = "OXTRANS.SDD",
-    whitebomb      = "OXCRASH2.SDD",
-    wood           = "OXKLICK1.SDD",
-    yinyang        = "OXMAGIC.SDD",
-}    
-copy_missing (soundtable_enigma, soundtable_oxyd)
-
-soundtable_oxm = {
-    turnstileleft = "OXTURNL.SDD",
-    turnstileright = "OXTURNL.SDD"
-}
-copy_missing (soundtable_oxyd, soundtable_oxm)
-
---------------------------------------
--- Register predefined sound tables --
---------------------------------------
-
-AddSoundTable ("Oxyd", soundtable_oxyd)
-AddSoundTable ("OxydMag", soundtable_oxm)
-AddSoundTable ("Enigma", soundtable_enigma)
-
-ActivateSoundTable ("Enigma")
-
-------------------------------------------
--- Load external sound description file --
-------------------------------------------
--- local f = enigma.FindDataFile("sound/sound.lua")
--- if f then                       -- present?
---     dofile (f)
--- end
-
---soundtable = soundtable_enigma

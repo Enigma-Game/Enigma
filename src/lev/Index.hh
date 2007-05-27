@@ -129,8 +129,8 @@ namespace enigma { namespace lev {
         void updateFromProxies();
 
         // ---------- LevelPack legacy methods ---to be renamed ------- */
-       /*! Return the default SoundSet (see options::SoundSet for meaning) */
-        virtual int get_default_SoundSet() const;
+        /*! Return the default SoundSet (see options::SoundSet for meaning) */
+        virtual const char* get_default_SoundSet() const;
 
         /*! Returns true if it's a twoplayer levelpack, but has no
           it-yinyang (needed to add it-yinyang to inventory if

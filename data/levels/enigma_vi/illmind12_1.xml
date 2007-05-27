@@ -153,9 +153,7 @@ set_actor("ac-blackball", 18.5, 1.5, {player=0})
       </el:string>
       <el:string el:key="text1">
         <el:english el:translate="true">illmind's be quick or be dead</el:english>
-      </el:string> 
+      </el:string>
     </el:i18n>
   </el:protected>
 </el:level>
-
-

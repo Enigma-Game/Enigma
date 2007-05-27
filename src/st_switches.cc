@@ -169,6 +169,8 @@ namespace
         CLONEOBJ(CoinSlot);
     public:
         CoinSlot();
+        ~CoinSlot();
+
     private:
         // Variables.
         enum State { ACTIVE, INACTIVE } state;
@@ -194,6 +196,11 @@ CoinSlot::CoinSlot()
 : OnOffStone("st-coinslot"), state(INACTIVE), remaining_time(0)
 {
 }
+
+CoinSlot::~CoinSlot() {
+    GameTimer.remove_alarm (this);
+}
+
 
 void CoinSlot::init_model() {
     set_model(state==ACTIVE ? "st-coinslot-active" : "st-coinslot");
@@ -436,6 +443,7 @@ namespace
     class LaserTimeSwitchBase : public PhotoStone, public TimeHandler {
     public:
         LaserTimeSwitchBase(const char *kind);
+        virtual ~LaserTimeSwitchBase();
 
     private:
         // LaserTimeSwitchBase interface
@@ -507,6 +515,10 @@ LaserTimeSwitchBase::LaserTimeSwitchBase(const char *kind)
 : PhotoStone(kind) , state(IDLE) 
 {}
 
+LaserTimeSwitchBase::~LaserTimeSwitchBase() {
+    GameTimer.remove_alarm (this);
+}
+
 void LaserTimeSwitchBase::change_state(State newstate) {
     if (state == newstate)
         return;
@@ -565,7 +577,6 @@ double LaserTimeSwitchBase::timer_delay() const {
 }
 
 /* ---------- LaserSwitch ---------- */
-
 
 LaserSwitch::LaserSwitch()
 : LaserTimeSwitchBase("st-laserswitch")

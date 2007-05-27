@@ -317,7 +317,7 @@ namespace
             Rect (0, 0, 640, 416),   // game area
             Rect (0, 416, 640, 64),  // statusbar area
             Rect (10, 425, 117, 43), // time area
-            Rect (100, 440, 30, 30), // moves area
+            Rect (100, 425, 30, 43), // moves area
             Rect (152, 433, 490, 52),// inventory area
             Rect (150, 434, 475, 35),// text area
             VM_None, true,
@@ -328,8 +328,8 @@ namespace
             120, 78, "thumbs32",     // thumbnail size/directory
             Rect (0, 0, 640, 416),   // game area
             Rect (0, 416, 640, 64),  // statusbar area
-            Rect (20, 420, 100, 40), // time area
-            Rect (100, 440, 30, 30), // moves area
+            Rect (15, 420, 110, 40), // time area
+            Rect (100, 420, 30, 40), // moves area
             Rect (152, 433, 490, 52),// inventory area
             Rect (150, 434, 475, 35), // text area
             VM_640x480, 
@@ -342,8 +342,8 @@ namespace
             120, 78, "thumbs32",
             Rect (0, 0, 800, 520),   // game area
             Rect (0, 520, 800, 80),  // statusbar area
-            Rect (20, 540, 130, 40), // time area
-            Rect (100, 560, 30, 30), // moves area
+            Rect (15, 540, 140, 40), // time area
+            Rect (125, 540, 30, 40), // moves area
             Rect (192, 539, 610, 46),// inventory area
             Rect (185, 545, 600, 39), // text area
             VM_640x480, true,
@@ -356,7 +356,7 @@ namespace
             Rect (32, 0, 960, 624), // game area
             Rect (32, 624, 960, 96),  // statusbar area
             Rect (50, 640, 170, 60), // time area
-            Rect (100, 660, 30, 30), // moves area
+            Rect (185, 640, 30, 60), // moves area
             Rect (260, 650, 710, 46),// inventory area
             Rect (260, 655, 710, 40), // text area
             VM_640x480, true,

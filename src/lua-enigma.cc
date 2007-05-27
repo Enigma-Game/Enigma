@@ -1,6 +1,6 @@
 /*
 ** Lua binding: enigma
-** Generated automatically by tolua++-1.0.92 on Wed Sep 27 01:52:17 2006.
+** Generated automatically by tolua++-1.0.92 on Fri Apr 20 13:59:44 2007.
 */
 
 #ifndef __cplusplus
@@ -25,6 +25,8 @@ using namespace world;
 #include "video.hh"
 using namespace video;
 using ecl::Screen;
+#include "sound.hh"
+using namespace sound;
 
 /* function to register type */
 static void tolua_reg_types (lua_State* tolua_S)
@@ -1133,6 +1135,86 @@ static int tolua_enigma_video_ShowMouse00(lua_State* tolua_S)
 }
 #endif //#ifndef TOLUA_DISABLE
 
+/* function: DefineSoundEffect */
+#ifndef TOLUA_DISABLE_tolua_enigma_sound_DefineSoundEffect00
+static int tolua_enigma_sound_DefineSoundEffect00(lua_State* tolua_S)
+{
+#ifndef TOLUA_RELEASE
+ tolua_Error tolua_err;
+ if (
+     !tolua_iscppstring(tolua_S,1,0,&tolua_err) ||
+     !tolua_iscppstring(tolua_S,2,0,&tolua_err) ||
+     !tolua_iscppstring(tolua_S,3,0,&tolua_err) ||
+     !tolua_isnumber(tolua_S,4,0,&tolua_err) ||
+     !tolua_isboolean(tolua_S,5,0,&tolua_err) ||
+     !tolua_isboolean(tolua_S,6,0,&tolua_err) ||
+     !tolua_isnumber(tolua_S,7,0,&tolua_err) ||
+     !tolua_isnumber(tolua_S,8,0,&tolua_err) ||
+     !tolua_isnumber(tolua_S,9,0,&tolua_err) ||
+     !tolua_isnumber(tolua_S,10,0,&tolua_err) ||
+     !tolua_isnumber(tolua_S,11,0,&tolua_err) ||
+     !tolua_isnumber(tolua_S,12,0,&tolua_err) ||
+     !tolua_iscppstring(tolua_S,13,0,&tolua_err) ||
+     !tolua_isnoobj(tolua_S,14,&tolua_err)
+ )
+  goto tolua_lerror;
+ else
+#endif
+ {
+  string table = ((string)  tolua_tocppstring(tolua_S,1,0));
+  string name = ((string)  tolua_tocppstring(tolua_S,2,0));
+  string filename = ((string)  tolua_tocppstring(tolua_S,3,0));
+  double volume = ((double)  tolua_tonumber(tolua_S,4,0));
+  bool loop = ((bool)  tolua_toboolean(tolua_S,5,0));
+  bool global = ((bool)  tolua_toboolean(tolua_S,6,0));
+  int priority = ((int)  tolua_tonumber(tolua_S,7,0));
+  double damp_max = ((double)  tolua_tonumber(tolua_S,8,0));
+  double damp_inc = ((double)  tolua_tonumber(tolua_S,9,0));
+  double damp_mult = ((double)  tolua_tonumber(tolua_S,10,0));
+  double damp_min = ((double)  tolua_tonumber(tolua_S,11,0));
+  double damp_tick = ((double)  tolua_tonumber(tolua_S,12,0));
+  string silence_string = ((string)  tolua_tocppstring(tolua_S,13,0));
+  {
+   DefineSoundEffect(table,name,filename,volume,loop,global,priority,damp_max,damp_inc,damp_mult,damp_min,damp_tick,silence_string);
+  }
+ }
+ return 0;
+#ifndef TOLUA_RELEASE
+ tolua_lerror:
+ tolua_error(tolua_S,"#ferror in function 'DefineSoundEffect'.",&tolua_err);
+ return 0;
+#endif
+}
+#endif //#ifndef TOLUA_DISABLE
+
+/* function: SetActiveSoundSet */
+#ifndef TOLUA_DISABLE_tolua_enigma_sound_SetActiveSoundSet00
+static int tolua_enigma_sound_SetActiveSoundSet00(lua_State* tolua_S)
+{
+#ifndef TOLUA_RELEASE
+ tolua_Error tolua_err;
+ if (
+     !tolua_iscppstring(tolua_S,1,0,&tolua_err) ||
+     !tolua_isnoobj(tolua_S,2,&tolua_err)
+ )
+  goto tolua_lerror;
+ else
+#endif
+ {
+  string table = ((string)  tolua_tocppstring(tolua_S,1,0));
+  {
+   SetActiveSoundSet(table);
+  }
+ }
+ return 0;
+#ifndef TOLUA_RELEASE
+ tolua_lerror:
+ tolua_error(tolua_S,"#ferror in function 'SetActiveSoundSet'.",&tolua_err);
+ return 0;
+#endif
+}
+#endif //#ifndef TOLUA_DISABLE
+
 /* Open function */
 TOLUA_API int tolua_enigma_open (lua_State* tolua_S)
 {
@@ -1209,6 +1291,11 @@ TOLUA_API int tolua_enigma_open (lua_State* tolua_S)
    tolua_function(tolua_S,"GetScreen",tolua_enigma_video_GetScreen00);
    tolua_function(tolua_S,"HideMouse",tolua_enigma_video_HideMouse00);
    tolua_function(tolua_S,"ShowMouse",tolua_enigma_video_ShowMouse00);
+  tolua_endmodule(tolua_S);
+  tolua_module(tolua_S,"sound",0);
+  tolua_beginmodule(tolua_S,"sound");
+   tolua_function(tolua_S,"DefineSoundEffect",tolua_enigma_sound_DefineSoundEffect00);
+   tolua_function(tolua_S,"SetActiveSoundSet",tolua_enigma_sound_SetActiveSoundSet00);
   tolua_endmodule(tolua_S);
  tolua_endmodule(tolua_S);
  return 1;

@@ -57,6 +57,8 @@ namespace enigma { namespace gui {
          */
         std::string getText();
         
+        void setInvalidChars(std::string forbiddenChars); // currently limited to 1st coding page
+        void setMaxChars(int max);
         bool wasLastActionReturn();
         
         // Widget interface.
@@ -83,6 +85,10 @@ namespace enigma { namespace gui {
          * the string itself!!
          */
         std::vector<unsigned char> charSizesPostCursor;
+        bool isLimitedToValidChars;
+        std::string validChars;
+        std::string invalidChars;
+        int maxChars;
         bool isLastActionReturn;
         static ecl::Font *menufont;
     };

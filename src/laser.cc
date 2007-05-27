@@ -73,7 +73,8 @@ namespace
         static vector<LaserBeam*> instances;
         static map<GridPos, int>  old_laser_positions;
     };
-    ItemTraits LaserBeam::traits = {"it-laserbeam", it_laserbeam, itf_indestructible, 0.0 };
+    ItemTraits LaserBeam::traits = {"it-laserbeam", it_laserbeam, 
+                                    itf_static | itf_indestructible, 0.0 };
 
 
 /* -------------------- Laser Stones -------------------- */
@@ -368,7 +369,8 @@ void LaserBeam::all_emitted()
     }
 
     if (count) {
-        sound::SoundEvent ("laseron", ecl::V2(x/count+.5, y/count+.5));
+        sound::EmitSoundEvent ("laseron", ecl::V2(x/count+.5, y/count+.5),
+                               getVolume("laseron", NULL));
     }
 
     old_laser_positions.clear();

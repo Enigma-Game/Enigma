@@ -121,12 +121,27 @@ namespace enigma {
 
         stripIgnorableWhitespace(doc->getDocumentElement());
         std::string path = app.userPath + "/state.xml";
+        std::string pathBackup = app.userPath + "/backup/state.xml";
         
         // backup state every 10th save 
         if (count%10 == 0) {
-            std::remove((path + "~2").c_str());
-            std::rename((path + "~1").c_str(), (path + "~2").c_str());
-            std::rename((path).c_str(), (path + "~1").c_str());
+            std::remove((pathBackup + "~2").c_str());
+            std::remove((path + "~2").c_str()); // 1.00 bakups
+            if (ecl::FileExists(path + "~1")) {
+                if (std::difftime(ecl::FileModTime(path + "~1"),
+                        ecl::FileModTime(pathBackup + "~1")) > 0) {
+                    // backup 1 from 1.00 is newer than backup 1 on backup path
+                    if (Copyfile(path + "~1", pathBackup + "~2"))
+                        std::remove((path + "~1").c_str()); // 1.00 bakup
+                } else {
+                    // just in case off previous copy failure
+                    std::rename((pathBackup + "~1").c_str(), (pathBackup + "~2").c_str());
+                    std::remove((path + "~1").c_str()); // 1.00 bakup
+                }
+            } else {
+                std::rename((pathBackup + "~1").c_str(), (pathBackup + "~2").c_str());
+            }
+            Copyfile(path, pathBackup + "~1");
         }
 
         try {
@@ -152,8 +167,11 @@ namespace enigma {
 
         if (!result) {
             if (count%10 == 0) {
-                std::rename((path + "~1").c_str(), (path).c_str());
-                std::rename((path + "~2").c_str(), (path + "~1").c_str());
+                // restore backup in case of error
+                if (Copyfile(pathBackup + "~1", path)) {
+                    std::remove((pathBackup + "~1").c_str());
+                    std::rename((pathBackup + "~2").c_str(), (pathBackup + "~1").c_str());
+                }
             }
             cerr << XMLtoLocal(Utf8ToXML(errMessage.c_str()).x_str()).c_str();
             gui::ErrorMenu m(errMessage, N_("Continue"));

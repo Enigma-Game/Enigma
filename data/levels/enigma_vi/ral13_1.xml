@@ -3,7 +3,7 @@
   <el:protected >
     <el:info el:type="level">
       <el:identity el:title="Ben Hur" el:subtitle="The art of steering a quadriga" el:id="20061011ral390"/>
-      <el:version el:score="1" el:release="1" el:revision="$Revision: 37 $" el:status="released"/>
+      <el:version el:score="1" el:release="1" el:revision="$Revision: 58 $" el:status="released"/>
       <el:author  el:name="Ronald Lamprecht" el:email="ral@users.berlios.de"/>
       <el:copyright>Copyright © 2006 Ronald Lamprecht</el:copyright>
       <el:license el:type="GPL v2.0 or above" el:open="true"/>
@@ -23,6 +23,10 @@ math_floor = floor
 
 function oxyd( x, y, tiles )
     return set_oxyd( x, y )
+end
+
+function nothing(x, y, tiles)
+    -- create nothing
 end
 
 function floor( floor_type, attribs )
@@ -71,11 +75,11 @@ function create_tile( tiles, x, y, tile_type )
     local constructors = tiles[tile_type]
 
     if constructors then
-	for i = 1,getn(constructors) do
-	    constructors[i](x,y,tiles)
-	end
+        for i = 1,getn(constructors) do
+            constructors[i](x,y,tiles)
+        end
     else
-	error("invalid tile identifier " .. tile_type )
+        error("invalid tile identifier " .. tile_type )
     end
 end
 

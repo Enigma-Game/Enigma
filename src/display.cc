@@ -182,58 +182,53 @@ void StatusBarImpl::redraw (ecl::GC &gc, const ScreenArea &r) {
         Surface   *s_time      = 0;
         Surface   *s_moves     = 0;
         Font      *timefont    = enigma::GetFont ("timefont");
+        Font      *movesfont   = enigma::GetFont ("smallfont");
+        ScreenArea timearea    = vminfo->sb_timearea;
+        ScreenArea movesarea   = vminfo->sb_movesarea;
 
         if (m_showtime_p) {
             double     abstime       = m_leveltime >= 0 ? m_leveltime : fabs(floor(m_leveltime));
-            int        minutes       = static_cast<int>(abstime/60) % 100;
+            int        minutes       = static_cast<int>(abstime/60);
             int        seconds       = static_cast<int>(abstime) % 60;
-//             const int  SIZE_PER_CHAR = 16; // depends on fontsize (28 for timefont)
 
+            if (minutes >= 100) {
+                minutes = 99;
+                seconds = 59;
+            }
             snprintf(buf, BUFSIZE,
                      m_leveltime >= 0 ? "%d:%02d" : "-%d:%02d",
                      minutes, seconds);
             s_time = timefont->render(buf);
             xsize_time = s_time->width();
-//             xsize_time = static_cast<int>((len-0.5)*SIZE_PER_CHAR);
         }
 
         if (m_showcounter_p) {
-            Font      *f             = enigma::GetFont ("smallfont");
-            int        len           = snprintf(buf, BUFSIZE, "%d", m_counter);
-            const int  SIZE_PER_CHAR = 8; // depends on fontsize (14 for smallfont)
-
-            s_moves     = f->render(buf);
-            xsize_moves = static_cast<int>(len*SIZE_PER_CHAR);
+            int len = snprintf(buf, BUFSIZE, "%d", m_counter);
+            s_moves     = movesfont->render(buf);
+            xsize_moves = s_moves->width();
         }
 
-        const int YOFF_MOVES = 26;
-//         const int YOFF_MOVES = 36;
-        const int YOFF_TIME  = 13;
-        const int XCENTER    = 66;
 
         if (m_showtime_p) {
-            ScreenArea timearea = vminfo->sb_timearea;
             if (m_showcounter_p) { // time + moves
-                const int DISPLAY_WIDTH = 120; // est.
-                int       width         = xsize_time + xsize_moves;
-                int       left_width    = (DISPLAY_WIDTH*xsize_time)  / width;
-                int       right_width   = (DISPLAY_WIDTH*xsize_moves) / width;
-
-                int xoff = XCENTER + (left_width - xsize_time - DISPLAY_WIDTH)/2 - 3 ;
-                blit(gc, a.x + xoff, a.y + YOFF_TIME, s_time);
-
-                xoff = XCENTER + (DISPLAY_WIDTH-right_width-xsize_moves)/2 + 3;
-                blit(gc, a.x + xoff, a.y + YOFF_MOVES, s_moves);
+                int x = timearea.x + (movesarea.x - timearea.x - xsize_time)/2;
+                int y = timearea.y + (timearea.h - timefont->get_lineskip())/2;
+                blit(gc, x, y, s_time);
+                
+                x = movesarea.x + (movesarea.w - xsize_moves)/2;
+                y = movesarea.y + (movesarea.h + timefont->get_lineskip())/2 - movesfont->get_lineskip() - 4;
+                blit(gc, x, y, s_moves);
             }
             else { // only time
-                int x = timearea.x + (timearea.w - s_time->width())/2;
+                int x = timearea.x + (timearea.w - xsize_time)/2;
                 int y = timearea.y + (timearea.h - timefont->get_lineskip())/2;
                 blit(gc, x, y, s_time);
             }
         }
-        else {                  // only moves
-            int xoff = XCENTER - xsize_moves/2;
-            blit(gc, a.x + xoff, a.y + YOFF_MOVES, s_moves);
+        else {                  // only moves            
+            int x = timearea.x + (timearea.w - xsize_moves)/2;
+            int y = timearea.y + (timearea.h - movesfont->get_lineskip())/2;
+            blit(gc, x, y, s_moves);
         }
 
         delete s_moves;

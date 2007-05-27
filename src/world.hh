@@ -351,6 +351,9 @@ namespace world
     void addDelayedImpulse(const Impulse& impulse, double delay,
                            const Stone *estimated_receiver);
 
+    /*! Revoke all delayed impulses with TARGET as sender or receiver. */
+    void revokeDelayedImpulses(const Stone *target);
+
 
 /* -------------------- Explosions -------------------- */
 
@@ -362,6 +365,10 @@ namespace world
         EXPLOSION_SPITTER,
     };
     void SendExplosionEffect (GridPos p, ExplosionType type);
+
+/* -------------------- Sound Events and Damping -------------------- */
+
+    float getVolume(const char *name, Object *obj, float def_volume = 1.0);
 
 /* -------------------- Creation/Definition of objects -------------------- */
 

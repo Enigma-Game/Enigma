@@ -22,10 +22,47 @@ set of packages as Fink, but as of this writing we have not tried it
 for building Enigma. Neither have we tried the older version of Fink
 that runs on 10.3.9.
 
-Note that you may need to follow step 6(a) below for building the
-static library libxerces-c.a even after installing Xerces-c from Fink
-or DarwinPorts. The default distribution of Xerces-c does not as of
-this moment provide for building a static library under MacOS.
+As of this writing, xerces-c is only in the unstable package tree of
+fink. The fink FAQ describes how to temporarily switch to using
+unstable so that you can install a package from there even though you
+are in general using the stable tree.
+
+The Fink install of Xerces-c does not build the static library
+libxerces-c.a so the following additional steps are necessary.
+
+1. If you have not yet installed xerces-c, install it and some
+associated packages using the -k option to keep the build directories
+for a later step:
+ 
+  fink -k install xerces-c xerces-c-dev xerces-c-shlibs
+
+If you already installed them, rebuild the using the -k option
+
+  fink -k rebuild xerces-c xerces-c-dev xerces-c-shlibs
+
+2. The xerces-c source tree can now be found under /sw/src/fink.build/
+in a directory that corresponds to the version of xerces that you
+installed. cd to it and set the XERCESCROOT environment variable as in
+the following example:
+
+  cd /sw/src/fink.build/ xerces-c-2.7.0-1002/xerces-c-src_2_7_0
+  export XERCESCROOT=`pwd`
+
+Put the following in an executable file in the
+$XERCESCROOT/src/xercesc directory, cd to that directory and run it,
+using sudo if fink is configured to always build as root.
+
+   #!/bin/sh
+   make -n XML_LIB_DIR=$XERCESCROOT/lib/dummy |
+     grep 'c++ .*\.dylib' |
+     tr \  \\n |
+     grep '\.o$' |
+     ( cd ../../obj ; xargs ar rcs $XERCESCROOT/lib/libxerces-c.a )
+   
+Then 
+
+    sudo cp $XERCESCROOT/lib/libxerces-c.a /sw/lib/
+    sudo ranlib /sw/lib/libxerces-c.a
 
 If you do use Fink or DarwinPorts, as long as the required additional
 libraries are consistently placed in the same directory, e.g.,

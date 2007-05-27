@@ -144,6 +144,19 @@ void Inventory::rotate_right ()
         std::rotate(m_items.begin(), m_items.end()-1, m_items.end());
 }
 
+bool Inventory::willAddItem(Item *it) {
+    ItemHolder *holder = dynamic_cast<ItemHolder*>(it);
+    if (is_full()) {
+	return false;
+    } else if (holder != NULL && holder->is_empty() &&
+	    (m_items.size() >= max_items || dynamic_cast<ItemHolder*>(get_item(0)) != NULL)) {
+	// should add a bag that is empty, but first item in Inventory is itself
+	// a bag or Inventory is full -- avoid recursive bags
+	return false;
+    }
+    return true;  // we have space and item is not critical
+}
+
 
 int Inventory::find(const std::string& kind, size_t start_idx) const 
 {

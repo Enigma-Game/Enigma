@@ -1,4 +1,4 @@
-SUBDIRS = gfx fonts schemas levels sound gfx32 gfx40 gfx48 gfx64
+SUBDIRS = gfx fonts schemas levels soundsets gfx32 gfx40 gfx48 
 
 pkgdata_DATA = \
 	enigma_conf.lua \
@@ -11,6 +11,7 @@ pkgdata_DATA = \
 	models-48.lua \
 	init.lua \
 	startup.lua \
+	sound-defaults.lua \
 	compat.lua \
 	security.lua \
 	ratings.xml

@@ -73,10 +73,6 @@ namespace enigma { namespace gui {
         int get_value() const;
         void set_value(int value);
         std::string get_text(int value) const;
-        
-    private:
-        std::vector<int> availableSoundSets;
-        std::vector<std::string> availableSoundSetsTitles;
     };
 
     class LanguageButton : public ValueButton {

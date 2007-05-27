@@ -21,38 +21,38 @@ create_world(20,20)
 fill_floor("fl-brick",0,0,20,20)
 
 function magnumGold(line,pattern)
-	for i=1, strlen(pattern) do
-		local c=strsub(pattern,i,i)
-		if c=="A" then
-			set_stone("st-bigbrick-es",i-1,line)
-		elseif c=="B" then
-			set_stone("st-bigbrick-sw",i-1,line)
-		elseif c=="C" then
-			set_stone("st-bigbrick-ne",i-1,line)
-		elseif c=="D" then
-			set_stone("st-bigbrick-nw",i-1,line)
-		elseif c=="X" then
-			oxyd(i-1,line)
-		elseif c=="O" then
-			set_stone("st-stoneimpulse",i-1,line)
-		elseif c=="6" then
-			set_item("it-whitebomb",i-1,line)
-		elseif c=="W" then
-			set_stone("st-wood",i-1,line)
-		elseif c=="#" then
-			set_stone("st-rock3_movebreak",i-1,line)
-		elseif c=="H" then
-			set_item("it-hammer",i-1,line)
-		elseif c=="I" then
-			set_item("it-dynamite",i-1,line)
-		elseif c=="@" then
-			set_stone("st-grate1",i-1,line)
-		elseif c=="0" then
-			set_actor("ac-blackball",i-1,line,{player=0})
-		elseif c=="*" then
-			set_floor("fl-abyss",i-1,line)
-		end
-	end
+    for i=1, strlen(pattern) do
+        local c=strsub(pattern,i,i)
+        if c=="A" then
+            set_stone("st-bigbrick-es",i-1,line)
+        elseif c=="B" then
+            set_stone("st-bigbrick-sw",i-1,line)
+        elseif c=="C" then
+            set_stone("st-bigbrick-ne",i-1,line)
+        elseif c=="D" then
+            set_stone("st-bigbrick-nw",i-1,line)
+        elseif c=="X" then
+            oxyd(i-1,line)
+        elseif c=="O" then
+            set_stone("st-stoneimpulse",i-1,line)
+        elseif c=="6" then
+            set_item("it-whitebomb",i-1,line)
+        elseif c=="W" then
+            set_stone("st-wood",i-1,line)
+        elseif c=="#" then
+            set_stone("st-rock3_movebreak",i-1,line)
+        elseif c=="H" then
+            set_item("it-hammer",i-1,line)
+        elseif c=="I" then
+            set_item("it-dynamite",i-1,line)
+        elseif c=="@" then
+            set_stone("st-grate1",i-1,line)
+        elseif c=="0" then
+            set_actor("ac-blackball",i-1,line,{player=0})
+        elseif c=="*" then
+            set_floor("fl-abyss",i-1,line)
+        end
+    end
 end
 
 magnumGold(00,"ABABABABABABABABABAB")
@@ -86,5 +86,3 @@ display.SetFollowMode(display.FOLLOW_SCROLLING)
     </el:i18n>
   </el:protected>
 </el:level>
-
-

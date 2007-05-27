@@ -3,7 +3,7 @@
   <el:protected>
     <el:info el:type="level">
       <el:identity el:title="The Flagstone Reaper" el:subtitle="" el:id="andreas09"/>
-      <el:version el:score="1" el:release="1" el:revision="0" el:status="released"/>
+      <el:version el:score="1" el:release="1" el:revision="1" el:status="released"/>
       <el:author  el:name="Andreas Lochmann" el:email="" el:homepage=""/>
       <el:copyright>Copyright © 2005 Andreas Lochmann</el:copyright>
       <el:license el:type="GPL v2.0 or above" el:open="true"/>
@@ -213,7 +213,7 @@ oxyd_shuffle()
         <el:translation el:lang="de">Der Fliesen-Mäher</el:translation>
       </el:string>
       <el:string el:key="text1">
-        <el:english el:translate="true" el:comment="Difficult to translate. If you have no idea, just say: Why is the hint on this side? The Reaper should know it.">No hint today ...    Those flagstones pass away ...    The docu stands alone ...    Why is it so alone?    --    This hint today ...    Why is it on this side ...    The reaper passing by ...    Could know the reason why!     (orig. by Herman's Hermits)   </el:english>
+        <el:english el:translate="true" el:comment="Difficult to translate. If you have no idea, just say: Why on this side does this message sit? The Reaper has a use for it">No hint today ...    Those flagstones pass away ...    The docu stands alone ...    Why is it so alone?    --    This hint today ...    Why is it on this side ...    The reaper passing by ...    Could know the reason why!     (orig. by Herman's Hermits)   </el:english>
         <el:translation el:lang="de">Warum ist der Hinweis auf dieser Seite?        Sollte der Mäher das vielleicht wissen?</el:translation>
       </el:string> 
     </el:i18n>

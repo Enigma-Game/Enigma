@@ -556,6 +556,7 @@ void World::tick (double dtime)
 
     move_actors (dtime);
     handle_delayed_impulses (dtime);
+    tick_sound_dampings();
 
     // Tell floors and items about new stones.
     for (unsigned i=0; i<changed_stones.size(); ++i)
@@ -903,7 +904,8 @@ void World::handle_stone_contact (StoneContact &sc)
                         client::Msg_Sparkle (sc.contact_point);
                         double volume = std::max (0.25, length(ai.vel)/8);
                         volume = std::min (1.0, volume);
-                        sound::SoundEvent (sc.sound.c_str(), sc.contact_point, volume);
+                        volume = getVolume(sc.sound.c_str(), a, volume);
+                        sound::EmitSoundEvent (sc.sound.c_str(), sc.contact_point, volume);
                     }
                 }
             }
@@ -1004,8 +1006,10 @@ void World::handle_actor_contact(Actor *actor1, Actor *actor2)
                     contact)) {
                 double volume = length (force) * ActorTimeStep;
                 volume = std::min(1.0, volume);
-                if (volume > 0.4)
-                    sound::SoundEvent ("ballcollision", contact.pos, volume);
+                if (volume > 0.4) {
+                    volume = getVolume("ballcollision", NULL, volume);
+                    sound::EmitSoundEvent ("ballcollision", contact.pos, volume);
+                }
             }
         }
     }
@@ -1193,12 +1197,51 @@ void World::handle_delayed_impulses (double dtime)
     while (i != end) {
         // shall the impulse take effect now ?
         if (i->tick(dtime)) {
+            i->mark_referenced(true);
             if (Stone *st = GetStone(i->destination()))
-                i->send_impulse(st);
+                i->send_impulse(st);  // may delete stones and revoke delayed impuleses!
             i = delayed_impulses.erase(i);
         }
         else
             ++i;
+    }
+}
+
+void World::revoke_delayed_impulses(const Stone *target) {
+    // Revokes delayed impulses to and from target
+    ImpulseList::iterator i = delayed_impulses.begin(),
+        end = delayed_impulses.end();
+    while (i != end) {
+        if (i->is_receiver(target) || i->is_sender(target)) {
+            if (i->is_referenced()) {
+                i->mark_obsolete();
+                ++i;
+            } else {
+                i = delayed_impulses.erase(i);
+            }
+        } else {
+            ++i;
+        }
+    }
+}
+
+void World::tick_sound_dampings ()
+{
+    // See sound.hh and sound.cc for details.
+    static int counter = 0;
+    ++counter;
+
+    if (counter > 9) {
+        counter = 0;
+        SoundDampingList::iterator i = level->sound_dampings.begin(),
+            end = level->sound_dampings.end();
+        int count = 0;
+        while (i != end) {
+            if(i->tick()) // return true if damping entry should be deleted
+                i = level->sound_dampings.erase(i);
+            else
+                ++i;
+        }
     }
 }
 
@@ -1790,6 +1833,8 @@ void world::KillActor (Actor *a) {
 void world::WarpActor(Actor *a, double newx, double newy, bool keep_velocity)
 {
     V2 newpos = V2(newx, newy);
+    ASSERT(IsInsideLevel(GridPos(newpos)), XLevelRuntime,
+        "WarpActor: Tried to warp actor out of level grid. (And hyperspace travel is not implemented yet, sorry.)");
     if (!keep_velocity)
         a->get_actorinfo()->vel = V2();
     a->warp(newpos);
@@ -1907,6 +1952,29 @@ void world::addDelayedImpulse (const Impulse& impulse, double delay,
     // @@@ FIXME: is a special handling necessary if several impulses hit same destination ?
 
     level->delayed_impulses.push_back(DelayedImpulse(impulse, delay, estimated_receiver));
+}
+
+void world::revokeDelayedImpulses(const Stone *target) {
+    // Any stone may call this function on deletion.
+    // When the repository shuts down no world is existing thus check
+    // world first.
+    if (level.get() != NULL) 
+        level->revoke_delayed_impulses(target);
+}
+
+float world::getVolume(const char *name, Object *obj, float def_volume)
+{
+    // See sound.hh and sound.cc for details.
+    SoundDampingList::iterator i = level->sound_dampings.begin(),
+        end = level->sound_dampings.end();
+    while (i != end) {
+        if (i->is_equal(name, obj))
+            return i->get_volume(def_volume);
+        ++i;
+    }
+    // No entry found for this object. Create a new one.
+    level->sound_dampings.push_back(sound::SoundDamping(name, obj));
+    return def_volume;
 }
 
 void world::Tick(double dtime) {

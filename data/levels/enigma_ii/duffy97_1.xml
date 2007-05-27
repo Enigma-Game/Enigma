@@ -100,7 +100,7 @@ function renderLine( line, pattern)
         elseif c=="W" then
             doorv( i-1,line, {name="door8"})
         end
-    end	
+    end    
 end
 
 renderLine(00,"##########################################################")

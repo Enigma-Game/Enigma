@@ -151,7 +151,7 @@ namespace world
         void warning(const char *format, ...) const;
 
         // Helper functions
-        bool sound_event (const char *name);
+        bool sound_event (const char *name, double vol = 1.0);
         display::Model *set_anim (const std::string &mname);
 
     protected:

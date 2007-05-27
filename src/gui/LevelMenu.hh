@@ -63,6 +63,7 @@ namespace enigma { namespace gui {
         Widget      *but_back;          // "Back" button
         Widget      *but_difficulty;        // "Difficulty" button
         TextButton  *but_levelpack;     // "Levelpack" button
+        HList       *hl_info_stat;
         Label       *lbl_lpinfo;        // Levelpack information
         Label       *lbl_statistics;        // percentage solved
         Label       *lbl_levelname;

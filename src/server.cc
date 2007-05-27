@@ -23,6 +23,8 @@
 #include "actors.hh"
 #include "client.hh"
 #include "lua.hh"
+#include "lev/Index.hh"
+#include "lev/Proxy.hh"
 #include "main.hh"
 #include "nls.hh"
 #include "options.hh"
@@ -109,6 +111,10 @@ namespace
     double             time_accu           = 0;
     double             current_state_dtime = 0;
     int                 move_counter; // counts movements of stones
+    lev::Index *currentIndex = NULL;  // volatile F6 jump back history
+    int currentLevel;
+    lev::Index *previousIndex = NULL;
+    int previousLevel;
     ENetAddress        network_address;
     ENetHost           *network_host       = 0;
 }
@@ -118,19 +124,11 @@ void load_level(lev::Proxy *levelProxy, bool isRestart)
     server::PrepareLevel();
 
     try {
-        // first set default compatibility mode
-        // (may be overidden by load_level (from Lua))
-        server::GameCompatibility = levelProxy->getEngineCompatibility();
-        if (server::GameCompatibility == GAMET_UNKNOWN)
-            // use default Comopatibility
-            // server::GameCompatibility = GAMET_ENIGMA;
-            throw XLevelLoading("unknown engine compatibility");
-        
         // clear inventory before level load and give us 2 extralives
         player::NewGame(isRestart);
 
-        levelProxy->loadLevel();
-//            server::CurrentLevel = static_cast<unsigned> (ilevel);
+        levelProxy->loadLevel();  // sets the compatibility mode
+
         game::ResetGameTimer();
 
         world::InitWorld();
@@ -345,7 +343,28 @@ void server::Msg_SetLevelPack (const std::string &name) {
 
 void server::Msg_LoadLevel (lev::Proxy *levelProxy, bool isPreview) {
     server::CreatingPreview = isPreview;
+    if (!isPreview) {
+	// update F6 jump back history
+	if (currentIndex != lev::Index::getCurrentIndex() ||
+		currentLevel != currentIndex->getCurrentPosition()) {
+	    previousIndex = currentIndex;
+	    previousLevel = currentLevel;
+	    currentIndex = lev::Index::getCurrentIndex();
+	    currentLevel = currentIndex->getCurrentPosition();
+	}
+    }
     load_level(levelProxy, false);
+}
+
+void server::Msg_JumpBack() {
+    if (previousIndex != NULL) {
+	lev::Index::setCurrentIndex(previousIndex->getName());
+	previousIndex->setCurrentPosition(previousLevel);
+	currentIndex = previousIndex;
+	currentLevel = previousLevel;
+	Msg_LoadLevel(currentIndex->getProxy(currentLevel), false);
+	Msg_Command("restart");
+    }
 }
 
 
@@ -503,8 +522,10 @@ void server::Msg_Command (const string &cmd)
     else if (cmd == "info") {
         string infotext       = 
             ecl::strf("Level #%i of '", ind->getCurrentLevel()) + ind->getName()
-            + "' (" + curProxy->getAbsLevelPath() + ")  -  \"" + curProxy->getTitle() + "\" by " + curProxy->getAuthor()
-            + ecl::strf(" (rev=%i)", curProxy->getReleaseVersion());
+            + "' (" + curProxy->getAbsLevelPath() + ")  -  \"" + curProxy->getTitle() 
+            + "\" by " + curProxy->getAuthor()
+            + ecl::strf(" (rev=%i,", curProxy->getReleaseVersion())
+            + "id=\"" + curProxy->getId() + "\")";
             
         client::Msg_ShowText(infotext, true);
     }
@@ -563,11 +584,18 @@ void server::SetCompatibility(const char *version) {
     GameCompatibility = type;
 }
 
+void server::SetCompatibility(lev::Proxy *levelProxy) {
+    server::GameCompatibility = levelProxy->getEngineCompatibility();
+    if (server::GameCompatibility == GAMET_UNKNOWN)
+        throw XLevelLoading("unknown engine compatibility");
+}
 
 enigma::Difficulty server::GetDifficulty()
 {
+    lev::Index *ind = lev::Index::getCurrentIndex();
+    lev::Proxy *curProxy = ind->getCurrent();
     int i= app.state->getInt ("Difficulty");
-    if (i == DIFFICULTY_EASY && !server::CreatingPreview)
+    if (i == DIFFICULTY_EASY && !server::CreatingPreview && curProxy->hasEasymode())
         return DIFFICULTY_EASY;
     else
         return DIFFICULTY_HARD;

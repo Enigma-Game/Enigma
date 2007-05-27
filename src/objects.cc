@@ -199,9 +199,9 @@ display::Model *GridObject::set_anim (const std::string &mname)
     return m;
 }
 
-bool GridObject::sound_event (const char *name)
+bool GridObject::sound_event (const char *name, double vol)
 {
-    return sound::SoundEvent (name, get_pos().center(), 1.0);
+    return sound::EmitSoundEvent (name, get_pos().center(), getVolume(name, this, vol));
 }
 
 void GridObject::warning(const char *format, ...) const 

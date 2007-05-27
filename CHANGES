@@ -1,3 +1,32 @@
+Changes in Version 1.01
+=======================
+
+User-Visible changes
+--------------------
+
+    - 50++ new level
+    - added easy mode to some existing levels
+    - Fixes of all levels with shortcuts
+    - Finnish translation
+    - French and Russian 1.0 manuals
+    - Sound damping for noisy levels
+    - mouse wheel enabled for many buttons like user ratings, volume,...
+    - logo cleaned
+    - moved backup of score and state to backup subdirectory
+    - level menu optimization of level title display
+    - visualize inherited user rating in level inspector
+    - vista compatible marble icon
+    - windows installer reengineering to modern NSI
+
+Internal changes
+----------------
+
+    - fix of various enigne bugs that did not yet show up with bundled levels
+    - fixed properties of various glass stones
+    - sound handling reengineering
+    - support of user sound sets
+    - autorecovery from state / score mismatches
+
 Changes in Version 1.00
 =======================
 

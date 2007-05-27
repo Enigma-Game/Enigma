@@ -20,6 +20,7 @@
 #include "gui/OptionsMenu.hh"
 #include "ecl.hh"
 #include "enigma.hh"
+#include "lev/ScoreManager.hh"
 #include "LocalToXML.hh"
 #include "main.hh"
 #include "nls.hh"
@@ -156,51 +157,23 @@ namespace enigma { namespace gui {
     /* -------------------- SoundSetButton -------------------- */
     
     SoundSetButton::SoundSetButton() : ValueButton(0, 1) {
-        using namespace OxydLib;
-        
-        availableSoundSets.push_back(0);
-        availableSoundSetsTitles.push_back(N_("Default"));
-        availableSoundSets.push_back(1);
-        availableSoundSetsTitles.push_back("Enigma");
-        int numAvail = 2;
-        for (int i = OxydVersion_First; i<= OxydVersion_Last; i++) {
-            if (oxyd::FoundOxyd(OxydVersion(i))) {
-                availableSoundSets.push_back(i+2);
-                std::string title;
-                switch (i) {
-                case OxydVersion_Oxyd1:          title = "Oxyd"; break;
-                case OxydVersion_OxydMagnum:     title = "Magnum"; break;
-                case OxydVersion_OxydMagnumGold: title = "Mag.Gold"; break;
-                case OxydVersion_OxydExtra:      title = "Extra"; break;
-                case OxydVersion_PerOxyd:        title = "Per.Oxyd"; break;
-                default:      title = "unknown"; break;
-                }
-                availableSoundSetsTitles.push_back(title);
-                numAvail++;
-            }
-        }
+        int numAvail = sound::GetOptionSoundSetCount();
         setMaxValue(numAvail - 1);
         init();
     }
-    
+
     int SoundSetButton::get_value() const {
-        int soundSet = options::GetInt("SoundSet");
-        for (int i = 0; i < availableSoundSets.size(); i++) {
-            if (availableSoundSets[i] == soundSet)
-                return i;
-        }
-        return 0;  // default soundset
+        return sound::GetOptionSoundSet();
     }
-    
+
     void SoundSetButton::set_value(int value) {
-        options::SetOption("SoundSet", availableSoundSets[value]);
-        oxyd::ChangeSoundset(availableSoundSets[value], false);        
+        sound::SetOptionSoundSet(value);
     }
-    
+
     string SoundSetButton::get_text(int value) const {
-        return _(availableSoundSetsTitles[value].c_str());
+        return _(sound::GetOptionSoundSetText(value).c_str());
     }
-    
+
     
     /* -------------------- StereoButton -------------------- */
     
@@ -265,6 +238,7 @@ namespace enigma { namespace gui {
         { "Русский",             "ru_RU" },
         { "Magyar",             "hu_HU" },
         { "Português",             "pt_BR" },
+        { "Suomi",             "fi_FI" },
     };
     
     int LanguageButton::get_value() const
@@ -364,8 +338,6 @@ namespace enigma { namespace gui {
         leftlabels.add (new Label(N_("Video mode: "), HALIGN_RIGHT));
         leftlabels.add (new Label(N_("Gamma correction: "), HALIGN_RIGHT));
         leftlabels.add (new Label(N_("Mouse speed: "), HALIGN_RIGHT));
-//        leftlabels.add (new Label(N_("Skip solved levels: "), HALIGN_RIGHT));
-//        leftlabels.add (new Label(N_("Time hunt: "), HALIGN_RIGHT));
     
         language = new LanguageButton(this);
         left.add (language);
@@ -373,8 +345,6 @@ namespace enigma { namespace gui {
         left.add (new VideoModeButton);
         left.add (new GammaButton);
         left.add (new MouseSpeedButton);
-//        left.add (new SkipSolvedButton);
-//        left.add (new TimeHuntButton);
     
         rightlabels.add (new Label(N_("Sound volume: "), HALIGN_RIGHT));
         rightlabels.add (new Label(N_("Sound set: "), HALIGN_RIGHT));
@@ -398,6 +368,8 @@ namespace enigma { namespace gui {
         bottomlabels.add (new Label(N_("User path: "), HALIGN_RIGHT));
         bottomlabels.add (new Label(N_("User image path: "), HALIGN_RIGHT));
         userNameTF = new TextField(app.state->getString("UserName"));
+        userNameTF->setMaxChars(20);
+        userNameTF->setInvalidChars("+");
         bottom.add (userNameTF);
         userPathTF = new TextField(XMLtoUtf8(LocalToXML(app.userPath.c_str()).x_str()).c_str());
         bottom.add (userPathTF);
@@ -429,8 +401,21 @@ namespace enigma { namespace gui {
 //    }
     
     void OptionsMenu::quit() {
-        app.state->setProperty("UserName", userNameTF->getText());
-        app.setUserPath(XMLtoLocal(Utf8ToXML(userPathTF->getText().c_str()).x_str()).c_str());
+        std::string tfUserPathLocal = XMLtoLocal(Utf8ToXML(userPathTF->getText().c_str()).x_str()).c_str(); 
+        if ((app.state->getString("UserName") != userNameTF->getText())
+                || (app.userPath != tfUserPathLocal)) {
+            // ensure that enigma.score is saved with new Username or to new location
+            lev::ScoreManager::instance()->markModified();
+        }
+        // strip off leading and trailing whitespace from user name
+        std::string userName = userNameTF->getText();
+        std::string::size_type firstChar = userName.find_first_not_of(" ");
+        std::string::size_type lastChar = userName.find_last_not_of(" ");
+        if (firstChar != std::string::npos)
+            app.state->setProperty("UserName", userName.substr(firstChar, lastChar - firstChar + 1));
+        else
+            app.state->setProperty("UserName", std::string(""));
+        app.setUserPath(tfUserPathLocal.c_str());
         app.setUserImagePath(XMLtoLocal(Utf8ToXML(userImagePathTF->getText().c_str()).x_str()).c_str());
         Menu::quit();
     }

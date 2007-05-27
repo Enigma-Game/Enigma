@@ -51,6 +51,7 @@ namespace enigma { namespace lev {
     public:
         static ScoreManager *instance();
         ~ScoreManager();
+        void markModified();
         virtual bool save();
         void shutdown();
 
@@ -104,6 +105,7 @@ namespace enigma { namespace lev {
         double calcHCP(lev::Index *ind, int difficulty);
         void setRating(lev::Proxy *levelProxy, int rating);
         int getRating(lev::Proxy *levelProxy);
+        bool isRatingInherited(lev::Proxy *levelProxy);
     protected:
         ScoreManager();
     private:

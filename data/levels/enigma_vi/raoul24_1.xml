@@ -23,10 +23,10 @@ floor="fl-mortar"
 create_world(levelw, levelh)
 
 function renderLine( line, pattern)
-	for i=1, strlen(pattern) do
-		local c = strsub( pattern, i, i)
-  		if c=="x" then
-			set_floor(floor,i-1,line)
+    for i=1, strlen(pattern) do
+        local c = strsub( pattern, i, i)
+          if c=="x" then
+            set_floor(floor,i-1,line)
         elseif c=="o" then
             set_stone(wall,i-1,line)
             set_floor(floor,i-1,line)
@@ -46,8 +46,8 @@ function renderLine( line, pattern)
         elseif c=="0" then
             set_floor(floor,i-1,line)
             set_item("it-hollow",i-1,line)
-		end
-	end	
+        end
+    end    
 end
 
 renderLine(00 , " ooooo       ooooo  ")

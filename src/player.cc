@@ -34,6 +34,7 @@
 
 using namespace std;
 using namespace enigma;
+using namespace world;
 using world::Actor;
 using enigma::Inventory;
 
@@ -531,7 +532,7 @@ void player::InhibitPickup(bool flag) {
 
 /*! Return pointer to inventory if actor may pick up items, 0
    otherwise. */
-Inventory *player::MayPickup(Actor *a) 
+Inventory *player::MayPickup(Actor *a, Item *it) 
 {
     int iplayer=-1;
     if (Value v = a->getAttr("player")) iplayer = v;
@@ -543,26 +544,27 @@ Inventory *player::MayPickup(Actor *a)
     Inventory *inv = GetInventory(iplayer);
     bool dont_pickup = players[iplayer].inhibit_pickup 
         || a->is_flying()
-        || inv->is_full();
+        || !inv->willAddItem(it)
+        || a->is_dead();
 
     return dont_pickup ? 0 : inv;
 }
 
 void player::PickupItem (Actor *a, GridPos p) 
 {
-    if (Inventory *inv = MayPickup(a)) {
+    if (Inventory *inv = MayPickup(a, GetField(p)->item)) {
         if (Item *item = world::YieldItem(p)) {
             item->on_pickup(a);
             inv->add_item(item);
             RedrawInventory (inv);
-            sound::SoundEvent ("pickup", p.center());
+            sound::EmitSoundEvent ("pickup", p.center());
         }
     }
 }
 
 void player::PickupStoneAsItem (Actor *a, enigma::GridPos p) 
 {
-    if (Inventory *inv = MayPickup(a)) 
+    if (Inventory *inv = MayPickup(a, GetField(p)->item)) 
     {
         if (world::Stone *stone = world::YieldStone(p)) 
         {
@@ -575,7 +577,7 @@ void player::PickupStoneAsItem (Actor *a, enigma::GridPos p)
                 world::DisposeObject (stone);
                 inv->add_item(item);
                 player::RedrawInventory(inv);
-                sound::SoundEvent ("pickup", p.center());
+                sound::EmitSoundEvent ("pickup", p.center());
             }
         }
     }
@@ -618,7 +620,7 @@ void player::ActivateFirstItem()
 
 void player::RotateInventory(int dir) 
 {
-    sound::SoundEvent ("invrotate", ecl::V2());
+    sound::EmitSoundEvent ("invrotate", ecl::V2());
     Inventory &inv = players[icurrent_player].inventory;
     if (dir == 1)
         inv.rotate_left ();

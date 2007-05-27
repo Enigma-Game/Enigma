@@ -155,7 +155,7 @@ namespace oxyd
         /* ---------- LevelPack interface ---------- */
         string get_name() const;
         int size() const { return nlevels; }
-        int get_default_SoundSet() const;
+        const char* get_default_SoundSet() const;
         bool needs_twoplayers() const;
     protected:
         virtual bool has_easymode(size_t /*index*/) const;

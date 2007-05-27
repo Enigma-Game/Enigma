@@ -8,13 +8,13 @@
   <levels>
     <level _seq="1" _title="Welcome" _xpath="./welcometopack3_1" author="Raoul Bourquin" ctrl="force" easy="true" id="welcometopack3" rel="1" rev="0" score="1" target="time" unit="duration"/>
     <level _seq="2" _title="Bridge Builders" _xpath="./wb04_1" author="Jon 'WB' Sneyers" ctrl="force" easy="false" id="wb4" rel="1" rev="0" score="1" target="time" unit="duration"/>
-    <level _seq="3" _title="Teamplay Doors" _xpath="./luc09_1" author="Lukas Schüller" ctrl="force" easy="false" id="luc09" rel="1" rev="0" score="1" target="time" unit="duration"/>
-    <level _seq="4" _title="Map It Out" _xpath="./duffy92_1" author="Jacob Scott" ctrl="force" easy="false" id="duffy92" rel="1" rev="0" score="1" target="time" unit="duration"/>
+    <level _seq="3" _title="Teamplay Doors" _xpath="./luc09_1" author="Lukas Schüller" ctrl="force" easy="false" id="luc09" rel="1" rev="1" score="1" target="time" unit="duration"/>
+    <level _seq="4" _title="Map It Out" _xpath="./duffy92_1" author="Jacob Scott" ctrl="force" easy="false" id="duffy92" rel="1" rev="2" score="1" target="time" unit="duration"/>
     <level _seq="5" _title="Checkerboard" _xpath="./duffy08_1" author="Jacob Scott" ctrl="force" easy="false" id="duffy8" rel="1" rev="0" score="1" target="time" unit="duration"/>
     <level _seq="6" _title="Everhungry" _xpath="./ant32_1" author="Petr Machata" ctrl="force" easy="false" id="ant32" rel="1" rev="0" score="1" target="time" unit="duration"/>
     <level _seq="7" _title="Deadend" _xpath="./daniel07_1" author="Daniel Heck" ctrl="force" easy="false" id="deadend" rel="1" rev="0" score="1" target="time" unit="duration"/>
     <level _seq="8" _title="Coloured Doors" _xpath="./luc03_1" author="Lukas Schüller" ctrl="force" easy="false" id="luc03" rel="1" rev="0" score="1" target="time" unit="duration"/>
-    <level _seq="9" _title="Family Business" _xpath="./duffy20_1" author="Jacob Scott" ctrl="force" easy="false" id="duffy20" rel="1" rev="0" score="1" target="time" unit="duration"/>
+    <level _seq="9" _title="Family Business" _xpath="./duffy20_2" author="Jacob Scott" ctrl="force" easy="false" id="duffy20" rel="2" rev="0" score="2" target="time" unit="duration"/>
     <level _seq="10" _title="Seven Friends" _xpath="./ss16_2" author="Sven Siggelkow" ctrl="force" easy="false" id="ss16" rel="2" rev="0" score="2" target="time" unit="duration"/>
     <level _seq="11" _title="Blocks and Water" _xpath="./duffy99_1" author="Jacob Scott" ctrl="force" easy="false" id="duffy99" rel="1" rev="0" score="1" target="time" unit="duration"/>
     <level _seq="12" _title="deja-vu" _xpath="./illmind09_1" author="illmind" ctrl="force" easy="false" id="illmind09" rel="1" rev="0" score="1" target="time" unit="duration"/>
@@ -62,7 +62,7 @@
     <level _seq="54" _title="White Contrast" _xpath="./illmind07_1" author="illmind" ctrl="force" easy="false" id="illmind07" rel="1" rev="0" score="1" target="time" unit="duration"/>
     <level _seq="55" _title="Laser Tricks" _xpath="./duffy84_1" author="Jacob Scott" ctrl="force" easy="false" id="duffy84" rel="1" rev="0" score="1" target="time" unit="duration"/>
     <level _seq="56" _title="Space Fishing" _xpath="./martin73_1" author="Martin Hawlisch" ctrl="force" easy="false" id="martin73" rel="1" rev="0" score="1" target="time" unit="duration"/>
-    <level _seq="57" _title="Manamana" _xpath="./just07_1" author="JuSt" ctrl="force" easy="false" id="just07" rel="1" rev="0" score="1" target="time" unit="duration"/>
+    <level _seq="57" _title="Manamana" _xpath="./just07_1" author="JuSt" ctrl="force" easy="false" id="just07" rel="1" rev="3" score="1" target="time" unit="duration"/>
     <level _seq="58" _title="Sacrifice" _xpath="./duffy49_1" author="Jacob Scott" ctrl="force" easy="false" id="duffy49" rel="1" rev="0" score="1" target="time" unit="duration"/>
     <level _seq="59" _title="Double-Maze" _xpath="./duffy09_1" author="Jacob Scott" ctrl="force" easy="false" id="duffy9" rel="1" rev="0" score="1" target="time" unit="duration"/>
     <level _seq="60" _title="Bad Flowers" _xpath="./nat30_1" author="Nat Pryce" ctrl="force" easy="true" id="nat30" rel="1" rev="0" score="1" target="time" unit="duration"/>
@@ -91,9 +91,9 @@
     <level _seq="83" _title="In Sync" _xpath="./daniel06_1" author="Daniel Heck" ctrl="force" easy="false" id="daniel6" rel="1" rev="1" score="1" target="time" unit="duration"/>
     <level _seq="84" _title="Tilt Control" _xpath="./duffy66_1" author="Jacob Scott" ctrl="force" easy="true" id="duffy66" rel="1" rev="0" score="1" target="time" unit="duration"/>
     <level _seq="85" _title="Lost In Space" _xpath="./martin90_1" author="Martin Hawlisch" ctrl="force" easy="false" id="martin90" rel="1" rev="0" score="1" target="time" unit="duration"/>
-    <level _seq="86" _title="Tripple Threat" _xpath="./illmind10_1" author="illmind" ctrl="force" easy="false" id="illmind10" rel="1" rev="0" score="1" target="time" unit="duration"/>
+    <level _seq="86" _title="Triple Threat" _xpath="./illmind10_1" author="illmind" ctrl="force" easy="false" id="illmind10" rel="1" rev="0" score="1" target="time" unit="duration"/>
     <level _seq="87" _title="Tilt Maze" _xpath="./duffy69_1" author="Jacob Scott" ctrl="force" easy="true" id="duffy69" rel="1" rev="0" score="1" target="time" unit="duration"/>
-    <level _seq="88" _title="Think Fast" _xpath="./duffy85_1" author="Jacob Scott" ctrl="force" easy="false" id="duffy85" rel="1" rev="0" score="1" target="time" unit="duration"/>
+    <level _seq="88" _title="Think Fast" _xpath="./duffy85_2" author="Jacob Scott" ctrl="force" easy="true" id="duffy85" rel="2" rev="2" score="2" target="time" unit="duration"/>
     <level _seq="89" _title="Overshoot" _xpath="./ss02_1" author="Sven Siggelkow" ctrl="force" easy="true" id="ss2" rel="1" rev="0" score="1" target="time" unit="duration"/>
     <level _seq="90" _title="Fool the Watchdog" _xpath="./duffy57_1" author="Jacob Scott" ctrl="force" easy="false" id="duffy57" rel="1" rev="0" score="1" target="time" unit="duration"/>
     <level _seq="91" _title="The Sargasso Sea" _xpath="./martin17_1" author="Martin Hawlisch" ctrl="force" easy="false" id="martin17" rel="1" rev="0" score="1" target="time" unit="duration"/>
