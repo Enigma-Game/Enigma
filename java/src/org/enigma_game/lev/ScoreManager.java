@@ -200,7 +200,7 @@ public class ScoreManager {
                     sumRatings += urat;
                 }
                 ls.registerSolvage(user, e.getAttribute("diff1"), 
-                        e.getAttribute("easy1"));
+                        e.getAttribute("easy1"), urat);
             }
             if (checkSec) {
                 NamedNodeMap attrXMap = e.getAttributes();

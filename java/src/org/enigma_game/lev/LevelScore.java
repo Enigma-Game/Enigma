@@ -62,6 +62,7 @@ public class LevelScore {
     boolean fullEval = false;
     Map<Integer, String> scoresDiff = new TreeMap<Integer, String>();
     Map<Integer, String> scoresEasy = new TreeMap<Integer, String>();
+    Map<Integer, String> userRat = new TreeMap<Integer, String>();
     
     static void printWRStatistics(UserManager userMgr) {
         Map<String, Integer> wrHoldersTotal = new HashMap<String, Integer>(wrHolders);
@@ -205,11 +206,27 @@ public class LevelScore {
         return avgurNum;
     }
     
+    public int getInheritedRatingNum() {
+        return (parentScore != null) ? parentScore.getRatingNum() : 0;
+    }
+    
     public double getRatingAvg() {
-        if (avgurNum >  0)
-            return (double)avgurSum/avgurNum;
-        else
-            return -1;
+        double avgur = -1;
+        if (avgurNum >  0 || (parentScore != null && parentScore.getRatingNum() > 0)) { 
+            int parentAddNum = 0;
+            double parentAddSum = 0;
+            if (parentScore != null && avgurNum < 10) {
+                if (parentScore.getRatingNum() > 10 - avgurNum) {
+                    parentAddNum = 10 - avgurNum;
+                    parentAddSum = parentAddNum * parentScore.getRatingAvg();
+                } else if (parentScore.getRatingNum() > 0) {
+                    parentAddNum = parentScore.getRatingNum();
+                    parentAddSum = parentAddNum * parentScore.getRatingAvg();
+                }
+            }
+            avgur = (avgurSum + parentAddSum) / (avgurNum + parentAddNum);
+        }
+        return avgur;
     }
     
     public String getAuthor() {
@@ -263,7 +280,7 @@ public class LevelScore {
         userEasySolved = false;
     }
     
-    public void registerSolvage(String userName, String diffStr, String easyStr) {
+    public void registerSolvage(String userName, String diffStr, String easyStr, int urat) {
         if (diffStr.length() > 0)
             userScoreDiff = Integer.parseInt(diffStr);
         if (easyStr.length() > 0)
@@ -286,6 +303,14 @@ public class LevelScore {
                         tieUsers + "+" + userName); 
             }
         }
+        if (urat >= 0) {
+            if (fullEval) {
+                String tieUsers = userRat.get(urat);
+                userRat.put(urat, tieUsers == null ? userName :
+                        tieUsers + "+" + userName); 
+            }
+        }
+        
     }
     
     public void printLevelEvaluation() {
@@ -302,6 +327,11 @@ public class LevelScore {
                 for (Map.Entry<Integer, String> entry : scoresEasy.entrySet()) {
                     System.out.println(entry.getKey() + "  " +  entry.getValue());
                 }
+            }
+            System.out.println("");
+            System.out.println("User ratings:");
+            for (Map.Entry<Integer, String> entry : userRat.entrySet()) {
+                System.out.println(entry.getKey() + "  " +  entry.getValue());
             }
         }
     }
@@ -458,23 +488,28 @@ public class LevelScore {
         solvpd = solvnd * 10000 / numUsers;
         elem.setAttributeNS(null, "solvpd", Integer.toString(solvpd));
         
-        int avgur = -1;
-        if (avgurNum >  0 || (parentScore != null && parentScore.getRatingNum() > 0)) { 
-            int parentAddNum = 0;
-            double parentAddSum = 0;
-            if (parentScore != null && avgurNum < 10) {
-                if (parentScore.getRatingNum() > 10 - avgurNum) {
-                    parentAddNum = 10 - avgurNum;
-                    parentAddSum = parentAddNum * parentScore.getRatingAvg();
-                } else if (parentScore.getRatingNum() > 0) {
-                    parentAddNum = parentScore.getRatingNum();
-                    parentAddSum = parentAddNum * parentScore.getRatingAvg();
-                }
-            }
-            parentAddSum = 10 * parentAddSum;
-            avgur = (avgurSum * 10 + (int)parentAddSum) / (avgurNum + parentAddNum);
+//         int avgur = -1;
+//         if (avgurNum >  0 || (parentScore != null && parentScore.getRatingNum() > 0)) { 
+//             int parentAddNum = 0;
+//             double parentAddSum = 0;
+//             if (parentScore != null && avgurNum < 10) {
+//                 if (parentScore.getRatingNum() > 10 - avgurNum) {
+//                     parentAddNum = 10 - avgurNum;
+//                     parentAddSum = parentAddNum * parentScore.getRatingAvg();
+//                 } else if (parentScore.getRatingNum() > 0) {
+//                     parentAddNum = parentScore.getRatingNum();
+//                     parentAddSum = parentAddNum * parentScore.getRatingAvg();
+//                 }
+//             }
+//             parentAddSum = 10 * parentAddSum;
+//             avgur = (avgurSum * 10 + (int)parentAddSum) / (avgurNum + parentAddNum);
+//         }
+        int avgurInt = -1;
+        double avgur = getRatingAvg();
+        if (avgur >=0) {
+            avgurInt = (int)(avgur * 10.0);
         }
-        elem.setAttributeNS(null, "avgur", Integer.toString(avgur));
+        elem.setAttributeNS(null, "avgur", Integer.toString(avgurInt));
         
         // worldrecord holder statistics
         if (partOfCurDist) {

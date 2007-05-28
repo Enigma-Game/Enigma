@@ -363,13 +363,13 @@ public class RatingManager {
             Collections.sort(topRatedLevel, compRating);
             int topPosition = 1;
             for (LevelScore ls : topRatedLevel) {
-                if (ls.getRatingNum() > 1) {
+                if (ls.isPartOfCurDist() && (ls.getRatingNum() > 1 || ls.getInheritedRatingNum() > 2)) {
                     Formatter formatterTopRatedLevel = new Formatter(Locale.US);
-                    formatterTopRatedLevel.format("%5.2f  %d  %-23s by %-18s (%s)",  ls.getRatingAvg(),
-                            ls.getRatingNum(), ls.getTitle(), ls.getAuthor(), ls.getId());
+                    formatterTopRatedLevel.format("%5.2f  %2d (%2d)  %-23s by %-18s (%s)",  ls.getRatingAvg(),
+                            ls.getRatingNum(), ls.getInheritedRatingNum(), ls.getTitle(), ls.getAuthor(), ls.getId());
                     output.println(formatterTopRatedLevel.toString());
                     topPosition++;
-                    if (topPosition > 50)
+                    if (topPosition > 60)
                         break;
                 }
             }
