@@ -1,7 +1,7 @@
 SUBDIRS = enigma 
 
 pkgdatadir = $(datadir)/@PACKAGE@/soundsets
-pkgdata_DATA = menu.s3m
-# Emilie.xm 
+pkgdata_DATA =
+
 
 EXTRA_DIST = $(pkgdata_DATA)

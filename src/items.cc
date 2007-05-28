@@ -3209,7 +3209,6 @@ namespace
 namespace
 {
     class Bag : public Item, public enigma::ItemHolder {
-        CLONEOBJ(Bag);
         DECL_TRAITS;
 
         enum { BAGSIZE = 13 };
@@ -3234,12 +3233,26 @@ namespace
         }
 
     public:
-        // ItemHolder interface
+        virtual Bag * clone() {
+	    ASSERT(is_empty(), XLevelRuntime, "Bag:: Clone of a full bag!");
+	    return new Bag(*this);
+	}
+	
+	virtual void dispose() {
+	    Item * it = yield_first();
+	    while (it != NULL) {
+		DisposeObject(it);
+		it = yield_first();
+	    }
+	    delete this;
+	}
+	
+	// ItemHolder interface
         virtual bool is_full() const {
             return m_contents.size() >= BAGSIZE;
         }
         virtual void add_item (Item *it) {
-            // thiefs may add items beyond pick up limit BAGSIZE
+            // thieves may add items beyond pick up limit BAGSIZE
             m_contents.insert (m_contents.begin(), it);
         }
 
@@ -3260,7 +3273,7 @@ namespace
         {}
 
         ~Bag() {
-            ecl::delete_sequence (m_contents.begin(), m_contents.end());
+//            ecl::delete_sequence (m_contents.begin(), m_contents.end());
         }
     };
     DEF_TRAITS(Bag, "it-bag", it_bag);

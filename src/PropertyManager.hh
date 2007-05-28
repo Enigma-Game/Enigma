@@ -34,6 +34,7 @@ namespace enigma
         virtual bool save() = 0;    // mark the class as abstract
         
         void setProperty(const char *prefName, const std::string &value);
+        void setProperty(const char *prefName, const char *value);
         void getProperty(const char *prefName, std::string &value);
         std::string getString(const char *prefName);
         void setProperty(const char *prefName, const double &value);

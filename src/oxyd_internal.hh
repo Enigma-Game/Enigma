@@ -235,7 +235,7 @@ namespace oxyd
     class GameInfo {
     public:
         GameInfo();
-        GameInfo (OxydVersion ver_, const string &game_, const string &datfile_name_);
+        GameInfo (OxydVersion ver_, const string &game_, const string &datfile_name_, const bool searchDAT);
         ~GameInfo();
 
         bool is_present() const { return m_present; }

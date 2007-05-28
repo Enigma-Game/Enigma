@@ -23,7 +23,7 @@
 
 namespace oxyd
 {
-    void Init();
+    void Init(bool searchDAT);
     void Shutdown();
 
     bool FoundOxyd (OxydLib::OxydVersion ver);

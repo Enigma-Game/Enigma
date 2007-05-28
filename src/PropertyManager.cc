@@ -58,7 +58,11 @@ namespace enigma {
                 Utf8ToXML(&value).x_str());
     }
     
-    void PropertyManager::getProperty(const char *prefName, std::string &value) {
+    void PropertyManager::setProperty(const char *prefName, const char *value) {
+        setProperty(prefName, std::string(value));
+    }
+    
+   void PropertyManager::getProperty(const char *prefName, std::string &value) {
         DOMElement * property;
         bool propFound = hasProperty(prefName, &property);
         if (propFound) {
@@ -125,13 +129,13 @@ namespace enigma {
     }
     
     void PropertyManager::getProperty(const char *prefName, bool &value) {
-        int result;
+        int result = 0;
         getProperty(prefName, result);
         value = ((result == 0) ? false: true);
     }
 
     bool PropertyManager::getBool(const char *prefName) {
-        bool value = 0;
+        bool value = false;
         getProperty (prefName, value);
         return value;
     }

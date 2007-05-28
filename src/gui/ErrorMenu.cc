@@ -28,11 +28,40 @@ namespace enigma { namespace gui {
 
     /* -------------------- HelpMenu -------------------- */
 
-    ErrorMenu::ErrorMenu(std::string message, std::string buttonTitle) : 
-            text (message),
-            quit (new gui::StaticTextButton(buttonTitle, this)) {
+    ErrorMenu::ErrorMenu(std::string message, std::string quitTitle) : 
+            text (message), rejectQuit (false), laterQuit (false),
+            quit (new gui::StaticTextButton(quitTitle, this)) {
         const video::VMInfo *vminfo = video::GetInfo();
         add(quit, Rect(vminfo->width-170, vminfo->height-60, 150, 40));
+    }
+    
+    ErrorMenu::ErrorMenu(std::string message, std::string quitTitle, std::string rejectTitle) : 
+            text (message), rejectQuit (false), laterQuit (false),
+            quit (new gui::StaticTextButton(quitTitle, this)),
+            reject (new gui::StaticTextButton(rejectTitle, this)) {
+        const video::VMInfo *vminfo = video::GetInfo();
+        add(quit, Rect(vminfo->width-170, vminfo->height-60, 150, 40));
+        add(reject, Rect(vminfo->width-340, vminfo->height-60, 150, 40));
+    }
+    
+    ErrorMenu::ErrorMenu(std::string message, std::string quitTitle, std::string rejectTitle,
+            std::string laterTitle) : 
+            text (message), rejectQuit (false), laterQuit (false),
+            quit (new gui::StaticTextButton(quitTitle, this)),
+            reject (new gui::StaticTextButton(rejectTitle, this)),
+            later (new gui::StaticTextButton(laterTitle, this)) {
+        const video::VMInfo *vminfo = video::GetInfo();
+        add(quit, Rect(vminfo->width-170, vminfo->height-60, 150, 40));
+        add(later, Rect(vminfo->width-340, vminfo->height-60, 150, 40));
+        add(reject, Rect(vminfo->width-510, vminfo->height-60, 150, 40));
+    }
+    
+    bool ErrorMenu::isRejectQuit() {
+        return rejectQuit;
+    }
+    
+    bool ErrorMenu::isLaterQuit() {
+        return laterQuit;
     }
     
     bool ErrorMenu::on_event (const SDL_Event &e) 
@@ -45,8 +74,15 @@ namespace enigma { namespace gui {
     }
     
     void ErrorMenu::on_action (gui::Widget *w) {
-        if (w == quit)
+        if (w == quit) {
             Menu::quit();
+        } else if (w == reject) {
+            rejectQuit = true;
+            Menu::quit();
+        } else if (w == later) {
+            laterQuit = true;
+            Menu::quit();
+        }
     }
     
     void ErrorMenu::draw_background (ecl::GC &gc) {    
