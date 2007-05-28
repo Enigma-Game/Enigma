@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2006 Ronald Lamprecht
+ * Copyright (C) 2006, 2007 Ronald Lamprecht
  *
  * This program is free software; you can redistribute it and/or
  * modify it under the terms of the GNU General Public License
@@ -28,6 +28,7 @@
 
 #include <iostream>
 #include <cstdlib>
+#include <sstream>
 #include <xercesc/dom/DOM.hpp>
 #include <xercesc/util/XercesVersion.hpp>
 #if _XERCES_VERSION < 30000
@@ -531,14 +532,37 @@ namespace enigma { namespace lev {
                 
     }
     
-    std::string RatingManager::getBestScoreHolder(Proxy *levelProxy, int difficulty) {
+    std::string RatingManager::cutHolders(std::string org, int factor) {
+        if (factor <= 0)
+            return org;
+        
+        int others = 0;
+        if (org.rfind(" others") == org.length() - 7) {
+            // ratings string is already cut
+            std::string::size_type lastPlus = org.rfind('+');
+            std::istringstream othersString(org.substr(lastPlus + 1));
+            othersString >> std::dec >> others;
+            org = org.substr(0, lastPlus);
+        }
+        std::string::size_type cutPlus;
+        for (int i=0; i< factor; i++) {
+            cutPlus = org.rfind('+');
+            if (cutPlus == std::string::npos)
+                return "";
+            org = org.substr(0, cutPlus);
+            others++;
+        }
+        return ecl::strf("%s+%d others", org.c_str(), others);
+    }
+    
+    std::string RatingManager::getBestScoreHolder(Proxy *levelProxy, int difficulty, int cut) {
         if (difficulty == DIFFICULTY_EASY && !levelProxy->hasEasymode())
             difficulty = DIFFICULTY_HARD;
         switch (difficulty) {
             case DIFFICULTY_EASY:
-                return getBestScoreEasyHolder(levelProxy);
+                return getBestScoreEasyHolder(levelProxy, cut);
             case DIFFICULTY_HARD:
-                return getBestScoreDifficultHolder(levelProxy);
+                return getBestScoreDifficultHolder(levelProxy, cut);
             default:
                 ecl::Assert <XFrontend> (false, "RatingManager::getBestScoreHolder illegal difficulty");
         }
@@ -552,10 +576,10 @@ namespace enigma { namespace lev {
         return -1;
     }
 
-    std::string RatingManager::getBestScoreEasyHolder(Proxy *levelProxy) {
+    std::string RatingManager::getBestScoreEasyHolder(Proxy *levelProxy, int cut) {
         Rating * theRating = findRating(levelProxy);
         if (theRating != NULL) {
-            return theRating->bestScoreEasyHolder;
+            return cutHolders(theRating->bestScoreEasyHolder, cut);
         }
         return "";
     }
@@ -568,10 +592,10 @@ namespace enigma { namespace lev {
         return -1;
     }
 
-    std::string RatingManager::getBestScoreDifficultHolder(Proxy *levelProxy) {
+    std::string RatingManager::getBestScoreDifficultHolder(Proxy *levelProxy, int cut) {
         Rating * theRating = findRating(levelProxy);
         if (theRating != NULL) {
-            return theRating->bestScoreDifficultHolder;
+            return cutHolders(theRating->bestScoreDifficultHolder, cut);
         }
         return "";
     }

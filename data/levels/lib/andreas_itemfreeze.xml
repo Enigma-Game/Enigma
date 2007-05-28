@@ -2,7 +2,7 @@
   <el:protected>
     <el:info el:type="library">
       <el:identity el:title="" el:id="lib/andreas_itemfreeze"/>
-      <el:version el:score="1" el:release="1" el:revision="0" el:status="released"/>
+      <el:version el:score="1" el:release="1" el:revision="2" el:status="released"/>
       <el:author  el:name="Andreas Lochmann" el:email="" el:homepage=""/>
       <el:copyright>Copyright © 2006 Andreas Lochmann</el:copyright>
       <el:license el:type="GPL v2.0 or above" el:open="true"/>
@@ -18,7 +18,7 @@
 
 -- andreas_itemfreeze, a lua-library for Enigma
 --
--- Version 1/2
+-- Version 26/50
 --
 -- Usage:
 --
@@ -126,13 +126,14 @@
 --
 --  itemfreeze_test_for_explosion:  (default 1)
 --  itemfreeze_test_for_fire:  (default 0)
---  itemfreeze_test_for_existence:  (default 0)
+--  itemfreeze_test_for_existence:  (default 1)
 --    Set to one/zero to activate/deactivate checking for explosions
 --    respectively fire. Deactivation might heighten the performance.
---    If your st-itemfreeze might disappear in another way than
---    melting or shattering (e.g. by it-seed), you should activate
---    itemfreeze_test_for_existence to avoid crashs, but this again
---    might result in a worse performance.
+--    If your st-itemfreeze can't disappear in another way than
+--    melting or shattering (e.g. by it-seed), you could deactivate
+--    itemfreeze_test_for_existence, resulting in a better performance.
+--    Remember that this might cause crashs, when itemfreezes are
+--    destroyed in an unusual way.
 --
 --  itemfreeze_melt_on_damage:  (default 20)
 --    If fire is detected near st-itemfreeze, it increases
@@ -149,6 +150,13 @@
 --    so you might want to deactivate this feature by setting
 --    itemfreeze_remove_hollow to zero.
 --
+--  itemfreeze_modern_fire:  (default 0)
+--    Burnables are removed by itemfreeze explosions by default.
+--    The main goal of this is to extinguish near fire. However,
+--    the 1.0 Fire System contains it-burnable_oil, which is
+--    removed as well, which doesn't make sense. So set this
+--    variable to 1 to adapt it to 1.0 (burnables are not removed,
+--    but a "stopfire" message is sent to the floor).
 --
 -- Further comments:
 --
@@ -156,6 +164,12 @@
 --  explosions or fire. You can adjust this via itemfreeze_fire_interval,
 --  which is by default 0 (= every cycle). This way you can also add
 --  randomness to the itemfreeze-explosions.
+--
+--
+-- Changes in version 26/50
+--
+--  - added itemfreeze_modern_fire option
+--  - set itemfreeze_test_for_existence to 1 for default
 --
 
 --------------------------------------
@@ -168,9 +182,10 @@
 itemfreeze_option = 5
 itemfreeze_test_for_explosion = 1
 itemfreeze_test_for_fire = 0
-itemfreeze_test_for_existence = 0
+itemfreeze_test_for_existence = 1
 itemfreeze_melt_on_damage = 20
 itemfreeze_remove_hollow = 1
+itemfreeze_modern_fire = 0
 
 -- shouldn't-be-changed-options --
 
@@ -205,12 +220,17 @@ itemfreeze_damaged = {}
 
 
 function itemfreeze_remove_burnables(pos_x, pos_y)
-  local myitem = enigma.GetItem(pos_x, pos_y)
-  if myitem ~= nil then
-    local kind = enigma.GetKind(myitem)
-    if (kind == "it-burnable") or (kind == "it-burnable_ignited") 
-             or (kind == "it-burnable_burning") then
-      kill_item(pos_x, pos_y)
+  if itemfreeze_modern_fire == 1 then
+    local myfloor = enigma.GetFloor(pos_x, pos_y)
+    SendMessage(myfloor, "stopfire")
+  else
+    local myitem = enigma.GetItem(pos_x, pos_y)
+    if myitem ~= nil then
+      local kind = enigma.GetKind(myitem)
+      if (kind == "it-burnable") or (kind == "it-burnable_ignited") 
+               or (kind == "it-burnable_burning") then
+        kill_item(pos_x, pos_y)
+      end
     end
   end
 end

@@ -40,7 +40,8 @@ using namespace std;
 ecl::Font *TextField::menufont = 0;
 
 TextField::TextField(const std::string &t, ActionListener *al) : cursorTime(0),
-        showCursor(true), isLastActionReturn (false) {
+        showCursor(true), isLastActionReturn (false), invalidChars(""),
+        isLimitedToValidChars(false), maxChars(-1) {
     if (menufont == 0) {
         menufont = enigma::GetFont("menufont");
     }
@@ -64,6 +65,13 @@ std::string TextField::getText() {
     return total;
 }
 
+void TextField::setInvalidChars(std::string forbiddenChars) {
+    invalidChars = forbiddenChars;
+}
+
+void TextField::setMaxChars(int max) {
+    maxChars = max;
+}
 bool TextField::wasLastActionReturn() {
     return isLastActionReturn;
 }
@@ -229,7 +237,13 @@ bool TextField::on_event(const SDL_Event &e) {
                         }
                         else {
                             // chars like ctrl-a - ctrl-z
-                            sound::SoundEvent ("menustop");
+                            sound::EmitSoundEvent ("menustop");
+                            break;
+                        }
+                        if ((maxChars >= 0 && (charSizesPreCursor.size() + charSizesPostCursor.size()) >= maxChars) ||
+                                realChar < 0x100 && invalidChars.find((char)realChar) != std::string::npos) {
+                            // string too long or invalid char
+                            sound::EmitSoundEvent ("menustop");
                             break;
                         }
                         unsigned char utf8Char[4];
@@ -250,7 +264,7 @@ bool TextField::on_event(const SDL_Event &e) {
                     if (e.key.keysym.sym < 300 || e.key.keysym.sym > 314 ){
                         // chars like PageUp, F1 but not key state modifier
                         // like shift, alt,...
-                        sound::SoundEvent ("menustop");
+                        sound::EmitSoundEvent ("menustop");
                     }
                     break;
             }

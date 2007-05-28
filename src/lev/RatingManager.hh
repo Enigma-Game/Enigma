@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2006 Ronald Lamprecht
+ * Copyright (C) 2006, 2007 Ronald Lamprecht
  *
  * This program is free software; you can redistribute it and/or
  * modify it under the terms of the GNU General Public License
@@ -128,11 +128,11 @@ namespace enigma { namespace lev {
         void setSpeed(Proxy *levelProxy, short speed);
         short getDifficulty(Proxy *levelProxy);
         short getBestScore(Proxy *levelProxy, int difficulty);
-        std::string getBestScoreHolder(Proxy *levelProxy, int difficulty);
+        std::string getBestScoreHolder(Proxy *levelProxy, int difficulty, int cut = 0);
         short getBestScoreEasy(Proxy *levelProxy);
-        std::string getBestScoreEasyHolder(Proxy *levelProxy);
+        std::string getBestScoreEasyHolder(Proxy *levelProxy, int cut = 0);
         short getBestScoreDifficult(Proxy *levelProxy);
-        std::string getBestScoreDifficultHolder(Proxy *levelProxy);
+        std::string getBestScoreDifficultHolder(Proxy *levelProxy, int cut = 0);
         short getParScore(Proxy *levelProxy, int difficulty);
         short getParScoreEasy(Proxy *levelProxy);
         short getParScoreDifficult(Proxy *levelProxy);
@@ -157,6 +157,7 @@ namespace enigma { namespace lev {
         short updateMinDelay;
         Rating * findRating(Proxy * levelProxy);
         Rating * registerNewRating(Proxy * levelProxy);
+        std::string cutHolders(std::string org, int factor);
         
         /**
          * Loads the ratings from a given URI and updates the cached ratings.

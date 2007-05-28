@@ -112,11 +112,13 @@ namespace enigma { namespace lev {
         bool isUserOwned;
         bool isEditable;
     private:
+	static std::vector<PersistentIndex *> indexCandidates;
         std::string absIndexPath;
         XERCES_CPP_NAMESPACE_QUALIFIER DOMDocument *doc;
         XERCES_CPP_NAMESPACE_QUALIFIER DOMElement *infoElem;
         XERCES_CPP_NAMESPACE_QUALIFIER DOMElement *levelsElem;
         
+	static void checkCandidate(PersistentIndex * candidate);
         // legacy 0.92
         void parsePar(const string& par, int& par_value, std::string& par_text);
     };

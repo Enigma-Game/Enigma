@@ -58,6 +58,34 @@ using namespace std;
 using namespace enigma;
 XERCES_CPP_NAMESPACE_USE 
 
+namespace {
+#if _XERCES_VERSION >= 30000
+    class ScoreDomSerFilter : public DOMLSSerializerFilter {
+#else
+    class ScoreDomSerFilter : public DOMWriterFilter {
+#endif
+        public:
+            virtual short acceptNode(const DOMNode *node) const;
+            virtual unsigned long getWhatToShow () const {
+                return DOMNodeFilter::SHOW_ALL;
+            }
+            virtual void setWhatToShow (unsigned long toShow) {}
+    };
+    
+    short ScoreDomSerFilter::acceptNode(const DOMNode *node) const {
+        if (node->getNodeType () == DOMNode::ELEMENT_NODE &&
+                 std::string(XMLtoUtf8(node->getNodeName()).c_str()) == "level") {
+            const DOMElement *e = dynamic_cast<const DOMElement *>(node);
+            std::string id = XMLtoUtf8(e->getAttribute(Utf8ToXML("id").x_str())).c_str();
+            if (id.find("Import ") == 0) {
+                // reject scores for levels imported from dat files
+                return DOMNodeFilter::FILTER_REJECT;
+            }
+        }
+        return DOMNodeFilter::FILTER_ACCEPT;
+    }
+}
+
 namespace enigma { namespace lev {
     ScoreManager *ScoreManager::theSingleton = 0;
     unsigned ScoreManager::ctab[256];
@@ -205,7 +233,16 @@ namespace enigma { namespace lev {
                         hasValidUserId = true;
                     } else {
                         // create first part of user id based on time stamp
-                        unsigned id = rand() & 0xFFFFFFFF;
+                        unsigned id;
+                        if (RAND_MAX > 0x10000) {
+                            id = std::rand() & 0xFFFFFFFF;
+                        } else {
+                            // MinGW 3.4.2 and maybe other configs
+                            unsigned t = std::time(NULL);
+                            std::srand(t >> 15);
+                            id = (std::rand() << 16) ^ (t & 0xFFFF);
+                            enigma::Randomize();
+                        }
                         userId = ecl::strf("%.8lX",id);
                         // we need a second random part as 2 users may start Enigma
                         // within the same second - we postpone this part till we save
@@ -216,10 +253,22 @@ namespace enigma { namespace lev {
                         levelsElem->removeChild(levelList->item(0));
                     }
                 } else {
-                    errMessage = "Mismatch of state.xml and enigma.score.\n";
-                    errMessage += "Restore both from your backup or remove enigma.score\n";
-                    errMessage += "to restart with an empty score file\n";
                     doc->release();
+                    // rename faulty score file as backup and give Enigma a chance
+                    // to recreate a new good score file
+                    std::string scoreBasePath = app.userPath + "/enigma.score";
+                    std::string backupPath = scoreBasePath + "~s1";
+                    int i = 1;
+                    while (ecl::FileExists(backupPath)) {
+                        backupPath = scoreBasePath + ecl::strf("~s%d", ++i);
+                    }       
+                    std::rename(scoreBasePath.c_str(), backupPath.c_str());
+                    
+                    errMessage = "Mismatch of state.xml and enigma.score.\n";
+                    errMessage += "Your current faulty score file is backed up to:\n";
+                    errMessage += backupPath + "\n";
+                    errMessage += "Restore both from your backup or just restart\n";
+                    errMessage += "Enigma to retry with an empty score file\n";
                     throw XFrontend("");
                 }
                 // update from 0.92
@@ -265,6 +314,10 @@ namespace enigma { namespace lev {
             shutdown();
     }
 
+    void ScoreManager::markModified() {
+        isModified = true;
+    }
+    
     void ScoreManager::finishUserId(unsigned id3) {
         unsigned i1, i2, i3, i4; 
         std::istringstream s1(userId.substr(0, 4));
@@ -305,6 +358,24 @@ namespace enigma { namespace lev {
             finishUserId(std::time(NULL) & 0xFFFF);
         }
         
+        if (userId.find("0000") == 0) {
+            Log << "ReId Windows 1.00 User Id: " << userId << "\n";
+            setProperty("UserId1.00", userId);
+            app.state->setProperty("UserId1.00", userId);
+            unsigned id1 = std::rand() & 0xFFFF;
+            userId.replace(0, 4, ecl::strf("%.4lX",id1));
+            unsigned id2, id3, id4;
+            std::istringstream s2(userId.substr(4, 4));
+            std::istringstream s3(userId.substr(8, 4));
+            s2 >> std::hex >> id2;
+            s3 >> std::hex >> id3;
+            id4 = (id1 ^ id2 ^ id3);
+            userId.replace(12, 4, ecl::strf("%.4lX",id4));
+            app.state->setProperty("UserId", userId);
+            setProperty("UserId", userId);
+            Log << "new id: " << userId << "\n";
+        }
+        
         for (int i = 0, l = levelList->getLength(); i < l; i++) {
             DOMElement * levelElem  = dynamic_cast<DOMElement *>(levelList->item(i));
             DOMNamedNodeMap * attrXMap = levelElem->getAttributes();
@@ -332,62 +403,90 @@ namespace enigma { namespace lev {
         stripIgnorableWhitespace(doc->getDocumentElement());
 //        std::string path = app.userPath + "/score.xml";
         std::string zipPath = app.userPath + "/enigma.score";
+        std::string zipPathNoDat = app.userPath + "/enigma_nodat.score";
+        std::string zipPathBackup = app.userPath + "/backup/enigma.score";
         
         // backup score every 10th save as we save after each level completion once
         if (count%10 == 0) {
-            std::remove((zipPath + "~2").c_str());
-            std::rename((zipPath + "~1").c_str(), (zipPath + "~2").c_str());
-            std::rename((zipPath).c_str(), (zipPath + "~1").c_str());
+            std::remove((zipPathBackup + "~2").c_str());
+            std::remove((zipPath + "~2").c_str()); // 1.00 bakups
+            if (ecl::FileExists(zipPath + "~1")) {
+                if (std::difftime(ecl::FileModTime(zipPath + "~1"),
+                        ecl::FileModTime(zipPathBackup + "~1")) > 0) {
+                    // backup 1 from 1.00 is newer than backup 1 on backup path
+                    if (Copyfile(zipPath + "~1", zipPathBackup + "~2"))
+                        std::remove((zipPath + "~1").c_str()); // 1.00 bakup
+                } else {
+                    // just in case off previous copy failure
+                    std::rename((zipPathBackup + "~1").c_str(), (zipPathBackup + "~2").c_str());
+                    std::remove((zipPath + "~1").c_str()); // 1.00 bakup
+                }
+            } else {
+                std::rename((zipPathBackup + "~1").c_str(), (zipPathBackup + "~2").c_str());
+            }
+            Copyfile(zipPath, zipPathBackup + "~1");
         }
         
         try {
+            ScoreDomSerFilter serialFilter;
+            for (int j=0; j < 2; j++) { // save twice: first all, then without dat scores
 #if _XERCES_VERSION >= 30000
 //            result = app.domSer->writeToURI(doc, LocalToXML(& path).x_str());
-            std::string contents(XMLtoUtf8(app.domSer->writeToString(doc)).c_str());
-            contents.replace(contents.find("UTF-16"), 6, "UTF-8"); // adapt encoding info
+                if (j==1)
+                    (app.domSer)->setFilter(&serialFilter);
+                std::string contents(XMLtoUtf8(app.domSer->writeToString(doc)).c_str());
+                if (j==1)
+                    (app.domSer)->setFilter(NULL);
+                contents.replace(contents.find("UTF-16"), 6, "UTF-8"); // adapt encoding info
 #else
 //            XMLFormatTarget *myFormTarget = new LocalFileFormatTarget(path.c_str());
 //            result = app.domSer->writeNode(myFormTarget, *doc);            
 //            delete myFormTarget;   // flush
             
-            MemBufFormatTarget *memFormTarget = new MemBufFormatTarget();
-            result = app.domSer->writeNode(memFormTarget, *doc);
-            std::string contents(
-                    reinterpret_cast<const char *>(memFormTarget->getRawBuffer()),
-                    memFormTarget->getLen());
-            delete memFormTarget;
+                MemBufFormatTarget *memFormTarget = new MemBufFormatTarget();
+                if (j==1)
+                    app.domSer->setFilter(&serialFilter);
+                result = app.domSer->writeNode(memFormTarget, *doc);
+                if (j==1)
+                    app.domSer->setFilter(NULL);
+                std::string contents(
+                        reinterpret_cast<const char *>(memFormTarget->getRawBuffer()),
+                        memFormTarget->getLen());
+                delete memFormTarget;
 #endif
-            std::istringstream contentStream(contents);
-            std::ostringstream zippedStream;
-            writeToZip(zippedStream, "score.xml", contents.size(), contentStream);
-            std::ofstream of( zipPath.c_str(), ios::out | ios::binary );
-            std::string zipScore = zippedStream.str();
-            
-            // patch zipios++ malformed output
-            // assumptions: just one file named "score.xml" (9 chars)
-            if ((zipScore[0x06] & 0x08) == 0) {
-                Log << "Fixing Zipios++ output\n";
-                unsigned cdirOffset = zipScore.size() - 22 - 46 - 9;
-                unsigned compressedSize = cdirOffset - 30 - 9;
-                zipScore.replace(cdirOffset + 20, 1, 1, (char)(compressedSize & 0xFF));
-                zipScore.replace(cdirOffset + 21, 1, 1, (char)((compressedSize & 0xFF00) >> 8));
-                zipScore.replace(cdirOffset + 22, 1, 1, (char)((compressedSize & 0xFF0000) >> 16));
-                zipScore.replace(cdirOffset + 23, 1, 1, (char)((compressedSize & 0xFF000000) >> 24));
-                std::string dataDescr = "\x50\x4B\x07\x08" + zipScore.substr(cdirOffset + 16, 12);
-                zipScore.replace(6, 1 , 1, '\x08'); // general purpose bit flag
-                zipScore.replace(14, 12, 12, '\x00');
-                zipScore.replace(cdirOffset + 8, 1 , 1, '\x08'); // general purpose bit flag
-                zipScore.replace(cdirOffset + 38, 8, 8, '\x00'); // external file attr, offset local header
-                zipScore.insert(cdirOffset, dataDescr);
-                cdirOffset += 16;
-                zipScore.replace(zipScore.size() - 6, 1, 1, (char)(cdirOffset & 0xFF));
-                zipScore.replace(zipScore.size() - 5, 1, 1, (char)((cdirOffset & 0xFF00) >> 8));
-                zipScore.replace(zipScore.size() - 4, 1, 1, (char)((cdirOffset & 0xFF0000) >> 16));
-                zipScore.replace(zipScore.size() - 3, 1, 1, (char)((cdirOffset & 0xFF000000) >> 24));
+                std::istringstream contentStream(contents);
+                std::ostringstream zippedStream;
+                writeToZip(zippedStream, "score.xml", contents.size(), contentStream);
+                std::ofstream of( j==0 ? zipPath.c_str() : zipPathNoDat.c_str(),
+                        ios::out | ios::binary );
+                std::string zipScore = zippedStream.str();
+                
+                // patch zipios++ malformed output
+                // assumptions: just one file named "score.xml" (9 chars)
+                if ((zipScore[0x06] & 0x08) == 0) {
+                    Log << "Fixing Zipios++ output\n";
+                    unsigned cdirOffset = zipScore.size() - 22 - 46 - 9;
+                    unsigned compressedSize = cdirOffset - 30 - 9;
+                    zipScore.replace(cdirOffset + 20, 1, 1, (char)(compressedSize & 0xFF));
+                    zipScore.replace(cdirOffset + 21, 1, 1, (char)((compressedSize & 0xFF00) >> 8));
+                    zipScore.replace(cdirOffset + 22, 1, 1, (char)((compressedSize & 0xFF0000) >> 16));
+                    zipScore.replace(cdirOffset + 23, 1, 1, (char)((compressedSize & 0xFF000000) >> 24));
+                    std::string dataDescr = "\x50\x4B\x07\x08" + zipScore.substr(cdirOffset + 16, 12);
+                    zipScore.replace(6, 1 , 1, '\x08'); // general purpose bit flag
+                    zipScore.replace(14, 12, 12, '\x00');
+                    zipScore.replace(cdirOffset + 8, 1 , 1, '\x08'); // general purpose bit flag
+                    zipScore.replace(cdirOffset + 38, 8, 8, '\x00'); // external file attr, offset local header
+                    zipScore.insert(cdirOffset, dataDescr);
+                    cdirOffset += 16;
+                    zipScore.replace(zipScore.size() - 6, 1, 1, (char)(cdirOffset & 0xFF));
+                    zipScore.replace(zipScore.size() - 5, 1, 1, (char)((cdirOffset & 0xFF00) >> 8));
+                    zipScore.replace(zipScore.size() - 4, 1, 1, (char)((cdirOffset & 0xFF0000) >> 16));
+                    zipScore.replace(zipScore.size() - 3, 1, 1, (char)((cdirOffset & 0xFF000000) >> 24));
+                }
+                
+                for (int i=0; i<zipScore.size(); i++)
+                    of << (char)(zipScore[i] ^ 0xE5);
             }
-            
-            for (int i=0; i<zipScore.size(); i++)
-                of << (char)(zipScore[i] ^ 0xE5);
         } catch (const XMLException& toCatch) {
             errMessage = std::string("Exception on save of score: \n") + 
                     XMLtoUtf8(toCatch.getMessage()).c_str() + "\n";
@@ -403,8 +502,11 @@ namespace enigma { namespace lev {
 
         if (!result) {
             if (count%10 == 0) {
-                std::rename((zipPath + "~1").c_str(), (zipPath).c_str());
-                std::rename((zipPath + "~2").c_str(), (zipPath + "~1").c_str());
+                // restore backup in case of error
+                if (Copyfile(zipPathBackup + "~1", zipPath)) {
+                    std::remove((zipPathBackup + "~1").c_str());
+                    std::rename((zipPathBackup + "~2").c_str(), (zipPathBackup + "~1").c_str());
+                }
             }
             cerr << XMLtoLocal(Utf8ToXML(errMessage.c_str()).x_str()).c_str();
             gui::ErrorMenu m(errMessage, N_("Continue"));
@@ -483,6 +585,9 @@ namespace enigma { namespace lev {
         if (difficulty == DIFFICULTY_EASY && !levelProxy->hasEasymode())
             difficulty = DIFFICULTY_HARD;
         
+        if (score > SCORE_MAX)
+            score = SCORE_MAX;  // distinguish from SCORE_SOLVED levels
+            
         if (!hasValidUserId) {
             finishUserId(std::time(NULL) & 0xFFFF);
         }
@@ -596,7 +701,7 @@ namespace enigma { namespace lev {
         
         int bestUserScore = getBestUserScore(levelProxy, difficulty);
         int bestScore = ratingMgr->getBestScore(levelProxy, difficulty);
-        return bestUserScore>0 && (bestScore<0 || bestUserScore <= bestScore);
+        return bestUserScore>=0 && (bestScore<0 || bestUserScore <= bestScore);
     }
     
     bool ScoreManager::parScoreReached(lev::Proxy *levelProxy, int difficulty) {
@@ -605,7 +710,7 @@ namespace enigma { namespace lev {
         
         int bestUserScore = getBestUserScore(levelProxy, difficulty);
         int parScore = ratingMgr->getParScore(levelProxy, difficulty);
-        return bestUserScore>0 && (parScore<0 || bestUserScore <= parScore);
+        return bestUserScore>=0 && (parScore<0 || bestUserScore <= parScore);
     }
     
     void ScoreManager::markUnsolved(lev::Proxy *levelProxy, int difficulty) {
@@ -719,8 +824,9 @@ namespace enigma { namespace lev {
             finishUserId(std::time(NULL) & 0xFFFF);
         }
         if (rating == -1) {
-            DOMElement * level = getLevel(levelProxy);
+            DOMElement *level = getLevel(levelProxy);
             if (level == NULL)
+                // no level score entry for this level - -1 is default anyway
                return;
             else if (XMLString::parseInt(level->getAttribute(
                     Utf8ToXML("version").x_str())) == levelProxy->getScoreVersion()) {
@@ -731,15 +837,29 @@ namespace enigma { namespace lev {
                     level->setAttribute(Utf8ToXML("rating").x_str(),
                         Utf8ToXML(ecl::strf("%d",rating)).x_str());
                 }
+                DOMAttr *irAttr = level->getAttributeNode(Utf8ToXML("rating-inherited").x_str());
+                if ((irAttr != NULL) && irAttr->getSpecified()) {
+                    // delete any inherited rating that may shadow a default of -1
+                    level->removeAttribute(Utf8ToXML("rating-inherited").x_str());
+                    isModified = true;
+                }
                 return;
-            } else
-                // no level score entry for this score version exists - -1 is default
+            } else {
+                // no level score entry for this score version exists - the user
+                // did set the rating to undefined.
+                DOMElement *level = getCreateLevel(levelProxy);
+                isModified = true;
+                level->setAttribute(Utf8ToXML("rating").x_str(),
+                        Utf8ToXML(ecl::strf("%d",rating)).x_str());
+                level->removeAttribute(Utf8ToXML("rating-inherited").x_str());
                 return;
+            }
         } else if (rating != getRating(levelProxy)) {
-            DOMElement * level = getCreateLevel(levelProxy);
+            DOMElement *level = getCreateLevel(levelProxy);
             isModified = true;
             level->setAttribute(Utf8ToXML("rating").x_str(),
                     Utf8ToXML(ecl::strf("%d",rating)).x_str());
+            level->removeAttribute(Utf8ToXML("rating-inherited").x_str());
             return;
         }
     }
@@ -750,7 +870,39 @@ namespace enigma { namespace lev {
             return -1;
         else {
             const XMLCh *attr = level->getAttribute(Utf8ToXML("rating").x_str());
-            return (XMLString::stringLen(attr) > 0) ? XMLString::parseInt(attr) : -1; 
+            int rating = (XMLString::stringLen(attr) > 0) ? XMLString::parseInt(attr) : -1;
+            if (rating == -1) {
+                attr = level->getAttribute(Utf8ToXML("rating-inherited").x_str());
+                int ratingInherited = (XMLString::stringLen(attr) > 0) ? XMLString::parseInt(attr) : -1;
+                if (ratingInherited >= 0)
+                    rating = ratingInherited;
+            }
+            return rating;
+        }
+    }
+    
+    bool ScoreManager::isRatingInherited(lev::Proxy *levelProxy) {
+        DOMElement * level = getLevel(levelProxy);
+        if (level == NULL)
+            return false;
+        if (XMLString::parseInt(level->getAttribute(
+                Utf8ToXML("version").x_str())) == levelProxy->getScoreVersion()) {
+            const XMLCh *attr = level->getAttribute(Utf8ToXML("rating").x_str());
+            int rating = (XMLString::stringLen(attr) > 0) ? XMLString::parseInt(attr) : -1;
+            if (rating == -1) {
+                attr = level->getAttribute(Utf8ToXML("rating-inherited").x_str());
+                int ratingInherited = (XMLString::stringLen(attr) > 0) ? XMLString::parseInt(attr) : -1;
+                if (ratingInherited >= 0)
+                    return true;
+            }
+            return false;
+        } else {
+            const XMLCh *attr = level->getAttribute(Utf8ToXML("rating").x_str());
+            int rating = (XMLString::stringLen(attr) > 0) ? XMLString::parseInt(attr) : -1;
+            if (rating == -1)
+                return false;
+            else
+                return true;
         }
     }
     
@@ -805,7 +957,7 @@ namespace enigma { namespace lev {
                 attr = level->getAttribute(Utf8ToXML("rating").x_str());
                 int oldRating = (XMLString::stringLen(attr) > 0) ? XMLString::parseInt(attr) : -1;
                 if (oldRating != -1) {
-                    newLevel->setAttribute(Utf8ToXML("rating").x_str(),
+                    newLevel->setAttribute(Utf8ToXML("rating-inherited").x_str(),
                         Utf8ToXML(ecl::strf("%d",oldRating)).x_str());
                 }
                 curLevelScores[levelProxy->getId()] = newLevel;
@@ -886,6 +1038,12 @@ namespace enigma { namespace lev {
                     int easyScore = levelstat.time_easy;
                     bool solvedEasy = (levelstat.finished & DIFFICULTY_EASY) &&
                             easyScore != SCORE_UNSOLVED;
+                    
+                    // limit scores to 99*60+59 - they need to fit in a short for XML
+                    if (diffScore > SCORE_MAX)
+                        diffScore = SCORE_MAX;
+                    if (easyScore > SCORE_MAX)
+                        easyScore = SCORE_MAX;
                     
                     std::map<std::string,  DOMElement *>::iterator itx;
                     // do we have to update a score entry for a higher version ?

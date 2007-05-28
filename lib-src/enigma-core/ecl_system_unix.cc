@@ -142,6 +142,29 @@ std::string ecl::ApplicationDataPath()
     return result;
 }
 
+void ecl::ToLowerCase(std::string &filename) {
+    for (int i = 0; i < filename.length(); i++) {
+	char c = filename[i];
+	if (c >= 'A' && c <= 'Z')
+	    filename.replace(i, 1, 1, c - 'A' + 'a');
+    }
+}
+
+std::set<std::string> ecl::UniqueFilenameSet(std::set<std::string> inSet) {
+    std::set<std::string>::iterator it = inSet.begin();
+    std::set<std::string> outSet;
+    std::set<std::string> lowerSet;
+    for (; it != inSet.end(); it++) {
+	std::string name = *it;
+	ecl::ToLowerCase(name);
+	if (lowerSet.find(name) == lowerSet.end()) {
+	    outSet.insert(*it);
+	    lowerSet.insert(name);
+	}
+    }
+    return outSet;
+}
+
 #endif
 
 

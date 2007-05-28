@@ -122,14 +122,18 @@ namespace world
         Impulse      impulse;
         double       delay;
         const Stone *receiver;  // to test if stone has changed
+        bool         isReferenced;  // an itereator references this impulse
+        bool         isObsolete;    // the impulse should be deleted
 
         DelayedImpulse& operator = (const DelayedImpulse& other); // forbidden
     public:
         DelayedImpulse(const Impulse& impulse_, double delay_, const Stone *receiver_)
-        : impulse(impulse_), delay(delay_), receiver(receiver_) {}
+                : impulse(impulse_), delay(delay_), receiver(receiver_), 
+                isReferenced(false), isObsolete(false) {}
 
         DelayedImpulse(const DelayedImpulse& other)
-        : impulse(other.impulse), delay(other.delay), receiver(other.receiver) {}
+                : impulse(other.impulse), delay(other.delay), receiver(other.receiver),
+                isReferenced(other.isReferenced), isObsolete(other.isObsolete)  {}
 
         bool tick(double dtime) { // returns true if Impulse has to be sent NOW
             delay -= dtime;
@@ -137,6 +141,30 @@ namespace world
         }
 
         const GridPos& destination() const { return impulse.dest; }
+
+        bool is_receiver(const Stone *target) const {
+            return target == receiver;
+        }
+
+        bool is_sender(const Stone *target) const {
+            return target == impulse.sender;
+        }
+        
+        bool is_referenced() const {
+            return isReferenced;
+        }
+        
+        void mark_referenced(bool state) {
+            isReferenced =  state;
+        }
+        
+        bool is_obsolete() const {
+            return isObsolete;
+        }
+        
+        void mark_obsolete() {
+            isObsolete = true;
+        }
 
         void send_impulse(Stone *target) const {
 
@@ -149,7 +177,7 @@ namespace world
             //
             // Possible fix : add unique ID to all objects
 
-            if (target == receiver) { 
+            if (is_receiver(target)) { 
                 // if object did not change since impulse was initiated
                 target->on_impulse(impulse);
             }
@@ -223,11 +251,20 @@ namespace world
             BorderStone() : Stone("borderstone") {}
             Stone *clone() { return this; }
             void dispose() {}
+            virtual const StoneTraits &get_traits() const {
+                static StoneTraits border_traits = {
+                        "INVALID", st_borderstone, stf_none, material_stone, 1.0
+                };
+                return border_traits;
+            }
         };
 
         BorderStone borderstone;
     };
 
+/* ------------- Sound Damping List -------------- */
+
+typedef list<sound::SoundDamping> SoundDampingList;
 
 /* -------------------- World -------------------- */
 
@@ -267,6 +304,8 @@ namespace world
 
         void tick_actor(Actor *a, double dtime);
 
+        void revoke_delayed_impulses(const Stone *target);
+
     private:
 
         /* ---------- Private methods ---------- */
@@ -284,8 +323,8 @@ namespace world
         void handle_actor_contact (size_t a1, size_t a2);
         void handle_contacts (unsigned actoridx);
         void handle_delayed_impulses (double dtime);
-
         void stone_change (GridPos p);
+        void tick_sound_dampings ();
 
     public:
 
@@ -306,6 +345,8 @@ namespace world
 
         ImpulseList          delayed_impulses;
         vector<GridPos>      changed_stones;
+
+        SoundDampingList     sound_dampings; // see sound.hh for details
 
         FloorLayer      fl_layer;
         ItemLayer       it_layer;

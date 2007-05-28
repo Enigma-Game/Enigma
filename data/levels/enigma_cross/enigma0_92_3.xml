@@ -17,14 +17,14 @@
     <level _seq="9" _title="Flood Zone" _xpath="enigma_iv/duffy82_1" author="Jacob Scott" ctrl="force" easy="false" id="duffy82" rel="1" rev="0" score="1" target="time" unit="duration"/>
     <level _seq="10" _title="Fire Safety" _xpath="enigma_iv/duffy83_1" author="Jacob Scott" ctrl="force" easy="false" id="duffy83" rel="1" rev="0" score="1" target="time" unit="duration"/>
     <level _seq="11" _title="Laser Tricks" _xpath="enigma_iii/duffy84_1" author="Jacob Scott" ctrl="force" easy="false" id="duffy84" rel="1" rev="0" score="1" target="time" unit="duration"/>
-    <level _seq="12" _title="Think Fast" _xpath="enigma_iii/duffy85_1" author="Jacob Scott" ctrl="force" easy="false" id="duffy85" rel="1" rev="0" score="1" target="time" unit="duration"/>
+    <level _seq="12" _title="Think Fast" _xpath="enigma_iii/duffy85_2" author="Jacob Scott" ctrl="force" easy="true" id="duffy85" rel="2" rev="2" score="2" target="time" unit="duration"/>
     <level _seq="13" _title="Fly High" _xpath="enigma_iii/duffy86_1" author="Jacob Scott" ctrl="force" easy="false" id="duffy86" rel="1" rev="0" score="1" target="time" unit="duration"/>
     <level _seq="14" _title="Puppet" _xpath="enigma_ii/duffy87_1" author="Jacob Scott" ctrl="force" easy="false" id="duffy87" rel="1" rev="0" score="1" target="time" unit="duration"/>
     <level _seq="15" _title="Bomb Shelter" _xpath="enigma_iii/duffy88_2" author="Jacob Scott" ctrl="force" easy="false" id="duffy88" rel="2" rev="0" score="2" target="time" unit="duration"/>
     <level _seq="16" _title="Almost There" _xpath="enigma_ii/duffy89_1" author="Jacob Scott" ctrl="force" easy="false" id="duffy89" rel="1" rev="0" score="1" target="time" unit="duration"/>
     <level _seq="17" _title="Excruciating" _xpath="enigma_iv/duffy90_1" author="Jacob Scott" ctrl="force" easy="false" id="duffy90" rel="1" rev="0" score="1" target="time" unit="duration"/>
     <level _seq="18" _title="You Must Be Kidding" _xpath="enigma_v/duffy91_1" author="Jacob Scott" ctrl="force" easy="false" id="duffy91" rel="1" rev="0" score="1" target="time" unit="duration"/>
-    <level _seq="19" _title="Map It Out" _xpath="enigma_iii/duffy92_1" author="Jacob Scott" ctrl="force" easy="false" id="duffy92" rel="1" rev="0" score="1" target="time" unit="duration"/>
+    <level _seq="19" _title="Map It Out" _xpath="enigma_iii/duffy92_1" author="Jacob Scott" ctrl="force" easy="false" id="duffy92" rel="1" rev="2" score="1" target="time" unit="duration"/>
     <level _seq="20" _title="Seed Puzzle 2" _xpath="enigma_iv/duffy93_1" author="Jacob Scott" ctrl="force" easy="false" id="duffy93" rel="1" rev="0" score="1" target="time" unit="duration"/>
     <level _seq="21" _title="Graduated Puzzles" _xpath="enigma_iv/duffy94_1" author="Jacob Scott" ctrl="force" easy="false" id="duffy94" rel="1" rev="0" score="1" target="time" unit="duration"/>
     <level _seq="22" _title="Automaton" _xpath="enigma_v/duffy95_1" author="Jacob Scott" ctrl="force" easy="false" id="duffy95" rel="1" rev="0" score="1" target="time" unit="duration"/>
@@ -34,7 +34,7 @@
     <level _seq="26" _title="Blocks and Water" _xpath="enigma_iii/duffy99_1" author="Jacob Scott" ctrl="force" easy="false" id="duffy99" rel="1" rev="0" score="1" target="time" unit="duration"/>
     <level _seq="27" _title="Island Paradise" _xpath="enigma_i/duffy100_1" author="Jacob Scott" ctrl="force" easy="false" id="duffy100" rel="1" rev="0" score="1" target="time" unit="duration"/>
     <level _seq="28" _title="Variety Pack" _xpath="enigma_i/duffy101_1" author="Jacob Scott" ctrl="force" easy="false" id="duffy101" rel="1" rev="0" score="1" target="time" unit="duration"/>
-    <level _seq="29" _title="Pneumatic Delivery" _xpath="enigma_v/malla01_1" author="Manuel König" ctrl="force" easy="false" id="malla01" rel="1" rev="1" score="1" target="time" unit="duration"/>
+    <level _seq="29" _title="Pneumatic Delivery" _xpath="enigma_v/malla01_2" author="Manuel König" ctrl="force" easy="true" id="malla01" rel="2" rev="2" score="2" target="time" unit="duration"/>
     <level _seq="30" _title="Pentomino I" _xpath="enigma_ii/ralf16_1" author="Ralf Westram" ctrl="force" easy="false" id="ralf_pento1" rel="1" rev="0" score="1" target="time" unit="duration"/>
     <level _seq="31" _title="Pentomino II" _xpath="enigma_ii/ralf17_1" author="Ralf Westram" ctrl="force" easy="false" id="ralf_pento2" rel="1" rev="0" score="1" target="time" unit="duration"/>
     <level _seq="32" _title="Pentomino III" _xpath="enigma_ii/ralf18_1" author="Ralf Westram" ctrl="force" easy="false" id="ralf_pento3" rel="1" rev="0" score="1" target="time" unit="duration"/>
@@ -52,23 +52,23 @@
     <level _seq="44" _title="Artillery" _xpath="enigma_iv/duffy111_1" author="Jacob Scott" ctrl="force" easy="false" id="duffy111" rel="1" rev="0" score="1" target="time" unit="duration"/>
     <level _seq="45" _title="Versailles" _xpath="enigma_iii/duffy112_1" author="Jacob Scott" ctrl="force" easy="false" id="duffy112" rel="1" rev="0" score="1" target="time" unit="duration"/>
     <level _seq="46" _title="Help Yourself" _xpath="enigma_v/duffy113_1" author="Jacob Scott" ctrl="force" easy="false" id="duffy113" rel="1" rev="0" score="1" target="time" unit="duration"/>
-    <level _seq="47" _title="Plan Ahead" _xpath="enigma_v/duffy114_1" author="Jacob Scott" ctrl="force" easy="false" id="duffy114" rel="1" rev="0" score="1" target="time" unit="duration"/>
+    <level _seq="47" _title="Plan Ahead" _xpath="enigma_v/duffy114_2" author="Jacob Scott" ctrl="force" easy="true" id="duffy114" rel="2" rev="2" score="2" target="time" unit="duration"/>
     <level _seq="48" _title="Randomizer" _xpath="enigma_v/duffy115_1" author="Jacob Scott" ctrl="force" easy="false" id="duffy115" rel="1" rev="0" score="1" target="time" unit="duration"/>
     <level _seq="49" _title="Just Stay Calm" _xpath="enigma_vi/duffy116_1" author="Jacob Scott" ctrl="force" easy="false" id="duffy116" rel="1" rev="0" score="1" target="time" unit="duration"/>
-    <level _seq="50" _title="Bad Nightmare" _xpath="enigma_iv/duffy117_1" author="Jacob Scott" ctrl="force" easy="false" id="duffy117" rel="1" rev="0" score="1" target="time" unit="duration"/>
+    <level _seq="50" _title="Bad Nightmare" _xpath="enigma_iv/duffy117_2" author="Jacob Scott" ctrl="force" easy="true" id="duffy117" rel="2" rev="2" score="2" target="time" unit="duration"/>
     <level _seq="51" _title="Kaleidoscope" _xpath="enigma_ii/duffy118_1" author="Jacob Scott" ctrl="force" easy="false" id="duffy118" rel="1" rev="1" score="1" target="time" unit="duration"/>
     <level _seq="52" _title="Reach the Dock" _xpath="enigma_v/duffy119_1" author="Jacob Scott" ctrl="force" easy="false" id="duffy119" rel="1" rev="0" score="1" target="time" unit="duration"/>
-    <level _seq="53" _title="Snowing" _xpath="enigma_ii/duffy120_1" author="Jacob Scott" ctrl="force" easy="false" id="duffy120" rel="1" rev="0" score="1" target="time" unit="duration"/>
+    <level _seq="53" _title="Snowing" _xpath="enigma_ii/duffy120_2" author="Jacob Scott" ctrl="force" easy="true" id="duffy120" rel="2" rev="2" score="2" target="time" unit="duration"/>
     <level _seq="54" _title="Action at a Distance" _xpath="enigma_iv/duffy121_1" author="Jacob Scott" ctrl="force" easy="false" id="duffy121" rel="1" rev="0" score="1" target="time" unit="duration"/>
     <level _seq="55" _title="Civil Engineer" _xpath="enigma_i/duffy122_1" author="Jacob Scott" ctrl="force" easy="false" id="duffy122" rel="1" rev="0" score="1" target="time" unit="duration"/>
     <level _seq="56" _title="Electric Meditation" _xpath="enigma_iv/duffy123_1" author="Jacob Scott" ctrl="force" easy="true" id="duffy123" rel="1" rev="0" score="1" target="time" unit="duration"/>
-    <level _seq="57" _title="Worse Nightmare" _xpath="enigma_iv/duffy124_1" author="Jacob Scott" ctrl="force" easy="false" id="duffy124" rel="1" rev="0" score="1" target="time" unit="duration"/>
+    <level _seq="57" _title="Worse Nightmare" _xpath="enigma_iv/duffy124_2" author="Jacob Scott" ctrl="force" easy="true" id="duffy124" rel="2" rev="2" score="2" target="time" unit="duration"/>
     <level _seq="58" _title="Triple-Maze" _xpath="enigma_iv/duffy125_1" author="Jacob Scott" ctrl="force" easy="false" id="duffy125" rel="1" rev="0" score="1" target="time" unit="duration"/>
-    <level _seq="59" _title="Elaborate" _xpath="enigma_v/duffy126_1" author="Jacob Scott" ctrl="force" easy="false" id="duffy126" rel="1" rev="0" score="1" target="time" unit="duration"/>
+    <level _seq="59" _title="Elaborate" _xpath="enigma_v/duffy126_1" author="Jacob Scott" ctrl="force" easy="false" id="duffy126" rel="1" rev="1" score="1" target="time" unit="duration"/>
     <level _seq="60" _title="Now What?" _xpath="enigma_v/duffy127_1" author="Jacob Scott" ctrl="force" easy="false" id="duffy127" rel="1" rev="0" score="1" target="time" unit="duration"/>
     <level _seq="61" _title="Patterns" _xpath="enigma_ii/duffy128_1" author="Jacob Scott" ctrl="force" easy="false" id="duffy128" rel="1" rev="0" score="1" target="time" unit="duration"/>
     <level _seq="62" _title="Island Labyrinth" _xpath="enigma_v/duffy129_1" author="Jacob Scott" ctrl="force" easy="false" id="duffy129" rel="1" rev="0" score="1" target="time" unit="duration"/>
-    <level _seq="63" _title="In Sync" _xpath="enigma_iii/daniel06_1" author="Daniel Heck" ctrl="force" easy="false" id="daniel6" rel="1" rev="0" score="1" target="time" unit="duration"/>
+    <level _seq="63" _title="In Sync" _xpath="enigma_iii/daniel06_1" author="Daniel Heck" ctrl="force" easy="false" id="daniel6" rel="1" rev="1" score="1" target="time" unit="duration"/>
     <level _seq="64" _title="How Many Spirals?" _xpath="enigma_iv/nat23_1" author="Nat Pryce" ctrl="force" easy="true" id="nat23" rel="1" rev="0" score="1" target="time" unit="duration"/>
     <level _seq="65" _title="Stay in the Spotlight" _xpath="enigma_ii/nat24_1" author="Nat Pryce" ctrl="force" easy="false" id="nat24" rel="1" rev="0" score="1" target="time" unit="duration"/>
   </levels>

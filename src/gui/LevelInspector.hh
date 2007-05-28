@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2006 Ronald Lamprecht
+ * Copyright (C) 2006, 2007 Ronald Lamprecht
  *
  * This program is free software; you can redistribute it and/or
  * modify it under the terms of the GNU General Public License
@@ -27,8 +27,9 @@
 namespace enigma { namespace gui {
     class LevelInspector : public gui::Menu {
     public:
-        LevelInspector (lev::Proxy *aLevel);
+        LevelInspector (lev::Proxy *aLevel, bool showDeveloperInfo = false);
         ~LevelInspector ();
+        bool isEndDeveloperMode();
     private:
         // ActionListener interface.                    
         bool on_event (const SDL_Event &e);
@@ -45,7 +46,7 @@ namespace enigma { namespace gui {
         std::string scoreToString(int score, lev::Proxy *aLevel);
         void dispatchBottomLines(int &bestScoreHolderLines, 
             int &creditsLines, int &dedicationLines, int &levelPathLines,
-            int &annotationLines, int &compatibilityLines, int numLines, int width);
+            int &annotationLines, int &compatibilityLines, int &idLines, int numLines, int width);
         // Variables.
         gui::Widget *back;
         gui::Widget *screenshot;
@@ -58,6 +59,8 @@ namespace enigma { namespace gui {
         int vmargin;
         int hmargin;
         bool withEasy;
+        bool ratingInherited;
+        bool isDeveloperMode;
     };
 
 }} // namespace enigma::gui

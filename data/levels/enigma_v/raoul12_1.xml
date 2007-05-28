@@ -3,12 +3,12 @@
   <el:protected>
     <el:info el:type="level">
       <el:identity el:title="Keystone" el:subtitle="" el:id="raoul12"/>
-      <el:version el:score="1" el:release="1" el:revision="0" el:status="released"/>
+      <el:version el:score="1" el:release="1" el:revision="3" el:status="released"/>
       <el:author  el:name="Raoul Bourquin" el:email="raoul@users.berlios.de" el:homepage=""/>
       <el:copyright>Copyright © 2006 Raoul Bourquin</el:copyright>
       <el:license el:type="GPL v2.0 or above" el:open="true"/>
       <el:compatibility el:enigma="0.92">
-       <el:dependency el:path="lib/libpuzzle" el:id="lib/libpuzzle" el:release="1" el:preload="true"/>
+       <el:dependency el:path="lib/libpuzzle" el:id="lib/libpuzzle" el:release="2" el:preload="true"/>
       </el:compatibility>
       <el:modes el:easy="true" el:single="true" el:network="false"/>
       <el:comments>
@@ -56,16 +56,6 @@ set_stone("st-switch_white", 12, 29,{action="callback",target="per2",name="rot6"
 set_stone("st-switch_white", 12, 31, {action="callback",target="per1",name="rot7"})
 end
 
--- PUZZLES --
---blaue:
-puzzle({{1,0,0,1,0},{1,1,1,1,1},{1,0,1,0,0}},4,5,"blue","no")
-
-puzzle({{0,1,0,0,1},{1,1,1,1,1},{0,1,0,0,1}},12,5,"blue","no")
-
-puzzle({{1,1,1},{0,1,0},{1,1,1},{0,1,0},{0,1,0}},9,1,"blue","no")
-
-puzzle({{0,1,0},{0,1,1},{1,1,0},{0,1,0},{1,1,1}},9,7,"blue","no")
-
 -- ACTORS --
 set_actor("ac-blackball", 15.5,10.5, {player=0})
 set_actor("ac-whiteball", 7.5,28.5, {player=1})
@@ -80,68 +70,52 @@ oxyd(17,6)
 oxyd_default_flavor = "d"
 oxyd_shuffle()
 
--- LUA-FUNCTIONS --
---Overwrite the PUZZLE_SHUFFLE() in libpuzzle.lua:
-waswo={"","","","","","","","","","",""}
+-- Oranges Puzzleteil:
+puzzle({"## ##",
+        " ### ",
+        "## ##"},{8,5},"redpuzzle","permutation")
 
-function puzzle_shuffle(teile)
- 
- shuffled_pieces={}
+-- shift_helper_functions --
+waswo = {"","","","","","","","","","",""}
+nr = 1
 
- local restteile={}
- local anz=anz_stones
- local zyklen=anz
- local i,j,k
- local counter=1
-
- for i=1,zyklen do
-
-  --shuffle pieces:
-  t=random(1,anz)
-  
-  aktteil=teile[t]
-  shuffled_pieces[counter]=aktteil
-  counter=counter+1
-  
- --add this line for this level:
-  waswo[i]=aktteil
-
-  --prepare the teile array for next cycle
-  local restteile={}
-  local schogse=0
-
-  --copy the teile array, mark the piece we just have used with "0"
-  for k=1,anz do
-   if teile[k]==aktteil and schogse==0 then
-    restteile[k]="0"
-    schogse=1
-   else
-    restteile[k]=teile[k]
-   end
-  end
-
-  --clear teile array:
-  teile={}
-  local t=1
-
-  for j=1,anz do
-   if restteile[j]~="0" then
-    teile[t]=restteile[j]
-    t=t+1
-   end 
-  end
-  
-  --we have used one piece:
-  anz=anz-1
- end
-
- return shuffled_pieces
-
+function local_translate_type(type)
+    local local_translate_table = {"","w","s","sw","e","ew","es","esw","n","nw","ns","nsw","ne","new","nes","nesw"}
+    return local_translate_table[type]
 end
 
---Oranges Puzzleteil
-shuffle_method="random"
-puzzle({{1,1,0,1,1},{0,1,1,1,0},{1,1,0,1,1}},8,5,"red","yes")
+local i, j = 0, 0
+for i=1, 3 do
+    for j=1, 5 do
+        local this_stone = enigma.GetStone(8+j-1,5+i-1)
+        if this_stone ~= nil then
+            local temp = local_translate_type(enigma.GetAttrib(this_stone,"connections"))
+            waswo[nr] = "st-puzzle2-"..tostring(temp)
+            nr = nr+1
+        end
+    end
+end
+
+-- Blaue Puzzleteile:
+puzzle({"#  # ",
+        "#####",
+        "# #  "},{4,5},"bluepuzzle","none")
+
+puzzle({" #  #",
+        "#####",
+        " #  #"},{12,5},"bluepuzzle","none")
+
+puzzle({"###",
+        " # ",
+        "###",
+        " # ",
+        " # "},{9,1},"bluepuzzle","none")
+
+puzzle({" # ",
+        " ##",
+        "## ",
+        " # ",
+        "###"},{9,7},"bluepuzzle","none")
 
 ---------------
 function per1()
@@ -153,8 +127,8 @@ function per1()
  localram[1]=tmp
  waswo[1]=localram[1]
  waswo[2]=localram[2]
- set_stone("st-puzzle".."2".."-"..localram[1],8,5)
- set_stone("st-puzzle".."2".."-"..localram[2],9,5)
+ set_stone(localram[1],8,5)
+ set_stone(localram[2],9,5)
 end
 ---------------
 function per2()
@@ -166,8 +140,8 @@ function per2()
  localram[1]=tmp 
  waswo[8]=localram[1]
  waswo[9]=localram[2]
- set_stone("st-puzzle".."2".."-"..localram[1],8,7)
- set_stone("st-puzzle".."2".."-"..localram[2],9,7)
+ set_stone(localram[1],8,7)
+ set_stone(localram[2],9,7)
 end
 ---------------
 function per3()
@@ -182,9 +156,9 @@ function per3()
  waswo[2]=localram[1]
  waswo[5]=localram[2]
  waswo[9]=localram[3]
- set_stone("st-puzzle".."2".."-"..localram[1],9,5)
- set_stone("st-puzzle".."2".."-"..localram[2],9,6)
- set_stone("st-puzzle".."2".."-"..localram[3],9,7)
+ set_stone(localram[1],9,5)
+ set_stone(localram[2],9,6)
+ set_stone(localram[3],9,7)
 end
 ---------------
 function per4()
@@ -199,9 +173,9 @@ function per4()
  waswo[5]=localram[1]
  waswo[6]=localram[2]
  waswo[7]=localram[3]
- set_stone("st-puzzle".."2".."-"..localram[1],9,6)
- set_stone("st-puzzle".."2".."-"..localram[2],10,6)
- set_stone("st-puzzle".."2".."-"..localram[3],11,6)
+ set_stone(localram[1],9,6)
+ set_stone(localram[2],10,6)
+ set_stone(localram[3],11,6)
 end
 ---------------
 function per5()
@@ -216,9 +190,9 @@ function per5()
  waswo[3]=localram[1]
  waswo[7]=localram[2]
  waswo[10]=localram[3]
- set_stone("st-puzzle".."2".."-"..localram[1],11,5)
- set_stone("st-puzzle".."2".."-"..localram[2],11,6)
- set_stone("st-puzzle".."2".."-"..localram[3],11,7)
+ set_stone(localram[1],11,5)
+ set_stone(localram[2],11,6)
+ set_stone(localram[3],11,7)
 end
 ---------------
 function per6()
@@ -230,8 +204,8 @@ function per6()
  localram[1]=tmp
  waswo[3]=localram[1]
  waswo[4]=localram[2]
- set_stone("st-puzzle".."2".."-"..localram[1],11,5)
- set_stone("st-puzzle".."2".."-"..localram[2],12,5)
+ set_stone(localram[1],11,5)
+ set_stone(localram[2],12,5)
 end
 ---------------
 function per7()
@@ -243,8 +217,8 @@ function per7()
  localram[1]=tmp
  waswo[10]=localram[1]
  waswo[11]=localram[2]
- set_stone("st-puzzle".."2".."-"..localram[1],11,7)
- set_stone("st-puzzle".."2".."-"..localram[2],12,7)
+ set_stone(localram[1],11,7)
+ set_stone(localram[2],12,7)
 end
     ]]></el:luamain>
     <el:i18n>

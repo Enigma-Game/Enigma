@@ -113,15 +113,15 @@ static void usage()
 {
     printf("Usage: %s [options] [level files]\n\n"
            "Available options :\n\n"
-           "    --nosound      Disable music and sound\n"
-           "    --nomusic      Disable music\n"
-           "    --window -w    Run in a window; do not enter fullscreen mode\n"
-           "    --help -h      Show this help\n"
-           "    --version      Print the executable's version number\n"
-           "    --nograb       Do not use exclusive mouse/keyboard access\n"
-           "    --data -d path Load data from additional directory\n"
-           "    --lang -l lang Set game language\n"
-           "    --pref -p file Use filename for preferences\n"
+           "    --nosound       Disable music and sound\n"
+           "    --nomusic       Disable music\n"
+           "    --window -w     Run in a window; do not enter fullscreen mode\n"
+           "    --help -h       Show this help\n"
+           "    --version       Print the executable's version number\n"
+           "    --nograb        Do not use exclusive mouse/keyboard access\n"
+           "    --data -d path  Load data from additional directory\n"
+           "    --lang -l lang  Set game language\n"
+           "    --pref -p file  Use filename or dirname for preferences\n"
            "\n",
            app.progCallPath.c_str()
            );
@@ -319,12 +319,13 @@ void Application::init(int argc, char **argv)
     errorInit = true;
 
     // ----- Initialize sound subsystem
-    lua::DoSubfolderfile (L, "sound", "sound.lua");
     if (ap.nosound)
         sound::DisableSound();
     else if (ap.nomusic)
         sound::DisableMusic();
     sound::Init();
+    lua::CheckedDoFile (L, app.systemFS, "sound-defaults.lua");
+    lua::DoSubfolderfile (L, "soundsets", "soundset.lua");
 
     // ----- Initialize network layer
     if (enet_initialize () != 0) {
@@ -357,9 +358,10 @@ void Application::init(int argc, char **argv)
                     INDEX_DEFAULT_GROUP, emptyList, INDEX_SEARCH_PACK_LOCATION));
     }
 
-    oxyd::ChangeSoundset(options::GetInt("SoundSet"), false);
-
     lev::Proxy::countLevels();
+
+    // ----- Initialize sound tables -- needs sound, oxyd, video (error messages!)
+    sound::InitSoundSets();
 
     // initialize random
     enigma::Randomize();
@@ -471,7 +473,17 @@ void Application::initSysDatapaths(const std::string &prefFilename)
     
     
     // prefPath
-    if (haveHome) {
+    if (prefFilename.find_first_of(ecl::PathSeparators) != std::string::npos) {
+        // pref is a path - absolute or home relative
+        prefPath = ecl::ExpandPath(prefFilename);
+        if (!ecl::FolderExists(prefPath))
+            if(!ecl::FolderCreate(prefPath)) {
+                fprintf(stderr, ("Error cannot create pref directory.\n"));
+                exit(1);
+            }
+        userStdPath = prefPath; // default if pref is a path
+        prefPath = prefPath + ecl::PathSeparator + "." + PREFFILENAME; // include pref in user data path
+    } else if (haveHome) {
         prefPath = ecl::ExpandPath("~");
         if (!ecl::FolderExists(prefPath))
             // may happen on Windows
@@ -612,6 +624,8 @@ void Application::initUserDatapaths() {
         ecl::FolderCreate (userPath + "/levels/cross");
     if (!ecl::FolderExists(userPath + "/levels/legacy_dat"))
         ecl::FolderCreate (userPath + "/levels/legacy_dat");   
+    if (!ecl::FolderExists(userPath + "/backup"))
+        ecl::FolderCreate (userPath + "/backup");   
 }
 
 void Application::init_i18n()

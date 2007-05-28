@@ -25,6 +25,7 @@
 #include "main.hh"
 #include "nls.hh"
 #include "oxyd_internal.hh"
+#include "server.hh"
 #include "utilXML.hh"
 #include "Utf8ToXML.hh"
 #include "XMLtoUtf8.hh"
@@ -171,7 +172,7 @@ namespace enigma { namespace lev {
             theProxy = NULL;
         } else {
             // eliminate duplicates and register
-//            Log << "autoRegisterLevel register '" << indexPath << "/"<< filename << "\n";
+//            Log << "autoRegisterLevel register '" << indexPath << "/"<< filename << " Title: " << theProxy->getTitle() <<"\n";
             std::string cacheKey = theProxy->getNormLevelPath() + theProxy->getId() + 
                     ecl::strf("%d", theProxy->getReleaseVersion());
             std::map<std::string, Proxy *>::iterator i = cache.find(cacheKey);
@@ -613,6 +614,9 @@ namespace enigma { namespace lev {
         if (getEnigmaCompatibility() > ENIGMACOMPATIBITLITY)
             throw XLevelLoading(ecl::strf("Level is incompatible: %s requires Enigma %.2f or above", 
                     absLevelPath.c_str(), getEnigmaCompatibility()));
+	if (this == currentLevel) {
+	    server::SetCompatibility(this);
+	}
         processDependencies();
         loadLuaCode();
     }
@@ -798,11 +802,13 @@ namespace enigma { namespace lev {
         }
         
         bool translFound = false;
+        bool keyFound = false;
         bool protectedString = true;
         for (int i = 0, l = stringList-> getLength();  i < l && !translFound; i++) {
             DOMElement *stringElem = dynamic_cast<DOMElement *>(stringList->item(i));
             if (key == XMLtoUtf8(stringElem->getAttributeNS(levelNS, 
                     Utf8ToXML("key").x_str())).c_str()) {
+                keyFound = true;
                 // 2 strings with matching key may be found: 
                 // first the protected, then the public one
                 if (protectedString) {
@@ -845,6 +851,14 @@ namespace enigma { namespace lev {
                 protectedString = false;    // the next matching string is public
             }
         }
+        if (!keyFound && !english.empty()) {
+            // string may originate from a lib - still try gettext
+            std::string tmp = _(english.c_str());
+            if (tmp != english) {
+                translation = tmp;
+                translFound = true;
+            }
+         }
         return (translFound ? translation : english);
     }
     

@@ -361,3 +361,12 @@ enigma::Readfile (std::istream &is, ByteVec &dest, int blocksize)
     return is;
 }
 
+bool enigma::Copyfile(std::string fromPath, std::string toPath) {
+    ByteVec content;
+    ifstream ifs(fromPath.c_str(), ios::binary | ios::in);
+    Readfile (ifs, content);
+    ofstream ofs(toPath.c_str(), ios::binary | ios::out);
+    ofs.write(&content[0], content.size());
+    ofs.close();
+    return !ofs.fail();
+}

@@ -3,7 +3,7 @@
   <el:protected>
     <el:info el:type="level">
       <el:identity el:title="Enigmastermind" el:subtitle="" el:id="alain16"/>
-      <el:version el:score="1" el:release="1" el:revision="1" el:status="released"/>
+      <el:version el:score="1" el:release="1" el:revision="2" el:status="released"/>
       <el:author  el:name="Alain Busser" el:email="" el:homepage=""/>
       <el:copyright>Copyright © 2006 Alain Busser</el:copyright>
       <el:license el:type="GPL v2.0 or above" el:open="true"/>
@@ -231,7 +231,7 @@ if colored==1 then
     
     end
     current_game=current_game+1            
-colored=0			
+colored=0            
 end
 end
 
@@ -300,7 +300,7 @@ oxyd_shuffle()
         <el:translation el:lang="fr">Ce bouton recommence le jeu.</el:translation>
       </el:string> 
       <el:string el:key="text3">
-        <el:english el:translate="true">Each color appears at most once; each good color gives whites if not at the good place, blacks if it is also well placed.</el:english>
+        <el:english el:translate="true">Each color appears once. Each correct color produces whites in the wrong place, blacks in the right one.</el:english>
         <el:translation el:lang="fr">Chaque couleur n'existe qu'une fois au plus; un blanc pour une couleur bonne; un noir pour une couleur bonne et au bon endroit.</el:translation>
       </el:string> 
     </el:i18n>

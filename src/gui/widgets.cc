@@ -405,7 +405,6 @@ void List::set_alignment (HAlignment halign, VAlignment valign)
 
 
 
-
 /* -------------------- HList -------------------- */
 
 void HList::recalc()
@@ -447,6 +446,12 @@ void HList::recalc()
         (*i)->resize (w, get_h());
         x += w + get_spacing();
     }
+}
+
+bool HList::fits() {
+    int targetw = this->get_w(); // The available space
+    int naturalw= calc_minimum_width();
+    return targetw >= naturalw;
 }
 
 
@@ -493,6 +498,12 @@ void VList::recalc()
     }
 }
 
+bool VList::fits() {
+    int targeth = this->get_h(); // The available space
+    int naturalh= calc_minimum_height();
+    return targeth >= naturalh;
+}
+
 
 /* -------------------- Label -------------------- */
 
@@ -528,6 +539,12 @@ void Label::set_font (ecl::Font *font) {
         reconfigure();
         invalidate();
     }
+}
+
+bool Label::text_fits(double area_fraction) {
+    int w, h;
+    naturalsize (w, h);
+    return w <= get_w()*area_fraction;
 }
 
 void Label::draw (ecl::GC &gc, const ecl::Rect &) 
@@ -585,7 +602,7 @@ Button::Button() : m_activep (false), highlight (false) {
 
 void Button::activate() 
 {
-    sound::SoundEvent ("menuswitch");
+    sound::EmitSoundEvent ("menuswitch");
     m_activep = true;
     invalidate();
 }
@@ -693,9 +710,16 @@ bool PushButton::on_event(const SDL_Event &e) {
 
     case SDL_KEYUP:
         if (e.key.keysym.sym != SDLK_RETURN &&
-            e.key.keysym.sym != SDLK_SPACE) break;
-        // fall-through
+            e.key.keysym.sym != SDLK_SPACE &&
+            e.key.keysym.sym != SDLK_PAGEDOWN &&
+            e.key.keysym.sym != SDLK_PAGEUP) break;
+        lastUpSym = e.key.keysym.sym;
+        lastUpBotton = 0;
+        m_pressedp = false;
+        break;
     case SDL_MOUSEBUTTONUP:
+        lastUpSym = SDLK_UNKNOWN;
+        lastUpBotton = e.button.button;
         m_pressedp = false;
         break;
     }
@@ -704,7 +728,8 @@ bool PushButton::on_event(const SDL_Event &e) {
     if (changed) {
         invalidate();
         if (!m_pressedp) {
-            sound::SoundEvent ("menuok");
+            if (soundOk())
+                sound::EmitSoundEvent("menuok");
             invoke_listener();
         }
     }
@@ -714,10 +739,23 @@ bool PushButton::on_event(const SDL_Event &e) {
 
 void PushButton::deactivate() {
     m_pressedp = false;
+    lastUpSym = SDLK_UNKNOWN;
+    lastUpBotton = 0;
     invalidate();
     Button::deactivate();
 }
 
+SDLKey PushButton::getLastUpSym() {
+    return lastUpSym;
+}
+
+Uint8 PushButton::getLastUpButton() {
+    return lastUpBotton;
+}
+
+bool PushButton::soundOk() {
+    return true;
+}
 
 /* -------------------- TextButton -------------------- */
 
@@ -842,34 +880,39 @@ bool ValueButton::update_value(int old_value, int new_value) {
     return false;
 }
 
-bool ValueButton::on_event (const SDL_Event &e) {
-    // handles button movement and
-    bool handled = PushButton::on_event(e);
-
-    if (e.type == SDL_KEYDOWN) {
-        bool keyhandled   = true;
-        bool changed = false;
-
-        switch (e.key.keysym.sym) {
-        case SDLK_PAGEUP: changed = inc_value(1); break;
-        case SDLK_PAGEDOWN:  changed = inc_value(-1); break;
-        default : keyhandled = false; break;
-        }
-
-        if (keyhandled) {
-            handled = true;
-            sound::SoundEvent (changed ? "menuswitch" : "menustop");
-        }
-    }
-    return handled;
-}
 
 void ValueButton::on_action(Widget *) {
-    if (!inc_value(1))
-        update_value(get_value(), min_value);
+    int incr = 1;
+    bool stop = false;
+    if (getLastUpSym() == SDLK_PAGEDOWN || getLastUpButton() == SDL_BUTTON_RIGHT ||
+            getLastUpButton() == 5) {  // wheel down
+        incr = -1;
+    }
+    if (getLastUpSym() == SDLK_PAGEDOWN || getLastUpSym() == SDLK_PAGEUP ||
+            getLastUpButton() == SDL_BUTTON_RIGHT ||
+            getLastUpButton() ==  4 || getLastUpButton() == 5) {
+        stop = true;
+    }
+    if (inc_value(incr)) {
+        sound::EmitSoundEvent("menuswitch");
+    } else {
+        if (stop) {
+            sound::EmitSoundEvent("menustop");
+        } else {
+            sound::EmitSoundEvent("menuswitch");
+            if (incr == 1)
+                update_value(get_value(), min_value);
+            else
+                update_value(get_value(), max_value);
+        }
+    }
 }
 
+bool ValueButton::soundOk() {
+    return false;
+}
 
+
 /* -------------------- ImageButton -------------------- */
 
 ImageButton::ImageButton(const string &unselected,

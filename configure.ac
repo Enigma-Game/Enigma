@@ -9,7 +9,7 @@ AM_INIT_AUTOMAKE(AC_PACKAGE_TARNAME, AC_PACKAGE_VERSION, -)
 AC_CONFIG_HEADERS([src/config.h])
 AC_GNU_SOURCE
 
-ALL_LINGUAS="de fr nl it es sv ru hu pt"
+ALL_LINGUAS="de fr nl it es sv ru hu pt fi"
 AC_SUBST(ALL_LINGUAS)
 AM_GNU_GETTEXT
 
@@ -352,10 +352,12 @@ AC_CONFIG_FILES([Makefile m4/Makefile  intl/Makefile
            data/levels/lib/Makefile
            data/levels/patches/Makefile
            data/fonts/Makefile
-           data/sound/Makefile
+           data/soundsets/Makefile
+           data/soundsets/enigma/Makefile
            data/schemas/Makefile
 	   doc/Makefile
 	   doc/images/Makefile
+	   doc/images/flags25x15/Makefile
 	   doc/manual/Makefile
 	   doc/manual/images/Makefile
 	   doc/reference/Makefile
@@ -369,6 +371,7 @@ AC_CONFIG_FILES([Makefile m4/Makefile  intl/Makefile
 	   tools/Makefile
 	   etc/enigma.spec
 	   etc/enigma.nsi
+	   etc/Info.plist
 	   po/Makefile.in
 ])
 

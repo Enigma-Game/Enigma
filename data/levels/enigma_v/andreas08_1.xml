@@ -67,7 +67,6 @@ f=0
 set_actor("ac-top",x+0.5,y+0.5,{range=r,force=f,name=n,gohome=init})
 end
 actors["!"]=cell{parent={{ac_top}}}
--- cells["("]=cell{floor="fl-rock1"}
 cells["("]=cell{floor="fl-rock"}
 cells[")"]=cell{floor="fl-plank"}
 stones["&"]=cell{stone="st-grate1"}

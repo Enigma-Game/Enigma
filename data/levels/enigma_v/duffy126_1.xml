@@ -3,7 +3,7 @@
   <el:protected>
     <el:info el:type="level">
       <el:identity el:title="Elaborate" el:subtitle="" el:id="duffy126"/>
-      <el:version el:score="1" el:release="1" el:revision="0" el:status="released"/>
+      <el:version el:score="1" el:release="1" el:revision="1" el:status="released"/>
       <el:author  el:name="Jacob Scott" el:email="" el:homepage=""/>
       <el:copyright>Copyright © 2004 Jacob Scott</el:copyright>
       <el:license el:type="GPL v2.0 or above" el:open="true"/>
@@ -39,19 +39,19 @@ function renderLine( line, pattern)
             set_item("it-pin",i-1,line)
         elseif c =="s" then
             set_stone( "st-greenbrown", i-1, line)
-           set_floor("fl-inverse",i-1,line)
+            set_floor("fl-inverse",i-1,line)
         elseif c =="G" then
-       set_stone( "st-fakeoxyda", i-1, line)
+            set_stone( "st-fakeoxyda", i-1, line)
         elseif c =="|" then
-       set_stone( "st-fakeoxyda", i-1, line)
-       set_item("it-cherry",i-1,line)
+            set_stone( "st-fakeoxyda", i-1, line)
+            set_item("it-cherry",i-1,line)
         elseif c =="e" then
-           set_stone("st-glass2_hole",i-1,line)
-             set_item("it-vortex-open", i-1, line, {targetx="22.5",targety="52.5"})
+            set_stone("st-glass2_hole",i-1,line)
+            set_item("it-vortex-open", i-1, line, {targetx="22.5",targety="52.5"})
         elseif c =="I" then
-             set_item("it-vortex-open", i-1, line, {targetx="1.5",targety="54.5"})
+            set_item("it-vortex-open", i-1, line, {targetx="1.5",targety="54.5"})
         elseif c =="," then
-             set_item("it-vortex-open", i-1, line)
+            set_item("it-vortex-open", i-1, line)
         elseif c =="?" then
             set_stone( "st-greenbrown", i-1, line)
             set_floor("fl-ice",i-1,line)
@@ -67,23 +67,31 @@ function renderLine( line, pattern)
         elseif c =="V" then
             set_stone( "st-brick_magic", i-1, line)
         elseif c =="`" then
-           set_stone( "st-bigbrick-nw", i-1, line)
+            set_stone( "st-bigbrick-nw", i-1, line)
         elseif c =="@" then
-           set_stone( "st-bigbrick-ne", i-1, line)
+            set_stone( "st-bigbrick-ne", i-1, line)
         elseif c =="^" then
-           set_stone( "st-bigbrick-es", i-1, line)
+            set_stone( "st-bigbrick-es", i-1, line)
         elseif c =="-" then
-           set_stone( "st-bigbrick-sw", i-1, line)
+            set_stone( "st-bigbrick-sw", i-1, line)
         elseif c =="8" then
-           set_stone( "st-bigbrick-n", i-1, line)
+            set_stone( "st-bigbrick-n", i-1, line)
         elseif c =="6" then
-           set_stone( "st-bigbrick-e", i-1, line)
+            set_stone( "st-bigbrick-e", i-1, line)
         elseif c =="." then
-           set_stone( "st-bigbrick-s", i-1, line)
+            set_stone( "st-bigbrick-s", i-1, line)
         elseif c ==";" then
-           set_stone( "st-bigbrick-w", i-1, line)
+            set_stone( "st-bigbrick-w", i-1, line)
         elseif c ==":" then
-           set_stone( "st-bigbrick-nesw", i-1, line)
+            set_stone( "st-bigbrick-nesw", i-1, line)
+        elseif c =="[" then
+            set_stone( "st-bigbrick-nes", i-1, line)
+        elseif c =="]" then
+            set_stone( "st-bigbrick-nsw", i-1, line)
+        elseif c =="(" then
+            set_stone( "st-bigbrick-esw", i-1, line)
+        elseif c ==")" then
+            set_stone( "st-bigbrick-new", i-1, line)
         elseif c =="t" then
             set_stone( "st-brick_magic", i-1, line)
             set_item("it-surprise",i-1,line)
@@ -124,26 +132,26 @@ function renderLine( line, pattern)
             set_floor("fl-normal",i-1,line)
         elseif c == "*" then
             set_stone( "st-brownie", i-1, line)
-                elseif c == "!" then
+        elseif c == "!" then
             abyss(i-1,line)
         elseif c == "~" then
-           set_floor("fl-water",i-1,line)
+            set_floor("fl-water",i-1,line)
         elseif c=="z" then
-           set_actor("ac-blackball", i-1,line+.5, {player=0,essential=1})
+            set_actor("ac-blackball", i-1,line+.5, {player=0,essential=1})
         elseif c=="y" then
-           set_actor("ac-whiteball", i-.5,line+.5, {player=1,essential=1})
+            set_actor("ac-whiteball", i-.5,line+.5, {player=1,essential=1})
         elseif c=="w" then
-           set_actor("ac-killerball", i-.5,line+.5, {player=1,mouseforce=0})
+            set_actor("ac-killerball", i-.5,line+.5, {player=1,mouseforce=0})
             set_floor("fl-ice",i-1,line)
         elseif c=="R" then
-           set_actor("ac-rotor", i-.5,line+.5, {force=30,range=8})
+            set_actor("ac-rotor", i-.5,line+.5, {force=30,range=8})
         elseif c=="N" then
-           set_actor("ac-top", i-1,line+.5, {force=40,range=9})
-           set_item("it-cherry",i-1,line)
+            set_actor("ac-top", i-1,line+.5, {force=40,range=9})
+            set_item("it-cherry",i-1,line)
         elseif c==">" then
-           set_item("it-cherry",i-1,line)
+            set_item("it-cherry",i-1,line)
         elseif c=="b" then
-           set_actor("ac-bug", i-.5,line+.5)
+            set_actor("ac-bug", i-.5,line+.5)
             set_floor("fl-sand",i-1,line)
         elseif c == "g" then
             draw_stones("st-grate1",{i-1,line}, {1,1}, 1)
@@ -160,14 +168,14 @@ function renderLine( line, pattern)
         elseif c=="j" then
             set_floor("fl-hay",i-1,line)
         elseif c=="q" then
-           set_floor("fl-sand",i-1,line)
+            set_floor("fl-sand",i-1,line)
         elseif c=="m" then
-           set_floor("fl-swamp",i-1,line)
+            set_floor("fl-swamp",i-1,line)
         elseif c=="Q" then
-           set_floor("fl-inverse",i-1,line)
+            set_floor("fl-inverse",i-1,line)
         elseif c=="p" then
-           set_floor("fl-swamp",i-1,line)
-           set_item("it-extralife",i-1,line)
+            set_floor("fl-swamp",i-1,line)
+            set_item("it-extralife",i-1,line)
         elseif c=="_" then
             fill_floor("fl-brick",i-1,line,18,11)
         elseif c=="Z" then
@@ -209,7 +217,7 @@ function renderLine( line, pattern)
             set_floor("fl-gradient",  i-1,  line, {type=10})
         elseif c=="U" then
             set_stone("st-bolder", i-1,line, {direction=NORTH})
-           set_floor("fl-water",i-1,line)
+            set_floor("fl-water",i-1,line)
         elseif c=="4" then
             yy1( "white",  i-1, line)
             set_floor("fl-gradient",  i-1,  line, {type=4})
@@ -232,14 +240,14 @@ function renderLine( line, pattern)
         elseif c=="k" then
             set_attrib(laser(i-1,line, TRUE, NORTH), "name", "laser1")
         elseif c=="E" then
-           document(i-1,line,"text1")
-         end
-    end    
-     end
+            document(i-1,line,"text1")
+        end
+    end
+end
 
 function yy1( color, x, y)
-        stone = format( "st-%s4", color)
-        set_stone( stone, x, y)
+    stone = format( "st-%s4", color)
+    set_stone( stone, x, y)
 end
 
 renderLine(00,"#######################################??????????????????#hhhhhhhhhhhhhhhhhhh")
@@ -268,15 +276,15 @@ renderLine(22,"h                  #                  #97qqqqq9u7qqqqqqrn%       
 renderLine(23,"h                  #       #  #       #qqqqqqqqqqqqqqqq9u%               !! #")
 renderLine(24,"hHhHhHhHhHhHhHhHhHh#########  #########$$$$$$$$$$$$$$$$$$$############ ######")
 renderLine(25,"#HhHhHhHhHhHhHhHhHh#                  #_                 &jjjjjjjjjjjjjjjjjj&")
-renderLine(26,"#HHHHHHHHHHHHHHHHHH#                  #  `88@ `88@ `88@  &jjjjjjjjjjjjjjjjjj&")
-renderLine(27,"#HHHHHHHHHHHHHHHHHH#                  #  ;::6 ;::6 ;::6  &jjjjjjjjjjjjjjjjjj&")
-renderLine(28,"#HHHHHHHHHHHHHHHHHH#                  #  ;::6 ;::6 ;::6  &jjjjjjjjjjjjjjjjjj&")
-renderLine(29,"#HHHHHHHHHHHHHHHHHH#vvvvvvvvvvvvvvvvvv#  -..^ -..^ -..^  &jjjjjjjjjjjjjjjjjj&")
+renderLine(26,"#HHHHHHHHHHHHHHHHHH#                  #  ^((- ^((- ^((-  &jjjjjjjjjjjjjjjjjj&")
+renderLine(27,"#HHHHHHHHHHHHHHHHHH#                  #  [^-] [^-] [^-]  &jjjjjjjjjjjjjjjjjj&")
+renderLine(28,"#HHHHHHHHHHHHHHHHHH#                  #  [@`] [@`] [@`]  &jjjjjjjjjjjjjjjjjj&")
+renderLine(29,"#HHHHHHHHHHHHHHHHHH#vvvvvvvvvvvvvvvvvv#  @))` @))` @))`  &jjjjjjjjjjjjjjjjjj&")
 renderLine(30,"#HHHHHHHHHHHHHHHHHH#vvvvvvvvvvvvvvvvvv#o       >N        &jjjjjjjjjjjjjjjjjj&")
-renderLine(31,"#HHHHHHHHHHHHHHHHHH#vvvvvvvvvvvvvvvvvv#  `88@ `88@ `88@  Cjjjjjjjjjjjjjjjjjj&")
-renderLine(32,"#HTHHHHHHHHHHHHHHHH#vvvVVVvvvvvvvvvVVV#  ;::6 ;::6 ;::6  Ajjjjjjjjjjjjjjjjjj&")
-renderLine(33,"#HHHHHHHHHHHHHHHHHH#vvvV/VvvvvvvvvvVVV#  ;::6 ;::6 ;::6  &jjjjjjjjjjjjjjjjjj&")
-renderLine(34,"#HHHHHHHHHHHHHHHHoH#vvvVVVvvvvvvvvvvvv#  -..^ -..^ -..^  &jjjjjjjjjjjjjjjjJj&")
+renderLine(31,"#HHHHHHHHHHHHHHHHHH#vvvvvvvvvvvvvvvvvv#  ^((- ^((- ^((-  Cjjjjjjjjjjjjjjjjjj&")
+renderLine(32,"#HTHHHHHHHHHHHHHHHH#vvvVVVvvvvvvvvvVVV#  [^-] [^-] [^-]  Ajjjjjjjjjjjjjjjjjj&")
+renderLine(33,"#HHHHHHHHHHHHHHHHHH#vvvV/VvvvvvvvvvVVV#  [@`] [@`] [@`]  &jjjjjjjjjjjjjjjjjj&")
+renderLine(34,"#HHHHHHHHHHHHHHHHoH#vvvVVVvvvvvvvvvvvv#  @))` @))` @))`  &jjjjjjjjjjjjjjjjJj&")
 renderLine(35,"#HHHHHHHHHHHHHHHHHH#vvvvvvvvvvvvvvvvvv#                  &jjjjjjjjjjjjjjjjjj&")
 renderLine(36,"###############%%###vvvvvvvvvvvVVvvvVV###################&&&&&&&&&&&&&&&&&%%%")
 renderLine(37,"#              rr  #vvvvvvvvvvvVVvvvVV#vvvvvVVvvvvVVvvvvv#      U         4<%")
@@ -322,7 +330,7 @@ enigma.KillStone(70+xd,52)
       </el:string>
       <el:string el:key="text1">
         <el:english el:translate="true">It is not quite that easy.</el:english>
-      </el:string> 
+      </el:string>
     </el:i18n>
   </el:protected>
 </el:level>

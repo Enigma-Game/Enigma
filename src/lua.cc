@@ -62,9 +62,8 @@ using world::ForceField;
 
 namespace lua
 {
-    int PlaySoundGlobal (lua_State *L);
-    int PlaySound (lua_State *L);
     int EmitSound (lua_State *L);
+    int EmitSoundGlobal (lua_State *L);
     int MakeObject (lua_State *L);
 }
 
@@ -136,12 +135,6 @@ void lua::SetTableVar (lua_State *L,
     lua_rawset (L, -3);
     lua_pop (L, 1);
 }
-
-void lua::SetSoundTable (const char *name)
-{
-    CallFunc (global_state, "ActivateSoundTable", name, NULL);
-}
-
 
 static void
 push_value(lua_State *L, const Value &val)
@@ -391,42 +384,27 @@ en_send_message(lua_State *L)
     return 0;
 }
 
-int lua::PlaySound (lua_State *L)
-{
-    const char *soundname = lua_tostring (L, 1);
-    double      x         = lua_tonumber (L, 2);
-    double      y         = lua_tonumber (L, 3);
-    double      volume    = lua_tonumber (L, 4);
-
-    sound::PlaySound (soundname, ecl::V2 (x, y), volume);
-
-    return 0;
-}
-
-int lua::PlaySoundGlobal (lua_State *L)
-{
-    const char *soundname = lua_tostring (L, 1);
-    double      volume    = lua_tonumber (L, 2);
-    int         priority  = static_cast<int> (lua_tonumber (L, 3));
-
-    sound::PlaySoundGlobal (soundname, volume, priority);
-
-    return 0;
-}
-
-
 int lua::EmitSound (lua_State *L)
 {
     Object     *obj       = to_object(L, 1);
     const char *soundname = lua_tostring(L, 2);
+    double vol = 1.0;
 
+    if (lua_isnumber(L, 3)) 
+        vol  = lua_tonumber(L, 3);
     if (!soundname)
         throwLuaError(L,"Illegal sound");
     else if (obj) {
         GridObject *gobj = dynamic_cast<GridObject*>(obj);
         if (gobj) {
-            if (!gobj->sound_event (soundname)) 
-                throwLuaError(L, strf("Can't find sound '%s'", soundname).c_str());
+            if (!gobj->sound_event (soundname, vol)) {
+                //throwLuaError(L, strf("Can't find sound '%s'", soundname).c_str());
+                // Don't throw an error when no sound file was found.
+                // Remember that user sound sets might be incomplete, and
+                // absolutely correct levels could throw an error here.
+                // Instead, write the "silence string" to the command line:
+                sound::WriteSilenceString(soundname);
+            }
         }
     }
     else
@@ -435,11 +413,26 @@ int lua::EmitSound (lua_State *L)
     return 0;
 }
 
+int lua::EmitSoundGlobal (lua_State *L)
+{
+    const char *soundname = lua_tostring(L, 1);
+    double vol = 1.0;
+
+    if (lua_isnumber(L, 3)) 
+        vol  = lua_tonumber(L, 3);
+    if (!soundname)
+        throwLuaError(L,"Illegal sound");
+    else
+        sound::EmitSoundEventGlobal(soundname, vol);
+
+    return 0;
+}
+
 static int
 en_name_object(lua_State *L)
 {
     Object     *obj  = to_object(L, 1);
-    const char *name = lua_tostring(L,2);
+    const char *name = lua_tostring(L, 2);
 
     if (!obj) 
         throwLuaError(L, "NameObject: Illegal object");
@@ -632,8 +625,8 @@ int loadLib(lua_State *L)
 
 static CFunction globalfuncs[] = {
     {FindDataFile,          "FindDataFile"},
-    {lua::PlaySoundGlobal,  "PlaySoundGlobal"},
-    {lua::PlaySound,        "PlaySound"},
+//    {lua::PlaySoundGlobal,  "PlaySoundGlobal"},
+//    {lua::PlaySound,        "PlaySound"},
     {en_get_ticks,             "GetTicks"},
     {0,0}
 };
@@ -672,7 +665,6 @@ static CFunction levelfuncs[] = {
     // sound effects
 
     {lua::EmitSound,        "EmitSound"},
-    {lua::PlaySound,        "PlaySound"},
 
     // manipulating level
 

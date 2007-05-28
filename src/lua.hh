@@ -72,8 +72,6 @@ namespace lua
 
     int FindDataFile (lua_State *L);
 
-    void SetSoundTable (const char *name);
-
 /* -------------------- Helper routines -------------------- */
 
     /*! Register the C functions in `funcs'.  The end of the array is

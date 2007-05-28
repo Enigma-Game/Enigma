@@ -1,5 +1,6 @@
 /*
  * Copyright (C) 2002,2003,2004,2005,2006 Daniel Heck
+ * Copyright (C) 2006,2007                Ronald Lamprecht
  *
  * This program is free software; you can redistribute it and/or
  * modify it under the terms of the GNU General Public License
@@ -74,9 +75,9 @@ namespace enigma { namespace gui {
             iselected = curIndex->getCurrentPosition();
             ifirst = curIndex->getScreenFirstPosition();
             invalidate();
-            sound::SoundEvent ("menumove");
+            sound::EmitSoundEvent ("menumove");
         } else if (iselected != curIndex->getCurrentPosition()) {
-            sound::SoundEvent ("menumove");            
+            sound::EmitSoundEvent ("menumove");            
         }
         // repair ifirst on boot and screen resolution changes
         set_selected(curIndex->getScreenFirstPosition(), 
@@ -190,9 +191,9 @@ namespace enigma { namespace gui {
             iselected = newsel;
     
             if (!m_areas.empty()) {
-                sound::SoundEvent ("menumove");
+                sound::EmitSoundEvent ("menumove");
                 if (oldsel != newsel) 
-                    sound::SoundEvent ("menuswitch");
+                    sound::EmitSoundEvent ("menuswitch");
                 invalidate();
             }
         }
@@ -200,7 +201,7 @@ namespace enigma { namespace gui {
             iselected = newsel;
     
             if (!m_areas.empty()) {
-                sound::SoundEvent ("menuswitch");
+                sound::EmitSoundEvent ("menuswitch");
                 invalidate_area(m_areas[oldsel-ifirst]); // old selection
                 invalidate_area(m_areas[iselected-ifirst]); // new selection
             }
@@ -292,7 +293,7 @@ namespace enigma { namespace gui {
         const int imgw = vminfo.thumbw;       // Size of the preview images
         const int imgh = vminfo.thumbh;
     
-        const int hgap = Max(0, (get_w() - width*buttonw) / (width-1));
+        const int hgap = Max(0, (get_w() - width*buttonw) / (width));
         const int vgap = Max(0, (get_h() - height*buttonh)/ (height-1));
     
         unsigned i=ifirst;          // level index
@@ -305,7 +306,7 @@ namespace enigma { namespace gui {
                 if (i >= curIndex->size())
                     goto done_painting;
     
-                int xpos = get_x() + x*(buttonw + hgap);
+                int xpos = get_x() + hgap/2 + x*(buttonw + hgap);
                 int ypos = get_y() + y*(buttonh + vgap);
     
                 Rect buttonarea(xpos, ypos, buttonw, buttonh);
@@ -344,11 +345,12 @@ namespace enigma { namespace gui {
                 }
                 // Draw level name
                 Font    *smallfnt = enigma::GetFont("levelmenu");
-                const char *caption = levelProxy->getTitle().c_str();
+                Font    *altsmallfnt = enigma::GetFont("smallalternative");;
+                std::string caption = levelProxy->getTitle();
                 smallfnt->render (gc,
-                                  xpos + (buttonw-smallfnt->get_width(caption))/2,
-                                  imgy + imgh,
-                                  caption);
+                          xpos + buttonw/2 - ecl::Min(smallfnt->get_width(caption.c_str(), altsmallfnt)/2, (buttonw+hgap)/2),
+                          imgy + imgh + 2,
+                          caption, altsmallfnt, buttonw + hgap);
             }
         }
         done_painting:
@@ -412,7 +414,7 @@ namespace enigma { namespace gui {
             for (unsigned i=0; i<m_areas.size(); ++i)
                 if (m_areas[i].contains(e->button.x, e->button.y))
                 {
-                    sound::SoundEvent ("menuok");
+                    sound::EmitSoundEvent ("menuok");
                     iselected = ifirst+i;
                     syncToIndexMgr();
                     if (SDL_GetModState() & KMOD_CTRL && !(SDL_GetModState() & KMOD_SHIFT)) {
@@ -431,7 +433,7 @@ namespace enigma { namespace gui {
             for (unsigned i=0; i<m_areas.size(); ++i)
                 if (m_areas[i].contains(e->button.x, e->button.y))
                 {
-                    sound::SoundEvent ("menuok");
+                    sound::EmitSoundEvent ("menuok");
                     iselected = ifirst+i;
                     syncToIndexMgr();
                     LevelInspector m(curIndex->getProxy(iselected));

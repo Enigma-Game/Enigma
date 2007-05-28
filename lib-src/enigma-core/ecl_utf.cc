@@ -27,7 +27,7 @@
  *
  * The modifications and additions have the following copyright
  *
- * Copyright (C) 2005 Ronald Lamprecht
+ * Copyright (C) 2005, 2007 Ronald Lamprecht
  *
  * This program is free software; you can redistribute it and/or
  * modify it under the terms of the GNU General Public License
@@ -179,5 +179,21 @@ namespace ecl
             sizes.push_back(charSize);
             i += charSize;
         }
+    }
+    
+    int utf8NextCharSize(const std::string &utf8String) {
+        unsigned char c = utf8String[0];
+        int len = 1; // num of bytes that represents one real character 
+        if ((c & 0xC0) == 0x80) {
+            // a spurious follow up byte
+            len = 0;
+        } else if ((c & 0xE0) == 0xC0) {
+            len = 2;
+        } else if ((c & 0xF0) == 0xE0) {
+            len = 3;
+        } else if ((c & 0xF8) == 0xF0) {
+            len = 4;
+        }
+        return len;
     }
 } //namespace ecl

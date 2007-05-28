@@ -26,7 +26,7 @@
  * ---------------------------------------------------------------------
  * The modifications and additions have the following copyright
  *
- * Copyright (C) 2005 Ronald Lamprecht
+ * Copyright (C) 2005, 2007 Ronald Lamprecht
  *
  * This program is free software; you can redistribute it and/or
  * modify it under the terms of the GNU General Public License
@@ -82,4 +82,5 @@ namespace ecl
 		
 
     void utf8CharSizes(const std::string &utf8String, std::vector<unsigned char> &sizes);
+    int  utf8NextCharSize(const std::string &utf8String);
 } //namespace ecl

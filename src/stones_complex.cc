@@ -24,6 +24,7 @@
 #include "player.hh"
 #include "Inventory.hh"
 #include "stones_internal.hh"
+#include "actors.hh"
 
 #include "ecl_util.hh"
 
@@ -203,6 +204,7 @@ PullStone::PullStone()
 {}
 
 PullStone::~PullStone() {
+    GameTimer.remove_alarm(this);
     delete pull_info;
 }
 
@@ -1851,7 +1853,7 @@ void ShogunStone::on_impulse(const Impulse& impulse) {
         NameObject(target, old_name);
 
     server::IncMoveCounter();
-    sound::SoundEvent ("movesmall", my_pos.center());
+    sound::EmitSoundEvent ("movesmall", my_pos.center());
 }
 
 
@@ -2493,23 +2495,6 @@ namespace
     public:
         Turnstile_W(): Turnstile_Arm("st-turnstile-w") {}
     };
-
-    /*
-    **
-    */
-    class Turnstile_Corner : public Stone {
-        CLONEOBJ(Turnstile_Corner);
-
-        void init_model() {
-            set_anim ("st-turnstile-corner");
-        }
-        void animcb() {
-            KillStone(get_pos());
-        }
-    public:
-        Turnstile_Corner() : Stone("st-turnstile-corner")
-        {}
-    };
 }
 
 
@@ -2743,9 +2728,8 @@ void Turnstile_Pivot_Base::handleActorsAndItems(bool clockwise, Object *impulse_
     // ---------- Handle actors in range ----------
     vector<Actor*> actorsInRange;
 
-    // tested range is sqrt(sqr(1.5)+sqr(0.5)) 
-    // = (radius swept by turnstile) + 19/64 ( = max. actor radius)
-    if (!GetActorsInRange(pv_pos.center(), 1.879, actorsInRange))
+    // tested range is sqrt(sqr(1.5)+sqr(1.5)) 
+    if (!GetActorsInRange(pv_pos.center(), 2.124, actorsInRange))
         return;
 
     vector<Actor*>::iterator iter = actorsInRange.begin(), end = actorsInRange.end();
@@ -2756,8 +2740,10 @@ void Turnstile_Pivot_Base::handleActorsAndItems(bool clockwise, Object *impulse_
         int dx  = ac_pos.x-pv_pos.x;
         int dy  = ac_pos.y-pv_pos.y;
 
-        // ignore if actor is not inside the turnstile
-        if (dx<-1 || dx>1 || dy<-1 || dy>1)
+        // ignore if actor is not inside the turnstile square or is not
+        // in distance of the the rotating arms
+        if ((dx<-1 || dx>1 || dy<-1 || dy>1) || 
+                (length(ac->get_pos() - pv_pos.center()) > 1.58114 + ac->get_actorinfo()->radius))
             continue;
 
         int idx_source = to_index[dx+1][dy+1];
@@ -2765,27 +2751,47 @@ void Turnstile_Pivot_Base::handleActorsAndItems(bool clockwise, Object *impulse_
             continue;       // actor inside pivot -- should not happen
 
         const int rot_index[4][8] = {
+            // The warp-destinations for actors. Why different destinations
+            // for oxyd/non-oxyd-type turnstiles? Imagine the actor on position
+            // 1 (North of pivot), the turnstile rotates anticlockwise. Then
+            // a green turnstile-arm, if at all, would push the actor one field
+            // to the left (position 0). Now assume it's a red turnstile. If the
+            // actor is to be warped, it has to be the one that activated the
+            // turnstile. Yet it is on position 1, in principle not able to
+            // hit an arm. But it can, if it hits fast enough on the edge of
+            // pivot and left arm. In this case, the actor should be handled
+            // as if on position 1, thus warping to 6.
             { 6,  0, 0,  2, 2,  4, 4,  6 }, // anticlockwise
             { 2,  2, 4,  4, 6,  6, 0,  0 }, // clockwise
-            { 6, -1, 0, -1, 2, -1, 4, -1 }, // anticlockwise (oxyd-compatible)
-            { 2, -1, 4, -1, 6, -1, 0, -1 }, // clockwise (oxyd-compatible)
+            { 6,  6, 0,  0, 2,  2, 4,  4 }, // anticlockwise (oxyd-compatible)
+            { 2,  4, 4,  6, 6,  0, 0,  2 }, // clockwise (oxyd-compatible)
         };
 
         bool compatible = oxyd_compatible();
         int  idx_target = rot_index[clockwise+2*compatible][idx_source]; // destination index
-        bool do_warp = arm_seen[idx_source]; // move the actor along with the turnstile?
+        bool do_warp = false; // move the actor along with the turnstile?
 
         if (compatible) {
             // Move only the actor that hit the turnstile in Oxyd mode
             do_warp = (ac == dynamic_cast<Actor*>(impulse_sender));
             if (!do_warp && arm_seen[idx_source])
                 SendMessage(ac, "shatter"); // hit by an arm
+        } else { // green turnstile
+            // move all actors only if pushed by an arm
+            do_warp = arm_seen[idx_source];
         }
 
         if (!do_warp) 
             continue;
 
+        // Pushing an actor out of the level results in a shatter (no warp) instead
         GridPos ac_target_pos(pv_pos.x+to_x[idx_target], pv_pos.y+to_y[idx_target]);
+
+        if(!IsInsideLevel(ac_target_pos)) {
+            SendMessage(ac, "shatter");
+            continue;
+        }
+
         world::WarpActor(ac, ac_target_pos.x+.5, ac_target_pos.y+.5, false);
 
         if (Stone *st = GetStone(ac_target_pos)) {
@@ -2873,10 +2879,21 @@ void MailStone::actor_hit (const StoneContact &sc)
     }
 }
 
+/** About recursion detection while finding the end of a mailpipe
+ *  
+ *  Since there are no possibilities for forking a mailpipe, there is only one 
+ *  cause that may lead to a closed, circular mailpipe. This is if a pipeitem is
+ *  placed exactly under the mailstone. But not every pipepiece is dangerous,
+ *  there are some that can be placed under the mailstone without problems.
+ * 
+ *  The mailpipe is only closed to a circular one if the pipepiece under the
+ *  mailstone has the same 'output'-direction as the stone.
+ */
 GridPos MailStone::find_pipe_endpoint() 
 {
     GridPos p = get_pos();
     Direction move_dir = m_dir;
+    GridPos q = p; // Store the stonepos for recursion detection.
 
     while (move_dir != NODIR) {
         p.move (move_dir);
@@ -2915,6 +2932,9 @@ GridPos MailStone::find_pipe_endpoint()
             }
         } else
             move_dir = NODIR;
+
+        if (p == q)
+            ASSERT(move_dir != m_dir, XLevelRuntime, "Mailpipe is circular! Recursion detected!");   
     }
     return p;
 }

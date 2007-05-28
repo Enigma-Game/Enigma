@@ -128,7 +128,8 @@ namespace enigma_server
     void FinishLevel();
 
     void SetCompatibility(const char *version); // set compatibility (from lua)
-
+    void SetCompatibility(lev::Proxy *levelProxy); // set compatibility from xml
+    
     enigma::Difficulty GetDifficulty();
 
     // move counter
@@ -143,6 +144,8 @@ namespace enigma_server
     void Msg_SetLevelPack (const std::string &name);
 
     void Msg_LoadLevel (lev::Proxy *levelProxy, bool isPreview);
+     
+    void Msg_JumpBack();
 
     /*! After loading the level, the server sends a "LevelLoaded"
       message to all clients.  The game only starts after they have

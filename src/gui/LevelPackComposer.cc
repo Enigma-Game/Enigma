@@ -283,9 +283,9 @@ namespace enigma { namespace gui {
                         var = curIndex->getVariation(curIndex->getCurrentPosition());
                     clipboard->appendProxy(curProxy, var.ctrl, 
                             var.unit, var.target, var.extensions);
-                    sound::SoundEvent ("menuok");
+                    sound::EmitSoundEvent ("menuok");
                 } else {
-                    sound::SoundEvent ("menustop");
+                    sound::EmitSoundEvent ("menustop");
                 }
             }
         } else if (w == but_back) {

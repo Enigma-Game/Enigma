@@ -127,10 +127,10 @@ namespace enigma { namespace gui {
         hl->add_back (lbl_lpinfo, List::TIGHT);
         this->add (hl, Rect (5, Y2, vminfo.width - 10, 28));
     
-        hl = new HList;
-        hl->add_back (lbl_levelinfo, List::EXPAND); //Rect (c.leftborder, Y2+20,305, 28));
-        hl->add_back (lbl_statistics, List::TIGHT);
-        this->add (hl, Rect (5, Y2+20, vminfo.width - 10, 28));
+        hl_info_stat = new HList;
+        hl_info_stat->add_back (lbl_levelinfo, List::EXPAND); //Rect (c.leftborder, Y2+20,305, 28));
+        hl_info_stat->add_back (lbl_statistics, List::TIGHT);
+        this->add (hl_info_stat, Rect (5, Y2+20, vminfo.width - 10, 28));
     
         // Prepare level selection widget
         levelwidget = new LevelWidget();
@@ -331,6 +331,7 @@ namespace enigma { namespace gui {
                 bool is_par    = scm->parScoreReached(curProxy, difficulty);
                 int best_user_time = scm->getBestUserScore(curProxy, difficulty);
                 string wr_name = ratingMgr->getBestScoreHolder(curProxy, difficulty);
+                bool  wr_name_displayed = false;
     
                 string your_time;
                 string wr_text;
@@ -350,14 +351,9 @@ namespace enigma { namespace gui {
                 }
     
                 if (wr_text.length() == 0 && wr_time>0) {
-                    if (wr_name.length())
-                        if (is_par || par_time < 0)
-                            wr_text = strf(_("World record by %s: %d:%02d"), 
-                                    wr_name.c_str(), wr_time/60, wr_time%60);
-                        else
-                            wr_text = strf(_("Par: %d:%02d World record by %s: %d:%02d"), 
-                                    par_time/60, par_time%60, wr_name.c_str(), wr_time/60, wr_time%60);
-                    else
+                    if (wr_name.length()) {
+                        wr_name_displayed = true;
+                    } else
                         if (is_par || par_time < 0)
                             wr_text = strf(_("World record: %d:%02d"), wr_time/60, wr_time%60);
                         else
@@ -365,11 +361,24 @@ namespace enigma { namespace gui {
                                     par_time/60, par_time%60, wr_time/60, wr_time%60);
                 }
     
-                string time_text;
-                if (your_time.length()>0)   time_text = your_time+"  "+wr_text;
-                else                        time_text = your_time+wr_text;
-    
-                lbl_levelinfo->set_text(time_text.c_str());
+                if (!your_time.empty())
+                    your_time += "  ";
+
+                int wr_cut = 0;
+                do {
+                    if (wr_name_displayed) {
+                        std::string tmp = ratingMgr->getBestScoreHolder(curProxy, difficulty, wr_cut++);
+                        if (!tmp.empty())
+                            wr_name = tmp;
+                        if (is_par || par_time < 0)
+                            wr_text = strf(_("World record by %s: %d:%02d"), 
+                                    wr_name.c_str(), wr_time/60, wr_time%60);
+                        else
+                            wr_text = strf(_("Par: %d:%02d World record by %s: %d:%02d"), 
+                                    par_time/60, par_time%60, wr_name.c_str(), wr_time/60, wr_time%60);
+                    }
+                    lbl_levelinfo->set_text(your_time + wr_text);
+                } while (!hl_info_stat->fits() && wr_name_displayed && (wr_cut < 20));
             }
         }
     }

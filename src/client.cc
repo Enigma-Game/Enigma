@@ -1,5 +1,6 @@
 /*
  * Copyright (C) 2004 Daniel Heck
+ * Copyright (C) 2006, 2007 Ronald Lamprecht
  *
  * This program is free software; you can redistribute it and/or
  * modify it under the terms of the GNU General Public License
@@ -435,6 +436,7 @@ void Client::on_keydown(SDL_Event &e)
 
         case SDLK_F4: Msg_AdvanceLevel(lev::ADVANCE_STRICTLY); break;
         case SDLK_F5: Msg_AdvanceLevel(lev::ADVANCE_UNSOLVED); break;
+        case SDLK_F6: Msg_JumpBack(); break;
 
         case SDLK_F10: {
             lev::Proxy *level = lev::Proxy::loadedLevel();
@@ -478,10 +480,11 @@ static const char *helptext_ingame[] = {
     N_("Shift+F3:"),                N_("Restart the current level"),
     N_("F4:"),                      N_("Skip to next level"),
     N_("F5:"),                      0, // see below
+    N_("F6:"),                      N_("Jump back to last level"),
     N_("F10:"),                     N_("Make screenshot"),
     N_("Left/right arrow:"),        N_("Change mouse speed"),
     N_("Alt+x:"),                   N_("Return to level menu"),
-    N_("Alt+Return:"),              N_("Switch between fullscreen and window"),
+//    N_("Alt+Return:"),              N_("Switch between fullscreen and window"),
     0
 };
 
@@ -532,9 +535,6 @@ void Client::show_menu()
 
     server::Msg_Pause (false);
     game::ResetGameTimer();
-
-    if (app.state->getInt("NextLevelMode") == lev::NEXT_LEVEL_NOT_BEST) 
-        server::Msg_Command ("restart"); // inhibit cheating
 
 }
 
@@ -657,7 +657,7 @@ void Client::tick (double dtime)
                     }
 
                     client::Msg_PlaySound("shatter", 1.0);
-                    Msg_ShowText(message, false, 2.0);
+                    Msg_ShowText(message, true, 2.0);
                 }
                 else {
                     if (old_second<second && // tick every second
@@ -823,7 +823,7 @@ void Client::level_loaded(bool isRestart)
                     m_hunt_against_time%60);
 //+ _(" by ") +hunted;
 // makes the string too long in many levels
-            Msg_ShowText (displayed_info, false, 4.0);
+            Msg_ShowText (displayed_info, true, 4.0);
         }
         else {
             displayed_info = displayedLevelInfo(curProxy);
@@ -904,6 +904,12 @@ void client::Msg_AdvanceLevel (lev::LevelAdvanceMode mode) {
         client::Msg_Command("abort");
 }
 
+void client::Msg_JumpBack() {
+    // log last played level
+    lev::PersistentIndex::addCurrentToHistory();
+    server::Msg_JumpBack();
+}
+
 bool client::AbortGameP() {
     return CLIENT.abort_p();
 }
@@ -939,12 +945,12 @@ void client::Msg_PlaySound (const std::string &wavfile,
                             const ecl::V2 &pos,
                             double relative_volume)
 {
-    sound::SoundEvent (wavfile.c_str(), pos, relative_volume);
+    sound::EmitSoundEvent (wavfile.c_str(), pos, relative_volume);
 }
 
 void client::Msg_PlaySound (const std::string &wavfile, double relative_volume)
 {
-    sound::SoundEvent (wavfile.c_str(), V2(), relative_volume);
+    sound::EmitSoundEvent (wavfile.c_str(), V2(), relative_volume);
 }
 
 void client::Msg_Sparkle (const ecl::V2 &pos) {

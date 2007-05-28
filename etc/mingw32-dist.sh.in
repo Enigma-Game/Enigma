@@ -87,8 +87,10 @@ function copy_data
     copy_levels
     mkdir $DDIR/data/fonts
     cp -p $SDIR/data/fonts/*.{bmf,png,txt,ttf} $DDIR/data/fonts
-    mkdir $DDIR/data/sound 
-    cp -p $SDIR/data/sound/*.{wav,s3m} $DDIR/data/sound
+    mkdir $DDIR/data/soundsets 
+    cp -p $SDIR/data/soundsets/*.{ogg,s3m} $DDIR/data/soundsets
+    mkdir $DDIR/data/soundsets/enigma 
+    cp -p $SDIR/data/soundsets/enigma/*.wav $DDIR/data/soundsets/enigma
     mkdir $DDIR/data/thumbs
     cp -p $SDIR/data/thumbs/README $DDIR/data/thumbs
     
@@ -108,7 +110,7 @@ function copy_data
 function copy_doc
 {
     echo "... copying documentation"
-    mkdir $DDIR/images
+    mkdir $DDIR/images $DDIR/images/flags25x15
     cptext README                       README
     cptext COPYING                      COPYING
     cptext CHANGES                      CHANGES
@@ -116,14 +118,17 @@ function copy_doc
     cptext doc/index.html 		index.html
     cptext doc/gpl.txt   		gpl.txt
     cptext doc/lgpl.txt 		lgpl.txt
-    cptext doc/images/enigma2.css	images/enigma2.css
-    cpfile doc/images/navbar.png	images/
+    cptext doc/images/enigma.css	images/enigma.css
+    cpfile doc/images/nav_enigma.gif	images/
+    cpfile doc/images/nav_cornerul.gif	images/
+    cpfile doc/images/nav_cornerur.gif	images/
     cpfile doc/images/favicon.png	images/
     cpfile doc/images/menu_bg.jpg	images/
+    cpfile doc/images/flags25x15/*.png	images/flags25x15
     cptext etc/README-SDL.txt 	        README-SDL.txt
     cptext doc/reference/ant_lua.txt 	reference/ant_lua.txt
     cptext doc/reference/sounds.txt	reference/sounds.txt
-    cptext doc/reference/sound.lua      reference/sound.lua
+    cptext doc/reference/soundset.lua   reference/soundset.lua
     cpfile doc/reference/lua2xml	reference/
     cpfile doc/reference/xml2lua	reference/
 }

@@ -187,6 +187,7 @@ namespace enigma
 
     /*! Load a complete file/input stream `is' into `dst'.  */
     std::istream &Readfile (std::istream &is, ByteVec &dst, int blocksize=512);
+    bool Copyfile(std::string fromPath, std::string toPath);
     
     // banned code to file_zip.cc due to macro clashes
     bool findInZip(std::string zipPath, std::string zippedFilename1,

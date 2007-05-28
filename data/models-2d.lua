@@ -739,9 +739,9 @@ def_alias("st-marble_hole", "st-marble")
 def_alias("st-marble_move", "st-marble")
 
 def_alias("st-glass_move", "st-glass");
-
-def_alias("st-glass1_hole", "st-glass1")
 def_alias("st-glass1_move", "st-glass1")
+def_alias("st-glass1_hole", "st-glass1")
+def_alias("st-glass2_move", "st-glass2")
 def_alias("st-glass2_hole", "st-glass2")
 
 def_stone("st-metal")

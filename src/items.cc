@@ -1708,10 +1708,7 @@ namespace
             Item::on_creation (p);
             set_forcefield();
         }
-        void on_removal (GridPos p) {
-            world::RemoveForceField(&ff);
-            Item::on_removal(p);
-        }
+        void on_removal (GridPos p);
 
         void set_forcefield() {
             if (is_on()) {
@@ -1806,6 +1803,11 @@ void WormHole::init_model() {
         set_anim("it-wormhole-off");
 }
 
+void WormHole::on_removal(GridPos p) {
+    world::RemoveForceField(&ff);
+    Item::on_removal(p);
+    ASSERT(!justWarping, XLevelRuntime, "Tried to kill a busy wormhole. Please use another way.");
+}
 
 /* -------------------- Vortex -------------------- */
 
@@ -1839,6 +1841,7 @@ namespace
         DECL_TRAITS_ARRAY(2, is_open());
     public:
         Vortex(bool opened);
+        virtual ~Vortex();
 
     private:
         static const double RANGE;
@@ -1873,6 +1876,8 @@ namespace
         void warp_to(const V2 &target);
 
         bool is_open() const { return state == OPEN; }
+
+        void on_removal(GridPos p);
 
         // Variables
         enum State {
@@ -1910,6 +1915,16 @@ Vortex::Vortex(bool opened)
     set_attrib ("autoclose", Value());
     set_attrib ("targetx", Value());
     set_attrib ("targety", Value());
+}
+
+Vortex::~Vortex() {
+    GameTimer.remove_alarm(this);
+}
+
+void Vortex::on_removal(GridPos p) {
+    Item::on_removal(p);
+    ASSERT(state != WARPING && state != SWALLOWING && state != EMITTING,
+        XLevelRuntime, "Tried to kill a busy vortex. Please use another way.");
 }
 
 void Vortex::prepare_for_warp (Actor *actor)
@@ -2144,7 +2159,7 @@ namespace
             // Switch to other marble
             player::SwapPlayers();
             // play_sound("switch");   // don't! wrong coordinates!
-            sound::SoundEvent ("switchplayer", p.center());
+            sound::EmitSoundEvent ("switchplayer", p.center());
             return ITEM_KEEP;
         }
     };
@@ -2161,7 +2176,7 @@ namespace
 
         ItemAction activate(Actor *, GridPos p) {
             if (Item *it=GetItem(p)) {
-                sound::SoundEvent ("spade", p.center());
+                sound::EmitSoundEvent ("spade", p.center());
                 SendMessage(it, "shovel");
                 return ITEM_KEEP;
             }
@@ -2641,6 +2656,7 @@ namespace
         void alarm();
     public:
         Blocker(bool shrinked_recently);
+        ~Blocker();
     };
     DEF_TRAITSF(Blocker, "it-blocker", it_blocker, itf_static);
 };
@@ -2651,6 +2667,10 @@ const char * const Blocker::stateName[] = { "IDLE", "SHRINKED", "BOLDERED", "COV
 Blocker::Blocker(bool shrinked_recently)
 : state(shrinked_recently ? SHRINKED : IDLE)
 {}
+
+Blocker::~Blocker() {
+    GameTimer.remove_alarm (this);
+}
 
 void Blocker::on_creation (GridPos p)
 {
@@ -3175,12 +3195,14 @@ namespace
     public:
         Cross() : m_active(false) {
         }
-
-        virtual ~Cross() {
-            GameTimer.remove_alarm (this);
-        }
+        virtual ~Cross();
     };
     DEF_TRAITSF(Cross, "it-cross", it_cross, itf_static);
+
+    Cross::~Cross() {
+            GameTimer.remove_alarm(this);
+    }
+
 }
 
 /* -------------------- Bag -------------------- */
@@ -3196,7 +3218,7 @@ namespace
         // Item interface
         bool actor_hit (Actor *a) {
             if (Item::actor_hit(a)) {
-                if (Inventory *inv = player::MayPickup(a)) {
+                if (Inventory *inv = player::MayPickup(a, NULL)) {
                     std::vector<Item *>::size_type oldSize = m_contents.size();
                     inv->takeItemsFrom(this);
                     if (oldSize != m_contents.size() && inv->is_full()) {

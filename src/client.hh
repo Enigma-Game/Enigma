@@ -41,6 +41,7 @@ namespace enigma_client
     void Msg_Command(const std::string& cmd);
     
     void Msg_AdvanceLevel (lev::LevelAdvanceMode mode);
+    void Msg_JumpBack();
 
     void Msg_LevelLoaded(bool isRestart);
 

@@ -215,6 +215,7 @@ namespace enigma { namespace gui {
 
         void set_default_size (int w, int h);
         void set_alignment (HAlignment halign, VAlignment valign);
+        virtual bool fits() = 0;
 
     protected:
         List(int spacing=5);
@@ -254,6 +255,7 @@ namespace enigma { namespace gui {
     class HList : public List {
     public:
         HList() : List() {}
+        virtual bool fits();
 
     private:
         // List interface
@@ -263,6 +265,7 @@ namespace enigma { namespace gui {
     class VList : public List {
     public:
         VList() : List() {}
+        virtual bool fits();
 
     private:
         // List interface
@@ -298,6 +301,7 @@ namespace enigma { namespace gui {
         std::string getText() const;
         void set_font (ecl::Font *font);
         void set_alignment (HAlignment halign, VAlignment valign=VALIGN_CENTER);
+        bool text_fits(double area_fraction = 1.0);
     protected:
         // Variables.
         std::string m_text;
@@ -343,11 +347,17 @@ namespace enigma { namespace gui {
         PushButton();
 
         bool is_pressed() { return m_pressedp; }
+        
     protected:
         bool on_event(const SDL_Event &e);
         void deactivate();
+        SDLKey getLastUpSym();
+        Uint8 getLastUpButton();
+        virtual bool soundOk(); 
     private:
         bool m_pressedp;
+        SDLKey lastUpSym;
+        Uint8 lastUpBotton;
     };
 
 /* -------------------- TextButton -------------------- */
@@ -425,10 +435,10 @@ namespace enigma { namespace gui {
         virtual std::string get_text() const;
 
         // Widget interface.
-        virtual bool on_event(const SDL_Event &e);
         virtual void on_action(Widget *w);
     protected:
         void init(); // called in ctor of derived
+        virtual bool soundOk(); 
     private:
         int min_value;
         int max_value;
