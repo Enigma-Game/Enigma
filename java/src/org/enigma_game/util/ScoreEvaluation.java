@@ -42,7 +42,7 @@ public class ScoreEvaluation {
                 ZipInputStream zin = new ZipInputStream(new BufferedInputStream(new FileInputStream(scoreFiles[i])));
                 zin.getNextEntry();
                 ScoreManager scm = new ScoreManager(zin);
-                scm.checkUser(userMgr);
+                scm.checkUser(userMgr, false);
                 scm.checkScores(ratingMgr, userMgr, false);
                 scm.evaluateScores(ratingMgr);
                 numUsers++;

@@ -168,4 +168,18 @@ public class UserManager {
         }
     }
     
+    public class ComparatorRating implements Comparator<String> {
+        public ComparatorRating() {
+        }
+        
+        public int compare(String id1, String id2) {
+            String ratcount1 = getValue(id1, "ratcount");
+            int ratCount1 = (!ratcount1.equals("")) ? Integer.parseInt(ratcount1.trim()) : 0;
+            String ratcount2 = getValue(id2, "ratcount");
+            int ratCount2 = (!ratcount2.equals("")) ? Integer.parseInt(ratcount2.trim()) : 0;
+            int result = ( ratCount1 < ratCount2) ? 1 : ((ratCount1 == ratCount2) ? 0 : -1);
+            return result;
+        }
+    }
+    
 }

@@ -54,7 +54,7 @@ public class UserEvaluation {
                         "' - Id '" + scm.getProperty("UserId") + "'");
                 scm.checkScores(ratingMgr, userMgr, false);
                 ratingMgr.evaluateUser(userMgr, scm.getProperty("UserId"));
-                System.out.println("");
+//                System.out.println("");
                 numUsers++;
             }
             userMgr.save(userUrl);
@@ -168,6 +168,34 @@ public class UserEvaluation {
             htmlOut.println("  </table>");
             htmlOut.flush();
             
+            htmlOut = new PrintWriter(new FileWriter(new File("table-rat.html")), true);
+            System.out.println("");
+            System.out.println("Rating Statistics:");
+            System.out.println("count - average - users");
+            htmlOut.println("  <table>");
+            htmlOut.println("    <caption>Rating Statistics of " + formatter.toString() + "</caption>");
+            htmlOut.println("    <colgroup><col width=\"80\"><col width=\"80\"><col width=\"220\"></colgroup>");
+            htmlOut.print("    <tr><th>count</th><th>average</th><th class=\"left\">user</th></tr>");
+            List<String> userByRat = new ArrayList<String>(userMgr.getUserIds());
+            UserManager.ComparatorRating compRating = userMgr.new ComparatorRating();
+            Collections.sort(userByRat, compRating);
+            for (String id : userByRat) {
+                String ratcount = userMgr.getValue(id, "ratcount");
+                if (!ratcount.endsWith(" 0") && !ratcount.equals("0")) {
+                    System.out.println(" " + userMgr.getValue(id, "ratcount") + "  -  "
+                            + userMgr.getValue(id, "ratavg")
+                            + " -  '" + userMgr.getValue(id, "name")+ "'");
+                    htmlOut.println("    <tr><td class=\"num\">" + userMgr.getValue(id, "ratcount")
+                            + "</td><td class=\"num\">" + userMgr.getValue(id, "ratavg") 
+                            + "</td><td class=\"left\">'" + userMgr.getValue(id, "name")
+                            + "'</td></tr>");
+                }
+            }
+            System.out.println("");
+            htmlOut.println("</td></tr>");
+            htmlOut.println("  </table>");
+            htmlOut.flush();
+
             System.out.println("UserEvaluation finished");
         } catch ( Exception ex ) {
             ex.printStackTrace();

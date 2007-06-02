@@ -101,7 +101,7 @@ public class ScoreManager {
         return formatter.toString();
     }
     
-    public boolean checkUser(UserManager userMgr) {
+    public boolean checkUser(UserManager userMgr, boolean printWarnings) {
         String id = getProperty("UserId");
         String id_1_00 = getProperty("UserId1.00");
         String userName = userMgr.getValue(id, "name");
@@ -139,7 +139,9 @@ public class ScoreManager {
                 userMgr.setValue(id, "savecount", getProperty("Count"));
                 result = true;
             } else {
-                System.out.println("Outdated scores not registered!");
+                if (printWarnings) {
+                    System.out.println("Outdated scores not registered!");
+                }
             }
         } else if (userName.equals("")) {
             // no user registered with the id
@@ -172,9 +174,11 @@ public class ScoreManager {
                             + userName + "' to the already used name '"
                             + getProperty("UserName") +"'");
                 }
-            } else {
+            } else if (!getProperty("UserName").equals("")) {
                 // must be a second user with the same id
-                System.out.println("Id mismatch - id already in use!");
+                System.out.println("Id mismatch - id '" + id + "' already in use!");
+            } else if (printWarnings) {
+                    System.out.println("Update of score without user name");
             }
         }
         return result;
@@ -224,7 +228,9 @@ public class ScoreManager {
             avgRating = ((float)sumRatings)/numRatings;
         Formatter formatter = new Formatter(Locale.US);
         formatter.format("Ratings count %d, avg %5.2f", numRatings, avgRating);
-        System.out.println(formatter.toString());
+        if (checkSec) {
+            System.out.println(formatter.toString());
+        }
         
         Formatter formatterRatcount = new Formatter(Locale.US);
         formatterRatcount.format("%3d", numRatings);
@@ -234,7 +240,7 @@ public class ScoreManager {
         formatterRatAvg.format("%5.2f",  avgRating);
         userMgr.setValue(userId, "ratavg", formatterRatAvg.toString());
                 
-        isProfessional = ratingMgr.isUserProfessional(userMgr, getProperty("UserId"));
+        isProfessional = ratingMgr.isUserProfessional(userMgr, getProperty("UserId"), checkSec);
     }
     
     public void evaluateScores(RatingManager ratingMgr) {

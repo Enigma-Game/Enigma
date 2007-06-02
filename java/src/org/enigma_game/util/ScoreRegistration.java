@@ -90,7 +90,7 @@ public class ScoreRegistration {
             System.out.println("Score version = " + scm.getProperty("Count")
                     + ", elements = " + scm.getScoreElemsCount());
             
-            if (scm.checkUser(userMgr)) {
+            if (scm.checkUser(userMgr, true)) {
                 scm.checkScores(ratingMgr, userMgr, true);
     
                 ZipOutputStream zout = new ZipOutputStream (new BufferedOutputStream(

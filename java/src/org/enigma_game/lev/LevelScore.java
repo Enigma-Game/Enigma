@@ -26,6 +26,10 @@ public class LevelScore {
     Element elem;
     LevelScore parentScore = null;
     static String currentRel = "1.00";
+    static int solvedTotal = 0;
+    static int ratingsTotal = 0;
+    static int ratingsTotalSum = 0;
+    static int[] ratingsDist = new int[11];
     boolean isDiffSolved = false;
     boolean isEasySolved = false;
     int bsd = -1;
@@ -383,6 +387,7 @@ public class LevelScore {
                 }
             }
             solvnd++;
+            solvedTotal++;
             if (usd == 0)
                 usd = 1;
             if (isProfessional) {
@@ -408,6 +413,7 @@ public class LevelScore {
                 }
             }
             solvne++;
+            solvedTotal++;
             if (use == 0)
                 use = 1;
             if (isProfessional) {
@@ -418,6 +424,9 @@ public class LevelScore {
         if (urat >= 0) {
             avgurNum++;
             avgurSum += urat;
+            ratingsTotal++;
+            ratingsTotalSum += urat;
+            ratingsDist[urat]++;
         }
     }
     

@@ -176,7 +176,7 @@ public class RatingManager {
         }
     }
     
-    public boolean isUserProfessional(UserManager userMgr, String userId) {
+    public boolean isUserProfessional(UserManager userMgr, String userId, boolean print) {
         boolean isProfessional = false;
         int userDiffCount = 0;
         int userEasyCount = 0;
@@ -199,7 +199,9 @@ public class RatingManager {
         Formatter formatter = new Formatter(Locale.US);
         formatter.format("Solved diff %3d/%3d - easy %3d/%3d = %6.2f%%", userDiffCount,
                 numDifficult, userEasyCount, numEasy, solvedPercent);
-        System.out.println(formatter.toString());
+        if (print) {
+            System.out.println(formatter.toString());
+        }
         if (solvedPercent > 20.0) {
             isProfessional = true;
             numProf++;
@@ -213,14 +215,14 @@ public class RatingManager {
         userMgr.setValue(userId, "solvede", formatterEasy.toString());
         
         Formatter formatterDiff = new Formatter(Locale.US);
-        formatterDiff.format("%3d/%3d", userDiffCount, numDifficult);
+        formatterDiff.format("%4d/%4d", userDiffCount, numDifficult);
         userMgr.setValue(userId, "solvedd", formatterDiff.toString());
         
         return isProfessional;
     }
     
     public void evaluateUser(UserManager userMgr, String userId) {
-        System.out.println("Par Evalutation");
+//        System.out.println("Par Evalutation");
         StringBuilder sb = new StringBuilder();
         Formatter formatter = new Formatter(sb, Locale.US);
         
@@ -282,7 +284,7 @@ public class RatingManager {
         hcpsumsolved = hcpsumsolved  * 100.0 / levelsumsolved;
         formatter.format("Enigma Total Hcp = %6.1f, Solved Hcp = %6.1f at %d levels",
                 hcpsum, hcpsumsolved, levelsum);
-        System.out.println(sb.toString());
+//        System.out.println(sb.toString());
         
         Formatter formatterHcpTotal = new Formatter(Locale.US);
         formatterHcpTotal.format("%6.1f",  hcpsum);
@@ -352,6 +354,7 @@ public class RatingManager {
         System.out.println("Diff Levels " + numDifficult + " Easy Levels " + numEasy);
         System.out.println("Diff Solved " + diffSolved + " / Unsolved " + diffUnsolved);
         System.out.println("Easy Solved " + easySolved + " / Unsolved " + easyUnsolved);
+        System.out.println("Total Solved " + LevelScore.solvedTotal);
         LevelScore.printWRStatistics(userMgr);
         
         
@@ -373,9 +376,32 @@ public class RatingManager {
                         break;
                 }
             }
+            
+            output = new PrintWriter(new FileWriter(new File("stat-other.html")), true);
+            output.println("  <div class=\"stat-help\">");
+            output.println("    <h3>Other Statistics</h3>");
+            output.println("    <h4>Scores</h4>");
+            output.println("      " + LevelScore.solvedTotal + " single level scores have been registered.");
+            output.println("    <h4>Ratings</h4>");
+            output.printf("      %s single level ratings have been registered with an average of "
+                    + "%4.2f and the following distribution: ", LevelScore.ratingsTotal, ((double)LevelScore.ratingsTotalSum)/LevelScore.ratingsTotal);
+            output.println("      <table>");
+            output.println("        <colgroup><col width=\"80\"><col width=\"80\"></colgroup>");
+            output.println("        <tr><th>rating</th><th>count</th></tr>");
+            for (int i=0; i<=10; i++) {
+                output.println("        <tr><td class=\"num\">" + i + "</td><td class=\"num\">" + LevelScore.ratingsDist[i] + "</td></tr>");
+            }
+            output.println("      </table>");
+            output.println("  </div>");
+            output.flush();
         } catch (Exception e) {
         }
         
+        System.out.println("Total Ratings " + LevelScore.ratingsTotal + "  Average " +
+                ((double)LevelScore.ratingsTotalSum)/LevelScore.ratingsTotal);
+        for (int i=0; i<=10; i++) {
+            System.out.println("   " + i + " - " + LevelScore.ratingsDist[i]);
+        }
     }
     
     public void evaluateLevels() {
