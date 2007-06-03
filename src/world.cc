@@ -1072,8 +1072,12 @@ void World::move_actors (double dtime)
         }
         
         handle_actor_contacts();
-        for (unsigned i=0; i<nactors; ++i) 
-            handle_contacts (i);
+        for (unsigned i=0; i<nactors; ++i) {
+            Actor     *a  = actorlist[i];
+            ActorInfo &ai = * a->get_actorinfo();
+            if (!ai.grabbed)
+                handle_contacts(i);
+        }
 
         for (unsigned i=0; i<nactors; ++i) {
             Actor     *a  = actorlist[i];
