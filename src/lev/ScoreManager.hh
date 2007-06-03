@@ -78,7 +78,7 @@ namespace enigma { namespace lev {
          * 
          */
         void updateUserScore(lev::Proxy *levelProxy, int difficulty, int score,
-                double enigmaRelease = ENIGMACOMPATIBITLITY);
+                double enigmaRelease = app.getEnigmaVersion());
         /**
          * Returns true if the users best score is equal or better than the
          * official best score for the given difficulty

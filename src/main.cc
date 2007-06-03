@@ -232,6 +232,8 @@ Application::Application() : wizard_mode (false), nograb (false), language (""),
 
 void Application::init(int argc, char **argv) 
 {
+    sscanf(PACKAGE_VERSION, "%4lf", &enigmaVersion);
+
     progCallPath = argv[0];
     copy(argv+1, argv+argc, back_inserter(args));
     
@@ -411,8 +413,6 @@ void Application::init(int argc, char **argv)
 
 std::string Application::getVersionInfo() {
     std::string versionInfo;
-    double enigmaVersion;
-    sscanf(PACKAGE_VERSION,"%4lf",&enigmaVersion);
     if (enigmaVersion >= ENIGMACOMPATIBITLITY)
         versionInfo = "v" PACKAGE_VERSION;
     else {
@@ -421,6 +421,10 @@ std::string Application::getVersionInfo() {
             ecl::strf("%.2f",ENIGMACOMPATIBITLITY) + " compatibilty branch)";
     }
     return versionInfo;
+}
+
+double Application::getEnigmaVersion() {
+    return enigmaVersion;
 }
 
 void Application::initSysDatapaths(const std::string &prefFilename)

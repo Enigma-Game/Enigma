@@ -68,6 +68,7 @@ namespace enigma
         void init(int argc, char **argv);
         void shutdown();
         std::string getVersionInfo();
+	double getEnigmaVersion();
         void setLanguage(std::string newLanguage);
         /**
          * Define a new user path. Files stored to user path use the new path
@@ -213,6 +214,7 @@ namespace enigma
         void initXerces();
         void initUserDatapaths();
         void updateMac1_00();
+	double enigmaVersion;
         std::string systemAppDataPath;    // dir path to the apps data
         std::string systemCmdDataPath;    // commandline override of systemAppDataPath
         std::string userStdPath;          // standard user data path
