@@ -18,16 +18,13 @@ levelh = 13
 levelw = 20
 
 create_world(levelw, levelh)
-
--- DESIGN --
-floor="fl-sahara"
-wall="st-glass"
+oxyd_default_flavor = "b"
 
 -- FLOOR --
-fill_floor(floor, 0,0,levelw,levelh)
+fill_floor("fl-sahara", 0,0,levelw,levelh)
 
 -- STONES --
-draw_border(wall)
+draw_border("st-glass")
 
 -- ITEMS --
 set_item("it-document", 10, 6, {text="text1"})
@@ -41,7 +38,6 @@ oxyd(1,11)
 oxyd(18,1)
 oxyd(18,11)
 
-oxyd_default_flavor = "d"
 oxyd_shuffle()
     ]]></el:luamain>
     <el:i18n>

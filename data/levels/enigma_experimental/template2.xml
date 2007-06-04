@@ -22,7 +22,7 @@ create_world(levelw, levelh)
 function renderLine( line, pattern)
     for i=1, strlen(pattern) do
         local c = strsub( pattern, i, i)
-          if c=="x" then
+        if c=="x" then
             oxyd(i-1,line)
             set_floor("fl-sahara",i-1,line)
         elseif c=="#" then

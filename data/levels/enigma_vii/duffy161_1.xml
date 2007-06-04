@@ -1,0 +1,276 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no" ?>
+<el:level xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://enigma-game.org/schema/level/1 level.xsd" xmlns:el="http://enigma-game.org/schema/level/1">
+  <el:protected>
+    <el:info el:type="level">
+      <el:identity el:title="Advanced Space Tubes" el:subtitle="" el:id="duffy161"/>
+      <el:version el:score="1" el:release="1" el:revision="0" el:status="released"/>
+      <el:author  el:name="Jacob Scott" el:email="" el:homepage=""/>
+      <el:copyright>Copyright © 2007 Jacob Scott</el:copyright>
+      <el:license el:type="GPL v2.0 or above" el:open="true"/>
+      <el:compatibility el:enigma="0.92">
+      </el:compatibility>
+      <el:modes el:easy="false" el:single="true" el:network="false"/>
+      <el:score el:easy="-" el:difficult="-"/>
+    </el:info>
+    <el:luamain><![CDATA[
+levelw=100
+levelh=50
+
+create_world( levelw, levelh)
+
+fill_floor("fl-abyss", 0,0,levelw,levelh)
+
+function renderLine( line, pattern)
+    for i=1, strlen(pattern) do
+        local c = strsub( pattern, i, i)
+        if c =="#" then
+            set_stone( "st-greenbrown", i-1, line)
+        elseif c =="X" then
+            set_stone( "st-death", i-1, line)
+        elseif c =="x" then
+            set_stone( "st-death", i-1, line)
+            fill_floor("fl-bluegreen", i-1,line, 1,1)
+        elseif c == "o" then
+            oxyd( i-1, line)
+            fill_floor("fl-bluegreen", i-1,line, 1,1)
+        elseif c == "$" then
+            oxyd( i-1, line)
+            fill_floor("fl-swamp", i-1,line, 1,1)
+        elseif c == "^" then
+            oxyd( i-1, line)
+            fill_floor("fl-space", i-1,line, 1,1)
+        elseif c == "!" then
+            abyss(i-1,line)
+        elseif c == "~" then
+            set_floor("fl-water",i-1,line)
+        elseif c == "+" then
+            fill_floor("fl-bluegreen", i-1,line, 1,1)
+        elseif c == "=" then
+            fill_floor("fl-space", i-1,line, 1,1)
+        elseif c == "&" then
+            set_stone( "st-greenbrown", i-1, line)
+            fill_floor("fl-space", i-1,line, 1,1)
+        elseif c == "%" then
+            set_stone( "st-greenbrown", i-1, line)
+            set_floor("fl-gradient",  i-1,  line, {type=11})
+        elseif c == "`" then
+            set_stone( "st-greenbrown", i-1, line)
+            set_floor("fl-gradient",  i-1,  line, {type=10})
+        elseif c == "@" then
+            set_stone( "st-greenbrown", i-1, line)
+            set_floor("fl-gradient",  i-1,  line, {type=1})
+        elseif c == "*" then
+            set_stone( "st-greenbrown", i-1, line)
+            set_floor("fl-gradient",  i-1,  line, {type=2})
+        elseif c == "z" then
+            set_actor("ac-blackball", i,line+.5, {player=0})
+            fill_floor("fl-bluegreen", i-1,line, 1,1)
+        elseif c == "d" then --1-d
+            set_floor("fl-gradient",  i-1,  line, {type=1})
+        elseif c == "u" then --2-u
+            set_floor("fl-gradient",  i-1,  line, {type=2})
+        elseif c == "r" then --3-r
+            set_floor("fl-gradient",  i-1,  line, {type=3})
+        elseif c == "l" then --4-l
+            set_floor("fl-gradient",  i-1,  line, {type=4})
+        elseif c == "1" then --ur
+            set_floor("fl-gradient",  i-1,  line, {type=11})
+        elseif c == "3" then --dl
+            set_floor("fl-gradient",  i-1,  line, {type=9})
+        elseif c == "7" then --dr
+            set_floor("fl-gradient",  i-1,  line, {type=12})
+        elseif c == "9" then --ul
+            set_floor("fl-gradient",  i-1,  line, {type=10})
+        elseif c == "J" then
+            set_item("it-springboard",i-1,line)
+            fill_floor("fl-bluegreen", i-1,line, 1,1)
+        elseif c == "K" then
+            set_item("it-springboard",i-1,line)
+            fill_floor("fl-space", i-1,line, 1,1)
+        elseif c == "Q" then
+            set_stone("st-bolder", i-1,line, {name="bolder1",direction=EAST})
+            fill_floor("fl-space", i-1,line, 1,1)
+        elseif c == "A" then
+            set_item("it-trigger", i-1,line, {action="callback", target="funcc1"})
+            fill_floor("fl-bluegreen", i-1,line, 1,1)
+        elseif c == "B" then
+            set_item("it-trigger", i-1,line, {action="callback", target="funcc2"})
+            fill_floor("fl-bluegreen", i-1,line, 1,1)
+        elseif c == "C" then
+            set_item("it-landmine",i-1,line)
+            fill_floor("fl-bluegreen", i-1,line, 1,1)
+        elseif c == "c" then
+            set_item("it-landmine",i-1,line)
+            fill_floor("fl-space", i-1,line, 1,1)
+        elseif c == "V" then
+            set_item("it-vortex-closed", i-1, line, {targetx="5.5",targety="40.5", name="V1"})
+            fill_floor("fl-metal", i-1,line, 1,1)
+        elseif c == "T" then
+            set_item("it-vortex-open", i-1, line, {targetx="50.5",targety="22.5"})
+            fill_floor("fl-swamp", i-1,line, 1,1)
+        elseif c == "M" then
+            set_item("it-vortex-open", i-1, line, {targetx="17.5",targety="42.5"})
+            fill_floor("fl-metal", i-1,line, 1,1)
+        elseif c == "W" then
+            set_item("it-vortex-open", i-1, line)
+            fill_floor("fl-metal", i-1,line, 1,1)
+        elseif c == "P" then
+            set_item("it-vortex-open", i-1, line,{name="V2"})
+            fill_floor("fl-metal", i-1,line, 1,1)
+        elseif c == "F" then
+            set_item("it-flagblack", i-1, line)
+            fill_floor("fl-bluegreen", i-1,line, 1,1)
+        elseif c == "f" then
+            set_item("it-flagblack", i-1, line)
+            fill_floor("fl-space", i-1,line, 1,1)
+        elseif c == "O" then
+            set_item("it-extralife", i-1, line)
+            fill_floor("fl-space", i-1,line, 1,1)
+        elseif c == "I" then
+            set_item("it-extralife", i-1, line)
+            fill_floor("fl-metal", i-1,line, 1,1)
+        elseif c == "i" then
+            set_item("it-extralife", i-1, line)
+            fill_floor("fl-bluegreen", i-1,line, 1,1)
+        elseif c == "Z" then
+            set_item("it-extralife", i-1, line)
+            set_floor("fl-gradient",  i-1,  line, {type=1})
+        elseif c=="U" then
+            set_stone("st-oneway", i-1,line, {orientation=enigma.NORTH})
+            fill_floor("fl-space", i-1,line, 1,1)
+        elseif c=="R" then
+            set_stone("st-oneway", i-1,line, {orientation=enigma.EAST})
+            fill_floor("fl-space", i-1,line, 1,1)
+        elseif c=="s" then
+            set_stone("st-oneway", i-1,line, {orientation=enigma.SOUTH})
+            fill_floor("fl-metal", i-1,line, 1,1)
+        elseif c=="L" then
+            set_stone("st-oneway", i-1,line, {orientation=enigma.WEST})
+            fill_floor("fl-space", i-1,line, 1,1)
+        elseif c=="G" then
+            set_stone("st-oneway", i-1,line, {orientation=enigma.WEST})
+            fill_floor("fl-metal", i-1,line, 1,1)
+        elseif c=="S" then
+            set_stone("st-switch_black",i-1,line, {action="open",target="V1"})
+        elseif c=="N" then
+            set_stone("st-switch_black",i-1,line, {action="close",target="bridge1"})
+        elseif c=="p" then
+            set_floor("fl-bridge", i-1,line, {name="bridge1", type="yy"})
+        elseif c == "n" then
+            fill_floor("fl-swamp", i-1,line, 1,1)
+        elseif c == "m" then
+            fill_floor("fl-metal", i-1,line, 1,1)
+        elseif c=="a" then
+            set_actor("ac-rotor", i-.5,line+.5, {player=1, mouseforce=0, range=5, force=5})
+        elseif c=="D" then
+            set_actor("ac-rotor", i,line+.5, {player=1, mouseforce=0, range=5, force=10})
+            fill_floor("fl-bluegreen", i-1,line, 1,1)
+        elseif c=="." then
+            set_item("it-wormhole", i-1, line, {strength=0,targetx="27",targety="46"})
+            fill_floor("fl-bluegreen", i-1,line, 1,1)
+        elseif c=="<" then
+            set_item("it-wormhole", i-1, line, {strength=0,targetx="16",targety="5"})
+            fill_floor("fl-bluegreen", i-1,line, 1,1)
+        elseif c==">" then
+            set_item("it-trigger", i-1,line, {action="open", target="door1"})
+            fill_floor("fl-bluegreen", i-1,line, 1,1)
+        elseif c==":" then
+            doorv( i-1,line, {name="door1"})
+            fill_floor("fl-bluegreen", i-1,line, 1,1)
+        elseif c==";" then
+            hammer(i-1,line)
+            set_floor("fl-gradient",  i-1,  line, {type=1})
+        elseif c=="H" then
+            set_stone("st-break_acblack",i-1,line)
+            fill_floor("fl-space", i-1,line, 1,1)
+        elseif c=="/" then
+            set_stone("st-break_acblack",i-1,line)
+            fill_floor("fl-space", i-1,line, 1,1)
+            set_item("it-extralife", i-1, line)
+        elseif c == "h" then
+            set_item("it-hstrip", i-1, line)
+        elseif c == "v" then
+            set_item("it-vstrip", i-1, line)
+        elseif c == "k" then
+            set_item("it-crack1", i-1,line)
+            fill_floor("fl-space", i-1,line, 1,1)
+        elseif c == "b" then
+            set_item("it-coffee",i-1,line)
+            set_floor("fl-gradient",  i-1,  line, {type=1})
+        end
+    end    
+end
+
+-- Floor:  " "
+-- Border: "#"
+-- Oxyd:   "o"
+
+renderLine(00,"#############################################################################")
+renderLine(01,"#                                                                           #")
+renderLine(02,"#    +++3dddd1      3ddddddddddddddd1+F=llrrrrr+h=+++==h+++++++  K+3dddd1   #")
+renderLine(03,"# ++++++r====l      r=n=n=n=n=n=n=n=l                       +i+   +9uuuu7   #")
+renderLine(04,"# +  +++9uu9=l#++.  9uuuuuuuuuuuuuuu7  3dddddddddddddddd1   +++             #")
+renderLine(05,"# +        r=l:++      K  K  K         r================l       3ddddddddd1 #")
+renderLine(06,"# 3d1      r=l#                   3dddd3================l       r=K=KkK=K=l #")
+renderLine(07,"# r=l       =                     r=======c&&&&ccccc====l  +++  r=========l #")
+renderLine(08,"# r=l      r=1         +  +  =    r=7uu9===&============l  +F+K rk===O===kl #")
+renderLine(09,"# r=l      r=1ddd1     =  +  +  ++r=l  r===&============l  +++  r=========l #")
+renderLine(10,"# r=l X    r=====l     +  =  +  + r=l  9uuu`=7uuuuuuuuuu7  d    r====k====l #")
+renderLine(11,"# 9u7 X    9uuu9=l     +  +  =  + 9u7      r=l             d    9uuuuuuuuu7 #")
+renderLine(12,"#   + X        r=l XXXX=XX+XX+XX++ J       r=l             d                #")
+renderLine(13,"# 3d1 X        r=l X   +  =  + X +         r=l Xlllllll1lll1   ++++++       #")
+renderLine(14,"# r=l X        r=1d@dddddd;dd1 X F 3d1  X  r=l         b   d 3d1 =  =       #")
+renderLine(15,"# 9u7          r===HHHHHHHHHHl X   r=l  X  r=l         b   d r=l +  +       #")
+renderLine(16,"#  J X 3dddd1  r=7u*u9^HH/HH^l X   9u7  X  rOl         b   d r=l +  +       #")
+renderLine(17,"#    X r++++1dd3=l X 9uuuuuuu7 X    =   X  9u7X++      b   d r=l =  =       #")
+renderLine(18,"#    X roz+F=====l X           X    K   X      ++ ++   b   d rcl =  =       #")
+renderLine(19,"#    X r++++7uuuu7 XXXXXNXXXXXXX        X   ++W W ++   b   d r=l =  =       #")
+renderLine(20,"# 3d1  9uuuu7           +               X   ++    W+   b   d r=l +  +       #")
+renderLine(21,"# r=l            ++rrrrr+lllll++llrr+   X       X      b   Z r=l 3dd1       #")
+renderLine(22,"# r=l X 3ddddddddd1                 +   X        rWl   b   = 9u7 r==l       #")
+renderLine(23,"# 9u7 X r=========l   XXXXXXXXXXXXX +   X        rOl   +++===+   r==l       #")
+renderLine(24,"# 9u7 X r=nnn!nnn=l   X           X              rOl       = + X r==l       #")
+renderLine(25,"# 9u7 X r=========l   X 3ddddddd1 X #++++        rfl       X + X r==l       #")
+renderLine(26,"# r=l X 9uuuuuuuuu7   X rK===K==l ###+# +        lfr           X r==l       #")
+renderLine(27,"# r=l X    +          X r==K===Kl 3d3+13+1d      l=r        XXXX r==l XXXXXX#")
+renderLine(28,"# r=l X    +  XXXXXXXXX rK=O=K==l r=R+L=====     r=l             r==l       #")
+renderLine(29,"# rKl X   X+ X          r==K=O=Kl 9uuuu9=====    r=l             r==l       #")
+renderLine(30,"#     X   X+X 3dd       3K===K==% #####9uuu===   r=l         a   r==l   a   #")
+renderLine(31,"# r=l X    =  r==K ==K ====K===K31&X        ===  rcl             r==l       #")
+renderLine(32,"# r=l      s  r==       uuuuuuuu97& 3dddd  dddd1 r=l             r==l       #")
+renderLine(33,"# r=1ddddddd1 r==l                X r=========Ol r=l             r==l       #")
+renderLine(34,"# r=====!===l r==l  XXXXXXXXXXXXXXX r=7uu  uuuu7 r=l             r==l       #")
+renderLine(35,"# 9uuuuuuu9=l 9u9l  X               r=l          r=l             r==l       #")
+renderLine(36,"#         r=l   rl  X nnnnn $nnn    r=1dddd1     r=1dd1          r++l       #")
+renderLine(37,"#XXXXXXXX r=1ddd311 X n   =    =    r=====fl     rO===l    3ddddd3D+1ddddd1 #")
+renderLine(38,"#         r=======  X = =nn    n    9!uuu9=l     9uu9=l    r==============l #")
+renderLine(39,"#   mIm   r===f=7u7 X = n     nnn        r=l        r=l    r==&========&==l #")
+renderLine(40,"#   mMm   r=====lOl X n n    nnnnn    ###r=1ddd!!ddd3=l### r==============l #")
+renderLine(41,"#   mmm   9uuuuu7u7 X n =   nn===nn   #A~rQ===========l~B# r======nn======l #")
+renderLine(42,"#       X  p     V  X n===nnnn=O=nnnn ###9uuuuu!!uuuuu7### r======nn======l #")
+renderLine(43,"#   3d1 X  S XX   XXX   = n nn===nn n                      r==============l #")
+renderLine(44,"#   r=l       XXXXX     n >  nnnnn  n +++     +++ +++ +++  r==&========&==l #")
+renderLine(45,"# 3d3d1dduud1+     dd++nn ++  nnn   nn+++hhhhh+ v v v v v  r==============l #")
+renderLine(46,"# 9uuuuuuddu7+llll7uu++   ++<  n    $ +++       +++ +++ +iF9uuuuuuuuuuuuuu7 #")
+renderLine(47,"#                              $                                            #")
+renderLine(48,"#############################################################################")
+
+oxyd_shuffle()
+
+bolder1=enigma.GetNamedObject("bolder1")
+
+function funcc1()
+    set_attribs(enigma.GetNamedObject("bolder1"), {direction=EAST})
+end
+
+function funcc2()
+    set_attribs(enigma.GetNamedObject("bolder1"), {direction=WEST})
+end
+    ]]></el:luamain>
+    <el:i18n>
+      <el:string el:key="title">
+        <el:english el:translate="false"/>
+      </el:string>
+    </el:i18n>
+  </el:protected>
+</el:level>
