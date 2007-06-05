@@ -1053,7 +1053,12 @@ void World::move_actors (double dtime)
     vector<V2> global_forces (nactors);
     for (unsigned i=0; i<nactors; ++i) {
         Actor *a = actorlist[i];
+        ActorInfo &ai = *a->get_actorinfo();
+        // extrapolate actor position for better accuracy of forces
+        V2 extrapolation = dtime*0.4 * ai.vel; 
+        ai.pos += extrapolation; 
         global_forces[i] = get_global_force (a);
+        ai.pos -= extrapolation;
     }
 
     while (rest_time > 0) {
