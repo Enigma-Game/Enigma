@@ -318,7 +318,9 @@ typedef list<sound::SoundDamping> SoundDampingList;
 
         void advance_actor (Actor *a, double h);
         void move_actors (double dtime);
-        void find_contact_with_stone (Actor *a, GridPos p, StoneContact &c);
+        void find_contact_with_stone (Actor *a, GridPos p, StoneContact &c, bool isRounded = true,  Stone *st = NULL);
+        void find_contact_with_edge(Actor *a, GridPos pe, GridPos p1, GridPos p2, 
+                StoneContact &c0, StoneContact &c1, StoneContact &c2);
         void find_stone_contacts (Actor *a, StoneContact &c0, StoneContact &c1,
                 StoneContact &c2);
         void handle_stone_contact (StoneContact &sc);

@@ -1,5 +1,6 @@
 /*
  * Copyright (C) 2002,2003,2004,2005 Daniel Heck
+ * Copyright (C) 2007 Ronald Lamprecht
  *
  * This program is free software; you can redistribute it and/or
  * modify it under the terms of the GNU General Public License
@@ -52,44 +53,6 @@ const double ActorTimeStep = 0.0025;
 /* -------------------- Auxiliary functions -------------------- */
 
 namespace {
-
-    /*! Enigma's stones have rounded corners; this leads to realistic
-      behaviour when a marble rebounds from the corner of a single
-      stone. But it's annoying when there are two adjacent stones and
-      a marble rebounds from any one (or even both) corners, because
-      it changes the direction of the marble quite unpredictably.
-
-      This function modifies the contact information for two adjacent
-      stones in such a way that the two collisions are treated as a
-      single collision with a flat surface. */
-    void maybe_join_contacts (StoneContact &a, StoneContact &b)
-    {
-//         double maxd = 4.0/32;   // Max distance between joinable collisions
-
-        if (a.is_contact && b.is_contact
-            && a.is_collision && b.is_collision 
-            && a.response==STONE_REBOUND && b.response==STONE_REBOUND)
-            // && length(a.contact_point - b.contact_point) <= maxd)
-        {
-            b.ignore = true; // Don't rebound from `b'
-
-            DirectionBits fa = contact_faces(a);
-            DirectionBits fb = contact_faces(b);
-
-            switch (fa & fb) {
-            case NORTHBIT: a.normal = V2(0,-1); break;
-            case EASTBIT:  a.normal = V2(1,0); break;
-            case SOUTHBIT: a.normal = V2(0,1); break;
-            case WESTBIT:  a.normal = V2(-1,0); break;
-            case NODIRBIT:
-                //fprintf(stderr, "Strange: contacts have no direction in common\n");
-                break;
-            default:
-                //fprintf(stderr, "Strange: contacts have multiple directions in common\n");
-                break;
-            }
-        }
-    }
 
 /*! Find an already existing contact point in the ContactList that is
   similar to the second argument. */
@@ -713,11 +676,11 @@ V2 World::get_global_force (Actor *a)
       is filled is filled with information about the closest feature
       on the stone and `is_contact' is set to false. 
 */
-void World::find_contact_with_stone(Actor *a, GridPos p, StoneContact &c) 
+void World::find_contact_with_stone(Actor *a, GridPos p, StoneContact &c, bool isRounded, Stone *st) 
 {
     c.is_contact = false;
 
-    Stone *stone = world::GetStone(p);
+    Stone *stone = (st != NULL) ? st : world::GetStone(p);
     if (!stone)
         return;
 
@@ -729,10 +692,11 @@ void World::find_contact_with_stone(Actor *a, GridPos p, StoneContact &c)
     double ax = ai.pos[0];
     double ay = ai.pos[1];
 //    const double contact_e = 0.02;
-    const double erad = 2.0/32; // edge radius
+    const double erad_const = 2.0/32; // edge radius
+    double erad = isRounded ? erad_const : 0.0;
 
     // Closest feature == north or south face of the stone?
-    if (ax>x+erad && ax<x+1-erad) {
+    if (ax>=x+erad && ax<x+1-erad) {
         double dist = r+5;
 
         // south
@@ -750,7 +714,7 @@ void World::find_contact_with_stone(Actor *a, GridPos p, StoneContact &c)
         c.is_contact = (dist-r < contact_e);
     }
     // Closest feature == west or east face of the stone?
-    else if (ay>y+erad && ay<y+1-erad) {
+    else if (ay>=y+erad && ay<y+1-erad) {
         double dist=r+5;
         if (ax>x+1) { // east
             c.contact_point = V2(x+1,ay);
@@ -765,7 +729,7 @@ void World::find_contact_with_stone(Actor *a, GridPos p, StoneContact &c)
 	c.is_contact = (dist-r < contact_e);
     }
     // Closest feature == any of the four corners
-    else {
+    else if (isRounded) {
         int xcorner=(ax >= x+1-erad);
         int ycorner=(ay >= y+1-erad);
         double cx[2] = {erad, -erad};
@@ -795,6 +759,35 @@ void World::find_contact_with_stone(Actor *a, GridPos p, StoneContact &c)
     }
 }
 
+void World::find_contact_with_edge(Actor *a, GridPos p0, GridPos p1, GridPos p2, 
+        StoneContact &c0, StoneContact &c1, StoneContact &c2) {
+    Stone *s0 = world::GetStone(p0);
+    Stone *s1 = world::GetStone(p1);
+    Stone *s2 = world::GetStone(p2);
+    if (s0 != NULL) c0.response = s0->collision_response(c0);
+    if (s1 != NULL) c1.response = s1->collision_response(c1);
+    if (s2 != NULL) c2.response = s2->collision_response(c2);
+    
+    if (s1 && s2 && c1.response==STONE_REBOUND && c2.response==STONE_REBOUND) {
+        // a real edge bounce - no rounded edges
+        find_contact_with_stone(a, p1, c1, false, s1);  // collision with both straight neighbours
+        find_contact_with_stone(a, p2, c2, false, s2);  // collision with both straight neighbours
+    } else if (s0 && s1 && c0.response==STONE_REBOUND && c1.response==STONE_REBOUND) {
+        // join stones to a block without rounded edges
+        find_contact_with_stone(a, p1, c1, false, s1);  // collision with straight neighbour only
+        find_contact_with_stone(a, p2, c2, true, s2);   // register contact without collision
+    } else if (s0 && s2 && c0.response==STONE_REBOUND && c2.response==STONE_REBOUND) {
+        // join stones to a block without rounded edges
+        find_contact_with_stone(a, p2, c2, false, s2);  // contact with straight neighbour only
+        find_contact_with_stone(a, p1, c1, true, s1);   // register contact without collision
+    } else {
+        // register single stone collisions and contacts
+        if (s0) find_contact_with_stone(a, p0, c0, true, s0);
+        if (s1) find_contact_with_stone(a, p1, c1, true, s1);
+        if (s2) find_contact_with_stone(a, p2, c2, true, s2);
+    }
+}
+
 void World::find_stone_contacts(Actor *a, StoneContact &c0, StoneContact &c1,
         StoneContact &c2) {
     // time critical routine that is performance optimized
@@ -802,6 +795,9 @@ void World::find_stone_contacts(Actor *a, StoneContact &c0, StoneContact &c1,
     c0.is_contact = false;
     c1.is_contact = false;
     c2.is_contact = false;
+    c0.actor = a;
+    c1.actor = a;
+    c2.actor = a;
     
     ActorInfo &ai = *a->get_actorinfo();
     double re = ai.radius + contact_e;
@@ -815,18 +811,18 @@ void World::find_stone_contacts(Actor *a, StoneContact &c0, StoneContact &c1,
         // upper grid part
         if (x - g.x < re) {
             // upper left edge
-            find_contact_with_stone(a, GridPos(g.x - 1, g.y - 1), c0);
-            find_contact_with_stone(a, GridPos(g.x, g.y - 1), c1);
-            find_contact_with_stone(a, GridPos(g.x - 1, g.y), c2);
-            maybe_join_contacts (c0, c1);
-            maybe_join_contacts (c0, c2);
+            c0.normal = V2(+1, +1);  // no need of normalization - just direction
+            c1.normal = V2(0, +1);
+            c2.normal = V2(+1, 0);
+            find_contact_with_edge(a, GridPos(g.x - 1, g.y - 1), GridPos(g.x, g.y - 1),
+                    GridPos(g.x - 1, g.y), c0, c1, c2);
         } else if (-x + (g.x + 1) < re) {
             // upper right edge
-            find_contact_with_stone(a, GridPos(g.x, g.y - 1), c0);
-            find_contact_with_stone(a, GridPos(g.x + 1, g.y -1), c1);
-            find_contact_with_stone(a, GridPos(g.x + 1, g.y), c2);
-            maybe_join_contacts (c0, c1);
-            maybe_join_contacts (c1, c2);
+            c0.normal = V2(-1, +1);  // no need of normalization - just direction
+            c1.normal = V2(0, +1);
+            c2.normal = V2(-1, 0);
+            find_contact_with_edge(a, GridPos(g.x + 1, g.y -1), GridPos(g.x, g.y - 1),
+                    GridPos(g.x + 1, g.y), c0, c1, c2);
         } else {
             // upper middle part
             find_contact_with_stone(a, GridPos(g.x, g.y - 1), c0);
@@ -835,18 +831,18 @@ void World::find_stone_contacts(Actor *a, StoneContact &c0, StoneContact &c1,
         // lower grid part
         if (x - g.x < re) {
             // lower left edge
-            find_contact_with_stone(a, GridPos(g.x - 1, g.y), c0);
-            find_contact_with_stone(a, GridPos(g.x - 1, g.y + 1), c1);
-            find_contact_with_stone(a, GridPos(g.x, g.y + 1), c2);
-            maybe_join_contacts (c0, c1);
-            maybe_join_contacts (c1, c2);
+            c0.normal = V2(+1, -1);  // no need of normalization - just direction
+            c1.normal = V2(0, -1);
+            c2.normal = V2(+1, 0);
+            find_contact_with_edge(a, GridPos(g.x - 1, g.y + 1), GridPos(g.x, g.y + 1),
+                    GridPos(g.x - 1, g.y), c0, c1, c2);
         } else if (-x + (g.x + 1) < re) {
             // lower right edge
-            find_contact_with_stone(a, GridPos(g.x + 1, g.y), c0);
-            find_contact_with_stone(a, GridPos(g.x, g.y +1), c1);
-            find_contact_with_stone(a, GridPos(g.x + 1, g.y + 1), c2);
-            maybe_join_contacts (c0, c2);
-            maybe_join_contacts (c1, c2);
+            c0.normal = V2(-1, -1);  // no need of normalization - just direction
+            c1.normal = V2(0, -1);
+            c2.normal = V2(-1, 0);
+            find_contact_with_edge(a, GridPos(g.x + 1, g.y + 1), GridPos(g.x, g.y +1),
+                    GridPos(g.x + 1, g.y), c0, c1, c2);
         } else {
             // lower middle part
             find_contact_with_stone(a, GridPos(g.x, g.y + 1), c0);
