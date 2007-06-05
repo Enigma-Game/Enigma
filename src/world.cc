@@ -736,6 +736,11 @@ void World::find_contact_with_stone(Actor *a, GridPos p, StoneContact &c, bool i
 
         V2 corner(x+xcorner+cx[xcorner], y+ycorner+cx[ycorner]);
         V2 b=V2(ax,ay) - corner;
+        
+        // fix 45 degree collisions that may require precision
+        if (abs(b[0]) - abs(b[1]) < 1.0e-7) {
+            b[1] = (b[1] >= 0) ? abs(b[0]) : -abs(b[0]);
+        }
 
         c.is_contact    = (length(b)-r-erad < contact_e);
         c.normal        = normalize(b);
@@ -961,6 +966,10 @@ void World::handle_actor_contact(Actor *actor1, Actor *actor2)
         return;
 
     V2 n = a1.pos - a2.pos; // normal to contact surface
+    // fix 45 degree collisions that may require precision
+    if (abs(n[0]) - abs(n[1]) < 1.0e-7) {
+        n[1] = (n[1] >= 0) ? abs(n[0]) : -abs(n[0]);
+    }
     double dist = n.normalize();
     double overlap = a1.radius + a2.radius - dist;
     if (overlap > 0 && !a1.grabbed && !a2.grabbed) {
