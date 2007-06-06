@@ -125,6 +125,11 @@ const ecl::V2 &Actor::get_pos() const
 }
 
 
+const ecl::V2 &Actor::get_pos_force() const{
+    return m_actorinfo.pos_force;
+}
+
+
 double Actor::get_max_radius() {
     return max_radius;
 }

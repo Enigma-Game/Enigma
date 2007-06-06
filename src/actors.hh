@@ -72,15 +72,16 @@ namespace world
     struct ActorInfo {
 	// ---------- Variables ----------
 
-        ecl::V2 pos;		// Absolute position
-        GridPos gridpos;    // Grid position for pos
-        const Field *field;  // Field of pos
-        ecl::V2 vel;		// Velocity
-        ecl::V2 forceacc;        // Force accumulator
-        double charge;		// Electric charge
-        double mass;		// Mass
-        double radius;		// Radius of the ball
-        bool   grabbed;		// Actor not controlled by the physics engine
+        ecl::V2 pos;            // Absolute position
+        GridPos gridpos;        // Grid position for pos
+        const Field *field;     // Field of pos
+        ecl::V2 vel;            // Velocity
+        ecl::V2 pos_force;      // Extrapolated position for global force calc
+        ecl::V2 forceacc;       // Force accumulator
+        double charge;          // Electric charge
+        double mass;            // Mass
+        double radius;          // Radius of the ball
+        bool   grabbed;         // Actor not controlled by the physics engine
         bool   ignore_contacts; // Do not perform collision handling
 
 	// Variables used internally by the physics engine
@@ -162,6 +163,7 @@ namespace world
         ActorInfo *get_actorinfo();
         const ActorInfo &get_actorinfo() const;
         const ecl::V2 &get_pos() const;
+        const ecl::V2 &get_pos_force() const;
 
         const ecl::V2 &get_vel() const {
             return m_actorinfo.vel; 

@@ -1572,7 +1572,7 @@ namespace
 
             void add_force(Actor *a, V2 &f) {
                 if (m_active) {
-                    V2 dv = center - a->get_pos();
+                    V2 dv = center - a->get_pos_force();
                     double dist = length(dv);
 
                     if (dist >= 0.2 && dist < range)
