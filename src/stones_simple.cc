@@ -418,6 +418,7 @@ void SwapStone::on_removal(GridPos p) {
     if (state == COME) {
         GameTimer.remove_alarm(this);
     }
+    GridObject::on_removal(p);
 }
 
 /* Animation finished; put the "swapped" stone to its new position. */

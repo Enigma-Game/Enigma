@@ -175,7 +175,7 @@ namespace
         // Object interface.
         PullStone *clone();
         void       dispose();
-
+        
         // Stone interface.
         bool is_movable () const {
             return state == IDLE;
