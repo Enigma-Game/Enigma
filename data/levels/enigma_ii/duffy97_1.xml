@@ -3,7 +3,7 @@
   <el:protected>
     <el:info el:type="level">
       <el:identity el:title="Alien Glyphs 3" el:subtitle="" el:id="duffy97"/>
-      <el:version el:score="1" el:release="1" el:revision="0" el:status="released"/>
+      <el:version el:score="1" el:release="1" el:revision="1" el:status="released"/>
       <el:author  el:name="Jacob Scott" el:email="" el:homepage=""/>
       <el:copyright>Copyright © 2004 Jacob Scott</el:copyright>
       <el:license el:type="GPL v2.0 or above" el:open="true"/>
@@ -100,7 +100,7 @@ function renderLine( line, pattern)
         elseif c=="W" then
             doorv( i-1,line, {name="door8"})
         end
-    end    
+    end
 end
 
 renderLine(00,"##########################################################")
@@ -142,9 +142,9 @@ renderLine(35,"#     #      #     #     #      #     #    7#     8#    9#")
 renderLine(36,"##########################################################")
 
 -- C I A
---      
+--
 -- E G A
---      
+--
 -- F F D
 
 oxyd_shuffle()
@@ -320,9 +320,9 @@ function funcc9()
 end
 
 -- C I A
---      
+--
 -- E G A
---      
+--
 -- F F D
 
 doorsopen=0

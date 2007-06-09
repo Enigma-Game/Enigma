@@ -3,7 +3,7 @@
   <el:protected>
     <el:info el:type="level">
       <el:identity el:title="Drunk" el:subtitle="" el:id="duffy38"/>
-      <el:version el:score="1" el:release="1" el:revision="0" el:status="released"/>
+      <el:version el:score="1" el:release="1" el:revision="1" el:status="released"/>
       <el:author  el:name="Jacob Scott" el:email="" el:homepage=""/>
       <el:copyright>Copyright © 2003 Jacob Scott</el:copyright>
       <el:license el:type="GPL v2.0 or above" el:open="true"/>
@@ -16,8 +16,11 @@
       <el:score el:easy="-" el:difficult="-"/>
     </el:info>
     <el:luamain><![CDATA[
-levelw = 20
-levelh = 13
+rooms_wide=1
+rooms_high=1
+
+levelw=1+(19*rooms_wide)
+levelh=1+(12*rooms_high)
 
 create_world(levelw, levelh)
 
@@ -149,28 +152,28 @@ mytimer = 0
 function timer_handler()
     mytimer=mytimer+1
     if mytimer==1 then
-    x=20
-    y=20
+        x=20
+        y=20
     end
     if mytimer==2 then
-    x=-20
-    y=-20
+        x=-20
+        y=-20
     end
     if mytimer==3 then
-    x=20
-    y=-20    
+        x=20
+        y=-20
     end
     if mytimer==4 then
-    x=0
-    y=0
-    x=-20
-    y=20
-    SendMessage("door2", "openclose")
-    mytimer=0
+        x=0
+        y=0
+        x=-20
+        y=20
+        SendMessage("door2", "openclose")
+        mytimer=0
     end
     enigma.AddConstantForce(x,y)
 end
-  
+
 set_stone( "st-timer", 0, 0, {action="callback", target="timer_handler"})
 
 set_actor("ac-blackball" ,17.5, 2)

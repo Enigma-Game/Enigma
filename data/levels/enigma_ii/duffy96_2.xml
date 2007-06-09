@@ -3,7 +3,7 @@
   <el:protected>
     <el:info el:type="level">
       <el:identity el:title="Alien Glyphs 2" el:subtitle="" el:id="duffy96"/>
-      <el:version el:score="2" el:release="2" el:revision="0" el:status="released"/>
+      <el:version el:score="2" el:release="2" el:revision="1" el:status="released"/>
       <el:author  el:name="Jacob Scott" el:email="" el:homepage=""/>
       <el:copyright>Copyright © 2004 Jacob Scott</el:copyright>
       <el:license el:type="GPL v2.0 or above" el:open="true"/>
@@ -84,7 +84,7 @@ function renderLine( line, pattern)
         elseif c=="Q" then
             doorv( i-1,line, {name="door1"})
         end
-    end    
+    end
 end
 
 renderLine(00,"##########################################################")
@@ -101,12 +101,12 @@ renderLine(10,"# #                                                      #")
 renderLine(11,"#o#                                                      #")
 renderLine(12,"##########################################################")
 
---               B    
--- B             B    
+--               B
+-- B             B
 -- B B B B C C C B   B
 -- B C C B C C C B G E
 -- E G G K E E E C G E
--- A   A     A B      
+-- A   A     A B
 
 -- 5 4 8 9 6 3 0 1 7 2
 

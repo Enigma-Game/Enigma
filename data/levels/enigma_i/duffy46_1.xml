@@ -3,7 +3,7 @@
   <el:protected>
     <el:info el:type="level">
       <el:identity el:title="No Jumping Necessary" el:subtitle="" el:id="duffy46"/>
-      <el:version el:score="1" el:release="1" el:revision="0" el:status="released"/>
+      <el:version el:score="1" el:release="1" el:revision="1" el:status="released"/>
       <el:author  el:name="Jacob Scott" el:email="" el:homepage=""/>
       <el:copyright>Copyright © 2003 Jacob Scott</el:copyright>
       <el:license el:type="GPL v2.0 or above" el:open="true"/>
@@ -16,8 +16,11 @@
       <el:score el:easy="-" el:difficult="-"/>
     </el:info>
     <el:luamain><![CDATA[
-levelw=39
-levelh=13
+rooms_wide=2
+rooms_high=1
+
+levelw=1+(19*rooms_wide)
+levelh=1+(12*rooms_high)
 
 create_world( levelw, levelh)
 
@@ -42,9 +45,7 @@ function renderLine( line, pattern)
             set_stone( "st-brownie", i-1, line)
         elseif c == "!" then
             abyss(i-1,line)
-            --            fill_floor("fl-water", i-1,line, 1,1)
         elseif c == "~" then
-            --            abyss(i-1,line)
             fill_floor("fl-water", i-1,line, 1,1)
         elseif c == " " then
             abyss(i-1,line)
@@ -128,7 +129,7 @@ function renderLine( line, pattern)
         elseif c=="x" then
             set_floor("fl-hay",i-1,line)
         end
-    end    
+    end
 end
 
 function yy1( color, x, y)

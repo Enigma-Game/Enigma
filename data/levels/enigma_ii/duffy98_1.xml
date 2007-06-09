@@ -3,7 +3,7 @@
   <el:protected>
     <el:info el:type="level">
       <el:identity el:title="Solar System" el:subtitle="" el:id="duffy98"/>
-      <el:version el:score="1" el:release="1" el:revision="0" el:status="released"/>
+      <el:version el:score="1" el:release="1" el:revision="1" el:status="released"/>
       <el:author  el:name="Jacob Scott" el:email="" el:homepage=""/>
       <el:copyright>Copyright © 2004 Jacob Scott</el:copyright>
       <el:license el:type="GPL v2.0 or above" el:open="true"/>
@@ -41,12 +41,12 @@ function renderLine( line, pattern)
         elseif c == "!" then
             abyss(i-1,line)
         elseif c == "~" then
-           set_floor("fl-water",i-1,line)
+            set_floor("fl-water",i-1,line)
         elseif c=="z" then
-           set_actor("ac-blackball", i-1,line+.5, {player=0})
+            set_actor("ac-blackball", i-1,line+.5, {player=0})
             set_floor("fl-metal",i-1,line)
         elseif c=="y" then
-           set_actor("ac-whiteball", i-1,line+.5, {player=1})
+            set_actor("ac-whiteball", i-1,line+.5, {player=1})
         elseif c == "g" then
             draw_stones("st-grate1",{i-1,line}, {1,1}, 1)
         elseif c=="+" then
@@ -62,41 +62,41 @@ function renderLine( line, pattern)
             set_floor("fl-metal",i-1,line)
             set_stone( "st-rock4", i-1, line)
         elseif c=="O" then
-           set_item("it-extralife",i-1,line)
+            set_item("it-extralife",i-1,line)
             set_floor("fl-metal",i-1,line)
         elseif c=="A" then
-           set_item("it-magnet",i-1,line,{on=1})
+            set_item("it-magnet",i-1,line,{on=1})
             set_floor("fl-rough-red",i-1,line)
         elseif c=="B" then
-           set_item("it-magnet",i-1,line,{on=1})
+            set_item("it-magnet",i-1,line,{on=1})
             set_floor("fl-swamp",i-1,line)
         elseif c=="C" then
-           set_item("it-magnet",i-1,line,{on=1})
+            set_item("it-magnet",i-1,line,{on=1})
             set_floor("fl-leaves",i-1,line)
         elseif c=="D" then
-           set_item("it-magnet",i-1,line,{on=1})
+            set_item("it-magnet",i-1,line,{on=1})
             set_floor("fl-bumps",i-1,line)
         elseif c=="E" then
-           set_item("it-magnet",i-1,line,{on=1})
+            set_item("it-magnet",i-1,line,{on=1})
             set_floor("fl-red",i-1,line)
         elseif c=="F" then
-           set_item("it-magnet",i-1,line,{on=1})
+            set_item("it-magnet",i-1,line,{on=1})
             set_floor("fl-sahara",i-1,line)
         elseif c=="G" then
-           set_item("it-magnet",i-1,line,{on=1})
+            set_item("it-magnet",i-1,line,{on=1})
             set_floor("fl-rock",i-1,line)
         elseif c=="H" then
-           set_item("it-magnet",i-1,line,{on=1})
+            set_item("it-magnet",i-1,line,{on=1})
             set_floor("fl-rough-blue",i-1,line)
         elseif c=="I" then
-           set_item("it-magnet",i-1,line,{on=1})
+            set_item("it-magnet",i-1,line,{on=1})
             set_floor("fl-black",i-1,line)
         elseif c=="J" then
-           set_item("it-magnet",i-1,line,{on=1})
+            set_item("it-magnet",i-1,line,{on=1})
             set_floor("fl-sahara",i-1,line)
             set_stone( "st-greenbrown", i-1, line)
         elseif c=="`" then
-           set_item("it-magnet",i-1,line,{on=1})
+            set_item("it-magnet",i-1,line,{on=1})
             set_floor("fl-water",i-1,line)
         elseif c=="K" then
             oxyd( i-1, line)
@@ -129,34 +129,34 @@ function renderLine( line, pattern)
             oxyd( i-1, line)
             set_floor("fl-sahara",i-1,line)
         elseif c=="1" then
-           set_item("it-extralife",i-1,line)
+            set_item("it-extralife",i-1,line)
             set_floor("fl-rough-red",i-1,line)
         elseif c=="2" then
-           set_item("it-extralife",i-1,line)
+            set_item("it-extralife",i-1,line)
             set_floor("fl-swamp",i-1,line)
         elseif c=="3" then
-           set_item("it-extralife",i-1,line)
+            set_item("it-extralife",i-1,line)
             set_floor("fl-leaves",i-1,line)
         elseif c=="4" then
-           set_item("it-extralife",i-1,line)
+            set_item("it-extralife",i-1,line)
             set_floor("fl-bumps",i-1,line)
         elseif c=="5" then
-           set_item("it-extralife",i-1,line)
+            set_item("it-extralife",i-1,line)
             set_floor("fl-red",i-1,line)
         elseif c=="6" then
-           set_item("it-extralife",i-1,line)
+            set_item("it-extralife",i-1,line)
             set_floor("fl-sahara",i-1,line)
         elseif c=="7" then
-           set_item("it-extralife",i-1,line)
+            set_item("it-extralife",i-1,line)
             set_floor("fl-rock",i-1,line)
         elseif c=="8" then
-           set_item("it-extralife",i-1,line)
+            set_item("it-extralife",i-1,line)
             set_floor("fl-rough-blue",i-1,line)
         elseif c=="9" then
-           set_item("it-extralife",i-1,line)
+            set_item("it-extralife",i-1,line)
             set_floor("fl-black",i-1,line)
         elseif c=="0" then
-           set_item("it-extralife",i-1,line)
+            set_item("it-extralife",i-1,line)
             set_floor("fl-sahara",i-1,line)
             set_stone( "st-greenbrown", i-1, line)
         elseif c=="j" then
@@ -192,11 +192,9 @@ function renderLine( line, pattern)
         elseif c=="x" then
             set_floor("fl-metal",i-1,line)
         elseif c=="S" then
-            set_floor("fl-sahara",i-1,line,
-                {burnable=TRUE, noash=TRUE, secure=TRUE, initfire=TRUE})
+            set_floor("fl-sahara",i-1,line, {burnable=TRUE, noash=TRUE, secure=TRUE, initfire=TRUE})
         elseif c=="T" then
-            set_floor("fl-sahara",i-1,line,
-                {burnable=TRUE, noash=TRUE, secure=TRUE, initfire=TRUE})
+            set_floor("fl-sahara",i-1,line, {burnable=TRUE, noash=TRUE, secure=TRUE, initfire=TRUE})
         elseif c=="q" then
             set_item("it-umbrella",i-1,line)
             set_floor("fl-metal",i-1,line)
@@ -209,8 +207,8 @@ function renderLine( line, pattern)
         elseif c=="f" then
             set_floor("fl-leaves",i-1,line)
             set_item("it-flagblack",i-1,line)
-         end
-    end    
+        end
+    end
 end
 
 renderLine(00,"###############################################################################################################################################################################################")

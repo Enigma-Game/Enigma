@@ -3,7 +3,7 @@
   <el:protected>
     <el:info el:type="level">
       <el:identity el:title="The Document" el:subtitle="" el:id="duffy4"/>
-      <el:version el:score="1" el:release="1" el:revision="0" el:status="released"/>
+      <el:version el:score="1" el:release="1" el:revision="1" el:status="released"/>
       <el:author  el:name="Jacob Scott" el:email="" el:homepage=""/>
       <el:copyright>Copyright © 2003 Jacob Scott</el:copyright>
       <el:license el:type="GPL v2.0 or above" el:open="true"/>
@@ -16,8 +16,11 @@
       <el:score el:easy="-" el:difficult="-"/>
     </el:info>
     <el:luamain><![CDATA[
-levelw=80
-levelh=20
+rooms_wide=2
+rooms_high=1
+
+levelw=1+(19*rooms_wide)
+levelh=1+(12*rooms_high)
 
 create_world( levelw, levelh)
 
@@ -30,9 +33,8 @@ function renderLine( line, pattern)
             set_stone( "st-glass", i-1, line)
         elseif c == "o" then
             oxyd( i-1, line)
-                elseif c == "!" then
+        elseif c == "!" then
             abyss(i-1,line)
---            fill_floor("fl-water", i-1,line, 1,1)
         elseif c=="z" then
             set_actor("ac-blackball", i-.5,line+.5)
         elseif c=="+" then
@@ -41,9 +43,9 @@ function renderLine( line, pattern)
             mirrorp(i-1,line,FALSE,TRUE, 2)
         elseif c=="/" then
             mirrorp(i-1,line,FALSE,TRUE, 4)
-        elseif c=="5" then    
+        elseif c=="5" then
             set_item("it-coin1", i-1,line)
-        elseif c=="4" then    
+        elseif c=="4" then
             set_item("it-coin4", i-1,line,{value=3})
         elseif c=="P" then
             set_item("it-brush",i-1,line)
@@ -57,7 +59,6 @@ function renderLine( line, pattern)
             set_stone("st-switch", i-1,line, {action="callback",target="fd"})
         elseif c=="e" then
             set_stone("st-switch", i-1,line, {action="callback",target="fe"})
-
         elseif c=="f" then
             set_stone("st-switch", i-1,line, {action="callback",target="ff"})
         elseif c=="g" then
@@ -108,7 +109,7 @@ function renderLine( line, pattern)
             doorh( i-1,line, {name="door3"})
         elseif c == "L" then
             abyss(i-1,line)
-             draw_stones("st-glass", {i-1,line},{1,1}, 1)
+            draw_stones("st-glass", {i-1,line},{1,1}, 1)
             set_item("it-magicwand",i-1,line)
         elseif c == "G" then
             fill_floor("fl-leaves", i-1,line,1,1)
@@ -140,8 +141,8 @@ function renderLine( line, pattern)
             set_item("it-magicwand",i-1,line)
         elseif c=="S" then
             fill_floor("fl-space", i-1,line, 1,1)
+            end
         end
-    end    
 end
 
 -- Floor:  " "
@@ -506,7 +507,7 @@ function fz()
     document(29,4,"text2")
     document(29,3,"text3")
     document(29,2,"text4")
-    if fdo==0 and sdo==0 and tdo==0 then    
+    if fdo==0 and sdo==0 and tdo==0 then
         if num1==15 and num2==16 and num3==5 and num4==14 and num5==29 and fdo==0 then
             SendMessage("door1", "open")
             firstdooropen=1
@@ -549,16 +550,16 @@ end
       </el:string>
       <el:string el:key="text1">
         <el:english el:translate="true">What do you want the first gate to do?</el:english>
-      </el:string> 
+      </el:string>
       <el:string el:key="text2">
         <el:english el:translate="true">Opposite</el:english>
-      </el:string> 
+      </el:string>
       <el:string el:key="text3">
         <el:english el:translate="true">If ten equals three, five equals four, two equals three, four equals four, and thirteen equals eight, what does nine equal?</el:english>
-      </el:string> 
+      </el:string>
       <el:string el:key="text4">
         <el:english el:translate="true">Congratulations!</el:english>
-      </el:string> 
+      </el:string>
     </el:i18n>
   </el:protected>
 </el:level>

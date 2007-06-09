@@ -3,7 +3,7 @@
   <el:protected>
     <el:info el:type="level">
       <el:identity el:title="Variety Pack" el:subtitle="" el:id="duffy101"/>
-      <el:version el:score="1" el:release="1" el:revision="0" el:status="released"/>
+      <el:version el:score="1" el:release="1" el:revision="1" el:status="released"/>
       <el:author  el:name="Jacob Scott" el:email="" el:homepage=""/>
       <el:copyright>Copyright © 2004 Jacob Scott</el:copyright>
       <el:license el:type="GPL v2.0 or above" el:open="true"/>
@@ -34,10 +34,10 @@ function renderLine( line, pattern)
             set_stone( "st-greenbrown", i-1, line)
         elseif c =="W" then
             set_stone( "st-greenbrown", i-1, line)
-           set_floor("fl-water",i-1,line)
+            set_floor("fl-water",i-1,line)
         elseif c =="S" then
             set_stone( "st-greenbrown", i-1, line)
-           set_floor("fl-space",i-1,line)
+            set_floor("fl-space",i-1,line)
         elseif c =="q" then
             set_stone( "st-actorimpulse_invisible", i-1, line)
         elseif c =="%" then
@@ -47,10 +47,10 @@ function renderLine( line, pattern)
             oxyd( i-1, line)
         elseif c == "O" then
             oxyd( i-1, line)
-           set_floor("fl-water",i-1,line)
+            set_floor("fl-water",i-1,line)
         elseif c == "&" then
             oxyd( i-1, line)
-           set_floor("fl-space",i-1,line)
+            set_floor("fl-space",i-1,line)
         elseif c == "@" then
             oxyd( i-1, line)
             abyss(i-1,line)
@@ -59,13 +59,13 @@ function renderLine( line, pattern)
         elseif c == "!" then
             abyss(i-1,line)
         elseif c == "~" then
-           set_floor("fl-water",i-1,line)
+            set_floor("fl-water",i-1,line)
         elseif c == "m" then
-           set_floor("fl-metal",i-1,line)
+            set_floor("fl-metal",i-1,line)
         elseif c=="z" then
-           set_actor("ac-blackball", i-1,line+.5, {player=0})
+            set_actor("ac-blackball", i-1,line+.5, {player=0})
         elseif c=="y" then
-           set_actor("ac-whiteball", i-1,line+.5, {player=1})
+            set_actor("ac-whiteball", i-1,line+.5, {player=1})
         elseif c == "g" then
             draw_stones("st-grate1",{i-1,line}, {1,1}, 1)
         elseif c == "Q" then
@@ -73,7 +73,7 @@ function renderLine( line, pattern)
             abyss(i-1,line)
         elseif c == "a" then
             draw_stones("st-grate1",{i-1,line}, {1,1}, 1)
-           set_floor("fl-metal",i-1,line)
+            set_floor("fl-metal",i-1,line)
         elseif c == "G" then
             draw_stones("st-grate1",{i-1,line}, {1,1}, 1)
             abyss(i-1,line)
@@ -82,67 +82,67 @@ function renderLine( line, pattern)
         elseif c=="=" then
             set_floor("fl-space",i-1,line)
         elseif c=="R" then
-           set_actor("ac-rotor", i-.5,line+.5, {range=7, force=30})
+            set_actor("ac-rotor", i-.5,line+.5, {range=7, force=30})
         elseif c == "-" then
-           puzzle(i-1,line,PUZ_0101)
+            puzzle(i-1,line,PUZ_0101)
         elseif c == "_" then
-           puzzle(i-1,line,PUZ_0101)
+            puzzle(i-1,line,PUZ_0101)
             abyss(i-1,line)
         elseif c == "i" then
-           puzzle(i-1,line,PUZ_1010)
+            puzzle(i-1,line,PUZ_1010)
         elseif c == "/" then
-           puzzle(i-1,line,PUZ_0110)
+            puzzle(i-1,line,PUZ_0110)
         elseif c == "`" then
-           puzzle(i-1,line,PUZ_0011)
+            puzzle(i-1,line,PUZ_0011)
         elseif c == "^" then
-           puzzle(i-1,line,PUZ_1001)
+            puzzle(i-1,line,PUZ_1001)
         elseif c == ";" then
-           puzzle(i-1,line,PUZ_1100)
+            puzzle(i-1,line,PUZ_1100)
         elseif c == "2" then
-           puzzle(i-1,line,PUZ_1000)
+            puzzle(i-1,line,PUZ_1000)
         elseif c == "4" then
-           puzzle(i-1,line,PUZ_0100)
+            puzzle(i-1,line,PUZ_0100)
         elseif c == "6" then
-           puzzle(i-1,line,PUZ_0001)
+            puzzle(i-1,line,PUZ_0001)
         elseif c == "8" then
-           puzzle(i-1,line,PUZ_0010)
+            puzzle(i-1,line,PUZ_0010)
         elseif c == "$" then
-           puzzle(i-1,line,PUZ_0000)
+            puzzle(i-1,line,PUZ_0000)
         elseif c == "5" then
-           puzzle(i-1,line,PUZ_0100)
-           abyss(i-1,line)
+            puzzle(i-1,line,PUZ_0100)
+            abyss(i-1,line)
         elseif c=="U" then
-           set_stone("st-oneway-n", i-1,line)
+            set_stone("st-oneway-n", i-1,line)
 --        elseif c=="R" then
 --             set_stone("st-oneway", i-1,line, {orientation=enigma.EAST})
         elseif c=="D" then
-            set_stone("st-oneway-s", i-1,line)    
+            set_stone("st-oneway-s", i-1,line)
         elseif c=="L" then
-             set_stone("st-oneway-w", i-1,line)
+            set_stone("st-oneway-w", i-1,line)
         elseif c=="?" then
-           fill_floor("fl-ice",i-2,line,19,12)
+            fill_floor("fl-ice",i-2,line,19,12)
         elseif c=="b" then
             yy1( "black",  i-1, line)
         elseif c=="l" then
             set_attrib(laser(i-1,line, TRUE, WEST), "name", "laser1")
-           set_floor("fl-water",i-1,line)
+            set_floor("fl-water",i-1,line)
         elseif c=="<" then
             set_attrib(laser(i-1,line, TRUE, EAST), "name", "laser2")
         elseif c==">" then
             set_attrib(laser(i-1,line, TRUE, WEST), "name", "laser3")
-        elseif c=="f" then    
+        elseif c=="f" then
             set_item("it-floppy", i-1,line)
         elseif c=="F" then
             set_stone( "st-floppy", i-1,line,{action="callback",target="funcc1"})
         elseif c=="A" then
-           set_stone("st-door_a",i-1,line,{name="door1"})
+            set_stone("st-door_a",i-1,line,{name="door1"})
         elseif c=="B" then
-           set_stone("st-door_a",i-1,line,{name="door2"})
+            set_stone("st-door_a",i-1,line,{name="door2"})
         elseif c=="C" then
-           set_stone("st-door_a",i-1,line,{name="door3"})
-         end
-    end    
-     end
+            set_stone("st-door_a",i-1,line,{name="door3"})
+        end
+    end
+end
 
 function yy1( color, x, y)
         stone = format( "st-%s4", color)
@@ -192,9 +192,9 @@ oxyd_shuffle()
 ff1=0
 function funcc1()
 if ff1==0 then
-   SendMessage("door1", "open")
-   SendMessage("door2", "open")
-   SendMessage("door3", "close")
+    SendMessage("door1", "open")
+    SendMessage("door2", "open")
+    SendMessage("door3", "close")
 ff1=1
 elseif ff1==1 then
     SendMessage("door1","close")

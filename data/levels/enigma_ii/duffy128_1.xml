@@ -3,7 +3,7 @@
   <el:protected>
     <el:info el:type="level">
       <el:identity el:title="Patterns" el:subtitle="" el:id="duffy128"/>
-      <el:version el:score="1" el:release="1" el:revision="0" el:status="released"/>
+      <el:version el:score="1" el:release="1" el:revision="1" el:status="released"/>
       <el:author  el:name="Jacob Scott" el:email="" el:homepage=""/>
       <el:copyright>Copyright © 2004 Jacob Scott</el:copyright>
       <el:license el:type="GPL v2.0 or above" el:open="true"/>
@@ -316,7 +316,7 @@ osnum=osnum+1
            set_stone("st-fourswitch",i-1,line,{name=("ssd"..psnum),action="callback",target=("funccxp"..psnum)})
 psnum=psnum+1
          end
-    end    
+    end
 end
 
 renderLine(00,"#############################################################################################################################################!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!##############################!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!! ")
@@ -334,9 +334,9 @@ renderLine(11,"#                                                #               
 renderLine(12,"#############################################################################################################################################!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!##############################!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!! ")
 
 
---                                                 DRURDLDRD                                                                 342 411 414 423 432 441 444                                                                  4 1 2 4 1                                                              
---                                                                                                                                                                                                                                                                                               
---                                                 321234323                                                                                                                                                          4 2 1 4 3 1 4                                                              
+--                                                 DRURDLDRD                                                                 342 411 414 423 432 441 444                                                                  4 1 2 4 1
+--
+--                                                 321234323                                                                                                                                                          4 2 1 4 3 1 4
 
 
 oxyd_shuffle()
@@ -772,7 +772,7 @@ function funcctstart()
 end
 
 ffc=0
-   
+
 function funcctcheck()
    if tpos4==3 and ffc==0 then
       enigma.SendMessage(enigma.GetNamedObject("laser1"),"on",nil)

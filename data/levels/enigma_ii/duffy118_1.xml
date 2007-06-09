@@ -3,7 +3,7 @@
   <el:protected>
     <el:info el:type="level">
       <el:identity el:title="Kaleidoscope" el:subtitle="" el:id="duffy118"/>
-      <el:version el:score="1" el:release="1" el:revision="1" el:status="released"/>
+      <el:version el:score="1" el:release="1" el:revision="2" el:status="released"/>
       <el:author  el:name="Jacob Scott" el:email="" el:homepage=""/>
       <el:copyright>Copyright © 2004 Jacob Scott</el:copyright>
       <el:license el:type="GPL v2.0 or above" el:open="true"/>
@@ -37,27 +37,27 @@ function renderLine( line, pattern)
             oxyd( i-1, line)
         elseif c == "*" then
             set_stone( "st-brownie", i-1, line)
-                elseif c == "!" then
+        elseif c == "!" then
             abyss(i-1,line)
         elseif c == "~" then
-           set_floor("fl-water",i-1,line)
+            set_floor("fl-water",i-1,line)
         elseif c=="z" then
-           set_actor("ac-blackball", i-.5,line+.5, {player=0})
+            set_actor("ac-blackball", i-.5,line+.5, {player=0})
         elseif c=="y" then
-           set_actor("ac-whiteball", i-1,line+.5, {player=1})
+            set_actor("ac-whiteball", i-1,line+.5, {player=1})
         elseif c=="S" then
-           set_actor("ac-top", i-.5,line+.5, {range=100,force=5,player=1})
+            set_actor("ac-top", i-.5,line+.5, {range=100,force=5,player=1})
         elseif c == "g" then
             draw_stones("st-grate1",{i-1,line}, {1,1}, 1)
         elseif c=="+" then
             set_stone( "st-wood", i-1, line)
         elseif c=="=" then
-           set_floor("fl-space",i-1,line)
+            set_floor("fl-space",i-1,line)
         elseif c=="T" then
-           set_stone("st-timer",i-1,line,{interval=1,loop=1,action="callback",target="funcctimer"})
+            set_stone("st-timer",i-1,line,{interval=1,loop=1,action="callback",target="funcctimer"})
         end
-         end    
-      end
+    end
+end
 
 renderLine(00,"XXXXXXXXXXXXXXXXXXXXT")
 renderLine(01,"X     o      o     X ")
@@ -358,12 +358,10 @@ end
 -- brickp=89
 -- dunesp=92
 -- springboardp=94
-
       end
 end
 
 funcctimer()
-
     ]]></el:luamain>
     <el:i18n>
       <el:string el:key="title">

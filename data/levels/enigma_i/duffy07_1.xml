@@ -3,7 +3,7 @@
   <el:protected>
     <el:info el:type="level">
       <el:identity el:title="Jump!" el:subtitle="" el:id="duffy7"/>
-      <el:version el:score="1" el:release="1" el:revision="0" el:status="released"/>
+      <el:version el:score="1" el:release="1" el:revision="1" el:status="released"/>
       <el:author  el:name="Jacob Scott" el:email="" el:homepage=""/>
       <el:copyright>Copyright © 2003 Jacob Scott</el:copyright>
       <el:license el:type="GPL v2.0 or above" el:open="true"/>
@@ -16,8 +16,11 @@
       <el:score el:easy="-" el:difficult="-"/>
     </el:info>
     <el:luamain><![CDATA[
-levelw = 100
-levelh = 100
+rooms_wide=3
+rooms_high=3
+
+levelw=1+(19*rooms_wide)
+levelh=1+(12*rooms_high)
 
 create_world(levelw, levelh)
 
@@ -45,7 +48,7 @@ function renderLine( line, pattern)
             set_stone("st-brownie", i-1, line)
         elseif c == "g" then
             draw_stones("st-grate1",{i-1,line}, {1,1}, 1)
-                elseif c == "u" then
+        elseif c == "u" then
             set_floor("fl-gradient",  i-1,  line, {type=2})
         elseif c == "r" then
             set_floor("fl-gradient",  i-1,  line, {type=3})
@@ -53,33 +56,33 @@ function renderLine( line, pattern)
             set_floor("fl-gradient",  i-1,  line, {type=1})
         elseif c == "l" then
             set_floor("fl-gradient",  i-1,  line, {type=4})
-         elseif c == "d" then
+        elseif c == "d" then
             set_stone("st-death", i-1,line)
-                elseif c == "1" then
+        elseif c == "1" then
             oneway(i-1,line, enigma.NORTH)
-                elseif c == "4" then
+        elseif c == "4" then
             oneway(i-1,line, enigma.SOUTH)
-                elseif c == "3" then
+        elseif c == "3" then
             oneway(i-1,line, enigma.WEST)
-         elseif c == "2" then
+        elseif c == "2" then
             oneway(i-1,line, enigma.EAST)
         elseif c == "~" then
             fill_floor("fl-water", i-1,line, 1,1)
-                elseif c == "!" then
+        elseif c == "!" then
             abyss(i-1,line)
-                elseif c == "@" then
+        elseif c == "@" then
             document(i-1,line,"text1")
-                elseif c == "+" then
-                set_stone("st-greenbrown",i-1,line)
-         elseif c == "f" then
-                fakeoxyd(i-1,line)
+        elseif c == "+" then
+            set_stone("st-greenbrown",i-1,line)
+        elseif c == "f" then
+            fakeoxyd(i-1,line)
         elseif c == "v" then
-                oneway(i-1,line, enigma.WEST)
+            oneway(i-1,line, enigma.WEST)
         elseif c == "y" then
-                oneway(i-1,line, enigma.NORTH)
-        elseif c == "z" then    
+            oneway(i-1,line, enigma.NORTH)
+        elseif c == "z" then
             set_actor("ac-blackball" ,i-1, line)
-                end
+        end
     end
 end
 
@@ -134,7 +137,7 @@ display.SetFollowMode(display.FOLLOW_SCROLLING)
       </el:string>
       <el:string el:key="text1">
         <el:english el:translate="true">It's a race!</el:english>
-      </el:string> 
+      </el:string>
     </el:i18n>
   </el:protected>
 </el:level>
