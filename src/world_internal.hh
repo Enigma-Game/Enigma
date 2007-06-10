@@ -318,15 +318,20 @@ typedef list<sound::SoundDamping> SoundDampingList;
 
         void advance_actor (Actor *a, double h);
         void move_actors (double dtime);
-        void find_contact_with_stone (Actor *a, GridPos p, StoneContact &c, bool isRounded = true,  Stone *st = NULL);
+        void find_contact_with_stone(Actor *a, GridPos p, StoneContact &c, 
+                DirectionBits winFacesActorStone = NODIRBIT,
+                bool isRounded = true, Stone *st = NULL);
         void find_contact_with_edge(Actor *a, GridPos pe, GridPos p1, GridPos p2, 
-                StoneContact &c0, StoneContact &c1, StoneContact &c2);
-        void find_stone_contacts (Actor *a, StoneContact &c0, StoneContact &c1,
+                StoneContact &c0, StoneContact &c1, StoneContact &c2,
+                DirectionBits winFacesActorStone = NODIRBIT);
+        void find_contact_with_window(Actor *a, GridPos p, StoneContact &c0, StoneContact &c1,
+                DirectionBits winFacesActorStone);
+        void find_stone_contacts(Actor *a, StoneContact &c0, StoneContact &c1,
                 StoneContact &c2);
         void handle_stone_contact (StoneContact &sc);
         void handle_actor_contacts ();
         void handle_actor_contact (Actor *actor1, Actor *actor2);
-        void handle_contacts (unsigned actoridx);
+        void handle_stone_contacts(unsigned actoridx);
         void handle_delayed_impulses (double dtime);
         void stone_change (GridPos p);
         void tick_sound_dampings ();

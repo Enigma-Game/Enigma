@@ -25,6 +25,7 @@
 #include "Inventory.hh"
 #include "stones_internal.hh"
 #include "actors.hh"
+#include "main.hh"
 
 #include "ecl_util.hh"
 
@@ -775,46 +776,6 @@ namespace
 }
 
 
-/* -------------------- ConnectiveStone -------------------- */
-
-// base class for PuzzleStone and BigBrick
-
-namespace {
-    class ConnectiveStone : public Stone {
-    public:
-        ConnectiveStone(const char *kind, int connections)
-        : Stone(kind)
-        {
-            set_attrib("connections", connections);
-        }
-
-        DirectionBits get_connections() const;
-    protected:
-        void init_model();
-    private:
-        virtual int get_modelno() const;
-    };
-}
-
-DirectionBits
-ConnectiveStone::get_connections() const
-{
-    int conn = (int)getAttr("connections") - 1;
-    if (conn >=0 && conn <16)
-        return DirectionBits(conn);
-    else
-        return NODIRBIT;
-}
-
-void ConnectiveStone::init_model() {
-    set_model(get_kind()+ecl::strf("%d", get_modelno()));
-}
-
-int ConnectiveStone::get_modelno() const {
-    return getAttr("connections");
-}
-
-
 /* -------------------- BigBrick -------------------- */
 
 // BigBricks allow to build stones of any size
@@ -845,6 +806,82 @@ namespace
         {}
         bool is_removable() const { return false; }
     };
+}
+
+/* -------------------- Window -------------------- */
+
+/** \page st-window Breakable Stone
+
+Hit this window heavily with your marble to blast it into smithereens.
+
+\image html st-window.png
+*/
+
+namespace
+{
+    class Window : public ConnectiveStone {
+        CLONEOBJ(Window);
+        DECL_TRAITS;
+        const char *collision_sound() {return "glass";}
+
+        bool is_transparent (Direction) const { return true; }
+        bool is_floating() const { return state != IDLE; }
+        enum State { IDLE, BREAK } state;
+
+        void actor_hit(const StoneContact &sc) {
+            Actor *a = sc.actor;
+            if (state == IDLE) {
+            double impulse = -(a->get_vel() * sc.normal) * get_mass(a);
+            if (impulse > 35) {
+                SendMessage(a, "shatter");
+            }
+
+        if (impulse > 25) {
+                    sound_event ("shatter");
+                    state = BREAK;
+                    set_anim("st-window-anim");
+                }
+            }
+        }
+        void animcb() {
+            KillStone(get_pos());
+        }
+        
+        void init_model() {   // temp - delete when the images are ready
+            set_model("st-window");
+        }
+
+    public:
+        Window(int connections) : ConnectiveStone("st-window", connections),
+                state(IDLE) {
+        }
+        virtual bool is_sticky(const Actor *a) const;
+        StoneResponse collision_response(const StoneContact &sc);
+    };
+    DEF_TRAITS(Window, "st-window", st_window);
+
+    bool Window::is_sticky(const Actor *a) const  {
+        return false;
+    }
+    
+    StoneResponse Window::collision_response(const StoneContact &sc) {
+        const double face_width = 3.0/32.0; 
+//        DirectionBits dirs = contact_faces(sc);
+        DirectionBits faces = get_connections();
+//        Log << "coll respo: dirs " << dirs << "  faces " << faces << "  c-x " << sc.contact_point[0] << "  s-x " <<get_pos().x;
+            
+
+        if (((sc.contact_point[0] <= get_pos().x + face_width) && faces&WESTBIT) ||
+                ((sc.contact_point[0] >= get_pos().x + 1 - face_width) && faces&EASTBIT) ||
+                ((sc.contact_point[1] <= get_pos().y + face_width) && faces&NORTHBIT) ||
+                ((sc.contact_point[1] >= get_pos().y + 1 - face_width) && faces&SOUTHBIT)) {
+//            Log << " - rebound\n";
+            return STONE_REBOUND;
+        } else {
+//            Log << " - pass\n";
+            return STONE_PASS;
+        }
+    }
 }
 
 
@@ -3517,6 +3554,23 @@ void stones::Init_complex()
     Register ("st-rotator_move-right", new RotatorStone(true, true));
     Register ("st-rotator_move-left", new RotatorStone(false, true));
 
+    Register("st-window", new Window(3));    // compatibility window with south face only
+    Register("st-window-w", new Window(2));
+    Register("st-window-s", new Window(3));
+    Register("st-window-sw", new Window(4));
+    Register("st-window-e", new Window(5));
+    Register("st-window-ew", new Window(6));
+    Register("st-window-es", new Window(7));
+    Register("st-window-esw", new Window(8));
+    Register("st-window-n", new Window(9));
+    Register("st-window-nw", new Window(10));
+    Register("st-window-ns", new Window(11));
+    Register("st-window-nsw", new Window(12));
+    Register("st-window-ne", new Window(13));
+    Register("st-window-new", new Window(14));
+    Register("st-window-nes", new Window(15));
+    Register("st-window-nesw", new Window(16));
+    
     Register(new ShogunStone);
     Register("st-shogun-s", new ShogunStone(1));
     Register("st-shogun-m", new ShogunStone(2));

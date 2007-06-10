@@ -104,6 +104,9 @@ namespace world
 
         virtual const char *collision_sound();
 
+        /**
+         * 
+         */
         virtual StoneResponse collision_response(const StoneContact &sc);
 
         /*! Is this stone movable? Affects impulse-stones, fire, ordinary pushes... */

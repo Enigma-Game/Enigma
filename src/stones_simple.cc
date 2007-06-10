@@ -518,49 +518,6 @@ namespace
 };
 
 
-/* -------------------- Window -------------------- */
-
-/** \page st-window Breakable Stone
-
-Hit this window heavily with your marble to blast it into smithereens.
-
-\image html st-window.png
-*/
-
-namespace
-{
-    class Window : public Stone {
-        CLONEOBJ(Window);
-        DECL_TRAITS;
-        const char *collision_sound() {return "glass";}
-
-        bool is_transparent (Direction) const { return true; }
-        bool is_floating() const { return state != IDLE; }
-        enum State { IDLE, BREAK } state;
-
-        void actor_hit(const StoneContact &sc) {
-            Actor *a = sc.actor;
-            if (state == IDLE) {
-	    	double impulse = -(a->get_vel() * sc.normal) * get_mass(a);
-        	if (impulse > 35) {
-        	    SendMessage(a, "shatter");
-        	}
-
-		if (impulse > 25) {
-                    sound_event ("shatter");
-                    state = BREAK;
-                    set_anim("st-window-anim");
-                }
-            }
-        }
-        void animcb() {
-            KillStone(get_pos());
-        }
-    public:
-        Window() : state(IDLE) {}
-    };
-    DEF_TRAITS(Window, "st-window", st_window);
-}
 
 // -----------------------
 //      BreakableStone
@@ -2293,7 +2250,6 @@ void stones::Init_simple()
 
     Register(new ThiefStone);
     Register(new TimerStone);
-    Register(new Window);
 
     Register(new RandomWoodenStone); // random flavor
     Register(new WoodenStone("st-wood1", "fl-stwood1")); // horizontal planks
