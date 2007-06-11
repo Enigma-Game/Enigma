@@ -126,7 +126,7 @@ namespace stones
             set_attrib("connections", connections);
         }
 
-        DirectionBits ConnectiveStone::get_connections() const {
+        DirectionBits get_connections() const {
             int conn = (int)getAttr("connections") - 1;
             if (conn >=0 && conn <16)
                 return DirectionBits(conn);
@@ -135,11 +135,11 @@ namespace stones
         }
     protected:
 
-        void ConnectiveStone::init_model() {
+        void init_model() {
             set_model(get_kind()+ecl::strf("%d", get_modelno()));
         }
     private:
-        int ConnectiveStone::get_modelno() const {
+        int get_modelno() const {
             return getAttr("connections");
         }
     };

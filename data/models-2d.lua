@@ -1144,8 +1144,14 @@ end
 
 -- st-window --
 do
-    DefSolidStoneWithAnim ("st-window", 4, 80)
+    DefSubimages("st-window", {modelname="st-window",w=4,h=4})
+    DefAlias("st-window","st-window16")
+
+    -- Breaking animimation:
+    local images = DefSubimages("st-window-break", {h=4})
+    DefAnim("st-window-anim", BuildFrames(images, 130))
 end
+
 
 -----------------
 -- Oxyd Stones --

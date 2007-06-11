@@ -847,9 +847,9 @@ namespace
             KillStone(get_pos());
         }
         
-        void init_model() {   // temp - delete when the images are ready
-            set_model("st-window");
-        }
+        //void init_model() {   // temp - delete when the images are ready
+        //    set_model("st-window");
+        //}
 
     public:
         Window(int connections) : ConnectiveStone("st-window", connections),
