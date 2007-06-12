@@ -763,7 +763,7 @@ void World::find_contact_with_stone(Actor *a, GridPos p, StoneContact &c,
                 c.normal        = V2(+1, 0);
                 c.is_contact = true;
                 isInnerContact = true;
-            } else if ((winFacesActorStone&EASTBIT) && (ax <= x+1-2*erad_window_const-r-contact_e)) {
+            } else if ((winFacesActorStone&EASTBIT) && (ax > x+1-2*erad_window_const-r-contact_e)) {
                 c.contact_point = V2(x+1-2*erad_window_const, ay);
                 c.normal        = V2(-1,0);
                 c.is_contact = true;
