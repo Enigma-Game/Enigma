@@ -3,7 +3,7 @@
   <el:protected>
     <el:info el:type="level">
       <el:identity el:title="What a Mess" el:subtitle="" el:id="duffy68"/>
-      <el:version el:score="2" el:release="2" el:revision="1" el:status="released"/>
+      <el:version el:score="2" el:release="2" el:revision="2" el:status="released"/>
       <el:author  el:name="Jacob Scott" el:email="" el:homepage=""/>
       <el:copyright>Copyright © 2003 Jacob Scott</el:copyright>
       <el:license el:type="GPL v2.0 or above" el:open="true"/>
@@ -16,13 +16,15 @@
       <el:score el:easy="-" el:difficult="-"/>
     </el:info>
     <el:luamain><![CDATA[
-levelw=20
-levelh=13
+rooms_wide=1
+rooms_high=1
+
+levelw=1+(19*rooms_wide)
+levelh=1+(12*rooms_high)
 
 create_world( levelw, levelh)
-enigma.ConserveLevel=FALSE
-
-enigma.Brittleness=0
+enigma.ConserveLevel = 0
+enigma.Brittleness = 0
 
 fill_floor("fl-leaves", 0,0,levelw,levelh)
 
@@ -63,7 +65,7 @@ function renderLine( line, pattern)
         elseif c == "l" then
             set_stone("st-bolder-w", i-1,line)
         elseif c=="D" then
-            set_stone("st-oneway-s", i-1,line)    
+            set_stone("st-oneway-s", i-1,line)
         elseif c=="L" then
             set_stone("st-oneway-w", i-1,line)
         elseif c=="R" then
@@ -78,7 +80,7 @@ function renderLine( line, pattern)
             set_item("it-blackbomb",i-1,line)
         elseif c =="b" then
             set_item("it-blackbomb",i-1,line)
-        elseif c=="f" then    
+        elseif c=="f" then
             set_item("it-floppy", i-1,line)
         elseif c=="F" then
             set_stone( "st-floppy", i-1,line,{action="callback",target="funcc1"})
@@ -107,11 +109,11 @@ function renderLine( line, pattern)
         elseif c=="s" then
             set_stone( "st-stoneimpulse", i-1, line)
         elseif c == "p" then
-          set_item("it-wormhole",i-1,line,{strength=0,targetx=7.5,targety=8.5})
+            set_item("it-wormhole",i-1,line,{strength=0,targetx=7.5,targety=8.5})
         elseif c == "q" then
-          set_item("it-wormhole",i-1,line,{strength=0,targetx=12.5,targety=8.5})
- elseif c == "c" then
-set_item("it-crack3",i-1,line)
+            set_item("it-wormhole",i-1,line,{strength=0,targetx=12.5,targety=8.5})
+        elseif c == "c" then
+            set_item("it-crack3",i-1,line)
         end
     end
 end
@@ -138,8 +140,8 @@ function funcc1()
 end
 
 function funcc2()
-   SendMessage("door3","openclose")
-   SendMessage("door4","openclose")
+    SendMessage("door3","openclose")
+    SendMessage("door4","openclose")
 end
     ]]></el:luamain>
     <el:i18n>

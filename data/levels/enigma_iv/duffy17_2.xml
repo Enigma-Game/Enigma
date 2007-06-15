@@ -3,7 +3,7 @@
   <el:protected>
     <el:info el:type="level">
       <el:identity el:title="Double-Spiral" el:subtitle="" el:id="duffy17"/>
-      <el:version el:score="2" el:release="2" el:revision="1" el:status="released"/>
+      <el:version el:score="2" el:release="2" el:revision="2" el:status="released"/>
       <el:author  el:name="Jacob Scott" el:email="" el:homepage=""/>
       <el:copyright>Copyright © 2003 Jacob Scott</el:copyright>
       <el:license el:type="GPL v2.0 or above" el:open="true"/>
@@ -16,11 +16,15 @@
       <el:score el:easy="-" el:difficult="-"/>
     </el:info>
     <el:luamain><![CDATA[
-levelw=50
-levelh=50
+rooms_wide=2
+rooms_high=3
+
+levelw=1+(19*rooms_wide)
+levelh=1+(12*rooms_high)
 
 create_world( levelw, levelh)
-enigma.ConserveLevel = FALSE
+enigma.ConserveLevel = 0
+enigma.TwoPlayerGame = 1
 
 fill_floor("fl-metal", 0,0,levelw,levelh)
 
@@ -32,7 +36,6 @@ function renderLine( line, pattern)
         elseif c == "o" then
             oxyd( i-1, line)
         elseif c == "!" then
-            --abyss(i-1,line)
             fill_floor("fl-water", i-1,line, 1,1)
         elseif c == "s" then
             set_stone("st-stoneimpulse", i-1,line)
@@ -54,10 +57,8 @@ function renderLine( line, pattern)
             set_floor("fl-gradient",  i-1,  line, {type=10})
         elseif c=="z" then
             set_actor("ac-blackball", i-.5,line+.5)
-            set_item("it-yinyang", i-1, line)
         elseif c=="y" then
             set_actor("ac-whiteball", i-.5,line+.5)
-            set_item("it-yinyang", i-1, line)
         elseif c=="+" then
             set_stone( "st-wood", i-1, line)
             fill_floor("fl-leaves", i-1,line, 1,1)
@@ -105,7 +106,7 @@ function renderLine( line, pattern)
             set_stone("st-key_a", i-1, line, {action="openclose", target="door1"})
         elseif c=="V" then
             set_stone("st-key_a", i-1, line, {action="openclose", target="door4"})
-        elseif c=="k" then        
+        elseif c=="k" then
             set_item("it-key_a", i-1 ,line)
         elseif c == "b" then
             yy1( "black",  i-1, line)
@@ -118,12 +119,12 @@ function renderLine( line, pattern)
         elseif c=="p" then
             draw_stones("st-stonebrush", {i-1,line}, {1,0},1)
         end
-    end    
+    end
 end
 
 function yy1( color, x, y)
-        stone = format( "st-%s4", color)
-        set_stone( stone, x, y)
+    stone = format( "st-%s4", color)
+    set_stone( stone, x, y)
 end
 
 -- Floor:  " "
@@ -144,16 +145,16 @@ renderLine(10,"#===!!#!!+!!!!!!===p p  pppppp p p p  #")
 renderLine(11,"#==+!!!!!====!!!===p   p       p p    #")
 renderLine(12,"###### #############################v##")
 renderLine(13,"#                  #o##bbbbbbbbbbbwX K#")
-renderLine(14,"#w#w#w#w#w#w#w#w#wb#h##bwwwwwwwwwbw# U#") 
+renderLine(14,"#w#w#w#w#w#w#w#w#wb#h##bwwwwwwwwwbw# U#")
 renderLine(15,"#wbXbXbXbXbXbXbXbXb# k#bwbbbbbbbwbw#  #")
 renderLine(16,"#wbwbwbwbwbwbwbwbwb#  #bwbwwww#bwbw#y #")
-renderLine(17,"#wbwbwbwbwbwbwbwbwb#  #bwbw#  #bwbw#  #") 
+renderLine(17,"#wbwbwbwbwbwbwbwbwb#  #bwbw#  #bwbw#  #")
 renderLine(18,"#wbwbwbwbwbwbwbwbwb#bb#bwbw#RL#bwbw#ww#")
 renderLine(19,"#wbwbwbwbwbwbwbwbwb#  #bwbw#  #bwbw#  #")
-renderLine(20,"#wbwbwbwbwbwbwbwbwb# z#bwbw#bbbbwbw#  #") 
+renderLine(20,"#wbwbwbwbwbwbwbwbwb# z#bwbw#bbbbwbw#  #")
 renderLine(21,"#wXwXwXwXwXwXwXwXwX#  #bwbwwwwwwwbw#f #")
 renderLine(22,"##b#b#b#b#b#b#b#bwb#V #bwbbbbbbbbbw##q#")
-renderLine(23,"#                  #F Xbwwwwwwwwwww##o#") 
+renderLine(23,"#                  #F Xbwwwwwwwwwww##o#")
 renderLine(24,"######### ###########j#################")
 renderLine(25,"#:::::::::::#::::::#IIlIIIII#II#IIIrII#")
 renderLine(26,"#:::#::::::::::#:::#d###u##I#IIlIII#II#")

@@ -3,7 +3,7 @@
   <el:protected>
     <el:info el:type="level">
       <el:identity el:title="Fly High" el:subtitle="" el:id="duffy86"/>
-      <el:version el:score="1" el:release="1" el:revision="0" el:status="released"/>
+      <el:version el:score="1" el:release="1" el:revision="1" el:status="released"/>
       <el:author  el:name="Jacob Scott" el:email="" el:homepage=""/>
       <el:copyright>Copyright © 2004 Jacob Scott</el:copyright>
       <el:license el:type="GPL v2.0 or above" el:open="true"/>
@@ -43,24 +43,24 @@ function renderLine( line, pattern)
         elseif c == "o" then
             oxyd( i-1, line)
         elseif c == "O" then
-           set_item("it-extralife",i-1,line)
+            set_item("it-extralife",i-1,line)
         elseif c == "*" then
             set_stone( "st-brownie", i-1, line)
         elseif c == "!" then
             abyss(i-1,line)
         elseif c == "~" then
-           set_floor("fl-water",i-1,line)
+            set_floor("fl-water",i-1,line)
         elseif c=="z" then
-           set_actor("ac-blackball", i-1,line+.5, {player=0})
-           set_item("it-extralife",i-1,line)
+            set_actor("ac-blackball", i-1,line+.5, {player=0})
+            set_item("it-extralife",i-1,line)
         elseif c=="y" then
-           set_actor("ac-whiteball", i-.5,line+.5, {player=1,mouseforce=0})
+            set_actor("ac-whiteball", i-.5,line+.5, {player=1,mouseforce=0})
         elseif c=="J" then
-           set_item("it-springboard",i-1,line)
+            set_item("it-springboard",i-1,line)
         elseif c=="w" then
-           set_actor("ac-whiteball-small", i-.5,line+.5, {player=0, mouseforce=0})
+            set_actor("ac-whiteball-small", i-.5,line+.5, {player=0, mouseforce=0})
         elseif c=="W" then
-           set_actor("ac-whiteball-small", i-.5,line+.5, {player=0, mouseforce=1})
+            set_actor("ac-whiteball-small", i-.5,line+.5, {player=0, mouseforce=1})
         elseif c == "g" then
             draw_stones("st-grate1",{i-1,line}, {1,1}, 1)
         elseif c=="+" then
@@ -68,9 +68,9 @@ function renderLine( line, pattern)
         elseif c=="=" then
             set_floor("fl-space",i-1,line)
         elseif c=="q" then
-             set_item("it-vortex-open", i-1, line)
-         end
-    end    
+            set_item("it-vortex-open", i-1, line)
+        end
+    end
 end
 
 renderLine(00,"XXXXXXXXXXXXXXXXXXXX")

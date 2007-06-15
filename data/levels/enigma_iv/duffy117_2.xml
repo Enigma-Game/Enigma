@@ -3,7 +3,7 @@
   <el:protected>
     <el:info el:type="level">
       <el:identity el:title="Bad Nightmare" el:subtitle="" el:id="duffy117"/>
-      <el:version el:score="2" el:release="2" el:revision="2" el:status="released"/>
+      <el:version el:score="2" el:release="2" el:revision="3" el:status="released"/>
       <el:author  el:name="Jacob Scott" el:email="" el:homepage=""/>
       <el:copyright>Copyright © 2004 Jacob Scott</el:copyright>
       <el:license el:type="GPL v2.0 or above" el:open="true"/>
@@ -25,9 +25,9 @@ levelw=1+(19*rooms_wide)
 levelh=1+(12*rooms_high)
 
 if difficult then
-  ffct=.4
+    ffct=.4
 else
-  ffct=.25
+    ffct=.25
 end
 
 create_world( levelw, levelh)
@@ -95,12 +95,12 @@ function renderLine( line, pattern)
         elseif c=="B" then
             yy1( "black",  i-1, line)
         end
-    end    
+    end
 end
 
 function yy1( color, x, y)
-        stone = format( "st-%s4", color)
-        set_stone( stone, x, y)
+    stone = format( "st-%s4", color)
+    set_stone( stone, x, y)
 end
 
 renderLine(00,"#############RR##RR####################XXXXXXXXXXXXXXXXXXX")

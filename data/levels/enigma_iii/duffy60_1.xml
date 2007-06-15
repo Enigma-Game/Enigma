@@ -3,7 +3,7 @@
   <el:protected>
     <el:info el:type="level">
       <el:identity el:title="Automatic Transmission" el:subtitle="" el:id="duffy60"/>
-      <el:version el:score="1" el:release="1" el:revision="0" el:status="released"/>
+      <el:version el:score="1" el:release="1" el:revision="1" el:status="released"/>
       <el:author  el:name="Jacob Scott" el:email="" el:homepage=""/>
       <el:copyright>Copyright © 2003 Jacob Scott</el:copyright>
       <el:license el:type="GPL v2.0 or above" el:open="true"/>
@@ -16,8 +16,11 @@
       <el:score el:easy="-" el:difficult="-"/>
     </el:info>
     <el:luamain><![CDATA[
-levelw=20
-levelh=13
+rooms_wide=1
+rooms_high=1
+
+levelw=1+(19*rooms_wide)
+levelh=1+(12*rooms_high)
 
 create_world( levelw, levelh)
 
@@ -75,7 +78,7 @@ function renderLine( line, pattern)
         elseif c == "@" then
             document(i-1,line,"text1")
         end
-    end    
+    end
 end
 
 renderLine(00,"!o!!!!!!!!!!!$!!!!!!")
@@ -98,7 +101,7 @@ renderLine(12,"!!!!!!!!!!!!!!!!!$!!")
       </el:string>
       <el:string el:key="text1">
         <el:english el:translate="true">The block near the top-left can move.</el:english>
-      </el:string> 
+      </el:string>
     </el:i18n>
   </el:protected>
 </el:level>

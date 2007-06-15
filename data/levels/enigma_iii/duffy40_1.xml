@@ -3,24 +3,27 @@
   <el:protected>
     <el:info el:type="level">
       <el:identity el:title="Cover Your Ears" el:subtitle="" el:id="duffy40"/>
-      <el:version el:score="1" el:release="1" el:revision="0" el:status="released"/>
+      <el:version el:score="1" el:release="1" el:revision="1" el:status="released"/>
       <el:author  el:name="Jacob Scott" el:email="" el:homepage=""/>
       <el:copyright>Copyright © 2003 Jacob Scott</el:copyright>
       <el:license el:type="GPL v2.0 or above" el:open="true"/>
       <el:compatibility el:enigma="0.92">
       </el:compatibility>
-      <el:modes el:easy="false" el:single="true" el:network="false"/>
+      <el:modes el:easy="false" el:single="true" el:network="true"/>
       <el:comments>
         <el:code>Lua 5.1 and XML converted by Leveladministrators</el:code>
       </el:comments>
       <el:score el:easy="-" el:difficult="-"/>
     </el:info>
     <el:luamain><![CDATA[
-levelw=100
-levelh=50
+rooms_wide=3
+rooms_high=3
+
+levelw=1+(19*rooms_wide)
+levelh=1+(12*rooms_high)
 
 create_world( levelw, levelh)
-enigma.TwoPlayerGame = TRUE
+enigma.TwoPlayerGame = 1
 
 fill_floor("fl-bluegreen", 0,0,levelw,levelh)
 
@@ -33,13 +36,12 @@ function renderLine( line, pattern)
             oxyd( i-1, line)
         elseif c == "!" then
             abyss(i-1,line)
---            fill_floor("fl-water", i-1,line, 1,1)
         elseif c=="z" then
-                    set_actor("ac-blackball", i-.5,line+.5)
+            set_actor("ac-blackball", i-.5,line+.5)
         elseif c=="y" then
-                    set_actor("ac-whiteball", i-.5,line+.5, {player=0})
+            set_actor("ac-whiteball", i-.5,line+.5, {player=0})
         elseif c=="H" then
-           hollow(i-1,line)
+            hollow(i-1,line)
         elseif c == "d" then --1-d
             set_floor("fl-gradient",  i-1,  line, {type=1})
         elseif c == "u" then --2-u
@@ -47,22 +49,22 @@ function renderLine( line, pattern)
         elseif c == "r" then --3-r
             set_floor("fl-gradient",  i-1,  line, {type=3})
         elseif c == "l" then --4-l
-           set_floor("fl-gradient",  i-1,  line, {type=4})
+            set_floor("fl-gradient",  i-1,  line, {type=4})
         elseif c=="W" then
-                    oneway(i-1,line, enigma.WEST)
-                    set_floor("fl-gradient",  i-1,  line, {type=4})
+            oneway(i-1,line, enigma.WEST)
+            set_floor("fl-gradient",  i-1,  line, {type=4})
         elseif c=="N" then
-                    oneway(i-1,line, enigma.NORTH)
-                    set_floor("fl-gradient",  i-1,  line, {type=2})
+            oneway(i-1,line, enigma.NORTH)
+            set_floor("fl-gradient",  i-1,  line, {type=2})
         elseif c=="E" then
-                    oneway(i-1,line, enigma.EAST)
-                    set_floor("fl-gradient",  i-1,  line, {type=3})
+            oneway(i-1,line, enigma.EAST)
+            set_floor("fl-gradient",  i-1,  line, {type=3})
         elseif c=="S" then
-                    oneway(i-1,line, enigma.SOUTH)
-                    set_floor("fl-gradient",  i-1,  line, {type=1})
+            oneway(i-1,line, enigma.SOUTH)
+            set_floor("fl-gradient",  i-1,  line, {type=1})
         end
-    end    
-     end
+    end
+end
 
 -- Floor:  " "
 -- Border: "#"
@@ -109,7 +111,6 @@ renderLine(36,"       ##################o#######################o#       ")
 oxyd_shuffle()
 
 local actor1=set_actor("ac-blackball", 34.5,15.5)
-
 local actor2=set_actor("ac-whiteball",  49.5, 2.5)
 
 -- set_item("it-yinyang",34,15)

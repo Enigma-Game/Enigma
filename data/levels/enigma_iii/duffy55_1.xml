@@ -3,7 +3,7 @@
   <el:protected>
     <el:info el:type="level">
       <el:identity el:title="Build Up Speed" el:subtitle="" el:id="duffy55"/>
-      <el:version el:score="1" el:release="1" el:revision="0" el:status="released"/>
+      <el:version el:score="1" el:release="1" el:revision="1" el:status="released"/>
       <el:author  el:name="Jacob Scott" el:email="" el:homepage=""/>
       <el:copyright>Copyright © 2003 Jacob Scott</el:copyright>
       <el:license el:type="GPL v2.0 or above" el:open="true"/>
@@ -16,11 +16,14 @@
       <el:score el:easy="-" el:difficult="-"/>
     </el:info>
     <el:luamain><![CDATA[
-levelw=100
-levelh=40
+rooms_wide=5
+rooms_high=3
+
+levelw=1+(19*rooms_wide)
+levelh=1+(12*rooms_high)
 
 create_world( levelw, levelh)
-enigma.ConserveLevel=FALSE
+enigma.ConserveLevel = 0
 
 fill_floor("fl-abyss", 0,0,levelw,levelh)
 
@@ -31,10 +34,10 @@ function renderLine( line, pattern)
             set_stone( "st-greenbrown", i-1, line)
             set_floor("fl-metal",i-1,line)
         elseif c =="R" then
-           set_stone( "st-rubberband", i-1, line,{strength=15})
+            set_stone( "st-rubberband", i-1, line,{strength=15})
             set_floor("fl-hay",i-1,line)
         elseif c =="T" then
-           set_stone( "st-rubberband", i-1, line,{strength=80})
+            set_stone( "st-rubberband", i-1, line,{strength=80})
             set_floor("fl-metal",i-1,line)
         elseif c =="S" then
             set_stone( "st-scissors", i-1, line)
@@ -43,7 +46,7 @@ function renderLine( line, pattern)
             set_stone( "st-scissors", i-1, line)
             set_floor("fl-metal",i-1,line)
         elseif c =="r" then
-           set_stone( "st-rubberband", i-1, line,{name="r1"})
+            set_stone( "st-rubberband", i-1, line,{name="r1"})
             set_floor("fl-hay",i-1,line)
         elseif c =="&" then
             set_stone( "st-greenbrown", i-1, line)
@@ -64,9 +67,8 @@ function renderLine( line, pattern)
         elseif c == "*" then
             set_stone( "st-brownie", i-1, line)
             set_floor("fl-hay",i-1,line)
-                elseif c == "!" then
+        elseif c == "!" then
             abyss(i-1,line)
---            fill_floor("fl-water", i-1,line, 1,1)
         elseif c=="z" then
             set_actor("ac-blackball", i-.5,line+.5, {name="actor1"})
             set_floor("fl-hay",i-1,line)
@@ -102,19 +104,19 @@ function renderLine( line, pattern)
         elseif c == "9" then --ul
             set_floor("fl-gradient",  i-1,  line, {type=10})
         elseif c=="H" then
-           set_stone("st-actorimpulse",i-1,line)
+            set_stone("st-actorimpulse",i-1,line)
         elseif c=="J" then
-           set_item("it-springboard",i-1,line)
-           set_floor("fl-hay",i-1,line)
+            set_item("it-springboard",i-1,line)
+            set_floor("fl-hay",i-1,line)
         elseif c=="m" then
-           set_item("it-magicwand",i-1,line)
-                   set_floor("fl-hay",i-1,line)
+            set_item("it-magicwand",i-1,line)
+            set_floor("fl-hay",i-1,line)
         elseif c=="s" then
-           set_item("it-ring",i-1,line)
-                   set_floor("fl-hay",i-1,line)
-         end
-    end    
-     end
+            set_item("it-ring",i-1,line)
+            set_floor("fl-hay",i-1,line)
+        end
+    end
+end
 
 -- Floor:  " "
 -- Border: "#"
@@ -160,8 +162,8 @@ renderLine(36,"%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 oxyd_shuffle()
 
-actor1=enigma.GetNamedObject("actor1")
-r1=enigma.GetNamedObject("r1")
+actor1 = enigma.GetNamedObject("actor1")
+r1 = enigma.GetNamedObject("r1")
 AddRubberBand(actor1,r1,15,0)
     ]]></el:luamain>
     <el:i18n>

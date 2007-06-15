@@ -3,24 +3,27 @@
   <el:protected>
     <el:info el:type="level">
       <el:identity el:title="Labyrinth of Puzzles" el:subtitle="" el:id="duffy35"/>
-      <el:version el:score="1" el:release="1" el:revision="0" el:status="released"/>
+      <el:version el:score="1" el:release="1" el:revision="1" el:status="released"/>
       <el:author  el:name="Jacob Scott" el:email="" el:homepage=""/>
       <el:copyright>Copyright © 2003 Jacob Scott</el:copyright>
       <el:license el:type="GPL v2.0 or above" el:open="true"/>
       <el:compatibility el:enigma="0.92" el:engine="oxyd1">
       </el:compatibility>
-      <el:modes el:easy="false" el:single="true" el:network="false"/>
+      <el:modes el:easy="false" el:single="true" el:network="true"/>
       <el:comments>
         <el:code>Lua 5.1 and XML converted by Leveladministrators</el:code>
       </el:comments>
       <el:score el:easy="-" el:difficult="-"/>
     </el:info>
     <el:luamain><![CDATA[
-levelw=77
-levelh=61
+rooms_wide=4
+rooms_high=5
+
+levelw=1+(19*rooms_wide)
+levelh=1+(12*rooms_high)
 
 create_world( levelw, levelh)
-enigma.TwoPlayerGame = TRUE
+enigma.TwoPlayerGame = 1
 
 fill_floor("fl-hay", 0,0,levelw,levelh)
 
@@ -38,13 +41,10 @@ function renderLine( line, pattern)
             hammer(i-1,line)
         elseif c == "!" then
             abyss(i-1,line)
-            --            fill_floor("fl-water", i-1,line, 1,1)
         elseif c=="z" then
             set_actor("ac-blackball", i-.5,line+.5)
---            set_item("it-yinyang", i-1, line+.5)
         elseif c=="y" then
             set_actor("ac-whiteball", i-.5,line+.5)
---            set_item("it-yinyang", i-1, line+.5)
         elseif c == "g" then
             draw_stones("st-grate1",{i-1,line}, {1,1}, 1)
         elseif c=="+" then
@@ -52,7 +52,7 @@ function renderLine( line, pattern)
         elseif c=="W" then
             fill_floor("fl-water", i-1,line, 1,1)
         elseif c=="d" then
-            set_stone("st-oneway-s", i-1,line)    
+            set_stone("st-oneway-s", i-1,line)
         elseif c=="l" then
             set_stone("st-oneway-w", i-1,line)
         elseif c=="R" then
@@ -75,7 +75,7 @@ function renderLine( line, pattern)
             mirrorp(i-1,line,FALSE,TRUE, 2)
         elseif c=="/" then
             mirrorp(i-1,line,FALSE,TRUE, 4)
-        elseif c=="f" then    
+        elseif c=="f" then
             set_item("it-floppy", i-1,line)
         elseif c=="h" then
             hammer(i-1,line)
@@ -157,7 +157,7 @@ function renderLine( line, pattern)
             set_stone( "st-greenbrown", i-1, line)
             fill_floor("fl-space", i-1,line, 1,1)
         end
-    end    
+    end
 end
 
 function yy1( color, x, y)

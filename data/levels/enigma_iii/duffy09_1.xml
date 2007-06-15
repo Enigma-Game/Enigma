@@ -3,7 +3,7 @@
   <el:protected>
     <el:info el:type="level">
       <el:identity el:title="Double-Maze" el:subtitle="" el:id="duffy9"/>
-      <el:version el:score="1" el:release="1" el:revision="0" el:status="released"/>
+      <el:version el:score="1" el:release="1" el:revision="1" el:status="released"/>
       <el:author  el:name="Jacob Scott" el:email="" el:homepage=""/>
       <el:copyright>Copyright © 2003 Jacob Scott</el:copyright>
       <el:license el:type="GPL v2.0 or above" el:open="true"/>
@@ -16,8 +16,11 @@
       <el:score el:easy="-" el:difficult="-"/>
     </el:info>
     <el:luamain><![CDATA[
-levelw=80
-levelh=40
+rooms_wide=1
+rooms_high=1
+
+levelw=1+(19*rooms_wide)
+levelh=1+(12*rooms_high)
 
 create_world( levelw, levelh)
 
@@ -32,11 +35,10 @@ function renderLine( line, pattern)
             set_stone( "st-glass", i-1, line)
         elseif c == "o" then
             if done_with_setup == 0 then
-               oxyd( i-1, line)
+                oxyd( i-1, line)
             end
         elseif c == "!" then
             abyss(i-1,line)
---            fill_floor("fl-water", i-1,line, 1,1)
         elseif c=="z" then
             set_actor("ac-blackball", i-.5,line+.5)
         elseif c=="+" then
@@ -58,105 +60,104 @@ function renderLine( line, pattern)
         elseif c=="g" then
             draw_stones("st-grate1",{i-1,line}, {1,1}, 1)
         elseif c=="A" then
-           if done_with_setup==0 then
-              set_stone("st-switch", i-1,line, {action="callback",target="funcc"})
-           end
+            if done_with_setup==0 then
+                set_stone("st-switch", i-1,line, {action="callback",target="funcc"})
+            end
         elseif c=="h" then
-                    draw_stones("st-grate2",{i-1,line}, {1,1}, 1)
+            draw_stones("st-grate2",{i-1,line}, {1,1}, 1)
         elseif c=="m" then
-                set_stone("st-marble",i-1,line)
+            set_stone("st-marble",i-1,line)
         end
-    end    
+    end
 end
 
 through=0
 swap=0
 function funcc()
-   
---   if swap == 0 then
-      myline0 = gsub(myline0, "#", "B")
-      myline1 = gsub(myline1, "#", "B")
-      myline2 = gsub(myline2, "#", "B")
-      myline3 = gsub(myline3, "#", "B")
-      myline4 = gsub(myline4, "#", "B")
-      myline5 = gsub(myline5, "#", "B")
-      myline6 = gsub(myline6, "#", "B")
-      myline7 = gsub(myline7, "#", "B")
-      myline8 = gsub(myline8, "#", "B")
-      myline9 = gsub(myline9, "#", "B")
-      myline10 = gsub(myline10, "#", "B")
-      myline11 = gsub(myline11, "#", "B")
-      myline12 = gsub(myline12, "#", "B")
-      swap = 1
---   else
-      myline0 = gsub(myline0, "g", "#")
-      myline1 = gsub(myline1, "g", "#")
-      myline2 = gsub(myline2, "g", "#")
-      myline3 = gsub(myline3, "g", "#")
-      myline4 = gsub(myline4, "g", "#")
-      myline5 = gsub(myline5, "g", "#")
-      myline6 = gsub(myline6, "g", "#")
-      myline7 = gsub(myline7, "g", "#")
-      myline8 = gsub(myline8, "g", "#")
-      myline9 = gsub(myline9, "g", "#")
-      myline10 = gsub(myline10, "g", "#")
-      myline11 = gsub(myline11, "g", "#")
-      myline12 = gsub(myline12, "g", "#")
+    --   if swap == 0 then
+    myline0 = gsub(myline0, "#", "B")
+    myline1 = gsub(myline1, "#", "B")
+    myline2 = gsub(myline2, "#", "B")
+    myline3 = gsub(myline3, "#", "B")
+    myline4 = gsub(myline4, "#", "B")
+    myline5 = gsub(myline5, "#", "B")
+    myline6 = gsub(myline6, "#", "B")
+    myline7 = gsub(myline7, "#", "B")
+    myline8 = gsub(myline8, "#", "B")
+    myline9 = gsub(myline9, "#", "B")
+    myline10 = gsub(myline10, "#", "B")
+    myline11 = gsub(myline11, "#", "B")
+    myline12 = gsub(myline12, "#", "B")
+    swap = 1
+    --   else
+    myline0 = gsub(myline0, "g", "#")
+    myline1 = gsub(myline1, "g", "#")
+    myline2 = gsub(myline2, "g", "#")
+    myline3 = gsub(myline3, "g", "#")
+    myline4 = gsub(myline4, "g", "#")
+    myline5 = gsub(myline5, "g", "#")
+    myline6 = gsub(myline6, "g", "#")
+    myline7 = gsub(myline7, "g", "#")
+    myline8 = gsub(myline8, "g", "#")
+    myline9 = gsub(myline9, "g", "#")
+    myline10 = gsub(myline10, "g", "#")
+    myline11 = gsub(myline11, "g", "#")
+    myline12 = gsub(myline12, "g", "#")
 
-      myline0 = gsub(myline0, "B", "g")
-      myline1 = gsub(myline1, "B", "g")
-      myline2 = gsub(myline2, "B", "g")
-      myline3 = gsub(myline3, "B", "g")
-      myline4 = gsub(myline4, "B", "g")
-      myline5 = gsub(myline5, "B", "g")
-      myline6 = gsub(myline6, "B", "g")
-      myline7 = gsub(myline7, "B", "g")
-      myline8 = gsub(myline8, "B", "g")
-      myline9 = gsub(myline9, "B", "g")
-      myline10 = gsub(myline10, "B", "g")
-      myline11 = gsub(myline11, "B", "g")
-      myline12 = gsub(myline12, "B", "g")
-      swap = 0
---   end
+    myline0 = gsub(myline0, "B", "g")
+    myline1 = gsub(myline1, "B", "g")
+    myline2 = gsub(myline2, "B", "g")
+    myline3 = gsub(myline3, "B", "g")
+    myline4 = gsub(myline4, "B", "g")
+    myline5 = gsub(myline5, "B", "g")
+    myline6 = gsub(myline6, "B", "g")
+    myline7 = gsub(myline7, "B", "g")
+    myline8 = gsub(myline8, "B", "g")
+    myline9 = gsub(myline9, "B", "g")
+    myline10 = gsub(myline10, "B", "g")
+    myline11 = gsub(myline11, "B", "g")
+    myline12 = gsub(myline12, "B", "g")
+    swap = 0
+    --   end
 
---   write(handle, "myline is now ")
---   write(handle, myline)
---   write(handle, "\n")
---   flush(handle)
---   closefile(handle)
+    --   write(handle, "myline is now ")
+    --   write(handle, myline)
+    --   write(handle, "\n")
+    --   flush(handle)
+    --   closefile(handle)
 
-   renderLine(00, myline0)
-   renderLine(01, myline1)
-   renderLine(02, myline2)
-   renderLine(03, myline3)
-   renderLine(04, myline4)
-   renderLine(05, myline5)
-   renderLine(06, myline6)
-   renderLine(07, myline7)
-   renderLine(08, myline8)
-   renderLine(09, myline9)
-   renderLine(10, myline10)
-   renderLine(11, myline11)
-   renderLine(12, myline12)
+    renderLine(00, myline0)
+    renderLine(01, myline1)
+    renderLine(02, myline2)
+    renderLine(03, myline3)
+    renderLine(04, myline4)
+    renderLine(05, myline5)
+    renderLine(06, myline6)
+    renderLine(07, myline7)
+    renderLine(08, myline8)
+    renderLine(09, myline9)
+    renderLine(10, myline10)
+    renderLine(11, myline11)
+    renderLine(12, myline12)
 
     if through==1 then
     through=0
     end
---    if through==0 then
---    for i=1, strlen(pattern) do
---        local c = strsub( pattern, i, i)
---        if c =="#" then
---        set_stone("st-greenbrown",i-1,line)
---        end
---    end        
---    end
+    --    if through==0 then
+    --    for i=1, strlen(pattern) do
+    --        local c = strsub( pattern, i, i)
+    --        if c =="#" then
+    --        set_stone("st-greenbrown",i-1,line)
+    --        end
+    --    end
+    --    end
     through=through+1
 end
 
 -- Floor:  " "
 -- Border: "#"
 -- Oxyd:   "o"
- 
+
 myline0= "mommmmommmmmmmmmmomm"
 myline1= "mh###ggg########gg#o"
 myline2= "mggg#g#gg##gggghg##m"
@@ -184,19 +185,20 @@ myline12="mmmmmommmmmmmmmmmmom"
 --myline10= "m######  ######### m")
 --myline11= "m     #            m")
 --myline12= "mmmmmmmmmmmmmmmmmmmm")
-   renderLine(00, myline0)
-   renderLine(01, myline1)
-   renderLine(02, myline2)
-   renderLine(03, myline3)
-   renderLine(04, myline4)
-   renderLine(05, myline5)
-   renderLine(06, myline6)
-   renderLine(07, myline7)
-   renderLine(08, myline8)
-   renderLine(09, myline9)
-   renderLine(10, myline10)
-   renderLine(11, myline11)
-   renderLine(12, myline12)
+
+renderLine(00, myline0)
+renderLine(01, myline1)
+renderLine(02, myline2)
+renderLine(03, myline3)
+renderLine(04, myline4)
+renderLine(05, myline5)
+renderLine(06, myline6)
+renderLine(07, myline7)
+renderLine(08, myline8)
+renderLine(09, myline9)
+renderLine(10, myline10)
+renderLine(11, myline11)
+renderLine(12, myline12)
 
 oxyd_shuffle()
 done_with_setup = 1

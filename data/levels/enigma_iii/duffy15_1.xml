@@ -3,7 +3,7 @@
   <el:protected>
     <el:info el:type="level">
       <el:identity el:title="Bumperball" el:subtitle="" el:id="duffy15"/>
-      <el:version el:score="1" el:release="1" el:revision="0" el:status="released"/>
+      <el:version el:score="1" el:release="1" el:revision="1" el:status="released"/>
       <el:author  el:name="Jacob Scott" el:email="" el:homepage=""/>
       <el:copyright>Copyright © 2003 Jacob Scott</el:copyright>
       <el:license el:type="GPL v2.0 or above" el:open="true"/>
@@ -16,11 +16,14 @@
       <el:score el:easy="-" el:difficult="-"/>
     </el:info>
     <el:luamain><![CDATA[
-enigma.ConserveLevel=FALSE
-levelw=200
-levelh=60
+rooms_wide=3
+rooms_high=3
+
+levelw=1+(19*rooms_wide)
+levelh=1+(12*rooms_high)
 
 create_world( levelw, levelh)
+enigma.ConserveLevel = 0
 
 fill_floor("fl-bluegreen", 0,0,levelw,levelh)
 
@@ -32,7 +35,6 @@ function renderLine( line, pattern)
         elseif c == "o" then
             oxyd( i-1, line)
         elseif c == "!" then
-            --            abyss(i-1,line)
             fill_floor("fl-water", i-1,line, 1,1)
         elseif c == "a" then
             set_item("it-trigger", i-1,line, {action="openclose",target="door1"})
@@ -74,7 +76,6 @@ function renderLine( line, pattern)
             puzzle(i-1,line,PUZ_1001)
         elseif c=="g" then
             puzzle(i-1,line,PUZ_1100)
-
         end
     end
 end
@@ -125,8 +126,6 @@ oxyd_shuffle()
 
 set_actor("ac-blackball", 27.5,19.5)
 set_actor("ac-whiteball-small",1.5,35.5, {controllers=1})
---set_actor("ac-blackball", 50.5,17.5)
---set_actor("ac-blackball", 4.5,30.5)
     ]]></el:luamain>
     <el:i18n>
       <el:string el:key="title">

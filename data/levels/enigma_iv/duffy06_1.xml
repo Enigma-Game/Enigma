@@ -3,7 +3,7 @@
   <el:protected>
     <el:info el:type="level">
       <el:identity el:title="Boulder-Puzzle" el:subtitle="" el:id="duffy6"/>
-      <el:version el:score="1" el:release="1" el:revision="0" el:status="released"/>
+      <el:version el:score="1" el:release="1" el:revision="1" el:status="released"/>
       <el:author  el:name="Jacob Scott" el:email="" el:homepage=""/>
       <el:copyright>Copyright © 2003 Jacob Scott</el:copyright>
       <el:license el:type="GPL v2.0 or above" el:open="true"/>
@@ -16,8 +16,11 @@
       <el:score el:easy="-" el:difficult="-"/>
     </el:info>
     <el:luamain><![CDATA[
-levelw=40
-levelh=13
+rooms_wide=2
+rooms_high=1
+
+levelw=1+(19*rooms_wide)
+levelh=1+(12*rooms_high)
 
 create_world( levelw, levelh)
 
@@ -26,8 +29,8 @@ fill_floor("fl-leaves", 0,0,levelw,levelh)
 function renderLine( line, pattern)
     for i=1, strlen(pattern) do
         local c = strsub( pattern, i, i)
-          if c =="#" then
-              set_stone( "st-greenbrown", i-1, line)
+        if c =="#" then
+            set_stone( "st-greenbrown", i-1, line)
         elseif c == "o" then
             oxyd( i-1, line)
         elseif c == "g" then
@@ -38,34 +41,32 @@ function renderLine( line, pattern)
             set_stone("st-bolder-e", i-1,line)
         elseif c == "L" then
             set_stone("st-bolder-w", i-1,line)
-         elseif c == "D" then
+        elseif c == "D" then
             set_stone("st-bolder-s", i-1,line)
         elseif c == "m" then
             set_item( "it-magicwand", i-1,line)
         elseif c == "z" then
             set_actor("ac-blackball", i-1,line)
-         elseif c == "s" then
-                set_stone("st-stoneimpulse",i-1,line)
+        elseif c == "s" then
+            set_stone("st-stoneimpulse",i-1,line)
         elseif c == "," then
             set_item("it-trigger", i-1,line, {action="openclose", target="door6"})
         elseif c == "<" then
-                        set_stone("st-door_b", i-1,line, {name="door6", type="v"})
+            set_stone("st-door_b", i-1,line, {name="door6", type="v"})
         elseif c == "." then
             set_item("it-trigger", i-1,line, {action="openclose", target="door7"})
         elseif c == ">" then
-                        set_stone("st-door_b", i-1,line, {name="door7", type="v"})
+            set_stone("st-door_b", i-1,line, {name="door7", type="v"})
         elseif c == "/" then
             set_item("it-trigger", i-1,line, {action="openclose", target="door8"})
         elseif c == "?" then
-                        set_stone("st-door_b", i-1,line, {name="door8", type="v"})
+            set_stone("st-door_b", i-1,line, {name="door8", type="v"})
         elseif c == ";" then
             set_item("it-trigger", i-1,line, {action="openclose", target="door9"})
         elseif c == ":" then
-                        set_stone("st-door_b", i-1,line, {name="door9", type="v"})
+            set_stone("st-door_b", i-1,line, {name="door9", type="v"})
         elseif c == "!" then
-           -- bolders now fall into abyss, replaced abyss by water [ralf]
             set_floor("fl-water",i-1,line)
-            --abyss(i-1,line)
         end
     end
 end
@@ -90,10 +91,6 @@ renderLine(12,"#######################################")
 
 oxyd_shuffle()
 
--- bolders now fall into abyss, replaced abyss by water [ralf]
---abyss(13,6)
---abyss(14,6)
---abyss(22,5)
 set_floor("fl-water",13,6)
 set_floor("fl-water",14,6)
 set_floor("fl-water",22,5)

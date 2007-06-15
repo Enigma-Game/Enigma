@@ -3,7 +3,7 @@
   <el:protected>
     <el:info el:type="level">
       <el:identity el:title="Speed Jump" el:subtitle="" el:id="duffy44"/>
-      <el:version el:score="1" el:release="1" el:revision="0" el:status="released"/>
+      <el:version el:score="1" el:release="1" el:revision="1" el:status="released"/>
       <el:author  el:name="Jacob Scott" el:email="" el:homepage=""/>
       <el:copyright>Copyright © 2003 Jacob Scott</el:copyright>
       <el:license el:type="GPL v2.0 or above" el:open="true"/>
@@ -16,8 +16,11 @@
       <el:score el:easy="-" el:difficult="-"/>
     </el:info>
     <el:luamain><![CDATA[
-levelw=100
-levelh=30
+rooms_wide=4
+rooms_high=1
+
+levelw=1+(19*rooms_wide)
+levelh=1+(12*rooms_high)
 
 create_world( levelw, levelh)
 
@@ -39,37 +42,37 @@ function renderLine( line, pattern)
             set_floor("fl-hay",  i-1,  line)
         elseif c == " " then
             abyss(i-1,line)
-    elseif c=="a" then
+        elseif c=="a" then
             set_item("it-trigger", i-1,line, {action="callback", target="funcca"})
-    elseif c=="b" then
+        elseif c=="b" then
             set_item("it-trigger", i-1,line, {action="callback", target="funccb"})
-    elseif c=="c" then
+        elseif c=="c" then
             set_item("it-trigger", i-1,line, {action="callback", target="funccc"})
-    elseif c=="d" then
+        elseif c=="d" then
             set_item("it-trigger", i-1,line, {action="callback", target="funccd"})
-    elseif c=="e" then
+        elseif c=="e" then
             set_item("it-trigger", i-1,line, {action="callback", target="funcce"})
-    elseif c=="f" then
+        elseif c=="f" then
             set_item("it-trigger", i-1,line, {action="callback", target="funccf"})
-    elseif c=="g" then
+        elseif c=="g" then
             set_item("it-trigger", i-1,line, {action="callback", target="funccg"})
-    elseif c=="h" then
+        elseif c=="h" then
             set_item("it-trigger", i-1,line, {action="callback", target="funcch"})
-    elseif c=="i" then
+        elseif c=="i" then
             set_item("it-trigger", i-1,line, {action="callback", target="funcci"})
-    elseif c=="j" then
+        elseif c=="j" then
             set_item("it-trigger", i-1,line, {action="callback", target="funccj"})
-    elseif c=="k" then
+        elseif c=="k" then
             set_item("it-trigger", i-1,line, {action="callback", target="funcck"})
-    elseif c=="l" then
+        elseif c=="l" then
             set_item("it-trigger", i-1,line, {action="callback", target="funccl"})
-    elseif c=="m" then
+        elseif c=="m" then
             set_item("it-trigger", i-1,line, {action="callback", target="funccm"})
-    elseif c=="n" then
+        elseif c=="n" then
             set_item("it-trigger", i-1,line, {action="callback", target="funccn"})
-    elseif c=="p" then
+        elseif c=="p" then
             set_item("it-trigger", i-1,line, {action="callback", target="funccp"})
-    elseif c=="q" then
+        elseif c=="q" then
             set_item("it-trigger", i-1,line, {action="callback", target="funccq"})
         elseif c=="A" then
             set_item( "it-magnet",i-1 ,line , {name="m1"})
@@ -110,7 +113,7 @@ function renderLine( line, pattern)
         elseif c == "R" then --3-r
             set_floor("fl-gradient",  i-1,  line, {type=3})
         end
-    end    
+    end
 end
 
 -- Floor:  " "
@@ -163,52 +166,52 @@ function funccf()
 end
 
 function funccg()
-   SendMessage("m6","off")
-   SendMessage("m7","on")
+    SendMessage("m6","off")
+    SendMessage("m7","on")
 end
 
 function funcch()
-   SendMessage("m7","off")
-   SendMessage("m8","on")
+    SendMessage("m7","off")
+    SendMessage("m8","on")
 end
 
 function funcci()
-   SendMessage("m8","off")
-   SendMessage("m9","on")
+    SendMessage("m8","off")
+    SendMessage("m9","on")
 end
 
 function funccj()
-   SendMessage("m9","off")
-   SendMessage("m10","on")
+    SendMessage("m9","off")
+    SendMessage("m10","on")
 end
 
 function funcck()
-   SendMessage("m10","off")
-   SendMessage("m11","on")
+    SendMessage("m10","off")
+    SendMessage("m11","on")
 end
 
 function funccl()
-   SendMessage("m11","off")
-   SendMessage("m12","on")
+    SendMessage("m11","off")
+    SendMessage("m12","on")
 end
 
 function funccm()
-   SendMessage("m12","off")
-   SendMessage("m13","on")
+    SendMessage("m12","off")
+    SendMessage("m13","on")
 end
 
 function funccn()
-   SendMessage("m13","off")
-   SendMessage("m14","on")
+    SendMessage("m13","off")
+    SendMessage("m14","on")
 end
 
 function funccp()
-   SendMessage("m14","off")
-   SendMessage("m15","on")
+    SendMessage("m14","off")
+    SendMessage("m15","on")
 end
 
 function funccq()
-   SendMessage("m15","off")
+    SendMessage("m15","off")
 end
     ]]></el:luamain>
     <el:i18n>
