@@ -3,13 +3,13 @@
   <el:protected>
     <el:info el:type="level">
       <el:identity el:title="Mirror Sharing" el:subtitle="" el:id="duffy150"/>
-      <el:version el:score="1" el:release="1" el:revision="0" el:status="released"/>
+      <el:version el:score="1" el:release="1" el:revision="1" el:status="released"/>
       <el:author  el:name="Jacob Scott" el:email="" el:homepage=""/>
       <el:copyright>Copyright © 2007 Jacob Scott</el:copyright>
       <el:license el:type="GPL v2.0 or above" el:open="true"/>
       <el:compatibility el:enigma="0.92">
       </el:compatibility>
-      <el:modes el:easy="false" el:single="true" el:network="false"/>
+      <el:modes el:easy="false" el:single="true" el:network="true"/>
       <el:score el:easy="-" el:difficult="-"/>
     </el:info>
     <el:luamain><![CDATA[
@@ -20,7 +20,8 @@ levelw=1+(19*rooms_wide)
 levelh=1+(12*rooms_high)
 
 create_world( levelw, levelh)
-enigma.ConserveLevel=FALSE
+enigma.ConserveLevel = 0
+enigma.TwoPlayerGame = 1
 
 fill_floor("fl-normal", 0,0,levelw,levelh)
 
@@ -39,10 +40,8 @@ function renderLine( line, pattern)
             set_floor("fl-water",i-1,line)
         elseif c=="z" then
             set_actor("ac-blackball", i-.5,line+.5, {player=0, essential=1})
-            set_item("it-yinyang",i-1,line)
         elseif c=="y" then
             set_actor("ac-whiteball", i-.5,line+.5, {player=1, essential=1})
-            set_item("it-yinyang",i-1,line)
         elseif c == "g" then
             draw_stones("st-grate1",{i-1,line}, {1,1}, 1)
         elseif c=="+" then
@@ -128,9 +127,9 @@ d4=enigma.GetNamedObject("doord")
 ff1=0
 function funcc1()
     if ff1==0 then
-    ff1=1
+        ff1=1
     else
-    ff1=0
+        ff1=0
     end
     funcccheck()
 end
@@ -138,9 +137,9 @@ end
 ff2=0
 function funcc2()
     if ff2==0 then
-    ff2=1
+        ff2=1
     else
-    ff2=0
+        ff2=0
     end
     funcccheck()
 end
@@ -148,9 +147,9 @@ end
 ff3=0
 function funcc3()
     if ff3==0 then
-    ff3=1
+        ff3=1
     else
-    ff3=0
+        ff3=0
     end
     funcccheck()
 end
@@ -158,9 +157,9 @@ end
 ff4=0
 function funcc4()
     if ff4==0 then
-    ff4=1
+        ff4=1
     else
-    ff4=0
+        ff4=0
     end
     funcccheck()
 end
@@ -168,9 +167,9 @@ end
 ff5=0
 function funcc5()
     if ff5==0 then
-    ff5=1
+        ff5=1
     else
-    ff5=0
+        ff5=0
     end
     funcccheck()
 end
@@ -178,9 +177,9 @@ end
 ff6=0
 function funcc6()
     if ff6==0 then
-    ff6=1
+        ff6=1
     else
-    ff6=0
+        ff6=0
     end
     funcccheck()
 end
@@ -188,9 +187,9 @@ end
 ff7=0
 function funcc7()
     if ff7==0 then
-    ff7=1
+        ff7=1
     else
-    ff7=0
+        ff7=0
     end
     funcccheck()
 end
@@ -198,9 +197,9 @@ end
 ff8=0
 function funcc8()
     if ff8==0 then
-    ff8=1
+        ff8=1
     else
-    ff8=0
+        ff8=0
     end
     funcccheck()
 end
@@ -225,153 +224,153 @@ end
 ffa=1
 function funcca()
     if ffa==0 then
-    enigma.KillStone(11,4)
-    enigma.KillItem(11,4)
-    mirrorp(23,4,FALSE,TRUE, 1)
-    set_item("it-landmine",23,4)
-    ffa=1
+        enigma.KillStone(11,4)
+        enigma.KillItem(11,4)
+        mirrorp(23,4,FALSE,TRUE, 1)
+        set_item("it-landmine",23,4)
+        ffa=1
     else
-    enigma.KillStone(23,4)
-    enigma.KillItem(23,4)
-    mirrorp(11,4,FALSE,TRUE, 1)
-    set_item("it-landmine",11,4)
-    ffa=0
+        enigma.KillStone(23,4)
+        enigma.KillItem(23,4)
+        mirrorp(11,4,FALSE,TRUE, 1)
+        set_item("it-landmine",11,4)
+        ffa=0
     end
 end
 
 ffb=0
 function funccb()
     if ffb==0 then
-    enigma.KillStone(13,4)
-    enigma.KillItem(13,4)
-    mirrorp(25,4,FALSE,TRUE, 1)
-    set_item("it-landmine",25,4)
-    ffb=1
+        enigma.KillStone(13,4)
+        enigma.KillItem(13,4)
+        mirrorp(25,4,FALSE,TRUE, 1)
+        set_item("it-landmine",25,4)
+        ffb=1
     else
-    enigma.KillStone(25,4)
-    enigma.KillItem(25,4)
-    mirrorp(13,4,FALSE,TRUE, 1)
-    set_item("it-landmine",13,4)
-    ffb=0
+        enigma.KillStone(25,4)
+        enigma.KillItem(25,4)
+        mirrorp(13,4,FALSE,TRUE, 1)
+        set_item("it-landmine",13,4)
+        ffb=0
     end
 end
 
 ffc=1
 function funccc()
     if ffc==0 then
-    enigma.KillStone(15,4)
-    enigma.KillItem(15,4)
-    mirrorp(27,4,FALSE,TRUE, 1)
-    set_item("it-landmine",27,4)
-    ffc=1
+        enigma.KillStone(15,4)
+        enigma.KillItem(15,4)
+        mirrorp(27,4,FALSE,TRUE, 1)
+        set_item("it-landmine",27,4)
+        ffc=1
     else
-    enigma.KillStone(27,4)
-    enigma.KillItem(27,4)
-    mirrorp(15,4,FALSE,TRUE, 1)
-    set_item("it-landmine",15,4)
-    ffc=0
+        enigma.KillStone(27,4)
+        enigma.KillItem(27,4)
+        mirrorp(15,4,FALSE,TRUE, 1)
+        set_item("it-landmine",15,4)
+        ffc=0
     end
 end
 
 ffd=0
 function funccd()
     if ffd==0 then
-    enigma.KillStone(11,6)
-    enigma.KillItem(11,6)
-    mirrorp(23,6,FALSE,TRUE, 1)
-    set_item("it-landmine",23,6)
-    ffd=1
+        enigma.KillStone(11,6)
+        enigma.KillItem(11,6)
+        mirrorp(23,6,FALSE,TRUE, 1)
+        set_item("it-landmine",23,6)
+        ffd=1
     else
-    enigma.KillStone(23,6)
-    enigma.KillItem(23,6)
-    mirrorp(11,6,FALSE,TRUE, 1)
-    set_item("it-landmine",11,6)
-    ffd=0
+        enigma.KillStone(23,6)
+        enigma.KillItem(23,6)
+        mirrorp(11,6,FALSE,TRUE, 1)
+        set_item("it-landmine",11,6)
+        ffd=0
     end
 end
 
 ffe=1
 function funcce()
     if ffe==0 then
-    enigma.KillStone(13,6)
-    enigma.KillItem(13,6)
-    mirrorp(25,6,FALSE,TRUE, 1)
-    set_item("it-landmine",25,6)
-    ffe=1
+        enigma.KillStone(13,6)
+        enigma.KillItem(13,6)
+        mirrorp(25,6,FALSE,TRUE, 1)
+        set_item("it-landmine",25,6)
+        ffe=1
     else
-    enigma.KillStone(25,6)
-    enigma.KillItem(25,6)
-    mirrorp(13,6,FALSE,TRUE, 1)
-    set_item("it-landmine",13,6)
-    ffe=0
+        enigma.KillStone(25,6)
+        enigma.KillItem(25,6)
+        mirrorp(13,6,FALSE,TRUE, 1)
+        set_item("it-landmine",13,6)
+        ffe=0
     end
 end
 
 fff=0
 function funccf()
     if fff==0 then
-    enigma.KillStone(15,6)
-    enigma.KillItem(15,6)
-    mirrorp(27,6,FALSE,TRUE, 1)
-    set_item("it-landmine",27,6)
-    fff=1
+        enigma.KillStone(15,6)
+        enigma.KillItem(15,6)
+        mirrorp(27,6,FALSE,TRUE, 1)
+        set_item("it-landmine",27,6)
+        fff=1
     else
-    enigma.KillStone(27,6)
-    enigma.KillItem(27,6)
-    mirrorp(15,6,FALSE,TRUE, 1)
-    set_item("it-landmine",15,6)
-    fff=0
+        enigma.KillStone(27,6)
+        enigma.KillItem(27,6)
+        mirrorp(15,6,FALSE,TRUE, 1)
+        set_item("it-landmine",15,6)
+        fff=0
     end
 end
 
 ffg=1
 function funccg()
     if ffg==0 then
-    enigma.KillStone(11,8)
-    enigma.KillItem(11,8)
-    mirrorp(23,8,FALSE,TRUE, 1)
-    set_item("it-landmine",23,8)
-    ffg=1
+        enigma.KillStone(11,8)
+        enigma.KillItem(11,8)
+        mirrorp(23,8,FALSE,TRUE, 1)
+        set_item("it-landmine",23,8)
+        ffg=1
     else
-    enigma.KillStone(23,8)
-    enigma.KillItem(23,8)
-    mirrorp(11,8,FALSE,TRUE, 1)
-    set_item("it-landmine",11,8)
-    ffg=0
+        enigma.KillStone(23,8)
+        enigma.KillItem(23,8)
+        mirrorp(11,8,FALSE,TRUE, 1)
+        set_item("it-landmine",11,8)
+        ffg=0
     end
 end
 
 ffh=0
 function funcch()
     if ffh==0 then
-    enigma.KillStone(13,8)
-    enigma.KillItem(13,8)
-    mirrorp(25,8,FALSE,TRUE, 1)
-    set_item("it-landmine",25,8)
-    ffh=1
+        enigma.KillStone(13,8)
+        enigma.KillItem(13,8)
+        mirrorp(25,8,FALSE,TRUE, 1)
+        set_item("it-landmine",25,8)
+        ffh=1
     else
-    enigma.KillStone(25,8)
-    enigma.KillItem(25,8)
-    mirrorp(13,8,FALSE,TRUE, 1)
-    set_item("it-landmine",13,8)
-    ffh=0
+        enigma.KillStone(25,8)
+        enigma.KillItem(25,8)
+        mirrorp(13,8,FALSE,TRUE, 1)
+        set_item("it-landmine",13,8)
+        ffh=0
     end
 end
 
 ffi=1
 function funcci()
     if ffi==0 then
-    enigma.KillStone(15,8)
-    enigma.KillItem(15,8)
-    mirrorp(27,8,FALSE,TRUE, 1)
-    set_item("it-landmine",27,8)
-    ffi=1
+        enigma.KillStone(15,8)
+        enigma.KillItem(15,8)
+        mirrorp(27,8,FALSE,TRUE, 1)
+        set_item("it-landmine",27,8)
+        ffi=1
     else
-    enigma.KillStone(27,8)
-    enigma.KillItem(27,8)
-    mirrorp(15,8,FALSE,TRUE, 1)
-    set_item("it-landmine",15,8)
-    ffi=0
+        enigma.KillStone(27,8)
+        enigma.KillItem(27,8)
+        mirrorp(15,8,FALSE,TRUE, 1)
+        set_item("it-landmine",15,8)
+        ffi=0
     end
 end
     ]]></el:luamain>

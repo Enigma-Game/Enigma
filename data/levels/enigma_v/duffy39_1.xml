@@ -3,7 +3,7 @@
   <el:protected>
     <el:info el:type="level">
       <el:identity el:title="Turnstile City" el:subtitle="" el:id="duffy39"/>
-      <el:version el:score="1" el:release="1" el:revision="0" el:status="released"/>
+      <el:version el:score="1" el:release="1" el:revision="1" el:status="released"/>
       <el:author  el:name="Jacob Scott" el:email="" el:homepage=""/>
       <el:copyright>Copyright © 2003 Jacob Scott</el:copyright>
       <el:license el:type="GPL v2.0 or above" el:open="true"/>
@@ -16,11 +16,14 @@
       <el:score el:easy="-" el:difficult="-"/>
     </el:info>
     <el:luamain><![CDATA[
-levelw=20
-levelh=13
+rooms_wide=1
+rooms_high=1
+
+levelw=1+(19*rooms_wide)
+levelh=1+(12*rooms_high)
 
 create_world( levelw, levelh)
-enigma.ConserveLevel=FALSE
+enigma.ConserveLevel = 0
 
 fill_floor("fl-hay", 0,0,levelw,levelh)
 
@@ -35,14 +38,12 @@ function renderLine( line, pattern)
             oxyd( i-1, line)
         elseif c == "*" then
             set_stone( "st-brownie", i-1, line)
-                elseif c == "!" then
+        elseif c == "!" then
             abyss(i-1,line)
---            fill_floor("fl-water", i-1,line, 1,1)
-                elseif c == "~" then
---            abyss(i-1,line)
+        elseif c == "~" then
             fill_floor("fl-water", i-1,line, 1,1)
         elseif c=="z" then
-                set_actor("ac-blackball", i-.5,line+.5)
+            set_actor("ac-blackball", i-.5,line+.5)
         elseif c == "g" then
             draw_stones("st-grate1",{i-1,line}, {1,1}, 1)
         elseif c=="+" then
@@ -76,69 +77,69 @@ function renderLine( line, pattern)
         elseif c =="T" then
             set_item("it-trigger", i-1,line, {action="openclose", target="bridge14"})
         elseif c=="=" then
-           set_stone("st-turnstile",i-1,line)
-           set_stone("st-turnstile-w",i-2,line)
-           set_stone("st-turnstile-e",i,line)
+            set_stone("st-turnstile",i-1,line)
+            set_stone("st-turnstile-w",i-2,line)
+            set_stone("st-turnstile-e",i,line)
         elseif c=="i" then
-           set_stone("st-turnstile",i-1,line)
-           set_stone("st-turnstile-n",i-1,line-1)
-           set_stone("st-turnstile-s",i-1,line+1)
+            set_stone("st-turnstile",i-1,line)
+            set_stone("st-turnstile-n",i-1,line-1)
+            set_stone("st-turnstile-s",i-1,line+1)
         elseif c=="l" then
-           set_stone("st-turnstile",i-1,line)
-           set_stone("st-turnstile-n",i-1,line-1)
-           set_stone("st-turnstile-e",i,line)
+            set_stone("st-turnstile",i-1,line)
+            set_stone("st-turnstile-n",i-1,line-1)
+            set_stone("st-turnstile-e",i,line)
         elseif c=="j" then
-           set_stone("st-turnstile",i-1,line)
-           set_stone("st-turnstile-n",i-1,line-1)
-           set_stone("st-turnstile-w",i-2,line)
+            set_stone("st-turnstile",i-1,line)
+            set_stone("st-turnstile-n",i-1,line-1)
+            set_stone("st-turnstile-w",i-2,line)
         elseif c=="f" then
-           set_stone("st-turnstile",i-1,line)
-           set_stone("st-turnstile-s",i-1,line+1)
-           set_stone("st-turnstile-e",i,line)
+            set_stone("st-turnstile",i-1,line)
+            set_stone("st-turnstile-s",i-1,line+1)
+            set_stone("st-turnstile-e",i,line)
         elseif c=="7" then
-           set_stone("st-turnstile",i-1,line)
-           set_stone("st-turnstile-s",i-1,line+1)
-           set_stone("st-turnstile-w",i-2,line) 
+            set_stone("st-turnstile",i-1,line)
+            set_stone("st-turnstile-s",i-1,line+1)
+            set_stone("st-turnstile-w",i-2,line)
         elseif c=="a" then
-           set_floor("fl-bridge",i-1,line,{name="bridge1"})
+            set_floor("fl-bridge",i-1,line,{name="bridge1"})
         elseif c=="b" then
-           set_floor("fl-bridge",i-1,line,{name="bridge2"})
+            set_floor("fl-bridge",i-1,line,{name="bridge2"})
         elseif c=="c" then
-           set_floor("fl-bridge",i-1,line,{name="bridge3"})
+            set_floor("fl-bridge",i-1,line,{name="bridge3"})
         elseif c=="d" then
-           set_floor("fl-bridge",i-1,line,{name="bridge4"})
+            set_floor("fl-bridge",i-1,line,{name="bridge4"})
         elseif c=="e" then
-           set_floor("fl-bridge",i-1,line,{name="bridge5"})
+            set_floor("fl-bridge",i-1,line,{name="bridge5"})
         elseif c=="h" then
-           set_floor("fl-bridge",i-1,line,{name="bridge6"})
+            set_floor("fl-bridge",i-1,line,{name="bridge6"})
         elseif c=="k" then
-           set_floor("fl-bridge",i-1,line,{name="bridge7"})
+            set_floor("fl-bridge",i-1,line,{name="bridge7"})
         elseif c=="m" then
-           set_floor("fl-bridge",i-1,line,{name="bridge8"})
+            set_floor("fl-bridge",i-1,line,{name="bridge8"})
         elseif c=="n" then
-           set_floor("fl-bridge",i-1,line,{name="bridge9"})
+            set_floor("fl-bridge",i-1,line,{name="bridge9"})
         elseif c=="p" then
-           set_floor("fl-bridge",i-1,line,{name="bridge10"})
+            set_floor("fl-bridge",i-1,line,{name="bridge10"})
         elseif c=="q" then
-           set_floor("fl-bridge",i-1,line,{name="bridge11"})
+            set_floor("fl-bridge",i-1,line,{name="bridge11"})
         elseif c=="r" then
-           set_floor("fl-bridge",i-1,line,{name="bridge12"})
+            set_floor("fl-bridge",i-1,line,{name="bridge12"})
         elseif c=="s" then
-           set_floor("fl-bridge",i-1,line,{name="bridge13"})
+            set_floor("fl-bridge",i-1,line,{name="bridge13"})
         elseif c=="t" then
-           set_floor("fl-bridge",i-1,line,{name="bridge14"})
+            set_floor("fl-bridge",i-1,line,{name="bridge14"})
         elseif c =="O" then
             set_item("it-extralife", i-1,line)
         elseif c =="`" then
-           set_item("it-puller-s", i-1, line)
-         end
-    end    
+            set_item("it-puller-s", i-1, line)
+        end
+    end
 end
 
 function yy1( color, x, y)
-       stone = format( "st-%s4", color)
-        set_stone( stone, x, y)
-     end
+    stone = format( "st-%s4", color)
+    set_stone( stone, x, y)
+end
 
 renderLine(00,"#######o#o#o#o#o#o##")
 renderLine(01,"#edcba             #")

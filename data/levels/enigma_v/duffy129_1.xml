@@ -3,7 +3,7 @@
   <el:protected>
     <el:info el:type="level">
       <el:identity el:title="Island Labyrinth" el:subtitle="" el:id="duffy129"/>
-      <el:version el:score="1" el:release="1" el:revision="0" el:status="released"/>
+      <el:version el:score="1" el:release="1" el:revision="1" el:status="released"/>
       <el:author  el:name="Jacob Scott" el:email="" el:homepage=""/>
       <el:copyright>Copyright © 2004 Jacob Scott</el:copyright>
       <el:license el:type="GPL v2.0 or above" el:open="true"/>
@@ -23,6 +23,7 @@ levelw=1+(19*rooms_wide)
 levelh=1+(12*rooms_high)
 
 create_world( levelw, levelh)
+display.SetFollowMode(display.FOLLOW_SCROLLING)
 
 fill_floor("fl-leaves", 0,0,levelw,levelh)
 
@@ -46,25 +47,25 @@ function renderLine( line, pattern)
             oxyd( i-1, line)
         elseif c == "I" then
             oxyd( i-1, line)
-           set_floor("fl-water",i-1,line)
+            set_floor("fl-water",i-1,line)
         elseif c == ":" then
-           oxyd( i-1, line)
-           abyss(i-1,line)
+            oxyd( i-1, line)
+            abyss(i-1,line)
         elseif c == ";" then
-           oxyd( i-1, line)
+            oxyd( i-1, line)
             set_floor("fl-ice",i-1,line)
         elseif c == "*" then
             set_stone( "st-brownie", i-1, line)
-                elseif c == "!" then
+        elseif c == "!" then
             abyss(i-1,line)
         elseif c == "~" then
-           set_floor("fl-water",i-1,line)
+            set_floor("fl-water",i-1,line)
         elseif c == "q" then
-           set_floor("fl-water",i-1,line)
+            set_floor("fl-water",i-1,line)
         elseif c=="z" then
-           set_actor("ac-blackball", i-.5,line+.5, {player=0})
+            set_actor("ac-blackball", i-.5,line+.5, {player=0})
         elseif c=="y" then
-           set_actor("ac-whiteball", i-1,line+.5, {player=1})
+            set_actor("ac-whiteball", i-1,line+.5, {player=1})
         elseif c == "g" then
             draw_stones("st-grate1",{i-1,line}, {1,1}, 1)
         elseif c=="+" then
@@ -78,9 +79,9 @@ function renderLine( line, pattern)
         elseif c=="p" then
             set_floor("fl-normal",i-1,line)
         elseif c=="O" then
-           set_item("it-extralife",i-1,line)
+            set_item("it-extralife",i-1,line)
         elseif c=="f" then
-           set_item("it-flagblack",i-1,line)
+            set_item("it-flagblack",i-1,line)
         elseif c == "d" then --1-d
             set_floor("fl-gradient",  i-1,  line, {type=1})
         elseif c == "u" then --2-u
@@ -98,18 +99,18 @@ function renderLine( line, pattern)
         elseif c == "9" then --ul
             set_floor("fl-gradient",  i-1,  line, {type=10})
         elseif c == "Q" then
-           set_actor("ac-rotor", i-.5,line+.5, {player=1, mouseforce=0, range=5.5, force=30})
-           set_floor("fl-water",i-1,line)
+            set_actor("ac-rotor", i-.5,line+.5, {player=1, mouseforce=0, range=5.5, force=30})
+            set_floor("fl-water",i-1,line)
         elseif c == "R" then
-           set_actor("ac-rotor", i-.5,line+.5, {player=1, mouseforce=0, range=3, force=10})
+            set_actor("ac-rotor", i-.5,line+.5, {player=1, mouseforce=0, range=3, force=10})
         elseif c == "v" then
-           set_actor("ac-rotor", i-.5,line+.5, {player=1, mouseforce=0, range=10, force=5})
+            set_actor("ac-rotor", i-.5,line+.5, {player=1, mouseforce=0, range=10, force=5})
             set_floor("fl-ice",i-1,line)
         elseif c == "?" then
-           set_actor("ac-top", i-.5,line+.5, {player=1, mouseforce=0, range=0, force=0})
+            set_actor("ac-top", i-.5,line+.5, {player=1, mouseforce=0, range=0, force=0})
             set_floor("fl-ice",i-1,line)
         elseif c == "W" then
-           set_actor("ac-top", i-.5,line+.5, {player=1, mouseforce=0, range=5, force=5})
+            set_actor("ac-top", i-.5,line+.5, {player=1, mouseforce=0, range=5, force=5})
             set_floor("fl-ice",i-1,line)
         elseif c == "b" then
             yy1( "black",  i-1, line)
@@ -117,32 +118,32 @@ function renderLine( line, pattern)
             yy1( "black",  i-1, line)
             set_floor("fl-ice",i-1,line)
         elseif c=="T" then
-           set_stone("st-turnstile",i-1,line)
+            set_stone("st-turnstile",i-1,line)
         elseif c=="n" then
-           set_stone("st-turnstile-n",i-1,line)
+            set_stone("st-turnstile-n",i-1,line)
         elseif c=="N" then
-           set_stone("st-turnstile-n",i-1,line)
-           set_floor("fl-water",i-1,line)
+            set_stone("st-turnstile-n",i-1,line)
+            set_floor("fl-water",i-1,line)
         elseif c=="e" then
-           set_stone("st-turnstile-e",i-1,line)
+            set_stone("st-turnstile-e",i-1,line)
         elseif c=="S" then
-           set_stone("st-turnstile-s",i-1,line)
+            set_stone("st-turnstile-s",i-1,line)
         elseif c=="w" then
-           set_stone("st-turnstile-w",i-1,line)
+            set_stone("st-turnstile-w",i-1,line)
         elseif c=="i" then
-             set_item("it-vortex-closed", i-1, line,{name="v1"})
+            set_item("it-vortex-closed", i-1, line,{name="v1"})
         elseif c=="j" then
-             set_item("it-vortex-closed", i-1, line,{name="v2"})
+            set_item("it-vortex-closed", i-1, line,{name="v2"})
         elseif c=="C" then
-           set_item("it-vortex-open", i-1, line,{targetx="135.5",targety="9.5"})
+            set_item("it-vortex-open", i-1, line,{targetx="135.5",targety="9.5"})
         elseif c=="D" then
-           set_item("it-vortex-open", i-1, line,{targetx="77.5",targety="19.5"})
+            set_item("it-vortex-open", i-1, line,{targetx="77.5",targety="19.5"})
         elseif c=="&" then
-           set_item("it-vortex-open", i-1, line,{targetx="149.5",targety="27.5"})
+            set_item("it-vortex-open", i-1, line,{targetx="149.5",targety="27.5"})
         elseif c=="@" then
-           set_item("it-vortex-open", i-1, line,{targetx="136.5",targety="35.5"})
+            set_item("it-vortex-open", i-1, line,{targetx="136.5",targety="35.5"})
         elseif c=="s" then
-           set_stone("st-stoneimpulse",i-1,line)
+            set_stone("st-stoneimpulse",i-1,line)
         elseif c=="A" then
             doorh( i-1,line, {name="door1"})
         elseif c=="B" then
@@ -181,13 +182,13 @@ function renderLine( line, pattern)
             set_item("it-floppy", i-1,line)
             set_floor("fl-ice",i-1,line)
         elseif c=="J" then
-           set_item("it-springboard",i-1,line)
+            set_item("it-springboard",i-1,line)
         elseif c=="t" then
-                set_stone("st-oneway_black", i-1,line, {orientation=enigma.SOUTH})
+            set_stone("st-oneway_black", i-1,line, {orientation=enigma.SOUTH})
         elseif c=="a" then
-                set_stone("st-oneway_black", i-1,line, {orientation=enigma.NORTH})
+            set_stone("st-oneway_black", i-1,line, {orientation=enigma.NORTH})
         elseif c=="H" then
-           set_item("it-hollow",i-1,line)
+            set_item("it-hollow",i-1,line)
         elseif c=="`" then
             mirrorp(i-1,line,TRUE,FALSE, 2)
         elseif c=="/" then
@@ -195,14 +196,14 @@ function renderLine( line, pattern)
         elseif c=="L" then
             set_attrib(laser(i-1,line, TRUE, EAST), "name", "laser")
         elseif c=="h" then
-           set_item("it-magicwand",i-1,line)
-         end
-    end    
-     end
+            set_item("it-magicwand",i-1,line)
+        end
+    end
+end
 
 function yy1( color, x, y)
-        stone = format( "st-%s4", color)
-        set_stone( stone, x, y)
+    stone = format( "st-%s4", color)
+    set_stone( stone, x, y)
 end
 
 renderLine(00,"qqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqq###########################################################################")
@@ -290,31 +291,29 @@ v2=enigma.GetNamedObject("v2")
 
 ff1=0
 function funcc1()
-if ff1==0 then
-   enigma.SendMessage(door1,"open",nil)
-   enigma.SendMessage(door2,"open",nil)
-ff1=1
-elseif ff1==1 then
-   enigma.SendMessage(door1,"close",nil)
-   enigma.SendMessage(door2,"close",nil)
-ff1=0
-end
+    if ff1==0 then
+        enigma.SendMessage(door1,"open",nil)
+        enigma.SendMessage(door2,"open",nil)
+        ff1=1
+    elseif ff1==1 then
+        enigma.SendMessage(door1,"close",nil)
+        enigma.SendMessage(door2,"close",nil)
+        ff1=0
+    end
 end
 
 ff2=0
 function funcc2()
-if ff2==0 then
-   enigma.SendMessage(v1,"open",nil)
-   enigma.SendMessage(v2,"open",nil)
-ff2=1
-elseif ff2==1 then
-   enigma.SendMessage(v1,"close",nil)
-   enigma.SendMessage(v2,"close",nil)
-ff2=0
+    if ff2==0 then
+        enigma.SendMessage(v1,"open",nil)
+        enigma.SendMessage(v2,"open",nil)
+        ff2=1
+    elseif ff2==1 then
+        enigma.SendMessage(v1,"close",nil)
+        enigma.SendMessage(v2,"close",nil)
+        ff2=0
+    end
 end
-end
-
-display.SetFollowMode(display.FOLLOW_SCROLLING)
     ]]></el:luamain>
     <el:i18n>
       <el:string el:key="title">

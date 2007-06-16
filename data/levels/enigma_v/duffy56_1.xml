@@ -3,25 +3,28 @@
   <el:protected>
     <el:info el:type="level">
       <el:identity el:title="Crossfire" el:subtitle="" el:id="duffy56"/>
-      <el:version el:score="1" el:release="1" el:revision="0" el:status="released"/>
+      <el:version el:score="1" el:release="1" el:revision="1" el:status="released"/>
       <el:author  el:name="Jacob Scott" el:email="" el:homepage=""/>
       <el:copyright>Copyright © 2003 Jacob Scott</el:copyright>
       <el:license el:type="GPL v2.0 or above" el:open="true"/>
       <el:compatibility el:enigma="0.92">
       </el:compatibility>
-      <el:modes el:easy="false" el:single="true" el:network="false"/>
+      <el:modes el:easy="false" el:single="true" el:network="true"/>
       <el:comments>
         <el:code>Lua 5.1 and XML converted by Leveladministrators</el:code>
       </el:comments>
       <el:score el:easy="-" el:difficult="-"/>
     </el:info>
     <el:luamain><![CDATA[
-levelw=40
-levelh=13
+rooms_wide=2
+rooms_high=1
+
+levelw=1+(19*rooms_wide)
+levelh=1+(12*rooms_high)
 
 create_world( levelw, levelh)
-enigma.ConserveLevel=FALSE
-enigma.TwoPlayerGame = TRUE
+enigma.ConserveLevel = 0
+enigma.TwoPlayerGame = 1
 
 fill_floor("fl-hay", 0,0,levelw,levelh)
 
@@ -38,7 +41,6 @@ function renderLine( line, pattern)
             set_stone( "st-brownie", i-1, line)
         elseif c == "!" then
             abyss(i-1,line)
-            --            fill_floor("fl-water", i-1,line, 1,1)
         elseif c=="z" then
             set_actor("ac-blackball", i-.5,line+.5)
             set_item("it-yinyang",i-1,line)
@@ -76,7 +78,7 @@ function renderLine( line, pattern)
             set_stone( "st-thief", i-1, line)
             set_floor("fl-space",i-1,line)
         end
-    end    
+    end
 end
 
 -- Floor:  " "

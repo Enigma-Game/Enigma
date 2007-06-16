@@ -3,7 +3,7 @@
   <el:protected>
     <el:info el:type="level">
       <el:identity el:title="Choo-Choo" el:subtitle="" el:id="duffy22"/>
-      <el:version el:score="1" el:release="1" el:revision="0" el:status="released"/>
+      <el:version el:score="1" el:release="1" el:revision="1" el:status="released"/>
       <el:author  el:name="Jacob Scott" el:email="" el:homepage=""/>
       <el:copyright>Copyright © 2003 Jacob Scott</el:copyright>
       <el:license el:type="GPL v2.0 or above" el:open="true"/>
@@ -16,11 +16,14 @@
       <el:score el:easy="-" el:difficult="-"/>
     </el:info>
     <el:luamain><![CDATA[
-levelw=80
-levelh=15
+rooms_wide=3
+rooms_high=1
+
+levelw=1+(19*rooms_wide) +10
+levelh=1+(12*rooms_high)
 
 create_world( levelw, levelh)
-enigma.ConserveLevel=FALSE
+enigma.ConserveLevel = 0
 
 fill_floor("fl-metal", 0,0,levelw,levelh)
 
@@ -33,14 +36,12 @@ function renderLine( line, pattern)
             set_stone( "st-death", i-1, line)
         elseif c == "o" then
             oxyd( i-1, line)
-                elseif c == "!" then
---            abyss(i-1,line)
+        elseif c == "!" then
             fill_floor("fl-water", i-1,line, 1,1)
         elseif c=="+" then
             set_stone( "st-wood", i-1, line)
         elseif c=="g" then
             draw_stones("st-grate1",{i-1,line}, {1,1}, 1)
-
         elseif c=="h" then
            set_item("it-tinyhollow", i-1, line)
         elseif c=="H" then
@@ -59,7 +60,7 @@ function renderLine( line, pattern)
            set_floor("fl-gradient",  i-1,  line, {type=10})
         elseif c == "4" then --dl
            set_floor("fl-gradient",  i-1,  line, {type=4})
-         elseif c == "S" then
+        elseif c == "S" then
            set_stone("st-bolder-s", i-1,line, {name="bolder1"})
         elseif c == "R" then
            set_stone("st-bolder-e", i-1,line, {name="bolder2"})
@@ -100,15 +101,15 @@ function renderLine( line, pattern)
         elseif c =="X" then
            set_stone( "st-rubberband", i-1, line,{strength=0})
 
-elseif c=="w" then
+        elseif c=="w" then
 yy1( "white",  i-1, line)
         end
-    end    
+    end
 end
 
 function yy1( color, x, y)
-        stone = format( "st-%s4", color)
-        set_stone( stone, x, y)
+    stone = format( "st-%s4", color)
+    set_stone( stone, x, y)
 end
 
 -- Floor:  " "
@@ -165,19 +166,19 @@ ee=0
 rr=0
 
 function funcc1()
-   SetAttribs("bolder1", {direction=NORTH})
+    SetAttribs("bolder1", {direction=NORTH})
 end
 
 function funcc2()
-   SetAttribs("bolder2", {direction=EAST})
+    SetAttribs("bolder2", {direction=EAST})
 end
 
 function funcc3()
-   SetAttribs("bolder1", {direction=SOUTH})
+    SetAttribs("bolder1", {direction=SOUTH})
 end
 
 function funcc4()
-   SetAttribs("bolder2", {direction=WEST})
+    SetAttribs("bolder2", {direction=WEST})
 end
 
 function funcc5()

@@ -3,7 +3,7 @@
   <el:protected>
     <el:info el:type="level">
       <el:identity el:title="Parish Fair" el:subtitle="Perish Unfair" el:id="duffy143"/>
-      <el:version el:score="1" el:release="1" el:revision="0" el:status="released"/>
+      <el:version el:score="1" el:release="1" el:revision="1" el:status="released"/>
       <el:author  el:name="Jacob Scott" el:email="" el:homepage=""/>
       <el:copyright>Copyright © 2007 Jacob Scott</el:copyright>
       <el:license el:type="GPL v2.0 or above" el:open="true"/>
@@ -17,14 +17,16 @@
       <el:score el:easy="-" el:difficult="-"/>
     </el:info>
     <el:luamain><![CDATA[
--- !!BBE105!! Do not delete this line
+rooms_wide=3
+rooms_high=2
+
+levelw=1+(19*rooms_wide)
+levelh=1+(12*rooms_high)
+
 function file_oxyd(x,y,f)
     oxyd_default_flavor=f
     oxyd(x,y)
 end
-
-levelh=25
-levelw=58
 
 enigma.FlatForce=30
 enigma.SlopeForce=30

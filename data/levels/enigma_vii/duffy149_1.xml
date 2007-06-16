@@ -3,7 +3,7 @@
   <el:protected>
     <el:info el:type="level">
       <el:identity el:title="Exclusive Pole Positions" el:subtitle="" el:id="duffy149"/>
-      <el:version el:score="1" el:release="1" el:revision="0" el:status="released"/>
+      <el:version el:score="1" el:release="1" el:revision="1" el:status="released"/>
       <el:author  el:name="Jacob Scott" el:email="" el:homepage=""/>
       <el:copyright>Copyright © 2007 Jacob Scott</el:copyright>
       <el:license el:type="GPL v2.0 or above" el:open="true"/>
@@ -21,7 +21,7 @@ levelh=1+(12*rooms_high)
 
 create_world( levelw, levelh)
 
-fill_floor("fl-bluegreen", 0,0,levelw,levelh)
+fill_floor("fl-bluegreen")
 
 function renderLine( line, pattern)
     for i=1, strlen(pattern) do
@@ -297,177 +297,177 @@ function funccremove()
         ffr=0
     elseif ffr==0 then
         blockremove()
-    ffr=1
+        ffr=1
     end
 end
 
 function block1()
     if b1==0 then
         set_stone( "st-greenbrown", 2, 12)
-    b1=1
+        b1=1
     elseif b1==1 then
         enigma.KillStone(2,12)
-    b1=0
+        b1=0
     end
 end
 
 function block2()
     if b2==0 then
         set_stone( "st-greenbrown", 3, 12)
-    b2=1
+        b2=1
     elseif b2==1 then
         enigma.KillStone(3,12)
-    b2=0
+        b2=0
     end
 end
 
 function block3()
     if b3==0 then
         set_stone( "st-greenbrown", 4, 12)
-    b3=1
+        b3=1
     elseif b3==1 then
         enigma.KillStone(4,12)
-    b3=0
+        b3=0
     end
 end
 
 function block4()
     if b4==0 then
         set_stone( "st-greenbrown", 5, 12)
-    b4=1
+        b4=1
     elseif b4==1 then
         enigma.KillStone(5,12)
-    b4=0
+        b4=0
     end
 end
 
 function block5()
     if b5==0 then
         set_stone( "st-greenbrown", 6, 12)
-    b5=1
+        b5=1
     elseif b5==1 then
         enigma.KillStone(6,12)
-    b5=0
+        b5=0
     end
 end
 
 function block6()
     if b6==0 then
         set_stone( "st-greenbrown", 7, 12)
-    b6=1
+        b6=1
     elseif b6==1 then
         enigma.KillStone(7,12)
-    b6=0
+        b6=0
     end
 end
 
 function block7()
     if b7==0 then
         set_stone( "st-greenbrown", 8, 12)
-    b7=1
+        b7=1
     elseif b7==1 then
         enigma.KillStone(8,12)
-    b7=0
+        b7=0
     end
 end
 
 function block8()
     if b8==0 then
         set_stone( "st-greenbrown", 9, 12)
-    b8=1
+        b8=1
     elseif b8==1 then
         enigma.KillStone(9,12)
-    b8=0
+        b8=0
     end
 end
 
 function block9()
     if b9==0 then
         set_stone( "st-greenbrown", 10, 12)
-    b9=1
+        b9=1
     elseif b9==1 then
         enigma.KillStone(10,12)
-    b9=0
+        b9=0
     end
 end
 
 function block10()
     if b10==0 then
         set_stone( "st-greenbrown", 11, 12)
-    b10=1
+        b10=1
     elseif b10==1 then
         enigma.KillStone(11,12)
-    b10=0
+        b10=0
     end
 end
 
 function block11()
     if b11==0 then
         set_stone( "st-greenbrown", 12, 12)
-    b11=1
+        b11=1
     elseif b11==1 then
         enigma.KillStone(12,12)
-    b11=0
+        b11=0
     end
 end
 
 function block12()
     if b12==0 then
         set_stone( "st-greenbrown", 13, 12)
-    b12=1
+        b12=1
     elseif b12==1 then
         enigma.KillStone(13,12)
-    b12=0
+        b12=0
     end
 end
 
 function block13()
     if b13==0 then
         set_stone( "st-greenbrown", 14, 12)
-    b13=1
+        b13=1
     elseif b13==1 then
         enigma.KillStone(14,12)
-    b13=0
+        b13=0
     end
 end
 
 function block14()
     if b14==0 then
         set_stone( "st-greenbrown", 15, 12)
-    b14=1
+        b14=1
     elseif b14==1 then
         enigma.KillStone(15,12)
-    b14=0
+        b14=0
     end
 end
 
 function block15()
     if b15==0 then
         set_stone( "st-greenbrown", 16, 12)
-    b15=1
+        b15=1
     elseif b15==1 then
         enigma.KillStone(16,12)
-    b15=0
+        b15=0
     end
 end
 
 function block16()
     if b16==0 then
         set_stone( "st-greenbrown", 17, 12)
-    b16=1
+        b16=1
     elseif b16==1 then
         enigma.KillStone(17,12)
-    b16=0
+        b16=0
     end
 end
 
 function blockremove()
     if br==0 then
         set_stone( "st-greenbrown", 19, 17)
-    br=1
+        br=1
     elseif br==1 then
         enigma.KillStone(19,17)
-    br=0
+        br=0
     end
 end
     ]]></el:luamain>

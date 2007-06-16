@@ -3,7 +3,7 @@
   <el:protected>
     <el:info el:type="level">
       <el:identity el:title="Ocean Cruising" el:subtitle="" el:id="duffy131"/>
-      <el:version el:score="1" el:release="1" el:revision="0" el:status="released"/>
+      <el:version el:score="1" el:release="1" el:revision="1" el:status="released"/>
       <el:author  el:name="Jacob Scott" el:email="" el:homepage=""/>
       <el:copyright>Copyright © 2005 Jacob Scott</el:copyright>
       <el:license el:type="GPL v2.0 or above" el:open="true"/>
@@ -23,8 +23,8 @@ levelw=1+(19*rooms_wide)
 levelh=1+(12*rooms_high)
 
 create_world( levelw, levelh)
-
-enigma.WaterSinkSpeed=40
+enigma.WaterSinkSpeed = 40
+display.SetFollowMode(display.FOLLOW_SCROLLING)
 
 fill_floor("fl-hay", 0,0,levelw,levelh)
 
@@ -39,31 +39,31 @@ function renderLine( line, pattern)
             set_floor("fl-water",i-1,line)
         elseif c == "*" then
             set_stone( "st-brownie", i-1, line)
-                elseif c == "!" then
+        elseif c == "!" then
             abyss(i-1,line)
         elseif c == "~" then
-           set_floor("fl-water",i-1,line)
+            set_floor("fl-water",i-1,line)
         elseif c == "S" then
-           set_floor("fl-swamp",i-1,line)
+            set_floor("fl-swamp",i-1,line)
         elseif c == "T" then
-           set_floor("fl-swamp",i-1,line)
-           set_item("it-extralife",i-1,line)
+            set_floor("fl-swamp",i-1,line)
+            set_item("it-extralife",i-1,line)
         elseif c == "W" then
-           set_floor("fl-wood",i-1,line)
+            set_floor("fl-wood",i-1,line)
         elseif c == "w" then
-           set_floor("fl-wood",i-1,line)
-           set_item("it-extralife",i-1,line)
+            set_floor("fl-wood",i-1,line)
+            set_item("it-extralife",i-1,line)
         elseif c == "M" then
-           set_floor("fl-metal",i-1,line)
+            set_floor("fl-metal",i-1,line)
         elseif c == "m" then
-           set_floor("fl-metal",i-1,line)
-           set_item("it-extralife",i-1,line)
+            set_floor("fl-metal",i-1,line)
+            set_item("it-extralife",i-1,line)
         elseif c == "L" then
-           set_floor("fl-leaves",i-1,line)
+            set_floor("fl-leaves",i-1,line)
         elseif c == "s" then
-           set_floor("fl-sand",i-1,line)
+            set_floor("fl-sand",i-1,line)
         elseif c=="z" then
-           set_actor("ac-blackball", i-1,line+.5, {player=0})
+            set_actor("ac-blackball", i-1,line+.5, {player=0})
         elseif c == "g" then
             draw_stones("st-grate1",{i-1,line}, {1,1}, 1)
         elseif c=="+" then
@@ -71,9 +71,9 @@ function renderLine( line, pattern)
         elseif c=="=" then
             set_floor("fl-space",i-1,line)
         elseif c=="F" then
-           set_item("it-flagblack",i-1,line)
-         end
-    end    
+            set_item("it-flagblack",i-1,line)
+        end
+    end
 end
 
 renderLine(00,"#######################################")
@@ -115,8 +115,6 @@ renderLine(35,"#~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~#")
 renderLine(36,"#######################################")
 
 oxyd_shuffle()
-
-display.SetFollowMode(display.FOLLOW_SCROLLING)
     ]]></el:luamain>
     <el:i18n>
       <el:string el:key="title">
