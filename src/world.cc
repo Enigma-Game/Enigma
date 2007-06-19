@@ -732,7 +732,7 @@ void World::find_contact_with_stone(Actor *a, GridPos p, StoneContact &c,
             if ((winFacesActorStone&face) && !(face_neighbour&face)) {
                 // contact to a inner corner of a window stone
                 // same code as external corner below
-                Log << "inner corner\n";
+//                Log << "inner corner\n";
                 double cx[2] = {cdist, -cdist};
         
                 V2 corner(x+xcorner+cx[xcorner], y+ycorner+cx[ycorner]);
@@ -900,8 +900,8 @@ void World::find_contact_with_edge(Actor *a, GridPos p0, GridPos p1, GridPos p2,
  * actor.
  * @arg a   the actor that causes contacts
  * @arg p   the grid position of the actor and the Window stone
- * @arg c0  a contact info for a contact. The normal has no need of being intialized
- * @arg c1  a contact info for a contact. The normal has no need of being intialized
+ * @arg c0  a contact info for a east or west contact. The normal has no need of being intialized
+ * @arg c1  a contact info for a noth or south contact. The normal has no need of being intialized
  * @arg winFacesActorStone  the faces of a Window stone on the actors grid position
  */
 void World::find_contact_with_window(Actor *a, GridPos p, StoneContact &c0, StoneContact &c1,
@@ -961,58 +961,99 @@ void World::find_stone_contacts(Actor *a, StoneContact &c0, StoneContact &c1,
         // upper grid part
         if (x - g.x < re) {
             // upper left edge
-            c0.normal = V2(+1, +1);  // no need of normalization - just direction
-            c1.normal = V2(0, +1);
-            c2.normal = V2(+1, 0);
-            c0.contact_point = c1.contact_point = c2.contact_point = V2(g.x, g.y);
-            find_contact_with_edge(a, GridPos(g.x - 1, g.y - 1), GridPos(g.x, g.y - 1),
-                    GridPos(g.x - 1, g.y), c0, c1, c2, winFacesActorStone);
+            if (c1.is_contact)
+                // inner west window contact - just look for north adjacent stone contact 
+                find_contact_with_stone(a, GridPos(g.x, g.y - 1), c0, winFacesActorStone);
+            else if (c2.is_contact)
+                // inner north window contact - just look for west adjacent stone contact 
+                find_contact_with_stone(a, GridPos(g.x - 1, g.y), c0, winFacesActorStone);
+            else {
+                c0.normal = V2(+1, +1);  // no need of normalization - just direction
+                c1.normal = V2(0, +1);
+                c2.normal = V2(+1, 0);
+                c0.contact_point = c1.contact_point = c2.contact_point = V2(g.x, g.y);
+                find_contact_with_edge(a, GridPos(g.x - 1, g.y - 1), GridPos(g.x, g.y - 1),
+                        GridPos(g.x - 1, g.y), c0, c1, c2, winFacesActorStone);
+            }
         } else if (-x + (g.x + 1) < re) {
             // upper right edge
-            c0.normal = V2(-1, +1);  // no need of normalization - just direction
-            c1.normal = V2(0, +1);
-            c2.normal = V2(-1, 0);
-            c0.contact_point = c1.contact_point = c2.contact_point = V2(g.x+1, g.y);
-            find_contact_with_edge(a, GridPos(g.x + 1, g.y -1), GridPos(g.x, g.y - 1),
-                    GridPos(g.x + 1, g.y), c0, c1, c2, winFacesActorStone);
+            find_contact_with_window(a, GridPos(g.x, g.y), c1, c2, winFacesActorStone);
+            if (c1.is_contact)
+                // inner east window contact - just look for north adjacent stone contact 
+                find_contact_with_stone(a, GridPos(g.x, g.y - 1), c0, winFacesActorStone);
+            else if (c2.is_contact)
+                // inner north window contact - just look for east adjacent stone contact 
+                find_contact_with_stone(a, GridPos(g.x + 1, g.y), c0, winFacesActorStone);
+            else {
+                c0.normal = V2(-1, +1);  // no need of normalization - just direction
+                c1.normal = V2(0, +1);
+                c2.normal = V2(-1, 0);
+                c0.contact_point = c1.contact_point = c2.contact_point = V2(g.x+1, g.y);
+                find_contact_with_edge(a, GridPos(g.x + 1, g.y -1), GridPos(g.x, g.y - 1),
+                        GridPos(g.x + 1, g.y), c0, c1, c2, winFacesActorStone);
+            }
         } else {
             // upper middle part
-            find_contact_with_stone(a, GridPos(g.x, g.y - 1), c0, winFacesActorStone);
             find_contact_with_window(a, GridPos(g.x, g.y), c1, c2, winFacesActorStone);
+            if (!c2.is_contact)
+                // only hit adjacent stone if no inner window is in front
+                find_contact_with_stone(a, GridPos(g.x, g.y - 1), c0, winFacesActorStone);
         }
     } else if (-y + (g.y +1) < re) {
         // lower grid part
         if (x - g.x < re) {
             // lower left edge
-            c0.normal = V2(+1, -1);  // no need of normalization - just direction
-            c1.normal = V2(0, -1);
-            c2.normal = V2(+1, 0);
-            c0.contact_point = c1.contact_point = c2.contact_point = V2(g.x, g.y+1);
-            find_contact_with_edge(a, GridPos(g.x - 1, g.y + 1), GridPos(g.x, g.y + 1),
-                    GridPos(g.x - 1, g.y), c0, c1, c2, winFacesActorStone);
+            if (c1.is_contact)
+                // inner west window contact - just look for south adjacent stone contact 
+                find_contact_with_stone(a, GridPos(g.x, g.y + 1), c0, winFacesActorStone);
+            else if (c2.is_contact)
+                // inner south window contact - just look for west adjacent stone contact 
+                find_contact_with_stone(a, GridPos(g.x - 1, g.y), c0, winFacesActorStone);
+            else {
+                c0.normal = V2(+1, -1);  // no need of normalization - just direction
+                c1.normal = V2(0, -1);
+                c2.normal = V2(+1, 0);
+                c0.contact_point = c1.contact_point = c2.contact_point = V2(g.x, g.y+1);
+                find_contact_with_edge(a, GridPos(g.x - 1, g.y + 1), GridPos(g.x, g.y + 1),
+                        GridPos(g.x - 1, g.y), c0, c1, c2, winFacesActorStone);
+            }
         } else if (-x + (g.x + 1) < re) {
             // lower right edge
-            c0.normal = V2(-1, -1);  // no need of normalization - just direction
-            c1.normal = V2(0, -1);
-            c2.normal = V2(-1, 0);
-            c0.contact_point = c1.contact_point = c2.contact_point = V2(g.x+1, g.y+1);
-            find_contact_with_edge(a, GridPos(g.x + 1, g.y + 1), GridPos(g.x, g.y +1),
-                    GridPos(g.x + 1, g.y), c0, c1, c2, winFacesActorStone);
+            if (c1.is_contact)
+                // inner east window contact - just look for south adjacent stone contact 
+                find_contact_with_stone(a, GridPos(g.x, g.y + 1), c0, winFacesActorStone);
+            else if (c2.is_contact)
+                // inner south window contact - just look for east adjacent stone contact 
+                find_contact_with_stone(a, GridPos(g.x + 1, g.y), c0, winFacesActorStone);
+            else {
+                c0.normal = V2(-1, -1);  // no need of normalization - just direction
+                c1.normal = V2(0, -1);
+                c2.normal = V2(-1, 0);
+                c0.contact_point = c1.contact_point = c2.contact_point = V2(g.x+1, g.y+1);
+                find_contact_with_edge(a, GridPos(g.x + 1, g.y + 1), GridPos(g.x, g.y +1),
+                        GridPos(g.x + 1, g.y), c0, c1, c2, winFacesActorStone);
+            }
         } else {
             // lower middle part
-            find_contact_with_stone(a, GridPos(g.x, g.y + 1), c0, winFacesActorStone);
             find_contact_with_window(a, GridPos(g.x, g.y), c1, c2, winFacesActorStone);
+            if (!c2.is_contact)
+                // only hit adjacent stone if no inner window is in front
+                find_contact_with_stone(a, GridPos(g.x, g.y + 1), c0, winFacesActorStone);
         }
     } else {
         // middle grid part
         if (x - g.x < re) {
             // left middle part
-            find_contact_with_stone(a, GridPos(g.x - 1, g.y), c0, winFacesActorStone);
             find_contact_with_window(a, GridPos(g.x, g.y), c1, c2, winFacesActorStone);
+            if (!c1.is_contact)
+                // only hit adjacent stone if no inner window is in front
+                find_contact_with_stone(a, GridPos(g.x - 1, g.y), c0, winFacesActorStone);
         } else if (-x + (g.x + 1) < re) {
             // right middle part
-            find_contact_with_stone(a, GridPos(g.x + 1, g.y), c0, winFacesActorStone);
             find_contact_with_window(a, GridPos(g.x, g.y), c1, c2, winFacesActorStone);
+            if (!c1.is_contact)
+                // only hit adjacent stone if no inner window is in front
+                find_contact_with_stone(a, GridPos(g.x + 1, g.y), c0, winFacesActorStone);
         } else {
             // actor in center of grid - just inner window contacts
             find_contact_with_window(a, GridPos(g.x, g.y), c0, c1, winFacesActorStone);
@@ -1298,13 +1339,19 @@ void World::advance_actor (Actor *a, double dtime)
     force += ai.collforce;
 
     ai.vel += dtime * force / ai.mass;
-    ai.pos += dtime * ai.vel;
-    did_move_actor(a);
-
     // Limit maximum velocity
     double q = length(ai.vel) / MAXVEL;
     if (q > 1)
         ai.vel /= q;
+
+    ai.pos += dtime * ai.vel;
+    // avoid actors outside of world
+    if (ai.pos[0] < 0) ai.pos[0] = 0.0;
+    if (ai.pos[0] >= w) ai.pos[0] = w - 1e-12;
+    if (ai.pos[1] < 0) ai.pos[1] = 0.0;
+    if (ai.pos[1] >= h) ai.pos[1] = h - 1e-12;
+
+    did_move_actor(a);
 }
 
 void World::did_move_actor(Actor *a) {
