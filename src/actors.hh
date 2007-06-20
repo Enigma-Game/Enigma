@@ -62,7 +62,7 @@ namespace world
         : pos(pos_), normal (normal_) {} 
     };
     
-#define MAX_CONTACTS 5
+#define MAX_CONTACTS 7
 
     struct Field;
     /*!  
