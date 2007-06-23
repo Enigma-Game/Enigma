@@ -316,7 +316,7 @@ typedef list<sound::SoundDamping> SoundDampingList;
         V2 get_local_force (Actor *a);
         V2 get_global_force (Actor *a);
 
-        void advance_actor (Actor *a, double h);
+        void advance_actor (Actor *a, double &dt);
         void move_actors (double dtime);
         void find_contact_with_stone(Actor *a, GridPos p, StoneContact &c, 
                 DirectionBits winFacesActorStone = NODIRBIT,

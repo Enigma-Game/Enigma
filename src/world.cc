@@ -1330,16 +1330,17 @@ void World::move_actors (double dtime)
         for (unsigned i=0; i<nactors; ++i) {
             Actor     *a  = actorlist[i];
             ActorInfo &ai = * a->get_actorinfo();
+            double dtime = dt;
 
             if (!a->can_move()) {
                 if (length(ai.force) > 30)
                     client::Msg_Sparkle (ai.pos);
                 ai.vel = V2();
             } else if (!a->is_dead() && a->is_movable() && !ai.grabbed) {
-                advance_actor(a, dt);
+                advance_actor(a, dtime);
             }
-            a->move ();         // 'move' nevertheless, to pick up items etc
-            a->think (dt); 
+            a->move();         // 'move' nevertheless, to pick up items etc
+            a->think(dtime); 
         }
         for_each (m_rubberbands.begin(), m_rubberbands.end(), 
                   mem_fun(&RubberBand::apply_forces));
@@ -1351,11 +1352,12 @@ void World::move_actors (double dtime)
 /* This function performs one step in the numerical integration of an
    actor's equation of motion.  TIME ist the current absolute time and
    H the size of the integration step. */
-void World::advance_actor (Actor *a, double dtime)
+void World::advance_actor (Actor *a, double &dtime)
 {
     const double MAXVEL = 70;  // 70 grids/s  < min_actor_radius/timestep !
 
     ActorInfo &ai = *a->get_actorinfo();
+    V2 oldPos = ai.pos;
     V2 force = ai.force;
 
     // If the actor is currently in contact with other objects, remove
@@ -1383,6 +1385,39 @@ void World::advance_actor (Actor *a, double dtime)
     if (ai.pos[1] < 0) ai.pos[1] = 0.0;
     if (ai.pos[1] >= h) ai.pos[1] = h - 1e-12;
     
+    // disallow direct diagonal grid moves
+    GridPos oldGridPos(oldPos);
+    GridPos newGridPos(ai.pos);
+    if (oldGridPos.x != newGridPos.x && oldGridPos.y != newGridPos.y) {
+        // split diagonal grid move in the middle of the path over the missed grid
+        V2 newPos = ai.pos;
+        V2 midPos;
+        V2 corner(0.5 + (newGridPos.x + oldGridPos.x)/2.0, 0.5 + (newGridPos.y + oldGridPos.y)/2.0);
+        double tx = (corner[1] - oldPos[1])/ai.vel[1];
+        double ty = (corner[0] - oldPos[0])/ai.vel[0];
+        double mid_t = (tx + ty)/2;
+        midPos[0] = (oldPos[0] + ai.vel[0]* tx + corner[0])/2.0;
+        midPos[1] = (oldPos[1] + ai.vel[1]* ty + corner[1])/2.0;
+        // detect moves directly on the first diagonal of a grid
+        if (midPos == corner && ((midPos[0] == oldGridPos.x && midPos[1] == oldGridPos.y) ||
+                ((midPos[0] == oldGridPos.x + 1) && (midPos[1] == oldGridPos.y + 1)))) {
+            // as the edge belongs to either old or new position we would never hit an
+            // adjacent grid and thus would pass the diagonal unchecked.
+            // we disturb the movement with a random minimal temporarily correcture
+            midPos += (0.5 - IntegerRand(0,1)) * V2(1e-10, -1e-10); 
+        }
+        ai.pos = midPos;
+        did_move_actor(a);
+        a->move();         // 'move' nevertheless, to pick up items etc
+        a->think(mid_t);   // partial time
+        dtime -= mid_t;    // rest time
+        if (!a->is_dead() && a->is_movable() && !ai.grabbed && ai.pos == midPos) {
+            ai.pos = newPos;
+        } else {
+            // something happend - do not continue old move
+            return;
+        }
+    }
 
     did_move_actor(a);
 }
