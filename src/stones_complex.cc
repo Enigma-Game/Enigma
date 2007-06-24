@@ -830,21 +830,30 @@ namespace
 
         void actor_hit(const StoneContact &sc) {
             Actor *a = sc.actor;
+            // TODO do we want to allow breaks while breaking?
             if (state == IDLE) {
-            double impulse = -(a->get_vel() * sc.normal) * get_mass(a);
-            if (impulse > 35) {
-                SendMessage(a, "shatter");
-            }
-
-        if (impulse > 25) {
+                double impulse = -(a->get_vel() * sc.normal) * get_mass(a);
+                if (impulse > 35) {
+                    SendMessage(a, "shatter");
+                }
+    
+                if (impulse > 25) {
+                    breakingFaces = sc.faces;
+                    set_attrib("connections", (get_connections() & ~breakingFaces) +1);
                     sound_event ("shatter");
                     state = BREAK;
-                    set_anim("st-window-anim");
+                    set_anim("st-window-anim");  // TODO anim with remainig unbroken faces
                 }
             }
         }
         void animcb() {
-            KillStone(get_pos());
+            DirectionBits faces = get_connections();
+            DirectionBits newFaces = DirectionBits(faces & ~breakingFaces);
+            if (newFaces == NODIRBIT)
+                KillStone(get_pos());
+            else {
+                ReplaceStone(get_pos(), new Window(newFaces+1));
+            }
         }
         
         //void init_model() {   // temp - delete when the images are ready
@@ -853,10 +862,12 @@ namespace
 
     public:
         Window(int connections) : ConnectiveStone("st-window", connections),
-                state(IDLE) {
+                state(IDLE), breakingFaces(NODIRBIT) {
         }
         virtual bool is_sticky(const Actor *a) const;
         StoneResponse collision_response(const StoneContact &sc);
+    private:
+        DirectionBits breakingFaces;
     };
     DEF_TRAITS(Window, "st-window", st_window);
 
@@ -866,19 +877,14 @@ namespace
     
     StoneResponse Window::collision_response(const StoneContact &sc) {
         const double face_width = 3.0/32.0; 
-//        DirectionBits dirs = contact_faces(sc);
         DirectionBits faces = get_connections();
-//        Log << "coll respo: dirs " << dirs << "  faces " << faces << "  c-x " << sc.contact_point[0] << "  s-x " <<get_pos().x;
-            
 
         if (((sc.contact_point[0] <= get_pos().x + face_width) && faces&WESTBIT) ||
                 ((sc.contact_point[0] >= get_pos().x + 1 - face_width) && faces&EASTBIT) ||
                 ((sc.contact_point[1] <= get_pos().y + face_width) && faces&NORTHBIT) ||
                 ((sc.contact_point[1] >= get_pos().y + 1 - face_width) && faces&SOUTHBIT)) {
-//            Log << " - rebound\n";
             return STONE_REBOUND;
         } else {
-//            Log << " - pass\n";
             return STONE_PASS;
         }
     }

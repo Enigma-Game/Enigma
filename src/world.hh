@@ -86,6 +86,8 @@ namespace world
 
         V2      contact_point;  // Where do the shapes meet? (world coordinates)
         V2      normal;         // The surface normal at the contact point
+        DirectionBits faces;    // Faces hit on contact - may be two on edge contact
+        bool    outerCorner;    // Did actor hit an outer corner of the stone
         bool    is_collision;   // Actor moves towards the stone, not away
         bool    ignore;         // Ignore this contact
         bool    new_collision;  // True if actor did not touch the stone before
@@ -93,10 +95,10 @@ namespace world
         std::string sound;
 
         // Constructor.
-        StoneContact (Actor *a,
-                      GridPos stonepos,
-                      const V2 & contact_point,
-                      const V2 & surface_normal);
+//        StoneContact (Actor *a,
+//                      GridPos stonepos,
+//                      const V2 & contact_point,
+//                      const V2 & surface_normal);
         StoneContact();
     };
 

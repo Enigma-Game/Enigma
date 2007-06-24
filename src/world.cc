@@ -277,24 +277,21 @@ Field::~Field()
 
 /* -------------------- StoneContact -------------------- */
 
-StoneContact::StoneContact(Actor *a, GridPos p,
-                           const V2 &cp, const V2 &n)
-: actor(a), stonepos(p),
-  response(STONE_PASS),
-  contact_point(cp),
-  normal(n),
-  is_collision(false),
-  ignore (false),
-  new_collision(false),
-  is_contact(true)
-{}
+//StoneContact::StoneContact(Actor *a, GridPos p,
+//                           const V2 &cp, const V2 &n)
+//: actor(a), stonepos(p),
+//  response(STONE_PASS),
+//  contact_point(cp),
+//  normal(n),
+//  is_collision(false),
+//  ignore (false),
+//  new_collision(false),
+//  is_contact(true)
+//{}
 
-StoneContact::StoneContact()
-: is_collision(false),
-  ignore (false),
-  new_collision(false),
-  is_contact(false)
-{}
+StoneContact::StoneContact() : is_collision (false), ignore (false), new_collision (false),
+  is_contact (false), outerCorner (false) {
+}
 
 DirectionBits
 world::contact_faces(const StoneContact &sc)
@@ -692,6 +689,8 @@ void World::find_contact_with_stone(Actor *a, GridPos p, StoneContact &c,
         DirectionBits winFacesActorStone, bool isRounded, Stone *st) {
             
     c.is_contact = false;
+    c.faces = NODIRBIT;
+    c.outerCorner = false;
     bool isInnerContact = false;
 
     Stone *stone = (st != NULL) ? st : world::GetStone(p);
@@ -769,6 +768,7 @@ void World::find_contact_with_stone(Actor *a, GridPos p, StoneContact &c,
         
                 c.is_contact    = (length(b)-r-cdist < contact_e);
                 c.normal        = normalize(b);
+                c.faces = face;
                 c.contact_point = corner + c.normal*cdist;
                 isInnerContact = true;
             
@@ -776,21 +776,25 @@ void World::find_contact_with_stone(Actor *a, GridPos p, StoneContact &c,
             } else if ((winFacesActorStone&SOUTHBIT) && (ay > y+1-2*erad_window_const-r-contact_e)) {
                 c.contact_point = V2(ax, y+1-2*erad_window_const);
                 c.normal        = V2(0,-1);
+                c.faces = SOUTHBIT;
                 c.is_contact = true;
                 isInnerContact = true;
             } else if ((winFacesActorStone&NORTHBIT) && (ay <= y+2*erad_window_const+r+contact_e)) {
                 c.contact_point = V2(ax, y+2*erad_window_const);
                 c.normal        = V2(0,+1);
+                c.faces = NORTHBIT;
                 c.is_contact = true;
                 isInnerContact = true;
             } else if ((winFacesActorStone&WESTBIT) && (ax <= x+2*erad_window_const+r+contact_e)) {
                 c.contact_point = V2(x+2*erad_window_const, ay);
                 c.normal        = V2(+1, 0);
+                c.faces = WESTBIT;
                 c.is_contact = true;
                 isInnerContact = true;
             } else if ((winFacesActorStone&EASTBIT) && (ax > x+1-2*erad_window_const-r-contact_e)) {
                 c.contact_point = V2(x+1-2*erad_window_const, ay);
                 c.normal        = V2(-1,0);
+                c.faces = EASTBIT;
                 c.is_contact = true;
                 isInnerContact = true;
             }
@@ -809,15 +813,23 @@ void World::find_contact_with_stone(Actor *a, GridPos p, StoneContact &c,
         if (ay>y+1) {
             c.contact_point = V2(ax, y+1);
             c.normal        = V2(0, +1);
+            c.faces = SOUTHBIT;
             dist            = ay-(y+1);
         }
         // north
         else if (ay<y) {
             c.contact_point = V2(ax, y);
             c.normal        = V2(0,-1);
+            c.faces = NORTHBIT;
             dist            = y-ay;
         }
         c.is_contact = (dist-r < contact_e);
+        
+        if (isWindow && (((ay>y+1)&&!(wsides&SOUTHBIT)) || ((ay<y)&&!(wsides&NORTHBIT)))) {
+            // actor did hit joined part of end face
+            if (ax<=x+erad_window_const) c.faces = WESTBIT;
+            else c.faces = EASTBIT;
+        }
     }
     // Closest feature == west or east face of the stone?
     else if (ay>=y+erad && ay<y+1-erad && (!isWindow || ((ax>x+1)&&(wsides&EASTBIT)) ||
@@ -826,14 +838,21 @@ void World::find_contact_with_stone(Actor *a, GridPos p, StoneContact &c,
         if (ax>x+1) { // east
             c.contact_point = V2(x+1, ay);
             c.normal        = V2(+1, 0);
+            c.faces = EASTBIT;
             dist            = ax-(x+1);
         }
         else if (ax<x) { // west
             c.contact_point = V2(x, ay);
             c.normal        = V2(-1, 0);
+            c.faces = WESTBIT;
             dist            = x-ax;
         }
-	c.is_contact = (dist-r < contact_e);
+    	c.is_contact = (dist-r < contact_e);
+        if (isWindow && (((ax>x+1)&&!(wsides&EASTBIT)) || ((ax<x)&&!(wsides&WESTBIT)))) {
+            // actor did hit joined part of end face
+            if (ay<=y+erad_window_const) c.faces = NORTHBIT;
+            else c.faces = SOUTHBIT;
+        }
     }
     // Closest feature == any of the four corners
     else if (!isWindow || !(
@@ -858,6 +877,29 @@ void World::find_contact_with_stone(Actor *a, GridPos p, StoneContact &c,
         c.is_contact    = (length(b)-r-cdist < contact_e);
         c.normal        = normalize(b);
         c.contact_point = corner + c.normal*cdist;
+        if (!isWindow) {
+            if (abs(b[0]) >= abs(b[1])) {
+                if (b[0] < 0) c.faces = DirectionBits(c.faces | WESTBIT);
+                else c.faces = DirectionBits(c.faces | EASTBIT);
+            } else if (abs(b[1]) >= abs(b[0])) {
+                if (b[1] < 0) c.faces = DirectionBits(c.faces | NORTHBIT);
+                else c.faces = DirectionBits(c.faces | SOUTHBIT);
+            }
+        } else {
+            if (!xcorner && (b[0]>0 || (!ycorner&&!(wsides&NORTHBIT)) || 
+                    (ycorner&&!(wsides&SOUTHBIT)) || (abs(b[0]) >= abs(b[1])))) 
+                c.faces = DirectionBits(c.faces | WESTBIT);
+            if (xcorner && (b[0]<0 || (!ycorner&&!(wsides&NORTHBIT)) || 
+                    (ycorner&&!(wsides&SOUTHBIT)) || (abs(b[0]) >= abs(b[1])))) 
+                c.faces = DirectionBits(c.faces | EASTBIT);
+            if (ycorner && (b[1]<0 || (!xcorner&&!(wsides&WESTBIT)) || 
+                    (xcorner&&!(wsides&EASTBIT)) || (abs(b[1]) >= abs(b[0])))) 
+                c.faces = DirectionBits(c.faces | SOUTHBIT);
+            if (!ycorner && (b[1]>0 || (!xcorner&&!(wsides&WESTBIT)) || 
+                    (xcorner&&!(wsides&EASTBIT)) || (abs(b[1]) >= abs(b[0])))) 
+                c.faces = DirectionBits(c.faces | NORTHBIT);
+        }
+        c.outerCorner = true;
     }
 
     if (c.is_contact) {
