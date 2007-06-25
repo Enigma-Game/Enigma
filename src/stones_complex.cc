@@ -837,12 +837,25 @@ namespace
                     SendMessage(a, "shatter");
                 }
     
-                if (impulse > 25) {
+                else if (impulse > 25) {
                     breakingFaces = sc.faces;
                     set_attrib("connections", (get_connections() & ~breakingFaces) +1);
                     sound_event ("shatter");
                     state = BREAK;
-                    set_anim("st-window-anim");  // TODO anim with remainig unbroken faces
+                    set_anim("st-window-anim");  // TODO anim with remaining unbroken faces
+                }
+                
+                else if (player::WieldedItemIs (sc.actor, "it-wrench")) {
+                    DirectionBits faces = get_connections();
+                    if (sc.faces == WESTBIT && sc.normal[0] < 0){
+                        tryInnerPull(EAST);
+                    } else if (sc.faces == EASTBIT && sc.normal[0] > 0) {
+                        tryInnerPull(WEST);
+                    } else if (sc.faces == SOUTHBIT && sc.normal[1] > 0) {
+                        tryInnerPull(NORTH);
+                    } else if (sc.faces == NORTHBIT && sc.normal[1] < 0) {
+                        tryInnerPull(SOUTH);
+                    }
                 }
             }
         }
@@ -855,10 +868,6 @@ namespace
                 ReplaceStone(get_pos(), new Window(newFaces+1));
             }
         }
-        
-        //void init_model() {   // temp - delete when the images are ready
-        //    set_model("st-window");
-        //}
 
     public:
         Window(int connections) : ConnectiveStone("st-window", connections),
@@ -866,8 +875,10 @@ namespace
         }
         virtual bool is_sticky(const Actor *a) const;
         StoneResponse collision_response(const StoneContact &sc);
+        virtual Value message(const string &msg, const Value &val);
     private:
         DirectionBits breakingFaces;
+        bool tryInnerPull(Direction dir);
     };
     DEF_TRAITS(Window, "st-window", st_window);
 
@@ -888,9 +899,29 @@ namespace
             return STONE_PASS;
         }
     }
+    
+    Value Window::message(const string &msg, const Value &val) {
+        if (msg == "inner_pull" ) {
+            return Value(tryInnerPull(to_direction(val)));
+        }
+        return Value();
+    }
+    
+    bool Window::tryInnerPull(Direction dir) {
+        DirectionBits faces = get_connections();
+        if (!has_dir(faces, dir) && has_dir(faces, reverse(dir))){
+            Stone *stone = world::GetStone(move(get_pos(), dir));
+            if (!stone || ((stone->get_traits().id == st_window) &&  
+                    !has_dir(dynamic_cast<stones::ConnectiveStone *>(stone)->get_connections(), reverse(dir)))) {
+                ReplaceStone(get_pos(), new Window((faces&(~to_bits(reverse(dir)))|to_bits(dir))+1));
+                return true;
+            }
+        }
+        return has_dir(faces, dir);
+    }
 }
 
-
+
 /* -------------------- Puzzle stones -------------------- */ 
 
 /** \page st-puzzle Puzzle Stone

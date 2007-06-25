@@ -2233,10 +2233,20 @@ namespace
             sound_event ("puller");
         }
         void animcb() {
-            Direction dir      = get_orientation();
-            GridPos   stonepos = move(get_pos(), reverse(dir));
-
-            send_impulse(stonepos, dir);
+            Direction dir = get_orientation();
+            
+            // usage within a st-window
+            Stone *stone = world::GetStone(get_pos());
+            if (stone && (stone->get_traits().id == st_window) &&
+                    to_bool(SendMessage(stone, "inner_pull", dir))) {
+            }
+            
+            // usage in front of a stone
+            else {
+                GridPos   stonepos = move(get_pos(), reverse(dir));
+                send_impulse(stonepos, dir);
+            }
+            
             sound_event ("dynamite");
             replace (it_explosion1);
         }
