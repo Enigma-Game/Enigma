@@ -805,6 +805,7 @@ objects that afterwards block the pipeline, so be careful!
 * Backup::                      What to backup for security
 * Registering Scores::          Let the world know your success
 * Updating Enigma::             Keeping scores and levels on an update
+* User Sound Sets::             How to install sound sets from the internet
 @end menu
 
 @node User Level Packs, Backup, Advanced Topics, Advanced Topics
@@ -853,7 +854,7 @@ homepage for more detailed instructions.
 To automatically download the updated world record score lists, you just need to
 enable the option @samp{Ratings Update}.
 
-@node Updating Enigma, , Registering Scores, Advanced Topics
+@node Updating Enigma, User Sound Sets, Registering Scores, Advanced Topics
 @section Updating Enigma
 
 If you did not customize your old Enigma version, simply deinstall the old
@@ -872,6 +873,33 @@ systems with a @samp{HOME} environment variable or
 @samp{.../Application Data/enigmarc.lua2} for HOMEless Windows systems.
 If you want to read levels that you saved from the old installation, please
 read the Reference Manual.
+
+@node User Sound Sets, , Updating Enigma, Advanced Topics
+@section User Sound Sets
+
+A sound set is the sum of all sounds that appear in the game and the menus. 
+Enigma 1.01 and above allows you to switch between the default sound set and
+sound sets you downloaded from the internet or created yourself.
+
+To install a downloaded sound set, close Enigma and create a subdirectory named
+@samp{soundsets} in your @samp{User Path}. Unpack the downloaded 
+sound set if neccessary. Its files should all be inside one directory with the
+name of the soundset, e.g. @samp{MyGreatSounds15}. Move this directory into the
+@samp{soundsets} directory. Check that the @samp{soundset.lua} file is now
+located at @samp{soundsets/MyGreatSounds15/soundset.lua}. Start Enigma and open
+the @samp{Options} menu. Click on the @samp{Sound set} button until the new
+sound set appears. Switch back to @samp{Default} or @samp{Enigma} to activate
+the old sound set again.
+
+To uninstall a sound set, close Enigma and remove the directory
+which contains the obsolete sound set (e.g. @samp{MyGreatSounds15}). You need
+not remove the @samp{soundsets} directory.
+
+Please find a detailed explanation on how to create sound sets yourself in the
+Reference Manual and in the sample file @samp{soundset.lua} which is located in
+the same directory as the Reference Manual. You can download sound sets that
+other users submitted to us from
+@samp{http://svn.berlios.de/svnroot/repos/enigma-game/add-ons/soundsets}.
 
 @node Spoilers, Credits, Advanced Topics, Top
 @chapter Spoilers

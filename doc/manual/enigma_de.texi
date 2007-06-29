@@ -879,10 +879,11 @@ das danach den Postweg versperrt!
 @chapter Fortgeschrittene Themen
 
 @menu
-* User-Levelpakete::            History, Search Results and Auto
-* Backups::                     What to backup for security
-* Ergebnisse hochladen::        Let the world know your success
-* Enigma updaten::              Keeping scores and levels on an update
+* User-Levelpakete::            History, Search Result und Auto
+* Backups::                     Was in ein Sicherheits-Backup sollte
+* Ergebnisse hochladen::        Lassen Sie die Welt von Ihren Erfolgen wissen
+* Enigma updaten::              Rekorde und Levels auf dem neuesten Stand halten
+* Sound-Schemas::               Wie Sie Soundsets aus dem Internet installieren k@"onnen
 @end menu
 
 @node User-Levelpakete, Backups, Fortgeschrittene Themen, Fortgeschrittene Themen
@@ -943,7 +944,7 @@ Um automatisch die aktuellste Weltrekordliste herunterzuladen,
 aktivieren Sie einfach die Option @samp{Update Bewertungen} im
 @ref{Einstellungen}-Men@"u.
 
-@node Enigma updaten, , Ergebnisse hochladen, Fortgeschrittene Themen
+@node Enigma updaten, Sound-Schemas, Ergebnisse hochladen, Fortgeschrittene Themen
 @section Enigma updaten
 
 Sofern Sie Ihre alte Enigma-Version nicht pers@"onlich angepasst haben,
@@ -967,6 +968,38 @@ Enigma 1.00 l@"oschen.
 Falls Sie Landschaften aus Ihrer alten Version nach Enigma 1.00
 @"ubernehmen m@"ochten, konsultieren Sie bitte das Referenz-Handbuch, da
 sich das Levelformat ver@"andert hat.
+
+@node Sound-Schemas, , Enigma updaten, Fortgeschrittene Themen
+@section Sound-Schemas
+
+Ein Sound-Schema (Soundset) ist die Gesamtheit aller Sounds im Spiel und in den
+Men@"us. Enigma 1.01 und j@"unger erlauben es Ihnen, zwischen dem
+Standard-Sound-Schema und solchen Sound-Schemas zu wechseln, die Sie aus dem
+Internet heruntergeladen oder selbst erstellt haben.
+
+Um ein heruntergeladenes Sound-Schema zu installieren, schlie@ss{}en Sie Enigma
+und erstellen Sie ein Unterverzeichnis @samp{soundsets} in Ihrem
+@samp{Userpfad}. Entpacken Sie das heruntergeladene Sound-Schema falls n@"otig.
+Dessen Dateien sollten sich alle in einem Verzeichnis mit dem Namen des Schemas
+befinden, z.B. @samp{MeineTollenSounds15}. Verschieben Sie dieses Verzeichnis in
+das @samp{soundsets}-Verzeichnis. Stellen Sie sicher, dass sich die Datei
+@samp{soundset.lua} jetzt unter
+@samp{soundsets/MeineTollenSounds15/soundset.lua} befindet. Starten Sie Enigma
+und @"offnen Sie die @samp{Einstellungen}. Klicken Sie auf @samp{Sound Schema}
+bis das neue Sound-Schema erscheint. Wechseln Sie zur@"uck zu @samp{Standard}
+oder @samp{Enigma} um das alte Schema wieder zu aktivieren.
+
+Um ein Sound-Schema zu deinstallieren, schlie@ss{}en Sie Enigma und entfernen
+Sie das Verzeichnis, das das unn@"otige Sound-Schema enth@"alt (z.B.
+@samp{MeineTollenSounds15}). Das @samp{soundsets}-Verzeichnis brauchen Sie
+nicht zu entfernen.
+
+F@"ur eine detaillierte Beschreibung, wie Sie Sound-Schemas selbst erstellen
+k@"onnen, lesen Sie bitte das Referenz-Handbuch oder die Beispieldatei
+@samp{soundset.lua}, die sich im gleichen Verzeichnis befindet wie das
+Referenz-Handbuch. Sie k@"onnen Sound-Schemas, die andere Spieler @"ubermittelt
+haben, herunterladen von
+@samp{http://svn.berlios.de/svnroot/repos/enigma-game/add-ons/soundsets}.
 
 @node Tipps und Tricks, Autoren und Danksagungen, Fortgeschrittene Themen, Top
 @chapter Tipps und Tricks
