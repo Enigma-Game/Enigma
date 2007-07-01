@@ -51,6 +51,7 @@ levels or write own levels as described in the following chapters.
 * User Options::
 * Level Info::
 * Handicap and PAR::           Background to score evaluation and HCP
+* User Sound Sets::            How to create and install sound themes
 @end menu
 
 @node Locating Resources, Startup Switches, Running Enigma, Running Enigma
@@ -667,7 +668,7 @@ If you scroll down behind the last screenshot the "missing" screenshot file is n
 This may be a useful hint were to search the other screenshot files on your
 @samp{user image path} (@pxref{Locating Resources}).
 
-@node Handicap and PAR, , Level Info, Running Enigma
+@node Handicap and PAR, User Sound Sets, Level Info, Running Enigma
 @section Handicap and PAR
 
 As PAR (@pxref{Scores}) describes the difficulty of a level the handicap @samp{hcp}
@@ -717,6 +718,144 @@ thus reduces your handicap. For a levelpack with 100 levels the handicap will
 be in the range of +100 to -300. For levelpacks with more or less levels the
 sum will be scaled by a factor 100/size to result in comparable handicap values.
 Handicaps are stated with one digit behind the decimal point.
+
+
+@node User Sound Sets, , Handicap and PAR, Running Enigma
+@section User Sound Sets
+
+(The following information accounts only for Enigma 1.01 and above.)
+Sound effects are triggered by so-called @samp{sound events}. These sound
+events usually have a name (like @samp{dooropen}) and an associated location
+(the coordinates of the door) which affects the way a sound effect is
+played. The collection of all sound files, their assignment to sound events,
+and some additional information how to play them is called a @samp{sound set}.
+
+You can use own sound files to create own sound sets for Enigma, and choose
+among them in the options menu (entry @samp{Sound set}). You can distribute
+these sound sets under your own choice of license and install sound sets from
+other users. There is no internal limit for the number of installed sound sets.
+
+The sound event is converted into a real sound effect using tables, you can
+find such tables in the @samp{data/sound-defaults.lua} file and in the empty
+sample file at @samp{reference/soundset.lua}. Each entry in these tables is
+either a string like @samp{enigma/st-coinslot}, which is interpreted as the
+file @samp{soundsets/enigma/st-coinslot.wav} with some default properties, or a
+list of sound attributes enclosed in curly braces. Sound events triggered with
+@ref{enigma.EmitSound} are converted the same way. Here is an example of such an
+entry:
+
+@example
+dooropen = @{ file="my_soundset/open-door", volume=0.9, priority=4 @},
+@end example
+
+The meaning of these attributes is as follows:
+
+@table      
+
+@item @samp{file}
+Path and name of the sound file for this event, without the @samp{.wav}
+extension.
+
+@item @samp{volume}
+The sound volume: 1.0 is default, 0.0 is silent.
+
+@item @samp{priority}
+If many effects are active at the same time, high-priority
+effects can replace lower-priority effects. Use an integer
+between 1 and 10 (default 1). This property does not yet
+work with Enigma 1.01.
+
+@item @samp{global}
+Either @samp{true} or @samp{false}.  If true, no stereo effects are
+applied and there is no attenuation.  Used for menu sound,
+level end sounds, etc. Default is @samp{false}.
+
+@item @samp{loop}
+@samp{true} or @samp{false}. If true, the sound repeats infinitely
+until canceled. Default is @samp{false}. 
+
+@item @samp{damp_max}, @samp{damp_inc}, @samp{damp_mult}, @samp{damp_min}, @samp{damp_tick}
+Parameters for sound damping.  Sounds from noisy objects like light passengers
+are damped to reduce the noise.  For this, the sound event's frequency is
+estimated.  @samp{damp_max} calibrates the maximal damping factor (high means
+quiet), @samp{damp_inc} how fast the damping accumulates, @samp{damp_mult} is an
+overall factor, @samp{damp_min} defines a lower bound for the damping entries
+(beyond which they are removed from memory) and @samp{damp_tick} the factor
+that's applied all 0.1 seconds.  See @samp{sound.hh} for details.
+Defaults: 10.0, 1.0, 1.0, 0.5, 0.9.
+
+@end table
+
+To design a new sound set, proceed as follows:
+
+@enumerate
+
+@item
+Create a new folder containing a copy of the sample file @samp{soundset.lua}
+and the wav files you want to use.  
+
+@item
+Move this new folder into Enigma's "soundsets" folder in your user path.
+(Possibly you have to create it.) The directory structure should look
+something like this:
+
+@example
+(user path)/soundsets/my_sounds/
+                               /soundset.lua
+                               /high_pitch.wav
+                               /soundfile_13.wav
+                               ...
+@end example
+
+@item
+Run Enigma and choose @samp{My Soundset} in the options menu.  Since this file's
+sound set does not map any sound effect to a wav file, you should hear nothing.
+
+@item
+Edit the contents of @samp{soundset.lua} to your liking.  You can access the
+default sound files, e.g.:
+
+@example
+...
+coinsloton = @{ file="enigma/st-coinslot" @},
+...
+@end example
+
+When using own sound files, remember to add the subfolder, like in
+
+@example
+...
+coinsloton = @{ file="my_sounds/soundfile_13" @},
+...
+@end example
+
+No extension ".wav"! It's added automatically. Make sure that the
+extension is in lower case letters.
+
+@item
+Replace @samp{MY_SOUNDSET} by a suitable variable name, and @samp{My Soundset}
+by the name you want to see in the sound options menu.  Remember to
+make it short enough to fit on the button.  The three identifiers variable,
+button name, directory name need not have the same names, but it eases the life
+of other developers to give them similar names that uniquely determine the
+sound set.
+
+@end enumerate
+
+Remember to choose the sound set in the options menu anew each time you change
+its name.  And always shut down Enigma before changing sound sets, new sounds
+are not recognized during runtime.
+
+Feel free to zip and distribute the whole directory containing your
+sounds and the @samp{soundset.lua} file. You can install a downloaded zipped
+sound set simply by unpacking it and placing it into the
+@samp{soundsets}-subdirectory of your user path. Make sure that the
+@samp{soundset.lua} is always exactly one subdirectory below @samp{soundsets}.
+Deinstall a user sound set simply by deleting its directory. Renaming the
+directory does not suffice -- you have to rename the @samp{soundset.lua} if you
+want to hide a sound set from Enigma. This can be advantageous if you use
+interdependent sound sets (sound sets that share sound files) and want to
+deactivate just one of them. 
 
 
 @node  Levelpack Basics, Level Basics, Running Enigma, Top

@@ -49,7 +49,7 @@
 --
 -- To design a new sound set, proceed as follows.
 --
--- 1) Create a new folder containing this file (named "soundset.lua")
+-- 1) Create a new folder containing a copy of this file (named "soundset.lua")
 --    and the wav files you want to use.  
 --
 -- 2) Move this new folder into Enigma's "soundsets" folder in your user path.
@@ -58,12 +58,13 @@
 --
 --      (user path)/soundsets/my_sounds/
 --                                     /soundset.lua
---                                     /a.wav
---                                     /b.wav
+--                                     /high_pitch.wav
+--                                     /soundfile_13.wav
 --                                     ...
 --
--- 3) Run Enigma.  Since this file's sound set does not map any sound effect
---    to a wav file, you should hear nothing.
+-- 3) Run Enigma and choose "My Soundset" in the options menu.  Since this
+--    file's sound set does not map any sound effect to a wav file, you should
+--    hear nothing. 
 --
 -- 4) Edit the contents of this file to your liking.  You can access the
 --    default sound files in the "soundsets/enigma" directory, e.g.:
@@ -72,7 +73,7 @@
 --        ...
 --    When using own sound files, remember to add the subfolder, like in
 --        ...
---        coinsloton = { file="my_sounds/b" },
+--        coinsloton = { file="my_sounds/soundfile_13" },
 --        ...
 --    No extension ".wav"! It's added automatically. Make sure that the
 --    extension is in lower case letters.
