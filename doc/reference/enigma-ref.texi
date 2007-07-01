@@ -2935,6 +2935,7 @@ Marbles may jump over @ref{fl-water} with an
 * it-spoon::                    Spoon
 * it-spring[1/2/board]::        Springs and Springboard
 * it-squashed::                 Squashed Fruit
+* it-surprise::                 Surprise Item
 * it-sword::                    Sword
 * it-trigger::                  Trigger
 * it-umbrella::                 Umbrella
@@ -3986,6 +3987,15 @@ ground, you can only use it where it is.
 
 The remnants of @ref{it-cherry} or @ref{it-banana} after pushing a
 stone over them.  Can be removed with @ref{it-brush}.
+
+
+@c -------------------- Surprise Item --------------------
+@node it-surprise
+@subsection it-surprise
+
+This item turns randomly into @ref{it-umbrella}, @code{it-spring1} (see
+@ref{it-spring[1/2/board]}), @ref{it-dynamite}, @ref{it-coffee}, or
+@ref{it-hammer} when dropped.  The corresponding stone is @ref{st-surprise}.
 
 
 @c -------------------- Sword --------------------
@@ -5913,7 +5923,8 @@ When hit, this stone randomly transforms into one of @code{st-grate1},
 @code{st-knight}, @code{st-thief}, @code{st-plain_break},
 @code{st-plain_breaking}, or another @code{st-surprise}
 (see @ref{st-grate}, @ref{st-death}, @ref{Oxyd Compatibility Stones},
-@ref{st-knight}, @ref{st-thief}, and @ref{Breakable Stones})
+@ref{st-knight}, @ref{st-thief}, and @ref{Breakable Stones}). The corresponding
+item is @ref{it-surprise}.
 
 
 @node st-swap, st-switch, st-surprise, Stones

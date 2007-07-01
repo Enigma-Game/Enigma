@@ -3380,6 +3380,8 @@ namespace
     };
     DEF_TRAITSF(VStrip, "it-vstrip", it_vstrip, itf_static);
 
+/* -------------------- it-surprise -------------------- */
+
     class SurpriseItem : public Item {
         CLONEOBJ(SurpriseItem);
         DECL_TRAITS;
