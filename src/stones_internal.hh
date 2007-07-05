@@ -133,13 +133,13 @@ namespace stones
             else
                 return NODIRBIT;
         }
-    protected:
 
-        void init_model() {
+    protected:
+        virtual void init_model() {
             set_model(get_kind()+ecl::strf("%d", get_modelno()));
         }
-    private:
-        int get_modelno() const {
+
+        virtual int get_modelno() const {
             return getAttr("connections");
         }
     };
