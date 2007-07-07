@@ -3,7 +3,7 @@
   <el:protected>
     <el:info el:type="level">
       <el:identity el:title="Correspondence Chess" el:subtitle="Send smartly!" el:id="luc352007"/>
-      <el:version el:score="1" el:release="1" el:revision="3" el:status="released"/>
+      <el:version el:score="2" el:release="2" el:revision="3" el:status="released"/>
       <el:author  el:name="Lukas Schüller" el:email="Lucky_Luc@web.de" el:homepage=""/>
       <el:copyright>Copyright © 2007 Lukas Schüller</el:copyright>
       <el:license el:type="GPL v2.0 or above" el:open="true"/>
@@ -15,7 +15,7 @@
     <el:luamain><![CDATA[
 CreateWorld(20,13)
 oxyd_default_flavor="d"
-enigma.ConserveLevel=FALSE
+enigma.ConserveLevel = 0
 
 fill_floor("fl-samba")
 
@@ -82,7 +82,7 @@ function writeLine( line, cells)
 end
 
 writeLine(00,"DDDD#O##############")
-writeLine(01,"Dttt#=#1xxxxxxx#*wW#")
+writeLine(01,"DtttX=X1xxxxxxx#*wW#")
 writeLine(02,"DtDt#0xxxxxxxxx##x##")
 writeLine(03,"DtDt>xxKxxxx1xxxxx3#")
 writeLine(04,"Dt###xxxxx2xxxxxx1x#")

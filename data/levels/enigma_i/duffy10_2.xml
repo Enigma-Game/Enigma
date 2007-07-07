@@ -3,7 +3,7 @@
   <el:protected>
     <el:info el:type="level">
       <el:identity el:title="Islands" el:subtitle="" el:id="duffy10"/>
-      <el:version el:score="1" el:release="1" el:revision="1" el:status="released"/>
+      <el:version el:score="2" el:release="2" el:revision="2" el:status="released"/>
       <el:author  el:name="Jacob Scott" el:email="" el:homepage=""/>
       <el:copyright>Copyright © 2003 Jacob Scott</el:copyright>
       <el:license el:type="GPL v2.0 or above" el:open="true"/>
@@ -23,6 +23,7 @@ levelw=1+(19*rooms_wide)
 levelh=1+(12*rooms_high)
 
 create_world( levelw, levelh)
+enigma.ConserveLevel = 1
 
 fill_floor("fl-leaves", 0,0,levelw,levelh)
 
@@ -35,8 +36,8 @@ function renderLine( line, pattern)
             oxyd( i-1, line)
         elseif c == "!" then
             fill_floor("fl-water", i-1,line, 1,1)
-        elseif c=="r" then
-            oneway(i-1,line, enigma.EAST)
+        elseif c=="d" then
+            oneway(i-1,line, enigma.SOUTH)
         elseif c=="z" then
             set_actor("ac-blackball", i-.5,line+.5)
         elseif c=="+" then
@@ -53,11 +54,11 @@ end
 -- Oxyd:   "o"
 
 renderLine(00,"####################")
-renderLine(01,"#  #  !!!!!!!!!!! o#")
-renderLine(02,"#  ++ !!!!!!!!!!!  #")
-renderLine(03,"#    !!!!!!!!!!!!  #")
-renderLine(04,"#  ##+   +!!!!! !  #")
-renderLine(05,"#  #!  +  !!!!! !  #")
+renderLine(01,"#  # !!!!!!!!!!!! o#")
+renderLine(02,"# + + !!!!!!!!!!!  #")
+renderLine(03,"#  #!!!!!!!!!!!!!  #")
+renderLine(04,"#  #!+   +!!!!! !  #")
+renderLine(05,"#  #!  +  !!!!!d!  #")
 renderLine(06,"#  #! +z+ !!!!! !  #")
 renderLine(07,"#  #!  +  !!!!! !  #")
 renderLine(08,"# !!!+   +!!!!!+#  #")

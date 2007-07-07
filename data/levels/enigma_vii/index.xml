@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no" ?>
 <index xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="index.xsd">
 
-  <info enigma="1.00" group="Enigma" location="10800" network="false" owner="Enigma Team" release="1" revision="6" title="Enigma VII"/>
+  <info enigma="1.00" group="Enigma" location="10800" network="false" owner="Enigma Team" release="1" revision="7" title="Enigma VII"/>
 
   <attributes/>
 
@@ -29,7 +29,7 @@
     <level _seq="21" _title="Cold Meditation" _xpath="./ral18_1" author="Ronald Lamprecht" ctrl="force" easy="true" id="20070314ral728" rel="1" rev="67" score="1" target="time" unit="duration"/>
     <level _seq="22" _title="Mountain Climbing" _xpath="./joe10_1" author="Joseph Dunne" ctrl="force" easy="true" id="joe10" rel="1" rev="0" score="1" target="time" unit="duration"/>
     <level _seq="23" _title="Advancing" _xpath="./joe01_1" author="Joseph Dunne" ctrl="force" easy="false" id="joe01" rel="1" rev="0" score="1" target="time" unit="duration"/>
-    <level _seq="24" _title="Temple of Gold" _xpath="./duffy151_1" author="Jacob Scott" ctrl="force" easy="true" id="duffy151" rel="1" rev="5" score="1" target="time" unit="duration"/>
+    <level _seq="24" _title="Temple of Gold" _xpath="./duffy151_2" author="Jacob Scott" ctrl="force" easy="true" id="duffy151" rel="2" rev="5" score="2" target="time" unit="duration"/>
     <level _seq="25" _title="Inkblot 1" _xpath="./npb01_1" author="Nathan Bronecke" ctrl="force" easy="true" id="20070519npb015045" rel="1" rev="1" score="1" target="time" unit="duration"/>
     <level _seq="26" _title="mad-ill-tation" _xpath="./illmind14_1" author="illmind" ctrl="force" easy="false" id="ill0907-01" rel="1" rev="1" score="1" target="time" unit="duration"/>
     <level _seq="27" _title="- Meditation -" _xpath="./joe04_1" author="Joseph Dunne" ctrl="force" easy="false" id="joe4" rel="1" rev="0" score="1" target="time" unit="duration"/>

@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no" ?>
 <index xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="index.xsd">
 
-  <info enigma="1.00" group="Facets" location="15400" network="false" owner="Enigma Team" release="1" revision="5" title="Enigma 1.00 new"/>
+  <info enigma="1.00" group="Facets" location="15400" network="false" owner="Enigma Team" release="1" revision="6" title="Enigma 1.00 new"/>
 
   <attributes/>
 
@@ -160,7 +160,7 @@
     <level _seq="152" _title="Banana Republic" _xpath="enigma_v/alain26_2" author="Alain Busser" ctrl="force" easy="true" id="alain26" rel="2" rev="2" score="2" target="time" unit="duration"/>
     <level _seq="153" _title="Zeus" _xpath="enigma_vi/raoul19_1" author="Raoul Bourquin" ctrl="force" easy="true" id="raoul19" rel="1" rev="0" score="1" target="time" unit="duration"/>
     <level _seq="154" _title="Rhapsody on Cracks" _xpath="enigma_vi/ral06_1" author="Ronald Lamprecht" ctrl="force" easy="true" id="20060510ral008" rel="1" rev="42" score="1" target="time" unit="duration"/>
-    <level _seq="155" _title="Prepare Your Defense" _xpath="enigma_vi/duffy132_1" author="Jacob Scott" ctrl="force" easy="false" id="duffy132" rel="1" rev="1" score="1" target="time" unit="duration"/>
+    <level _seq="155" _title="Prepare Your Defense" _xpath="enigma_vi/duffy132_2" author="Jacob Scott" ctrl="force" easy="false" id="duffy132" rel="2" rev="1" score="2" target="time" unit="duration"/>
     <level _seq="156" _title="Cold Way" _xpath="enigma_vi/raoul21_1" author="Raoul Bourquin" ctrl="force" easy="false" id="raoul21" rel="1" rev="1" score="1" target="time" unit="duration"/>
     <level _seq="157" _title="Laserpowered" _xpath="enigma_vi/raoul20_1" author="Raoul Bourquin" ctrl="force" easy="true" id="raoul20" rel="1" rev="0" score="1" target="time" unit="duration"/>
     <level _seq="158" _title="Oxydmoron" _xpath="enigma_vi/raoul14_1" author="Raoul Bourquin" ctrl="force" easy="true" id="raoul14" rel="1" rev="0" score="1" target="time" unit="duration"/>
@@ -168,7 +168,7 @@
     <level _seq="160" _title="Dancing on Light Beams" _xpath="enigma_vi/andreas28_1" author="Andreas Lochmann" ctrl="force" easy="true" id="andreas28" rel="1" rev="0" score="1" target="time" unit="duration"/>
     <level _seq="161" _title="- Meditation -" _xpath="enigma_vi/alain25_2" author="Alain Busser + Raoul Bourquin" ctrl="force" easy="true" id="alain25" rel="2" rev="2" score="2" target="time" unit="duration"/>
     <level _seq="162" _title="Checkmate I" _xpath="enigma_vi/andreas29_1" author="Andreas Lochmann" ctrl="force" easy="false" id="andreas29" rel="1" rev="0" score="1" target="time" unit="duration"/>
-    <level _seq="163" _title="The Stable" _xpath="enigma_vi/andreas30_1" author="Andreas Lochmann" ctrl="force" easy="false" id="andreas30" rel="1" rev="0" score="1" target="time" unit="duration"/>
+    <level _seq="163" _title="The Stable" _xpath="enigma_vi/andreas30_2" author="Andreas Lochmann" ctrl="force" easy="false" id="andreas30" rel="2" rev="1" score="2" target="time" unit="duration"/>
     <level _seq="164" _title="Chess, Bugs &amp; Rock'n'Roll" _xpath="enigma_vi/andreas31_1" author="Andreas Lochmann" ctrl="force" easy="false" id="andreas31" rel="1" rev="0" score="1" target="time" unit="duration"/>
     <level _seq="165" _title="Chessing Positions" _xpath="enigma_vi/raoul22_1" author="Raoul Bourquin" ctrl="force" easy="false" id="raoul22" rel="1" rev="0" score="1" target="time" unit="duration"/>
     <level _seq="166" _title="Twisting by the pool" _xpath="enigma_vi/alain23_1" author="Alain Busser" ctrl="force" easy="true" id="alain23" rel="1" rev="0" score="1" target="time" unit="duration"/>

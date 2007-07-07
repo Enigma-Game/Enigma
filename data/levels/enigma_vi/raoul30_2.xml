@@ -3,7 +3,7 @@
   <el:protected>
     <el:info el:type="level">
       <el:identity el:title="Industrial Puzzles" el:subtitle="" el:id="raoul30"/>
-      <el:version el:score="1" el:release="1" el:revision="4" el:status="released"/>
+      <el:version el:score="2" el:release="2" el:revision="5" el:status="released"/>
       <el:author  el:name="Raoul Bourquin" el:email="" el:homepage=""/>
       <el:copyright>Copyright © 2007 Raoul Bourquin</el:copyright>
       <el:license el:type="GPL v2.0 or above" el:open="true"/>
@@ -11,15 +11,18 @@
        <el:dependency el:path="lib/libpuzzle" el:id="lib/libpuzzle" el:release="2" el:preload="true"/>
       </el:compatibility>
       <el:modes el:easy="false" el:single="true" el:network="false"/>
+      <el:comments>
+        <el:credits el:showinfo="true " el:showstart="false ">Thanks to Andreas Geldmacher for debugging this level.</el:credits>
+      </el:comments>
       <el:score el:easy="-" el:difficult="4:54"/>
     </el:info>
     <el:luamain><![CDATA[
 -- GENERAL --
 levelh = 13
 levelw = 20
-create_world(levelw, levelh)
 
-enigma.ConserveLevel = FALSE
+create_world(levelw, levelh)
+enigma.ConserveLevel = 1
 
 fill_floor("fl-brick")
 
@@ -43,6 +46,9 @@ function renderLine( line, pattern)
             set_stone("st-glass",i-1, line)
         elseif c=="g" then
             set_stone("st-glass_move",i-1, line)
+        elseif c=="~" then
+            set_stone("st-glass_move",i-1, line)
+            set_floor("fl-swamp",i-1, line)
         elseif c=="X" then
             set_stone("st-grate1",i-1, line)
         elseif c=="x" then
@@ -82,9 +88,13 @@ function renderLine( line, pattern)
         elseif c=="K" then
             set_stone("st-key",i-1, line,{keycode="5", action="on", target="la_2"})
         elseif c=="k" then
-            set_stone("st-key",i-1, line,{keycode="4", action="open", target="door_1"})
+            set_stone("st-key",i-1, line,{keycode="4", action="callback", target="open_doors"})
         elseif c=="D" then
             set_stone("st-door_a",i-1, line,{name="door_1"})
+        elseif c=="E" then
+            set_stone("st-door_a",i-1, line,{name="door_2"})
+        elseif c=="F" then
+            set_stone("st-fart",i-1, line)
 
         elseif c==" " then
             set_floor("fl-brick",i-1, line)
@@ -109,12 +119,12 @@ renderLine(02 , "#X.i x R #O# M X.. O")
 renderLine(03 , "#.j     OO   g   ..G")
 renderLine(04 , "*#  #S# # - g g   GG")
 renderLine(05 , "PX   -#   -G>>pG  X>")
-renderLine(06 , "D##O#-#OOOGX>p<XG#dM")
+renderLine(06 , "D##O#-#OOOGX>p<XG#dE")
 renderLine(07 , "<s    o    Gp<<G  XP")
-renderLine(08 , "GG  #SO O   gXg   #*")
+renderLine(08 , "GG  #SO O   gXg  X#*")
 renderLine(09 , "G.. -   #O   g   ..#")
-renderLine(10 , "O ..     ### M  .. #")
-renderLine(11 , "O  .GX(      M #.  k")
+renderLine(10 , "O .. F   ### MX .. #")
+renderLine(11 , "O  .GX(      MX#.  k")
 renderLine(12 , "OOOGG^lLMMMMM^m###K#")
 
 -- Items --
@@ -139,17 +149,26 @@ set_item("it-trigger",4,5,{action="callback", target="set_grate"})
 set_floor("fl-bridge-closed",13,4,{name="br3"})
 set_item("it-trigger",10,3,{action="open", target="br3"})
 
+set_floor("fl-bridge-closed",12,3,{name="br4"})
+set_item("it-trigger",8,5,{action="open", target="br4"})
+
+function open_doors()
+    enigma.SendMessage(enigma.GetNamedObject("door_1"), "open", nil)
+    enigma.SendMessage(enigma.GetNamedObject("door_2"), "open", nil)
+end
+
 -- Stones --
 set_stone("st-turnstile-green",17,11)
 set_stone("st-turnstile-e",18,11)
 set_stone("st-turnstile-n",18,1)
+set_stone("st-turnstile-s",2,11)
 
 -- Puzzles --
 puzzle({"#",
         "#"},{1,10},"bluepuzzle","none")
 
-puzzle({"#",
-        "+"},{2,11},"bluepuzzle","none")
+--puzzle({"#",
+--        "+"},{2,11},"bluepuzzle","none")
 puzzle({"#",
         "+"},{17,1},"bluepuzzle","none")
 puzzle({"#",
