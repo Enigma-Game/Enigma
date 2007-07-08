@@ -648,6 +648,11 @@ do
     DefImage("sh-puzzle1")
     DefImage("sh-brake")
     DefImage("sh-floating")
+    -- Windows shadows:
+    DefImage("sh-window-n")
+    DefImage("sh-window-e")
+    DefImage("sh-window-s")
+    DefImage("sh-window-w")
 end
 
 -------------------
@@ -1144,14 +1149,50 @@ end
 
 -- st-window --
 do
-    DefSubimages("st-window", {modelname="st-window",w=4,h=4})
+    local fg_window = DefSubimages("st-window", {modelname="fg-window",w=4,h=4})
+
+    local shadowlist = {{}, -- undefined "windowless" window stone
+                        {"sh-window-w"},
+                        {"sh-window-s"},
+                        {"sh-window-s","sh-window-w"},
+                        {"sh-window-e"},
+                        {"sh-window-e","sh-window-w"},
+                        {"sh-window-e","sh-window-s"},
+                        {"sh-window-e","sh-window-s","sh-window-w"},
+                        {"sh-window-n"},
+                        {"sh-window-n","sh-window-w"},
+                        {"sh-window-n","sh-window-s"},
+                        {"sh-window-n","sh-window-s","sh-window-w"},
+                        {"sh-window-n","sh-window-e"},
+                        {"sh-window-n","sh-window-e","sh-window-w"},
+                        {"sh-window-n","sh-window-e","sh-window-s"},
+                        {"sh-window-n","sh-window-e","sh-window-s","sh-window-w"}
+                       }
+
+    for i = 2, 16 do
+        DefMultipleComposite("sh-window"..i, shadowlist[i])
+        DefShModel("st-window"..i, "fg-window"..i, "sh-window"..i)
+    end
+
+    -- 4 sided window stone:
     DefAlias("st-window","st-window16")
 
     -- Breaking animimation:
-    local images = DefSubimages("st-window-break", {h=4})
-    DefAnim("st-window-anim", BuildFrames(images, 130))
-end
+    local breaking_window_names = {}
+    local breaking_images = DefSubimages("st-window-break", {h=4})
 
+    for i=1, table.getn(fg_window) do
+        breaking_window_names[i] = {}
+        for j = 1, table.getn(breaking_images) do
+            breaking_window_names[i][j] = "st-window"..i.."-"..j
+            display.DefineComposite(breaking_window_names[i][j], fg_window[i], breaking_images[j])
+        end
+        local frames = BuildFrames(breaking_window_names[i], 130)
+        -- TODO: finish anim names used:
+        DefAnim("st-window"..i.."-anim", frames)
+        DefAnim("st-window-anim", frames)
+    end
+end
 
 -----------------
 -- Oxyd Stones --
