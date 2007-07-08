@@ -1205,7 +1205,7 @@ namespace
     public:
         TimerStone() : OnOffStone("st-timer"), m_signalvalue(1) {
             set_attrib("interval", 1.0);
-            set_attrib("loop", 1.0);
+            set_attrib("loop", true);
             set_attrib("on", 1.0);
             set_attrib("invisible", 0.0);
 
@@ -1219,6 +1219,11 @@ namespace
         double get_interval() const {
             return getAttr("interval", 100);
         }
+
+        bool get_is_looped() const {
+            return to_bool(getAttr("loop"));
+        }
+
         void init_model() {
             if (getAttr("invisible") == 1) {
                 set_model("invisible");
@@ -1235,7 +1240,7 @@ namespace
 
         void set_alarm() {
             if (is_on())
-                GameTimer.set_alarm(this, get_interval(), true);
+                GameTimer.set_alarm(this, get_interval(), get_is_looped());
         }
 
         void alarm() {
@@ -1243,6 +1248,8 @@ namespace
 //                 sound::PlaySound("st-timer");
                 PerformAction(this, m_signalvalue != 0);
                 m_signalvalue = 1-m_signalvalue;
+                if(!get_is_looped())
+                    set_on(false); // Switch to "off"-model.
             }
         }
 

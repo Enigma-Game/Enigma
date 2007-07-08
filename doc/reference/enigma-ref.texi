@@ -6152,7 +6152,9 @@ odd activation, and 0 for every even one.
 @item interval
 number of seconds before @code{action} is performed (default: 1.0)
 @item loop
-if 1, restart the timer after performing @code{action} (default: 1)
+If @code{true}, restart the timer after performing @code{action}, stop
+on @code{false}. Note: This argument doesn't work in Enigma 1.01 or
+older. (default: @code{true})
 @item action, target
 as usual
 @item invisible
