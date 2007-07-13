@@ -696,6 +696,7 @@ festlegen.
 * Bolder-Steine::          
 * Puzzle-Steine::               
 * Poststeine::                  
+* Schachsteine::
 @end menu
 
 @node Toedliche Steine, Wechselsteine, Steine, Steine
@@ -845,7 +846,7 @@ Puzzlesteine lassen sich nicht verschieben und man muss keinen
 Zauberstab benutzen, um Zeilen und Spalten umzuordnen oder die Steine
 zum explodieren zu bringen.
 
-@node Poststeine,  , Puzzle-Steine, Steine
+@node Poststeine, Schachsteine, Puzzle-Steine, Steine
 @subsection Poststeine
 
 @image{images/st-mail,,0.7cm}
@@ -863,14 +864,30 @@ Gegenstand am Ende des Rohres liegt.  Wenn man nicht aufpasst, kann es
 leicht passieren, dass man irrt@"umlich ein falsches Objekt verschickt,
 das danach den Postweg versperrt!
 
+@node Schachsteine,  , Poststeine, Steine
+@subsection Schachsteine
+
+@image{images/st-chess,,0.7cm}
+
+Wie viele andere Steine auch, sind die Schachsteine beweglich. Aber im
+Gegensatz zu allen anderen Steinen bewegen sie sich durch R@"osselspr@"unge,
+d.h. zwei Felder in eine Richtung und ein Feld in eine andere. Zielen sie auf
+einen Schachstein immer unter einem Winkel; er wird sich dann zwei Felder in
+Richtung des Schlages bewegen und ein Feld in die Richtung, die durch den
+Winkel angegeben ist. Es ist recht schwierig, die Schachsteine korrekt zu
+treffen und ben@"otigt etwas @"Ubung, gerade so wie Reiten!
+
+Der schwarze Schachstein kann nur von der schwarzen Murmel bewegt werden, der
+wei@ss{}e Schachstein nur von der wei@ss{}en Murmel. Der Name (Schachstein
+statt Springerstein oder Pferdestein) resultiert daraus, dass es bereits
+Spielobjekte gibt, die die englischen Namen des Springers tragen (Ritter oder
+Pferd). Der deutsche Name ist die w@"ortliche @"Ubersetzung.
+
 @c @node Turnstiles, Bolder Stones, Puzzle Stones, Stones
 @c @subsection Turnstiles
 
-
-
 @c @node Bolder Stones, Elastics and Scissors, Turnstiles, Stones
 @c @subsection Bolder Stones
-
 
 @c @node Elastics and Scissors,  , Bolder Stones, Stones
 @c @subsection Elastics and Scissors

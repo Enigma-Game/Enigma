@@ -641,6 +641,7 @@ point of the black and the white marble respectively.
 * Bolder Stones::             
 * Puzzle Stones::               
 * Mail Stones::                 
+* Chess Stones::
 @end menu
 
 @node Lethal Stones, Swap Stones, Stones, Stones
@@ -769,7 +770,7 @@ unit. They behave like the blue puzzle stones do when you hit them
 with a magic wand: The block explodes if it's fully connected, or
 you shuffle the touched row or column of the block.  
 
-@node Mail Stones,  , Puzzle Stones, Stones
+@node Mail Stones, Chess Stones, Puzzle Stones, Stones
 @subsection Mail Stones
 
 @image{images/st-mail,,0.7cm}
@@ -785,14 +786,28 @@ Be careful: the mail stone does not work if an object is already
 at the end of the pipeline.  It's very easy to inadvertently send
 objects that afterwards block the pipeline, so be careful!
 
+@node Chess Stones,  , Mail Stones, Stones
+@subsection Chess Stones
+
+@image{images/st-chess,,0.7cm}
+
+Like many other stones, the chess stones are movable as well. But in contrast
+to all other stones, they move in the way of a chess knight, i.e. two squares
+in one direction and one square in another. Always hit a chess stone under an
+angle -- it will then move two squares in the direction of your hit and one
+square in the direction given by this angle. It's quite difficult to hit them
+correctly, and needs some practice, just as riding!
+
+The black chess stone can only be moved by a black marble, the white chess
+stone by a white marble. The name (chess stone instead of knight stone or horse
+stone) results from the simple fact that there already are gaming objects named
+knights and horses.
+
 @c @node Turnstiles, Bolder Stones, Puzzle Stones, Stones
 @c @subsection Turnstiles
 
-
-
 @c @node Bolder Stones, Elastics and Scissors, Turnstiles, Stones
 @c @subsection Bolder Stones
-
 
 @c @node Elastics and Scissors,  , Bolder Stones, Stones
 @c @subsection Elastics and Scissors
