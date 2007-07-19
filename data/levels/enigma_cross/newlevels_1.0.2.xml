@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no" ?>
 <index xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="index.xsd">
 
-  <info enigma="1.00" group="Facets" location="15600" network="false" owner="Enigma Team" release="1" revision="2" title="Enigma 1.02 new"/>
+  <info enigma="1.00" group="Facets" location="15600" network="false" owner="Enigma Team" release="1" revision="3" title="Enigma 1.02 new"/>
 
   <attributes/>
 
@@ -14,6 +14,19 @@
     <level _seq="6" _title="Super Puzzle" _xpath="enigma_vii/joe11_1" author="Joseph Dunne" ctrl="force" easy="true" id="joe11" rel="1" rev="0" score="1" target="time" unit="duration"/>
     <level _seq="7" _title="Pantograph" _xpath="enigma_vii/duffy160_1" author="Jacob Scott" ctrl="force" easy="true" id="duffy160" rel="1" rev="2" score="1" target="time" unit="duration"/>
     <level _seq="8" _title="Advanced Space Tubes" _xpath="enigma_vii/duffy161_1" author="Jacob Scott" ctrl="force" easy="false" id="duffy161" rel="1" rev="1" score="1" target="time" unit="duration"/>
+    <level _seq="9" _title="Deserted Island" _xpath="enigma_vii/joe08_1" author="Joseph Dunne" ctrl="force" easy="false" id="joe8" rel="1" rev="0" score="1" target="time" unit="duration"/>
+    <level _seq="10" _title="The Fortress" _xpath="enigma_vii/joe09_1" author="Joseph Dunne" ctrl="force" easy="false" id="joe9" rel="1" rev="0" score="1" target="time" unit="duration"/>
+    <level _seq="11" _title="Manuevre" _xpath="enigma_vii/joe13_1" author="Joseph Dunne" ctrl="force" easy="true" id="joe13" rel="1" rev="0" score="1" target="time" unit="duration"/>
+    <level _seq="12" _title="Mayan Meditation" _xpath="enigma_vii/duffy162_1" author="Jacob Scott" ctrl="force" easy="true" id="duffy162" rel="1" rev="0" score="1" target="time" unit="duration"/>
+    <level _seq="13" _title="Horseshoes" _xpath="enigma_vii/duffy163_1" author="Jacob Scott" ctrl="force" easy="false" id="duffy163" rel="1" rev="0" score="1" target="time" unit="duration"/>
+    <level _seq="14" _title="Knot Garden" _xpath="enigma_vii/duffy165_1" author="Jacob Scott" ctrl="force" easy="false" id="duffy165" rel="1" rev="0" score="1" target="time" unit="duration"/>
+    <level _seq="15" _title="Impulse-phobia" _xpath="enigma_vii/duffy166_1" author="Jacob Scott" ctrl="force" easy="false" id="duffy166" rel="1" rev="0" score="1" target="time" unit="duration"/>
+    <level _seq="16" _title="Slopes, Jumps &amp; Falls" _xpath="enigma_vii/duffy167_1" author="Jacob Scott" ctrl="force" easy="false" id="duffy167" rel="1" rev="0" score="1" target="time" unit="duration"/>
+    <level _seq="17" _title="Arctic Jumping" _xpath="enigma_vii/duffy168_1" author="Jacob Scott" ctrl="force" easy="false" id="duffy168" rel="1" rev="0" score="1" target="time" unit="duration"/>
+    <level _seq="18" _title="Breakthrough" _xpath="enigma_vii/duffy170_1" author="Jacob Scott" ctrl="force" easy="false" id="duffy170" rel="1" rev="0" score="1" target="time" unit="duration"/>
+    <level _seq="19" _title="Give Way" _xpath="enigma_vii/just20_1" author="JuSt" ctrl="force" easy="false" id="just20" rel="1" rev="1" score="1" target="time" unit="duration"/>
+    <level _seq="20" _title="Give more Way" _xpath="enigma_vii/just21_1" author="JuSt" ctrl="force" easy="false" id="just21" rel="1" rev="1" score="1" target="time" unit="duration"/>
+    <level _seq="21" _title="Give Way 3.0" _xpath="enigma_vii/just22_1" author="JuSt" ctrl="force" easy="false" id="just22" rel="1" rev="1" score="1" target="time" unit="duration"/>
   </levels>
 
 </index>
