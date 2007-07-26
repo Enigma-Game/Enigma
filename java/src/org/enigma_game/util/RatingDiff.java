@@ -18,13 +18,13 @@
  */
 package org.enigma_game.util;
 
-import java.util.*; 
+import java.util.*;
 import org.enigma_game.EnigmaUtil;
 import org.enigma_game.lev.RatingManager;
 
 public class RatingDiff {
     EnigmaUtil theApp = org.enigma_game.EnigmaUtil.theApp;
-    
+
     public RatingDiff(String oldRatingUrl, String newRatingUrl) {
         try {
             System.out.println("Start building ratings diff.");
@@ -39,41 +39,40 @@ public class RatingDiff {
             System.out.println("parse template for dummy incremental ratings");
             RatingManager incDummyRating = new RatingManager(
                     RatingDiff.class.getResource(theApp.RESOURCES + "schemas/ratings.xml").toString());
-            
+
             incRating.setDate(newRating.getDate());
             incDummyRating.setDate(newRating.getDate());
-            
+
             newRating.setUrlFull(oldRating.getUrlFull());
             incRating.setUrlFull(oldRating.getUrlFull());
             incDummyRating.setUrlFull(oldRating.getUrlFull());
-            
+
             String oldUrlIncr = oldRating.getUrlIncremental();
             String incVersionString = oldUrlIncr.substring(oldUrlIncr.length() - 7,
                     oldUrlIncr.length() - 4);
             int incVersion = Integer.parseInt(incVersionString);
-            
+
             int incNewVersion = incVersion + 1;
-            String incNewVersionString = Integer.toString(incNewVersion);
-            if (incNewVersionString.length() == 1)
-                incNewVersionString = "00" + incNewVersionString;
-            else if (incVersionString.length() == 2)
-                incNewVersionString = "0" + incNewVersionString;
-            
+            StringBuilder sb = new StringBuilder();
+            Formatter formatter = new Formatter(sb, Locale.US);
+            formatter.format("%03d", incNewVersion);
+            String incNewVersionString = sb.toString();
+
             String newUrlIncr = oldUrlIncr.substring(0, oldUrlIncr.length() - 7)
                     + incNewVersionString + ".xml";
-            
+
             newRating.setUrlIncremental(newUrlIncr);
             incRating.setUrlIncremental(newUrlIncr);
             incDummyRating.setUrlIncremental(newUrlIncr);
-            
+
             Set<Map<String,String>> oldLevels = oldRating.getRatingData();
             Set<Map<String,String>> newLevels = newRating.getRatingData();
             System.out.println("Level count old " + oldLevels.size() + " - new " + newLevels.size());
-            
+
             newLevels.removeAll(oldLevels);
             System.out.println("Level count diff " + newLevels.size());
             incRating.addRatingData(newLevels);
-            
+
             newRating.save("ratings.xml");
             incRating.save("ratings_i" + incVersionString + ".xml");
             incDummyRating.save("ratings_i" + incNewVersionString + ".xml");

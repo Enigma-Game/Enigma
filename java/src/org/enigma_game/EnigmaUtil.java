@@ -16,6 +16,12 @@
  * 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.
  *
  */
+
+// EnigmaUtil requires Java 1.5++ and Xerces-J 2.9.0
+//   as JDK 1.5 and 1.6 bundle outdated Xerces-J 2.6.2 the 2.9.0 paser jars have
+//   to be added to the JRE in subdir "lib/endorsed"
+//   we keep outcommented the code for usage of the internal parser for future JDK versions
+
 // Xerces-J problems:
 //   pretty printing  needs 2.8.0
 //   class resource urls work on parser but not on Resolver, LSInput?
@@ -42,6 +48,7 @@ import org.w3c.dom.bootstrap.DOMImplementationRegistry;
 import org.w3c.dom.ls.*;
 import org.apache.xerces.dom.DOMImplementationImpl;
 
+
 import org.enigma_game.util.LevelEvaluation;
 import org.enigma_game.util.RatingDiff;
 import org.enigma_game.util.ScoreRegistration;
@@ -57,7 +64,7 @@ public class EnigmaUtil implements DOMErrorHandler, LSResourceResolver {
     public LSParser domParser;
     public LSSerializer domWriter;
     public DOMImplementationLS domImpl;
-    
+
     private DOMConfiguration parserConfig;
 
     Document doc;
@@ -82,34 +89,35 @@ public class EnigmaUtil implements DOMErrorHandler, LSResourceResolver {
               "org.apache.xerces.dom.DOMXSImplementationSourceImpl");
             DOMImplementationRegistry registry = DOMImplementationRegistry.newInstance();
             domImpl = (DOMImplementationLS)registry.getDOMImplementation("LS");
-    
+
             if (domImpl == null)
                 System.out.println("LS domImpl is null");
             else
-                System.out.println("LS domImpl is valid");
-            
+                //System.out.println("LS domImpl is valid: " + com.sun.org.apache.xerces.internal.impl.Version.getVersion());  // causes a compiler warning that can be ignored
+                System.out.println("LS domImpl is valid: " + org.apache.xerces.impl.Version.getVersion());
+
             // create DOMBuilder
             domParser = domImpl.createLSParser(DOMImplementationLS.MODE_SYNCHRONOUS, null);
-            
+
             parserConfig = domParser.getDomConfig();
 
             // set error handler
             parserConfig.setParameter("error-handler", this);
-            
+
             // set resource-resolver
             parserConfig.setParameter("resource-resolver", this);
-            
+
             // set validation feature
             parserConfig.setParameter("validate",Boolean.TRUE);
-            
+
             // namespace by default, datatypenormalization ?
-            
+
             // set schema language
             parserConfig.setParameter("schema-type", "http://www.w3.org/2001/XMLSchema");
-                        
+
             // create DOMWriter
             domWriter = domImpl.createLSSerializer();
-            
+
             DOMConfiguration  config = domWriter.getDomConfig();
             config.setParameter("error-handler", this);
             //config.setParameter("discard-default-content", Boolean.FALSE);
@@ -145,7 +153,7 @@ public class EnigmaUtil implements DOMErrorHandler, LSResourceResolver {
         return true;
 
     }
-    
+
     public LSInput resolveResource(String type, String namespaceURI, String publicId,
             String systemId, String baseURI) {
         LSInput input = domImpl.createLSInput();
@@ -156,7 +164,7 @@ public class EnigmaUtil implements DOMErrorHandler, LSResourceResolver {
         input.setByteStream(bStream);
         return input;
     }
-    
+
     public static void main(String[] args) {
         new EnigmaUtil(args);
     }

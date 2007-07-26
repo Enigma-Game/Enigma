@@ -20,7 +20,7 @@ package org.enigma_game.lev;
 
 import java.io.*;
 import java.text.*;
-import java.util.*; 
+import java.util.*;
 import javax.xml.datatype.*;
 import org.w3c.dom.*;
 import org.w3c.dom.ls.*;
@@ -42,22 +42,22 @@ public class RatingManager {
     int numEasy;
     int numProf = 0;
     static double log_2 = Math.log(2.0);
-    
+
     public RatingManager(String url) {
         doc = theApp.domParser.parseURI(url);
-        
+
         DOMConfiguration config = doc.getDomConfig();
         config.setParameter("error-handler", theApp);
         // set validation feature
         config.setParameter("validate", Boolean.FALSE);
         config.setParameter("schema-type", "http://www.w3.org/2001/XMLSchema");
         //config.setParameter("schema-location","data/personal.xsd");
-        
+
         updateElem = (Element) doc.getElementsByTagName("update").item(0);
         levelsElem = (Element) doc.getElementsByTagName("levels").item(0);
         levelElems = doc.getElementsByTagName("level");
     }
-    
+
     public void setUpLevelScores(String levelPattern) {
         for (int i = 0; i < levelElems.getLength(); i++) {
             Element e = (Element) levelElems.item(i);
@@ -127,7 +127,7 @@ public class RatingManager {
         lpmgr = new LevelpackManager("enigma_mas_microban");
         lpmgr.registerLevels(this);
         levelPacks.add(lpmgr);
-        
+
         for(Map.Entry<String, LevelScore> entry : levelScores.entrySet()) {
             LevelScore lev = entry.getValue();
             int sv = Integer.parseInt(lev.getScoreVersion());
@@ -148,26 +148,26 @@ public class RatingManager {
             }
         }
     }
-    
+
     public LevelScore getLevelScore(String id, String scoreVersion) {
         return levelScores.get(id + "_" + scoreVersion);
     }
-    
+
     public LevelScore newLevelScore(String id, String scoreVersion) {
         Element level = doc.createElementNS(null, "level");
         level.setAttributeNS(null, "id", id);
         level.setAttributeNS(null, "sv", scoreVersion);
         levelsElem.appendChild(level);
-        
+
         LevelScore ls = new LevelScore(level, "", "", "", "");
         String key = id + "_" + scoreVersion;
         levelScores.put(key, ls);
-        
+
         System.out.println("Missing Rating: id '" + id + "' score version "
                 + scoreVersion);
         return ls;
     }
-    
+
     public void clearUserScores() {
         for(Map.Entry<String, LevelScore> entry : levelScores.entrySet()) {
             if (entry.getValue().isPartOfCurDist()) {
@@ -175,7 +175,7 @@ public class RatingManager {
             }
         }
     }
-    
+
     public boolean isUserProfessional(UserManager userMgr, String userId, boolean print) {
         boolean isProfessional = false;
         int userDiffCount = 0;
@@ -202,30 +202,30 @@ public class RatingManager {
         if (print) {
             System.out.println(formatter.toString());
         }
-        if (solvedPercent > 20.0) {
+        if (solvedPercent > 30.0) {
             isProfessional = true;
             numProf++;
         }
         Formatter formatterTotal = new Formatter(Locale.US);
         formatterTotal.format("%6.2f",  solvedPercent);
         userMgr.setValue(userId, "solvedtotal", formatterTotal.toString());
-        
+
         Formatter formatterEasy = new Formatter(Locale.US);
         formatterEasy.format("%3d/%3d", userEasyCount, numEasy);
         userMgr.setValue(userId, "solvede", formatterEasy.toString());
-        
+
         Formatter formatterDiff = new Formatter(Locale.US);
         formatterDiff.format("%4d/%4d", userDiffCount, numDifficult);
         userMgr.setValue(userId, "solvedd", formatterDiff.toString());
-        
+
         return isProfessional;
     }
-    
+
     public void evaluateUser(UserManager userMgr, String userId) {
 //        System.out.println("Par Evalutation");
         StringBuilder sb = new StringBuilder();
         Formatter formatter = new Formatter(sb, Locale.US);
-        
+
         for (LevelpackManager lpm : levelPacks) {
             double hcpe = 0;
             double hcpd = 0;
@@ -273,7 +273,7 @@ public class RatingManager {
                         totalWRrcount++;
                         if (!ls.isUniqueWREasy())
                             sharedWRcount++;
-                    }                    
+                    }
                 }
             }
         }
@@ -285,25 +285,25 @@ public class RatingManager {
         formatter.format("Enigma Total Hcp = %6.1f, Solved Hcp = %6.1f at %d levels",
                 hcpsum, hcpsumsolved, levelsum);
 //        System.out.println(sb.toString());
-        
+
         Formatter formatterHcpTotal = new Formatter(Locale.US);
         formatterHcpTotal.format("%6.1f",  hcpsum);
         userMgr.setValue(userId, "hcptotal", formatterHcpTotal.toString());
-        
+
         Formatter formatterHcpSolved = new Formatter(Locale.US);
         formatterHcpSolved.format("%6.1f",  hcpsumsolved);
         userMgr.setValue(userId, "hcpsolved", formatterHcpSolved.toString());
-        
+
         // future direct output of WR based only on registerd scores
 //         Formatter formatterWRtotal = new Formatter(Locale.US);
 //         formatterWRtotal.format("%3d",  totalWRrcount);
 //         userMgr.setValue(userId, "wrtotal", formatterWRtotal.toString());
-//         
+//
 //         Formatter formatterWRshared = new Formatter(Locale.US);
 //         formatterWRshared.format("%3d",  sharedWRcount);
 //         userMgr.setValue(userId, "wrshared", formatterWRshared.toString());
     }
-    
+
     private double levelHcp(int score, double par) {
         double dhcp = 0;
         if (score == -1) {
@@ -323,7 +323,7 @@ public class RatingManager {
         }
         return dhcp;
     }
-    
+
     public void finishLevelScores(int numUsers, UserManager userMgr) {
         int diffSolved = 0;
         int diffUnsolved = 0;
@@ -356,8 +356,8 @@ public class RatingManager {
         System.out.println("Easy Solved " + easySolved + " / Unsolved " + easyUnsolved);
         System.out.println("Total Solved " + LevelScore.solvedTotal);
         LevelScore.printWRStatistics(userMgr);
-        
-        
+
+
         try {
             PrintWriter output = new PrintWriter(new FileWriter(new File("top_rated_levels.txt")), true);
             output.println("Top Rated Levels (with more than one rating)");
@@ -376,57 +376,61 @@ public class RatingManager {
                         break;
                 }
             }
-            
+
             output = new PrintWriter(new FileWriter(new File("stat-other.html")), true);
-            output.println("  <div class=\"stat-help\">");
-            output.println("    <h3>Other Statistics</h3>");
-            output.println("    <h4>Scores</h4>");
-            output.println("      " + LevelScore.solvedTotal + " single level scores have been registered.");
-            output.println("    <h4>Ratings</h4>");
-            output.printf("      %s single level ratings have been registered with an average of "
-                    + "%4.2f and the following distribution: ", LevelScore.ratingsTotal, ((double)LevelScore.ratingsTotalSum)/LevelScore.ratingsTotal);
-            output.println("      <table>");
-            output.println("        <colgroup><col width=\"80\"><col width=\"80\"></colgroup>");
-            output.println("        <tr><th>rating</th><th>count</th></tr>");
+            StringBuilder sb = new StringBuilder();
+            Formatter formatter = new Formatter(sb, Locale.US);
+            formatter.format("  <div class=\"stat-help\">\n");
+            formatter.format("    <h3>Other Statistics</h3>\n");
+            formatter.format("    <h4>Scores</h4>\n");
+            formatter.format("      %d single level scores have been registered.\n", LevelScore.solvedTotal);
+            formatter.format("    <h4>Ratings</h4>\n");
+            formatter.format("      %s single level ratings have been registered with an average of "
+                    + "%4.2f and the following distribution: \n", LevelScore.ratingsTotal,
+                    ((double)LevelScore.ratingsTotalSum)/LevelScore.ratingsTotal);
+            formatter.format("      <table>\n");
+            formatter.format("        <colgroup><col width=\"80\"><col width=\"80\"></colgroup>\n");
+            formatter.format("        <tr><th>rating</th><th>count</th></tr>\n");
             for (int i=0; i<=10; i++) {
-                output.println("        <tr><td class=\"num\">" + i + "</td><td class=\"num\">" + LevelScore.ratingsDist[i] + "</td></tr>");
+                formatter.format("        <tr><td class=\"num\">%d</td><td class=\"num\">%d</td></tr>\n", i, LevelScore.ratingsDist[i]);
             }
-            output.println("      </table>");
-            output.println("  </div>");
+            formatter.format("      </table>\n");
+            formatter.format("  </div>\n");
+            output.print(sb.toString());
             output.flush();
         } catch (Exception e) {
         }
-        
+
         System.out.println("Total Ratings " + LevelScore.ratingsTotal + "  Average " +
                 ((double)LevelScore.ratingsTotalSum)/LevelScore.ratingsTotal);
         for (int i=0; i<=10; i++) {
             System.out.println("   " + i + " - " + LevelScore.ratingsDist[i]);
         }
     }
-    
+
     public void evaluateLevels() {
         for (Map.Entry<String, LevelScore> entry : levelScores.entrySet()) {
             LevelScore ls = entry.getValue();
             ls.printLevelEvaluation();
         }
     }
-    
+
     public void renameUser(String oldname, String newname) {
         for(Map.Entry<String, LevelScore> entry : levelScores.entrySet()) {
             entry.getValue().renameUser(oldname, newname);
         }
     }
-    
+
     public void save(String url) {
         //doc.normalizeDocument();
         System.out.println("save " + url + " - "+ levelElems.getLength());
         theApp.domWriter.writeToURI(doc, url);
     }
-    
+
     public String getDate() {
         return updateElem.getAttribute("date");
     }
-    
+
     public void setDate(String date) {
         if (date.equals("")) {
             GregorianCalendar calendar = new GregorianCalendar(TimeZone.getTimeZone("GMT"));
@@ -443,23 +447,23 @@ public class RatingManager {
         }
         updateElem.setAttribute("date", date);
     }
-    
+
     public String getUrlFull() {
         return updateElem.getAttribute("urlFull");
     }
-    
+
     public void setUrlFull(String url) {
         updateElem.setAttribute("urlFull", url);
     }
-    
+
     public String getUrlIncremental() {
         return updateElem.getAttribute("urlIncremental");
     }
-    
+
     public void setUrlIncremental(String url) {
         updateElem.setAttribute("urlIncremental", url);
     }
-    
+
     public Set<Map<String,String>> getRatingData() {
         Map<String, String> level;
         Set<Map<String,String>> allData = new HashSet<Map<String,String>>();
@@ -474,7 +478,7 @@ public class RatingManager {
         }
         return allData;
     }
-    
+
     public void addRatingData(Set<Map<String,String>> additions) {
         for (Map<String,String> rating : additions) {
             Element level = doc.createElementNS(null, "level");
