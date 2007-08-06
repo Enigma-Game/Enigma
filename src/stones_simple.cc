@@ -1082,10 +1082,10 @@ namespace
         CLONEOBJ(ScissorsStone);
         DECL_TRAITS;
         void actor_hit(const StoneContact &sc) {
-            if (world::KillRubberBands (sc.actor))
-                world::PerformAction(this, false);
             sound_event("scissors");
             set_anim("st-scissors-snip");
+            if (world::KillRubberBands (sc.actor))
+                world::PerformAction(this, false);
         }
         void animcb() {
             set_model("st-scissors");

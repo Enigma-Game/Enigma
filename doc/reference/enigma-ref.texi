@@ -6207,11 +6207,11 @@ A turnstile consists of the pivot (@code{st-turnstile} or
 @code{st-turnstile-green}) and up to four arms
 (@code{st-turnstile-[w/e/s/n]}). When hit by an actor or by another
 impulse (e.g. @ref{st-lightpassenger} or @ref{st-stoneimpulse}), the
-whole complex turns around by 90 degrees.  The red standard version
-takes only the actor hitting the turnstile with it to the other side
-and shatters all others in its surrounding, while the green version
-takes all actors to the other side, regardless of who gave the impulse
-to it.
+whole complex turns around by 90 degrees.  The red standard version takes only
+the actor hitting the turnstile with it to the other side and shatters all
+others in its surrounding. The green version takes all actors to the other
+side, for which there is an arm behind them, and ignores the rest. Imagine the
+red turnstile as pulling, the green one as pushing.
 
 The turnstile may be blocked by other stones (even movable ones).
 Items are handled during rotation as if a stone is pushed over them.
@@ -6224,9 +6224,8 @@ will be discarded.  This way you can concatenate several turnstiles to
 a complex which simultaneously rotates (or only in certain parts),
 without constructing an endless loop.
 
-When two green turnstiles are intertwined, one them is hit and an
-actor would be transported, then the second turnstile will be hit,
-too.
+When two green turnstiles are intertwined, one of them is hit and an actor would
+be transported between them, then the second turnstile will be hit, too.
 
 When an actor is to be warped outside of the level by a turnstile
 (which only happens with a green one directly at the levelborder), the
