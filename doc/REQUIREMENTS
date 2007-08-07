@@ -15,33 +15,32 @@ Source          Address/Info
 
 Libraries:
 ----------
-SDL-devel       1.2.9, 1.2.11      (no 1.2.10 on Mac!) 
+SDL-devel       1.2.12 -  1.2.9, 1.2.11      (no 1.2.10 on Mac!) 
                 http://www.libsdl.org/download-1.2.php
-                SDL-devel-1.2.9-mingw32.tar.gz (Mingw32)
+                SDL-devel-1.2.12-mingw32.tar.gz (Mingw32)
                 
-SDL_ttf-devel   2.0.7
+SDL_ttf-devel   2.0.9 -  2.0.7
                 http://www.libsdl.org/projects/SDL_ttf/
-                SDL_ttf-devel-2.0.7-VC6.zip (W)
+                SDL_ttf-devel-2.0.7-VC8.zip (W)
                 
-SDL_mixer-devel 1.2.6
+SDL_mixer-devel 1.2.8 - 1.2.7
                 http://www.libsdl.org/projects/SDL_mixer/
-                SDL_mixer-devel-1.2.6-VC6.zip
+                SDL_mixer-devel-1.2.8-VC8.zip (W)
                 
-SDL_image-devel 1.2.4
+SDL_image-devel 1.2.6
                 http://www.libsdl.org/projects/SDL_image/
-                SDL_image-devel-1.2.4-VC6.zip (W)
+                SDL_image-devel-1.2.6-VC8.zip (W)
 
-Xerces-C        3.0 r454356     2.4 - 2.7 (L)   < 2.3 (L); 3.0 < r454356
+Xerces-C        3.0 r560922     2.4 - 2.7 (L)   < 2.3 (L); 3.0 < r454356
 Apache          2.7 : http://xml.apache.org/xerces-c/download.cgi
                       Linux: use rpm spec 
                 3.0 : https://svn.apache.org/repos/asf/xerces/c/trunk
                       Linux: ./configure --prefix=/mysweethome; make; install)
                       Windows: see doc/README.mingw
 
-libpng          1.2.7                           
-/GnuWin32       http://gnuwin32.sourceforge.net/packages/libpng.htm
+libpng          1.2.18  - must be compatible to dynamic SDL_imager libs                         
+	        http://sourceforge.net/project/showfiles.php?group_id=5624
                 Developer files (W)
-                (The 1.2.8 dll is incompatible to SDL_image 1.2.4)
                 
 zlib            1.2.3
 /GnuWin32       http://gnuwin32.sourceforge.net/packages/zlib.htm
@@ -52,7 +51,9 @@ Tools:
 
 gcc             3.4.2 (W)   - 4.0 (L)                    
 GNU/mingw       http://www.mingw.org/download.shtml
-                MinGW-4.1.0.exe + MinSYS-1.0.10.exe + msysDTK-1.0.1
+                MinGW-5.1.3.exe + MinSYS-1.0.10.exe + msysDTK-1.0.1 with
+		w32api 3.9 + binutils 2.16.91-20060119-1 +
+		gcc-core 3.4.2-20040916-1 + gcc-g++ 3.4.2-20040916-1	
                 (crosscompiler see doc/README.mingw and etc/build-cross.sh)
 
 autoconf        2.59                            <= 2.56
@@ -60,7 +61,7 @@ GNU/mingw       http://www.mingw.org/download.shtml
                 msys-autoconf-2.59.tar.bz2
 
 
-texi2html       1.76                            < 1.70 ?
+texi2html       1.78, 1.76                       < 1.70 ?
                 http://www.nongnu.org/texi2html/
 
 gettext         0.14.4
@@ -79,7 +80,7 @@ Graphviz        2.2.1
 AT&T            http://www.graphviz.org/About.php
                 (for source documentation)
 
-upx             1.2.5
+upx             3.00 -  1.2.5
                 http://upx.sourceforge.net/
 
 ccache          2.4 (L)

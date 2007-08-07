@@ -103,25 +103,30 @@ Extract zip-bin to GnuWin32
 
 Install upx anywhere in PATH
 
-SDL-devel-1.2.9-mingw32.tar.gz
+SDL-devel-1.2.12-mingw32.tar.gz
   extract to a workdir
-  move include/* to include/SDL
   edit Makefile CROSS_PATH to /mingw
-  edit bin/i386-mingw32msvc-sdl-config  prefix to /mingw
   make cross
-  cp /mingw/bin/i386-mingw32msvc-sdl-config /mingw/bin/sdl-config
-  cp bin/*.dll to enigma/etc and a second copy to enigma
+  cp /mingw/share/aclocal/sdl.m4 /msys/1.0/share/aclocal/
+  cp bin/*.dll to enigma/etc
 
-SDL_ttf-devel-2.0.7-VC6.zip, SDL_mixer-devel-1.2.6-VC6.zip, SDL_image-devel-1.2.4-VC6.zip
+SDL_ttf-devel-2.0.9-VC8.zip, SDL_mixer-devel-1.2.8-VC8.zip, SDL_image-devel-1.2.6-VC8.zip
   extract
   cp includes to /mingw/include/SDL
   cp lib/*.lib to /mingw/lib
   cp lib/*.dll to enigma/etc
 
-zlib-1.2.3-lib.zip, libpng-1.2.8-lib.zip
+libpng-1.2.18.tar.gz
+  extract to workdir
+  ./configure --prefix=/mingw
+  make
+  make install
+  cp /mingw/bin/libpng12-0.dll to enigma/etc
+  
+zlib-1.2.3-lib.zip
   extract
   cp includes to /mingw/include
-  cp lib/libz.dll.a, libpng.dll.a to /mingw/lib 
+  cp lib/libz.dll.a to /mingw/lib 
 
 xerces-c
   ./configure --prefix=/mingw
@@ -129,7 +134,7 @@ xerces-c
   make install
   
 enigma
-  export ENIGMADEVDLLS="SDL SDL_image SDL_mixer SDL_ttf jpeg libpng13 zlib"
+  export ENIGMADEVDLLS="SDL SDL_image SDL_mixer SDL_ttf jpeg zlib1 libfreetype-6 libogg-0 libpng12-0 libtiff-3 libvorbis-0 libvorbisfile-3 smpeg"
   ./autogen.sh
   ./configure
   cd etc

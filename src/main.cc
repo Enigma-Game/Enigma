@@ -306,6 +306,9 @@ void Application::init(int argc, char **argv)
     }
 
     // ----- Initialize SDL library
+#ifdef WIN32
+    SDL_putenv("SDL_VIDEODRIVER=directx");  //needed for SDL 1.2.12 that favors GDI which crashes on SetGamma
+#endif
     int sdl_flags = SDL_INIT_VIDEO;
     if (enigma::WizardMode)
         sdl_flags |= SDL_INIT_NOPARACHUTE;
