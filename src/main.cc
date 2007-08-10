@@ -45,7 +45,6 @@
 #include "enet/enet.h"
 
 #include <locale.h>
-
 #include <cstdio>
 #include <cstdlib>
 #include <fstream>
@@ -307,7 +306,7 @@ void Application::init(int argc, char **argv)
 
     // ----- Initialize SDL library
 #ifdef WIN32
-    SDL_putenv("SDL_VIDEODRIVER=directx");  //needed for SDL 1.2.12 that favors GDI which crashes on SetGamma
+//    SDL_putenv("SDL_VIDEODRIVER=directx");  //needed for SDL 1.2.12 that crashes on SetGamma on default GDI driver
 #endif
     int sdl_flags = SDL_INIT_VIDEO;
     if (enigma::WizardMode)

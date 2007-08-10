@@ -103,10 +103,11 @@ Extract zip-bin to GnuWin32
 
 Install upx anywhere in PATH
 
-SDL-devel-1.2.12-mingw32.tar.gz
+SDL-devel-1.2.11-mingw32.tar.gz ls -l
   extract to a workdir
-  edit Makefile CROSS_PATH to /mingw
-  make cross
+  cp -rv bin lib share /mingw/
+  cp -rv include /mingw/include/SDL
+  sed 's|^prefix=.*|prefix=/minw/|' <bin/sdl-config > /mingw/bin/i386-mingw32msvc-sdl-config
   cp /mingw/share/aclocal/sdl.m4 /msys/1.0/share/aclocal/
   cp bin/*.dll to enigma/etc
 
@@ -139,7 +140,7 @@ enigma
   ./configure
   cd etc
   ./mingw32-dist.sh
-  install etc/enigma.zip
+  Install etc/enigma.zip
 
 B) Cross MinGW Compilation
 ---------------------------

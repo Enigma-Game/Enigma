@@ -161,7 +161,11 @@ LIBS="$LIBS_NOSDL"
 dnl ----------------------------------------
 dnl Check for libpng
 dnl ---------------------------------------
-AC_CHECK_LIB(png,png_create_write_struct,,[AC_MSG_ERROR([libpng is required to compile Enigma])])
+if test "$MINGW32" = yes; then
+  AC_CHECK_LIB(png12,png_create_write_struct,,[AC_MSG_ERROR([libpng is required to compile Enigma])])
+else
+  AC_CHECK_LIB(png,png_create_write_struct,,[AC_MSG_ERROR([libpng is required to compile Enigma])])
+fi
 
 dnl ----------------------------------------
 dnl Check for xerces
@@ -194,6 +198,11 @@ else
     AC_CHECK_LIB(xerces-c, main,,[AC_MSG_ERROR([xerces is required to compile Enigma])])
   fi
 fi
+
+dnl ----------------------------------------
+dnl Check for libcurl
+dnl ---------------------------------------
+AC_CHECK_LIB(curl,curl_global_init,,[AC_MSG_ERROR([libcurl is required to compile Enigma])])
 
 dnl ----------------------------------------
 dnl Activate optimizations when profiling, to get rid of

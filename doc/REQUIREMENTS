@@ -15,9 +15,9 @@ Source          Address/Info
 
 Libraries:
 ----------
-SDL-devel       1.2.12 -  1.2.9, 1.2.11      (no 1.2.10 on Mac!) 
+SDL-devel       1.2.11 -  1.2.9		   (no 1.2.10 on Mac, no 1.2.12 on Win!) 
                 http://www.libsdl.org/download-1.2.php
-                SDL-devel-1.2.12-mingw32.tar.gz (Mingw32)
+                SDL-devel-1.2.11-mingw32.tar.gz (Mingw32)
                 
 SDL_ttf-devel   2.0.9 -  2.0.7
                 http://www.libsdl.org/projects/SDL_ttf/
