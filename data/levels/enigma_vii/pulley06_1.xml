@@ -1,0 +1,112 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no" ?>
+<el:level xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://enigma-game.org/schema/level/1 level.xsd" xmlns:el="http://enigma-game.org/schema/level/1">
+  <el:protected>
+    <el:info el:type="level">
+      <el:identity el:title="Puppet" el:subtitle="" el:id="20070616pulley001"/>
+      <el:version el:score="1" el:release="1" el:revision="0" el:status="released"/>
+      <el:author  el:name="Mark Pulley" el:email="" el:homepage=""/>
+      <el:copyright>Copyright © 2007 Mark Pulley</el:copyright>
+      <el:license el:type="GPL v2.0 or above" el:open="true"/>
+      <el:compatibility el:enigma="1.00">
+       <el:dependency el:path="lib/ant" el:id="lib/ant" el:release="1" el:preload="true"/>
+      </el:compatibility>
+      <el:modes el:easy="true" el:single="true" el:network="false"/>
+      <el:score el:easy="0:45" el:difficult="-"/>
+    </el:info>
+    <el:luamain><![CDATA[
+function file_oxyd(x,y,f)
+    oxyd_default_flavor=f
+    oxyd(x,y)
+end
+
+-- ANT --
+create_world(20,13)
+
+cells={}
+if difficult then
+    cells[" "]=cell{floor="fl-gradient14"}
+    cells["^"]=cell{floor="fl-gradient13"} -- Up
+    cells["f"]=cell{actor={"ac-horse", {name="footL"}},floor="fl-gradient13"}
+else
+    cells[" "]=cell{floor="fl-normal"}
+    cells["^"]=cell{floor="fl-normal"}
+    cells["f"]=cell{actor={"ac-horse", {name="footL"}},floor="fl-normal"}
+end
+cells["b"]=cell{floor="fl-bluegreen"}
+cells["g"]=cell{stone="st-grate3"}
+cells["0"]=cell{parent={{file_oxyd,"b"}}}
+cells["A"]=cell{stone={"st-glass", {name="support1"}}}
+cells["B"]=cell{stone={"st-glass", {name="support2"}}}
+cells["N"]=cell{actor={"ac-horse", {name="head"}}}
+cells["S"]=cell{actor={"ac-horse", {name="shoulder"}}}
+cells["e"]=cell{actor={"ac-horse", {name="elbowL"}}}
+cells["E"]=cell{actor={"ac-horse", {name="elbowR"}}}
+cells["h"]=cell{actor={"ac-horse", {name="handL"}}}
+cells["H"]=cell{actor={"ac-horse", {name="handR"}}}
+cells["P"]=cell{actor={"ac-horse", {name="hip"}}}
+cells["k"]=cell{actor={"ac-horse", {name="kneeL"}}}
+cells["K"]=cell{actor={"ac-horse", {name="kneeR"}}}
+cells["F"]=cell{actor={"ac-horse", {name="footR"}}}
+cells["!"]=cell{stone={"st-door_a", {name="Door1"}},floor="fl-bluegreen"}
+cells["@"]=cell{stone={"st-door_a", {name="Door2"}},floor="fl-bluegreen"}
+cells["#"]=cell{stone={"st-door_a", {name="Door3"}},floor="fl-bluegreen"}
+cells["$"]=cell{stone={"st-door_a", {name="Door4"}},floor="fl-bluegreen"}
+cells["%"]=cell{stone={"st-door_a", {name="Door5"}},floor="fl-bluegreen"}
+cells[")"]=cell{stone={"st-door_a", {name="Door6"}},floor="fl-bluegreen"}
+cells["&"]=cell{stone={"st-door_a", {name="Door7"}},floor="fl-bluegreen"}
+cells["*"]=cell{stone={"st-door_a", {name="Door8"}},floor="fl-bluegreen"}
+cells["("]=cell{stone={"st-door_a", {name="Door9"}},floor="fl-bluegreen"}
+cells["W"]=cell{stone={"st-brick"}}
+
+cells["1"]=cell{item={face="it-trigger",attr={action="openclose",target="Door1"}},floor="fl-bluegreen"}
+cells["2"]=cell{stone={face="st-grate3"},item={face="it-trigger",attr={action="openclose",target="Door2"}},floor="fl-bluegreen"}
+cells["3"]=cell{item={face="it-trigger",attr={action="openclose",target="Door3"}},floor="fl-bluegreen"}
+cells["4"]=cell{item={face="it-trigger",attr={action="openclose",target="Door4"}},floor="fl-bluegreen"}
+cells["5"]=cell{item={face="it-trigger",attr={action="openclose",target="Door5"}},floor="fl-bluegreen"}
+cells["6"]=cell{item={face="it-trigger",attr={action="openclose",target="Door6"}},floor="fl-bluegreen"}
+cells["7"]=cell{item={face="it-trigger",attr={action="openclose",target="Door7"}},floor="fl-bluegreen"}
+cells["8"]=cell{item={face="it-trigger",attr={action="openclose",target="Door8"}},floor="fl-bluegreen"}
+cells["9"]=cell{item={face="it-trigger",attr={action="openclose",target="Door9"}},floor="fl-bluegreen"}
+
+level={"W0ggggg2ANBggggggg0W",
+       "Wbg H E^ S  e h  (bW",
+       "Wbg   1     8    gbW",
+       "Wbg   ^     ^    gbW",
+       "Wbg        9     gbW",
+       "W%g   K4 P3^k    g$W",
+       "W@g    ^  7      g&W",
+       "Wbg       ^ 5    gbW",
+       "Wbg   F     f    gbW",
+       "Wbg       6      gbW",
+       "WbWWWWWWWWWWWWWWWWbW",
+       "W*bbbbbbb)!bbbbbbb#W",
+       "W0WWWWWWWWWWWWWWWW0W"}
+
+set_default_parent(cells[" "])
+draw_map(0,0,level,cells)
+
+set_actor("ac-blackball",3.5,3.5,{player=0,name="bb"})
+
+AddRubberBand (enigma.GetNamedObject("head"), enigma.GetNamedObject("support1"), 8000, 1, 1)
+AddRubberBand (enigma.GetNamedObject("head"), enigma.GetNamedObject("support2"), 8000, 1, 1)
+AddRubberBand (enigma.GetNamedObject("head"), enigma.GetNamedObject("shoulder"), 8000, 1, 1)
+AddRubberBand (enigma.GetNamedObject("shoulder"), enigma.GetNamedObject("elbowL"), 8000, 3, 3)
+AddRubberBand (enigma.GetNamedObject("shoulder"), enigma.GetNamedObject("elbowR"), 8000, 3, 3)
+AddRubberBand (enigma.GetNamedObject("elbowL"), enigma.GetNamedObject("handL"), 8000, 2, 2)
+AddRubberBand (enigma.GetNamedObject("elbowR"), enigma.GetNamedObject("handR"), 8000, 2, 2)
+AddRubberBand (enigma.GetNamedObject("shoulder"), enigma.GetNamedObject("hip"), 8000, 4, 4)
+AddRubberBand (enigma.GetNamedObject("hip"), enigma.GetNamedObject("kneeL"), 8000, 3, 3)
+AddRubberBand (enigma.GetNamedObject("hip"), enigma.GetNamedObject("kneeR"), 8000, 3, 3)
+AddRubberBand (enigma.GetNamedObject("kneeR"), enigma.GetNamedObject("footR"), 8000, 3, 3)
+AddRubberBand (enigma.GetNamedObject("kneeL"), enigma.GetNamedObject("footL"), 8000, 3, 3)
+
+oxyd_shuffle()
+    ]]></el:luamain>
+    <el:i18n>
+      <el:string el:key="title">
+        <el:english el:translate="false"/>
+      </el:string>
+    </el:i18n>
+  </el:protected>
+</el:level>
+

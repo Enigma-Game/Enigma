@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no" ?>
 <index xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="index.xsd">
 
-  <info enigma="1.00" group="Facets" location="15600" network="false" owner="Enigma Team" release="1" revision="3" title="Enigma 1.02 new"/>
+  <info enigma="1.00" group="Facets" location="15600" network="false" owner="Enigma Team" release="1" revision="4" title="Enigma 1.02 new"/>
 
   <attributes/>
 
@@ -24,9 +24,28 @@
     <level _seq="16" _title="Slopes, Jumps &amp; Falls" _xpath="enigma_vii/duffy167_1" author="Jacob Scott" ctrl="force" easy="false" id="duffy167" rel="1" rev="0" score="1" target="time" unit="duration"/>
     <level _seq="17" _title="Arctic Jumping" _xpath="enigma_vii/duffy168_1" author="Jacob Scott" ctrl="force" easy="false" id="duffy168" rel="1" rev="0" score="1" target="time" unit="duration"/>
     <level _seq="18" _title="Breakthrough" _xpath="enigma_vii/duffy170_1" author="Jacob Scott" ctrl="force" easy="false" id="duffy170" rel="1" rev="0" score="1" target="time" unit="duration"/>
-    <level _seq="19" _title="Give Way" _xpath="enigma_vii/just20_1" author="JuSt" ctrl="force" easy="false" id="just20" rel="1" rev="1" score="1" target="time" unit="duration"/>
-    <level _seq="20" _title="Give more Way" _xpath="enigma_vii/just21_1" author="JuSt" ctrl="force" easy="false" id="just21" rel="1" rev="1" score="1" target="time" unit="duration"/>
-    <level _seq="21" _title="Give Way 3.0" _xpath="enigma_vii/just22_1" author="JuSt" ctrl="force" easy="false" id="just22" rel="1" rev="1" score="1" target="time" unit="duration"/>
+    <level _seq="19" _title="Seansonal patterns" _xpath="enigma_vii/duffy164_1" author="Jacob Scott" ctrl="force" easy="false" id="duffy164" rel="1" rev="0" score="1" target="time" unit="duration"/>
+    <level _seq="20" _title="Shark" _xpath="enigma_vii/duffy169_1" author="Jacob Scott" ctrl="force" easy="false" id="duffy169" rel="1" rev="0" score="1" target="time" unit="duration"/>
+    <level _seq="21" _title="Alpha Factor" _xpath="enigma_vii/duffy171_1" author="Jacob Scott" ctrl="force" easy="false" id="duffy171" rel="1" rev="0" score="1" target="time" unit="duration"/>
+    <level _seq="22" _title="Double Oneways" _xpath="enigma_vii/duffy172_1" author="Jacob Scott" ctrl="force" easy="false" id="duffy172" rel="1" rev="0" score="1" target="time" unit="duration"/>
+    <level _seq="23" _title="Wood - Water - Wood" _xpath="enigma_vii/duffy173_1" author="Jacob Scott" ctrl="force" easy="false" id="duffy173" rel="1" rev="0" score="1" target="time" unit="duration"/>
+    <level _seq="24" _title="Transpositions" _xpath="enigma_vii/duffy174_1" author="Jacob Scott" ctrl="force" easy="false" id="duffy174" rel="1" rev="1" score="1" target="time" unit="duration"/>
+    <level _seq="25" _title="The Pearl Necklet" _xpath="enigma_vii/duffy175_1" author="Jacob Scott" ctrl="force" easy="false" id="duffy175" rel="1" rev="0" score="1" target="time" unit="duration"/>
+    <level _seq="26" _title="Puppet" _xpath="enigma_vii/pulley06_1" author="Mark Pulley" ctrl="force" easy="true" id="20070616pulley001" rel="1" rev="0" score="1" target="time" unit="duration"/>
+    <level _seq="27" _title="Restless Meditation" _xpath="enigma_vii/ral09_1" author="Ronald Lamprecht" ctrl="force" easy="true" id="20070623ral914" rel="1" rev="77" score="1" target="time" unit="duration"/>
+    <level _seq="28" _title="Ghost Driver" _xpath="enigma_vii/duffy176_1" author="Jacob Scott" ctrl="force" easy="false" id="duffy176" rel="1" rev="0" score="1" target="time" unit="duration"/>
+    <level _seq="29" _title="Re-entry Circuit" _xpath="enigma_vii/pulley05_1" author="Mark Pulley" ctrl="force" easy="false" id="20070615pulley003" rel="1" rev="0" score="1" target="time" unit="duration"/>
+    <level _seq="30" _title="Not Fast Enough" _xpath="enigma_vii/jet04_3" author="James Taylor, Ronald Lamprecht" ctrl="force" easy="true" id="20070413jet001" rel="3" rev="3" score="3" target="time" unit="duration"/>
+    <level _seq="31" _title="Give Way" _xpath="enigma_vii/just20_1" author="JuSt" ctrl="force" easy="false" id="just20" rel="1" rev="1" score="1" target="time" unit="duration"/>
+    <level _seq="32" _title="Give more Way" _xpath="enigma_vii/just21_1" author="JuSt" ctrl="force" easy="true" id="just21" rel="1" rev="2" score="1" target="time" unit="duration"/>
+    <level _seq="33" _title="Give Way 4 2" _xpath="enigma_vii/just22_1" author="JuSt" ctrl="force" easy="true" id="just22" rel="1" rev="2" score="1" target="time" unit="duration"/>
+    <level _seq="34" _title="Lost in Time and Space" _xpath="enigma_vii/just23_1" author="JuSt" ctrl="force" easy="false" id="just23" rel="1" rev="1" score="1" target="time" unit="duration"/>
+    <level _seq="35" _title="Alternatives?" _xpath="enigma_vii/just24_1" author="JuSt" ctrl="force" easy="true" id="just24" rel="1" rev="1" score="1" target="time" unit="duration"/>
+    <level _seq="36" _title="No More Alternatives" _xpath="enigma_vii/just25_1" author="JuSt" ctrl="force" easy="true" id="just25" rel="1" rev="1" score="1" target="time" unit="duration"/>
+    <level _seq="37" _title="The Walls" _xpath="enigma_vii/just26_1" author="JuSt" ctrl="force" easy="true" id="just26" rel="1" rev="1" score="1" target="time" unit="duration"/>
+    <level _seq="38" _title="Pull the Puller" _xpath="enigma_vii/just28_1" author="JuSt" ctrl="force" easy="false" id="just28" rel="1" rev="2" score="1" target="time" unit="duration"/>
+    <level _seq="39" _title="Double Sense" _xpath="enigma_vii/joe14_1" author="Joseph Dunne" ctrl="force" easy="true" id="joe14" rel="1" rev="0" score="1" target="time" unit="duration"/>
+    <level _seq="40" _title="Double Sense II" _xpath="enigma_vii/joe15_1" author="Joseph Dunne" ctrl="force" easy="true" id="joe15" rel="1" rev="0" score="1" target="time" unit="duration"/>
   </levels>
 
 </index>

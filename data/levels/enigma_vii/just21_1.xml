@@ -3,13 +3,13 @@
   <el:protected>
     <el:info el:type="level">
       <el:identity el:title="Give more Way" el:subtitle="" el:id="just21"/>
-      <el:version el:score="1" el:release="1" el:revision="1" el:status="released"/>
+      <el:version el:score="1" el:release="1" el:revision="2" el:status="released"/>
       <el:author  el:name="JuSt" el:email="" el:homepage=""/>
       <el:copyright>Copyright © 2007 JuSt</el:copyright>
       <el:license el:type="GPL v2.0 or above" el:open="true"/>
       <el:compatibility el:enigma="1.00">
       </el:compatibility>
-      <el:modes el:easy="false" el:single="true" el:network="false"/>
+      <el:modes el:easy="true" el:single="true" el:network="false"/>
       <el:score el:easy="-" el:difficult="-"/>
     </el:info>
     <el:luamain><![CDATA[
@@ -25,6 +25,9 @@ set_floor("fl-swamp", 16, 2)
 
 -- Item Layer
 set_item("it-trigger", 3, 0, {action="open", target="door", invisible=FALSE})
+if difficult then
+    set_item("it-coin1", 3, 3)
+end
 
 -- Stone Layer
 oxyd(19, 2)
@@ -57,8 +60,11 @@ set_stones("st-greenbrown", {{1, 1}, {17, 1}})
 set_stones("st-chess_black", {{16, 1}, {18, 5}})
 set_stones("st-laser", {{17, 2}, {19, 9}}, {dir=WEST, on="1"})
 set_stone("st-door", 18, 3, {name="door", type="h"})
+if difficult then
+    set_stones("st-stone_break", {{8, 4}, {3, 7}, {13, 7}, {7, 9}})
+end
 set_stone("st-glass", 11, 9, {type="0"})
-set_stone("st-lightpassenger", 13, 11)
+set_stone("st-lightpassenger", 13, 11, {name="bolder4", direction=NORTH})
 set_stones("st-laser", {{3, 12}, {13, 12}}, {dir=NORTH, on="1"})
 
 -- Actor Layer
