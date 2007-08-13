@@ -1,0 +1,749 @@
+<el:level xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://enigma-game.org/schema/level/1 level.xsd" xmlns:el="http://enigma-game.org/schema/level/1">
+  <el:protected>
+    <el:info el:type="library">
+      <el:identity el:title="" el:id="lib/libsoko"/>
+      <el:version el:score="1" el:release="1" el:revision="1" el:status="experimental"/>
+      <el:author  el:name="Enigma Team" el:email="" el:homepage=""/>
+      <el:copyright>Copyright © 2007 Enigma Team</el:copyright>
+      <el:license el:type="GPL v2.0 or above" el:open="true"/>
+      <el:compatibility el:enigma="1.00">
+      </el:compatibility>
+      <el:modes el:easy="false" el:single="false" el:network="false"/>
+      <el:comments>
+        <el:dedication>
+          To Ralf Westram, who wrote the first Sokoban lib for Enigma,
+          and Taztunes, maybe the most active Sokoban-Enigma-player.        
+        </el:dedication>
+      </el:comments>
+      <el:score el:easy="-" el:difficult="-"/>
+    </el:info>
+    <el:luamain><![CDATA[
+
+------------------------------------------------------------------------
+-- Designs
+------------------------------------------------------------------------
+
+-- This section holds a table with all default designs. Each design
+-- is again a table consisting of the following entries:
+--    wall, inf, outf, box, goal, oxyd, endk
+-- Each of these entries is either a string representing the objects to
+-- be used, or a table if several objects shall be used. Such a
+-- combination of objects will be called "element".
+--
+-- If object types (like floors) repeat in the table, they are used in
+-- a checkerboard pattern. You can change this pattern by adding an
+-- element of the form "al:ALGORITHM", where ALGORITHM is one of the
+-- algorithms listed below. Same for "fr:1.23" and "mf:4.5" for friction
+-- and mouseforce. From all these attributes, only the last one will
+-- be used, all others ignored. This contrasts with the situation of
+-- the gaming objects ("fl-", "st-", "it-"), whose order doesn't matter.
+--
+-- "oxyd" only holds the oxyd's flavor, "oxop" the way of resolving the
+-- level from Sokoban to opening oxyds. Use "st-none" and "it-none" to
+-- place spaces between stones/items.
+--
+-- The table might hold additional flags. Currently, only "white"
+-- is implemented, which turns the marble and st-chess_knight white.
+-- If an entry is missing, the corresponding entry from default_design
+-- will be used.
+--
+-- Example:
+--
+--   [5] = { outf = "fl-leaves", inf = "fl-leavesb", box = "st-wood"
+--           wall = {"st-glass", "fl-wood", "fl-leaves", "al-random"},
+--           oxyd ="a" }
+--
+--   will define design 5. The walls will alternate between
+--   st-glass/fl-wood and st-glass/fl-leaves. The goal will be
+--   it-trigger by default.
+--
+-- Possible flags:
+--
+--   white  : Use white marble and st-chess_white.
+--
+-- Algorithms:
+--
+--   checkerboard : default, up to 3 different floors in checkerboard pattern
+--   lines : arbitrary number of floors in diagonal lines
+--   waves : works best with 4 different floors
+--   random : arbitrary number of floors, randomly chosen
+--
+
+default_design = {
+  wall = { "st-rock3", "fl-leaves" },
+   inf = { "fl-wood" },
+  outf = { "fl-water", "st-invisible" },
+   box = { "st-brownie" },
+  goal = { "it-trigger" },
+  oxyd = "a",
+  oxop = 1 }
+
+design_list = {
+[1]={box="st-brownie", wall="st-bluegray", inf="fl-bluegray", outf="fl-space", door="st-door_a", oxyd="a"},
+[2]={box="st-glass_move", wall="st-bluegray", inf="fl-bluegray", outf="fl-water", door="st-door_b", oxyd="a"},
+[3]={box="st-wood-growing", wall="st-bluegray", inf="fl-bluegray", outf="fl-abyss", door="st-door_c", oxyd="a"},
+[4]={box="st-brownie", wall="st-bluegray", inf="fl-white", outf="fl-sahara", door="st-door_a", oxyd="c"},
+[5]={box="st-wood", wall="st-bluegray", inf="fl-white", outf="fl-space", door="st-door_c", oxyd="c"},
+[6]={box="st-greenbrown_move", wall="st-bluegray", inf="fl-white", outf="fl-space", door="st-door_b", oxyd="c"},
+[7]={box="st-wood", wall="st-bluegray", inf="fl-white", outf="fl-space", door="st-door_c", oxyd="c"},
+[8]={box="st-rock3_move", wall="st-blue-sand", inf="fl-light", outf="fl-rough-blue", door="st-door_b", oxyd="d"},
+[9]={box="st-block", wall="st-blue-sand", inf="fl-light", outf="fl-rough-blue", door="st-blocker", oxyd="d"},
+[10]={box="st-shogun", wall="st-blue-sand", inf="fl-rough", outf="fl-space", door="st-door_a", oxyd="b"},
+[11]={box="st-marble_move", wall="st-blue-sand", inf="fl-rough", outf="fl-abyss", door="st-door_b", oxyd="b"},
+[12]={box="st-shogun", wall="st-blue-sand", inf="fl-rough", outf="fl-space", door="st-door_a", oxyd="b"},
+[13]={box="st-block", wall="st-blue-sand", inf="fl-rough", outf="fl-leaves", door="st-blocker", oxyd="b"},
+[14]={box="st-brownie", wall="st-glass", inf="fl-himalaya", outf="fl-water", door="st-door_a", oxyd="a"},
+[15]={box="st-brownie", wall="st-glass", inf="fl-himalaya", outf="fl-water", door="st-door_a", oxyd="a"},
+[16]={box="st-shogun", wall="st-glass", inf="fl-rough-red", outf="fl-abyss", door="st-door_b", oxyd="c"},
+[17]={box="st-brownie", wall="st-glass", inf="fl-rough-red", outf="fl-sahara", door="st-door_a", oxyd="c"},
+[18]={box="st-greenbrown_move", wall="st-glass", inf="fl-wood", outf="fl-water", door="st-door_b", oxyd="c"},
+[19]={box="st-block", wall="st-glass", inf="fl-wood", outf="fl-abyss", door="st-blocker", oxyd="d"},
+[20]={box="st-wood-growing", wall="st-glass", inf="fl-wood", outf="fl-abyss", door="st-door_c", oxyd="a"},
+[21]={box="st-wood", wall="st-glass", inf="fl-wood", outf="fl-sahara", door="st-door_c", oxyd="c"},
+[22]={box="st-shogun", wall="st-glass", inf="fl-wood", outf="fl-leaves", door="st-door_a", oxyd="b"},
+[23]={box="st-block", wall="st-glass", inf="fl-wood", outf="fl-abyss", door="st-blocker", oxyd="d"},
+[24]={box="st-brownie", wall="st-glass", inf="fl-wood", outf="fl-sahara", door="st-door_a", oxyd="c"},
+[25]={box="st-brownie", wall="st-glass", inf="fl-wood", outf="fl-leaves", door="st-door_a", oxyd="a"},
+[26]={box="st-brownie", wall="st-likeoxydc-open", inf="fl-acblack", outf="fl-water", door="st-door_a", oxyd="c"},
+[27]={box="st-greenbrown_move", wall="st-likeoxydc-open", inf="fl-acblack", outf="fl-water", door="st-door_b", oxyd="c"},
+[28]={box="st-wood-growing", wall="st-likeoxydc-open", inf="fl-tigris", outf="fl-sahara", door="st-door_c", oxyd="a"},
+[29]={box="st-brownie", wall="st-likeoxydc-open", inf="fl-tigris", outf="fl-leaves", door="st-door_a", oxyd="a"},
+[30]={box="st-wood-growing", wall="st-likeoxydc-open", inf="fl-tigris", outf="fl-sahara", door="st-door_c", oxyd="a"},
+[31]={box="st-glass_move", wall="st-likeoxydc-open", inf="fl-tigris", outf="fl-space", door="st-door_b", oxyd="a"},
+[32]={box="st-block", wall="st-metal", inf="fl-bluegray", outf="fl-space", door="st-blocker", oxyd="d"},
+[33]={box="st-shogun", wall="st-metal", inf="fl-bluegray", outf="fl-rough-blue", door="st-door_a", oxyd="d"},
+[34]={box="st-shogun", wall="st-metal", inf="fl-white", outf="fl-abyss", door="st-door_a", oxyd="b"},
+[35]={box="st-block", wall="st-metal", inf="fl-white", outf="fl-abyss", door="st-blocker", oxyd="b"},
+[36]={box="st-shogun", wall="st-metal", inf="fl-white", outf="fl-abyss", door="st-door_a", oxyd="b"},
+[37]={box="st-wood-growing", wall="st-rock1", inf="fl-light", outf="fl-leaves", door="st-door_c", oxyd="a"},
+[38]={box="st-glass_move", wall="st-rock1", inf="fl-light", outf="fl-abyss", door="st-door_b", oxyd="a"},
+[39]={box="st-brownie", wall="st-rock1", inf="fl-light", outf="fl-abyss", door="st-door_a", oxyd="a"},
+[40]={box="st-glass_move", wall="st-rock1", inf="fl-light", outf="fl-abyss", door="st-door_b", oxyd="a"},
+[41]={box="st-brownie", wall="st-rock1", inf="fl-rough", outf="fl-space", door="st-door_a", oxyd="c"},
+[42]={box="st-greenbrown_move", wall="st-rock1", inf="fl-rough", outf="fl-sahara", door="st-door_b", oxyd="c"},
+[43]={box="st-brownie", wall="st-rock3", inf="fl-leaves", outf="fl-space", door="st-door_a", oxyd="a"},
+[44]={box="st-marble_move", wall="st-rock3", inf="fl-leaves", outf="fl-rough-blue", door="st-door_b", oxyd="b"},
+[45]={box="st-wood-growing", wall="st-rock3", inf="fl-leaves", outf="fl-leaves", door="st-door_c", oxyd="a"},
+[46]={box="st-shogun", wall="st-rock3", inf="fl-leaves", outf="fl-abyss", door="st-door_a", oxyd="d"},
+[47]={box="st-greenbrown_move", wall="st-rock3", inf="fl-leaves", outf="fl-sahara", door="st-door_b", oxyd="c"},
+[48]={box="st-glass_move", wall="st-rock3", inf="fl-leaves", outf="fl-leaves", door="st-door_b", oxyd="a"},
+[49]={box="st-marble_move", wall="st-rock3", inf="fl-leaves", outf="fl-rough-blue", door="st-door_b", oxyd="b"},
+[50]={box="st-shogun", wall="st-rock3", inf="fl-leaves", outf="fl-leaves", door="st-door_c", oxyd="a"},
+[51]={box="st-wood-growing", wall="st-rock3", inf="fl-leaves", outf="fl-leaves", door="st-door_c", oxyd="a"},
+[52]={box="st-wood", wall="st-rock3", inf="fl-leaves", outf="fl-water", door="st-door_c", oxyd="c"},
+[53]={box="st-shogun", wall="st-rock3", inf="fl-leaves", outf="fl-space", door="st-door_b", oxyd="d"},
+[54]={box="st-shogun", wall="st-rock4", inf="fl-himalaya", outf="fl-water", door="st-door_a", oxyd="b"},
+[55]={box="st-marble_move", wall="st-rock4", inf="fl-himalaya", outf="fl-abyss", door="st-door_b", oxyd="b"},
+[56]={box="st-shogun", wall="st-rock4", inf="fl-himalaya", outf="fl-abyss", door="st-door_b", oxyd="b"},
+[57]={box="st-block", wall="st-rock4", inf="fl-rough-red", outf="fl-rough-blue", door="st-blocker", oxyd="d"},
+[58]={box="st-rock3_move", wall="st-rock4", inf="fl-rough-red", outf="fl-space", door="st-door_b", oxyd="d"},
+[59]={box="st-shogun", wall="st-rock4", inf="fl-rough-red", outf="fl-space", door="st-door_a", oxyd="d"},
+[60]={box="st-rock3_move", wall="st-rock4", inf="fl-rough-red", outf="fl-space", door="st-door_b", oxyd="d"},
+[61]={box="st-greenbrown_move", wall="st-rock5", inf="fl-samba", outf="fl-leaves", door="st-door_b", oxyd="c"},
+[62]={box="st-block", wall="st-rock5", inf="fl-samba", outf="fl-water", door="st-blocker", oxyd="b"},
+[63]={box="st-rock3_move", wall="st-rock5", inf="fl-samba", outf="fl-leaves", door="st-door_b", oxyd="d"},
+[64]={box="st-marble_move", wall="st-rock5", inf="fl-samba", outf="fl-water", door="st-door_b", oxyd="b"},
+[65]={box="st-wood-growing", wall="st-rock5", inf="fl-samba", outf="fl-space", door="st-door_c", oxyd="a"},
+[66]={box="st-greenbrown_move", wall="st-rock5", inf="fl-samba", outf="fl-leaves", door="st-door_b", oxyd="c"},
+[67]={box="st-block", wall="st-rock5", inf="fl-samba", outf="fl-water", door="st-blocker", oxyd="b"},
+[68]={box="st-brownie", wall="st-rock5", inf="fl-samba", outf="fl-space", door="st-door_a", oxyd="a"},
+[69]={box="st-block", wall="st-rock5", inf="fl-samba", outf="fl-space", door="st-blocker", oxyd="d"},
+[70]={box="st-rock3_move", wall="st-rock6", inf="fl-acblack", outf="fl-space", door="st-door_b", oxyd="d"},
+[71]={box="st-shogun", wall="st-rock6", inf="fl-acblack", outf="fl-leaves", door="st-door_a", oxyd="d"},
+[72]={box="st-block", wall="st-rock6", inf="fl-acblack", outf="fl-leaves", door="st-blocker", oxyd="d"},
+[73]={box="st-shogun", wall="st-rock6", inf="fl-acblack", outf="fl-leaves", door="st-door_a", oxyd="d"},
+[74]={box="st-shogun", wall="st-rock6", inf="fl-tigris", outf="fl-rough-blue", door="st-blocker", oxyd="b"},
+[75]={box="st-shogun", wall="st-rock6", inf="fl-tigris", outf="fl-water",door="st-door_a", oxyd="b"}
+}
+
+------------------------------------------------------------------------
+-- Global variables
+------------------------------------------------------------------------
+
+number_goals = 0
+goals_filled = 0
+endphase_started = false
+levelw = 0
+levelh = 0
+
+------------------------------------------------------------------------
+-- Tools
+------------------------------------------------------------------------
+
+function mydebug(st)
+  print(st)
+end
+function mywarning(st)
+  print(st)
+end
+function myerror(st)
+  error(st)
+end
+
+function is_floor(s)      return string.sub(s, 1, 3) == "fl-"  end
+function is_stone(s)      return string.sub(s, 1, 3) == "st-"  end
+function is_item(s)       return string.sub(s, 1, 3) == "it-"  end
+function is_algorithm(s)  return string.sub(s, 1, 3) == "al:"  end
+function is_friction(s)   return string.sub(s, 1, 3) == "fr:"  end
+function is_mouseforce(s) return string.sub(s, 1, 3) == "mf:"  end
+
+function choose_among_multiples(x, y, count, alg)
+  if alg == "checkerboard" then
+    return math.mod(mod(x,2)+mod(y,2), count) + 1
+  elseif alg == "lines" then
+    return math.mod(x + y, count) + 1
+  elseif alg == "waves" then
+    return math.mod(x + y * y + x*y*x + 3*y*x*y*x, count) + 1
+  elseif alg == "random" then
+    return math.random(count)
+  end
+end
+
+-- set_element sets element EL over the base ELFLOOR at x, y.
+-- ELFLOOR may be nil, then it's considered to be default_design.outf
+function set_element(x, y, el, elFloor)
+  local elf = elFloor or default_design.outf
+  local ela = el or elf
+  
+  if (type(x) ~= "number") or (type(y) ~= "number") then
+    myerror("set_element: Coordinates are not numbers!")
+    return
+  end
+  
+  if type(ela) == "string"  then  ela = {ela}  end
+  if type(elf) == "string"  then  elf = {elf}  end
+  
+  local fl = {}     local fl0 = {}
+  local st = {}     local st0 = {}
+  local it = {}     local it0 = {}
+  local multiple_alg = "checkerboard"
+  local friction = nil
+  local mousefactor = nil
+
+  -- Analyse ELFLOOR first: Decompose its entries into fl0,st0,it0.
+  for j, s in pairs(elf) do
+        if is_floor(s)       then  table.insert(fl0, s)
+    elseif is_stone(s)       then  table.insert(st0, s)
+    elseif is_item(s)        then  table.insert(it0, s)
+    elseif is_algorithm(s)   then  multiple_alg = string.sub(s, 4, -1)
+    elseif is_friction(s)    then  friction = tonumber(string.sub(s, 4, -1))
+    elseif is_mousefactor(s) then  mousefactor = tonumber(string.sub(s, 4, -1))
+    else
+      mywarning("Unknown entry "..s.." in design element.")
+    end    
+  end
+  
+  -- Now analyse EL: Decompose its entries into fl,st,it.
+  for j, s in pairs(ela) do
+        if is_floor(s)       then  table.insert(fl, s)
+    elseif is_stone(s)       then  table.insert(st, s)
+    elseif is_item(s)        then  table.insert(it, s)
+    elseif is_algorithm(s)   then  multiple_alg = string.sub(s, 4, -1)
+    elseif is_friction(s)    then  friction = tonumber(string.sub(s, 4, -1))
+    elseif is_mousefactor(s) then  mousefactor = tonumber(string.sub(s, 4, -1))
+    else
+      mywarning("Unknown entry "..s.." in design element.")
+    end    
+  end
+  
+  -- If fl,st,it is empty, replace it with fl0,st0,it0, respectively.
+  if  table.getn(fl) == 0  then  fl = fl0  end
+  if  table.getn(st) == 0  then  st = st0  end
+  if  table.getn(it) == 0  then  it = it0  end
+
+  local created_objects = {}
+
+  ----------- floor --------------
+  if table.getn(fl) > 0 then
+    local flkind = fl[choose_among_multiples(x, y, table.getn(fl), multiple_alg)]
+    created_objects.fl = set_floor(flkind, x, y)
+    if type(friction) == "number" then
+      enigma.SetAttrib(created_objects.fl, "friction", friction)
+    end
+    if type(mousefactor) == "number" then
+      enigma.SetAttrib(created_objects.fl, "mousefactor", mousefactor)
+    end
+  end
+  
+  ----------- stone ---------------
+  if table.getn(st) > 0 then
+    local stkind = st[choose_among_multiples(x, y, table.getn(st), multiple_alg)]
+    if stkind ~= "st-none" then
+      created_objects.st = set_stone(stkind, x, y)
+    end
+  end
+
+  ----------- item ----------------
+  if table.getn(it) > 0 then
+    local itkind = it[choose_among_multiples(x, y, table.getn(it), multiple_alg)]
+    if itkind ~= "it-none" then
+      created_objects.it = set_item(itkind, x, y)
+    end
+  end  
+  
+  return created_objects
+end
+
+-- Sokoban level strings are typically a string with the following characters:
+--        # = Wall
+--        @ = Player
+--        + = Player on goal square
+--        $ = Box
+--        * = Box on goal square
+--        . = Goal square
+--  - _ spc = Floor
+--     \n | = next line
+--   number = runlength encoding
+--
+-- Enigma additionally uses the following:
+--        n = st-chess_black/white
+--        N = st-chess_black/white on goal square
+--
+-- This format has to be transcoded to an array, which is done by unpack_level.
+--
+function unpack_level(level)
+  if type(level) ~= "string" then
+    myerror("Can't make sense of level type "..type(level)..".")
+  end
+  local level_array = {}
+  
+  -- parse the string LEVEL
+  local line = 1
+  level_array[line] = {}
+  local count = 0
+  for j = 1, string.len(level) do
+    local ch = string.sub(level, j, j)
+    if tonumber(ch) then
+      -- add number for runlength encoding
+      count = 10*count + tonumber(ch)
+    elseif (ch == "\n") or (ch == "|") then
+      -- discard multiple newlines, e.g. from "|\n"
+      if table.getn(level_array[line]) ~= 0 then
+        line = line + 1
+        level_array[line] = {}
+        count = 0  -- discard empty counters
+      end
+    else
+      -- unify format: "_" and space become "-"
+      if (ch == "_") or (ch == " ")  then  ch = "-"  end
+      if count < 1  then  count = 1  end
+      for j = 1, count do
+        table.insert(level_array[line], ch)
+      end
+      count = 0
+    end    
+  end
+  
+  -- normalize level height
+  local lastline = nil
+  for j = 0, line - 1 do
+    if (not lastline) and (table.getn(level_array[line - j]) == 0) then
+      table.remove(level_array, line - j)
+    else
+      if (not lastline) then 
+        lastline = line - j
+      end
+    end
+  end
+  while table.getn(level_array[1]) == 0 do
+    table.remove(level_array, 1)
+    lastline = lastline - 1
+  end
+  if lastline ~= table.getn(level_array) then
+    myerror("Length of sokoball level is corrupt: Last line is "..lastline
+            ..", but table has length "..table.getn(level_array).."!")
+  end
+  if lastline < 2 then
+    myerror("Length of sokoball level is only "..lastline.."!")
+  end
+  mywarning("Sokoball level height: "..lastline)
+  
+  -- normalize level width
+  local maxwidth = 0
+  for j = 1, lastline do
+    maxwidth = math.max(maxwidth, table.getn(level_array[j]))
+  end
+  for j = 1, lastline do
+    while table.getn(level_array[j]) < maxwidth do
+      table.insert(level_array[j], "-")
+    end
+  end
+  
+  -- mark outside floor fields from the border
+  function check_for_outside(x, y)
+    if level_array[y][x] == "-" then
+      level_array[y][x] = " "
+      if y > 1         then  check_for_outside(x, y - 1)  end
+      if y < lastline  then  check_for_outside(x, y + 1)  end
+      if x > 1         then  check_for_outside(x - 1, y)  end
+      if x < maxwidth  then  check_for_outside(x + 1, y)  end
+    end
+  end
+  for y = 1, lastline do
+    check_for_outside(1, y)
+    check_for_outside(maxwidth, y)
+  end
+  for x = 1, maxwidth do
+    check_for_outside(x, 1)
+    check_for_outside(x, lastline)
+  end
+  
+  return level_array
+end
+
+------------------------------------------------------------------------
+-- Choosing the Designnumber
+------------------------------------------------------------------------
+
+-- design_from_level determines a random design number, based on the
+-- outline of the level (position of walls). The algorithm we use here
+-- is inspired by the horseshoe mapping and thereby deterministically
+-- chaotic. To illustrate, why we don't use a simpler calculation
+-- using random seeds pseudo-random number generators, we expose on
+-- this nice mathematical problem a bit deeper.
+--
+-- Main Problem:
+--
+--  Let N be the number of designs in the design list, and L a
+--  variable depending on the level alone (or the level itself).
+--  Find an algorithm which chooses a number n(L,N) from {1, ..., N}
+--  for given level L, such that
+--    1) n(L,N) is uniformly distributed (i.e. all designs are
+--       equally probable),
+--    2) n(L,N+1) != n(L,N)  =>  n(L,N+1) = N+1
+--  Property (2) means the following: We want to extend our design
+--  list once in a while. But the design of a level should change
+--  as seldom as possible, i.e., when it changes at all, then it
+--  already becomes the newly added design. Implementation of this
+--  "stability" is the main problem.
+--
+-- Analysis:
+--
+--  Assume L would be a real number in [0,1). Then for N=2 the
+--  obvious solution would be: n(L,2) = (L < 0.5) ? 1 : 2.
+--  Now look at N=3. We reassign the domains of 1 and 2, such
+--  that each of the domains [0,0.5) and [0.5,1) gives a part
+--  away for design number 3. We would end up with something like
+--   [  0, 1/6) : 3
+--   [1/6, 1/2) : 1
+--   [1/2, 4/6) : 3
+--   [4/6, 1)   : 2
+--  And with N=4, the domains fragmentate more and more.
+--  For large enough N, the number of connected domains doubles
+--  with each increase of N.
+--
+--  This can be interpreted as fractal behaviour, as a kind of
+--  Cantor dust. However, the deeper interpretation is that our
+--  assumption of L being a real number creates the fractality,
+--  not the algorithm itself. From a topological aspect, a
+--  (decision) tree reflects the structure much better!
+--  How could such a tree look like? The easiest method (the one
+--  implemented here) seems to be as follows: 
+--
+--    Generate a random number between 1 and N. Is it 1? Then the
+--    design shall be N. If not, generate a random number between
+--    1 and N-1. Is it 1? Then the design shall be N-1. If not,
+--    generate a random number between 1 and N-2, etc.
+--
+--  Now, we have given a binary sequence (the outline of the level:
+--  wall, or no wall?) and need to create a number between 1 and
+--  j from it. Do this by iteration: For each element in our
+--  binary sequence use operation A if it is 0, or operation B
+--  if it is 1 on some number b. A and B should be permutations,
+--  and if they mix good enough, we get a uniform distribution.
+--
+-- Solution:
+--
+--  The two operations we use are:
+--    A: A translation by 1 (modulo j).
+--    B: A discrete horseshoe-kind mapping.
+--  Each element "#" in the level uses operation B, then A, each
+--  other element only A. The kind of horseshoe we're using is
+--  as follows: The lower half of all numbers is stretched onto
+--  the odd numbers, the top half is stretched and mirrored onto
+--  the even numbers. Example for j = 8:
+--             0 1 2 3 4 5 6 7
+--    becomes  1 3 5 7 6 4 2 0
+--  This mapping has a very low periodicity, i.e. after only
+--  very few repetitions the original order is reconstructed
+--  (j=8: 4, j=13: 9, j=15: 5 etc.). However, walls often
+--  repeat in levels, and to compensate for this, a translation
+--  (= addition of 1) is added. I.e.,
+--             0 1 2 3 4 5 6 7
+--    becomes  2 4 6 0 7 5 3 1
+--  Note that the reversed horseshoe mapping in combination with
+--  such a translation by n conserves the first and last n numbers.
+--  Similarly, a negative translation together with our horseshoe
+--  mapping would be problematic.
+--
+-- Is this a uniform distribution?
+--
+--  Difficult to answer. Indeed, there is no definite answer, as
+--  the probability space should consist of all Sokoban levels,
+--  which is not nicely defined (random levels are mostly not
+--  playable, and not all possible levels are indeed interesting).
+--  So, I tested this algorithm with the first 6000 levels from
+--  xsok given here: http://kantorek.webzdarma.cz/downloada.htm 
+--  The list length was assumed to be 75. The resulting histogram
+--  looks uniform, the standard deviation is 9.03. Compare this
+--  with sqrt(6000*1/75*(1-1/75)) = 8.88, i.e. the deviation is
+--  only slightly above the normal distribution. However, their
+--  ratio varies with the list length.
+--
+-- See also: Landau function g(n) for determining the maximal
+--           order of an element in the symmetric group S(n).
+--
+function number_from_level(level_array, list_length)
+  local j = list_length + 1
+  local lastline = table.getn(level_array)
+  local maxwidth = table.getn(level_array[1])
+  mywarning("Calculating level design ...")
+  local l = 2
+  repeat
+    j = j - 1
+    b = 0
+    for y = 1, lastline do
+      for x = 1, maxwidth do
+        if level_array[y][x] == "#" then
+          if 2*b + 1 < j then
+            b = 2*b + 1
+          else
+            b = 2*(j-1-b)
+          end
+        end
+        if b == j - 1 then
+          b = 0
+        else
+          b = b + 1
+        end
+      end
+    end
+    --mywarning(b)
+  until (b == 0) or (j == 1)
+  mywarning("Calculation ended. Result: "..j)
+  return j
+end
+
+function design_from_level(level_array)
+  return design_list[number_from_level(level_array, table.getn(design_list))]
+end
+
+------------------------------------------------------------------------
+-- Determining Lethal Positions
+------------------------------------------------------------------------
+
+-- maybe_stdeath checks the stone at position x,y. If it is a box
+-- and not standing on a goal, it becomes st-death, counted as a wall.
+function maybe_stdeath(x, y)
+  local st = enigma.GetStone(x, y)
+  if st and (enigma.GetAttrib(st, "soko_kind") == "box") then
+    local it = enigma.GetItem(x, y)
+    if (not it) or (enigma.GetAttrib(it, "soko_kind") ~= "goal") then
+      st = set_stone("st-death", x, y, { soko_kind = "wall" })
+      enigma.EmitSound(st, "stonetransform")
+    end
+  end
+end
+
+-- check_lethal searchs the level for lethal formations of walls
+-- and boxes (excluding st-chess), and transforms involved boxes
+-- into st-death. Lethal are quadrats and formations of the kind
+--   Box   Wall
+--   Wall  ?
+-- ("diagonal death").
+function check_lethal(onoff, sender)
+  local x1 = enigma.GetAttrib(sender, "x1")
+  local x2 = enigma.GetAttrib(sender, "x2") - 1
+  local y1 = enigma.GetAttrib(sender, "y1")
+  local y2 = enigma.GetAttrib(sender, "y2") - 1
+  -- Note: Coordinates are reduced by 1 as we search 2x2-combinations.
+  for x = x1, x2 do
+    for y = y1, y2 do    
+      local st = {}
+      local sk = {}
+      st[1] = enigma.GetStone(x, y)
+      st[2] = enigma.GetStone(x + 1, y)
+      st[3] = enigma.GetStone(x, y + 1)
+      st[4] = enigma.GetStone(x + 1, y + 1)
+      for j = 1, 4 do
+        if st[j] then
+          sk[j] = enigma.GetAttrib(st[j], "soko_kind")
+        else
+          sk[j] = "empty"
+        end
+      end
+      -- Test for squares
+      if st[1] and st[2] and st[3] and st[4] then
+        local is_square = true
+        for j = 1, 4 do
+          is_square = is_square and ((sk[j] == "box") or (sk[j] == "wall"))
+        end
+        if is_square then
+          maybe_stdeath(x, y)
+          maybe_stdeath(x + 1, y)
+          maybe_stdeath(x, y + 1)
+          maybe_stdeath(x + 1, y + 1)
+        end
+      end
+      -- Test for diagonal death
+      -- Note: sk[j] might not be correct anymore. However, the only
+      --       change is in that "box" might have turned into "wall",
+      --       which can't impair diagonal death.
+      if (sk[1] == "wall") and (sk[4] == "wall") then
+        maybe_stdeath(x + 1, y)
+        maybe_stdeath(x, y + 1)
+      end
+      if (sk[2] == "wall") and (sk[3] == "wall") then
+        maybe_stdeath(x, y)
+        maybe_stdeath(x + 1, y + 1)
+      end      
+    end
+  end  
+end
+
+------------------------------------------------------------------------
+-- Goal Trigger and Oxyd Opening (Endphase)
+------------------------------------------------------------------------
+
+function goal_trigger(onoff, sender)
+  local x, y = enigma.GetPos(sender)
+  if(enigma.GetAttrib(sender, "box") == 0) then
+    if enigma.GetStone(x,y) then
+      enigma.SetAttrib(sender, "box", 1)
+      goals_filled = goals_filled + 1
+      mydebug(goals_filled)
+    end
+  else
+    enigma.SetAttrib(sender, "box", 0)
+    goals_filled = goals_filled - 1
+    mydebug(goals_filled)  
+  end
+  if (goals_filled == number_goals) and not endphase_started then
+    endphase_started = true
+    endphase()
+  end
+end
+
+function prepare_oxyds(oxop)
+end
+
+function endphase()
+  local x, y = enigma.GetPos(enigma.GetNamedObject("marble"))
+  oxyd(x+1, y)
+  oxyd(x-1, y)
+  oxyd(x, y+1)
+  oxyd(x, y-1)
+  oxyd_shuffle()
+end
+
+------------------------------------------------------------------------
+-- Main function
+------------------------------------------------------------------------
+
+-- create_sokoball creates a sokoball-level from the strinfg LEVEL.
+-- The design can be chosen by the DESIGN variable. This is either
+-- a number (see section "Designs") or a table with the correspondinfg
+-- design entries. A missinfg entry will be interpreted as the entry
+-- from default_design. If the DESIGN variable is omitted, a check-
+-- number is created from LEVEL which uniquely* determines a design
+-- from the design list. *Uniquely means: The design might change
+-- when the design list is enlarged.
+
+function create_sokoball(level, design)
+  -- unpack level
+  local level_array = unpack_level(level)
+
+  -- calculate screen position
+  -- Important Note: level_array is reversely indexed, i.e.
+  --                 level_array[y-coordinate][x-coordinate]
+  array_width = table.getn(level_array[1])
+  array_height = table.getn(level_array)
+  levelw = math.max(array_width, 20)
+  levelh = math.max(array_height, 13)
+  create_world(levelw, levelh)
+  local dx = 0
+  local dy = 0
+  
+  -- choose design
+  local chosen_design = {}
+  if type(design) == "number" then
+    chosen_design = design_list[design]
+  elseif type(design) == "table" then
+    chosen_design = design
+  elseif type(design) == "nil" then
+    chosen_design = design_from_level(level_array)
+  else
+    myerror("Can't make sense of design type "..type(design)..".")
+  end
+
+  -- determine oxop (way to open oxyds)
+  local oxop = chosen_design.oxop or default_design.oxop
+
+  -- create level
+  for y = 0, levelh - 1 do
+    for x = 0, levelw - 1 do
+      set_element(x, y, chosen_design.outf, default_design.outf)
+    end
+  end
+  
+  for y = 0, array_height - 1 do
+    for x = 0, array_width - 1 do
+      local ch = level_array[y+1][x+1]
+      local obj = {}
+      if (ch ~= " ") then  --- note: space stands for outside, "-" for inside!
+        kill_stone(x + dx, y + dy)
+        set_element(x + dx, y + dy, chosen_design.inf, default_design.inf)
+      end
+      if (ch == "#") then
+        obj = set_element(x+dx, y+dy, chosen_design.wall, default_design.wall)
+        if obj.st then
+          enigma.SetAttrib(obj.st, "soko_kind", "wall")
+        end
+      end
+      if (ch == "+") or (ch == "*") or (ch == ".") or (ch == "N") then
+        obj = set_element(x+dx, y+dy, chosen_design.goal, default_design.goal)
+        if obj.it then
+          enigma.SetAttrib(obj.it, "soko_kind", "goal")
+          enigma.SetAttrib(obj.it, "action", "callback")
+          enigma.SetAttrib(obj.it, "target", "goal_trigger")
+          enigma.SetAttrib(obj.it, "box", 0)
+          number_goals = number_goals + 1
+        end
+      end
+      if (ch == "$") or (ch == "*") then
+        obj = set_element(x+dx, y+dy, chosen_design.box, default_design.box)
+        if obj.st then
+          enigma.SetAttrib(obj.st, "soko_kind", "box")
+        end
+      end
+      if (ch == "n") or (ch == "N") then
+        set_stone("st-chess_black", x, y, { soko_kind = "st-chess" })
+      end
+      if (ch == "@") or (ch == "+") then
+        set_actor("ac-blackball", x + 0.5 + dx, y + 0.5 + dy, { name = "marble" })
+      end
+    end
+  end
+
+  if number_goals < 1 then
+    myerror("No goals defined!\n")
+  end
+
+  prepare_oxyds(oxop)
+  
+  set_stone("st-timer", 0, 0, {invisible = true, interval = 0.5,
+                               action = "callback", target = "check_lethal",
+                               x1 = dx, x2 = array_width - 1 + dx,
+                               y1 = dy, y2 = array_height - 1 + dy})
+  
+  enigma.ShowMoves = TRUE
+  enigma.SetFollowMode = (display.FOLLOW_SMOOTH)
+  enigma.ConserveLevel = FALSE
+end
+
+    ]]></el:luamain>
+    <el:i18n>
+    </el:i18n>
+  </el:protected>
+</el:level>
+
