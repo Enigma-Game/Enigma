@@ -24,18 +24,18 @@ PREFIX=/usr/i586-mingw32msvc
 TOPDIR=`pwd`
 SRCDIR="$TOPDIR/source"
 
-# These are the files from the MinGW 3.1 release
+# These are the files from the MinGW GCC release 3.4.2
 
 MINGW_URL=http://mesh.dl.sourceforge.net/sourceforge/mingw
 GCC_VERSION=3.4.2-20040916-1
 GCC=gcc-$GCC_VERSION
 GCC_ARCHIVES="gcc-core-$GCC_VERSION-src.tar.gz gcc-g++-$GCC_VERSION-src.tar.gz"
 GCC_PATCH=""
-BINUTILS=binutils-2.16.91-20050827-1
+BINUTILS=binutils-2.16.91-20060119-1
 BINUTILS_ARCHIVE=$BINUTILS-src.tar.gz
-MINGW=mingw-runtime-3.8
+MINGW=mingw-runtime-3.12
 MINGW_ARCHIVE=$MINGW.tar.gz
-W32API=w32api-3.3
+W32API=w32api-3.9
 W32API_ARCHIVE=$W32API.tar.gz
 
 # These are the files from the SDL website

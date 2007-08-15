@@ -123,7 +123,7 @@ SDL_LIBS="$SDL_LIBS -lSDL_image -lSDL_mixer"
 AC_CHECK_LIB(SDL_mixer, Mix_QuickLoad_RAW, have_mix_quickload="yes", have_mix_quickload="no")
 
 if test "$have_mix_quickload" = no; then
-   AC_MSG_ERROR([SDL_mixer >= 1.2.5 is required to compile Enigma])
+  AC_MSG_ERROR([SDL_mixer >= 1.2.5 is required to compile Enigma])
 fi
 
 dnl ----------------------------------------
@@ -161,7 +161,11 @@ LIBS="$LIBS_NOSDL"
 dnl ----------------------------------------
 dnl Check for libpng
 dnl ---------------------------------------
-AC_CHECK_LIB(png,png_create_write_struct,,[AC_MSG_ERROR([libpng is required to compile Enigma])])
+if test "$MINGW32" = yes; then
+  AC_CHECK_LIB(png12,png_create_write_struct,,[AC_MSG_ERROR([libpng is required to compile Enigma])])
+else
+  AC_CHECK_LIB(png,png_create_write_struct,,[AC_MSG_ERROR([libpng is required to compile Enigma])])
+fi
 
 dnl ----------------------------------------
 dnl Check for xerces
@@ -171,7 +175,7 @@ if test "$MINGW32" = yes; then
   AC_EGREP_HEADER([gXercesMajVersion = 3],[xercesc/util/XercesVersion.hpp],
       [AC_MSG_RESULT([found])],
       [AC_MSG_ERROR([not found])])      
-   AC_CHECK_LIB(xerces, main,,[AC_MSG_ERROR([xerces is required to compile Enigma])])
+   AC_CHECK_LIB(xerces-c, main,,[AC_MSG_ERROR([xerces is required to compile Enigma])])
 else
   AC_MSG_CHECKING([for Xerces 3.0 experimental version])
   AC_EGREP_HEADER([gXercesMajVersion = 3],[xercesc/util/XercesVersion.hpp],
@@ -179,7 +183,7 @@ else
       xerces3exp="no")      
   if test "x$xerces3exp" = xyes; then
     AC_MSG_RESULT([found])
-    AC_CHECK_LIB(xerces, main,,[AC_MSG_ERROR([xerces is required to compile Enigma])])
+    AC_CHECK_LIB(xerces-c, main,,[AC_MSG_ERROR([xerces is required to compile Enigma])])
   else
     AC_MSG_RESULT([not found])
     AC_MSG_CHECKING([for Xerces >=2.4 released version])
@@ -194,6 +198,7 @@ else
     AC_CHECK_LIB(xerces-c, main,,[AC_MSG_ERROR([xerces is required to compile Enigma])])
   fi
 fi
+
 
 dnl ----------------------------------------
 dnl Activate optimizations when profiling, to get rid of

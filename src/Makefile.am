@@ -12,7 +12,7 @@ EXTRA_DIST = \
 
 CXXFLAGS = @CXXFLAGS@\
 	-DSYSTEM_DATA_DIR=\"$(datadir)/enigma\" \
-	-DLOCALEDIR=\"$(localedir)\" \
+	-DLOCALEDIR=\"$(localedir_enigma)\" \
 	-I$(top_srcdir)/lib-src/zipios++  \
 	-I$(top_builddir)/lib-src/zipios++ \
 	-I$(top_srcdir)/lib-src/lua \
@@ -186,14 +186,14 @@ datadir = @datadir@
 
 if MINGW32
 
-  localedir := data/locale
+  localedir_enigma := data/locale
   mingw_ldadd := enigma_ico.o -lws2_32
   enigma_ico.o: enigma.rc enigma.ico
 	$(WINDRES) $(srcdir)/enigma.rc --include-dir=$(srcdir) -O coff -o enigma_ico.o
 
 else # not MINGW32
 
-  localedir = $(datadir)/locale
+  localedir_enigma := $(datadir)/locale
   mingw_ldadd =
 
 endif
