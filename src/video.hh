@@ -1,5 +1,6 @@
 /*
  * Copyright (C) 2002,2003,2004,2005 Daniel Heck
+ * Copyright (C) 2007 Ronald Lamprecht
  *
  * This program is free software; you can redistribute it and/or
  * modify it under the terms of the GNU General Public License
@@ -29,31 +30,47 @@ namespace video
 {
 
     enum VideoModes {
-        VM_None     = -1,
-        VM_640x480  = 0,
-        VM_640x512  = 1,
-        VM_800x600  = 2,
-        VM_1024x768 = 3,
+        VM_None      = -1,
+        VM_640x480   = 0,   // 32 bit basic
+        VM_640x512   = 1,
+        VM_800x600   = 2,   // 40 bit basic
+        VM_1024x768  = 3,
+        VM_960x720   = 4,   // 48 bit basic
+        VM_960x768   = 5,   // 48 bit grid linear strechable to 1280x1024
+        VM_1152x720  = 6,   // 48 bit grid lineas strechable to 1680x1050
+        VM_1280x960  = 7,   // 64 bit basic
         VM_COUNT
+    };
+    
+    enum VideoTileType {    // Tile size in pixels
+        VTS_32 = 0,
+        VTS_40 = 1,
+        VTS_48 = 2,
+        VTS_64 = 3
     };
 
     struct VMInfo {
-        VideoModes  videomode;
-        int width, height;      // Screen width and height in pixels
-        int tile_size;          // Tile size in pixels
-        const char *name;       // Menu text 
-        const char *initscript; // Lua initialization script
-        const char *gfxdir;     // Directory that contains the graphics
-        int thumbw, thumbh;     // Width and height of thumbnails
-        const char *thumbsdir;  // Directory that contains the thumbnails
-        ecl::Rect gamearea;
-        ecl::Rect statusbararea;
-        ecl::Rect sb_timearea;
-        ecl::Rect sb_movesarea;
-        ecl::Rect sb_itemarea;
-        ecl::Rect sb_textarea;
-        VideoModes  fallback_videomode;
-        bool     available;     // Is this video mode available?
+        VideoModes     videomode;
+        int            width, height;    // Screen width and height in pixels
+        int            tile_size;        // Tile size in pixels
+        VideoTileType  tt;               // Tile type
+        const char    *name;             // Menu text 
+        const char    *fullscreen_name;  // Menu text 
+        bool           isFullscreenOnly;
+        const char    *initscript;       // Lua initialization script
+        const char    *gfxdir;           // Directory that contains the graphics
+        ecl::Rect      area;             // Area that is used for display
+        int            mbg_offsetx, mbg_offsety; // offsets for menu background image
+        int            thumbw, thumbh;   // Width and height of thumbnails
+        std::string    thumbsext;        // extension added to thumbnails files and dirs
+        ecl::Rect      gamearea;
+        ecl::Rect      statusbararea;
+        ecl::Rect      sb_timearea;
+        ecl::Rect      sb_movesarea;
+        ecl::Rect      sb_itemarea;
+        ecl::Rect      sb_textarea;
+        VideoModes     fallback_videomode;
+        bool           available;        // Is this video mode available?
     };
 
     void Init();
@@ -73,6 +90,9 @@ namespace video
 
     /*! Return information about current video mode. */
     const VMInfo *GetInfo ();
+
+    // just for main batch thumb generation in wrong videomode
+    void SetThumbInfo(int width, int height, std::string extension);
 
     bool ModeAvailable (VideoModes vm);
 

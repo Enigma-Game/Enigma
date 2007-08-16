@@ -43,8 +43,6 @@ using namespace std;
 namespace enigma { namespace gui {
 /* -------------------- Helper routines -------------------- */
     
-//    namespace
-//    {
     /*! Change the video mode.  Because this opens a new screen with a
       new resolution, the display engine must be re-initialized to
       load the appropriate models. */
@@ -57,9 +55,8 @@ namespace enigma { namespace gui {
         display::Shutdown();
         display::Init();
     }
-//    }
     
-    
+
     /* -------------------- NetworkMenu -------------------- */
     
     NetworkMenu::NetworkMenu ()
@@ -103,8 +100,7 @@ namespace enigma { namespace gui {
     {
     }
     
-    
-    
+
     /* -------------------- Main menu -------------------- */
     static const char *credit_text[] = {
         N_("Main developers of the 1.0 release:"),
@@ -215,13 +211,14 @@ namespace enigma { namespace gui {
     {
         const video::VMInfo *vminfo = video::GetInfo();
     
-        BuildVList b(this, Rect((vminfo->width - 150)/2,150,150,40), 5);
+        int y[] = {150, 170, 200, 200};
+        BuildVList b(this, Rect((vminfo->width - 150)/2, y[vminfo->tt], 150, 40), 5);
         m_startgame = b.add(new StaticTextButton(N_("Start Game"), this));
         m_levelpack = b.add(new StaticTextButton(N_("Level Pack"), this));
-    #ifdef ENABLE_EXPERIMENTAL
+#ifdef ENABLE_EXPERIMENTAL
         m_netgame   = b.add (new StaticTextButton (N_("Network Game"), this));
         leveled     = b.add(new StaticTextButton(N_("Editor"), this));
-    #endif
+#endif
         options     = b.add(new StaticTextButton(N_("Options"), this));
         credits     = b.add(new StaticTextButton(N_("Credits"), this));
         quit        = b.add(new StaticTextButton(N_("Quit"), this));
@@ -234,13 +231,13 @@ namespace enigma { namespace gui {
         video::SetCaption (("Enigma - Main Menu"));
         sound::PlayMusic (options::GetString("MenuMusicFile"));
     
-        blit(gc, 0,0, enigma::GetImage("menu_bg", ".jpg"));
+        blit(gc, vminfo->mbg_offsetx, vminfo->mbg_offsety, enigma::GetImage("menu_bg", ".jpg"));
     
         Font *f = enigma::GetFont("levelmenu");
         Surface * logo(enigma::GetImage("enigma_logo3"));
         int x0=(vminfo->width - logo->width())/2;
-        int y0=30;
-        blit(gc, x0, y0, logo);
+        int y0[] = {30, 40, 50, 60};
+        blit(gc, x0, y0[vminfo->tt], logo);
         f->render (gc, 5, vminfo->height - 20, app.getVersionInfo().c_str());
     }
     
@@ -292,9 +289,8 @@ namespace enigma { namespace gui {
     
     void MainMenu::tick(double /* dtime */) 
     {
-        bool option_fullscreen = options::GetInt ("FullScreen") != 0;
-        if (options::GetInt ("VideoMode") != video::GetVideoMode()
-            || option_fullscreen != video::IsFullScreen())
+        if (app.prefs->getInt("VideoMode1.1") != video::GetVideoMode()
+                || app.prefs->getBool("FullScreen1.1") != video::IsFullScreen())
         {
             ChangeVideoMode();
             clear();

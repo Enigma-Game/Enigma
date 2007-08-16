@@ -72,6 +72,7 @@ namespace enigma { namespace gui {
             cachedIndex = lev::Index::getCurrentIndex();
         }
             
+        const video::VMInfo &vminfo = *video::GetInfo();
         std::string previewSubPath = makePreviewPath(levelProxy);
         Surface *surface = 0;
         
@@ -80,8 +81,8 @@ namespace enigma { namespace gui {
         std::auto_ptr<std::istream> isptr;
         ByteVec imageData;
         if(levelProxy->getNormPathType() == lev::Proxy::pt_resource && 
-                app.resourceFS->findFile ("levels/" + levelProxy->getNormLevelPath() + ".png", 
-                        absLevelPath, isptr)) {
+                app.resourceFS->findFile ("levels/" + levelProxy->getNormLevelPath() 
+                        + vminfo.thumbsext + ".png", absLevelPath, isptr)) {
             // load plain image file or zipped image
             if (isptr.get() != NULL) {
                 // zipped file
@@ -145,7 +146,8 @@ namespace enigma { namespace gui {
     }
     
     std::string LevelPreviewCache::makePreviewPath(lev::Proxy *levelProxy) {
-        return "thumbs/" +
+        const video::VMInfo &vminfo = *video::GetInfo();
+        return "thumbs" + vminfo.thumbsext + "/" +
                 levelProxy->getLocalSubstitutionLevelPath() +
                 ecl::strf("#%d", levelProxy->getReleaseVersion()) + ".png";
     }
@@ -162,7 +164,9 @@ namespace enigma { namespace gui {
     }
     
     void LevelPreviewCache::makeSystemPreview(lev::Proxy *levelProxy, std::string systemDataPath) {
-        std::string savePath = systemDataPath + "/levels/" + levelProxy->getNormLevelPath() + ".png";
+        const video::VMInfo &vminfo = *video::GetInfo();
+        std::string savePath = systemDataPath + "/levels/" + levelProxy->getNormLevelPath() 
+                + vminfo.thumbsext + ".png";
         // auto-create the directory if necessary -- on an installed Enigma
         // distribution this is of course unnecessary, but you start Enigma
         // without prior installation. This is useful to get a directory with
@@ -174,5 +178,5 @@ namespace enigma { namespace gui {
         ecl::Surface * s = newPreview(levelProxy);
         if (s != NULL)
             ecl::SavePNG(s, savePath);
-    }
+    }
 }} // namespace enigma::gui

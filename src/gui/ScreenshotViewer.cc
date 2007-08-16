@@ -84,12 +84,12 @@ namespace enigma { namespace gui {
     }
     
     void ScreenshotViewer::draw_background (ecl::GC &gc) {
+        const video::VMInfo *vminfo = video::GetInfo();
         std::string filename = "screenshots/" + 
                 levelProxy->getLocalSubstitutionLevelPath() + 
                 (shotNumber > 0 ? ecl::strf("#%d", shotNumber) : "") + ".png";
         std::string fullPath;
         if (app.resourceFS->findFile(filename, fullPath)) {
-            const video::VMInfo *vminfo = video::GetInfo();
             ecl::Surface * image = ecl::LoadImage(fullPath.c_str());
             if (image->width() == vminfo->width && image->height() == vminfo->height) {
                 blit(gc, 0,0, image);
@@ -100,7 +100,7 @@ namespace enigma { namespace gui {
             }
             delete image;
         } else {
-            blit(gc, 0,0, enigma::GetImage("menu_bg", ".jpg"));
+            blit(gc, vminfo->mbg_offsetx, vminfo->mbg_offsety, enigma::GetImage("menu_bg", ".jpg"));
             Font *f = enigma::GetFont("menufont");
             f->render (gc, 30, 60, _("No screenshot available:"));
             f->render (gc, 30, 100, filename.c_str());

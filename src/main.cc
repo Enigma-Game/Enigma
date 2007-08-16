@@ -285,10 +285,10 @@ void Application::init(int argc, char **argv)
     prefs = PreferenceManager::instance();
     
     if (ap.force_window) {
-        options::SetOption("FullScreen", false);
+        app.prefs->setProperty("FullScreen1.1", false);
     }
     if (isMakePreviews) {
-        options::SetOption("VideoMode", 0);
+        app.prefs->setProperty("VideoMode1.1", 0);  // we will not save the prefs!
     }
 
     // initialize user data paths -- needs preferences, system datapaths
@@ -400,11 +400,14 @@ void Application::init(int argc, char **argv)
         scr->flush_updates();
         
         int i = 0;
-        for (it = proxies.begin(); it != proxies.end(); it++, i++) {
-            gui::LevelPreviewCache::makeSystemPreview(*it, systemAppDataPath);
-            vline(gc, 170 + i*300 / size, 280, 20);
-            scr->update_all ();
-            scr->flush_updates();
+        for (int m=0; m<2; m++) {
+            for (it = proxies.begin(); it != proxies.end(); it++, i++) {
+                gui::LevelPreviewCache::makeSystemPreview(*it, systemAppDataPath);
+                vline(gc, 170 + i*150 / size, 280, 20);
+                scr->update_all ();
+                scr->flush_updates();
+            }
+            video::SetThumbInfo(160, 104, "-160x104");
         }
         return;
     }

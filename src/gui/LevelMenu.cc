@@ -40,22 +40,6 @@ using namespace ecl;
 namespace enigma { namespace gui {
 /* -------------------- Level Menu -------------------- */
     
-    struct LevelMenuConfig {
-        int buttonw, ibuttonw, buttonh;
-        int lbuttonw, lbuttonh;
-        ecl::Rect previewarea;
-        int thumbsy;                // y coordinate of thumbnail window
-        int leftborder;
-    
-        LevelMenuConfig (const ecl::Rect &screen)
-        : buttonw (140), ibuttonw (90), buttonh (35),
-          lbuttonw (140), lbuttonh (100),
-          previewarea (10, 60, screen.w-50, screen.h-130),
-          thumbsy (60),
-          leftborder (10)
-        {}
-    };
-    
     LevelMenu::LevelMenu()
     : but_advancemode (new AdvanceModeButton),
       but_next       (new ImageButton("ic-next", "ic-next1", this)),
@@ -68,42 +52,75 @@ namespace enigma { namespace gui {
       lbl_levelinfo  (new Label("", HALIGN_LEFT)),
       shown_text_ttl(-1.0), main_quit (false)
     {
-        HList *hl, *hll, *hlr ;
-    
+        static struct SpacingConfig {
+            int hmargin_info, vmargin, vgap_info, vsize_info;
+            int hmargin_prev, hgap_prev_nav, vgap_info_prev, vgap_prev_but;
+            int hsize_nav, hmargin_nav, vsize_nav, vgap_info_nav, vgap_nav_nav, vgap_nav1_nav2;
+            int hsize_button_small, hsize_button_large, hgap_button, vsize_button, vmargin_bottom;
+        } param[] = {
+            {  // VTS_32 (640x480)
+                5, 10, 20, 28,
+                10, 10, 10, 10,
+                20, 10, 50, 20, 10, 90,
+                90, 140, 10, 35, 15
+            },
+            {  // VTS_40 (800x600)
+                5, 10, 20, 28,
+                10, 10, 10, 10,                
+                20, 10, 50, 20, 10, 120,
+                90, 140, 10, 35, 15
+            },
+            {  // VTS_48 (960x720)  VM_1024x768
+                5, 10, 20, 28,
+                10, 10, 10, 10,                
+                20, 10, 50, 20, 10, 120,
+                90, 140, 10, 35, 15
+            },
+            {  // VTS_64 (1280x960)
+                15, 15, 25, 28,
+                15, 25, 15, 15,
+                20, 15, 50, 40, 10, 120,                
+                90, 140, 10, 35, 15
+            }
+        };
+
         const video::VMInfo &vminfo = *video::GetInfo();
-    
-    
-        // Levelmenu configuration
-        const int Y2 = 10;          // y position for information area
-        const int Y3 = vminfo.height-50; // y position for bottom button row
-        LevelMenuConfig c (Rect (0, 0, vminfo.width, vminfo.height));
+        video::VideoModes vm = vminfo.videomode;
+        video::VideoTileType vtt = vminfo.tt;
+        
+        int preview_y = param[vtt].vmargin + 2*param[vtt].vgap_info + param[vtt].vgap_info_prev;
+        ecl::Rect previewarea(param[vtt].hmargin_prev, preview_y,
+                vminfo.width - param[vtt].hmargin_nav - param[vtt].hsize_nav - param[vtt].hgap_prev_nav, 
+                vminfo.height - preview_y - param[vtt].vgap_prev_but - param[vtt].vsize_button - param[vtt].vmargin_bottom);
+        
+        HList *hl, *hll, *hlr ;
     
         but_difficulty->set_listener (this);
     
-    
         // Create buttons
         hll = new HList;
-        hll->set_spacing (10);
+        hll->set_spacing (param[vtt].hgap_button);
         hll->set_alignment (HALIGN_CENTER, VALIGN_TOP);
-        hll->set_default_size (c.ibuttonw, c.buttonh);
+        hll->set_default_size (param[vtt].hsize_button_small, param[vtt].vsize_button);
         hll->add_back (but_advancemode);
         hll->add_back (but_next);
         hll->add_back (but_difficulty);
         
         hlr = new HList;
-        hlr->set_spacing (10);
+        hlr->set_spacing (param[vtt].hgap_button);
         hlr->set_alignment (HALIGN_CENTER, VALIGN_TOP);
-        hlr->set_default_size (c.buttonw, c.buttonh);
+        hlr->set_default_size (param[vtt].hsize_button_large, param[vtt].vsize_button);
         hlr->add_back (but_levelpack);
         hlr->add_back (but_back);
         
         hl = new HList;
         hl->set_spacing (10);
         hl->set_alignment (HALIGN_CENTER, VALIGN_TOP);
-        hl->set_default_size (2*c.buttonw + 10, c.buttonh);
+        hl->set_default_size (2*param[vtt].hsize_button_large + param[vtt].hgap_button, param[vtt].vsize_button);
         hl->add_back (hll);
         hl->add_back (hlr);
-        this->add (hl, Rect(c.leftborder, Y3, vminfo.width-20, c.buttonh));
+        this->add (hl, Rect(0, vminfo.height - param[vtt].vsize_button - param[vtt].vmargin_bottom,
+                vminfo.width, param[vtt].vsize_button));
             
         // Add navigation buttons
         pgup     = new ImageButton("ic-up", "ic-up1", this);
@@ -111,32 +128,35 @@ namespace enigma { namespace gui {
         start    = new ImageButton("ic-top", "ic-top1", this);
         end      = new ImageButton("ic-bottom", "ic-bottom1", this);
     
-        Rect r(vminfo.width-30, c.thumbsy, 20, 50);
-        r.y = c.thumbsy;
+        Rect r(vminfo.width - param[vtt].hmargin_nav - param[vtt].hsize_nav,
+                param[vtt].vmargin + 2*param[vtt].vgap_info + param[vtt].vgap_info_nav,
+                param[vtt].hsize_nav, param[vtt].vsize_nav);
         add (pgup, r);
-        r.y += 60;
+        r.y += param[vtt].vsize_nav + param[vtt].vgap_nav_nav;
         add (pgdown, r);
-        r.y = c.thumbsy + 240;
+        r.y += param[vtt].vsize_nav + param[vtt].vgap_nav1_nav2;
         add (start, r);
-        r.y += 60;
+        r.y += param[vtt].vsize_nav + param[vtt].vgap_nav_nav;
         add (end, r);
     
         // Information area
         hl = new HList;
         hl->add_back (lbl_levelname, List::EXPAND);
         hl->add_back (lbl_lpinfo, List::TIGHT);
-        this->add (hl, Rect (5, Y2, vminfo.width - 10, 28));
+        this->add (hl, Rect (param[vtt].hmargin_info, param[vtt].vmargin, 
+                vminfo.width - 2*param[vtt].hmargin_info, param[vtt].vsize_info));
     
         hl_info_stat = new HList;
         hl_info_stat->add_back (lbl_levelinfo, List::EXPAND); //Rect (c.leftborder, Y2+20,305, 28));
         hl_info_stat->add_back (lbl_statistics, List::TIGHT);
-        this->add (hl_info_stat, Rect (5, Y2+20, vminfo.width - 10, 28));
+        this->add (hl_info_stat, Rect (param[vtt].hmargin_info, param[vtt].vmargin + param[vtt].vgap_info, 
+                vminfo.width - 2*param[vtt].hmargin_info, param[vtt].vsize_info));
     
         // Prepare level selection widget
         levelwidget = new LevelWidget();
         levelwidget->set_listener(this);
-        levelwidget->realize (c.previewarea);
-        levelwidget->set_area (c.previewarea);
+        levelwidget->realize (previewarea);
+        levelwidget->set_area (previewarea);
     
         this->add (levelwidget);
         
@@ -392,10 +412,12 @@ namespace enigma { namespace gui {
     
     void LevelMenu::draw_background(ecl::GC &gc) 
     {
+        const video::VMInfo *vminfo = video::GetInfo();
+        
         video::SetCaption(("Enigma - Level Menu"));
         sound::PlayMusic (options::GetString("MenuMusicFile"));
     
-        blit(gc, 0,0, enigma::GetImage("menu_bg", ".jpg"));
+        blit(gc, vminfo->mbg_offsetx, vminfo->mbg_offsety, enigma::GetImage("menu_bg", ".jpg"));
     }
 
     void LevelMenu::next_unsolved() 

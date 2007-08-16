@@ -37,7 +37,7 @@ using namespace ecl;
 using namespace std;
 
 
-namespace enigma { namespace gui {    
+namespace enigma { namespace gui {
     /* -------------------- LevelWidget -------------------- */
     
     LevelWidget::LevelWidget(bool withScoreIcons, bool withEditBorder) : 
@@ -47,7 +47,7 @@ namespace enigma { namespace gui {
     {
         const video::VMInfo &vminfo = *video::GetInfo();
     
-        buttonw = vminfo.thumbw + 20;
+        buttonw = vminfo.thumbw + 27;  // min should be +30 for all modes but 640x480
         buttonh = vminfo.thumbh + 28;
         curIndex = lev::Index::getCurrentIndex();
         iselected = curIndex->getCurrentPosition();

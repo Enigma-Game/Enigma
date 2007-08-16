@@ -68,7 +68,7 @@ namespace enigma
         void init(int argc, char **argv);
         void shutdown();
         std::string getVersionInfo();
-	double getEnigmaVersion();
+        double getEnigmaVersion();
         void setLanguage(std::string newLanguage);
         /**
          * Define a new user path. Files stored to user path use the new path

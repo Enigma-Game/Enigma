@@ -40,10 +40,12 @@ namespace enigma { namespace gui {
     
     void InfoMenu::draw_background(ecl::GC &gc) {
         const video::VMInfo &vminfo = *video::GetInfo();
-        blit(gc, 0,0, enigma::GetImage("menu_bg", ".jpg"));
+        blit(gc, vminfo.mbg_offsetx, vminfo.mbg_offsety, enigma::GetImage("menu_bg", ".jpg"));
         
         Font *f = enigma::GetFont("menufont");
         int row = 0;
+        int yoff[] = {0, -20, -40, -40};
+        int ygap[] = {0, 4, 6, 6};
         for (int p=0; p<curPage; p++) {
             while (info[row])
                 row++;
@@ -53,7 +55,7 @@ namespace enigma { namespace gui {
         for (int i = 0; info[row]; row++, i++) {
             const char *t = _(info[row]);
             f->render (gc, 40 + (vminfo.width-640)/2, 
-                    20 + (vminfo.height-480)/2 + i*f->get_height(), t);
+                    20 + yoff[vminfo.tt] + (vminfo.height-480)/2 + i*(f->get_height() + ygap[vminfo.tt]), t);
         }
     }
     

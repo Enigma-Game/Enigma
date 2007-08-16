@@ -1,5 +1,6 @@
 /*
  * Copyright (C) 2002,2004 Daniel Heck
+ * Copyright (C) 2007 Ronald Lamprecht
  *
  * This program is free software; you can redistribute it and/or
  * modify it under the terms of the GNU General Public License
@@ -104,7 +105,6 @@ namespace
     };
 }
 
-
 /* -------------------- Video Engine -------------------- */
 
 Video_SDL::Video_SDL()
@@ -187,7 +187,6 @@ void Video_SDL::toggle_fullscreen()
 }
 
 
-
 /* -------------------- MouseCursor -------------------- */
 
 MouseCursor::MouseCursor ()
@@ -300,7 +299,6 @@ void MouseCursor::restore_bg () {
     }
 }
 
-
 /* -------------------- Local Variables -------------------- */
 namespace
 {
@@ -311,62 +309,139 @@ namespace
     /*! List of available video modes. */
     video::VMInfo video_modes[] = {
         { 
-            VM_640x480, 640, 480, 32, "640x480", 
-            "models-32.lua", "gfx32/",
-            120, 78, "thumbs32",     // thumbnail size/directory
-            Rect (0, 0, 640, 416),   // game area
-            Rect (0, 416, 640, 64),  // statusbar area
-            Rect (10, 425, 117, 43), // time area
-            Rect (100, 425, 30, 43), // moves area
-            Rect (152, 433, 490, 52),// inventory area
-            Rect (150, 434, 475, 35),// text area
-            VM_None, true,
+            VM_640x480, 640, 480,            // id, w, h
+            32, VTS_32,                      // tilesize, tiletype
+            "640x480", "640x480", false,     // name, fsname, fs only
+            "models-32.lua", "gfx32/",       // initscript, dir
+            Rect (0, 0, 640, 480),           // display area
+            0, 0,                            // menu background image offsets 
+            120, 78, "",                     // thumbnail size/extension
+            Rect (0, 0, 640, 416),           // game area
+            Rect (0, 416, 640, 64),          // statusbar area
+            Rect (10, 425, 117, 43),         // time area
+            Rect (100, 425, 30, 43),         // moves area
+            Rect (152, 433, 490, 52),        // inventory area
+            Rect (150, 434, 475, 35),        // text area
+            VM_None, true,                   // fallback, available
         },
         { 
-            VM_640x512, 640, 512, 32, "640x512", 
-            "models-32.lua", "gfx32/",
-            120, 78, "thumbs32",     // thumbnail size/directory
-            Rect (0, 0, 640, 416),   // game area
-            Rect (0, 416, 640, 64),  // statusbar area
-            Rect (15, 420, 110, 40), // time area
-            Rect (100, 420, 30, 40), // moves area
-            Rect (152, 433, 490, 52),// inventory area
-            Rect (150, 434, 475, 35), // text area
-            VM_640x480, 
-            false,              // 640x512 is deprecated!
+            VM_640x512, 640, 512,            // id, w, h
+            32, VTS_32,                      // tilesize, tiletype
+            "640x512", "640x512", false,     // name, fsname, fs only
+            "models-32.lua", "gfx32/",       // initscript, dir
+            Rect (0, 0, 640, 480),           // display area
+            0, 0,                            // menu background image offsets 
+            120, 78, "",                     // thumbnail size/extension
+            Rect (0, 0, 640, 416),           // game area
+            Rect (0, 416, 640, 64),          // statusbar area
+            Rect (15, 420, 110, 40),         // time area
+            Rect (100, 420, 30, 40),         // moves area
+            Rect (152, 433, 490, 52),        // inventory area
+            Rect (150, 434, 475, 35),        // text area
+            VM_640x480, false,               // 640x512 is deprecated!
         },
         { 
-            VM_800x600, 800, 600, 40, "800x600", 
-            "models-40.lua", "gfx40/",
-//            160, 104, "thumbs40",    // thumbnail size/directory
-            120, 78, "thumbs32",
-            Rect (0, 0, 800, 520),   // game area
-            Rect (0, 520, 800, 80),  // statusbar area
-            Rect (15, 540, 140, 40), // time area
-            Rect (125, 540, 30, 40), // moves area
-            Rect (192, 539, 610, 46),// inventory area
-            Rect (185, 545, 600, 39), // text area
-            VM_640x480, true,
+            VM_800x600, 800, 600,            // id, w, h
+            40, VTS_40,                      // tilesize, tiletype
+            "800x600", "800x600", false,     // name, fsname, fs only
+            "models-40.lua", "gfx40/",       // initscript, dir
+            Rect (0, 0, 800, 600),           // display area
+            0, 0,                            // menu background image offsets 
+            120, 78, "",                     // thumbnail size/extension
+            Rect (0, 0, 800, 520),           // game area
+            Rect (0, 520, 800, 80),          // statusbar area
+            Rect (15, 540, 140, 40),         // time area
+            Rect (125, 540, 30, 40),         // moves area
+            Rect (192, 539, 610, 46),        // inventory area
+            Rect (185, 545, 600, 39),        // text area
+            VM_640x480, true,                // fallback, available
         },
         { 
-            VM_1024x768, 1024, 768, 48, "1024x768", 
-            "models-48.lua", "gfx48/",
-//            160, 104, "thumbs40",    // thumbnail size/directory
-            120, 78, "thumbs32",
-            Rect (32, 0, 960, 624), // game area
-            Rect (32, 624, 960, 96),  // statusbar area
-            Rect (50, 640, 170, 60), // time area
-            Rect (185, 640, 30, 60), // moves area
-            Rect (260, 650, 710, 46),// inventory area
-            Rect (260, 655, 710, 40), // text area
-            VM_640x480, true,
+            VM_1024x768, 1024, 768,          // id, w, h
+            48, VTS_48,                      // tilesize, tiletype
+            "1024x768", "1024x768", false,   // name, fsname, fs only
+            "models-48.lua", "gfx48/",       // initscript, dir
+            Rect (32, 0, 960, 720),          // display area
+            -128, -96,                       // menu background image offsets 
+            120, 78, "",                     // thumbnail size/extension
+            Rect (32, 0, 960, 624),          // game area
+            Rect (32, 624, 960, 96),         // statusbar area
+            Rect (50, 640, 170, 60),         // time area
+            Rect (185, 640, 30, 60),         // moves area
+            Rect (260, 650, 710, 46),        // inventory area
+            Rect (260, 655, 710, 40),        // text area
+            VM_640x480, true,                // fallback, available
+        },
+        { 
+            VM_960x720, 960, 720,            // id, w, h
+            48, VTS_48,                      // tilesize, tiletype
+            "960x720", "960x720", false,     // name, fsname, fs only
+            "models-48.lua", "gfx48/",       // initscript, dir
+            Rect (0, 0, 960, 720),           // display area
+            -192, -144,                      // menu background image offsets 
+            120, 78, "",                     // thumbnail size/extension
+            Rect (0, 0, 960, 624),           // game area
+            Rect (0, 624, 960, 96),          // statusbar area
+            Rect (18, 640, 170, 60),         // time area
+            Rect (153, 640, 30, 60),         // moves area
+            Rect (228, 650, 710, 46),        // inventory area
+            Rect (228, 655, 710, 40),        // text area
+            VM_640x480, true,                // fallback, available
+        },
+        { 
+            VM_960x768, 960, 768,            // id, w, h
+            48, VTS_48,                      // tilesize, tiletype
+            "960x768", "1280x1024", true,    // name, fsname, fs only
+            "models-48.lua", "gfx48/",       // initscript, dir
+            Rect (0, 0, 960, 720),           // display area
+            -192, -96,                       // menu background image offsets 
+            120, 78, "",                     // thumbnail size/extension
+            Rect (0, 0, 960, 624),           // game area
+            Rect (0, 624, 960, 96),          // statusbar area
+            Rect (18, 640, 170, 60),         // time area
+            Rect (153, 640, 30, 60),         // moves area
+            Rect (228, 650, 710, 46),        // inventory area
+            Rect (228, 655, 710, 40),        // text area
+            VM_640x480, true,                // fallback, available
+        },
+        { 
+            VM_1152x720, 1152, 720,          // id, w, h
+            48, VTS_48,                      // tilesize, tiletype
+            "1152x720", "1680x1050", true,   // name, fsname, fs only
+            "models-48.lua", "gfx48/",       // initscript, dir
+            Rect (96, 0, 960, 720),          // display area
+            0, -144,                         // menu background image offsets 
+            120, 78, "",                     // thumbnail size/extension
+            Rect (96, 0, 960, 624),          // game area
+            Rect (96, 624, 960, 96),         // statusbar area
+            Rect (114, 640, 170, 60),        // time area
+            Rect (249, 640, 30, 60),         // moves area
+            Rect (324, 650, 710, 46),        // inventory area
+            Rect (324, 655, 710, 40),        // text area
+            VM_640x480, true,                // fallback, available
+        },
+        { 
+            VM_1280x960, 1280, 960,          // id, w, h
+            64, VTS_64,                      // tilesize, tiletype
+            "1280x960", "1280x960", false,   // name, fsname, fs only
+//            "models-64.lua", "gfx64/",       // initscript, dir
+            "models-48.lua", "gfx48/",       // initscript, dir
+            Rect (0, 0, 1280, 960),          // display area
+            0, 0,                            // menu background image offsets 
+            160, 104, "-160x104",            // thumbnail size/extension
+            Rect (0, 0, 1280, 832),          // game area
+            Rect (0, 832, 1280, 128),        // statusbar area
+            Rect (18, 640, 170, 60),         // time area //TODO
+            Rect (153, 640, 30, 60),         // moves area //TODO
+            Rect (228, 650, 710, 46),        // inventory area //TODO
+            Rect (228, 655, 710, 40),        // text area //TODO
+            VM_640x480, false,               // fallback, available
         },
     };
 
     VideoModes current_video_mode = VM_None;
 }
 
-
 /* -------------------- Auxiliary functions -------------------- */
 
 namespace
@@ -480,6 +555,12 @@ const video::VMInfo *video::GetInfo ()
     return GetInfo (current_video_mode);
 }
 
+void video::SetThumbInfo(int width, int height, std::string extension) {
+    video_modes[current_video_mode].thumbw = width;
+    video_modes[current_video_mode].thumbh = height;
+    video_modes[current_video_mode].thumbsext = extension;
+}
+
 bool video::ModeAvailable (VideoModes vm)
 {
     const VMInfo *vminfo = GetInfo (vm);
@@ -492,7 +573,18 @@ void video::Init()
 {
     assert (NUMENTRIES(video_modes) == VM_COUNT);
 
-    int vidmode = Clamp (options::GetInt("VideoMode"), 0, VM_COUNT-1);
+    int vidmode = -1;
+    app.prefs->getProperty("VideoMode1.1", vidmode);
+    if (vidmode == -1) {
+        // initialize from 1.0 mode if never set before
+        vidmode = app.prefs->getInt("VideoMode");
+        app.prefs->setProperty("VideoMode1.1", vidmode);
+        app.prefs->setProperty("FullScreen1.1", app.prefs->getBool("FullScreen"));
+    }
+    if (vidmode >= VM_COUNT) {
+        // TODO
+    }
+    vidmode = ecl::Clamp(vidmode, 0, VM_COUNT-1);
     int oldvidmode = vidmode;
 
     video_engine = new Video_SDL();
@@ -504,7 +596,7 @@ void video::Init()
         VMInfo *vminfo     = &video_modes[vidmode];
         int     w          = vminfo->width;
         int     h          = vminfo->height;
-        bool    fullscreen = options::GetBool("FullScreen");
+        bool    fullscreen = app.prefs->getBool("FullScreen1.1");
 
         if (ModeAvailable (static_cast<VideoModes> (vidmode))
             && vm_available (w, h, bpp, fullscreen)
@@ -524,8 +616,8 @@ void video::Init()
     }
 
     current_video_mode = static_cast<VideoModes>(vidmode);
-    if (vidmode != oldvidmode) {
-        options::SetOption ("VideoMode", vidmode);
+    if (vidmode != app.prefs->getInt("VideoMode1.1")) {
+        app.prefs->setProperty("VideoMode1.1", vidmode);
     }
 
 
@@ -627,7 +719,6 @@ void video::Screenshot (const std::string &fname)
     enigma::Log << "Wrote screenshot to '" << fname << "\n";
 }
 
-
 /* -------------------- Special Effects -------------------- */
 
 void video::FX_Fade(FadeMode mode) 
