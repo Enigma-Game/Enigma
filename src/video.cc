@@ -424,10 +424,25 @@ namespace
             VM_1280x960, 1280, 960,          // id, w, h
             64, VTS_64,                      // tilesize, tiletype
             "1280x960", "1280x960", false,   // name, fsname, fs only
-//            "models-64.lua", "gfx64/",       // initscript, dir
-            "models-48.lua", "gfx48/",       // initscript, dir
+            "models-64.lua", "gfx64/",       // initscript, dir
             Rect (0, 0, 1280, 960),          // display area
-            0, 0,                            // menu background image offsets 
+            -400, -90,                       // menu background image offsets 
+            160, 104, "-160x104",            // thumbnail size/extension
+            Rect (0, 0, 1280, 832),          // game area
+            Rect (0, 832, 1280, 128),        // statusbar area
+            Rect (24, 853, 227, 80),         // time area //TODO
+            Rect (204, 853, 40, 80),         // moves area //TODO
+            Rect (304, 867, 947, 61),        // inventory area //TODO
+            Rect (304, 873, 947, 53),        // text area //TODO
+            VM_640x480, true,                // fallback, available
+        },
+        { 
+            VM_1280x1024, 1280, 1024,        // id, w, h
+            64, VTS_64,                      // tilesize, tiletype
+            "1280x1024", "1280x1024", true,  // name, fsname, fs only
+            "models-64.lua", "gfx64/",       // initscript, dir
+            Rect (0, 0, 1280, 960),          // display area
+            -400, -26,                       // menu background image offsets 
             160, 104, "-160x104",            // thumbnail size/extension
             Rect (0, 0, 1280, 832),          // game area
             Rect (0, 832, 1280, 128),        // statusbar area
@@ -435,7 +450,23 @@ namespace
             Rect (153, 640, 30, 60),         // moves area //TODO
             Rect (228, 650, 710, 46),        // inventory area //TODO
             Rect (228, 655, 710, 40),        // text area //TODO
-            VM_640x480, false,               // fallback, available
+            VM_640x480, true,                // fallback, available
+        },
+        { 
+            VM_1680x1050, 1680, 1050,        // id, w, h
+            64, VTS_64,                      // tilesize, tiletype
+            "1680x1050", "1680x1050", false, // name, fsname, fs only
+            "models-64.lua", "gfx64/",       // initscript, dir
+            Rect (200, 0, 1280, 960),        // display area
+            -0, -0,                          // menu background image offsets 
+            160, 104, "-160x104",            // thumbnail size/extension
+            Rect (200, 0, 1280, 832),        // game area
+            Rect (200, 832, 1280, 128),      // statusbar area
+            Rect (224, 853, 227, 80),        // time area //TODO
+            Rect (404, 853, 40, 80),         // moves area //TODO
+            Rect (504, 867, 947, 61),        // inventory area //TODO
+            Rect (504, 873, 947, 53),        // text area //TODO
+            VM_640x480, true,                // fallback, available
         },
     };
 
@@ -681,7 +712,7 @@ bool video::SetFullscreen(bool onoff)
     video_engine->set_fullscreen(onoff);
     bool is_fullscreen = video_engine->is_fullscreen();
     if (onoff == is_fullscreen) {
-        options::SetOption("FullScreen", is_fullscreen);
+        app.prefs->setProperty("FullScreen1.1", is_fullscreen);
     }
     return is_fullscreen;
 }
@@ -703,7 +734,7 @@ const string& video::GetCaption()
 
 void video::UpdateGamma()
 {
-    float gamma = static_cast<float> (options::GetDouble ("Gamma"));
+    float gamma = static_cast<float> (app.prefs->getDouble ("Gamma"));
     SDL_SetGamma (gamma, gamma, gamma);
 }
 

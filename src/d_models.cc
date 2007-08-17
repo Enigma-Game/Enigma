@@ -98,17 +98,28 @@ namespace
 
 Surface *SurfaceCache_Alpha::acquire(const std::string &name) 
 {
-    string filename;
+    const video::VMInfo *vminfo = video::GetInfo();
+    std::string filename;
+    ecl::Surface *es = NULL;
+    
     if (app.resourceFS->findImageFile (name + ".png", filename))
-        return ecl::LoadImage(filename.c_str());
-    else
-        return 0;
+        es = ecl::LoadImage(filename.c_str());
+        
+    if (es != NULL && vminfo->tt == video::VTS_64 && filename.find("gfx32") != std::string::npos) {
+        ecl::Surface * es_zoom = es->zoom(es->width()*2, es->height()*2);
+        delete es;
+        es = es_zoom;
+    }
+    return es;
 }
 
 
 Surface *SurfaceCache::acquire(const std::string &name) 
 {
-    string filename;
+    const video::VMInfo *vminfo = video::GetInfo();
+    std::string filename;
+    ecl::Surface *es = NULL;
+    
     if (app.resourceFS->findImageFile (name + ".png", filename)) {
         SDL_Surface *s = IMG_Load(filename.c_str());
         if (s) {
@@ -122,12 +133,18 @@ Surface *SurfaceCache::acquire(const std::string &name)
             }
             if (img) {
                 SDL_FreeSurface(s);
-                return Surface::make_surface(img);
+                es = Surface::make_surface(img);
+            } else {
+                es = Surface::make_surface(s);
             }
-            return Surface::make_surface(s);
         }
     }
-    return 0;
+    if (es != NULL && vminfo->tt == video::VTS_64 && filename.find("gfx32") != std::string::npos) {
+        ecl::Surface * es_zoom = es->zoom(es->width()*2, es->height()*2);
+        delete es;
+        es = es_zoom;
+    }
+    return es;
 }
 
 
@@ -190,6 +207,8 @@ namespace
 
 void display::InitModels() 
 {
+    const video::VMInfo *vminfo = video::GetInfo();
+    
     modelmgr = new ModelManager;
 
     lua_State *L = lua_open();
@@ -213,7 +232,6 @@ void display::InitModels()
 
     string fname;
 
-    const video::VMInfo *vminfo = video::GetInfo();
     fname = app.systemFS->findFile (vminfo->initscript);
     if (lua::DoSysFile(L, vminfo->initscript) != lua::NO_LUAERROR) {
         std::string message = ecl::strf("Error loading '%s'\nError: '%s'\n",

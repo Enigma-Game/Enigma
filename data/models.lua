@@ -32,7 +32,7 @@ function Progress(percent, text)
     local gs         = ecl.GS:new(d:size())
     local font2      = enigma.GetFont("menufontsel")
 
-    d:blit(gs, 0, 0, background)
+    d:blit(gs, 0, 0, background) -- offset missing!
     d:blit(gs, x , y-logo:height(), logo)
 
     if text then

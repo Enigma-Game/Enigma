@@ -34,11 +34,13 @@ namespace video
         VM_640x480   = 0,   // 32 bit basic
         VM_640x512   = 1,
         VM_800x600   = 2,   // 40 bit basic
-        VM_1024x768  = 3,
+        VM_1024x768  = 3,   // 48 bit embedded
         VM_960x720   = 4,   // 48 bit basic
         VM_960x768   = 5,   // 48 bit grid linear strechable to 1280x1024
         VM_1152x720  = 6,   // 48 bit grid lineas strechable to 1680x1050
         VM_1280x960  = 7,   // 64 bit basic
+        VM_1280x1024 = 8,   // 64 bit embedded 
+        VM_1680x1050 = 9,   // 64 bit embedded
         VM_COUNT
     };
     
