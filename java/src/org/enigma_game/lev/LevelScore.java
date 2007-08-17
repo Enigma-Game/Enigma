@@ -319,24 +319,26 @@ public class LevelScore {
 
     public void printLevelEvaluation() {
         if( fullEval) {
-            System.out.println("");
-            System.out.println("Level " + elem.getAttribute("id")
-                    + "  '" + title + "' by " + author);
+            StringBuilder sb = new StringBuilder();
+            Formatter formatter = new Formatter(sb, Locale.US);
+            formatter.format("\nLevel " + elem.getAttribute("id")
+                    + "  '" + title + "' by " + author + "\n");
             for (Map.Entry<Integer, String> entry : scoresDiff.entrySet()) {
-                System.out.println(entry.getKey() + "  " +  entry.getValue());
+                formatter.format("%4d  %2d:%02d  %s\n", entry.getKey(), entry.getKey()/60,
+                        entry.getKey()%60, entry.getValue());
             }
             if (hasEasy) {
-                System.out.println("");
-                System.out.println("Easy mode:");
+                formatter.format("\nEasy mode:\n");
                 for (Map.Entry<Integer, String> entry : scoresEasy.entrySet()) {
-                    System.out.println(entry.getKey() + "  " +  entry.getValue());
+                    formatter.format("%4d  %2d:%02d  %s\n", entry.getKey(), entry.getKey()/60,
+                            entry.getKey()%60, entry.getValue());
                 }
             }
-            System.out.println("");
-            System.out.println("User ratings:");
+            formatter.format("\nUser ratings:\n");
             for (Map.Entry<Integer, String> entry : userRat.entrySet()) {
-                System.out.println(entry.getKey() + "  " +  entry.getValue());
+                formatter.format("%2d  %s\n", entry.getKey(), entry.getValue());
             }
+            System.out.print(sb.toString());
         }
     }
 

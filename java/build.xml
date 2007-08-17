@@ -79,7 +79,8 @@
     <!-- jar -->
     <target name="jar" depends="init, app"
             description="Complile app and generate jar">
-        <jar destfile="${lib}/EnigmaUtil.jar" basedir="${build}">
+        <sleep seconds="2" />  <!-- avoid warnings "modified in the future" on Windows -->
+	<jar destfile="${lib}/EnigmaUtil.jar" basedir="${build}">
 	    <manifest>
 		<attribute name="Main-Class" value="org.enigma_game.EnigmaUtil"/>
 	    </manifest>

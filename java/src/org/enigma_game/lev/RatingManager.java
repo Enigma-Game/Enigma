@@ -381,16 +381,16 @@ public class RatingManager {
             StringBuilder sb = new StringBuilder();
             Formatter formatter = new Formatter(sb, Locale.US);
             formatter.format("  <div class=\"stat-help\">\n");
-            formatter.format("    <h3>Other Statistics</h3>\n");
-            formatter.format("    <h4>Scores</h4>\n");
-            formatter.format("      %d single level scores have been registered.\n", LevelScore.solvedTotal);
-            formatter.format("    <h4>Ratings</h4>\n");
-            formatter.format("      %s single level ratings have been registered with an average of "
-                    + "%4.2f and the following distribution: \n", LevelScore.ratingsTotal,
+            formatter.format("    <h3>$$Other_Statistics$$</h3>\n");
+            formatter.format("    <h4>$$Scores$$</h4>\n");
+            formatter.format("      %d $$single_level_scores$$.\n", LevelScore.solvedTotal);
+            formatter.format("    <h4>$$Ratings$$</h4>\n");
+            formatter.format("      %s $$single_level_ratings$$ "
+                    + "%4.2f $$and_distribution$$: \n", LevelScore.ratingsTotal,
                     ((double)LevelScore.ratingsTotalSum)/LevelScore.ratingsTotal);
             formatter.format("      <table>\n");
             formatter.format("        <colgroup><col width=\"80\"><col width=\"80\"></colgroup>\n");
-            formatter.format("        <tr><th>rating</th><th>count</th></tr>\n");
+            formatter.format("        <tr><th>$$rating$$</th><th>$$count$$</th></tr>\n");
             for (int i=0; i<=10; i++) {
                 formatter.format("        <tr><td class=\"num\">%d</td><td class=\"num\">%d</td></tr>\n", i, LevelScore.ratingsDist[i]);
             }

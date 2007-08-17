@@ -43,7 +43,7 @@ public class UserEvaluation {
             calendar.setTime(now);
             calendar.add(Calendar.DATE, -15);  // monthly evaluation within first 2 weeks of next month
             Formatter formatter = new Formatter(Locale.US);
-            formatter.format("%1$tB %1$tY",calendar);
+            formatter.format("$$%1$tB$$ %1$tY",calendar);
 
             int numUsers = 0;
             for (int i = firstIndex; i < scoreFiles.length; i++) {
@@ -63,7 +63,7 @@ public class UserEvaluation {
             System.out.println("User Names:");
             htmlOut = new PrintWriter(new FileWriter(new File("userlist.html")), true);
             htmlOut.println("<div class=\"usernames\">");
-            htmlOut.println("Names in use:");
+            htmlOut.println("$$names_in_use$$");
             htmlOut.println("  <ul>");
             List<String> userName = new ArrayList<String>(userMgr.getUserIds());
             UserManager.ComparatorName compName = userMgr.new ComparatorName();
@@ -81,9 +81,9 @@ public class UserEvaluation {
             System.out.println("Worldrecord Statistics:");
             System.out.print("total (shared) - users");
             htmlOut.println("  <table>");
-            htmlOut.println("    <caption>Worldrecord Statistics of " + formatter.toString() + "</caption>");
+            htmlOut.println("    <caption>$$Worldrecord_Statistics$$ " + formatter.toString() + "</caption>");
             htmlOut.println("    <colgroup><col width=\"80\"><col width=\"80\"><col width=\"470\"></colgroup>");
-            htmlOut.print("    <tr><th>total</th><th>shared</th><th class=\"left\">users</th></tr>");
+            htmlOut.print("    <tr><th>$$total$$</th><th>$$shared$$</th><th class=\"left\">$$user$$</th></tr>");
             List<String> userByWR = new ArrayList<String>(userMgr.getUserIds());
             UserManager.ComparatorWRTotal compWRTotal = userMgr.new ComparatorWRTotal();
             Collections.sort(userByWR, compWRTotal);
@@ -118,9 +118,9 @@ public class UserEvaluation {
             System.out.println("Solved Statistics:");
             System.out.println("solved difficult - solved easy = total solved - user");
             htmlOut.println("  <table>");
-            htmlOut.println("    <caption>Solved Level Statistics of " + formatter.toString() + "</caption>");
+            htmlOut.println("    <caption>$$Solved_Level_Statistics$$ " + formatter.toString() + "</caption>");
             htmlOut.println("    <colgroup><col width=\"130\"><col width=\"130\"><col width=\"130\"><col width=\"240\"></colgroup>");
-            htmlOut.println("    <tr><th>difficult</th><th>easy</th><th>total</th><th class=\"left\">user</th></tr>");
+            htmlOut.println("    <tr><th>$$difficult$$</th><th>$$easy$$</th><th>$$total$$</th><th class=\"left\">$$user$$</th></tr>");
             List<String> userBySolved = new ArrayList<String>(userMgr.getUserIds());
             UserManager.ComparatorSolved compSolved = userMgr.new ComparatorSolved();
             Collections.sort(userBySolved, compSolved);
@@ -147,9 +147,9 @@ public class UserEvaluation {
             System.out.println("Handicap Statistics:");
             System.out.println("total - solved hcp - user");
             htmlOut.println("  <table>");
-            htmlOut.println("    <caption>Handicap Statistics of " + formatter.toString() + "</caption>");
+            htmlOut.println("    <caption>$$Handicap_Statistics$$ " + formatter.toString() + "</caption>");
             htmlOut.println("    <colgroup><col width=\"130\"><col width=\"220\"></colgroup>");
-            htmlOut.println("    <tr><th>solved hcp</th><th class=\"left\">user</th></tr>");
+            htmlOut.println("    <tr><th>$$solved_hcp$$</th><th class=\"left\">$$user$$</th></tr>");
             List<String> userByHCP = new ArrayList<String>(userMgr.getUserIds());
             UserManager.ComparatorHcpSolved compHCPSolved = userMgr.new ComparatorHcpSolved();
             Collections.sort(userByHCP, compHCPSolved);
@@ -173,9 +173,9 @@ public class UserEvaluation {
             System.out.println("Rating Statistics:");
             System.out.println("count - average - users");
             htmlOut.println("  <table>");
-            htmlOut.println("    <caption>Rating Statistics of " + formatter.toString() + "</caption>");
+            htmlOut.println("    <caption>$$Rating_Statistics$$ " + formatter.toString() + "</caption>");
             htmlOut.println("    <colgroup><col width=\"80\"><col width=\"80\"><col width=\"220\"></colgroup>");
-            htmlOut.print("    <tr><th>count</th><th>average</th><th class=\"left\">user</th></tr>");
+            htmlOut.print("    <tr><th>$$count$$</th><th>$$average$$</th><th class=\"left\">$$user$$</th></tr>");
             List<String> userByRat = new ArrayList<String>(userMgr.getUserIds());
             UserManager.ComparatorRating compRating = userMgr.new ComparatorRating();
             Collections.sort(userByRat, compRating);
@@ -192,7 +192,6 @@ public class UserEvaluation {
                 }
             }
             System.out.println("");
-            htmlOut.println("</td></tr>");
             htmlOut.println("  </table>");
             htmlOut.flush();
 
