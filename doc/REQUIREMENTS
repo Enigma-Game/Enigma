@@ -76,11 +76,11 @@ zip             2.3.1
 /GnuWin32       http://gnuwin32.sourceforge.net/packages/zip.htm (W)
                 Binaries (W)
 
-doxygen         1.4.4                           incl 1.4.4
+doxygen         1.5.3, 1.4.4                    incl 1.5.3 do not support anonymous classes
                 http://www.stack.nl/~dimitri/doxygen/
                 (for source documentation)
 
-Graphviz        2.2.1
+Graphviz        2.12, 2.6, 2.2.1		2.14, 2.14.1 do crash on XP
 AT&T            http://www.graphviz.org/About.php
                 (for source documentation)
 
@@ -90,7 +90,7 @@ upx             3.00 -  1.2.5
 ccache          2.4 (L)
                 http://ccache.samba.org/
                 
-NSIS            2.21 (W)
+NSIS            2.29, 2.27, 2.21 (W)
                 http://nsis.sourceforge.net
 
 ImageMagick     
