@@ -130,6 +130,23 @@ void Video_SDL::set_caption(const char *str) {
 
 bool Video_SDL::init(int w, int h, int bpp, bool fullscreen)
 {
+    static bool firstInit = true;
+    
+    if (firstInit) {
+        // set the caption icon -- usually it is taken without this init from
+        // the app -- but XP in WindowsXP Design fails.
+        // This init has to take place before the first SDL_SetVideoMode() !!
+        firstInit = false;
+        std::string iconpath;
+        ecl::Surface *es = NULL;
+        if (app.resourceFS->findFile("gfx/enigma_marble.png", iconpath)) { // cannot use ecl::findImageFile !
+            es = ecl::LoadImage(iconpath.c_str());
+            if (es) {
+                SDL_WM_SetIcon(es->get_surface(), NULL);
+            }
+        }
+    }
+
     SDL_WM_SetCaption(caption.c_str(), 0);
 
     Uint32 flags = SDL_SWSURFACE;
