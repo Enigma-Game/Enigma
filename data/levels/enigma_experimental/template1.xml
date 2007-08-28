@@ -4,8 +4,8 @@
     <el:info el:type="level">
       <el:identity el:title="Template 1" el:subtitle="" el:id="template1"/>
       <el:version el:score="1" el:release="1" el:revision="0" el:status="stable"/>
-      <el:author  el:name="AUTHOR" el:email="" el:homepage=""/>
-      <el:copyright>Copyright © YEAR AUTHOR</el:copyright>
+      <el:author el:name="AUTHOR NAME" el:email="" el:homepage=""/>
+      <el:copyright>Copyright © YEAR AUTHOR NAME</el:copyright>
       <el:license el:type="GPL v2.0 or above" el:open="true"/>
       <el:compatibility el:enigma="1.00">
       </el:compatibility>
@@ -46,7 +46,8 @@ oxyd_shuffle()
       </el:string>
       <el:string el:key="text1">
         <el:english el:translate="false">Template for a simple level.</el:english>
-      </el:string> 
+      </el:string>
     </el:i18n>
   </el:protected>
 </el:level>
+

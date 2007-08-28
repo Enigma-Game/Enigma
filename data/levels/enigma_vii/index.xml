@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no" ?>
 <index xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="index.xsd">
 
-  <info enigma="1.00" group="Enigma" location="10800" network="false" owner="Enigma Team" release="1" revision="9" title="Enigma VII"/>
+  <info enigma="1.00" group="Enigma" location="10800" network="false" owner="Enigma Team" release="1" revision="10" title="Enigma VII"/>
 
   <attributes/>
 
@@ -48,7 +48,7 @@
     <level _seq="40" _title="Slopes, Jumps &amp; Falls" _xpath="./duffy167_1" author="Jacob Scott" ctrl="force" easy="false" id="duffy167" rel="1" rev="0" score="1" target="time" unit="duration"/>
     <level _seq="41" _title="Arctic Jumping" _xpath="./duffy168_1" author="Jacob Scott" ctrl="force" easy="false" id="duffy168" rel="1" rev="0" score="1" target="time" unit="duration"/>
     <level _seq="42" _title="Breakthrough" _xpath="./duffy170_1" author="Jacob Scott" ctrl="force" easy="false" id="duffy170" rel="1" rev="0" score="1" target="time" unit="duration"/>
-    <level _seq="43" _title="Seansonal patterns" _xpath="./duffy164_1" author="Jacob Scott" ctrl="force" easy="false" id="duffy164" rel="1" rev="0" score="1" target="time" unit="duration"/>
+    <level _seq="43" _title="Seasonal Patterns" _xpath="./duffy164_1" author="Jacob Scott" ctrl="force" easy="false" id="duffy164" rel="1" rev="0" score="1" target="time" unit="duration"/>
     <level _seq="44" _title="Shark" _xpath="./duffy169_1" author="Jacob Scott" ctrl="force" easy="false" id="duffy169" rel="1" rev="0" score="1" target="time" unit="duration"/>
     <level _seq="45" _title="Alpha Factor" _xpath="./duffy171_1" author="Jacob Scott" ctrl="force" easy="false" id="duffy171" rel="1" rev="0" score="1" target="time" unit="duration"/>
     <level _seq="46" _title="Double Oneways" _xpath="./duffy172_1" author="Jacob Scott" ctrl="force" easy="false" id="duffy172" rel="1" rev="0" score="1" target="time" unit="duration"/>
@@ -61,8 +61,8 @@
     <level _seq="53" _title="Re-entry Circuit" _xpath="./pulley05_1" author="Mark Pulley" ctrl="force" easy="false" id="20070615pulley003" rel="1" rev="0" score="1" target="time" unit="duration"/>
     <level _seq="54" _title="Not Fast Enough" _xpath="./jet04_3" author="James Taylor, Ronald Lamprecht" ctrl="force" easy="true" id="20070413jet001" rel="3" rev="3" score="3" target="time" unit="duration"/>
     <level _seq="55" _title="Give Way" _xpath="./just20_1" author="JuSt" ctrl="force" easy="false" id="just20" rel="1" rev="1" score="1" target="time" unit="duration"/>
-    <level _seq="56" _title="Give more Way" _xpath="./just21_1" author="JuSt" ctrl="force" easy="true" id="just21" rel="1" rev="2" score="1" target="time" unit="duration"/>
-    <level _seq="57" _title="Give Way 4 2" _xpath="./just22_1" author="JuSt" ctrl="force" easy="true" id="just22" rel="1" rev="2" score="1" target="time" unit="duration"/>
+    <level _seq="56" _title="Give more Way" _xpath="./just21_2" author="JuSt" ctrl="force" easy="true" id="just21" rel="2" rev="2" score="2" target="time" unit="duration"/>
+    <level _seq="57" _title="Give Way 4 two" _xpath="./just22_2" author="JuSt" ctrl="force" easy="true" id="just22" rel="2" rev="2" score="2" target="time" unit="duration"/>
     <level _seq="58" _title="Lost in Time and Space" _xpath="./just23_1" author="JuSt" ctrl="force" easy="false" id="just23" rel="1" rev="1" score="1" target="time" unit="duration"/>
     <level _seq="59" _title="Alternatives?" _xpath="./just24_1" author="JuSt" ctrl="force" easy="true" id="just24" rel="1" rev="1" score="1" target="time" unit="duration"/>
     <level _seq="60" _title="No More Alternatives" _xpath="./just25_1" author="JuSt" ctrl="force" easy="true" id="just25" rel="1" rev="1" score="1" target="time" unit="duration"/>
@@ -70,6 +70,9 @@
     <level _seq="62" _title="Pull the Puller" _xpath="./just28_1" author="JuSt" ctrl="force" easy="false" id="just28" rel="1" rev="2" score="1" target="time" unit="duration"/>
     <level _seq="63" _title="Double Sense" _xpath="./joe14_1" author="Joseph Dunne" ctrl="force" easy="true" id="joe14" rel="1" rev="0" score="1" target="time" unit="duration"/>
     <level _seq="64" _title="Double Sense II" _xpath="./joe15_1" author="Joseph Dunne" ctrl="force" easy="true" id="joe15" rel="1" rev="0" score="1" target="time" unit="duration"/>
+    <level _seq="65" _title="Lightyears" _xpath="./duffy177_1" author="Jacob Scott" ctrl="force" easy="false" id="duffy177" rel="1" rev="1" score="1" target="time" unit="duration"/>
+    <level _seq="66" _title="Zero Magnetism Lab" _xpath="./duffy178_1" author="Jacob Scott" ctrl="force" easy="false" id="duffy178" rel="1" rev="0" score="1" target="time" unit="duration"/>
+    <level _seq="67" _title="Armageddon" _xpath="./duffy179_1" author="Jacob Scott" ctrl="force" easy="true" id="duffy179" rel="1" rev="1" score="1" target="time" unit="duration"/>
   </levels>
 
 </index>
