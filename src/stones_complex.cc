@@ -778,7 +778,7 @@ namespace
 
 /* -------------------- BigBrick -------------------- */
 
-// BigBricks allow to build stones of any size
+// BigBricks allow to build stones of any size.
 
 namespace 
 {
@@ -794,7 +794,7 @@ namespace
 
 /* -------------------- BigBlueSand -------------------- */
 
-// Same as BigBrick but with st-blue-sand
+// BigBlueSands allow to build stones of any size based on st-blue-sand.
 
 namespace
 {
@@ -803,6 +803,22 @@ namespace
     public:
         BigBlueSand(int connections)
         : ConnectiveStone("st-bigbluesand", connections)
+        {}
+        bool is_removable() const { return false; }
+    };
+}
+
+/* -------------------- BigPanel -------------------- */
+
+// BigPanels allow to build stones of any size based on st-panel.
+
+namespace
+{
+    class BigPanel : public ConnectiveStone {
+        CLONEOBJ(BigPanel);
+    public:
+        BigPanel(int connections)
+        : ConnectiveStone("st-bigpanel", connections)
         {}
         bool is_removable() const { return false; }
     };
@@ -3585,6 +3601,23 @@ void stones::Init_complex()
     Register("st-bigbluesand-nsw", new BigBlueSand(12));
     Register("st-bigbluesand-esw", new BigBlueSand(8));
     Register("st-bigbluesand-nesw", new BigBlueSand(16));
+    
+    Register("st-panel", new BigPanel(1));  // was st-wood_001 before Enigma 1.10
+    Register("st-bigpanel-n", new BigPanel(9));
+    Register("st-bigpanel-e", new BigPanel(5));
+    Register("st-bigpanel-s", new BigPanel(3));
+    Register("st-bigpanel-w", new BigPanel(2));
+    Register("st-bigpanel-ne", new BigPanel(13));
+    Register("st-bigpanel-nw", new BigPanel(10));
+    Register("st-bigpanel-es", new BigPanel(7));
+    Register("st-bigpanel-sw", new BigPanel(4));
+    Register("st-bigpanel-ns", new BigPanel(11));
+    Register("st-bigpanel-ew", new BigPanel(6));
+    Register("st-bigpanel-nes", new BigPanel(15));
+    Register("st-bigpanel-new", new BigPanel(14));
+    Register("st-bigpanel-nsw", new BigPanel(12));
+    Register("st-bigpanel-esw", new BigPanel(8));
+    Register("st-bigpanel-nesw", new BigPanel(16));
 
     Register ("st-rotator-right", new RotatorStone(true, false));
     Register ("st-rotator-left", new RotatorStone(false, false));

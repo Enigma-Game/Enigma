@@ -715,7 +715,6 @@ do
     DefStone("st-white3")
     DefStone("st-white4", "sh-white4")
     DefStone("st-whiteballs")
-    DefStone("st-wood_001")
     DefStone("st-woven")
     DefStone("st-yellow")
     DefStone("st-yinyang1")
@@ -748,6 +747,14 @@ end
 do
     DefSubimages("st-bigbrick", {modelname="st-bigbrickx",w=4,h=4})
     for i=1,16 do DefSolidStone("st-bigbrick"..i, "st-bigbrickx"..i) end
+end
+
+-- st-bigpanel --
+do
+    DefSubimages("st-bigpanel", {modelname="st-bigpanelx",w=4,h=4})
+    for i=1,16 do DefSolidStone("st-bigpanel"..i, "st-bigpanelx"..i) end
+    -- Alias for st-wood_001. Remove when it's time!
+    DefSolidStone("st-wood_001", "st-bigpanelx1")
 end
 
 -- st-bolder --
