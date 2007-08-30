@@ -294,12 +294,12 @@ en_set_floor(lua_State *L)
 
     if (lua_isnil(L, 3))
         fl = 0;
-    else if (is_object(L,3)) {
-        fl = static_cast<Floor*>(*(static_cast<void**> (lua_touserdata(L,3))));
-    	if( ! fl)
-	    throwLuaError(L, "object is no valid floor");
-    } else
-        throwLuaError(L, "argument 3 must be an Object or nil");
+    else {
+         fl = dynamic_cast<Floor *>(to_object(L, 3));
+         if (!fl) {
+             throwLuaError(L, "object argument 3 must be a floor or nil");
+         }
+    }
     world::SetFloor(GridPos(x,y), fl);
     return 0;
 }
