@@ -255,7 +255,8 @@ void Actor::set_anim (const string &modelname) {
 
 bool Actor::can_move() const { 
     if (Stone *st = GetStone (get_gridpos())) {
-        if (!server::NoCollisions)
+        if (!server::NoCollisions || !(get_traits().id_mask &
+                        (1<<ac_whiteball | 1<<ac_blackball | 1<<ac_meditation)))
             return !st->is_sticky(this);
     }
     return true;

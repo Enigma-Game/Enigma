@@ -1141,7 +1141,8 @@ void World::handle_stone_contact (StoneContact &sc)
     ActorInfo &ai          = *a->get_actorinfo();
     double     restitution = 1.0; //0.85;
 
-    if (server::NoCollisions && (sc.stoneid != st_borderstone))
+    if (server::NoCollisions && (sc.stoneid != st_borderstone) && 
+                a->get_traits().id_mask & (1<<ac_whiteball | 1<<ac_blackball | 1<<ac_meditation))
         return;
 
     Contact contact (sc.contact_point, sc.normal);
