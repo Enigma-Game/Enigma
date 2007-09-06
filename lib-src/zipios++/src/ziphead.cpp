@@ -115,7 +115,7 @@ bool ZipLocalEntry::isDirectory() const {
 }
 
 
-void ZipLocalEntry::setComment( const string &comment ) {
+void ZipLocalEntry::setComment( const string & ) {
   // A local entry cannot hold a comment
 }
 
@@ -148,6 +148,10 @@ void ZipLocalEntry::setSize( uint32 size ) {
 void ZipLocalEntry::setTime( int time ) {
   // FIXME: fix time setting here, and ind flist and elsewhere. Define the
   // date time semantics before mucking about - how surprising
+
+  // Mark Donszelmann: added these lines to make zip work for winzip
+  last_mod_fdate = (time >> 16) & 0x0000FFFF;
+  last_mod_ftime = time & 0x0000FFFF;
 }
 
 string ZipLocalEntry::toString() const {

@@ -1,4 +1,6 @@
 
+#include <time.h>
+
 #include "zipios++/zipios-config.h"
 
 #include <algorithm>

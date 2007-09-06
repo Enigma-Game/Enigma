@@ -1,7 +1,7 @@
 
 #include "zipios++/zipios-config.h"
 
-#include <assert.h>
+#include <cassert>
 
 #include "zipios++/meta-iostreams.h"
 #include <string>
@@ -99,16 +99,16 @@ void BasicEntry::setComment( const string &comment ) {
   _comment = comment ;
 }
 
-void BasicEntry::setCompressedSize( uint32 size ) {
+void BasicEntry::setCompressedSize( uint32  ) {
 }
 
-void BasicEntry::setCrc( uint32 crc ) {
+void BasicEntry::setCrc( uint32  ) {
 }
 
-void BasicEntry::setExtra( const vector< unsigned char > &extra ) {
+void BasicEntry::setExtra( const vector< unsigned char > & ) {
 }
 
-void BasicEntry::setMethod( StorageMethod method ) {
+void BasicEntry::setMethod( StorageMethod ) {
 }
 
 void BasicEntry::setName( const string &name ) {
@@ -119,7 +119,7 @@ void BasicEntry::setSize( uint32 size ) {
   _size = size ;
 }
 
-void BasicEntry::setTime( int time ) {
+void BasicEntry::setTime( int  ) {
 }
 
 

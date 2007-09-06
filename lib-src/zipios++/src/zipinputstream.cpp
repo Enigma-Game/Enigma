@@ -6,6 +6,8 @@
 #include "zipios++/zipinputstreambuf.h"
 #include "zipios++/zipinputstream.h"
 
+using std::istream;
+
 namespace zipios {
 
 ZipInputStream::ZipInputStream( std::istream &is, std::streampos pos ) 

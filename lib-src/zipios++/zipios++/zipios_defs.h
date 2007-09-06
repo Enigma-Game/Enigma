@@ -1,10 +1,13 @@
 #ifndef ZIPIOS_DEFS_H
 #define ZIPIOS_DEFS_H
 
+#include "zipios++/zipios-config.h"
+#include <stdint.h>
+
 namespace zipios {
 
-typedef unsigned short uint16 ;
-typedef unsigned long  uint32 ;
+typedef uint16_t uint16 ;
+typedef uint32_t uint32 ;
 
 } // namespace
 
