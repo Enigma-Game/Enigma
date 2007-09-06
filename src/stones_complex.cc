@@ -778,7 +778,7 @@ namespace
 
 /* -------------------- BigBrick -------------------- */
 
-// BigBricks allow to build stones of any size.
+// BigBricks allow to build stones of any size based on st-brick.
 
 namespace 
 {
@@ -3602,7 +3602,7 @@ void stones::Init_complex()
     Register("st-bigbluesand-esw", new BigBlueSand(8));
     Register("st-bigbluesand-nesw", new BigBlueSand(16));
     
-    Register("st-panel", new BigPanel(1));  // was st-wood_001 before Enigma 1.10
+    //Register("st-bigpanel", new BigPanel(1));  // use st-panel instead was; st-wood_001 before Enigma 1.10
     Register("st-bigpanel-n", new BigPanel(9));
     Register("st-bigpanel-e", new BigPanel(5));
     Register("st-bigpanel-s", new BigPanel(3));

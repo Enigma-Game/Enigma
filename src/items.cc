@@ -3549,7 +3549,6 @@ namespace
             double strength = getAttr("strength", 10.0);
             double length = getAttr("length", 1.0);
             double minlength = getAttr("minlength", 0.0);
-            
 
             world::RubberBandData rbd;
             rbd.strength = strength;
@@ -3578,8 +3577,12 @@ namespace
                 world::KillRubberBands (a);
 
             sound_event ("rubberband");
-            if (target_actor)
-                world::AddRubberBand (a,target_actor,rbd);
+            if (target_actor) {
+                // It's not allowed to connect a rubberband to self.
+                if (target_actor != a)
+                    world::AddRubberBand (a,target_actor,rbd);
+                else
+                    return ITEM_DROP; }
             else
                 world::AddRubberBand (a,target_stone,rbd);
 

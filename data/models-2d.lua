@@ -667,10 +667,7 @@ do
     DefStone("st-blackballs")
     DefStone("st-block")
     DefStone("st-bluegray", "sh-round")
-    DefStone("st-blue-sand")
     DefStone("st-brake", "sh-brake")
-    DefStone("st-brick")
-    DefStone("st-brick_magic", nil, {filename="st-brick"})
     DefStone("st-brownie", "sh-round")
     DefStone("st-bug")
     DefStone("st-bumps")
@@ -741,19 +738,23 @@ end
 do
     DefSubimages("st-bigbluesand", {modelname="st-bigbluesandx",w=4,h=4})
     for i=1,16 do DefSolidStone("st-bigbluesand"..i, "st-bigbluesandx"..i) end
+    DefSolidStone("st-blue-sand", "st-bigbluesandx1")
 end
 
 -- st-bigbrick --
 do
     DefSubimages("st-bigbrick", {modelname="st-bigbrickx",w=4,h=4})
     for i=1,16 do DefSolidStone("st-bigbrick"..i, "st-bigbrickx"..i) end
+    DefSolidStone("st-brick", "st-bigbrickx1")
+    DefSolidStone("st-brick_magic", "st-bigbrickx1")
 end
 
 -- st-bigpanel --
 do
     DefSubimages("st-bigpanel", {modelname="st-bigpanelx",w=4,h=4})
     for i=1,16 do DefSolidStone("st-bigpanel"..i, "st-bigpanelx"..i) end
-    -- Alias for st-wood_001. Remove when it's time!
+    DefSolidStone("st-panel", "st-bigpanelx1")
+    -- st-wood_001. Remove when it's time!
     DefSolidStone("st-wood_001", "st-bigpanelx1")
 end
 

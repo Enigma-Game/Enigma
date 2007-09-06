@@ -201,6 +201,7 @@ RubberBand::RubberBand (Actor *a1, Actor *a2, const RubberBandData &d)
 {
     ASSERT(actor, XLevelRuntime, "RubberBand: no actor defined");
     ASSERT(d.length >= 0, XLevelRuntime, "RubberBand: length negative");
+	ASSERT(d.length >= d.minlength, XLevelRuntime, "RubberBand: minlength > length");
 }
 
 RubberBand::RubberBand (Actor *a1, Stone *st, const RubberBandData &d)
@@ -209,6 +210,7 @@ RubberBand::RubberBand (Actor *a1, Stone *st, const RubberBandData &d)
 {
     ASSERT(actor, XLevelRuntime, "RubberBand: no actor defined");
     ASSERT(d.length >= 0, XLevelRuntime, "RubberBand: length negative");
+    ASSERT(d.length >= d.minlength, XLevelRuntime, "RubberBand: minlength > length");
     model = display::AddRubber(get_p1(), get_p2());
 }
 
@@ -220,22 +222,21 @@ void RubberBand::apply_forces ()
 {
     V2 v = get_p2()-get_p1();
     double vv = ecl::length(v);
-
-    if (vv > data.length) {
-        V2 force = v * data.strength*(vv-data.length)/vv;
+    V2 force;
+    
+    if (vv == 0) {
+        force = V2(0, 0);
+    } else if (vv < data.minlength) {
+        force = v*data.strength*(vv-data.minlength)/vv;
         force /= 6;
-        actor->add_force(force);
-        if (actor2)
-            actor2->add_force(-force);
-    } 
-    else if (vv < data.minlength) {
-        V2 force = v * data.strength * (vv-data.minlength) / vv;
+    } else if (vv > data.length) {
+        force = v*data.strength*(vv-data.length)/vv;
         force /= 6;
-        actor->add_force(force);
-        if (actor2)
-            actor2->add_force(-force);
     }
-
+    
+    actor->add_force(force);
+    if (actor2)
+        actor2->add_force(-force);
 }
 
 V2 RubberBand::get_p1() const
@@ -2587,4 +2588,3 @@ Item *world::MakeItem (ItemID id)
 Item * world::MakeItem(const char *kind) {
     return dynamic_cast<Item*>(MakeObject(kind));
 }
-
