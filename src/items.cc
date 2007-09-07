@@ -3210,7 +3210,7 @@ namespace
                 if (Inventory *inv = player::MayPickup(a, NULL)) {
                     std::vector<Item *>::size_type oldSize = m_contents.size();
                     inv->takeItemsFrom(this);
-                    if (oldSize != m_contents.size() && inv->is_full()) {
+                    if (oldSize != m_contents.size() && !inv->willAddItem(this)) {
                         // some items have been picked up but the bag will not
                         // be picked up (and cause the following actions)
                         player::RedrawInventory (inv);

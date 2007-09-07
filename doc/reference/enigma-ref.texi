@@ -3308,6 +3308,39 @@ items are put into the bag instead of the inventory, until the bag is
 full (13 items). The player can drop @code{it-bag} anytime.  When picked up again,
 items from the bag are put back into the inventory (until it is full).
 
+The quite complex rules in detail:
+
+@enumerate
+@item 
+Inventory and bag are limited concerning pickups to 13 items.
+
+@item
+Both are LIFO (last item picked up is first item out) - besides inventory rotation.
+
+@item
+If you pick up any item besides a bag and your first inventory item is not a bag
+the item is added to the inventory.
+
+@item
+If you pick up any item besides a non-empty bag and your first inventory item is
+a bag the item is added to the first inventroy bag (this includes non-empty bags
+into bags!)
+
+@item
+You empty a bag by picking it up with any item at the first inventory position
+but a bag. As many items as possible are taken from the bag and added to the
+inventory.
+
+@item
+Empty bags are never put into other bags (this would cause unresolvable recursion
+problems - see below). They will only be added to the inventory.
+
+@item
+If the touched bag cannot empty its contents to the inventory or a bag at the
+inventory position is full the bag is not picked up and keeps the remaining items.
+
+@end enumerate
+
 @code{it-bag} is created by @ref{st-thief} and @ref{fl-thief} when
 they're captured by @ref{st-chess_[black/white]}.
 
