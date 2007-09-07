@@ -195,18 +195,16 @@ RubberBandData::RubberBandData (const RubberBandData &x) {
 /* -------------------- RubberBand -------------------- */
 
 RubberBand::RubberBand (Actor *a1, Actor *a2, const RubberBandData &d)
-: actor(a1), actor2(a2), stone(0),
-  model(display::AddRubber(get_p1(),get_p2())),
-  data (d)
+: actor(a1), actor2(a2), stone(0), model(0), data (d)
 {
     ASSERT(actor, XLevelRuntime, "RubberBand: no actor defined");
     ASSERT(d.length >= 0, XLevelRuntime, "RubberBand: length negative");
 	ASSERT(d.length >= d.minlength, XLevelRuntime, "RubberBand: minlength > length");
+    model = display::AddRubber(get_p1(),get_p2());
 }
 
 RubberBand::RubberBand (Actor *a1, Stone *st, const RubberBandData &d)
-: actor(a1), actor2(0), stone(st), model(0),
-  data (d)
+: actor(a1), actor2(0), stone(st), model(0), data (d)
 {
     ASSERT(actor, XLevelRuntime, "RubberBand: no actor defined");
     ASSERT(d.length >= 0, XLevelRuntime, "RubberBand: length negative");
