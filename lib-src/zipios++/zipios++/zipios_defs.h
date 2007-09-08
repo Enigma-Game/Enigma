@@ -1,10 +1,13 @@
 #ifndef ZIPIOS_DEFS_H
 #define ZIPIOS_DEFS_H
 
+#include "zipios++/zipios-config.h"
+#include <stdint.h>
+
 namespace zipios {
 
-typedef unsigned short uint16 ;
-typedef unsigned long  uint32 ;
+typedef uint16_t uint16 ;
+typedef uint32_t uint32 ;
 
 } // namespace
 
@@ -16,7 +19,7 @@ typedef unsigned long  uint32 ;
 
 /*
   Zipios++ - a small C++ library that provides easy access to .zip files.
-  Copyright (C) 2000  Thomas Søndergaard
+  Copyright (C) 2000  Thomas Sï¿½ndergaard
   
   This library is free software; you can redistribute it and/or
   modify it under the terms of the GNU Lesser General Public
