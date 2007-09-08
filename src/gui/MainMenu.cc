@@ -289,8 +289,9 @@ namespace enigma { namespace gui {
     
     void MainMenu::tick(double /* dtime */) 
     {
-        if (app.prefs->getInt("VideoMode1.1") != video::GetVideoMode()
-                || app.prefs->getBool("FullScreen1.1") != video::IsFullScreen())
+        bool isFullScreen = app.prefs->getBool("FullScreen");
+        if (app.selectedVideoMode != video::GetVideoMode()
+                || isFullScreen != video::IsFullScreen())
         {
             ChangeVideoMode();
             clear();

@@ -31,16 +31,16 @@ namespace video
 
     enum VideoModes {
         VM_None      = -1,
-        VM_640x480   = 0,   // 32 bit basic
-        VM_640x512   = 1,
-        VM_800x600   = 2,   // 40 bit basic
-        VM_1024x768  = 3,   // 48 bit embedded
-        VM_960x720   = 4,   // 48 bit basic
-        VM_960x768   = 5,   // 48 bit grid linear strechable to 1280x1024
-        VM_1152x720  = 6,   // 48 bit grid lineas strechable to 1680x1050
-        VM_1280x960  = 7,   // 64 bit basic
-        VM_1280x1024 = 8,   // 64 bit embedded 
-        VM_1680x1050 = 9,   // 64 bit embedded
+        VM_640x480   = 0,   ///< 32 bit basic    -  4:3  - VGA
+        VM_640x512   = 1,   ///< 32 bit embedded -  5:4  - none
+        VM_800x600   = 2,   ///< 40 bit basic    -  4:3  - SVGA
+        VM_1024x768  = 3,   ///< 48 bit embedded -  4:3  - XGA
+        VM_960x720   = 4,   ///< 48 bit basic    -  4:3  - none
+        VM_1280x720  = 5,   ///< 48 bit embedded - 16:9  - HD720
+        VM_1280x960  = 6,   ///< 64 bit basic    -  4:3  - none
+        VM_1440x960  = 7,   ///< 64 bit embedded -  3:2  - none
+        VM_1280x1024 = 8,   ///< 64 bit embedded -  5:4  - SXGA
+        VM_1680x1050 = 9,   ///< 64 bit embedded - 16:10 - WSXGA+
         VM_COUNT
     };
     
@@ -56,9 +56,9 @@ namespace video
         int            width, height;    // Screen width and height in pixels
         int            tile_size;        // Tile size in pixels
         VideoTileType  tt;               // Tile type
-        const char    *name;             // Menu text 
-        const char    *fullscreen_name;  // Menu text 
-        bool           isFullscreenOnly;
+        const char    *name;             // Menu text resolution
+        const char    *std_name;         // Menu text svg standard
+        const char    *relation_name;    // Menu text relation width : height
         const char    *initscript;       // Lua initialization script
         const char    *gfxdir;           // Directory that contains the graphics
         ecl::Rect      area;             // Area that is used for display
@@ -71,8 +71,10 @@ namespace video
         ecl::Rect      sb_movesarea;
         ecl::Rect      sb_itemarea;
         ecl::Rect      sb_textarea;
-        VideoModes     fallback_videomode;
-        bool           available;        // Is this video mode available?
+        bool           w_available;        // Is this video mode available?
+        bool           f_available;        // Is this video mode available?
+        std::string    fallback_window;    // hyphen seperated list of modes e.g. "-7-4-2-0-"
+        std::string    fallback_fullscreen;
     };
 
     void Init();
@@ -91,11 +93,48 @@ namespace video
     const VMInfo *GetInfo (VideoModes vm);
 
     /*! Return information about current video mode. */
-    const VMInfo *GetInfo ();
+    const VMInfo *GetInfo();
 
     // just for main batch thumb generation in wrong videomode
     void SetThumbInfo(int width, int height, std::string extension);
 
+    /**
+     * Count number of available modes for the current configuration.
+     * @arg  isFullScreen   video mode for fullscreen or window mode
+     * @return   number of modes
+     */
+    int GetNumAvailableModes(bool isFullscreen);
+    
+    /**
+     * Get the video mode by the sequence number of available modes for the
+     * current configuration
+     * @arg  number         desired sequence number within the list of available modes
+     * @arg  isFullScreen   video mode for fullscreen or window mode
+     * @return   the requested video mode
+     */
+    VideoModes GetVideoMode(int number, bool isFullscreen);
+    
+    /**
+     * Calulate the sequence number for a given mode within the number of
+     * available modes for the current configuration.
+     * @arg  mode           the video mode to locate
+     * @arg  isFullScreen   video mode for fullscreen or window mode
+     * @return   the sequence number of the mode
+     */
+    int GetModeNumber(VideoModes mode, bool isFullScreen);
+    
+    /**
+     * Calculate the best video mode out of the users preferences that is
+     * available for the current configuration. As the user preference 
+     * state a sequence of fallback modes this function returns a useful 
+     * mode even if the user did run previously a future version of Enigma
+     * and selected a mode that is not available in this Enigma version.
+     * @arg  isFullScreen   video mode for fullscreen or window mode
+     * @arg  seq            sequence number of best available mode, default to 1
+     * @return   the preferable video mode 
+     */
+    VideoModes GetBestUserMode(bool isFullScreen, int seq = 1);
+    
     bool ModeAvailable (VideoModes vm);
 
     //! Return the current video mode

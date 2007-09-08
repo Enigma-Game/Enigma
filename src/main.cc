@@ -285,10 +285,11 @@ void Application::init(int argc, char **argv)
     prefs = PreferenceManager::instance();
     
     if (ap.force_window) {
-        app.prefs->setProperty("FullScreen1.1", false);
+        app.prefs->setProperty("FullScreen", false);
     }
     if (isMakePreviews) {
-        app.prefs->setProperty("VideoMode1.1", 0);  // we will not save the prefs!
+        app.prefs->setProperty("VideoModesFullscreen", "-0-");
+        app.prefs->setProperty("VideoModesWindow", "-0-");     // we will not save the prefs!
     }
 
     // initialize user data paths -- needs preferences, system datapaths

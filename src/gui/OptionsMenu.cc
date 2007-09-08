@@ -123,35 +123,43 @@ namespace enigma { namespace gui {
         RatingsUpdateButton() : BoolOptionButton("RatingsAutoUpdate", N_("Auto"), N_("Never"), this) {}
     };
 
-    class VideoModeButton : public TextButton {
 
-        video::VideoModes get_mode() const {
-            int mode = Clamp(app.prefs->getInt("VideoMode1.1"), 0, int(video::VM_COUNT));
-            return static_cast<video::VideoModes>(mode);
-        }
-        string get_text() const {
-            return video::GetInfo(get_mode())->name;
-        }
-        void on_action(Widget *) {
-            int mode = get_mode();
 
-            // cycle at most once through all available video modes
-            do {
-                mode += 1;
-                if (mode >= video::VM_COUNT) 
-                    mode = 0;
+    /* -------------------- VideoModeButton -------------------- */
+    
+    VideoModeButton::VideoModeButton() : ValueButton(0, 1) {
+        bool isFullScreen = app.prefs->getBool("FullScreen");
+        setMaxValue(video::GetNumAvailableModes(isFullScreen) - 1);
+        init();
+    }
+    
+    void VideoModeButton::reinit() {
+        bool isFullScreen = app.prefs->getBool("FullScreen");
+        ValueButton::setMaxValue(video::GetNumAvailableModes(isFullScreen) - 1);
+    }
 
-                const video::VMInfo *vminfo = video::GetInfo (static_cast<video::VideoModes>(mode));
-                if (vminfo->available) {
-                    app.prefs->setProperty("VideoMode1.1", mode);
-                    invalidate();
-                    break;
-                }
-            } while (mode != get_mode());
+    int VideoModeButton::get_value() const {
+        bool isFullScreen = app.prefs->getBool("FullScreen");        
+        return video::GetModeNumber(static_cast<video::VideoModes>(app.selectedVideoMode), isFullScreen);
+    }
+
+    void VideoModeButton::set_value(int value) {
+        bool isFullScreen = app.prefs->getBool("FullScreen");
+        video::VideoModes vm = video::GetVideoMode(value, isFullScreen);
+        app.selectedVideoMode = vm;
+
+        if (vm != video::GetBestUserMode(isFullScreen)) {
+            const video::VMInfo * info = video::GetInfo(vm);
+            app.prefs->setProperty(isFullScreen ? "VideoModesFullscreen" : "VideoModesWindow",
+                    isFullScreen ? info->fallback_fullscreen : info->fallback_window);
         }
-    public:
-        VideoModeButton() : TextButton(this) { }
-    };
+    }
+
+    string VideoModeButton::get_text(int value) const {
+        bool isFullScreen = app.prefs->getBool("FullScreen");        
+        const video::VMInfo * vi = video::GetInfo(video::GetVideoMode(value, isFullScreen));
+        return vi->name;
+    }
 
 
     /* -------------------- SoundSetButton -------------------- */
@@ -215,7 +223,7 @@ namespace enigma { namespace gui {
     /* -------------------- FullscreenButton -------------------- */
     
     FullscreenButton::FullscreenButton()
-        : BoolOptionButton("FullScreen1.1", N_("Yes"), N_("No"), this)
+        : BoolOptionButton("FullScreen", N_("Yes"), N_("No"))
     {
     }
     
@@ -314,7 +322,6 @@ namespace enigma { namespace gui {
     
     OptionsMenu::OptionsMenu(ecl::Surface *background_)
     : back(new StaticTextButton(N_("Back"), this)),
-      fullscreen(new FullscreenButton),
       m_restartinfo (new Label("")),
       background(background_),
       previous_caption(video::GetCaption())
@@ -340,8 +347,11 @@ namespace enigma { namespace gui {
     
         language = new LanguageButton(this);
         left.add (language);
+        fullscreen = new FullscreenButton();
+        fullscreen->set_listener(this);
         left.add (fullscreen);
-        left.add (new VideoModeButton);
+        videomode = new VideoModeButton();
+        left.add (videomode);
         left.add (new GammaButton);
         left.add (new MouseSpeedButton);
     
@@ -448,6 +458,14 @@ namespace enigma { namespace gui {
         else if (w == language)
             // language changed - retranslate and redraw everything
             invalidate_all();
+        else if (w == fullscreen) {
+            // switch the fullscreen button and option
+            fullscreen->on_action(fullscreen);
+            app.selectedVideoMode = video::GetBestUserMode(app.prefs->getBool("FullScreen"));
+            // update the video mode button to the modes available
+            videomode->reinit();
+            invalidate_all();
+        }
     }
     
     void OptionsMenu::tick (double)

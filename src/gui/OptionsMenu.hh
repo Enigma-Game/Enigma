@@ -23,6 +23,8 @@
 #include "gui/TextField.hh"
 
 namespace enigma { namespace gui {
+    class VideoModeButton;
+    
 /* -------------------- OptionsMenu -------------------- */
 
     class OptionsMenu : public Menu {
@@ -42,7 +44,9 @@ namespace enigma { namespace gui {
         void tick(double dtime);
 
         // Variables.
-        gui::Widget *back, *fullscreen, *language;
+        gui::Widget *back, *language;
+        gui::BoolOptionButton *fullscreen;
+        gui::VideoModeButton *videomode;
         gui::TextField *userNameTF;
         gui::TextField *userPathTF;
         gui::TextField *userImagePathTF;
@@ -57,6 +61,15 @@ namespace enigma { namespace gui {
         FullscreenButton();
     };
 
+
+    class VideoModeButton : public ValueButton {
+        int get_value() const;
+        void set_value(int value);
+        std::string get_text(int value) const;
+    public:
+        VideoModeButton();
+        void reinit();
+    };
 
     class StereoButton : public ValueButton {
         int get_value() const;

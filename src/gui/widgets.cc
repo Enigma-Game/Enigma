@@ -842,8 +842,7 @@ void BoolOptionButton::on_action(Widget *) {
 string BoolOptionButton::get_text() const {
     return enigma_options::GetBool(optionName) ? _(trueText.c_str()) : _(falseText.c_str());
 }
-    
-
+
 /* -------------------- ValueButton -------------------- */
 
 ValueButton::ValueButton(int min_value_, int max_value_)
@@ -911,7 +910,6 @@ void ValueButton::on_action(Widget *) {
 bool ValueButton::soundOk() {
     return false;
 }
-
 
 /* -------------------- ImageButton -------------------- */
 

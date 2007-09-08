@@ -409,7 +409,7 @@ namespace enigma { namespace gui {
                          ActionListener     *al = 0);
 
         bool toggle(); // returns new value
-        void on_action(Widget *);
+        virtual void on_action(Widget *);
 
         // TextButton interface.
         std::string get_text() const;

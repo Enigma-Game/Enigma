@@ -134,11 +134,11 @@ namespace ecl
 
 	Surface *zoom(int w, int h);
 
-	void set_color_key (int r, int g, int b);
+        void set_color_key (int r, int g, int b);
         void set_alpha (int a);
 
         void lock();
-	void unlock();
+        void unlock();
 
         int bypp() const { return m_surface->format->BytesPerPixel; }
         int bipp() const { return m_surface->format->BitsPerPixel; }

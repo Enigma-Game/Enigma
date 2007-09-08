@@ -28,6 +28,7 @@
 #include "StateManager.hh"
 #include "DOMErrorReporter.hh"
 #include "DOMSchemaResolver.hh"
+#include "video.hh"
 #include <string>
 #include <vector>
 #include <memory>
@@ -208,13 +209,14 @@ namespace enigma
         DOMErrorReporter *domSerErrorHandler;
         bool errorInit;
         bool isMakePreviews;
+        video::VideoModes selectedVideoMode;
 
     private:
         void initSysDatapaths(const std::string &prefFilename);
         void initXerces();
         void initUserDatapaths();
         void updateMac1_00();
-	double enigmaVersion;
+        double enigmaVersion;
         std::string systemAppDataPath;    // dir path to the apps data
         std::string systemCmdDataPath;    // commandline override of systemAppDataPath
         std::string userStdPath;          // standard user data path

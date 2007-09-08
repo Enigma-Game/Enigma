@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2006 Ronald Lamprecht
+ * Copyright (C) 2006, 2007 Ronald Lamprecht
  *
  * This program is free software; you can redistribute it and/or
  * modify it under the terms of the GNU General Public License
@@ -92,10 +92,12 @@ namespace enigma { namespace gui {
         if (app.resourceFS->findFile(filename, fullPath)) {
             ecl::Surface * image = ecl::LoadImage(fullPath.c_str());
             if (image->width() == vminfo->width && image->height() == vminfo->height) {
-                blit(gc, 0,0, image);
+                ecl::blit(gc, 0,0, image);
             } else {
-                ecl::Surface * imageZoomed = image->zoom(vminfo->width, vminfo->height);
-                blit(gc, 0,0, imageZoomed);
+                ecl::set_color(gc, 0, 0, 0);
+                ecl::box(gc, 0, 0, vminfo->width, vminfo->height);
+                ecl::Surface * imageZoomed = image->zoom(vminfo->area.w, vminfo->area.h);
+                ecl::blit(gc, vminfo->area.x, vminfo->area.y, imageZoomed);
                 delete imageZoomed;
             }
             delete image;
