@@ -282,8 +282,8 @@ void PullStone::on_impulse(const Impulse& impulse)
     GridPos         newPos      = move(oldPos, move_dir);
     Stone          *other_stone = GetStone(newPos);
 
-    if (other_stone &&
-        (!other_stone->is_removable() || IsLevelBorder(newPos))) {
+    if (!IsInsideLevel(newPos) || (other_stone && (!other_stone->is_removable() || 
+        (IsLevelBorder(newPos) && server::GameCompatibility != GAMET_ENIGMA)))) {
         return;                 // avoid unremoveable and border stones
     }
 
