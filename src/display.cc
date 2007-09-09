@@ -1162,6 +1162,11 @@ void DL_Lines::kill_line (unsigned id) {
         m_rubbers.erase(i);
 }
 
+void DL_Lines::new_world (int w, int h) {
+    m_rubbers.clear();
+    m_id = 1;
+}
+
 RubberHandle::RubberHandle(DL_Lines *ll, unsigned id_)
 : line_layer (ll), id(id_)
 {

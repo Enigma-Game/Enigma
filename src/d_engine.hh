@@ -316,6 +316,7 @@ namespace display
         void set_startpoint (unsigned id, const V2 &p1);
         void set_endpoint (unsigned id, const V2 &p2);
         void kill_line (unsigned id);
+        void new_world (int w, int h);
 
     private:
         // Private methods.
