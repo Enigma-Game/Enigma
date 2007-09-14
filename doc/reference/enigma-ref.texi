@@ -3657,8 +3657,15 @@ Can be used multiple times.
 @code{it-dynamite} can be ignited by dropping it, by lasers, fire,
 other explosions (@ref{it-blackbomb}, @ref{it-whitebomb}, other
 @code{it-dynamite} and @ref{st-bombs}).  While burning, it can't be
-picked up.  During explosion, it ignites neighboring items and leaves
-an @code{it-hollow} behind (see @ref{Hills and Hollows}).
+picked up.  During explosion (@code{it-explosion2}, see
+@ref{System and Debug Items}), it ignites neighboring items and
+leaves an @code{it-hollow} behind (see @ref{Hills and Hollows}). On
+@ref{fl-ice}, it creates @code{it-crack2} instead (see @ref{it-crack}).
+
+On @ref{fl-space}, dynamite is supposed to result in shards. This is
+not implemented yet: It creates @code{it-hollow} without explosion.
+Note that this and the exact implementation of explosions might change
+in future versions.
 
 @strong{Messages}
 
@@ -4445,6 +4452,8 @@ st-brick
 st-brownie
 st-bumps
 st-camouflage
+st-camouflage_hole
+st-camouflage_move
 st-dummy
 st-fakeoxyd( blinking )
 st-glass
@@ -4461,6 +4470,7 @@ st-marble
 st-marble_hole
 st-marble_move
 st-metal
+st-metal_hole
 st-redrock
 st-rock@{1..10@}
 st-rock[123]_hole
