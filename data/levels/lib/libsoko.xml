@@ -44,7 +44,7 @@
 -- place spaces between stones/items.
 --
 -- The table might hold additional flags. Currently, only "white"
--- is implemented, which turns the marble and st-chess_knight white.
+-- is implemented, which turns the marble and chess-knights white.
 -- If an entry is missing, the corresponding entry from default_design
 -- will be used.
 --
@@ -637,14 +637,25 @@ function endphase()
   oxyd_shuffle()
 end
 
+-- The 75 first designs use the following boxes:
+--  st-block  ->  st-black, st-blocker, st-brake, st-laser, fl-swamp
+--  st-brownie  ->  st-coinslot, st-pull
+--  st-glass_move  ->  cherry
+--  st-greenbrown_move  ->  hole
+--  st-marble_move  ->  hole
+--  st-rock3_move  ->  *
+--  st-shogun  ->  st-shogun-m (not completely!)
+--  st-wood[-growing]  ->  fl-swamp
+
+
 ------------------------------------------------------------------------
 -- Main function
 ------------------------------------------------------------------------
 
--- create_sokoball creates a sokoball-level from the strinfg LEVEL.
+-- create_sokoball creates a sokoball-level from the string LEVEL.
 -- The design can be chosen by the DESIGN variable. This is either
 -- a number (see section "Designs") or a table with the correspondinfg
--- design entries. A missinfg entry will be interpreted as the entry
+-- design entries. A missing entry will be interpreted as the entry
 -- from default_design. If the DESIGN variable is omitted, a check-
 -- number is created from LEVEL which uniquely* determines a design
 -- from the design list. *Uniquely means: The design might change
@@ -715,6 +726,7 @@ function create_sokoball(level, design)
         obj = set_element(x+dx, y+dy, chosen_design.box, default_design.box)
         if obj.st then
           enigma.SetAttrib(obj.st, "soko_kind", "box")
+--          enigma.SetAttrib(obj.st, "freeze_check", true)
         end
       end
       if (ch == "n") or (ch == "N") then

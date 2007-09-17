@@ -206,6 +206,11 @@ PhotoStone::PhotoStone(const char *kind) : Stone(kind)
     illuminated = false;
 }
 
+PhotoStone::PhotoStone()
+{
+    illuminated = false;
+}
+
 void PhotoStone::on_recalc_start() 
 {}
 
@@ -449,7 +454,6 @@ namespace
         MirrorStone(const char *name, bool movable=false, bool transparent=false);
 
         bool is_transparent() const { return getAttr("transparent") != 0; }
-        bool is_movable() const { return getAttr("movable") != 0; }
 
         void set_orientation(int o) { set_attrib("orientation", o); }
         int get_orientation() { return getAttr("orientation"); }
@@ -464,6 +468,9 @@ namespace
 
         void init_model();
     private:
+
+        StoneTraits traits;
+
 	// Object interface.
         virtual Value message(const string &m, const Value &);
 
@@ -484,9 +491,11 @@ namespace
 
         // Private methods
         void rotate_right();
-
+        
+        const StoneTraits &get_traits() const { return traits; }
+        
         // Variables
-        DirectionBits outdirs;
+        DirectionBits outdirs;    
     };
 }
 
@@ -496,6 +505,12 @@ MirrorStone::MirrorStone(const char *name, bool movable, bool transparent)
     set_attrib("transparent", transparent);
     set_attrib("movable", movable);
     set_attrib("orientation", Value(1));
+    traits.name = "INVALID";
+    traits.id = st_INVALID;
+    traits.flags = stf_none;
+    traits.material = material_stone;
+    traits.restitution = 1.0;
+    traits.movable = movable ? MOVABLE_STANDARD : MOVABLE_PERSISTENT;
 }
 
 void MirrorStone::init_model() {
@@ -564,7 +579,6 @@ void MirrorStone::rotate_right()
     MaybeRecalcLight(get_pos());
     sound_event ("mirrorturn");
 }
-
 
 
 /* -------------------- Plane Mirror -------------------- */

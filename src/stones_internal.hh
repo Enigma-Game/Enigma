@@ -30,7 +30,10 @@
         const StoneTraits &get_traits() const { return traits[subtype_expr]; }
 
 #define DEF_TRAITS(classname, name, id)         \
-    StoneTraits classname::traits = { name, id, stf_none, material_stone, 1.0 }
+    StoneTraits classname::traits = { name, id, stf_none, material_stone, 1.0, MOVABLE_PERSISTENT }
+
+#define DEF_TRAITSM(classname, name, id, movable)         \
+    StoneTraits classname::traits = { name, id, stf_none, material_stone, 1.0, movable }
 
 
 
@@ -123,6 +126,9 @@ namespace stones
     class ConnectiveStone : public Stone {
     public:
         ConnectiveStone(const char *kind, int connections): Stone(kind) {
+            set_attrib("connections", connections);
+        }
+        ConnectiveStone(int connections) {
             set_attrib("connections", connections);
         }
 

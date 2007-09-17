@@ -1584,8 +1584,16 @@ void World::stone_change(GridPos p)
 {
     if (const Field *f = GetField (p)) {
         Stone *st = f->stone;
-        if (st)
+        if (st) {
             st->on_floor_change();
+            // Perhaps the stone was destroyed - get the new one.
+            st = f->stone;
+        }
+        
+        if (st) {
+            st->freeze_check();
+            st = f->stone;
+        }
 
         if (Item *it = f->item)
             it->stone_change(st);

@@ -2635,6 +2635,7 @@ naming scheme, and every new library should follow it from the beginning.
 * Actors::                      
 * General object attributes::
 * The 1.0-Fire System::
+* Freeze Checking::
 * Differences between Compatibility Modes::
 @end menu
 
@@ -2675,6 +2676,8 @@ Overrides the default mousefactor.
 Define horizontal and vertical flat forces on the floor. On
 @ref{fl-gradient}, @code{force_x} and @code{force_y} are additive to
 the gradient's standard force.
+@item freeze_check
+See @ref{Freeze Checking}.
 @end table
 
 Attributes connected to @ref{The 1.0-Fire System} (all boolean):
@@ -4431,6 +4434,8 @@ Toggles between players.  Compare @ref{it-ring} in multiplayer mode.
 * st-yinyang::                  Yin-Yang Stones
 @end menu
 
+For the common stone attribute @code{freeze_check}, see @ref{Freeze Checking}.
+
 @node Stone List, Breakable Stones, Stones, Stones
 @subsection Stone List
 
@@ -4697,7 +4702,7 @@ hammer after using a brush
 @item st-laserbreak
 laser, pyro
 @item st-rock3_movebreak
-hammer, pyro; this stone is movable
+hammer, pyro; this stone is movable by impulses (not actors)
 @item st-plain_break
 hammer, laser, pyro; falls into @ref{fl-abyss}
 @item st-plain_cracked
@@ -5996,6 +6001,11 @@ single @code{st-shogun-s} triggers @code{it-shogun-s}, a combined
 
 Shogun stones don't ignite bombs when pushed over them.
 
+@code{st-shogun-s} is handled differently in a @ref{Freeze Checking} than
+the other shogun stones. This allows to use @code{st-shogun-s} to use in a
+Sokoban and avoids false freeze checks when used together with other shogun
+stones (which are handled as non-existent during a freeze check).
+
 @strong{Attributes}
 
 @table @code
@@ -6607,7 +6617,7 @@ see @ref{Hills and Hollows}.
 
 
 @c ----------------------------------------------------------------------
-@node General object attributes,  , Actors, Objects
+@node General object attributes, The 1.0-Fire System, Actors, Objects
 @section General object attributes
 
 @table @code
@@ -6617,7 +6627,7 @@ be searched using @ref{enigma.GetNamedObject}.
 @end table
 
 @c ----------------------------------------------------------------------
-@node The 1.0-Fire System,  , Actors, Objects
+@node The 1.0-Fire System, Freeze Checking, General object attributes, Objects
 @section The 1.0-Fire System
 
 The 1.0-version of Enigma introduces a new fire system, making use of
@@ -6806,7 +6816,91 @@ floors.
 
 
 @c ----------------------------------------------------------------------
-@node Differences between Compatibility Modes,  , Actors, Objects
+@node Freeze Checking, Differences between Compatibility Modes, The 1.0-Fire System, Objects
+@section Freeze Checking
+
+With Enigma 1.1 and above, you can use a special feature to support Sokoban
+levels and Sokoban parts of levels: Whenever a movable stone is pushed into
+some unmovable position, this feature automatically transforms the stone into
+@ref{st-death}, to demonstrate that the game is lost and provide a simple way
+for the player to restart.
+
+The feature is called ``Freeze Checking''. It applies to each stone with
+attribute @code{freeze_check = true} which is pushed onto a floor with
+attribute @code{freeze_check = true}. This way you can restrict the freeze
+check to a bounded area. For a true Sokoban the goal tiles should not be marked
+with @code{freeze_check = true}, as a frozen box on a goal is not considered
+harmful. On the other hand, you can specify which boxes are freeze-checked. This
+gives further freedom to use other stones inside your Sokoban area: Floor and
+stone both need the @code{freeze_check}-attribute activated.
+
+The freeze check recognizes three basic constellations of stones that lead to a
+freeze of a standard movable stone. With @code{B} as box (movable or
+persistent) and @code{#} as wall (persistent):
+@example
+BB   #B   #B
+BB    #    B#
+@end example
+There are more freeze constellations which are not recognized, the simplest
+would be:
+@example
+#B
+ BB
+  #
+@end example
+Don't rely on this fact, it might be changed in future versions.
+
+Please bear in mind: The freeze check is not intelligent. It can't foresee that
+one of your functions might remove a stone, it can't foresee that some door
+will never open up again (doors are considered as not existent), it doesn't
+recognize when you put an @ref{it-puller}, @ref{it-cherry}, or @ref{st-swap} in
+your level. It handles special stones in a way to minimize false-positive freeze
+checks.
+
+Floating stones (like @ref{st-grate}) create completely new frozen
+constellations. From the following two examples, only the right example is
+frozen (@code{G} is @code{st-grate1}):
+@example
+G    G
+BB   BB
+GB   GBG
+@end example
+At present, none of these are recognized as frozen by Enigma, floating stones
+are considered as not existing during a freeze check. To demonstrate the
+difficulty, you may analyze yourself which of the following constellations is
+frozen:
+@example
+G      G      GBG   GB#    G G#G
+B#    BBB     BB    GB G   BBBBB
+G    #B B#   #B      G     G#G G
+      G G     G
+@end example
+
+In some cases, stones are even handled differently although they have similar
+properties: @ref{st-wood} and @code{st-firebreak_move} (see
+@ref{st-firebreak[_move]}) are both movable and both destroyed by fire (see
+@ref{The 1.0-Fire System}). There would never be frozen stones, as they can
+easily be burned away. Yet, @code{st-wood} uses the default freeze checking,
+whereas @code{st-firebreak_move} is considered as not existing. This is because
+@code{st-wood} is often used without fire, whereas @code{st-firebreak_move} is
+primarily used in combination with fire.
+
+Another example is @code{st-shogun-s}, which is considered as a default
+movable stone, in contrast to the remaining shogun stones (see
+@ref{st-shogun-<sml>}). This way you can use @code{st-shogun-s} with goal
+@code{it-shogun-s}, but don't have to fear false-positive freeze checks from
+the non-standard way in which shogun stones move.
+
+As a concluding remark, the freeze checking is to be used as a support for the
+gamer only. It's not meant to be exploited as special feature to make movable
+stones unmovable or to provide a way to jump back to the starting position. It
+is subject to changes in future versions. And versions before 1.1 won't make a
+freeze check at all - so you can't rely on it to happen. It should really be
+used in Sokoban-kind parts of a level only, for which it is designed.
+
+
+@c ----------------------------------------------------------------------
+@node Differences between Compatibility Modes,  , Freeze Checking, Objects
 @section Differences between Compatibility Modes
 
 Although Enigma was inspired by the original Oxyd-series, there are

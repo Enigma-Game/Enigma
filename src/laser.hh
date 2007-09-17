@@ -87,7 +87,8 @@ namespace world
 
     class PhotoStone : public Stone, public PhotoCell {
     protected:
-        PhotoStone (const char *kind);
+        PhotoStone();
+        PhotoStone(const char *kind);
 
     private:
         bool illuminated;

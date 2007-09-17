@@ -107,6 +107,7 @@ namespace world
 
         virtual void get_sink_speed (double &sinkspeed, double &raisespeed) const;
         virtual bool is_destructible() const;
+        virtual bool is_freeze_check() const;
 
         virtual void animcb();
         void on_burnable_animcb(bool justIgnited);  // Called by burnable-items on it.

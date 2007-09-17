@@ -109,10 +109,11 @@ Other stones:
 */
 
 Stone::Stone()
+: freeze_check_running (false)
 {}
 
 Stone::Stone(const char * kind)
-: GridObject (kind)
+: GridObject (kind), freeze_check_running (false)
 {}
 
 Stone::~Stone() { revokeDelayedImpulses(this); }
@@ -120,7 +121,7 @@ Stone::~Stone() { revokeDelayedImpulses(this); }
 const StoneTraits &Stone::get_traits() const
 {
     static StoneTraits default_traits = {
-        "INVALID", st_INVALID, stf_none, material_stone, 1.0
+        "INVALID", st_INVALID, stf_none, material_stone, 1.0, MOVABLE_PERSISTENT
     };
     return default_traits;
 }
@@ -202,6 +203,91 @@ ecl::V2 Stone::distortedVelocity (ecl::V2 vel, double defaultfactor = 1.0) {
     return newvel * factor;
 }
 
+/* -------------------- Freeze check routines -------------------- */
+
+FreezeStatusBits Stone::get_freeze_bits() {
+    if(is_floating())
+        return FREEZEBIT_HOLLOW;
+    switch(get_traits().movable) {
+        case MOVABLE_PERSISTENT:  return FREEZEBIT_PERSISTENT;
+        case MOVABLE_BREAKABLE:   return FREEZEBIT_NO_STONE;
+        case MOVABLE_STANDARD:    return FREEZEBIT_STANDARD;
+        default:                  return FREEZEBIT_IRREGULAR;
+    }
+}
+
+FreezeStatusBits Stone::get_freeze_bits(GridPos p) {
+    Stone *st = GetStone(p);
+    if(st == NULL) 
+        return FREEZEBIT_NO_STONE;
+    return st->get_freeze_bits();
+}
+
+bool Stone::freeze_check() {
+    // Check if stone and floor ask for freeze_check
+    if (!to_bool(this->getAttr("freeze_check")))
+        return false;
+    if (freeze_check_running)
+        return true;
+    GridPos this_pos = this->get_pos();
+    Floor *fl = GetFloor(this_pos);
+    if ((fl == NULL) || (!fl->is_freeze_check()))
+        return false;
+
+    // Query movable status of neighboring stones
+
+    FreezeStatusBits ms_n  = get_freeze_bits(move(this_pos, NORTH));
+    FreezeStatusBits ms_nw = get_freeze_bits(move(move(this_pos, NORTH), WEST));
+    FreezeStatusBits ms_ne = get_freeze_bits(move(move(this_pos, NORTH), EAST));
+    FreezeStatusBits ms_w  = get_freeze_bits(move(this_pos, WEST));
+    FreezeStatusBits ms_e  = get_freeze_bits(move(this_pos, EAST));
+    FreezeStatusBits ms_s  = get_freeze_bits(move(this_pos, SOUTH));
+    FreezeStatusBits ms_sw = get_freeze_bits(move(move(this_pos, SOUTH), WEST));
+    FreezeStatusBits ms_se = get_freeze_bits(move(move(this_pos, SOUTH), EAST));
+
+    // First check: Diagonals with persistent stones
+    // Second check: Squares of arbitrary stones
+    // Third check: Two movables, encased by two persistent
+    int p = FREEZEBIT_PERSISTENT;
+    int pm = FREEZEBIT_PERSISTENT | FREEZEBIT_STANDARD;
+    if(   ((ms_n & p) && (ms_e & p))
+       || ((ms_n & p) && (ms_w & p))
+       || ((ms_s & p) && (ms_e & p))
+       || ((ms_s & p) && (ms_w & p))
+       
+       || ((ms_n & pm) && (ms_nw & pm) && (ms_w & pm))
+       || ((ms_n & pm) && (ms_ne & pm) && (ms_e & pm))
+       || ((ms_s & pm) && (ms_sw & pm) && (ms_w & pm))
+       || ((ms_s & pm) && (ms_se & pm) && (ms_e & pm))
+       
+       || ((ms_n & pm) && (ms_e & p) && (ms_nw & p))
+       || ((ms_n & pm) && (ms_w & p) && (ms_ne & p))
+       || ((ms_s & pm) && (ms_e & p) && (ms_sw & p))
+       || ((ms_s & pm) && (ms_w & p) && (ms_se & p))
+       || ((ms_w & pm) && (ms_n & p) && (ms_sw & p))
+       || ((ms_w & pm) && (ms_s & p) && (ms_nw & p))
+       || ((ms_e & pm) && (ms_n & p) && (ms_se & p))
+       || ((ms_e & pm) && (ms_s & p) && (ms_ne & p)))
+    {
+        ReplaceStone(this_pos, MakeStone("st-death"));
+        // recheck neighboring stones
+        // avoid endless loop with bool freeze_check_running
+        if (Stone *st = GetStone(this_pos))
+            st->freeze_check_running = true;
+        if (Stone *st = GetStone(move(this_pos, NORTH)))
+            st->freeze_check();
+        if (Stone *st = GetStone(move(this_pos, SOUTH)))
+            st->freeze_check();
+        if (Stone *st = GetStone(move(this_pos, EAST)))
+            st->freeze_check();
+        if (Stone *st = GetStone(move(this_pos, WEST)))
+            st->freeze_check();
+        if (Stone *st = GetStone(this_pos))
+            st->freeze_check_running = false;
+    }
+}
+
+
 
 
 // *******************************************************************************
@@ -214,6 +300,7 @@ namespace
 {
     class ExplosionStone : public Stone {
         CLONEOBJ(ExplosionStone);
+        DECL_TRAITS;
 
         StoneResponse collision_response(const StoneContact &) {
             return STONE_PASS;
@@ -229,10 +316,12 @@ namespace
         void animcb() {
             KillStone(get_pos());
         }
+
     public:
-        ExplosionStone(): Stone("st-explosion")
+        ExplosionStone()
         {}
     };
+    DEF_TRAITSM(ExplosionStone, "st-explosion", st_explosion, MOVABLE_BREAKABLE);
 }
 
 
@@ -375,8 +464,9 @@ namespace
        knows... */
     class Peroxyd_0xb8 : public Stone {
         CLONEOBJ(Peroxyd_0xb8);
+        DECL_TRAITS;
     public:
-        Peroxyd_0xb8() : Stone("st-peroxyd-0xb8")
+        Peroxyd_0xb8()
         {}
 
         void on_creation (GridPos p) {
@@ -384,11 +474,13 @@ namespace
             KillStone(p);
         }
     };
-
+    DEF_TRAITSM(Peroxyd_0xb8, "st-peroxyd-0xb8", st_peroxyd_0xb8, MOVABLE_BREAKABLE);
+    
     class Peroxyd_0xb9 : public Stone {
         CLONEOBJ(Peroxyd_0xb9);
+        DECL_TRAITS;
     public:
-        Peroxyd_0xb9() : Stone("st-peroxyd-0xb9")
+        Peroxyd_0xb9()
         {}
 
         void on_creation (GridPos p) {
@@ -396,16 +488,20 @@ namespace
             KillStone(p);
         }
     };
-
+    DEF_TRAITSM(Peroxyd_0xb9, "st-peroxyd-0xb9", st_peroxyd_0xb9, MOVABLE_BREAKABLE);
+    
     class Oxyd_0x18 : public Stone {
         CLONEOBJ(Oxyd_0x18);
+        DECL_TRAITS;
     public:
-        Oxyd_0x18() : Stone("st-oxyd-0x18") {
-        }
+        Oxyd_0x18()
+        {}
+        
         void on_creation (GridPos p) {
             KillStone (p);
         }
     };
+    DEF_TRAITSM(Oxyd_0x18, "st-oxyd-0x18", st_oxyd_0x18, MOVABLE_BREAKABLE);
 }
 
 
@@ -433,8 +529,9 @@ namespace
 {
     class SurpriseStone : public Stone {
         CLONEOBJ (SurpriseStone);
+        DECL_TRAITS;
     public:
-        SurpriseStone() : Stone("st-surprise")
+        SurpriseStone()
         {}
 
         void actor_hit (const StoneContact &) {
@@ -453,7 +550,10 @@ namespace
             sound_event ("stonetransform");
             ReplaceStone (get_pos(), MakeStone (stonename[idx]));
         }
+    private:
+        FreezeStatusBits get_freeze_bits() { return FREEZEBIT_IRREGULAR; }
     };
+    DEF_TRAITS(SurpriseStone, "st-surprise", st_surprise);
 }
 
 
@@ -462,15 +562,19 @@ namespace
 {
     class CoffeeStone : public Stone {
         CLONEOBJ(CoffeeStone);
+        DECL_TRAITS;
     public:
-        CoffeeStone() : Stone ("st-coffee") {
-        }
+        CoffeeStone()
+        {}
 
         void actor_hit (const StoneContact &) {
             sound_event ("stonetransform");
             ReplaceStone(get_pos(), MakeStone("st-glass_move"));
         }
+    private:
+        FreezeStatusBits get_freeze_bits() { return FREEZEBIT_STANDARD; }
     };
+    DEF_TRAITS(CoffeeStone, "st-coffee", st_coffee);
 }
 
 
@@ -479,6 +583,7 @@ namespace
 {
     class BreakingStone : public Stone {
         CLONEOBJ(BreakingStone);
+        DECL_TRAITS;
 
         void init_model() {
             sound_event("stonedestroy");
@@ -489,9 +594,10 @@ namespace
             KillStone(get_pos());
         }
     public:
-        BreakingStone() : Stone("st-breaking") {
-        }
+        BreakingStone()
+        {}
     };
+    DEF_TRAITSM(BreakingStone, "st-breaking", st_breaking, MOVABLE_BREAKABLE);
 }
 
 
@@ -500,9 +606,10 @@ namespace
 {
     class BugStone : public Stone {
         CLONEOBJ(BugStone);
+        DECL_TRAITS;
     public:
-        BugStone() : Stone("st-bug") {
-        }
+        BugStone()
+        {}
 
         void actor_hit (const StoneContact &sc) {
             if (get_id(sc.actor) == ac_bug) {
@@ -510,6 +617,7 @@ namespace
             }
         }
     };
+    DEF_TRAITSM(BugStone, "st-bug", st_bug, MOVABLE_BREAKABLE);
 }
 
 
@@ -521,7 +629,7 @@ namespace
 {
     class PlainStone : public Stone {
         CLONEOBJ(PlainStone);
-
+        DECL_TRAITS;
 
         void on_laserhit (Direction) {
             ReplaceStone (get_pos(), MakeStone("st-plain_cracked"));
@@ -548,11 +656,16 @@ namespace
                 Stone::actor_hit(sc);
         }
     public:
-        PlainStone() : Stone("st-plain") {}
+        PlainStone()
+        {}
+    private:
+        FreezeStatusBits get_freeze_bits() { return FREEZEBIT_PERSISTENT; }
     };
-
+    DEF_TRAITSM(PlainStone, "st-plain", st_plain, MOVABLE_BREAKABLE);
+    
     class PlainStone_Hollow : public Stone {
         CLONEOBJ(PlainStone_Hollow);
+        DECL_TRAITS;
 
         virtual Value message (const string &msg, const Value &) {
             if (msg == "trigger" || msg == "signal") {
@@ -566,12 +679,14 @@ namespace
 
         bool is_floating() const { return true; }
     public:
-        PlainStone_Hollow() : Stone("st-plain_hole") {
-        }
+        PlainStone_Hollow()
+        {}
     };
+    DEF_TRAITSM(PlainStone_Hollow, "st-plain_hole", st_plain_hole, MOVABLE_PERSISTENT);
 
     class PlainStone_Breaking : public Stone {
         CLONEOBJ(PlainStone_Breaking);
+        DECL_TRAITS;
 
         void init_model() {
             set_anim("st-plain_breaking");
@@ -581,12 +696,15 @@ namespace
         }
         const char *collision_sound() {return "metal";}
     public:
-        PlainStone_Breaking() : Stone ("st-plain_breaking") {
-        }
+        PlainStone_Breaking()
+        {}
     };
-
+    DEF_TRAITSM(PlainStone_Breaking, "st-plain_breaking", st_plain_breaking,
+                MOVABLE_BREAKABLE);
+    
     class PlainStone_Breakable : public Stone {
         CLONEOBJ(PlainStone_Breakable);
+        DECL_TRAITS;
 
         const char *collision_sound() {return "metal";}
 
@@ -615,12 +733,15 @@ namespace
         }
 
     public:
-        PlainStone_Breakable() : Stone("st-plain_break") {
-        }
+        PlainStone_Breakable()
+        {}
     };
-
+    DEF_TRAITSM(PlainStone_Breakable, "st-plain_break", st_plain_break,
+                MOVABLE_BREAKABLE);
+    
     class PlainStone_Cracked : public Stone {
         CLONEOBJ(PlainStone_Cracked);
+        DECL_TRAITS;
 
         void break_me() {
             sound_event ("stonedestroy");
@@ -640,12 +761,15 @@ namespace
         }
         const char *collision_sound() {return "metal";}
     public:
-        PlainStone_Cracked() : Stone("st-plain_cracked") {
-        }
+        PlainStone_Cracked()
+        {}
     };
-
+    DEF_TRAITSM(PlainStone_Cracked, "st-plain_cracked", st_plain_cracked,
+                MOVABLE_BREAKABLE);
+    
     class PlainStone_Falling : public Stone {
         CLONEOBJ(PlainStone_Falling);
+        DECL_TRAITS;
 
         void init_model() {
             set_anim("st-plain_falling");
@@ -656,12 +780,15 @@ namespace
             KillStone(get_pos());
         }
     public:
-        PlainStone_Falling() : Stone("st-plain_falling") {
-        }
+        PlainStone_Falling()
+        {}
     };
+    DEF_TRAITSM(PlainStone_Falling, "st-plain_falling", st_plain_falling,
+                MOVABLE_BREAKABLE);
 
     class PlainStone_Movable : public Stone {
         CLONEOBJ(PlainStone_Movable);
+        DECL_TRAITS;
 
         void break_me() {
             sound_event ("stonedestroy");
@@ -687,8 +814,6 @@ namespace
             }
         }
 
-        bool is_movable () const { return true; }
-
         void actor_hit (const StoneContact &sc) {
             if (player::WieldedItemIs (sc.actor, "it-pencil")) {
                 enigma::Inventory *inv = player::GetInventory(sc.actor);
@@ -703,9 +828,11 @@ namespace
         }
 
     public:
-        PlainStone_Movable() : Stone("st-plain_move") {
-        }
+        PlainStone_Movable()
+        {}
     };
+    DEF_TRAITSM(PlainStone_Movable, "st-plain_move", st_plain_move,
+                MOVABLE_STANDARD);
 }
 
 
@@ -778,16 +905,19 @@ namespace
 {
     class FakeOxydA : public Stone {
         CLONEOBJ(FakeOxydA);
+        DECL_TRAITS;
     public:
-
-        FakeOxydA() : Stone("st-fakeoxyda") {
-        }
+        FakeOxydA()
+        {}
 
         void actor_hit (const StoneContact &) {
             sound_event ("stonetransform");
             ReplaceStone(get_pos(), MakeStone("st-glass1_move"));
         }
+    private:
+        FreezeStatusBits get_freeze_bits() { return FREEZEBIT_STANDARD; }
     };
+    DEF_TRAITS(FakeOxydA, "st-fakeoxyda", st_fakeoxyda);
 }
 
 

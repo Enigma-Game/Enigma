@@ -117,6 +117,11 @@ bool Floor::is_destructible() const
     return true;
 }
 
+bool Floor::is_freeze_check() const 
+{
+    return to_bool(this->getAttr("freeze_check"));
+}
+
 void Floor::set_model (const std::string &mname) 
 {
     display::SetModel (GridLoc(GRID_FLOOR, get_pos()), mname);

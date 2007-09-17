@@ -331,8 +331,7 @@ namespace world
     Stone *GetStone(GridPos p);
     Stone *YieldStone(GridPos p);
     void   KillStone(GridPos p);
-
-    void MoveStone(GridPos oldPos, GridPos newPos);
+    void   MoveStone(GridPos oldPos, GridPos newPos);
 
 /* -------------------- Items -------------------- */
 

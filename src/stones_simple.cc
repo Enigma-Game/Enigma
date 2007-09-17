@@ -202,9 +202,16 @@ namespace
             return Stone::is_transparent(dir);
         }
 
-        bool is_movable() const { return true; }
-
         const SimpleStoneTraits *traits; // owned by simple_stone_traits
+
+        const StoneTraits &get_traits() const
+        {
+            static StoneTraits simple_stone_movable_traits = {
+                "INVALID", st_INVALID, stf_none, material_stone, 1.0,
+                MOVABLE_STANDARD
+            };
+            return simple_stone_movable_traits;
+        }    
     };
 }
 
@@ -274,7 +281,7 @@ namespace
         EasyModeStone() 
         {}
     };
-    DEF_TRAITS(EasyModeStone, "st-easymode", st_easymode);
+    DEF_TRAITSM(EasyModeStone, "st-easymode", st_easymode, MOVABLE_BREAKABLE);
 }
 
 
@@ -362,6 +369,7 @@ namespace
 namespace
 {
     class SwapStone : public Stone, public TimeHandler {
+        DECL_TRAITS;    
     public:
         SwapStone();
         ~SwapStone();
@@ -387,11 +395,11 @@ namespace
         YieldedGridStone *in_exchange_with;
         Direction         move_dir;
     };
+    DEF_TRAITSM(SwapStone, "st-swap", st_swap, MOVABLE_IRREGULAR);
 }
 
 SwapStone::SwapStone()
-: Stone("st-swap"),
-  state(IDLE),
+: state(IDLE),
   in_exchange_with(0),
   move_dir(NODIR)
 {}
@@ -496,8 +504,10 @@ namespace
 {
     class BlockStone : public Stone {
         CLONEOBJ(BlockStone);
+        DECL_TRAITS;
     public:
-        BlockStone() : Stone("st-block") {}
+        BlockStone()
+        {}
     private:
         V2 get_center() const {
             return get_pos().center();
@@ -512,9 +522,9 @@ namespace
                 }
             }
         }
-        bool is_movable () const { return true; }
     };
-
+    DEF_TRAITSM(BlockStone, "st-block", st_block, MOVABLE_STANDARD);
+    
 };
 
 
@@ -532,6 +542,7 @@ namespace
     class BreakableStone : public Stone {
     public:
         BreakableStone(const char *kind) : Stone(kind), state(IDLE) {}
+        BreakableStone() : state(IDLE) {}
     protected:
         void break_me() {
             if (state == IDLE) {
@@ -591,6 +602,7 @@ namespace
 {
     class Stone_break : public BreakableStone {
         CLONEOBJ(Stone_break);
+        DECL_TRAITS;
     public:
         Stone_break(const char *kind) : BreakableStone(kind) { }
     private:
@@ -598,9 +610,11 @@ namespace
             return player::WieldedItemIs (a, "it-hammer");
         }
     };
-
+    DEF_TRAITSM(Stone_break, "INVALID", st_INVALID, MOVABLE_BREAKABLE);
+    
     class LaserBreakable : public BreakableStone {
         CLONEOBJ (LaserBreakable);
+        DECL_TRAITS;
 
         void actor_hit(const StoneContact &) {
         }
@@ -608,10 +622,10 @@ namespace
             return false;
         }
     public:
-
-        LaserBreakable(): BreakableStone("st-laserbreak") {
-        }
+        LaserBreakable()
+        {}
     };
+    DEF_TRAITSM(LaserBreakable, "st-laserbreak", st_laserbreak, MOVABLE_BREAKABLE);
 }
 
 
@@ -635,8 +649,10 @@ namespace
 {
     class Break_bolder : public BreakableStone {
         CLONEOBJ(Break_bolder);
+        DECL_TRAITS;
     public:
-        Break_bolder() : BreakableStone("st-break_bolder") {}
+        Break_bolder()
+        {}
     private:
         bool may_be_broken_by(Actor *a) const {
             return player::WieldedItemIs (a, "it-hammer");
@@ -647,6 +663,7 @@ namespace
             return Value();
         }
     };
+    DEF_TRAITSM(Break_bolder, "st-break_bolder", st_break_bolder, MOVABLE_BREAKABLE);
 }
 
 //----------------------------------------
@@ -669,9 +686,10 @@ namespace
 {
     class Stone_movebreak : public BreakableStone {
         CLONEOBJ(Stone_movebreak);
+        DECL_TRAITS;
     public:
-        Stone_movebreak() : BreakableStone("st-rock3_movebreak") {}
-    private:
+        Stone_movebreak()
+        {}
 
         void on_laserhit(Direction) {
         }
@@ -683,8 +701,6 @@ namespace
             return player::WieldedItemIs (a, "it-hammer");
         }
 
-        bool is_movable() const { return true; }
-
         void actor_hit(const StoneContact &sc) {
             if (may_be_broken_by(sc.actor))
                 break_me();
@@ -695,7 +711,10 @@ namespace
             move_stone(impulse.dir);
         }
 
+    private:
+        FreezeStatusBits get_freeze_bits() { return FREEZEBIT_NO_STONE; }
     };
+    DEF_TRAITSM(Stone_movebreak, "st-rock3_movebreak", st_movebreak, MOVABLE_STANDARD);
 }
 
 //----------------------------------------
@@ -718,14 +737,17 @@ namespace
 {
     class Break_acwhite : public BreakableStone {
         CLONEOBJ(Break_acwhite);
+        DECL_TRAITS;
     public:
-        Break_acwhite() : BreakableStone("st-break_acwhite") {}
+        Break_acwhite()
+        {}
     private:
         bool may_be_broken_by(Actor *a) const {
             return (a->getAttr("whiteball") != 0) &&
                 player::WieldedItemIs (a, "it-hammer");
         }
     };
+    DEF_TRAITSM(Break_acwhite, "st-break_acwhite", st_break_acwhite, MOVABLE_BREAKABLE);
 }
 
 //----------------------------------------
@@ -748,14 +770,17 @@ namespace
 {
     class Break_acblack : public BreakableStone {
         CLONEOBJ(Break_acblack);
+        DECL_TRAITS;
     public:
-        Break_acblack() : BreakableStone("st-break_acblack") {}
+        Break_acblack()
+        {}
     private:
         bool may_be_broken_by(Actor *a) const {
             return (a->getAttr("blackball") != 0) &&
                 player::WieldedItemIs (a, "it-hammer");
         }
     };
+    DEF_TRAITSM(Break_acblack, "st-break_acblack", st_break_acblack, MOVABLE_BREAKABLE);
 }
 
 
@@ -854,9 +879,10 @@ namespace
 {
     class Break_invisible : public Stone {
         CLONEOBJ(Break_invisible);
+        DECL_TRAITS;
         const char *collision_sound() {return "stone";}
     public:
-        Break_invisible() : Stone("st-break_invisible"), state(INVISIBLE) {}
+        Break_invisible() : state(INVISIBLE) {}
     private:
         enum State { INVISIBLE, BRUSH, DESTROY };
         State state;
@@ -881,6 +907,8 @@ namespace
                 KillStone(get_pos());
         }
     };
+    DEF_TRAITSM(Break_invisible, "st-break_invisible", st_break_invisible,
+                MOVABLE_BREAKABLE);
 }
 
 //----------------------------------------
@@ -949,6 +977,7 @@ namespace
 {
     class WoodenStone : public Stone {
         CLONEOBJ(WoodenStone);
+        DECL_TRAITS;
     public:
         WoodenStone(const char *kind, const char *floorkind_, bool blockfire_ = false) :
             Stone(kind), floorkind(floorkind_), blockfire(blockfire_) {}
@@ -995,8 +1024,8 @@ namespace
             if (server::GameCompatibility != GAMET_OXYD1)
                 maybe_fall_or_stopfire();
         }
-        bool is_movable () const { return true; }
     };
+    DEF_TRAITSM(WoodenStone, "INVALID", st_INVALID, MOVABLE_STANDARD);
 
     /*! When st-wood is created it randomly becomes st-wood1 or
       st-wood2. */
@@ -1021,8 +1050,10 @@ namespace
 {
     class WoodenStone_Growing : public Stone {
         CLONEOBJ(WoodenStone_Growing);
+        DECL_TRAITS;
     public:
-        WoodenStone_Growing() : Stone("st-wood-growing") {}
+        WoodenStone_Growing()
+        {}
     private:
         void init_model() { set_anim("st-wood-growing"); }
         void animcb() {
@@ -1033,12 +1064,17 @@ namespace
         void actor_contact(Actor *a) {SendMessage(a, "shatter");}
         void actor_inside(Actor *a) {SendMessage(a, "shatter");}
         void actor_hit(const StoneContact &sc) {SendMessage(sc.actor, "shatter");}
-    };
 
+        FreezeStatusBits get_freeze_bits() { return FREEZEBIT_STANDARD; }
+    };
+    DEF_TRAITS(WoodenStone_Growing, "st-wood-growing", st_wood_growing);
+    
     class GreenbrownStone_Growing : public Stone {
         CLONEOBJ(GreenbrownStone_Growing);
+        DECL_TRAITS;
     public:
-        GreenbrownStone_Growing() : Stone("st-greenbrown-growing") {}
+        GreenbrownStone_Growing()
+        {}
     private:
         void init_model() { set_anim("st-greenbrown-growing"); }
         void animcb() {
@@ -1049,11 +1085,14 @@ namespace
         void actor_inside(Actor *a) {SendMessage(a, "shatter");}
         void actor_hit(const StoneContact &sc) {SendMessage(sc.actor, "shatter");}
     };
+    DEF_TRAITS(GreenbrownStone_Growing, "st-greenbrown-growing", st_greenbrown_growing);
 
     class VolcanoStone_Growing : public Stone {
         CLONEOBJ(VolcanoStone_Growing);
+        DECL_TRAITS;
     public:
-        VolcanoStone_Growing() : Stone("st-volcano-growing") {}
+        VolcanoStone_Growing()
+        {}
     private:
         void init_model() { set_anim("st-volcano-growing"); }
         void animcb() {
@@ -1063,7 +1102,10 @@ namespace
         void actor_contact(Actor *a) {SendMessage(a, "shatter");}
         void actor_inside(Actor *a) {SendMessage(a, "shatter");}
         void actor_hit(const StoneContact &sc) {SendMessage(sc.actor, "shatter");}
+
+        FreezeStatusBits get_freeze_bits() { return FREEZEBIT_NO_STONE; }
     };
+    DEF_TRAITS(VolcanoStone_Growing, "st-volcano-growing", st_volcano_growing);
 }
 
 
@@ -1158,7 +1200,7 @@ namespace
             set_attrib("strength", 10.0);
         }
     };
-    DEF_TRAITS(RubberBandStone, "st-rubberband", st_rubberband);
+    DEF_TRAITSM(RubberBandStone, "st-rubberband", st_rubberband, MOVABLE_STANDARD);
 }
 
 
@@ -1303,7 +1345,7 @@ namespace
         FartStone() : state(IDLE), rememberBreaking(false) 
         {}
     };
-    DEF_TRAITS(FartStone, "st-fart", st_fart);
+    DEF_TRAITSM(FartStone, "st-fart", st_fart, MOVABLE_BREAKABLE);
 }
 
 void FartStone::change_state(State newstate) 
@@ -1392,7 +1434,7 @@ namespace
         const char *collision_sound() { return "cloth"; }
         int affected_player;
     };
-    DEF_TRAITS(ThiefStone, "st-thief", st_thief);
+    DEF_TRAITSM(ThiefStone, "st-thief", st_thief, MOVABLE_BREAKABLE);
 }
 
 ThiefStone::ThiefStone() 
@@ -1642,14 +1684,14 @@ namespace
     };
 
     StoneTraits BlackWhiteStone::traits[8] = {
-        {"st-black1", st_black1, stf_transparent},
-        {"st-black2", st_black2, stf_transparent},
-        {"st-black3", st_black3, stf_transparent},
-        {"st-black4", st_black4, stf_transparent},
-        {"st-white1", st_white1, stf_transparent},
-        {"st-white2", st_white2, stf_transparent},
-        {"st-white3", st_white3, stf_transparent},
-        {"st-white4", st_white4, stf_transparent},
+        {"st-black1", st_black1, stf_transparent, material_stone, MOVABLE_PERSISTENT},
+        {"st-black2", st_black2, stf_transparent, material_stone, MOVABLE_PERSISTENT},
+        {"st-black3", st_black3, stf_transparent, material_stone, MOVABLE_PERSISTENT},
+        {"st-black4", st_black4, stf_transparent, material_stone, MOVABLE_PERSISTENT},
+        {"st-white1", st_white1, stf_transparent, material_stone, MOVABLE_PERSISTENT},
+        {"st-white2", st_white2, stf_transparent, material_stone, MOVABLE_PERSISTENT},
+        {"st-white3", st_white3, stf_transparent, material_stone, MOVABLE_PERSISTENT},
+        {"st-white4", st_white4, stf_transparent, material_stone, MOVABLE_PERSISTENT},
     };
 
 }
@@ -1672,6 +1714,8 @@ namespace
             sound_event("yinyang");
             ReplaceStone (get_pos(), MakeStone(stonename));
         }
+        
+        FreezeStatusBits get_freeze_bits() { return FREEZEBIT_HOLLOW; }
     };
 
     class YinYangStone1 : public YinYangStone {
@@ -1726,6 +1770,7 @@ namespace
     /*! This stone add a bomb to the player's inventory when touched. */
     class BombStone : public Stone {
         CLONEOBJ(BombStone);
+        DECL_TRAITS;
         const char *collision_sound() {return "stone";}
     public:
         BombStone(const char* kind_, const char* itemkind_) :
@@ -1740,7 +1785,8 @@ namespace
         virtual Value message (const string &msg, const Value &);
     };
 }
-
+DEF_TRAITSM(BombStone, "INVALID", st_INVALID, MOVABLE_BREAKABLE);
+    
 void BombStone::change_state (State newstate) 
 {
     if (state == IDLE && newstate==BREAK) {
@@ -1800,7 +1846,7 @@ namespace
         MagicStone()
         {}
     };
-    DEF_TRAITS(MagicStone, "st-magic", st_magic);
+    DEF_TRAITSM(MagicStone, "st-magic", st_magic, MOVABLE_BREAKABLE);
 }
 
 
@@ -1904,8 +1950,10 @@ namespace
 {
     class BrakeStone : public Stone {
         CLONEOBJ(BrakeStone);
+        DECL_TRAITS;
     public:
-        BrakeStone() : Stone("st-brake") {}
+        BrakeStone()
+        {}
 
         void on_creation (GridPos p) {
             Stone::on_creation(p);
@@ -1951,6 +1999,7 @@ namespace
         bool is_sticky(const Actor *) const 
         { return false; }
     };
+    DEF_TRAITSM(BrakeStone, "st-brake", st_brake, MOVABLE_BREAKABLE);
 }
 
 
@@ -2082,7 +2131,7 @@ namespace
     public:
         Knight() : subtype (MIN_SUBTYPE) {}
     };
-    DEF_TRAITS(Knight, "st-knight", st_knight);
+    DEF_TRAITSM(Knight, "st-knight", st_knight, MOVABLE_BREAKABLE);
 }
 
 
@@ -2120,6 +2169,7 @@ namespace
 {
     class Stone_firebreak : public Stone {
         CLONEOBJ(Stone_firebreak);
+        DECL_TRAITS;
 
         const char *collision_sound() {return "stone";}
 
@@ -2145,11 +2195,14 @@ namespace
         }
 
     public:
-        Stone_firebreak() : Stone("st-firebreak") { }
+        Stone_firebreak()
+        {}
     };
+    DEF_TRAITSM(Stone_firebreak, "st-firebreak", st_firebreak, MOVABLE_BREAKABLE);
 
     class Stone_movefirebreak : public Stone {
         CLONEOBJ(Stone_movefirebreak);
+        DECL_TRAITS;
 
         void break_me() {
             sound_event("stonedestroy");
@@ -2184,11 +2237,14 @@ namespace
             }
         }
 
-        bool is_movable () const { return true; }
-
     public:
-        Stone_movefirebreak() : Stone("st-firebreak_move") { }
+        Stone_movefirebreak() : Stone("st-firebreak") { }
+        
+    private:
+        FreezeStatusBits get_freeze_bits() { return FREEZEBIT_NO_STONE; }        
     };
+    DEF_TRAITSM(Stone_movefirebreak, "st-firebreak_move", st_firebreak_move,
+                MOVABLE_STANDARD);
 }
 
 

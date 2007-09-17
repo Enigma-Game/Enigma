@@ -35,24 +35,73 @@ namespace world
         st_black2,
         st_black3,
         st_black4,
+        st_block,
+        st_bolder,
+        st_brake,
+        st_break_acblack,
+        st_break_acwhite,
+        st_break_bolder,
+        st_break_invisible,
+        st_breaking,
+        st_bug,
         st_chameleon,
+        st_chess,
+        st_coffee,
         st_death,
         st_death_invisible,
         st_easymode,
+        st_explosion,
+        st_fakeoxyda,
         st_fart,
+        st_firebreak,
+        st_firebreak_move,
+        st_greenbrown_growing,
         st_knight,
+        st_laserbreak,
         st_magic,
+        st_movebreak,
+        st_oneway,
+        st_oneway_black,
+        st_oneway_white,
+        st_oxyd_0x18,
+        st_peroxyd_0xb8,
+        st_peroxyd_0xb9,
+        st_plain,
+        st_plain_break,
+        st_plain_breaking,
+        st_plain_cracked,
+        st_plain_falling,
+        st_plain_hole,
+        st_plain_move,
+        st_pull,
+        st_puzzle,
+        st_rotator,
         st_rubberband,
         st_scissors,
+        st_shogun,
+        st_stoneimpulse,
+        st_stoneimpulse_hollow,
+        st_stoneimpulse_movable,
+        st_surprise,
+        st_swap,
         st_thief,
+        st_turnstile,
+        st_turnstile_e,
+        st_turnstile_green,
+        st_turnstile_n,
+        st_turnstile_s,
+        st_turnstile_w,
+        st_volcano,
         st_white1,
         st_white2,
         st_white3,
         st_white4,
         st_window,
+        st_wood_growing,
         st_lightpassenger,
         st_camouflage,
         st_polarswitch,
+        st_volcano_growing,
 
         st_LAST,
         st_COUNT = st_LAST
@@ -73,12 +122,20 @@ namespace world
         material_LAST
     };
 
+    enum StoneMovableStatus {
+        MOVABLE_PERSISTENT, // Stone is unmovable
+        MOVABLE_BREAKABLE,  // Stone is breakable
+        MOVABLE_STANDARD,   // Stone is movable in st-wood-way
+        MOVABLE_IRREGULAR   // Stone moves in non-standard way
+    };        
+
     struct StoneTraits {
-        const char *name;
-        StoneID     id;
-        int         flags;
-        Material    material;
-        double      restitution;
+        const char         *name;
+        StoneID             id;
+        int                 flags;
+        Material            material;
+        double              restitution;
+        StoneMovableStatus  movable;
         // Note that many properties of stones are implemented as functions.
     };
 
@@ -88,6 +145,15 @@ namespace world
         STONE_REBOUND           // Actor bounces off the stone
     };
 
+    /*! Combined status bits, used in the freeze check routines. */
+    enum FreezeStatusBits {
+        FREEZEBIT_NO_STONE   =  1, // Stone is NULL or easily breakable
+        FREEZEBIT_HOLLOW     =  2, // Stone is hollow (no cherry)
+        FREEZEBIT_PERSISTENT =  4, // Stone is unmovable
+        FREEZEBIT_STANDARD   =  8, // Stone is movable in st-wood-way
+        FREEZEBIT_IRREGULAR  = 16  // Stone moves in non-standard way
+    };
+        
     class Stone : public GridObject {
     public:
         Stone();
@@ -110,7 +176,9 @@ namespace world
         virtual StoneResponse collision_response(const StoneContact &sc);
 
         /*! Is this stone movable? Affects impulse-stones, fire, ordinary pushes... */
-        virtual bool   is_movable() const { return false;}
+        virtual bool   is_movable() const {
+            return get_traits().movable >= MOVABLE_STANDARD;
+        }
 
         /*! Can a swap-stone or pull-stone swap this stone? */
         virtual bool   is_removable() const { return true; }
@@ -135,6 +203,8 @@ namespace world
         virtual void   actor_inside (Actor * /*a*/) {}
         virtual void   actor_contact (Actor * /*a*/) {}
 
+        virtual bool   freeze_check();
+        
         virtual void   on_move();
         virtual void   on_floor_change() {}
         virtual void   on_impulse(const Impulse& impulse);
@@ -157,6 +227,12 @@ namespace world
         virtual void kill_model (GridPos p) {
             display::KillModel (GridLoc (GRID_STONES, p));
         }
+
+    private:
+        // Help structure and routine for freeze_check()
+        bool freeze_check_running;
+        virtual FreezeStatusBits get_freeze_bits();  // own freeze bits
+        virtual FreezeStatusBits get_freeze_bits(GridPos p);  // foreign freeze bits
     };
 
     inline StoneID get_id(Stone *st) {

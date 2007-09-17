@@ -43,8 +43,15 @@ namespace
     class RotatorStone : public PhotoStone {
     public:
         RotatorStone(bool clockwise_, bool movable_)
-        : PhotoStone("st-rotator"), clockwise(clockwise_), movable(movable_)
-        {}
+        : clockwise(clockwise_), movable(movable_)
+        {
+            traits.name = "st-rotator";
+            traits.id = st_rotator;
+            traits.flags = stf_none;
+            traits.material = material_stone;
+            traits.restitution = 1.0;
+            traits.movable = movable_ ? MOVABLE_STANDARD : MOVABLE_PERSISTENT;
+        }
 
     private:
         static const double RATE;
@@ -52,6 +59,7 @@ namespace
 
         bool clockwise;
         bool movable;
+        StoneTraits traits;
 
         Stone *clone() { return new RotatorStone(clockwise, movable); }
         void dispose() { delete this; }
@@ -91,8 +99,6 @@ namespace
             send_impulses();
         }
 
-        bool is_movable () const { return movable; }
-
         void actor_hit (const StoneContact &sc) {
             if (player::WieldedItemIs (sc.actor, "it-wrench")) {
                 clockwise = !clockwise;
@@ -114,8 +120,16 @@ namespace
             init_model();
         }
         void notify_laseroff() {}
-    };
 
+        const StoneTraits &get_traits() const
+        {
+            return traits;
+        }
+
+    private:
+        FreezeStatusBits get_freeze_bits() { return FREEZEBIT_IRREGULAR; }    
+    };
+    
     const double RotatorStone::RATE          = 1.0;
     const double RotatorStone::IMPULSE_DELAY = 0.1;
 }
@@ -163,6 +177,7 @@ namespace
 
 
     class PullStone : public Stone, public TimeHandler {
+        DECL_TRAITS;
         // Variables.
         enum State { IDLE, MOVING, VANISHED } state;
         Direction  m_movedir;
@@ -178,9 +193,6 @@ namespace
         void       dispose();
         
         // Stone interface.
-        bool is_movable () const {
-            return state == IDLE;
-        }
         void actor_hit(const StoneContact &sc) {
             if (state == IDLE)
                 maybe_push_stone(sc);
@@ -198,10 +210,11 @@ namespace
         void set_move_state(bool appearing, Direction move_dir);
 
     };
+    DEF_TRAITSM(PullStone, "st-pull", st_pull, MOVABLE_IRREGULAR);    
 }
 
 PullStone::PullStone()
-: Stone("st-pull"), state(IDLE), m_movedir(NODIR) , pull_info(0)
+: state(IDLE), m_movedir(NODIR) , pull_info(0)
 {}
 
 PullStone::~PullStone() {
@@ -334,7 +347,7 @@ namespace
 {
     class OneWayBase : public Stone {
     protected:
-        OneWayBase(const char *kind, Direction dir);
+        OneWayBase(Direction dir);
 
         void init_model();
         virtual Value message(const string& msg, const Value &val);
@@ -355,19 +368,21 @@ namespace
 
     class OneWayStone : public OneWayBase {
     public:
-        OneWayStone(Direction dir=SOUTH) : OneWayBase("st-oneway", dir) {}
+        OneWayStone(Direction dir=SOUTH) : OneWayBase(dir) {}
     private:
         CLONEOBJ(OneWayStone);
+        DECL_TRAITS;
         virtual bool actor_may_pass (Actor * /*a*/) { return true; }
     };
-
+    DEF_TRAITS(OneWayStone, "st-oneway", st_oneway);
 
     class OneWayStone_black : public OneWayBase {
     public:
         OneWayStone_black(Direction dir=SOUTH)
-            : OneWayBase("st-oneway_black",dir) {}
+            : OneWayBase(dir) {}
     private:
         CLONEOBJ(OneWayStone_black);
+        DECL_TRAITS;
         virtual bool actor_may_pass (Actor *a) {
             return a->getAttr("blackball") != 0;
         }
@@ -375,13 +390,15 @@ namespace
             // do nothing if hit by actor
         }
     };
+    DEF_TRAITS(OneWayStone_black, "st-oneway_black", st_oneway_black);
 
     class OneWayStone_white : public OneWayBase {
     public:
         OneWayStone_white(Direction dir=SOUTH)
-            : OneWayBase("st-oneway_white", dir) {}
+            : OneWayBase(dir) {}
     private:
         CLONEOBJ(OneWayStone_white);
+        DECL_TRAITS;
         virtual bool actor_may_pass (Actor *a) {
             return a->getAttr("whiteball") != 0;
         }
@@ -389,10 +406,10 @@ namespace
             // do nothing if hit by actor
         }
     };
+    DEF_TRAITS(OneWayStone_white, "st-oneway_white", st_oneway_white);
 }
 
-OneWayBase::OneWayBase(const char *kind, Direction dir) 
-: Stone(kind)
+OneWayBase::OneWayBase(Direction dir)
 {
     set_orientation(dir);
 }
@@ -457,9 +474,10 @@ namespace
 {
     class BolderStone : public Stone {
         CLONEOBJ(BolderStone);
+        DECL_TRAITS;
     public:
         BolderStone(Direction dir=NORTH)
-        : Stone("st-bolder"), state(IDLE)
+        : state(IDLE)
         {
             set_attrib("direction", dir);
             // do not use set_dir, because this will set the state to ACTIVE
@@ -545,9 +563,10 @@ namespace
             }
         }
 
-        bool is_movable() const { return state != FALLING; }
-
         void actor_hit(const StoneContact &sc) {
+            if (state == FALLING)
+                return;
+
             if (player::WieldedItemIs (sc.actor, "it-magicwand")) {
                 set_dir(reverse(get_dir()));
                 init_model();
@@ -581,6 +600,7 @@ namespace
             return Value();
         }
     };
+    DEF_TRAITSM(BolderStone, "st-bolder", st_bolder, MOVABLE_IRREGULAR);
 }
 
 
@@ -597,6 +617,7 @@ namespace
 {
     class BlockerStone : public Stone {
         CLONEOBJ(BlockerStone);
+        DECL_TRAITS;
     public:
         BlockerStone(bool solid)
         : Stone(solid ? "st-blocker" : "st-blocker-growing"), 
@@ -704,6 +725,7 @@ namespace
             }
         }
     };
+    DEF_TRAITSM(BlockerStone, "INVALID", st_INVALID, MOVABLE_BREAKABLE);
 }
 
 
@@ -712,9 +734,10 @@ namespace
 {
     class VolcanoStone : public Stone {
         CLONEOBJ(VolcanoStone);
+        DECL_TRAITS;
     public:
         enum State {INACTIVE, ACTIVE, FINISHED, BREAKING};
-        VolcanoStone( State initstate=INACTIVE) : Stone("st-volcano"), state( initstate) {}
+        VolcanoStone( State initstate=INACTIVE) : state( initstate) {}
     private:
         enum State state;
 
@@ -773,6 +796,7 @@ namespace
             }
         }
     };
+    DEF_TRAITSM(VolcanoStone, "st-volcano", st_volcano, MOVABLE_BREAKABLE);    
 }
 
 
@@ -886,7 +910,7 @@ namespace
         }
 
     public:
-        Window(int connections) : ConnectiveStone("st-window", connections),
+        Window(int connections) : ConnectiveStone(connections),
                 state(IDLE), breakingFaces(NODIRBIT) {
         }
         virtual bool is_sticky(const Actor *a) const;
@@ -896,7 +920,7 @@ namespace
         DirectionBits breakingFaces;
         bool tryInnerPull(Direction dir);
     };
-    DEF_TRAITS(Window, "st-window", st_window);
+    DEF_TRAITSM(Window, "st-window", st_window, MOVABLE_BREAKABLE);
 
     bool Window::is_sticky(const Actor *a) const  {
         return false;
@@ -1010,6 +1034,7 @@ namespace
 {
     class PuzzleStone : public ConnectiveStone, public TimeHandler, public world::PhotoCell {
         INSTANCELISTOBJ(PuzzleStone);
+        DECL_TRAITS;
     public:
         PuzzleStone(int connections, bool oxyd1_compatible_);  
     protected:
@@ -1076,12 +1101,13 @@ namespace
         enum { IDLE, EXPLODING } state;
         DirectionBits illumination; // last state of surrounding laser beams
     };
+    DEF_TRAITSM(PuzzleStone, "st-puzzle", st_puzzle, MOVABLE_IRREGULAR);
 }
 
 PuzzleStone::InstanceList PuzzleStone::instances;
 
 PuzzleStone::PuzzleStone(int connections, bool oxyd1_compatible_)
-: ConnectiveStone("st-puzzle", connections), 
+: ConnectiveStone(connections), 
   state (IDLE), 
   illumination (NODIRBIT)
 {
@@ -1644,6 +1670,9 @@ namespace
 
         virtual bool is_sticky (const Actor *) const
         { return false; }
+
+    private:
+        FreezeStatusBits get_freeze_bits() { return FREEZEBIT_NO_STONE; }   
     };
 }
 
@@ -1816,13 +1845,14 @@ namespace
 {
     class ShogunStone : public Stone {
         CLONEOBJ(ShogunStone);
+        DECL_TRAITS;
 
         enum Holes { SMALL = 1, MEDIUM = 2, LARGE = 4};
         static Holes smallest_hole(Holes s);
         void set_holes(Holes h) { set_attrib("holes", h); }
 
     public:
-        ShogunStone(int holes=SMALL) : Stone("st-shogun") {
+        ShogunStone(int holes=SMALL) {
             set_holes(static_cast<Holes>(holes));
         }
     private:
@@ -1853,12 +1883,15 @@ namespace
             set_model(ecl::strf("st-shogun%d", int(get_holes())));
         }
 
-        bool is_movable() const { return false; }
-
         void actor_hit (const StoneContact &sc) {
             maybe_push_stone (sc);
         }
+
+        FreezeStatusBits get_freeze_bits() {
+            return (get_holes() == SMALL) ? FREEZEBIT_STANDARD : FREEZEBIT_NO_STONE;
+        }
     };
+    DEF_TRAITSM(ShogunStone, "st-shogun", st_shogun, MOVABLE_IRREGULAR);
 }
 
 ShogunStone::Holes ShogunStone::get_holes() const {
@@ -1955,7 +1988,7 @@ namespace
 {
     class StoneImpulse_Base : public Stone {
     protected:
-        StoneImpulse_Base(const char *kind) : Stone(kind), state(IDLE), incoming(NODIR)
+        StoneImpulse_Base() : state(IDLE), incoming(NODIR)
         {}
 
         enum State { IDLE, PULSING, CLOSING };
@@ -1999,8 +2032,9 @@ namespace
             incoming = dir;
             change_state(PULSING);
         }
-    };
 
+        FreezeStatusBits get_freeze_bits() { return FREEZEBIT_NO_STONE; }
+    };
 }
 
 void StoneImpulse_Base::change_state(State new_state) {
@@ -2054,8 +2088,9 @@ namespace
 {
     class StoneImpulseStone : public StoneImpulse_Base {
         CLONEOBJ(StoneImpulseStone);
+        DECL_TRAITS;
     public:
-        StoneImpulseStone() : StoneImpulse_Base("st-stoneimpulse")
+        StoneImpulseStone()
         {}
 
     private:
@@ -2076,15 +2111,15 @@ namespace
         void actor_hit(const StoneContact &/*sc*/) {
             change_state(PULSING);
         }
-
     };
-
+    DEF_TRAITS(StoneImpulseStone, "st-stoneimpulse", st_stoneimpulse);
 
     class HollowStoneImpulseStone : public StoneImpulse_Base {
         CLONEOBJ(HollowStoneImpulseStone);
+        DECL_TRAITS;
     public:
         HollowStoneImpulseStone()
-        : StoneImpulse_Base("st-stoneimpulse-hollow") {}
+        {}
     private:
         void notify_state(State st) {
             switch (st) {
@@ -2118,16 +2153,16 @@ namespace
             // hollow StoneImpulseStones cannot be activated using lasers
         }
     };
-
+    DEF_TRAITS(HollowStoneImpulseStone, "st-stoneimpulse-hollow",
+               st_stoneimpulse_hollow);
 
     class MovableImpulseStone : public StoneImpulse_Base {
         CLONEOBJ(MovableImpulseStone);
+        DECL_TRAITS;
     public:
         MovableImpulseStone()
-        : StoneImpulse_Base("st-stoneimpulse_movable"), 
-          repulse(false)
-        {
-        }
+        : repulse(false)
+        {}
 
     private:
 
@@ -2194,6 +2229,8 @@ namespace
         // Variables.
         bool repulse;
     };
+    DEF_TRAITSM(MovableImpulseStone, "st-stoneimpulse_movable",
+                st_stoneimpulse_movable, MOVABLE_STANDARD);
 }
 
 
@@ -2477,7 +2514,7 @@ namespace
     */
     class Turnstile_Pivot_Base : public Stone {
     public:
-        Turnstile_Pivot_Base(const char *kind);
+        Turnstile_Pivot_Base();
 
     protected:
         bool rotate(bool clockwise, Object *impulse_sender);
@@ -2508,23 +2545,27 @@ namespace
 
     class Turnstile_Pivot : public Turnstile_Pivot_Base {
         CLONEOBJ(Turnstile_Pivot);
+        DECL_TRAITS;
     public:
-        Turnstile_Pivot() : Turnstile_Pivot_Base(model()) {}
+        Turnstile_Pivot() {}
 
         const char *model() const { return "st-turnstile"; }
         const char *anim() const  { return "st-turnstile-anim"; }
         bool oxyd_compatible() const { return true; }
     };
+    DEF_TRAITS(Turnstile_Pivot, "st-turnstile", st_turnstile);
 
     class Turnstile_Pivot_Green : public Turnstile_Pivot_Base {
         CLONEOBJ(Turnstile_Pivot_Green);
+        DECL_TRAITS;
     public:
-        Turnstile_Pivot_Green() : Turnstile_Pivot_Base(model()) {}
+        Turnstile_Pivot_Green() {}
 
         const char *model() const { return "st-turnstile-green"; }
         const char *anim() const  { return "st-turnstile-green-anim"; }
         bool oxyd_compatible() const { return false; }
     };
+    DEF_TRAITS(Turnstile_Pivot_Green, "st-turnstile-green", st_turnstile_green);    
 
     /*
     ** The base class for any of the four arms of the turnstile
@@ -2540,39 +2581,45 @@ namespace
             return dynamic_cast<Turnstile_Pivot_Base*>(st);
         }
 
-        bool is_movable () const { return true; }
     protected:
-        Turnstile_Arm (const char *kind) : Stone(kind)
-        {}
+        Turnstile_Arm() {}
     };
 
     class Turnstile_N : public Turnstile_Arm {
         CLONEOBJ(Turnstile_N);
+        DECL_TRAITS;
     public:
-        Turnstile_N(): Turnstile_Arm("st-turnstile-n") {}
+        Turnstile_N() {}
         Direction get_dir () const { return NORTH; }
     };
-
+    DEF_TRAITSM(Turnstile_N, "st-turnstile-n", st_turnstile_n, MOVABLE_IRREGULAR);
+    
     class Turnstile_S : public Turnstile_Arm {
         CLONEOBJ(Turnstile_S);
+        DECL_TRAITS;
         Direction get_dir () const { return SOUTH; }
     public:
-        Turnstile_S(): Turnstile_Arm("st-turnstile-s") {}
+        Turnstile_S() {}
     };
+    DEF_TRAITSM(Turnstile_S, "st-turnstile-s", st_turnstile_s, MOVABLE_IRREGULAR);
 
     class Turnstile_E : public Turnstile_Arm {
         CLONEOBJ(Turnstile_E);
+        DECL_TRAITS;
         Direction get_dir () const { return EAST; }
     public:
-        Turnstile_E(): Turnstile_Arm("st-turnstile-e") {}
+        Turnstile_E() {}
     };
+    DEF_TRAITSM(Turnstile_E, "st-turnstile-e", st_turnstile_e, MOVABLE_IRREGULAR);
 
     class Turnstile_W : public Turnstile_Arm {
         CLONEOBJ(Turnstile_W);
+        DECL_TRAITS;
         Direction get_dir () const { return WEST; }
     public:
-        Turnstile_W(): Turnstile_Arm("st-turnstile-w") {}
+        Turnstile_W() {}
     };
+    DEF_TRAITSM(Turnstile_W, "st-turnstile-w", st_turnstile_w, MOVABLE_IRREGULAR);
 }
 
 
@@ -2610,9 +2657,8 @@ void Turnstile_Arm::actor_hit(const StoneContact &sc)
 //      Turnstile_Pivot_Base implementation
 // --------------------------------------------
 
-Turnstile_Pivot_Base::Turnstile_Pivot_Base(const char *kind) 
-: Stone (kind),
-  active (false)
+Turnstile_Pivot_Base::Turnstile_Pivot_Base()
+: active (false)
 {}
 
 void Turnstile_Pivot_Base::animcb() 
@@ -3024,8 +3070,9 @@ namespace
 {
     class ChessStone : public Stone, public TimeHandler {
         CLONEOBJ(ChessStone);
+        DECL_TRAITS;
     public:
-        ChessStone (int color) : Stone("st-chess") {
+        ChessStone (int color) {
             newcolor = color;
             Stone::set_attrib("color", color);
             destination = GridPos(0,0);
@@ -3042,6 +3089,7 @@ namespace
         void set_attrib(const string& key, const Value &val);
         virtual Value message(const string &msg, const Value &v);
         void actor_hit(const StoneContact &sc);
+        void on_impulse(const Impulse& impulse) {}
         void alarm();
     private:
         // Variables and Constants
@@ -3067,6 +3115,8 @@ namespace
         // Interface for st-swap and st-pull
         bool is_removable() const { return state == IDLE; }
     };
+    DEF_TRAITSM(ChessStone, "st-chess", st_chess, MOVABLE_IRREGULAR);
+    
     double ChessStone::capture_interval = 0.1;
     double ChessStone::hit_threshold = 3.0;
 
@@ -3473,10 +3523,9 @@ namespace
                 init_model();
             }
         }
-        bool is_movable () const { return false; }
     };
-    
-    DEF_TRAITS(LightPassengerStone,"st-lightpassenger", st_lightpassenger);
+    DEF_TRAITSM(LightPassengerStone,"st-lightpassenger", st_lightpassenger,
+                MOVABLE_IRREGULAR);
 }
 
 // --------------------------------------------------------------------------------
