@@ -714,7 +714,7 @@ namespace
     private:
         FreezeStatusBits get_freeze_bits() { return FREEZEBIT_NO_STONE; }
     };
-    DEF_TRAITSM(Stone_movebreak, "st-rock3_movebreak", st_movebreak, MOVABLE_STANDARD);
+    DEF_TRAITSM(Stone_movebreak, "st-rock3_movebreak", st_movebreak, MOVABLE_IRREGULAR);
 }
 
 //----------------------------------------
@@ -2244,7 +2244,7 @@ namespace
         FreezeStatusBits get_freeze_bits() { return FREEZEBIT_NO_STONE; }        
     };
     DEF_TRAITSM(Stone_movefirebreak, "st-firebreak_move", st_firebreak_move,
-                MOVABLE_STANDARD);
+                MOVABLE_IRREGULAR);
 }
 
 

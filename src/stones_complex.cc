@@ -2221,11 +2221,6 @@ namespace
             Stone::on_move();
         }
 
-        bool is_movable() const {
-            // moving the stone is handled explicitly in actor_hit()
-            return false; //true;
-        }
-
         // Variables.
         bool repulse;
     };

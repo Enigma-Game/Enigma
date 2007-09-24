@@ -233,9 +233,11 @@ bool Stone::freeze_check() {
     Floor *fl = GetFloor(this_pos);
     if ((fl == NULL) || (!fl->is_freeze_check()))
         return false;
+    // Do freeze checks only with standard movables
+    if (this->get_freeze_bits() != FREEZEBIT_STANDARD)
+        return false;
 
-    // Query movable status of neighboring stones
-
+    // Query persistence status of neighboring stones
     FreezeStatusBits ms_n  = get_freeze_bits(move(this_pos, NORTH));
     FreezeStatusBits ms_nw = get_freeze_bits(move(move(this_pos, NORTH), WEST));
     FreezeStatusBits ms_ne = get_freeze_bits(move(move(this_pos, NORTH), EAST));
@@ -245,9 +247,27 @@ bool Stone::freeze_check() {
     FreezeStatusBits ms_sw = get_freeze_bits(move(move(this_pos, SOUTH), WEST));
     FreezeStatusBits ms_se = get_freeze_bits(move(move(this_pos, SOUTH), EAST));
 
-    // First check: Diagonals with persistent stones
-    // Second check: Squares of arbitrary stones
-    // Third check: Two movables, encased by two persistent
+    // The following if-construction searches for freeze-patterns.
+    // Each block is one pattern, each line represents one
+    // orientation of this pattern.
+    //
+    // First block: #    Centered at the box "$", there are four orientations
+    //              $#   of this pattern.
+    // 
+    // Second block: $$  Each of the "$" can be movable or persistent.
+    //               $$  Centered at one of them, there are again four
+    //                   different orientation.
+    //
+    // Third block: #$   This pattern has eight orientations: Fix one of
+    //               $#  the boxes. The adjacent persistent stone has four
+    //                   possibilities, the adjacent movable has two choices
+    //                   for each position of the persistent. The final
+    //                   persistent is fixed in its position by the other
+    //                   two stones.
+    //
+    // The variables P and PM are abbreviations for "persistent"
+    // and "persistent or movable". Example: "ms_e & p" checks
+    // if the stone east of THIS is persistent.
     int p = FREEZEBIT_PERSISTENT;
     int pm = FREEZEBIT_PERSISTENT | FREEZEBIT_STANDARD;
     if(   ((ms_n & p) && (ms_e & p))
@@ -284,7 +304,9 @@ bool Stone::freeze_check() {
             st->freeze_check();
         if (Stone *st = GetStone(this_pos))
             st->freeze_check_running = false;
+        return true;
     }
+    return false;
 }
 
 

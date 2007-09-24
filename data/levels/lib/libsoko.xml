@@ -166,6 +166,8 @@ goals_filled = 0
 endphase_started = false
 levelw = 0
 levelh = 0
+level_array = {}
+chosen_design = default_design
 
 ------------------------------------------------------------------------
 -- Tools
@@ -188,6 +190,29 @@ function is_algorithm(s)  return string.sub(s, 1, 3) == "al:"  end
 function is_friction(s)   return string.sub(s, 1, 3) == "fr:"  end
 function is_mouseforce(s) return string.sub(s, 1, 3) == "mf:"  end
 
+-- combine_tables returns a table consisting of all entries of the
+-- entries of OVER_TABLE: OVER_TABLE is a table of tables, say
+-- {T1, T2, T3, ...}. The result of combine_tables will be a new
+-- table with all entries of T1, T2, T3 etc., with the first table
+-- having highest priority etc.
+function combine_tables(over_table)
+  if type(over_table) ~= "table" then
+    myerror("libsoko.combine_tables: Argument is no table!")
+  end
+  local result = {}
+  for j,t in pairs(over_table) do
+    if type(t) ~= "table" then
+      myerror("libsoko.combine_tables: Argument does not consist of tables alone!")
+    end
+    for k,v in pairs(t) do
+      result[k] = result[k] or v
+    end
+  end
+  return result
+end
+
+-- choose_among_multiples selects a number between 1 and COUNT
+-- based on the coordinates X and Y and the algorithm's name ALG.
 function choose_among_multiples(x, y, count, alg)
   if alg == "checkerboard" then
     return math.mod(mod(x,2)+mod(y,2), count) + 1
@@ -200,42 +225,26 @@ function choose_among_multiples(x, y, count, alg)
   end
 end
 
--- set_element sets element EL over the base ELFLOOR at x, y.
--- ELFLOOR may be nil, then it's considered to be default_design.outf
-function set_element(x, y, el, elFloor)
-  local elf = elFloor or default_design.outf
-  local ela = el or elf
-  
+-- set_element sets element name EL_STR of design DESIGN at x, y.
+function set_element(x, y, design, el_str)
+  local el = design[el_str]
+
   if (type(x) ~= "number") or (type(y) ~= "number") then
-    myerror("set_element: Coordinates are not numbers!")
+    myerror("libsoko.set_element: Coordinates are not numbers!")
     return
   end
-  
-  if type(ela) == "string"  then  ela = {ela}  end
-  if type(elf) == "string"  then  elf = {elf}  end
-  
-  local fl = {}     local fl0 = {}
-  local st = {}     local st0 = {}
-  local it = {}     local it0 = {}
+
+  if type(el) == "string"  then  el = {el}  end
+
+  local fl = {}
+  local st = {}
+  local it = {}
   local multiple_alg = "checkerboard"
   local friction = nil
   local mousefactor = nil
 
-  -- Analyse ELFLOOR first: Decompose its entries into fl0,st0,it0.
-  for j, s in pairs(elf) do
-        if is_floor(s)       then  table.insert(fl0, s)
-    elseif is_stone(s)       then  table.insert(st0, s)
-    elseif is_item(s)        then  table.insert(it0, s)
-    elseif is_algorithm(s)   then  multiple_alg = string.sub(s, 4, -1)
-    elseif is_friction(s)    then  friction = tonumber(string.sub(s, 4, -1))
-    elseif is_mousefactor(s) then  mousefactor = tonumber(string.sub(s, 4, -1))
-    else
-      mywarning("Unknown entry "..s.." in design element.")
-    end    
-  end
-  
   -- Now analyse EL: Decompose its entries into fl,st,it.
-  for j, s in pairs(ela) do
+  for j, s in pairs(el) do
         if is_floor(s)       then  table.insert(fl, s)
     elseif is_stone(s)       then  table.insert(st, s)
     elseif is_item(s)        then  table.insert(it, s)
@@ -244,13 +253,8 @@ function set_element(x, y, el, elFloor)
     elseif is_mousefactor(s) then  mousefactor = tonumber(string.sub(s, 4, -1))
     else
       mywarning("Unknown entry "..s.." in design element.")
-    end    
+    end
   end
-  
-  -- If fl,st,it is empty, replace it with fl0,st0,it0, respectively.
-  if  table.getn(fl) == 0  then  fl = fl0  end
-  if  table.getn(st) == 0  then  st = st0  end
-  if  table.getn(it) == 0  then  it = it0  end
 
   local created_objects = {}
 
@@ -265,7 +269,7 @@ function set_element(x, y, el, elFloor)
       enigma.SetAttrib(created_objects.fl, "mousefactor", mousefactor)
     end
   end
-  
+
   ----------- stone ---------------
   if table.getn(st) > 0 then
     local stkind = st[choose_among_multiples(x, y, table.getn(st), multiple_alg)]
@@ -280,9 +284,79 @@ function set_element(x, y, el, elFloor)
     if itkind ~= "it-none" then
       created_objects.it = set_item(itkind, x, y)
     end
-  end  
+    if created_objects.it then
+      enigma.SetAttrib(created_objects.it, "action", "callback")
+      enigma.SetAttrib(created_objects.it, "target", "goal_trigger")
+      enigma.SetAttrib(created_objects.it, "box", 0)
+      number_goals = number_goals + 1
+    end
+  end
   
   return created_objects
+end
+
+-- draw_level_array draws a sokoball level from global variable LEVEL_ARRAY
+-- with design CHOSEN_DESIGN (global var, a ready-for-use design table)
+-- at offset DX, DY. If OUTSIDE is true, the outside will be drawn as well.
+-- draw_level_array will NOT
+--  - create the world
+--  - set global variables
+--  - prepare oxyds
+--  - solve the level
+-- This function is not intended to be used in level programming
+-- directly, use "draw_sokoball" instead.
+function draw_level_array(dx, dy, outside)
+  local array_width = table.getn(level_array[1])
+  local array_height = table.getn(level_array)
+
+  -- create level
+  for y = 0, array_height - 1 do
+    for x = 0, array_width - 1 do
+      local ch = level_array[y+1][x+1]
+      local obj = {}
+      
+      -- set floor outside or floor inside
+      if (ch == " ") then -- note: space stands for outside, "-" for inside!
+        if outside then
+          kill_stone(x+dx, y+dy)
+          kill_item(x+dx, y+dy)
+          set_element(x+dx, y+dy, chosen_design, "outf")
+        end
+      else
+        kill_stone(x+dx, y+dy)
+        kill_item(x+dx, y+dy)
+        obj = set_element(x+dx, y+dy, chosen_design, "inf")
+        enigma.SetAttrib(obj.fl, "freeze_check", true)
+      end
+      
+      -- Walls
+      if (ch == "#") then
+        obj = set_element(x+dx, y+dy, chosen_design, "wall")
+      end
+      
+      -- Goals
+      if (ch == "+") or (ch == "*") or (ch == ".") or (ch == "N") then
+        obj = set_element(x+dx, y+dy, chosen_design, "goal")
+        enigma.SetAttrib(enigma.GetFloor(x+dx, y+dy), "freeze_check", false)
+      end
+      
+      -- Boxes
+      if (ch == "$") or (ch == "*") then
+        obj = set_element(x+dx, y+dy, chosen_design, "box")
+        enigma.SetAttrib(obj.st, "freeze_check", true)
+      end
+      
+      -- Chess-Stones
+      if (ch == "n") or (ch == "N") then
+        set_stone("st-chess_black", x, y)
+      end
+      
+      -- Actors
+      if (ch == "@") or (ch == "+") then
+        set_actor("ac-blackball", x + 0.5 + dx, y + 0.5 + dy, { name = "marble" })
+      end
+    end
+  end  
 end
 
 -- Sokoban level strings are typically a string with the following characters:
@@ -301,17 +375,54 @@ end
 --        N = st-chess_black/white on goal square
 --
 -- This format has to be transcoded to an array, which is done by unpack_level.
+-- Furthermore the string LEVEL can hold several levels (it's a multilevel),
+-- in which case SUBLEVEL determines the number of the level to unpack.
+-- Default of SUBLEVEL is 1.
 --
-function unpack_level(level)
-  if type(level) ~= "string" then
+function unpack_level(multilevel, sublevel_number)
+  if type(multilevel) ~= "string" then
     myerror("Can't make sense of level type "..type(level)..".")
   end
-  local level_array = {}
+  local current_level = 0
+  local level = ""
+
+  -- search the correct sublevel by pattern matching, line for line
+  local level_line_match = 
+      "[ \-\#\_\$\.@\*0-9Nn\+]*"  -- all allowed characters except line ending
+    .."[\#\$\.@\*Nn\+]+"          -- at least one non-space character
+    .."[ \-\#\_\$\.@\*0-9Nn\+]*"  -- again all allowed characters except line ending
+  local in_level = false
+  for line in string.gfind(multilevel, "[^\n\|]+") do
+    if string.match(line, level_line_match) == line then
+      if in_level then
+        if current_level == (sublevel_number or 1) then
+          level = level..line.."\n"
+        end
+      else
+        -- we just entered a new level
+        in_level = true
+        current_level = current_level + 1
+        if current_level == (sublevel_number or 1) then
+          level = line.."\n"
+        end
+      end
+    else
+      in_level = false
+    end
+  end
   
+  mydebug(level)
+  
+  if level == "" then
+    myerror("libsoko.unpack_level: Multilevel holds less than "
+            ..sublevel_number.." levels!")
+  end
+
   -- parse the string LEVEL
+  level_array = {}
   local line = 1
   level_array[line] = {}
-  local count = 0
+  local count = 0   -- (a simple counter for runlength encoding)
   for j = 1, string.len(level) do
     local ch = string.sub(level, j, j)
     if tonumber(ch) then
@@ -326,8 +437,12 @@ function unpack_level(level)
       end
     else
       -- unify format: "_" and space become "-"
-      if (ch == "_") or (ch == " ")  then  ch = "-"  end
-      if count < 1  then  count = 1  end
+      if (ch == "_") or (ch == " ") then
+        ch = "-"
+      end
+      if count < 1 then
+        count = 1
+      end
       for j = 1, count do
         table.insert(level_array[line], ch)
       end
@@ -357,7 +472,7 @@ function unpack_level(level)
   if lastline < 2 then
     myerror("Length of sokoball level is only "..lastline.."!")
   end
-  mywarning("Sokoball level height: "..lastline)
+  mydebug("Sokoball level height: "..lastline)
   
   -- normalize level width
   local maxwidth = 0
@@ -391,6 +506,8 @@ function unpack_level(level)
   
   return level_array
 end
+
+
 
 ------------------------------------------------------------------------
 -- Choosing the Designnumber
@@ -529,77 +646,26 @@ function design_from_level(level_array)
   return design_list[number_from_level(level_array, table.getn(design_list))]
 end
 
-------------------------------------------------------------------------
--- Determining Lethal Positions
-------------------------------------------------------------------------
-
--- maybe_stdeath checks the stone at position x,y. If it is a box
--- and not standing on a goal, it becomes st-death, counted as a wall.
-function maybe_stdeath(x, y)
-  local st = enigma.GetStone(x, y)
-  if st and (enigma.GetAttrib(st, "soko_kind") == "box") then
-    local it = enigma.GetItem(x, y)
-    if (not it) or (enigma.GetAttrib(it, "soko_kind") ~= "goal") then
-      st = set_stone("st-death", x, y, { soko_kind = "wall" })
-      enigma.EmitSound(st, "stonetransform")
-    end
+-- design_from_description takes a description of the design as argument
+-- and returns the corresponding table. A description can be:
+--  - a table specifying the design by itself
+--  - a number specifying the number of the design in the design list
+--  - "nil" plus a level_array from which a design from the design
+--    list will be chosen.
+function design_from_description(design, level_array)
+  -- choose design
+  local chosen_design = {}
+  if type(design) == "number" then
+    chosen_design = design_list[design]
+  elseif type(design) == "table" then
+    chosen_design = design
+  elseif (type(design) == "nil") and (type(level_array) == "table") then
+    chosen_design = design_from_level(level_array)
+  else
+    myerror("Can't make sense of design type "..type(design)..".")
   end
-end
-
--- check_lethal searchs the level for lethal formations of walls
--- and boxes (excluding st-chess), and transforms involved boxes
--- into st-death. Lethal are quadrats and formations of the kind
---   Box   Wall
---   Wall  ?
--- ("diagonal death").
-function check_lethal(onoff, sender)
-  local x1 = enigma.GetAttrib(sender, "x1")
-  local x2 = enigma.GetAttrib(sender, "x2") - 1
-  local y1 = enigma.GetAttrib(sender, "y1")
-  local y2 = enigma.GetAttrib(sender, "y2") - 1
-  -- Note: Coordinates are reduced by 1 as we search 2x2-combinations.
-  for x = x1, x2 do
-    for y = y1, y2 do    
-      local st = {}
-      local sk = {}
-      st[1] = enigma.GetStone(x, y)
-      st[2] = enigma.GetStone(x + 1, y)
-      st[3] = enigma.GetStone(x, y + 1)
-      st[4] = enigma.GetStone(x + 1, y + 1)
-      for j = 1, 4 do
-        if st[j] then
-          sk[j] = enigma.GetAttrib(st[j], "soko_kind")
-        else
-          sk[j] = "empty"
-        end
-      end
-      -- Test for squares
-      if st[1] and st[2] and st[3] and st[4] then
-        local is_square = true
-        for j = 1, 4 do
-          is_square = is_square and ((sk[j] == "box") or (sk[j] == "wall"))
-        end
-        if is_square then
-          maybe_stdeath(x, y)
-          maybe_stdeath(x + 1, y)
-          maybe_stdeath(x, y + 1)
-          maybe_stdeath(x + 1, y + 1)
-        end
-      end
-      -- Test for diagonal death
-      -- Note: sk[j] might not be correct anymore. However, the only
-      --       change is in that "box" might have turned into "wall",
-      --       which can't impair diagonal death.
-      if (sk[1] == "wall") and (sk[4] == "wall") then
-        maybe_stdeath(x + 1, y)
-        maybe_stdeath(x, y + 1)
-      end
-      if (sk[2] == "wall") and (sk[3] == "wall") then
-        maybe_stdeath(x, y)
-        maybe_stdeath(x + 1, y + 1)
-      end      
-    end
-  end  
+  -- fill chosen design with default values where neccessary, and return
+  return combine_tables({chosen_design, default_design})
 end
 
 ------------------------------------------------------------------------
@@ -612,12 +678,10 @@ function goal_trigger(onoff, sender)
     if enigma.GetStone(x,y) then
       enigma.SetAttrib(sender, "box", 1)
       goals_filled = goals_filled + 1
-      mydebug(goals_filled)
     end
   else
     enigma.SetAttrib(sender, "box", 0)
     goals_filled = goals_filled - 1
-    mydebug(goals_filled)  
   end
   if (goals_filled == number_goals) and not endphase_started then
     endphase_started = true
@@ -630,10 +694,24 @@ end
 
 function endphase()
   local x, y = enigma.GetPos(enigma.GetNamedObject("marble"))
-  oxyd(x+1, y)
-  oxyd(x-1, y)
-  oxyd(x, y+1)
-  oxyd(x, y-1)
+  if x > 10 then
+    x = x - 2
+  end
+  if y > 6 then
+    y = y - 2
+  end
+  for j = 0, 2 do
+    oxyd(x+j, y-1)
+    oxyd(x-1, y+j)
+    oxyd(x+j, y+3)
+    oxyd(x+3, y+j)
+    for k = 0, 2 do
+      kill_stone(x+j, y+k)
+      kill_item(x+j, y+k)
+      set_element(x+j, y+k, chosen_design, "inf")
+    end
+  end
+  set_stone("st-fart", x+1, y+1)
   oxyd_shuffle()
 end
 
@@ -649,109 +727,84 @@ end
 
 
 ------------------------------------------------------------------------
--- Main function
+-- Interface functions
 ------------------------------------------------------------------------
 
 -- create_sokoball creates a sokoball-level from the string LEVEL.
+-- This string can be a multilevel, in which case SUBLEVEL determines
+-- the number of the level, starting with 1. Default is 1.
 -- The design can be chosen by the DESIGN variable. This is either
--- a number (see section "Designs") or a table with the correspondinfg
+-- a number (see section "Designs") or a table with the corresponding
 -- design entries. A missing entry will be interpreted as the entry
 -- from default_design. If the DESIGN variable is omitted, a check-
 -- number is created from LEVEL which uniquely* determines a design
 -- from the design list. *Uniquely means: The design might change
 -- when the design list is enlarged.
-
-function create_sokoball(level, design)
+--
+function create_sokoball(level, sublevel, design)
   -- unpack level
-  local level_array = unpack_level(level)
+  level_array = unpack_level(level, sublevel)
 
   -- calculate screen position
   -- Important Note: level_array is reversely indexed, i.e.
   --                 level_array[y-coordinate][x-coordinate]
-  array_width = table.getn(level_array[1])
-  array_height = table.getn(level_array)
+  local array_width = table.getn(level_array[1])
+  local array_height = table.getn(level_array)
   levelw = math.max(array_width, 20)
   levelh = math.max(array_height, 13)
   create_world(levelw, levelh)
+  
+  -- Calculate padding
   local dx = 0
   local dy = 0
-  
-  -- choose design
-  local chosen_design = {}
-  if type(design) == "number" then
-    chosen_design = design_list[design]
-  elseif type(design) == "table" then
-    chosen_design = design
-  elseif type(design) == "nil" then
-    chosen_design = design_from_level(level_array)
-  else
-    myerror("Can't make sense of design type "..type(design)..".")
+  if levelw > array_width then
+    dx = math.floor((levelw - array_width) / 2)
   end
+  if levelh > array_height then
+    dy = math.floor((levelh - array_height) / 2)
+  end
+  
+  chosen_design = design_from_description(design, level_array)
 
-  -- determine oxop (way to open oxyds)
-  local oxop = chosen_design.oxop or default_design.oxop
-
-  -- create level
-  for y = 0, levelh - 1 do
-    for x = 0, levelw - 1 do
-      set_element(x, y, chosen_design.outf, default_design.outf)
+  for x = 0, levelw - 1 do
+    for y = 0, levelh - 1 do
+      set_element(x, y, chosen_design, "outf")
     end
   end
   
-  for y = 0, array_height - 1 do
-    for x = 0, array_width - 1 do
-      local ch = level_array[y+1][x+1]
-      local obj = {}
-      if (ch ~= " ") then  --- note: space stands for outside, "-" for inside!
-        kill_stone(x + dx, y + dy)
-        set_element(x + dx, y + dy, chosen_design.inf, default_design.inf)
-      end
-      if (ch == "#") then
-        obj = set_element(x+dx, y+dy, chosen_design.wall, default_design.wall)
-        if obj.st then
-          enigma.SetAttrib(obj.st, "soko_kind", "wall")
-        end
-      end
-      if (ch == "+") or (ch == "*") or (ch == ".") or (ch == "N") then
-        obj = set_element(x+dx, y+dy, chosen_design.goal, default_design.goal)
-        if obj.it then
-          enigma.SetAttrib(obj.it, "soko_kind", "goal")
-          enigma.SetAttrib(obj.it, "action", "callback")
-          enigma.SetAttrib(obj.it, "target", "goal_trigger")
-          enigma.SetAttrib(obj.it, "box", 0)
-          number_goals = number_goals + 1
-        end
-      end
-      if (ch == "$") or (ch == "*") then
-        obj = set_element(x+dx, y+dy, chosen_design.box, default_design.box)
-        if obj.st then
-          enigma.SetAttrib(obj.st, "soko_kind", "box")
---          enigma.SetAttrib(obj.st, "freeze_check", true)
-        end
-      end
-      if (ch == "n") or (ch == "N") then
-        set_stone("st-chess_black", x, y, { soko_kind = "st-chess" })
-      end
-      if (ch == "@") or (ch == "+") then
-        set_actor("ac-blackball", x + 0.5 + dx, y + 0.5 + dy, { name = "marble" })
-      end
-    end
-  end
+  draw_level_array(dx, dy, true)
 
   if number_goals < 1 then
     myerror("No goals defined!\n")
   end
 
+  -- determine oxop (way to open oxyds)
+  local oxop = chosen_design.oxop
   prepare_oxyds(oxop)
-  
-  set_stone("st-timer", 0, 0, {invisible = true, interval = 0.5,
-                               action = "callback", target = "check_lethal",
-                               x1 = dx, x2 = array_width - 1 + dx,
-                               y1 = dy, y2 = array_height - 1 + dy})
-  
+
   enigma.ShowMoves = TRUE
-  enigma.SetFollowMode = (display.FOLLOW_SMOOTH)
+  display.SetFollowMode(display.FOLLOW_SMOOTH)
   enigma.ConserveLevel = FALSE
+end
+
+-- draw_sokoball draws a sokoball level from argument LEVEL with design
+-- DESIGN (see create_sokoball) at offset DX, DY. It's arguments are
+-- identical to those of create_sokoball. Whereas create_sokoball should
+-- be used for sokoball-only levels, draw_sokoball can be used to add a
+-- sokoban type area to a larger level. The difference is as follows:
+-- draw_sokoball will NOT:
+--  - create the world before drawing to it
+--  - draw the outside, such that it doesn't overwrite the rest of your
+--    level
+--  - solve the level when all triggers are activated.
+-- Note: Overwriting one sokoball part by another creates problems
+--       with the triggers.
+--
+function draw_sokoball(dx, dy, level, sublevel, design)
+  -- unpack level
+  level_array = unpack_level(level, sublevel)
+  chosen_design = design_from_description(design, level_array)
+  draw_level_array(dx, dy, false)
 end
 
     ]]></el:luamain>

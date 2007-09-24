@@ -176,7 +176,7 @@ namespace world
         virtual StoneResponse collision_response(const StoneContact &sc);
 
         /*! Is this stone movable? Affects impulse-stones, fire, ordinary pushes... */
-        virtual bool   is_movable() const {
+        bool   is_movable() const {
             return get_traits().movable >= MOVABLE_STANDARD;
         }
 
