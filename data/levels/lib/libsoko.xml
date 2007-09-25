@@ -26,7 +26,7 @@
 
 -- This section holds a table with all default designs. Each design
 -- is again a table consisting of the following entries:
---    wall, inf, outf, box, goal, oxyd, endk
+--    wall, inf, outf, box, goal, oxyd, oxop
 -- Each of these entries is either a string representing the objects to
 -- be used, or a table if several objects shall be used. Such a
 -- combination of objects will be called "element".
@@ -51,12 +51,12 @@
 -- Example:
 --
 --   [5] = { outf = "fl-leaves", inf = "fl-leavesb", box = "st-wood"
---           wall = {"st-glass", "fl-wood", "fl-leaves", "al-random"},
---           oxyd ="a" }
+--           wall = {"st-glass", "fl-wood", "fl-leaves", "al:random"},
+--           oxyd = "a", white = true }
 --
 --   will define design 5. The walls will alternate between
 --   st-glass/fl-wood and st-glass/fl-leaves. The goal will be
---   it-trigger by default.
+--   it-trigger by default. The actor will be ac-whiteball.
 --
 -- Possible flags:
 --
@@ -80,6 +80,8 @@ default_design = {
   oxop = 1 }
 
 design_list = {
+
+-- Ralf's designs
 [1]={box="st-brownie", wall="st-bluegray", inf="fl-bluegray", outf="fl-space", door="st-door_a", oxyd="a"},
 [2]={box="st-glass_move", wall="st-bluegray", inf="fl-bluegray", outf="fl-water", door="st-door_b", oxyd="a"},
 [3]={box="st-wood-growing", wall="st-bluegray", inf="fl-bluegray", outf="fl-abyss", door="st-door_c", oxyd="a"},
@@ -154,8 +156,138 @@ design_list = {
 [72]={box="st-block", wall="st-rock6", inf="fl-acblack", outf="fl-leaves", door="st-blocker", oxyd="d"},
 [73]={box="st-shogun", wall="st-rock6", inf="fl-acblack", outf="fl-leaves", door="st-door_a", oxyd="d"},
 [74]={box="st-shogun", wall="st-rock6", inf="fl-tigris", outf="fl-rough-blue", door="st-blocker", oxyd="b"},
-[75]={box="st-shogun", wall="st-rock6", inf="fl-tigris", outf="fl-water",door="st-door_a", oxyd="b"}
+[75]={box="st-shogun", wall="st-rock6", inf="fl-tigris", outf="fl-water", door="st-door_a", oxyd="b"},
+
+-- New designs
+[76]={box="st-glass1_move", wall="st-glass2", inf="fl-lightgray", outf="fl-abyss", door="st-door_a", oxyd="b"},
+[77]={box="st-rock3_move", wall="st-brick", inf="fl-darkgray", outf="fl-leavesb", door="st-door_a", oxyd="a"},
+[78]={box="st-rock3_move", wall="st-bumps", inf="fl-dunes", outf="fl-sand", door="st-door_a", oxyd="d"},
+[79]={box="st-flrock", wall="st-camouflage", inf="fl-gravel", outf={"fl-gravel", "st-disco-medium"}, door="st-door_a", oxyd="d"},
+[80]={box="st-flhay", wall="st-camouflage", inf="fl-leaves", outf="fl-water", door="st-door_a", oxyd="d"},
+[81]={box="st-glass2_move", wall={"st-glass1", "fl-lightgray"}, inf="fl-black", outf="fl-white", door="st-door_a", oxyd="c"},
+[82]={box="st-wood", wall={"st-glass1", "fl-water"}, inf="fl-sand", outf="fl-water", door="st-door_a", oxyd="c"},
+[83]={box="st-camouflage_move", wall="st-glass2", inf="fl-lightgray", outf={"fl-leavesb", "st-disco-medium"}, door="st-door_a", oxyd="b"},
+[84]={box="st-flrock", wall="st-glass2", inf="fl-sand", outf={"fl-water", "st-disco-medium"}, door="st-door_a", oxyd="b"},
+[85]={box="st-flrock", wall="st-brick", inf="fl-sand", outf={"fl-water", "st-disco-medium"}, door="st-door_a", oxyd="a"},
+[86]={box="st-glass1_move", wall={"st-glass3", "fl-abyss_fake"}, inf="fl-red", outf="fl-space", door="st-door_a", oxyd="a"},
+[87]={box="st-rock3_move", wall={"st-glass3", "fl-rough-blue"}, inf="fl-plank", outf="fl-water", door="st-door_a", oxyd="a"},
+[88]={box="st-glass1_move", wall="st-likeoxyda", inf="fl-black", outf="fl-abyss", door="st-door_a", oxyd="a"},
+[89]={box="st-greenbrown_move", wall="st-likeoxyda-open", inf="fl-brick", outf={"fl-mortar", "st-disco-medium"}, door="st-door_a", oxyd="a"},
+[90]={box="st-rock3_move", wall="st-likeoxydb", inf="fl-rough-red", outf="fl-space", door="st-door_a", oxyd="b"},
+[91]={box="st-flhay", wall="st-likeoxydb-open", inf="fl-rough-blue", outf={"fl-swamp", "st-disco-light"}, door="st-door_a", oxyd="b"},
+[92]={box="st-glass2_move", wall="st-likeoxydc", inf="fl-sahara", outf={"fl-water", "st-disco-light"}, door="st-door_a", oxyd="c"},
+[93]={box="st-glass_move", wall="st-likeoxydc-open", inf="fl-red", outf={"st-blackballs", "fl-abyss"}, door="st-door_a", oxyd="c"},
+[94]={box="st-glass2_move", wall="st-likeoxydd", inf="fl-concrete", outf="fl-sand", door="st-door_a", oxyd="d"},
+[95]={box="st-flrock", wall="st-likeoxydd-open", inf="fl-marble", outf="fl-water", door="st-door_a", oxyd="d"},
+[96]={box="st-flrock", wall="st-marble", inf="fl-marble", outf={"fl-leavesc3", "fl-leavesd3"}, door="st-door_a", oxyd="a"},
+[97]={box="st-camouflage_move", wall="st-marble", inf="fl-leaves", outf={"fl-leaves", "st-marble"}, door="st-door_a", oxyd="a"},
+[98]={box="st-rock1_move", wall="st-redrock", inf="fl-acblack", outf={"fl-acblack", "st-redrock"}, door="st-door_a", oxyd="b"},
+[99]={box="st-glass1_move", wall="st-redrock", inf="fl-mortar", outf="fl-brick", door="st-door_a", oxyd="b"},
+[100]={box="st-block", wall="st-redrock", inf="fl-mortar", outf="fl-water", door="st-door_a", oxyd="b"},
+[101]={box="st-glass2_move", wall="st-redrock", inf="fl-leavesb", outf={"fl-leavesc3", "fl-leavesd4"}, door="st-door_a", oxyd="a"},
+[102]={box="st-camouflage_move", wall="st-rock2", inf="fl-rock", outf={"fl-rock", "st-disco-medium"}, door="st-door_a", oxyd="b"},
+[103]={box="st-glass2_move", wall="st-rock2", inf="fl-stone", outf={"fl-water", "st-disco-medium"}, door="st-door_a", oxyd="b"},
+[104]={box="st-wood", wall="st-rock2", inf="fl-lightgray", outf="fl-space", door="st-door_a", oxyd="b"},
+[105]={box="st-camouflage_move", wall="st-rock7", inf="fl-woven", outf="fl-gravel", door="st-door_a", oxyd="a"},
+[106]={box="st-brownie", wall="st-rock7", inf="fl-black", outf="fl-abyss", door="st-door_a", oxyd="b"},
+[107]={box="st-glass_move", wall="st-rock8", inf="fl-plank", outf={"fl-plank", "st-rock8"}, door="st-door_a", oxyd="d"},
+[108]={box="st-glass2_move", wall={"st-rock8", "fl-water"}, inf="fl-leaves", outf="fl-water", door="st-door_a", oxyd="c"},
+[109]={box="st-marble_move", wall={"st-rock8", "fl-abyss_fake"}, inf="fl-stone", outf="fl-space", door="st-door_a", oxyd="c"},
+[110]={box="st-greenbrown_move", wall="st-rock9", inf="fl-rock", outf={"fl-rock", "st-rock9"}, door="st-door_a", oxyd="a"},
+[111]={box="st-glass_move", wall="st-rock9", inf="fl-sand", outf="fl-water", door="st-door_a", oxyd="c"},
+[112]={box="st-camouflage_move", wall="st-rock9", inf="fl-stone", outf="fl-swamp", door="st-door_a", oxyd="d"},
+[113]={box="st-block", wall="st-rock10", inf="fl-bluegreen", outf="fl-abyss", door="st-door_a", oxyd="a"},
+[114]={box="st-wood", wall="st-rock10", inf="fl-sand", outf={"fl-sand", "st-rock10"}, door="st-door_a", oxyd="b"},
+[115]={box="st-glass2_move", wall="st-stone1", inf={"fl-lightgray", "fl-white"}, outf={"fl-space", "fl-abyss"}, door="st-door_a", oxyd="d"},
+[116]={box="st-rock1_move", wall="st-stone1", inf="fl-stwood", outf="fl-water", door="st-door_a", oxyd="d"},
+[117]={box="st-glass_move", wall="st-stone1", inf="fl-black", outf="st-stone1", door="st-door_a", oxyd="d"},
+[118]={box="st-glass_move", wall="st-stone2", inf="fl-black", outf="fl-gravel", door="st-door_a", oxyd="b"},
+[119]={box="st-block", wall="st-stone2", inf="fl-rough-red", outf={"fl-rough-blue", "st-disco-light"}, door="st-door_a", oxyd="d"},
+[120]={box="st-rock3_move", wall={"st-marble", "st-stone2"}, inf="fl-black", outf={"st-marble", "st-stone2"}, door="st-door_a", oxyd="b"},
+[121]={box="st-wood", wall="st-panel", inf="fl-wood", outf={"fl-leavesd3", "fl-leavesd2"}, door="st-door_a", oxyd="a"},
+[122]={box="st-block", wall="st-panel", inf="fl-leaves", outf="fl-leavesb", door="st-door_a", oxyd="a"},
+[123]={box="st-glass1_move", wall="st-woven", inf="fl-dunes", outf="fl-bluegreen", door="st-door_a", oxyd="a"},
+[124]={box="st-marble_move", wall="st-woven", inf="fl-hay", outf="fl-water", door="st-door_a", oxyd="a"},
+[125]={box="st-rock3_move", wall="st-yellow", inf="fl-leavesb", outf="fl-leaves", door="st-door_a", oxyd="a"},
+[126]={box="st-glass_move", wall="st-yellow", inf="fl-rough-blue", outf="fl-abyss", door="st-door_a", oxyd="d"},
+[127]={box="st-block", wall="st-yellow", inf="fl-lightgray", outf="fl-space", door="st-door_a", oxyd="d"},
+[128]={box="st-glass1_move", wall="st-rock7", inf="fl-himalaya", outf={"fl-himalaya", "st-rock8", "st-rock7"}, door="st-door_a", oxyd="d"},
+[129]={box="st-camouflage_move", wall={"st-rock9", "fl-leavesb"}, inf="fl-dunes",
+       outf={"fl-leavese1", "fl-leavese2", "fl-leavese3", "fl-leavese4", "al:waves"}, door="st-door_a", oxyd="d"},
+[130]={box="st-glass1_move", wall="st-redrock", inf="fl-darkgray",
+       outf={"fl-black", "st-redrock", "st-invisible", "st-invisible", "st-invisible", "al:waves"},
+       door="st-door_a", oxyd="a"},
+[131]={box="st-glass1_move", wall={"st-yellow", "st-yellow", "st-redrock", "st-redrock", "al:waves"}, inf="fl-wood",
+       outf={"st-yellow", "st-yellow", "st-redrock", "st-redrock", "al:waves"}, door="st-door_a", oxyd="d"},
+[132]={box="st-wood", wall="st-camouflage", inf="fl-leavesb",
+       outf={"fl-water", "fl-swamp", "fl-water", "fl-water", "al:random"}, door="st-door_a", oxyd="b"},
+[133]={box="st-glass2_move", wall="st-metal", inf="fl-metal",
+       outf={"fl-space", "fl-abyss", "fl-abyss", "fl-abyss", "al:random"}, door="st-door_a", oxyd="d"},
+[134]={box="st-marble_move", wall="st-metal", inf="fl-white",
+       outf={"fl-abyss", "st-grate1", "st-invisible", "st-invisible", "st-invisible", "al:waves"}, door="st-door_a", oxyd="d"},
+[135]={box="st-glass_move", wall="st-likeoxydc", inf="fl-white",
+       outf={"fl-white", "st-rock1", "st-invisible", "st-invisible", "st-invisible", "al:random"}, door="st-door_a", oxyd="c"},
+[136]={box="st-block", wall={"st-oneway_white-n", "st-oneway_white-s", "st-oneway_white-e", "st-oneway_white-w", "al:random"}, inf="fl-rough",
+       outf={"st-oneway_white-n", "st-oneway_white-s", "st-oneway_white-e", "st-oneway_white-w", "al:random"}, door="st-door_a", oxyd="d"},
+[137]={box={"st-mirror-p-m", "st-mirror-p/m", "st-mirror-p\\m", "st-mirror-p|m", "al:random"},
+       --wall={"st-laser-n", "st-laser-s", "st-laser-e", "laser-w", "al:random"},
+       wall={"st-glass3", "fl-abyss"}, inf="fl-metal",
+       --wall={"st-mirror-p-", "st-mirror-p/", "st-mirror-p\\", "st-mirror-p|", "al:random"},
+       outf={"st-mirror-p-", "st-mirror-p/", "st-mirror-p|", "st-mirror-p\\", "al:random"}, door="st-door_a", oxyd="b"},
+[138]={box="st-shogun-s", wall="st-panel", inf="fl-stwood", outf="fl-water", door="st-door_a", oxyd="d"},
+[139]={box="st-shogun-s", wall={"st-white4", "fl-springboard", "fl-abyss_fake"}, inf={"fl-springboard", "fl-abyss_fake"},
+       outf={"st-white1", "st-black1", "fl-springboard", "fl-abyss_fake"}, door="st-door_a", oxyd="b"},
+[140]={box="st-brownie", wall={"st-stone1", "fl-leavesb"}, inf={"fl-floor_001", "fr:3.0"},
+       outf={"fl-leavese4", "fl-leavese2", "fl-leavese1", "fl-leavese3", "al:waves"}, door="st-door_a", oxyd="d"},
+[141]={box="st-brownie", wall={"st-rock4", "fl-leavesb"}, inf={"fl-bluegreenx", "mf:1.0", "fr:3.0"},
+       outf={"fl-water", "st-rock10", "st-invisible", "st-invisible", "st-invisible", "al:waves"}, door="st-door_a", oxyd="d"},
+[142]={box="st-glass2_move", wall={"st-glass1", "fl-leavesb"}, inf="fl-leavesb",
+       outf={"fl-leavesc4", "fl-leavesd2", "fl-leavesc2", "fl-leavese3", "al:waves"}, door="st-door_a", oxyd="d"},
+[143]={box="st-block", wall={"st-rock5", "fl-stwood"}, inf="fl-wood",
+       outf={"st-disco-light", "fl-wood1", "fl-wood1", "fl-wood1", "fl-wood2", "al:waves"}, door="st-door_a", oxyd="a"},
+[144]={box="st-wood", wall="st-rock6", inf="fl-bluegreen",
+       outf={"fl-space", "it-squashed", "it-sensor", "it-sensor", "it-sensor", "al:random"}, door="st-door_a", oxyd="d"},
+[145]={box="st-glass1_move", wall={"st-greenbrown", "fl-sand"}, inf="fl-dunes",
+       outf={"fl-sand", "it-landmine", "it-booze-broken", "it-none", "it-none", "it-none", "it-none", "it-none", "it-none", "al:random"},
+       door="st-door_a", oxyd="a"},
+[146]={box="st-wood", wall="st-rock1", inf="fl-black",
+       outf={"fl-abyss", "st-grate1", "st-none", "st-none", "st-none", "st-none", "st-none", "st-none",
+       "st-none", "st-none", "st-none", "st-none", "al:random"}, door="st-door_a", oxyd="c", white = true},
+[147]={box="st-wood", wall="st-whiteballs", inf="fl-gray", white = true,
+       outf={"fl-gradient5", "fl-gradient6", "fl-gradient7", "fl-gradient8", "al:waves"}, door="st-door_a", oxyd="a"},
+[148]={box="st-shogun-s", wall="st-metal", inf="fl-rough-blue", white = true,
+       outf={"fl-rough-red", "fl-rough-blue", "st-disco-light"}, door="st-door_a", oxyd="a"},
+[149]={box="st-shogun-s", wall="st-yellow", inf="fl-wood", outf="fl-swamp", door="st-door_a",
+       oxyd="c", goal="it-shogun-s", white = true},
+[150]={box="st-flrock", wall="st-redrock", inf="fl-brick", outf="fl-space", door="st-door_a", oxyd="c", white = true},
 }
+
+--
+-- Remaining walls:
+--  st-beads, st-brick, st-bumps, st-camouflage, st-fakeoxyd,
+--  st-glass1/2/3, st-likeoxyda/b/c/d[-open], [st-marble],
+--  st-redrock, st-rock2/7/8/9/10, st-stone1/2, st-panel,
+--  st-woven, st-yellow
+--
+-- Remaining boxes:
+--  st-camouflage_move, st-glass1/2_move, st-rock1_move, st-flhay,
+--  st-flrock
+--
+-- Remaining floors (inside):
+--  fl-abyss_fake, fl-black, fl-bluegreen[x], fl-brick, fl-bumps,
+--  fl-concrete, fl-darkgray, fl-dunes, [fl-floor_001], fl-gravel,
+--  fl-gray, fl-hay, fl-leavesb/c/d/e*, fl-lightgray, fl-marble,
+--  fl-metal, fl-mortar, [fl-normal[_x]], fl-plank, fl-red,
+--  fl-rock, fl-rough-blue, fl-sahara, fl-sand, fl-springboard,
+--  fl-stone, fl-stwood, [fl-trigger], fl-woven
+--
+-- have: fl-acblack, fl-bluegray, fl-himalaya, fl-leaves,
+--       fl-light, fl-rough, fl-rough-red, fl-samba, fl-tigris,
+--       fl-white, fl-wood
+--
+-- outside (have): fl-abyss, fl-leaves, fl-rough-blue, fl-sahara,
+--                 fl-space, fl-water
+--
 
 ------------------------------------------------------------------------
 -- Global variables
@@ -183,12 +315,12 @@ function myerror(st)
   error(st)
 end
 
-function is_floor(s)      return string.sub(s, 1, 3) == "fl-"  end
-function is_stone(s)      return string.sub(s, 1, 3) == "st-"  end
-function is_item(s)       return string.sub(s, 1, 3) == "it-"  end
-function is_algorithm(s)  return string.sub(s, 1, 3) == "al:"  end
-function is_friction(s)   return string.sub(s, 1, 3) == "fr:"  end
-function is_mouseforce(s) return string.sub(s, 1, 3) == "mf:"  end
+function is_floor(s)       return string.sub(s, 1, 3) == "fl-"  end
+function is_stone(s)       return string.sub(s, 1, 3) == "st-"  end
+function is_item(s)        return string.sub(s, 1, 3) == "it-"  end
+function is_algorithm(s)   return string.sub(s, 1, 3) == "al:"  end
+function is_friction(s)    return string.sub(s, 1, 3) == "fr:"  end
+function is_mousefactor(s) return string.sub(s, 1, 3) == "mf:"  end
 
 -- combine_tables returns a table consisting of all entries of the
 -- entries of OVER_TABLE: OVER_TABLE is a table of tables, say
@@ -298,6 +430,7 @@ end
 -- draw_level_array draws a sokoball level from global variable LEVEL_ARRAY
 -- with design CHOSEN_DESIGN (global var, a ready-for-use design table)
 -- at offset DX, DY. If OUTSIDE is true, the outside will be drawn as well.
+-- DRAW_ACTOR determines whether the actor should be placed.
 -- draw_level_array will NOT
 --  - create the world
 --  - set global variables
@@ -305,7 +438,7 @@ end
 --  - solve the level
 -- This function is not intended to be used in level programming
 -- directly, use "draw_sokoball" instead.
-function draw_level_array(dx, dy, outside)
+function draw_level_array(dx, dy, outside, draw_actor)
   local array_width = table.getn(level_array[1])
   local array_height = table.getn(level_array)
 
@@ -348,12 +481,20 @@ function draw_level_array(dx, dy, outside)
       
       -- Chess-Stones
       if (ch == "n") or (ch == "N") then
-        set_stone("st-chess_black", x, y)
+        if chosen_design["white"] then
+          set_stone("st-chess_white", x + dx, y + dy)
+        else
+          set_stone("st-chess_black", x + dx, y + dy)
+        end
       end
       
       -- Actors
-      if (ch == "@") or (ch == "+") then
-        set_actor("ac-blackball", x + 0.5 + dx, y + 0.5 + dy, { name = "marble" })
+      if ((ch == "@") or (ch == "+")) and draw_actor then
+        if chosen_design["white"] then
+          set_actor("ac-whiteball", x + 0.5 + dx, y + 0.5 + dy, { name = "marble", controllers = 1, player = 0 })
+        else
+          set_actor("ac-blackball", x + 0.5 + dx, y + 0.5 + dy, { name = "marble" })
+        end
       end
     end
   end  
@@ -392,8 +533,9 @@ function unpack_level(multilevel, sublevel_number)
     .."[\#\$\.@\*Nn\+]+"          -- at least one non-space character
     .."[ \-\#\_\$\.@\*0-9Nn\+]*"  -- again all allowed characters except line ending
   local in_level = false
-  for line in string.gfind(multilevel, "[^\n\|]+") do
+  for line in string.gfind(multilevel, "([^\n\|]*)[\n\|]") do
     if string.match(line, level_line_match) == line then
+      mydebug("Level "..current_level.." : |"..line.."|")
       if in_level then
         if current_level == (sublevel_number or 1) then
           level = level..line.."\n"
@@ -772,7 +914,54 @@ function create_sokoball(level, sublevel, design)
     end
   end
   
-  draw_level_array(dx, dy, true)
+  draw_level_array(dx, dy, true, true)
+
+  if number_goals < 1 then
+    myerror("No goals defined!\n")
+  end
+
+  -- determine oxop (way to open oxyds)
+  local oxop = chosen_design.oxop
+  prepare_oxyds(oxop)
+
+  enigma.ShowMoves = TRUE
+  display.SetFollowMode(display.FOLLOW_SMOOTH)
+  enigma.ConserveLevel = FALSE
+end
+
+-- recreate_sokoball is used for design development only.
+-- It redraws the current level from scratch, but not the world
+-- and doesn't add another actor.
+function recreate_sokoball(design)
+  -- calculate screen position
+  -- Important Note: level_array is reversely indexed, i.e.
+  --                 level_array[y-coordinate][x-coordinate]
+  local array_width = table.getn(level_array[1])
+  local array_height = table.getn(level_array)
+  levelw = math.max(array_width, 20)
+  levelh = math.max(array_height, 13)
+  
+  -- Calculate padding
+  local dx = 0
+  local dy = 0
+  if levelw > array_width then
+    dx = math.floor((levelw - array_width) / 2)
+  end
+  if levelh > array_height then
+    dy = math.floor((levelh - array_height) / 2)
+  end
+  
+  chosen_design = design_from_description(design, level_array)
+
+  for x = 0, levelw - 1 do
+    for y = 0, levelh - 1 do
+      kill_stone(x, y)
+      kill_item(x, y)
+      set_element(x, y, chosen_design, "outf")
+    end
+  end
+  
+  draw_level_array(dx, dy, true, false)
 
   if number_goals < 1 then
     myerror("No goals defined!\n")
@@ -797,14 +986,15 @@ end
 --  - draw the outside, such that it doesn't overwrite the rest of your
 --    level
 --  - solve the level when all triggers are activated.
+-- DRAW_ACTOR determines if an actor should be placed.
 -- Note: Overwriting one sokoball part by another creates problems
 --       with the triggers.
 --
-function draw_sokoball(dx, dy, level, sublevel, design)
+function draw_sokoball(dx, dy, level, sublevel, design, draw_actor)
   -- unpack level
   level_array = unpack_level(level, sublevel)
   chosen_design = design_from_description(design, level_array)
-  draw_level_array(dx, dy, false)
+  draw_level_array(dx, dy, false, draw_actor)
 end
 
     ]]></el:luamain>
