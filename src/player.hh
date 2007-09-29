@@ -95,6 +95,7 @@ namespace enigma
         world::ItemAction ActivateItem (Item *it);
 
         void Tick (double dtime);
+        void PlayerShutdown();
 
     } // namespace player
 } // namespace enigma

@@ -89,8 +89,7 @@ namespace {
     }
 }
 
-string ecl::strf(const char *format, ...)
-{
+string ecl::strf(const char *format, ...) {
     va_list argPtr;
     va_start(argPtr, format);
     string result = vstrf(format, argPtr);
@@ -99,3 +98,38 @@ string ecl::strf(const char *format, ...)
     return result;
 }
 
+    // string_match accepts simple wildcards
+    // '?' means 'any character'
+    // '*' means '0 or more characters'
+bool ecl::string_match(const char *str, const char *templ) {
+    while (true) {
+        char t = *templ++;
+        char s = *str++;
+
+        if (t == s) {
+            if (!t) return true;
+            continue;
+        }
+        else { // mismatch
+            if (t == '?') continue;
+            if (t != '*') break;
+
+            t = *templ++;
+            if (!t) return true; // '*' at EOS
+
+            while (1) {
+                if (!s) break;
+                if (s == t) {
+                    if (string_match(str, templ))
+                        return true;
+                }
+                s = *str++;
+            }
+        }
+    }
+    return false;
+}
+
+bool ecl::string_match(std::string str, std::string templ) {
+    return string_match(str.c_str(), templ.c_str());
+}

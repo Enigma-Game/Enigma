@@ -184,6 +184,8 @@ namespace world
         const GridPos &get_gridpos() const { return m_actorinfo.gridpos; }
 
     protected:
+        virtual Object::ObjectType getObjectType() const {return Object::ACTOR;}
+        
         Actor(const ActorTraits &tr);
         void set_model (const string &modelname);
         void set_anim (const string &modelname);

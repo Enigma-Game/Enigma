@@ -36,7 +36,7 @@ Inventory::Inventory() : m_items()
 
 Inventory::~Inventory() 
 {
-    clear();
+    ecl::delete_sequence (m_items.begin(), m_items.end());
 }
 
 

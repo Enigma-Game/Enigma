@@ -210,6 +210,8 @@ namespace world
         virtual void   on_impulse(const Impulse& impulse);
 
     protected:
+        virtual Object::ObjectType getObjectType() const {return Object::STONE;}
+        
         bool move_stone(GridPos newPos, const char *soundevent);
         bool move_stone(Direction dir);
         ecl::V2 distortedVelocity (ecl::V2 vel, double defaultfactor);

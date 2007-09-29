@@ -2264,7 +2264,14 @@ with \c set_stone(). Use the predefined \c oxyd() function instead.
 namespace
 {
     class OxydStone : public PhotoStone {
-        INSTANCELISTOBJ(OxydStone);
+        typedef std::vector<OxydStone *> InstanceList;
+        static InstanceList instances;
+        OxydStone * clone();
+        void dispose() {
+            instances.erase(find(instances.begin(), instances.end(), this));
+            delete this;
+        }
+
     public:
         OxydStone();
 
@@ -2308,6 +2315,16 @@ namespace
 }
 
 OxydStone::InstanceList OxydStone::instances;
+
+OxydStone * OxydStone::clone() { 
+    OxydStone *o = new OxydStone(*this); 
+    instances.push_back(o);
+    if (server::EnigmaCompatibility >= 1.10) {
+        int color = ((instances.size() -1) / 2) % 8;
+        o->set_attrib("color", ecl::strf("%d", color));
+    }
+    return o;
+}
 
 OxydStone::OxydStone()
 : PhotoStone("st-oxyd"),

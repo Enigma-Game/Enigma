@@ -292,6 +292,7 @@ typedef list<sound::SoundDamping> SoundDampingList;
         void    name_object (Object *obj, const string &name);
         void    unname (Object *);
         Object *get_named (const string &);
+        std::list<Object *> get_group(const std::string &tmpl);
 
         void tick (double dtime);
         void remove (ForceField *ff);

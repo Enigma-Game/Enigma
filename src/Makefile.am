@@ -122,6 +122,8 @@ enigma_SOURCES = 		\
 	utilXML.hh		\
 	video.cc 		\
 	video.hh		\
+	WorldProxy.cc	\
+	WorldProxy.hh	\
 	world.cc 		\
 	world.hh 		\
 	world_internal.hh	\

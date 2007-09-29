@@ -113,6 +113,8 @@ namespace world
         void on_burnable_animcb(bool justIgnited);  // Called by burnable-items on it.
 
     protected:
+         virtual Object::ObjectType getObjectType() const {return Object::FLOOR;}
+        
         // GridObject interface
         void set_model (const std::string &mname);
         display::Model *get_model ();

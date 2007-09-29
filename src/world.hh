@@ -174,6 +174,7 @@ namespace world
     void    UnnameObject (Object *obj);
     void    TransferObjectName(Object *source, Object *target);
     Object *GetNamedObject (const string &name);
+    std::list<Object *> GetNamedGroup(const std::string &templ);
 
 /* -------------------- Force Fields -------------------- */
 

@@ -71,6 +71,7 @@ namespace
         void respawn_dead_actors(double dtime);
         void resurrect_actor (Actor *a);
         bool remove_extralife (Actor *a);
+        void reset();
 
         // Variables
         vector<RespawnInfo> respawn_list;
@@ -133,7 +134,10 @@ bool LevelLocalData::remove_extralife (Actor *a)
     }
 }
 
-
+void LevelLocalData::reset() {
+    respawn_list.clear();
+}
+
 /* -------------------- Local variables -------------------- */
 
 namespace
@@ -144,7 +148,11 @@ namespace
     std::vector<Actor *> unassignedActors;
 }
 
-
+
+void player::PlayerShutdown() {
+    players.clear();    // release objects of inventories
+}
+
 /* -------------------- Functions -------------------- */
 
 void player::NewGame (bool isRestart) {
@@ -178,6 +186,7 @@ void player::NewGame (bool isRestart) {
     }
     
     unassignedActors.clear();
+    leveldat.reset();
 }
 
 void player::AddYinYang ()

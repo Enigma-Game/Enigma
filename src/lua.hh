@@ -22,6 +22,7 @@
 #include "enigma.hh"
 #include "ecl_geom.hh"
 #include "objects_decl.hh"
+#include <map>
 
 #ifdef CXXLUA
 struct lua_State;
@@ -30,9 +31,7 @@ extern "C" struct lua_State;
 #endif
 
 
-namespace lua
-{
-    using namespace enigma;
+namespace enigma { namespace lua {
 
 /* -------------------- Data structures -------------------- */
 
@@ -40,14 +39,17 @@ namespace lua
         int (*func) (lua_State *); // lua_CFunction func;
         const char *name;
     };
-
+    
+    
+    typedef std::map<std::string, int (*) (lua_State *)> MethodMap;
+    
     enum Error {
         NO_LUAERROR = 0,
         ERRRUN,
-	ERRFILE,
-	ERRSYNTAX,
-	ERRMEM,
-	ERRERR
+        ERRFILE,
+        ERRSYNTAX,
+        ERRMEM,
+        ERRERR
     };
 
 /* -------------------- Lua states for Enigma -------------------- */
@@ -73,6 +75,10 @@ namespace lua
     int FindDataFile (lua_State *L);
 
 /* -------------------- Helper routines -------------------- */
+
+    void RegisterLuaType(lua_State *L, std::string registryKey, CFunction *ops,
+        CFunction *methods, MethodMap &methodMap);
+
 
     /*! Register the C functions in `funcs'.  The end of the array is
       denoted by an entry with func==0. */
@@ -117,6 +123,7 @@ namespace lua
     Error DoSubfolderfile(lua_State *L, 
                         const std::string & basefolder, 
                         const std::string & filename);
-}
+
+}} // namespace enigma::lua
 #endif
 

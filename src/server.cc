@@ -72,37 +72,37 @@ namespace enigma_server
 
 }
 
-
 /* -------------------- Global variables -------------------- */
 
 
-bool           server::CreatingPreview = false;
 
 bool server::NoCollisions = false;
 
-double   server::LevelTime;
-bool     server::ConserveLevel;
-bool     server::TwoPlayerGame;
-bool     server::SingleComputerGame;
 bool     server::AllowTogglePlayer;
+bool     server::CreatingPreview = false;   // read only for Lua
+bool     server::ConserveLevel;
+double   server::LevelTime;                 // read only for Lua (> 1.10)
 bool     server::ShowMoves;
-GameType server::GameCompatibility;
+bool     server::SingleComputerGame;        // no Lua access
+bool     server::TwoPlayerGame;             // no Lua access
+GameType server::GameCompatibility;         // no Lua access
+bool     server::WorldInitialized;          // no Lua access
 double   server::Brittleness;
-double   server::SlopeForce;
+double   server::BumperForce;
+double   server::ElectricForce;
+double   server::EnigmaCompatibility;       // no Lua access
 double   server::FlatForce;
 double   server::FrictionFactor;
+double   server::HoleForce;
 double   server::IceFriction;
-double   server::ElectricForce;
-double   server::BumperForce;
-double   server::WaterSinkSpeed;
-double   server::SwampSinkSpeed;
 double   server::MagnetForce;
 double   server::MagnetRange;
+double   server::SlopeForce;
+double   server::SwampSinkSpeed;
+double   server::WaterSinkSpeed;
 double   server::WormholeForce;
 double   server::WormholeRange;
-double   server::HoleForce;
 
-
 /* -------------------- Local variables -------------------- */
 
 namespace
@@ -195,7 +195,7 @@ void gametick(double dtime)
     world::TickFinished ();
 }
 
-
+
 /* -------------------- Functions -------------------- */
 
 void server::Init()
@@ -252,6 +252,8 @@ void server::PrepareLevel()
     move_counter = 0;
 
     world::PrepareLevel ();
+    server::WorldInitialized = false;
+
     player::PrepareLevel();
 
     /* Restart the Lua environment so symbol definitions from

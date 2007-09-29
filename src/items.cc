@@ -3231,8 +3231,8 @@ namespace
 	virtual void dispose() {
 	    Item * it = yield_first();
 	    while (it != NULL) {
-		DisposeObject(it);
-		it = yield_first();
+            DisposeObject(it);
+            it = yield_first();
 	    }
 	    delete this;
 	}
@@ -3263,7 +3263,9 @@ namespace
         {}
 
         ~Bag() {
-//            ecl::delete_sequence (m_contents.begin(), m_contents.end());
+            // Bags on the grid are disposed, but bags in the inventory need to be
+            // delete their contents on the destructor
+            ecl::delete_sequence (m_contents.begin(), m_contents.end());
         }
     };
     DEF_TRAITS(Bag, "it-bag", it_bag);

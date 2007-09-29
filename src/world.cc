@@ -27,6 +27,7 @@
 #include "client.hh"
 #include "main.hh"
 #include "stones_internal.hh"
+#include "WorldProxy.hh"
 
 #include <iostream>
 #include <algorithm>
@@ -416,19 +417,36 @@ void World::remove (ForceField *ff)
         forces.erase(i);
 }
 
-Object *World::get_named (const string &name)
+Object * World::get_named(const string &name)
 {
     ecl::Dict<Object*>::iterator found = m_objnames.find(name);
     if (found != m_objnames.end()) 
         return found->second;
-    Log << "Did not find named object: " << name << '\n';
-    return 0;
+//    Log << "Did not find named object: " << name << '\n';
+    return NULL;
 }
 
-void World::name_object (Object *obj, const std::string &name)
+std::list<Object *> World::get_group(const std::string &tmpl) {
+    std::list<Object *> result;
+    ecl::Dict<Object *>::iterator it = m_objnames.begin();
+    for (; it != m_objnames.end(); ++it) {
+        if (string_match(it->first, tmpl))
+            result.push_back(it->second);
+    }
+    return result;
+}
+
+void World::name_object(Object *obj, const std::string &name)
 {
-    m_objnames.insert(name, obj); // [name] = obj;
-    obj->set_attrib("name", name);
+    std::string unique_name = name;
+    if (server::EnigmaCompatibility >= 1.10 && name.size() > 0 && name[name.size() - 1] == '#') {
+        // auto name object with a unique name
+        int i;
+        for (i = 1; get_named(name + ecl::strf("%d",i)) != NULL; i++);
+        unique_name = name + ecl::strf("%d",i);
+    }
+    m_objnames.insert(unique_name, obj); // [name] = obj;
+    obj->set_attrib("name", unique_name);
 }
 
 void World::unname (Object *obj)
@@ -1614,6 +1632,7 @@ void world::Resize (int w, int h)
 {
     level.reset (new World(w,h));
     display::NewWorld(w, h);
+    server::WorldInitialized = true;
 }
 
 void world::PrepareLevel ()
@@ -1705,6 +1724,10 @@ void world::TransferObjectName (Object *source, Object *target)
 Object * world::GetNamedObject (const std::string &name)
 {
     return level->get_named (name);
+}
+
+std::list<Object *> world::GetNamedGroup(const std::string &name) {
+    return level->get_group(name);
 }
 
 bool world::IsLevelBorder(GridPos p)
@@ -2346,10 +2369,11 @@ void world::Init()
 void world::Shutdown()
 {
     level.reset();
+    player::PlayerShutdown();
     Repos_Shutdown();
+    WorldProxy::shutdown();
 }
 
-
 /* -------------------- Object repository -------------------- */
 namespace
 {

@@ -68,6 +68,12 @@ namespace enigma_server
     // Behave like Oxyd/Enigma version
     extern GameType GameCompatibility;
 
+    // Detect double initialization (resize) attempts
+    extern bool     WorldInitialized;
+    
+    // level compatibility
+    extern double   EnigmaCompatibility;
+   
     // Default brittleness of the floor: 0 = stable..1=unstable.
     // Really: probability that a floor tile will crack when an actor
     // enters or leaves it.

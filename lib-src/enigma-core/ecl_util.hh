@@ -263,7 +263,26 @@ namespace ecl
      *                       path separator was found just false will be returned
      *                       without modification of the return strings.
      */
-    bool        split_path(const std::string& path, std::string* dir_part, std::string* filename_part);
+    bool split_path(const std::string& path, std::string* dir_part, std::string* filename_part);
+    
+    
+    /**
+     * Check a string against a given template that may contain wildcards of '*' and
+     * '?'. A '?' in the template means 'any single character'. A '*' means '0 or more characters'.
+     * @param str     string to be analysed
+     * @param templ   template with wildcards
+     * @return        true if string matches template, false otherwise
+     */
+    bool string_match(const char *str, const char *templ);
+    
+    /**
+     * Check a string against a given template that may contain wildcards of '*' and
+     * '?'. A '?' in the template means 'any single character'. A '*' means '0 or more characters'.
+     * @param str     string to be analysed
+     * @param templ   template with wildcards
+     * @return        true if string matches template, false otherwise
+     */
+    bool string_match(std::string str, std::string templ);
 
 }
 

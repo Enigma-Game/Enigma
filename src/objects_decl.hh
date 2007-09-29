@@ -1,5 +1,6 @@
 /*
  * Copyright (C) 2002,2003,2004 Daniel Heck
+ * Copyright (C) 2007 Ronald Lamprecht
  *
  * This program is free software; you can redistribute it and/or
  * modify it under the terms of the GNU General Public License
@@ -21,13 +22,13 @@
 
 #include "display.hh"
 #include "ecl_alist.hh"
+#include <map>
 
 namespace world
 {
     using std::string;
     using namespace enigma;
 
-
 /* -------------------- Objects -------------------- */
 
     /*! Object is the base class for all ``objects'' in the world.
@@ -49,10 +50,22 @@ namespace world
      */
     class Object {
     public:
-        Object() {}
+        enum ObjectType { 
+            OTHER,
+            STONE,
+            FLOOR,
+            ITEM,
+            ACTOR
+            };
+            
+        Object();
         Object(const char *kind);
-        virtual ~Object() {}
+        Object(const Object &src_obj); 
+        virtual ~Object();
 
+        static Object * getObject(int id);
+        int getId() const;
+        
         /* ---------- Attributes ---------- */
 
         typedef ecl::AssocList<std::string, Value> AttribMap;
@@ -115,15 +128,20 @@ namespace world
         virtual void on_levelinit();
 
         virtual void warning(const char *format, ...) const;
+        virtual ObjectType getObjectType() const;
 
     protected:
         virtual Value getDefaultValue(const string &key) const;
     private:
-        const Value* get_attrib(const string& key) const;
+        static int next_id;
+        static std::map<int, Object *> objects;
+        int id;
         AttribMap attribs;
+        static int getNextId(Object *obj);
+        static void freeId(int id);
+        const Value* get_attrib(const string& key) const;
     };
 
-
 /* -------------------- GridObject -------------------- */
 
     /*! GridObject is the base class for everything that can only be
@@ -140,13 +158,13 @@ namespace world
             on_creation (p);
         }
         void removal(GridPos p) { on_removal(p); }
+        GridPos get_pos() const {return pos;}
 
         // GridObject interface
         virtual void on_laserhit (Direction) {}
         virtual void actor_enter (Actor *) {}
         virtual void actor_leave (Actor *) {}
 
-        GridPos get_pos() const { return pos; }
 
         void warning(const char *format, ...) const;
 

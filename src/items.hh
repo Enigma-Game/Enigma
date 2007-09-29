@@ -222,6 +222,8 @@ namespace world
         /* Called when item is activated by the owner of `a'. */
         virtual ItemAction activate(Actor* a, GridPos p);
     protected:
+        virtual Object::ObjectType getObjectType() const {return Object::ITEM;}
+        
         // GridObject interface
         virtual void set_model (const std::string &mname) {
             display::SetModel(GridLoc(GRID_ITEMS, get_pos()), mname);

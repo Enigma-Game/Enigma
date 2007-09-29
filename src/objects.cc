@@ -1,5 +1,6 @@
 /*
  * Copyright (C) 2002,2003,2004,2005 Daniel Heck
+ * Copyright (C) 2007 Ronald Lamprecht
  *
  * This program is free software; you can redistribute it and/or
  * modify it under the terms of the GNU General Public License
@@ -32,6 +33,7 @@
 #include <iostream>
 #include <iomanip>
 
+
 using namespace std;
 using namespace enigma;
 using namespace world;
@@ -40,51 +42,50 @@ using namespace world;
 // note: VERBOSE_MESSAGES is defined in multiple source files!
 // #define VERBOSE_MESSAGES
 
-
-/* -------------------- Helper routines -------------------- */
+/* -------------------- Object implementation -------------------- */
 
-namespace
-{
-    // string_match accepts simple wildcards
-    // '?' means 'any character'
-    // '*' means '0 or more characters'
-    bool string_match(const char *str, const char *templ) {
-        while (true) {
-            char t = *templ++;
-            char s = *str++;
+int Object::next_id = 1;
+std::map<int, Object *> Object::objects;
 
-            if (t == s) {
-                if (!t) return true;
-                continue;
-            }
-            else { // mismatch
-                if (t == '?') continue;
-                if (t != '*') break;
-
-                t = *templ++;
-                if (!t) return true; // '*' at EOS
-
-                while (1) {
-                    if (!s) break;
-                    if (s == t) {
-                        if (string_match(str, templ))
-                            return true;
-                    }
-                    s = *str++;
-                }
-            }
-        }
-        return false;
-    }
+int Object::getNextId(Object *obj) {
+    objects[next_id] = obj;
+    return next_id++;
 }
 
-
-/* -------------------- Object implementation -------------------- */
+void Object::freeId(int id) {
+    objects.erase(id);
+}
+
+Object * Object::getObject(int id) {
+    std::map<int, Object *>::iterator it = objects.find(id);
+    if (it == objects.end())
+        return NULL;
+    else
+        return it->second;
+}
+
+Object::Object() {
+    id = getNextId(this);
+}
 
 Object::Object(const char *kind) {
     set_attrib("kind", Value(kind));
+    id = getNextId(this);
 }
 
+Object::Object(const Object &src_obj) {
+    id = getNextId(this);
+    attribs = src_obj.attribs;
+}
+
+Object::~Object() {
+    freeId(id);
+//cerr << "obj del " << id << " - " << this->get_kind() <<"\n";
+}
+
+int Object::getId() const {
+    return id;
+}
 
 Value Object::on_message (const world::Message &m)
 {
@@ -110,11 +111,11 @@ const char * Object::get_kind() const {      // To be made pure virtual
 // check kind of object
 // kind_templ may contain wildcards ( ? and * )
 bool Object::is_kind(const char *kind_templ) const {
-    return string_match(get_kind(), kind_templ);
+    return ecl::string_match(get_kind(), kind_templ);
 }
 
 bool Object::is_kind(const string& kind_templ) const {
-    return string_match(get_kind(), kind_templ.c_str());
+    return ecl::string_match(get_kind(), kind_templ.c_str());
 }
 
 void Object::set_attrib(const string& key, const Value& val) {
@@ -188,7 +189,9 @@ void Object::warning(const char *format, ...) const {
     va_end(arg_ptr);
 }
 
-
+Object::ObjectType Object::getObjectType() const {
+    return OTHER;
+}
 /* -------------------- GridObject implementation -------------------- */
 
 display::Model *GridObject::set_anim (const std::string &mname) 
@@ -217,4 +220,3 @@ void GridObject::warning(const char *format, ...) const
 
     va_end(arg_ptr);
 }
-
