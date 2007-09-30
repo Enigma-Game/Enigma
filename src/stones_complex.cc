@@ -2321,7 +2321,7 @@ OxydStone * OxydStone::clone() {
     instances.push_back(o);
     if (server::EnigmaCompatibility >= 1.10) {
         int color = ((instances.size() -1) / 2) % 8;
-        o->set_attrib("color", ecl::strf("%d", color));
+        o->set_attrib("color", color);
     }
     return o;
 }
@@ -2331,7 +2331,7 @@ OxydStone::OxydStone()
   state(CLOSED)
 {
     set_attrib("flavor", "b");
-    set_attrib("color", "0");
+    set_attrib("color", 0);
 }
 
 Value OxydStone::message(const string &m, const Value &val) 
@@ -2344,10 +2344,10 @@ Value OxydStone::message(const string &m, const Value &val)
         shuffle_colors();
     }
     else if (m=="trigger" || m=="spitter") {
-	maybe_open_stone();
+        maybe_open_stone();
     }
     else if (m=="signal" && to_int(val) != 0) {
-	maybe_open_stone();
+        maybe_open_stone();
     }
     else if (m=="init") {
         // odd number of oxyd stones in the level? no problem, turn a
@@ -2391,7 +2391,7 @@ void OxydStone::shuffle_colors()
 void OxydStone::change_state(State newstate) 
 {
     string flavor(getAttr("flavor","a"));
-    string color(getAttr("color", "1"));
+    string color(getAttr("color", 0));
 
     string modelname = string("st-oxyd") + flavor + color;
 
@@ -2425,12 +2425,12 @@ void OxydStone::change_state(State newstate)
 
     case OPENING:
         sound_event("oxydopen");
-	if (oldstate == CLOSED)
+        if (oldstate == CLOSED)
             set_anim(modelname + "-opening");
-	else if (oldstate == CLOSING)
+        else if (oldstate == CLOSING)
             get_model()->reverse();
 
-	break;
+        break;
 
     case CLOSING:
         if (oldstate == CLOSED || oldstate==CLOSING) {

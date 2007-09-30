@@ -17,6 +17,39 @@
 --
 ------------------------------------------------------------------------
 
+-------------------------------
+-- Compatibility for old API --
+-------------------------------
+
+enigma._SetAttrib = enigma.SetAttrib
+enigma._GetAttrib = enigma.GetAttrib
+
+function enigma.SetAttrib(obj, key, val)
+     local _val = val
+     local _key = key
+     if enigma.GetKind(obj) == "st-oxyd" then
+         if key == "color" then
+	     _val = 0 + val   -- convert to int
+	 end
+     end
+     enigma._SetAttrib(obj, _key, _val)
+end
+
+function enigma.GetAttrib(obj, key)
+     local _key = key
+     local val = enigma._GetAttrib(obj, key)
+     if enigma.GetKind(obj) == "st-oxyd" then
+         if key == "color" then
+	     val = "" .. val   -- convert to string
+	 end
+     end
+     return val
+end
+
+----------------------
+-- old API 1.0      --
+----------------------
+
 TRUE = 1
 FALSE = 0
 

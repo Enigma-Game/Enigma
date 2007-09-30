@@ -249,7 +249,7 @@ Value::operator const char*() const {
     static std::string s;
     switch (type) {
         case Value::DOUBLE:
-            s = ecl::strf("%f", val.dval);
+            s = ecl::strf("%g", val.dval);  // need drop of trailing zeros and point for int
             return s.c_str();
         case Value::STRING: 
             return val.str;
