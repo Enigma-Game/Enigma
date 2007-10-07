@@ -56,7 +56,7 @@ namespace world
             FLOOR,
             ITEM,
             ACTOR
-            };
+        };
             
         Object();
         Object(const char *kind);

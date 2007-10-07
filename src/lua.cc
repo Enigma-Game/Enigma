@@ -140,32 +140,6 @@ void SetTableVar (lua_State *L,
     lua_pop (L, 1);
 }
 
-static void push_value(lua_State *L, const Value &val) {
-    switch (val.getType()) {
-        case Value::NIL:
-        case Value::DEFAULT :
-            lua_pushnil(L);
-            break;
-        case Value::DOUBLE:
-            lua_pushnumber(L, val.get_double());
-            break;
-        case Value::STRING:
-            lua_pushstring(L, val.get_string());
-            break;
-    }
-}
-
-static Value to_value(lua_State *L, int idx) {
-    switch (lua_type(L, idx)) {
-        case LUA_TNIL: return Value();
-        case LUA_TNUMBER: return Value(lua_tonumber(L,idx));
-        case LUA_TSTRING: return Value(lua_tostring(L,idx));
-        case LUA_TBOOLEAN: return (lua_toboolean(L,idx)) ? Value(1) : Value();
-        default: throwLuaError(L,"Cannot convert type to Value.");
-    }
-    return Value();
-}
-
 static bool checkMetadata (lua_State *L, int idx, const char *name) {
     bool result = false;
     if (lua_getmetatable(L, idx)) {  // does it have a metatable?
@@ -228,7 +202,7 @@ static Object *to_object(lua_State *L, int idx) {
     return obj;  // NULL if object does no longer exist
 }
 
-static void pushobject (lua_State *L, Object *obj) {
+static void pushobject(lua_State *L, Object *obj) {
     int *udata;
     /* Lua does not allow NULL pointers in userdata variables, so
        convert them manually to `nil' values. */
@@ -243,6 +217,53 @@ static void pushobject (lua_State *L, Object *obj) {
         luaL_getmetatable(L, LUA_ID_OBJECT);
         lua_setmetatable(L, -2);
     }
+}
+
+static void push_value(lua_State *L, const Value &val) {
+    switch (val.getType()) {
+        case Value::NIL:
+        case Value::DEFAULT :
+            lua_pushnil(L);
+            break;
+        case Value::DOUBLE:
+            lua_pushnumber(L, val.get_double());
+            break;
+        case Value::STRING:
+            lua_pushstring(L, val.get_string());
+            break;
+        case Value::BOOL:
+            if (server::EnigmaCompatibility < 1.10) {
+                if (val.to_bool())
+                    lua_pushnumber(L, 1);
+                else
+                    lua_pushnil(L);
+            } else {
+                lua_pushboolean(L, val.to_bool());
+            }
+            break;
+        case Value::OBJECT:
+            pushobject(L, (Object *)val);
+            break;
+    }
+}
+
+static Value to_value(lua_State *L, int idx) {
+    switch (lua_type(L, idx)) {
+        case LUA_TNIL: 
+            return Value();
+        case LUA_TNUMBER: 
+            return Value(lua_tonumber(L,idx));
+        case LUA_TSTRING: 
+            return Value(lua_tostring(L,idx));
+        case LUA_TBOOLEAN: 
+            return Value((bool)lua_toboolean(L,idx));
+        case LUA_TUSERDATA:
+            if (is_object(L, idx))
+                return Value(to_object(L, idx));
+        default: 
+            throwLuaError(L,"Cannot convert type to Value.");
+    }
+    return Value();
 }
 
 
@@ -1559,6 +1580,10 @@ static int setObjectByTable(lua_State *L, double x, double y) {
     setObjectAttributes(obj, L);
     switch (obj->getObjectType()) {
         case Object::FLOOR :
+            if (Value odd = obj->getAttr("checkerboard")) {
+                if ((xi+yi)%2 != (int)odd)
+                    break;
+            }
             world::SetFloor(GridPos(xi,yi), dynamic_cast<Floor *>(obj));
             break;
         case Object::STONE :

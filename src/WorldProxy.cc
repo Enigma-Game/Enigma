@@ -19,6 +19,7 @@
 
 #include "WorldProxy.hh"
 #include "server.hh"
+#include "display.hh"
 
 using namespace enigma;
 
@@ -43,6 +44,8 @@ namespace world {
     Value WorldProxy::getAttr(const string& key) const {
         if (key == "AllowTogglePlayer") {
             return server::AllowTogglePlayer;
+        } else if (key == "ConserveLevel") {
+            return server::ConserveLevel;
         } else if (key == "CreatingPreview") {
             return server::CreatingPreview;  // read only
         } else if (key == "IsDifficult") {
@@ -90,6 +93,8 @@ namespace world {
             server::AllowTogglePlayer = val;
         } else if (key == "ConserveLevel") {
             server::ConserveLevel = val.to_bool();
+        } else if (key == "FollowMode") {
+            display::SetFollowMode((display::FollowMode)((int)val));
         } else if (key == "ShowMoves") {
             server::ShowMoves = val.to_bool();
             STATUSBAR->show_move_counter (server::ShowMoves);

@@ -1,5 +1,6 @@
 /*
  * Copyright (C) 2002,2004 Daniel Heck
+ * Copyright (C) 2007 Ronald Lamprecht
  *
  * This program is free software; you can redistribute it and/or
  * modify it under the terms of the GNU General Public License
@@ -36,7 +37,9 @@
 
 namespace enigma
 {
-
+    using namespace world;
+    class world::Object;
+    
 /* -------------------- Various types -------------------- */
 
     enum Difficulty {
@@ -177,25 +180,28 @@ namespace enigma
             DEFAULT,  ///< Pseudotype for a not existing attribute that should
                       ///< cause the default behaviour of the object
             NIL,      ///< Value that is equivalent to Lua "nil". It represents
-                      ///< the bool "false"
+                      ///< an invalid value
+            BOOL,     ///< Value that represents bool values "true" and "false".
             DOUBLE,   ///< Value is numerical and can take a "double". It is used
                       ///< for other numericals values like "int", too.
             STRING,   ///< Value is a string. Such a string may encode another
                       ///< type that has no native representation in Value
-            OBJECT    ///< Value is an object id. The id is a persistent object
+            OBJECT,    ///< Value is an object id. The id is a persistent object
                       ///< identifier.
+            GROUP     ///< Value is a group of objects.
         };
 
         Value();                       ///< Constructor for NIL value that 
-                                       ///< represents boolean "false", too 
+                                       ///< represents an invalid value
         Value(double d);               ///< Constructor for DOUBLE value
         Value(const char* str);        ///< Constructor for STRING value. The
                                        ///< given string is duplicated
         Value(const std::string& str); ///< Constructor for STRING value. The
                                        ///< given string is duplicated
         Value(int i);                  ///< Constructor for DOUBLE value
-        Value(bool b);                 ///< Constructor for a value that properly
-                                       ///< represents the given bool
+        Value(bool b);                 ///< Constructor for BOOL value
+        Value(Object *obj);            ///< Constructor for OBJECT value that properly
+                                       ///< represents a persistent reference to an object
         Value(Type t);                 ///< Constructor for a given type. The
                                        ///< value defaults to 0.0 or ""
         ~Value();
@@ -249,6 +255,12 @@ namespace enigma
          * value of 0.
          */
         operator int() const;
+        
+        /**
+         * Conversion of a value to an object reference. All values besides valid
+         * object values default to a NULL reference.
+         */
+        operator Object *() const;
         
         /**
          * Conversion of a value to a <code>char *</code> just for initialization

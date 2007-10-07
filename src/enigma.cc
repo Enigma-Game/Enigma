@@ -1,5 +1,6 @@
 /*
  * Copyright (C) 2002,2003,2004 Daniel Heck
+ * Copyright (C) 2007 Ronald Lamprecht
  *
  * This program is free software; you can redistribute it and/or
  * modify it under the terms of the GNU General Public License
@@ -21,6 +22,7 @@
 #include "enigma.hh"
 #include "ecl.hh"
 #include "main.hh"
+#include "objects_decl.hh"
 
 #include <iostream>
 #include <ctime>
@@ -30,7 +32,6 @@ using namespace std;
 using namespace ecl;
 using namespace enigma;
 
-
 /* -------------------- Game Type -------------------- */
 
 static const char *versionName[GAMET_COUNT+1] = {
@@ -107,7 +108,6 @@ string enigma::to_suffix(Direction d) {
     return sfx[d+1];
 }
 
-
 /* -------------------- DirectionBits -------------------- */
 
 DirectionBits
@@ -140,12 +140,15 @@ Value::Value(int i) : type (DOUBLE) {
      val.dval = i;
 }
 
-Value::Value(bool b) {
-     if (b) {
-        type = DOUBLE;
-        val.dval = 1;
-     } else
-        type = NIL;
+Value::Value(bool b) : type (BOOL) {
+     val.dval = b;
+}
+
+Value::Value(Object *obj) : type (OBJECT) {
+     if (obj != NULL)
+         val.dval = obj->getId();
+     else
+         val.dval = 0;
 }
 
 Value::Value(Type t) : type (t) {
@@ -157,8 +160,11 @@ Value::Value(Type t) : type (t) {
             val.str = new char[1];
             val.str[0] = 0;
             break;
+        case BOOL :
+            val.dval = false;
+            break;
         case OBJECT :
-            // tbd
+            val.dval = (double) NULL;
             break;
     }
 }
@@ -196,11 +202,11 @@ bool Value::operator==(const Value& other) const {
     else
         switch (type) {
             case DOUBLE :
+            case BOOL :
+            case OBJECT :
                 return val.dval == other.val.dval;
             case STRING :
                 return strcmp(val.str, other.val.str) == 0;
-            case OBJECT :
-                return false; // tbd
         }
     return true;
 }
@@ -227,6 +233,7 @@ Value::operator bool() const {
 Value::operator double() const {
     switch (type) {
         case DOUBLE: 
+        case BOOL: 
             return val.dval;
         case STRING:
             return atof(val.str);  // TODO use strtod and eval remaining part of string
@@ -238,10 +245,19 @@ Value::operator double() const {
 Value::operator int() const {
     switch (type) {
         case DOUBLE:
+        case BOOL: 
             return round_nearest<int>(val.dval);
         case STRING: 
             return atoi(val.str);  //TODO use strtol and eval remaining part of string
-    default: return 0;
+        default: return 0;
+    }
+}
+
+Value::operator Object *() const {
+    switch (type) {
+        case OBJECT:
+            return Object::getObject(round_nearest<int>(val.dval));
+        default: return NULL;
     }
 }
 
@@ -302,6 +318,8 @@ std::string Value::to_string() const{
 
 bool Value::to_bool() const {
     switch (type) {
+        case BOOL :
+            return val.dval;
         case NIL :
         case DEFAULT :
             return false;
