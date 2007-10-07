@@ -1868,13 +1868,19 @@ namespace
 
         void add_hole(Holes h) {
             set_attrib("holes", get_holes() | h);
-            notify_item();
             init_model();
+            notify_item();
         }
 
         void on_creation (GridPos p) {
             init_model();
             notify_item();
+        }
+
+        void on_removal(GridPos p) {
+            Stone::on_removal(p);
+            if (Item *it = GetItem(p))
+                SendMessage(it, "noshogun");
         }
 
         void on_impulse(const Impulse& impulse);
@@ -1949,8 +1955,8 @@ void ShogunStone::on_impulse(const Impulse& impulse) {
     // Remove/modify source stone:
     if (Holes newholes = Holes(holes & ~smallest)) {
         set_holes(newholes);
-        notify_item();
         init_model();
+        notify_item();
     }
     else {
         if (Value v = getAttr("name")) old_name = v.get_string(); // store name of disappearing stone
@@ -1966,8 +1972,13 @@ void ShogunStone::on_impulse(const Impulse& impulse) {
     }
     else {                       // create new
         target = new ShogunStone(smallest);
+        int targetId = target->getId();
         SetStone(destpos, target);
-        target->on_move();
+        // Shogunstone might have disappeared via some triggered action.
+        // Most important example: Last box in a sokoban.
+        if (Stone *st = GetStone(destpos))
+            if (st->getId() == targetId)
+                st->on_move();
     }
 
     if (!old_name.empty())

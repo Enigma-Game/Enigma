@@ -4681,6 +4681,16 @@ exact properties.
 @item st-beads @tab - @tab pass @tab no
 @end multitable
 
+These entries can be visualized as follows: A glassstone is transparent for
+laser light, if it is not dark, or if it is hollow. Exception is
+@code{st-beads}, whose irregular sides would scatter the beam. A glassstone
+can always be passed by invisible actors, with three exceptions:
+@code{st-glass3}, whose inside is filled with red stripes, and the two movables
+@code{st-glass1_move} and @code{st-glass2_move} which have a non-glass frame
+which the actor can use to move the stone. @code{st-glass_move} does not have 
+such a frame and cannot be moved by an invisible actor.
+
+
 @node Breakable Stones, Oxyd Compatibility Stones, Glassstones, Stones
 @subsection Breakable Stones
 

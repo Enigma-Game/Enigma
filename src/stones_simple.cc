@@ -966,7 +966,7 @@ set_stone("st-wood", 10,10)
 \endverbatim
 
 Note: There are two flavors of st-wood which may be specified
-by using st-wood1 or st-wood2, and a two related kinds: st-flrock,
+by using st-wood1 or st-wood2, and two related kinds: st-flrock,
 which creates the unburnable fl-rock and denies fire under it, and 
 the burnable st-hay, which leaves the burnable but stable fl-hay
 behind.

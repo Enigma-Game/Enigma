@@ -1529,6 +1529,8 @@ void ShogunDot::stone_change(Stone *st) {
     if (activated) {
         if (st == 0) {
             warning("stone_change: Stone disappeared w/o sending me a proper message!");
+            activated = false;
+            world::PerformAction(this, false);
         }
     }
 }
