@@ -544,22 +544,19 @@ namespace
             case IDLE:
                 if (!have_obstacle(dir)) {
                     state = ACTIVE;
-                    trigger_obstacle(dir);
                 }
 //                 if (Model *m = get_model())
                 m->restart();
 //                init_model();
                 break;
 
-            case ACTIVE: {
+            case ACTIVE:
                 trigger_obstacle(dir);
                 if (!move_stone(dir)) {
-//                    if (state == MOVING) // state may be FALLING
-                        state = IDLE;
+                    state = IDLE;
                 }
                 init_model();
                 break;
-            }
             }
         }
 
@@ -586,10 +583,17 @@ namespace
                 return;
 
             if (impulse.sender && impulse.sender->is_kind("st-rotator")) {
-                set_dir(impulse.dir);
+                set_dir(impulse.dir);  // activate
             }
             init_model();
-            move_stone(impulse.dir);
+            // try to move, activate - trigger with guarantee
+            if (!move_stone(impulse.dir))
+                // the trigger of an activation occurs on animcb - in case of
+                // two rotators the trigger in one direction would be skipped
+                // without this explicit trigger statement!
+                // Furtheron enable stoneimpulse - bolder combi to emit single
+                // trigger messages
+                trigger_obstacle(impulse.dir);
         }
 
         virtual Value message(const string& msg, const Value &val) {
@@ -603,7 +607,7 @@ namespace
     DEF_TRAITSM(BolderStone, "st-bolder", st_bolder, MOVABLE_IRREGULAR);
 }
 
-
+
 /* -------------------- BlockerStone -------------------- */
 
 /** \page st-blocker Blocker Stone
