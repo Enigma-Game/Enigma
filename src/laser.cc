@@ -467,6 +467,8 @@ namespace
         }
 
         void init_model();
+        void set_attrib(const string& key, const Value &val);
+
     private:
 
         StoneTraits traits;
@@ -510,7 +512,7 @@ MirrorStone::MirrorStone(const char *name, bool movable, bool transparent)
     traits.flags = stf_none;
     traits.material = material_stone;
     traits.restitution = 1.0;
-    traits.movable = movable ? MOVABLE_STANDARD : MOVABLE_PERSISTENT;
+    //traits.movable is already set via set_attrib("movable", ...);
 }
 
 void MirrorStone::init_model() {
@@ -580,6 +582,12 @@ void MirrorStone::rotate_right()
     sound_event ("mirrorturn");
 }
 
+void MirrorStone::set_attrib(const string& key, const Value &val) {
+    Stone::set_attrib(key, val);
+    if (key == "movable")
+        traits.movable = to_bool(val) ? MOVABLE_STANDARD : MOVABLE_PERSISTENT;
+}
+    
 
 /* -------------------- Plane Mirror -------------------- */
 namespace
