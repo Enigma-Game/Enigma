@@ -224,12 +224,12 @@ FreezeStatusBits Stone::get_freeze_bits(GridPos p) {
 }
 
 bool Stone::freeze_check() {
+    GridPos this_pos = this->get_pos();
     // Check if stone and floor ask for freeze_check
     if (!to_bool(this->getAttr("freeze_check")))
         return false;
     if (freeze_check_running)
-        return true;
-    GridPos this_pos = this->get_pos();
+        return false;
     Floor *fl = GetFloor(this_pos);
     if ((fl == NULL) || (!fl->is_freeze_check()))
         return false;
@@ -294,14 +294,14 @@ bool Stone::freeze_check() {
         // avoid endless loop with bool freeze_check_running
         if (Stone *st = GetStone(this_pos))
             st->freeze_check_running = true;
-        if (Stone *st = GetStone(move(this_pos, NORTH)))
-            st->freeze_check();
-        if (Stone *st = GetStone(move(this_pos, SOUTH)))
-            st->freeze_check();
-        if (Stone *st = GetStone(move(this_pos, EAST)))
-            st->freeze_check();
-        if (Stone *st = GetStone(move(this_pos, WEST)))
-            st->freeze_check();
+        if (Stone *stn = GetStone(move(this_pos, NORTH)))
+            stn->freeze_check();
+        if (Stone *stn = GetStone(move(this_pos, SOUTH)))
+            stn->freeze_check();
+        if (Stone *stn = GetStone(move(this_pos, EAST)))
+            stn->freeze_check();
+        if (Stone *stn = GetStone(move(this_pos, WEST)))
+            stn->freeze_check();
         if (Stone *st = GetStone(this_pos))
             st->freeze_check_running = false;
         return true;

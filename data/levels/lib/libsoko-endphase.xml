@@ -1,0 +1,372 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no" ?>
+<el:level xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://enigma-game.org/schema/level/1 level.xsd" xmlns:el="http://enigma-game.org/schema/level/1">
+  <el:protected>
+    <el:info el:type="library">
+      <el:identity el:title="" el:id="lib/libsoko-endphase"/>
+      <el:version el:score="1" el:release="1" el:revision="1" el:status="experimental"/>
+      <el:author  el:name="Enigma Team" el:email="" el:homepage=""/>
+      <el:copyright>Copyright © 2007 Enigma Team</el:copyright>
+      <el:license el:type="GPL v2.0 or above" el:open="true"/>
+      <el:compatibility el:enigma="1.00">
+      </el:compatibility>
+      <el:modes el:easy="false" el:single="false" el:network="false"/>
+      <el:comments>
+      </el:comments>
+      <el:score el:easy="-" el:difficult="-"/>
+    </el:info>
+    <el:luamain><![CDATA[
+
+-- This "library" holds those functions and algorithms needed by libsoko.xml
+-- that are used for triggering goals and preparing and executing the sokoball-
+-- endphases. Don't include this library with your levels (it won't
+-- have any effect), but libsoko.xml.
+
+------------------------------------------------------------------------
+-- Goal Trigger and Endphase Main Functions
+------------------------------------------------------------------------
+
+function goal_trigger(onoff, sender)
+  local x, y = enigma.GetPos(sender)
+  local nr = enigma.GetAttrib(sender, "sokoarea")
+  local more_boxes = false  -- memorizes whether a box was added or removed
+  if sokoarea[nr].endphase_started then
+    return
+  end
+  if(enigma.GetAttrib(sender, "box") == 0) then
+    if enigma.GetStone(x,y) then
+      enigma.SetAttrib(sender, "box", 1)
+      sokoarea[nr].goals_filled = sokoarea[nr].goals_filled + 1
+    end
+  else
+    enigma.SetAttrib(sender, "box", 0)
+    sokoarea[nr].goals_filled = sokoarea[nr].goals_filled - 1
+  end
+  if type(goal_hook) == "function" then
+    goal_hook(nr, sender, more_boxes, sokoarea[nr].goals_filled,
+              sokoarea[nr].number_goals)
+  end
+  if sokoarea[nr].goals_filled == sokoarea[nr].number_goals then
+    sokoarea[nr].endphase_started = true
+    if type(sokoarea[nr].endphase_hook) == "function" then
+      sokoarea[nr].endphase_hook(nr)
+    else
+      mydebug("libsoko: No endphase hook found!")
+    end
+  end
+end
+
+function prepare_endphase(sokoarea_number)
+  -- ensure a correctly set endphase-attribute
+  local endp = sokoarea[sokoarea_number].design.endp
+  if not endp then
+    endp = {alg = "circle"}
+    sokoarea[sokoarea_number].design.endp = endp
+  end
+  if type(endp) ~= "table" then
+    myerror("This design's endphase is given as "..type(endp)
+            ..", should be table.")
+  end
+  local alg = endp.alg
+  if type(alg) ~= "string" then
+    myerror("This design's endphase algorithm is given as "..type(alg)
+            ..", should be string.")
+  end
+
+  -- decompose alg into algorithm name and additional parameter
+  local param = ""
+  local sep = string.find(alg, ":")
+  if sep then
+    alg = string.sub(endp.alg, 1, sep - 1)
+    param = string.sub(endp.alg, sep + 1)
+  end
+  
+  -- prepare oxyds
+  if     (alg == "circle")
+      or (alg == "hide")
+      or (alg == "fourswitch")
+      or (alg == "vortex")
+      or (alg == "gradients")
+      or (alg == "magnets") then
+    -- nothing to prepare
+  elseif (alg == "ralf")
+      or (alg == "allcrack") then
+    endphase_set_block_oxyds(sokoarea_number, endp.door)
+  elseif alg == "block" then
+    endphase_set_block_oxyds(sokoarea_number, param)
+  elseif (alg == "outside") then
+    endphase_set_outside_oxyds(sokoarea_number)
+  elseif alg == "jumpyoxyds" then
+    endphase_set_block_oxyds(sokoarea_number, "jumpy")
+  else
+    mywarning("Endphase algorithm "..alg.." unknown! Will use 'circle' instead.")
+  end
+end
+
+function endphase(sokoarea_number)
+  -- Correct structure of endp-attribute has been checked
+  -- by prepare_endphase, we trust it blindly.
+  local endp = sokoarea[sokoarea_number].design.endp
+  local alg = endp.alg
+  local param = ""
+  local px, py = enigma.GetPos(enigma.GetNamedObject("marble_"..sokoarea_number.."_1"))
+  
+  -- decompose alg into algorithm name and additional parameter
+  local sep = string.find(alg, ":")
+  if sep then
+    alg = string.sub(endp.alg, 1, sep - 1)
+    param = string.sub(endp.alg, sep + 1)
+  end
+  if param == "" then
+    mydebug("Endphase starts of type "..alg..", no parameter.")
+  else
+    mydebug("Endphase starts of type "..alg..", parameter "..param..".")
+  end
+
+  -- redraw level and give items
+  endphase_redraw_level_array(sokoarea_number)
+  local give = endp.give
+  if type(give) == "string" then
+    give = {give}
+  end
+  if type(give) == "table" then
+    for k, v in pairs(give) do
+      if is_item(v) then
+        set_item(v, px, py)
+      elseif is_actor(v) then
+        set_actor(v, px + 0.5, py + 0.5)
+      else
+        myerror("Can't give "..v..".")
+      end
+    end
+  elseif type(give) ~= "nil" then
+    myerror("Can't give something of type "..type(v)..".")
+  end
+
+  if alg == "circle" then
+    endphase_circle(sokoarea_number)
+  elseif alg == "ralf" then
+  
+  elseif alg == "hide" then
+  
+  elseif alg == "outside" then
+  
+  elseif alg == "allcrack" then
+  
+  elseif alg == "block" then
+    -- done in prepare_endphase
+  elseif alg == "fourswitch" then
+  
+  elseif alg == "vortex" then
+  
+  elseif alg == "gradients" then
+  
+  elseif alg == "magnets" then
+  
+  elseif alg == "jumpyoxyds" then
+
+  else
+    -- use default: "circle"
+    endphase_circle(sokoarea_number)
+  end
+end
+
+function endphase_redraw_level_array(sokoarea_number)
+  local nr = sokoarea_number or 1
+  local endp = sokoarea[nr].design.endp
+  local dx = sokoarea[nr].offset.x
+  local dy = sokoarea[nr].offset.y
+  local mx = sokoarea[nr].array_width
+  local my = sokoarea[nr].array_height
+
+  -- If level_width and level_height are set, the level has been drawn
+  -- by create_sokoball. Hence we have to redraw everything outside
+  -- the level_array-area as well:
+  if endp.outf and sokoarea[nr].level_width and sokoarea[nr].level_height then
+    for x = 0, sokoarea[nr].level_width - 1 do
+      for y = 0, sokoarea[nr].level_height - 1 do
+        if (x < dx) or (x > mx+dx-1) or (y < dy) or (y > my+dy-1) then
+          set_element(x, y, nr, k, endp.outf)
+        end
+      end
+    end
+  end  
+
+  -- Now redraw the area inside level_array:
+  for y = 0, my - 1 do
+    for x = 0, mx - 1 do
+      local ch = sokoarea[nr].level_array[y+1][x+1]
+      for k, v in pairs(endp) do
+        if    ((k == "outf") and char_is_outf(ch))
+           or ((k == "inf")  and char_is_inf(ch))
+           or ((k == "wall") and char_is_wall(ch))
+           or ((k == "goal") and char_is_goal(ch)) then
+          set_element(x+dx, y+dy, nr, k, v)
+        end
+      end
+    end
+  end
+end
+
+------------------------------------------------------------------------
+-- Endphase Games and Algorithms
+------------------------------------------------------------------------
+
+function endphase_circle(sokoarea_number)
+  local acname = "marble_"..sokoarea_number.."_1"
+  local flavor = sokoarea[sokoarea_number].design.oxyd or "b"
+  local actor = enigma.GetNamedObject(acname)
+  if not actor then
+    acname = "marble"
+    actor = enigma.GetNamedObject(acname)
+    if not actor then
+      myerror("No marble found. Please name it 'marble'.")  
+    end
+  end
+  local x, y = enigma.GetPos(actor)
+  if x > 10 then
+    x = x - 2
+  end
+  if y > 6 then
+    y = y - 2
+  end
+  for j = 0, 2 do
+    oxyd(x+j, y-1, flavor)
+    oxyd(x-1, y+j, flavor)
+    oxyd(x+j, y+3, flavor)
+    oxyd(x+3, y+j, flavor)
+    for k = 0, 2 do
+      kill_stone(x+j, y+k)
+      kill_item(x+j, y+k)
+      set_element(x+j, y+k, sokoarea_number, "inf")
+    end
+  end
+  set_stone("st-fart", x+1, y+1)
+  oxyd_shuffle()
+end
+
+function endphase_set_outside_oxyds(sokoarea_number)
+  local places = {}
+  local nr = sokoarea_number or 1
+  local dx = sokoarea[nr].offset.x
+  local dy = sokoarea[nr].offset.y
+  local mx = sokoarea[nr].array_width
+  local my = sokoarea[nr].array_height
+  local flavor = sokoarea[nr].design.oxyd or "b"
+
+  -- If level_width and level_height are set, there are more
+  -- oxyds possible than level_array alone would allow:
+  if sokoarea[nr].level_width and sokoarea[nr].level_height then
+    for x = 0, sokoarea[nr].level_width - 1 do
+      for y = 0, sokoarea[nr].level_height - 1 do
+        if (x < dx) or (x > mx+dx-1) or (y < dy) or (y > my+dy-1) then
+          table.insert(places, {x=x, y=y})
+        end
+      end
+    end
+  end  
+
+  -- Now outf-tiles inside level_array and far-away wall-tiles:
+  for y = 0, my - 1 do
+    for x = 0, mx - 1 do
+      local ch = sokoarea[nr].level_array[y+1][x+1]
+      if     char_is_outf(ch) 
+         or (char_is_wall(ch) and no_way_near(x+1, y+1, nr)) then
+        table.insert(places, {x=x+dx, y=y+dy})
+      end
+    end
+  end
+
+  -- Choose some appropriate subset
+  local max = table.getn(places)
+  local number_pairs = 0
+  if max < 2 then
+    myerror("Not enough free places outside. This can't happen?!")
+  elseif max <   4 then  number_pairs = 1
+  else                   number_pairs = 2  end
+  --elseif max <   8 then  number_pairs = 2
+  --elseif max <  30 then  number_pairs = 3
+  --elseif max <  50 then  number_pairs = 4
+  --elseif max <  80 then  number_pairs = 5
+  --elseif max < 120 then  number_pairs = 6
+  --elseif max < 180 then  number_pairs = 7
+  --else                   number_pairs = 8  end
+  for j = 1, max do
+    places[j].sort_field = math.random()
+  end
+  table.sort(places, function (a, b) return a.sort_field < b.sort_field end)
+  for j = 1, number_pairs do
+    oxyd(places[2*j-1].x, places[2*j-1].y, flavor, j)
+    oxyd(places[2*j].x, places[2*j].y, flavor, j)
+  end
+  oxyd_shuffle()
+end
+
+function endphase_set_block_oxyds(sokoarea_number, blocker)
+
+  if 1 + 1 == 2 then return end
+  
+  local places = {}
+  local nr = sokoarea_number or 1
+  local dx = sokoarea[nr].offset.x
+  local dy = sokoarea[nr].offset.y
+  local mx = sokoarea[nr].array_width
+  local my = sokoarea[nr].array_height
+  local flavor = sokoarea[nr].design.oxyd or "b"
+
+  -- If level_width and level_height are set, there are more
+  -- oxyds possible than level_array alone would allow:
+  if sokoarea[nr].level_width and sokoarea[nr].level_height then
+    for x = 0, sokoarea[nr].level_width - 1 do
+      for y = 0, sokoarea[nr].level_height - 1 do
+        local pos = one_tile_far_from_way(x+dx, y+dy, nr)
+        if pos then
+          table.insert(places, {x=x, y=y, door_x=pos.x, door_y=pos.y})
+          --set_stone("st-pull", x, y)
+          --set_floor("fl-red", pos.x, pos.y)
+        end
+      end
+    end
+  else
+    for y = 0, my - 1 do
+      for x = 0, mx - 1 do
+        local pos = one_tile_far_from_way(x+dx, y+dy, nr)
+        if pos then
+          table.insert(places, {x=x, y=y, door_x=pos.x, door_y=pos.y})
+          --set_stone("st-pull", x, y)
+          --set_floor("fl-red", pos.x, pos.y)
+        end
+      end
+    end  
+  end
+
+
+  -- Choose some appropriate subset
+  local max = table.getn(places)
+  local number_pairs = 0
+  if max < 2 then
+    myerror("Not enough free places outside. This can't happen?!")
+  elseif max <   4 then  number_pairs = 1
+  else                   number_pairs = 2  end
+  --elseif max <   8 then  number_pairs = 2
+  --elseif max <  30 then  number_pairs = 3
+  --elseif max <  50 then  number_pairs = 4
+  --elseif max <  80 then  number_pairs = 5
+  --elseif max < 120 then  number_pairs = 6
+  --elseif max < 180 then  number_pairs = 7
+  --else                   number_pairs = 8  end
+  for j = 1, max do
+    places[j].sort_field = math.random()
+  end
+  table.sort(places, function (a, b) return a.sort_field < b.sort_field end)
+  for j = 1, number_pairs do
+    oxyd(places[2*j-1].x, places[2*j-1].y, flavor, j)
+    oxyd(places[2*j].x, places[2*j].y, flavor, j)
+  end
+  oxyd_shuffle()
+end
+
+    ]]></el:luamain>
+    <el:i18n>
+    </el:i18n>
+  </el:protected>
+</el:level>

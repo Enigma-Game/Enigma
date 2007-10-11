@@ -1612,12 +1612,25 @@ void World::stone_change(GridPos p)
             st->freeze_check();
             st = f->stone;
         }
-
+        
         if (Item *it = f->item)
             it->stone_change(st);
 
         if (Floor *fl = f->floor)
             fl->stone_change(st);
+
+        // Additional freeze checks of the surrounding stones.
+        // (Example: In a sokoball level, a stone has been pushed
+        //           onto a goal, thus it should not freeze. But
+        //           perhaps its neighbor is stuck!)
+        if (Stone *stn = GetStone(move(p, NORTH)))
+            stn->freeze_check();
+        if (Stone *stn = GetStone(move(p, SOUTH)))
+            stn->freeze_check();
+        if (Stone *stn = GetStone(move(p, EAST)))
+            stn->freeze_check();
+        if (Stone *stn = GetStone(move(p, WEST)))
+            stn->freeze_check();
 
         lasers::MaybeRecalcLight(p);
     }
