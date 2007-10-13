@@ -32,6 +32,7 @@
 #include "ecl_math.hh"
 #include "ecl_util.hh"
 #include "ecl_cache.hh"
+#include <list>
 
 #define NUMENTRIES(array) (sizeof(array)/sizeof(*array))
 
@@ -127,7 +128,70 @@ namespace enigma
     bool has_dir (DirectionBits db, Direction dir);
 
 
+/* -------------------- GridPos -------------------- */
+
+    struct GridPos {
+        // Variables
+        int x, y;
+
+        // Methods
+        explicit GridPos(int xx=0, int yy=0);
+        explicit GridPos(const ecl::V2& p);
+        void move(Direction dir);
+        ecl::V2 center() const;
+    };
+
+    GridPos move(GridPos p, Direction dir);
+    GridPos move(GridPos p, Direction dir, Direction dir2);
+    bool operator== (GridPos a, GridPos b);
+    bool operator != (GridPos a, GridPos b);
+    bool operator< (GridPos a, GridPos b);
+
+    /* 516
+       203
+       748 */
+    GridPos get_neighbour (GridPos p, int i);
+
+    // source and target have to be adjacent
+    Direction direction_fromto(GridPos source, GridPos target); 
+
+    std::ostream& operator<<(std::ostream& os, const GridPos& val);
+
+
+    // ---------- GridLayer ----------
+
+    enum GridLayer {
+        GRID_FLOOR, 
+        GRID_ITEMS, 
+        GRID_STONES, 
+        GRID_COUNT
+    };
+
+    enum GridLayerBits {
+        GRID_FLOOR_BIT  = 1,
+        GRID_ITEMS_BIT  = 2,
+        GRID_STONES_BIT = 4
+    };
+
+    // ---------- GridLoc ----------
+
+    struct GridLoc {
+        // Variables
+        GridPos pos;
+        GridLayer layer;
+
+        // Constructor
+        GridLoc(GridLayer l = GRID_FLOOR, GridPos p = GridPos());
+    };
+
+    /*! Converts strings like "it(10 10)", "st(5 2)" to GridLoc
+      structures. */
+    bool to_gridloc (const char *str, GridLoc &loc);
+
+
 /* -------------------- Value -------------------- */
+
+    typedef std::list<world::Object *> ObjectList;
 
     /**
      * A flexible container for various types of data. This class is one
@@ -147,15 +211,11 @@ namespace enigma
      * Value are converted to required types as far as possible and in a
      * LUA compatible manner.
      * 
-     * Due to the history of Enigma and LUA the bool values are not a native
-     * type. The value "false" is coded as type "NIL". Every Value besides
-     * type "NIL" and "DEFAULT" is interpreted as "true". All attributes 
-     * should be declared with a default value of "false". Bool Values can
-     * not be assigned directly to a bool variable. Use the to_bool() method
-     * for retrieving proper bool values.
+     * Bool Values can not be assigned directly to a bool variable. Use the
+     * to_bool() method for retrieving proper bool values.
      * 
      * A special Value type called "DEFAULT" exists within the C++ engine. It
-     * describes a not existing Value. The receiver of this Value should use
+     * describes a not explicitly set Value. The receiver of this Value should use
      * or request the default behaviour. "DEFAULT" Values are the only Values
      * that are converted to bool "false". All other Values convert to bool 
      * "true". Thus a value can be checked for existance by evaluating it as a
@@ -186,9 +246,10 @@ namespace enigma
                       ///< for other numericals values like "int", too.
             STRING,   ///< Value is a string. Such a string may encode another
                       ///< type that has no native representation in Value
-            OBJECT,    ///< Value is an object id. The id is a persistent object
+            OBJECT,   ///< Value is an object id. The id is a persistent object
                       ///< identifier.
-            GROUP     ///< Value is a group of objects.
+            GROUP,    ///< Value is a group of objects.
+            POSITION  ///< Value is a position
         };
 
         Value();                       ///< Constructor for NIL value that 
@@ -202,6 +263,10 @@ namespace enigma
         Value(bool b);                 ///< Constructor for BOOL value
         Value(Object *obj);            ///< Constructor for OBJECT value that properly
                                        ///< represents a persistent reference to an object
+        Value(ObjectList aList);       ///< Constructor for OBJECT value that properly
+                                       ///< represents a set of objects
+        Value(ecl::V2 pos);            ///< Constructor for POSITION value
+        Value(GridPos gpos);           ///< Constructor for POSITION value
         Value(Type t);                 ///< Constructor for a given type. The
                                        ///< value defaults to 0.0 or ""
         ~Value();
@@ -263,6 +328,21 @@ namespace enigma
         operator Object *() const;
         
         /**
+         * Conversion of a value to an object set.
+         */
+        operator ObjectList() const;
+        
+        /**
+         * Conversion of a value to a position vector.
+         */
+        operator ecl::V2() const;
+        
+        /**
+         * Conversion of a value to a grid position.
+         */
+        operator GridPos() const;
+        
+        /**
          * Conversion of a value to a <code>char *</code> just for initialization
          * of a std::string. Numerical values are converted to a string like it
          * id done by LUA. All other values default to an empty string.
@@ -305,7 +385,7 @@ namespace enigma
         // Variables
         Type type;
         union {
-            double dval;
+            double dval[2];
             char* str;
         } val;
     };
@@ -326,67 +406,6 @@ namespace enigma
         virtual void tick (double /*dtime*/) {}
         virtual void alarm() {}
     };
-
-/* -------------------- GridPos -------------------- */
-
-    struct GridPos {
-        // Variables
-        int x, y;
-
-        // Methods
-        explicit GridPos(int xx=0, int yy=0);
-        explicit GridPos(const ecl::V2& p);
-        void move(Direction dir);
-        ecl::V2 center() const;
-    };
-
-    GridPos move(GridPos p, Direction dir);
-    GridPos move(GridPos p, Direction dir, Direction dir2);
-    bool operator== (GridPos a, GridPos b);
-    bool operator != (GridPos a, GridPos b);
-    bool operator< (GridPos a, GridPos b);
-
-    /* 516
-       203
-       748 */
-    GridPos get_neighbour (GridPos p, int i);
-
-    // source and target have to be adjacent
-    Direction direction_fromto(GridPos source, GridPos target); 
-
-    std::ostream& operator<<(std::ostream& os, const GridPos& val);
-
-
-    // ---------- GridLayer ----------
-
-    enum GridLayer {
-        GRID_FLOOR, 
-        GRID_ITEMS, 
-        GRID_STONES, 
-        GRID_COUNT
-    };
-
-    enum GridLayerBits {
-        GRID_FLOOR_BIT  = 1,
-        GRID_ITEMS_BIT  = 2,
-        GRID_STONES_BIT = 4
-    };
-
-    // ---------- GridLoc ----------
-
-    struct GridLoc {
-        // Variables
-        GridPos pos;
-        GridLayer layer;
-
-        // Constructor
-        GridLoc(GridLayer l = GRID_FLOOR, GridPos p = GridPos());
-    };
-
-    /*! Converts strings like "it(10 10)", "st(5 2)" to GridLoc
-      structures. */
-    bool to_gridloc (const char *str, GridLoc &loc);
-
 
 /* -------------------- Random Numbers -------------------- */
 

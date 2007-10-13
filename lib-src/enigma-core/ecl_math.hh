@@ -51,8 +51,8 @@ namespace ecl
         T v[N];
         typedef Vector<T, N> vector_type;
     protected:
-    	class noinit {};
-    	Vector(noinit) {}
+        class noinit {};
+        Vector(noinit) {}
     public:
 
         // Constructors.
@@ -235,14 +235,14 @@ namespace ecl
 
     class V3 : public Vector<double, 3> {
     public:
-    	V3() {}
-	V3(double x, double y, double z) :
-	    Vector<double, 3>(noinit())
-	{
-	    (*this)[0] = x;
-	    (*this)[1] = y;
-	    (*this)[2] = z;
-	}
+        V3() {}
+        V3(double x, double y, double z) :
+            Vector<double, 3>(noinit())
+        {
+            (*this)[0] = x;
+            (*this)[1] = y;
+            (*this)[2] = z;
+        }
         V3(const Vector<double,3> &v_) : Vector<double,3>(v_) {}
         V3 &operator=(const Vector<double,3> &v_) {
             Vector<double,3>::operator=(v_);
@@ -255,7 +255,7 @@ namespace ecl
     crossprod(const V3 & a, const V3 & b)
     {
         V3 r;
-	r[0] = a[1]*b[2] - a[2]*b[1];
+        r[0] = a[1]*b[2] - a[2]*b[1];
         r[1] = a[2]*b[0] - a[0]*b[2];
         r[2] = a[0]*b[1] - a[1]*b[0];
         return r;
@@ -265,15 +265,15 @@ namespace ecl
 
     class V2 : public Vector<double, 2> {
     public:
-	typedef double T;
+        typedef double T;
 
-    	V2() {}
-	V2(T x, T y) :
-	    Vector<T,2>(noinit())
-	{
-	    (*this)[0] = x;
-	    (*this)[1] = y;
-	}
+        V2() {}
+        V2(T x, T y) :
+            Vector<T,2>(noinit())
+        {
+            (*this)[0] = x;
+            (*this)[1] = y;
+        }
         V2 (const Vector<T,2> &v_) : Vector<T,2>(v_) {}
         V2 &operator=(const Vector<T,2> &v_) {
             Vector<T,2>::operator=(v_);

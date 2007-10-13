@@ -23,10 +23,12 @@
 #include "ecl.hh"
 #include "main.hh"
 #include "objects_decl.hh"
+#include "world.hh"
 
 #include <iostream>
 #include <ctime>
 #include <set>
+#include <vector>
 
 using namespace std;
 using namespace ecl;
@@ -133,38 +135,73 @@ Value::Value(const char* str) : type (STRING) {
 }
 
 Value::Value(double d) : type (DOUBLE) {
-     val.dval = d;
+     val.dval[0] = d;
 }
 
 Value::Value(int i) : type (DOUBLE) {
-     val.dval = i;
+     val.dval[0] = i;
 }
 
 Value::Value(bool b) : type (BOOL) {
-     val.dval = b;
+     val.dval[0] = b;
 }
 
 Value::Value(Object *obj) : type (OBJECT) {
      if (obj != NULL)
-         val.dval = obj->getId();
+         val.dval[0] = obj->getId();
      else
-         val.dval = 0;
+         val.dval[0] = 0;
+}
+
+Value::Value(ObjectList aList) : type (GROUP) {
+    std::string descriptor;
+    ObjectList::iterator it;
+    for (it = aList.begin(); it != aList.end(); ++it) {
+        if (*it == NULL)
+            descriptor.append("$0,");
+        else {
+            Value v = (*it)->getAttr("name");
+            if (v && v.type == STRING && strcmp(v.val.str, "") != 0) {
+                descriptor.append(v);
+                descriptor.append(",");
+            } else {
+                descriptor.append(ecl::strf("$%d,", (*it)->getId()));
+            }   
+        }
+    }
+    val.str =  new char[descriptor.size() + 1];
+    strcpy(val.str, descriptor.c_str());
+//    Log << "Value ObjectList '" << descriptor << "'\n";
+}
+
+Value::Value(ecl::V2 pos) : type (POSITION) {
+     val.dval[0] = pos[0];
+     val.dval[1] = pos[1];
+}
+
+Value::Value(GridPos gpos) : type (POSITION) {
+     val.dval[0] = gpos.x;
+     val.dval[1] = gpos.y;
 }
 
 Value::Value(Type t) : type (t) {
     switch (t) {
+        case POSITION :
+            val.dval[1] = 0;
+            // fall thorough
         case DOUBLE :
-            val.dval = 0;
+            val.dval[0] = 0;
             break;
         case STRING :
+        case GROUP :
             val.str = new char[1];
             val.str[0] = 0;
             break;
         case BOOL :
-            val.dval = false;
+            val.dval[0] = false;
             break;
         case OBJECT :
-            val.dval = (double) NULL;
+            val.dval[0] = (double) NULL;
             break;
     }
 }
@@ -185,12 +222,18 @@ Value::Value (const Value& other) : type(NIL) {
 
 Value& Value::operator= (const Value& other) {
     if (this != &other) {
-        if (other.type == STRING) {
-            assign(other.val.str);
-        } else {
-            clear();
-            type = other.type;
-            val = other.val;
+        switch (other.type) {
+            case STRING:
+                assign(other.val.str);
+                break;
+            case GROUP:
+                assign(other.val.str);
+                type = GROUP;
+                break;
+            default:
+                clear();
+                type = other.type;
+                val = other.val;
         }
     }
     return *this;
@@ -204,9 +247,12 @@ bool Value::operator==(const Value& other) const {
             case DOUBLE :
             case BOOL :
             case OBJECT :
-                return val.dval == other.val.dval;
+                return val.dval[0] == other.val.dval[0];
             case STRING :
+            case GROUP :
                 return strcmp(val.str, other.val.str) == 0;
+            case POSITION :
+                return (val.dval[0] == other.val.dval[0]) && (val.dval[1] == other.val.dval[1]);
         }
     return true;
 }
@@ -234,7 +280,7 @@ Value::operator double() const {
     switch (type) {
         case DOUBLE: 
         case BOOL: 
-            return val.dval;
+            return val.dval[0];
         case STRING:
             return atof(val.str);  // TODO use strtod and eval remaining part of string
         default:
@@ -246,7 +292,7 @@ Value::operator int() const {
     switch (type) {
         case DOUBLE:
         case BOOL: 
-            return round_nearest<int>(val.dval);
+            return round_nearest<int>(val.dval[0]);
         case STRING: 
             return atoi(val.str);  //TODO use strtol and eval remaining part of string
         default: return 0;
@@ -256,8 +302,52 @@ Value::operator int() const {
 Value::operator Object *() const {
     switch (type) {
         case OBJECT:
-            return Object::getObject(round_nearest<int>(val.dval));
+            return Object::getObject(round_nearest<int>(val.dval[0]));
+        case STRING:
+            return world::GetNamedObject(val.str);            
         default: return NULL;
+    }
+}
+
+Value::operator ObjectList() const {
+    ObjectList result;
+    switch (type) {
+        case OBJECT:
+        case STRING:
+            result.push_back(*this);
+            break;
+        case GROUP:
+            std::vector<std::string> vs;
+            ecl::split_copy(std::string(val.str), ',', back_inserter(vs));
+            for (std::vector<std::string>::iterator it = vs.begin(); it != vs.end(); ++it) {
+                if (it->size() > 0) {
+                    if ((*it)[0] == '$') {
+                        result.push_back(Object::getObject(atoi((it->c_str()) + 1)));
+                    } else {
+                        result.push_back(world::GetNamedObject(*it));
+                    }
+                }
+            }
+            break;
+    }
+    return result;
+}
+
+Value::operator ecl::V2() const {
+    switch (type) {
+        case POSITION:
+            return ecl::V2(val.dval[0], val.dval[1]);
+        default:
+            return ecl::V2(0, 0);
+    }
+}
+
+Value::operator GridPos() const {
+    switch (type) {
+        case POSITION:
+            return GridPos(round_down<int>(val.dval[0]), round_down<int>(val.dval[1]));
+        default:
+            return GridPos(0, 0);
     }
 }
 
@@ -265,7 +355,7 @@ Value::operator const char*() const {
     static std::string s;
     switch (type) {
         case Value::DOUBLE:
-            s = ecl::strf("%g", val.dval);  // need drop of trailing zeros and point for int
+            s = ecl::strf("%g", val.dval[0]);  // need drop of trailing zeros and point for int
             return s.c_str();
         case Value::STRING: 
             return val.str;
@@ -285,12 +375,16 @@ void Value::assign(const char* s) {
 }
 
 void Value::assign(double d) { 
-    clear(); type=DOUBLE; val.dval=d; 
+    clear(); type=DOUBLE; val.dval[0]=d; 
 }
 
 void Value::clear() {
-    if (type == STRING)
-	delete[] val.str;
+    switch (type) {
+        case STRING:
+        case GROUP:
+    	   delete[] val.str;
+           break;
+    }
     type = NIL;
 }
 
@@ -300,7 +394,7 @@ Value::Type Value::getType() const {
 
 double Value::get_double() const throw(){
     ASSERT(type == DOUBLE, XLevelRuntime, "get_double: type not double");
-    return val.dval;
+    return val.dval[0];
 }
 
 const char* Value::get_string() const throw() {
@@ -319,7 +413,7 @@ std::string Value::to_string() const{
 bool Value::to_bool() const {
     switch (type) {
         case BOOL :
-            return val.dval;
+            return val.dval[0];
         case NIL :
         case DEFAULT :
             return false;
@@ -398,7 +492,6 @@ bool enigma::to_gridloc (const char *str, GridLoc &l) {
 }
 
 
-
 
 /* -------------------- Random numbers -------------------- */
 
@@ -423,7 +516,7 @@ double enigma::DoubleRand (double min, double max)
     return min + double(rand())/RAND_MAX * (max-min);
 }
 
-
+
 /* -------------------- Time & Date -------------------- */
 
 #define MAX_DATE_LENGTH 256
@@ -443,7 +536,7 @@ const char *enigma::date(const char *format) { // format see 'man strftime'
     return result;
 }
 
-
+
 /* -------------------- Resource management -------------------- */
 
 namespace

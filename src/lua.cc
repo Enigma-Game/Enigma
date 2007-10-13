@@ -219,6 +219,106 @@ static void pushobject(lua_State *L, Object *obj) {
     }
 }
 
+static std::list<Object *> toObjectList(lua_State *L, int idx) {
+    std::list<Object *> objects;
+    
+    if (is_group(L, idx)) {
+        lua_getmetatable(L, idx);
+        int numObjects = lua_objlen(L, -1);
+        for (int i = 1; i <= numObjects; ++i) {
+            lua_rawgeti(L, -1, i);  // the object
+            objects.push_back(to_object(L, -1));
+            lua_pop(L, 1);          // the object        
+        }
+        lua_pop(L, 1);          // the metatable        
+    }
+    return objects;
+}
+
+static int pushNewGroup(lua_State *L, std::list<Object *> objects) {
+    // NULL objects and duplicates entries in the list will be eliminated
+    int *udata;
+    udata=(int *)lua_newuserdata(L,sizeof(int));   // group user object
+    *udata = 1;
+    
+    lua_newtable(L);  // individual metatable copy
+    luaL_getmetatable(L, LUA_ID_GROUP);
+    // copy metatable template
+    lua_pushnil(L);  // first key
+    while (lua_next(L, -2) != 0) {
+         // key is at index -2 and value at index -1
+         lua_pushvalue(L, -2);   // copy key
+         lua_insert(L, -2);      // insert key copy below value
+         lua_settable(L, -5);    // individual metatable
+    }    
+    lua_pop(L, 1);  // remove metatable template
+
+    std::set<Object *> unique;
+    std::list<Object *>::iterator it = objects.begin();
+    for (int i = 1; it != objects.end(); ++it, ++i) {
+        if (*it) {  // existing object not NULL
+            if (unique.find(*it) == unique.end()) {
+                unique.insert(*it);
+                pushobject(L, *it);
+                lua_rawseti(L, -2, i);
+            }
+        }
+    }
+
+    lua_setmetatable(L, -2);    
+    return 1;
+}
+
+static ecl::V2 toPosition(lua_State *L, int idx) {
+    double x = 0;
+    double y = 0;
+    if (is_position(L, -1)) {  // position
+        lua_getmetatable(L, -1);
+        lua_rawgeti(L, -1, 1);
+        lua_rawgeti(L, -2, 2);
+        x = lua_tonumber(L, -2);
+        y = lua_tonumber(L, -1);
+        lua_pop(L, 3);
+    }
+    return ecl::V2(x, y);
+}
+
+static int pushNewPosition(lua_State *L) {
+    // x at -2, y at -1
+    int *udata;
+    udata=(int *)lua_newuserdata(L,sizeof(int));   // position user object
+    *udata = 1;
+    
+    lua_newtable(L);  // individual metatable copy
+    luaL_getmetatable(L, LUA_ID_POSITION);
+    // copy metatable template
+    lua_pushnil(L);  // first key
+    while (lua_next(L, -2) != 0) {
+         // key is at index -2 and value at index -1
+         lua_pushvalue(L, -2);   // copy key
+         lua_insert(L, -2);      // insert key copy below value
+         lua_settable(L, -5);    // individual metatable
+    }    
+    lua_pop(L, 1);  // remove metatable template
+
+    lua_pushvalue(L, -4);
+    lua_rawseti(L, -2, 1);
+    lua_pushvalue(L, -3);
+    lua_rawseti(L, -2, 2);
+
+    lua_setmetatable(L, -2);    
+    return 1;
+}
+
+static int pushNewPosition(lua_State *L, ecl::V2 pos) {
+    lua_pushnumber(L, pos[0]);   
+    lua_pushnumber(L, pos[1]);
+    pushNewPosition(L); 
+    lua_remove(L, -3);    // pos[0]
+    lua_remove(L, -2);    // pos[1]
+    return 1;
+}
+
 static void push_value(lua_State *L, const Value &val) {
     switch (val.getType()) {
         case Value::NIL:
@@ -244,6 +344,12 @@ static void push_value(lua_State *L, const Value &val) {
         case Value::OBJECT:
             pushobject(L, (Object *)val);
             break;
+        case Value::GROUP:
+            pushNewGroup(L, val);
+            break;
+        case Value::POSITION:
+            pushNewPosition(L, val);
+            break;
     }
 }
 
@@ -260,6 +366,10 @@ static Value to_value(lua_State *L, int idx) {
         case LUA_TUSERDATA:
             if (is_object(L, idx))
                 return Value(to_object(L, idx));
+            else  if (is_group(L, idx))
+                return Value(toObjectList(L, idx));
+            else  if (is_position(L, idx))
+                return Value(toPosition(L, idx));
         default: 
             throwLuaError(L,"Cannot convert type to Value.");
     }
@@ -687,33 +797,6 @@ int loadLib(lua_State *L)
 
 /* -------------------- new functions -------------------- */
 
-static int pushNewPosition(lua_State *L) {
-    // x at -2, y at -1
-    int *udata;
-    udata=(int *)lua_newuserdata(L,sizeof(int));   // position user object
-    *udata = 1;
-    
-    lua_newtable(L);  // individual metatable copy
-    luaL_getmetatable(L, LUA_ID_POSITION);
-    // copy metatable template
-    lua_pushnil(L);  // first key
-    while (lua_next(L, -2) != 0) {
-         // key is at index -2 and value at index -1
-         lua_pushvalue(L, -2);   // copy key
-         lua_insert(L, -2);      // insert key copy below value
-         lua_settable(L, -5);    // individual metatable
-    }    
-    lua_pop(L, 1);  // remove metatable template
-
-    lua_pushvalue(L, -4);
-    lua_rawseti(L, -2, 1);
-    lua_pushvalue(L, -3);
-    lua_rawseti(L, -2, 2);
-
-    lua_setmetatable(L, -2);    
-    return 1;
-}
-
 static int newPosition(lua_State *L) {
     // (pos|obj|table|(num,num))
     if (is_table(L, 1)) {  // table 
@@ -1132,39 +1215,6 @@ static int groupDirectMessage(lua_State *L) {
     return groupMessage(L);
 }
 
-static int pushNewGroup(lua_State *L, std::list<Object *> objects) {
-    // NULL objects and duplicates entries in the list will be eliminated
-    int *udata;
-    udata=(int *)lua_newuserdata(L,sizeof(int));   // group user object
-    *udata = 1;
-    
-    lua_newtable(L);  // individual metatable copy
-    luaL_getmetatable(L, LUA_ID_GROUP);
-    // copy metatable template
-    lua_pushnil(L);  // first key
-    while (lua_next(L, -2) != 0) {
-         // key is at index -2 and value at index -1
-         lua_pushvalue(L, -2);   // copy key
-         lua_insert(L, -2);      // insert key copy below value
-         lua_settable(L, -5);    // individual metatable
-    }    
-    lua_pop(L, 1);  // remove metatable template
-
-    std::set<Object *> unique;
-    std::list<Object *>::iterator it = objects.begin();
-    for (int i = 1; it != objects.end(); ++it, ++i) {
-        if (*it) {  // existing object not NULL
-            if (unique.find(*it) == unique.end()) {
-                unique.insert(*it);
-                pushobject(L, *it);
-                lua_rawseti(L, -2, i);
-            }
-        }
-    }
-
-    lua_setmetatable(L, -2);    
-    return 1;
-}
 
 static int newGroup(lua_State *L) {
     // (table | (obj[,obj]))
