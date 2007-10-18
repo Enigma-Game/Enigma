@@ -44,7 +44,7 @@ public class ScoreEvaluation {
                 ScoreManager scm = new ScoreManager(zin);
                 scm.checkUser(userMgr, false);
                 scm.checkScores(ratingMgr, userMgr, false);
-                scm.evaluateScores(ratingMgr);
+                scm.evaluateScores(ratingMgr, userMgr);
                 numUsers++;
             }
             

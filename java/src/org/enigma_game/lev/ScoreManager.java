@@ -186,8 +186,10 @@ public class ScoreManager {
     
     public void checkScores(RatingManager ratingMgr, UserManager userMgr, boolean checkSec) {
         ratingMgr.clearUserScores();
-        String user = getProperty("UserName");
         String userId = getProperty("UserId");
+        String user = getProperty("UserName");
+        if (user.equals(""))
+            user = userMgr.getValue(userId, "name");
         int numRatings = 0;
         int sumRatings = 0;
         for (int i = 0; i < levelElems.getLength(); i++) {
@@ -243,8 +245,10 @@ public class ScoreManager {
         isProfessional = ratingMgr.isUserProfessional(userMgr, getProperty("UserId"), checkSec);
     }
     
-    public void evaluateScores(RatingManager ratingMgr) {
+    public void evaluateScores(RatingManager ratingMgr, UserManager userMgr) {
         String user = getProperty("UserName");
+        if (user.equals(""))
+            user = userMgr.getValue(getProperty("UserId"), "name");
         for (int i = 0; i < levelElems.getLength(); i++) {
             Element e = (Element) levelElems.item(i);
             LevelScore ls = ratingMgr.getLevelScore(e.getAttribute("id"),
