@@ -52,33 +52,61 @@
 --
 --   [5] = { outf = "fl-leaves", inf = "fl-leavesb", box = "st-wood"
 --           wall = {"st-glass", "fl-wood", "fl-leaves", "al:random"},
---           oxyd = "a", white = true }
+--           oxyd = "a", white = true,
+--           endp = {goal = {"fl-abyss", "it-none"}, give = "it-hammer",
+--                   alg = "block:st-break_acwhite"}}
 --
 --   will define design 5. The walls will alternate between
 --   st-glass/fl-wood and st-glass/fl-leaves. The goal will be
 --   it-trigger by default. The actor will be ac-whiteball.
+--   The boxes will be "st-wood". There will be oxyds visible
+--   from the beginning, but they are blocked by st-break_acwhite.
+--   When all goals are filled, the st-wood are removed by setting
+--   fl-abyss (by which they become fl-stwood), the goal-item is
+--   removed. The player is finally given an it-hammer.
 --
 -- Possible flags:
 --
 --   white  : Use white marble and st-chess_white.
 --
--- Algorithms:
+-- Design-Algorithms:
 --
 --   checkerboard : default, up to 3 different floors in checkerboard pattern
 --   lines : arbitrary number of floors in diagonal lines
 --   waves : works best with 4 different floors
 --   random : arbitrary number of floors, randomly chosen
 --
-
+-- Endphase-Algorithms and their parameters:
+--
+--   circle         : arrange eight oxyds in a circle (default)
+--   hide           : position oxyds in the outer walls
+--     gradients:X  : like hide, create gradients, with force X
+--     magnets:X    : like hide, create magnets, with force X
+--   fourswitch     : create a fourswitch-puzzle
+--   ralf           : arrange oxyds with doors
+--     vortex       : like ralf, create vortices between way-clusters
+--     allcrack     : like ralf, create cracks everywhere
+--     jumpyoxyds   : like ralf, oxyds are movable by knocking on the door
+--   block:X        : create oxyds with blocking object X
+--   outside:X      : create X oxyd-pairs in the outside and outer walls
+  
 default_design = {
   wall = { "st-rock3", "fl-leaves" },
    inf = { "fl-wood" },
-  outf = { "fl-water", "st-invisible" },
+  outf = { "fl-water" },
    box = { "st-brownie" },
   goal = { "it-trigger" },
   oxyd = "a",
-  endp = { alg = "circle" }
+  endp = { alg = "circle" },
+  outf_default_stone = "st-invisible"
 }
+
+-- outf_default_stone has the following meaning: When outf is drawn
+-- by set_element, but no stone is set, outf_default_stone is used
+-- instead. You can suppress this behaviour by explicitly setting
+-- outf = { "fl-myfloor", "st-none" }.
+-- This is done to avoid a chess-stone from jumping into the void,
+-- as a present to the gamer.
 
 design_list = {
 
@@ -101,7 +129,7 @@ design_list = {
      endp={goal="st-none", wall={"st-none", "fl-bluegray"}, alg="outside"}},
 [5]={box="st-wood", wall="st-bluegray", inf="fl-white",
      outf="fl-space", door="st-door_c", oxyd="c",
-     endp={goal={"fl-abyss", "it-none"}, wall={"st-bluegray_hole"}, alg="outside"}},
+     endp={goal={"fl-abyss", "it-none"}, wall={"st-bluegray_hole"}, alg="outside:3"}},
 [6]={box="st-greenbrown_move", wall="st-bluegray", inf="fl-white",
      outf="fl-space", door="st-door_b", oxyd="c",
      endp={goal="st-greenbrown_hole", wall="st-thief", give="it-sword",
@@ -185,7 +213,7 @@ design_list = {
       endp={goal={"fl-abyss", "it-none"}, give="it-hammer", alg="block:st-stone_break"}},
 [31]={box="st-glass_move", wall="st-likeoxydc-open", inf="fl-tigris",
       outf="fl-space", door="st-door_b", oxyd="a",
-      endp={wall="st-grate1", give="it-cherry", alg="outside"}},
+      endp={wall="st-grate1", give="it-cherry", alg="outside:3"}},
 
 [32]={box="st-block", wall="st-metal", inf="fl-bluegray",
       outf="fl-space", door="st-blocker", oxyd="d",
@@ -218,14 +246,14 @@ design_list = {
 [41]={box="st-brownie", wall="st-rock1", inf="fl-rough",
       outf="fl-space", door="st-door_a", oxyd="c",
       endp={goal={"st-none", "it-none", "fl-hay"}, wall="st-rock1_hole",
-            alg="outside"}},
+            alg="outside:3"}},
 [42]={box="st-greenbrown_move", wall="st-rock1", inf="fl-rough",
       outf="fl-sahara", door="st-door_b", oxyd="c",
       endp={goal="st-greenbrown", alg="vortex"}},
 
 [43]={box="st-brownie", wall="st-rock3", inf="fl-leaves",
       outf="fl-space", door="st-door_a", oxyd="a",
-      endp={goal="st-rock3_hole", wall="st-rock3_hole", alg="outside"}},
+      endp={goal="st-rock3_hole", wall="st-rock3_hole", alg="outside:3"}},
 [44]={box="st-marble_move", wall="st-rock3", inf="fl-leaves",
       outf="fl-rough-blue", door="st-door_b", oxyd="b",
       endp={"st-marble_hole", alg="ralf"}},
@@ -424,7 +452,9 @@ design_list = {
        outf={"fl-abyss", "st-grate1", "st-none", "st-none", "st-none", "st-none", "st-none", "st-none",
        "st-none", "st-none", "st-none", "st-none", "al:random"}, door="st-door_a", oxyd="c", white = true},
 [147]={box="st-wood", wall="st-whiteballs", inf="fl-gray", white = true,
-       outf={"fl-gradient5", "fl-gradient6", "fl-gradient7", "fl-gradient8", "al:waves"}, door="st-door_a", oxyd="a"},
+       outf={"fl-gradient5", "fl-gradient6", "fl-gradient7", "fl-gradient8", "al:waves"},
+       door="st-door_a", oxyd="a",
+       endp={goal={"st-none", "it-none"}, alg="gradients"}},
 [148]={box="st-shogun-s", wall="st-metal", inf="fl-rough-blue", white = true,
        outf={"fl-rough-red", "fl-rough-blue", "st-disco-light"}, door="st-door_a", oxyd="a"},
 [149]={box="st-shogun-s", wall="st-yellow", inf="fl-wood", outf="fl-swamp", door="st-door_a",

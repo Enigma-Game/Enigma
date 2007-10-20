@@ -27,24 +27,34 @@
 
 function goal_trigger(onoff, sender)
   local x, y = enigma.GetPos(sender)
-  local nr = enigma.GetAttrib(sender, "sokoarea")
+  local nr = enigma.GetAttrib(sender, "_sokoarea")
   local more_boxes = false  -- memorizes whether a box was added or removed
   if sokoarea[nr].endphase_started then
     return
   end
-  if(enigma.GetAttrib(sender, "box") == 0) then
+
+  -- A new stone? Or has a stone been removed?
+  if(enigma.GetAttrib(sender, "_box") == 0) then
     if enigma.GetStone(x,y) then
-      enigma.SetAttrib(sender, "box", 1)
+      enigma.SetAttrib(sender, "_box", 1)
       sokoarea[nr].goals_filled = sokoarea[nr].goals_filled + 1
+      more_boxes = true
+    else
+      -- blind alarm, probably a marble
+      return
     end
   else
-    enigma.SetAttrib(sender, "box", 0)
+    enigma.SetAttrib(sender, "_box", 0)
     sokoarea[nr].goals_filled = sokoarea[nr].goals_filled - 1
   end
+  
+  -- Call goal_hook, e.g. for algorithms "ralf" and "allcrack".
   if type(goal_hook) == "function" then
     goal_hook(nr, sender, more_boxes, sokoarea[nr].goals_filled,
               sokoarea[nr].number_goals)
   end
+  
+  -- Start endphase?
   if sokoarea[nr].goals_filled == sokoarea[nr].number_goals then
     sokoarea[nr].endphase_started = true
     if type(sokoarea[nr].endphase_hook) == "function" then
@@ -56,6 +66,10 @@ function goal_trigger(onoff, sender)
 end
 
 function prepare_endphase(sokoarea_number)
+  -- ensure existence of goals
+  if sokoarea[1].number_goals < 1 then
+    myerror("No goals defined!\n")
+  end
   -- ensure a correctly set endphase-attribute
   local endp = sokoarea[sokoarea_number].design.endp
   if not endp then
@@ -90,13 +104,15 @@ function prepare_endphase(sokoarea_number)
     -- nothing to prepare
   elseif (alg == "ralf")
       or (alg == "allcrack") then
-    endphase_set_block_oxyds(sokoarea_number, endp.door)
+    endphase_set_block_oxyds(sokoarea_number, sokoarea[sokoarea_number].design.door)
+    goal_hook = endphase_goal_hook_ralf
   elseif alg == "block" then
     endphase_set_block_oxyds(sokoarea_number, param)
   elseif (alg == "outside") then
-    endphase_set_outside_oxyds(sokoarea_number)
+    endphase_set_outside_oxyds(sokoarea_number, param)
   elseif alg == "jumpyoxyds" then
     endphase_set_block_oxyds(sokoarea_number, "jumpy")
+    goal_hook = endphase_goal_hook_ralf
   else
     mywarning("Endphase algorithm "..alg.." unknown! Will use 'circle' instead.")
   end
@@ -144,26 +160,25 @@ function endphase(sokoarea_number)
 
   if alg == "circle" then
     endphase_circle(sokoarea_number)
-  elseif alg == "ralf" then
-  
   elseif alg == "hide" then
-  
-  elseif alg == "outside" then
-  
+    endphase_set_hide_oxyds(sokoarea_number)  
+  elseif    (alg == "ralf")
+         or (alg == "outside")
+         or (alg == "block")
+         or (alg == "jumpyoxyds") then
+    endphase_ralf_open_doors(sokoarea_number)
   elseif alg == "allcrack" then
-  
-  elseif alg == "block" then
-    -- done in prepare_endphase
+    endphase_allcrack(sokoarea_number)
   elseif alg == "fourswitch" then
-  
+    endphase_fourswitch(sokoarea_number)
   elseif alg == "vortex" then
-  
+    -- ?
   elseif alg == "gradients" then
-  
+    endphase_set_hide_oxyds(sokoarea_number)
+    endphase_gradients(sokoarea_number, param)
   elseif alg == "magnets" then
-  
-  elseif alg == "jumpyoxyds" then
-
+    endphase_set_hide_oxyds(sokoarea_number)
+    endphase_magnets(sokoarea_number, param)
   else
     -- use default: "circle"
     endphase_circle(sokoarea_number)
@@ -175,29 +190,18 @@ function endphase_redraw_level_array(sokoarea_number)
   local endp = sokoarea[nr].design.endp
   local dx = sokoarea[nr].offset.x
   local dy = sokoarea[nr].offset.y
-  local mx = sokoarea[nr].array_width
-  local my = sokoarea[nr].array_height
 
-  -- If level_width and level_height are set, the level has been drawn
-  -- by create_sokoball. Hence we have to redraw everything outside
-  -- the level_array-area as well:
-  if endp.outf and sokoarea[nr].level_width and sokoarea[nr].level_height then
-    for x = 0, sokoarea[nr].level_width - 1 do
-      for y = 0, sokoarea[nr].level_height - 1 do
-        if (x < dx) or (x > mx+dx-1) or (y < dy) or (y > my+dy-1) then
-          set_element(x, y, nr, k, endp.outf)
-        end
-      end
-    end
-  end  
+  -- redraw outside
+  for p, v in pairs(sokoarea[nr].list_outside) do
+    set_element(v.lx, v.ly, nr, k, endp.outf)
+  end
 
-  -- Now redraw the area inside level_array:
-  for y = 0, my - 1 do
-    for x = 0, mx - 1 do
+  -- redraw the rest inside level_array:
+  for y = 0, sokoarea[nr].array_height - 1 do
+    for x = 0, sokoarea[nr].array_width - 1 do
       local ch = sokoarea[nr].level_array[y+1][x+1]
       for k, v in pairs(endp) do
-        if    ((k == "outf") and char_is_outf(ch))
-           or ((k == "inf")  and char_is_inf(ch))
+        if    ((k == "inf")  and char_is_inf(ch))
            or ((k == "wall") and char_is_wall(ch))
            or ((k == "goal") and char_is_goal(ch)) then
           set_element(x+dx, y+dy, nr, k, v)
@@ -244,7 +248,11 @@ function endphase_circle(sokoarea_number)
   oxyd_shuffle()
 end
 
-function endphase_set_outside_oxyds(sokoarea_number)
+-- endphase_set_outside_oxyds distributes oxyds over the outside and
+-- wall_two-area of the level. There will be 2 to 5 pairs of oxyds
+-- depending on the amount of space. PARAM may define a maximal
+-- number of oxyd pairs (good for outf = "fl-space").
+function endphase_set_outside_oxyds(sokoarea_number, param)
   local places = {}
   local nr = sokoarea_number or 1
   local dx = sokoarea[nr].offset.x
@@ -253,118 +261,288 @@ function endphase_set_outside_oxyds(sokoarea_number)
   local my = sokoarea[nr].array_height
   local flavor = sokoarea[nr].design.oxyd or "b"
 
-  -- If level_width and level_height are set, there are more
-  -- oxyds possible than level_array alone would allow:
-  if sokoarea[nr].level_width and sokoarea[nr].level_height then
-    for x = 0, sokoarea[nr].level_width - 1 do
-      for y = 0, sokoarea[nr].level_height - 1 do
-        if (x < dx) or (x > mx+dx-1) or (y < dy) or (y > my+dy-1) then
-          table.insert(places, {x=x, y=y})
-        end
-      end
-    end
-  end  
-
-  -- Now outf-tiles inside level_array and far-away wall-tiles:
-  for y = 0, my - 1 do
-    for x = 0, mx - 1 do
-      local ch = sokoarea[nr].level_array[y+1][x+1]
-      if     char_is_outf(ch) 
-         or (char_is_wall(ch) and no_way_near(x+1, y+1, nr)) then
-        table.insert(places, {x=x+dx, y=y+dy})
-      end
+  for p, v in pairs(combine_tables({sokoarea[nr].list_outside,
+                                    sokoarea[nr].list_wall_two})) do
+    if (mod(v.lx, 2) == 0) and (mod(v.ly, 2) == 0) then
+      table.insert(places, v)
     end
   end
 
   -- Choose some appropriate subset
   local max = table.getn(places)
-  local number_pairs = 0
+  local number_pairs = 2
   if max < 2 then
-    myerror("Not enough free places outside. This can't happen?!")
-  elseif max <   4 then  number_pairs = 1
-  else                   number_pairs = 2  end
-  --elseif max <   8 then  number_pairs = 2
-  --elseif max <  30 then  number_pairs = 3
-  --elseif max <  50 then  number_pairs = 4
-  --elseif max <  80 then  number_pairs = 5
-  --elseif max < 120 then  number_pairs = 6
-  --elseif max < 180 then  number_pairs = 7
-  --else                   number_pairs = 8  end
-  for j = 1, max do
-    places[j].sort_field = math.random()
+    -- Not enough places? Then choose corners of level_array.
+    -- They should always be at least wall_two and far enough
+    -- away from each other.
+    places = { {lx = dx,           ly = dy},
+               {lx = dx + mx - 1,  ly = dy},
+               {lx = dx,           ly = dy + my - 1},
+               {lx = dx + mx - 1,  ly = dy + my - 1} }
+  else
+        if max <  50 then  number_pairs = 3
+    elseif max < 100 then  number_pairs = 4
+    else                   number_pairs = 5  end
   end
-  table.sort(places, function (a, b) return a.sort_field < b.sort_field end)
+  if (type(param) ~= "nil") and (param ~= "") then
+    local max_pairs = tonumber(param)
+    if max_pairs >= 2 then
+      number_pairs = math.min(max_pairs, number_pairs)
+    end    
+  end
+
+  shuffle_table(places)
+
   for j = 1, number_pairs do
-    oxyd(places[2*j-1].x, places[2*j-1].y, flavor, j)
-    oxyd(places[2*j].x, places[2*j].y, flavor, j)
+    oxyd(places[2*j-1].lx, places[2*j-1].ly, flavor, j - 1)
+    oxyd(places[2*j].lx, places[2*j].ly, flavor, j - 1)
   end
   oxyd_shuffle()
 end
 
 function endphase_set_block_oxyds(sokoarea_number, blocker)
-
-  if 1 + 1 == 2 then return end
-  
   local places = {}
   local nr = sokoarea_number or 1
-  local dx = sokoarea[nr].offset.x
-  local dy = sokoarea[nr].offset.y
-  local mx = sokoarea[nr].array_width
-  local my = sokoarea[nr].array_height
   local flavor = sokoarea[nr].design.oxyd or "b"
 
-  -- If level_width and level_height are set, there are more
-  -- oxyds possible than level_array alone would allow:
-  if sokoarea[nr].level_width and sokoarea[nr].level_height then
-    for x = 0, sokoarea[nr].level_width - 1 do
-      for y = 0, sokoarea[nr].level_height - 1 do
-        local pos = one_tile_far_from_way(x+dx, y+dy, nr)
-        if pos then
-          table.insert(places, {x=x, y=y, door_x=pos.x, door_y=pos.y})
-          --set_stone("st-pull", x, y)
-          --set_floor("fl-red", pos.x, pos.y)
-        end
+  -- add all wall_two-elements with their wall_one.count == 1
+  for p, v in pairs(sokoarea[nr].list_wall_two) do
+    local entry = {lx = v.lx, ly = v.ly, ax = v.ax, ay = v.ay, wall_one = {}}
+    for q, w in pairs(v.wall_one) do
+      if w.count == 1 then
+        table.insert(entry.wall_one, w)
       end
     end
-  else
-    for y = 0, my - 1 do
-      for x = 0, mx - 1 do
-        local pos = one_tile_far_from_way(x+dx, y+dy, nr)
-        if pos then
-          table.insert(places, {x=x, y=y, door_x=pos.x, door_y=pos.y})
-          --set_stone("st-pull", x, y)
-          --set_floor("fl-red", pos.x, pos.y)
-        end
-      end
-    end  
+    if table.getn(entry.wall_one) ~= 0 then
+      table.insert(places, entry)
+    end
   end
-
 
   -- Choose some appropriate subset
   local max = table.getn(places)
-  local number_pairs = 0
+  local number_pairs = 2
   if max < 2 then
-    myerror("Not enough free places outside. This can't happen?!")
-  elseif max <   4 then  number_pairs = 1
-  else                   number_pairs = 2  end
-  --elseif max <   8 then  number_pairs = 2
-  --elseif max <  30 then  number_pairs = 3
-  --elseif max <  50 then  number_pairs = 4
-  --elseif max <  80 then  number_pairs = 5
-  --elseif max < 120 then  number_pairs = 6
-  --elseif max < 180 then  number_pairs = 7
-  --else                   number_pairs = 8  end
-  for j = 1, max do
-    places[j].sort_field = math.random()
+    -- Not enough places? Then choose corners of level_array.
+    -- They should always be at least wall_two and far enough
+    -- away from each other.
+    places = { {lx = dx,           ly = dy},
+               {lx = dx + mx - 1,  ly = dy},
+               {lx = dx,           ly = dy + my - 1},
+               {lx = dx + mx - 1,  ly = dy + my - 1} }
+  else
+        if max <  50 then  number_pairs = 3
+    elseif max < 100 then  number_pairs = 4
+    else                   number_pairs = 5  end
   end
-  table.sort(places, function (a, b) return a.sort_field < b.sort_field end)
-  for j = 1, number_pairs do
-    oxyd(places[2*j-1].x, places[2*j-1].y, flavor, j)
-    oxyd(places[2*j].x, places[2*j].y, flavor, j)
+  if (type(param) ~= "nil") and (param ~= "") then
+    local max_pairs = tonumber(param)
+    if max_pairs >= 2 then
+      number_pairs = math.min(max_pairs, number_pairs)
+    end    
+  end
+
+  shuffle_table(places)
+  sokoarea[sokoarea_number].list_oxyds = {}
+
+  function set_block(p)
+    --for q, w in pairs(places[p].wall_one) do
+    local w = places[p].wall_one[1]
+    set_element(w.lx, w.ly, sokoarea_number, "inf")
+    set_stone(blocker, w.lx, w.ly)
+    --end
+  end
+  for j = 1, number_pairs do   -- Testlevel: 14
+    oxyd(places[2*j-1].lx, places[2*j-1].ly, flavor, j - 1)
+    oxyd(places[2*j].lx, places[2*j].ly, flavor, j - 1)
+    set_block(2*j-1)
+    set_block(2*j)
+    table.insert(sokoarea[sokoarea_number].list_oxyds, places[2*j-1])
+    table.insert(sokoarea[sokoarea_number].list_oxyds, places[2*j])
   end
   oxyd_shuffle()
 end
 
+-- endphase_set_hide_oxyds distributes oxyds over the wall_one-walls.
+function endphase_set_hide_oxyds(sokoarea_number)
+  local flavor = sokoarea[sokoarea_number].design.oxyd or "b"
+  local places = {}
+  
+  -- add all wall_one-elements
+  for p, v in pairs(sokoarea[sokoarea_number].list_wall_one) do
+    table.insert(places, v)
+  end
+
+  shuffle_table(places)
+  
+  -- choose number of oxyds
+  local max = table.getn(places)
+  local number_pairs = 1
+  if max < 2 then
+    -- use circle instead
+    endphase_circle(sokoarea)
+  elseif max <  6  then  number_pairs = 2
+  elseif max < 10  then  number_pairs = 3
+  elseif max < 30  then  number_pairs = 4
+  else                   number_pairs = 5 end
+  
+  -- set oxyds
+  for j = 1, number_pairs do
+    oxyd(places[2*j-1].lx, places[2*j-1].ly, flavor, j - 1)
+    oxyd(places[2*j].lx, places[2*j].ly, flavor, j - 1)
+  end
+  oxyd_shuffle()  
+end
+
+function endphase_gradients(sokoarea_number, param)
+  local force = tonumber(param) or 25.0
+  for p, v in pairs(sokoarea[sokoarea_number].list_way) do
+    local grad_type = random(1,12)
+    set_floor("fl-gradient", v.lx, v.ly, {type = grad_type, force = force})
+  end
+end
+
+function endphase_magnets(sokoarea_number, param)
+  local force = tonumber(param) or 50.0
+  local places = {}
+  local nr = sokoarea_number or 1
+  local flavor = sokoarea[nr].design.oxyd or "b"
+
+  -- add all way-elements which are not goals
+  for p, v in pairs(sokoarea[nr].list_way) do
+    if not char_is_goal(sokoarea[nr].level_array[v.ay][v.ax]) then
+      table.insert(places, v)
+    end
+  end
+
+  shuffle_table(places)
+
+  -- choose number of magnets
+  local number_magnets = math.floor(table.getn(places)/6)
+
+  -- set magnets
+  for j = 1, number_magnets do
+    set_item("it-magnet-on", places[j].lx, places[j].ly,
+             {range = 5, strength = force})
+  end
+end
+
+function endphase_fourswitch(sokoarea_number)
+  local flavor = sokoarea[sokoarea_number].design.oxyd or "b"
+  local places = {}
+
+  -- add all wall_one-elements
+  for p, v in pairs(sokoarea[sokoarea_number].list_wall_one) do
+    table.insert(places, v)
+  end
+
+  shuffle_table(places)
+
+  -- choose number of fourswitchs/oxyds
+  local max = table.getn(places)
+  local number_pairs = 1
+  if max < 2 then
+    -- use circle instead
+    endphase_circle(sokoarea)
+  elseif max <  6  then  number_pairs = 2
+  elseif max < 10  then  number_pairs = 3
+  else                   number_pairs = 4 end
+
+  function endphase_call_fourswitch(onoff, sender)
+    local j = enigma.GetAttrib(sender, "_number")
+    places[j].current = places[j].current + 1
+    if places[j].current == 5 then
+      places[j].current = 1
+    end
+    if places[j].current == places[j].solve then
+      places[j].correct = true
+      set_stone("st-likeoxyda-open", places[j].lx, places[j].ly,
+          {_number=0})
+    end
+
+    if j ~= 1 then
+      -- Trigger all lower fourswitchs
+      local x = places[j-1].lx
+      local y = places[j-1].ly
+      if places[j-1].correct then
+        -- reset the fourswitch
+        mystone = set_stone("st-fourswitch", x, y, {_number = j - 1})
+        for k = 1, places[j-1].current do
+          SendMessage(mystone, "trigger")
+        end
+        enigma.SetAttrib(mystone, "action", "callback")
+        enigma.SetAttrib(mystone, "target", "endphase_call_fourswitch")
+        places[j-1].correct = false
+      end
+      SendMessage(enigma.GetStone(x, y), "trigger")
+    else
+      -- Check all fourswitchs
+      local correct = true
+      for k = 1, 2*number_pairs do
+        correct = correct and places[k].correct
+      end
+      if correct then
+        -- replace fourswitchs by oxyds
+        for k = 1, number_pairs do
+          oxyd(places[2*k-1].lx, places[2*k-1].ly, flavor, k - 1)
+          oxyd(places[2*k].lx, places[2*k].ly, flavor, k - 1)
+        end
+        oxyd_shuffle()
+      end
+    end  
+  end
+  
+  -- set fourswitchs
+  for j = 1, 2*number_pairs do
+    set_stone("st-fourswitch", places[j].lx, places[j].ly,
+        {action="callback", target="endphase_call_fourswitch", _number=j})
+    places[j].current = 4
+    places[j].solve = random(1,4)
+    places[j].correct = false
+  end
+  oxyd_shuffle()  
+end
+
+function endphase_allcrack(sokoarea_number)
+  for p, v in pairs(sokoarea[sokoarea_number].list_way) do
+    if not enigma.GetItem(v.lx, v.ly) then
+      set_item("it-crack3", v.lx, v.ly)
+    end
+  end  
+end
+
+function endphase_goal_hook_ralf(sokoarea_number, sender, more_boxes,
+    goals_filled, number_goals)
+  -- verify correct sokoarea-number and existence of "list_oxyds"
+  if sokoarea_number ~= enigma.GetAttrib(sender, "_sokoarea") then
+    myerror("libsoko: Inconsistent sokoarea numbers in goal hook!")
+  end
+  if type(sokoarea[sokoarea_number].list_oxyds) ~= "table" then
+    myerror("libsoko: Oxyd list is missing during goal hook!")
+  end
+  -- identify the corresponding door and open it
+  local goal_number = enigma.GetAttrib(sender, "_goal_number")
+  local number_oxyds = table.getn(sokoarea[sokoarea_number].list_oxyds)
+  if (goal_number ~= 1) and (goal_number <= number_oxyds) then  
+    local oxyd_entry = sokoarea[sokoarea_number].list_oxyds[goal_number]
+    local door_x = oxyd_entry.wall_one[1].lx
+    local door_y = oxyd_entry.wall_one[1].ly
+    local st = enigma.GetStone(door_x, door_y)
+    if more_boxes then
+      SendMessage(st, "open")
+    else
+      SendMessage(st, "close")
+    end
+  end
+end
+
+function endphase_ralf_open_doors(sokoarea_number)
+  for j, v in pairs(sokoarea[sokoarea_number].list_oxyds) do
+    local door_x = v.wall_one[1].lx
+    local door_y = v.wall_one[1].ly
+    SendMessage(enigma.GetStone(door_x, door_y), "open")
+  end
+end
+    
     ]]></el:luamain>
     <el:i18n>
     </el:i18n>

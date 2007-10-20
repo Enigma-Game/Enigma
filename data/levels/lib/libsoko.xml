@@ -61,14 +61,17 @@
 -- However, you can call endphase(sokoarea_number) yourself if neccessary.
 --
 --       list_outside - list of positions of outf-tiles
+--          list_wall - list of all walls
 --           list_way - list of all inside positions that the marble
---                      can reach on level-end
+--                      can reach on level-end (incl. goals)
 --      list_wall_one - list of outer walls near ways
---      list_wall_two - list of outer walls one tile away from ways,
---                      together with a list of neighboring wall_ones.
+--      list_wall_two - list of outer walls or outf one tile away from
+--                      ways, together with a list of neighboring wall_ones.
 --
--- Each list entry is a table: Entries x and y are absolute positions,
--- lx and ly are positions in the level_array, if existent (nil else).
+-- Each list entry is a table: Entries lx and ly are absolute positions
+-- ("level"), ax and ay are positions in the level_array, if existent
+-- (nil else). Some endphases also use list_oxyds as additional data
+-- structure.
 
 sokoarea = {}
 
@@ -120,6 +123,15 @@ function combine_tables(over_table)
     end
   end
   return result
+end
+
+-- shuffle_table resorts the table T randomly. Note that T has to be
+-- indexed with integers from 1 to table.getn(T). Type is not checked.
+function shuffle_table(t)
+  for p, v in pairs(t) do
+    t[p].sort_field = math.random()
+  end
+  table.sort(t, function (a, b) return a.sort_field < b.sort_field end)
 end
 
 -- choose_among_multiples selects a number between 1 and COUNT
@@ -206,6 +218,130 @@ function check_chess(sokoarea_number)
   return false
 end
 
+-- create_lists creates the special lists list_outside, list_wall,
+-- list_way, list_wall_one and list_wall_two for SOKOAREA_NUMBER.
+function create_lists(sokoarea_number)
+  local nr = sokoarea_number or 1
+  local dx = sokoarea[nr].offset.x
+  local dy = sokoarea[nr].offset.y
+  local mx = sokoarea[nr].array_width
+  local my = sokoarea[nr].array_height
+  sokoarea[nr].list_outside = {}
+  sokoarea[nr].list_way = {}
+  sokoarea[nr].list_wall_one = {}
+  sokoarea[nr].list_wall_two = {}
+  -- list_way, list_wall and list_outside (inside level_array)
+  for x = 0, mx - 1 do
+    for y = 0, my - 1 do
+      local ch = sokoarea[nr].level_array[y+1][x+1]
+      local entry = {lx = x+dx, ly = y+dy, ax = x+1, ay = y+1}
+      if char_is_outf(ch) then
+        sokoarea[nr].list_outside[(x+dx).."/"..(y+dy)] = entry
+      elseif char_is_wall(ch) then
+        sokoarea[nr].list_wall[(x+dx).."/"..(y+dy)] = entry
+      else
+        sokoarea[nr].list_way[(x+dx).."/"..(y+dy)] = entry
+      end        
+    end
+  end
+  -- list_outside (outside level_array)
+  if sokoarea[nr].level_width and sokoarea[nr].level_height then
+    for x = 0, sokoarea[nr].level_width - 1 do
+      for y = 0, sokoarea[nr].level_height - 1 do
+        if (x < dx) or (x > mx+dx-1) or (y < dy) or (y > my+dy-1) then
+          sokoarea[nr].list_outside[x.."/"..y] = {lx = x, ly = y}
+        end
+      end
+    end
+  end
+  -- list_wall_one
+  -- There are three conditions for an element of list_wall_one:
+  -- (i) it's a wall, (ii) it's near or diagonal to outside,
+  -- (iii) it's near a way.
+  -- In addition, it counts the number of near ways.
+  for p, v in pairs(sokoarea[nr].list_wall) do
+    local x = v.lx
+    local y = v.ly
+    if    sokoarea[nr].list_outside[(x-1).."/"..(y)]
+       or sokoarea[nr].list_outside[(x+1).."/"..(y)]
+       or sokoarea[nr].list_outside[(x).."/"..(y-1)]
+       or sokoarea[nr].list_outside[(x).."/"..(y+1)]
+       or sokoarea[nr].list_outside[(x+1).."/"..(y+1)]
+       or sokoarea[nr].list_outside[(x+1).."/"..(y-1)]
+       or sokoarea[nr].list_outside[(x-1).."/"..(y+1)]
+       or sokoarea[nr].list_outside[(x-1).."/"..(y-1)] then
+      local count = 0
+      if sokoarea[nr].list_way[(x-1).."/"..(y)] then  count = count + 1  end
+      if sokoarea[nr].list_way[(x+1).."/"..(y)] then  count = count + 1  end
+      if sokoarea[nr].list_way[(x).."/"..(y-1)] then  count = count + 1  end
+      if sokoarea[nr].list_way[(x).."/"..(y+1)] then  count = count + 1  end
+      if count > 0 then
+        sokoarea[nr].list_wall_one[x.."/"..y] =
+            {lx = x, ly = y, ax = v.ax, ay = v.ay, count = count}
+      end
+    end
+  end
+  -- list_wall_two
+  -- There are three conditions for an element of list_wall_two:
+  -- (i) it's near a wall_one, (ii) it's not a wall_one,
+  -- (iii) it's wall or outside. Next function checks (ii) and (iii)
+  -- and adds the checked element to the list. In addition, the
+  -- neighboring wall_one are added into the list.
+  local function check_ii_and_iii(x, y, one_x, one_y)
+    if sokoarea[nr].list_wall_one[x.."/"..y] then
+      return
+    end
+    if sokoarea[nr].list_way[x.."/"..y] then
+      return
+    end
+    if not sokoarea[nr].list_wall_two[x.."/"..y] then
+      -- create new entry
+      sokoarea[nr].list_wall_two[x.."/"..y] =
+          {lx = x, ly = y, ax = nil, ay = nil, wall_one = {}}
+    end
+    -- add the corresponding wall_one
+    local w = table.getn(sokoarea[nr].list_wall_two[x.."/"..y].wall_one) + 1
+    sokoarea[nr].list_wall_two[x.."/"..y].wall_one[w] =
+        sokoarea[nr].list_wall_one[one_x.."/"..one_y]
+  end
+  for p, v in pairs(sokoarea[nr].list_wall_one) do
+    check_ii_and_iii(v.lx+1, v.ly, v.lx, v.ly)
+    check_ii_and_iii(v.lx-1, v.ly, v.lx, v.ly)
+    check_ii_and_iii(v.lx, v.ly+1, v.lx, v.ly)
+    check_ii_and_iii(v.lx, v.ly-1, v.lx, v.ly)
+  end  
+end
+
+-- new_sokoarea initialises a new entry in the global
+-- sokoarea table and returns its number.
+function new_sokoarea()
+  sokoarea_number = table.getn(sokoarea) + 1
+  sokoarea[sokoarea_number] = {
+    level_array = {},
+    design = default_design,
+    number_goals = 0,
+    goals_filled = 0,
+    actor_count = 0,
+    endphase_started = false,
+    offset = {0, 0},
+    level_width = nil,
+    level_height = nil,
+    uses_chess = false,
+    goal_hook = nil,
+    endphase_hook = endphase,
+    list_outside = {},
+    list_wall = {},
+    list_way = {},
+    list_wall_one = {},
+    list_wall_two = {}
+  }
+  return sokoarea_number
+end
+
+------------------------------------------------------------------------
+-- Drawing Functions and Level Interpretation
+------------------------------------------------------------------------
+
 -- set_element sets element name EL_STR of area SOKOAREA_NUMBER at x, y.
 -- EL_DESIGN is optional and overrides the design of the given sokoarea.
 function set_element(x, y, sokoarea_number, el_str, el_design)
@@ -280,15 +416,16 @@ function set_element(x, y, sokoarea_number, el_str, el_design)
     else
       created_objects.it = set_item(itkind, x, y)
     end
-    if created_objects.it and not in_endphase then
-      enigma.SetAttrib(created_objects.it, "action", "callback")
-      enigma.SetAttrib(created_objects.it, "target", "goal_trigger")
-      enigma.SetAttrib(created_objects.it, "box", 0)
-      enigma.SetAttrib(created_objects.it, "sokoarea", sokoarea_number)
-    end
     if (el_str == "goal") and not in_endphase then
-      sokoarea[sokoarea_number].number_goals = 
-          sokoarea[sokoarea_number].number_goals + 1
+      local gn = sokoarea[sokoarea_number].number_goals + 1
+      sokoarea[sokoarea_number].number_goals = gn
+      if created_objects.it and not in_endphase then
+        enigma.SetAttrib(created_objects.it, "action", "callback")
+        enigma.SetAttrib(created_objects.it, "target", "goal_trigger")
+        enigma.SetAttrib(created_objects.it, "_box", 0)
+        enigma.SetAttrib(created_objects.it, "_sokoarea", sokoarea_number)
+        enigma.SetAttrib(created_objects.it, "_goal_number", gn)
+      end
     end
   end
   
@@ -550,27 +687,6 @@ function unpack_level(multilevel, sublevel_number)
   return trimmed_array
 end
 
--- new_sokoarea initialises a new entry in the global
--- sokoarea table and returns its number.
-function new_sokoarea()
-  sokoarea_number = table.getn(sokoarea) + 1
-  sokoarea[sokoarea_number] = {
-    level_array = {},
-    design = default_design,
-    number_goals = 0,
-    goals_filled = 0,
-    actor_count = 0,
-    endphase_started = false,
-    offset = {0, 0},
-    level_width = nil,
-    level_height = nil,
-    uses_chess = false,
-    goal_hook = nil,
-    endphase_hook = endphase
-  }
-  return sokoarea_number
-end
-
 ------------------------------------------------------------------------
 -- Choosing the Designnumber, Random numbers
 ------------------------------------------------------------------------
@@ -678,15 +794,13 @@ end
 --
 function number_from_level(level_array, list_length)
   local j = list_length + 1
-  local lastline = table.getn(level_array)
-  local maxwidth = table.getn(level_array[1])
-  mywarning("Calculating level design ...")
+  mydebug("Calculating number from level_array, modulus "..list_length.." ...")
   local l = 2
   repeat
     j = j - 1
     b = 0
-    for y = 1, lastline do
-      for x = 1, maxwidth do
+    for y = 1, table.getn(level_array) do
+      for x = 1, table.getn(level_array[1]) do
         if char_is_wall(level_array[y][x]) then
           if 2*b + 1 < j then
             b = 2*b + 1
@@ -729,8 +843,29 @@ function design_from_description(design_description, level_array)
   else
     myerror("Can't make sense of design type "..type(design)..".")
   end
-  -- fill chosen design with default values where neccessary, and return
-  return combine_tables({design, default_design})
+  -- fill chosen design with default values where neccessary
+  design = combine_tables({design, default_design})
+  -- No stone set for outf, not even "st-none"?
+  -- Use the default outf-stone instead, and remove it on endphase.
+  if type(design.outf) ~= "table" then
+    design.outf = {design.outf}
+  end
+  for j, v in pairs(design.outf) do
+    if is_stone(v) then
+      return design
+    end
+  end
+  table.insert(design.outf, default_design.outf_default_stone)
+  if type(design.endp.outf) ~= "table" then
+    design.endp.outf = {design.endp.outf}
+  end
+  for j, v in pairs(design.endp.outf) do
+    if is_stone(v) then
+      return design
+    end
+  end
+  table.insert(design.endp.outf, "st-none")  
+  return design
 end
 
 
@@ -776,7 +911,7 @@ function create_sokoball(level, sublevel, design)
   sokoarea[1].level_height = levelh
   create_world(levelw, levelh)
   
-  -- Calculate padding
+  -- calculate padding
   local dx = 0
   local dy = 0
   if levelw > sokoarea[1].array_width then
@@ -787,21 +922,20 @@ function create_sokoball(level, sublevel, design)
   end
   sokoarea[1].offset = {x = dx, y = dy}
 
-  sokoarea[1].design = 
-      design_from_description(design, sokoarea[1].level_array)
+  -- calculate design
+  sokoarea[1].design = design_from_description(design, sokoarea[1].level_array)
 
+  -- create special position lists
+  create_lists(nr)
+  
+  -- draw level
   for x = 0, levelw - 1 do
     for y = 0, levelh - 1 do
       set_element(x, y, 1, "outf")
     end
   end
-
   draw_level_array(1, true, true)
-
-  if sokoarea[1].number_goals < 1 then
-    myerror("No goals defined!\n")
-  end
-
+  
   -- prepare oxyds for end phase
   prepare_endphase(1)
 
@@ -823,7 +957,7 @@ function recreate_sokoball(design, sokoarea_number)
   local nr = sokoarea_number or 1  
   sokoarea[nr].design =
       design_from_description(design, sokoarea[nr].level_array)
-  
+
   if sokoarea[nr].level_width and sokoarea[nr].level_height then
     for x = 0, sokoarea[nr].level_width - 1 do
       for y = 0, sokoarea[nr].level_height - 1 do
@@ -849,10 +983,6 @@ function recreate_sokoball(design, sokoarea_number)
   sokoarea[nr].endphase_started = false
 
   draw_level_array(nr, true, false)
-
-  if sokoarea[nr].number_goals < 1 then
-    myerror("No goals defined!\n")
-  end
 
   -- prepare oxyds for end phase
   prepare_endphase(nr)
@@ -895,6 +1025,7 @@ function draw_sokoball(dx, dy, level, sublevel, design, draw_actor,
     sokoarea[nr].endphase_hook = endphase_hook
   end
   sokoarea[nr].goal_hook = goal_hook
+  create_lists(nr)
   draw_level_array(nr, false, draw_actor)
 end
 
