@@ -850,6 +850,7 @@ namespace{
         CLONEOBJ(Thief);
     public:
         Thief();
+        ~Thief();
     private:
         string modelname;
         enum State { IDLE, EMERGING, RETREATING, CAPTURED } state;
@@ -865,9 +866,14 @@ namespace{
     };
 }
 
-Thief::Thief() 
-: Floor("fl-thief", 2.0, 1),
-  state(IDLE), m_affected_actor (0), affected_player (-1), modelname(""), bag(NULL) { }
+Thief::Thief() : Floor("fl-thief", 2.0, 1), state(IDLE), m_affected_actor (0),
+        affected_player (-1), modelname(""), bag(NULL) {
+}
+
+Thief::~Thief() {
+    if (bag != NULL)
+        delete bag;
+}
 
 string Thief::get_modelname() {
     if(modelname == "") {
@@ -923,18 +929,23 @@ void Thief::steal()
             !m_affected_actor->has_shield()) {
         enigma::Inventory *inv = player::GetInventory(m_affected_actor);
         if (inv && inv->size() > 0) {
-            if (bag == NULL)
+            if (bag == NULL) {
                 bag = world::MakeItem(it_bag);
+                bag->setOwnerPos(get_pos());
+            }
             int i = IntegerRand (0, int (inv->size()-1));
             dynamic_cast<ItemHolder *>(bag)->add_item(inv->yield_item(i));
             player::RedrawInventory (inv);
+            didSteal = true;
         }
     }
     // steal from grid
     if(Item *it = GetItem(get_pos())) {
         if (!(it->get_traits().flags & itf_static)) {
-            if (bag == NULL)
+            if (bag == NULL) {
                 bag = world::MakeItem(it_bag);
+                bag->setOwnerPos(get_pos());                
+            }
             dynamic_cast<ItemHolder *>(bag)->add_item(world::YieldItem(get_pos())); 
             didSteal = true;
         }

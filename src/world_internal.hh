@@ -276,11 +276,11 @@ typedef list<sound::SoundDamping> SoundDampingList;
         World (int ww, int hh);
         ~World();
 
-        bool contains (GridPos p) {
+        bool contains(const GridPos &p) {
             return (p.x>=0 && p.y>=0 && p.x<w && p.y<h);
         }
 
-        bool is_border (GridPos p);
+        bool is_border(const GridPos &p);
 
         Field *get_field (GridPos p) {
             if (this->contains(p))

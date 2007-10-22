@@ -1482,8 +1482,10 @@ void ThiefStone::steal_from_player()
             !m_affected_actor->has_shield()) {
         enigma::Inventory *inv = player::GetInventory(m_affected_actor);
         if (inv && inv->size() > 0) {
-            if (bag == NULL)
+            if (bag == NULL) {
                 bag = world::MakeItem(it_bag);
+                bag->setOwnerPos(get_pos());
+            }
             int i = IntegerRand (0, int (inv->size()-1));
             dynamic_cast<ItemHolder *>(bag)->add_item(inv->yield_item(i));
             player::RedrawInventory (inv);

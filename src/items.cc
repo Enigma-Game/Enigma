@@ -3226,26 +3226,51 @@ namespace
 
     public:
         virtual Bag * clone() {
-	    ASSERT(is_empty(), XLevelRuntime, "Bag:: Clone of a full bag!");
-	    return new Bag(*this);
-	}
-	
-	virtual void dispose() {
-	    Item * it = yield_first();
-	    while (it != NULL) {
-            DisposeObject(it);
-            it = yield_first();
-	    }
-	    delete this;
-	}
-	
-	// ItemHolder interface
+            ASSERT(is_empty(), XLevelRuntime, "Bag:: Clone of a full bag!");
+            return new Bag(*this);
+        }
+
+        virtual void dispose() {
+            Item * it = yield_first();
+            while (it != NULL) {
+                DisposeObject(it);
+                it = yield_first();
+            }
+            delete this;
+        }
+
+        virtual void on_creation (GridPos p) {
+            GridObject::on_creation(p);
+            for (vector<Item *>::iterator itr = m_contents.begin(); itr != m_contents.end(); ++itr)
+                (*itr)->setOwnerPos(p);
+        }
+    
+        virtual void on_removal (GridPos p) {
+            GridObject::on_removal(p);
+            for (vector<Item *>::iterator itr = m_contents.begin(); itr != m_contents.end(); ++itr)
+                (*itr)->setOwner(-1);            
+        }
+        
+        virtual void setOwner(int player) {
+            GridObject::setOwner(player);
+            for (vector<Item *>::iterator itr = m_contents.begin(); itr != m_contents.end(); ++itr)
+                (*itr)->setOwner(player);            
+        }
+    
+        virtual void setOwnerPos(GridPos p) {
+            GridObject::setOwnerPos(p);
+            for (vector<Item *>::iterator itr = m_contents.begin(); itr != m_contents.end(); ++itr)
+                (*itr)->setOwnerPos(p);
+        }
+    	
+        // ItemHolder interface
         virtual bool is_full() const {
             return m_contents.size() >= BAGSIZE;
         }
         virtual void add_item (Item *it) {
             // thieves may add items beyond pick up limit BAGSIZE
             m_contents.insert (m_contents.begin(), it);
+            it->setOwnerPos(get_pos());  // item is at same position as bag
         }
 
         virtual bool is_empty() const {
@@ -3256,6 +3281,7 @@ namespace
             if (m_contents.size() > 0) {
                 Item *it = m_contents[0];
                 m_contents.erase (m_contents.begin());
+                it->setOwner(-1);  // no owner
                 return it;
             }
             return NULL;

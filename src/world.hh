@@ -164,9 +164,9 @@ namespace world
     void Shutdown();
 
 
-    bool IsLevelBorder(GridPos p);
-    bool IsInsideLevel(GridPos p);
-    Object *GetObject (const GridLoc &l);
+    bool IsLevelBorder(const GridPos &p);
+    bool IsInsideLevel(const GridPos &p);
+    Object *GetObject(const GridLoc &l);
 
 /* -------------------- Named Objects -------------------- */
 

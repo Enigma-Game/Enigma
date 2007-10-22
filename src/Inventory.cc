@@ -39,6 +39,9 @@ Inventory::~Inventory()
     ecl::delete_sequence (m_items.begin(), m_items.end());
 }
 
+void Inventory::assignOwner(int playerId) {
+    ownerId = playerId;
+}
 
 size_t Inventory::size() const
 { 
@@ -64,6 +67,7 @@ Item * Inventory::yield_item (size_t idx)
     if (idx < size()) {
         Item *it = m_items[idx];
         m_items.erase(m_items.begin()+ idx);
+        it->setOwner(-1);
         return it;
     }
     return 0;
@@ -82,6 +86,7 @@ Item * Inventory::remove_item(Item *wanted)
     for (ItemList::iterator i = m_items.begin(); i != e; ++i) {
         if (*i == wanted) {
             m_items.erase(i);
+            wanted->setOwner(-1);
             return wanted;
         }
     }
@@ -112,6 +117,7 @@ void Inventory::add_item(Item *i)
     }
     else {
         m_items.insert (m_items.begin(), i);
+        i->setOwner(ownerId);
     }
 }
 
@@ -126,6 +132,7 @@ void Inventory::takeItemsFrom(ItemHolder *ih) {
         while (m_items.size() < max_items && !ih->is_empty()) {
             Item * it = ih->yield_first();
             m_items.insert (m_items.begin(), it);
+            it->setOwner(ownerId);
         }
         return;
     }
@@ -147,12 +154,12 @@ void Inventory::rotate_right ()
 bool Inventory::willAddItem(Item *it) {
     ItemHolder *holder = dynamic_cast<ItemHolder*>(it);
     if (is_full()) {
-	return false;
+        return false;
     } else if (holder != NULL && holder->is_empty() &&
-	    (m_items.size() >= max_items || dynamic_cast<ItemHolder*>(get_item(0)) != NULL)) {
-	// should add a bag that is empty, but first item in Inventory is itself
-	// a bag or Inventory is full -- avoid recursive bags
-	return false;
+            (m_items.size() >= max_items || dynamic_cast<ItemHolder*>(get_item(0)) != NULL)) {
+        // should add a bag that is empty, but first item in Inventory is itself
+        // a bag or Inventory is full -- avoid recursive bags
+        return false;
     }
     return true;  // we have space and item is not critical
 }

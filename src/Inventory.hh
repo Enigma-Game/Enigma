@@ -42,6 +42,8 @@ namespace enigma
 
         // ---------- Methods ----------
 
+        void assignOwner(int playerId);
+        
         //! The number of items currently in the inventory
         size_t size() const;
         void clear();
@@ -50,7 +52,7 @@ namespace enigma
         void rotate_right();
         Item *get_item (size_t idx) const;
         Item *yield_item (size_t idx);
-	bool willAddItem(Item *it);
+        bool willAddItem(Item *it);
 
         int find(const std::string& kind, size_t start_idx = 0) const;
 
@@ -61,6 +63,7 @@ namespace enigma
         // Private variables.
         static const unsigned max_items;
         std::vector<Item*> m_items;
+        int ownerId;
     };
 }
 

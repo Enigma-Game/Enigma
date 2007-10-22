@@ -180,7 +180,7 @@ void player::NewGame (bool isRestart) {
 
     for (int i=0; i<nplayers; ++i) {
         Inventory *inv = GetInventory(i);
-
+        inv->assignOwner(i);
         for (int j = 0 ; j < extralives[i]; j++)
             inv->add_item (MakeItem (world::it_extralife));
     }

@@ -406,7 +406,7 @@ World::~World()
     delete_sequence (m_rubberbands.begin(), m_rubberbands.end());
 }
 
-bool World::is_border (GridPos p) {
+bool World::is_border(const GridPos &p) {
     return(p.x==0 || p.y==0 || p.x==w-1 || p.y==h-1);
 }
 
@@ -1743,17 +1743,14 @@ std::list<Object *> world::GetNamedGroup(const std::string &name) {
     return level->get_group(name);
 }
 
-bool world::IsLevelBorder(GridPos p)
-{
+bool world::IsLevelBorder(const GridPos &p) {
     return level->is_border(p);
 }
 
-bool world::IsInsideLevel(GridPos p)
-{
+bool world::IsInsideLevel(const GridPos &p) {
     return level->contains(p);
 }
 
-
 /* -------------------- Force fields -------------------- */
 
 void world::AddForceField(ForceField *ff)
@@ -1770,7 +1767,6 @@ void world::SetConstantForce (V2 force) {
 }
 
 
-
 /* -------------------- Rubber bands -------------------- */
 
 void world::AddRubberBand (Actor *a, Stone *st, const RubberBandData &d)

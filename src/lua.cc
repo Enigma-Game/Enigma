@@ -1066,7 +1066,7 @@ static int getStone(lua_State *L) {
     return 1;
 }
 
-static int killObjectBase(lua_State *L) {
+static int killObjectBase(lua_State *L) {  // TODO Itemholder owner objects
     Object *obj = to_object(L, -1);
     if (obj) {   // ignore not existing object
         GridObject *gobj;
@@ -1115,7 +1115,7 @@ static int xyObject(lua_State *L) {
     Object *obj = to_object(L,1);
     GridPos  p;
     if (GridObject *gobj = dynamic_cast<GridObject*>(obj)) {
-        p = gobj->get_pos();
+        p = gobj->getOwnerPos();
     } else if (Actor *a = dynamic_cast<Actor*>(obj)) {
         p = GridPos(a->get_pos());
     } else {
@@ -1356,7 +1356,7 @@ static int dispatchObjectReadAccess(lua_State *L) {
 //            ((keyType == LUA_TNUMBER) && ((keyNum == 1) || (keyNum == 2))))) {
         GridPos  p;
         if (GridObject *gobj = dynamic_cast<GridObject*>(obj)) {
-            p = gobj->get_pos();
+            p = gobj->getOwnerPos();
         } else if (Actor *a = dynamic_cast<Actor*>(obj)) {
             p = GridPos(a->get_pos());
         } else {
@@ -1797,7 +1797,7 @@ static int dispatchWorldWriteAccess(lua_State *L) {
             Object *obj = to_object(L, 2);
             GridPos  p;
             if (GridObject *gobj = dynamic_cast<GridObject*>(obj)) {
-                p = gobj->get_pos();
+                p = gobj->getOwnerPos();
             } else if (Actor *a = dynamic_cast<Actor*>(obj)) {
                 p = GridPos(a->get_pos());
             } else {  // NULL object
@@ -1815,7 +1815,7 @@ static int dispatchWorldWriteAccess(lua_State *L) {
                 if (obj) {              // ignore not existing objects
                     GridPos  p;
                     if (GridObject *gobj = dynamic_cast<GridObject*>(obj)) {
-                        p = gobj->get_pos();
+                        p = gobj->getOwnerPos();
                     } else if (Actor *a = dynamic_cast<Actor*>(obj)) {
                         p = GridPos(a->get_pos());
                     }
