@@ -260,7 +260,10 @@ static int pushNewGroup(lua_State *L, std::list<Object *> objects) {
             if (unique.find(*it) == unique.end()) {
                 unique.insert(*it);
                 pushobject(L, *it);
-                lua_rawseti(L, -2, i);
+                lua_pushvalue(L, -1);    // second copy of object
+                lua_rawseti(L, -3, i);   // group[i] = obj
+                lua_pushinteger(L, i);
+                lua_rawset(L, -3);       // group[obj] = i
             }
         }
     }
@@ -1313,7 +1316,7 @@ static int intersectGroup(lua_State *L) {
     return intersectGroupBase(L, true);    
 }
 
-static int differenzGroup(lua_State *L) {
+static int differenceGroup(lua_State *L) {
     // (grp|obj) - (grp|obj)
     return intersectGroupBase(L, false);    
 }
@@ -1687,7 +1690,7 @@ static int setObjectByTile(lua_State *L, double x, double y) {
 }
 
 static int initWorld(lua_State *L) {
-    // (ti|function), string, table
+    // world, (ti|function), string, table
     if (server::WorldInitialized) {
         throwLuaError(L, "World reinitialization not allowed");
         return 0;
@@ -1979,7 +1982,7 @@ static int dispatchGroupWriteAccess(lua_State *L) {
 }
 
 static int dispatchGroupReadAccess(lua_State *L) {
-    if (!(lua_isnumber(L, 2) || lua_isstring(L, 2))) {
+    if (!(lua_isnumber(L, 2) || lua_isstring(L, 2) || is_object(L,2))) {
         throwLuaError(L, "Group: illegal read access");
         return 0;
     }
@@ -2004,6 +2007,10 @@ static int dispatchGroupReadAccess(lua_State *L) {
             messageLIFO.push_back(keyStr);
             lua_pushcfunction(L, groupDirectMessage);
         }
+    } else {
+        lua_getmetatable(L, 1);
+        lua_pushvalue(L, 2);   // copy last object as key
+        lua_rawget(L, -2);     // get last index        
     }
     return 1;
 }
@@ -2014,6 +2021,31 @@ static int lengthGroup(lua_State *L) {
 //    Log << "Length Group " << size << "\n";
     lua_pushinteger(L, size);
     return 1;
+}
+
+static int iteratorGroup(lua_State *L) {
+    // generic for loop iterator function
+    // var_1 = _f(_s, _var) with _var == nil on first access, var_1 == nil on end
+    // on stack: group, _s, _var
+    if (!(is_group(L, 1)))
+        throwLuaError(L, "Group: iterator first arg not a group");
+    lua_getmetatable(L, 1);
+    int size = lua_objlen(L, -1);
+    if (lua_isnil(L, 3)) {   // first iterator loop access
+        if (size == 0) {     // an empty group
+            lua_pushnil(L);
+            return 1;
+        } else {
+            lua_rawgeti(L, -1, 1);  // get the first object
+            return 1;
+        }
+    } else {
+        lua_pushvalue(L, 3);   // copy last object as key
+        lua_rawget(L, -2);     // get last index
+        int i = lua_tointeger(L, -1);
+        lua_rawgeti(L, -2, ++i);  // get next object
+        return 1;
+    }
 }
 
 static CFunction globalfuncs[] = {
@@ -2186,7 +2218,8 @@ static CFunction groupOperations[] = {
     {lengthGroup,                   "__len"},      //  #obj
     {joinGroup,                     "__add"},      //  obj + obj
     {intersectGroup,                "__mul"},      //  obj * obj
-    {differenzGroup,                "__sub"},      //  obj - obj
+    {differenceGroup,               "__sub"},      //  obj - obj
+    {iteratorGroup,                 "__call"},
     {0,0}
 };
 
