@@ -541,111 +541,6 @@ namespace
         }
         return newdata;
     }
-
-//     typedef float (*FilterFunc)(float);
-
-//     inline double sinc(double x)
-//     {
-//         if (x == 0)
-//             return 1;
-//         x *= M_PI;
-//         return sin(x)/x;
-//     }
-
-//     class Sinc {
-//     public:
-//         static const int support = 4;
-
-//         static double func (double x) {
-//             if (x < -4 || x > 4)
-//                 return 0;
-//             else
-//                 return sinc(x);
-//         }
-//     };
-
-
-//     class Lanczos2 {
-//     public:
-//         static const int support = 2;
-
-//         static double func (double x) {
-//             if (x < -2 || x > 2)
-//                 return 0;
-//             else
-//                 return sinc(x) * sinc(x/2);
-//         }
-//     };
-
-//     class Lanczos3 {
-//     public:
-//         static const int support = 3;
-
-//         static double func (double x) {
-//             if (x < -3 || x > 3)
-//                 return 0;
-//             else
-//                 return sinc(x) * sinc(x/3);
-//         }
-//     };
-
-
-//     template <class Filter, class SampleT>
-//     class Resampler {
-//         double ratio;
-//         vector<double> G;
-//     public:
-//         Resampler (double ratio_)
-//         : ratio (ratio_)
-//         {
-//         }
-
-//         size_t calc_destlen (size_t sourcelen)
-//         {
-//             return static_cast<size_t> ((sourcelen / ratio + 1) 
-//                                         * sizeof (SampleT));
-//         }
-
-//         void resample (const SampleT *source, size_t sourcelen, 
-//                        SampleT *dest, size_t destlen)
-//         {
-//             double        factor  = (double)sourcelen / destlen;
-//             int           support = Filter::support;
-//             double         dx      = ecl::Max(factor, 1.0);
-//             vector<double> F (2*support + 1);
-
-//             SampleT *dp = dest;
-//             for (size_t t=0; t<destlen; ++t) 
-//             {
-//                 double center = (t+0.5)*factor; // kernel center in the source
-//                 int   start  = ecl::Max<int>(0, center-support + 0.5);
-//                 int   stop   = ecl::Min<int>(sourcelen, center+support+0.5);
-//                 int   n      = stop-start;
-
-//                 // Calculate filter coefficients
-//                 double c      = 0;
-//                 double pos = start-center+0.5;
-//                 for (int j=0; j<n; ++j) {
-//                     F[j] = Filter::func(pos/dx);
-//                     c += F[j];
-//                     pos++;
-//                 }
-//                 // Normalize filter
-//                 if (c != 0 && c!=1)
-//                     for (int j=0; j<n; ++j)
-//                         F[j] /= c;
-
-//                 // Calculate next destination value
-//                 const SampleT *sp = source + start;
-//                 double accu = 0;
-//                 for (int j=n-1; j>=0; --j)
-//                     accu += F[j] * sp[j];
-//                 *dp++ = static_cast<SampleT> (accu); 
-// //                 *dp++ = static_cast<SampleT> (ecl::Clamp<double> (accu, -128, 127));
-//             }
-//         }
-
-//     };
 }
 
 Mix_Chunk * ChunkFromRaw (const Uint8 *buf, Uint32 len,
@@ -658,12 +553,6 @@ Mix_Chunk * ChunkFromRaw (const Uint8 *buf, Uint32 len,
     int dfreq, dchannels;
     Uint16 dformat;
     Mix_QuerySpec (&dfreq, &dformat, &dchannels);
-
-    // Resample
-//     Resampler<Sinc, Sint8> r (double(sfreq)/dfreq);
-//     size_t newlen = r.calc_destlen(len);
-//     Uint8 *newbuf = (Uint8*) malloc (newlen);
-//     r.resample ((Sint8*)buf, len, (Sint8*)newbuf, newlen);
 
     // Resample
     Uint32 newlen=0;
