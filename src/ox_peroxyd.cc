@@ -31,13 +31,13 @@
 // Standard enigma section :
 
 #define ITEMSPEC(i) i
-#define ITEMMAPTYPE world::ItemID
+#define ITEMMAPTYPE enigma::ItemID
 
 #include "objects.hh"
 #include "server.hh"
 #include "oxyd_internal.hh"
 
-using namespace world;
+using namespace enigma;
 using namespace oxyd;
 
 Stone *PerOxydLoader::make_stone (int type, int x, int y)

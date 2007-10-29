@@ -92,7 +92,7 @@ namespace enigma
         void RotateInventory (int dir=1);
 
         void ActivateFirstItem();
-        world::ItemAction ActivateItem (Item *it);
+        ItemAction ActivateItem (Item *it);
 
         void Tick (double dtime);
         void PlayerShutdown();

@@ -21,8 +21,8 @@
 
 #include "objects_decl.hh"
 
-namespace world
-{
+namespace enigma {
+    
     enum ItemID {
         it_INVALID = -1,
         it_FIRST = 0,
@@ -164,6 +164,7 @@ namespace world
         float       radius;     //!< Radius, 0.0 = default
     };
 
+    class Stone;
     class Item : public GridObject {
     public:
         Item();
@@ -256,6 +257,7 @@ namespace world
 /* -------------------- Functions -------------------- */
 
     void InitItems();
-}
+    
+} // namespace enigma
 
 #endif

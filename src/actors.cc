@@ -30,10 +30,12 @@
 
 using namespace std;
 using namespace enigma;
-using namespace world;
+//using namespace world;
 using ecl::V2;
 
 #include "actors_internal.hh"
+
+namespace enigma {
 
 const double Actor::max_radius = 24.0/64;
 
@@ -975,8 +977,8 @@ void BasicBall::animcb()
     case RISING_VORTEX: {
         set_model(kind);
         if (Item *it = GetItem(get_gridpos())) {
-            world::ItemID id = get_id(it);
-            if (id == world::it_vortex_open || id == world::it_vortex_closed) 
+            ItemID id = get_id(it);
+            if (id == it_vortex_open || id == it_vortex_closed) 
                 SendMessage(it, "arrival"); // closes some vortex
         }
         change_state(JUMP_VORTEX);
@@ -1001,7 +1003,7 @@ void BasicBall::change_state(State newstate) {
             ActorInfo *ai = get_actorinfo();
             ai->forceacc = V2();
         }
-        world::ReleaseActor(this);
+        ReleaseActor(this);
         break;
 
     case SHATTERING:
@@ -1009,26 +1011,26 @@ void BasicBall::change_state(State newstate) {
             sound_event ("shattersmall");
         else
             sound_event ("shatter");
-        world::GrabActor(this);
+        GrabActor(this);
         set_anim (kind+"-shatter");
         break;
 
     case DROWNING:
         // @@@ FIXME: use same animation as SINKING ?
-        world::GrabActor(this);
+        GrabActor(this);
 //         sound::PlaySound("drown");
         sound_event("drown");
 //         set_anim ("ring-anim");
         set_anim ("ac-drowned");
         break;
     case BUBBLING:
-        world::GrabActor(this);
+        GrabActor(this);
 //         sound::PlaySound("drown");
         set_anim ("ac-drowned");
         break;
     case FALLING:
     case FALLING_VORTEX:
-        world::GrabActor(this);
+        GrabActor(this);
         set_anim(kind+"-fall");
         break;
     case DEAD: 
@@ -1043,17 +1045,17 @@ void BasicBall::change_state(State newstate) {
     case APPEARING:
     case RISING_VORTEX:
         set_anim(kind+"-appear");
-        world::GrabActor(this);
+        GrabActor(this);
         break;
     case JUMP_VORTEX:
         ASSERT(oldstate == RISING_VORTEX, XLevelRuntime,
             "BasicBall: change to state JUMP_VORTEX but not RISING_VORTEX");
         vortex_normal_time = 0;
         set_model(kind);
-        world::ReleaseActor(this);
+        ReleaseActor(this);
         break;
     case DISAPPEARING:
-        world::GrabActor(this);
+        GrabActor(this);
 	disable_shield();
         set_anim(kind+"-disappear");
         break;
@@ -1226,10 +1228,10 @@ ActorTraits Killerball::traits = {
     0.7f                        // mass
 };
 
-
+
 /* -------------------- Functions -------------------- */
 
-void world::InitActors () 
+void InitActors () 
 {
     RegisterActor (new Bug);
     RegisterActor (new Horse);
@@ -1241,3 +1243,5 @@ void world::InitActors ()
     RegisterActor (new Killerball);
     RegisterActor (new CannonBall);
 }
+
+} // namespace enigma

@@ -37,7 +37,6 @@
 
 
 using namespace std;
-using namespace world;
 
 using enigma::GridPos;
 using enigma::Value;
@@ -82,6 +81,8 @@ using ecl::V2;
 #define DEF_TRAITSR(classname, name, id, radius)         \
     ItemTraits classname::traits = { name, id, 0, radius }
 
+
+namespace enigma {
 
 /* -------------------- Item implementation -------------------- */
 
@@ -857,7 +858,7 @@ void Hollow::check_if_level_finished()
     }
 
     if (ess_cnt == ess_wcnt &&
-        (wcnt+ess_wcnt) == CountActorsOfKind (world::ac_meditation))
+        (wcnt+ess_wcnt) == CountActorsOfKind (ac_meditation))
     {
         server::FinishLevel();
     }
@@ -1377,10 +1378,10 @@ void Trigger::update_state()
         init_model();
         if (m_pressedp) {
             sound_event ("triggerdown");
-            world::PerformAction(this, true);
+            PerformAction(this, true);
         } else {
             sound_event ("triggerup");
-            world::PerformAction(this, false);
+            PerformAction(this, false);
         }
     }
 }
@@ -1427,9 +1428,9 @@ namespace
                     return;
                }
            }
-           Stone *st = world::MakeStone (get_stone_name());
+           Stone *st = MakeStone (get_stone_name());
            TransferObjectName (this, st);
-           world::SetStone (p, st);
+           SetStone (p, st);
            kill();
         }
 
@@ -1530,7 +1531,7 @@ void ShogunDot::stone_change(Stone *st) {
         if (st == 0) {
             warning("stone_change: Stone disappeared w/o sending me a proper message!");
             activated = false;
-            world::PerformAction(this, false);
+            PerformAction(this, false);
         }
     }
 }
@@ -1539,7 +1540,7 @@ Value ShogunDot::message(const string &str, const Value &/*v*/) {
     if (str == "noshogun") {
         if (activated) {
             activated = false;
-            world::PerformAction(this, false);
+            PerformAction(this, false);
         }
     }
     else {
@@ -1551,7 +1552,7 @@ Value ShogunDot::message(const string &str, const Value &/*v*/) {
 
         if (size_matches != activated) {
             activated = size_matches;
-            world::PerformAction(this, activated);
+            PerformAction(this, activated);
         }
     }
     return Value();
@@ -1562,7 +1563,7 @@ Value ShogunDot::message(const string &str, const Value &/*v*/) {
 namespace
 {
     class Magnet : public OnOffItem {
-        class Magnet_FF : public world::ForceField {
+        class Magnet_FF : public ForceField {
         public:
             Magnet_FF()
             : m_active(false), strength(30), range(1000)
@@ -1603,13 +1604,13 @@ namespace
 	        ff.set_range (range);
 	        ff.set_strength (strength);
 
-            world::AddForceField(&ff);
+            AddForceField(&ff);
             Item::on_creation (p);
         }
         
         void on_removal (GridPos p) {
             Item::on_removal(p);
-            world::RemoveForceField(&ff);
+            RemoveForceField(&ff);
         }
 
         virtual void notify_onoff(bool on) {
@@ -1648,7 +1649,7 @@ set_item("it-wormhole", 1,1, {targetx=5.5, targety=10.5, strength=50, range=5})
 
 namespace
 {
-    class WormHole_FF : public world::ForceField {
+    class WormHole_FF : public ForceField {
     public:
         WormHole_FF() : strength(0.6 * 50), rangesquared(1000000) {}
 
@@ -1708,9 +1709,9 @@ namespace
                 double s = getAttr("strength", server::WormholeForce);
                 ff.set_strength (s);
 
-                world::AddForceField(&ff);
+                AddForceField(&ff);
             } else {
-                world::RemoveForceField(&ff);
+                RemoveForceField(&ff);
             }
         }
 
@@ -1771,7 +1772,7 @@ bool WormHole::actor_hit(Actor *actor)
                 init_model();
             }
             justWarping = true;
-            world::WarpActor(actor, targetpos[0], targetpos[1], false);
+            WarpActor(actor, targetpos[0], targetpos[1], false);
             justWarping = false;
         }
     }
@@ -1791,7 +1792,7 @@ void WormHole::init_model() {
 }
 
 void WormHole::on_removal(GridPos p) {
-    world::RemoveForceField(&ff);
+    RemoveForceField(&ff);
     Item::on_removal(p);
     ASSERT(!justWarping, XLevelRuntime, "Tried to kill a busy wormhole. Please use another way.");
 }
@@ -2008,7 +2009,7 @@ bool Vortex::get_target_by_index (int idx, V2 &target)
 {
     GridPos targetpos;
     // signals take precedence over targetx, targety attributes
-    if (world::GetSignalTargetPos(this, targetpos, idx)) {
+    if (GetSignalTargetPos(this, targetpos, idx)) {
         target = targetpos.center();
         return true;
     }
@@ -2040,7 +2041,7 @@ void Vortex::alarm() {
 
 void Vortex::emit_actor () {
     V2 v(m_target_vortex->get_pos().center());
-    world::WarpActor (m_actor_being_warped, v[0], v[1], false);
+    WarpActor (m_actor_being_warped, v[0], v[1], false);
     SendMessage (m_actor_being_warped, "rise");
     m_actor_being_warped = 0;
 
@@ -2051,7 +2052,7 @@ void Vortex::emit_actor () {
 
 void Vortex::warp_to(const V2 &target) {
     client::Msg_Sparkle (target);
-    world::WarpActor (m_actor_being_warped, target[0], target[1], false);
+    WarpActor (m_actor_being_warped, target[0], target[1], false);
     SendMessage (m_actor_being_warped, "appear");
     m_actor_being_warped = 0;
     state = OPEN;
@@ -2082,7 +2083,7 @@ void Vortex::perform_warp()
                 // is destination vortex blocked? redirect
                 m_target_index += 1;
                 client::Msg_Sparkle (v_target);
-                world::WarpActor (m_actor_being_warped,
+                WarpActor (m_actor_being_warped,
                                   v_target[0], v_target[1], false);
                 GameTimer.set_alarm(this, 0.4, false);
             }
@@ -2238,7 +2239,7 @@ namespace
             Direction dir = get_orientation();
             
             // usage within a st-window
-            Stone *stone = world::GetStone(get_pos());
+            Stone *stone = GetStone(get_pos());
             if (stone && (stone->get_traits().id == st_window) &&
                     to_bool(SendMessage(stone, "inner_pull", dir))) {
             }
@@ -2693,8 +2694,8 @@ void Blocker::change_state(State new_state)
 
 void Blocker::grow()
 {
-    Stone *st = world::MakeStone("st-blocker-growing");
-    world::SetStone(get_pos(), st);
+    Stone *st = MakeStone("st-blocker-growing");
+    SetStone(get_pos(), st);
     TransferObjectName(this, st);
     kill();
 }
@@ -2821,7 +2822,7 @@ namespace
                 sound_event ("switchmarbles");
             }
             else {
-                world::RespawnActor(a);
+                RespawnActor(a);
             }
             return ITEM_DROP;
         }
@@ -3471,7 +3472,7 @@ namespace
         CLONEOBJ(Oxyd5fItem);
         DECL_TRAITS;
 
-        virtual Value on_message (const world::Message &) {
+        virtual Value on_message (const Message &) {
             PerformAction (this, true);
             return Value();
         }
@@ -3497,8 +3498,8 @@ namespace
             player::ReplaceActor((int)v, olda, newa);
         }
 
-        world::AddActor (newa);
-        if (!world::YieldActor (olda)) {
+        AddActor (newa);
+        if (!YieldActor (olda)) {
             enigma::Log << "Strange: could not remove old actor\n";
         }
         olda->hide();
@@ -3537,8 +3538,8 @@ namespace
 
             if (id == ac_blackball || id == ac_whiteball) {
                 // Kill ALL rubberbands connected with the actor:
-                world::KillRubberBands (a);
-                Actor *rotor = world::MakeActor (ac_rotor);
+                KillRubberBands (a);
+                Actor *rotor = MakeActor (ac_rotor);
                 rotor->set_attrib ("mouseforce", Value (1.0));
                 rotor->set_attrib ("controllers", Value (iplayer+1));
                 rotor->set_attrib ("player", Value (iplayer));
@@ -3554,7 +3555,7 @@ namespace
 
                 replace_actor (a, rotor);
 
-                world::GameTimer.set_alarm (new DropCallback (rotor, a),
+                GameTimer.set_alarm (new DropCallback (rotor, a),
                                             ROTOR_LIFETIME,
                                             false);
             }
@@ -3580,7 +3581,7 @@ namespace
             double length = getAttr("length", 1.0);
             double minlength = getAttr("minlength", 0.0);
 
-            world::RubberBandData rbd;
+            RubberBandData rbd;
             rbd.strength = strength;
             rbd.length = length;
             rbd.minlength = minlength;
@@ -3604,17 +3605,17 @@ namespace
             if((!target_actor)&&(!target_stone)) return ITEM_DROP;
 
             if (isScissor)
-                world::KillRubberBands (a);
+                KillRubberBands (a);
 
             sound_event ("rubberband");
             if (target_actor) {
                 // It's not allowed to connect a rubberband to self.
                 if (target_actor != a)
-                    world::AddRubberBand (a,target_actor,rbd);
+                    AddRubberBand (a,target_actor,rbd);
                 else
                     return ITEM_DROP; }
             else
-                world::AddRubberBand (a,target_stone,rbd);
+                AddRubberBand (a,target_stone,rbd);
 
             return ITEM_KILL;
         }
@@ -3627,7 +3628,7 @@ namespace
 
 /* -------------------- Functions -------------------- */
 
-void world::InitItems()
+void InitItems()
 {
     RegisterItem (new Bag);
     RegisterItem (new Banana);
@@ -3722,3 +3723,5 @@ void world::InitItems()
     RegisterItem (new YinYang);
     RegisterItem (new Rubberband);
 }
+
+} // namespace enigma

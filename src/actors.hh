@@ -21,8 +21,8 @@
 
 #include "objects_decl.hh"
 
-namespace world
-{
+namespace enigma {
+
     enum ActorID {
         ac_INVALID    = -1,
         ac_FIRST      = 0,
@@ -239,6 +239,7 @@ namespace world
 /* -------------------- Global Functions -------------------- */
 
     void InitActors();
-}
+    
+} // namespace enigma
 
 #endif

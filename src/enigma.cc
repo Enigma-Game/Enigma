@@ -32,8 +32,9 @@
 
 using namespace std;
 using namespace ecl;
-using namespace enigma;
 
+namespace enigma {
+    
 /* -------------------- Game Type -------------------- */
 
 static const char *versionName[GAMET_COUNT+1] = {
@@ -45,7 +46,7 @@ static const char *versionName[GAMET_COUNT+1] = {
     0
 };
 
-GameType enigma::GetGameType(std::string name) {
+GameType GetGameType(std::string name) {
     GameType type = GAMET_UNKNOWN;
     for (int v = 0; v<GAMET_COUNT; ++v) {
         if (0 == strcmp(name.c_str(), versionName[v])) {
@@ -56,7 +57,7 @@ GameType enigma::GetGameType(std::string name) {
     return type;
 }
 
-std::string enigma::GetGameTypeName(GameType type) {
+std::string GetGameTypeName(GameType type) {
     if (type >= GAMET_FIRST && type <= GAMET_LAST)
         return versionName[type];
     else
@@ -65,18 +66,18 @@ std::string enigma::GetGameTypeName(GameType type) {
 
 /* -------------------- Direction -------------------- */
 
-Direction enigma::reverse(Direction d) {
+Direction reverse(Direction d) {
     static Direction rdir[] = { NODIR, EAST, NORTH, WEST, SOUTH };
     return rdir[d+1];
 }
 
-Direction enigma::rotate_cw (Direction d)
+Direction rotate_cw (Direction d)
 {
     static Direction rdir[] = { NODIR, NORTH, WEST, SOUTH, EAST };
     return rdir[d+1];
 }
 
-Direction enigma::rotate_ccw (Direction d)
+Direction rotate_ccw (Direction d)
 {
     static Direction rdir[] = { NODIR, SOUTH, EAST, NORTH, WEST };
     return rdir[d+1];
@@ -105,15 +106,14 @@ direction_fromto(GridPos source, GridPos target)
     return d;
 }
 
-string enigma::to_suffix(Direction d) {
+string to_suffix(Direction d) {
     static const char *sfx[] = { "", "-w", "-s", "-e", "-n" };
     return sfx[d+1];
 }
 
 /* -------------------- DirectionBits -------------------- */
 
-DirectionBits
-enigma::rotate(DirectionBits d, bool clockwise)
+DirectionBits rotate(DirectionBits d, bool clockwise)
 {
     if (clockwise) {
         d = DirectionBits(((d>>1) | (d<<3)) & ALL_DIRECTIONS);
@@ -304,7 +304,7 @@ Value::operator Object *() const {
         case OBJECT:
             return Object::getObject(round_nearest<int>(val.dval[0]));
         case STRING:
-            return world::GetNamedObject(val.str);            
+            return GetNamedObject(val.str);            
         default: return NULL;
     }
 }
@@ -324,7 +324,7 @@ Value::operator ObjectList() const {
                     if ((*it)[0] == '$') {
                         result.push_back(Object::getObject(atoi((it->c_str()) + 1)));
                     } else {
-                        result.push_back(world::GetNamedObject(*it));
+                        result.push_back(GetNamedObject(*it));
                     }
                 }
             }
@@ -423,23 +423,23 @@ bool Value::to_bool() const {
 }
 
 
-int enigma::to_int(const Value &v) {
+int to_int(const Value &v) {
     return v;
 }
 
-bool enigma::to_bool(const Value &v) {
+bool to_bool(const Value &v) {
     return v.to_bool();
 }
 
-double enigma::to_double(const Value &v) {
+double to_double(const Value &v) {
     return v;
 }
 
-std::string enigma::to_string(const Value &v) {
+std::string to_string(const Value &v) {
     return v.to_string();
 }
 
-Direction enigma::to_direction (const Value &v) {
+Direction to_direction (const Value &v) {
     int val = Clamp(to_int(v), 0, 3);
     return static_cast<Direction>(val);
 }
@@ -452,7 +452,7 @@ GridPos::GridPos(const ecl::V2& p)
 {}
 
 
-std::ostream& enigma::operator<<(std::ostream& os, const GridPos& val)
+std::ostream& operator<<(std::ostream& os, const GridPos& val)
 {
     return os << '(' << val.x << ',' << val.y << ')';
 }
@@ -462,7 +462,7 @@ std::ostream& enigma::operator<<(std::ostream& os, const GridPos& val)
    203
    748
 */
-GridPos enigma::get_neighbour (GridPos p, int i)
+GridPos get_neighbour (GridPos p, int i)
 {
     ASSERT (i >= 0 && i <= 9, XLevelRuntime, "get_neighbour: index out of bounds");
     static int xoff[9] = { 0,0,-1,1,0,-1,1,-1,1 };
@@ -472,7 +472,7 @@ GridPos enigma::get_neighbour (GridPos p, int i)
 
 /* -------------------- GridLoc -------------------- */
 
-bool enigma::to_gridloc (const char *str, GridLoc &l) {
+bool to_gridloc (const char *str, GridLoc &l) {
     GridLoc loc;
     const char *numstr = str + 3;
 
@@ -495,23 +495,23 @@ bool enigma::to_gridloc (const char *str, GridLoc &l) {
 
 /* -------------------- Random numbers -------------------- */
 
-void  enigma::Randomize ()
+void  Randomize ()
 {
     srand (time(NULL));
 }
 
-void   enigma::Randomize (unsigned seed)
+void  Randomize (unsigned seed)
 {
     srand (seed);
 }
 
-int    enigma::IntegerRand (int min, int max)
+int   IntegerRand (int min, int max)
 {
     int r = round_down<int>((max-min+1) * (rand()/(RAND_MAX+1.0)));
     return r+min;
 }
 
-double enigma::DoubleRand (double min, double max)
+double DoubleRand (double min, double max)
 {
     return min + double(rand())/RAND_MAX * (max-min);
 }
@@ -520,7 +520,7 @@ double enigma::DoubleRand (double min, double max)
 /* -------------------- Time & Date -------------------- */
 
 #define MAX_DATE_LENGTH 256
-const char *enigma::date(const char *format) { // format see 'man strftime'
+const char *date(const char *format) { // format see 'man strftime'
     static char *result = 0;
     char         buffer[MAX_DATE_LENGTH];
 
@@ -623,7 +623,7 @@ ecl::Surface *ImageCache::acquire (const std::string &name)
     return ecl::LoadImage(name.c_str());
 }
 
-void enigma::DefineFont (const char *name, 
+void DefineFont (const char *name, 
                          const char *ttf_name, 
                          int ttf_size,
                          const char *bmf_name,
@@ -632,12 +632,12 @@ void enigma::DefineFont (const char *name,
     font_cache.define_font (FontDescr (name, ttf_name, ttf_size, bmf_name, r, g, b));
 }
 
-ecl::Font *enigma::GetFont (const char *name) 
+ecl::Font *GetFont (const char *name) 
 {
     return font_cache.get(name);
 }
 
-ecl::Surface *enigma::LoadImage(const char *name) 
+ecl::Surface *LoadImage(const char *name) 
 {
     string filename;
     if (app.resourceFS->findImageFile (string(name) + ".png", filename)) 
@@ -645,7 +645,7 @@ ecl::Surface *enigma::LoadImage(const char *name)
     return 0;
 }
 
-ecl::Surface *enigma::GetImage(const char *name, const char *ext) 
+ecl::Surface *GetImage(const char *name, const char *ext) 
 {
     string filename;
     if (app.resourceFS->findImageFile (string(name) + ext, filename)) 
@@ -653,12 +653,14 @@ ecl::Surface *enigma::GetImage(const char *name, const char *ext)
     return 0;
 }
 
-ecl::Surface *enigma::RegisterImage (const char *name, ecl::Surface *s) 
+ecl::Surface *RegisterImage (const char *name, ecl::Surface *s) 
 {
     image_cache.store(name, s);
     return s;
 }
 
-void enigma::ClearImageCache() {
+void ClearImageCache() {
     image_cache.clear();
 }
+
+} // namespace enigma

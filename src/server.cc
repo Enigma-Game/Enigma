@@ -131,7 +131,7 @@ void load_level(lev::Proxy *levelProxy, bool isRestart)
 
         game::ResetGameTimer();
 
-        world::InitWorld();
+        WorldInitLevel();
         if (!CreatingPreview) {
                 player::LevelLoaded(isRestart);
                 client::Msg_LevelLoaded(isRestart);
@@ -186,13 +186,13 @@ void gametick(double dtime)
     }
     player::Tick (time_accu);
     for (;time_accu >= timestep; time_accu -= timestep) {
-        world::Tick (timestep);
+        WorldTick (timestep);
         if (lua::CallFunc (lua::LevelState(), "Tick", timestep, NULL) != 0) {
             throw XLevelRuntime (string("Calling 'Tick' failed:\n")
                                                 + lua::LastError(lua::LevelState()));
         }
     }
-    world::TickFinished ();
+    TickFinished ();
 }
 
 
@@ -251,7 +251,7 @@ void server::PrepareLevel()
 
     move_counter = 0;
 
-    world::PrepareLevel ();
+    enigma::WorldPrepareLevel();
     server::WorldInitialized = false;
 
     player::PrepareLevel();
@@ -567,7 +567,7 @@ void server::Msg_Panic (bool onoff) {
 }
 
 void server::Msg_MouseForce (const ecl::V2 &f) {
-    world::SetMouseForce (f);
+    SetMouseForce (f);
 }
 
 

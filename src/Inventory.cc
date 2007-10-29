@@ -21,7 +21,7 @@
 #include <algorithm>
 
 using enigma::Inventory;
-using world::Item;
+using enigma::Item;
 
 typedef std::vector<Item*> ItemList;
 

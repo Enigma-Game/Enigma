@@ -27,10 +27,10 @@
 #include "stones_internal.hh"
 
 using namespace std;
-using namespace world;
-using namespace stones;
 
-
+namespace enigma {
+
+
 /* -------------------- SimpleStoneTraits -------------------- */
 
 namespace
@@ -70,7 +70,7 @@ namespace
     vector<SimpleStoneTraits*> SimpleStoneTraits::simple_stone_traits;
 }
 
-
+
 /* -------------------- SimpleStone -------------------- */
 
 namespace
@@ -944,7 +944,7 @@ namespace
                     sound_event ("stonepaint");
                     state = STONE;
                     set_model("st-greenbrown");
-                    lasers::MaybeRecalcLight(get_pos());
+                    MaybeRecalcLight(get_pos());
                 }
             }
         }
@@ -952,7 +952,6 @@ namespace
     };
 }
 
-
 /* -------------------- Wooden stone -------------------- */
 
 /** \page st-wood Wooden Stone
@@ -988,7 +987,7 @@ namespace
 
         void maybe_fall_or_stopfire() {
             GridPos p = get_pos();
-            if (world::IsLevelBorder(p))
+            if (IsLevelBorder(p))
                 return;
             if (Floor *fl = GetFloor(p)) {
                 const string &k = fl->get_kind();
@@ -1057,8 +1056,8 @@ namespace
     private:
         void init_model() { set_anim("st-wood-growing"); }
         void animcb() {
-            Stone *st = world::MakeStone ("st-wood");
-            world::ReplaceStone (get_pos(), st);
+            Stone *st = MakeStone ("st-wood");
+            ReplaceStone (get_pos(), st);
             SendMessage (st, "fall"); // instantly builds a bridge on fl-swamp etc
         }
         void actor_contact(Actor *a) {SendMessage(a, "shatter");}
@@ -1078,8 +1077,8 @@ namespace
     private:
         void init_model() { set_anim("st-greenbrown-growing"); }
         void animcb() {
-            Stone *st = world::MakeStone("st-greenbrown");
-            world::ReplaceStone(get_pos(), st);
+            Stone *st = MakeStone("st-greenbrown");
+            ReplaceStone(get_pos(), st);
         }
         void actor_contact(Actor *a) {SendMessage(a, "shatter");}
         void actor_inside(Actor *a) {SendMessage(a, "shatter");}
@@ -1096,8 +1095,8 @@ namespace
     private:
         void init_model() { set_anim("st-volcano-growing"); }
         void animcb() {
-            Stone *st = world::MakeStone("st-volcano_active");
-            world::ReplaceStone(get_pos(), st);
+            Stone *st = MakeStone("st-volcano_active");
+            ReplaceStone(get_pos(), st);
         }
         void actor_contact(Actor *a) {SendMessage(a, "shatter");}
         void actor_inside(Actor *a) {SendMessage(a, "shatter");}
@@ -1108,7 +1107,7 @@ namespace
     DEF_TRAITS(VolcanoStone_Growing, "st-volcano-growing", st_volcano_growing);
 }
 
-
+
 /* -------------------- Scissors stone -------------------- */
 
 /** \page st-scissors Scissors stone
@@ -1126,8 +1125,8 @@ namespace
         void actor_hit(const StoneContact &sc) {
             sound_event("scissors");
             set_anim("st-scissors-snip");
-            if (world::KillRubberBands (sc.actor))
-                world::PerformAction(this, false);
+            if (KillRubberBands (sc.actor))
+                PerformAction(this, false);
         }
         void animcb() {
             set_model("st-scissors");
@@ -1139,7 +1138,7 @@ namespace
     DEF_TRAITS(ScissorsStone, "st-scissors", st_scissors);
 }
 
-
+
 /* -------------------- Rubberband stone -------------------- */
 
 /** \page st-rubberband Rubberband stone
@@ -1169,7 +1168,7 @@ namespace
             double length = getAttr("length", 1.0);
             double minlength = getAttr("minlength");
 
-            world::RubberBandData rbd;
+            RubberBandData rbd;
             rbd.strength = strength;
             rbd.length = length;
             rbd.minlength = minlength;
@@ -1178,12 +1177,12 @@ namespace
             // other rubberbands to the actor will be cut of or not, true means they will. true is default.
             bool isScissor = to_bool(getAttr("scissor","true"));
 
-            if (!world::HasRubberBand (sc.actor, this)) {
+            if (!HasRubberBand (sc.actor, this)) {
                 sound_event ("rubberband");
                 if (isScissor) {
-                    world::KillRubberBand (sc.actor, (Stone*)0);
+                    KillRubberBand (sc.actor, (Stone*)0);
                 }
-                world::AddRubberBand (sc.actor, this, rbd);
+                AddRubberBand (sc.actor, this, rbd);
             }
             // if (player::wielded_item_is (sc.actor, "it-magicwand"))
             maybe_push_stone (sc);
@@ -1363,7 +1362,7 @@ void FartStone::change_state(State newstate)
     case FARTING:
     case BREAKING:
         if (state == IDLE) {
-            Object *ox = world::GetObjectTemplate("st-oxyd");
+            Object *ox = GetObjectTemplate("st-oxyd");
             SendMessage(ox, "closeall");
             sound_event("fart");
             if (newstate == BREAKING) {
@@ -1407,7 +1406,7 @@ Value FartStone::message (const string &m, const Value &val)
 
 
 
-
+
 /* -------------------- Thief -------------------- */
 namespace
 {
@@ -1483,7 +1482,7 @@ void ThiefStone::steal_from_player()
         enigma::Inventory *inv = player::GetInventory(m_affected_actor);
         if (inv && inv->size() > 0) {
             if (bag == NULL) {
-                bag = world::MakeItem(it_bag);
+                bag = MakeItem(it_bag);
                 bag->setOwnerPos(get_pos());
             }
             int i = IntegerRand (0, int (inv->size()-1));
@@ -1497,15 +1496,15 @@ void ThiefStone::steal_from_player()
 Value ThiefStone::message(const string &msg, const Value &v) {
     if(msg == "capture" && state == IDLE) {
         state = CAPTURED;
-        Item * it =  world::GetItem(get_pos());
+        Item * it =  GetItem(get_pos());
         
         // add items on grid pos that can be picked up to our bag
         if (it != NULL && !(it->get_traits().flags & itf_static) && bag != NULL) {
-            dynamic_cast<ItemHolder *>(bag)->add_item(world::YieldItem(get_pos()));
+            dynamic_cast<ItemHolder *>(bag)->add_item(YieldItem(get_pos()));
         }
         // drop bag if pos is not occupied by a static item
-        if (world::GetItem(get_pos()) == NULL)
-            world::SetItem(get_pos(), bag);
+        if (GetItem(get_pos()) == NULL)
+            SetItem(get_pos(), bag);
         bag = NULL;
         set_anim(string(get_kind()) + "-captured");
         return Value(1);
@@ -1567,14 +1566,14 @@ namespace
 
         virtual Value message (const string &msg, const Value &) {
             if (msg == "signal") {
-                world::EmitSignalByIndex (this, m_signalidx, 0);
+                EmitSignalByIndex (this, m_signalidx, 0);
                 m_signalidx += 1;
-                if (!world::EmitSignalByIndex (this, m_signalidx, 1)) {
+                if (!EmitSignalByIndex (this, m_signalidx, 1)) {
                     m_signalidx = 0;
-                    world::EmitSignalByIndex (this, m_signalidx, 1);
+                    EmitSignalByIndex (this, m_signalidx, 1);
                 }
             } else if (msg == "init") {
-                world::EmitSignalByIndex (this, m_signalidx, 1);
+                EmitSignalByIndex (this, m_signalidx, 1);
             }
             return Value();
         }
@@ -1643,7 +1642,7 @@ namespace
     };
 }
 
-
+
 /* -------------------- Black Stones -------------------- */
 namespace
 {
@@ -1698,7 +1697,7 @@ namespace
 
 }
 
-
+
 /* -------------------- YinYang stones -------------------- */
 namespace
 {
@@ -1764,7 +1763,7 @@ namespace
     };
 }
 
-
+
 /* -------------------- BombStone -------------------- */
 
 namespace
@@ -1851,7 +1850,7 @@ namespace
     DEF_TRAITSM(MagicStone, "st-magic", st_magic, MOVABLE_BREAKABLE);
 }
 
-
+
 /* -------------------- DeathStone -------------------- */
 
 /** \page st-death Death's Head Stone
@@ -1888,7 +1887,7 @@ namespace
     DEF_TRAITS(DeathStone, "st-death", st_death);
 }
 
-
+
 /* -------------------- Invisible DeathStone -------------------- */
 
 /** \page st-death_invisible Death's Head Stone invivible
@@ -1938,7 +1937,7 @@ namespace
     DEF_TRAITS(DeathStoneInvisible, "st-death_invisible", st_death_invisible);
 }
 
-
+
 /* -------------------- Brake stone -------------------- */
 
 /** \page st-brake Brake
@@ -2004,7 +2003,7 @@ namespace
     DEF_TRAITSM(BrakeStone, "st-brake", st_brake, MOVABLE_BREAKABLE);
 }
 
-
+
 /* -------------------- Disco stones -------------------- */
 namespace
 {
@@ -2098,7 +2097,7 @@ namespace
     };
 }
 
-
+
 /* -------------------- Knight stone -------------------- */
 namespace
 {
@@ -2136,7 +2135,7 @@ namespace
     DEF_TRAITSM(Knight, "st-knight", st_knight, MOVABLE_BREAKABLE);
 }
 
-
+
 /* -------------------- Polarization Switch stone -------------------- */
 namespace
 {
@@ -2149,7 +2148,7 @@ namespace
         void actor_hit(const StoneContact &sc) { set_on(!is_on()); }
         void init_model() { set_model(is_on() ? "st-glass1" : "st-glass2"); }
         bool is_transparent(Direction) const { return this->is_on(); }
-        void notify_onoff(bool) { lasers::MaybeRecalcLight(this->get_pos()); }
+        void notify_onoff(bool) { MaybeRecalcLight(this->get_pos()); }
 
         StoneResponse collision_response(const StoneContact &sc) {
             if (sc.actor->is_invisible())
@@ -2162,7 +2161,7 @@ namespace
     DEF_TRAITS(PolarSwitchStone, "st-polarswitch", st_polarswitch);
 }
 
-
+
 /* -------------------- Fire breakable stones -------------------- */
 
 /* These stones mimic the behaviour of the plain-looking stones in
@@ -2249,24 +2248,24 @@ namespace
                 MOVABLE_IRREGULAR);
 }
 
-
+
 /* -------------------- Functions -------------------- */
 
-void world::DefineSimpleStone(const std::string &kind, 
+void DefineSimpleStone(const std::string &kind, 
                               const std::string &sound,
                               int hollow, int glass)
 {
     Register(new SimpleStone(kind, sound, hollow != 0, glass != 0));
 }
 
-void world::DefineSimpleStoneMovable(const std::string &kind, 
+void DefineSimpleStoneMovable(const std::string &kind, 
                                      const std::string &sound, 
                                      int glass)
 {
     Register(new SimpleStoneMovable(kind, sound, glass != 0));
 }
 
-void stones::Init_simple()
+void Init_simple()
 {
     Register(new ActorImpulseStone);
     Register(new ActorImpulseStoneInvisible);
@@ -2334,3 +2333,5 @@ void stones::Init_simple()
     Register(new Stone_firebreak);
     Register(new Stone_movefirebreak);
 }
+
+} // namespace enigma

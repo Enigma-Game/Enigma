@@ -48,7 +48,7 @@ namespace enigma { namespace gui {
       load the appropriate models. */
     void ChangeVideoMode()
     {
-        world::PrepareLevel();      // make sure no references to models remain
+        enigma::WorldPrepareLevel();      // make sure no references to models remain
         video::ChangeVideoMode();
         LevelPreviewCache::instance()->clear();
         enigma::ClearImageCache();

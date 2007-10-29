@@ -35,8 +35,8 @@
 
 
 using namespace std;
-using namespace enigma;
-using namespace world;
+
+namespace enigma {
 
 // remove comment from define below to switch on verbose messaging
 // note: VERBOSE_MESSAGES is defined in multiple source files!
@@ -87,7 +87,7 @@ int Object::getId() const {
     return id;
 }
 
-Value Object::on_message (const world::Message &m)
+Value Object::on_message (const Message &m)
 {
     return message (m.message, m.value);
 }
@@ -253,3 +253,5 @@ void GridObject::warning(const char *format, ...) const
 
     va_end(arg_ptr);
 }
+
+} // namespace enigma

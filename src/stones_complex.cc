@@ -33,10 +33,10 @@
 #include <iostream>
 
 using namespace std;
-using namespace world;
-using namespace stones;
 
-
+namespace enigma { 
+
+
 /* -------------------- RotatorStone -------------------- */
 namespace
 {
@@ -134,7 +134,7 @@ namespace
     const double RotatorStone::IMPULSE_DELAY = 0.1;
 }
 
-
+
 /* -------------------- PullStone -------------------- */
 
 // When pushed this stone acts like pulled.
@@ -338,7 +338,7 @@ void PullStone::on_impulse(const Impulse& impulse)
     sound_event("moveslow");
 }
 
-
+
 /* -------------------- Oneway stones -------------------- */
 
 // These stone can only be passed in one direction.
@@ -455,7 +455,7 @@ StoneResponse OneWayBase::collision_response(const StoneContact &sc) {
         return STONE_REBOUND;
 }
 
-
+
 /* -------------------- BolderStone -------------------- */
 
 /** \page st-bolder Bolder Stone
@@ -670,10 +670,10 @@ namespace
         void animcb() {
             switch (state) {
             case SHRINKING: {
-                Item *it = world::MakeItem("it-blocker-new");
-                world::SetItem(get_pos(), it);
+                Item *it = MakeItem("it-blocker-new");
+                SetItem(get_pos(), it);
                 TransferObjectName(this, it);
-                world::KillStone(get_pos());
+                KillStone(get_pos());
                 break;
             }
             case GROWING:
@@ -732,7 +732,7 @@ namespace
     DEF_TRAITSM(BlockerStone, "INVALID", st_INVALID, MOVABLE_BREAKABLE);
 }
 
-
+
 /* -------------------- Volcano -------------------- */
 namespace
 {
@@ -803,7 +803,7 @@ namespace
     DEF_TRAITSM(VolcanoStone, "st-volcano", st_volcano, MOVABLE_BREAKABLE);    
 }
 
-
+
 /* -------------------- BigBrick -------------------- */
 
 // BigBricks allow to build stones of any size based on st-brick.
@@ -954,9 +954,9 @@ namespace
     bool Window::tryInnerPull(Direction dir) {
         DirectionBits faces = get_connections();
         if (!has_dir(faces, dir) && has_dir(faces, reverse(dir))){
-            Stone *stone = world::GetStone(move(get_pos(), dir));
+            Stone *stone = GetStone(move(get_pos(), dir));
             if (!stone || ((stone->get_traits().id == st_window) &&  
-                    !has_dir(dynamic_cast<stones::ConnectiveStone *>(stone)->get_connections(), reverse(dir)))) {
+                    !has_dir(dynamic_cast<ConnectiveStone *>(stone)->get_connections(), reverse(dir)))) {
                 ReplaceStone(get_pos(), new Window((faces&(~to_bits(reverse(dir)))|to_bits(dir))+1));
                 return true;
             }
@@ -1036,7 +1036,7 @@ row- or columnwise.
 */
 namespace
 {
-    class PuzzleStone : public ConnectiveStone, public TimeHandler, public world::PhotoCell {
+    class PuzzleStone : public ConnectiveStone, public TimeHandler, public PhotoCell {
         INSTANCELISTOBJ(PuzzleStone);
         DECL_TRAITS;
     public:
@@ -1635,7 +1635,7 @@ void PuzzleStone::actor_contact (Actor *a)
 }
 
 
-
+
 /* -------------------- DoorBase -------------------- */
 
 // Base class for everything that behaves like a door, i.e., it has
@@ -1729,12 +1729,12 @@ void DoorBase::change_state(State newstate)
     switch (newstate) {
     case OPEN:
         set_model(basename+"-open");
-        lasers::MaybeRecalcLight(get_pos());
+        MaybeRecalcLight(get_pos());
         break;
     case CLOSED:
         set_model(basename+"-closed");
-        world::ShatterActorsInsideField (get_pos());
-        lasers::MaybeRecalcLight(get_pos()); // maybe superfluous
+        ShatterActorsInsideField (get_pos());
+        MaybeRecalcLight(get_pos()); // maybe superfluous
         break;
     case OPENING:
         sound_event (opening_sound().c_str());
@@ -1749,14 +1749,14 @@ void DoorBase::change_state(State newstate)
             get_model()->reverse();
         else
             set_anim(basename+"-closing");
-        world::ShatterActorsInsideField (get_pos());
-        lasers::MaybeRecalcLight(get_pos());
+        ShatterActorsInsideField (get_pos());
+        MaybeRecalcLight(get_pos());
         break;
     }
     set_state(newstate);
 }
 
-
+
 /* -------------------- Door -------------------- */
 
 // Attributes:
@@ -1839,7 +1839,7 @@ Door::collision_response(const StoneContact &sc)
     }
 }
 
-
+
 /* -------------------- ShogunStone -------------------- */
 
 // Attributes:
@@ -1993,7 +1993,6 @@ void ShogunStone::on_impulse(const Impulse& impulse) {
 }
 
 
-
 /* -------------------- Stone impulse stones -------------------- */
 
 // Messages:
@@ -2140,10 +2139,10 @@ namespace
             switch (st) {
             case IDLE:
                 init_model();
-                lasers::MaybeRecalcLight(get_pos());
+                MaybeRecalcLight(get_pos());
                 break;
             case PULSING:
-                lasers::MaybeRecalcLight(get_pos());
+                MaybeRecalcLight(get_pos());
                 set_anim("st-stoneimpulse-hollow-anim1");
                 break;
             case CLOSING:
@@ -2243,7 +2242,7 @@ namespace
                 st_stoneimpulse_movable, MOVABLE_STANDARD);
 }
 
-
+
 /* -------------------- Oxyd stone -------------------- */
 
 /** \page st-oxyd Oxyd Stone
@@ -2530,7 +2529,7 @@ void OxydStone::on_removal(GridPos p)
     kill_model (p);
 }
 
-
+
 /* -------------------- Turnstiles -------------------- */
 namespace
 {
@@ -2649,7 +2648,7 @@ namespace
     DEF_TRAITSM(Turnstile_W, "st-turnstile-w", st_turnstile_w, MOVABLE_IRREGULAR);
 }
 
-
+
 /* -------------------- Turnstile_Arm -------------------- */
 
 void Turnstile_Arm::on_impulse(const Impulse& impulse) {
@@ -2943,7 +2942,7 @@ void Turnstile_Pivot_Base::handleActorsAndItems(bool clockwise, Object *impulse_
             continue;
         }
 
-        world::WarpActor(ac, ac_target_pos.x+.5, ac_target_pos.y+.5, false);
+        WarpActor(ac, ac_target_pos.x+.5, ac_target_pos.y+.5, false);
 
         if (Stone *st = GetStone(ac_target_pos)) {
 
@@ -2984,7 +2983,7 @@ void Turnstile_Pivot_Base::handleActorsAndItems(bool clockwise, Object *impulse_
 
 }
 
-
+
 /* -------------------- Mail stone -------------------- */
 
 namespace
@@ -3021,7 +3020,7 @@ void MailStone::actor_hit (const StoneContact &sc)
     if (enigma::Inventory *inv = player::GetInventory(sc.actor)) {
         if (Item *it = inv->get_item(0)) {
             GridPos p = find_pipe_endpoint();
-            if (world::IsInsideLevel(p) && it->can_drop_at (p)) {
+            if (IsInsideLevel(p) && it->can_drop_at (p)) {
                 it = inv->yield_first();
                 player::RedrawInventory (inv);
                 it->drop(sc.actor, p);
@@ -3048,7 +3047,7 @@ GridPos MailStone::find_pipe_endpoint()
 
     while (move_dir != NODIR) {
         p.move (move_dir);
-        if (Item *it = world::GetItem(p)) {
+        if (Item *it = GetItem(p)) {
             switch (get_id(it)) {
             case it_pipe_h:
                 if (!(move_dir == EAST || move_dir == WEST))
@@ -3090,7 +3089,7 @@ GridPos MailStone::find_pipe_endpoint()
     return p;
 }
 
-
+
 /* -------------------- Chess stone -------------------- */
 
 namespace
@@ -3373,7 +3372,7 @@ namespace
     }
 }
 
-
+
 /* -------------------- Light Passenger Stone -------------------- */
 namespace
 {
@@ -3414,10 +3413,10 @@ namespace
                 set_anim("st-lightpassenger-blink"); break;
             case BREAK:
                 GridPos p = get_pos();
-                bool NorthSouth = lasers::LightFrom(p,NORTH) &&
-		    lasers::LightFrom(p,SOUTH);
-                bool EastWest = lasers::LightFrom(p,EAST) &&
-		    lasers::LightFrom(p,WEST);
+                bool NorthSouth = LightFrom(p,NORTH) &&
+		    LightFrom(p,SOUTH);
+                bool EastWest = LightFrom(p,EAST) &&
+		    LightFrom(p,WEST);
                 sound_event ("stonedestroy");
                 if(NorthSouth && !EastWest)
                     set_anim("st-lightpassenger-break-v");
@@ -3495,10 +3494,10 @@ namespace
         void alarm() {
             if(isLighted && (state == ACTIVE || state == BLINK)) {
                 GridPos p = get_pos();
-                int toSouth =    (lasers::LightFrom(p,NORTH)?1:0)
-                               + (lasers::LightFrom(p,SOUTH)?-1:0);
-                int toWest =   (lasers::LightFrom(p,EAST)?1:0)
-                             + (lasers::LightFrom(p,WEST)?-1:0);
+                int toSouth =    (LightFrom(p,NORTH)?1:0)
+                               + (LightFrom(p,SOUTH)?-1:0);
+                int toWest =   (LightFrom(p,EAST)?1:0)
+                             + (LightFrom(p,WEST)?-1:0);
                 if(toSouth * toWest != 0) {
                     // Light is coming from two directions. Choose the one you are
                     // *not* coming from (thus changing beams), in doubt: random.
@@ -3516,8 +3515,8 @@ namespace
                 if(skateDir == NODIR && state != BLINK) {
                     // No direction but lighted? Seems to be lasers from
                     // two opposite directions. Be sure and then start blinking.
-                    if(lasers::LightFrom(p,EAST) || lasers::LightFrom(p,WEST) ||
-                       lasers::LightFrom(p,NORTH) || lasers::LightFrom(p,SOUTH)) {
+                    if(LightFrom(p,EAST) || LightFrom(p,WEST) ||
+                       LightFrom(p,NORTH) || LightFrom(p,SOUTH)) {
                         state = BLINK;
                         init_model();
                     }
@@ -3555,9 +3554,10 @@ namespace
                 MOVABLE_IRREGULAR);
 }
 
+
 // --------------------------------------------------------------------------------
 
-void stones::Init_complex()
+void Init_complex()
 {
     Register(new BolderStone);
     Register("st-bolder-n", new BolderStone(NORTH));
@@ -3741,3 +3741,7 @@ void stones::Init_complex()
     Register("st-lightpassenger", new LightPassengerStone(true));
     Register("st-lightpassenger_off", new LightPassengerStone(false));
 }
+
+} // namespace enigma
+
+

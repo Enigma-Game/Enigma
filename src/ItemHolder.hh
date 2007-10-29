@@ -20,8 +20,8 @@ namespace enigma
         virtual bool is_empty() const = 0;
 
         //! Add another item
-        virtual void add_item (world::Item *it) = 0;
-        virtual world::Item *yield_first() = 0;
+        virtual void add_item (Item *it) = 0;
+        virtual Item *yield_first() = 0;
         virtual void takeItemsFrom(ItemHolder *ih) {return;}
     };
 }

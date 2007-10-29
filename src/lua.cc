@@ -66,10 +66,10 @@ using ecl::round_down;
 using ecl::strf;
 
 using enigma::GridPos;
-using world::Object;
-using world::GridObject;
-using world::ForceField;
-using world::WorldProxy;
+using enigma::Object;
+using enigma::GridObject;
+using enigma::ForceField;
+using enigma::WorldProxy;
 
 namespace enigma { namespace lua {
      
@@ -197,7 +197,7 @@ static Object *to_object(lua_State *L, int idx) {
     int id = *(static_cast<int *>(lua_touserdata(L,idx)));
     Object *obj = NULL;
     if (id != -1)
-       obj = world::Object::getObject(id);
+       obj = Object::getObject(id);
 
     return obj;  // NULL if object does no longer exist
 }
@@ -383,13 +383,13 @@ static Value to_value(lua_State *L, int idx) {
 /* -------------------- Interface routines -------------------- */
 
 
-int MakeObject (lua_State *L)
+int en_make_object (lua_State *L)
 {
     const char *name = lua_tostring(L, 1);
     if (!name) {
         throwLuaError(L, "MakeObject: string expected as argument");
     }
-    Object *obj = world::MakeObject(name);
+    Object *obj = MakeObject(name);
     if (obj == NULL)
         throwLuaError(L, ecl::strf("MakeObject: unknown object name '%s'", name).c_str());
     pushobject(L, obj);
@@ -399,7 +399,7 @@ int MakeObject (lua_State *L)
 static int
 en_get_object_template(lua_State *L)
 {
-    Object *obj = world::GetObjectTemplate(lua_tostring(L, 1));
+    Object *obj = GetObjectTemplate(lua_tostring(L, 1));
     pushobject(L, obj);
     return 1;
 }
@@ -474,7 +474,7 @@ en_set_floor(lua_State *L)
              throwLuaError(L, "object argument 3 must be a floor or nil");
          }
     }
-    world::SetFloor(GridPos(x,y), fl);
+    SetFloor(GridPos(x,y), fl);
     return 0;
 }
 
@@ -487,7 +487,7 @@ en_set_item(lua_State *L)
     if( ! it) {
         throwLuaError(L, "object is no valid item");
     }
-    world::SetItem(GridPos(x,y), it);
+    SetItem(GridPos(x,y), it);
     return 0;
 }
 
@@ -499,7 +499,7 @@ en_set_stone(lua_State *L)
     Stone *st = dynamic_cast<Stone*>(to_object(L, 3));
     if( ! st)
         throwLuaError(L, "object is no valid stone");
-    world::SetStone(GridPos(x,y), st);
+    SetStone(GridPos(x,y), st);
     return 0;
 }
 
@@ -507,7 +507,7 @@ static int en_kill_stone(lua_State *L)
 {
     int x = round_down<int>(lua_tonumber(L, 1));
     int y = round_down<int>(lua_tonumber(L, 2));
-    world::KillStone(GridPos(x,y));
+    KillStone(GridPos(x,y));
     return 0;
 }
 
@@ -515,7 +515,7 @@ static int en_kill_item(lua_State *L)
 {
     int x = round_down<int>(lua_tonumber(L, 1));
     int y = round_down<int>(lua_tonumber(L, 2));
-    world::KillItem(GridPos(x,y));
+    KillItem(GridPos(x,y));
     return 0;
 }
 
@@ -527,8 +527,8 @@ en_set_actor(lua_State *L)
     Actor *ac = dynamic_cast<Actor*>(to_object(L, 3));
     if( ! ac)
         throwLuaError(L, "object is no valid actor");
-    if (world::IsInsideLevel(GridPos(round_down<int>(x), round_down<int>(y))))
-        world::AddActor(x, y, ac);
+    if (IsInsideLevel(GridPos(round_down<int>(x), round_down<int>(y))))
+        AddActor(x, y, ac);
     else
         throwLuaError(L, "position is outside of world");
     return 0;
@@ -545,7 +545,7 @@ en_send_message(lua_State *L)
         throwLuaError(L,"Illegal message");
     else if (obj) {
         try {
-            v = world::SendMessage (obj, msg, to_value(L, 3));
+            v = SendMessage (obj, msg, to_value(L, 3));
         }
         catch (const XLevelRuntime &e) {
             throwLuaError (L, e.what());
@@ -613,7 +613,7 @@ en_name_object(lua_State *L)
     else if (!name) 
         throwLuaError(L, "NameObject: Illegal name");
     else
-        world::NameObject(obj, name);
+        NameObject(obj, name);
 
     return 0;
 }
@@ -621,7 +621,7 @@ en_name_object(lua_State *L)
 static int
 en_get_named_object(lua_State *L)
 {
-    Object *o = world::GetNamedObject(lua_tostring(L,1));
+    Object *o = GetNamedObject(lua_tostring(L,1));
     pushobject(L, o);
     return 1;
 }
@@ -631,7 +631,7 @@ en_get_floor(lua_State *L)
 {
     int x = round_down<int>(lua_tonumber(L, 1));
     int y = round_down<int>(lua_tonumber(L, 2));
-    Object *o = world::GetFloor(GridPos(x, y));
+    Object *o = GetFloor(GridPos(x, y));
     pushobject(L, o);
     return 1;
 }
@@ -640,7 +640,7 @@ en_get_item(lua_State *L)
 {
     int x = round_down<int>(lua_tonumber(L, 1));
     int y = round_down<int>(lua_tonumber(L, 2));
-    Object *o = world::GetItem(GridPos(x, y));
+    Object *o = GetItem(GridPos(x, y));
     pushobject(L, o);
     return 1;
 }
@@ -649,7 +649,7 @@ en_get_stone(lua_State *L)
 {
     int x = round_down<int>(lua_tonumber(L, 1));
     int y = round_down<int>(lua_tonumber(L, 2));
-    Object *o = world::GetStone(GridPos(x, y));
+    Object *o = GetStone(GridPos(x, y));
     pushobject(L, o);
     return 1;
 }
@@ -682,7 +682,7 @@ static int en_add_constant_force(lua_State *L) {
     ecl::V2 v;
     v[0] = lua_tonumber(L, 1);
     v[1] = lua_tonumber(L, 2);
-    world::SetConstantForce (v);
+    SetConstantForce (v);
     return 0;
 }
 
@@ -693,7 +693,7 @@ en_add_rubber_band (lua_State *L)
     Object *o2       = to_object(L, 2);
     Actor  *a2       = dynamic_cast<Actor*>(o2);
     Stone  *st       = dynamic_cast<Stone*>(o2);
-    world::RubberBandData d;
+    RubberBandData d;
     d.strength  = lua_tonumber (L, 3);
     d.length    = lua_tonumber (L, 4);
     d.minlength = lua_tonumber (L, 5);
@@ -702,9 +702,9 @@ en_add_rubber_band (lua_State *L)
         throwLuaError(L, "AddRubberBand: First argument must be an actor\n");
     else {
         if (a2)
-            world::AddRubberBand (a1, a2, d);
+            AddRubberBand (a1, a2, d);
         else if (st)
-            world::AddRubberBand (a1, st, d);
+            AddRubberBand (a1, st, d);
         else
             throwLuaError(L, "AddRubberBand: Second argument must be actor or stone\n");
     }
@@ -751,7 +751,7 @@ en_add_scramble(lua_State *L)
     char       *found   = strchr(allowed, dir[0]);
 
     if (found && found[0]) 
-        world::AddScramble(GridPos(x,y), enigma::Direction(found-allowed));
+        AddScramble(GridPos(x,y), enigma::Direction(found-allowed));
     else 
         throwLuaError(L, "AddScramble: Third argument must be one character of \"wsen\"");
 
@@ -761,7 +761,7 @@ en_add_scramble(lua_State *L)
 static int
 en_set_scramble_intensity(lua_State *L)
 {
-    world::SetScrambleIntensity(int(lua_tonumber(L, 1)));
+    SetScrambleIntensity(int(lua_tonumber(L, 1)));
     return 0;
 }
 
@@ -781,7 +781,7 @@ en_add_signal (lua_State *L) {
     if (msg == 0)
         msg = "signal";
 
-    world::AddSignal (source, target, msg);
+    AddSignal (source, target, msg);
     return 0;
 }
 
@@ -1005,7 +1005,7 @@ static void setObjectAttributes(Object *obj, lua_State *L) {
             std::string key = lua_tostring(L, -1);
             if (key == "name") {
                 if (lua_isstring(L, -2))
-                    world::NameObject(obj, lua_tostring(L, -2));
+                    NameObject(obj, lua_tostring(L, -2));
             } else {
                 obj->set_attrib(key, to_value(L, -2));
             }
@@ -1031,7 +1031,7 @@ static int getFloor(lua_State *L) {
     int x = round_down<int>(lua_tonumber(L, -1));
     lua_rawgeti(L, -2, 2);
     int y = round_down<int>(lua_tonumber(L, -1));
-    Object *o = world::GetFloor(GridPos(x, y));
+    Object *o = GetFloor(GridPos(x, y));
     pushobject(L, o);
     return 1;
 }
@@ -1046,7 +1046,7 @@ static int getItem(lua_State *L) {
     int x = round_down<int>(lua_tonumber(L, -1));
     lua_rawgeti(L, -2, 2);
     int y = round_down<int>(lua_tonumber(L, -1));
-    Object *o = world::GetItem(GridPos(x, y));
+    Object *o = GetItem(GridPos(x, y));
     pushobject(L, o);
     return 1;
 }
@@ -1061,7 +1061,7 @@ static int getStone(lua_State *L) {
     int x = round_down<int>(lua_tonumber(L, -1));
     lua_rawgeti(L, -2, 2);
     int y = round_down<int>(lua_tonumber(L, -1));
-    Object *o = world::GetStone(GridPos(x, y));
+    Object *o = GetStone(GridPos(x, y));
     pushobject(L, o);
     return 1;
 }
@@ -1073,15 +1073,15 @@ static int killObjectBase(lua_State *L) {  // TODO Itemholder owner objects
         switch (obj->getObjectType()) {
             case Object::FLOOR :
                 gobj = dynamic_cast<GridObject*>(obj);
-                world::KillFloor(gobj->get_pos());
+                KillFloor(gobj->get_pos());
                 break;
             case Object::STONE :
                 gobj = dynamic_cast<GridObject*>(obj);
-                world::KillStone(gobj->get_pos());
+                KillStone(gobj->get_pos());
                 break;
             case Object::ITEM  :
                 gobj = dynamic_cast<GridObject*>(obj);
-                world::KillItem(gobj->get_pos());
+                KillItem(gobj->get_pos());
                 break;
             case Object::ACTOR :
             default :
@@ -1156,7 +1156,7 @@ static int objectMessageBase(lua_State *L) {
     
     if (obj) {   // ignore not existing objects
         try {
-            answer = world::SendMessage (obj, msg, val);
+            answer = SendMessage (obj, msg, val);
         }
         catch (const XLevelRuntime &e) {
             throwLuaError (L, e.what());
@@ -1531,11 +1531,11 @@ static int dispatchNamedObjReadAccess(lua_State *L) {
     
     if (name.find_first_of("*?") != std::string::npos) {
         // search all objects that match the template
-        std::list<Object *> group = world::GetNamedGroup(name);
+        std::list<Object *> group = GetNamedGroup(name);
         return pushNewGroup(L, group);
     } else {    
         // search for a unique object
-        Object *obj = world::GetNamedObject(name);
+        Object *obj = GetNamedObject(name);
         pushobject(L, obj);
     }
     return 1;
@@ -1555,7 +1555,7 @@ static int dispatchNamedObjWriteAccess(lua_State *L) {
         throwLuaError(L, "NameObject: names with leading '$' are reserved");
         return 0;
     }
-    world::NameObject(obj, name);
+    NameObject(obj, name);
     return 0;
 }
 
@@ -1614,17 +1614,17 @@ static int setObjectByTable(lua_State *L, double x, double y) {
     }
     
     if (name == "fl-nil") {
-        world::KillFloor(GridPos(xi, yi));
+        KillFloor(GridPos(xi, yi));
         return 0;
     } else if (name == "st-nil") {
-        world::KillStone(GridPos(xi, yi));
+        KillStone(GridPos(xi, yi));
         return 0;
     } else if (name == "it-nil") {
-        world::KillItem(GridPos(xi, yi));
+        KillItem(GridPos(xi, yi));
         return 0;
     }
     
-    obj = world::MakeObject(name.c_str());
+    obj = MakeObject(name.c_str());
     if (obj == NULL) {
         throwLuaError(L, ecl::strf("World: unknown object name '%s'", name.c_str()).c_str());
         return 0;
@@ -1637,13 +1637,13 @@ static int setObjectByTable(lua_State *L, double x, double y) {
                 if ((xi+yi)%2 != (int)odd)
                     break;
             }
-            world::SetFloor(GridPos(xi,yi), dynamic_cast<Floor *>(obj));
+            SetFloor(GridPos(xi,yi), dynamic_cast<Floor *>(obj));
             break;
         case Object::STONE :
-            world::SetStone(GridPos(xi,yi), dynamic_cast<Stone *>(obj));
+            SetStone(GridPos(xi,yi), dynamic_cast<Stone *>(obj));
             break;
         case Object::ITEM  :
-            world::SetItem(GridPos(xi,yi), dynamic_cast<Item *>(obj));
+            SetItem(GridPos(xi,yi), dynamic_cast<Item *>(obj));
             break;
         case Object::ACTOR :
             lua_rawgeti(L, -1, 2);
@@ -1653,8 +1653,8 @@ static int setObjectByTable(lua_State *L, double x, double y) {
             if (lua_isnumber(L, -1))
                 y += lua_tonumber(L, -1);
             lua_pop(L, 2);               
-            if (world::IsInsideLevel(GridPos(round_down<int>(x), round_down<int>(y)))) 
-                world::AddActor(x, y, dynamic_cast<Actor *>(obj));
+            if (IsInsideLevel(GridPos(round_down<int>(x), round_down<int>(y)))) 
+                AddActor(x, y, dynamic_cast<Actor *>(obj));
             else
                 throwLuaError(L, "World: actor addition to position outside of world");
             break;
@@ -1727,7 +1727,7 @@ static int initWorld(lua_State *L) {
     width = width/keyLength;
     Log << "initWorld  - w " << width << "  - h " << height << "\n";
 
-    world::Resize(width, height);
+    Resize(width, height);
     
     luaL_getmetatable(L, LUA_ID_TILES);
     lua_rawgeti(L, -1, 1);               // tiles content table
@@ -2063,7 +2063,7 @@ static CFunction levelfuncs[] = {
     {FindDataFile,          "FindDataFile"},
     {loadLib,               "LoadLib"},
     {en_get_object_template,"GetObjectTemplate"},
-    {lua::MakeObject,       "MakeObject"},
+    {en_make_object,        "MakeObject"},
     {en_set_actor,          "SetActor"},
 
     // finding objects
@@ -2299,7 +2299,7 @@ void RegisterLuaType(lua_State *L, std::string registryKey, CFunction *ops,
     }
 }
 
-Error CallFunc(lua_State *L, const char *funcname, const Value& arg, world::Object *obj) {
+Error CallFunc(lua_State *L, const char *funcname, const Value& arg, Object *obj) {
     int retval;
     lua_getglobal(L, funcname);
     push_value(L, arg);
@@ -2482,7 +2482,7 @@ lua_State *InitLevel()
     RegisterFuncs(L, levelfuncs);
     RegisterFuncs2(L, levelFuncs);
 
-    // Create a new metatable for world::Object objects
+    // Create a new metatable for world objects
     RegisterLuaType(L, LUA_ID_OBJECT, objectOperations, objectMethods, objectMethodeMap);
     RegisterLuaType(L, LUA_ID_POSITION, positionOperations, positionMethods, positionMethodeMap);
     RegisterLuaType(L, LUA_ID_NAMEOBJ, namedObjOperations, namedObjMethods, namedObjMethodeMap);

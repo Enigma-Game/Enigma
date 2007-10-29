@@ -19,8 +19,11 @@
 #ifndef FLOORS_HH_INCLUDED
 #define FLOORS_HH_INCLUDED
 
-namespace world
-{
+namespace enigma {
+
+    class Actor;
+    class Stone;
+    
     enum FloorFlags {
         flf_default        = 0,
         flf_indestructible = 0x01,
@@ -146,6 +149,6 @@ namespace world
 
     void InitFloors();
 
-}
+} // namespace enigma
 
 #endif

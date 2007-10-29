@@ -25,14 +25,10 @@
 #include <map>
 
 using namespace std;
-using namespace world;
-using namespace lasers;
 
-using stones::maybe_push_stone;
 using ecl::V2;
 
-namespace
-{
+namespace enigma {
 
 /* -------------------- LaserBeam -------------------- */
 
@@ -101,7 +97,7 @@ an incoming beam).
 \ref st-pmirror, \ref st-3mirror
 
 */
-    class LaserStone : public LaserEmitter, public stones::OnOffStone {
+    class LaserStone : public LaserEmitter, public OnOffStone {
     public:
         LaserStone (Direction dir=EAST);
         static void reemit_all();
@@ -140,9 +136,9 @@ an incoming beam).
         void on_creation (GridPos p);
         void init_model();
     };
-}
 
-
+
+
 /* -------------------- PhotoCell -------------------- */
 
 vector<void*> PhotoCell::instances;
@@ -337,7 +333,7 @@ void LaserBeam::kill_all()
         GridPos    pos = lb->get_pos();
 
         old_laser_positions[pos] = static_cast<int>(lb->directions);
-        world::KillItem(pos);
+        KillItem(pos);
     }
 }
 
@@ -486,7 +482,7 @@ namespace
         void on_recalc_finish() {}
 
         // Stone interface
-        void actor_hit(const world::StoneContact &sc);
+        void actor_hit(const StoneContact &sc);
         void on_creation (GridPos p);
         void on_removal (GridPos p);
         bool is_transparent(Direction) const { return is_transparent(); }
@@ -555,7 +551,7 @@ Value MirrorStone::message(const string &m, const Value &val) {
     return Value();
 }
 
-void MirrorStone::actor_hit(const world::StoneContact &sc)
+void MirrorStone::actor_hit(const StoneContact &sc)
 {
     if (is_movable())
         maybe_push_stone(sc);
@@ -588,7 +584,7 @@ void MirrorStone::set_attrib(const string& key, const Value &val) {
         traits.movable = to_bool(val) ? MOVABLE_STANDARD : MOVABLE_PERSISTENT;
 }
     
-
+
 /* -------------------- Plane Mirror -------------------- */
 namespace
 {
@@ -666,7 +662,7 @@ void PlaneMirror::on_laserhit(Direction dir)
     }
 }
 
-
+
 /* -------------------- TriangleMirror -------------------- */
 
 namespace
@@ -742,7 +738,7 @@ namespace
     bool light_recalc_scheduled = false;
 }
 
-void lasers::Init() {
+void InitLasers() {
     Register (new LaserStone);
     Register ("st-laser-n", new LaserStone(NORTH));
     Register ("st-laser-e", new LaserStone(EAST));
@@ -787,17 +783,17 @@ void lasers::Init() {
 }
 
 
-void lasers::MaybeRecalcLight(GridPos p) {
+void MaybeRecalcLight(GridPos p) {
     light_recalc_scheduled |=
         (LightFrom(p, NORTH) || LightFrom(p, SOUTH) ||
          LightFrom(p, WEST) || LightFrom(p, EAST));
 }
 
-void lasers::RecalcLight() {
+void RecalcLight() {
     light_recalc_scheduled = true;
 }
 
-bool lasers::LightFrom (GridPos p, Direction dir) {
+bool LightFrom (GridPos p, Direction dir) {
     p.move(dir);
     if (LaserEmitter *le = dynamic_cast<LaserEmitter*>(GetStone(p)))
         if (has_dir(le->emission_directions(), reverse(dir)))
@@ -807,7 +803,7 @@ bool lasers::LightFrom (GridPos p, Direction dir) {
     return false;
 }
 
-void lasers::RecalcLightNow() {
+void RecalcLightNow() {
     if (light_recalc_scheduled) {
         PhotoCell::notify_start();
         LaserBeam::kill_all();
@@ -817,3 +813,5 @@ void lasers::RecalcLightNow() {
         light_recalc_scheduled = false;
     }
 }
+
+} // namespace enigma

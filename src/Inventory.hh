@@ -26,8 +26,8 @@
 
 namespace enigma
 {
-    using world::Item;          // TODO: remove this after moving Item into enigma namespace
-
+//    using Item;          // TODO: remove this after moving Item into enigma namespace
+    class Item;
     class Inventory : public ItemHolder {
     public:
         Inventory();

@@ -34,8 +34,7 @@
 
 using namespace std;
 using namespace enigma;
-using namespace world;
-using world::Actor;
+using enigma::Actor;
 using enigma::Inventory;
 
 namespace
@@ -115,7 +114,7 @@ void LevelLocalData::resurrect_actor (Actor *a)
     const double RESPAWN_TIME = 1.5;
 
 //    a->find_respawnpos();
-    world::SendMessage(a, "resurrect");
+    SendMessage(a, "resurrect");
     remove_extralife(a);
     respawn_list.push_back(RespawnInfo(a, RESPAWN_TIME));
 }
@@ -182,7 +181,7 @@ void player::NewGame (bool isRestart) {
         Inventory *inv = GetInventory(i);
         inv->assignOwner(i);
         for (int j = 0 ; j < extralives[i]; j++)
-            inv->add_item (MakeItem (world::it_extralife));
+            inv->add_item (MakeItem (it_extralife));
     }
     
     unassignedActors.clear();
@@ -194,7 +193,7 @@ void player::AddYinYang ()
     for (unsigned i=0; i<players.size(); ++i) {
         Inventory *inv = GetInventory (i);
         if (inv->find ("it-yinyang") == -1) 
-            inv->add_item (world::MakeItem (world::it_yinyang));
+            inv->add_item (MakeItem (it_yinyang));
     }
 }
 
@@ -213,11 +212,11 @@ void player::PrepareLevel()
         Inventory *inv = GetInventory(iplayer);
         int nextralifes=0;
         for (size_t i=0; i<inv->size(); ++i)
-            if (get_id (inv->get_item(i)) == world::it_extralife)
+            if (get_id (inv->get_item(i)) == it_extralife)
                 nextralifes += 1;
         inv->clear();
         for (int i=0; i<nextralifes; ++i)
-            inv->add_item (world::MakeItem (world::it_extralife));
+            inv->add_item (MakeItem (it_extralife));
 
         players[iplayer].actors.clear();
     }
@@ -231,8 +230,8 @@ void player::LevelFinished()
     for (unsigned i=0; i<players.size(); ++i) {
         for (unsigned j=0; j<players[i].actors.size(); ++j) {
             Actor *a = players[i].actors[j];
-            world::SendMessage(a, "disappear");
-            world::KillRubberBands (a);
+            SendMessage(a, "disappear");
+            KillRubberBands (a);
         }
     }
 }
@@ -318,7 +317,7 @@ void player::Suicide()
     for (unsigned i=0; i<players.size(); ++i) {
         vector<Actor *> &al = players[i].actors;
         for (unsigned j=0; j<al.size(); ++j) {
-            world::SendMessage(al[j], "suicide");
+            SendMessage(al[j], "suicide");
         }
     }
 }
@@ -344,7 +343,7 @@ void player::AddActor (unsigned iplayer, Actor *a)
     if (iplayer >= players.size())
         server::RaiseError ("Invalid actor number");
 
-    world::ReleaseActor(a);
+    ReleaseActor(a);
     players[iplayer].actors.push_back(a);
 
     if (players[iplayer].actors.size() == 1) {
@@ -562,7 +561,7 @@ Inventory *player::MayPickup(Actor *a, Item *it)
 void player::PickupItem (Actor *a, GridPos p) 
 {
     if (Inventory *inv = MayPickup(a, GetField(p)->item)) {
-        if (Item *item = world::YieldItem(p)) {
+        if (Item *item = YieldItem(p)) {
             item->on_pickup(a);
             inv->add_item(item);
             RedrawInventory (inv);
@@ -575,15 +574,15 @@ void player::PickupStoneAsItem (Actor *a, enigma::GridPos p)
 {
     if (Inventory *inv = MayPickup(a, GetField(p)->item)) 
     {
-        if (world::Stone *stone = world::YieldStone(p)) 
+        if (Stone *stone = YieldStone(p)) 
         {
             string kind = stone->get_kind();
             if (kind[0] == 's') 
                 kind[0] = 'i';
 
-            if (Item *item = world::MakeItem(kind.c_str())) {
+            if (Item *item = MakeItem(kind.c_str())) {
                 KillRubberBands(stone);
-                world::DisposeObject (stone);
+                DisposeObject (stone);
                 inv->add_item(item);
                 player::RedrawInventory(inv);
                 sound::EmitSoundEvent ("pickup", p.center());
@@ -599,7 +598,7 @@ void player::ActivateFirstItem()
 
     if (inv.size() > 0) {
         Item *it = inv.get_item (0);
-        world::Actor *ac = 0;
+        Actor *ac = 0;
         GridPos p;
         bool can_drop_item = false;
         if (!players[icurrent_player].actors.empty()) {
@@ -609,7 +608,7 @@ void player::ActivateFirstItem()
         }
 
         switch (it->activate(ac, p)) {
-        case world::ITEM_DROP:
+        case ITEM_DROP:
             // only drop if no item underneath and actor allows it
             if (it->can_drop_at(p) && can_drop_item) {
                 it = inv.yield_first ();
@@ -617,11 +616,11 @@ void player::ActivateFirstItem()
                 it->drop(ac, p);
             }
             break;
-        case world::ITEM_KILL:
+        case ITEM_KILL:
             DisposeObject (inv.yield_first ());
             RedrawInventory (&inv);
             break;
-        case world::ITEM_KEEP:
+        case ITEM_KEEP:
             break;
         }
     }
@@ -654,7 +653,7 @@ void player::RedrawInventory()
     Inventory *inv = GetInventory (CurrentPlayer());
     std::vector<std::string> modelnames;
     for (size_t i=0; i<inv->size(); ++i) {
-        world::Item *it = inv->get_item(i);
+        Item *it = inv->get_item(i);
         modelnames.push_back(it->get_inventory_model());
     }
     STATUSBAR->set_inventory (modelnames);

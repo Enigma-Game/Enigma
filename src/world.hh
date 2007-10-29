@@ -19,12 +19,12 @@
 #ifndef WORLD_HH_INCLUDED
 #define WORLD_HH_INCLUDED
 
+#include "enigma.hh"
 #include "objects.hh"
 #include "util.hh"
 
-namespace world
-{
-    using namespace enigma;
+namespace enigma {
+
 
 /* -------------------- Types -------------------- */
 
@@ -52,13 +52,13 @@ namespace world
     struct Message {
         // Variables
         std::string    message;
-        enigma::Value  value;
+        Value  value;
         GridPos        gridpos;
 
         // Constructors
         Message ();
         Message (const std::string &message,
-                 const enigma::Value &value,
+                 const Value &value,
                  GridPos gridpos = GridPos());
 
     };
@@ -146,22 +146,22 @@ namespace world
 
 /* -------------------- World Management -------------------- */
 
-    void Init();
+    void InitWorld();
 
-    void PrepareLevel ();
+    void WorldPrepareLevel();
 
     /* Create a new, empty world with width `w' and height `h`. */
     void Resize (int w, int h);
 
     /* Initialize the world after loading it.  Call this after loading
        the world to force laser beams to be recalculated etc. */
-    bool InitWorld();
+    bool WorldInitLevel();
 
-    void Tick(double dtime);
+    void WorldTick(double dtime);
     void TickFinished ();
 
     // Destroy all objects and the complete object repository
-    void Shutdown();
+    void ShutdownWorld();
 
 
     bool IsLevelBorder(const GridPos &p);
@@ -184,7 +184,7 @@ namespace world
 
     void SetConstantForce (V2 force);
 
-
+
 /* -------------------- Rubbers Bands -------------------- */
 
     struct RubberBandData {
@@ -237,7 +237,7 @@ namespace world
     void AddScramble(GridPos p, Direction d);
 
 
-
+
 /* -------------------- Signals & Messages -------------------- */
 
     void    AddSignal (const GridLoc &src, 
@@ -252,11 +252,11 @@ namespace world
     /* Signal indices start at 0 */
     bool GetSignalTargetPos (Object *src, GridPos &pos, int signalidx = 0);
 
-    void BroadcastMessage (const std::string& msg, const enigma::Value& value, 
+    void BroadcastMessage (const std::string& msg, const Value& value, 
                            GridLayerBits grids);
 
     Value SendMessage (Object *o, const string &msg);
-    Value SendMessage (Object *o, const string &msg, const enigma::Value& value);
+    Value SendMessage (Object *o, const string &msg, const Value& value);
     Value SendMessage (Object *o, const Message &m);
 
     /*! This function is used by all triggers, switches etc. that
@@ -265,7 +265,7 @@ namespace world
       "action" and "target" attributes of `o'. */
     void PerformAction (Object *o, bool onoff);
 
-
+
 /* -------------------- Actors -------------------- */
 
     void   AddActor (Actor *a);
@@ -415,6 +415,7 @@ namespace world
 
     /* Print information about all registered objects to stdout. */
     void DumpObjectInfo();
-}
+    
+} // namespace enigma
 
 #endif

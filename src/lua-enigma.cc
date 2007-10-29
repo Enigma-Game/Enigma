@@ -1,6 +1,6 @@
 /*
 ** Lua binding: enigma
-** Generated automatically by tolua++-1.0.92 on Fri Apr 20 13:59:44 2007.
+** Generated automatically by tolua++-1.0.92 on Mon Oct 29 00:41:21 2007.
 */
 
 #ifndef __cplusplus
@@ -21,7 +21,7 @@ using ecl::Surface;
 using ecl::Font;
 using namespace server;
 using namespace lev;
-using namespace world;
+using namespace enigma;
 #include "video.hh"
 using namespace video;
 using ecl::Screen;

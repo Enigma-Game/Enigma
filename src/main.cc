@@ -79,7 +79,7 @@ namespace
     class Nulbuf : public std::streambuf {};
     Nulbuf* nullbuffer = new Nulbuf;
 }
-
+
 /* -------------------- Variables -------------------- */
 
 namespace enigma
@@ -299,9 +299,9 @@ void Application::init(int argc, char **argv)
     init_i18n();
     
     // ----- Initialize object repositories
-    world::Init();
+    InitWorld();
     if (ap.dumpinfo) {
-        world::DumpObjectInfo();
+        DumpObjectInfo();
         exit(0);
     }
 
@@ -788,7 +788,7 @@ void Application::setUserImagePath(std::string newPath) {
 void Application::shutdown() 
 {
     oxyd::Shutdown();
-    world::Shutdown();
+    enigma::ShutdownWorld();
     display::Shutdown();
     if (!isMakePreviews) { // avoid saves on preview generation
         lev::RatingManager::instance()->save();

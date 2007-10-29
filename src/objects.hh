@@ -25,13 +25,5 @@
 #include "stones.hh"
 #include "actors.hh"
 
-namespace enigma
-{
-    using world::Item;
-    using world::Stone;
-    using world::Actor;
-    using world::Floor;
-    using world::Object;
-}
 
 #endif

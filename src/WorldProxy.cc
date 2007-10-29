@@ -21,9 +21,7 @@
 #include "server.hh"
 #include "display.hh"
 
-using namespace enigma;
-
-namespace world {
+namespace enigma {
  
     WorldProxy *WorldProxy::theSingleton = 0;
     
@@ -129,4 +127,4 @@ namespace world {
         }
     }
 
-} // namespace world
+} // namespace enigma

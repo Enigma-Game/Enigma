@@ -25,15 +25,14 @@
 #include "Inventory.hh"
 
 using namespace std;
-using namespace world;
-using namespace stones;
 
-
+namespace enigma {
+
 /* -------------------- Helper routines -------------------- */
 
 /*! Determine whether the actor hitting the stone can move stone
   and return either the direction the stone should move or NODIR. */
-Direction stones::get_push_direction (const StoneContact &sc) 
+Direction get_push_direction (const StoneContact &sc) 
 {
     ActorInfo *ai  = sc.actor->get_actorinfo();
     Direction  dir = contact_face(sc);
@@ -47,7 +46,7 @@ Direction stones::get_push_direction (const StoneContact &sc)
 
 /* Move a stone (by sending an impulse) Called when an actor hits a
    stone. */
-bool stones::maybe_push_stone (const StoneContact &sc) 
+bool maybe_push_stone (const StoneContact &sc) 
 {
     Direction dir = get_push_direction(sc);
     if (dir != enigma::NODIR) {
@@ -57,7 +56,7 @@ bool stones::maybe_push_stone (const StoneContact &sc)
     return false;
 }
 
-
+
 //======================================================================
 // STONES
 //======================================================================
@@ -143,7 +142,7 @@ StoneResponse Stone::collision_response(const StoneContact &) {
 void Stone::actor_hit(const StoneContact &sc) 
 {
     if (is_movable())
-        stones::maybe_push_stone (sc);
+        maybe_push_stone (sc);
 }
 
 void Stone::actor_touch(const StoneContact &sc) {
@@ -310,13 +309,13 @@ bool Stone::freeze_check() {
 }
 
 
-
+
 
 // *******************************************************************************
 //  Stones under development :
 
 
-
+
 /* -------------------- Explosion stone -------------------- */
 namespace
 {
@@ -346,7 +345,7 @@ namespace
     DEF_TRAITSM(ExplosionStone, "st-explosion", st_explosion, MOVABLE_BREAKABLE);
 }
 
-
+
 /* -------------------- Charge stone -------------------- */
 
 // Attributes:
@@ -376,7 +375,7 @@ namespace
     };
 }
 
-
+
 /* -------------------- SpitterStone -------------------- */
 
 namespace
@@ -411,7 +410,7 @@ void SpitterStone::animcb() {
 
         state = SPITTING;
         ai->vel = ball_velocity;
-        world::AddActor (center[0], center[1], ball);
+        AddActor (center[0], center[1], ball);
         set_anim ("st-spitter-spitting");
         break;
     }
@@ -439,7 +438,7 @@ void SpitterStone::actor_hit (const StoneContact &sc)
     }
 }
 
-
+
 /* -------------------- YieldedGridStone -------------------- */
 
 YieldedGridStone::YieldedGridStone(Stone *st)
@@ -475,7 +474,7 @@ void YieldedGridStone::dispose()
     model = 0;
 }
 
-
+
 /* -------------------- Oxyd compatibility stones -------------------- */
 
 namespace
@@ -526,7 +525,7 @@ namespace
     DEF_TRAITSM(Oxyd_0x18, "st-oxyd-0x18", st_oxyd_0x18, MOVABLE_BREAKABLE);
 }
 
-
+
 /* -------------------- Flash stone -------------------- */
 namespace
 {
@@ -545,7 +544,7 @@ namespace
     };
 }
 
-
+
 /* -------------------- Surprise stone -------------------- */
 namespace 
 {
@@ -578,7 +577,7 @@ namespace
     DEF_TRAITS(SurpriseStone, "st-surprise", st_surprise);
 }
 
-
+
 /* -------------------- Coffee stone -------------------- */
 namespace
 {
@@ -599,7 +598,7 @@ namespace
     DEF_TRAITS(CoffeeStone, "st-coffee", st_coffee);
 }
 
-
+
 /* -------------------- Breaking stone -------------------- */
 namespace
 {
@@ -622,7 +621,7 @@ namespace
     DEF_TRAITSM(BreakingStone, "st-breaking", st_breaking, MOVABLE_BREAKABLE);
 }
 
-
+
 /* -------------------- Bug stone -------------------- */
 namespace
 {
@@ -642,7 +641,7 @@ namespace
     DEF_TRAITSM(BugStone, "st-bug", st_bug, MOVABLE_BREAKABLE);
 }
 
-
+
 /* -------------------- Plain stones -------------------- */
 
 /* These stones mimic the behaviour of the plain-looking stones in
@@ -857,7 +856,7 @@ namespace
                 MOVABLE_STANDARD);
 }
 
-
+
 /* -------------------- Black- and Whiteballs Stones -------------------- */
 
 namespace
@@ -868,7 +867,7 @@ namespace
         virtual Value on_message (const Message &m)
         {
             GridPos p = get_pos();
-            Actor *a = world::CurrentCollisionActor;
+            Actor *a = CurrentCollisionActor;
             if (a && get_id(a) == ac_blackball) {
                 if (p.y == m.gridpos.y) {
                     SendMessage (GetStone (move (p, EAST)),  "signal", 1.0);
@@ -896,7 +895,7 @@ namespace
         virtual Value on_message (const Message &m)
         {
             GridPos p = get_pos();
-            Actor *a = world::CurrentCollisionActor;
+            Actor *a = CurrentCollisionActor;
             if (a && get_id(a) == ac_whiteball) {
                 if (p.y == m.gridpos.y) {
                     SendMessage (GetStone (move (p, EAST)),  "signal", 1.0);
@@ -947,8 +946,7 @@ namespace
 
 extern void InitSwitches();
 
-void stones::Init()
-{
+void InitStones() {
 
     // Register(new ...);
 
@@ -981,3 +979,4 @@ void stones::Init()
     Init_complex();
     InitSwitches();
 }
+} // namespace enigma

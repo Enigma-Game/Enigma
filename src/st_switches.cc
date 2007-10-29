@@ -26,10 +26,9 @@
 #include "stones_internal.hh"
 
 using namespace std;
-using namespace world;
-using namespace stones;
 
-
+namespace enigma {
+
 /* -------------------- Switch -------------------- */
 
 namespace
@@ -89,7 +88,7 @@ namespace
         }
 
         void actor_hit(const StoneContact &sc) {
-            if (get_id (sc.actor) == world::ac_blackball)
+            if (get_id (sc.actor) == ac_blackball)
                 set_on (!is_on());
         }
 
@@ -133,7 +132,7 @@ namespace
         }
 
         void actor_hit(const StoneContact &sc) {
-            if (get_id (sc.actor) == world::ac_whiteball)
+            if (get_id (sc.actor) == ac_whiteball)
                 set_on (!is_on());
         }
 
@@ -392,7 +391,7 @@ namespace
             };
 
             if (!m_inactive_so_far) {
-                world::EmitSignalByIndex(this, direction2idx[m_direction], 0);
+                EmitSignalByIndex(this, direction2idx[m_direction], 0);
             } else
                 m_inactive_so_far = false;
 
@@ -401,8 +400,8 @@ namespace
             set_on(!is_on());
             sound_event ("fourswitch");
 
-            if (world::HaveSignals (this)) {
-                world::EmitSignalByIndex(this, direction2idx[m_direction], 1);
+            if (HaveSignals (this)) {
+                EmitSignalByIndex(this, direction2idx[m_direction], 1);
             } else {
                 // no signal handler defined
                 PerformAction(this, is_on());
@@ -678,7 +677,7 @@ void FloppyStone::actor_hit (const StoneContact &sc)
     }
 }
 
-
+
 /* -------------------- Functions -------------------- */
 
 void InitSwitches()
@@ -697,3 +696,5 @@ void InitSwitches()
     Register (new Switch_white);
     Register (new TimeSwitch);
 }
+
+} // namespace enigma

@@ -21,7 +21,7 @@
 
 #include "objects_decl.hh"
 
-namespace world {
+namespace enigma {
 
     class WorldProxy : public Object {
     public:
@@ -37,6 +37,6 @@ namespace world {
     private:
         static WorldProxy *theSingleton;
     };
-} // namespace world
+} // namespace enigma
 
 #endif

@@ -76,7 +76,7 @@ module enigma
 
 /* -------------------- world.cc, objects.cc -------------------- */
 
-$using namespace world;
+$using namespace enigma;
 
 module world
 {

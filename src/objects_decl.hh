@@ -24,10 +24,11 @@
 #include "ecl_alist.hh"
 #include <map>
 
-namespace world
-{
+namespace enigma { 
+
     using std::string;
-    using namespace enigma;
+    
+    struct Message;
 
 /* -------------------- Objects -------------------- */
 
@@ -143,6 +144,7 @@ namespace world
     };
 
 /* -------------------- GridObject -------------------- */
+    class Actor;
 
     /** 
      * GridObject is the base class for everything that can only be
@@ -233,7 +235,8 @@ namespace world
          */
         GridPos pos;
     };
-}
+
+} // namespace enigma
 
 
 #define CLONEOBJ(TYPE)                                  \

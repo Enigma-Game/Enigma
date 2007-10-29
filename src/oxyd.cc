@@ -41,15 +41,15 @@
 
 using namespace std;
 using namespace enigma;
-using world::Stone;
-using world::MakeStone;
-using world::Item;
-using world::MakeItem;
+using enigma::Stone;
+using enigma::MakeStone;
+//using enigma::Item;
+using enigma::MakeItem;
 
 using namespace oxyd;
 using OxydLib::Level;
 
-
+
 /* -------------------- Helper functions -------------------- */
 
 namespace 
@@ -92,21 +92,21 @@ namespace
         const Grid &sgrid = level.getGrid (GridType_Pieces);
         for (unsigned y=0; y<sgrid.getHeight(); ++y)
             for (unsigned x=0; x<sgrid.getWidth(); ++x)
-                if (Stone *st = world::GetStone(GridPos(x, y)))
+                if (Stone *st = GetStone(GridPos(x, y)))
                     if (int code = st->getAttr("code"))
                         stones.insert(code);
 
         const Grid &igrid = level.getGrid (GridType_Objects);
         for (unsigned y=0; y<igrid.getHeight(); ++y)
             for (unsigned x=0; x<igrid.getWidth(); ++x)
-                if (Item *it = world::GetItem(GridPos(x, y)))
+                if (Item *it = GetItem(GridPos(x, y)))
                     if (int code = it->getAttr("code"))
                         items.insert(code);
 
         const Grid &fgrid = level.getGrid (GridType_Objects);
         for (unsigned y=0; y<fgrid.getHeight(); ++y)
             for (unsigned x=0; x<fgrid.getWidth(); ++x)
-                if (world::Floor *fl = world::GetFloor(GridPos(x, y)))
+                if (Floor *fl = GetFloor(GridPos(x, y)))
                     if (int code = fl->getAttr("code"))
                         floors.insert(code);
 
@@ -238,7 +238,7 @@ OxydLoader::OxydLoader (const OxydLib::Level &level_,
 void OxydLoader::load ()
 {
     // Prepare Enigma game engine
-    world::Resize (level.getWidth(), level.getHeight());
+    Resize (level.getWidth(), level.getHeight());
     if (config.twoplayers) 
         server::TwoPlayerGame = true;
     display::ResizeGameArea (20, 11);
@@ -287,7 +287,7 @@ Stone * OxydLoader::make_laser (int type)
 Stone *OxydLoader::make_timer (int x, int y)
 {
     const OscillatorMap &oscillators = level.getOscillators(config.gamemode);
-    Stone *st = world::MakeStone ("st-timer");
+    Stone *st = MakeStone ("st-timer");
     st->set_attrib("interval", Value(0.2));
 
     Block block(x, y);
@@ -303,7 +303,7 @@ Stone *OxydLoader::make_timer (int x, int y)
 
 Stone *OxydLoader::make_stone (int type, int x, int y)
 {
-    world::Stone *st = 0;
+    Stone *st = 0;
 
     if (type == 0) {
         // ignore
@@ -313,7 +313,7 @@ Stone *OxydLoader::make_stone (int type, int x, int y)
         char color[2] = "0";
         color[0] += (type-1) / 2; 
 
-        st = world::MakeStone("st-oxyd");
+        st = MakeStone("st-oxyd");
         st->set_attrib("color", color);
         st->set_attrib("flavor", config.oxyd_flavor);
     }
@@ -328,11 +328,11 @@ Stone *OxydLoader::make_stone (int type, int x, int y)
         const char *name = config.stonetable[type];
         if (name == 0) {
             Log << ecl::strf("Unknown stone %X\n", type);
-            st = world::MakeStone ("st-dummy");
+            st = MakeStone ("st-dummy");
             st->set_attrib("code", type);
         }
         else if (name[0] != '\0') { // ignore if name==""
-            st = world::MakeStone (name);
+            st = MakeStone (name);
         }
     }
     return st;
@@ -370,7 +370,6 @@ static std::string convert_encoding (const std::string &t)
 
 Item  *OxydLoader::make_item (int type)
 {
-    using namespace world;
 
     Item *it = 0;
 
@@ -385,14 +384,14 @@ Item  *OxydLoader::make_item (int type)
     case 0x00: break;           // ignore
     case 0x02:                  // note 1
 	{
-	    it = MakeItem (world::it_document);
+	    it = MakeItem (it_document);
 	    string text = convert_encoding(level.getNoteText(0, lang));
 	    it->set_attrib ("text", text.c_str());
 	}
         break;
     case 0x03:                  // note 2
 	{
-	    it = MakeItem (world::it_document);
+	    it = MakeItem (it_document);
 	    string text = convert_encoding(level.getNoteText(1, lang));
 	    it->set_attrib ("text", text.c_str());
 	}
@@ -402,7 +401,7 @@ Item  *OxydLoader::make_item (int type)
             ItemID id = config.itemtable[type];
             if (id == it_INVALID) {
                 Log << ecl::strf ("Unknown item %X\n",type);
-                it = MakeItem (world::it_dummy);
+                it = MakeItem (it_dummy);
                 it->set_attrib("code", type);
             }
             else
@@ -415,7 +414,6 @@ Item  *OxydLoader::make_item (int type)
 
 void OxydLoader::load_floor () 
 {
-    using namespace world;
 
     const Grid &grid = level.getGrid (GridType_Surfaces);
     for (unsigned y=0; y<grid.getHeight(); ++y) {
@@ -444,12 +442,11 @@ void OxydLoader::load_items ()
     for (unsigned y=0; y<grid.getHeight(); ++y)
         for (unsigned x=0; x<grid.getWidth(); ++x)
             if (Item *it = make_item (grid.get(x,y)))
-                world::SetItem (GridPos(x, y), it);
+                SetItem (GridPos(x, y), it);
 }
 
 void OxydLoader::load_stones()
 {
-    using namespace world;
 
     const Grid &grid = level.getGrid (GridType_Pieces);
     for (unsigned y=0; y<grid.getHeight(); ++y) {
@@ -468,7 +465,7 @@ void OxydLoader::scramble_puzzles ()
 
     for (int i = 0; i<count; ++i) {
         const ScrambleItem& si = level.getScrambleItem(i);
-        world::AddScramble (GridPos(si.getX(), si.getY()),
+        AddScramble (GridPos(si.getX(), si.getY()),
                             direction_oxyd2enigma(si.getDir()));
     }
 }
@@ -476,7 +473,7 @@ void OxydLoader::scramble_puzzles ()
 
 void OxydLoader::load_actors () 
 {
-    using world::MakeActor;
+    using enigma::MakeActor;
 
     int     nmeditationmarbles = 0;
     size_t  nmarbles           = level.getNumMarbles();
@@ -497,23 +494,23 @@ void OxydLoader::load_actors ()
 
         switch (marble.getMarbleType()) {
         case MarbleType_Black:
-            ac = MakeActor (world::ac_blackball);
+            ac = MakeActor (ac_blackball);
             ac->set_attrib ("player", Value(0.0));
             break;
         case MarbleType_White:
-            ac = MakeActor (world::ac_whiteball);
+            ac = MakeActor (ac_whiteball);
             ac->set_attrib ("player", Value(1.0));
             break;
         case MarbleType_Meditation:
             if (have_black_marble && !level.getHarmlessMeditationMarbles()) {
                 // # example: Oxyd Extra #28
-                ac = MakeActor (world::ac_killerball);
+                ac = MakeActor (ac_killerball);
 //                ac->set_attrib ("player", Value(0.0));
                 ac->set_attrib ("mouseforce", Value (1.0));
                 ac->set_attrib ("controllers", Value (3.0));
             }
             else {
-                ac = MakeActor (world::ac_meditation);
+                ac = MakeActor (ac_meditation);
                 nmeditationmarbles += 1;
 
                 if (config.twoplayers && (nmeditationmarbles % 2) == 0)
@@ -530,7 +527,7 @@ void OxydLoader::load_actors ()
             }
             break;
         case MarbleType_Jack:
-            ac = MakeActor (world::ac_top);
+            ac = MakeActor (ac_top);
             if (!minfo.is_default(MI_FORCE)) {
                 double force = minfo.get_value(MI_FORCE) / 4; // just a guess
                 ac->set_attrib("force", Value(force) );
@@ -544,7 +541,7 @@ void OxydLoader::load_actors ()
             break;
 
         case MarbleType_Rotor: {
-            ac = MakeActor (world::ac_rotor);
+            ac = MakeActor (ac_rotor);
 
             double force = minfo.get_value (MI_FORCE, 30) * 0.3;
             double range = minfo.get_value (MI_RANGE, 100) / 32.0;
@@ -561,7 +558,7 @@ void OxydLoader::load_actors ()
         }
 
         case MarbleType_Horse: {
-            ac = MakeActor (world::ac_horse);
+            ac = MakeActor (ac_horse);
             int levelw = level.getWidth();
             if (!minfo.is_default(MI_HORSETARGET1)) {
                 int targetpos = minfo.get_value(MI_HORSETARGET1);
@@ -590,7 +587,7 @@ void OxydLoader::load_actors ()
             break;
         }
         case MarbleType_Bug:
-            ac = MakeActor (world::ac_bug);
+            ac = MakeActor (ac_bug);
             break;
         default:
             enigma::Log << "Unhandled actor type " << int(marble.getMarbleType()) << endl;
@@ -601,7 +598,7 @@ void OxydLoader::load_actors ()
         }
 
         if (ac) 
-            world::AddActor (x, y, ac);
+            AddActor (x, y, ac);
 
         m_actors.push_back (ac);
     }
@@ -614,18 +611,18 @@ void OxydLoader::connect_rubberbands ()
     for (int i=0; i<num_rubberbands; ++i) {
         const RubberBand &rb = level.getRubberBand(game_mode, i);
 
-        world::Actor *actor = get_actor (rb.getFirstEndMarble());
-        world::RubberBandData rbd;
+        Actor *actor = get_actor (rb.getFirstEndMarble());
+        RubberBandData rbd;
         rbd.length = rb.getNaturalLength() / 32.0;
         rbd.strength = rb.getForce() / 60.0;
         if (rb.isSecondEndMarble()) {
-            world::Actor *actor2 = get_actor (rb.getSecondEndMarble());
-            world::AddRubberBand (actor, actor2, rbd);
+            Actor *actor2 = get_actor (rb.getSecondEndMarble());
+            AddRubberBand (actor, actor2, rbd);
         }
         else {
             GridPos p(rb.getSecondEndPieceX(), rb.getSecondEndPieceY());
-            if (world::GetStone(p) != NULL) // Fix for MagnumGold Level #108
-                world::AddRubberBand (actor, world::GetStone(p), rbd); 
+            if (GetStone(p) != NULL) // Fix for MagnumGold Level #108
+                AddRubberBand (actor, GetStone(p), rbd); 
         }
     }
 }
@@ -646,14 +643,14 @@ void OxydLoader::connect_signals ()
             SignalLocation recipient = level.getRecipient(sender, irec);
             GridLoc src = to_gridloc(sender);
             GridLoc dst = to_gridloc(recipient);
-            world::AddSignal (src, dst, "signal");
+            AddSignal (src, dst, "signal");
         }
     }
 }
 
 void OxydLoader::parse_specials ()
 {
-    using world::SendMessage;
+    using enigma::SendMessage;
 
     server::FlatForce = 5.0 * level.getFlatForce (config.gamemode);
 
@@ -689,22 +686,22 @@ void OxydLoader::parse_specials ()
 
         case 'i':           // turn item on
             if (parse_gridpos (cmd, levelw, levelh, p))
-                SendMessage(world::GetItem(p), "signal", Value(1.0));
+                SendMessage(GetItem(p), "signal", Value(1.0));
             break;
 
         case 'o':           // turn item off
             if (parse_gridpos (cmd, levelw, levelh, p))
-                SendMessage(world::GetItem(p), "signal", Value(0.0));
+                SendMessage(GetItem(p), "signal", Value(0.0));
             break;
 
         case 'I':           // turn stone on
             if (parse_gridpos (cmd, levelw, levelh, p))
-                SendMessage(world::GetStone(p), "signal", Value(1.0));
+                SendMessage(GetStone(p), "signal", Value(1.0));
             break;
 
         case 'O':           // turn stone off
             if (parse_gridpos (cmd, levelw, levelh, p))
-                SendMessage(world::GetStone(p), "signal", Value(0.0));
+                SendMessage(GetStone(p), "signal", Value(0.0));
             break;
 
         case 'Q':           // default charge
@@ -722,7 +719,7 @@ void OxydLoader::parse_specials ()
     }
 }
 
-world::Actor *OxydLoader::get_actor (int idx) 
+Actor *OxydLoader::get_actor (int idx) 
 {
     assert (0 <= idx && unsigned(idx) <= m_actors.size());
     return m_actors[idx];
@@ -730,7 +727,7 @@ world::Actor *OxydLoader::get_actor (int idx)
 
 
 
-
+
 /* -------------------- LevelPack_Oxyd -------------------- */
 
 LevelPack_Oxyd::LevelPack_Oxyd (OxydVersion ver, DatFile *dat, 
@@ -881,7 +878,7 @@ void LP_OxydMagnum::load (const OxydLib::Level &level)
     PerOxydLoader (level, c).load();
 
     // Add a yinyang item if a white marble is present
-    if (world::CountActorsOfKind (world::ac_whiteball) > 0)
+    if (CountActorsOfKind (ac_whiteball) > 0)
         player::AddYinYang();
 }
 

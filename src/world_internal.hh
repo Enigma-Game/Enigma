@@ -19,8 +19,8 @@
 
 #include <memory>
 
-namespace world
-{
+namespace enigma {
+
     struct Field;
     struct Signal;
 
@@ -372,5 +372,6 @@ typedef list<sound::SoundDamping> SoundDampingList;
 
         list<Scramble> scrambles;
     };
-}
+    
+} // namespace enigma
 

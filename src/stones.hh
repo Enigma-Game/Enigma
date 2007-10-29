@@ -21,9 +21,11 @@
 
 #include "objects_decl.hh"
 
-namespace world
-{
-    using namespace enigma;
+namespace enigma {
+    
+//    using namespace enigma;
+    struct Impulse;
+    struct StoneContact;
 
     enum StoneID {
         st_INVALID = -1,
@@ -240,11 +242,10 @@ namespace world
     inline StoneID get_id(Stone *st) {
         return st->get_traits().id;
     }
-}
+    
+    void InitStones();
+    
+} // namespace enigma
 
-namespace stones
-{
-    void Init();
-}
 
 #endif

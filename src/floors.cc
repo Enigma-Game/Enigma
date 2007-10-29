@@ -27,8 +27,8 @@
 #include <iostream>
 
 using namespace std;
-using namespace enigma;
-using namespace world;
+
+namespace enigma {
 
 Floor::Floor(const char *kind, double friction_, double mfactor, FloorFlags flags,
              FloorFireType flft, const char *firetransform_, const char *heattransform_)
@@ -930,7 +930,7 @@ void Thief::steal()
         enigma::Inventory *inv = player::GetInventory(m_affected_actor);
         if (inv && inv->size() > 0) {
             if (bag == NULL) {
-                bag = world::MakeItem(it_bag);
+                bag = MakeItem(it_bag);
                 bag->setOwnerPos(get_pos());
             }
             int i = IntegerRand (0, int (inv->size()-1));
@@ -943,10 +943,10 @@ void Thief::steal()
     if(Item *it = GetItem(get_pos())) {
         if (!(it->get_traits().flags & itf_static)) {
             if (bag == NULL) {
-                bag = world::MakeItem(it_bag);
+                bag = MakeItem(it_bag);
                 bag->setOwnerPos(get_pos());                
             }
-            dynamic_cast<ItemHolder *>(bag)->add_item(world::YieldItem(get_pos())); 
+            dynamic_cast<ItemHolder *>(bag)->add_item(YieldItem(get_pos())); 
             didSteal = true;
         }
     }
@@ -957,15 +957,15 @@ void Thief::steal()
 Value Thief::message(const string &msg, const Value &v) {
     if(msg == "capture" && state == IDLE) {
         state = CAPTURED;
-        Item * it =  world::GetItem(get_pos());
+        Item * it =  GetItem(get_pos());
         
         // add items on grid pos that can be picked up to our bag
         if (it != NULL && !(it->get_traits().flags & itf_static) && bag != NULL) {
-            dynamic_cast<ItemHolder *>(bag)->add_item(world::YieldItem(get_pos()));
+            dynamic_cast<ItemHolder *>(bag)->add_item(YieldItem(get_pos()));
         }
         // drop bag if pos is not occupied by a static item
-        if (world::GetItem(get_pos()) == NULL)
-            world::SetItem(get_pos(), bag);
+        if (GetItem(get_pos()) == NULL)
+            SetItem(get_pos(), bag);
         bag = NULL;
         set_anim(get_modelname() + string("-captured"));
         return Value(1);
@@ -1006,7 +1006,7 @@ namespace
 }
 
 
-void world::InitFloors()
+void InitFloors()
 {
     // Floors (most floors are defined in init.lua)
     Register(new Abyss);
@@ -1043,3 +1043,5 @@ void world::InitFloors()
     Register("fl-gradient15", new Gradient(24));
     Register("fl-gradient16", new Gradient(23));
 }
+
+} // namespace enigma

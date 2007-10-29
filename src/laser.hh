@@ -24,16 +24,15 @@
 
 #include "objects.hh"
 
-namespace world
-{
+namespace enigma {
     /**
      * This interface must be implemented by all items and stones that
      * are capable of emitting light.
      */
     class LaserEmitter {
     public:
-	virtual ~LaserEmitter() {}
-	virtual DirectionBits emission_directions() const = 0;
+        virtual ~LaserEmitter() {}
+        virtual DirectionBits emission_directions() const = 0;
     };
 
 /* -------------------- PhotoCell -------------------- */
@@ -101,12 +100,10 @@ namespace world
         virtual void notify_laseron() = 0;
         virtual void notify_laseroff() = 0;
     };
-}
+
 
 /* -------------------- Functions -------------------- */
-namespace lasers
-{
-    void Init();
+    void InitLasers();
 
     /*! This function must be called at the end of each tick; it
       recalculates the laser beams if necessary. */
@@ -114,7 +111,7 @@ namespace lasers
 
     /*! Force all light beams to be recalculated at the end of the
       current tick.  So far, this is only used by laser stones and in
-      world::InitWorld().  */
+      WorldInitLevel().  */
     void RecalcLight();
 
     /*! If position `p' is inside a laser beam, force all laser beams
@@ -127,5 +124,7 @@ namespace lasers
     /*! Return true iff a stone or an item at position `p' it hit by
       light coming from direction `dir'. */
     bool LightFrom (enigma::GridPos p, enigma::Direction dir);
-}
+
+} // namespace enigma
+
 #endif

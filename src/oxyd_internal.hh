@@ -54,7 +54,7 @@ namespace oxyd
         bool           twoplayers;
         GameMode       gamemode;
         const char   **floortable;
-        world::ItemID *itemtable;
+        ItemID        *itemtable;
         const char   **stonetable;
 
         int id_timer;
@@ -64,7 +64,7 @@ namespace oxyd
         LoaderConfig (bool twoplayers_,
                       GameMode gamemode_,
                       const char **floortable_,
-                      world::ItemID *itemtable_,
+                      ItemID *itemtable_,
                       const char **stonetable_,
                       const char *oxyd_flavor_ = "a"
                       )
@@ -114,11 +114,11 @@ namespace oxyd
 
         void connect_rubberbands ();
         void connect_signals ();
-        world::Actor *get_actor (int idx);
+        Actor *get_actor (int idx);
 
 
         /* ---------- Private variables ---------- */
-        std::vector<world::Actor *> m_actors;
+        std::vector<Actor *> m_actors;
         bool harmless_medi;
     };
 
@@ -303,19 +303,19 @@ namespace oxyd
 
 /* -------------------- Global Variables -------------------- */
 
-    extern world::ItemID oxyd1_item_map[];
+    extern ItemID oxyd1_item_map[];
     extern const char *oxyd1_floor_map[];
     extern const char *oxyd1_stone_map[];
 
-    extern world::ItemID peroxyd_item_map[];
+    extern ItemID peroxyd_item_map[];
     extern const char *peroxyd_floor_map[];
     extern const char *peroxyd_stone_map[];
 
-    extern world::ItemID oxydmag_item_map[];
+    extern ItemID oxydmag_item_map[];
     extern const char *oxydmag_floor_map[];
     extern const char *oxydmag_stone_map[];
 
-    extern world::ItemID oxydextra_item_map[];
+    extern ItemID oxydextra_item_map[];
     extern const char *oxydextra_floor_map[];
     extern const char *oxydextra_stone_map[];
 

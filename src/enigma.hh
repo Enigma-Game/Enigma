@@ -36,10 +36,9 @@
 
 #define NUMENTRIES(array) (sizeof(array)/sizeof(*array))
 
-namespace enigma
-{
-    using namespace world;
-    class world::Object;
+namespace enigma { 
+
+    class Object;
     
 /* -------------------- Various types -------------------- */
 
@@ -191,7 +190,7 @@ namespace enigma
 
 /* -------------------- Value -------------------- */
 
-    typedef std::list<world::Object *> ObjectList;
+    typedef std::list<Object *> ObjectList;
 
     /**
      * A flexible container for various types of data. This class is one
@@ -486,6 +485,6 @@ namespace enigma
     : pos(p), layer(l) 
     {}
 
-}
+} // namespace enigma
 
 #endif

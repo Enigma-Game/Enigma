@@ -37,9 +37,7 @@
 
 
 
-namespace stones
-{
-    using namespace world;
+namespace enigma {
 
     void Init_simple();
     void Init_complex();
@@ -63,7 +61,7 @@ namespace stones
     // @@@ FIXME: alarms have to be disabled as well
 
     class YieldedGridStone {
-        world::Stone   *stone;
+        Stone   *stone;
         display::Model *model;
 
         YieldedGridStone(const YieldedGridStone&);
@@ -104,7 +102,7 @@ namespace stones
 
         virtual void notify_onoff(bool /*on*/) {}
 
-        virtual Value on_message(const world::Message &msg)
+        virtual Value on_message(const Message &msg)
         {
             const std::string &m = msg.message;
             if (m=="onoff")
@@ -150,5 +148,6 @@ namespace stones
         }
     };
 
-}
+} // namespace enigma
+
 #endif

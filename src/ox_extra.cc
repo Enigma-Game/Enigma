@@ -31,10 +31,10 @@
 // Standard enigma section :
 
 #define ITEMSPEC(i) i
-#define ITEMMAPTYPE world::ItemID
+#define ITEMMAPTYPE enigma::ItemID
 
 #include "oxyd_internal.hh"
-using namespace world;
+using namespace enigma;
 
 #endif // PLAIN_SPEC_ONLY
 // only tables following!

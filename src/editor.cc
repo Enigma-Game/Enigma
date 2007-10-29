@@ -55,13 +55,13 @@ using namespace ecl;
 using display::ScreenArea;
 using display::DisplayEngine;
 using display::Model;
-//using world::ObjectTraits;
+//using world ObjectTraits;
 
-using world::ItemID;
+using enigma::ItemID;
 
 #include "editor_impl.hh"
 
-
+
 /* -------------------- Editor state -------------------- */
 
 EditorState::EditorState()

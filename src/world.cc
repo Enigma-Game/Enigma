@@ -42,15 +42,16 @@
 // #define VERBOSE_MESSAGES
 
 using namespace std;
-using namespace world;
 using namespace ecl;
 
 #include "world_internal.hh"
 
+namespace enigma {
+
 // Size of one time step -- do not change!
 const double ActorTimeStep = 0.0025;
 
-
+
 /* -------------------- Auxiliary functions -------------------- */
 
 namespace {
@@ -70,7 +71,7 @@ namespace {
     }
 }
 
-
+
 /* -------------------- ActorInfo -------------------- */
 
 ActorInfo::ActorInfo() : pos(), gridpos(), field(NULL), vel(), forceacc(),
@@ -88,7 +89,7 @@ Message::Message ()
 }
  
 Message::Message (const std::string &message_,
-                  const enigma::Value &value_,
+                  const Value &value_,
                   GridPos from_)
 : message (message_),
   value (value_),
@@ -96,7 +97,7 @@ Message::Message (const std::string &message_,
 {
 }
 
-
+
 /* -------------------- Signals -------------------- */
 
 namespace
@@ -178,7 +179,7 @@ namespace
     }
 }
 
-
+
 /* -------------------- RubberBandData -------------------- */
 
 RubberBandData::RubberBandData () {
@@ -257,7 +258,7 @@ void RubberBand::tick (double /* dtime */)
     model.update_second (get_p2());
 }
 
-
+
 /* -------------------- Field -------------------- */
 
 Field::Field()
@@ -274,7 +275,7 @@ Field::~Field()
     DisposeObject(stone);
 }
 
-
+
 /* -------------------- StoneContact -------------------- */
 
 //StoneContact::StoneContact(Actor *a, GridPos p,
@@ -293,10 +294,9 @@ StoneContact::StoneContact() : is_collision (false), ignore (false), new_collisi
   is_contact (false), outerCorner (false) {
 }
 
-DirectionBits
-world::contact_faces(const StoneContact &sc)
+DirectionBits contact_faces(const StoneContact &sc)
 {
-    using namespace enigma;
+//    using namespace enigma;
 
     int dirs = NODIRBIT;
 
@@ -312,8 +312,7 @@ world::contact_faces(const StoneContact &sc)
     return DirectionBits(dirs);
 }
 
-Direction
-world::contact_face(const StoneContact &sc)
+Direction contact_face(const StoneContact &sc)
 {
     using namespace enigma;
     if (sc.normal == V2(-1,0))
@@ -328,7 +327,7 @@ world::contact_face(const StoneContact &sc)
         return NODIR;
 }
 
-
+
 /* -------------------- Global variables -------------------- */
 
 namespace
@@ -336,12 +335,12 @@ namespace
     auto_ptr<World> level;
 }
 
-enigma::Timer  world::GameTimer;
-bool           world::TrackMessages;
-Actor         *world::CurrentCollisionActor = 0;
+enigma::Timer  GameTimer;
+bool           TrackMessages;
+Actor         *CurrentCollisionActor = 0;
 
 
-
+
 /* -------------------- Layer implementation -------------------- */
 
 template <class T>
@@ -383,7 +382,7 @@ void Layer<T>::set(GridPos p, T *x) {
 
 
 
-
+
 /* -------------------- World -------------------- */
 
 const double World::contact_e = 0.02;  // epsilon distant limit for contacts
@@ -546,7 +545,7 @@ void World::tick (double dtime)
 
     GameTimer.tick(dtime);
 
-    lasers::RecalcLightNow();   // recalculate laser beams if necessary
+    RecalcLightNow();   // recalculate laser beams if necessary
 }
 
 /* ---------- Puzzle scrambling -------------------- */
@@ -710,14 +709,14 @@ void World::find_contact_with_stone(Actor *a, GridPos p, StoneContact &c,
     c.outerCorner = false;
     bool isInnerContact = false;
 
-    Stone *stone = (st != NULL) ? st : world::GetStone(p);
+    Stone *stone = (st != NULL) ? st : GetStone(p);
     if (!stone)
         return;
 
     bool isWindow = stone->get_traits().id == st_window;
     DirectionBits wsides;
     if (isWindow) {
-        wsides = dynamic_cast<stones::ConnectiveStone *>(stone)->get_connections();
+        wsides = dynamic_cast<ConnectiveStone *>(stone)->get_connections();
     }
     
     const ActorInfo &ai = *a->get_actorinfo();
@@ -765,8 +764,8 @@ void World::find_contact_with_stone(Actor *a, GridPos p, StoneContact &c,
             else if ( ycorner && xoff_neighbour) face = SOUTHBIT;
             
             // the faces that the neighbour window owns
-            stones::ConnectiveStone * neighbour = dynamic_cast<stones::ConnectiveStone *>
-                    (world::GetStone(GridPos(x+xoff_neighbour, y+yoff_neighbour)));
+            ConnectiveStone * neighbour = dynamic_cast<ConnectiveStone *>
+                    (GetStone(GridPos(x+xoff_neighbour, y+yoff_neighbour)));
             DirectionBits face_neighbour = (neighbour) ? neighbour->get_connections() : NODIRBIT;
             
             
@@ -952,9 +951,9 @@ void World::find_contact_with_stone(Actor *a, GridPos p, StoneContact &c,
  */
 void World::find_contact_with_edge(Actor *a, GridPos p0, GridPos p1, GridPos p2, 
         StoneContact &c0, StoneContact &c1, StoneContact &c2, DirectionBits winFacesActorStone) {
-    Stone *s0 = world::GetStone(p0);
-    Stone *s1 = world::GetStone(p1);
-    Stone *s2 = world::GetStone(p2);
+    Stone *s0 = GetStone(p0);
+    Stone *s1 = GetStone(p1);
+    Stone *s2 = GetStone(p2);
     if (s0 != NULL) c0.response = s0->collision_response(c0);
     if (s1 != NULL) c1.response = s1->collision_response(c1);
     if (s2 != NULL) c2.response = s2->collision_response(c2);
@@ -1031,7 +1030,7 @@ void World::find_stone_contacts(Actor *a, StoneContact &c0, StoneContact &c1,
     
     // info about a Window stone on the Gridpos of the actor that may cause
     // contacts within the grid
-    stones::ConnectiveStone * actorWinStone = dynamic_cast<stones::ConnectiveStone *>(world::GetStone(g));
+    ConnectiveStone * actorWinStone = dynamic_cast<ConnectiveStone *>(GetStone(g));
     DirectionBits winFacesActorStone = (actorWinStone) ? actorWinStone->get_connections() : NODIRBIT;
     
     // distinguish 9 squares within gridpos that may cause contacts
@@ -1176,7 +1175,7 @@ void World::handle_stone_contact (StoneContact &sc)
             bool slow_collision = length (ai.vel) < 0.3;
             if (!has_nearby_contact(ai.last_contacts, ai.last_contacts_count, 
                     contact)) {
-                if (Stone *stone = world::GetStone(sc.stonepos)) {
+                if (Stone *stone = GetStone(sc.stonepos)) {
                     CurrentCollisionActor = a;
                     if (slow_collision) stone->actor_touch(sc);
                     else stone->actor_hit(sc);
@@ -1204,7 +1203,7 @@ void World::handle_stone_contact (StoneContact &sc)
         }
     }
     else if (sc.is_contact) {
-        if (Stone *stone = world::GetStone(sc.stonepos))
+        if (Stone *stone = GetStone(sc.stonepos))
             stone->actor_contact(sc.actor);
     }
 }
@@ -1632,35 +1631,35 @@ void World::stone_change(GridPos p)
         if (Stone *stn = GetStone(move(p, WEST)))
             stn->freeze_check();
 
-        lasers::MaybeRecalcLight(p);
+        MaybeRecalcLight(p);
     }
 }
 
 
 
-
+
 /* -------------------- Functions -------------------- */
 
-void world::Resize (int w, int h)
+void Resize (int w, int h)
 {
     level.reset (new World(w,h));
     display::NewWorld(w, h);
     server::WorldInitialized = true;
 }
 
-void world::PrepareLevel ()
+void WorldPrepareLevel ()
 {
     GameTimer.clear();
     CurrentCollisionActor = 0;
     Resize (20, 13);
 }
 
-bool world::InitWorld()
+bool WorldInitLevel()
 {
     level->scramble_puzzles();
 
-    lasers::RecalcLight();
-    lasers::RecalcLightNow();    // recalculate laser beams if necessary
+    RecalcLight();
+    RecalcLightNow();    // recalculate laser beams if necessary
 
     bool seen_player0 = false;
 
@@ -1685,7 +1684,7 @@ bool world::InitWorld()
     if (!seen_player0) 
         throw XLevelLoading("Error: No player 0 defined!");
 
-    world::BroadcastMessage("init", Value(),
+    BroadcastMessage("init", Value(),
         GridLayerBits(GRID_ITEMS_BIT | GRID_STONES_BIT | GRID_FLOOR_BIT));
 
     server::InitMoveCounter();
@@ -1698,12 +1697,12 @@ bool world::InitWorld()
     return true;
 }
 
-void world::SetMouseForce(V2 f)
+void SetMouseForce(V2 f)
 {
     level->m_mouseforce.add_force(f);
 }
 
-void world::NameObject(Object *obj, const std::string &name)
+void NameObject(Object *obj, const std::string &name)
 {
     string old_name;
     if (Value v = obj->getAttr("name")) {
@@ -1715,12 +1714,12 @@ void world::NameObject(Object *obj, const std::string &name)
     level->name_object (obj, name);
 }
 
-void world::UnnameObject(Object *obj)
+void UnnameObject(Object *obj)
 {
     level->unname(obj);
 }
 
-void world::TransferObjectName (Object *source, Object *target)
+void TransferObjectName (Object *source, Object *target)
 {
     if (Value v = source->getAttr("name")) {
         string name(v);
@@ -1734,54 +1733,54 @@ void world::TransferObjectName (Object *source, Object *target)
     }
 }
 
-Object * world::GetNamedObject (const std::string &name)
+Object * GetNamedObject (const std::string &name)
 {
     return level->get_named (name);
 }
 
-std::list<Object *> world::GetNamedGroup(const std::string &name) {
+std::list<Object *> GetNamedGroup(const std::string &name) {
     return level->get_group(name);
 }
 
-bool world::IsLevelBorder(const GridPos &p) {
+bool IsLevelBorder(const GridPos &p) {
     return level->is_border(p);
 }
 
-bool world::IsInsideLevel(const GridPos &p) {
+bool IsInsideLevel(const GridPos &p) {
     return level->contains(p);
 }
 
 /* -------------------- Force fields -------------------- */
 
-void world::AddForceField(ForceField *ff)
+void AddForceField(ForceField *ff)
 {
     level->forces.push_back(ff);
 }
 
-void world::RemoveForceField(ForceField *ff) {
+void RemoveForceField(ForceField *ff) {
     level->remove (ff);
 }
 
-void world::SetConstantForce (V2 force) {
+void SetConstantForce (V2 force) {
     level->m_flatforce.set_force(force);
 }
 
 
 /* -------------------- Rubber bands -------------------- */
 
-void world::AddRubberBand (Actor *a, Stone *st, const RubberBandData &d)
+void AddRubberBand (Actor *a, Stone *st, const RubberBandData &d)
 {
     level->m_rubberbands.push_back(new RubberBand (a, st, d));
 }
 
-void world::AddRubberBand (Actor *a, Actor *a2, const RubberBandData &d)
+void AddRubberBand (Actor *a, Actor *a2, const RubberBandData &d)
 {
     RubberBandData rbd (d);
     rbd.length = ecl::Max (d.length, get_radius(a) + get_radius(a2));
     level->m_rubberbands.push_back(new RubberBand (a, a2, rbd));
 }
 
-bool world::KillRubberBands (Actor *a)
+bool KillRubberBands (Actor *a)
 {
     bool didKill = false;
     for (unsigned i=0; i<level->m_rubberbands.size(); ) {
@@ -1798,7 +1797,7 @@ bool world::KillRubberBands (Actor *a)
 }
 
 
-void world::KillRubberBand (Actor *a, Stone *st)
+void KillRubberBand (Actor *a, Stone *st)
 {
     ASSERT(a, XLevelRuntime, "KillRubberBand: no actor attached");
     for (unsigned i=0; i<level->m_rubberbands.size(); ) {
@@ -1813,7 +1812,7 @@ void world::KillRubberBand (Actor *a, Stone *st)
     }
 }
 
-void world::KillRubberBand (Actor *a, Actor *a2)
+void KillRubberBand (Actor *a, Actor *a2)
 {
     ASSERT(a, XLevelRuntime, "KillRubberBand: no actor attached");
     for (unsigned i=0; i<level->m_rubberbands.size(); ) {
@@ -1828,7 +1827,7 @@ void world::KillRubberBand (Actor *a, Actor *a2)
     }
 }
 
-void world::KillRubberBands (Stone *st)
+void KillRubberBands (Stone *st)
 {
    for (unsigned i=0; i<level->m_rubberbands.size(); ) {
         RubberBand &r = *level->m_rubberbands[i];
@@ -1841,7 +1840,7 @@ void world::KillRubberBands (Stone *st)
     }
 }
 
-void world::GiveRubberBands (Stone *st, vector<Rubber_Band_Info> &rubs) {
+void GiveRubberBands (Stone *st, vector<Rubber_Band_Info> &rubs) {
    for (unsigned i=0; i<level->m_rubberbands.size(); ) {
         RubberBand &r = *level->m_rubberbands[i];
         if (r.get_stone() == st) {
@@ -1854,7 +1853,7 @@ void world::GiveRubberBands (Stone *st, vector<Rubber_Band_Info> &rubs) {
     }
 }
 
-bool world::HasRubberBand (Actor *a, Stone *st)
+bool HasRubberBand (Actor *a, Stone *st)
 {
     for (unsigned i=0; i<level->m_rubberbands.size(); ++i) {
         RubberBand &r = *level->m_rubberbands[i];
@@ -1864,10 +1863,10 @@ bool world::HasRubberBand (Actor *a, Stone *st)
     return false;
 }
 
- 
+
 /* -------------------- Signals -------------------- */
 
-void world::AddSignal (const GridLoc &srcloc, 
+void AddSignal (const GridLoc &srcloc, 
                        const GridLoc &dstloc, 
                        const string &msg)
 {
@@ -1885,7 +1884,7 @@ void world::AddSignal (const GridLoc &srcloc,
     }
 }
 
-bool world::HaveSignals (Object *src) 
+bool HaveSignals (Object *src) 
 {
     SignalList::const_iterator i=level->m_signals.begin(),
         end = level->m_signals.end();
@@ -1896,12 +1895,12 @@ bool world::HaveSignals (Object *src)
 }
 
 
-bool world::EmitSignalByIndex (Object *src, int signalidx, int value) 
+bool EmitSignalByIndex (Object *src, int signalidx, int value) 
 {
     return emit_by_index (level->m_signals, src, signalidx, value);
 }
 
-bool world::GetSignalTargetPos (Object *src, GridPos &pos, int signalidx) 
+bool GetSignalTargetPos (Object *src, GridPos &pos, int signalidx) 
 {
     SignalList::const_iterator i = level->m_signals.begin(),
         end = level->m_signals.end();
@@ -1919,17 +1918,17 @@ bool world::GetSignalTargetPos (Object *src, GridPos &pos, int signalidx)
 }
 
 
-Value world::SendMessage(Object *o, const std::string &msg) 
+Value SendMessage(Object *o, const std::string &msg) 
 {
     return SendMessage (o, Message (msg, Value()));
 }
 
-Value world::SendMessage(Object *o, const std::string &msg, const Value& value)
+Value SendMessage(Object *o, const std::string &msg, const Value& value)
 {
     return SendMessage (o, Message (msg, value));
 }
 
-Value world::SendMessage (Object *o, const Message &m)
+Value SendMessage (Object *o, const Message &m)
 {
     if (o) {
         if (TrackMessages)
@@ -1944,7 +1943,7 @@ Value world::SendMessage (Object *o, const Message &m)
 }
 
 
-void world::BroadcastMessage (const std::string& msg, 
+void BroadcastMessage (const std::string& msg, 
                               const Value& value, 
                               GridLayerBits grids)
 {
@@ -1966,7 +1965,7 @@ void world::BroadcastMessage (const std::string& msg,
 }
 
 
-void world::PerformAction (Object *o, bool onoff) 
+void PerformAction (Object *o, bool onoff) 
 {
     string action = "idle";
     string target(o->getAttr("target"));
@@ -2017,7 +2016,7 @@ namespace
     }
 }
 
-void world::SendExplosionEffect(GridPos center, ExplosionType type) 
+void SendExplosionEffect(GridPos center, ExplosionType type) 
 {
     const int AFFECTED_FIELDS       = 8;
 
@@ -2067,7 +2066,7 @@ void world::SendExplosionEffect(GridPos center, ExplosionType type)
     }
 }
 
-Object *world::GetObject (const GridLoc &l)
+Object *GetObject (const GridLoc &l)
 {
     switch (l.layer) {
     case GRID_FLOOR:  return GetFloor(l.pos);
@@ -2077,25 +2076,25 @@ Object *world::GetObject (const GridLoc &l)
     }
 }
 
-const Field *world::GetField (GridPos p)
+const Field *GetField (GridPos p)
 {
     return level->get_field(p);
 }
 
-
+
 /* -------------------- Floor manipulation -------------------- */
 
-void world::KillFloor(GridPos p) 
+void KillFloor(GridPos p) 
 {
     level->fl_layer.kill(p);
 }
 
-Floor *world::GetFloor(GridPos p) 
+Floor *GetFloor(GridPos p) 
 {
     return level->fl_layer.get(p);
 }
 
-void world::SetFloor(GridPos p, Floor* fl) 
+void SetFloor(GridPos p, Floor* fl) 
 {
     level->fl_layer.set(p,fl);
     if (!level->preparing_level)
@@ -2103,33 +2102,33 @@ void world::SetFloor(GridPos p, Floor* fl)
             st->on_floor_change();
 }
 
-
+
 /* -------------------- Stone manipulation -------------------- */
 
-Stone * world::GetStone(GridPos p) {
+Stone * GetStone(GridPos p) {
     if (Field *f = level->get_field (p))
         return f->stone;
     else
         return level->st_layer.get(p);
 }
 
-void world::KillStone(GridPos p) {
+void KillStone(GridPos p) {
     level->st_layer.kill(p);
     level->changed_stones.push_back(p);
 }
 
-Stone * world::YieldStone(GridPos p) {
+Stone * YieldStone(GridPos p) {
     Stone *st = level->st_layer.yield(p);
     level->changed_stones.push_back(p);
     return st;
 }
 
-void world::SetStone(GridPos p, Stone* st) {
+void SetStone(GridPos p, Stone* st) {
     level->st_layer.set(p,st);
     level->changed_stones.push_back(p);
 }
 
-void world::ReplaceStone (GridPos p, Stone* st) {
+void ReplaceStone (GridPos p, Stone* st) {
     Stone *old = level->st_layer.get(p);
     if (old) {
         TransferObjectName(old, st);
@@ -2138,74 +2137,74 @@ void world::ReplaceStone (GridPos p, Stone* st) {
     SetStone(p, st);
 }
 
-void world::MoveStone (GridPos oldPos, GridPos newPos) {
+void MoveStone (GridPos oldPos, GridPos newPos) {
     SetStone(newPos, YieldStone(oldPos));
 }
 
-void world::SetScrambleIntensity (int intensity) {
+void SetScrambleIntensity (int intensity) {
     level->scrambleIntensity = intensity;
 }
 
-void world::AddScramble(GridPos p, Direction d) {
+void AddScramble(GridPos p, Direction d) {
     level->add_scramble(p, d);
 }
 
-
+
 /* -------------------- Item manipulation -------------------- */
 
-void world::KillItem(GridPos p) 
+void KillItem(GridPos p) 
 {
-    lasers::MaybeRecalcLight(p);
+    MaybeRecalcLight(p);
     level->it_layer.kill(p);
 }
 
-Item *world::GetItem(GridPos p) {
+Item *GetItem(GridPos p) {
     return level->it_layer.get(p);
 }
 
-Item *world::YieldItem(GridPos p) {
-    lasers::MaybeRecalcLight(p);
+Item *YieldItem(GridPos p) {
+    MaybeRecalcLight(p);
     return level->it_layer.yield(p);
 }
 
-void world::SetItem (GridPos p, Item* it) 
+void SetItem (GridPos p, Item* it) 
 {
-    lasers::MaybeRecalcLight(p);
+    MaybeRecalcLight(p);
     level->it_layer.set(p,it);
 }
 
-void world::SetItem (GridPos p, ItemID id) 
+void SetItem (GridPos p, ItemID id) 
 {
     SetItem (p, MakeItem (id));
 }
 
-
+
 /* -------------------- Actor manipulation -------------------- */
 
-void world::AddActor(double x, double y, Actor* a) 
+void AddActor(double x, double y, Actor* a) 
 {
     level->add_actor (a, V2(x, y));
 }
 
-void world::AddActor (Actor *a)
+void AddActor (Actor *a)
 {
     level->add_actor (a);
 }
 
-void  world::DidMoveActor(Actor *a) {
+void  DidMoveActor(Actor *a) {
     level->did_move_actor(a);
 }
 
-Actor * world::YieldActor(Actor *a) 
+Actor * YieldActor(Actor *a) 
 {
     return level->yield_actor(a);
 }
 
-void world::KillActor (Actor *a) {
+void KillActor (Actor *a) {
     delete YieldActor (a);
 }
 
-void world::WarpActor(Actor *a, double newx, double newy, bool keep_velocity)
+void WarpActor(Actor *a, double newx, double newy, bool keep_velocity)
 {
     V2 newpos = V2(newx, newy);
     ASSERT(IsInsideLevel(GridPos(newpos)), XLevelRuntime,
@@ -2215,14 +2214,14 @@ void world::WarpActor(Actor *a, double newx, double newy, bool keep_velocity)
     a->warp(newpos);
 }
 
-void world::FastRespawnActor(Actor *a, bool keep_velocity) {
+void FastRespawnActor(Actor *a, bool keep_velocity) {
     a->find_respawnpos();
     const V2& p = a->get_respawnpos();
     WarpActor(a, p[0], p[1], keep_velocity);
 }
 
 
-void world::RespawnActor(Actor *a) {
+void RespawnActor(Actor *a) {
     a->find_respawnpos();
     a->respawn();
 }
@@ -2239,7 +2238,7 @@ Actor *FindActorByID (ActorID id)
     return 0;
 }
 
-unsigned world::CountActorsOfKind (ActorID id) 
+unsigned CountActorsOfKind (ActorID id) 
 {
     unsigned count = 0;
     ActorList::iterator i = level->actorlist.begin(),
@@ -2252,7 +2251,7 @@ unsigned world::CountActorsOfKind (ActorID id)
     return count;
 }
 
-Actor *world::FindOtherMarble(Actor *thisMarble) 
+Actor *FindOtherMarble(Actor *thisMarble) 
 {
     if (!thisMarble) 
         return 0;
@@ -2265,7 +2264,7 @@ Actor *world::FindOtherMarble(Actor *thisMarble)
     }
 }
 
-bool world::ExchangeMarbles(Actor *marble1) {
+bool ExchangeMarbles(Actor *marble1) {
     Actor *marble2 = FindOtherMarble(marble1);
     if (marble2) {
         level->exchange_actors(marble1, marble2);
@@ -2275,17 +2274,17 @@ bool world::ExchangeMarbles(Actor *marble1) {
 }
 
 
-void world::GrabActor(Actor *a)
+void GrabActor(Actor *a)
 {
     a->get_actorinfo()->grabbed = true;
 }
 
-void world::ReleaseActor(Actor *a)
+void ReleaseActor(Actor *a)
 {
     a->get_actorinfo()->grabbed = false;
 }
 
-bool world::GetActorsInRange (ecl::V2 center, double range,
+bool GetActorsInRange (ecl::V2 center, double range,
                               vector<Actor*>& actors)
 {
     ActorList &al = level->actorlist;
@@ -2297,7 +2296,7 @@ bool world::GetActorsInRange (ecl::V2 center, double range,
     return !actors.empty();
 }
 
-bool world::GetActorsInsideField (const GridPos& pos, vector<Actor*>& actors)
+bool GetActorsInsideField (const GridPos& pos, vector<Actor*>& actors)
 {
     ActorList &al = level->actorlist;
     for (ActorList::iterator i=al.begin(); i!=al.end(); ++i) {
@@ -2308,7 +2307,7 @@ bool world::GetActorsInsideField (const GridPos& pos, vector<Actor*>& actors)
     return !actors.empty();
 }
 
-void world::ShatterActorsInsideField (const GridPos &p)
+void ShatterActorsInsideField (const GridPos &p)
 {
     vector<Actor *> actors;
     GetActorsInsideField (p, actors);
@@ -2318,10 +2317,10 @@ void world::ShatterActorsInsideField (const GridPos &p)
         SendMessage(*i, "shatter");
 }
 
-
+
 /* -------------------- Functions -------------------- */
 
-void world::addDelayedImpulse (const Impulse& impulse, double delay, 
+void addDelayedImpulse (const Impulse& impulse, double delay, 
                                const Stone *estimated_receiver) 
 {
     // @@@ FIXME: is a special handling necessary if several impulses hit same destination ?
@@ -2329,7 +2328,7 @@ void world::addDelayedImpulse (const Impulse& impulse, double delay,
     level->delayed_impulses.push_back(DelayedImpulse(impulse, delay, estimated_receiver));
 }
 
-void world::revokeDelayedImpulses(const Stone *target) {
+void revokeDelayedImpulses(const Stone *target) {
     // Any stone may call this function on deletion.
     // When the repository shuts down no world is existing thus check
     // world first.
@@ -2337,7 +2336,7 @@ void world::revokeDelayedImpulses(const Stone *target) {
         level->revoke_delayed_impulses(target);
 }
 
-float world::getVolume(const char *name, Object *obj, float def_volume)
+float getVolume(const char *name, Object *obj, float def_volume)
 {
     // See sound.hh and sound.cc for details.
     SoundDampingList::iterator i = level->sound_dampings.begin(),
@@ -2352,11 +2351,11 @@ float world::getVolume(const char *name, Object *obj, float def_volume)
     return def_volume;
 }
 
-void world::Tick(double dtime) {
+void WorldTick(double dtime) {
     level->tick (dtime);
 }
 
-void world::TickFinished () {
+void TickFinished () {
     for (unsigned i=0; i<level->actorlist.size(); ++i) {
         level->actorlist[i]->move_screen();
     }
@@ -2366,16 +2365,16 @@ void world::TickFinished () {
         level->m_rubberbands[i]->tick (0.0);
 }
 
-void world::Init()
+void InitWorld()
 {
     InitActors();
-    lasers::Init();
+    InitLasers();
     InitItems();
-    stones::Init();
+    InitStones();
     InitFloors();
 }
 
-void world::Shutdown()
+void ShutdownWorld()
 {
     level.reset();
     player::PlayerShutdown();
@@ -2475,7 +2474,7 @@ namespace
     vector<Item *> item_repos(it_COUNT);
 }
 
-void world::Register (const string &kind, Object *obj) {
+void Register (const string &kind, Object *obj) {
     if (!repos)
         repos = new ObjectRepos;
     if (kind.empty())
@@ -2485,22 +2484,22 @@ void world::Register (const string &kind, Object *obj) {
 }
 
 
-void world::Register (Object *obj) {
+void Register (Object *obj) {
     Register (obj->get_kind(), obj);
 }
 
-void world::Register (const string &kind, Floor *obj)
+void Register (const string &kind, Floor *obj)
 {
     Object *o = obj;
     Register(kind, o);
 }
 
-void world::Register (const string &kind, Stone *obj) {
+void Register (const string &kind, Stone *obj) {
     Object *o = obj;
     Register(kind, o);
 }
 
-void world::RegisterStone (Stone *stone) 
+void RegisterStone (Stone *stone) 
 {
     Register(static_cast<Object*>(stone));
     StoneID id = get_id(stone);
@@ -2509,7 +2508,7 @@ void world::RegisterStone (Stone *stone)
     stone_repos[id] = stone;
 }
 
-void world::RegisterActor (Actor *actor) 
+void RegisterActor (Actor *actor) 
 {
     Register(static_cast<Object*>(actor));
     ActorID id = get_id(actor);
@@ -2518,11 +2517,11 @@ void world::RegisterActor (Actor *actor)
     actor_repos[id] = actor;
 }
 
-void world::Repos_Shutdown() {
+void Repos_Shutdown() {
     delete repos;
 }
 
-Object * world::MakeObject(const char *kind) {
+Object * MakeObject(const char *kind) {
     static Object *last_templ = 0;
     static string last_kind;
 
@@ -2539,7 +2538,7 @@ Object * world::MakeObject(const char *kind) {
     return o;
 }
 
-Object * world::GetObjectTemplate(const std::string &kind) {
+Object * GetObjectTemplate(const std::string &kind) {
     if (!repos->has_templ(kind)) {
         cerr << "GetObjectTemplate: unkown object name `" <<kind<< "'.\n";
         return 0;
@@ -2547,19 +2546,19 @@ Object * world::GetObjectTemplate(const std::string &kind) {
         return repos->get_template(kind);
 }
 
-Floor* world::MakeFloor(const char *kind) {
+Floor* MakeFloor(const char *kind) {
     return dynamic_cast<Floor*>(MakeObject(kind));
 }
 
-Stone * world::MakeStone (const char *kind) {
+Stone * MakeStone (const char *kind) {
     return dynamic_cast<Stone*>(MakeObject(kind));
 }
 
-Actor * world::MakeActor (const char *kind) {
+Actor * MakeActor (const char *kind) {
     return dynamic_cast<Actor*>(MakeObject(kind));
 }
 
-Actor *world::MakeActor (ActorID id) 
+Actor *MakeActor (ActorID id) 
 {
     if (Actor *ac = actor_repos[id])
         return ac->clone();
@@ -2568,7 +2567,7 @@ Actor *world::MakeActor (ActorID id)
     return 0;
 }
 
-Stone *world::MakeStone (StoneID id) 
+Stone *MakeStone (StoneID id) 
 {
     if (Stone *st = stone_repos[id])
         return st->clone();
@@ -2578,14 +2577,14 @@ Stone *world::MakeStone (StoneID id)
 }
 
 
-void world::DisposeObject(Object *o) {
+void DisposeObject(Object *o) {
     if (o != 0) {
         UnnameObject(o);
         o->dispose();
     }
 }
 
-void world::DefineSimpleFloor(const std::string &kind, double friction,
+void DefineSimpleFloor(const std::string &kind, double friction,
                               double mousefactor, bool burnable,
                               const std::string &firetransform)
 {
@@ -2594,19 +2593,19 @@ void world::DefineSimpleFloor(const std::string &kind, double friction,
              firetransform.c_str(), ""));
 }
 
-void world::DumpObjectInfo() {
+void DumpObjectInfo() {
     repos->dump_info();
 }
 
 /* ------------------- Item repository ------------------- */
 
-void world::Register (const string &kind, Item *obj) 
+void Register (const string &kind, Item *obj) 
 {
     Object *o = obj;
-    world::Register(kind, o);
+    Register(kind, o);
 }
 
-void world::RegisterItem (Item *item) 
+void RegisterItem (Item *item) 
 {
     Register(static_cast<Object*>(item));
     ItemID id = get_id(item);
@@ -2615,7 +2614,7 @@ void world::RegisterItem (Item *item)
     item_repos[id] = item;
 }
 
-Item *world::MakeItem (ItemID id) 
+Item *MakeItem (ItemID id) 
 {
     if (Item *it = item_repos[id])
         return it->clone();
@@ -2624,6 +2623,7 @@ Item *world::MakeItem (ItemID id)
     return 0;
 }
 
-Item * world::MakeItem(const char *kind) {
+Item * MakeItem(const char *kind) {
     return dynamic_cast<Item*>(MakeObject(kind));
 }
+} // namespace enigma
