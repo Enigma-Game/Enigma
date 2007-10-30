@@ -394,6 +394,7 @@ namespace enigma {
                            const string &firetransform);
 
     /* Register a new object. */
+    void BootRegister(Object *obj, const char * kind = NULL, bool isRegistration = true);
     void Register (Object *obj);
     void Register (const string &kind, Object *obj);
     void Register (const string &kind, Floor *obj);

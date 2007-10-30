@@ -27,6 +27,7 @@
 #include "client.hh"
 #include "main.hh"
 #include "stones_internal.hh"
+#include "stones/ConnectiveStone.hh"
 #include "WorldProxy.hh"
 
 #include <iostream>
@@ -2367,6 +2368,8 @@ void TickFinished () {
 
 void InitWorld()
 {
+    Object::bootFinished();
+    BootRegister(NULL, NULL, false);
     InitActors();
     InitLasers();
     InitItems();
@@ -2472,6 +2475,34 @@ namespace
     vector<Actor *> actor_repos(ac_COUNT);
     vector<Stone *> stone_repos(st_COUNT);
     vector<Item *> item_repos(it_COUNT);
+}
+
+
+struct BootKindObject {
+    std::string kind;
+    Object *object;
+    BootKindObject(std::string name, Object *o) : kind (name), object (o) {
+    }
+};
+
+void BootRegister(Object *obj, const char * name, bool isRegistration) {
+    static std::list<BootKindObject *> templates;
+    if (isRegistration) {
+        std::string kind = (name != NULL ? std::string(name) : std::string(""));
+        templates.push_back(new BootKindObject(kind, obj));
+    } else {
+        int count = 0;
+        for (std::list<BootKindObject *>::iterator itr = templates.begin(); itr != templates.end(); ++itr) {
+            if ((*itr)->kind.empty()) {
+                Register((*itr)->object);
+            } else {
+                Register((*itr)->kind.c_str(), (*itr)->object);                
+            }
+            delete (*itr);
+            count++;
+        }
+        Log << count << " boot registered object\n";
+    }
 }
 
 void Register (const string &kind, Object *obj) {

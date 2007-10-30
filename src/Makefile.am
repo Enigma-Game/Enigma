@@ -182,7 +182,13 @@ enigma_SOURCES = 		\
 	lev/ScoreManager.cc	\
 	lev/ScoreManager.hh	\
 	lev/VolatileIndex.cc	\
-	lev/VolatileIndex.hh
+	lev/VolatileIndex.hh	\
+	stones/ConnectiveStone.cc	\
+	stones/ConnectiveStone.hh	\
+	stones/OxydStone.cc	\
+	stones/OxydStone.hh	\
+	stones/WindowStone.cc	\
+	stones/WindowStone.hh
 
 datadir = @datadir@
 

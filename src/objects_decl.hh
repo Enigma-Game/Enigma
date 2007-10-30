@@ -20,6 +20,16 @@
 #ifndef OBJECTS_DECL_HH
 #define OBJECTS_DECL_HH
 
+#define BOOT_REGISTER_START        \
+        namespace {                \
+            bool do_boot_register() {
+
+#define BOOT_REGISTER_END          \
+                return true;       \
+            }                      \
+            static bool boot_registered = do_boot_register(); \
+        } 
+
 #include "display.hh"
 #include "ecl_alist.hh"
 #include <map>
@@ -32,24 +42,39 @@ namespace enigma {
 
 /* -------------------- Objects -------------------- */
 
-    /*! Object is the base class for all ``objects'' in the world.
-      The most important facilities this class provides are:
-     
-      (1) A way to clone() and dispose() objects.  This is mainly used
-          in function MakeObject() to create new objects of a given
-          type.
-     
-      (2) A way to pass messages between unrelated objects via message().
-          This allows us to send messages to objects from Lua and to
-          decouple objects types as much as possible.
-     
-      (3) A way to get and set attributes.  These attributes are quite
-          similar to instance variables, but they can be easily modified
-          from Lua.  This makes it possible to modify certain object
-          parameters (such as the text on a piece of paper or the color
-          of an oxyd stone) in level descriptions.
+    /**
+     *  Object is the base class for all ``objects'' in the world.
+     * The most important facilities this class provides are:
+     *
+     * (1) A way to clone() and dispose() objects.  This is mainly used
+     *     in function MakeObject() to create new objects of a given
+     *     type.
+     * 
+     * (2) A way to pass messages between unrelated objects via message().
+     *     This allows us to send messages to objects from Lua and to
+     *     decouple objects types as much as possible.
+     * 
+     * (3) A way to get and set attributes.  These attributes are quite
+     *     similar to instance variables, but they can be easily modified
+     *     from Lua.  This makes it possible to modify certain object
+     *     parameters (such as the text on a piece of paper or the color
+     *     of an oxyd stone) in level descriptions.
+     * 
+     * The various Object subclasses instances need to register a template
+     * instance for each object name. To avoid the inclusion of every
+     * subclass declaration file into the registry for registry driven forward
+     * initialization we make use of the static file based initialization
+     * that occurs prior to the main application startup. To be independent of
+     * the undefined sequence in which the files are initialized we store the
+     * template instances, object names and id's in function local static caches.
+     * These caches are copied to the final runtime data structures on the main
+     * application startup. We call this feature "boot"-initialization. The macros
+     * BOOT_REGISTER_START and BOOT_REGISTER_END will be used once at the end of
+     * every subclass file. They embrace the BootRegister() function calls that
+     * register the templates.
      */
     class Object {
+
     public:
         enum ObjectType { 
             OTHER,
@@ -134,11 +159,14 @@ namespace enigma {
     protected:
         virtual Value getDefaultValue(const string &key) const;
     private:
+        friend void InitWorld();   // for bootFinished() access
+        
         static int next_id;
         static std::map<int, Object *> objects;
         int id;
         AttribMap attribs;
-        static int getNextId(Object *obj);
+        static int getNextId(Object *obj, bool bootFinished);
+        static void bootFinished();
         static void freeId(int id);
         const Value* get_attrib(const string& key) const;
     };
@@ -151,7 +179,6 @@ namespace enigma {
      * placed on "The Grid", i.e., for floor tiles, items, and
      * stones. 
      */
-
     class GridObject : public Object, public display::ModelCallback {
     public:
         GridObject() : pos (GridPos(-1, -1)) {}

@@ -47,9 +47,29 @@ namespace enigma {
 int Object::next_id = 1;
 std::map<int, Object *> Object::objects;
 
-int Object::getNextId(Object *obj) {
-    objects[next_id] = obj;
-    return next_id++;
+int Object::getNextId(Object *obj, bool bootFinished) {
+    static bool isBooting = true;
+    static int nextIdBoot = 1;
+    static std::map<int, Object *> objectsBoot;
+    
+    if (isBooting) {
+        if (bootFinished) {
+            isBooting = false;
+            next_id = nextIdBoot;
+            objects = objectsBoot;
+            return 0;
+        } else {
+            objectsBoot[nextIdBoot] = obj;
+            return nextIdBoot++;
+        }
+    } else {
+        objects[next_id] = obj;
+        return next_id++;
+    }
+}
+
+void Object::bootFinished() {
+    getNextId(NULL, true);
 }
 
 void Object::freeId(int id) {
@@ -65,16 +85,16 @@ Object * Object::getObject(int id) {
 }
 
 Object::Object() {
-    id = getNextId(this);
+    id = getNextId(this, false);
 }
 
 Object::Object(const char *kind) {
     set_attrib("kind", Value(kind));
-    id = getNextId(this);
+    id = getNextId(this, false);
 }
 
 Object::Object(const Object &src_obj) {
-    id = getNextId(this);
+    id = getNextId(this, false);
     attribs = src_obj.attribs;
 }
 
