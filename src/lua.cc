@@ -26,9 +26,10 @@
 #include "server.hh"
 #include "sound.hh"
 #include "options.hh"
+#include "WorldProxy.hh"
 #include "lev/Index.hh"
 #include "lev/Proxy.hh"
-#include "WorldProxy.hh"
+#include "stones/OxydStone.hh"
 #include <list>
 
 #ifndef CXXLUA
@@ -1857,6 +1858,102 @@ static int pushNewWorld(lua_State *L) {
     return 1;
 }
 
+static int shuffleOxyd(lua_State *L) {
+    // world, {table}  -- table with 1=(group|obj|name), [2=(group|obj|name], 
+    //                               min=[number], max=[number], circular=true, linear=true
+    //                               log=("solution"|"count"|"all") 
+    OxydStone::LogType logFlag = OxydStone::NOTHING;
+    for (int i = 2; i <= lua_gettop(L); i++) {
+        if (!is_table(L, i)) {
+            throwLuaError(L, "Shuffle oxyds - rule is not a table");
+            return 0;
+        }
+        lua_rawgeti(L, i, 1);
+        if (!(is_group(L, -1) || is_object(L, -1) || lua_isstring(L, -1))) {
+            throwLuaError(L, "Shuffle oxyds - rule first group fault");
+            return 0;
+        }
+        Value group1 = to_value(L, -1);
+        lua_pop(L, 1);
+        lua_rawgeti(L, i, 2);
+        if (!(is_group(L, -1) || is_object(L, -1) || lua_isstring(L, -1) || lua_isnil(L, -1))) {
+            throwLuaError(L, "Shuffle oxyds - rule second group fault");
+            return 0;
+        }
+        Value group2 = to_value(L, -1);
+        bool is_pair = !lua_isnil(L, -1); 
+        lua_pop(L, 1);
+        
+        lua_getfield(L, i, "log");
+        if (!lua_isnil(L, -1) && lua_isstring(L, -1)) {
+            if (0 == strcmp(lua_tostring(L,-1), "solution") && logFlag < OxydStone::SOLUTION) 
+                logFlag = OxydStone::SOLUTION;
+            else if (0 == strcmp(lua_tostring(L,-1), "count") && logFlag < OxydStone::COUNT)
+                logFlag = OxydStone::COUNT;
+            else if (0 == strcmp(lua_tostring(L,-1), "all") && logFlag < OxydStone::ALL)
+                logFlag = OxydStone::ALL;                
+        }
+        lua_pop(L, 1);
+        
+        unsigned short limit;
+        
+        lua_getfield(L, i, "min");
+        if (!lua_isnil(L, -1)) {
+            limit = (unsigned short) ecl::Clamp<int>(lua_tointeger(L, -1), 0, OxydStone::numColorsAvailable());
+            OxydStone::addShuffleRule(is_pair ? OxydStone::RULE_PAIR_MIN : OxydStone::RULE_SINGLE_MIN, 
+                    (unsigned short) limit, group1, group2);
+        }
+        lua_pop(L, 1);
+
+        lua_getfield(L, i, "max");
+        if (!lua_isnil(L, -1)) {
+            limit = (unsigned short) ecl::Clamp<int>(lua_tointeger(L, -1), 0, OxydStone::numColorsAvailable());            
+            OxydStone::addShuffleRule(is_pair ? OxydStone::RULE_PAIR_MAX : OxydStone::RULE_SINGLE_MAX, 
+                    (unsigned short) limit, group1, group2);
+        }
+        lua_pop(L, 1);
+
+        if (!is_pair) {
+            lua_getfield(L, i, "linear");
+            if (lua_isboolean(L, -1) && lua_toboolean(L, -1)) {
+                ObjectList oxyds = group1;
+                Object *firstOxyd = NULL;
+                for (ObjectList::iterator i = oxyds.begin(); i != oxyds.end(); ++i) {
+                    if (firstOxyd == NULL)
+                        firstOxyd = *i;
+                    else {
+                        OxydStone::addShuffleRule(OxydStone::RULE_PAIR_MAX, 0, Value(firstOxyd), Value(*i));
+                        firstOxyd = *i;
+                    }
+                }
+            }
+            lua_pop(L, 1);
+            
+            lua_getfield(L, i, "circular");
+            if (lua_isboolean(L, -1) && lua_toboolean(L, -1)) {
+                ObjectList oxyds = group1;
+                Object *firstOxyd = NULL;
+                Object *leftOxyd = NULL;
+                for (ObjectList::iterator i = oxyds.begin(); i != oxyds.end(); ++i) {
+                    if (firstOxyd == NULL) {
+                        firstOxyd = *i;
+                        leftOxyd = *i;
+                    } else {
+                        OxydStone::addShuffleRule(OxydStone::RULE_PAIR_MAX, 0, Value(leftOxyd), Value(*i));
+                        leftOxyd = *i;
+                    }
+                }
+                if (firstOxyd != NULL && firstOxyd != leftOxyd)
+                    OxydStone::addShuffleRule(OxydStone::RULE_PAIR_MAX, 0, Value(firstOxyd), Value(leftOxyd));
+            }
+            lua_pop(L, 1);
+        }
+        
+    }
+    OxydStone::shuffleColors(logFlag);
+    return 0;
+}
+
 MethodMap tileMethodeMap;
 
 static int dispatchTileWriteAccess(lua_State *L) {
@@ -2187,6 +2284,7 @@ static CFunction worldMethods[] = {
     {getFloor,                      "fl"},
     {getItem,                       "it"},
     {getStone,                      "st"},
+    {shuffleOxyd,                   "shuffleOxyd"},
     {0,0}
 };
 
