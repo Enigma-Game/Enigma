@@ -67,11 +67,12 @@
 --      list_wall_one - list of outer walls near ways
 --      list_wall_two - list of outer walls or outf one tile away from
 --                      ways, together with a list of neighboring wall_ones.
+--          list_goal - list of all goals
 --
 -- Each list entry is a table: Entries lx and ly are absolute positions
 -- ("level"), ax and ay are positions in the level_array, if existent
--- (nil else). Some endphases also use list_oxyds as additional data
--- structure.
+-- (nil else). Some endphases also use list_oxyd, list_blocker,
+-- goal_to_blocker and/or number_oxyds as additional data structures.
 
 sokoarea = {}
 
@@ -134,6 +135,12 @@ function shuffle_table(t)
   table.sort(t, function (a, b) return a.sort_field < b.sort_field end)
 end
 
+-- manhattan_distance calculates the Manhattan-distance between
+-- (X1,Y1) and (X2, Y2), which is |X1 - X2| + |Y1 - Y2|
+function manhattan_distance(x1, y1, x2, y2)
+  return math.abs(x1 - x2) + math.abs(y1 - y2)
+end
+
 -- choose_among_multiples selects a number between 1 and COUNT
 -- based on the coordinates X and Y and the algorithm's name ALG.
 function choose_among_multiples(x, y, count, alg)
@@ -145,61 +152,6 @@ function choose_among_multiples(x, y, count, alg)
     return math.mod(x + y * y + x*y*x + 3*y*x*y*x, count) + 1
   elseif alg == "random" then
     return math.random(count)
-  end
-end
-
--- no_way_near returns a boolean whether (x,y) is not
--- reachable by the marble.
-function no_way_near(x, y, sokoarea_number)
-  local la = sokoarea[sokoarea_number].level_array
-  local char_n = (la[y-1] or {})[x] or "-"
-  local char_s = (la[y+1] or {})[x] or "-"
-  local char_w = (la[y] or {})[x-1] or "-"
-  local char_e = (la[y] or {})[x+1] or "-"
-  return     (char_is_outf(char_n) or char_is_wall(char_n))
-         and (char_is_outf(char_s) or char_is_wall(char_s))
-         and (char_is_outf(char_w) or char_is_wall(char_w))
-         and (char_is_outf(char_e) or char_is_wall(char_e))
-end
-
--- one_tile_far_from_way checks whether (x,y) is reachable
--- by the marble through exactly one stone. If not, it returns
--- nil, else the position of this stone.
-function one_tile_far_from_way(x, y, sokoarea_number)
-  -- first of all, make sure there is no direct way 
-  --if not no_way_near(x, y, sokoarea_number) then
-  --  return nil
-  --end
-  -- now analyse the following positions relative to our
-  -- center C = (x,y), marked by stars:
-  --   *
-  --  *.*
-  -- *.C.*
-  --  *.*
-  --   *
-  local la = sokoarea[sokoarea_number].level_array
-  local neighborhood = {          {x= 0, y=-2},
-                    {x=-1, y=-1},               {x= 1, y=-1},
-      {x=-2, y= 0},                                           {x= 2, y= 0},
-                    {x=-1, y= 1},               {x= 1, y= 1},
-                                  {x= 0, y= 2},                            }
-  local char = {}
-  for j, k in pairs(neighborhood) do
-    char[j] = {ch = (la[y+k.y] or {})[x+k.x] or "", nr = j}
-  end
-  -- from this list, remove all empty positions, walls and outf
-  local char_backup = char
-  for j, v in pairs(char_backup) do
-    if char_is_outf(v.ch) or char_is_wall(v.ch) or (v.ch == "") then
-      table.remove(char, j)
-    end
-  end
-  -- return nil or a random element of char
-  if table.getn(char) == 0 then
-    return nil
-  else
-    local n = neighborhood[char[random(1, table.getn(char))].nr]
-    return {x=x+n.x, y=y+n.y}
   end
 end
 
@@ -216,6 +168,18 @@ function check_chess(sokoarea_number)
     end
   end
   return false
+end
+
+-- set_oxyd sets an oxyd with given flavor and color and adds
+-- the neccessary entry to list_oxyd.
+function set_oxyd(sokoarea_number, list_entry, flavor, color)
+  local entry = list_entry
+  entry.flavor = flavor
+  entry.color = color
+  oxyd(entry.lx, entry.ly, flavor, color)
+  sokoarea[sokoarea_number].list_oxyd[(entry.lx).."/"..(entry.ly)] = entry
+  sokoarea[sokoarea_number].number_oxyds =
+      sokoarea[sokoarea_number].number_oxyds + 1
 end
 
 -- create_lists creates the special lists list_outside, list_wall,
@@ -333,7 +297,12 @@ function new_sokoarea()
     list_wall = {},
     list_way = {},
     list_wall_one = {},
-    list_wall_two = {}
+    list_wall_two = {},
+    list_goal = {},
+    list_oxyd = {},
+    list_blocker = {},
+    goal_to_blocker = {},
+    number_oxyds = 0
   }
   return sokoarea_number
 end
@@ -356,7 +325,9 @@ function set_element(x, y, sokoarea_number, el_str, el_design)
     return
   end
 
-  if type(el) == "string"  then  el = {el}  end
+  if type(el) == "string" then
+    el = {el}
+  end
 
   local fl = {}
   local st = {}
@@ -364,17 +335,43 @@ function set_element(x, y, sokoarea_number, el_str, el_design)
   local multiple_alg = "checkerboard"
   local friction = nil
   local mousefactor = nil
+  local fire = nil
 
   -- Now analyse EL: Decompose its entries into fl,st,it.
-  for j, s in pairs(el) do
-        if is_floor(s)       then  table.insert(fl, s)
-    elseif is_stone(s)       then  table.insert(st, s)
-    elseif is_item(s)        then  table.insert(it, s)
-    elseif is_algorithm(s)   then  multiple_alg = string.sub(s, 4, -1)
-    elseif is_friction(s)    then  friction = tonumber(string.sub(s, 4, -1))
-    elseif is_mousefactor(s) then  mousefactor = tonumber(string.sub(s, 4, -1))
+  -- Each entry might in turn hold a ":NUMBER", which multiplicates it.
+  for j, v in pairs(el or {}) do
+    if type(v) == "string" then
+      -- Separate the multiplicator
+      local s = v
+      local nr = 1
+      local sep = string.find(v, ":")
+      if sep then
+        s = string.sub(v, 1, sep - 1)
+        nr = tonumber(string.sub(v, sep + 1))
+      end
+      if type(nr) ~= "number" then
+        -- Assume it's not a multiplicator, like in "al:ALGORITHM".
+        s = v
+        nr = 1
+      end
+
+      -- Now sort the entry into tables
+      for j = 1, nr do
+            if is_floor(s)       then  table.insert(fl, s)
+        elseif is_stone(s)       then  table.insert(st, s)
+        elseif is_item(s)        then  table.insert(it, s)
+        elseif is_algorithm(s)   then  multiple_alg = string.sub(s, 4, -1)
+        elseif is_friction(s)    then  friction = tonumber(string.sub(s, 4, -1))
+        elseif is_mousefactor(s) then  mousefactor = tonumber(string.sub(s, 4, -1))
+        elseif s == "fire"       then  fire = true
+        elseif s == "nofire"     then  fire = false
+        else
+          mywarning("Unknown entry "..j.."="..s.." in design element.")
+        end
+      end
     else
-      mywarning("Unknown entry "..s.." in design element.")
+      mywarning("In design element, entry "..j.." is of type "
+                ..type(v)..", not string.")      
     end
   end
 
@@ -383,7 +380,16 @@ function set_element(x, y, sokoarea_number, el_str, el_design)
   ----------- floor --------------
   if table.getn(fl) > 0 then
     local flkind = fl[choose_among_multiples(x, y, table.getn(fl), multiple_alg)]
-    created_objects.fl = set_floor(flkind, x, y)
+    if flkind == "fl-bridge_x" then
+      created_objects.fl = set_floor("fl-bridge", x, y,
+          {type = "x", burnable = false, eternal = true})
+    elseif flkind == "fl-bridge_y" then
+      created_objects.fl = set_floor("fl-bridge", x, y,
+          {type = "y", burnable = false, eternal = true})
+    else
+      created_objects.fl = set_floor(flkind, x, y,
+          {burnable = false, eternal = true})
+    end
     if type(friction) == "number" then
       enigma.SetAttrib(created_objects.fl, "friction", friction)
     end
@@ -419,6 +425,8 @@ function set_element(x, y, sokoarea_number, el_str, el_design)
     if (el_str == "goal") and not in_endphase then
       local gn = sokoarea[sokoarea_number].number_goals + 1
       sokoarea[sokoarea_number].number_goals = gn
+      sokoarea[sokoarea_number].list_goal[x.."/"..y] = 
+          {lx = x, ly = y, goal_number = gn}
       if created_objects.it and not in_endphase then
         enigma.SetAttrib(created_objects.it, "action", "callback")
         enigma.SetAttrib(created_objects.it, "target", "goal_trigger")
@@ -428,7 +436,23 @@ function set_element(x, y, sokoarea_number, el_str, el_design)
       end
     end
   end
-  
+
+  ----------- fire ----------------
+  if fire ~= nil then
+    local myfloor = enigma.GetFloor(x,y)
+    if myfloor then
+      if fire then
+        enigma.SetAttrib(myfloor, "burnable", true)
+        enigma.SetAttrib(myfloor, "eternal", true)
+        SendMessage(myfloor, "forcefire")
+      else
+        SendMessage(myfloor, "stopfire")
+        enigma.SetAttrib(myfloor, "burnable", false)
+        enigma.SetAttrib(myfloor, "eternal", true)
+      end
+    end
+  end
+
   return created_objects
 end
 
@@ -447,6 +471,7 @@ function draw_level_array(sokoarea_number, outside, draw_actor)
   local design = sokoarea[nr].design
   local dx = sokoarea[nr].offset.x
   local dy = sokoarea[nr].offset.y
+  sokoarea[nr].list_goal = {}
 
   -- create level
   for y = 0, sokoarea[nr].array_height - 1 do
@@ -981,12 +1006,18 @@ function recreate_sokoball(design, sokoarea_number)
   sokoarea[nr].number_goals = 0
   sokoarea[nr].goals_filled = 0
   sokoarea[nr].endphase_started = false
-
+  sokoarea[nr].goal_to_blocker = {}
+  sokoarea[nr].goal_hook = nil
+  sokoarea[nr].list_goal = {}
+  sokoarea[nr].list_oxyd = {}
+  sokoarea[nr].list_blocker = {}
+  sokoarea[nr].number_oxyds = 0
+    
   draw_level_array(nr, true, false)
 
   -- prepare oxyds for end phase
   prepare_endphase(nr)
-  mywarning(sokoarea[nr].design.endp.alg)
+  mydebug("Prepared for endphase "..sokoarea[nr].design.endp.alg..".")
 end
 
 -- draw_sokoball draws a sokoball level from argument LEVEL, sublevel
@@ -1039,6 +1070,8 @@ function design_statistics()
       if alg then
         alglist[alg] = (alglist[alg] or 0) + 1
       end
+    else
+      alglist["default"] = (alglist["default"] or 0) + 1
     end
   end
   for k, v in pairs(alglist) do
