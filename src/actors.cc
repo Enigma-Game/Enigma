@@ -996,6 +996,11 @@ void BasicBall::change_state(State newstate) {
     string kind     = get_kind();
     State  oldstate = state;
 
+    // Whatever happened to the ball, the sink depth
+    // should be returned to zero.
+    sinkDepth = minSinkDepth;
+    sinkModel = -1;
+
     state = newstate;
     switch (newstate) {
     case NORMAL:
