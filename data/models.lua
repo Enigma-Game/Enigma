@@ -177,6 +177,12 @@ function FrameNames(prefix, first, last)
     return fn
 end
 
+function AddFrameNames(fn, prefix, first, last)
+    for i=first,last do
+	    table.insert(fn, i, prefix .. format("_%04d", i))
+    end
+end
+
 -- Build a list of frames from a list of model names and a constant
 -- duration.
 function BuildFrames(names, msec)

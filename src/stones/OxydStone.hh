@@ -84,6 +84,8 @@ namespace enigma {
         virtual OxydStone * clone();
         virtual void dispose();
         virtual Value message(const string &m, const Value &);
+        virtual void set_attrib(const string& key, const Value &val);
+//        virtual Value getAttr(const string &key) const;
 
         // Stone interface
         virtual void actor_hit(const StoneContact &sc);
@@ -91,7 +93,7 @@ namespace enigma {
         virtual bool is_removable() const;
         
         // PhotoStone interface
-        virtual void notify_laseron() { maybe_open_stone(); }
+        virtual void notify_laseron() { tryOpen(); }
         virtual void notify_laseroff() {}
 
         // ModelCallback interface  - Animation callback
@@ -103,27 +105,44 @@ namespace enigma {
         void on_removal (GridPos p);
             
     private:
-        enum State { CLOSED, OPEN, OPENING, CLOSING, BLINKING };
+        enum State { CLOSED, OPEN_PAIR, OPENING, CLOSING, OPEN_SINGLE };
+        
         typedef std::vector<OxydStone *> InstanceVector;
+        
         typedef struct {
             unsigned short ruleId;
             unsigned short groupId1;
             unsigned short groupId2;
         } Rule;
+        
+        /**
+         * The data frame of the fair shuffle algorithm that describe the remaining limitations
+         * and degrees of freedom for the distribution of the remaining oxyds. For every oxyd
+         * pair and every pseudo oxyd a new frame is generated which lists the oxyds and the
+         * remaining constraints.
+         */
         typedef struct {
-                uint32_t freeOxydsMask;
-                unsigned short freePseudoCount;
-                unsigned short freePairsCount;
-                std::vector<unsigned short> oxydsCandidatesCount;
-                std::vector<uint32_t> oxydsCandidatesMask;
-                std::vector<short> rulesLimit;  // -1 means rule is fulfilled
-                uint32_t selOxyd1Mask;
-                uint32_t selOxyd2Mask;
-                unsigned short openedOxydIndex;
-                bool isColored;
+            uint32_t freeOxydsMask;              ///< a 1 for every oxyd that needs to be distributed
+            unsigned short freePseudoCount;      ///< number of pseudo oxyds that need to be distributed
+            unsigned short freePairsCount;       ///< number of oxyd pairs that need to be distributed
+            std::vector<unsigned short> oxydsCandidatesCount; ///< number of possible pair partners per oxyd
+            std::vector<uint32_t> oxydsCandidatesMask;        ///< mask of possible pair partners per oxyd
+            std::vector<short> rulesLimit;       ///< remaining number of pairs to reach limit per rule.
+                                                 ///< -1 means rule is fulfilled and needs no further checks
+            uint32_t selOxyd1Mask;               ///< selected first oxyd for this frame coded as bitmask, 
+                                                 ///< 0 = no selection
+            uint32_t selOxyd2Mask;               ///< selected second oxyd for this frame coded as bitmask, 
+                                                 ///< 0 = no selection
+            unsigned short openedOxydIndex;      ///< levelOxyds index for next oxyd that needs to be checked
+                                                 ///< for being a standard colored opened pair oxyd
+            unsigned short fixedcolorOxydIndex;  ///< levelOxyds index for next oxyd that needs to be checked
+                                                 ///< for being a part of a unopend pair with a fixed color 
+            bool isColored;                      ///< flag set and used by the final coloring to mark frames
+                                                 ///< with already colored oxyds
         } ShuffleFrame;
 
         static InstanceVector levelOxyds;
+        static bool isInit;
         static std::vector<unsigned short> colorsUsageCount;
         static unsigned short shuffledFakeCount;
         static unsigned short shuffledFartCount;
@@ -155,21 +174,16 @@ namespace enigma {
         static void log_shuffle_basis();
         static void log_shuffle_stack();
         
-        static bool blinking(OxydStone *a) {
-            return (a->animState == BLINKING);
-        }
-        static bool blinking_or_opening(OxydStone *a) {
-            return (a->animState == BLINKING || a->animState == OPENING);
-        }
         static bool not_open(OxydStone *a) {
-            return !(a->animState == OPEN || a->animState == OPENING);
+            return !(a->iState == OPEN_PAIR || (int)a->getAttr("color") < AUTO);
         }
 
-        State animState;
+        State iState;
 
         // Private methods
-        void maybe_open_stone();
-        void change_state(State newstate);
+        void tryOpen();
+        void closeAllStandardOxyds();
+        void set_iState(State newState);
     };
 } // namespace enigma
 

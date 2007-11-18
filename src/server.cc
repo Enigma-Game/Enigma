@@ -95,6 +95,7 @@ double   server::FlatForce;
 double   server::FrictionFactor;
 double   server::HoleForce;
 double   server::IceFriction;
+lev::levelStatusType   server::LevelStatus; // no Lua access
 double   server::MagnetForce;
 double   server::MagnetRange;
 double   server::SlopeForce;

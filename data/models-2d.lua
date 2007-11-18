@@ -890,8 +890,8 @@ do
         -- activated laser
         names = {}
         for i=1,table.getn(laseron) do
-	        names[i] = "st-laseron"..dir .. format("_%04d", i)
-	        DefOverlay (names[i], {"st-laser-base", laseron[i]})
+                names[i] = "st-laseron"..dir .. format("_%04d", i)
+                DefOverlay (names[i], {"st-laser-base", laseron[i]})
         end
         frames = BuildFrames(names, 100)
         DefAnim("st-laseron-anim"..dir, frames, 1)
@@ -1066,14 +1066,14 @@ end
 -- st-switch, st-switch_black, st-switch_white --
 do
     function mkswitch(modelname, basename)
-    	local n = DefSubimages(modelname, {h=3, modelname=basename.."-fg"})
-    	local f = BuildFrames(n, 60)
-    	DefRoundStone(modelname.."-off", n[1])
-    	DefRoundStone(modelname.."-on", n[3])
-      	DefAnim(basename.."-turnon", f)
-	    DefAnim(basename.."-turnoff", ReverseFrames(f))
-	    DefRoundStone(modelname.."-turnon", basename.."-turnon")
-	    DefRoundStone(modelname.."-turnoff", basename.."-turnoff")
+        local n = DefSubimages(modelname, {h=3, modelname=basename.."-fg"})
+        local f = BuildFrames(n, 60)
+        DefRoundStone(modelname.."-off", n[1])
+        DefRoundStone(modelname.."-on", n[3])
+        DefAnim(basename.."-turnon", f)
+            DefAnim(basename.."-turnoff", ReverseFrames(f))
+            DefRoundStone(modelname.."-turnon", basename.."-turnon")
+            DefRoundStone(modelname.."-turnoff", basename.."-turnoff")
     end
     mkswitch("st-switch", "switch")
     mkswitch("st-switch_black", "switch_black")
@@ -1220,7 +1220,12 @@ end
 
 do
     local colorspots = FrameNames("st-oxydbtempl", 2,9)
+    AddFrameNames(colorspots, "st-oxydbtempl", 96,97)
     local openovls = FrameNames("st-oxydbtempl", 10,14)
+    local pseudospots = {}
+    pseudospots[-3] = FrameNames("st-oxydbtempl", 101,104)
+    pseudospots[-4] = FrameNames("st-oxydbtempl", 111,118)
+
 
 -- Define "fading in" and "fading out" animations for oxyd stones.
 -- These two animations are combined with the stone images to
@@ -1255,8 +1260,15 @@ do
         local n = "st-oxyd" .. flavor .. color
         local fadein = "oxyd"..flavor.."-fadein"
         local fadeout= "oxyd"..flavor.."-fadeout"
+        local spotcolor = color
+        
+        if (color >= 0) then
+            spotcolor = color + 1   -- oxyd color 0..7, file 2..9, frames 1..8
+        else
+            spotcolor = 100 + color -- pseudo colors
+        end
 
-        DefOverlay(n.."-base", {baseimg[flavor], colorspots[color+1]})
+        DefOverlay(n.."-base", {baseimg[flavor], colorspots[spotcolor]})
         display.DefineComposite(n.."-opening-fg", n.."-base", fadein)
         display.DefineComposite(n.."-closing-fg", n.."-base", fadeout)
         DefShModel (n.."-opening", n.."-opening-fg", shadow[flavor])
@@ -1290,6 +1302,28 @@ do
         DefShModel(n, n.."-anim", shadow[flavor])
     end
 
+    function mkpseudo(flavor, color)
+        local n = "st-oxyd" .. flavor .. "-pseudo" .. color
+        local names = {}
+
+        for i=1, table.getn(pseudospots[color]) do
+            local images={baseimg[flavor],pseudospots[color][i]}
+            names[i] = n .. format("_%04d", i)
+            DefOverlay(names[i], images)
+        end
+
+        -- compose these images into an animation
+        if (color == -3) then
+            frames = RepeatAnim(PingPong(BuildFrames(names, 50)),2)
+        elseif (color == -4) then
+            frames = RepeatAnim(BuildFrames(names, 100),2)
+        end
+        DefAnim(n.."-anim", frames, false)
+
+        -- and finally add a shadow to make the model complete
+        DefShModel(n, n.."-anim", shadow[flavor])
+    end
+
     function mkoxyd(flavor)
         DefStone("st-oxyd"..flavor, shadow[flavor])
         DefShModel("st-likeoxyd"..flavor, "st-oxyd"..flavor, shadow[flavor])
@@ -1307,6 +1341,10 @@ do
             mkblink(flavor, color)
             mkopened(flavor, color)
         end
+        mkopenclose(flavor, -3)
+        mkpseudo(flavor, -3)
+        mkopenclose(flavor, -4)
+        mkpseudo(flavor, -4)
     end
     mkoxyd("a")
     mkoxyd("b")
@@ -1480,7 +1518,7 @@ end
 --
 -- naming scheme for mirror models:
 --
---	st-{3mirror,pmirror}-{m,s}{o,t}[1234]
+--      st-{3mirror,pmirror}-{m,s}{o,t}[1234]
 --
 -- {m,s} -> movable or static
 -- {o,t} -> opaque or transparent
@@ -1488,16 +1526,16 @@ end
 -- The numbers map to actual orientations as follows:
 --
 --   NUMBER    TRIANG.M.   PLANE M.
---	1	south	  "v"        "-"
---	2	west	  "<"        "\"
---	3	north	  "^"        "|"
---	4	east	  ">"        "/"
+--      1       south     "v"        "-"
+--      2       west      "<"        "\"
+--      3       north     "^"        "|"
+--      4       east      ">"        "/"
 do
     function make_mirror(basename, baseimg, overlays)
         for i=1,4 do
-	        mname = basename .. i
-	        DefOverlay (mname .. "-ovl", {baseimg, overlays[i]})
-	        DefShModel(mname, mname .. "-ovl", "sh-round2")
+                mname = basename .. i
+                DefOverlay (mname .. "-ovl", {baseimg, overlays[i]})
+                DefShModel(mname, mname .. "-ovl", "sh-round2")
         end
     end
 

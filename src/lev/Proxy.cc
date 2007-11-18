@@ -617,6 +617,7 @@ namespace enigma { namespace lev {
         if (this == currentLevel) {    // just level - no libs
             server::SetCompatibility(this);
             server::EnigmaCompatibility = getEnigmaCompatibility();
+            server::LevelStatus = getLevelStatus();
         }
         processDependencies();
         loadLuaCode();

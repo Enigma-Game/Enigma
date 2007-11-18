@@ -74,6 +74,9 @@ namespace enigma_server
     // level compatibility
     extern double   EnigmaCompatibility;
    
+    // level compatibility
+    extern lev::levelStatusType   LevelStatus;
+   
     // Default brittleness of the floor: 0 = stable..1=unstable.
     // Really: probability that a floor tile will crack when an actor
     // enters or leaves it.

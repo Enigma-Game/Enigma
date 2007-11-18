@@ -23,10 +23,12 @@
 #include "main.hh"
 #include "server.hh"
 #include "world.hh"
+#include "lev/Proxy.hh"
 
 namespace enigma {
  
     OxydStone::InstanceVector OxydStone::levelOxyds;
+    bool OxydStone::isInit = false;
     std::vector<unsigned short> OxydStone::colorsUsageCount;
     unsigned short OxydStone::shuffledFakeCount;
     unsigned short OxydStone::shuffledFartCount;
@@ -61,6 +63,8 @@ namespace enigma {
         
         base.rulesLimit.push_back(limit);
         
+        ASSERT(groupsMembers[r.groupId1] != 0, XLevelRuntime, "Oxyd shuffle rule for an empty group");
+        
         switch (type) {
             case RULE_SINGLE_MIN:
                 singleRulesMin.push_back(r);
@@ -69,9 +73,11 @@ namespace enigma {
                 singleRulesMax.push_back(r);
                 break;
             case RULE_PAIR_MIN:
+                ASSERT(groupsMembers[r.groupId2] != 0, XLevelRuntime, "Oxyd shuffle rule for an empty group");
                 pairRulesMin.push_back(r);
                 break;
             case RULE_PAIR_MAX:
+                ASSERT(groupsMembers[r.groupId2] != 0, XLevelRuntime, "Oxyd shuffle rule for an empty group");
                 pairRulesMax.push_back(r);
                 break;
         }
@@ -102,7 +108,7 @@ namespace enigma {
     }
     
     void OxydStone::initColors() {
-        if (colorsUsageCount.size() != 0)
+        if (isInit)
             return;  // we are already initialized!
             
         unsigned short numColors = numColorsAvailable();
@@ -118,7 +124,7 @@ namespace enigma {
         // count color usage
         for (size_t i=0; i<isize; ++i) {
             int color = levelOxyds[i]->getAttr("color");
-            bool declineShuffle = levelOxyds[i]->getAttr("noshuffle");
+            bool declineShuffle = to_bool(levelOxyds[i]->getAttr("noshuffle"));
             if (color >= 0 && color < numColors) {
                 colorsUsageCount[color]++;
                 if (declineShuffle) colorsUsageCountNoShuffle[color]++;
@@ -148,9 +154,11 @@ namespace enigma {
                     autocoloredOxyds.back()->set_attrib("color", i);
                     autocoloredOxyds.pop_back();
                     colorsUsageCount[i]++;
-                } else {
+                } else if (onlyPairs) {
                     onlyPairs = false;
                     break;
+                } else {
+                    ASSERT(false, XLevelRuntime, "Oxyd init colors - too many unpaired oxyds with given color");
                 }
             }
             if (colorsUsageCountNoShuffle[i] % 2 == 1) {
@@ -179,7 +187,11 @@ namespace enigma {
             lastObject->set_attrib("color", FAKE);
             colorsUsageCount[lastColor]--;
             shuffledFakeCount++;
+        } else {
+            ASSERT(onlyPairs, XLevelRuntime, "Oxyd init colors - too many unpaired oxyds with given color");
         }
+        
+        isInit = true;
     }
     
     void OxydStone::shuffleColors(LogType logFlag) {
@@ -201,24 +213,24 @@ namespace enigma {
     }
     
     void OxydStone::simpleShuffleColors() {
-        // TODO support for noshuffle and pseudo
         
-        std::vector<size_t> closed_oxyds;
+        std::vector<size_t> closedOxyds;
         size_t  isize = levelOxyds.size();
         for (size_t i=0; i<isize; ++i) {
-            if (levelOxyds[i]->animState == CLOSED) {
-                closed_oxyds.push_back(i);
+            OxydStone *candidate = levelOxyds[i];
+            if (candidate->iState == CLOSED && !to_bool(candidate->getAttr("noshuffle"))) {
+                closedOxyds.push_back(i);
             }
         }
     
-        unsigned size = closed_oxyds.size();
+        unsigned size = closedOxyds.size();
         if (size>1) {
             for (unsigned i = 0; i<size; ++i) {
                 unsigned a = IntegerRand(0, static_cast<int> (size-2));
                 if (a >= i) ++a;        // make a always different from j
     
-                OxydStone *o1 = levelOxyds[closed_oxyds[i]];
-                OxydStone *o2 = levelOxyds[closed_oxyds[a]];
+                OxydStone *o1 = levelOxyds[closedOxyds[i]];
+                OxydStone *o2 = levelOxyds[closedOxyds[a]];
     
                 Value icolor = o1->getAttr("color"); 
     
@@ -229,8 +241,11 @@ namespace enigma {
     }
     
     void OxydStone::fairShuffleColors(LogType logFlag) {        
+        unsigned short numOxyds = levelOxyds.size();
+        
         // generate sequence of oxyds for randomness of distribution
-        // TODO exclude noshuffle pseudo oxyds
+        // the sequence contains even noshuffle pseudo oxyds as they are masked out
+        // by the freeOxydMask prior being selected anywhere
         randomOxydIds = std::vector<unsigned short>(levelOxyds.size());
         for (int i = 0; i < randomOxydIds.size(); i++)
             randomOxydIds[i] = i;
@@ -241,11 +256,17 @@ namespace enigma {
             randomOxydIds[j] = t;
         }
         
-//        log_shuffle_basis();
-        
         if (groupsSharedMembers.size() == 0) {
             // first shuffle call for given rules - initialize base frame
-            // TODO exclude noshuffle pseudo oxyds
+            
+            // prepare exclusion of noshuffle pseudo oxyds
+            uint32_t noshufflePseudoMask = 0; 
+            for (int i = 0; i < numOxyds; i++) {
+                OxydStone *candidate = levelOxyds[i];
+                if ((int)candidate->getAttr("color") < AUTO && 
+                        to_bool(candidate->getAttr("noshuffle")))
+                    noshufflePseudoMask |= 1 << i;
+            }
             
             // evaluate all group members that are shared with another group
             for (int i = 0; i < groupsMembers.size(); i++) {
@@ -254,16 +275,17 @@ namespace enigma {
                     if (i != j)
                         shared |= (groupsMembers[i] & groupsMembers[j]);
                 }
-                groupsSharedMembers.push_back(shared);
+                groupsSharedMembers.push_back(shared & ~noshufflePseudoMask);
             }
             
             // init oxyd pair candidates
-            uint32_t all = (1 << (levelOxyds.size())) - 1;  // a 1 for every oxyd
-            unsigned short numOxyds = levelOxyds.size();
+            uint32_t all = (((uint32_t)1 << (levelOxyds.size())) - 1)   // a 1 for every oxyd
+                                & ~noshufflePseudoMask;
             ShuffleFrame &base = shuffleStack.front();
             for (int i = 0; i < numOxyds; i++) {
-                base.oxydsCandidatesCount.push_back(numOxyds - 1); // all but itself
-                base.oxydsCandidatesMask.push_back(all & ~(1 << i));   // all but itself
+                uint32_t candidates = all & ~(1 << i);   // exclude itself
+                base.oxydsCandidatesMask.push_back(candidates);   
+                base.oxydsCandidatesCount.push_back(countOxyds(candidates));
             }
             base.freeOxydsMask = all;
             base.freePseudoCount = shuffledFakeCount + shuffledFartCount + shuffledBoldCount;
@@ -271,40 +293,68 @@ namespace enigma {
             for (int i = 0; i < numColorsAvailable(); i++) {
                 base.freePairsCount += colorsUsageCount[i];
             }
+            base.freePairsCount /= 2;
             base.selOxyd1Mask = 0;  // no oxyd assigned in this frame
             base.selOxyd2Mask = 0;
             base.openedOxydIndex = 0;
+            base.fixedcolorOxydIndex = 0;
         }
-        log_shuffle_basis();
-        log_shuffle_stack();
+        
+        // make a copy of the base frame as the base frame should not be modified
+        ShuffleFrame &top = shuffleStack.back();
+        ShuffleFrame second = top;
+                
+        // remove not CLOSED pseudo oxyds
+        uint32_t notClosedPseudoMask = 0; 
+        for (int i = 0; i < numOxyds; i++) {
+            OxydStone *candidate = levelOxyds[i];
+            if ((int)candidate->getAttr("color") < AUTO && candidate->iState != CLOSED)
+                notClosedPseudoMask |= 1 << i;
+        }
+        second.freeOxydsMask &= ~notClosedPseudoMask;
+        for (int i = 0; i < numOxyds; i++) {
+            second.oxydsCandidatesMask[i] &= ~notClosedPseudoMask;   
+            second.oxydsCandidatesCount[i] = countOxyds(second.oxydsCandidatesMask[i]);
+        }
+        
+        shuffleStack.push_back(second);
+        
+//        log_shuffle_basis();
+//        log_shuffle_stack();
         logBadFrameCount = 0;
         
         if (logFlag == NOTHING) logFlag = SOLUTION;
         
         int result = evaluateTopFrame(logFlag);
+        shuffleStack.pop_back();         // remove the copy
+                
+        if (server::LevelStatus >= lev::STATUS_TEST) {
+            if (logFlag >= COUNT)
+                Log << "Fair Shuffle found " << result << " distributions -  bad frames " << logBadFrameCount << "\n";
+            else if (logFlag == SOLUTION)
+                Log << "Fair Shuffle bad frames " << logBadFrameCount << "\n";
+        }
         
-        if (logFlag >= COUNT)
-            Log << "Fair Shuffle found " << result << " solutions -  bad frames " << logBadFrameCount << "\n";
-        else if (logFlag == SOLUTION)
-            Log << "Fair Shuffle bad frames " << logBadFrameCount << "\n";
-        
+        ASSERT(result > 0, XLevelRuntime, "Oxyd shuffle colors - no fair solution exists for given rules");
     }
     
     int OxydStone::evaluateTopFrame(LogType logFlag) {
         unsigned short numOxyds = levelOxyds.size();
         ShuffleFrame &top = shuffleStack.back();
         int solutionsCount = 0;
+//        log_shuffle_stack();
                 
         // postprocess frame for chosen oxyds
         if (top.selOxyd1Mask != 0) {   // skip for base frame
             
-            // check that a chosen oxyd pair with both oxyds of given fixed color do 
-            // not mismatch in color - refuse on mismatch.
+            // check that a chosen oxyd pair with both oxyds of given unchangeable color do 
+            // not mismatch in color - refuse on mismatch. Note that any iState beside
+            // CLOSED shows the color and thus makes a color change impossible
             if (top.selOxyd2Mask != 0) {
                 OxydStone *o1 = levelOxyds[oxydId(top.selOxyd1Mask)];
                 OxydStone *o2 = levelOxyds[oxydId(top.selOxyd2Mask)];
-                if ((to_bool(o1->getAttr("noshuffle")) || blinking_or_opening(o1)) &&
-                        (to_bool(o2->getAttr("noshuffle")) || blinking_or_opening(o2)) &&
+                if ((to_bool(o1->getAttr("noshuffle")) || o1->iState != CLOSED) &&
+                        (to_bool(o2->getAttr("noshuffle")) || o2->iState != CLOSED) &&
                         (int)(o1->getAttr("color")) >= 0 &&  (int)(o2->getAttr("color")) >= 0 &&
                         o1->getAttr("color") != o2->getAttr("color")) {
                     logBadFrameCount++;
@@ -470,7 +520,7 @@ namespace enigma {
 
         // opened oxyd pairs first
         for (;next.openedOxydIndex < numOxyds; next.openedOxydIndex++) {
-            if (levelOxyds[next.openedOxydIndex]->animState == OPEN) {
+            if (levelOxyds[next.openedOxydIndex]->iState == OPEN_PAIR) {
                 int c = levelOxyds[next.openedOxydIndex]->getAttr("color");
                 for (int i = next.openedOxydIndex+1; i < numOxyds; i++) {
                     if (levelOxyds[i]->getAttr("color") == c) {
@@ -486,8 +536,32 @@ namespace enigma {
             }
         }
         
-        // pairs of noshuffle standard oxyds including a possible blinking oxyd
-        // TODO - not essential but a speedup to select known pairs first
+        // pairs of noshuffle standard oxyds and other not closed oxyds including a possible blinking oxyd
+        // it is essential to select known pairs first
+        for (;next.fixedcolorOxydIndex < numOxyds; next.fixedcolorOxydIndex++) {
+            OxydStone *candidate1 = levelOxyds[next.fixedcolorOxydIndex];
+            int color1 = candidate1->getAttr("color");
+            if ((int)candidate1->getAttr("color") > AUTO && (
+                    to_bool(candidate1->getAttr("noshuffle")) || candidate1->iState == OPENING ||
+                    candidate1->iState == CLOSING || candidate1->iState == OPEN_SINGLE )) {
+                for (int i = next.fixedcolorOxydIndex+1; i < numOxyds; i++) {
+                    OxydStone *candidate2 = levelOxyds[i];
+                    if (candidate2->getAttr("color") == color1 && (
+                            to_bool(candidate2->getAttr("noshuffle")) || candidate2->iState == OPENING ||
+                            candidate2->iState == CLOSING || candidate2->iState == OPEN_SINGLE)) {
+                        next.selOxyd1Mask = 1 << next.fixedcolorOxydIndex;
+                        next.selOxyd2Mask = 1 << i;
+                        if ((next.selOxyd2Mask & next.oxydsCandidatesMask[next.fixedcolorOxydIndex]) == 0)
+                            return 0;   // Oops - a rule contradiction
+                        next.fixedcolorOxydIndex++;
+                        shuffleStack.push_back(next);    // add copy of next frame
+                        int result = evaluateTopFrame(logFlag);
+                        shuffleStack.pop_back();         // remove the copy
+                        return result;
+                    }
+                }
+            }
+        }
         
         
         // fast handling of oxyd pairs mandatory due to min rules 
@@ -541,7 +615,7 @@ namespace enigma {
             }
         }
         // try to assign all pair candidates to this oxyd 
-        if (next.oxydsCandidatesCount[minFreeOxydId] > 0) {
+        if (next.freePairsCount > 0 && next.oxydsCandidatesCount[minFreeOxydId] > 0) {
             next.selOxyd1Mask = 1 << minFreeOxydId;
             uint32_t candidates = next.oxydsCandidatesMask[minFreeOxydId];
             // check all candidates in random sequence
@@ -561,7 +635,22 @@ namespace enigma {
         }
         
         // try to assign a single pseudo oxyd
-        // TODO
+        // check that minFreeOxydId is not a noshuffle standard oxyd that can not
+        // be recolored to a pseudo!
+        OxydStone *pseudocandidate = levelOxyds[minFreeOxydId];
+        if (next.freePseudoCount > 0 && ((int)pseudocandidate->getAttr("color") < AUTO || 
+                (!(to_bool(pseudocandidate->getAttr("noshuffle"))) &&
+                pseudocandidate->iState == CLOSED))) {
+            next.selOxyd1Mask = 1 << minFreeOxydId;
+            next.selOxyd2Mask = 0;
+            shuffleStack.push_back(next);    // add copy of next frame
+            int result = evaluateTopFrame(logFlag);
+            shuffleStack.pop_back();         // remove the copy
+            if (result > 0 && logFlag < COUNT)  // found solution - finish
+                return result;
+            // sum solutions
+            solutionsCount += result;
+        }
         
         return solutionsCount;
     }
@@ -583,17 +672,16 @@ namespace enigma {
                 if ((*itr).selOxyd2Mask == 0) {
                     // a single oxyd -- it must be a pseudo
                     OxydStone *oxyd = levelOxyds[oxydId((*itr).selOxyd1Mask)];
-                    ASSERT((int)oxyd->getAttr("color") < AUTO, XLevelRuntime, "Oxyd shuffle - pseudo coloring error");
-                    ASSERT(shuffledFakeCount + shuffledFartCount + shuffledBoldCount > 0, XLevelRuntime, "Oxyd shuffle - to few pseudo colors");
-                    int i = IntegerRand(1, shuffledFakeCount + shuffledFartCount + shuffledBoldCount);  // use enigma's internal rand!
-                    if (i <= shuffledFakeCount) {
-                        shuffledFakeCount--;
+                    ASSERT(remainFakeCount + remainFartCount + remainBoldCount > 0, XLevelRuntime, "Oxyd shuffle - to few pseudo colors");
+                    int i = IntegerRand(1, remainFakeCount + remainFartCount + remainBoldCount);  // use enigma's internal rand!
+                    if (i <= remainFakeCount) {
+                        remainFakeCount--;
                         oxyd->set_attrib("color", FAKE);
-                    } else if ( i <= shuffledFakeCount + shuffledFartCount) {
-                        shuffledFartCount--;
+                    } else if ( i <= remainFakeCount + remainFartCount) {
+                        remainFartCount--;
                         oxyd->set_attrib("color", FART);
                     } else {
-                        shuffledBoldCount--;
+                        remainBoldCount--;
                         oxyd->set_attrib("color", BOLD);
                     }
                     (*itr).isColored = true;
@@ -602,20 +690,21 @@ namespace enigma {
                     OxydStone *oxyd1 = levelOxyds[oxydId((*itr).selOxyd1Mask)];
                     OxydStone *oxyd2 = levelOxyds[oxydId((*itr).selOxyd2Mask)];
                     int c = AUTO;
-                    if (oxyd1->animState == OPEN) {
+                    if (oxyd1->iState == OPEN_PAIR) {
                         // a pair of opened oxyds - we need not to recolor
                         // but we need to register the used color
                         c = oxyd1->getAttr("color");
                         colorsRemainCount[c] -= 2;                        
                         (*itr).isColored = true;
                     }
-                    else if (to_bool(oxyd1->getAttr("noshuffle")) || blinking_or_opening(oxyd1)) {
+                    else if (to_bool(oxyd1->getAttr("noshuffle")) || oxyd1->iState != CLOSED) {
+                        // a standard oxyd (pseudo is impossible) that requires a color
                         c = oxyd1->getAttr("color");
                         oxyd2->set_attrib("color", c);
                         colorsRemainCount[c] -= 2;
                         (*itr).isColored = true;
                     }
-                    else if (to_bool(oxyd2->getAttr("noshuffle")) || blinking_or_opening(oxyd2)) {
+                    else if (to_bool(oxyd2->getAttr("noshuffle")) || oxyd2->iState != CLOSED) {
                         c = oxyd2->getAttr("color");
                         oxyd1->set_attrib("color", c);
                         colorsRemainCount[c] -= 2;
@@ -651,7 +740,7 @@ namespace enigma {
         }
          
         
-        if (logFlag > NOTHING) {
+        if (logFlag > NOTHING &&  server::LevelStatus >= lev::STATUS_TEST) {
             Log << "Shuffle solution found: ";
             int depth = 0;
             for (std::list<ShuffleFrame>::iterator itr = shuffleStack.begin(); itr != shuffleStack.end(); ++itr, depth++) {
@@ -724,7 +813,7 @@ namespace enigma {
     void OxydStone::log_shuffle_stack() {
         int depth = 0;
         for (std::list<ShuffleFrame>::iterator itr = shuffleStack.begin(); itr != shuffleStack.end(); ++itr, depth++) {
-            Log << ecl::strf("Stack frame %d -- freeOxydsMask %X\n", depth, (*itr).freeOxydsMask);
+            Log << ecl::strf("Stack frame %d -- freeOxydsMask %X - %X %X - pseudo %d - pair %d\n", depth, (*itr).freeOxydsMask, (*itr).selOxyd1Mask, (*itr).selOxyd2Mask, (*itr).freePseudoCount, (*itr).freePairsCount);
             for (int i=0; i < (*itr).oxydsCandidatesMask.size(); i++)
                  Log << ecl::strf("Oxyd %d - candidates %X - num %d\n", i, 
                         (*itr).oxydsCandidatesMask[i], (*itr).oxydsCandidatesCount[i]);
@@ -742,9 +831,12 @@ namespace enigma {
         pairRulesMin.clear();
         pairRulesMax.clear();
         colorsUsageCount.clear();
+        isInit = false;
     }
     
-    OxydStone::OxydStone() : PhotoStone("st-oxyd"), animState (CLOSED) {
+    // Instance Methods
+    
+    OxydStone::OxydStone() : PhotoStone("st-oxyd"), iState (CLOSED) {
         set_attrib("flavor", "b");
         set_attrib("color", AUTO);
     }
@@ -764,17 +856,16 @@ namespace enigma {
     
     Value OxydStone::message(const string &m, const Value &val) {
         if (m=="closeall") {
-            for (unsigned i=0; i<levelOxyds.size(); ++i)
-                levelOxyds[i]->change_state(CLOSING);
+            closeAllStandardOxyds();
         }
         else if (m=="shuffle") {
             shuffleColors();
         }
         else if (m=="trigger" || m=="spitter") {
-            maybe_open_stone();
+            tryOpen();
         }
         else if (m=="signal" && to_int(val) != 0) {
-            maybe_open_stone();
+            tryOpen();
         }
         else if (m=="init") {
             initColors();
@@ -782,113 +873,41 @@ namespace enigma {
         return Value();
     }
     
-    void OxydStone::change_state(State newstate) {
-        string flavor(getAttr("flavor","a"));
-        string color(getAttr("color", 0));
-    
-        string modelname = string("st-oxyd") + flavor + color;
-    
-        State oldstate = animState;
-        animState = newstate;
-    
-        switch (newstate) {
-        case CLOSED:
-            set_model(string("st-oxyd")+flavor);
-            break;
-    
-        case BLINKING:
-            set_model(modelname + "-blink");
-            break;
-    
-        case OPEN:
-            if (oldstate == CLOSED) {
-                sound_event("oxydopen");
-                sound_event("oxydopened");
-                set_anim(modelname+"-opening");
-            } else {
-                set_model(modelname + "-open");
-            }
-            /* If this was the last closed oxyd stone, finish the
-               level */
-            if (find_if(levelOxyds.begin(),levelOxyds.end(),not_open)
-                    == levelOxyds.end()) {
-                server::FinishLevel();
-            }
-            break;
-    
-        case OPENING:
-            sound_event("oxydopen");
-            if (oldstate == CLOSED)
-                set_anim(modelname + "-opening");
-            else if (oldstate == CLOSING)
-                get_model()->reverse();
-    
-            break;
-    
-        case CLOSING:
-            if (oldstate == CLOSED || oldstate==CLOSING) {
-                animState = oldstate;
-                return;
-            }
-    
-            sound_event("oxydclose");
-            if (oldstate == OPENING)
-                get_model()->reverse();
-            else if (oldstate == BLINKING || oldstate == OPEN) {
-                set_anim(modelname + "-closing");
-            }
-            break;
+    void OxydStone::set_attrib(const string& key, const Value &val) {
+        if (key == "color") 
+            ASSERT(iState == CLOSED, XLevelRuntime, "OxydStone error - recoloring of an not closed stone");
+        else if (key == "flavor") {
+            ASSERT(iState == CLOSED, XLevelRuntime, "OxydStone error - reflavoring of an not closed stone");
         }
+        
+        Object::set_attrib(key, val);   // do value checking
+        
+        if (key == "flavor" && IsInsideLevel(get_pos()))
+            set_model(string("st-oxyd")+(std::string)val);
+    }
+    
+//    Value OxydStone::getAttr(const string &key) const {
+//        // TODO "state" 0=CLOSE || CLOSING; 1 = other iState values
+//        return Object::getAttr(key);
+//    }
+    
+    void OxydStone::actor_hit(const StoneContact &/*sc*/) {
+        tryOpen();
+    }
+    
+    bool OxydStone::is_removable() const {
+        return !getAttr("static").to_bool();
     }
     
     void OxydStone::animcb() {
-        if (animState == CLOSING)
-            change_state(CLOSED);
-        else if (animState == OPENING)
-            change_state(BLINKING);
-        else if (animState == OPEN)
-            change_state(OPEN); // set the right model
-    }
-    
-    void OxydStone::maybe_open_stone() {
-        if (animState == CLOSED || animState == CLOSING) {
-            Value mycolor = getAttr("color");
-    
-            // Is another oxyd stone currently blinking?
-            InstanceVector::iterator i;
-            i=find_if(levelOxyds.begin(), levelOxyds.end(), blinking_or_opening);
-    
-            if (i != levelOxyds.end()) {
-    
-                bool can_open;
-    
-                if (server::GameCompatibility != GAMET_ENIGMA) {
-                    // If colors match and stone (*i) is already blinking,
-                    // open both stones. Close one of them otherwise.
-                    // (This is the Oxyd behaviour; it doesn't work with
-                    // some Enigma levels.)
-                    can_open = (mycolor == (*i)->getAttr("color") && (*i)->animState==BLINKING);
-                }
-                else 
-                    can_open = (mycolor == (*i)->getAttr("color"));
-    
-                if (can_open) {
-                    change_state(OPEN);
-                    (*i)->change_state(OPEN);
-                } else {
-                    (*i)->change_state(CLOSING);
-                    change_state(OPENING);
-                }
-            }
-            else {
-                // no blinking stone? -> make this one blink
-                change_state(OPENING);
-            }
-        }
-    }
-    
-    void OxydStone::actor_hit(const StoneContact &/*sc*/) {
-        maybe_open_stone();
+        if (iState == CLOSING)
+            set_iState(CLOSED);
+        else if (iState == OPENING)
+            set_iState(OPEN_SINGLE);
+        else if (iState == OPEN_PAIR)     // end of opening anim for second oxyd in a pair
+            set_iState(OPEN_PAIR);      // set the right model
+        else if (iState == OPEN_SINGLE)   // pseudo animation
+            set_iState(CLOSING);
     }
     
     void OxydStone::on_creation (GridPos) {
@@ -897,14 +916,148 @@ namespace enigma {
         photo_activate();
     }
     
-    bool OxydStone::is_removable() const {
-        return !getAttr("static").to_bool();
-    }
-    
     void OxydStone::on_removal(GridPos p) {
         photo_deactivate();
         kill_model (p);
     }
+    
+    void OxydStone::tryOpen() {
+        bool isSingleOpened = false;
+        OxydStone *pairCandidate = NULL;
+        
+        initColors();
+        
+        // check for a blocking pseudo
+        for (InstanceVector::iterator itr = levelOxyds.begin(); itr != levelOxyds.end(); ++itr) {
+            if ((*itr)->iState != CLOSED && (int)((*itr)->getAttr("color")) < AUTO) {
+                // a pseudo is blocking any opening of other oxyds
+                // this is necessary as the bold reshuffle can take place only after
+                // finishing its closing animation!
+                return;
+            }
+            if ((*itr)->iState == OPEN_SINGLE || (*itr)->iState == OPENING) {
+                // remember a standard colored pair candidate
+                isSingleOpened = true;
+                pairCandidate = *itr;
+            }
+        }
+        
+        Value mycolor = getAttr("color");    
+        if ((int)mycolor < AUTO) {
+            // pseudo open
+            if (isSingleOpened) {
+                // a standard single oxyd is open - close it
+                pairCandidate->set_iState(CLOSING);
+            }
+            // open FART and BOLD, keep FAKE closed
+            if ((int)mycolor <= FART)
+                set_iState(OPENING);
+        }
+        else if (iState == CLOSED || iState == CLOSING) {
+            // standard colored oxyd open
+            
+            if (isSingleOpened) {
+                bool can_open;
+    
+                if (server::GameCompatibility != GAMET_ENIGMA) {
+                    // If colors match and stone (*i) is already blinking,
+                    // open both stones. Close one of them otherwise.
+                    // (This is the Oxyd behaviour; it doesn't work with
+                    // some Enigma levels.)
+                    can_open = (mycolor == pairCandidate->getAttr("color") && pairCandidate->iState==OPEN_SINGLE);
+                }
+                else 
+                    can_open = (mycolor == pairCandidate->getAttr("color"));
+    
+                if (can_open) {
+                    set_iState(OPEN_PAIR);
+                    pairCandidate->set_iState(OPEN_PAIR);
+                } else {
+                    pairCandidate->set_iState(CLOSING);
+                    set_iState(OPENING);
+                }
+            }
+            else {
+                // no blinking stone? -> make this one blink
+                set_iState(OPENING);
+            }
+        }
+    }
+    
+    void OxydStone::closeAllStandardOxyds() {
+        for (unsigned i=0; i<levelOxyds.size(); ++i)
+            if ((int)(levelOxyds[i]->getAttr("color")) >= AUTO)
+                levelOxyds[i]->set_iState(CLOSING);
+    }
+    
+    void OxydStone::set_iState(State newState) {
+        string flavor(getAttr("flavor","a"));
+        string color(getAttr("color", 0));
+    
+        string basemodelname = string("st-oxyd") + flavor;
+        string modelname = basemodelname + color;
+    
+        State oldState = iState;
+        iState = newState;
+    
+        switch (newState) {
+            case CLOSED:
+                if ((int)getAttr("color") == BOLD)
+                    shuffleColors();    // shuffle all closed oxyds including itself
+                    
+                set_model(string("st-oxyd")+flavor);
+                break;
+        
+            case OPEN_SINGLE:
+                if ((int)getAttr("color") <= FART) {
+                    set_anim(basemodelname + "-pseudo" + color);
+                    if ((int)getAttr("color") == FART) {
+                        closeAllStandardOxyds();
+                    }
+                } else
+                    set_model(modelname + "-blink");
+                break;
+        
+            case OPEN_PAIR:
+                if (oldState == CLOSED) {
+                    sound_event("oxydopen");
+                    sound_event("oxydopened");
+                    set_anim(modelname+"-opening");
+                } else {
+                    set_model(modelname + "-open");
+                }
+                // If this was the last closed oxyd stone, finish the level
+                if (find_if(levelOxyds.begin(),levelOxyds.end(),not_open)
+                        == levelOxyds.end()) {
+                    server::FinishLevel();
+                }
+                break;
+        
+            case OPENING:
+                sound_event("oxydopen");
+                if (oldState == CLOSED)
+                    set_anim(modelname + "-opening");
+                else if (oldState == CLOSING)
+                    get_model()->reverse();
+        
+                break;
+        
+            case CLOSING:
+                if (oldState == CLOSED || oldState==CLOSING) {
+                    iState = oldState;
+                    return;
+                }
+        
+                sound_event("oxydclose");
+                if (oldState == OPENING)
+                    get_model()->reverse();
+                else if (oldState == OPEN_SINGLE || oldState == OPEN_PAIR) {
+                    set_anim(modelname + "-closing");
+                }
+                break;
+        }
+    }
+    
 
     BOOT_REGISTER_START
         BootRegister(new OxydStone);
