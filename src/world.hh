@@ -21,6 +21,10 @@
 
 #include "enigma.hh"
 #include "objects.hh"
+#include "actors.hh"
+#include "floors.hh"
+#include "items.hh"
+#include "stones.hh"
 #include "util.hh"
 
 namespace enigma {

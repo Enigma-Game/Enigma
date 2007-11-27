@@ -1596,8 +1596,8 @@ namespace
         }
     private:
         void on_creation (GridPos p) {
-            double range = getAttr("range", server::MagnetRange);
-            double strength = getAttr("strength", server::MagnetForce);
+            double range = getDefaultedAttr("range", server::MagnetRange);
+            double strength = getDefaultedAttr("strength", server::MagnetForce);
 
             ff.m_active = is_on();
             ff.set_pos (p);
@@ -1703,10 +1703,10 @@ namespace
         void set_forcefield() {
             if (is_on()) {
                 ff.set_pos(get_pos());
-                double range = getAttr("range", server::WormholeRange);
+                double range = getDefaultedAttr("range", server::WormholeRange);
                 ff.set_range (range);
 
-                double s = getAttr("strength", server::WormholeForce);
+                double s = getDefaultedAttr("strength", server::WormholeForce);
                 ff.set_strength (s);
 
                 AddForceField(&ff);
@@ -2384,7 +2384,7 @@ namespace
 
         bool do_crack() {
             if (!is_fixed()) {
-                double brittleness = getAttr("brittleness", server::Brittleness);
+                double brittleness = getDefaultedAttr("brittleness", server::Brittleness);
                 double rnd = DoubleRand(0, 1);
                 return rnd < brittleness;
     	    } else
@@ -3577,9 +3577,9 @@ namespace
 
         ItemAction activate(Actor *a, GridPos p) {
             // Default values for the rubberband:
-            double strength = getAttr("strength", 10.0);
-            double length = getAttr("length", 1.0);
-            double minlength = getAttr("minlength", 0.0);
+            double strength = getDefaultedAttr("strength", 10.0);
+            double length = getDefaultedAttr("length", 1.0);
+            double minlength = getDefaultedAttr("minlength", 0.0);
 
             RubberBandData rbd;
             rbd.strength = strength;

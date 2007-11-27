@@ -85,7 +85,7 @@ namespace enigma {
         virtual void dispose();
         virtual Value message(const string &m, const Value &);
         virtual void set_attrib(const string& key, const Value &val);
-//        virtual Value getAttr(const string &key) const;
+        virtual Value getAttr(const string &key) const;
 
         // Stone interface
         virtual void actor_hit(const StoneContact &sc);

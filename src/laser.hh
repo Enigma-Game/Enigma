@@ -23,6 +23,7 @@
    has to do with lasers. */
 
 #include "objects.hh"
+#include "stones.hh"
 
 namespace enigma {
     /**

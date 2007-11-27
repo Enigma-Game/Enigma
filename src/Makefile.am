@@ -84,7 +84,6 @@ enigma_SOURCES = 		\
 	nls.hh			\
 	objects.cc 		\
 	objects.hh 		\
-	objects_decl.hh 	\
 	oxyd.cc			\
 	oxyd.hh 		\
 	oxyd_internal.hh	\

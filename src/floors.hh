@@ -19,6 +19,8 @@
 #ifndef FLOORS_HH_INCLUDED
 #define FLOORS_HH_INCLUDED
 
+#include "items.hh"
+
 namespace enigma {
 
     class Actor;

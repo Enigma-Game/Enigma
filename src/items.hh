@@ -19,7 +19,7 @@
 #ifndef ITEMS_HH_INCLUDED
 #define ITEMS_HH_INCLUDED
 
-#include "objects_decl.hh"
+#include "objects.hh"
 
 namespace enigma {
     

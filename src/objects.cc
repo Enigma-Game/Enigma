@@ -160,7 +160,7 @@ Value Object::getAttr(const string& key) const {
         return i->second;
 }
 
-Value Object::getAttr(const string& key, Value defaultValue) const {
+Value Object::getDefaultedAttr(const string& key, Value defaultValue) const {
     if (Value v = getAttr(key))
         return v;
     else

@@ -22,7 +22,7 @@
 #include "enigma.hh"
 #include "ecl.hh"
 #include "main.hh"
-#include "objects_decl.hh"
+#include "objects.hh"
 #include "world.hh"
 
 #include <iostream>

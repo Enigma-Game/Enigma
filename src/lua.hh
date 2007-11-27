@@ -21,7 +21,7 @@
 
 #include "enigma.hh"
 #include "ecl_geom.hh"
-#include "objects_decl.hh"
+#include "objects.hh"
 #include <map>
 
 #ifdef CXXLUA

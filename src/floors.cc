@@ -428,19 +428,19 @@ bool Floor::has_firetype(FloorFireType selector) {
     // In non-Enigma-modes, without items on them, all floors behave the same:
     switch (selector) {
         case flft_burnable :
-            return getAttr("burnable", dflt).to_bool();
+            return getDefaultedAttr("burnable", dflt).to_bool();
         case flft_ignitable :
-            return getAttr("ignitable", dflt).to_bool();
+            return getDefaultedAttr("ignitable", dflt).to_bool();
         case flft_secure :
-            return getAttr("secure", dflt).to_bool();
+            return getDefaultedAttr("secure", dflt).to_bool();
         case flft_eternal :
-            return getAttr("eternal", dflt).to_bool();
+            return getDefaultedAttr("eternal", dflt).to_bool();
         case flft_noash :
-            return getAttr("noash", dflt).to_bool();
+            return getDefaultedAttr("noash", dflt).to_bool();
         case flft_fastfire :
-            return getAttr("fastfire", dflt).to_bool();
+            return getDefaultedAttr("fastfire", dflt).to_bool();
         case flft_initfire :
-            return getAttr("initfire", dflt).to_bool();
+            return getDefaultedAttr("initfire", dflt).to_bool();
     }
     return dflt;
 }

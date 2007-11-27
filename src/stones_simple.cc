@@ -1164,8 +1164,8 @@ namespace
         DECL_TRAITS;
 
         void actor_hit(const StoneContact &sc) {
-            double strength = getAttr("strength", 10.0);
-            double length = getAttr("length", 1.0);
+            double strength = getDefaultedAttr("strength", 10.0);
+            double length = getDefaultedAttr("length", 1.0);
             double minlength = getAttr("minlength");
 
             RubberBandData rbd;
@@ -1175,7 +1175,7 @@ namespace
 
             // The mode attribute "scissor" defines, if when touching an st-rubberband,
             // other rubberbands to the actor will be cut of or not, true means they will. true is default.
-            bool isScissor = to_bool(getAttr("scissor","true"));
+            bool isScissor = to_bool(getDefaultedAttr("scissor","true"));
 
             if (!HasRubberBand (sc.actor, this)) {
                 sound_event ("rubberband");
@@ -1258,7 +1258,7 @@ namespace
         int m_signalvalue;
 
         double get_interval() const {
-            return getAttr("interval", 100);
+            return getDefaultedAttr("interval", 100);
         }
 
         bool get_is_looped() const {
@@ -1450,7 +1450,7 @@ void ThiefStone::actor_hit(const StoneContact &sc) {
         set_anim("st-thief-emerge");
         state = EMERGING;
         m_affected_actor = sc.actor;
-        affected_player = m_affected_actor->getAttr("player", -1);
+        affected_player = m_affected_actor->getDefaultedAttr("player", -1);
     }
 }
 
@@ -1530,7 +1530,7 @@ namespace
                 // actor_hit is called before reflect, but the force added below
                 // is applied to actor after the reflection.
 
-                double forcefac = getAttr("force", server::BumperForce);
+                double forcefac = getDefaultedAttr("force", server::BumperForce);
 
                 V2 vec = normalize(sc.actor->get_pos() - get_pos().center());
                 sc.actor->add_force (distortedVelocity(vec, forcefac));                

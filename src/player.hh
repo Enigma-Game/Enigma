@@ -28,6 +28,8 @@
  */
 
 #include "objects.hh"
+#include "items.hh"
+#include "actors.hh"
 
 namespace enigma
 {

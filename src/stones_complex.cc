@@ -1666,7 +1666,7 @@ namespace
         virtual string closing_sound() const { return "doorclose"; }
         virtual const char *collision_sound() { return "electric"; }
         string get_type() const {
-            string type(getAttr("type", "h"));
+            string type(getDefaultedAttr("type", "h"));
             return type;
         }
 
@@ -3057,7 +3057,7 @@ namespace
                 the force resulting from floor->add_force. "baseinterval"
                 is 50 ms or the interval given in "interval".
             */
-            double base = getAttr("interval", 0.05);
+            double base = getDefaultedAttr("interval", 0.05);
             if (Value f = getAttr("friction_factor"))
                 base *= 1.0 + (double)f * GetFloor(get_pos())->get_friction();
             if (Value g = getAttr("gradient_factor"))

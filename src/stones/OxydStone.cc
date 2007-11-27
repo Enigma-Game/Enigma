@@ -886,10 +886,10 @@ namespace enigma {
             set_model(string("st-oxyd")+(std::string)val);
     }
     
-//    Value OxydStone::getAttr(const string &key) const {
-//        // TODO "state" 0=CLOSE || CLOSING; 1 = other iState values
-//        return Object::getAttr(key);
-//    }
+    Value OxydStone::getAttr(const string &key) const {
+        // TODO "state" 0=CLOSE || CLOSING; 1 = other iState values
+        return Object::getAttr(key);
+    }
     
     void OxydStone::actor_hit(const StoneContact &/*sc*/) {
         tryOpen();
@@ -911,7 +911,7 @@ namespace enigma {
     }
     
     void OxydStone::on_creation (GridPos) {
-        string flavor(getAttr("flavor", "a"));
+        string flavor(getDefaultedAttr("flavor", "a"));
         set_model(string("st-oxyd") + flavor);
         photo_activate();
     }
@@ -991,8 +991,8 @@ namespace enigma {
     }
     
     void OxydStone::set_iState(State newState) {
-        string flavor(getAttr("flavor","a"));
-        string color(getAttr("color", 0));
+        string flavor(getDefaultedAttr("flavor","a"));
+        string color(getDefaultedAttr("color", 0));
     
         string basemodelname = string("st-oxyd") + flavor;
         string modelname = basemodelname + color;

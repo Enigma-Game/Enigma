@@ -19,7 +19,7 @@
 #ifndef WORLDPROXY_HH_INCLUDED
 #define WORLDPROXY_HH_INCLUDED
 
-#include "objects_decl.hh"
+#include "objects.hh"
 
 namespace enigma {
 
