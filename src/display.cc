@@ -667,7 +667,7 @@ void ModelLayer::maybe_redraw_model(Model *m, bool immediately)
 {
     Rect videoarea;
     if (m->has_changed(videoarea)) {
-        int delay = immediately ? 0 : enigma::IntegerRand (0, 2);
+        int delay = immediately ? 0 : enigma::IntegerRand (0, 2, false);
         WorldArea wa;
         get_engine()->video_to_world (videoarea, wa);
         get_engine()->mark_redraw_area(wa, delay);

@@ -2497,8 +2497,7 @@ bool Burnable::actor_hit(Actor *a) {
 void Burnable::init_model() {
     if(state == OIL) {
         string mymodel = "it-burnable_oil";
-        int r = IntegerRand(1,4);
-        mymodel = mymodel + ((string) (r==1?"1":r==2?"2":r==3?"3":"4"));
+        mymodel = mymodel + ecl::strf("%d", IntegerRand(1, 4));
         set_model(mymodel.c_str());
     } else
         Item::init_model();

@@ -498,11 +498,11 @@ void ShadowModel::get_extension (ecl::Rect &r) {
 
 Model * RandomModel::clone() {
     if (!modelnames.empty()) {
-	int r = enigma::IntegerRand(0, modelnames.size()-1);
-	return MakeModel(modelnames[r]);
+        int r = enigma::IntegerRand(0, modelnames.size()-1, false);
+        return MakeModel(modelnames[r]);
     } else {
-	fprintf(stderr, "display_2d.cc: empty RandomModel\n");
-	return 0;
+        fprintf(stderr, "display_2d.cc: empty RandomModel\n");
+        return 0;
     }
 }
 

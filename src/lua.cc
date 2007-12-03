@@ -801,6 +801,36 @@ int loadLib(lua_State *L)
 
 /* -------------------- new functions -------------------- */
 
+/**
+ * Replacement of Lua's random function based on Enigma's central random
+ * function with support of calculation of parallel worlds in seperated
+ * threads.
+ */
+static int mathRandom (lua_State *L) {
+    lua_Number r = (lua_Number)(Rand()) / (lua_Number)(ENIGMA_RAND_MAX+1.0);
+    switch (lua_gettop(L)) {      // check number of arguments
+        case 0: {                 // no arguments
+            lua_pushnumber(L, r); // Number between 0 and 1 
+            break;
+        }
+        case 1: {  // only upper limit
+            int u = luaL_checkint(L, 1);
+            luaL_argcheck(L, 1<=u, 1, "interval is empty");
+            lua_pushnumber(L, floor(r*u)+1);  // int between 1 and `u'
+            break;
+        }
+        case 2: {  // lower and upper limits 
+            int l = luaL_checkint(L, 1);
+            int u = luaL_checkint(L, 2);
+            luaL_argcheck(L, l<=u, 2, "interval is empty");
+            lua_pushnumber(L, floor(r*(u-l+1))+l);  // int between `l' and `u'
+            break;
+        }
+        default: return luaL_error(L, "wrong number of arguments");
+    }
+    return 1;
+}
+
 static int newPosition(lua_State *L) {
     // (pos|obj|table|(num,num))
     if (is_table(L, 1)) {  // table 
@@ -2211,10 +2241,12 @@ static CFunction levelfuncs[] = {
     {en_add_scramble,           "AddScramble"},
     {en_set_scramble_intensity, "SetScrambleIntensity"},
 
+    {mathRandom,                    "random"},
     {0,0}
 };
 
 static CFunction levelFuncs[] = {
+    {mathRandom,                    "random"},
     {newGroup,                      "grp"},
     {newPosition,                   "po"},
     {getFloor,                      "fl"},

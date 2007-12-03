@@ -23,13 +23,13 @@
 #ifndef SERVER_HH_INCLUDED
 #define SERVER_HH_INCLUDED
 
-//#include "levels.hh"
 #include "lev/Proxy.hh"
+
+#include <stdint.h>
 
 namespace enigma_server 
 {
     using namespace enigma;
-//    using levels::LevelPack;
 
 /* -------------------- Global variables -------------------- */
 
@@ -51,6 +51,8 @@ namespace enigma_server
 
     // The number of seconds passed since the level game started.
     extern double LevelTime;
+    
+    extern int32_t  RandomState;
 
     // True: do not reset level when player dies
     extern bool     ConserveLevel;

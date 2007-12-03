@@ -878,9 +878,7 @@ Thief::~Thief() {
 string Thief::get_modelname() {
     if(modelname == "") {
         // initialize on first call
-        int r = IntegerRand(1,4);
-        modelname = string("fl-thief")
-            + ((string) (r==1?"1":r==2?"2":r==3?"3":"4"));
+        modelname = ecl::strf("fl-thief%d", IntegerRand(1, 4));
     }
     return modelname;
 }

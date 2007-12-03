@@ -33,6 +33,7 @@
 #include "ecl_util.hh"
 #include "ecl_cache.hh"
 #include <list>
+#include <stdint.h>
 
 #define NUMENTRIES(array) (sizeof(array)/sizeof(*array))
 
@@ -408,10 +409,65 @@ namespace enigma {
 
 /* -------------------- Random Numbers -------------------- */
 
-    void   Randomize ();
-    void   Randomize (unsigned seed);
-    int    IntegerRand (int min, int max);
-    double DoubleRand (double min, double max);
+/**
+ * Maximum random number 2^16-1 that is valid for all operating systems
+ * and processor types. 
+ */
+#define ENIGMA_RAND_MAX  2147483647
+
+    extern int32_t  SystemRandomState;   ///< the internal seed used for system demands
+    
+    /**
+     * Initialization of the random generator by a random seed.
+     * @arg isLevel   random seed for the calculation of the level itself
+     */
+    void   Randomize(bool isLevel = true);
+    
+    /**
+     * Initialization of the random generator by a given seed. This function
+     * allows a reset of the level random sequence for replay of a level or
+     * calculation of parallel worlds.
+     * @arg isLevel   random seed for the calculation of the level itself
+     */
+    void   Randomize(unsigned seed, bool isLevel = true);
+    
+    /**
+     * Centralized mandatory random function that substitutes any operating
+     * system dependent std::rand() implementation. Enigma needs random
+     * number sequences that are repeatable and identical on all computers
+     * without any special demands on the distribution. This is a fast
+     * implementation of the classical BSD rand function that generates 31 bit
+     * integer random numbers with the number itself being the seed for the
+     * next number. All random functions take a bool argument, that seperates
+     * random requests based on commmon system demands from those based on
+     * the calculation of the level. The related seed for the level random
+     * requests is kept as part of the level thus allowing parallel calculations
+     * of different worlds in different threads. All random numbers, even those
+     * generated in the Lua random functions need to be based on this central function.
+     * @arg isLevel   random request for the calculation of the level itself
+     * @return        random integer in the range 0 - ENIGMA_RAND_MAX
+     */
+    int    Rand(bool isLevel = true);
+    
+    /**
+     * Random integer number that is guaranteed to be in the range [min, max]. See
+     * Rand() for details.
+     * @arg  min      lower included boundary of number range
+     * @arg  max      upper included boundary of number range
+     * @arg  isLevel  random request for the calculation of the level itself
+     * @return        random integer in the range [min, max]
+     */
+    int    IntegerRand(int min, int max, bool isLevel = true);
+    
+    /**
+     * Random integer number that is guaranteed to be in the range [min, max]. See
+     * Rand() for details.
+     * @arg  min      lower included boundary of number range
+     * @arg  max      upper included boundary of number range
+     * @arg  isLevel  random request for the calculation of the level itself
+     * @return        random integer in the range [min, max] 
+     */
+    double DoubleRand(double min, double max, bool isLevel = true);
 
 /* -------------------- Time & Date -------------------- */
 

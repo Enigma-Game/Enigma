@@ -1033,7 +1033,7 @@ namespace
         RandomWoodenStone() : Stone("st-wood") {}
     private:
         Stone *clone() {
-            if(IntegerRand(0,1) == 0)
+            if(IntegerRand(0, 1) == 0)
                 return new WoodenStone("st-wood1", "fl-stwood1");
             else
                 return new WoodenStone("st-wood2", "fl-stwood2");

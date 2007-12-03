@@ -1018,8 +1018,8 @@ video::MakeEffect (TransitionModes tm, ecl::Surface *newscr)
     case TM_PUSH_RANDOM: {
         int xo=0, yo=0;
         while (xo==0 && yo==0) {
-            xo = enigma::IntegerRand(-1,1)*scrw;
-            yo = enigma::IntegerRand(-1,1)*scrh;
+            xo = enigma::IntegerRand(-1, 1, false)*scrw;
+            yo = enigma::IntegerRand(-1, 1, false)*scrh;
         }
         return new Effect_Push(newscr, xo, yo);
     }

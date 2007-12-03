@@ -23,6 +23,7 @@
 #include "ecl.hh"
 #include "main.hh"
 #include "objects.hh"
+#include "server.hh"
 #include "world.hh"
 
 #include <iostream>
@@ -495,25 +496,42 @@ bool to_gridloc (const char *str, GridLoc &l) {
 
 /* -------------------- Random numbers -------------------- */
 
-void  Randomize ()
-{
-    srand (time(NULL));
+int32_t  SystemRandomState;
+
+void Randomize(bool isLevel) {
+    time_t seed = time(NULL) & 0x7fffffff;
+    Randomize(seed, isLevel);
 }
 
-void  Randomize (unsigned seed)
-{
-    srand (seed);
+void Randomize(unsigned seed, bool isLevel) {
+    if (isLevel) {
+        server::RandomState = seed;
+    } else {
+        srand (seed);
+        SystemRandomState =  seed;
+    }
 }
 
-int   IntegerRand (int min, int max)
-{
-    int r = round_down<int>((max-min+1) * (rand()/(RAND_MAX+1.0)));
+int Rand(bool isLevel) {
+    int32_t rand = isLevel ? server::RandomState : SystemRandomState;
+    // This is the 31 bit BSD rand generator. Its sequence is  x_{n+1} = (a x_n + c) mod m
+    // with a = 1103515245, c = 12345 and m = 2^31. The seed specifies the initial value, x_1. 
+    // The period of this generator is 2^31, and it uses 1 word of storage per generator. 
+    rand = ((rand * 1103515245) + 12345) & 0x7fffffff;
+    if (isLevel)
+        server::RandomState = rand;
+    else
+        SystemRandomState = rand;
+    return rand;
+}
+
+int IntegerRand(int min, int max, bool isLevel) {
+    int r = round_down<int>((max-min+1) * (Rand(isLevel)/(ENIGMA_RAND_MAX+1.0)));  // 1.0 converts to double to avoid int overflow!
     return r+min;
 }
 
-double DoubleRand (double min, double max)
-{
-    return min + double(rand())/RAND_MAX * (max-min);
+double DoubleRand(double min, double max, bool isLevel) {
+    return min + double(Rand(isLevel))/ENIGMA_RAND_MAX * (max-min);
 }
 
 

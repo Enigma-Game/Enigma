@@ -98,6 +98,7 @@ double   server::IceFriction;
 lev::levelStatusType   server::LevelStatus; // no Lua access
 double   server::MagnetForce;
 double   server::MagnetRange;
+int32_t  server::RandomState;               // no Lua access
 double   server::SlopeForce;
 double   server::SwampSinkSpeed;
 double   server::WaterSinkSpeed;

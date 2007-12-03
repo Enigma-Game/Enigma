@@ -233,17 +233,7 @@ namespace enigma { namespace lev {
                         hasValidUserId = true;
                     } else {
                         // create first part of user id based on time stamp
-                        unsigned id;
-                        if (RAND_MAX > 0x10000) {
-                            id = std::rand() & 0xFFFFFFFF;
-                        } else {
-                            // MinGW 3.4.2 and maybe other configs
-                            unsigned t = std::time(NULL);
-                            std::srand(t >> 15);
-                            id = (std::rand() << 16) ^ (t & 0xFFFF);
-                            enigma::Randomize();
-                        }
-                        userId = ecl::strf("%.8lX",id);
+                        userId = ecl::strf("%.8lX", Rand(false));
                         // we need a second random part as 2 users may start Enigma
                         // within the same second - we postpone this part till we save
                     }
@@ -362,7 +352,7 @@ namespace enigma { namespace lev {
             Log << "ReId Windows 1.00 User Id: " << userId << "\n";
             setProperty("UserId1.00", userId);
             app.state->setProperty("UserId1.00", userId);
-            unsigned id1 = std::rand() & 0xFFFF;
+            unsigned id1 = Rand(false) & 0xFFFF;
             userId.replace(0, 4, ecl::strf("%.4lX",id1));
             unsigned id2, id3, id4;
             std::istringstream s2(userId.substr(4, 4));

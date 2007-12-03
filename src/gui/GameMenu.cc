@@ -79,8 +79,8 @@ namespace enigma { namespace gui {
             // randomly choose ball offset
             int x, y;
             for (int trials = 5; trials; --trials) {
-                x = IntegerRand(0, 5);
-                y = IntegerRand(0, 3);
+                x = IntegerRand(0, 5, false);
+                y = IntegerRand(0, 3, false);
     
                 // try to avoid menu-ball overlap:
                 if (x<2 || x>3 || y<1 || y>2 || (trials == 1)) {

@@ -377,7 +377,8 @@ void Application::init(int argc, char **argv)
 #endif
 
     // initialize random
-    enigma::Randomize();
+    enigma::Randomize(false);
+    enigma::Randomize(true);
     
     //
     if (isMakePreviews) {

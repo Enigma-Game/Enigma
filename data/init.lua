@@ -17,6 +17,19 @@
 --
 ------------------------------------------------------------------------
 
+-----------------------------------------------
+-- Use Enigma internal random implementation --
+-----------------------------------------------
+
+if type(en) == "table" then
+    math.random = en.random
+else
+    math.random = enigma.random
+end
+random = math.random
+-- randseed is issued by Enigma application and must not be disturbed
+math.randomseed = function () end
+
 -------------------------------
 -- Compatibility for old API --
 -------------------------------
@@ -95,8 +108,6 @@ function Require(filename)
     enigma.LoadLib(string.sub(filename,8,string.len(filename)-4))
 end
 
--- randseed is issued by Enigma application and must not be disturbed
-math.randomseed = function () end
 
 ----------------------------------
 -- Routines for creating levels --
