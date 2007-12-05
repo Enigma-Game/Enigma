@@ -158,7 +158,7 @@ namespace enigma {
                     onlyPairs = false;
                     break;
                 } else {
-                    ASSERT(false, XLevelRuntime, "Oxyd init colors - too many unpaired oxyds with given color");
+                    ASSERT(server::AllowSingleOxyds, XLevelRuntime, "Oxyd init colors - too many unpaired oxyds with given color");
                 }
             }
             if (colorsUsageCountNoShuffle[i] % 2 == 1) {
@@ -188,7 +188,7 @@ namespace enigma {
             colorsUsageCount[lastColor]--;
             shuffledFakeCount++;
         } else {
-            ASSERT(onlyPairs, XLevelRuntime, "Oxyd init colors - too many unpaired oxyds with given color");
+            ASSERT(onlyPairs || server::AllowSingleOxyds, XLevelRuntime, "Oxyd init colors - too many unpaired oxyds with given color");
         }
         
         isInit = true;
@@ -1013,6 +1013,9 @@ namespace enigma {
                     set_anim(basemodelname + "-pseudo" + color);
                     if ((int)getAttr("color") == FART) {
                         closeAllStandardOxyds();
+                        sound_event("fart");
+                    } else if ((int)getAttr("color") == BOLD) {
+                        sound_event("shuffle");
                     }
                 } else
                     set_model(modelname + "-blink");

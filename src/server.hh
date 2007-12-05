@@ -73,6 +73,9 @@ namespace enigma_server
     // Detect double initialization (resize) attempts
     extern bool     WorldInitialized;
     
+    // Single oxyds make a level unsolvable, but sometimes they are just fake,... 
+    extern bool     AllowSingleOxyds;
+    
     // level compatibility
     extern double   EnigmaCompatibility;
    

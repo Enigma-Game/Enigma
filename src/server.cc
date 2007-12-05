@@ -78,6 +78,7 @@ namespace enigma_server
 
 bool server::NoCollisions = false;
 
+bool     server::AllowSingleOxyds;
 bool     server::AllowTogglePlayer;
 bool     server::CreatingPreview = false;   // read only for Lua
 bool     server::ConserveLevel;
@@ -234,6 +235,7 @@ void server::PrepareLevel()
     server::ConserveLevel     = true;
     server::TwoPlayerGame     = false;
     server::SingleComputerGame= true;
+    server::AllowSingleOxyds  = false;
     server::AllowTogglePlayer = true;
     server::ShowMoves         = false;
     server::Brittleness       = 0.5;
