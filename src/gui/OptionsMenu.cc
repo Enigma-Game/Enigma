@@ -433,13 +433,7 @@ namespace enigma { namespace gui {
     bool OptionsMenu::on_event (const SDL_Event &e)
     {
         bool handled=false;
-        if (e.type == SDL_MOUSEBUTTONDOWN
-            && e.button.button == SDL_BUTTON_RIGHT)
-        {
-            quit();
-            handled = true;
-        }
-        else if (e.type == SDL_KEYUP) {
+        if (e.type == SDL_KEYUP) {
             if ((e.key.keysym.sym==SDLK_RETURN) &&
                 (e.key.keysym.mod & KMOD_ALT))
             {

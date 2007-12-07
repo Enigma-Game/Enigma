@@ -45,10 +45,13 @@ namespace enigma { namespace gui {
 
         virtual void quit();
         void abort();
+        
+        // Container interface
+        virtual void set_key_focus(Widget *newfocus);
+        virtual bool is_key_focus(Widget *focus);
 
     protected:
-        void reset_active_widget()
-        { active_widget = 0; }
+        void reset_active_widget() { active_widget = NULL; }
 
         // Menu interface.
         virtual void draw_background(ecl::GC &/*gc*/) {}
@@ -62,6 +65,7 @@ namespace enigma { namespace gui {
 
         // Variables.
         Widget *active_widget;
+        Widget *key_focus_widget;
         bool quitp, abortp;
     };
 

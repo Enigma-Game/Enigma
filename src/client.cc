@@ -221,6 +221,7 @@ void Client::handle_events()
 
         case SDL_QUIT:
             client::Msg_Command("abort");
+            app.bossKeyPressed = true;
             break;
         }
     }
@@ -390,7 +391,11 @@ void Client::on_keydown(SDL_Event &e)
     }
     else if (keymod & KMOD_ALT) {
         switch (keysym) {
-        case SDLK_x: abort(); break;
+        case SDLK_ESCAPE:
+            app.bossKeyPressed = true;
+            // fall through
+        case SDLK_x: 
+            abort(); break;
         case SDLK_t:
             if (enigma::WizardMode) {
                 Screen *scr = video::GetScreen();
@@ -695,6 +700,7 @@ void Client::tick (double dtime)
                 case SDL_KEYDOWN:
                 case SDL_QUIT:
                     client::Msg_Command("abort");
+                    app.bossKeyPressed = true;
                     break;
                 }
             }

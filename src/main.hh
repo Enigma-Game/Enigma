@@ -210,6 +210,7 @@ namespace enigma
         bool errorInit;
         bool isMakePreviews;
         video::VideoModes selectedVideoMode;
+        bool bossKeyPressed;
 
     private:
         void initSysDatapaths(const std::string &prefFilename);

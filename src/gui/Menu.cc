@@ -21,6 +21,7 @@
 #include "sound.hh"
 #include "video.hh"
 #include "options.hh"
+#include "main.hh"
 #include "nls.hh"
 #include "ecl.hh"
 #include <cassert>
@@ -37,7 +38,7 @@ namespace enigma { namespace gui {
     /* -------------------- Menu -------------------- */
     
     Menu::Menu()
-    : active_widget(0), quitp(false), abortp(false) {
+    : active_widget(NULL), key_focus_widget(NULL), quitp(false), abortp(false) {
     }
     
     void Menu::add(Widget *w) {
@@ -59,6 +60,17 @@ namespace enigma { namespace gui {
         abortp=true;
     }
     
+    void Menu::set_key_focus(Widget *newfocus) {
+        Widget *oldfocus = key_focus_widget;
+        key_focus_widget = newfocus;
+        if (oldfocus)
+            oldfocus->invalidate();
+    }
+    
+    bool Menu::is_key_focus(Widget *focus) {
+        return (key_focus_widget == focus);
+    }
+    
     bool Menu::manage() {
         quitp=abortp=false;
         SDL_Event e;
@@ -69,9 +81,11 @@ namespace enigma { namespace gui {
             SCREEN->flush_updates();
             while (SDL_PollEvent(&e)) {
                 handle_event(e);
+                if (app.bossKeyPressed) return true;
             }
             SDL_Delay(10);
             if(active_widget) active_widget->tick(0.01);
+            if(key_focus_widget && (key_focus_widget != active_widget)) key_focus_widget->tick(0.01);
             tick (0.01);
             refresh();
         }
@@ -110,53 +124,72 @@ namespace enigma { namespace gui {
         }
     }
     
-    void Menu::handle_event(const SDL_Event &e) 
-    {
-        if (e.type == SDL_KEYDOWN && 
-            e.key.keysym.sym == SDLK_RETURN && 
-            e.key.keysym.mod & KMOD_ALT)
-        {
+    void Menu::handle_event(const SDL_Event &e) {
+        
+        // Alt && Return for Fullscreen Toggle on Linux only
+        if (e.type == SDL_KEYDOWN &&  e.key.keysym.sym == SDLK_RETURN && 
+                e.key.keysym.mod & KMOD_ALT) {
             video::ToggleFullscreen();
             return;
         }
-    
+        
+        // Boss quit key Alt && ESC
+        if (e.type == SDL_KEYDOWN &&  e.key.keysym.sym == SDLK_ESCAPE && 
+                e.key.keysym.mod & KMOD_ALT) {
+            abort();
+            app.bossKeyPressed = true;
+            return;
+        }
+        
+        
+        // first allow active widget to handle event
+        if (active_widget && active_widget->on_event(e))
+            return;
+        
+        // key focus handler next to catch key events
+        if (key_focus_widget && key_focus_widget->on_event(e))
+            return;
+        
+        // menu subclass with special handling
         if (on_event(e))
             return;
     
         switch (e.type) {
-        case SDL_QUIT:
-            abort();
-            break;
-        case SDL_MOUSEMOTION:
-            track_active_widget( e.motion.x, e.motion.y );
-            break;
-        case SDL_KEYDOWN:
-            if (!active_widget || !active_widget->on_event(e)) {
-                // if not handled by active_widget
-                switch (e.key.keysym.sym) {
-                case SDLK_ESCAPE:
-                    abort();
-                    break;
-                case SDLK_DOWN:  goto_adjacent_widget( 0,  1); break;
-                case SDLK_UP:    goto_adjacent_widget( 0, -1); break;
-                case SDLK_RIGHT: goto_adjacent_widget( 1,  0); break;
-                case SDLK_LEFT:  goto_adjacent_widget(-1,  0); break;
-                default:
-                    break;
+            case SDL_QUIT:
+                abort();
+                app.bossKeyPressed = true;
+                break;
+            case SDL_MOUSEMOTION:
+                track_active_widget( e.motion.x, e.motion.y );
+                break;
+            case SDL_KEYDOWN:
+                if (!active_widget || !active_widget->on_event(e)) {
+                    // if not handled by active_widget
+                    switch (e.key.keysym.sym) {
+                    case SDLK_ESCAPE:
+                        abort();
+                        break;
+                    // TODO replace cursor keys with tab for gotos
+                    case SDLK_DOWN:  goto_adjacent_widget( 0,  1); break;
+                    case SDLK_UP:    goto_adjacent_widget( 0, -1); break;
+                    case SDLK_RIGHT: goto_adjacent_widget( 1,  0); break;
+                    case SDLK_LEFT:  goto_adjacent_widget(-1,  0); break;
+                    default:
+                        break;
+                    }
                 }
-            }
-    
-            break;
-        case SDL_MOUSEBUTTONDOWN:
-        case SDL_MOUSEBUTTONUP:
-            track_active_widget( e.button.x, e.button.y );
-            if (active_widget) active_widget->on_event(e);
-            break;
-        case SDL_VIDEOEXPOSE:
-            draw_all();
-            break;
-        default:
-            if (active_widget) active_widget->on_event(e);
+        
+                break;
+            case SDL_MOUSEBUTTONDOWN:
+            case SDL_MOUSEBUTTONUP:
+                track_active_widget( e.button.x, e.button.y );
+                if (active_widget) active_widget->on_event(e);
+                break;
+            case SDL_VIDEOEXPOSE:
+                draw_all();
+                break;
+            default:
+                if (active_widget) active_widget->on_event(e);
         }
     }
     

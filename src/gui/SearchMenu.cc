@@ -67,6 +67,8 @@ namespace enigma { namespace gui {
         commandHList->add_back(but_ignore);
         commandHList->add_back(but_search);
         this->add(commandHList, Rect(10, vminfo.height-50, vminfo.width-20, 35));
+        
+        set_key_focus(shallowSearch);
     }
     
     bool SearchMenu::isSearchQuit() {

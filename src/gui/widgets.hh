@@ -88,7 +88,7 @@ namespace enigma { namespace gui {
         int get_h() const { return area.h; }
 
         void set_parent(Container *parent) { m_parent = parent; }
-        Container *get_parent () const { return m_parent; }
+        Container *get_parent() const { return m_parent; }
 
         void set_listener(ActionListener *al) {
             m_listener = al;
@@ -172,6 +172,9 @@ namespace enigma { namespace gui {
 
         void clear();
         void draw_all();
+
+        virtual void set_key_focus(Widget *newfocus);
+        virtual bool is_key_focus(Widget *focus);
 
         // Widget interface.
         void draw (ecl::GC& gc, const ecl::Rect &r);

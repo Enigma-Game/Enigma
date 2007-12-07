@@ -51,6 +51,12 @@ TextField::TextField(const std::string &t, ActionListener *al) : cursorTime(0),
     textPostCursor= "";
 }
 
+void TextField::activate() {
+    Button::activate();
+    if (get_parent())
+        get_parent()->set_key_focus(this);
+}
+
 void TextField::set_text(const std::string &t) {
     textPreCursor = t;
     charSizesPreCursor.clear();
@@ -107,7 +113,7 @@ void TextField::draw(ecl::GC &gc, const ecl::Rect &r) {
     f->render (gc, x, y, textPreCursor.c_str());
     
     x += w_pre; 
-    if (m_activep) {
+    if (m_activep || get_parent()->is_key_focus(this)) {
         if (showCursor) {
             set_color(gc, 200,200,200);
             vline(gc, x, y, h);
@@ -115,7 +121,7 @@ void TextField::draw(ecl::GC &gc, const ecl::Rect &r) {
         x += w_cursor;
     }
     
-    f->render (gc, x, y, textPostCursor.c_str());
+    f->render(gc, x, y, textPostCursor.c_str());
    
 }
 
@@ -130,6 +136,7 @@ bool TextField::on_event(const SDL_Event &e) {
         case SDL_KEYDOWN:
             switch (e.key.keysym.sym) {
                 case SDLK_RETURN:
+                case SDLK_KP_ENTER:
                     handeled = true;
                     isLastActionReturn = true;
                     invoke_listener();

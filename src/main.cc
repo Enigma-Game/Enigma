@@ -225,7 +225,7 @@ void AP::on_argument (const string &arg)
 
 Application::Application() : wizard_mode (false), nograb (false), language (""),
         defaultLanguage (""), argumentLanguage (""), errorInit (false),
-        isMakePreviews (false) {
+        isMakePreviews (false), bossKeyPressed (false) {
 }
 
 

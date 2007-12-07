@@ -80,7 +80,7 @@ void game::StartGame ()
 
     double dtime = 0;
     last_tick_time=SDL_GetTicks();
-    while (!client::AbortGameP()) {
+    while (!client::AbortGameP() && !app.bossKeyPressed) {
         try {
             client::Tick (dtime);
             server::Tick (dtime);

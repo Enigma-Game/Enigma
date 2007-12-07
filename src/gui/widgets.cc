@@ -97,7 +97,7 @@ void Image::draw (ecl::GC &gc, const ecl::Rect &/*r*/) {
     }
 }
 
-
+
 /* -------------------- AreaManager -------------------- */
 
 AreaManager::AreaManager(Container *c)
@@ -290,7 +290,19 @@ ecl::Rect Container::boundingbox() {
         return get_area();
 }
 
-
+void Container::set_key_focus(Widget *newfocus) {
+    if (get_parent() != NULL) {
+        get_parent()->set_key_focus(newfocus);
+    }
+}
+
+bool Container::is_key_focus(Widget *focus) {
+    if (get_parent() != NULL) {
+        return get_parent()->is_key_focus(focus);
+    } else
+        return false;
+}
+
 /* -------------------- List -------------------- */
 
 List::List (int spacing) 
@@ -454,7 +466,6 @@ bool HList::fits() {
     return targetw >= naturalw;
 }
 
-
 /* -------------------- VList -------------------- */
 
 void VList::recalc()
@@ -504,7 +515,6 @@ bool VList::fits() {
     return targeth >= naturalh;
 }
 
-
 /* -------------------- Label -------------------- */
 
 Label::Label (const std::string &text,
@@ -583,7 +593,6 @@ void Label::naturalsize (int &w, int &h) const
     w = m_font->get_width (m_text == "" ? "" : get_text().c_str());
 }
 
-
 /* -------------------- UntranslatedLabel -------------------- */
 
 UntranslatedLabel::UntranslatedLabel (const std::string &text,
@@ -689,7 +698,6 @@ void Button::draw(ecl::GC &gc, const ecl::Rect &r) {
     }
 }
 
-
 /* -------------------- PushButton -------------------- */
 
 PushButton::PushButton() : m_pressedp (false) {
@@ -698,30 +706,30 @@ PushButton::PushButton() : m_pressedp (false) {
 bool PushButton::on_event(const SDL_Event &e) {
     Widget::on_event(e);
     bool was_pressed = m_pressedp;
+    bool handeled = false;
 
     switch (e.type) {
-    case SDL_KEYDOWN:
-        if (e.key.keysym.sym != SDLK_RETURN &&
-            e.key.keysym.sym != SDLK_SPACE) break;
-        // fall-through
-    case SDL_MOUSEBUTTONDOWN:
-        m_pressedp = true;
-        break;
-
-    case SDL_KEYUP:
-        if (e.key.keysym.sym != SDLK_RETURN &&
-            e.key.keysym.sym != SDLK_SPACE &&
-            e.key.keysym.sym != SDLK_PAGEDOWN &&
-            e.key.keysym.sym != SDLK_PAGEUP) break;
-        lastUpSym = e.key.keysym.sym;
-        lastUpBotton = 0;
-        m_pressedp = false;
-        break;
-    case SDL_MOUSEBUTTONUP:
-        lastUpSym = SDLK_UNKNOWN;
-        lastUpBotton = e.button.button;
-        m_pressedp = false;
-        break;
+        case SDL_KEYDOWN:
+            if (e.key.keysym.sym != SDLK_RETURN) break;
+            // fall-through
+        case SDL_MOUSEBUTTONDOWN:
+            m_pressedp = true;
+            handeled = true;
+            break;
+    
+        case SDL_KEYUP:
+            if (e.key.keysym.sym != SDLK_RETURN) break;
+            lastUpSym = e.key.keysym.sym;
+            lastUpBotton = 0;
+            m_pressedp = false;
+            handeled = true;
+            break;
+        case SDL_MOUSEBUTTONUP:
+            lastUpSym = SDLK_UNKNOWN;
+            lastUpBotton = e.button.button;
+            m_pressedp = false;
+            handeled = true;
+            break;
     }
 
     bool changed = (was_pressed != m_pressedp);
@@ -734,7 +742,7 @@ bool PushButton::on_event(const SDL_Event &e) {
         }
     }
 
-    return changed;
+    return handeled;
 }
 
 void PushButton::deactivate() {
@@ -756,7 +764,7 @@ Uint8 PushButton::getLastUpButton() {
 bool PushButton::soundOk() {
     return true;
 }
-
+
 /* -------------------- TextButton -------------------- */
 
 ecl::Font *TextButton::menufont = 0;
@@ -782,7 +790,7 @@ void TextButton::draw(ecl::GC &gc, const ecl::Rect &r) {
     f->render (gc, x, y, text.c_str());
 }
 
-
+
 /* -------------------- StaticTextButton -------------------- */
 
 StaticTextButton::StaticTextButton(const string &t, ActionListener *al)
@@ -815,7 +823,7 @@ string UntranslatedStaticTextButton::get_text() const {
     return StaticTextButton::text;
 }
 
-
+
 /* -------------------- Buttons for Options -------------------- */
 
 BoolOptionButton::BoolOptionButton(const char    *option_name,
