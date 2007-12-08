@@ -133,9 +133,9 @@ namespace enigma { namespace gui {
             return;
         }
         
-        // Boss quit key Alt && ESC
+        // Boss quit key Shift && ESC
         if (e.type == SDL_KEYDOWN &&  e.key.keysym.sym == SDLK_ESCAPE && 
-                e.key.keysym.mod & KMOD_ALT) {
+                e.key.keysym.mod & KMOD_SHIFT) {
             abort();
             app.bossKeyPressed = true;
             return;

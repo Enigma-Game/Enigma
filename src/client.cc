@@ -391,9 +391,6 @@ void Client::on_keydown(SDL_Event &e)
     }
     else if (keymod & KMOD_ALT) {
         switch (keysym) {
-        case SDLK_ESCAPE:
-            app.bossKeyPressed = true;
-            // fall through
         case SDLK_x: 
             abort(); break;
         case SDLK_t:
@@ -422,7 +419,14 @@ void Client::on_keydown(SDL_Event &e)
     }
     else {
         switch (keysym) {
-        case SDLK_ESCAPE: show_menu(); break;
+        case SDLK_ESCAPE:
+            if (keymod & KMOD_SHIFT) {
+                app.bossKeyPressed = true;
+                abort();
+            } else {
+                show_menu();
+            }
+            break;
         case SDLK_LEFT:   set_mousespeed(options::GetMouseSpeed() - 1); break;
         case SDLK_RIGHT:  set_mousespeed(options::GetMouseSpeed() + 1); break;
         case SDLK_TAB:    rotate_inventory(+1); break;
@@ -697,11 +701,12 @@ void Client::tick (double dtime)
             SDL_Event e;
             while (SDL_PollEvent(&e)) {
                 switch (e.type) {
-                case SDL_KEYDOWN:
-                case SDL_QUIT:
-                    client::Msg_Command("abort");
-                    app.bossKeyPressed = true;
-                    break;
+                    case SDL_QUIT:
+                        app.bossKeyPressed = true;
+                        // fall through
+                    case SDL_KEYDOWN:
+                        client::Msg_Command("abort");
+                        break;
                 }
             }
         }
