@@ -151,7 +151,7 @@ namespace enigma { namespace gui {
             return;
         
         // menu subclass with special handling
-        if (on_event(e))
+        if (on_event(e) && e.type != SDL_MOUSEMOTION)   // track active widgets (LevelWidget)
             return;
     
         switch (e.type) {
