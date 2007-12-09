@@ -3125,7 +3125,7 @@ namespace
                     }
                 } else if(skateDir != NODIR) {
                     if(state == BLINK) {
-                        state == ACTIVE;
+                        state = ACTIVE;
                         init_model();
                     }
                     if(GetStone(move(p, skateDir))) {

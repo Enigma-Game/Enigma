@@ -62,7 +62,7 @@ function complete_sound(k, t)
     end
     -- Fill in the silence string if requested
     if (tt.silence_string == "$default$") then
-        tt.silence_string = soundtable_silent[k].silence_string or k
+        tt.silence_string = (soundtable_silent[k] or {}).silence_string or k
     end
     return tt
 end
