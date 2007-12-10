@@ -354,6 +354,16 @@ static void push_value(lua_State *L, const Value &val) {
         case Value::POSITION:
             pushNewPosition(L, val);
             break;
+        case Value::TOKENS: {
+            TokenList tokens = val;
+            lua_newtable(L);
+            int n = 1;
+            for (TokenList::iterator it = tokens.begin(); it != tokens.end(); ++it, n++) {
+                push_value(L, *it);
+                lua_rawseti(L, -2, n);
+            }
+            break;
+        }
     }
 }
 
@@ -374,6 +384,19 @@ static Value to_value(lua_State *L, int idx) {
                 return Value(toObjectList(L, idx));
             else  if (is_position(L, idx))
                 return Value(toPosition(L, idx));
+        case LUA_TTABLE: {
+            TokenList tokens;
+            int i = 1;
+            lua_rawgeti(L, idx, i);
+            while (!lua_isnil(L, -1)) {
+                tokens.push_back(to_value(L, -1));
+                lua_pop(L, 1);  // this value
+                i++;
+                lua_rawgeti(L, idx, i);
+            }
+            lua_pop(L, 1);  // nil value
+            return Value(tokens);
+        }
         default: 
             throwLuaError(L,"Cannot convert type to Value.");
     }
@@ -2427,6 +2450,15 @@ void RegisterLuaType(lua_State *L, std::string registryKey, CFunction *ops,
     for (unsigned i=0; methods[i].func; ++i) {
         methodMap[methods[i].name] = methods[i].func;
     }
+}
+
+bool IsFunc(lua_State *L, const char *funcname) {
+    bool result;
+    
+    lua_getglobal(L, funcname);
+    result = lua_isfunction(L, -1);
+    lua_pop(L, 1);
+    return result;
 }
 
 Error CallFunc(lua_State *L, const char *funcname, const Value& arg, Object *obj) {

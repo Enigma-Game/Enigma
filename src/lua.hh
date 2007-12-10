@@ -87,6 +87,8 @@ namespace enigma { namespace lua {
     /*! Set the value of entry `name' in the global table `tablename'. */
     void SetTableVar (lua_State *L, const char *tablename, const char *name, double value);
 
+    bool IsFunc(lua_State *L, const char *funcname);
+    
     /*! Call a Lua function with one argument.  This is mainly used
       for callbacks during the game. */
     Error CallFunc(lua_State *L, const char *funcname, const enigma::Value& arg, Object *obj);

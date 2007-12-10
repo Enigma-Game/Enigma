@@ -175,6 +175,34 @@ Value::Value(ObjectList aList) : type (GROUP) {
 //    Log << "Value ObjectList '" << descriptor << "'\n";
 }
 
+Value::Value(TokenList aList) : type (TOKENS) {
+    std::string descriptor;
+    TokenList::iterator it;
+    for (it = aList.begin(); it != aList.end(); ++it) {
+        switch ((*it).type) {
+            case STRING :
+                ASSERT((*it).val.str[0] != 0, XLevelRuntime, "TokenList: illegal empty string value");                
+                descriptor.append((*it).val.str);
+                break;
+            case OBJECT :
+                descriptor.append(ecl::strf("$%d", (int)((*it).val.dval[0])));
+                break;
+            case GROUP :
+                descriptor.append("%");
+                descriptor.append((*it).val.str);
+                break;
+            default :
+                ASSERT(false, XLevelRuntime, "TokenList: illegal value type");
+                break;
+        }
+        descriptor.append(";");
+    }
+    val.str =  new char[descriptor.size() + 1];
+    strcpy(val.str, descriptor.c_str());
+ 
+//    Log << "Value TokenList '" << descriptor << "'\n";
+}
+
 Value::Value(ecl::V2 pos) : type (POSITION) {
      val.dval[0] = pos[0];
      val.dval[1] = pos[1];
@@ -195,6 +223,7 @@ Value::Value(Type t) : type (t) {
             break;
         case STRING :
         case GROUP :
+        case TOKENS :
             val.str = new char[1];
             val.str[0] = 0;
             break;
@@ -251,6 +280,7 @@ bool Value::operator==(const Value& other) const {
                 return val.dval[0] == other.val.dval[0];
             case STRING :
             case GROUP :
+            case TOKENS :
                 return strcmp(val.str, other.val.str) == 0;
             case POSITION :
                 return (val.dval[0] == other.val.dval[0]) && (val.dval[1] == other.val.dval[1]);
@@ -306,15 +336,22 @@ Value::operator Object *() const {
             return Object::getObject(round_nearest<int>(val.dval[0]));
         case STRING:
             return GetNamedObject(val.str);            
-        default: return NULL;
+        default: 
+            return NULL;
     }
 }
 
 Value::operator ObjectList() const {
     ObjectList result;
     switch (type) {
-        case OBJECT:
         case STRING:
+            if (std::string(val.str).find_first_of("*?") != std::string::npos) {
+                // wildcards in object name - we need to add all objects
+                result = GetNamedGroup(val.str);
+                break;
+            }
+            // else it is a single object name - fall through
+        case OBJECT:
             result.push_back(*this);
             break;
         case GROUP:
@@ -323,9 +360,44 @@ Value::operator ObjectList() const {
             for (std::vector<std::string>::iterator it = vs.begin(); it != vs.end(); ++it) {
                 if (it->size() > 0) {
                     if ((*it)[0] == '$') {
-                        result.push_back(Object::getObject(atoi((it->c_str()) + 1)));
+                        result.push_back(Object::getObject(atoi((*it).c_str() + 1)));
                     } else {
                         result.push_back(GetNamedObject(*it));
+                    }
+                }
+            }
+            break;
+    }
+    return result;
+}
+
+Value::operator TokenList() const {
+    TokenList result;
+    switch (type) {
+        case OBJECT:
+        case STRING:
+        case GROUP:
+            result.push_back(*this);
+            break;
+        case TOKENS:
+            std::vector<std::string> vs;
+            ecl::split_copy(std::string(val.str), ';', back_inserter(vs));
+            for (std::vector<std::string>::iterator it = vs.begin(); it != vs.end(); ++it) {
+                if (it->size() > 0) {
+                    if ((*it)[0] == '$') {
+                        // an object id
+                        Value v(OBJECT);
+                        v.val.dval[0] = atoi((*it).c_str() + 1);
+                        result.push_back(v);
+                    } else if ((*it)[0] == '%'){
+                        // a group
+                        Value v(NIL);
+                        v.assign((*it).c_str() + 1);
+                        v.type = GROUP;
+                        result.push_back(v);
+                    } else {
+                        // a string
+                        result.push_back(Value(*it));
                     }
                 }
             }

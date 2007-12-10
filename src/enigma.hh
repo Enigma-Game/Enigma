@@ -40,6 +40,7 @@
 namespace enigma { 
 
     class Object;
+    class Value;
     
 /* -------------------- Various types -------------------- */
 
@@ -192,6 +193,7 @@ namespace enigma {
 /* -------------------- Value -------------------- */
 
     typedef std::list<Object *> ObjectList;
+    typedef std::list<Value> TokenList;
 
     /**
      * A flexible container for various types of data. This class is one
@@ -249,7 +251,8 @@ namespace enigma {
             OBJECT,   ///< Value is an object id. The id is a persistent object
                       ///< identifier.
             GROUP,    ///< Value is a group of objects.
-            POSITION  ///< Value is a position
+            POSITION, ///< Value is a position
+            TOKENS    ///< Value is a list of token values
         };
 
         Value();                       ///< Constructor for NIL value that 
@@ -265,6 +268,8 @@ namespace enigma {
                                        ///< represents a persistent reference to an object
         Value(ObjectList aList);       ///< Constructor for OBJECT value that properly
                                        ///< represents a set of objects
+        Value(TokenList aList);        ///< Constructor for TOKENS value that properly
+                                       ///< represents a list of tokens
         Value(ecl::V2 pos);            ///< Constructor for POSITION value
         Value(GridPos gpos);           ///< Constructor for POSITION value
         Value(Type t);                 ///< Constructor for a given type. The
@@ -331,6 +336,11 @@ namespace enigma {
          * Conversion of a value to an object set.
          */
         operator ObjectList() const;
+        
+        /**
+         * Conversion of a value to a list of tokens.
+         */
+        operator TokenList() const;
         
         /**
          * Conversion of a value to a position vector.

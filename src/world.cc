@@ -1966,34 +1966,52 @@ void BroadcastMessage (const std::string& msg,
 }
 
 
-void PerformAction (Object *o, bool onoff) 
-{
-    string action = "idle";
-    string target(o->getAttr("target"));
-
-    if (Value v = o->getAttr("action")) action = v.to_string();
-
-#if defined(VERBOSE_MESSAGES)
-    o->warning("PerformAction action=%s target=%s", action.c_str(), target.c_str());
-#endif // VERBOSE_MESSAGES
-
-    if (action == "callback") {
-        if (lua::CallFunc(lua::LevelState(), target.c_str(), Value(onoff), o) != 0) {
-            throw XLevelRuntime(string("callback '")+target+"' failed:\n"+lua::LastError(lua::LevelState()));
+void PerformAction (Object *obj, bool onoff) {
+    TokenList targets = obj->getAttr("target");
+    TokenList actions = obj->getAttr("action");
+    if (Value state = obj->getAttr("state")) {
+        int s = state;
+        if (Value stateTargets = obj->getAttr(ecl::strf("target_%d", s)))
+            targets = stateTargets;
+        if (Value actionTargets = obj->getAttr(ecl::strf("action_%d", s)))
+            actions = actionTargets;
+    }
+    
+    TokenList::iterator ait = actions.begin();
+    std::string action;  // empty string as default
+    for (TokenList::iterator tit = targets.begin(); tit != targets.end(); ++tit) {
+        action = (ait != actions.end()) ? ait->to_string() : "";
+        
+        ObjectList ol = *tit;  // get all objects described by target token
+        if (ol.size() == 0 || (ol.size() == 1 && ol.front() == NULL)) {  // no target object
+            if ((action == "callback" || action == "") && (tit->getType() == Value::STRING) 
+                    && lua::IsFunc(lua::LevelState(), tit->get_string())) {
+                // it is an existing callback function
+                if (lua::CallFunc(lua::LevelState(), tit->get_string(), Value(onoff), obj) != lua::NO_LUAERROR) {
+                    throw XLevelRuntime(string("callback '") + tit->get_string() + "' failed:\n"+lua::LastError(lua::LevelState()));
+                }
+            }
+            // else ignore this no longer valid target
+        } else {
+            // send message to all objects
+            if (action == "") 
+                action = "toggle";
+            for (ObjectList::iterator oit = ol.begin(); oit != ol.end(); ++oit) {
+                if (*oit != NULL) {
+                    if (GridObject *go = dynamic_cast<GridObject*>(*oit))
+                        SendMessage(*oit, Message(action, Value(onoff), go->get_pos()));
+                    else
+                        SendMessage(*oit, Message(action, Value(onoff)));
+                }
+            }
         }
+        
+        if (ait != actions.end()) ++ait;
     }
-    else if (action == "signal") {
-        emit_from (level->m_signals, o, onoff);
-    }
-    else if (Object *t = GetNamedObject(target)) {
-        if (GridObject *go = dynamic_cast<GridObject*>(o))
-            SendMessage (t, Message (action, Value(onoff), go->get_pos()));
-        else
-            SendMessage (t, Message (action, Value(onoff)));
-    }
-    else if (action != "idle") {
-        fprintf (stderr, "Unknown target '%s' for action '%s'\n",
-                 target.c_str(), action.c_str());
+    
+    if ((targets.size() == 0) && (actions.size() == 1) && actions.front().to_string() == "signal") {
+        // pre 1.10 signal handling
+        emit_from(level->m_signals, obj, onoff);
     }
 }
 
