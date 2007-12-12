@@ -618,6 +618,8 @@ namespace enigma { namespace lev {
             server::SetCompatibility(this);
             server::EnigmaCompatibility = getEnigmaCompatibility();
             server::LevelStatus = getLevelStatus();
+            if (server::EnigmaCompatibility < 1.10)
+                server::AllowSingleOxyds = true;
         }
         processDependencies();
         loadLuaCode();
