@@ -444,20 +444,6 @@ namespace
         CLONEOBJ(Key);
         DECL_TRAITS_ARRAY(3, subtype);
 
-        virtual Value message (const string &msg, const Value &) {
-            if (msg == "init") {
-                // Oxyd uses signals from keys to key switches to
-                // determine which keys activate which key hole.
-                GridPos keystonepos;
-                for (int idx=0; GetSignalTargetPos (this, keystonepos, idx); ++idx) {
-                    Stone *st = GetStone(keystonepos);
-                    if (st && st->is_kind("st-key"))
-                        st->set_attrib("keycode", getAttr("keycode"));
-                }
-            }
-            return Value();
-        }
-
     public:
         enum SubType { KEY1, KEY2, KEY3 } subtype;
     	Key(SubType type = KEY1)
@@ -747,7 +733,7 @@ Value HillHollow::message(const string &m, const Value &val)
         transmute(flippedkind[m_type]);
     }
     else if (m == "signal") {
-        if (to_double(val) != 0) {
+        if (val != 0) {
             Type flippedkind[] = {HILL,HILL, TINYHILL,TINYHILL};
             transmute(flippedkind[m_type]);
         } else {
@@ -1737,25 +1723,29 @@ namespace
 }
 
 bool WormHole::get_target(V2 &targetpos) {
-    Value vx = getAttr("targetx");
-    Value vy = getAttr("targety");
-    if (vx && vy) {
-        targetpos[0] = vx;
-        targetpos[1] = vy;
+    Value dest = getAttr("destination");
+    if (dest.getType() == Value::POSITION) {
+        // arbitrary precision position as destination
+        targetpos = dest;
         return true;
-    }
-    else {
-        // no target attributes -> search for signal
-        GridPos p;
-        if (GetSignalTargetPos(this, p)) {
-            targetpos = p.center();
-            return true;
-        }
-        else {
-            warning("no target attributes and no signal found");
+    } else {
+        // evaluate the first object 
+        TokenList tl = dest;  // convert any object type value to a tokenlist 
+        if (tl.empty())
             return false;
+        ObjectList ol = tl.front();  // convert first token to a objectlist
+        if (ol.empty())
+            return false;
+        GridObject *go = dynamic_cast<GridObject *>(ol.front());  // get first object
+        if (go != NULL) {   // no actors as destination!
+            GridPos p = go->get_pos();
+            if (IsInsideLevel(p)) {   // no objects in inventory,...
+                targetpos = p.center();
+                return true;
+            }
         }
     }
+    return false;
 }
 
 bool WormHole::actor_hit(Actor *actor)
@@ -2005,22 +1995,30 @@ void Vortex::openclose() {
         open();
 }
 
-bool Vortex::get_target_by_index (int idx, V2 &target)
-{
-    GridPos targetpos;
-    // signals take precedence over targetx, targety attributes
-    if (GetSignalTargetPos(this, targetpos, idx)) {
-        target = targetpos.center();
+bool Vortex::get_target_by_index (int idx, V2 &targetpos) {
+    int i = 0;  // counter for destination candidates
+    Value dest = getAttr("destination");
+    if (dest.getType() == Value::POSITION && idx == 0) {
+        // arbitrary precision position as destination
+        targetpos = dest;
         return true;
-    }
-    // no signal defined
-    else if (idx == 0) {
-        Value vx = getAttr("targetx");
-        Value vy = getAttr("targety");
-        if (vx && vy) {
-            target[0] = vx;
-            target[1] = vy;
-            return true;
+    } else {
+        // evaluate destination objects in sequence up to "idx"
+        TokenList tl = dest;  // convert any object type value to a tokenlist 
+        for (TokenList::iterator tit = tl.begin(); tit != tl.end(); ++tit) {
+            ObjectList ol = *tit;  // convert next token to an objectlist
+            for (ObjectList::iterator oit = ol.begin(); oit != ol.end(); ++oit, i++) {
+                if (i == idx) {
+                    GridObject *go = dynamic_cast<GridObject *>(*oit);  // get the object
+                    if (go != NULL) {   // no actors as destination!
+                        GridPos p = go->get_pos();
+                        if (IsInsideLevel(p)) {   // no objects in inventory,...
+                            targetpos = p.center();
+                            return true;
+                        }
+                    }
+                }
+            }
         }
     }
     return false;
@@ -2729,13 +2727,7 @@ Value Blocker::message(const string &msg, const Value &val)
         int open = -1;
 
         if (msg == "signal") {
-            if (val.getType() == Value::DOUBLE) {
-                // val: 1 means "shrink", 0 means "grow"
-                open = (int)val;
-            }
-            else {
-                ASSERT(0, XLevelRuntime, "Blocker: message 'signal' with wrong typed value");
-            }
+            open = val;
         }
         else if (msg == "open")
             open = 1;

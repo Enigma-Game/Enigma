@@ -854,6 +854,19 @@ static int mathRandom (lua_State *L) {
     return 1;
 }
 
+static int userType(lua_State *L) {
+    std::string type;
+    if (is_object(L, 1)) type = "object";
+    else if (is_position(L, 1)) type = "position";
+    else if (is_tile(L, 1)) type = "tile";
+    else if (is_tiles(L, 1)) type = "tiles";
+    else if (is_group(L, 1)) type = "group";
+    else if (is_world(L, 1)) type = "world";
+    
+    lua_pushstring(L, type.c_str());
+    return 1;
+}
+
 static int newPosition(lua_State *L) {
     // (pos|obj|table|(num,num))
     if (is_table(L, 1)) {  // table 
@@ -2270,6 +2283,7 @@ static CFunction levelfuncs[] = {
 
 static CFunction levelFuncs[] = {
     {mathRandom,                    "random"},
+    {userType,                      "usertype"},
     {newGroup,                      "grp"},
     {newPosition,                   "po"},
     {getFloor,                      "fl"},

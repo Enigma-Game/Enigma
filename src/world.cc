@@ -98,89 +98,6 @@ Message::Message (const std::string &message_,
 {
 }
 
-
-/* -------------------- Signals -------------------- */
-
-namespace
-{
-
-    void emit_signal (const Signal *s, int value)
-    {
-        Object *src = s->source;
-        Object *dst = GetObject(s->destloc);
-
-#if defined(VERBOSE_MESSAGES)
-        src->warning("emit_from: msg='%s'", // dest=%i/%i obj=%p",
-                     s->message.c_str()
-//                      destloc.pos.x, destloc.pos.y,
-//                      dst);
-                     );
-#endif
-        if (GridObject *go = dynamic_cast<GridObject*>(src))
-            SendMessage (dst, Message (s->message, value, go->get_pos()));
-        else
-            SendMessage (dst, Message (s->message, value));
-    }
-
-    void emit_from (const SignalList &sl, Object *source, int value)
-    {
-        size_t size = sl.size();
-        for (unsigned i=0; i<size; ++i) {
-            if (sl[i].source == source)
-                emit_signal (&sl[i], value);
-        }
-//         // signals may have side effects. To minimize them
-//         //   1. collect all targets and then
-//         //   2. emit signals to targets
-
-//         vector<Object*> targets;
-
-//         for (unsigned i=0; i<size; ++i) {
-//             if (m_signals[i].get_source() == source)
-//                 target.push_back (m_signals[i]);
-
-//             for (unsigned i=0; i<size; ++i)
-//                 if (GetObject(m_signals[i].get_target_loc()) == targets[i])
-//                     m_signals[i].emit_from (source, value);
-//         }
-    }
-
-    bool emit_by_index (const SignalList &sl, Object *source, int signalidx, int value) 
-    {
-        size_t size      = sl.size();
-        int    signalcnt = 0;
-        for (unsigned i=0; i<size; ++i) {
-            if (sl[i].source == source) {
-                if (signalcnt == signalidx) {
-                    emit_signal (&sl[i], value);
-                    return true;
-                }
-                signalcnt += 1;
-            }
-        }
-        return false;
-    }
-
-    Object *find_single_destination (const SignalList &sl, Object *src)
-    {
-        Object *found = 0;
-        size_t  size  = sl.size();
-
-        for (unsigned i = 0; i<size; ++i) {
-            if (sl[i].source == src) {
-                if (Object *candidate = GetObject(sl[i].destloc)) {
-                    if (!found)
-                        found = candidate;
-                    else if (candidate != found)
-                        return 0;   // multiple targets
-                }
-            }
-        }
-        return found;
-    }
-}
-
-
 /* -------------------- RubberBandData -------------------- */
 
 RubberBandData::RubberBandData () {
@@ -1865,57 +1782,112 @@ bool HasRubberBand (Actor *a, Stone *st)
 }
 
 
-/* -------------------- Signals -------------------- */
+/* -------------------- Signals, Messages, Actions -------------------- */
 
-void AddSignal (const GridLoc &srcloc, 
-                       const GridLoc &dstloc, 
-                       const string &msg)
-{
+void AddSignal (const GridLoc &srcloc, const GridLoc &dstloc, const string &msg) {
+    // this code is for Oxyd and Enigma < 1.1 compatibility only
 #if defined(VERBOSE_MESSAGES)
     fprintf(stderr, "AddSignal src=%i/%i dest=%i/%i msg='%s'\n",
             srcloc.pos.x, srcloc.pos.y, dstloc.pos.x, dstloc.pos.y, msg.c_str());
 #endif // VERBOSE_MESSAGES
 
-    if (Object *src = GetObject(srcloc)) {
-        src->set_attrib("action", "signal");
-        level->m_signals.push_back (Signal (src, dstloc, msg));
+    Object *src = GetObject(srcloc);
+    Object *dst = GetObject(dstloc);
+    
+    if (src == NULL) {
+        Log << ecl::strf("AddSignal: Invalid signal source: src=%i/%i-%d dest=%i/%i-%d msg='%s'\n",
+            srcloc.pos.x, srcloc.pos.y, srcloc.layer, dstloc.pos.x, dstloc.pos.y, dstloc.layer, msg.c_str());
+        return;  // ignore signal
     }
-    else {
-        Log << "AddSignal: Invalid signal source\n";
-    }
-}
-
-bool HaveSignals (Object *src) 
-{
-    SignalList::const_iterator i=level->m_signals.begin(),
-        end = level->m_signals.end();
-    for (; i != end; ++i) 
-        if (i->source == src) 
-            return true;
-    return false;
-}
-
-
-bool EmitSignalByIndex (Object *src, int signalidx, int value) 
-{
-    return emit_by_index (level->m_signals, src, signalidx, value);
-}
-
-bool GetSignalTargetPos (Object *src, GridPos &pos, int signalidx) 
-{
-    SignalList::const_iterator i = level->m_signals.begin(),
-        end = level->m_signals.end();
-    int idx = 0;
-    for (; i != end; ++i) {
-        if (i->source == src) {
-            if (idx == signalidx) {
-                pos = i->destloc.pos;
-                return true;
-            }
-            idx += 1;
+    
+    // key: Oxyd uses signals to define the destination of wormholes
+    if (src->getObjectType() == Object::ITEM) {
+        ItemID src_id = get_id(dynamic_cast<Item *>(src));
+        if (src_id >= it_wormhole_off && src_id <= it_wormhole_on) {
+//            Log << ecl::strf("AddSignal: Wormhole signal destination src=%i/%i-%d dest=%i/%i-%d msg='%s'\n",
+//                srcloc.pos.x, srcloc.pos.y, srcloc.layer, dstloc.pos.x, dstloc.pos.y, dstloc.layer, msg.c_str());
+            src->set_attrib("destination", GetFloor(dstloc.pos));  // use floor to guarantee existence
+            return;
         }
     }
-    return false;
+    if (src->getObjectType() == Object::ITEM) {
+        ItemID src_id = get_id(dynamic_cast<Item *>(src));
+        if (src_id >= it_vortex_open && src_id <= it_vortex_closed) {
+//            Log << ecl::strf("AddSignal: Vortex signal destination src=%i/%i-%d dest=%i/%i-%d msg='%s'\n",
+//                srcloc.pos.x, srcloc.pos.y, srcloc.layer, dstloc.pos.x, dstloc.pos.y, dstloc.layer, msg.c_str());
+            TokenList tl = src->getAttr("destination");  // may be empty or may contain some tokens
+            tl.push_back(GetFloor(dstloc.pos));  // use floor to guarantee existence);
+            src->set_attrib("destination", tl);
+            return;
+        }
+    }
+    
+    
+    if (dst == NULL) {
+        Log << ecl::strf("AddSignal: Invalid signal destination src=%i/%i-%d dest=%i/%i-%d msg='%s'\n",
+            srcloc.pos.x, srcloc.pos.y, srcloc.layer, dstloc.pos.x, dstloc.pos.y, dstloc.layer, msg.c_str());
+        return; // ignore signal
+    }
+//    Log << ecl::strf("AddSignal: Valid signal destination src=%i/%i-%d dest=%i/%i-%d msg='%s'\n",
+//        srcloc.pos.x, srcloc.pos.y, srcloc.layer, dstloc.pos.x, dstloc.pos.y, dstloc.layer, msg.c_str());
+    
+    Value dstValue(dst);
+    
+    if (dst->is_kind("st-blocker") || dst->is_kind("st-blocker-growing") ||
+            dst->is_kind("it-blocker")) {
+        if (!dst->getAttr("name"))
+            NameObject(dst, ecl::strf("$!oxyd!blocker%d", dst->getId()));
+        dstValue = dst->getAttr("name");
+    }
+    
+    if (dst->is_kind("it-hill") || dst->is_kind("it-tinyhill") ||
+            dst->is_kind("it-hollow") || dst->is_kind("it-tinyhollow")) {
+        if (!dst->getAttr("name"))
+            NameObject(dst, ecl::strf("$!oxyd!hillhollow%d", dst->getId()));
+        dstValue = dst->getAttr("name");
+    }
+    
+    if (src->is_kind("st-actorimpulse")) {
+        Log << "AddSignal for st-actorimpulse\n";
+        ObjectList ol = src->getDefaultedAttr("$!oxyd!destinations", Value(Value::GROUP));
+        ol.push_back(dstValue);
+        src->set_attrib("$!oxyd!destinations", ol);
+        return;
+    }
+    
+    std::string target_key = "target";
+    std::string action_key = "action";
+    
+    // fourswitch: 4 subsequent AddSignal calls for state specific signals
+    if (src->getObjectType() == Object::STONE
+            && get_id(dynamic_cast<Stone *>(src)) == st_fourswitch) {
+        for (int i = 0;; i++) {
+            if (!src->getAttr(ecl::strf("target_%d", i))) {
+                target_key = ecl::strf("target_%d", i);
+                action_key = ecl::strf("action_%d", i);
+                break;
+            }
+        }
+    }
+    
+    // key: Oxyd uses signals from keys to key switches to determine which keys
+    // activate which key hole
+    if (src->getObjectType() == Object::ITEM) {
+        ItemID src_id = get_id(dynamic_cast<Item *>(src));
+        if (src_id >= it_key_a && src_id <= it_key_c && dst->is_kind("st-key")) {
+            dst->set_attrib("keycode", src->getAttr("keycode"));
+            return;
+        }
+    }
+    
+    // this function is supported for old API only - we can assume that target, action
+    // are not set by other means than this function:
+    TokenList targets = src->getDefaultedAttr(target_key, Value(Value::TOKENS));    
+    targets.push_back(dstValue);   // add this target to existing ones
+    src->set_attrib(target_key, Value(targets));
+    TokenList actions = src->getDefaultedAttr(action_key, Value(Value::TOKENS));    
+    actions.push_back(Value("signal"));   // add this target to existing ones
+    src->set_attrib(action_key, Value(actions));
 }
 
 
@@ -1992,6 +1964,7 @@ void PerformAction (Object *obj, bool onoff) {
                 }
             }
             // else ignore this no longer valid target
+//            Log << "PerformAction target not valid\n";
         } else {
             // send message to all objects
             if (action == "") 
@@ -2007,11 +1980,6 @@ void PerformAction (Object *obj, bool onoff) {
         }
         
         if (ait != actions.end()) ++ait;
-    }
-    
-    if ((targets.size() == 0) && (actions.size() == 1) && actions.front().to_string() == "signal") {
-        // pre 1.10 signal handling
-        emit_from(level->m_signals, obj, onoff);
     }
 }
 

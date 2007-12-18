@@ -45,6 +45,24 @@ function enigma.SetAttrib(obj, key, val)
 	     _val = 0 + val   -- convert to int
 	 end
      end
+     if key == "targetx" then
+         local d = enigma._GetAttrib(obj, "destination")
+         if (en.usertype(d) == "position") then
+             _val = po(val + 0, d.y)
+         else
+             _val = po(val + 0, 0)
+         end
+         _key = "destination"
+     end
+     if key == "targety" then
+         local d = enigma._GetAttrib(obj, "destination")
+         if (en.usertype(d) == "position") then
+             _val = po(d.x, val + 0)
+         else
+             _val = po(0, val + 0)
+         end
+         _key = "destination"
+     end
      enigma._SetAttrib(obj, _key, _val)
 end
 
@@ -55,6 +73,18 @@ function enigma.GetAttrib(obj, key)
          if key == "color" then
 	     val = "" .. val   -- convert to string
 	 end
+     end
+     if key == "targetx" then
+         local d = enigma._GetAttrib(obj, "destination")
+         if (en.usertype(d) == "position") then
+             val = d.x
+         end
+     end
+     if key == "targety" then
+         local d = enigma._GetAttrib(obj, "destination")
+         if (en.usertype(d) == "position") then
+             val = d.y
+         end
      end
      return val
 end

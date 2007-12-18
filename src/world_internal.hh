@@ -32,20 +32,6 @@ namespace enigma {
     typedef vector<Signal>       SignalList;
 
 
-/* -------------------- Signals -------------------- */
-
-    struct Signal {
-        // Variables
-        Object *source;
-        GridLoc destloc;
-        string message;
-
-        // Constructor
-        Signal (Object *src, GridLoc dstloc, const string &msg)
-        : source (src), destloc(dstloc), message(msg)
-        {}
-    };
-
 /* -------------------- RubberBand -------------------- */
     
     /*! Stores the physical information about a rubber band (to which
@@ -350,7 +336,7 @@ typedef list<sound::SoundDamping> SoundDampingList;
         Actor               *leftmost_actor;   // sorted double linked list of actors
         Actor               *rightmost_actor;  
         vector<RubberBand *> m_rubberbands;
-        SignalList           m_signals;
+//        SignalList           m_signals;
         MouseForce           m_mouseforce;
         ConstantForce        m_flatforce;
         int                  scrambleIntensity;

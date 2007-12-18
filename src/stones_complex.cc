@@ -1571,7 +1571,6 @@ namespace
 
 Value DoorBase::message(const string &m, const Value &val) {
     State newstate = state;
-    int ival = to_int (val);
 
     if (m == "open")
         newstate = OPENING;
@@ -1580,7 +1579,7 @@ Value DoorBase::message(const string &m, const Value &val) {
     else if (m == "openclose")
         newstate = (state==OPEN || state==OPENING) ? CLOSING : OPENING;
     else if (m == "signal")
-        newstate = ival > 0 ? OPENING : CLOSING;
+        newstate = val.to_bool() ? OPENING : CLOSING;
 
     if (newstate==OPENING && (state==CLOSED || state==CLOSING))
         change_state(OPENING);

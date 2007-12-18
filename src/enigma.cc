@@ -159,14 +159,14 @@ Value::Value(ObjectList aList) : type (GROUP) {
     ObjectList::iterator it;
     for (it = aList.begin(); it != aList.end(); ++it) {
         if (*it == NULL)
-            descriptor.append("$0,");
+            descriptor.append("#0,");
         else {
             Value v = (*it)->getAttr("name");
             if (v && v.type == STRING && strcmp(v.val.str, "") != 0) {
                 descriptor.append(v);
                 descriptor.append(",");
             } else {
-                descriptor.append(ecl::strf("$%d,", (*it)->getId()));
+                descriptor.append(ecl::strf("#%d,", (*it)->getId()));
             }   
         }
     }
@@ -185,7 +185,7 @@ Value::Value(TokenList aList) : type (TOKENS) {
                 descriptor.append((*it).val.str);
                 break;
             case OBJECT :
-                descriptor.append(ecl::strf("$%d", (int)((*it).val.dval[0])));
+                descriptor.append(ecl::strf("#%d", (int)((*it).val.dval[0])));
                 break;
             case GROUP :
                 descriptor.append("%");
@@ -310,8 +310,9 @@ Value::operator bool() const {
 Value::operator double() const {
     switch (type) {
         case DOUBLE: 
-        case BOOL: 
             return val.dval[0];
+        case BOOL: 
+            return (val.dval[0] != 0) ? 1 : 0;
         case STRING:
             return atof(val.str);  // TODO use strtod and eval remaining part of string
         default:
@@ -322,8 +323,9 @@ Value::operator double() const {
 Value::operator int() const {
     switch (type) {
         case DOUBLE:
-        case BOOL: 
             return round_nearest<int>(val.dval[0]);
+        case BOOL: 
+            return (val.dval[0] != 0) ? 1 : 0;
         case STRING: 
             return atoi(val.str);  //TODO use strtol and eval remaining part of string
         default: return 0;
@@ -359,7 +361,7 @@ Value::operator ObjectList() const {
             ecl::split_copy(std::string(val.str), ',', back_inserter(vs));
             for (std::vector<std::string>::iterator it = vs.begin(); it != vs.end(); ++it) {
                 if (it->size() > 0) {
-                    if ((*it)[0] == '$') {
+                    if ((*it)[0] == '#') {
                         result.push_back(Object::getObject(atoi((*it).c_str() + 1)));
                     } else {
                         result.push_back(GetNamedObject(*it));
@@ -384,7 +386,7 @@ Value::operator TokenList() const {
             ecl::split_copy(std::string(val.str), ';', back_inserter(vs));
             for (std::vector<std::string>::iterator it = vs.begin(); it != vs.end(); ++it) {
                 if (it->size() > 0) {
-                    if ((*it)[0] == '$') {
+                    if ((*it)[0] == '#') {
                         // an object id
                         Value v(OBJECT);
                         v.val.dval[0] = atoi((*it).c_str() + 1);
@@ -486,7 +488,8 @@ std::string Value::to_string() const{
 bool Value::to_bool() const {
     switch (type) {
         case BOOL :
-            return val.dval[0];
+        case DOUBLE :
+            return val.dval[0] != 0;
         case NIL :
         case DEFAULT :
             return false;

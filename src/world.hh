@@ -244,17 +244,8 @@ namespace enigma {
 
 /* -------------------- Signals & Messages -------------------- */
 
-    void    AddSignal (const GridLoc &src, 
-                       const GridLoc &dst, 
-                       const string &msg);
-
-    bool    HaveSignals (Object *src);
-
-    /*! Return true if suitable signal was found. */
-    bool    EmitSignalByIndex (Object *src, int signalidx, int value=0);
-
-    /* Signal indices start at 0 */
-    bool GetSignalTargetPos (Object *src, GridPos &pos, int signalidx = 0);
+    // just for Oxyd and old API compatibility
+    void AddSignal (const GridLoc &src, const GridLoc &dst, const string &msg);
 
     void BroadcastMessage (const std::string& msg, const Value& value, 
                            GridLayerBits grids);

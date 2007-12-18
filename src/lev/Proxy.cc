@@ -439,6 +439,12 @@ namespace enigma { namespace lev {
         if (normPathType == pt_oxyd) {
             if(onlyMetadata)
                 return;
+            // set server flags
+            server::SetCompatibility(this);
+            server::EnigmaCompatibility = getEnigmaCompatibility();
+            server::LevelStatus = getLevelStatus();
+            if (server::EnigmaCompatibility < 1.10)
+                server::AllowSingleOxyds = true;
             // use oxyd loader
             std::string::size_type posSecondHash = normLevelPath.find('#',1);
             if (posSecondHash == string::npos)

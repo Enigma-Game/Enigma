@@ -22,6 +22,7 @@
 #include "server.hh"
 #include "player.hh"
 #include "client.hh"
+#include "main.hh"
 #include "Inventory.hh"
 
 #include "stones_internal.hh"
@@ -1562,25 +1563,41 @@ namespace
     class ActorImpulseStone : public ActorImpulseBase {
         CLONEOBJ(ActorImpulseStone);
 
-        int m_signalidx;
+        int signalidx;
 
         virtual Value message (const string &msg, const Value &) {
-            if (msg == "signal") {
-                EmitSignalByIndex (this, m_signalidx, 0);
-                m_signalidx += 1;
-                if (!EmitSignalByIndex (this, m_signalidx, 1)) {
-                    m_signalidx = 0;
-                    EmitSignalByIndex (this, m_signalidx, 1);
+            if(server::GameCompatibility != GAMET_ENIGMA) {
+                // Oxyd* usage of ActorImpulseStone as a signal multiplier
+                ObjectList ol = getAttr("$!oxyd!destinations");
+                
+                if (msg == "init" && ol.size() > 0) {
+                    signalidx = 0;
+                    SendMessage(ol.front(), "signal", 1);
+                } else if (msg == "signal") {
+                    int i = 0;
+                    bool didBreak = false;
+                    for (ObjectList::iterator oit = ol.begin(); oit != ol.end(); ++oit, i++) {
+                        if (i == signalidx) {
+                            SendMessage(*oit, "signal", 0);
+                        } else if (i == signalidx + 1) {
+                            SendMessage(*oit, "signal", 1);
+                            didBreak = true;
+                            break;
+                        }
+                    }
+                    if (!didBreak && ol.size() > 0) {
+                        SendMessage(ol.front(), "signal", 1);
+                        signalidx = 0;                        
+                    } else
+                        signalidx++;
                 }
-            } else if (msg == "init") {
-                EmitSignalByIndex (this, m_signalidx, 1);
-            }
+            } // GameCompatibility != GAMET_ENIGMA
             return Value();
         }
 
     public:
         ActorImpulseStone() : ActorImpulseBase("st-actorimpulse"),
-                              m_signalidx(0)
+                              signalidx(0)
         {}
     };
 

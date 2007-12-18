@@ -159,7 +159,7 @@ namespace
 }
 
 
-
+
 /* -------------------- Coin slot -------------------- */
 
 namespace
@@ -258,7 +258,7 @@ void CoinSlot::actor_hit(const StoneContact &sc)
     }
 }
 
-
+
 /* -------------------- Key switches -------------------- */
 
 // Attributes:
@@ -358,7 +358,7 @@ void KeyStone::actor_hit(const StoneContact &sc)
     }
 }
 
-
+
 /* -------------------- FourSwitch -------------------- */
 
 // Attributes:
@@ -370,52 +370,56 @@ namespace
 {
     class FourSwitch : public OnOffStone {
         CLONEOBJ(FourSwitch);
+        DECL_TRAITS;
     public:
         FourSwitch() : OnOffStone("st-fourswitch"), 
                        m_direction(NORTH), 
                        m_inactive_so_far (true)
         {}
+        
+        Value getAttr(const string &key) const {
+            if (key == "state")
+                return direction2state(m_direction);
+            return Object::getAttr(key);
+        }
     private:
+        static int direction2state(Direction dir) {
+            return 3 - dir;
+        };
+        
         // Variables
         Direction m_direction;
         bool m_inactive_so_far;
 
         // Private methods
-        void turn() 
-        {
-            static int direction2idx[] = { 
-                3, // WEST
-                2, // SOUTH
-                1, // EAST
-                0  // NORTH
-            };
-
-            if (!m_inactive_so_far) {
-                EmitSignalByIndex(this, direction2idx[m_direction], 0);
+        void turn() {
+            bool isGlobalTarget = getAttr("target");
+            
+            if (!m_inactive_so_far && !isGlobalTarget) {
+                PerformAction(this, false);  // signal off for old direction state
             } else
                 m_inactive_so_far = false;
 
-            m_direction = rotate_cw (m_direction);
+            m_direction = rotate_cw(m_direction);
             init_model();
             set_on(!is_on());
-            sound_event ("fourswitch");
+            sound_event("fourswitch");
 
-            if (HaveSignals (this)) {
-                EmitSignalByIndex(this, direction2idx[m_direction], 1);
+            if (isGlobalTarget) {
+                PerformAction(this, (server::EnigmaCompatibility < 1.10) ? is_on() : 3 - m_direction);
             } else {
-                // no signal handler defined
-                PerformAction(this, is_on());
+                PerformAction(this, true);  // signal on for new direction state
             }
         }
 
         void init_model() {
             switch (m_direction) {
-            case NORTH: set_model("st-fourswitch-n"); break;
-            case EAST:  set_model("st-fourswitch-e"); break;
-            case SOUTH: set_model("st-fourswitch-s"); break;
-            case WEST:  set_model("st-fourswitch-w"); break;
-            case NODIR: ASSERT(0, XLevelRuntime,
-                "FourSwitch: no direction defined (found in init_model)");
+                case NORTH: set_model("st-fourswitch-n"); break;
+                case EAST:  set_model("st-fourswitch-e"); break;
+                case SOUTH: set_model("st-fourswitch-s"); break;
+                case WEST:  set_model("st-fourswitch-w"); break;
+                case NODIR: ASSERT(0, XLevelRuntime,
+                    "FourSwitch: no direction defined (found in init_model)");
             }
         }
 
@@ -423,7 +427,7 @@ namespace
             turn();
         }
 
-        virtual Value on_message (const Message &m)
+        virtual Value on_message(const Message &m)
         {
             if (m.message == "signal" || m.message == "trigger")
                 turn();
@@ -432,9 +436,10 @@ namespace
 
         const char *collision_sound() { return "metal"; }
     };
+    DEF_TRAITS(FourSwitch, "st-fourswitch", st_fourswitch);
 }
 
-
+
 /* -------------------- Laser / Time switches -------------------- */
 
 namespace
@@ -632,7 +637,7 @@ TimeSwitch::TimeSwitch()
 void TimeSwitch::notify_laseron()  {} // ignore laser
 void TimeSwitch::notify_laseroff() {}
 
-
+
 /* -------------------- Floppy switch -------------------- */
 
 // Attributes:
