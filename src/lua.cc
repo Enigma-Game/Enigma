@@ -276,8 +276,8 @@ static int pushNewGroup(lua_State *L, std::list<Object *> objects) {
 static ecl::V2 toPosition(lua_State *L, int idx) {
     double x = 0;
     double y = 0;
-    if (is_position(L, -1)) {  // position
-        lua_getmetatable(L, -1);
+    if (is_position(L, idx)) {  // position
+        lua_getmetatable(L, idx);
         lua_rawgeti(L, -1, 1);
         lua_rawgeti(L, -2, 2);
         x = lua_tonumber(L, -2);

@@ -410,8 +410,9 @@ Value::operator TokenList() const {
 
 Value::operator ecl::V2() const {
     switch (type) {
-        case POSITION:
+        case POSITION: {
             return ecl::V2(val.dval[0], val.dval[1]);
+        }
         default:
             return ecl::V2(0, 0);
     }

@@ -429,8 +429,10 @@ namespace
 
         virtual Value on_message(const Message &m)
         {
-            if (m.message == "signal" || m.message == "trigger")
-                turn();
+            if (m.message == "signal" || m.message == "trigger") {
+                if (server::GameCompatibility == enigma::GAMET_ENIGMA || m.value == 1)
+                    turn();
+            }
             return Value();
         }
 

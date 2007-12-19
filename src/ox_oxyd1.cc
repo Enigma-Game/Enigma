@@ -171,7 +171,7 @@ const char *oxyd::oxyd1_stone_map[256] = {
     0,                          // Oxyd1 stone 0x00
     0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
     "st-fakeoxyd",              // Oxyd1 stone 0x11
-    "st-plain_break",           // Oxyd1 stone 0x12
+    "st-door_c",                // Oxyd1 stone 0x12
     "st-bigbrick-es",           // Oxyd1 stone 0x13
     "st-bigbrick-sw",           // Oxyd1 stone 0x14
     "st-bigbrick-ne",           // Oxyd1 stone 0x15
