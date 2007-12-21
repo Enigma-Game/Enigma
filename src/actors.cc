@@ -979,7 +979,7 @@ void BasicBall::animcb()
         if (Item *it = GetItem(get_gridpos())) {
             ItemID id = get_id(it);
             if (id == it_vortex_open || id == it_vortex_closed) 
-                SendMessage(it, "arrival"); // closes some vortex
+                SendMessage(it, "_passed"); // closes some vortex
         }
         change_state(JUMP_VORTEX);
         break;

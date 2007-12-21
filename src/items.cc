@@ -1795,15 +1795,6 @@ Vortexes teleport actors to another place.
 
 They may be opened or closed. Is a vortex is closed, the actor cannot enter.
 
-\subsection vortexa Attributes
-- \b targetx:       X coordinate of the destination
-- \b targety:       Y coordinate of the destination
-
-\subsection vortexe Example
-\verbatim
-set_item("it-vortex-open", 1,1, {targetx=5.5, targety=10.5})
-set_item("it-vortex-closed", 3,1, {targetx=7.5, targety=10.5})
-\endverbatim
 
 \subsection vortexm Messages
 - \b open       opens the vortex
@@ -1847,7 +1838,7 @@ namespace
         void openclose();
 
         void prepare_for_warp (Actor *actor);
-        void emit_actor();
+        void emit_actor(Vortex *destVortex);
 
         bool get_target_by_index (int idx, V2 &target);
         void perform_warp();    // warp swallowed actor(s)
@@ -1869,10 +1860,6 @@ namespace
         };
 
         State  state;
-        bool   close_after_warp;
-        Actor *m_actor_being_warped;
-        int    m_target_index;
-        Vortex *m_target_vortex;
     };
 
     ItemTraits Vortex::traits[2] = {
@@ -1883,17 +1870,20 @@ namespace
     const double Vortex::RANGE = 0.5/2;
 }
 
-Vortex::Vortex(bool opened)
-: state(opened ? OPEN : CLOSED),
-  close_after_warp(!opened),
-  m_actor_being_warped (0),
-  m_target_index (0),
-  m_target_vortex(0)
-{
+Vortex::Vortex(bool open) : state(open ? OPEN : CLOSED) {
+    set_attrib("autoclose", !open);
+    set_attrib("$dest_idx", 0);
+    set_attrib("$dest_vortex", (Object *)NULL);
+    set_attrib("$grabbed_actor", (Object *)NULL);
 }
 
 Vortex::~Vortex() {
     GameTimer.remove_alarm(this);
+    if (Actor *actor = dynamic_cast<Actor *>((Object *)getAttr("$grabbed_actor"))) {
+        // release an actor that is grabbed on behalf of this vortex - actor state FALLING_VORTEX
+        SendMessage(actor, "rise");
+    }
+    
 }
 
 void Vortex::on_removal(GridPos p) {
@@ -1902,19 +1892,17 @@ void Vortex::on_removal(GridPos p) {
         XLevelRuntime, "Tried to kill a busy vortex. Please use another way.");
 }
 
-void Vortex::prepare_for_warp (Actor *actor)
-{
+void Vortex::prepare_for_warp (Actor *actor) {
     SendMessage(actor, "fallvortex");
-    m_target_index = 0;
-    m_actor_being_warped = actor;
+    set_attrib("$dest_idx", 0);
+    set_attrib("$grabbed_actor", actor);
     state = SWALLOWING;
 
     GameTimer.set_alarm(this, 0.4, false);
 }
 
 
-bool Vortex::actor_hit (Actor *actor)
-{
+bool Vortex::actor_hit (Actor *actor) {
     if (state == OPEN && near_center_p(actor) && actor->can_be_warped())
         prepare_for_warp (actor);
     return false;
@@ -1933,23 +1921,29 @@ Value Vortex::message(const string &msg, const Value &val)
         openclose();
     else if (msg == "open")
         open();
-    else if (msg == "close" || (msg == "arrival" && close_after_warp)) {
+    else if (msg == "close" || (msg == "_passed" && getAttr("autoclose").to_bool())) {
         close();
     }
+    
+    if (msg == "_passed")
+        PerformAction(this, true);
     return Value();
 }
 
 void Vortex::init_model() {
     switch(state) {
-    case WARPING:
-    case OPEN:
-    case EMITTING:
-    case SWALLOWING:
-        set_model("it-vortex-open");
-        break;
-    case CLOSED: set_model("it-vortex-closed"); break;
-    case OPENING: set_anim("it-vortex-opening"); break;
-    case CLOSING: set_anim("it-vortex-closing"); break;
+        case WARPING:
+        case OPEN:
+        case EMITTING:
+        case SWALLOWING:
+            set_model("it-vortex-open");
+            break;
+        case CLOSED: 
+            set_model("it-vortex-closed"); break;
+        case OPENING: 
+            set_anim("it-vortex-opening"); break;
+        case CLOSING: 
+            set_anim("it-vortex-closing"); break;
     }
 }
 
@@ -2028,7 +2022,7 @@ void Vortex::alarm() {
     if (state == WARPING) {
         perform_warp();
     } else if (state == EMITTING) {
-        emit_actor();
+        emit_actor(dynamic_cast<Vortex *>((Object *)getAttr("$dest_vortex")));
     } else if (state == SWALLOWING) {
         state = WARPING;
         sound_event ("hitfloor");
@@ -2037,39 +2031,59 @@ void Vortex::alarm() {
         ASSERT (0, XLevelRuntime, "Vortex: alarm called with inconsistent state");
 }
 
-void Vortex::emit_actor () {
-    V2 v(m_target_vortex->get_pos().center());
-    WarpActor (m_actor_being_warped, v[0], v[1], false);
-    SendMessage (m_actor_being_warped, "rise");
-    m_actor_being_warped = 0;
+void Vortex::emit_actor(Vortex *destVortex) {
+    if (destVortex == NULL)   // destination vortex got killed in meantime
+        destVortex = this;    // reemit from source vortex 
+    V2 v(destVortex->get_pos().center());
+    if (Actor *actor = dynamic_cast<Actor *>((Object *)getAttr("$grabbed_actor"))) {
+        WarpActor(actor, v[0], v[1], false);
+        SendMessage(actor, "rise");
+        if (destVortex != this) {
+            bool isScissor = to_bool(getDefaultedAttr("scissor", 
+                    (server::EnigmaCompatibility >= 1.10) || server::GameCompatibility != GAMET_ENIGMA));
+            if (isScissor)
+                KillRubberBands(actor);
+        }
+    }
+    set_attrib("$grabbed_actor", (Object *)NULL);
 
     state = OPEN;
-    if (this != m_target_vortex && close_after_warp)
+    if (this != destVortex && getAttr("autoclose").to_bool())  // do not close source vortex if destination is currently blocked
         close();
+    if (this != destVortex)
+        PerformAction(this, false);
 }
 
 void Vortex::warp_to(const V2 &target) {
     client::Msg_Sparkle (target);
-    WarpActor (m_actor_being_warped, target[0], target[1], false);
-    SendMessage (m_actor_being_warped, "appear");
-    m_actor_being_warped = 0;
+    if (Actor *actor = dynamic_cast<Actor *>((Object *)getAttr("$grabbed_actor"))) {
+        WarpActor(actor, target[0], target[1], false);
+        SendMessage(actor, "appear");
+        bool isScissor = to_bool(getDefaultedAttr("scissor", 
+                (server::EnigmaCompatibility >= 1.10) || server::GameCompatibility != GAMET_ENIGMA));
+        if (isScissor)
+            KillRubberBands(actor);
+    }
+    set_attrib("$grabbed_actor", (Object *)NULL);
+
     state = OPEN;
-    if (close_after_warp)
+    if (getAttr("autoclose").to_bool())
         close();
+    PerformAction(this, false);
 }
 
-void Vortex::perform_warp()
-{
-    if (!m_actor_being_warped)
+void Vortex::perform_warp() {
+    Actor *actor = dynamic_cast<Actor *>((Object *)getAttr("$grabbed_actor"));
+    if (actor == NULL)
         return;
 
-    ASSERT (state == WARPING, XLevelRuntime,
-        "Vortex: perform_warp called with inconsistent state");
+    ASSERT (state == WARPING, XLevelRuntime, "Vortex: perform_warp called with inconsistent state");
 
     V2 v_target;
 
     // is another target position defined?
-    if (get_target_by_index (m_target_index, v_target)) {
+    int dest_idx = getAttr("$dest_idx");
+    if (get_target_by_index(dest_idx, v_target)) {
         GridPos  p_target(v_target);
 
         Vortex *v = dynamic_cast<Vortex*>(GetItem(p_target));
@@ -2079,46 +2093,42 @@ void Vortex::perform_warp()
 
             if (st && !st->is_floating()) {
                 // is destination vortex blocked? redirect
-                m_target_index += 1;
-                client::Msg_Sparkle (v_target);
-                WarpActor (m_actor_being_warped,
-                                  v_target[0], v_target[1], false);
+                set_attrib("$dest_idx", dest_idx + 1);
+                client::Msg_Sparkle(v_target);
+                WarpActor(actor, v_target[0], v_target[1], false);
                 GameTimer.set_alarm(this, 0.4, false);
             }
             else {
-                m_target_vortex = v;
-
                 switch (v->state) {
-                case OPEN:
-                case OPENING:
-                    // destination is open
-                    emit_actor();
-                    break;
-
-                case CLOSED:
-                case CLOSING:
-                    // destination is closed
-                    SendMessage(v, "open");
-                    state = EMITTING;
-                    GameTimer.set_alarm(this, 0.4, false);
-                    break;
-                case SWALLOWING:
-                case WARPING:
-                case EMITTING:
-                    // destination is busy -> don't warp actor, emit
-                    // it where it has started
-                    m_target_vortex = this;
-                    emit_actor();
+                    case OPEN:
+                    case OPENING:
+                        // destination is open
+                        emit_actor(v);
+                        break;
+    
+                    case CLOSED:
+                    case CLOSING:
+                        // destination is closed
+                        SendMessage(v, "open");
+                        set_attrib("$dest_vortex", v);
+                        state = EMITTING;
+                        GameTimer.set_alarm(this, 0.4, false);
+                        break;
+                    case SWALLOWING:
+                    case WARPING:
+                    case EMITTING:
+                        // destination is busy -> don't warp actor, emit
+                        // it where it has started
+                        emit_actor(this);
                 }
             }
         } else {
-            warp_to (v_target);
+            warp_to(v_target);
         }
     }
     else {
         // if no target defined, don't warp actor
-        m_target_vortex = this;
-        emit_actor();
+        emit_actor(this);
     }
 }
 

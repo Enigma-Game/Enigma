@@ -1176,7 +1176,7 @@ namespace
 
             // The mode attribute "scissor" defines, if when touching an st-rubberband,
             // other rubberbands to the actor will be cut of or not, true means they will. true is default.
-            bool isScissor = to_bool(getDefaultedAttr("scissor","true"));
+            bool isScissor = to_bool(getDefaultedAttr("scissor", true));
 
             if (!HasRubberBand (sc.actor, this)) {
                 sound_event ("rubberband");

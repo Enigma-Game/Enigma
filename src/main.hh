@@ -236,7 +236,7 @@ namespace enigma
     /**
      * Flag to use in expensive asserts as first operand in a logical or
      * statement to allow the assertion to be blocked in favour of speed.
-     * F.e. <code>ASSERT(noAssert || long_lasting_check(), XLevelRuntime, "");<code>
+     * F.e. <code>ASSERT(noAssert || long_lasting_check(), XLevelRuntime, "");</code>
      */
     extern bool noAssert;
 
