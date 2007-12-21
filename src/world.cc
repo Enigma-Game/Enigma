@@ -1971,9 +1971,9 @@ void PerformAction (Object *obj, bool onoff) {
                 action = "toggle";
             for (ObjectList::iterator oit = ol.begin(); oit != ol.end(); ++oit) {
                 if (*oit != NULL) {
-                    if (GridObject *go = dynamic_cast<GridObject*>(*oit))
+                    if (GridObject *go = dynamic_cast<GridObject*>(obj)) {
                         SendMessage(*oit, Message(action, Value(onoff), go->get_pos()));
-                    else
+                    } else
                         SendMessage(*oit, Message(action, Value(onoff)));
                 }
             }

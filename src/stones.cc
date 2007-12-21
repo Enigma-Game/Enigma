@@ -23,6 +23,7 @@
 #include "client.hh"
 #include "player.hh"
 #include "Inventory.hh"
+#include "main.hh"
 
 using namespace std;
 
