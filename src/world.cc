@@ -1938,50 +1938,6 @@ void BroadcastMessage (const std::string& msg,
 }
 
 
-void PerformAction (Object *obj, bool onoff) {
-    TokenList targets = obj->getAttr("target");
-    TokenList actions = obj->getAttr("action");
-    if (Value state = obj->getAttr("state")) {
-        int s = state;
-        if (Value stateTargets = obj->getAttr(ecl::strf("target_%d", s)))
-            targets = stateTargets;
-        if (Value actionTargets = obj->getAttr(ecl::strf("action_%d", s)))
-            actions = actionTargets;
-    }
-    
-    TokenList::iterator ait = actions.begin();
-    std::string action;  // empty string as default
-    for (TokenList::iterator tit = targets.begin(); tit != targets.end(); ++tit) {
-        action = (ait != actions.end()) ? ait->to_string() : "";
-        
-        ObjectList ol = *tit;  // get all objects described by target token
-        if (ol.size() == 0 || (ol.size() == 1 && ol.front() == NULL)) {  // no target object
-            if ((action == "callback" || action == "") && (tit->getType() == Value::STRING) 
-                    && lua::IsFunc(lua::LevelState(), tit->get_string())) {
-                // it is an existing callback function
-                if (lua::CallFunc(lua::LevelState(), tit->get_string(), Value(onoff), obj) != lua::NO_LUAERROR) {
-                    throw XLevelRuntime(string("callback '") + tit->get_string() + "' failed:\n"+lua::LastError(lua::LevelState()));
-                }
-            }
-            // else ignore this no longer valid target
-//            Log << "PerformAction target not valid\n";
-        } else {
-            // send message to all objects
-            if (action == "") 
-                action = "toggle";
-            for (ObjectList::iterator oit = ol.begin(); oit != ol.end(); ++oit) {
-                if (*oit != NULL) {
-                    if (GridObject *go = dynamic_cast<GridObject*>(obj)) {
-                        SendMessage(*oit, Message(action, Value(onoff), go->get_pos()));
-                    } else
-                        SendMessage(*oit, Message(action, Value(onoff)));
-                }
-            }
-        }
-        
-        if (ait != actions.end()) ++ait;
-    }
-}
 
 
 namespace

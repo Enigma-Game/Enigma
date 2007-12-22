@@ -1,5 +1,6 @@
 /*
  * Copyright (C) 2002,2003,2004 Daniel Heck
+ * Copyright (C) 2007 Ronald Lamprecht
  *
  * This program is free software; you can redistribute it and/or
  * modify it under the terms of the GNU General Public License
@@ -57,7 +58,7 @@ namespace
                     set_anim("st-switch-turnon");
                 else
                     set_anim("st-switch-turnoff");
-                PerformAction(this, newon);
+                performAction(newon);
             }
         }
 
@@ -101,7 +102,7 @@ namespace
                     set_anim("st-switch_black-turnon");
                 else
                     set_anim("st-switch_black-turnoff");
-                PerformAction(this, newon);
+                performAction(newon);
             }
         }
         void animcb() {
@@ -145,7 +146,7 @@ namespace
                     set_anim("st-switch_white-turnon");
                 else
                     set_anim("st-switch_white-turnoff");
-                PerformAction(this, newon);
+                performAction(newon);
             }
         }
         void animcb() {
@@ -211,11 +212,11 @@ void CoinSlot::change_state(State newstate) {
 
     switch (newstate) {
     case ACTIVE:
-        PerformAction(this, true);
+        performAction(true);
         GameTimer.activate(this);
         break;
     case INACTIVE:
-        PerformAction(this, false);
+        performAction(false);
         GameTimer.deactivate(this);
         sound_event ("coinslotoff");
         break;
@@ -354,7 +355,7 @@ void KeyStone::actor_hit(const StoneContact &sc)
 
     if (toggle) {
         set_on (!is_on());
-        PerformAction (this, is_on());
+        performAction(is_on());
     }
 }
 
@@ -396,7 +397,7 @@ namespace
             bool isGlobalTarget = getAttr("target");
             
             if (!m_inactive_so_far && !isGlobalTarget) {
-                PerformAction(this, false);  // signal off for old direction state
+                performAction(false);  // signal off for old direction state
             } else
                 m_inactive_so_far = false;
 
@@ -406,9 +407,9 @@ namespace
             sound_event("fourswitch");
 
             if (isGlobalTarget) {
-                PerformAction(this, (server::EnigmaCompatibility < 1.10) ? is_on() : 3 - m_direction);
+                performAction((server::EnigmaCompatibility < 1.10) ? is_on() : 3 - m_direction);
             } else {
-                PerformAction(this, true);  // signal on for new direction state
+                performAction(true);  // signal on for new direction state
             }
         }
 
@@ -532,7 +533,7 @@ void LaserTimeSwitchBase::change_state(State newstate) {
     if (state == IDLE) {
 //         sound_event ("st-switch");
         set_model(get_active_model());
-        PerformAction(this, !inverse());
+        performAction(!inverse());
         if (newstate == TOUCHED) {
             double delay = timer_delay();
             ASSERT(delay>0.0, XLevelRuntime, "LaserTimeSwitchBase: delay non-positive");
@@ -542,7 +543,7 @@ void LaserTimeSwitchBase::change_state(State newstate) {
     else if (newstate == IDLE) {
 //         sound_event ("st-switch");
         set_model(get_inactive_model());
-        PerformAction(this, inverse());
+        performAction(inverse());
     }
     else {
         // it's not allowed to switch from LIGHTED to TOUCHED
@@ -672,13 +673,13 @@ void FloppyStone::actor_hit (const StoneContact &sc)
             if (!inv->is_full()) {
                 inv->add_item (MakeItem("it-floppy"));
                 set_on(false);
-                PerformAction(this, is_on());
+                performAction(is_on());
             }
         }
         else if (player::WieldedItemIs (sc.actor, "it-floppy")) {
             DisposeObject (inv->yield_first());
             set_on(true);
-            PerformAction(this, is_on());
+            performAction(is_on());
         }
         player::RedrawInventory (inv);
     }

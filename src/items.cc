@@ -1,5 +1,6 @@
 /*
  * Copyright (C) 2002,2003,2004 Daniel Heck
+ * Copyright (C) 2007 Ronald Lamprecht
  *
  * This program is free software; you can redistribute it and/or
  * modify it under the terms of the GNU General Public License
@@ -1321,7 +1322,7 @@ namespace
 
         virtual Value on_message (const Message &m) {
             if (m.message == "signal") {
-                PerformAction (this, to_double (m.value) != 0.0);
+                performAction(m.value.to_bool());  // convert 1/0 values to true/false
             }
             else if (m.message == "init") {
                 update_state();
@@ -1364,10 +1365,10 @@ void Trigger::update_state()
         init_model();
         if (m_pressedp) {
             sound_event ("triggerdown");
-            PerformAction(this, true);
+            performAction(true);
         } else {
             sound_event ("triggerup");
-            PerformAction(this, false);
+            performAction(false);
         }
     }
 }
@@ -1517,7 +1518,7 @@ void ShogunDot::stone_change(Stone *st) {
         if (st == 0) {
             warning("stone_change: Stone disappeared w/o sending me a proper message!");
             activated = false;
-            PerformAction(this, false);
+            performAction(false);
         }
     }
 }
@@ -1526,7 +1527,7 @@ Value ShogunDot::message(const string &str, const Value &/*v*/) {
     if (str == "noshogun") {
         if (activated) {
             activated = false;
-            PerformAction(this, false);
+            performAction(false);
         }
     }
     else {
@@ -1538,7 +1539,7 @@ Value ShogunDot::message(const string &str, const Value &/*v*/) {
 
         if (size_matches != activated) {
             activated = size_matches;
-            PerformAction(this, activated);
+            performAction(activated);
         }
     }
     return Value();
@@ -1926,7 +1927,7 @@ Value Vortex::message(const string &msg, const Value &val)
     }
     
     if (msg == "_passed")
-        PerformAction(this, true);
+        performAction(getAttr("$grabbed_actor"));
     return Value();
 }
 
@@ -2045,13 +2046,13 @@ void Vortex::emit_actor(Vortex *destVortex) {
                 KillRubberBands(actor);
         }
     }
-    set_attrib("$grabbed_actor", (Object *)NULL);
-
     state = OPEN;
     if (this != destVortex && getAttr("autoclose").to_bool())  // do not close source vortex if destination is currently blocked
         close();
     if (this != destVortex)
-        PerformAction(this, false);
+        performAction(getAttr("$grabbed_actor"));
+
+    set_attrib("$grabbed_actor", (Object *)NULL);
 }
 
 void Vortex::warp_to(const V2 &target) {
@@ -2064,12 +2065,12 @@ void Vortex::warp_to(const V2 &target) {
         if (isScissor)
             KillRubberBands(actor);
     }
-    set_attrib("$grabbed_actor", (Object *)NULL);
-
     state = OPEN;
     if (getAttr("autoclose").to_bool())
         close();
-    PerformAction(this, false);
+
+    performAction(getAttr("$grabbed_actor"));
+    set_attrib("$grabbed_actor", (Object *)NULL);
 }
 
 void Vortex::perform_warp() {
@@ -2892,7 +2893,7 @@ namespace
         Sensor() {}
 
         void actor_enter (Actor *) {
-            PerformAction (this, true);
+            performAction(true);
         }
     };
     DEF_TRAITSF(Sensor, "it-sensor", it_sensor, itf_static | itf_invisible);
@@ -2904,7 +2905,7 @@ namespace
         InverseSensor() {}
 
         void actor_enter (Actor *) {
-            PerformAction (this, false);
+            performAction (false);
         }
     };
     DEF_TRAITSF(InverseSensor, "it-inversesensor", it_inversesensor,
@@ -2928,7 +2929,7 @@ namespace
                 int value = to_int(val);
 //                 warning("received signal with value %i", value);
                 if (value)
-                    PerformAction(this, type != 0);
+                    performAction(type != 0);
             }
             return Value();
         }
@@ -3170,14 +3171,14 @@ namespace
         }
 
         void alarm() {
-            PerformAction (this, true);
+            performAction(true);
         }
 
         virtual Value on_message (const Message &m) {
             if (server::GameCompatibility == enigma::GAMET_PEROXYD) {
                 // Crosses can be used to invert signals in Per.Oxyd
                 if (m.message == "signal") {
-                    PerformAction (this, to_double (m.value) != 1.0);
+                    performAction(m.value.to_bool()); // convert 1/0 values to true/false
                 }
             } else if (enigma_server::GameCompatibility == GAMET_ENIGMA) {
                 if (m.message == "brush")
@@ -3474,7 +3475,7 @@ namespace
         DECL_TRAITS;
 
         virtual Value on_message (const Message &) {
-            PerformAction (this, true);
+            performAction(true);
             return Value();
         }
     public:

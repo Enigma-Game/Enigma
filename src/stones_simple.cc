@@ -1127,7 +1127,7 @@ namespace
             sound_event("scissors");
             set_anim("st-scissors-snip");
             if (KillRubberBands (sc.actor))
-                PerformAction(this, false);
+                performAction(false);
         }
         void animcb() {
             set_model("st-scissors");
@@ -1288,7 +1288,7 @@ namespace
         void alarm() {
             if (is_on()) {
 //                 sound::PlaySound("st-timer");
-                PerformAction(this, m_signalvalue != 0);
+                performAction(m_signalvalue != 0);
                 m_signalvalue = 1-m_signalvalue;
                 if(!get_is_looped())
                     set_on(false); // Switch to "off"-model.
@@ -1496,7 +1496,7 @@ void ThiefStone::steal_from_player()
 
 Value ThiefStone::message(const string &msg, const Value &v) {
     if(msg == "signal" && server::GameCompatibility != GAMET_ENIGMA) {
-        PerformAction(this, v.to_bool());  // signal multiplier
+        performAction(v.to_bool());  // signal multiplier
     } else if(msg == "capture" && state == IDLE) {
         state = CAPTURED;
         Item * it =  GetItem(get_pos());

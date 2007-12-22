@@ -158,6 +158,12 @@ namespace enigma {
 
     protected:
         virtual Value getDefaultValue(const string &key) const;
+        /** This function is used by all triggers, switches etc. that
+         * perform some particular action when activated (like opening
+         * doors or switching lasers on and off). It interprets the
+         * "action" and "target" attributes of `o'. 
+         */
+        void performAction(const Value& val);
     private:
         friend void InitWorld();   // for bootFinished() access
         

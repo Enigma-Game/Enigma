@@ -254,11 +254,6 @@ namespace enigma {
     Value SendMessage (Object *o, const string &msg, const Value& value);
     Value SendMessage (Object *o, const Message &m);
 
-    /*! This function is used by all triggers, switches etc. that
-      perform some particular action when activated (like opening
-      doors or switching lasers on and off). It interprets the
-      "action" and "target" attributes of `o'. */
-    void PerformAction (Object *o, bool onoff);
 
 
 /* -------------------- Actors -------------------- */

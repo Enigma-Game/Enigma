@@ -1,5 +1,6 @@
 /*
  * Copyright (C) 2002,2003,2004 Daniel Heck
+ * Copyright (C) 2007 Ronald Lamprecht
  *
  * This program is free software; you can redistribute it and/ or
  * modify it under the terms of the GNU General Public License
@@ -1676,8 +1677,13 @@ namespace
 
         void actor_hit(const StoneContact &)
         {
-            if (Item *it = GetItem (get_pos()))
-                PerformAction (it, true);
+            // door knocking
+            Item *it = GetItem(get_pos());
+            if (it != NULL && server::GameCompatibility != GAMET_PEROXYD 
+                    && (server::GameCompatibility != GAMET_ENIGMA || server::EnigmaCompatibility < 1.10 ))
+                SendMessage(it, "signal", 1);
+            else
+                performAction(true);
         }
 
         string model_basename() { return string("st-door")+get_type(); }
@@ -2464,7 +2470,7 @@ bool Turnstile_Pivot_Base::rotate(bool clockwise, Object *impulse_sender) {
 	    rotate_arms(arms, clockwise);
         handleActorsAndItems(clockwise, impulse_sender);
 
-        PerformAction (this, clockwise == 0);
+        performAction(clockwise == 0);
         server::IncMoveCounter();
     }
     return can_rotate;
