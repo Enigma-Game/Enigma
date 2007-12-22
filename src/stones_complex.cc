@@ -1542,6 +1542,8 @@ namespace
         State get_state() const { return state; }
         void set_state(State st) { state=st; }
 
+        void change_state(State newstate) ;
+        virtual Value message(const string &m, const Value &);
     private:
         // DoorBase interface
         virtual string model_basename() { return get_kind(); }
@@ -1550,8 +1552,6 @@ namespace
         virtual string closing_sound() const { return ""; }
 
         // Private methods
-        void change_state(State newstate) ;
-        virtual Value message(const string &m, const Value &);
 
         StoneResponse collision_response(const StoneContact &sc);
 
@@ -1700,7 +1700,36 @@ namespace
         CLONEOBJ(Door_c);
     public:
         Door_c() : DoorBase("st-door_c") {}
+        Value message(const string &m, const Value &val) {
+            if (m == "ignite" && server::GameCompatibility == GAMET_OXYD1) {
+                KillStone(get_pos());  // TODO animation & sound
+                return Value();
+            } else {
+                return DoorBase::message(m, val);
+            }
+        }
     };
+    
+    class Door_c_open : public DoorBase {  // a hack for oxyd compatibility tests
+        CLONEOBJ(Door_c_open);
+    public:
+        Door_c_open() : DoorBase("st-door_c", OPEN) {}
+        Value message(const string &m, const Value &val) {
+            State newstate = state;
+        
+            if (m == "signal") {
+                newstate = val.to_bool() ? CLOSING : OPENING;  // inverted
+                if (newstate==OPENING && (state==CLOSED || state==CLOSING))
+                    change_state(OPENING);
+                else if (newstate==CLOSING && (state==OPEN || state==OPENING))
+                    change_state(CLOSING);
+                return Value();
+            } else {
+                return DoorBase::message(m, val);
+            }
+        }
+
+    };    
 }
 
 bool Door::is_transparent (Direction dir) const {
@@ -3178,6 +3207,7 @@ void Init_complex()
     Register(new Door_a);
     Register(new Door_b);
     Register(new Door_c);
+    Register("st-door_c-open", new Door_c_open);
 
     Register(new HollowStoneImpulseStone);
 

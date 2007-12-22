@@ -1495,7 +1495,9 @@ void ThiefStone::steal_from_player()
 }
 
 Value ThiefStone::message(const string &msg, const Value &v) {
-    if(msg == "capture" && state == IDLE) {
+    if(msg == "signal" && server::GameCompatibility != GAMET_ENIGMA) {
+        PerformAction(this, v.to_bool());  // signal multiplier
+    } else if(msg == "capture" && state == IDLE) {
         state = CAPTURED;
         Item * it =  GetItem(get_pos());
         

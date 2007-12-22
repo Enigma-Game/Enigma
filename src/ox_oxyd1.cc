@@ -178,7 +178,7 @@ const char *oxyd::oxyd1_stone_map[256] = {
     "st-bigbrick-nw",           // Oxyd1 stone 0x16
     "st-plain_hole",            // Oxyd1 stone 0x17
     "st-oxyd-0x18",             // Oxyd1 stone 0x18
-    "st-glass1_hole",           // Oxyd1 stone 0x19
+    "st-door_c-open",           // Oxyd1 stone 0x19
     "st-grate1",                // Oxyd1 stone 0x1a
     "st-grate2",                // Oxyd1 stone 0x1b
     "st-bug",                   // Oxyd1 stone 0x1c
