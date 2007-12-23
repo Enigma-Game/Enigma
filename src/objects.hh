@@ -119,8 +119,11 @@ namespace enigma {
 
         virtual const char *get_kind() const;
 
-        virtual Value on_message (const Message &m);
-        virtual Value message(const string& msg, const Value &val);
+        /**
+         * 
+         */
+        virtual Value message(const Message &m);
+        
         virtual void set_attrib(const string& key, const Value &val);
         
         /**

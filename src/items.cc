@@ -195,16 +195,21 @@ namespace
             }
         }
 
-        virtual Value message(const string &m, const Value &val) {
-            if (m=="onoff")
+        virtual Value message(const Message &m) {
+            if (m.message == "onoff") {
                 set_on(!is_on());
-            else if (m=="signal")
-                set_on (to_int(val) != 0);
-            else if (m == "on")
+                return Value();
+            } else if (m.message == "signal") {
+                set_on (m.value != 0);
+                return Value();
+            } else if (m.message == "on") {
                 set_on(true);
-            else if (m=="off")
+                return Value();
+            } else if (m.message == "off") {
                 set_on(false);
-            return Value();
+                return Value();
+            }
+            return Object::message(m);
         }
 
         // OnOffItem interface
@@ -272,12 +277,14 @@ namespace
         CLONEOBJ(Squashed);
         DECL_TRAITS;
 
-        virtual Value on_message (const Message &m) {
+        virtual Value message (const Message &m) {
             if (enigma_server::GameCompatibility == GAMET_ENIGMA) {
-                if (m.message == "brush")
+                if (m.message == "brush") {
                     KillItem(this->get_pos());
+                    return Value();
+                }
             }
-            return Value();
+            return Object::message(m);
         }
 
 
@@ -499,12 +506,14 @@ namespace
             return false;
         }
 
-        virtual Value on_message (const Message &m) {
+        virtual Value message (const Message &m) {
             if (enigma_server::GameCompatibility == GAMET_ENIGMA) {
-                if (m.message == "brush")
+                if (m.message == "brush") {
                     KillItem(this->get_pos());
+                    return Value();
+                }
             }
-            return Value();
+            return Object::message(m);
         }
 
     public:
@@ -614,7 +623,7 @@ namespace
     class HillHollow : public Item {
     public:
         // Object interface.
-        virtual Value message(const string &m, const Value &);
+        virtual Value message(const Message &m);
     protected:
         enum Type { HILL, HOLLOW, TINYHILL, TINYHOLLOW };
 
@@ -727,26 +736,26 @@ void HillHollow::shovel() {
     }
 }
 
-Value HillHollow::message(const string &m, const Value &val)
+Value HillHollow::message(const Message &m)
 {
-    if (m=="trigger") {
+    if (m.message == "trigger") {
         Type flippedkind[] = {HOLLOW,HILL, TINYHOLLOW,TINYHILL};
         transmute(flippedkind[m_type]);
-    }
-    else if (m == "signal") {
-        if (val != 0) {
+        return Value();
+    } else if (m.message == "signal") {
+        if (m.value != 0) {
             Type flippedkind[] = {HILL,HILL, TINYHILL,TINYHILL};
             transmute(flippedkind[m_type]);
         } else {
             Type flippedkind[] = {HOLLOW,HOLLOW, TINYHOLLOW,TINYHOLLOW};
             transmute(flippedkind[m_type]);
         }
-    }
-    else if (m=="shovel")
+        return Value();
+    } else if (m.message == "shovel") {
         shovel();
-    else
-        Item::message (m, val);
-    return Value();
+        return Value();
+    } 
+    return Object::message(m);
 }
 
 V2 HillHollow::vec_to_center (V2 v)
@@ -1066,15 +1075,17 @@ namespace
             }
             return ITEM_KILL;	       // remove from inventory
         }
-        virtual Value message(const string &msg, const Value &/*val*/) {
+        virtual Value message(const Message &m) {
             bool explode = false;
 
-            if (msg == "ignite") {
+            if (m.message == "ignite") {
                 // dynamite does not blow up Documents in Oxyd1
                 explode = server::GameCompatibility != GAMET_OXYD1;
-            }
-            else if (msg == "expl" || msg == "bombstone")
+            } else if (m.message == "expl" || m.message == "bombstone") {
                 explode = true;
+            } else {
+                return Object::message(m);
+            }
 
             if (explode)
                 replace (it_explosion1);
@@ -1130,16 +1141,18 @@ namespace
             }
         }
 
-        virtual Value message(const string &msg, const Value &/*val*/) {
-            if (msg == "ignite" || msg == "expl" || msg == "bombstone")
+        virtual Value message(const Message &m) {
+            if (m.message == "ignite" || m.message == "expl" || m.message == "bombstone") {
                 change_state(BURNING);
-            else if (msg == "explode") // currently unused in c++ code
+                return Value();
+            } else if (m.message == "explode") { // currently unused in c++ code
                 explode();
-            else if (msg == "heat") {  // used by fire-system
+                return Value();
+            } else if (m.message == "heat") {  // used by fire-system
                 change_state(BURNING);
                 return Value(1.0);  // caught message -> no fire!
             }
-            return Value();
+            return Object::message(m);
         }
         void animcb() { explode(); }
         void on_laserhit(Direction) {
@@ -1171,16 +1184,18 @@ namespace
         {}
 
     protected:
-        virtual Value message(const string &msg, const Value &) {
-            if (msg == "ignite"  || msg == "expl")
+        virtual Value message(const Message &m) {
+            if (m.message == "ignite"  || m.message == "expl") {
                 burn();
-            else if (msg == "explode" )
+                return Value();
+            } else if (m.message == "explode" ) {
                 explode();
-            else if (msg == "heat") {  // used by fire-system
+                return Value();
+            } else if (m.message == "heat") {  // used by fire-system
                 burn();
                 return Value(1.0);  // caught message -> no fire!
             }
-            return Value();
+            return Object::message(m);
         }
 
     private:
@@ -1320,14 +1335,15 @@ namespace
         void actor_leave(Actor *) { m_actorcount -= 1; update_state(); }
         void stone_change(Stone *) { update_state(); }
 
-        virtual Value on_message (const Message &m) {
+        virtual Value message (const Message &m) {
             if (m.message == "signal") {
                 performAction(m.value.to_bool());  // convert 1/0 values to true/false
+                return Value();                
+            } else if (m.message == "init") {
+                update_state();                
+                return Value();
             }
-            else if (m.message == "init") {
-                update_state();
-            }
-            return Value();
+            return Object::message(m);
         }
     };
 
@@ -1389,11 +1405,12 @@ namespace
         void on_stonehit (Stone *) {start_growing();}
         void on_laserhit (Direction) {start_growing();}
 
-        virtual Value message(const string &msg, const Value &) {
-            if (msg == "grow" || msg == "signal") {
+        virtual Value message(const Message &m) {
+            if (m.message == "grow" || m.message == "signal") {
                 start_growing();
+                return Value();
             }
-            return Value();
+            return Object::message(m);
         }
 
         void start_growing() {
@@ -1493,7 +1510,7 @@ namespace
         enum SubType { SMALL, MEDIUM, LARGE };
         ShogunDot(SubType size);
 
-        virtual Value message(const string &str, const Value &v);
+        virtual Value message(const Message &m);
         void stone_change(Stone *st);
 
         // Variables.
@@ -1523,15 +1540,15 @@ void ShogunDot::stone_change(Stone *st) {
     }
 }
 
-Value ShogunDot::message(const string &str, const Value &/*v*/) {
-    if (str == "noshogun") {
+Value ShogunDot::message(const Message &m) {
+    if (m.message == "noshogun") {
         if (activated) {
             activated = false;
             performAction(false);
         }
-    }
-    else {
-        const char *s = str.c_str();
+        return Value();
+    } else {
+        const char *s = m.message.c_str();
         bool size_matches =
             (strncmp(s, "shogun", 6) == 0)    &&
             ((s[6]-'1')              == subtype) &&
@@ -1540,9 +1557,10 @@ Value ShogunDot::message(const string &str, const Value &/*v*/) {
         if (size_matches != activated) {
             activated = size_matches;
             performAction(activated);
+            return Value();
         }
     }
-    return Value();
+    return Object::message(m);
 }
 
 
@@ -1820,7 +1838,7 @@ namespace
         bool actor_hit(Actor*);
         void init_model();
         void animcb();
-        virtual Value message(const string &msg, const Value &val);
+        virtual Value message(const Message &m);
 
         // TimeHandler interface
         void alarm();
@@ -1909,26 +1927,28 @@ bool Vortex::actor_hit (Actor *actor) {
     return false;
 }
 
-Value Vortex::message(const string &msg, const Value &val)
+Value Vortex::message(const Message &m)
 {
-    if (msg == "signal") {
-        int ival = to_int(val);
+    if (m.message == "signal") {
+        int ival = m.value;
         if (ival != 0)
             open();
         else
             close();
-    }
-    else if (msg == "openclose" || msg == "trigger")
+        return Value();
+    } else if (m.message == "openclose" || m.message == "trigger") {
         openclose();
-    else if (msg == "open")
+        return Value();
+    } else if (m.message == "open") {
         open();
-    else if (msg == "close" || (msg == "_passed" && getAttr("autoclose").to_bool())) {
+        return Value();
+    } else if (m.message == "close" || (m.message == "_passed" && getAttr("autoclose").to_bool())) {
         close();
+        if (m.message == "_passed")
+            performAction(getAttr("$grabbed_actor"));
+        return Value();
     }
-    
-    if (msg == "_passed")
-        performAction(getAttr("$grabbed_actor"));
-    return Value();
+    return Object::message(m);
 }
 
 void Vortex::init_model() {
@@ -2194,10 +2214,12 @@ namespace
         DECL_TRAITS_ARRAY(10, subtype);
 
         Pipe(int stype) : subtype(stype) {}
-        virtual Value message(const string &msg, const Value &) {
-            if (msg == "expl")
+        virtual Value message(const Message &m) {
+            if (m.message == "expl") {
                 replace (it_explosion1);
-            return Value();
+                return Value();
+            }
+            return Object::message(m);
         }
     public:
         static void setup() {
@@ -2374,21 +2396,21 @@ namespace
                 SendMessage(a, "fall");
             return false;
         }
-        virtual Value message(const string &msg, const Value &val) {
-            if (msg == "crack" && state==IDLE && !is_fixed()) {
+        virtual Value message(const Message &m) {
+            if (m.message == "crack" && state==IDLE && !is_fixed()) {
                 int type = get_type();
                 if ((type == 0 && do_crack()) || (type > 0)) {
                     set_attrib("type", Value((int)getAttr("type") + 1));
                     sound_event ("crack");
                     init_model();
+                return Value();
                 }
-            }
-            if (msg == "heat") {
+            } else if (m.message == "heat") {
                 sound_event ("crack");
                 replace(it_debris);
                 return Value(1.0);
             }
-            return Value();
+            return Object::message(m);
         }
 
         bool do_crack() {
@@ -2458,7 +2480,7 @@ namespace
         }
         State state;
 
-        virtual Value message (const string &msg, const Value &v);
+        virtual Value message(const Message &m);
         void animcb();
         bool actor_hit(Actor *a);
         void init_model();
@@ -2478,18 +2500,19 @@ namespace
     };
 }
 
-Value Burnable::message(const string &msg, const Value &v)
-{
-    if (msg == "extinguish") {   // stop / never start burning
+Value Burnable::message(const Message &m) {
+    if (m.message == "extinguish") {   // stop / never start burning
         state = FIREPROOF;
         init_model();
-    } else if (msg == "brush" && (state == ASH || state == FIREPROOF)) {
-        kill();                 // The brush cleans the floor
+        return Value();
+    } else if (m.message == "brush" && (state == ASH || state == FIREPROOF)) {
+        kill();   // The brush cleans the floor
+        return Value();
     } else if (Floor *fl = GetFloor(get_pos())) {
-        if (msg == "trigger" || msg == "ignite" || msg == "expl")
+        if (m.message == "trigger" || m.message == "ignite" || m.message == "expl")
             return SendMessage(fl, "ignite");
     }
-    return Item::message(msg, v);
+    return Object::message(m);
 }
 
 void Burnable::animcb() {
@@ -2652,7 +2675,7 @@ namespace
         void change_state(State new_state);
         void on_creation (GridPos p);
         void on_removal (GridPos p);
-        virtual Value message(const string &msg, const Value &val);
+        virtual Value message(const Message &m);
         void stone_change(Stone *st);
         void grow();
         void alarm();
@@ -2716,34 +2739,36 @@ void Blocker::alarm()
 }
 
 
-Value Blocker::message(const string &msg, const Value &val)
+Value Blocker::message(const Message &m)
 {
-    if (msg == "trigger" || msg == "openclose") {
+    if (m.message == "trigger" || m.message == "openclose") {
         switch (state) {
-        case IDLE:
-        case SHRINKED:
-            grow(); // if no stone on top -> grow
-            break;
-
-            // if stone on top -> toggle state (has no effect until stone leaves)
-        case BOLDERED:
-            change_state(COVERED);
-            break;
-        case COVERED:
-            change_state(BOLDERED);
-            break;
+            case IDLE:
+            case SHRINKED:
+                grow(); // if no stone on top -> grow
+                break;
+    
+                // if stone on top -> toggle state (has no effect until stone leaves)
+            case BOLDERED:
+                change_state(COVERED);
+                break;
+            case COVERED:
+                change_state(BOLDERED);
+                break;
         }
-    }
-    else {
+        return Value();
+    } else {
         int open = -1;
 
-        if (msg == "signal") {
-            open = val;
+        if (m.message == "signal") {
+            open = m.value;
         }
-        else if (msg == "open")
+        else if (m.message == "open")
             open = 1;
-        else if (msg == "close")
+        else if (m.message == "close")
             open = 0;
+        else
+            return Object::message(m);
 
         if (open == 1)  { // shrink
             if (state == COVERED)
@@ -2768,7 +2793,6 @@ Value Blocker::message(const string &msg, const Value &val)
             }
         }
     }
-    return Value();
 }
 
 void Blocker::stone_change(Stone *st)
@@ -2846,16 +2870,17 @@ namespace
         CLONEOBJ(OxydBridge);
         DECL_TRAITS;
 
-        virtual Value message(const string& msg, const Value &val) {
-            if (msg == "signal") {
-                int ival = to_int (val);
+        virtual Value message(const Message &m) {
+            if (m.message == "signal") {
+                int ival = m.value;
                 Floor *floor = GetFloor (get_pos());
                 if (ival > 0)
                     SendMessage (floor, "close");
                 else
                     SendMessage (floor, "open");
+                return Value();
             }
-            return Value();
+            return Object::message(m);
         }
     public:
         OxydBridge() {}
@@ -2895,6 +2920,18 @@ namespace
         void actor_enter (Actor *) {
             performAction(true);
         }
+        
+        virtual Value message(const Message &m) {
+            if (m.message == "hit") {   // door knocking forward to black/whitballstone
+                set_attrib("$hitactor", m.value);
+                performAction(true);
+                set_attrib("$hitactor", (Object *)NULL);
+                return Value();
+            } else if (m.message == "_hitactor") {
+                return getAttr("$hitactor");
+            }
+            return Object::message(m);
+        }
     };
     DEF_TRAITSF(Sensor, "it-sensor", it_sensor, itf_static | itf_invisible);
 
@@ -2924,14 +2961,15 @@ namespace
             ASSERT(type >= 0 && type <= 1, XLevelRuntime, "SignalFilterItem: type unknown");
         }
 
-        virtual Value message(const string& m, const Value& val) {
-            if (m == "signal") {
-                int value = to_int(val);
+        virtual Value message(const Message &m) {
+            if (m.message == "signal") {
+                int value = m.value;
 //                 warning("received signal with value %i", value);
                 if (value)
                     performAction(type != 0);
+                return Value();
             }
-            return Value();
+            return Object::message(m);
         }
 
         // type of signal filter
@@ -2975,7 +3013,7 @@ namespace
         CLONEOBJ(EasyKillStone);
         DECL_TRAITS;
 
-        virtual Value on_message (const Message &);
+        virtual Value message(const Message &m);
     public:
         EasyKillStone() {}
     };
@@ -2983,7 +3021,7 @@ namespace
                 it_easykillstone, itf_invisible | itf_fireproof);
 }
 
-Value EasyKillStone::on_message (const Message &m )
+Value EasyKillStone::message(const Message &m)
 {
     if (m.message == "init") {
         // does not work in on_creation() because items are created
@@ -3001,8 +3039,9 @@ Value EasyKillStone::on_message (const Message &m )
             }
         }
         kill();
+        return Value();
     }
-    return Value();
+    return Object::message(m);
 }
 
 /* -------------------- EasyKeepStone -------------------- */
@@ -3012,15 +3051,16 @@ namespace
         CLONEOBJ(EasyKeepStone);
         DECL_TRAITS;
 
-        virtual Value message(const string& m, const Value& ) {
-            if (m == "init") {
+        virtual Value message(const Message &m) {
+            if (m.message == "init") {
                 // does not work in on_creation() because items are created
                 // before stones are created.
                 if (server::GetDifficulty() == DIFFICULTY_HARD)
                     KillStone(get_pos());
                 kill();
+                return Value();
             }
-            return Value();
+            return Object::message(m);
         }
     public:
         EasyKeepStone() {}
@@ -3036,13 +3076,14 @@ namespace
         CLONEOBJ (OnePKillStone);
         DECL_TRAITS;
 
-        virtual Value on_message (const Message &m) {
+        virtual Value message (const Message &m) {
             if (m.message == "init") {
                 if (server::SingleComputerGame)
                     KillStone (get_pos());
                 kill();
+                return Value();
             }
-            return Value();
+            return Object::message(m);
         }
     public:
         OnePKillStone () {}
@@ -3054,13 +3095,14 @@ namespace
         CLONEOBJ (TwoPKillStone);
         DECL_TRAITS;
 
-        virtual Value on_message (const Message &m) {
+        virtual Value message (const Message &m) {
             if (m.message == "init") {
                 if (!server::SingleComputerGame)
                     KillStone (get_pos());
                 kill();
+                return Value();
             }
-            return Value();
+            return Object::message(m);
         }
     public:
         TwoPKillStone () {}
@@ -3174,17 +3216,20 @@ namespace
             performAction(true);
         }
 
-        virtual Value on_message (const Message &m) {
+        virtual Value message(const Message &m) {
             if (server::GameCompatibility == enigma::GAMET_PEROXYD) {
                 // Crosses can be used to invert signals in Per.Oxyd
                 if (m.message == "signal") {
-                    performAction(m.value.to_bool()); // convert 1/0 values to true/false
+                    performAction(!m.value.to_bool()); // convert 1/0 values to true/false
+                    return Value();
                 }
             } else if (enigma_server::GameCompatibility == GAMET_ENIGMA) {
-                if (m.message == "brush")
+                if (m.message == "brush") {
                     KillItem(this->get_pos());
+                    return Value();
+                }
             }
-            return Value();
+            return Object::message(m);
         }
 
     public:
@@ -3474,9 +3519,12 @@ namespace
         CLONEOBJ(Oxyd5fItem);
         DECL_TRAITS;
 
-        virtual Value on_message (const Message &) {
-            performAction(true);
-            return Value();
+        virtual Value message(const Message &m) {
+            if (m.message == "init") {
+                performAction(true);
+                return Value();
+            }
+            return Object::message(m);
         }
     public:
         Oxyd5fItem()

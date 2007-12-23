@@ -362,6 +362,13 @@ namespace
         {
             set_attrib("charge", charge);
         }
+        virtual Value message(const Message &m) {
+            if (server::GameCompatibility == enigma::GAMET_PEROXYD && m.message == "signal") {
+                performAction(m.value);
+                return Value();
+            }
+            return Object::message(m);
+        }
     private:
         double get_charge() {
             double q = getAttr("charge");
@@ -659,11 +666,12 @@ namespace
 
         const char *collision_sound() {return "stone";}
 
-        virtual Value message (const string &msg, const Value &) {
-            if (msg == "trigger" || msg == "signal") {
+        virtual Value message(const Message &m) {
+            if (m.message == "trigger" || m.message == "signal") {
                 ReplaceStone(get_pos(), MakeStone("st-plain_hole"));
+                return Value();
             }
-            return Value();
+            return Object::message(m);
         }
         void actor_hit (const StoneContact &sc) {
             if (player::WieldedItemIs (sc.actor, "it-pencil")) {
@@ -689,11 +697,12 @@ namespace
         CLONEOBJ(PlainStone_Hollow);
         DECL_TRAITS;
 
-        virtual Value message (const string &msg, const Value &) {
-            if (msg == "trigger" || msg == "signal") {
+        virtual Value message(const Message &m) {
+            if (m.message == "trigger" || m.message == "signal") {
                 ReplaceStone(get_pos(), MakeStone("st-plain"));
+                return Value();
             }
-            return Value();
+            return Object::message(m);
         }
 
         StoneResponse collision_response(const StoneContact &) 
@@ -737,10 +746,12 @@ namespace
         void on_laserhit (Direction) {
             break_me();
         }
-        virtual Value message (const string &msg, const Value &) {
-            if (msg =="ignite" || msg == "expl" || msg == "bombstone")
+        virtual Value message(const Message &m) {
+            if (m.message =="ignite" || m.message == "expl" || m.message == "bombstone") {
                 break_me();
-            return Value();
+                return Value();
+            }
+            return Object::message(m);
         }
         void actor_hit (const StoneContact &sc) {
             if (player::WieldedItemIs (sc.actor, "it-hammer")) {
@@ -776,10 +787,12 @@ namespace
             }
         }
 
-        virtual Value message (const string &msg, const Value &) {
-            if (msg =="ignite" || msg == "expl" || msg == "bombstone")
+        virtual Value message(const Message &m) {
+            if (m.message =="ignite" || m.message == "expl" || m.message == "bombstone") {
                 break_me();
-            return Value();
+                return Value();
+            }
+            return Object::message(m);
         }
         const char *collision_sound() {return "metal";}
     public:
@@ -816,10 +829,12 @@ namespace
             sound_event ("stonedestroy");
             ReplaceStone(get_pos(), MakeStone ("st-plain_breaking"));
         }
-        virtual Value message (const string &msg, const Value &) {
-            if (msg =="ignite" || msg == "expl" || msg == "bombstone")
+        virtual Value message(const Message &m) {
+            if (m.message =="ignite" || m.message == "expl" || m.message == "bombstone") {
                 break_me();
-            return Value();
+                return Value();
+            }
+            return Object::message(m);
         }
         void on_move() {
             Stone::on_move();
@@ -865,25 +880,36 @@ namespace
     class BlackBallsStone : public Stone {
         CLONEOBJ(BlackBallsStone);
 
-        virtual Value on_message (const Message &m)
+        virtual Value message(const Message &m)
         {
-            GridPos p = get_pos();
-            Actor *a = CurrentCollisionActor;
-            if (a && get_id(a) == ac_blackball) {
-                if (p.y == m.gridpos.y) {
-                    SendMessage (GetStone (move (p, EAST)),  "signal", 1.0);
-                    SendMessage (GetStone (move (p, WEST)),  "signal", 1.0);
-                    SendMessage (GetStone (move (p, NORTH)), "signal", 0.0);
-                    SendMessage (GetStone (move (p, SOUTH)), "signal", 0.0);
-                }
-                else {
-                    SendMessage (GetStone (move (p, EAST)),  "signal", 0.0);
-                    SendMessage (GetStone (move (p, WEST)),  "signal", 0.0);
-                    SendMessage (GetStone (move (p, NORTH)), "signal", 1.0);
-                    SendMessage (GetStone (move (p, SOUTH)), "signal", 1.0);
+            if (m.message == "signal" || m.message == "hit") {
+                if (GridObject *sender = dynamic_cast<GridObject*>(m.sender)) {
+                    GridPos p = get_pos();
+                    Object *o;
+                    if (m.message == "hit")
+                        o = m.value;
+                    else
+                        o= SendMessage(m.sender, "_hitactor");
+                    
+                    Actor *a = dynamic_cast<Actor *>(o);
+                    if (a && get_id(a) == ac_blackball) {
+                        if (p.y == sender->get_pos().y) {
+                            SendMessage (GetStone (move (p, EAST)),  "signal", 1.0);
+                            SendMessage (GetStone (move (p, WEST)),  "signal", 1.0);
+                            SendMessage (GetStone (move (p, NORTH)), "signal", 0.0);
+                            SendMessage (GetStone (move (p, SOUTH)), "signal", 0.0);
+                        }
+                        else {
+                            SendMessage (GetStone (move (p, EAST)),  "signal", 0.0);
+                            SendMessage (GetStone (move (p, WEST)),  "signal", 0.0);
+                            SendMessage (GetStone (move (p, NORTH)), "signal", 1.0);
+                            SendMessage (GetStone (move (p, SOUTH)), "signal", 1.0);
+                        }
+                        return Value();
+                    }
                 }
             }
-            return Value();
+            return Object::message(m);
         }
     public:
         BlackBallsStone() : Stone ("st-blackballs") {
@@ -893,25 +919,36 @@ namespace
     class WhiteBallsStone : public Stone {
         CLONEOBJ(WhiteBallsStone);
 
-        virtual Value on_message (const Message &m)
+        virtual Value message(const Message &m)
         {
-            GridPos p = get_pos();
-            Actor *a = CurrentCollisionActor;
-            if (a && get_id(a) == ac_whiteball) {
-                if (p.y == m.gridpos.y) {
-                    SendMessage (GetStone (move (p, EAST)),  "signal", 1.0);
-                    SendMessage (GetStone (move (p, WEST)),  "signal", 1.0);
-                    SendMessage (GetStone (move (p, NORTH)), "signal", 0.0);
-                    SendMessage (GetStone (move (p, SOUTH)), "signal", 0.0);
-                }
-                else {
-                    SendMessage (GetStone (move (p, EAST)),  "signal", 0.0);
-                    SendMessage (GetStone (move (p, WEST)),  "signal", 0.0);
-                    SendMessage (GetStone (move (p, NORTH)), "signal", 1.0);
-                    SendMessage (GetStone (move (p, SOUTH)), "signal", 1.0);
+            if (m.message == "signal" || m.message == "hit") {
+                if (GridObject *sender = dynamic_cast<GridObject*>(m.sender)) {
+                    GridPos p = get_pos();
+                    Object *o;
+                    if (m.message == "hit")
+                        o = m.value;
+                    else
+                        o = SendMessage(m.sender, "_hitactor");
+                        
+                    Actor *a = dynamic_cast<Actor *>(o);
+                    if (a && get_id(a) == ac_whiteball) {
+                        if (p.y == sender->get_pos().y) {
+                            SendMessage (GetStone (move (p, EAST)),  "signal", 1.0);
+                            SendMessage (GetStone (move (p, WEST)),  "signal", 1.0);
+                            SendMessage (GetStone (move (p, NORTH)), "signal", 0.0);
+                            SendMessage (GetStone (move (p, SOUTH)), "signal", 0.0);
+                        }
+                        else {
+                            SendMessage (GetStone (move (p, EAST)),  "signal", 0.0);
+                            SendMessage (GetStone (move (p, WEST)),  "signal", 0.0);
+                            SendMessage (GetStone (move (p, NORTH)), "signal", 1.0);
+                            SendMessage (GetStone (move (p, SOUTH)), "signal", 1.0);
+                        }
+                        return Value();
+                    }
                 }
             }
-            return Value();
+            return Object::message(m);
         }
 
     public:

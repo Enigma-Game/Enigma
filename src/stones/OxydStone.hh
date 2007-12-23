@@ -83,7 +83,7 @@ namespace enigma {
         // Object interface
         virtual OxydStone * clone();
         virtual void dispose();
-        virtual Value message(const string &m, const Value &);
+        virtual Value message(const Message &m);
         virtual void set_attrib(const string& key, const Value &val);
         virtual Value getAttr(const string &key) const;
 

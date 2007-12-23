@@ -102,18 +102,23 @@ namespace enigma {
 
         virtual void notify_onoff(bool /*on*/) {}
 
-        virtual Value on_message(const Message &msg)
+        virtual Value on_message(const Message &m)
         {
-            const std::string &m = msg.message;
-            if (m=="onoff")
+            const std::string &msg = m.message;
+            if (m.message == "onoff") {
                 set_on(!is_on());
-            else if (m=="signal")
-                set_on (to_int(msg.value) != 0);
-            else if (m == "on")
+                return Value(); 
+            } else if (m.message == "signal") {
+                set_on (to_int(m.value) != 0);
+                return Value(); 
+            } else if (m.message == "on") {
                 set_on(true);
-            else if (m=="off")
+                return Value(); 
+            } else if (m.message == "off") {
                 set_on(false);
-            return Value();
+                return Value();
+            }
+            return Object::message(m); 
         }
     };
 

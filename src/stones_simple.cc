@@ -130,7 +130,7 @@ namespace
             return Stone::is_transparent(dir);
         }
 
-        virtual Value on_message (const Message &m)
+        virtual Value message(const Message &m)
         {
             if (traits->hollow && m.message == "glasses") {
                 if (to_int(m.value)) {
@@ -145,8 +145,9 @@ namespace
                         set_model (this->get_kind());
                     }
                 }
+                return Value();
             }
-            return Value();
+            return Object::message(m);
         }
 
         const SimpleStoneTraits *traits; // owned by simple_stone_traits
@@ -154,7 +155,7 @@ namespace
     };
 }
 
-
+
 /* -------------------- SimpleStoneMovable -------------------- */
 
 namespace
@@ -267,16 +268,17 @@ namespace
         CLONEOBJ(EasyModeStone);
         DECL_TRAITS;
 
-        virtual Value message(const std::string &msg, const Value&) {
-            if (msg == "init") {
+        virtual Value message(const Message &m) {
+            if (m.message == "init") {
                 if (server::GetDifficulty() == DIFFICULTY_EASY) {
                     SetFloor (get_pos(), MakeFloor ("fl-normal"));
                 } else {
                     KillItem (get_pos());
                 }
                 KillStone (get_pos());
+                return Value();
             }
-            return Value();
+            return Object::message(m);
         }
     public:
         EasyModeStone() 
@@ -285,7 +287,7 @@ namespace
     DEF_TRAITSM(EasyModeStone, "st-easymode", st_easymode, MOVABLE_BREAKABLE);
 }
 
-
+
 /* -------------------- Grates -------------------- */
 
 namespace
@@ -565,10 +567,12 @@ namespace
         void animcb() {
             KillStone(get_pos());
         }
-        virtual Value message(const string &msg, const Value &) {
-            if (msg =="ignite" || msg == "expl" || msg == "bombstone")
+        virtual Value message(const Message &m) {
+            if (m.message =="ignite" || m.message == "expl" || m.message == "bombstone") {
                 break_me();
-            return Value();
+                return Value();
+            }
+            return Object::message(m);
         }
 
         virtual string get_break_anim() const  {
@@ -658,10 +662,12 @@ namespace
         bool may_be_broken_by(Actor *a) const {
             return player::WieldedItemIs (a, "it-hammer");
         }
-        virtual Value message(const string &msg, const Value &) {
-            if (msg == "trigger")
+        virtual Value message(const Message &m) {
+            if (m.message == "trigger") {
                 break_me();
-            return Value();
+                return Value();
+            }
+            return Object::message(m);
         }
     };
     DEF_TRAITSM(Break_bolder, "st-break_bolder", st_break_bolder, MOVABLE_BREAKABLE);
@@ -1001,15 +1007,17 @@ namespace
             }
         }
 
-        virtual Value message (const string &msg, const Value &) {
-            if (msg == "fire" && !blockfire) {
+        virtual Value message(const Message &m) {
+            if (m.message == "fire" && !blockfire) {
                 KillStone(get_pos());
                 return Value(1.0);  // allow fire to spread
-            } else if (msg == "heat" && blockfire) {
+            } else if (m.message == "heat" && blockfire) {
                 return Value(1.0);  // block fire
-            } else if (msg == "fall")
+            } else if (m.message == "fall") {
                 maybe_fall_or_stopfire();
-            return Value();
+                return Value();
+            }
+            return Object::message(m);
         }
 
         // in oxyd1 only fall when moving
@@ -1059,7 +1067,7 @@ namespace
         void animcb() {
             Stone *st = MakeStone ("st-wood");
             ReplaceStone (get_pos(), st);
-            SendMessage (st, "fall"); // instantly builds a bridge on fl-swamp etc
+            SendMessage(st, "fall"); // instantly builds a bridge on fl-swamp etc
         }
         void actor_contact(Actor *a) {SendMessage(a, "shatter");}
         void actor_inside(Actor *a) {SendMessage(a, "shatter");}
@@ -1336,7 +1344,7 @@ namespace
         void change_state(State newstate);
         void animcb();
         void actor_hit(const StoneContact &sc);
-        virtual Value message(const string &m, const Value &val);
+        virtual Value message(const Message &m);
 
         void on_laserhit(Direction) {
             change_state(BREAKING);
@@ -1394,18 +1402,20 @@ void FartStone::actor_hit(const StoneContact &sc)
     else
         change_state(FARTING);
 }
-Value FartStone::message (const string &m, const Value &val) 
+Value FartStone::message(const Message &m) 
 {
-    if (m == "signal" && to_int(val) != 0)
+    if (m.message == "signal" && m.value != 0) {
         change_state(FARTING);
-    else if (m=="trigger")
+        return Value();
+    } else if (m.message == "trigger") {
         change_state(FARTING);
-    else if (m == "ignite" || m == "expl") 
+        return Value();
+    } else if (m.message == "ignite" || m.message == "expl") { 
         change_state(BREAKING);
-    return Value();
+        return Value();
+    }
+    return Object::message(m);
 }
-
-
 
 
 /* -------------------- Thief -------------------- */
@@ -1429,7 +1439,7 @@ namespace
         // even a slight touch should steal from the actor: 
         void actor_touch(const StoneContact &sc) { actor_hit(sc); }
         void animcb();
-        virtual Value message(const string &msg, const Value &v);        
+        virtual Value message(const Message &m);        
 
         const char *collision_sound() { return "cloth"; }
         int affected_player;
@@ -1494,10 +1504,11 @@ void ThiefStone::steal_from_player()
     }
 }
 
-Value ThiefStone::message(const string &msg, const Value &v) {
-    if(msg == "signal" && server::GameCompatibility != GAMET_ENIGMA) {
-        performAction(v.to_bool());  // signal multiplier
-    } else if(msg == "capture" && state == IDLE) {
+Value ThiefStone::message(const Message &m) {
+    if(m.message == "signal" && server::GameCompatibility != GAMET_ENIGMA) {
+        performAction(!m.value.to_bool());  // inverse signal multiplier
+        return Value();
+    } else if (m.message == "capture" && state == IDLE) {
         state = CAPTURED;
         Item * it =  GetItem(get_pos());
         
@@ -1511,8 +1522,8 @@ Value ThiefStone::message(const string &msg, const Value &v) {
         bag = NULL;
         set_anim(string(get_kind()) + "-captured");
         return Value(1);
-    } else
-        return Stone::message(msg, v);
+    }
+    return Object::message(m);
 }
 
 // -------------------------
@@ -1567,15 +1578,16 @@ namespace
 
         int signalidx;
 
-        virtual Value message (const string &msg, const Value &) {
+        virtual Value message(const Message &m) {
             if(server::GameCompatibility != GAMET_ENIGMA) {
                 // Oxyd* usage of ActorImpulseStone as a signal multiplier
                 ObjectList ol = getAttr("$!oxyd!destinations");
                 
-                if (msg == "init" && ol.size() > 0) {
+                if (m.message == "init" && ol.size() > 0) {
                     signalidx = 0;
                     SendMessage(ol.front(), "signal", 1);
-                } else if (msg == "signal") {
+                    return Value();
+                } else if (m.message == "signal") {
                     int i = 0;
                     bool didBreak = false;
                     for (ObjectList::iterator oit = ol.begin(); oit != ol.end(); ++oit, i++) {
@@ -1592,9 +1604,10 @@ namespace
                         signalidx = 0;                        
                     } else
                         signalidx++;
+                    return Value();
                 }
             } // GameCompatibility != GAMET_ENIGMA
-            return Value();
+            return Object::message(m);
         }
 
     public:
@@ -1684,13 +1697,14 @@ namespace
             }
         }
 
-        virtual Value on_message (const Message &m) {
+        virtual Value message(const Message &m) {
             if (m.message == "signal" || m.message == "trigger") {
                 // toggle between black and white stone
                 m_type = (m_type + 4) % 8;
                 init_model();
+                return Value();
             }
-            return Value();
+            return Object::message(m);
         }
 
         bool is_floating() const { return true; }
@@ -1802,7 +1816,7 @@ namespace
         void actor_hit (const StoneContact &sc);
         void change_state (State newstate);
         void animcb();
-        virtual Value message (const string &msg, const Value &);
+        virtual Value message(const Message &m);
     };
 }
 DEF_TRAITSM(BombStone, "INVALID", st_INVALID, MOVABLE_BREAKABLE);
@@ -1829,11 +1843,13 @@ void BombStone::animcb()
         SetItem(p, it_explosion1);
 }
 
-Value BombStone::message(const string &msg, const Value &) 
+Value BombStone::message(const Message &m) 
 {
-    if (msg =="expl" || msg =="bombstone")
+    if (m.message =="expl" || m.message =="bombstone") {
         change_state(BREAK);
-    return Value();
+        return Value();
+    }
+    return Object::message(m);
 }
 
 void BombStone::actor_hit(const StoneContact &sc) 
@@ -1847,7 +1863,7 @@ void BombStone::actor_hit(const StoneContact &sc)
     }
 }
 
-
+
 /* -------------------- MagicStone -------------------- */
 namespace
 {
@@ -1933,9 +1949,9 @@ namespace
             set_visible_model();
         }
 
-        virtual Value message(const string& msg, const Value &val) {
-            if (msg == "glasses") {
-                if (to_int(val)) {
+        virtual Value message(const Message &m) {
+            if (m.message == "glasses") {
+                if (to_int(m.value)) {
                     if (!visible) {
                         visible = true;
                         set_visible_model();
@@ -1947,8 +1963,9 @@ namespace
                         set_visible_model();
                     }
                 }
+                return Value();
             }
-            return Value();
+            Object::message(m);
         }
     public:
         DeathStoneInvisible() : visible(false) {}
@@ -2009,11 +2026,12 @@ namespace
             explode();
         }
 
-        virtual Value message(const string &msg, const Value &) {
-            if (msg == "expl") {
+        virtual Value message(const Message &m) {
+            if (m.message == "expl") {
                 explode();
+                return Value();
             }
-            return Value();
+            Object::message(m);
         }
 
         bool is_sticky(const Actor *) const 
@@ -2050,19 +2068,22 @@ namespace
     private:
         bool is_floating() const { return true; }
 
-        virtual Value message(const string &msg, const Value &val) {
-            if (msg == "signal") {
-                int ival = to_int (val);
+        virtual Value message(const Message &m) {
+            if (m.message == "signal") {
+                int ival = m.value;
                 if (ival > 0)
                     lighten();
                 else
                     darken();
-            }
-            else if (msg == "lighten")
+                return Value();
+            } else if (m.message == "lighten") {
                 lighten();
-            else if (msg == "darken")
+                return Value();
+            } else if (m.message == "darken") {
                 darken();
-            return Value();
+                return Value();
+            }
+            return Object::message(m);
         }
     };
     class DiscoLight : public DiscoStone {
@@ -2198,12 +2219,12 @@ namespace
             ReplaceStone(get_pos(), MakeStone("st-plain_breaking"));
         }
 
-        virtual Value message (const string &msg, const Value &) {
-            if (msg =="heat" || msg == "fire") {
+        virtual Value message(const Message &m) {
+            if (m.message =="heat" || m.message == "fire") {
                 break_me();
                 return Value(1.0);
             }
-            return Value();
+            return Object::message(m);
         }
 
         void actor_hit(const StoneContact &sc) {
@@ -2229,10 +2250,12 @@ namespace
             ReplaceStone(get_pos(), MakeStone("st-plain_breaking"));
         }
 
-        virtual Value message (const string &msg, const Value &) {
-            if (msg =="fire")
+        virtual Value message(const Message &m) {
+            if (m.message =="fire") {
                 break_me();
-            return Value();
+                return Value();
+            }
+            return Object::message(m);
         }
 
         void actor_hit(const StoneContact &sc) {

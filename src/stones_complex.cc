@@ -352,7 +352,7 @@ namespace
         OneWayBase(Direction dir);
 
         void init_model();
-        virtual Value message(const string& msg, const Value &val);
+        virtual Value message(const Message &m);
 
         void actor_hit (const StoneContact&);
         StoneResponse collision_response(const StoneContact &sc);
@@ -423,17 +423,19 @@ void OneWayBase::init_model()
     set_model (mname);
 }
 
-Value OneWayBase::message(const string& msg, const Value &val) {
-    if (msg == "direction" && val.getType() == Value::DOUBLE) {
-        set_orientation(to_direction(val));
+Value OneWayBase::message(const Message &m) {
+    if (m.message == "direction" && m.value.getType() == Value::DOUBLE) {
+        set_orientation(to_direction(m.value));
         init_model();
+        return Value();
     }
-    else if (msg == "signal" || msg == "flip") {
+    else if (m.message == "signal" || m.message == "flip") {
         Direction dir = get_orientation();
         set_orientation(reverse(dir));
         init_model();
+        return Value();
     }
-    return Value();
+    return Object::message(m);
 }
 
 void OneWayBase::actor_hit(const StoneContact &sc) {
@@ -598,12 +600,13 @@ namespace
                 trigger_obstacle(impulse.dir);
         }
 
-        virtual Value message(const string& msg, const Value &val) {
-            if (msg == "direction" && state != FALLING) {
-                set_dir (to_direction(val));
+        virtual Value message(const Message &m) {
+            if (m.message == "direction" && state != FALLING) {
+                set_dir(to_direction(m.value));
                 init_model();
+                return Value();
             }
-            return Value();
+            return Object::message(m);
         }
     };
     DEF_TRAITSM(BolderStone, "st-bolder", st_bolder, MOVABLE_IRREGULAR);
@@ -688,17 +691,18 @@ namespace
             }
         }
 
-        virtual Value message(const string &msg, const Value &val) {
-            if (msg == "trigger" || msg == "openclose") {
+        virtual Value message(const Message &m) {
+            if (m.message == "trigger" || m.message == "openclose") {
                 if (state == SHRINKING) {
                     change_state(GROWING);
                 }
                 else {
                     change_state(SHRINKING);
                 }
+                return Value();
             }
-            else if (msg == "signal") {
-                int value = to_int(val);
+            else if (m.message == "signal") {
+                int value = m.value;
 //                 warning("received signal (value=%i)", value);
                 if (value) {    // value == 1 -> shrink
                     if (state != SHRINKING)
@@ -708,16 +712,19 @@ namespace
                     if (state == SHRINKING)
                         change_state(GROWING);
                 }
+                return Value();
             }
-            else if (msg == "open") { // aka "shrink"
+            else if (m.message == "open") { // aka "shrink"
                 if (state != SHRINKING)
                     change_state(SHRINKING);
+                return Value();
             }
-            else if (msg == "close") { // aka "grow"
+            else if (m.message == "close") { // aka "grow"
                 if (state == SHRINKING)
                     change_state(GROWING);
+                return Value();
             }
-            return Value();
+            return Object::message(m);
         }
 
         void actor_contact(Actor *a) {
@@ -774,14 +781,15 @@ namespace
             }
         }
 
-        virtual Value message(const string &msg, const Value &) {
-            if (msg == "trigger") {
+        virtual Value message(const Message &m) {
+            if (m.message == "trigger") {
                 if (state == INACTIVE) {
                     state = ACTIVE;
                     init_model();
                 }
+                return Value();
             }
-            return Value();
+            return Object::message(m);
         }
 
         void spread( GridPos p) {
@@ -977,7 +985,7 @@ namespace
 
         /* ---------- Stone interface ---------- */
 
-        virtual Value message(const string& msg, const Value &val);
+        virtual Value message(const Message &m);
 
         void on_creation (GridPos p);
         void on_removal (GridPos p);
@@ -1298,8 +1306,8 @@ void PuzzleStone::alarm() {
     explode();
 }
 
-Value PuzzleStone::message(const string& msg, const Value &val) {
-    if (msg == "scramble") {
+Value PuzzleStone::message(const Message &m) {
+    if (m.message == "scramble") {
         // oxyd levels contain explicit information on how to
         // scramble puzzle stones. According to that information
         // a "scramble" message is send to specific puzzle stones
@@ -1308,7 +1316,7 @@ Value PuzzleStone::message(const string& msg, const Value &val) {
         // enigma levels may create scramble messages using
         // AddScramble() and SetScrambleIntensity()
 
-        Direction dir = to_direction(val);
+        Direction dir = to_direction(m.value);
         Cluster   c;
         find_row_or_column_cluster(c, get_pos(), dir, oxyd1_compatible());
 
@@ -1324,8 +1332,9 @@ Value PuzzleStone::message(const string& msg, const Value &val) {
         else {
             warning("useless scramble (cluster size=%i)", size);
         }
+        return Value();
     }
-    return Value();
+    return Object::message(m);
 }
 
 void PuzzleStone::on_impulse(const Impulse& impulse) 
@@ -1521,7 +1530,7 @@ void PuzzleStone::actor_hit(const StoneContact &sc)
 void PuzzleStone::actor_contact (Actor *a)
 {
     if (state == EXPLODING)
-        SendMessage (a, "shatter");
+        SendMessage(a, "shatter");
 }
 
 
@@ -1544,7 +1553,7 @@ namespace
         void set_state(State st) { state=st; }
 
         void change_state(State newstate) ;
-        virtual Value message(const string &m, const Value &);
+        virtual Value message(const Message &m);
     private:
         // DoorBase interface
         virtual string model_basename() { return get_kind(); }
@@ -1570,18 +1579,21 @@ namespace
     };
 }
 
-Value DoorBase::message(const string &m, const Value &val) {
+Value DoorBase::message(const Message &m) {
     State newstate = state;
 
-    if (m == "open")
+    if (m.message == "open") {
         newstate = OPENING;
-    else if (m == "close")
+    } else if (m.message == "close") {
         newstate = CLOSING;
-    else if (m == "openclose")
+    } else if (m.message == "openclose") {
         newstate = (state==OPEN || state==OPENING) ? CLOSING : OPENING;
-    else if (m == "signal")
-        newstate = val.to_bool() ? OPENING : CLOSING;
-
+    } else if (m.message == "signal") {
+        newstate = m.value.to_bool() ? OPENING : CLOSING;
+    } else {
+        return Object::message(m);
+    }
+    
     if (newstate==OPENING && (state==CLOSED || state==CLOSING))
         change_state(OPENING);
     else if (newstate==CLOSING && (state==OPEN || state==OPENING))
@@ -1675,15 +1687,16 @@ namespace
             return true;        // don't let door press buttons
         }
 
-        void actor_hit(const StoneContact &)
+        void actor_hit(const StoneContact &sc)
         {
+            Log << "door knocking\n";
             // door knocking
             Item *it = GetItem(get_pos());
             if (it != NULL && server::GameCompatibility != GAMET_PEROXYD 
                     && (server::GameCompatibility != GAMET_ENIGMA || server::EnigmaCompatibility < 1.10 ))
-                SendMessage(it, "signal", 1);
+                SendMessage(it, "hit", sc.actor);
             else
-                performAction(true);
+                performAction(sc.actor);
         }
 
         string model_basename() { return string("st-door")+get_type(); }
@@ -1706,12 +1719,12 @@ namespace
         CLONEOBJ(Door_c);
     public:
         Door_c() : DoorBase("st-door_c") {}
-        Value message(const string &m, const Value &val) {
-            if (m == "ignite" && server::GameCompatibility == GAMET_OXYD1) {
+        Value message(const Message &m) {
+            if (m.message == "ignite" && server::GameCompatibility == GAMET_OXYD1) {
                 KillStone(get_pos());  // TODO animation & sound
                 return Value();
             } else {
-                return DoorBase::message(m, val);
+                return DoorBase::message(m);
             }
         }
     };
@@ -1720,21 +1733,6 @@ namespace
         CLONEOBJ(Door_c_open);
     public:
         Door_c_open() : DoorBase("st-door_c", OPEN) {}
-        Value message(const string &m, const Value &val) {
-            State newstate = state;
-        
-            if (m == "signal") {
-                newstate = val.to_bool() ? CLOSING : OPENING;  // inverted
-                if (newstate==OPENING && (state==CLOSED || state==CLOSING))
-                    change_state(OPENING);
-                else if (newstate==CLOSING && (state==OPEN || state==OPENING))
-                    change_state(CLOSING);
-                return Value();
-            } else {
-                return DoorBase::message(m, val);
-            }
-        }
-
     };    
 }
 
@@ -1786,11 +1784,12 @@ namespace
         Holes get_holes() const;
         void notify_item();
 
-        virtual Value message(const string &m, const Value &) {
-            if (m == "init") { // request from ShogunDot (if set _after_ ShogunStone)
+        virtual Value message(const Message &m) {
+            if (m.message == "init") { // request from ShogunDot (if set _after_ ShogunStone)
                 notify_item();
+                return Value();
             }
-            return Value();
+            return Object::message(m);
         }
 
         void add_hole(Holes h) {
@@ -1943,19 +1942,21 @@ namespace
 
         virtual void notify_state(State st) = 0;
 
-        virtual Value message(const string &m, const Value &value) {
-            if (m=="trigger") {
-                incoming = (value.getType() == Value::DOUBLE)
-                    ? Direction( static_cast<int> (value.get_double()+0.1))
+        virtual Value message(const Message &m) {
+            if (m.message == "trigger") {
+                incoming = (m.value.getType() == Value::DOUBLE)
+                    ? Direction( static_cast<int> (m.value.get_double()+0.1))
                     : NODIR;
 
                 change_state(PULSING);
+                return Value();
             }
-            else if (m == "signal" && to_double (value) != 0) {
+            else if (m.message == "signal" && to_double(m.value) != 0) {
                 incoming = NODIR;
                 change_state (PULSING);
+                return Value();
             }
-            return Value();
+            return Object::message(m);
         }
 
         void animcb() {
@@ -2185,7 +2186,7 @@ namespace
 
     private:
         // Object interface
-        virtual Value on_message (const Message &m);
+        virtual Value message(const Message &m);
         virtual void animcb();
 
         // Private methods
@@ -2329,16 +2330,17 @@ void Turnstile_Pivot_Base::animcb()
     active = false;
 }
 
-Value Turnstile_Pivot_Base::on_message (const Message &m)
+Value Turnstile_Pivot_Base::message(const Message &m)
 {
     if (m.message == "signal") {
-        int val = to_int (m.value);
+        int val = m.value;
         if (val == 1)
             rotate(false, 0);
         else
             rotate(true, 0);
+        return Value();
     }
-    return Value();
+    return Object::message(m);
 }
 
 
@@ -2749,7 +2751,7 @@ namespace
         void init_model();
         void animcb();
         void set_attrib(const string& key, const Value &val);
-        virtual Value message(const string &msg, const Value &v);
+        virtual Value message(const Message &m);
         void actor_hit(const StoneContact &sc);
         void on_impulse(const Impulse& impulse) {}
         void alarm();
@@ -2917,31 +2919,34 @@ namespace
         }
     }
 
-    Value ChessStone::message(const string &msg, const Value &v) {
-        if(msg == "capture") {
-            if(state == IDLE && v.to_string() != get_model_name())
+    Value ChessStone::message(const Message &m) {
+        if(m.message == "capture") {
+            if(state == IDLE && m.value.to_string() != get_model_name())
                 if(try_state(CAPTURED)) {
                     set_anim(get_model_name() + "-captured");
                     return Value(1);
                 }
             return Value();
-        } else if(msg == "move_nne") { return message_move(NORTH, EAST); }
-        else   if(msg == "move_een") { return message_move(EAST, NORTH); }
-        else   if(msg == "move_ees") { return message_move(EAST, SOUTH); }
-        else   if(msg == "move_sse") { return message_move(SOUTH, EAST); }
-        else   if(msg == "move_ssw") { return message_move(SOUTH, WEST); }
-        else   if(msg == "move_wws") { return message_move(WEST, SOUTH); }
-        else   if(msg == "move_wwn") { return message_move(WEST, NORTH); }
-        else   if(msg == "move_nnw") { return message_move(NORTH, WEST); }
-        else   if(msg == "move") {
+        } else if(m.message == "move_nne") { return message_move(NORTH, EAST); }
+        else   if(m.message == "move_een") { return message_move(EAST, NORTH); }
+        else   if(m.message == "move_ees") { return message_move(EAST, SOUTH); }
+        else   if(m.message == "move_sse") { return message_move(SOUTH, EAST); }
+        else   if(m.message == "move_ssw") { return message_move(SOUTH, WEST); }
+        else   if(m.message == "move_wws") { return message_move(WEST, SOUTH); }
+        else   if(m.message == "move_wwn") { return message_move(WEST, NORTH); }
+        else   if(m.message == "move_nnw") { return message_move(NORTH, WEST); }
+        else   if(m.message == "move") {
             Direction dir1 = to_direction(getAttr("direction1"));
             Direction dir2 = to_direction(getAttr("direction2"));
             return message_move(dir1, dir2);
-        } else if(msg == "signal") { set_color(to_int(v)); }
-        else   if(msg == "flip") { set_color(1 - (int)getAttr("color")); }
-        else
-            return Stone::message(msg, v);
-        return Value();
+        } else if(m.message == "signal") {
+            set_color(to_int(m.value));
+            return Value();
+        } else if(m.message == "flip") {
+            set_color(1 - (int)getAttr("color"));
+            return Value();
+        }
+        return Object::message(m);
     }
 
     Value ChessStone::message_move(Direction dir1, Direction dir2) {
@@ -3119,13 +3124,24 @@ namespace
             }
         }
 
-        virtual Value message (const string &msg, const Value &v) {
-            if      (msg == "onoff")   set_on(state == INACTIVE);
-            else if (msg == "signal")  set_on(to_int(v) != 0);
-            else if (msg == "on")      set_on(true);
-            else if (msg == "off")     set_on(false);
-            else if (msg == "trigger") set_on(state == INACTIVE);
-            return Value();
+        virtual Value message (const Message &m) {
+            if (m.message == "onoff") {
+                set_on(state == INACTIVE);
+                return Value();
+            } else if (m.message == "signal") {
+                set_on(to_int(m.value) != 0);
+                return Value();
+            } else if (m.message == "on") {
+                set_on(true);
+                return Value();
+            } else if (m.message == "off") {
+                set_on(false);
+                return Value();
+            } else if (m.message == "trigger") {
+                set_on(state == INACTIVE);
+                return Value();
+            }
+            return Object::message(m);
         }
 
         void alarm() {

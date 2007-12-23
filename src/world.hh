@@ -55,16 +55,13 @@ namespace enigma {
 
     struct Message {
         // Variables
-        std::string    message;
-        Value  value;
-        GridPos        gridpos;
+        std::string message;
+        Value value;
+        Object *sender;
 
         // Constructors
         Message ();
-        Message (const std::string &message,
-                 const Value &value,
-                 GridPos gridpos = GridPos());
-
+        Message (const std::string &message, const Value &value, Object *sender);
     };
 
 
@@ -250,9 +247,8 @@ namespace enigma {
     void BroadcastMessage (const std::string& msg, const Value& value, 
                            GridLayerBits grids);
 
-    Value SendMessage (Object *o, const string &msg);
-    Value SendMessage (Object *o, const string &msg, const Value& value);
-    Value SendMessage (Object *o, const Message &m);
+    Value SendMessage (Object *obj, const string &msg, const Value& value = Value(), Object *sender = NULL);
+    Value SendMessage (Object *obj, const Message &m);
 
 
 

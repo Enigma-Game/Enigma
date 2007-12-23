@@ -439,7 +439,7 @@ void LaserStone::init_model()
     set_model(mname);
 }
 
-
+
 /* -------------------- MirrorStone -------------------- */
 namespace
 {
@@ -470,7 +470,7 @@ namespace
         StoneTraits traits;
 
 	// Object interface.
-        virtual Value message(const string &m, const Value &);
+        virtual Value message(const Message &m);
 
         // LaserEmitter interface
         DirectionBits emission_directions() const {
@@ -519,36 +519,42 @@ void MirrorStone::init_model() {
     set_model(mname);
 }
 
-Value MirrorStone::message(const string &m, const Value &val) {
-    if (m == "trigger" || m=="turn") {
+Value MirrorStone::message(const Message &m) {
+    if (m.message == "trigger" || m.message == "turn") {
         rotate_right();
+        return Value();
     }
-    else if (m == "signal") {
-        if (to_double(val) != 0) {
+    else if (m.message == "signal") {
+        if (to_double(m.value) != 0) {
             rotate_right();
         }
+        return Value();
     }
-    else if (m == "mirror-north") {
+    else if (m.message == "mirror-north") {
         set_orientation(3);
         init_model();
         MaybeRecalcLight(get_pos());
+        return Value();
     }
-    else if (m == "mirror-east") {
+    else if (m.message == "mirror-east") {
         set_orientation(4);
         init_model();
         MaybeRecalcLight(get_pos());
+        return Value();
     }
-    else if (m == "mirror-south") {
+    else if (m.message == "mirror-south") {
         set_orientation(1);
         init_model();
         MaybeRecalcLight(get_pos());
+        return Value();
     }
-    else if (m == "mirror-west") {
+    else if (m.message == "mirror-west") {
         set_orientation(2);
         init_model();
         MaybeRecalcLight(get_pos());
+        return Value();
     }
-    return Value();
+    return Object::message(m);
 }
 
 void MirrorStone::actor_hit(const StoneContact &sc)

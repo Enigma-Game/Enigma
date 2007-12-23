@@ -428,13 +428,14 @@ namespace
             turn();
         }
 
-        virtual Value on_message(const Message &m)
+        virtual Value message(const Message &m)
         {
             if (m.message == "signal" || m.message == "trigger") {
                 if (server::GameCompatibility == enigma::GAMET_ENIGMA || m.value == 1)
                     turn();
+                return Value();
             }
-            return Value();
+            return Object::message(m);
         }
 
         const char *collision_sound() { return "metal"; }

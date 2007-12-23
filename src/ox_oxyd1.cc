@@ -406,7 +406,7 @@ ITEMMAPTYPE oxyd::oxyd1_item_map[256] = {
     ITEMSPEC(it_UNUSED),                  // 0x5c
     ITEMSPEC(it_UNUSED),                  // 0x5d
     ITEMSPEC(it_UNUSED),                  // 0x5e
-    ITEMSPEC(it_oxyd5f),                  // 0x5f
-    ITEMSPEC(it_drop),                  // 0x60    drop (turns actor into rotor)
+    ITEMSPEC(it_sensor),                  // 0x5f
+    ITEMSPEC(it_drop),                    // 0x60    drop (turns actor into rotor)
     // codes >= 0x61 are unused
 };

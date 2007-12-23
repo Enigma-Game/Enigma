@@ -56,26 +56,26 @@ void Floor::dispose() {
     delete this;
 }
 
-Value Floor::message(const string &msg, const Value &val) {
+Value Floor::message(const Message &m) {
     // "init"     : Start burning, if "initfire" is set.
     // "heat"     : Heat the item, heat-transform floor
     //                 or maybe set fire to it (if burnable).
     // "setfire"  : Just try to make fire (if burnable).
     // "forcefire": Force fire, even on unburnable floor.
     // "stopfire" : Stop fire, put ash but don't transform floor.
-    if(msg == "init" && has_firetype(flft_initfire))
+    if (m.message == "init" && has_firetype(flft_initfire))
         return force_fire();
-    if(msg == "heat")
+    if (m.message == "heat")
         return try_heating(NODIR, flhf_message);
-    if((msg == "ignite" || msg == "expl") && has_firetype(flft_ignitable))
+    if ((m.message == "ignite" || m.message == "expl") && has_firetype(flft_ignitable))
         return try_ignite(NODIR, flhf_message);
-    if(msg == "setfire")
+    if (m.message == "setfire")
         return try_ignite(NODIR, flhf_message);
-    if(msg == "forcefire")
+    if (m.message == "forcefire")
         return force_fire();
-    if(msg == "stopfire")
+    if (m.message == "stopfire")
         return stop_fire(true);
-    return Object::message(msg, val);
+    return Object::message(m);
 }
 
 ecl::V2 Floor::process_mouseforce (Actor *a, ecl::V2 force) {
@@ -705,7 +705,7 @@ namespace
         CLONEOBJ(Bridge);
     public:
         Bridge(bool open=true);
-        virtual Value message(const string &m, const Value &);
+        virtual Value message(const Message &m);
     private:
         enum State {
             OPEN, CLOSED, OPENING, CLOSING, // normal states
@@ -748,41 +748,44 @@ void Bridge::stone_change(Stone *st) {
     }
 }
 
-Value Bridge::message(const string &m, const Value &)
+Value Bridge::message(const Message &m)
 {
-    if (m == "open" && (state==CLOSED || state==CLOSING))
+    if (m.message == "open" && (state==CLOSED || state==CLOSING)) {
         change_state(OPENING);
-    else if (m=="close")
+        return Value();
+    } else if (m.message == "close") {
         switch (state) {
-        case OPEN:
-        case OPENING:
-        case CLOSING_BYSTONE:
-            change_state(CLOSING);
-            break;
-        case CLOSED_BYSTONE:
-            change_state(CLOSED);
-            break;
-        case CLOSED:
-        case CLOSING:
-            break; // already closed
-
+            case OPEN:
+            case OPENING:
+            case CLOSING_BYSTONE:
+                change_state(CLOSING);
+                break;
+            case CLOSED_BYSTONE:
+                change_state(CLOSED);
+                break;
+            case CLOSED:
+            case CLOSING:
+                break; // already closed
         }
-    else if (m=="openclose" || m=="signal")
+        return Value();
+    } else if (m.message == "openclose" || m.message == "signal") {
         switch (state) {
-        case OPEN:
-        case OPENING:
-        case CLOSING_BYSTONE:
-            change_state(CLOSING);
-            break;
-        case CLOSED_BYSTONE:
-            change_state(CLOSED);
-            break;
-        case CLOSED:
-        case CLOSING:
-            change_state(OPENING);
-            break;
+            case OPEN:
+            case OPENING:
+            case CLOSING_BYSTONE:
+                change_state(CLOSING);
+                break;
+            case CLOSED_BYSTONE:
+                change_state(CLOSED);
+                break;
+            case CLOSED:
+            case CLOSING:
+                change_state(OPENING);
+                break;
         }
-    return Value();
+        return Value();
+    }
+    return Floor::message(m);
 }
 
 void Bridge::init_model()
@@ -862,7 +865,7 @@ namespace{
         void actor_enter(Actor* a);
         void animcb();
         void steal();
-        virtual Value message(const string &msg, const Value &v);        
+        virtual Value message(const Message &m);        
     };
 }
 
@@ -952,8 +955,8 @@ void Thief::steal()
         sound_event("thief");
 }
 
-Value Thief::message(const string &msg, const Value &v) {
-    if(msg == "capture" && state == IDLE) {
+Value Thief::message(const Message &m) {
+    if(m.message == "capture" && state == IDLE) {
         state = CAPTURED;
         Item * it =  GetItem(get_pos());
         
@@ -967,8 +970,8 @@ Value Thief::message(const string &msg, const Value &v) {
         bag = NULL;
         set_anim(get_modelname() + string("-captured"));
         return Value(1);
-    } else
-        return Floor::message(msg, v);
+    }
+    return Floor::message(m);
 }
 
 //----------------------------------------

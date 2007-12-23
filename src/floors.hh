@@ -94,7 +94,7 @@ namespace enigma {
         // Object interface
         Floor *clone();
         void dispose();
-        virtual Value message(const string& msg, const Value &val);
+        virtual Value message(const Message &m);
         virtual void set_attrib (const string& key, const Value &val);
 
         // Floor interface

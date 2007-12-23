@@ -854,23 +854,28 @@ namespace enigma {
         delete this;
     }
     
-    Value OxydStone::message(const string &m, const Value &val) {
-        if (m=="closeall") {
+    Value OxydStone::message(const Message &m) {
+        if (m.message == "closeall") {
             closeAllStandardOxyds();
+            return Value();
         }
-        else if (m=="shuffle") {
+        else if (m.message == "shuffle") {
             shuffleColors();
+            return Value();
         }
-        else if (m=="trigger" || m=="spitter") {
+        else if (m.message == "trigger" || m.message == "spitter") {
             tryOpen();
+            return Value();
         }
-        else if (m=="signal" && to_int(val) != 0) {
+        else if (m.message == "signal" && m.value != 0) {
             tryOpen();
+            return Value();
         }
-        else if (m=="init") {
+        else if (m.message == "init") {
             initColors();
+            return Value();
         }
-        return Value();
+        return Object::message(m);
     }
     
     void OxydStone::set_attrib(const string& key, const Value &val) {

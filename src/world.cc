@@ -85,17 +85,11 @@ ActorInfo::ActorInfo() : pos(), gridpos(), field(NULL), vel(), forceacc(),
 
 /* -------------------- Messages -------------------- */
 
-Message::Message ()
-{
+Message::Message () : sender (NULL) {
 }
  
-Message::Message (const std::string &message_,
-                  const Value &value_,
-                  GridPos from_)
-: message (message_),
-  value (value_),
-  gridpos (from_)
-{
+Message::Message (const std::string &theMessage, const Value &theValue, Object * theSender) : 
+        message (theMessage), value (theValue), sender (theSender) {
 }
 
 /* -------------------- RubberBandData -------------------- */
@@ -255,7 +249,6 @@ namespace
 
 enigma::Timer  GameTimer;
 bool           TrackMessages;
-Actor         *CurrentCollisionActor = 0;
 
 
 
@@ -1094,10 +1087,8 @@ void World::handle_stone_contact (StoneContact &sc)
             if (!has_nearby_contact(ai.last_contacts, ai.last_contacts_count, 
                     contact)) {
                 if (Stone *stone = GetStone(sc.stonepos)) {
-                    CurrentCollisionActor = a;
                     if (slow_collision) stone->actor_touch(sc);
                     else stone->actor_hit(sc);
-                    CurrentCollisionActor = 0;
 
                     if (!slow_collision) {
                         client::Msg_Sparkle (sc.contact_point);
@@ -1568,7 +1559,6 @@ void Resize (int w, int h)
 void WorldPrepareLevel ()
 {
     GameTimer.clear();
-    CurrentCollisionActor = 0;
     Resize (20, 13);
 }
 
@@ -1828,8 +1818,8 @@ void AddSignal (const GridLoc &srcloc, const GridLoc &dstloc, const string &msg)
             srcloc.pos.x, srcloc.pos.y, srcloc.layer, dstloc.pos.x, dstloc.pos.y, dstloc.layer, msg.c_str());
         return; // ignore signal
     }
-//    Log << ecl::strf("AddSignal: Valid signal destination src=%i/%i-%d dest=%i/%i-%d msg='%s'\n",
-//        srcloc.pos.x, srcloc.pos.y, srcloc.layer, dstloc.pos.x, dstloc.pos.y, dstloc.layer, msg.c_str());
+//    Log << ecl::strf("AddSignal: Valid signal destination src=%i/%i-%d (%s) dest=%i/%i-%d (%s) msg='%s'\n",
+//        srcloc.pos.x, srcloc.pos.y, srcloc.layer, src->get_kind(), dstloc.pos.x, dstloc.pos.y, dstloc.layer, dst->get_kind(), msg.c_str());
     
     Value dstValue(dst);
     
@@ -1891,22 +1881,17 @@ void AddSignal (const GridLoc &srcloc, const GridLoc &dstloc, const string &msg)
 }
 
 
-Value SendMessage(Object *o, const std::string &msg) 
+Value SendMessage(Object *obj, const std::string &msg, const Value& value, Object *sender)
 {
-    return SendMessage (o, Message (msg, Value()));
+    return SendMessage (obj, Message (msg, value, sender));
 }
 
-Value SendMessage(Object *o, const std::string &msg, const Value& value)
+Value SendMessage (Object *obj, const Message &m)
 {
-    return SendMessage (o, Message (msg, value));
-}
-
-Value SendMessage (Object *o, const Message &m)
-{
-    if (o) {
+    if (obj) {
         if (TrackMessages)
-            o->warning("will be sent message '%s' (with Value)", m.message.c_str());
-        return o->on_message(m);
+            obj->warning("will be sent message '%s' (with Value)", m.message.c_str());
+        return obj->message(m);
     }
     else if (TrackMessages) {
         fprintf(stderr, "Sending message '%s' to NULL-object\n", m.message.c_str());

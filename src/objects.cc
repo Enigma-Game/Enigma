@@ -108,13 +108,7 @@ int Object::getId() const {
     return id;
 }
 
-Value Object::on_message (const Message &m)
-{
-    return message (m.message, m.value);
-}
-
-Value Object::message(const string& /*msg*/, const Value &/*val*/)
-{
+Value Object::message(const Message &m) {
     return Value();
 }
 
@@ -209,10 +203,7 @@ void Object::performAction (const Value& val) {
                 action = "toggle";
             for (ObjectList::iterator oit = ol.begin(); oit != ol.end(); ++oit) {
                 if (*oit != NULL) {
-                    if (GridObject *go = dynamic_cast<GridObject*>(this)) {
-                        SendMessage(*oit, Message(action, val, go->get_pos()));
-                    } else
-                        SendMessage(*oit, Message(action, val));
+                    SendMessage(*oit, Message(action, val, this));                    
                 }
             }
         }
