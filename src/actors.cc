@@ -89,7 +89,6 @@ Actor * ActorsInRangeIterator::next() {
         const ActorTraits &get_traits() const { return traits; } \
 
 
-
 /* -------------------- Actor -------------------- */
 
 Actor::Actor (const ActorTraits &tr)
@@ -264,11 +263,12 @@ bool Actor::can_move() const {
     return true;
 }
 
-Value Actor::message(const string &m, const Value &) {
-    if (m == "init") {
+Value Actor::message(const Message &m) {
+    if (m.message == "init") {
         startingpos = get_pos();
+        return Value();
     }
-    return Value();
+    return Object::message(m);
 }
 
 bool Actor::sound_event (const char *name, double vol) {
@@ -285,8 +285,6 @@ void Actor::set_attrib(const string& key, const Value &val)
 }
 
 
-
-
 /* -------------------- RotorBase -------------------- */
 
 namespace
@@ -390,7 +388,7 @@ void RotorBase::think (double dtime)
     Actor::think(dtime);
 }
 
-
+
 /* -------------------- Rotor -------------------- */
 namespace
 {
@@ -412,7 +410,7 @@ ActorTraits Rotor::traits = {
     0.8f                        // mass
 };
 
-
+
 /* -------------------- Spinning top -------------------- */
 namespace
 {
@@ -434,7 +432,6 @@ ActorTraits Top::traits = {
     0.8f                        // mass
 };
 
-
 /* -------------------- Bug -------------------- */
 
 namespace
@@ -459,7 +456,6 @@ ActorTraits Bug::traits = {
 };
 
 
-
 /* -------------------- Horse -------------------- */
 
 namespace
@@ -547,7 +543,6 @@ void Horse::update_target () {
 
 
 
-
 /* -------------------- CannonBall -------------------- */
 
 namespace
@@ -610,7 +605,6 @@ void CannonBall::on_creation(const ecl::V2 &p)
 }
 
 
-
 /* -------------------- BasicBall -------------------- */
 namespace
 {
@@ -677,7 +671,7 @@ namespace
         bool can_be_warped() const { return state==NORMAL; }
 
         // Object interface.
-        virtual Value message(const string &m, const Value &);
+        virtual Value message(const Message &m);
 
         // ModelCallback interface.
         void animcb();
@@ -766,60 +760,102 @@ void BasicBall::change_state_noshield (State newstate)
         change_state(newstate);
 }
 
-Value BasicBall::message(const string &m, const Value &v) 
+Value BasicBall::message(const Message &m) 
 {
+    bool handled = false;
     switch (state) {
-    case NORMAL:
-        if (m == "shatter")         change_state_noshield(SHATTERING);
-        else if (m == "suicide")    change_state(SHATTERING);
-        else if (m == "laserhit")   change_state_noshield(SHATTERING);
-        else if (m == "drown")      change_state_noshield(DROWNING);
-        else if (m == "fall")       change_state_noshield(FALLING);
-        else if (m == "fallvortex") change_state(FALLING_VORTEX);
-        else if (m == "jump")       change_state(JUMPING);
-        else if (m == "appear")     change_state(APPEARING);
-        else if (m == "disappear")  change_state(DISAPPEARING);
-        break;
-    case JUMPING:
-        if (m == "shatter")         change_state_noshield(SHATTERING);
-        else if (m == "disappear")  change_state(DISAPPEARING);
-        break;
-    case DEAD:
-        if (m == "resurrect")       change_state(RESURRECTED);
-        break;
-    case FALLING_VORTEX:
-        if (m == "rise")            change_state(RISING_VORTEX); // vortex->vortex teleportation
-        else if (m == "appear")     change_state(APPEARING); // vortex->non-vortex teleportation
-        break;
-    case JUMP_VORTEX:
-        if (m == "laserhit")        change_state(SHATTERING);
-        break;
-    case APPEARING:
-        // ugly hack
-        if (m == "init")
-            Actor::message (m, v);
-        else if (m == "shatter")    change_state (SHATTERING);
-	break;
-    default:
-        break;
+        case NORMAL:
+            if (m.message == "shatter") {
+                change_state_noshield(SHATTERING);
+                handled = true;
+            } else if (m.message == "suicide") {
+                change_state(SHATTERING);
+                handled = true;
+            } else if (m.message == "laserhit") {
+                change_state_noshield(SHATTERING);
+                handled = true;
+            } else if (m.message == "drown") {
+                change_state_noshield(DROWNING);
+                handled = true;
+            } else if (m.message == "fall") {
+                change_state_noshield(FALLING);
+                handled = true;
+            } else if (m.message == "fallvortex") {
+                change_state(FALLING_VORTEX);
+                handled = true;
+            } else if (m.message == "jump") {
+                change_state(JUMPING);
+                handled = true;
+            } else if (m.message == "appear") {
+                change_state(APPEARING);
+                handled = true;
+            } else if (m.message == "disappear") {
+                change_state(DISAPPEARING);
+                handled = true;
+            }
+            break;
+        case JUMPING:
+            if (m.message == "shatter") {
+                change_state_noshield(SHATTERING);
+                handled = true;
+            } else if (m.message == "disappear") {
+                change_state(DISAPPEARING);
+                handled = true;
+            }
+            break;
+        case DEAD:
+            if (m.message == "resurrect") {
+                change_state(RESURRECTED);
+                handled = true;
+            }
+            break;
+        case FALLING_VORTEX:
+            if (m.message == "rise") {
+                change_state(RISING_VORTEX); // vortex->vortex teleportation
+            } else if (m.message == "appear") {
+                change_state(APPEARING); // vortex->non-vortex teleportation
+                handled = true;
+            }
+            break;
+        case JUMP_VORTEX:
+            if (m.message == "laserhit") {
+                change_state(SHATTERING);
+                handled = true;
+            }
+            break;
+        case APPEARING:
+            // ugly hack
+            if (m.message == "init") {
+                Actor::message (m);
+                handled = true;
+            } else if (m.message == "shatter") {
+                change_state (SHATTERING);
+                handled = true;
+            }
+    	    break;
+        default:
+            break;
     }
-
 
     // Shield, booze and invisibility can be activated in all states except DEAD
 
     if (state != DEAD) {
-        if (m == "shield") {
+        if (m.message == "shield") {
             m_shield_rest_time += SHIELD_TIME;
             update_halo();
+            handled = true;
         }
-        else if (m == "invisibility") {
+        else if (m.message == "invisibility") {
             m_invisible_rest_time += 8.0;
+            handled = true;
         }
-        else if (m == "booze") {
+        else if (m.message == "booze") {
             m_drunk_rest_time += 5.0; // Drunken for 5 more seconds
+            handled = true;
         }
     }
-    return Value();
+
+    return handled ? Value() : Actor::message(m);
 }
 
 void BasicBall::set_sink_model(const string &m)

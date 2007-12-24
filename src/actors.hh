@@ -115,7 +115,7 @@ namespace enigma {
 
         /* ---------- Object interface ---------- */
         Actor *clone() = 0;
-        virtual Value   message (const string &m, const Value &);
+        virtual Value message(const Message &m);
         void   set_attrib (const string& key, const Value &val);
 
         /* ---------- Actor interface ---------- */

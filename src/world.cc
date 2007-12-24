@@ -1576,7 +1576,7 @@ bool WorldInitLevel()
     {
         Actor *a = *i;
         a->on_creation(a->get_actorinfo()->pos);
-        a->message ("init", Value());
+        SendMessage(a, "init", Value());
 
         if (Value v = a->getAttr("player")) {
             int iplayer = v;
