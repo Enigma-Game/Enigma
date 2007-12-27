@@ -102,7 +102,7 @@ namespace enigma {
 
         virtual void notify_onoff(bool /*on*/) {}
 
-        virtual Value on_message(const Message &m)
+        virtual Value message(const Message &m)
         {
             const std::string &msg = m.message;
             if (m.message == "onoff") {

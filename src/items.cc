@@ -3521,7 +3521,7 @@ namespace
 
         virtual Value message(const Message &m) {
             if (m.message == "init") {
-                performAction(true);
+//                performAction(true);
                 return Value();
             }
             return Object::message(m);

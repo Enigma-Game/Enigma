@@ -1818,8 +1818,8 @@ void AddSignal (const GridLoc &srcloc, const GridLoc &dstloc, const string &msg)
             srcloc.pos.x, srcloc.pos.y, srcloc.layer, dstloc.pos.x, dstloc.pos.y, dstloc.layer, msg.c_str());
         return; // ignore signal
     }
-//    Log << ecl::strf("AddSignal: Valid signal destination src=%i/%i-%d (%s) dest=%i/%i-%d (%s) msg='%s'\n",
-//        srcloc.pos.x, srcloc.pos.y, srcloc.layer, src->get_kind(), dstloc.pos.x, dstloc.pos.y, dstloc.layer, dst->get_kind(), msg.c_str());
+    Log << ecl::strf("AddSignal: Valid signal destination src=%i/%i-%d (%s) dest=%i/%i-%d (%s) msg='%s'\n",
+        srcloc.pos.x, srcloc.pos.y, srcloc.layer, src->get_kind(), dstloc.pos.x, dstloc.pos.y, dstloc.layer, dst->get_kind(), msg.c_str());
     
     Value dstValue(dst);
     
