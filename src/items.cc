@@ -3514,7 +3514,7 @@ namespace
     };
     DEF_TRAITSF(ChangeFloorItem, "it-changefloor", it_changefloor,
                 itf_static | itf_invisible);
-
+}
 
 /* -------------------- Drop -------------------- */
 
@@ -3718,7 +3718,6 @@ void InitItems()
     RegisterItem (new OnePKillStone);
     RegisterItem (new OxydBridge);
     RegisterItem (new OxydBridgeActive);
-    RegisterItem (new Oxyd5fItem);
     RegisterItem (new Pencil);
     RegisterItem (new Pin);
     Pipe::setup();
