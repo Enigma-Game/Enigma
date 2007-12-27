@@ -391,7 +391,7 @@ ITEMMAPTYPE oxyd::oxydmag_item_map[256] = {
     ITEMSPEC(it_UNUSED),        // OxydMagnum item 0x5c
     ITEMSPEC(it_UNUSED),        // OxydMagnum item 0x5d
     ITEMSPEC(it_UNUSED),        // OxydMagnum item 0x5e
-    ITEMSPEC(it_oxyd5f),        // OxydMagnum item 0x5f
+    ITEMSPEC(it_signalfilter1), // OxydMagnum item 0x5f
     ITEMSPEC(it_drop),          // OxydMagnum item 0x60 (drunk)
     ITEMSPEC(it_UNUSED),        // OxydMagnum item 0x61 (rev. breaking area)
     ITEMSPEC(it_UNUSED),        // OxydMagnum item 0x62 (player exchange)

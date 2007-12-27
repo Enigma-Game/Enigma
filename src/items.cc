@@ -3515,24 +3515,6 @@ namespace
     DEF_TRAITSF(ChangeFloorItem, "it-changefloor", it_changefloor,
                 itf_static | itf_invisible);
 
-    class Oxyd5fItem : public Item {
-        CLONEOBJ(Oxyd5fItem);
-        DECL_TRAITS;
-
-        virtual Value message(const Message &m) {
-            if (m.message == "init") {
-//                performAction(true);
-                return Value();
-            }
-            return Object::message(m);
-        }
-    public:
-        Oxyd5fItem()
-        {}
-    };
-    DEF_TRAITSF(Oxyd5fItem, "it-oxyd5f", it_oxyd5f,
-                itf_static | itf_invisible | itf_fireproof);
-}
 
 /* -------------------- Drop -------------------- */
 

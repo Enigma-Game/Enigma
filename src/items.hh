@@ -93,7 +93,6 @@ namespace enigma {
         it_magnet_off,
         it_magnet_on,
         it_odometer,
-        it_oxyd5f,
         it_pencil,
         it_pin,
         it_pipe_e, it_pipe_w, it_pipe_s, it_pipe_n,
