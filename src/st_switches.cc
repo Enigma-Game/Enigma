@@ -459,8 +459,6 @@ namespace
         virtual const char *get_inactive_model() const = 0;
         virtual double timer_delay() const;
 
-        bool inverse() { return getAttr("inverse") == 1; }
-
         // Stone interface
         void on_creation (GridPos p);
         void on_removal (GridPos p);
@@ -534,7 +532,7 @@ void LaserTimeSwitchBase::change_state(State newstate) {
     if (state == IDLE) {
 //         sound_event ("st-switch");
         set_model(get_active_model());
-        performAction(!inverse());
+        performAction(true);
         if (newstate == TOUCHED) {
             double delay = timer_delay();
             ASSERT(delay>0.0, XLevelRuntime, "LaserTimeSwitchBase: delay non-positive");
@@ -544,7 +542,7 @@ void LaserTimeSwitchBase::change_state(State newstate) {
     else if (newstate == IDLE) {
 //         sound_event ("st-switch");
         set_model(get_inactive_model());
-        performAction(inverse());
+        performAction(false);
     }
     else {
         // it's not allowed to switch from LIGHTED to TOUCHED

@@ -22,6 +22,7 @@
 
 #include "errors.hh"
 #include "game.hh"
+#include "main.hh"
 #include "lua.hh"
 #include "sound.hh"
 #include "world.hh"
@@ -172,7 +173,12 @@ namespace enigma {
         return Value(Value::DEFAULT);
     }
     
-    void Object::performAction (const Value& val) {
+    void Object::performAction(const Value& val) {
+        Value messageValue = val;
+        if (messageValue.getType() == Value::BOOL)   // bool values may be inverted
+            if (getDefaultedAttr("inverse", false).to_bool())
+                messageValue = !messageValue.to_bool();  // invert value
+
         TokenList targets = getAttr("target");
         TokenList actions = getAttr("action");
         if (Value state = getAttr("state")) {
@@ -193,7 +199,7 @@ namespace enigma {
                 if ((action == "callback" || action == "") && (tit->getType() == Value::STRING) 
                         && lua::IsFunc(lua::LevelState(), tit->get_string())) {
                     // it is an existing callback function
-                    if (lua::CallFunc(lua::LevelState(), tit->get_string(), val, this) != lua::NO_LUAERROR) {
+                    if (lua::CallFunc(lua::LevelState(), tit->get_string(), messageValue, this) != lua::NO_LUAERROR) {
                         throw XLevelRuntime(string("callback '") + tit->get_string() + "' failed:\n"+lua::LastError(lua::LevelState()));
                     }
                 }
@@ -205,7 +211,7 @@ namespace enigma {
                     action = "toggle";
                 for (ObjectList::iterator oit = ol.begin(); oit != ol.end(); ++oit) {
                     if (*oit != NULL) {
-                        SendMessage(*oit, Message(action, val, this));                    
+                        SendMessage(*oit, Message(action, messageValue, this));                    
                     }
                 }
             }
