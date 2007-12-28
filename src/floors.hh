@@ -135,10 +135,10 @@ namespace enigma {
     private:
         virtual void on_actorhit(Actor * /*a*/) {}
         // Fire logic
-        Value try_heating(Direction sourcedir, FloorHeatFlags flhf);
-        Value try_ignite(Direction sourcedir, FloorHeatFlags flhf);
-        Value force_fire();
-        Value stop_fire(bool is_message);
+        bool try_heating(Direction sourcedir, FloorHeatFlags flhf);
+        bool try_ignite(Direction sourcedir, FloorHeatFlags flhf);
+        bool force_fire();
+        bool stop_fire(bool is_message);
 
         // Traits and variables
         FloorTraits traits;

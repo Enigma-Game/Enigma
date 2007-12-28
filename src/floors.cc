@@ -212,18 +212,18 @@ int Floor::get_fire_countdown() {
     return fire_countdown;
 }
 
-Value Floor::force_fire() {
+bool Floor::force_fire() {
     SetItem(get_pos(), it_burnable_ignited);
     fire_countdown = 0;
-    return Value(1.0);
+    return true;
 }
 
-Value Floor::try_ignite(Direction sourcedir, FloorHeatFlags flhf) {
+bool Floor::try_ignite(Direction sourcedir, FloorHeatFlags flhf) {
     GridPos p = get_pos();
 
     // Don't disturb heating-transformation
     if(heating_animation)
-        return Value();
+        return false;
 
     // No or floating stone -> Burn items and replicate.
     // Movable stone && enigma-mode -> Burn items and replicate.
@@ -236,7 +236,7 @@ Value Floor::try_ignite(Direction sourcedir, FloorHeatFlags flhf) {
         if (st->is_movable())
             no_closing_stone = false;
         else if(!st->is_floating())
-            return Value();
+            return false;
     }
 
     if(server::GameCompatibility == GAMET_ENIGMA) {
@@ -284,10 +284,10 @@ Value Floor::try_ignite(Direction sourcedir, FloorHeatFlags flhf) {
             }
         }
     }
-    return Value();  // meaning: no fire
+    return false;  // meaning: no fire
 }
 
-Value Floor::try_heating(Direction sourcedir, FloorHeatFlags flhf) {
+bool Floor::try_heating(Direction sourcedir, FloorHeatFlags flhf) {
     // First of all: How are we allowed to react at all?
     // There are four branches of heating:
     //
@@ -329,7 +329,7 @@ Value Floor::try_heating(Direction sourcedir, FloorHeatFlags flhf) {
     if(doIgnite && !reaction_happened)
         return this->try_ignite(sourcedir, flhf);
     // Else: return reaction_happened from item or heat-transform
-    return reaction_happened ? Value(1.0) : Value();
+    return reaction_happened;
 }
 
 bool Floor::on_heattransform(Direction sourcedir, FloorHeatFlags flhf) {
@@ -350,7 +350,7 @@ void Floor::heat_neighbor(Direction dir, FloorHeatFlags flhf) {
     }
 }
 
-Value Floor::stop_fire(bool is_message) {
+bool Floor::stop_fire(bool is_message) {
     // stop burning
     //   -> kill burnable-item
     //   -> transform floor?
@@ -364,9 +364,9 @@ Value Floor::stop_fire(bool is_message) {
         if(Item *it = GetItem(p)) {
             ItemID id = get_id(it);
             if(id != it_burnable_burning && id != it_burnable_ignited)
-                return Value();  // no fire
+                return false;  // no fire
         } else
-            return Value(); // no item == no fire
+            return false; // no item == no fire
 
     KillItem(p);
     fire_countdown = 1;
@@ -375,7 +375,7 @@ Value Floor::stop_fire(bool is_message) {
     // Remember, at this point "this" may be destroyed.
     if(!GetFloor(p)->has_firetype(flft_noash))
         SetItem(p, it_burnable_ash);
-    return Value(1.0); // fire extinguished  
+    return true; // fire extinguished  
 }
 
 void Floor::on_burnable_animcb(bool justIgnited) {
