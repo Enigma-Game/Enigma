@@ -20,7 +20,8 @@
 #define WORLD_HH_INCLUDED
 
 #include "enigma.hh"
-#include "objects.hh"
+#include "Object.hh"
+#include "GridObject.hh"
 #include "actors.hh"
 #include "floors.hh"
 #include "items.hh"

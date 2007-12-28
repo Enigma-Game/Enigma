@@ -21,7 +21,7 @@
 
 #include "enigma.hh"
 #include "ecl_geom.hh"
-#include "objects.hh"
+#include "GridObject.hh"
 #include <map>
 
 #ifdef CXXLUA

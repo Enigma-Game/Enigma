@@ -32,7 +32,6 @@
 #define ITEMSPEC(i) i
 #define ITEMMAPTYPE ItemID
 
-#include "objects.hh"
 #include "server.hh"
 #include "oxyd_internal.hh"
 

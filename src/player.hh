@@ -27,7 +27,6 @@
  * (currently always 1 or 2).
  */
 
-#include "objects.hh"
 #include "items.hh"
 #include "actors.hh"
 

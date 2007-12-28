@@ -19,7 +19,7 @@
 #ifndef STONES_HH_INCLUDED
 #define STONES_HH_INCLUDED
 
-#include "objects.hh"
+#include "GridObject.hh"
 
 namespace enigma {
     

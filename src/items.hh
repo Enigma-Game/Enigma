@@ -19,7 +19,7 @@
 #ifndef ITEMS_HH_INCLUDED
 #define ITEMS_HH_INCLUDED
 
-#include "objects.hh"
+#include "GridObject.hh"
 
 namespace enigma {
     

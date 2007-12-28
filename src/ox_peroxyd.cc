@@ -33,7 +33,6 @@
 #define ITEMSPEC(i) i
 #define ITEMMAPTYPE enigma::ItemID
 
-#include "objects.hh"
 #include "server.hh"
 #include "oxyd_internal.hh"
 

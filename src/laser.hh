@@ -22,7 +22,7 @@
 /* This file contains the declarations for (almost) everything that
    has to do with lasers. */
 
-#include "objects.hh"
+#include "GridObject.hh"
 #include "stones.hh"
 
 namespace enigma {

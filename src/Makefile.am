@@ -53,6 +53,8 @@ enigma_SOURCES = 		\
 	fwd.hh			\
 	game.cc			\
 	game.hh			\
+	GridObject.cc 		\
+	GridObject.hh 		\
 	Inventory.cc		\
 	Inventory.hh		\
 	ItemHolder.hh		\
@@ -82,8 +84,8 @@ enigma_SOURCES = 		\
 	network.hh		\
 	nls.cc 			\
 	nls.hh			\
-	objects.cc 		\
-	objects.hh 		\
+	Object.cc 		\
+	Object.hh 		\
 	oxyd.cc			\
 	oxyd.hh 		\
 	oxyd_internal.hh	\
@@ -119,10 +121,12 @@ enigma_SOURCES = 		\
 	util.hh			\
 	utilXML.cc		\
 	utilXML.hh		\
+	Value.cc		\
+	Value.hh		\
 	video.cc 		\
 	video.hh		\
-	WorldProxy.cc	\
-	WorldProxy.hh	\
+	WorldProxy.cc		\
+	WorldProxy.hh		\
 	world.cc 		\
 	world.hh 		\
 	world_internal.hh	\

@@ -19,7 +19,7 @@
 #ifndef ACTORS_HH_INCLUDED
 #define ACTORS_HH_INCLUDED
 
-#include "objects.hh"
+#include "Object.hh"
 
 namespace enigma {
 
