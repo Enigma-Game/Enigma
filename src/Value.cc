@@ -210,6 +210,14 @@ namespace enigma {
         return (int) *this != i;
     }
     
+    bool Value::operator<=(int i) const {
+        return (int) *this <= i;
+    }
+    
+    bool Value::operator>=(int i) const {
+        return (int) *this >= i;
+    }
+    
     Value::operator bool() const {
         if (isDefault())
             return false;

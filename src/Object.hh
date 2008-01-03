@@ -156,7 +156,10 @@ namespace enigma {
          * doors or switching lasers on and off). It interprets the
          * "action" and "target" attributes of `o'. 
          */
-        void performAction(const Value& val);
+        void performAction(const Value &val);
+        
+        virtual Value invertActionValue(const Value &val) const;
+        
     private:
         friend void InitWorld();   // for bootFinished() access
         

@@ -166,14 +166,14 @@ const char *oxyd::oxydmag_stone_map[256] = {
     "st-plain_hole",            // OxydMagnum stone 0x29
     "st-plain_move",            // OxydMagnum stone 0x2a
     "st-wood",                  // OxydMagnum stone 0x2b
-    "st-switch",                // OxydMagnum stone 0x2c
+    "st_switch",                // OxydMagnum stone 0x2c
     "st-floppy",                // OxydMagnum stone 0x2d (in normal Oxyd Magnum Levels unused!)
     UNUSED,                     // OxydMagnum stone 0x2e
-    "st-fourswitch",            // OxydMagnum stone 0x2f (Level 89 and 92)
+    "st_fourswitch",            // OxydMagnum stone 0x2f (Level 89 and 92)
     "st-key",                   // OxydMagnum stone 0x30
     "st-floppy",                // OxydMagnum stone 0x31
     "st-knight",                // OxydMagnum stone 0x32
-    "st-fourswitch",            // OxydMagnum stone 0x33 (Level 51 and 100)
+    "st_fourswitch",            // OxydMagnum stone 0x33 (Level 51 and 100)
     "st-death",                 // OxydMagnum stone 0x34
     "st-death_invisible",       // OxydMagnum stone 0x35
     "st-oneway_black-w",        // OxydMagnum stone 0x36
@@ -268,7 +268,7 @@ const char *oxyd::oxydmag_stone_map[256] = {
     UNUSED,                     // OxydMagnum stone 0x8f
     "st-redrock",               // OxydMagnum stone 0x90 (Level 89 only)
     UNUSED,                     // OxydMagnum stone 0x91
-    "st-fourswitch",            // OxydMagnum stone 0x92 (Level 51 only)
+    "st_fourswitch",            // OxydMagnum stone 0x92 (Level 51 only)
     "st-yinyang1",              // OxydMagnum stone 0x93
     "st-break_acwhite",         // OxydMagnum stone 0x94
     "st-break_acblack",         // OxydMagnum stone 0x95

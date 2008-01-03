@@ -196,10 +196,10 @@ const char *oxyd::oxyd1_stone_map[256] = {
     "st-plain_hole",            // Oxyd1 stone 0x29
     "st-plain_move",            // Oxyd1 stone 0x2a
     "st-wood",                  // Oxyd1 stone 0x2b
-    "st-switch",                // Oxyd1 stone 0x2c
-    "st-switch_black",          // Oxyd1 stone 0x2d
-    "st-switch_white",          // Oxyd1 stone 0x2e
-    "st-fourswitch",            // Oxyd1 stone 0x2f
+    "st_switch",                // Oxyd1 stone 0x2c
+    "st_switch_black",          // Oxyd1 stone 0x2d
+    "st_switch_white",          // Oxyd1 stone 0x2e
+    "st_fourswitch",            // Oxyd1 stone 0x2f
     "st-key",                   // Oxyd1 stone 0x30
     "st-floppy",                // Oxyd1 stone 0x31
     "st-knight",                // Oxyd1 stone 0x32
@@ -298,7 +298,7 @@ const char *oxyd::oxyd1_stone_map[256] = {
     UNUSED,                     // Oxyd1 stone 0x8f
     "st-whiteballs",            // Oxyd1 stone 0x90
     "st-blackballs",            // Oxyd1 stone 0x91
-    "st-fourswitch",            // Oxyd1 stone 0x92
+    "st_fourswitch",            // Oxyd1 stone 0x92
     "st-yinyang1",              // Oxyd1 stone 0x93
     "st-break_acwhite",         // Oxyd1 stone 0x94
     "st-break_acblack",         // Oxyd1 stone 0x95

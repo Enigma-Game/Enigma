@@ -1851,7 +1851,7 @@ void AddSignal (const GridLoc &srcloc, const GridLoc &dstloc, const string &msg)
     // fourswitch: 4 subsequent AddSignal calls for state specific signals
     if (src->getObjectType() == Object::STONE
             && get_id(dynamic_cast<Stone *>(src)) == st_fourswitch) {
-        for (int i = 0;; i++) {
+        for (int i = NORTH;; i--) {
             if (!src->getAttr(ecl::strf("target_%d", i))) {
                 target_key = ecl::strf("target_%d", i);
                 action_key = ecl::strf("action_%d", i);

@@ -1,5 +1,6 @@
 ------------------------------------------------------------------------
 -- Copyright (C) 2002,2003,2004,2005 Daniel Heck
+-- Copyright (C) 2007,2008 Ronald Lamprecht
 --
 -- This program is free software; you can redistribute it and/or
 -- modify it under the terms of the GNU General Public License
@@ -34,15 +35,57 @@ math.randomseed = function () end
 -- Compatibility for old API --
 -------------------------------
 
+enigma._MakeObject = enigma.MakeObject
+enigma._GetKind = enigma.GetKind
 enigma._SetAttrib = enigma.SetAttrib
 enigma._GetAttrib = enigma.GetAttrib
+
+RenamingObjectsOld2New = {
+}
+
+RenamingObjectsNew2Old = {
+    st_fourswitch = "st-fourswitch",
+    st_switch = "st-switch",
+    st_switch_black = "st-switch_black",
+    st_switch_white = "st-switch_white"
+}
+
+for k,v in pairs(RenamingObjectsNew2Old) do
+    RenamingObjectsOld2New[v] = k
+end
+
+function enigma.MakeObject(name)
+    newname = RenamingObjectsOld2New[name]
+    if newname ~= nil then
+        return enigma._MakeObject(newname)
+    else
+        return enigma._MakeObject(name)
+    end
+end
+
+function enigma.GetKind(obj)
+    local _newname = enigma._GetKind(obj)
+    local _oldname = RenamingObjectsNew2Old[_newname]
+    if _oldname ~= nil then
+        return _oldname
+    else
+        return _newname
+    end
+end
 
 function enigma.SetAttrib(obj, key, val)
      local _val = val
      local _key = key
-     if enigma.GetKind(obj) == "st-oxyd" then
+     local _obj_name = enigma.GetKind(obj)
+     if _obj_name == "st-oxyd" then
          if key == "color" then
 	     _val = 0 + val   -- convert to int
+	 end
+     end
+     if (_obj_name == "st-switch") or (_obj_name == "st-switch_black")
+             or (_obj_name == "st-switch_black") then
+         if key == "on" then
+	     _key = "state"   -- new attr name
 	 end
      end
      if key == "targetx" then
@@ -68,8 +111,18 @@ end
 
 function enigma.GetAttrib(obj, key)
      local _key = key
-     local val = enigma._GetAttrib(obj, key)
-     if enigma.GetKind(obj) == "st-oxyd" then
+     local _obj_name = enigma.GetKind(obj)
+
+     if (_obj_name == "st-switch") or (_obj_name == "st-switch_black")
+             or (_obj_name == "st-switch_black") then
+         if key == "on" then
+	     _key = "state"
+	 end
+     end
+
+     local val = enigma._GetAttrib(obj, _key)
+     
+     if _obj_name == "st-oxyd" then
          if key == "color" then
 	     val = "" .. val   -- convert to string
 	 end
@@ -89,6 +142,11 @@ function enigma.GetAttrib(obj, key)
      return val
 end
 
+MessageRenaming = {
+    st_switch__onoff = "toggle",
+    st_switch_black__onoff = "toggle",
+    st_switch_white__onoff = "toggle"
+}
 ----------------------
 -- old API 1.0      --
 ----------------------

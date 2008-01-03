@@ -57,7 +57,7 @@ namespace enigma {
         }
         virtual bool is_sticky(const Actor *a) const;
         StoneResponse collision_response(const StoneContact &sc);
-        virtual Value message(const string &msg, const Value &val);
+        virtual Value message(const Message &m);
     private:
         DirectionBits breakingFaces;
         bool tryInnerPull(Direction dir);

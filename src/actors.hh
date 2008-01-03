@@ -19,7 +19,7 @@
 #ifndef ACTORS_HH_INCLUDED
 #define ACTORS_HH_INCLUDED
 
-#include "Object.hh"
+#include "StateObject.hh"
 
 namespace enigma {
 
@@ -104,7 +104,7 @@ namespace enigma {
     };
 
 
-    class Actor : public Object, public display::ModelCallback {
+    class Actor : public StateObject, public display::ModelCallback {
         friend class World;
         friend class ActorsInRangeIterator;
     public:

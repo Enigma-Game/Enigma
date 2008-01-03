@@ -20,7 +20,7 @@
 #ifndef GRIDOBJECT_HH
 #define GRIDOBJECT_HH
 
-#include "Object.hh"
+#include "StateObject.hh"
 
 #include "display.hh"
 #include "ecl_alist.hh"
@@ -39,10 +39,10 @@ namespace enigma {
      * placed on "The Grid", i.e., for floor tiles, items, and
      * stones. 
      */
-    class GridObject : public Object, public display::ModelCallback {
+    class GridObject : public StateObject, public display::ModelCallback {
     public:
         GridObject() : pos (GridPos(-1, -1)) {}
-        GridObject(const char * kind) : Object(kind), pos (GridPos(-1, -1)) {}
+        GridObject(const char * kind) : StateObject(kind), pos (GridPos(-1, -1)) {}
 
         void creation(GridPos p) {
             pos = p;
@@ -74,6 +74,8 @@ namespace enigma {
          * players will return positions outside of the world. 
          */
         GridPos getOwnerPos();
+        
+        virtual bool isDisplayable() {return pos.x >= 0;}
 
         // GridObject interface
         virtual void on_laserhit (Direction) {}
@@ -104,6 +106,9 @@ namespace enigma {
         virtual void on_removal (GridPos p) {
             kill_model (p);
         }
+
+        // StateObject interface
+        virtual void setState(int extState);
 
     private:
         // ModelCallback interface.

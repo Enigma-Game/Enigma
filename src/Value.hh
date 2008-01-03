@@ -138,6 +138,8 @@ namespace enigma {
         bool operator==(int i) const;          ///< Compare value with int without casting.
                                                ///< f.e <code>if (v == 2)</code>
         bool operator!=(int i) const;          ///< Compare value with int without casting
+        bool operator<=(int i) const;          ///< Compare value with int without casting
+        bool operator>=(int i) const;          ///< Compare value with int without casting
         
         /**
          * Test of a value for explicit existence besides a default.

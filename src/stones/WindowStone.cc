@@ -85,11 +85,11 @@ namespace enigma {
         }
     }
     
-    Value WindowStone::message(const string &msg, const Value &val) {
-        if (msg == "inner_pull" ) {
-            return Value(tryInnerPull(to_direction(val)));
+    Value WindowStone::message(const Message &m) {
+        if (m.message == "inner_pull" ) {
+            return Value(tryInnerPull(to_direction(m.value)));
         }
-        return Value();
+        return ConnectiveStone::message(m);
     }
     
     bool WindowStone::tryInnerPull(Direction dir) {

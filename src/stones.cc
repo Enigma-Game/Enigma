@@ -367,7 +367,7 @@ namespace
                 performAction(m.value);
                 return Value();
             }
-            return Object::message(m);
+            return Stone::message(m);
         }
     private:
         double get_charge() {
@@ -671,7 +671,7 @@ namespace
                 ReplaceStone(get_pos(), MakeStone("st-plain_hole"));
                 return Value();
             }
-            return Object::message(m);
+            return Stone::message(m);
         }
         void actor_hit (const StoneContact &sc) {
             if (player::WieldedItemIs (sc.actor, "it-pencil")) {
@@ -702,7 +702,7 @@ namespace
                 ReplaceStone(get_pos(), MakeStone("st-plain"));
                 return Value();
             }
-            return Object::message(m);
+            return Stone::message(m);
         }
 
         StoneResponse collision_response(const StoneContact &) 
@@ -751,7 +751,7 @@ namespace
                 break_me();
                 return Value();
             }
-            return Object::message(m);
+            return Stone::message(m);
         }
         void actor_hit (const StoneContact &sc) {
             if (player::WieldedItemIs (sc.actor, "it-hammer")) {
@@ -792,7 +792,7 @@ namespace
                 break_me();
                 return Value();
             }
-            return Object::message(m);
+            return Stone::message(m);
         }
         const char *collision_sound() {return "metal";}
     public:
@@ -834,7 +834,7 @@ namespace
                 break_me();
                 return Value();
             }
-            return Object::message(m);
+            return Stone::message(m);
         }
         void on_move() {
             Stone::on_move();
@@ -909,7 +909,7 @@ namespace
                     }
                 }
             }
-            return Object::message(m);
+            return Stone::message(m);
         }
     public:
         BlackBallsStone() : Stone ("st-blackballs") {
@@ -948,7 +948,7 @@ namespace
                     }
                 }
             }
-            return Object::message(m);
+            return Stone::message(m);
         }
 
     public:

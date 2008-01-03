@@ -147,7 +147,7 @@ namespace
                 }
                 return Value();
             }
-            return Object::message(m);
+            return Stone::message(m);
         }
 
         const SimpleStoneTraits *traits; // owned by simple_stone_traits
@@ -278,7 +278,7 @@ namespace
                 KillStone (get_pos());
                 return Value();
             }
-            return Object::message(m);
+            return Stone::message(m);
         }
     public:
         EasyModeStone() 
@@ -554,6 +554,14 @@ namespace
                 set_anim(get_break_anim());
             }
         }
+        
+        virtual Value message(const Message &m) {
+            if (m.message =="ignite" || m.message == "expl" || m.message == "bombstone") {
+                break_me();
+                return Value();
+            }
+            return Stone::message(m);
+        }
     private:
         const char *collision_sound() { return "stone"; }
 
@@ -566,13 +574,6 @@ namespace
         }
         void animcb() {
             KillStone(get_pos());
-        }
-        virtual Value message(const Message &m) {
-            if (m.message =="ignite" || m.message == "expl" || m.message == "bombstone") {
-                break_me();
-                return Value();
-            }
-            return Object::message(m);
         }
 
         virtual string get_break_anim() const  {
@@ -667,7 +668,7 @@ namespace
                 break_me();
                 return Value();
             }
-            return Object::message(m);
+            return BreakableStone::message(m);
         }
     };
     DEF_TRAITSM(Break_bolder, "st-break_bolder", st_break_bolder, MOVABLE_BREAKABLE);
@@ -1017,7 +1018,7 @@ namespace
                 maybe_fall_or_stopfire();
                 return Value();
             }
-            return Object::message(m);
+            return Stone::message(m);
         }
 
         // in oxyd1 only fall when moving
@@ -1414,7 +1415,7 @@ Value FartStone::message(const Message &m)
         change_state(BREAKING);
         return Value();
     }
-    return Object::message(m);
+    return Stone::message(m);
 }
 
 
@@ -1523,7 +1524,7 @@ Value ThiefStone::message(const Message &m) {
         set_anim(string(get_kind()) + "-captured");
         return Value(1);
     }
-    return Object::message(m);
+    return Stone::message(m);
 }
 
 // -------------------------
@@ -1607,7 +1608,7 @@ namespace
                     return Value();
                 }
             } // GameCompatibility != GAMET_ENIGMA
-            return Object::message(m);
+            return ActorImpulseBase::message(m);
         }
 
     public:
@@ -1704,7 +1705,7 @@ namespace
                 init_model();
                 return Value();
             }
-            return Object::message(m);
+            return Stone::message(m);
         }
 
         bool is_floating() const { return true; }
@@ -1849,7 +1850,7 @@ Value BombStone::message(const Message &m)
         change_state(BREAK);
         return Value();
     }
-    return Object::message(m);
+    return Stone::message(m);
 }
 
 void BombStone::actor_hit(const StoneContact &sc) 
@@ -1965,7 +1966,7 @@ namespace
                 }
                 return Value();
             }
-            Object::message(m);
+            return DeathStone::message(m);
         }
     public:
         DeathStoneInvisible() : visible(false) {}
@@ -2031,7 +2032,7 @@ namespace
                 explode();
                 return Value();
             }
-            Object::message(m);
+            return Stone::message(m);
         }
 
         bool is_sticky(const Actor *) const 
@@ -2083,7 +2084,7 @@ namespace
                 darken();
                 return Value();
             }
-            return Object::message(m);
+            return Stone::message(m);
         }
     };
     class DiscoLight : public DiscoStone {
@@ -2224,7 +2225,7 @@ namespace
                 break_me();
                 return Value(1.0);
             }
-            return Object::message(m);
+            return Stone::message(m);
         }
 
         void actor_hit(const StoneContact &sc) {
@@ -2255,7 +2256,7 @@ namespace
                 break_me();
                 return Value();
             }
-            return Object::message(m);
+            return Stone::message(m);
         }
 
         void actor_hit(const StoneContact &sc) {

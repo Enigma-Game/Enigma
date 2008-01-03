@@ -107,6 +107,8 @@ enigma_SOURCES = 		\
 	sound.cc 		\
 	sound.hh 		\
 	sound_internal.hh	\
+	StateObject.cc		\
+	StateObject.hh		\
 	StateManager.cc		\
 	StateManager.hh		\
 	stones.cc 		\
@@ -188,8 +190,12 @@ enigma_SOURCES = 		\
 	lev/VolatileIndex.hh	\
 	stones/ConnectiveStone.cc	\
 	stones/ConnectiveStone.hh	\
+	stones/FourSwitch.cc	\
+	stones/FourSwitch.hh	\
 	stones/OxydStone.cc	\
 	stones/OxydStone.hh	\
+	stones/Switch.cc	\
+	stones/Switch.hh	\
 	stones/WindowStone.cc	\
 	stones/WindowStone.hh
 

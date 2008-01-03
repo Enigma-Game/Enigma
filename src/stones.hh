@@ -87,6 +87,7 @@ namespace enigma {
         st_stoneimpulse_movable,
         st_surprise,
         st_swap,
+        st_switch,
         st_thief,
         st_turnstile,
         st_turnstile_e,

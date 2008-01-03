@@ -30,136 +30,6 @@ using namespace std;
 
 namespace enigma {
 
-/* -------------------- Switch -------------------- */
-
-namespace
-{
-    class SwitchStone : public OnOffStone {
-        CLONEOBJ(SwitchStone);
-    public:
-        SwitchStone() : OnOffStone("st-switch"), state(IDLE) {}
-    private:
-        enum State { IDLE, TOGGLING } state;
-
-        void init_model() {
-            set_model(is_on() ? "st-switch-on" : "st-switch-off");
-        }
-
-        void actor_hit(const StoneContact &/*sc*/) {
-            set_on (!is_on());
-        }
-
-        virtual void set_on(bool newon) {
-            if (state == IDLE && newon != is_on()) {
-//                set_attrib("on", enigma::Value(newon));
-                sound_event ("switchon");
-                state = TOGGLING;
-                if (newon)
-                    set_anim("st-switch-turnon");
-                else
-                    set_anim("st-switch-turnoff");
-                performAction(newon);
-            }
-        }
-
-        void animcb() {
-            state = IDLE;
-            set_attrib("on", enigma::Value(!is_on()));
-            init_model();
-//            set_on(!is_on());
-        }
-        const char *collision_sound() { return "metal"; }
-    };
-}
-
-/* -------------------- Switch_black -------------------- */
-
-namespace
-{
-    class Switch_black : public OnOffStone {
-        CLONEOBJ(Switch_black);
-    public:
-        Switch_black() : OnOffStone("st-switch_black"), 
-                         state(IDLE) 
-        {}
-    private:
-        enum State { IDLE, TOGGLING } state;
-        void init_model() {
-            set_model(is_on() ? "st-switch_black-on" : "st-switch_black-off");
-        }
-
-        void actor_hit(const StoneContact &sc) {
-            if (get_id (sc.actor) == ac_blackball)
-                set_on (!is_on());
-        }
-
-        virtual void set_on(bool newon) {
-            if (state == IDLE && newon != is_on()) {
-//                set_attrib("on", enigma::Value(newon));
-                sound_event ("switchon");
-                state = TOGGLING;
-                if (newon)
-                    set_anim("st-switch_black-turnon");
-                else
-                    set_anim("st-switch_black-turnoff");
-                performAction(newon);
-            }
-        }
-        void animcb() {
-            state = IDLE;
-            set_attrib("on", enigma::Value(!is_on()));
-            init_model();
-//            set_on(!is_on());
-        }
-
-        const char *collision_sound() { return "metal"; }
-    };
-}
-
-/* -------------------- Switch_white -------------------- */
-
-namespace
-{
-    class Switch_white : public OnOffStone {
-        CLONEOBJ(Switch_white);
-    public:
-        Switch_white() : OnOffStone("st-switch_white"), 
-                         state(IDLE) 
-        {}
-    private:
-        enum State { IDLE, TOGGLING } state;
-        void init_model() {
-            set_model(is_on() ? "st-switch_white-on" : "st-switch_white-off");
-        }
-
-        void actor_hit(const StoneContact &sc) {
-            if (get_id (sc.actor) == ac_whiteball)
-                set_on (!is_on());
-        }
-
-        virtual void set_on(bool newon) {
-            if (state == IDLE && newon != is_on()) {
-//                set_attrib("on", enigma::Value(newon));
-                sound_event ("switchon");
-                state = TOGGLING;
-                if (newon)
-                    set_anim("st-switch_white-turnon");
-                else
-                    set_anim("st-switch_white-turnoff");
-                performAction(newon);
-            }
-        }
-        void animcb() {
-            state = IDLE;
-            set_attrib("on", enigma::Value(!is_on()));
-            init_model();
-        }
-
-        const char *collision_sound() { return "metal"; }
-    };
-}
-
-
 
 /* -------------------- Coin slot -------------------- */
 
@@ -357,90 +227,6 @@ void KeyStone::actor_hit(const StoneContact &sc)
         set_on (!is_on());
         performAction(is_on());
     }
-}
-
-
-/* -------------------- FourSwitch -------------------- */
-
-// Attributes:
-//
-// :on              1 or 0
-// :target,action   as usual
-
-namespace
-{
-    class FourSwitch : public OnOffStone {
-        CLONEOBJ(FourSwitch);
-        DECL_TRAITS;
-    public:
-        FourSwitch() : OnOffStone("st-fourswitch"), 
-                       m_direction(NORTH), 
-                       m_inactive_so_far (true)
-        {}
-        
-        Value getAttr(const string &key) const {
-            if (key == "state")
-                return direction2state(m_direction);
-            return Object::getAttr(key);
-        }
-    private:
-        static int direction2state(Direction dir) {
-            return 3 - dir;
-        };
-        
-        // Variables
-        Direction m_direction;
-        bool m_inactive_so_far;
-
-        // Private methods
-        void turn() {
-            bool isGlobalTarget = getAttr("target");
-            
-            if (!m_inactive_so_far && !isGlobalTarget) {
-                performAction(false);  // signal off for old direction state
-            } else
-                m_inactive_so_far = false;
-
-            m_direction = rotate_cw(m_direction);
-            init_model();
-            set_on(!is_on());
-            sound_event("fourswitch");
-
-            if (isGlobalTarget) {
-                performAction((server::EnigmaCompatibility < 1.10) ? is_on() : 3 - m_direction);
-            } else {
-                performAction(true);  // signal on for new direction state
-            }
-        }
-
-        void init_model() {
-            switch (m_direction) {
-                case NORTH: set_model("st-fourswitch-n"); break;
-                case EAST:  set_model("st-fourswitch-e"); break;
-                case SOUTH: set_model("st-fourswitch-s"); break;
-                case WEST:  set_model("st-fourswitch-w"); break;
-                case NODIR: ASSERT(0, XLevelRuntime,
-                    "FourSwitch: no direction defined (found in init_model)");
-            }
-        }
-
-        void actor_hit(const StoneContact &/*sc*/) {
-            turn();
-        }
-
-        virtual Value message(const Message &m)
-        {
-            if (m.message == "signal" || m.message == "trigger") {
-                if (server::GameCompatibility == enigma::GAMET_ENIGMA || m.value == 1)
-                    turn();
-                return Value();
-            }
-            return Object::message(m);
-        }
-
-        const char *collision_sound() { return "metal"; }
-    };
-    DEF_TRAITS(FourSwitch, "st-fourswitch", st_fourswitch);
 }
 
 
@@ -691,16 +477,12 @@ void InitSwitches()
 {
     Register (new CoinSlot);
     Register (new FloppyStone);
-    Register (new FourSwitch);
     Register (new KeyStone);
     Register (new KeyStone_a);
     Register (new KeyStone_b);
     Register (new KeyStone_c);
     Register (new LaserSwitch);
     Register (new LaserTimeSwitch);
-    Register (new SwitchStone);
-    Register (new Switch_black);
-    Register (new Switch_white);
     Register (new TimeSwitch);
 }
 

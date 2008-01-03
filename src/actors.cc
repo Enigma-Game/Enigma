@@ -92,7 +92,7 @@ Actor * ActorsInRangeIterator::next() {
 /* -------------------- Actor -------------------- */
 
 Actor::Actor (const ActorTraits &tr)
-: Object(tr.name),
+: StateObject(tr.name),
   m_actorinfo(),
   m_sprite(),
   startingpos(), 
@@ -268,7 +268,7 @@ Value Actor::message(const Message &m) {
         startingpos = get_pos();
         return Value();
     }
-    return Object::message(m);
+    return StateObject::message(m);
 }
 
 bool Actor::sound_event (const char *name, double vol) {

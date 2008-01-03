@@ -96,6 +96,8 @@ namespace enigma { namespace lua {
     /*! Call a Lua function with a (large) byte vector as the sole
       argument.  Currently only used for loading XML levels. */
     Error CallFunc (lua_State *L, const char *funcname, const ByteVec &arg);
+    
+    std::string NewMessageName(lua_State *L, const Object *obj, const std::string &message);
 
     /**
      * Run a Lua script using a given absolute path.

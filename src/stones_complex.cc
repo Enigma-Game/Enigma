@@ -435,7 +435,7 @@ Value OneWayBase::message(const Message &m) {
         init_model();
         return Value();
     }
-    return Object::message(m);
+    return Stone::message(m);
 }
 
 void OneWayBase::actor_hit(const StoneContact &sc) {
@@ -606,7 +606,7 @@ namespace
                 init_model();
                 return Value();
             }
-            return Object::message(m);
+            return Stone::message(m);
         }
     };
     DEF_TRAITSM(BolderStone, "st-bolder", st_bolder, MOVABLE_IRREGULAR);
@@ -724,7 +724,7 @@ namespace
                     change_state(GROWING);
                 return Value();
             }
-            return Object::message(m);
+            return Stone::message(m);
         }
 
         void actor_contact(Actor *a) {
@@ -789,7 +789,7 @@ namespace
                 }
                 return Value();
             }
-            return Object::message(m);
+            return Stone::message(m);
         }
 
         void spread( GridPos p) {
@@ -1334,7 +1334,7 @@ Value PuzzleStone::message(const Message &m) {
         }
         return Value();
     }
-    return Object::message(m);
+    return ConnectiveStone::message(m);
 }
 
 void PuzzleStone::on_impulse(const Impulse& impulse) 
@@ -1591,7 +1591,7 @@ Value DoorBase::message(const Message &m) {
     } else if (m.message == "signal") {
         newstate = m.value.to_bool() ? OPENING : CLOSING;
     } else {
-        return Object::message(m);
+        return Stone::message(m);
     }
     
     if (newstate==OPENING && (state==CLOSED || state==CLOSING))
@@ -1789,7 +1789,7 @@ namespace
                 notify_item();
                 return Value();
             }
-            return Object::message(m);
+            return Stone::message(m);
         }
 
         void add_hole(Holes h) {
@@ -1956,7 +1956,7 @@ namespace
                 change_state (PULSING);
                 return Value();
             }
-            return Object::message(m);
+            return Stone::message(m);
         }
 
         void animcb() {
@@ -2340,7 +2340,7 @@ Value Turnstile_Pivot_Base::message(const Message &m)
             rotate(true, 0);
         return Value();
     }
-    return Object::message(m);
+    return Stone::message(m);
 }
 
 
@@ -2946,7 +2946,7 @@ namespace
             set_color(1 - (int)getAttr("color"));
             return Value();
         }
-        return Object::message(m);
+        return Stone::message(m);
     }
 
     Value ChessStone::message_move(Direction dir1, Direction dir2) {
@@ -3141,7 +3141,7 @@ namespace
                 set_on(state == INACTIVE);
                 return Value();
             }
-            return Object::message(m);
+            return PhotoStone::message(m);
         }
 
         void alarm() {

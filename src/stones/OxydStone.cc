@@ -875,7 +875,7 @@ namespace enigma {
             initColors();
             return Value();
         }
-        return Object::message(m);
+        return PhotoStone::message(m);
     }
     
     void OxydStone::set_attrib(const string& key, const Value &val) {
@@ -893,7 +893,7 @@ namespace enigma {
     
     Value OxydStone::getAttr(const string &key) const {
         // TODO "state" 0=CLOSE || CLOSING; 1 = other iState values
-        return Object::getAttr(key);
+        return PhotoStone::getAttr(key);
     }
     
     void OxydStone::actor_hit(const StoneContact &/*sc*/) {

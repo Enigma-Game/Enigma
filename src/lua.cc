@@ -2500,6 +2500,22 @@ Error CallFunc(lua_State *L, const char *funcname, const ByteVec& arg) {
     return _lua_err_code(retval);
 }
 
+std::string NewMessageName(lua_State *L, const Object *obj, const std::string &message) {
+    std::string result;
+    lua_getglobal(L, "MessageRenaming");
+    if (lua_istable(L, -1)) {
+        lua_pushstring(L, ecl::strf("%s__%s", obj->get_kind(), message.c_str()).c_str());
+        lua_gettable(L, -2);
+        if (!lua_isnil(L, -1))
+            result = lua_tostring(L, -1);
+        else
+            result = message;
+        lua_pop(L, 1);
+    }
+    lua_pop(L, 1);
+    return result;
+}
+
 Error DoAbsoluteFile(lua_State *L, const string &filename)
 {
     int oldtop = lua_gettop(L);

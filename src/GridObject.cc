@@ -93,7 +93,7 @@ namespace enigma {
     {
         return sound::EmitSoundEvent (name, get_pos().center(), getVolume(name, this, vol));
     }
-    
+ 
     void GridObject::warning(const char *format, ...) const 
     {
         va_list        arg_ptr;
@@ -106,6 +106,11 @@ namespace enigma {
         fputc('\n', stderr);
     
         va_end(arg_ptr);
+    }
+    
+    void GridObject::setState(int extState) {
+        StateObject::setState(extState);
+        init_model();
     }
     
 } // namespace enigma

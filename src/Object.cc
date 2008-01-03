@@ -24,6 +24,7 @@
 #include "game.hh"
 #include "main.hh"
 #include "lua.hh"
+#include "server.hh"
 #include "sound.hh"
 #include "world.hh"
 
@@ -175,9 +176,8 @@ namespace enigma {
     
     void Object::performAction(const Value& val) {
         Value messageValue = val;
-        if (messageValue.getType() == Value::BOOL)   // bool values may be inverted
-            if (getDefaultedAttr("inverse", false).to_bool())
-                messageValue = !messageValue.to_bool();  // invert value
+        if (getDefaultedAttr("inverse", false).to_bool())
+            messageValue = invertActionValue(val);
 
         TokenList targets = getAttr("target");
         TokenList actions = getAttr("action");
@@ -204,20 +204,33 @@ namespace enigma {
                     }
                 }
                 // else ignore this no longer valid target
-    //            Log << "PerformAction target not valid\n";
+//                Log << "PerformAction target not valid\n";
             } else {
                 // send message to all objects
                 if (action == "") 
                     action = "toggle";
                 for (ObjectList::iterator oit = ol.begin(); oit != ol.end(); ++oit) {
                     if (*oit != NULL) {
-                        SendMessage(*oit, Message(action, messageValue, this));                    
+                        std::string obj_action = action;
+                        if (server::EnigmaCompatibility < 1.10) {
+                            // we may need to translate the new API message to old API
+                            obj_action = lua::NewMessageName(lua::LevelState(), *oit, action);
+//                            if (obj_action != action)
+//                                Log << "PerformAction renamed '" << action << "' to '" << obj_action << "' for receiver '" << (*oit)->get_kind() << "'\n";
+                        }
+                        SendMessage(*oit, Message(obj_action, messageValue, this));                    
                     }
                 }
             }
             
             if (ait != actions.end()) ++ait;
         }
+    }
+    
+    Value Object::invertActionValue(const Value &val) const {
+        if (val.getType() == Value::BOOL)   // bool values may be inverted
+            return !val.to_bool();  // invert value
+        return val;
     }
     
     /* Send an impulse to position 'dest' into direction dir.  If 'dest'

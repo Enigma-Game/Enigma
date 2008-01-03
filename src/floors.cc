@@ -75,7 +75,7 @@ Value Floor::message(const Message &m) {
         return force_fire();
     if (m.message == "stopfire")
         return stop_fire(true);
-    return Object::message(m);
+    return GridObject::message(m);
 }
 
 ecl::V2 Floor::process_mouseforce (Actor *a, ecl::V2 force) {

@@ -209,7 +209,7 @@ namespace
                 set_on(false);
                 return Value();
             }
-            return Object::message(m);
+            return Item::message(m);
         }
 
         // OnOffItem interface
@@ -284,7 +284,7 @@ namespace
                     return Value();
                 }
             }
-            return Object::message(m);
+            return Item::message(m);
         }
 
 
@@ -513,7 +513,7 @@ namespace
                     return Value();
                 }
             }
-            return Object::message(m);
+            return Item::message(m);
         }
 
     public:
@@ -755,7 +755,7 @@ Value HillHollow::message(const Message &m)
         shovel();
         return Value();
     } 
-    return Object::message(m);
+    return Item::message(m);
 }
 
 V2 HillHollow::vec_to_center (V2 v)
@@ -1084,7 +1084,7 @@ namespace
             } else if (m.message == "expl" || m.message == "bombstone") {
                 explode = true;
             } else {
-                return Object::message(m);
+                return Item::message(m);
             }
 
             if (explode)
@@ -1152,7 +1152,7 @@ namespace
                 change_state(BURNING);
                 return Value(1.0);  // caught message -> no fire!
             }
-            return Object::message(m);
+            return Item::message(m);
         }
         void animcb() { explode(); }
         void on_laserhit(Direction) {
@@ -1195,7 +1195,7 @@ namespace
                 burn();
                 return Value(1.0);  // caught message -> no fire!
             }
-            return Object::message(m);
+            return Item::message(m);
         }
 
     private:
@@ -1343,7 +1343,7 @@ namespace
                 update_state();                
                 return Value();
             }
-            return Object::message(m);
+            return Item::message(m);
         }
     };
 
@@ -1410,7 +1410,7 @@ namespace
                 start_growing();
                 return Value();
             }
-            return Object::message(m);
+            return Item::message(m);
         }
 
         void start_growing() {
@@ -1560,7 +1560,7 @@ Value ShogunDot::message(const Message &m) {
             return Value();
         }
     }
-    return Object::message(m);
+    return Item::message(m);
 }
 
 
@@ -1948,7 +1948,7 @@ Value Vortex::message(const Message &m)
             performAction(getAttr("$grabbed_actor"));
         return Value();
     }
-    return Object::message(m);
+    return Item::message(m);
 }
 
 void Vortex::init_model() {
@@ -2219,7 +2219,7 @@ namespace
                 replace (it_explosion1);
                 return Value();
             }
-            return Object::message(m);
+            return Item::message(m);
         }
     public:
         static void setup() {
@@ -2410,7 +2410,7 @@ namespace
                 replace(it_debris);
                 return Value(1.0);
             }
-            return Object::message(m);
+            return Item::message(m);
         }
 
         bool do_crack() {
@@ -2512,7 +2512,7 @@ Value Burnable::message(const Message &m) {
         if (m.message == "trigger" || m.message == "ignite" || m.message == "expl")
             return SendMessage(fl, "ignite");
     }
-    return Object::message(m);
+    return Item::message(m);
 }
 
 void Burnable::animcb() {
@@ -2768,7 +2768,7 @@ Value Blocker::message(const Message &m)
         else if (m.message == "close")
             open = 0;
         else
-            return Object::message(m);
+            return Item::message(m);
 
         if (open == 1)  { // shrink
             if (state == COVERED)
@@ -2880,7 +2880,7 @@ namespace
                     SendMessage (floor, "open");
                 return Value();
             }
-            return Object::message(m);
+            return Item::message(m);
         }
     public:
         OxydBridge() {}
@@ -2930,7 +2930,7 @@ namespace
             } else if (m.message == "_hitactor") {
                 return getAttr("$hitactor");
             }
-            return Object::message(m);
+            return Item::message(m);
         }
     };
     DEF_TRAITSF(Sensor, "it-sensor", it_sensor, itf_static | itf_invisible);
@@ -2969,7 +2969,7 @@ namespace
                     performAction(type != 0);
                 return Value();
             }
-            return Object::message(m);
+            return Item::message(m);
         }
 
         // type of signal filter
@@ -3041,7 +3041,7 @@ Value EasyKillStone::message(const Message &m)
         kill();
         return Value();
     }
-    return Object::message(m);
+    return Item::message(m);
 }
 
 /* -------------------- EasyKeepStone -------------------- */
@@ -3060,7 +3060,7 @@ namespace
                 kill();
                 return Value();
             }
-            return Object::message(m);
+            return Item::message(m);
         }
     public:
         EasyKeepStone() {}
@@ -3083,7 +3083,7 @@ namespace
                 kill();
                 return Value();
             }
-            return Object::message(m);
+            return Item::message(m);
         }
     public:
         OnePKillStone () {}
@@ -3102,7 +3102,7 @@ namespace
                 kill();
                 return Value();
             }
-            return Object::message(m);
+            return Item::message(m);
         }
     public:
         TwoPKillStone () {}
@@ -3229,7 +3229,7 @@ namespace
                     return Value();
                 }
             }
-            return Object::message(m);
+            return Item::message(m);
         }
 
     public:

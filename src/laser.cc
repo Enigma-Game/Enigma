@@ -554,7 +554,7 @@ Value MirrorStone::message(const Message &m) {
         MaybeRecalcLight(get_pos());
         return Value();
     }
-    return Object::message(m);
+    return Stone::message(m);
 }
 
 void MirrorStone::actor_hit(const StoneContact &sc)
