@@ -41,14 +41,8 @@
 
 using namespace std;
 using namespace enigma;
-using enigma::Stone;
-using enigma::MakeStone;
-//using enigma::Item;
-using enigma::MakeItem;
-
 using namespace oxyd;
 using OxydLib::Level;
-
 
 /* -------------------- Helper functions -------------------- */
 
@@ -167,9 +161,7 @@ namespace
         }
         return false;
     }
-
 }
-
 
 /* -------------------- CommandString implementation -------------------- */
 
