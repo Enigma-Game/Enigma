@@ -65,8 +65,8 @@ namespace enigma {
     
     void Switch::animcb() {
         state = TURNOFF - state;
-        performAction(state == ON);   // action after state is reached
         init_model();
+        performAction(state == ON);   // action after state is reached
     }
     
     void Switch::actor_hit(const StoneContact &sc) {
