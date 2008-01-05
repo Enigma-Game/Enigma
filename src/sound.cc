@@ -274,6 +274,13 @@ Mix_Chunk *SoundEngine_SDL::cache_sound(const std::string &name)
         return i->second;
 }
 
+void SoundEngine_SDL::cache_sound(const SoundEffect &s) 
+{
+    string filename = s.getFilename();
+    if (filename != "")
+        cache_sound(filename);
+}
+
 bool SoundEngine_SDL::play_sound (const SoundEvent &s)
 {
     int channel = already_playing (s);
@@ -315,13 +322,6 @@ void SoundEngine_SDL::tick (double dtime)
         if (se.active)
             se.playing_time += dtime;
     }
-}
-
-
-void SoundEngine_SDL::define_sound (
-    const SoundName &/*name*/,
-    const std::string &/*filename*/)
-{
 }
 
 void SoundEngine_SDL::define_sound (
@@ -534,7 +534,7 @@ namespace
 
         float srcinc = float (len-1) / float (newlen); 
         for (unsigned i=0; i<newlen; ++i) {
-            int srcidx = ecl::round_down <int> (i * srcinc); // srcpos);
+            int srcidx = ecl::round_down <int> (i * srcinc);
             float a2 = i*srcinc - srcidx;
             float a1 = 1.0f - a2;
             dst[i] = static_cast<Sint8> ((a1*src[srcidx] + a2*src[srcidx+1])/2);
@@ -634,7 +634,8 @@ string SoundEngine::convertFromOldSoundSetNumber(int soundset_number)
 
 /*! These functions fill in data for the sound sets, initialises and
   activates them. Return false, if something went wrong, e.g. when an
-  oxyd sound set is mentioned to not accessible oxyd version. */
+  oxyd sound set is mentioned, but the corresponding oxyd version
+  wasn't found. */
 
 bool SoundEngine::defineSoundSet(string soundset_name, string soundset_key,
                                  int button_position)
@@ -666,6 +667,7 @@ bool SoundSet::activate()
         return false;
     if(isOxyd() &&  !oxyd::InitOxydSoundSet(getOxydVersion()))
         return false;
+
     sound_engine->setActiveSoundSetKey(getSoundSetKey());
     return true;
 }
@@ -713,8 +715,10 @@ void SoundEngine::initSoundSets()
     if (soundset_name == "Default")
         soundset_name = getDefaultSoundSet();
     clear_cache();
-    if (sound_sets[soundset_name].activate()) 
+    if (sound_sets[soundset_name].activate())  {
+        preloadSoundEffects();
         Log << "Activated sound set '" << soundset_name << "'.\n";
+    }
     else {
         // Fallback, happens e.g. when oxyd sound set can't be established or 
         // a user soundset is given which doesn't exist anymore.
@@ -743,11 +747,25 @@ void SoundEngine::setActiveSoundSet(string soundset_name)
     }
     clear_cache();
     if (sound_sets[soundset_name].activate()) {
+        preloadSoundEffects();
         Log << "Switched to sound set '" << soundset_name << "' (key '" 
             << soundset_key << "').\n";
     } else
         Log << "Warning: Problems loading sound set '" << soundset_name << "' (key'"
             << soundset_key << "').\n";
+}
+
+/*! Pre-cache all sound effects so that they can be played without lag
+  when the game is running. */
+void SoundEngine::preloadSoundEffects()
+{
+    SoundEffectRepository::iterator i = sound_effects.begin(), 
+        end = sound_effects.end();
+    string prefix = getActiveSoundSetKey() + "#";
+    for (; i != end; ++i) {
+        if (i->first.compare(0, prefix.size(), prefix) == 0)
+            cache_sound(i->second);
+    }
 }
 
 void sound::SetActiveSoundSet(string soundset_name)
@@ -816,7 +834,7 @@ bool SoundEngine::emitSoundEvent (const std::string &eventname, const ecl::V2 &p
             << pos[0] << "," << pos[1] << "\n";
         return false;
     } else {
-        return (*i).second.play(pos, volume, force_global);
+        return i->second.play(pos, volume, force_global);
     }
 }
 

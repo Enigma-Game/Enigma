@@ -53,6 +53,7 @@ namespace
         }
 
         void setFilename(string filename_) { filename = filename_; }
+        string getFilename() const { return filename; }
         bool play(const ecl::V2 &pos = ecl::V2(), double vol = 1.0, bool glob = false);
         DampingData getDampingData() { return damp; }
         string getSoundSetKey() { return soundset_key; }
@@ -124,9 +125,9 @@ namespace
         // ---------- Sound effects ----------
 
         virtual void clear_cache() = 0;
-        virtual void define_sound (const SoundName &, const std::string &filename)=0;
         virtual void define_sound (const SoundName &, const SoundData &)=0;
         virtual bool play_sound (const SoundEvent &s) = 0;
+        virtual void cache_sound(const SoundEffect &s) = 0;
         virtual void set_listenerpos (ecl::V2 pos) = 0;
         virtual void tick (double dtime) {}
 
@@ -150,9 +151,13 @@ namespace
         bool defineSoundSetOxyd(string soundset_name, string soundset_key,
                                 OxydLib::OxydVersion oxyd_ver, int button_position);
         string getOxydSoundSet(OxydLib::OxydVersion oxyd_ver);
+
         int convertToOldSoundSetNumber(string soundset_name);
         string convertFromOldSoundSetNumber(int soundset_number);
+
         void setActiveSoundSet(string soundset_name);
+        void preloadSoundEffects();
+
         void setSoundSetCount(int count) { sound_set_count = count; }
         int getSoundSetCount() { return sound_set_count; }
         int getButtonPosition(string soundset_name) {
@@ -181,8 +186,9 @@ namespace
         bool play_music (const std::string &/*filename*/) { return false; }
         void stop_music() {}
         void fadeout_music() {}
+
         bool play_sound (const SoundEvent &) {}
-        void define_sound (const SoundName &, const std::string &/*filename*/) {}
+        void cache_sound(const SoundEffect &s) {}
         void define_sound (const SoundName &, const SoundData &) {}
         void set_listenerpos (ecl::V2 pos) {}
     };
@@ -205,10 +211,9 @@ namespace
         void fadeout_music();
 
         bool play_sound(const SoundEvent &s);
+        void cache_sound(const SoundEffect &s);
         void clear_cache();
-        void define_sound (const SoundName &, const std::string &filename);
         void define_sound (const SoundName &, const SoundData &);
-
 
         void set_listenerpos (ecl::V2 pos) { m_listenerpos = pos; }
         void tick (double dtime);
