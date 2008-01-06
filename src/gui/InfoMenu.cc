@@ -28,24 +28,26 @@ namespace enigma { namespace gui {
     InfoMenu::InfoMenu(const char **infotext, int pages) : info (infotext),
             curPage (0), numPages (pages) {
         const video::VMInfo &vminfo = *video::GetInfo();
+        const int vshrink = vminfo.width < 640 ? 1 : 0;
 
         but_ok = new StaticTextButton(N_("Ok"), this);
         pgup     = new ImageButton("ic-up", "ic-up1", this);
         pgdown   = new ImageButton("ic-down", "ic-down1", this);
 
-        add(but_ok, Rect(vminfo.width-120, vminfo.height-60, 100, 40));        
-        add(pgup, Rect(vminfo.width-30, vminfo.height/2, 20, 50));        
-        add(pgdown, Rect(vminfo.width-30, vminfo.height/2 +70, 20, 50));        
+        add(but_ok, Rect(vminfo.width-(vshrink?60:120), vminfo.height-(vshrink?30:60), vshrink?50:100, vshrink?20:40));        
+        add(pgup, Rect(vminfo.width-(vshrink?15:30), vminfo.height/2, vshrink?10:20, vshrink?25:50));        
+        add(pgdown, Rect(vminfo.width-(vshrink?15:30), vminfo.height/2 +(vshrink?35:70), vshrink?10:20, vshrink?25:50));        
     }
     
     void InfoMenu::draw_background(ecl::GC &gc) {
         const video::VMInfo &vminfo = *video::GetInfo();
+        const int vshrink = vminfo.width < 640 ? 1 : 0;
         blit(gc, vminfo.mbg_offsetx, vminfo.mbg_offsety, enigma::GetImage("menu_bg", ".jpg"));
         
         Font *f = enigma::GetFont("menufont");
         int row = 0;
-        int yoff[] = {0, -20, -40, -40};
-        int ygap[] = {0, 4, 6, 6};
+        int yoff[] = {0, 0, -20, -40, -40};
+        int ygap[] = {0, 0, 4, 6, 6};
         for (int p=0; p<curPage; p++) {
             while (info[row])
                 row++;
@@ -54,8 +56,8 @@ namespace enigma { namespace gui {
         }
         for (int i = 0; info[row]; row++, i++) {
             const char *t = _(info[row]);
-            f->render (gc, 40 + (vminfo.width-640)/2, 
-                    20 + yoff[vminfo.tt] + (vminfo.height-480)/2 + i*(f->get_height() + ygap[vminfo.tt]), t);
+            f->render (gc, (vshrink?20:40) + (vminfo.width-(vshrink?320:640))/2, 
+                    (vshrink?10:20) + yoff[vminfo.tt] + (vminfo.height-(vshrink?240:480))/2 + i*(f->get_height() + ygap[vminfo.tt]), t);
         }
     }
     

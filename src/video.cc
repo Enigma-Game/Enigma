@@ -499,6 +499,23 @@ namespace
             Rect (504, 873, 947, 53),        // text area //TODO
             false, true,                     // available window, fullscreen
             "-0-","-9-0-"                    // fallback modes window, fullscreen
+        },
+        { 
+            VM_320x240, 320, 240,            // id, w, h
+            16, VTS_16,                      // tilesize, tiletype
+            "320x240", "CGA", "4:3",         // name, fsname, fs only
+            "models-16.lua", "gfx16/",       // initscript, dir
+            Rect (0, 0, 320, 240),           // display area
+            0, 0,                            // menu background image offsets 
+            60, 39, "-60x39",                // thumbnail size/extension
+            Rect (0, 0, 320, 208),           // game area
+            Rect (0, 208, 320, 32),          // statusbar area
+            Rect (5, 212, 587, 21),          // time area
+            Rect (50, 212, 15, 21),          // moves area
+            Rect (76, 216, 245, 26),         // inventory area
+            Rect (75, 217, 237, 17),         // text area
+            true, true,                      // available window, fullscreen
+            "-10-0-","-0-"                   // fallback modes window, fullscreen
         }
     };
 

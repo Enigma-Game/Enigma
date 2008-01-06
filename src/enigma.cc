@@ -286,6 +286,11 @@ namespace
             else
                 m_fonts.insert (descr.name, descr);
         }
+        
+        void clear() {
+            PtrCache<Font>::clear();  // crazy double cache - TODO cleanup 
+            m_fonts.clear();
+        }
 
     private:
 
@@ -333,6 +338,10 @@ void DefineFont (const char *name,
 ecl::Font *GetFont (const char *name) 
 {
     return font_cache.get(name);
+}
+
+void ClearFontCache() {
+    font_cache.clear();
 }
 
 ecl::Surface *LoadImage(const char *name) 

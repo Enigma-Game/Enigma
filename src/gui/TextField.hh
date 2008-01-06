@@ -91,7 +91,7 @@ namespace enigma { namespace gui {
         std::string invalidChars;
         int maxChars;
         bool isLastActionReturn;
-        static ecl::Font *menufont;
+        ecl::Font *menufont;
     };
 }} // namespace enigma::gui
 #endif

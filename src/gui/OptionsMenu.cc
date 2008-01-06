@@ -326,13 +326,14 @@ namespace enigma { namespace gui {
       background(background_),
       previous_caption(video::GetCaption())
     {
-        const int spacing     = 5;
-        const int big_spacing = 60;
-        const int label_width = 180;
-        const int but_width   = 100;
-        const int but_height  = 30;
         const video::VMInfo *vminfo = video::GetInfo();
-        int hmargin = vminfo->width < 660 ? 10 : (vminfo->width < 900 ? 20 : 80);
+        const int vshrink = vminfo->width < 640 ? 1 : 0;
+        const int spacing     = vshrink ? 2 : 5;
+        const int big_spacing = vshrink ? 30 : 60;
+        const int label_width = vshrink ? 90 : 180;
+        const int but_width   = vshrink ? 50 : 100;
+        const int but_height  = vshrink ? 15 : 30;
+        int hmargin = vshrink ? 5 : (vminfo->width < 660 ? 10 : (vminfo->width < 900 ? 20 : 80));
         int midspacing = vminfo->width - 2*hmargin - 2*but_width - 2*label_width;
     
         BuildVList leftlabels (this, Rect(-label_width, 0, label_width, but_height), spacing);

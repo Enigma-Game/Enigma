@@ -90,6 +90,7 @@ namespace enigma {
                      const char *bmf_name,
                      int r, int g, int b);
     ecl::Font *GetFont (const char *name);
+    void ClearFontCache();
 
     ecl::Surface *LoadImage (const char *name);
     ecl::Surface *GetImage (const char *name, const char *ext = ".png");

@@ -382,6 +382,7 @@ void Application::init(int argc, char **argv)
     
     //
     if (isMakePreviews) {
+        app.state->setProperty("Difficulty", DIFFICULTY_HARD); // will not be saved
         std::set<lev::Proxy *> proxies = lev::Proxy::getProxies();
         int size = proxies.size();
         std::set<lev::Proxy *>::iterator it;
@@ -402,15 +403,21 @@ void Application::init(int argc, char **argv)
         scr->flush_updates();
         
         int i = 0;
-        for (int m=0; m<2; m++) {
+        for (int m=0; m<3; m++) {
+            switch (m) {
+                case 0 : video::SetThumbInfo(120, 78, ""); break;
+                case 1 : video::SetThumbInfo(160, 104, "-160x104"); break;
+                case 2 : video::SetThumbInfo(60, 39, "-60x39"); break;
+            }        
             for (it = proxies.begin(); it != proxies.end(); it++, i++) {
+                Log << "Make preview " << (*it)->getId() << "\n";
                 gui::LevelPreviewCache::makeSystemPreview(*it, systemAppDataPath);
                 vline(gc, 170 + i*150 / size, 280, 20);
                 scr->update_all ();
                 scr->flush_updates();
             }
-            video::SetThumbInfo(160, 104, "-160x104");
         }
+        Log << "Maske preview finished succesfully\n";
         return;
     }
     

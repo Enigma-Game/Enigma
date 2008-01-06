@@ -35,6 +35,7 @@ namespace enigma { namespace gui {
 
      SearchMenu::SearchMenu() : didSearch (false) {
         const video::VMInfo &vminfo = *video::GetInfo();
+        const int vshrink = vminfo.width < 640 ? 1 : 0;
         ecl::Font *menufont = enigma::GetFont("menufont");
         
         Label * shallowTitle = new Label(N_("Shallow Search:"), HALIGN_LEFT);
@@ -42,15 +43,15 @@ namespace enigma { namespace gui {
         std::string helpText = _("case independent search in title, author, filename");
         std::string workString = helpText;
         std::string::size_type breakPos = breakString(menufont, workString, 
-                    " ", 380);
+                    " ", vshrink?190:380);
         Label * shallowHelp1 = new UntranslatedLabel(workString.substr(0,breakPos), HALIGN_LEFT);
         Label * shallowHelp2 = new UntranslatedLabel(workString.substr(breakPos), HALIGN_LEFT);
         shallowSearch = new TextField("", this);
         
-        this->add(shallowTitle, Rect(vminfo.width/2 - 190, vminfo.height/2 - 100, 380, 35));
-        this->add(shallowHelp1, Rect(vminfo.width/2 - 190, vminfo.height/2 - 40, 380, 25));
-        this->add(shallowHelp2, Rect(vminfo.width/2 - 190, vminfo.height/2 - 10, 380, 25));
-        this->add(shallowSearch, Rect(vminfo.width/2 - 190, vminfo.height/2 + 55, 380, 35));
+        this->add(shallowTitle, Rect(vminfo.width/2 - (vshrink?95:190), vminfo.height/2 - (vshrink?50:100), vshrink?190:380, vshrink?17:35));
+        this->add(shallowHelp1, Rect(vminfo.width/2 - (vshrink?95:190), vminfo.height/2 - (vshrink?20:40), vshrink?190:380, vshrink?12:25));
+        this->add(shallowHelp2, Rect(vminfo.width/2 - (vshrink?95:190), vminfo.height/2 - (vshrink?5:10), vshrink?190:380, vshrink?12:25));
+        this->add(shallowSearch, Rect(vminfo.width/2 - (vshrink?95:190), vminfo.height/2 + (vshrink?27:55), vshrink?190:380, vshrink?17:35));
        
         // Create buttons - positioning identical to Levelmenu
         Label * dummy1 = new Label();
@@ -61,12 +62,12 @@ namespace enigma { namespace gui {
         HList * commandHList = new HList;
         commandHList->set_spacing(10);
         commandHList->set_alignment(HALIGN_CENTER, VALIGN_TOP);
-        commandHList->set_default_size(140, 35);
+        commandHList->set_default_size(vshrink?70:140, vshrink?17:35);
         commandHList->add_back(dummy1);
         commandHList->add_back(dummy2);
         commandHList->add_back(but_ignore);
         commandHList->add_back(but_search);
-        this->add(commandHList, Rect(10, vminfo.height-50, vminfo.width-20, 35));
+        this->add(commandHList, Rect(vshrink?5:10, vminfo.height-(vshrink?25:50), vminfo.width-(vshrink?10:20), vshrink?17:35));
         
         set_key_focus(shallowSearch);
     }

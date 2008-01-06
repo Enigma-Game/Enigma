@@ -46,9 +46,10 @@ namespace enigma { namespace gui {
             listener(0), isInvalidateUptodate (true), lastUpdate (0)
     {
         const video::VMInfo &vminfo = *video::GetInfo();
+        const int vshrink = vminfo.width < 640 ? 1 : 0;
     
-        buttonw = vminfo.thumbw + 27;  // min should be +30 for all modes but 640x480
-        buttonh = vminfo.thumbh + 28;
+        buttonw = vminfo.thumbw + (vshrink?13:27);  // min should be +30 for all modes but 640x480
+        buttonh = vminfo.thumbh + (vshrink?14:28);
         curIndex = lev::Index::getCurrentIndex();
         iselected = curIndex->getCurrentPosition();
         ifirst = curIndex->getScreenFirstPosition();

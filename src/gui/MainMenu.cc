@@ -49,6 +49,7 @@ namespace enigma { namespace gui {
     void ChangeVideoMode()
     {
         enigma::WorldPrepareLevel();      // make sure no references to models remain
+        enigma::ClearFontCache();
         video::ChangeVideoMode();
         LevelPreviewCache::instance()->clear();
         enigma::ClearImageCache();
@@ -210,9 +211,9 @@ namespace enigma { namespace gui {
     void MainMenu::build_menu() 
     {
         const video::VMInfo *vminfo = video::GetInfo();
-    
-        int y[] = {150, 170, 200, 200};
-        BuildVList b(this, Rect((vminfo->width - 150)/2, y[vminfo->tt], 150, 40), 5);
+        const int vshrink = vminfo->width < 640 ? 1 : 0;
+        int y[] = {75, 150, 170, 200, 200};
+        BuildVList b(this, Rect((vminfo->width - 150)/2, y[vminfo->tt], 150, vshrink?20:40), 5);
         m_startgame = b.add(new StaticTextButton(N_("Start Game"), this));
         m_levelpack = b.add(new StaticTextButton(N_("Level Pack"), this));
 #ifdef ENABLE_EXPERIMENTAL
@@ -236,7 +237,7 @@ namespace enigma { namespace gui {
         Font *f = enigma::GetFont("levelmenu");
         Surface * logo(enigma::GetImage("enigma_logo3"));
         int x0=(vminfo->width - logo->width())/2;
-        int y0[] = {30, 40, 50, 60};
+        int y0[] = {0, 30, 40, 50, 60};
         blit(gc, x0, y0[vminfo->tt], logo);
         f->render (gc, 5, vminfo->height - 20, app.getVersionInfo().c_str());
     }

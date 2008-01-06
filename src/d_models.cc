@@ -93,7 +93,6 @@ namespace
     };
 }
 
-
 /* -------------------- SurfaceCache -------------------- */
 
 Surface *SurfaceCache_Alpha::acquire(const std::string &name) 
@@ -107,6 +106,10 @@ Surface *SurfaceCache_Alpha::acquire(const std::string &name)
         
     if (es != NULL && vminfo->tt == video::VTS_64 && filename.find("gfx32") != std::string::npos) {
         ecl::Surface * es_zoom = es->zoom(es->width()*2, es->height()*2);
+        delete es;
+        es = es_zoom;
+    } else if (es != NULL && vminfo->tt == video::VTS_16 && filename.find("gfx32") != std::string::npos) {
+        ecl::Surface * es_zoom = es->zoom(es->width()/2, es->height()/2);
         delete es;
         es = es_zoom;
     }
@@ -143,11 +146,14 @@ Surface *SurfaceCache::acquire(const std::string &name)
         ecl::Surface * es_zoom = es->zoom(es->width()*2, es->height()*2);
         delete es;
         es = es_zoom;
+    } else if (es != NULL && vminfo->tt == video::VTS_16 && filename.find("gfx32") != std::string::npos) {
+        ecl::Surface * es_zoom = es->zoom(es->width()/2, es->height()/2);
+        delete es;
+        es = es_zoom;
     }
     return es;
 }
 
-
 /* -------------------- ModelManager -------------------- */
 
 ModelManager::ModelManager()
@@ -189,7 +195,6 @@ size_t ModelManager::num_templates() const {
 }
 
 
-
 /* -------------------- Variables -------------------- */
 
 namespace
@@ -202,7 +207,7 @@ namespace
     Anim2d             *anim_templ = 0;
 }
 
-
+
 /* -------------------- Functions -------------------- */
 
 void display::InitModels() 
@@ -367,13 +372,11 @@ void display::DefineAlias (const char *name, const char *othername)
 }
 
 
-
 /* -------------------- Model -------------------- */
 void Model::get_extension (ecl::Rect &r)
 {}
 
 
-
 /* -------------------- Image -------------------- */
 
 Image::Image(ecl::Surface *sfc)

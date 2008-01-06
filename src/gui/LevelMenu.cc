@@ -58,6 +58,12 @@ namespace enigma { namespace gui {
             int hsize_nav, hmargin_nav, vsize_nav, vgap_info_nav, vgap_nav_nav, vgap_nav1_nav2;
             int hsize_button_small, hsize_button_large, hgap_button, vsize_button, vmargin_bottom;
         } param[] = {
+            {  // VTS_16 (320x240)
+                2, 5, 10, 14,
+                5, 5, 5, 5,
+                10, 5, 25, 10, 5, 45,
+                45, 70, 5, 17, 7
+            },
             {  // VTS_32 (640x480)
                 5, 10, 20, 28,
                 10, 10, 10, 10,
@@ -85,6 +91,7 @@ namespace enigma { namespace gui {
         };
 
         const video::VMInfo &vminfo = *video::GetInfo();
+        const int vshrink = vminfo.width < 640 ? 1 : 0;
         video::VideoModes vm = vminfo.videomode;
         video::VideoTileType vtt = vminfo.tt;
         
@@ -114,7 +121,7 @@ namespace enigma { namespace gui {
         hlr->add_back (but_back);
         
         hl = new HList;
-        hl->set_spacing (10);
+        hl->set_spacing (vshrink?5:10);
         hl->set_alignment (HALIGN_CENTER, VALIGN_TOP);
         hl->set_default_size (2*param[vtt].hsize_button_large + param[vtt].hgap_button, param[vtt].vsize_button);
         hl->add_back (hll);

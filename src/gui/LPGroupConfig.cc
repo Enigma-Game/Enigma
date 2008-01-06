@@ -33,6 +33,8 @@ using namespace std;
 namespace enigma { namespace gui {
     LPGroupConfig::LPGroupConfig(std::string groupName) : oldGroupName (groupName) {
         const video::VMInfo &vminfo = *video::GetInfo();
+        const int vshrink = vminfo.width < 640 ? 1 : 0;
+
         groups = lev::Index::getGroupNames();
         
         position = -1;
@@ -49,16 +51,16 @@ namespace enigma { namespace gui {
         }
 
         VList * titleVList = new VList;
-        titleVList->set_spacing(12);
+        titleVList->set_spacing(vshrink?6:12);
         titleVList->set_alignment(HALIGN_LEFT, VALIGN_CENTER);
-        titleVList->set_default_size(160, 35);
+        titleVList->set_default_size(vshrink?80:160, vshrink?17:35);
         Label * groupLabel = new Label(N_("Group:"), HALIGN_RIGHT);
         titleVList->add_back(groupLabel);
         
         VList * groupsVList = new VList;
-        groupsVList->set_spacing(12);
+        groupsVList->set_spacing(vshrink?6:12);
         groupsVList->set_alignment(HALIGN_LEFT, VALIGN_CENTER);
-        groupsVList->set_default_size(160, 35);
+        groupsVList->set_default_size(vshrink?80:160, vshrink?17:35);
         
         Label * positionLabel = new Label(N_("Position:"), HALIGN_LEFT);
         pre2Group = new UntranslatedLabel("");
@@ -77,21 +79,21 @@ namespace enigma { namespace gui {
         groupsVList->add_back(dummyLabel);
 
         VList * scrollVList = new VList;
-        scrollVList->set_spacing(12);
+        scrollVList->set_spacing(vshrink?6:12);
         scrollVList->set_alignment(HALIGN_LEFT, VALIGN_CENTER);
-        scrollVList->set_default_size(40, 35);
+        scrollVList->set_default_size(vshrink?20:40, vshrink?17:35);
 
         scrollUp = new ImageButton("ic-up", "ic-up1", this);
         scrollDown = new ImageButton("ic-down", "ic-down1", this);
         scrollVList->add_back(scrollUp);
         scrollVList->add_back(scrollDown);
 
-        this->add(titleVList, Rect(vminfo.width/2 - 290, 0, 160, vminfo.height-100));
-        this->add(groupsVList, Rect(vminfo.width/2 - 80, 0, 160, vminfo.height-100));
-        this->add(scrollVList, Rect(vminfo.width/2 + 130, 0, 40, vminfo.height-100));
+        this->add(titleVList, Rect(vminfo.width/2 - (vshrink?145:290), 0, (vshrink?80:160), vminfo.height-(vshrink?50:100)));
+        this->add(groupsVList, Rect(vminfo.width/2 - (vshrink?40:80), 0, (vshrink?80:160), vminfo.height-(vshrink?50:100)));
+        this->add(scrollVList, Rect(vminfo.width/2 + (vshrink?65:130), 0, (vshrink?20:40), vminfo.height-(vshrink?50:100)));
 
         errorLabel = new Label("", HALIGN_CENTER);
-        this->add(errorLabel, Rect(10, vminfo.height-100, vminfo.width-20, 35));
+        this->add(errorLabel, Rect((vshrink?5:10), vminfo.height-(vshrink?50:100), vminfo.width-(vshrink?10:20), (vshrink?17:35)));
         
         // Create buttons - positioning identical to Levelmenu
         but_newPack = new StaticTextButton(N_("New Pack"), this);
@@ -100,14 +102,14 @@ namespace enigma { namespace gui {
         but_ok = new StaticTextButton(N_("Ok"), this);
         
         HList * commandHList = new HList;
-        commandHList->set_spacing(10);
+        commandHList->set_spacing(vshrink?5:10);
         commandHList->set_alignment(HALIGN_CENTER, VALIGN_TOP);
-        commandHList->set_default_size(140, 35);
+        commandHList->set_default_size(vshrink?70:140, vshrink?17:35);
         commandHList->add_back(but_newPack);
         commandHList->add_back(but_delete);
         commandHList->add_back(but_ignore);
         commandHList->add_back(but_ok);
-        this->add(commandHList, Rect(10, vminfo.height-50, vminfo.width-20, 35));
+        this->add(commandHList, Rect(vshrink?5:10, vminfo.height-(vshrink?25:50), vminfo.width-(vshrink?10:20), vshrink?17:35));
         
         updateGroupList();
     }

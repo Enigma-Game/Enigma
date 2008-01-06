@@ -767,14 +767,9 @@ bool PushButton::soundOk() {
 
 /* -------------------- TextButton -------------------- */
 
-ecl::Font *TextButton::menufont = 0;
-ecl::Font *TextButton::menufont_pressed = 0;
-
 TextButton::TextButton(ActionListener *al) {
-    if (menufont == 0) {
-        menufont = enigma::GetFont("menufont");
-        menufont_pressed = enigma::GetFont("menufontsel");
-    }
+    menufont = enigma::GetFont("menufont");
+    menufont_pressed = enigma::GetFont("menufontsel");
     set_listener(al);
 }
 

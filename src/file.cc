@@ -343,6 +343,10 @@ bool GameFS::findImageFile (const string &basename, string &filename)
             fname = string("gfx32/") + basename;
             if (findFile(fname, filename))
                 return true;
+        } else if (vminfo->tt == video::VTS_16) {
+            fname = string("gfx32/") + basename;
+            if (findFile(fname, filename))
+                return true;
         }
         fname = string ("gfx/") + basename;
         return findFile(fname, filename);

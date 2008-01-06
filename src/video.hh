@@ -41,14 +41,16 @@ namespace video
         VM_1440x960  = 7,   ///< 64 bit embedded -  3:2  - none
         VM_1280x1024 = 8,   ///< 64 bit embedded -  5:4  - SXGA
         VM_1680x1050 = 9,   ///< 64 bit embedded - 16:10 - WSXGA+
+        VM_320x240   = 10,  ///< 16 bit basic    -  4:3  - CGA
         VM_COUNT
     };
     
     enum VideoTileType {    // Tile size in pixels
-        VTS_32 = 0,
-        VTS_40 = 1,
-        VTS_48 = 2,
-        VTS_64 = 3
+        VTS_16 = 0,
+        VTS_32 = 1,
+        VTS_40 = 2,
+        VTS_48 = 3,
+        VTS_64 = 4,
     };
 
     struct VMInfo {

@@ -85,6 +85,7 @@ namespace enigma { namespace gui {
             bool forceGroupReasign) : isReasignOnly (forceGroupReasign), 
             undo_quit (false), didEditMetaData (false), titleTF (NULL) {
         const video::VMInfo &vminfo = *video::GetInfo();
+        const int vshrink = vminfo.width < 640 ? 1 : 0;
         
         if (indexName.empty())
             // new levelpack
@@ -148,9 +149,9 @@ namespace enigma { namespace gui {
         }
 
         VList * titleLeftVList = new VList;
-        titleLeftVList->set_spacing(11);
+        titleLeftVList->set_spacing(vshrink?5:11);
         titleLeftVList->set_alignment(HALIGN_LEFT, VALIGN_CENTER);
-        titleLeftVList->set_default_size(140, 35);
+        titleLeftVList->set_default_size(vshrink?70:140, vshrink?17:35);
         Label * titleLabel = new Label(N_("Levelpack:"), HALIGN_RIGHT);
         Label * ownerLabel = new Label(N_("Owner:"), HALIGN_RIGHT);
         Label * groupLabel = new Label(N_("Group:"), HALIGN_RIGHT);
@@ -170,9 +171,9 @@ namespace enigma { namespace gui {
         }
         
         valueLeftVList = new VList;
-        valueLeftVList->set_spacing(11);
+        valueLeftVList->set_spacing(vshrink?5:11);
         valueLeftVList->set_alignment(HALIGN_LEFT, VALIGN_CENTER);
-        valueLeftVList->set_default_size(160, 35);
+        valueLeftVList->set_default_size(vshrink?80:160, vshrink?17:35);
 
         titleValueLabel = new UntranslatedLabel(indexName, HALIGN_CENTER);
         ownerValueLabel = new UntranslatedLabel(isPersistent ? persIndex->getOwner() : "System");
@@ -197,9 +198,9 @@ namespace enigma { namespace gui {
         }
 
         VList * scrollVList = new VList;
-        scrollVList->set_spacing(12);
+        scrollVList->set_spacing(vshrink?6:12);
         scrollVList->set_alignment(HALIGN_LEFT, VALIGN_CENTER);
-        scrollVList->set_default_size(30, 35);
+        scrollVList->set_default_size(vshrink?15:30, vshrink?17:35);
 
         scrollUp = new ImageButton("ic-up", "ic-up1", this);
         scrollDown = new ImageButton("ic-down", "ic-down1", this);
@@ -207,9 +208,9 @@ namespace enigma { namespace gui {
         scrollVList->add_back(scrollDown);
 
         VList * metaVList = new VList;
-        metaVList->set_spacing(12);
+        metaVList->set_spacing(vshrink?6:12);
         metaVList->set_alignment(HALIGN_LEFT, VALIGN_CENTER);
-        metaVList->set_default_size(140, 35);
+        metaVList->set_default_size(vshrink?70:140, vshrink?17:35);
         
         if (isEditable)
             but_metadata = new StaticTextButton(N_("Edit Metadata"), this);
@@ -242,9 +243,9 @@ namespace enigma { namespace gui {
         }
 
         valueMetaVList = new VList;
-        valueMetaVList->set_spacing(12);
+        valueMetaVList->set_spacing(vshrink?6:12);
         valueMetaVList->set_alignment(HALIGN_CENTER, VALIGN_CENTER);
-        valueMetaVList->set_default_size(75, 35);
+        valueMetaVList->set_default_size(vshrink?37:75, vshrink?17:35);
         Widget * levelmodeWidget;
         if (indexName.empty()){
             levelmode = new LevelmodeButton(false);
@@ -279,19 +280,32 @@ namespace enigma { namespace gui {
         }
         
 
-        if (isReasignOnly) {        
-            this->add(titleLeftVList, Rect(vminfo.width/2 - 270, 15, 140, vminfo.height-97));
-            this->add(valueLeftVList, Rect(vminfo.width/2 - 80, 15, 160, vminfo.height-97));
+        if (vshrink) {
+            if (isReasignOnly) {        
+                this->add(titleLeftVList, Rect(vminfo.width/2 - 135, 7, 70, vminfo.height-48));
+                this->add(valueLeftVList, Rect(vminfo.width/2 - 40, 7, 80, vminfo.height-48));
+            } else {
+                this->add(titleLeftVList, Rect(vminfo.width/2 - 150, 7, 70, vminfo.height-48));
+                this->add(valueLeftVList, Rect(vminfo.width/2 - 70, 7, 80, vminfo.height-48));
+                this->add(scrollVList, Rect(vminfo.width/2 + 15, 7+3*(17+6) + (vminfo.height-240)/2, 15, 5*17+4*6));
+                this->add(metaVList, Rect(vminfo.width/2 + 40, 7, 70, vminfo.height-48));
+                this->add(valueMetaVList, Rect(vminfo.width/2 + 117, 7, 37, vminfo.height-48));
+            }
         } else {
-            this->add(titleLeftVList, Rect(vminfo.width/2 - 300, 15, 140, vminfo.height-97));
-            this->add(valueLeftVList, Rect(vminfo.width/2 - 140, 15, 160, vminfo.height-97));
-            this->add(scrollVList, Rect(vminfo.width/2 + 30, 15+3*(35+12) + (vminfo.height-480)/2, 30, 5*35+4*12));
-            this->add(metaVList, Rect(vminfo.width/2 + 80, 15, 140, vminfo.height-97));
-            this->add(valueMetaVList, Rect(vminfo.width/2 + 235, 15, 75, vminfo.height-97));
+            if (isReasignOnly) {        
+                this->add(titleLeftVList, Rect(vminfo.width/2 - 270, 15, 140, vminfo.height-97));
+                this->add(valueLeftVList, Rect(vminfo.width/2 - 80, 15, 160, vminfo.height-97));
+            } else {
+                this->add(titleLeftVList, Rect(vminfo.width/2 - 300, 15, 140, vminfo.height-97));
+                this->add(valueLeftVList, Rect(vminfo.width/2 - 140, 15, 160, vminfo.height-97));
+                this->add(scrollVList, Rect(vminfo.width/2 + 30, 15+3*(35+12) + (vminfo.height-480)/2, 30, 5*35+4*12));
+                this->add(metaVList, Rect(vminfo.width/2 + 80, 15, 140, vminfo.height-97));
+                this->add(valueMetaVList, Rect(vminfo.width/2 + 235, 15, 75, vminfo.height-97));
+            }
         }
     
         errorLabel = new Label("", HALIGN_CENTER);
-        this->add(errorLabel, Rect(10, vminfo.height-97, vminfo.width-20, 35));
+        this->add(errorLabel, Rect(vshrink?5:10, vminfo.height-(vshrink?48:97), vminfo.width-(vshrink?10:20), vshrink?17:35));
         
         if (isReasignOnly) 
             errorLabel->set_text(N_("Please reasign levelpack to another group for group deletion"));
@@ -307,9 +321,9 @@ namespace enigma { namespace gui {
         but_back = new StaticTextButton(N_("Ok"), this);
         
         HList * commandHList = new HList;
-        commandHList->set_spacing(10);
+        commandHList->set_spacing(vshrink?5:10);
         commandHList->set_alignment(HALIGN_CENTER, VALIGN_TOP);
-        commandHList->set_default_size(140, 35);
+        commandHList->set_default_size(vshrink?70:140, vshrink?17:35);
         if (isReasignOnly) {
             commandHList->add_back(new Label());
             commandHList->add_back(new Label());
@@ -319,7 +333,7 @@ namespace enigma { namespace gui {
         }
         commandHList->add_back(but_ignore);
         commandHList->add_back(but_back);
-        this->add(commandHList, Rect(10, vminfo.height-50, vminfo.width-20, 35));
+        this->add(commandHList, Rect(vshrink?5:10, vminfo.height-(vshrink?25:50), vminfo.width-(vshrink?10:20), vshrink?17:35));
         
         updateLocationList();
         if (indexName.empty())

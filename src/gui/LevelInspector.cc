@@ -181,15 +181,17 @@ LevelInspector::LevelInspector(lev::Proxy *aLevel, bool showDeveloperInfo):
         bool didGenerate;  // dummy
         previewImage = LevelPreviewCache::instance()->getPreview(aLevel, true, didGenerate);
         const video::VMInfo *vminfo = video::GetInfo();
-        vspacing = vminfo->height < 500 ? 2 :(vminfo->height < 650 ? 3 : 4);
-        vspacing2 = vminfo->height < 500 ? 16 :(vminfo->height < 650 ? 14 : 16);
-        vmargin = vminfo->height < 500 ? 10 :(vminfo->height < 650 ?  20 : 30);
-        hmargin = vminfo->width < 660 ? 10 : (vminfo->width < 900 ? 20 : 30);
+        const int vshrink = vminfo->width < 640 ? 1 : 0;
+        vspacing = vminfo->height < 400 ? 1 :(vminfo->height < 500 ? 2 :(vminfo->height < 650 ? 3 : 4));
+        vspacing2 = vminfo->height < 400 ? 8 :(vminfo->height < 500 ? 16 :(vminfo->height < 650 ? 14 : 16));
+        vmargin = vminfo->height < 400 ? 5 :(vminfo->height < 500 ? 10 :(vminfo->height < 650 ?  20 : 30));
+        hmargin = vminfo->width < 640 ? 5 : (vminfo->width < 660 ? 10 : (vminfo->width < 900 ? 20 : 30));
         bool highres = vminfo->height > 650 ? true : false;
         bool lowres = vminfo->height < 600 ? true : false;
+        bool lowlowres = vminfo->height < 400 ? true : false;
     
-        add(back, Rect(vminfo->width-130-2*hmargin,vminfo->height-50,130,35));
-        add(screenshot, Rect(vminfo->width-260-3*hmargin,vminfo->height-50,130,35));
+        add(back, Rect(vminfo->width-(vshrink?65:130)-2*hmargin,vminfo->height-(vshrink?25:50),vshrink?65:130,vshrink?17:35));
+        add(screenshot, Rect(vminfo->width-(vshrink?130:260)-3*hmargin,vminfo->height-(vshrink?25:50),vshrink?65:130,vshrink?17:35));
     
         try {
             aLevel->loadMetadata(true);
@@ -200,9 +202,9 @@ LevelInspector::LevelInspector(lev::Proxy *aLevel, bool showDeveloperInfo):
                                    + aLevel->getNormLevelPath() + "'\n"
                                    + err.what();
             ecl::split_copy (errmsg, '\n', back_inserter(lines));
-            int x     = 60;
-            int y     = 60;
-            int yskip = 25;
+            int x     = vshrink?30:60;
+            int y     = vshrink?30:60;
+            int yskip = vshrink?12:25;
             for (unsigned i=0; i<lines.size(); ++i) {
                 add(new Label(lines[i], HALIGN_LEFT), Rect(x, y, vminfo->width-80,yskip));
                 y += yskip;
@@ -223,15 +225,15 @@ LevelInspector::LevelInspector(lev::Proxy *aLevel, bool showDeveloperInfo):
         for (std::string::size_type slpos = levelPathString.find('\\');
                 slpos != std::string::npos; slpos = levelPathString.find('\\')) 
             levelPathString.replace(slpos, 1, 1, '/');
-        BuildVList authorT(this, Rect(hmargin,vmargin,110,25), vspacing);
+        BuildVList authorT(this, Rect(hmargin,vmargin,vshrink?55:110,vshrink?12:25), vspacing);
         authorT.add(new Label(N_("Level: "), HALIGN_RIGHT));
         authorT.add(new Label((""), HALIGN_RIGHT)); // subtitle
         authorT.add(new Label(N_("Author: "), HALIGN_RIGHT));
         authorT.add(new Label(N_("Contact: "), HALIGN_RIGHT));
         authorT.add(new Label(N_("Homepage: "), HALIGN_RIGHT));
         
-        BuildVList author(this, Rect(hmargin+110+10,vmargin,
-                vminfo->width-(hmargin+110+10)-10-(vminfo->thumbw+10)-hmargin,25), vspacing);
+        BuildVList author(this, Rect(hmargin+(vshrink?55+5:110+10),vmargin,
+                vminfo->width-(hmargin+(vshrink?55+5:110+10))-(vshrink?5:10)-(vminfo->thumbw+(vshrink?5:10))-hmargin,vshrink?12:25), vspacing);
         tmp = levelProxy->getTitle();
         tmp2 = levelProxy->getLocalizedString("title");
         if (tmp != tmp2)
@@ -243,14 +245,14 @@ LevelInspector::LevelInspector(lev::Proxy *aLevel, bool showDeveloperInfo):
         author.add(new Label(tmp, HALIGN_LEFT)); // subtitle
         author.add(new Label(levelProxy->getAuthor(), HALIGN_LEFT));
         
-        BuildVList address(this, Rect(hmargin+110+10,vmargin+3*(25+vspacing),
-                vminfo->width-(hmargin+110+10)-hmargin,25), vspacing);
+        BuildVList address(this, Rect(hmargin+(vshrink?55+5:110+10),vmargin+3*((vshrink?12:25)+vspacing),
+                vminfo->width-(hmargin+(vshrink?55+5:110+10))-hmargin,vshrink?12:25), vspacing);
         address.add(new Label(levelProxy->getContact(), HALIGN_LEFT));
         address.add(new Label(levelProxy->getHomepage(), HALIGN_LEFT));
         
-        BuildVList ratingPubT(this, Rect(hmargin+65,vmargin+5*25+4*vspacing+vspacing2, 130,25), 2);
+        BuildVList ratingPubT(this, Rect(hmargin+(vshrink?32:65),vmargin+5*(vshrink?12:25)+4*vspacing+vspacing2,vshrink?65:130,vshrink?12:25), vshrink?1:2);
         ratingPubT.add(new Label(N_("Public Ratings"), HALIGN_CENTER));
-        BuildVList ratingPubST(this, Rect(hmargin,vmargin+6*25+5*vspacing+vspacing2, 130,25), 2);
+        BuildVList ratingPubST(this, Rect(hmargin,vmargin+6*(vshrink?12:25)+5*vspacing+vspacing2,vshrink?65:130,vshrink?12:25), vshrink?1:2);
         ratingPubST.add(new Label(N_("Intelligence: "), HALIGN_RIGHT));
         ratingPubST.add(new Label(N_("Dexterity: "), HALIGN_RIGHT));
         ratingPubST.add(new Label(N_("Patience: "), HALIGN_RIGHT));
@@ -259,7 +261,7 @@ LevelInspector::LevelInspector(lev::Proxy *aLevel, bool showDeveloperInfo):
         if (!lowres) ratingPubST.add(new Label(N_("Difficulty: "), HALIGN_RIGHT));
 
         
-        BuildVList ratingPub(this, Rect(hmargin+130+15,vmargin+6*25+5*vspacing+vspacing2, 30,25), 2);
+        BuildVList ratingPub(this, Rect(hmargin+(vshrink?65+7:130+15),vmargin+6*(vshrink?12:25)+5*vspacing+vspacing2,vshrink?15:30,vshrink?12:25),vshrink?1:2);
         if (WizardMode) {
             ratingPub.add(new IntelligenceButton(aLevel));
             ratingPub.add(new DexterityButton(aLevel));
@@ -276,10 +278,10 @@ LevelInspector::LevelInspector(lev::Proxy *aLevel, bool showDeveloperInfo):
             if (!lowres) ratingPub.add(new MonospacedLabel(ratingToString(theRatingMgr->getDifficulty(aLevel)).c_str(),'8', " 0123456789", HALIGN_CENTER));
         }
         
-        BuildVList scoresT(this, Rect(vminfo->width/2-100-20,vmargin+5*25+4*vspacing+vspacing2,100,25), 2);
+        BuildVList scoresT(this, Rect(vminfo->width/2-(vshrink?50+10:100+20),vmargin+5*(vshrink?12:25)+4*vspacing+vspacing2,vshrink?50:100,vshrink?12:25), vshrink?1:2);
         scoresT.add(new Label(N_("Scores"), HALIGN_RIGHT));
 
-        BuildVList scoresST(this, Rect(vminfo->width/2-100-20,vmargin+6*25+5*vspacing+vspacing2,100,25), 2);
+        BuildVList scoresST(this, Rect(vminfo->width/2-(vshrink?50+10:100+20),vmargin+6*(vshrink?12:25)+5*vspacing+vspacing2,vshrink?50:100,vshrink?12:25), vshrink?1:2);
         scoresST.add(new Label(N_("You: "), HALIGN_RIGHT));
         scoresST.add(new Label(N_("World: "), HALIGN_RIGHT));
 // TRANSLATORS: PAR = professional average rate - an expression used by golfers
@@ -288,8 +290,8 @@ LevelInspector::LevelInspector(lev::Proxy *aLevel, bool showDeveloperInfo):
         scoresST.add(new Label(N_("Solved %: "), HALIGN_RIGHT));
         if (!lowres) scoresST.add(new Label(N_("Solved #: "), HALIGN_RIGHT));
     
-        BuildVList scores(this, Rect(vminfo->width/2-15+(withEasy?0:20),
-                vmargin+6*25+5*vspacing+vspacing2,(withEasy?117:54),25), 2);
+        BuildVList scores(this, Rect(vminfo->width/2-(vshrink?7-(withEasy?0:10):15-(withEasy?0:20)),
+                vmargin+6*(vshrink?12:25)+5*vspacing+vspacing2,vshrink?(withEasy?53:27):(withEasy?117:54),vshrink?12:25), vshrink?1:2);
         scores.add(new MonospacedLabel(scoreToString(theScoreMgr->getBestUserScore(aLevel, DIFFICULTY_EASY),
             theScoreMgr->getBestUserScore(aLevel, DIFFICULTY_HARD),aLevel,true).c_str(),'8', " 0123456789", HALIGN_CENTER));
         scores.add(new MonospacedLabel(scoreToString(theRatingMgr->getBestScoreEasy(aLevel),
@@ -307,9 +309,9 @@ LevelInspector::LevelInspector(lev::Proxy *aLevel, bool showDeveloperInfo):
             (ecl::strf("%5d", theRatingMgr->getNumSolvedDifficult(aLevel)) + " ").c_str(),
             '8', " 0123456789", HALIGN_CENTER));        
         
-        BuildVList versionT(this, Rect(vminfo->width-100/2-90-2*hmargin,vmargin+5*25+4*vspacing+vspacing2,100,25), 2);
+        BuildVList versionT(this, Rect(vminfo->width-(vshrink?50/2+45:100/2+90)-2*hmargin,vmargin+5*(vshrink?12:25)+4*vspacing+vspacing2,vshrink?50:100,vshrink?12:25), vshrink?1:2);
         versionT.add(new Label(N_("Version"), HALIGN_CENTER));
-        BuildVList versionST(this, Rect(vminfo->width-110-90-2*hmargin,vmargin+6*25+5*vspacing+vspacing2,110,25), 2);
+        BuildVList versionST(this, Rect(vminfo->width-(vshrink?55+45:110+90)-2*hmargin,vmargin+6*(vshrink?12:25)+5*vspacing+vspacing2,vshrink?55:110,vshrink?12:25), vshrink?1:2);
         if (!lowres || aLevel->getLevelStatus() == lev::STATUS_RELEASED)
             versionST.add(new Label(N_("Score: "), HALIGN_RIGHT));
         else
@@ -321,7 +323,7 @@ LevelInspector::LevelInspector(lev::Proxy *aLevel, bool showDeveloperInfo):
         versionST.add(new Label(N_("Control: "), HALIGN_RIGHT));
         versionST.add(new Label(N_("Target: "), HALIGN_RIGHT));
 
-        BuildVList version(this, Rect(vminfo->width-80-2*hmargin,vmargin+6*25+5*vspacing+vspacing2,80+2*hmargin,25), 2);
+        BuildVList version(this, Rect(vminfo->width-(vshrink?40:80)-2*hmargin,vmargin+6*(vshrink?12:25)+5*vspacing+vspacing2,(vshrink?40:80)+2*hmargin,vshrink?12:25), vshrink?1:2);
         if (!lowres || aLevel->getLevelStatus() == lev::STATUS_RELEASED)
             version.add(new MonospacedLabel(ecl::strf("%6d", aLevel->getScoreVersion()).c_str(),
                     '8', " 0123456789", HALIGN_LEFT));
@@ -379,13 +381,13 @@ LevelInspector::LevelInspector(lev::Proxy *aLevel, bool showDeveloperInfo):
         int annotationLines = 0; 
         int compatibilityLines = 0; 
         int idLines = 0; 
-        int vnext = vmargin+ (lowres?11:12)*25+(lowres?9:10)*vspacing+2*vspacing2;
-        int textwidth = vminfo->width-3*hmargin-110-10;
+        int vnext = vmargin+(lowres?11:12)*(vshrink?12:25)+(lowlowres?5:lowres?9:10)*vspacing+2*vspacing2;
+        int textwidth = vminfo->width-3*hmargin-(vshrink?55+5:110+10);
         dispatchBottomLines(bestScoreHolderLines, creditsLines, dedicationLines,
                 levelPathLines, annotationLines, compatibilityLines, idLines,
-                (vminfo->height-vnext-vmargin-25-vspacing2)/27, textwidth);
+                (vminfo->height-vnext-vmargin-(vshrink?12:25)-vspacing2)/(vshrink?13:27), textwidth);
         if (bestScoreHolderLines == 1) {
-            add(new Label(N_("World Record Holders: "), HALIGN_RIGHT),Rect(hmargin,vnext,200,25));
+            add(new Label(N_("World Record Holders: "), HALIGN_RIGHT),Rect(hmargin,vnext,vshrink?100:200,vshrink?12:25));
             std::string holders;
             if (withEasy) {
                 holders = theRatingMgr->getBestScoreEasyHolder(aLevel);
@@ -398,7 +400,7 @@ LevelInspector::LevelInspector(lev::Proxy *aLevel, bool showDeveloperInfo):
             else
                 holders += theRatingMgr->getBestScoreDifficultHolder(aLevel);
             Label *wrLabel = new Label(holders, HALIGN_LEFT);
-            add(wrLabel, Rect(hmargin+200+10,vnext,textwidth-90,25));
+            add(wrLabel, Rect(hmargin+(vshrink?100+5:200+10),vnext,textwidth-(vshrink?45:90),vshrink?12:25));
             if (!wrLabel->text_fits()) {
                 int cutEasy = 0;
                 int cutDiff = 0;
@@ -443,49 +445,49 @@ LevelInspector::LevelInspector(lev::Proxy *aLevel, bool showDeveloperInfo):
                     }
                 }
             }
-            vnext += 25 + vspacing;
+            vnext += (vshrink?12:25) + vspacing;
         }
         if (creditsLines >= 1) {
-            add(new Label(N_("Credits: "), HALIGN_RIGHT),Rect(hmargin,vnext,110,25));
+            add(new Label(N_("Credits: "), HALIGN_RIGHT),Rect(hmargin,vnext,vshrink?55:110,vshrink?12:25));
             std::string creditsString = levelProxy->getCredits(true);
             for (int i = 0; i< creditsLines; i++) {
                 std::string::size_type breakPos = breakString(menufont, creditsString, 
                         " ", textwidth);
-                add(new Label(creditsString.substr(0,breakPos), HALIGN_LEFT), Rect(hmargin+110+10,vnext,textwidth,25));
+                add(new Label(creditsString.substr(0,breakPos), HALIGN_LEFT), Rect(hmargin+(vshrink?55+5:110+10),vnext,textwidth,vshrink?12:25));
                 creditsString = creditsString.substr(breakPos);
-                vnext += (25 + vspacing);
+                vnext += ((vshrink?12:25) + vspacing);
             }
         }
         if (dedicationLines >= 1) {
-            add(new Label(N_("Dedication: "), HALIGN_RIGHT),Rect(hmargin,vnext,110,25));
+            add(new Label(N_("Dedication: "), HALIGN_RIGHT),Rect(hmargin,vnext,vshrink?55:110,vshrink?12:25));
             std::string dedicationString = levelProxy->getDedication(true);
             for (int i = 0; i< dedicationLines; i++) {
                 std::string::size_type breakPos = breakString( menufont, dedicationString, 
                         " ", textwidth);
-                add(new Label(dedicationString.substr(0,breakPos), HALIGN_LEFT), Rect(hmargin+110+10,vnext,textwidth,25));
+                add(new Label(dedicationString.substr(0,breakPos), HALIGN_LEFT), Rect(hmargin+(vshrink?55+5:110+10),vnext,textwidth,vshrink?12:25));
                 dedicationString = dedicationString.substr(breakPos);
-                vnext += (25 + vspacing);
+                vnext += ((vshrink?12:25) + vspacing);
             }
         }
         if (levelPathLines >= 1) {
-            add(new Label(N_("Level Path: "), HALIGN_RIGHT),Rect(hmargin,vnext,110,25));
+            add(new Label(N_("Level Path: "), HALIGN_RIGHT),Rect(hmargin,vnext,vshrink?55:110,vshrink?12:25));
             std::string workString = levelPathString;
             for (int i = 0; i< levelPathLines - 1; i++) {
                 std::string::size_type breakPos = breakString(menufont, workString, 
                         "/", textwidth);
-                add(new Label(workString.substr(0,breakPos), HALIGN_LEFT), Rect(hmargin+110+10,vnext,textwidth,25));
+                add(new Label(workString.substr(0,breakPos), HALIGN_LEFT), Rect(hmargin+(vshrink?55+5:110+10),vnext,textwidth,vshrink?12:25));
                 workString = workString.substr(breakPos);
-                vnext += (25 + vspacing);
+                vnext += ((vshrink?12:25) + vspacing);
             }
             // show as much as possible from last line
             if (menufont->get_width(workString.c_str()) > textwidth) {
                 // show the filename at the end - skip leading parts if necessary
-                add(new Label(workString, HALIGN_RIGHT), Rect(hmargin+110+10,vnext,textwidth,25));
+                add(new Label(workString, HALIGN_RIGHT), Rect(hmargin+(vshrink?55+5:110+10),vnext,textwidth,vshrink?12:25));
             } else {
                 // display up to the last character
-                add(new Label(workString, HALIGN_LEFT), Rect(hmargin+110+10,vnext,textwidth,25));
+                add(new Label(workString, HALIGN_LEFT), Rect(hmargin+(vshrink?55+5:110+10),vnext,textwidth,vshrink?12:25));
             }
-            vnext += (25 + vspacing);
+            vnext += ((vshrink?12:25) + vspacing);
         }
         if (idLines >= 1) {
             add(new Label(N_("Id: "), HALIGN_RIGHT),Rect(hmargin,vnext,110,25));
@@ -493,23 +495,23 @@ LevelInspector::LevelInspector(lev::Proxy *aLevel, bool showDeveloperInfo):
             vnext += (25 + vspacing)*idLines;
         }
         if (compatibilityLines >= 1) {
-            add(new Label(N_("Compatibility: "), HALIGN_RIGHT),Rect(hmargin,vnext,110,25));
+            add(new Label(N_("Compatibility: "), HALIGN_RIGHT),Rect(hmargin,vnext,vshrink?55:110,vshrink?12:25));
             std::string compString = ecl::strf("Enigma v%.2f  /  ", levelProxy->getEnigmaCompatibility()) +
                     GetGameTypeName(levelProxy->getEngineCompatibility());
-            add(new Label(compString , HALIGN_LEFT),Rect(hmargin+110+10, vnext, textwidth, 25));
-            vnext += (25 + vspacing)*compatibilityLines;
+            add(new Label(compString , HALIGN_LEFT),Rect(hmargin+(vshrink?55+5:110+10), vnext, textwidth, vshrink?12:25));
+            vnext += ((vshrink?12:25) + vspacing)*compatibilityLines;
         }
         annotation->set_text(app.state->getAnnotation(levelProxy->getId())); // field needs to initialized for saves
         if (annotationLines >= 1) {
-            add(new Label(N_("Annotation: "), HALIGN_RIGHT),Rect(hmargin,vnext,110,25));
-            add(annotation, Rect(hmargin+110+10, vnext, textwidth, 25));
-            vnext += (25 + vspacing)*annotationLines;
+            add(new Label(N_("Annotation: "), HALIGN_RIGHT),Rect(hmargin,vnext,vshrink?55:110,vshrink?12:25));
+            add(annotation, Rect(hmargin+(vshrink?55+5:110+10), vnext, textwidth, vshrink?12:25));
+            vnext += ((vshrink?12:25) + vspacing)*annotationLines;
         }
         vnext += vspacing2 - vspacing;
-        add(new Label(N_("Rating: "), HALIGN_RIGHT),Rect(hmargin,vnext,110,25));
-        add(new RatingButton(aLevel),Rect(hmargin+110+10,vnext,40,25));
-        add(new Label(N_("Average: "), HALIGN_RIGHT),Rect(hmargin+110+10+40+20,vnext,105,25));
-        add(new Label(theRatingMgr->getAverageRating(aLevel), HALIGN_RIGHT),Rect(hmargin+110+10+40+18+105+6,vnext,31,25));
+        add(new Label(N_("Rating: "), HALIGN_RIGHT),Rect(hmargin,vnext,vshrink?55:110,vshrink?12:25));
+        add(new RatingButton(aLevel),Rect(hmargin+(vshrink?55+5:110+10),vnext,vshrink?20:40,vshrink?12:25));
+        add(new Label(N_("Average: "), HALIGN_RIGHT),Rect(hmargin+(vshrink?55+5+20+10:110+10+40+20),vnext,vshrink?52:105,vshrink?12:25));
+        add(new Label(theRatingMgr->getAverageRating(aLevel), HALIGN_RIGHT),Rect(hmargin+(vshrink?55+5+20+9+52+3:110+10+40+18+105+6),vnext,vshrink?15:31,vshrink?12:25));
     }
     
     LevelInspector::~LevelInspector () {
@@ -571,6 +573,7 @@ LevelInspector::LevelInspector(lev::Proxy *aLevel, bool showDeveloperInfo):
     
     void LevelInspector::draw_background(ecl::GC &gc) {
         const video::VMInfo *vminfo = video::GetInfo();
+        const int vshrink = vminfo->width < 640 ? 1 : 0;
         video::SetCaption((std::string("Enigma - Level ") + 
             (isDeveloperMode ? "Developer " : "") + "Inspector").c_str());
         blit(gc, vminfo->mbg_offsetx, vminfo->mbg_offsety, enigma::GetImage("menu_bg", ".jpg"));
@@ -578,16 +581,16 @@ LevelInspector::LevelInspector(lev::Proxy *aLevel, bool showDeveloperInfo):
         Surface *img_hard = enigma::GetImage("completed");
         if (withEasy) {
             Surface *img_easy = enigma::GetImage("completed-easy");
-            blit (gc, vminfo->width/2-4, vmargin+5*25+4*vspacing+vspacing2, img_easy);
-            blit (gc, vminfo->width/2-4+63, vmargin+5*25+4*vspacing+vspacing2, img_hard);
+            blit (gc, vminfo->width/2-(vshrink?2:4), vmargin+5*(vshrink?12:25)+4*vspacing+vspacing2, img_easy);
+            blit (gc, vminfo->width/2-(vshrink?2-31:4-63), vmargin+5*(vshrink?12:25)+4*vspacing+vspacing2, img_hard);
         } else {
-            blit (gc, vminfo->width/2-4+20, vmargin+5*25+4*vspacing+vspacing2, img_hard);
+            blit (gc, vminfo->width/2-(vshrink?2-10:4-20), vmargin+5*(vshrink?12:25)+4*vspacing+vspacing2, img_hard);
         }
         Surface *img_changed = enigma::GetImage("changed");
         ratingInherited = lev::ScoreManager::instance()->isRatingInherited(levelProxy);
         if (ratingInherited) {
-            int numLines = vminfo->height < 500 ? 14 :(vminfo->height < 650 ? 18 : 19);
-            blit (gc, hmargin+110+10+40, vmargin + numLines*25 +
+            int numLines = vminfo->height < 400 ? 10 :(vminfo->height < 500 ? 14 :(vminfo->height < 650 ? 18 : 19));
+            blit (gc, hmargin+(vshrink?55+5+20:110+10+40), vmargin + numLines*(vshrink?12:25) +
                     (numLines-3)*vspacing + 3*vspacing2, img_changed);        
         }
     }

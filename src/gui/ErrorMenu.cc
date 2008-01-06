@@ -32,7 +32,8 @@ namespace enigma { namespace gui {
             text (message), rejectQuit (false), laterQuit (false),
             quit (new gui::StaticTextButton(quitTitle, this)) {
         const video::VMInfo *vminfo = video::GetInfo();
-        add(quit, Rect(vminfo->width-170, vminfo->height-60, 150, 40));
+        const int vshrink = vminfo->width < 640 ? 1 : 0;
+        add(quit, Rect(vminfo->width-(vshrink?85:170), vminfo->height-(vshrink?30:60), vshrink?75:150, vshrink?42:40));
     }
     
     ErrorMenu::ErrorMenu(std::string message, std::string quitTitle, std::string rejectTitle) : 
@@ -40,8 +41,9 @@ namespace enigma { namespace gui {
             quit (new gui::StaticTextButton(quitTitle, this)),
             reject (new gui::StaticTextButton(rejectTitle, this)) {
         const video::VMInfo *vminfo = video::GetInfo();
-        add(quit, Rect(vminfo->width-170, vminfo->height-60, 150, 40));
-        add(reject, Rect(vminfo->width-340, vminfo->height-60, 150, 40));
+        const int vshrink = vminfo->width < 640 ? 1 : 0;
+        add(quit, Rect(vminfo->width-(vshrink?85:170), vminfo->height-(vshrink?30:60), vshrink?75:150, vshrink?42:40));
+        add(reject, Rect(vminfo->width-(vshrink?170:340), vminfo->height-(vshrink?30:60), vshrink?75:150, vshrink?42:40));
     }
     
     ErrorMenu::ErrorMenu(std::string message, std::string quitTitle, std::string rejectTitle,
@@ -51,9 +53,10 @@ namespace enigma { namespace gui {
             reject (new gui::StaticTextButton(rejectTitle, this)),
             later (new gui::StaticTextButton(laterTitle, this)) {
         const video::VMInfo *vminfo = video::GetInfo();
-        add(quit, Rect(vminfo->width-170, vminfo->height-60, 150, 40));
-        add(later, Rect(vminfo->width-340, vminfo->height-60, 150, 40));
-        add(reject, Rect(vminfo->width-510, vminfo->height-60, 150, 40));
+        const int vshrink = vminfo->width < 640 ? 1 : 0;
+        add(quit, Rect(vminfo->width-(vshrink?85:170), vminfo->height-(vshrink?30:60), vshrink?75:150, vshrink?42:40));
+        add(later, Rect(vminfo->width-(vshrink?170:340), vminfo->height-(vshrink?30:60), vshrink?75:150, vshrink?42:40));
+        add(reject, Rect(vminfo->width-(vshrink?255:510), vminfo->height-(vshrink?30:60), vshrink?75:150, vshrink?42:40));
     }
     
     bool ErrorMenu::isRejectQuit() {

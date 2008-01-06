@@ -37,14 +37,11 @@ using namespace std;
 
 #define SCREEN ecl::Screen::get_instance()
 
-ecl::Font *TextField::menufont = 0;
-
 TextField::TextField(const std::string &t, ActionListener *al) : cursorTime(0),
         showCursor(true), isLastActionReturn (false), invalidChars(""),
         isLimitedToValidChars(false), maxChars(-1) {
-    if (menufont == 0) {
-        menufont = enigma::GetFont("menufont");
-    }
+    menufont = enigma::GetFont("menufont");
+    
     set_listener(al);
     textPreCursor = t;
     ecl::utf8CharSizes(textPreCursor, charSizesPreCursor);

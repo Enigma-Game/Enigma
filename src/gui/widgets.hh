@@ -375,7 +375,8 @@ namespace enigma { namespace gui {
         void draw(ecl::GC &gc, const ecl::Rect &r);
 
         // Variables.
-        static ecl::Font *menufont, *menufont_pressed;
+        ecl::Font *menufont;
+        ecl::Font *menufont_pressed;
     };
 
 /* -------------------- StaticTextButton -------------------- */
