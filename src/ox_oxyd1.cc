@@ -196,9 +196,9 @@ const char *oxyd::oxyd1_stone_map[256] = {
     "st-plain_hole",            // Oxyd1 stone 0x29
     "st-plain_move",            // Oxyd1 stone 0x2a
     "st-wood",                  // Oxyd1 stone 0x2b
-    "st_switch",                // Oxyd1 stone 0x2c
-    "st_switch_black",          // Oxyd1 stone 0x2d
-    "st_switch_white",          // Oxyd1 stone 0x2e
+    "st_switch_instant",        // Oxyd1 stone 0x2c
+    "st_switch_black_instant",  // Oxyd1 stone 0x2d
+    "st_switch_white_instant",  // Oxyd1 stone 0x2e
     "st_fourswitch",            // Oxyd1 stone 0x2f
     "st-key",                   // Oxyd1 stone 0x30
     "st-floppy",                // Oxyd1 stone 0x31

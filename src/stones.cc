@@ -889,10 +889,10 @@ namespace
                     if (m.message == "hit")
                         o = m.value;
                     else
-                        o= SendMessage(m.sender, "_hitactor");
+                        o = SendMessage(m.sender, "_hitactor");
                     
                     Actor *a = dynamic_cast<Actor *>(o);
-                    if (a && get_id(a) == ac_blackball) {
+                    if ((a && get_id(a) == ac_blackball) || (m.message == "signal")) {
                         if (p.y == sender->get_pos().y) {
                             SendMessage (GetStone (move (p, EAST)),  "signal", 1.0);
                             SendMessage (GetStone (move (p, WEST)),  "signal", 1.0);
@@ -931,7 +931,7 @@ namespace
                         o = SendMessage(m.sender, "_hitactor");
                         
                     Actor *a = dynamic_cast<Actor *>(o);
-                    if (a && get_id(a) == ac_whiteball) {
+                    if ((a && get_id(a) == ac_whiteball) || (m.message == "signal")) {
                         if (p.y == sender->get_pos().y) {
                             SendMessage (GetStone (move (p, EAST)),  "signal", 1.0);
                             SendMessage (GetStone (move (p, WEST)),  "signal", 1.0);

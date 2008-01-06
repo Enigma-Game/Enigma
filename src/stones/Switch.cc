@@ -20,11 +20,14 @@
 
 #include "stones/Switch.hh"
 //#include "main.hh"
+#include "server.hh"
 
 namespace enigma {
-    Switch::Switch(Value v) : Stone () {
-        if (v.getType() != Value::NIL)
-            set_attrib("color", v);
+    Switch::Switch(Value color, bool instant) : Stone () {
+        if (color.getType() != Value::NIL)
+            set_attrib("color", color);
+        if (instant)
+            set_attrib("instant", true);
         state = OFF;
     }
 
@@ -38,8 +41,23 @@ namespace enigma {
         Stone::set_attrib(key, val);
     }
     
+    Value Switch::message(const Message &m) {
+        if (m.message == "signal" && server::GameCompatibility == GAMET_OXYD1 
+                && m.value == 1) {  // other signal messages are handled in superclasses
+            if (state != ON)
+                setState(1);
+            else
+                performAction(true);  // Oxyd special
+            return Value();
+        }
+        return Stone::message(m);
+    }
+    
     int Switch::externalState() const {
-        return state % 2;   // 0 for OFF, TURNON, 1 for ON, TURNOFF
+        if (isInstant())
+            return state == ON || state == TURNON;
+        else
+            return state % 2;   // 0 for OFF, TURNON, 1 for ON, TURNOFF
     }
     
     void Switch::setState(int extState) {
@@ -48,12 +66,18 @@ namespace enigma {
                 sound_event ("switchon");
                 state += 2;  // OFF->TURNON, ON->TURNOFF
                 set_anim(ecl::strf("st-switch%s%s", colorName(), extState ? "-turnon" : "-turnoff"));
+                if (isInstant())
+                    performAction(externalState() == ON);   // immediate action
             } else if (state == TURNON && extState == OFF) {
                 state = TURNOFF;
                 get_model()->reverse();  // reverse anim
+                if (isInstant())
+                    performAction(false);   // immediate action
             } else if (state == TURNOFF && extState == ON) {
                 state = TURNON;
                 get_model()->reverse();  // reverse anim
+                if (isInstant())
+                    performAction(true);   // immediate action
             }
         } else  // object initialisation
             state = extState;
@@ -66,7 +90,8 @@ namespace enigma {
     void Switch::animcb() {
         state = TURNOFF - state;
         init_model();
-        performAction(state == ON);   // action after state is reached
+        if (!isInstant())
+            performAction(state == ON);   // action after state is reached
     }
     
     void Switch::actor_hit(const StoneContact &sc) {
@@ -96,16 +121,30 @@ namespace enigma {
         return "";
     }
     
-    StoneTraits Switch::traits[3] = {
+    bool Switch::isInstant() const {
+        return getDefaultedAttr("instant", false).to_bool();
+    }
+    
+    int Switch::traitsIdx() const {
+        return iColor() + (isInstant() ? 3 : 0);
+    }
+    
+    StoneTraits Switch::traits[6] = {
         {"st_switch", st_switch, stf_none, material_stone, 1.0, MOVABLE_PERSISTENT},
         {"st_switch_black", st_switch, stf_none, material_stone, 1.0, MOVABLE_PERSISTENT},
         {"st_switch_white", st_switch, stf_none, material_stone, 1.0, MOVABLE_PERSISTENT},
+        {"st_switch_instant", st_switch, stf_none, material_stone, 1.0, MOVABLE_PERSISTENT},
+        {"st_switch_instantblack", st_switch, stf_none, material_stone, 1.0, MOVABLE_PERSISTENT},
+        {"st_switch_instantwhite", st_switch, stf_none, material_stone, 1.0, MOVABLE_PERSISTENT},
     };
     
     BOOT_REGISTER_START
         BootRegister(new Switch(Value()), "st_switch");
         BootRegister(new Switch(Value(0)), "st_switch_black");
         BootRegister(new Switch(Value(1)), "st_switch_white");
+        BootRegister(new Switch(Value(), true), "st_switch_instant");
+        BootRegister(new Switch(Value(0), true), "st_switch_black_instant");
+        BootRegister(new Switch(Value(1), true), "st_switch_white_instant");
     BOOT_REGISTER_END
 
 } // namespace enigma

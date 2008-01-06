@@ -39,15 +39,17 @@ namespace enigma {
      */
     class Switch : public Stone {
         CLONEOBJ(Switch);
-        DECL_TRAITS_ARRAY(3, iColor());
+        DECL_TRAITS_ARRAY(6, traitsIdx());
     private:
         enum iState { OFF, ON, TURNON, TURNOFF };  // sequence is essential!
     public:
-        Switch(Value v);
+        Switch(Value color, bool instant = false);
         
         // Object interface
         virtual void set_attrib(const string& key, const Value &val);
+        virtual Value message(const Message &m);
         
+        // StateObject interface
         virtual int externalState() const;
         virtual void setState(int extState);
 
@@ -64,6 +66,8 @@ namespace enigma {
     private:
         int iColor() const;
         const char* colorName() const;
+        bool isInstant() const;
+        int traitsIdx() const;
     };
 
 } // namespace enigma

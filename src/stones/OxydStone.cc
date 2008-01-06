@@ -867,8 +867,9 @@ namespace enigma {
             tryOpen();
             return Value();
         }
-        else if (m.message == "signal" && m.value != 0) {
-            tryOpen();
+        else if (m.message == "signal") {
+            if (m.value != 0)
+                tryOpen();
             return Value();
         }
         else if (m.message == "init") {

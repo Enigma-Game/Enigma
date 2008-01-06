@@ -234,9 +234,9 @@ const char *oxyd::peroxyd_stone_map[256] = {
     "st-bluegray_hole",         // PerOxyd stone 0x25
     "st-plain_move",            // PerOxyd stone 0x26
     "st-wood",                  // PerOxyd stone 0x27
-    "st_switch",                // PerOxyd stone 0x28
-    "st_switch_black",          // PerOxyd stone 0x29
-    "st_switch_white",          // PerOxyd stone 0x2a
+    "st_switch_instant",        // PerOxyd stone 0x28
+    "st_switch_black_instant",  // PerOxyd stone 0x29
+    "st_switch_white_instant",  // PerOxyd stone 0x2a
     "st_fourswitch",            // PerOxyd stone 0x2b
     "st-key",                   // PerOxyd stone 0x2c
     "st-floppy",                // PerOxyd stone 0x2d

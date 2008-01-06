@@ -45,9 +45,9 @@ RenamingObjectsOld2New = {
 
 RenamingObjectsNew2Old = {
     st_fourswitch = "st-fourswitch",
-    st_switch = "st-switch",
-    st_switch_black = "st-switch_black",
-    st_switch_white = "st-switch_white"
+    st_switch_instant = "st-switch",
+    st_switch_black_instant = "st-switch_black",
+    st_switch_white_instant = "st-switch_white"
 }
 
 for k,v in pairs(RenamingObjectsNew2Old) do
@@ -143,9 +143,9 @@ function enigma.GetAttrib(obj, key)
 end
 
 MessageRenaming = {
-    st_switch__onoff = "toggle",
-    st_switch_black__onoff = "toggle",
-    st_switch_white__onoff = "toggle"
+    st_switch_instant__onoff = "toggle",
+    st_switch_black_instant__onoff = "toggle",
+    st_switch_white_instant__onoff = "toggle"
 }
 ----------------------
 -- old API 1.0      --
