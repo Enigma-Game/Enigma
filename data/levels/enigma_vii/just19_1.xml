@@ -1,0 +1,177 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no" ?>
+<el:level xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://enigma-game.org/schema/level/1 level.xsd" xmlns:el="http://enigma-game.org/schema/level/1">
+  <el:protected>
+    <el:info el:type="level">
+      <el:identity el:title="Triggered Triggers" el:subtitle="" el:id="just19"/>
+      <el:version el:score="1" el:release="1" el:revision="1" el:status="released"/>
+      <el:author  el:name="JuSt" el:email="" el:homepage=""/>
+      <el:copyright>Copyright © 2007 JuSt</el:copyright>
+      <el:license el:type="GPL v2.0 or above" el:open="true"/>
+      <el:compatibility el:enigma="1.00">
+      </el:compatibility>
+      <el:modes el:easy="true" el:single="true" el:network="false"/>
+      <el:score el:easy="-" el:difficult="-"/>
+    </el:info>
+    <el:luamain><![CDATA[
+if difficult then
+    enigma.ConserveLevel=FALSE
+else
+    enigma.ConserveLevel=TRUE
+end
+
+create_world(21, 13)
+oxyd_default_flavor="b"
+
+-- Code
+function trigger_laser()
+    i = 17
+    repeat
+        x = random(12,18)
+        y = random(5,11)
+        local myitem = enigma.GetItem(x, y)
+        if enigma.GetKind(myitem) == "it-trigger" then
+            if enigma.GetAttrib(myitem, "target") == nil then
+                SetAttrib(myitem, "target", "laser"..tostring(i))
+                i = i + 1
+            end
+        end
+    until i == 35
+
+    for x = 12, 18 do
+        for y = 5, 11 do
+            local myitem = enigma.GetItem(x, y)
+            if enigma.GetKind(myitem) == "it-trigger" then
+                if enigma.GetAttrib(myitem, "target") == nil then
+                    rnd = random(17, 34)
+                    SetAttrib(myitem, "target", "laser"..tostring(rnd))
+                end
+            end
+        end
+    end
+end
+
+bridgename={1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16}
+function who_is_who()
+    for x = 1, 8 do
+        for y = 5, 11 do
+            local myfloor = enigma.GetFloor(x, y)
+            if enigma.GetKind(myfloor) == "fl-bridge" then
+                repeat
+                    rnd = random(1,16) 
+                until bridgename[rnd] > 0
+                bridgename[rnd] = 0
+                enigma.NameObject(myfloor, "bridge"..tostring(rnd))
+            end
+        end
+    end
+end
+
+function where_is_it()
+    for x = 1, 16 do
+        local mystone = enigma.GetStone(x, 3)
+        if mystone ~= nil then
+            SendMessage ("bridge"..tostring(x), "close")
+        else
+            SendMessage ("bridge"..tostring(x), "open")
+        end
+    end
+end
+
+-- Floor Layer
+fill_floor("fl-brick")
+draw_floor("fl-bridge-closed", {1, 3}, {1, 0}, 16)
+set_floor("fl-bridge", 4, 5)
+set_floor("fl-bridge", 8, 5)
+set_floor("fl-bridge", 1, 6)
+set_floor("fl-bridge", 3, 6)
+set_floor("fl-bridge", 5, 6)
+set_floor("fl-bridge", 7, 6)
+set_floor("fl-bridge", 1, 8)
+set_floor("fl-bridge", 3, 8)
+set_floor("fl-bridge", 5, 8)
+set_floor("fl-bridge", 7, 8)
+set_floor("fl-bridge", 1, 10)
+set_floor("fl-bridge", 3, 10)
+set_floor("fl-bridge", 5, 10)
+set_floor("fl-bridge", 7, 10)
+set_floor("fl-bridge", 2, 11)
+set_floor("fl-bridge", 6, 11)
+
+-- Item Layer
+SetDefaultAttribs("it-trigger", {invisible=FALSE, action="onoff"})
+fill_items("it-trigger", 12, 5, 6, 7)
+draw_items("it-trigger", {18, 5}, {0, 1}, 6)
+if not difficult then
+    set_item("it-flagblack", 1, 7)
+end
+set_item("it-yinyang", 1, 5)
+set_item("it-yinyang", 18, 11)
+
+-- Stone Layer
+oxyd(10, 11)
+oxyd(9, 11)
+draw_stones("st-brick", {0, 0}, {0, 1}, 2)
+draw_stones("st-brick", {2, 0}, {1, 0}, 18)
+draw_stones("st-brick", {19, 2}, {0, 1}, 11)
+draw_stones("st-brick", {0, 4}, {0, 1}, 9)
+draw_stones("st-brick", {1, 4}, {1, 1}, 2)
+draw_stones("st-brick", {17, 4}, {1, 0}, 2)
+draw_stones("st-brick", {6, 5}, {0, 1}, 6)
+draw_stones("st-brick", {10, 5}, {1, 0}, 2)
+draw_stones("st-brick", {2, 6}, {0, 1}, 5)
+draw_stones("st-brick", {4, 6}, {0, 1}, 7)
+draw_stones("st-brick", {8, 6}, {0, 1}, 7)
+draw_stones("st-brick", {11, 6}, {0, 1}, 7)
+draw_stones("st-brick", {1, 12}, {1, 0}, 3)
+draw_stones("st-brick", {5, 12}, {1, 0}, 3)
+draw_stones("st-brick", {9, 12}, {1, 0}, 2)
+draw_stones("st-brick", {12, 12}, {1, 0}, 7)
+set_stone("st-laser", 1, 0, {dir=SOUTH, on="1"})
+set_stone("st-timer", 20, 0, {action="callback", target="where_is_it", interval="0.1", name="timer1", loop="1"})
+set_stone("st-laser", 19, 1, {dir=WEST, on="1"})
+set_stone("st-laser", 0, 2, {name="laser17", dir=EAST, on="1"})
+set_stone("st-laser", 0, 3, {name="laser18", dir=EAST, on="0"})
+set_stone("st-laser", 17, 3, {name="laser19", dir=WEST, on="0"})
+set_stone("st-laser", 18, 3, {dir=NORTH, on="1"})
+set_stone("st-laser", 2, 4, {name="laser20", dir=NORTH, on="0"})
+set_stone("st-laser", 3, 4, {name="laser21", dir=NORTH, on="0"})
+set_stone("st-laser", 4, 4, {name="laser22", dir=NORTH, on="0"})
+set_stone("st-laser", 5, 4, {name="laser23", dir=NORTH, on="0"})
+set_stone("st-laser", 6, 4, {name="laser24", dir=NORTH, on="0"})
+set_stone("st-laser", 7, 4, {name="laser25", dir=NORTH, on="0"})
+set_stone("st-laser", 8, 4, {name="laser26", dir=NORTH, on="0"})
+set_stone("st-laser", 9, 4, {name="laser27", dir=NORTH, on="0"})
+set_stone("st-laser", 10, 4, {name="laser28", dir=NORTH, on="0"})
+set_stone("st-laser", 11, 4, {name="laser29", dir=NORTH, on="0"})
+set_stone("st-laser", 12, 4, {name="laser30", dir=NORTH, on="0"})
+set_stone("st-laser", 13, 4, {name="laser31", dir=NORTH, on="0"})
+set_stone("st-laser", 14, 4, {name="laser32", dir=NORTH, on="0"})
+set_stone("st-laser", 15, 4, {name="laser33", dir=NORTH, on="0"})
+set_stone("st-laser", 16, 4, {name="laser34", dir=NORTH, on="0"})
+set_stones("st-brick", {{9, 7}, {10, 9}})
+if difficult then
+    set_stone("st-lightpassenger", 1, 1, {interval=0.2})
+else
+    set_stone("st-lightpassenger", 1, 1, {interval=0.4})
+end
+
+-- Actor Layer
+set_actor("ac-blackball", 1.5, 5.5, {player="0", mouseforce="1", essential="1"})
+set_actor("ac-whiteball", 18.5, 11.5, {player="1", mouseforce="1"})
+
+oxyd_shuffle()
+who_is_who()
+trigger_laser()
+  ]]></el:luamain>
+    <el:i18n>
+      <el:string el:key="title">
+        <el:english el:translate="false"/>
+      </el:string>
+      <el:string el:key="subtitle">
+        <el:english el:translate="true">The force of coincidence</el:english>
+        <el:translation el:lang="de">Die Macht des Zufalls</el:translation>
+      </el:string>
+    </el:i18n>
+  </el:protected>
+</el:level>
+

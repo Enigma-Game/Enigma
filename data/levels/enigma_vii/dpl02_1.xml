@@ -1,0 +1,153 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no" ?>
+<el:level xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://enigma-game.org/schema/level/1 level.xsd" xmlns:el="http://enigma-game.org/schema/level/1">
+  <el:protected >
+    <el:info el:type="level">
+      <el:identity el:title="Remote Meditation" el:id="dpl02"/>
+      <el:version el:score="1" el:release="1" el:revision="1" el:status="released"/>
+      <el:author  el:name="Dominik Leipold"/>
+      <el:copyright>Copyright © 2007 Dominik Leipold</el:copyright>
+      <el:license el:type="GPL v2.0 or above" el:open="true"/>
+      <el:compatibility el:enigma="1.00"/>
+      <el:modes el:easy="true" el:single="true" el:network="false"/>
+      <el:score el:easy="2:19" el:difficult="3:10"/>
+    </el:info>
+    <el:luamain><![CDATA[
+enigma.MagnetForce = 7
+enigma.MagnetRange = 5
+
+ap = 1
+bp = 18
+s1 = 0
+s2 = 0
+s3 = 0
+s4 = 0
+
+function renderLine(line, pattern)
+    for i=1, strlen(pattern) do
+        local c = strsub( pattern, i, i)
+        if c == "o" then
+            oxyd(i-1,line)
+        elseif c == "+" then
+            set_stone ("st-rock1",i-1,line)
+        elseif c == "#" then
+            set_stone ("st-glass1",i-1,line)
+            set_floor ("fl-space",i-1,line)
+        elseif c == "l" then
+            set_stone ("st-oneway-w",i-1,line)
+            set_floor ("fl-space",i-1,line)
+        elseif c == "r" then
+            set_stone ("st-oneway-e",i-1,line)
+            set_floor ("fl-space",i-1,line)
+        elseif c == "=" then
+            set_floor ("fl-space",i-1,line)
+        elseif c == "!" then
+            set_floor ("fl-abyss",i-1,line)
+        elseif c == "X" then
+            set_actor ("ac-whiteball-small",i-0.5,line+0.5,{player=1,mouseforce=0})
+            set_floor ("fl-space",i-1,line)
+        elseif c == "O" then
+            set_item ("it-tinyhollow",i-1,line,{essential=1})
+            if difficult then
+                set_floor ("fl-bluegreenx",i-1,line)
+            else
+                set_floor ("fl-red",i-1,line)
+            end
+        elseif c == "a" then
+            set_floor ("fl-space",i-1,line)
+            set_item ("it-magnet",i-1,line,{name="am"})
+        elseif c == "b" then
+            set_floor ("fl-space",i-1,line)
+            set_item ("it-magnet",i-1,line,{name="bm"})
+        elseif c == "A" then
+            set_stone ("st-switch_black",i-1,line,{action="onoff",target="am"})
+        elseif c == "B" then
+            set_stone ("st-switch_black",i-1,line,{action="onoff",target="bm"})
+        elseif c == "1" then
+            set_stone ("st-timeswitch",i-1,line,{delay=0.1,action="callback",target="al"})
+        elseif c == "2" then
+            set_stone ("st-timeswitch",i-1,line,{delay=0.1,action="callback",target="ar"})
+        elseif c == "3" then
+            set_stone ("st-timeswitch",i-1,line,{delay=0.1,action="callback",target="bl"})
+        elseif c == "4" then
+            set_stone ("st-timeswitch",i-1,line,{delay=0.1,action="callback",target="br"})
+        end
+    end
+end
+
+create_world (20,13)
+fill_floor("fl-black",0,0,20,13)
+--             01234567890123456789
+renderLine(00,"++++++++++++++++++++")
+renderLine(01,"+X=======r========X+")
+renderLine(02,"+========#====#####+")
+renderLine(03,"+a=###=#=####=#====+")
+renderLine(04,"+=##O#=#O##O#=#O##=+")
+renderLine(05,"+====#=####=#=###=b+")
+renderLine(06,"+#####====#========+")
+renderLine(07,"+X========l=======X+")
+renderLine(08,"++++++++++++++++++++")
+renderLine(09,"!!!!!!!!!A+!!!!!!!!!")
+renderLine(10,"!!!!!!!!1  2!!!!!!!!")
+renderLine(11,"!!!!!!!!3  4!!!!!!!!")
+renderLine(12,"!!!!!!!!!+B!!!!!!!!!")
+--             01234567890123456789
+
+function al()
+  s1 = 1 - s1
+  if s1 == 1 then
+    if ap > 1 then
+      ao = enigma.GetAttrib(enigma.GetNamedObject("am"),"on")
+      enigma.KillItem (ap,3)
+      ap = ap - 1
+      set_item ("it-magnet",ap,3,{on=ao,name="am"})
+    end
+  end
+end
+
+function ar()
+  s2 = 1 - s2
+  if s2 == 1 then
+    if ap < 18 then
+      ao = enigma.GetAttrib(enigma.GetNamedObject("am"),"on")
+      enigma.KillItem (ap,3)
+      ap = ap + 1
+      set_item ("it-magnet",ap,3,{on=ao,name="am"})
+    end
+  end
+end
+
+function bl()
+  s3 = 1 - s3
+  if s3 == 1 then
+    if bp > 1 then
+      bo = enigma.GetAttrib(enigma.GetNamedObject("bm"),"on")
+      enigma.KillItem (bp,5)
+      bp = bp - 1
+      set_item ("it-magnet",bp,5,{on=bo,name="bm"})
+    end
+  end
+end
+
+function br()
+  s4 = 1 - s4
+  if s4 == 1 then
+    if bp < 18 then
+      bo = enigma.GetAttrib(enigma.GetNamedObject("bm"),"on")
+      enigma.KillItem (bp,5)
+      bp = bp + 1
+      set_item ("it-magnet",bp,5,{on=bo,name="bm"})
+    end
+  end
+end
+
+set_actor ("ac-blackball",10,11,{player=0})
+]]></el:luamain>
+    <el:i18n>
+      <el:string el:key="title">
+        <el:english el:translate="true"/>
+        <el:translation el:lang="de">Ferngesteuerte Meditation</el:translation>
+      </el:string>
+    </el:i18n>
+  </el:protected>
+</el:level>
+

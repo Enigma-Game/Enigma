@@ -1,0 +1,281 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no" ?>
+<el:level xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://enigma-game.org/schema/level/1 level.xsd" xmlns:el="http://enigma-game.org/schema/level/1">
+  <el:protected>
+    <el:info el:type="level">
+      <el:identity el:title="Mountain Climbing II" el:subtitle="How Far Can You Get?" el:id="joe25"/>
+      <el:version el:score="1" el:release="1" el:revision="0" el:status="released"/>
+      <el:author  el:name="Joseph Dunne" el:email="josephdunne1993@hotmail.com" el:homepage=""/>
+      <el:copyright>Copyright © 2006 Joseph Dunne</el:copyright>
+      <el:license el:type="GPL v2.0 or above" el:open="true"/>
+      <el:compatibility el:enigma="1.00">
+       <el:dependency el:path="lib/ant" el:id="lib/ant" el:release="1" el:preload="true"/>
+      </el:compatibility>
+      <el:modes el:easy="true" el:single="true" el:network="false"/>
+      <el:score el:easy="-" el:difficult="-"/>
+    </el:info>
+    <el:luamain><![CDATA[
+cells={}
+cells["'"]=cell{floor="fl-bluegray"}
+cells["."]=cell{floor="fl-bumps"}
+cells[" "]=cell{floor="fl-black"}
+cells["-"]=cell{floor="fl-space"}
+cells["`"]=cell{floor="fl-sahara"}
+cells["w"]=cell{floor="fl-gradient2"}
+cells["y"]=cell{floor="fl-gradient7"}
+cells["d"]=cell{floor="fl-gradient3"}
+cells["n"]=cell{floor="fl-gradient5"}
+cells["x"]=cell{floor="fl-gradient1"}
+cells["v"]=cell{floor="fl-gradient6"}
+cells["a"]=cell{floor="fl-gradient4"}
+cells["r"]=cell{floor="fl-gradient8"}
+cells["e"]=cell{floor="fl-gradient10"}
+cells["c"]=cell{floor="fl-gradient9"}
+cells["z"]=cell{floor="fl-gradient11"}
+cells["q"]=cell{floor="fl-gradient12"}
+cells["0"]=cell{floor="fl-abyss"}
+cells["@"]=cell{stone="st-likeoxydc-open"}
+cells["#"]=cell{stone="st-likeoxydc"}
+cells["$"]=cell{stone="st-rock3"}
+cells["%"]=cell{stone="st-bumps"}
+cells["|"]=cell{stone="st-rock3_hole"}
+cells["o"]=cell{actor={"ac-whiteball-small", {player=0}}}
+cells["T"]=cell{actor={"ac-top", {range="8",force="10"}}}
+cells["R"]=cell{actor={"ac-rotor", {range="5",force="16"}}}
+cells["F"]=cell{item="it-flagwhite"}
+cells["+"]=cell{item="it-hollow"}
+cells[":"]=cell{item="it-extralife"}
+cells["<"]=cell{item="it-tinyhill"}
+cells[">"]=cell{item="it-hill"}
+cells["1"]=cell{item={"it-document", {text="This is a SuperSecret!! Well done on finding it!!"}}}
+
+if difficult then    -- Normal Mode    level = {
+        "@#@#@#@#@#@#@#@#@#@#@#@#@#@#@#@#@#@#@#@#@#@#@#@#@#@#@#@#@#@#@#@#@#@#@#@#@#@#@#@#@#@#@#@#@#@#@#@#@#@#@#@#@#@#@#@#@#@",
+        "#  qwwwe                   qwwwwwwwwwe#nxxxxxxxxxxxxxxxxv nxxxxxxxxxxxxxxxxx#          aa000'''''''nxxxxxxxxxxxxxv#",
+        "@  a'''d           #       aqwwwwwwwed@d    qe00qe nxxxva#dnxxxxxxxxxxxxxxxx@          azxxxxxx#'''dnxxxxxxxvnxxva@",
+        "#  a'''d        nxx@       aaqwwwwwedd#d    zc00zc dqweaa@ddnxxxxxxxxxxxxxxx#  R  R    zxxxxxxx@'''ddnxxxxxvad00aa#",
+        "@  a'''dqwwwe   d''#       aaa00000ddd@dqwe  qwwwweda0daa#dddnxxxxxxxxxxxxxx@xx@ww#xxx@nxv#xxxx#nxxcdd00000aad00aa@",
+        "#  zxxxca@#@d   d''@       aaa00000ddd#da@d  a@@@@dda0daa@ddddnxxxxxxxxxxxxx#xx@ww#xxx@d0a#0000@dqwedywwwwwraywwra#",
+        "@       a'''d   d''#nxxxxxvaazxxxxxcdd@da#d  a@##@dda0daa#dddddnxxxxxxxxxxxx@xx@ww#xxx@d0a#0000#da0dywwwwwwwr@xxva@",
+        "#       a@#@d   d''@dnxxxvaazxxxxxxxcd#da@d  a@##@dda0daa@ddddddnxxxxxxxxxxv#xx@ww#www@ywr#wwww@da0dnxxxxxxxxxxvaa#",
+        "@       zxxxc   d''#ddnxvaazxxxxxxxxxc@da#d  a@@@@dda0daa#dddddddnxxxxxxxxva@xx@ww#www@        #da0dd0000000000aaa@",
+        "#wwwwe          d''@ddywraanxxxxxxxv 0#da@d  zxxxxcdzxcaa@dddddddd00000000aa#xx@ww#www@        @da0dd@wwwwwwwwwraa#",
+        "@''''d          d''#dywwwrad0000000a  @da#d        ywwwra#dddddddd00000000aa@                  #dzxcywwwwwwwwwwwra@",
+        "#o'''d          d''@ywwwwwrywwwwwwwr   yr@ywwwwwwwwwwwwwr@dddddddd00000000aa                   @ywwwwwwwwwwwwwwwwr#",
+        "@#@#@#@#@#@#@#@#@#@#@#@#@#@#@#@#@#@#@#@#@#@#@#@#@#@#@#@#@#@#@#@#@#@#@#@#@#@#@#@#@#@#@#@#@#@#@#@#@#@#@#@#@#@#@#@#@x@",
+        "----------------------------------------------------------------------------------------------------------------@x@",
+        "----------------------------------------------------------------------------------------------------@@@@@@------@x@",
+        "---------------------------------------------------------------------------------------------------@------@-----@x@",
+        "----------------------------------------------------------------------------------------------------------@-----@x@",
+        "----------------------------------------------------------------------------------------------------------@--@@@@x@",
+        "----------------------------------------------------------------------------------------------------@@@@@@@--@Faa:@",
+        "---------------------------------------------------------------------------------------------------@---------@@@@w@",
+        "---------------------------------------------------------------------------------------------------@------------@w@",
+        "---------------------------------------------------------------------------------------------------@------------@w@",
+        "----------------------------------------------------------------------------------------------------@@@@@@@-----@w@",
+        "----------------------------------------------------------------------------------------------------------------@w@",
+        "@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@w@",
+        "@qwwwwwe0000qwwwwwe@dddddd0dddddddddd aaaaaaaaaaaaaa@@@@@@nxxxxvnxxvnxxvnxxv    000000000000000@nxxxxxxxxxxxxxxxxv@",
+        "@aqwwwed0nxvaqwwwed@ddyedd0ddddyedddd @@@@@@@@@wwwww@@@@@@d0  0ad00ad--ad  a@ qwwwwwwwwwwwwwwe0@d---T------qwe   a@",
+        "@aaqwedd0dqraaqwedd@dd0dddncddd0ddddd @ddnxxxxx0---0aaaaq@d    ad00ad--ad  a@ aqwwwwwwwwwwwwed0@d-qweqwe---a@d   a@",
+        "@aaa@ddd0da0aaa@ddd@dd0dddddddd0ddddd0@dddnxxxx-----aaaqw@d    aywwrywwrywwr@0aaqwwwwwwwwwwedd0@dqr@yr@dqwwr@ywwea@",
+        "@aaa@ddd0da0aaa@ddd@ddncddyedddncdddd0@ddddxxxx-----aaqww@d0  0anxxvnxxvnxxv@0aaa0000000000ddd0@da@@@@@da@@@@@@@da@",
+        "@aaa@ddd0da0aaa@ddd@dddddd0dddddddddd0@dddd00000---0aqwww@ywwwwrd--ad00ad--a@0aaa0000000000ddd0@dzv@@@@dzxxv@nxxca@",
+        "@aaa@ddd0da0aaa@ddd@dddddd0ddddyedddd0@dddd00@@0aaaa@wwww@nxxxxvd--ad00ad--a@0aaa0000000000ddd0@dqr@@@@d---a@d---a@",
+        "@aaa@ddd0da0aaa@ddd@dddddd0dddd0ddddd0@dddd00@@0aaaa@wwww@d0  0aywwrywwrywwr@0aazxxxxxxxxxxcdd0@da@@@@@d-T-zxc-T-a@",
+        "@aaz@cdd0da0aazxcdd@dddyed0ddddncdddd0@dddd00000aaaa@wwww@d    anxxznxxvnxxv@0azxxxxxxxxxxxxcd @dzv@nv@dqwwwwwe--a@",
+        "@azx@xcdnca0azxxxcd@ddd0ddncdddddyedd0@ddddwwwwwraaa@wwww@d0  0ad  ad--ad00a@0zxxxxxxxxxxxxxxc @d zxczxca@@@@@d--a@",
+        "@zxx@xxcywr0zxxxxxc ddd0ddddddddd0ddd0@dddywwwwwwraa@     ywwwwrywwrywwrywwr@000000000000000    ywwwwwwwr@@@@@ywwr@",
+        "#x#@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@",
+        "#x#----------------------------------------------------------------------------------------------------------------",
+        "#x#-----#######----------------------------------------------------------------------------------------------------",
+        "#x#------------#---------------------------------------------------------------------------------------------------",
+        "#x#------------#---------------------------------------------------------------------------------------------------",
+        "#x####---------#---------------------------------------------------------------------------------------------------",
+        "#:ddF#--#######----------------------------------------------------------------------------------------------------",
+        "#w####---------#---------------------------------------------------------------------------------------------------",
+        "#w#------------#---------------------------------------------------------------------------------------------------",
+        "#w#------------#---------------------------------------------------------------------------------------------------",
+        "#w#-----#######----------------------------------------------------------------------------------------------------",
+        "#w#----------------------------------------------------------------------------------------------------------------",
+        "#w#################################################################################################################",
+        "#nxxv#nxxxxxxxxxxxv#0a'd0d'a'a'd0a'd'a'''aaa0aaaaaaa0aaaq#000000000000000'''''nxxxxxxv'nxxxxxxv#nxxxxxv######nxxxv#",
+        "#d''a#d''''qwwwe''a#w#x#x#x#x#w#w#x#w##''aaa0aaaaaaa0aaqw#00000000000000qwe'#ncnxxxxva0dnxxxxva#d'''''a######d'''a#",
+        "#d''a#d''''a###d''a#'d'a'd0a0a'a'a'd'a#''aaaaaa0aaaaaaqww#00qwwwwwwwwwwwr'd'#dnc0000aa#dd0000aa#d'''''a######d'''a#",
+        "#d''a#ywe'Ra###d''a#w#w#w#w#wr##x#x#w##''aaaaaa0aaaaaqwww#00anxxxxxxxxxxvnc0#dywwwwwra#dywwwwra#d'''''z######c'''a#",
+        "#d''a###d''a###d''a#'d0d'a'd'#0a'a'd0a###############ww00#00adnxxxxxxxxvad00#ywwwwwwwr#ywwwwwwr#d''''''''''''''''a#",
+        "#d''a###d''zxv#d''a#x#x#x#x#x#w#wnxvx##ddd0ddddddddddewww#00add00000000aad00#'0##############0'#d''''''''T'R'''''a#",
+        "#d''a###dqwwea#d'Ra#'d'd0a'd'a0d'd0a'a#ddddd0ddd0dddddeww#00adywwwwwwwwrad00#nxxxxxxxv#nxxxxxxv#d''''''''''''''''a#",
+        "#d''zxxxca''da#d''a#x#w#x#w#w#x#wywrx##ddddddddd0dddd0dew#0qrywwwwwwwwwwrd00#dnxxxxxva#dnxxxxva#d'''''q######e'''a#",
+        "#d'''''''aT'da#d''a#'d'a'a0a'd'a0d'd'a#d0d0ddddddddddddde#'a'nxxxxxxxxxxxc00#dd00000aa#dd000qra#d'''''a######d'''a#",
+        "#d'''''''zxxca#d''a#w#w#x#w#w#x#x#w#w##'##################'zxc00000000000000#dywwwwwra0dywwwrqr#d'''''a######d'''a#",
+        "#ywwwwwwwwwwwr#ywwr''d0a'a'a'd'd'a'd'a#''''''''''''''''''''''000000000000000#ywwwwwwwr'ywwwwwr''ywwwwwr######ywwwr#",
+        "################################################################################################################$x$",
+        "----------------------------------------------------------------------------------------------------------------$x$",
+        "-------------------------------------------------------------------------------------$$$$$$$$$$----$---$--------$x$",
+        "-------------------------------------------------------------------------------------$````````$----$---$--------$x$",
+        "-------------------------------------------------------------------------------------$`1``````$----$---$--------$x$",
+        "-------------------------------------------------------------------------------------$````````$----$---$-----$$$$x$",
+        "-------------------------------------------------------------------------------------$````````$----$$$$$$$$--$Faa:$",
+        "-------------------------------------------------------------------------------------$````````$--------$-----$$$$w$",
+        "-------------------------------------------------------------------------------------$````````$--------$--------$w$",
+        "-------------------------------------------------------------------------------------$````````$--------$--------$w$",
+        "-------------------------------------------------------------------------------------$````````$--------$--------$w$",
+        "-------------------------------------------------------------------------------------$````````$-----------------$ $",
+        "$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$|$$$$$$$$$$$$$$$$$$$ $",
+        "$000000000000000000$0000000zwwwwwwwwwe`nxxv$ddd0000000000$0a`d``````00```````nv$nxv`nxv$nxxv$||$cdddddazxxxxxxcdnv$",
+        "$0qwwwwwwwwwwwwwwe0$00000000qwwwwwwwed$dnva$ddd00qwwwwwe0$0a`d``````00``````$da`d`a0d`a$d``a$$|$xcddddzxxxxxxxxcyr$",
+        "$0a``````````````d0$00000000aqqwwwwedd$ddaa$ddd00aqwwwed0$wr`d00qwwwwwwwwe``$yr$ywr`ywr$ywwr```$xxcddd0000000000qe$",
+        "$0a``````````````d0$wwwwwwwwrazxxxxcdd$ddaa$ddd00aaqwedd0$```d00a```00```d``$`0$`0`$$`$$$`$$$`$$xxxcdd0000000000a`$",
+        "$0a````nxxxxv````yw$wwwwwwwwwr000000dd$ddaa$ddd00aaa$ddyw$xxxc00a`qwwwwe`d``$nv$nxv$qwe$xxc`nxv$xxxxcd0000000000zx$",
+        "$0a````d0000a`````````00000000000000$$$ddaa`ddd00aaa$dyww`````00a`a````d`d``$da`d`a`a0dT````d`a$xxxxxc000000qwwwww$",
+        "$0a````ywwwwr````nx$xxxxxxxxxv000000dd$ddaa$ddd00aaa$ywww$wwwe00a`zxxxxc`d``$yr$ywr$zxc$www$ywr$qe0000000000aqwwww$",
+        "$0a T````````````d0$xxxxxxxxvqwwwwwedd$ddaa$ddd00aaa$$$$$$```d00a```00```d``$$$$$`$$$`$$$`$$$`$$zd0000000000aaqwww$",
+        "$`aT ````````````d0$00000000azxxxxxcdd$ddaa$ddd--aazxxxxv$xv`d00zxxxxxxxxc``$$$$nxv$nxv$c`a$nxv$dd0000000000aaaqww$",
+        "$`zxxxxxxxxxxxxxxc0$00000000zxxxxxxxcd$dyra$ddd--azxxxxxx$0a`d``````00``````$$$$d`a`d`aT``a`d`a$dywwwwwwwwweaaaaqw$",
+        "$```000000000000000$0000000qxxxxxxxxxc`ywwr$ddd--zxxxxxxx$0a`d``````00``````$$$$ywr$ywr$wwr$ywr`ywwwwwwwwwedaaaaaq$",
+        "$x$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$",
+        "%x%----------------------------------------------------------------------------------------------------------------",
+        "%x%------%%%%%%%---------------------------------------------------------------------------------------------------",
+        "%x%-----%----------------------------------------------------------------------------------------------------------",
+        "%x%-----%----------------------------------------------------------------------------------------------------------",
+        "%x%%%%--%----------------------------------------------------------------------------------------------------------",
+        "%:ddF%---%%%%%%----------------------------------------------------------------------------------------------------",
+        "%w%%%%---------%---------------------------------------------------------------------------------------------------",
+        "%w%------------%---------------------------------------------------------------------------------------------------",
+        "%w%------------%---------------------------------------------------------------------------------------------------",
+        "%w%-----%%%%%%%----------------------------------------------------------------------------------------------------",
+        "%w%----------------------------------------------------------------------------------------------------------------",
+        "%w%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%####################",
+        "%..d000000000000000%.....................aaaaaaaaaaaaaaaaaaaaaaaaaa00aaaaaaaaaaaaaaaaaaaaaaaaaa#nxxxxxxxxxxxxxxxxv#",
+        "%..d000000000000000%00  ..............%..aaaaaaa0aa0aaaaaaaaaaaaaaa00aaaaaaaaaaaaaaaaaaaaaaaaaa#d                a#",
+        "%..ywwwwwwwwe000000%.00 ..............%..aaaaaaa0aaaaaaaaaaaaaaaaaa00aaaaaaaaaaaaaaaaaaaaaa0aaa#d '  ' + '' ''   a#",
+        "%.........  d000000%.000< . ..........%..aaaaaaa0aaaa00aaaaaaaaaaaa00aaaaaaaaaaaaaa0aaaaaaaaaaa#d '' '   '  '    a#",
+        "%.........R d000000%. ..00  >.........%..aaaaaaaaaaaa00aaaaaaaaaaaa000aaaaaaaaaaaaaaaaaa0aaaaaa#c ' '' ' '  ''   a#",
+        "%xxxxxxxxv..d000000%....<00 . . ......%..aaa0aaaaaaaaaaaaaaaaaaaaaa000aaaaaaaaaaaaaaaaaaaaaaaaa   '  ' ' '  '    a#",
+        "%00000000a..d000000%..... 0> ...  ....%..aaaaaaa0aaaaaa0aa0aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa#e '  ' ' '' ''   a#",
+        "%00000000a..d000000%..... 0000..>.....%..aaaaaaa0aaaaaaaaaaaaaaaa00aaaaaaaaaaaaaa0aaaaa0aaa0aaa#d                a#",
+        "%00000000a..ywwwwww%.....<..00< ......%..0aaaaaa0aaaaaaaaaaaaaaaa00aaaaaaaaaaaaaaaaaaaaaaaaaaaa#d ''''''''''''   a#",
+        "%00000000a R.......%.......  0 .......%..aaaaaaa0aaaaaaaa0aaaaaaa00aaaaaa0aaaaaaaaaaaaaaa0aaaaa#d                a#",
+        "%00000000a  ............... 0000 .....%..aaaaaaaaaaa0000aaaaaaaaa00aaaaaaaaaaaaaaaaa0aaaaaaaaaa#ywwwwwwwwwwwwwwwwr#",
+        "%%%%%%%%%%%%%%%%%%%%%%%%%%$||||||$%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%####################",    }    else    -- Easy Mode    level = {        "@#@#@#@#@#@#@#@#@#@#@#@#@#@#@#@#@#@#@#@#@#@#@#@#@#@#@#@#@#@#@#@#@#@#@#@#@#@#@#@#@#@#@#@#@#@#@#@#@#@#@#@#@#@#@#@#@#@",
+        "#  qwwwe                   qwwwwwwwwwe#nxxxxxxxxxxxxxxxxv nxxxxxxxxxxxxxxxxx#          aa00''''''''nxxxxxxxxxxxxxv#",
+        "@  a'''d           #       aqwwwwwwwed@d    qe00qe nxxxva#dnxxxxxxxxxxxxxxxx@          azxxxxxx#'''dnxxxxxxxvnxxva@",
+        "#  a'''d        nxx@       aaqwwwwwedd#d    zc00zc dqweaa@ddnxxxxxxxxxxxxxxx#  R  R    zxxxxxxx@'''ddnxxxxxvad00aa#",
+        "@  a'''dqwwwe   d''#       aaa00000ddd@dqwe  qwwwweda0daa#dddnxxxxxxxxxxxxxx@xx@ww#xxx@nxv#xxxx#nxxcdd00000aad00aa@",
+        "#  zxxxca'''d   d''@       aaa00000ddd#da@d  a@@@@dda0daa@ddddnxxxxxxxxxxxxx#xx@ww#xxx@d0a#0000@dqwedywwwwwraywwra#",
+        "@       a'''d   d''#nxxxxxvaazxxxxxcdd@da#d  a@##@dda0daa#dddddnxxxxxxxxxxxx@xx@ww#xxx@d0a#0000#da0dywwwwwwwr@xxva@",
+        "#       a'''d   d''@dnxxxvaazxxxxxxxcd#da@d  a@##@dda0daa@ddddddnxxxxxxxxxxv#xx@ww#www@ywr#wwww@da0dnxxxxxxxxxxvaa#",
+        "@       zxxxc   d''#ddnxvaazxxxxxxxxxc@da#d  a@@@@dda0daa#dddddddnxxxxxxxxva@xx@ww#www@        #da0dd0000000000aaa@",
+        "#wwwwe          d''@ddywraanxxxxxxxv  #da@d  zxxxxcdzxcaa@ddddddddnxxxxxxvaa#xx@ww#www@        @da0dd@wwwwwwwwwraa#",
+        "@''''d          d''#dywwwrad0000000a  @da#d        ywwwra#ddddddddd000000aaa@                  #dzxcywwwwwwwwwwwra@",
+        "#o'''d          d''@ywwwwwrywwwwwwwr   yr@ywwwwwwwwwwwwwr@ddddddddd000000aaa                   @ywwwwwwwwwwwwwwwwr#",
+        "@#@#@#@#@#@#@#@#@#@#@#@#@#@#@#@#@#@#@#@#@#@#@#@#@#@#@#@#@#@#@#@#@#@#@#@#@#@#@#@#@#@#@#@#@#@#@#@#@#@#@#@#@#@#@#@#@x@",
+        "----------------------------------------------------------------------------------------------------------------@x@",
+        "----------------------------------------------------------------------------------------------------@@@@@@------@x@",
+        "---------------------------------------------------------------------------------------------------@------@-----@x@",
+        "----------------------------------------------------------------------------------------------------------@-----@x@",
+        "----------------------------------------------------------------------------------------------------------@--@@@@x@",
+        "----------------------------------------------------------------------------------------------------@@@@@@@--@Faa:@",
+        "---------------------------------------------------------------------------------------------------@---------@@@@w@",
+        "---------------------------------------------------------------------------------------------------@------------@w@",
+        "---------------------------------------------------------------------------------------------------@------------@w@",
+        "----------------------------------------------------------------------------------------------------@@@@@@@-----@w@",
+        "----------------------------------------------------------------------------------------------------------------@w@",
+        "@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@w@",
+        "@qwwwwwe0000qwwwwwe@dddddd0dddddddddd aaaaaaaaaaaaaa@@@@@@nxxxxvnxxvnxxvnxxv    000000000000000@nxxxxxxxxxxxxxxxxv@",
+        "@aqwwwed0nxvaqwwwed@ddyedd0ddddyedddd @@@@@@@@@wwwww@@@@@@d0  0ad00ad--ad  a@ qwwwwwwwwwwwwwwe0@d   T      qwe   a@",
+        "@aaqwedd0dqraaqwedd@dd0dddncddd0ddddd @ddnxxxxx0---0aaaaq@d    ad00ad--ad  a@ aqwwwwwwwwwwwwed0@d qweqwe   a@d   a@",
+        "@aaa@ddd0da0aaa@ddd@dd0dddddddd0ddddd0@dddnxxxx-----aaaqw@d    aywwrywwrywwr@0aaqwwwwwwwwwwedd0@dqr@yr@dqwwr@ywwea@",
+        "@aaa@ddd0da0aaa@ddd@ddncddyedddncdddd0@ddddnxxx-----aaqww@d0  0anxxvnxxvnxxv@0aaaqwwwwwwwweddd0@da@@@@@da@@@@@@@da@",
+        "@aaa@ddd0da0aaa@ddd@dddddd0dddddddddd0@ddddd0000---0aqwww@ywwwwrd--ad00ad--a@0aaaa00000000dddd0@dzv@@@@dzxxv@nxxca@",
+        "@aaa@ddd0da0aaa@ddd@dddddd0ddddyedddd0@ddddd0@@0aaaa@wwww@nxxxxvd--ad00ad--a@0aaazxxxxxxxxcddd0@dqr@@@@d   a@d   a@",
+        "@aaa@ddd0da0aaa@ddd@dddddd0dddd0ddddd0@ddddd0@@0aaaa@wwww@d0   aywwrywwrywwr@0aazxxxxxxxxxxcdd0@da@@@@@d T zxc T a@",
+        "@aaz@cdd0da0aazxcdd@dddyed0ddddncdddd0@ddddd0000aaaa@wwww@d    anxxznxxvnxxv@0azxxxxxxxxxxxxcd @dzv@nv@dqwwwwwe  a@",
+        "@azx@xcdnca0azxxxcd@ddd0ddncdddddyedd0@ddddywwwwraaa@wwww@d   0ad  ad--ad00a@0zxxxxxxxxxxxxxxc @d zxczxca@@@@@d  a@",
+        "@zxx@xxcywr0zxxxxxc ddd0ddddddddd0ddd0@dddywwwwwwraa@     ywwwwrywwrywwrywwr@000000000000000    ywwwwwwwr@@@@@ywwr@",
+        "#x#@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@",
+        "#x#----------------------------------------------------------------------------------------------------------------",
+        "#x#-----#######----------------------------------------------------------------------------------------------------",
+        "#x#------------#---------------------------------------------------------------------------------------------------",
+        "#x#------------#---------------------------------------------------------------------------------------------------",
+        "#x####---------#---------------------------------------------------------------------------------------------------",
+        "#:ddF#--#######----------------------------------------------------------------------------------------------------",
+        "#w####---------#---------------------------------------------------------------------------------------------------",
+        "#w#------------#---------------------------------------------------------------------------------------------------",
+        "#w#------------#---------------------------------------------------------------------------------------------------",
+        "#w#-----#######----------------------------------------------------------------------------------------------------",
+        "#w#----------------------------------------------------------------------------------------------------------------",
+        "#w#################################################################################################################",
+        "#nxxv#nxxxxxxxxxxxv#0a'd0d'a'a'd0a'd'a'''aaaaaaaaaaa0aaaq#000000000000000'''''nxxxxxxv'nxxxxxxv#nxxxxxv######nxxxv#",
+        "#d''a#d''''qwwwe''a#w#x#x#x#x#w#w#x#w##''aaaaaaaaaaa0aaqw#00000000000000qwe'#ncnxxxxva#dnxxxxva#d'''''a######d'''a#",
+        "#d''a#d''''a###d''a#'d'a'd0a0a'a'a'd'a#''aaaaaa0aaaaaaqww#00qwwwwwwwwwwwr'd'#dnc0000aa#dd0000aa#d'''''a######d'''a#",
+        "#d''a#ywe'Ra###d''a#w#w#w#w#wr##x#x#w##''aaaaaa0aaaaaqwww#00anxxxxxxxxxxvnc0#dywwwwwra#dywwwwra#d'''''a######d'''a#",
+        "#d''a###d''a###d''a#'d0d'a'd'#0a'a'd0a###############ww00#00adnxxxxxxxxvad00#ywwwwwwwr#ywwwwwwr#d'''''zxxxxxxc'''a#",
+        "#d''a###d''zxv#d''a#x#x#x#x#x#w#wnxvx##ddd0ddddddddddewww#00add00000000aad00#'################'#d''''''''T'R'''''a#",
+        "#d''a###dqwwea#d'Ra#'d'd0a'd'a0d'd0a'a#ddddddddd0dddddeww#00adywwwwwwwwrad00#nxxxxxxxv#nxxxxxxv#d'''''qwwwwwwe'''a#",
+        "#d''zxxxca''da#d''a#x#w#x#w#w#x#wywrx##ddddddddd0dddd0dew#0qrywwwwwwwwwwrd00#dnxxxxxva#dnxxxxva#d'''''a######d'''a#",
+        "#d'''''''aT'da#d''a#'d'a'a0a'd'a0d'd'a#ddd0ddddddddddddde#'a'nxxxxxxxxxxxc00#dd00000aa#dd000qra#d'''''a######d'''a#",
+        "#d'''''''zxxca#d''a#w#w#x#w#w#x#x#w#w##'##################'zxc00000000000000#dywwwwwra#dywwwrqr#d'''''a######d'''a#",
+        "#ywwwwwwwwwwwr#ywwr''d0a'a'a'd'd'a'd'a#''''''''''''''''''''''000000000000000#ywwwwwwwr'ywwwwwr''ywwwwwr######ywwwr#",
+        "################################################################################################################$x$",
+        "----------------------------------------------------------------------------------------------------------------$x$",
+        "-------------------------------------------------------------------------------------$$$$$$$$$$----$---$--------$x$",
+        "-------------------------------------------------------------------------------------$````````$----$---$--------$x$",
+        "-------------------------------------------------------------------------------------$`1``````$----$---$--------$x$",
+        "-------------------------------------------------------------------------------------$````````$----$---$-----$$$$x$",
+        "-------------------------------------------------------------------------------------$````````$----$$$$$$$$--$Faa:$",
+        "-------------------------------------------------------------------------------------$````````$--------$-----$$$$w$",
+        "-------------------------------------------------------------------------------------$````````$--------$--------$w$",
+        "-------------------------------------------------------------------------------------$````````$--------$--------$w$",
+        "-------------------------------------------------------------------------------------$````````$--------$--------$w$",
+        "-------------------------------------------------------------------------------------$````````$-----------------$ $",
+        "$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$|$$$$$$$$$$$$$$$$$$$ $",
+        "$000000000000000000$0000000qwwwwwwwwwe`nxxv$ddd0000000000$`d`d``````00```````nv$nxv`nxv$nxxv$||$cdddddazxxxxxxcdnv$",
+        "$0qwwwwwwwwwwwwwwe0$0000000aqwwwwwwwed$dnva$ddd00qwwwwwe0$`d`d``````00``````$da`d`a0d`a$d``a$$|$xcddddzxxxxxxxxcyr$",
+        "$0a``````````````d0$wwwwwwwraqqwwwwedd$ddaa$ddd00aqwwwed0$xc`d00qwwwwwwwwe``$yr$ywr`ywr$ywwr```$xxcddd0000000000qe$",
+        "$0a``````````````d0$wwwwwwwwrazxxxxcdd$ddaa$ddd00aaqwedd0$```d00a```00```d``$`0$`0`$$`$$$`$$$`$$xxxcdd0000000000a`$",
+        "$0a````nxxxxv````yw$wwwwwwwwwr000000dd$ddaa$ddd00aaa$ddyw$xxxc00a`qwwwwe`d``$nv$nxv$qwe$xxc`nxv$xxxxcd0000000000zx$",
+        "$0a````d0000a`````````00000000000000$$$ddaa`ddd00aaa$dyww`````00a`a````d`d``$da`d`a`a0dT````d`a$xxxxxc000000qwwwww$",
+        "$0a````ywwwwr````nx$xxxxxxxxxv000000dd$ddaa$ddd00aaa$ywww$wwwe00a`zxxxxc`d``$yr$ywr$zxc$www$ywr$qe0000000000aqwwww$",
+        "$0a T````````````d0$xxxxxxxxvqwwwwwedd$ddaa$ddd00aaa$$$$$$```d00a```00```d``$$$$$`$$$`$$$`$$$`$$zd0000000000aaqwww$",
+        "$`aT ````````````d0$xxxxxxxvazxxxxxcdd$ddaa$ddd--aazxxxxv$we`d00zxxxxxxxxc``$$$$nxv$nxv$c`a$nxv$dd0000000000aaaqww$",
+        "$`zxxxxxxxxxxxxxxc0$0000000azxxxxxxxcd$dyra$ddd--azxxxxxx$`d`d``````00``````$$$$d`a`d`aT``a`d`a$dywwwwwwwwweaaaaqw$",
+        "$```000000000000000$0000000zxxxxxxxxxc`ywwr$ddd--zxxxxxxx$`d`d``````00``````$$$$ywr$ywr$wwr$ywr`ywwwwwwwwwedaaaaaq$",
+        "$x$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$",
+        "%x%----------------------------------------------------------------------------------------------------------------",
+        "%x%------%%%%%%%---------------------------------------------------------------------------------------------------",
+        "%x%-----%----------------------------------------------------------------------------------------------------------",
+        "%x%-----%----------------------------------------------------------------------------------------------------------",
+        "%x%%%%--%----------------------------------------------------------------------------------------------------------",
+        "%:ddF%---%%%%%%----------------------------------------------------------------------------------------------------",
+        "%w%%%%---------%---------------------------------------------------------------------------------------------------",
+        "%w%------------%---------------------------------------------------------------------------------------------------",
+        "%w%------------%---------------------------------------------------------------------------------------------------",
+        "%w%-----%%%%%%%----------------------------------------------------------------------------------------------------",
+        "%w%----------------------------------------------------------------------------------------------------------------",
+        "%w%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%####################",
+        "%..d000000000000000%.....................aaaaaaaaaaaaaaaaaaaaaaaaaa00aaaaaaaaaaaaaaaaaaaaaaaaaa#nxxxxxxxxxxxxxxxxv#",
+        "%..d000000000000000%00  ..............%..aaaaaaa0aaaaaaaaaaaaaaaaaa00aaaaaaaaaaaaaaaaaaaaaaaaaa#d                a#",
+        "%..ywwwwwwwwe000000%.00 ..............%..aaaaaaa0aaaaaaaaaaaaaaaaaa00aaaaaaaaaaaaaaaaaaaaaa0aaa#d '  ' + '' ''   a#",
+        "%.........  d000000%.000< . ..........%..aaaaaaa0aaaa00aaaaaaaaaaaa00aaaaaaaaaaaaaa0aaaaaaaaaaa#d '' '   '  '    a#",
+        "%.........R d000000%. ..00  >.........%..aaaaaaaaaaaa00aaaaaaaaaaaa000aaaaaaaaaaaaaaaaaa0aaaaaa#c ' '' ' '  ''   a#",
+        "%xxxxxxxxv..d000000%....<00 . . ......%..aaaaaaaaaaaaaaaaaaaaaaaaaa000aaaaaaaaaaaaaaaaaaaaaaaaa   '  ' ' '  '    a#",
+        "%00000000a..d000000%..... 0> ...  ....%..aaaaaaa0aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa#e '  ' ' '' ''   a#",
+        "%00000000a..d000000%..... 0000..>.....%..aaaaaaa0aaaaaaaaaaaaaaaa00aaaaaaaaaaaaaa0aaaaa0aaa0aaa#d                a#",
+        "%00000000a..ywwwwww%.....<..00< ......%..aaaaaaa0aaaaaaaaaaaaaaaa00aaaaaaaaaaaaaaaaaaaaaaaaaaaa#d ''''''''''''   a#",
+        "%00000000a R.......%.......  0 .......%..aaaaaaa0aaaaaaaaaaaaaaaa00aaaaaa0aaaaaaaaaaaaaaa0aaaaa#d                a#",
+        "%00000000a  ............... 0000 .....%..aaaaaaaaaaa0000aaaaaaaaa00aaaaaaaaaaaaaaaaa0aaaaaaaaaa#ywwwwwwwwwwwwwwwwr#",
+        "%%%%%%%%%%%%%%%%%%%%%%%%%%$||||||$%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%####################",    }end
+
+set_default_parent(cells[" "])
+create_world_by_map(level,cells)
+oxyd_shuffle()
+    ]]></el:luamain>
+    <el:i18n>
+      <el:string el:key="title">
+        <el:english el:translate="false"/>
+      </el:string>
+    </el:i18n>
+  </el:protected>
+</el:level>
+

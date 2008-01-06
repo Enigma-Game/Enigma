@@ -1,0 +1,280 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no" ?>
+<el:level xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://enigma-game.org/schema/level/1 level.xsd" xmlns:el="http://enigma-game.org/schema/level/1">
+  <el:protected>
+    <el:info el:type="level">
+      <el:identity el:title="Little Shop Of Horrors" el:subtitle="Watch out, here comes Audrey II!" el:id="pulley01"/>
+      <el:version el:score="1" el:release="1" el:revision="3" el:status="released"/>
+      <el:author  el:name="Mark Pulley" el:email="" el:homepage=""/>
+      <el:copyright>Copyright © 2007 Mark Pulley</el:copyright>
+      <el:license el:type="GPL v2.0 or above" el:open="true"/>
+      <el:compatibility el:enigma="1.00">
+       <el:dependency el:path="lib/ant" el:id="lib/ant" el:release="1" el:preload="true"/>
+      </el:compatibility>
+      <el:modes el:easy="false" el:single="true" el:network="false"/>
+      <el:comments>
+       <el:credits el:showinfo="true" el:showstart="true">
+       This level is based on the 1982 musical "Little Shop Of Horrors.
+       </el:credits>
+      </el:comments>
+      <el:score el:easy="-" el:difficult="2:58"/>
+    </el:info>
+    <el:luamain><![CDATA[
+-- ANT --
+create_world(58,25)
+meditation_mode()
+set_actor("ac-whiteball-small",11.5,1.5,{player=0,name="Seymour"})
+set_actor("ac-whiteball-small",47.5,6.5,{name="Orin",controllers=0,essential=-1})
+set_actor("ac-whiteball-small",18.5,23.5,{name="Mushnik",controllers=0,essential=-1})
+set_actor("ac-whiteball-small",47.5,20.5,{name="Audrey",controllers=0,essential=-1})
+
+set_actor("ac-horse",26.5,0.5,{force=3, target1="35 0", target2="35 23", target3="22 24", target4="22 1"}) -- Chiffon
+set_actor("ac-horse",23.5,0.5,{force=3, target1="35 0", target2="35 23", target3="22 24", target4="22 1"}) -- Crystal
+set_actor("ac-horse",20.5,0.5,{force=3, target1="35 0", target2="35 23", target3="22 24", target4="22 1"}) -- Ronnette
+
+cells={}
+cells[" "]=cell{floor="fl-brick"}
+cells["1"]=cell{stone={face="st-scissors", attr={action="callback",target="Grow1"}}} -- Orin being eaten by Audrey II
+cells["2"]=cell{item={face="it-trigger", attr={action="callback",target="Grow2"}}} -- Orin swallowed by Audrey II
+cells["3"]=cell{stone={face="st-scissors", attr={action="callback",target="Grow3"}}} -- Mushnik being eaten by Audrey II
+cells["4"]=cell{item={face="it-trigger", attr={action="callback",target="Grow4"}}} -- Mushnik swallowed by Audrey II
+cells["5"]=cell{stone={face="st-scissors", attr={action="callback",target="Grow5"}}} -- Audrey being eaten by Audrey II
+cells["6"]=cell{item={face="it-trigger", attr={action="callback",target="Grow6"}}} -- Audrey swallowed by Audrey II
+cells["7"]=cell{item={face="it-trigger", attr={action="callback",target="Grow7"}},floor={face="fl-gradient15"},stone={face="st-oneway-w"}} -- Seymour being eaten by Audrey II
+cells["8"]=cell{item={face="it-trigger", attr={action="callback",target="Grow8"}}} -- Seymour swallowed by Audrey II
+cells["9"]=cell{stone={face="st-door_a", attr={name="Door1"}}} -- Mushnik's door
+cells["0"]=cell{stone={face="st-door_a", attr={name="Door2"}}} -- Audrey's door
+
+cells["!"]=cell{stone={face="st-rock3_hole"},floor={face="fl-white"},item={"it-rubberband", {target="Orin",length=1,strength=10}}}
+cells["@"]=cell{floor={face="fl-plank"},stone={face="st-turnstile-w"},item={"it-rubberband", {target="Mushnik",length=1,strength=10}}}
+cells["#"]=cell{floor={face="fl-leaves"},item={"it-rubberband", {target="Audrey",length=1,strength=10}}}
+
+cells["-"]=cell{floor={face="fl-white"},item={face="it-key_a",attr={keycode="1"}}} -- Mushnik's key
+cells["_"]=cell{floor={face="fl-plank"},item={face="it-key_a",attr={keycode="2"}}} -- Audrey's key
+cells["("]=cell{stone={face="st-key_a",attr={keycode="1", action="openclose", target="Door1"}}} -- Mushnik's lock
+cells[")"]=cell{stone={face="st-key_a",attr={keycode="2", action="openclose", target="Door2"}}} -- Audrey's lock
+
+cells[";"]=cell{floor={face="fl-plank"},stone={face="st-turnstile-w"}}
+cells[":"]=cell{floor={face="fl-plank"},stone={face="st-turnstile-e"}}
+cells["|"]=cell{floor={face="fl-plank"},stone={face="st-turnstile-n"}}
+cells[","]=cell{floor={face="fl-plank"},stone={face="st-turnstile-s"}}
+cells["."]=cell{stone="st-turnstile-green"}
+cells["?"]=cell{floor={face="fl-plank"},stone={face="st-turnstile-w"},item={face="it-seed"}}
+cells["/"]=cell{stone={face="st-turnstile-n"},floor={face="fl-white"}}
+cells["+"]=cell{stone={face="st-turnstile-n"},floor={face="fl-leaves"}}
+
+cells["a"]=cell{stone="st-camouflage"}
+cells["b"]=cell{floor={face="fl-white"},item={face="it-booze"}}
+cells["c"]=cell{floor={face="fl-leaves"},item={face="it-burnable"}}
+cells["d"]=cell{stone="st-redrock"} --Walls
+cells["e"]=cell{floor={face="fl-gradient16"},stone={face="st-grate1"}}
+cells["f"]=cell{floor="fl-leaves"} --Audrey's floor
+cells["g"]=cell{stone="st-grate1"}
+cells["h"]=cell{floor={face="fl-white"},item={face="it-hammer"},stone={face="st-rock3_hole"}}
+cells["i"]=cell{floor={face="fl-mortar"},stone={face="st-beads"}} --Window
+cells["j"]=cell{floor="fl-white"} --Orin's floor
+cells["k"]=cell{stone="st-marble"} --Audrey's Walls
+cells["m"]=cell{floor={face="fl-plank"},item={face="it-coin4"}}
+cells["n"]=cell{floor={face="fl-gradient13"},stone={face="st-grate1"}}
+cells["o"]=cell{item={face="it-hollow",attr={essential=1}},stone={face="st-camouflage"}}
+cells["p"]=cell{stone="st-plain"}
+cells["q"]=cell{stone="st-woven"}
+cells["s"]=cell{floor={face="fl-gradient14"},stone={face="st-grate1"}}
+cells["t"]=cell{floor={face="fl-gradient14"},stone={face="st-grate1"},item={face="it-burnable"}}
+cells["w"]=cell{floor={face="fl-gradient15"},stone={face="st-grate1"}}
+cells["x"]=cell{stone="st-scissors"}
+cells["y"]=cell{floor="fl-woven"}
+cells["z"]=cell{floor="fl-plank"}
+
+cells["A"]=cell{floor={face="fl-leaves"},item={face="it-banana"}}
+cells["B"]=cell{floor={face="fl-plank"},item={face="it-blackbomb"}}
+cells["C"]=cell{floor={face="fl-leaves"},item={face="it-burnable"},stone={face="st-invisible"}}
+cells["D"]=cell{floor={face="fl-white"},stone={face="st-death"}}
+cells["E"]=cell{floor={face="fl-leaves"},item={face="it-cherry"}}
+cells["F"]=cell{floor={face="fl-plank"},item={face="it-seed"}}
+cells["G"]=cell{floor={face="fl-plank"},stone={face="st-glass1_hole"}}
+cells["H"]=cell{floor={face="fl-brick"},item={face="it-hollow"}}
+cells["O"]=cell{stone="st-wood_001"}
+cells["P"]=cell{floor={face="fl-white"},stone={face="st-plain_break"}}
+cells["Q"]=cell{stone="st-rock3_hole"}
+cells["R"]=cell{stone="st-rock3"}
+cells["S"]=cell{floor={face="fl-gradient14"},stone={face="st-oneway-s"},item={face="it-burnable"}}
+cells["T"]=cell{floor={face="fl-plank"},item={face="it-coffee"}}
+cells["W"]=cell{floor={face="fl-gradient15"},stone={face="st-oneway-w"},item={face="it-burnable"}}
+cells["X"]=cell{stone="st-brick"}
+cells["Y"]=cell{stone="st-grate3"}
+
+--      |         1    1   |2    2    3    3  | 4    4    5    5 |  6    6    7    7|   8    8    9   9|
+--      |1   5    0    5   |0    5    0    5  | 0    5    0    5 |  0    5    0    5|   0    5    0   4|
+level={"qqqqqqqqqqqqqqqqqqqqYYYYYYYYYYYYYYYYYYpppppppppppppppppppp",
+       "qyyyyyyyyyyyyyyyyyyqYYYYYYYYYYYYYYYYYYpjQbQjjbRjbjjjjQjbjp", -- 1
+       "qyyyyyyyyyyyyyyyyyyqYYYXXXXXXXXXXXXYYYpjRDRDRjRjRRDRR!RRjp",
+       "qyyyyyyyyyyyyyyyyyyq       H          pjRbbbRjRjjbjjjRjQjp",
+       "iyyyyyyyyyyyyyyyyyyq                  pjRjDjRQRDRRRDjDjRRp",
+       "iyyyyyyyyyyyyyyyyyyy                  pQRjRjRjRbjj-RjRbQji", -- 5
+       "iyyayayyyyyyyyyyyyyq                  jjRjhjRjRjbjbRjRRRji",
+       "iyacccayyyyyyyyyyyyq                  pjRjRjjjRbjjj/jPjQji",
+       "iyac1cayyyyyyyyyyyyi      H           pjRbDRRRDRiiR.bRPRRp",
+       "qyacccayyyyyyyyyyyyi             H    pjDjjjQjbjjbjjjRjbjp",
+       "qyyaaayyyyyyyyyyyyyi                  pjRRRRRiiiiiiRRDRRPp", --10
+       "qaoaoaoaoayyyyyyyyyq                  pbjjjjQjjbjjjQjbjjjp",
+       "qqqqqqqqqqqqqqqqqqqq                  pppppppiiiiiippppppp",
+       "dmdzzzzdTzzzz|Tzzzzd                  kffffffffffffffffffk",
+       "dmm.:zzdzzzz;.:z|Tzd                  kfOOOOOOOOOOOOOOOOfk",
+       "dmm,z|zd@.:dzzd;.zzi   H              kfOffffffOfffffffOfk", --15
+       "ddddz.dzFzBdzz.:.:di                  kfOfOOOOfOfOOOOOfOfk",
+       "izzzzG|;.:Tdzz,z,zzi          H       kfOfOffffOfffffOfOfi",
+       "i.:d;..zzzzdTzzzd|zd                  kfOfOfOOOOOOOOfOfOfi",
+       "i,z|zTddd?.dz|zzz.z9                  kfOfOfff+fOffffOfOfi",
+       "izz.zzdzzz,d;.z|z,z(                  0fOfOOOf.fO#fOOOfOfk", --20
+       "dz|,;.;.:zzdz|;.:zzd                  )fOffffOOOOOOffffOfk",
+       "dz.:z|z,z;.:;.z,z.:dYYYXXXXXXXXXXXXYYYkfOOOOfkEAEAkfOOOOfk",
+       "d_dzz.Tdzz,zz,TzzdzdYYYYYYYYYYYYYYYYYYkffffffkAEAEkffffffk", --23
+       "ddddddddddddddddddddYYYYYYYYYYYYYYYYYYkkkkkkkkkkkkkkkkkkkk"}
+
+set_default_parent(cells[" "])
+draw_map(0,0,level,cells)
+
+set_item("it-document",4,5,{text="feed"}) -- Feed Me
+set_item("it-document",38,6,{text="Orin"}) -- Orin Quote
+set_item("it-document",38,21,{text="Audrey"}) -- Audrey Quote
+set_item("it-document",19,20,{text="Mushnik"}) -- Mushnik Quote
+
+function Grow1() -- Grows Audrey II
+    Gr1={
+    "yaSay",
+    "aswsa",
+    "as",
+    "aeswa",
+    "ya2ay"}
+    draw_map(2,6,Gr1,cells)
+    Gr1a={"sa"}
+    draw_map(5,8,Gr1a,cells)
+    enigma.KillStone (4,10)
+end
+
+function Grow2() -- Grows Audrey II
+    Gr2={"yaayaay",
+         "aaCcCaa",
+         "aCC3CCa",
+         "aCCCCCa",
+         "aCCCCCa",
+         "aaaaaaa",
+         "yacaaay"}
+    draw_map(2,4,Gr2,cells)
+    set_item("it-document",5,3,{text="OrinD"}) -- Orin Death Quote
+end
+
+function Grow3() -- Grows Audrey II
+    Gr3={"yaaSaay",
+         "aasesaa",
+         "aes",
+         "aeesswa",
+         "aeeeswa",
+         "aaaasaa",
+         "yaca4ay"}
+    draw_map(2,4,Gr3,cells)
+    Gr3a={"swa"}
+    draw_map(6,6,Gr3a,cells)
+    enigma.KillStone (6,10)
+end
+
+function Grow4() -- Grows Audrey II
+    Gr4={"yyaaaaaay",
+         "yaaCCCCcy",
+         "aaCCCC5cy",
+         "aCCCCCCCa",
+         "aCCCCCCCa",
+         "aCCCCCCaa",
+         "aaaaaaaay",
+         "yacacaaay"}
+    draw_map(2,3,Gr4,cells)
+    set_item("it-document",10,5,{text="MushnikD"}) -- Mushnik Death Quote
+end
+
+function Grow5() -- Grows Audrey II
+    Gr5={"yyaaaaaay",
+         "yaaeeswwW",
+         "aaeees",
+         "aeeeesswa",
+         "aeeeesswa",
+         "aeeeeesaa",
+         "aaaaaasay",
+         "yacaca6ay"}
+    draw_map(2,3,Gr5,cells)
+    Gr5a={"sW"}
+    draw_map(9,5,Gr5a,cells)
+    enigma.KillStone (8,10)
+end
+
+function Grow6() -- Grows Audrey II
+    Gr6={"yyyaaaaaaaayyy",
+         "yyaaCCCCCCaayy",
+         "yaaCCCCCCCCaaa",
+         "aaCCCCCCCCCCC7",
+         "aCCCCCCCCCCCC7",
+         "aCCCCCCCCCCaaa",
+         "aCCCCCCCCaaayy",
+         "aaaaaaaaaayyyy",
+         "aaacacacaayyyy"}
+    draw_map(1,2,Gr6,cells)
+    set_item("it-document",15,5,{text="AudreyD"}) -- Audrey Death Quote
+end
+
+function Grow7() -- Grows Audrey II
+    Gr7={"yyyaaaaaaaayyy",
+         "yyaassssssaayy",
+         "yaassssssssaaa",
+         "aassswwwwwwwww",
+         "assswwwwwwwwww",
+         "asswwwwwwwwaaa",
+         "aswwwwwwwaaayy",
+         "asaaaaaaaayyyy",
+         "a8acacacaayyyy"}
+    draw_map(1,2,Gr7,cells)
+    enigma.KillStone (2,10)
+end
+
+function Grow8() -- End
+    Gr8={"yyyyaaaaaaaayyyy",
+         "yyyaaCCCCCCCaayy",
+         "yyaaCCCCCCCCCCaa",
+         "yaaCCCCCCCCCCCCW",
+         "aaCCCCCCCCCCCCCW",
+         "aCCCCCCCCCCCCCCW",
+         "aCCCCCCCCCCCCaaa",
+         "aCCCCCCCCCCaaayy",
+         "aaaaaaaaaaaayyyy",
+         "atasasasaaayyyyy",
+         "agagagagaayyyyyy"}
+    draw_map(1,1,Gr8,cells)
+end
+    ]]></el:luamain>
+    <el:i18n>
+      <el:string el:key="title">
+        <el:english el:translate="false"/>
+      </el:string>
+      <el:string el:key="feed">
+        <el:english el:translate="true" el:comment="">Feed me!</el:english>
+      </el:string>
+      <el:string el:key="Orin">
+        <el:english el:translate="true" el:comment="">Beware of Sadistic Dentist!</el:english>
+      </el:string>
+      <el:string el:key="Audrey">
+        <el:english el:translate="true" el:comment="">The innocent victim.</el:english>
+      </el:string>
+      <el:string el:key="Mushnik">
+        <el:english el:translate="true" el:comment="">Office of your boss.</el:english>
+      </el:string>
+      <el:string el:key="OrinD">
+        <el:english el:translate="true" el:comment="">Aaaaaarrrrggghhhhhh!!!!!</el:english>
+      </el:string>
+      <el:string el:key="AudreyD">
+        <el:english el:translate="true" el:comment="">Everyone has gone, but the plant's still hungry!</el:english>
+      </el:string>
+      <el:string el:key="MushnikD">
+        <el:english el:translate="true" el:comment="">No! No! Aaaarrrrgggghhhh!</el:english>
+      </el:string>
+    </el:i18n>
+  </el:protected>
+</el:level>
+

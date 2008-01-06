@@ -1,0 +1,107 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no" ?>
+<el:level xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://enigma-game.org/schema/level/1 level.xsd" xmlns:el="http://enigma-game.org/schema/level/1">
+  <el:protected>
+    <el:info el:type="level">
+      <el:identity el:title="Ball Alley" el:subtitle="" el:id="johann01"/>
+      <el:version el:score="1" el:release="1" el:revision="0" el:status="released"/>
+      <el:author  el:name="Johann Freymuth" el:email="johannff@web.de"/>
+      <el:copyright>Copyright © 2007 Johann Freymuth</el:copyright>
+      <el:license el:type="GPL version 2" el:open="true"/>
+      <el:compatibility el:enigma="1.0"/>
+      <el:modes el:easy="false" el:single="true" el:network="false"/>
+      <el:score el:easy="-" el:difficult="0:39"/>
+    </el:info>
+    <el:luamain><![CDATA[levelh = 13
+levelw = 20
+
+create_world(levelw, levelh)
+oxyd_default_flavor = "d"
+fill_floor("fl-gray")
+
+function renderLine( line, pattern)
+    for i=1, strlen(pattern) do
+        local c = strsub( pattern, i, i)
+        if c=="x" then
+            oxyd(i-1,line)
+        elseif c=="#" then
+            set_stone("st-blue-sand",i-1,line)
+        elseif c=="a" then
+            set_stone("st-break_acwhite",i-1,line)
+            set_floor("fl-gradient",i-1,line, {type=2})
+        elseif c=="b" then
+            set_stone("st-break_acwhite",i-1,line)
+            set_floor("fl-gradient",i-1,line, {type=3})
+        elseif c=="c" then
+            set_stone("st-break_acwhite",i-1,line)
+            set_floor("fl-gradient",i-1,line, {type=1})
+        elseif c=="2" then
+            set_stone("st-break_acblack",i-1,line)
+            set_floor("fl-gradient",i-1,line, {type=3})
+        elseif c=="3" then
+            set_stone("st-break_acblack",i-1,line)
+            set_floor("fl-gradient",i-1,line, {type=1})
+        elseif c=="K" then
+            set_stone("st-wood",i-1,line)
+        elseif c=="L" then
+            set_stone("st-break_acblack",i-1,line)
+            set_floor("fl-abyss",i-1,line)
+        elseif c=="B" then
+            set_stone("st-black1",i-1,line)
+        elseif c=="W" then
+            set_stone("st-white1",i-1,line)
+            set_floor("fl-gradient",i-1,line, {type=1})
+        elseif c==">" then
+            set_floor("fl-gradient",i-1,line, {type=3})
+        elseif c=="v" then
+            set_floor("fl-gradient",i-1,line, {type=1})
+        elseif c=="<" then
+            set_floor("fl-gradient",i-1,line, {type=4})
+        elseif c=="^" then
+            set_floor("fl-gradient",i-1,line, {type=2})
+        end
+    end
+end
+
+renderLine(00 , " ###################")
+renderLine(01 , "#v#bbc#>22L2L2L2L23#")
+renderLine(02 , "#v#a#c#^##K#K#K#K#3#")
+renderLine(03 , "#v#a#c#a#        #3#")
+renderLine(04 , "#v#a#c#a#        #3#")
+renderLine(05 , "#v#a#c#a#        #3#")
+renderLine(06 , "#v#a#c#a### #    #3#")
+renderLine(07 , "#v#a#c#a#x  #    #3#")
+renderLine(08 , "#v#a#c#a#   #    #3#")
+renderLine(09 , "#v#a#c#a#  x#    B3#")
+renderLine(10 , "#v#a#c#a##########W#")
+renderLine(11 , "#>ba#bba#S<<<<<<<<<#")
+renderLine(12 , "####################")
+
+oxyd_shuffle()
+set_item("it-hammer", 14, 6)
+set_item("it-hammer", 1, 1)
+set_actor("ac-blackball", 13.5, 5.5)
+set_actor("ac-whiteball", 1.5, 1.5)
+
+done = false
+function stop()
+    if done == false then
+        set_stone("st-death", 8, 1)
+        done = true
+    end
+end
+
+set_stone("st-timer", 0, 0, {name="timer", action="callback", target="stop", on=0, interval=2})
+set_item("it-sensor", 7, 1, {target="timer", action="on", on="0",})
+
+set_stone("st-switch_white", 9, 11, {action="open", target="door"})
+set_stone("st-door_a", 11, 06, {name="door"})
+    ]]></el:luamain>
+    <el:i18n>
+      <el:string el:key="title">
+        <el:english el:translate="true"/>
+        <el:translation el:lang="de">Kugelbahn</el:translation>
+      </el:string>
+    </el:i18n>
+  </el:protected>
+</el:level>
+
