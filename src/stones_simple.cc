@@ -1317,7 +1317,6 @@ namespace
     }
 }
 
-
 /* -------------------- FartStone -------------------- */
 
 /** \page st-fart Fart Stone
@@ -1405,10 +1404,8 @@ void FartStone::actor_hit(const StoneContact &sc)
 }
 Value FartStone::message(const Message &m) 
 {
-    if (m.message == "signal" && m.value != 0) {
-        change_state(FARTING);
-        return Value();
-    } else if (m.message == "trigger") {
+    if (m.message == "toggle" || (m.message == "signal" && m.value != 0) ||
+            (m.message == "_trigger" && m.value.to_bool())) {
         change_state(FARTING);
         return Value();
     } else if (m.message == "ignite" || m.message == "expl") { 

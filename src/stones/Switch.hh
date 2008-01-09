@@ -33,9 +33,13 @@ namespace enigma {
      * The switch starts per default in state OFF.<p>
      * Switches can be recolored by setting the "color" attribute. They can
      * send inverse action values by setting the "inverse" attribute.<p>
-     * Note that the state changes not directly on messages and attribute settings.
-     * The actions will be performed after the turning animation finished. This
-     * is a small derivation from the inconsistent 1.00 behaviour.
+     * Note that the state changes per default not directly on messages and 
+     * attribute settings. The actions will be performed after the turning 
+     * animation finished. This is a small derivation from the inconsistent
+     * 1.00 behaviour. Authors that need a switch that performs its action instantly
+     * can set the attribute "instant" to true. But the usage of other switches
+     * like "st_fourswitch", "st_floppy", "st_key" that provide an instant acton
+     * per default should be preferred.
      */
     class Switch : public Stone {
         CLONEOBJ(Switch);

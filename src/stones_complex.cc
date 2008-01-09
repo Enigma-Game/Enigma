@@ -460,159 +460,6 @@ StoneResponse OneWayBase::collision_response(const StoneContact &sc) {
 }
 
 
-/* -------------------- BolderStone -------------------- */
-
-/** \page st-bolder Bolder Stone
-
-The bolder stone will move in one direction until another stone will
-block.  When hit with a magic wand, the bolder stone reverse its
-direction. When hitting a blocking stone it can activate switches or
-oxyd stones.
-
-\subsection boldera Attributes
-
-- \c direction  \n NORTH, EAST, SOUTH, WEST
-
-*/
-namespace
-{
-    class BolderStone : public Stone {
-        CLONEOBJ(BolderStone);
-        DECL_TRAITS;
-    public:
-        BolderStone(Direction dir=NORTH)
-        : state(IDLE)
-        {
-            set_attrib("direction", dir);
-            // do not use set_dir, because this will set the state to ACTIVE
-        }
-
-    private:
-        enum State {
-            ACTIVE,             // may send trigger into direction
-            IDLE,               // already sent trigger w/o success
-            FALLING             // falling into abyss
-        } state;
-
-
-        Direction get_dir() const {
-            return to_direction(getAttr("direction"));
-        }
-        void set_dir(Direction d) {
-            if (d != get_dir())
-                state = ACTIVE; // if turned by it-magicwand -> allow triggering
-            set_attrib("direction", d);
-        }
-
-        void on_floor_change() {
-            Floor *fl = GetFloor(get_pos());
-            if (fl->is_kind("fl-abyss")) {
-                state = FALLING;
-                init_model();
-            }
-        }
-
-        bool have_obstacle (Direction dir) {
-            return GetStone(move(get_pos(), dir)) != 0;
-        }
-
-        void trigger_obstacle (Direction dir) {
-            if (Stone *st = GetStone(move(get_pos(), dir))) {
-                SendMessage(st, "trigger", Value(dir));
-            }
-        }
-
-        void on_move() {
-            state = ACTIVE;
-            trigger_obstacle(get_dir());
-            Stone::on_move();
-        }
-
-        // Stone interface.
-        void init_model() {
-            string mname  = "st-bolder" + to_suffix(get_dir());
-            if (state == FALLING)
-                mname += "-fall-anim";
-            set_anim(mname);
-        }
-
-        void animcb() {
-            display::Model *m = get_model();
-            Direction dir = get_dir();
-            switch (state) {
-            case FALLING:
-                KillStone(get_pos());
-//                init_model();
-                break;
-
-            case IDLE:
-                if (!have_obstacle(dir)) {
-                    state = ACTIVE;
-                }
-//                 if (Model *m = get_model())
-                m->restart();
-//                init_model();
-                break;
-
-            case ACTIVE:
-                trigger_obstacle(dir);
-                if (!move_stone(dir)) {
-                    state = IDLE;
-                }
-                init_model();
-                break;
-            }
-        }
-
-        void actor_hit(const StoneContact &sc) {
-            if (state == FALLING)
-                return;
-
-            if (player::WieldedItemIs (sc.actor, "it-magicwand")) {
-                set_dir(reverse(get_dir()));
-                init_model();
-            }
-        }
-
-        void on_laserhit(Direction) {
-            set_dir(reverse(get_dir()));
-            init_model();
-
-            // @@@ FIXME:  the direction should only be inverted on NEW laserbeam
-            // not on every light-recalc. Need to use PhotoCell!
-        }
-
-        void on_impulse (const Impulse& impulse) {
-            if (state == FALLING)
-                return;
-
-            if (impulse.sender && impulse.sender->is_kind("st-rotator")) {
-                set_dir(impulse.dir);  // activate
-            }
-            init_model();
-            // try to move, activate - trigger with guarantee
-            if (!move_stone(impulse.dir))
-                // the trigger of an activation occurs on animcb - in case of
-                // two rotators the trigger in one direction would be skipped
-                // without this explicit trigger statement!
-                // Furtheron enable stoneimpulse - bolder combi to emit single
-                // trigger messages
-                trigger_obstacle(impulse.dir);
-        }
-
-        virtual Value message(const Message &m) {
-            if (m.message == "direction" && state != FALLING) {
-                set_dir(to_direction(m.value));
-                init_model();
-                return Value();
-            }
-            return Stone::message(m);
-        }
-    };
-    DEF_TRAITSM(BolderStone, "st-bolder", st_bolder, MOVABLE_IRREGULAR);
-}
-
-
 /* -------------------- BlockerStone -------------------- */
 
 /** \page st-blocker Blocker Stone
@@ -692,7 +539,7 @@ namespace
         }
 
         virtual Value message(const Message &m) {
-            if (m.message == "trigger" || m.message == "openclose") {
+            if (m.message == "_trigger" || m.message == "toggle" || m.message == "openclose") {
                 if (state == SHRINKING) {
                     change_state(GROWING);
                 }
@@ -782,7 +629,7 @@ namespace
         }
 
         virtual Value message(const Message &m) {
-            if (m.message == "trigger") {
+            if (m.message == "_trigger" || m.message == "toggle") {
                 if (state == INACTIVE) {
                     state = ACTIVE;
                     init_model();
@@ -1924,12 +1771,13 @@ namespace
 {
     class StoneImpulse_Base : public Stone {
     protected:
-        StoneImpulse_Base() : state(IDLE), incoming(NODIR)
+        StoneImpulse_Base() : state(IDLE), incoming(NODIR), nobackfire (false)
         {}
 
         enum State { IDLE, PULSING, CLOSING };
         State     state;
         Direction incoming; // direction of incoming impulse (may be NODIR)
+        bool      nobackfire;
 
         void change_state(State st);
 
@@ -1943,11 +1791,14 @@ namespace
         virtual void notify_state(State st) = 0;
 
         virtual Value message(const Message &m) {
-            if (m.message == "trigger") {
-                incoming = (m.value.getType() == Value::DOUBLE)
-                    ? Direction( static_cast<int> (m.value.get_double()+0.1))
-                    : NODIR;
-
+            if (m.message == "_trigger" && m.value.to_bool()) {
+                incoming = NODIR;
+                if (m.sender != NULL)
+                    incoming = direction_fromto(dynamic_cast<GridObject *>(m.sender)->get_pos(), get_pos());
+                
+                if (state == IDLE && incoming != NODIR) {
+                    nobackfire = true;
+                }
                 change_state(PULSING);
                 return Value();
             }
@@ -2010,12 +1861,15 @@ void StoneImpulse_Base::change_state(State new_state) {
 
             for (int d = int(incoming)+1; d <= int(incoming)+4; ++d) {
                 int D = d%4;
-                if (haveStone[D]) {
-                    send_impulse(targetpos[D], Direction(D));
+                if (!nobackfire || reverse(incoming) != D) {
+                    if (haveStone[D]) {
+                        send_impulse(targetpos[D], Direction(D));
+                    }
                 }
             }
 
             incoming = NODIR;   // forget impulse direction
+            nobackfire = false;
             break;
         }
     }
@@ -3125,7 +2979,7 @@ namespace
         }
 
         virtual Value message (const Message &m) {
-            if (m.message == "onoff") {
+            if (m.message == "toggle") {
                 set_on(state == INACTIVE);
                 return Value();
             } else if (m.message == "signal") {
@@ -3137,7 +2991,7 @@ namespace
             } else if (m.message == "off") {
                 set_on(false);
                 return Value();
-            } else if (m.message == "trigger") {
+            } else if (m.message == "_trigger") {
                 set_on(state == INACTIVE);
                 return Value();
             }
@@ -3212,11 +3066,6 @@ namespace
 
 void Init_complex()
 {
-    Register(new BolderStone);
-    Register("st-bolder-n", new BolderStone(NORTH));
-    Register("st-bolder-e", new BolderStone(EAST));
-    Register("st-bolder-s", new BolderStone(SOUTH));
-    Register("st-bolder-w", new BolderStone(WEST));
 
     Register(new BlockerStone(true));
     Register(new BlockerStone(false));
@@ -3253,7 +3102,6 @@ void Init_complex()
     Register("st-oneway_white-s", new OneWayStone_white(SOUTH));
     Register("st-oneway_white-w", new OneWayStone_white(WEST));
 
-//    Register(new OxydStone);
 
     Register (new PullStone);
 

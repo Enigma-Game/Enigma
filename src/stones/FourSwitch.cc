@@ -28,7 +28,7 @@ namespace enigma {
     }
     
     Value FourSwitch::message(const Message &m) {
-        if (m.message == "signal" || m.message == "trigger") {
+        if (m.message == "signal" || m.message == "_trigger") {
             if ((((int)(m.value)) % 2 == 1) || (server::GameCompatibility == enigma::GAMET_ENIGMA
                     && (server::EnigmaCompatibility < 1.10))) // Enigma 1.00 did turn on 0, too
                 turn();

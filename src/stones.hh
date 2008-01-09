@@ -38,7 +38,7 @@ namespace enigma {
         st_black3,
         st_black4,
         st_block,
-        st_bolder,
+        st_boulder,
         st_brake,
         st_break_acblack,
         st_break_acwhite,

@@ -44,6 +44,11 @@ RenamingObjectsOld2New = {
 }
 
 RenamingObjectsNew2Old = {
+    st_boulder = "st-bolder",
+    st_boulder_n = "st-bolder-n",
+    st_boulder_e = "st-bolder-e",
+    st_boulder_s = "st-bolder-s",
+    st_boulder_w = "st-bolder-w",
     st_fourswitch = "st-fourswitch",
     st_switch_instant = "st-switch",
     st_switch_black_instant = "st-switch_black",
@@ -143,9 +148,37 @@ function enigma.GetAttrib(obj, key)
 end
 
 MessageRenaming = {
+    ["it-blocker__trigger"] = "toggle",
+    ["it-burnable__trigger"] = "ignite",
+    ["it-burnable_ignited__trigger"] = "ignite",
+    ["it-burnable_burning__trigger"] = "ignite",
+    ["it-burnable_fireproof__trigger"] = "ignite",
+    ["it-burnable_ash__trigger"] = "ignite",
+    ["it-burnable_oil__trigger"] = "ignite",
+    ["it-hill__trigger"] = "flip",
+    ["it-hollow__trigger"] = "flip",
+    ["it-tinyhill__trigger"] = "flip",
+    ["it-tinyhollow__trigger"] = "flip",
+    ["it-vortex-open__trigger"] = "toggle",
+    ["it-vortex-closed__trigger"] = "toggle",
+    ["st-blocker__trigger"] = "toggle",
+    ["st-blocker-growing__trigger"] = "toggle",
+    st_boulder__direction = "orientate",
+    ["st-fart__trigger"] = "toggle",
+    st_fourswitch__trigger = "toggle",
+    ["st-stoneimpulse__trigger"] = "signal",
+    ["st-stoneimpulse-hollow__trigger"] = "signal",
+    ["st-stoneimpulse_movable__trigger"] = "signal",
+    ["st-lightpassenger__trigger"] = "toggle",
+    ["st-lightpassenger__onoff"] = "toggle",
+    ["st-mirror__trigger"] = "turn",
+    ["st-oxyd__trigger"] = "toggle",
+    ["st-plain__trigger"] = "signal",
+    ["st-plain_hole__trigger"] = "signal",
     st_switch_instant__onoff = "toggle",
     st_switch_black_instant__onoff = "toggle",
-    st_switch_white_instant__onoff = "toggle"
+    st_switch_white_instant__onoff = "toggle",
+    ["st-volcano__trigger"] = "toggle"
 }
 ----------------------
 -- old API 1.0      --

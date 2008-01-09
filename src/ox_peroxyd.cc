@@ -325,10 +325,10 @@ const char *oxyd::peroxyd_stone_map[256] = {
     "st-chargeplus",            // PerOxyd stone 0x80
     "st-chargeminus",           // PerOxyd stone 0x81
     "st-chargezero",            // PerOxyd stone 0x82
-    "st-bolder-n",              // PerOxyd stone 0x83
-    "st-bolder-s",              // PerOxyd stone 0x84
-    "st-bolder-w",              // PerOxyd stone 0x85
-    "st-bolder-e",              // PerOxyd stone 0x86
+    "st_boulder_n",             // PerOxyd stone 0x83
+    "st_boulder_s",             // PerOxyd stone 0x84
+    "st_boulder_w",             // PerOxyd stone 0x85
+    "st_boulder_e",             // PerOxyd stone 0x86
     "st-rock5",                 // PerOxyd stone 0x87
     UNUSED,                     // PerOxyd stone 0x88
     UNUSED,                     // PerOxyd stone 0x89

@@ -667,7 +667,7 @@ namespace
         const char *collision_sound() {return "stone";}
 
         virtual Value message(const Message &m) {
-            if (m.message == "trigger" || m.message == "signal") {
+            if (m.message == "_trigger" || m.message == "signal") {
                 ReplaceStone(get_pos(), MakeStone("st-plain_hole"));
                 return Value();
             }
@@ -698,7 +698,7 @@ namespace
         DECL_TRAITS;
 
         virtual Value message(const Message &m) {
-            if (m.message == "trigger" || m.message == "signal") {
+            if (m.message == "_trigger" || m.message == "signal") {
                 ReplaceStone(get_pos(), MakeStone("st-plain"));
                 return Value();
             }
@@ -892,7 +892,8 @@ namespace
                         o = SendMessage(m.sender, "_hitactor");
                     
                     Actor *a = dynamic_cast<Actor *>(o);
-                    if ((a && get_id(a) == ac_blackball) || (m.message == "signal")) {
+                    if ((a && get_id(a) == ac_blackball) || 
+                            (m.sender->getObjectType() != Object::ITEM && m.message == "signal")) {
                         if (p.y == sender->get_pos().y) {
                             SendMessage (GetStone (move (p, EAST)),  "signal", 1.0);
                             SendMessage (GetStone (move (p, WEST)),  "signal", 1.0);
@@ -931,7 +932,8 @@ namespace
                         o = SendMessage(m.sender, "_hitactor");
                         
                     Actor *a = dynamic_cast<Actor *>(o);
-                    if ((a && get_id(a) == ac_whiteball) || (m.message == "signal")) {
+                    if ((a && get_id(a) == ac_whiteball) ||
+                             (m.sender->getObjectType() != Object::ITEM && m.message == "signal")) {
                         if (p.y == sender->get_pos().y) {
                             SendMessage (GetStone (move (p, EAST)),  "signal", 1.0);
                             SendMessage (GetStone (move (p, WEST)),  "signal", 1.0);

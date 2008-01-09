@@ -738,7 +738,7 @@ void HillHollow::shovel() {
 
 Value HillHollow::message(const Message &m)
 {
-    if (m.message == "trigger") {
+    if (m.message == "flip") {
         Type flippedkind[] = {HOLLOW,HILL, TINYHOLLOW,TINYHILL};
         transmute(flippedkind[m_type]);
         return Value();
@@ -1936,7 +1936,7 @@ Value Vortex::message(const Message &m)
         else
             close();
         return Value();
-    } else if (m.message == "openclose" || m.message == "trigger") {
+    } else if (m.message == "openclose" || m.message == "toggle") {
         openclose();
         return Value();
     } else if (m.message == "open") {
@@ -2509,7 +2509,7 @@ Value Burnable::message(const Message &m) {
         kill();   // The brush cleans the floor
         return Value();
     } else if (Floor *fl = GetFloor(get_pos())) {
-        if (m.message == "trigger" || m.message == "ignite" || m.message == "expl")
+        if (m.message == "ignite" || m.message == "expl")
             return SendMessage(fl, "ignite");
     }
     return Item::message(m);
@@ -2655,7 +2655,7 @@ namespace
 
 namespace
 {
-    /*! If a 'BolderStone' moves over a 'Blocker' the 'Blocker' starts
+    /*! If a 'BoulderStone' moves over a 'Blocker' the 'Blocker' starts
       growing and replaces itself by a BlockerStone. */
     class Blocker : public Item, public TimeHandler {
         CLONEOBJ(Blocker);
@@ -2741,7 +2741,16 @@ void Blocker::alarm()
 
 Value Blocker::message(const Message &m)
 {
-    if (m.message == "trigger" || m.message == "openclose") {
+    if (m.message == "init") { 
+        if (Stone *st = GetStone(get_pos())) {
+            if (st->is_kind("st_boulder"))
+                if (state == IDLE)
+                    change_state(COVERED);
+                else if (state == SHRINKED)
+                    change_state(BOLDERED);
+        }
+        return Item::message(m);
+    } else if (m.message == "toggle" || m.message == "openclose") {
         switch (state) {
             case IDLE:
             case SHRINKED:
@@ -2782,7 +2791,7 @@ Value Blocker::message(const Message &m)
 
             if (state == IDLE) {
                 if (Stone *st = GetStone(get_pos())) {
-                    if (st->is_kind("st-bolder"))
+                    if (st->is_kind("st_boulder"))
                         change_state(BOLDERED); // occurs in Per.Oxyd #84
                     else
                         change_state(COVERED);
@@ -2792,13 +2801,15 @@ Value Blocker::message(const Message &m)
                 }
             }
         }
+        return Value();
     }
+    return Item::message(m);
 }
 
 void Blocker::stone_change(Stone *st)
 {
     if (st) {
-        if (st->is_kind("st-bolder")) { // bolder arrived
+        if (st->is_kind("st_boulder")) { // bolder arrived
             switch (state) {
             case IDLE:
                 change_state(COVERED);

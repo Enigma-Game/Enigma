@@ -503,7 +503,7 @@ MirrorStone::MirrorStone(const char *name, bool movable, bool transparent)
     set_attrib("transparent", transparent);
     set_attrib("movable", movable);
     set_attrib("orientation", Value(1));
-    traits.name = "INVALID";
+    traits.name = "st-mirror";
     traits.id = st_INVALID;
     traits.flags = stf_none;
     traits.material = material_stone;
@@ -520,7 +520,7 @@ void MirrorStone::init_model() {
 }
 
 Value MirrorStone::message(const Message &m) {
-    if (m.message == "trigger" || m.message == "turn") {
+    if ((m.message == "_trigger" && m.value.to_bool()) || m.message == "turn") {
         rotate_right();
         return Value();
     }
