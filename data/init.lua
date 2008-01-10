@@ -161,6 +161,10 @@ MessageRenaming = {
     ["it-tinyhollow__trigger"] = "flip",
     ["it-vortex-open__trigger"] = "toggle",
     ["it-vortex-closed__trigger"] = "toggle",
+    ["st-black1__trigger"] = "signal",
+    ["st-black2__trigger"] = "signal",
+    ["st-black3__trigger"] = "signal",
+    ["st-black4__trigger"] = "signal",
     ["st-blocker__trigger"] = "toggle",
     ["st-blocker-growing__trigger"] = "toggle",
     st_boulder__direction = "orientate",
@@ -178,7 +182,11 @@ MessageRenaming = {
     st_switch_instant__onoff = "toggle",
     st_switch_black_instant__onoff = "toggle",
     st_switch_white_instant__onoff = "toggle",
-    ["st-volcano__trigger"] = "toggle"
+    ["st-volcano__trigger"] = "toggle",
+    ["st-white1__trigger"] = "signal",
+    ["st-white2__trigger"] = "signal",
+    ["st-white3__trigger"] = "signal",
+    ["st-white4__trigger"] = "signal"
 }
 ----------------------
 -- old API 1.0      --

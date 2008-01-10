@@ -1696,7 +1696,7 @@ namespace
         }
 
         virtual Value message(const Message &m) {
-            if (m.message == "signal" || m.message == "trigger") {
+            if (m.message == "signal" || m.message == "_trigger") {
                 // toggle between black and white stone
                 m_type = (m_type + 4) % 8;
                 init_model();
