@@ -2725,7 +2725,7 @@ void Blocker::change_state(State new_state)
 
 void Blocker::grow()
 {
-    Stone *st = MakeStone("st-blocker-growing");
+    Stone *st = MakeStone("st_blocker_new");
     SetStone(get_pos(), st);
     TransferObjectName(this, st);
     kill();

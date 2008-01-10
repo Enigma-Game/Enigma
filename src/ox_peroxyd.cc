@@ -347,7 +347,7 @@ const char *oxyd::peroxyd_stone_map[256] = {
     "st-rubberband",            // PerOxyd stone 0x96
     "st-scissors",              // PerOxyd stone 0x97
     "st-grate3",                // PerOxyd stone 0x98
-    "st-blocker",               // PerOxyd stone 0x99
+    "st_blocker",               // PerOxyd stone 0x99
     "st-grate1",                // PerOxyd stone 0x9a
     "st-metal_hole",            // PerOxyd stone 0x9b
     "st-stone1",                // PerOxyd stone 0x9c

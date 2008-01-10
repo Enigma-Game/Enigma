@@ -515,7 +515,7 @@ namespace
             Rect (76, 216, 245, 26),         // inventory area
             Rect (75, 217, 237, 17),         // text area
             true, true,                      // available window, fullscreen
-            "-10-0-","-0-"                   // fallback modes window, fullscreen
+            "-10-0-","-10-0-"                // fallback modes window, fullscreen
         }
     };
 

@@ -28,6 +28,7 @@
 #include "stones/ConnectiveStone.hh"
 #include "actors.hh"
 #include "main.hh"
+#include "Value.hh"
 
 #include "ecl_util.hh"
 
@@ -457,135 +458,6 @@ StoneResponse OneWayBase::collision_response(const StoneContact &sc) {
         return has_dir(dirs,o) ? STONE_REBOUND : STONE_PASS;
     else
         return STONE_REBOUND;
-}
-
-
-/* -------------------- BlockerStone -------------------- */
-
-/** \page st-blocker Blocker Stone
-
-The BlockerStone acts like a normal stone until it is hit by a
-BolderStone. Then it shrinks and morphs into a 'Blocker' item.
-
-*/
-
-namespace
-{
-    class BlockerStone : public Stone {
-        CLONEOBJ(BlockerStone);
-        DECL_TRAITS;
-    public:
-        BlockerStone(bool solid)
-        : Stone(solid ? "st-blocker" : "st-blocker-growing"), 
-          state(solid ? SOLID : GROWING)
-        {}
-
-    private:
-        enum State { SOLID, SHRINKING, GROWING } state;
-
-        void init_model() {
-            switch (state) {
-            case SOLID:
-                set_model("st-blocker");
-                break;
-
-            case SHRINKING:
-                set_anim("st-blocker-shrinking");
-                break;
-
-            case GROWING:
-                set_anim("st-blocker-growing");
-                break;
-            }
-        }
-
-        void change_state(State newState) {
-            if (state != newState) {
-                if (state == GROWING && newState == SHRINKING) {
-                    state = SHRINKING;
-                    get_model()->reverse();
-                }
-                else if (state == SHRINKING && newState == GROWING) {
-                    state = GROWING;
-                    get_model()->reverse();
-                }
-                else {
-                    state = newState;
-                    init_model();
-                    if (newState == SOLID) {
-                        set_attrib("kind", "st-blocker");
-                    }
-                }
-            }
-        }
-
-        void animcb() {
-            switch (state) {
-            case SHRINKING: {
-                Item *it = MakeItem("it-blocker-new");
-                SetItem(get_pos(), it);
-                TransferObjectName(this, it);
-                KillStone(get_pos());
-                break;
-            }
-            case GROWING:
-                change_state(SOLID);
-                break;
-            default :
-                ASSERT(0, XLevelRuntime,
-                    "BlockerStone: animcb called with inconsistent state");
-                break;
-            }
-        }
-
-        virtual Value message(const Message &m) {
-            if (m.message == "_trigger" || m.message == "toggle" || m.message == "openclose") {
-                if (state == SHRINKING) {
-                    change_state(GROWING);
-                }
-                else {
-                    change_state(SHRINKING);
-                }
-                return Value();
-            }
-            else if (m.message == "signal") {
-                int value = m.value;
-//                 warning("received signal (value=%i)", value);
-                if (value) {    // value == 1 -> shrink
-                    if (state != SHRINKING)
-                        change_state(SHRINKING);
-                }
-                else {          // value == 0 -> grow
-                    if (state == SHRINKING)
-                        change_state(GROWING);
-                }
-                return Value();
-            }
-            else if (m.message == "open") { // aka "shrink"
-                if (state != SHRINKING)
-                    change_state(SHRINKING);
-                return Value();
-            }
-            else if (m.message == "close") { // aka "grow"
-                if (state == SHRINKING)
-                    change_state(GROWING);
-                return Value();
-            }
-            return Stone::message(m);
-        }
-
-        void actor_contact(Actor *a) {
-            if (state == GROWING) {
-                SendMessage(a, "shatter");
-            }
-        }
-        void actor_inside(Actor *a) {
-            if (state == GROWING) {
-                SendMessage(a, "shatter");
-            }
-        }
-    };
-    DEF_TRAITSM(BlockerStone, "INVALID", st_INVALID, MOVABLE_BREAKABLE);
 }
 
 
@@ -1802,7 +1674,8 @@ namespace
                 change_state(PULSING);
                 return Value();
             }
-            else if (m.message == "signal" && to_double(m.value) != 0) {
+            else if (m.message == "signal" && (to_double(m.value) != 0 || 
+                    (server::EnigmaCompatibility < 1.10 && m.value.getType() == Value::NIL))) { // hack for old trigger without value
                 incoming = NODIR;
                 change_state (PULSING);
                 return Value();
@@ -3066,10 +2939,6 @@ namespace
 
 void Init_complex()
 {
-
-    Register(new BlockerStone(true));
-    Register(new BlockerStone(false));
-
     Register(new Door);
     Register("st-door-h", new Door("h"));
     Register("st-door-v", new Door("v"));

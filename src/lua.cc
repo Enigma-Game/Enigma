@@ -564,12 +564,16 @@ en_send_message(lua_State *L)
 {
     Object     *obj = to_object(L, 1);
     const char *msg = lua_tostring(L, 2);
-    Value v;
+    Value result;  // nil
+    Value v;  // nil
+    if (lua_gettop(L) >= 3)
+        v = to_value(L, 3);
     if (!msg)
         throwLuaError(L,"Illegal message");
     else if (obj) {
+        std::string new_msg = lua::NewMessageName(L, obj, msg);
         try {
-            v = SendMessage (obj, msg, to_value(L, 3));
+            result = SendMessage (obj, new_msg, v);
         }
         catch (const XLevelRuntime &e) {
             throwLuaError (L, e.what());
@@ -578,7 +582,7 @@ en_send_message(lua_State *L)
             throwLuaError (L, "uncaught exception");
         }
     }
-    push_value(L, v);
+    push_value(L, result);
     return 0;
 }
 

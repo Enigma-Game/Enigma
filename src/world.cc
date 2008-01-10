@@ -1823,7 +1823,7 @@ void AddSignal (const GridLoc &srcloc, const GridLoc &dstloc, const string &msg)
     
     Value dstValue(dst);
     
-    if (dst->is_kind("st-blocker") || dst->is_kind("st-blocker-growing") ||
+    if (dst->is_kind("st_blocker") || dst->is_kind("st_blocker_new") ||
             dst->is_kind("it-blocker")) {
         if (!dst->getAttr("name"))
             NameObject(dst, ecl::strf("$!oxyd!blocker%d", dst->getId()));

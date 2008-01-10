@@ -44,6 +44,8 @@ RenamingObjectsOld2New = {
 }
 
 RenamingObjectsNew2Old = {
+    st_blocker = "st-blocker",
+    st_blocker_new = "st-blocker-growing",
     st_boulder = "st-bolder",
     st_boulder_n = "st-bolder-n",
     st_boulder_e = "st-bolder-e",
@@ -165,8 +167,10 @@ MessageRenaming = {
     ["st-black2__trigger"] = "signal",
     ["st-black3__trigger"] = "signal",
     ["st-black4__trigger"] = "signal",
-    ["st-blocker__trigger"] = "toggle",
-    ["st-blocker-growing__trigger"] = "toggle",
+    st_blocker__openclose = "toggle",
+    st_blocker__trigger = "toggle",
+    st_blocker_new__openclose = "toggle",
+    st_blocker_new__trigger = "toggle",
     st_boulder__direction = "orientate",
     ["st-fart__trigger"] = "toggle",
     st_fourswitch__trigger = "toggle",
