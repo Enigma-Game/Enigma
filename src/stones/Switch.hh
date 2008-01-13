@@ -26,7 +26,7 @@
 namespace enigma {
 
     /** 
-     * A standard colored 2 state on/off switch that can be toggled only actors
+     * A standard colored 2 state on/off switch that can be toggled only by actors
      * of a compatible color. It is a StateObject with 4 internal states as the
      * state changes are animated. The external states are mapped. The messages
      * "toggle", "signal", "on", "off" and get/set of the state are fully supported.

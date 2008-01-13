@@ -97,7 +97,7 @@ void Item::kill() {
 void Item::replace(ItemID id)
 {
     Item *newitem = MakeItem (id);
-    TransferObjectName (this, newitem);
+    transferName(newitem);          // TODO check where transfer of identity is better
     setup_successor(newitem);           // hook for subclasses
     SetItem (get_pos(), newitem);
 }
@@ -946,6 +946,8 @@ namespace
 /* -------------------- Brake -------------------- */
 
 // Brake is only used to hold st-brake while it is in an inventory
+
+// TODO transfer identity !!
 namespace
 {
     class Brake : public Item {
@@ -1433,7 +1435,7 @@ namespace
                }
            }
            Stone *st = MakeStone (get_stone_name());
-           TransferObjectName (this, st);
+           transferName(st);
            SetStone (p, st);
            kill();
         }
@@ -2653,196 +2655,204 @@ namespace
 
 /* -------------------- Blocker item -------------------- */
 
-namespace
-{
-    /*! If a 'BoulderStone' moves over a 'Blocker' the 'Blocker' starts
-      growing and replaces itself by a BlockerStone. */
-    class Blocker : public Item, public TimeHandler {
-        CLONEOBJ(Blocker);
+
+    /**
+     * A door like object that can be opened and closed by a BoulderStone. This item
+     * represents the open state of the door. The closed state is represented by a
+     * BlockerStone.<p>
+     * If a BoulderStone moves over a BlockerItem the BlockerItem starts growing and
+     * replaces itself by a BlockerStone. But other Stones can be pushed over a
+     * BlockerItem without causing its transformation. <p>
+     * It fully supports the door messages "open", "close", "toggle", "signal" and
+     * attribute "state". If the item is blocked by a stone the messages will not
+     * cause an instant growing. But the message will be remembered in the internal
+     * state and the item acts as soon as the stone moves away.<p>
+     * An initial BlockerItem with a BoulderStone on top will grow as soon as it moves
+     * away. An initial it_blocker_new with a BloulderStone on top will not grow when
+     * the stone moves away.<p>
+     * Note that this is the only door object that allows a stone to be pushed through.
+     * A BlockerItem can be killed by a BrakeItem being dropped.
+     */
+    class BlockerItem : public Item, public TimeHandler {
+        CLONEOBJ(BlockerItem);
         DECL_TRAITS;
+    private:
+        enum iState {
+            IDLE,       ///< neutral state
+            NEW,        ///< a new BlockerItem that replaced a recently shrinked BlockerStone -
+                        ///< a BoulderStone is awaited, but it has to arrive in time 
+            LOCKED,     ///< a stone covers the BlockerItem and locked it, so it will not grow
+                        ///< when the stone moves away. This is the state that a BoulderStone causes
+                        ///< on its first visit immediatly after shrinking the BlockerStone
+            UNLOCKED    ///< a stone covers the BlockerItem and unlocked it, so it will grow
+                        ///< when the stone moves away. This is the state that a BoulderStone causes
+                        ///< on its second visit when moving onto an idle BlockerItem. The blocker
+                        ///< will grow when the stones moves away
+        };
 
-        enum State {
-            IDLE,               // nothing special
-            SHRINKED,           // recently shrinked by a BolderStone (which has not arrived yet)
-            BOLDERED,           // BolderStone has arrived (the one that made me shrink)
-            COVERED             // BolderStone will make me grow (but is on top of me)
-            // Note: BOLDERED and COVERED are used for all kinds of stones
-            // (e.g. when a stone is on top and the Blocker receives a "close" message)
-        } state;
-
-        static const char * const stateName[];
-
-        void change_state(State new_state);
-        void on_creation (GridPos p);
-        void on_removal (GridPos p);
-        virtual Value message(const Message &m);
-        void stone_change(Stone *st);
-        void grow();
-        void alarm();
     public:
-        Blocker(bool shrinked_recently);
-        ~Blocker();
+        BlockerItem(bool shrinked_recently);
+        ~BlockerItem();
+
+        // Object interface
+        virtual Value message(const Message &m);
+
+        // StateObject interface
+        virtual void toggleState();
+        virtual int externalState() const;
+        virtual void setState(int extState);
+
+        // GridObject interface
+        virtual void on_creation(GridPos p);
+        virtual void on_removal(GridPos p);
+        virtual void init_model();
+
+        // Item interface
+        virtual void stone_change(Stone *st);
+
+        // TimeHandler interface
+        virtual void alarm();
+    
+    private:
+        void setIState(iState newState);
+        void grow();
     };
-    DEF_TRAITSF(Blocker, "it-blocker", it_blocker, itf_static);
-};
-
-const char * const Blocker::stateName[] = { "IDLE", "SHRINKED", "BOLDERED", "COVERED" };
+    
+    DEF_TRAITSF(BlockerItem, "it_blocker", it_blocker, itf_static);
 
 
-Blocker::Blocker(bool shrinked_recently)
-: state(shrinked_recently ? SHRINKED : IDLE)
-{}
-
-Blocker::~Blocker() {
-    GameTimer.remove_alarm (this);
-}
-
-void Blocker::on_creation (GridPos p)
-{
-    if (state == SHRINKED) {
-        GameTimer.set_alarm(this, 0.5, false);
+    BlockerItem::BlockerItem(bool shrinked_recently) {
+        state = shrinked_recently ? NEW : IDLE;
     }
-    Item::on_creation(p);
-}
 
-void Blocker::on_removal(GridPos p)
-{
-    change_state(IDLE);
-    Item::on_removal(p);
-}
-
-void Blocker::change_state(State new_state)
-{
-    if (state != new_state) {
-        if (state == SHRINKED)
-            GameTimer.remove_alarm(this);
-        else if (new_state == SHRINKED)
-            GameTimer.set_alarm(this, 0.5, false);
-        state = new_state;
+    BlockerItem::~BlockerItem() {
+        GameTimer.remove_alarm (this);
     }
-}
 
-
-void Blocker::grow()
-{
-    Stone *st = MakeStone("st_blocker_new");
-    SetStone(get_pos(), st);
-    TransferObjectName(this, st);
-    kill();
-}
-
-void Blocker::alarm()
-{
-    if (state == SHRINKED) { // BolderStone did not arrive in time
-        change_state(IDLE);
-    }
-}
-
-
-Value Blocker::message(const Message &m)
-{
-    if (m.message == "init") { 
-        if (Stone *st = GetStone(get_pos())) {
-            if (st->is_kind("st_boulder"))
-                if (state == IDLE)
-                    change_state(COVERED);
-                else if (state == SHRINKED)
-                    change_state(BOLDERED);
+    Value BlockerItem::message(const Message &m) {
+        if (m.message == "init") { 
+            if (Stone *st = GetStone(get_pos())) {
+                if (st->is_kind("st_boulder"))
+                    if (state == IDLE && server::GameCompatibility != GAMET_PEROXYD)
+                        setIState(UNLOCKED);
+                    else if (state == NEW || server::GameCompatibility != GAMET_PEROXYD)
+                        setIState(LOCKED);
+            }
+            return Item::message(m);    // pass on init message
         }
         return Item::message(m);
-    } else if (m.message == "toggle" || m.message == "openclose") {
-        switch (state) {
-            case IDLE:
-            case SHRINKED:
-                grow(); // if no stone on top -> grow
-                break;
+    }
     
-                // if stone on top -> toggle state (has no effect until stone leaves)
-            case BOLDERED:
-                change_state(COVERED);
-                break;
-            case COVERED:
-                change_state(BOLDERED);
-                break;
+    void BlockerItem::toggleState() {
+        if (state == UNLOCKED) {  // revoke pending grow/close
+            setIState(LOCKED);
         }
-        return Value();
-    } else {
-        int open = -1;
-
-        if (m.message == "signal") {
-            open = m.value;
+        else {
+            setState(0);  // close
         }
-        else if (m.message == "open")
-            open = 1;
-        else if (m.message == "close")
-            open = 0;
-        else
-            return Item::message(m);
-
-        if (open == 1)  { // shrink
-            if (state == COVERED)
-                change_state(BOLDERED);
-        }
-        else if (open != -1) { // grow
-            if (state == BOLDERED)
-                change_state(COVERED);
-            else if (state == SHRINKED)
-                change_state(IDLE); // remove alarm
-
-            if (state == IDLE) {
-                if (Stone *st = GetStone(get_pos())) {
-                    if (st->is_kind("st_boulder"))
-                        change_state(BOLDERED); // occurs in Per.Oxyd #84
-                    else
-                        change_state(COVERED);
-                }
-                else {
-                    grow();
-                }
-            }
-        }
-        return Value();
     }
-    return Item::message(m);
-}
-
-void Blocker::stone_change(Stone *st)
-{
-    if (st) {
-        if (st->is_kind("st_boulder")) { // bolder arrived
+    
+    int BlockerItem::externalState() const {
+        return 1;   // always open -- st_blocker is closed
+    }
+    
+    void BlockerItem::setState(int extState) {
+        if (extState == 1) {         // open (shrink)
+            if (state == UNLOCKED)   //   revoke pending grow/close
+                setIState(LOCKED);
+        }
+        else {                       // close (grow)
             switch (state) {
-            case IDLE:
-                change_state(COVERED);
-                break;
-            case SHRINKED:
-                change_state(BOLDERED);
-                break;
-            case COVERED:
-            case BOLDERED:
-                // two BolderStones running directly next to each other
-                // let second pass as well (correct? siegfried says yes)
-                break;
+                case LOCKED:
+                    setIState(UNLOCKED);  // close when stone is removed
+                    break;
+                case UNLOCKED:
+                    break;                // will close anyway when stone is removed
+                case IDLE:
+                case NEW:
+                    grow();                    
+                    break;
             }
         }
-        else { // any other stone
-            change_state(BOLDERED);
+    }
+    
+    void BlockerItem::on_creation(GridPos p) {
+        if (state == NEW) {
+            GameTimer.set_alarm(this, 0.5, false);
+        }
+        Item::on_creation(p);
+    }
+
+    void BlockerItem::on_removal(GridPos p) {
+        setIState(IDLE);
+        Item::on_removal(p);
+    }
+
+    void BlockerItem::init_model() {
+        set_model("it-blocker");
+    }
+    
+    void BlockerItem::stone_change(Stone *st) {
+        if (st != NULL) {
+            if (st->is_kind("st_boulder")) { // boulder arrived
+                switch (state) {
+                    case IDLE:
+                        setIState(UNLOCKED);  // will grow when boulder moves away
+                        break;
+                    case NEW:
+                        setIState(LOCKED);    // will not grow when boulder moves away
+                        break;
+                    case UNLOCKED:
+                    case LOCKED:
+                        // two BoulderStones running directly next to each other
+                        // let second pass as well (correct? siegfried says yes)
+                        // note: all stone moves are handled in a timestep before
+                        //   the world informs the items about stone changes
+                        break;
+                }
+            }
+            else { // any other stone
+                setIState(LOCKED);
+            }
+        }
+        else {              // stone disappeared
+            switch (state) {
+                case LOCKED:
+                    setIState(IDLE);
+                    break;
+                case UNLOCKED:
+                    grow();
+                    break;
+                case IDLE:
+                case NEW:
+                    // no action
+                    break;
+            }
         }
     }
-    else {              // stone disappeared
-        switch (state) {
-        case BOLDERED:
-            change_state(IDLE);
-            break;
-        case COVERED:
-            grow();
-            break;
-        case IDLE:
-        case SHRINKED:
-            // no action
-            break;
+
+    void BlockerItem::alarm() {
+        if (state == NEW) { // BoulderStone did not arrive in time
+            setIState(IDLE);
         }
     }
-}
+
+    void BlockerItem::setIState(iState newState) {
+        if (state != newState) {
+            if (state == NEW)
+                GameTimer.remove_alarm(this);
+            else if (newState == NEW)
+                GameTimer.set_alarm(this, 0.5, false);
+            state = newState;
+        }
+    }
+    
+    void BlockerItem::grow() {
+        Stone *st = MakeStone("st_blocker_new");
+        SetStone(get_pos(), st);
+        transferIdentity(st);
+        kill();
+    }
 
 
 /* -------------------- Ring -------------------- */
@@ -3677,8 +3687,8 @@ void InitItems()
     RegisterItem (new Banana);
     RegisterItem (new BlackBomb);
     RegisterItem (new BlackBombBurning);
-    Register ("it-blocker-new", new Blocker(true));
-    RegisterItem (new Blocker(false));
+    Register ("it_blocker_new", new BlockerItem(true));
+    RegisterItem (new BlockerItem(false));
     RegisterItem (new Booze);
     RegisterItem (new Brake);
     RegisterItem (new BrokenBooze);

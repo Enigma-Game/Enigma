@@ -174,6 +174,34 @@ namespace enigma {
         return Value(Value::DEFAULT);
     }
     
+    void Object::transferName(Object *target) {
+        if (target == NULL)
+            return;
+        if (Value v = getAttr("name")) {
+            std::string name(v);
+            UnnameObject(this);
+            if (Value v = target->getAttr("name")) {
+                target->warning("name '%s' overwritten by '%s'",
+                                v.to_string().c_str(), name.c_str());
+                UnnameObject(target);
+            }
+            NameObject(target, name);
+        }
+    }
+    
+    void Object::transferIdentity(Object *target) {
+        if (target == NULL)
+            return;
+        transferName(target);
+        for (AttribMap::iterator it = attribs.begin(); it != attribs.end(); ++it) {
+            // copy user attributes starting with "_" and
+            // target and actions including their stated versions
+            if ( it->first.find("_") == 0 || it->first.find("target") == 0
+                    || it->first.find("action") == 0)
+                target->set_attrib(it->first, it->second);
+        }
+    }
+    
     void Object::performAction(const Value& val) {
         Value messageValue = val;
         if (getDefaultedAttr("inverse", false).to_bool())

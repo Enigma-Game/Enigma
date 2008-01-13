@@ -1994,7 +1994,7 @@ namespace
             Stone::on_creation(p);
 
             Item    *it = GetItem(p);
-            if (it && it->is_kind("it-blocker")) {
+            if (it && it->is_kind("it_blocker")) {
                 KillItem(p);
 //                sound_event ("explosion1");
             }

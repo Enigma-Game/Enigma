@@ -148,6 +148,8 @@ namespace enigma {
 
         virtual void warning(const char *format, ...) const;
         virtual ObjectType getObjectType() const;
+        void transferName(Object *target);
+        virtual void transferIdentity(Object *target);
 
     protected:
         virtual Value getDefaultValue(const string &key) const;

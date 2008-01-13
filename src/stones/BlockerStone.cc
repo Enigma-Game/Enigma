@@ -77,9 +77,9 @@ namespace enigma {
     void BlockerStone::animcb() {
         switch (state) {
             case SHRINKING: {
-                Item *it = MakeItem("it-blocker-new");
+                Item *it = MakeItem("it_blocker_new");
                 SetItem(get_pos(), it);
-                TransferObjectName(this, it);   // TODO transfer user attr., target, action
+                transferIdentity(it);
                 KillStone(get_pos());
                 break;
             }

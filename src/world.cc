@@ -1627,20 +1627,6 @@ void UnnameObject(Object *obj)
     level->unname(obj);
 }
 
-void TransferObjectName (Object *source, Object *target)
-{
-    if (Value v = source->getAttr("name")) {
-        string name(v);
-        UnnameObject(source);
-        if (Value v = target->getAttr("name")) {
-            target->warning("name '%s' overwritten by '%s'",
-                            v.to_string().c_str(), name.c_str());
-            UnnameObject(target);
-        }
-        NameObject(target, name);
-    }
-}
-
 Object * GetNamedObject (const std::string &name)
 {
     return level->get_named (name);
@@ -2059,7 +2045,7 @@ void SetStone(GridPos p, Stone* st) {
 void ReplaceStone (GridPos p, Stone* st) {
     Stone *old = level->st_layer.get(p);
     if (old) {
-        TransferObjectName(old, st);
+        old->transferName(st);
         level->st_layer.kill(p);
     }
     SetStone(p, st);

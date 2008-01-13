@@ -52,7 +52,7 @@ namespace enigma {
         virtual void setState(int extState);
 
         // GridObject interface
-        virtual void on_creation(GridPos);
+        virtual void on_creation(GridPos p);
         virtual void on_removal(GridPos p);
         virtual void init_model();
         

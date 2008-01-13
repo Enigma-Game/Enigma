@@ -174,7 +174,6 @@ namespace enigma {
 
     void    NameObject (Object *obj, const string &name);
     void    UnnameObject (Object *obj);
-    void    TransferObjectName(Object *source, Object *target);
     Object *GetNamedObject (const string &name);
     std::list<Object *> GetNamedGroup(const std::string &templ);
 

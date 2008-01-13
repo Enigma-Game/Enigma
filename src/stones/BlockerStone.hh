@@ -28,7 +28,13 @@
 namespace enigma {
 
     /** 
+     * A door like object that can be opened and closed by a BoulderStone. This
+     * stone represents the closed state of the door. The open state is represented
+     * by a BlockerItem.
      * 
+     * TODO autonaming for keeping identity in groups
+     * TODO performAction on opening (as notification of boulder triggering)
+     * TODO animation slowed down by a major factor for PerOxyd compatibility
      */
     class BlockerStone : public Stone {
         CLONEOBJ(BlockerStone);

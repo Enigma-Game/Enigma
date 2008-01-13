@@ -44,6 +44,8 @@ RenamingObjectsOld2New = {
 }
 
 RenamingObjectsNew2Old = {
+    it_blocker = "it-blocker",
+    it_blocker_new = "it-blocker-new",
     st_blocker = "st-blocker",
     st_blocker_new = "st-blocker-growing",
     st_boulder = "st-bolder",
@@ -150,7 +152,8 @@ function enigma.GetAttrib(obj, key)
 end
 
 MessageRenaming = {
-    ["it-blocker__trigger"] = "toggle",
+    it_blocker__trigger = "toggle",
+    it_blocker__openclose = "toggle",
     ["it-burnable__trigger"] = "ignite",
     ["it-burnable_ignited__trigger"] = "ignite",
     ["it-burnable_burning__trigger"] = "ignite",
