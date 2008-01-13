@@ -426,49 +426,6 @@ void TimeSwitch::notify_laseron()  {} // ignore laser
 void TimeSwitch::notify_laseroff() {}
 
 
-/* -------------------- Floppy switch -------------------- */
-
-// Attributes:
-//
-// :on              1 or 0
-// :target,action   as usual
-namespace
-{
-    class FloppyStone : public OnOffStone {
-        CLONEOBJ(FloppyStone);
-    public:
-        FloppyStone() : OnOffStone("st-floppy") {}
-    private:
-        // Stone interface
-        void init_model();
-        void actor_hit(const StoneContact &sc);
-        const char *collision_sound() { return "metal"; }
-    };
-}
-
-void FloppyStone::init_model() 
-{
-    set_model(is_on() ? "st-floppy1" : "st-floppy0");
-}
-
-void FloppyStone::actor_hit (const StoneContact &sc)
-{
-    if (enigma::Inventory *inv = player::GetInventory(sc.actor)) {
-        if (is_on()) {
-            if (!inv->is_full()) {
-                inv->add_item (MakeItem("it-floppy"));
-                set_on(false);
-                performAction(is_on());
-            }
-        }
-        else if (player::WieldedItemIs (sc.actor, "it-floppy")) {
-            DisposeObject (inv->yield_first());
-            set_on(true);
-            performAction(is_on());
-        }
-        player::RedrawInventory (inv);
-    }
-}
 
 
 /* -------------------- Functions -------------------- */
@@ -476,7 +433,6 @@ void FloppyStone::actor_hit (const StoneContact &sc)
 void InitSwitches()
 {
     Register (new CoinSlot);
-    Register (new FloppyStone);
     Register (new KeyStone);
     Register (new KeyStone_a);
     Register (new KeyStone_b);

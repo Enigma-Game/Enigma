@@ -194,6 +194,8 @@ enigma_SOURCES = 		\
 	stones/BoulderStone.hh	\
 	stones/ConnectiveStone.cc	\
 	stones/ConnectiveStone.hh	\
+	stones/FloppySwitch.hh   \
+	stones/FloppySwitch.cc   \
 	stones/FourSwitch.cc	\
 	stones/FourSwitch.hh	\
 	stones/OxydStone.cc	\
