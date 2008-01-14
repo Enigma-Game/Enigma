@@ -387,7 +387,8 @@ namespace
         CLONEOBJ(OneWayStone_black);
         DECL_TRAITS;
         virtual bool actor_may_pass (Actor *a) {
-            return a->getAttr("blackball") != 0;
+            Value accolor = a->getAttr("color");
+            return accolor && accolor == BLACK;
         }
         void actor_hit (const StoneContact&) {
             // do nothing if hit by actor
@@ -403,7 +404,8 @@ namespace
         CLONEOBJ(OneWayStone_white);
         DECL_TRAITS;
         virtual bool actor_may_pass (Actor *a) {
-            return a->getAttr("whiteball") != 0;
+            Value accolor = a->getAttr("color");
+            return accolor && accolor == WHITE;
         }
         void actor_hit (const StoneContact&) {
             // do nothing if hit by actor
@@ -2559,12 +2561,12 @@ namespace
     }
 
     void ChessStone::actor_hit(const StoneContact &sc) {
+         Value accolor = sc.actor->getAttr("color");
          if (player::WieldedItemIs (sc.actor, "it-magicwand")) {
              sound_event ("stonepaint");
              set_color(1 - (int)getAttr("color"));
              // If not IDLE, color will be set next time IDLE is set.
-         } else if ((sc.actor->getAttr("blackball") && getAttr("color") == 0)
-                    || (sc.actor->getAttr("whiteball") && getAttr("color") == 1)) {
+         } else if (accolor && getAttr("color") == accolor) {
             V2 v = sc.actor->get_vel();
             Direction dir1 = get_push_direction(sc);
             if(dir1 == NODIR)  return;

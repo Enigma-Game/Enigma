@@ -1183,7 +1183,6 @@ namespace
         {
             set_attrib("mouseforce", Value(1.0));
             set_attrib("color", Value(0.0));
-            set_attrib("blackball", Value(true));
             set_attrib("player", Value(0.0));
             set_attrib("controllers", Value(1.0));
         }
@@ -1197,7 +1196,6 @@ namespace
         {
             set_attrib("mouseforce", Value(1.0));
             set_attrib("color", Value(1.0));
-            set_attrib("whiteball", Value(true));
             set_attrib("player", Value(1.0));
             set_attrib("controllers", Value(2.0));
         }
@@ -1211,7 +1209,6 @@ namespace
         {
             set_attrib("mouseforce", Value(1.0));
             set_attrib("color", Value(1.0));
-            set_attrib("whiteball", Value(true));
             set_attrib("controllers", Value(3.0));
             maxSinkDepth = 4;
         }
@@ -1226,7 +1223,6 @@ namespace
         {
             set_attrib("mouseforce", Value(2.0));
             set_attrib("color", Value(1.0));
-            set_attrib("whiteball", Value(true));
             set_attrib("controllers", Value(3.0));
         }
         bool is_dead() const { return false; }

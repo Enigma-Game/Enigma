@@ -39,6 +39,11 @@
 
 namespace enigma { 
     
+    enum Color {
+        BLACK = 0,
+        WHITE = 1
+    };
+    
 /* -------------------- Various types -------------------- */
 
     enum Difficulty {

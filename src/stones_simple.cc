@@ -751,7 +751,8 @@ namespace
         {}
     private:
         bool may_be_broken_by(Actor *a) const {
-            return (a->getAttr("whiteball") != 0) &&
+            Value color = a->getAttr("color");
+            return color && color == WHITE &&
                 player::WieldedItemIs (a, "it-hammer");
         }
     };
@@ -784,14 +785,14 @@ namespace
         {}
     private:
         bool may_be_broken_by(Actor *a) const {
-            return (a->getAttr("blackball") != 0) &&
+            Value color = a->getAttr("color");
+            return color && color == BLACK &&
                 player::WieldedItemIs (a, "it-hammer");
         }
     };
     DEF_TRAITSM(Break_acblack, "st-break_acblack", st_break_acblack, MOVABLE_BREAKABLE);
 }
 
-
 /* -------------------- BrickMagic -------------------- */
 
 /** \page st-brick_magic Magic Brick Stone
@@ -824,7 +825,6 @@ namespace
     };
 }
 
-
 /* -------------------- Stonebrush -------------------- */
 
 /** \page st-stonebrush Brush Stone
@@ -1685,12 +1685,13 @@ namespace
         {}
 
         StoneResponse collision_response(const StoneContact &sc) {
+            Value accolor = sc.actor->getAttr("color"); 
             if (m_type < 4) {
-                return (sc.actor->getAttr("blackball") != 0) ? 
+                return (accolor && accolor == BLACK) ? 
                     STONE_PASS : STONE_REBOUND;
             }
             else {
-                return (sc.actor->getAttr("whiteball") != 0) ? 
+                return (accolor && accolor == WHITE) ? 
                     STONE_PASS : STONE_REBOUND;
             }
         }
@@ -1757,8 +1758,9 @@ namespace
 
     private:
         void actor_hit(const StoneContact &sc) {
-            if      (sc.actor->getAttr("blackball") != 0) turn_white();
-            else if (sc.actor->getAttr("whiteball") != 0) turn_black();
+            Value color = sc.actor->getAttr("color");
+            if      (color && color == BLACK) turn_white();
+            else if (color && color == WHITE) turn_black();
         }
     };
 
@@ -1768,8 +1770,9 @@ namespace
         YinYangStone2() : YinYangStone("st-yinyang2") {}
     private:
         void actor_hit(const StoneContact &sc) {
-            if      (sc.actor->getAttr("blackball") != 0) turn_black();
-            else if (sc.actor->getAttr("whiteball") != 0) turn_white();
+            Value color = sc.actor->getAttr("color");
+            if      (color && color == BLACK) turn_black();
+            else if (color && color == WHITE) turn_white();
         }
     };
 
@@ -1785,9 +1788,10 @@ namespace
             if (player::WieldedItemIs (sc.actor, "it-magicwand") ||
                 player::WieldedItemIs (sc.actor, "it-brush"))
             {
-                if      (sc.actor->getAttr("blackball") != 0) 
+                Value color = sc.actor->getAttr("color");
+                if      (color && color == BLACK) 
                     turn_white("st-white4");
-                else if (sc.actor->getAttr("whiteball") != 0) 
+                else if (color && color == WHITE) 
                     turn_black("st-black4");
             }
         }

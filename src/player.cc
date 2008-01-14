@@ -294,8 +294,10 @@ void player::SetRespawnPositions(GridPos pos, bool black)
         vector<Actor *> &al = players[i].actors;
 
         for (unsigned j=0; j<al.size(); ++j) {
-            if (al[j]->getAttr(black ? "blackball" : "whiteball"))
-                al[j]->set_respawnpos(center);
+            if (Value color = al[j]->getAttr("color")) {
+                if (color == (black ? BLACK : WHITE))
+                    al[j]->set_respawnpos(center);
+            }
         }
     }
 }
@@ -306,8 +308,10 @@ void player::RemoveRespawnPositions(bool black) {
         vector<Actor *> &al = players[i].actors;
 
         for (unsigned j=0; j<al.size(); ++j) {
-            if (al[j]->getAttr(black ? "blackball" : "whiteball"))
-                al[j]->remove_respawnpos();
+            if (Value color = al[j]->getAttr("color")) {
+                if (color == (black ? BLACK : WHITE))
+                    al[j]->remove_respawnpos();
+            }
         }
     }
 }

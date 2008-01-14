@@ -93,7 +93,8 @@ function enigma.SetAttrib(obj, key, val)
 	 end
      end
      if (_obj_name == "st-switch") or (_obj_name == "st-switch_black")
-             or (_obj_name == "st-switch_black") then
+             or (_obj_name == "st-switch_white") 
+             or (_obj_name == "st-floppy") then
          if key == "on" then
 	     _key = "state"   -- new attr name
 	 end
@@ -124,14 +125,24 @@ function enigma.GetAttrib(obj, key)
      local _obj_name = enigma.GetKind(obj)
 
      if (_obj_name == "st-switch") or (_obj_name == "st-switch_black")
-             or (_obj_name == "st-switch_black") then
+             or (_obj_name == "st-switch_white") 
+             or (_obj_name == "st-floppy") then
          if key == "on" then
 	     _key = "state"
 	 end
      end
+     if key == "blackball" or key == "whiteball" then
+         _key = "color"
+     end
 
      local val = enigma._GetAttrib(obj, _key)
      
+     if key == "blackball" then
+        if val == 0 then val = 1 else val = 0 end
+     end
+     if key == "whiteball" then
+        if val == 1 then val = 1 else val = 0 end
+     end
      if _obj_name == "st-oxyd" then
          if key == "color" then
 	     val = "" .. val   -- convert to string
