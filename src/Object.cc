@@ -1,6 +1,6 @@
 /*
  * Copyright (C) 2002,2003,2004,2005 Daniel Heck
- * Copyright (C) 2007 Ronald Lamprecht
+ * Copyright (C) 2007, 2008 Ronald Lamprecht
  *
  * This program is free software; you can redistribute it and/or
  * modify it under the terms of the GNU General Public License
@@ -274,12 +274,41 @@ namespace enigma {
     /* Like variant above, but the _result_ of the impulse is delayed.
      */
     
-    void
-    Object::send_impulse(const GridPos& dest, Direction dir, double delay)
+    void Object::send_impulse(const GridPos& dest, Direction dir, double delay)
     {
         if (Stone *st = GetStone(dest)) {
             addDelayedImpulse(Impulse(this, dest, dir), delay, st);
         }
+    }
+    
+    bool Object::getDestinationByIndex(int idx, ecl::V2 &dstpos) const {
+        int i = 0;  // counter for destination candidates
+        Value dest = getAttr("destination");
+        if (dest.getType() == Value::POSITION && idx == 0) {
+            // arbitrary precision position as destination
+            dstpos = dest;
+            return true;
+        } else {
+            // evaluate destination objects in sequence up to "idx"
+            TokenList tl = dest;  // convert any object type value to a tokenlist 
+            for (TokenList::iterator tit = tl.begin(); tit != tl.end(); ++tit) {
+                ObjectList ol = *tit;  // convert next token to an objectlist
+                for (ObjectList::iterator oit = ol.begin(); oit != ol.end(); ++oit) {
+                    GridObject *go = dynamic_cast<GridObject *>(*oit);  // get the object
+                    if (go != NULL) {   // no actors as destination!
+                        GridPos p = go->get_pos();
+                        if (IsInsideLevel(p)) {   // no objects in inventory,...
+                            if (i == idx) {
+                                dstpos = p.center();
+                                return true;
+                            } else
+                                i++;
+                        }
+                    }
+                }
+            }
+        }
+        return false;
     }
     
     void Object::warning(const char *format, ...) const {

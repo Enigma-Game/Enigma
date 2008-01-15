@@ -1861,7 +1861,6 @@ namespace
         void prepare_for_warp (Actor *actor);
         void emit_actor(Vortex *destVortex);
 
-        bool get_target_by_index (int idx, V2 &target);
         void perform_warp();    // warp swallowed actor(s)
         void warp_to(const V2 &target);
 
@@ -2012,35 +2011,6 @@ void Vortex::openclose() {
         open();
 }
 
-bool Vortex::get_target_by_index (int idx, V2 &targetpos) {
-    int i = 0;  // counter for destination candidates
-    Value dest = getAttr("destination");
-    if (dest.getType() == Value::POSITION && idx == 0) {
-        // arbitrary precision position as destination
-        targetpos = dest;
-        return true;
-    } else {
-        // evaluate destination objects in sequence up to "idx"
-        TokenList tl = dest;  // convert any object type value to a tokenlist 
-        for (TokenList::iterator tit = tl.begin(); tit != tl.end(); ++tit) {
-            ObjectList ol = *tit;  // convert next token to an objectlist
-            for (ObjectList::iterator oit = ol.begin(); oit != ol.end(); ++oit, i++) {
-                if (i == idx) {
-                    GridObject *go = dynamic_cast<GridObject *>(*oit);  // get the object
-                    if (go != NULL) {   // no actors as destination!
-                        GridPos p = go->get_pos();
-                        if (IsInsideLevel(p)) {   // no objects in inventory,...
-                            targetpos = p.center();
-                            return true;
-                        }
-                    }
-                }
-            }
-        }
-    }
-    return false;
-}
-
 void Vortex::alarm() {
     if (state == WARPING) {
         perform_warp();
@@ -2106,7 +2076,7 @@ void Vortex::perform_warp() {
 
     // is another target position defined?
     int dest_idx = getAttr("$dest_idx");
-    if (get_target_by_index(dest_idx, v_target)) {
+    if (Object::getDestinationByIndex(dest_idx, v_target)) {
         GridPos  p_target(v_target);
 
         Vortex *v = dynamic_cast<Vortex*>(GetItem(p_target));

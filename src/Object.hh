@@ -1,6 +1,6 @@
 /*
  * Copyright (C) 2002,2003,2004 Daniel Heck
- * Copyright (C) 2007 Ronald Lamprecht
+ * Copyright (C) 2007,2008 Ronald Lamprecht
  *
  * This program is free software; you can redistribute it and/or
  * modify it under the terms of the GNU General Public License
@@ -22,6 +22,7 @@
 
 #include "display.hh"
 #include "ecl_alist.hh"
+#include "ecl_math.hh"
 #include "Value.hh"
 #include <map>
 
@@ -161,6 +162,20 @@ namespace enigma {
         void performAction(const Value &val);
         
         virtual Value invertActionValue(const Value &val) const;
+        
+        /**
+         * Evaluate multiple destinations described by tokenized destination
+         * attribute where every token may be a group by itself. All valid
+         * destinations are indexed in the sequence of tokens and group positions.
+         * The position at the given index is returned as the destination position.
+         * If the caller did index beyond the last valid position this convenience
+         * method returns false, otherwise true to mark a valid position. 
+         * Objects with destinations like Vortex and Horse make use of this method.
+         * @arg idx      requested index of destination starting with 0
+         * @arg destpos  return value for position that is centered to a grid
+         * @return       validity of position at given index
+         */
+        bool getDestinationByIndex(int idx, ecl::V2 &dstpos) const;
         
     private:
         friend void InitWorld();   // for bootFinished() access

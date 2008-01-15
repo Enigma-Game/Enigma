@@ -117,6 +117,25 @@ function enigma.SetAttrib(obj, key, val)
          end
          _key = "destination"
      end
+     if key == "target1" or key == "target2" or key == "target3" or key == "target4" then
+        local i = 0 + string.sub(key, -1)  -- the target number
+        local d = enigma._GetAttrib(obj, "destination")
+        if (d == nil) or (type(d) ~= "table") then
+            d = {}
+        end
+        local c = {}
+        for str in string.gmatch(val, "%d+") do
+            table.insert(c, 0 + str)
+        end
+        d[i] = enigma.GetFloor(c[1], c[2]) -- requires floor to be set first (invalid for Nat method - level Bodyguard)
+        for j = 1, i do
+           if d[j] == nil then
+              d[j] = d[i]
+           end
+        end
+        _key = "destination"
+        _val = d
+     end
      enigma._SetAttrib(obj, _key, _val)
 end
 

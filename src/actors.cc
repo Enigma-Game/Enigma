@@ -1,6 +1,7 @@
 /*
  * Copyright (C) 2002,2003,2004,2005 Daniel Heck
- *
+ * Copyright (C) 2008 Ronald Lamprecht
+ * 
  * This program is free software; you can redistribute it and/or
  * modify it under the terms of the GNU General Public License
  * as published by the Free Software Foundation; either version 2
@@ -472,7 +473,6 @@ namespace
 
         // Private methods
         void update_target ();
-        bool try_target (int idx);
 
         // Variables
         int m_targetidx;
@@ -507,36 +507,20 @@ void Horse::think (double /* dtime */)
     }
 }
 
-bool Horse::try_target (int idx) {
-    if (idx <= 0 || idx > 4)
-        return false;
-
-    const char *attrs[] = {
-        "target1", "target2", "target3", "target4",
-    };
-    string targetstr;
-    GridLoc loc;
-
-    if (Value v = getAttr(attrs[idx-1]))
-        targetstr = v.get_string();
-    else
-        return false;
-    
-    to_gridloc(targetstr.c_str(), loc);
-    m_target = loc.pos.center();
-    m_targetidx = idx;
-    return true;
-}
-
 void Horse::update_target () {
-
+    V2 newPos;
     if (m_targetidx == -1) {
         // no target defined so far
-        try_target(1);
+        if (getDestinationByIndex(0, newPos)) {
+            m_target = newPos;
+            m_targetidx = 0;
+        }
     } 
     else if (length(m_target - get_pos()) < 0.2) {
         // target reached or? try next one
-        if (!try_target (m_targetidx + 1))
+        if (getDestinationByIndex(++m_targetidx, newPos)) {
+            m_target = newPos;
+        } else
             m_targetidx = -1;     // failed -> start anew
     } 
 }
