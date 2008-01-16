@@ -9,4 +9,8 @@ docdir = @datadir@/doc/enigma
 doc_DATA = gpl.txt lgpl.txt
 
 EXTRA_DIST = gpl.txt lgpl.txt enigma.6 HACKING README.mingw32 REQUIREMENTS README.macosx\
-	$(index_DATA)
+	doxygen.config $(index_DATA)
+
+doxygen:
+	doxygen doxygen.config
+

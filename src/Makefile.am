@@ -6,8 +6,7 @@ bin_PROGRAMS = enigma
 
 EXTRA_DIST = \
 	enigma.ico \
-	enigma.rc \
-	enigma.doxygen
+	enigma.rc
 
 
 CXXFLAGS = @CXXFLAGS@\

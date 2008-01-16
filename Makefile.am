@@ -32,3 +32,6 @@ pdf:
 	cd doc/reference/images && $(MAKE) pdf
 	cd doc/reference && $(MAKE) pdf
 
+doxygen:
+	cd doc && $(MAKE) doxygen
+
