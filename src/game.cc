@@ -33,7 +33,6 @@
 using namespace enigma;
 using namespace std;
 
-
 /* -------------------- Global variables -------------------- */
 
 namespace
@@ -41,7 +40,6 @@ namespace
     Uint32      last_tick_time;
 }
 
-
 /* -------------------- Level previews -------------------- */
 
 bool game::DrawLevelPreview (ecl::GC &gc, lev::Proxy *levelProxy)
@@ -65,13 +63,11 @@ bool game::DrawLevelPreview (ecl::GC &gc, lev::Proxy *levelProxy)
 }
 
 
-
 /* -------------------- Functions -------------------- */
 
 void game::StartGame ()
 {
     lev::Index *ind = lev::Index::getCurrentIndex();
-    server::InitNewGame();
 
     video::HideMouse();
     sdl::TempInputGrab grab(enigma::Nograb ? SDL_GRAB_OFF : SDL_GRAB_ON);

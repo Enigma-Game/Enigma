@@ -128,6 +128,9 @@ function enigma.SetAttrib(obj, key, val)
             table.insert(c, 0 + str)
         end
         d[i] = enigma.GetFloor(c[1], c[2]) -- requires floor to be set first (invalid for Nat method - level Bodyguard)
+        if d[i] == nil then
+             error("Actor Horse without floor error")
+        end
         for j = 1, i do
            if d[j] == nil then
               d[j] = d[i]

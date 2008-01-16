@@ -124,9 +124,9 @@ namespace
 
 void load_level(lev::Proxy *levelProxy, bool isRestart)
 {
-    server::PrepareLevel();
-
     try {
+        server::PrepareLevel();
+
         // clear inventory before level load and give us 2 extralives
         player::NewGame(isRestart);
 

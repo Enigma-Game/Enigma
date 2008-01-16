@@ -1576,7 +1576,7 @@ bool WorldInitLevel()
     {
         Actor *a = *i;
         a->on_creation(a->get_actorinfo()->pos);
-        SendMessage(a, "init", Value());
+        SendMessage(a, "_init", Value());
 
         if (Value v = a->getAttr("player")) {
             int iplayer = v;
@@ -1592,7 +1592,7 @@ bool WorldInitLevel()
     if (!seen_player0) 
         throw XLevelLoading("Error: No player 0 defined!");
 
-    BroadcastMessage("init", Value(),
+    BroadcastMessage("_init", Value(),
         GridLayerBits(GRID_ITEMS_BIT | GRID_STONES_BIT | GRID_FLOOR_BIT));
 
     server::InitMoveCounter();

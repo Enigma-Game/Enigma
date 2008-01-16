@@ -57,13 +57,13 @@ void Floor::dispose() {
 }
 
 Value Floor::message(const Message &m) {
-    // "init"     : Start burning, if "initfire" is set.
+    // "_init"     : Start burning, if "initfire" is set.
     // "heat"     : Heat the item, heat-transform floor
     //                 or maybe set fire to it (if burnable).
     // "setfire"  : Just try to make fire (if burnable).
     // "forcefire": Force fire, even on unburnable floor.
     // "stopfire" : Stop fire, put ash but don't transform floor.
-    if (m.message == "init" && has_firetype(flft_initfire))
+    if (m.message == "_init" && has_firetype(flft_initfire))
         return force_fire();
     if (m.message == "heat")
         return try_heating(NODIR, flhf_message);
@@ -157,7 +157,7 @@ void Floor::add_force (Actor *, V2 &f)
  *    - "expl" or "ignite" message if the "ignitable"-attribute is set
  *        - thereby by it-dynamite or it-*bomb + "ignitable"
  *    - fire in the neighborhood (see below)
- *    - on initialisation ("init"-message) when "initfire"-attribute is set
+ *    - on initialisation ("_init"-message) when "initfire"-attribute is set
  *  On the floor itself it does
  *    - inform stones on it -> e.g. kill st-wood, st-hay
  *    - keep on burning by chance or if eternal-attribute set

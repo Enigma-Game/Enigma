@@ -265,7 +265,7 @@ bool Actor::can_move() const {
 }
 
 Value Actor::message(const Message &m) {
-    if (m.message == "init") {
+    if (m.message == "_init") {
         startingpos = get_pos();
         return Value();
     }
@@ -809,7 +809,7 @@ Value BasicBall::message(const Message &m)
             break;
         case APPEARING:
             // ugly hack
-            if (m.message == "init") {
+            if (m.message == "_init") {
                 Actor::message (m);
                 handled = true;
             } else if (m.message == "shatter") {

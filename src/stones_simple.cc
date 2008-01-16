@@ -269,7 +269,7 @@ namespace
         DECL_TRAITS;
 
         virtual Value message(const Message &m) {
-            if (m.message == "init") {
+            if (m.message == "_init") {
                 if (server::GetDifficulty() == DIFFICULTY_EASY) {
                     SetFloor (get_pos(), MakeFloor ("fl-normal"));
                 } else {
@@ -1581,7 +1581,7 @@ namespace
                 // Oxyd* usage of ActorImpulseStone as a signal multiplier
                 ObjectList ol = getAttr("$!oxyd!destinations");
                 
-                if (m.message == "init" && ol.size() > 0) {
+                if (m.message == "_init" && ol.size() > 0) {
                     signalidx = 0;
                     SendMessage(ol.front(), "signal", 1);
                     return Value();

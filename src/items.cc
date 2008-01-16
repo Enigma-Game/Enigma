@@ -1341,7 +1341,7 @@ namespace
             if (m.message == "signal") {
                 performAction(m.value.to_bool());  // convert 1/0 values to true/false
                 return Value();                
-            } else if (m.message == "init") {
+            } else if (m.message == "_init") {
                 update_state();                
                 return Value();
             }
@@ -2700,7 +2700,7 @@ namespace
     }
 
     Value BlockerItem::message(const Message &m) {
-        if (m.message == "init") { 
+        if (m.message == "_init") { 
             if (Stone *st = GetStone(get_pos())) {
                 if (st->is_kind("st_boulder"))
                     if (state == IDLE && server::GameCompatibility != GAMET_PEROXYD)
@@ -3014,7 +3014,7 @@ namespace
 
 Value EasyKillStone::message(const Message &m)
 {
-    if (m.message == "init") {
+    if (m.message == "_init") {
         // does not work in on_creation() because items are created
         // before stones are created.
         if (server::GetDifficulty() == DIFFICULTY_EASY) {
@@ -3043,7 +3043,7 @@ namespace
         DECL_TRAITS;
 
         virtual Value message(const Message &m) {
-            if (m.message == "init") {
+            if (m.message == "_init") {
                 // does not work in on_creation() because items are created
                 // before stones are created.
                 if (server::GetDifficulty() == DIFFICULTY_HARD)
@@ -3068,7 +3068,7 @@ namespace
         DECL_TRAITS;
 
         virtual Value message (const Message &m) {
-            if (m.message == "init") {
+            if (m.message == "_init") {
                 if (server::SingleComputerGame)
                     KillStone (get_pos());
                 kill();
@@ -3087,7 +3087,7 @@ namespace
         DECL_TRAITS;
 
         virtual Value message (const Message &m) {
-            if (m.message == "init") {
+            if (m.message == "_init") {
                 if (!server::SingleComputerGame)
                     KillStone (get_pos());
                 kill();

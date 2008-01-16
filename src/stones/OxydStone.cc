@@ -872,7 +872,7 @@ namespace enigma {
                 tryOpen();
             return Value();
         }
-        else if (m.message == "init") {
+        else if (m.message == "_init") {
             initColors();
             return Value();
         }

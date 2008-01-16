@@ -1307,7 +1307,7 @@ Value DoorBase::message(const Message &m) {
         newstate = OPENING;
     } else if (m.message == "close") {
         newstate = CLOSING;
-    } else if (m.message == "openclose") {
+    } else if (m.message == "openclose" || m.message == "toggle") {
         newstate = (state==OPEN || state==OPENING) ? CLOSING : OPENING;
     } else if (m.message == "signal") {
         newstate = m.value.to_bool() ? OPENING : CLOSING;
@@ -1506,7 +1506,7 @@ namespace
         void notify_item();
 
         virtual Value message(const Message &m) {
-            if (m.message == "init") { // request from ShogunDot (if set _after_ ShogunStone)
+            if (m.message == "_init") { // request from ShogunDot (if set _after_ ShogunStone)
                 notify_item();
                 return Value();
             }
