@@ -4,10 +4,11 @@
     <el:info el:type="library">
       <el:identity el:title="" el:id="lib/libsoko"/>
       <el:version el:score="1" el:release="1" el:revision="1" el:status="experimental"/>
-      <el:author  el:name="Enigma Team" el:email="" el:homepage=""/>
+      <el:author el:name="Enigma Team" el:email="" el:homepage=""/>
       <el:copyright>Copyright © 2007 Enigma Team</el:copyright>
       <el:license el:type="GPL v2.0 or above" el:open="true"/>
       <el:compatibility el:enigma="1.00">
+        <el:dependency el:path="lib/libluatools" el:id="lib/libluatools" el:release="1" el:preload="true"/>
         <el:dependency el:path="lib/libsoko-designlist" el:id="lib/libsoko-designlist" el:release="1" el:preload="true"/>
         <el:dependency el:path="lib/libsoko-endphase" el:id="lib/libsoko-endphase" el:release="1" el:preload="true"/>
       </el:compatibility>
@@ -81,7 +82,7 @@ sokoarea = {}
 ------------------------------------------------------------------------
 
 function mydebug(st)
-  print(st)
+  --print(st)
 end
 function mywarning(st)
   print(st)
@@ -105,42 +106,6 @@ function char_is_player(ch) return string.find(ch, "[@\+]")     == 1  end
 function char_is_outf(ch)   return string.find(ch, "[ ]")       == 1  end
 function char_is_inf(ch)    return not char_is_outf(ch)               end
 
--- combine_tables returns a table consisting of all entries of the
--- entries of OVER_TABLE: OVER_TABLE is a table of tables, say
--- {T1, T2, T3, ...}. The result of combine_tables will be a new
--- table with all entries of T1, T2, T3 etc., with the first table
--- having highest priority etc.
-function combine_tables(over_table)
-  if type(over_table) ~= "table" then
-    myerror("libsoko.combine_tables: Argument is no table!")
-  end
-  local result = {}
-  for j,t in pairs(over_table) do
-    if type(t) ~= "table" then
-      myerror("libsoko.combine_tables: Argument does not consist of tables alone!")
-    end
-    for k,v in pairs(t) do
-      result[k] = result[k] or v
-    end
-  end
-  return result
-end
-
--- shuffle_table resorts the table T randomly. Note that T has to be
--- indexed with integers from 1 to table.getn(T). Type is not checked.
-function shuffle_table(t)
-  for p, v in pairs(t) do
-    t[p].sort_field = math.random()
-  end
-  table.sort(t, function (a, b) return a.sort_field < b.sort_field end)
-end
-
--- manhattan_distance calculates the Manhattan-distance between
--- (X1,Y1) and (X2, Y2), which is |X1 - X2| + |Y1 - Y2|
-function manhattan_distance(x1, y1, x2, y2)
-  return math.abs(x1 - x2) + math.abs(y1 - y2)
-end
-
 -- choose_among_multiples selects a number between 1 and COUNT
 -- based on the coordinates X and Y and the algorithm's name ALG.
 function choose_among_multiples(x, y, count, alg)
@@ -158,7 +123,6 @@ end
 -- check_chess returns a boolean whether a chess stone is used
 -- in the sokoarea SOKOAREA_NUMBER.
 function check_chess(sokoarea_number)
-  mydebug(sokoarea[1].level_array[3][3])
   for y = 1, sokoarea[sokoarea_number].array_height do
     for x = 1, sokoarea[sokoarea_number].array_width do
       local ch = sokoarea[sokoarea_number].level_array[y][x]
@@ -173,7 +137,7 @@ end
 -- set_oxyd sets an oxyd with given flavor and color and adds
 -- the neccessary entry to list_oxyd.
 function set_oxyd(sokoarea_number, list_entry, flavor, color)
-  local entry = list_entry
+  local entry = luatools.deep_copy(list_entry)
   entry.flavor = flavor
   entry.color = color
   oxyd(entry.lx, entry.ly, flavor, color)
@@ -406,7 +370,7 @@ function set_element(x, y, sokoarea_number, el_str, el_design)
       if stkind == "st-none" then
         kill_stone(x, y)
       else
-        created_objects.st = set_stone(stkind, x, y)
+        created_objects.st = set_stone(stkind, x, y, {_sokoarea = sokoarea_number})
       end
     end
   end
@@ -856,20 +820,20 @@ end
 --  - a number specifying the number of the design in the design list
 --  - "nil" plus a level_array from which a design from the design
 --    list will be chosen.
-function design_from_description(design_description, level_array)
+function design_from_description(design_description, level_array, maxdesignnumber)
   -- choose design
   local design = {}
   if type(design_description) == "number" then
-    design = design_list[design_description]
+    design = luatools.deep_copy(design_list[design_description])
   elseif type(design_description) == "table" then
-    design = design_description
+    design = luatools.deep_copy(design_description)
   elseif (type(design_description) == "nil") and (type(level_array) == "table") then
-    design = design_from_level(level_array)
+    design = luatools.deep_copy(design_from_level(level_array, maxdesignnumber))
   else
     myerror("Can't make sense of design type "..type(design)..".")
   end
   -- fill chosen design with default values where neccessary
-  design = combine_tables({design, default_design})
+  design = luatools.combine_tables({design, default_design})
   -- No stone set for outf, not even "st-none"?
   -- Use the default outf-stone instead, and remove it on endphase.
   if type(design.outf) ~= "table" then
@@ -906,11 +870,12 @@ end
 -- design entries. A missing entry will be interpreted as the entry
 -- from default_design. If the DESIGN variable is omitted, a check-
 -- number is created from LEVEL which uniquely* determines a design
--- from the design list. *Uniquely means: The design might change
--- when the design list is enlarged.
+-- from the design list, with MAXDESIGNNUMBER as highest possible
+-- design number. *Uniquely means: The design might change when the
+-- design list is enlarged.
 -- Returns width and height of new level.
 --
-function create_sokoball(level, sublevel, design)
+function create_sokoball(level, sublevel, design, maxdesignnumber)
   -- check that this is the first sokoarea, and initialise it.
   if type(sokoarea) ~= "table" then
     myerror("No sense in sokoarea of type "..type(sokoarea)..".")
@@ -928,7 +893,6 @@ function create_sokoball(level, sublevel, design)
   --                 level_array[y-coordinate][x-coordinate]
   sokoarea[1].array_width = table.getn(sokoarea[1].level_array[1])
   sokoarea[1].array_height = table.getn(sokoarea[1].level_array)
-  mydebug(sokoarea[1].array_height.." : "..sokoarea[1].array_width)
   sokoarea[1].uses_chess = check_chess(1)
   local levelw = math.max(sokoarea[1].array_width, 20)
   local levelh = math.max(sokoarea[1].array_height, 13)
@@ -948,7 +912,8 @@ function create_sokoball(level, sublevel, design)
   sokoarea[1].offset = {x = dx, y = dy}
 
   -- calculate design
-  sokoarea[1].design = design_from_description(design, sokoarea[1].level_array)
+  sokoarea[1].design =
+    design_from_description(design, sokoarea[1].level_array, maxdesignnumber)
 
   -- create special position lists
   create_lists(nr)
@@ -978,10 +943,11 @@ end
 -- from scratch, but not the world and doesn't add another
 -- actor.
 --
-function recreate_sokoball(design, sokoarea_number)
-  local nr = sokoarea_number or 1  
+function recreate_sokoball(design, maxdesignnumber, sokoarea_number)
+  local nr = sokoarea_number or 1
+
   sokoarea[nr].design =
-      design_from_description(design, sokoarea[nr].level_array)
+      design_from_description(design, sokoarea[nr].level_array, maxdesignnumber)
 
   if sokoarea[nr].level_width and sokoarea[nr].level_height then
     for x = 0, sokoarea[nr].level_width - 1 do
@@ -1012,7 +978,15 @@ function recreate_sokoball(design, sokoarea_number)
   sokoarea[nr].list_oxyd = {}
   sokoarea[nr].list_blocker = {}
   sokoarea[nr].number_oxyds = 0
-    
+  sokoarea[nr].goal_to_blocker = {}
+  sokoarea[nr].endphase_hook = endphase
+
+  --sokoarea[nr].list_outside = {}
+  --sokoarea[nr].list_wall = {}
+  --sokoarea[nr].list_way = {}
+  --sokoarea[nr].list_wall_one = {}
+  --sokoarea[nr].list_wall_two = {}
+
   draw_level_array(nr, true, false)
 
   -- prepare oxyds for end phase

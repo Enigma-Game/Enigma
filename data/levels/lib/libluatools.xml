@@ -1,0 +1,128 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no" ?>
+<el:level xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://enigma-game.org/schema/level/1 level.xsd" xmlns:el="http://enigma-game.org/schema/level/1">
+  <el:protected>
+    <el:info el:type="library">
+      <el:identity el:title="" el:id="lib/libluatools"/>
+      <el:version el:score="1" el:release="1" el:revision="1" el:status="released"/>
+      <el:author  el:name="Enigma Team" el:email="" el:homepage=""/>
+      <el:copyright>Copyright © 2007 Enigma Team</el:copyright>
+      <el:license el:type="GPL v2.0 or above" el:open="true"/>
+      <el:compatibility el:enigma="1.00">
+      </el:compatibility>
+      <el:modes el:easy="false" el:single="false" el:network="false"/>
+      <el:comments>
+      </el:comments>
+      <el:score el:easy="-" el:difficult="-"/>
+    </el:info>
+    <el:luamain><![CDATA[
+
+---------------------------------------------------------------------
+-- libluatools holds some general utilities for working with Lua.
+-- It includes functions for deep-copying tables, combining tables,
+-- and shuffling tables, a function to calculate Manhattan
+-- distances and a wrapper for Lua's modulo-function, which has
+-- been renamed from math.mod to math.fmod.
+---------------------------------------------------------------------
+
+luatools = {}
+
+---------------------------------------------------------------------
+--  TABLE  HANDLING
+---------------------------------------------------------------------
+
+-- deep_copy returns a copy of SOURCE, where table entries are
+-- not copied as memory references, but complete ("deep copy").
+-- Metatables are transfered, but not deep-copied.
+function luatools.deep_copy(source)
+ if type(source) ~= "table" then
+   return source
+ end
+ local dest = {}
+ for k, v in pairs(source) do
+   if type(source[k]) == "table" then
+     dest[k] = luatools.deep_copy(source[k])
+   else
+     dest[k] = source[k]
+   end
+ end
+ setmetatable(dest, getmetatable(source))
+ return dest
+end 
+
+-- combine_tables returns a table consisting of all entries of the
+-- entries of OVER_TABLE: OVER_TABLE is a table of tables, say
+-- {T1, T2, T3, ...}. The result of combine_tables will be a new
+-- table with all entries of T1, T2, T3 etc., with the first table
+-- having highest priority etc.
+function luatools.combine_tables(arg1, ...)
+  local args = {arg1, ...}
+  if table.getn(args) == 1 then
+    args = arg1
+  end
+  if type(args) ~= "table" then
+    error("combine_tables: None or only one argument, and it's not a table!")
+  end
+  local result = {}
+  for j,t in pairs(args) do
+    if type(t) ~= "table" then
+      error("combine_tables: Main table does not consist of tables alone!")
+    end
+    for k,v in pairs(t) do
+      result[k] = result[k] or luatools.deep_copy(v)
+    end
+  end
+  return result
+end
+
+-- shuffle_table resorts the table T randomly. Note that only those entries
+-- of T can be sorted, that are indexed with integers from 1 to table.getn(T).
+function luatools.shuffle_table(t)
+  for n = table.getn(t), 1, -1 do
+    local m = math.random(n)
+    t[n], t[m] = t[m], t[n]
+  end
+end
+
+---------------------------------------------------------------------
+--  ADVANCED  POSITION  HANDLING  AND  CALCULATIONS
+---------------------------------------------------------------------
+
+-- manhattan_distance calculates the Manhattan-distance between
+-- (X1,Y1) and (X2, Y2), which is |X1 - X2| + |Y1 - Y2|.
+-- If X2 and Y2 are nil, X1 and Y1 are assumed to be positions
+-- instead of coordinates.
+function luatools.manhattan_distance(x1, y1, x2, y2)
+  if x1 and y1 and x2 and y2 then
+    -- x1, y1, x2, y2 are coordinates
+    return math.abs(x1 - x2) + math.abs(y1 - y2)
+  end
+  if x1 and y1 then
+    -- x1 and y1 are positions
+    return math.abs(x1.x - y1.x) + math.abs(x1.y - y1.y)
+  end
+  error("manhattan_distance: Too less arguments.")  
+end
+
+---------------------------------------------------------------------
+--  MATHEMATICAL  FUNCTIONS
+---------------------------------------------------------------------
+
+-- As Lua uses different names for the modulo-function in its
+-- versions, it's sometimes better to wrap them.
+luatools.mod = math.fmod or math.mod
+
+-- A wrapper of if to resemble the ternary ?:-function
+function luatools.conditional(condition, iftrue, iffalse)
+  if condition then
+    return iftrue
+  else
+    return iffalse
+  end
+end
+
+    ]]></el:luamain>
+    <el:i18n>
+    </el:i18n>
+  </el:protected>
+</el:level>
+

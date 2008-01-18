@@ -4,7 +4,7 @@
     <el:info el:type="library">
       <el:identity el:title="" el:id="lib/libsoko-endphase"/>
       <el:version el:score="1" el:release="1" el:revision="1" el:status="experimental"/>
-      <el:author  el:name="Enigma Team" el:email="" el:homepage=""/>
+      <el:author el:name="Enigma Team" el:email="" el:homepage=""/>
       <el:copyright>Copyright © 2007 Enigma Team</el:copyright>
       <el:license el:type="GPL v2.0 or above" el:open="true"/>
       <el:compatibility el:enigma="1.00">
@@ -74,8 +74,8 @@ function prepare_endphase(sokoarea_number)
   -- ensure a correctly set endphase-attribute
   local endp = sokoarea[nr].design.endp
   if not endp then
-    endp = default_design.endp
-    sokoarea[nr].design.endp = endp
+    sokoarea[nr].design.endp = luatools.deep_copy(default_design.endp)
+    endp = sokoarea[nr].design.endp
   end
   if type(endp) ~= "table" then
     myerror("This design's endphase is given as "..type(endp)
@@ -83,8 +83,8 @@ function prepare_endphase(sokoarea_number)
   end
   local alg = endp.alg
   if alg == nil then
-    alg = default_design.endp.alg
-    sokoarea[nr].design.endp.alg = alg
+    sokoarea[nr].design.endp.alg = luatools.deep_copy(default_design.endp.alg)
+    alg = endp.alg
   end
   if type(alg) ~= "string" then
     myerror("This design's endphase algorithm is given as "..type(alg)
@@ -118,7 +118,7 @@ function prepare_endphase(sokoarea_number)
     endphase_set_outside_oxyds(nr, param)
   elseif (alg == "knock") then
     endphase_set_block_oxyds(nr, sokoarea[nr].design.door, 3)
-    endphase_set_knock_items(nr, param)
+    endphase_set_knocking(nr, param)
   -- "Jumpyoxyds" deactivated for once
   --elseif (alg == "jumpyoxyds") then
   --  endphase_set_block_oxyds(nr, "jumpy")
@@ -131,7 +131,7 @@ end
 function endphase(sokoarea_number)
   -- Correct structure of endp-attribute has been checked
   -- by prepare_endphase, we trust it blindly.
-  local endp = sokoarea[sokoarea_number].design.endp
+  local endp = luatools.deep_copy(sokoarea[sokoarea_number].design.endp)
   local alg = endp.alg
   local param = ""
   local px, py = enigma.GetPos(enigma.GetNamedObject("marble_"..sokoarea_number.."_1"))
@@ -150,7 +150,7 @@ function endphase(sokoarea_number)
 
   -- redraw level and give items
   endphase_redraw_level_array(sokoarea_number)
-  local give = endp.give
+  local give = luatools.deep_copy(endp.give)
   if type(give) == "string" then
     give = {give}
   end
@@ -210,7 +210,7 @@ end
 
 function endphase_redraw_level_array(sokoarea_number)
   local nr = sokoarea_number or 1
-  local endp = sokoarea[nr].design.endp
+  local endp = luatools.deep_copy(sokoarea[nr].design.endp)
   local dx = sokoarea[nr].offset.x
   local dy = sokoarea[nr].offset.y
 
@@ -278,17 +278,17 @@ function endphase_circle(sokoarea_number)
     y = y - 2
   end
   for j = 0, 2 do
-    oxyd(x+j, y-1, flavor, 2*j)
-    oxyd(x-1, y+j, flavor, 2*j)
-    oxyd(x+j, y+3, flavor, 2*j+1)
-    oxyd(x+3, y+j, flavor, 2*j+1)
+    set_oxyd(sokoarea_number, {lx = x+j, ly = y-1}, flavor, 2*j)
+    set_oxyd(sokoarea_number, {lx = x-1, ly = y+j}, flavor, 2*j)
+    set_oxyd(sokoarea_number, {lx = x+j, ly = y+3}, flavor, 2*j+1)
+    set_oxyd(sokoarea_number, {lx = x+3, ly = y+j}, flavor, 2*j+1)
     for k = 0, 2 do
       kill_stone(x+j, y+k)
       kill_item(x+j, y+k)
       set_element(x+j, y+k, sokoarea_number, "inf")
     end
   end
-  set_stone("st-fart", x+1, y+1)
+  set_stone("st-fart", x+1, y+1, {_sokoarea = sokoarea_number})
   oxyd_shuffle()
 end
 
@@ -305,8 +305,10 @@ function endphase_set_outside_oxyds(sokoarea_number, param)
   local my = sokoarea[nr].array_height
   local flavor = sokoarea[nr].design.oxyd or "b"
 
-  for p, v in pairs(combine_tables({sokoarea[nr].list_outside,
-                                    sokoarea[nr].list_wall_two})) do
+  -- Select all places outside or in the walls, unreachable
+  -- for the marble.
+  for p, v in pairs(luatools.combine_tables(sokoarea[nr].list_outside,
+                sokoarea[nr].list_wall_two)) do
     if (mod(v.lx, 2) == 0) and (mod(v.ly, 2) == 0) then
       table.insert(places, v)
     end
@@ -335,11 +337,11 @@ function endphase_set_outside_oxyds(sokoarea_number, param)
     end    
   end
 
-  shuffle_table(places)
+  luatools.shuffle_table(places)
 
   for j = 1, number_pairs do
-    set_oxyd(sokoarea_number, places[2*j-1], flavor, j - 1)
-    set_oxyd(sokoarea_number, places[2*j], flavor, j - 1)
+    set_oxyd(sokoarea_number, luatools.deep_copy(places[2*j-1]), flavor, j - 1)
+    set_oxyd(sokoarea_number, luatools.deep_copy(places[2*j]), flavor, j - 1)
   end
   oxyd_shuffle()
 end
@@ -360,10 +362,10 @@ function endphase_set_block_oxyds(sokoarea_number, blocker, max_pairs)
       -- and no other oxyd or blocker is near the new oxyd or its
       -- blocker.
       for j, w in pairs(oxyds) do
-        if    (manhattan_distance(w.blocker.lx, w.blocker.ly, x, y) <= 1)
-           or (manhattan_distance(w.lx, w.ly, x, y) <= 1)
-           or (manhattan_distance(w.blocker.lx, w.blocker.ly, x-dx, y-dy) <= 1)
-           or (manhattan_distance(w.lx, w.ly, x-dx, y-dy) <= 1) then
+        if    (luatools.manhattan_distance(w.blocker.lx, w.blocker.ly, x, y) <= 1)
+           or (luatools.manhattan_distance(w.lx, w.ly, x, y) <= 1)
+           or (luatools.manhattan_distance(w.blocker.lx, w.blocker.ly, x-dx, y-dy) <= 1)
+           or (luatools.manhattan_distance(w.lx, w.ly, x-dx, y-dy) <= 1) then
           return false
         end
       end
@@ -400,11 +402,11 @@ function endphase_set_block_oxyds(sokoarea_number, blocker, max_pairs)
     end    
   end
 
-  shuffle_table(oxyds)
+  luatools.shuffle_table(oxyds)
 
   -- set oxyds and blockers
   local function set_block(w)
-    local myblocker = blocker
+    local myblocker = luatools.deep_copy(blocker)
     -- if there's an entry "st-door", choose between st-door-h and st-door-v.
     if type(myblocker) == "string" then
       myblocker = {myblocker}
@@ -421,11 +423,11 @@ function endphase_set_block_oxyds(sokoarea_number, blocker, max_pairs)
     -- now set in-floor and blocker, and add to list_blocker.
     set_element(w.lx, w.ly, nr, "inf")
     set_element(w.lx, w.ly, nr, "", myblocker)
-    sokoarea[nr].list_blocker[(w.lx).."/"..(w.ly)] = w
+    sokoarea[nr].list_blocker[(w.lx).."/"..(w.ly)] = luatools.deep_copy(w)
   end
   for j = 1, number_pairs do   -- Testlevel: 14
-    set_oxyd(nr, oxyds[2*j-1], flavor, j - 1)
-    set_oxyd(nr, oxyds[2*j], flavor, j - 1)
+    set_oxyd(nr, luatools.deep_copy(oxyds[2*j-1]), flavor, j - 1)
+    set_oxyd(nr, luatools.deep_copy(oxyds[2*j]), flavor, j - 1)
     set_block(oxyds[2*j-1].blocker)
     set_block(oxyds[2*j].blocker)
   end
@@ -438,7 +440,7 @@ function endphase_set_block_oxyds(sokoarea_number, blocker, max_pairs)
   for p, v in pairs(sokoarea[nr].list_goal) do
     table.insert(goal_table, v)
   end
-  shuffle_table(goal_table)
+  luatools.shuffle_table(goal_table)
   for j = 2, math.min(table.getn(goal_table), table.getn(oxyds)) do
     sokoarea[nr].goal_to_blocker[goal_table[j].goal_number] = oxyds[j].blocker
   end
@@ -455,7 +457,7 @@ function endphase_set_hide_oxyds(sokoarea_number, param)
     table.insert(places, v)
   end
 
-  shuffle_table(places)
+  luatools.shuffle_table(places)
   
   -- choose number of oxyds
   local max = table.getn(places)
@@ -504,7 +506,7 @@ function endphase_magnets(sokoarea_number, param)
     end
   end
 
-  shuffle_table(places)
+  luatools.shuffle_table(places)
 
   -- choose number of magnets
   local number_magnets = math.floor(table.getn(places)/6)
@@ -525,82 +527,89 @@ function endphase_fourswitch(sokoarea_number)
     table.insert(places, v)
   end
 
-  shuffle_table(places)
+  luatools.shuffle_table(places)
 
   -- choose number of fourswitchs/oxyds
   local max = table.getn(places)
   local number_pairs = 1
   if max < 2 then
     -- use circle instead
-    endphase_circle(sokoarea)
+    endphase_circle(sokoarea_number)
     return
   elseif max <  6  then  number_pairs = 2
   elseif max < 10  then  number_pairs = 3
   else                   number_pairs = 4 end
-
-  function endphase_call_fourswitch(onoff, sender)
-    local j = enigma.GetAttrib(sender, "_number")
-
-    -- When fourswitch is knocked, count it.
-    places[j].current = places[j].current + 1
-    if places[j].current == 5 then
-      places[j].current = 1
-    end
-    
-    -- When count is correct, make it "st-likeoxyda-open".
-    if places[j].current == places[j].solve then
-      places[j].correct = true
-      set_stone("st-likeoxyda-open", places[j].lx, places[j].ly,
-          {_number=0})
-    end
-
-    -- Now the difficult part: If it's the first fourswitch (the one
-    -- fourswitch that doesn't change any other), check all fourswitchs
-    -- and replace them by oxyds if all are correct. Else, recreate the
-    -- next fourswitch in hierarchy, set it to the old number, then
-    -- set the callback function and call it once by triggering another
-    -- time (making it show the new number). This means: Recursion!
-    if j ~= 1 then
-      -- Trigger all lower fourswitchs
-      local x = places[j-1].lx
-      local y = places[j-1].ly
-      if places[j-1].correct then
-        -- reset the fourswitch
-        mystone = set_stone("st-fourswitch", x, y, {_number = j - 1})
-        for k = 1, places[j-1].current do
-          SendMessage(mystone, "trigger")
-        end
-        enigma.SetAttrib(mystone, "action", "callback")
-        enigma.SetAttrib(mystone, "target", "endphase_call_fourswitch")
-        places[j-1].correct = false
-      end
-      SendMessage(enigma.GetStone(x, y), "trigger")
-    else
-      -- Check all fourswitchs
-      local correct = true
-      for k = 1, 2*number_pairs do
-        correct = correct and places[k].correct
-      end
-      if correct then
-        -- replace fourswitchs by oxyds
-        for k = 1, number_pairs do
-          set_oxyd(sokoarea_number, places[2*k-1], flavor, k - 1)
-          set_oxyd(sokoarea_number, places[2*k], flavor, k - 1)
-        end
-        oxyd_shuffle()
-      end
-    end  
-  end
   
   -- set fourswitchs
   for j = 1, 2*number_pairs do
     set_stone("st-fourswitch", places[j].lx, places[j].ly,
-        {action="callback", target="endphase_call_fourswitch", _number=j})
+        {action="callback", target="endphase_call_fourswitch", _number=j,
+         _sokoarea = sokoarea_number})
     places[j].current = 4
     places[j].solve = random(1,4)
     places[j].correct = false
   end
+  places.number_pairs = number_pairs
+  sokoarea[sokoarea_number].places = luatools.deep_copy(places)
 end
+
+function endphase_call_fourswitch(onoff, sender)
+  local j = enigma.GetAttrib(sender, "_number")
+  local nr = enigma.GetAttrib(sender, "_sokoarea")
+  local places = sokoarea[nr].places
+
+  -- When fourswitch is knocked, count it.
+  places[j].current = places[j].current + 1
+  if places[j].current == 5 then
+    places[j].current = 1
+  end
+  
+  -- When count is correct, make it "st-likeoxyda-open".
+  if places[j].current == places[j].solve then
+    places[j].correct = true
+    set_stone("st-likeoxyda-open", places[j].lx, places[j].ly,
+        {_number = 0, _sokoarea = sokoarea_number})
+  end
+
+  -- Now the difficult part: If it's the first fourswitch (the one
+  -- fourswitch that doesn't change any other), check all fourswitchs
+  -- and replace them by oxyds if all are correct. Else, recreate the
+  -- next fourswitch in hierarchy, set it to the old number, then
+  -- set the callback function and call it once by triggering another
+  -- time (making it show the new number). This means: Recursion!
+  if j ~= 1 then
+    -- Trigger all lower fourswitchs
+    local x = places[j-1].lx
+    local y = places[j-1].ly
+    if places[j-1].correct then
+      -- reset the fourswitch
+      mystone = set_stone("st-fourswitch", x, y,
+        {_number = j - 1, _sokoarea = sokoarea_number})
+      for k = 1, places[j-1].current do
+        SendMessage(mystone, "trigger")
+      end
+      enigma.SetAttrib(mystone, "action", "callback")
+      enigma.SetAttrib(mystone, "target", "endphase_call_fourswitch")
+      places[j-1].correct = false
+    end
+    SendMessage(enigma.GetStone(x, y), "trigger")
+  else
+    -- Check all fourswitchs
+    local correct = true
+    for k = 1, 2*places.number_pairs do
+      correct = correct and places[k].correct
+    end
+    if correct then
+      -- replace fourswitchs by oxyds
+      for k = 1, places.number_pairs do
+        set_oxyd(sokoarea_number, places[2*k-1], flavor, k - 1)
+        set_oxyd(sokoarea_number, places[2*k], flavor, k - 1)
+      end
+      oxyd_shuffle()
+    end
+  end  
+end
+
 
 function endphase_allcrack(sokoarea_number)
   for p, v in pairs(sokoarea[sokoarea_number].list_way) do
@@ -649,33 +658,22 @@ function endphase_ralf_open_door(sokoarea_number, open, x, y)
     local st = enigma.GetStone(x, y)
     local it = enigma.GetItem(x, y)
     local fl = enigma.GetFloor(x, y)
-    if open then
-      if st then
-        SendMessage(st, "open")
-      end
-      if it then
-        SendMessage(it, "open")
-      end
-      if fl then
-        SendMessage(fl, "close")
-      end
-    else
-      if st then
-        SendMessage(st, "close")
-      end
-      if it then
-        SendMessage(it, "close")
-      end
-      if fl then
-        SendMessage(fl, "open")
-      end
-    end      
+    if st and enigma.GetAttrib(st, "_sokoarea") then
+      SendMessage(st, luatools.conditional(open, "open", "close"))
+    end
+    if it and enigma.GetAttrib(it, "_sokoarea") then
+      SendMessage(it, luatools.conditional(open, "open", "close"))
+    end
+    if fl then
+      SendMessage(fl, luatools.conditional(open, "close", "open"))
+    end
   end  
 end
 
 function endphase_vortex(sokoarea_number)
   local nr = sokoarea_number or 1
-  local list_way = combine_tables({sokoarea[nr].list_way, sokoarea[nr].list_blocker})
+  local list_way = 
+    luatools.combine_tables(sokoarea[nr].list_way, sokoarea[nr].list_blocker)
   local components = 0
   local component = {}
 
@@ -700,7 +698,6 @@ function endphase_vortex(sokoarea_number)
     end
   end
   for p, v in pairs(list_way) do
-    --mydebug(v.lx.."/"..v.ly..": "..(list_way[p].component or "nil"))
     if (not list_way[p].component) and (not sokoarea[nr].list_goal[p]) then
       components = components + 1
       component[components] = {}
@@ -723,7 +720,7 @@ function endphase_vortex(sokoarea_number)
   for j = 1, components do
     sequence[j] = {nr = j}
   end
-  shuffle_table(sequence)
+  luatools.shuffle_table(sequence)
   local connect = {}
   for j = 1, components - 1 do
     connect[sequence[j].nr] = sequence[j+1].nr
@@ -742,7 +739,7 @@ function endphase_vortex(sokoarea_number)
   end  
 end
 
-function endphase_set_knock_items(sokoarea_number, param)
+function endphase_set_knocking(sokoarea_number, param)
   local flavor = sokoarea[sokoarea_number].design.oxyd or "b"
   local places = {}
   local itemkind = param
@@ -755,45 +752,51 @@ function endphase_set_knock_items(sokoarea_number, param)
     table.insert(places, v)
   end
 
-  shuffle_table(places)
+  luatools.shuffle_table(places)
   
-  function endphase_call_knock_item(onoff, sender)
-    local j = enigma.GetAttrib(sender, "_number")
-    local nr = enigma.GetAttrib(sender, "_sokoarea")
-    if (not nr) or (not j) then
-      myerror("libsoko: Knock item has no number or no sokoarea.")
-    end
-    mydebug("Knocked on "..j.."/"..sokoarea[nr].number_oxyds)
-    -- Deactivate the first door until endphase has started.
-    if (j == 1) and (not sokoarea[nr].endphase_started) then
-      return
-    end
-    -- Close the next door in the circle ...
-    j = j + 1
-    if j > sokoarea[nr].number_oxyds then
-      j = 1
-    end
-    local mydoor = enigma.GetStone(places[j].lx, places[j].ly)
-    if mydoor then
-      SendMessage(mydoor, "close")
-    end
-    -- ... and open the door after next.
-    j = j + 1
-    if j > sokoarea[nr].number_oxyds then
-      j = 1
-    end
-    mydoor = enigma.GetStone(places[j].lx, places[j].ly)
-    if mydoor then
-      SendMessage(mydoor, "open")
-    end
-  end
-
-  -- set items
+  -- set items (for Enigma 1.0), set attributes of door (>= 1.1)
   for j, v in pairs(places) do
     set_item(itemkind, v.lx, v.ly, {action="callback",
-        target="endphase_call_knock_item", _number=j, _sokoarea=sokoarea_number})
+        target="endphase_call_knocking", _number=j, _sokoarea=sokoarea_number})
+    local st = enigma.GetStone(v.lx, v.ly)
+    if st then
+      enigma.SetAttrib(st, "action", "callback")
+      enigma.SetAttrib(st, "target", "endphase_call_knocking")
+    end
   end
 end
+
+function endphase_call_knocking(onoff, sender)
+  local j = enigma.GetAttrib(sender, "_number")
+  local nr = enigma.GetAttrib(sender, "_sokoarea")
+  if (not nr) or (not j) then
+    myerror("libsoko: Knocking's source has no number or no sokoarea.")
+  end
+  mydebug("Knocked on "..j.."/"..sokoarea[nr].number_oxyds)
+  -- Deactivate the first door until endphase has started.
+  if (j == 1) and (not sokoarea[nr].endphase_started) then
+    return
+  end
+  -- Close the next door in the circle ...
+  j = j + 1
+  if j > sokoarea[nr].number_oxyds then
+    j = 1
+  end
+  local mydoor = enigma.GetStone(places[j].lx, places[j].ly)
+  if mydoor then
+    SendMessage(mydoor, "close")
+  end
+  -- ... and open the door after next.
+  j = j + 1
+  if j > sokoarea[nr].number_oxyds then
+    j = 1
+  end
+  mydoor = enigma.GetStone(places[j].lx, places[j].ly)
+  if mydoor then
+    SendMessage(mydoor, "open")
+  end
+end
+
 
     ]]></el:luamain>
     <el:i18n>
