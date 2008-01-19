@@ -58,9 +58,15 @@ namespace enigma {
     }
     
     Value::Value(Object *obj) : type (OBJECT) {
-         if (obj != NULL)
-             val.dval[0] = obj->getId();
-         else
+        if (obj != NULL) {
+            Value v = obj->getAttr("name");
+            if (v && v.type == STRING && strcmp(v.val.str, "") != 0) {
+                val.str = new char[strlen(v.val.str)+1];
+                strcpy(val.str, v.val.str);
+                type = NAMEDOBJECT;
+            } else
+                val.dval[0] = obj->getId();
+        } else
              val.dval[0] = 0;
     }
     
@@ -82,7 +88,7 @@ namespace enigma {
         }
         val.str =  new char[descriptor.size() + 1];
         strcpy(val.str, descriptor.c_str());
-    //    Log << "Value ObjectList '" << descriptor << "'\n";
+//        Log << "Value ObjectList '" << descriptor << "'\n";
     }
     
     Value::Value(TokenList aList) : type (TOKENS) {
@@ -91,6 +97,7 @@ namespace enigma {
         for (it = aList.begin(); it != aList.end(); ++it) {
             switch ((*it).type) {
                 case STRING :
+                case NAMEDOBJECT :
                     ASSERT((*it).val.str[0] != 0, XLevelRuntime, "TokenList: illegal empty string value");                
                     descriptor.append((*it).val.str);
                     break;
@@ -110,7 +117,7 @@ namespace enigma {
         val.str =  new char[descriptor.size() + 1];
         strcpy(val.str, descriptor.c_str());
      
-    //    Log << "Value TokenList '" << descriptor << "'\n";
+//        Log << "Value TokenList '" << descriptor << "'\n";
     }
     
     Value::Value(ecl::V2 pos) : type (POSITION) {
@@ -143,6 +150,10 @@ namespace enigma {
             case OBJECT :
                 val.dval[0] = (double) NULL;
                 break;
+            case NAMEDOBJECT:
+                ASSERT(false, XLevelRuntime, "Value: illegal type usage");
+                break;
+            default:;
         }
     }
     
@@ -170,6 +181,14 @@ namespace enigma {
                     assign(other.val.str);
                     type = GROUP;
                     break;
+                case TOKENS:
+                    assign(other.val.str);
+                    type = TOKENS;
+                    break;
+                case NAMEDOBJECT:
+                    assign(other.val.str);
+                    type = NAMEDOBJECT;
+                    break;
                 default:
                     clear();
                     type = other.type;
@@ -191,6 +210,7 @@ namespace enigma {
                 case STRING :
                 case GROUP :
                 case TOKENS :
+                case NAMEDOBJECT :
                     return strcmp(val.str, other.val.str) == 0;
                 case POSITION :
                     return (val.dval[0] == other.val.dval[0]) && (val.dval[1] == other.val.dval[1]);
@@ -254,6 +274,7 @@ namespace enigma {
         switch (type) {
             case OBJECT:
                 return Object::getObject(round_nearest<int>(val.dval[0]));
+            case NAMEDOBJECT:
             case STRING:
                 return GetNamedObject(val.str);            
             default: 
@@ -271,6 +292,7 @@ namespace enigma {
                     break;
                 }
                 // else it is a single object name - fall through
+            case NAMEDOBJECT:
             case OBJECT:
                 result.push_back(*this);
                 break;
@@ -295,6 +317,7 @@ namespace enigma {
         TokenList result;
         switch (type) {
             case OBJECT:
+            case NAMEDOBJECT:
             case STRING:
             case GROUP:
                 result.push_back(*this);
@@ -375,7 +398,9 @@ namespace enigma {
     void Value::clear() {
         switch (type) {
             case STRING:
+            case NAMEDOBJECT:
             case GROUP:
+            case TOKENS:
                delete[] val.str;
                break;
         }
@@ -383,7 +408,13 @@ namespace enigma {
     }
     
     Value::Type Value::getType() const {
-        return type;
+        switch (type) {
+            case NAMEDOBJECT :
+                return OBJECT;
+                break;
+            default:
+                return type;
+        }
     }
     
     double Value::get_double() const throw(){

@@ -37,7 +37,6 @@ namespace enigma {
      * TODO animation slowed down by a major factor for PerOxyd compatibility
      */
     class BlockerStone : public Stone {
-        CLONEOBJ(BlockerStone);
         DECL_TRAITS;
     private:
         enum iState {
@@ -49,6 +48,8 @@ namespace enigma {
         BlockerStone(bool solid);
         
         // Object interface
+        virtual BlockerStone *clone();
+        virtual void dispose();
         virtual Value message(const Message &m);
         
         // StateObject interface
@@ -64,10 +65,8 @@ namespace enigma {
         
         // Stone interface
         virtual StoneResponse collision_response(const StoneContact &sc);
-//        virtual void actor_hit(const StoneContact &sc);
-        virtual void actor_contact (Actor * a);
-        virtual void actor_inside (Actor * a);
-//        virtual const char *collision_sound();
+        virtual void actor_contact(Actor * a);
+        virtual void actor_inside(Actor * a);
         
     private:
         void setIState(iState newState);

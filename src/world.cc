@@ -364,7 +364,7 @@ void World::unname (Object *obj)
     ASSERT(obj, XLevelRuntime, "unname: no object given");
     if (Value v = obj->getAttr("name")) {
         m_objnames.remove(v.to_string());
-        obj->set_attrib("name", "");
+        obj->set_attrib("name", "");   // TODO alist.hh add delete op
     }
 }
 
@@ -1612,11 +1612,11 @@ void SetMouseForce(V2 f)
 
 void NameObject(Object *obj, const std::string &name)
 {
-    string old_name;
+    string oldname;
     if (Value v = obj->getAttr("name")) {
-        old_name = v.to_string();
-        obj->warning("name '%s' overwritten by '%s'",
-                     old_name.c_str(), name.c_str());
+        oldname = v.to_string();
+        if ( oldname.size() > 0 && oldname[0] != '$' && name.size() > 0 && name[0] != '$' )
+            obj->warning("name '%s' overwritten by '%s'", oldname.c_str(), name.c_str());
         UnnameObject(obj);
     }
     level->name_object (obj, name);

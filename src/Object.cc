@@ -180,9 +180,10 @@ namespace enigma {
         if (Value v = getAttr("name")) {
             std::string name(v);
             UnnameObject(this);
-            if (Value v = target->getAttr("name")) {
-                target->warning("name '%s' overwritten by '%s'",
-                                v.to_string().c_str(), name.c_str());
+            if (Value old = target->getAttr("name")) {
+                std::string oldname(old);
+                if ( oldname.size() > 0 && oldname[0] != '$' && name.size() > 0 && name[0] != '$' )
+                    target->warning("name '%s' overwritten by '%s'", oldname.c_str(), name.c_str());
                 UnnameObject(target);
             }
             NameObject(target, name);
@@ -197,8 +198,10 @@ namespace enigma {
             // copy user attributes starting with "_" and
             // target and actions including their stated versions
             if ( it->first.find("_") == 0 || it->first.find("target") == 0
-                    || it->first.find("action") == 0)
+                    || it->first.find("action") == 0) {
                 target->set_attrib(it->first, it->second);
+//                Log << "Identity transfer key " << it->first << " - value " << it->second.to_string() << "\n";
+            }
         }
     }
     

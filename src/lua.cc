@@ -1080,6 +1080,9 @@ static void setObjectAttributes(Object *obj, lua_State *L) {
             } else {
                 obj->set_attrib(key, to_value(L, -2));
             }
+         } else if (lua_tointeger(L, -1) == 2) {  // second entry without a string key is taken as name
+             if (lua_isstring(L, -2))
+                 NameObject(obj, lua_tostring(L, -2));
          }
          lua_pop(L, 2);  // remove copy key + value, leave original key for loop
     }    
@@ -1088,6 +1091,12 @@ static void setObjectAttributes(Object *obj, lua_State *L) {
 static int setAttributes(lua_State *L) {
     // 
     Object *obj = to_object(L, 1);
+    lua_rawgeti(L, -1, 1);  // check if any unnamed attribute exists
+    if (!lua_isnil(L, -1)) {
+        throwLuaError(L, "Set attribute: encountered attribute without key name");
+        return 0;
+    }
+    lua_pop(L, 1);  // remove unnamed attribute or nil
     setObjectAttributes(obj, L);
     return 0;
 }
@@ -1684,13 +1693,13 @@ static int setObjectByTable(lua_State *L, double x, double y) {
         name = name.substr(1);
     }
     
-    if (name == "fl-nil") {
+    if (name == "fl_nil") {
         KillFloor(GridPos(xi, yi));
         return 0;
-    } else if (name == "st-nil") {
+    } else if (name == "st_nil") {
         KillStone(GridPos(xi, yi));
         return 0;
-    } else if (name == "it-nil") {
+    } else if (name == "it_nil") {
         KillItem(GridPos(xi, yi));
         return 0;
     }

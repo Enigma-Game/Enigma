@@ -2644,7 +2644,6 @@ namespace
      * A BlockerItem can be killed by a BrakeItem being dropped.
      */
     class BlockerItem : public Item, public TimeHandler {
-        CLONEOBJ(BlockerItem);
         DECL_TRAITS;
     private:
         enum iState {
@@ -2665,6 +2664,8 @@ namespace
         ~BlockerItem();
 
         // Object interface
+        virtual BlockerItem *clone();
+        virtual void dispose();
         virtual Value message(const Message &m);
 
         // StateObject interface
@@ -2676,6 +2677,7 @@ namespace
         virtual void on_creation(GridPos p);
         virtual void on_removal(GridPos p);
         virtual void init_model();
+        virtual void actor_leave(Actor *a);
 
         // Item interface
         virtual void stone_change(Stone *st);
@@ -2699,6 +2701,16 @@ namespace
         GameTimer.remove_alarm (this);
     }
 
+    BlockerItem * BlockerItem::clone() {
+        BlockerItem * dup = new BlockerItem(*this);
+        NameObject(dup, "$BlockerItem#");  // auto name object to avoid problems with object values
+        return dup;
+    }
+    
+    void BlockerItem::dispose() {
+        delete this;
+    }
+
     Value BlockerItem::message(const Message &m) {
         if (m.message == "_init") { 
             if (Stone *st = GetStone(get_pos())) {
@@ -2709,6 +2721,9 @@ namespace
                         setIState(LOCKED);
             }
             return Item::message(m);    // pass on init message
+        } else if (m.message =="_performaction") {
+            performAction(true);
+            return Value();
         }
         return Item::message(m);
     }
@@ -2760,6 +2775,14 @@ namespace
 
     void BlockerItem::init_model() {
         set_model("it-blocker");
+    }
+    
+    void BlockerItem::actor_leave(Actor *a) {
+        if (Value v = getAttr("autoclose")) {
+            if (v.to_bool()) {
+                setState(0);     // close
+            }
+        }
     }
     
     void BlockerItem::stone_change(Stone *st) {
@@ -2821,6 +2844,9 @@ namespace
         Stone *st = MakeStone("st_blocker_new");
         SetStone(get_pos(), st);
         transferIdentity(st);
+        if (Value v = getAttr("autoclose"))
+            st->set_attrib("autoclose", v); 
+        SendMessage(st, "_performaction");
         kill();
     }
 

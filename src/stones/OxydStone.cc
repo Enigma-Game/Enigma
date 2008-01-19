@@ -863,7 +863,7 @@ namespace enigma {
             shuffleColors();
             return Value();
         }
-        else if (m.message == "_trigger" || m.message == "toggle"|| m.message == "spitter") {
+        else if ((m.message == "_trigger"  && m.value.to_bool())|| m.message == "toggle"|| m.message == "spitter") {
             tryOpen();
             return Value();
         }

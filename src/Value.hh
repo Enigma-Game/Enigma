@@ -93,7 +93,8 @@ namespace enigma {
                       ///< identifier.
             GROUP,    ///< Value is a group of objects.
             POSITION, ///< Value is a position
-            TOKENS    ///< Value is a list of token values
+            TOKENS,   ///< Value is a list of token values
+            NAMEDOBJECT  ///< internal Value type for named objects - public type is OBJECT
         };
 
         Value();                       ///< Constructor for NIL value that 

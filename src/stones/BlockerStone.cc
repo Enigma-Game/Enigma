@@ -29,9 +29,22 @@ namespace enigma {
         state = solid ? SOLID : GROWING; 
     }
 
+    BlockerStone * BlockerStone::clone() {
+        BlockerStone * dup = new BlockerStone(*this);
+        NameObject(dup, "$BlockerStone#");  // auto name object to avoid problems with object values
+        return dup;
+    }
+    
+    void BlockerStone::dispose() {
+        delete this;
+    }
+
     Value BlockerStone::message(const Message &m) {
         if (m.message == "_trigger") {
             setIState(SHRINKING);    // same as "open" -- no toggle to avoid race condition of boulders
+            return Value();
+        } else if (m.message =="_performaction") {
+            performAction(false);
             return Value();
         }
         return Stone::message(m);
@@ -80,6 +93,9 @@ namespace enigma {
                 Item *it = MakeItem("it_blocker_new");
                 SetItem(get_pos(), it);
                 transferIdentity(it);
+                if (Value v = getAttr("autoclose"))
+                    it->set_attrib("autoclose", v); 
+                SendMessage(it, "_performaction");
                 KillStone(get_pos());
                 break;
             }
@@ -98,8 +114,9 @@ namespace enigma {
     }
 
     void BlockerStone::actor_contact(Actor *a) {
-        if ((state == GROWING && server::GameCompatibility != GAMET_PEROXYD) ||
-                (state == SOLID && server::GameCompatibility == GAMET_PEROXYD)) {
+        if (!(getDefaultedAttr("autoclose", false).to_bool()) && (
+                (state == GROWING && server::GameCompatibility != GAMET_PEROXYD) ||
+                (state == SOLID && server::GameCompatibility == GAMET_PEROXYD))) {
             SendMessage(a, "shatter");
         }
     }
