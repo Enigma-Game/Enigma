@@ -216,6 +216,36 @@ namespace enigma { namespace lev {
         delete dirIter;
         Index::registerIndex(autoIndex);
         
+        // register team auto not yet registered new files
+        PersistentIndex * teamautoIndex = NULL;
+        dirIter = DirIter::instance(app.userPath + "/levels/team_test_new_api");
+        while (dirIter->get_next(dirEntry)) { 
+            if( !dirEntry.is_dir) {
+                if (dirEntry.name.size() > 4 && (
+                        (dirEntry.name.rfind(".xml") == dirEntry.name.size() - 4) ||
+                        (dirEntry.name.rfind(".lua") == dirEntry.name.size() - 4))) {
+                    if (teamautoIndex == NULL) {
+                        teamautoIndex = new PersistentIndex("team_test_new_api", false, 
+                                75000, "test_new_api");
+                        teamautoIndex->isEditable = false;
+                    }
+                    Proxy * newProxy = Proxy::autoRegisterLevel("team_test_new_api", 
+                            dirEntry.name.substr(0, dirEntry.name.size() - 4));
+                    if (newProxy != NULL) {
+                        // first check that the proxy is not in the index
+                        //  - may occur if the level is stored as .xml and .lua in the folder
+                        if (!teamautoIndex->containsProxy(newProxy)) {
+                            // it is new, add it
+                            teamautoIndex->appendProxy(newProxy);
+                        }
+                    }
+                }
+            }
+        }
+        delete dirIter;
+        if (teamautoIndex != NULL)
+            Index::registerIndex(teamautoIndex);
+        
         // check if history is available - else generate a new index
         Index * foundHistory = Index::findIndex("History");
         if ( foundHistory != NULL) {
