@@ -76,8 +76,12 @@ end
 
 -- shuffle_table resorts the table T randomly. Note that only those entries
 -- of T can be sorted, that are indexed with integers from 1 to table.getn(T).
+-- No return value, the table itself is shuffled.
 function luatools.shuffle_table(t)
-  for n = table.getn(t), 1, -1 do
+  if table.getn(t) < 2 then
+    return
+  end
+  for n = table.getn(t), 2, -1 do
     local m = math.random(n)
     t[n], t[m] = t[m], t[n]
   end
@@ -111,8 +115,12 @@ end
 -- versions, it's sometimes better to wrap them.
 luatools.mod = math.fmod or math.mod
 
--- A wrapper of if to resemble the ternary ?:-function
-function luatools.conditional(condition, iftrue, iffalse)
+-- A wrapper of "if" to resemble the ternary ?:-function.
+-- Note that this function evaluates both IFTRUE as well as IFFALSE, e.g.
+--   luatools.cond(t == 0, 1/t, error("Division by zero"))
+-- will evaluate the error-function and thus hold for any T.
+-- Hence: Make sure there are no sideeffects in IFTRUE and IFFALSE!
+function luatools.cond(condition, iftrue, iffalse)
   if condition then
     return iftrue
   else

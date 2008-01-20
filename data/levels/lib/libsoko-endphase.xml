@@ -659,13 +659,13 @@ function endphase_ralf_open_door(sokoarea_number, open, x, y)
     local it = enigma.GetItem(x, y)
     local fl = enigma.GetFloor(x, y)
     if st and enigma.GetAttrib(st, "_sokoarea") then
-      SendMessage(st, luatools.conditional(open, "open", "close"))
+      SendMessage(st, luatools.cond(open, "open", "close"))
     end
     if it and enigma.GetAttrib(it, "_sokoarea") then
-      SendMessage(it, luatools.conditional(open, "open", "close"))
+      SendMessage(it, luatools.cond(open, "open", "close"))
     end
     if fl then
-      SendMessage(fl, luatools.conditional(open, "close", "open"))
+      SendMessage(fl, luatools.cond(open, "close", "open"))
     end
   end  
 end
@@ -740,15 +740,16 @@ function endphase_vortex(sokoarea_number)
 end
 
 function endphase_set_knocking(sokoarea_number, param)
-  local flavor = sokoarea[sokoarea_number].design.oxyd or "b"
+  local nr = sokoarea_number
+  local flavor = sokoarea[nr].design.oxyd or "b"
   local places = {}
   local itemkind = param
   if (itemkind == nil) or (itemkind == "") then
-    itemkind = "it-burnable"
+    itemkind = "it-sensor"
   end
 
   -- add all blockers
-  for p, v in pairs(sokoarea[sokoarea_number].list_blocker) do
+  for p, v in pairs(sokoarea[nr].list_blocker) do
     table.insert(places, v)
   end
 
@@ -757,11 +758,21 @@ function endphase_set_knocking(sokoarea_number, param)
   -- set items (for Enigma 1.0), set attributes of door (>= 1.1)
   for j, v in pairs(places) do
     set_item(itemkind, v.lx, v.ly, {action="callback",
-        target="endphase_call_knocking", _number=j, _sokoarea=sokoarea_number})
+        target="endphase_call_knocking", _number=j, _sokoarea=nr})
     local st = enigma.GetStone(v.lx, v.ly)
     if st then
       enigma.SetAttrib(st, "action", "callback")
       enigma.SetAttrib(st, "target", "endphase_call_knocking")
+      local closepos = places[luatools.mod(j, table.getn(places)) + 1]
+      local openpos = places[luatools.mod(j+1, table.getn(places)) + 1]
+      enigma.SetAttrib(st, "_close_x", closepos.lx)
+      enigma.SetAttrib(st, "_close_y", closepos.ly)
+      enigma.SetAttrib(st, "_open_x", openpos.lx)
+      enigma.SetAttrib(st, "_open_y", openpos.ly)
+      --enigma.SetAttrib(st, "_close",
+      --  luatools.deep_copy(places[luatools.mod(j+1, table.getn(places)) + 1]))
+      --enigma.SetAttrib(st, "_open",
+      --  luatools.deep_copy(places[luatools.mod(j+2, table.getn(places)) + 1]))
     end
   end
 end
@@ -772,31 +783,37 @@ function endphase_call_knocking(onoff, sender)
   if (not nr) or (not j) then
     myerror("libsoko: Knocking's source has no number or no sokoarea.")
   end
+  -- Check that it-sensor did not send its message because of
+  -- the marble standing on it:
+  local x, y = enigma.GetPos(sender)
+  local mx, my = enigma.GetPos(enigma.GetNamedObject("marble_"..nr.."_1"))
+  if (x == mx) and (y == my) then
+    return
+  end
   mydebug("Knocked on "..j.."/"..sokoarea[nr].number_oxyds)
   -- Deactivate the first door until endphase has started.
   if (j == 1) and (not sokoarea[nr].endphase_started) then
+    mydebug("Door deactivated until endphase.")
     return
   end
-  -- Close the next door in the circle ...
-  j = j + 1
-  if j > sokoarea[nr].number_oxyds then
-    j = 1
-  end
-  local mydoor = enigma.GetStone(places[j].lx, places[j].ly)
-  if mydoor then
-    SendMessage(mydoor, "close")
-  end
-  -- ... and open the door after next.
-  j = j + 1
-  if j > sokoarea[nr].number_oxyds then
-    j = 1
-  end
-  mydoor = enigma.GetStone(places[j].lx, places[j].ly)
-  if mydoor then
-    SendMessage(mydoor, "open")
+  -- Get the door (possibly it already is sender), and open or close
+  -- the neccessary doors given as attributes.
+  local mydoor = enigma.GetStone(x, y)
+  if enigma.GetAttrib(mydoor, "_sokoarea") == nr then
+    local close_x = enigma.GetAttrib(mydoor, "_close_x")
+    local close_y = enigma.GetAttrib(mydoor, "_close_y")
+    local open_x = enigma.GetAttrib(mydoor, "_open_x")
+    local open_y = enigma.GetAttrib(mydoor, "_open_y")
+    local closedoor = enigma.GetStone(close_x, close_y)
+    local opendoor = enigma.GetStone(open_x, open_y)
+    if closedoor then
+      SendMessage(closedoor, "close")
+    end
+    if opendoor then
+      SendMessage(opendoor, "open")
+    end
   end
 end
-
 
     ]]></el:luamain>
     <el:i18n>
