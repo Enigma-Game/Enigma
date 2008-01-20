@@ -11,6 +11,10 @@
 @author Andreas Lochmann
 @end titlepage
 
+@defindex ob
+@defindex at
+@defindex ms
+
 @contents
 
 @ifnottex
@@ -38,6 +42,9 @@ build new levels using Lua and how to interact with the game engine.
 * Old API - Objects::           Description of all objects in Enigma
 * Old API - Variables::         Lua variables that influence the game
 * Old API - Functions::               Predefined functions
+* Object Index::
+* Attribute Index::
+* Message Index::
 * Function Index::
 * Concept Index::
 @end menu
@@ -2640,17 +2647,405 @@ naming scheme, and every new library should follow it from the beginning.
 @node Lua API, Common Attributes and Messages, Enigma Paradigm, Top
 @chapter Lua API
 
+@c ===================  Commons  =======================
 @node Common Attributes and Messages, Floor Objects, Lua API, Top
 @chapter Common Attributes and Messages
 
+@menu
+* Common Attributes:: 
+* Common Messages::   
+@end menu
+
+@node Common Attributes, Common Messages, Common Attributes and Messages, Common Attributes and Messages
+@section Common Attributes
+
+@menu
+* name:: 
+* state:: 
+* target::
+* action::
+* inverse::
+* destination::
+@end menu
+
+@node name, state, Common Attributes, Common Attributes
+@subsection name
+
+@node state, target, name, Common Attributes
+@subsection state
+
+@node target, action, state, Common Attributes
+@subsection target
+
+@node action, inverse, target, Common Attributes
+@subsection action
+
+@node inverse, destination, action, Common Attributes
+@subsection inverse
+
+@node destination, Common Messages, inverse, Common Attributes
+@subsection destination
+
+
+@node Common Messages, Floor Objects, Common Attributes, Common Attributes and Messages
+@section Common Messages
+
+@menu
+* toggle:: 
+* signal::
+* on::
+* off::
+* open::
+* close::
+@end menu
+
+@node toggle, signal, Common Messages, Common Messages
+@subsection toggle
+
+@node signal, on, toggle, Common Messages
+@subsection signal
+
+@node on, off, signal, Common Messages
+@subsection on
+
+@node off, open, on, Common Messages
+@subsection off
+
+@node open, close, off, Common Messages
+@subsection open
+
+@node close, Floor Objects, open, Common Messages
+@subsection close
+
+@c ===================  Floors  =======================
+
 @node Floor Objects, Item Objects, Common Attributes and Messages, Top
 @chapter Floor Objects
+@c ===================  Items  =======================
 
 @node Item Objects, Stone Objects, Floor Objects, Top
 @chapter Item Objects
 
+@menu
+* Standard Items:: 
+@end menu
+
+@node Standard Items, Stone Objects, Item Objects, Item Objects
+@section Standard Items
+
+@menu
+* it_blocker::         Shrinked Blocker Stone
+@end menu
+
+
+@c ----------------- Blocker Item -------------------- 
+@node it_blocker, Stone Objects, Standard Items, Standard Items
+@subsection it_blocker
+@obindex it_blocker
+
+A door like object that grows to @ref{st_blocker} when a @ref{st_boulder}
+passes. When the boulder did shrink and pass the blocker again it stays in its
+item like open state until it is passed again by a boulder which causes it to 
+grow again to a blocker stone.
+
+It fully supports the messages of any door like object and can be opened and
+closed by any switch like object. Note that due to the transformation between
+stone and item during opening and closing you should name the blocker
+(@pxref{name}) and address the blocker by this name. The complete identity
+with all attributes including any user attributes will be transfered between
+stone and item. E.g. @code{{it_switch, target="myblocker", action="toggle"}}
+will open and close a given blocker multiple times.
+
+Note that the blocker is the only door object that allows a stone to be pushed
+through. Just bloulders cause the growing. Any other stone keeps the open state.
+
+Another unique door feature is the closing of an blocker item caused by a 
+passing actor if the autoclose attribute is set to true.
+
+Note that a dropped @ref{it_brake} destroys this item.
+
+@table @asis
+@item @b{Attributes:}
+
+@table @asis
+@item @b{state}, @ @ @i{values}: @code{0}, @code{1}; @ @ @i{default}: @code{1} @ @ @xref{state}
+Use CLOSED and OPEN macros as values. The item represents the open state
+and will always return state 1. But you can set its state what is equivalent
+to sending an open message in case of value 1 and an close message in case of
+value 0..
+
+@atindex autoclose
+@item @b{autoclose} @ @ @i{values}: @code{true}, @code{false}; @ @ @i{default}: @code{false}
+A true value causes any actor passing this item to close and grow the blocker.
+
+@end table
+
+@item @b{Messages:}
+
+@table @asis
+@item @b{signal} @ @ @xref{signal}
+A signal of value 1 sends an open message, a signal of value 0 sends a close
+message.
+@item @b{toggle} @ @ @xref{toggle}
+A toggle causes an close message.
+@item @b{close} @ @ @xref{close}
+A close message take immediate effect if the item is not covered by a stone.
+The item transforms to a new growing @ref{st_blocker}. If it is covered by a
+stone of whatever kind it will be marked as unlocked. The closing process starts
+when the stone moves away.
+@item @b{open} @ @ @xref{open}
+As the item is open this message takes only effect if it is currently covered
+by a stone and marked as unlocked. That means it should grow as soon as the
+stone moves away what happens when a @ref{st_boulder} passes an idle blocker
+item. In this case an open messages locks the blocker again to avoid a growing
+when the stone moves away.
+@end table
+
+@item @b{Action:} @ @ @xref{target}, @ @ @xref{action}
+Sends an action at the moment the blocker reaches the open state. That means
+an @ref{st_blocker} did open and did generate this blocker item as its
+successor. The value will be @code{true} to express the open state.
+
+@item @b{Variants:}
+@table @asis
+@item @b{it_blocker}
+A standard blocker item.
+@item @b{it_blocker_new}
+A blocker that just finished shrinking. Mainly used internally as the direct
+successor of an @ref{st_blocker}. But it may be useful to generate an initial
+snapshot of a moving boulder over a blocker line, too. See example levels.
+@end table
+
+@end table
+
+
+
+@c ===================  Stones  =======================
 @node Stone Objects, Actor Objects, Item Objects, Top
 @chapter Stone Objects
+
+@menu
+* Simple Stones:: 
+* Transparent Stones::
+* Breakable Stones::
+* Special Stones::
+@end menu
+
+
+@node Simple Stones, Transparent Stones, Stone Objects, Stone Objects
+@section Simple Stones
+
+@node Transparent Stones, Breakable Stones, Simple Stones, Stone Objects
+@section Transparent Stones
+@node Breakable Stones, Special Stones, Glasstones, Stone Objects
+@section Breakable Stones
+@node Special Stones, Actor Objects, Breakable Stones, Stone Objects
+@section Special Stones
+
+@menu
+* st_blocker::         Shrinkable Blocker
+* st_boulder::         Moving Arrow Boulder
+* st_fourswitch::      Four Direction Switch
+@end menu
+
+
+@c ----------------- Blocker Stone -------------------- 
+@node st_blocker, st_boulder, Special Stones, Special Stones
+@subsection st_blocker
+@obindex st_blocker
+
+A door like object that shrinks to @ref{it_blocker} when hit by a
+@ref{st_boulder}. When the boulder did pass the blocker stays in its item like
+open state until it is passed again by a boulder which causes it to grow again
+to a blocker stone.
+
+It fully supports the messages of any door like object and can be opened and
+closed by any switch like object. Note that due to the transformation between
+stone and item during opening and closing you should name the blocker
+(@pxref{name}) and address the blocker by this name. The complete identity
+with all attributes including any user attributes will be transfered between
+stone and item. E.g. @code{{st_switch, target="myblocker", action="toggle"}}
+will open and close a given blocker multiple times.
+
+Note that the blocker is the only door object that allows a stone to be pushed
+through. Just bloulders cause the growing. Any other stone keeps the open state.
+
+Be aware that the @ref{it_brake} destroys an @ref{it_blocker}.
+
+@table @asis
+@item @b{Attributes:}
+
+@table @asis
+@item @b{state}, @ @ @i{values}: @code{0}, @code{1}; @ @ @i{default}: @code{0} @ @ @xref{state}
+Use CLOSED and OPEN macros as values. The stone represents the closed state
+and will always return state 0. But you can set its state what is equivalent
+to sending an open message in case of value 1 and an close message in case of
+value 0..
+
+@atindex autoclose
+@item @b{autoclose} @ @ @i{values}: @code{true}, @code{false}; @ @ @i{default}: @code{false}
+This attribute is irrelevant to the blocker stone itself. But is is transfered
+to the @ref{it_blocker} when the blocker opens.
+
+@end table
+
+@item @b{Messages:}
+
+@table @asis
+@item @b{signal} @ @ @xref{signal}
+A signal of value 1 sends an open message, a signal of value 0 sends a close
+message.
+@item @b{toggle} @ @ @xref{toggle}
+A toggle causes an open unless the the blocker stone is in the shrinking process.
+In this case it causes a close message.
+@item @b{open} @ @ @xref{open}
+Starts an opening by shrinking the blocker. Note that during the shrinking
+process the blocker still reports to be closed. The shrinking process can
+be reverted by a close message.
+@item @b{close} @ @ @xref{close}
+A close message take only effect on blocker stone that is in the shrinking
+process. The shrinking is stopped immediatly and reverted to grow the blocker
+again to full size.
+@end table
+
+@item @b{Action:} @ @ @xref{target}, @ @ @xref{action}
+Sends an action at the moment the blocker reaches the closing state. That means
+an @ref{it_blocker} did close and did generate this blocker stone as its
+successor. The value will be @code{false} to express the closing state.
+
+@item @b{Variants:}
+@table @asis
+@item @b{st_blocker}
+A standard blocker stone.
+@item @b{st_blocker_new}
+A blocker that just starts growing. Mainly used internally as the direct
+successor of an @ref{it_blocker}. But it may be useful to generate an initial
+snapshot of a moving boulder over a blocker line, too. See example levels.
+@end table
+
+@end table
+
+@c ----------------- Boulder Stone -------------------- 
+@node st_boulder, st_fourswitch, st_blocker, Special Stones
+@subsection st_boulder
+@obindex st_boulder
+
+This solid stone moves into the direction shown by the arrow on its picture.
+A marble blocking its way is shattered. When a stone blocks its way, it triggers
+it by a sequence of two internal messages. Some stones give way like 
+@ref{st_blocker}, others change their state like @ref{st_oxyd}, 
+@ref{st_stoneimpulse}, @ref{st_fart}, @ref{st_mirror}, @ref{st_fourswitch},
+@ref{st_volcano}. A third categorie switches temporary in another state on the
+first message sent when the boulder reaches a grid and switch back on the
+second message sent when the boulder gives up like @ref{st_[black/white]},
+@ref{st_plain}, @ref{st_lightpassenger}.
+
+Items getting beneath a moving boulder may react like on any other stone move
+on top of them. Additionally @ref{it_blocker} will be released to grow again
+to a blocking stone.
+
+Boulder stones fall into @ref{fl_abyss}, but cross @ref{fl_water}
+unchanged.  
+
+@ref{it_magicwand} and lasers reverse its direction. @ref{st_rotator} changes
+its direction according to the rotators direction. @ref{st_stoneimpulse} pushes
+a boulder away.
+
+@table @asis
+@item @b{Attributes:}
+
+@table @asis
+@atindex orientation
+@item @b{orientation}, @ @ @i{values}: @code{NORTH}, @code{EAST}, @code{SOUTH}, @code{WEST}; @ @ @i{default}: @code{NORTH}
+The orientation of the boulder that is shown by its arrow. It determines the
+direction that the boulder will take on its next move.
+@end table
+
+@item @b{Messages:}
+
+@table @asis
+@msindex orientate
+@item @b{orientate}, @ @ @i{value type}: direction
+Change the orientation to the given direction value. The @ref{st_fourswitch}
+provides a compatible action which allows you to set a boulder as
+target and this message as action.
+@end table
+
+@item @b{Action:}
+none
+
+@item @b{Variants:}
+
+@table @asis
+@item @b{st_boulder}
+@item @b{st_boulder_n}: orientation = @code{NORTH}
+@item @b{st_boulder_e}: orientation = @code{EAST}
+@item @b{st_boulder_s}: orientation = @code{SOUTH}
+@item @b{st_boulder_w}: orientation = @code{WEST}
+@end table
+
+@end table
+
+@c ----------------- Fourswitch Stone -------------------- 
+@node st_fourswitch, Actor Objects, st_boulder, Special Stones
+@subsection st_fourswitch
+@obindex st_fourswitch
+
+A switch that points to one of the four directions turning on every switching
+event. The most common event is an actor hitting this stone. But @ref{st_boulder}
+will trigger this switch, too. Of course other objects can send messages on
+actions to make this switch turning.
+
+When turning its pointer on a switching event it performs the action given by
+the @code{action/target}-pair. This can be either a common pair or a 
+state/direction dependent pair allowing you to issue different messages
+dependent on the pointing direction.
+
+@table @asis
+@item @b{Attributes:}
+
+@table @asis
+@atindex state
+@item @b{state}, @ @ @i{values}: @code{NORTH}, @code{EAST}, @code{SOUTH}, @code{WEST}; @ @ @i{default}: @code{NORTH} @ @ @xref{state}
+@item @b{counterclockwise} @ @ @i{values}: @code{true}, @code{false}; @ @ @i{default}: @code{false}
+The standard turning direction is clockwise. Use this attribute to revert the
+direction.
+@item @b{inverse} @ @ @xref{inverse}
+Note that the action value is inverted in its boolean interpretation. This means
+that an inverted action value is @emph{not} the reverse direction and should not
+be used as a direction value at all.
+@end table
+
+@item @b{Messages:}
+
+@table @asis
+@item @b{signal} @ @ @xref{signal}
+Note that the fourswitch reacts just on value @code{1}. Values of @code{0} are
+simply ignored. Use message toggle if you need turns on any message value.
+@item @b{toggle} @ @ @xref{toggle}
+Note that a toggle turns the fourswitch independent of a message value.
+@end table
+
+@item @b{Action:} @ @ @xref{target}, @ @ @xref{action}
+Performs an action on each turn. If just a pair of global @code{target/action}
+attributes are given, the action message is sent to the target with a 
+direction value of the new orientation. This values suits any message of the
+target that expects a direction value, and the @ref{signal} message, that 
+translates the direction to a 1 for @code{NORTH, SOUTH} and a 0 for 
+@code{EAST, WEST}.
+
+If state dependent target/action pairs are given instead, namely
+@code{target_0/action_0} for the state @code{WEST},... , @code{target_3/action_3} 
+for the state @code{NORTH}, two actions will be perfomed: first for the state 
+representing the old orientation the given action messages will be sent with
+a value of 0, then for the state representing the new orientation the given
+action messages will be sent with a value of 1. This allows you to switch on
+and off alternative sources by a fourswitch.
+@end table
+
+
+
+@c ===================  Actors  =======================
 
 @node Actor Objects, Other Objects, Stone Objects, Top
 @chapter Actor Objects
@@ -3494,7 +3889,7 @@ picked up as @code{it-brake} again.  It can be used to destroy
 
 This item can be used to make some invisible stones visible
 (@code{st-actorimpulse_invisible} (see @ref{st-actorimpulse}),
-@code{st-break_invisible} (see @ref{Breakable Stones}),
+@code{st-break_invisible} (see @ref{Breakable-Stones}),
 @code{st-stonebrush} (see @ref{st-invisible}), and to remove debris
 from the level: (@ref{it-cross}, @ref{it-squashed},
 @ref{it-booze-broken}, @code{it-glasses-broken} (see
@@ -4410,7 +4805,7 @@ Toggles between players.  Compare @ref{it-ring} in multiplayer mode.
 @menu
 * Stone List::                  A complete list of all stones
 * Glassstones::                 A summary of all kinds of glassy stones
-* Breakable Stones::            A summary of all breakable stones
+* Breakable-Stones::            A summary of all breakable stones
 * Oxyd Compatibility Stones::   Special stones for Oxyd compatibility and debugging
 * st-actorimpulse::             Bumper Stones
 * st-big[brick/bluesand]::      Big Stones
@@ -4475,7 +4870,7 @@ Toggles between players.  Compare @ref{it-ring} in multiplayer mode.
 
 For the common stone attribute @code{freeze_check}, see @ref{Freeze Checking}.
 
-@node Stone List, Breakable Stones, Stones, Stones
+@node Stone List, Breakable-Stones, Stones, Stones
 @subsection Stone List
 
 @strong{Simple stones}
@@ -4696,7 +5091,7 @@ st-wood-growing
 st-yinyang@{1..3@}
 @end example
 
-@node Glassstones, Breakable Stones, Stone List, Stones
+@node Glassstones, Breakable-Stones, Stone List, Stones
 @subsection Glassstones
 
 There are a few kinds of glassstones, all similar, but with different details.
@@ -4730,8 +5125,8 @@ which the actor can use to move the stone. @code{st-glass_move} does not have
 such a frame and cannot be moved by an invisible actor.
 
 
-@node Breakable Stones, Oxyd Compatibility Stones, Glassstones, Stones
-@subsection Breakable Stones
+@node Breakable-Stones, Oxyd Compatibility Stones, Glassstones, Stones
+@subsection Breakable-Stones
 
 A list of all breakable stones and what may break them. Messages are
 given in quotation marks. ``pyro'' is short for dynamite, bombs,
@@ -4790,7 +5185,7 @@ Also compare @ref{st-plain}, since @code{st-plain_cracked} results from
 can be transformed into and out of @code{st-firebreak[_move]}.
 
 
-@node Oxyd Compatibility Stones, st-actorimpulse, Breakable Stones, Stones
+@node Oxyd Compatibility Stones, st-actorimpulse, Breakable-Stones, Stones
 @subsection Oxyd Compatibility Stones
 
 @code{st-magic} disappears when hit hard enough.
@@ -4985,7 +5380,7 @@ default direction is @code{NORTH}
 When hit, @code{st-bombs} adds an @ref{it-blackbomb} to the
 inventory.  It can be destroyed with explosions from
 @ref{it-blackbomb}, @ref{it-whitebomb} and other bombstones (see
-@ref{Breakable Stones}).  When exploding, it ignites items below it. It
+@ref{Breakable-Stones}).  When exploding, it ignites items below it. It
 also ignites @ref{it-dynamite} beneath it, but not @code{it-blackbomb}
 or @code{it-whitebomb}.
 
@@ -5298,7 +5693,7 @@ hit. See @ref{st-coffee} for a similar stone.
 The fart stone has the unpleasant habit of ``blowing off'' when
 triggered (by actor hit or signal) and will close all Oxyd stones.
 It can be destroyed with lasers and @ref{it-hammer}, see also
-@ref{Breakable Stones}.
+@ref{Breakable-Stones}.
 
 @strong{Messages}
 
@@ -5788,12 +6183,12 @@ hollow when they receive a @code{trigger}- or @code{signal}-message.
 
 The solid version additionally becomes @code{st-plain_cracked} when hit
 by a laser beam and can then be destroyed with an @ref{it-hammer} or
-explosions (see @ref{Breakable Stones}).  The hollow version is
+explosions (see @ref{Breakable-Stones}).  The hollow version is
 transparent to lasers.  Note that @code{st-plain_cracked} doesn't
 become transparent or hollow by messages.
 
 @code{st-plain_move} is a movable and breakable stone (see
-@ref{Breakable Stones}) that looks identical to @code{st-plain}. It
+@ref{Breakable-Stones}) that looks identical to @code{st-plain}. It
 falls into @ref{fl-abyss}, @ref{fl-water} and @ref{fl-swamp}, but only
 when moved. @code{st-plain_move} and @code{st-plain} can be
 transformed into @ref{st-firebreak[_move]} with @ref{it-pencil}, and
@@ -5824,7 +6219,7 @@ Note that there are more stones starting with ``st-plain'', but none
 of them has the ability to trigger between solid and hollow:
 @code{st-plain_move}, @code{st-plain_breaking},
 @code{st-plain_falling}, @code{st-plain_break} and
-@code{st-plain-cracked}.  See @ref{Breakable Stones} for them, and
+@code{st-plain-cracked}.  See @ref{Breakable-Stones} for them, and
 @ref{st-door} for stones with similar functions like @code{st-plain}.
 
 
@@ -6122,7 +6517,7 @@ When hit, this stone randomly transforms into one of @code{st-grate1},
 @code{st-knight}, @code{st-thief}, @code{st-plain_break},
 @code{st-plain_breaking}, or another @code{st-surprise}
 (see @ref{st-grate}, @ref{st-death}, @ref{Oxyd Compatibility Stones},
-@ref{st-knight}, @ref{st-thief}, and @ref{Breakable Stones}). The corresponding
+@ref{st-knight}, @ref{st-thief}, and @ref{Breakable-Stones}). The corresponding
 item is @ref{it-surprise}.
 
 
@@ -6325,7 +6720,7 @@ Seeds are spread to randomly chosen neighboring tiles on which are no
 other stones.  Other items are destroyed by this.
 
 While active (not while growing or while inactive), a volcano
-stone can be broken with @ref{it-hammer} (see @ref{Breakable Stones}).
+stone can be broken with @ref{it-hammer} (see @ref{Breakable-Stones}).
 
 @strong{Messages}
 
@@ -6513,7 +6908,7 @@ This is the most common actor.
 @subsection ac-bug
 
 A small, passive marble.  It can be used to break @code{st-bug} (see
-@ref{Breakable Stones}), to pass @code{st-grate3} (see @ref{st-grate})
+@ref{Breakable-Stones}), to pass @code{st-grate3} (see @ref{st-grate})
 to open oxyds, etc.  It can't shatter or die.
 
 @c @strong{Attributes}
@@ -7149,7 +7544,7 @@ The range of @ref{it-wormhole}.  Default: 10.0.
 @end defvar
 
 
-@node Old API - Functions, Function Index, Old API - Variables, Top
+@node Old API - Functions, Object Index, Old API - Variables, Top
 @chapter Old API - Functions
 
 @menu
@@ -7995,7 +8390,7 @@ set_stone("st-bolder", 2, 11, @{name="bolder01", direction=NORTH@})
 @end example
 
 @c ......................................................................
-@node set_stones, Function Index, set_stone, Old API - Functions
+@node set_stones, Object Index, set_stone, Old API - Functions
 @section set_stones
 
 @defun set_stones (stonename, positions, attribs)
@@ -8033,7 +8428,22 @@ set_stone("st-invisible", 7, 9)     -- do the same
 
 @c ......................................................................
 
-@node Function Index, Concept Index, Old API - Functions, Top
+@node Object Index, Attribute Index, Old API - Functions, Top
+@unnumbered Object Index
+
+@printindex ob
+
+@node Attribute Index, Message Index, Object Index, Top
+@unnumbered Attribute Index
+
+@printindex at
+
+@node Message Index, Function Index, Attribute Index, Top
+@unnumbered Message Index
+
+@printindex ms
+
+@node Function Index, Concept Index, Message Index, Top
 @unnumbered Function Index
 
 @syncodeindex vr tp
