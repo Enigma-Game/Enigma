@@ -170,7 +170,7 @@ const char *oxyd::oxydmag_stone_map[256] = {
     "st_floppy",                // OxydMagnum stone 0x2d (in normal Oxyd Magnum Levels unused!)
     UNUSED,                     // OxydMagnum stone 0x2e
     "st_fourswitch",            // OxydMagnum stone 0x2f (Level 89 and 92)
-    "st-key",                   // OxydMagnum stone 0x30
+    "st_key",                   // OxydMagnum stone 0x30
     "st-floppy",                // OxydMagnum stone 0x31
     "st-knight",                // OxydMagnum stone 0x32
     "st_fourswitch",            // OxydMagnum stone 0x33 (Level 51 and 100)

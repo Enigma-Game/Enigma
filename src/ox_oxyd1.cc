@@ -200,7 +200,7 @@ const char *oxyd::oxyd1_stone_map[256] = {
     "st_switch_black_instant",  // Oxyd1 stone 0x2d
     "st_switch_white_instant",  // Oxyd1 stone 0x2e
     "st_fourswitch",            // Oxyd1 stone 0x2f
-    "st-key",                   // Oxyd1 stone 0x30
+    "st_key",                   // Oxyd1 stone 0x30
     "st_floppy",                // Oxyd1 stone 0x31
     "st-knight",                // Oxyd1 stone 0x32
     0,                          // Oxyd1 stone 0x33 oscillator (properties set in oxyd.cc)

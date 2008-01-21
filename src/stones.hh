@@ -60,6 +60,7 @@ namespace enigma {
         st_floppy,
         st_fourswitch,
         st_greenbrown_growing,
+        st_key,
         st_knight,
         st_laserbreak,
         st_magic,

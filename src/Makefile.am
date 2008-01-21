@@ -197,6 +197,8 @@ enigma_SOURCES = 		\
 	stones/FloppySwitch.cc   \
 	stones/FourSwitch.cc	\
 	stones/FourSwitch.hh	\
+	stones/KeySwitch.cc	\
+	stones/KeySwitch.hh	\
 	stones/OxydStone.cc	\
 	stones/OxydStone.hh	\
 	stones/Switch.cc	\

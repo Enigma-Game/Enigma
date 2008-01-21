@@ -238,7 +238,7 @@ const char *oxyd::peroxyd_stone_map[256] = {
     "st_switch_black_instant",  // PerOxyd stone 0x29
     "st_switch_white_instant",  // PerOxyd stone 0x2a
     "st_fourswitch",            // PerOxyd stone 0x2b
-    "st-key",                   // PerOxyd stone 0x2c
+    "st_key",                   // PerOxyd stone 0x2c
     "st_floppy",                // PerOxyd stone 0x2d
     "",                         // PerOxyd stone 0x2e (?)
     "st-death",                 // PerOxyd stone 0x2f

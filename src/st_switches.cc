@@ -129,107 +129,6 @@ void CoinSlot::actor_hit(const StoneContact &sc)
     }
 }
 
-
-/* -------------------- Key switches -------------------- */
-
-// Attributes:
-//
-// :keycode         a numerical code; only keys with the same code
-//                  can activate this switch
-// :on              1 or 0
-// :target,action   as usual
-
-/** \page st-key Key Switch Stone
-
-This stone acts as a lock and can only be activated by
-using a key item. You can use keycodes to let keys only
-open specific key stones.
-
-\subsection keye Example
-\verbatim
-set_stone( "st-key_b", 14,77, {action="openclose", target="door2"})
-set_item("it-key_b", 12,7)
-\endverbatim
-
-\image html st-key0.png
-*/
-namespace
-{
-    class KeyStone : public OnOffStone {
-        CLONEOBJ(KeyStone);
-
-        void init_model() {set_model(is_on() ? "st-key1" : "st-key0");}
-        void actor_hit(const StoneContact &sc);
-        const char *collision_sound() { return "metal"; }
-        bool check_matching_key (enigma::Inventory *inv);
-    public:
-        KeyStone(const char *kind="st-key", int keycode=0) 
-        : OnOffStone(kind) 
-        {
-            set_attrib("keycode", keycode);
-        }
-    };
-
-    class KeyStone_a : public KeyStone {
-        CLONEOBJ(KeyStone_a);
-    public:
-        KeyStone_a() : KeyStone("st-key_a", 1) {}
-    };
-    class KeyStone_b : public KeyStone {
-        CLONEOBJ(KeyStone_b);
-    public:
-        KeyStone_b() : KeyStone("st-key_b", 2) {}
-    };
-    class KeyStone_c : public KeyStone {
-        CLONEOBJ(KeyStone_c);
-    public:
-        KeyStone_c() : KeyStone("st-key_c", 3) {}
-    };
-}
-
-bool KeyStone::check_matching_key (enigma::Inventory *inv)
-{
-    Item *it = inv->get_item(0);
-    return (it
-            && it->is_kind("it-key*")
-            && it->getAttr("keycode") == getAttr("keycode"));
-}
-
-void KeyStone::actor_hit(const StoneContact &sc)
-{
-    enigma::Inventory *inv = player::GetInventory(sc.actor);
-    if (!inv)
-        return;
-
-    bool toggle = false;
-
-    if (server::GameCompatibility == enigma::GAMET_ENIGMA) {
-        if (is_on()) {
-            if (!inv->is_full()) {
-                Item *key = MakeItem("it-key");
-                key->set_attrib ("keycode", getAttr("keycode"));
-                inv->add_item(key);
-                toggle = true;
-            }
-        }
-        else if (check_matching_key (inv)) {
-            DisposeObject (inv->yield_first());
-            toggle = true;
-        }
-        player::RedrawInventory (inv);
-    }
-    else {
-        if (check_matching_key (inv))
-            toggle = true;
-    }
-
-    if (toggle) {
-        set_on (!is_on());
-        performAction(is_on());
-    }
-}
-
-
 /* -------------------- Laser / Time switches -------------------- */
 
 namespace
@@ -433,10 +332,6 @@ void TimeSwitch::notify_laseroff() {}
 void InitSwitches()
 {
     Register (new CoinSlot);
-    Register (new KeyStone);
-    Register (new KeyStone_a);
-    Register (new KeyStone_b);
-    Register (new KeyStone_c);
     Register (new LaserSwitch);
     Register (new LaserTimeSwitch);
     Register (new TimeSwitch);

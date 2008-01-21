@@ -65,6 +65,25 @@ for k,v in pairs(RenamingObjectsNew2Old) do
 end
 
 function enigma.MakeObject(name)
+    if name == "st-key" then
+        local obj = enigma._MakeObject("st_key")
+        -- Old API keycode default was 0 for st-key, but 1 for it-key!
+        enigma._SetAttrib(obj, "keycode", 0)
+        return obj
+    elseif name == "st-key_a" then
+        local obj = enigma._MakeObject("st_key")
+        enigma._SetAttrib(obj, "keycode", 1)
+        return obj
+    elseif name == "st-key_b" then
+        local obj = enigma._MakeObject("st_key")
+        enigma._SetAttrib(obj, "keycode", 2)
+        return obj
+    elseif name == "st-key_c" then
+        local obj = enigma._MakeObject("st_key")
+        enigma._SetAttrib(obj, "keycode", 3)
+        return obj
+    end
+
     newname = RenamingObjectsOld2New[name]
     if newname ~= nil then
         return enigma._MakeObject(newname)
@@ -76,6 +95,21 @@ end
 function enigma.GetKind(obj)
     local _newname = enigma._GetKind(obj)
     local _oldname = RenamingObjectsNew2Old[_newname]
+
+    if _newname == "st_key" then
+        local code = enigma._GetAttrib(obj, "keycode")
+        if code == 0 then
+            return "st-key"
+        elseif code == 1 then
+            return "st-key_a"
+        elseif code == 2 then
+            return "st-key_b"
+        elseif code == 3 then
+            return "st-key_c"
+        else -- arbitrary keycodes
+            return "st-key"
+        end
+    end
     if _oldname ~= nil then
         return _oldname
     else
@@ -87,6 +121,7 @@ function enigma.SetAttrib(obj, key, val)
      local _val = val
      local _key = key
      local _obj_name = enigma.GetKind(obj)
+
      if _obj_name == "st-oxyd" then
          if key == "color" then
 	     _val = 0 + val   -- convert to int
@@ -123,7 +158,9 @@ function enigma.SetAttrib(obj, key, val)
         if (d == nil) or (type(d) ~= "table") then
             d = {}
         end
+
         local c = {}
+
         for str in string.gmatch(val, "%d+") do
             table.insert(c, 0 + str)
         end
@@ -145,20 +182,17 @@ end
 function enigma.GetAttrib(obj, key)
      local _key = key
      local _obj_name = enigma.GetKind(obj)
-
      if (_obj_name == "st-switch") or (_obj_name == "st-switch_black")
              or (_obj_name == "st-switch_white") 
              or (_obj_name == "st-floppy") then
          if key == "on" then
 	     _key = "state"
-	 end
+	     end
      end
      if key == "blackball" or key == "whiteball" then
          _key = "color"
      end
-
      local val = enigma._GetAttrib(obj, _key)
-     
      if key == "blackball" then
         if val == 0 then val = 1 else val = 0 end
      end
@@ -212,6 +246,7 @@ MessageRenaming = {
     ["st-fart__trigger"] = "toggle",
     st_fourswitch__trigger = "toggle",
     st_floppy__onoff = "toggle",
+    st_key__onoff = "toggle",
     ["st-stoneimpulse__trigger"] = "signal",
     ["st-stoneimpulse-hollow__trigger"] = "signal",
     ["st-stoneimpulse_movable__trigger"] = "signal",
