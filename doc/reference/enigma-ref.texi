@@ -18,7 +18,7 @@
 @contents
 
 @ifnottex
-@node Top, Running Enigma, (dir), (dir)
+@node Top
 @top
 
 This manual describes the internals of
@@ -49,7 +49,7 @@ build new levels using Lua and how to interact with the game engine.
 * Concept Index::
 @end menu
 
-@node  Running Enigma, Level Basics, Top, Top
+@node  Running Enigma
 @chapter Running Enigma
 
 Hopefully, after successfully installing and playing some first levels, you may be interested in
@@ -69,7 +69,7 @@ described in the following chapters.
 * User Sound Sets::            How to create and install sound themes
 @end menu
 
-@node Locating Resources, Startup Switches, Running Enigma, Running Enigma
+@node Locating Resources
 @section Locating Resources
 
 For reasons of backup, system changes, special configurations, level additions and hopefully
@@ -160,7 +160,7 @@ named @samp{dirname.zip}. The path of the file within the zip can be either
 in zipped and unzipped form, the plain file stored in a directory wins, since Enigma 
 assumes it to to be an update to the zip.
 
-@node Startup Switches, User Options, Locating Resources, Running Enigma
+@node Startup Switches
 @section Startup Switches
 
 Besides starting Enigma by clicking on an installation-provided icon or start menu entry, you
@@ -251,7 +251,7 @@ installation path):
 You will find these levels in a levelpack called @samp{Startup Levels}, which is
 only visible by default if you supplied levels on the commandline.
 
-@node User Options, Level Info, Startup Switches, Running Enigma
+@node User Options
 @section User Options
 
 @table @asis
@@ -290,7 +290,7 @@ location exclusively.
 
 @end table
 
-@node Level Info, Handicap and PAR, User Options, Running Enigma
+@node Level Info
 @section Level Info
 
 @cindex levelinspector
@@ -311,7 +311,7 @@ review any screenshots you made for this level directly from the levelinspector,
 * Screenshots::
 @end menu
 
-@node Public Ratings, Scores, Level Info, Level Info
+@node Public Ratings
 @subsection Public Ratings
 
 Most levels are rated within five different categories:
@@ -581,7 +581,7 @@ categories, intelligence and dexterity. However, some very low or very high valu
 appear in this combination, such as 2 or 99. Other combinations lead to full but narrow, or to
 broad but noncontinuous spectra.
 
-@node Scores, Versions, Public Ratings, Level Info
+@node Scores
 @subsection Scores
 
 The score columns show your and some comparison values for the difficult and
@@ -612,7 +612,7 @@ who did retransmit scores before the level was written, without updating
 afterwards, are not taken into account. A low percentage is a hint that a level
 is not easy to solve.
 
-@node Versions, Private Annotations and Ratings, Scores, Level Info
+@node Versions
 @subsection Versions
 
 The version column shows detailed information about the level. Read the chapter Level
@@ -626,7 +626,7 @@ that you solved the level, it will not display the score values anymore. This is
 incompatible level update that requires a new solution with different, incomparable score
 values. The author will increase the score version number in such a case.
 
-@node Private Annotations and Ratings, Screenshots, Versions, Level Info
+@node Private Annotations and Ratings
 @subsection Private Annotations and Ratings
 
 This textfield allows you to enter an annotation for a level that you can review
@@ -648,7 +648,7 @@ possible for different score versions of the same level, because levels may impr
 suggestions by users. If you do not re-rate a new version of a level, Enigma inherits your rating
 from a previous version.
 
-@node Screenshots, , Private Annotations and Ratings, Level Info
+@node Screenshots
 @subsection Screenshots
 
 While playing a level, you can make screenshots by pressing @key{F10}. You can make
@@ -664,7 +664,7 @@ If you scroll down behind the last screenshot, the ``missing'' screenshot file i
 This may be a useful hint as to where to search the other screenshot files on your
 @samp{user image path} (@pxref{Locating Resources}).
 
-@node Handicap and PAR, User Sound Sets, Level Info, Running Enigma
+@node Handicap and PAR
 @section Handicap and PAR
 
 As PAR (@pxref{Scores}) describes the difficulty of a level, the handicap @samp{hcp}
@@ -715,7 +715,7 @@ will scale the sum by a factor 100/size to result in comparable handicap values.
 Handicaps are stated with one digit behind the decimal point.
 
 
-@node User Sound Sets, , Handicap and PAR, Running Enigma
+@node User Sound Sets
 @section User Sound Sets
 
 (The following information accounts only for Enigma 1.01 and above.)
@@ -853,7 +853,7 @@ interdependent sound sets (sound sets that share sound files) and want to
 deactivate just one of them. 
 
 
-@node  Levelpack Basics, Level Basics, Running Enigma, Top
+@node  Levelpack Basics
 @chapter Levelpack Basics
 
 Knowing the basics of running Enigma, you may wonder how levels are organized in
@@ -926,7 +926,7 @@ explain these details in the following sections:
 * Composing Levelpacks::
 @end menu
 
-@node Getting Started with Levelpacks, Converting 0.92 Levelpacks, Levelpack Basics, Levelpack Basics
+@node Getting Started with Levelpacks
 @section Getting Started with Levelpacks
 
 One of the outstanding features of Enigma is its extensibility by new levels.
@@ -978,7 +978,7 @@ testing and playing. If your main interest lies in writing your own levels, you 
 want to proceed directly to chapter @ref{Level Basics}. The rest of this chapter
 explains how to arrange and sort existing levels in your own levelpacks.
 
-@node Converting 0.92 Levelpacks, Zip Levelpacks, Getting Started with Levelpacks, Levelpack Basics
+@node Converting 0.92 Levelpacks
 @section Converting 0.92 Levelpacks
 
 With the changes of the levelpack index format, converting old levelpacks is necessary. Although
@@ -1027,7 +1027,7 @@ from the zip archive.
 After converting your levelpacks, we strongly recommend that you update your own
 levels to the new XML format, as described in @ref{Level Basics}.
 
-@node Zip Levelpacks, Grouping and Sorting Levelpacks, Converting 0.92 Levelpacks, Levelpack Basics
+@node Zip Levelpacks
 @section Zip Levelpacks
 
 Besides the classic levelpack format of a subdirectory of @samp{levels} with
@@ -1048,7 +1048,7 @@ If you keep both, the files contained in the subdirectory precede files in the z
 archive. Thus, Enigma stores updates of single files in subdirectories in parallel
 to existing zip archives.
 
-@node Grouping and Sorting Levelpacks, Creating New Levelpacks, Zip Levelpacks, Levelpack Basics
+@node Grouping and Sorting Levelpacks
 @section Grouping and Sorting Levelpacks
 
 As the number of levelpacks increased, it became necessary to sort and group the
@@ -1097,7 +1097,7 @@ bracket-enclosed name is the default group of the
 levelpack itself. It is a hint for you and allows you to reassign a levelpack
 to the default group even if meanwhile you have deleted the group.
 
-@node Creating New Levelpacks, Modifying and Deleting Levelpacks, Grouping and Sorting Levelpacks, Levelpack Basics
+@node Creating New Levelpacks
 @section Creating New Levelpacks
 
 To create a new levelpack, you simply select the group to which you want to add
@@ -1140,7 +1140,7 @@ If you want to set up the new levelpack immediately, you can click directly on
 @samp{Compose Pack}. Enigma will create the levelpack, and you can use the composer to fill
 it with levels.
 
-@node Modifying and Deleting Levelpacks, Composing Levelpacks, Creating New Levelpacks, Levelpack Basics
+@node Modifying and Deleting Levelpacks
 @section Modifying and Deleting Levelpacks
 
 To modify a levelpack, right or ctrl click on its button in the levelpack menu.
@@ -1164,7 +1164,7 @@ directory on your @samp{userpath}. For crossreference levelpacks, you simply nee
 delete the index XML file on the @samp{levels/cross} subdirectory of your
 @samp{userpath}.
 
-@node Composing Levelpacks, , Modifying and Deleting Levelpacks, Levelpack Basics
+@node Composing Levelpacks
 @section Composing Levelpacks
 
 You can change the levels of a levelpack by using the levelpack composer. You call it
@@ -1210,7 +1210,7 @@ use the composer to insert the levelpack to your levelpack as a copy, and delete
 unused level file copies from the @samp{auto} folder.
 
 
-@node  Level Basics, Enigma Paradigm, Levelpack Basics, Top
+@node  Level Basics
 @chapter Level Basics
 
 Now that you have played some levels of Enigma, you may have noticed that Enigma is quite a
@@ -1340,7 +1340,7 @@ parts:
 * Libraries::
 @end menu
 
-@node Getting Started with Levels, XML Level structure, Level Basics, Level Basics
+@node Getting Started with Levels
 @section Getting Started with Levels
 
 A Simple Level
@@ -1445,7 +1445,7 @@ coordinates, as you can see in this example.
 
 
 
-@node XML Level structure, Info metadata, Getting Started with Levels, Level Basics
+@node XML Level structure
 @section XML Level structure
 
 Let us start with a complete overview of all existing top XML element nodes. The
@@ -1603,7 +1603,7 @@ This upgrade node is part of the @ref{Update and Upgrade} system.
 
 @end table
 
-@node Info metadata, LUA code, XML Level structure, Level Basics
+@node Info metadata
 @section Info metadata
 
 The Info node contains all author-supplied metadata for the level. This is the
@@ -1707,7 +1707,7 @@ The author's own @ref{<score>} of this level.
 @end menu
 
 
-@node <identity>, <version>, Info metadata, Info metadata
+@node <identity>
 @subsection <identity>
 
 The @samp{@b{identity}} element is required, since it provides the information for human
@@ -1760,7 +1760,7 @@ only requirement is the uniqueness.
 
 The element itself is empty - no content is allowed.
 
-@node <version>, <author>, <identity>, Info metadata
+@node <version>
 @subsection <version>
 
 This element provides the versioning information for the system.
@@ -1844,7 +1844,7 @@ score version number.
 
 The element itself is empty - no content is allowed.
 
-@node <author>, <copyright>, <version>, Info metadata
+@node <author>
 @subsection <author>
 
 The information about the author him/herself. Enigma requires the author element itself, but
@@ -1880,7 +1880,7 @@ The value will simply be displayed as a string on the level info page.
 
 The element itself is empty; no content is allowed.
 
-@node <copyright>, <license>, <author>, Info metadata
+@node <copyright>
 @subsection <copyright>
 
 The standardized location for the author's copyright message:
@@ -1896,7 +1896,7 @@ none
 
 The author's copyright notice.
 
-@node <license>, <compatibility>, <copyright>, Info metadata
+@node <license>
 @subsection <license>
 
 Of course, every author is free to choose the license conditions for his/her levels.
@@ -1928,7 +1928,7 @@ with Enigma.
 You may add a complete license text as the contents of this element. Please
 use the type attribute to identify the level.
 
-@node <compatibility>, <modes>, <license>, Info metadata
+@node <compatibility>
 @subsection <compatibility>
 
 @example
@@ -2063,7 +2063,7 @@ none
 
 none
 
-@node <modes>, <comments>, <compatibility>, Info metadata
+@node <modes>
 @subsection <modes>
 
 The modes element allows the author to declare the supported and the default
@@ -2120,7 +2120,7 @@ The target is used as a short title for the score in user interface displays.
 
 none
 
-@node <comments>, <score>, <modes>, Info metadata
+@node <comments>
 @subsection <comments>
 
 The optional comments node allows the author to add a few comments and to determine how
@@ -2196,7 +2196,7 @@ processed.
 
 @end table
 
-@node <score>, , <comments>, Info metadata
+@node <score>
 @subsection <score>
 
 In this node, the author should provide his own scoring values as hints and
@@ -2226,7 +2226,7 @@ the value would be the number of marble moves or pushes.
 
 @b{Contents:}
 
-@node LUA code, Internationalization (i18n), Info metadata, Level Basics
+@node LUA code
 @section LUA code
 
 This element takes any Lua code as a single chunk with nearly no limitations:
@@ -2275,7 +2275,7 @@ encodings. You may use Lua strings and comments with Umlauts, but Lua identifier
 limited to pure US-ASCII. The benefit is that you can use Umlauts and
 other non-ASCII characters within it-document hints.
 
-@node Internationalization (i18n), Usage, LUA code, Level Basics
+@node Internationalization (i18n)
 @section Internationalization (i18n)
 
 The internationalization of levels is a driving force behind the level
@@ -2406,7 +2406,7 @@ Here the author gives the public translation in the @samp{#  check:} line. Since
 contains at least one mistake, the translator will correct it, as shown in the @samp{msgstr}
 string.
 
-@node Usage, Update and Upgrade, Internationalization (i18n), Level Basics
+@node Usage
 @section Usage
 
 After all the theory, let's look at how to deal with the XML levelformat in
@@ -2500,7 +2500,7 @@ Possible validation tools are the Xerces-C sample application
 @url{http://www.freexmleditor.com/, Exchanger XML Lite}. Such editors will provide
 you with selections of all possible elements and attributes at each position.
 
-@node Update and Upgrade, Libraries , Usage, Level Basics
+@node Update and Upgrade
 @section Update and Upgrade
 
 Enigma is able to load new level versions since we provide all necessary 
@@ -2553,7 +2553,7 @@ new release, we added another upgrade element in the public section. Level admin
 use this element for the same purpose, with the same syntax, without modifying the author's
 protected section.
 
-@node Libraries, , Update and Upgrade, Level Basics
+@node Libraries
 @section Libraries
 
 Libraries are collections of Lua functions for reuse in many levels. To use a library, you must
@@ -2574,7 +2574,7 @@ libraries:
 * Maintaining a Library::
 @end menu
 
-@node Writing a Library, Maintaining a Library, Libraries, Libraries
+@node Writing a Library
 @subsection Writing a Library
 
 Library files are nearly identical to level files. The main difference is the
@@ -2615,7 +2615,7 @@ Let's look at the essential XML parts of a library:
 </@i{el}:@b{level}>
 @end example
 
-@node Maintaining a Library, , Writing a Library, Libraries
+@node Maintaining a Library
 @subsection Maintaining a Library
 
 Libraries may exist in different releases and revisions. Library versions that differ simply  in the
@@ -2641,14 +2641,14 @@ number addition will be loaded for XML load requests, too. Yet the future belong
 naming scheme, and every new library should follow it from the beginning.
 
 
-@node Enigma Paradigm, Lua API, Level Basics, Top
+@node Enigma Paradigm
 @chapter Enigma Paradigm
 
-@node Lua API, Common Attributes and Messages, Enigma Paradigm, Top
+@node Lua API
 @chapter Lua API
 
 @c ===================  Commons  =======================
-@node Common Attributes and Messages, Floor Objects, Lua API, Top
+@node Common Attributes and Messages
 @chapter Common Attributes and Messages
 
 @menu
@@ -2656,7 +2656,7 @@ naming scheme, and every new library should follow it from the beginning.
 * Common Messages::   
 @end menu
 
-@node Common Attributes, Common Messages, Common Attributes and Messages, Common Attributes and Messages
+@node Common Attributes
 @section Common Attributes
 
 @menu
@@ -2668,26 +2668,26 @@ naming scheme, and every new library should follow it from the beginning.
 * destination::
 @end menu
 
-@node name, state, Common Attributes, Common Attributes
+@node name
 @subsection name
 
-@node state, target, name, Common Attributes
+@node state
 @subsection state
 
-@node target, action, state, Common Attributes
+@node target
 @subsection target
 
-@node action, inverse, target, Common Attributes
+@node action
 @subsection action
 
-@node inverse, destination, action, Common Attributes
+@node inverse
 @subsection inverse
 
-@node destination, Common Messages, inverse, Common Attributes
+@node destination
 @subsection destination
 
 
-@node Common Messages, Floor Objects, Common Attributes, Common Attributes and Messages
+@node Common Messages
 @section Common Messages
 
 @menu
@@ -2699,38 +2699,38 @@ naming scheme, and every new library should follow it from the beginning.
 * close::
 @end menu
 
-@node toggle, signal, Common Messages, Common Messages
+@node toggle
 @subsection toggle
 
-@node signal, on, toggle, Common Messages
+@node signal
 @subsection signal
 
-@node on, off, signal, Common Messages
+@node on
 @subsection on
 
-@node off, open, on, Common Messages
+@node off
 @subsection off
 
-@node open, close, off, Common Messages
+@node open
 @subsection open
 
-@node close, Floor Objects, open, Common Messages
+@node close
 @subsection close
 
 @c ===================  Floors  =======================
 
-@node Floor Objects, Item Objects, Common Attributes and Messages, Top
+@node Floor Objects
 @chapter Floor Objects
 @c ===================  Items  =======================
 
-@node Item Objects, Stone Objects, Floor Objects, Top
+@node Item Objects
 @chapter Item Objects
 
 @menu
 * Standard Items:: 
 @end menu
 
-@node Standard Items, Stone Objects, Item Objects, Item Objects
+@node Standard Items
 @section Standard Items
 
 @menu
@@ -2739,7 +2739,7 @@ naming scheme, and every new library should follow it from the beginning.
 
 
 @c ----------------- Blocker Item -------------------- 
-@node it_blocker, Stone Objects, Standard Items, Standard Items
+@node it_blocker
 @subsection it_blocker
 @obindex it_blocker
 
@@ -2753,7 +2753,7 @@ closed by any switch like object. Note that due to the transformation between
 stone and item during opening and closing you should name the blocker
 (@pxref{name}) and address the blocker by this name. The complete identity
 with all attributes including any user attributes will be transfered between
-stone and item. E.g. @code{{it_switch, target="myblocker", action="toggle"}}
+stone and item. E.g. @code{@{it_switch, target="myblocker", action="toggle"@}}
 will open and close a given blocker multiple times.
 
 Note that the blocker is the only door object that allows a stone to be pushed
@@ -2821,7 +2821,7 @@ snapshot of a moving boulder over a blocker line, too. See example levels.
 
 
 @c ===================  Stones  =======================
-@node Stone Objects, Actor Objects, Item Objects, Top
+@node Stone Objects
 @chapter Stone Objects
 
 @menu
@@ -2832,14 +2832,14 @@ snapshot of a moving boulder over a blocker line, too. See example levels.
 @end menu
 
 
-@node Simple Stones, Transparent Stones, Stone Objects, Stone Objects
+@node Simple Stones
 @section Simple Stones
 
-@node Transparent Stones, Breakable Stones, Simple Stones, Stone Objects
+@node Transparent Stones
 @section Transparent Stones
-@node Breakable Stones, Special Stones, Glasstones, Stone Objects
+@node Breakable Stones
 @section Breakable Stones
-@node Special Stones, Actor Objects, Breakable Stones, Stone Objects
+@node Special Stones
 @section Special Stones
 
 @menu
@@ -2850,7 +2850,7 @@ snapshot of a moving boulder over a blocker line, too. See example levels.
 
 
 @c ----------------- Blocker Stone -------------------- 
-@node st_blocker, st_boulder, Special Stones, Special Stones
+@node st_blocker
 @subsection st_blocker
 @obindex st_blocker
 
@@ -2864,7 +2864,7 @@ closed by any switch like object. Note that due to the transformation between
 stone and item during opening and closing you should name the blocker
 (@pxref{name}) and address the blocker by this name. The complete identity
 with all attributes including any user attributes will be transfered between
-stone and item. E.g. @code{{st_switch, target="myblocker", action="toggle"}}
+stone and item. E.g. @code{@{st_switch, target="myblocker", action="toggle"@}}
 will open and close a given blocker multiple times.
 
 Note that the blocker is the only door object that allows a stone to be pushed
@@ -2926,7 +2926,7 @@ snapshot of a moving boulder over a blocker line, too. See example levels.
 @end table
 
 @c ----------------- Boulder Stone -------------------- 
-@node st_boulder, st_fourswitch, st_blocker, Special Stones
+@node st_boulder
 @subsection st_boulder
 @obindex st_boulder
 
@@ -2987,7 +2987,7 @@ none
 @end table
 
 @c ----------------- Fourswitch Stone -------------------- 
-@node st_fourswitch, Actor Objects, st_boulder, Special Stones
+@node st_fourswitch
 @subsection st_fourswitch
 @obindex st_fourswitch
 
@@ -3047,16 +3047,16 @@ and off alternative sources by a fourswitch.
 
 @c ===================  Actors  =======================
 
-@node Actor Objects, Other Objects, Stone Objects, Top
+@node Actor Objects
 @chapter Actor Objects
 
-@node Other Objects, Advanced Features, Actor Objects, Top
+@node Other Objects
 @chapter Other Objects
 
-@node Advanced Features, Old API - Objects, Other Objects, Top
+@node Advanced Features
 @chapter Advanced Features
 
-@node Old API - Objects, Old API - Variables, Advanced Features, Top
+@node Old API - Objects
 @chapter Old API - Objects
 
 @menu
@@ -3070,7 +3070,7 @@ and off alternative sources by a fourswitch.
 * Differences between Compatibility Modes::
 @end menu
 
-@node Floors, Items, Old API - Objects, Old API - Objects
+@node Floors
 @section Floors
 
 @menu
@@ -3093,7 +3093,7 @@ and off alternative sources by a fourswitch.
 @end menu
 
 
-@node Common Floor Attributes, Special floor tiles, Floors, Floors
+@node Common Floor Attributes
 @subsection Common Floor Attributes
 
 Standard attributes:
@@ -3130,7 +3130,7 @@ Sets if the floor starts burning on initialization.
 @end table
 
 
-@node Special floor tiles, Regular floor tiles, Common Floor Attributes, Floors
+@node Special floor tiles
 @subsection Special floor tiles
 
 @example
@@ -3153,7 +3153,7 @@ fl-water
 @end example
 
 
-@node Regular floor tiles, fl-abyss, Special floor tiles, Floors
+@node Regular floor tiles
 @subsection Regular floor tiles
 
 @example
@@ -3213,7 +3213,7 @@ fl-woven
 @end example
 
 
-@node fl-abyss, fl-ac[black/white], Regular floor tiles, Floors
+@node fl-abyss
 @subsection fl-abyss
 
 Kills marbles that roll onto it, unless they're protected by an
@@ -3223,7 +3223,7 @@ Kills marbles that roll onto it, unless they're protected by an
 @ref{fl-water} and @ref{fl-swamp}.
 
 
-@node fl-ac[black/white], fl-bridge, fl-abyss, Floors
+@node fl-ac[black/white]
 @subsection fl-ac[black/white]
 
 Marbles on this floor are controlled by player 0 only (who has
@@ -3232,7 +3232,7 @@ Marbles on this floor are controlled by player 0 only (who has
 interacting with these floors.
 
 
-@node fl-bridge, fl-dummy, fl-ac[black/white], Floors
+@node fl-bridge
 @subsection fl-bridge
 
 @code{fl-bridge} can be open (marbles fall into it) or closed (marbles
@@ -3268,7 +3268,7 @@ open by default
 @end table
 
 
-@node fl-dummy, fl-gradient, fl-bridge, Floors
+@node fl-dummy
 @subsection fl-dummy
 
 Prints its Oxyd code when entered.  Used for maintenance purposes.
@@ -3276,7 +3276,7 @@ Compare it with @code{st-dummy} (@ref{Oxyd Compatibility Stones}) and
 @code{it-dummy} (@ref{System and Debug Items}).
 
 
-@node fl-gradient, fl-ice, fl-dummy, Floors
+@node fl-gradient
 @subsection fl-gradient
 
 Adds a horizontal, vertical or diagonal force to actors on it.  The
@@ -3315,7 +3315,7 @@ types show outlines that don't correspond to their forces (use them
 for tubes etc.).
 
 
-@node fl-ice, fl-inverse, fl-gradient, Floors
+@node fl-ice
 @subsection fl-ice
 
 Ice has very low friction and mousefactor, such that it's difficult to
@@ -3328,7 +3328,7 @@ move on it.  You can use @ref{it-pin} and @code{enigma.IceFriction}
 @item fl-ice
 @end table
 
-@node fl-inverse, fl-nomouse, fl-ice, Floors
+@node fl-inverse
 @subsection fl-inverse
 
 Inverses the mouse movements (negative @code{mouseforce}).
@@ -3341,14 +3341,14 @@ Inverses the mouse movements (negative @code{mouseforce}).
 @end table
 
 
-@node fl-nomouse, fl-space, fl-inverse, Floors
+@node fl-nomouse
 @subsection fl-nomouse
 
 This floor prevents a player from controlling the marble
 (@code{mouseforce = 0}).
 
 
-@node fl-space, fl-space-force, fl-nomouse, Floors
+@node fl-space
 @subsection fl-space
 
 This floor prevents a player from controlling the marble
@@ -3356,7 +3356,7 @@ This floor prevents a player from controlling the marble
 also is no friction, so that marbles seldom get stuck on space.
 
 
-@node fl-space-force, fl-swamp, fl-space, Floors
+@node fl-space-force
 @subsection fl-space-force
 
 This floor has (like @ref{fl-space}) no friction and no mouseforce,
@@ -3367,7 +3367,7 @@ Attributes}).  Note however, that the @code{enigma.FlatForce} overrides the
 @code{force_y}-attribute of @code{fl-space-force}.
 
 
-@node fl-swamp, fl-thief, fl-space-force, Floors
+@node fl-swamp
 @subsection fl-swamp
 
 Kills marbles that roll onto it, unless they're protected by an
@@ -3383,7 +3383,7 @@ Marbles may jump over the swamp with an
 @ref{it-spring[1/2/board]}.
 
 
-@node fl-thief, fl-water, fl-swamp, Floors
+@node fl-thief
 @subsection fl-thief
 
 This floor steals one item from the player's inventory. It looks like
@@ -3397,7 +3397,7 @@ that already lay on the floor, if it could be picked up; if it is a
 static item, no @code{it-bag} is produced). 
 
 
-@node fl-water, , fl-thief, Floors
+@node fl-water
 @subsection fl-water
 
 Kills marbles that roll onto it, unless they're protected by an
@@ -3415,7 +3415,7 @@ Marbles may jump over @ref{fl-water} with an
 
 @c ================== Items ====================
 
-@node Items, Stones, Floors, Old API - Objects
+@node Items
 @section Items
 
 @menu
@@ -4799,7 +4799,7 @@ Toggles between players.  Compare @ref{it-ring} in multiplayer mode.
 
 @c ===================  Stones  =======================
 
-@node Stones, Actors, Items, Old API - Objects
+@node Stones
 @section Stones
 
 @menu
@@ -4870,7 +4870,7 @@ Toggles between players.  Compare @ref{it-ring} in multiplayer mode.
 
 For the common stone attribute @code{freeze_check}, see @ref{Freeze Checking}.
 
-@node Stone List, Breakable-Stones, Stones, Stones
+@node Stone List
 @subsection Stone List
 
 @strong{Simple stones}
@@ -5091,7 +5091,7 @@ st-wood-growing
 st-yinyang@{1..3@}
 @end example
 
-@node Glassstones, Breakable-Stones, Stone List, Stones
+@node Glassstones
 @subsection Glassstones
 
 There are a few kinds of glassstones, all similar, but with different details.
@@ -5125,7 +5125,7 @@ which the actor can use to move the stone. @code{st-glass_move} does not have
 such a frame and cannot be moved by an invisible actor.
 
 
-@node Breakable-Stones, Oxyd Compatibility Stones, Glassstones, Stones
+@node Breakable-Stones
 @subsection Breakable-Stones
 
 A list of all breakable stones and what may break them. Messages are
@@ -5185,7 +5185,7 @@ Also compare @ref{st-plain}, since @code{st-plain_cracked} results from
 can be transformed into and out of @code{st-firebreak[_move]}.
 
 
-@node Oxyd Compatibility Stones, st-actorimpulse, Breakable-Stones, Stones
+@node Oxyd Compatibility Stones
 @subsection Oxyd Compatibility Stones
 
 @code{st-magic} disappears when hit hard enough.
@@ -5199,7 +5199,7 @@ just seem to destroy themselves on creation, the former two creating
 unknown.
 
 
-@node st-actorimpulse, st-big[brick/bluesand], Oxyd Compatibility Stones, Stones
+@node st-actorimpulse
 @subsection st-actorimpulse: Bumper Stones
 
 These stones apply an impulse to actors that touch them.  The amount
@@ -5225,7 +5225,7 @@ define a matrix to be applied to the force (default @code{((1,0),(0,1))})
 The invisible variant, @code{st-actorimpulse_invisible} can be
 ``painted'' with an @ref{it-brush}.
 
-@node st-big[brick/bluesand], st-[black/white], st-actorimpulse, Stones
+@node st-big[brick/bluesand]
 @subsection st-big[brick/bluesand]: Big Stones
 
 These stones are used to construct big clusters of stones that
@@ -5264,7 +5264,7 @@ swappable and pullable like normal stones.
 See @ref{st-puzzle} for another kind of cluster-building stones.
 
 
-@node st-[black/white], st-[black/white]balls, st-big[brick/bluesand], Stones
+@node st-[black/white]
 @subsection st-[black/white]: Black and white stones
 
 These stones only let black, or respectively, white marbles, pass.
@@ -5280,7 +5280,7 @@ See @ref{st-grate} for other stones that only special actors may
 pass.
 
 
-@node st-[black/white]balls, st-block, st-[black/white], Stones
+@node st-[black/white]balls
 @subsection st-[black/white]balls: Blackballs and Whiteballs Stones
 
 Mainly used as decorative, this stone also has a special function: When
@@ -5301,14 +5301,14 @@ marble entering it, @code{st-blackballs} won't trigger since there is no
 collision causing this event.
 
 
-@node st-block, st-blocker, st-[black/white]balls, Stones
+@node st-block
 @subsection st-block: Solid Block
 
 This stone is movable and sinks on @ref{fl-abyss}, @ref{fl-water} and
 @ref{fl-swamp}.
 
 
-@node st-blocker, st-bolder, st-block, Stones
+@node st-blocker
 @subsection st-blocker: Shrinkable Blocker Stone
 
 This stone shrinks to @ref{it-blocker} when hit by an
@@ -5335,7 +5335,7 @@ during transformation.
 @end table
 
 
-@node st-bolder, st-bombs, st-blocker, Stones
+@node st-bolder
 @subsection st-bolder: Bolder (or Arrow) Stone
 
 This stone runs in the direction given by the arrow on its picture.
@@ -5374,7 +5374,7 @@ default direction is @code{NORTH}
 @end table
 
 
-@node st-bombs, st-brake, st-bolder, Stones
+@node st-bombs
 @subsection st-bombs: Bombstones
 
 When hit, @code{st-bombs} adds an @ref{it-blackbomb} to the
@@ -5404,7 +5404,7 @@ destroy stone
 @c @end table
 
 
-@node st-brake, st-brick_magic, st-bombs, Stones
+@node st-brake
 @subsection st-brake: Brake
 
 This stone can be picked up as item @ref{it-brake}.  It can be used to
@@ -5420,14 +5420,14 @@ destroy stone
 @end table
 
 
-@node st-brick_magic, st-chameleon, st-brake, Stones
+@node st-brick_magic
 @subsection st-brick_magic: Magic Brick Stone
 
 At first sight identical with @code{st-brick}, this stone becomes
 transparent when hit with an @ref{it-magicwand}.
 
 
-@node st-chameleon, st-charge, st-brick_magic, Stones
+@node st-chameleon
 @subsection st-chameleon: Chameleon Stone
 
 This stone takes on the look of the floor beneath it.  Actors can
@@ -5435,7 +5435,7 @@ move through it, so these stones are perfect for hiding stuff under
 them.  For solid, yet invisible stone-types see @ref{st-invisible}.
 
 
-@node st-charge, st-chess_[black/white], st-chameleon, Stones
+@node st-charge
 @subsection st-charge: Charge Stones
 
 When hit, the marble is provided with a constant electrostatic charge,
@@ -5464,7 +5464,7 @@ charge 0.0
 @end table
 
 
-@node st-chess_[black/white], st-coffee, st-charge, Stones
+@node st-chess_[black/white]
 @subsection st-chess_[black/white]: Chess (Knight) Stone
 
 When hit, a chess stone makes a knight move: two steps in direction of
@@ -5518,7 +5518,7 @@ steps) and @code{direction2} (one step). You can use the @code{NORTH},
 @end table
 
 
-@node st-coffee, st-coinslot, st-chess_[black/white], Stones
+@node st-coffee
 @subsection st-coffee
 
 This stone is non-transparent at first and becomes transparent and
@@ -5526,7 +5526,7 @@ movable when hit (@code{st-glass_move}). See @ref{st-fakeoxyda} for a
 similar stone.
 
 
-@node st-coinslot, st-death, st-coffee, Stones
+@node st-coinslot
 @subsection st-coinslot
 
 A switch that can be activated with coins (see @ref{it-coin}). The
@@ -5551,7 +5551,7 @@ as usual
 @end table
 
 
-@node st-death, st-disco, st-coinslot, Stones
+@node st-death
 @subsection st-death: Skull Stones
 
 Simply kills all marbles that touch it (except when protected by an
@@ -5568,7 +5568,7 @@ using @ref{it-glasses}.
 @end table
 
 
-@node st-disco, st-door, st-death, Stones
+@node st-disco
 @subsection st-disco: Disco Stones
 
 A passable stone, which darkens everything that is underneath the
@@ -5598,7 +5598,7 @@ disco stones; with parameter smaller than 1, darken them.
 @end table
 
 
-@node st-door, st-easymode, st-disco, Stones
+@node st-door
 @subsection st-door: Doors
 
 Doors are designed to let actors pass or not, depending on their
@@ -5659,7 +5659,7 @@ closed and like @code{st-grate} when open, @code{st-door_b} like
 just design; they don't behave the same way.
 
 
-@node st-easymode, st-explosion, st-disco, Stones
+@node st-easymode
 @subsection st-easymode: Easy Mode Stone
 
 In easy game mode, this stone converts the floor at its position to
@@ -5672,14 +5672,14 @@ or to insert helper items (umbrellas, seeds, etc.) that make the level
 easier in easy game mode.
 
 
-@node st-explosion, st-fakeoxyda, st-easymode, Stones
+@node st-explosion
 @subsection st-explosion: Explosion Stone
 
 This stone mimics an explosion when set, and destroys itself
 afterwards.  Actors that contact it are shattered.
 
 
-@node st-fakeoxyda, st-fart, st-explosion, Stones
+@node st-fakeoxyda
 @subsection st-fakeoxyda: Movable Fake Oxyd Stone
 
 This stone looks like an @ref{st-oxyd} of flavor @code{a}, yet it
@@ -5687,7 +5687,7 @@ transforms into the movable and transparent @code{st-glass1_move} when
 hit. See @ref{st-coffee} for a similar stone.
 
 
-@node st-fart, st-firebreak[_move], st-fakeoxyda, Stones
+@node st-fart
 @subsection st-fart: Fart Stone
 
 The fart stone has the unpleasant habit of ``blowing off'' when
@@ -5703,7 +5703,7 @@ blow off
 @end table
 
 
-@node st-firebreak[_move], st-flash, st-fart, Stones
+@node st-firebreak[_move]
 @subsection st-firebreak[_move]: Firebreakable Stones
 
 @code{st-firebreak} gets destroyed when there is fire near it (see
@@ -5735,7 +5735,7 @@ them (see @ref{st-plain}), and can be reverted again by using
 @end table
 
 
-@node st-flash, st-floppy, st-firebreak[_move], Stones
+@node st-flash
 @subsection st-flash: Flash Stone
 
 When the flash stone is hit by the black marble, an impulse will
@@ -5751,7 +5751,7 @@ factor of the transmitted force (default 20)
 define a matrix to be applied to the force (default @code{((1,0),(0,1))})
 @end table
 
-@node st-floppy, st-fourswitch, st-flash, Stones
+@node st-floppy
 @subsection st-floppy: Floppy Switch
 
 A switch that is activated by inserting a floppy disk (see @ref{it-floppy}).
@@ -5766,7 +5766,7 @@ A switch that is activated by inserting a floppy disk (see @ref{it-floppy}).
 @end table
 
 
-@node st-fourswitch, st-grate, st-floppy, Stones
+@node st-fourswitch
 @subsection st-fourswitch: Fourswitch
 
 When hit, this stone visually turns its pointer and performs the
@@ -5793,7 +5793,7 @@ yet.  When using the direction in a level, you have to count the hits
 yourself: The stone always starts with direction @code{NORTH}.
 
 
-@node st-grate, st-invisible, st-fourswitch, Stones
+@node st-grate
 @subsection st-grate: Grates
 
 Floating grates, mainly decorative.  @code{st-grate1} and
@@ -5814,7 +5814,7 @@ pass.
 @end table
 
 
-@node st-invisible, st-key, st-grate, Stones
+@node st-invisible
 @subsection st-invisible: Invisible Stones
 
 @code{st-invisible} is invisible and non-transparent for lasers, and
@@ -5837,7 +5837,7 @@ turns into @code{st-greenbrown} when touched with @ref{it-magicwand}.
 @end table
 
 
-@node st-key, st-knight, st-invisible, Stones
+@node st-key
 @subsection st-key: Key (or Lock) Stone
 
 When the right @ref{it-key} is used on this stone, it performs the
@@ -5876,7 +5876,7 @@ since the default keycodes are different.  Use @code{st-key_a}
 instead.
 
 
-@node st-knight, st-laser, st-key, Stones
+@node st-knight
 @subsection st-knight: Knight Stone
 
 Also called ``black knight stone'', this stone destroys all marbles
@@ -5886,7 +5886,7 @@ or wield an @ref{it-sword}.  By hitting @code{st-knight} with an
 and can be passed thereafter, even without a sword.
 
 
-@node st-laser, st-laserswitch, st-knight, Stones
+@node st-laser
 @subsection st-laser: Laser Stone
 
 @code{st-laser} emits a laser beam in a specified direction while
@@ -5923,7 +5923,7 @@ standard direction is @code{EAST}
 For redirecting and forking laser beams, see @ref{st-mirror}.
 
 
-@node st-laserswitch, st-lasertimeswitch, st-laser, Stones
+@node st-laserswitch
 @subsection st-laserswitch: Laser Switch
 
 This switch is @code{on} while hit by a laserbeam
@@ -5942,13 +5942,13 @@ as usual
 @end table
 
 
-@node st-lasertimeswitch, st-lightpassenger, st-laserswitch, Stones
+@node st-lasertimeswitch
 @subsection st-lasertimeswitch: Laser Time Switch
 
 This switch is a mix between @ref{st-laserswitch} and @ref{st-timeswitch}.
 
 
-@node st-lightpassenger, st-mail, st-lasertimeswitch, Stones
+@node st-lightpassenger
 @subsection st-lightpassenger: Light Passenger
 
 The light passenger skates on a laser beam, and may push up to one
@@ -6021,7 +6021,7 @@ with parameter 0: deactivating, else activating
 @end table
 
 
-@node st-mail, st-mirror, st-lightpassenger, Stones
+@node st-mail
 @subsection st-mail: Mail Stones
 
 When hit, these stones take the first item out of the player's
@@ -6039,7 +6039,7 @@ item), no item is taken from inventory.
 @end table
 
 
-@node st-mirror, st-oneway, st-mail, Stones
+@node st-mirror
 @subsection st-mirror: Mirror Stones
 
 These stones redirect and fork laser beams. They can be movable or
@@ -6081,7 +6081,7 @@ accordingly, with defaults @code{/} or @code{v}, non-transparent and
 non-movable.
 
 
-@node st-oneway, st-oxyd, st-mirror, Stones
+@node st-oneway
 @subsection st-oneway: One-way Stones
 
 The marble can be pass this stone  in only one direction. (Or to
@@ -6134,7 +6134,7 @@ Both these messages flip the direction of the arrow.
 @end table
 
 
-@node st-oxyd, st-plain, st-oneway, Stones
+@node st-oxyd
 @subsection st-oxyd: Oxyd Stones
 
 Oxyd stones are characterized by two attributes: Their flavor and
@@ -6175,7 +6175,7 @@ Open the stone (useful for opening oxyd stones using switches)
 @end table
 
 
-@node st-plain, st-polarswitch, st-oxyd, Stones
+@node st-plain
 @subsection st-plain: Plain Stones
 
 @code{st-plain} and @code{st-plain_hole} trigger between solid and
@@ -6223,7 +6223,7 @@ of them has the ability to trigger between solid and hollow:
 @ref{st-door} for stones with similar functions like @code{st-plain}.
 
 
-@node st-polarswitch, st-pull, st-plain, Stones
+@node st-polarswitch
 @subsection st-polarswitch: Light Switch
 
 When hit, this stone changes transparency for laser
@@ -6249,7 +6249,7 @@ on = lighten, off = darken, onoff = toggle
 @end table
 
 
-@node st-pull, st-puzzle, st-polarswitch, Stones
+@node st-pull
 @subsection st-pull: Pull Stone
 
 When pushed, this stone acts like pulled, regardless of the source of
@@ -6273,7 +6273,7 @@ versions.
 For a stone with similar function and restrictions, see @ref{st-swap}.
  
 
-@node st-puzzle, st-rotator, st-pull, Stones
+@node st-puzzle
 @subsection st-puzzle: Puzzle Stones
 
 Puzzle stones can construct large clusters of stones, that move
@@ -6369,7 +6369,7 @@ See @ref{st-big[brick/bluesand]} for other kinds of cluster-building
 stones.
 
 
-@node st-rotator, st-rubberband, st-puzzle, Stones
+@node st-rotator
 @subsection st-rotator: Rotator Stone
 
 Rotator stones come in four flavors: Clockwise or counterclockwise
@@ -6389,7 +6389,7 @@ with an @ref{it-wrench} or by a laser beam.
 @end table
 
 
-@node st-rubberband, st-scissors, st-rotator, Stones
+@node st-rubberband
 @subsection st-rubberband: Rubberband Stone
 
 If hit by a marble, this stone first removes existing connections with
@@ -6414,7 +6414,7 @@ Boolean value defining if already existing rubberbands to other Stones should be
 @end table
 
 
-@node st-scissors, st-shogun-<sml>, st-rubberband, Stones
+@node st-scissors
 @subsection st-scissors: Scissors Stone
 
 This stone cuts all rubber bands attached to an actor that touches it.
@@ -6429,7 +6429,7 @@ as usual
 @end table
 
 
-@node st-shogun-<sml>, st-spitter, st-scissors, Stones
+@node st-shogun-<sml>
 @subsection st-shogun-<sml>: Shogun Stones
 
 These stones come in three basic variants: small (@code{s}), medium
@@ -6459,7 +6459,7 @@ read-only
 @end table
 
 
-@node st-spitter, st-stoneimpulse, st-shogun-<sml>, Stones
+@node st-spitter
 @subsection st-spitter: Spitter Stone
 
 When hit, an @ref{it-extralife} from the inventory of the hitting
@@ -6479,7 +6479,7 @@ define a matrix to be applied to the force (default @code{((1,0),(0,1))})
 @end table
 
 
-@node st-stoneimpulse, st-surprise, st-spitter, Stones
+@node st-stoneimpulse
 @subsection st-stoneimpulse: Impulse Stones
 
 These stones send impulses to their neighbors when they receive such
@@ -6509,7 +6509,7 @@ movable version; pulses after move
 @end table
 
 
-@node st-surprise, st-swap, st-stoneimpulse, Stones
+@node st-surprise
 @subsection st-surprise: Surprise Stone
 
 When hit, this stone randomly transforms into one of @code{st-grate1},
@@ -6521,7 +6521,7 @@ When hit, this stone randomly transforms into one of @code{st-grate1},
 item is @ref{it-surprise}.
 
 
-@node st-swap, st-switch, st-surprise, Stones
+@node st-swap
 @subsection st-swap: Swap Stone
 
 This stone can exchange its position with other neighboring stones
@@ -6541,7 +6541,7 @@ border of the level.  This behavior might change in future versions.
 For a stone with similar function and restrictions, see @ref{st-pull}.
 
 
-@node st-switch, st-thief, st-swap, Stones
+@node st-switch
 @subsection st-switch: Switches
 
 A simple switch. 
@@ -6567,7 +6567,7 @@ Only white marbles can activate this switch.
 @end table
 
 
-@node st-thief, st-timer, st-switch, Stones
+@node st-thief
 @subsection st-thief: Thief Stone
 
 Takes one item from inventory shortly after hit by a player's marble.
@@ -6591,7 +6591,7 @@ stone).
 @end table
 
 
-@node st-timer, st-timeswitch, st-thief, Stones
+@node st-timer
 @subsection st-timer: Timer Stone
 
 This stone can be used to trigger periodic events or to trigger one
@@ -6635,7 +6635,7 @@ set_stone("st-timer", 10,10,
 @end example
 
 
-@node st-timeswitch, st-turnstile, st-timer, Stones
+@node st-timeswitch
 @subsection st-timeswitch: Time Switch
 
 When this switch is touched by an actor, it switches @code{on}
@@ -6655,7 +6655,7 @@ as usual
 @end table
 
 
-@node st-turnstile, st-volcano, st-timeswitch, Stones
+@node st-turnstile
 @subsection st-turnstile: Turnstiles
 
 A turnstile consists of the pivot (@code{st-turnstile} or
@@ -6706,7 +6706,7 @@ green turnstile is able to shatter a marble.
 @end table
 
 
-@node st-volcano, st-window, st-turnstile, Stones
+@node st-volcano
 @subsection st-volcano: Volcano
 
 This stone duplicates itself and spreads out very fast.  During one
@@ -6742,13 +6742,13 @@ starts inactive
 See also @ref{it-seed}.
 
 
-@node st-window, st-wood, st-volcano, Stones
+@node st-window
 @subsection st-window: Breakable Stone
 
 Hit this window hard with your marble to blast it into smithereens.
 
 
-@node st-wood, st-yinyang, st-window, Stones
+@node st-wood
 @subsection st-wood: Wooden Stone
 
 This stone is movable.  If moved into @ref{fl-abyss}, @ref{fl-water} or
@@ -6788,7 +6788,7 @@ fire-transform.
 @end table
 
 
-@node st-yinyang,  , st-wood, Stones
+@node st-yinyang
 @subsection st-yinyang: Yin-Yang Stones
 
 Yin-Yang stones change into @code{st-white1} or @code{st-black1}
@@ -6815,7 +6815,7 @@ marble.
 
 
 @c ----------------------------------------------------------------------
-@node Actors, General object attributes, Stones, Old API - Objects
+@node Actors
 @section Actors
 
 @menu
@@ -7061,7 +7061,7 @@ see @ref{Hills and Hollows}.
 
 
 @c ----------------------------------------------------------------------
-@node General object attributes, The 1.0-Fire System, Actors, Old API - Objects
+@node General object attributes
 @section General object attributes
 
 @table @code
@@ -7071,7 +7071,7 @@ be searched using @ref{enigma.GetNamedObject}.
 @end table
 
 @c ----------------------------------------------------------------------
-@node The 1.0-Fire System, Freeze Checking, General object attributes, Old API - Objects
+@node The 1.0-Fire System
 @section The 1.0-Fire System
 
 The 1.0-version of Enigma introduces a new fire system, making use of
@@ -7260,7 +7260,7 @@ floors.
 
 
 @c ----------------------------------------------------------------------
-@node Freeze Checking, Differences between Compatibility Modes, The 1.0-Fire System, Old API - Objects
+@node Freeze Checking
 @section Freeze Checking
 
 With Enigma 1.1 and above, you can use a special feature to support Sokoban
@@ -7344,7 +7344,7 @@ used in Sokoban-kind parts of a level only, for which it is designed.
 
 
 @c ----------------------------------------------------------------------
-@node Differences between Compatibility Modes,  , Freeze Checking, Old API - Objects
+@node Differences between Compatibility Modes
 @section Differences between Compatibility Modes
 
 Although Enigma was inspired by the original Oxyd-series, there are
@@ -7416,7 +7416,7 @@ when @ref{st-wood} is pushed over them (see
 
 
 @c ======================================================================
-@node Old API - Variables, Old API - Functions, Old API - Objects, Top
+@node Old API - Variables
 @chapter Old API - Variables
 
 This chapter describes a few variables that you can change from
@@ -7544,7 +7544,7 @@ The range of @ref{it-wormhole}.  Default: 10.0.
 @end defvar
 
 
-@node Old API - Functions, Object Index, Old API - Variables, Top
+@node Old API - Functions
 @chapter Old API - Functions
 
 @menu
@@ -7583,7 +7583,7 @@ The range of @ref{it-wormhole}.  Default: 10.0.
 @end menu
 
 @c ......................................................................
-@node AddRubberBand, CreateWorld, Old API - Functions, Old API - Functions
+@node AddRubberBand
 @section AddRubberBand
 
 @defun AddRubberBand (actor, object, strength, length)
@@ -7611,7 +7611,7 @@ AddRubberBand(ac, st, 50, 10)
 @end example
 
 @c ......................................................................
-@node CreateWorld, display.SetFollowMode, AddRubberBand, Old API - Functions
+@node CreateWorld
 @section CreateWorld
 
 @defun CreateWorld (width, heigth)
@@ -7632,7 +7632,7 @@ wide 39x13 or 20x25, three screens 58x13 or 20x37.
 @end defun
 
 @c ......................................................................
-@node display.SetFollowMode, draw_border, CreateWorld, Old API - Functions
+@node display.SetFollowMode
 @section display.SetFollowMode
 
 @defun display.SetFollowMode (mode)
@@ -7657,7 +7657,7 @@ Follow pixel by pixel.
 @end defun
 
 @c ......................................................................
-@node  draw_border, draw_checkerboard_floor, display.SetFollowMode, Old API - Functions
+@node  draw_border
 @section draw_border
 
 @defun draw_border (stonename, x,y, w,h)
@@ -7684,7 +7684,7 @@ draw_border("st-greenbrown", 0,5,3,3)
 @end example
 
 @c ......................................................................
-@node  draw_checkerboard_floor, draw_floor, draw_border, Old API - Functions
+@node  draw_checkerboard_floor
 @section draw_checkerboard_floor
 
 @defun draw_checkerboard_floor (name1, name2, x, y, w, h, attribs)
@@ -7718,7 +7718,7 @@ draw_checkerboard_floor("fl-normal", "fl-inverse", 0, 0, levelw, levelh) -- race
 @end example
 
 @c ......................................................................
-@node  draw_floor, draw_items, draw_checkerboard_floor, Old API - Functions
+@node  draw_floor
 @section draw_floor
 
 @defun draw_floor (floorname, location, increment, count , attribs)
@@ -7761,7 +7761,7 @@ draw_floor("fl-water", @{level_width-4,3@}, @{0,1@}, level_height-6)
 
 
 @c ......................................................................
-@node  draw_items, draw_stones, draw_floor, Old API - Functions
+@node  draw_items
 @section draw_items
 
 @defun draw_items (itemname, location, increment, count [, attribs])
@@ -7798,7 +7798,7 @@ draw_items("it-tinyhill", @{5,3@}, @{2,0@}, 7)
 @end example
 
 @c ......................................................................
-@node  draw_stones, enigma.AddConstantForce, draw_items, Old API - Functions
+@node  draw_stones
 @section draw_stones
 
 @defun draw_stones (stonename, location, increment, count [, attribs])
@@ -7843,7 +7843,7 @@ end
 @end example
 
 @c ......................................................................
-@node enigma.AddConstantForce, enigma.GetAttrib, draw_stones, Old API - Functions
+@node enigma.AddConstantForce
 @section enigma.AddConstantForce
 
 @defun enigma.AddConstantForce (gravity_x, gravity_y)
@@ -7860,7 +7860,7 @@ adds gravity in vertical direction (positive means downwards).
 @end defun
 
 @c ......................................................................
-@node enigma.GetAttrib, enigma.GetNamedObject, enigma.AddConstantForce, Old API - Functions
+@node enigma.GetAttrib
 @section enigma.GetAttrib
 
 @defun GetAttrib (object, attribname)
@@ -7882,7 +7882,7 @@ local bolder_dir = GetAttrib(bolder1, "direction")
 @end example
 
 @c ......................................................................
-@node enigma.GetNamedObject, enigma.GetKind, enigma.GetAttrib, Old API - Functions
+@node enigma.GetNamedObject
 @section enigma.GetNamedObject
 
 @defun enigma.GetNamedObject (objname)
@@ -7902,7 +7902,7 @@ local Woodie = enigma.GetNamedObject("woodie")
 @end example
 
 @c ......................................................................
-@node enigma.GetKind, enigma.KillFloor, enigma.GetNamedObject, Old API - Functions
+@node enigma.GetKind
 @section enigma.GetKind
 
 @defun enigma.GetKind(object)
@@ -7922,7 +7922,7 @@ mystonekind will be "st-wood"
 @end example
 
 @c ......................................................................
-@node enigma.KillFloor, enigma.KillItem, enigma.GetKind, Old API - Functions
+@node enigma.KillFloor
 @section enigma.KillFloor
 
 @defun enigma.KillFloor (x, y)
@@ -7937,7 +7937,7 @@ Coordinates of the floortile to kill.
 @end defun
 
 @c ......................................................................
-@node enigma.KillItem, enigma.KillStone, enigma.KillFloor, Old API - Functions
+@node enigma.KillItem
 @section enigma.KillItem
 
 @defun enigma.KillItem (x, y)
@@ -7952,7 +7952,7 @@ Coordinates of the item to kill.
 @end defun
 
 @c ......................................................................
-@node enigma.KillStone, enigma.LoadLib, enigma.KillItem, Old API - Functions
+@node enigma.KillStone
 @section enigma.KillStone
 
 @defun enigma.KillStone (x, y)
@@ -7967,7 +7967,7 @@ Coordinates of the stone to kill.
 @end defun
 
 @c ......................................................................
-@node enigma.LoadLib, enigma.NameObject, enigma.KillStone, Old API - Functions
+@node enigma.LoadLib
 @section enigma.LoadLib
 
 @defun enigma.LoadLib (libraryId)
@@ -7979,7 +7979,7 @@ The @var{libraryId} is the same as in the declaration.
 @end defun
 
 @c ......................................................................
-@node enigma.NameObject, enigma.SetAttrib, enigma.LoadLib, Old API - Functions
+@node enigma.NameObject
 @section enigma.NameObject
 
 @defun enigma.NameObject (object, value)
@@ -7992,7 +7992,7 @@ Description: Gives the name value to object.
 @end defun
 
 @c ......................................................................
-@node enigma.SetAttrib, enigma.SetAttribs, enigma.NameObject, Old API - Functions
+@node enigma.SetAttrib
 @section enigma.SetAttrib
 
 @defun enigma.SetAttrib (object, attribname, value)
@@ -8025,7 +8025,7 @@ set_attrib(ls, "name", "laser")
 @end example
 
 @c ......................................................................
-@node enigma.SetAttribs, enigma.SetDefaultAttribs, enigma.SetAttrib, Old API - Functions
+@node enigma.SetAttribs
 @section enigma.SetAttribs
 
 @defun enigma.set_attribs (object, attribs)
@@ -8053,7 +8053,7 @@ set_attribs(ls, @{on=TRUE, dir=WEST@})
 @end example
 
 @c ......................................................................
-@node enigma.SetDefaultAttribs, enigma.SetCompatibility, enigma.SetAttribs, Old API - Functions
+@node enigma.SetDefaultAttribs
 @section enigma.SetDefaultAttribs
 
 @defun enigma.SetDefaultAttribs (objectname, attribs)
@@ -8090,7 +8090,7 @@ set_item("it-wormhole", 11, 6, @{targetx="48.5",targety="56.5"@})
 @end example
 
 @c ......................................................................
-@node enigma.SetCompatibility, fill_floor, enigma.SetDefaultAttribs, Old API - Functions
+@node enigma.SetCompatibility
 @section enigma.SetCompatibility
 
 @defun enigma.SetCompatibility (compatibility)
@@ -8120,7 +8120,7 @@ Enigma-mode
 @end defun
 
 @c ......................................................................
-@node fill_floor, fill_items, enigma.SetCompatibility, Old API - Functions
+@node fill_floor
 @section fill_floor
 
 @defun fill_floor (floorname)
@@ -8153,7 +8153,7 @@ fill_floor("fl-water", 24,47, 11,1)
 @end example
 
 @c ......................................................................
-@node fill_items, fill_stones, fill_floor, Old API - Functions
+@node fill_items
 @section fill_items
 
 @defun fill_items (itemname, x, y, w, h)
@@ -8185,7 +8185,7 @@ fill_items("it-wormhole", 1, 1, 3, 3) -- field of 3x3 wormholes
 @end example
 
 @c ......................................................................
-@node fill_stones, MakeObject, fill_items, Old API - Functions
+@node fill_stones
 @section fill_stones
 
 @defun fill_stones (stonename, x, y, w, h)
@@ -8216,7 +8216,7 @@ fill_stones("st-death", 9, 5, 2, 2)
 @end example
 
 @c ......................................................................
-@node  MakeObject, SendMessage, fill_stones, Old API - Functions
+@node  MakeObject
 @section MakeObject
 
 @defun MakeObject (objname, attribs)
@@ -8247,7 +8247,7 @@ probably a guru and you don't need this manual either.
 @end example
 
 @c ......................................................................
-@node SendMessage, set_floor, MakeObject, Old API - Functions
+@node SendMessage
 @section SendMessage
 
 @defun SendMessage (object, message, data)
@@ -8283,7 +8283,7 @@ SendMessage("bolder1", "direction", WEST)
 @end example
 
 @c ......................................................................
-@node set_floor, set_item, SendMessage, Old API - Functions
+@node set_floor
 @section set_floor
 
 @defun set_floor (floorname, x, y, attribs)
@@ -8319,7 +8319,7 @@ end
 @end example
 
 @c ......................................................................
-@node set_item, set_stone, set_floor, Old API - Functions
+@node set_item
 @section set_item
 
 @defun set_item (itemname, x, y, attribs)
@@ -8357,7 +8357,7 @@ set_item("it-trigger", 34, 3, @{action="openclose", target="bridge1"@})
 @end example
 
 @c ......................................................................
-@node set_stone, set_stones, set_item, Old API - Functions
+@node set_stone
 @section set_stone
 
 @defun set_stone (stonename, x, y, attribs)
@@ -8390,7 +8390,7 @@ set_stone("st-bolder", 2, 11, @{name="bolder01", direction=NORTH@})
 @end example
 
 @c ......................................................................
-@node set_stones, Object Index, set_stone, Old API - Functions
+@node set_stones
 @section set_stones
 
 @defun set_stones (stonename, positions, attribs)
@@ -8428,22 +8428,22 @@ set_stone("st-invisible", 7, 9)     -- do the same
 
 @c ......................................................................
 
-@node Object Index, Attribute Index, Old API - Functions, Top
+@node Object Index
 @unnumbered Object Index
 
 @printindex ob
 
-@node Attribute Index, Message Index, Object Index, Top
+@node Attribute Index
 @unnumbered Attribute Index
 
 @printindex at
 
-@node Message Index, Function Index, Attribute Index, Top
+@node Message Index
 @unnumbered Message Index
 
 @printindex ms
 
-@node Function Index, Concept Index, Message Index, Top
+@node Function Index
 @unnumbered Function Index
 
 @syncodeindex vr tp
@@ -8451,7 +8451,7 @@ set_stone("st-invisible", 7, 9)     -- do the same
 
 @printindex tp
 
-@node Concept Index,  , Function Index, Top
+@node Concept Index
 @unnumbered Concept Index
 
 @printindex cp
