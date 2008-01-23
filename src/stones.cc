@@ -747,7 +747,7 @@ namespace
             break_me();
         }
         virtual Value message(const Message &m) {
-            if (m.message =="ignite" || m.message == "expl" || m.message == "bombstone") {
+            if (m.message =="ignite" || m.message == "_explosion" || m.message == "_bombstone") {
                 break_me();
                 return Value();
             }
@@ -788,7 +788,7 @@ namespace
         }
 
         virtual Value message(const Message &m) {
-            if (m.message =="ignite" || m.message == "expl" || m.message == "bombstone") {
+            if (m.message =="ignite" || m.message == "_explosion" || m.message == "_bombstone") {
                 break_me();
                 return Value();
             }
@@ -830,7 +830,7 @@ namespace
             ReplaceStone(get_pos(), MakeStone ("st-plain_breaking"));
         }
         virtual Value message(const Message &m) {
-            if (m.message =="ignite" || m.message == "expl" || m.message == "bombstone") {
+            if (m.message =="ignite" || m.message == "_explosion" || m.message == "_bombstone") {
                 break_me();
                 return Value();
             }

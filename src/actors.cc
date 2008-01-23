@@ -565,7 +565,7 @@ void CannonBall::animcb()
     const GridPos &p = get_gridpos();
 
     if (Stone *st = GetStone (p)) {
-        SendMessage (st, "spitter");
+        SendMessage (st, "_spitter");
     }
     else if (Item *it = GetItem(p)) {
         if (!has_flags(it, itf_indestructible))

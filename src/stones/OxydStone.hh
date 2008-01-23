@@ -85,7 +85,12 @@ namespace enigma {
         virtual void dispose();
         virtual Value message(const Message &m);
         virtual void set_attrib(const string& key, const Value &val);
-        virtual Value getAttr(const string &key) const;
+
+        // StateObject interface
+        virtual int maxState();
+        virtual void toggleState();
+        virtual int externalState() const;
+        virtual void setState(int extState);
 
         // Stone interface
         virtual void actor_hit(const StoneContact &sc);
@@ -105,7 +110,7 @@ namespace enigma {
         void on_removal (GridPos p);
             
     private:
-        enum State { CLOSED, OPEN_PAIR, OPENING, CLOSING, OPEN_SINGLE };
+        enum iState { CLOSED, OPEN_PAIR, OPENING, CLOSING, OPEN_SINGLE };
         
         typedef std::vector<OxydStone *> InstanceVector;
         
@@ -175,15 +180,14 @@ namespace enigma {
         static void log_shuffle_stack();
         
         static bool not_open(OxydStone *a) {
-            return !(a->iState == OPEN_PAIR || (int)a->getAttr("color") < AUTO);
+            return !(a->state == OPEN_PAIR || (int)a->getAttr("oxydcolor") < AUTO);
         }
 
-        State iState;
 
         // Private methods
         void tryOpen();
         void closeAllStandardOxyds();
-        void set_iState(State newState);
+        void set_iState(iState newState);
     };
 } // namespace enigma
 

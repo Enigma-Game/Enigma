@@ -991,7 +991,7 @@ namespace
         {}
 
     private:
-        void init_model() {set_anim("expl");}
+        void init_model() {set_anim("_explosion");}
         bool actor_hit(Actor *actor) {
             SendMessage(actor, "shatter");
             return false;
@@ -1083,7 +1083,7 @@ namespace
             if (m.message == "ignite") {
                 // dynamite does not blow up Documents in Oxyd1
                 explode = server::GameCompatibility != GAMET_OXYD1;
-            } else if (m.message == "expl" || m.message == "bombstone") {
+            } else if (m.message == "_explosion" || m.message == "_bombstone") {
                 explode = true;
             } else {
                 return Item::message(m);
@@ -1144,7 +1144,7 @@ namespace
         }
 
         virtual Value message(const Message &m) {
-            if (m.message == "ignite" || m.message == "expl" || m.message == "bombstone") {
+            if (m.message == "ignite" || m.message == "_explosion" || m.message == "_bombstone") {
                 change_state(BURNING);
                 return Value();
             } else if (m.message == "explode") { // currently unused in c++ code
@@ -1187,7 +1187,7 @@ namespace
 
     protected:
         virtual Value message(const Message &m) {
-            if (m.message == "ignite"  || m.message == "expl") {
+            if (m.message == "ignite"  || m.message == "_explosion") {
                 burn();
                 return Value();
             } else if (m.message == "explode" ) {
@@ -1357,12 +1357,12 @@ Trigger::Trigger()
 {
     m_pressedp = false;
     m_actorcount = 0;
-    set_attrib("invisible", 0.0);
+    set_attrib("invisible", false);
 }
 
 void Trigger::init_model()
 {
-    if (getAttr("invisible") != 0)
+    if (getAttr("invisible").to_bool())
         set_model("invisible");
     else if (m_pressedp)
         set_model("it-trigger1");
@@ -2187,7 +2187,7 @@ namespace
 
         Pipe(int stype) : subtype(stype) {}
         virtual Value message(const Message &m) {
-            if (m.message == "expl") {
+            if (m.message == "_explosion") {
                 replace (it_explosion1);
                 return Value();
             }
@@ -2481,7 +2481,7 @@ Value Burnable::message(const Message &m) {
         kill();   // The brush cleans the floor
         return Value();
     } else if (Floor *fl = GetFloor(get_pos())) {
-        if (m.message == "ignite" || m.message == "expl")
+        if (m.message == "ignite" || m.message == "_explosion")
             return SendMessage(fl, "ignite");
     }
     return Item::message(m);

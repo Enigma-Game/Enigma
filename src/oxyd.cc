@@ -305,8 +305,8 @@ Stone *OxydLoader::make_stone (int type, int x, int y)
         char color[2] = "0";
         color[0] += (type-1) / 2; 
 
-        st = MakeStone("st-oxyd");
-        st->set_attrib("color", color);
+        st = MakeStone("st_oxyd");
+        st->set_attrib("oxydcolor", color);
         st->set_attrib("flavor", config.oxyd_flavor);
     }
     else if (type == config.id_timer) {
@@ -448,7 +448,7 @@ void OxydLoader::load_stones()
         }
     }
 
-    SendMessage(GetObjectTemplate("st-oxyd"), "shuffle");
+    SendMessage(GetObjectTemplate("st_oxyd"), "shuffle");
 }
 
 void OxydLoader::scramble_puzzles ()

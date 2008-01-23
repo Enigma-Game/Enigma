@@ -67,7 +67,7 @@ Value Floor::message(const Message &m) {
         return force_fire();
     if (m.message == "heat")
         return try_heating(NODIR, flhf_message);
-    if ((m.message == "ignite" || m.message == "expl") && has_firetype(flft_ignitable))
+    if ((m.message == "ignite" || m.message == "_explosion") && has_firetype(flft_ignitable))
         return try_ignite(NODIR, flhf_message);
     if (m.message == "setfire")
         return try_ignite(NODIR, flhf_message);
@@ -154,7 +154,7 @@ void Floor::add_force (Actor *, V2 &f)
  *    - it-burnable or it-burnable_oil is on it
  *  Fire on a burnable floor can be ignited by:
  *    - "setfire"-message
- *    - "expl" or "ignite" message if the "ignitable"-attribute is set
+ *    - "_explosion" or "ignite" message if the "ignitable"-attribute is set
  *        - thereby by it-dynamite or it-*bomb + "ignitable"
  *    - fire in the neighborhood (see below)
  *    - on initialisation ("_init"-message) when "initfire"-attribute is set

@@ -556,7 +556,7 @@ namespace
         }
         
         virtual Value message(const Message &m) {
-            if (m.message =="ignite" || m.message == "expl" || m.message == "bombstone") {
+            if (m.message =="ignite" || m.message == "_explosion" || m.message == "_bombstone") {
                 break_me();
                 return Value();
             }
@@ -1258,7 +1258,7 @@ namespace
             set_attrib("interval", 1.0);
             set_attrib("loop", true);
             set_attrib("on", 1.0);
-            set_attrib("invisible", 0.0);
+            set_attrib("invisible", false);
 
             // set_on(true);   DOESN'T WORK! calls init_model()
         }
@@ -1276,7 +1276,7 @@ namespace
         }
 
         void init_model() {
-            if (getAttr("invisible") == 1) {
+            if (getAttr("invisible").to_bool()) {
                 set_model("invisible");
             }
             else {
@@ -1408,7 +1408,7 @@ Value FartStone::message(const Message &m)
             (m.message == "_trigger" && m.value.to_bool())) {
         change_state(FARTING);
         return Value();
-    } else if (m.message == "ignite" || m.message == "expl") { 
+    } else if (m.message == "ignite" || m.message == "_explosion") { 
         change_state(BREAKING);
         return Value();
     }
@@ -1847,7 +1847,7 @@ void BombStone::animcb()
 
 Value BombStone::message(const Message &m) 
 {
-    if (m.message =="expl" || m.message =="bombstone") {
+    if (m.message =="_explosion" || m.message =="_bombstone") {
         change_state(BREAK);
         return Value();
     }
@@ -2029,7 +2029,7 @@ namespace
         }
 
         virtual Value message(const Message &m) {
-            if (m.message == "expl") {
+            if (m.message == "_explosion") {
                 explode();
                 return Value();
             }

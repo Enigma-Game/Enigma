@@ -1916,17 +1916,17 @@ namespace
     void explosion (GridPos p, ItemID explosion_item)
     {
         if (Stone *stone = GetStone(p))
-            SendMessage(stone, "expl");
+            SendMessage(stone, "_explosion");
         if (Item  *item  = GetItem(p)) {
             if (has_flags(item, itf_indestructible))
-                SendMessage(item, "expl");
+                SendMessage(item, "_explosion");
             else
                 SetItem(p, explosion_item);
         }
         else
             SetItem(p, explosion_item);
         if (Floor *floor = GetFloor(p))
-            SendMessage(floor, "expl");
+            SendMessage(floor, "_explosion");
     }
 }
 
@@ -1967,9 +1967,9 @@ void SendExplosionEffect(GridPos center, ExplosionType type)
 
         case EXPLOSION_BOMBSTONE:
             if (direct_neighbor) {
-                if (stone) SendMessage(stone, "bombstone");
-                if (item) SendMessage(item, "bombstone");
-                if (floor) SendMessage(floor, "bombstone");
+                if (stone) SendMessage(stone, "_bombstone");
+                if (item) SendMessage(item, "_bombstone");
+                if (floor) SendMessage(floor, "_bombstone");
             }
             break;
 

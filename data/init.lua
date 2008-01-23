@@ -39,6 +39,7 @@ enigma._MakeObject = enigma.MakeObject
 enigma._GetKind = enigma.GetKind
 enigma._SetAttrib = enigma.SetAttrib
 enigma._GetAttrib = enigma.GetAttrib
+enigma._GetObjectTemplate = enigma.GetObjectTemplate
 
 RenamingObjectsOld2New = {
 }
@@ -55,6 +56,7 @@ RenamingObjectsNew2Old = {
     st_boulder_w = "st-bolder-w",
     st_floppy = "st-floppy",
     st_fourswitch = "st-fourswitch",
+    st_oxyd = "st-oxyd",
     st_switch_instant = "st-switch",
     st_switch_black_instant = "st-switch_black",
     st_switch_white_instant = "st-switch_white"
@@ -125,6 +127,7 @@ function enigma.SetAttrib(obj, key, val)
      if _obj_name == "st-oxyd" then
          if key == "color" then
 	     _val = 0 + val   -- convert to int
+             _key = "oxydcolor"
 	 end
      end
      if (_obj_name == "st-switch") or (_obj_name == "st-switch_black")
@@ -192,7 +195,12 @@ function enigma.GetAttrib(obj, key)
      if key == "blackball" or key == "whiteball" then
          _key = "color"
      end
+     if _obj_name == "st-oxyd" then
+         _key = "oxydcolor"
+     end
+
      local val = enigma._GetAttrib(obj, _key)
+     
      if key == "blackball" then
         if val == 0 then val = 1 else val = 0 end
      end
@@ -216,7 +224,21 @@ function enigma.GetAttrib(obj, key)
              val = d.y
          end
      end
+     if key == "invisible" then
+         if val == false then val = 0 else val = 1 end
+     end
      return val
+end
+
+function enigma.GetObjectTemplate(kind)
+    local _kind = RenamingObjectsOld2New[kind]
+    if _kind == nil then
+        _kind = kind
+    end
+    if kind == "st-key" or kind == "st-key_a" or kind == "st-key_b" or kind == "st-key_c" then
+        _kind = "st_key"
+    end
+    return enigma._GetObjectTemplate(_kind)
 end
 
 MessageRenaming = {
