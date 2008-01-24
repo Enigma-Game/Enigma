@@ -55,7 +55,7 @@ namespace enigma {
     
     int Switch::externalState() const {
         if (isInstant())
-            return state == ON || state == TURNON;
+            return (state == ON || state == TURNON) ? 1 : 0;
         else
             return state % 2;   // 0 for OFF, TURNON, 1 for ON, TURNOFF
     }

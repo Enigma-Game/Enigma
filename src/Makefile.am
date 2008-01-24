@@ -191,6 +191,8 @@ enigma_SOURCES = 		\
 	stones/BlockerStone.hh	\
 	stones/BoulderStone.cc	\
 	stones/BoulderStone.hh	\
+	stones/ClusterStone.cc	\
+	sotnes/ClusterStone.hh	\
 	stones/ConnectiveStone.cc	\
 	stones/ConnectiveStone.hh	\
 	stones/FloppySwitch.hh   \

@@ -45,6 +45,22 @@ namespace enigma {
                 return NODIRBIT;
         }
 
+        // temp. workarounds until this class gets eliminated
+        virtual void set_attrib(const string& key, const Value &val) {
+            if (key == "connections")
+                Object::set_attrib(key, val);  // bypass GridObject
+            else
+                Stone::set_attrib(key, val);
+        }
+        
+        virtual Value getAttr(const string &key) const {
+            if (key == "connections")
+                return Object::getAttr(key);
+            else
+                return Stone::getAttr(key);
+        }
+
+
     protected:
         virtual void init_model() {
             set_model(get_kind()+ecl::strf("%d", get_modelno()));

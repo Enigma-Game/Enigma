@@ -44,6 +44,14 @@ namespace enigma {
         GridObject() : pos (GridPos(-1, -1)) {}
         GridObject(const char * kind) : StateObject(kind), pos (GridPos(-1, -1)) {}
 
+        // Object interface
+        virtual void set_attrib(const string& key, const Value &val);
+        virtual Value getAttr(const string &key) const;
+
+        // StateObject interface
+        virtual void setState(int extState);
+
+
         void creation(GridPos p) {
             pos = p;
             on_creation (p);
@@ -89,26 +97,27 @@ namespace enigma {
         bool sound_event (const char *name, double vol = 1.0);
         display::Model *set_anim (const std::string &mname);
 
+        DirectionBits getConnections() const;
+        DirectionBits getFaces() const;
+
     protected:
         // GridObject interface
+        virtual std::string getModelName() const;
         virtual void set_model (const std::string &mname) = 0;
         virtual display::Model *get_model () = 0;
         virtual void kill_model (GridPos p) = 0;
 
-        virtual void init_model() {
-            set_model(get_kind());
-        }
+        virtual void init_model();
 
-        virtual void on_creation (GridPos) {
+        virtual void on_creation(GridPos p) {
             init_model();
         }
 
-        virtual void on_removal (GridPos p) {
+        virtual void on_removal(GridPos p) {
             kill_model (p);
         }
-
-        // StateObject interface
-        virtual void setState(int extState);
+        
+        
 
     private:
         // ModelCallback interface.

@@ -991,7 +991,7 @@ namespace
         {}
 
     private:
-        void init_model() {set_anim("_explosion");}
+        void init_model() {set_anim("expl");}
         bool actor_hit(Actor *actor) {
             SendMessage(actor, "shatter");
             return false;

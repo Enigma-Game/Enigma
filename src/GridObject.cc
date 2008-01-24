@@ -108,9 +108,65 @@ namespace enigma {
         va_end(arg_ptr);
     }
     
+    void GridObject::set_attrib(const string& key, const Value &val) {
+        if (key == "connections" || key == "faces") {
+            int d = NODIRBIT;
+            std::string vs(val);
+            if (vs.find('n') != std::string::npos) d |= NORTHBIT;
+            if (vs.find('e') != std::string::npos) d |= EASTBIT;
+            if (vs.find('s') != std::string::npos) d |= SOUTHBIT;
+            if (vs.find('w') != std::string::npos) d |= WESTBIT;
+            if (key == "faces") d ^= ALL_DIRECTIONS;
+            Object::set_attrib("$connections", d);
+            if (isDisplayable())
+                init_model();
+        } else if (key == "$connections") {
+            Object::set_attrib("$connections", val);
+            if (isDisplayable())
+                init_model();
+        } else
+            Object::set_attrib(key, val);
+    }
+    
+    Value GridObject::getAttr(const string &key) const {
+        if (key == "connections" || (key == "faces")) {
+            std::string result;
+            DirectionBits db = (key == "connections") ? getConnections() :getFaces();
+            if (db & NORTHBIT) result += "n";
+            if (db & EASTBIT)  result += "e";
+            if (db & SOUTHBIT) result += "s";
+            if (db & WESTBIT)  result += "w";
+            return result;
+        } else
+            return StateObject::getAttr(key);
+    }
+    
     void GridObject::setState(int extState) {
         StateObject::setState(extState);
         init_model();
+    }
+    
+    std::string GridObject::getModelName() const {
+        return get_kind();
+    }
+    
+    void GridObject::init_model() {
+        DirectionBits c = getConnections();
+        if (c != NODIRBIT)
+            set_model(getModelName() + ecl::strf("%d", c));
+        else
+            set_model(getModelName());
+    }
+
+    DirectionBits GridObject::getConnections() const {
+        if (Value v = getAttr("$connections"))
+            return DirectionBits((int)v);
+        else
+            return NODIRBIT;
+    }
+    
+    DirectionBits GridObject::getFaces() const {
+        return DirectionBits(ALL_DIRECTIONS ^ getConnections());
     }
     
 } // namespace enigma

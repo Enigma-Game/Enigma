@@ -348,6 +348,10 @@ std::list<Object *> World::get_group(const std::string &tmpl) {
 
 void World::name_object(Object *obj, const std::string &name)
 {
+    Object *old = get_named(name);
+    if (old != NULL)
+        unname(old);
+    
     std::string unique_name = name;
     if (server::EnigmaCompatibility >= 1.10 && name.size() > 0 && name[name.size() - 1] == '#') {
         // auto name object with a unique name

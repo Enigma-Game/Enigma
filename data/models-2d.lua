@@ -758,6 +758,27 @@ do
     DefSolidStone("st-wood_001", "st-bigpanelx1")
 end
 
+-- st_bluesand --
+do
+    DefSubimages("st-bigbluesand", {modelname="st_bluesandx",w=4,h=4})
+    for i=0,15 do DefSolidStone("st_bluesand"..i, "st_bluesandx"..(i+1)) end
+    DefSolidStone("st_bluesand", "st_bluesandx1")
+end
+
+-- st_brick --
+do
+    DefSubimages("st-bigbrick", {modelname="st_brickx",w=4,h=4})
+    for i=0,15 do DefSolidStone("st_brick"..i, "st_brickx"..(i+1)) end
+    DefSolidStone("st_brick", "st_brickx1")
+end
+
+-- st_panel --
+do
+    DefSubimages("st-bigpanel", {modelname="st_panelx",w=4,h=4})
+    for i=0,15 do DefSolidStone("st_panel"..i, "st_panelx"..(i+1)) end
+    DefSolidStone("st_panel", "st_panelx1")
+end
+
 -- st-bolder --
 do
     local img=DefSubimages("st-bolder", {w=4,h=3})
