@@ -1200,11 +1200,11 @@ do
 
     for i = 2, 16 do
         DefMultipleComposite("sh-window"..i, shadowlist[i])
-        DefShModel("st-window"..i, "fg-window"..i, "sh-window"..i)
+        DefShModel("st_window"..(16-i), "fg-window"..i, "sh-window"..i)
     end
 
     -- 4 sided window stone:
-    DefAlias("st-window","st-window16")
+    DefAlias("st_window","st_window0")
 
     -- Breaking animimation:
     local breaking_window_names = {}
@@ -1218,8 +1218,8 @@ do
         end
         local frames = BuildFrames(breaking_window_names[i], 130)
         -- TODO: finish anim names used:
-        DefAnim("st-window"..i.."-anim", frames)
-        DefAnim("st-window-anim", frames)
+        DefAnim("st_window"..i.."_anim", frames)
+        DefAnim("st_window_anim", frames)
     end
 end
 

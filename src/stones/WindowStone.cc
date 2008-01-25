@@ -1,6 +1,6 @@
 /*
  * Copyright (C) 2002,2003,2004 Daniel Heck
- * Copyright (C) 2007 Ronald Lamprecht
+ * Copyright (C) 2007, 2008 Ronald Lamprecht
  *
  * This program is free software; you can redistribute it and/or
  * modify it under the terms of the GNU General Public License
@@ -19,12 +19,31 @@
  */
 
 #include "stones/WindowStone.hh"
+//#include "main.hh"
 #include "server.hh"
 #include "world.hh"
 
 namespace enigma {
-    DEF_TRAITSM(WindowStone, "st-window", st_window, MOVABLE_BREAKABLE);
-
+    WindowStone::WindowStone(std::string faces) : Stone(), breakingFaces(NODIRBIT) {
+        set_attrib("faces", faces);
+    }
+    
+    Value WindowStone::message(const Message &m) {
+        if (m.message == "inner_pull" ) {
+            return Value(tryInnerPull(to_direction(m.value)));
+        }
+        return Stone::message(m);
+    }
+    
+    void WindowStone::animcb() {
+        if (state == FINALBREAK)
+            KillStone(get_pos());
+        else {
+            state = IDLE;
+            init_model();
+        }
+    }
+    
     void WindowStone::actor_hit(const StoneContact &sc) {
         Actor *a = sc.actor;
         // TODO do we want to allow breaks while breaking?
@@ -34,16 +53,15 @@ namespace enigma {
                 SendMessage(a, "shatter");
             }
 
-            else if (impulse > 25) {
-                breakingFaces = sc.faces;
-                set_attrib("connections", (get_connections() & ~breakingFaces) +1);
+            else if (impulse > 20) {
+                DirectionBits remainigFaces = (DirectionBits)(getFaces() & ~sc.faces);  // remove breaking face
+                Object::set_attrib("$connections", ALL_DIRECTIONS ^ remainigFaces);     // avoid init of model
                 sound_event ("shatter");
-                state = BREAK;
-                set_anim("st-window-anim");  // TODO anim with remaining unbroken faces
+                state = (remainigFaces == NODIRBIT) ? FINALBREAK : BREAK;
+                set_anim("st_window_anim");  // TODO anim with remaining unbroken faces
             }
             
             else if (player::WieldedItemIs (sc.actor, "it-wrench")) {
-                DirectionBits faces = get_connections();
                 if (sc.faces == WESTBIT && sc.normal[0] < 0){
                     tryInnerPull(EAST);
                 } else if (sc.faces == EASTBIT && sc.normal[0] > 0) {
@@ -57,23 +75,13 @@ namespace enigma {
         }
     }
     
-    void WindowStone::animcb() {
-        DirectionBits faces = get_connections();
-        DirectionBits newFaces = DirectionBits(faces & ~breakingFaces);
-        if (newFaces == NODIRBIT)
-            KillStone(get_pos());
-        else {
-            ReplaceStone(get_pos(), new WindowStone(newFaces+1));
-        }
-    }
-    
     bool WindowStone::is_sticky(const Actor *a) const  {
         return false;
     }
     
     StoneResponse WindowStone::collision_response(const StoneContact &sc) {
         const double face_width = 3.0/32.0; 
-        DirectionBits faces = get_connections();
+        DirectionBits faces = getFaces();
 
         if (((sc.contact_point[0] <= get_pos().x + face_width) && faces&WESTBIT) ||
                 ((sc.contact_point[0] >= get_pos().x + 1 - face_width) && faces&EASTBIT) ||
@@ -85,43 +93,41 @@ namespace enigma {
         }
     }
     
-    Value WindowStone::message(const Message &m) {
-        if (m.message == "inner_pull" ) {
-            return Value(tryInnerPull(to_direction(m.value)));
-        }
-        return ConnectiveStone::message(m);
-    }
-    
     bool WindowStone::tryInnerPull(Direction dir) {
-        DirectionBits faces = get_connections();
+        DirectionBits faces = getFaces();
         if (!has_dir(faces, dir) && has_dir(faces, reverse(dir))){
             Stone *stone = GetStone(move(get_pos(), dir));
             if (!stone || ((stone->get_traits().id == st_window) &&  
-                    !has_dir(dynamic_cast<ConnectiveStone *>(stone)->get_connections(), reverse(dir)))) {
-                ReplaceStone(get_pos(), new WindowStone((faces&(~to_bits(reverse(dir)))|to_bits(dir))+1));
+                    !has_dir(stone->getFaces(), reverse(dir)))) {
+                DirectionBits remainigFaces = (DirectionBits)((faces & ~to_bits(reverse(dir)))
+                        |to_bits(dir));  // move face
+                Object::set_attrib("$connections", ALL_DIRECTIONS ^ remainigFaces);     // avoid init of model
+                init_model();
                 return true;
             }
         }
         return has_dir(faces, dir);
     }
+    
+    DEF_TRAITSM(WindowStone, "st_window", st_window, MOVABLE_BREAKABLE);
 
     BOOT_REGISTER_START
-        BootRegister(new WindowStone(3), "st-window");    // compatibility window with south face only
-        BootRegister(new WindowStone(2), "st-window-w");
-        BootRegister(new WindowStone(3), "st-window-s");
-        BootRegister(new WindowStone(4), "st-window-sw");
-        BootRegister(new WindowStone(5), "st-window-e");
-        BootRegister(new WindowStone(6), "st-window-ew");
-        BootRegister(new WindowStone(7), "st-window-es");
-        BootRegister(new WindowStone(8), "st-window-esw");
-        BootRegister(new WindowStone(9), "st-window-n");
-        BootRegister(new WindowStone(10), "st-window-nw");
-        BootRegister(new WindowStone(11), "st-window-ns");
-        BootRegister(new WindowStone(12), "st-window-nsw");
-        BootRegister(new WindowStone(13), "st-window-ne");
-        BootRegister(new WindowStone(14), "st-window-new");
-        BootRegister(new WindowStone(15), "st-window-nes");
-        BootRegister(new WindowStone(16), "st-window-nesw");
+        BootRegister(new WindowStone("s"), "st_window");    // compatibility window with south face only
+        BootRegister(new WindowStone("w"), "st_window_w");
+        BootRegister(new WindowStone("s"), "st_window_s");
+        BootRegister(new WindowStone("sw"), "st_window_sw");
+        BootRegister(new WindowStone("e"), "st_window_e");
+        BootRegister(new WindowStone("ew"), "st_window_ew");
+        BootRegister(new WindowStone("es"), "st_window_es");
+        BootRegister(new WindowStone("esw"), "st_window_esw");
+        BootRegister(new WindowStone("n"), "st_window_n");
+        BootRegister(new WindowStone("nw"), "st_window_nw");
+        BootRegister(new WindowStone("ns"), "st_window_ns");
+        BootRegister(new WindowStone("nsw"), "st_window_nsw");
+        BootRegister(new WindowStone("ne"), "st_window_ne");
+        BootRegister(new WindowStone("new"), "st_window_new");
+        BootRegister(new WindowStone("nes"), "st_window_nes");
+        BootRegister(new WindowStone("nesw"), "st_window_nesw");
     BOOT_REGISTER_END
 
 } // namespace enigma

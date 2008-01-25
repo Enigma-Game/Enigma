@@ -836,8 +836,8 @@ namespace enigma {
     
     // Instance Methods
     
-    OxydStone::OxydStone() : PhotoStone("st_oxyd") {
-        set_attrib("flavor", "b");
+    OxydStone::OxydStone(std::string flavor) : PhotoStone("st_oxyd") {
+        set_attrib("flavor", flavor);
         set_attrib("oxydcolor", AUTO);
     }
     
@@ -1106,7 +1106,11 @@ namespace enigma {
     
 
     BOOT_REGISTER_START
-        BootRegister(new OxydStone);
+        BootRegister(new OxydStone(), "st_oxyd");
+        BootRegister(new OxydStone("a"), "st_oxyd_a");
+        BootRegister(new OxydStone("b"), "st_oxyd_b");
+        BootRegister(new OxydStone("c"), "st_oxyd_c");
+        BootRegister(new OxydStone("d"), "st_oxyd_d");
     BOOT_REGISTER_END
 
 } // namespace enigma

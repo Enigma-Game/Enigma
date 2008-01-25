@@ -27,7 +27,6 @@
 #include "client.hh"
 #include "main.hh"
 #include "stones_internal.hh"
-#include "stones/ConnectiveStone.hh"
 #include "WorldProxy.hh"
 
 #include <iostream>
@@ -631,7 +630,7 @@ void World::find_contact_with_stone(Actor *a, GridPos p, StoneContact &c,
     bool isWindow = stone->get_traits().id == st_window;
     DirectionBits wsides;
     if (isWindow) {
-        wsides = dynamic_cast<ConnectiveStone *>(stone)->get_connections();
+        wsides = stone->getFaces();
     }
     
     const ActorInfo &ai = *a->get_actorinfo();
@@ -679,9 +678,9 @@ void World::find_contact_with_stone(Actor *a, GridPos p, StoneContact &c,
             else if ( ycorner && xoff_neighbour) face = SOUTHBIT;
             
             // the faces that the neighbour window owns
-            ConnectiveStone * neighbour = dynamic_cast<ConnectiveStone *>
-                    (GetStone(GridPos(x+xoff_neighbour, y+yoff_neighbour)));
-            DirectionBits face_neighbour = (neighbour) ? neighbour->get_connections() : NODIRBIT;
+            Stone * neighbour = GetStone(GridPos(x+xoff_neighbour, y+yoff_neighbour));
+            DirectionBits face_neighbour = (neighbour != NULL && neighbour->get_traits().id == st_window) 
+                    ? neighbour->getFaces() : NODIRBIT;
             
             
             if ((winFacesActorStone&face) && !(face_neighbour&face)) {
@@ -945,8 +944,9 @@ void World::find_stone_contacts(Actor *a, StoneContact &c0, StoneContact &c1,
     
     // info about a Window stone on the Gridpos of the actor that may cause
     // contacts within the grid
-    ConnectiveStone * actorWinStone = dynamic_cast<ConnectiveStone *>(GetStone(g));
-    DirectionBits winFacesActorStone = (actorWinStone) ? actorWinStone->get_connections() : NODIRBIT;
+    Stone * actorWinStone = GetStone(g);
+    DirectionBits winFacesActorStone = (actorWinStone != NULL && actorWinStone->get_traits().id == st_window)
+            ? actorWinStone->getFaces() : NODIRBIT;
     
     // distinguish 9 squares within gridpos that may cause contacts
     // low cost reduction of cases that need to be examined in detail:

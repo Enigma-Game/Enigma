@@ -83,7 +83,15 @@ namespace enigma {
          */
         GridPos getOwnerPos();
         
-        virtual bool isDisplayable() {return pos.x >= 0;}
+        /**
+         * Verify that the GridObject is part of the world's grid and display 
+         * models can be set and killed without restriction. Especially attribute
+         * changes and messages need to check carefully if just the objects ivars
+         * and attributes may be changed or if the display can and has to be 
+         * updated, too.
+         * @return   true if display access is possible, false otherwise
+         */
+        bool isDisplayable();
 
         // GridObject interface
         virtual void on_laserhit (Direction) {}
@@ -115,9 +123,7 @@ namespace enigma {
 
         virtual void on_removal(GridPos p) {
             kill_model (p);
-        }
-        
-        
+        }     
 
     private:
         // ModelCallback interface.

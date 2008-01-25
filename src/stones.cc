@@ -99,7 +99,7 @@ Other stones:
 - \ref st-bolder
 - \ref st-puzzle
 - \ref st-stone_break
-- \ref st-window
+- \ref st_window
 - \ref st-break_acwhite
 - \ref st-break_acblack
 - \ref st-oneway

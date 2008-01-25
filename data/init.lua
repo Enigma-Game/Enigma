@@ -59,7 +59,8 @@ RenamingObjectsNew2Old = {
     st_oxyd = "st-oxyd",
     st_switch_instant = "st-switch",
     st_switch_black_instant = "st-switch_black",
-    st_switch_white_instant = "st-switch_white"
+    st_switch_white_instant = "st-switch_white",
+    st_window = "st-window"
 }
 
 for k,v in pairs(RenamingObjectsNew2Old) do

@@ -30,34 +30,39 @@
 
 /* -------------------- Window -------------------- */
 
-/** \page st-window Breakable Stone
+/** \page st_window Breakable Stone
 
 Hit this window heavily with your marble to blast it into smithereens.
 
-\image html st-window.png
+\image html st_window.png
 */
 
 namespace enigma {
     
-    class WindowStone : public ConnectiveStone {
+    class WindowStone : public Stone {
         CLONEOBJ(WindowStone);
         DECL_TRAITS;
-        const char *collision_sound() {return "glass";}
+    private:
+        enum iState { IDLE, BREAK, FINALBREAK };
+        
+    public:
+        WindowStone(std::string faces);
+        
+        // Object interface
+        virtual Value message(const Message &m);
 
-        bool is_transparent (Direction) const { return true; }
-        bool is_floating() const { return state != IDLE; }
-        enum State { IDLE, BREAK } state;
-
-        void actor_hit(const StoneContact &sc);
+        // ModelCallback interface
         void animcb();
 
-    public:
-        WindowStone(int connections) : ConnectiveStone(connections),
-                state(IDLE), breakingFaces(NODIRBIT) {
-        }
-        virtual bool is_sticky(const Actor *a) const;
+        // Stone interface
+        void actor_hit(const StoneContact &sc);
         StoneResponse collision_response(const StoneContact &sc);
-        virtual Value message(const Message &m);
+        const char *collision_sound() {return "glass";}
+        bool is_transparent (Direction) const { return true; }
+        bool is_floating() const { return state != IDLE; }
+        virtual bool is_sticky(const Actor *a) const;
+
+
     private:
         DirectionBits breakingFaces;
         bool tryInnerPull(Direction dir);

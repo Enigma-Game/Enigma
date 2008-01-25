@@ -81,6 +81,10 @@ namespace enigma {
             return pos;
     }
     
+    bool GridObject::isDisplayable() {
+        return pos.x >= 0;
+    }
+    
     display::Model *GridObject::set_anim (const std::string &mname) 
     {
         set_model (mname);
@@ -125,7 +129,7 @@ namespace enigma {
             if (isDisplayable())
                 init_model();
         } else
-            Object::set_attrib(key, val);
+            StateObject::set_attrib(key, val);
     }
     
     Value GridObject::getAttr(const string &key) const {

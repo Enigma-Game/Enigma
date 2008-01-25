@@ -26,7 +26,7 @@ namespace enigma {
     }
     
     void ClusterStone::set_attrib(const string& key, const Value &val) {
-        if (key == "connections") {
+        if (key == "connections" || key == "faces" || key == "cluster") {
             Stone::set_attrib(key, val);
             if (isDisplayable()) {
                 autoLeaveCluster();

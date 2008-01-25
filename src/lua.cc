@@ -1669,7 +1669,7 @@ static int dispatchWorldReadAccess(lua_State *L) {
         }
         return 1;
     } else {
-        throwLuaError(L, "Named object access without giving a name");
+        throwLuaError(L, "World read access without giving an attribute name");
         return 0;
     }
 }
