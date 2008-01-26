@@ -205,7 +205,7 @@ namespace enigma {
 /* -------------------- Random Numbers -------------------- */
 
 /**
- * Maximum random number 2^16-1 that is valid for all operating systems
+ * Maximum random number 2^31-1 that is valid for all operating systems
  * and processor types. 
  */
 #define ENIGMA_RAND_MAX  2147483647

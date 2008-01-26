@@ -36,6 +36,13 @@ namespace enigma {
         }
         Stone::set_attrib(key, val);
     }
+    
+    Value ClusterStone::message(const Message &m) {
+        if (m.message == "_model_reanimated") {
+            init_model();
+        }
+        return Stone::message(m);
+    }
 
     void ClusterStone::on_creation(GridPos p) {
         autoJoinCluster();

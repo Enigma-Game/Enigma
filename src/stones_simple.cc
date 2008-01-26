@@ -346,6 +346,13 @@ namespace
         CLONEOBJ(ChameleonStone);
         DECL_TRAITS;
 
+        Value message(const Message &m) {
+            if (m.message == "_model_reanimated") {
+                init_model();
+            }
+            return Stone::message(m);
+        }
+        
         void init_model() {
             string modelname = "fl-gray";
             if (Floor *fl = GetFloor(get_pos()))
@@ -428,6 +435,12 @@ void SwapStone::dispose() {
 void SwapStone::on_removal(GridPos p) {
     if (state == COME) {
         GameTimer.remove_alarm(this);
+        GridPos oldPos = move(get_pos(), reverse(move_dir));
+        SwapStone *other = dynamic_cast<SwapStone *>(GetStone(oldPos));
+        if (other != NULL) {
+            other->state = IDLE;
+            other->init_model();
+        }
     }
     GridObject::on_removal(p);
 }
@@ -1371,7 +1384,7 @@ void FartStone::change_state(State newstate)
     case FARTING:
     case BREAKING:
         if (state == IDLE) {
-            Object *ox = GetObjectTemplate("st-oxyd");
+            Object *ox = GetObjectTemplate("st_oxyd");
             SendMessage(ox, "closeall");
             sound_event("fart");
             if (newstate == BREAKING) {

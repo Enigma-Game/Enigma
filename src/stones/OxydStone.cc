@@ -856,8 +856,7 @@ namespace enigma {
     
     Value OxydStone::message(const Message &m) {
         if (m.message == "closeall") {
-            if (isDisplayable())
-                closeAllStandardOxyds();
+            closeAllStandardOxyds();
             return Value();
         }
         else if (m.message == "shuffle") {

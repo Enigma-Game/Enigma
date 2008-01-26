@@ -469,7 +469,9 @@ void YieldedGridStone::set_stone(GridPos pos)
 {
     SetStone(pos, stone);
     display::SetModel(GridLoc(GRID_STONES, stone->get_pos()), model);
-    stone->on_move();
+    stone->on_move();    // continue animations -- this is buggy if the stone has another
+                         // model on the new position like st-chameleon
+    SendMessage(stone, "_model_reanimated");  // temp fix: reset bad models
     stone = 0;
     model = 0;
 }

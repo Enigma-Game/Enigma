@@ -1695,12 +1695,15 @@ static int setObjectByTable(lua_State *L, double x, double y) {
     
     if (name == "fl_nil") {
         KillFloor(GridPos(xi, yi));
+        lua_pop(L, 1);   // object type
         return 0;
     } else if (name == "st_nil") {
         KillStone(GridPos(xi, yi));
+        lua_pop(L, 1);   // object type
         return 0;
     } else if (name == "it_nil") {
         KillItem(GridPos(xi, yi));
+        lua_pop(L, 1);   // object type
         return 0;
     }
     

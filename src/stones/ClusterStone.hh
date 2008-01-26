@@ -35,7 +35,7 @@ namespace enigma {
         
         // Object interface
         virtual void set_attrib(const string& key, const Value &val);
-
+        virtual Value message(const Message &m);
         // GridObject interface
         virtual void on_creation(GridPos p);
         virtual void on_removal(GridPos p);
