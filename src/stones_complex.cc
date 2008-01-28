@@ -375,7 +375,10 @@ namespace
     private:
         CLONEOBJ(OneWayStone);
         DECL_TRAITS;
-        virtual bool actor_may_pass (Actor * /*a*/) { return true; }
+        virtual bool actor_may_pass (Actor *a) {
+            const ActorTraits &at = a->get_traits();
+            return at.id != ac_bug && at.id != ac_horse;
+        }
     };
     DEF_TRAITS(OneWayStone, "st-oneway", st_oneway);
 

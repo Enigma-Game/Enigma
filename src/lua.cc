@@ -1774,7 +1774,7 @@ static int setObjectByTile(lua_State *L, double x, double y) {
 
 static int initWorld(lua_State *L) {
     // world, (ti|function), string, table
-    if (server::WorldInitialized) {
+    if (server::WorldSized) {
         throwLuaError(L, "World reinitialization not allowed");
         return 0;
     }

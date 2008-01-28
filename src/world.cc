@@ -1557,7 +1557,7 @@ void Resize (int w, int h)
 {
     level.reset (new World(w,h));
     display::NewWorld(w, h);
-    server::WorldInitialized = true;
+    server::WorldSized = true;
 }
 
 void WorldPrepareLevel ()
@@ -1605,6 +1605,7 @@ bool WorldInitLevel()
     display::FocusReferencePoint();
 
     level->preparing_level = false;
+    server::WorldInitialized = true;
 
     return true;
 }

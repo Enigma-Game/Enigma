@@ -1316,80 +1316,149 @@ namespace
 
 
 /* -------------------- Trigger -------------------- */
-namespace
-{
+    /**
+     * A switch that is triggered by actors crossing it on the floor and stones
+     * being pushed onto it. The external state is read only - value 1 (ON) is
+     * reported if the trigger is pressed either by an actor or a stone, a value
+     * 0 (OFF) otherwise.<p>
+     * Note that due to the Enigma 1.10 standards no actions will be performed
+     * on initialisation or setting of a trigger, even if actors or a stone are
+     * positioned on the grid. But state and model are set according to the other
+     * objects.<p>
+     * The internal state stores the current number of actors and the presence
+     * of a stone. The stone is flagged as the least significant bit, the actor
+     * count is stored in the bits above, what is simply an addition of 2 times
+     * the actor count to the state. This coding simplifies requests and avoids
+     * usage of additional ivars for the complete logical state.
+     */
     class Trigger : public Item {
         CLONEOBJ(Trigger);
         DECL_TRAITS;
     public:
         Trigger();
-    private:
-        // Variables
-        bool m_pressedp;
-        int m_actorcount;
+        
+        // Object interface
+        virtual Value message (const Message &m);
+        
+        // StateObject interface
+        virtual int externalState() const;
+        virtual void setState(int extState);
 
-        // Methods
-        void update_state();
-
+        // GridObject interface
+        virtual void on_creation(GridPos p);
+        virtual void init_model();
+        
         // Item interface
-        void init_model();
-        void actor_enter(Actor *) { m_actorcount += 1; update_state(); }
-        void actor_leave(Actor *) { m_actorcount -= 1; update_state(); }
-        void stone_change(Stone *) { update_state(); }
+        virtual void actor_enter(Actor *a);
+        virtual void actor_leave(Actor *a);
+        virtual void stone_change(Stone *st);
+    private:
+        // Methods
+        int countActors();
+        void updateIState(int diffActors = 0, bool refuseAction = false);
 
-        virtual Value message (const Message &m) {
-            if (m.message == "signal") {
-                performAction(m.value.to_bool());  // convert 1/0 values to true/false
-                return Value();                
-            } else if (m.message == "_init") {
-                update_state();                
-                return Value();
-            }
-            return Item::message(m);
-        }
     };
 
-    DEF_TRAITSF(Trigger, "it-trigger", it_trigger,
-                itf_static | itf_indestructible);
-}
-
-Trigger::Trigger()
-{
-    m_pressedp = false;
-    m_actorcount = 0;
-    set_attrib("invisible", false);
-}
-
-void Trigger::init_model()
-{
-    if (getAttr("invisible").to_bool())
-        set_model("invisible");
-    else if (m_pressedp)
-        set_model("it-trigger1");
-    else
-        set_model("it-trigger");
-}
-
-void Trigger::update_state()
-{
-    Stone *st = GetStone(get_pos());
-    // Hack to make tunnel puzzle stones press triggers
-    bool stone_pressure = st && (!st->is_floating() || st->is_kind ("st-puzzle*"));
-    bool pressedp = stone_pressure || (m_actorcount > 0);
-
-    if (m_pressedp != pressedp) {
-        m_pressedp = pressedp;
-
+    DEF_TRAITSF(Trigger, "it_trigger", it_trigger, itf_static | itf_indestructible);
+    
+    Trigger::Trigger() {
+        set_attrib("invisible", false);
+    }
+    
+    Value Trigger::message (const Message &m) {
+        if (m.message == "signal") {
+            performAction(m.value.to_bool());  // convert 1/0 values to true/false
+            return Value();                
+        } else if (m.message == "_init") {
+            // the state count at init is wrong as some actors on the grid may
+            // already have existed on_creation, but all are reported via
+            // actor_enter due to actors on_creation.
+            // Thus we need to reset and recount the actors:
+            state = 0;
+            
+            // old Enigma versions did issue performAction what is incompatible
+            updateIState(countActors(),
+                    server::EnigmaCompatibility >= 1.10 && server::GameCompatibility == GAMET_ENIGMA); 
+            return Value();
+        } else if (m.message == "_jumping" ) {
+            updateIState(m.value.to_bool() ? -1 : +1);
+        }
+        return Item::message(m);
+    }
+        
+    int Trigger::externalState() const {
+        return state != 0 ? 1 : 0;
+    }
+    
+    void Trigger::setState(int extState) {
+        return;   // ignore any write attempts
+    }
+    
+    void Trigger::on_creation(GridPos p) {
+        state = 0;
+        updateIState(countActors(), !server::WorldInitialized);
         init_model();
-        if (m_pressedp) {
-            sound_event ("triggerdown");
-            performAction(true);
-        } else {
-            sound_event ("triggerup");
-            performAction(false);
+    }
+        
+    void Trigger::init_model() {
+        if (getAttr("invisible").to_bool())
+            set_model("invisible");
+        else if (state != 0)
+            set_model("it-trigger1");
+        else
+            set_model("it-trigger");
+    }
+    
+    void Trigger::actor_enter(Actor *a) {
+        if (!a->is_flying())
+            updateIState(+1, !server::WorldInitialized);
+    }
+    
+    void Trigger::actor_leave(Actor *a) {
+        if (!a->is_flying())
+            updateIState(-1, !server::WorldInitialized);
+    }
+    
+    void Trigger::stone_change(Stone *) {
+        updateIState(0);
+    }
+    
+    int Trigger::countActors() {
+        vector<Actor*> actors;
+        GetActorsInsideField (get_pos(), actors);
+        int count = 0;
+        for (vector<Actor*>::iterator it = actors.begin(); it != actors.end(); ++it)
+            if (!(*it)->is_flying()) count++;
+        return count;
+    }
+    
+    void Trigger::updateIState(int diffActors, bool refuseAction) {
+        int oldState = state;
+        
+        state += 2 * diffActors;
+        
+        Stone *st = GetStone(get_pos());
+        state &= ~1;  // delete stone pressure bit
+        if (st != NULL && (!st->is_floating() || st->is_kind("st-puzzle*"))) {
+            // Hack to make hollow puzzle stones press triggers
+            state |= 1;   // add stone pressure bit
+        }
+                
+//        Log << "Trigger update old state " << oldState << " - new state " << state << "\n";
+    
+        if ((oldState == 0 && state != 0) || (oldState != 0 && state == 0)) {
+            init_model();
+            if (!refuseAction) {
+                if (state != 0) {
+                    sound_event ("triggerdown");
+                    performAction(true);
+                } else {
+                    sound_event ("triggerup");
+                    performAction(false);
+                }
+            }
         }
     }
-}
 
 
 /* -------------------- Seed -------------------- */

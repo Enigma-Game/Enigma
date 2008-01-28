@@ -87,6 +87,7 @@ bool     server::ShowMoves;
 bool     server::SingleComputerGame;        // no Lua access
 bool     server::TwoPlayerGame;             // no Lua access
 GameType server::GameCompatibility;         // no Lua access
+bool     server::WorldSized;                // no Lua access
 bool     server::WorldInitialized;          // no Lua access
 double   server::Brittleness;
 double   server::BumperForce;
@@ -256,7 +257,7 @@ void server::PrepareLevel()
     move_counter = 0;
 
     enigma::WorldPrepareLevel();
-    server::WorldInitialized = false;
+    server::WorldSized = false;
 
     player::PrepareLevel();
 

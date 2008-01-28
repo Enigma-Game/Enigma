@@ -442,7 +442,7 @@ namespace
         DECL_TRAITS;
     public:
         Bug() : Actor(traits) {}
-        bool is_flying() const { return true; }
+        bool is_flying() const { return false; }
         bool is_dead() const { return false; }
         int get_id() const { return ac_bug; }
     };
@@ -466,7 +466,7 @@ namespace
         DECL_TRAITS;
  
         int get_id() const { return ac_horse; }
-        bool is_flying() const { return true; }
+        bool is_flying() const { return false; }
         bool is_dead() const { return false; }
 
         void think (double dtime);
@@ -619,7 +619,7 @@ namespace
         };
 
         void sink (double dtime);
-	void disable_shield();
+        void disable_shield();
         void change_state_noshield (State newstate);
         void change_state(State newstate);
 
@@ -642,7 +642,7 @@ namespace
         }
 
         bool is_dead() const;
-	bool is_movable() const;
+        bool is_movable() const;
         bool is_flying() const { return state == JUMPING; }
         bool is_on_floor() const;
         bool is_drunken() const { return m_drunk_rest_time>0; }
@@ -1015,6 +1015,13 @@ void BasicBall::change_state(State newstate) {
 
     string kind     = get_kind();
     State  oldstate = state;
+    
+    if (oldstate == JUMPING) {
+        // notify objects on grid about the landing - used by it_trigger
+        SendMessage(GetStone(get_gridpos()), "_jumping", false);
+        SendMessage(GetItem(get_gridpos()), "_jumping", false);
+        SendMessage(GetFloor(get_gridpos()), "_jumping", false);
+    }
 
     // Whatever happened to the ball, the sink depth
     // should be returned to zero.
@@ -1066,6 +1073,10 @@ void BasicBall::change_state(State newstate) {
     case JUMPING:
         sound_event ("jump");
         set_anim(kind+"-jump");
+        // notify objects on grid about the jumping - used by it_trigger
+        SendMessage(GetFloor(get_gridpos()), "_jumping", true);
+        SendMessage(GetItem(get_gridpos()), "_jumping", true);
+        SendMessage(GetStone(get_gridpos()), "_jumping", true);
         break;
     case APPEARING:
     case RISING_VORTEX:

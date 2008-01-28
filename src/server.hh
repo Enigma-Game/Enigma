@@ -70,7 +70,10 @@ namespace enigma_server
     // Behave like Oxyd/Enigma version
     extern GameType GameCompatibility;
 
-    // Detect double initialization (resize) attempts
+    // Detect double world resize attempts
+    extern bool     WorldSized;
+    
+    // Guarantee a fully initialized world, init messages has been sent
     extern bool     WorldInitialized;
     
     // Single oxyds make a level unsolvable, but sometimes they are just fake,... 

@@ -47,6 +47,7 @@ RenamingObjectsOld2New = {
 RenamingObjectsNew2Old = {
     it_blocker = "it-blocker",
     it_blocker_new = "it-blocker-new",
+    it_trigger = "it-trigger",
     st_blocker = "st-blocker",
     st_blocker_new = "st-blocker-growing",
     st_boulder = "st-bolder",
