@@ -82,7 +82,7 @@ namespace enigma {
                         neighbour->set_attrib("$connections", neighbour->getConnections() & (ALL_DIRECTIONS ^ to_bits(reverse(d))));
                 }
             } else if (myCluster) { // no neighbour -> no connection
-                set_attrib("$connections", getConnections() & (ALL_DIRECTIONS ^ to_bits(d))); // clear connection                
+                set_attrib("$connections", getConnections() & (ALL_DIRECTIONS ^ to_bits(d))); // clear connection
             }
         }
     }

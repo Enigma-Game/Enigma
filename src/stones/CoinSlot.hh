@@ -18,45 +18,51 @@
  * 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.
  *
  */
-#ifndef KEYSWITCH_HH
-#define KEYSWITCH_HH
+#ifndef COINSLOT_HH
+#define COINSLOT_HH
 
 #include "stones.hh"
 #include "stones_internal.hh"
-#include "Inventory.hh"
 
 namespace enigma {
 
     /** 
-     * This stone acts as a lock and can only be activated by
-     * using a key item. You can use keycodes to let keys only
-     * open specific key stones.<p>
-     * It is a StateObject with 2 internal states as the
-     * state changes are not animated. The messages
+     * A simple 2 state timeswitch that can be toggled only by inserting coins
+     * Each coin adds a certain time the switch stays on. The messages
      * "toggle", "signal", "on", "off" and get/set of the state are fully supported.
-     * The keyswitch starts per default in state OFF.<p>
-     * They can
-     * send inverse action values by setting the "inverse" attribute.
+     * The switch starts per default in state OFF.<p>
      */
-    class KeySwitch : public Stone {
-        CLONEOBJ(KeySwitch);
+    // TODO: Fix bug when throw in a coin just before the remaining time ends.
+    class CoinSlot : public Stone, public TimeHandler {
+        CLONEOBJ(CoinSlot);
         DECL_TRAITS;
     private:
-        enum iState { OFF, ON };
+        enum iState { OFF, ON, TURNON };
+        double remaining_time;
+
     public:
-        KeySwitch();
+        CoinSlot();
+        ~CoinSlot();
 
         // StateObject interface
+        virtual int externalState() const;
         virtual void setState(int extState);
 
         // GridObject interface
         virtual void init_model();
 
+        // ModelCallback interface
+        virtual void animcb();
+
         // Stone interface
         virtual void actor_hit(const StoneContact &sc);
         virtual const char *collision_sound();
+
+        // TimeHandler interface
+        virtual void tick(double dtime);
+
     private:
-        bool check_matching_key(enigma::Inventory *inv);
+        void setIState(iState newIState);
     };
 
 } // namespace enigma

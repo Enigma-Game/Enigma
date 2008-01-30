@@ -49,6 +49,7 @@ namespace enigma {
         st_chameleon,
         st_chess,
         st_coffee,
+        st_coinslot,
         st_death,
         st_death_invisible,
         st_easymode,

@@ -55,6 +55,7 @@ RenamingObjectsNew2Old = {
     st_boulder_e = "st-bolder-e",
     st_boulder_s = "st-bolder-s",
     st_boulder_w = "st-bolder-w",
+    st_coinslot = "st-coinslot",
     st_floppy = "st-floppy",
     st_fourswitch = "st-fourswitch",
     st_oxyd = "st-oxyd",

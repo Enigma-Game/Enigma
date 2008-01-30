@@ -23,111 +23,12 @@
 #include "player.hh"
 #include "server.hh"
 #include "Inventory.hh"
-
 #include "stones_internal.hh"
 
 using namespace std;
 
 namespace enigma {
 
-
-/* -------------------- Coin slot -------------------- */
-
-namespace
-{
-    class CoinSlot : public OnOffStone, public TimeHandler {
-        CLONEOBJ(CoinSlot);
-    public:
-        CoinSlot();
-        ~CoinSlot();
-
-    private:
-        // Variables.
-        enum State { ACTIVE, INACTIVE } state;
-        double remaining_time;
-
-        // GridObject interface
-        void init_model();
-        void animcb();
-
-        // TimeHandler interface
-        void tick(double dtime);
-
-        // Stone interface
-        void actor_hit(const StoneContact &sc);
-        const char *collision_sound() { return "metal"; }
-
-        // Private methods.
-        void change_state(State newstate);
-    };
-}
-
-CoinSlot::CoinSlot()
-: OnOffStone("st-coinslot"), state(INACTIVE), remaining_time(0)
-{
-}
-
-CoinSlot::~CoinSlot() {
-    GameTimer.remove_alarm (this);
-}
-
-
-void CoinSlot::init_model() {
-    set_model(state==ACTIVE ? "st-coinslot-active" : "st-coinslot");
-}
-
-
-void CoinSlot::change_state(State newstate) {
-    if (state == newstate) return;
-
-    switch (newstate) {
-    case ACTIVE:
-        performAction(true);
-        GameTimer.activate(this);
-        break;
-    case INACTIVE:
-        performAction(false);
-        GameTimer.deactivate(this);
-        sound_event ("coinslotoff");
-        break;
-    }
-    state = newstate;
-    init_model();
-}
-
-void CoinSlot::animcb() {
-    change_state(ACTIVE);
-    init_model();
-}
-
-void CoinSlot::tick(double dtime)
-{
-    ASSERT(remaining_time > 0, XLevelRuntime, "CoinSlot: tick called, but no remaining time");
-
-    remaining_time -= dtime;
-    if (remaining_time <= 0)
-        change_state(INACTIVE);
-}
-
-void CoinSlot::actor_hit(const StoneContact &sc)
-{
-    if (enigma::Inventory *inv = player::GetInventory(sc.actor)) {
-        if (Item *it = inv->get_item (0)) {
-            ItemID id = get_id(it);
-            if (id == it_coin1 || id == it_coin2 || id == it_coin4) {
-                sound_event ("coinsloton");
-                set_anim("st-coin2slot");
-
-                double coin_value = it->getAttr("value");
-                remaining_time += coin_value;
-
-                inv->yield_first();
-                player::RedrawInventory (inv);
-                delete it;
-            }
-        }
-    }
-}
 
 /* -------------------- Laser / Time switches -------------------- */
 
@@ -332,14 +233,10 @@ TimeSwitch::TimeSwitch()
 void TimeSwitch::notify_laseron()  {} // ignore laser
 void TimeSwitch::notify_laseroff() {}
 
-
-
-
 /* -------------------- Functions -------------------- */
 
 void InitSwitches()
 {
-    Register (new CoinSlot);
     Register (new LaserSwitch);
     Register (new LaserTimeSwitch);
     Register (new TimeSwitch);
