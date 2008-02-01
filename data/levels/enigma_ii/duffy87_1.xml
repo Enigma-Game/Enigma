@@ -3,7 +3,7 @@
   <el:protected>
     <el:info el:type="level">
       <el:identity el:title="Puppet" el:subtitle="" el:id="duffy87"/>
-      <el:version el:score="1" el:release="1" el:revision="0" el:status="released"/>
+      <el:version el:score="1" el:release="1" el:revision="1" el:status="released"/>
       <el:author  el:name="Jacob Scott" el:email="" el:homepage=""/>
       <el:copyright>Copyright © 2004 Jacob Scott</el:copyright>
       <el:license el:type="GPL v2.0 or above" el:open="true"/>
@@ -16,8 +16,11 @@
       <el:score el:easy="-" el:difficult="-"/>
     </el:info>
     <el:luamain><![CDATA[
-levelw=21
-levelh=13
+rooms_wide=1
+rooms_high=1
+
+levelw=1+(19*rooms_wide)
+levelh=1+(12*rooms_high)
 
 create_world( levelw, levelh)
 
@@ -43,10 +46,10 @@ function renderLine( line, pattern)
         elseif c == "!" then
             abyss(i-1,line)
         elseif c == "~" then
-           set_floor("fl-water",i-1,line)
+            set_floor("fl-water",i-1,line)
         elseif c=="z" then
-           set_actor("ac-blackball", i-.5,line+.5, {player=0})
-           set_floor("fl-normal",i-1,line)
+            set_actor("ac-blackball", i-.5,line+.5, {player=0})
+            set_floor("fl-normal",i-1,line)
         elseif c == "g" then
             draw_stones("st-grate1",{i-1,line}, {1,1}, 1)
         elseif c=="+" then
@@ -82,30 +85,30 @@ function renderLine( line, pattern)
             set_floor("fl-gradient",  i-1,  line, {type=10})
             set_item("it-ring",i-1,line)
         elseif c=="F" then
-           set_floor("fl-normal",i-1,line)
-           set_item("it-flagblack",i-1,line)
+            set_floor("fl-normal",i-1,line)
+            set_item("it-flagblack",i-1,line)
         elseif c=="m" then
-           set_floor("fl-normal",i-1,line)
+            set_floor("fl-normal",i-1,line)
         elseif c=="R" then
-           set_actor("ac-rotor", i-.5,line+.5, {player=1, mouseforce=0, range=30, force=30})
-              set_item("it-trigger", i-1,line, {action="open", target="door1"})
+            set_actor("ac-rotor", i-.5,line+.5, {player=1, mouseforce=0, range=30, force=30})
+            set_item("it-trigger", i-1,line, {action="open", target="door1"})
         elseif c=="Q" then
-           set_item("it-wormhole", i-1, line, {strength=0,targetx="10.5",targety="6.5"})
+            set_item("it-wormhole", i-1, line, {strength=0,targetx="10.5",targety="6.5"})
         elseif c=="S" then
-           set_floor("fl-normal",i-1,line)
-           set_item("it-wormhole", i-1, line, {strength=0,targetx="10.5",targety="6.5"})
+            set_floor("fl-normal",i-1,line)
+            set_item("it-wormhole", i-1, line, {strength=0,targetx="10.5",targety="6.5"})
         elseif c=="s" then
-           set_floor("fl-gradient",  i-1,  line, {type=12})
-           set_item("it-wormhole", i-1, line, {strength=0,targetx="10.5",targety="6.5"})
+            set_floor("fl-gradient",  i-1,  line, {type=12})
+            set_item("it-wormhole", i-1, line, {strength=0,targetx="10.5",targety="6.5"})
         elseif c=="q" then
-           set_floor("fl-gradient",  i-1,  line, {type=9})
-           set_item("it-wormhole", i-1, line, {strength=0,targetx="10.5",targety="6.5"})
+            set_floor("fl-gradient",  i-1,  line, {type=9})
+            set_item("it-wormhole", i-1, line, {strength=0,targetx="10.5",targety="6.5"})
         elseif c=="T" then
-              set_item("it-trigger", i-1,line, {action="close", target="door1"})
+            set_item("it-trigger", i-1,line, {action="close", target="door1"})
         elseif c=="t" then
-           set_stone("st-door_a",i-1,line,{name="door1"})
-         end
-    end    
+            set_stone("st-door_a",i-1,line,{name="door1"})
+        end
+    end
 end
 
 renderLine(00,"%%%%%%%%%%%%%%%%%%%%")

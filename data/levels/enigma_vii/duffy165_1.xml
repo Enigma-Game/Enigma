@@ -1,0 +1,132 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no" ?>
+<el:level xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://enigma-game.org/schema/level/1 level.xsd" xmlns:el="http://enigma-game.org/schema/level/1">
+  <el:protected>
+    <el:info el:type="level">
+      <el:identity el:title="Knot Garden" el:subtitle="" el:id="duffy165"/>
+      <el:version el:score="1" el:release="1" el:revision="0" el:status="released"/>
+      <el:author  el:name="Jacob Scott" el:email="" el:homepage=""/>
+      <el:copyright>Copyright © 2007 Jacob Scott</el:copyright>
+      <el:license el:type="GPL v2.0 or above" el:open="true"/>
+      <el:compatibility el:enigma="0.92">
+      </el:compatibility>
+      <el:modes el:easy="false" el:single="true" el:network="false"/>
+      <el:score el:easy="-" el:difficult="-"/>
+    </el:info>
+    <el:luamain><![CDATA[
+rooms_wide=3
+rooms_high=1
+
+levelw=1+(19*rooms_wide)
+levelh=1+(12*rooms_high) +7
+
+create_world( levelw, levelh)
+
+fill_floor("fl-leaves", 0,0,levelw,levelh)
+
+function renderLine( line, pattern)
+    for i=1, strlen(pattern) do
+        local c = strsub( pattern, i, i)
+        if c =="#" then
+            set_stone( "st-greenbrown", i-1, line)
+        elseif c == "o" then
+            oxyd( i-1, line)
+        elseif c == "+" then
+            set_stone("st-wood", i-1, line)
+        elseif c == "f" then
+            set_item("it-trigger", i-1,line, {action="openclose",target="door1"})
+        elseif c == "F" then
+            set_stone("st-door", i-1, line , {name="door1", type="v"})
+        elseif c == "g" then
+            set_item("it-trigger", i-1,line, {action="close", target="door2"})
+        elseif c == "G" then
+            set_stone("st-door_b", i-1,line, {name="door2", type="v"})
+        elseif c == "b" then
+            set_stone("st-bolder", i-1,line, {direction=SOUTH})
+        elseif c == "1" then
+            oneway(i-1,line, enigma.NORTH)
+        elseif c == "4" then
+            oneway(i-1,line, enigma.SOUTH)
+        elseif c == "3" then
+            oneway(i-1,line, enigma.WEST)
+        elseif c == "~" then
+            fill_floor("fl-water", i-1,line, 1,1)
+        elseif c == "!" then
+            abyss(i-1,line)
+        elseif c == "@" then
+            document(i-1,line,"text1")
+        elseif c == "t" then
+            set_actor("ac-blackball", i-1,line, {player=0})
+        elseif c == "s" then
+            set_stone("st-greenbrown_hole",i-1,line)
+        elseif c == "*" then
+            set_stone("st-brownie",i-1,line)
+        elseif c == "p" then
+            set_stone("st-fakeoxyd",i-1,line)
+        elseif c == "d" then
+            set_stone("st-death",i-1,line)
+        elseif c == "e" then
+            document(i-1,line,"text2")
+        elseif c == "i" then
+            set_stone("st-invisible",i-1,line)
+        end
+    end
+end
+
+-- Floor:  " "
+-- Border: "#"
+-- Oxyd:   "o"
+
+renderLine(  00, "##################################oo######################")
+renderLine(  01, "###ssssssss#oooo##      ~#######o#  ssssssssss############")
+renderLine(  02, "###s######s#    o#      ~#######~#ii#########   +      ~o#")
+renderLine(  03, "##    +      ooo## #####~#######        ##### t #####+####")
+renderLine(  04, "## ############### #####~####### ###### #####   ##### ##f#")
+renderLine(  05, "## #####    e   G  #####~####### ######1###### ###### ## #")
+renderLine(  06, "#g g#####g g############~## h  F +3            #o#### ## #")
+renderLine(  07, "#g ggggggg g#ss          ## ####1######+#4######~#### ## #")
+renderLine(  08, "#g  g      g#s# #### ### ## #        ## # #####s #### ## #")
+renderLine(  09, "#gg g g gggg#s#+#### ### ## #+###### ## # +      #### ## #")
+renderLine(  10, "##g g g   g##s# #### ###+#  # ###### ## ########~#### ## #")
+renderLine(  11, "#gg g gggggg#s#     +  +   ##           +           + *~ #")
+renderLine(  12, "#g  g      g#s###### ###+#  # #######~#~######## #### ## #")
+renderLine(  13, "#g ggggggg g#sssss## ### ## # #       #o#ssssss# #### ## #")
+renderLine(  14, "#g g       g#####sss ### ## # # # ##  ###s####s# #### s# #")
+renderLine(  15, "#g ggggggg g######## ### ## #~# # #######ssss#s#~##o~  # #")
+renderLine(  16, "#g         g######## ### ## #o# # ###sss####s#s#~#### ## #")
+renderLine(  17, "#ggggggggggg########     ## ### #+##ss#s#ssss#s# + ##### #")
+renderLine(  18, "###########################        ~@p#sss####sd         #")
+renderLine(  19, "##########################################################")
+
+door2 = enigma.GetNamedObject("door2")
+
+mytimer = 0
+function timer_handler()
+    door2=enigma.GetNamedObject("door2")
+    if mytimer == 0 then
+        enigma.SendMessage(door2, "open", nil)
+    end
+
+    mytimer = mytimer + 1
+    if mytimer == 2 then
+        mytimer = 1
+    end
+end
+
+set_stone( "st-timer", 0, 0, {action="callback", target="timer_handler"})
+
+oxyd_shuffle()
+    ]]></el:luamain>
+    <el:i18n>
+      <el:string el:key="title">
+        <el:english el:translate="false"/>
+      </el:string>
+      <el:string el:key="text1">
+        <el:english el:translate="true">You shouldn't have done that.</el:english>
+      </el:string>
+      <el:string el:key="text2">
+        <el:english el:translate="true">Careful.</el:english>
+      </el:string>
+    </el:i18n>
+  </el:protected>
+</el:level>
+

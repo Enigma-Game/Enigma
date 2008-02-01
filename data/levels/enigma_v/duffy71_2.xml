@@ -3,7 +3,7 @@
   <el:protected>
     <el:info el:type="level">
       <el:identity el:title="Don't Be Greedy" el:subtitle="" el:id="duffy71"/>
-      <el:version el:score="2" el:release="2" el:revision="0" el:status="released"/>
+      <el:version el:score="2" el:release="2" el:revision="1" el:status="released"/>
       <el:author  el:name="Jacob Scott" el:email="" el:homepage=""/>
       <el:copyright>Copyright © 2003 Jacob Scott</el:copyright>
       <el:license el:type="GPL v2.0 or above" el:open="true"/>
@@ -16,12 +16,14 @@
       <el:score el:easy="-" el:difficult="-"/>
     </el:info>
     <el:luamain><![CDATA[
---space-route surrounded by thiefs
-levelw=40
-levelh=40
+rooms_wide=2
+rooms_high=3
+
+levelw=1+(19*rooms_wide) +1
+levelh=1+(12*rooms_high)
 
 create_world( levelw, levelh)
-enigma.ConserveLevel=FALSE
+enigma.ConserveLevel = 0
 
 fill_floor("fl-leaves", 0,0,levelw,levelh)
 
@@ -65,9 +67,7 @@ function renderLine( line, pattern)
             set_stone("st-brownie", i-1, line)
         elseif c == "!" then
             abyss(i-1,line)
-            --            fill_floor("fl-water", i-1,line, 1,1)
         elseif c == "~" then
-            --            abyss(i-1,line)
             fill_floor("fl-water", i-1,line, 1,1)
         elseif c=="z" then
             set_actor("ac-blackball", i-1,line+.5)
@@ -134,7 +134,7 @@ function renderLine( line, pattern)
             abyss(i-1,line)
             set_item("it-blackbomb",i-1,line)
         end
-    end    
+    end
 end
 
 -- Floor:  " "

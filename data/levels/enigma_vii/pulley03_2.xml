@@ -1,0 +1,724 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no" ?>
+<el:level xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://enigma-game.org/schema/level/1 level.xsd" xmlns:el="http://enigma-game.org/schema/level/1">
+  <el:protected>
+    <el:info el:type="level">
+      <el:identity el:title="Circulation" el:subtitle="" el:id="pulley03"/>
+      <el:version el:score="2" el:release="2" el:revision="2" el:status="released"/>
+      <el:author  el:name="Mark Pulley" el:email="" el:homepage=""/>
+      <el:copyright>Copyright © 2007 Mark Pulley</el:copyright>
+      <el:license el:type="GPL v2.0 or above" el:open="true"/>
+      <el:compatibility el:enigma="1.01">
+       <el:dependency el:path="lib/ant" el:id="lib/ant" el:release="1" el:preload="true"/>
+       <el:dependency el:path="lib/libpuzzle_2" el:id="lib/libpuzzle" el:release="2" el:preload="true"/>
+      </el:compatibility>
+      <el:modes el:easy="false" el:single="true" el:network="false"/>
+     <el:comments>
+      <el:credits el:showinfo="true" el:showstart="true">
+       Thanks to Raoul for finding and fixing the typo in the first version.
+      </el:credits>
+     </el:comments>
+    <el:score el:easy="-" el:difficult="-"/>
+    </el:info>
+    <el:luamain><![CDATA[
+function file_oxyd(x,y,f)
+    oxyd_default_flavor=f
+    oxyd(x,y)
+end
+
+-- ANT --
+create_world(96,109)
+
+-- Floors --
+cells={}
+cells[" "]=cell{floor="fl-abyss_fake"}
+cells["a"]=cell{floor="fl-rough-red"} -- artery wall
+cells["b"]=cell{floor="fl-plank"} -- Brain
+cells["d"]=cell{floor="fl-gradient14"} -- Down
+cells["f"]=cell{floor="fl-gravel"} -- Foot
+cells["g"]=cell{floor="fl-tigris"} -- Gut
+cells["h"]=cell{floor="fl-woven"} -- Hand
+cells["i"]=cell{floor="fl-abyss_fake"} -- Lung
+cells["k"]=cell{floor="fl-swamp"} -- Kidney
+cells["l"]=cell{floor="fl-gradient15"} -- Left
+cells["p"]=cell{floor="fl-space"} -- Lung
+cells["r"]=cell{floor="fl-gradient16"} -- Right
+cells["s"]=cell{floor="fl-water"} -- Bladder
+cells["t"]=cell{floor="fl-leaves"} -- Thumb
+cells["v"]=cell{floor="fl-rough-blue"} -- vein wall
+cells["u"]=cell{floor="fl-gradient13"} -- Up
+cells["w"]=cell{floor="fl-ice"} -- Bladder
+cells["A"]=cell{parent={{randomfloor, {cells["i"], cells["p"]}}}} -- Lung
+cells["L"]=cell{floor="fl-rough-red"} -- left heart
+cells["R"]=cell{floor="fl-rough-blue"} -- right heart
+cells["S"]=cell{floor="fl-wood"} -- Spleen
+cells["V"]=cell{floor="fl-bumps"} -- Liver
+cells["1"]=cell{floor="fl-gradient9"} -- Down and right
+cells["2"]=cell{floor="fl-gradient11"} -- Down and left
+cells["3"]=cell{floor="fl-gradient10"} -- Up and right
+cells["4"]=cell{floor="fl-gradient12"} -- Up and left
+
+level={"                                                                                                ",
+       "                                      bbbbbbbbb  bbbbbbbbb                                      ",
+       "                                     bbbbbbbbbb  bbbbbbbbbb                                     ",
+       "                                     bbbbbbbbbb  bbbbbbbbbb                                     ",
+       "                                     bbbbbbbbbbbbbbbbbbbbbb                                     ",
+       "                                     bbbbbbbbbbbbbbbbbbbbbb                                     ",
+       "                                     bbbbbbbbbb  bbbbbbbbbb                                     ",
+       "                                       bbbbbbbb  bbbbbbbb                                       ",
+       "                                        bbbbbbb  bbbbbbb                                        ",
+       "                                        bbbbbbb  bbbbbbb                                        ",
+       "                                        bbbbbbb  bbbbbbb                                        ",
+       "                                        d  b        b  d                                        ",
+       "                                           u4llllrr3u                                           ",
+       "        d22llllllllllllllllllllllllllllllllllllllrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrr11d        ",
+       "        d                                       4rrrrrr111d                            d        ",
+       "        d                               d       4u3       d                            d        ",
+       "        d                               2       4u3    d  d                            d        ",
+       "        d  rrrrrrrrrrrrrrrrrrrrrrrr11d22lllllll 4u3 lllll d lllllllllllllllllllllllll  d        ",
+       "        d  3                         d          uu3       d                         4  d        ",
+       "        d  3                         d          uuu       d                         4  d        ",
+       "        d  u            AAAAAAAAAAAllllllllllrrruuurrrrrrrdrrAAAAAAAAAAA            u  d        ",
+       "        d  u            AAAAAAAAAAA  d      43  uuu       d  AAAAAAAAAAA            u  d        ",
+       "        d  u           AAAAAAAAAAAA  d      uu  uuu       d  AAAAAAAAAAAA           u  d        ",
+       "        d  u           AAAAAAAAAAAArr rrrrrruurruuurd     d  AAAAAAAAAAAA           u  d        ",
+       "        d  u          AAAAAAAAAAAAA  d      uu  uuu d LLL d  AAAAAAAAAAAAA          u  d        ",
+       "        d  u          AAAAAAAAAAAAA  d RRRR uu  uuu d LLL d  AAAAAAAAAAAAA          u  d        ",
+       "        d  u          AAAAAAAAAAAAA  d RRRR uu  uuu d LLL d  AAAAAAAAAAAAA          u  d        ",
+       "        d  u          AAAAAAAAAAAAA  d RRRR uu  uuu LLLLLldllAAAAAAAAAAAAA          u  d        ",
+       "        d  u         AAAAAAAAAAAAAA  rrRRRR uu  uuu LLLLL d  AAAAAAAAAAAAAA         u  d        ",
+       "        d  u         AAAAAAAAAAAAAA  u RRRR uu  uuu    d  d  AAAAAAAAAAAAAA         u  d        ",
+       "        d  u         AAAAAAAAAAAAAA  u   d  uu  LLLLLLLLL d  AAAAAAAAAAAAAA         u  d        ",
+       "        d  u         AAAAAAAAAAAAAA  u RRRRRRR  LLLLLLLLL d  AAAAAAAAAAAAAA         u  d        ",
+       "        d  u         AAAAAAAAAAAAAA  u RRRRRRR  LLLLLLLLL d  AAAAAAAAAAAAAA         u  d        ",
+       "        d  u         AAAAAAAAAAAAAA  u RRRRRRR  LLLLLLLLL d  AAAAAAAAAAAAAA         u  d        ",
+       "        d  u         AAAAAAAAAAAAAA  u RRRRRRR  LLLLLLLLL d  AAAAAAAAAAAAAA         u  d        ",
+       "        d  u         AAA       AAAA  u RRRRRRR  LLLLLLLLL d  AAAA       AAA         u  d        ",
+       "        d  u         A   VVVVV       u RRRRRRR  LLLLLLLLL d       SSSSS   A         u  d        ",
+       "        d  u           VVVVVVVVVVVV  u                    d  SSSSSSSSSSSS           u  d        ",
+       "        d  u         VVVVVVVVVVVVVVV u4llllll  dddddddlllll  SSSSSSSSSSSSSS         u  d        ",
+       "        d  u         VVVVVVVVVVVVVVV        4  ddddddd       SSSSSSSSSSSSSS         u  d        ",
+       "        d  u         VVVVVVVVVVVVVVV        u  ddddddd       SSSSSSSSSSSSSS         u  d        ",
+       "        d  u         VVVVVVVVVVVVVVVrrrrrrr3u4l2ddddd1lllllllSSSSSSSSSSSSSS         u  d        ",
+       "        d  u         VVVVVVVVVVVVVVV        u  2ddddd1       SSSSSSSSSSSSSS         u  d        ",
+       "        d  u         VVVVVVVVVVVVVVV        u  2ddddd1       SSSSSSSSSSSSSS         u  d        ",
+       "        d  u         VVVVVVVVVVVVVVVlllllllllllldddddrrrrrrrrS                      u  d        ",
+       "        d  u         VVVVVVVVVV             u   ddddd          rrrrrrrrrr1d         u  d        ",
+       "        d  u         VVVVVV    d2lgd2l kkk  u   ddddd  kkk rrr3ugggggggggg2         u  d        ",
+       "        d  u         VVV u d2lgdg4gdg4 kkkr3u4ll2ddd1llkkk 3gggggd2llllllll         u  d        ",
+       "        d  u         VVV u dg4gdgugdgu kkk  u   2ddd1  kkk ugd2lg1ggggggggg         u  d        ",
+       "        d  u             u dgugdgugdgu kkk  u   2ddd1  kkk ugdg4grrrrrrrr1d         u  d        ",
+       "        d  u         ggg u 2gugdgug2gu kkkllllllldd1rrrkkk ugdgugggggggggg2         u  d        ",
+       "        d  u         gggggllgugdgu4lgu kkk  u    dd1       ugdgu4llllllllll         u  d        ",
+       "        d  u         ggggggggug1gggggu      u    dd1  gggggug1ggggggggggggg         u  d        ",
+       "        d  u         ggggggggugrrr1dgu4llgg u    ddrrrrggggggrrrrrrrrrrrr1d         u  d        ",
+       "        d  u         ggggggggulggggrdggg4gg u    dd   gggggggggggggggggggg2         u  d        ",
+       "        d  u         gggggggggu4lllgdgr3ugg u    dd ggd2lgd2lllllllllllllll         u  d        ",
+       "        d  u         ggggggggggggg4gdg3ggg  u    dd ggdg4g1gggggggggggggggg         u  d        ",
+       "        d  u         gggggggggggggugdgugd2lllllllddlggggugrrrrrrrrrrrrrrr1d         u  d        ",
+       "        d  u         gggggggggggggug2gug2g  u    dd gggguggggggggggggggggg2         u  d        ",
+       "        d  u         gggggggggggggu4lgu4lgg u    21 ggggu4lllllllllllllllll         u  d        ",
+       "        d  u                                u    21                                 u  d        ",
+       "        d  u                                u    21                                 u  d        ",
+       " tttttthhhhhhh            ddllllllllllllllllllllllrrrrrrrrrrrrrrrrrrdd            hhhhhhhtttttt ",
+       "       hhhhhhh            dd                u                       dd            hhhhhhh       ",
+       "       hhhhhhh            dd                u                       dd            hhhhhhh       ",
+       "       hhhhhhh            dd  rrrrrrrrrrrr33u44lllllllllllllllllll  dd            hhhhhhh       ",
+       "       hhhhhhh            dd  3                                  4  dd            hhhhhhh       ",
+       "       hhhhhhh            dd  3 gggggggggggggggggggggggggggggggg 4  dd            hhhhhhh       ",
+       "       h h h h            d1  ulggggggggggggssswswsssgggggggggggru  2d            h h h h       ",
+       "       h h h h            d1  u gggggggggggsswssssswssgggggggggg u  2d            h h h h       ",
+       "       h h h h            d1  u gggggggggggsssssssssssgggggggggg u  2d            h h h h       ",
+       "       h h h h            drrrrrgggggggggggsswssswssssggggggggggllllld            h h h h       ",
+       "                          d   u gggggggggggsssssssssssgggggggggg u   d                          ",
+       "                          d   u gggggggggggsswssssswssgggggggggg u   d                          ",
+       "                          d   u                                  u   d                          ",
+       "                          d   u                                  u   d                          ",
+       "                          d   u                                  u   d                          ",
+       "                          d   u                                  u   d                          ",
+       "                          d   u                                  u   d                          ",
+       "                          d   u                                  u   d                          ",
+       "                          d   u                                  u   d                          ",
+       "                          d   u                                  u   d                          ",
+       "                          d   u                                  u   d                          ",
+       "                          d   u                                  u   d                          ",
+       "                          d   u                                  u   d                          ",
+       "                          d   u                                  u   d                          ",
+       "                          d   u                                  u   d                          ",
+       "                          d   u                                  u   d                          ",
+       "                          d   u                                  u   d                          ",
+       "                          d   u                                  u   d                          ",
+       "                          d   u                                  u   d                          ",
+       "                          d   u                                  u   d                          ",
+       "                          d   u                                  u   d                          ",
+       "                          d   u                                  u   d                          ",
+       "                          d   u                                  u   d                          ",
+       "                          d   u                                  u   d                          ",
+       "                          d   u                                  u   d                          ",
+       "                     fffffffffffffffff                    ffffffffffffffffff                    ",
+       "                   fffffffffffffffffff                    fffffffffffffffffff                   ",
+       "                 fffffffffffffffffffff                    fffffffffffffffffffff                 ",
+       "               fffffffffffffffffffffff                    fffffffffffffffffffffff               ",
+       "             fffffffffffffffffffffffff                    fffffffffffffffffffffffff             ",
+       "           fffffffffffffffffffffffffff                    fffffffffffffffffffffffffff           ",
+       "         fffffffffffffffffffffffffffff                    fffffffffffffffffffffffffffff         ",
+       "       fffffffffffffffffffffffffffffff                    fffffffffffffffffffffffffffffff       ",
+       "     fffffffffffffffffffffffffffffffff                    fffffffffffffffffffffffffffffffff     ",
+       "   fffffffffffffffffffffffffffffffffff                    fffffffffffffffffffffffffffffffffff   ",
+       " fffffffffffffffffffffffffffffffffffff                    fffffffffffffffffffffffffffffffffffff ",
+       "                                                                                                "}
+
+draw_map(0,0,level,cells)
+
+-- Items --
+cells={}
+cells[" "]=cell{}
+cells["a"]=cell{item={face="it-vortex-open", attr={targetx=39.5, targety=23.5}}}
+cells["b"]=cell{item={face="it-vortex-open", attr={targetx=52.5, targety=23.5}}}
+cells["c"]=cell{item={face="it-vortex-open", attr={targetx=52.5, targety=20.5}}}
+cells["d"]=cell{item={face="it-vortex-open", attr={targetx=37.5, targety=25.3}}}
+cells["e"]=cell{item={face="it-vortex-open", attr={targetx=60.5, targety=20.5}}}
+cells["f"]=cell{item={face="it-vortex-open", attr={targetx=56.5, targety=27.5}}}
+cells["g"]=cell{item={face="it-vortex-open", attr={targetx=56.5, targety=17.5}}}
+cells["h"]=cell{item={face="it-vortex-open", attr={targetx=55.5, targety=16.5}}}
+cells["i"]=cell{item={face="it-vortex-open", attr={targetx=46.5, targety=17.5}}}
+cells["j"]=cell{item={face="it-vortex-open", attr={targetx=40.5, targety=15.5}}}
+cells["k"]=cell{item={face="it-vortex-open", attr={targetx=45.5, targety=41.5}}}
+cells["l"]=cell{item={face="it-vortex-open", attr={targetx=44.5, targety=42.5}}}
+cells["m"]=cell{item={face="it-vortex-open", attr={targetx=46.5, targety=47.5}}}
+cells["n"]=cell{item={face="it-vortex-open", attr={targetx=44.5, targety=55.5}}}
+cells["o"]=cell{item={face="it-vortex-open", attr={targetx=47.5, targety=57.5}}}
+cells["p"]=cell{item={face="it-vortex-open", attr={targetx=44.5, targety=60.5}}}
+cells["q"]=cell{item={face="it-vortex-open", attr={targetx=44.5, targety=48.5}}}
+cells["r"]=cell{item={face="it-vortex-open", attr={targetx=30.5, targety=69.5}}}
+cells["s"]=cell{item={face="it-vortex-open", attr={targetx=65.5, targety=69.5}}}
+cells["x"]=cell{item={face="it-death"}}
+cells["y"]=cell{item={face="it-actorimpulse"}}
+cells["z"]=cell{item={face="it-booze-broken"}}
+cells["-"]=cell{item={face="it-hstrip"}}
+cells["|"]=cell{item={face="it-vstrip"}}
+cells["S"]=cell{item={face="it-sword"}}
+cells["9"]=cell{item={face="it-trigger",attr={action="callback",target="CloseGates"}}}
+
+itmap={"                                                                                                ",
+       "                                                                                                ",
+       "                                                                                                ",
+       "                                                                                                ",
+       "                                                                                                ",
+       "                                                                                                ",
+       "                                                                                                ",
+       "                                                                                                ",
+       "                                                                                                ",
+       "                                                                                                ",
+       "                                                                                                ",
+       "                                        j              h                                        ",
+       "                                                                                                ",
+       "                                                                                                ",
+       "                                                                                                ",
+       "                                                                                                ",
+       "                                                                                                ",
+       "                                     d              i       g                                   ",
+       "                                                                                                ",
+       "                                                                                                ",
+       "                                              c         e                                       ",
+       "                                                                                                ",
+       "                                                                                                ",
+       "                                   a      b                                                     ",
+       "                                                                                                ",
+       "                                                                                                ",
+       "                                                                                                ",
+       "                                                            f                                   ",
+       "                                      9                                                         ",
+       "                                                                                                ",
+       "                                                                                                ",
+       "                                                                                                ",
+       "                                                                                                ",
+       "                                                                                                ",
+       "                                                                                                ",
+       "                                                                                                ",
+       "                             z                                     xxxx                         ",
+       "                       zz zz z                               xx                                 ",
+       "                        z  z   zz                            xxx x xxxx                         ",
+       "                      z zz zzzz   zz                                                            ",
+       "                      z zz      z zz                          xx xxxxxx xxx                     ",
+       "                      z  zz zzzzz                      k      xx     xx xxx                     ",
+       "                       z z  z     zz                          xx xx      xx                     ",
+       "                     z z   zz zzzzzz                              x xxxxxxx                     ",
+       "                       zzzzzz                            S                                      ",
+       "                      z   zzzzzz                                                                ",
+       "                        z zzz               l                                                   ",
+       "                                                      m                                         ",
+       "                                                                                                ",
+       "                                                                                                ",
+       "                                                                                                ",
+       "                                                                                                ",
+       "                                            q                                                   ",
+       "                                                                                                ",
+       "                                                                                                ",
+       "                                                                                                ",
+       "                                                                                                ",
+       "                                                    o                                           ",
+       "                                                                                                ",
+       "                                            n                                                   ",
+       "                                                                                                ",
+       "                                                                                                ",
+       "                                                                                                ",
+       "                                                                                                ",
+       "                                            p                                                   ",
+       "                                                                                                ",
+       "                                                                                                ",
+       "                                                                                                ",
+       "                                                -                                               ",
+       "                                           --    |  --                                          ",
+       "                                             |   | |                                            ",
+       "                                              ---  |                                            ",
+       "                                             |     |                                            ",
+       "                              r               -----              s                              ",
+       "                                                                                                ",
+       "                                                                                                ",
+       "                                                                                                ",
+       "                                                                                                ",
+       "                                                                                                ",
+       "                                                                                                ",
+       "                                                                                                ",
+       "                                                                                                ",
+       "                                                                                                ",
+       "                                                                                                ",
+       "                                                                                                ",
+       "                                                                                                ",
+       "                                                                                                ",
+       "                                                                                                ",
+       "                                                                                                ",
+       "                                                                                                ",
+       "                                                                                                ",
+       "                                                                                                ",
+       "                                                                                                ",
+       "                                                                                                ",
+       "                                                                                                ",
+       "                                                                                                ",
+       "                                                                                                ",
+       "                                                                                                ",
+       "                                                                                                ",
+       "                                                                                                ",
+       "                                                                                                ",
+       "                                                                                                ",
+       "                                                                                                ",
+       "                                                                                                ",
+       "                                                                                                ",
+       "                                                                                                ",
+       "                                                                                                ",
+       "                                                                                                ",
+       "                                                                                                "}
+
+
+
+draw_map(0,0,itmap,cells)
+
+-- Stones --
+stones={}
+stones[" "]=cell{}
+stones["0"]=cell{parent={{file_oxyd,"b"}}}
+stones["a"]=cell{stone="st-redrock"} --artery
+stones["b"]=cell{stone="st-blackballs"}
+stones["c"]=cell{stone="st-yellow"} --capillary
+stones["d"]=cell{stone="st-oneway_black-s"}
+stones["e"]=cell{stone={face="st-timer",attr={loop=1,interval=0.25,action="callback",target="heartbeat"}}}
+stones["f"]=cell{stone={face="st-timer",attr={loop=1,interval=10,action="trigger",target="peristalsis"}}}
+stones["g"]=cell{stone="st-glass3"}
+stones["i"]=cell{stone="st-invisible"}
+stones["k"]=cell{stone="st-knight"}
+stones["l"]=cell{stone="st-oneway_black-w"}
+stones["o"]=cell{stone="st-stoneimpulse-hollow"}
+stones["p"]=cell{stone={face="st-stoneimpulse-hollow",attr={name="peristalsis"}}}
+stones["r"]=cell{stone="st-oneway_black-e"}
+stones["u"]=cell{stone="st-oneway_black-n"}
+stones["v"]=cell{stone="st-blue-sand"} --vein
+stones["D"]=cell{stone="st-oneway_white-s"}
+stones["L"]=cell{stone="st-oneway_white-w"}
+stones["R"]=cell{stone="st-oneway_white-e"}
+stones["U"]=cell{stone="st-oneway_white-n"}
+stones["O"]=cell{stone="st-stoneimpulse"}
+stones["1"]=cell{stone={face="st-door-h",attr={name="gatebrainL"}}}
+stones["2"]=cell{stone={face="st-door-v",attr={name="gatehandL"}}}
+stones["3"]=cell{stone={face="st-door_a",attr={name="gatekidneyL"}}}
+stones["4"]=cell{stone={face="st-door-v",attr={name="gatespleen"}}}
+stones["5"]=cell{stone={face="st-door-v",attr={name="gategutL"}}}
+stones["6"]=cell{stone={face="st-door-v",attr={name="gateliverP"}}}
+stones["7"]=cell{stone={face="st-door-v",attr={name="footL"}}}
+stones["8"]=cell{stone={face="st-switch",attr={action="callback", target="OpenGates"}}}
+stones["!"]=cell{stone={face="st-door-h",attr={name="gatebrainR"}}}
+stones["@"]=cell{stone={face="st-door-v",attr={name="gatehandR"}}}
+stones["#"]=cell{stone={face="st-door_a",attr={name="gatekidneyR"}}}
+stones["$"]=cell{stone={face="st-door-v",attr={name="gateliver"}}}
+stones["%"]=cell{stone={face="st-door-v",attr={name="gategutR"}}}
+stones["^"]=cell{stone={face="st-door_a",attr={name="gatebladder"}}}
+stones["&"]=cell{stone={face="st-door-v",attr={name="footR"}}}
+stones["-"]=cell{stone="st-puzzle2-ew"}
+stones["+"]=cell{stone="st-puzzle2-hollow"}
+stones["|"]=cell{stone="st-puzzle2-n"}
+
+stmap={"                                      cccccccccccccccccccc                                      ",
+       "                                    ccc        cc        ccc                                    ",
+       "                                    c          cc          c                                    ",
+       "                                    c          cc          c                                    ",
+       "                                    c         +--+         c                                    ",
+       "                                    c         +--+         c                                    ",
+       "                                    c          cc          c                                    ",
+       "                                    ccc        cc        ccc                                    ",
+       "                                      cc      |cc|      cc                                      ",
+       "                                      cc     c!cc1c     cc                                      ",
+       "            cccccccccccccccccccccccccccv va ac0cc0ca av vccccccccccccccccccccccccccc            ",
+       "      cccccccccccccccccccccccccccccccccv vauaaaaaaaauav vccccccccccccccccccccccccccccccccc      ",
+       "     ccaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaDaa    l   r aaDaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaacc     ",
+       "     cca                                  l    l   r r     r                            acc     ",
+       "     cca aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaDaaaaaaa   r r     aaaaaaaaaaaaaaaaaaaaaaaaaaaa acc     ",
+       "     cca acccccccccccccccccccccccccccccv vccccca   aaaaDaadacccccccccccccccccccccccccca acc     ",
+       "     cca avvvvvvvvvvvvvvvvvvvvvvvvvvvvvv vvvvvva   avvv va avvvvvvvvvvvvvvvvvvvvvvvvvva acc     ",
+       "     cca av                         r l  l     L   L    lL L                         va acc     ",
+       "     cca av vvvvvvvvvvvvvvvvvvvvvvvvvDvvvvvvvvva   avvvvva avvvvvvvvvvvvvvvvvvvvvvvv va acc     ",
+       "     cca av vcccccccccccccccccccccvvvDvvvvvvvvea   avvvvva avccccccccccccccccccccccv va acc     ",
+       "     cca av vccccccccccc           l      l    R   R     R R            cccccccccccv va acc     ",
+       "     cca av vcc     cccc           vvDvvvvvv  va   avvvvva av           cccc     ccv va acc     ",
+       "     cca av vcc     ccc            aaDaaaaav  va   aaaaaaa ac            ccc     ccv va acc     ",
+       "     cca av vcc     ccc             RRR    R  RR   R aaaaa ac            ccc     ccv va acc     ",
+       "     cca av vcc     cc             aaDaaaaav  va   a a   a ac             cc     ccv va acc     ",
+       "     cca av vcc     cc             cv v    v  va   a a   a ac             cc     ccv va acc     ",
+       "     cca av vcc     cc             cv v    v  va   ada   a aa             cc     ccv va acc     ",
+       "     cca av vcc     cc             cvdv    v  va   a     L L              cc     ccv va acc     ",
+       "     cca av vcc     c              cv r    v  va   a     a aa              c     ccv va acc     ",
+       "     cca av vcc     c              cvuv    v  vauuuaaaadaa ac              c     ccv va acc     ",
+       "     cca av vcc     c              cv vvvdvvuuva         a ac              c     ccv va acc     ",
+       "     cca av vcc     c              cv v       va         a ac              c     ccv va acc     ",
+       "     cca av vcc     c              cv v       va         a ac              c     ccv va acc     ",
+       "     cca av vcc     c              cv v       va         a ac              c     ccv va acc     ",
+       "     cca av vcc     c              cv v       va         a ac              c     ccv va acc     ",
+       "     cca av vcc     c   ccccccc    cv v       va         a ac    ccccccc   c     ccv va acc     ",
+       "     cca av vcc     c8ccc     ccccccv v       va         a accccccLRkkkccc8c     ccv va acc     ",
+       "     cca av vcc     ccc          $0cv vvvvvvvvvaaaaaaaaaaa ackkDkkkkkkkkkDcc     ccv va acc     ",
+       "     cca av vcc     c            cccv        va            ackkkkkkkkkkLk40c     ccv va acc     ",
+       "     cca av vcc     c               vvvvvvvv va       aaaaaaDkkkkUkkkkkkRccc     ccv va acc     ",
+       "     cca av vcc     c               vvvvvvvv va       avvvvvvkkkRkkkkkkkkkkc     ccv va acc     ",
+       "     cca av vcc     c               r      r lL       L     lkkkkkkkDkkkkkkc     ccv va acc     ",
+       "     cca av vcc     c     r         vvvvvvvvuva       avvvvvvRkkkkkkkkkkUkkc     ccv va acc     ",
+       "     cca av vcc     c               aaaaaaaaUaa       aaaaaaakkkkUkRkkkkkkkc     ccv va acc     ",
+       "     cca av vcc     c               l         l       r     ruaccccccccccccc     ccv va acc     ",
+       "     cca av vcc     c          cccccaaaaaaaaUaaa     aaaaaaaaaaooooooooooooc     ccv va acc     ",
+       "     cca av vcc     c      ccccooogoooc0# vv vva     av 30coooooggggggggggoc     ccv va acc     ",
+       "     cca av vcc     ccc cucooogogogogoci   r l L     L   icogggggooooooooooc     ccv va acc     ",
+       "     cca av vcc     c06 cucogogogogogoc   vvuvva     av   cogooogogggggggggc     ccv va acc     ",
+       "     cca av vcc     cccccucogogogogogoc   aaUaaa     aa   cogogogooooooooooc     ccv va acc     ",
+       "     cca av vcc     cooocucogogogogogoc        l     r    cogogoggggggggggoc     ccv va acc     ",
+       "     cca av vcc     cogooooogogogooogoc   aaUaaaa   aaaccccogogooooooooooooc     ccv va acc     ",
+       "     cca av vcc     cogggggggogogggggocccccv vaaa   aafpoooogogggggggggggggc     ccv va acc     ",
+       "     cca av vcc     cooooooogogooooogoooogoOoOOaa   r       gooooooooooooooc     ccv va acc     ",
+       "     cca av vcc     cggggg ogooggggoogggogov vOaa  aaaggggggggggggggggggggoc     ccv va acc     ",
+       "     cca av vcc     cooooogoggooooogogooogov vOaa  accooogoooooooooooooooooc     ccv va acc     ",
+       "     cca av vcc     cogggogo gggggogogogggOvUvOaa  aggogogoggggggggggggggggc     ccv va acc     ",
+       "     cca av vcc     cooogogoooooggogogogooo   o L  L  ogogoooooooooooooooooc     ccv va acc     ",
+       "     cca av vcc     cggogogggggoggogogogogcvUvOca  accogogggggggggggggggggoc     ccv va acc     ",
+       "     cca av vcc     c0%ogooooooo gooogooogoOoOOca  a05ogoooooooooooooooooooc     ccv va acc     ",
+       "     cca av vcc     ccccccccccccccccccccccOv vaaa  accOccccccccccccccccccccc     ccv va acc     ",
+       "cccccccadavuvcc     cccccaaaaaaaaaaaaaaaaaOaUaaaa  aaaOaaaaaaaaaaaaaaaaccccc     ccvuvadaccccccc",
+       "c0@           c     ccccca                o     l  r  o               accccc     c           20c",
+       "ccccccc       c     ccccca  aaaaaaaaaaaaaaOaUaaaaaaaaaOaaaaaaaaaaaaa  accccc     c       ccccccc",
+       "      c       c     ccccca  avvvvvvvvvvvvvOv vvvvvvvvvOvvvvvvvvvvvva  accccc     c       c      ",
+       "      c       c     ccccca  av            or l        o           va  accccc     c       c      ",
+       "      c       c     ccccca  av vvvvvvvvvvOOvvvvvvvvvvvOOvvvvvvvvv va  accccc     c       c      ",
+       "      c       c     ccccca  av voooooooooogooooOOOoooogooooooooov va  accccc     c       c      ",
+       "      c c c c c     ccccca  av logggggggggoo   0^    ooggggggggor va  accccc     c c c c c      ",
+       "      c c c c c     ccccca  av vooooooooogo           ogoooooooov va  accccc     c c c c c      ",
+       "      c c c c c     ccccca  aaUaggggggggogo           ogogggggggaUaa  accccc     c c c c c      ",
+       "      c c c c c     ccccca  r  rooooooooogo           ogooooooool  l  accccc     c c c c c      ",
+       "      ccccccccc     cccccadaaaUaogggggggggo           oggggggggoaUaaadaccccc     ccccccccc      ",
+       "                    ccccca acv vooooooooooo           oooooooooov vca accccc                    ",
+       "                    ccccca acv vccccccccccccccccccccccccccccccccv vca accccc                    ",
+       "                    ccccca acv vccccccccccc          cccccccccccv vca accccc                    ",
+       "                    ccccca acv vccccccccccc          cccccccccccv vca accccc                    ",
+       "                    ccccca acv vcccccccccc            ccccccccccv vca accccc                    ",
+       "                    ccccca acv vcccccccccc            ccccccccccv vca accccc                    ",
+       "                    ccccca acv vcccccccccc            ccccccccccv vca accccc                    ",
+       "                    ccccca acv vccccccccc              cccccccccv vca accccc                    ",
+       "                    ccccca acv vccccccccc              cccccccccv vca accccc                    ",
+       "                    ccccca acv vccccccccc              cccccccccv vca accccc                    ",
+       "                    ccccca acv vcccccccc                ccccccccv vca accccc                    ",
+       "                    ccccca acv vcccccccc                ccccccccv vca accccc                    ",
+       "                    ccccca acv vcccccccc                ccccccccv vca accccc                    ",
+       "                    ccccca acv vccccccc                  cccccccv vca accccc                    ",
+       "                    ccccca acv vccccccc                  cccccccv vca accccc                    ",
+       "                    ccccca acv vccccccc                  cccccccv vca accccc                    ",
+       "                    ccccca acv vccccccc                  cccccccv vca accccc                    ",
+       "                    ccccca acv vccccccc                  cccccccv vca accccc                    ",
+       "                    ccccca acv vccccccc                  cccccccv vca accccc                    ",
+       "                    ccccca acv vccccccc                  cccccccv vca accccc                    ",
+       "                    ccccca acv vccccccc                  cccccccv vca accccc                    ",
+       "                    ccccca acv vccccccc                  cccccccv vca accccc                    ",
+       "                    ccccca acv vccccccc                  cccccccv vca accccc                    ",
+       "                    cccccadacvuvccccccc                  cccccccvuvcadaccccc                    ",
+       "                  ccc      ccc    c   c                  c        ccc      ccc                  ",
+       "                ccc   ccccccccccc   c c                  c ccccccccccccccc   ccc                ",
+       "              ccc   cc         cccccc c                  c                cc ccccc              ",
+       "            cccc  ccc  ccccccc      c c                  cccccccccccccccc    c   ccc            ",
+       "          cccccc c    c      cccccc c c                  c c              ccc  c   ccc          ",
+       "        cccc   c c cccc cccc        c c                  c c ccccc ccccccc    cccc ccccc        ",
+       "      cccccc c   c    c c   ccccccccc c                  c c c   c      c  ccc     ccccccc      ",
+       "    cccc   c cccccccc c c c c   c   c c                  c c c c cccccc c c    cccccc    ccc    ",
+       "  cccccc c c          c c c c c c c c c                  c c   c c      c c ccccc   c cc ccccc  ",
+       "cccc   c c cccccccccccc c c c c c c c c                  c ccccc c cccccc c c   c c c cc     ccc",
+       "c0&  c   c                c   c   c   c                  c       c        c   c   c   cccccc 70c",
+       "ccccccccccccccccccccccccccccccccccccccc                  ccccccccccccccccccccccccccccccccccccccc"}
+
+draw_map(0,0,stmap,stones)
+
+-- Puzzles--
+puzzle({"  # # # #",
+        "####### +",
+        " ##   ##+", --
+        "#### ###+", --
+        "  #######",
+        "   ######",
+        "   # #  +"},{38,2},"redpuzzle","permutation", 10)
+puzzle({"# # # #  ",
+        "+ #######",
+        "+##   ## ",
+        "+### ####",
+        "#######  ",
+        "######   ",
+        "+  # #   "},{49,2},"redpuzzle","permutation", 10)
+
+oxyd_shuffle()
+set_actor("ac-blackball",39.5,28.5,{player=0,name="bb"})
+set_item("it-document",41,29,{text="text1"})
+enigma.SlopeForce=50
+display.SetFollowMode(display.FOLLOW_SCROLLING)
+
+      heartN = cell{stone="st-oneway_black-n"}
+      heartS = cell{stone="st-oneway_black-s"}
+      heartK = enigma.KillStone
+      HeartL = cell{floor="fl-rough-red"}
+      HeartR = cell{floor="fl-rough-blue"}
+      N1 = cell{floor={face="fl-gradient13", attr={force=25}}}
+      S1 = cell{floor={face="fl-gradient14", attr={force=25}}}
+      W1 = cell{floor={face="fl-gradient15", attr={force=25}}}
+      E1 = cell{floor={face="fl-gradient16", attr={force=25}}}
+      NE1 = cell{floor={face="fl-gradient10", attr={force=25}}}
+      NW1 = cell{floor={face="fl-gradient12", attr={force=25}}}
+      SE1 = cell{floor={face="fl-gradient9", attr={force=25}}}
+      SW1 = cell{floor={face="fl-gradient11", attr={force=25}}}
+      N2 = cell{floor={face="fl-gradient13", attr={force=50}}}
+      S2 = cell{floor={face="fl-gradient14", attr={force=50}}}
+      W2 = cell{floor={face="fl-gradient15", attr={force=50}}}
+      E2 = cell{floor={face="fl-gradient16", attr={force=50}}}
+      NE2 = cell{floor={face="fl-gradient10", attr={force=50}}}
+      NW2 = cell{floor={face="fl-gradient12", attr={force=50}}}
+      SE2 = cell{floor={face="fl-gradient9", attr={force=50}}}
+      SW2 = cell{floor={face="fl-gradient11", attr={force=50}}}
+      N3 = cell{floor={face="fl-gradient13", attr={force=100}}}
+      S3 = cell{floor={face="fl-gradient14", attr={force=100}}}
+      W3 = cell{floor={face="fl-gradient15", attr={force=100}}}
+      E3 = cell{floor={face="fl-gradient16", attr={force=100}}}
+      NE3 = cell{floor={face="fl-gradient10", attr={force=100}}}
+      NW3 = cell{floor={face="fl-gradient12", attr={force=100}}}
+      SE3 = cell{floor={face="fl-gradient9", attr={force=100}}}
+      SW3 = cell{floor={face="fl-gradient11", attr={force=100}}}
+
+pulse=0
+
+function heartbeat()
+  pulse=pulse+1
+  if pulse==1 then
+-- Right Atrium --
+    draw_func(heartS, {39,25}, {1,0}, 4)
+    set_funcs(SW1, {{42,28},{42,29}})
+    set_funcs(S1, {{41,28},{41,29}})
+    set_funcs(SE1, {{40,28},{40,29}})
+    set_funcs(E1, {{39,28},{39,29}})
+-- Right Ventricle --
+    draw_func({heartK,N2}, {39,34}, {1,0}, 7)
+    draw_func(heartS, {39,36}, {1,0}, 7)
+    draw_func(heartS, {39,35}, {1,0}, 7)
+    draw_func(HeartR, {39,31}, {1,0}, 7)
+    draw_func(HeartR, {39,32}, {1,0}, 7)
+    draw_func(HeartR, {39,33}, {1,0}, 7)
+-- Left Atrium --
+    draw_func(heartS, {54,24}, {1,0}, 3)
+    set_funcs(SW1, {{56,27},{56,28}})
+    set_funcs(S1, {{55,27},{55,28}})
+    set_funcs(SE1, {{54,27},{54,28}})
+    set_funcs(E1, {{52,27},{52,28},{53,27},{53,28}})
+-- Left Ventricle --
+    draw_func({heartK,N2}, {48,34}, {1,0}, 9)
+    draw_func(heartS, {48,36}, {1,0}, 9)
+    draw_func(heartS, {48,35}, {1,0}, 9)
+    draw_func(HeartL, {48,30}, {1,0}, 9)
+    draw_func(HeartL, {48,31}, {1,0}, 9)
+    draw_func(HeartL, {48,32}, {1,0}, 9)
+    draw_func(HeartL, {48,33}, {1,0}, 9)
+  end
+  if pulse==2 then
+-- Right Atrium --
+    draw_func(heartS, {39,26}, {1,0}, 4)
+    set_funcs(SW2, {{42,28},{42,29}})
+    set_funcs(S2, {{41,28},{41,29}})
+    set_funcs(SE2, {{40,28},{40,29}})
+    set_funcs(E2, {{39,28},{39,29}})
+-- Right Ventricle --
+    draw_func({heartK,N2}, {39,35}, {1,0}, 7)
+-- Left Atrium --
+    draw_func(heartS, {54,25}, {1,0}, 3)
+    set_funcs(SW2, {{56,27},{56,28}})
+    set_funcs(S2, {{55,27},{55,28}})
+    set_funcs(SE2, {{54,27},{54,28}})
+    set_funcs(E2, {{52,27},{52,28},{53,27},{53,28}})
+-- Left Ventricle --
+    draw_func({heartK,N2}, {48,35}, {1,0}, 9)
+  end
+  if pulse==3 then
+-- Right Atrium --
+    draw_func(heartS, {39,27}, {1,0}, 4)
+    set_funcs(SW3, {{42,28},{42,29}})
+    set_funcs(S3, {{41,28},{41,29}})
+    set_funcs(SE3, {{40,28},{40,29}})
+    set_funcs(E3, {{39,28},{39,29}})
+-- Right Ventricle --
+    draw_func({heartK,N2}, {48,36}, {1,0}, 9)
+-- Left Atrium --
+    draw_func(heartS, {54,26}, {1,0}, 3)
+    set_funcs(SW3, {{56,27},{56,28}})
+    set_funcs(S3, {{55,27},{55,28}})
+    set_funcs(SE3, {{54,27},{54,28}})
+    set_funcs(E3, {{52,27},{52,28},{53,27},{53,28}})
+-- Left Ventricle --
+    draw_func({heartK,N2}, {39,36}, {1,0}, 7)
+  end
+  if pulse==4 then
+-- Right Atrium --
+    draw_func({heartK,S2}, {39,27}, {1,0}, 4)
+    draw_func(heartN, {39,25}, {1,0}, 4)
+    draw_func(heartN, {39,26}, {1,0}, 4)
+    draw_func(HeartR, {39,28}, {1,0}, 4)
+    draw_func(HeartR, {39,29}, {1,0}, 4)
+-- Right Ventricle --
+    draw_func(heartN, {39,36}, {1,0}, 7)
+    set_funcs(N1, {{44,31},{45,31},{44,32},{44,33},{45,32},{45,33}})
+    set_funcs(NE1, {{43,31},{43,32},{43,33}})
+    draw_func(E1, {39,31}, {1,0}, 4)
+    draw_func(E1, {39,32}, {1,0}, 4)
+    draw_func(E1, {39,33}, {1,0}, 4)
+-- Left Atrium --
+    draw_func({heartK,S2}, {54,26}, {1,0}, 3)
+    draw_func(heartN, {54,24}, {1,0}, 3)
+    draw_func(heartN, {54,25}, {1,0}, 3)
+    draw_func(HeartL, {52,27}, {1,0}, 5)
+    draw_func(HeartL, {52,28}, {1,0}, 5)
+-- Left Ventricle --
+    draw_func(heartN, {48,36}, {1,0}, 9)
+    draw_func(N1, {48,30}, {1,0}, 3)
+    draw_func(N1, {48,31}, {1,0}, 3)
+    draw_func(N1, {48,32}, {1,0}, 3)
+    draw_func(N1, {48,33}, {1,0}, 3)
+    draw_func(NW1, {51,30}, {0,1}, 4)
+    draw_func(W1, {52,30}, {1,0}, 5)
+    draw_func(W1, {52,31}, {1,0}, 5)
+    draw_func(W1, {52,32}, {1,0}, 5)
+    draw_func(W1, {52,33}, {1,0}, 5)
+  end
+  if pulse==5 then
+-- Right Atrium --
+    draw_func({heartK,S2}, {39,26}, {1,0}, 4)
+-- Right Ventricle --
+    draw_func(heartN, {39,35}, {1,0}, 7)
+    set_funcs(N2, {{44,31},{45,31},{44,32},{44,33},{45,32},{45,33}})
+    set_funcs(NE2, {{43,31},{43,32},{43,33}})
+    draw_func(E2, {39,31}, {1,0}, 4)
+    draw_func(E2, {39,32}, {1,0}, 4)
+    draw_func(E2, {39,33}, {1,0}, 4)
+-- Left Atrium --
+    draw_func({heartK,S2}, {54,25}, {1,0}, 3)
+-- Left Ventricle --
+    draw_func(heartN, {48,35}, {1,0}, 9)
+    draw_func(N2, {48,30}, {1,0}, 3)
+    draw_func(N2, {48,31}, {1,0}, 3)
+    draw_func(N2, {48,32}, {1,0}, 3)
+    draw_func(N2, {48,33}, {1,0}, 3)
+    draw_func(NW2, {51,30}, {0,1}, 4)
+    draw_func(W2, {52,30}, {1,0}, 5)
+    draw_func(W2, {52,31}, {1,0}, 5)
+    draw_func(W2, {52,32}, {1,0}, 5)
+    draw_func(W2, {52,33}, {1,0}, 5)
+  end
+  if pulse==6 then
+-- Right Atrium --
+    draw_func({heartK,S2}, {39,25}, {1,0}, 4)
+-- Right Ventricle --
+    draw_func(heartN, {39,34}, {1,0}, 7)
+    set_funcs(N3, {{44,31},{45,31},{44,32},{44,33},{45,32},{45,33}})
+    set_funcs(NE3, {{43,31},{43,32},{43,33}})
+    draw_func(E3, {39,31}, {1,0}, 4)
+    draw_func(E3, {39,32}, {1,0}, 4)
+    draw_func(E3, {39,33}, {1,0}, 4)
+-- Left Atrium --
+    draw_func({heartK,S2}, {54,24}, {1,0}, 3)
+-- Left Ventricle --
+    draw_func(heartN, {48,34}, {1,0}, 9)
+    draw_func(N3, {48,30}, {1,0}, 3)
+    draw_func(N3, {48,31}, {1,0}, 3)
+    draw_func(N3, {48,32}, {1,0}, 3)
+    draw_func(N3, {48,33}, {1,0}, 3)
+    draw_func(NW3, {51,30}, {0,1}, 4)
+    draw_func(W3, {52,30}, {1,0}, 5)
+    draw_func(W3, {52,31}, {1,0}, 5)
+    draw_func(W3, {52,32}, {1,0}, 5)
+    draw_func(W3, {52,33}, {1,0}, 5)
+  end
+  if pulse>6 then
+    pulse=0
+  end
+end
+
+-- Closes all gates to oxyds
+function CloseGates()
+  enigma.SendMessage(enigma.GetNamedObject("gatebrainL"), "close", nil)
+  enigma.SendMessage(enigma.GetNamedObject("gatebrainR"), "close", nil)
+  enigma.SendMessage(enigma.GetNamedObject("gatehandL"), "close", nil)
+  enigma.SendMessage(enigma.GetNamedObject("gatehandR"), "close", nil)
+  enigma.SendMessage(enigma.GetNamedObject("gatekidneyL"), "close", nil)
+  enigma.SendMessage(enigma.GetNamedObject("gatespleen"), "close", nil)
+  enigma.SendMessage(enigma.GetNamedObject("gatekidneyR"), "close", nil)
+  enigma.SendMessage(enigma.GetNamedObject("gateliver"), "close", nil)
+  enigma.SendMessage(enigma.GetNamedObject("gategutL"), "close", nil)
+  enigma.SendMessage(enigma.GetNamedObject("gategutR"), "close", nil)
+  enigma.SendMessage(enigma.GetNamedObject("gateliverP"), "close", nil)
+  enigma.SendMessage(enigma.GetNamedObject("gatebladder"), "close", nil)
+  enigma.SendMessage(enigma.GetNamedObject("footL"), "close", nil)
+  enigma.SendMessage(enigma.GetNamedObject("footR"), "close", nil)
+end
+
+-- Opens all gates to oxyds
+function OpenGates()
+  enigma.SendMessage(enigma.GetNamedObject("gatebrainL"), "open", nil)
+  enigma.SendMessage(enigma.GetNamedObject("gatebrainR"), "open", nil)
+  enigma.SendMessage(enigma.GetNamedObject("gatehandL"), "open", nil)
+  enigma.SendMessage(enigma.GetNamedObject("gatehandR"), "open", nil)
+  enigma.SendMessage(enigma.GetNamedObject("gatekidneyL"), "open", nil)
+  enigma.SendMessage(enigma.GetNamedObject("gatespleen"), "open", nil)
+  enigma.SendMessage(enigma.GetNamedObject("gatekidneyR"), "open", nil)
+  enigma.SendMessage(enigma.GetNamedObject("gateliver"), "open", nil)
+  enigma.SendMessage(enigma.GetNamedObject("gategutL"), "open", nil)
+  enigma.SendMessage(enigma.GetNamedObject("gategutR"), "open", nil)
+  enigma.SendMessage(enigma.GetNamedObject("gateliverP"), "open", nil)
+  enigma.SendMessage(enigma.GetNamedObject("gatebladder"), "open", nil)
+  enigma.SendMessage(enigma.GetNamedObject("footL"), "open", nil)
+  enigma.SendMessage(enigma.GetNamedObject("footR"), "open", nil)
+end
+
+    ]]></el:luamain>
+    <el:i18n>
+      <el:string el:key="title">
+        <el:english el:translate="false"/>
+      </el:string>
+      <el:string el:key="text1">
+        <el:english el:translate="true" el:comment="Your job is to 'collect' oxygen from the lungs (by opening the switch), then deliver the oxygen to the tissues (by touching the oxyds).">Carry that oxygen around.</el:english>
+      </el:string>
+    </el:i18n>
+  </el:protected>
+</el:level>
+

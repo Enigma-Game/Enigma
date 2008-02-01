@@ -3,7 +3,7 @@
   <el:protected>
     <el:info el:type="level">
       <el:identity el:title="Black Diamond Course" el:subtitle="" el:id="duffy28"/>
-      <el:version el:score="1" el:release="1" el:revision="0" el:status="released"/>
+      <el:version el:score="1" el:release="1" el:revision="1" el:status="released"/>
       <el:author  el:name="Jacob Scott" el:email="" el:homepage=""/>
       <el:copyright>Copyright © 2003 Jacob Scott</el:copyright>
       <el:license el:type="GPL v2.0 or above" el:open="true"/>
@@ -16,8 +16,11 @@
       <el:score el:easy="-" el:difficult="-"/>
     </el:info>
     <el:luamain><![CDATA[
-levelw=80
-levelh=40
+rooms_wide=3
+rooms_high=2
+
+levelw=1+(19*rooms_wide)
+levelh=1+(12*rooms_high)
 
 create_world( levelw, levelh)
 
@@ -32,12 +35,11 @@ function renderLine( line, pattern)
             oxyd( i-1, line)
         elseif c == "!" then
             abyss(i-1,line)
---            fill_floor("fl-water", i-1,line, 1,1)
         elseif c=="z" then
             set_actor("ac-blackball", i-.5,line+.5)
             fill_floor("fl-leaves", i-1,line,1,1)
         elseif c==" " then
-                abyss(i-1,line)
+            abyss(i-1,line)
         elseif c == "s" then
             set_item("it-spring1",i-1,line)
             fill_floor("fl-leaves", i-1,line,1,1)
@@ -87,15 +89,15 @@ function renderLine( line, pattern)
             fill_floor("fl-leaves", i-1,line, 1,1)
             set_stone("st-chameleon", i-1,line)
         elseif c=="S" then
-            fill_floor("fl-floor_001", i-1,line, 1,1)    
+            fill_floor("fl-floor_001", i-1,line, 1,1)
         end
-    end    
+    end
 end
 
 -- Floor:  " "
 -- Border: "#"
 -- Oxyd:   "o"
-                   
+
 renderLine(00,"##########################################################")
 renderLine(01,"#            c   #       jjj              #           ff #")
 renderLine(02,"# aaaa bb  ccccc #     jjj j   kkkk   iii #   gg     fff #")
@@ -123,21 +125,6 @@ renderLine(23,"#mmmmmm  #  iii           # lll nnnn      #    bb  ccccc #")
 renderLine(24,"##########################################################")
 
 oxyd_shuffle()
-
---through=0
---function funcc()
---    if through==1 then
---    through=0
---    end
---    if through==0 then
---    SendMessage(door1, "openclose")
---    SendMessage(door2, "openclose")
---    SendMessage(door3, "openclose")
---    SendMessage(bridge1, "openclose")
---    SendMessage(bridge2, "openclose")
---    end
---    through=through+1
---end
     ]]></el:luamain>
     <el:i18n>
       <el:string el:key="title">

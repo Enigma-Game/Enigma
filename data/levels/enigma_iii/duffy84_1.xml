@@ -3,7 +3,7 @@
   <el:protected>
     <el:info el:type="level">
       <el:identity el:title="Laser Tricks" el:subtitle="" el:id="duffy84"/>
-      <el:version el:score="1" el:release="1" el:revision="0" el:status="released"/>
+      <el:version el:score="1" el:release="1" el:revision="1" el:status="released"/>
       <el:author  el:name="Jacob Scott" el:email="" el:homepage=""/>
       <el:copyright>Copyright © 2004 Jacob Scott</el:copyright>
       <el:license el:type="GPL v2.0 or above" el:open="true"/>
@@ -23,7 +23,7 @@ levelw=1+(19*rooms_wide)
 levelh=1+(12*rooms_high)
 
 create_world( levelw, levelh)
-enigma.ConserveLevel=FALSE
+enigma.ConserveLevel = 0
 
 fill_floor("fl-black", 0,0,levelw,levelh)
 
@@ -44,9 +44,9 @@ function renderLine( line, pattern)
         elseif c == "!" then
             abyss(i-1,line)
         elseif c == "~" then
-           set_floor("fl-water",i-1,line)
+            set_floor("fl-water",i-1,line)
         elseif c=="z" then
-           set_actor("ac-blackball", i-1,line+.5, {player=0})
+            set_actor("ac-blackball", i-1,line+.5, {player=0})
         elseif c == "g" then
             draw_stones("st-grate1",{i-1,line}, {1,1}, 1)
         elseif c=="+" then
@@ -54,33 +54,33 @@ function renderLine( line, pattern)
         elseif c=="=" then
             set_floor("fl-space",i-1,line)
         elseif c=="A" then
-           set_stone("st-laserswitch",i-1,line,{action="callback",target="funcc1"})
+            set_stone("st-laserswitch",i-1,line,{action="callback",target="funcc1"})
         elseif c=="C" then
-           set_attrib(laser(i-1,line, FALSE, EAST), "name","laser1")
+            set_attrib(laser(i-1,line, FALSE, EAST), "name","laser1")
         elseif c=="c" then
-           set_item("it-coin2",i-1,line)
+            set_item("it-coin2",i-1,line)
         elseif c=="E" then
-           set_stone("st-coinslot",i-1,line,{action="onoff",target="laser1"})
+            set_stone("st-coinslot",i-1,line,{action="onoff",target="laser1"})
         elseif c=="B" then
             doorv( i-1,line, {name="door1"})
-         elseif c == ":" then
+        elseif c == ":" then
             mirrorp(i-1,line,FALSE,FALSE, 2)
-         elseif c == "/" then
+        elseif c == "/" then
             mirrorp(i-1,line,TRUE,FALSE, 4)
-         elseif c == ";" then
+        elseif c == ";" then
             mirrorp(i-1,line,TRUE,FALSE, 2)
-         elseif c == "?" then
+        elseif c == "?" then
             mirrorp(i-1,line,FALSE,FALSE, 4)
-         elseif c == "." then
+        elseif c == "." then
             mirrorp(i-1,line,TRUE,FALSE, 1)
-         elseif c == "S" then
-           set_stone("st-bolder", i-1,line, {name="bolder1",direction=SOUTH})
-         elseif c == "R" then
-               set_stone( "st-rotator-right", i-1, line)
-         elseif c == "b" then
-           set_item("it-trigger",i-1,line,{action="openclose",target="door1"})
-         end
-    end    
+        elseif c == "S" then
+            set_stone("st-bolder", i-1,line, {name="bolder1",direction=SOUTH})
+        elseif c == "R" then
+            set_stone( "st-rotator-right", i-1, line)
+        elseif c == "b" then
+            set_item("it-trigger",i-1,line,{action="openclose",target="door1"})
+        end
+    end
 end
 
 renderLine(00,"####################!!!!!!!!!!!!!!!!!!!")
@@ -102,15 +102,15 @@ oxyd_shuffle()
 ff1=0
 
 function funcc1()
-   if ff1==0 then
-set_stone("st-greenbrown",19,6)
-enigma.KillStone(19,6)
-enigma.KillItem(18,6)
-      ff1=1
-   elseif ff1==1 then
-      set_stone( "st-laserswitch", 19, 6)
-      ff1=0
-   end
+    if ff1==0 then
+    set_stone("st-greenbrown",19,6)
+    enigma.KillStone(19,6)
+    enigma.KillItem(18,6)
+        ff1=1
+    elseif ff1==1 then
+        set_stone( "st-laserswitch", 19, 6)
+        ff1=0
+    end
 end
     ]]></el:luamain>
     <el:i18n>

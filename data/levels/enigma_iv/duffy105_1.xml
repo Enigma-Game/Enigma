@@ -3,7 +3,7 @@
   <el:protected>
     <el:info el:type="level">
       <el:identity el:title="Drunkard's Walk" el:subtitle="" el:id="duffy105"/>
-      <el:version el:score="1" el:release="1" el:revision="0" el:status="released"/>
+      <el:version el:score="1" el:release="1" el:revision="1" el:status="released"/>
       <el:author  el:name="Jacob Scott" el:email="" el:homepage=""/>
       <el:copyright>Copyright © 2004 Jacob Scott</el:copyright>
       <el:license el:type="GPL v2.0 or above" el:open="true"/>
@@ -23,7 +23,7 @@ levelw=1+(19*rooms_wide)
 levelh=1+(12*rooms_high)
 
 create_world( levelw, levelh)
-enigma.ConserveLevel=FALSE
+enigma.ConserveLevel = 0
 
 fill_floor("fl-rough-blue", 0,0,levelw,levelh)
 
@@ -39,9 +39,9 @@ function renderLine( line, pattern)
         elseif c == "*" then
             set_stone( "st-brownie", i-1, line)
         elseif c == "~" then
-           set_floor("fl-water",i-1,line)
+            set_floor("fl-water",i-1,line)
         elseif c=="w" then
-           set_actor("ac-whiteball-small", i-.5,line+.5, {player=0, essential=1})
+            set_actor("ac-whiteball-small", i-.5,line+.5, {player=0, essential=1})
         elseif c == "g" then
             draw_stones("st-grate1",{i-1,line}, {1,1}, 1)
         elseif c=="+" then
@@ -49,11 +49,11 @@ function renderLine( line, pattern)
         elseif c=="=" then
             set_floor("fl-space",i-1,line)
         elseif c=="B" then
-           set_item("it-booze",i-1,line)
+            set_item("it-booze",i-1,line)
         elseif c=="H" then
-           set_item("it-hollow",i-1,line)
-         end
-    end    
+            set_item("it-hollow",i-1,line)
+        end
+    end
 end
 
 renderLine(00,"XXXXXXXXXXXXXXXXXXXX")

@@ -1,0 +1,319 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no" ?>
+<el:level xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://enigma-game.org/schema/level/1 level.xsd" xmlns:el="http://enigma-game.org/schema/level/1">
+  <el:protected>
+    <el:info el:type="level">
+      <el:identity el:title="Slopes, Jumps &amp; Falls" el:subtitle="" el:id="duffy167"/>
+      <el:version el:score="1" el:release="1" el:revision="0" el:status="released"/>
+      <el:author  el:name="Jacob Scott" el:email="" el:homepage=""/>
+      <el:copyright>Copyright © 2007 Jacob Scott</el:copyright>
+      <el:license el:type="GPL v2.0 or above" el:open="true"/>
+      <el:compatibility el:enigma="0.92">
+      </el:compatibility>
+      <el:modes el:easy="false" el:single="true" el:network="false"/>
+      <el:score el:easy="-" el:difficult="-"/>
+    </el:info>
+    <el:luamain><![CDATA[
+rooms_wide=4
+rooms_high=3
+
+levelw=1+(19*rooms_wide)
+levelh=1+(12*rooms_high) +1
+
+create_world( levelw, levelh)
+
+fill_floor("fl-metal", 0,0,levelw,levelh)
+
+function renderLine( line, pattern)
+    for i=1, strlen(pattern) do
+        local c = strsub( pattern, i, i)
+        if c =="#" then
+            set_stone( "st-greenbrown", i-1, line)
+        elseif c == "o" then
+            oxyd( i-1, line)
+        elseif c == "!" then
+            abyss(i-1,line)
+        elseif c == " " then
+            abyss(i-1,line)
+        elseif c == "T" then
+            fill_floor("fl-abyss_fake",i-1,line,1,1)
+        elseif c == "y" then
+            fill_floor("fl-abyss_fake",i-1,line,1,1)
+            document(i-1,line,"text1")
+        elseif c == "x" then
+            fill_floor("fl-metal",i-1,line,1,1)
+        elseif c=="+" then
+            set_stone( "st-wood", i-1, line)
+        elseif c=="g" then
+            draw_stones("st-grate1",{i-1,line}, {1,1}, 1)
+        elseif c=="z" then
+            set_actor("ac-blackball", i-.5,line+.5, {player=0})
+            fill_floor("fl-metal",i-1,line,1,1)
+        elseif c=="H" then
+            set_item("it-hollow",i-1, line)
+        elseif c=="Q" then
+            set_item("it-hill",i-1, line)
+        elseif c=="h" then
+            set_item("it-tinyhollow",i-1, line)
+        elseif c=="q" then
+            set_item("it-tinyhill",i-1, line)
+        elseif c=="." then
+            set_item("it-extralife",i-1, line)
+        elseif c=="g" then
+            draw_stones("st-grate1",{i-1,line}, {1,1}, 1)
+        elseif c=="G" then
+            draw_stones("st-grate1",{i-1,line}, {1,1}, 1)
+            set_item("it-seed", i-1, line)
+        elseif c=="=" then
+            set_attrib(laser(i-1,line, TRUE, EAST), "name", "laser")
+            set_item("it-seed", i-1, line)
+        elseif c=="c" then
+            set_item("it-wormhole", i-1, line, {strength=2,targetx="36.5",targety="2.5"})
+            fill_floor("fl-metal",i-1,line,1,1)
+        elseif c=="D" then
+            set_item("it-wormhole", i-1, line, {strength=2,targetx="65.5",targety="17.5"})
+        elseif c=="e" then
+            set_item("it-wormhole", i-1, line, {strength=2,targetx="46.5",targety="32.5"})
+        elseif c=="f" then
+            set_item("it-wormhole", i-1, line, {strength=2,targetx="6.5",targety="10.5"})
+        elseif c=="J" then
+            set_item("it-wormhole", i-1, line, {strength=2,targetx="7.5",targety="32.5"})
+        elseif c=="L" then
+            set_item("it-wormhole", i-1, line, {strength=2,targetx="65.5",targety="17.5"})
+        elseif c=="2" then
+            set_item("it-wormhole", i-1, line, {strength=2,targetx="29.5",targety="30.5"})
+        elseif c=="5" then
+            set_item("it-wormhole", i-1, line, {strength=7,targetx="29.5",targety="30.5"})
+        elseif c=="4" then
+            set_item("it-wormhole", i-1, line, {strength=2,targetx="8.5",targety="32.5"})
+        elseif c=="/" then
+            set_item("it-wormhole", i-1, line, {strength=3,targetx="20.5",targety="15.5"})
+        elseif c=="K" then
+            set_item("it-wormhole", i-1, line, {strength=2,targetx="36.5",targety="2.5"})
+        elseif c=="$" then
+            set_item("it-wormhole", i-1, line, {strength=2,targetx="46.5",targety="32.5"})
+        elseif c=="&" then
+            set_item("it-wormhole", i-1, line, {strength=2,targetx="31.5",targety="9.5"})
+            set_floor("fl-gradient",  i-1,  line, {type=4})
+        elseif c=="_" then
+            set_item("it-wormhole", i-1, line, {strength=1,targetx="48.5",targety="18.5"})
+        elseif c=="%" then
+            set_item("it-wormhole", i-1, line, {strength=2,targetx="48.5",targety="18.5"})
+        elseif c=="C" then
+            set_item("it-wormhole", i-1, line, {strength=1,targetx="3.5",targety="17.5"})
+            fill_floor("fl-metal",i-1,line,1,1)
+        elseif c == "d" then --1-d
+            set_floor("fl-gradient",  i-1,  line, {type=1})
+        elseif c == "u" then --2-u
+            set_floor("fl-gradient",  i-1,  line, {type=2})
+        elseif c == "r" then --3-r
+            set_floor("fl-gradient",  i-1,  line, {type=3})
+        elseif c == "l" then --4-l
+            set_floor("fl-gradient",  i-1,  line, {type=4})
+        elseif c == "1" then --ur
+            set_floor("fl-gradient",  i-1,  line, {type=11})
+        elseif c == "3" then --dl
+            set_floor("fl-gradient",  i-1,  line, {type=9})
+        elseif c == "7" then --dr
+            set_floor("fl-gradient",  i-1,  line, {type=12})
+        elseif c == "9" then --ul
+            set_floor("fl-gradient",  i-1,  line, {type=10})
+        elseif c=="s" then
+            oneway(i-1,line, enigma.SOUTH)
+        elseif c=="n" then
+            oneway(i-1,line, enigma.NORTH)
+        elseif c=="E" then
+            oneway(i-1,line, enigma.EAST)
+        elseif c=="w" then
+            oneway(i-1,line, enigma.WEST)
+        elseif c=="p" then
+            dynamite(i-1,line)
+        elseif c=="B" then
+            set_stone( "st-actorimpulse",i-1,line)
+        elseif c=="O" then
+            set_item("it-trigger", i-1,line, {action="callback", target="funcc1"})
+        elseif c=="A" then
+            set_item("it-trigger", i-1,line, {action="open", target="door3"})
+        elseif c=="`" then
+            set_item("it-trigger", i-1,line, {action="close", target="door3"})
+        elseif c=="F" then
+            set_item("it-trigger", i-1,line, {action="callback", target="funcc2"})
+        elseif c=="M" then
+            set_item( "it-magnet",i-1 ,line , {name="magnet1"})
+        elseif c=="N" then
+            set_item( "it-magnet",i-1 ,line , {name="magnet2"})
+        elseif c=="~" then
+            set_item( "it-magnet",i-1 ,line , {name="magnet3"})
+        elseif c=="P" then
+            set_item( "it-magnet",i-1 ,line , {name="magnet4"})
+        elseif c=="*" then
+            set_item( "it-magnet",i-1 ,line , {name="magnet5"})
+        elseif c=="R" then
+            set_item( "it-magnet",i-1 ,line , {name="magnet6"})
+        elseif c=="S" then
+            set_item( "it-magnet",i-1 ,line , {name="magnet7"})
+        elseif c=="U" then
+            set_item( "it-magnet",i-1 ,line , {name="magnet8"})
+        elseif c=="V" then
+            set_item( "it-magnet",i-1 ,line , {name="magnet9"})
+        elseif c=="W" then
+            set_item( "it-magnet",i-1 ,line , {name="magnet10"})
+        elseif c=="X" then
+            set_item( "it-magnet",i-1 ,line , {name="magnet11"})
+        elseif c=="Y" then
+            set_item( "it-magnet",i-1 ,line , {name="magnet12"})
+        elseif c=="Z" then
+            set_item( "it-magnet",i-1 ,line , {name="magnet13"})
+        elseif c=="<" then
+            set_item( "it-magnet",i-1 ,line , {name="magnet14"})
+        elseif c==">" then
+            set_item( "it-magnet",i-1 ,line , {name="magnet15"})
+        elseif c=="?" then
+            set_item( "it-magnet",i-1 ,line , {name="magnet16"})
+        elseif c=="I" then
+            set_stone("st-switch", i-1,line, {action="callback",target="funcc3"})
+        elseif c=="i" then
+            doorh( i-1,line, {name="door1"})
+        elseif c==";" then
+            doorh( i-1,line, {name="door2"})
+        elseif c==":" then
+            doorv( i-1,line, {name="door3"})
+        elseif c=="@" then
+            document(i-1,line,"text2")
+        elseif c=="^" then
+            set_item("it-blackbomb",i-1,line)
+        end
+    end
+end
+
+function yy1( color, x, y)
+    stone = format( "st-%s4", color)
+    set_stone( stone, x, y)
+end
+
+-- Floor:  " "
+-- Border: "#"
+-- Oxyd:   "o"
+
+renderLine(00,"#############################################################################")
+renderLine(01,"#                                 ####                #3rrrrI#              #")
+renderLine(02,"# xxxxxxxxxx_    #xxrrrrlllrrrrrrrrrx# oxxxxxxxxx     #r#####xxxxxxxxxxxx   #")
+renderLine(03,"# x   x          #x#              ####       x  x     #9ll7##x##########x   #")
+renderLine(04,"# x   x          #x#  xxxTTTTTTTTxxx ########x  x     ####u##x#xxxxxxx #x   #")
+renderLine(05,"# x   xxxxxcccxxx#s#xxx@xTTTTyTTTxxxxxx`xx:llx3dddddd1   #u7#x#x#####x #x   #")
+renderLine(06,"# x   xx.xxcccxxxxxxx xxxTTTTTTTTxxx ####x#s# r3dddd1l   ##u#x#x#xxx#x #x   #")
+renderLine(07,"# x  oxxxxxcccxxx###                    #+wxx rr3dd1ll   #u9#x#x#x#x#x #x#  #")
+renderLine(08,"# x                 xx  xx   3dddddddd1 #!##x rrrBBlll   #u##x#x#/#x#x #x#  #")
+renderLine(09,"= x 3dddddddddd1   xxxxxxxxx#r%xlllllol #n##x rrrBBl&l   #u# x#x#o#x#x #;#  #")
+renderLine(10,"# x r$xlllllllol xxxx xx   x 9uuuuuuuu7 #xxxx rr9uu7ll   #x# x#x###x#x #x#  #")
+renderLine(11,"# x 9uuuuuuuuuu7 x         x            #A### r9uuuu7lxx #x# x#xxxxx#x  x   #")
+renderLine(12,"# x              x  C  xxxxx BBBBBBBBB  #u#   9uuuuuu7 x #i# x#######x  x   #")
+renderLine(13,"# x  3d1   7u9   x  x  x     B!B!!xxxB  #u#            x #x# xxxxxxxxx  x   #")
+renderLine(14,"# xxxrxlxxxlxrxx o  xxxx   BBBxB!BBBxB###u#           xx #x#            x   #")
+renderLine(15,"# #n#9u7   1d3 x    xxx  BBBxxxBxxxxxxlllx#           x   x    3ddd1    x   #")
+renderLine(16,"# #xx   ###    xxxxxxxx BBeBxBxBBBBxBB###x#   3dddd1 3dd1 x    rxxxl    x   #")
+renderLine(17,"# xxxxxxxxx####         BDxxxBxxxxBxB!#  xxxx 3xxxxl rxxl xxxxxrxxxlxxxxx   #")
+renderLine(18,"# xxx###x#xxxx# 3dddd1  BBfBxBxBxxxxBx#  x.xxxxxzxol rxxl      rxxxl        #")
+renderLine(19,"# x#####xx+##x# r79hHl   BBBxxxBxBBxxx#  xxxx 9xxxxl rxol      9uuu7        #")
+renderLine(20,"# ! o#xxxxxx#x# r13Qplxx   BBBxBxx!BBB#  #x#  9uuuu7 9uu7  3dd1  x          #")
+renderLine(21,"# x x#x#x#xxxx# r!H7u7 xxx   B!BBBB####  #x#               rxxl  x          #")
+renderLine(22,"# xxx#x#x###### roql     x   BBB #xxx4#  #x#  xxxxxxxxxxxxxrxol #F#         #")
+renderLine(23,"#   x#xxx#      9uu7     x       #x5###  #x#  x     x      rxxl #O#         #")
+renderLine(24,"#   s#####               x       #x#     #x#  x     x      9uu7 #x#         #")
+renderLine(25,"#   xxx                 xxxxxxxxxxx      #x# Qxx    x           #x#         #")
+renderLine(26,"#     x                 xTTTTTTTTTx      #x#xH79    x       ###M#x#V###     #")
+renderLine(27,"#   3ddd1   3ddd1       xTxxxxxxxTx      #x#.x13    x       #J#N#x#W#K#     #")
+renderLine(28,"# 3d3xxxl   rxxxl       xTxTTTTTxTx       xxx d     x       #F#~#x#X#F#     #")
+renderLine(29,"# rxxxoxl   rxoxl       xTxTxxxTxTx           d     x       #n#P#x#Y#n#     #")
+renderLine(30,"# 9u9xxx1ddd3x2xl       xTxTxxxTxTx         7uuu9 3ddd1     #x#*#x#Z#x#     #")
+renderLine(31,"#   lx.xLxxxxxxxl       xTxTxxxTxTx         lxxxr r7u9l     #x#R#x#<#x#     #")
+renderLine(32,"#   lxxxxx7uu9xxl       xTxTTTTTxTxxxxxxxxo lxxxr rlorl     #x#S#x#>#x#     #")
+renderLine(33,"#   loxxxxl  9uu7       xTxxxxxxxTx         lxxxr r1d3l     #x#U#x#?#x#     #")
+renderLine(34,"#   9uuuuu7             xTTTTTTTTTx         1ddd3 9uuu7     #x###x###x#     #")
+renderLine(35,"#                       xxxxxxxxxxx                         #xxxxxxxxx#     #")
+renderLine(36,"#############################################################################")
+
+oxyd_shuffle()
+
+set_stone("st-timer", 0,37, {loop=0, action="onoff", target="laser", interval=.9})
+
+SetDefaultAttribs("it-wormhole",{range=2.0})
+
+door1=enigma.GetNamedObject("door1")
+door2=enigma.GetNamedObject("door2")
+
+magnet1=enigma.GetNamedObject("magnet1")
+magnet2=enigma.GetNamedObject("magnet2")
+magnet3=enigma.GetNamedObject("magnet3")
+magnet4=enigma.GetNamedObject("magnet4")
+magnet5=enigma.GetNamedObject("magnet5")
+magnet6=enigma.GetNamedObject("magnet6")
+magnet7=enigma.GetNamedObject("magnet7")
+magnet8=enigma.GetNamedObject("magnet8")
+magnet9=enigma.GetNamedObject("magnet9")
+magnet10=enigma.GetNamedObject("magnet10")
+magnet11=enigma.GetNamedObject("magnet11")
+magnet12=enigma.GetNamedObject("magnet12")
+magnet13=enigma.GetNamedObject("magnet13")
+magnet14=enigma.GetNamedObject("magnet14")
+magnet15=enigma.GetNamedObject("magnet15")
+magnet16=enigma.GetNamedObject("magnet16")
+
+enigma.SendMessage(door1, "openclose", nil)
+
+function funcc1()
+    enigma.SendMessage(magnet1, "on", nil)
+    enigma.SendMessage(magnet2, "on", nil)
+    enigma.SendMessage(magnet3, "on", nil)
+    enigma.SendMessage(magnet4, "on", nil)
+    enigma.SendMessage(magnet5, "on", nil)
+    enigma.SendMessage(magnet6, "on", nil)
+    enigma.SendMessage(magnet7, "on", nil)
+    enigma.SendMessage(magnet8, "on", nil)
+    enigma.SendMessage(magnet9, "on", nil)
+    enigma.SendMessage(magnet10, "on", nil)
+    enigma.SendMessage(magnet11, "on", nil)
+    enigma.SendMessage(magnet12, "on", nil)
+    enigma.SendMessage(magnet13, "on", nil)
+    enigma.SendMessage(magnet14, "on", nil)
+    enigma.SendMessage(magnet15, "on", nil)
+    enigma.SendMessage(magnet16, "on", nil)
+end
+
+function funcc2()
+    enigma.SendMessage(magnet1, "off", nil)
+    enigma.SendMessage(magnet2, "off", nil)
+    enigma.SendMessage(magnet3, "off", nil)
+    enigma.SendMessage(magnet4, "off", nil)
+    enigma.SendMessage(magnet5, "off", nil)
+    enigma.SendMessage(magnet6, "off", nil)
+    enigma.SendMessage(magnet7, "off", nil)
+    enigma.SendMessage(magnet8, "off", nil)
+    enigma.SendMessage(magnet9, "off", nil)
+    enigma.SendMessage(magnet10, "off", nil)
+    enigma.SendMessage(magnet11, "off", nil)
+    enigma.SendMessage(magnet12, "off", nil)
+    enigma.SendMessage(magnet13, "off", nil)
+    enigma.SendMessage(magnet14, "off", nil)
+    enigma.SendMessage(magnet15, "off", nil)
+    enigma.SendMessage(magnet16, "off", nil)
+end
+
+function funcc3()
+    enigma.SendMessage(door1, "openclose", nil)
+    enigma.SendMessage(door2, "openclose", nil)
+end
+    ]]></el:luamain>
+    <el:i18n>
+      <el:string el:key="title">
+        <el:english el:translate="false"/>
+      </el:string>
+      <el:string el:key="text1">
+        <el:english el:translate="true">Floating ...</el:english>
+      </el:string>
+      <el:string el:key="text2">
+        <el:english el:translate="true">Don't be afraid -- It's only a ten mile drop!</el:english>
+      </el:string>
+    </el:i18n>
+  </el:protected>
+</el:level>
+

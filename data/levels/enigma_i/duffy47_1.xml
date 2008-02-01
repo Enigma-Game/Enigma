@@ -3,7 +3,7 @@
   <el:protected>
     <el:info el:type="level">
       <el:identity el:title="Cage The Lions" el:subtitle="" el:id="duffy47"/>
-      <el:version el:score="1" el:release="1" el:revision="0" el:status="released"/>
+      <el:version el:score="1" el:release="1" el:revision="1" el:status="released"/>
       <el:author  el:name="Jacob Scott" el:email="" el:homepage=""/>
       <el:copyright>Copyright © 2003 Jacob Scott</el:copyright>
       <el:license el:type="GPL v2.0 or above" el:open="true"/>
@@ -16,8 +16,11 @@
       <el:score el:easy="-" el:difficult="-"/>
     </el:info>
     <el:luamain><![CDATA[
-levelw=20
-levelh=13
+rooms_wide=1
+rooms_high=1
+
+levelw=1+(19*rooms_wide)
+levelh=1+(12*rooms_high)
 
 create_world( levelw, levelh)
 
@@ -34,14 +37,12 @@ function renderLine( line, pattern)
             oxyd( i-1, line)
         elseif c == "*" then
             set_stone( "st-brownie", i-1, line)
-                elseif c == "!" then
+        elseif c == "!" then
             abyss(i-1,line)
---            fill_floor("fl-water", i-1,line, 1,1)
-                elseif c == "~" then
---            abyss(i-1,line)
+        elseif c == "~" then
             fill_floor("fl-water", i-1,line, 1,1)
         elseif c=="z" then
-                set_actor("ac-blackball", i,line+.5)
+            set_actor("ac-blackball", i,line+.5)
         elseif c == "g" then
             draw_stones("st-grate1",{i-1,line}, {1,1}, 1)
         elseif c=="+" then
@@ -57,7 +58,7 @@ function renderLine( line, pattern)
         elseif c == "l" then --4-l
             set_floor("fl-gradient",  i-1,  line, {type=4})
         elseif c == "1" then --ur
-                set_floor("fl-gradient",  i-1,  line, {type=11})
+            set_floor("fl-gradient",  i-1,  line, {type=11})
         elseif c == "3" then --dl
             set_floor("fl-gradient",  i-1,  line, {type=9})
         elseif c == "7" then --dr
@@ -65,15 +66,15 @@ function renderLine( line, pattern)
         elseif c == "9" then --ul
             set_floor("fl-gradient",  i-1,  line, {type=10})
         elseif c=="T" then
-           set_actor("ac-top", i-.5,line+.5, {player=1, mouseforce=0, range=30, force=30})
+            set_actor("ac-top", i-.5,line+.5, {player=1, mouseforce=0, range=30, force=30})
         elseif c=="R" then
-           set_actor("ac-rotor", i-.5,line+.5, {player=1, mouseforce=0, range=30, force=30})
+            set_actor("ac-rotor", i-.5,line+.5, {player=1, mouseforce=0, range=30, force=30})
         elseif c =="H" then
             set_stone("st-switch", i-1,line, {action="callback", target="funcc1"})
         elseif c =="F" then
-           set_stone("st-door_b",i-1,line,{name="door1"})
+            set_stone("st-door_b",i-1,line,{name="door1"})
         elseif c =="G" then
-           set_stone("st-door_b",i-1,line,{name="door2"})
+            set_stone("st-door_b",i-1,line,{name="door2"})
         elseif c =="a" then
             set_item("it-trigger", i-1,line, {action="openclose", target="door3"})
         elseif c =="b" then
@@ -90,8 +91,8 @@ function renderLine( line, pattern)
             doorv( i-1,line, {name="door5"})
         elseif c=="D" then
             doorv( i-1,line, {name="door6"})
-         end
-    end    
+        end
+    end
 end
 
 function yy1( color, x, y)

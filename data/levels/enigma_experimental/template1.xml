@@ -4,8 +4,8 @@
     <el:info el:type="level">
       <el:identity el:title="Template 1" el:subtitle="" el:id="template1"/>
       <el:version el:score="1" el:release="1" el:revision="0" el:status="stable"/>
-      <el:author  el:name="AUTHOR" el:email="" el:homepage=""/>
-      <el:copyright>Copyright © YEAR AUTHOR</el:copyright>
+      <el:author el:name="AUTHOR NAME" el:email="" el:homepage=""/>
+      <el:copyright>Copyright © YEAR AUTHOR NAME</el:copyright>
       <el:license el:type="GPL v2.0 or above" el:open="true"/>
       <el:compatibility el:enigma="1.00">
       </el:compatibility>
@@ -18,16 +18,13 @@ levelh = 13
 levelw = 20
 
 create_world(levelw, levelh)
-
--- DESIGN --
-floor="fl-sahara"
-wall="st-glass"
+oxyd_default_flavor = "b"
 
 -- FLOOR --
-fill_floor(floor, 0,0,levelw,levelh)
+fill_floor("fl-sahara", 0,0,levelw,levelh)
 
 -- STONES --
-draw_border(wall)
+draw_border("st-glass")
 
 -- ITEMS --
 set_item("it-document", 10, 6, {text="text1"})
@@ -41,7 +38,6 @@ oxyd(1,11)
 oxyd(18,1)
 oxyd(18,11)
 
-oxyd_default_flavor = "d"
 oxyd_shuffle()
     ]]></el:luamain>
     <el:i18n>
@@ -50,7 +46,8 @@ oxyd_shuffle()
       </el:string>
       <el:string el:key="text1">
         <el:english el:translate="false">Template for a simple level.</el:english>
-      </el:string> 
+      </el:string>
     </el:i18n>
   </el:protected>
 </el:level>
+

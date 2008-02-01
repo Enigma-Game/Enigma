@@ -1,0 +1,131 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no" ?>
+<el:level xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://enigma-game.org/schema/level/1 level.xsd" xmlns:el="http://enigma-game.org/schema/level/1">
+  <el:protected>
+    <el:info el:type="level">
+      <el:identity el:title="Crawling the Abyss" el:subtitle="There's more help than you first think!" el:id="sph02"/>
+      <el:version el:score="1" el:release="1" el:revision="5" el:status="released"/>
+      <el:author el:name="ShadowPhrogg32642342" el:email="shadowphrogg32642342@gmail.com" el:homepage=""/>
+      <el:copyright>Copyright © 2007 ShadowPhrogg3264242</el:copyright>
+      <el:license el:type="GPL v2.0" el:open="true"/>
+      <el:compatibility el:enigma="1.00">
+      </el:compatibility>
+      <el:modes el:easy="true" el:single="true" el:network="true"/>
+      <el:score el:easy="-" el:difficult="-"/>
+    </el:info>
+    <el:luamain><![CDATA[
+levelh = 13
+levelw = 20
+
+create_world(levelw, levelh)
+oxyd_default_flavor="c"
+enigma.TwoPlayerGame = 1
+
+function renderLine( line, pattern)
+    for i=1, strlen(pattern) do
+        local c = strsub( pattern, i, i)
+        if c=="X" then
+            oxyd(i-1,line)
+            set_floor("fl-abyss",i-1,line)
+        elseif c=="#" then
+            set_stone("st-likeoxydc-open",i-1,line)
+            set_floor("fl-black",i-1,line)
+        elseif c=="O" then
+            set_stone("st-coffee",i-1,line)
+            set_floor("fl-black",i-1,line)
+        elseif c=="F" then
+            set_stone("st-fart",i-1,line)
+            set_floor("fl-black",i-1,line)
+        elseif c=="B" then
+            set_stone("st-brake",i-1,line)
+            set_floor("fl-abyss",i-1,line)
+        elseif c==" " then
+            set_floor("fl-abyss",i-1,line)
+        elseif c=="~" then
+            set_floor("fl-inverse2",i-1,line)
+        elseif c=="w" then
+            set_floor("fl-acwhite",i-1,line)
+        elseif c=="s" then
+            set_floor("fl-acblack",i-1,line)
+        elseif c==">" then
+            set_floor("fl-gradient",i-1,line, {type = 3})
+        elseif c=="v" then
+            set_floor("fl-gradient",i-1,line, {type = 1})
+        elseif c=="<" then
+            set_floor("fl-gradient",i-1,line, {type = 4})
+        elseif c=="^" then
+            set_floor("fl-gradient",i-1,line, {type = 2})
+        end
+    end
+end
+
+if not difficult then
+    renderLine(00 , "####################")
+    renderLine(01 , "#ws~~~~~  W ~~~~~ws#")
+    renderLine(02 , "#sw~ #O~  w ~X# ~sw#")
+    renderLine(03 , "#ws~ X#~  ~~~#O ~ws#")
+    renderLine(04 , "#sw~ ~~~    ~   ~sw#")
+    renderLine(05 , "#ws~ ~   W      ~ws#")
+    renderLine(06 , "#sw~ ~   s  ~>~ ~sw#")
+    renderLine(07 , "#ws~ ~~~ ~  ^Fv ~ws#")
+    renderLine(08 , "#sw~   ~ ~~ ~<~ ~sw#")
+    renderLine(09 , "#ws~ O#~  ~ ~#X ~ws#")
+    renderLine(10 , "#sw~ #X~~~~ ~O# ~sw#")
+    renderLine(11 , "#ws~            ~ws#")
+    renderLine(12 , "####################")
+else
+    renderLine(00 , "####################")
+    renderLine(01 , "#ws~~~~~    ~~~~~ws#")
+    renderLine(02 , "#sw~ #X~  w ~X# ~sw#")
+    renderLine(03 , "#ws~BX#~  ~~~#XB~ws#")
+    renderLine(04 , "#sw~  ~~    ~   ~sw#")
+    renderLine(05 , "#ws~ ~~       ~ ~ws#")
+    renderLine(06 , "#sw~ ~   s  ~>~ ~sw#")
+    renderLine(07 , "#ws~ ~~~ ~  ^Fv ~ws#")
+    renderLine(08 , "#sw~   ~ ~~ ~<  ~sw#")
+    renderLine(09 , "#ws~BX#~  ~ ~#XB~ws#")
+    renderLine(10 , "#sw~ #X~~~~ ~X# ~sw#")
+    renderLine(11 , "#ws~            ~ws#")
+    renderLine(12 , "####################")
+end
+
+oxyd_shuffle()
+
+set_stone("st-switch_black", 10, 1, {action="openclose", target="bridge1"})
+set_stone("st-switch_white", 9, 5, {action="openclose", target="bridge2"})
+set_floor("fl-bridge-open", 11, 10, {type="a", name="bridge1"})
+set_floor("fl-bridge-open", 12, 5, {type="a", name="bridge2"})
+
+set_item("it-blackbomb_burning", 6, 7)
+
+set_stone("st-chameleon", 2, 3)
+set_item("it-ring", 2, 3)
+
+set_stone("st-chameleon", 2, 7)
+set_item("it-seed", 2, 7)
+set_stone("st-chameleon", 2, 9)
+set_item("it-seed", 2, 9)
+
+if difficult then
+    set_stone("st-chameleon", 2, 11)
+    set_item("it-seed", 2, 11)
+    set_stone("st-chameleon", 17, 7)
+    set_item("it-seed", 17, 7)
+    set_stone("st-chameleon", 17, 9)
+    set_item("it-seed", 17, 9)
+    set_stone("st-chameleon", 17, 11)
+    set_item("it-seed", 17, 11)
+end
+
+set_actor("ac-blackball", 1.5, 6.5, {player=0})
+set_actor("ac-whiteball", 18.5, 6.5, {player=1})
+set_item("it-yinyang", 2, 6)
+set_item("it-yinyang", 17, 6)
+    ]]></el:luamain>
+    <el:i18n>
+      <el:string el:key="title">
+        <el:english el:translate="false"/>
+      </el:string>
+    </el:i18n>
+  </el:protected>
+</el:level>
+

@@ -3,7 +3,7 @@
   <el:protected>
     <el:info el:type="level">
       <el:identity el:title="Worse Nightmare" el:subtitle="" el:id="duffy124"/>
-      <el:version el:score="2" el:release="2" el:revision="2" el:status="released"/>
+      <el:version el:score="2" el:release="2" el:revision="3" el:status="released"/>
       <el:author  el:name="Jacob Scott" el:email="" el:homepage=""/>
       <el:copyright>Copyright © 2004 Jacob Scott</el:copyright>
       <el:license el:type="GPL v2.0 or above" el:open="true"/>
@@ -27,9 +27,9 @@ levelh=1+(12*rooms_high)
 create_world( levelw, levelh)
 
 if difficult then
-  enigma.FrictionFactor=-0.5
+    enigma.FrictionFactor=-0.5
 else
-  enigma.FrictionFactor=-0.3
+    enigma.FrictionFactor=-0.3
 end
 
 fill_floor("fl-rough-blue", 0,0,levelw,levelh)
@@ -60,7 +60,7 @@ function renderLine( line, pattern)
         elseif c=="=" then
             set_floor("fl-space",i-1,line)
         end
-    end    
+    end
 end
 
 renderLine(00,"####################")

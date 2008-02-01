@@ -3,7 +3,7 @@
   <el:protected>
     <el:info el:type="level">
       <el:identity el:title="Guardian Angel" el:subtitle="" el:id="duffy102"/>
-      <el:version el:score="1" el:release="1" el:revision="0" el:status="released"/>
+      <el:version el:score="1" el:release="1" el:revision="1" el:status="released"/>
       <el:author  el:name="Jacob Scott" el:email="" el:homepage=""/>
       <el:copyright>Copyright © 2004 Jacob Scott</el:copyright>
       <el:license el:type="GPL v2.0 or above" el:open="true"/>
@@ -16,7 +16,7 @@
       <el:score el:easy="-" el:difficult="-"/>
     </el:info>
     <el:luamain><![CDATA[
-rooms_wide=3
+rooms_wide=1
 rooms_high=1
 
 levelw=1+(19*rooms_wide)
@@ -54,40 +54,39 @@ function renderLine( line, pattern)
         elseif c == "N" then
             set_stone( "st-brownie", i-1, line)
             set_floor("fl-space",i-1,line)
-                elseif c == "!" then
+        elseif c == "!" then
             abyss(i-1,line)
         elseif c == "~" then
-           set_floor("fl-water",i-1,line)
+            set_floor("fl-water",i-1,line)
         elseif c=="z" then
-           set_actor("ac-blackball", i-.5,line+.5, {essential=1,controllers=0,player=1})
---            yy1( "black",  i-1, line)
+            set_actor("ac-blackball", i-.5,line+.5, {essential=1,controllers=0,player=1})
             set_floor("fl-gradient",  i-1,  line, {type=23})
         elseif c=="y" then
-           set_actor("ac-whiteball", i-1,line+.5, {player=1})
+            set_actor("ac-whiteball", i-1,line+.5, {player=1})
         elseif c=="w" then
-           set_actor("ac-whiteball", i-1,line+.5,{player=1,controllers=0})
+            set_actor("ac-whiteball", i-1,line+.5,{player=1,controllers=0})
         elseif c=="k" then
-           set_actor("ac-killerball", i-1,line+1,{player=0,controllers=1})
+            set_actor("ac-killerball", i-1,line+1,{player=0,controllers=1})
             set_floor("fl-gradient",  i-1,  line, {type=1})
         elseif c=="A" then
-           set_actor("ac-killerball", i-1,line+1,{player=1,controllers=0})
+            set_actor("ac-killerball", i-1,line+1,{player=1,controllers=0})
             set_floor("fl-gradient",  i-1,  line, {type=1})
         elseif c=="B" then
-           set_actor("ac-killerball", i-1,line+1,{player=1,controllers=0})
+            set_actor("ac-killerball", i-1,line+1,{player=1,controllers=0})
             set_floor("fl-gradient",  i-1,  line, {type=2})
         elseif c=="C" then
-           set_actor("ac-whiteball", i-1,line+.5,{player=1,controllers=0})
-           set_floor("fl-space",  i-1,  line)
+            set_actor("ac-whiteball", i-1,line+.5,{player=1,controllers=0})
+            set_floor("fl-space",  i-1,  line)
         elseif c=="F" then
-           set_actor("ac-whiteball", i-.5,line+.5, {player=1})
+            set_actor("ac-whiteball", i-.5,line+.5, {player=1})
             set_floor("fl-gradient",  i-1,  line, {type=1})
         elseif c=="G" then
-           set_actor("ac-whiteball", i-.5,line+.5, {player=1})
+            set_actor("ac-whiteball", i-.5,line+.5, {player=1})
             set_floor("fl-gradient",  i-1,  line, {type=2})
         elseif c=="H" then
-           set_actor("ac-whiteball", i-.5,line+.5, {player=1})
-           set_floor("fl-space",  i-1,  line)
-         elseif c == "g" then
+            set_actor("ac-whiteball", i-.5,line+.5, {player=1})
+            set_floor("fl-space",  i-1,  line)
+        elseif c == "g" then
             draw_stones("st-grate1",{i-1,line}, {1,1}, 1)
         elseif c=="+" then
             set_stone( "st-wood", i-1, line)
@@ -120,17 +119,16 @@ function renderLine( line, pattern)
         elseif c=="6" then
             yy1( "black",  i-1, line)
             set_floor("fl-space",i-1,line)
---            set_floor("fl-gradient",  i-1,  line, {type=23})
         elseif c=="2" then
             yy1( "black",  i-1, line)
-           set_floor("fl-space",  i-1,  line)
-         end
-    end    
-     end
+            set_floor("fl-space",  i-1,  line)
+        end
+    end
+end
 
 function yy1( color, x, y)
-        stone = format( "st-%s4", color)
-        set_stone( stone, x, y)
+    stone = format( "st-%s4", color)
+    set_stone( stone, x, y)
 end
 
 renderLine(00,"DDDDDDDDDDDDDDDDDDDD")

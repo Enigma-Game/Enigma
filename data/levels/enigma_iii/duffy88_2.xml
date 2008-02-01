@@ -3,7 +3,7 @@
   <el:protected>
     <el:info el:type="level">
       <el:identity el:title="Bomb Shelter" el:subtitle="" el:id="duffy88"/>
-      <el:version el:score="2" el:release="2" el:revision="0" el:status="released"/>
+      <el:version el:score="2" el:release="2" el:revision="1" el:status="released"/>
       <el:author  el:name="Jacob Scott" el:email="" el:homepage=""/>
       <el:copyright>Copyright © 2004 Jacob Scott</el:copyright>
       <el:license el:type="GPL v2.0 or above" el:open="true"/>
@@ -16,13 +16,16 @@
       <el:score el:easy="-" el:difficult="-"/>
     </el:info>
     <el:luamain><![CDATA[
-levelw=21
-levelh=150
+rooms_wide=1
+rooms_high=12
+
+levelw=1+(19*rooms_wide)
+levelh=1+(12*rooms_high)
 
 create_world( levelw, levelh)
-enigma.ConserveLevel=FALSE
+enigma.ConserveLevel = 0
 
-enigma.SlopeForce=90
+enigma.SlopeForce = 90
 
 fill_floor("fl-abyss", 0,0,levelw,levelh)
 
@@ -81,7 +84,7 @@ function renderLine( line, pattern)
             set_floor("fl-gradient",  i-1,  line, {type=10})
         elseif c=="R" then
             set_actor("ac-rotor", i-.5,line+.5, {range=1000, force=93})
-            set_floor("fl-gradient",  i-1,  line, {type=2})    
+            set_floor("fl-gradient",  i-1,  line, {type=2})
         elseif c=="B" then
             yy1( "black",  i-1, line)
             set_floor("fl-gradient",  i-1,  line, {type=2})
@@ -89,7 +92,7 @@ function renderLine( line, pattern)
             set_stone("st-oneway-n", i-1,line)
             set_floor("fl-hay",i-1,line)
         end
-    end    
+    end
 end
 
 function yy1( color, x, y)

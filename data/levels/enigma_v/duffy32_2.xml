@@ -3,7 +3,7 @@
   <el:protected>
     <el:info el:type="level">
       <el:identity el:title="Two Billiard Tables" el:subtitle="" el:id="duffy32"/>
-      <el:version el:score="2" el:release="2" el:revision="0" el:status="released"/>
+      <el:version el:score="2" el:release="2" el:revision="1" el:status="released"/>
       <el:author  el:name="Jacob Scott" el:email="" el:homepage=""/>
       <el:copyright>Copyright © 2003 Jacob Scott</el:copyright>
       <el:license el:type="GPL v2.0 or above" el:open="true"/>
@@ -16,8 +16,11 @@
       <el:score el:easy="-" el:difficult="-"/>
     </el:info>
     <el:luamain><![CDATA[
-levelw=80
-levelh=20
+rooms_wide=1
+rooms_high=1
+
+levelw=1+(19*rooms_wide)
+levelh=1+(12*rooms_high)
 
 create_world( levelw, levelh)
 
@@ -32,7 +35,6 @@ function renderLine( line, pattern)
             oxyd( i-1, line)
         elseif c == "!" then
             abyss(i-1,line)
-            --            fill_floor("fl-water", i-1,line, 1,1)
         elseif c=="z" then
             set_actor("ac-blackball", i-.5,line+.5)
             set_item("it-spring1",i-1,line)
@@ -82,8 +84,8 @@ function renderLine( line, pattern)
             set_stone("st-switch", i-1,line, {action="callback",target="hh7"})
         elseif c=="r" then
             set_stone("st-switch", i-1,line, {action="callback",target="hh8"})
+        end
     end
-    end    
 end
 -- Floor:  " "
 -- Border: "#"

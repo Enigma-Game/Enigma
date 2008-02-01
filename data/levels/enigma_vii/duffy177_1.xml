@@ -1,0 +1,137 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no" ?>
+<el:level xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://enigma-game.org/schema/level/1 level.xsd" xmlns:el="http://enigma-game.org/schema/level/1">
+  <el:protected>
+    <el:info el:type="level">
+      <el:identity el:title="Lightyears" el:subtitle="Enlighten the wall closet" el:id="duffy177"/>
+      <el:version el:score="1" el:release="1" el:revision="1" el:status="released"/>
+      <el:author  el:name="Jacob Scott" el:email="" el:homepage=""/>
+      <el:copyright>Copyright © 2007 Jacob Scott</el:copyright>
+      <el:license el:type="GPL v2.0 or above" el:open="true"/>
+      <el:compatibility el:enigma="1.00">
+      </el:compatibility>
+      <el:modes el:easy="false" el:single="true" el:network="false"/>
+      <el:score el:easy="-" el:difficult="-"/>
+    </el:info>
+    <el:luamain><![CDATA[
+rooms_wide=2
+rooms_high=2
+
+levelw=1+(19*rooms_wide)
+levelh=1+(12*rooms_high)
+
+create_world( levelw, levelh)
+enigma.ConserveLevel = 0
+
+fill_floor("fl-concrete", 0,0,levelw,levelh)
+
+function renderLine( line, pattern)
+    for i=1, strlen(pattern) do
+        local c = strsub( pattern, i, i)
+        if c =="#" then
+            set_stone( "st-rock1", i-1, line)
+        elseif c =="X" then
+            set_stone( "st-death", i-1, line)
+        elseif c =="w" then
+            set_stone( "st-glass", i-1, line)
+        elseif c =="h" then
+            set_stone("st-break_acblack",i-1,line)
+        elseif c =="K" then
+            set_stone("st-knight",i-1,line)
+        elseif c == "o" then
+            oxyd( i-1, line)
+        elseif c == "*" then
+            set_stone( "st-brownie", i-1, line)
+        elseif c == "!" then
+            abyss(i-1,line)
+        elseif c == "~" then
+            set_floor("fl-water",i-1,line)
+        elseif c=="z" then
+            set_actor("ac-blackball", i-.5,line+.5, {player=0})
+        elseif c == "g" then
+            draw_stones("st-grate1",{i-1,line}, {1,1}, 1)
+        elseif c=="+" then
+            set_stone( "st-wood", i-1, line)
+        elseif c=="=" then
+            set_floor("fl-space",i-1,line)
+        elseif c=="_" then
+            set_stone("st-window",i-1,line)
+        elseif c=="L" then
+            set_attrib(laser(i-1,line, FALSE, EAST), "name", "laser1")
+        elseif c==">" then
+            mirror3(i-1,line,0,0,4)
+        elseif c=="<" then
+            mirror3(i-1,line,0,0,2)
+        elseif c=="v" then
+            mirror3(i-1,line,0,1,1)
+        elseif c=="/" then
+            mirrorp(i-1,line,0,0,4)
+        elseif c=="-" then
+            mirrorp(i-1,line,0,0,1)
+        elseif c=="|" then
+            mirrorp(i-1,line,0,0,3)
+        elseif c=="?" then
+            mirrorp(i-1,line,0,0,2)
+        elseif c=="j" then
+            mirrorp(i-1,line,1,0,4)
+        elseif c=="k" then
+            mirrorp(i-1,line,1,0,2)
+        elseif c=="l" then
+            mirrorp(i-1,line,1,0,1)
+        elseif c=="m" then
+            mirrorp(i-1,line,1,0,3)
+        elseif c==";" then
+            mirrorp(i-1,line,0,1,4)
+        elseif c==":" then
+            mirrorp(i-1,line,0,1,2)
+        elseif c=="/" then
+            mirrorp(i-1,line,0,0,4)
+        elseif c=="?" then
+            mirrorp(i-1,line,0,0,2)
+        elseif c=="H" then
+            set_item("it-hollow",i-1,line)
+        elseif c=="2" then
+            set_item("it-coin1",i-1,line)
+        elseif c=="S" then
+            set_stone("st-coinslot",i-1,line,{action="onoff",target="laser1"})
+        elseif c=="f" then
+            fill_floor("fl-floor_001",i-3,line,5,1)
+        end
+    end    
+end
+
+renderLine(00,"#######################################")
+renderLine(01,"# l     |#  g    w w       k         |#")
+renderLine(02,"#   ## #/ j-##mw   #                  #")
+renderLine(03,"#j    / ## -   w   #           ggggg  #")
+renderLine(04,"# #l#     k   #w   #           g/-?g  #")
+renderLine(05,"#       m  #-  g               w/ |g  #")
+renderLine(06,"################www#     H     g?-/g  #")
+renderLine(07,"#o  o#222222222*   g           ggggg  #")
+renderLine(08,"#    #wwwwwwwww# j #                  #")
+renderLine(09,"#KKKK#?:::v;;;/#   #                  #")
+renderLine(10,"#hhhh#wwwwwwwww#   #                  #")
+renderLine(11,"#              #   w                 ?#")
+renderLine(12,"##########_############## ####### #####")
+renderLine(13,"#       H f H      #                  #")
+renderLine(14,"#       XXXXX      #                  #")
+renderLine(15,"#       /       j  #                  #")
+renderLine(16,"#   |   >                k       -    #")
+renderLine(17,"#     #    z  #    #     -      -     #")
+renderLine(18,"#                  #      -    -      #")
+renderLine(19,"# SL  <    - #     #       -  -       #")
+renderLine(20,"#            #/             --        #")
+renderLine(21,"#     ?      #     #        - -       #")
+renderLine(22,"#|            -    #       -   -      #")
+renderLine(23,"#   -      ?       #      -     -     #")
+renderLine(24,"#######################################")
+
+oxyd_shuffle()
+    ]]></el:luamain>
+    <el:i18n>
+      <el:string el:key="title">
+        <el:english el:translate="false"/>
+      </el:string>
+    </el:i18n>
+  </el:protected>
+</el:level>
+

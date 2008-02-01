@@ -1,0 +1,96 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no" ?>
+<el:level xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://enigma-game.org/schema/level/1 level.xsd" xmlns:el="http://enigma-game.org/schema/level/1">
+  <el:protected>
+    <el:info el:type="level">
+      <el:identity el:title="Impulse-phobia" el:subtitle="" el:id="duffy166"/>
+      <el:version el:score="1" el:release="1" el:revision="0" el:status="released"/>
+      <el:author  el:name="Jacob Scott" el:email="" el:homepage=""/>
+      <el:copyright>Copyright © 2007 Jacob Scott</el:copyright>
+      <el:license el:type="GPL v2.0 or above" el:open="true"/>
+      <el:compatibility el:enigma="0.92">
+      </el:compatibility>
+      <el:modes el:easy="false" el:single="true" el:network="true"/>
+      <el:score el:easy="-" el:difficult="-"/>
+    </el:info>
+    <el:luamain><![CDATA[
+rooms_wide=1
+rooms_high=1
+
+levelw=1+(19*rooms_wide) +2
+levelh=1+(12*rooms_high) +2
+
+create_world( levelw, levelh)
+enigma.TwoPlayerGame = 1
+
+fill_floor("fl-leaves", 0,0,levelw,levelh)
+
+function renderLine( line, pattern)
+    for i=1, strlen(pattern) do
+        local c = strsub( pattern, i, i)
+        if c =="#" then
+            set_stone( "st-glass", i-1, line)
+        elseif c == "o" then
+            oxyd( i-1, line)
+        elseif c == "!" then
+            abyss(i-1,line)
+        elseif c=="z" then
+            set_actor("ac-blackball", i-.5,line+.5, {player=0})
+            fill_floor("fl-leaves", i-1,line, 1,1)
+        elseif c=="y" then
+            set_actor("ac-whiteball", i-.5,line+.5, {player=1})
+            fill_floor("fl-leaves", i-1,line, 1,1)
+        elseif c=="+" then
+            set_stone( "st-wood", i-1, line)
+        elseif c=="W" then
+            set_attrib(laser(i-1,line, FALSE, WEST), "name", "laser")
+        elseif c=="x" then
+            fill_floor("fl-leaves", i-1,line, 1,1)
+        elseif c=="s" then
+            set_stone("st-stoneimpulse",i-1,line)
+        elseif c=="S" then
+            set_stone( "st-stoneimpulse-hollow", i-1,line)
+        elseif c == "b" then
+            yy1( "black",  i-1, line)
+        elseif c == "w" then
+            yy1( "white",  i-1, line)
+        elseif c=="g" then
+            set_stone("st-grate1",i-1,line)
+        end
+    end
+end
+
+function yy1( color, x, y)
+    stone = format( "st-%s4", color)
+    set_stone( stone, x, y)
+end
+
+-- Floor:  " "
+-- Border: "#"
+-- Oxyd:   "o"
+
+renderLine(00,"sssssssss#############")
+renderLine(01,"s    # #s#SSSSSS#ob###")
+renderLine(02,"s z  g+gSSS####S## ###")
+renderLine(03,"s    #s#####SSSS#o +s#")
+renderLine(04,"sss###s#SSSSS#####g#s#")
+renderLine(05,"# sssss#S####ssssw+ s#")
+renderLine(06,"##### ##S##sss##swS#s#")
+renderLine(07,"#   g+ SSsssg+y#s#S#s#")
+renderLine(08,"# ###s####    ##s#S#s#")
+renderLine(09,"# #SSSSSSSSssssss#S#s#")
+renderLine(10,"# #S##############S#s#")
+renderLine(11,"#g SSSSSSSSSSSSSSSS#S#")
+renderLine(12,"##+####S############S#")
+renderLine(13,"##SSSSSsSSSSSSSSSSSSS#")
+renderLine(14,"######################")
+
+oxyd_shuffle()
+    ]]></el:luamain>
+    <el:i18n>
+      <el:string el:key="title">
+        <el:english el:translate="false"/>
+      </el:string>
+    </el:i18n>
+  </el:protected>
+</el:level>
+

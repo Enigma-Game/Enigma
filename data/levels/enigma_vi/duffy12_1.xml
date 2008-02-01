@@ -3,7 +3,7 @@
   <el:protected>
     <el:info el:type="level">
       <el:identity el:title="Just a Maze?" el:subtitle="" el:id="duffy12"/>
-      <el:version el:score="1" el:release="1" el:revision="0" el:status="released"/>
+      <el:version el:score="1" el:release="1" el:revision="1" el:status="released"/>
       <el:author  el:name="Jacob Scott" el:email="" el:homepage=""/>
       <el:copyright>Copyright © 2003 Jacob Scott</el:copyright>
       <el:license el:type="GPL v2.0 or above" el:open="true"/>
@@ -17,9 +17,8 @@
     </el:info>
     <el:luamain><![CDATA[
 -- 2003-06-24: [ant]: changes in AddConstantForce
-
-levelw = 100
-levelh = 100
+levelw = 47
+levelh = 41
 
 create_world(levelw, levelh)
 
@@ -58,7 +57,6 @@ function renderLine( line, pattern)
             set_stone("st-door", i-1, line , {name="door5", type="h"})
         elseif c == "u" then
             set_item("it-trigger", i-1,line, {action="close", target="door5"})
-
         elseif c == "l" then
             set_attrib( laser( i-1 , line, TRUE, WEST), "name", "laser1")
         elseif c == "d" then
@@ -66,7 +64,7 @@ function renderLine( line, pattern)
         elseif c == "1" then
             oneway(i-1,line, enigma.NORTH)
         elseif c == "z" then
-            set_actor("ac-blackball", i-1,line)    
+            set_actor("ac-blackball", i-1,line)
         elseif c == "s" then
             set_item("it-spring1",i-1,line)
         elseif c == "i" then
@@ -131,20 +129,19 @@ totgravity=0
 function timer_handler()
     if mytimer==0 then
         SendMessage("door2", "open")
-       SendMessage("door3", "open")
-    SendMessage("door5", "open")
+        SendMessage("door3", "open")
+        SendMessage("door5", "open")
     end
     mytimer = mytimer + 1
     if gravity<20 then
-    if mytimer==20 then
-        gravity=gravity+1
-    end
+        if mytimer==20 then
+            gravity=gravity+1
+        end
     elseif gravity>7 then
-    if mytimer==30 then
-        gravity=gravity+1
+        if mytimer==30 then
+            gravity=gravity+1
+        end
     end
-    end
-
     totgravity = totgravity+gravity
     enigma.AddConstantForce(0,totgravity)
 end
@@ -157,7 +154,7 @@ set_stone( "st-timer", 0, 0, {action="callback", target="timer_handler"})
       </el:string>
       <el:string el:key="text1">
         <el:english el:translate="true">It isn't as easy as it looks.</el:english>
-      </el:string> 
+      </el:string>
     </el:i18n>
   </el:protected>
 </el:level>

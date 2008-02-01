@@ -1,0 +1,70 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no" ?>
+<el:level xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://enigma-game.org/schema/level/1 level.xsd" xmlns:el="http://enigma-game.org/schema/level/1">
+  <el:protected>
+    <el:info el:type="level">
+      <el:identity el:title="Swapping Puzzle II" el:subtitle="" el:id="joe22"/>
+      <el:version el:score="1" el:release="1" el:revision="0" el:status="released"/>
+      <el:author  el:name="Joseph Dunne" el:email="josephdunne1993@hotmail.com" el:homepage=""/>
+      <el:copyright>Copyright © 2006 Joseph Dunne</el:copyright>
+      <el:license el:type="GPL v2.0 or above" el:open="true"/>
+      <el:compatibility el:enigma="1.00">
+       <el:dependency el:path="lib/ant" el:id="lib/ant" el:release="1" el:preload="true"/>
+      </el:compatibility>
+      <el:modes el:easy="false" el:single="true" el:network="false"/>
+      <el:score el:easy="-" el:difficult="-"/>
+    </el:info>
+    <el:luamain><![CDATA[
+cells={}
+cells[" "]=cell{floor="fl-leaves"}
+cells["`"]=cell{floor="fl-red"}
+cells["-"]=cell{floor="fl-space"}
+cells["0"]=cell{floor="fl-abyss"}
+cells["/"]=cell{floor="fl-water"}
+cells["%"]=cell{stone="st-grate1"}
+cells["]"]=cell{stone="st-rotator_move-right"}
+cells["["]=cell{stone="st-rotator_move-left"}
+cells["}"]=cell{stone="st-rotator-right"}
+cells["{"]=cell{stone="st-rotator-left"}
+cells["#"]=cell{stone="st-yellow"}
+cells["&"]=cell{stone="st-blue-sand"}
+cells["7"]=cell{item="it-blocker"}
+cells["5"]=cell{stone="st-blocker"}
+cells["8"]=cell{stone="st-bolder-n"}
+cells["2"]=cell{stone="st-bolder-s"}
+cells["6"]=cell{stone="st-bolder-e"}
+cells["4"]=cell{stone="st-bolder-w"}
+cells["@"]=cell{stone="st-rock1_move"}
+cells["$"]=cell{stone="st-wood"}
+cells["K"]=cell{stone="st-swap"}
+cells["o"]=cell{actor={"ac-whiteball-small", {player=0, essential=1}}}
+cells["+"]=cell{item="it-hollow"}
+cells["M"]=cell{item="it-magicwand"}
+cells["P"]=cell{item="it-wrench"}
+
+level = {
+"-----##%&&&&--------",
+"-----##%``+&--------",
+"----###5&&&&--------",
+"----# K%%%%########-",
+"--&&&     %%%     #-",
+"--&``5 7  %#%%%K ##-",
+"--&`&#  #4   6K  #--",
+"--&``K%# # #%#%# #--",
+"--&&&# 8     K 8 #--",
+"-----########M ###--",
+"------------##o#----",
+"-------------###----",
+"--------------------",
+}
+
+set_default_parent(cells[" "])
+create_world_by_map(level,cells)
+    ]]></el:luamain>
+    <el:i18n>
+      <el:string el:key="title">
+        <el:english el:translate="false"/>
+      </el:string>
+    </el:i18n>
+  </el:protected>
+</el:level>
+

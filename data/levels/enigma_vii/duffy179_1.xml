@@ -1,0 +1,388 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no" ?>
+<el:level xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://enigma-game.org/schema/level/1 level.xsd" xmlns:el="http://enigma-game.org/schema/level/1">
+  <el:protected>
+    <el:info el:type="level">
+      <el:identity el:title="Armageddon" el:subtitle="" el:id="duffy179"/>
+      <el:version el:score="1" el:release="1" el:revision="1" el:status="released"/>
+      <el:author  el:name="Jacob Scott" el:email="" el:homepage=""/>
+      <el:copyright>Copyright © 2007 Jacob Scott</el:copyright>
+      <el:license el:type="GPL v2.0 or above" el:open="true"/>
+      <el:compatibility el:enigma="1.00">
+      </el:compatibility>
+      <el:modes el:easy="true" el:single="true" el:network="false"/>
+      <el:score el:easy="-" el:difficult="-"/>
+    </el:info>
+    <el:luamain><![CDATA[
+rooms_wide=3
+rooms_high=3
+
+levelw=1+(19*rooms_wide)+1
+levelh=1+(12*rooms_high)+1
+
+--enigma.SlopeForce = 50
+enigma.ConserveLevel = 0
+enigma.BumperForce = 500
+
+create_world( levelw, levelh)
+fill_floor("fl-black", 0,0,levelw,levelh,{burnable = TRUE, secure = TRUE})
+
+function renderLine( line, pattern)
+    for i=1, strlen(pattern) do
+        local c = strsub( pattern, i, i)
+        if c =="#" then
+            --set_stone("st-spitter",i-1,line,{hit_distortion_xx=0,hit_distortion_xy=0,hit_distortion_yx=0,hit_distortion_yy=0})
+            set_stone( "st-polarswitch", i-1, line)
+            set_floor("fl-black",i-1,line,{burnable=TRUE,secure=TRUE,ignitable=TRUE})
+        elseif c=="%" then
+            set_stone( "st-polarswitch", i-1, line)
+            set_floor("fl-black",i-1,line,{burnable=TRUE,secure=TRUE,ignitable=TRUE})
+            set_item("it-burnable_ash",i-1,line)
+        elseif c == "o" then
+            oxyd( i-1, line)
+            set_floor("fl-black",i-1,line,{burnable=TRUE,secure=TRUE,ignitable=TRUE})
+        elseif c == " " then
+            set_floor("fl-black",i-1,line,{burnable=TRUE,secure=TRUE,ignitable=TRUE})
+            num = math.random(20)
+            if num==20 then
+                set_item("it-burnable_oil",i-1,line)
+            end
+        elseif c == "." then
+            set_floor("fl-black",i-1,line,{burnable=TRUE,secure=TRUE,ignitable=TRUE})
+        elseif c == "*" then
+            set_stone( "st-brownie", i-1, line)
+        elseif c == "!" then
+            abyss(i-1,line)
+        elseif c == "~" then
+            set_floor("fl-water",i-1,line)
+        elseif c == "f" then
+            if difficult then
+                set_floor("fl-black",i-1,line,{initfire=TRUE,burnable=TRUE,secure=TRUE,ignitable=TRUE})
+            else
+                set_floor("fl-black",i-1,line,{initfire=FALSE,burnable=TRUE,secure=TRUE,ignitable=TRUE})
+            end
+        elseif c == "," then
+            set_floor("fl-black",i-1,line,{initfire=TRUE,burnable=TRUE,secure=TRUE,ignitable=TRUE})
+        elseif c=="z" then
+            set_actor("ac-blackball", i-.5,line+.5, {player=0,name="z1"})
+            set_floor("fl-black",i-1,line,{burnable=TRUE,secure=TRUE,ignitable=TRUE})
+            num=random(20)
+            if num==20 then
+                set_item("it-burnable_oil",i-1,line)
+            end
+        elseif c=="y" then
+            set_actor("ac-whiteball", i-.5,line+.5, {player=1})
+            set_floor("fl-gradient",  i-1,  line, {type=4})
+            set_item("it-sensor",i-1,line,{action="callback",target="funcc"})
+            set_stone("st-grate1",i-1,line)
+        elseif c=="9" then
+            set_actor("ac-bug",i-.5,line+.5)
+            set_floor("fl-black",i-1,line,{burnable=TRUE,secure=TRUE,ignitable=TRUE})
+            num=random(20)
+            if num==20 then
+                set_item("it-burnable_oil",i-1,line)
+            end
+        elseif c=="r" then
+            set_actor("ac-rotor", i-.5,line+.5, {range=100,force=.20,prefercurrent=1})
+            set_floor("fl-black",i-1,line,{burnable=TRUE,secure=TRUE,ignitable=TRUE})
+            if num==20 then
+                set_item("it-burnable_oil",i-1,line)
+            end
+        elseif c=="t" then
+            set_actor("ac-top", i-.5,line+.5, {range=100,force=.15,prefercurrent=1})
+            set_floor("fl-black",i-1,line,{burnable=TRUE,secure=TRUE,ignitable=TRUE})
+            if num==20 then
+                set_item("it-burnable_oil",i-1,line)
+            end
+        elseif c=="+" then
+            set_stone( "st-wood", i-1, line)
+        elseif c=="=" then
+            set_floor("fl-space",i-1,line)
+        elseif c=="O" then
+            set_item("it-extralife",i-1,line)
+            set_floor("fl-black",i-1,line,{burnable=TRUE,secure=TRUE,ignitable=TRUE})
+        elseif c=="a" then
+            set_item("it-abyss",i-1,line)
+            set_floor("fl-black",i-1,line,{burnable=TRUE,secure=TRUE,ignitable=TRUE})
+        elseif c=="S" then
+            set_stone("st-spitter",i-1,line,{hit_distortion_xx=1,hit_distortion_xy=0,hit_distortion_yx=0,hit_distortion_yy=1,name="sp"})
+        elseif c=="F" then
+            set_stone("st-actorimpulse",i-1,line,{name="ai"})
+            set_floor("fl-normal")
+        elseif c == "l" then --4-l
+            set_floor("fl-gradient",  i-1,  line, {type=4})
+            set_stone("st-grate1",i-1,line)
+        elseif c=="U" then
+            set_stone("st-laser",i-1,line,{dir=NORTH,on=1})
+        elseif c=="R" then
+            set_stone("st-laser",i-1,line,{dir=EAST,on=1})
+        elseif c=="D" then
+            set_stone("st-laser",i-1,line,{dir=SOUTH,on=1})
+        elseif c=="L" then
+            set_stone("st-laser",i-1,line,{dir=WEST,on=1})
+        elseif c=="d" then
+            set_item("it-dynamite",i-1,line)
+            set_floor("fl-black",i-1,line,{burnable=TRUE,secure=TRUE,ignitable=TRUE})
+        elseif c=="s" then
+            set_item("it-seed",i-1,line)
+            set_floor("fl-black",i-1,line,{burnable=TRUE,secure=TRUE,ignitable=TRUE})
+        elseif c=="K" then
+            set_stone("st-knight",i-1,line)
+        elseif c=="h" then
+            set_item("it-hammer",i-1,line)
+        elseif c=="H" then
+            set_stone("st-stone_break",i-1,line)
+            set_item("it-burnable_ash",i-1,line)
+        elseif c=="1" then
+            --set_item("it-wormhole",i-1,line,{targetx=42.5,targety=33.5,strength=-30,range=1,name="w1"})
+            set_item("it-wormhole",i-1,line,{targetx=42.5,targety=33.5,name="w1",range=2})
+            --set_floor("fl-abyss",i-1,line)
+        elseif c=="2" then
+            if difficult then
+                set_item("it-wormhole",i-1,line,{targetx=42.5,targety=33.5,strength=-30,range=1,name="w2"})
+            else
+                set_item("it-wormhole",i-1,line,{targetx=42.5,targety=33.5,strength=-15,range=1,name="w2"})
+            end
+            --set_floor("fl-abyss",i-1,line)
+        elseif c=="T" then
+            set_stone("st-flrock",i-1,line)
+            set_floor("fl-black",i-1,line,{burnable=TRUE,secure=TRUE,ignitable=TRUE})
+        elseif c=="b" then
+            set_item("it-booze-broken",i-1,line)
+            set_floor("fl-water",i-1,line)
+            --set_floor("fl-black",i-1,line,{burnable=TRUE,secure=TRUE,ignitable=TRUE})
+        elseif c=="c" then
+            set_item("it-booze-broken",i-1,line)
+        elseif c=="q" then
+            set_item("it-spring1",i-1,line)
+        elseif c=="B" then
+            set_item("it-blackbomb",i-1,line)
+        elseif c=="w" then
+            set_item("it-whitebomb",i-1,line)
+        elseif c=="Z" then
+            set_item("it-sensor",i-1,line,{action="callback",target="funcc2"})
+            set_floor("fl-black",i-1,line,{burnable=TRUE,secure=TRUE,ignitable=TRUE})
+        elseif c=="x" then
+            set_stone("st-timer",i-1,line,{on=0,loop=1,interval=random(random(800)+1)/20+0.2,action="callback",target="funcc3",name="t1"})
+        elseif c=="3" then
+            set_stone("st-timer",i-1,line,{on=0,loop=1,interval=random(random(600)+1)/20+0.2,action="callback",target="funcc4",name="t2"})
+        elseif c=="X" then
+            set_stone("st-death",i-1,line)
+        elseif c=="n" then
+            set_item("it-landmine",i-1,line)
+        elseif c=="4" then
+            oxyd(i-1,line)
+        elseif c=="5" then
+            set_stone("st-fakeoxyd",i-1,line)
+        elseif c=="6" then
+            set_item("it-sensor",i-1,line,{action="callback",target="funcc5"})
+        elseif c=="7" then
+            set_item("it-brush",i-1,line)
+        elseif c=="8" then
+            set_stone("st-stoneimpulse",i-1,line)
+        elseif c=="0" then
+            if difficult then
+                set_stone("st-bolder-e",i-1,line)
+            else
+                set_stone("st-bolder-e",i-3,line)
+            end
+            set_floor("fl-black",i-1,line,{burnable=TRUE,secure=TRUE,ignitable=TRUE})
+            num=random(20)
+            if num==20 then
+            set_item("it-burnable_oil",i-1,line)
+            end
+        elseif c=="-" then
+            set_stone("st-firebreak_move",i-1,line)
+            set_floor("fl-black",i-1,line,{burnable=TRUE,secure=TRUE,ignitable=TRUE})
+        elseif c=="g" then
+            set_stone("st-grate1",i-1,line)
+        end
+    end	
+end
+
+renderLine(00,"x3                                                         ")
+renderLine(01,"                                                           ")
+renderLine(02,"                                                           ")
+renderLine(03,"                                                           ")
+renderLine(04,"                                                           ")
+renderLine(05,"                                                           ")
+renderLine(06,"                                                           ")
+renderLine(07,"                                                           ")
+renderLine(08,"                                                           ")
+renderLine(09,"                                                           ")
+renderLine(10,"                                                           ")
+renderLine(11,"                                                           ")
+renderLine(12,"                                                           ")
+renderLine(13,"                                                           ")
+renderLine(14,"                                                           ")
+renderLine(15,"                                                           ")
+renderLine(16,"                                                           ")
+renderLine(17,"                                                           ")
+renderLine(18,"                                                           ")
+renderLine(19,"                                                           ")
+renderLine(20,"                                                           ")
+renderLine(21,"                                                           ")
+renderLine(22,"                                                           ")
+renderLine(23,"                                      DDDDDD  DDDDDDDDDDDD ")
+renderLine(24,"                                     R##%###88#########%%#L")
+renderLine(25,"                                     R#1n           b,!Zh%L")
+renderLine(26,"                                     R#HH   9        fHH!#L")
+renderLine(27,"                                     R#              ffff#L")
+renderLine(28,"                                     R#            d    b#L")
+renderLine(29,"                                     R#      XXXXXX      #L")
+renderLine(30,"                                     R#      XFlySX      #L")
+renderLine(31,"                                     R#      XXXXXX      #L")
+renderLine(32,"                                     R#     s            #L")
+renderLine(33,"                                     R#   .0  z          #L")
+renderLine(34,"                                     R#bKK             a #L")
+renderLine(35,"                                      476b             a2#L")
+renderLine(36,"                                     R#5##################L")
+renderLine(37,"                                      U UUUUUUUUUUUUUUUUUU ")
+
+oxyd_shuffle()
+
+sp=enigma.GetNamedObject("sp")
+ai=enigma.GetNamedObject("ai")
+
+z1=enigma.GetNamedObject("z1")
+
+t1=enigma.GetNamedObject("t1")
+t2=enigma.GetNamedObject("t2")
+
+ww1=enigma.GetNamedObject("w1")
+ww2=enigma.GetNamedObject("w2")
+
+placew=0
+
+function funcc()
+    if difficult then
+        set_item("it-extralife",47,30)
+    else
+        if placew==0 then
+            set_item("it-extralife",47,30)
+            placew=1
+        elseif placew==20 then
+            placew=0
+        else
+            placew=placew+1
+        end
+    end
+    fd=random(200)+400
+    enigma.SetAttrib(ai,"hit_factor",fd)
+    xd=random(10000)/4000-1.25-.25
+    xyd=random(10000)/5000-1
+    yxd=random(10000)/5000-1
+    yd=random(10000)/6400-0.78125
+    enigma.SetAttrib(sp,"hit_distortion_xx",xd)
+    enigma.SetAttrib(sp,"hit_distortion_xy",xyd)
+    enigma.SetAttrib(sp,"hit_distortion_yx",yxd)
+    enigma.SetAttrib(sp,"hit_distortion_yy",yd)
+end
+
+doit=true
+function funcc2()
+    x,y=enigma.GetPos(z1)
+    if doit and x==55 and y==25 then
+        SendMessage(t1,"on")
+        SendMessage(t2,"on")
+        if difficult then
+            set_actor("ac-rotor", 40.5,32.5, {range=100,force=4,prefercurrent=1})
+        end
+        set_actor("ac-top", 43.5,34.5, {range=100,force=3,prefercurrent=1})
+        doit=false
+    end
+end
+
+function funcc3()
+    enigma.SetAttrib(z1,"mouseforce",enigma.GetAttrib(z1,"mouseforce")+random(300)/400-.375)
+    enigma.KillStone(0,0)
+    if difficult then
+        set_stone("st-timer",0,0,{on=1,loop=1,interval=random(random(800)+1)/20+0.2,action="callback",target="funcc3",name="t1"})
+    else
+        set_stone("st-timer",0,0,{on=1,loop=1,interval=random(random(1600)+1)/20+0.2,action="callback",target="funcc3",name="t1"})
+    end
+end
+
+function funcc4()
+    if enigma.GetItem(39,25)~=nil then
+        if enigma.GetKind(enigma.GetItem(39,25))=="it-wormhole" then
+            enigma.KillItem(39,25)
+            set_item("it-wormhole",39,25,{targetx=42.5,targety=33.5,range=random(100)/20,strength=random(40)-20})
+        end
+    end
+    if enigma.GetItem(56,35)~=nil then
+        if enigma.GetKind(enigma.GetItem(56,35))=="it-wormhole" then
+            enigma.KillItem(56,35)
+            set_item("it-wormhole",56,35,{targetx=42.5,targety=33.5,range=random(100)/20,strength=random(40)-20})
+        end
+    end
+    enigma.KillStone(1,0)
+    set_stone("st-timer",1,0,{on=1,loop=1,interval=random(random(600)+1)/20+0.2,action="callback",target="funcc4",name="t2"})
+end
+
+done=false
+function funcc5()
+    x,y=enigma.GetPos(z1)
+    if not done and x==40 and y==35 then
+        for i=38, 57 do
+            for j=24, 36 do
+                if enigma.GetStone(i,j)==nil and (i>42 or j<33) then
+                    num=random(100)
+                    if num==50 or num==49 or num==48 or num==47 or num==46 then
+                        set_stone("st-actorimpulse",i,j)
+                    elseif num==100 then
+                        set_stone("st-actorimpulse_invisible",i,j)
+                    elseif num==45 or num==44 or num==43 or num==42 then
+                        set_stone("st-pmirror",i,j,{movable=TRUE})
+                        num=random(4)
+                        for k=num,4 do
+                            SendMessage(enigma.GetStone(i,j),"trigger")
+                        end
+                    end
+                end
+            end
+        end
+        enigma.KillItem(49,25)
+        enigma.KillItem(49,26)
+        enigma.KillItem(49,27)
+        enigma.KillItem(50,25)
+        enigma.KillItem(50,26)
+        enigma.KillItem(50,27)
+        enigma.KillItem(51,25)
+        enigma.KillItem(51,26)
+        enigma.KillItem(51,27)
+
+        set_item("it-burnable_oil",39,26)
+        set_item("it-burnable_oil",50,25)
+        set_item("it-burnable_oil",57,26)
+
+        oxyd(50,26)
+        set_stone("st-glass3",49,25)
+        set_stone("st-glass3",49,26)
+        set_stone("st-glass3",49,27)
+        set_stone("st-glass3",50,25)
+        set_stone("st-glass3",50,27)
+        set_stone("st-glass3",51,25)
+        set_stone("st-glass3",51,26)
+        set_stone("st-glass3",51,27)
+
+        set_stone("st-polarswitch",47,29)
+        set_stone("st-polarswitch",48,29)
+        set_stone("st-polarswitch",47,31)
+        set_stone("st-polarswitch",48,31)
+
+        enigma.KillItem(56,35)
+        set_item("it-seed_volcano",56,35)
+        SendMessage(enigma.GetItem(56,35),"grow")
+
+        done=true
+    end
+end
+    ]]></el:luamain>
+    <el:i18n>
+      <el:string el:key="title">
+        <el:english el:translate="false"/>
+      </el:string>
+    </el:i18n>
+  </el:protected>
+</el:level>
+

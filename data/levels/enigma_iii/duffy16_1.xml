@@ -3,7 +3,7 @@
   <el:protected>
     <el:info el:type="level">
       <el:identity el:title="Control Panel" el:subtitle="" el:id="duffy16"/>
-      <el:version el:score="1" el:release="1" el:revision="0" el:status="released"/>
+      <el:version el:score="1" el:release="1" el:revision="1" el:status="released"/>
       <el:author  el:name="Jacob Scott" el:email="" el:homepage=""/>
       <el:copyright>Copyright © 2003 Jacob Scott</el:copyright>
       <el:license el:type="GPL v2.0 or above" el:open="true"/>
@@ -16,8 +16,11 @@
       <el:score el:easy="-" el:difficult="-"/>
     </el:info>
     <el:luamain><![CDATA[
-levelw=77
-levelh=13
+rooms_wide=4
+rooms_high=1
+
+levelw=1+(19*rooms_wide)
+levelh=1+(12*rooms_high)
 
 create_world( levelw, levelh)
 
@@ -80,7 +83,7 @@ function renderLine( line, pattern)
             set_item("it-trigger", i-1,line, {action="onoff",target="laser24"})
         elseif c == "`" then
             set_item("it-trigger", i-1,line, {action="onoff",target="laser25"})
-        elseif c == "z" then    
+        elseif c == "z" then
             set_actor("ac-blackball", i-.5,line+.5)
         elseif c == "p" then
             set_attrib(laser(i-1,line, TRUE, EAST), "name", "laser1")
@@ -177,7 +180,6 @@ function renderLine( line, pattern)
             document(i-1,line,"text2")
         elseif c == "!" then
             document(i-1,line,"text3")
-
         end
     end
 end
@@ -208,13 +210,13 @@ oxyd_shuffle()
       </el:string>
       <el:string el:key="text1">
         <el:english el:translate="false">01011-00100-01...</el:english>
-      </el:string> 
+      </el:string>
       <el:string el:key="text2">
         <el:english el:translate="true">The left-most room is important!</el:english>
-      </el:string> 
+      </el:string>
       <el:string el:key="text3">
         <el:english el:translate="true">This is the control panel.</el:english>
-      </el:string> 
+      </el:string>
     </el:i18n>
   </el:protected>
 </el:level>

@@ -3,7 +3,7 @@
   <el:protected>
     <el:info el:type="level">
       <el:identity el:title="Meditation Puzzle" el:subtitle="" el:id="duffy1"/>
-      <el:version el:score="1" el:release="1" el:revision="0" el:status="released"/>
+      <el:version el:score="1" el:release="1" el:revision="1" el:status="released"/>
       <el:author  el:name="Jacob Scott" el:email="" el:homepage=""/>
       <el:copyright>Copyright © 2003 Jacob Scott</el:copyright>
       <el:license el:type="GPL v2.0 or above" el:open="true"/>
@@ -16,8 +16,11 @@
       <el:score el:easy="-" el:difficult="-"/>
     </el:info>
     <el:luamain><![CDATA[
-levelw = 20
-levelh = 13
+rooms_wide=1
+rooms_high=1
+
+levelw=1+(19*rooms_wide)
+levelh=1+(12*rooms_high)
 
 create_world( levelw, levelh)
 draw_border("st-brownie")
@@ -75,7 +78,6 @@ set_stone( "st-greenbrown", 17, 3)
 set_stone( "st-greenbrown", 18, 3)
 set_stone( "st-greenbrown", 12, 2)
 
-
 set_stone( "st-wood", 15, 5)
 set_stone( "st-wood", 15, 2)
 
@@ -86,7 +88,6 @@ oneway( 17, 6, enigma.NORTH)
 set_stone( "st-shogun-l", 13,5)
 set_stone( "st-shogun-s",4, 2)
 set_stone( "st-shogun-m", 12,10)
-
 
 set_stone( "st-wood", 5, 3)
 set_stone( "st-wood", 7, 3)

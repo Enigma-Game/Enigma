@@ -3,7 +3,7 @@
   <el:protected>
     <el:info el:type="level">
       <el:identity el:title="Space Tubes" el:subtitle="" el:id="duffy13"/>
-      <el:version el:score="1" el:release="1" el:revision="1" el:status="released"/>
+      <el:version el:score="1" el:release="1" el:revision="2" el:status="released"/>
       <el:author  el:name="Jacob Scott" el:email="" el:homepage=""/>
       <el:copyright>Copyright © 2003 Jacob Scott</el:copyright>
       <el:license el:type="GPL v2.0 or above" el:open="true"/>
@@ -16,8 +16,11 @@
       <el:score el:easy="-" el:difficult="-"/>
     </el:info>
     <el:luamain><![CDATA[
-levelw=39
-levelh=25
+rooms_wide=2
+rooms_high=2
+
+levelw=1+(19*rooms_wide)
+levelh=1+(12*rooms_high)
 
 create_world( levelw, levelh)
 display.SetFollowMode(display.FOLLOW_SCROLLING)
@@ -68,7 +71,7 @@ function renderLine( line, pattern)
         elseif c == "8" then --small ul
             set_floor("fl-gradient",  i-1,  line, {type=10})
         end
-    end    
+    end
 end
 
 -- Floor:  " "

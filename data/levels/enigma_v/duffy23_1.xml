@@ -3,7 +3,7 @@
   <el:protected>
     <el:info el:type="level">
       <el:identity el:title="Shrinking Pits" el:subtitle="" el:id="duffy23"/>
-      <el:version el:score="1" el:release="1" el:revision="0" el:status="released"/>
+      <el:version el:score="1" el:release="1" el:revision="1" el:status="released"/>
       <el:author  el:name="Jacob Scott" el:email="" el:homepage=""/>
       <el:copyright>Copyright © 2003 Jacob Scott</el:copyright>
       <el:license el:type="GPL v2.0 or above" el:open="true"/>
@@ -16,8 +16,11 @@
       <el:score el:easy="-" el:difficult="-"/>
     </el:info>
     <el:luamain><![CDATA[
-levelw=50
-levelh=30
+rooms_wide=2
+rooms_high=1
+
+levelw=1+(19*rooms_wide)
+levelh=1+(12*rooms_high)
 
 create_world( levelw, levelh)
 
@@ -31,7 +34,6 @@ function renderLine( line, pattern)
         elseif c == "o" then
             oxyd( i-1, line)
         elseif c == "!" then
-            --            abyss(i-1,line)
             fill_floor("fl-water", i-1,line, 1,1)
         elseif c=="+" then
             set_stone( "st-wood", i-1, line)
@@ -45,12 +47,11 @@ function renderLine( line, pattern)
             set_actor("ac-whiteball-small", i-1,line, {player=0})
         elseif c=="H" then
             hollow(i-1,line)
-
         elseif c=="$" then
             hollow(i-1,line)
             draw_stones("st-grate1",{i-1,line}, {1,1}, 1)
         end
-    end    
+    end
 end
 
 -- Floor:  " "
@@ -59,7 +60,7 @@ end
 
 renderLine(00,"#######################################")
 renderLine(01,"# gggg#gggggg#gggg l                  #")
-renderLine(02,"# gHg +  $Hg +  Hg l  w   w   w   w   #") 
+renderLine(02,"# gHg +  $Hg +  Hg l  w   w   w   w   #")
 renderLine(03,"# g gg#ggg gg#gg g l                  #")
 renderLine(04,"###+######+#####+###                  #")
 renderLine(05,"#gg gg#ggg gg#gg g l    w   w   w     #")

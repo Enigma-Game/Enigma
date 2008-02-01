@@ -3,7 +3,7 @@
   <el:protected>
     <el:info el:type="level">
       <el:identity el:title="Just Moving Blocks?" el:subtitle="" el:id="duffy5"/>
-      <el:version el:score="1" el:release="1" el:revision="0" el:status="released"/>
+      <el:version el:score="1" el:release="1" el:revision="1" el:status="released"/>
       <el:author  el:name="Jacob Scott" el:email="" el:homepage=""/>
       <el:copyright>Copyright © 2003 Jacob Scott</el:copyright>
       <el:license el:type="GPL v2.0 or above" el:open="true"/>
@@ -16,13 +16,16 @@
       <el:score el:easy="-" el:difficult="-"/>
     </el:info>
     <el:luamain><![CDATA[
-levelw=80
-levelh=20
+rooms_wide=3
+rooms_high=1
+
+levelw=1+(19*rooms_wide)
+levelh=1+(12*rooms_high) +1
 
 create_world( levelw, levelh)
 
 fill_floor("fl-leaves", 0,0,levelw,levelh)
-enigma.ConserveLevel=FALSE
+enigma.ConserveLevel = 0
 
 function renderLine( line, pattern)
     for i=1, strlen(pattern) do
@@ -33,7 +36,6 @@ function renderLine( line, pattern)
             oxyd( i-1, line)
         elseif c == "!" then
             abyss(i-1,line)
-            --            fill_floor("fl-water", i-1,line, 1,1)
         elseif c=="z" then
             set_actor("ac-blackball", i-.5,line+.5)
         elseif c=="+" then
@@ -51,16 +53,16 @@ function renderLine( line, pattern)
         elseif c=="B" then
             set_stone("st-bombs", i-1,line)
         elseif c=="d" then
-            set_stone("st-oneway-s", i-1,line)    
+            set_stone("st-oneway-s", i-1,line)
         elseif c=="l" then
             set_stone("st-oneway-w", i-1,line)
-        elseif c=="F" then    
+        elseif c=="F" then
             set_item("it-floppy", i-1,line)
-        elseif c=="c" then    
+        elseif c=="c" then
             set_item("it-coin2", i-1,line)
-        elseif c=="5" then    
+        elseif c=="5" then
             set_item("it-odometer", i-1,line)
-        elseif c=="4" then    
+        elseif c=="4" then
             set_item("it-coin4", i-1,line,{value=3})
         elseif c=="P" then
             set_item("it-wrench",i-1,line)
@@ -75,7 +77,6 @@ function renderLine( line, pattern)
         elseif c=="b" then
             doorv( i-1,line, {name="door2"})
         elseif c=="C" then
-            --            doorh( i-1,line, {name="door3"})
             set_floor("fl-bridge", i-1,line, {name="bridge1", type="yy"})
         elseif c=="D" then
             set_floor("fl-bridge", i-1,line, {name="bridge2", type="yy"})
@@ -86,7 +87,7 @@ function renderLine( line, pattern)
         elseif c=="9" then
             set_stone("st-coinslot", i-1,line, {action="openclose", target="unimportantdoor"})
         end
-    end    
+    end
 end
 
 -- Floor:  " "
@@ -117,11 +118,11 @@ through=0
 function funcc()
     through = 1-through
     if through==0 then
-    SendMessage("door1", "openclose")
-    SendMessage("door2", "openclose")
---    SendMessage("door3", "openclose")
-    SendMessage("bridge1", "openclose")
-    SendMessage("bridge2", "openclose")
+        SendMessage("door1", "openclose")
+        SendMessage("door2", "openclose")
+        --    SendMessage("door3", "openclose")
+        SendMessage("bridge1", "openclose")
+        SendMessage("bridge2", "openclose")
     end
 end
     ]]></el:luamain>

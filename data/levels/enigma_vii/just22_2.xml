@@ -1,0 +1,84 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no" ?>
+<el:level xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://enigma-game.org/schema/level/1 level.xsd" xmlns:el="http://enigma-game.org/schema/level/1">
+  <el:protected>
+    <el:info el:type="level">
+     <el:identity el:title="Give Way 4 two" el:subtitle="" el:id="just22"/>
+     <el:version el:score="2" el:release="2" el:revision="2" el:status="released"/>
+     <el:author  el:name="JuSt" el:email="" el:homepage=""/>
+     <el:copyright>Copyright © 2007 JuSt</el:copyright>
+     <el:license el:type="GPL v2.0 or above" el:open="true"/>
+     <el:compatibility el:enigma="1.01">
+     </el:compatibility>
+     <el:modes el:easy="true" el:single="true" el:network="true"/>
+     <el:comments>
+     </el:comments>
+     <el:score el:easy="8:34" el:difficult="-"/>
+    </el:info>
+    <el:luamain><![CDATA[
+enigma.ConserveLevel = 0
+enigma.TwoPlayerGame = 1
+create_world(20, 13)
+oxyd_default_flavor="b"
+
+-- Floor Layer
+fill_floor("fl-concrete")
+draw_floor("fl-water", {3, 0}, {0, 1}, 3)
+set_floor("fl-swamp", 16, 2)
+
+-- Item Layer
+set_item("it-trigger", 3, 0, {action="open", target="door", invisible=FALSE})
+if not difficult then
+    set_item("it-coin2", 6, 9)
+end
+
+-- Stone Layer
+oxyd(19, 2)
+oxyd(19, 1)
+draw_border("st-greenbrown", 0, 0, 3, 3)
+fill_stones("st-greenbrown", 4, 0, 2, 3)
+draw_stones("st-greenbrown", {6, 0}, {1, 0}, 2)
+draw_stones("st-greenbrown", {9, 0}, {1, 0}, 11)
+draw_stones("st-brownie", {8, 1}, {-1, 1}, 8)
+draw_stones("st-brownie", {10, 1}, {-1, 1}, 10)
+draw_stones("st-chess_white", {12, 1}, {-1, 1}, 11)
+draw_stones("st-brownie", {13, 2}, {-2, 2}, 5)
+draw_stones("st-greenbrown", {0, 3}, {0, 1}, 10)
+draw_stones("st-chess_white", {2, 3}, {-1, 1}, 2)
+draw_stones("st-brownie", {4, 3}, {-1, 1}, 4)
+draw_stones("st-brownie", {16, 3}, {-1, 1}, 9)
+draw_stones("st-greenbrown", {17, 3}, {0, 1}, 2)
+draw_stones("st-greenbrown", {19, 3}, {0, 1}, 6)
+draw_stones("st-chess_black", {16, 5}, {-1, 1}, 7)
+draw_stones("st-chess_black", {18, 5}, {-1, 1}, 7)
+draw_stones("st-chess_black", {18, 7}, {-1, 1}, 5)
+draw_stones("st-brownie", {18, 9}, {-1, 1}, 3)
+draw_stones("st-greenbrown", {19, 10}, {0, 1}, 3)
+draw_stones("st-greenbrown", {1, 12}, {1, 0}, 2)
+draw_stones("st-greenbrown", {4, 12}, {1, 0}, 9)
+draw_stones("st-greenbrown", {14, 12}, {1, 0}, 5)
+set_stone("st-laser-s", 8, 0, {on="1"})
+set_stones("st-greenbrown", {{1, 1}, {17, 1}})
+set_stones("st-chess_white", {{6, 1}, {16, 1}, {14, 3}, {12, 5}, {10, 7}, {8, 9}, {6, 11}})
+set_stones("st-chess_black", {{15, 2}, {13, 4}, {11, 6}, {9, 8}, {7, 10}, {18, 11}})
+set_stones("st-laser-w", {{17, 2}, {19, 9}}, {on="1"})
+set_stone("st-door", 18, 3, {name="door", type="h"})
+set_stones("st-stone_break", {{8, 4}, {3, 7}, {12, 2}, {7, 9}})
+set_stone("st-coffee", 13, 7)
+set_stone("st-glass", 11, 9)
+set_stone("st-lightpassenger", 13, 11)
+set_stones("st-laser-n", {{3, 12}, {13, 12}}, {on="1"})
+
+-- Actor Layer
+set_actor("ac-whiteball", 1.5, 11.5, {player="1", mouseforce="1"})
+set_actor("ac-blackball", 18.5, 4.5, {player="0", mouseforce="1"})
+
+oxyd_shuffle()
+  ]]></el:luamain>
+    <el:i18n>
+     <el:string el:key="title">
+       <el:english el:translate="false"/>
+     </el:string>
+   </el:i18n>
+  </el:protected>
+</el:level>
+

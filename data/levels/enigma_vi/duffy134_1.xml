@@ -1,9 +1,9 @@
-﻿<?xml version="1.0" encoding="UTF-8" standalone="no" ?>
+<?xml version="1.0" encoding="UTF-8" standalone="no" ?>
 <el:level xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://enigma-game.org/schema/level/1 level.xsd" xmlns:el="http://enigma-game.org/schema/level/1">
   <el:protected>
     <el:info el:type="level">
       <el:identity el:title="Pleasure Garden" el:subtitle="" el:id="duffy134"/>
-      <el:version el:score="1" el:release="1" el:revision="1" el:status="released"/>
+      <el:version el:score="1" el:release="1" el:revision="3" el:status="released"/>
       <el:author  el:name="Jacob Scott" el:email="" el:homepage=""/>
       <el:copyright>Copyright © 2007 Jacob Scott</el:copyright>
       <el:license el:type="GPL v2.0 or above" el:open="true"/>
@@ -13,8 +13,11 @@
       <el:score el:easy="-" el:difficult="-"/>
     </el:info>
     <el:luamain><![CDATA[
-levelw=77
-levelh=37
+rooms_wide=4
+rooms_high=3
+
+levelw=1+(19*rooms_wide)
+levelh=1+(12*rooms_high)
 
 create_world( levelw, levelh)
 
@@ -121,7 +124,7 @@ function renderLine( line, pattern)
         elseif c == "M" then
             mirrorp(i-1,line,TRUE,TRUE, 4)
         elseif c == "@" then
-           mirrorp(i-1,line,TRUE,TRUE, 2)
+            mirrorp(i-1,line,TRUE,TRUE, 2)
         elseif c == "%" then
             mirrorp(i-1,line,TRUE,FALSE, 2)
         elseif c == "^" then
@@ -155,14 +158,15 @@ function renderLine( line, pattern)
         elseif c == "=" then
             set_stone("st-bombs", i-1,line)
         elseif c == "d" then
-                dynamite(i-1,line)
+            dynamite(i-1,line)
         elseif c == "[" then
             set_stone("st-swap", i-1,line)
         elseif c == "0" then
             set_item( "it-magicwand", i-1,line)
         elseif c == "J" then
             set_stone("st-death",i-1,line)
-        elseif c == "j" then            document(i-1,line,"Quickly!")
+        elseif c == "j" then
+            document(i-1,line,"text1")
         end
     end
 end
@@ -249,6 +253,9 @@ draw_stones("st-grate1",{3,8},{0,1},4)
       <el:string el:key="title">
         <el:english el:translate="true" />
         <el:translation el:lang="de">Lustgarten</el:translation>
+      </el:string>
+      <el:string el:key="text1">
+        <el:english el:translate="true">Quickly ...                                                                             or trickily!</el:english>
       </el:string>
     </el:i18n>
   </el:protected>

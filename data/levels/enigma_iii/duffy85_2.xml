@@ -3,7 +3,7 @@
   <el:protected>
     <el:info el:type="level">
       <el:identity el:title="Think Fast" el:subtitle="" el:id="duffy85"/>
-      <el:version el:score="2" el:release="2" el:revision="2" el:status="released"/>
+      <el:version el:score="2" el:release="2" el:revision="3" el:status="released"/>
       <el:author  el:name="Jacob Scott" el:email="" el:homepage=""/>
       <el:copyright>Copyright © 2004 Jacob Scott</el:copyright>
       <el:license el:type="GPL v2.0 or above" el:open="true"/>
@@ -23,11 +23,12 @@ levelw=1+(19*rooms_wide)
 levelh=1+(12*rooms_high)
 
 create_world( levelw, levelh)
+display.SetFollowMode(display.FOLLOW_SCROLLING)
 
 if not difficult then
-   tspeed=40
+    tspeed=40
 else
-   tspeed=60
+    tspeed=60
 end
 
 fill_floor("fl-rock", 0,0,levelw,levelh)
@@ -69,7 +70,7 @@ function renderLine( line, pattern)
         elseif c=="A" then
             set_stone("st-switch",i-1,line,{action="callback",target="funcc1"})
         end
-    end    
+    end
 end
 
 renderLine(00,"**O%##o##AA##o##%O**")
@@ -103,8 +104,6 @@ function funcc1()
         ff1=0
     end
 end
-
-display.SetFollowMode(display.FOLLOW_SCROLLING)
     ]]></el:luamain>
     <el:i18n>
       <el:string el:key="title">

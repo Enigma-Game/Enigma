@@ -3,7 +3,7 @@
   <el:protected>
     <el:info el:type="level">
       <el:identity el:title="Correspondence Chess" el:subtitle="Send smartly!" el:id="luc352007"/>
-      <el:version el:score="1" el:release="1" el:revision="3" el:status="released"/>
+      <el:version el:score="3" el:release="3" el:revision="4" el:status="released"/>
       <el:author  el:name="Lukas Schüller" el:email="Lucky_Luc@web.de" el:homepage=""/>
       <el:copyright>Copyright © 2007 Lukas Schüller</el:copyright>
       <el:license el:type="GPL v2.0 or above" el:open="true"/>
@@ -26,6 +26,7 @@ function writeLine( line, cells)
             set_stone("st-glass",i-1,line)
         elseif(c =="=") then
             set_stone("st-door-h",i-1,line)
+            set_item("it-cross",i-1,line)
         elseif(c =="D") then
             set_stone("st-death",i-1,line)
         elseif(c =="w") then
@@ -82,7 +83,7 @@ function writeLine( line, cells)
 end
 
 writeLine(00,"DDDD#O##############")
-writeLine(01,"Dttt#=#1xxxxxxx#*wW#")
+writeLine(01,"DtttX=X1xxxxxxx#*wW#")
 writeLine(02,"DtDt#0xxxxxxxxx##x##")
 writeLine(03,"DtDt>xxKxxxx1xxxxx3#")
 writeLine(04,"Dt###xxxxx2xxxxxx1x#")
@@ -113,3 +114,4 @@ oxyd_shuffle()
     </el:i18n>
   </el:protected>
 </el:level>
+

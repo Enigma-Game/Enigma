@@ -3,7 +3,7 @@
   <el:protected>
     <el:info el:type="level">
       <el:identity el:title="Sacrifice" el:subtitle="" el:id="duffy49"/>
-      <el:version el:score="1" el:release="1" el:revision="0" el:status="released"/>
+      <el:version el:score="1" el:release="1" el:revision="1" el:status="released"/>
       <el:author  el:name="Jacob Scott" el:email="" el:homepage=""/>
       <el:copyright>Copyright © 2003 Jacob Scott</el:copyright>
       <el:license el:type="GPL v2.0 or above" el:open="true"/>
@@ -16,10 +16,14 @@
       <el:score el:easy="-" el:difficult="-"/>
     </el:info>
     <el:luamain><![CDATA[
-levelw=80
-levelh=20
+rooms_wide=3
+rooms_high=1
+
+levelw=1+(19*rooms_wide) +1
+levelh=1+(12*rooms_high)
 
 create_world( levelw, levelh)
+enigma.ConserveLevel = 0
 
 fill_floor("fl-leaves")
 
@@ -44,7 +48,7 @@ function renderLine( line, pattern)
         elseif c=="B" then
             set_stone("st-bombs", i-1,line)
         elseif c=="d" then
-            set_stone("st-oneway-s", i-1,line)    
+            set_stone("st-oneway-s", i-1,line)
         elseif c=="l" then
             set_stone("st-oneway-w", i-1,line)
         elseif c=="s" then
@@ -60,10 +64,9 @@ function renderLine( line, pattern)
         elseif c == "R" then
             set_stone("st-bolder-e", i-1,line)
         elseif c == "a" then
-            set_stone( "st-switch", i-1, line, 
-                      {target="start_ferry", action="callback"})
+            set_stone( "st-switch", i-1, line, {target="start_ferry", action="callback"})
         end
-    end    
+    end
 end
 -- Floor:  " "
 -- Border: "#"
@@ -92,19 +95,19 @@ ferry_width = 1
 ferry_end = 54
 
 function move_ferry()
-set_stone("st-greenbrown",ferry_x+ferry_width-2,ferry_y)
-set_stone("st-greenbrown",ferry_x+ferry_width-1,ferry_y)
-set_stone("st-greenbrown",ferry_x+ferry_width,ferry_y)
-if ferry_x>2 then
-set_stone("st-glass",ferry_x+ferry_width-3, ferry_y)
-end
+    set_stone("st-greenbrown",ferry_x+ferry_width-2,ferry_y)
+    set_stone("st-greenbrown",ferry_x+ferry_width-1,ferry_y)
+    set_stone("st-greenbrown",ferry_x+ferry_width,ferry_y)
+    if ferry_x>2 then
+        set_stone("st-glass",ferry_x+ferry_width-3, ferry_y)
+    end
     ferry_x = ferry_x + 1
 end
 
 function timer_callback()
-   if ferry_x==ferry_end then
-ferry_x=2
-end
+    if ferry_x==ferry_end then
+        ferry_x=2
+    end
     if ferry_started and ferry_x < ferry_end then
         move_ferry()
     end
@@ -115,11 +118,9 @@ function start_ferry()
         move_ferry()
         ferry_started = 1
     end
- end
+end
 
 set_stone( "st-timer", 58,0 ,{target="timer_callback", action="callback",name="timer", interval=.6})
-
-enigma.ConserveLevel=FALSE
     ]]></el:luamain>
     <el:i18n>
       <el:string el:key="title">

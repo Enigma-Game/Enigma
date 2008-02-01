@@ -1,0 +1,164 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no" ?>
+<el:level xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://enigma-game.org/schema/level/1 level.xsd" xmlns:el="http://enigma-game.org/schema/level/1">
+  <el:protected>
+    <el:info el:type="level">
+      <el:identity el:title="Ghost Driver" el:subtitle="Take the first exit" el:id="duffy176"/>
+      <el:version el:score="1" el:release="1" el:revision="0" el:status="released"/>
+      <el:author  el:name="Jacob Scott" el:email="" el:homepage=""/>
+      <el:copyright>Copyright © 2007 Jacob Scott</el:copyright>
+      <el:license el:type="GPL v2.0 or above" el:open="true"/>
+      <el:compatibility el:enigma="0.92">
+      </el:compatibility>
+      <el:modes el:easy="false" el:single="true" el:network="false"/>
+      <el:score el:easy="-" el:difficult="-"/>
+    </el:info>
+    <el:luamain><![CDATA[
+rooms_wide=1
+rooms_high=8
+
+levelw=1+(19*rooms_wide)
+levelh=1+(12*rooms_high)
+
+create_world(levelw, levelh)
+enigma.ConserveLevel = 0
+
+fill_floor("fl-hay", 0,0, level_width,level_height)
+
+function renderLine( line, pattern)
+    for i=1, strlen(pattern) do
+        local c = strsub( pattern, i, i)
+        if c =="#" then
+            set_stone("st-greenbrown",i-1,line)
+        elseif c == "o" then
+            oxyd( i-1, line)
+        elseif c == "s" then
+            set_stone("st-stoneimpulse",i-1,line)
+        elseif c == "*" then
+            set_stone("st-brownie", i-1, line)
+         elseif c == "d" then
+            set_stone("st-bolder", i-1,line, {direction=SOUTH})
+        elseif c == "u" then
+            set_stone("st-bolder", i-1,line, {direction=NORTH})
+        elseif c == "l" then
+            set_stone("st-bolder", i-1,line, {direction=WEST})
+        elseif c == "!" then
+            set_floor("fl-water",i-1,line)
+        elseif c == "z" then    
+            set_actor("ac-blackball" ,i-1, line, {player=0})
+        end
+    end
+end
+
+enigma.AddConstantForce(0,90)
+
+-- Floor:  " "
+-- Border: "#"
+-- Oxyd:   "o"
+renderLine(00,"#############")
+renderLine(01,"#dddddd#d d #")
+renderLine(02,"#       * * #")
+renderLine(03,"#   d  #    #")
+renderLine(04,"#      #    #")
+renderLine(05,"# d   d#    #")
+renderLine(06,"#      # #  #")
+renderLine(07,"#d     #    #")
+renderLine(08,"#      #    #")
+renderLine(09,"#   d  #    #")
+renderLine(10,"#      #    #")
+renderLine(11,"#      #   ##")
+renderLine(12,"#      #    #")
+renderLine(13,"#d     #    #")
+renderLine(14,"#  d dd#    #")
+renderLine(15,"#      #   ##")
+renderLine(16,"#      #    #")
+renderLine(17,"#d    d#    #")
+renderLine(18,"#      #    #")
+renderLine(19,"#    d #    #")
+renderLine(20,"#d    d#    #")
+renderLine(21,"#      #    #")
+renderLine(22,"# d    #    #")
+renderLine(23,"#      # #  #")
+renderLine(24,"#      #    #")
+renderLine(25,"# d   d#    #")
+renderLine(26,"#      #    #")
+renderLine(27,"#d   d #   ##")
+renderLine(28,"#      #    #")
+renderLine(29,"#   d d#    #")
+renderLine(30,"#d    d#    #")
+renderLine(31,"#      #    #")
+renderLine(32,"#      #    #")
+renderLine(33,"#d     # #  #")
+renderLine(34,"#     d#    #")
+renderLine(35,"#d     #    #")
+renderLine(36,"#      #    #")
+renderLine(37,"#d    d#    #")
+renderLine(38,"#      #    #")
+renderLine(39,"#      # #  #")
+renderLine(40,"#     d#    #")
+renderLine(41,"#d     #    #")
+renderLine(42,"#      #    #")
+renderLine(43,"#   d  #    #")
+renderLine(44,"#      # # ##")
+renderLine(45,"#      # # ########")
+renderLine(46,"#     d#          #")
+renderLine(47,"#      #          #")
+renderLine(48,"#  d   #!# #  ###s#")
+renderLine(49,"#      #o!!#    #l#")
+renderLine(50,"#d     #!o!!      #")
+renderLine(51,"#   d  #!!!!!     #")
+renderLine(52,"#      # !oo!     #")
+renderLine(53,"# d    # !!!!   #l#")
+renderLine(54,"#      #         s#")
+renderLine(55,"#    d #          #")
+renderLine(56,"#      #          #")
+renderLine(57,"#      ## # #######")
+renderLine(58,"#  d   ## # #")
+renderLine(59,"#      #    #")
+renderLine(60,"#      #    #")
+renderLine(61,"#     d#    #")
+renderLine(62,"#      #    #")
+renderLine(63,"#d  d  #    #")
+renderLine(64,"#      ## # #")
+renderLine(65,"#      #    #")
+renderLine(66,"#      #    #")
+renderLine(67,"#  d   #    #")
+renderLine(68,"#      #    #")
+renderLine(69,"#      #    #")
+renderLine(70,"#  d  d#    #")
+renderLine(71,"#           #")
+renderLine(72,"#      ##   #")
+renderLine(73,"#      #    #")
+renderLine(74,"#dddd  #    #")
+renderLine(75,"#      #  # #")
+renderLine(76,"#      #    #")
+renderLine(77,"#      #    #")
+renderLine(78,"#      #    #")
+renderLine(79,"#d  d  #    #")
+renderLine(80,"#      ##   #")
+renderLine(81,"#      #    #")
+renderLine(82,"#      #    #")
+renderLine(83,"#      #    #")
+renderLine(84,"#    dd#  # #")
+renderLine(85,"#      #    #")
+renderLine(86,"#      #    #")
+renderLine(87,"#d    d#    #")
+renderLine(88,"#      ##   #")
+renderLine(89,"#   d  #    #")
+renderLine(90,"#      #    #")
+renderLine(91,"#      #  # #")
+renderLine(92,"#      #    ##")
+renderLine(93,"#  z   #     #")
+renderLine(94,"#      # * * #")
+renderLine(95,"#      # u u #")
+renderLine(96,"##############")
+
+oxyd_shuffle()
+    ]]></el:luamain>
+    <el:i18n>
+      <el:string el:key="title">
+        <el:english el:translate="false"/>
+      </el:string>
+    </el:i18n>
+  </el:protected>
+</el:level>
+

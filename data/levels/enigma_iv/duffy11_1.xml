@@ -3,7 +3,7 @@
   <el:protected>
     <el:info el:type="level">
       <el:identity el:title="The Race" el:subtitle="" el:id="duffy11"/>
-      <el:version el:score="1" el:release="1" el:revision="0" el:status="released"/>
+      <el:version el:score="1" el:release="1" el:revision="1" el:status="released"/>
       <el:author  el:name="Jacob Scott" el:email="" el:homepage=""/>
       <el:copyright>Copyright © 2003 Jacob Scott</el:copyright>
       <el:license el:type="GPL v2.0 or above" el:open="true"/>
@@ -16,11 +16,14 @@
       <el:score el:easy="-" el:difficult="-"/>
     </el:info>
     <el:luamain><![CDATA[
-levelw=58
-levelh=30
-enigma.ConserveLevel = FALSE
+rooms_wide=3
+rooms_high=2
+
+levelw=1+(19*rooms_wide)
+levelh=1+(12*rooms_high)
 
 create_world( levelw, levelh)
+enigma.ConserveLevel = FALSE
 
 fill_floor("fl-leaves", 0,0,levelw,levelh)
 
@@ -112,11 +115,12 @@ renderLine(19, "###s# ######################                    sa #s  ###")
 renderLine(20, "### # ######################b#######################c#####")
 renderLine(21, "### as######################s                        #####")
 renderLine(22, "##########################################################")
+renderLine(23, "##########################################################")
+renderLine(24, "##########################################################")
 
-set_actor("ac-blackball", 47.5,3.5)    
+set_actor("ac-blackball", 47.5,3.5)
 
 set_stone("st-greenbrown",39,10)
-
 oxyd_shuffle()
     ]]></el:luamain>
     <el:i18n>
@@ -125,7 +129,7 @@ oxyd_shuffle()
       </el:string>
       <el:string el:key="text1">
         <el:english el:translate="true">It's a race!</el:english>
-      </el:string> 
+      </el:string>
     </el:i18n>
   </el:protected>
 </el:level>

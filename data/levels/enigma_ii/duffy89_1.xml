@@ -3,7 +3,7 @@
   <el:protected>
     <el:info el:type="level">
       <el:identity el:title="Almost There" el:subtitle="" el:id="duffy89"/>
-      <el:version el:score="1" el:release="1" el:revision="0" el:status="released"/>
+      <el:version el:score="1" el:release="1" el:revision="1" el:status="released"/>
       <el:author  el:name="Jacob Scott" el:email="" el:homepage=""/>
       <el:copyright>Copyright © 2004 Jacob Scott</el:copyright>
       <el:license el:type="GPL v2.0 or above" el:open="true"/>
@@ -16,10 +16,14 @@
       <el:score el:easy="-" el:difficult="-"/>
     </el:info>
     <el:luamain><![CDATA[
-levelw=140
-levelh=75
+rooms_wide=6
+rooms_high=6
+
+levelw=1+(19*rooms_wide)+4
+levelh=1+(12*rooms_high)+1
 
 create_world( levelw, levelh)
+display.SetFollowMode(display.FOLLOW_SCROLLING)
 
 fill_floor("fl-hay", 0,0,levelw,levelh)
 
@@ -32,12 +36,12 @@ function renderLine( line, pattern)
             oxyd( i-1, line)
         elseif c == "*" then
             set_stone( "st-brownie", i-1, line)
-                elseif c == "!" then
+        elseif c == "!" then
             abyss(i-1,line)
         elseif c == "~" then
-           set_floor("fl-water",i-1,line)
+            set_floor("fl-water",i-1,line)
         elseif c=="z" then
-           set_actor("ac-blackball", i-1,line+.5, {player=0})
+            set_actor("ac-blackball", i-1,line+.5, {player=0})
         elseif c == "g" then
             draw_stones("st-grate1",{i-1,line}, {1,1}, 1)
         elseif c=="+" then
@@ -49,63 +53,63 @@ function renderLine( line, pattern)
             set_floor("fl-ice",i-1,line)
             set_stone("st-greenbrown_hole",i-1,line)
         elseif c=="x" then
-           set_stone("st-greenbrown_hole",i-1,line)
+            set_stone("st-greenbrown_hole",i-1,line)
         elseif c=="X" then
-             set_stone("st-greenbrown_hole",i-1,line)
+            set_stone("st-greenbrown_hole",i-1,line)
         elseif c=="i" then
-           set_stone("st-invisible",i-1,line)
+            set_stone("st-invisible",i-1,line)
         elseif c=="F" then
-           set_stone("st-fart",i-1,line)
+            set_stone("st-fart",i-1,line)
         elseif c=="H" then
-           set_item("it-hammer",i-1,line)
+            set_item("it-hammer",i-1,line)
         elseif c=="w" then
-           set_item("it-wormhole", i-1, line, {strength=0,targetx="28",targety="6.5"})
+            set_item("it-wormhole", i-1, line, {strength=0,targetx="28",targety="6.5"})
         elseif c == "d" then --1-d
             set_floor("fl-gradient",  i-1,  line, {type=1})
-           set_stone("st-greenbrown_hole",i-1,line)
+            set_stone("st-greenbrown_hole",i-1,line)
         elseif c == "u" then --2-u
             set_floor("fl-gradient",  i-1,  line, {type=2})
-           set_stone("st-greenbrown_hole",i-1,line)
+            set_stone("st-greenbrown_hole",i-1,line)
         elseif c == "r" then --3-r
             set_floor("fl-gradient",  i-1,  line, {type=3})
-           set_stone("st-greenbrown_hole",i-1,line)
+            set_stone("st-greenbrown_hole",i-1,line)
         elseif c == "l" then --4-l
             set_floor("fl-gradient",  i-1,  line, {type=4})
-           set_stone("st-greenbrown_hole",i-1,line)
+            set_stone("st-greenbrown_hole",i-1,line)
         elseif c == "1" then --ur
             set_floor("fl-gradient",  i-1,  line, {type=11})
-           set_stone("st-greenbrown_hole",i-1,line)
+            set_stone("st-greenbrown_hole",i-1,line)
         elseif c == "3" then --dl
             set_floor("fl-gradient",  i-1,  line, {type=9})
-           set_stone("st-greenbrown_hole",i-1,line)
+            set_stone("st-greenbrown_hole",i-1,line)
         elseif c == "7" then --dr
             set_floor("fl-gradient",  i-1,  line, {type=12})
-           set_stone("st-greenbrown_hole",i-1,line)
+            set_stone("st-greenbrown_hole",i-1,line)
         elseif c == "9" then --ul
             set_floor("fl-gradient",  i-1,  line, {type=10})
-           set_stone("st-greenbrown_hole",i-1,line)
+            set_stone("st-greenbrown_hole",i-1,line)
         elseif c=="A" then
-           set_item("it-hollow", i-1, line)
-           set_stone("st-greenbrown_hole",i-1,line)
+            set_item("it-hollow", i-1, line)
+            set_stone("st-greenbrown_hole",i-1,line)
         elseif c=="a" then
-           set_item("it-tinyhollow", i-1, line)
-           set_stone("st-greenbrown_hole",i-1,line)
+            set_item("it-tinyhollow", i-1, line)
+            set_stone("st-greenbrown_hole",i-1,line)
         elseif c=="B" then
-           set_item("it-hill", i-1, line)
-           set_stone("st-greenbrown_hole",i-1,line)
+            set_item("it-hill", i-1, line)
+            set_stone("st-greenbrown_hole",i-1,line)
         elseif c=="b" then
-           set_item("it-tinyhill", i-1, line)
-           set_stone("st-greenbrown_hole",i-1,line)
+            set_item("it-tinyhill", i-1, line)
+            set_stone("st-greenbrown_hole",i-1,line)
         elseif c=="J" then
-             set_item("it-vortex-open", i-1, line, {targetx="106.5",targety="14.5"})
+            set_item("it-vortex-open", i-1, line, {targetx="106.5",targety="14.5"})
         elseif c=="K" then
-             set_item("it-vortex-open", i-1, line, {targetx="3.5",targety="43.5"})
+            set_item("it-vortex-open", i-1, line, {targetx="3.5",targety="43.5"})
         elseif c=="L" then
-             set_item("it-vortex-open", i-1, line, {targetx="106.5",targety="26.5"})
+            set_item("it-vortex-open", i-1, line, {targetx="106.5",targety="26.5"})
         elseif c=="M" then
-             set_item("it-vortex-open", i-1, line, {targetx="3.5",targety="41.5"})
-         end
-    end    
+            set_item("it-vortex-open", i-1, line, {targetx="3.5",targety="41.5"})
+        end
+    end
 end
 
 renderLine(00,"#######################################################################################################################")
@@ -184,8 +188,6 @@ renderLine(72,"#################################################################
 renderLine(73,"#######################################################################################################################")
 
 oxyd_shuffle()
-
-display.SetFollowMode(display.FOLLOW_SCROLLING)
     ]]></el:luamain>
     <el:i18n>
       <el:string el:key="title">

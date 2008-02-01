@@ -3,7 +3,7 @@
   <el:protected>
     <el:info el:type="level">
       <el:identity el:title="Upstream Journey" el:subtitle="" el:id="duffy58"/>
-      <el:version el:score="1" el:release="1" el:revision="0" el:status="released"/>
+      <el:version el:score="1" el:release="1" el:revision="1" el:status="released"/>
       <el:author  el:name="Jacob Scott" el:email="" el:homepage=""/>
       <el:copyright>Copyright © 2003 Jacob Scott</el:copyright>
       <el:license el:type="GPL v2.0 or above" el:open="true"/>
@@ -16,8 +16,11 @@
       <el:score el:easy="-" el:difficult="-"/>
     </el:info>
     <el:luamain><![CDATA[
-levelw=20
-levelh=13
+rooms_wide=1
+rooms_high=1
+
+levelw=1+(19*rooms_wide)
+levelh=1+(12*rooms_high)
 
 create_world( levelw, levelh)
 
@@ -36,36 +39,35 @@ function renderLine( line, pattern)
             abyss(i-1,line)
         elseif c == "o" then
             oxyd( i-1, line)
-                elseif c == "!" then
+        elseif c == "!" then
             abyss(i-1,line)
---            fill_floor("fl-water", i-1,line, 1,1)
         elseif c=="z" then
             set_actor("ac-blackball", i-.5,line+.5)
         elseif c=="+" then
             set_stone( "st-wood", i-1, line)
         elseif c=="x" then
-                fill_floor("fl-black", i-1,line, 1,1)
-             elseif c=="g" then
+            fill_floor("fl-black", i-1,line, 1,1)
+        elseif c=="g" then
             set_stone("st-grate1",i-1,line)
-             elseif c=="N" then
+        elseif c=="N" then
             set_item("it-vortex-open", i-1, line, {targetx=i-.5,targety=line-.5})
-             elseif c=="E" then
+        elseif c=="E" then
             set_item("it-vortex-open", i-1, line, {targetx=i+.5,targety=line+.5})
-             elseif c=="S" then
+        elseif c=="S" then
             set_item("it-vortex-open", i-1, line, {targetx=i-.5,targety=line+1.5})
-             elseif c=="W" then
+        elseif c=="W" then
             set_item("it-vortex-open", i-1, line, {targetx=i-1.5,targety=line+.5})
-             elseif c=="w" then
+        elseif c=="w" then
             set_item("it-vortex-open", i-1, line, {targetx=i-2.5,targety=line+.5})
-             elseif c=="Q" then
+        elseif c=="Q" then
             set_item("it-vortex-open", i-1, line)
-             elseif c=="X" then
+        elseif c=="X" then
             set_stone( "st-death", i-1, line)
             abyss(i-1,line)
-             elseif c=="q" then
+        elseif c=="q" then
             set_stone( "st-death", i-1, line)
         end
-    end    
+    end
 end
 
 -- Floor:  " "

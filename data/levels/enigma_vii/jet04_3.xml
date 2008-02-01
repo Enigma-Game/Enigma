@@ -1,0 +1,137 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no" ?>
+<el:level xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+xsi:schemaLocation="http://enigma-game.org/schema/level/1 level.xsd"
+xmlns:el="http://enigma-game.org/schema/level/1">
+  <el:protected >
+    <el:info el:type="level">
+      <el:identity el:title="Not Fast Enough" el:id="20070413jet001"/>
+      <el:version el:score="3" el:release="3" el:revision="3" el:status="released"/>
+      <el:author el:name="James Taylor, Ronald Lamprecht" el:email="james@lab6.com"/>
+      <el:copyright>Copyright © 2007 James Taylor, Ronald Lamprecht</el:copyright>
+      <el:license el:type="GPL v2.0 or above" el:open="true"/>
+      <el:compatibility el:enigma="1.00">
+       <el:dependency el:path="lib/ant" el:id="lib/ant" el:release="1" el:preload="true"/>
+      </el:compatibility>
+      <el:modes el:easy="true" el:single="true" el:network="false"/>
+      <el:comments>
+       <el:credits el:showinfo="true" el:showstart="false">Thanks to Raoul for playtesting</el:credits>
+       <el:code>The easymode is the original level from James Taylor. The diffs for the difficult mode are added by Ronald Lamprecht.</el:code>
+      </el:comments>
+      <el:score el:easy="-" el:difficult="4:48"/>
+    </el:info>
+    <el:luamain><![CDATA[
+enigma.ConserveLevel = 0
+
+cells={}
+
+    cells[" "] = cell{floor="fl-plank"}
+    cells["."] = cell{floor="fl-abyss"}
+    cells["#"] = cell{stone="st-redrock"}
+    cells["v"] = cell{floor="fl-plank", item="it-crack3"}
+    cells["u"] = cell{item="it-umbrella"}
+    cells["s"] = cell{item="it-seed"}
+    cells["T"] = cell{item={"it-trigger", {action="openclose", target="door1"}}}
+    cells["U"] = cell{item={"it-trigger", {action="openclose", target="door2"}}}
+    cells["V"] = cell{item={"it-trigger", {action="openclose", target="door3"}}}
+    cells["X"] = cell{item={"it-trigger", {action="openclose", target="door4"}}}
+    cells["Y"] = cell{item={"it-trigger", {action="openclose", target="door5"}}}
+    cells["g"] = cell{stone="st-grate1"}
+    cells["G"] = cell{item="it-seed"}
+    cells["t"] = cell{stone="st-turnstile"}
+    cells["n"] = cell{stone="st-turnstile-n"}
+    cells["S"] = cell{stone="st-swap"}
+    cells["a"] = cell{stone="st-puzzle-n"}
+    cells["b"] = cell{stone="st-puzzle-s"}
+    cells["c"] = cell{stone="st-puzzle-es"}
+    cells[","] = cell{stone="st-puzzle-w"}
+    cells["1"] = cell{stone={"st-door-v", {name="door1"}}}
+    cells["2"] = cell{floor={"fl-bridge-closed", {name="door2", type="y"}}}
+    cells["3"] = cell{floor={"fl-bridge-closed", {name="door3", type="y"}}}
+    cells["4"] = cell{floor={"fl-bridge-closed", {name="door4", type="y"}}}
+    cells["d"] = cell{stone={"st-door-h", {name="finaldoor"}}}
+    cells["l"] = cell{stone={"st-coinslot", {action="openclose", target="finaldoor"}}}
+    cells["W"] = cell{stone={"st-switch", {action="callback", target="doorworks"}}}
+    cells["D"] = cell{stone={"st-door-h", {name="firstdoor"}}}
+    cells["L"] = cell{stone={"st-laser-e", {name="laser1"}}}
+    cells["w"] = cell{stone="st-wood"}
+    cells["}"] = cell{floor="fl-water"}
+
+if difficult then
+    cells["K"] = cell{stone="st-knight"}
+    cells["-"] = cell{floor="fl-water",item="it-hstrip"}
+    cells["H"] = cell{stone="st-wood"}
+    cells["Z"] = cell{item={"it-trigger", {action="callback", target="laserworks"}}}
+    cells["C"] = cell{item="it-coin2"}
+    cells[">"] = cell{stone="st-oneway-e"}
+    cells["5"] = cell{stone={"st-door-v", {name="door5"}}, item="it-coin1"}
+    cells["6"] = cell{floor={"fl-bridge-closed", {name="door6", type="y"}}}
+    cells["7"] = cell{floor={"fl-bridge-open", {name="door7", type="y"}}}
+    cells["8"] = cell{floor={"fl-bridge-closed", {name="door8", type="y"}}}
+else
+    cells["Z"] = cell{item={"it-trigger", {action="on", target="laser1"}}}
+    cells["C"] = cell{item="it-coin1"}
+    cells[">"] = cell{stone="st-oneway-e", item="it-coin1"}
+    cells["5"] = cell{stone={"st-door-v", {name="door5"}}}
+end
+
+function doorworks()
+    enigma.SendMessage(enigma.GetNamedObject("firstdoor"), "openclose", nil)
+    enigma.SendMessage(enigma.GetNamedObject("door2"), "open", nil)
+    enigma.SendMessage(enigma.GetNamedObject("door3"), "open", nil)
+    enigma.SendMessage(enigma.GetNamedObject("door4"), "open", nil)
+end
+
+function laserworks()
+    enigma.SendMessage(enigma.GetNamedObject("laser1"), "onoff", nil)
+    enigma.SendMessage(enigma.GetNamedObject("door6"), "openclose", nil)
+    enigma.SendMessage(enigma.GetNamedObject("door7"), "openclose", nil)
+    enigma.SendMessage(enigma.GetNamedObject("door8"), "openclose", nil)
+end
+
+if difficult then
+    level = {
+    "##################0#",
+    "##TU#V#XY##Z#   Ol 0",
+    "#}}}}}}}}}#H# }###d#",
+    "#}}}}}}}}}#    # - #",
+    "# G G G G # #6 # }}#",
+    "# # # # # Wv#  # - #",
+    "# a b   a #v# 7#}} #",
+    "# b# ab#, #v#  # - #",
+    "#  w      #v#8 #K###",
+    "#gcnbaggg #DL      #",
+    "#ggggggSgv  ###### #",
+    "#gggggggt # 12345>C#",
+    "####################"
+    }
+else
+    level = {
+    "##################0#",
+    "##TU#V#XY##Z#   Ol 0",
+    "#}}}}}}}}}#w# }###d#",
+    "#}}}}}}}}}#    #   #",
+    "# G G G G # #} # }}#",
+    "# # # # # Wv#  #   #",
+    "# a b   a #v# }#}} #",
+    "# b# ab#, #v#  #   #",
+    "#  w      #v#} # }}#",
+    "#gcnbaggg # L      #",
+    "#ggggggSgv  ######D#",
+    "#gggggggt # 12345>C#",
+    "####################"
+    }
+end
+
+    oxyd_default_flavor = "a"
+    set_default_parent(cells[" "])
+    create_world_by_map(level)
+
+    ]]></el:luamain>
+    <el:i18n>
+      <el:string el:key="title">
+        <el:english el:translate="false"/>
+      </el:string>
+    </el:i18n>
+  </el:protected>
+</el:level>
+

@@ -3,7 +3,7 @@
   <el:protected>
     <el:info el:type="level">
       <el:identity el:title="Stranded" el:subtitle="" el:id="duffy51"/>
-      <el:version el:score="2" el:release="2" el:revision="3" el:status="released"/>
+      <el:version el:score="2" el:release="2" el:revision="4" el:status="released"/>
       <el:author  el:name="Jacob Scott" el:email="" el:homepage=""/>
       <el:copyright>Copyright © 2003 Jacob Scott</el:copyright>
       <el:license el:type="GPL v2.0 or above" el:open="true"/>
@@ -16,8 +16,11 @@
       <el:score el:easy="-" el:difficult="-"/>
     </el:info>
     <el:luamain><![CDATA[
-levelw=20
-levelh=13
+rooms_wide=1
+rooms_high=1
+
+levelw=1+(19*rooms_wide)
+levelh=1+(12*rooms_high)
 
 create_world( levelw, levelh)
 
@@ -38,14 +41,12 @@ function renderLine( line, pattern)
             set_stone( "st-brownie", i-1, line)
         elseif c == "!" then
             abyss(i-1,line)
-            --            fill_floor("fl-water", i-1,line, 1,1)
         elseif c == "~" then
-            --            abyss(i-1,line)
             fill_floor("fl-water", i-1,line, 1,1)
         elseif c=="z" then
-            local ac0=set_actor("ac-blackball", i,line+.5, {player=0, essential=1, name="ac0"})
+            set_actor("ac-blackball", i,line+.5, {player=0, essential=1, name="ac0"})
         elseif c=="W" then
-            local ac1=set_actor("ac-killerball", i,line+.5, {player=1, mouseforce=0, name="ac1"})
+            set_actor("ac-killerball", i,line+.5, {player=1, mouseforce=0, name="ac1"})
         elseif c == "g" then
             draw_stones("st-grate1",{i-1,line}, {1,1}, 1)
         elseif c=="+" then
@@ -104,9 +105,8 @@ function renderLine( line, pattern)
             set_stone("st-door_a",i-1,line,{name="door3"})
         elseif c =="S" then
             set_stone("st-door_a",i-1,line,{name="door4"})
-
         end
-    end    
+    end
 end
 
 function yy1( color, x, y)
@@ -137,62 +137,62 @@ enigma.AddRubberBand(ac0,ac1,2,7)
 
 ff1=0
 function funcc1()
-   if ff1==0 then
-      ff1=1
-   elseif ff1==1 then
-      ff1=0
-   end
-   funcc7()
+    if ff1==0 then
+        ff1=1
+    elseif ff1==1 then
+        ff1=0
+    end
+    funcc7()
 end
 
 ff2=0
 function funcc2()
-   if ff2==0 then
-      ff2=1
-   elseif ff2==1 then
-      ff2=0
-   end
-   funcc7()
+    if ff2==0 then
+        ff2=1
+    elseif ff2==1 then
+        ff2=0
+    end
+    funcc7()
 end
 
 ff3=0
 function funcc3()
-   if ff3==0 then
-      ff3=1
-   elseif ff3==1 then
-      ff3=0
-   end
-   funcc7()
+    if ff3==0 then
+        ff3=1
+    elseif ff3==1 then
+        ff3=0
+    end
+    funcc7()
 end
 
 ff4=0
 function funcc4()
-   if ff4==0 then
-      ff4=1
-   elseif ff4==1 then
-      ff4=0
-   end
-   funcc7()
+    if ff4==0 then
+        ff4=1
+    elseif ff4==1 then
+        ff4=0
+    end
+    funcc7()
 end
 
 ff5=0
 function funcc5()
-   if ff5==0 then
-      ff5=1
-   elseif ff5==1 then
-      ff5=0
-   end
-   funcc8()
+    if ff5==0 then
+        ff5=1
+    elseif ff5==1 then
+        ff5=0
+    end
+    funcc8()
 end
 
 ff6=0
 function funcc6()
-   if ff6==0 then
-      ff6=1
-   elseif ff6==1 then
-      ff6=0
-   end
-   funcc8()
+    if ff6==0 then
+        ff6=1
+    elseif ff6==1 then
+        ff6=0
+    end
+    funcc8()
 end
 
 function funcc7()

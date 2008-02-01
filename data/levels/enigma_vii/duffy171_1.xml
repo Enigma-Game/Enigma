@@ -1,0 +1,143 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no" ?>
+<el:level xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://enigma-game.org/schema/level/1 level.xsd" xmlns:el="http://enigma-game.org/schema/level/1">
+  <el:protected>
+    <el:info el:type="level">
+      <el:identity el:title="Alpha Factor" el:subtitle="" el:id="duffy171"/>
+      <el:version el:score="1" el:release="1" el:revision="0" el:status="released"/>
+      <el:author  el:name="Jacob Scott" el:email="" el:homepage=""/>
+      <el:copyright>Copyright © 2007 Jacob Scott</el:copyright>
+      <el:license el:type="GPL v2.0 or above" el:open="true"/>
+      <el:compatibility el:enigma="0.92">
+      </el:compatibility>
+      <el:modes el:easy="false" el:single="true" el:network="false"/>
+      <el:score el:easy="-" el:difficult="-"/>
+    </el:info>
+    <el:luamain><![CDATA[
+rooms_wide=3
+rooms_high=4
+
+levelw=1+(19*rooms_wide)
+levelh=1+(12*rooms_high)
+
+create_world(levelw, levelh)
+
+draw_border("st-brownie")
+fill_floor("fl-hay", 0,0, level_width,level_height)
+
+function renderLine( line, pattern)
+    for i=1, strlen(pattern) do
+        local c = strsub( pattern, i, i)
+        if c =="#" then
+            set_stone( "st-greenbrown", i-1, line)
+        elseif c == "o" then
+            oxyd( i-1, line)
+        elseif c == "i" then
+            set_stone( "st-invisible", i-1, line)
+        elseif c == "h" then
+            set_item("it-trigger", i-1,line, {action="openclose",target="door1"})
+        elseif c == "H" then
+            set_stone("st-door", i-1, line , {name="door1", type="v"})
+        elseif c == "+" then
+            set_stone("st-wood", i-1, line)
+        elseif c == "*" then
+            set_stone("st-brownie", i-1, line)
+        elseif c == "g" then
+            draw_stones("st-grate1",{i-1,line}, {1,1}, 1)
+        elseif c == "a" then
+            set_stone("st-bolder", i-1,line, {direction=NORTH})
+        elseif c == "b" then
+            set_stone("st-bolder", i-1,line, {direction=EAST})
+        elseif c == "c" then
+            set_stone("st-bolder", i-1,line, {direction=WEST})
+        elseif c == "d" then
+            set_stone("st-bolder", i-1,line, {direction=SOUTH})
+        elseif c == "1" then
+            oneway(i-1,line, enigma.NORTH)
+        elseif c == "4" then
+            oneway(i-1,line, enigma.SOUTH)
+        elseif c == "3" then
+            oneway(i-1,line, enigma.WEST)
+        elseif c == "2" then
+            oneway(i-1,line, enigma.EAST)
+        elseif c == "~" then
+            fill_floor("fl-water", i-1,line, 1,1)
+        elseif c == "!" then
+            abyss(i-1,line)
+        elseif c == "@" then
+            document(i-1,line,"I'ts a race!")
+        elseif c == "s" then
+            set_stone("st-stoneimpulse",i-1,line)
+        elseif c == "x" then
+            set_item("it-blackbomb",i-1,line)
+        elseif c == "y" then
+            dynamite(i-1,line)
+        elseif c == "z" then    
+            set_actor("ac-blackball" ,i-1, line, {player=0})
+        end
+    end
+end
+
+-- Floor:  " "
+-- Border: "#"
+-- Oxyd:   "o"
+
+renderLine(00,"##########################################################")
+renderLine(01,"#   o################ ######   #### i #####              #")
+renderLine(02,"# ##i#              #        ###### #     #i### i#####i# #")
+renderLine(03,"#  # # ################## ## ###### # ### #####    io# # #")
+renderLine(04,"## # # #          i    ## ##        #   #     # #### # # #")
+renderLine(05,"#  i #i# #### ##### ##    ### # # # # # # ### #    i # # #")
+renderLine(06,"# ## # # ## # #o    ######### # # # # # ii#   ### i  # # #")
+renderLine(07,"# ## # #    # #####         # #i# # # ### # #   #   i# # #")
+renderLine(08,"# ## # ###### ############# # # # # #     # # # # ## # # #")
+renderLine(09,"#                 i  ###### # #   i ## #### # # #    # # #")
+renderLine(10,"############# ######        # # ###### #### # # ###### # #")
+renderLine(11,"#         ### ###### ######## #        #### # #     ## # #")
+renderLine(12,"# ### #i##### ###### #        ############# # ##### ## # #")
+renderLine(13,"#   i i   ### ###### ##########             # ##### ## # #")
+renderLine(14,"# ### # #          #   i     ##iii iiiiiiiii#     #    # #")
+renderLine(15,"#  i    # #i###### ### # ### ##             #######i#### #")
+renderLine(16,"# #########      i     # ### ####### iiiiiii#            #")
+renderLine(17,"# ######### ### ######## ###       #          ############")
+renderLine(18,"#           #            ### ###i# ############          #")
+renderLine(19,"########### ############ ### ### # #            iiiiiiii #")
+renderLine(20,"#         # ########             # ##### #######i      i #")
+renderLine(21,"# ####### # #  #####  z    ####i##    ## #iiiiiii ii i i #")
+renderLine(22,"# #i    # # # ######o      #       ## ## ii       i    i #")
+renderLine(23,"# #   i # # # ################# ##i#i ## #i  iiiiii i  i #")
+renderLine(24,"# # # i   # #                 # ##i# ### #i  i    i iiii #")
+renderLine(25,"# # # i # # #i############### i iii#     #i iii iii   i  #")
+renderLine(26,"# #o#    i# #                 # #### #####i i         ii #")
+renderLine(27,"# #########i# ############### #      #### i i iiiiiii    #")
+renderLine(28,"#           #               # ##i######   i i       iiiii#")
+renderLine(29,"########### # ###############    #   i# # i iiiiiiiii    #")
+renderLine(30,"#  #      # #    i          # ## ##i i# #             ####")
+renderLine(31,"## #i# ## # ###### ###iiii# ##ii  ii i# ##### ############")
+renderLine(32,"#  i   i           ##i    #  i       i#      i#          #")
+renderLine(33,"## # # #### #########ii iiii i iiii iii##### ## ######## #")
+renderLine(34,"## # # #### #########i     i   i  i  i i  ##    #      # #")
+renderLine(35,"## # # #### #########iiii i iiiii ii i ii i###### ### ## #")
+renderLine(36,"##   #   ## #########i                            #      #")
+renderLine(37,"### #### ############iiiiiiiiiiiiiiiiiiiiiiiiiiiii########")
+renderLine(38,"# i  i      iiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiii#")
+renderLine(39,"# iiiiii iiiiii  ii ii i  i i ii  iiiii    i ii   iiiiiii#")
+renderLine(40,"#        i    i ii        i i i    i  i ii i    ii i     #")
+renderLine(41,"# iiiiiiiiii      i ii iii    i ii ii   ii   i i    iiii #")
+renderLine(42,"# i        i iiii   ii i   iiiii i    ii  ii i i ii i    #")
+renderLine(43,"# i iiiiiiii ii  iii i  i ii     i ii i   i  i i i    ii #")
+renderLine(44,"#            ii ii     i  i iiii i i i i i  i ii iiii iii#")
+renderLine(45,"# ii i iii i    i  i   ii i i    i        i         i    #")
+renderLine(46,"#i i iii iii ii  i iiii i i   iiii iiiiiiiiiiiiiiiiiiiii #")
+renderLine(47,"#             i i           i      io                    #")
+renderLine(48,"##########################################################")
+
+oxyd_shuffle()
+    ]]></el:luamain>
+    <el:i18n>
+      <el:string el:key="title">
+        <el:english el:translate="false"/>
+      </el:string>
+    </el:i18n>
+  </el:protected>
+</el:level>
+

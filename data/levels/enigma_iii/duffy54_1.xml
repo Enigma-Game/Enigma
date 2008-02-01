@@ -3,7 +3,7 @@
   <el:protected>
     <el:info el:type="level">
       <el:identity el:title="Keepaway" el:subtitle="" el:id="duffy54"/>
-      <el:version el:score="1" el:release="1" el:revision="0" el:status="released"/>
+      <el:version el:score="1" el:release="1" el:revision="1" el:status="released"/>
       <el:author  el:name="Jacob Scott" el:email="" el:homepage=""/>
       <el:copyright>Copyright © 2003 Jacob Scott</el:copyright>
       <el:license el:type="GPL v2.0 or above" el:open="true"/>
@@ -16,8 +16,11 @@
       <el:score el:easy="-" el:difficult="-"/>
     </el:info>
     <el:luamain><![CDATA[
-levelw=58
-levelh=37
+rooms_wide=3
+rooms_high=3
+
+levelw=1+(19*rooms_wide)
+levelh=1+(12*rooms_high)
 
 create_world( levelw, levelh)
 
@@ -40,30 +43,28 @@ function renderLine( line, pattern)
             set_stone( "st-brownie", i-1, line)
         elseif c == "!" then
             abyss(i-1,line)
---            fill_floor("fl-water", i-1,line, 1,1)
         elseif c == "~" then
---            abyss(i-1,line)
             fill_floor("fl-water", i-1,line, 1,1)
         elseif c == " " then
             abyss(i-1,line)
         elseif c=="z" then
-                    set_actor("ac-blackball", i-1,line+.5)
+            set_actor("ac-blackball", i-1,line+.5)
         elseif c == "g" then
             draw_stones("st-grate1",{i-1,line}, {1,1}, 1)
         elseif c=="+" then
             set_stone( "st-wood", i-1, line)
         elseif c=="R" then
-           set_actor("ac-rotor", i-.5,line+.5, {player=1, mouseforce=0, range=100, force=30})
+            set_actor("ac-rotor", i-.5,line+.5, {player=1, mouseforce=0, range=100, force=30})
             abyss(i-1,line)
         elseif c=="Q" then
-           set_item("it-ring",i-1,line)
+            set_item("it-ring",i-1,line)
         elseif c=="A" then
-           set_floor("fl-gravel",i-1,line)
+            set_floor("fl-gravel",i-1,line)
         elseif c=="x" then
-           set_floor("fl-rock",i-1,line)
-         end
-    end    
-     end
+            set_floor("fl-rock",i-1,line)
+        end
+    end
+end
 
 renderLine(00,"############################oo############################")
 renderLine(01,"#                          !xx!                          #")
@@ -83,7 +84,7 @@ renderLine(14,"#                  !xxxxxxxxxxxxxxxxxx!                  #")
 renderLine(15,"#                  !xxxxxxxxxxxxxxxxxx!                  #")
 renderLine(16,"#!!!!!!!!!!!!!!!!!!!xxxxxxxxxxxxxxxxxx!!!!!!!!!!!!!!!!!!!#")
 renderLine(17,"oxQQxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxQQxo")
-renderLine(18,"oxQQxxxxxxxxxxxxxxxxxxxxxxxxxzxxxxxxxxxxxxxxxxxxxxxxxxQQxo") 
+renderLine(18,"oxQQxxxxxxxxxxxxxxxxxxxxxxxxxzxxxxxxxxxxxxxxxxxxxxxxxxQQxo")
 renderLine(19,"oxQQxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxQQxo")
 renderLine(20,"#!!!!!!!!!!!!!!!!!!!xxxxxxxxxxxxxxxxxx!!!!!!!!!!!!!!!!!!!#")
 renderLine(21,"#                  !xxxxxxxxxxxxxxxxxx!                  #")

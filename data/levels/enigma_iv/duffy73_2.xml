@@ -3,7 +3,7 @@
   <el:protected>
     <el:info el:type="level">
       <el:identity el:title="Bizarro World" el:subtitle="" el:id="duffy73"/>
-      <el:version el:score="2" el:release="2" el:revision="1" el:status="released"/>
+      <el:version el:score="2" el:release="2" el:revision="2" el:status="released"/>
       <el:author  el:name="Jacob Scott" el:email="" el:homepage=""/>
       <el:copyright>Copyright © 2003 Jacob Scott</el:copyright>
       <el:license el:type="GPL v2.0 or above" el:open="true"/>
@@ -16,8 +16,11 @@
       <el:score el:easy="-" el:difficult="-"/>
     </el:info>
     <el:luamain><![CDATA[
-levelw=180
-levelh=90
+rooms_wide=9
+rooms_high=7
+
+levelw=1+(19*rooms_wide)
+levelh=1+(12*rooms_high)
 
 create_world( levelw, levelh)
 
@@ -232,99 +235,99 @@ function renderLine( line, pattern)
             set_floor("fl-leaves",i-1,line)
             document(i-1,line,"text1")
         end
-    end    
+    end
 end
 
 function yy1( color, x, y)
-        stone = format( "st-%s4", color)
-        set_stone( stone, x, y)
+    stone = format( "st-%s4", color)
+    set_stone( stone, x, y)
 end
 
-renderLine(00,"IIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIII")
-renderLine(01,"I         f               f                     f          f        f      f                 f        f              f           f                      f              f  I")
-renderLine(02,"I   f                                                                                                                                                                     I")
-renderLine(03,"I      t      f                                                                                                      f                                                    I")
-renderLine(04,"I                           f         f          f                f        f       f     f              f                          f            f                         I")
-renderLine(05,"I         f                                               f                                                                                                  f      f     I")
-renderLine(06,"If               f                                                                               f                f                                                       I")
-renderLine(07,"I                          f                                                     f                                            f                    D                      I")
-renderLine(08,"I                                      f              f         f     f                                                                        f       f                  I")
-renderLine(09,"I                                                                                                             f                      f                          f         I")
-renderLine(10,"I   f                                                                                                                  f                                                  I")
-renderLine(11,"I                    f                                  D      f               f               f      f                                   f                              fI")
-renderLine(12,"I           f                f          f       f                                                                   f                            f                        I")
-renderLine(13,"If                                                                                     f                                              f                                   I")
-renderLine(14,"I                                                                                                          f                   f                                          I")
-renderLine(15,"I                                f      f                    f            f                                       f                   f            f       f         f    I")
-renderLine(16,"I                                                   f                                                 f                                                                   I")
-renderLine(17,"I     f         f        f                                                         f      f                                                                      f        I")
-renderLine(18,"I                                                                       f                                           f        f                                            I")
-renderLine(19,"I                                 f           f                                                                  D                        f           f               f   I")
-renderLine(20,"I                                                       f        f                                   f                                                                    I")
-renderLine(21,"I    f        f              f                                              f                             f                                    f               f          I")
-renderLine(22,"I                                       f                                                      f                     f             f                                      I")
-renderLine(23,"I                                                                                     f                                                                                  fI")
-renderLine(24,"I                                                          f                                                                               f                              I")
-renderLine(25,"I           f        f                  f         f                f                                       f                                             f                I")
-renderLine(26,"If  f                                                                        f                       f                    f                                       f       I")
-renderLine(27,"I                                             f                                                                                     f           f                         I")
-renderLine(28,"I                                f                                                             f           f           f                                             f    I")
-renderLine(29,"I             f              f                           f         f                f                                              f                                      I")
-renderLine(30,"I    D                                                                                                                                                                    I")
-renderLine(31,"I       f                                                              f                        f       f                                              f       f          I")
-renderLine(32,"I                                      f    f        f                       f          f                                          f                                      I")
-renderLine(33,"I                 f                                                                                               f                           f                      f   fI")
-renderLine(34,"I                                                                                                                         f                                               I")
-renderLine(35,"I     f                 f           f               f             f        f          f           f         f                    f                       f                I")
-renderLine(36,"IIIIIIIIIIIIIIIIIIIIIIIIIIIII%%%%%%%%%%%%%%%%%%%#########%%%%%%%%%%%%%%%%%%%%PPPPPPPPPPPPPPPPPPPQQQQQQQQQQQQ#########################                                     I")
-renderLine(37,"I     f     f       f     f  HJJJJJJJJv        %         % lrrrrreeeeeejj   %FllPlllP~~~~~~~~~~PbAaAAaBaBbablllsss%llllRiiiiiiiiiNUUU              f                      I")
-renderLine(38,"I                            HJJJJJJJJv llllll % llp   #   l            l   %lllPlllP~2wwllww4~PbBBBbaBBBbAAlllsss%ggllRiiiiiiiiiiUUU                           f      f  I")
-renderLine(39,"I                            HJJJJJJJJv lzllSl   lll   ##% leeeerrrrll 3d1  %lllPlllP~wwwllwww~PbAaAaaAaBAAblllsssvlgllRiiiiiiiiiiUUU    f                                I")
-renderLine(40,"I                        f   HJJJJJJJJv llllll %         %           l rie  %lllPlllP~wwwllwww~PbabAbBBaBbablllsssvlgllRiiiiiiiiiiUUU                                     I")
-renderLine(41,"If     f                     HJJJJJJJJv        &xxxxxx^^^%TTTT  7uuuu9 9u7  %lllPlllP~llllllll~P:aBBbbbaBAAblllsssvlgllRiiiiiiiiiiUUU            f                        I")
-renderLine(42,"I               f            %%%%%%%%%%%%%%%%%%&xx@@@x^@@l===T  e7uu9r  l  lRlClVlllWlll?ly/ll;qAABaaAbABaBblllsss%ggllRiiiiiiiiiiUUU                       f             I")
-renderLine(43,"I                               f     #x@@cx@@@cxx@@@x^@@%TT=T  ee79rr llxll%lllPlllP~llllllll~P:bBabAaabaBblllsss%$$$$$iiiiiiiiiiUUU                                     I")
-renderLine(44,"I         f                         f #x@@cx@@@cxx@@@x^cc%===T  ee13rr lxxlx%lllPlllP~wwwllwww~PbAAABBBBBAAbxxxx^m%oooP$iiiiiiiiiiUUU                              f     fI")
-renderLine(45,"If                          f         #xxxxxxxx^^^^^^^^xx%=TTT  e1dd3r llxlx%lllPlllP~wwwllwww~PbBabbaAabbaaxxxx^l$lllo$iiiiiiiiiiUUU   f       f        f                I")
-renderLine(46,"I                                    f#x@@xx@@@xx@@@cxx@@%llllll1dddd3 lxxlx%lllPlllP~5wwllww6~PbAAAAaBAAAABxxxx^M$lllo$iiiiiiiiiiUUU                                     I")
-renderLine(47,"I                                     #x@@xxcccxx@@@cxx@@%llll         llllx%OllPlllP~~~~~~~~~~PbBbaBbbabBabxxxx^qqlllo$iiiiiiiiiNUUU                                     I")
-renderLine(48,"I                 f                  f##GG###############%%%%%%%%%%%%%%%%%%%%PPPPPPPPPPPPPPPPPPPQQQQQQQQQQQQ#########################                            f        I")
-renderLine(49,"I                        f                   f            f         f             f            f             f         f        f                  f                   f  I")
-renderLine(50,"If     f                              f                                                                                                                                   I")
-renderLine(51,"I               D                                                                                                                            f             f              I")
-renderLine(52,"I                                            f                             f                          f                                                          f       fI")
-renderLine(53,"I                                 f                                f                 f                        f        f            f                                     I")
-renderLine(54,"I                     f                                 f                                     f                                                                           I")
-renderLine(55,"If                                                                                                                                                 f                      I")
-renderLine(56,"I                                                                         f                            f                                                                  I")
-renderLine(57,"I                                                             f                                                                 f       f                         f       I")
-renderLine(58,"If                        f                 f                                                                     f                              f         f              I")
-renderLine(59,"I        f                         f                                                                                        f                                             I")
-renderLine(60,"I                                                     f         f          f                     f                                                                       fI")
-renderLine(61,"I                                                                                     f                                                                                   I")
-renderLine(62,"I               f                                                                                                                    f                        f      f    I")
-renderLine(63,"I                                             f                                                         f          f                                  D                   I")
-renderLine(64,"I                           f                                f           f                                                                                                I")
-renderLine(65,"I  f                                                              D                           f                                            f        f                     I")
-renderLine(66,"I                f                   f            f                                                                       f         f                          f         fI")
-renderLine(67,"I                                                                             f                                                                                           I")
-renderLine(68,"If       f                                                            f                 f                      f                                                   f      I")
-renderLine(69,"I                                                                                                    f                                                 f                  I")
-renderLine(70,"I                                                           f                                                                f            f                               I")
-renderLine(71,"I   f        f       f                    f      f                                                                                                              f         I")
-renderLine(72,"I                            f                                            f        f                               f                                                      I")
-renderLine(73,"I                                                                                                                                         f        f      f           f   I")
-renderLine(74,"I                                                      f       f                                 f        f                                                              fI")
-renderLine(75,"If                                      f                                                f                                    f                                           I")
-renderLine(76,"I                            f                                            f                                                                                               I")
-renderLine(77,"I          f       f                                                                                                                                  f           f       I")
-renderLine(78,"I                                                      f         f                                 f          f                        f                               f  I")
-renderLine(79,"I  f                                                                         f                                      f                        f              f             I")
-renderLine(80,"I    D                           f          f                                              f                                      f                                      fI")
-renderLine(81,"I                                                                                                       f                                            f                    I")
-renderLine(82,"If                                                                                                                                                           f            I")
-renderLine(83,"I    f     f             f            f              f            f            f       f            f                f          f               f                    f    I")
-renderLine(84,"IIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIII")
+renderLine(00,"IIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIII")
+renderLine(01,"I         f               f                     f          f        f      f                 f        f              f           f                      f               f  I")
+renderLine(02,"I   f                                                                                                                                                                      I")
+renderLine(03,"I      t      f                                                                                                      f                                                f    I")
+renderLine(04,"I                           f         f          f                f        f       f     f              f                          f            f                          I")
+renderLine(05,"I         f                                               f                                                                                                  f      f      I")
+renderLine(06,"If               f                                                                               f                f                                                        I")
+renderLine(07,"I                          f                                                     f                                            f                    D                       I")
+renderLine(08,"I                                      f              f         f     f                                                                        f       f              f    I")
+renderLine(09,"I                                                                                                             f                      f                          f          I")
+renderLine(10,"I   f                                                                                                                  f                                                   I")
+renderLine(11,"I                    f                                  D      f               f               f      f                                   f                               fI")
+renderLine(12,"I           f                f          f       f                                                                   f                            f                         I")
+renderLine(13,"If                                                                                     f                                              f                                    I")
+renderLine(14,"I                                                                                                          f                   f                                           I")
+renderLine(15,"I                                f      f                    f            f                                       f                   f            f       f          f    I")
+renderLine(16,"I                                                   f                                                 f                                                                    I")
+renderLine(17,"I     f         f        f                                                         f      f                                                                       f        I")
+renderLine(18,"I                                                                       f                                           f        f                                             I")
+renderLine(19,"I                                 f           f                                                                  D                        f           f                f   I")
+renderLine(20,"I                                                       f        f                                   f                                                                     I")
+renderLine(21,"I    f        f              f                                              f                             f                                    f                f          I")
+renderLine(22,"I                                       f                                                      f                     f             f                                       I")
+renderLine(23,"I                                                                                     f                                                                                   fI")
+renderLine(24,"I                                                          f                                                                               f                               I")
+renderLine(25,"I           f        f                  f         f                f                                       f                                             f                 I")
+renderLine(26,"If  f                                                                        f                       f                    f                                        f       I")
+renderLine(27,"I                                             f                                                                                     f           f                          I")
+renderLine(28,"I                                f                                                             f           f           f                                              f    I")
+renderLine(29,"I             f              f                           f         f                f                                              f                       f               I")
+renderLine(30,"I    D                                                                                                                                                                     I")
+renderLine(31,"I       f                                                              f                        f       f                                              f        f          I")
+renderLine(32,"I                                      f    f        f                       f          f                                          f                                       I")
+renderLine(33,"I                 f                                                                                               f                           f                       f   fI")
+renderLine(34,"I                                                                                                                         f                                                I")
+renderLine(35,"I     f                 f           f               f             f        f          f           f         f                    f                       f                 I")
+renderLine(36,"IIIIIIIIIIIIIIIIIIIIIIIIIIIII%%%%%%%%%%%%%%%%%%%#########%%%%%%%%%%%%%%%%%%%%PPPPPPPPPPPPPPPPPPPQQQQQQQQQQQQ#########################                                      I")
+renderLine(37,"I     f     f       f     f  HJJJJJJJJv        %         % lrrrrreeeeeejj   %FllPlllP~~~~~~~~~~PbAaAAaBaBbablllsss%llllRiiiiiiiiiNUUU              f                       I")
+renderLine(38,"I                            HJJJJJJJJv llllll % llp   #   l            l   %lllPlllP~2wwllww4~PbBBBbaBBBbAAlllsss%ggllRiiiiiiiiiiUUU                           f       f  I")
+renderLine(39,"I                            HJJJJJJJJv lzllSl   lll   ##% leeeerrrrll 3d1  %lllPlllP~wwwllwww~PbAaAaaAaBAAblllsssvlgllRiiiiiiiiiiUUU    f                                 I")
+renderLine(40,"I                        f   HJJJJJJJJv llllll %         %           l rie  %lllPlllP~wwwllwww~PbabAbBBaBbablllsssvlgllRiiiiiiiiiiUUU                                      I")
+renderLine(41,"If     f                     HJJJJJJJJv        &xxxxxx^^^%TTTT  7uuuu9 9u7  %lllPlllP~llllllll~P:aBBbbbaBAAblllsssvlgllRiiiiiiiiiiUUU            f                         I")
+renderLine(42,"I               f            %%%%%%%%%%%%%%%%%%&xx@@@x^@@l===T  e7uu9r  l  lRlClVlllWlll?ly/ll;qAABaaAbABaBblllsss%ggllRiiiiiiiiiiUUU                       f              I")
+renderLine(43,"I                               f     #x@@cx@@@cxx@@@x^@@%TT=T  ee79rr llxll%lllPlllP~llllllll~P:bBabAaabaBblllsss%$$$$$iiiiiiiiiiUUU                                      I")
+renderLine(44,"I         f                         f #x@@cx@@@cxx@@@x^cc%===T  ee13rr lxxlx%lllPlllP~wwwllwww~PbAAABBBBBAAbxxxx^m%oooP$iiiiiiiiiiUUU                               f     fI")
+renderLine(45,"If                          f         #xxxxxxxx^^^^^^^^xx%=TTT  e1dd3r llxlx%lllPlllP~wwwllwww~PbBabbaAabbaaxxxx^l$lllo$iiiiiiiiiiUUU   f       f        f                 I")
+renderLine(46,"I                                    f#x@@xx@@@xx@@@cxx@@%llllll1dddd3 lxxlx%lllPlllP~5wwllww6~PbAAAAaBAAAABxxxx^M$lllo$iiiiiiiiiiUUU                                      I")
+renderLine(47,"I                                     #x@@xxcccxx@@@cxx@@%llll         llllx%OllPlllP~~~~~~~~~~PbBbaBbbabBabxxxx^qqlllo$iiiiiiiiiNUUU                                      I")
+renderLine(48,"I                 f                  f##GG###############%%%%%%%%%%%%%%%%%%%%PPPPPPPPPPPPPPPPPPPQQQQQQQQQQQQ#########################                             f        I")
+renderLine(49,"I                        f                   f            f         f             f            f             f         f        f                  f                    f  I")
+renderLine(50,"If     f                              f                                                                                                                                    I")
+renderLine(51,"I               D                                                                                                                            f             f               I")
+renderLine(52,"I                                            f                             f                          f                                                           f       fI")
+renderLine(53,"I                                 f                                f                 f                        f        f            f                                      I")
+renderLine(54,"I                     f                                 f                                     f                                                                            I")
+renderLine(55,"If                                                                                                                                                 f                       I")
+renderLine(56,"I                                                                         f                            f                                                                   I")
+renderLine(57,"I                                                             f                                                                 f       f                          f       I")
+renderLine(58,"If                        f                 f                                                                     f                              f         f               I")
+renderLine(59,"I        f                         f                                                                                        f                                              I")
+renderLine(60,"I                                                     f         f          f                     f                                                                        fI")
+renderLine(61,"I                                                                                     f                                                                                    I")
+renderLine(62,"I               f                                                                                                                    f                        f       f    I")
+renderLine(63,"I                                             f                                                         f          f                                  D                    I")
+renderLine(64,"I                           f                                f           f                                                                                                 I")
+renderLine(65,"I  f                                                              D                           f                                            f        f                      I")
+renderLine(66,"I                f                   f            f                                                                       f         f                          f          fI")
+renderLine(67,"I                                                                             f                                                                                            I")
+renderLine(68,"If       f                                                            f                 f                      f                                                    f      I")
+renderLine(69,"I                                                                                                    f                                                 f                   I")
+renderLine(70,"I                                                           f                                                                f            f                                I")
+renderLine(71,"I   f        f       f                    f      f                                                                                                              f          I")
+renderLine(72,"I                            f                                            f        f                               f                                                       I")
+renderLine(73,"I                                                                                                                                         f        f      f            f   I")
+renderLine(74,"I                                                      f       f                                 f        f                                                               fI")
+renderLine(75,"If                                      f                                                f                                    f                                 f          I")
+renderLine(76,"I                            f                                            f                                                                                                I")
+renderLine(77,"I          f       f                                                                                                                                  f            f       I")
+renderLine(78,"I                                                      f         f                                 f          f                        f                                f  I")
+renderLine(79,"I  f                                                                         f                                      f                        f              f              I")
+renderLine(80,"I    D                           f          f                                              f                                      f                                       fI")
+renderLine(81,"I                                                                                                       f                                            f                     I")
+renderLine(82,"If                                                                                                                                                           f             I")
+renderLine(83,"I    f     f             f            f              f            f            f       f            f                f          f               f                     f    I")
+renderLine(84,"IIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIII")
 
 
 bridgenumber=1
@@ -509,12 +512,8 @@ function funcc7()
     end
 end
 
-set_stone( "st-timer", 179, 0,
-           {target="timer_callback", action="callback",
-            name="timer", interval=0.1} )
-set_stone( "st-timer", 179, 1,
-           {target="timer_callback2", action="callback",
-            name="timer2", interval=0.1} )
+set_stone( "st-timer", 179, 0, {target="timer_callback", action="callback", name="timer", interval=0.1} )
+set_stone( "st-timer", 179, 1, {target="timer_callback2", action="callback", name="timer2", interval=0.1} )
 
 oxyd_shuffle()
 
@@ -535,7 +534,7 @@ SendMessage("switch5","on")
       </el:string>
       <el:string el:key="text1">
         <el:english el:translate="true" el:comment="read from the right">.moor txen eht ot teg ot syaw owt era erehT</el:english>
-      </el:string> 
+      </el:string>
     </el:i18n>
   </el:protected>
 </el:level>

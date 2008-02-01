@@ -3,13 +3,13 @@
   <el:protected>
     <el:info el:type="level">
       <el:identity el:title="Construction Workers" el:subtitle="" el:id="duffy142"/>
-      <el:version el:score="1" el:release="1" el:revision="2" el:status="released"/>
+      <el:version el:score="1" el:release="1" el:revision="3" el:status="released"/>
       <el:author  el:name="Jacob Scott" el:email="" el:homepage=""/>
       <el:copyright>Copyright © 2007 Jacob Scott</el:copyright>
       <el:license el:type="GPL v2.0 or above" el:open="true"/>
       <el:compatibility el:enigma="0.92" el:engine="oxyd1">
       </el:compatibility>
-      <el:modes el:easy="false" el:single="true" el:network="false"/>
+      <el:modes el:easy="false" el:single="true" el:network="true"/>
       <el:score el:easy="-" el:difficult="-"/>
     </el:info>
     <el:luamain><![CDATA[
@@ -20,7 +20,8 @@ levelw=1+(19*rooms_wide)
 levelh=1+(12*rooms_high)
 
 create_world( levelw, levelh)
-enigma.ConserveLevel=FALSE
+enigma.ConserveLevel = 0
+enigma.TwoPlayerGame = 1
 
 oxyd_default_flavor="a"
 
@@ -55,10 +56,8 @@ function renderLine( line, pattern)
             set_floor("fl-water",i-1,line)
         elseif c=="z" then
             set_actor("ac-blackball", i-.5,line+.5, {player=0, essential=1})
-            set_item("it-yinyang",i-1,line)
         elseif c=="y" then
             set_actor("ac-whiteball", i-.5,line+.5, {player=1, essential=1})
-            set_item("it-yinyang",i-1,line)
         elseif c == "g" then
             draw_stones("st-grate1",{i-1,line}, {1,1}, 1)
         elseif c=="+" then

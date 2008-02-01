@@ -1,0 +1,72 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no" ?>
+<el:level xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://enigma-game.org/schema/level/1 level.xsd" xmlns:el="http://enigma-game.org/schema/level/1">
+  <el:protected>
+    <el:info el:type="level">
+      <el:identity el:title="mad-ill-tation" el:subtitle="a tribute to esprit meditation levels" el:id="ill0907-01"/>
+      <el:version el:score="1" el:release="1" el:revision="1" el:status="released"/>
+      <el:author  el:name="illmind" el:email="illmind@mag-heut.net" el:homepage="http://www.mag-heut.net"/>
+      <el:copyright>Copyright © 2007 illmind</el:copyright>
+      <el:license el:type="GPL v2.0 or above" el:open="true"/>
+      <el:compatibility el:enigma="0.92" />
+      <el:modes el:easy="false" el:single="true" el:network="false"/>
+      <el:score el:easy="-" el:difficult="-"/>
+    </el:info>
+    <el:luamain><![CDATA[
+-- level dimensions and standards
+levelw = 20
+levelh = 13
+create_world(levelw, levelh)
+oxyd_default_flavor = "d"
+enigma.ConserveLevel = 0
+
+function renderLine( line, pattern)
+    for i=1, strlen(pattern) do
+        local c = strsub( pattern, i, i)
+        if c=="x" then
+            oxyd(i-1,line)
+        elseif c=="#" then
+            set_stone("st-rock1",i-1,line)
+            set_floor("fl-black",i-1,line)
+        elseif c=="+" then
+            set_floor("fl-black",i-1,line)
+        elseif c=="a" then
+            set_floor("fl-abyss",i-1,line)
+        elseif c=="h" then
+            set_item("it-hollow",i-1,line)
+            set_floor("fl-black",i-1,line)
+        end
+    end
+end
+
+renderLine(00 , "####################")
+renderLine(01 , "#h+++++a+++++a+++++#")
+renderLine(02 , "#h++a++++++++++++++#")
+renderLine(03 , "#h++++++++a+++++a++#")
+renderLine(04 , "################+++#")
+renderLine(05 , "#+++++++a++++++++++#")
+renderLine(06 , "#+a++++++++a+++++a+#")
+renderLine(07 , "#++++a++++++++a++++#")
+renderLine(08 , "#+++################")
+renderLine(09 , "#++a++++++++a++++++#")
+renderLine(10 , "#+++++a++++++++a+++#")
+renderLine(11 , "#++++++++a+++++++++#")
+renderLine(12 , "####################")
+
+-- documents
+document(1,11,"text1")
+
+-- blackball / whiteball / actor(s)
+set_actor("ac-whiteball-small", 18.5, 9.5, {player=0, mouseforce=0.5, essential=1})
+set_actor("ac-whiteball-small",18.5, 10.5, {player=0, mouseforce=5.0, essential=1})
+set_actor("ac-whiteball-small", 18.5,11.5, {player=0, mouseforce=-1, essential=1})
+    ]]></el:luamain>
+    <el:i18n>
+      <el:string el:key="title">
+        <el:english el:translate="false"/>
+      </el:string>
+      <el:string el:key="text1">
+        <el:english el:translate="true">... illmind's mad-ill-tation ... a tribute to esprit meditation levels from the past. thank you. ...</el:english>
+      </el:string> 
+    </el:i18n>
+  </el:protected>
+</el:level>

@@ -3,13 +3,13 @@
   <el:protected>
     <el:info el:type="level">
       <el:identity el:title="In the Middle" el:subtitle="" el:id="duffy141"/>
-      <el:version el:score="1" el:release="1" el:revision="0" el:status="released"/>
+      <el:version el:score="1" el:release="1" el:revision="1" el:status="released"/>
       <el:author  el:name="Jacob Scott" el:email="" el:homepage=""/>
       <el:copyright>Copyright © 2007 Jacob Scott</el:copyright>
       <el:license el:type="GPL v2.0 or above" el:open="true"/>
       <el:compatibility el:enigma="0.92">
       </el:compatibility>
-      <el:modes el:easy="false" el:single="true" el:network="false"/>
+      <el:modes el:easy="false" el:single="true" el:network="true"/>
       <el:score el:easy="-" el:difficult="-"/>
     </el:info>
     <el:luamain><![CDATA[
@@ -20,7 +20,8 @@ levelw=1+(19*rooms_wide)
 levelh=1+(12*rooms_high)
 
 create_world( levelw, levelh)
-enigma.ConserveLevel=FALSE
+enigma.ConserveLevel = 0
+enigma.TwoPlayerGame = 1
 
 fill_floor("fl-metal", 0,0,levelw,levelh)
 
@@ -39,10 +40,8 @@ function renderLine( line, pattern)
             abyss(i-1,line)
         elseif c=="z" then
             set_actor("ac-blackball", i-.5,line+.5, {name="ac1",player=0, essential=1})
-            set_item("it-yinyang",i-1,line)
         elseif c=="y" then
             set_actor("ac-whiteball", i-.5,line+.5, {name="ac2",player=1, essential=1})
-            set_item("it-yinyang",i-1,line)
         elseif c=="k" then
             set_actor("ac-killerball", i-.5,line+.5, {name="ac3",controllers=0})
             abyss(i-1,line)

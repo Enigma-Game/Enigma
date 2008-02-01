@@ -3,7 +3,7 @@
   <el:protected>
     <el:info el:type="level">
       <el:identity el:title="Alien Glyphs" el:subtitle="" el:id="duffy31"/>
-      <el:version el:score="1" el:release="1" el:revision="0" el:status="released"/>
+      <el:version el:score="1" el:release="1" el:revision="1" el:status="released"/>
       <el:author  el:name="Jacob Scott" el:email="" el:homepage=""/>
       <el:copyright>Copyright © 2003 Jacob Scott</el:copyright>
       <el:license el:type="GPL v2.0 or above" el:open="true"/>
@@ -16,8 +16,11 @@
       <el:score el:easy="-" el:difficult="-"/>
     </el:info>
     <el:luamain><![CDATA[
-levelw=100
-levelh=50
+rooms_wide=5
+rooms_high=3
+
+levelw=1+(19*rooms_wide)
+levelh=1+(12*rooms_high)
 
 create_world( levelw, levelh)
 
@@ -97,7 +100,7 @@ function renderLine( line, pattern)
         elseif c=="F" then
             set_stone("st-switch", i-1,line, {action="callback",target="funcc26"})
         end
-    end    
+    end
 end
 
 -- Floor:  " "
@@ -142,16 +145,16 @@ renderLine(34,"#                  #                  #     wwwwwww      #     ww
 renderLine(35,"#                  #                  #                  #                 F#                  #")
 renderLine(36,"################################################################################################")
 
--- ## # 
+-- ## #
 --  ####
 --    ##
--- ###  
---    # 
+-- ###
+--    #
 
--- # #  
+-- # #
 --  ####
---  #   
--- #### 
+--  #
+-- ####
 -- # ###
 
 oxyd_shuffle()
@@ -581,10 +584,10 @@ ff25=0
 end
 end
 
--- # #  
+-- # #
 --  ####
---  #   
--- #### 
+--  #
+-- ####
 --   ###
 -- 1,0,1,0,0
 -- 0,1,1,1,1
@@ -592,11 +595,11 @@ end
 -- 1,1,1,1,0
 -- 0,0,1,1,1
 function funcc26()
-    if  f1==1 and f2==0 and f3==1 and f4==0 and f5==0 
-        and  f6==0 and f7==1 and f8==1 and f9==1 and f10==1 
-        and f11==0 and f12==1 and f13==0 and f14==0 and f15==0 
-        and f16==1 and f17==1 and f18==1 and f19==1 and f20==0 
-        and f21==1 and f22==0 and f23==1 and f24==1 and f25==1 
+    if  f1==1 and f2==0 and f3==1 and f4==0 and f5==0
+        and  f6==0 and f7==1 and f8==1 and f9==1 and f10==1
+        and f11==0 and f12==1 and f13==0 and f14==0 and f15==0
+        and f16==1 and f17==1 and f18==1 and f19==1 and f20==0
+        and f21==1 and f22==0 and f23==1 and f24==1 and f25==1
     then
         SendMessage("door1", "openclose")
     SendMessage("door2", "openclose")

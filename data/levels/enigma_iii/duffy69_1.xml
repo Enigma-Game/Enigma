@@ -3,7 +3,7 @@
   <el:protected>
     <el:info el:type="level">
       <el:identity el:title="Tilt Maze" el:subtitle="" el:id="duffy69"/>
-      <el:version el:score="1" el:release="1" el:revision="0" el:status="released"/>
+      <el:version el:score="1" el:release="1" el:revision="1" el:status="released"/>
       <el:author  el:name="Jacob Scott" el:email="" el:homepage=""/>
       <el:copyright>Copyright © 2003 Jacob Scott</el:copyright>
       <el:license el:type="GPL v2.0 or above" el:open="true"/>
@@ -16,8 +16,11 @@
       <el:score el:easy="-" el:difficult="-"/>
     </el:info>
     <el:luamain><![CDATA[
-levelw=40
-levelh=30
+rooms_wide=2
+rooms_high=2
+
+levelw=1+(19*rooms_wide) +1
+levelh=1+(12*rooms_high)
 
 create_world( levelw, levelh)
 
@@ -141,16 +144,13 @@ function renderLine( line, pattern)
             set_actor("ac-whiteball", i-.5,line+.5, {player=0, mouseforce=1, essential=1})
             set_floor("fl-gradient",  i-1,  line, {type=24})
         elseif c=="A" then
-            --             set_item("it-vortex-open", i-1, line, {targetx="16.5",targety="8.5", name="V1"})
-            --            set_floor("fl-space",i-1,line)
-            --            abyss(i-1,line)
             if difficult then
                 set_floor("fl-water",i-1,line)
             else
                 set_stone ("st-actorimpulse", i-1, line)
             end
         end
-    end    
+    end
 end
 
 --renderLine(00,"%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%")
@@ -259,423 +259,422 @@ f10=0
 f11=0
 
 function funccdir1()
-   chosendir=1
-          set_floor("fl-gradient",  bx, by , {type=22})
+    chosendir=1
+    set_floor("fl-gradient",  bx, by , {type=22})
 end
 
 function funccdir2()
-   chosendir=2
-          set_floor("fl-gradient",  bx, by , {type=23})
+    chosendir=2
+    set_floor("fl-gradient",  bx, by , {type=23})
 end
 
 function funccdir3()
-   chosendir=3
-          set_floor("fl-gradient",  bx, by , {type=21})
+    chosendir=3
+    set_floor("fl-gradient",  bx, by , {type=21})
 end
 
 function funccdir4()
-   chosendir=4
-          set_floor("fl-gradient",  bx, by , {type=24})
+    chosendir=4
+    set_floor("fl-gradient",  bx, by , {type=24})
 end
 
 function funccdir5()
-   chosendir=5
-          set_floor("fl-normal",  bx, by)
+    chosendir=5
+    set_floor("fl-normal",  bx, by)
 end
 
 function funcc1()
-   if f1==0 then
-      cur=1
-      f1=1
-      dcheck()
-   else
-      f1=0
-   end
+    if f1==0 then
+        cur=1
+        f1=1
+        dcheck()
+    else
+        f1=0
+    end
 end
 
 function funcc2()
-   if f2==0 then
-      cur=2
-      f2=1
-      dcheck()
-   else
-      f2=0
-   end
+    if f2==0 then
+        cur=2
+        f2=1
+        dcheck()
+    else
+        f2=0
+    end
 end
 
 function funcc3()
-   if f3==0 then
-      cur=3
-      f3=1
-      dcheck()
-   else
-      f3=0
-   end
+    if f3==0 then
+        cur=3
+        f3=1
+        dcheck()
+    else
+        f3=0
+    end
 end
 
 function funcc4()
-   if f4==0 then
-      cur=4
-      f4=1
-      dcheck()
-   else
-      f4=0
-   end
+    if f4==0 then
+        cur=4
+        f4=1
+        dcheck()
+    else
+        f4=0
+    end
 end
 
 function funcc5()
-   if f5==0 then
-      cur=5
-      f5=1
-      dcheck()
-   else
-      f5=0
-   end
+    if f5==0 then
+        cur=5
+        f5=1
+        dcheck()
+    else
+        f5=0
+    end
 end
 
 function funcc6()
-   if f6==0 then
-      cur=6
-      f6=1
-      dcheck()
-   else
-      f6=0
-   end
+    if f6==0 then
+        cur=6
+        f6=1
+        dcheck()
+    else
+        f6=0
+    end
 end
 
 function funcc7()
-   if f7==0 then
-      cur=7
-      f7=1
-      dcheck()
-   else
-      f7=0
-   end
+    if f7==0 then
+        cur=7
+        f7=1
+        dcheck()
+    else
+        f7=0
+    end
 end
 
 function funcc8()
-   if f8==0 then
-      cur=8
-      f8=1
-      dcheck()
-   else
-      f8=0
-   end
+    if f8==0 then
+        cur=8
+        f8=1
+        dcheck()
+    else
+        f8=0
+    end
 end
 
 function funcc9()
-   if f9==0 then
-      cur=9
-      f9=1
-      dcheck()
-   else
-      f9=0
-   end
+    if f9==0 then
+        cur=9
+        f9=1
+        dcheck()
+    else
+        f9=0
+    end
 end
 
 f10=0
 
 function funcc10()
-if f10==0 then
-   prev=1
---   cur=1
-   bx=14
-   by=6
-   f1=0
-   f2=0
-   f3=0
-   f4=0
-   f5=0
-   f6=0
-   f7=0
-   f8=0
-   f9=0
-else
-f10=0
-end
+    if f10==0 then
+        prev=1
+        --   cur=1
+        bx=14
+        by=6
+        f1=0
+        f2=0
+        f3=0
+        f4=0
+        f5=0
+        f6=0
+        f7=0
+        f8=0
+        f9=0
+    else
+        f10=0
+    end
 end
 
 function funcc11()
-        set_floor("fl-normal",  prebx,  preby)
---   set_floor("fl-gradient",  18,  6, {type=24})
-if f10==0 then
-   prev=1
---   cur=2
-   bx=15
-   by=8
-   f1=0
-   f2=0
-   f3=0
-   f4=0
-   f5=0
-   f6=0
-   f7=0
-   f8=0
-   f9=0
-chosendir=5
-else
-f10=0
-end
+    set_floor("fl-normal",  prebx,  preby)
+    --   set_floor("fl-gradient",  18,  6, {type=24})
+    if f10==0 then
+        prev=1
+        --   cur=2
+        bx=15
+        by=8
+        f1=0
+        f2=0
+        f3=0
+        f4=0
+        f5=0
+        f6=0
+        f7=0
+        f8=0
+        f9=0
+        chosendir=5
+    else
+        f10=0
+    end
 end
 
 function dcheck()
 
-if cur==2 and prev==1 then
-direc=2
-elseif cur==3 and prev==2 then
-direc=2
-elseif cur==1 and prev==3 then
-direc=2
-elseif cur==5 and prev==4 then
-direc=2
-elseif cur==6 and prev==5 then
-direc=2
-elseif cur==4 and prev==6 then
-direc=2
-elseif cur==8 and prev==7 then
-direc=2
-elseif cur==9 and prev==8 then
-direc=2
-elseif cur==7 and prev==9 then
-direc=2
+    if cur==2 and prev==1 then
+        direc=2
+    elseif cur==3 and prev==2 then
+        direc=2
+    elseif cur==1 and prev==3 then
+        direc=2
+    elseif cur==5 and prev==4 then
+        direc=2
+    elseif cur==6 and prev==5 then
+        direc=2
+    elseif cur==4 and prev==6 then
+        direc=2
+    elseif cur==8 and prev==7 then
+        direc=2
+    elseif cur==9 and prev==8 then
+        direc=2
+    elseif cur==7 and prev==9 then
+        direc=2
 
-elseif cur==1 and prev==2 then
-direc=4
-elseif cur==2 and prev==3 then
-direc=4
-elseif cur==3 and prev==1 then
-direc=4
-elseif cur==4 and prev==5 then
-direc=4
-elseif cur==5 and prev==6 then
-direc=4
-elseif cur==6 and prev==4 then
-direc=4
-elseif cur==7 and prev==8 then
-direc=4
-elseif cur==8 and prev==9 then
-direc=4
-elseif cur==9 and prev==7 then
-direc=4
+    elseif cur==1 and prev==2 then
+        direc=4
+    elseif cur==2 and prev==3 then
+        direc=4
+    elseif cur==3 and prev==1 then
+        direc=4
+    elseif cur==4 and prev==5 then
+        direc=4
+    elseif cur==5 and prev==6 then
+        direc=4
+    elseif cur==6 and prev==4 then
+        direc=4
+    elseif cur==7 and prev==8 then
+        direc=4
+    elseif cur==8 and prev==9 then
+        direc=4
+    elseif cur==9 and prev==7 then
+        direc=4
 
-elseif cur==4 and prev==1 then
-direc=1
-elseif cur==5 and prev==2 then
-direc=1
-elseif cur==6 and prev==3 then
-direc=1
-elseif cur==7 and prev==4 then
-direc=1
-elseif cur==8 and prev==5 then
-direc=1
-elseif cur==9 and prev==6 then
-direc=1
-elseif cur==1 and prev==7 then
-direc=1
-elseif cur==2 and prev==8 then
-direc=1
-elseif cur==3 and prev==9 then
-direc=1
+    elseif cur==4 and prev==1 then
+        direc=1
+    elseif cur==5 and prev==2 then
+        direc=1
+    elseif cur==6 and prev==3 then
+        direc=1
+    elseif cur==7 and prev==4 then
+        direc=1
+    elseif cur==8 and prev==5 then
+        direc=1
+    elseif cur==9 and prev==6 then
+        direc=1
+    elseif cur==1 and prev==7 then
+        direc=1
+    elseif cur==2 and prev==8 then
+        direc=1
+    elseif cur==3 and prev==9 then
+        direc=1
 
-elseif cur==1 and prev==4 then
-direc=3
-elseif cur==2 and prev==5 then
-direc=3
-elseif cur==3 and prev==6 then
-direc=3
-elseif cur==4 and prev==7 then
-direc=3
-elseif cur==5 and prev==8 then
-direc=3
-elseif cur==6 and prev==9 then
-direc=3
-elseif cur==7 and prev==1 then
-direc=3
-elseif cur==8 and prev==2 then
-direc=3
-elseif cur==9 and prev==3 then
-direc=3
+    elseif cur==1 and prev==4 then
+        direc=3
+    elseif cur==2 and prev==5 then
+        direc=3
+    elseif cur==3 and prev==6 then
+        direc=3
+    elseif cur==4 and prev==7 then
+        direc=3
+    elseif cur==5 and prev==8 then
+        direc=3
+    elseif cur==6 and prev==9 then
+        direc=3
+    elseif cur==7 and prev==1 then
+        direc=3
+    elseif cur==8 and prev==2 then
+        direc=3
+    elseif cur==9 and prev==3 then
+        direc=3
 
--- renderLine(03,"!#         1231231#!")
--- renderLine(04,"!#       ##7897897#!")
--- renderLine(05,"!#   z   ##4564564#!")
--- renderLine(06,"!#       ##1231231#!")
--- renderLine(07,"!#       ##7897897#!")
--- renderLine(08,"!#       ##4564564#!")
--- renderLine(09,"!#       ##1231231#!")
+    -- renderLine(03,"!#         1231231#!")
+    -- renderLine(04,"!#       ##7897897#!")
+    -- renderLine(05,"!#   z   ##4564564#!")
+    -- renderLine(06,"!#       ##1231231#!")
+    -- renderLine(07,"!#       ##7897897#!")
+    -- renderLine(08,"!#       ##4564564#!")
+    -- renderLine(09,"!#       ##1231231#!")
 
-elseif cur==5 and prev==1 then
-direc=5
-elseif cur==6 and prev==2 then
-direc=5
-elseif cur==4 and prev==3 then
-direc=5
-elseif cur==2 and prev==7 then
-direc=5
-elseif cur==3 and prev==8 then
-direc=5
-elseif cur==1 and prev==9 then
-direc=5
-elseif cur==8 and prev==4 then
-direc=5
-elseif cur==9 and prev==5 then
-direc=5
-elseif cur==7 and prev==6 then
-direc=5
+    elseif cur==5 and prev==1 then
+        direc=5
+    elseif cur==6 and prev==2 then
+        direc=5
+    elseif cur==4 and prev==3 then
+        direc=5
+    elseif cur==2 and prev==7 then
+        direc=5
+    elseif cur==3 and prev==8 then
+        direc=5
+    elseif cur==1 and prev==9 then
+        direc=5
+    elseif cur==8 and prev==4 then
+        direc=5
+    elseif cur==9 and prev==5 then
+        direc=5
+    elseif cur==7 and prev==6 then
+        direc=5
 
--- renderLine(03,"!#         1231231#!")
--- renderLine(04,"!#       ##7897897#!")
--- renderLine(05,"!#   z   ##4564564#!")
--- renderLine(06,"!#       ##1231231#!")
--- renderLine(07,"!#       ##7897897#!")
--- renderLine(08,"!#       ##4564564#!")
--- renderLine(09,"!#       ##1231231#!")
+    -- renderLine(03,"!#         1231231#!")
+    -- renderLine(04,"!#       ##7897897#!")
+    -- renderLine(05,"!#   z   ##4564564#!")
+    -- renderLine(06,"!#       ##1231231#!")
+    -- renderLine(07,"!#       ##7897897#!")
+    -- renderLine(08,"!#       ##4564564#!")
+    -- renderLine(09,"!#       ##1231231#!")
 
-elseif cur==1 and prev==6 then
-direc=6
-elseif cur==3 and prev==5 then
-direc=6
-elseif cur==2 and prev==4 then
-direc=6
-elseif cur==4 and prev==9 then
-direc=6
-elseif cur==6 and prev==8 then
-direc=6
-elseif cur==5 and prev==7 then
-direc=6
-elseif cur==7 and prev==3 then
-direc=6
-elseif cur==9 and prev==2 then
-direc=6
-elseif cur==8 and prev==1 then
-direc=6
+    elseif cur==1 and prev==6 then
+        direc=6
+    elseif cur==3 and prev==5 then
+        direc=6
+    elseif cur==2 and prev==4 then
+        direc=6
+    elseif cur==4 and prev==9 then
+        direc=6
+    elseif cur==6 and prev==8 then
+        direc=6
+    elseif cur==5 and prev==7 then
+        direc=6
+    elseif cur==7 and prev==3 then
+        direc=6
+    elseif cur==9 and prev==2 then
+        direc=6
+    elseif cur==8 and prev==1 then
+        direc=6
 
--- renderLine(03,"!#         1231231#!")
--- renderLine(04,"!#       ##7897897#!")
--- renderLine(05,"!#   z   ##4564564#!")
--- renderLine(06,"!#       ##1231231#!")
--- renderLine(07,"!#       ##7897897#!")
--- renderLine(08,"!#       ##4564564#!")
--- renderLine(09,"!#       ##1231231#!")
+    -- renderLine(03,"!#         1231231#!")
+    -- renderLine(04,"!#       ##7897897#!")
+    -- renderLine(05,"!#   z   ##4564564#!")
+    -- renderLine(06,"!#       ##1231231#!")
+    -- renderLine(07,"!#       ##7897897#!")
+    -- renderLine(08,"!#       ##4564564#!")
+    -- renderLine(09,"!#       ##1231231#!")
 
-elseif cur==1 and prev==5 then
-direc=7
-elseif cur==2 and prev==6 then
-direc=7
-elseif cur==3 and prev==4 then
-direc=7
-elseif cur==4 and prev==8 then
-direc=7
-elseif cur==5 and prev==9 then
-direc=7
-elseif cur==6 and prev==7 then
-direc=7
-elseif cur==7 and prev==2 then
-direc=7
-elseif cur==8 and prev==3 then
-direc=7
-elseif cur==9 and prev==1 then
-direc=7
+    elseif cur==1 and prev==5 then
+        direc=7
+    elseif cur==2 and prev==6 then
+        direc=7
+    elseif cur==3 and prev==4 then
+        direc=7
+    elseif cur==4 and prev==8 then
+        direc=7
+    elseif cur==5 and prev==9 then
+        direc=7
+    elseif cur==6 and prev==7 then
+        direc=7
+    elseif cur==7 and prev==2 then
+        direc=7
+    elseif cur==8 and prev==3 then
+        direc=7
+    elseif cur==9 and prev==1 then
+        direc=7
 
--- renderLine(03,"!#         1231231#!")
--- renderLine(04,"!#       ##7897897#!")
--- renderLine(05,"!#   z   ##4564564#!")
--- renderLine(06,"!#       ##1231231#!")
--- renderLine(07,"!#       ##7897897#!")
--- renderLine(08,"!#       ##4564564#!")
--- renderLine(09,"!#       ##1231231#!")
+    -- renderLine(03,"!#         1231231#!")
+    -- renderLine(04,"!#       ##7897897#!")
+    -- renderLine(05,"!#   z   ##4564564#!")
+    -- renderLine(06,"!#       ##1231231#!")
+    -- renderLine(07,"!#       ##7897897#!")
+    -- renderLine(08,"!#       ##4564564#!")
+    -- renderLine(09,"!#       ##1231231#!")
 
-elseif cur==4 and prev==2 then
-direc=8
-elseif cur==5 and prev==3 then
-direc=8
-elseif cur==6 and prev==1 then
-direc=8
-elseif cur==7 and prev==5 then
-direc=8
-elseif cur==8 and prev==6 then
-direc=8
-elseif cur==9 and prev==4 then
-direc=8
-elseif cur==1 and prev==8 then
-direc=8
-elseif cur==2 and prev==9 then
-direc=8
-elseif cur==3 and prev==7 then
-direc=8
+    elseif cur==4 and prev==2 then
+        direc=8
+    elseif cur==5 and prev==3 then
+        direc=8
+    elseif cur==6 and prev==1 then
+        direc=8
+    elseif cur==7 and prev==5 then
+        direc=8
+    elseif cur==8 and prev==6 then
+        direc=8
+    elseif cur==9 and prev==4 then
+        direc=8
+    elseif cur==1 and prev==8 then
+        direc=8
+    elseif cur==2 and prev==9 then
+        direc=8
+    elseif cur==3 and prev==7 then
+        direc=8
+    end
 
-end
+    if direc==1 then
+        by=by-1
+    elseif direc==2 then
+        bx=bx+1
+    elseif direc==3 then
+        by=by+1
+    elseif direc==4 then
+        bx=bx-1
+    elseif direc==5 then
+        bx=bx+1
+        by=by-1
+    elseif direc==6 then
+        bx=bx+1
+        by=by+1
+    elseif direc==7 then
+        bx=bx-1
+        by=by+1
+    elseif direc==8 then
+        bx=bx-1
+        by=by-1
+    end
 
-   if direc==1 then
-      by=by-1
-   elseif direc==2 then
-      bx=bx+1
-   elseif direc==3 then
-      by=by+1
-   elseif direc==4 then
-      bx=bx-1
-   elseif direc==5 then
-      bx=bx+1
-      by=by-1
-   elseif direc==6 then
-      bx=bx+1
-      by=by+1
-   elseif direc==7 then
-      bx=bx-1
-      by=by+1
-   elseif direc==8 then
-      bx=bx-1
-      by=by-1
-   end
-
-if chosendir==1 then
-          set_floor("fl-gradient",  bx, by , {type=22})
-  elseif chosendir==2 then
+    if chosendir==1 then
+        set_floor("fl-gradient",  bx, by , {type=22})
+    elseif chosendir==2 then
         set_floor("fl-gradient",  bx,  by, {type=23})
-   elseif chosendir==3 then
-          set_floor("fl-gradient",  bx,  by, {type=21})
-   elseif chosendir==4 then
-          set_floor("fl-gradient",  bx,  by, {type=24})
-   elseif chosendir==5 then
+    elseif chosendir==3 then
+        set_floor("fl-gradient",  bx,  by, {type=21})
+    elseif chosendir==4 then
+        set_floor("fl-gradient",  bx,  by, {type=24})
+    elseif chosendir==5 then
         set_floor("fl-normal",  bx,  by)
-     end
+    end
 
---   if direc==1 then
---          set_floor("fl-gradient",  bx, by , {type=2})
---  elseif direc==2 then
---        set_floor("fl-gradient",  bx,  by, {type=3})
---   elseif direc==3 then
---          set_floor("fl-gradient",  bx,  by, {type=1})
---   elseif direc==4 then
---          set_floor("fl-gradient",  bx,  by, {type=4})
---     end
---if direc>4 then
---   if prevdirec==1 then
---          set_floor("fl-gradient",  bx, by , {type=2})
---  elseif prevdirec==2 then
---        set_floor("fl-gradient",  bx,  by, {type=3})
---   elseif prevdirec==3 then
---          set_floor("fl-gradient",  bx,  by, {type=1})
---   elseif prevdirec==4 then
---          set_floor("fl-gradient",  bx,  by, {type=4})
---     end
-     --  end
+    --   if direc==1 then
+    --          set_floor("fl-gradient",  bx, by , {type=2})
+    --  elseif direc==2 then
+    --        set_floor("fl-gradient",  bx,  by, {type=3})
+    --   elseif direc==3 then
+    --          set_floor("fl-gradient",  bx,  by, {type=1})
+    --   elseif direc==4 then
+    --          set_floor("fl-gradient",  bx,  by, {type=4})
+    --     end
+    --if direc>4 then
+    --   if prevdirec==1 then
+    --          set_floor("fl-gradient",  bx, by , {type=2})
+    --  elseif prevdirec==2 then
+    --        set_floor("fl-gradient",  bx,  by, {type=3})
+    --   elseif prevdirec==3 then
+    --          set_floor("fl-gradient",  bx,  by, {type=1})
+    --   elseif prevdirec==4 then
+    --          set_floor("fl-gradient",  bx,  by, {type=4})
+    --     end
+    --  end
 
-set_floor("fl-normal",  prebx,  preby)
+    set_floor("fl-normal",  prebx,  preby)
 
-set_floor("fl-gradient",  16,  8, {type=24})
+    set_floor("fl-gradient",  16,  8, {type=24})
 
-prebx=bx
-preby=by
+    prebx=bx
+    preby=by
 
-prev=cur
+    prev=cur
 
-prevdirec=direc
+    prevdirec=direc
 end
 
 function timer_callback()
-set_floor("fl-gradient",  15,  8, {type=24})
-set_floor("fl-gradient",  16,  8, {type=24})
+    set_floor("fl-gradient",  15,  8, {type=24})
+    set_floor("fl-gradient",  16,  8, {type=24})
 end
 
 set_stone("st-timer", 39,0, {loop=1, action="callback", target="timer_callback", interval=0.1})

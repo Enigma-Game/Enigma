@@ -3,7 +3,7 @@
   <el:protected>
     <el:info el:type="level">
       <el:identity el:title="Inverted Laser Spiral" el:subtitle="" el:id="duffy42"/>
-      <el:version el:score="1" el:release="1" el:revision="0" el:status="released"/>
+      <el:version el:score="1" el:release="1" el:revision="1" el:status="released"/>
       <el:author  el:name="Jacob Scott" el:email="" el:homepage=""/>
       <el:copyright>Copyright © 2003 Jacob Scott</el:copyright>
       <el:license el:type="GPL v2.0 or above" el:open="true"/>
@@ -16,8 +16,11 @@
       <el:score el:easy="-" el:difficult="-"/>
     </el:info>
     <el:luamain><![CDATA[
-levelw = 20
-levelh = 13
+rooms_wide=1
+rooms_high=1
+
+levelw=1+(19*rooms_wide)
+levelh=1+(12*rooms_high)
 
 create_world(levelw, levelh)
 
@@ -29,11 +32,11 @@ function renderLine( line, pattern)
         local c = strsub( pattern, i, i)
         if c =="#" then
             set_stone("st-greenbrown",i-1,line)
-        elseif c == "z" then    
+        elseif c == "z" then
             set_actor("ac-blackball", i-.5,line+1)
         elseif c == "o" then
             oxyd(i-1,line)
-        elseif c == "@" then    
+        elseif c == "@" then
             hollow(i-1,line)
         elseif c == "/" then
             mirrorp(i-1,line,FALSE,FALSE, 4)
@@ -41,7 +44,7 @@ function renderLine( line, pattern)
             mirrorp(i-1,line,FALSE,FALSE, 2)
         elseif c == "?" then
             mirrorp(i-1,line,TRUE,TRUE, 1)
-        elseif c == "x" then    
+        elseif c == "x" then
             set_item("it-key_a", i-1 ,line)
         elseif c == "u" then
             set_attrib(laser(i-1,line, TRUE, NORTH), "name", "laser")

@@ -1,0 +1,169 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no" ?>
+<el:level xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://enigma-game.org/schema/level/1 level.xsd" xmlns:el="http://enigma-game.org/schema/level/1">
+  <el:protected>
+    <el:info el:type="level">
+      <el:identity el:title="Double Oneways" el:subtitle="no U-turn" el:id="duffy172"/>
+      <el:version el:score="1" el:release="1" el:revision="0" el:status="released"/>
+      <el:author  el:name="Jacob Scott" el:email="" el:homepage=""/>
+      <el:copyright>Copyright © 2007 Jacob Scott</el:copyright>
+      <el:license el:type="GPL v2.0 or above" el:open="true"/>
+      <el:compatibility el:enigma="0.92">
+      </el:compatibility>
+      <el:modes el:easy="false" el:single="true" el:network="false"/>
+      <el:score el:easy="-" el:difficult="-"/>
+    </el:info>
+    <el:luamain><![CDATA[
+rooms_wide=14
+rooms_high=1
+
+levelw=1+(19*rooms_wide)
+levelh=1+(12*rooms_high)
+
+create_world( levelw, levelh)
+
+fill_floor("fl-metal", 0,0,levelw,levelh)
+
+function renderLine( line, pattern)
+    for i=1, strlen(pattern) do
+        local c = strsub( pattern, i, i)
+        if c =="#" then
+            set_stone( "st-greenbrown", i-1, line)
+        elseif c =="B" then
+            set_stone( "st-actorimpulse", i-1, line)
+        elseif c =="K" then
+            set_stone( "st-stoneimpulse", i-1, line)
+        elseif c =="t" then
+            set_stone( "st-rock6",i-1,line)
+        elseif c =="M" then
+            set_stone( "st-greenbrown", i-1, line)
+            set_item("it-wormhole", i-1, line, {strength=1,targetx="259.5",targety="6.5"})
+        elseif c =="N" then
+            set_item("it-wormhole", i-1, line, {strength=1,targetx="8.5",targety="3.5"})
+        elseif c == "o" then
+            oxyd( i-1, line)
+        elseif c == "!" then
+            abyss(i-1,line)
+        elseif c=="+" then
+            set_stone( "st-greenbrown", i-1, line)
+        elseif c=="g" then
+            draw_stones("st-grate1",{i-1,line}, {1,1}, 1)
+        elseif c=="l" then
+            oneway(i-1,line, enigma.WEST)
+        elseif c=="u" then
+            oneway(i-1,line, enigma.NORTH)
+        elseif c=="r" then
+            oneway(i-1,line, enigma.EAST)
+        elseif c=="d" then
+            oneway(i-1,line, enigma.SOUTH)
+        elseif c=="c" then    
+            set_item("it-coin1", i-1,line)
+        elseif c=="z" then
+            set_actor("ac-blackball", i-0.5,line+0.5, {player=0})
+        elseif c=="g" then
+            draw_stones("st-grate1",{i-1,line}, {1,1}, 1)
+        elseif c=="S" then
+            set_item("it-seed", i-1, line)
+        elseif c == "7" then
+            puzzle(i-1,line,PUZ_0110)
+        elseif c == "9" then
+            puzzle(i-1,line,PUZ_0011)
+        elseif c == "3" then
+            puzzle(i-1,line,PUZ_1001)
+        elseif c == "1" then
+            puzzle(i-1,line,PUZ_1100)
+        elseif c == "h" then
+            puzzle(i-1,line,PUZ_0101)
+        elseif c == "v" then
+            puzzle(i-1,line,PUZ_1010)
+        elseif c == "8" then
+            puzzle(i-1,line,PUZ_1000)
+        elseif c == "6" then
+            puzzle(i-1,line,PUZ_0100)
+        elseif c == "2" then
+            puzzle(i-1,line,PUZ_0010)
+        elseif c == "4" then
+            puzzle(i-1,line,PUZ_0001)
+        elseif c=="s" then
+            fill_floor("fl-space", i-1,line, 1,1)
+        elseif c=="L" then
+            fill_floor("fl-leaves", i-1,line, 37,11)
+        elseif c=="R" then
+            fill_floor("fl-rough", i-1,line, 18,11)
+        elseif c=="Y" then
+            fill_floor("fl-abyss", i-1,line, 94,4)
+        elseif c=="Q" then
+            fill_floor("fl-abyss", i-1,line, 92,4)
+        elseif c=="i" then
+            fill_floor("fl-ice", i-1,line, 1,1)
+        elseif c=="P" then
+            set_item("it-brush",i-1,line)
+        elseif c=="e" then
+            set_item("it-extralife",i-1,line)
+        elseif c=="F" then
+            set_stone("st-switch", i-1,line, {action="callback",target="funcc2"})
+        elseif c=="x" then
+            draw_stones("st-stonebrush", {i-1,line}, {1,0},1)
+        elseif c=="A" then
+            set_stone("st-coinslot", i-1,line, {action="openclose", target="door1"})
+        elseif c=="a" then
+            doorv( i-1,line, {name="door1"})
+        elseif c=="X" then
+            set_stone("st-switch", i-1,line, {action="callback",target="funcc1"})
+        end
+    end    
+end
+
+-- Floor:  " "
+-- Border: "#"
+-- Oxyd:   "o"
+
+renderLine(00,"####################Y                                                                                             ####################Y                                                                                             #######################################")
+renderLine(01,"#R   x     x       #                                                                                              #isisisisisisis#sis#                                                                                              #L #o#o#o#o#o#o#o#o#A                 #")
+renderLine(02,"# xx x xxx x x xxx+#                                                                                              #s##isisisisisi#i#i#                                                                                              #  #u#u#u#u#u#u#u#u#                  #")
+renderLine(03,"# x    x   x x     #                                                                                              #is#sisisBsisis#s#s#                                                                                              #  #u#u#u#u#u#u#u#u#                  #")
+renderLine(04,"# x xx xxx x x xx x#tttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttt##i#isisisisisi#i#i#tttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttt#                  #####         SSSS #")
+renderLine(05,"# x x   x  x x x   l                                                                                              l s#sisisisisisis# l                                                                                              l                  #   #         SSSS #")
+renderLine(06,"# xxx x x xx xxx xx#tttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttt####################tttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttt#          z       # N a     c   SSSS #") 
+renderLine(07,"#   xMx+x    x xPx r                                                                                              r   #   2   2    #!r                                                                                              r                  #   #         SSSS #")
+renderLine(08,"#xx x x xxxxxx xxx #tttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttt# # #7h4v   14    !# ttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttt#                  #####         SSSS #")
+renderLine(09,"#   x    x x       #Y                                                                                             #e#6h3      7hh4  !# tQ                                                                                           #  #d#d#d#d#d#d#d#d#                  #")
+renderLine(10,"# xxxx xxx   xxxxxx#                                                                                              #e#     8   8   2  # t                                                                                            #  #d#d#d#d#d#d#d#d#                  #")
+renderLine(11,"#          x       #                                                                                              #F#     #       8  #Xt                                                                                            #  #o#o#o#o#o#o#o#o#A                 #")
+renderLine(12,"####################                                                                                              ####################tt                                                                                            #######################################")
+
+oxyd_shuffle()
+
+through=0
+function funcc1()
+    if through==0 then
+        --set_stone( "st-brownie",12 , 2)
+        set_stone( "st-brownie",18 , 2)
+        --set_stone( "st-brownie",3, 6)
+        set_stone( "st-brownie",7 , 7)
+        --set_stone( "st-brownie",4, 9)
+        set_stone( "st-brownie",5, 7)
+        through=1
+    end
+end
+
+through2=0
+function funcc2()
+    if through2==0 then
+        set_stone( "st-greenbrown",124 ,5)
+        set_stone( "st-greenbrown",125 ,5)
+        set_stone( "st-greenbrown",126 ,5)
+        set_stone( "st-greenbrown",127 ,5)
+        set_stone( "st-grate1",125 ,6) 
+        set_stone( "st-grate1",126 ,6)    
+        fill_floor("fl-metal", 124,6,4,2)    
+        through2=1
+    end
+end    ]]></el:luamain>
+    <el:i18n>
+      <el:string el:key="title">
+        <el:english el:translate="false"/>
+      </el:string>
+    </el:i18n>
+  </el:protected>
+</el:level>
+

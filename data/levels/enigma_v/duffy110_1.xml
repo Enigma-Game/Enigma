@@ -3,7 +3,7 @@
   <el:protected>
     <el:info el:type="level">
       <el:identity el:title="Clear the Path" el:subtitle="" el:id="duffy110"/>
-      <el:version el:score="1" el:release="1" el:revision="0" el:status="released"/>
+      <el:version el:score="1" el:release="1" el:revision="1" el:status="released"/>
       <el:author  el:name="Jacob Scott" el:email="" el:homepage=""/>
       <el:copyright>Copyright © 2004 Jacob Scott</el:copyright>
       <el:license el:type="GPL v2.0 or above" el:open="true"/>
@@ -23,7 +23,7 @@ levelw=1+(19*rooms_wide)
 levelh=1+(12*rooms_high)
 
 create_world( levelw, levelh)
-enigma.ConserveLevel=FALSE
+enigma.ConserveLevel = 0
 
 fill_floor("fl-bluegreen", 0,0,levelw,levelh)
 
@@ -36,14 +36,14 @@ function renderLine( line, pattern)
             oxyd( i-1, line)
         elseif c == "*" then
             set_stone( "st-brownie", i-1, line)
-                elseif c == "!" then
+        elseif c == "!" then
             abyss(i-1,line)
         elseif c == "~" then
-           set_floor("fl-water",i-1,line)
+            set_floor("fl-water",i-1,line)
         elseif c=="z" then
-           set_actor("ac-blackball", i-.5,line+.5, {player=0})
+            set_actor("ac-blackball", i-.5,line+.5, {player=0})
         elseif c=="y" then
-           set_actor("ac-whiteball", i-1,line+.5, {player=1})
+            set_actor("ac-whiteball", i-1,line+.5, {player=1})
         elseif c == "g" then
             draw_stones("st-grate1",{i-1,line}, {1,1}, 1)
         elseif c=="+" then
@@ -61,15 +61,15 @@ function renderLine( line, pattern)
         elseif c=="L" then
             set_stone("st-turnstile-w",i-1,line)
         elseif c=="u" then
-           puzzle(i-1,line,PUZ_1000)
+            puzzle(i-1,line,PUZ_1000)
         elseif c=="r" then
-           puzzle(i-1,line,PUZ_0001)
+            puzzle(i-1,line,PUZ_0001)
         elseif c=="d" then
-           puzzle(i-1,line,PUZ_0010)
+            puzzle(i-1,line,PUZ_0010)
         elseif c=="l" then
-           puzzle(i-1,line,PUZ_0100)
-         end
-    end    
+            puzzle(i-1,line,PUZ_0100)
+        end
+    end
 end
 
 renderLine(00,"####################")

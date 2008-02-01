@@ -1,0 +1,750 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no" ?>
+<el:level xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://enigma-game.org/schema/level/1 level.xsd" xmlns:el="http://enigma-game.org/schema/level/1">
+  <el:protected>
+    <el:info el:type="level">
+      <el:identity el:title="Seasonal Patterns" el:subtitle="" el:id="duffy164"/>
+      <el:version el:score="1" el:release="1" el:revision="0" el:status="released"/>
+      <el:author  el:name="Jacob Scott" el:email="" el:homepage=""/>
+      <el:copyright>Copyright © 2007 Jacob Scott</el:copyright>
+      <el:license el:type="GPL v2.0 or above" el:open="true"/>
+      <el:compatibility el:enigma="0.92">
+      </el:compatibility>
+      <el:modes el:easy="false" el:single="true" el:network="false"/>
+      <el:score el:easy="-" el:difficult="-"/>
+    </el:info>
+    <el:luamain><![CDATA[
+rooms_wide=3
+rooms_high=2
+
+levelw=1+(19*rooms_wide) +5
+levelh=1+(12*rooms_high)
+
+create_world( levelw, levelh)
+enigma.ConserveLevel = 0
+
+fill_floor("fl-hay", 0,0,levelw,levelh)
+
+fa=1
+fb=2
+fc=3
+fd=4
+
+--fa=random(4)
+--fb=random(4)
+--fc=random(4)
+--fd=random(4)
+
+--while fb==fa do
+--   fb=random(4)
+--end
+
+--while fc==fa or fc==fb do
+--   fc=random(4)
+--end
+
+--while fd==fa or fd==fb or fd==fc do
+--   fd=random(4)
+--end
+
+function renderLine( line, pattern)
+    for i=1, strlen(pattern) do
+        local c = strsub( pattern, i, i)
+        if c =="#" then
+            set_stone("st-greenbrown", i-1, line)
+        elseif c =="%" then
+            set_stone("st-invisible", i-1, line)
+            abyss(i-1,line)
+        elseif c == "o" then
+            oxyd( i-1, line)
+        elseif c == "*" then
+            set_stone("st-brownie", i-1, line)
+        elseif c == "F" then
+            set_stone("st-greenbrown", i-1, line)
+        elseif c == "!" then
+            abyss(i-1,line)
+        elseif c == "~" then
+            fill_floor("fl-water", i-1,line, 1,1)
+        elseif c=="z" then
+            set_actor("ac-blackball", i-1,line+.5, {player=0})
+        elseif c == "G" then
+            draw_stones("st-grate1",{i-1,line}, {1,1}, 1)
+        elseif c=="+" then
+            set_stone("st-wood", i-1, line)
+        elseif c=="=" then
+            set_floor("fl-space",i-1,line)
+        elseif c=="A" then
+            if fa==1 then
+                set_floor("fl-bluegreen",i-1,line)
+            elseif fb==1 then
+                set_floor("fl-rough-red",i-1,line)
+            elseif fc==1 then
+                set_floor("fl-sand",i-1,line)
+            elseif fd==1 then
+                set_floor("fl-leaves",i-1,line)
+            end
+        elseif c=="B" then
+            if fa==2 then
+                set_floor("fl-bluegreen",i-1,line)
+            elseif fb==2 then
+                set_floor("fl-rough-red",i-1,line)
+            elseif fc==2 then
+                set_floor("fl-sand",i-1,line)
+            elseif fd==2 then
+                set_floor("fl-leaves",i-1,line)
+            end
+        elseif c=="C" then
+            if fa==3 then
+                set_floor("fl-bluegreen",i-1,line)
+            elseif fb==3 then
+                set_floor("fl-rough-red",i-1,line)
+            elseif fc==3 then
+                set_floor("fl-sand",i-1,line)
+            elseif fd==3 then
+                set_floor("fl-leaves",i-1,line)
+            end
+        elseif c=="D" then
+            if fa==4 then
+                set_floor("fl-bluegreen",i-1,line)
+            elseif fb==4 then
+                set_floor("fl-rough-red",i-1,line)
+            elseif fc==4 then
+                set_floor("fl-sand",i-1,line)
+            elseif fd==4 then
+                set_floor("fl-leaves",i-1,line)
+            end
+        elseif c=="E" then
+            set_floor("fl-sand",i-1,line)
+            set_actor("ac-blackball", i-1,line+.5, {player=0})
+        elseif c=="a" then
+            set_stone("st-fourswitch", i-1,line, {name="switch1", action="callback", target="funcc1"})
+        elseif c=="b" then
+            set_stone("st-fourswitch", i-1,line, {name="switch2", action="callback", target="funcc2"})
+        elseif c=="c" then
+            set_stone("st-fourswitch", i-1,line, {name="switch3", action="callback", target="funcc3"})
+        elseif c=="d" then
+            set_stone("st-fourswitch", i-1,line, {name="switch4", action="callback", target="funcc4"})
+        elseif c=="e" then
+            set_stone("st-fourswitch", i-1,line, {name="switch5", action="callback", target="funcc5"})
+        elseif c=="f" then
+            set_stone("st-fourswitch", i-1,line, {name="switch6", action="callback", target="funcc6"})
+        elseif c=="g" then
+            set_stone("st-fourswitch", i-1,line, {name="switch7", action="callback", target="funcc7"})
+        elseif c=="h" then
+            set_stone("st-fourswitch", i-1,line, {name="switch8", action="callback", target="funcc8"})
+        elseif c=="i" then
+            set_stone("st-fourswitch", i-1,line, {name="switch9", action="callback", target="funcc9"})
+        elseif c=="j" then
+            set_stone("st-fourswitch", i-1,line, {name="switch10", action="callback", target="funcc10"})
+        elseif c=="k" then
+            set_stone("st-fourswitch", i-1,line, {name="switch11", action="callback", target="funcc11"})
+        elseif c=="l" then
+            set_stone("st-fourswitch", i-1,line, {name="switch12", action="callback", target="funcc12"})
+        elseif c=="m" then
+            set_stone("st-fourswitch", i-1,line, {name="switch13", action="callback", target="funcc13"})
+        elseif c=="n" then
+            set_stone("st-fourswitch", i-1,line, {name="switch14", action="callback", target="funcc14"})
+        elseif c=="`" then
+            set_stone("st-fourswitch", i-1,line, {name="switch15", action="callback", target="funcc15"})
+        elseif c=="p" then
+            set_stone("st-fourswitch", i-1,line, {name="switch16", action="callback", target="funcc16"})
+        elseif c=="q" then
+            set_stone("st-fourswitch", i-1,line, {name="switch17", action="callback", target="funcc17"})
+        elseif c=="r" then
+            set_stone("st-fourswitch", i-1,line, {name="switch18", action="callback", target="funcc18"})
+        elseif c == "d" then --1-d
+            set_floor("fl-gradient",  i-1,  line, {type=1})
+        elseif c == "u" then --2-u
+            set_floor("fl-gradient",  i-1,  line, {type=2})
+        elseif c == "U" then --2-u
+            set_floor("fl-gradient",  i-1,  line, {type=2})
+            set_actor("ac-bug",i-.5,line+.5,{mouseforce=0,player=1})
+        elseif c=="1" then
+            set_stone("st-door_b",i-1,line,{name="door1"})
+        elseif c=="2" then
+            set_stone("st-door_b",i-1,line,{name="door2"})
+        elseif c=="3" then
+            doorv( i-1,line, {name="door3"})
+        elseif c=="4" then
+            doorv( i-1,line, {name="door4"})
+        elseif c=="5" then
+            set_item("it-trigger", i-1,line, {invisible=1,action="callback", target="funccblock1"})
+        elseif c=="6" then
+            set_item("it-trigger", i-1,line, {invisible=1,action="callback", target="funccblock2"})
+        elseif c=="7" then
+            set_item("it-trigger", i-1,line, {invisible=1,action="callback", target="funccblock3"})
+        elseif c=="8" then
+            set_item("it-trigger", i-1,line, {invisible=1,action="callback", target="funccblock4"})
+        elseif c=="9" then
+            set_item("it-trigger", i-1,line, {invisible=1,action="callback", target="funccblock5"})
+        elseif c=="0" then
+            set_item("it-trigger", i-1,line, {invisible=1,action="callback", target="funccblock6"})
+        elseif c=="H" then
+            set_item("it-trigger", i-1,line, {invisible=1,action="callback", target="funccblock7"})
+        end
+    end    
+end
+
+-- Floor:  " "
+-- Border: "#"
+-- Oxyd:   "o"
+
+renderLine(00,"##########################################################")
+renderLine(01,"#                  #AAAAAAAABBAAAAAAAA#G GFG G G G G0G0#o#")
+renderLine(02,"#                  #BCCCCCCDAADCCCCCCB#G G G G GFGFG5*0# #")
+renderLine(03,"#                  #ADAAAABDBBDBAAAADA#GFG G G G G G0G0# #")
+renderLine(04,"#                  #ABBCCDCDDDDCDCCBBA#G G GFG G GFG0*0# #")
+renderLine(05,"#                  #CACDBBCCDDCCBBDCAC#GFG G G G G G6G0# #")
+renderLine(06,"#                   DCDADCDBCCBDCDADCD3G G G G GFG G7*H4 #")
+renderLine(07,"#                  #CCDADCAADDAACDADCC#G GFG GFG G G0G0# #")
+renderLine(08,"#                  #BBDADDABAABADDADBB#G G G GFG G G0*8# #")
+renderLine(09,"#                  #DDCAAACDDDDCAAACDD#GFG GFG G G G0G0# #")
+renderLine(10,"#                  #DCDACADCDDCDACADCD#G G GFG GFG G0*0# #")
+renderLine(11,"#abcdefghijklmn`pqr#AAAAAAAAAAAAAAAAAA#G G G GFG G G0G9#o#")  --  CCDDADDCCCCDDADDCC
+renderLine(12,"#UUUUUUUUUUUUUUUUUU#########12############################")
+renderLine(13,"%!!!!!!!!!!!!!!!!!!!!!!!!!!#  #!!!!!!!!!!!!!!!!!!!!!!!!!!%")
+renderLine(14,"%!!!!!!!!!!!!!!!!!!!!!!!!!!#  #!!!!!!!!!!!!!!!!!!!!!!!!!!%")
+renderLine(15,"%!!!!!!!!!!!!!!!!!!!!!!!!!!#  #!!!!!!!!!!!!!!!!!!!!!!!!!!%")
+renderLine(16,"%!!!!!!!!!!!!!!!!!!!!!!!!!##  ##!!!!!!!!!!!!!!!!!!!!!!!!!%")
+renderLine(17,"%!!!!!!!!!!!!!!!!!!!!!!!!!#    #!!!!!!!!!!!!!!!!!!!!!!!!!%")
+renderLine(18,"%!!!!!!!!!!!!!!!!!!!!!!!!!#  z #!!!!!!!!!!!!!!!!!!!!!!!!!%")
+renderLine(19,"%!!!!!!!!!!!!!!!!!!!!!!!!!#    #!!!!!!!!!!!!!!!!!!!!!!!!!%")
+renderLine(20,"%!!!!!!!!!!!!!!!!!!!!!!!!!######!!!!!!!!!!!!!!!!!!!!!!!!!%")
+renderLine(21,"%!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!%")
+renderLine(22,"%!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!%")
+renderLine(23,"%!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!%")
+renderLine(24,"%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%")
+
+oxyd_shuffle()
+
+door1=enigma.GetNamedObject("door1")
+door2=enigma.GetNamedObject("door2")
+door3=enigma.GetNamedObject("door3")
+door4=enigma.GetNamedObject("door4")
+
+fb1=0
+function funccblock1()
+    if fb1==0 then
+        fb1=1
+    else
+        fb1=0
+    end
+end
+
+fb2=0
+function funccblock2()
+    if fb2==0 then
+        fb2=1
+    else
+        fb2=0
+    end
+end
+
+fb3=0
+function funccblock3()
+    if fb3==0 then
+        fb3=1
+    else
+        fb3=0
+    end
+end
+
+fb4=0
+function funccblock4()
+    if fb4==0 then
+        fb4=1
+    else
+        fb4=0
+    end
+end
+
+fb5=0
+function funccblock5()
+    if fb5==0 then
+        fb5=1
+    else
+        fb5=0
+    end
+end
+
+fb6=0
+function funccblock6()
+    if fb6==0 then
+        fb6=1
+    else
+        fb6=0
+    end
+end
+
+function funccblock7()
+    if fb1==1 and fb2==1 and fb3==1 and fb4==1 and fb5==1 then
+        enigma.SendMessage(door4,"open",nil)
+    end
+end
+
+f1=1
+function funcc1()
+    f1=f1+1
+    if f1==1 then
+        floor1(20)
+    elseif f1==2 then
+        floor2(20)
+    elseif f1==3 then
+        floor3(20)
+    elseif f1==4 then
+        floor4(20)
+        f1=0
+    end
+    funcc19()
+end
+
+f2=1
+function funcc2()
+    f2=f2+1
+    if f2==1 then
+        floor1(21)
+    elseif f2==2 then
+        floor2(21)
+    elseif f2==3 then
+        floor3(21)
+    elseif f2==4 then
+        floor4(21)
+        f2=0
+    end
+    funcc19()
+end
+
+f3=1
+function funcc3()
+    f3=f3+1
+    if f3==1 then
+        floor1(22)
+    elseif f3==2 then
+        floor2(22)
+    elseif f3==3 then
+        floor3(22)
+    elseif f3==4 then
+        floor4(22)
+        f3=0
+    end
+    funcc19()
+end
+
+f4=1
+function funcc4()
+    f4=f4+1
+    if f4==1 then
+        floor1(23)
+    elseif f4==2 then
+        floor2(23)
+    elseif f4==3 then
+        floor3(23)
+    elseif f4==4 then
+        floor4(23)
+        f4=0
+    end
+    funcc19()
+end
+
+f5=1
+function funcc5()
+    f5=f5+1
+    if f5==1 then
+        floor1(24)
+    elseif f5==2 then
+        floor2(24)
+    elseif f5==3 then
+        floor3(24)
+    elseif f5==4 then
+        floor4(24)
+        f5=0
+    end
+    funcc19()
+end
+
+f6=1
+function funcc6()
+    f6=f6+1
+    if f6==1 then
+        floor1(25)
+    elseif f6==2 then
+        floor2(25)
+    elseif f6==3 then
+        floor3(25)
+    elseif f6==4 then
+        floor4(25)
+        f6=0
+    end
+    funcc19()
+end
+
+f7=1
+function funcc7()
+    f7=f7+1
+    if f7==1 then
+        floor1(26)
+    elseif f7==2 then
+        floor2(26)
+    elseif f7==3 then
+        floor3(26)
+    elseif f7==4 then
+        floor4(26)
+        f7=0
+    end
+    funcc19()
+end
+
+f8=1
+function funcc8()
+    f8=f8+1
+    if f8==1 then
+        floor1(27)
+    elseif f8==2 then
+        floor2(27)
+    elseif f8==3 then
+        floor3(27)
+    elseif f8==4 then
+        floor4(27)
+        f8=0
+    end
+    funcc19()
+end
+
+f9=1
+function funcc9()
+    f9=f9+1
+    if f9==1 then
+        floor1(28)
+    elseif f9==2 then
+        floor2(28)
+    elseif f9==3 then
+        floor3(28)
+    elseif f9==4 then
+        floor4(28)
+        f9=0
+    end
+    funcc19()
+end
+
+f10=1
+function funcc10()
+    f10=f10+1
+    if f10==1 then
+        floor1(29)
+    elseif f10==2 then
+        floor2(29)
+    elseif f10==3 then
+        floor3(29)
+    elseif f10==4 then
+        floor4(29)
+        f10=0
+    end
+    funcc19()
+end
+
+f11=1
+function funcc11()
+    f11=f11+1
+    if f11==1 then
+        floor1(30)
+    elseif f11==2 then
+        floor2(30)
+    elseif f11==3 then
+        floor3(30)
+    elseif f11==4 then
+        floor4(30)
+        f11=0
+    end
+    funcc19()
+end
+
+f12=1
+function funcc12()
+    f12=f12+1
+    if f12==1 then
+        floor1(31)
+    elseif f12==2 then
+        floor2(31)
+    elseif f12==3 then
+        floor3(31)
+    elseif f12==4 then
+        floor4(31)
+        f12=0
+    end
+    funcc19()
+end
+
+f13=1
+function funcc13()
+    f13=f13+1
+    if f13==1 then
+        floor1(32)
+    elseif f13==2 then
+        floor2(32)
+    elseif f13==3 then
+        floor3(32)
+    elseif f13==4 then
+        floor4(32)
+        f13=0
+    end
+    funcc19()
+end
+
+f14=1
+function funcc14()
+    f14=f14+1
+    if f14==1 then
+        floor1(33)
+    elseif f14==2 then
+        floor2(33)
+    elseif f14==3 then
+        floor3(33)
+    elseif f14==4 then
+        floor4(33)
+        f14=0
+    end
+    funcc19()
+end
+
+f15=1
+function funcc15()
+    f15=f15+1
+    if f15==1 then
+        floor1(34)
+    elseif f15==2 then
+        floor2(34)
+    elseif f15==3 then
+        floor3(34)
+    elseif f15==4 then
+        floor4(34)
+        f15=0
+    end
+    funcc19()
+end
+
+f16=1
+function funcc16()
+    f16=f16+1
+    if f16==1 then
+        floor1(35)
+    elseif f16==2 then
+        floor2(35)
+    elseif f16==3 then
+        floor3(35)
+    elseif f16==4 then
+        floor4(35)
+        f16=0
+    end
+    funcc19()
+end
+
+f17=1
+function funcc17()
+    f17=f17+1
+    if f17==1 then
+        floor1(36)
+    elseif f17==2 then
+        floor2(36)
+    elseif f17==3 then
+        floor3(36)
+    elseif f17==4 then
+        floor4(36)
+        f17=0
+    end
+    funcc19()
+end
+
+f18=1
+function funcc18()
+    f18=f18+1
+    if f18==1 then
+        floor1(37)
+    elseif f18==2 then
+        floor2(37)
+    elseif f18==3 then
+        floor3(37)
+    elseif f18==4 then
+        floor4(37)
+        f18=0
+    end
+    funcc19()
+end
+
+f19=0
+
+function funcc19()  --  CCDDADDCCCCDDADDCC
+    --   set_floor("fl-abyss",fa,(f14+2))
+    --         set_floor("fl-water",fa,(f5+2))
+    --         set_stone("st-grate1",fc,(f1+2))
+    ff1=f1-2
+    while ff1<2 do
+        ff1=ff1+4
+    end
+
+    ff2=f2-2
+    while ff2<2 do
+        ff2=ff2+4
+    end
+
+    ff3=f3-2
+    while ff3<2 do
+        ff3=ff3+4
+    end
+
+    ff4=f4-2
+    while ff4<2 do
+        ff4=ff4+4
+    end
+
+    ff5=f5-2
+    while ff5<2 do
+        ff5=ff5+4
+    end
+
+    ff6=f6-2
+    while ff6<2 do
+        ff6=ff6+4
+    end
+
+    ff7=f7-2
+    while ff7<2 do
+        ff7=ff7+4
+    end
+
+    ff8=f8-2
+    while ff8<2 do
+        ff8=ff8+4
+    end
+
+    ff9=f9-2
+    while ff9<2 do
+        ff9=ff9+4
+    end
+
+    ff10=f10-2
+    while ff10<2 do
+        ff10=ff10+4
+    end
+
+    ff11=f11-2
+    while ff11<2 do
+        ff11=ff11+4
+    end
+
+    ff12=f12-2
+    while ff12<2 do
+        ff12=ff12+4
+    end
+
+    ff13=f13-2
+    while ff13<2 do
+        ff13=ff13+4
+    end
+
+    ff14=f14-2
+    while ff14<2 do
+        ff14=ff14+4
+    end
+
+    ff15=f15-2
+    while ff15<2 do
+        ff15=ff15+4
+    end
+
+    ff16=f16-2
+    while ff16<2 do
+        ff16=ff16+4
+    end
+
+    ff17=f17-2
+    while ff17<2 do
+        ff17=ff17+4
+    end
+
+    ff18=f18-2
+    while ff18<2 do
+        ff18=ff18+4
+    end
+    --  CCDDADDCCCCDDADDCC
+    --   if fa==(ff5-2) and fa==(ff14-2) and fc==(ff1-2) and fc==(ff2-2) and fd==(ff3-2) and fc==(ff8-2) and fc==(ff9-2) and fc==(ff10-2) and fc==(ff11-2) and fd==(ff16-2) and fc==(ff17-2) and fc==(ff18-2) and fd==(ff4-2) and fd==(ff6-2) and fd==(ff7-2) and fd==(ff12-2) and fd==(ff13-2) and fd==(ff15-2) then
+    if f1==3 and f2==3 and f3==0 and f4==0 and f5==1 and f6==0 and f7==0 and f8==3 and f9==3 and f10==3 and f11==3 and f12==0 and f13==0 and f14==1 and f15==0 and f16==0 and f17==3 and f18==3 then
+
+    --if (ff1-fc)==2 and (ff2-fc)==2 then
+    --if fa==(ff5-2) and fa==(ff14-2) and fc==(ff1-2) then
+
+    enigma.SendMessage(door3,"open",nil)
+    f19=1
+    else
+        if f19==1 then
+            enigma.SendMessage(door3,"close",nil)
+            f19=0
+        end
+    end
+end
+
+function floor1(x)
+   set_floor("fl-bluegreen",x,11)
+end
+
+function floor2(x)
+    set_floor("fl-rough-red",x,11)
+end
+
+function floor3(x)
+    set_floor("fl-sand",x,11)
+end
+
+function floor4(x)
+    set_floor("fl-leaves",x,11)
+end
+
+tt=0
+
+ft=0
+
+function timer_callback()
+    if ft==0 then
+        tt=tt+1
+        if tt==2 then
+            set_floor("fl-gradient",  2,  12, {type=1})
+            set_floor("fl-gradient",  6,  12, {type=1})
+            set_floor("fl-gradient",  13,  12, {type=1})
+            set_floor("fl-gradient",  17,  12, {type=1})
+        elseif tt==3 then
+            set_floor("fl-gradient",  3,  12, {type=1})
+            set_floor("fl-gradient",  7,  12, {type=1})
+            set_floor("fl-gradient",  12,  12, {type=1})
+            set_floor("fl-gradient",  16,  12, {type=1})
+        elseif tt==5 then
+            set_floor("fl-gradient",  4,  12, {type=1})
+            set_floor("fl-gradient",  8,  12, {type=1})
+            set_floor("fl-gradient",  11,  12, {type=1})
+            set_floor("fl-gradient",  15,  12, {type=1})
+        elseif tt==6 then
+            set_floor("fl-gradient",  1,  12, {type=1})
+            set_floor("fl-gradient",  5,  12, {type=1})
+            set_floor("fl-gradient",  9,  12, {type=1})
+            set_floor("fl-gradient",  10,  12, {type=1})
+            set_floor("fl-gradient",  14,  12, {type=1})
+            set_floor("fl-gradient",  18,  12, {type=1})
+        elseif tt==20 then
+            draw_stones("st-greenbrown",{1,12}, {1,0}, 18)
+            fill_floor("fl-hay", 1,12, 18,1)
+        elseif tt==21 then
+            enigma.SendMessage(door1,"open",nil)
+            enigma.SendMessage(door2,"open",nil)
+            ft=1
+            tt=0
+        end
+    end
+end
+
+set_stone("st-timer", 59,0, {loop=1, action="callback", target="timer_callback", interval=0.1})
+    ]]></el:luamain>
+    <el:i18n>
+      <el:string el:key="title">
+        <el:english el:translate="false"/>
+      </el:string>
+    </el:i18n>
+  </el:protected>
+</el:level>
+
