@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no" ?>
 <index xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="index.xsd">
 
-  <info enigma="1.00" group="Enigma" location="10800" network="false" owner="Enigma Team" release="1" revision="11" title="Enigma VII"/>
+  <info enigma="1.00" group="Enigma" location="10800" network="false" owner="Enigma Team" release="1" revision="12" title="Enigma VII"/>
 
   <attributes/>
 
@@ -68,8 +68,8 @@
     <level _seq="60" _title="No More Alternatives" _xpath="./just25_1" author="JuSt" ctrl="force" easy="true" id="just25" rel="1" rev="1" score="1" target="time" unit="duration"/>
     <level _seq="61" _title="The Walls" _xpath="./just26_1" author="JuSt" ctrl="force" easy="true" id="just26" rel="1" rev="1" score="1" target="time" unit="duration"/>
     <level _seq="62" _title="Pull the Puller" _xpath="./just28_1" author="JuSt" ctrl="force" easy="false" id="just28" rel="1" rev="2" score="1" target="time" unit="duration"/>
-    <level _seq="63" _title="Double Sense" _xpath="./joe14_1" author="Joseph Dunne" ctrl="force" easy="true" id="joe14" rel="1" rev="0" score="1" target="time" unit="duration"/>
-    <level _seq="64" _title="Double Sense II" _xpath="./joe15_1" author="Joseph Dunne" ctrl="force" easy="true" id="joe15" rel="1" rev="0" score="1" target="time" unit="duration"/>
+    <level _seq="63" _title="Double Sense" _xpath="./joe14_1" author="Joseph Dunne" ctrl="force" easy="true" id="joe14" rel="1" rev="1" score="1" target="time" unit="duration"/>
+    <level _seq="64" _title="Double Sense II" _xpath="./joe15_1" author="Joseph Dunne" ctrl="force" easy="true" id="joe15" rel="1" rev="1" score="1" target="time" unit="duration"/>
     <level _seq="65" _title="Lightyears" _xpath="./duffy177_1" author="Jacob Scott" ctrl="force" easy="false" id="duffy177" rel="1" rev="1" score="1" target="time" unit="duration"/>
     <level _seq="66" _title="Zero Magnetism Lab" _xpath="./duffy178_1" author="Jacob Scott" ctrl="force" easy="false" id="duffy178" rel="1" rev="0" score="1" target="time" unit="duration"/>
     <level _seq="67" _title="Armageddon" _xpath="./duffy179_1" author="Jacob Scott" ctrl="force" easy="true" id="duffy179" rel="1" rev="1" score="1" target="time" unit="duration"/>
