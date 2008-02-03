@@ -24,6 +24,7 @@
 #include "game.hh"
 #include "main.hh"
 #include "lua.hh"
+#include "ObjectValidator.hh"
 #include "server.hh"
 #include "sound.hh"
 #include "world.hh"
@@ -112,19 +113,11 @@ namespace enigma {
         return id;
     }
     
-    Value Object::message(const Message &m) {
-        return Value();
-    }
-    
-    void Object::on_levelinit() {
-    }
-    
-    
     const char * Object::get_kind() const {      // To be made pure virtual
-        const Value *v = get_attrib("kind");
-        ASSERT(v && v->getType() == Value::STRING, XLevelRuntime,
-            "Object: attribute kind is not of type string (found in get_kind)");
-        return v->get_string();
+        AttribMap::const_iterator i = attribs.find("kind");        
+        ASSERT(i != attribs.end() && i->second.getType() == Value::STRING, XLevelRuntime,
+                "Object: attribute kind not found");
+        return i->second.get_string();
     }
     
     // check kind of object
@@ -137,18 +130,45 @@ namespace enigma {
         return ecl::string_match(get_kind(), kind_templ.c_str());
     }
     
+    std::string Object::getClass() const {
+        return get_kind();  // should be abstract, but until end of the reengineering we need compatibility
+    }
+    
+    std::string Object::getKind() const {
+        return getClass();
+    }
+    
+    bool Object::isKind(const std::string &kind) const {
+        return true;
+    }
+
+    bool Object::validateMessage(std::string msg, Value arg) {
+        return ObjectValidator::instance()->validateMessage(this, msg, arg);
+    }
+    
+    Value Object::message(const Message &m) {
+        return Value();
+    }
+    
+    
+    
     void Object::set_attrib(const string& key, const Value& val) {
         if (val)         // only set non-default values
             attribs[key] = val;  //.insert (key, val);
     }
     
-    const Value* Object::get_attrib(const string& key) const { // To be delete as soon as
-                                                               // get_kind() has no need of it
-        AttribMap::const_iterator i = attribs.find(key);
-        if (i == attribs.end())
-            return 0;
-        else
-            return &i->second;
+    
+    void Object::setAttrChecked(const std::string& key, const Value &val) {
+        if (key.find('_') == 0 || ObjectValidator::instance()->validateAttributeWrite(this, key, val))
+            setAttr(key, val);
+    }
+    
+    void Object::setAttr(const std::string& key, const Value &val) {
+        set_attrib(key, val);
+    }
+    
+    Value Object::getAttrChecked(const std::string &key) const {
+        return getAttr(key);
     }
     
     Value Object::getAttr(const string& key) const {
@@ -166,13 +186,6 @@ namespace enigma {
             return defaultValue;
     }
     
-    Value Object::getValue(const string& key) const {
-        return getAttr(key);       // TODO write template method
-    }
-    
-    Value Object::getDefaultValue(const string &key) const {
-        return Value(Value::DEFAULT);
-    }
     
     void Object::transferName(Object *target) {
         if (target == NULL)
@@ -249,7 +262,9 @@ namespace enigma {
 //                            if (obj_action != action)
 //                                Log << "PerformAction renamed '" << action << "' to '" << obj_action << "' for receiver '" << (*oit)->get_kind() << "'\n";
                         }
-                        SendMessage(*oit, Message(obj_action, messageValue, this));                    
+                        // check if message is valid, otherwise ignore message
+                        if ((*oit)->validateMessage(obj_action, messageValue))
+                            SendMessage(*oit, Message(obj_action, messageValue, this));                    
                     }
                 }
             }

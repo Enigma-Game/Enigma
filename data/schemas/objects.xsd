@@ -1,0 +1,122 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xs:schema xmlns:xs='http://www.w3.org/2001/XMLSchema' version="0.1" xml:lang="en">
+  <xs:annotation>
+    <xs:documentation>
+      XML schema definitions for Enigma objects
+      Copyright © 2008 Ronald Lamprecht
+      GPL2
+    </xs:documentation>
+  </xs:annotation>
+  <xs:element name="objects">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element name="attributes" minOccurs="1" maxOccurs="1">
+          <xs:annotation>
+            <xs:documentation>
+              All attributes of all objects with their default behaviour
+            </xs:documentation>
+          </xs:annotation>
+          <xs:complexType>
+            <xs:sequence>
+              <xs:element name="attr" minOccurs="0" maxOccurs="unbounded">
+                <xs:complexType>
+                  <xs:attribute name="name" type="xs:string" use="required"/>
+                  <xs:attribute name="type" type="valueType" use="required"/>
+                  <xs:attribute name="default" type="xs:string" use="required"/>
+                  <xs:attribute name="min" type="xs:string" use="optional"/>
+                  <xs:attribute name="max" type="xs:string" use="optional"/>
+                  <xs:attribute name="rw" type="xs:string" use="required"/>
+                  <xs:anyAttribute namespace="##targetNamespace" processContents="skip"/>
+                </xs:complexType>
+              </xs:element> <!-- attr -->
+            </xs:sequence>
+          </xs:complexType>
+        </xs:element> <!-- attributes -->
+        
+        <xs:element name="messages" minOccurs="1" maxOccurs="1">
+          <xs:annotation>
+            <xs:documentation>
+              All messages of all objects with their value types
+            </xs:documentation>
+          </xs:annotation>
+          <xs:complexType>
+            <xs:sequence>
+              <xs:element name="msg" minOccurs="0" maxOccurs="unbounded" >
+                <xs:complexType>
+                  <xs:attribute name="name" type="xs:string" use="required"/>
+                  <xs:attribute name="type" type="valueType" use="required"/>
+                  <xs:anyAttribute namespace="##targetNamespace" processContents="skip"/>
+                </xs:complexType>
+              </xs:element> <!-- msg -->
+            </xs:sequence>
+          </xs:complexType>
+        </xs:element> <!-- messages -->
+
+        <xs:element name="zoo" minOccurs="1" maxOccurs="1">
+          <xs:annotation>
+            <xs:documentation>
+              The zoo of all existing objects
+            </xs:documentation>
+          </xs:annotation>
+          <xs:complexType>
+            <xs:sequence>
+              <xs:element name="object" minOccurs="0" maxOccurs="unbounded" >
+                <xs:complexType>
+                  <xs:sequence>
+                    <xs:element name="attr" minOccurs="0" maxOccurs="unbounded">
+                      <xs:complexType>
+                        <xs:attribute name="name" type="xs:string" use="required"/>
+                        <xs:attribute name="type" type="valueType" use="optional"/>
+                        <xs:attribute name="default" type="xs:string" use="optional"/>
+                        <xs:attribute name="min" type="xs:string" use="optional"/>
+                        <xs:attribute name="max" type="xs:string" use="optional"/>
+                        <xs:attribute name="rw" type="xs:string" use="optional"/>
+                        <xs:attribute name="value" type="xs:string" use="optional"/>
+                        <xs:anyAttribute namespace="##targetNamespace" processContents="skip"/>
+                      </xs:complexType>
+                    </xs:element> <!-- attr -->
+                    <xs:element name="action" minOccurs="0" maxOccurs="1">
+                      <xs:complexType>
+                        <xs:attribute name="type" type="valueType" use="required"/>
+                        <xs:anyAttribute namespace="##targetNamespace" processContents="skip"/>
+                      </xs:complexType>
+                    </xs:element> <!-- action -->
+                    <xs:element name="msg" minOccurs="0" maxOccurs="unbounded" >
+                      <xs:complexType>
+                        <xs:attribute name="name" type="xs:string" use="required"/>
+                        <xs:attribute name="type" type="valueType" use="optional"/>
+                        <xs:anyAttribute namespace="##targetNamespace" processContents="skip"/>
+                      </xs:complexType>
+                    </xs:element> <!-- msg -->
+                  </xs:sequence>
+                  <xs:attribute name="name" type="xs:string" use="required"/>
+                  <xs:attribute name="super" type="xs:string" use="optional" default="-"/>
+                  <xs:attribute name="abtract" type="xs:boolean" use="optional" default="false"/>
+                  <xs:attribute name="states" type="xs:int" use="optional" default="-1"/>
+                  <xs:attribute name="init" type="xs:boolean" use="optional" default="false"/>
+                  <xs:anyAttribute namespace="##targetNamespace" processContents="skip"/>
+                </xs:complexType>
+              </xs:element> <!-- object -->
+            </xs:sequence>
+          </xs:complexType>
+        </xs:element> <!-- zoo -->
+        
+        <xs:any namespace="##targetNamespace" minOccurs="0" maxOccurs="unbounded" processContents="skip"/>
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element> <!-- objects -->
+  
+  <xs:simpleType name="valueType">
+    <xs:restriction base="xs:string">
+      <xs:enumeration value="bool"/>
+      <xs:enumeration value="int"/>
+      <xs:enumeration value="double"/>
+      <xs:enumeration value="nil"/>
+      <xs:enumeration value="dir"/>
+<!--      <xs:enumeration value="pos"/>  -->
+      <xs:enumeration value="string"/>
+      <xs:enumeration value="enum"/>
+      <xs:enumeration value="tokens"/>
+    </xs:restriction>
+  </xs:simpleType>
+</xs:schema>

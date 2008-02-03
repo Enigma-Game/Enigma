@@ -1,0 +1,90 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no" ?>
+<objects xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="objects.xsd">
+  <attributes>
+    <attr name="action" type="tokens" default="nil" rw="rw"/>
+    <attr name="autoclose" type="bool" default="false" rw="rw"/>
+    <attr name="color" type="int" default="nil" min="0" max="1" rw="rw"/>
+    <attr name="counterclock" type="bool" default="false" rw="rw"/>
+    <attr name="inverse" type="bool" default="false" rw="rw"/>
+    <attr name="name" type="string" default="nil" rw="rw"/>
+    <attr name="state" type="int" default="0" min="0" max="1" rw="rw"/>
+    <attr name="target" type="tokens" default="nil" rw="rw"/>
+  </attributes>
+  <messages>
+    <msg name="close" type="nil"/>
+    <msg name="closeall" type="nil"/>
+    <msg name="inner_pull" type="dir"/>
+    <msg name="off" type="nil"/>
+    <msg name="on" type="nil"/>
+    <msg name="open" type="nil"/>
+    <msg name="shuffle" type="nil"/>
+    <msg name="signal" type="int" min="0" max="1"/>
+    <msg name="toggle" type="nil"/>
+    <msg name="_bombstone" type="nil"/>
+    <msg name="_explosion" type="nil"/>
+    <msg name="_init" type="nil"/>
+    <msg name="_jumping" type="bool"/>
+    <msg name="_performaction" type="nil"/>
+    <msg name="_model_reanimated" type="nil"/>
+    <msg name="_passed" type="nil"/>            <!-- check type-->
+    <msg name="_performaction" type="nil"/>
+    <msg name="_start" type="nil"/>
+    <msg name="_trigger" type="bool"/>
+  </messages>
+  <zoo>
+    <object name="" abstract="true" states="2">
+      <attr name="action"/>
+      <attr name="inverse"/>
+      <attr name="name"/>
+      <attr name="state"/>
+      <attr name="target"/>
+      <action type="bool"/>
+      <msg name="toggle"/>
+    </object>
+    <object name="it" abstract="true"/>
+    <object name="it_blocker">
+      <attr name="autoclose"/>
+      <msg name="close"/>
+      <msg name="open"/>
+      <msg name="signal"/>
+      <msg name="_init"/>
+      <msg name="_performaction"/>
+    </object>
+    <object name="it_blocker_new" init="true">
+    </object>
+    <object name="st" abstract="true"/>
+    <object name="st_blocker">
+      <attr name="autoclose"/>
+      <msg name="close"/>
+      <msg name="open"/>
+      <msg name="signal"/>
+      <msg name="_performaction"/>
+      <msg name="_trigger"/>
+    </object>
+    <object name="st_blocker_new" init="true">
+    </object>
+    <object name="st_floppy">
+      <msg name="on"/>
+      <msg name="off"/>
+      <msg name="signal"/>
+    </object>
+    <object name="st_fourswitch" states="4">
+      <attr name="counterclock"/>
+      <action type="dir" statetype="bool"/>
+      <msg name="signal"/>
+      <msg name="_trigger"/>
+    </object>
+    <object name="st_switch">
+      <attr name="color"/>
+      <msg name="on"/>
+      <msg name="off"/>
+      <msg name="signal"/>
+    </object>
+    <object name="st_switch_black">
+      <attr name="color" value="0"/>
+    </object>
+    <object name="st_switch_white">
+      <attr name="color" value="1"/>
+    </object>
+  </zoo>
+</objects>

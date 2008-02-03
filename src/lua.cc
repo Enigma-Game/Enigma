@@ -1236,7 +1236,9 @@ static int objectMessageBase(lua_State *L) {
     
     if (obj) {   // ignore not existing objects
         try {
-            answer = SendMessage (obj, msg, val);
+            // check if message is valid, otherwise ignore message
+            if (obj->validateMessage(msg, val))
+                answer = SendMessage (obj, msg, val);
         }
         catch (const XLevelRuntime &e) {
             throwLuaError (L, e.what());
@@ -1455,17 +1457,20 @@ static int dispatchObjectReadAccess(lua_State *L) {
     } else {
         // attribute
         Value val;  // nil
-        if (obj) 
-            val = obj->getAttr(keyStr);
-        if ((keyStr.find('_') != 0) && val.isDefault()) {
-            // object exists and no user attribute - no existing system attribute
-            // try to send message
-            messageLIFO.push_back(keyStr);
-            lua_pushcfunction(L, objectDirectMessage);
+        if (obj) {
+            if ((keyStr.find('_') != 0) &&  obj->validateMessage(keyStr, Value(Value::DEFAULT))) {
+                // it is a valid public message - try to send it
+                messageLIFO.push_back(keyStr);
+                lua_pushcfunction(L, objectDirectMessage);
+            } else {
+                val = obj->getAttr(keyStr);
+                // user attribute, existing system attribute or nil if no object
+                push_value(L, val);
+            }
         } else {
-            // user attribute, existing system attribute or nil if no object
+            // access of no longer existing object - ignore it and return nil
             push_value(L, val);
-        }
+        } 
         return 1;
     }
     return 0;

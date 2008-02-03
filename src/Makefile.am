@@ -25,6 +25,8 @@ enigma_SOURCES = 		\
 	actors.hh 		\
 	actors.cc 		\
 	actors_internal.hh	\
+	AttributeDescriptor.cc	\
+	AttributeDescriptor.hh	\
 	client.cc 		\
 	client.hh 		\
 	client_internal.hh	\
@@ -59,6 +61,8 @@ enigma_SOURCES = 		\
 	ItemHolder.hh		\
 	items.cc 		\
 	items.hh		\
+	KindDescriptor.cc	\
+	KindDescriptor.hh	\
 	laser.cc 		\
 	laser.hh		\
 	LocalToXML.cc		\
@@ -77,6 +81,8 @@ enigma_SOURCES = 		\
 	lua-ecl.hh		\
 	main.cc 		\
 	main.hh			\
+	MessageDescriptor.cc	\
+	MessageDescriptor.hh	\
 	netgame.cc 		\
 	netgame.hh 		\
 	network.cc		\
@@ -85,6 +91,8 @@ enigma_SOURCES = 		\
 	nls.hh			\
 	Object.cc 		\
 	Object.hh 		\
+	ObjectValidator.cc	\
+	ObjectValidator.hh	\
 	oxyd.cc			\
 	oxyd.hh 		\
 	oxyd_internal.hh	\

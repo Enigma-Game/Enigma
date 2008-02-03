@@ -33,6 +33,7 @@
 #include "world.hh"
 #include "nls.hh"
 #include "LocalToXML.hh"
+#include "ObjectValidator.hh"
 #include "PreferenceManager.hh"
 #include "Utf8ToXML.hh"
 #include "XMLtoUtf8.hh"
@@ -368,6 +369,9 @@ void Application::init(int argc, char **argv)
     }
 
     lev::Proxy::countLevels();
+    
+    // ----- Object declarations
+    ObjectValidator::instance();    // force early initialization (an optional statement)
 
     // ----- Initialize sound tables -- needs sound, oxyd, video (error messages!)
     sound::InitSoundSets();
