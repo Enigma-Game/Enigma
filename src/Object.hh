@@ -34,18 +34,18 @@ namespace enigma {
     class Value;
 
     /**
-     *  Object is the base class for all ``objects'' in the world.
+     * Object is the base class for all "objects" in the world.
      * The most important facilities this class provides are:
      *
-     * (1) A way to clone() and dispose() objects.  This is mainly used
+     * - A way to clone() and dispose() objects.  This is mainly used
      *     in function MakeObject() to create new objects of a given
      *     type.
      * 
-     * (2) A way to pass messages between unrelated objects via message().
+     * - A way to pass messages between unrelated objects via message().
      *     This allows us to send messages to objects from Lua and to
      *     decouple objects types as much as possible.
      * 
-     * (3) A way to get and set attributes.  These attributes are quite
+     * - A way to get and set attributes.  These attributes are quite
      *     similar to instance variables, but they can be easily modified
      *     from Lua.  This makes it possible to modify certain object
      *     parameters (such as the text on a piece of paper or the color
@@ -219,6 +219,7 @@ namespace enigma {
         
         static int next_id;
         static std::map<int, Object *> objects;
+        
         int id;
         AttribMap attribs;
         

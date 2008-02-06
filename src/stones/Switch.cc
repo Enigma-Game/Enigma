@@ -31,6 +31,10 @@ namespace enigma {
         state = OFF;
     }
 
+    std::string Switch::getClass() const {
+        return "st_switch";
+    }
+    
     void Switch::set_attrib(const string& key, const Value &val) {
         if (isDisplayable())
             if (key == "color" && state <= ON) {   // recoloring of a switch

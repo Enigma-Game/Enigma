@@ -434,7 +434,7 @@ en_set_attrib(lua_State *L)
     Object *obj = to_object(L,1);
     const char *key = lua_tostring(L,2);
     if (obj && key)
-        obj->set_attrib(key, to_value(L, 3));
+        obj->setAttrChecked(key, to_value(L, 3));
     else
         throwLuaError(L, strf("SetAttrib: invalid object or attribute name '%s'", key).c_str());
     return 0;
@@ -455,7 +455,7 @@ static int en_get_attrib(lua_State *L) {
         return 0;        
     }
 
-    push_value(L, obj->getAttr(key));
+    push_value(L, obj->getAttrChecked(key));
     return 1;
 }
 
@@ -1078,7 +1078,7 @@ static void setObjectAttributes(Object *obj, lua_State *L) {
                 if (lua_isstring(L, -2))
                     NameObject(obj, lua_tostring(L, -2));
             } else {
-                obj->set_attrib(key, to_value(L, -2));
+                obj->setAttrChecked(key, to_value(L, -2));
             }
          } else if (lua_tointeger(L, -1) == 2) {  // second entry without a string key is taken as name
              if (lua_isstring(L, -2))
@@ -1219,6 +1219,26 @@ static int objectExistance(lua_State *L) {
     // object type is guaranteed
     Object * obj = to_object(L, 1);
     lua_pushboolean(L, (obj != NULL));
+    return 1;
+}
+
+static int objectGetKind(lua_State *L) { 
+    // object type is guaranteed
+    Object * obj = to_object(L, 1);
+    lua_pushstring(L, (obj != NULL) ? obj->getKind().c_str() : "");
+    return 1;
+}
+
+static int objectIsKind(lua_State *L) { 
+    // object type is guaranteed
+    Object * obj = to_object(L, 1);
+    if (!lua_isstring(L, 2)) {
+        throwLuaError(L,"Illegal kind - no string");
+        return 0;
+    }
+    std::string kind = lua_tostring(L, 2);
+    
+    lua_pushboolean(L, (obj != NULL) ? obj->isKind(kind) : false);
     return 1;
 }
 
@@ -1463,7 +1483,7 @@ static int dispatchObjectReadAccess(lua_State *L) {
                 messageLIFO.push_back(keyStr);
                 lua_pushcfunction(L, objectDirectMessage);
             } else {
-                val = obj->getAttr(keyStr);
+                val = obj->getAttrChecked(keyStr);
                 // user attribute, existing system attribute or nil if no object
                 push_value(L, val);
             }
@@ -1480,7 +1500,7 @@ static int dispatchObjectWriteAccess(lua_State *L){
     Object *obj = to_object(L,1);
     const char *key = lua_tostring(L,2);
     if (obj && key)
-        obj->set_attrib(key, to_value(L, 3));
+        obj->setAttrChecked(key, to_value(L, 3));
     else if (obj)  // ignore NULL objects
         throwLuaError(L, strf("SetAttrib: invalid object or attribute name '%s'", key).c_str());
     return 0;
@@ -2159,7 +2179,7 @@ static int dispatchGroupWriteAccess(lua_State *L) {
         lua_rawgeti(L, -1, i);  // the object
         Object *obj = to_object(L, -1);
         if (obj)                // ignore not existing objects
-            obj->set_attrib(name, to_value(L, 3));
+            obj->setAttrChecked(name, to_value(L, 3));
         lua_pop(L, 1);          // the object        
     }
     return 0;
@@ -2327,6 +2347,8 @@ static CFunction objectOperations[] = {
 
 static CFunction objectMethods[] = {
     {objectExistance,               "exists"},
+    {objectIsKind,                  "is"},
+    {objectGetKind,                 "kind"},
     {killObject,                    "kill"},
     {objectMessage,                 "message"},
     {setAttributes,                 "set"},

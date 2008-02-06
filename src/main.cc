@@ -299,6 +299,10 @@ void Application::init(int argc, char **argv)
     // set message language
     init_i18n();
     
+    // ----- Object declarations
+    ObjectValidator::didInitXML();  // enable initialization
+    ObjectValidator::instance();    // force early initialization (an optional statement)
+
     // ----- Initialize object repositories
     InitWorld();
     if (ap.dumpinfo) {
@@ -370,9 +374,6 @@ void Application::init(int argc, char **argv)
 
     lev::Proxy::countLevels();
     
-    // ----- Object declarations
-    ObjectValidator::instance();    // force early initialization (an optional statement)
-
     // ----- Initialize sound tables -- needs sound, oxyd, video (error messages!)
     sound::InitSoundSets();
 

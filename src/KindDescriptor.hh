@@ -21,6 +21,7 @@
 
 #include "AttributeDescriptor.hh"
 #include "MessageDescriptor.hh"
+#include <list>
 #include <map>
 #include <string>
 
@@ -34,16 +35,25 @@ namespace enigma
         void addAttribute(std::string name);
         AttributeDescriptor * addModifiedAttribute(std::string name);
         bool validateAttributeWrite(std::string key, Value val);
+        bool validateAttributeRead(std::string key);
+        Value getDefaultValue(std::string key);
+        std::string getKind(const Object *obj);
+        bool isKind(const Object *obj, std::string match);
         void log();
     private:
         std::string kind;
         KindDescriptor *super;
+        std::list<KindDescriptor *> subKinds;
         bool isAbstract;  // object instantiation not possible
         bool isClass;     // 
-        bool isInitOnly;  // isKind is never true 
+        bool isInitOnly;  // kind just for instanciation of new clones - isKind is never true 
         int numStates;
         std::map<std::string, MessageDescriptor *> messages;
         std::map<std::string, AttributeDescriptor *> attributes;
+        std::map<std::string, AttributeDescriptor *> valuedAttributes;
+        
+        void registerSubKind(KindDescriptor *aKind);
+        bool validateObject(const Object *obj);
     };
 } // namespace enigma
 #endif

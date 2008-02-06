@@ -44,6 +44,7 @@ namespace enigma
         validationType getType();
         bool isReadable();
         bool isWritable();
+        Value getDefaultValue();
         Value getValue();
         void setReadable(bool allowRead);
         void setWritable(bool allowWrite);
@@ -51,6 +52,7 @@ namespace enigma
         void setMinValue(const Value &newMin);
         void setMaxValue(const Value &newMax);
         void setValue(const Value &newValue);
+        void limitToKindValue();
 
     private:
         std::string name;
@@ -61,6 +63,7 @@ namespace enigma
         Value  min;
         Value  max;
         Value value;
+        bool isKindValue;
     };
 } // namespace enigma
 #endif

@@ -50,6 +50,7 @@ namespace enigma {
         Switch(Value color, bool instant = false);
         
         // Object interface
+        virtual std::string getClass() const;
         virtual void set_attrib(const string& key, const Value &val);
         virtual Value message(const Message &m);
         

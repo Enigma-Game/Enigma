@@ -53,9 +53,15 @@ namespace enigma {
         // inherit attributes from super
         if (super != NULL)
             attributes = super->attributes;
+            
+        if (super != NULL)
+            super->registerSubKind(this);
     }
     
     void KindDescriptor::addMessage(std::string msg) {
+        ASSERT(isAbstract || isClass, XFrontend, 
+                ecl::strf("Object description initialization error - message '%s' addition to subkind '%s'",
+                msg.c_str(), kind.c_str()).c_str());
         if (messages[msg] == NULL)
             messages[msg] = ObjectValidator::instance()->getMessage(msg);
     }
@@ -66,16 +72,27 @@ namespace enigma {
     }
     
     void KindDescriptor::addAttribute(std::string name) {
+        ASSERT(isAbstract || isClass, XFrontend, 
+                ecl::strf("Object description initialization error - attribute '%s' addition to subkind '%s'",
+                name.c_str(), kind.c_str()).c_str());
         if (attributes[name] == NULL)
-            attributes[name] = ObjectValidator::instance()->getDefaultAttribute(name);
+            attributes[name] = ObjectValidator::instance()->getDefaultAttributeDesc(name);
     }
     
     AttributeDescriptor * KindDescriptor::addModifiedAttribute(std::string name) {
         // make a clone and return it for modification
         AttributeDescriptor *inheritedAttribute = attributes[name];
-        if (inheritedAttribute == NULL)
-            inheritedAttribute = ObjectValidator::instance()->getDefaultAttribute(name);
+        if (inheritedAttribute == NULL) {
+            ASSERT(isAbstract || isClass, XFrontend, 
+                    ecl::strf("Object description initialization error - attribute '%s' addition to subkind '%s'",
+                    name.c_str(), kind.c_str()).c_str());
+            inheritedAttribute = ObjectValidator::instance()->getDefaultAttributeDesc(name);
+        }
         AttributeDescriptor *cloneAttribute = ObjectValidator::instance()->cloneAttribute(inheritedAttribute);
+        if (!isAbstract && !isClass) {
+            cloneAttribute->limitToKindValue();
+            valuedAttributes[name] = cloneAttribute;
+        }
         attributes[name] = cloneAttribute;
         return cloneAttribute;
     }
@@ -85,7 +102,53 @@ namespace enigma {
         if (it == attributes.end())
             return false;
         else
+            // TODO validate value - DEFAULT is the type that matches anything
             return it->second->isWritable();
+    }
+    
+    bool KindDescriptor::validateAttributeRead(std::string key) {
+        std::map<std::string, AttributeDescriptor *>::iterator it = attributes.find(key);
+        if (it == attributes.end())
+            return false;
+        else
+            return it->second->isReadable();
+    }
+    
+    Value KindDescriptor::getDefaultValue(std::string key) {
+        std::map<std::string, AttributeDescriptor *>::iterator it = attributes.find(key);
+        if (it == attributes.end())
+            return Value(Value::DEFAULT);
+        else {
+            Value v = it->second->getDefaultValue();
+            if (v.getType() == Value::NIL)
+                return Value(Value::DEFAULT);
+            else
+                return v;
+        }
+    }
+    
+    std::string KindDescriptor::getKind(const Object *obj) {
+        for(std::list<KindDescriptor *>::iterator it = subKinds.begin(); it != subKinds.end(); ++it) {
+            if (!(*it)->isInitOnly && (*it)->validateObject(obj))
+                return (*it)->kind;
+        }
+        return kind;
+    }
+    
+    bool KindDescriptor::isKind(const Object *obj, std::string match) {
+        if (match == kind)
+            return true;
+        else {
+            // is it a super kind name?
+            for (KindDescriptor *s = super; s != NULL; s = s->super)
+                if (match == s->kind)
+                    return true;
+                    
+            // is it a special subkind?
+            if (match == getKind(obj))
+                return true;
+        }
+        return false;
     }
     
     void KindDescriptor::log() {
@@ -129,5 +192,19 @@ namespace enigma {
                 Log << " : " << (int)(it->second->getValue());
             Log << "\n";
         }
+    }
+    
+    void KindDescriptor::registerSubKind(KindDescriptor *aKind) {
+        subKinds.push_back(aKind);
+    }
+    
+    bool KindDescriptor::validateObject(const Object *obj) {
+        bool result = true;
+        for (std::map<std::string, AttributeDescriptor *>::iterator it = valuedAttributes.begin();
+                it != valuedAttributes.end(); ++it) {
+            if ( it->second->getValue() != obj->getAttr(it->second->getName()))
+                return false;
+        }
+        return result;
     }
 } // namespace enigma

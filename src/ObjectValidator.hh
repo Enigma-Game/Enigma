@@ -46,21 +46,27 @@ namespace enigma
     public:
         
         static ObjectValidator *instance();
+        static void didInitXML();
+        
         ~ObjectValidator();
         void shutdown();
         
         KindDescriptor *getKindDesc(std::string name);
         MessageDescriptor *getMessage(std::string name);
         bool validateMessage(Object *obj, std::string msg, Value val);
-        AttributeDescriptor *getDefaultAttribute(std::string name);
+        AttributeDescriptor *getDefaultAttributeDesc(std::string name);
         AttributeDescriptor *cloneAttribute(AttributeDescriptor *masterAttr);
-        bool validateAttributeWrite(Object *obj, std::string key, Value val);
-        bool validateAttributeRead(Object *obj, std::string key);
+        bool validateAttributeWrite(const Object *obj, std::string key, Value val);
+        bool validateAttributeRead(const Object *obj, std::string key);
+        Value getDefaultValue(const Object *obj, std::string key);
+        std::string getKind(const Object *obj);
+        bool isKind(const Object *obj, std::string match);
         
     protected:
         ObjectValidator();
     private:
         static ObjectValidator *theSingleton;
+        static bool mayInitialize;
         
         void init();
         void scanAttributeElement(XERCES_CPP_NAMESPACE_QUALIFIER DOMElement *attribElement);

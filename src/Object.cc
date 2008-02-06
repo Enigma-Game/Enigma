@@ -135,11 +135,11 @@ namespace enigma {
     }
     
     std::string Object::getKind() const {
-        return getClass();
+        return ObjectValidator::instance()->getKind(this);
     }
     
     bool Object::isKind(const std::string &kind) const {
-        return true;
+        return ObjectValidator::instance()->isKind(this, kind);
     }
 
     bool Object::validateMessage(std::string msg, Value arg) {
@@ -153,12 +153,18 @@ namespace enigma {
     
     
     void Object::set_attrib(const string& key, const Value& val) {
-        if (val)         // only set non-default values
-            attribs[key] = val;  //.insert (key, val);
+        if (val) {        // only set non-default values
+            if (val.getType() == Value::NIL && server::EnigmaCompatibility >= 1.10)
+                // delete attribute
+                attribs.remove_key(key);
+            else
+                attribs[key] = val;  //.insert (key, val);
+        }
     }
     
     
     void Object::setAttrChecked(const std::string& key, const Value &val) {
+        // allow all user attributes and those system attributes with write allowance
         if (key.find('_') == 0 || ObjectValidator::instance()->validateAttributeWrite(this, key, val))
             setAttr(key, val);
     }
@@ -168,13 +174,20 @@ namespace enigma {
     }
     
     Value Object::getAttrChecked(const std::string &key) const {
-        return getAttr(key);
+        // allow all user attributes and those system attributes with read allowance
+        if (key.find('_') == 0 || ObjectValidator::instance()->validateAttributeRead(this, key))
+            return getAttr(key);
+        
+        ASSERT(false, XLevelRuntime, ecl::strf("Object: attribute '%s' read not allowed for kind '%s'",
+                key.c_str(), getKind().c_str()).c_str());
+        return Value();
     }
     
     Value Object::getAttr(const string& key) const {
         AttribMap::const_iterator i = attribs.find(key);
-        if (i == attribs.end())
-            return Value(Value::DEFAULT);
+        if (i == attribs.end()) 
+//            return Value(Value::DEFAULT);
+            return ObjectValidator::instance()->getDefaultValue(this, key);
         else
             return i->second;
     }

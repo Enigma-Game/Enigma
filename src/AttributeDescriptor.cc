@@ -19,6 +19,7 @@
 
 #include "AttributeDescriptor.hh"
 
+#include "errors.hh"
 #include "ObjectValidator.hh"
 
 namespace enigma {
@@ -26,7 +27,7 @@ namespace enigma {
     AttributeDescriptor::AttributeDescriptor(std::string attributeName, validationType valType, 
             Value aValue, bool allowRead, bool allowWrite, Value minVal, Value maxVal)
             : name (attributeName), type (valType), defaultValue (aValue), 
-            readable (allowRead), writable(allowWrite), min (minVal), max (maxVal) {
+            readable (allowRead), writable(allowWrite), min (minVal), max (maxVal), isKindValue (false) {
     }
     
     std::string AttributeDescriptor::getName() {
@@ -45,32 +46,58 @@ namespace enigma {
         return writable;
     }
     
+    Value AttributeDescriptor::getDefaultValue() {
+        return defaultValue;
+    }
+    
     Value AttributeDescriptor::getValue() {
         return value;
     }
     
     void AttributeDescriptor::setReadable(bool allowRead) {
+        ASSERT(!isKindValue, XFrontend, 
+                ecl::strf("Object description initialization error - attribute '%s' made readable for a subkind",
+                name.c_str()).c_str());
         readable = allowRead;
     }
     
     void AttributeDescriptor::setWritable(bool allowWrite) {
+        ASSERT(!isKindValue, XFrontend, 
+                ecl::strf("Object description initialization error - attribute '%s' made writable for a subkind",
+                name.c_str()).c_str());
         writable = allowWrite;
     }
     
     void AttributeDescriptor::setDefaultValue(const Value &newDefault) {
+        ASSERT(!isKindValue, XFrontend, 
+                ecl::strf("Object description initialization error - attribute '%s' new default for a subkind",
+                name.c_str()).c_str());
         defaultValue = newDefault;
     }
 
     void AttributeDescriptor::setMinValue(const Value &newMin) {
+        ASSERT(!isKindValue, XFrontend, 
+                ecl::strf("Object description initialization error - attribute '%s' new min for a subkind",
+                name.c_str()).c_str());
         min = newMin;
     }
     
     void AttributeDescriptor::setMaxValue(const Value &newMax) {
+        ASSERT(!isKindValue, XFrontend, 
+                ecl::strf("Object description initialization error - attribute '%s' new max for a subkind",
+                name.c_str()).c_str());
         max = newMax;
     }
     
     void AttributeDescriptor::setValue(const Value &newValue) {
+        ASSERT(isKindValue, XFrontend, 
+                ecl::strf("Object description initialization error - attribute '%s' value for a class or abstract kind",
+                name.c_str()).c_str());
         value = newValue;
+    }
+    
+    void AttributeDescriptor::limitToKindValue() {
+        isKindValue = true;
     }
     
 } // namespace enigma

@@ -35,10 +35,19 @@
 XERCES_CPP_NAMESPACE_USE 
 
 namespace enigma {
-    ObjectValidator *ObjectValidator::theSingleton = 0;
+    ObjectValidator *ObjectValidator::theSingleton = NULL;
+    bool ObjectValidator::mayInitialize = false;
+    
+    void ObjectValidator::didInitXML() {
+        mayInitialize = true;
+    }
     
     ObjectValidator* ObjectValidator::instance() {
-        if (theSingleton == NULL) {
+        // autoinitialize on first access, but block any access during 
+        // bootstraping as XML cannot be loaded at this stage. This may
+        // and shall cause NULL pointer exceptions on inproper usage 
+        // in basic object initialization!
+        if (theSingleton == NULL && mayInitialize) {
             theSingleton = new ObjectValidator();
             theSingleton->init();
         }
@@ -148,7 +157,7 @@ namespace enigma {
         return kind->validateMessage(msg);
     }
 
-    AttributeDescriptor *ObjectValidator::getDefaultAttribute(std::string name) {
+    AttributeDescriptor *ObjectValidator::getDefaultAttributeDesc(std::string name) {
         std::map<std::string, AttributeDescriptor *>::iterator it = defaultAttributes.find(name);
         if (it != defaultAttributes.end())
             return it->second;
@@ -163,20 +172,57 @@ namespace enigma {
         return clone;
     }
 
-    bool ObjectValidator::validateAttributeWrite(Object *obj, std::string key, Value val) {
+    bool ObjectValidator::validateAttributeWrite(const Object *obj, std::string key, Value val) {
         KindDescriptor *kind = getKindDesc(obj->getClass());
         if (kind == NULL) {
-            return true;    // object is not under validator control
+            return true;    // object is not under validator control - allow write
         }
+        // TODO search specific sub kind if necessary
         return kind->validateAttributeWrite(key, val);
     }
     
-    bool ObjectValidator::validateAttributeRead(Object *obj, std::string key) {
+    bool ObjectValidator::validateAttributeRead(const Object *obj, std::string key) {
         KindDescriptor *kind = getKindDesc(obj->getClass());
         if (kind == NULL) {
             return true;    // object is not under validator control
         }
-        return true;
+        // TODO search specific sub kind if necessary
+        return kind->validateAttributeRead(key);
+    }
+    
+    Value ObjectValidator::getDefaultValue(const Object *obj, std::string key) {
+        static bool recursive = false;
+                
+        // block potential recursions
+        if (recursive)
+            return Value(Value::DEFAULT);
+            
+        recursive = true;
+        KindDescriptor *kind = getKindDesc(obj->getClass());  // getClass is critical if it uses attributes
+        recursive = false;
+        
+        if (kind == NULL) {
+            return Value(Value::DEFAULT);    // object is not under validator control
+        }
+        // TODO search specific sub kind if necessary
+        return kind->getDefaultValue(key);
+    }
+    
+    std::string ObjectValidator::getKind(const Object *obj) {
+        std::string className = obj->getClass();
+        KindDescriptor *kind = getKindDesc(className);
+        if (kind == NULL) {
+            return className;    // object is not under validator control
+        }
+        return kind->getKind(obj);
+    }
+    
+    bool ObjectValidator::isKind(const Object *obj, std::string match) {
+        KindDescriptor *kind = getKindDesc(obj->getClass());
+        if (kind == NULL) {
+            return false;    // object is not under validator control
+        }
+        return kind->isKind(obj, match);
     }
 
     void ObjectValidator::scanAttributeElement(DOMElement *attribElement) {
@@ -282,10 +328,6 @@ namespace enigma {
                 if (minString != "") {
                     Value minValue = parseTypedValue(minAttribute, minString, valType);
                     cloneAttr->setDefaultValue(minValue);
-                }
-                if (maxString != "") {
-                    Value maxValue = parseTypedValue(maxAttribute, maxString, valType);
-                    cloneAttr->setMaxValue(maxValue);
                 }
                 if (maxString != "") {
                     Value maxValue = parseTypedValue(maxAttribute, maxString, valType);
