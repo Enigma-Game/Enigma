@@ -26,7 +26,7 @@
 namespace enigma {
     KindDescriptor::KindDescriptor(std::string name, std::string superKind, bool abstract, 
             int states, bool initOnly) : kind (name), isAbstract (abstract), 
-            isInitOnly (isInitOnly), numStates (states) {
+            isInitOnly (initOnly), numStates (states) {
         // find super kind
         if (superKind != "-") {
             // an explicit super kind is given

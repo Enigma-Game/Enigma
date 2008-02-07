@@ -1685,7 +1685,7 @@ static int dispatchWorldReadAccess(lua_State *L) {
         std::string keyStr = lua_tostring(L, 2);
         // TODO check string
         MethodMap::iterator iter = worldMethodeMap.find(keyStr);
-        if (iter != positionMethodeMap.end()) {
+        if (iter != worldMethodeMap.end()) {
             // call method
             lua_pushcfunction(L, iter->second);
         } else {
