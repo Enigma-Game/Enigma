@@ -347,6 +347,10 @@ std::list<Object *> World::get_group(const std::string &tmpl) {
 
 void World::name_object(Object *obj, const std::string &name)
 {
+    Object *old = get_named(name);
+    if (old != NULL)
+        unname(old);
+    
     std::string unique_name = name;
     if (server::EnigmaCompatibility >= 1.10 && name.size() > 0 && name[name.size() - 1] == '#') {
         // auto name object with a unique name
@@ -1851,7 +1855,7 @@ void AddSignal (const GridLoc &srcloc, const GridLoc &dstloc, const string &msg)
     // activate which key hole
     if (src->getObjectType() == Object::ITEM) {
         ItemID src_id = get_id(dynamic_cast<Item *>(src));
-        if (src_id >= it_key_a && src_id <= it_key_c && dst->is_kind("st-key")) {
+        if (src_id >= it_key_a && src_id <= it_key_c && dst->is_kind("st_key")) {
             dst->set_attrib("keycode", src->getAttr("keycode"));
             return;
         }
@@ -1917,17 +1921,17 @@ namespace
     void explosion (GridPos p, ItemID explosion_item)
     {
         if (Stone *stone = GetStone(p))
-            SendMessage(stone, "expl");
+            SendMessage(stone, "_explosion");
         if (Item  *item  = GetItem(p)) {
             if (has_flags(item, itf_indestructible))
-                SendMessage(item, "expl");
+                SendMessage(item, "_explosion");
             else
                 SetItem(p, explosion_item);
         }
         else
             SetItem(p, explosion_item);
         if (Floor *floor = GetFloor(p))
-            SendMessage(floor, "expl");
+            SendMessage(floor, "_explosion");
     }
 }
 
@@ -1968,9 +1972,9 @@ void SendExplosionEffect(GridPos center, ExplosionType type)
 
         case EXPLOSION_BOMBSTONE:
             if (direct_neighbor) {
-                if (stone) SendMessage(stone, "bombstone");
-                if (item) SendMessage(item, "bombstone");
-                if (floor) SendMessage(floor, "bombstone");
+                if (stone) SendMessage(stone, "_bombstone");
+                if (item) SendMessage(item, "_bombstone");
+                if (floor) SendMessage(floor, "_bombstone");
             }
             break;
 
