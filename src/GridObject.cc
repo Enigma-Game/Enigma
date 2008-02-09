@@ -112,7 +112,7 @@ namespace enigma {
         va_end(arg_ptr);
     }
     
-    void GridObject::set_attrib(const string& key, const Value &val) {
+    void GridObject::setAttr(const string& key, const Value &val) {
         if (key == "connections" || key == "faces") {
             int d = NODIRBIT;
             std::string vs(val);
@@ -121,15 +121,15 @@ namespace enigma {
             if (vs.find('s') != std::string::npos) d |= SOUTHBIT;
             if (vs.find('w') != std::string::npos) d |= WESTBIT;
             if (key == "faces") d ^= ALL_DIRECTIONS;
-            Object::set_attrib("$connections", d);
+            Object::setAttr("$connections", d);
             if (isDisplayable())
                 init_model();
         } else if (key == "$connections") {
-            Object::set_attrib("$connections", val);
+            Object::setAttr("$connections", val);
             if (isDisplayable())
                 init_model();
         } else
-            StateObject::set_attrib(key, val);
+            StateObject::setAttr(key, val);
     }
     
     Value GridObject::getAttr(const string &key) const {

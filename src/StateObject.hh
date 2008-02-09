@@ -78,7 +78,7 @@ namespace enigma {
          * shall not interfere with this attribute but override the method
          * "setState()". New state values are checked against min and max. 
          */
-        virtual void set_attrib(const string& key, const Value &val);
+        virtual void setAttr(const string& key, const Value &val);
         
     protected:
         /**

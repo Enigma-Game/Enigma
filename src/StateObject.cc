@@ -55,13 +55,13 @@ namespace enigma {
         return Object::getAttr(key);
     }
     
-    void StateObject::set_attrib(const string& key, const Value &val) {
+    void StateObject::setAttr(const string& key, const Value &val) {
         if (key == "state") {
             if (val >= minState() && val <= maxState())
                 setState(val);
             return;
         }
-        Object::set_attrib(key, val);
+        Object::setAttr(key, val);
     }
     
     int StateObject::maxState() {

@@ -25,7 +25,7 @@
 
 namespace enigma {
     WindowStone::WindowStone(std::string faces) : Stone(), breakingFaces(NODIRBIT) {
-        set_attrib("faces", faces);
+        setAttr("faces", faces);
     }
     
     Value WindowStone::message(const Message &m) {
@@ -55,7 +55,7 @@ namespace enigma {
 
             else if (impulse > 20) {
                 DirectionBits remainigFaces = (DirectionBits)(getFaces() & ~sc.faces);  // remove breaking face
-                Object::set_attrib("$connections", ALL_DIRECTIONS ^ remainigFaces);     // avoid init of model
+                Object::setAttr("$connections", ALL_DIRECTIONS ^ remainigFaces);     // avoid init of model
                 sound_event ("shatter");
                 state = (remainigFaces == NODIRBIT) ? FINALBREAK : BREAK;
                 set_anim("st_window_anim");  // TODO anim with remaining unbroken faces
@@ -101,7 +101,7 @@ namespace enigma {
                     !has_dir(stone->getFaces(), reverse(dir)))) {
                 DirectionBits remainigFaces = (DirectionBits)((faces & ~to_bits(reverse(dir)))
                         |to_bits(dir));  // move face
-                Object::set_attrib("$connections", ALL_DIRECTIONS ^ remainigFaces);     // avoid init of model
+                Object::setAttr("$connections", ALL_DIRECTIONS ^ remainigFaces);     // avoid init of model
                 init_model();
                 return true;
             }

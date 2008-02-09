@@ -85,7 +85,7 @@ ecl::V2 Floor::process_mouseforce (Actor *a, ecl::V2 force) {
         return ecl::V2();
 }
 
-void Floor::set_attrib (const string& key, const Value &val)
+void Floor::setAttr(const string& key, const Value &val)
 {
     if (key == "mousefactor")
         var_mousefactor = to_double(val);
@@ -95,7 +95,7 @@ void Floor::set_attrib (const string& key, const Value &val)
         var_floorforce[0] = to_double(val);
     else if (key == "force_y")
         var_floorforce[1] = to_double(val);
-    Object::set_attrib (key, val);
+    Object::setAttr(key, val);
 }
 
 void Floor::get_sink_speed (double &sinkspeed, double &raisespeed) const {
@@ -280,7 +280,7 @@ bool Floor::try_ignite(Direction sourcedir, FloorHeatFlags flhf) {
                     if(has_firetype(flft_fastfire))
                         return force_fire();
                     else
-                        this->set_attrib("burnable", Value(1.0));
+                        this->setAttr("burnable", Value(1.0));
             }
         }
     }
@@ -598,7 +598,7 @@ namespace
         enum { MINTYPE=1, MAXTYPE=24 };
 
         // Object interface
-        virtual void set_attrib (const string& key, const Value &val);
+        virtual void setAttr(const string& key, const Value &val);
 
         // GridObject interface.
         virtual void init_model();
@@ -614,11 +614,11 @@ Gradient::Gradient(int type_)
   use_forcefac (false),
   forcefac (1.0)
 {
-    set_attrib ("type", Value(type_));
-//    set_attrib ("force", Value(1.0));
+    setAttr("type", Value(type_));
+//    setAttr ("force", Value(1.0));
 }
 
-void Gradient::set_attrib (const string& key, const Value &val)
+void Gradient::setAttr(const string& key, const Value &val)
 {
     if (key == "type") {
         int t=to_int (val);
@@ -632,7 +632,7 @@ void Gradient::set_attrib (const string& key, const Value &val)
         use_forcefac = true;
         forcefac = to_double (val);
     }
-    Floor::set_attrib (key, val);
+    Floor::setAttr(key, val);
 }
 
 
@@ -731,7 +731,7 @@ namespace
 
 Bridge::Bridge(bool open) : Floor("fl-bridge", 5, 1)
 {
-    set_attrib("type", "a");
+    setAttr("type", "a");
     state=open ? OPEN : CLOSED;
 }
 

@@ -27,18 +27,18 @@ namespace enigma {
     BoulderStone::BoulderStone(Direction dir) {
         state = INIT;
         // do not use set_dir, because this will set the state to ACTIVE
-        Object::set_attrib("direction", dir);
+        Object::setAttr("direction", dir);
     }
     
-    void BoulderStone::set_attrib(const string& key, const Value &val) {
+    void BoulderStone::setAttr(const string& key, const Value &val) {
         if (key == "direction") {
             if (isDisplayable())
                 setDir(to_direction(val));
             else
-                Object::set_attrib(key, val);
+                Object::setAttr(key, val);
             return;
         }
-        PhotoStone::set_attrib(key, val);
+        PhotoStone::setAttr(key, val);
     }
 
     Value BoulderStone::message(const Message &m) {
@@ -150,7 +150,7 @@ namespace enigma {
     
     void BoulderStone::setDir(Direction d) {
         if (d != getDir() && (state != FALLING)) {
-            Object::set_attrib("direction", d);
+            Object::setAttr("direction", d);
             state = ACTIVE;   // if turned by it-magicwand -> allow triggering
             triggerObstacle(getDir(), true);
             init_model();

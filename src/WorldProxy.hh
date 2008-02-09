@@ -28,7 +28,7 @@ namespace enigma {
         static WorldProxy *instance();
         static void shutdown();
         virtual Value getAttr(const string& key) const;
-        virtual void set_attrib(const string& key, const Value &val);
+        virtual void setAttr(const string& key, const Value &val);
         
     protected:
         WorldProxy();

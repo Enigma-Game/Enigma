@@ -1218,8 +1218,8 @@ namespace
         }
     public:
         RubberBandStone () {
-            set_attrib("length", 1.0);
-            set_attrib("strength", 10.0);
+            setAttr("length", 1.0);
+            setAttr("strength", 10.0);
         }
     };
     DEF_TRAITSM(RubberBandStone, "st-rubberband", st_rubberband, MOVABLE_STANDARD);
@@ -1268,10 +1268,10 @@ namespace
         CLONEOBJ(TimerStone);
     public:
         TimerStone() : OnOffStone("st-timer"), m_signalvalue(1) {
-            set_attrib("interval", 1.0);
-            set_attrib("loop", true);
-            set_attrib("on", 1.0);
-            set_attrib("invisible", false);
+            setAttr("interval", 1.0);
+            setAttr("loop", true);
+            setAttr("on", 1.0);
+            setAttr("invisible", false);
 
             // set_on(true);   DOESN'T WORK! calls init_model()
         }
@@ -1546,7 +1546,7 @@ namespace
     class ActorImpulseBase : public Stone {
     public:
         ActorImpulseBase(const char *kind) : Stone(kind), state(IDLE) {
-//             set_attrib("force", Value());
+//             setAttr("force", Value());
         }
 
     protected:
@@ -1662,7 +1662,7 @@ namespace
         CLONEOBJ(FakeOxydStone);
     public:
         FakeOxydStone() : Stone("st-fakeoxyd"), state(IDLE) {
-            set_attrib("blinking", 0.0);
+            setAttr("blinking", 0.0);
         }
     private:
         enum State { IDLE, BLINKING } state;
@@ -1671,7 +1671,7 @@ namespace
                 set_anim("st-fakeoxyd-blink");
                 sound_event ("fakeoxyd");
                 state = BLINKING;
-                set_attrib("blinking", 1.0);
+                setAttr("blinking", 1.0);
             }
         }
         const char *collision_sound() {
@@ -1680,7 +1680,7 @@ namespace
         void animcb() {
             set_model("st-fakeoxyd");
             state = IDLE;
-            set_attrib("blinking", 0.0);
+            setAttr("blinking", 0.0);
         }
     };
 }

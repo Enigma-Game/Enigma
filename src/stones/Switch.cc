@@ -25,9 +25,9 @@
 namespace enigma {
     Switch::Switch(Value color, bool instant) : Stone () {
         if (color.getType() != Value::NIL)
-            set_attrib("color", color);
+            setAttr("color", color);
         if (instant)
-            set_attrib("instant", true);
+            setAttr("instant", true);
         state = OFF;
     }
 
@@ -35,14 +35,14 @@ namespace enigma {
         return "st_switch";
     }
     
-    void Switch::set_attrib(const string& key, const Value &val) {
+    void Switch::setAttr(const string& key, const Value &val) {
         if (isDisplayable())
             if (key == "color" && state <= ON) {   // recoloring of a switch
-                Stone::set_attrib(key, val);
+                Stone::setAttr(key, val);
                 init_model();
                 return;
             }
-        Stone::set_attrib(key, val);
+        Stone::setAttr(key, val);
     }
     
     Value Switch::message(const Message &m) {

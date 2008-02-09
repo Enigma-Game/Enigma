@@ -84,7 +84,7 @@ namespace enigma {
         virtual OxydStone * clone();
         virtual void dispose();
         virtual Value message(const Message &m);
-        virtual void set_attrib(const string& key, const Value &val);
+        virtual void setAttr(const string& key, const Value &val);
 
         // StateObject interface
         virtual int maxState();

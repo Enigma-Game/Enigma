@@ -271,7 +271,7 @@ Stone * OxydLoader::make_laser (int type)
         string lasername("st-laser");
         lasername += to_suffix(dir);
         st         = MakeStone(lasername.c_str());
-        st->set_attrib("on", Value(on)); // OnOffStone attribute
+        st->setAttr("on", Value(on)); // OnOffStone attribute
     }
     return st;
 }
@@ -280,15 +280,15 @@ Stone *OxydLoader::make_timer (int x, int y)
 {
     const OscillatorMap &oscillators = level.getOscillators(config.gamemode);
     Stone *st = MakeStone ("st-timer");
-    st->set_attrib("interval", Value(0.2));
+    st->setAttr("interval", Value(0.2));
 
     Block block(x, y);
     OscillatorMap::const_iterator i = oscillators.find(block);
     if (i != oscillators.end()) {
         const Oscillator &o = i->second;
-        st->set_attrib("on", Value(o.getOn()));
+        st->setAttr("on", Value(o.getOn()));
         double interval = (1 + o.getPeriod()) * config.timer_factor;
-        st->set_attrib("interval", Value(interval));
+        st->setAttr("interval", Value(interval));
     }
     return st;
 }
@@ -306,8 +306,8 @@ Stone *OxydLoader::make_stone (int type, int x, int y)
         color[0] += (type-1) / 2; 
 
         st = MakeStone("st_oxyd");
-        st->set_attrib("oxydcolor", color);
-        st->set_attrib("flavor", config.oxyd_flavor);
+        st->setAttr("oxydcolor", color);
+        st->setAttr("flavor", config.oxyd_flavor);
     }
     else if (type == config.id_timer) {
         st = make_timer (x, y);
@@ -321,7 +321,7 @@ Stone *OxydLoader::make_stone (int type, int x, int y)
         if (name == 0) {
             Log << ecl::strf("Unknown stone %X\n", type);
             st = MakeStone ("st-dummy");
-            st->set_attrib("code", type);
+            st->setAttr("code", type);
         }
         else if (name[0] != '\0') { // ignore if name==""
             st = MakeStone (name);
@@ -378,14 +378,14 @@ Item  *OxydLoader::make_item (int type)
 	{
 	    it = MakeItem (it_document);
 	    string text = convert_encoding(level.getNoteText(0, lang));
-	    it->set_attrib ("text", text.c_str());
+	    it->setAttr ("text", text.c_str());
 	}
         break;
     case 0x03:                  // note 2
 	{
 	    it = MakeItem (it_document);
 	    string text = convert_encoding(level.getNoteText(1, lang));
-	    it->set_attrib ("text", text.c_str());
+	    it->setAttr ("text", text.c_str());
 	}
 	break;
     default:
@@ -394,7 +394,7 @@ Item  *OxydLoader::make_item (int type)
             if (id == it_INVALID) {
                 Log << ecl::strf ("Unknown item %X\n",type);
                 it = MakeItem (it_dummy);
-                it->set_attrib("code", type);
+                it->setAttr("code", type);
             }
             else
                 it = MakeItem (id);
@@ -417,7 +417,7 @@ void OxydLoader::load_floor ()
             if( name == 0) {
                 Log << ecl::strf ("Unknown floor %X\n",code);
                 fl = MakeFloor("fl-dummy");
-                fl->set_attrib("code", code);
+                fl->setAttr("code", code);
             }
             else {
                 fl = MakeFloor(name);
@@ -487,47 +487,47 @@ void OxydLoader::load_actors ()
         switch (marble.getMarbleType()) {
         case MarbleType_Black:
             ac = MakeActor (ac_blackball);
-            ac->set_attrib ("player", Value(0.0));
+            ac->setAttr ("player", Value(0.0));
             break;
         case MarbleType_White:
             ac = MakeActor (ac_whiteball);
-            ac->set_attrib ("player", Value(1.0));
+            ac->setAttr ("player", Value(1.0));
             break;
         case MarbleType_Meditation:
             if (have_black_marble && !level.getHarmlessMeditationMarbles()) {
                 // # example: Oxyd Extra #28
                 ac = MakeActor (ac_killerball);
-//                ac->set_attrib ("player", Value(0.0));
-                ac->set_attrib ("mouseforce", Value (1.0));
-                ac->set_attrib ("controllers", Value (3.0));
+//                ac->setAttr ("player", Value(0.0));
+                ac->setAttr ("mouseforce", Value (1.0));
+                ac->setAttr ("controllers", Value (3.0));
             }
             else {
                 ac = MakeActor (ac_meditation);
                 nmeditationmarbles += 1;
 
                 if (config.twoplayers && (nmeditationmarbles % 2) == 0)
-                    ac->set_attrib("player", Value(1.0));
+                    ac->setAttr("player", Value(1.0));
                 else
-                    ac->set_attrib ("player", Value(0.0));
+                    ac->setAttr ("player", Value(0.0));
             }
 
             if (minfo.is_default(MI_FORCE)) {
-                ac->set_attrib("mouseforce", Value(1.0));
+                ac->setAttr("mouseforce", Value(1.0));
             }
             else {
-                ac->set_attrib("mouseforce", Value(minfo.get_value(MI_FORCE) / 32.0)); // just a guess
+                ac->setAttr("mouseforce", Value(minfo.get_value(MI_FORCE) / 32.0)); // just a guess
             }
             break;
         case MarbleType_Jack:
             ac = MakeActor (ac_top);
             if (!minfo.is_default(MI_FORCE)) {
                 double force = minfo.get_value(MI_FORCE) / 4; // just a guess
-                ac->set_attrib("force", Value(force) );
+                ac->setAttr("force", Value(force) );
                 enigma::Log << "Set jack force to " << force << endl;
             }
             if (!minfo.is_default(MI_RANGE)) {
                 double range = minfo.get_value(MI_RANGE) / 32.0; // value seems to contain distance in pixels
-                ac->set_attrib("range", Value(range) );
+                ac->setAttr("range", Value(range) );
                 enigma::Log << "Set jack range to " << range << endl;
             }
             break;
@@ -539,9 +539,9 @@ void OxydLoader::load_actors ()
             double range = minfo.get_value (MI_RANGE, 100) / 32.0;
             int gohome = minfo.get_value (MI_GOHOME, 1);
 
-            ac->set_attrib ("force", force);
-            ac->set_attrib ("range", range);
-            ac->set_attrib ("gohome", Value (gohome));
+            ac->setAttr ("force", force);
+            ac->setAttr ("range", range);
+            ac->setAttr ("gohome", Value (gohome));
 
             enigma::Log << "rotor force " << force << endl;
             enigma::Log << "rotor range " << range << endl;
@@ -554,25 +554,25 @@ void OxydLoader::load_actors ()
             int levelw = level.getWidth();
             if (!minfo.is_default(MI_HORSETARGET1)) {
                 int targetpos = minfo.get_value(MI_HORSETARGET1);
-                ac->set_attrib("target1", ecl::strf("%d %d", 
+                ac->setAttr("target1", ecl::strf("%d %d", 
                                                    targetpos % levelw, 
                                                    int(targetpos / levelw)));
             }
             if (!minfo.is_default(MI_HORSETARGET2)) {
                 int targetpos = minfo.get_value(MI_HORSETARGET2);
-                ac->set_attrib("target2", ecl::strf("%d %d", 
+                ac->setAttr("target2", ecl::strf("%d %d", 
                                                    targetpos % levelw, 
                                                    int(targetpos / levelw)));
             }
             if (!minfo.is_default(MI_HORSETARGET3)) {
                 int targetpos = minfo.get_value(MI_HORSETARGET3);
-                ac->set_attrib("target3", ecl::strf("%d %d", 
+                ac->setAttr("target3", ecl::strf("%d %d", 
                                                    targetpos % levelw, 
                                                    int(targetpos / levelw)));
             }
             if (!minfo.is_default(MI_HORSETARGET4)) {
                 int targetpos = minfo.get_value(MI_HORSETARGET4);
-                ac->set_attrib("target4", ecl::strf("%d %d", 
+                ac->setAttr("target4", ecl::strf("%d %d", 
                                                    targetpos % levelw, 
                                                    int(targetpos / levelw)));
             }

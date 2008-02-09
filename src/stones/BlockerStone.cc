@@ -94,7 +94,7 @@ namespace enigma {
                 SetItem(get_pos(), it);
                 transferIdentity(it);
                 if (Value v = getAttr("autoclose"))
-                    it->set_attrib("autoclose", v); 
+                    it->setAttr("autoclose", v); 
                 SendMessage(it, "_performaction");
                 KillStone(get_pos());
                 break;
@@ -141,7 +141,7 @@ namespace enigma {
                 state = newState;
                 init_model();
                 if (newState == SOLID) {
-                    Object::set_attrib("kind", "st_blocker");
+                    Object::setAttr("kind", "st_blocker");
                 }
             }
         }

@@ -363,7 +363,7 @@ namespace
             return to_direction(getAttr("orientation"));
         }
         void set_orientation(Direction dir) {
-            set_attrib("orientation", Value(dir));
+            setAttr("orientation", Value(dir));
         }
 
         virtual bool actor_may_pass (Actor *a) = 0;
@@ -737,7 +737,7 @@ PuzzleStone::PuzzleStone(int connections, bool oxyd1_compatible_)
   state (IDLE), 
   illumination (NODIRBIT)
 {
-    set_attrib("oxyd", int(oxyd1_compatible_));
+    setAttr("oxyd", int(oxyd1_compatible_));
 }
 
 
@@ -972,10 +972,10 @@ void PuzzleStone::rotate_cluster(const Cluster &c) {
         int cn = GetStone(c[size-1])->getAttr("connections");
         for (size_t i=size-1; i>0; --i) {
             PuzzleStone *st = dynamic_cast<PuzzleStone*> (GetStone (c[i]));
-            st->set_attrib ("connections", GetStone(c[i-1])->getAttr("connections"));
+            st->setAttr("connections", GetStone(c[i-1])->getAttr("connections"));
             st->init_model();
         }
-        GetStone(c[0])->set_attrib ("connections", cn);
+        GetStone(c[0])->setAttr("connections", cn);
         dynamic_cast<PuzzleStone*> (GetStone(c[0]))->init_model();
     }
 }
@@ -1395,7 +1395,7 @@ namespace
         Door(const char *type="h", bool open=false)
         : DoorBase("st-door", open ? OPEN : CLOSED)
         {
-            set_attrib("type", type);
+            setAttr("type", type);
         }
     private:
         virtual string opening_sound() const { return "dooropen"; }
@@ -1498,7 +1498,7 @@ namespace
 
         enum Holes { SMALL = 1, MEDIUM = 2, LARGE = 4};
         static Holes smallest_hole(Holes s);
-        void set_holes(Holes h) { set_attrib("holes", h); }
+        void set_holes(Holes h) { setAttr("holes", h); }
 
     public:
         ShogunStone(int holes=SMALL) {
@@ -1517,7 +1517,7 @@ namespace
         }
 
         void add_hole(Holes h) {
-            set_attrib("holes", get_holes() | h);
+            setAttr("holes", get_holes() | h);
             init_model();
             notify_item();
         }
@@ -2470,7 +2470,7 @@ namespace
     public:
         ChessStone (int color) {
             newcolor = color;
-            Stone::set_attrib("color", color);
+            Stone::setAttr("color", color);
             destination = GridPos(0,0);
             capture_retry = 0;
             rememberFalling = false;
@@ -2482,7 +2482,7 @@ namespace
         }
         void init_model();
         void animcb();
-        void set_attrib(const string& key, const Value &val);
+        void setAttr(const string& key, const Value &val);
         virtual Value message(const Message &m);
         void actor_hit(const StoneContact &sc);
         void on_impulse(const Impulse& impulse) {}
@@ -2714,11 +2714,11 @@ namespace
         return state == newstate;
     }
 
-    void ChessStone::set_attrib(const string& key, const Value &val) {
+    void ChessStone::setAttr(const string& key, const Value &val) {
         if(key == "color") {
             set_color(to_int(val));
         } else
-            Stone::set_attrib(key, val);
+            Stone::setAttr(key, val);
     }
 
     void ChessStone::set_color(int color) {
@@ -2726,7 +2726,7 @@ namespace
             ASSERT(0, XLevelRuntime, "ChessStone: argument to color not 0 or 1");
         }
         if(state == IDLE) {
-            Stone::set_attrib("color", color);
+            Stone::setAttr("color", color);
             newcolor = color;
             init_model();
         } else {

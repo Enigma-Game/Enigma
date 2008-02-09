@@ -151,7 +151,7 @@ namespace enigma {
         for (int i = 0; i < numColors; i++) {
             if (colorsUsageCount[i] % 2 == 1) {
                 if (autocoloredOxyds.size() > 0) {
-                    autocoloredOxyds.back()->set_attrib("oxydcolor", i);
+                    autocoloredOxyds.back()->setAttr("oxydcolor", i);
                     autocoloredOxyds.pop_back();
                     colorsUsageCount[i]++;
                 } else if (onlyPairs) {
@@ -176,7 +176,7 @@ namespace enigma {
             if (colorsUsageCount[c] <= 2*(dc/2/numColors) + 1) {
                 lastColor = c;
                 lastObject = autocoloredOxyds.back();
-                lastObject->set_attrib("oxydcolor", c);
+                lastObject->setAttr("oxydcolor", c);
                 autocoloredOxyds.pop_back();
                 colorsUsageCount[c]++;
             }
@@ -184,7 +184,7 @@ namespace enigma {
         }
         // substitute odd oxyd with a fake one
         if (!onlyPairs && lastObject != NULL) {
-            lastObject->set_attrib("oxydcolor", FAKE);
+            lastObject->setAttr("oxydcolor", FAKE);
             colorsUsageCount[lastColor]--;
             shuffledFakeCount++;
         } else {
@@ -234,8 +234,8 @@ namespace enigma {
     
                 Value icolor = o1->getAttr("oxydcolor"); 
     
-                o1->set_attrib("oxydcolor", o2->getAttr("oxydcolor"));
-                o2->set_attrib("oxydcolor", icolor);
+                o1->setAttr("oxydcolor", o2->getAttr("oxydcolor"));
+                o2->setAttr("oxydcolor", icolor);
             }
         }
     }
@@ -676,13 +676,13 @@ namespace enigma {
                     int i = IntegerRand(1, remainFakeCount + remainFartCount + remainBoldCount);  // use enigma's internal rand!
                     if (i <= remainFakeCount) {
                         remainFakeCount--;
-                        oxyd->set_attrib("oxydcolor", FAKE);
+                        oxyd->setAttr("oxydcolor", FAKE);
                     } else if ( i <= remainFakeCount + remainFartCount) {
                         remainFartCount--;
-                        oxyd->set_attrib("oxydcolor", FART);
+                        oxyd->setAttr("oxydcolor", FART);
                     } else {
                         remainBoldCount--;
-                        oxyd->set_attrib("oxydcolor", BOLD);
+                        oxyd->setAttr("oxydcolor", BOLD);
                     }
                     (*itr).isColored = true;
                 } else {
@@ -700,13 +700,13 @@ namespace enigma {
                     else if (to_bool(oxyd1->getAttr("noshuffle")) || oxyd1->state != CLOSED) {
                         // a standard oxyd (pseudo is impossible) that requires a color
                         c = oxyd1->getAttr("oxydcolor");
-                        oxyd2->set_attrib("oxydcolor", c);
+                        oxyd2->setAttr("oxydcolor", c);
                         colorsRemainCount[c] -= 2;
                         (*itr).isColored = true;
                     }
                     else if (to_bool(oxyd2->getAttr("noshuffle")) || oxyd2->state != CLOSED) {
                         c = oxyd2->getAttr("oxydcolor");
-                        oxyd1->set_attrib("oxydcolor", c);
+                        oxyd1->setAttr("oxydcolor", c);
                         colorsRemainCount[c] -= 2;
                         (*itr).isColored = true;
                     }
@@ -733,8 +733,8 @@ namespace enigma {
         int ci = 0;
         for (std::list<ShuffleFrame>::iterator itr = shuffleStack.begin(); itr != shuffleStack.end(); ++itr) {
             if (!(*itr).isColored && (*itr).selOxyd1Mask != 0) {
-                levelOxyds[oxydId((*itr).selOxyd1Mask)]->set_attrib("oxydcolor", colorPairs[ci]);
-                levelOxyds[oxydId((*itr).selOxyd2Mask)]->set_attrib("oxydcolor", colorPairs[ci]);
+                levelOxyds[oxydId((*itr).selOxyd1Mask)]->setAttr("oxydcolor", colorPairs[ci]);
+                levelOxyds[oxydId((*itr).selOxyd2Mask)]->setAttr("oxydcolor", colorPairs[ci]);
                 ci++;
             }
         }
@@ -837,8 +837,8 @@ namespace enigma {
     // Instance Methods
     
     OxydStone::OxydStone(std::string flavor) : PhotoStone("st_oxyd") {
-        set_attrib("flavor", flavor);
-        set_attrib("oxydcolor", AUTO);
+        setAttr("flavor", flavor);
+        setAttr("oxydcolor", AUTO);
     }
     
     OxydStone * OxydStone::clone() { 
@@ -874,14 +874,14 @@ namespace enigma {
         return PhotoStone::message(m);
     }
     
-    void OxydStone::set_attrib(const string& key, const Value &val) {
+    void OxydStone::setAttr(const string& key, const Value &val) {
         if (key == "oxydcolor") 
             ASSERT(state == CLOSED, XLevelRuntime, "OxydStone error - recoloring of an not closed stone");
         else if (key == "flavor") {
             ASSERT(state == CLOSED, XLevelRuntime, "OxydStone error - reflavoring of an not closed stone");
         }
         
-        PhotoStone::set_attrib(key, val);   // do value checking
+        PhotoStone::setAttr(key, val);   // do value checking
         
         if (key == "flavor" && IsInsideLevel(get_pos()))
             set_model(string("st-oxyd")+(std::string)val);

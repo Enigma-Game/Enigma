@@ -45,7 +45,7 @@ namespace enigma {
         GridObject(const char * kind) : StateObject(kind), pos (GridPos(-1, -1)) {}
 
         // Object interface
-        virtual void set_attrib(const string& key, const Value &val);
+        virtual void setAttr(const string& key, const Value &val);
         virtual Value getAttr(const string &key) const;
 
         // StateObject interface

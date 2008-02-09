@@ -31,10 +31,10 @@ namespace enigma {
     class ConnectiveStone : public Stone {
     public:
         ConnectiveStone(const char *kind, int connections): Stone(kind) {
-            set_attrib("connections", connections);
+            setAttr("connections", connections);
         }
         ConnectiveStone(int connections) {
-            set_attrib("connections", connections);
+            setAttr("connections", connections);
         }
 
         DirectionBits get_connections() const {
@@ -46,11 +46,11 @@ namespace enigma {
         }
 
         // temp. workarounds until this class gets eliminated
-        virtual void set_attrib(const string& key, const Value &val) {
+        virtual void setAttr(const string& key, const Value &val) {
             if (key == "connections")
-                Object::set_attrib(key, val);  // bypass GridObject
+                Object::setAttr(key, val);  // bypass GridObject
             else
-                Stone::set_attrib(key, val);
+                Stone::setAttr(key, val);
         }
         
         virtual Value getAttr(const string &key) const {

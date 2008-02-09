@@ -130,9 +130,7 @@ namespace enigma {
          * 
          */
         virtual Value message(const Message &m);
-        
-        virtual void set_attrib(const string &key, const Value &val);
-        
+                
         /**
          * Store the value information for the given key with prior checking of
          * write allowance. All level code attribute settings should pass this

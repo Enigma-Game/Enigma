@@ -95,7 +95,7 @@ namespace enigma {
     }
     
     Object::Object(const char *kind) {
-        set_attrib("kind", Value(kind));
+        setAttr("kind", Value(kind));
         id = getNextId(this, false);
     }
     
@@ -152,7 +152,7 @@ namespace enigma {
     
     
     
-    void Object::set_attrib(const string& key, const Value& val) {
+    void Object::setAttr(const std::string& key, const Value& val) {
         if (val) {        // only set non-default values
             if (val.getType() == Value::NIL && server::EnigmaCompatibility >= 1.10)
                 // delete attribute
@@ -167,10 +167,6 @@ namespace enigma {
         // allow all user attributes and those system attributes with write allowance
         if (key.find('_') == 0 || ObjectValidator::instance()->validateAttributeWrite(this, key, val))
             setAttr(key, val);
-    }
-    
-    void Object::setAttr(const std::string& key, const Value &val) {
-        set_attrib(key, val);
     }
     
     Value Object::getAttrChecked(const std::string &key) const {
@@ -225,7 +221,7 @@ namespace enigma {
             // target and actions including their stated versions
             if ( it->first.find("_") == 0 || it->first.find("target") == 0
                     || it->first.find("action") == 0) {
-                target->set_attrib(it->first, it->second);
+                target->setAttr(it->first, it->second);
 //                Log << "Identity transfer key " << it->first << " - value " << it->second.to_string() << "\n";
             }
         }

@@ -360,7 +360,7 @@ namespace
         ChargeStone(const char *kind, double charge)
         : Stone(kind)
         {
-            set_attrib("charge", charge);
+            setAttr("charge", charge);
         }
         virtual Value message(const Message &m) {
             if (server::GameCompatibility == enigma::GAMET_PEROXYD && m.message == "signal") {

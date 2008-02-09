@@ -34,7 +34,7 @@ namespace enigma {
         ClusterStone(std::string classname, std::string connections);
         
         // Object interface
-        virtual void set_attrib(const string& key, const Value &val);
+        virtual void setAttr(const string& key, const Value &val);
         virtual Value message(const Message &m);
         // GridObject interface
         virtual void on_creation(GridPos p);

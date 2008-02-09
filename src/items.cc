@@ -180,7 +180,7 @@ namespace
     protected:
         OnOffItem (bool onoff = false)
         {
-            set_attrib("on", onoff);
+            setAttr("on", onoff);
         }
 
         bool is_on() const {
@@ -189,7 +189,7 @@ namespace
 
         void set_on (bool newon) {
             if (newon != is_on()) {
-                set_attrib("on", Value(newon));
+                setAttr("on", Value(newon));
                 init_model();
                 notify_onoff(newon);
             }
@@ -457,7 +457,7 @@ namespace
     	Key(SubType type = KEY1)
         : subtype(type)
         {
-            set_attrib("keycode", subtype+1);
+            setAttr("keycode", subtype+1);
         }
     };
 
@@ -563,7 +563,7 @@ namespace
 
     public:
         Coin1() {
-            set_attrib ("value", 3.0);
+            setAttr("value", 3.0);
         }
     };
     DEF_TRAITS(Coin1, "it-coin1", it_coin1);
@@ -583,7 +583,7 @@ namespace
 
     public:
         Coin2() {
-            set_attrib("value", 6.0);
+            setAttr("value", 6.0);
         }
     };
     DEF_TRAITS(Coin2, "it-coin2", it_coin2);
@@ -598,7 +598,7 @@ namespace
         }
     public:
         Coin4() {
-            set_attrib("value", 12.0);
+            setAttr("value", 12.0);
         }
     };
     DEF_TRAITS(Coin4, "it-coin4", it_coin4);
@@ -861,7 +861,7 @@ void Hollow::check_if_level_finished()
 }
 
 void Hollow::setup_successor(Item *newitem) {
-    newitem->set_attrib("essential", getAttr("essential"));
+    newitem->setAttr("essential", getAttr("essential"));
 }
 
 
@@ -1095,7 +1095,7 @@ namespace
         }
     public:
         Document() {
-            set_attrib("text", "");
+            setAttr("text", "");
         }
     };
     DEF_TRAITSF(Document, "it-document", it_document, itf_inflammable);
@@ -1362,7 +1362,7 @@ namespace
     DEF_TRAITSF(Trigger, "it_trigger", it_trigger, itf_static | itf_indestructible);
     
     Trigger::Trigger() {
-        set_attrib("invisible", false);
+        setAttr("invisible", false);
     }
     
     Value Trigger::message (const Message &m) {
@@ -1960,10 +1960,10 @@ namespace
 }
 
 Vortex::Vortex(bool open) : state(open ? OPEN : CLOSED) {
-    set_attrib("autoclose", !open);
-    set_attrib("$dest_idx", 0);
-    set_attrib("$dest_vortex", (Object *)NULL);
-    set_attrib("$grabbed_actor", (Object *)NULL);
+    setAttr("autoclose", !open);
+    setAttr("$dest_idx", 0);
+    setAttr("$dest_vortex", (Object *)NULL);
+    setAttr("$grabbed_actor", (Object *)NULL);
 }
 
 Vortex::~Vortex() {
@@ -1983,8 +1983,8 @@ void Vortex::on_removal(GridPos p) {
 
 void Vortex::prepare_for_warp (Actor *actor) {
     SendMessage(actor, "fallvortex");
-    set_attrib("$dest_idx", 0);
-    set_attrib("$grabbed_actor", actor);
+    setAttr("$dest_idx", 0);
+    setAttr("$grabbed_actor", actor);
     state = SWALLOWING;
 
     GameTimer.set_alarm(this, 0.4, false);
@@ -2113,7 +2113,7 @@ void Vortex::emit_actor(Vortex *destVortex) {
     if (this != destVortex)
         performAction(getAttr("$grabbed_actor"));
 
-    set_attrib("$grabbed_actor", (Object *)NULL);
+    setAttr("$grabbed_actor", (Object *)NULL);
 }
 
 void Vortex::warp_to(const V2 &target) {
@@ -2131,7 +2131,7 @@ void Vortex::warp_to(const V2 &target) {
         close();
 
     performAction(getAttr("$grabbed_actor"));
-    set_attrib("$grabbed_actor", (Object *)NULL);
+    setAttr("$grabbed_actor", (Object *)NULL);
 }
 
 void Vortex::perform_warp() {
@@ -2155,7 +2155,7 @@ void Vortex::perform_warp() {
 
             if (st && !st->is_floating()) {
                 // is destination vortex blocked? redirect
-                set_attrib("$dest_idx", dest_idx + 1);
+                setAttr("$dest_idx", dest_idx + 1);
                 client::Msg_Sparkle(v_target);
                 WarpActor(actor, v_target[0], v_target[1], false);
                 GameTimer.set_alarm(this, 0.4, false);
@@ -2172,7 +2172,7 @@ void Vortex::perform_warp() {
                     case CLOSING:
                         // destination is closed
                         SendMessage(v, "open");
-                        set_attrib("$dest_vortex", v);
+                        setAttr("$dest_vortex", v);
                         state = EMITTING;
                         GameTimer.set_alarm(this, 0.4, false);
                         break;
@@ -2370,8 +2370,8 @@ namespace
         Crack(int type=0)
         : state(IDLE), anim_end(false)
             {
-                set_attrib("type", type);
-                set_attrib("fixed", 0.0);
+                setAttr("type", type);
+                setAttr("fixed", 0.0);
              }
 
         enum State { IDLE, CRACKING1, CRACKING2 } state;
@@ -2441,7 +2441,7 @@ namespace
             if (m.message == "crack" && state==IDLE && !is_fixed()) {
                 int type = get_type();
                 if ((type == 0 && do_crack()) || (type > 0)) {
-                    set_attrib("type", Value((int)getAttr("type") + 1));
+                    setAttr("type", Value((int)getAttr("type") + 1));
                     sound_event ("crack");
                     init_model();
                 return Value();
@@ -2593,11 +2593,11 @@ namespace
 
     private:
         Extinguisher (int load) {
-    	    set_attrib("load", load);
+    	    setAttr("load", load);
         }
 
         int get_load() const { return ecl::Clamp<int>(getAttr("load"),0,2); }
-        void set_load (int load) { set_attrib("load", ecl::Clamp<int>(load,0,2)); }
+        void set_load (int load) { setAttr("load", ecl::Clamp<int>(load,0,2)); }
 
         void extinguish (GridPos p) {
             if (Item *it = GetItem(p)) {
@@ -2914,7 +2914,7 @@ namespace
         SetStone(get_pos(), st);
         transferIdentity(st);
         if (Value v = getAttr("autoclose"))
-            st->set_attrib("autoclose", v); 
+            st->setAttr("autoclose", v); 
         SendMessage(st, "_performaction");
         kill();
     }
@@ -3009,9 +3009,9 @@ namespace
         
         virtual Value message(const Message &m) {
             if (m.message == "hit") {   // door knocking forward to black/whitballstone
-                set_attrib("$hitactor", m.value);
+                setAttr("$hitactor", m.value);
                 performAction(true);
-                set_attrib("$hitactor", (Object *)NULL);
+                setAttr("$hitactor", (Object *)NULL);
                 return Value();
             } else if (m.message == "_hitactor") {
                 return getAttr("$hitactor");
@@ -3658,18 +3658,18 @@ namespace
                 // Kill ALL rubberbands connected with the actor:
                 KillRubberBands (a);
                 Actor *rotor = MakeActor (ac_rotor);
-                rotor->set_attrib ("mouseforce", Value (1.0));
-                rotor->set_attrib ("controllers", Value (iplayer+1));
-                rotor->set_attrib ("player", Value (iplayer));
-                rotor->set_attrib ("gohome", Value (0.0));
-                rotor->set_attrib ("essential", a->getAttr("essential"));
+                rotor->setAttr("mouseforce", Value (1.0));
+                rotor->setAttr("controllers", Value (iplayer+1));
+                rotor->setAttr("player", Value (iplayer));
+                rotor->setAttr("gohome", Value (0.0));
+                rotor->setAttr("essential", a->getAttr("essential"));
                 std::string essId;
                 if (Value v = a->getAttr("essential_id")) {
                     essId = v.to_string();
                 } else {
                     essId = a->get_traits().name;
                 }
-                rotor->set_attrib ("essential_id", Value(essId));
+                rotor->setAttr("essential_id", Value(essId));
 
                 replace_actor (a, rotor);
 

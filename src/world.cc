@@ -359,7 +359,7 @@ void World::name_object(Object *obj, const std::string &name)
         unique_name = name + ecl::strf("%d",i);
     }
     m_objnames.insert(unique_name, obj); // [name] = obj;
-    obj->set_attrib("name", unique_name);
+    obj->setAttr("name", unique_name);
 }
 
 void World::unname (Object *obj)
@@ -367,7 +367,7 @@ void World::unname (Object *obj)
     ASSERT(obj, XLevelRuntime, "unname: no object given");
     if (Value v = obj->getAttr("name")) {
         m_objnames.remove(v.to_string());
-        obj->set_attrib("name", "");   // TODO alist.hh add delete op
+        obj->setAttr("name", "");   // TODO alist.hh add delete op
     }
 }
 
@@ -1787,7 +1787,7 @@ void AddSignal (const GridLoc &srcloc, const GridLoc &dstloc, const string &msg)
         if (src_id >= it_wormhole_off && src_id <= it_wormhole_on) {
 //            Log << ecl::strf("AddSignal: Wormhole signal destination src=%i/%i-%d dest=%i/%i-%d msg='%s'\n",
 //                srcloc.pos.x, srcloc.pos.y, srcloc.layer, dstloc.pos.x, dstloc.pos.y, dstloc.layer, msg.c_str());
-            src->set_attrib("destination", GetFloor(dstloc.pos));  // use floor to guarantee existence
+            src->setAttr("destination", GetFloor(dstloc.pos));  // use floor to guarantee existence
             return;
         }
     }
@@ -1798,7 +1798,7 @@ void AddSignal (const GridLoc &srcloc, const GridLoc &dstloc, const string &msg)
 //                srcloc.pos.x, srcloc.pos.y, srcloc.layer, dstloc.pos.x, dstloc.pos.y, dstloc.layer, msg.c_str());
             TokenList tl = src->getAttr("destination");  // may be empty or may contain some tokens
             tl.push_back(GetFloor(dstloc.pos));  // use floor to guarantee existence);
-            src->set_attrib("destination", tl);
+            src->setAttr("destination", tl);
             return;
         }
     }
@@ -1832,7 +1832,7 @@ void AddSignal (const GridLoc &srcloc, const GridLoc &dstloc, const string &msg)
         Log << "AddSignal for st-actorimpulse\n";
         ObjectList ol = src->getDefaultedAttr("$!oxyd!destinations", Value(Value::GROUP));
         ol.push_back(dstValue);
-        src->set_attrib("$!oxyd!destinations", ol);
+        src->setAttr("$!oxyd!destinations", ol);
         return;
     }
     
@@ -1856,7 +1856,7 @@ void AddSignal (const GridLoc &srcloc, const GridLoc &dstloc, const string &msg)
     if (src->getObjectType() == Object::ITEM) {
         ItemID src_id = get_id(dynamic_cast<Item *>(src));
         if (src_id >= it_key_a && src_id <= it_key_c && dst->is_kind("st_key")) {
-            dst->set_attrib("keycode", src->getAttr("keycode"));
+            dst->setAttr("keycode", src->getAttr("keycode"));
             return;
         }
     }
@@ -1865,10 +1865,10 @@ void AddSignal (const GridLoc &srcloc, const GridLoc &dstloc, const string &msg)
     // are not set by other means than this function:
     TokenList targets = src->getDefaultedAttr(target_key, Value(Value::TOKENS));    
     targets.push_back(dstValue);   // add this target to existing ones
-    src->set_attrib(target_key, Value(targets));
+    src->setAttr(target_key, Value(targets));
     TokenList actions = src->getDefaultedAttr(action_key, Value(Value::TOKENS));    
     actions.push_back(Value("signal"));   // add this target to existing ones
-    src->set_attrib(action_key, Value(actions));
+    src->setAttr(action_key, Value(actions));
 }
 
 

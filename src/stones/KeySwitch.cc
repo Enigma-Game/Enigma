@@ -26,7 +26,7 @@
 
 namespace enigma {
     KeySwitch::KeySwitch() : Stone () {
-        set_attrib("keycode", Value(1));
+        setAttr("keycode", Value(1));
     }
 
     void KeySwitch::setState(int extState) {
@@ -61,7 +61,7 @@ namespace enigma {
             if (state == ON) {
                 if (!inv->is_full()) {
                     Item *key = MakeItem("it-key");
-                    key->set_attrib ("keycode", getAttr("keycode"));
+                    key->setAttr("keycode", getAttr("keycode"));
                     inv->add_item(key);
                     toggle = true;
                 }

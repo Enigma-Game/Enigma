@@ -1877,7 +1877,7 @@ static int dispatchWorldWriteAccess(lua_State *L) {
         std::string name = lua_tostring(L, 2);
         // TODO check string
         
-        WorldProxy::instance()->set_attrib(name, to_value(L, 3));
+        WorldProxy::instance()->setAttr(name, to_value(L, 3));
         return 0;
     } else if ((is_object(L, 2) || is_position(L, 2) || is_table(L, 2) || is_group(L, 2)) && 
             ((is_table(L, 3)) || is_tile(L, 3))) {

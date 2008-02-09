@@ -44,7 +44,7 @@ namespace enigma {
         BoulderStone(Direction dir = NORTH);
         
         // Object interface
-        virtual void set_attrib(const string& key, const Value &val);
+        virtual void setAttr(const string& key, const Value &val);
         virtual Value message(const Message &m);
         
         // StateObject interface

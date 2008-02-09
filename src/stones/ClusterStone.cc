@@ -22,19 +22,19 @@
 
 namespace enigma {
     ClusterStone::ClusterStone(std::string classname, std::string connections) : Stone(classname.c_str()) {
-        set_attrib("connections", connections);
+        setAttr("connections", connections);
     }
     
-    void ClusterStone::set_attrib(const string& key, const Value &val) {
+    void ClusterStone::setAttr(const string& key, const Value &val) {
         if (key == "connections" || key == "faces" || key == "cluster") {
-            Stone::set_attrib(key, val);
+            Stone::setAttr(key, val);
             if (isDisplayable()) {
                 autoLeaveCluster();
                 autoJoinCluster();
             }
             return;
         }
-        Stone::set_attrib(key, val);
+        Stone::setAttr(key, val);
     }
     
     Value ClusterStone::message(const Message &m) {
@@ -68,21 +68,21 @@ namespace enigma {
                 Value neighbourCluster = neighbour->getAttr("cluster");
                 if (myCluster) {
                     if (myCluster == neighbourCluster) {
-                        set_attrib("$connections", getConnections() | to_bits(d));
-                        neighbour->set_attrib("$connections", neighbour->getConnections() | to_bits(reverse(d)));
+                        setAttr("$connections", getConnections() | to_bits(d));
+                        neighbour->setAttr("$connections", neighbour->getConnections() | to_bits(reverse(d)));
                     } else if (!neighbourCluster && neighbour->getConnections() & to_bits(reverse(d))) {
-                        set_attrib("$connections", getConnections() | to_bits(d));
+                        setAttr("$connections", getConnections() | to_bits(d));
                     } else {
-                        set_attrib("$connections", getConnections() & (ALL_DIRECTIONS ^ to_bits(d))); // clear connection
+                        setAttr("$connections", getConnections() & (ALL_DIRECTIONS ^ to_bits(d))); // clear connection
                     }
                 } else if (neighbourCluster)  {// I have fixed connections -> adapt neighbour
                     if (getConnections() & to_bits(d))
-                        neighbour->set_attrib("$connections", neighbour->getConnections() | to_bits(reverse(d)));
+                        neighbour->setAttr("$connections", neighbour->getConnections() | to_bits(reverse(d)));
                     else
-                        neighbour->set_attrib("$connections", neighbour->getConnections() & (ALL_DIRECTIONS ^ to_bits(reverse(d))));
+                        neighbour->setAttr("$connections", neighbour->getConnections() & (ALL_DIRECTIONS ^ to_bits(reverse(d))));
                 }
             } else if (myCluster) { // no neighbour -> no connection
-                set_attrib("$connections", getConnections() & (ALL_DIRECTIONS ^ to_bits(d))); // clear connection
+                setAttr("$connections", getConnections() & (ALL_DIRECTIONS ^ to_bits(d))); // clear connection
             }
         }
     }
@@ -94,7 +94,7 @@ namespace enigma {
             Stone *neighbour = GetStone(move(p, d));
             if (neighbour != NULL && std::string(neighbour->get_kind()) == get_kind() 
                     && neighbour->getAttr("cluster")) {
-                neighbour->set_attrib("$connections", neighbour->getConnections() & (ALL_DIRECTIONS ^ to_bits(reverse(d))));
+                neighbour->setAttr("$connections", neighbour->getConnections() & (ALL_DIRECTIONS ^ to_bits(reverse(d))));
             }
         }
     }

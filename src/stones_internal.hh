@@ -85,7 +85,7 @@ namespace enigma {
         OnOffStone(const char *kind) 
         : Stone (kind) 
         { 
-            set_attrib("on", 0.0); 
+            setAttr("on", 0.0); 
         }
 
         bool is_on() const { 
@@ -94,7 +94,7 @@ namespace enigma {
 
         virtual void set_on(bool newon) {
             if (newon != is_on()) {
-                set_attrib("on", enigma::Value(newon));
+                setAttr("on", enigma::Value(newon));
                 init_model();
                 notify_onoff(newon);
             }

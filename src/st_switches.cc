@@ -195,7 +195,7 @@ const char *LaserSwitch::get_inactive_model() const {
 LaserTimeSwitch::LaserTimeSwitch(const char *kind)
     : LaserTimeSwitchBase(kind)
 {
-    set_attrib("delay", 1.8);
+    setAttr("delay", 1.8);
 }
 
 const char *LaserTimeSwitch::get_active_model() const { 

@@ -392,7 +392,7 @@ LaserStone::InstanceList LaserStone::instances;
 LaserStone::LaserStone (Direction dir)
 : OnOffStone("st-laser")
 {
-    set_attrib("dir", Value(dir));
+    setAttr("dir", Value(dir));
 }
 
 DirectionBits
@@ -451,7 +451,7 @@ namespace
 
         bool is_transparent() const { return getAttr("transparent") != 0; }
 
-        void set_orientation(int o) { set_attrib("orientation", o); }
+        void set_orientation(int o) { setAttr("orientation", o); }
         int get_orientation() { return getAttr("orientation"); }
 
         void emit_light(Direction dir) {
@@ -463,7 +463,7 @@ namespace
         }
 
         void init_model();
-        void set_attrib(const string& key, const Value &val);
+        void setAttr(const string& key, const Value &val);
 
     private:
 
@@ -500,15 +500,15 @@ namespace
 MirrorStone::MirrorStone(const char *name, bool movable, bool transparent)
 : Stone(name), outdirs(NODIRBIT)
 {
-    set_attrib("transparent", transparent);
-    set_attrib("movable", movable);
-    set_attrib("orientation", Value(1));
+    setAttr("transparent", transparent);
+    setAttr("movable", movable);
+    setAttr("orientation", Value(1));
     traits.name = "st-mirror";
     traits.id = st_INVALID;
     traits.flags = stf_none;
     traits.material = material_stone;
     traits.restitution = 1.0;
-    //traits.movable is already set via set_attrib("movable", ...);
+    //traits.movable is already set via setAttr("movable", ...);
 }
 
 void MirrorStone::init_model() {
@@ -584,8 +584,8 @@ void MirrorStone::rotate_right()
     sound_event ("mirrorturn");
 }
 
-void MirrorStone::set_attrib(const string& key, const Value &val) {
-    Stone::set_attrib(key, val);
+void MirrorStone::setAttr(const string& key, const Value &val) {
+    Stone::setAttr(key, val);
     if (key == "movable")
         traits.movable = to_bool(val) ? MOVABLE_STANDARD : MOVABLE_PERSISTENT;
 }

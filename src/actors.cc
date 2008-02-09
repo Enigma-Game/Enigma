@@ -100,7 +100,7 @@ Actor::Actor (const ActorTraits &tr)
   respawnpos(), use_respawnpos(false),
   spikes(false), controllers (0), left (NULL), right (NULL)
 {
-    set_attrib("mouseforce", 0.0);
+    setAttr("mouseforce", 0.0);
 
     // copy default properties to dynamic properties
     m_actorinfo.mass = tr.default_mass;
@@ -276,13 +276,13 @@ bool Actor::sound_event (const char *name, double vol) {
     return sound::EmitSoundEvent (name, get_pos(), getVolume(name, this, vol));
 }
 
-void Actor::set_attrib(const string& key, const Value &val)
+void Actor::setAttr(const string& key, const Value &val)
 {
     if (key == "controllers")
         controllers = to_int (val);
     else if (key == "mouseforce") 
         mouseforce = to_double (val);
-    Object::set_attrib (key, val);
+    Object::setAttr(key, val);
 }
 
 
@@ -293,7 +293,7 @@ namespace
     /*! The base class for rotors and spinning tops. */
     class RotorBase : public Actor {
     public:
-        void   set_attrib (const string& key, const Value &val);
+        void   setAttr (const string& key, const Value &val);
     protected:
         RotorBase(const ActorTraits &tr);
     private:
@@ -321,14 +321,14 @@ namespace
 RotorBase::RotorBase(const ActorTraits &tr)
 : Actor(tr), attackCurrentOnly(false), timeKeepAttackStrategy(0)
 {
-    set_attrib ("range", 5.0);
-    set_attrib ("force", 10.0);
-    set_attrib ("gohome", 1.0);
-    set_attrib ("attacknearest", 1.0);
-    set_attrib ("prefercurrent", 0.0);
+    setAttr("range", 5.0);
+    setAttr("force", 10.0);
+    setAttr("gohome", 1.0);
+    setAttr("attacknearest", 1.0);
+    setAttr("prefercurrent", 0.0);
 }
 
-void RotorBase::set_attrib(const string& key, const Value &val)
+void RotorBase::setAttr(const string& key, const Value &val)
 {
     if (key == "range")
         range = to_double(val);
@@ -340,7 +340,7 @@ void RotorBase::set_attrib(const string& key, const Value &val)
         attacknearest = (to_int(val) != 0);
     else if (key == "prefercurrent") 
         prefercurrent = to_double(val);
-    Actor::set_attrib (key, val);
+    Actor::setAttr(key, val);
 }
 
 void RotorBase::think (double dtime)
@@ -495,7 +495,7 @@ Horse::Horse()
   m_targetidx(-1),
   m_target()
 {
-    set_attrib("force", Value(10.0));
+    setAttr("force", Value(10.0));
 }
  
 void Horse::think (double /* dtime */) 
@@ -1176,10 +1176,10 @@ namespace
     public:
         BlackBall() : BasicBall(traits)
         {
-            set_attrib("mouseforce", Value(1.0));
-            set_attrib("color", Value(0.0));
-            set_attrib("player", Value(0.0));
-            set_attrib("controllers", Value(1.0));
+            setAttr("mouseforce", Value(1.0));
+            setAttr("color", Value(0.0));
+            setAttr("player", Value(0.0));
+            setAttr("controllers", Value(1.0));
         }
     };
 
@@ -1189,10 +1189,10 @@ namespace
     public:
         WhiteBall() : BasicBall(traits)
         {
-            set_attrib("mouseforce", Value(1.0));
-            set_attrib("color", Value(1.0));
-            set_attrib("player", Value(1.0));
-            set_attrib("controllers", Value(2.0));
+            setAttr("mouseforce", Value(1.0));
+            setAttr("color", Value(1.0));
+            setAttr("player", Value(1.0));
+            setAttr("controllers", Value(2.0));
         }
     };
 
@@ -1202,9 +1202,9 @@ namespace
     public:
         WhiteBall_Small() : BasicBall(traits)
         {
-            set_attrib("mouseforce", Value(1.0));
-            set_attrib("color", Value(1.0));
-            set_attrib("controllers", Value(3.0));
+            setAttr("mouseforce", Value(1.0));
+            setAttr("color", Value(1.0));
+            setAttr("controllers", Value(3.0));
             maxSinkDepth = 4;
         }
     };
@@ -1216,9 +1216,9 @@ namespace
 
         Killerball() : Actor (traits)
         {
-            set_attrib("mouseforce", Value(2.0));
-            set_attrib("color", Value(1.0));
-            set_attrib("controllers", Value(3.0));
+            setAttr("mouseforce", Value(2.0));
+            setAttr("color", Value(1.0));
+            setAttr("controllers", Value(3.0));
         }
         bool is_dead() const { return false; }
 

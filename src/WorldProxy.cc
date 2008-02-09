@@ -88,7 +88,7 @@ namespace enigma {
         return Value(Value::DEFAULT);
     }  
 
-    void WorldProxy::set_attrib(const string& key, const Value &val) {
+    void WorldProxy::setAttr(const string& key, const Value &val) {
         if (key == "AllowSingleOxyds") {
             server::AllowSingleOxyds = val;
         } else if (key == "AllowTogglePlayer") {
