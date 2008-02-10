@@ -152,7 +152,11 @@ namespace enigma {
     bool ObjectValidator::validateMessage(Object *obj, std::string msg, Value val) {
         KindDescriptor *kind = getKindDesc(obj->getClass());
         if (kind == NULL) {
-            return true;    // object is not under validator control
+            // object is not under validator control
+            if (obj->getAttr(msg))
+                return false;       // default attribute value - try message
+            else
+                return true;        // existing attribute value - deny message
         }
         return kind->validateMessage(msg);
     }

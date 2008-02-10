@@ -154,6 +154,8 @@ namespace enigma {
 
     /* Create a new, empty world with width `w' and height `h`. */
     void Resize (int w, int h);
+    int Width();
+    int Height();
 
     /* Initialize the world after loading it.  Call this after loading
        the world to force laser beams to be recalculated etc. */

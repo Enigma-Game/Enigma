@@ -18,8 +18,9 @@
  */
 
 #include "WorldProxy.hh"
-#include "server.hh"
 #include "display.hh"
+#include "server.hh"
+#include "world.hh"
 
 namespace enigma {
  
@@ -48,14 +49,16 @@ namespace enigma {
             return server::ConserveLevel;
         } else if (key == "CreatingPreview") {
             return server::CreatingPreview;  // read only
+        } else if (key == "Height") {
+            return Height();
         } else if (key == "IsDifficult") {
             return (server::GetDifficulty() == DIFFICULTY_HARD);  // read only
         } else if (key == "LevelTime") {   
             return server::LevelTime;    // read only
         } else if (key == "ShowMoves") {
             return server::ShowMoves;
-        } else if (key == "ShowMoves") {
-            return server::ShowMoves;
+        } else if (key == "Width") {
+            return Width();
         } else if (key == "Brittleness") {
             return server::Brittleness;
         } else if (key == "BumperForce") {

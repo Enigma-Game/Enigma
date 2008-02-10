@@ -98,6 +98,8 @@ namespace enigma { namespace lua {
     Error CallFunc (lua_State *L, const char *funcname, const ByteVec &arg);
     
     std::string NewMessageName(lua_State *L, const Object *obj, const std::string &message);
+    
+    void SetDefaultFloor(lua_State *L, int x, int y);
 
     /**
      * Run a Lua script using a given absolute path.

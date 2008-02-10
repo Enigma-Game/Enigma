@@ -138,8 +138,8 @@ namespace enigma {
         {"st_switch_black", st_switch, stf_none, material_stone, 1.0, MOVABLE_PERSISTENT},
         {"st_switch_white", st_switch, stf_none, material_stone, 1.0, MOVABLE_PERSISTENT},
         {"st_switch_instant", st_switch, stf_none, material_stone, 1.0, MOVABLE_PERSISTENT},
-        {"st_switch_instantblack", st_switch, stf_none, material_stone, 1.0, MOVABLE_PERSISTENT},
-        {"st_switch_instantwhite", st_switch, stf_none, material_stone, 1.0, MOVABLE_PERSISTENT},
+        {"st_switch_instant_black", st_switch, stf_none, material_stone, 1.0, MOVABLE_PERSISTENT},
+        {"st_switch_instant_white", st_switch, stf_none, material_stone, 1.0, MOVABLE_PERSISTENT},
     };
     
     BOOT_REGISTER_START

@@ -1,6 +1,6 @@
 /*
  * Copyright (C) 2002,2003,2004 Daniel Heck
- * Copyright (C) 2007 Ronald Lamprecht
+ * Copyright (C) 2007,2008 Ronald Lamprecht
  *
  * This program is free software; you can redistribute it and/or
  * modify it under the terms of the GNU General Public License
@@ -60,6 +60,11 @@ extern "C" {
 #define LUA_ID_GROUP    "_GROUP"
 #define LUA_ID_TILES    "_TILES"
 #define LUA_ID_TILE     "_TILE"
+/**
+ * The tile dictionary or function that should be used to resolve tile keys.
+ */
+#define LUA_ID_RESOLVER "_RESOLVER"
+#define LUA_ID_FLOORKEY "_FLOORKEY"
 
 using namespace std;
 
@@ -1678,9 +1683,28 @@ static int pushNewNamedObj(lua_State *L) {
 
 MethodMap worldMethodeMap;
 
+static int registerWorldUserMethod(lua_State *L) {
+    // object, name, function
+    if (!(lua_isstring(L, 2) && lua_isfunction(L, 3))) {
+        throwLuaError(L, "World register method argument error");
+        return 0;
+    }
+    lua_getmetatable(L, 1);  // world metatable
+    lua_getfield(L, -1, "_usermethods");
+    if (lua_isnil(L, -1)) {
+        lua_pop(L, 1);      // the bogus nil
+        lua_newtable(L);    // create usermethods
+        lua_pushvalue(L, -1);   // dup to be poped by setfield
+        lua_setfield(L, -3, "_usermethods");
+    }
+    lua_pushvalue(L, 2);  // the key string as index
+    lua_pushvalue(L, 3);  // the function as value
+    lua_settable(L, -3);
+    return 0;
+}
 
 static int dispatchWorldReadAccess(lua_State *L) {
-    // 
+    // world, key
     if (lua_isstring(L, 2)) {
         std::string keyStr = lua_tostring(L, 2);
         // TODO check string
@@ -1689,8 +1713,20 @@ static int dispatchWorldReadAccess(lua_State *L) {
             // call method
             lua_pushcfunction(L, iter->second);
         } else {
-            Value v = WorldProxy::instance()->getAttr(keyStr);
-            push_value(L, v);
+            if (Value v = WorldProxy::instance()->getAttr(keyStr))
+                push_value(L, v);
+            else {
+                lua_getmetatable(L, 1);  // world metatable
+                lua_getfield(L, -1, "_usermethods");
+                if (!lua_isnil(L, -1)) {
+                    lua_pushvalue(L, 2);
+                    lua_gettable(L, -2);
+                    if (lua_isfunction(L, -1))
+                        return 1;
+                }
+                throwLuaError(L, "World read access without a valid key");
+                return 0;
+            }
         }
         return 1;
     } else {
@@ -1700,7 +1736,7 @@ static int dispatchWorldReadAccess(lua_State *L) {
 }
 
 
-static int setObjectByTable(lua_State *L, double x, double y) {
+static int setObjectByTable(lua_State *L, double x, double y, bool onlyFloors = false) {
     // table at -1 
     int xi = round_down<int>(x);
     int yi = round_down<int>(y);
@@ -1719,15 +1755,18 @@ static int setObjectByTable(lua_State *L, double x, double y) {
     }
     
     if (name == "fl_nil") {
-        KillFloor(GridPos(xi, yi));
+        if (!onlyFloors)
+            KillFloor(GridPos(xi, yi));
         lua_pop(L, 1);   // object type
         return 0;
     } else if (name == "st_nil") {
-        KillStone(GridPos(xi, yi));
+        if (!onlyFloors)
+            KillStone(GridPos(xi, yi));
         lua_pop(L, 1);   // object type
         return 0;
     } else if (name == "it_nil") {
-        KillItem(GridPos(xi, yi));
+        if (!onlyFloors)
+            KillItem(GridPos(xi, yi));
         lua_pop(L, 1);   // object type
         return 0;
     }
@@ -1748,23 +1787,30 @@ static int setObjectByTable(lua_State *L, double x, double y) {
             SetFloor(GridPos(xi,yi), dynamic_cast<Floor *>(obj));
             break;
         case Object::STONE :
-            SetStone(GridPos(xi,yi), dynamic_cast<Stone *>(obj));
+            if (!onlyFloors)
+                SetStone(GridPos(xi,yi), dynamic_cast<Stone *>(obj));
+            else
+                DisposeObject(obj);
             break;
         case Object::ITEM  :
-            SetItem(GridPos(xi,yi), dynamic_cast<Item *>(obj));
+            if (!onlyFloors)
+                SetItem(GridPos(xi,yi), dynamic_cast<Item *>(obj));
             break;
         case Object::ACTOR :
-            lua_rawgeti(L, -1, 2);
-            if (lua_isnumber(L, -1))
-                x += lua_tonumber(L, -1);
-            lua_rawgeti(L, -2, 3);
-            if (lua_isnumber(L, -1))
-                y += lua_tonumber(L, -1);
-            lua_pop(L, 2);               
-            if (IsInsideLevel(GridPos(round_down<int>(x), round_down<int>(y)))) 
-                AddActor(x, y, dynamic_cast<Actor *>(obj));
-            else
-                throwLuaError(L, "World: actor addition to position outside of world");
+            if (!onlyFloors) {
+                lua_rawgeti(L, -1, 2);
+                if (lua_isnumber(L, -1))
+                    x += lua_tonumber(L, -1);
+                lua_rawgeti(L, -2, 3);
+                if (lua_isnumber(L, -1))
+                    y += lua_tonumber(L, -1);
+                lua_pop(L, 2);               
+                if (IsInsideLevel(GridPos(round_down<int>(x), round_down<int>(y)))) 
+                    AddActor(x, y, dynamic_cast<Actor *>(obj));
+                else
+                    throwLuaError(L, "World: actor addition to position outside of world");
+            } else
+                DisposeObject(obj);
             break;
         default :
             throwLuaError(L, "World set of unknown object");
@@ -1772,7 +1818,7 @@ static int setObjectByTable(lua_State *L, double x, double y) {
     return 0;
 }
 
-static int setObjectByTile(lua_State *L, double x, double y) {
+static int setObjectByTile(lua_State *L, double x, double y, bool onlyFloors = false) {
     // tile at -1
     
     // this is a recursive function - ensure enough space on the stack
@@ -1782,25 +1828,88 @@ static int setObjectByTile(lua_State *L, double x, double y) {
     lua_getmetatable(L, -1);
     lua_rawgeti(L, -1, 1);    // first tile part
     if (is_tile(L, -1))
-        setObjectByTile(L, x, y);
+        setObjectByTile(L, x, y, onlyFloors);
     else
-        setObjectByTable(L, x, y);
+        setObjectByTable(L, x, y, onlyFloors);
     lua_pop(L, 1);  // tile or table
     lua_rawgeti(L, -1, 2);    // second optional tile part
     if (!lua_isnil(L, -1)) {
         if (is_tile(L, -1))
-            setObjectByTile(L, x, y);
+            setObjectByTile(L, x, y, onlyFloors);
         else
-            setObjectByTable(L, x, y);
+            setObjectByTable(L, x, y, onlyFloors);
     }
     lua_pop(L, 2);  // tile or table or nil + metatable
     return 0;
 }
 
-static int initWorld(lua_State *L) {
+static int setObjectByKey(lua_State *L, std::string key, int j, int i, bool onlyFloors = false) {
+    lua_getfield(L, LUA_REGISTRYINDEX, LUA_ID_RESOLVER);
+    lua_pushvalue(L, -1);
+    lua_pushstring(L, key.c_str());
+    if (is_tiles(L, -2)) {
+        lua_gettable(L, -2);        // get tile entry in table
+        lua_remove(L, -2);          // remove extra copy of tile as resolver
+    } else {
+        lua_pushinteger(L, j);
+        lua_pushinteger(L, i);
+        int retval=lua_pcall(L, 3, 1, 0);
+        if (retval!=0) {
+            throwLuaError(L, "Error within tile key resolver");
+            return 0;
+        }
+        // check result - must be tile or table
+        if (!(is_tile(L, -1) || is_table(L, -1))) {
+            throwLuaError(L, "Tile key resolver error - expected tile or table as return value");
+            return 0;
+        }
+    }   
+    if (lua_isnil(L, -1)) {
+        throwLuaError(L, ecl::strf("World init undefined tile '%s' at %d, %d", 
+                key.c_str(), j, i).c_str());
+        return 0;
+    }
+    setObjectByTile(L, j, i, onlyFloors);
+    lua_pop(L, 1);  // tile
+    if (GetFloor(GridPos(j, i)) == NULL) {
+        lua_pushvalue(L, -1);
+        lua_getfield(L, LUA_REGISTRYINDEX, LUA_ID_FLOORKEY);
+        if (is_tiles(L, -2)) {
+            lua_gettable(L, -2);        // get tile entry in table
+            lua_remove(L, -2);          // remove extra copy of tile as resolver
+        } else {
+            lua_pushinteger(L, j);
+            lua_pushinteger(L, i);
+            int retval=lua_pcall(L, 3, 1, 0);
+            if (retval!=0) {
+                throwLuaError(L, "Error within tile key resolver");
+                return 0;
+            }
+            // check result - must be tile or table
+            if (!(is_tile(L, -1) || is_table(L, -1))) {
+                throwLuaError(L, "Tile key resolver error - expected tile or table as return value");
+                return 0;
+            }
+        }   
+        if (lua_isnil(L, -1)) {
+            throwLuaError(L, ecl::strf("World init undefined default tile at %d, %d",  j, i).c_str());
+            return 0;
+        }
+        setObjectByTile(L, j, i, true);   // limit to floor set
+        lua_pop(L, 1);  // default tile
+        if (GetFloor(GridPos(j, i)) == NULL) {
+            throwLuaError(L, ecl::strf("World no floor at %d, %d", j, i).c_str());
+            return 0;
+        }
+    }
+    lua_pop(L, 1);  // resolver
+    return 0;
+}
+
+static int createWorld(lua_State *L) {
     // world, (ti|function), string, table
     if (server::WorldSized) {
-        throwLuaError(L, "World reinitialization not allowed");
+        throwLuaError(L, "World recreation not allowed");
         return 0;
     }
     
@@ -1808,61 +1917,74 @@ static int initWorld(lua_State *L) {
     int height = 0;
     int keyLength = 1;
     std::string defaultKey;
-    if (!(is_tiles(L, 2) && lua_isstring(L, 3) && is_table(L, 4))) {
-        throwLuaError(L, "World init with false argument types");
+    if (!((is_tiles(L, 2)||lua_isfunction(L, 2)) && lua_isstring(L, 3) && 
+            (is_table(L, 4) || (lua_isnumber(L, 4) && lua_isnumber(L, 5))))) {
+        throwLuaError(L, "World create with false argument types");
         return 0;
     }
+    
+    // remember resolver and default key for missing floors
+    lua_pushvalue(L, 2);
+    lua_setfield(L, LUA_REGISTRYINDEX, LUA_ID_RESOLVER);  
+    lua_pushvalue(L, 3);
+    lua_setfield(L, LUA_REGISTRYINDEX, LUA_ID_FLOORKEY);  
+    
     defaultKey = lua_tostring(L, 3);
     keyLength = defaultKey.length();
-    height = lua_objlen(L, 4);
     std::vector<std::string> lines;
-    Log << "initWorld  keyLength " << keyLength <<"\n";
-    for (int i = 1; i <= height; i++) {
-        lua_pushinteger(L, i);
-        lua_gettable(L, -2);
-        if (!lua_isstring(L, -1)) {
-            throwLuaError(L, "World init table has enties that are no strings");
+    Log << "createWorld  keyLength " << keyLength <<"\n";
+    
+    if (is_table(L, 4)) {
+        height = lua_objlen(L, 4);
+        for (int i = 1; i <= height; i++) {
+            lua_pushinteger(L, i);
+            lua_gettable(L, -2);
+            if (!lua_isstring(L, -1)) {
+                throwLuaError(L, "World create map has enties that are no strings");
+                return 0;
+            }
+            lines.push_back(lua_tostring(L, -1));
+            lua_pop(L, 1);
+            width = ecl::Max(width, (int)lines.back().length());
+        }
+        if (width % keyLength != 0) {
+            throwLuaError(L, "World create map row with odd length");
             return 0;
         }
-        lines.push_back(lua_tostring(L, -1));
-        lua_pop(L, 1);
-        width = ecl::Max(width, (int)lines.back().length());
+        width = width/keyLength;
+    } else {
+        width = lua_tointeger(L, 4);
+        height = lua_tointeger(L, 5);
+        if (width <= 0 || height <= 0) {
+            throwLuaError(L, "World create with bad size");
+            return 0;
+        }
+        for (int i = 0; i < height; i++)
+            lines.push_back(""); 
     }
-    if (width % keyLength != 0) {
-        throwLuaError(L, "World init table row with odd length");
-        return 0;
-    }
-    width = width/keyLength;
-    Log << "initWorld  - w " << width << "  - h " << height << "\n";
-
-    Resize(width, height);
     
-    luaL_getmetatable(L, LUA_ID_TILES);
-    lua_rawgeti(L, -1, 1);               // tiles content table
+    Log << "createWorld  - w " << width << "  - h " << height << "\n";
+    Resize(width, height);
+    display::ResizeGameArea(ecl::Min<int>(20, width), ecl::Min<int>(13, height));
+    
     for (int i = 0; i < height; i++) {
         std::string &line = lines[i];
         int lineLength = line.length();
         if (lineLength % keyLength != 0) {
-            throwLuaError(L, "World init table row with odd length");
+            throwLuaError(L, "World create map row with odd length");
             return 0;
         }
         lineLength = lineLength / keyLength;
         for (int j = 0; j < width; j++) {
             std::string key;
+            bool isDefault = false;
             if (j < lineLength) {
                 key = line.substr(j*keyLength, keyLength);  // tiles key
             } else {
                 key = defaultKey;
+                isDefault = true;
             }
-            lua_pushstring(L, key.c_str());
-            lua_rawget(L, -2);        // get tile entry in table
-            if (lua_isnil(L, -1)) {
-                throwLuaError(L, ecl::strf("World init undefined tile '%s' at %d, %d", 
-                        key.c_str(), j, i).c_str());
-                return 0;
-            }
-            setObjectByTile(L, j, i);
-            lua_pop(L, 1);  // tile
+            setObjectByKey(L, key, j, i, isDefault);
         }
     }
     lua_pushinteger(L, width);
@@ -2387,12 +2509,13 @@ static CFunction namedObjMethods[] = {
 static CFunction worldOperations[] = {
     {dispatchWorldWriteAccess,      "__newindex"}, //  obj[key]=value
     {dispatchWorldReadAccess,       "__index"},    //  obj[key]
-    {initWorld,                     "__call"},
+    {createWorld,                   "__call"},
     {0,0}
 };
 
 static CFunction worldMethods[] = {
-    {initWorld,                     "init"},
+    {createWorld,                   "create"},
+    {registerWorldUserMethod,       "_register"},
     {getFloor,                      "fl"},
     {getItem,                       "it"},
     {getStone,                      "st"},
@@ -2557,6 +2680,13 @@ std::string NewMessageName(lua_State *L, const Object *obj, const std::string &m
     }
     lua_pop(L, 1);
     return result;
+}
+
+void SetDefaultFloor(lua_State *L, int x, int y) {
+    lua_getfield(L, LUA_REGISTRYINDEX, LUA_ID_FLOORKEY);
+    std::string key = lua_tostring(L, -1);
+    setObjectByKey(L, key, x, y, true);
+    lua_pop(L, 1);
 }
 
 Error DoAbsoluteFile(lua_State *L, const string &filename)

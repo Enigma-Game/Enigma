@@ -1560,6 +1560,15 @@ void Resize (int w, int h)
     server::WorldSized = true;
 }
 
+int Width() {
+    return level->w;
+}
+
+int Height() {
+    return level->h;
+}
+
+
 void WorldPrepareLevel ()
 {
     GameTimer.clear();
@@ -2006,6 +2015,7 @@ const Field *GetField (GridPos p)
 void KillFloor(GridPos p) 
 {
     level->fl_layer.kill(p);
+    lua::SetDefaultFloor(lua::LevelState(), p.x, p.y);
 }
 
 Floor *GetFloor(GridPos p) 

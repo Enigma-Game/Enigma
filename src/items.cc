@@ -1366,9 +1366,10 @@ namespace
     }
     
     Value Trigger::message (const Message &m) {
-        if (m.message == "signal") {
+        if (m.message == "signal" && (server::GameCompatibility != GAMET_ENIGMA || 
+                server::EnigmaCompatibility < 1.10)) {
             performAction(m.value.to_bool());  // convert 1/0 values to true/false
-            return Value();                
+            return Value();
         } else if (m.message == "_init") {
             // the state count at init is wrong as some actors on the grid may
             // already have existed on_creation, but all are reported via
