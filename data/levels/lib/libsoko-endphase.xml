@@ -369,8 +369,10 @@ function endphase_set_block_oxyds(sokoarea_number, blocker, max_pairs)
           return false
         end
       end
-      table.insert(oxyds, {lx = x-dx, ly = y-dy,
-          blocker = {lx = x, ly = y, oxyd = {lx = x-dx, ly = y-dy}}})
+      table.insert(oxyds,
+         {lx = x-dx, ly = y-dy,
+          blocker = {lx = x, ly = y, oxyd = {lx = x-dx, ly = y-dy}},
+          way = {lx = x+dx, ly = y+dy}})
       return true
     end
     return false
@@ -681,6 +683,7 @@ function endphase_vortex(sokoarea_number)
   for p, v in pairs(list_way) do
     list_way[p].component = nil
   end
+
   -- Analyse connected components of list_way, separated by goals.
   local function mark_component(lx, ly)
     if     (list_way[lx.."/"..ly])
@@ -700,20 +703,55 @@ function endphase_vortex(sokoarea_number)
   for p, v in pairs(list_way) do
     if (not list_way[p].component) and (not sokoarea[nr].list_goal[p]) then
       components = components + 1
-      component[components] = {}
+      component[components] = {oxyds = 0}
       mark_component(v.lx, v.ly)      
     end    
   end
-  -- If only one component, exit, player will find his way alone.
+
+  -- If only one component, exit, player will find his or her way alone.
   if components < 2 then
     return
   end
+
+  -- Analyse oxyds and to which components they belong to.
+  for p, v in pairs(sokoarea[nr].list_oxyd) do
+    local component_number = list_way[v.blocker.lx.."/"..v.blocker.ly].component or -1
+    if component_number == -1 then
+      set_item("it-banana", v.blocker.lx, v.blocker.ly)
+      mydebug("Banana on "..v.blocker.lx.."/"..v.blocker.ly)
+    else
+      component[component_number].oxyds = component[component_number].oxyds + 1
+    end
+  end  
+
+  -- Let there be at most max(5, number-of-oxyd-components)
+  -- components, plus the one the marble actually occupies.
+  local t = {}  -- helper table: components with oxyds or marble
+  local u = {}  -- helper table: all components except t
+  local mx, my = enigma.GetPos(enigma.GetNamedObject("marble_"..nr.."_1"))
+  local marble_component = (list_way[mx.."/"..my] or {}).component
+  for j = 1, components do
+    if (component[j].oxyds > 0) or (j == marble_component) then
+      table.insert(t, component[j])
+    else
+      table.insert(u, component[j])
+    end
+  end
+  luatools.shuffle_table(u)
+  while (table.getn(t) < 5) and (table.getn(u) > 0) do
+    table.insert(t, u[table.getn(u)])
+    table.remove(u)
+  end
+  component = t
+  components = table.getn(component)
+  u = nil
+
   -- From each component, choose one tile and save the {lx,ly}-entry
   local vortex = {}
   for j = 1, components do
     table.insert(vortex, component[j][random(1, table.getn(component[j]))])
   end
-
+  
   -- Find a cyclic permutation (i.e. with only one cycle) to connect the
   -- vortices (each vortex shall be reached by starting from any other).
   local sequence = {}

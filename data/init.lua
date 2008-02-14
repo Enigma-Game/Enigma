@@ -377,6 +377,9 @@ GetKind   = enigma.GetKind
 
 function set_attribs(obj, attrs)
     if not attrs then return end
+    if type(attrs) ~= "table" then
+        error("Can't assign attributes, expected table but got "..type(attrs)..".")
+    end
     for key,val in pairs(attrs) do
 	set_attrib(obj, key, val)
     end
