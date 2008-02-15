@@ -1741,6 +1741,10 @@ static int setObjectByTable(lua_State *L, double x, double y, bool onlyFloors = 
     int xi = round_down<int>(x);
     int yi = round_down<int>(y);
     Object *obj = NULL;
+    
+    if (lua_objlen(L, -1) == 0) {  // empty table as set nothing operation
+        return 0;
+    }
     lua_rawgeti(L, -1, 1);
     if (!lua_isstring(L, -1)) {
         throwLuaError(L, "World: object type string missing");
@@ -1843,17 +1847,24 @@ static int setObjectByTile(lua_State *L, double x, double y, bool onlyFloors = f
     return 0;
 }
 
-static int setObjectByKey(lua_State *L, std::string key, int j, int i, bool onlyFloors = false) {
-    lua_getfield(L, LUA_REGISTRYINDEX, LUA_ID_RESOLVER);
-    lua_pushvalue(L, -1);
-    lua_pushstring(L, key.c_str());
-    if (is_tiles(L, -2)) {
-        lua_gettable(L, -2);        // get tile entry in table
-        lua_remove(L, -2);          // remove extra copy of tile as resolver
-    } else {
-        lua_pushinteger(L, j);
-        lua_pushinteger(L, i);
-        int retval=lua_pcall(L, 3, 1, 0);
+static int evaluateKey(lua_State *L) {
+    // resolver, key, x, y
+    // (ti|function|table), string, int, int
+    if (!(lua_isnumber(L, -1) && lua_isnumber(L, -2) && lua_isstring(L, -3) &&
+            (is_tiles(L, -4) || lua_isfunction(L, -4) || is_table(L, -4)))) {
+        throwLuaError(L, "Resolver with false argument types");
+        return 0;
+    }
+    if (is_tiles(L, -4)) {
+        lua_pushvalue(L, -3);       // duplicate key
+        lua_gettable(L, -5);        // get tile entry in table, remove key duplicate
+        return 1;
+    } else if (lua_isfunction(L, -4)) {
+        lua_pushvalue(L, -4);       // duplicate function
+        lua_pushvalue(L, -4);       // duplicate key
+        lua_pushvalue(L, -4);       // duplicate x
+        lua_pushvalue(L, -4);       // duplicate y
+        int retval=lua_pcall(L, 3, 1, 0);     // resolver(key,x,y) ->  tile
         if (retval!=0) {
             throwLuaError(L, "Error within tile key resolver");
             return 0;
@@ -1863,40 +1874,60 @@ static int setObjectByKey(lua_State *L, std::string key, int j, int i, bool only
             throwLuaError(L, "Tile key resolver error - expected tile or table as return value");
             return 0;
         }
-    }   
+        return 1;
+    } else {
+        lua_rawgeti(L, -4, 1);      // get resolver implementation at index 1
+        lua_pushvalue(L, -5);       // duplicate table as resolver context
+        lua_pushcfunction(L, evaluateKey);  // this evaluator for subsequent calls
+        lua_pushvalue(L, -6);       // duplicate key
+        lua_pushvalue(L, -6);       // duplicate x
+        lua_pushvalue(L, -6);       // duplicate y
+        int retval=lua_pcall(L, 5, 1, 0);     // resolver(context,evaluator,key,x,y) ->  tile
+        if (retval!=0) {
+            throwLuaError(L, "Error within tile key resolver");
+            return 0;
+        }        
+        // check result - must be tile or table
+        if (!(is_tile(L, -1) || is_table(L, -1))) {
+            throwLuaError(L, "Tile key resolver error - expected tile or table as return value");
+            return 0;
+        }
+        return 1;
+    }
+    return 0;
+}
+
+static int setObjectByKey(lua_State *L, std::string key, int j, int i, bool onlyFloors = false) {
+    lua_getfield(L, LUA_REGISTRYINDEX, LUA_ID_RESOLVER);
+    lua_pushvalue(L, -1);
+    lua_pushstring(L, key.c_str());
+    lua_pushinteger(L, j);
+    lua_pushinteger(L, i);
+    
+    evaluateKey(L);
+
     if (lua_isnil(L, -1)) {
         throwLuaError(L, ecl::strf("World init undefined tile '%s' at %d, %d", 
                 key.c_str(), j, i).c_str());
         return 0;
     }
     setObjectByTile(L, j, i, onlyFloors);
-    lua_pop(L, 1);  // tile
+    lua_pop(L, 5);  // tile, y, x, key, resolver
+
     if (GetFloor(GridPos(j, i)) == NULL) {
         lua_pushvalue(L, -1);
         lua_getfield(L, LUA_REGISTRYINDEX, LUA_ID_FLOORKEY);
-        if (is_tiles(L, -2)) {
-            lua_gettable(L, -2);        // get tile entry in table
-            lua_remove(L, -2);          // remove extra copy of tile as resolver
-        } else {
-            lua_pushinteger(L, j);
-            lua_pushinteger(L, i);
-            int retval=lua_pcall(L, 3, 1, 0);
-            if (retval!=0) {
-                throwLuaError(L, "Error within tile key resolver");
-                return 0;
-            }
-            // check result - must be tile or table
-            if (!(is_tile(L, -1) || is_table(L, -1))) {
-                throwLuaError(L, "Tile key resolver error - expected tile or table as return value");
-                return 0;
-            }
-        }   
+        lua_pushinteger(L, j);
+        lua_pushinteger(L, i);
+        
+        evaluateKey(L);
+        
         if (lua_isnil(L, -1)) {
             throwLuaError(L, ecl::strf("World init undefined default tile at %d, %d",  j, i).c_str());
             return 0;
         }
         setObjectByTile(L, j, i, true);   // limit to floor set
-        lua_pop(L, 1);  // default tile
+        lua_pop(L, 5);  // default tile
         if (GetFloor(GridPos(j, i)) == NULL) {
             throwLuaError(L, ecl::strf("World no floor at %d, %d", j, i).c_str());
             return 0;
@@ -1907,7 +1938,8 @@ static int setObjectByKey(lua_State *L, std::string key, int j, int i, bool only
 }
 
 static int createWorld(lua_State *L) {
-    // world, (ti|function), string, table
+    // world, resolver, default key, map
+    // world, (ti|function|table), string, table
     if (server::WorldSized) {
         throwLuaError(L, "World recreation not allowed");
         return 0;
@@ -1917,7 +1949,7 @@ static int createWorld(lua_State *L) {
     int height = 0;
     int keyLength = 1;
     std::string defaultKey;
-    if (!((is_tiles(L, 2)||lua_isfunction(L, 2)) && lua_isstring(L, 3) && 
+    if (!((is_tiles(L, 2)||lua_isfunction(L, 2)||is_table(L, 2)) && lua_isstring(L, 3) && 
             (is_table(L, 4) || (lua_isnumber(L, 4) && lua_isnumber(L, 5))))) {
         throwLuaError(L, "World create with false argument types");
         return 0;
@@ -2516,6 +2548,7 @@ static CFunction worldOperations[] = {
 static CFunction worldMethods[] = {
     {createWorld,                   "create"},
     {registerWorldUserMethod,       "_register"},
+    {evaluateKey,                    "_evaluate"},
     {getFloor,                      "fl"},
     {getItem,                       "it"},
     {getStone,                      "st"},
