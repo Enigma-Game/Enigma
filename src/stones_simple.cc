@@ -677,7 +677,7 @@ namespace
             return player::WieldedItemIs (a, "it-hammer");
         }
         virtual Value message(const Message &m) {
-            if (m.message == "trigger") {
+            if (m.message == "_trigger") {
                 break_me();
                 return Value();
             }
