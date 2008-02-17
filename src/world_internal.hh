@@ -340,6 +340,10 @@ typedef list<sound::SoundDamping> SoundDampingList;
         MouseForce           m_mouseforce;
         ConstantForce        m_flatforce;
         int                  scrambleIntensity;
+        int                  numMeditatists; 
+        int                  indispensableHollows;
+        int                  engagedIndispensableHollows;
+        int                  engagedDispensableHollows;
 
         //! True if game is not running yet
         bool                 preparing_level;

@@ -234,6 +234,11 @@ namespace enigma {
       and `st'. */
     bool HasRubberBand (Actor *a, Stone *st);
 
+/* -------------------- Meditation Control ---------------------- */
+
+    void ChangeMeditation(int diffMeditatists, int diffIndispensableHollows,
+            int diffEngagedIndispensableHollows, int diffEngagedDispensableHollows);
+
 /* -------------------- Puzzle Stone Scrambling -------------------- */
 
     void SetScrambleIntensity(int intensity);

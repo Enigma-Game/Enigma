@@ -297,11 +297,9 @@ void Layer<T>::set(GridPos p, T *x) {
 
 const double World::contact_e = 0.02;  // epsilon distant limit for contacts
 
-World::World(int ww, int hh) 
-: fields(ww,hh),
-  preparing_level(true),
-  leftmost_actor (NULL), rightmost_actor (NULL)
-{
+World::World(int ww, int hh) : fields(ww,hh), preparing_level(true),
+        leftmost_actor (NULL), rightmost_actor (NULL), numMeditatists (0), 
+        indispensableHollows (0), engagedIndispensableHollows(0), engagedDispensableHollows (0) {
     w = ww;
     h = hh;
 
@@ -403,6 +401,9 @@ void World::add_actor (Actor *a, const V2 &pos)
         // if game is already running, call on_creation() from here
         a->on_creation(pos);
     }
+    
+    if (get_id(a) == ac_meditation)
+        ChangeMeditation(+1, 0, 0, 0);
 }
 
 Actor * World::yield_actor(Actor *a) {
@@ -2248,6 +2249,21 @@ void ShatterActorsInsideField (const GridPos &p)
 
 
 /* -------------------- Functions -------------------- */
+
+void ChangeMeditation(int diffMeditatists, int diffIndispensableHollows,
+        int diffEngagedIndispensableHollows, int diffEngagedDispensableHollows) {
+    level->numMeditatists += diffMeditatists;
+    level->indispensableHollows += diffIndispensableHollows;
+    level->engagedIndispensableHollows += diffEngagedIndispensableHollows;
+    level->engagedDispensableHollows += diffEngagedDispensableHollows;
+
+    if (!level->preparing_level 
+            && level->indispensableHollows == level->engagedIndispensableHollows
+            && (level->engagedIndispensableHollows + level->engagedDispensableHollows) == level->numMeditatists) {
+        server::FinishLevel();
+    }
+    
+}
 
 void addDelayedImpulse (const Impulse& impulse, double delay, 
                                const Stone *estimated_receiver) 

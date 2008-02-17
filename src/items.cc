@@ -672,11 +672,13 @@ namespace
      * if they have each a small white marble inside them.
      */
     class Hollow : public HillHollow {
+        CLONEOBJ(Hollow);
         DECL_TRAITS;
     public:
         Hollow(Type t = HOLLOW);
+        virtual void on_creation(GridPos p);
+        virtual void on_removal(GridPos p);
     protected:
-        INSTANCELISTOBJ(Hollow);    // TinyHollow needs access
         virtual void setup_successor(Item *newitem);
     private:
         // Item interface.
@@ -685,7 +687,6 @@ namespace
 
         // Functions.
         bool near_center_p (Actor *a);
-        void check_if_level_finished();
 
         // Variables.
         Actor *whiteball;   // The small white ball that is currently being tracked
@@ -695,15 +696,7 @@ namespace
 
 
     class TinyHollow : public Hollow {
-        TinyHollow *clone() {
-            TinyHollow *o = new TinyHollow(*this);
-            instances.push_back(o);
-            return o;
-        }
-        void dispose() {
-            instances.erase(find(instances.begin(), instances.end(), this));
-            delete this;
-        }
+        CLONEOBJ(TinyHollow);
         DECL_TRAITS;
     public:
         TinyHollow() : Hollow(TINYHOLLOW) {}
@@ -791,11 +784,23 @@ void HillHollow::transmute(Type newtype)
 
 /* ---------- Hollow ---------- */
 
-Hollow::InstanceList Hollow::instances;
+// TODO handle set of essential attribute
 
 Hollow::Hollow(Type t)
 : HillHollow(t), whiteball(0)
 {}
+
+void Hollow::on_creation(GridPos p) {
+    if (getDefaultedAttr("essential", 0) == 1)
+        ChangeMeditation(0, +1, 0, 0);
+    HillHollow::on_creation(p);
+}
+
+void Hollow::on_removal(GridPos p) {   //TODO a change from Hollow to TinyHollow is critical -> single class with state reengineering
+    if (getDefaultedAttr("essential", 0) == 1)
+        ChangeMeditation(0, -1, 0, 0);
+    HillHollow::on_removal(p);
+}
 
 bool Hollow::near_center_p (Actor *a)
 {
@@ -804,61 +809,45 @@ bool Hollow::near_center_p (Actor *a)
 
 bool Hollow::actor_hit(Actor *a)
 {
+    const double MINTIME = 1.0;
     ItemID id = get_id (this);
 
     if (id == it_hollow || id == it_tinyhollow) {
-        if (whiteball==0 && get_id(a)==ac_meditation && near_center_p(a))
-        {
+        if (whiteball==NULL && get_id(a)==ac_meditation && near_center_p(a)) {
+            // meditatist entered a free hollow
             whiteball  = a;
             enter_time = server::LevelTime;
-        }
-        else if (whiteball==a) {
-            if (!near_center_p(a))
-                whiteball = 0;
-            else
-                check_if_level_finished();
+        } else if (whiteball == a) {
+            if (!near_center_p(a)) {
+                // meditatist left hollow
+                whiteball = NULL;
+                if (enter_time == 0) {   // meditatist is registered
+                    bool indispensable = (getDefaultedAttr("essential", 0) == 1);
+                    ChangeMeditation(0, 0, indispensable ? -1 : 0, indispensable ? 0 : -1);
+                }
+            } else  if (enter_time != 0 && (server::LevelTime - enter_time) >= MINTIME) {
+                    // just meditated enough to mark hollow as engaged
+                    bool indispensable = (getDefaultedAttr("essential", 0) == 1);
+                    ChangeMeditation(0, 0, indispensable ? +1 : 0, indispensable ? 0 : +1);
+                    enter_time = 0;  // mark as registered
+            }
         }
     }
 
     return false;
 }
 
-void Hollow::actor_leave(Actor *)
-{
-    whiteball = 0;
-}
-
-/* If (a) every small white ball is in a hollow and (b) each ball has
-   been inside the hollow for at least MINTIME milliseconds, finish
-   the level. */
-void Hollow::check_if_level_finished()
-{
-    const double MINTIME = 1.0;
-
-    unsigned wcnt     = 0;      // counts normal hollows with whiteball
-    unsigned ess_wcnt = 0;      // counts essential hollows with whiteball
-    unsigned ess_cnt  = 0;      // counts all essential hollows
-
-    for (Hollow::InstanceList::const_iterator hi = instances.begin();
-         hi != instances.end(); ++hi)
-    {
-        const Hollow& h         = **hi;
-        bool          essential = (h.getAttr("essential") != 0);
-
-        if (h.whiteball && (server::LevelTime - h.enter_time) >= MINTIME) {
-            if (essential) ess_wcnt++;
-            else           wcnt++;
+void Hollow::actor_leave(Actor *a) {
+    if (whiteball == a) {
+        // meditatist left hollow (warp, ...)
+        whiteball = NULL;
+        if (enter_time == 0) {   // meditatist is registered
+            bool indispensable = (getDefaultedAttr("essential", 0) == 1);
+            ChangeMeditation(0, 0, indispensable ? -1 : 0, indispensable ? 0 : -1);
         }
-
-        if (essential) ess_cnt++;
-    }
-
-    if (ess_cnt == ess_wcnt &&
-        (wcnt+ess_wcnt) == CountActorsOfKind (ac_meditation))
-    {
-        server::FinishLevel();
     }
 }
+
 
 void Hollow::setup_successor(Item *newitem) {
     newitem->setAttr("essential", getAttr("essential"));
