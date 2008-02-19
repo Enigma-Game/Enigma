@@ -626,6 +626,7 @@ namespace enigma { namespace lev {
             server::LevelStatus = getLevelStatus();
             if (server::EnigmaCompatibility < 1.10)
                 server::AllowSingleOxyds = true;
+            server::PrepareLua();
         }
         processDependencies();
         loadLuaCode();

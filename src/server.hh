@@ -138,6 +138,7 @@ namespace enigma_server
 
     /** Prepare the server for a new game. */
     void InitNewGame();
+    void PrepareLua();
 
     void Tick (double dtime);
     void RestartLevel();
