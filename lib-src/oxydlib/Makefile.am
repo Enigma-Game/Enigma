@@ -1,4 +1,4 @@
-EXTRA_DIST = README README.enigma
+EXTRA_DIST = README README.enigma EnigmaNames.cpp EnigmaNames.h
 
 noinst_LIBRARIES = liboxyd.a
 
