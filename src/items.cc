@@ -1626,72 +1626,87 @@ Value ShogunDot::message(const Message &m) {
 
 
 /* -------------------- Magnet -------------------- */
-namespace
-{
-    class Magnet : public OnOffItem {
-        class Magnet_FF : public ForceField {
-        public:
-            Magnet_FF()
-            : m_active(false), strength(30), range(1000)
-            {}
 
-            void set_pos(GridPos p) { center = p.center(); }
-            void set_range(double r) { range = r; }
-            void set_strength(double s) { strength = s; }
-
-            void add_force(Actor *a, V2 &f) {
-                if (m_active) {
-                    V2 dv = center - a->get_pos_force();
-                    double dist = length(dv);
-
-                    if (dist >= 0.2 && dist < range)
-                        f += 0.6* strength * dv / (dist*dist);
-                }
-            }
-
-            bool   m_active;
-            V2     center;
-            double strength;
-            double range;
-        };
-
-        CLONEOBJ(Magnet);
-        DECL_TRAITS_ARRAY(2, is_on());
-    public:
-        Magnet(bool onoff) : OnOffItem (onoff) {
-        }
+    class Magnet : public Item, public ForceField {
     private:
-        void on_creation (GridPos p) {
-            double range = getDefaultedAttr("range", server::MagnetRange);
-            double strength = getDefaultedAttr("strength", server::MagnetForce);
+        enum iState {
+            OFF,
+            ON
+        };
+       
+    public:
+        CLONEOBJ(Magnet);
+        DECL_TRAITS_ARRAY(2, state);
 
-            ff.m_active = is_on();
-            ff.set_pos (p);
-	        ff.set_range (range);
-	        ff.set_strength (strength);
-
-            AddForceField(&ff);
-            Item::on_creation (p);
-        }
+        Magnet(bool onoff);
         
-        void on_removal (GridPos p) {
-            Item::on_removal(p);
-            RemoveForceField(&ff);
-        }
+        // Object interface
+        virtual std::string getClass() const;
+        virtual void setAttr(const std::string &key, const Value &val);
 
-        virtual void notify_onoff(bool on) {
-            ff.m_active = on;
-        }
+        // GridObject interface
+        virtual void on_creation(GridPos p);
+        virtual void on_removal(GridPos p);
+        virtual void init_model();
 
-
-        Magnet_FF ff;
+        // ForceField interface
+        virtual void add_force(Actor *a, V2 &f);
+        
+    private:
+        double correctedStrength;     // 0.6 * strength
+        double squareRange;
     };
+    
+    Magnet::Magnet(bool isOn) : Item(), correctedStrength (0.6 * 30), squareRange (1000 * 1000) {
+        state = isOn ? ON : OFF;
+    }
 
+    std::string Magnet::getClass() const {
+        return "it_magnet";
+    }
+    
+    void Magnet::setAttr(const std::string &key, const Value &val) {
+        if (key == "range") {
+            double range = (val.getType() == Value::NIL) ? server::MagnetRange : (double)val;
+            squareRange = range * range;
+        } else if (key == "strength") {
+            correctedStrength = 0.6 * ((val.getType() == Value::NIL) ? server::MagnetForce : (double)val);
+        } else
+            Item::setAttr(key, val);
+    }
+    
+    void Magnet::init_model() {
+        set_model(ecl::strf("it-magnet%s", state == ON ? "-on" : "-off"));
+    }
+    
+    void Magnet::on_creation(GridPos p) {
+        double range = getDefaultedAttr("range", server::MagnetRange);
+        squareRange = range * range;
+        correctedStrength = 0.6 * (double)getDefaultedAttr("strength", server::MagnetForce);
+
+        AddForceField(this);
+        Item::on_creation(p);
+    }
+    
+    void Magnet::on_removal(GridPos p) {
+        Item::on_removal(p);
+        RemoveForceField(this);
+    }
+    
+    void Magnet::add_force(Actor *a, V2 &f) {
+        if (state == ON) {
+            V2 dv = get_pos().center() - a->get_pos_force();
+            double squareDist = square(dv);
+
+            if (squareDist >= 0.04 && squareDist < squareRange)
+                f += (correctedStrength / squareDist) * dv;
+        }
+    }
+    
     ItemTraits Magnet::traits[2] = {
-        { "it-magnet-off", it_magnet_off, itf_static | itf_indestructible, 0.0 },
-        { "it-magnet-on",  it_magnet_on,  itf_static | itf_indestructible, 0.0 },
+        { "it_magnet_off", it_magnet_off, itf_static | itf_indestructible, 0.0 },
+        { "it_magnet_on",  it_magnet_on,  itf_static | itf_indestructible, 0.0 },
     };
-}
 
 
 /* -------------------- Wormhole -------------------- */
@@ -1783,7 +1798,7 @@ namespace
 
         V2 vec_to_center (V2 v) {return v-get_pos().center();}
         bool near_center_p (Actor *a) {
-            return (length(vec_to_center(a->get_pos())) < 0.5/4);
+            return (length(vec_to_center(a->get_pos())) < 0.5/4);   // TODO use square!
         }
         bool get_target (V2 &targetpos);
 
@@ -3787,9 +3802,9 @@ void InitItems()
     RegisterItem (new Key(Key::KEY3));
     RegisterItem (new Landmine);
     RegisterItem (new MagicWand);
-    Register ("it-magnet", new Magnet (false));
-    RegisterItem (new Magnet (true));
-    RegisterItem (new Magnet (false));
+    Register ("it_magnet", new Magnet(false));
+    RegisterItem (new Magnet(true));
+    RegisterItem (new Magnet(false));
     RegisterItem (new Odometer);
     RegisterItem (new OnePKillStone);
     RegisterItem (new OxydBridge);

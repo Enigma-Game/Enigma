@@ -117,16 +117,6 @@ namespace enigma {
         virtual void tick(double /*dtime*/) {}
     };
 
-    class ConstantForce : public ForceField {
-    public:
-        ConstantForce(V2 f=V2()) : force(f) {}
-        void add_force(Actor * /*a*/, V2 &f) {
-            f += force;
-        }
-        void set_force (const V2 &force_) { force = force_; }
-    private:
-        V2 force;
-    };
 
 //----------------------------------------------------------------------
 // GLOBAL VARIABLES

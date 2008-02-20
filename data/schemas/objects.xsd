@@ -23,8 +23,8 @@
                   <xs:attribute name="name" type="xs:string" use="required"/>
                   <xs:attribute name="type" type="valueType" use="required"/>
                   <xs:attribute name="default" type="xs:string" use="required"/>
-                  <xs:attribute name="min" type="xs:string" use="optional"/>
-                  <xs:attribute name="max" type="xs:string" use="optional"/>
+                  <xs:attribute name="min" type="xs:string" use="optional" default="0"/>
+                  <xs:attribute name="max" type="xs:string" use="optional" default="1"/>
                   <xs:attribute name="rw" type="xs:string" use="required"/>
                   <xs:anyAttribute namespace="##targetNamespace" processContents="skip"/>
                 </xs:complexType>

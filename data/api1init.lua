@@ -47,6 +47,9 @@ RenamingObjectsOld2New = {
 RenamingObjectsNew2Old = {
     it_blocker = "it-blocker",
     it_blocker_new = "it-blocker-new",
+    it_magnet = "it-magnet",
+    it_magnet_on = "it-magnet-on",
+    it_magnet_off = "it-magnet-off",
     it_trigger = "it-trigger",
     st_blocker = "st-blocker",
     st_blocker_new = "st-blocker-growing",
@@ -135,7 +138,9 @@ function enigma.SetAttrib(obj, key, val)
      end
      if (_obj_name == "st-switch") or (_obj_name == "st-switch_black")
              or (_obj_name == "st-switch_white") 
-             or (_obj_name == "st-floppy") then
+             or (_obj_name == "st-floppy") 
+             or (_obj_name == "it-magnet") or (_obj_name == "it-magnet-on")
+             or (_obj_name == "it-magnet-off") then
          if key == "on" then
 	     _key = "state"   -- new attr name
 	 end
@@ -190,7 +195,9 @@ function enigma.GetAttrib(obj, key)
      local _obj_name = enigma.GetKind(obj)
      if (_obj_name == "st-switch") or (_obj_name == "st-switch_black")
              or (_obj_name == "st-switch_white") 
-             or (_obj_name == "st-floppy") then
+             or (_obj_name == "st-floppy")
+             or (_obj_name == "it-magnet") or (_obj_name == "it-magnet-on")
+             or (_obj_name == "it-magnet-off") then
          if key == "on" then
 	     _key = "state"
 	     end
@@ -255,6 +262,7 @@ MessageRenaming = {
     ["it-burnable_oil__trigger"] = "ignite",
     ["it-hill__trigger"] = "flip",
     ["it-hollow__trigger"] = "flip",
+    it_magnet__onoff = "toggle",
     ["it-tinyhill__trigger"] = "flip",
     ["it-tinyhollow__trigger"] = "flip",
     ["it-vortex-open__trigger"] = "toggle",
@@ -281,9 +289,7 @@ MessageRenaming = {
     ["st-oxyd__trigger"] = "toggle",
     ["st-plain__trigger"] = "signal",
     ["st-plain_hole__trigger"] = "signal",
-    st_switch_instant__onoff = "toggle",
-    st_switch_black_instant__onoff = "toggle",
-    st_switch_white_instant__onoff = "toggle",
+    st_switch__onoff = "toggle",
     ["st-volcano__trigger"] = "toggle",
     ["st-white1__trigger"] = "signal",
     ["st-white2__trigger"] = "signal",

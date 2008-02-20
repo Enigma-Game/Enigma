@@ -74,7 +74,6 @@ using ecl::strf;
 using enigma::GridPos;
 using enigma::Object;
 using enigma::GridObject;
-using enigma::ForceField;
 using enigma::WorldProxy;
 
 namespace enigma { namespace lua {
@@ -2703,7 +2702,7 @@ std::string NewMessageName(lua_State *L, const Object *obj, const std::string &m
     std::string result;
     lua_getglobal(L, "MessageRenaming");
     if (lua_istable(L, -1)) {
-        lua_pushstring(L, ecl::strf("%s__%s", obj->get_kind(), message.c_str()).c_str());
+        lua_pushstring(L, ecl::strf("%s__%s", obj->getClass().c_str(), message.c_str()).c_str());
         lua_gettable(L, -2);
         if (!lua_isnil(L, -1))
             result = lua_tostring(L, -1);

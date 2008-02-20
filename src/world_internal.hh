@@ -336,9 +336,8 @@ typedef list<sound::SoundDamping> SoundDampingList;
         Actor               *leftmost_actor;   // sorted double linked list of actors
         Actor               *rightmost_actor;  
         vector<RubberBand *> m_rubberbands;
-//        SignalList           m_signals;
         MouseForce           m_mouseforce;
-        ConstantForce        m_flatforce;
+        V2                   flatForce;
         int                  scrambleIntensity;
         int                  numMeditatists; 
         int                  indispensableHollows;

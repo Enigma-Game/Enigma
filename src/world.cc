@@ -530,7 +530,7 @@ V2 World::get_local_force (Actor *a)
     if (a->is_on_floor()) {
         if (Floor *floor = a->m_actorinfo.field->floor) {
             // Constant force
-            m_flatforce.add_force(a, f);
+            f += flatForce;
 
             // Mouse force
             add_mouseforce (a, floor, f);
@@ -1671,7 +1671,7 @@ void RemoveForceField(ForceField *ff) {
 }
 
 void SetConstantForce (V2 force) {
-    level->m_flatforce.set_force(force);
+    level->flatForce = force;
 }
 
 

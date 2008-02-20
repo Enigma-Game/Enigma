@@ -7,7 +7,9 @@
     <attr name="counterclock" type="bool" default="false" rw="rw"/>
     <attr name="inverse" type="bool" default="false" rw="rw"/>
     <attr name="name" type="string" default="nil" rw="rw"/>
+    <attr name="range" type="double" default="1.0" rw="rw"/>
     <attr name="state" type="int" default="0" min="0" max="1" rw="rw"/>
+    <attr name="strength" type="double" default="1" rw="rw"/>
     <attr name="target" type="tokens" default="nil" rw="rw"/>
   </attributes>
   <messages>
@@ -51,6 +53,19 @@
       <msg name="_performaction"/>
     </object>
     <object name="it_blocker_new" init="true">
+    </object>
+    <object name="it_magnet">
+      <attr name="range" default="nil"/>
+      <attr name="strength" default="nil"/>
+      <msg name="on"/>
+      <msg name="off"/>
+      <msg name="signal"/>
+    </object>
+    <object name="it_magnet_off">
+      <attr name="state" value="0"/>
+    </object>
+    <object name="it_magnet_on">
+      <attr name="state" value="1"/>
     </object>
     <object name="st" abstract="true"/>
     <object name="st_blocker">
