@@ -1024,9 +1024,9 @@ namespace
         virtual Value message(const Message &m) {
             if (m.message == "fire" && !blockfire) {
                 KillStone(get_pos());
-                return Value(1.0);  // allow fire to spread
+                return true;  // allow fire to spread
             } else if (m.message == "heat" && blockfire) {
-                return Value(1.0);  // block fire
+                return true;  // block fire
             } else if (m.message == "fall") {
                 maybe_fall_or_stopfire();
                 return Value();
@@ -1532,7 +1532,7 @@ Value ThiefStone::message(const Message &m) {
             SetItem(get_pos(), bag);
         bag = NULL;
         set_anim(string(get_kind()) + "-captured");
-        return Value(1);
+        return true;
     }
     return Stone::message(m);
 }
@@ -2237,7 +2237,7 @@ namespace
         virtual Value message(const Message &m) {
             if (m.message =="heat" || m.message == "fire") {
                 break_me();
-                return Value(1.0);
+                return true;
             }
             return Stone::message(m);
         }

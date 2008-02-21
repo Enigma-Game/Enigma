@@ -2609,7 +2609,7 @@ namespace
                 // Simple case: Just move.
                 if(try_state(DISAPPEARING)) {
                     set_anim(get_model_name() + "-disappearing");
-                    return Value(1);
+                    return true;
                 } else
                     return Value();
             } else {
@@ -2622,7 +2622,7 @@ namespace
                     // must work, because state is IDLE
                     GameTimer.set_alarm(this, capture_interval, false);
                     capture_retry = 0;
-                    return Value(1);
+                    return true;
                 }
                 return Value();
             }
@@ -2656,7 +2656,7 @@ namespace
             if(state == IDLE && m.value.to_string() != get_model_name())
                 if(try_state(CAPTURED)) {
                     set_anim(get_model_name() + "-captured");
-                    return Value(1);
+                    return true;
                 }
             return Value();
         } else if(m.message == "move_nne") { return message_move(NORTH, EAST); }

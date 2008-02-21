@@ -1141,7 +1141,7 @@ namespace
                 return Value();
             } else if (m.message == "heat") {  // used by fire-system
                 change_state(BURNING);
-                return Value(1.0);  // caught message -> no fire!
+                return true;  // caught message -> no fire!
             }
             return Item::message(m);
         }
@@ -1184,7 +1184,7 @@ namespace
                 return Value();
             } else if (m.message == "heat") {  // used by fire-system
                 burn();
-                return Value(1.0);  // caught message -> no fire!
+                return true;  // caught message -> no fire!
             }
             return Item::message(m);
         }
@@ -2454,7 +2454,7 @@ namespace
             } else if (m.message == "heat") {
                 sound_event ("crack");
                 replace(it_debris);
-                return Value(1.0);
+                return true;
             }
             return Item::message(m);
         }

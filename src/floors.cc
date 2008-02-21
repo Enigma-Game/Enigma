@@ -280,7 +280,7 @@ bool Floor::try_ignite(Direction sourcedir, FloorHeatFlags flhf) {
                     if(has_firetype(flft_fastfire))
                         return force_fire();
                     else
-                        this->setAttr("burnable", Value(1.0));
+                        this->setAttr("burnable", true);
             }
         }
     }
@@ -615,7 +615,6 @@ Gradient::Gradient(int type_)
   forcefac (1.0)
 {
     setAttr("type", Value(type_));
-//    setAttr ("force", Value(1.0));
 }
 
 void Gradient::setAttr(const string& key, const Value &val)
@@ -969,7 +968,7 @@ Value Thief::message(const Message &m) {
             SetItem(get_pos(), bag);
         bag = NULL;
         set_anim(get_modelname() + string("-captured"));
-        return Value(1);
+        return true;
     }
     return Floor::message(m);
 }
