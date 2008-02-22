@@ -1,5 +1,6 @@
 /*
  * Copyright (C) 2002,2003,2004 Daniel Heck
+ * Copyright (C) 2008 Ronald Lamprecht
  *
  * This program is free software; you can redistribute it and/or
  * modify it under the terms of the GNU General Public License
@@ -16,6 +17,7 @@
  * 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.
  *
  */
+#include "errors.hh"
 #include "laser.hh"
 #include "sound.hh"
 #include "stones_internal.hh"
@@ -65,9 +67,11 @@ namespace enigma {
 
         // Variables
         DirectionBits directions;
-
-        static vector<LaserBeam*> instances;
-        static map<GridPos, int>  old_laser_positions;
+        
+        static list<LaserBeam *> beamList1;
+        static list<LaserBeam *> beamList2;
+        static list<LaserBeam *> *gridBeams;
+        static list<LaserBeam *> *lastBeams;
     };
     ItemTraits LaserBeam::traits = {"it-laserbeam", it_laserbeam, 
                                     itf_static | itf_indestructible, 0.0 };
@@ -248,8 +252,10 @@ void PhotoStone::on_recalc_finish()
 //   when the laser goes on or off, use the `PhotoStone'
 //   mixin.
 
-vector<LaserBeam*> LaserBeam::instances;
-map<GridPos, int>  LaserBeam::old_laser_positions;
+list<LaserBeam *> LaserBeam::beamList1;
+list<LaserBeam *> LaserBeam::beamList2;
+list<LaserBeam *> *LaserBeam::gridBeams = &LaserBeam::beamList1;
+list<LaserBeam *> *LaserBeam::lastBeams = &LaserBeam::beamList2;
 
 void LaserBeam::init_model()
 {
@@ -297,9 +303,9 @@ void LaserBeam::emit_from(GridPos p, Direction dir)
         if (Item *it = GetItem(p))
             it->on_laserhit (dir);
         else {
-            LaserBeam *lb = new LaserBeam (dir);
+            LaserBeam *lb = new LaserBeam(dir);
             SetItem(p, lb);
-            instances.push_back(lb);
+            gridBeams->push_back(lb);
         }
     }
 }
@@ -324,47 +330,46 @@ bool LaserBeam::actor_hit(Actor *actor)
 }
 
 void LaserBeam::kill_all()
-{
-    assert(old_laser_positions.empty());
-
-    while (!instances.empty())
-    {
-        LaserBeam *lb  = instances[0];
-        GridPos    pos = lb->get_pos();
-
-        old_laser_positions[pos] = static_cast<int>(lb->directions);
-        KillItem(pos);
+{    
+    list<LaserBeam *> *tmpBeamList = lastBeams;
+    ASSERT(tmpBeamList->empty(), XLevelRuntime, "Laser Beam - old list not empty");
+    lastBeams = gridBeams;
+    for (list<LaserBeam *>::iterator itr = lastBeams->begin(); itr != lastBeams->end(); ++itr) {
+        LaserBeam *beam = *itr;
+        GridPos pos = beam->get_pos();
+        YieldItem(pos);          // now we are the owner of the object!
+        beam->setOwnerPos(pos);  // remember old pos
     }
+    gridBeams = tmpBeamList;
 }
 
 void LaserBeam::all_emitted()
 {
-    vector<LaserBeam*>::const_iterator end  = instances.end();
-    map<GridPos, int>::iterator        none = old_laser_positions.end();
-
-    double x     = 0, y = 0;
+    double x = 0, y = 0;
     int    count = 0;
-
-    for (vector<LaserBeam*>::const_iterator i = instances.begin(); i != end; ++i) {
-        LaserBeam                   *lb    = *i;
-        GridPos                      pos   = lb->get_pos();
-        map<GridPos, int>::iterator  found = old_laser_positions.find(pos);
-
-        if (found != none) {
-            // a beam was at the current position (during last kill_all())
-            DirectionBits old_dir = static_cast<DirectionBits>(found->second);
-
-            if ((old_dir&lb->directions) != lb->directions) {
+    
+    for (list<LaserBeam *>::iterator itr = lastBeams->begin(); itr != lastBeams->end(); ++itr) {
+        LaserBeam *oldBeam = *itr;
+        GridPos p = oldBeam->getOwnerPos();
+        Item * newItem = GetItem(p);
+        if (newItem != NULL && newItem->get_traits().id == it_laserbeam) {
+            LaserBeam *newBeam = dynamic_cast<LaserBeam *>(newItem);
+            newBeam->state = 1; // mark as visited
+            if ((oldBeam->directions & newBeam->directions) != newBeam->directions) {
                 // a beam has been added here
-                x += pos.x;
-                y += pos.y;
+                x += p.x;
+                y += p.y;
                 ++count;
-            }
+            }            
         }
-        else {
-            // store newly created LaserBeams
-            x += pos.x;
-            y += pos.y;
+        delete oldBeam;
+    }
+    for (list<LaserBeam *>::iterator itr = gridBeams->begin(); itr != gridBeams->end(); ++itr) {
+        LaserBeam *newBeam = *itr;
+        GridPos p = newBeam->get_pos();
+        if (newBeam->state == 0) {
+            x += p.x;
+            y += p.y;
             ++count;
         }
     }
@@ -373,13 +378,13 @@ void LaserBeam::all_emitted()
         sound::EmitSoundEvent ("laseron", ecl::V2(x/count+.5, y/count+.5),
                                getVolume("laseron", NULL));
     }
-
-    old_laser_positions.clear();
+    
+    lastBeams->clear();
 }
 
 void LaserBeam::dispose()
 {
-    instances.erase(std::find(instances.begin(), instances.end(), this));
+    gridBeams->erase(std::find(gridBeams->begin(), gridBeams->end(), this));
     delete this;
 }
 
