@@ -5,9 +5,13 @@
     <attr name="autoclose" type="bool" default="false" rw="rw"/>
     <attr name="color" type="int" default="nil" min="0" max="1" rw="rw"/>
     <attr name="counterclock" type="bool" default="false" rw="rw"/>
+    <attr name="destination" type="tokens" default="nil" rw="rw"/>
+    <attr name="instant" type="bool" default="false" rw="rw"/>
+    <attr name="interval" type="double" default="1" rw="rw"/>
     <attr name="inverse" type="bool" default="false" rw="rw"/>
     <attr name="name" type="string" default="nil" rw="rw"/>
     <attr name="range" type="double" default="1.0" rw="rw"/>
+    <attr name="scissor" type="bool" default="true" rw="rw"/>
     <attr name="state" type="int" default="0" min="0" max="1" rw="rw"/>
     <attr name="strength" type="double" default="1" rw="rw"/>
     <attr name="target" type="tokens" default="nil" rw="rw"/>
@@ -67,6 +71,22 @@
     <object name="it_magnet_on">
       <attr name="state" value="1"/>
     </object>
+    <object name="it_wormhole">
+      <attr name="destination"/>
+      <attr name="interval" default="0"/>
+      <attr name="range" default="nil"/>
+      <attr name="scissor" default="true"/>
+      <attr name="strength" default="nil"/>
+      <msg name="on"/>
+      <msg name="off"/>
+      <msg name="signal"/>
+    </object>
+    <object name="it_wormhole_off">
+      <attr name="state" value="0"/>
+    </object>
+    <object name="it_wormhole_on">
+      <attr name="state" value="1"/>
+    </object>
     <object name="st" abstract="true"/>
     <object name="st_blocker">
       <attr name="autoclose"/>
@@ -91,6 +111,7 @@
     </object>
     <object name="st_switch">
       <attr name="color"/>
+      <attr name="instant"/>
       <msg name="on"/>
       <msg name="off"/>
       <msg name="signal"/>

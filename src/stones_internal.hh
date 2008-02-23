@@ -20,6 +20,7 @@
 #define STONES_INTERNAL_HH_INCLUDED
 
 #include "world.hh"
+#include "main.hh"
 
 #define DECL_TRAITS                                              \
         static StoneTraits traits;                               \

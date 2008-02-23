@@ -51,6 +51,8 @@ RenamingObjectsNew2Old = {
     it_magnet_on = "it-magnet-on",
     it_magnet_off = "it-magnet-off",
     it_trigger = "it-trigger",
+    it_wormhole_on = "it-wormhole",
+    it_wormhole_off = "it-wormhole-off",
     st_blocker = "st-blocker",
     st_blocker_new = "st-blocker-growing",
     st_boulder = "st-bolder",
@@ -62,9 +64,9 @@ RenamingObjectsNew2Old = {
     st_floppy = "st-floppy",
     st_fourswitch = "st-fourswitch",
     st_oxyd = "st-oxyd",
-    st_switch_instant = "st-switch",
-    st_switch_black_instant = "st-switch_black",
-    st_switch_white_instant = "st-switch_white",
+    st_switch = "st-switch",
+    st_switch_black = "st-switch_black",
+    st_switch_white = "st-switch_white",
     st_window = "st-window"
 }
 
@@ -89,6 +91,26 @@ function enigma.MakeObject(name)
     elseif name == "st-key_c" then
         local obj = enigma._MakeObject("st_key")
         enigma._SetAttrib(obj, "keycode", 3)
+        return obj
+    elseif name == "st-switch" then
+        local obj = enigma._MakeObject("st_switch")
+        enigma._SetAttrib(obj, "instant", true)
+        return obj
+    elseif name == "st-switch_black" then
+        local obj = enigma._MakeObject("st_switch_black")
+        enigma._SetAttrib(obj, "instant", true)
+        return obj
+    elseif name == "st-switch_white" then
+        local obj = enigma._MakeObject("st_switch_white")
+        enigma._SetAttrib(obj, "instant", true)
+        return obj
+    elseif name == "it-wormhole" then
+        local obj = enigma._MakeObject("it_wormhole_on")
+        enigma._SetAttrib(obj, "scissor", false)
+        return obj
+    elseif name == "it-wormhole-off" then
+        local obj = enigma._MakeObject("it_wormhole_off")
+        enigma._SetAttrib(obj, "scissor", false)
         return obj
     end
 
@@ -140,7 +162,8 @@ function enigma.SetAttrib(obj, key, val)
              or (_obj_name == "st-switch_white") 
              or (_obj_name == "st-floppy") 
              or (_obj_name == "it-magnet") or (_obj_name == "it-magnet-on")
-             or (_obj_name == "it-magnet-off") then
+             or (_obj_name == "it-magnet-off") or (_obj_name == "it-wormhole")
+             or (_obj_name == "it-wormhole-off") then
          if key == "on" then
 	     _key = "state"   -- new attr name
 	 end
@@ -197,7 +220,8 @@ function enigma.GetAttrib(obj, key)
              or (_obj_name == "st-switch_white") 
              or (_obj_name == "st-floppy")
              or (_obj_name == "it-magnet") or (_obj_name == "it-magnet-on")
-             or (_obj_name == "it-magnet-off") then
+             or (_obj_name == "it-magnet-off")  or (_obj_name == "it-wormhole")
+             or (_obj_name == "it-wormhole-off") then
          if key == "on" then
 	     _key = "state"
 	     end
@@ -267,6 +291,7 @@ MessageRenaming = {
     ["it-tinyhollow__trigger"] = "flip",
     ["it-vortex-open__trigger"] = "toggle",
     ["it-vortex-closed__trigger"] = "toggle",
+    it_wormhole__onoff = "toggle",
     ["st-black1__trigger"] = "signal",
     ["st-black2__trigger"] = "signal",
     ["st-black3__trigger"] = "signal",

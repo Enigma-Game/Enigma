@@ -445,6 +445,7 @@ namespace enigma { namespace lev {
             server::LevelStatus = getLevelStatus();
             if (server::EnigmaCompatibility < 1.10)
                 server::AllowSingleOxyds = true;
+            server::PrepareLua();
             // use oxyd loader
             std::string::size_type posSecondHash = normLevelPath.find('#',1);
             if (posSecondHash == string::npos)

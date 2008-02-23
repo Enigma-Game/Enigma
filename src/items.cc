@@ -1,6 +1,6 @@
 /*
  * Copyright (C) 2002,2003,2004 Daniel Heck
- * Copyright (C) 2007 Ronald Lamprecht
+ * Copyright (C) 2007,2008 Ronald Lamprecht
  *
  * This program is free software; you can redistribute it and/or
  * modify it under the terms of the GNU General Public License
@@ -171,53 +171,6 @@ bool Item::actor_hit(Actor *actor)
         return length(actor->get_pos()-get_pos().center()) < radius;
     }
 }
-
-
-/* -------------------- OnOffItem -------------------- */
-namespace
-{
-    class OnOffItem : public Item {
-    protected:
-        OnOffItem (bool onoff = false)
-        {
-            setAttr("on", onoff);
-        }
-
-        bool is_on() const {
-            return getAttr("on") == 1;
-        }
-
-        void set_on (bool newon) {
-            if (newon != is_on()) {
-                setAttr("on", Value(newon));
-                init_model();
-                notify_onoff(newon);
-            }
-        }
-
-        virtual Value message(const Message &m) {
-            if (m.message == "onoff") {
-                set_on(!is_on());
-                return Value();
-            } else if (m.message == "signal") {
-                set_on (m.value != 0);
-                return Value();
-            } else if (m.message == "on") {
-                set_on(true);
-                return Value();
-            } else if (m.message == "off") {
-                set_on(false);
-                return Value();
-            }
-            return Item::message(m);
-        }
-
-        // OnOffItem interface
-        virtual void notify_onoff (bool /*on*/) {}
-    };
-}
-
-
 
 /* -------------------- Various simple items -------------------- */
 
@@ -1638,7 +1591,7 @@ Value ShogunDot::message(const Message &m) {
         CLONEOBJ(Magnet);
         DECL_TRAITS_ARRAY(2, state);
 
-        Magnet(bool onoff);
+        Magnet(bool isOn);
         
         // Object interface
         virtual std::string getClass() const;
@@ -1728,159 +1681,161 @@ set_item("it-wormhole", 1,1, {targetx=5.5, targety=10.5, strength=50, range=5})
 \endverbatim
 */
 
-namespace
-{
-    class WormHole_FF : public ForceField {
-    public:
-        WormHole_FF() : strength(0.6 * 50), rangesquared(1000000) {}
 
-        void set_pos(GridPos p) { center = p.center(); }
-        void set_range (double r) { rangesquared = r*r; }
-        void set_strength (double s) { strength = 0.6 * s; }
-
-        void add_force(Actor *a, V2 &f) {
-            V2 b = center - a->get_pos();
-            double bb = square(b);
-            if (bb < rangesquared && bb>0)
-                f += (strength/bb)*b;
-        }
-
-        V2     center;          // Center of the force field
-        double strength;        // Strength of the force
-        double rangesquared;    // Range of the force squared
-    };
-
-    class WormHole : public OnOffItem, public enigma::TimeHandler {
-        CLONEOBJ(WormHole);
-        DECL_TRAITS_ARRAY(2, is_on());
-    public:
-        WormHole(bool onoff_) : OnOffItem(onoff_) {
-            state = TELEPORT_IDLE;
-            justWarping = false;
-        }
-
-        void init_model();
-        bool actor_hit(Actor *a);
-        void notify_onoff (bool /* onoff */) { set_forcefield();  }
-        void alarm();
-
-    protected:
-        virtual ~WormHole() {
-            GameTimer.remove_alarm (this);
-        }
+    class WormHole : public Item, public ForceField, public enigma::TimeHandler {
     private:
-        enum State { TELEPORT_IDLE, TELEPORT_WAITING } state;
-        // Note that there're two notions of on and off for this object:
-        // The OnOffItem-part is only used to operate the force field,
-        // whereas the teleport ability is controlled by the state-variable.
-        // Animation is turned off when either one of them is off.
+        /**
+         * warping as bit 2 of state
+         */
+        enum iState {
+            OFF_IDLE,        ///< force off, ready to teleport
+            ON_IDLE,         ///< force on,  ready to teleport
+            OFF_ENGAGED,     ///< force off, rejecting teleport
+            ON_ENGAGED       ///< force on,  rejecting teleport
+        };
+        
+    public:
+        CLONEOBJ(WormHole);
+        DECL_TRAITS_ARRAY(2, state & 1);
+        
+        WormHole(bool isOn);
+        virtual ~WormHole();
+        
+        // Object interface
+        virtual std::string getClass() const;
+        virtual void setAttr(const std::string &key, const Value &val);
 
-        void on_creation (GridPos p) {
-            Item::on_creation (p);
-            set_forcefield();
-        }
-        void on_removal (GridPos p);
+        // StateObject interface
+        virtual int externalState() const;
+        virtual void setState(int extState);
 
-        void set_forcefield() {
-            if (is_on()) {
-                ff.set_pos(get_pos());
-                double range = getDefaultedAttr("range", server::WormholeRange);
-                ff.set_range (range);
+        // GridObject interface
+        virtual void on_creation(GridPos p);
+        virtual void on_removal(GridPos p);
+        virtual void init_model();
+        
+        // Item interface
+        virtual bool actor_hit(Actor *a);
 
-                double s = getDefaultedAttr("strength", server::WormholeForce);
-                ff.set_strength (s);
+        // ForceField interface
+        virtual void add_force(Actor *a, V2 &f);
+        
+        // TimeHandler interface
+        virtual void alarm();
+        
+    private:
+        bool near_center_p(Actor *a);
 
-                AddForceField(&ff);
-            } else {
-                RemoveForceField(&ff);
-            }
-        }
-
-        V2 vec_to_center (V2 v) {return v-get_pos().center();}
-        bool near_center_p (Actor *a) {
-            return (length(vec_to_center(a->get_pos())) < 0.5/4);   // TODO use square!
-        }
-        bool get_target (V2 &targetpos);
-
-        double get_interval() const {
-            return getAttr("interval");
-        }
-
-        // Variables.
-        WormHole_FF ff;
-        bool        justWarping;  // to avoid recursions
+        double correctedStrength;     ///< 0.6 * strength
+        double squareRange;           ///< range of the force squared
     };
 
+    WormHole::WormHole(bool isOn) : Item(), correctedStrength (0.6 * 30), squareRange (1000 * 1000) {
+        state = isOn ? ON_IDLE : OFF_IDLE;    // includes warping false
+    }
+    
+    WormHole::~WormHole() {
+        GameTimer.remove_alarm(this);
+    }
+    
+    std::string WormHole::getClass() const {
+        return "it_wormhole";
+    }
+    
+    void WormHole::setAttr(const std::string &key, const Value &val) {
+        if (key == "range") {
+            double range = (val.getType() == Value::NIL) ? server::WormholeRange : (double)val;
+            squareRange = range * range;
+        } else if (key == "strength") {
+            correctedStrength = 0.6 * ((val.getType() == Value::NIL) ? server::WormholeForce : (double)val);
+        } else
+            Item::setAttr(key, val);
+    }
+    
+    int WormHole::externalState() const {
+        return state % 2;
+    }
+    
+    void WormHole::setState(int extState) {
+        // switch force on and off
+        if (extState != state % 2) {          // react only on force changes
+            state = (state & ~1) + extState;  // keep other flags
+            if (isDisplayable()) {
+                if (extState == 1)
+                    AddForceField(this);
+                else
+                    RemoveForceField(this);
+            }
+        }
+    }
+    
+    void WormHole::on_creation (GridPos p) {
+        Item::on_creation (p);
+        if (state % 2 == 1)
+            AddForceField(this);
+    }
+
+    void WormHole::on_removal(GridPos p) {
+        if (state % 2 == 1)
+            RemoveForceField(this);
+        Item::on_removal(p);
+        ASSERT((state & 4) == 0, XLevelRuntime, "Tried to kill a busy wormhole. Please use another way.");
+    }
+    
+    void WormHole::init_model() {
+        if ((state & 3) == ON_IDLE)
+            set_anim("it-wormhole");
+        else
+            set_model("it-wormhole-off");
+    }
+    
+    bool WormHole::actor_hit(Actor *actor) {
+        ASSERT((state & 4) == 0, XLevelRuntime, "WormHole:: Recursion detected!");
+        if ((state & 2) == 0 && near_center_p(actor)) {   // may teleport
+            client::Msg_Sparkle (get_pos().center());
+            V2 targetpos;
+            if (getDestinationByIndex(0, targetpos)) {
+                sound_event ("warp");
+                double latency = getAttr("interval");
+                if(latency > 0) {
+                    state |= 2;  // mark engaged
+                    GameTimer.set_alarm(this, latency, false);
+                    init_model();
+                }
+                state |= 4;  // mark warping
+                bool isScissor = to_bool(getAttr("scissor")) || server::GameCompatibility != GAMET_ENIGMA;
+                if (isScissor)
+                    KillRubberBands(actor);
+                WarpActor(actor, targetpos[0], targetpos[1], false);
+                state &= ~4; // release warping
+            }
+        }
+        return false;
+    }
+    
+    void WormHole::add_force(Actor *a, V2 &f) {
+        V2 dv = get_pos().center() - a->get_pos_force();
+        double squareDist = square(dv);
+
+        if (squareDist >= 0.025 && squareDist < squareRange)
+            f += (correctedStrength / squareDist) * dv;
+    }
+    
+    void WormHole::alarm() {
+        state &= ~2;  // remove teleport engaged flag
+        init_model();
+    }
+    
+    bool WormHole::near_center_p(Actor *a) {
+        return (square(a->get_pos() - get_pos().center()) < 0.015625);  // 0.125 ^ 2
+    }
+    
     ItemTraits WormHole::traits[2] = {
-        { "it-wormhole-off", it_wormhole_off, itf_static, 0.0 },
-        { "it-wormhole",     it_wormhole_on,  itf_static, 0.0 }
+        { "it_wormhole_off", it_wormhole_off, itf_static, 0.0 },
+        { "it_wormhole_on",  it_wormhole_on,  itf_static, 0.0 }
     };
-}
 
-bool WormHole::get_target(V2 &targetpos) {
-    Value dest = getAttr("destination");
-    if (dest.getType() == Value::POSITION) {
-        // arbitrary precision position as destination
-        targetpos = dest;
-        return true;
-    } else {
-        // evaluate the first object 
-        TokenList tl = dest;  // convert any object type value to a tokenlist 
-        if (tl.empty())
-            return false;
-        ObjectList ol = tl.front();  // convert first token to a objectlist
-        if (ol.empty())
-            return false;
-        GridObject *go = dynamic_cast<GridObject *>(ol.front());  // get first object
-        if (go != NULL) {   // no actors as destination!
-            GridPos p = go->get_pos();
-            if (IsInsideLevel(p)) {   // no objects in inventory,...
-                targetpos = p.center();
-                return true;
-            }
-        }
-    }
-    return false;
-}
 
-bool WormHole::actor_hit(Actor *actor)
-{
-    ASSERT(!justWarping, XLevelRuntime, "WormHole:: Recursion detected!");
-    if (state == TELEPORT_IDLE && near_center_p(actor)) {
-        client::Msg_Sparkle (get_pos().center());
-        V2 targetpos;
-        if (get_target (targetpos)) {
-            sound_event ("warp");
-            if(get_interval() > 0) {
-                state = TELEPORT_WAITING;
-                GameTimer.set_alarm(this, get_interval(), false);
-                init_model();
-            }
-            justWarping = true;
-            WarpActor(actor, targetpos[0], targetpos[1], false);
-            justWarping = false;
-        }
-    }
-    return false;
-}
-
-void WormHole::alarm() {
-    state = TELEPORT_IDLE;
-    init_model();
-}
-
-void WormHole::init_model() {
-    if(state == TELEPORT_IDLE)
-        OnOffItem::init_model();
-    else
-        set_anim("it-wormhole-off");
-}
-
-void WormHole::on_removal(GridPos p) {
-    RemoveForceField(&ff);
-    Item::on_removal(p);
-    ASSERT(!justWarping, XLevelRuntime, "Tried to kill a busy wormhole. Please use another way.");
-}
 
 /* -------------------- Vortex -------------------- */
 
@@ -3842,6 +3797,7 @@ void InitItems()
     RegisterItem (new Wrench);
     RegisterItem (new WormHole(false));
     RegisterItem (new WormHole(true));
+    Register ("it_wormhole", new WormHole(true));
     RegisterItem (new YinYang);
     RegisterItem (new Rubberband);
 }
