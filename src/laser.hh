@@ -24,6 +24,8 @@
 
 #include "GridObject.hh"
 #include "stones.hh"
+#include "items.hh"
+#include <list>
 
 namespace enigma {
     /**
@@ -101,7 +103,48 @@ namespace enigma {
         virtual void notify_laseron() = 0;
         virtual void notify_laseroff() = 0;
     };
+    
+/* -------------------- LaserBeam -------------------- */
 
+    class LaserBeam : public Item, public LaserEmitter {
+    public:
+        static void emit_from(GridPos p, Direction d);
+        static void kill_all();
+        static void all_emitted();
+
+    // LaserEmitter interface
+        DirectionBits emission_directions() const { return directions; }
+        static ItemTraits traits;
+
+        const ItemTraits &get_traits() const {
+            return traits;
+        }
+    private:
+        LaserBeam(Direction dir) {
+            directions = to_bits(dir);
+        }
+
+        // Item interface.
+        void on_laserhit(Direction dir);
+        void on_creation (GridPos p);
+        void init_model();
+        bool actor_hit(Actor *actor);
+
+        Item *clone() {
+            // new LaserBeams may only created inside `emit_from'.
+//            assert(0);
+            return 0;
+        }
+        void dispose();
+
+        // Variables
+        DirectionBits directions;
+        
+        static std::list<LaserBeam *> beamList1;
+        static std::list<LaserBeam *> beamList2;
+        static std::list<LaserBeam *> *gridBeams;
+        static std::list<LaserBeam *> *lastBeams;
+    };
 
 /* -------------------- Functions -------------------- */
     void InitLasers();

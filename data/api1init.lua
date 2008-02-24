@@ -63,6 +63,10 @@ RenamingObjectsNew2Old = {
     st_coinslot = "st-coinslot",
     st_floppy = "st-floppy",
     st_fourswitch = "st-fourswitch",
+    st_laser_w = "st-laser-w",
+    st_laser_s = "st-laser-s",
+    st_laser_e = "st-laser-e",
+    st_laser_n = "st-laser-n",
     st_oxyd = "st-oxyd",
     st_switch = "st-switch",
     st_switch_black = "st-switch_black",
@@ -115,6 +119,11 @@ function enigma.MakeObject(name)
     end
 
     newname = RenamingObjectsOld2New[name]
+    
+    if name == "st-laser" then
+        newname = "st_laser_e"
+    end
+    
     if newname ~= nil then
         return enigma._MakeObject(newname)
     else
@@ -139,6 +148,9 @@ function enigma.GetKind(obj)
         else -- arbitrary keycodes
             return "st-key"
         end
+    end
+    if string.sub(_newname, 1, 8) == "st_laser" then
+        return "st-laser"
     end
     if _oldname ~= nil then
         return _oldname
@@ -167,6 +179,12 @@ function enigma.SetAttrib(obj, key, val)
          if key == "on" then
 	     _key = "state"   -- new attr name
 	 end
+     end
+     if key == "dir" then
+         _key = "orientation"
+     end
+     if key == "on" then
+         _key = "state"
      end
      if key == "targetx" then
          local d = enigma._GetAttrib(obj, "destination")
@@ -231,6 +249,12 @@ function enigma.GetAttrib(obj, key)
      end
      if _obj_name == "st-oxyd" then
          _key = "oxydcolor"
+     end
+     if key == "dir" then
+         _key = "orientation"
+     end
+     if key == "on" then
+         _key = "state"
      end
 
      local val = enigma._GetAttrib(obj, _key)
@@ -305,6 +329,7 @@ MessageRenaming = {
     st_fourswitch__trigger = "toggle",
     st_floppy__onoff = "toggle",
     st_key__onoff = "toggle",
+    st_laser__onoff = "toggle",
     ["st-stoneimpulse__trigger"] = "signal",
     ["st-stoneimpulse-hollow__trigger"] = "signal",
     ["st-stoneimpulse_movable__trigger"] = "signal",

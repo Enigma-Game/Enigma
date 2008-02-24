@@ -211,6 +211,8 @@ enigma_SOURCES = 		\
 	stones/FourSwitch.hh	\
 	stones/KeySwitch.cc	\
 	stones/KeySwitch.hh	\
+	stones/LaserStone.cc	\
+	stones/LaserStone.hh	\
 	stones/OxydStone.cc	\
 	stones/OxydStone.hh	\
 	stones/Switch.cc	\

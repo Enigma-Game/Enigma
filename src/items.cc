@@ -1682,7 +1682,7 @@ set_item("it-wormhole", 1,1, {targetx=5.5, targety=10.5, strength=50, range=5})
 */
 
 
-    class WormHole : public Item, public ForceField, public enigma::TimeHandler {
+    class WormHole : public Item, public ForceField, public TimeHandler {
     private:
         /**
          * warping as bit 2 of state
@@ -1699,7 +1699,6 @@ set_item("it-wormhole", 1,1, {targetx=5.5, targety=10.5, strength=50, range=5})
         DECL_TRAITS_ARRAY(2, state & 1);
         
         WormHole(bool isOn);
-        virtual ~WormHole();
         
         // Object interface
         virtual std::string getClass() const;
@@ -1732,10 +1731,6 @@ set_item("it-wormhole", 1,1, {targetx=5.5, targety=10.5, strength=50, range=5})
 
     WormHole::WormHole(bool isOn) : Item(), correctedStrength (0.6 * 30), squareRange (1000 * 1000) {
         state = isOn ? ON_IDLE : OFF_IDLE;    // includes warping false
-    }
-    
-    WormHole::~WormHole() {
-        GameTimer.remove_alarm(this);
     }
     
     std::string WormHole::getClass() const {
@@ -1776,6 +1771,8 @@ set_item("it-wormhole", 1,1, {targetx=5.5, targety=10.5, strength=50, range=5})
     }
 
     void WormHole::on_removal(GridPos p) {
+        GameTimer.remove_alarm(this);
+        state &= ~2;  // remove teleport engaged flag
         if (state % 2 == 1)
             RemoveForceField(this);
         Item::on_removal(p);

@@ -22,6 +22,7 @@
 #include "sound.hh"
 #include "stones_internal.hh"
 #include "server.hh"
+#include "stones/LaserStone.hh"
 #include <algorithm>
 #include <cassert>
 #include <map>
@@ -34,45 +35,6 @@ namespace enigma {
 
 /* -------------------- LaserBeam -------------------- */
 
-    class LaserBeam : public Item, public LaserEmitter {
-    public:
-        static void emit_from(GridPos p, Direction d);
-        static void kill_all();
-        static void all_emitted();
-
-	// LaserEmitter interface
-        DirectionBits emission_directions() const { return directions; }
-        static ItemTraits traits;
-
-        const ItemTraits &get_traits() const {
-            return traits;
-        }
-    private:
-        LaserBeam(Direction dir) {
-            directions = to_bits(dir);
-        }
-
-        // Item interface.
-        void on_laserhit(Direction dir);
-        void on_creation (GridPos p);
-        void init_model();
-        bool actor_hit(Actor *actor);
-
-        Item *clone() {
-            // new LaserBeams may only created inside `emit_from'.
-            assert(0);
-            return 0;
-        }
-        void dispose();
-
-        // Variables
-        DirectionBits directions;
-        
-        static list<LaserBeam *> beamList1;
-        static list<LaserBeam *> beamList2;
-        static list<LaserBeam *> *gridBeams;
-        static list<LaserBeam *> *lastBeams;
-    };
     ItemTraits LaserBeam::traits = {"it-laserbeam", it_laserbeam, 
                                     itf_static | itf_indestructible, 0.0 };
 
@@ -101,47 +63,47 @@ an incoming beam).
 \ref st-pmirror, \ref st-3mirror
 
 */
-    class LaserStone : public LaserEmitter, public OnOffStone {
-    public:
-        LaserStone (Direction dir=EAST);
-        static void reemit_all();
-
-    private:
-
-//        INSTANCELISTOBJ(LaserStone);
-
-// We can't use this macro here: g++ can't handle multiple inheritance
-// and covariant return types at the same time ("sorry, not
-// implemented: ..." first time I ever saw this error message :-)
-
-        typedef std::vector<LaserStone*> InstanceList;
-        static InstanceList instances;
-        Stone *clone() {
-            LaserStone *o = new LaserStone(*this);
-            instances.push_back(o);
-            return o;
-        }
-        void dispose() {
-            instances.erase(find(instances.begin(), instances.end(), this));
-            delete this;
-        }
-
-        // LaserEmitter interface
-        DirectionBits emission_directions() const;
-
-        // OnOffStone interface.
-        void notify_onoff(bool on);
-
-        // Private methods.
-        void emit_light();
-        Direction get_dir() const {return to_direction(getAttr("dir"));}
-
-        // Stone interface.
-        void on_creation (GridPos p);
-        void init_model();
-    };
-
-
+//    class LaserStone : public LaserEmitter, public OnOffStone {
+//    public:
+//        LaserStone (Direction dir=EAST);
+//        static void reemit_all();
+//
+//    private:
+//
+////        INSTANCELISTOBJ(LaserStone);
+//
+//// We can't use this macro here: g++ can't handle multiple inheritance
+//// and covariant return types at the same time ("sorry, not
+//// implemented: ..." first time I ever saw this error message :-)
+//
+//        typedef std::vector<LaserStone*> InstanceList;
+//        static InstanceList instances;
+//        Stone *clone() {
+//            LaserStone *o = new LaserStone(*this);
+//            instances.push_back(o);
+//            return o;
+//        }
+//        void dispose() {
+//            instances.erase(find(instances.begin(), instances.end(), this));
+//            delete this;
+//        }
+//
+//        // LaserEmitter interface
+//        DirectionBits emission_directions() const;
+//
+//        // OnOffStone interface.
+//        void notify_onoff(bool on);
+//
+//        // Private methods.
+//        void emit_light();
+//        Direction get_dir() const {return to_direction(getAttr("dir"));}
+//
+//        // Stone interface.
+//        void on_creation (GridPos p);
+//        void init_model();
+//    };
+//
+//
 
 /* -------------------- PhotoCell -------------------- */
 
@@ -392,58 +354,58 @@ void LaserBeam::dispose()
 //----------------------------------------
 // Laser stone
 //----------------------------------------
-LaserStone::InstanceList LaserStone::instances;
-
-LaserStone::LaserStone (Direction dir)
-: OnOffStone("st-laser")
-{
-    setAttr("dir", Value(dir));
-}
-
-DirectionBits
-LaserStone::emission_directions() const
-{
-    if (is_on()) {
-        return to_bits(get_dir());
-    }
-    return NODIRBIT;
-}
-
-
-void LaserStone::reemit_all()
-{
-    for (unsigned i=0; i<instances.size(); ++i)
-    {
-        LaserStone *ls = (LaserStone*) instances[i];
-        ls->emit_light();
-    }
-}
-
-void LaserStone::notify_onoff(bool /*on*/)
-{
-    RecalcLight();
-}
-
-void LaserStone::emit_light()
-{
-    if (is_on())
-        LaserBeam::emit_from(get_pos(), get_dir());
-}
-
-void LaserStone::on_creation (GridPos p)
-{
-    if (is_on())
-        RecalcLight();
-    Stone::on_creation(p);
-}
-
-void LaserStone::init_model()
-{
-    string mname = is_on() ? "st-laseron" : "st-laser";
-    mname += to_suffix(get_dir());
-    set_model(mname);
-}
-
+//LaserStone::InstanceList LaserStone::instances;
+//
+//LaserStone::LaserStone (Direction dir)
+//: OnOffStone("st-laser")
+//{
+//    setAttr("dir", Value(dir));
+//}
+//
+//DirectionBits
+//LaserStone::emission_directions() const
+//{
+//    if (is_on()) {
+//        return to_bits(get_dir());
+//    }
+//    return NODIRBIT;
+//}
+//
+//
+//void LaserStone::reemit_all()
+//{
+//    for (unsigned i=0; i<instances.size(); ++i)
+//    {
+//        LaserStone *ls = (LaserStone*) instances[i];
+//        ls->emit_light();
+//    }
+//}
+//
+//void LaserStone::notify_onoff(bool /*on*/)
+//{
+//    RecalcLight();
+//}
+//
+//void LaserStone::emit_light()
+//{
+//    if (is_on())
+//        LaserBeam::emit_from(get_pos(), get_dir());
+//}
+//
+//void LaserStone::on_creation (GridPos p)
+//{
+//    if (is_on())
+//        RecalcLight();
+//    Stone::on_creation(p);
+//}
+//
+//void LaserStone::init_model()
+//{
+//    string mname = is_on() ? "st-laseron" : "st-laser";
+//    mname += to_suffix(get_dir());
+//    set_model(mname);
+//}
+//
 
 /* -------------------- MirrorStone -------------------- */
 namespace
@@ -750,11 +712,11 @@ namespace
 }
 
 void InitLasers() {
-    Register (new LaserStone);
-    Register ("st-laser-n", new LaserStone(NORTH));
-    Register ("st-laser-e", new LaserStone(EAST));
-    Register ("st-laser-s", new LaserStone(SOUTH));
-    Register ("st-laser-w", new LaserStone(WEST));
+//    Register (new LaserStone);
+//    Register ("st-laser-n", new LaserStone(NORTH));
+//    Register ("st-laser-e", new LaserStone(EAST));
+//    Register ("st-laser-s", new LaserStone(SOUTH));
+//    Register ("st-laser-w", new LaserStone(WEST));
 
     Register (new TriangleMirror);
     Register ("st-mirror-3v", new TriangleMirror('v'));
@@ -816,6 +778,7 @@ bool LightFrom (GridPos p, Direction dir) {
 
 void RecalcLightNow() {
     if (light_recalc_scheduled) {
+//        light_recalc_scheduled = false;    // this is the right place - but we have first to fix some object like hammer,...
         PhotoCell::notify_start();
         LaserBeam::kill_all();
         LaserStone::reemit_all();

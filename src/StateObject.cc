@@ -71,6 +71,7 @@ namespace enigma {
     int StateObject::minState() {
         return 0;  // default 2 state
     }
+    
     void StateObject::toggleState() {
         // default round robin on external states
         int extState = externalState();
