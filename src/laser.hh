@@ -111,9 +111,10 @@ namespace enigma {
         static void emit_from(GridPos p, Direction d);
         static void kill_all();
         static void all_emitted();
+        static void Reset();
 
     // LaserEmitter interface
-        DirectionBits emission_directions() const { return directions; }
+        DirectionBits emission_directions() const { return (DirectionBits)(objFlags & 15); }
         static ItemTraits traits;
 
         const ItemTraits &get_traits() const {
@@ -121,12 +122,13 @@ namespace enigma {
         }
     private:
         LaserBeam(Direction dir) {
-            directions = to_bits(dir);
+            objFlags |= to_bits(dir);
         }
 
         // Item interface.
         void on_laserhit(Direction dir);
         void on_creation (GridPos p);
+        virtual void on_removal(GridPos p);
         void init_model();
         bool actor_hit(Actor *actor);
 
@@ -138,12 +140,8 @@ namespace enigma {
         void dispose();
 
         // Variables
-        DirectionBits directions;
         
-        static std::list<LaserBeam *> beamList1;
-        static std::list<LaserBeam *> beamList2;
-        static std::list<LaserBeam *> *gridBeams;
-        static std::list<LaserBeam *> *lastBeams;
+        static std::list<LaserBeam *> beamList;
     };
 
 /* -------------------- Functions -------------------- */

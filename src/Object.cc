@@ -90,16 +90,16 @@ namespace enigma {
             return it->second;
     }
     
-    Object::Object() {
+    Object::Object() : objFlags (0) {
         id = getNextId(this, false);
     }
     
-    Object::Object(const char *kind) {
+    Object::Object(const char *kind) : objFlags (0) {
         setAttr("kind", Value(kind));
         id = getNextId(this, false);
     }
     
-    Object::Object(const Object &src_obj) {
+    Object::Object(const Object &src_obj) : objFlags (0) {
         id = getNextId(this, false);
         attribs = src_obj.attribs;
     }

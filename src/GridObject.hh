@@ -24,7 +24,7 @@
 
 #include "display.hh"
 #include "ecl_alist.hh"
-#include <map>
+#include <list>
 
 namespace enigma { 
 
@@ -41,6 +41,9 @@ namespace enigma {
      */
     class GridObject : public StateObject, public display::ModelCallback {
     public:
+        static void preLaserRecalc();
+        static void postLaserRecalc();
+    
         GridObject() : pos (GridPos(-1, -1)) {}
         GridObject(const char * kind) : StateObject(kind), pos (GridPos(-1, -1)) {}
 
@@ -94,9 +97,9 @@ namespace enigma {
         bool isDisplayable();
 
         // GridObject interface
-        virtual void on_laserhit (Direction) {}
-        virtual void actor_enter (Actor *) {}
-        virtual void actor_leave (Actor *) {}
+        virtual void on_laserhit (Direction d);   // direction of laserbeam
+        virtual void actor_enter (Actor *a) {}
+        virtual void actor_leave (Actor *a) {}
 
 
         void warning(const char *format, ...) const;
@@ -107,6 +110,7 @@ namespace enigma {
 
         DirectionBits getConnections() const;
         DirectionBits getFaces() const;
+        
 
     protected:
         // GridObject interface
@@ -123,9 +127,18 @@ namespace enigma {
 
         virtual void on_removal(GridPos p) {
             kill_model (p);
-        }     
+        }
+        
+        virtual void photoSensorChange(bool isOn) {}
+        virtual bool lightDirChange(DirectionBits oldDirs, DirectionBits newDirs) {return false;}
+        
+        void activatePhoto();
+        void deactivatePhoto();
 
     private:
+        static std::list<GridObject *> photoSensorList;
+        
+    
         // ModelCallback interface.
         void animcb() {}
 

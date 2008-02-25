@@ -1574,6 +1574,7 @@ void WorldPrepareLevel ()
 {
     GameTimer.clear();
     Resize (20, 13);
+    LaserBeam::Reset();
 }
 
 bool WorldInitLevel()

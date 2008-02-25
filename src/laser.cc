@@ -39,71 +39,6 @@ namespace enigma {
                                     itf_static | itf_indestructible, 0.0 };
 
 
-/* -------------------- Laser Stones -------------------- */
-
-/** \page st-laser Laser Stone
-
-These stones emit a laser beam in a specified direction when
-activated.  They are the only objects in the game that can act as
-primary light sources (mirrors can also emit light but they require
-an incoming beam).
-
-\subsection lasera Attributes
-
-- \b on:      1 if laser in active, 0 if not
-- \b dir:     the Direction in which light is emitted
-            (NORTH, EAST, SOUTH, WEST)
-
-\subsection laserm Messages
-
-- \b on, \b off, \b onoff: as usual
-
-\subsection lasersa See also
-
-\ref st-pmirror, \ref st-3mirror
-
-*/
-//    class LaserStone : public LaserEmitter, public OnOffStone {
-//    public:
-//        LaserStone (Direction dir=EAST);
-//        static void reemit_all();
-//
-//    private:
-//
-////        INSTANCELISTOBJ(LaserStone);
-//
-//// We can't use this macro here: g++ can't handle multiple inheritance
-//// and covariant return types at the same time ("sorry, not
-//// implemented: ..." first time I ever saw this error message :-)
-//
-//        typedef std::vector<LaserStone*> InstanceList;
-//        static InstanceList instances;
-//        Stone *clone() {
-//            LaserStone *o = new LaserStone(*this);
-//            instances.push_back(o);
-//            return o;
-//        }
-//        void dispose() {
-//            instances.erase(find(instances.begin(), instances.end(), this));
-//            delete this;
-//        }
-//
-//        // LaserEmitter interface
-//        DirectionBits emission_directions() const;
-//
-//        // OnOffStone interface.
-//        void notify_onoff(bool on);
-//
-//        // Private methods.
-//        void emit_light();
-//        Direction get_dir() const {return to_direction(getAttr("dir"));}
-//
-//        // Stone interface.
-//        void on_creation (GridPos p);
-//        void init_model();
-//    };
-//
-//
 
 /* -------------------- PhotoCell -------------------- */
 
@@ -214,13 +149,18 @@ void PhotoStone::on_recalc_finish()
 //   when the laser goes on or off, use the `PhotoStone'
 //   mixin.
 
-list<LaserBeam *> LaserBeam::beamList1;
-list<LaserBeam *> LaserBeam::beamList2;
-list<LaserBeam *> *LaserBeam::gridBeams = &LaserBeam::beamList1;
-list<LaserBeam *> *LaserBeam::lastBeams = &LaserBeam::beamList2;
+std::list<LaserBeam *> LaserBeam::beamList;
+
+
+void LaserBeam::Reset() {
+    beamList.clear();
+}
 
 void LaserBeam::init_model()
 {
+    DirectionBits directions = (DirectionBits)(objFlags & 15);
+//    Log << "LaserBeam init model " << directions << " - " << objFlags << "\n";
+    
     if (directions & (EASTBIT | WESTBIT)) {
         if (directions & (NORTHBIT | SOUTHBIT))
             set_model("it-laserhv");
@@ -234,21 +174,30 @@ void LaserBeam::init_model()
 void LaserBeam::on_laserhit(Direction dir)
 {
     DirectionBits dirbit = to_bits(dir);
-    if (!(directions & dirbit)) {
-        // `dir' not in `directions' ?
-        directions = DirectionBits(directions | dirbit);
-        emit_from(get_pos(), dir);
-        init_model();
+    
+    if ((objFlags & 15 & dirbit) == 0) {
+        // new direction
+        objFlags |= dirbit;
+        emit_from(get_pos(), dir);        
     }
 }
 
-void LaserBeam::on_creation (GridPos p)
+void LaserBeam::on_creation(GridPos p)
 {
+    beamList.push_back(this);
+    DirectionBits directions = (DirectionBits)(objFlags & 15);
+    
     if (directions & EASTBIT) emit_from(p, EAST);
-    if (directions & WESTBIT) emit_from(p, WEST);
-    if (directions &NORTHBIT) emit_from(p, NORTH);
-    if (directions &SOUTHBIT) emit_from(p, SOUTH);
-    init_model();
+    else if (directions & WESTBIT) emit_from(p, WEST);
+    else if (directions & NORTHBIT) emit_from(p, NORTH);
+    else if (directions & SOUTHBIT) emit_from(p, SOUTH);
+}
+
+void LaserBeam::on_removal(GridPos p) {
+    if ((objFlags & 15) != 0) {    // extraordinary removal of a laser beam
+        beamList.erase(find(beamList.begin(), beamList.end(), this));
+    }
+    Item::on_removal(p);
 }
 
 void LaserBeam::emit_from(GridPos p, Direction dir)
@@ -263,17 +212,18 @@ void LaserBeam::emit_from(GridPos p, Direction dir)
 
     if (may_pass) {
         if (Item *it = GetItem(p))
-            it->on_laserhit (dir);
+            it->on_laserhit(dir);
         else {
             LaserBeam *lb = new LaserBeam(dir);
             SetItem(p, lb);
-            gridBeams->push_back(lb);
         }
     }
 }
 
 bool LaserBeam::actor_hit(Actor *actor)
 {
+    DirectionBits directions = (DirectionBits)(objFlags & 15);
+
     double r = get_radius(actor);
     V2 p = actor->get_pos();
     GridPos gp = get_pos();
@@ -293,16 +243,11 @@ bool LaserBeam::actor_hit(Actor *actor)
 
 void LaserBeam::kill_all()
 {    
-    list<LaserBeam *> *tmpBeamList = lastBeams;
-    ASSERT(tmpBeamList->empty(), XLevelRuntime, "Laser Beam - old list not empty");
-    lastBeams = gridBeams;
-    for (list<LaserBeam *>::iterator itr = lastBeams->begin(); itr != lastBeams->end(); ++itr) {
-        LaserBeam *beam = *itr;
-        GridPos pos = beam->get_pos();
-        YieldItem(pos);          // now we are the owner of the object!
-        beam->setOwnerPos(pos);  // remember old pos
+    
+    for (list<LaserBeam *>::iterator itr = beamList.begin(); itr != beamList.end(); ++itr) {
+        uint32_t flags = (*itr)->objFlags;
+        (*itr)->objFlags = (flags & ~255) | ((flags & 15) << 4);  // remember last laser bits, clear current ones
     }
-    gridBeams = tmpBeamList;
 }
 
 void LaserBeam::all_emitted()
@@ -310,29 +255,28 @@ void LaserBeam::all_emitted()
     double x = 0, y = 0;
     int    count = 0;
     
-    for (list<LaserBeam *>::iterator itr = lastBeams->begin(); itr != lastBeams->end(); ++itr) {
-        LaserBeam *oldBeam = *itr;
-        GridPos p = oldBeam->getOwnerPos();
-        Item * newItem = GetItem(p);
-        if (newItem != NULL && newItem->get_traits().id == it_laserbeam) {
-            LaserBeam *newBeam = dynamic_cast<LaserBeam *>(newItem);
-            newBeam->state = 1; // mark as visited
-            if ((oldBeam->directions & newBeam->directions) != newBeam->directions) {
+    for (list<LaserBeam *>::iterator itr = beamList.begin(); itr != beamList.end(); ) {
+        list<LaserBeam *>::iterator witr = itr;  // work iterator for possible deletion of object
+        ++itr;                                   // main iterator does no longer point to critical object
+        uint32_t flags = (*witr)->objFlags;
+//        Log << "LaserBeam allemit px " << (*witr)->get_pos().x << " y " << (*witr)->get_pos().y << " f " << flags << "\n";
+        uint32_t newDirs = flags & 15;
+        if (newDirs == 0) {
+            // this grid is now free of laserbeam
+            KillItem((*witr)->get_pos());
+            beamList.erase(witr);
+        } else if ((flags & 240) != (newDirs << 4)) {
+            // the laser beam on grid changed or is new
+            (*witr)->init_model();
+            
+            // sound position calculation
+            if ((((flags & 240) >> 4) & newDirs) != newDirs) {
                 // a beam has been added here
+                GridPos p = (*witr)->getOwnerPos();
                 x += p.x;
                 y += p.y;
                 ++count;
-            }            
-        }
-        delete oldBeam;
-    }
-    for (list<LaserBeam *>::iterator itr = gridBeams->begin(); itr != gridBeams->end(); ++itr) {
-        LaserBeam *newBeam = *itr;
-        GridPos p = newBeam->get_pos();
-        if (newBeam->state == 0) {
-            x += p.x;
-            y += p.y;
-            ++count;
+            } 
         }
     }
 
@@ -340,72 +284,13 @@ void LaserBeam::all_emitted()
         sound::EmitSoundEvent ("laseron", ecl::V2(x/count+.5, y/count+.5),
                                getVolume("laseron", NULL));
     }
-    
-    lastBeams->clear();
 }
 
 void LaserBeam::dispose()
 {
-    gridBeams->erase(std::find(gridBeams->begin(), gridBeams->end(), this));
     delete this;
 }
 
-
-//----------------------------------------
-// Laser stone
-//----------------------------------------
-//LaserStone::InstanceList LaserStone::instances;
-//
-//LaserStone::LaserStone (Direction dir)
-//: OnOffStone("st-laser")
-//{
-//    setAttr("dir", Value(dir));
-//}
-//
-//DirectionBits
-//LaserStone::emission_directions() const
-//{
-//    if (is_on()) {
-//        return to_bits(get_dir());
-//    }
-//    return NODIRBIT;
-//}
-//
-//
-//void LaserStone::reemit_all()
-//{
-//    for (unsigned i=0; i<instances.size(); ++i)
-//    {
-//        LaserStone *ls = (LaserStone*) instances[i];
-//        ls->emit_light();
-//    }
-//}
-//
-//void LaserStone::notify_onoff(bool /*on*/)
-//{
-//    RecalcLight();
-//}
-//
-//void LaserStone::emit_light()
-//{
-//    if (is_on())
-//        LaserBeam::emit_from(get_pos(), get_dir());
-//}
-//
-//void LaserStone::on_creation (GridPos p)
-//{
-//    if (is_on())
-//        RecalcLight();
-//    Stone::on_creation(p);
-//}
-//
-//void LaserStone::init_model()
-//{
-//    string mname = is_on() ? "st-laseron" : "st-laser";
-//    mname += to_suffix(get_dir());
-//    set_model(mname);
-//}
-//
 
 /* -------------------- MirrorStone -------------------- */
 namespace
@@ -780,10 +665,12 @@ void RecalcLightNow() {
     if (light_recalc_scheduled) {
 //        light_recalc_scheduled = false;    // this is the right place - but we have first to fix some object like hammer,...
         PhotoCell::notify_start();
+        GridObject::preLaserRecalc();
         LaserBeam::kill_all();
         LaserStone::reemit_all();
-        PhotoCell::notify_finish();
         LaserBeam::all_emitted();
+        GridObject::postLaserRecalc();
+        PhotoCell::notify_finish();
         light_recalc_scheduled = false;
     }
 }

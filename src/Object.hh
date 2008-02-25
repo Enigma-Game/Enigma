@@ -25,6 +25,7 @@
 #include "ecl_math.hh"
 #include "Value.hh"
 #include <map>
+#include <stdint.h>
 
 namespace enigma { 
 
@@ -212,13 +213,18 @@ namespace enigma {
          */
         bool getDestinationByIndex(int idx, ecl::V2 &dstpos) const;
         
+        /**
+         * 
+         */
+        uint32_t  objFlags;
+        
     private:
         friend void InitWorld();   // for bootFinished() access
         
         static int next_id;
         static std::map<int, Object *> objects;
         
-        int id;
+        int       id;
         AttribMap attribs;
         
         static int getNextId(Object *obj, bool bootFinished);
