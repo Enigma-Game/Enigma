@@ -754,16 +754,7 @@ function endphase_vortex(sokoarea_number)
   
   -- Find a cyclic permutation (i.e. with only one cycle) to connect the
   -- vortices (each vortex shall be reached by starting from any other).
-  local sequence = {}
-  for j = 1, components do
-    sequence[j] = {nr = j}
-  end
-  luatools.shuffle_table(sequence)
-  local connect = {}
-  for j = 1, components - 1 do
-    connect[sequence[j].nr] = sequence[j+1].nr
-  end
-  connect[sequence[components].nr] = sequence[1].nr
+  local connect = luatools.cyclic_permutation(components)
 
   -- Now set and connect the vortices
   for j, v in pairs(vortex) do
