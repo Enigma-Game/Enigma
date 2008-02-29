@@ -22,7 +22,9 @@
 
 #include "errors.hh"
 #include "game.hh"
+#include "laser.hh"
 #include "lua.hh"
+#include "main.hh"
 #include "sound.hh"
 #include "world.hh"
 
@@ -47,32 +49,6 @@ namespace enigma {
 
 
 /* -------------------- GridObject implementation -------------------- */
-    std::list<GridObject *> GridObject::photoSensorList;
-
-    void GridObject::preLaserRecalc() {
-        for (list<GridObject *>::iterator itr = photoSensorList.begin(); itr != photoSensorList.end(); ++itr) {
-            uint32_t flags = (*itr)->objFlags;
-            (*itr)->objFlags = (flags & ~255) | ((flags & 15) << 4);  // remember last laser bits, clear current ones
-        }
-    }
-    
-    void GridObject::postLaserRecalc() {
-        for (list<GridObject *>::iterator itr = photoSensorList.begin(); itr != photoSensorList.end(); ) {
-            list<GridObject *>::iterator witr = itr;  // work iterator for possible deletion of object
-            ++itr;                                    // main iterator does no longer point to critical object
-            uint32_t flags = (*witr)->objFlags;
-            DirectionBits newDirs = (DirectionBits)(flags & 15);
-            DirectionBits oldDirs = (DirectionBits)((flags & 240) >> 4);
-            if (newDirs != oldDirs) {
-                if (!(*witr)->lightDirChange(oldDirs, newDirs)) {
-                    if (oldDirs == 0)
-                        (*witr)->photoSensorChange(true);
-                    else if (newDirs == 0)
-                        (*witr)->photoSensorChange(false);
-                }
-            }
-        }
-    }
 
 
     void GridObject::setOwner(int player) {
@@ -200,21 +176,77 @@ namespace enigma {
         return DirectionBits(ALL_DIRECTIONS ^ getConnections());
     }
     
+    void GridObject::on_creation(GridPos p) {
+        init_model();
+    }
+    
+    void GridObject::on_removal(GridPos p) {
+        kill_model (p);
+        if (objFlags & OBJBIT_PHOTOACTIV)
+            deactivatePhoto();
+    }
+    
+    
+    // GridObject laser light support
+    
+    std::list<GridObject *> GridObject::photoSensorList;
+
+    void GridObject::preLaserRecalc() {
+        for (list<GridObject *>::iterator itr = photoSensorList.begin(); itr != photoSensorList.end(); ++itr) {
+            uint32_t flags = (*itr)->objFlags;
+            (*itr)->objFlags = (flags & ~OBJBIT_LIGHTALLDIRS) | ((flags & OBJBIT_LIGHTNEWDIRS) << 4);  // remember last laser bits, clear current ones
+        }
+    }
+    
+    void GridObject::postLaserRecalc() {
+        for (list<GridObject *>::iterator itr = photoSensorList.begin(); itr != photoSensorList.end(); ) {
+            list<GridObject *>::iterator witr = itr;  // work iterator for possible deletion of object
+            ++itr;                                    // main iterator does no longer point to critical object
+            uint32_t flags = (*witr)->objFlags;
+            DirectionBits newDirs = (DirectionBits)(flags & OBJBIT_LIGHTNEWDIRS);
+            DirectionBits oldDirs = (DirectionBits)((flags & OBJBIT_LIGHTOLDDIRS) >> 4);
+            if (newDirs != oldDirs) {
+                (*witr)->lightDirChanged(oldDirs, newDirs);
+            }
+        }
+    }
+    
+    void GridObject::prepareLevel() {
+        photoSensorList.clear();
+    }
+
+    void GridObject::processLight(Direction dir) {
+        objFlags |= to_bits(dir);
+    }
+    
+    DirectionBits GridObject::emissionDirections() const {
+        return NODIRBIT;
+    }
     
     void GridObject::activatePhoto() {
-        ASSERT(std::find(photoSensorList.begin(), photoSensorList.end(), this) == photoSensorList.end(),
-                XLevelRuntime , "GridObject: double photo sensor activation");
+        ASSERT((objFlags & OBJBIT_PHOTOACTIV) == 0, XLevelRuntime , "GridObject: double photo sensor activation");
         photoSensorList.push_back(this);
+        objFlags |= OBJBIT_PHOTOACTIV;
+    }
+
+    void GridObject::lightDirChanged(DirectionBits oldDirs, DirectionBits newDirs) {
     }
     
     void GridObject::deactivatePhoto() {
         std::list<GridObject *>::iterator itr = std::find(photoSensorList.begin(), photoSensorList.end(), this);
         if (itr != photoSensorList.end())
             photoSensorList.erase(itr);
+        objFlags &= ~OBJBIT_PHOTOACTIV;
+        
     }
     
-    void GridObject::on_laserhit(Direction dir) {
-        objFlags |= to_bits(dir);
+    DirectionBits GridObject::updateCurrentLightDirs() {
+        DirectionBits result = NODIRBIT;
+        for (Direction dir = NORTH; dir != NODIR; dir = (Direction)(dir - 1)) {
+            if (LightFrom(get_pos(), reverse(dir)))
+                result = DirectionBits(result | to_bits(dir));
+        }
+        objFlags = (objFlags & ~OBJBIT_LIGHTNEWDIRS) | result;
+        return result;
     }
-    
 } // namespace enigma

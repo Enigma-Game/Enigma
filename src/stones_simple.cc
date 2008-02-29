@@ -582,7 +582,7 @@ namespace
             if (may_be_broken_by(sc.actor))
                 break_me();
         }
-        void on_laserhit(Direction) {
+        void processLight(Direction d) {
             break_me();
         }
         void animcb() {
@@ -712,7 +712,7 @@ namespace
         Stone_movebreak()
         {}
 
-        void on_laserhit(Direction) {
+        void processLight(Direction d) {
         }
 
         string get_break_anim() const  {
@@ -1359,7 +1359,7 @@ namespace
         void actor_hit(const StoneContact &sc);
         virtual Value message(const Message &m);
 
-        void on_laserhit(Direction) {
+        void processLight(Direction d) {
             change_state(BREAKING);
         }
     public:
@@ -2037,7 +2037,7 @@ namespace
             SetItem(p, it_explosion1);
         }
 
-        void on_laserhit(Direction) {
+        void processLight(Direction d) {
             explode();
         }
 

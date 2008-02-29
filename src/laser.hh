@@ -28,15 +28,6 @@
 #include <list>
 
 namespace enigma {
-    /**
-     * This interface must be implemented by all items and stones that
-     * are capable of emitting light.
-     */
-    class LaserEmitter {
-    public:
-        virtual ~LaserEmitter() {}
-        virtual DirectionBits emission_directions() const = 0;
-    };
 
 /* -------------------- PhotoCell -------------------- */
 
@@ -83,7 +74,7 @@ namespace enigma {
     
       The most prominent example are Oxyd stones -- they open when
       they are hit by a laser beam.  See the remarks at the beginning
-      of this file to understand why overriding `on_laserhit' is not
+      of this file to understand why overriding `processLight' is not
       sufficient for a proper implementation of Oxyd stones.
     */
 
@@ -106,15 +97,15 @@ namespace enigma {
     
 /* -------------------- LaserBeam -------------------- */
 
-    class LaserBeam : public Item, public LaserEmitter {
+    class LaserBeam : public Item {
     public:
         static void emit_from(GridPos p, Direction d);
         static void kill_all();
         static void all_emitted();
-        static void Reset();
+        static void prepareLevel();
 
-    // LaserEmitter interface
-        DirectionBits emission_directions() const { return (DirectionBits)(objFlags & 15); }
+        // GridObject interface
+        DirectionBits emissionDirections() const { return (DirectionBits)(objFlags & 15); }
         static ItemTraits traits;
 
         const ItemTraits &get_traits() const {
@@ -126,7 +117,7 @@ namespace enigma {
         }
 
         // Item interface.
-        void on_laserhit(Direction dir);
+        void processLight(Direction dir);
         void on_creation (GridPos p);
         virtual void on_removal(GridPos p);
         void init_model();
@@ -149,7 +140,7 @@ namespace enigma {
 
     /*! This function must be called at the end of each tick; it
       recalculates the laser beams if necessary. */
-    void RecalcLightNow();
+    void PerformRecalcLight(bool isInit);
 
     /*! Force all light beams to be recalculated at the end of the
       current tick.  So far, this is only used by laser stones and in

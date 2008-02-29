@@ -59,6 +59,8 @@
     </object>
     <object name="it_blocker_new" init="true">
     </object>
+    <object name="it_hammer"/>
+    <object name="it_hammer_new" init="true"/>
     <object name="it_magnet">
       <attr name="range" default="nil"/>
       <attr name="strength" default="nil"/>
@@ -72,6 +74,8 @@
     <object name="it_magnet_on">
       <attr name="state" value="1"/>
     </object>
+    <object name="it_sword"/>
+    <object name="it_sword_new" init="true"/>
     <object name="it_wormhole">
       <attr name="destination"/>
       <attr name="interval" default="0"/>

@@ -409,7 +409,6 @@ do
         "it-floppy",
         "it-glasses",
         "it-glasses-broken",
-        "it-hammer",
         "it-hill",
         "it-hollow",
         "it-hstrip",
@@ -427,7 +426,6 @@ do
         "it-spring1",
         "it-spring2",
         "it-surprise",
-        "it-sword",
         "it-tinyhill",
         "it-tinyhollow",
         "it-umbrella",
@@ -440,6 +438,8 @@ do
     DefImages(itemlist)
 
     DefImage("it-brake", {filename="st-brake"})
+    DefImage("it_hammer", {filename="it-hammer"})
+    DefImage("it_sword", {filename="it-sword"})
 end
 
 -------------------------

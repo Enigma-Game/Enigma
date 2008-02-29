@@ -32,6 +32,14 @@ namespace enigma {
     using std::string;
     
     struct Message;
+    
+    enum ObjectFlagsBits {
+        OBJBIT_LIGHTNEWDIRS  =  15,   ///< GridObject 4 direction bits with current/new light
+        OBJBIT_LIGHTOLDDIRS  =  240,  ///< GridObject 4 direction bits with previous light
+        OBJBIT_LIGHTALLDIRS  =  255,  ///< GridObject all 8 direction bits with old an new light
+        OBJBIT_PHOTOACTIV    =  1<<8  ///< GridObject registered as photo activ
+    };
+    
     class Value;
 
     /**
@@ -214,7 +222,19 @@ namespace enigma {
         bool getDestinationByIndex(int idx, ecl::V2 &dstpos) const;
         
         /**
+         * A central managed container for 32 single bit flags to be used by 
+         * subclasses. Object is reponsible of efficiently cloning, saving and
+         * restoring these flags on demand. Subclasses use the bits as follows:
          * 
+         * - Bit 0-15 are reserved for classes Object to GridObject
+         * 
+         * - Bit 16-23 are reserved for classes Item, Stone, Floor, Actor
+         * 
+         * - Bit 24-31 are reserved for the final subclass
+         * 
+         * See enumeration ObjectFlagsBits for Bitmasks of Bit 0-15. Note that
+         * Bitmasks would not have been an alternative as the subclasses may
+         * and will use the upper bits in a quite different mannor. 
          */
         uint32_t  objFlags;
         

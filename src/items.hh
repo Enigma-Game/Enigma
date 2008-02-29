@@ -175,7 +175,7 @@ namespace enigma {
         /* ---------- Virtual functions ---------- */
         const char *get_kind() const;
         void init_model();
-        void on_laserhit(Direction);
+        void processLight(Direction d);
 
         /* ---------- Item interface ---------- */
 
@@ -236,6 +236,7 @@ namespace enigma {
         virtual void kill_model (GridPos p) {
             display::KillModel (GridLoc (GRID_ITEMS, p));
         }
+        void transform(std::string kind);
         // replace template method hook
         virtual void setup_successor(Item *newitem) {}
     };

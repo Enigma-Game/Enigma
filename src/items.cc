@@ -102,6 +102,12 @@ void Item::replace(ItemID id)
     SetItem (get_pos(), newitem);
 }
 
+void Item::transform(std::string kind) {
+    Item *newitem = MakeItem(kind.c_str());
+    transferIdentity(newitem);          // subclasses may hook this call
+    SetItem(get_pos(), newitem);
+}
+
 const char *Item::get_kind() const
 {
     return get_traits().name;
@@ -129,10 +135,11 @@ void Item::stone_change (Stone * /*st*/) {
 void Item::on_stonehit (Stone * /*st*/) {
 }
 
-void Item::on_laserhit(Direction)
-{
-    if (get_traits().flags & itf_inflammable)
+void Item::processLight(Direction d) {
+    if (get_traits().flags & itf_inflammable) {
         replace (it_explosion1);
+    } else
+        GridObject::processLight(d);
 }
 
 
@@ -186,8 +193,6 @@ namespace
 
 
 /* -------------------- DummyItem -------------------- */
-namespace
-{
     class Dummyitem : public Item {
         CLONEOBJ(Dummyitem);
         DECL_TRAITS;
@@ -289,7 +294,7 @@ namespace
         CLONEOBJ(Banana);
         DECL_TRAITS;
 
-        void on_laserhit(Direction /*d*/) {
+        void processLight(Direction d) {
             sound_event ("itemtransform");
             replace(it_cherry);
         }
@@ -305,36 +310,115 @@ namespace
 
 /* -------------------- Sword -------------------- */
 
-    class Sword : public Item {
+    class Sword : public Item, public TimeHandler {
         CLONEOBJ(Sword);
         DECL_TRAITS;
 
-        void on_laserhit(Direction /*d*/) {
-            sound_event ("itemtransform");
-            replace(it_hammer);
-        }
     public:
-        Sword() {}
+        Sword(bool isNew);
+
+        // GridObject interface
+        virtual void on_creation(GridPos p);
+        virtual void on_removal(GridPos p);
+        virtual void lightDirChanged(DirectionBits oldDirs, DirectionBits newDirs);
+
+        // TimeHandler interface
+        virtual void alarm();
     };
-    DEF_TRAITS(Sword, "it-sword", it_sword);
+
+    Sword::Sword(bool isNew) : Item() {
+        if (isNew) {
+            objFlags |= ALL_DIRECTIONS;
+        }
+    }
+
+    void Sword::on_creation(GridPos p) {
+        if ((objFlags & ALL_DIRECTIONS) == ALL_DIRECTIONS) {
+            // a new transformed hammer
+            GameTimer.set_alarm(this, 0.2, false);
+        } else {
+            updateCurrentLightDirs();
+            activatePhoto();
+        }
+        Item::on_creation(p);
+    }
+    
+    void Sword::on_removal(GridPos p) {
+        GameTimer.remove_alarm(this);
+        objFlags &= ~ALL_DIRECTIONS;
+        Item::on_removal(p);
+    }
+
+    
+    void Sword::lightDirChanged(DirectionBits oldDirs, DirectionBits newDirs) {
+        if (added_dirs(oldDirs, newDirs) != 0) {
+            sound_event ("itemtransform");
+            transform("it_hammer_new");
+        }
+    }
+    
+    void Sword::alarm() {
+            updateCurrentLightDirs();
+            activatePhoto();        
+    }
+    
+    DEF_TRAITS(Sword, "it_sword", it_sword);
 
 /* -------------------- Hammer -------------------- */
 
-    class Hammer : public Item {
+    class Hammer : public Item, public TimeHandler {
         CLONEOBJ(Hammer);
         DECL_TRAITS;
 
-        void on_laserhit(Direction /*d*/) {
-            if (server::GameCompatibility != enigma::GAMET_PEROXYD) {
-                sound_event ("itemtransform");
-                replace(it_sword);
-            }
-        }
     public:
-        Hammer() {}
+        Hammer(bool isNew);
+
+        // GridObject interface
+        virtual void on_creation(GridPos p);
+        virtual void on_removal(GridPos p);
+        virtual void lightDirChanged(DirectionBits oldDirs, DirectionBits newDirs);
+
+        // TimeHandler interface
+        virtual void alarm();
     };
-    DEF_TRAITS(Hammer, "it-hammer", it_hammer);
-}
+    
+    Hammer::Hammer(bool isNew) : Item() {
+        if (isNew) {
+            objFlags |= ALL_DIRECTIONS;
+        }
+    }
+    
+    void Hammer::on_creation(GridPos p) {
+        if ((objFlags & ALL_DIRECTIONS) == ALL_DIRECTIONS) {
+            // a new transformed hammer
+            GameTimer.set_alarm(this, 0.2, false);
+        } else {
+            updateCurrentLightDirs();
+            activatePhoto();
+        }
+        Item::on_creation(p);
+    }
+    
+    void Hammer::on_removal(GridPos p) {
+        GameTimer.remove_alarm(this);
+        objFlags &= ~ALL_DIRECTIONS;
+        Item::on_removal(p);
+    }
+    
+    void Hammer::lightDirChanged(DirectionBits oldDirs, DirectionBits newDirs) {
+        if (added_dirs(oldDirs, newDirs) != 0 && server::GameCompatibility != enigma::GAMET_PEROXYD) {
+            sound_event ("itemtransform");
+            transform("it_sword_new");
+        }
+    }
+    
+    void Hammer::alarm() {
+            DirectionBits db = updateCurrentLightDirs();
+            activatePhoto();        
+    }
+    
+    DEF_TRAITS(Hammer, "it_hammer", it_hammer);
+
 
 /* -------------------- ExtraLife -------------------- */
 namespace
@@ -349,7 +433,7 @@ namespace
                 return "inv-whiteball";
         }
 
-        void on_laserhit(Direction /*d*/) {
+        void processLight(Direction d) {
             sound_event ("itemtransform");
             replace (it_glasses);
         }
@@ -366,7 +450,7 @@ namespace
     class Umbrella : public Item {
         CLONEOBJ(Umbrella);
         DECL_TRAITS;
-        void on_laserhit (Direction) {
+        void processLight(Direction d) {
             if (server::GameCompatibility != enigma::GAMET_PEROXYD)
                 replace(it_explosion1);
         }
@@ -505,7 +589,7 @@ namespace
         CLONEOBJ(Coin1);
         DECL_TRAITS;
 
-        void on_laserhit (Direction) {
+        void processLight(Direction d) {
             sound_event ("itemtransform");
             replace (it_umbrella);
         }
@@ -525,9 +609,9 @@ namespace
         CLONEOBJ(Coin2);
         DECL_TRAITS;
 
-        void on_laserhit (Direction) {
+        void processLight(Direction d) {
             sound_event ("itemtransform");
-            replace (it_hammer);
+            transform("it_hammer_new");
         }
 
         void on_stonehit(Stone *) {
@@ -545,7 +629,7 @@ namespace
         CLONEOBJ(Coin4);
         DECL_TRAITS;
 
-        void on_laserhit (Direction) {
+        void processLight(Direction d) {
             sound_event ("itemtransform");
             replace (it_extralife);
         }
@@ -1099,7 +1183,7 @@ namespace
             return Item::message(m);
         }
         void animcb() { explode(); }
-        void on_laserhit(Direction) {
+        void processLight(Direction d) {
             change_state(BURNING);
         }
         void on_drop(Actor *) { change_state(BURNING); }
@@ -1165,7 +1249,7 @@ namespace
 
         void animcb() { explode (); }
 
-        void on_laserhit(Direction) {
+        void processLight(Direction d) {
             explode();
         }
 
@@ -1387,7 +1471,7 @@ namespace
             state |= 1;   // add stone pressure bit
         }
                 
-//        Log << "Trigger update old state " << oldState << " - new state " << state << "\n";
+//        Log << "Trigger update old state " << oldState << " - new state " << state << " refuse action " << refuseAction << "\n";
     
         if ((oldState == 0 && state != 0) || (oldState != 0 && state == 0)) {
             init_model();
@@ -1417,7 +1501,7 @@ namespace
         }
         void on_drop (Actor *) {start_growing();}
         void on_stonehit (Stone *) {start_growing();}
-        void on_laserhit (Direction) {start_growing();}
+        void processLight(Direction d) {start_growing();}
 
         virtual Value message(const Message &m) {
             if (m.message == "grow" || m.message == "signal") {
@@ -3742,7 +3826,8 @@ void InitItems()
     RegisterItem (new Floppy);
     RegisterItem (new Glasses);
     RegisterItem (new BrokenGlasses);
-    RegisterItem (new Hammer);
+    RegisterItem (new Hammer(false));
+    Register ("it_hammer_new", new Hammer(true));
     RegisterItem (new Hill);
     RegisterItem (new Hollow);
     RegisterItem (new HStrip);
@@ -3780,7 +3865,8 @@ void InitItems()
     RegisterItem (new Springboard);
     RegisterItem (new Squashed);
     RegisterItem (new SurpriseItem);
-    RegisterItem (new Sword);
+    RegisterItem (new Sword(false));
+    Register ("it_sword_new", new Sword(true));
     RegisterItem (new TinyHill);
     RegisterItem (new TinyHollow);
     RegisterItem (new Trigger);

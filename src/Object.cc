@@ -99,9 +99,10 @@ namespace enigma {
         id = getNextId(this, false);
     }
     
-    Object::Object(const Object &src_obj) : objFlags (0) {
+    Object::Object(const Object &src_obj) {
         id = getNextId(this, false);
         attribs = src_obj.attribs;
+        objFlags = src_obj.objFlags;
     }
     
     Object::~Object() {

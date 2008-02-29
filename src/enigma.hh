@@ -117,6 +117,7 @@ namespace enigma {
     Direction rotate_ccw (Direction d);
 
     std::string to_suffix(Direction d);
+    std::string toSuffix(Direction d);
 
     enum DirectionBits {
         NODIRBIT       = 0,
@@ -130,6 +131,9 @@ namespace enigma {
     DirectionBits rotate (DirectionBits d, bool clockwise);
     DirectionBits to_bits (Direction d);
     bool has_dir (DirectionBits db, Direction dir);
+    DirectionBits reverse(DirectionBits dirs);
+    DirectionBits added_dirs(DirectionBits oldDirs, DirectionBits newDirs);
+    DirectionBits removed_dirs(DirectionBits oldDirs, DirectionBits newDirs);
 
 
 /* -------------------- GridPos -------------------- */
@@ -279,6 +283,18 @@ namespace enigma {
 
     inline bool has_dir(DirectionBits db, Direction dir) {
         return (db & to_bits(dir)) != 0;
+    }
+    
+    inline DirectionBits reverse(DirectionBits dirs) {
+        return (DirectionBits) (~dirs & ALL_DIRECTIONS);
+    }
+    
+    inline DirectionBits added_dirs(DirectionBits oldDirs, DirectionBits newDirs) {
+        return (DirectionBits) (~oldDirs & newDirs);
+    }
+
+    inline DirectionBits removed_dirs(DirectionBits oldDirs, DirectionBits newDirs) {
+        return (DirectionBits) (oldDirs & ~newDirs);
     }
 
 

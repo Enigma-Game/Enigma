@@ -714,7 +714,7 @@ namespace
         void on_creation (GridPos p);
         void on_removal (GridPos p);
         void on_impulse (const Impulse& impulse);
-        void on_laserhit (Direction dir);
+        void processLight(Direction dir);
 
         bool is_floating() const;
 
@@ -1171,7 +1171,7 @@ void PuzzleStone::on_removal(GridPos p) {
     ConnectiveStone::on_removal(p);
 }
 
-void PuzzleStone::on_laserhit (Direction dir) {
+void PuzzleStone::processLight(Direction dir) {
     ecl::set_flags (illumination, to_bits(reverse(dir)));
 }
 
@@ -1695,7 +1695,7 @@ namespace
                 change_state (IDLE);
         }
 
-        void on_laserhit(Direction dir) {
+        void processLight(Direction dir) {
             incoming = dir;
             change_state(PULSING);
         }
@@ -1819,7 +1819,7 @@ namespace
             return true;
         }
 
-        void on_laserhit (Direction) {
+        void processLight(Direction d) {
             // hollow StoneImpulseStones cannot be activated using lasers
         }
     };

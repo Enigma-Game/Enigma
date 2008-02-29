@@ -144,7 +144,7 @@ void PhotoStone::on_recalc_finish()
 //   across an item or a stone that returns `false' from
 //   Stone::is_transparent().
 //
-// - `on_laserhit()' is called for objects in the beam *whenever*
+// - `processLight()' is called for objects in the beam *whenever*
 //   the beam is recalculated.  For objects that need to be notified
 //   when the laser goes on or off, use the `PhotoStone'
 //   mixin.
@@ -152,7 +152,7 @@ void PhotoStone::on_recalc_finish()
 std::list<LaserBeam *> LaserBeam::beamList;
 
 
-void LaserBeam::Reset() {
+void LaserBeam::prepareLevel() {
     beamList.clear();
 }
 
@@ -171,8 +171,7 @@ void LaserBeam::init_model()
         set_model("it-laserv");
 }
 
-void LaserBeam::on_laserhit(Direction dir)
-{
+void LaserBeam::processLight(Direction dir) {
     DirectionBits dirbit = to_bits(dir);
     
     if ((objFlags & 15 & dirbit) == 0) {
@@ -207,12 +206,12 @@ void LaserBeam::emit_from(GridPos p, Direction dir)
     p.move(dir);
     if (Stone *st = GetStone(p)) {
         may_pass = st->is_transparent (dir);
-        st->on_laserhit (dir);
+        st->processLight(dir);
     }
 
     if (may_pass) {
         if (Item *it = GetItem(p))
-            it->on_laserhit(dir);
+            it->processLight(dir);
         else {
             LaserBeam *lb = new LaserBeam(dir);
             SetItem(p, lb);
@@ -296,7 +295,7 @@ void LaserBeam::dispose()
 namespace
 {
     class MirrorStone
-        : public Stone, public LaserEmitter, public PhotoCell
+        : public Stone, public PhotoCell
     {
     protected:
         MirrorStone(const char *name, bool movable=false, bool transparent=false);
@@ -324,8 +323,8 @@ namespace
 	// Object interface.
         virtual Value message(const Message &m);
 
-        // LaserEmitter interface
-        DirectionBits emission_directions() const {
+        //GridObject interface
+        DirectionBits emissionDirections() const {
             return outdirs;
         }
 
@@ -463,11 +462,11 @@ namespace
             const char *a = " -\\|/";
             return a[MirrorStone::get_orientation()];
         }
-        void on_laserhit(Direction dir);
+        void processLight(Direction dir);
     };
 }
 
-void PlaneMirror::on_laserhit(Direction dir) 
+void PlaneMirror::processLight(Direction dir) 
 {
     char orientation = GetOrientation();
     bool transparent = is_transparent();
@@ -556,11 +555,11 @@ namespace
             const Direction a[] = {NODIR, NORTH, EAST, SOUTH, WEST};
             return a[MirrorStone::get_orientation()];
         }
-        void on_laserhit (Direction dir);
+        void processLight(Direction dir);
     };
 }
 
-void TriangleMirror::on_laserhit(Direction beam_dir)
+void TriangleMirror::processLight(Direction beam_dir)
     // note: 'beam_dir' is the direction where laserbeam goes to
 {
     // direction where flat side of triangle points to
@@ -653,15 +652,16 @@ void RecalcLight() {
 
 bool LightFrom (GridPos p, Direction dir) {
     p.move(dir);
-    if (LaserEmitter *le = dynamic_cast<LaserEmitter*>(GetStone(p)))
-        if (has_dir(le->emission_directions(), reverse(dir)))
+    if (GridObject *obj = GetStone(p)) 
+        if (has_dir(obj->emissionDirections(), reverse(dir)))
             return true;
-    if (LaserEmitter *le = dynamic_cast<LaserEmitter*>(GetItem(p)))
-        return (has_dir(le->emission_directions(), reverse(dir)));
+    if (GridObject *obj = GetItem(p))
+        return (has_dir(obj->emissionDirections(), reverse(dir)));
+    
     return false;
 }
 
-void RecalcLightNow() {
+void PerformRecalcLight(bool isInit) {
     if (light_recalc_scheduled) {
 //        light_recalc_scheduled = false;    // this is the right place - but we have first to fix some object like hammer,...
         PhotoCell::notify_start();
@@ -669,7 +669,9 @@ void RecalcLightNow() {
         LaserBeam::kill_all();
         LaserStone::reemit_all();
         LaserBeam::all_emitted();
-        GridObject::postLaserRecalc();
+        if (!isInit)
+            // do not cause actions on initial laser beam generation
+            GridObject::postLaserRecalc();
         PhotoCell::notify_finish();
         light_recalc_scheduled = false;
     }

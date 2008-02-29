@@ -268,10 +268,10 @@ Stone * OxydLoader::make_laser (int type)
 
     Stone *st = 0;
     if (dir != NODIR) {
-        string lasername("st-laser");
-        lasername += to_suffix(dir);
+        string lasername("st_laser");
+        lasername += toSuffix(dir);
         st         = MakeStone(lasername.c_str());
-        st->setAttr("on", Value(on)); // OnOffStone attribute
+        st->setAttr("state", Value(on ? 1 : 0));
     }
     return st;
 }

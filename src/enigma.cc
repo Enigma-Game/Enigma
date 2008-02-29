@@ -112,6 +112,11 @@ string to_suffix(Direction d) {
     return sfx[d+1];
 }
 
+std::string toSuffix(Direction d) {
+    static const char *sfx[] = { "", "_w", "_s", "_e", "_n" };
+    return sfx[d+1];
+}
+
 /* -------------------- DirectionBits -------------------- */
 
 DirectionBits rotate(DirectionBits d, bool clockwise)

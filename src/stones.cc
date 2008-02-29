@@ -662,7 +662,7 @@ namespace
         CLONEOBJ(PlainStone);
         DECL_TRAITS;
 
-        void on_laserhit (Direction) {
+        void processLight(Direction d) {
             ReplaceStone (get_pos(), MakeStone("st-plain_cracked"));
         }
 
@@ -745,7 +745,7 @@ namespace
             sound_event ("stonedestroy");
             ReplaceStone(get_pos(), MakeStone ("st-plain_breaking"));
         }
-        void on_laserhit (Direction) {
+        void processLight(Direction d) {
             break_me();
         }
         virtual Value message(const Message &m) {

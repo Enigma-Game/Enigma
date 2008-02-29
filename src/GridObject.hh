@@ -41,9 +41,6 @@ namespace enigma {
      */
     class GridObject : public StateObject, public display::ModelCallback {
     public:
-        static void preLaserRecalc();
-        static void postLaserRecalc();
-    
         GridObject() : pos (GridPos(-1, -1)) {}
         GridObject(const char * kind) : StateObject(kind), pos (GridPos(-1, -1)) {}
 
@@ -97,7 +94,7 @@ namespace enigma {
         bool isDisplayable();
 
         // GridObject interface
-        virtual void on_laserhit (Direction d);   // direction of laserbeam
+        
         virtual void actor_enter (Actor *a) {}
         virtual void actor_leave (Actor *a) {}
 
@@ -121,24 +118,11 @@ namespace enigma {
 
         virtual void init_model();
 
-        virtual void on_creation(GridPos p) {
-            init_model();
-        }
-
-        virtual void on_removal(GridPos p) {
-            kill_model (p);
-        }
+        virtual void on_creation(GridPos p);
+        virtual void on_removal(GridPos p);
         
-        virtual void photoSensorChange(bool isOn) {}
-        virtual bool lightDirChange(DirectionBits oldDirs, DirectionBits newDirs) {return false;}
-        
-        void activatePhoto();
-        void deactivatePhoto();
 
     private:
-        static std::list<GridObject *> photoSensorList;
-        
-    
         // ModelCallback interface.
         void animcb() {}
 
@@ -154,6 +138,43 @@ namespace enigma {
          * in the world nor owned by anyone have pos.x = pos.y = -1. 
          */
         GridPos pos;
+
+
+    // GridObject laser light support
+    public:
+        static void preLaserRecalc();
+        static void postLaserRecalc();
+        static void prepareLevel();
+    private:
+        static std::list<GridObject *> photoSensorList;
+    
+    public:
+        virtual void processLight(Direction d);   // direction of laserbeam
+        virtual DirectionBits emissionDirections() const;
+        
+    protected:
+        /**
+         * Hook of laser light recalculation that is called for photo active objects
+         * everytime the illumination from any side of the grid did change. You need
+         * to activate a GridObject first by calling "activatePhoto()". On removal of
+         * an activated GridObject "deactivatePhoto()" is automatically executed. All
+         * reported directions are the directions the laser beams are bound to, not
+         * the objects grid faces. Use the "revert" function to convert the light 
+         * directions to object faces.<p>
+         * To identify a side independent light switch on compare "oldDirs" to 0, 
+         * to identify a side independent light switch off compare "newDirs" to 0.
+         * Apply "added_dirs(oldDirs, newDirs)" to get the directions of new laser
+         * light, apply "removed_dirs(oldDirs, newDirs)" to get the directions of
+         * switched off light.<p>
+         * Note that on level initialization this method will not be called. The
+         * light directions are silently updated, but no actions should be caused
+         * by the initial light beam calculation due to the snapshot principle.
+         */
+        virtual void lightDirChanged(DirectionBits oldDirs, DirectionBits newDirs);
+        
+        void activatePhoto();
+        void deactivatePhoto();
+        DirectionBits updateCurrentLightDirs();
     };
 
 } // namespace enigma

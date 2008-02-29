@@ -231,7 +231,7 @@ void server::PrepareLevel()
     state = sv_waiting_for_clients;
 
     server::NoCollisions = false;
-
+    server::WorldInitialized  = false;
     server::LevelTime         = 0.0;
     server::ConserveLevel     = true;
     server::TwoPlayerGame     = false;

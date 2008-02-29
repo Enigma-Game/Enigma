@@ -460,7 +460,7 @@ void World::tick (double dtime)
 
     GameTimer.tick(dtime);
 
-    RecalcLightNow();   // recalculate laser beams if necessary
+    PerformRecalcLight(false);   // recalculate laser beams if necessary
 }
 
 /* ---------- Puzzle scrambling -------------------- */
@@ -1573,8 +1573,9 @@ int Height() {
 void WorldPrepareLevel ()
 {
     GameTimer.clear();
+    GridObject::prepareLevel();
+    LaserBeam::prepareLevel();
     Resize (20, 13);
-    LaserBeam::Reset();
 }
 
 bool WorldInitLevel()
@@ -1582,7 +1583,7 @@ bool WorldInitLevel()
     level->scramble_puzzles();
 
     RecalcLight();
-    RecalcLightNow();    // recalculate laser beams if necessary
+    PerformRecalcLight(true);    // recalculate laser beams if necessary
 
     bool seen_player0 = false;
 

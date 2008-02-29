@@ -33,7 +33,7 @@ namespace enigma {
      * the user cannot recognize laser switching is limited. After a switching
      * a laser stays in a NEW* state where further switch requests are delayed.
      */
-    class LaserStone : public Stone, public LaserEmitter, public TimeHandler {
+    class LaserStone : public Stone, public TimeHandler {
     private:
         enum iState {
             OFF, 
@@ -67,12 +67,11 @@ namespace enigma {
         virtual void init_model();
         virtual void on_creation(GridPos p);
         virtual void on_removal(GridPos p);
+        virtual DirectionBits emissionDirections() const;
         
         // TimeHandler interface
         virtual void alarm();
 
-        // LaserEmitter interface
-        virtual DirectionBits emission_directions() const;
         
     private:
         // Private methods.

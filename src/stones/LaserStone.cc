@@ -134,6 +134,13 @@ namespace enigma {
         state &= 1;
     }
     
+    DirectionBits LaserStone::emissionDirections() const {
+        if (externalState() == 1) {
+            return to_bits(getOrientation());
+        }
+        return NODIRBIT;
+    }
+
     void LaserStone::alarm() {
         int oldExtState = externalState();
         switch (state) {
@@ -158,13 +165,6 @@ namespace enigma {
         }
     }
     
-    DirectionBits LaserStone::emission_directions() const {
-        if (externalState() == 1) {
-            return to_bits(getOrientation());
-        }
-        return NODIRBIT;
-    }
-
     void LaserStone::emit_light() {
         if (externalState() == 1)
             LaserBeam::emit_from(get_pos(), getOrientation());
