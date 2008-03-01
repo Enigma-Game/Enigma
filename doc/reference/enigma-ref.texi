@@ -745,7 +745,7 @@ dooropen = @{ file="my_soundset/open-door", volume=0.9, priority=4 @},
 
 The meaning of these attributes is as follows:
 
-@table      
+@itemize
 
 @item @samp{file}
 Path and name of the sound file for this event, without the @samp{.wav}
@@ -779,7 +779,7 @@ overall factor, @samp{damp_min} defines a lower bound for the damping entries
 that's applied all 0.1 seconds.  See @samp{sound.hh} for details.
 Defaults: 10.0, 1.0, 1.0, 0.5, 0.9.
 
-@end table
+@end itemize
 
 To design a new sound set, proceed as follows:
 
@@ -3701,7 +3701,7 @@ Switches on at value @code{1}, and off at values @code{0}.
 @item @b{st_switch_white}: color = @code{WHITE}
 @end table
 
-
+@end table
 
 @c ===================  Actors  =======================
 
