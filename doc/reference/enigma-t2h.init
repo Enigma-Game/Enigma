@@ -6,5 +6,6 @@ $css_map{'pre.example i'} = 'color:rgb(0%,60%,0%); font-style:normal';
 $css_map{'pre.example var'} = 'color:rgb(80%,0%,80%)';
 $css_map{'h3'} = 'background-color:rgb(95%,95%,100%)';
 $css_map{'hr'} = 'height:0px;';
+$css_map{'code'} = 'color:rgb(0%,50%,0%)';
 
 1;

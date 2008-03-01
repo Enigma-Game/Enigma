@@ -2641,9 +2641,614 @@ number addition will be loaded for XML load requests, too. Yet the future belong
 naming scheme, and every new library should follow it from the beginning.
 
 
+@c ===================  Paradigm  =======================
 @node Enigma Paradigm
 @chapter Enigma Paradigm
 
+Now that you have learned about the formal declarative XML part of a level you
+should be eager to understand the basic principles of the participants of an
+Enigma level world. In this chapter we explain all the fundamental concepts and
+the terms used in the following chapters that describe the level author's view
+of a level.
+
+Please note that we describe the features of the new API of Enigma 1.10. The
+API of the earlier releases does not provide all the features and differs in
+several aspects.
+
+@menu
+* The World's Structure:: 
+* Object Description::
+* Methods of Interaction::
+* The Lifecycle of a Level::
+@end menu
+
+@node The World's Structure
+@section The World's Structure
+
+We speak of a level as the opus as a whole that describes the initial composition
+of a gaming world and its dynamic behaviour during the game play. Let us look
+at the participating objects in details.
+
+@menu
+* World's Shape and Coordinates::    Grid Positions and Tiles
+* Object Layers::                    Floors, Items, Stones, Actors and Others
+* Global World Attributes::          Friction, Brittleness, Modes and Co.
+@end menu
+
+@c ----------------- World's Shape and Coordinates -------------------- 
+
+@node World's Shape and Coordinates
+@subsection World's Shape and Coordinates
+
+Having played a few levels you will have noticed that every screen shows
+quadratic tiles, 20 ones in the horizontal and 13 ones in the vertical direction.
+Even if it is difficult for a player to map together all rooms and screens of a 
+large level, every level world has the shape of a rectangle in whole. 
+Nevertheless some parts may never be visible to the player due to walls of 
+stones or oceans of water.
+
+@cindex onescreener
+On the creation of a world the level author has to give its size in measure of
+tiles. The given width and height of the world are fixed and cannot be changed
+lateron. A common size is 20x13 for a @dfn{Onescreener}. But there are no limits.
+You can even build levels smaller than a screen. Note that for larger levels
+you have to take into account that one tile row or column is usually shared
+between two screens on scrolling. Thus a level of 2x2 screens has a size of
+39x25 tiles, a 3x4 screen level has 58x49 tiles,...
+
+@cindex position
+Looking at the edges of all the tiles we get a grid that spans our world. We
+define the upper left corner of our world as the @dfn{position} @{0,@ 0@}. The first
+coordinate is the horizontal offset to the right, the second coordinate the
+vertical offset to the bottom. For a Onescreener level the tile in the lower
+right corner is located at position @{19,@ 12@}, whereas the corner itself is at
+the position @{20,@ 13@} (Note that this point is actually not part of the level
+anymore).
+
+A position of an actor like the black marble needs to be given by two floating
+numbers as coordinates like @{1.5,@ 2.5@} for an actor positioned in the center
+of the tile that is one row right and two columns down of the upper left corner
+tile.
+
+@cindex grid position
+But most objects like stones can only be placed on the fixed integral grid
+positions. Even if you try to put a stone on @{1.5,@ 2.5@} it will be put on
+on the grid position @{1,@ 2@}. Thus we speak of a @dfn{grid position} if just the
+integral part is taken into account. You may note that a tile is positioned
+according to its upper left corner. Actually the upper and the left edge are
+part of a tile, whereas the right and lower edge belong to the neighbour tiles.
+
+@cindex tile
+Finally let us look more precisly on the tile itself. On one grid position you
+may place a floor, an item, a stone and even several actors. The combination
+of all objects on one grid position is called a @dfn{tile}. It is a common 
+technique to declare these object combinations once in so called tile 
+definitions. As many grid positions share the same combination of objects these
+tiles can be reused very efficiently.
+
+@node Object Layers
+@subsection Object Layers
+
+@cindex layer
+On every grid position you may set a floor, an item and a stone. But just one
+of each. If you set a second stone the first one will be replaced. Floor, item
+and stone have a unique physical arrangement with the floor always being below
+an item and a stone always being on top of the others. Thus we speak of three
+object @dfn{layers} - the floor layer, the item layer and the stone layer.
+
+@cindex default floor
+The floor layer has a unique prerequisite. Every grid position needs to be
+covered by a floor. You can define a default tile which contains a
+@dfn{default floor} that gets automatically set on every grid where you set
+no other floor. Even if you @dfn{kill} a floor, that means removing a floor
+without setting a replacement floor, a default floor will be set for you.
+
+The floors provide two elementary features to the game: friction and adhesion.
+The friction slows down actors and the adhesion enables you to accelerate
+actors with your mouse. A floor may additionally cause a directed flat force
+that gives the user the feeling of a slope. And last but not least a floor
+may burn. A whole set of attributes let you control the details of the fire
+behaviour.
+
+The item layer is shared between items that an actor can pickup and items that
+are static. The first category are items like keys, banana, etc. Static items
+are bombs, landmines, triggers, hollows and items that will only be set by the
+system itself like laserbeams, fire animations, ash, etc. As only one item can
+be positioned of every grid position a marble can not drop an item on such a
+static item. This is the technical reason that you can not intercept a laser
+beam by dropping an item. But as an level author you are free to add any item
+you like to the initial grid tile.
+
+The stone layer is straight forward. The level author can choose a stone out
+of the repository per grid. Of course most grid positions should be kept free
+for the actors to move around. Even if most levels have a stone wall at the 
+border of the world that visually limits the area this is not mandatory. Without
+a stone wall the marbles will be bounced at the physically boundary of the world.
+
+The actors live in another layer that is not grid based. The actors can be 
+placed at any position. Actors that pass a stone will be displayed below the
+stone.
+
+As a certain exception rubberbands that connect an actor with another one or 
+with a stone will simply be added to the world and will be displayed above any
+stone.
+
+@node Global World Attributes
+@subsection Global World Attributes
+
+Friction, Brittleness, Modes and Co., Scrollmodes
+
+@c ----------------- Object Description -------------------- 
+
+@node Object Description
+@section Object Description
+
+Knowing where to place objects it is time to know how to select an object type,
+how to specify the details of the object and how to reference it later on.
+
+@menu
+* Object Kind::
+* Object Reference::
+* Object Naming::
+* Object Attributes::
+@end menu
+
+@node Object Kind
+@subsection Object Kind
+
+@cindex abstact kind
+Up to now we have spoken about object kinds of floor @code{"fl"}, item 
+@code{"it"}, stone @code{"st"} and actor @code{"ac"}. All these kinds are called
+@dfn{abstract}. You can check if a given object is of such a kind, but you can
+not instantiate an abstract kind.
+
+To create an object you need to give a specific kind name like 
+@code{"st_switch"}. You will find all object kinds described in the chapters
+starting with @ref{Floor Objects}. All these kind names with at least one 
+underscore can be instantiated.
+
+Most kinds provide subkinds like @code{"st_switch_black"} and 
+@code{"st_switch_white"}. In case of the switches you get a color independent
+switch if you do not append a suffix. In other cases like @code{"st_chess"}
+the super kind will result in a default @code{"st_chess_black"} as no colorless
+chess stone exists.
+
+If you request an object for its kind it will always return the most specific
+kind. This means that a fresh generated @code{"st_chess"} returns the kind
+@code{"st_chess_black"}, whereas an @code{"st_switch"} reports its name
+unchanged.
+
+Objects can change their kind by level code statements or by user actions. You 
+may set a color on a switch or a marble may cause a color change on a chess 
+stone by hitting it with a revealed wand. The object will report the new kind on 
+subsequent requests.
+
+A few special object kinds do exist only for setting a new object. The are
+usually named with a suffix "_new". These objects will never report their
+initial kind name but change to a standard kind immediately.
+
+If you are not interested in the specific subkind you can check an object for
+conformity to any super kind. E.g. any switch stone of whatever color will 
+return true if checked for @code{"st_switch"}.
+
+@node Object Reference
+@subsection Object Reference
+
+Having set objects to the various layers a level author sometimes has the need
+of referencing them lateron. On callbacks the engine provides references to
+sender objects. But the author can request any grid object anytime by its 
+position.
+
+With an object reference, that is of a special Lua type @code{object}, you can
+request the objects on its current state and attributes, modifiy the
+object, send messages or perform any supported methods of the object.
+
+Objects can be grouped for efficient handling of common operations on
+all affected objects. E.g. if you can send a message to a group of objects
+all objects will receive the message in turn. The sequence of several objects
+in a group is constant and guaranteed to be observed in processing common
+operations.
+
+As objects can ceize to exist you have to be aware that the references are
+volatile, too. You can check every object reference for existance. But in many
+cases the validity of the reference is unimportant as Enigma 1.10 is very 
+tolerant on invalid object references access. The operations will simply be
+ignored and requests will return default values.
+
+As a general thumb rule you should request and keep object references just
+for the time of a local call. As long as your level code is processed in
+sequence without the running world simulation giving the player a chance to
+kill objects by marble actions, objects should ceize to exist just due to your
+own direct statements.
+
+To gain access to an object later on a subsequent call you can address it via 
+two methods. First you can address it via its position. But as many objects are
+movable the position is not constant. Therefore you can address an object by
+name. @xref{Object Naming}.
+
+@node Object Naming
+@subsection Object Naming
+
+For addressing objects on a longterm valid basis every object can individually 
+be tagged by a name. Assigning a name to an object is as simple as setting
+the attribute @code{"name"} with a unique string on this object. Of course you
+can request an objects name by reading the attribute @code{"name"}.
+
+The name is a string that should be made up of characters @code{a..z}, 
+@code{A..Z}, numbers @code{0..9} and the underscore @code{_}. Other special
+charcters are only allowed as far as they are explained in the following text.
+
+It is up to you to ensure unique names. Reusage of an already assigned name
+will unname the prior object and assign the name to the new object. To simplify
+the naming of larger groups of similar objects you can add the hash sign 
+@code{#} as the last character to a name, e.g. "mydoor#". This causes Enigma
+to add a unique number to the given string. The number will start with 1, the
+first unused number will be taken. Thus the first door will be named "mydoor#1"
+the second one "mydoor#2" and so on. If you delete the object named "mydoor#2"
+lateron and if you name another object "mydoor#" it will be assigned the unused
+name "mydoor#2".
+
+All named objects are registered by the @dfn{named object} repository. The API
+provides a variable @code{no} that allows you to retrieve any named object, e.g.
+@code{no["mydoor#1"]}. You get an @ref{Object Reference} or @code{nil} if no
+object is registered by the given name.
+
+As you can auto name groups of objects you are allowed to use the wildcard
+characters @code{'?'} and @code{'*'}. The question mark replaces a single 
+arbitrary character, the asterix any number of arbitrary characters. E.g.
+@code{no["mydoor#*"]} retrieves all auto named "mydoor" objects in a single
+object group.
+
+Many object attributes like "target", "destination" need object references
+to other objects. Besides a volatile @ref{Object Reference} you and always
+give a name string as a longterm valid object reference. If the attribute
+allows several objects to be given you can either give a group of object
+references, a table of object names or a object name with wildcards. Thus
+the string @code{"mydoor#*"} is a valid target.
+
+Another unique feature of object names is their late on access evaluation. This
+allows you to reference an object prior to its existence. E.g. if you want to
+set two vortices each declaring the other one as its destination, object names
+are the favorite solution:
+
+@example
+wo[@{3,4@}]  = @{"it_vortex", name="vortex1", destination="vortex2"@}
+wo[@{15,9@}] = @{"it_vortex", name="vortex2", destination="vortex1"@}
+@end example
+
+In general you will need to use object name references within any tile 
+declarations as none of the referenced objects will yet exist at the point of
+tile declarations.
+
+Objects do change over time. Doors do open, a chess may be recolored, a blocker
+stone may shrink to a blocker item. This means that the kind of the objects
+will change. But in many cases this means that the volatile object reference
+will brake, too. For the sake of the level authors the identity of the object
+will be transfered even if the reference gets invalid. And like the user
+attributes the name is part of the object identity. Thus if you name an 
+@ref{st_blocker} and it it shrinks to an @ref{it_blocker} you will retrieve this
+item if you ask the name object repository for the named object.
+
+To avoid unexpected problems with invalid object references a few critical
+objects are internally autonamed if the level author does not provide a name.
+
+@node Object Attributes
+@subsection Object Attributes
+
+One of the key concepts for the versatility of Enigma is possibility to fine
+tune objects by means of attributes. The level author is not limited to a fixed
+set of preconfigured objects as given by the object kind.
+
+An attribute is a name, a string, with an assigned value. E.g. 
+@code{obj["inverse"]=true} sets a single object attribute to a boolean value
+and @code{@{"it_magnet", range=6.5@}} describes a magnet item with an initial set
+floating point attribute.
+
+The scope of values is manifold. Most Lua types and a bunch of Enigma specific
+types can be assigned:
+@itemize @bullet
+@item bool
+@item int
+@item double
+@item string
+@item nil
+@item position
+@item object
+@item group
+@item tokens
+@end itemize
+
+If we speak of a bool value we do it in the sense of Lua 5, that means with the
+possible values @code{true} and @code{false}. 
+
+Many enumerated values like directions and colors are covered by the integer
+numbers.
+
+Of special interest is the value @code{nil}. Just a few attributes make direct
+use of the value @code{nil}, e.g. "color" on some objects. If you set an 
+attribute to value @code{nil} you do actually reset its value to the default
+value. E.g. if you set the attribute "orientation" of @ref{st_boulder} to 
+@code{nil} it will be set to its default, which is actually @code{NORTH}, an
+enumerated direction value. A subsequent read of the attribute will return this
+value. Just those attributes that allow a nil value will ever return @code{nil}
+on a read access. Aa a direct consequence these attributes always default to 
+@code{nil}.
+
+The most complex attribute value type are the tokens. Their purpose is the
+specification of one or many objects. As Enigma provides several means to do
+that this value type combines and mix all possibilities. A tokens value may 
+be a string, representing an object name, an object reference, a group or a
+table with any of these basic types in any sequence and number. E.g. the 
+following right sides are all valid tokens for the attribute "target":
+
+@example
+obj1["target"] = "mydoor"
+obj2["target"] = myobject
+obj3["target"] = grp(ojb1, obj2, obj3)
+obj4["target"] = @{"mydoor", myobject@}
+obj5["target"] = @{grp(ojb1, obj2, obj3), "mydoor", myobject, "anotherdoor"@}
+@end example
+
+This versatility is useful to set tokens attributes independent of the given
+object reference types.
+
+The chapter @ref{Common Attributes and Messages} and its followers describe
+the existing object attributes in detail.
+
+Besides these predefined attributes the level author can store own information
+on objects for later retrieval. Any name starting with an underscore '_' is
+can be used for level specific purposes. This prefix has been chosen as the
+resulting names are still valid Lua names. Common usage patterns are switches
+or triggers with callback functions. These functions provide the sender, the
+switch or trigger, as an argument. If you attach the same function to number of
+senders you can store the necessary context information within the sender.
+
+The internal engine uses object attributes as well. Such unaccessable attributes
+are named with a leasing dollar sign '$'. They may appear in the documentation
+for C++ developers information. Level authors should ignore these attributes.
+
+In some cases you may observe a different behaviour on setting an attribute
+within the object definition and setting the same attribute while the object
+is already on the grid. E.g. a door @code{@{"st_door_h", state = OPEN@}} is 
+opened from the very beginning. Whereas @code{mydoor["state"] = OPEN} on a
+closed door will start opening the door. This takes a short time until the
+door is really open. You find more details on these as aspects in the section
+@ref{The Lifecycle of a Level}.
+
+If you ever look into the C++ code you may wonder about the implementation of
+attributes. They are not all directly stored in a map. Some of them are hold
+in object instance variables, other do not exist at all. Objects attributes
+are an abstract concept that unifies several internal features within a
+common simple API for level description code. Within the C++ engine subtle
+reasons like performance optimization forces a much more complex handling.
+
+@c ----------------- Methods of Interaction -------------------- 
+
+@node Methods of Interaction
+@section Methods of Interaction
+
+Having looked at the description of the initial object composition of a
+level world we still need to undestand how to configure the dynamic behaviour
+of a level.
+
+@menu
+* Messages::             Asking objects to do something
+* Target - Action::      Automatic reactions on an event
+* Callback Function::    Lua hooks to react on events
+* Object State::
+@end menu
+
+@node Messages
+@subsection Messages
+
+You can generate an initially open door by setting its attributes. But how
+can a switch stone open a door when it is hit by a marble? It simply sends
+a message @code{"open"} to the door. Another switch may send a message
+@code{"on"} to a laser or @code{"ignite"} to a @ref{it_dynamite}. On explosion
+the dynamite will in turn send automatically @code{"ignite"} messages to the
+neighbour grid positions.
+
+Messages are a simple universal function or from the receiver object and the
+Lua level authors point of view a "method". It takes two arguments - the message
+name, a string, and an optional value. E.g.
+
+@example
+mydoor:message("open")
+myboulder:message("orientate", NORTH)
+
+mydoor:open()
+myboulder:orientate(NORTH)
+@end example
+
+The last two examples are a common abbreviation of the first two ones.
+
+Messages may return a value. But most messages just return @code{nil}.
+
+You can send any message to any object. Not supported messages are silently
+ignored. This is the reason that an exploding dynamite can send @code{"ignite"}
+messages to its neighbours without knowing if the objects can be ignited at all.
+Furtheron the dynamite has not to bother with the recipients of the messages.
+Due to messages the sender and the receiver objects are totally decoupled
+concerning the code base. Thus the level author just needs one method that
+allows sending arbitrary messages to arbitrary objects.
+
+You should not send a message during initialization of the level. You configure
+the switch to send an @code{"open"} message to the door by @ref{Target - Action}.
+Within a Lua @ref{Callback Function} you may send messages during runtime to
+any object.
+
+All messages are listed and described in @ref{Common Messages} and the 
+subsequent chapters.
+
+@node Target - Action
+@subsection Target - Action
+
+The "target action paradigm" is a classical object oriented method that allows
+you to easily plug together objects. One object is triggered by a function
+call or by an event like an actor hitting a stone, crossing over or applying an
+item. You simply plug this object to another target object and tell it to send
+an action message. Everytime the first object is triggered it will send the 
+message to its target.
+
+You configure such a target action by setting the attributes @code{"target"}
+and @code{"action"} on the first object. E.g. a for a switch stone that should
+open a door named @code{"mydoor"} you can write:
+
+@example
+@{st_switch, target="mydoor", action="open"@}
+@end example
+
+Objects like the switch can be triggered "on" and "off". Each time they will
+perform the action. If you would like the door to open and close in turn to
+the switch you another action than @code{"open"}. The universal message for
+changing targets in their alternate states is @code{"toggle"}.
+
+@example
+@{st_switch, target="mydoor", action="toggle"@}
+@{st_switch, target="mydoor"@}
+@end example
+
+Now the door will toggle in sync with the switch between its open and closed
+state. The message @ref{"toggle"} can be used quite independent of the target 
+object. In fact it is the default action message. As a default you may omit
+the action in this case as it is demonstrated by the second example.
+
+But keep in mind that toggling just changes the state of the target. If you
+start with a switch in off state and an open door, the door will close when
+the switch in turned on. They will not sync. If you configure two switches
+both targeting the same door, you will have no clear relationship between the
+switch states and the door.
+
+As you remember messages can take a value. Action messages are no exception.
+Every objects sends its actions with a value, usually a bool value. A switch
+sends a value @code{true} if it just switched on, and a value @code{false} if
+it just switched off. The appropriate message for the door would be the 
+universal message @code{"signal"}:
+
+@example
+@{st_switch, target="mydoor", action="signal"@}
+@end example
+
+Now the door will open when the switch is turned on and close if the switch is
+turned off.
+
+If you look at @ref{signal} you will notice that this messages takes an integer
+value of @code{0} or @code{1}. Indeed the action value does not match. But in
+this as in many other cases the messages and values are designed in a way that
+they are autoconverted to the appropriated type. This compatibility is the basis
+for a seamless plugging of objects.
+
+In many cases authors face the task of triggering two or more objects by a
+single object. @code{"target"} and @code{"action"} are both able to take 
+multiple values.  @code{"target"} is of type tokens, as described in 
+@ref{Object Attributes}, whereas @code{"action"} can be a string or a table
+of strings.
+
+@example
+@{st_switch, target=@{grp(ojb1, obj2, obj3), "mydoor", myobject, "anotherdoor"@},
+            action=@{"toggle",              "open",   "turn",   "close"@}@}
+@end example
+
+All objects described by a token receive the related message in the action
+table. If not enough messages are listed the default action @code{"toggle"}
+will be sent.
+
+@node Callback Function
+@subsection Callback Function
+
+
+
+@node Object State
+@subsection Object State
+
+state dependent target action
+
+@c ----------------- The Lifecycle of a Level -------------------- 
+
+@node The Lifecycle of a Level
+@section The Lifecycle of a Level
+
+
+Snapshot
+Levelloading, Initialization, Runtime Callbacks, 
+Ending Conditions - the mystery of Oxyds and Meditation
+@menu
+* Library Preloading:: 
+* Snapshot Principle:: 
+* Level Initialization:: 
+* Runtime Ticks and Callbacks:: 
+* Ending Conditions:: 
+@end menu
+
+@node Library Preloading
+@subsection Library Preloading
+
+@node Snapshot Principle
+@subsection Snapshot Principle
+
+Most levels contain objects that take influence on each other. A switch might
+toggle a door by @ref{Target - Action}, marbles may press a trigger, or a laser
+might activate a laserswitch or transform a hammer into a sword. Of course it is
+essential to know how to set up such objects to get the desired start 
+configuration without the objects changing unexpected on level initialization.
+
+The snapshot principle is a simple thumb rule that you can rely on in describing
+the level as snapshot of object at a given point of time. Every object has just
+to be configured as it should be at the given time. All interactions that would
+take place in a running game do not take place while setting objects during
+initialization.
+
+E.g. if a switch toggles a door and the switch should be initially on and the
+door should be initially open you describe the object with exactly these
+attributes:
+
+@example
+@{"st_switch", target="mydoor", state=ON@}
+@{"st_door_v", name="mydoor", state=OPEN@}
+@end example
+
+A laser that is initially on that illuminates a laserswitch needs an initially
+active laserswitch. But of course no attribute exists that would allow you to
+set a laserwitch active. The snapshot principle includes the rule that all
+internal states are updated without external actions. This means that the
+laserswitch will show up active without causing an action on its target.
+
+@example
+@{"st_laser", state=ON@}
+@{"st_laserswitch", target="mydoor"@}
+@end example
+
+What about objects that transform on laser light. The snapshot principle keeps
+the object from transforming during initialization. A hammer that is set in
+an initially existing laser beam will not transform to a sword. It remains as
+a hammer that will transform on any subsequent new laser light during the game.
+
+Of course it cannot be allowed to describe impossible initial level states.
+Objects like dynamite do explode immediatly on a laser beam hit. Thus a 
+dynamite item in an initial laser beam is a fault that causes an exception.
+The snapshot principle forces you in this case to set an explosion item instead
+of the dynamite.
+
+Some objects do process internal state transformations that cannot be configured
+by attributes. But some of these states may be of interest on describing a
+snapshot of a level. Where possible special object subkinds exists with a suffix
+of @code{_new}. These objects can be used in the initial level description to
+set objects in special initial states. E.g. @ref{it_blocker} provides such a
+special subkind. Note that these objects will never report their initial
+subkind on a kind request as they come into existance as a standard object.
+
+
+@node Level Initialization
+@subsection Level Initialization
+
+@node Runtime Ticks and Callbacks
+@subsection Runtime Ticks and Callbacks
+
+@node Ending Conditions
+@subsection Ending Conditions
+
+
+@c ===================  Lua API  =======================
 @node Lua API
 @chapter Lua API
 
@@ -2743,7 +3348,7 @@ naming scheme, and every new library should follow it from the beginning.
 @subsection it_blocker
 @obindex it_blocker
 
-A door like object that grows to @ref{st_blocker} when a @ref{st_boulder}
+A door like object that grows to @ref{st_blocker} when an @ref{st_boulder}
 passes. When the boulder did shrink and pass the blocker again it stays in its
 item like open state until it is passed again by a boulder which causes it to 
 grow again to a blocker stone.
@@ -2796,7 +3401,7 @@ when the stone moves away.
 @item @b{open} @ @ @xref{open}
 As the item is open this message takes only effect if it is currently covered
 by a stone and marked as unlocked. That means it should grow as soon as the
-stone moves away what happens when a @ref{st_boulder} passes an idle blocker
+stone moves away what happens when an @ref{st_boulder} passes an idle blocker
 item. In this case an open messages locks the blocker again to avoid a growing
 when the stone moves away.
 @end table
@@ -2846,6 +3451,7 @@ snapshot of a moving boulder over a blocker line, too. See example levels.
 * st_blocker::         Shrinkable Blocker
 * st_boulder::         Moving Arrow Boulder
 * st_fourswitch::      Four Direction Switch
+* st_switch::          A classical on/off Switch
 @end menu
 
 
@@ -2854,7 +3460,7 @@ snapshot of a moving boulder over a blocker line, too. See example levels.
 @subsection st_blocker
 @obindex st_blocker
 
-A door like object that shrinks to @ref{it_blocker} when hit by a
+A door like object that shrinks to @ref{it_blocker} when hit by an
 @ref{st_boulder}. When the boulder did pass the blocker stays in its item like
 open state until it is passed again by a boulder which causes it to grow again
 to a blocker stone.
@@ -3041,6 +3647,58 @@ representing the old orientation the given action messages will be sent with
 a value of 0, then for the state representing the new orientation the given
 action messages will be sent with a value of 1. This allows you to switch on
 and off alternative sources by a fourswitch.
+@end table
+
+
+@c ----------------- Switch Stone -------------------- 
+@node st_switch
+@subsection st_switch
+@obindex st_switch
+
+A classical on/off switch that toggles its state on actors hitting the stone.
+Of course other objects can send messages on actions to make this switch turning.
+
+Three variants of the switch do exist. A neutral, gray colored one that reacts
+on any actor hits, and a black and a white colored switch. These last switches
+will react only if hit by marbles of matching color.
+
+If a switch turns on or off there will be a short delay until it reaches the
+new state and performs it actions. If you need a switch without delay you
+need to set the @code{instant} attribute.
+
+@table @asis
+@item @b{Attributes:}
+
+@table @asis
+@item @b{state}, @ @ @i{values}: @code{ON}, @code{OFF}; @ @ @i{default}: @code{OFF} @ @ @xref{state}
+@item @b{color} @ @ @i{values}: @code{nil}, @code{BLACK}, @code{WHITE}; @ @ @i{default}: @code{nil}
+The color of the switch that needs to match the hitting actor to cause a toggle.
+The default @code{nil} color is a grey switch that matches all actors, marbles
+of any color as well as all other actors.
+@item @b{instant} @ @ @i{values}: @code{true}, @code{false}; @ @ @i{default}: @code{false}
+A default switch requires a short time equivalent to the animation until the
+new state is reached and the actions are performed. An instant switch jumps
+directly into the new state.
+@item @b{inverse} @ @ @xref{inverse}
+@end table
+
+@item @b{Messages:}
+
+@table @asis
+@item @b{signal} @ @ @xref{signal}
+Switches on at value @code{1}, and off at values @code{0}.
+@item @b{on} @ @ @xref{on}
+@item @b{off} @ @ @xref{off}
+@end table
+
+@item @b{Action:} @ @ @xref{target}, @ @ @xref{action}
+
+@item @b{Variants:}
+
+@table @asis
+@item @b{st_switch}
+@item @b{st_switch_black}: color = @code{BLACK}
+@item @b{st_switch_white}: color = @code{WHITE}
 @end table
 
 
