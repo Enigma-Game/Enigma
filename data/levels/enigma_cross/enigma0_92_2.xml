@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no" ?>
 <index xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="index.xsd">
 
-  <info enigma="1.00" group="Facets" location="15200" network="false" owner="Enigma Team" release="1" revision="4" title="Enigma 0.92 - 2"/>
+  <info enigma="1.00" group="Facets" location="15200" network="false" owner="Enigma Team" release="1" revision="5" title="Enigma 0.92 - 2"/>
 
   <attributes/>
 
@@ -64,7 +64,7 @@
     <level _seq="56" _title="Overshoot" _xpath="enigma_iii/ss02_1" author="Sven Siggelkow" ctrl="force" easy="true" id="ss2" rel="1" rev="0" score="1" target="time" unit="duration"/>
     <level _seq="57" _title="Slide it in" _xpath="enigma_iv/ss13_1" author="Sven Siggelkow" ctrl="force" easy="true" id="ss13" rel="1" rev="0" score="1" target="time" unit="duration"/>
     <level _seq="58" _title="Do It Yourself" _xpath="enigma_ii/martin97_1" author="Martin Hawlisch" ctrl="force" easy="false" id="martin97" rel="1" rev="0" score="1" target="time" unit="duration"/>
-    <level _seq="59" _title="If They'd Just Hold Still" _xpath="enigma_i/duffy21_1" author="Jacob Scott" ctrl="force" easy="false" id="duffy21" rel="1" rev="1" score="1" target="time" unit="duration"/>
+    <level _seq="59" _title="If They'd Just Hold Still" _xpath="enigma_i/duffy21_1" author="Jacob Scott" ctrl="force" easy="false" id="duffy21" rel="1" rev="2" score="1" target="time" unit="duration"/>
     <level _seq="60" _title="Too Heavy?" _xpath="enigma_v/martin101_1" author="Martin Hawlisch" ctrl="force" easy="true" id="martin101" rel="1" rev="0" score="1" target="time" unit="duration"/>
     <level _seq="61" _title="Island of Safety" _xpath="enigma_v/duffy27_1" author="Jacob Scott" ctrl="force" easy="false" id="duffy27" rel="1" rev="1" score="1" target="time" unit="duration"/>
     <level _seq="62" _title="TNT Shortage?" _xpath="enigma_iv/siegfried74_1" author="Siegfried Fennig" ctrl="force" easy="false" id="siegfried74" rel="1" rev="0" score="1" target="time" unit="duration"/>

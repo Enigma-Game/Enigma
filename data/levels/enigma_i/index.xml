@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no" ?>
 <index xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="index.xsd">
 
-  <info enigma="1.00" group="Enigma" location="10200" network="false" owner="Enigma Team" release="1" revision="5" title="Enigma I"/>
+  <info enigma="1.00" group="Enigma" location="10200" network="false" owner="Enigma Team" release="1" revision="6" title="Enigma I"/>
 
   <attributes/>
 
@@ -79,7 +79,7 @@
     <level _seq="71" _title="Spiral Race" _xpath="./wb06_1" author="Jon 'WB' Sneyers" ctrl="force" easy="false" id="wb6" rel="1" rev="0" score="1" target="time" unit="duration"/>
     <level _seq="72" _title="Way To Go" _xpath="./daniel09_1" author="Daniel Heck" ctrl="force" easy="false" id="mirrors" rel="1" rev="0" score="1" target="time" unit="duration"/>
     <level _seq="73" _title="Formentera!" _xpath="./luc06_1" author="Lukas Schüller" ctrl="force" easy="false" id="luc06" rel="1" rev="0" score="1" target="time" unit="duration"/>
-    <level _seq="74" _title="If They'd Just Hold Still" _xpath="./duffy21_1" author="Jacob Scott" ctrl="force" easy="false" id="duffy21" rel="1" rev="1" score="1" target="time" unit="duration"/>
+    <level _seq="74" _title="If They'd Just Hold Still" _xpath="./duffy21_1" author="Jacob Scott" ctrl="force" easy="false" id="duffy21" rel="1" rev="2" score="1" target="time" unit="duration"/>
     <level _seq="75" _title="Ibiza!" _xpath="./ralf02_1" author="Ralf Westram" ctrl="force" easy="false" id="ralf02" rel="1" rev="0" score="1" target="time" unit="duration"/>
     <level _seq="76" _title="Puzzle Hacker" _xpath="./ant01_1" author="Petr Machata" ctrl="force" easy="false" id="ant01" rel="1" rev="0" score="1" target="time" unit="duration"/>
     <level _seq="77" _title="Cage The Lions" _xpath="./duffy47_1" author="Jacob Scott" ctrl="force" easy="false" id="duffy47" rel="1" rev="1" score="1" target="time" unit="duration"/>

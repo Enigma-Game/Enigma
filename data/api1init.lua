@@ -525,6 +525,10 @@ function draw_floor(name, xy0, xystep, n, attrs)
 end
 
 function draw_checkerboard_floor (name1, name2, x, y, w, h, attrs)
+    if x == nil then x = 0 end
+    if y == nil then y = 0 end
+    if w  == nil then w  = level_width end
+    if h  == nil then h  = level_height end
     for i=1,h do
         for j=1,w do
              if mod(i,2) == mod(j,2) then
