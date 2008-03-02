@@ -713,6 +713,8 @@ namespace
         DECL_TRAITS;
     public:
         Hollow(Type t = HOLLOW);
+        // Object interface.
+        virtual Value message(const Message &m);
         virtual void on_creation(GridPos p);
         virtual void on_removal(GridPos p);
     protected:
@@ -823,9 +825,28 @@ void HillHollow::transmute(Type newtype)
 
 // TODO handle set of essential attribute
 
-Hollow::Hollow(Type t)
-: HillHollow(t), whiteball(0)
-{}
+Hollow::Hollow(Type t) : HillHollow(t), whiteball(0), enter_time (-1) {
+}
+
+Value Hollow::message(const Message &m) {
+    Log << "Hollow - init time " << server::LevelTime << "\n";
+    if (m.message == "_init") {
+        vector<Actor*> actors;
+        GetActorsInsideField(get_pos(), actors);
+        for (vector<Actor*>::iterator it = actors.begin(); it != actors.end(); ++it) {
+            Log << "Hollow - initial meditatist  typ " << get_id(*it) << "\n";
+            if (!(*it)->is_flying() &&  whiteball==NULL && get_id(*it)==ac_meditation && near_center_p(*it)) {
+                 // meditatist entered a free hollow
+                whiteball  = *it;
+                enter_time = server::LevelTime;
+                Log << "Hollow - initial meditatist time " << enter_time << "\n";
+                break;
+            }
+        }
+        return Value();
+    }
+    return HillHollow::message(m);
+}
 
 void Hollow::on_creation(GridPos p) {
     if (getDefaultedAttr("essential", 0) == 1)
@@ -858,15 +879,15 @@ bool Hollow::actor_hit(Actor *a)
             if (!near_center_p(a)) {
                 // meditatist left hollow
                 whiteball = NULL;
-                if (enter_time == 0) {   // meditatist is registered
+                if (enter_time == -1) {   // meditatist is registered
                     bool indispensable = (getDefaultedAttr("essential", 0) == 1);
                     ChangeMeditation(0, 0, indispensable ? -1 : 0, indispensable ? 0 : -1);
                 }
-            } else  if (enter_time != 0 && (server::LevelTime - enter_time) >= MINTIME) {
+            } else  if (enter_time != -1 && (server::LevelTime - enter_time) >= MINTIME) {
                     // just meditated enough to mark hollow as engaged
                     bool indispensable = (getDefaultedAttr("essential", 0) == 1);
                     ChangeMeditation(0, 0, indispensable ? +1 : 0, indispensable ? 0 : +1);
-                    enter_time = 0;  // mark as registered
+                    enter_time = -1;  // mark as registered
             }
         }
     }
@@ -878,7 +899,7 @@ void Hollow::actor_leave(Actor *a) {
     if (whiteball == a) {
         // meditatist left hollow (warp, ...)
         whiteball = NULL;
-        if (enter_time == 0) {   // meditatist is registered
+        if (enter_time == -1) {   // meditatist is registered
             bool indispensable = (getDefaultedAttr("essential", 0) == 1);
             ChangeMeditation(0, 0, indispensable ? -1 : 0, indispensable ? 0 : -1);
         }

@@ -528,7 +528,7 @@ namespace
         void actor_hit(const StoneContact &sc) {
             Actor *a = sc.actor;
 
-            if( state == ACTIVE && player::WieldedItemIs (a, "it-hammer")) {
+            if( state == ACTIVE && player::WieldedItemIs (a, "it_hammer")) {
                 state = BREAKING;
                 init_model();
             }
@@ -2929,7 +2929,7 @@ namespace
         }
         void actor_hit(const StoneContact &sc) {
             Actor *a = sc.actor;
-            if(a && state == BLINK && player::WieldedItemIs(a, "it-hammer")) {
+            if(a && state == BLINK && player::WieldedItemIs(a, "it_hammer")) {
                 state = BREAK;
                 init_model();
             }

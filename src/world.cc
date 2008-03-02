@@ -350,7 +350,7 @@ void World::name_object(Object *obj, const std::string &name)
         unname(old);
     
     std::string unique_name = name;
-    if (server::EnigmaCompatibility >= 1.10 && name.size() > 0 && name[name.size() - 1] == '#') {
+    if (name.size() > 0 && name[name.size() - 1] == '#') {
         // auto name object with a unique name
         int i;
         for (i = 1; get_named(name + ecl::strf("%d",i)) != NULL; i++);
@@ -365,7 +365,7 @@ void World::unname (Object *obj)
     ASSERT(obj, XLevelRuntime, "unname: no object given");
     if (Value v = obj->getAttr("name")) {
         m_objnames.remove(v.to_string());
-        obj->setAttr("name", "");   // TODO alist.hh add delete op
+        obj->setAttr("name", Value());
     }
 }
 
@@ -1816,6 +1816,15 @@ void AddSignal (const GridLoc &srcloc, const GridLoc &dstloc, const string &msg)
     }
     
     
+    if (dst == NULL && dstloc.layer == GRID_ITEMS) {
+        GridLoc altloc(GRID_STONES, dstloc.pos);
+        dst = GetObject(altloc);
+        if (!(dst->is_kind("st_blocker")))
+            // just use blocker stone instead of blocker item as substitution
+            dst = NULL;
+    }
+        
+        
     if (dst == NULL) {
         Log << ecl::strf("AddSignal: Invalid signal destination src=%i/%i-%d dest=%i/%i-%d msg='%s'\n",
             srcloc.pos.x, srcloc.pos.y, srcloc.layer, dstloc.pos.x, dstloc.pos.y, dstloc.layer, msg.c_str());
@@ -1827,9 +1836,10 @@ void AddSignal (const GridLoc &srcloc, const GridLoc &dstloc, const string &msg)
     Value dstValue(dst);
     
     if (dst->is_kind("st_blocker") || dst->is_kind("st_blocker_new") ||
-            dst->is_kind("it-blocker")) {
-        if (!dst->getAttr("name"))
+            dst->is_kind("it_blocker")) {
+        if (!dst->getAttr("name")) {
             NameObject(dst, ecl::strf("$!oxyd!blocker%d", dst->getId()));
+        }
         dstValue = dst->getAttr("name");
     }
     

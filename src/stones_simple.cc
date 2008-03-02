@@ -626,7 +626,7 @@ namespace
         Stone_break(const char *kind) : BreakableStone(kind) { }
     private:
         bool may_be_broken_by(Actor *a) const {
-            return player::WieldedItemIs (a, "it-hammer");
+            return player::WieldedItemIs (a, "it_hammer");
         }
     };
     DEF_TRAITSM(Stone_break, "INVALID", st_INVALID, MOVABLE_BREAKABLE);
@@ -674,7 +674,7 @@ namespace
         {}
     private:
         bool may_be_broken_by(Actor *a) const {
-            return player::WieldedItemIs (a, "it-hammer");
+            return player::WieldedItemIs (a, "it_hammer");
         }
         virtual Value message(const Message &m) {
             if (m.message == "_trigger") {
@@ -719,7 +719,7 @@ namespace
             return "st-rock3_break-anim";
         }
         bool may_be_broken_by(Actor *a) const {
-            return player::WieldedItemIs (a, "it-hammer");
+            return player::WieldedItemIs (a, "it_hammer");
         }
 
         void actor_hit(const StoneContact &sc) {
@@ -766,7 +766,7 @@ namespace
         bool may_be_broken_by(Actor *a) const {
             Value color = a->getAttr("color");
             return color && color == WHITE &&
-                player::WieldedItemIs (a, "it-hammer");
+                player::WieldedItemIs (a, "it_hammer");
         }
     };
     DEF_TRAITSM(Break_acwhite, "st-break_acwhite", st_break_acwhite, MOVABLE_BREAKABLE);
@@ -800,7 +800,7 @@ namespace
         bool may_be_broken_by(Actor *a) const {
             Value color = a->getAttr("color");
             return color && color == BLACK &&
-                player::WieldedItemIs (a, "it-hammer");
+                player::WieldedItemIs (a, "it_hammer");
         }
     };
     DEF_TRAITSM(Break_acblack, "st-break_acblack", st_break_acblack, MOVABLE_BREAKABLE);
@@ -916,7 +916,7 @@ namespace
                 }
             }
             else if (state == BRUSH) {
-                if (player::WieldedItemIs (sc.actor, "it-hammer")) {
+                if (player::WieldedItemIs (sc.actor, "it_hammer")) {
                     sound_event ("stonedestroy");
                     state = DESTROY;
                     set_anim("st-stone_break-anim");
@@ -1410,7 +1410,7 @@ void FartStone::animcb()
 
 void FartStone::actor_hit(const StoneContact &sc) 
 {
-    if (player::WieldedItemIs (sc.actor, "it-hammer"))
+    if (player::WieldedItemIs (sc.actor, "it_hammer"))
         change_state(BREAKING);
     else
         change_state(FARTING);
@@ -2169,7 +2169,7 @@ namespace
         void actor_hit(const StoneContact &sc)
         {
             if (subtype != MAX_SUBTYPE) {
-                if (player::WieldedItemIs (sc.actor, "it-sword")) {
+                if (player::WieldedItemIs (sc.actor, "it_sword")) {
                     subtype += 1;
                     if (subtype == MAX_SUBTYPE) {
                         client::Msg_ShowText ("All right, we'll call it a draw", false, 4.0);
@@ -2188,32 +2188,6 @@ namespace
         Knight() : subtype (MIN_SUBTYPE) {}
     };
     DEF_TRAITSM(Knight, "st-knight", st_knight, MOVABLE_BREAKABLE);
-}
-
-
-/* -------------------- Polarization Switch stone -------------------- */
-namespace
-{
-    class PolarSwitchStone : public OnOffStone {
-        CLONEOBJ(PolarSwitchStone);
-        DECL_TRAITS;
-    public:
-        PolarSwitchStone() : OnOffStone("st-polarswitch") {}
-    private:
-        void actor_hit(const StoneContact &sc) { set_on(!is_on()); }
-        void init_model() { set_model(is_on() ? "st-glass1" : "st-glass2"); }
-        bool is_transparent(Direction) const { return this->is_on(); }
-        void notify_onoff(bool) { MaybeRecalcLight(this->get_pos()); }
-
-        StoneResponse collision_response(const StoneContact &sc) {
-            if (sc.actor->is_invisible())
-                return STONE_PASS;
-            return Stone::collision_response(sc);
-        }
-
-        bool is_sticky (const Actor *actor) const { return !actor->is_invisible(); }
-    };
-    DEF_TRAITS(PolarSwitchStone, "st-polarswitch", st_polarswitch);
 }
 
 
@@ -2384,8 +2358,6 @@ void Init_simple()
     Register(new YinYangStone1);
     Register(new YinYangStone2);
     Register(new YinYangStone3);
-
-    Register(new PolarSwitchStone);
 
     Register(new Stone_firebreak);
     Register(new Stone_movefirebreak);

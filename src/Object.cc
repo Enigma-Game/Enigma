@@ -155,7 +155,7 @@ namespace enigma {
     
     void Object::setAttr(const std::string& key, const Value& val) {
         if (val) {        // only set non-default values
-            if (val.getType() == Value::NIL && server::EnigmaCompatibility >= 1.10)
+            if (val.getType() == Value::NIL /*&& server::EnigmaCompatibility >= 1.10*/)
                 // delete attribute
                 attribs.remove_key(key);
             else

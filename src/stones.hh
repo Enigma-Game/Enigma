@@ -194,12 +194,12 @@ namespace enigma {
         virtual bool   is_floating() const { return false; }
         
         /*! Can laser beams pass through stone? Return is_floating() by default. */
-        virtual bool   is_transparent (Direction) const { 
+        virtual bool   is_transparent (Direction d) const { 
             return is_floating();
         }
         
         /*! Do actors get stuck in this stone? */
-        virtual bool is_sticky(const Actor *) const { 
+        virtual bool is_sticky(const Actor *a) const { 
             return !is_floating(); 
         }
 

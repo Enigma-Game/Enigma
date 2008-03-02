@@ -69,6 +69,7 @@ RenamingObjectsNew2Old = {
     st_laser_s = "st-laser-s",
     st_laser_e = "st-laser-e",
     st_laser_n = "st-laser-n",
+    st_polarswitch = "st-polarswitch",
     st_oxyd = "st-oxyd",
     st_switch = "st-switch",
     st_switch_black = "st-switch_black",
@@ -177,7 +178,8 @@ function enigma.SetAttrib(obj, key, val)
              or (_obj_name == "st-floppy") 
              or (_obj_name == "it-magnet") or (_obj_name == "it-magnet-on")
              or (_obj_name == "it-magnet-off") or (_obj_name == "it-wormhole")
-             or (_obj_name == "it-wormhole-off") then
+             or (_obj_name == "it-wormhole-off") or (_obj_name == "st-laser")
+             or (_obj_name == "st-polarswitch") then
          if key == "on" then
 	     _key = "state"   -- new attr name
 	 end
@@ -185,9 +187,9 @@ function enigma.SetAttrib(obj, key, val)
      if key == "dir" then
          _key = "orientation"
      end
-     if key == "on" then
-         _key = "state"
-     end
+--     if key == "on" then
+--         _key = "state"
+--     end
      if key == "targetx" then
          local d = enigma._GetAttrib(obj, "destination")
          if (en.usertype(d) == "position") then
@@ -241,7 +243,8 @@ function enigma.GetAttrib(obj, key)
              or (_obj_name == "st-floppy")
              or (_obj_name == "it-magnet") or (_obj_name == "it-magnet-on")
              or (_obj_name == "it-magnet-off")  or (_obj_name == "it-wormhole")
-             or (_obj_name == "it-wormhole-off") then
+             or (_obj_name == "it-wormhole-off")  or (_obj_name == "st-laser")
+             or (_obj_name == "st-polarswitch") then
          if key == "on" then
 	     _key = "state"
 	     end
@@ -255,9 +258,9 @@ function enigma.GetAttrib(obj, key)
      if key == "dir" then
          _key = "orientation"
      end
-     if key == "on" then
-         _key = "state"
-     end
+--     if key == "on" then
+--         _key = "state"
+--     end
 
      local val = enigma._GetAttrib(obj, _key)
      
@@ -341,6 +344,7 @@ MessageRenaming = {
     ["st-oxyd__trigger"] = "toggle",
     ["st-plain__trigger"] = "signal",
     ["st-plain_hole__trigger"] = "signal",
+    st_polarswitch__onoff = "toggle",
     st_switch__onoff = "toggle",
     ["st-volcano__trigger"] = "toggle",
     ["st-white1__trigger"] = "signal",
