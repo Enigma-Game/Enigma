@@ -65,19 +65,6 @@ namespace
         void change_state(State newstate);
     };
 
-
-    class LaserSwitch : public LaserTimeSwitchBase {
-        CLONEOBJ(LaserSwitch);
-    public:
-        LaserSwitch();
-        virtual Value message(const Message &m);
-    private:
-        // LaserTimeSwitchBase interface
-        const char *get_active_model() const;
-        const char *get_inactive_model() const;
-    };
-
-
     class LaserTimeSwitch : public LaserTimeSwitchBase {
         CLONEOBJ(LaserTimeSwitch);
     public:
@@ -169,27 +156,6 @@ double LaserTimeSwitchBase::timer_delay() const {
     return -1; // we have no timer delay
 }
 
-/* ---------- LaserSwitch ---------- */
-
-LaserSwitch::LaserSwitch()
-: LaserTimeSwitchBase("st-laserswitch")
-{}
-
-Value LaserSwitch::message(const Message &m) {
-    if (m.message == "_model_reanimated") {
-        RecalcLight(); // we may be swapped out of a laser beam
-    }
-    return LaserTimeSwitchBase::message(m);
-}
-
-const char *LaserSwitch::get_active_model() const { 
-    return "st-laserswitch1"; 
-}
-
-const char *LaserSwitch::get_inactive_model() const { 
-    return "st-laserswitch0"; 
-}
-
 /* ---------- LaserTimeSwitch ---------- */
 
 LaserTimeSwitch::LaserTimeSwitch(const char *kind)
@@ -237,7 +203,6 @@ void TimeSwitch::notify_laseroff() {}
 
 void InitSwitches()
 {
-    Register (new LaserSwitch);
     Register (new LaserTimeSwitch);
     Register (new TimeSwitch);
 }

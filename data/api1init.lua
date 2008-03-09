@@ -69,6 +69,7 @@ RenamingObjectsNew2Old = {
     st_laser_s = "st-laser-s",
     st_laser_e = "st-laser-e",
     st_laser_n = "st-laser-n",
+    st_laserswitch = "st-laserswitch",
     st_polarswitch = "st-polarswitch",
     st_oxyd = "st-oxyd",
     st_switch = "st-switch",

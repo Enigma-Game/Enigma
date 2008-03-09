@@ -132,6 +132,11 @@
     <object name="st_laser_n">
       <attr name="orientation" value="3"/>
     </object>
+    <object name="st_laserswitch">
+      <attr name="state" rw="r"/>
+      <msg name="_init"/>
+      <msg name="_model_reanimated"/>
+    </object>
     <object name="st_polarswitch">
       <msg name="on"/>
       <msg name="off"/>

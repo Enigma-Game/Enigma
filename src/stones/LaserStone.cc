@@ -34,7 +34,7 @@ namespace enigma {
         }
     }
 
-    LaserStone::LaserStone (Direction dir) : Stone("st_laser") {
+    LaserStone::LaserStone(Direction dir) : Stone("st_laser") {
         setAttr("orientation", Value(dir));
     }
     

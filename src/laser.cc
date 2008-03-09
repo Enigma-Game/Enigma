@@ -663,7 +663,7 @@ bool LightFrom (GridPos p, Direction dir) {
 
 void PerformRecalcLight(bool isInit) {
     if (light_recalc_scheduled) {
-//        light_recalc_scheduled = false;    // this is the right place - but we have first to fix some object like hammer,...
+        light_recalc_scheduled = false;    // this is the right place - but we have first to fix some object like hammer,...
         PhotoCell::notify_start();
         GridObject::preLaserRecalc();
         LaserBeam::kill_all();
@@ -673,7 +673,7 @@ void PerformRecalcLight(bool isInit) {
             // do not cause actions on initial laser beam generation
             GridObject::postLaserRecalc();
         PhotoCell::notify_finish();
-        light_recalc_scheduled = false;
+//        light_recalc_scheduled = false;
     }
 }
 

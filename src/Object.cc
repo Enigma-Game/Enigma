@@ -237,8 +237,9 @@ namespace enigma {
         TokenList actions = getAttr("action");
         if (Value state = getAttr("state")) {
             int s = state;
-            if (Value stateTargets = getAttr(ecl::strf("target_%d", s)))
+            if (Value stateTargets = getAttr(ecl::strf("target_%d", s))) {
                 targets = stateTargets;
+            }
             if (Value actionTargets = getAttr(ecl::strf("action_%d", s)))
                 actions = actionTargets;
         }
@@ -254,7 +255,7 @@ namespace enigma {
                         && lua::IsFunc(lua::LevelState(), tit->get_string())) {
                     // it is an existing callback function
                     if (lua::CallFunc(lua::LevelState(), tit->get_string(), messageValue, this) != lua::NO_LUAERROR) {
-                        throw XLevelRuntime(string("callback '") + tit->get_string() + "' failed:\n"+lua::LastError(lua::LevelState()));
+                        throw XLevelRuntime(std::string("callback '") + tit->get_string() + "' failed:\n"+lua::LastError(lua::LevelState()));
                     }
                 }
                 // else ignore this no longer valid target

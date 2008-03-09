@@ -181,7 +181,12 @@ namespace enigma {
         if (kind == NULL) {
             return true;    // object is not under validator control - allow write
         }
-        // TODO search specific sub kind if necessary
+        // state dependent target/action support
+        if (key.find("target_") == 0)
+            key = "target";
+        else if (key.find("action_") == 0)
+            key = "action";
+
         return kind->validateAttributeWrite(key, val);
     }
     
@@ -190,7 +195,12 @@ namespace enigma {
         if (kind == NULL) {
             return true;    // object is not under validator control
         }
-        // TODO search specific sub kind if necessary
+        // state dependent target/action support
+        if (key.find("target_") == 0)
+            key = "target";
+        else if (key.find("action_") == 0)
+            key = "action";
+
         return kind->validateAttributeRead(key);
     }
     
@@ -208,7 +218,13 @@ namespace enigma {
         if (kind == NULL) {
             return Value(Value::DEFAULT);    // object is not under validator control
         }
-        // TODO search specific sub kind if necessary
+        
+        // state dependent target/action support
+        if (key.find("target_") == 0)
+            key = "target";
+        else if (key.find("action_") == 0)
+            key = "action";
+
         return kind->getDefaultValue(key);
     }
     

@@ -1619,6 +1619,13 @@ bool WorldInitLevel()
     level->preparing_level = false;
     server::WorldInitialized = true;
 
+    if (lua::IsFunc(lua::LevelState(), "postinit")) {
+        // it is an existing callback function
+        if (lua::CallFunc(lua::LevelState(), "postinit", Value(), NULL) != lua::NO_LUAERROR) {
+            throw XLevelRuntime(std::string("callback 'postinit' failed:\n") + lua::LastError(lua::LevelState()));
+        }
+    }
+
     return true;
 }
 
