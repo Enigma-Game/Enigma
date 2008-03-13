@@ -1680,7 +1680,7 @@ namespace
                 return Value();
             }
             else if (m.message == "signal" && (to_double(m.value) != 0 || 
-                    (server::EnigmaCompatibility < 1.10 && m.value.getType() == Value::NIL))) { // hack for old trigger without value
+                    (server::EnigmaCompatibility < 1.10 /*&& m.value.getType() == Value::NIL*/))) { // hack for old trigger without value
                 incoming = NODIR;
                 change_state (PULSING);
                 return Value();

@@ -75,6 +75,7 @@ RenamingObjectsNew2Old = {
     st_switch = "st-switch",
     st_switch_black = "st-switch_black",
     st_switch_white = "st-switch_white",
+    st_timer = "st-timer",
     st_window = "st-window"
 }
 
@@ -180,7 +181,7 @@ function enigma.SetAttrib(obj, key, val)
              or (_obj_name == "it-magnet") or (_obj_name == "it-magnet-on")
              or (_obj_name == "it-magnet-off") or (_obj_name == "it-wormhole")
              or (_obj_name == "it-wormhole-off") or (_obj_name == "st-laser")
-             or (_obj_name == "st-polarswitch") then
+             or (_obj_name == "st-polarswitch") or (_obj_name == "st-timer") then
          if key == "on" then
 	     _key = "state"   -- new attr name
 	 end
@@ -233,6 +234,9 @@ function enigma.SetAttrib(obj, key, val)
         _key = "destination"
         _val = d
      end
+     if key == "invisible" then
+         if val == 1 then _val = true else _val = false end
+     end
      enigma._SetAttrib(obj, _key, _val)
 end
 
@@ -245,7 +249,7 @@ function enigma.GetAttrib(obj, key)
              or (_obj_name == "it-magnet") or (_obj_name == "it-magnet-on")
              or (_obj_name == "it-magnet-off")  or (_obj_name == "it-wormhole")
              or (_obj_name == "it-wormhole-off")  or (_obj_name == "st-laser")
-             or (_obj_name == "st-polarswitch") then
+             or (_obj_name == "st-polarswitch")  or (_obj_name == "st-timer") then
          if key == "on" then
 	     _key = "state"
 	     end

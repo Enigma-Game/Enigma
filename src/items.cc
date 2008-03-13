@@ -1426,7 +1426,7 @@ namespace
             
             // old Enigma versions did issue performAction what is incompatible
             updateIState(countActors(),
-                    server::EnigmaCompatibility >= 1.10 && server::GameCompatibility == GAMET_ENIGMA); 
+                    server::EnigmaCompatibility >= 1.10 || server::GameCompatibility != GAMET_ENIGMA); 
             return Value();
         } else if (m.message == "_jumping" ) {
             updateIState(m.value.to_bool() ? -1 : +1);
@@ -1738,9 +1738,12 @@ Value ShogunDot::message(const Message &m) {
     }
     
     void Magnet::on_creation(GridPos p) {
-        double range = getDefaultedAttr("range", server::MagnetRange);
-        squareRange = range * range;
-        correctedStrength = 0.6 * (double)getDefaultedAttr("strength", server::MagnetForce);
+        if (getAttr("range").getType() == Value::NIL) {
+            squareRange = server::MagnetRange * server::MagnetRange;
+        }
+        if (getAttr("strength").getType() == Value::NIL) {
+            correctedStrength = 0.6 * server::MagnetForce;
+        }
 
         AddForceField(this);
         Item::on_creation(p);
@@ -1848,8 +1851,8 @@ set_item("it-wormhole", 1,1, {targetx=5.5, targety=10.5, strength=50, range=5})
             squareRange = range * range;
         } else if (key == "strength") {
             correctedStrength = 0.6 * ((val.getType() == Value::NIL) ? server::WormholeForce : (double)val);
-        } else
-            Item::setAttr(key, val);
+        }
+        Item::setAttr(key, val);
     }
     
     int WormHole::externalState() const {
@@ -1871,6 +1874,12 @@ set_item("it-wormhole", 1,1, {targetx=5.5, targety=10.5, strength=50, range=5})
     
     void WormHole::on_creation (GridPos p) {
         Item::on_creation (p);
+        if (getAttr("range").getType() == Value::NIL) {
+            squareRange = server::WormholeRange * server::WormholeRange;
+        }
+        if (getAttr("strength").getType() == Value::NIL) {
+            correctedStrength = 0.6 * server::WormholeForce;
+        }
         if (state % 2 == 1)
             AddForceField(this);
     }

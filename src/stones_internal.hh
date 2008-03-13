@@ -76,53 +76,6 @@ namespace enigma {
         void dispose();
     };
 
-/* -------------------- OnOffStone -------------------- */
-
-    /*! Base class for all stones that can be on and off.  Understands
-      the messages "on", "off", and "onoff".  Whenever the "on"
-      attribute changes, the object's init_model() method is invoked */
-    class OnOffStone : public Stone {
-    protected:
-        OnOffStone(const char *kind) 
-        : Stone (kind) 
-        { 
-            setAttr("on", 0.0); 
-        }
-
-        bool is_on() const { 
-            return getAttr("on") == 1; 
-        }
-
-        virtual void set_on(bool newon) {
-            if (newon != is_on()) {
-                setAttr("on", enigma::Value(newon));
-                init_model();
-                notify_onoff(newon);
-            }
-        }
-
-        virtual void notify_onoff(bool /*on*/) {}
-
-        virtual Value message(const Message &m)
-        {
-            const std::string &msg = m.message;
-            if (m.message == "onoff") {
-                set_on(!is_on());
-                return Value(); 
-            } else if (m.message == "signal") {
-                set_on (to_int(m.value) != 0);
-                return Value(); 
-            } else if (m.message == "on") {
-                set_on(true);
-                return Value(); 
-            } else if (m.message == "off") {
-                set_on(false);
-                return Value();
-            }
-            return Object::message(m); 
-        }
-    };
-
 } // namespace enigma
 
 #endif

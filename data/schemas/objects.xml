@@ -9,6 +9,8 @@
     <attr name="instant" type="bool" default="false" rw="rw"/>
     <attr name="interval" type="double" default="1" rw="rw"/>
     <attr name="inverse" type="bool" default="false" rw="rw"/>
+    <attr name="invisible" type="bool" default="false" rw="rw"/>
+    <attr name="loop" type="bool" default="true" rw="rw"/>
     <attr name="name" type="string" default="nil" rw="rw"/>
     <attr name="orientation" type="int" default="0" min="0" max="3" rw="rw"/>
     <attr name="range" type="double" default="1.0" rw="rw"/>
@@ -154,6 +156,15 @@
     </object>
     <object name="st_switch_white">
       <attr name="color" value="1"/>
+    </object>
+    <object name="st_timer">
+      <attr name="invisible"/>
+      <attr name="interval"/>
+      <attr name="loop"/>
+      <attr name="state" default="1"/>
+      <msg name="on"/>
+      <msg name="off"/>
+      <msg name="signal"/>
     </object>
   </zoo>
 </objects>

@@ -1225,111 +1225,6 @@ namespace
     DEF_TRAITSM(RubberBandStone, "st-rubberband", st_rubberband, MOVABLE_STANDARD);
 }
 
-
-/* -------------------- Timer stone -------------------- */
-
-// Attributes:
-//
-// :interval        seconds between two "ticks"
-// :loop
-// :action,target   as usual
-// :invisible
-
-/** \page st-timer Timer Stone
-
-This stone can be used to trigger periodic events or to trigger one
-single event after a certain amount of time.
-
-\subsection timera Attributes
-
-- \b on: 1 if the timer is running
-- \b interval:  number of seconds before \b action is performed
-- \b loop:      if 1, restart the timer after performing \b action
-- \b action, \b target: as usual
-- \b invisible : if 1, stone is invisible
-
-\subsection timerm Messages
-
-- \b on, \b off, \b onoff: as usual
-
-\subsection timere Example
-
-\verbatim
--- activate a laser after 5 seconds
-set_stone("st-laser", 10,11, {name="laser"})
-set_stone("st-timer", 10,10,
-          {loop=0, action="onoff", target="laser", interval=5})
-\endverbatim
-*/
-namespace
-{
-    class TimerStone : public OnOffStone, public TimeHandler
-    {
-        CLONEOBJ(TimerStone);
-    public:
-        TimerStone() : OnOffStone("st-timer"), m_signalvalue(1) {
-            setAttr("interval", 1.0);
-            setAttr("loop", true);
-            setAttr("on", 1.0);
-            setAttr("invisible", false);
-
-            // set_on(true);   DOESN'T WORK! calls init_model()
-        }
-        
-        virtual ~TimerStone();
-    private:
-        int m_signalvalue;
-
-        double get_interval() const {
-            return getDefaultedAttr("interval", 100);
-        }
-
-        bool get_is_looped() const {
-            return to_bool(getAttr("loop"));
-        }
-
-        void init_model() {
-            if (getAttr("invisible").to_bool()) {
-                set_model("invisible");
-            }
-            else {
-                set_model(is_on() ? "st-timer" : "st-timeroff");
-            }
-        }
-
-        void on_creation (GridPos p) {
-            set_alarm();
-            Stone::on_creation (p);
-        }
-
-        void set_alarm() {
-            if (is_on())
-                GameTimer.set_alarm(this, get_interval(), get_is_looped());
-        }
-
-        void alarm() {
-            if (is_on()) {
-//                 sound::PlaySound("st-timer");
-                performAction(m_signalvalue != 0);
-                m_signalvalue = 1-m_signalvalue;
-                if(!get_is_looped())
-                    set_on(false); // Switch to "off"-model.
-            }
-        }
-
-        void notify_onoff (bool newon) {
-            if (newon)
-                set_alarm();
-            else
-                GameTimer.remove_alarm(this);
-        }
-    };
-
-    TimerStone::~TimerStone() {
-        GameTimer.remove_alarm(this);
-    }
-}
-
 /* -------------------- FartStone -------------------- */
 
 /** \page st-fart Fart Stone
@@ -2344,7 +2239,6 @@ void Init_simple()
     Register(new SwapStone);
 
     Register(new ThiefStone);
-    Register(new TimerStone);
 
     Register(new RandomWoodenStone); // random flavor
     Register(new WoodenStone("st-wood1", "fl-stwood1")); // horizontal planks

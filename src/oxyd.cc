@@ -279,14 +279,14 @@ Stone * OxydLoader::make_laser (int type)
 Stone *OxydLoader::make_timer (int x, int y)
 {
     const OscillatorMap &oscillators = level.getOscillators(config.gamemode);
-    Stone *st = MakeStone ("st-timer");
+    Stone *st = MakeStone ("st_timer");
     st->setAttr("interval", Value(0.2));
 
     Block block(x, y);
     OscillatorMap::const_iterator i = oscillators.find(block);
     if (i != oscillators.end()) {
         const Oscillator &o = i->second;
-        st->setAttr("on", Value(o.getOn()));
+        st->setAttr("state", Value(o.getOn()) ? 1 : 0);
         double interval = (1 + o.getPeriod()) * config.timer_factor;
         st->setAttr("interval", Value(interval));
     }

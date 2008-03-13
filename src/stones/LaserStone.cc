@@ -132,6 +132,7 @@ namespace enigma {
     void LaserStone::on_removal(GridPos p) {
         GameTimer.remove_alarm(this);
         state &= 1;
+        Stone::on_removal(p);
     }
     
     DirectionBits LaserStone::emissionDirections() const {
