@@ -3,7 +3,7 @@
   <el:protected>
     <el:info el:type="level">
       <el:identity el:title="Jump And Run" el:subtitle="" el:id="level6c"/>
-      <el:version el:score="1" el:release="1" el:revision="0" el:status="released"/>
+      <el:version el:score="1" el:release="1" el:revision="1" el:status="released"/>
       <el:author  el:name="Siegfried Fennig" el:email="" el:homepage=""/>
       <el:copyright>Copyright © 2002 Siegfried Fennig</el:copyright>
       <el:license el:type="GPL version 2" el:open="true"/>
@@ -331,6 +331,7 @@ set_floor("fl-bridge", 10,17, {name="bridge15"})
 set_floor("fl-bridge", 10,19, {name="bridge16"})
 
 set_stone("st-bolder-e", 20,17)
+set_stone("st-bolder-w", 26,17)
 set_stone("st-stoneimpulse", 23,17)
 set_stone("st-stoneimpulse", 21,18)
 
@@ -399,3 +400,4 @@ set_actor("ac-blackball", 32.5, 21.5)
     </el:i18n>
   </el:protected>
 </el:level>
+

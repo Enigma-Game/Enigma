@@ -3,7 +3,7 @@
   <el:protected>
     <el:info el:type="level">
       <el:identity el:title="Hurry!" el:subtitle="" el:id="wb1"/>
-      <el:version el:score="2" el:release="2" el:revision="1" el:status="released"/>
+      <el:version el:score="3" el:release="3" el:revision="2" el:status="released"/>
       <el:author  el:name="Jon 'WB' Sneyers" el:email="" el:homepage=""/>
       <el:copyright>Copyright © 2003 Jon 'WB' Sneyers</el:copyright>
       <el:license el:type="GPL v2.0 or above" el:open="true"/>
@@ -73,7 +73,7 @@ else
      "iii   #         A   ",
      "i#                #<",
      ">#                 i",
-     "                    ",
+     "                   i",
      " # #i # # # # # # # ",
      "## ^ii# ^i# ^i# ^i# ",
   }
@@ -91,3 +91,4 @@ oxyd_shuffle()
     </el:i18n>
   </el:protected>
 </el:level>
+
