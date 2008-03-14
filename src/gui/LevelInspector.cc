@@ -30,7 +30,7 @@
 #include "lev/ScoreManager.hh"
 #include "StateManager.hh"
 
-#include <iostream>
+
 #include <vector>
 
 using namespace ecl;
@@ -660,10 +660,6 @@ LevelInspector::LevelInspector(lev::Proxy *aLevel, bool showDeveloperInfo):
         std::string dedicationString = levelProxy->getDedication(true);
         std::string pathWorkString = levelPathString;
         ecl::Font *menufont = enigma::GetFont("menufont");
-
-        //DEBUG:
-        std::cout << "DEBUG: numLines" << numLines;
-
         for (int i = 0; i<numLines; i++) {
             bool assigned = false;
             do {
