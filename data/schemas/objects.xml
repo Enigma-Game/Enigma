@@ -26,9 +26,12 @@
     <msg name="off" type="nil"/>
     <msg name="on" type="nil"/>
     <msg name="open" type="nil"/>
+    <msg name="orientate" type="nil"/>
     <msg name="shuffle" type="nil"/>
     <msg name="signal" type="int" min="0" max="1"/>
     <msg name="toggle" type="nil"/>
+    <msg name="turn" type="nil"/>
+    <msg name="turnback" type="nil"/>
     <msg name="_bombstone" type="nil"/>
     <msg name="_explosion" type="nil"/>
     <msg name="_init" type="nil"/>
@@ -105,6 +108,24 @@
     </object>
     <object name="st_blocker_new" init="true">
     </object>
+    <object name="st_boulder">
+      <attr name="orientation"/>
+      <msg name="orientate"/>
+      <msg name="turn"/>
+      <msg name="turnback"/>
+    </object>
+    <object name="st_boulder_w">
+      <attr name="orientation" value="0"/>
+    </object>
+    <object name="st_boulder_s">
+      <attr name="orientation" value="1"/>
+    </object>
+    <object name="st_boulder_e">
+      <attr name="orientation" value="2"/>
+    </object>
+    <object name="st_boulder_n">
+      <attr name="orientation" value="3"/>
+    </object>
     <object name="st_floppy">
       <msg name="on"/>
       <msg name="off"/>
@@ -120,7 +141,10 @@
       <attr name="orientation"/>
       <msg name="on"/>
       <msg name="off"/>
+      <msg name="orientate"/>
       <msg name="signal"/>
+      <msg name="turn"/>
+      <msg name="turnback"/>
     </object>
     <object name="st_laser_w">
       <attr name="orientation" value="0"/>

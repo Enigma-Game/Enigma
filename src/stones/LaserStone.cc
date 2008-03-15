@@ -57,6 +57,7 @@ namespace enigma {
         if (isDisplayable())
             if (key == "orientation") {
                 Stone::setAttr(key, val);
+                RecalcLight();
                 init_model();
                 return;
             }
@@ -64,8 +65,14 @@ namespace enigma {
     }
     
     Value LaserStone::message(const Message &m) {
-        if (m.message == "orientate") {
-            Stone::setAttr("orientation", m.value);
+        if (m.message == "orientate" && isDisplayable()) {
+            setAttr("orientation", m.value);
+            return Value();
+        } else if (m.message == "turn" && isDisplayable()) {
+            setAttr("orientation", rotate_cw(getOrientation()));
+            return Value();
+        } else if (m.message == "turnback" && isDisplayable()) {
+            setAttr("orientation", rotate_ccw(getOrientation()));
             return Value();
         }
         return Stone::message(m);
