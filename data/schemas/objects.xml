@@ -109,6 +109,7 @@
     <object name="st_blocker_new" init="true">
     </object>
     <object name="st_boulder">
+      <attr name="counterclock"/>
       <attr name="orientation"/>
       <msg name="orientate"/>
       <msg name="turn"/>
@@ -138,6 +139,7 @@
       <msg name="_trigger"/>
     </object>
     <object name="st_laser">
+      <attr name="counterclock"/>
       <attr name="orientation"/>
       <msg name="on"/>
       <msg name="off"/>

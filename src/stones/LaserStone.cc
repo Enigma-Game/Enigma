@@ -68,11 +68,10 @@ namespace enigma {
         if (m.message == "orientate" && isDisplayable()) {
             setAttr("orientation", m.value);
             return Value();
-        } else if (m.message == "turn" && isDisplayable()) {
-            setAttr("orientation", rotate_cw(getOrientation()));
-            return Value();
-        } else if (m.message == "turnback" && isDisplayable()) {
-            setAttr("orientation", rotate_ccw(getOrientation()));
+        } else if ((m.message == "turn" || m.message == "turnback") && isDisplayable()) {
+            setAttr("orientation", (m.message == "turn" && !getAttr("counterclock").to_bool() || 
+                    m.message == "turnback" && getAttr("counterclock").to_bool())
+                    ? rotate_cw(getOrientation()) : rotate_ccw(getOrientation()));
             return Value();
         }
         return Stone::message(m);

@@ -175,23 +175,23 @@ function enigma.SetAttrib(obj, key, val)
              _key = "oxydcolor"
 	 end
      end
-     if (_obj_name == "st-switch") or (_obj_name == "st-switch_black")
-             or (_obj_name == "st-switch_white") 
-             or (_obj_name == "st-floppy") 
-             or (_obj_name == "it-magnet") or (_obj_name == "it-magnet-on")
-             or (_obj_name == "it-magnet-off") or (_obj_name == "it-wormhole")
-             or (_obj_name == "it-wormhole-off") or (_obj_name == "st-laser")
-             or (_obj_name == "st-polarswitch") or (_obj_name == "st-timer") then
-         if key == "on" then
-	     _key = "state"   -- new attr name
-	 end
-     end
-     if key == "dir" then
+--     if (_obj_name == "st-switch") or (_obj_name == "st-switch_black")
+--             or (_obj_name == "st-switch_white") 
+--             or (_obj_name == "st-floppy") 
+--             or (_obj_name == "it-magnet") or (_obj_name == "it-magnet-on")
+--             or (_obj_name == "it-magnet-off") or (_obj_name == "it-wormhole")
+--             or (_obj_name == "it-wormhole-off") or (_obj_name == "st-laser")
+--             or (_obj_name == "st-polarswitch") or (_obj_name == "st-timer") then
+--         if key == "on" then
+--	     _key = "state"   -- new attr name
+--	 end
+--     end
+     if key == "dir" or key == "direction" then
          _key = "orientation"
      end
---     if key == "on" then
---         _key = "state"
---     end
+     if key == "on" then
+         _key = "state"
+     end
      if key == "targetx" then
          local d = enigma._GetAttrib(obj, "destination")
          if (en.usertype(d) == "position") then
@@ -243,29 +243,29 @@ end
 function enigma.GetAttrib(obj, key)
      local _key = key
      local _obj_name = enigma.GetKind(obj)
-     if (_obj_name == "st-switch") or (_obj_name == "st-switch_black")
-             or (_obj_name == "st-switch_white") 
-             or (_obj_name == "st-floppy")
-             or (_obj_name == "it-magnet") or (_obj_name == "it-magnet-on")
-             or (_obj_name == "it-magnet-off")  or (_obj_name == "it-wormhole")
-             or (_obj_name == "it-wormhole-off")  or (_obj_name == "st-laser")
-             or (_obj_name == "st-polarswitch")  or (_obj_name == "st-timer") then
-         if key == "on" then
-	     _key = "state"
-	     end
-     end
+--     if (_obj_name == "st-switch") or (_obj_name == "st-switch_black")
+--             or (_obj_name == "st-switch_white") 
+--             or (_obj_name == "st-floppy")
+--             or (_obj_name == "it-magnet") or (_obj_name == "it-magnet-on")
+--             or (_obj_name == "it-magnet-off")  or (_obj_name == "it-wormhole")
+--             or (_obj_name == "it-wormhole-off")  or (_obj_name == "st-laser")
+--             or (_obj_name == "st-polarswitch")  or (_obj_name == "st-timer") then
+--         if key == "on" then
+--	     _key = "state"
+--	     end
+--     end
      if key == "blackball" or key == "whiteball" then
          _key = "color"
      end
      if _obj_name == "st-oxyd" then
          _key = "oxydcolor"
      end
-     if key == "dir" then
+     if key == "dir" or key == "direction" then
          _key = "orientation"
      end
---     if key == "on" then
---         _key = "state"
---     end
+     if key == "on" then
+         _key = "state"
+     end
 
      local val = enigma._GetAttrib(obj, _key)
      

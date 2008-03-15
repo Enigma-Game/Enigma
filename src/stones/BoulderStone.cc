@@ -45,11 +45,10 @@ namespace enigma {
         if (m.message == "orientate" && state != FALLING && isDisplayable()) {
             setDir(to_direction(m.value));
             return Value();
-        } else if (m.message == "turn" && state != FALLING && isDisplayable()) {
-            setDir(rotate_cw(getDir()));
-            return Value();
-        } else if (m.message == "turnback" && state != FALLING && isDisplayable()) {
-            setDir(rotate_ccw(getDir()));
+        } else if ((m.message == "turn" || m.message == "turnback") && state != FALLING && isDisplayable()) {
+            setDir((m.message == "turn" && !getAttr("counterclock").to_bool() || 
+                    m.message == "turnback" && getAttr("counterclock").to_bool())
+                    ? rotate_cw(getDir()) : rotate_ccw(getDir()));
             return Value();
         }
         return PhotoStone::message(m);
