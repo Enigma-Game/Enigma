@@ -38,7 +38,7 @@ namespace enigma {
                 Object::setAttr(key, val);
             return;
         }
-        PhotoStone::setAttr(key, val);
+        Stone::setAttr(key, val);
     }
 
     Value BoulderStone::message(const Message &m) {
@@ -51,7 +51,7 @@ namespace enigma {
                     ? rotate_cw(getDir()) : rotate_ccw(getDir()));
             return Value();
         }
-        return PhotoStone::message(m);
+        return Stone::message(m);
     }
 
     int BoulderStone::externalState() const {
@@ -63,12 +63,8 @@ namespace enigma {
     }
     
     void BoulderStone::on_creation(GridPos p) {
-        PhotoStone::on_creation(p);
-        photo_activate();
-    }
-    void BoulderStone::on_removal(GridPos p) {
-        photo_deactivate();
-        PhotoStone::on_removal(p);
+        activatePhoto();
+        Stone::on_creation(p);
     }
     
     void BoulderStone::init_model() {
@@ -109,6 +105,12 @@ namespace enigma {
         }
     }
 
+    void BoulderStone::lightDirChanged(DirectionBits oldDirs, DirectionBits newDirs) {
+        if (added_dirs(oldDirs, newDirs) != 0) {
+            setDir(reverse(getDir()));
+        }
+    }
+    
     void BoulderStone::actor_hit(const StoneContact &sc) {
         if (state == FALLING)
             return;
@@ -140,13 +142,6 @@ namespace enigma {
             setDir(impulse.dir);  // activate
         }
         move_stone(impulse.dir);  // due to rotator and impulsestone
-    }
-
-    void BoulderStone::notify_laseron() {
-        setDir(reverse(getDir()));
-    }
-    
-    void BoulderStone::notify_laseroff() {
     }
 
     Direction BoulderStone::getDir() const {

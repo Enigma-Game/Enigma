@@ -20,9 +20,11 @@
 #include <algorithm>
 #include <functional>
 
-#include "ecl_util.hh"
-
 #include "util.hh"
+
+#include "ecl_util.hh"
+#include "errors.hh"
+
 
 using enigma::Timer;
 using enigma::TimeHandler;
@@ -42,7 +44,7 @@ namespace
         bool expired() const;
         void mark_removed();
         bool has_handler (enigma::TimeHandler *th) const;
-    private:
+
         // Variables
         enigma::TimeHandler *handler;
         double               interval;
@@ -133,17 +135,23 @@ void Timer::activate(TimeHandler *th)
 
 void Timer::set_alarm(TimeHandler *th, double interval, bool repeatp) 
 {
+    ASSERT(interval > 0, XLevelRuntime, "Timer error: timer with interval <= 0 seconds");
+    ASSERT(!repeatp || interval >= 0.01, XLevelRuntime, "Timer error: looping timer with interval < 0.01 seconds");
     if (interval > 0)
         self.alarms.push_back(Alarm(th, interval, repeatp));
 }
 
 
-void Timer::remove_alarm(TimeHandler *th) 
-{
+double Timer::remove_alarm(TimeHandler *th) {
+    double timeleft = 0;
     list<Alarm>::iterator e = self.alarms.end();
-    for (list<Alarm>::iterator it = self.alarms.begin(); it != e; ++it) 
-        if (it->has_handler (th))
+    for (list<Alarm>::iterator it = self.alarms.begin(); it != e; ++it) {
+        if (it->has_handler (th)) {
             it->mark_removed();
+            timeleft = it->timeleft;
+        }
+    }
+    return timeleft;
 }
 
 

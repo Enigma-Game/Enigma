@@ -122,7 +122,7 @@ void LevelLocalData::resurrect_actor (Actor *a)
 bool LevelLocalData::remove_extralife (Actor *a) 
 {
     Inventory *inv = player::GetInventory(a);
-    int        idx = inv->find("it-extralife");
+    int        idx = inv->find("it_extralife");
 
     if (idx == -1) // no extralife found
         return false;
@@ -166,7 +166,7 @@ void player::NewGame (bool isRestart) {
             extralives[i] = -1;
             do {
                 ++extralives[i];
-                idxLife = players[i].inventory.find("it-extralife", ++idxLife);
+                idxLife = players[i].inventory.find("it_extralife", ++idxLife);
             } while (idxLife != -1);
         } else {
             // new game provides 2 extralives
@@ -376,7 +376,7 @@ void player::SwapPlayers()
 static bool has_extralive(unsigned pl, unsigned num) {
     size_t idx = 0;
     for (int i = 0; i < num; i++) {
-        int idxLife = players[pl].inventory.find("it-extralife", idx);
+        int idxLife = players[pl].inventory.find("it_extralife", idx);
         if (idxLife == -1)
             return false;
         else
@@ -491,7 +491,7 @@ static void CheckDeadActors()
             for (unsigned pl = 0; pl<players.size(); ++pl) {
                 Inventory *inv = player::GetInventory(pl);
                 for (int i=0; i<numDead[pl]; i++) {
-                    int idx = inv->find("it-extralife");
+                    int idx = inv->find("it_extralife");
                     ASSERT (idx != -1, XLevelRuntime, "Missing extralife for restart of level");
                     delete inv->yield_item(idx);
                 }

@@ -421,48 +421,132 @@ namespace
 
 
 /* -------------------- ExtraLife -------------------- */
-namespace
-{
-    class ExtraLife : public Item {
+
+    class ExtraLife : public Item, public TimeHandler {
         CLONEOBJ(ExtraLife);
         DECL_TRAITS;
-        std::string get_inventory_model() {
-            if (player::CurrentPlayer()==0)
-                return "inv-blackball";
-            else
-                return "inv-whiteball";
-        }
-
-        void processLight(Direction d) {
-            sound_event ("itemtransform");
-            replace (it_glasses);
-        }
-
+        
     public:
-        ExtraLife() {}
+        ExtraLife(bool isNew);
+
+        // GridObject interface
+        virtual void on_creation(GridPos p);
+        virtual void on_removal(GridPos p);
+        virtual void lightDirChanged(DirectionBits oldDirs, DirectionBits newDirs);
+        
+        // Item interface
+        virtual string get_inventory_model();
+
+        // TimeHandler interface
+        virtual void alarm();
     };
-    DEF_TRAITS(ExtraLife, "it-extralife", it_extralife);
-}
+
+    ExtraLife::ExtraLife(bool isNew) : Item() {
+        if (isNew) {
+            objFlags |= ALL_DIRECTIONS;
+        }
+    }
+    
+    std::string ExtraLife::get_inventory_model() {
+        if (player::CurrentPlayer()==0)
+            return "inv-blackball";
+        else
+            return "inv-whiteball";
+    }
+
+    void ExtraLife::on_creation(GridPos p) {
+        if ((objFlags & ALL_DIRECTIONS) == ALL_DIRECTIONS) {
+            // a new transformed extralife
+            GameTimer.set_alarm(this, 0.2, false);
+        } else {
+            updateCurrentLightDirs();
+            activatePhoto();
+        }
+        Item::on_creation(p);
+    }
+    
+    void ExtraLife::on_removal(GridPos p) {
+        GameTimer.remove_alarm(this);
+        objFlags &= ~ALL_DIRECTIONS;
+        Item::on_removal(p);
+    }
+    
+    void ExtraLife::lightDirChanged(DirectionBits oldDirs, DirectionBits newDirs) {
+        if (added_dirs(oldDirs, newDirs) != 0) {
+            sound_event ("itemtransform");
+            replace(it_glasses);
+        }
+    }
+    
+    void ExtraLife::alarm() {
+            DirectionBits db = updateCurrentLightDirs();
+            activatePhoto();        
+    }
+
+    DEF_TRAITS(ExtraLife, "it_extralife", it_extralife);
 
 /* -------------------- Umbrella -------------------- */
-namespace
-{
-    class Umbrella : public Item {
+
+    class Umbrella : public Item, public TimeHandler {
         CLONEOBJ(Umbrella);
         DECL_TRAITS;
-        void processLight(Direction d) {
-            if (server::GameCompatibility != enigma::GAMET_PEROXYD)
-                replace(it_explosion1);
-        }
-        ItemAction activate(Actor *a, GridPos) {
-            SendMessage(a, "shield");
-            return ITEM_KILL;
-        }
+
     public:
-        Umbrella() {}
+        Umbrella(bool isNew);
+
+        // GridObject interface
+        virtual void on_creation(GridPos p);
+        virtual void on_removal(GridPos p);
+        virtual void lightDirChanged(DirectionBits oldDirs, DirectionBits newDirs);
+
+        // Item interface
+        virtual ItemAction activate(Actor* a, GridPos p);
+        
+        // TimeHandler interface
+        virtual void alarm();
     };
-    DEF_TRAITS (Umbrella, "it-umbrella", it_umbrella);
-}
+
+    Umbrella::Umbrella(bool isNew) : Item() {
+        if (isNew) {
+            objFlags |= ALL_DIRECTIONS;
+        }
+    }
+    
+    void Umbrella::on_creation(GridPos p) {
+        if ((objFlags & ALL_DIRECTIONS) == ALL_DIRECTIONS) {
+            // a new transformed umbrella
+            GameTimer.set_alarm(this, 0.2, false);
+        } else {
+            updateCurrentLightDirs();
+            activatePhoto();
+        }
+        Item::on_creation(p);
+    }
+    
+    void Umbrella::on_removal(GridPos p) {
+        GameTimer.remove_alarm(this);
+        objFlags &= ~ALL_DIRECTIONS;
+        Item::on_removal(p);
+    }
+    
+    void Umbrella::lightDirChanged(DirectionBits oldDirs, DirectionBits newDirs) {
+        if (added_dirs(oldDirs, newDirs) != 0 && server::GameCompatibility != enigma::GAMET_PEROXYD) {
+            sound_event ("itemtransform");
+            replace(it_explosion1);
+        }
+    }
+    
+    ItemAction Umbrella::activate(Actor *a, GridPos) {
+        SendMessage(a, "shield");
+        return ITEM_KILL;
+    }
+    
+    void Umbrella::alarm() {
+            DirectionBits db = updateCurrentLightDirs();
+            activatePhoto();        
+    }
+
+    DEF_TRAITS (Umbrella, "it_umbrella", it_umbrella);
 
 /* -------------------- Spoon -------------------- */
 namespace
@@ -591,7 +675,7 @@ namespace
 
         void processLight(Direction d) {
             sound_event ("itemtransform");
-            replace (it_umbrella);
+            transform("it_umbrella_new");
         }
 
         void on_stonehit(Stone *) {
@@ -631,7 +715,7 @@ namespace
 
         void processLight(Direction d) {
             sound_event ("itemtransform");
-            replace (it_extralife);
+            transform("it_extralife_new");
         }
     public:
         Coin4() {
@@ -3850,7 +3934,8 @@ void InitItems()
     RegisterItem (new Explosion2);
     RegisterItem (new Explosion3);
     Extinguisher::setup();
-    RegisterItem (new ExtraLife);
+    RegisterItem (new ExtraLife(false));
+    Register ("it_extralife_new", new ExtraLife(true));
     RegisterItem (new FlagBlack);
     RegisterItem (new FlagWhite);
     RegisterItem (new Floppy);
@@ -3901,7 +3986,8 @@ void InitItems()
     RegisterItem (new TinyHollow);
     RegisterItem (new Trigger);
     RegisterItem (new TwoPKillStone);
-    RegisterItem (new Umbrella);
+    RegisterItem (new Umbrella(false));
+    Register ("it_umbrella_new", new Umbrella(true));
     RegisterItem (new Vortex(false));
     RegisterItem (new Vortex(true));
     RegisterItem (new VStrip);

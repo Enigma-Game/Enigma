@@ -435,7 +435,7 @@ void SpitterStone::actor_hit (const StoneContact &sc)
         return;
 
     if (enigma::Inventory *inv = player::GetInventory(sc.actor)) {
-        int lifepos = inv->find("it-extralife");
+        int lifepos = inv->find("it_extralife");
         if (lifepos != -1) {
             delete inv->yield_item(lifepos);
             player::RedrawInventory (inv);

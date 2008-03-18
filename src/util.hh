@@ -38,7 +38,7 @@ namespace enigma
         void activate (TimeHandler *th);
         void deactivate (TimeHandler* th);
         void set_alarm (TimeHandler* th, double interval, bool repeatp = false);
-        void remove_alarm (TimeHandler *th);
+        double remove_alarm(TimeHandler *th);
         void clear();
 
         void tick(double dtime);

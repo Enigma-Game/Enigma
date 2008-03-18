@@ -403,7 +403,6 @@ do
         "it-drop",
         "it-dummy",
         "it-dynamite",
-        "it-extralife",
         "it-flagblack",
         "it-flagwhite",
         "it-floppy",
@@ -428,7 +427,6 @@ do
         "it-surprise",
         "it-tinyhill",
         "it-tinyhollow",
-        "it-umbrella",
         "it-vstrip",
         "it-weight",
         "it-whitebomb",
@@ -438,8 +436,10 @@ do
     DefImages(itemlist)
 
     DefImage("it-brake", {filename="st-brake"})
+    DefImage("it_extralife", {filename="it-extralife"})
     DefImage("it_hammer", {filename="it-hammer"})
     DefImage("it_sword", {filename="it-sword"})
+    DefImage("it_umbrella", {filename="it-umbrella"})
 end
 
 -------------------------

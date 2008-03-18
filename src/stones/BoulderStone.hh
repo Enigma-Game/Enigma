@@ -21,7 +21,7 @@
 #define BOULDERSTONE_HH
 
 #include "stones.hh"
-#include "laser.hh"
+//#include "laser.hh"
 
 #include "stones_internal.hh"
 
@@ -30,7 +30,7 @@ namespace enigma {
     /** 
      * 
      */
-    class BoulderStone : public PhotoStone {
+    class BoulderStone : public Stone {
         CLONEOBJ(BoulderStone);
         DECL_TRAITS;
     private:
@@ -53,8 +53,8 @@ namespace enigma {
 
         // GridObject interface
         virtual void on_creation(GridPos p);
-        virtual void on_removal(GridPos p);
         virtual void init_model();
+        virtual void lightDirChanged(DirectionBits oldDirs, DirectionBits newDirs);
         
         // ModelCallback interface
         virtual void animcb();
@@ -66,10 +66,6 @@ namespace enigma {
         virtual void on_impulse(const Impulse& impulse);
 //        virtual const char *collision_sound();
 
-        // PhotoStone interface
-        virtual void notify_laseron();
-        virtual void notify_laseroff();
-        
     private:
         Direction getDir() const;
         void setDir(Direction d);

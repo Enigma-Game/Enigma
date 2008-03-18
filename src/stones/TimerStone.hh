@@ -26,22 +26,26 @@ namespace enigma {
     /** 
      * 
      * 
-     * 
+     * Note that a timer has to continue to run even if it is removed from the grid
+     * to support swapping. Thus the alarm has to removed on delete or destructor.
      */
     class TimerStone : public Stone, public TimeHandler {
         CLONEOBJ(TimerStone);
     private:
         enum iState {
-            OFF, 
+            OFF,          ///< timer is inactive, next action value is true (default)
+            ON,           ///< timer is yet inactive, but will start running on being
             ON_TRUE,      ///< timer is active, next action value is true
             ON_FALSE      ///< timer is active, next action value is false
         };
 
     public:
         TimerStone();
+        ~TimerStone();
 
         // Object interface
         virtual std::string getClass() const;
+        virtual Value message(const Message &m);
         
         // StateObject interface
         virtual int externalState() const;
@@ -50,7 +54,6 @@ namespace enigma {
         // GridObject interface
         virtual void init_model();
         virtual void on_creation(GridPos p);
-        virtual void on_removal(GridPos p);
         
         // TimeHandler interface
         virtual void alarm();

@@ -16,6 +16,7 @@
     <attr name="range" type="double" default="1.0" rw="rw"/>
     <attr name="scissor" type="bool" default="true" rw="rw"/>
     <attr name="state" type="int" default="0" min="0" max="1" rw="rw"/>
+    <attr name="static" type="bool" default="false" rw="rw"/>
     <attr name="strength" type="double" default="1" rw="rw"/>
     <attr name="target" type="tokens" default="nil" rw="rw"/>
   </attributes>
@@ -64,6 +65,8 @@
     </object>
     <object name="it_blocker_new" init="true">
     </object>
+    <object name="it_extralife"/>
+    <object name="it_extralife_new" init="true"/>
     <object name="it_hammer"/>
     <object name="it_hammer_new" init="true"/>
     <object name="it_magnet">
@@ -91,6 +94,8 @@
       <msg name="off"/>
       <msg name="signal"/>
     </object>
+    <object name="it_umbrella"/>
+    <object name="it_umbrella_new" init="true"/>
     <object name="it_wormhole_off">
       <attr name="state" value="0"/>
     </object>
