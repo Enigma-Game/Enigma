@@ -94,6 +94,12 @@
       <msg name="off"/>
       <msg name="signal"/>
     </object>
+    <object name="it_trigger">
+      <attr name="invisible"/>
+      <attr name="state" rw="r"/>
+      <msg name="_init"/>
+      <msg name="_jumping"/>
+    </object>
     <object name="it_umbrella"/>
     <object name="it_umbrella_new" init="true"/>
     <object name="it_wormhole_off">

@@ -168,6 +168,9 @@ namespace enigma {
         // allow all user attributes and those system attributes with write allowance
         if (key.find('_') == 0 || ObjectValidator::instance()->validateAttributeWrite(this, key, val))
             setAttr(key, val);
+        else
+            ASSERT(false, XLevelRuntime, ecl::strf("Object: attribute '%s' write not allowed for kind '%s'",
+                    key.c_str(), getKind().c_str()).c_str());
     }
     
     Value Object::getAttrChecked(const std::string &key) const {

@@ -437,9 +437,17 @@ en_set_attrib(lua_State *L)
 {
     Object *obj = to_object(L,1);
     const char *key = lua_tostring(L,2);
-    if (obj && key)
-        obj->setAttrChecked(key, to_value(L, 3));
-    else
+    if (obj && key) {
+        try {
+            obj->setAttrChecked(key, to_value(L, 3));
+        }  
+        catch (const XLevelRuntime &e) {
+            throwLuaError (L, e.what());
+        }
+        catch (...) {
+            throwLuaError (L, "uncaught exception");
+        }
+    } else
         throwLuaError(L, strf("SetAttrib: invalid object or attribute name '%s'", key).c_str());
     return 0;
 }
@@ -459,7 +467,15 @@ static int en_get_attrib(lua_State *L) {
         return 0;        
     }
 
-    push_value(L, obj->getAttrChecked(key));
+    try {
+        push_value(L, obj->getAttrChecked(key));
+    }  
+    catch (const XLevelRuntime &e) {
+        throwLuaError (L, e.what());
+    }
+    catch (...) {
+        throwLuaError (L, "uncaught exception");
+    }
     return 1;
 }
 
@@ -473,7 +489,15 @@ en_get_kind(lua_State *L)
         return 0;
     }
 
-    push_value(L, Value(obj->get_kind()));
+    try {
+        push_value(L, Value(obj->get_kind()));
+    }  
+    catch (const XLevelRuntime &e) {
+        throwLuaError (L, e.what());
+    }
+    catch (...) {
+        throwLuaError (L, "uncaught exception");
+    }
     return 1;
 }
 
@@ -575,8 +599,8 @@ en_send_message(lua_State *L)
     if (!msg)
         throwLuaError(L,"Illegal message");
     else if (obj) {
-        std::string new_msg = lua::NewMessageName(L, obj, msg);
         try {
+            std::string new_msg = lua::NewMessageName(L, obj, msg);
             result = SendMessage (obj, new_msg, v);
         }
         catch (const XLevelRuntime &e) {
@@ -2798,11 +2822,14 @@ Error Dobuffer (lua_State *L, const ByteVec &luacode) {
     return _lua_err_code(retval);
 }
 
-string LastError (lua_State *L) {
+std::string LastError(lua_State *L) {
     lua_getglobal (L, "_LASTERROR");
     if (lua_isstring(L,-1)) {
-        return string (lua_tostring (L, -1));
+        std::string msg = lua_tostring (L, -1);
+        lua_pop(L, 1);
+        return msg;
     } else {
+        lua_pop(L, 1);
         return "Lua Error. No error message available.";
     }
 }

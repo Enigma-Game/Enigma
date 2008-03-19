@@ -1453,7 +1453,7 @@ namespace
      * reported if the trigger is pressed either by an actor or a stone, a value
      * 0 (OFF) otherwise.<p>
      * Note that due to the Enigma 1.10 standards no actions will be performed
-     * on initialisation or setting of a trigger, even if actors or a stone are
+     * on initialization or setting of a trigger, even if actors or a stone are
      * positioned on the grid. But state and model are set according to the other
      * objects.<p>
      * The internal state stores the current number of actors and the presence

@@ -123,7 +123,7 @@ namespace enigma { namespace lua {
     void CheckedDoFile (lua_State *L, GameFS * fs, const string &filename);
 
     /*! Return the text of the last error message. */
-    std::string LastError (lua_State *L);
+    std::string LastError(lua_State *L);
 
 
     Error DoSubfolderfile(lua_State *L, 

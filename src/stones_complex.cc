@@ -1926,7 +1926,7 @@ namespace
         bool          no_stone (int xoff, int yoff) const;
         void set_arm (Direction dir, RBI_vector &rubs);
         void remove_arms (DirectionBits arms);
-	void rotate_arms (DirectionBits arms, bool clockwise);
+        void rotate_arms (DirectionBits arms, bool clockwise);
         void handleActorsAndItems(bool clockwise, Object *impulse_sender);
 
         // Turnstile_Pivot_Base interface
@@ -2034,7 +2034,12 @@ void Turnstile_Arm::on_impulse(const Impulse& impulse) {
     if (pivot) {
         Action a = actions[get_dir()][impulse.dir];
         if (a != stay) {
-            pivot->rotate(a == ROTR, impulse.sender); // ROTR is clockwise
+            bool clockwise = (a == ROTR);
+            Actor *a = dynamic_cast<Actor*>(impulse.sender);
+            if ((pivot->get_traits().id == st_turnstile_green) && a != NULL &&
+                    player::WieldedItemIs(a, "it-wrench"))
+                clockwise = !clockwise;
+            pivot->rotate(clockwise, impulse.sender); // ROTR is clockwise
         }
     }
     else {
@@ -2241,8 +2246,12 @@ void Turnstile_Pivot_Base::handleActorsAndItems(bool clockwise, Object *impulse_
     for (int i = 0; i<8; ++i) 
         if (arm_seen[i]) {
             GridPos item_pos(pv_pos.x+to_x[i], pv_pos.y+to_y[i]);
-            if (Item *it = GetItem(item_pos)) 
-                it->on_stonehit(this); // hit with pivot (shouldn't matter)
+            if (Item *it = GetItem(item_pos)) { 
+                if (it->get_traits().id == it_laserbeam)
+                    KillItem(item_pos); 
+                else
+                    it->on_stonehit(this); // hit with pivot (shouldn't matter)
+            }
         }
 
     // ---------- Handle actors in range ----------
