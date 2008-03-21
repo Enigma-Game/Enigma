@@ -2523,7 +2523,7 @@ namespace
     DEF_TRAITSM(ChessStone, "st-chess", st_chess, MOVABLE_IRREGULAR);
     
     double ChessStone::capture_interval = 0.1;
-    double ChessStone::hit_threshold = 3.0;
+    double ChessStone::hit_threshold = 1.5;
 
     string ChessStone::get_model_name() {
         string mname = get_kind();
@@ -2684,7 +2684,7 @@ namespace
             set_color(to_int(m.value));
             return Value();
         } else if(m.message == "flip") {
-            set_color(1 - (int)getAttr("color"));
+            set_color(1 - newcolor); //(int)getAttr("color"));
             return Value();
         }
         return Stone::message(m);

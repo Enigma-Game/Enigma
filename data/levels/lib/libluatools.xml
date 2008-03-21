@@ -113,7 +113,20 @@ end
 
 -- As Lua uses different names for the modulo-function in its
 -- versions, it's sometimes better to wrap them.
-luatools.mod = math.fmod or math.mod
+-- Even worse, lua's modulo function doesn't handle negative
+-- values as it should. The following function returns (given
+-- an integer) another integer between 0 and MODUL-1.
+function luatools.mod(value, modul)
+  if value < 0 then
+    -- No, the following call to luatools.mod is not a real
+    -- recursion, it's only for the case where VALUE is a
+    -- negative multiple of MODUL (otherwise we would get
+    -- MODUL as result, not zero).
+    return luatools.mod(modul + (math.fmod or math.mod)(value, modul), modul)
+  else
+    return (math.fmod or math.mod)(value, modul)
+  end
+end
 
 -- A wrapper of "if" to resemble the ternary ?:-function.
 -- Note that this function evaluates both IFTRUE as well as IFFALSE, e.g.
