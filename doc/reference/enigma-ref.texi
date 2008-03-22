@@ -2797,25 +2797,25 @@ how to specify the details of the object and how to reference it later on.
 @subsection Object Kind
 
 @cindex abstact kind
-Up to now we have spoken about object kinds of floor @code{"fl"}, item 
-@code{"it"}, stone @code{"st"} and actor @code{"ac"}. All these kinds are called
+Up to now we have spoken about object kinds of floor @samp{fl}, item 
+@samp{it}, stone @samp{st} and actor @samp{ac}. All these kinds are called
 @dfn{abstract}. You can check if a given object is of such a kind, but you can
 not instantiate an abstract kind.
 
 To create an object you need to give a specific kind name like 
-@code{"st_switch"}. You will find all object kinds described in the chapters
+@samp{st_switch}. You will find all object kinds described in the chapters
 starting with @ref{Floor Objects}. All these kind names with at least one 
 underscore can be instantiated.
 
-Most kinds provide subkinds like @code{"st_switch_black"} and 
-@code{"st_switch_white"}. In case of the switches you get a color independent
-switch if you do not append a suffix. In other cases like @code{"st_chess"}
-the super kind will result in a default @code{"st_chess_black"} as no colorless
+Most kinds provide subkinds like @samp{st_switch_black} and 
+@samp{st_switch_white}. In case of the switches you get a color independent
+switch if you do not append a suffix. In other cases like @samp{st_chess}
+the super kind will result in a default @samp{st_chess_black} as no colorless
 chess stone exists.
 
 If you request an object for its kind it will always return the most specific
-kind. This means that a fresh generated @code{"st_chess"} returns the kind
-@code{"st_chess_black"}, whereas an @code{"st_switch"} reports its name
+kind. This means that a fresh generated @samp{st_chess} returns the kind
+@samp{st_chess_black}, whereas an @samp{st_switch} reports its name
 unchanged.
 
 Objects can change their kind by level code statements or by user actions. You 
@@ -2823,13 +2823,13 @@ may set a color on a switch or a marble may cause a color change on a chess
 stone by hitting it with a revealed wand. The object will report the new kind on 
 subsequent requests.
 
-A few special object kinds do exist only for setting a new object. The are
-usually named with a suffix "_new". These objects will never report their
+A few special object kinds do exist only for setting a new object. They are
+usually named with a suffix @samp{_new}. These objects will never report their
 initial kind name but change to a standard kind immediately.
 
 If you are not interested in the specific subkind you can check an object for
 conformity to any super kind. E.g. any switch stone of whatever color will 
-return true if checked for @code{"st_switch"}.
+return true if checked for @samp{st_switch}.
 
 @node Object Reference
 @subsection Object Reference
@@ -2839,7 +2839,7 @@ of referencing them lateron. On callbacks the engine provides references to
 sender objects. But the author can request any grid object anytime by its 
 position.
 
-With an object reference, that is of a special Lua type @code{object}, you can
+With an object reference, that is of a special Lua type @samp{object}, you can
 request the objects on its current state and attributes, modifiy the
 object, send messages or perform any supported methods of the object.
 
@@ -2871,40 +2871,40 @@ name. @xref{Object Naming}.
 
 For addressing objects on a longterm valid basis every object can individually 
 be tagged by a name. Assigning a name to an object is as simple as setting
-the attribute @code{"name"} with a unique string on this object. Of course you
-can request an objects name by reading the attribute @code{"name"}.
+the attribute @samp{name} with a unique string on this object. Of course you
+can request an objects name by reading the attribute @samp{name}.
 
-The name is a string that should be made up of characters @code{a..z}, 
-@code{A..Z}, numbers @code{0..9} and the underscore @code{_}. Other special
+The name is a string that should be made up of characters @samp{a..z}, 
+@samp{A..Z}, numbers @samp{0..9} and the underscore @samp{_}. Other special
 charcters are only allowed as far as they are explained in the following text.
 
 It is up to you to ensure unique names. Reusage of an already assigned name
 will unname the prior object and assign the name to the new object. To simplify
 the naming of larger groups of similar objects you can add the hash sign 
-@code{#} as the last character to a name, e.g. "mydoor#". This causes Enigma
+@samp{#} as the last character to a name, e.g. @samp{mydoor#}. This causes Enigma
 to add a unique number to the given string. The number will start with 1, the
-first unused number will be taken. Thus the first door will be named "mydoor#1"
-the second one "mydoor#2" and so on. If you delete the object named "mydoor#2"
-lateron and if you name another object "mydoor#" it will be assigned the unused
-name "mydoor#2".
+first unused number will be taken. Thus the first door will be named
+@samp{mydoor#1} the second one @samp{mydoor#2} and so on. If you delete the
+object named @samp{mydoor#2} lateron and if you name another object 
+@samp{mydoor#} it will be assigned the unused name @samp{mydoor#2}.
 
 All named objects are registered by the @dfn{named object} repository. The API
-provides a variable @code{no} that allows you to retrieve any named object, e.g.
-@code{no["mydoor#1"]}. You get an @ref{Object Reference} or @code{nil} if no
+provides a variable @samp{no} that allows you to retrieve any named object, e.g.
+@samp{no["mydoor#1"]}. You get an @ref{Object Reference} or @samp{nil} if no
 object is registered by the given name.
 
 As you can auto name groups of objects you are allowed to use the wildcard
-characters @code{'?'} and @code{'*'}. The question mark replaces a single 
+characters @samp{?} and @samp{*}. The question mark replaces a single 
 arbitrary character, the asterix any number of arbitrary characters. E.g.
-@code{no["mydoor#*"]} retrieves all auto named "mydoor" objects in a single
+@samp{no["mydoor#*"]} retrieves all auto named @samp{mydoor} objects in a single
 object group.
 
-Many object attributes like "target", "destination" need object references
-to other objects. Besides a volatile @ref{Object Reference} you and always
-give a name string as a longterm valid object reference. If the attribute
+Many object attributes like @samp{target}, @samp{destination} need object
+references to other objects. Besides a volatile @ref{Object Reference} you always
+can provide a name string as a longterm valid object reference. If the attribute
 allows several objects to be given you can either give a group of object
 references, a table of object names or a object name with wildcards. Thus
-the string @code{"mydoor#*"} is a valid target.
+the string @samp{"mydoor#*"} is a valid target.
 
 Another unique feature of object names is their late on access evaluation. This
 allows you to reference an object prior to its existence. E.g. if you want to
@@ -2940,8 +2940,8 @@ tune objects by means of attributes. The level author is not limited to a fixed
 set of preconfigured objects as given by the object kind.
 
 An attribute is a name, a string, with an assigned value. E.g. 
-@code{obj["inverse"]=true} sets a single object attribute to a boolean value
-and @code{@{"it_magnet", range=6.5@}} describes a magnet item with an initial set
+@samp{obj["inverse"]=true} sets a single object attribute to a boolean value
+and @samp{@{"it_magnet", range=6.5@}} describes a magnet item with an initial set
 floating point attribute.
 
 The scope of values is manifold. Most Lua types and a bunch of Enigma specific
@@ -2959,27 +2959,27 @@ types can be assigned:
 @end itemize
 
 If we speak of a bool value we do it in the sense of Lua 5, that means with the
-possible values @code{true} and @code{false}. 
+possible values @samp{true} and @samp{false}. 
 
 Many enumerated values like directions and colors are covered by the integer
 numbers.
 
-Of special interest is the value @code{nil}. Just a few attributes make direct
-use of the value @code{nil}, e.g. "color" on some objects. If you set an 
-attribute to value @code{nil} you do actually reset its value to the default
+Of special interest is the value @samp{nil}. Just a few attributes make direct
+use of the value @samp{nil}, e.g. "color" on some objects. If you set an 
+attribute to value @samp{nil} you do actually reset its value to the default
 value. E.g. if you set the attribute "orientation" of @ref{st_boulder} to 
-@code{nil} it will be set to its default, which is actually @code{NORTH}, an
+@samp{nil} it will be set to its default, which is actually @samp{NORTH}, an
 enumerated direction value. A subsequent read of the attribute will return this
-value. Just those attributes that allow a nil value will ever return @code{nil}
+value. Just those attributes that allow a nil value will ever return @samp{nil}
 on a read access. Aa a direct consequence these attributes always default to 
-@code{nil}.
+@samp{nil}.
 
 The most complex attribute value type are the tokens. Their purpose is the
 specification of one or many objects. As Enigma provides several means to do
 that this value type combines and mix all possibilities. A tokens value may 
 be a string, representing an object name, an object reference, a group or a
 table with any of these basic types in any sequence and number. E.g. the 
-following right sides are all valid tokens for the attribute "target":
+following right sides are all valid tokens for the attribute @samp{target}:
 
 @example
 obj1["target"] = "mydoor"
@@ -2996,7 +2996,7 @@ The chapter @ref{Common Attributes and Messages} and its followers describe
 the existing object attributes in detail.
 
 Besides these predefined attributes the level author can store own information
-on objects for later retrieval. Any name starting with an underscore '_' is
+on objects for later retrieval. Any name starting with an underscore @samp{_}
 can be used for level specific purposes. This prefix has been chosen as the
 resulting names are still valid Lua names. Common usage patterns are switches
 or triggers with callback functions. These functions provide the sender, the
@@ -3004,13 +3004,13 @@ switch or trigger, as an argument. If you attach the same function to number of
 senders you can store the necessary context information within the sender.
 
 The internal engine uses object attributes as well. Such unaccessable attributes
-are named with a leasing dollar sign '$'. They may appear in the documentation
+are named with a leading dollar sign @samp{$}. They may appear in the documentation
 for C++ developers information. Level authors should ignore these attributes.
 
 In some cases you may observe a different behaviour on setting an attribute
 within the object definition and setting the same attribute while the object
-is already on the grid. E.g. a door @code{@{"st_door_h", state = OPEN@}} is 
-opened from the very beginning. Whereas @code{mydoor["state"] = OPEN} on a
+is already on the grid. E.g. a door @samp{@{"st_door_h", state = OPEN@}} is 
+opened from the very beginning. Whereas @samp{mydoor["state"] = OPEN} on a
 closed door will start opening the door. This takes a short time until the
 door is really open. You find more details on these as aspects in the section
 @ref{The Lifecycle of a Level}.
@@ -3043,9 +3043,9 @@ of a level.
 
 You can generate an initially open door by setting its attributes. But how
 can a switch stone open a door when it is hit by a marble? It simply sends
-a message @code{"open"} to the door. Another switch may send a message
-@code{"on"} to a laser or @code{"ignite"} to a @ref{it_dynamite}. On explosion
-the dynamite will in turn send automatically @code{"ignite"} messages to the
+a message @samp{open} to the door. Another switch may send a message
+@samp{on} to a laser or @samp{ignite} to a @ref{it_dynamite}. On explosion
+the dynamite will in turn send automatically @samp{ignite} messages to the
 neighbour grid positions.
 
 Messages are a simple universal function or from the receiver object and the
@@ -3062,10 +3062,10 @@ myboulder:orientate(NORTH)
 
 The last two examples are a common abbreviation of the first two ones.
 
-Messages may return a value. But most messages just return @code{nil}.
+Messages may return a value. But most messages just return @samp{nil}.
 
 You can send any message to any object. Not supported messages are silently
-ignored. This is the reason that an exploding dynamite can send @code{"ignite"}
+ignored. This is the reason that an exploding dynamite can send @samp{ignite}
 messages to its neighbours without knowing if the objects can be ignited at all.
 Furtheron the dynamite has not to bother with the recipients of the messages.
 Due to messages the sender and the receiver objects are totally decoupled
@@ -3073,7 +3073,7 @@ concerning the code base. Thus the level author just needs one method that
 allows sending arbitrary messages to arbitrary objects.
 
 You should not send a message during initialization of the level. You configure
-the switch to send an @code{"open"} message to the door by @ref{Target - Action}.
+the switch to send an @samp{open} message to the door by @ref{Target - Action}.
 Within a Lua @ref{Callback Function} you may send messages during runtime to
 any object.
 
@@ -3090,18 +3090,18 @@ item. You simply plug this object to another target object and tell it to send
 an action message. Everytime the first object is triggered it will send the 
 message to its target.
 
-You configure such a target action by setting the attributes @code{"target"}
-and @code{"action"} on the first object. E.g. a for a switch stone that should
-open a door named @code{"mydoor"} you can write:
+You configure such a target action by setting the attributes @samp{target}
+and @samp{action} on the first object. E.g. a for a switch stone that should
+open a door named @samp{mydoor} you can write:
 
 @example
 @{st_switch, target="mydoor", action="open"@}
 @end example
 
-Objects like the switch can be triggered "on" and "off". Each time they will
+Objects like the switch can be triggered on and off. Each time they will
 perform the action. If you would like the door to open and close in turn to
-the switch you another action than @code{"open"}. The universal message for
-changing targets in their alternate states is @code{"toggle"}.
+the switch you another action than @samp{open}. The universal message for
+changing targets in their alternate states is @samp{toggle}.
 
 @example
 @{st_switch, target="mydoor", action="toggle"@}
@@ -3109,7 +3109,7 @@ changing targets in their alternate states is @code{"toggle"}.
 @end example
 
 Now the door will toggle in sync with the switch between its open and closed
-state. The message @ref{"toggle"} can be used quite independent of the target 
+state. The message @ref{toggle} can be used quite independent of the target 
 object. In fact it is the default action message. As a default you may omit
 the action in this case as it is demonstrated by the second example.
 
@@ -3121,9 +3121,9 @@ switch states and the door.
 
 As you remember messages can take a value. Action messages are no exception.
 Every objects sends its actions with a value, usually a bool value. A switch
-sends a value @code{true} if it just switched on, and a value @code{false} if
+sends a value @samp{true} if it just switched on, and a value @samp{false} if
 it just switched off. The appropriate message for the door would be the 
-universal message @code{"signal"}:
+universal message @samp{signal}:
 
 @example
 @{st_switch, target="mydoor", action="signal"@}
@@ -3133,15 +3133,15 @@ Now the door will open when the switch is turned on and close if the switch is
 turned off.
 
 If you look at @ref{signal} you will notice that this messages takes an integer
-value of @code{0} or @code{1}. Indeed the action value does not match. But in
+value of @samp{0} or @samp{1}. Indeed the action value does not match. But in
 this as in many other cases the messages and values are designed in a way that
 they are autoconverted to the appropriated type. This compatibility is the basis
 for a seamless plugging of objects.
 
 In many cases authors face the task of triggering two or more objects by a
-single object. @code{"target"} and @code{"action"} are both able to take 
-multiple values.  @code{"target"} is of type tokens, as described in 
-@ref{Object Attributes}, whereas @code{"action"} can be a string or a table
+single object. @samp{target} and @samp{action} are both able to take 
+multiple values.  @samp{target} is of type tokens, as described in 
+@ref{Object Attributes}, whereas @samp{action} can be a string or a table
 of strings.
 
 @example
@@ -3150,7 +3150,7 @@ of strings.
 @end example
 
 All objects described by a token receive the related message in the action
-table. If not enough messages are listed the default action @code{"toggle"}
+table. If not enough messages are listed the default action @samp{toggle}
 will be sent.
 
 @node Callback Function
@@ -3161,7 +3161,86 @@ will be sent.
 @node Object State
 @subsection Object State
 
-state dependent target action
+A key concept for the ability to plug together objects like switches and doors
+are the very simple state machines of these objects. Most objects are described
+by simple machines with just 2 states like @samp{ON},@samp{OFF} or @samp{OPEN},
+@samp{CLOSED}. These objects can be plugged together by just few common messages.
+Furtheron these simple state machines are suited to the gamers who do not want
+to read manuals but want to explore the objects by playing with just a few tests.
+
+Even though states are usally named by appropriate uppercase names like above,
+the states are integer numbers starting with @samp{0} usually related to the
+default state. But some objects use another mapping due to historic reasons.
+E.g. states that are direction related use the state @samp{3} representing
+@samp{NORTH} usually as the default and number the directions clockwise down to
+@samp{0} representing @samp{WEST}.
+
+In most cases it is sufficient to perform a state independent common action
+like @ref{toggle}. But sometimes you may want to perform state specific actions.
+
+E.g. a @ref{st_fourswitch} that switches two @ref{st_laser} beaming in 3 states
+but one of them being switched off while in @samp{EAST} state and the other being
+switched off while in @samp{WEST} state. This can be done by usage of state
+dependent target and actions:
+
+@example
+@{st_fourswitch, target_3="laser#2", action_3="on",
+                target_2="laser#1", action_2="off",
+                target_1="laser#1", action_1="on",
+                target_0="laser#2", action_0="off"@}
+@end example
+
+Adding a number as suffix to @samp{target_} and @samp{action_} gives you 
+special target and action attributes that will take precedence over the general
+@samp{target} and @samp{action} attributes if the state value equals the suffix
+number. An alternative declaration would be:
+
+@example
+@{st_fourswitch, target=@{"laser#1", "laser#2"@},
+              action_3=@{"nop",     "on"@},
+              action_2=@{"off",     "nop"@},
+              action_1=@{"on",      "nop"@},
+              action_0=@{"nop",     "off"@}@}
+@end example
+
+Here we do address both lasers in all states. But one of them receives a 
+@ref{nop} message that stands for "no operation". In fact this message will
+never be send. It is just a dummy message that we have need of for syntax
+reasons in the case above.
+
+Another example are two @ref{it_trigger} that switch a laser. An object pressing
+the first trigger should switch the laser on, an object pressing the second
+trigger should switch it off. But a trigger is two stated and performs one
+action on being pressed and another on being released. Thus we want to block
+the actions an trigger release events:
+
+@example
+@{it_trigger, name="on_trigger",  target="laser#1", action_1="on", action_0="nop"@}
+@{it_trigger, name="off_trigger", target="laser#1", action_1="off", action_0="nop"@}
+@end example
+
+The blocking of @samp{action_0} is essential and can not be omitted, as 
+otherwise the default action would be performed. This would be a @samp{toggle}
+message that would switch the laser.
+
+As this useful default mechanism can sometimes be annoying you can switch off
+the default message by setting the @ref{nopaction} attribute to true.
+
+@example
+@{it_trigger, name="on_trigger",  target="laser#1", action_1="on", nopaction=true@}
+@{it_trigger, name="off_trigger", target="laser#1", action_1="off", nopaction=true@}
+@end example
+
+When an objects leaves a trigger the state @samp{0} action will be performed.
+As neither @samp{action_0} nor @samp{action} is specified the default action
+will be performed, which is now @samp{nop}.
+
+If you ever look into the C++ code you may note that many objects do have much
+more complex state machines than you expect from the level authors and gamers
+view. This is due to running animations, timers, etc.. The C++ objects map their
+complex internal state set to the much simpler external state set. This is the
+main reason that some features that level authors request can not be provided
+in the Lua API.
 
 @c ----------------- The Lifecycle of a Level -------------------- 
 
@@ -3232,7 +3311,7 @@ of the dynamite.
 Some objects do process internal state transformations that cannot be configured
 by attributes. But some of these states may be of interest on describing a
 snapshot of a level. Where possible special object subkinds exists with a suffix
-of @code{_new}. These objects can be used in the initial level description to
+of @samp{_new}. These objects can be used in the initial level description to
 set objects in special initial states. E.g. @ref{it_blocker} provides such a
 special subkind. Note that these objects will never report their initial
 subkind on a kind request as they come into existance as a standard object.
@@ -3240,6 +3319,12 @@ subkind on a kind request as they come into existance as a standard object.
 
 @node Level Initialization
 @subsection Level Initialization
+
+global variables
+tile declarations
+world init
+oxyd shuffle
+postinit()
 
 @node Runtime Ticks and Callbacks
 @subsection Runtime Ticks and Callbacks
@@ -3256,6 +3341,11 @@ subkind on a kind request as they come into existance as a standard object.
 @node Common Attributes and Messages
 @chapter Common Attributes and Messages
 
+Some attributes and messages are common to many objects or even supported
+by all objects. We describe them here in detail. The following chapters will
+just reference them or even skip them when they are generally supported and
+used in the default manner.
+
 @menu
 * Common Attributes:: 
 * Common Messages::   
@@ -3269,12 +3359,35 @@ subkind on a kind request as they come into existance as a standard object.
 * state:: 
 * target::
 * action::
+* nopaction::
 * inverse::
 * destination::
 @end menu
 
 @node name
 @subsection name
+
+The attribute of @ref{Object Naming} that allows you to name any object for 
+reference purposes. It is up to you to ensure the uniqueness of the names. But
+the engine supports you by autonumbering names ending on a @samp{#} sign 
+(@pxref{Object Naming}). If you reuse an already used name the first object will
+be unnamed and all name references will point to the new named object. If you
+have need of naming an object you should do it with the object creation as
+a few objects have need of names and will otherwise be named by the engine with
+unique names.
+
+Note that is attribute is not listed in the individual object descriptions.
+
+@table @asis
+@item @b{Type:} @ @ string
+@item @b{Values:} @ @ @{a-zA-Z0-9_@}+
+A sequence of characters of the given characters plus special characters as
+mentioned in the text above.
+@item @b{Default:} @ @ @code{nil}
+Some objects will be autonamed if no name is defined.
+@item @b{Access:} @ @ read/write
+@item @b{Support:} @ @ by all objects
+@end table
 
 @node state
 @subsection state
@@ -3285,8 +3398,29 @@ subkind on a kind request as they come into existance as a standard object.
 @node action
 @subsection action
 
+@node nopaction
+@subsection nopaction
+
 @node inverse
 @subsection inverse
+
+An attribute that requests an invertion of the action value. It is supported by
+all objects with boolean action values.
+
+Note that this attribute is not listed in the individual object description
+if the object has boolean action values.
+
+@table @asis
+@item @b{Type:} @ @ bool
+@item @b{Values:} @ @ @code{true}, @code{false}
+@item @b{Default:} @ @ @code{false}
+@item @b{Access:} @ @ read/write
+@item @b{Support:} @ @ by most objects
+All objects with boolean action values will support this attribute. Additionally
+some objects with other invertable action value types like directions will
+support the invertion of their attributes as stated in the individual object
+descriptions.
+@end table
 
 @node destination
 @subsection destination
@@ -3297,6 +3431,7 @@ subkind on a kind request as they come into existance as a standard object.
 
 @menu
 * toggle:: 
+* nop::
 * signal::
 * on::
 * off::
@@ -3306,6 +3441,9 @@ subkind on a kind request as they come into existance as a standard object.
 
 @node toggle
 @subsection toggle
+
+@node nop
+@subsection nop
 
 @node signal
 @subsection signal
@@ -3340,6 +3478,13 @@ subkind on a kind request as they come into existance as a standard object.
 
 @menu
 * it_blocker::         Shrinked Blocker Stone
+* it_extralife::
+* it_hammer::
+* it_magnet::
+* it_sword::
+* it_trigger::         Floor Switch for Actors and Stones
+* it_umbrella::
+* it_wormhole::
 @end menu
 
 
@@ -3362,7 +3507,7 @@ stone and item. E.g. @code{@{it_switch, target="myblocker", action="toggle"@}}
 will open and close a given blocker multiple times.
 
 Note that the blocker is the only door object that allows a stone to be pushed
-through. Just bloulders cause the growing. Any other stone keeps the open state.
+through. Just boulders cause the growing. Any other stone keeps the open state.
 
 Another unique door feature is the closing of an blocker item caused by a 
 passing actor if the autoclose attribute is set to true.
@@ -3423,7 +3568,193 @@ snapshot of a moving boulder over a blocker line, too. See example levels.
 
 @end table
 
+@c ----------------- Extralife Item -------------------- 
+@node it_extralife
+@subsection it_extralife
+@obindex it_extralife
 
+An extralife transforms into @ref{it_glasses} when hit by a laser beam and is
+itself a laser transformation result of an @samp{it_coin4} (@pxref{it_coin}).
+
+An extralife that comes into existence on an illuminated grid position will not
+be destroyed due to already existing laser beams. But it will be destroyed on
+the first additional beam and on laser beams that are switched off and on again.
+
+If another item transforms into an extralife this new extralife will be immune to
+light destruction for a short latency period to avoid repeated item 
+transformations.
+
+@table @asis
+
+@item @b{Variants:}
+@table @asis
+@item @b{it_extralife}
+A standard extralife item.
+@item @b{it_extralife_new}
+An extralife that is immune to light destruction for a short latency period.
+@end table
+
+@end table
+
+@c ----------------- Hammer Item -------------------- 
+@node it_hammer
+@subsection it_hammer
+@obindex it_hammer
+
+The hammer is used to destroy some stones, see @ref{Breakable Stones} and 
+@ref{st_lightpassenger}. 
+
+It transforms into @ref{it_sword} when hit by a laser beam and is itself a
+laser transformation result of an @ref{it_sword} and an @samp{it_coin2} 
+(@pxref{it_coin}).
+
+An hammer that comes into existence on an illuminated grid position will not
+transform due to already existing laser beams. But it will transform on the first
+additional beam and on laser beams that are switched off and on again.
+
+If another item transforms into an hammer this new hammer will be immune to
+further light transformations for a short latency period to avoid unstable
+flickering of repeated item transformations.
+
+@table @asis
+
+@item @b{Variants:}
+@table @asis
+@item @b{it_hammer}
+A standard hammer item.
+@item @b{it_hammer_new}
+A hammer that is immune to light transformations for a short latency period.
+@end table
+
+@end table
+
+@c ----------------- Magnet Item -------------------- 
+@node it_magnet
+@subsection it_magnet
+@obindex it_magnet
+
+@c ----------------- Sword Item -------------------- 
+@node it_sword
+@subsection it_sword
+@obindex it_sword
+
+The sword is used to neutralize @ref{st_knight}. 
+
+It transforms into @ref{it_hammer} when hit by a laser beam and is itself a
+laser transformation result of an @ref{it_hammer}.
+
+A sword that comes into existence on an illuminated grid position will not
+transform due to already existing laser beams. But it will transform on the first
+additional beam and on laser beams that are switched off and on again.
+
+If another item transforms into a sword this new sword will be immune to
+further light transformations for a short latency period to avoid unstable
+flickering of repeated item transformations.
+
+@table @asis
+
+@item @b{Variants:}
+@table @asis
+@item @b{it_sword}
+A standard sword item.
+@item @b{it_sword_new}
+A sword that is immune to light transformations for a short latency period.
+@end table
+
+@end table
+
+@c ----------------- Trigger Item -------------------- 
+@node it_trigger
+@subsection it_trigger
+@obindex it_trigger
+
+The trigger item is a switch on top of the floor that reacts on actors and
+stones on top of it that may press it. It performs actions when it is initially
+pressed and again when it releases after the last object left it. A pressed 
+trigger is in state @samp{ON} and will send an action value of @samp{true}, a 
+released trigger is in state @samp{OFF} and will send an action value of 
+@samp{false}.
+
+Only actors moving on the floor will press triggers. An actor jumping over a
+trigger will not press it. An actor jumping on a trigger will release and press
+it again.
+
+Just solid stones will press the trigger when pushed onto it. Floating, hollow
+stones will generally not press the trigger with the exception of the hollow,
+central puzzle stone (@pxref st_puzzle).
+
+There is no way to set the state of a trigger manually. But the state can
+nevertheless be read. At initialization a trigger that is pressed by objects 
+will start in state @samp{ON} without sending actions due to the 
+@ref{Snapshot Principle}.
+
+You can make the trigger invisible by setting its attribute. Be aware that it
+still produces its click-sounds and the user will notice that actors cannot drop
+items onto the same grid position.
+
+Alternative objects that reacts just on actors are @ref{it_sensor} and
+@ref{it_cross}.
+
+@table @asis
+@item @b{Attributes:}
+
+@table @asis
+@item @b{state}, @ @ @i{values}: @code{ON}, @code{OFF}; @ @ @i{access}: @code{read only} @ @ @xref{state}
+The current switch state - @samp{ON} for a pressed trigger, @samp{OFF} for a
+released trigger.
+
+@item @b{invisible} @ @ @i{values}: @code{true}, @code{false}; @ @ @i{default}: @code{false}
+An invisible trigger is totally transparent. But the user may notice it, as actors
+cannot drop items onto the same grid position.
+
+@end table
+
+@item @b{Messages:} none
+
+@item @b{Action:} @ @ @xref{target}, @ @ @xref{action}
+
+@end table
+
+
+@c ----------------- Umbrella Item -------------------- 
+@node it_umbrella
+@subsection it_umbrella
+@obindex it_umbrella
+
+An activated umbrella temporarily protects a marble from @ref{st_death},
+@ref{st_knight}, @ref{st_thief}, @ref{fl_abyss}, @ref{fl_water},
+@ref{fl_swamp}, @ref{fl_thief}, @ref{it_death}, @ref{it_abyss},
+@ref{it_booze_broken}, explosions, moving stones and the @samp{shatter}
+and @samp{fall} messages; in other words, from all lethal situations and
+thieves.
+
+An umbrella gets destroyed when hit by a laser beam and is itself a
+laser transformation result of an @samp{it_coin1}(@pxref{it_coin}).
+
+An umbrella that comes into existence on an illuminated grid position will not
+be destroyed due to already existing laser beams. But it will be destroyed on
+the first additional beam and on laser beams that are switched off and on again.
+
+If another item transforms into an umbrella this new umbrella will be immune to
+light destruction for a short latency period to avoid repeated item 
+transformations.
+
+@table @asis
+
+@item @b{Variants:}
+@table @asis
+@item @b{it_umbrella}
+A standard umbrella item.
+@item @b{it_umbrella_new}
+An umbrella that is immune to light destruction for a short latency period.
+@end table
+
+@end table
+
+@c ----------------- Wormhole Item -------------------- 
+@node it_wormhole
+@subsection it_wormhole
+@obindex it_wormhole
 
 @c ===================  Stones  =======================
 @node Stone Objects
@@ -3451,7 +3782,11 @@ snapshot of a moving boulder over a blocker line, too. See example levels.
 * st_blocker::         Shrinkable Blocker
 * st_boulder::         Moving Arrow Boulder
 * st_fourswitch::      Four Direction Switch
-* st_switch::          A classical on/off Switch
+* st_laser::           Lightemitting Laser
+* st_laserswitch::     Lightsensitive Switch
+* st_polarswitch::     Transparency Switch for Light Beams
+* st_switch::          Classical on/off Switch
+* st_timer::           Animated Timer
 @end menu
 
 
@@ -3470,7 +3805,7 @@ closed by any switch like object. Note that due to the transformation between
 stone and item during opening and closing you should name the blocker
 (@pxref{name}) and address the blocker by this name. The complete identity
 with all attributes including any user attributes will be transfered between
-stone and item. E.g. @code{@{st_switch, target="myblocker", action="toggle"@}}
+stone and item. E.g. @samp{@{st_switch, target="myblocker", action="toggle"@}}
 will open and close a given blocker multiple times.
 
 Note that the blocker is the only door object that allows a stone to be pushed
@@ -3482,11 +3817,10 @@ Be aware that the @ref{it_brake} destroys an @ref{it_blocker}.
 @item @b{Attributes:}
 
 @table @asis
-@item @b{state}, @ @ @i{values}: @code{0}, @code{1}; @ @ @i{default}: @code{0} @ @ @xref{state}
-Use CLOSED and OPEN macros as values. The stone represents the closed state
-and will always return state 0. But you can set its state what is equivalent
-to sending an open message in case of value 1 and an close message in case of
-value 0..
+@item @b{state}, @ @ @i{values}: @code{OPEN}, @code{CLOSED}; @ @ @i{default}: @code{CLOSED} @ @ @xref{state}
+The stone represents the closed state and will always return state @samp{CLOSED}.
+But you can set its state what is equivalent to sending an open message in case
+of value @samp{OPEN} and an close message in case of value @samp{CLOSED}..
 
 @atindex autoclose
 @item @b{autoclose} @ @ @i{values}: @code{true}, @code{false}; @ @ @i{default}: @code{false}
@@ -3517,7 +3851,7 @@ again to full size.
 @item @b{Action:} @ @ @xref{target}, @ @ @xref{action}
 Sends an action at the moment the blocker reaches the closing state. That means
 an @ref{it_blocker} did close and did generate this blocker stone as its
-successor. The value will be @code{false} to express the closing state.
+successor. The value will be @samp{false} to express the closing state.
 
 @item @b{Variants:}
 @table @asis
@@ -3565,6 +3899,9 @@ a boulder away.
 @item @b{orientation}, @ @ @i{values}: @code{NORTH}, @code{EAST}, @code{SOUTH}, @code{WEST}; @ @ @i{default}: @code{NORTH}
 The orientation of the boulder that is shown by its arrow. It determines the
 direction that the boulder will take on its next move.
+@item @b{counterclockwise} @ @ @i{values}: @code{true}, @code{false}; @ @ @i{default}: @code{false}
+The standard turning direction is clockwise. Use this attribute to revert the
+direction.
 @end table
 
 @item @b{Messages:}
@@ -3575,6 +3912,12 @@ direction that the boulder will take on its next move.
 Change the orientation to the given direction value. The @ref{st_fourswitch}
 provides a compatible action which allows you to set a boulder as
 target and this message as action.
+@item @b{turn}
+Turn orientation in turning direction as defined by attribute 
+@samp{counterclockwise}.
+@item @b{turnback}
+Turn orientation in opposite turning direction as defined by attribute 
+@samp{counterclockwise}.
 @end table
 
 @item @b{Action:}
@@ -3603,7 +3946,7 @@ will trigger this switch, too. Of course other objects can send messages on
 actions to make this switch turning.
 
 When turning its pointer on a switching event it performs the action given by
-the @code{action/target}-pair. This can be either a common pair or a 
+the @samp{action/target}-pair. This can be either a common pair or a 
 state/direction dependent pair allowing you to issue different messages
 dependent on the pointing direction.
 
@@ -3633,22 +3976,154 @@ Note that a toggle turns the fourswitch independent of a message value.
 @end table
 
 @item @b{Action:} @ @ @xref{target}, @ @ @xref{action}
-Performs an action on each turn. If just a pair of global @code{target/action}
+Performs an action on each turn. If just a pair of global @samp{target/action}
 attributes are given, the action message is sent to the target with a 
 direction value of the new orientation. This values suits any message of the
 target that expects a direction value, and the @ref{signal} message, that 
-translates the direction to a 1 for @code{NORTH, SOUTH} and a 0 for 
-@code{EAST, WEST}.
+translates the direction to a 1 for @samp{NORTH}, @samp{SOUTH} and a 0 for 
+@samp{EAST}, @samp{WEST}.
 
 If state dependent target/action pairs are given instead, namely
-@code{target_0/action_0} for the state @code{WEST},... , @code{target_3/action_3} 
-for the state @code{NORTH}, two actions will be perfomed: first for the state 
+@samp{target_0/action_0} for the state @samp{WEST},... , @samp{target_3/action_3} 
+for the state @samp{NORTH}, two actions will be perfomed: first for the state 
 representing the old orientation the given action messages will be sent with
 a value of 0, then for the state representing the new orientation the given
 action messages will be sent with a value of 1. This allows you to switch on
 and off alternative sources by a fourswitch.
 @end table
 
+@c ----------------- Laser Stone -------------------- 
+@node st_laser
+@subsection st_laser
+@obindex st_laser
+
+The laser stone is the only object that is capable of emitting light beams.
+Per default laser stones are switched off. The @samp{state} attribute represents
+the activity of the laser and can be set initially to @samp{ON}. A laser is
+orientated to one direction in which the light will be emitted.
+
+Lasers have a latency that protect them from infinit fast switching cycles. This
+allows you to toggle a laser with an @ref{st_laserswitch} that is illuminated
+by the laser itself. During the latency period pending switch requests will be
+registered but will be executed with a certain small delay. Note that several
+pending requests may even neutralize are revoke each other.
+
+An initially switched on laser will not cause actions with its light beam due
+to the @ref{Snapshot Principle}. If you have need of the actions you may switch
+on the laser by a message in the @samp{postinit} function 
+(@xref{Level Initialization}). E.g. a flickering laser caused by a laser that
+illuminates a @ref{st_laserswitch} which toggles the laser needs to be switched
+on by a message.
+
+@table @asis
+@item @b{Attributes:}
+
+@table @asis
+@item @b{state}, @ @ @i{values}: @code{ON}, @code{OFF}; @ @ @i{default}: @code{OFF} @ @ @xref{state}
+@item @b{orientation}, @ @ @i{values}: @code{NORTH}, @code{EAST}, @code{SOUTH}, @code{WEST}; @ @ @i{default}: @code{NORTH}
+The orientation of the laser. It determines the direction that the laser will
+emit light if it is switched on.
+@item @b{counterclockwise} @ @ @i{values}: @code{true}, @code{false}; @ @ @i{default}: @code{false}
+The standard turning direction is clockwise. Use this attribute to revert the
+direction.
+@end table
+
+@item @b{Messages:}
+
+@table @asis
+@item @b{signal} @ @ @xref{signal}
+Switch the laser on at value @samp{1} and off at value @samp{0}.
+@item @b{on} @ @ @xref{on}
+@item @b{off} @ @ @xref{off}
+@item @b{turn}
+Turn orientation in turning direction as defined by attribute 
+@samp{counterclockwise}.
+@item @b{turnback}
+Turn orientation in opposite turning direction as defined by attribute 
+@samp{counterclockwise}.
+@end table
+
+@item @b{Action:} none
+
+@item @b{Variants:}
+
+@table @asis
+@item @b{st_laser}
+@item @b{st_laser_w}: orientation = @code{WEST}
+@item @b{st_laser_s}: orientation = @code{SOUTH}
+@item @b{st_laser_e}: orientation = @code{EAST}
+@item @b{st_laser_n}: orientation = @code{NORTH}
+@end table
+
+@end table
+
+@c ----------------- Laserswitch Stone -------------------- 
+@node st_laserswitch
+@subsection st_laserswitch
+@obindex st_laserswitch
+
+A switch that is exclusively triggered by laser light. It switches instantly to
+state @samp{ON} when a laser beam hits the stone from any direction. It switches
+instantly back to state @samp{OFF} when it is no longer illuminated.
+
+There is no way to set set the state of this stone manually. But the state
+can nevertheless be read. At initialization a laserswitch that is exposed to
+laser light will start in state @samp{ON} without sending actions due to the
+@ref{Snapshot Principle}.
+
+A laserswitch that is moved or swapped in or out of a laser beam will act on
+the light change with proper actions.
+
+@table @asis
+@item @b{Attributes:}
+
+@table @asis
+@item @b{state}, @ @ @i{values}: @code{ON}, @code{OFF}; @ @ @i{default}: @code{OFF}; @i{access}: @code{read only} @ @ @xref{state}
+
+@end table
+
+@item @b{Messages:} none
+
+@item @b{Action:} @ @ @xref{target}, @ @ @xref{action}
+
+@end table
+
+@c ----------------- Polarswitch Stone -------------------- 
+@node st_polarswitch
+@subsection st_polarswitch
+@obindex st_polarswitch
+
+A special on/off switch that toggles its state on actors hitting the stone.
+Of course other objects can send messages on actions to make this switch turning.
+
+The main purpose of this switch is its ability to switch crossing laser beams.
+While the switch is not transparent in its default off state, it switches to
+a transparent on state.
+
+The switch looks like an @ref{st_glass2} in its intransparent off state and like
+an @ref{st_glass1} in its transparent on state. Like other @ref{Glasstones} it
+is passable for invisible actors.
+
+@table @asis
+@item @b{Attributes:}
+
+@table @asis
+@item @b{state}, @ @ @i{values}: @code{ON}, @code{OFF}; @ @ @i{default}: @code{OFF} @ @ @xref{state}
+An @samp{OFF} state is not transparent, an @samp{ON} state is transparent. 
+@end table
+
+@item @b{Messages:}
+
+@table @asis
+@item @b{signal} @ @ @xref{signal}
+Switches on at value @samp{1}, and off at values @samp{0}.
+@item @b{on} @ @ @xref{on}
+@item @b{off} @ @ @xref{off}
+@end table
+
+@item @b{Action:} @ @ @xref{target}, @ @ @xref{action}
+
+@end table
 
 @c ----------------- Switch Stone -------------------- 
 @node st_switch
@@ -3664,7 +4139,7 @@ will react only if hit by marbles of matching color.
 
 If a switch turns on or off there will be a short delay until it reaches the
 new state and performs it actions. If you need a switch without delay you
-need to set the @code{instant} attribute.
+need to set the @samp{instant} attribute.
 
 @table @asis
 @item @b{Attributes:}
@@ -3673,20 +4148,19 @@ need to set the @code{instant} attribute.
 @item @b{state}, @ @ @i{values}: @code{ON}, @code{OFF}; @ @ @i{default}: @code{OFF} @ @ @xref{state}
 @item @b{color} @ @ @i{values}: @code{nil}, @code{BLACK}, @code{WHITE}; @ @ @i{default}: @code{nil}
 The color of the switch that needs to match the hitting actor to cause a toggle.
-The default @code{nil} color is a grey switch that matches all actors, marbles
+The default @samp{nil} color is a grey switch that matches all actors, marbles
 of any color as well as all other actors.
 @item @b{instant} @ @ @i{values}: @code{true}, @code{false}; @ @ @i{default}: @code{false}
 A default switch requires a short time equivalent to the animation until the
 new state is reached and the actions are performed. An instant switch jumps
 directly into the new state.
-@item @b{inverse} @ @ @xref{inverse}
 @end table
 
 @item @b{Messages:}
 
 @table @asis
 @item @b{signal} @ @ @xref{signal}
-Switches on at value @code{1}, and off at values @code{0}.
+Switches on at value @samp{1}, and off at values @samp{0}.
 @item @b{on} @ @ @xref{on}
 @item @b{off} @ @ @xref{off}
 @end table
@@ -3702,6 +4176,64 @@ Switches on at value @code{1}, and off at values @code{0}.
 @end table
 
 @end table
+
+@c ----------------- Timer Stone -------------------- 
+@node st_timer
+@subsection st_timer
+@obindex st_timer
+
+This stone can be used to trigger a delayed single or periodic events. An
+active, switched on timer is usually visualized by an animation. An inactive,
+switched off timer shows a static image.
+
+Note that this is an exceptional object as its default state is @samp{ON} to
+support the most common case of immediatly runnning timers.
+
+A single shot, not looping timer will send an action value of @samp{true}. A
+looping timer will alternate the boolean action values starting with value 
+@samp{true}. You can use @ref{inverse} to start with a value of @samp{false}.
+
+If you stop a timer by switching it off, no further events will be performed.
+Restarting the timer by switching it on again will restart the timer like
+a new timer.
+
+The time interval to the first event and between subsequent events can be relied
+on to an accuracy of 0.01 seconds. But due to performance reasons and visibility
+of the reactions timers should not be set to intervals below 0.1 seconds. An
+interval of less than 0.01 seconds is not valid for a looping timer.
+
+@table @asis
+@item @b{Attributes:}
+
+@table @asis
+@item @b{state}, @ @ @i{values}: @code{ON}, @code{OFF}; @ @ @i{default}: @code{ON} @ @ @xref{state}
+An @samp{ON} state timer is running. A timer in state @samp{OFF} is reset and
+waiting for reactivation.
+@item @b{invisible} @ @ @i{values}: @code{true}, @code{false}; @ @ @i{default}: @code{false}
+An invisible timer is totally transparent. But the user may notice it, as actors
+cannot pass and other stones cannot be moved onto the same grid position.
+@item @b{interval} @ @ @i{values}: positive number; @ @ @i{default}: @code{1.0}
+Number of seconds until the first and between subsequent events. The interval
+must be larger equal 0.01 seconds for looping timers.
+@item @b{loop} @ @ @i{values}: @code{true}, @code{false}; @ @ @i{default}: @code{true}
+A looping timer will send periodic events.
+@end table
+
+@item @b{Messages:}
+
+@table @asis
+@item @b{signal} @ @ @xref{signal}
+Switches on at value @samp{1}, and off at values @samp{0}.
+@item @b{on} @ @ @xref{on}
+@item @b{off} @ @ @xref{off}
+@end table
+
+@item @b{Action:} @ @ @xref{target}, @ @ @xref{action}
+The action value starts with @samp{true} and alternates on every event between
+@samp{false} and @samp{true}. A timer that is reset starts again with value 
+@samp{true}
+@end table
+
 
 @c ===================  Actors  =======================
 

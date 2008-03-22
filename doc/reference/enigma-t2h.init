@@ -7,5 +7,6 @@ $css_map{'pre.example var'} = 'color:rgb(80%,0%,80%)';
 $css_map{'h3'} = 'background-color:rgb(95%,95%,100%)';
 $css_map{'hr'} = 'height:0px;';
 $css_map{'code'} = 'color:rgb(0%,50%,0%)';
+$css_map{'samp'} = 'color:rgb(0%,50%,0%)';
 
 1;
