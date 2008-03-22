@@ -665,11 +665,14 @@ void OxydLoader::parse_specials ()
 
         case 'm':               // magnet force
             server::MagnetForce = cmd.get_int (0, 32000, 3000) / 1000.0;
+            BroadcastMessage("_updateglobals", "it_magnet", GRID_ITEMS_BIT);
             break;
 
         case 't':           // wormhole force and range
             server::WormholeForce = cmd.get_int(0,32000,3000) / 5000.0;
             server::WormholeRange = cmd.get_int(0,32000,100) / 32.0;
+            Log << "oxyd wormhole range " << server::WormholeRange << "\n";
+            BroadcastMessage("_updateglobals", "it_wormhole", GRID_ITEMS_BIT);
             break;
 
         case 'R':           // brittleness

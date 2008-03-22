@@ -1528,7 +1528,7 @@ namespace
     
     void Trigger::on_creation(GridPos p) {
         state = 0;
-        updateIState(countActors(), !server::WorldInitialized);
+        updateIState(countActors(), true);
         init_model();
     }
         
@@ -1785,6 +1785,7 @@ Value ShogunDot::message(const Message &m) {
         // Object interface
         virtual std::string getClass() const;
         virtual void setAttr(const std::string &key, const Value &val);
+        virtual Value message(const Message &m);
 
         // GridObject interface
         virtual void on_creation(GridPos p);
@@ -1817,15 +1818,27 @@ Value ShogunDot::message(const Message &m) {
             Item::setAttr(key, val);
     }
     
+    Value Magnet::message(const Message &m) {
+        if (m.message == "_updateglobals" && m.value.to_string() == "it_magnet") {
+            if (getAttr("range").getType() == Value::DEFAULT) {
+                squareRange = server::MagnetRange * server::MagnetRange;
+            }
+            if (getAttr("strength").getType() == Value::DEFAULT) {
+                correctedStrength = 0.6 * server::MagnetForce;
+            }
+            return Value();
+        }
+        return Item::message(m);
+    }
     void Magnet::init_model() {
         set_model(ecl::strf("it-magnet%s", state == ON ? "-on" : "-off"));
     }
     
     void Magnet::on_creation(GridPos p) {
-        if (getAttr("range").getType() == Value::NIL) {
+        if (getAttr("range").getType() == Value::DEFAULT) {
             squareRange = server::MagnetRange * server::MagnetRange;
         }
-        if (getAttr("strength").getType() == Value::NIL) {
+        if (getAttr("strength").getType() == Value::DEFAULT) {
             correctedStrength = 0.6 * server::MagnetForce;
         }
 
@@ -1895,6 +1908,7 @@ set_item("it-wormhole", 1,1, {targetx=5.5, targety=10.5, strength=50, range=5})
         // Object interface
         virtual std::string getClass() const;
         virtual void setAttr(const std::string &key, const Value &val);
+        virtual Value message(const Message &m);
 
         // StateObject interface
         virtual int externalState() const;
@@ -1939,6 +1953,19 @@ set_item("it-wormhole", 1,1, {targetx=5.5, targety=10.5, strength=50, range=5})
         Item::setAttr(key, val);
     }
     
+    Value WormHole::message(const Message &m) {
+        if (m.message == "_updateglobals" && m.value.to_string() == "it_wormhole") {
+            if (getAttr("range").getType() == Value::DEFAULT) {
+                squareRange = server::WormholeRange * server::WormholeRange;
+            }
+            if (getAttr("strength").getType() == Value::DEFAULT) {
+                correctedStrength = 0.6 * server::WormholeForce;
+            }
+            return Value(); 
+        }
+        return Item::message(m);
+    }
+
     int WormHole::externalState() const {
         return state % 2;
     }
@@ -1958,10 +1985,10 @@ set_item("it-wormhole", 1,1, {targetx=5.5, targety=10.5, strength=50, range=5})
     
     void WormHole::on_creation (GridPos p) {
         Item::on_creation (p);
-        if (getAttr("range").getType() == Value::NIL) {
+        if (getAttr("range").getType() == Value::DEFAULT) {
             squareRange = server::WormholeRange * server::WormholeRange;
         }
-        if (getAttr("strength").getType() == Value::NIL) {
+        if (getAttr("strength").getType() == Value::DEFAULT) {
             correctedStrength = 0.6 * server::WormholeForce;
         }
         if (state % 2 == 1)

@@ -34,10 +34,12 @@ namespace enigma {
     struct Message;
     
     enum ObjectFlagsBits {
-        OBJBIT_LIGHTNEWDIRS  =  15,   ///< GridObject 4 direction bits with current/new light
-        OBJBIT_LIGHTOLDDIRS  =  240,  ///< GridObject 4 direction bits with previous light
-        OBJBIT_LIGHTALLDIRS  =  255,  ///< GridObject all 8 direction bits with old an new light
-        OBJBIT_PHOTOACTIV    =  1<<8  ///< GridObject registered as photo activ
+        OBJBIT_LIGHTNEWDIRS  =  15,    ///< GridObject 4 direction bits with current/new light
+        OBJBIT_LIGHTOLDDIRS  =  240,   ///< GridObject 4 direction bits with previous light
+        OBJBIT_LIGHTALLDIRS  =  255,   ///< GridObject all 8 direction bits with old an new light
+        OBJBIT_PHOTOACTIV    =  1<<8,  ///< GridObject registered as photo activ
+        OBJBIT_INVERSE       =  1<<9,  ///< Object invert action value
+        OBJBIT_NOP           =  1<<10  ///< Object use nop instead toggle as default action
     };
     
     class Value;

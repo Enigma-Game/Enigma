@@ -1826,7 +1826,7 @@ void AddSignal (const GridLoc &srcloc, const GridLoc &dstloc, const string &msg)
     if (dst == NULL && dstloc.layer == GRID_ITEMS) {
         GridLoc altloc(GRID_STONES, dstloc.pos);
         dst = GetObject(altloc);
-        if (!(dst->is_kind("st_blocker")))
+        if (dst && !(dst->is_kind("st_blocker")))
             // just use blocker stone instead of blocker item as substitution
             dst = NULL;
     }

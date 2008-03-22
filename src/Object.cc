@@ -154,7 +154,19 @@ namespace enigma {
     
     
     void Object::setAttr(const std::string& key, const Value& val) {
-        if (val) {        // only set non-default values
+        if (key == "inverse") {
+            if (val.to_bool())
+                objFlags |= OBJBIT_INVERSE;
+            else
+                objFlags &= ~OBJBIT_INVERSE;
+                
+        } else if (key == "nopaction") {
+            if (val.to_bool())
+                objFlags |= OBJBIT_NOP;
+            else
+                objFlags &= ~OBJBIT_NOP;
+        
+        } else if (val) {        // only set non-default values
             if (val.getType() == Value::NIL /*&& server::EnigmaCompatibility >= 1.10*/)
                 // delete attribute
                 attribs.remove_key(key);
@@ -184,12 +196,18 @@ namespace enigma {
     }
     
     Value Object::getAttr(const string& key) const {
-        AttribMap::const_iterator i = attribs.find(key);
-        if (i == attribs.end()) 
-//            return Value(Value::DEFAULT);
-            return ObjectValidator::instance()->getDefaultValue(this, key);
-        else
-            return i->second;
+        if (key == "inverse") {
+            return (objFlags & OBJBIT_INVERSE) != 0;            
+        } else if (key == "nopaction") {
+            return (objFlags & OBJBIT_NOP) != 0;
+        } else {
+            AttribMap::const_iterator i = attribs.find(key);
+            if (i == attribs.end()) 
+    //            return Value(Value::DEFAULT);
+                return ObjectValidator::instance()->getDefaultValue(this, key);
+            else
+                return i->second;
+        }
     }
     
     Value Object::getDefaultedAttr(const string& key, Value defaultValue) const {
@@ -233,7 +251,7 @@ namespace enigma {
     
     void Object::performAction(const Value& val) {
         Value messageValue = val;
-        if (getDefaultedAttr("inverse", false).to_bool())
+        if (objFlags & OBJBIT_INVERSE)
             messageValue = invertActionValue(val);
 
         TokenList targets = getAttr("target");
@@ -265,8 +283,8 @@ namespace enigma {
 //                Log << "PerformAction target not valid\n";
             } else {
                 // send message to all objects
-                if (action == "") 
-                    action = "toggle";
+                if (action == "" )
+                    action = (objFlags & OBJBIT_NOP) ? "nop" : "toggle";
                 for (ObjectList::iterator oit = ol.begin(); oit != ol.end(); ++oit) {
                     if (*oit != NULL) {
                         std::string obj_action = action;
@@ -277,7 +295,7 @@ namespace enigma {
 //                                Log << "PerformAction renamed '" << action << "' to '" << obj_action << "' for receiver '" << (*oit)->get_kind() << "'\n";
                         }
                         // check if message is valid, otherwise ignore message
-                        if ((*oit)->validateMessage(obj_action, messageValue))
+                        if (obj_action != "nop" && (*oit)->validateMessage(obj_action, messageValue))
                             SendMessage(*oit, Message(obj_action, messageValue, this));                    
                     }
                 }

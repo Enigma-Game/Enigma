@@ -12,6 +12,7 @@
     <attr name="invisible" type="bool" default="false" rw="rw"/>
     <attr name="loop" type="bool" default="true" rw="rw"/>
     <attr name="name" type="string" default="nil" rw="rw"/>
+    <attr name="nopaction" type="bool" default="false" rw="rw"/>
     <attr name="orientation" type="int" default="0" min="0" max="3" rw="rw"/>
     <attr name="range" type="double" default="1.0" rw="rw"/>
     <attr name="scissor" type="bool" default="true" rw="rw"/>
@@ -43,12 +44,14 @@
     <msg name="_performaction" type="nil"/>
     <msg name="_start" type="nil"/>
     <msg name="_trigger" type="bool"/>
+    <msg name="_updateglobals" type="string"/>
   </messages>
   <zoo>
     <object name="" abstract="true" states="2">
       <attr name="action"/>
       <attr name="inverse"/>
       <attr name="name"/>
+      <attr name="nopaction"/>
       <attr name="state"/>
       <attr name="target"/>
       <action type="bool"/>
@@ -84,6 +87,14 @@
     </object>
     <object name="it_sword"/>
     <object name="it_sword_new" init="true"/>
+    <object name="it_trigger">
+      <attr name="invisible"/>
+      <attr name="state" rw="r"/>
+      <msg name="_init"/>
+      <msg name="_jumping"/>
+    </object>
+    <object name="it_umbrella"/>
+    <object name="it_umbrella_new" init="true"/>
     <object name="it_wormhole">
       <attr name="destination"/>
       <attr name="interval" default="0"/>
@@ -94,14 +105,6 @@
       <msg name="off"/>
       <msg name="signal"/>
     </object>
-    <object name="it_trigger">
-      <attr name="invisible"/>
-      <attr name="state" rw="r"/>
-      <msg name="_init"/>
-      <msg name="_jumping"/>
-    </object>
-    <object name="it_umbrella"/>
-    <object name="it_umbrella_new" init="true"/>
     <object name="it_wormhole_off">
       <attr name="state" value="0"/>
     </object>
