@@ -3,7 +3,7 @@
   <el:protected>
     <el:info el:type="level">
       <el:identity el:title="Laser Path" el:subtitle="" el:id="andreas06"/>
-      <el:version el:score="1" el:release="1" el:revision="0" el:status="released"/>
+      <el:version el:score="1" el:release="1" el:revision="2" el:status="released"/>
       <el:author  el:name="Andreas Lochmann" el:email="" el:homepage=""/>
       <el:copyright>Copyright © 2005 Andreas Lochmann</el:copyright>
       <el:license el:type="GPL v2.0 or above" el:open="true"/>
@@ -132,11 +132,6 @@ create_world_by_map(level)
 draw_map(0,0,stmap,stones)
 draw_map(0,0,itmap,items)
 draw_map(0,0,acmap,actors)
-SetAttrib(enigma.GetStone(0,4),"init",FALSE)
-SetAttrib(enigma.GetStone(2,1),"init",FALSE)
-SetAttrib(enigma.GetStone(18,0),"init",FALSE)
-SetAttrib(enigma.GetStone(19,1),"init",FALSE)
-SetAttrib(enigma.GetStone(19,7),"init",FALSE)
 Signal ("st(3 3)","st(2 1)")
 Signal ("st(19 1)","st(18 3)")
 Signal ("st(3 11)","st(3 10)")

@@ -3,7 +3,7 @@
   <el:protected>
     <el:info el:type="level">
       <el:identity el:title="Laser Squad" el:subtitle="Fight the Light" el:id="duffy153"/>
-      <el:version el:score="1" el:release="1" el:revision="1" el:status="released"/>
+      <el:version el:score="1" el:release="1" el:revision="2" el:status="released"/>
       <el:author  el:name="Jacob Scott" el:email="" el:homepage=""/>
       <el:copyright>Copyright © 2007 Jacob Scott</el:copyright>
       <el:license el:type="GPL v2.0 or above" el:open="true"/>
@@ -88,7 +88,7 @@ renderLine(12,"########UV######g#o#")
 
 oxyd_shuffle()
 
-set_stone("st-timer", 20,2, {loop=0, action="onoff", target="laser", interval=1.25})
+set_stone("st-timer", 20,2, {action="onoff", target="laser", interval=1.25})
     ]]></el:luamain>
     <el:i18n>
       <el:string el:key="title">

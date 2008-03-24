@@ -3,7 +3,7 @@
   <el:protected>
     <el:info el:type="level">
       <el:identity el:title="Hail Storm" el:subtitle="" el:id="nat21"/>
-      <el:version el:score="1" el:release="1" el:revision="0" el:status="released"/>
+      <el:version el:score="1" el:release="1" el:revision="2" el:status="released"/>
       <el:author  el:name="Nat Pryce" el:email="" el:homepage=""/>
       <el:copyright>Copyright © 2003 Nat Pryce</el:copyright>
       <el:license el:type="GPL version 2" el:open="true"/>
@@ -62,7 +62,7 @@ for x=1,level_width-2 do
     set_item( "it-wormhole", x, level_height-1,
               {name=wormhole(x),
                targetx=x+0.5, targety=0.5, 
-               range=0.5,force=1} )
+               range=0.5} )
 end
 
 for y=level_height-8,level_height-4,2 do

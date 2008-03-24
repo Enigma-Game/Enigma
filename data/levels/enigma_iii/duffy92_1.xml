@@ -3,7 +3,7 @@
   <el:protected>
     <el:info el:type="level">
       <el:identity el:title="Map It Out" el:subtitle="" el:id="duffy92"/>
-      <el:version el:score="1" el:release="1" el:revision="3" el:status="released"/>
+      <el:version el:score="1" el:release="1" el:revision="4" el:status="released"/>
       <el:author  el:name="Jacob Scott" el:email="" el:homepage=""/>
       <el:copyright>Copyright © 2004 Jacob Scott</el:copyright>
       <el:license el:type="GPL v2.0 or above" el:open="true"/>
@@ -68,15 +68,15 @@ function renderLine( line, pattern)
         elseif c=="B" then
             set_wormhole(i-1, line, 10.5, 6.5)
         elseif c=="a" then
-            set_item("it-trigger",i-1,line,{invisible=1,action="callback",target="set_direc",direc=0})
+            set_item("it-trigger",i-1,line,{invisible=1,action="callback",target="set_direc",_direc=0})
         elseif c=="u" then
-            set_item("it-trigger",i-1,line,{invisible=1,action="callback",target="set_direc",direc=1})
+            set_item("it-trigger",i-1,line,{invisible=1,action="callback",target="set_direc",_direc=1})
         elseif c=="r" then
-            set_item("it-trigger",i-1,line,{invisible=1,action="callback",target="set_direc",direc=2})
+            set_item("it-trigger",i-1,line,{invisible=1,action="callback",target="set_direc",_direc=2})
         elseif c=="d" then
-            set_item("it-trigger",i-1,line,{invisible=1,action="callback",target="set_direc",direc=3})
+            set_item("it-trigger",i-1,line,{invisible=1,action="callback",target="set_direc",_direc=3})
         elseif c=="l" then
-            set_item("it-trigger",i-1,line,{invisible=1,action="callback",target="set_direc",direc=4})
+            set_item("it-trigger",i-1,line,{invisible=1,action="callback",target="set_direc",_direc=4})
         elseif c==" " then
             set_item("it-trigger",i-1,line,{invisible=1})
         end
@@ -185,7 +185,7 @@ function getval(j,i)
 end
 
 function set_direc(onoff, sender)
-    direc = enigma.GetAttrib(sender, "direc")
+    direc = enigma.GetAttrib(sender, "_direc")
 end
 
 function calculate_position()

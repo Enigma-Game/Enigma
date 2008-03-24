@@ -3,7 +3,7 @@
   <el:protected>
     <el:info el:type="level">
       <el:identity el:title="Waterworld" el:subtitle="" el:id="illmind11"/>
-      <el:version el:score="1" el:release="1" el:revision="0" el:status="released"/>
+      <el:version el:score="1" el:release="1" el:revision="2" el:status="released"/>
       <el:author  el:name="illmind" el:email="support@mag-heut.net" el:homepage="http://www.mag-heut.net/"/>
       <el:copyright>Copyright © 2003 illmind</el:copyright>
       <el:license el:type="GPL version 2" el:open="true"/>
@@ -74,7 +74,7 @@ items["'"]=cell{item="it-hollow"}
 cells["*"]=cell{floor="fl-gradient1"}
 items["("]=cell{item="it-hill"}
 function workingmagnet(x,y)
-  set_item("it-magnet", x, y, {on=TRUE, force=50});
+  set_item("it-magnet", x, y, {on=TRUE});
 end
 if difficult then
   items[")"]=cell{parent={{workingmagnet}}}

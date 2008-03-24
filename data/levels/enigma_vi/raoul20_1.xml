@@ -3,7 +3,7 @@
   <el:protected>
     <el:info el:type="level">
       <el:identity el:title="Laserpowered" el:subtitle="" el:id="raoul20"/>
-      <el:version el:score="1" el:release="1" el:revision="0" el:status="released"/>
+      <el:version el:score="1" el:release="1" el:revision="2" el:status="released"/>
       <el:author  el:name="Raoul Bourquin" el:email="raoul@users.berlios.de" el:homepage=""/>
       <el:copyright>Copyright © 2006 Raoul Bourquin</el:copyright>
       <el:license el:type="GPL v2.0 or above" el:open="true"/>
@@ -173,16 +173,15 @@ for i = 1, 5 do
         --to only get the a ring with triggers and not a area:
         if ((i==1) or (i==5)) or ((j==1) or (j==5)) then
         set_item("it-trigger", 2+i-1, 4+j-1,
-           {action = "callback", target = "laserron", invisible=TRUE, myx =
-       2+i-1, myy = 4+j-1})
+           {action = "callback", target = "laserron", invisible=TRUE, _myx = 2+i-1, _myy = 4+j-1})
        end
     end
 end
 
 function laserron(onoff,sender)
   local x,y = enigma.GetPos(sender)
-  --local x = enigma.GetAttrib(sender, "myx")
-  --local y = enigma.GetAttrib(sender, "myy")
+  --local x = enigma.GetAttrib(sender, "_myx")
+  --local y = enigma.GetAttrib(sender, "_myy")
   local lx, ly
   if (x == 2) or (x == 6) then
    if x==2 and y==6 then

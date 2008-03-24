@@ -3,7 +3,7 @@
   <el:protected>
     <el:info el:type="level">
       <el:identity el:title="Triggered Triggers" el:subtitle="" el:id="just19"/>
-      <el:version el:score="1" el:release="1" el:revision="1" el:status="released"/>
+      <el:version el:score="1" el:release="1" el:revision="2" el:status="released"/>
       <el:author  el:name="JuSt" el:email="" el:homepage=""/>
       <el:copyright>Copyright © 2007 JuSt</el:copyright>
       <el:license el:type="GPL v2.0 or above" el:open="true"/>
@@ -127,7 +127,7 @@ draw_stones("st-brick", {5, 12}, {1, 0}, 3)
 draw_stones("st-brick", {9, 12}, {1, 0}, 2)
 draw_stones("st-brick", {12, 12}, {1, 0}, 7)
 set_stone("st-laser", 1, 0, {dir=SOUTH, on="1"})
-set_stone("st-timer", 20, 0, {action="callback", target="where_is_it", interval="0.1", name="timer1", loop="1"})
+set_stone("st-timer", 20, 0, {action="callback", target="where_is_it", interval="0.1", name="timer1"})
 set_stone("st-laser", 19, 1, {dir=WEST, on="1"})
 set_stone("st-laser", 0, 2, {name="laser17", dir=EAST, on="1"})
 set_stone("st-laser", 0, 3, {name="laser18", dir=EAST, on="0"})

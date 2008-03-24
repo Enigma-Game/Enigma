@@ -3,7 +3,7 @@
   <el:protected>
     <el:info el:type="level">
       <el:identity el:title="Blitz Chess" el:subtitle="Move fast!" el:id="luc322006"/>
-      <el:version el:score="1" el:release="1" el:revision="1" el:status="released"/>
+      <el:version el:score="1" el:release="1" el:revision="2" el:status="released"/>
       <el:author  el:name="Lukas Schüller" el:email="Lucky_Luc@web.de" el:homepage=""/>
       <el:copyright>Copyright © 2006 Lukas Schüller</el:copyright>
       <el:license el:type="GPL v2.0 or above" el:open="true"/>
@@ -68,9 +68,6 @@ writeLine(09,". ....n   ..... ..t.")
 writeLine(10,". .   ...       ..t.")
 writeLine(11,".   .  o..........0.")
 writeLine(12,"....................")
-
-SetAttrib(enigma.GetStone(1,5),"init",FALSE)
-SetAttrib(enigma.GetStone(6,9),"init",FALSE)
 
 Signal ("st(7 11)","st(1 5)")
 Signal ("it(3 3)","st(6 9)")

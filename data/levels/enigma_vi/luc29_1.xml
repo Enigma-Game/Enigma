@@ -3,7 +3,7 @@
   <el:protected>
     <el:info el:type="level">
       <el:identity el:title="Laser Splitting" el:subtitle="" el:id="luc29"/>
-      <el:version el:score="1" el:release="1" el:revision="0" el:status="released"/>
+      <el:version el:score="1" el:release="1" el:revision="2" el:status="released"/>
       <el:author  el:name="Lukas Schüller" el:email="Lucky_Luc@web.de" el:homepage=""/>
       <el:copyright>Copyright © 2006 Lukas Schüller</el:copyright>
       <el:license el:type="GPL v2.0 or above" el:open="true"/>
@@ -59,8 +59,6 @@ writeLine(09,"#/ e   #   x# <  #b#")
 writeLine(10,"#x            /  #b#")
 writeLine(11,"#/xxxxxxxx x#    #b#")
 writeLine(12,"##################o#")
-SetAttrib(enigma.GetStone(3,9),"init",FALSE)
-SetAttrib(enigma.GetStone(9,3),"init",FALSE)
 Signal ("st(13 0)","st(3 9)")
 Signal ("st(13 0)","st(9 3)")
 Signal ("st(8 3)","st(17 1)")

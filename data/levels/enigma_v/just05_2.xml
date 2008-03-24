@@ -3,7 +3,7 @@
   <el:protected>
     <el:info el:type="level">
       <el:identity el:title="Walking around" el:subtitle="" el:id="just05"/>
-      <el:version el:score="2" el:release="2" el:revision="1" el:status="released"/>
+      <el:version el:score="2" el:release="2" el:revision="2" el:status="released"/>
       <el:author  el:name="JuSt" el:email="" el:homepage=""/>
       <el:copyright>Copyright © JuSt</el:copyright>
       <el:license el:type="GPL v2.0 or above" el:open="true"/>
@@ -125,7 +125,6 @@ display.SetFollowMode(display.FOLLOW_SCROLLING)
 set_actor("ac-blackball",10.5,6.5,{player=0})
 
 SetAttrib(enigma.GetItem(1,4),"invisible",FALSE)
-SetAttrib(enigma.GetStone(6,5),"init",FALSE)
 
 Signal ("it(1 4)","st(6 5)")
 Signal ("it(3 8)","st(2 11)")

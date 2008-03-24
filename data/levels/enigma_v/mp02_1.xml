@@ -3,7 +3,7 @@
   <el:protected>
     <el:info el:type="level">
       <el:identity el:title="Gods of Enigma II" el:subtitle="" el:id="mp02"/>
-      <el:version el:score="1" el:release="1" el:revision="1" el:status="released"/>
+      <el:version el:score="1" el:release="1" el:revision="2" el:status="released"/>
       <el:author  el:name="moonpearl" el:email="" el:homepage=""/>
       <el:copyright>Copyright © 2005 moonpearl</el:copyright>
       <el:license el:type="GPL v2.0 or above" el:open="true"/>
@@ -288,7 +288,6 @@ SetAttrib(enigma.GetItem(2,27),"text","text4")
 SetAttrib(enigma.GetItem(41,26),"text","text5")
 SetAttrib(enigma.GetItem(41,51),"text","text6")
 --LASER
-SetAttrib(enigma.GetStone(39,53),"init",FALSE)
 SetAttrib(enigma.GetItem(41,55),"invisible",FALSE)
 Signal ("it(41 55)","st(39 53)")
 --TUNNELS

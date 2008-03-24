@@ -3,7 +3,7 @@
   <el:protected>
     <el:info el:type="level">
       <el:identity el:title="Spacestation" el:subtitle="" el:id="raoul23"/>
-      <el:version el:score="1" el:release="1" el:revision="3" el:status="released"/>
+      <el:version el:score="1" el:release="1" el:revision="4" el:status="released"/>
       <el:author  el:name="Raoul Bourquin" el:email="raoul@users.berlios.de" el:homepage=""/>
       <el:copyright>Copyright © 2006 Raoul Bourquin</el:copyright>
       <el:license el:type="GPL v2.0 or above" el:open="true"/>
@@ -303,9 +303,9 @@ function kill_ring(x,y)
     enigma.KillStone(x+2,y+2)
 end
 function rotate(onoff, sender)
-    local j = enigma.GetAttrib(sender, "myattriby")
-    local i = enigma.GetAttrib(sender, "myattribx")
-    local r = enigma.GetAttrib(sender, "room")
+    local j = enigma.GetAttrib(sender, "_myattriby")
+    local i = enigma.GetAttrib(sender, "_myattribx")
+    local r = enigma.GetAttrib(sender, "_room")
     if rotation[r][i][j]==1 then
         position[r][i][j]=position[r][i][j]+1
     else
@@ -382,7 +382,7 @@ function set_trigger_o()
     local k=1
     local l=1
     for i = 1, 9 do  
-        set_stone("st-switch_white", 55, 2+i-1,{action = "callback", target = "rotate", myattribx = k, myattriby = l, room = 2 })
+        set_stone("st-switch_white", 55, 2+i-1,{action = "callback", target = "rotate", _myattribx = k, _myattriby = l, _room = 2 })
         k=k+1
         if k>3 then
             k=1
@@ -394,7 +394,7 @@ function set_trigger_u()
     local k=1
     local l=1
     for i = 1, 9 do  
-        set_stone("st-switch_black", 40, 26+i-1,{action = "callback", target = "rotate", myattribx = k, myattriby = l, room = 1 })
+        set_stone("st-switch_black", 40, 26+i-1,{action = "callback", target = "rotate", _myattribx = k, _myattriby = l, _room = 1 })
         k=k+1
         if k>3 then
             k=1

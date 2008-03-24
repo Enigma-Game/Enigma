@@ -3,7 +3,7 @@
   <el:protected>
     <el:info el:type="level">
       <el:identity el:title="Hurry!" el:subtitle="" el:id="jc01"/>
-      <el:version el:score="1" el:release="1" el:revision="0" el:status="released"/>
+      <el:version el:score="1" el:release="1" el:revision="2" el:status="released"/>
       <el:author  el:name="Jens-Christian Korth" el:email="" el:homepage=""/>
       <el:copyright>Copyright © year Jens-Christian Korth</el:copyright>
       <el:license el:type="Donated to Enigma under the projects license" el:open="true"/>
@@ -72,7 +72,7 @@ set_item("it-trigger", 11, 6, {action="callback", target="sw1"})
 set_item("it-trigger", 13, 6, {action="callback", target="sw2"})
 
 set_stone("st-timer", 12,5, 
-          {loop=0, action="callback", target="nextsec", interval=1})
+          {action="callback", target="nextsec", interval=1})
 set_stone("st-fart", 17,10, {name="fart"})
 
 oxyd(14,2)

@@ -3,7 +3,7 @@
   <el:protected>
     <el:info el:type="level">
       <el:identity el:title="Lady in Red" el:subtitle="" el:id="just30"/>
-      <el:version el:score="1" el:release="1" el:revision="0" el:status="released"/>
+      <el:version el:score="1" el:release="1" el:revision="3" el:status="released"/>
       <el:author  el:name="Just" el:email="" el:homepage=""/>
       <el:copyright>Copyright © 2007 JuSt</el:copyright>
       <el:license el:type="GPL version 2" el:open="true"/>
@@ -83,24 +83,24 @@ set_stone("st-rotator-right", 18, 9)
 set_stone("st-oxyd", 19, 1, {flavor="b", color="1"})
 set_stone("st-rotator-right", 19, 11)
 if difficult then
-    set_stone("st-timer", 20, 0, {name="ST14-00", target="ST08-01", action="close", on="0", interval=1, loop="0", invisible="0"})
-    set_stone("st-timer", 20, 1, {name="ST15-00", target="ST10-06", action="close", on="0", interval=1, loop="0", invisible="0"})
-    set_stone("st-timer", 20, 2, {name="ST16-00", target="ST13-04", action="close", on="0", interval=1, loop="0", invisible="0"})
+    set_stone("st-timer", 20, 0, {name="ST14-00", target="ST08-01", action="close", on="0", interval=1, invisible="0"})
+    set_stone("st-timer", 20, 1, {name="ST15-00", target="ST10-06", action="close", on="0", interval=1, invisible="0"})
+    set_stone("st-timer", 20, 2, {name="ST16-00", target="ST13-04", action="close", on="0", interval=1, invisible="0"})
     set_stone("st-switch_black", 16, 1, {target="ST18-02", action="openclose"})
-    set_stone("st-timer", 20, 3, {name="ST17-00", target="ST15-03", action="close", on="0", interval=1, loop="0", invisible="0"})
+    set_stone("st-timer", 20, 3, {name="ST17-00", target="ST15-03", action="close", on="0", interval=1, invisible="0"})
 else
-    set_stone("st-timer", 20, 0, {name="ST14-00", target="ST08-01", action="close", on="0", interval=2, loop="0", invisible="0"})
-    set_stone("st-timer", 20, 1, {name="ST15-00", target="ST10-06", action="close", on="0", interval=2, loop="0", invisible="0"})
-    set_stone("st-timer", 20, 2, {name="ST16-00", target="ST13-04", action="close", on="0", interval=2, loop="0", invisible="0"})
+    set_stone("st-timer", 20, 0, {name="ST14-00", target="ST08-01", action="close", on="0", interval=2, invisible="0"})
+    set_stone("st-timer", 20, 1, {name="ST15-00", target="ST10-06", action="close", on="0", interval=2, invisible="0"})
+    set_stone("st-timer", 20, 2, {name="ST16-00", target="ST13-04", action="close", on="0", interval=2, invisible="0"})
     set_stone("st-switch", 16, 1, {target="ST18-02", action="openclose"})
-    set_stone("st-timer", 20, 3, {name="ST17-00", target="ST15-03", action="close", on="0", interval=2, loop="0", invisible="0"})
+    set_stone("st-timer", 20, 3, {name="ST17-00", target="ST15-03", action="close", on="0", interval=2, invisible="0"})
 end
 
 set_item("it-vortex-closed", 1, 5, {name="vortex", targetx="1.5", targety="1.5"})
 set_item("it-yinyang", 1, 11)
-set_item("it-trigger", 2, 4, {target="ST03-01", action="open", on="0", invisible="0"})
+set_item("it-trigger", 2, 4, {target="ST03-01", action="open", invisible="0"})
 set_item("it-yinyang", 2, 11)
-set_item("it-trigger", 6, 9, {target="ST05-11", action="open", on="0", invisible="0"})
+set_item("it-trigger", 6, 9, {target="ST05-11", action="open", invisible="0"})
 set_item("it-wrench", 9, 11)
 set_item("it-trigger", 11, 10, {target="func1", action="callback", invisible="0"})
 set_item("it-trigger", 11, 11, {target="func2", action="callback", invisible="0"})

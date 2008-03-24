@@ -3,7 +3,7 @@
   <el:protected>
     <el:info el:type="level">
       <el:identity el:title="No way out?" el:subtitle="" el:id="just08"/>
-      <el:version el:score="1" el:release="1" el:revision="0" el:status="released"/>
+      <el:version el:score="1" el:release="1" el:revision="3" el:status="released"/>
       <el:author  el:name="JuSt" el:email="" el:homepage=""/>
       <el:copyright>Copyright © 2005 JuSt</el:copyright>
       <el:license el:type="GPL v2.0 or above" el:open="true"/>
@@ -318,12 +318,12 @@ draw_stones("st-stone2", {58, 36}, {1, 0}, 18)
 draw_stones("st-stone2", {77, 36}, {1, 0}, 18)
 draw_stones("st-stone2", {96, 36}, {1, 0}, 18)
 draw_stones("st-stone2", {115, 36}, {1, 0}, 8)
-set_stone("st-timer", 66, 18, {action="callback", target="licht", interval="1", name="timer3", loop="1"})
-set_stone("st-timer", 104, 18, {action="callback", target="switches", interval="0.1", name="timer2", loop="1"})
-set_stone("st-timer", 123, 18, {action="close", target="door36", interval="10", name="timer1", loop="0"})
-set_stone("st-laserswitch", 40, 23, {action="callback", target="killdoc", on="1", name="switch21"})
+set_stone("st-timer", 66, 18, {action="callback", target="licht", interval="1", name="timer3"})
+set_stone("st-timer", 104, 18, {action="callback", target="switches", interval="0.1", name="timer2"})
+set_stone("st-timer", 123, 18, {action="close", target="door36", interval="10", name="timer1"})
+set_stone("st-laserswitch", 40, 23, {action="callback", target="killdoc", name="switch21"})
 set_stone("st-3mirror", 41, 23, {movable=FALSE, transparent=FALSE, orientation="1"})
-set_stone("st-laserswitch", 51, 24, {action="callback", target="lsi1", on="1", name="switch16"})
+set_stone("st-laserswitch", 51, 24, {action="callback", target="lsi1", name="switch16"})
 set_stone("st-switch", 64, 24, {action="openclose", target="door33", on="0", name="switch21"})
 set_stones("st-stone2", {{22, 25}, {34, 27}, {34, 29}, {34, 32}, {129, 36}})
 set_stones("st-turnstile-n", {{26, 25}, {28, 25}, {23, 26}, {24, 28}, {25, 30}, {30, 31}}, {type=north})
@@ -373,9 +373,9 @@ set_stone("st-swap", 33, 34)
 set_stone("st-stoneimpulse", 34, 34, {name="stoneimpulse3"})
 set_stone("st-stoneimpulse", 35, 34, {name="stoneimpulse4"})
 set_stone("st-laser", 41, 35, {name="laser1", dir=EAST, on="1"})
-set_stone("st-laserswitch", 42, 36, {action="callback", target="lsi2", on="1", name="switch2"})
+set_stone("st-laserswitch", 42, 36, {action="callback", target="lsi2", name="switch2"})
 set_stone("st-laser", 45, 36, {name="laser2", dir=NORTH, on="1"})
-set_stone("st-laserswitch", 53, 36, {action="callback", target="lsi3", on="1", name="switch4"})
+set_stone("st-laserswitch", 53, 36, {action="callback", target="lsi3", name="switch4"})
 
 -- Actor Layer
 set_actor("ac-horse", 106.5, 29.5)

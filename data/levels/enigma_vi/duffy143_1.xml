@@ -3,7 +3,7 @@
   <el:protected>
     <el:info el:type="level">
       <el:identity el:title="Parish Fair" el:subtitle="Perish Unfair" el:id="duffy143"/>
-      <el:version el:score="1" el:release="1" el:revision="1" el:status="released"/>
+      <el:version el:score="1" el:release="1" el:revision="2" el:status="released"/>
       <el:author  el:name="Jacob Scott" el:email="" el:homepage=""/>
       <el:copyright>Copyright © 2007 Jacob Scott</el:copyright>
       <el:license el:type="GPL v2.0 or above" el:open="true"/>
@@ -262,7 +262,6 @@ draw_map(0,0,itmap,items)
 draw_map(0,0,acmap,actors)
 
 SetAttrib(enigma.GetItem(16,8),"invisible",FALSE)
-SetAttrib(enigma.GetStone(19,7),"init",FALSE)
 SetAttrib(enigma.GetItem(26,17),"invisible",FALSE)
 SetAttrib(enigma.GetItem(26,19),"invisible",FALSE)
 SetAttrib(enigma.GetItem(27,16),"invisible",FALSE)
@@ -275,8 +274,6 @@ SetAttrib(enigma.GetItem(29,18),"invisible",FALSE)
 SetAttrib(enigma.GetItem(29,20),"invisible",FALSE)
 SetAttrib(enigma.GetItem(30,17),"invisible",FALSE)
 SetAttrib(enigma.GetItem(30,19),"invisible",FALSE)
-SetAttrib(enigma.GetStone(38,3),"init",FALSE)
-SetAttrib(enigma.GetStone(49,11),"init",FALSE)
 
 Signal ("it(26 17)","st(21 13)")
 Signal ("it(26 17)","st(21 23)")

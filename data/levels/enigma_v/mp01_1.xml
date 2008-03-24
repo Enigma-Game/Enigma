@@ -3,7 +3,7 @@
   <el:protected>
     <el:info el:type="level">
       <el:identity el:title="Gods of Enigma" el:subtitle="" el:id="mp01"/>
-      <el:version el:score="1" el:release="1" el:revision="1" el:status="released"/>
+      <el:version el:score="1" el:release="1" el:revision="2" el:status="released"/>
       <el:author  el:name="moonpearl" el:email="" el:homepage=""/>
       <el:copyright>Copyright © 2005 moonpearl</el:copyright>
       <el:license el:type="GPL v2.0 or above" el:open="true"/>
@@ -203,7 +203,7 @@ draw_map(0,0,itmap,items)
 set_actor("ac-blackball", 9.5,6.5, {player=0})
 set_actor("ac-rotor",48.5,6.5,{range=7,force=20,gohome=true})
 --MAGNET
-SetAttrib(enigma.GetItem(9,27),"force",10)
+--SetAttrib(enigma.GetItem(9,27),"force",10)
 --TEXTE
 SetAttrib(enigma.GetItem(10,6),"text","text1")
 SetAttrib(enigma.GetItem(41,6),"text","text2")

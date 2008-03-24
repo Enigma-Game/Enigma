@@ -3,7 +3,7 @@
   <el:protected>
     <el:info el:type="level">
       <el:identity el:title="Slopes, Jumps &amp; Falls" el:subtitle="" el:id="duffy167"/>
-      <el:version el:score="1" el:release="1" el:revision="0" el:status="released"/>
+      <el:version el:score="1" el:release="1" el:revision="2" el:status="released"/>
       <el:author  el:name="Jacob Scott" el:email="" el:homepage=""/>
       <el:copyright>Copyright © 2007 Jacob Scott</el:copyright>
       <el:license el:type="GPL v2.0 or above" el:open="true"/>
@@ -234,7 +234,7 @@ renderLine(36,"#################################################################
 
 oxyd_shuffle()
 
-set_stone("st-timer", 0,37, {loop=0, action="onoff", target="laser", interval=.9})
+set_stone("st-timer", 0,37, {action="onoff", target="laser", interval=.9})
 
 SetDefaultAttribs("it-wormhole",{range=2.0})
 

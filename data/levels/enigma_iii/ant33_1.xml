@@ -3,7 +3,7 @@
   <el:protected>
     <el:info el:type="level">
       <el:identity el:title="Unfair!" el:subtitle="" el:id="ant33"/>
-      <el:version el:score="1" el:release="1" el:revision="0" el:status="released"/>
+      <el:version el:score="1" el:release="1" el:revision="2" el:status="released"/>
       <el:author  el:name="Petr Machata" el:email="" el:homepage=""/>
       <el:copyright>Copyright © 2003 Petr Machata</el:copyright>
       <el:license el:type="GPL v2.0 or above" el:open="true"/>
@@ -52,7 +52,7 @@ cells["b"]=cell{{cells["`"], {doorv, {name="doorB"}}}}
 t1, t2, t3 = 0,0,0
 
 function test_C(onoff, sender)
-    local nr_tr = enigma.GetAttrib(sender, "door_nr")
+    local nr_tr = enigma.GetAttrib(sender, "_door_nr")
 
     if nr_tr == 1 then
         t1=1-t1
@@ -69,9 +69,9 @@ function test_C(onoff, sender)
     end
 end
 
-cells["I"]=cell{item={"it-trigger", {action="callback", target="test_C", door_nr=1}}}
-cells["J"]=cell{item={"it-trigger", {action="callback", target="test_C", door_nr=2}}}
-cells["K"]=cell{item={"it-trigger", {action="callback", target="test_C", door_nr=3}}}
+cells["I"]=cell{item={"it-trigger", {action="callback", target="test_C", _door_nr=1}}}
+cells["J"]=cell{item={"it-trigger", {action="callback", target="test_C", _door_nr=2}}}
+cells["K"]=cell{item={"it-trigger", {action="callback", target="test_C", _door_nr=3}}}
 -- /Workaround
 
 cells["c"]=cell{{{doorh, {name="doorC"}}}}

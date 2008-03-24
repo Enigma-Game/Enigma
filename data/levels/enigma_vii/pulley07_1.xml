@@ -3,7 +3,7 @@
   <el:protected>
     <el:info el:type="level">
       <el:identity el:title="Little Shop Of Horrors" el:subtitle="Watch out, here comes Audrey II!" el:id="pulley01"/>
-      <el:version el:score="1" el:release="1" el:revision="3" el:status="released"/>
+      <el:version el:score="1" el:release="1" el:revision="4" el:status="released"/>
       <el:author  el:name="Mark Pulley" el:email="" el:homepage=""/>
       <el:copyright>Copyright © 2007 Mark Pulley</el:copyright>
       <el:license el:type="GPL v2.0 or above" el:open="true"/>
@@ -22,14 +22,6 @@
 -- ANT --
 create_world(58,25)
 meditation_mode()
-set_actor("ac-whiteball-small",11.5,1.5,{player=0,name="Seymour"})
-set_actor("ac-whiteball-small",47.5,6.5,{name="Orin",controllers=0,essential=-1})
-set_actor("ac-whiteball-small",18.5,23.5,{name="Mushnik",controllers=0,essential=-1})
-set_actor("ac-whiteball-small",47.5,20.5,{name="Audrey",controllers=0,essential=-1})
-
-set_actor("ac-horse",26.5,0.5,{force=3, target1="35 0", target2="35 23", target3="22 24", target4="22 1"}) -- Chiffon
-set_actor("ac-horse",23.5,0.5,{force=3, target1="35 0", target2="35 23", target3="22 24", target4="22 1"}) -- Crystal
-set_actor("ac-horse",20.5,0.5,{force=3, target1="35 0", target2="35 23", target3="22 24", target4="22 1"}) -- Ronnette
 
 cells={}
 cells[" "]=cell{floor="fl-brick"}
@@ -133,6 +125,15 @@ level={"qqqqqqqqqqqqqqqqqqqqYYYYYYYYYYYYYYYYYYpppppppppppppppppppp",
 
 set_default_parent(cells[" "])
 draw_map(0,0,level,cells)
+
+set_actor("ac-whiteball-small",11.5,1.5,{player=0,name="Seymour"})
+set_actor("ac-whiteball-small",47.5,6.5,{name="Orin",controllers=0,essential=-1})
+set_actor("ac-whiteball-small",18.5,23.5,{name="Mushnik",controllers=0,essential=-1})
+set_actor("ac-whiteball-small",47.5,20.5,{name="Audrey",controllers=0,essential=-1})
+
+set_actor("ac-horse",26.5,0.5,{force=3, target1="35 0", target2="35 23", target3="22 24", target4="22 1"}) -- Chiffon
+set_actor("ac-horse",23.5,0.5,{force=3, target1="35 0", target2="35 23", target3="22 24", target4="22 1"}) -- Crystal
+set_actor("ac-horse",20.5,0.5,{force=3, target1="35 0", target2="35 23", target3="22 24", target4="22 1"}) -- Ronnette
 
 set_item("it-document",4,5,{text="feed"}) -- Feed Me
 set_item("it-document",38,6,{text="Orin"}) -- Orin Quote

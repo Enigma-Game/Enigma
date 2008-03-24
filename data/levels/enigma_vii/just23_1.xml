@@ -3,7 +3,7 @@
   <el:protected>
     <el:info el:type="level">
      <el:identity el:title="Lost in Time and Space" el:subtitle="" el:id="just23"/>
-     <el:version el:score="1" el:release="1" el:revision="1" el:status="released"/>
+     <el:version el:score="1" el:release="1" el:revision="2" el:status="released"/>
      <el:author  el:name="JuSt" el:email="" el:homepage=""/>
      <el:copyright>Copyright © 2007 JuSt</el:copyright>
      <el:license el:type="GPL v2.0 or above" el:open="true"/>
@@ -1731,7 +1731,7 @@ set_stone("st-mail-s", 126, 67)
 set_stone("st-key_c", 34, 74, {action="openclose", target="door5"})
 set_stone("st-door_b", 35, 74, {name="door5"})
 set_stone("st-laser", 18, 77, {name="laser50", dir=WEST, on="0"})
-set_stone("st-timer", 143, 78, {action="callback", target="start_timing", interval="2", name="timer1", loop="1"})
+set_stone("st-timer", 143, 78, {action="callback", target="start_timing", interval="2", name="timer1"})
 set_stone("st-laser", 18, 80, {name="laser51", dir=WEST, on="0"})
 set_stones("st-oxyd", {{149, 89}, {149, 91}})
 set_stone("st-actorimpulse_invisible", 32, 19)

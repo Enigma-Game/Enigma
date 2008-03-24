@@ -3,7 +3,7 @@
   <el:protected>
     <el:info el:type="level">
       <el:identity el:title="Floppy Floors" el:subtitle="" el:id="andreas24"/>
-      <el:version el:score="1" el:release="1" el:revision="1" el:status="released"/>
+      <el:version el:score="1" el:release="1" el:revision="2" el:status="released"/>
       <el:author  el:name="Andreas Lochmann" el:email="" el:homepage=""/>
       <el:copyright>Copyright © 2006 Andreas Lochmann</el:copyright>
       <el:license el:type="GPL v2.0 or above" el:open="true"/>
@@ -64,7 +64,7 @@ end
 -- Switch and draw functions
 
 function switch(onoff, sender)
-  local j = trigger[enigma.GetAttrib(sender, "mynumber")]
+  local j = trigger[enigma.GetAttrib(sender, "_mynumber")]
   way[j] = 1 - way[j]
   drawstate(j)
   oxyd_closeall()
@@ -113,7 +113,7 @@ end
 for j = 1, 5 do
   cells[tostring(j)]=cell{parent={{set_myfloor, j}}}
   stones[tostring(j)]=cell{stone=
-       {"st-floppy", {action = "callback", target = "switch", mynumber = j}}}
+       {"st-floppy", {action = "callback", target = "switch", _mynumber = j}}}
 end
 stones["#"]=cell{parent={{file_oxyd, "b"}}}
 items["!"]=cell{item="it-floppy"}
