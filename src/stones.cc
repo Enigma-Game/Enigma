@@ -986,8 +986,6 @@ namespace
 
 // --------------------------------------------------------------------------------
 
-extern void InitSwitches();
-
 void InitStones() {
 
     // Register(new ...);
@@ -1019,6 +1017,5 @@ void InitStones() {
     // Init stones from stones_simple.cc and stones_complex.cc:
     Init_simple();
     Init_complex();
-    InitSwitches();
 }
 } // namespace enigma

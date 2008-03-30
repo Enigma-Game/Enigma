@@ -174,10 +174,20 @@
     <object name="st_laser_n">
       <attr name="orientation" value="3"/>
     </object>
+    <object name="st_laserflop">
+      <attr name="interval" default="1.8"/>
+      <msg name="on"/>
+      <msg name="signal"/>
+    </object>
     <object name="st_laserswitch">
       <attr name="state" rw="r"/>
       <msg name="_init"/>
       <msg name="_model_reanimated"/>
+    </object>
+    <object name="st_monoflop">
+      <attr name="interval" default="1.8"/>
+      <msg name="on"/>
+      <msg name="signal"/>
     </object>
     <object name="st_polarswitch">
       <msg name="on"/>

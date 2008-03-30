@@ -286,7 +286,7 @@ const char *oxyd::oxydextra_stone_map[256] = {
     "st-turnstile-w",    // OxydExtra stone 0xa1
     "st-turnstile-e",    // OxydExtra stone 0xa2
     UNUSED,              // OxydExtra stone 0xa3
-    "st-fakeoxyd",       // OxydExtra stone 0xa4
+    "st_laserflop_on",   // OxydExtra stone 0xa4
     UNUSED,              // OxydExtra stone 0xa5
     UNUSED,              // OxydExtra stone 0xa6
     UNUSED,              // OxydExtra stone 0xa7
@@ -334,9 +334,9 @@ ITEMMAPTYPE oxyd::oxydextra_item_map[256] = {
     ITEMSPEC(it_coin1),                   // OxydExtra item 0x11
     ITEMSPEC(it_coin2),                   // OxydExtra item 0x12
     ITEMSPEC(it_coin4),                   // OxydExtra item 0x13
-    ITEMSPEC(it_MISSING),                 // OxydExtra item 0x14
-    ITEMSPEC(it_MISSING),                 // OxydExtra item 0x15
-    ITEMSPEC(it_key_a),                   // OxydExtra item 0x16
+    ITEMSPEC(it_key_a),                   // OxydExtra item 0x14
+    ITEMSPEC(it_key_b),                   // OxydExtra item 0x15
+    ITEMSPEC(it_key_c),                   // OxydExtra item 0x16
     ITEMSPEC(it_floppy),                  // OxydExtra item 0x17
     ITEMSPEC(it_UNUSED),                  // OxydExtra item 0x18
     ITEMSPEC(it_UNUSED),                  // OxydExtra item 0x19
@@ -380,6 +380,6 @@ ITEMMAPTYPE oxyd::oxydextra_item_map[256] = {
     ITEMSPEC(it_UNUSED),                  // OxydExtra item 0x3f
     ITEMSPEC(it_trigger),                 // OxydExtra item 0x40
     ITEMSPEC(it_brush),                   // OxydExtra item 0x41
-    ITEMSPEC(it_MISSING),                 // OxydExtra item 0x42
+    ITEMSPEC(it_banana),                  // OxydExtra item 0x42
     // codes >= 0x43 are unused
 };

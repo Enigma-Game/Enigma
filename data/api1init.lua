@@ -72,6 +72,8 @@ RenamingObjectsNew2Old = {
     st_laser_e = "st-laser-e",
     st_laser_n = "st-laser-n",
     st_laserswitch = "st-laserswitch",
+    st_lasertimeswitch = "st-laserflop",
+    st_monoflop = "st-timeswitch",
     st_polarswitch = "st-polarswitch",
     st_oxyd = "st-oxyd",
     st_switch = "st-switch",
@@ -177,17 +179,9 @@ function enigma.SetAttrib(obj, key, val)
              _key = "oxydcolor"
 	 end
      end
---     if (_obj_name == "st-switch") or (_obj_name == "st-switch_black")
---             or (_obj_name == "st-switch_white") 
---             or (_obj_name == "st-floppy") 
---             or (_obj_name == "it-magnet") or (_obj_name == "it-magnet-on")
---             or (_obj_name == "it-magnet-off") or (_obj_name == "it-wormhole")
---             or (_obj_name == "it-wormhole-off") or (_obj_name == "st-laser")
---             or (_obj_name == "st-polarswitch") or (_obj_name == "st-timer") then
---         if key == "on" then
---	     _key = "state"   -- new attr name
---	 end
---     end
+     if key == "delay" then
+         _key = "interval"
+     end
      if key == "dir" or key == "direction" then
          _key = "orientation"
      end
@@ -245,17 +239,9 @@ end
 function enigma.GetAttrib(obj, key)
      local _key = key
      local _obj_name = enigma.GetKind(obj)
---     if (_obj_name == "st-switch") or (_obj_name == "st-switch_black")
---             or (_obj_name == "st-switch_white") 
---             or (_obj_name == "st-floppy")
---             or (_obj_name == "it-magnet") or (_obj_name == "it-magnet-on")
---             or (_obj_name == "it-magnet-off")  or (_obj_name == "it-wormhole")
---             or (_obj_name == "it-wormhole-off")  or (_obj_name == "st-laser")
---             or (_obj_name == "st-polarswitch")  or (_obj_name == "st-timer") then
---         if key == "on" then
---	     _key = "state"
---	     end
---     end
+     if key == "delay" then
+         _key = "interval"
+     end
      if key == "blackball" or key == "whiteball" then
          _key = "color"
      end

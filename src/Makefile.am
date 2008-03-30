@@ -123,7 +123,6 @@ enigma_SOURCES = 		\
 	stones_internal.hh 	\
 	stones_simple.cc 	\
 	stones_complex.cc  	\
-	st_switches.cc		\
 	Utf8ToXML.cc		\
 	Utf8ToXML.hh		\
 	util.cc 		\
@@ -215,6 +214,8 @@ enigma_SOURCES = 		\
 	stones/LaserStone.hh	\
 	stones/LaserSwitch.cc	\
 	stones/LaserSwitch.hh	\
+	stones/MonoFlopStone.cc	\
+	stones/MonoFlopStone.hh	\
 	stones/OxydStone.cc	\
 	stones/OxydStone.hh	\
 	stones/PolarSwitchStone.cc	\

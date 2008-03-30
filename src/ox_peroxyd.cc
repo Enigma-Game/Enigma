@@ -304,7 +304,7 @@ const char *oxyd::peroxyd_stone_map[256] = {
     "st-shogun-sl",             // PerOxyd stone 0x6b
     "st-shogun-sm",             // PerOxyd stone 0x6c
     "st-stoneimpulse",          // PerOxyd stone 0x6d
-    "st-lasertimeswitch",       // PerOxyd stone 0x6e
+    "st_laserflop",             // PerOxyd stone 0x6e
     "st-mail-n",                // PerOxyd stone 0x6f
     "st-mail-w",                // PerOxyd stone 0x70
     "st-mail-e",                // PerOxyd stone 0x71
@@ -358,7 +358,7 @@ const char *oxyd::peroxyd_stone_map[256] = {
     "st-turnstile-w",           // PerOxyd stone 0xa1
     "st-turnstile-e",           // PerOxyd stone 0xa2
     UNUSED,                     // PerOxyd stone 0xa3
-    "st-likeoxydc",             // PerOxyd stone 0xa4 laserswitch on
+    "st_laserflop_on",        // PerOxyd stone 0xa4 laserswitch on
     UNUSED,                     // PerOxyd stone 0xa5
     UNUSED,                     // PerOxyd stone 0xa6
     UNUSED,                     // PerOxyd stone 0xa7

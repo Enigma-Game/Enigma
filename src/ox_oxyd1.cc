@@ -262,7 +262,7 @@ const char *oxyd::oxyd1_stone_map[256] = {
     "st-thief",                 // Oxyd1 stone 0x6b
     "st-shogun-s",              // Oxyd1 stone 0x6c
     "st-stoneimpulse",          // Oxyd1 stone 0x6d
-    "st-lasertimeswitch",       // Oxyd1 stone 0x6e
+    "st_laserflop",             // Oxyd1 stone 0x6e
     "st-mail-n",                // Oxyd1 stone 0x6f
     "st-mail-w",                // Oxyd1 stone 0x70
     "st-mail-e",                // Oxyd1 stone 0x71
@@ -274,7 +274,7 @@ const char *oxyd::oxyd1_stone_map[256] = {
     "st-door-h-open",           // Oxyd1 stone 0x77
     "st-door-v-open",           // Oxyd1 stone 0x78
     UNUSED,                     // Oxyd1 stone 0x79
-    "st-timeswitch",            // Oxyd1 stone 0x7a (only used in level #23)
+    "st_laserflop_on",          // Oxyd1 stone 0x7a (only used in level #23)
     UNUSED,                     // Oxyd1 stone 0x7b
     UNUSED,                     // Oxyd1 stone 0x7c
     UNUSED,                     // Oxyd1 stone 0x7d

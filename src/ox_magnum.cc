@@ -171,7 +171,7 @@ const char *oxyd::oxydmag_stone_map[256] = {
     UNUSED,                     // OxydMagnum stone 0x2e
     "st_fourswitch",            // OxydMagnum stone 0x2f (Level 89 and 92)
     "st_key",                   // OxydMagnum stone 0x30
-    "st-floppy",                // OxydMagnum stone 0x31
+    "st_floppy",                // OxydMagnum stone 0x31
     "st-knight",                // OxydMagnum stone 0x32
     "st_fourswitch",            // OxydMagnum stone 0x33 (Level 51 and 100)
     "st-death",                 // OxydMagnum stone 0x34
@@ -232,7 +232,7 @@ const char *oxyd::oxydmag_stone_map[256] = {
     "st-thief",                 // OxydMagnum stone 0x6b
     "st-shogun-s",              // OxydMagnum stone 0x6c
     "st-stoneimpulse",          // OxydMagnum stone 0x6d
-    "st-lasertimeswitch",       // OxydMagnum stone 0x6e
+    "st_laserflop",             // OxydMagnum stone 0x6e
     "st-mail-n",                // OxydMagnum stone 0x6f
     "st-mail-w",                // OxydMagnum stone 0x70
     "st-mail-e",                // OxydMagnum stone 0x71
@@ -244,7 +244,7 @@ const char *oxyd::oxydmag_stone_map[256] = {
     UNUSED,                     // OxydMagnum stone 0x77
     "st-door-v-open",           // OxydMagnum stone 0x78 (st-door-h-open was wrong, look at level #32)
     UNUSED,                     // OxydMagnum stone 0x79
-    "st-timeswitch",            // OxydMagnum stone 0x7a (Level 66, this is a solid stone)
+    "st_laserflop_on",          // OxydMagnum stone 0x7a (Level 66, this is a solid stone)
     UNUSED,                     // OxydMagnum stone 0x7b
     UNUSED,                     // OxydMagnum stone 0x7c
     UNUSED,                     // OxydMagnum stone 0x7d

@@ -16,8 +16,8 @@
  * 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.
  *
  */
-#ifndef LASERSWITCH_HH
-#define LASERSWITCH_HH
+#ifndef MONOFLOPSTONE_HH
+#define MONOFLOPSTONE_HH
 
 #include "stones.hh"
 
@@ -26,19 +26,26 @@ namespace enigma {
     /** 
      * 
      * 
-     * 
+     * Note that a monoflop has to continue to run even if it is removed from the grid
+     * to support swapping. Thus the alarm has to removed on delete or destructor.
      */
-    class LaserSwitch : public Stone {
-        CLONEOBJ(LaserSwitch);
+    class MonoFlopStone : public Stone, public TimeHandler {
+        CLONEOBJ(MonoFlopStone);
     private:
         enum iState {
-            OFF, 
-            ON,
-            NEW      ///< initial off LaserSwitch
+            OFF,          ///< monoflop is inactive
+            OFF_NEW,      ///< monoflop that is new and shoud start in off state (needed to handle swap/laser)
+            ON_LASER,     ///< monoflop is permanent active due to light
+            ON_TIMER,     ///< monoflop is touched or light just switched off and active until timer goes off
+            ON_PENDING    ///< monoflop that should start on grid set
+        };
+        enum ObjectPrivatFlagsBits {
+            OBJBIT_LASER   =  1<<24  ///< Object is laser light sensitive 
         };
 
     public:
-        LaserSwitch();
+        MonoFlopStone(bool lightsensitive, bool isOn);
+        ~MonoFlopStone();
 
         // Object interface
         virtual std::string getClass() const;
@@ -51,10 +58,18 @@ namespace enigma {
         // GridObject interface
         virtual void init_model();
         virtual void on_creation(GridPos p);
+        virtual void on_removal(GridPos p);
         virtual void lightDirChanged(DirectionBits oldDirs, DirectionBits newDirs);
-
+        
         // Stone interface
         const char *collision_sound();
+        void actor_hit(const StoneContact &sc);
+        
+        // TimeHandler interface
+        virtual void alarm();
+
+    private:
+        void updateAlarm();
     };
 
 } // namespace enigma

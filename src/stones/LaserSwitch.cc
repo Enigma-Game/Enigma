@@ -85,6 +85,10 @@ namespace enigma {
         }
     }
 
+    const char *LaserSwitch::collision_sound() {
+        return "metal";
+    }
+
     BOOT_REGISTER_START
         BootRegister(new LaserSwitch(), "st_laserswitch");
     BOOT_REGISTER_END
