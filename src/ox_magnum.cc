@@ -141,10 +141,10 @@ const char *oxyd::oxydmag_stone_map[256] = {
     0,0,0,0,0,0,0,0,            // 0x09 -- 0x10  Oxyd stones
     "st-likeoxydd",             // OxydMagnum stone 0x11
     "st-plain",                 // OxydMagnum stone 0x12
-    "st-bigbrick-es",           // OxydMagnum stone 0x13
-    "st-bigbrick-sw",           // OxydMagnum stone 0x14
-    "st-bigbrick-ne",           // OxydMagnum stone 0x15
-    "st-bigbrick-nw",           // OxydMagnum stone 0x16
+    "st_brick_es",              // OxydMagnum stone 0x13
+    "st_brick_sw",              // OxydMagnum stone 0x14
+    "st_brick_ne",              // OxydMagnum stone 0x15
+    "st_brick_nw",              // OxydMagnum stone 0x16
     UNUSED,                     // OxydMagnum stone 0x17
     UNUSED,                     // OxydMagnum stone 0x18
     "st-glass1_hole",           // OxydMagnum stone 0x19
@@ -153,7 +153,7 @@ const char *oxyd::oxydmag_stone_map[256] = {
     "st-bug",                   // OxydMagnum stone 0x1c
     UNUSED,                     // OxydMagnum stone 0x1d
     UNUSED,                     // OxydMagnum stone 0x1e
-    "st-brick",                 // OxydMagnum stone 0x1f
+    "st_brick",                 // OxydMagnum stone 0x1f
     "st-rock1",                 // OxydMagnum stone 0x20
     "st-rock1",                 // OxydMagnum stone 0x21 (Level 121 ?)(Oxyd Magnum Gold)
     "st-rock1",                 // OxydMagnum stone 0x22 (common was 'st-glass')(Level 73 only)(looks like st-rock1)(looks like 0x20, but not like 0x87)

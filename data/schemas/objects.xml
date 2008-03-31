@@ -3,9 +3,12 @@
   <attributes>
     <attr name="action" type="tokens" default="nil" rw="rw"/>
     <attr name="autoclose" type="bool" default="false" rw="rw"/>
+    <attr name="cluster" type="int" default="nil" min="0" max="1" rw="rw"/>
     <attr name="color" type="int" default="nil" min="0" max="1" rw="rw"/>
+    <attr name="connections" type="string" default="nil" rw="rw"/>
     <attr name="counterclock" type="bool" default="false" rw="rw"/>
     <attr name="destination" type="tokens" default="nil" rw="rw"/>
+    <attr name="faces" type="string" default="nil" rw="rw"/>
     <attr name="instant" type="bool" default="false" rw="rw"/>
     <attr name="interval" type="double" default="1" rw="rw"/>
     <attr name="inverse" type="bool" default="false" rw="rw"/>
@@ -112,6 +115,12 @@
       <attr name="state" value="1"/>
     </object>
     <object name="st" abstract="true"/>
+    <object name="st_clusterstone" abstract="true">
+      <attr name="cluster"/>
+      <attr name="connections"/>
+      <attr name="faces"/>
+      <msg name="_model_reanimated"/>
+    </object>
     <object name="st_blocker">
       <attr name="autoclose"/>
       <msg name="close"/>
@@ -121,6 +130,52 @@
       <msg name="_trigger"/>
     </object>
     <object name="st_blocker_new" init="true">
+    </object>
+    <object name="st_bluesand" super="st_clusterstone"/>
+    <object name="st_bluesand_w">
+      <attr name="connections" value="w"/>
+    </object>
+    <object name="st_bluesand_s">
+      <attr name="connections" value="s"/>
+    </object>
+    <object name="st_bluesand_sw">
+      <attr name="connections" value="sw"/>
+    </object>
+    <object name="st_bluesand_e">
+      <attr name="connections" value="e"/>
+    </object>
+    <object name="st_bluesand_ew">
+      <attr name="connections" value="ew"/>
+    </object>
+    <object name="st_bluesand_es">
+      <attr name="connections" value="es"/>
+    </object>
+    <object name="st_bluesand_esw">
+      <attr name="connections" value="esw"/>
+    </object>
+    <object name="st_bluesand_n">
+      <attr name="connections" value="n"/>
+    </object>
+    <object name="st_bluesand_nw">
+      <attr name="connections" value="nw"/>
+    </object>
+    <object name="st_bluesand_ns">
+      <attr name="connections" value="ns"/>
+    </object>
+    <object name="st_bluesand_nsw">
+      <attr name="connections" value="nsw"/>
+    </object>
+    <object name="st_bluesand_ne">
+      <attr name="connections" value="ne"/>
+    </object>
+    <object name="st_bluesand_new">
+      <attr name="connections" value="new"/>
+    </object>
+    <object name="st_bluesand_nes">
+      <attr name="connections" value="nes"/>
+    </object>
+    <object name="st_bluesand_nesw">
+      <attr name="connections" value="nesw"/>
     </object>
     <object name="st_boulder">
       <attr name="counterclock"/>
@@ -140,6 +195,52 @@
     </object>
     <object name="st_boulder_n">
       <attr name="orientation" value="3"/>
+    </object>
+    <object name="st_brick" super="st_clusterstone"/>
+    <object name="st_brick_w">
+      <attr name="connections" value="w"/>
+    </object>
+    <object name="st_brick_s">
+      <attr name="connections" value="s"/>
+    </object>
+    <object name="st_brick_sw">
+      <attr name="connections" value="sw"/>
+    </object>
+    <object name="st_brick_e">
+      <attr name="connections" value="e"/>
+    </object>
+    <object name="st_brick_ew">
+      <attr name="connections" value="ew"/>
+    </object>
+    <object name="st_brick_es">
+      <attr name="connections" value="es"/>
+    </object>
+    <object name="st_brick_esw">
+      <attr name="connections" value="esw"/>
+    </object>
+    <object name="st_brick_n">
+      <attr name="connections" value="n"/>
+    </object>
+    <object name="st_brick_nw">
+      <attr name="connections" value="nw"/>
+    </object>
+    <object name="st_brick_ns">
+      <attr name="connections" value="ns"/>
+    </object>
+    <object name="st_brick_nsw">
+      <attr name="connections" value="nsw"/>
+    </object>
+    <object name="st_brick_ne">
+      <attr name="connections" value="ne"/>
+    </object>
+    <object name="st_brick_new">
+      <attr name="connections" value="new"/>
+    </object>
+    <object name="st_brick_nes">
+      <attr name="connections" value="nes"/>
+    </object>
+    <object name="st_brick_nesw">
+      <attr name="connections" value="nesw"/>
     </object>
     <object name="st_floppy">
       <msg name="on"/>
@@ -188,6 +289,52 @@
       <attr name="interval" default="1.8"/>
       <msg name="on"/>
       <msg name="signal"/>
+    </object>
+    <object name="st_panel" super="st_clusterstone"/>
+    <object name="st_panel_w">
+      <attr name="connections" value="w"/>
+    </object>
+    <object name="st_panel_s">
+      <attr name="connections" value="s"/>
+    </object>
+    <object name="st_panel_sw">
+      <attr name="connections" value="sw"/>
+    </object>
+    <object name="st_panel_e">
+      <attr name="connections" value="e"/>
+    </object>
+    <object name="st_panel_ew">
+      <attr name="connections" value="ew"/>
+    </object>
+    <object name="st_panel_es">
+      <attr name="connections" value="es"/>
+    </object>
+    <object name="st_panel_esw">
+      <attr name="connections" value="esw"/>
+    </object>
+    <object name="st_panel_n">
+      <attr name="connections" value="n"/>
+    </object>
+    <object name="st_panel_nw">
+      <attr name="connections" value="nw"/>
+    </object>
+    <object name="st_panel_ns">
+      <attr name="connections" value="ns"/>
+    </object>
+    <object name="st_panel_nsw">
+      <attr name="connections" value="nsw"/>
+    </object>
+    <object name="st_panel_ne">
+      <attr name="connections" value="ne"/>
+    </object>
+    <object name="st_panel_new">
+      <attr name="connections" value="new"/>
+    </object>
+    <object name="st_panel_nes">
+      <attr name="connections" value="nes"/>
+    </object>
+    <object name="st_panel_nesw">
+      <attr name="connections" value="nesw"/>
     </object>
     <object name="st_polarswitch">
       <msg name="on"/>

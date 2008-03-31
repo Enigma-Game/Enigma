@@ -538,57 +538,7 @@ namespace
 }
 
 
-/* -------------------- BigBrick -------------------- */
-
-// BigBricks allow to build stones of any size based on st-brick.
-
-namespace 
-{
-    class BigBrick : public ConnectiveStone {
-        CLONEOBJ(BigBrick);
-    public:
-        BigBrick(int connections)
-        : ConnectiveStone("st-bigbrick", connections)
-        {}
-        bool is_removable() const { return false; }
-   };
-}
-
-/* -------------------- BigBlueSand -------------------- */
-
-// BigBlueSands allow to build stones of any size based on st-blue-sand.
-
-namespace
-{
-    class BigBlueSand : public ConnectiveStone {
-        CLONEOBJ(BigBlueSand);
-    public:
-        BigBlueSand(int connections)
-        : ConnectiveStone("st-bigbluesand", connections)
-        {}
-        bool is_removable() const { return false; }
-    };
-}
-
-/* -------------------- BigPanel -------------------- */
-
-// BigPanels allow to build stones of any size based on st-panel.
-
-namespace
-{
-    class BigPanel : public ConnectiveStone {
-        CLONEOBJ(BigPanel);
-    public:
-        BigPanel(int connections)
-        : ConnectiveStone("st-bigpanel", connections)
-        {}
-        bool is_removable() const { return false; }
-    };
-}
-
-
-
-/* -------------------- Puzzle stones -------------------- */ 
+///* -------------------- Puzzle stones -------------------- */ 
 
 /** \page st-puzzle Puzzle Stone
 
@@ -3029,56 +2979,6 @@ void Init_complex()
     Register("st-puzzle2-esw", new PuzzleStone(8, true));
     Register("st-puzzle2-nesw", new PuzzleStone(16, true));
 
-    //Register("st-bigbrick", new BigBrick(1));  // use st-brick instead
-    Register("st-bigbrick-n", new BigBrick(9));
-    Register("st-bigbrick-e", new BigBrick(5));
-    Register("st-bigbrick-s", new BigBrick(3));
-    Register("st-bigbrick-w", new BigBrick(2));
-    Register("st-bigbrick-ne", new BigBrick(13));
-    Register("st-bigbrick-nw", new BigBrick(10));
-    Register("st-bigbrick-es", new BigBrick(7));
-    Register("st-bigbrick-sw", new BigBrick(4));
-    Register("st-bigbrick-ns", new BigBrick(11));
-    Register("st-bigbrick-ew", new BigBrick(6));
-    Register("st-bigbrick-nes", new BigBrick(15));
-    Register("st-bigbrick-new", new BigBrick(14));
-    Register("st-bigbrick-nsw", new BigBrick(12));
-    Register("st-bigbrick-esw", new BigBrick(8));
-    Register("st-bigbrick-nesw", new BigBrick(16));
-    
-    //Register("st-bigbluesand", new BigBlueSand(1));  // use st-blue-sand instead
-    Register("st-bigbluesand-n", new BigBlueSand(9));
-    Register("st-bigbluesand-e", new BigBlueSand(5));
-    Register("st-bigbluesand-s", new BigBlueSand(3));
-    Register("st-bigbluesand-w", new BigBlueSand(2));
-    Register("st-bigbluesand-ne", new BigBlueSand(13));
-    Register("st-bigbluesand-nw", new BigBlueSand(10));
-    Register("st-bigbluesand-es", new BigBlueSand(7));
-    Register("st-bigbluesand-sw", new BigBlueSand(4));
-    Register("st-bigbluesand-ns", new BigBlueSand(11));
-    Register("st-bigbluesand-ew", new BigBlueSand(6));
-    Register("st-bigbluesand-nes", new BigBlueSand(15));
-    Register("st-bigbluesand-new", new BigBlueSand(14));
-    Register("st-bigbluesand-nsw", new BigBlueSand(12));
-    Register("st-bigbluesand-esw", new BigBlueSand(8));
-    Register("st-bigbluesand-nesw", new BigBlueSand(16));
-    
-    //Register("st-bigpanel", new BigPanel(1));  // use st-panel instead was; st-wood_001 before Enigma 1.10
-    Register("st-bigpanel-n", new BigPanel(9));
-    Register("st-bigpanel-e", new BigPanel(5));
-    Register("st-bigpanel-s", new BigPanel(3));
-    Register("st-bigpanel-w", new BigPanel(2));
-    Register("st-bigpanel-ne", new BigPanel(13));
-    Register("st-bigpanel-nw", new BigPanel(10));
-    Register("st-bigpanel-es", new BigPanel(7));
-    Register("st-bigpanel-sw", new BigPanel(4));
-    Register("st-bigpanel-ns", new BigPanel(11));
-    Register("st-bigpanel-ew", new BigPanel(6));
-    Register("st-bigpanel-nes", new BigPanel(15));
-    Register("st-bigpanel-new", new BigPanel(14));
-    Register("st-bigpanel-nsw", new BigPanel(12));
-    Register("st-bigpanel-esw", new BigPanel(8));
-    Register("st-bigpanel-nesw", new BigPanel(16));
 
     Register ("st-rotator-right", new RotatorStone(true, false));
     Register ("st-rotator-left", new RotatorStone(false, false));

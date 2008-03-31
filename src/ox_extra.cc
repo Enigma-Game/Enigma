@@ -260,7 +260,7 @@ const char *oxyd::oxydextra_stone_map[256] = {
     UNUSED,              // OxydExtra stone 0x87
     UNUSED,              // OxydExtra stone 0x88
     UNUSED,              // OxydExtra stone 0x89
-    "st-blue-sand",      // OxydExtra stone 0x8a
+    "st_bluesand",       // OxydExtra stone 0x8a
     "st-bluegray",       // OxydExtra stone 0x8b
     UNUSED,              // OxydExtra stone 0x8c
     UNUSED,              // OxydExtra stone 0x8d

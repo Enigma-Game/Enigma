@@ -333,7 +333,7 @@ const char *oxyd::peroxyd_stone_map[256] = {
     UNUSED,                     // PerOxyd stone 0x88
     UNUSED,                     // PerOxyd stone 0x89
     "st-rock6",                 // PerOxyd stone 0x8a
-    "st-blue-sand",             // PerOxyd stone 0x8b
+    "st_bluesand",              // PerOxyd stone 0x8b
     "st-rock1",                 // PerOxyd stone 0x8c
     "st-rock2",                 // PerOxyd stone 0x8d (simple border stone, not exactly st-rock2 ...; only link level 92)
     "st-rock2",                 // PerOxyd stone 0x8e

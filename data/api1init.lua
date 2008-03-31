@@ -59,11 +59,43 @@ RenamingObjectsNew2Old = {
     it_wormhole_off = "it-wormhole-off",
     st_blocker = "st-blocker",
     st_blocker_new = "st-blocker-growing",
+    st_bluesand = "st-blue-sand",
+    st_bluesand_w = "st-bigbluesand-w",
+    st_bluesand_s = "st-bigbluesand-s",
+    st_bluesand_sw = "st-bigbluesand-sw",
+    st_bluesand_e = "st-bigbluesand-e",
+    st_bluesand_ew = "st-bigbluesand-ew",
+    st_bluesand_es = "st-bigbluesand-es",
+    st_bluesand_esw = "st-bigbluesand-esw",
+    st_bluesand_n = "st-bigbluesand-n",
+    st_bluesand_nw = "st-bigbluesand-nw",
+    st_bluesand_ns = "st-bigbluesand-ns",
+    st_bluesand_nsw = "st-bigbluesand-nsw",
+    st_bluesand_ne = "st-bigbluesand-ne",
+    st_bluesand_new = "st-bigbluesand-new",
+    st_bluesand_nes = "st-bigbluesand-nes",
+    st_bluesand_nesw = "st-bigbluesand-nesw",
     st_boulder = "st-bolder",
     st_boulder_n = "st-bolder-n",
     st_boulder_e = "st-bolder-e",
     st_boulder_s = "st-bolder-s",
     st_boulder_w = "st-bolder-w",
+    st_brick = "st-brick",
+    st_brick_w = "st-bigbrick-w",
+    st_brick_s = "st-bigbrick-s",
+    st_brick_sw = "st-bigbrick-sw",
+    st_brick_e = "st-bigbrick-e",
+    st_brick_ew = "st-bigbrick-ew",
+    st_brick_es = "st-bigbrick-es",
+    st_brick_esw = "st-bigbrick-esw",
+    st_brick_n = "st-bigbrick-n",
+    st_brick_nw = "st-bigbrick-nw",
+    st_brick_ns = "st-bigbrick-ns",
+    st_brick_nsw = "st-bigbrick-nsw",
+    st_brick_ne = "st-bigbrick-ne",
+    st_brick_new = "st-bigbrick-new",
+    st_brick_nes = "st-bigbrick-nes",
+    st_brick_nesw = "st-bigbrick-nesw",
     st_coinslot = "st-coinslot",
     st_floppy = "st-floppy",
     st_fourswitch = "st-fourswitch",
@@ -72,10 +104,11 @@ RenamingObjectsNew2Old = {
     st_laser_e = "st-laser-e",
     st_laser_n = "st-laser-n",
     st_laserswitch = "st-laserswitch",
-    st_lasertimeswitch = "st-laserflop",
+    st_laserflop = "st-lasertimeswitch",
     st_monoflop = "st-timeswitch",
-    st_polarswitch = "st-polarswitch",
     st_oxyd = "st-oxyd",
+    st_panel = "st-wood_001",
+    st_polarswitch = "st-polarswitch",
     st_switch = "st-switch",
     st_switch_black = "st-switch_black",
     st_switch_white = "st-switch_white",
@@ -179,6 +212,25 @@ function enigma.SetAttrib(obj, key, val)
              _key = "oxydcolor"
 	 end
      end
+     if key == "connections" then
+         if val == 1 then _val = ""
+         elseif  val == 2  then _val = "w"
+         elseif  val == 3  then _val = "s"
+         elseif  val == 4  then _val = "sw"
+         elseif  val == 5  then _val = "e"
+         elseif  val == 6  then _val = "ew"
+         elseif  val == 7  then _val = "es"
+         elseif  val == 8  then _val = "esw"
+         elseif  val == 9  then _val = "n"
+         elseif  val == 10 then _val = "nw"
+         elseif  val == 11 then _val = "ns"
+         elseif  val == 12 then _val = "nsw"
+         elseif  val == 13 then _val = "ne"
+         elseif  val == 14 then _val = "new"
+         elseif  val == 15 then _val = "nes"
+         elseif  val == 16 then _val = "nesw"
+         end
+     end
      if key == "delay" then
          _key = "interval"
      end
@@ -262,6 +314,25 @@ function enigma.GetAttrib(obj, key)
      end
      if key == "whiteball" then
         if val == 1 then val = 1 else val = 0 end
+     end
+     if key == "connections" then
+         if val == "" then val = 1
+         elseif  val == "w"    then val = 2
+         elseif  val == "s"    then val = 3
+         elseif  val == "sw"   then val = 4
+         elseif  val == "e"    then val = 5
+         elseif  val == "ew"   then val = 6
+         elseif  val == "es"   then val = 7
+         elseif  val == "esw"  then val = 8
+         elseif  val == "n"    then val = 9
+         elseif  val == "nw"   then val = 10
+         elseif  val == "ns"   then val = 11
+         elseif  val == "nsw"  then val = 12
+         elseif  val == "ne"   then val = 13
+         elseif  val == "new"  then val = 14
+         elseif  val == "nes"  then val = 15
+         elseif  val == "nesw" then val = 16
+         end
      end
      if _obj_name == "st-oxyd" then
          if key == "color" then

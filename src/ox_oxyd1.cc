@@ -171,10 +171,10 @@ const char *oxyd::oxyd1_stone_map[256] = {
     0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
     "st-fakeoxyd",              // Oxyd1 stone 0x11
     "st-door_c",                // Oxyd1 stone 0x12
-    "st-bigbrick-es",           // Oxyd1 stone 0x13
-    "st-bigbrick-sw",           // Oxyd1 stone 0x14
-    "st-bigbrick-ne",           // Oxyd1 stone 0x15
-    "st-bigbrick-nw",           // Oxyd1 stone 0x16
+    "st_brick_es",              // Oxyd1 stone 0x13
+    "st_brick_sw",              // Oxyd1 stone 0x14
+    "st_brick_ne"  ,            // Oxyd1 stone 0x15
+    "st_brick_nw",              // Oxyd1 stone 0x16
     "st-plain_hole",            // Oxyd1 stone 0x17
     "st-oxyd-0x18",             // Oxyd1 stone 0x18
     "st-door_c-open",           // Oxyd1 stone 0x19
@@ -183,7 +183,7 @@ const char *oxyd::oxyd1_stone_map[256] = {
     "st-bug",                   // Oxyd1 stone 0x1c
     "st-surprise",              // Oxyd1 stone 0x1d
     "st-chameleon",             // Oxyd1 stone 0x1e
-    "st-brick",                 // Oxyd1 stone 0x1f
+    "st_brick",                 // Oxyd1 stone 0x1f
     "st-rock1",                 // Oxyd1 stone 0x20
     "st-rock1",                 // Oxyd1 stone 0x21
     UNUSED,                     // Oxyd1 stone 0x22
@@ -291,7 +291,7 @@ const char *oxyd::oxyd1_stone_map[256] = {
     UNUSED,                     // Oxyd1 stone 0x88
     UNUSED,                     // Oxyd1 stone 0x89
     "st-stone1",                // Oxyd1 stone 0x8a
-    "st-blue-sand",             // Oxyd1 stone 0x8b
+    "st_bluesand",              // Oxyd1 stone 0x8b
     "st-white1",                // Oxyd1 stone 0x8c
     "st-black1",                // Oxyd1 stone 0x8d
     "st-yinyang2",              // Oxyd1 stone 0x8e
