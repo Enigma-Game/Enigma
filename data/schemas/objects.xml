@@ -4,6 +4,7 @@
     <attr name="action" type="tokens" default="nil" rw="rw"/>
     <attr name="autoclose" type="bool" default="false" rw="rw"/>
     <attr name="cluster" type="int" default="nil" min="0" max="1" rw="rw"/>
+    <attr name="coin_value" type="double" default="1" rw="rw"/>
     <attr name="color" type="int" default="nil" min="0" max="1" rw="rw"/>
     <attr name="connections" type="string" default="nil" rw="rw"/>
     <attr name="counterclock" type="bool" default="false" rw="rw"/>
@@ -11,6 +12,9 @@
     <attr name="faces" type="string" default="nil" rw="rw"/>
     <attr name="instant" type="bool" default="false" rw="rw"/>
     <attr name="interval" type="double" default="1" rw="rw"/>
+    <attr name="interval_s" type="double" default="3" rw="rw"/>
+    <attr name="interval_m" type="double" default="6" rw="rw"/>
+    <attr name="interval_l" type="double" default="12" rw="rw"/>
     <attr name="inverse" type="bool" default="false" rw="rw"/>
     <attr name="invisible" type="bool" default="false" rw="rw"/>
     <attr name="loop" type="bool" default="true" rw="rw"/>
@@ -70,6 +74,19 @@
       <msg name="_performaction"/>
     </object>
     <object name="it_blocker_new" init="true">
+    </object>
+    <object name="it_coin">
+      <attr name="coin_value" default="3"/>
+      <attr name="state" rw="r"/>
+    </object>
+    <object name="it_coin_s">
+      <attr name="state" value="0"/>
+    </object>
+    <object name="it_coin_m">
+      <attr name="state" value="1"/>
+    </object>
+    <object name="it_coin_l">
+      <attr name="state" value="2"/>
     </object>
     <object name="it_extralife"/>
     <object name="it_extralife_new" init="true"/>
@@ -241,6 +258,16 @@
     </object>
     <object name="st_brick_nesw">
       <attr name="connections" value="nesw"/>
+    </object>
+    <object name="st_coinslot">
+      <attr name="instant"/>
+      <attr name="interval_s"/>
+      <attr name="interval_m"/>
+      <attr name="interval_l"/>
+      <attr name="state" rw="r"/>
+    </object>
+    <object name="st_coinslot_instant">
+      <attr name="instant" value="true"/>
     </object>
     <object name="st_floppy">
       <msg name="on"/>

@@ -222,7 +222,7 @@ const char *oxyd::oxydextra_stone_map[256] = {
     UNUSED,              // OxydExtra stone 0x61
     UNUSED,              // OxydExtra stone 0x62
     UNUSED,              // OxydExtra stone 0x63
-    "st_coinslot",       // OxydExtra stone 0x64
+    "st_coinslot_instant", // OxydExtra stone 0x64
     "st-thief",          // OxydExtra stone 0x65
     "st-shogun-s",       // OxydExtra stone 0x66
     UNUSED,              // OxydExtra stone 0x67

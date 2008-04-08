@@ -856,7 +856,7 @@ void LP_OxydExtra::load (const OxydLib::Level &level)
 
 LP_OxydMagnum::LP_OxydMagnum(OxydVersion version, DatFile *dat)
 : LevelPack_Oxyd (version, dat, 0, 
-                  (version==OxydVersion_OxydMagnumGold) ? 120 : 99, 
+                  (version==OxydVersion_OxydMagnumGold) ? 120 : 182, 
                   false)
 {
 }

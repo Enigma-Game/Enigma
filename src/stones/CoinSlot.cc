@@ -20,54 +20,122 @@
  */
 
 #include "stones/CoinSlot.hh"
-#include "server.hh"
-#include "Inventory.hh"
-#include "player.hh"
 #include "errors.hh"
+#include "Inventory.hh"
+#include "main.hh"
+#include "player.hh"
+#include "server.hh"
 
 namespace enigma {
-    CoinSlot::CoinSlot() : Stone () {
+    CoinSlot::CoinSlot(bool isInstant) : Stone() {
+        if (isInstant)
+            objFlags |= OBJBIT_INSTANT;
         state = OFF;
-        remaining_time = 0;
+        setAttr("$addTime", 0);
     }
 
     CoinSlot::~CoinSlot() {
         GameTimer.remove_alarm (this);
     }
 
+    std::string CoinSlot::getClass() const {
+        return "st_coinslot";
+    }
+
+    Value CoinSlot::getAttr(const std::string &key) const {
+        if (key == "instant") {
+            return (bool)(objFlags & OBJBIT_INSTANT != 0);
+        }
+        return Stone::getAttr(key);
+    }
+    
+    void CoinSlot::setAttr(const string& key, const Value &val) {
+        if (key == "instant") {
+            if (val.to_bool())
+                objFlags |= OBJBIT_INSTANT;
+            else
+                objFlags &= ~OBJBIT_INSTANT;
+            return;
+        }
+        Stone::setAttr(key, val);
+    }
+
+    Value CoinSlot::message(const Message &m) {
+        if (m.message == "_model_reanimated") {
+            // we are swapped - may be that an alarm switched off the slot meanwhile
+            if (state <= ON)
+                init_model();  // replace potential bogus model
+        }
+        return Stone::message(m);
+    }
+
     int CoinSlot::externalState() const {
-        return state % 2; // 0 for OFF, TURNON, 1 for ON
+        return state % 2; 
     }
 
     void CoinSlot::setState(int extState) {
-        if (isDisplayable()) {
-            if (extState == 0)
-                setIState(OFF);
-            else if (extState == 1)
-                setIState(ON);
-        } else
-            state = extState;
+        return;   // ignore any write attempts
     }
 
     void CoinSlot::init_model() {
-        set_model(state==ON ? "st-coinslot-active" : "st-coinslot");
+        // just static models
+        if (state <= ON)
+            set_model(state==ON ? "st-coinslot-active" : "st-coinslot");
     }
 
     void CoinSlot::animcb() {
-        setIState(ON);
+        ASSERT(state >= INSERT_OFF, XLevelRuntime, "Coinslot - animcb on wrong state");
+        double rest = GameTimer.remove_alarm(this);   // stop alarm
+        iState newIState = ON;                        // standard follow up state
+        if (!(objFlags & OBJBIT_INSTANT)) {
+            // start or update timer
+            rest += (double)getAttr("$addTime");
+            setAttr("$addTime", 0);
+        } else { // instant
+            if (rest == 0)
+                // the coin value is less than the animation time 
+                newIState = OFF;
+        }
+        if (rest > 0)
+            GameTimer.set_alarm(this, (double)getAttr("$addTime") + rest, false);
+        setIState(newIState);
     }
 
     void CoinSlot::actor_hit(const StoneContact &sc) {
+        // no coin insert if instant and coin is currently being inserted 
+        if (state >= INSERT_OFF && !(objFlags & OBJBIT_INSTANT))
+            return;
+            
         if (enigma::Inventory *inv = player::GetInventory(sc.actor)) {
-            if (Item *it = inv->get_item (0)) {
+            if (Item *it = inv->get_item(0)) {
                 ItemID id = get_id(it);
                 if (id == it_coin1 || id == it_coin2 || id == it_coin4) {
-                    double coin_value = it->getAttr("value");
-                    remaining_time += coin_value;
+                    double interval;
+                    if (server::EnigmaCompatibility < 1.10) 
+                        interval = it->getAttr("coin_value");
+                    else 
+                        switch (id) {
+                            case it_coin1:
+                                interval = getAttr("interval_s"); break;
+                            case it_coin2:
+                                interval = getAttr("interval_m"); break;
+                            case it_coin4:
+                                interval = getAttr("interval_l"); break;
+                        }
+                    
+                    if (objFlags & OBJBIT_INSTANT) {
+                        // start or update timer
+                        double rest = GameTimer.remove_alarm(this);
+                        GameTimer.set_alarm(this, interval + rest, false);
+                    } else {
+                        // remember time value for animcb evaluation
+                        setAttr("$addTime", (double)getAttr("$addTime") + interval);
+                    }
                     inv->yield_first();
-                    player::RedrawInventory (inv);
+                    player::RedrawInventory(inv);
                     delete it;
-                    setIState(TURNON);
+                    
+                    setIState((objFlags & OBJBIT_INSTANT) ? INSERT_ON : (iState)(state + 2));
                 }
             }
         }
@@ -77,51 +145,74 @@ namespace enigma {
          return "metal";
     }
 
-    void CoinSlot::tick(double dtime) {
-        ASSERT(remaining_time > 0, XLevelRuntime, "CoinSlot: tick called, but no remaining time");
-
-        remaining_time -= dtime;
-        if (remaining_time <= 0)
-            setIState(OFF);
+    void CoinSlot::alarm() {
+        ASSERT((state & 1) == ON, XLevelRuntime, "Coinslot - alarm of not active slot");
+        setIState(state == ON ? OFF : INSERT_OFF);
     }
-
+    
     void CoinSlot::setIState(iState newIState) {
-        if (newIState == ON) {
-            if (state == TURNON) {
-                state = ON;
-                performAction(state == ON);
-                GameTimer.activate(this);
-            }
-            else if (state == ON) {
-                // state is already ON, this was just a "coin-supply"
-                // Do nothing but change the model
-            }
+        bool doAction = false;
+        bool actionValue = false;
+        bool doInit = false;
+        
+        Log << "Coinslot state change from " << state << " to " << newIState << "\n";
+        switch (state) {
+            case OFF :
+                ASSERT(newIState != ON, XLevelRuntime, "Coinslot - illegal state change from OFF to ON");
+                actionValue = true;
+                doAction = (newIState == INSERT_ON);
+                set_anim("st-coin2slot");
+                break;
+            case ON :
+                if (newIState == INSERT_ON)
+                    set_anim("st-coin2slot");
+                else if (newIState == OFF) {
+                    actionValue = false;
+                    doAction = true;
+                    doInit = true;
+                } else
+                    ASSERT(false , XLevelRuntime, "Coinslot - illegal state change from ");
+                break;
+            case INSERT_OFF:
+                ASSERT(newIState == ON, XLevelRuntime, "Coinslot - illegal state change from ");
+                doInit = true;
+                actionValue = true;
+                doAction = true;
+                break;
+            case INSERT_ON :
+                switch (newIState) {
+                    case INSERT_ON :
+                        set_anim("st-coin2slot");  // may restart anim!
+                        break;
+                    case ON :
+                        doInit = true;
+                        break;
+                    case OFF :
+                        doInit = true;
+                        // fall through
+                    case INSERT_OFF :  // continue insert animation
+                        actionValue = false;
+                        doAction = true;
+                        break;
+                }
+                break;
+        }
+        
+        state = newIState;
+
+        if (doInit && isDisplayable())
             init_model();
-        }
-        else if (newIState == TURNON) {
-            if (state == OFF) {
-                state = TURNON;
-            }
-            else if (state == ON) {
-                // state is already ON, this was just a "coin-supply"
-                // Do nothing but play the anim
-            }
-            sound_event ("coinsloton");
-            set_anim("st-coin2slot");
-        }
-        else if (newIState == OFF) {
-            state = OFF;
-            performAction(state == ON);
-            GameTimer.deactivate(this);
-            sound_event ("coinslotoff");
-            init_model();
-        }
+        
+        if (doAction)
+           performAction(actionValue);
+                
     }
 
     DEF_TRAITS(CoinSlot, "st_coinslot", st_coinslot);
 
     BOOT_REGISTER_START
-        BootRegister(new CoinSlot(), "st_coinslot");
+        BootRegister(new CoinSlot(false), "st_coinslot");
+        BootRegister(new CoinSlot(true), "st_coinslot_instant");
     BOOT_REGISTER_END
 
 } // namespace enigma

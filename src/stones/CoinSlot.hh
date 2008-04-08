@@ -37,12 +37,27 @@ namespace enigma {
         CLONEOBJ(CoinSlot);
         DECL_TRAITS;
     private:
-        enum iState { OFF, ON, TURNON };
-        double remaining_time;
+        enum iState { 
+            OFF, 
+            ON,
+            INSERT_OFF,   ///< coin is currently inserted, switch is still off if not instant
+                          ///< this state does not exist for instant switches
+            INSERT_ON     ///< coin is currently inserted while switch in on
+        };
+        
+        enum ObjectPrivatFlagsBits {
+            OBJBIT_INSTANT   =  1<<24  ///< Object is instant active on coin insertion 
+        };
 
     public:
-        CoinSlot();
+        CoinSlot(bool isInstant);
         ~CoinSlot();
+
+        // Object interface
+        virtual std::string getClass() const;
+        virtual void setAttr(const string& key, const Value &val);
+        virtual Value getAttr(const std::string &key) const;
+        virtual Value message(const Message &m);
 
         // StateObject interface
         virtual int externalState() const;
@@ -59,7 +74,7 @@ namespace enigma {
         virtual const char *collision_sound();
 
         // TimeHandler interface
-        virtual void tick(double dtime);
+        virtual void alarm();
 
     private:
         void setIState(iState newIState);

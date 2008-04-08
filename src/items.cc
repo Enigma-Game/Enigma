@@ -666,64 +666,67 @@ namespace
 
 /* -------------------- Coins -------------------- */
 
-// :value    1,2,4: how many time-units this coin buys
-namespace
-{
-    class Coin1 : public Item {
-        CLONEOBJ(Coin1);
-        DECL_TRAITS;
+// TODO id renaming when names are stable
 
-        void processLight(Direction d) {
-            sound_event ("itemtransform");
-            transform("it_umbrella_new");
-        }
-
-        void on_stonehit(Stone *) {
-            replace(it_coin2);
-        }
+    class Coin : public Item {
+        CLONEOBJ(Coin);
+        DECL_TRAITS_ARRAY(3, state);
 
     public:
-        Coin1() {
-            setAttr("value", 3.0);
-        }
+        Coin(int type);
+        static void setup();
+        
+        // Object interface
+        virtual std::string getClass() const;
+
+        // GridObject interface
+        virtual void processLight(Direction d);
+        
+        // Item interface
+        virtual void on_stonehit(Stone *st);
     };
-    DEF_TRAITS(Coin1, "it-coin1", it_coin1);
+    
+    void Coin::setup() {
+        RegisterItem (new Coin(0));
+        RegisterItem (new Coin(1));
+        RegisterItem (new Coin(2));
+    }
 
-    class Coin2 : public Item {
-        CLONEOBJ(Coin2);
-        DECL_TRAITS;
+    Coin::Coin(int type) {
+        state = type;
+        setAttr("coin_value", state == 0 ? 3.0 : (state == 1 ? 6.0 : 12.0));
+    }
+    
+    std::string Coin::getClass() const {
+        return "Coin";
+    }
+    
+    void Coin::processLight(Direction d) {
+        sound_event("itemtransform");
+        switch (state) {
+            case 0 : 
+                transform("it_umbrella_new"); break;
+            case 1 :
+                transform("it_hammer_new"); break;
+            case 2 :
+                transform("it_extralife_new"); break;
+        }
+    }
 
-        void processLight(Direction d) {
-            sound_event ("itemtransform");
-            transform("it_hammer_new");
+    void Coin::on_stonehit(Stone *) {
+        if (state <= 1) {
+            state += 1;
+            init_model();
         }
 
-        void on_stonehit(Stone *) {
-            replace(it_coin4);
-        }
-
-    public:
-        Coin2() {
-            setAttr("value", 6.0);
-        }
+    }
+    
+    ItemTraits Coin::traits[3] = {
+        {"it_coin_s",  it_coin1,  itf_none, 0.0},
+        {"it_coin_m",  it_coin2,  itf_none, 0.0},
+        {"it_coin_l",  it_coin4,  itf_none, 0.0},
     };
-    DEF_TRAITS(Coin2, "it-coin2", it_coin2);
-
-    class Coin4 : public Item {
-        CLONEOBJ(Coin4);
-        DECL_TRAITS;
-
-        void processLight(Direction d) {
-            sound_event ("itemtransform");
-            transform("it_extralife_new");
-        }
-    public:
-        Coin4() {
-            setAttr("value", 12.0);
-        }
-    };
-    DEF_TRAITS(Coin4, "it-coin4", it_coin4);
-}
+    
 
 
 /* -------------------- Hills and Hollows -------------------- */
@@ -1814,8 +1817,8 @@ Value ShogunDot::message(const Message &m) {
             squareRange = range * range;
         } else if (key == "strength") {
             correctedStrength = 0.6 * ((val.getType() == Value::NIL) ? server::MagnetForce : (double)val);
-        } else
-            Item::setAttr(key, val);
+        }
+        Item::setAttr(key, val);
     }
     
     Value Magnet::message(const Message &m) {
@@ -3944,9 +3947,7 @@ void InitItems()
     RegisterItem (new ChangeFloorItem);
     RegisterItem (new Cherry);
     RegisterItem (new Coffee);
-    RegisterItem (new Coin1);
-    RegisterItem (new Coin2);
-    RegisterItem (new Coin4);
+    Coin::setup();
     Crack::setup();
     RegisterItem (new Cross);
     RegisterItem (new Death);

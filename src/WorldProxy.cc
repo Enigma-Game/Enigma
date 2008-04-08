@@ -117,20 +117,24 @@ namespace enigma {
             server::HoleForce = val;
         } else if (key == "IceFriction") {
             server::IceFriction = val;
-        } else if (key == "MagnetForce") {
+        } else if (key == "MagnetStrength") {
             server::MagnetForce = val;
+            BroadcastMessage("_updateglobals", "it_magnet", GRID_ITEMS_BIT);
         } else if (key == "MagnetRange") {
             server::MagnetRange = val;
+            BroadcastMessage("_updateglobals", "it_magnet", GRID_ITEMS_BIT);
         } else if (key == "SlopeForce") {
             server::SlopeForce = val;
         } else if (key == "SwampSinkSpeed") {
             server::SwampSinkSpeed = val;
         } else if (key == "WaterSinkSpeed") {
             server::WaterSinkSpeed = val;
-        } else if (key == "WormholeForce") {
+        } else if (key == "WormholeStrength") {
             server::WormholeForce = val;
+            BroadcastMessage("_updateglobals", "it_wormhole", GRID_ITEMS_BIT);
         } else if (key == "WormholeRange") {
             server::WormholeRange = val;
+            BroadcastMessage("_updateglobals", "it_wormhole", GRID_ITEMS_BIT);
         }
     }
 

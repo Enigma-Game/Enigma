@@ -47,6 +47,9 @@ RenamingObjectsOld2New = {
 RenamingObjectsNew2Old = {
     it_blocker = "it-blocker",
     it_blocker_new = "it-blocker-new",
+    it_coin_s = "it-coin1",
+    it_coin_m = "it-coin2",
+    it_coin_l = "it-coin4",
     it_extralife = "it-extralife",
     it_hammer = "it-hammer",
     it_magnet = "it-magnet",
@@ -240,6 +243,9 @@ function enigma.SetAttrib(obj, key, val)
      if key == "on" then
          _key = "state"
      end
+     if key == "value" then
+         _key = "coin_value"
+     end
      if key == "targetx" then
          local d = enigma._GetAttrib(obj, "destination")
          if (en.usertype(d) == "position") then
@@ -293,6 +299,9 @@ function enigma.GetAttrib(obj, key)
      local _obj_name = enigma.GetKind(obj)
      if key == "delay" then
          _key = "interval"
+     end
+     if key == "value" then
+         _key = "coin_value"
      end
      if key == "blackball" or key == "whiteball" then
          _key = "color"

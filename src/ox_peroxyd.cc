@@ -294,7 +294,7 @@ const char *oxyd::peroxyd_stone_map[256] = {
     "st-disco-medium",          // PerOxyd stone 0x61
     "st-bombs",                 // PerOxyd stone 0x62
     "st-flash",                 // PerOxyd stone 0x63
-    "st_coinslot",              // PerOxyd stone 0x64
+    "st_coinslot_instant",      // PerOxyd stone 0x64
     "st-thief",                 // PerOxyd stone 0x65
     "st-shogun-s",              // PerOxyd stone 0x66
     "st-shogun-m",              // PerOxyd stone 0x67

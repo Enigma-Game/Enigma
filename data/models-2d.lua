@@ -395,9 +395,6 @@ do
         "it-booze-broken",
         "it-brush",
         "it-cherry",
-        "it-coin1",
-        "it-coin2",
-        "it-coin4",
         "it-cross",
         "it-document",
         "it-drop",
@@ -436,6 +433,9 @@ do
     DefImages(itemlist)
 
     DefImage("it-brake", {filename="st-brake"})
+    DefImage("it_coin_s", {filename="it-coin1"})
+    DefImage("it_coin_m", {filename="it-coin2"})
+    DefImage("it_coin_l", {filename="it-coin4"})
     DefImage("it_extralife", {filename="it-extralife"})
     DefImage("it_hammer", {filename="it-hammer"})
     DefImage("it_sword", {filename="it-sword"})
