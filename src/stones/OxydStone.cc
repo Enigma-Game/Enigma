@@ -1,6 +1,6 @@
 /*
  * Copyright (C) 2002,2003,2004 Daniel Heck
- * Copyright (C) 2007 Ronald Lamprecht
+ * Copyright (C) 2007,2008 Ronald Lamprecht
  *
  * This program is free software; you can redistribute it and/or
  * modify it under the terms of the GNU General Public License
@@ -836,7 +836,7 @@ namespace enigma {
     
     // Instance Methods
     
-    OxydStone::OxydStone(std::string flavor) : PhotoStone("st_oxyd") {
+    OxydStone::OxydStone(std::string flavor) : Stone("st_oxyd") {
         setAttr("flavor", flavor);
         setAttr("oxydcolor", AUTO);
     }
@@ -870,8 +870,23 @@ namespace enigma {
         else if (m.message == "_init") {
             initColors();
             return Value();
+        } else if (m.message == "_model_reanimated") {
+            if (objFlags & OBJBIT_CLOSED) {
+                state = CLOSED;
+                std::string flavor(getAttr("flavor"));
+                set_model(string("st-oxyd") + flavor);
+                objFlags &= ~OBJBIT_CLOSED;
+            } else if (objFlags & OBJBIT_OPENPAIR) {
+                state = OPEN_PAIR;
+                std::string flavor(getAttr("flavor"));
+                string color(getDefaultedAttr("oxydcolor", 0));
+                set_model(string("st-oxyd") + flavor + color + "-open");
+                objFlags &= ~OBJBIT_OPENPAIR;
+            }
+            return Value();
         }
-        return PhotoStone::message(m);
+        
+        return Stone::message(m);
     }
     
     void OxydStone::setAttr(const string& key, const Value &val) {
@@ -881,7 +896,7 @@ namespace enigma {
             ASSERT(state == CLOSED, XLevelRuntime, "OxydStone error - reflavoring of an not closed stone");
         }
         
-        PhotoStone::setAttr(key, val);   // do value checking
+        Stone::setAttr(key, val);   // do value checking
         
         if (key == "flavor" && IsInsideLevel(get_pos()))
             set_model(string("st-oxyd")+(std::string)val);
@@ -918,7 +933,6 @@ namespace enigma {
     }
     
     void OxydStone::setState(int extState) {
-        ASSERT(extState <= 1, XLevelRuntime, "OxydStone error - attempt to set state OPEN_PAIR");
         if (isDisplayable()) {
             if (state == OPEN_PAIR)
                 return;      // ignore - no change possible
@@ -943,20 +957,27 @@ namespace enigma {
         else if (state == OPENING)
             set_iState(OPEN_SINGLE);
         else if (state == OPEN_PAIR)     // end of opening anim for second oxyd in a pair
-            set_iState(OPEN_PAIR);      // set the right model
+            set_iState(OPEN_PAIR);       // set the right model
         else if (state == OPEN_SINGLE)   // pseudo animation
             set_iState(CLOSING);
     }
     
     void OxydStone::on_creation (GridPos) {
-        string flavor(getDefaultedAttr("flavor", "a"));
+        std::string flavor(getDefaultedAttr("flavor", "a"));
         set_model(string("st-oxyd") + flavor);
-        photo_activate();
+        activatePhoto();
     }
     
     void OxydStone::on_removal(GridPos p) {
-        photo_deactivate();
-        kill_model (p);
+        deactivatePhoto();
+        kill_model(p);
+    }
+    
+    void OxydStone::lightDirChanged(DirectionBits oldDirs, DirectionBits newDirs) {
+        if (oldDirs == 0) {
+            // side independent light switch on
+            tryOpen();
+        }
     }
     
     void OxydStone::tryOpen() {
@@ -1024,11 +1045,28 @@ namespace enigma {
     
     void OxydStone::closeAllStandardOxyds() {
         for (unsigned i=0; i<levelOxyds.size(); ++i)
-            if ((int)(levelOxyds[i]->getAttr("oxydcolor")) >= AUTO)
-                levelOxyds[i]->set_iState(CLOSING);
+            if ((int)(levelOxyds[i]->getAttr("oxydcolor")) >= AUTO) {
+                    levelOxyds[i]->set_iState(CLOSING);
+            }
     }
     
     void OxydStone::set_iState(iState newState) {
+        if (!isDisplayable()) {
+            // an oxyd yielded while swapping - mark oxyd to set state when reset to the grid
+            switch (newState) {
+                case CLOSING :
+                    objFlags |= OBJBIT_CLOSED;
+                    break;
+                case OPEN_PAIR :
+                    objFlags |= OBJBIT_OPENPAIR;
+                    break;
+                default :
+                    ASSERT(false, XLevelRuntime, "OxydStone error - unexpected new iState");
+                    break;
+            }
+            return;
+        }
+        
         string flavor(getDefaultedAttr("flavor","a"));
         string color(getDefaultedAttr("oxydcolor", 0));
     

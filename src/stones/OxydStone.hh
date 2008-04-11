@@ -1,6 +1,6 @@
 /*
  * Copyright (C) 2002,2003,2004 Daniel Heck
- * Copyright (C) 2007 Ronald Lamprecht
+ * Copyright (C) 2007,2008 Ronald Lamprecht
  *
  * This program is free software; you can redistribute it and/or
  * modify it under the terms of the GNU General Public License
@@ -21,7 +21,6 @@
 #define OXYDSTONE_HH_INCLUDED
 
 #include "stones.hh"
-#include "laser.hh"
 #include <stdint.h>
 
 /* -------------------- Oxyd stone -------------------- */
@@ -61,7 +60,7 @@ namespace enigma {
     /**
      * 
      */
-    class OxydStone : public PhotoStone {
+    class OxydStone : public Stone {
     public:
         enum RuleType {RULE_SINGLE_MIN, RULE_SINGLE_MAX, RULE_PAIR_MIN, RULE_PAIR_MAX};
         enum Color {BLUE = 0, RED, GREEN, YELLOW, CYAN, PURPLE, WHITE, BLACK, 
@@ -92,26 +91,27 @@ namespace enigma {
         virtual int externalState() const;
         virtual void setState(int extState);
 
+        // GridObject interface
+        virtual void on_creation(GridPos p);
+        virtual void on_removal (GridPos p);
+        virtual void lightDirChanged(DirectionBits oldDirs, DirectionBits newDirs);
+
         // Stone interface
         virtual void actor_hit(const StoneContact &sc);
         virtual const char *collision_sound() { return "stone"; }
         virtual bool is_removable() const;
         
-        // PhotoStone interface
-        virtual void notify_laseron() { tryOpen(); }
-        virtual void notify_laseroff() {}
-
         // ModelCallback interface  - Animation callback
         virtual void animcb();
     
-    protected:
-        // GridObject interface
-        void on_creation (GridPos p);
-        void on_removal (GridPos p);
-            
     private:
         enum iState { CLOSED, OPEN_PAIR, OPENING, CLOSING, OPEN_SINGLE };
         
+        enum ObjectPrivatFlagsBits {
+            OBJBIT_CLOSED   =  1<<24,  ///< force a closed state on grid set
+            OBJBIT_OPENPAIR =  1<<25   ///< force an open state on grid set
+        };
+
         typedef std::vector<OxydStone *> InstanceVector;
         
         typedef struct {

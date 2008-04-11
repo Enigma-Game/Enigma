@@ -62,10 +62,11 @@ end
 ----------------
 
 -- state
-OFF = 0
-ON  = 1
-CLOSED = 0
-OPEN   = 1
+OFF      = 0
+ON       = 1
+CLOSED   = 0
+OPEN     = 1
+OXYDPAIR = 2
 
 -- color
 BLACK = 0

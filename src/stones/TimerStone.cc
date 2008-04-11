@@ -59,6 +59,7 @@ namespace enigma {
                 } else {
                     GameTimer.remove_alarm(this);
                 }
+                init_model();
             }
         } else {
             state = extState;

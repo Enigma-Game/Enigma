@@ -184,7 +184,7 @@ bool Item::actor_hit(Actor *actor)
 namespace
 {
     DEF_ITEM(MagicWand, "it-magicwand", it_magicwand);
-    DEF_ITEM(Floppy,    "it-floppy", it_floppy);
+    DEF_ITEM(Floppy,    "it_floppy", it_floppy);
     DEF_ITEM(Odometer,  "it-odometer", it_odometer);
     DEF_ITEM(Wrench,    "it-wrench", it_wrench);
     DEF_ITEM(BrokenGlasses, "it-glasses-broken", it_glasses_broken);
@@ -716,6 +716,7 @@ namespace
     void Coin::on_stonehit(Stone *) {
         if (state <= 1) {
             state += 1;
+            setAttr("coin_value", (state == 1 ? 6.0 : 12.0));  // API 1 compatibility
             init_model();
         }
 

@@ -48,11 +48,11 @@ namespace enigma {
         if (enigma::Inventory *inv = player::GetInventory(sc.actor)) {
             if (state == ON) {
                 if (!inv->is_full()) {
-                    inv->add_item (MakeItem("it-floppy"));
+                    inv->add_item (MakeItem("it_floppy"));
                     setState(OFF);
                 }
             }
-            else if (player::WieldedItemIs (sc.actor, "it-floppy")) {
+            else if (player::WieldedItemIs (sc.actor, "it_floppy")) {
                 DisposeObject(inv->yield_first());
                 setState(ON);
             }
