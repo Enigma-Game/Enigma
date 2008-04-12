@@ -1,0 +1,607 @@
+Concept Lua API 2         (Draft 0.6)
+=================
+
+
+C1 - Object Based Syntax   (coded - besides lines starting with a ".")
+------------------------
+
+The new API provides successor functions for all basic functions of the
+old API with simplified names and arguments. (As the naming of the
+successor functions is not yet fixed just a few examples are listed. This
+set of functions will be completed to ensure that all previous styles of
+level programming are supported in the API as well).
+
+The following example based description explains the idea of the
+new object based syntax additions:
+
+Namespace "en"
+
+  Any system object or function is addressable as "sysname" and "en.sysname" 
+
+Special value types:
+
+  position      - a position within the world that can be described by an
+                  x and y coordinate
+  object        - an Enimga object like a stone, item, floor, rubberband,...
+  world         - a singleton type for the world that contains all objects
+  namedobjects  - a singleton type for the repository of all named objects
+  group         - a list of objects
+  tile          - a description of objects at a common grid position (floor,
+                  item, stone, actor)
+  tiles         - a singleton type for the repository of all tile instances
+
+Special objects given at init:
+
+  wo   world with map and global attributes of type <world>
+  no   named object repository of type <namedobjects> 
+  ti   tile template repository of type <tiles>
+
+Let "obj" be an example object reference of a stone/item/floor (type <object>).
+
+Grid Positions are table/objects:
+
+  pos = po(7, 3)            -- a function "po()"
+  pos = po({7, 3})
+  pos = obj                 -- every object is a valid position
+  pos = po(12.3, 3.7)       -- position within a grid (for an actor) 
+
+Position constants
+  {7,3}     -- a valid position for all arguments and operations (see caveats)
+
+Access to x, y coordinates:
+
+  x, y = pos.x, pos.y
+  x, y = pos["x"], pos["y"]
+  x, y = pos:xy()
+  x, y = obj.x, obj.y
+  x, y = obj:xy()
+
+Position calculation
+
+  pos = obj + {2,7}
+  dpos = obj1 - obj2
+  dpos2 = 2 * dpos
+
+Center positions for set actors
+
+  pos_centered1 = pos + {0.5, 0.5}
+  pos_centered2 = #pos
+  pos_centered3 = #obj
+
+Round a position to a grid
+
+  grid_pos = pos:grid()
+
+Position comparison
+
+  pos_centered1 == pos_centered2
+
+Setting a single attribute of objects including global attributes of world:
+
+  obj["attr_name"] = value
+  wo["Brittleness"] = 7
+
+
+Setting multiple attributes at once:
+
+  obj:set({attr_name1=value1, attr_name2=value2})
+
+Requesting attributes of objects including global attributes of world:
+
+  value = obj["attr_name"]
+  value = wo["Brittleness"]
+
+  if wo["IsDifficult"] then ... end
+
+Reset an attribute to its default - "delete":
+
+  obj["attr_name"] = nil
+
+Creating a new object:
+
+  wo[pos] = {"st_chess", color = 0, name="Atrax"}   -- on edge of grid pos
+  wo[#pos] = {"ac_bug"}              -- actor centered on grid pos
+  wo[pos] = {"#ac_bug"}              -- actor centered on grid pos
+  wo[pos] = {"ac_bug", 0.3, 0.7}     -- actor with offsets to pos
+  wo[my_floor] = {"it_wand"}         -- set an wand on top of a given foor
+
+Naming an object:
+
+  no["Atrax"] = obj
+
+Consecutive naming of objects (building object groups)
+
+  wo[pos] = {"st_chess", color = 0, name="Atrax#"}
+
+  For each call of the line above the new object will be named with a unique
+  number appended after the "#" giving "Atrax#1", "Atrax#2", "Atrax#3", ...
+
+Requesting an object:
+
+  obj = it(pos)
+  obj = it(x, y)
+  obj = st(pos)
+  obj = wo:it(pos)
+  my_item = it(my_floor)    -- get the item that is on top of the given floor
+  
+  obj = no["Atrax"]
+
+Killing an object:
+
+  obj:kill()
+  wo[pos] = {"it_nil"}
+
+Comparing objects
+
+  obj1 == obj2
+
+Existance of an object
+
+  obj:exists()
+  -obj                -- unary minus operator on object
+  if -obj then ...
+
+Messages:
+
+  my_boulder:message("direction", WEST)
+  my_boulder:direction(EAST)
+  my_door:open()
+
+Classification of objects:
+
+  obj:is("st_chess")
+  obj:is("st")
+  obj:is("st_chess_black")
+
+Group of objects:
+
+  group = no["Atrax#*"]            -- a group of all matching objects
+                                   --   wildcards "*","?" allowed
+  group = grp(obj1, obj2, obj3)
+  group = grp({obj1, obj2, obj3})  -- a group of objects set up in a table
+
+Many operations can be applied to groups
+
+  floor_group[friction] = 3.2      -- set attribute on all floors in the group
+  door_group:message("open")
+  door_group:open()
+  stone_group:kill()
+  wo[floor_group] = {"it-coin2"}   -- add some money on all floor positions
+  
+  wo[pos] = {"st_switch", target=door_group, action="open"}
+  wo[pos] = {"st_switch", target="door#*", action="close"}
+
+Group operations
+
+  doors_lasers = doorgrp + lasergrp       -- join of two groups
+  lasergrp     = doors_lasers - doorgrp   -- difference of two groups
+  common_doors = doorgrp1 * doorgrp2      -- intersection of two groups
+
+For loops over a group
+
+  for i = 1, #mygroup do obj = mygroup[i] ... end
+  for obj in mygroup do ... end
+
+Setting and connecting two vortices:
+
+ wo[{3,4}] = {"it_vortex", name="vortex1", destination="vortex3"}
+ wo[{8,6}] = {"it_vortex", name="vortex2", destination="vortex1"}
+ wo[{8,6}] = {"it_vortex", name="vortex3", destination={"vortex1","vortex2"}}
+
+
+Tiles:
+
+  ti["  "] = {"fl_sand"}
+  ti[" w"] = ti["  "] .. {"it_wand"}
+  ti["  "] = {"fl_abyss"}   -- redefinition causes error to avoid common
+                            --   mistakes
+
+  wo[{3,4}] = ti[" w"]
+  wo[{5,6}] = ti["  "] .. {"st_chess"}
+
+  width, height = wo(ti, "  ", { -- second arg: default tile key that 
+  "########",                    --   defines the base, too - this example
+  "##   w##",                    --   is 2 chars per tile/grid 
+  "########"
+  })
+
+Note: Tiles kann be used after the initialization as well:
+
+function my_callback(value, sender)
+    wo[sender] = ti[" w"]
+end
+
+
+
+
+C2 - Object reference validity and usability   (done)
+--------------------------------------------
+
+Objects existance and validity can be checked at via the "obj:exists()"
+method or the operator "-obj". Not existing objects are still of type
+object (not nil like in old API!). These "null" objects are not equal
+concerning the Lua "==" comparison to any object, even themself.
+
+Write access, kill of and messages to "null" objects are silently ignored.
+World set objects to "null" object position is ignored, too. This allows
+loops and group usage even with "null" targets without problems.
+
+All read operations that return object specific values which are not
+usable for group operations and can just be used with a single object
+as target will throw an error if this object is a "null" object. The
+application will no longer crash. Just a backtrace will be shown like
+on other level exceptions.
+
+
+C3 - Booleans and Nil   (mainly done)
+---------------------
+
+All boolean type attributes and values in the new API are Lua 5.0++
+booleans with values "true" and "false". The engine internal value
+representation takes boolean as another explicit type. Type mismatches
+on transfer of boolean values from or to Lua will no longer occur.
+
+Some attributes and values of the old API that did take values 0 and 1
+may change to other types than boolean due to other API concepts.
+
+Setting an attribute value to "nil" causes the value to be deleted.
+Any further access returns the default value for the attribute.
+
+C4 - Multitarget and Multiaction (coded)
+--------------------------------
+
+The target-action paradigm is extended to a multitarget and multiaction
+messaging system that is even configurable on the senders state. 
+
+Every object can take objects, groups of objects or namestrings (including
+wildcards) as target:
+
+  {"st_switch", target=my_laser, action="on_off"}
+
+  {"st_switch", target=no["my_doors#*"], action="open_close"}
+  {"st_switch", target="my_doors#*", action="open_close"}
+
+Note the subtle difference between the last two expressions: The first one
+evaluates the wildcarded string immediatley and builds a fixed group of the
+current objects that fit the name pattern. The second string is stored as
+given and will be evaluated at the moment the action is performed. This is
+what you need in tile definitions, as the desired target do not exist at the
+moment of the tile definition.
+
+Multiple targets can be declared and each target can take a different action:
+
+  {"st_switch", target={my_laser, "my_door#*", "my_function"},
+                action={"on_off", "open_close", "callback"}}
+
+The default action for all functions is "callback", which can thus be
+omitted:
+
+  {"st_switch", target="my_function"}
+
+The default action for all objects is "toggle", which can thus be
+omitted:
+
+  {"st_switch", target="my_laser"}
+
+Every callback takes the arguments (state_value, sender) where 
+"state_value" is an integer value that represents the internal state
+of the sender object. For switch like objects the state will be 0 for
+"off" and 1 for "on". Other objects like fourswitch etc. will count the
+their states from 0, 1, 2,...
+
+For special cases, especially for editor based levels, the author can
+specify different target/action behaviour based on the value of the
+sender objects state. For each state the following special targets and
+actions preceed the default target and actions given above:
+
+  {"st_switch", target_0="my_door", action_0="close",
+                target_1="my_laser", action_1="off"}
+
+
+The multitarget feature is the successor of the old signal feature. In
+contrast to signals that were bound to tile positions like "stone on
+grid {15, 4}" the multitarget addresses objects themselves. The action
+will find its target even when the user swaps it to another grid postion.
+
+
+C5 - Renaming (partially done)
+-------------
+
+The necessary API changes gives the unique opportunity to simplify
+many old names and to make them consistence. None of names used above
+is fixed. It is up to the level authors to agree on a naming scheme.
+
+Note that valid Lua names start with letter or underscore and consist
+just of these plus numbers.
+
+Just the following rules and conditions need to be observed:
+
+- Short 2 or 3 letter names for the namespace and the special objects
+- System attribute and message names have to be valid Lua names not
+  starting with underscore
+- User attributes start with an underscore
+- System attribute and method names are disjoint
+- Identical system attributes or methods have identical behaviour for
+  all objects
+- User names for objects do not start with "$","#" or "%", do not contain a character
+  out of ",;" and do not end with "#"
+- Object Classnames should use a common scheme of underscore/hyphen
+  usage: Either underscore only, or first hyphen and all other 
+  underscore,... (st_chess_black, st-chess_black, ...)
+
+  Decision of Draft 0.60: all object names will uses exclusivly underscore! 
+
+
+C6 - Global Variables   (coded)
+---------------------
+
+Global variables are handled as attributes of the special world object
+"wo". Write access on variables will be checked and can cause actions
+if necessary. A write to a read only variable like "IsDifficult" will be
+silently ignored.
+
+
+C7 - Critical functions
+-----------------------
+
+All critical functions will be abolished to ensure that new levels
+will be suited for upcoming features. For the very few existing levels
+of the distribution that depend on such features exceptions will be
+hardcoded that will keep these levels to conflict with the new features.
+
+
+C8 - Oxyd   (coded)
+---------
+
+The color attribute is an integer value (0, 1, ..., 7).
+
+Oxyds can be set like any other stones. If no color attribute is
+specified pairs of oxyds with the same color will be set.
+
+To guarantee fair distributions and levels that are solvable the
+author can declare minimum and maximum conditions and groups of
+oxyds like:
+
+wo:shuffleOxyd({grp1, max=0}, {grp1, grp2, min=2}, 
+    {grp1, grp3, min=1, max=1})
+
+As a shortcut groups of oxyds can be declared to be positioned either
+circular or linear. This declaration expands to all rules necessary to
+avoid any neighbour oxyd pairs.
+
+wo:shuffleOxyd({grp(ox1, ox2, ox3, ox4, ox5, ox6), circular=true},
+    {grp2, linear=true})
+
+C9 - Rubberband
+---------------
+
+Rubberband is an object that can be referenced and checked for existance.
+
+
+C10 - Name inheritance   (partially done)
+----------------------
+
+Items like it_seed, it_rubberband that change into stone or rubberband
+objects on activation will inherit their name to the successor stone
+object.
+
+C11 - Checkerboard Floor   (coded)
+------------------------
+
+Every floor takes an attribute "checkerboard". If set to an integer value
+0 the floor will only be placed on grids with x+y being even, if set
+to 1 the floor will be placed only on grids with x+y being uneven.
+
+ti["x"] = ti({"fl_rough_red", checkerboard=0}) + 
+         {"fl_rough_blue", checkerboard=1}
+
+generates an arbitrary shaped checkboardfloor on areas with tile "x"
+on the world map.
+
+C12 - Puzzle
+------------
+
+Puzzles can be autoconfigured and shuffled by the engine. Besides the
+single puzzle stones a dummy stone named "st_puzzle_auto" can be set.
+All adjacent "st_puzzle_auto" and "st_puzzle_hollow" of the same color
+will be configured to a puzzle with maximum number of connections:
+
+ti["#"] = {"st_puzzle_auto"}
+ti["*"] = {"st_puzzle_hollow"}
+
+wo{ti," ",{
+"  # ",
+"##*#",
+"### ",
+" #  "}
+
+results in a puzzle:
+
+   |
+ /T+-
+ \+/
+  |
+
+with the upper "+" being a hollow cross.
+
+If any of the involved puzzle stones has an attribute "shuffle" set
+to "true" the complete puzzle will shuffled. If the value of any
+puzzle stone is an integer it will be taken as the number of permutations
+to be applied. The maximum number of all values will be taken.
+
+Shuffle occurs by permutation of rows and columns that a marble can
+reverse. By default it is assumed that the user can permute rows and
+columns on every side which is not blocked by a stone that is not hollow.
+
+In case the puzzle is only accessable from one side the author can add
+attributes "permute_v" and "permute_h" with boolean values to every
+puzzle stone that does not follow the standard rule.
+
+As hollow puzzle stones will never be permuted to the border of a puzzle
+the author can ensure that every shuffle results in a solvable puzzle.
+
+
+
+Appendix
+========
+
+
+Index/member interpretation and operations of new types:
+--------------------------------------------------------
+
+value = number|string|boolean|object|nil    add  |group|position ?
+
+Enigmaobject:
+  x, y       - grid position access
+
+  exists()
+  is()           - (string)        - test kind
+  kind()         - ()              - get most specific kind
+  kill()         - ()              - kill object
+  message()      - (string [, value]) - send message with an optional value
+  set()          - (table)         - set multiple attributes given in a table
+                                     as key, value pairs
+  xy()
+
+  attribute name       - set/get attribute
+
+  other String not prefixed by "_"   - message
+
+  valid Operations:
+    +            - (object|position|table) + (object|position|table)
+    -            - (object|position|table) - (object|position|table)
+    #            - #object         -- center
+    - (unary)    - -object         -- existance
+    ==           - object == object
+    
+
+Position:
+
+  x, y,          - grid position access
+  
+  grid()               - returns a position aligned to the grid
+  xy()                 - returns x, y
+  
+  valid Operations:
+    +            - (object|position|table) + (object|position|table)
+    -            - (object|position|table) - (object|position|table)
+    *            - (number|position) * (number|position)
+    /            - position / number
+    #            - # position
+    ==           - position == position
+.   ..           - position .. position
+
+Namedobject:
+
+  $String              - reserved for future usage
+  String               - named object access - returns nil if not existing
+                       - name must not include wildcard chars *,?
+  String*?             - get named group with wildcards *,?
+
+Worldobject:
+  [object|position|table|group] = table|tile - write access to world grid
+  [string]             - global world attribute read/write access
+  
+  ()             - (ti|function, string, table) -- initialization "wo(,,)"
+  
+
+  fl()           - (position|table|obj|(num,num)) - get floor at position
+  it()           - (position|table|obj|(num,num))      - get item at position
+  st()           - (position|table|obj|(num,num))      - get stone at position
+  
+  
+  init()         - (ti|function, string, table) -- method synonym for () 
+
+
+Group:
+  1, 2, 3,...          - positve integer as sequence index like table read access
+  String               - on write: set attrib on members
+                       - on access: call method or send message on object
+
+  valid Operations:
+    +                  - join of groups
+    *                  - intersection of groups
+    -                  - difference of groups
+    #                  - length, inherited from table
+
+Tile:
+  
+  valid Operations:
+   ..                   - concat tiles
+   ti(table)            - new tile
+
+
+Tiles:
+  String               - table like read access with string  as index
+                       - write only on not yet existing indices - no overwrite
+		         assign (table|tile)
+
+
+Global Functions  (to be defined)
+----------------
+
+  po(table|[num,num]|obj)
+  fl(position|table|obj|(num,num))
+  it(position|table|obj|(num,num))
+  st(position|table|obj|(num,num))
+
+
+Lua Caveats:
+============
+
+It is a basic LUA feature that the user has no real control about the used
+variable types. This causes overall trouble:
+
+a = "3"
+b = "7"
+c = 4
+b - a == c          -- is true as    7 - 3 == 4
+c + a == b          -- is false as   4 + 3 == 7  but 7 ~= "7"
+
+A similar LUA problem may hit authors in the usage of position constants.
+Expressions like {7,3} may be used anywhere as position arguments as they are
+autoconverted into positions. But care must be taken with direct calculations
+and variable assignments of constant positions:
+
+table = {7, 3}      -- this variable is a simple table with two numbers at
+                    -- the indices 1 and 2 but it is not a position
+wo[table] = obj     -- o.k. as the table gets now converted as an argument
+pos = #table        -- is not a centerd position but a number with value 2
+                    -- as it the length operation of a table
+pos = table + {1,2} -- error as two tables cannot be added like positions
+pos = obj + table   -- o.k. as obj is a position that forces an autoconvert
+                    -- of the table
+
+
+Another similar Lua caveat exists in the position comparison. Even though
+you can use objects as position standins anywhere else the Lua comparison of
+variables priorises the type comparison to the value comparison:
+
+pos = po(3, 5)
+wo[pos] = {"st-switch"}
+obj = st(pos)
+pos == obj          -- false as the types differ
+pos == po(obj)      -- true as types and values are equal
+
+
+
+Lua index syntax - different treatment of numbers, names and strings:
+
+1, 2                        -- are valid Lua numbers
+x, y, otto2, _myX           -- are valid Lua names
+"$secret", "1", "fl-abyss"  -- are just Lua strings
+
+x = 7
+pos = po(3, 5)
+pos["x"]          -- valid table like access to x coordinate
+pos[x]            -- error as pos[7] is accessed
+pos.x             -- valid member access that is equivalent to pos["x"]
+obj["state"]      -- valid access to attribute "state"
+obj[state]        -- error as global variable "state" is first evaluated (nil)
+obj.state         -- valid access to attribute "state"
+tab[1]            -- valid table access to first entry
+tab["1"]          -- table access to entry at key "1" which is not the first
+                  --   table entry but likley nil.
+tab.1             -- error - Lua needs a valid Lua-name as member
+
+

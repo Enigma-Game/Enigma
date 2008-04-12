@@ -3044,7 +3044,7 @@ of a level.
 You can generate an initially open door by setting its attributes. But how
 can a switch stone open a door when it is hit by a marble? It simply sends
 a message @samp{open} to the door. Another switch may send a message
-@samp{on} to a laser or @samp{ignite} to a @ref{it_dynamite}. On explosion
+@samp{on} to a laser or @samp{ignite} to an @ref{it_dynamite}. On explosion
 the dynamite will in turn send automatically @samp{ignite} messages to the
 neighbour grid positions.
 
@@ -3176,7 +3176,9 @@ E.g. states that are direction related use the state @samp{3} representing
 @samp{0} representing @samp{WEST}.
 
 In most cases it is sufficient to perform a state independent common action
-like @ref{toggle}. But sometimes you may want to perform state specific actions.
+like @ref{toggle}. Even two stated objects can be easily sychronized by the
+standard action @ref{signal}. But sometimes you may want to perform very state
+specific actions. Let us look how this can be done.
 
 E.g. a @ref{st_fourswitch} that switches two @ref{st_laser} beaming in 3 states
 but one of them being switched off while in @samp{EAST} state and the other being
@@ -3212,7 +3214,7 @@ Another example are two @ref{it_trigger} that switch a laser. An object pressing
 the first trigger should switch the laser on, an object pressing the second
 trigger should switch it off. But a trigger is two stated and performs one
 action on being pressed and another on being released. Thus we want to block
-the actions an trigger release events:
+the actions on trigger release events:
 
 @example
 @{it_trigger, name="on_trigger",  target="laser#1", action_1="on", action_0="nop"@}
@@ -3337,6 +3339,8 @@ postinit()
 @node Lua API
 @chapter Lua API
 
+Read API Concept Draft
+
 @c ===================  Commons  =======================
 @node Common Attributes and Messages
 @chapter Common Attributes and Messages
@@ -3349,6 +3353,7 @@ used in the default manner.
 @menu
 * Common Attributes:: 
 * Common Messages::   
+* Global Attributes::
 @end menu
 
 @node Common Attributes
@@ -3425,6 +3430,30 @@ descriptions.
 @node destination
 @subsection destination
 
+An attribute that describes one or several destinations. It is used by objects
+like @ref{it_vortex} and @ref{it_wormhole} to describe their teleporting
+destination.
+
+Note that this attribute is only supported if it is listed in the individual
+description.
+
+@table @asis
+@item @b{Type:} @ @ tokens or a single position
+Just a single position for a first destination is allowed. Use tokens to
+define multiple destination.
+@item @b{Values:} @ @ @xref{Object Attributes}
+@example
+destination = po(3.0, 4.7)
+destination = "myFloor"
+destination = myObject
+destination = @{"vortex2","vortex3","vortex4"@}
+@end example
+Note that objects like @samp{it_wormhole} that have just a single destination
+do take the first token object.
+@item @b{Default:} @ @ @code{nil}
+@item @b{Access:} @ @ read/write
+@item @b{Support:} @ @ by teleporting objects
+@end table
 
 @node Common Messages
 @section Common Messages
@@ -3460,6 +3489,76 @@ descriptions.
 @node close
 @subsection close
 
+@node Global Attributes
+@section Global Attributes
+
+@menu
+* MagnetRange:: 
+* MagnetStrength:: 
+* WormholeRange:: 
+* WormholeStrength:: 
+@end menu
+
+@node MagnetRange
+@subsection MagnetRange
+
+A global default distance up to which magnets apply forces to actors. This
+global value is only used if no object specific value is set. 
+
+@table @asis
+@item @b{Type:} @ @ number
+@item @b{Values:} @ @ positive float number or zero
+@item @b{Default:} @ @ @code{10.0}
+@item @b{Access:} @ @ read/write
+@item @b{Support:} @ @ @ref{it_magnet}
+@end table
+
+@node MagnetStrength
+@subsection MagnetStrength
+
+A global scalar default factor for magnet forces. Positive numbers are 
+attracting forces where as negative numbers are repelling forces. This global 
+value is only used if no object specific value is set. 
+
+@table @asis
+@item @b{Type:} @ @ number
+@item @b{Values:} @ @ float number
+@item @b{Default:} @ @ @code{30.0}
+Positve number are attracting, negative numbers are repelling.
+@item @b{Access:} @ @ read/write
+@item @b{Support:} @ @ @ref{it_magnet}
+@end table
+
+@node WormholeRange
+@subsection WormholeRange
+
+A global default distance up to which wormholes apply forces to actors. This
+global value is only used if no object specific value is set. 
+
+@table @asis
+@item @b{Type:} @ @ number
+@item @b{Values:} @ @ positive float number or zero
+@item @b{Default:} @ @ @code{10.0}
+@item @b{Access:} @ @ read/write
+@item @b{Support:} @ @ @ref{it_wormhole}
+@end table
+
+@node WormholeStrength
+@subsection WormholeStrength
+
+A global scalar default factor for wormhole forces. Positive numbers are 
+attracting forces where as negative numbers are repelling forces. This global 
+value is only used if no object specific value is set. 
+
+@table @asis
+@item @b{Type:} @ @ number
+@item @b{Values:} @ @ float number
+@item @b{Default:} @ @ @code{30.0}
+Positve number are attracting, negative numbers are repelling.
+@item @b{Access:} @ @ read/write
+@item @b{Support:} @ @ @ref{it_wormhole}
+@end table
+
 @c ===================  Floors  =======================
 
 @node Floor Objects
@@ -3478,13 +3577,19 @@ descriptions.
 
 @menu
 * it_blocker::         Shrinked Blocker Stone
+* it_brush::           
+* it_coin::            Enigma's currency
 * it_extralife::
+* it_floppy::          
 * it_hammer::
+* it_key::             
 * it_magnet::
 * it_sword::
 * it_trigger::         Floor Switch for Actors and Stones
-* it_umbrella::
-* it_wormhole::
+* it_umbrella::        Death Protection Item
+* it_vortex::          Teleport of Marbels
+* it_wormhole::        Teleport of Actors
+* it_wrench::          
 @end menu
 
 
@@ -3568,6 +3673,66 @@ snapshot of a moving boulder over a blocker line, too. See example levels.
 
 @end table
 
+@c ----------------- Brush Item -------------------- 
+@node it_brush
+@subsection it_brush
+@obindex it_brush
+
+
+@table @asis
+
+@item @b{Attributes:} none
+
+@item @b{Messages:} none
+
+@end table
+
+@c ----------------- Coin Item -------------------- 
+@node it_coin
+@subsection it_coin
+@obindex it_coin
+
+A coin activates an @ref{st_coinslot} when inserted by hitting the stone with
+the coin as first item in the players inventory. The time interval of activity 
+of the coinslot depends on the coin type that is represented by its 
+@samp{state}. Small, medium and large coin variants do exist.
+
+When hit by a moving stone the coin type changes from small to medium and
+from medium to large.
+
+A laser beam transforms a small coin into an @ref{it_umbrella}, a medium coin
+into an @ref{it_hammer} and a large coin into an @ref{it_extralife}.
+
+A coin that comes into existence on an illuminated grid position will not
+transform due to already existing laser beams. But it will transform on the first
+additional beam and on laser beams that are switched off and on again.
+
+@table @asis
+
+@item @b{Attributes:}
+
+@table @asis
+@item @b{state}, @ @ @i{values}: @code{0}, @code{1}, @code{2}; @ @ @i{access}: @code{read only} @ @ @xref{state}
+Represents the coin type with 0 being a small coin, 1 being a medium coin and
+2 being a large coin.
+@end table
+
+@item @b{Messages:} none
+
+@item @b{Variants:}
+@table @asis
+@item @b{it_coin}
+A small coin.
+@item @b{it_coin_s}
+A small coin.
+@item @b{it_coin_m}
+A medium coin.
+@item @b{it_coin_l}
+A large coin.
+@end table
+
+@end table
+
 @c ----------------- Extralife Item -------------------- 
 @node it_extralife
 @subsection it_extralife
@@ -3593,6 +3758,22 @@ A standard extralife item.
 @item @b{it_extralife_new}
 An extralife that is immune to light destruction for a short latency period.
 @end table
+
+@end table
+
+@c ----------------- Floppy Item -------------------- 
+@node it_floppy
+@subsection it_floppy
+@obindex it_floppy
+
+A floppy activates an @ref{st_floppy} when inserted by hitting the stone with
+the floppy as first item in the players inventory.
+
+@table @asis
+
+@item @b{Attributes:} none
+
+@item @b{Messages:} none
 
 @end table
 
@@ -3628,10 +3809,82 @@ A hammer that is immune to light transformations for a short latency period.
 
 @end table
 
+@c ----------------- Key Item -------------------- 
+@node it_key
+@subsection it_key
+@obindex it_key
+
+A key activates an @ref{st_key} when inserted by hitting the stone with
+the key as first item in the players inventory.
+
+@table @asis
+
+@item @b{Attributes:} none
+
+@table @asis
+@item @b{code}, @ @ @i{values}: number; @ @ @i{default}: @code{1}
+The code of a key must match that of an @ref{st_key} to unlock it.
+@end table
+
+@item @b{Messages:} none
+
+@end table
+
 @c ----------------- Magnet Item -------------------- 
 @node it_magnet
 @subsection it_magnet
 @obindex it_magnet
+
+Attracts or repells actors in its @samp{range} with a force proportional to the
+@samp{strength} and the inverse of the squared distance. A magnet can be 
+switched @samp{ON} and @samp{OFF}.
+
+Note that no forces are applied to actors at a distance smaller than 0.05 grids
+to avoid extraordinary large forces.
+
+@table @asis
+@item @b{Attributes:}
+
+@table @asis
+@item @b{state}, @ @ @i{values}: @code{ON}, @code{OFF}; @ @ @i{default}: @code{OFF} @ @ @xref{state}
+The current magnet state - @samp{ON} for an active magnet, @samp{OFF} for an
+inactive magnet.
+
+@item @b{range} @ @ @i{values}: float number greater equal 0; @ @ @i{default}: @code{10.0} @ @ @xref{MagnetRange}
+The distance up to which the magnet applies forces to actors.
+
+@item @b{strength} @ @ @i{values}: float number; @ @ @i{default}: @code{+30.0} @ @ @xref{MagnetStrength}
+A scalar factor for magnet forces. Positive numbers are attracting forces
+where as negative numbers are repelling forces.
+@end table
+
+@item @b{Messages:}
+
+@table @asis
+@item @b{signal} @ @ @xref{signal}
+A signal of value 1 switches the magnet on, a value of 0 switches the magnet off.
+@item @b{toggle} @ @ @xref{toggle}
+A toggle causes a change in the magnet activity state.
+@item @b{on} @ @ @xref{on}
+Switches the magnet on.
+@item @b{off} @ @ @xref{off}
+Switches the magnet off.
+@end table
+
+@item @b{Action:}
+none
+
+@item @b{Variants:}
+@table @asis
+@item @b{it_magnet}
+A magnet in state @samp{OFF}.
+@item @b{it_magnet_on}
+A magnet in state @samp{ON}.
+@item @b{it_magnet_off}
+A magnet in state @samp{OFF}.
+@end table
+
+@end table
 
 @c ----------------- Sword Item -------------------- 
 @node it_sword
@@ -3668,7 +3921,7 @@ A sword that is immune to light transformations for a short latency period.
 @subsection it_trigger
 @obindex it_trigger
 
-The trigger item is a switch on top of the floor that reacts on actors and
+The trigger item is a switch on top of a floor that reacts on actors and
 stones on top of it that may press it. It performs actions when it is initially
 pressed and again when it releases after the last object left it. A pressed 
 trigger is in state @samp{ON} and will send an action value of @samp{true}, a 
@@ -3751,17 +4004,182 @@ An umbrella that is immune to light destruction for a short latency period.
 
 @end table
 
+@c ----------------- Vortex Item -------------------- 
+@node it_vortex
+@subsection it_vortex
+@obindex it_vortex
+
+Teleports marbles to a given @samp{destination}. Unlike @ref{it_wormhole} it
+does not teleport other actors.
+
+In the simplest case, a vortex is connected to a single destination given by
+an object or a position. If the destination is not blocked by a stone the
+marble will be teleported to the destination.
+
+If there multiple destination addresses are given, the marble will be teleported
+to the single destinations in sequence. Blocked destinations are indicated by
+sparkles. Finally the marble exists on the first unblocked destination. If no
+unblocked destination exists the marble exists on the starting vortex. A level
+author can write nice puzzle which require the user to block destinations to
+reach the final destination of a vortex.
+
+Vortices can be open or closed. Of course a marble can enter just an open
+vortex. Closed vortices at the destination are opened automatically. By default
+such vortices remain open. By usage of the attribute @samp{autoclose} you can
+configure a vortex to close after a marble has been emitted.
+
+Marbles are emitted by vortices in a jumping fashion. The user can accelerate
+the marble for a short period and the marble may jump out of a vortex into a
+desired direction.
+
+Vortex teleportation take a short amount of time and the involved vortices are
+blocked for other teleporting request during this process. Thus it is no problem
+to set up destinations of vortices that build a cycle.
+
+Rubberbands bound to teleported actors are cut by default. The attribute
+@samp{scissor} allows you to control the cutting behaviour.
+
+
+@table @asis
+@item @b{Attributes:}
+
+@table @asis
+@item @b{state}, @ @ @i{values}: @code{OPEN}, @code{CLOSED}; @ @ @i{default}: @code{OPEN} @ @ @xref{state}
+The visual state of a vortex. An @samp{OPEN} vortex may still be busy due
+to ongoing teleportations and may not accept a marble.
+
+@item @b{destination}, @ @ @i{values}: tokens or position; @ @ @i{default}: @code{nil} @ @ @xref{destination}
+The destination of the teleport given by an object or a position.
+
+@item @b{autoclose}, @ @ @i{values}: @code{true}, @code{false}; @ @ @i{default}: @code{false}
+Flag that indicates whether the vortex should be closed after a teleport.
+
+@item @b{scissor}, @ @ @i{values}: @code{true}, @code{false}; @ @ @i{default}: @code{true}
+Rubberband cutting behaviour on teleporting.
+
+@item @b{Messages:}
+
+@table @asis
+@item @b{signal} @ @ @xref{signal}
+Opens the vortex on value @samp{1}, and closes the vortex on value @samp{0}.
+@item @b{toggle} @ @ @xref{toggle}
+Opens a closed vortex and closes an open vortex if possible.
+@item @b{open} @ @ @xref{open}
+Try to open a vortex.
+@item @b{close} @ @ @xref{close}
+Try to close a vortex.
+@end table
+
+@item @b{Action:}
+none
+
+@end table
+
 @c ----------------- Wormhole Item -------------------- 
 @node it_wormhole
 @subsection it_wormhole
 @obindex it_wormhole
+
+Teleports actors of any kind to a given @samp{destination}. Unlike 
+@ref{it_vortex} every wormhole has a unique destination. But of course the
+destination may be another wormhole which instantly teleports the actor again.
+Infinite circle of wormholes conneted by destinations are forbidden.
+
+A wormhole can attract or repell actors in its @samp{range} with a force
+proportional to the @samp{strength} and the inverse of the squared distance.
+The force can be switched @samp{ON} and @samp{OFF} and is represented by its
+external @samp{state}. Note that no forces are applied to actors at a distance
+smaller than 0.05 grids to avoid extraordinary large forces.
+
+Rubberbands bound to teleported actors are cut by default. The attribute
+@samp{scissor} allows you to control the cutting behaviour.
+
+After teleporting an actor, the wormhole's teleporting ability may be switched
+off for a short latency period given by @samp{interval}. A letancy separates
+actors travelling through a wormhole and avoids overlapping actors at the
+destination.
+
+@table @asis
+@item @b{Attributes:}
+
+@table @asis
+@item @b{state}, @ @ @i{values}: @code{ON}, @code{OFF}; @ @ @i{default}: @code{OFF} @ @ @xref{state}
+The current force state - @samp{ON} for an force applying wormholes, @samp{OFF}
+for force neutral wormholes.
+
+@item @b{destination}, @ @ @i{values}: tokens or position; @ @ @i{default}: @code{nil} @ @ @xref{destination}
+The destination of the teleport given by an object or a position.
+
+@item @b{range} @ @ @i{values}: float number greater equal 0; @ @ @i{default}: @code{10.0} @ @ @xref{WormholeRange}
+The distance up to which the wormhole applies forces to actors.
+
+@item @b{strength} @ @ @i{values}: float number; @ @ @i{default}: @code{+30.0} @ @ @xref{WormholeStrength}
+A scalar factor for the wormhole force. Positive numbers are attracting forces
+where as negative numbers are repelling forces.
+@end table
+
+@item @b{scissor}, @ @ @i{values}: @code{true}, @code{false}; @ @ @i{default}: @code{true}
+Rubberband cutting behaviour on teleporting.
+
+@item @b{interval} @ @ @i{values}: float number greater equal 0; @ @ @i{default}: @code{0.0}
+The letancy time after a teleport during which no further teleports take place.
+
+
+@item @b{Messages:}
+
+@table @asis
+@item @b{signal} @ @ @xref{signal}
+A signal of value 1 switches the wormhole force on, a value of 0 switches the
+wormhole force off.
+@item @b{toggle} @ @ @xref{toggle}
+A toggle causes a change in the wormhle force activity state.
+@item @b{on} @ @ @xref{on}
+Switches the wormhole on.
+@item @b{off} @ @ @xref{off}
+Switches the wormhole off.
+@end table
+
+@item @b{Action:}
+none
+
+@item @b{Variants:}
+@table @asis
+@item @b{it_wormhole}
+A wormhole in state @samp{OFF}.
+@item @b{it_wormhole_on}
+A wormhole in state @samp{ON}.
+@item @b{it_wormhole_off}
+A wormhole in state @samp{OFF}.
+@end table
+
+@end table
+
+@c ----------------- Wrench Item -------------------- 
+@node it_wrench
+@subsection it_wrench
+@obindex it_wrench
+
+A wrench wielded as first item in the players inventory causes some objects
+to react on actor hits. An @ref{st_rotator} changes its turning direction.
+An green @ref{st_turnstile} rotates backwards when hit. An @ref{st_window}
+face pushed with an wrench will swap to the opposite side of the stone if
+possible.
+
+@table @asis
+
+@item @b{Attributes:} none
+
+@item @b{Messages:} none
+
+@end table
 
 @c ===================  Stones  =======================
 @node Stone Objects
 @chapter Stone Objects
 
 @menu
-* Simple Stones:: 
+* Simple Stones::
+* Cluster Stones::
 * Transparent Stones::
 * Breakable Stones::
 * Special Stones::
@@ -3770,6 +4188,169 @@ An umbrella that is immune to light destruction for a short latency period.
 
 @node Simple Stones
 @section Simple Stones
+
+@node Cluster Stones
+@section Cluster Stones
+
+A cluster stone is a passive wall stone like a simple stone. But several
+cluster stones adjacent to each other can visually build a cluster and look
+like a single big stone with a one common outer face.
+
+@menu
+* Cluster Features::   Common Attributes and Features
+* st_bluesand::        big sand stone look
+* st_brick::           brick wall look
+* st_panel::           wooden panel look
+@end menu
+
+@c ----------------- Cluster Features -------------------- 
+@node Cluster Features
+@subsection Cluster Features
+
+For each cluster stone there exist 16 different variations that represent all
+needed combinations of inner and outer faces to build arbitrary shaped big
+blocks. 
+
+There exist two methods of describing a special variation. You can either give
+the inner faces, the @samp{connections}, those sides that should be adjacent to
+other stones of the same cluster. Or you can give the outer faces, the 
+@samp{faces}, that build the common outer face of the resulting big block.
+
+As it is a tedious work to set up larger blocks by their single stones with
+appropriate faces you can rely on an automatical clustering feature. Just
+set the @samp{cluster} attribute of all single stones of a big block to the
+same number and the faces will be set up automatically to form a large block.
+
+You can build a screen of arbitrary big blocks and it is proven that there will
+be never be the need of more than 4 different cluster numbers (the "4 color 
+theorem"). But for convenience you are free to use additional cluster numbers
+as you like. Note that the autoclustering is quite dynamic. A single cluster
+stone with fitting cluster number that is swapped at the side of an existing
+block with the same cluster number will melt and join the block like seen in
+"Terminator 2".
+
+We recommend making use of the autoclustering feature by setting the 
+@samp{cluster} attribute and using the @samp{faces} attribute where necessary.
+@samp{connections} attribute and explicit naming of variations by suffices 
+are depreceated, but will continue to be supported.
+
+@table @asis
+@item @b{Attributes:}
+
+@table @asis
+@item @b{connections}, @ @ @i{values}: string; @ @ @i{default}: @code{nil}
+Describes the inner faces of stone. The string is a substring of @code{"nesw"}
+listing the inner faces. The sequence of the sides, north, east, south, west,
+is guaranteed on read access but arbitrary on write access.
+
+@item @b{faces} @ @ @i{values}: string; @ @ @i{default}: @code{nil}
+Describes the outer faces of stone. The string is a substring of @code{"nesw"}
+listing the outer faces. The sequence of the sides, north, east, south, west,
+is guaranteed on read access but arbitrary on write access.
+
+@item @b{cluster} @ @ @i{values}: number; @ @ @i{default}: @code{nil}
+If set to a number all adjacent cluster stones of the same base type with
+the identical cluster number will build a big block. This attribute superceeds
+any explicit given face description.
+
+@end table
+@end table
+
+@c ----------------- Bluesand Stone -------------------- 
+@node st_bluesand
+@subsection st_bluesand
+@obindex st_bluesand
+
+A standard cluster stone with the @ref{Cluster Features}. It is recommended
+to use @samp{st_bluesand} with the attributes @samp{cluster} and @samp{faces}.
+
+@table @asis
+@item @b{Variants:}
+@table @asis
+@item @b{st_bluesand}: connections = @code{""}
+@item @b{st_bluesand_w}: connections = @code{"w"}
+@item @b{st_bluesand_s}: connections = @code{"s"}
+@item @b{st_bluesand_sw}: connections = @code{"sw"}
+@item @b{st_bluesand_e}: connections = @code{"e"}
+@item @b{st_bluesand_ew}: connections = @code{"ew"}
+@item @b{st_bluesand_es}: connections = @code{"es"}
+@item @b{st_bluesand_esw}: connections = @code{"esw"}
+@item @b{st_bluesand_n}: connections = @code{"n"}
+@item @b{st_bluesand_nw}: connections = @code{"nw"}
+@item @b{st_bluesand_ns}: connections = @code{"ns"}
+@item @b{st_bluesand_nsw}: connections = @code{"nsw"}
+@item @b{st_bluesand_ne}: connections = @code{"ne"}
+@item @b{st_bluesand_new}: connections = @code{"new"}
+@item @b{st_bluesand_nes}: connections = @code{"nes"}
+@item @b{st_bluesand_nesw}: connections = @code{"nesw"}
+
+@end table
+
+@end table
+
+@c ----------------- Brick Stone -------------------- 
+@node st_brick
+@subsection st_brick
+@obindex st_brick
+
+A standard cluster stone with the @ref{Cluster Features}. It is recommended
+to use @samp{st_brick} with the attributes @samp{cluster} and @samp{faces}.
+
+@table @asis
+@item @b{Variants:}
+@table @asis
+@item @b{st_brick}: connections = @code{""}
+@item @b{st_brick_w}: connections = @code{"w"}
+@item @b{st_brick_s}: connections = @code{"s"}
+@item @b{st_brick_sw}: connections = @code{"sw"}
+@item @b{st_brick_e}: connections = @code{"e"}
+@item @b{st_brick_ew}: connections = @code{"ew"}
+@item @b{st_brick_es}: connections = @code{"es"}
+@item @b{st_brick_esw}: connections = @code{"esw"}
+@item @b{st_brick_n}: connections = @code{"n"}
+@item @b{st_brick_nw}: connections = @code{"nw"}
+@item @b{st_brick_ns}: connections = @code{"ns"}
+@item @b{st_brick_nsw}: connections = @code{"nsw"}
+@item @b{st_brick_ne}: connections = @code{"ne"}
+@item @b{st_brick_new}: connections = @code{"new"}
+@item @b{st_brick_nes}: connections = @code{"nes"}
+@item @b{st_brick_nesw}: connections = @code{"nesw"}
+
+@end table
+
+@end table
+@c ----------------- Panel Stone -------------------- 
+@node st_panel
+@subsection st_panel
+@obindex st_panel
+
+A standard cluster stone with the @ref{Cluster Features}. It is recommended
+to use @samp{st_panel} with the attributes @samp{cluster} and @samp{faces}.
+
+@table @asis
+@item @b{Variants:}
+@table @asis
+@item @b{st_panel}: connections = @code{""}
+@item @b{st_panel_w}: connections = @code{"w"}
+@item @b{st_panel_s}: connections = @code{"s"}
+@item @b{st_panel_sw}: connections = @code{"sw"}
+@item @b{st_panel_e}: connections = @code{"e"}
+@item @b{st_panel_ew}: connections = @code{"ew"}
+@item @b{st_panel_es}: connections = @code{"es"}
+@item @b{st_panel_esw}: connections = @code{"esw"}
+@item @b{st_panel_n}: connections = @code{"n"}
+@item @b{st_panel_nw}: connections = @code{"nw"}
+@item @b{st_panel_ns}: connections = @code{"ns"}
+@item @b{st_panel_nsw}: connections = @code{"nsw"}
+@item @b{st_panel_ne}: connections = @code{"ne"}
+@item @b{st_panel_new}: connections = @code{"new"}
+@item @b{st_panel_nes}: connections = @code{"nes"}
+@item @b{st_panel_nesw}: connections = @code{"nesw"}
+
+@end table
+
+@end table
+
 
 @node Transparent Stones
 @section Transparent Stones
@@ -3781,9 +4362,15 @@ An umbrella that is immune to light destruction for a short latency period.
 @menu
 * st_blocker::         Shrinkable Blocker
 * st_boulder::         Moving Arrow Boulder
+* st_coinslot::        Coin Driven Switch
+* st_floppy::          Floppy Driven Switch
 * st_fourswitch::      Four Direction Switch
+* st_key::             Key Driven Switch
 * st_laser::           Lightemitting Laser
+* st_laserflop::       Lightsensitive Monoflop
 * st_laserswitch::     Lightsensitive Switch
+* st_monoflop::        Monoflop Switch
+* st_oxyd::            Game Target Stone
 * st_polarswitch::     Transparency Switch for Light Beams
 * st_switch::          Classical on/off Switch
 * st_timer::           Animated Timer
@@ -3935,6 +4522,97 @@ none
 
 @end table
 
+@c ----------------- Coinslot Stone -------------------- 
+@node st_coinslot
+@subsection st_coinslot
+@obindex st_coinslot
+
+A switch that is activated by insertion of an @ref{it_coin}. Just actors
+assigned to a player can insert coins out of their item inventory by hitting
+the coinslot with the coin being the first item. Depending on the coin type the
+coinslot remains in state @samp{ON} for a given @samp{interval} before switching
+back to state @samp{OFF}. Multiple inserted coins do prolong the activity 
+interval.
+
+Standard not @samp{instant} coinslots do activate after the insertion process
+of the coin. No additional coins can be inserted while another coin is being
+inserted. This prevents unintended multiple coin insertions. On the other hand
+the player has to insert additional coins early enough to prolong the active
+state without temporaryly switching back to @samp{OFF} state. If the first
+interval runs off while the next coin did not yet finish its insertion the
+coinslot will first switch @samp{OFF} and switch @samp{ON} when the next coin
+is completly inserted.
+
+Coinslots configured as @samp{instant} do activy immediatly when the actor
+hits the stone. On every actor hit a coin is inserted independent of the last
+insertion.
+
+The @samp{state} of a coinslot can be requested but it can not be set, neither
+by attribute nor by messages.
+
+@table @asis
+@item @b{Attributes:}
+
+@table @asis
+@item @b{state}, @ @ @i{values}: @code{ON}, @code{OFF}; @ @ @i{default}: @code{OFF}: @i{access}: @code{read only}  @ @ @xref{state}
+Current activity state of the coinslot.
+@item @b{instant} @ @ @i{values}: @code{true}, @code{false}; @ @ @i{default}: @code{false}
+A default coinslot switches to active state after insertion of a coin and allows
+the insertion of just one coin at a time.
+@item @b{interval_s} @ @ @i{values}: positive number; @ @ @i{default}: @code{3.0}
+Number of additional active seconds on insertion of a small @ref{it_coin}.
+@item @b{interval_m} @ @ @i{values}: positive number; @ @ @i{default}: @code{6.0}
+Number of additional active seconds on insertion of a medium @ref{it_coin}.
+@item @b{interval_l} @ @ @i{values}: positive number; @ @ @i{default}: @code{12.0}
+Number of additional active seconds on insertion of a large @ref{it_coin}.
+@end table
+
+@item @b{Messages:} none
+
+@item @b{Action:} @ @ @xref{target}, @ @ @xref{action}
+
+@item @b{Variants:}
+
+@table @asis
+@item @b{st_coinslot}: instant = @code{false}
+@item @b{st_coinslot_instant}: instant = @code{true}
+@end table
+
+@end table
+
+@c ----------------- Floppy Stone -------------------- 
+@node st_floppy
+@subsection st_floppy
+@obindex st_floppy
+
+A switch that is activated by insertion of an @ref{it_floppy}. Just actors
+assigned to a player can insert a floppy out of their item inventory by hitting
+the floppy switch with a floppy being the first item. 
+
+On a second hit the switch is deactivated and the inserted floppy is returned
+to the players inventory.
+
+@table @asis
+@item @b{Attributes:}
+
+@table @asis
+@item @b{state}, @ @ @i{values}: @code{ON}, @code{OFF}; @ @ @i{default}: @code{OFF}: @ @ @xref{state}
+Current activity state of the floppy stone.
+@end table
+
+@item @b{Messages:}
+
+@table @asis
+@item @b{signal} @ @ @xref{signal}
+Switches on at value @samp{1}, and off at values @samp{0}.
+@item @b{on} @ @ @xref{on}
+@item @b{off} @ @ @xref{off}
+@end table
+
+@item @b{Action:} @ @ @xref{target}, @ @ @xref{action}
+
+@end table
+
 @c ----------------- Fourswitch Stone -------------------- 
 @node st_fourswitch
 @subsection st_fourswitch
@@ -3992,6 +4670,41 @@ action messages will be sent with a value of 1. This allows you to switch on
 and off alternative sources by a fourswitch.
 @end table
 
+@c ----------------- Key Stone -------------------- 
+@node st_key
+@subsection st_key
+@obindex st_key
+
+A switch that is activated by insertion of an @ref{it_key}. Just actors
+assigned to a player can insert a key out of their item inventory by hitting
+the key switch with a key being the first item. Just keys with a matching
+@samp{code} are accepted.
+
+On a second hit the switch is deactivated and the inserted key is returned
+to the players inventory.
+
+@table @asis
+@item @b{Attributes:}
+
+@table @asis
+@item @b{state}, @ @ @i{values}: @code{ON}, @code{OFF}; @ @ @i{default}: @code{OFF}: @ @ @xref{state}
+Current activity state of the key stone.
+@item @b{code}, @ @ @i{values}: number; @ @ @i{default}: @code{1}:
+The code that is required to activy this switch.
+@end table
+
+@item @b{Messages:}
+
+@table @asis
+@item @b{signal} @ @ @xref{signal}
+Switches on at value @samp{1}, and off at values @samp{0}.
+@item @b{on} @ @ @xref{on}
+@item @b{off} @ @ @xref{off}
+@end table
+
+@item @b{Action:} @ @ @xref{target}, @ @ @xref{action}
+
+@end table
 @c ----------------- Laser Stone -------------------- 
 @node st_laser
 @subsection st_laser
@@ -4057,6 +4770,53 @@ Turn orientation in opposite turning direction as defined by attribute
 
 @end table
 
+@c ----------------- Laserflop Stone -------------------- 
+@node st_laserflop
+@subsection st_laserflop
+@obindex st_laserflop
+
+A switch that is triggered by actor hits and laser light. It switches instantly 
+to state @samp{ON} and when it is no longer illuminated it switches back to
+state @samp{OFF} after a given @samp{interval}. Repeatitive actor hits and 
+continuing laser light will prolong the @samp{ON} state untill a trailing 
+@samp{interval} after the last hit has been expired. A similar object without
+light sensitiveness is the @ref{st_monoflop}.
+
+The single state cycle, called monoflop, can be initiated by @samp{on} and
+@samp{signal} messages. But an activated monoflop cannot be stopped by
+messages or state setting.
+
+At initialization a laserflop that is exposed to laser light will start in state
+@samp{ON} without sending actions due to the @ref{Snapshot Principle}.
+
+A laserflop that is moved or swapped in or out of a laser beam will act on
+the light change with proper actions.
+
+@table @asis
+@item @b{Attributes:}
+
+@table @asis
+@item @b{state}, @ @ @i{values}: @code{ON}, @code{OFF}; @ @ @i{default}: @code{OFF}; @ @ @xref{state}
+Represents the activity state. The state of a new object can be set, but an
+active monoflop cannot be set to state @samp{OFF}.
+@item @b{interval} @ @ @i{values}: positive number; @ @ @i{default}: @code{1.8}
+Number of seconds to return to state @samp{OFF} after the last hit.
+
+@end table
+
+@item @b{Messages:}
+
+@table @asis
+@item @b{signal} @ @ @xref{signal}
+Switches on at value @samp{1}. A values of @samp{0} is ignored.
+@item @b{on} @ @ @xref{on}
+Switch the monoflop on like on an actor hit.
+@end table
+
+@item @b{Action:} @ @ @xref{target}, @ @ @xref{action}
+
+@end table
+
 @c ----------------- Laserswitch Stone -------------------- 
 @node st_laserswitch
 @subsection st_laserswitch
@@ -4085,6 +4845,158 @@ the light change with proper actions.
 @item @b{Messages:} none
 
 @item @b{Action:} @ @ @xref{target}, @ @ @xref{action}
+
+@end table
+
+@c ----------------- Monoflop Stone -------------------- 
+@node st_monoflop
+@subsection st_monoflop
+@obindex st_monoflop
+
+A switch that is triggered by actor hits. It switches instantly to
+state @samp{ON} and after a given @samp{interval} back to state @samp{OFF}.
+Repeatitive actor hits will prolong the @samp{ON} state untill a trailing 
+@samp{interval} after the last hit has been expired. A switch similar to
+the monoflop is the @ref{st_laserflop}, which is additionally light sensitive.
+
+The single state cycle, called monoflop, can be initiated by @samp{on} and
+@samp{signal} messages. But an activated monoflop cannot be stopped by
+messages or state setting.
+
+@table @asis
+@item @b{Attributes:}
+
+@table @asis
+@item @b{state}, @ @ @i{values}: @code{ON}, @code{OFF}; @ @ @i{default}: @code{OFF}; @ @ @xref{state}
+Represents the activity state. The state of a new object can be set, but an
+active monoflop cannot be set to state @samp{OFF}.
+@item @b{interval} @ @ @i{values}: positive number; @ @ @i{default}: @code{1.8}
+Number of seconds to return to state @samp{OFF} after the last hit.
+
+@end table
+
+@item @b{Messages:}
+
+@table @asis
+@item @b{signal} @ @ @xref{signal}
+Switches on at value @samp{1}. A values of @samp{0} is ignored.
+@item @b{on} @ @ @xref{on}
+Switch the monoflop on like on an actor hit.
+@end table
+
+@item @b{Action:} @ @ @xref{target}, @ @ @xref{action}
+
+@end table
+
+@c ----------------- Oxyd Stone -------------------- 
+@node st_oxyd
+@subsection st_oxyd
+@obindex st_oxyd
+
+The main target stones of the game. Opening all regular oxyd stones is the
+standard goal of the existing @ref{Ending Conditions}. Regular oxyds stones show
+a color spot when opening. Pairs of same colored stones have to be opened in
+sequence, otherwise the first one closes again.
+
+Even though most levels make use of just a single pair of each color, there
+is no limit on a single color. If you like you can define 3 blue pairs of oxyds
+together with 2 yellow pairs. You do this by setting explicit @samp{color}
+attributes to the oxyds.
+
+For standard levels the @samp{color} can be set to its default @samp{OXYD_AUTO}.
+This causes an automatic coloring by pairs of colors in the standard color
+sequence.
+
+There is no limit on the number of used oxyd pairs. But as just 8 colors do exist
+the colors will repeat from the 9th pair giving the user the possibility to
+build arbitrary couples within a single color. Uneven number of regular colored
+oxyds are not allowed.
+
+Usually oxyds are shuffled by a @samp{wo:shuffleOxyd()} statement after setting
+of all oxyds. All @samp{CLOSED} oxyds that are not explicitly excluded by the
+@samp{noshuffle} attribute take place in shuffling. But you can define
+arbitrary rules to limit and influence the shuffling process to guarantee
+solvabitlity and fairness (@pxref{Oxyd Shuffling Rules}).
+
+Oxyds are opened either by an actor hit, an additional laser beam, an
+@ref{st_boulder} triggering or a message call. A single opened oxyd is in the
+state @samp{OPEN}. If a matching second oxyd is opened both switch to the state
+@samp{OXYDPAIR}. Note that this state can be requested, but it can not be set
+directly.
+
+Single opened oxyds close on not matching partner oxyds being opened and on 
+@samp{close} messages and state setting operations. But oxyds being part of
+an opened pair will not be closed this way.
+
+All oxyds including pairs will close on the @samp{closeall} messages that is
+issued by @ref{st_fart} and oxyds colored @samp{OXYD_FART} on actor hits.
+
+Closed oxyds can have different looks. Their visual representation is defined
+by their @samp{flavor}. For each flavor exists an identical looking simple
+stone: @ref{st_likeoxyd_a}, @ref{st_likeoxyd_b}, @ref{st_likeoxyd_c},
+@ref{st_likeoxyd_d}. If you like an identical looking pseudo stone that takes
+part in the oxyd shuffling you can use an oxyd of color @samp{OXYD_FAKE}.
+
+During the game oxyds can be reshuffled. Just those oxyds that are still closed
+will take part in the new shuffle process. @ref{Oxyd Shuffling Rules} will be
+still guranteed for these partial in game reshuffles. It can be initiated either
+by a @samp{shuffle} message that is send to any of the oxyd objects, or by
+usage of an oxyd of color @samp{OXYD_BOLD}. If such a special oxyd is opened,
+e.g. by an actor hit, it shuffles all remaining oxyds including itself.
+
+At initialization an oxyd that is exposed to laser light will start in state
+@samp{CLOSED}. As it is the gaming target it is a certain exception to the
+@ref{Snapshot Principle}.
+
+An oxyd that is swapped in or out of a laser beam will act on the light change
+with proper actions.
+
+@table @asis
+@item @b{Attributes:}
+
+@table @asis
+@item @b{state}, @ @ @i{values}: @code{CLOSED}, @code{OPEN}, @code{OXYDPAIR}; @ @ @i{default}: @code{CLOSED} @ @ @xref{state}
+
+@item @b{flavor}, @ @ @i{values}: @code{"a"}, @code{"b"}, @code{"c"}, @code{"d"}; @ @ @i{default}: @code{"b"}
+The flavor only affects the visual representation of the stone. Mainly the 
+closed state and the way of opening differ in the following way:
+@table @asis
+@item @code{"a"} bronze, pyramid like stone that opens like a flower
+@item @code{"b"} black, flat stone that opens by a fade animation
+@item @code{"c"} blue, flat stone that opens by a concentric animation
+@item @code{"d"} dark blue, pyramid like stone that opens like a flower
+@end table
+@item @b{color}, @ @ @i{values}: @code{OXYD_AUTO}, @code{OXYD_FAKE}, @code{OXYD_FART}, @code{OXYD_BOLD}, @code{OXYD_BLUE}, @code{OXYD_RED}, @code{OXYD_GREEN}, @code{OXYD_YELLOW}, @code{OXYD_CYAN}, @code{OXYD_PURPLE}, @code{OXYD_WHITE}, @code{OXYD_BLACK}, ; @ @ @i{default}: @code{OXYD_AUTO}
+@item @b{noshuffle} @ @ @i{values}: @code{true}, @code{false}; @ @ @i{default}: @code{false}
+@item @b{static} @ @ @i{values}: @code{true}, @code{false}; @ @ @i{default}: @code{false}
+Static oxyds are neither swappable nor pullable.
+@end table
+
+@item @b{Messages:}
+
+@table @asis
+@item @b{signal} @ @ @xref{signal}
+Try open at value @samp{1}, and close at values @samp{0}.
+@item @b{open} @ @ @xref{open}
+@item @b{close} @ @ @xref{close}
+@item @b{closeall}
+Closes all opened oxyds if send to any object instance.
+@item @b{shuffle}
+Reshuffles all closed oxyds if send to any object instance.
+@end table
+
+@item @b{Action:} @ @ @xref{target}, @ @ @xref{action}
+Values 0, 1.
+
+@item @b{Variants:}
+
+@table @asis
+@item @b{st_oxyd}: flavor = @code{"b"}
+@item @b{st_oxyd_a}: flavor = @code{"a"}
+@item @b{st_oxyd_b}: flavor = @code{"b"}
+@item @b{st_oxyd_c}: flavor = @code{"c"}
+@item @b{st_oxyd_d}: flavor = @code{"d"}
+@end table
 
 @end table
 
@@ -4240,11 +5152,24 @@ The action value starts with @samp{true} and alternates on every event between
 @node Actor Objects
 @chapter Actor Objects
 
+@c ===================  Other Objects  =======================
+
 @node Other Objects
 @chapter Other Objects
 
+@c ===================  Advanced Features  =======================
+
 @node Advanced Features
 @chapter Advanced Features
+
+@menu 
+* Oxyd Shuffling Rules::       
+@end menu
+
+@node Oxyd Shuffling Rules
+@section Oxyd Shuffling Rules
+
+Read API Concept Draft
 
 @node Old API - Objects
 @chapter Old API - Objects

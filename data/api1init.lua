@@ -254,7 +254,7 @@ function enigma.SetAttrib(obj, key, val)
              _key = "oxydcolor"
 	 end
      end
-     if key == "connections" then
+     if key == "connections" and _obj_name ~= "st-puzzle" then
          if val == 1 then _val = ""
          elseif  val == 2  then _val = "w"
          elseif  val == 3  then _val = "s"
@@ -369,7 +369,7 @@ function enigma.GetAttrib(obj, key)
      if key == "whiteball" then
         if val == 1 then val = 1 else val = 0 end
      end
-     if key == "connections" then
+     if key == "connections" and _obj_name ~= "st-puzzle" then
          if val == "" then val = 1
          elseif  val == "w"    then val = 2
          elseif  val == "s"    then val = 3
