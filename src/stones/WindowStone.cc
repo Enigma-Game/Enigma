@@ -61,7 +61,7 @@ namespace enigma {
                 set_anim("st_window_anim");  // TODO anim with remaining unbroken faces
             }
             
-            else if (player::WieldedItemIs (sc.actor, "it-wrench")) {
+            else if (player::WieldedItemIs (sc.actor, "it_wrench")) {
                 if (sc.faces == WESTBIT && sc.normal[0] < 0){
                     tryInnerPull(EAST);
                 } else if (sc.faces == EASTBIT && sc.normal[0] > 0) {

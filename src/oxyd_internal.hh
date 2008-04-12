@@ -32,6 +32,10 @@
 #define it_UNUSED it_INVALID
 #define it_EXTERNAL it_INVALID
 #define it_MISSING it_INVALID
+#define it_key_a it_key
+#define it_key_b it_key
+#define it_key_c it_key
+
 
 #define UNUSED ""
 #define SPECIAL ""

@@ -4,6 +4,7 @@
     <attr name="action" type="tokens" default="nil" rw="rw"/>
     <attr name="autoclose" type="bool" default="false" rw="rw"/>
     <attr name="cluster" type="int" default="nil" min="0" max="1" rw="rw"/>
+    <attr name="code" type="int" default="1" rw="rw"/>
     <attr name="coin_value" type="double" default="1" rw="rw"/>
     <attr name="color" type="int" default="nil" min="0" max="1" rw="rw"/>
     <attr name="connections" type="string" default="nil" rw="rw"/>
@@ -79,6 +80,7 @@
     </object>
     <object name="it_blocker_new" init="true">
     </object>
+    <object name="it_brush"/>
     <object name="it_coin">
       <attr name="coin_value" default="3"/>
       <attr name="state" rw="r"/>
@@ -97,6 +99,9 @@
     <object name="it_floppy"/>
     <object name="it_hammer"/>
     <object name="it_hammer_new" init="true"/>
+    <object name="it_key">
+      <attr name="code"/>
+    </object>
     <object name="it_magnet">
       <attr name="range" default="nil"/>
       <attr name="strength" default="nil"/>
@@ -120,6 +125,20 @@
     </object>
     <object name="it_umbrella"/>
     <object name="it_umbrella_new" init="true"/>
+    <object name="it_vortex">
+      <attr name="destination"/>
+      <attr name="autoclose"/>
+      <attr name="scissor" default="true"/>
+      <msg name="open"/>
+      <msg name="close"/>
+      <msg name="signal"/>
+    </object>
+    <object name="it_vortex_closed">
+      <attr name="state" value="0"/>
+    </object>
+    <object name="it_vortex_open">
+      <attr name="state" value="1"/>
+    </object>
     <object name="it_wormhole">
       <attr name="destination"/>
       <attr name="interval" default="0"/>
@@ -136,6 +155,7 @@
     <object name="it_wormhole_on">
       <attr name="state" value="1"/>
     </object>
+    <object name="it_wrench"/>
     <object name="st" abstract="true"/>
     <object name="st_clusterstone" abstract="true">
       <attr name="cluster"/>
@@ -284,6 +304,12 @@
       <action type="dir" statetype="bool"/>
       <msg name="signal"/>
       <msg name="_trigger"/>
+    </object>
+    <object name="st_key">
+      <attr name="code"/>
+      <msg name="on"/>
+      <msg name="off"/>
+      <msg name="signal"/>
     </object>
     <object name="st_laser">
       <attr name="counterclock"/>

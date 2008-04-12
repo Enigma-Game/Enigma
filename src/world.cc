@@ -1884,8 +1884,8 @@ void AddSignal (const GridLoc &srcloc, const GridLoc &dstloc, const string &msg)
     // activate which key hole
     if (src->getObjectType() == Object::ITEM) {
         ItemID src_id = get_id(dynamic_cast<Item *>(src));
-        if (src_id >= it_key_a && src_id <= it_key_c && dst->is_kind("st_key")) {
-            dst->setAttr("keycode", src->getAttr("keycode"));
+        if (src_id == it_key && dst->is_kind("st_key")) {
+            dst->setAttr("code", src->getAttr("code"));
             return;
         }
     }

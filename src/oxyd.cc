@@ -382,12 +382,30 @@ Item  *OxydLoader::make_item (int type)
 	}
         break;
     case 0x03:                  // note 2
-	{
-	    it = MakeItem (it_document);
-	    string text = convert_encoding(level.getNoteText(1, lang));
-	    it->setAttr ("text", text.c_str());
-	}
-	break;
+    {
+        it = MakeItem (it_document);
+        string text = convert_encoding(level.getNoteText(1, lang));
+        it->setAttr ("text", text.c_str());
+    }
+    break;
+    case 0x14:                  // key a
+    {
+        it = MakeItem(it_key);
+        it->setAttr ("code", 1);
+    }
+    break;
+    case 0x15:                  // key b
+    {
+        it = MakeItem(it_key);
+        it->setAttr ("code", 2);
+    }
+    break;
+    case 0x16:                  // key c
+    {
+        it = MakeItem(it_key);
+        it->setAttr ("code", 3);
+    }
+    break;
     default:
         {
             ItemID id = config.itemtable[type];
@@ -395,9 +413,11 @@ Item  *OxydLoader::make_item (int type)
                 Log << ecl::strf ("Unknown item %X\n",type);
                 it = MakeItem (it_dummy);
                 it->setAttr("code", type);
-            }
-            else
+            } else {
                 it = MakeItem (id);
+                if (id == it_vortex_closed)
+                    it->setAttr("autoclose", true);
+            }
         }
     }
     return it;

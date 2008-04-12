@@ -864,7 +864,7 @@ namespace
 
         void actor_hit(const StoneContact &sc) {
             if( state == INVISIBLE) {
-                if (player::WieldedItemIs (sc.actor, "it-brush")) {
+                if (player::WieldedItemIs (sc.actor, "it_brush")) {
                     sound_event ("stonepaint");
                     state = BRUSH;
                     if (server::GameCompatibility == GAMET_PEROXYD) {
@@ -909,7 +909,7 @@ namespace
         State state;
         void actor_hit(const StoneContact &sc) {
             if (state == INVISIBLE) {
-                if (player::WieldedItemIs (sc.actor, "it-brush")) {
+                if (player::WieldedItemIs (sc.actor, "it_brush")) {
                     sound_event ("stonepaint");
                     state = BRUSH;
                     set_model("st-stone_break");
@@ -1529,7 +1529,7 @@ namespace
         ActorImpulseStoneInvisible() : ActorImpulseBase("st-actorimpulse_invisible") {}
 
         void actor_hit(const StoneContact& sc) {
-            if (player::WieldedItemIs (sc.actor, "it-brush")) {
+            if (player::WieldedItemIs (sc.actor, "it_brush")) {
                 Stone *st = MakeStone("st-actorimpulse");
                 SetStone(get_pos(), st);
                 st->actor_hit(sc);
@@ -1694,7 +1694,7 @@ namespace
     private:
         void actor_hit(const StoneContact &sc) {
             if (player::WieldedItemIs (sc.actor, "it-magicwand") ||
-                player::WieldedItemIs (sc.actor, "it-brush"))
+                player::WieldedItemIs (sc.actor, "it_brush"))
             {
                 Value color = sc.actor->getAttr("color");
                 if      (color && color == BLACK) 
@@ -2112,7 +2112,7 @@ namespace
         }
 
         void actor_hit(const StoneContact &sc) {
-            if (player::WieldedItemIs(sc.actor, "it-brush")) {
+            if (player::WieldedItemIs(sc.actor, "it_brush")) {
                 sound_event("stonepaint");
                 ReplaceStone(get_pos(), MakeStone("st-plain"));
             } else
@@ -2143,7 +2143,7 @@ namespace
         }
 
         void actor_hit(const StoneContact &sc) {
-            if (player::WieldedItemIs(sc.actor, "it-brush")) {
+            if (player::WieldedItemIs(sc.actor, "it_brush")) {
                 sound_event("stonepaint");
                 ReplaceStone(get_pos(), MakeStone("st-plain_move"));
             } else

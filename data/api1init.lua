@@ -47,6 +47,7 @@ RenamingObjectsOld2New = {
 RenamingObjectsNew2Old = {
     it_blocker = "it-blocker",
     it_blocker_new = "it-blocker-new",
+    it_brush = "it-brush",
     it_coin_s = "it-coin1",
     it_coin_m = "it-coin2",
     it_coin_l = "it-coin4",
@@ -59,8 +60,12 @@ RenamingObjectsNew2Old = {
     it_sword = "it-sword",
     it_trigger = "it-trigger",
     it_umbrella = "it-umbrella",
+    it_vortex = "it-vortex-open",
+    it_vortex_open = "it-vortex-open",
+    it_vortex_closed = "it-vortex-closed",
     it_wormhole_on = "it-wormhole",
     it_wormhole_off = "it-wormhole-off",
+    it_wrench = "it-wrench",
     st_blocker = "st-blocker",
     st_blocker_new = "st-blocker-growing",
     st_bluesand = "st-blue-sand",
@@ -128,19 +133,19 @@ function enigma.MakeObject(name)
     if name == "st-key" then
         local obj = enigma._MakeObject("st_key")
         -- Old API keycode default was 0 for st-key, but 1 for it-key!
-        enigma._SetAttrib(obj, "keycode", 0)
+        enigma._SetAttrib(obj, "code", 0)
         return obj
     elseif name == "st-key_a" then
         local obj = enigma._MakeObject("st_key")
-        enigma._SetAttrib(obj, "keycode", 1)
+        enigma._SetAttrib(obj, "code", 1)
         return obj
     elseif name == "st-key_b" then
         local obj = enigma._MakeObject("st_key")
-        enigma._SetAttrib(obj, "keycode", 2)
+        enigma._SetAttrib(obj, "code", 2)
         return obj
     elseif name == "st-key_c" then
         local obj = enigma._MakeObject("st_key")
-        enigma._SetAttrib(obj, "keycode", 3)
+        enigma._SetAttrib(obj, "code", 3)
         return obj
     elseif name == "st-switch" then
         local obj = enigma._MakeObject("st_switch")
@@ -154,6 +159,18 @@ function enigma.MakeObject(name)
         local obj = enigma._MakeObject("st_switch_white")
         enigma._SetAttrib(obj, "instant", true)
         return obj
+    elseif name == "it-key_a" or  name == "it-key" then
+        local obj = enigma._MakeObject("it_key")
+        enigma._SetAttrib(obj, "code", 1)
+        return obj
+    elseif name == "it-key_b" then
+        local obj = enigma._MakeObject("it_key")
+        enigma._SetAttrib(obj, "code", 2)
+        return obj
+    elseif name == "it-key_c" then
+        local obj = enigma._MakeObject("it_key")
+        enigma._SetAttrib(obj, "code", 3)
+        return obj
     elseif name == "it-wormhole" then
         local obj = enigma._MakeObject("it_wormhole_on")
         enigma._SetAttrib(obj, "scissor", false)
@@ -161,6 +178,15 @@ function enigma.MakeObject(name)
     elseif name == "it-wormhole-off" then
         local obj = enigma._MakeObject("it_wormhole_off")
         enigma._SetAttrib(obj, "scissor", false)
+        return obj
+    elseif name == "it-vortex-open" then
+        local obj = enigma._MakeObject("it_vortex_open")
+        enigma._SetAttrib(obj, "scissor", false)
+        return obj
+    elseif name == "it-vortex-closed" then
+        local obj = enigma._MakeObject("it_vortex_closed")
+        enigma._SetAttrib(obj, "scissor", false)
+        enigma._SetAttrib(obj, "autoclose", true)
         return obj
     end
 
@@ -182,7 +208,7 @@ function enigma.GetKind(obj)
     local _oldname = RenamingObjectsNew2Old[_newname]
 
     if _newname == "st_key" then
-        local code = enigma._GetAttrib(obj, "keycode")
+        local code = enigma._GetAttrib(obj, "code")
         if code == 0 then
             return "st-key"
         elseif code == 1 then
@@ -193,6 +219,18 @@ function enigma.GetKind(obj)
             return "st-key_c"
         else -- arbitrary keycodes
             return "st-key"
+        end
+    end
+    if _newname == "it_key" then
+        local code = enigma._GetAttrib(obj, "code")
+        if code == 1 then
+            return "it-key_a"
+        elseif code == 2 then
+            return "it-key_b"
+        elseif code == 3 then
+            return "it-key_c"
+        else -- arbitrary keycodes
+            return "it-key_a"
         end
     end
     if string.sub(_newname, 1, 8) == "st_laser" then
@@ -234,6 +272,9 @@ function enigma.SetAttrib(obj, key, val)
          elseif  val == 15 then _val = "nes"
          elseif  val == 16 then _val = "nesw"
          end
+     end
+     if key == "keycode" then
+         _key = "code"
      end
      if key == "delay" then
          _key = "interval"
@@ -298,6 +339,9 @@ end
 function enigma.GetAttrib(obj, key)
      local _key = key
      local _obj_name = enigma.GetKind(obj)
+     if key == "keycode" then
+         _key = "code"
+     end
      if key == "delay" then
          _key = "interval"
      end
@@ -392,8 +436,8 @@ MessageRenaming = {
     it_magnet__onoff = "toggle",
     ["it-tinyhill__trigger"] = "flip",
     ["it-tinyhollow__trigger"] = "flip",
-    ["it-vortex-open__trigger"] = "toggle",
-    ["it-vortex-closed__trigger"] = "toggle",
+    it_vortex__openclose = "toggle",
+    it_vortex__trigger = "toggle",
     it_wormhole__onoff = "toggle",
     ["st-black1__trigger"] = "signal",
     ["st-black2__trigger"] = "signal",

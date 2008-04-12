@@ -393,7 +393,6 @@ do
         "it-blocker",
         "it-booze",
         "it-booze-broken",
-        "it-brush",
         "it-cherry",
         "it-cross",
         "it-document",
@@ -407,7 +406,6 @@ do
         "it-hill",
         "it-hollow",
         "it-hstrip",
-        "it-key",
         "it-landmine",
         "it-magicwand",
         "it-odometer",
@@ -425,21 +423,23 @@ do
         "it-tinyhollow",
         "it-vstrip",
         "it-weight",
-        "it-whitebomb",
-        "it-wrench"
+        "it-whitebomb"
     }
 
     DefImages(itemlist)
 
     DefImage("it-brake", {filename="st-brake"})
+    DefImage("it_brush", {filename="it-brush"})
     DefImage("it_coin_s", {filename="it-coin1"})
     DefImage("it_coin_m", {filename="it-coin2"})
     DefImage("it_coin_l", {filename="it-coin4"})
     DefImage("it_extralife", {filename="it-extralife"})
     DefImage("it_floppy", {filename="it-floppy"})
     DefImage("it_hammer", {filename="it-hammer"})
+    DefImage("it_key", {filename="it-key"})
     DefImage("it_sword", {filename="it-sword"})
     DefImage("it_umbrella", {filename="it-umbrella"})
+    DefImage("it_wrench", {filename="it-wrench"})
 end
 
 -------------------------

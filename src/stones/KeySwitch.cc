@@ -26,7 +26,6 @@
 
 namespace enigma {
     KeySwitch::KeySwitch() : Stone () {
-        setAttr("keycode", Value(1));
     }
 
     void KeySwitch::setState(int extState) {
@@ -60,8 +59,8 @@ namespace enigma {
         if (server::GameCompatibility == enigma::GAMET_ENIGMA) {
             if (state == ON) {
                 if (!inv->is_full()) {
-                    Item *key = MakeItem("it-key");
-                    key->setAttr("keycode", getAttr("keycode"));
+                    Item *key = MakeItem("it_key");
+                    key->setAttr("code", getAttr("code"));
                     inv->add_item(key);
                     toggle = true;
                 }
@@ -89,8 +88,8 @@ namespace enigma {
     {
         Item *it = inv->get_item(0);
         return (it
-             && it->is_kind("it-key*")
-             && it->getAttr("keycode") == getAttr("keycode"));
+             && it->isKind("it_key")
+             && it->getAttr("code") == getAttr("code"));
     }
 
     DEF_TRAITS(KeySwitch, "st_key", st_key);

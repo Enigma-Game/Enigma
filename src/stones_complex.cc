@@ -103,7 +103,7 @@ namespace
         }
 
         void actor_hit (const StoneContact &sc) {
-            if (player::WieldedItemIs (sc.actor, "it-wrench")) {
+            if (player::WieldedItemIs (sc.actor, "it_wrench")) {
                 clockwise = !clockwise;
                 init_model();
             }
@@ -1987,7 +1987,7 @@ void Turnstile_Arm::on_impulse(const Impulse& impulse) {
             bool clockwise = (a == ROTR);
             Actor *a = dynamic_cast<Actor*>(impulse.sender);
             if ((pivot->get_traits().id == st_turnstile_green) && a != NULL &&
-                    player::WieldedItemIs(a, "it-wrench"))
+                    player::WieldedItemIs(a, "it_wrench"))
                 clockwise = !clockwise;
             pivot->rotate(clockwise, impulse.sender); // ROTR is clockwise
         }
