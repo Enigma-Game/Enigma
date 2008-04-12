@@ -128,6 +128,7 @@ function copy_doc
     cpfile doc/images/flags25x15/*.png	images/flags25x15
     cptext etc/README-SDL.txt 	        README-SDL.txt
     cptext doc/reference/ant_lua.txt 	reference/ant_lua.txt
+    cptext doc/reference/ConceptLuaAPI2.txt 	reference/ConceptLuaAPI2.txt
     cptext doc/reference/sounds.txt	reference/sounds.txt
     cptext doc/reference/soundset.lua   reference/soundset.lua
     cpfile doc/reference/lua2xml	reference/

@@ -4073,6 +4073,17 @@ Try to close a vortex.
 @item @b{Action:}
 none
 
+@item @b{Variants:}
+@table @asis
+@item @b{it_vortex}
+A vortex in state @samp{OPEN}.
+@item @b{it_vortex_open}
+A vortex in state @samp{OPEN}.
+@item @b{it_vortex_closed}
+A vortex in state @samp{CLOSED}.
+@end table
+
+
 @end table
 
 @c ----------------- Wormhole Item -------------------- 
