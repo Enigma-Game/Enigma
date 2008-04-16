@@ -840,12 +840,7 @@ void Client::level_loaded(bool isRestart)
         }
     }
 
-    sound::FadeoutMusic();
-    if (options::GetBool("InGameMusic")) {
-        sound::PlayMusic (options::GetString("LevelMusicFile"));
-    } else {
-        sound::StopMusic();
-    }
+    sound::StartLevelMusic();
 
     // start screen transition
     GC gc(video::BackBuffer());

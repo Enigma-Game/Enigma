@@ -230,7 +230,7 @@ namespace enigma { namespace gui {
         const video::VMInfo *vminfo = video::GetInfo();
     
         video::SetCaption (("Enigma - Main Menu"));
-        sound::PlayMusic (options::GetString("MenuMusicFile"));
+        sound::StartMenuMusic();
     
         blit(gc, vminfo->mbg_offsetx, vminfo->mbg_offsety, enigma::GetImage("menu_bg", ".jpg"));
     

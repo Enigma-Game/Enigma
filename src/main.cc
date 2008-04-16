@@ -377,6 +377,9 @@ void Application::init(int argc, char **argv)
     // ----- Initialize sound tables -- needs sound, oxyd, video (error messages!)
     sound::InitSoundSets();
 
+    // ----- Initialize music -- needs application state
+    sound::InitMusic();
+    
 #if MACOSX
     updateMac1_00();
 #endif

@@ -553,7 +553,10 @@ void server::Msg_Command (const string &cmd)
     else if (cmd == "cheats") {
         client::Msg_ShowText("god, collision  -- Be aware: you'll get no medals!", true);
     }
-
+    else if (cmd == "April 1st") {
+        client::Msg_ShowText("No pizza, and a cloudless sky.", true);
+    }
+   
     else {
         enigma::Log << "Warning: Server received unknown command '" << cmd << "'\n";
     }

@@ -193,7 +193,7 @@ namespace sound
                     double relative_volume = 1.0, int priority=0);
     bool PlaySoundGlobal (const SoundName &, double relative_volume = 1.0, int priority=0);
 
-    void PlayMusic (const std::string &name);
+    bool PlayMusic (const std::string &name, double position = 0.0);
     void FadeoutMusic();
 
     /*! Stop any music currently playing. */
@@ -203,6 +203,12 @@ namespace sound
       continue playing. */
     void StopMusic (const std::string &name);
 
+    void DefineMusicSingle(std::string title, std::string filename);
+    bool StartMenuMusic();
+    bool StartLevelMusic();
+    void MusicTick(double dtime);
+    void InitMusic();
+    
     void ClearCache();
     void DefineSound (const SoundName &, const SoundData &);
     void SetSoundVolume (double vol);
@@ -236,6 +242,10 @@ namespace sound
     int GetOptionSoundSet();
     void SetOptionSoundSet(int value);
     std::string GetOptionSoundSetText(int value);
+    int GetOptionMenuMusicCount();
+    int GetOptionMenuMusic();
+    void SetOptionMenuMusic(int value);
+    std::string GetOptionMenuMusicText(int value);
 }
 
 #endif

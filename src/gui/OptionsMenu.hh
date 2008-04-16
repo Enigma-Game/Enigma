@@ -50,6 +50,7 @@ namespace enigma { namespace gui {
         gui::TextField *userNameTF;
         gui::TextField *userPathTF;
         gui::TextField *userImagePathTF;
+        gui::TextField *menuMusicTF;
         gui::Label  *m_restartinfo;
         ecl::Surface *background;
         std::string  previous_caption;
@@ -88,6 +89,14 @@ namespace enigma { namespace gui {
         std::string get_text(int value) const;
     };
 
+    class MenuMusicButton : public ValueButton {
+    public:
+        MenuMusicButton();
+        int get_value() const;
+        void set_value(int value);
+        std::string get_text(int value) const;
+    };
+    
     class LanguageButton : public ValueButton {
         int get_value() const;
         void set_value(int value);

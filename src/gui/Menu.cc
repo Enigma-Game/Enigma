@@ -86,7 +86,8 @@ namespace enigma { namespace gui {
             SDL_Delay(10);
             if(active_widget) active_widget->tick(0.01);
             if(key_focus_widget && (key_focus_widget != active_widget)) key_focus_widget->tick(0.01);
-            tick (0.01);
+            tick(0.01);
+            sound::MusicTick(0.01);
             refresh();
         }
         sound::EmitSoundEvent ("menuexit");

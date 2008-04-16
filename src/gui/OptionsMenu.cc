@@ -182,6 +182,25 @@ namespace enigma { namespace gui {
         return _(sound::GetOptionSoundSetText(value).c_str());
     }
 
+    /* -------------------- MenuMusicButton -------------------- */
+    
+    MenuMusicButton::MenuMusicButton() : ValueButton(0, 1) {
+        int numAvail = sound::GetOptionMenuMusicCount();
+        setMaxValue(numAvail - 1);
+        init();
+    }
+
+    int MenuMusicButton::get_value() const {
+        return sound::GetOptionMenuMusic();
+    }
+
+    void MenuMusicButton::set_value(int value) {
+        sound::SetOptionMenuMusic(value);
+    }
+
+    string MenuMusicButton::get_text(int value) const {
+        return _(sound::GetOptionMenuMusicText(value).c_str());
+    }
 
     /* -------------------- StereoButton -------------------- */
     
@@ -377,6 +396,7 @@ namespace enigma { namespace gui {
         bottomlabels.add (new Label(N_("User name: "), HALIGN_RIGHT));
         bottomlabels.add (new Label(N_("User path: "), HALIGN_RIGHT));
         bottomlabels.add (new Label(N_("User image path: "), HALIGN_RIGHT));
+        bottomlabels.add (new Label(N_("Menu music: "), HALIGN_RIGHT));
         userNameTF = new TextField(app.state->getString("UserName"));
         userNameTF->setMaxChars(20);
         userNameTF->setInvalidChars("+");
@@ -385,6 +405,7 @@ namespace enigma { namespace gui {
         bottom.add (userPathTF);
         userImagePathTF = new TextField(XMLtoUtf8(LocalToXML(app.userImagePath.c_str()).x_str()).c_str());
         bottom.add (userImagePathTF);
+        bottom.add (new MenuMusicButton);
 
 //            add (m_restartinfo, Rect (l.x, l.y + 15, 400, 20));
 //            m_restartinfo->set_alignment (HALIGN_LEFT);

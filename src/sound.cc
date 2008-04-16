@@ -69,6 +69,12 @@ bool lower_priority (const SoundEvent &s, const SoundEvent &t)
 }
 
 
+SoundEngine::SoundEngine()
+: sound_sets(), sound_effects(), active_sound_set_key(""),
+  default_sound_set(""), sound_set_count(0), music_singles(),
+  music_queues(), active_music_queue(""), music_context(MUSIC_NONE)
+{}
+
 
 /* -------------------- SoundEngine_SDL implementation -------------------- */
 
@@ -180,13 +186,18 @@ void SoundEngine_SDL::stop_music()
     m_current_music = 0;
 }
 
-bool SoundEngine_SDL::play_music (const std::string &filename) 
+bool SoundEngine_SDL::play_music (const std::string &filename, double position) 
 {
     if (Mix_Music *music = Mix_LoadMUS(filename.c_str())) {
         if (m_current_music)
             Mix_FreeMusic (m_current_music);
         m_current_music = music;
-        Mix_PlayMusic (m_current_music, -1);
+        Mix_PlayMusic (m_current_music, 1);
+        if(position > 0) {
+          Log << "Start music at position " << position << "\n";
+          if(Mix_SetMusicPosition(position) == -1)
+          Log << "Mix_SetMusicPosition: " << Mix_GetError() << "\n";
+        }
         Mix_VolumeMusic (m_musicvolume);
         return true;
     }
@@ -385,6 +396,7 @@ void sound::Shutdown()
 void sound::Tick (double dtime)
 {
     sound_engine->tick (dtime);
+    sound::MusicTick(dtime);
 }
 
 void sound::DisableSound() {
@@ -454,19 +466,23 @@ void sound::FadeoutMusic()
     sound_engine->fadeout_music();
 }
 
-void sound::PlayMusic (const std::string &name) 
+bool sound::PlayMusic (const std::string &name, double position) 
 {
-    if (!sound_enabled || !music_enabled || name==current_music_name)
-        return;
-
+    if(name == current_music_name)
+        return true;
+    if(!sound_enabled || !music_enabled || name=="")
+        return false;
+    
     FadeoutMusic();
 
     string fname;
-    if (app.resourceFS->findFile (name, fname) && sound_engine->play_music (fname))
+    if (app.resourceFS->findFile (name, fname) && sound_engine->play_music(fname, position)) {
         current_music_name = name;
-    else
+        return true;
+    } else {
         current_music_name = "";
-
+        return false;
+    }
 }
 
 void sound::StopMusic() {
@@ -477,6 +493,95 @@ void sound::StopMusic() {
 void sound::StopMusic (const std::string &name) {
     if (name==current_music_name)
         StopMusic();
+}
+
+bool sound::StartMenuMusic()
+{
+    if(sound_engine->getMusicContext() != MUSIC_MENU) {
+        sound::FadeoutMusic();
+        sound_engine->setMusicContext(MUSIC_MENU);
+    }
+}
+
+bool sound::StartLevelMusic()
+{
+    if(sound_engine->getMusicContext() != MUSIC_GAME) {
+        sound::FadeoutMusic();
+        sound_engine->setMusicContext(MUSIC_GAME);
+    }
+}
+
+void sound::MusicTick(double dtime)
+{
+    sound_engine->music_tick(dtime);
+}
+
+void SoundEngine::music_tick(double dtime)
+{
+    static double cumulated_dtime = 0;
+    cumulated_dtime += dtime;
+    if(cumulated_dtime > 0.2) {
+      if((!Mix_PlayingMusic()) && (!Mix_PausedMusic())) {
+        // Music has ended or not even begun
+        current_music_name = "";
+        switch(sound_engine->getMusicContext()) {
+            case MUSIC_MENU:
+                music_queues[active_music_queue].next();                
+                //sound::PlayMusic ("music/menu/esprit.ogg");
+                //sound::PlayMusic (options::GetString("MenuMusicFile"));
+                break;
+            case MUSIC_GAME:
+                if (options::GetBool("InGameMusic")) {
+                    //sound::PlayMusic ("music/menu/esprit.ogg");
+                    //sound::PlayMusic (options::GetString("LevelMusicFile"));
+                } else
+                    sound::StopMusic();
+                break;
+        }
+      } else {
+        // Music is still running. Check if we should reloop.
+        if(active_music_queue != "") {
+            string current_title = music_queues[active_music_queue].getCurrentMusicTitle();
+            if(current_title != "") {
+                music_singles[current_title].maybeLoopBack();
+            }
+        }
+      }
+      cumulated_dtime = 0;
+    }
+}
+
+void sound::InitMusic()
+{
+    sound_engine->init_music();
+}
+
+void SoundEngine::init_music()
+{
+    // TODO: This is only temporary. Information will come 
+    // from an xml file later.
+    music_singles["Esprit Loop"] =
+        MusicSingle("Esprit Loop", "music/menu/esprit.ogg", 178180, 10690, 21600, true);
+    music_singles["Esprit"] =
+        MusicSingle("Esprit", "music/menu/esprit.ogg", 178180, 10690, 21600, false);
+    music_singles["Pentagonal Dreams"] =
+        MusicSingle("Pentagonal Dreams", "music/menu/menu.s3m");
+
+    music_queues["Default"] = MusicQueue("Default", 0);
+    music_queues["Default"].appendSingle("Esprit");
+    music_queues["Default"].appendSingle("Pentagonal Dreams");
+
+    music_queues["Esprit"] = MusicQueue("Esprit", 1);
+    music_queues["Esprit"].appendSingle("Esprit");
+
+    music_queues["Pentagonal Dreams"] = MusicQueue("Pentagonal Dreams", 2);
+    music_queues["Pentagonal Dreams"].appendSingle("Pentagonal Dreams");
+
+    music_queues["Loop test"] = MusicQueue("Loop test", 3);
+    music_queues["Loop test"].appendSingle("Esprit Loop");
+
+    app.state->setProperty("MenuMusicQueue", "Default");
+    active_music_queue = "Default";
 }
 
 void sound::ClearCache()
@@ -894,6 +999,131 @@ bool SoundDamping::tick() {
     return (factor <= damp.mini);
 }
 
+/* -------------------- MusicSingle -------------------- */
+
+void sound::DefineMusicSingle(string title, string filename) {
+    // TODO: include play_till, replay_from, volume etc
+    assert(sound_engine.get());
+    if(filename == "") {
+        Log << "Warning: Tried to define music single '" << title
+            << "' without file name. Skipped.\n";
+        return;
+    }
+    sound_engine->defineMusicSingle(title, filename);
+}
+
+bool SoundEngine::defineMusicSingle(string title, string filename)
+{
+    music_singles[title] = MusicSingle(title, filename);
+    Log << "Added music single '" << title << "'.\n";
+    return true;
+}
+
+bool MusicSingle::start()
+{
+    start_time = SDL_GetTicks();
+    return PlayMusic(filename);
+}
+
+bool MusicSingle::maybeLoopBack()
+{
+    Uint32 current_ticks = SDL_GetTicks();
+    if(allows_loop) {
+        if(current_ticks >= start_time + loop_end) {
+            Uint32 position = loop_start + current_ticks - start_time - loop_end;
+            start_time = current_ticks - position;
+            StopMusic();
+            return PlayMusic(filename, position/1000.0);
+        } else
+            return false;
+    } else
+        return false;
+}
+
+bool SoundEngine::playMusicSingle(string title)
+{
+    return ((sound_engine->music_singles)[title]).start();
+}
+
+/* -------------------- Music Queue -------------------- */
+
+string MusicQueue::getCurrentMusicTitle()
+{
+    if(current_position_in_queue == -1)
+        return "";
+    else
+        return single_title[current_position_in_queue];
+}
+
+void MusicQueue::appendSingle(string title)
+{
+    single_title.push_back(title);
+}
+
+bool MusicQueue::start()
+{
+    if(single_title.size() > 0) {
+        current_position_in_queue = 0;
+        return sound_engine->playMusicSingle(single_title[0]);
+    } else
+        return false;
+}
+
+bool MusicQueue::next()
+{
+    if(current_position_in_queue == -1)
+        // Queue did not start yet. Request first title instead.
+        return start();
+    else {
+        // TODO: Add random
+        current_position_in_queue++;
+        if(current_position_in_queue >= single_title.size())
+            current_position_in_queue = 0;
+        Log << "Play next in queue " << title << ".\n";
+        return sound_engine->playMusicSingle(single_title[current_position_in_queue]);
+    }
+}
+
+bool SoundEngine::setActiveMusicQueue(string music_queue_title)
+{
+    if (music_queue_title == "") {
+        Log << "Warning: Tried to choose empty music queue title as menu music queue.\n";
+        return false;
+    }
+    if (music_queue_title == getActiveMusicQueueTitle()) {
+        // Current queue is aready running.
+        return true;
+    }
+    sound::FadeoutMusic();
+    if (music_queues[music_queue_title].start()) {
+        active_music_queue = music_queue_title;
+        Log << "Switched to menu music queue '" << music_queue_title << "'.\n";
+        return true;
+    } else {
+        Log << "Warning: Problems loading menu music queue '" << music_queue_title << "'.\n";
+        return false;
+    }
+}
+
+string SoundEngine::getMusicQueueByPosition(int button_position)
+{
+    for (MusicQueueRepository::iterator i = music_queues.begin();
+             i != music_queues.end(); ++i)
+        if((*i).second.getButtonPosition() == button_position)
+            return (*i).first;
+    return "";
+}
+
+int SoundEngine::getMenuMusicQueueCount()
+{
+    int count = 0;
+    for (MusicQueueRepository::iterator i = music_queues.begin();
+             i != music_queues.end(); ++i)
+        if((*i).second.getButtonPosition() != -1)
+            count++;
+    return count;
+}
+
 /* -------------------- Sound option helpers -------------------- */
 
 /*! These functions are used in OptionsMenu.cc for the Soundset-Button. */
@@ -908,7 +1138,7 @@ int sound::GetOptionSoundSet()
     string soundSet = app.state->getString("SoundSetName");
     if (soundSet == "Default")
         return 0;
-    int pos = sound_engine->getButtonPosition(soundSet);
+    int pos = sound_engine->getSoundSetButtonPosition(soundSet);
     assert(pos > 0);
     return pos;
 }
@@ -941,5 +1171,33 @@ string sound::GetOptionSoundSetText(int value)
     if(soundset_name == "")
         return "INVALID";
     return soundset_name;
+}
+
+/*! These functions are used in OptionsMenu.cc for the MenuMusicButton. */
+
+int sound::GetOptionMenuMusicCount()
+{        
+    return sound_engine->getMenuMusicQueueCount();
+}
+
+int sound::GetOptionMenuMusic()
+{
+    string music_queue = app.state->getString("MenuMusicQueue");
+    int pos = sound_engine->getMusicQueueButtonPosition(music_queue);
+    assert(pos >= 0);
+    return pos;
+}
+
+void sound::SetOptionMenuMusic(int value)
+{
+    string music_queue = sound_engine->getMusicQueueByPosition(value);
+    Log << "Try to set mmq '" << music_queue << "' from position " << value << ".\n";
+    app.state->setProperty("MenuMusicQueue", music_queue);
+    sound_engine->setActiveMusicQueue(music_queue);
+}
+
+string sound::GetOptionMenuMusicText(int value)
+{
+    return sound_engine->getMusicQueueByPosition(value);
 }
 

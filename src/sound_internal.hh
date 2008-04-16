@@ -98,14 +98,86 @@ namespace
         OxydLib::OxydVersion oxyd_ver;
         int button_position;
     };
-
+    
     typedef map<string, SoundEffect> SoundEffectRepository;
     typedef map<string, SoundSet> SoundSetRepository;
+
+/* -------------------- Music and MusicQueue -------------------- */
+
+/*! The class "MusicSingle" holds filename and default playing information
+    for a single music file. Several music files can be combined into
+    a "MusicQueue" to play in a given or random sequence. MusicQueues are
+    used for menu music. One MusicQueue corresponds to one choice on the
+    option menu's button. */
+
+    class MusicSingle {
+    public:
+        MusicSingle(string title_, string filename_, Uint32 length_,
+                    Uint32 loop_start_, Uint32 loop_end_, bool allows_loop_)
+        : title(title_), filename(filename_), length(length_),
+          loop_start(loop_start_), loop_end(loop_end_),
+          allows_loop(allows_loop_), start_time() {}
+
+        MusicSingle(string title_, string filename_)
+        : title(title_), filename(filename_), length(0),
+          loop_start(0), loop_end(0), allows_loop(false), start_time() {}
+
+        MusicSingle()
+        : title(""), filename(""), length(0), loop_start(0), loop_end(0),
+          allows_loop(false) {}
+
+        bool start();
+        bool maybeLoopBack();
+
+    private:
+        string title;
+        string filename;
+        Uint32 length;      // in milliseconds
+        Uint32 loop_start;  // where the loop starts
+        Uint32 loop_end;    // where the loop should end (but continues playing until next tick)
+        Uint32 start_time;  // number of milliseconds since SDL init
+        bool allows_loop;
+    };
+
+    class MusicQueue {
+    public:
+        MusicQueue(string title_, int button_position_)
+        : title(title_), button_position(button_position_),
+          current_position_in_queue(-1), single_title() {}
+
+        MusicQueue()
+        : title(""), button_position(-1),
+          current_position_in_queue(-1), single_title() {}
+
+        bool start();
+        bool next();
+        string getCurrentMusicTitle();
+        int getButtonPosition() { return button_position; }
+        void setButtonPosition(int pos) { button_position = pos; }
+        void appendSingle(string title);
+
+    private:
+        int current_position_in_queue;
+        string title;
+        int button_position;
+        vector<string> single_title;
+    };
+
+    typedef map<string, MusicSingle> MusicSingleRepository;
+    typedef map<string, MusicQueue> MusicQueueRepository;
+
+    /*! MusicContext is a nominal condition to change the
+      music during the next tick.
+      NONE: during initialisation (don't play music now),
+      MENU/GAME: play music suitable for menu or during game. */
+    enum MusicContext { MUSIC_NONE, MUSIC_MENU, MUSIC_GAME };
+
         
 /* -------------------- SoundEngine -------------------- */
 
     class SoundEngine {
     public:
+        SoundEngine();
         virtual ~SoundEngine() {}
         
         //! Returns true if successful.
@@ -116,20 +188,33 @@ namespace
         virtual void set_sound_volume (double soundvol) = 0;
         virtual void set_music_volume (double musicvol) = 0;
 
-        // ---------- Music ----------
+        // ---------- Music and music repository ----------
 
-        virtual bool play_music (const std::string &filename) = 0;
+        virtual bool play_music(const std::string &filename, double position) = 0;
         virtual void stop_music() = 0;
         virtual void fadeout_music() = 0;
-
+        void setMusicContext(MusicContext context) { music_context = context; }
+        MusicContext getMusicContext() { return music_context; }
+        bool defineMusicSingle(string title, string filename);
+        bool playMusicSingle(string title);
+        bool setActiveMusicQueue(string music_queue_title);
+        string getActiveMusicQueueTitle() { return active_music_queue; }
+        void music_tick(double dtime);
+        void init_music();
+        string getMusicQueueByPosition(int button_position);
+        int getMenuMusicQueueCount();
+        int getMusicQueueButtonPosition(string music_queue_title) {
+            return music_queues[music_queue_title].getButtonPosition();
+        }
+        
         // ---------- Sound effects ----------
 
         virtual void clear_cache() = 0;
-        virtual void define_sound (const SoundName &, const SoundData &)=0;
-        virtual bool play_sound (const SoundEvent &s) = 0;
+        virtual void define_sound(const SoundName &, const SoundData &)=0;
+        virtual bool play_sound(const SoundEvent &s) = 0;
         virtual void cache_sound(const SoundEffect &s) = 0;
-        virtual void set_listenerpos (ecl::V2 pos) = 0;
-        virtual void tick (double dtime) {}
+        virtual void set_listenerpos(ecl::V2 pos) = 0;
+        virtual void tick(double dtime) {}
 
         // ---------- Sound effect repository and sound sets ----------
 
@@ -160,7 +245,8 @@ namespace
 
         void setSoundSetCount(int count) { sound_set_count = count; }
         int getSoundSetCount() { return sound_set_count; }
-        int getButtonPosition(string soundset_name) {
+        
+        int getSoundSetButtonPosition(string soundset_name) {
             return sound_sets[soundset_name].getButtonPosition();
         }
         string getSoundSetByPosition(int button_position);
@@ -171,6 +257,10 @@ namespace
         string                   active_sound_set_key;
         string                   default_sound_set;
         int                      sound_set_count;
+        MusicSingleRepository    music_singles;
+        MusicQueueRepository     music_queues;
+        string                   active_music_queue;
+        MusicContext             music_context;
     };
 
     class SoundEngine_Null : public SoundEngine {
@@ -183,7 +273,7 @@ namespace
         bool is_initialized() const { return true; }
         void set_sound_volume(double /*soundvol*/) {}
         void set_music_volume(double /*musicvol*/) {}
-        bool play_music (const std::string &/*filename*/) { return false; }
+        bool play_music (const std::string &/*filename*/, double /*position*/) { return false; }
         void stop_music() {}
         void fadeout_music() {}
 
@@ -206,7 +296,7 @@ namespace
         void set_sound_volume(double soundvol);
         void set_music_volume(double musicvol);
 
-        bool play_music (const std::string &filename);
+        bool play_music (const std::string &filename, double position);
         void stop_music();
         void fadeout_music();
 
