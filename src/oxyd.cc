@@ -25,7 +25,8 @@
 
 #include "errors.hh"
 #include "oxyd.hh"
-#include "sound.hh"
+#include "SoundEngine.hh"
+#include "SoundEffectManager.hh"
 #include "lua.hh"
 #include "server.hh"
 #include "player.hh"

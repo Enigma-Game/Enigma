@@ -22,7 +22,7 @@
 #include "gui/TextField.hh"
 #include "ecl_utf.hh"
 #include "enigma.hh"
-#include "sound.hh"
+#include "SoundEffectManager.hh"
 #include "video.hh"
 #include "options.hh"
 #include "nls.hh"

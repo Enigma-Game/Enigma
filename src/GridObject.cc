@@ -25,7 +25,7 @@
 #include "laser.hh"
 #include "lua.hh"
 #include "main.hh"
-#include "sound.hh"
+#include "SoundEffectManager.hh"
 #include "world.hh"
 
 #include "ecl_util.hh"

@@ -20,7 +20,7 @@
 #include "Inventory.hh"
 #include "display.hh"
 #include "errors.hh"
-#include "sound.hh"
+#include "SoundEffectManager.hh"
 #include "client.hh"
 #include "server.hh"
 #include "world.hh"

@@ -21,7 +21,7 @@
 #include "errors.hh"
 #include "enigma.hh"
 #include "player.hh"
-#include "sound.hh"
+#include "SoundEffectManager.hh"
 #include "server.hh"
 #include "world.hh"
 //#include "main.hh"

@@ -26,7 +26,9 @@
 #include "nls.hh"
 #include "options.hh"
 #include "oxyd.hh"
-#include "sound.hh"
+#include "SoundEngine.hh"
+#include "SoundEffectManager.hh"
+#include "MusicManager.hh"
 #include "Utf8ToXML.hh"
 #include "video.hh"
 #include "XMLtoLocal.hh"
@@ -99,12 +101,8 @@ namespace enigma { namespace gui {
     };
 
     class InGameMusicButton : public BoolOptionButton {
-        void on_action(Widget *) {
-            if (toggle())
-                sound::PlayMusic (options::GetString("LevelMusicFile"));
-            else
-                sound::StopMusic (options::GetString("LevelMusicFile"));
-        }
+        void on_action(Widget *) { sound::SetInGameMusicActive(toggle()); }
+
     public:
         InGameMusicButton() :
             BoolOptionButton("InGameMusic", N_("Music in game"), N_("No music in game"), this)

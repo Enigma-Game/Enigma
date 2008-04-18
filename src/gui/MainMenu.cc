@@ -29,7 +29,7 @@
 #include "main.hh"
 #include "nls.hh"
 #include "options.hh"
-#include "sound.hh"
+#include "MusicManager.hh"
 #include "video.hh"
 #include "world.hh"
 

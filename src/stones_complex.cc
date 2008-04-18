@@ -20,7 +20,7 @@
 
 #include "errors.hh"
 #include "laser.hh"
-#include "sound.hh"
+#include "SoundEffectManager.hh"
 #include "server.hh"
 #include "player.hh"
 #include "Inventory.hh"

@@ -21,7 +21,9 @@
 #include "main.hh"
 #include "options.hh"
 #include "PreferenceManager.hh"
-#include "sound.hh"
+#include "SoundEngine.hh"
+#include "SoundEffectManager.hh"
+#include "MusicManager.hh"
 #include "ecl_system.hh"
 
 #include <cassert>

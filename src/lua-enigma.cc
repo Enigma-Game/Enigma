@@ -1,6 +1,6 @@
 /*
 ** Lua binding: enigma
-** Generated automatically by tolua++-1.0.92 on Mon Oct 29 00:41:21 2007.
+** Generated automatically by tolua++-1.0.92 on Fri Apr 18 01:20:21 2008.
 */
 
 #ifndef __cplusplus
@@ -25,7 +25,7 @@ using namespace enigma;
 #include "video.hh"
 using namespace video;
 using ecl::Screen;
-#include "sound.hh"
+#include "SoundEffectManager.hh"
 using namespace sound;
 
 /* function to register type */

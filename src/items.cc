@@ -23,7 +23,7 @@
 #include "display.hh"
 #include "player.hh"
 #include "client.hh"
-#include "sound.hh"
+#include "SoundEffectManager.hh"
 #include "server.hh"
 #include "world.hh"
 #include "Inventory.hh"

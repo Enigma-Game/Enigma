@@ -24,7 +24,7 @@
 #include "config.h"
 #include "video.hh"
 #include "server.hh"
-#include "sound.hh"
+#include "SoundEffectManager.hh"
 #include "options.hh"
 #include "WorldProxy.hh"
 #include "lev/Index.hh"

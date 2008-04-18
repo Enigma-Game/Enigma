@@ -26,7 +26,7 @@
 #include "main.hh"
 #include "nls.hh"
 #include "options.hh"
-#include "sound.hh"
+#include "SoundEffectManager.hh"
 #include "StateManager.hh"
 #include "video.hh"
 #include "file.hh"

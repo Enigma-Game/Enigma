@@ -18,7 +18,8 @@
  */
 
 #include "gui/Menu.hh"
-#include "sound.hh"
+#include "SoundEffectManager.hh"
+#include "MusicManager.hh"
 #include "video.hh"
 #include "options.hh"
 #include "main.hh"

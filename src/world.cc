@@ -20,7 +20,7 @@
 #include "errors.hh"
 #include "laser.hh"
 #include "player.hh"
-#include "sound.hh"
+#include "SoundEffectManager.hh"
 #include "options.hh"
 #include "server.hh"
 #include "lua.hh"
@@ -1493,7 +1493,7 @@ void World::revoke_delayed_impulses(const Stone *target) {
 
 void World::tick_sound_dampings ()
 {
-    // See sound.hh and sound.cc for details.
+    // See SoundEffectManager.hh for details.
     static int counter = 0;
     ++counter;
 
@@ -2302,7 +2302,7 @@ void revokeDelayedImpulses(const Stone *target) {
 
 float getVolume(const char *name, Object *obj, float def_volume)
 {
-    // See sound.hh and sound.cc for details.
+    // See SoundEffectManager.hh for details.
     SoundDampingList::iterator i = level->sound_dampings.begin(),
         end = level->sound_dampings.end();
     while (i != end) {

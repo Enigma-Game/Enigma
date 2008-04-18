@@ -19,7 +19,7 @@
  */
 #include "errors.hh"
 #include "laser.hh"
-#include "sound.hh"
+#include "SoundEffectManager.hh"
 #include "stones_internal.hh"
 #include "server.hh"
 #include "stones/LaserStone.hh"

@@ -28,7 +28,7 @@
 #include "nls.hh"
 #include "options.hh"
 #include "server.hh"
-#include "sound.hh"
+#include "MusicManager.hh"
 #include "StateManager.hh"
 #include "video.hh"
 #include "lev/Index.hh"

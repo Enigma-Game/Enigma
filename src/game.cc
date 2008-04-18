@@ -24,7 +24,7 @@
 #include "client.hh"
 #include "server.hh"
 #include "world.hh"
-#include "sound.hh"
+#include "SoundEngine.hh"
 #include "lev/PersistentIndex.hh"
 
 #include "ecl_sdl.hh"

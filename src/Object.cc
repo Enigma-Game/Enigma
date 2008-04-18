@@ -26,7 +26,6 @@
 #include "lua.hh"
 #include "ObjectValidator.hh"
 #include "server.hh"
-#include "sound.hh"
 #include "world.hh"
 
 #include "ecl_util.hh"

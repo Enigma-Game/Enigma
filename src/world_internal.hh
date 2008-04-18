@@ -350,7 +350,7 @@ typedef list<sound::SoundDamping> SoundDampingList;
         ImpulseList          delayed_impulses;
         vector<GridPos>      changed_stones;
 
-        SoundDampingList     sound_dampings; // see sound.hh for details
+        SoundDampingList     sound_dampings; // see SoundEffectManager for details
 
         FloorLayer      fl_layer;
         ItemLayer       it_layer;

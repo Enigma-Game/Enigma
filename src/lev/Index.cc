@@ -21,7 +21,7 @@
 #include "errors.hh"
 #include "main.hh"
 #include "options.hh"
-#include "sound.hh"
+#include "SoundEffectManager.hh"
 #include "PreferenceManager.hh"
 #include "StateManager.hh"
 #include "lev/ScoreManager.hh"

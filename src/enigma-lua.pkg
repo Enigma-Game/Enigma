@@ -114,7 +114,7 @@ module video
 
 /* -------------------- sound.cc -------------------- */
 
-$#include "sound.hh"
+$#include "SoundEffectManager.hh"
 $using namespace sound;
 
 module sound

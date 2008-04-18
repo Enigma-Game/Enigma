@@ -19,7 +19,7 @@
 
 #include "gui/widgets.hh"
 #include "enigma.hh"
-#include "sound.hh"
+#include "SoundEffectManager.hh"
 #include "video.hh"
 #include "options.hh"
 #include "nls.hh"

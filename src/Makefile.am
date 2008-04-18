@@ -111,9 +111,12 @@ enigma_SOURCES = 		\
 	server.cc 		\
 	server.hh		\
 	server_internal.hh	\
-	sound.cc 		\
-	sound.hh 		\
-	sound_internal.hh	\
+	SoundEffectManager.cc   \
+	SoundEffectManager.hh   \
+	SoundEngine.cc          \
+	SoundEngine.hh 		\
+	MusicManager.cc		\
+	MusicManager.hh         \
 	StateObject.cc		\
 	StateObject.hh		\
 	StateManager.cc		\

@@ -23,7 +23,7 @@
 #include "enigma.hh"
 #include "errors.hh"
 #include "nls.hh"
-#include "sound.hh"
+#include "SoundEffectManager.hh"
 #include "video.hh"
 #include "lev/Index.hh"
 
