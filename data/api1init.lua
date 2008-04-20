@@ -51,6 +51,7 @@ RenamingObjectsNew2Old = {
     it_coin_s = "it-coin1",
     it_coin_m = "it-coin2",
     it_coin_l = "it-coin4",
+    it_cross = "it-cross",
     it_extralife = "it-extralife",
     it_floppy = "it-floppy",
     it_hammer = "it-hammer",
@@ -171,6 +172,15 @@ function enigma.MakeObject(name)
         local obj = enigma._MakeObject("it_key")
         enigma._SetAttrib(obj, "code", 3)
         return obj
+    elseif name == "it-sensor" then
+        local obj = enigma._MakeObject("it_sensor")
+        enigma._SetAttrib(obj, "invisible", true)
+        return obj
+    elseif name == "it-inversesensor" then
+        local obj = enigma._MakeObject("it_sensor")
+        enigma._SetAttrib(obj, "invisible", true)
+        enigma._SetAttrib(obj, "inverse", true)
+        return obj
     elseif name == "it-wormhole" then
         local obj = enigma._MakeObject("it_wormhole_on")
         enigma._SetAttrib(obj, "scissor", false)
@@ -231,6 +241,14 @@ function enigma.GetKind(obj)
             return "it-key_c"
         else -- arbitrary keycodes
             return "it-key_a"
+        end
+    end
+    if _newname == "it_sensor" then
+        local code = enigma._GetAttrib(obj, "inverse")
+        if code == false then
+            return "it-sensor"
+        else
+            return "it-inversesensor"
         end
     end
     if string.sub(_newname, 1, 8) == "st_laser" then

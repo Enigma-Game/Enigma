@@ -433,6 +433,7 @@ do
     DefImage("it_coin_s", {filename="it-coin1"})
     DefImage("it_coin_m", {filename="it-coin2"})
     DefImage("it_coin_l", {filename="it-coin4"})
+    DefImage("it_cross", {filename="it-cross"})
     DefImage("it_extralife", {filename="it-extralife"})
     DefImage("it_floppy", {filename="it-floppy"})
     DefImage("it_hammer", {filename="it-hammer"})
@@ -593,6 +594,13 @@ do
         "it-seed4", "it-seed5",
     }
     DefAnim("it-seed-growing", BuildFrames(frames, 120))
+end
+
+-- it-sensor --
+do
+    DefTiles("it_sensor", {"it_sensor","it_sensor1"})
+    local frames = BuildFrames({"it_sensor","it_sensor1"}, 300)
+    DefAnim("it_sensor_hit", RepeatAnim(frames, 3), false)
 end
 
 -- it-shogun --

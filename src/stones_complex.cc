@@ -1368,7 +1368,7 @@ namespace
             Item *it = GetItem(get_pos());
             if (it != NULL && server::GameCompatibility != GAMET_PEROXYD 
                     && (server::GameCompatibility != GAMET_ENIGMA || server::EnigmaCompatibility < 1.10 ))
-                SendMessage(it, "hit", sc.actor);
+                SendMessage(it, "_hit", sc.actor);
             else
                 performAction(sc.actor);
         }

@@ -407,6 +407,12 @@ Item  *OxydLoader::make_item (int type)
         it->setAttr ("code", 3);
     }
     break;
+    case 0x2a:                  // sensor inverse
+    {
+        it = MakeItem(it_sensor);
+        it->setAttr("inverse", true);
+    }
+    break;
     default:
         {
             ItemID id = config.itemtable[type];
@@ -418,6 +424,13 @@ Item  *OxydLoader::make_item (int type)
                 it = MakeItem (id);
                 if (id == it_vortex_closed)
                     it->setAttr("autoclose", true);
+                else if (id == it_sensor) {
+                    it->setAttr("invisible", true);
+                }
+                else if (id == it_inversesensor) {
+                    it->setAttr("invisible", true);
+                    it->setAttr("inverse", true);
+                }
             }
         }
     }

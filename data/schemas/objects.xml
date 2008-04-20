@@ -35,6 +35,8 @@
   <messages>
     <msg name="close" type="nil"/>
     <msg name="closeall" type="nil"/>
+    <msg name="brush" type="nil"/>
+    <msg name="hit" type="object"/>
     <msg name="inner_pull" type="dir"/>
     <msg name="off" type="nil"/>
     <msg name="on" type="nil"/>
@@ -47,6 +49,7 @@
     <msg name="turnback" type="nil"/>
     <msg name="_bombstone" type="nil"/>
     <msg name="_explosion" type="nil"/>
+    <msg name="_hit" type="object"/>
     <msg name="_init" type="nil"/>
     <msg name="_jumping" type="bool"/>
     <msg name="_performaction" type="nil"/>
@@ -94,6 +97,12 @@
     <object name="it_coin_l">
       <attr name="state" value="2"/>
     </object>
+    <object name="it_cross">
+      <attr name="interval" default="10"/>
+      <attr name="state" rw="r"/>
+      <msg name="brush"/>
+      <msg name="signal"/>
+    </object>
     <object name="it_extralife"/>
     <object name="it_extralife_new" init="true"/>
     <object name="it_floppy"/>
@@ -114,6 +123,10 @@
     </object>
     <object name="it_magnet_on">
       <attr name="state" value="1"/>
+    </object>
+    <object name="it_sensor">
+      <attr name="invisible"/>
+      <msg name="_hit"/>
     </object>
     <object name="it_sword"/>
     <object name="it_sword_new" init="true"/>

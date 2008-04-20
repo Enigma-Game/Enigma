@@ -3152,46 +3152,55 @@ namespace
 
 /* Basically behave like regular triggers, but they are invisible and can be
    activated only once. */
-namespace
-{
     class Sensor : public Item {
         CLONEOBJ(Sensor);
         DECL_TRAITS;
     public:
         Sensor() {}
-
-        void actor_enter (Actor *) {
-            performAction(true);
-        }
         
-        virtual Value message(const Message &m) {
-            if (m.message == "hit") {   // door knocking forward to black/whitballstone
-                setAttr("$hitactor", m.value);
-                performAction(true);
-                setAttr("$hitactor", (Object *)NULL);
-                return Value();
-            } else if (m.message == "_hitactor") {
-                return getAttr("$hitactor");
-            }
-            return Item::message(m);
-        }
+        // Object interface
+        virtual Value message(const Message &m);
+        
+        // GridObject interface
+        virtual void init_model();
+
+        // ModelCallback interface
+        virtual void animcb();
+
+        // Item interface
+        virtual void actor_enter(Actor *a);
     };
-    DEF_TRAITSF(Sensor, "it-sensor", it_sensor, itf_static | itf_invisible);
-
-    class InverseSensor : public Item {
-        CLONEOBJ(InverseSensor);
-        DECL_TRAITS;
-    public:
-        InverseSensor() {}
-
-        void actor_enter (Actor *) {
-            performAction (false);
+    
+    Value Sensor::message(const Message &m) {
+        if (m.message == "_hit") {   // door knocking forward to black/whitballstone
+            setAttr("$hitactor", m.value);
+            performAction(true);
+            setAttr("$hitactor", (Object *)NULL);
+            return Value();
+        } else if (m.message == "_hitactor") {
+            return getAttr("$hitactor");
         }
-    };
-    DEF_TRAITSF(InverseSensor, "it-inversesensor", it_inversesensor,
-                itf_static | itf_invisible);
-}
+        return Item::message(m);
+    }
+    
+    void Sensor::init_model() {
+        if (getAttr("invisible").to_bool())
+            set_model("invisible");
+        else
+            set_model("it_sensor");
+    }
 
+    void Sensor::animcb() {
+        init_model();
+    }
+
+    void Sensor::actor_enter(Actor *) {
+        if (!getAttr("invisible").to_bool())
+            set_anim("it_sensor_hit");
+        performAction(true);
+    }
+    
+    DEF_TRAITSF(Sensor, "it_sensor", it_sensor, itf_static);
 
 /* -------------------- Signal filters -------------------- */
 namespace
@@ -3434,59 +3443,73 @@ namespace
 
 
 /* -------------------- Cross -------------------- */
-namespace
-{
     class Cross : public Item, public TimeHandler {
         CLONEOBJ(Cross);
         DECL_TRAITS;
 
-        bool m_active;
-
-        void actor_enter(Actor *a) {
-            if (!m_active && a->getAttr("player")) {
-                GameTimer.set_alarm (this, 10);
-            }
-        }
-
-        void actor_leave (Actor *) {
-            if (m_active) {
-                GameTimer.remove_alarm (this);
-                m_active = false;
-            }
-        }
-
-        void alarm() {
-            performAction(true);
-        }
-
-        virtual Value message(const Message &m) {
-            if (server::GameCompatibility == enigma::GAMET_PEROXYD) {
-                // Crosses can be used to invert signals in Per.Oxyd
-                if (m.message == "signal") {
-                    performAction(!m.value.to_bool()); // convert 1/0 values to true/false
-                    return Value();
-                }
-            } else if (enigma_server::GameCompatibility == GAMET_ENIGMA) {
-                if (m.message == "brush") {
-                    KillItem(this->get_pos());
-                    return Value();
-                }
-            }
-            return Item::message(m);
-        }
-
     public:
-        Cross() : m_active(false) {
-        }
         virtual ~Cross();
-    };
-    DEF_TRAITSF(Cross, "it-cross", it_cross, itf_static);
+        
+        // Object interface
+        virtual Value message(const Message &m);
+        
+        // StateObject interface
+        virtual void setState(int extState);
+        
+        // Item interface
+        virtual void actor_enter(Actor *a);
+        virtual void actor_leave(Actor *a);
 
+        // TimeHandler interface
+        virtual void alarm();
+    };
+        
     Cross::~Cross() {
-            GameTimer.remove_alarm(this);
+        GameTimer.remove_alarm(this);
+    }
+    
+    Value Cross::message(const Message &m) {
+        if (server::GameCompatibility == enigma::GAMET_PEROXYD) {
+            // Crosses can be used to invert signals in Per.Oxyd
+            if (m.message == "signal") {
+                performAction(!m.value.to_bool()); // convert 1/0 values to true/false
+                return Value();
+            }
+        } else if (enigma_server::GameCompatibility == GAMET_ENIGMA) {
+            if (m.message == "brush") {
+                KillItem(this->get_pos());
+                return Value();
+            }
+        }
+        return Item::message(m);
+    }
+    
+    void Cross::setState(int extState) {
+        return;   // ignore any write attempts
     }
 
-}
+    void Cross::actor_enter(Actor *a) {
+        if ((state == 0) && a->getAttr("player")) {
+            state = 1;
+            GameTimer.set_alarm (this, getAttr("interval"));
+        }
+    }
+
+    void Cross::actor_leave(Actor *) {
+        if (state == 1) {
+            GameTimer.remove_alarm (this);
+            state = 0;
+        }
+    }
+
+    void Cross::alarm() {
+        state = 0;
+        performAction(true);
+    }
+    
+    DEF_TRAITSF(Cross, "it_cross", it_cross, itf_static);
+
+
 
 /* -------------------- Bag -------------------- */
 namespace
@@ -3946,7 +3969,6 @@ void InitItems()
     RegisterItem (new Hill);
     RegisterItem (new Hollow);
     RegisterItem (new HStrip);
-    RegisterItem (new InverseSensor);
     RegisterItem (new InvisibleAbyss);
     RegisterItem (new Key);
     RegisterItem (new Landmine);

@@ -116,6 +116,7 @@
 <!--      <xs:enumeration value="pos"/>  -->
       <xs:enumeration value="string"/>
       <xs:enumeration value="enum"/>
+      <xs:enumeration value="object"/>
       <xs:enumeration value="tokens"/>
     </xs:restriction>
   </xs:simpleType>

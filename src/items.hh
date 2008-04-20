@@ -83,7 +83,6 @@ namespace enigma {
         it_hill,
         it_hollow,
         it_hstrip,
-        it_inversesensor,
         it_key,
         it_landmine,
         it_laserbeam,
@@ -133,7 +132,9 @@ namespace enigma {
         it_wrench,
         it_yinyang,
         it_LAST,
-        it_COUNT
+        it_COUNT,
+        //  for DAT compatibility only
+        it_inversesensor
     };
 
     /*! What may happen to an item _after_ it was activated? */
