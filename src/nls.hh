@@ -17,6 +17,27 @@
 namespace nls
 {
     void SetMessageLocale (const std::string &language);
+
+    struct Language {
+        const char *name;
+        const char *localename;
+        const char *flagimage;
+    };
+    
+    const Language languages[] = {
+        { "default",    "",      "par" },
+        { "Deutsch",    "de_DE", "flags25x15/de" },
+        { "English",    "en_EN", "flags25x15/gb" },
+        { "Español",    "es_ES", "flags25x15/es" },
+        { "Français",   "fr_FR", "flags25x15/fr" },
+        { "Italiano",   "it_IT", "flags25x15/it" },
+        { "Nederlands", "nl_NL", "flags25x15/nl" },
+        { "Svenska",    "sv_SE", "flags25x15/se" },
+        { "Русский",    "ru_RU", "flags25x15/ru" },
+        { "Magyar",     "hu_HU", "flags25x15/hu" },
+        { "Português",  "pt_BR", "flags25x15/pt" },
+        { "Suomi",      "fi_FI", "flags25x15/fi" },
+    };
 }
 
 #endif

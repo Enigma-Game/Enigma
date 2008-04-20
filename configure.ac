@@ -353,6 +353,7 @@ AC_CONFIG_SUBDIRS(lib-src/enet)
 AC_CONFIG_FILES([Makefile m4/Makefile  intl/Makefile 
            data/Makefile
            data/gfx/Makefile
+           data/gfx/flags25x15/Makefile
            data/gfx16/Makefile
            data/gfx32/Makefile
            data/gfx40/Makefile

@@ -223,6 +223,16 @@ namespace enigma { namespace gui {
         options     = b.add(new StaticTextButton(N_("Options"), this));
         credits     = b.add(new StaticTextButton(N_("Credits"), this));
         quit        = b.add(new StaticTextButton(N_("Quit"), this));
+        int ly = vminfo->width - 5 - 35*NUMENTRIES(nls::languages);
+        //BuildHList l(this, Rect(ly, (vminfo->height) - 30, 30, 20), 5);
+        BuildHList l(this, Rect(ly, 10, 30, 20), 5);
+        //BuildVList l(this, Rect(vminfo->width - 45, 15, 30, 20), 5);
+        language.clear();
+        if(!vshrink)
+            for (size_t i=0; i<NUMENTRIES(nls::languages); ++i)
+                language.push_back(l.add(
+                    new ImageButton(nls::languages[i].flagimage,
+                                    nls::languages[i].flagimage, this)));
     }
     
     void MainMenu::draw_background(ecl::GC &gc) 
@@ -264,14 +274,11 @@ namespace enigma { namespace gui {
         if (w == m_startgame) {            
             LevelPackMenu m;
             m.manageLevelMenu();
-            invalidate_all();
         } else if (w == m_levelpack) {
             LevelPackMenu m;
             m.manage();
-            invalidate_all();
         } else if (w == credits) {
             displayInfo(credit_text, 6);
-            invalidate_all();
         } else if (w == options) {
             ShowOptionsMenu(0);
     
@@ -283,6 +290,12 @@ namespace enigma { namespace gui {
     #endif
         } else if (w == quit) {
             Menu::quit();
+        } else if (language.size() > 0) {
+            for (size_t i=0; i<NUMENTRIES(nls::languages); ++i)
+                if (w == language[i]) {
+                    options::SetOption ("Language", nls::languages[i].localename);
+                    app.setLanguage(nls::languages[i].localename);
+                }
         } else
             return;
         invalidate_all();

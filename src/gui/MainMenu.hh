@@ -21,6 +21,8 @@
 
 #include "gui/Menu.hh"
 
+#include <vector>
+
 namespace enigma { namespace gui {
 /* -------------------- MainMenu -------------------- */
 
@@ -52,6 +54,7 @@ namespace enigma { namespace gui {
         Widget *credits;
         Widget *quit;
         Widget *lpack;
+        std::vector <Widget*> language;
     };
 
 /* -------------------- NetworkMenu -------------------- */

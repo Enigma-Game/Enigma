@@ -246,34 +246,14 @@ namespace enigma { namespace gui {
     
     /* -------------------- LanguageButton -------------------- */
     
-    struct Language {
-        const char *name;
-        const char *localename;
-    };
-    
-    Language languages[] = {
-        { "default",                "" },
-        { "Deutsch",                "de_DE" },
-        { "English",                "en_EN" },
-        { "Español",         "es_ES" },
-        { "Français",        "fr_FR" },
-        { "Italiano",               "it_IT" },
-        { "Nederlands",             "nl_NL" },
-        { "Svenska",             "sv_SE" },
-        { "Русский",             "ru_RU" },
-        { "Magyar",             "hu_HU" },
-        { "Português",             "pt_BR" },
-        { "Suomi",             "fi_FI" },
-    };
-    
     int LanguageButton::get_value() const
     {
         string localename; //  = ecl::DefaultMessageLocale ();
         options::GetOption ("Language", localename);
     
         int lang = 0;                  // unknown language
-        for (size_t i=0; i<NUMENTRIES(languages); ++i) {
-            if (localename == languages[i].localename)
+        for (size_t i=0; i<NUMENTRIES(nls::languages); ++i) {
+            if (localename == nls::languages[i].localename)
                 lang = int(i);
         }
         return lang;
@@ -281,11 +261,11 @@ namespace enigma { namespace gui {
     
     void LanguageButton::set_value(int value)
     {
-        options::SetOption ("Language", languages[value].localename);
+        options::SetOption ("Language", nls::languages[value].localename);
         
-        if ( not inInit) {
+        if (not inInit) {
             // change language only on user action
-            app.setLanguage(languages[value].localename);
+            app.setLanguage(nls::languages[value].localename);
             myListener->on_action(this);
         }
     }
@@ -295,11 +275,11 @@ namespace enigma { namespace gui {
         if (value == -1)
             return _("unknown");
         else
-            return languages[value].name;
+            return nls::languages[value].name;
     }
     
     LanguageButton::LanguageButton (ActionListener *al)
-    : ValueButton(0, NUMENTRIES(languages)-1), myListener(al)
+    : ValueButton(0, NUMENTRIES(nls::languages)-1), myListener(al)
     {
         inInit = true;
         init();
