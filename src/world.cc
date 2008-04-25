@@ -21,6 +21,7 @@
 #include "laser.hh"
 #include "player.hh"
 #include "SoundEffectManager.hh"
+#include "SoundEngine.hh"
 #include "options.hh"
 #include "server.hh"
 #include "lua.hh"
@@ -1493,10 +1494,12 @@ void World::revoke_delayed_impulses(const Stone *target) {
 
 void World::tick_sound_dampings ()
 {
+    if(sound::IsSoundMute())
+        return;
     // See SoundEffectManager.hh for details.
     static int counter = 0;
     ++counter;
-
+    
     if (counter > 9) {
         counter = 0;
         SoundDampingList::iterator i = level->sound_dampings.begin(),
@@ -2302,6 +2305,8 @@ void revokeDelayedImpulses(const Stone *target) {
 
 float getVolume(const char *name, Object *obj, float def_volume)
 {
+    if((def_volume == 0.0) || sound::IsSoundMute())
+        return 0;
     // See SoundEffectManager.hh for details.
     SoundDampingList::iterator i = level->sound_dampings.begin(),
         end = level->sound_dampings.end();

@@ -63,7 +63,8 @@ void sound::SetInGameMusicActive(bool active)
 
 void sound::MusicTick(double dtime)
 {
-    MusicManager::instance()->tick(dtime);
+    if(!sound::IsMusicMute())
+        MusicManager::instance()->tick(dtime);
 }
 
 void sound::InitMusic()

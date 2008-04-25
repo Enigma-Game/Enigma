@@ -381,6 +381,8 @@ bool SoundEffect::play(const ecl::V2 &pos, double vol, bool glob)
 bool SoundEffectManager::emitSoundEvent (const string &eventname, const ecl::V2 &pos,
                             double volume, bool force_global)
 {
+    if((volume == 0) || sound::IsSoundMute())
+        return false;
     string effectkey = effectKey(eventname);
     SoundEffectRepository::iterator i = sound_effects.find(effectkey);
     if (i == sound_effects.end()) {
@@ -406,7 +408,7 @@ void SoundEffectManager::writeSilenceString (const string &eventname)
 /* -------------------- Sound damping implementation -------------------- */
 
 /*! These methods are connected to the sound damping mechanism, designed
-  to reduce the noise created by some objects like st-lightpassenger. */
+  to reduce the noise created by some objects like st_lightpassenger. */
 
 SoundDamping::SoundDamping(string effect_name_, const void *origin_)
 : effect_name(effect_name_), origin(origin_)

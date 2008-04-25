@@ -54,6 +54,8 @@ namespace sound
 
     void TempDisableSound();
     void TempReEnableSound();
+    bool IsSoundMute();
+    bool IsMusicMute();
 
     void SetListenerPosition (const ecl::V2 &pos);
     bool PlaySound (const SoundName &, const ecl::V2 &pos,

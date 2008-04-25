@@ -40,6 +40,8 @@ namespace
     bool sound_enabled      = true;
     bool music_enabled      = true;
     bool sound_enabled_temp = false;
+    bool sound_mute         = false;
+    bool music_mute         = false;
 }
 
 
@@ -95,13 +97,21 @@ void sound::TempReEnableSound() {
     sound_enabled = sound_enabled_temp;
 }
 
-void sound::DefineSound (const SoundName &name, const SoundData &data)
-{
-    sound_engine->define_sound (name, data);
+bool sound::IsSoundMute() {
+    return !sound_enabled || sound_mute;
 }
 
 void sound::DisableMusic() {
     music_enabled = false;
+}
+
+bool sound::IsMusicMute() {
+    return !sound_enabled || !music_enabled || music_mute;
+}
+
+void sound::DefineSound (const SoundName &name, const SoundData &data)
+{
+    sound_engine->define_sound (name, data);
 }
 
 void sound::SetListenerPosition (const ecl::V2 &pos) 
@@ -111,7 +121,7 @@ void sound::SetListenerPosition (const ecl::V2 &pos)
 
 bool sound::PlaySound (const SoundName &name, const ecl::V2 &pos, double volume, int priority) 
 {
-    if (!sound_enabled)
+    if (sound::IsSoundMute())
         return false;
 
     SoundEvent se;
@@ -127,6 +137,9 @@ bool sound::PlaySound (const SoundName &name, const ecl::V2 &pos, double volume,
 
 bool sound::PlaySoundGlobal (const SoundName &name, double volume, int priority) 
 {
+    if (sound::IsSoundMute())
+        return false;
+
     SoundEvent se;
     se.name         = name;
     se.has_position = false;
@@ -156,7 +169,7 @@ void sound::FadeoutMusic()
 
 bool sound::PlayMusic (const string &name, double position) 
 {
-    if(!sound_enabled || !music_enabled || name=="")
+    if(sound::IsMusicMute() || name=="")
         return false;
     
     string fname;
@@ -174,11 +187,13 @@ bool sound::IsMusicPlaying() {
 void sound::SetSoundVolume (double vol)
 {
     sound_engine->set_sound_volume (vol);
+    sound_mute = (vol == 0.0);
 }
 
 void sound::SetMusicVolume (double vol)
 {
     sound_engine->set_music_volume (vol);
+    music_mute = (vol == 0.0);
 }
 
 
@@ -510,7 +525,7 @@ Sint8* SoundEngine_SDL::resample (const Sint8 *data, Uint32 len, int oldfreq,
 Mix_Chunk* SoundEngine_SDL::ChunkFromRaw (const Uint8 *buf, Uint32 len,
                                            int sfreq, int sformat, int schannels)
 {
-    if (!sound_enabled || !buf)
+    if (sound::IsSoundMute() || !buf)
         return 0;
 
     // Get destination format
