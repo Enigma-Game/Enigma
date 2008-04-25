@@ -52,7 +52,8 @@ namespace enigma { namespace gui {
 
     protected:
         void reset_active_widget() { active_widget = NULL; }
-
+        void reset_key_focus_widget() { key_focus_widget = NULL; }
+        
         // Menu interface.
         virtual void draw_background(ecl::GC &/*gc*/) {}
 

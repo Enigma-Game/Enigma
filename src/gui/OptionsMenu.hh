@@ -32,34 +32,45 @@ namespace enigma { namespace gui {
         OptionsMenu(ecl::Surface *background_);
         ~OptionsMenu();
         virtual void quit();
-    private:
-        void update_info();
 
+    private:
         // ActionListener interface.
         bool on_event (const SDL_Event &e);
         void on_action(gui::Widget *w);
-
+        
         // Menu interface.
         void draw_background(ecl::GC &gc);
-        void tick(double dtime);
+        void tick(double dtime) {}
+
+        // Page structure.
+        enum OptionsPage { OPTIONS_MAIN, OPTIONS_VIDEO, OPTIONS_AUDIO, OPTIONS_CONFIG };
+        void open_page(OptionsPage new_page);
+        void close_page();
 
         // Variables.
+        VList *pagesVList;
+        HList *commandHList;
+        VList *optionsVList;
         gui::Widget *back, *language;
+        gui::StaticTextButton *but_main_options;
+        gui::StaticTextButton *but_video_options;
+        gui::StaticTextButton *but_audio_options;
+        gui::StaticTextButton *but_config_options;
         gui::BoolOptionButton *fullscreen;
         gui::VideoModeButton *videomode;
         gui::TextField *userNameTF;
         gui::TextField *userPathTF;
         gui::TextField *userImagePathTF;
         gui::TextField *menuMusicTF;
-        gui::Label  *m_restartinfo;
         ecl::Surface *background;
         std::string  previous_caption;
     };
 
 /* -------------------- Options Buttons -------------------- */
 
-    struct FullscreenButton : public BoolOptionButton {
-        FullscreenButton();
+    class FullscreenButton : public BoolOptionButton {
+    public:
+        FullscreenButton(ActionListener *al = 0);
     };
 
 
@@ -105,8 +116,7 @@ namespace enigma { namespace gui {
         ActionListener *myListener;
     public:
         // second user action listener: first one is misused by ValueButton 
-        LanguageButton (ActionListener *al = 0);
-        
+        LanguageButton (ActionListener *al = 0);        
     };
 
     class GammaButton : public ValueButton {
@@ -114,8 +124,7 @@ namespace enigma { namespace gui {
         void set_value(int value);
         std::string get_text(int value) const;
     public:
-        GammaButton ();
-        
+        GammaButton ();        
     };
     
 /* -------------------- Functions -------------------- */
