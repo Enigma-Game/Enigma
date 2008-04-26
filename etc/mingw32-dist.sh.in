@@ -81,14 +81,17 @@ function copy_data
 	mkdir $DDIR/data/$folder; 
 	cp -p $SDIR/data/$folder/*.{png,jpg} $DDIR/data/$folder
     done
+    mkdir $DDIR/data/gfx/flags25x15
+    cp -p $SDIR/data/gfx/flags25x15/*.png $DDIR/data/gfx/flags25x15
     mkdir $DDIR/data/schemas
     cplffiles data/schemas data/schemas xsd
     cplffiles data/schemas data/schemas xml
     copy_levels
     mkdir $DDIR/data/fonts
     cp -p $SDIR/data/fonts/*.{bmf,png,txt,ttf} $DDIR/data/fonts
-    mkdir $DDIR/data/sound
-    cp -p $SDIR/data/sound/*.{ogg,s3m} $DDIR/data/sound
+    mkdir $DDIR/data/music
+    mkdir $DDIR/data/music/menu
+    cp -p $SDIR/data/music/menu/*.{ogg,s3m} $DDIR/data/music/menu
     mkdir $DDIR/data/soundsets 
     mkdir $DDIR/data/soundsets/enigma 
     cp -p $SDIR/data/soundsets/enigma/*.wav $DDIR/data/soundsets/enigma

@@ -292,6 +292,8 @@ bundle:
 	cp $(top_builddir)/data/*.xml $(bundle_name)/Contents/Resources/data/
 	mkdir -p $(bundle_name)/Contents/Resources/data/gfx
 	cp $(top_builddir)/data/gfx/*.png $(bundle_name)/Contents/Resources/data/gfx
+	mkdir -p $(bundle_name)/Contents/Resources/data/gfx/flags25x15
+	cp $(top_builddir)/data/gfx/flags25x15/*.png $(bundle_name)/Contents/Resources/data/gfx/flags25x15
 	mkdir -p $(bundle_name)/Contents/Resources/data/gfx32
 	cp $(top_builddir)/data/gfx32/*.png $(bundle_name)/Contents/Resources/data/gfx32
 	cp $(top_builddir)/data/gfx32/*.jpg $(bundle_name)/Contents/Resources/data/gfx32
@@ -304,8 +306,10 @@ bundle:
 	mkdir -p $(bundle_name)/Contents/Resources/data/schemas
 	cp $(top_builddir)/data/schemas/*.xml $(bundle_name)/Contents/Resources/data/schemas
 	cp $(top_builddir)/data/schemas/*.xsd $(bundle_name)/Contents/Resources/data/schemas
-	mkdir -p $(bundle_name)/Contents/Resources/data/sound
-	cp $(top_builddir)/data/sound/*.s3m $(bundle_name)/Contents/Resources/data/sound
+	mkdir -p $(bundle_name)/Contents/Resources/data/music
+	mkdir -p $(bundle_name)/Contents/Resources/data/music/menu
+	cp $(top_builddir)/data/music/menu/*.s3m $(bundle_name)/Contents/Resources/data/music/menu
+	cp $(top_builddir)/data/music/menu/*.ogg $(bundle_name)/Contents/Resources/data/music/menu
 	mkdir -p $(bundle_name)/Contents/Resources/data/soundsets
 	mkdir -p $(bundle_name)/Contents/Resources/data/soundsets/enigma
 	cp $(top_builddir)/data/soundsets/enigma/*.wav $(bundle_name)/Contents/Resources/data/soundsets/enigma

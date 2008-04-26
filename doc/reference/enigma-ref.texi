@@ -3341,6 +3341,36 @@ postinit()
 
 Read API Concept Draft
 
+@menu
+* Lua Example:: 
+* Enigma Lua Types::   
+* Object Definitions and Tiles::
+* Lua Positions::
+@end menu
+
+@c ----------------- Lua Example -------------------- 
+
+@node Lua Example
+@section Lua Example
+
+@c ----------------- Enigma Lua Types -------------------- 
+
+@node Enigma Lua Types
+@section Enigma Lua Types
+
+
+
+@c -------------- Object Definitions and Tiles ----------------- 
+
+@node Object Definitions and Tiles
+@section Object Definitions and Tiles
+
+@c ----------------- Lua Positions -------------------- 
+
+@node Lua Positions
+@section Lua Positions
+
+
 @c ===================  Commons  =======================
 @node Common Attributes and Messages
 @chapter Common Attributes and Messages
@@ -3493,11 +3523,28 @@ do take the first token object.
 @section Global Attributes
 
 @menu
+* IsDifficult:: 
 * MagnetRange:: 
 * MagnetStrength:: 
 * WormholeRange:: 
 * WormholeStrength:: 
 @end menu
+
+@node IsDifficult
+@subsection IsDifficult
+
+A global read only variable that defines the current diffculty mode selected
+by the user. All differences of easy and difficult mode within the level should
+be coded solely in dependence of this flag. A level that supports an easy mode
+the author needs to declare it in the XML header in the element @ref{<modes>}.
+
+@table @asis
+@item @b{Type:} @ @ bool
+@item @b{Values:} @ @ @code{true}, @code{false}
+@item @b{Default:} @ @ @code{true}
+@item @b{Access:} @ @ read only
+@item @b{Support:} @ @ object independent
+@end table
 
 @node MagnetRange
 @subsection MagnetRange
@@ -3578,12 +3625,14 @@ Positve number are attracting, negative numbers are repelling.
 @menu
 * it_blocker::         Shrinked Blocker Stone
 * it_brush::           
+* it_cross::           Floor switch for patient Actors
 * it_coin::            Enigma's currency
 * it_extralife::
 * it_floppy::          
 * it_hammer::
 * it_key::             
 * it_magnet::
+* it_sensor::          Floor Switch for passing Actors
 * it_sword::
 * it_trigger::         Floor Switch for Actors and Stones
 * it_umbrella::        Death Protection Item
@@ -3678,6 +3727,7 @@ snapshot of a moving boulder over a blocker line, too. See example levels.
 @subsection it_brush
 @obindex it_brush
 
+TBD
 
 @table @asis
 
@@ -3732,6 +3782,40 @@ A large coin.
 @end table
 
 @end table
+
+@c ----------------- Cross Item -------------------- 
+@node it_cross
+@subsection it_cross
+@obindex it_cross
+
+An eye-catching cross spot that can detect actors staying on it for a given
+time. When an actor remains on top of the cross for the given @samp{interval}
+without any other actor leaving or passing the cross grid the cross will perform
+its action. Similar, but instant sensors for actors are @ref{it_sensor} and
+@ref{it_trigger}
+
+A cross can be drawn with an @ref{it_pencil} and it can be removed with an
+@ref{it_brush}.
+
+@table @asis
+@item @b{Attributes:}
+
+@table @asis
+@item @b{state}, @ @ @i{values}: @code{0}, @code{1}; @ @ @i{access}: @code{read only} @ @ @xref{state}
+The current state - @samp{0} for the last event being an actor leaving the cross,
+@samp{1} for the last event being an actor entering the cross.
+
+@item @b{interval} @ @ @i{values}: positive number; @ @ @i{default}: @code{10.0}
+Number of seconds that the actor must stay on the sensor to cause an action.
+
+@end table
+
+@item @b{Messages:} none
+
+@item @b{Action:} @ @ @xref{target}, @ @ @xref{action}
+
+@end table
+
 
 @c ----------------- Extralife Item -------------------- 
 @node it_extralife
@@ -3885,6 +3969,45 @@ A magnet in state @samp{OFF}.
 @end table
 
 @end table
+
+@c ----------------- Sensor Item -------------------- 
+@node it_sensor
+@subsection it_sensor
+@obindex it_sensor
+
+The sensor item is a switch on top of a floor that reacts on actors passing it.
+It just performs actions on actors entering the sensors grid. It will
+send an action value of @samp{true} but of course the @ref{inverse} attribute
+can be used to send an action value of @samp{false} instead.
+
+Any actors passing the grid, either on the floor or jumping over it will be
+detected.
+
+Sensors do not cause any noise. Visible sensors will nevertheless flash on
+passing actors. You can make the trigger invisible by setting its attribute. 
+Be aware that the user will still notice that actors cannot drop items onto the
+same grid position.
+
+Alternative objects that reacts on actors are @ref{it_trigger} and 
+@ref{it_cross}.
+
+@table @asis
+@item @b{Attributes:}
+
+@table @asis
+
+@item @b{invisible} @ @ @i{values}: @code{true}, @code{false}; @ @ @i{default}: @code{false}
+An invisible sensor is totally transparent. But the user may notice it, as actors
+cannot drop items onto the same grid position.
+
+@end table
+
+@item @b{Messages:} none
+
+@item @b{Action:} @ @ @xref{target}, @ @ @xref{action}
+
+@end table
+
 
 @c ----------------- Sword Item -------------------- 
 @node it_sword
