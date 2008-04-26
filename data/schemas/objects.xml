@@ -35,7 +35,6 @@
   <messages>
     <msg name="close" type="nil"/>
     <msg name="closeall" type="nil"/>
-    <msg name="brush" type="nil"/>
     <msg name="hit" type="object"/>
     <msg name="inner_pull" type="dir"/>
     <msg name="off" type="nil"/>
@@ -48,6 +47,7 @@
     <msg name="turn" type="nil"/>
     <msg name="turnback" type="nil"/>
     <msg name="_bombstone" type="nil"/>
+    <msg name="_brush" type="nil"/>
     <msg name="_explosion" type="nil"/>
     <msg name="_hit" type="object"/>
     <msg name="_init" type="nil"/>
@@ -100,7 +100,7 @@
     <object name="it_cross">
       <attr name="interval" default="10"/>
       <attr name="state" rw="r"/>
-      <msg name="brush"/>
+      <msg name="_brush"/>
       <msg name="signal"/>
     </object>
     <object name="it_extralife"/>

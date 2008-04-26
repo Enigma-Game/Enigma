@@ -504,6 +504,11 @@ function Tick (deltatime)
     -- do nothing by default
 end
 
+if difficult then
+    enigma.SetScrambleIntensity(10)
+else
+    enigma.SetScrambleIntensity(3)
+end
 
 ----------------------
 -- Global variables --

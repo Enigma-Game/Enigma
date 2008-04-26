@@ -238,7 +238,7 @@ namespace
 
         virtual Value message (const Message &m) {
             if (enigma_server::GameCompatibility == GAMET_ENIGMA) {
-                if (m.message == "brush") {
+                if (m.message == "_brush") {
                     KillItem(this->get_pos());
                     return Value();
                 }
@@ -607,7 +607,7 @@ namespace
 
         virtual Value message (const Message &m) {
             if (enigma_server::GameCompatibility == GAMET_ENIGMA) {
-                if (m.message == "brush") {
+                if (m.message == "_brush") {
                     KillItem(this->get_pos());
                     return Value();
                 }
@@ -640,7 +640,7 @@ namespace
     
     ItemAction Brush::activate(Actor *a, GridPos p) {
         if (Item *it = GetItem(p))
-            SendMessage (it, "brush");
+            SendMessage (it, "_brush");
         return ITEM_DROP;
     }
     
@@ -2703,7 +2703,7 @@ Value Burnable::message(const Message &m) {
         state = FIREPROOF;
         init_model();
         return Value();
-    } else if (m.message == "brush" && (state == ASH || state == FIREPROOF)) {
+    } else if (m.message == "_brush" && (state == ASH || state == FIREPROOF)) {
         kill();   // The brush cleans the floor
         return Value();
     } else if (Floor *fl = GetFloor(get_pos())) {
@@ -3476,7 +3476,7 @@ namespace
                 return Value();
             }
         } else if (enigma_server::GameCompatibility == GAMET_ENIGMA) {
-            if (m.message == "brush") {
+            if (m.message == "_brush") {
                 KillItem(this->get_pos());
                 return Value();
             }
