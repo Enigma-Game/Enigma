@@ -148,12 +148,6 @@ double options::GetMouseSpeed ()
     return GetDouble ("MouseSpeed");
 }
 
-void options::UpdateVolume() 
-{
-    sound::SetSoundVolume (GetDouble("SoundVolume"));
-    sound::SetMusicVolume (GetDouble("MusicVolume"));
-}
-
 std::string options::GetString (const char *name) 
 {
     std::string val;

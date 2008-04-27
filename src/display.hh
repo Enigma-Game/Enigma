@@ -214,6 +214,13 @@ namespace display
 #define STATUSBAR display::GetStatusBar()
 
 
+/* -------------------- Constants -------------------- */
+
+    const int MIN_TextSpeed = 1;
+    const int MAX_TextSpeed = 20;
+    const int DEFAULT_TextSpeed = 8;
+    const int FACTOR_TextSpeed = 20;  // Multiplicative factor for text speed
+
 /* -------------------- Interface to display engine -------------------- */
 
     enum DisplayFlags
@@ -242,6 +249,9 @@ namespace display
     void RedrawAll (ecl::Screen *sfc);
     void Redraw (ecl::Screen *sfc);
     void Tick (double dtime);
+
+    void SetTextSpeed(int newspeed);
+    int GetTextSpeed();
 }
 
 #endif

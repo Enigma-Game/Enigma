@@ -40,12 +40,12 @@ namespace sound
     void Init();
     void Shutdown();
 
-    void Tick (double dtime);
+    void Tick(double dtime);
 
     void DisableSound();
     void EnableSound();
     void DisableMusic();
-    bool PlayMusic (const string &name, double position = 0.0);
+    bool PlayMusic(const string &name, double position = 0.0);
     void FadeoutMusic();
 
     /*! Stop any music currently playing. */
@@ -58,14 +58,18 @@ namespace sound
     bool IsMusicMute();
 
     void SetListenerPosition (const ecl::V2 &pos);
-    bool PlaySound (const SoundName &, const ecl::V2 &pos,
+    bool PlaySound(const SoundName &, const ecl::V2 &pos,
                     double relative_volume = 1.0, int priority=0);
-    bool PlaySoundGlobal (const SoundName &, double relative_volume = 1.0, int priority=0);
+    bool PlaySoundGlobal(const SoundName &, double relative_volume = 1.0, int priority=0);
     
     void ClearCache();
     void CacheSound(const SoundEffect &s);
-    void SetSoundVolume (double vol);
-    void SetMusicVolume (double vol);
+    void SetSoundVolume(double vol);
+    void SetMusicVolume(double vol);
+
+    /*! Set the sound and music volume to the values in SoundVolume
+      and MusicVolume. */
+    void UpdateVolume();
 
 /* -------------------- SoundEngine -------------------- */
 

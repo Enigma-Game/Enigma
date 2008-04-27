@@ -25,6 +25,7 @@
 #include "main.hh"
 #include "nls.hh"
 #include "options.hh"
+#include "display.hh"
 #include "oxyd.hh"
 #include "SoundEngine.hh"
 #include "SoundEffectManager.hh"
@@ -60,13 +61,30 @@ namespace enigma { namespace gui {
         { init(); }
     };
 
+    class TextSpeedButton : public ValueButton {
+        int get_value() const     { 
+            return display::GetTextSpeed();
+        }
+        void set_value(int value) { 
+            display::SetTextSpeed(value);
+        }
+
+        string get_text(int value) const  {
+            return strf("%d", value);
+        }
+    public:
+        TextSpeedButton()
+        : ValueButton(display::MIN_TextSpeed, display::MAX_TextSpeed)
+        { init(); }
+    };
+    
     class SoundVolumeButton : public ValueButton {
         int get_value() const     { 
             return round_nearest<int>(options::GetDouble("SoundVolume")*10.0); 
         }
         void set_value(int value) {
             options::SetOption("SoundVolume", value/10.0);
-            options::UpdateVolume();
+            sound::UpdateVolume();
         }
 
         string get_text(int value) const {
@@ -87,7 +105,7 @@ namespace enigma { namespace gui {
         }
         void set_value(int value) {
             options::SetOption("MusicVolume", value/10.0);
-            options::UpdateVolume();
+            sound::UpdateVolume();
         }
 
         string get_text(int value) const {
@@ -376,7 +394,7 @@ namespace enigma { namespace gui {
             {  // VTS_64 (1280x960)
                 11,
                 35, 200, 140, 100,
-                25, 20,
+                40, 20,
                 60, 58, 20
             }
         };
@@ -395,10 +413,14 @@ namespace enigma { namespace gui {
         but_audio_options->setHighlight(new_page == OPTIONS_AUDIO);
         but_config_options = new StaticTextButton(N_("Config"), this);
         but_config_options->setHighlight(new_page == OPTIONS_CONFIG);
+        but_paths_options = new StaticTextButton(N_("Paths"), this);
+        but_paths_options->setHighlight(new_page == OPTIONS_PATHS);
         pagesVList->add_back(but_main_options);
+        pagesVList->add_back(new Label(""));
         pagesVList->add_back(but_video_options);
         pagesVList->add_back(but_audio_options);
         pagesVList->add_back(but_config_options);
+        pagesVList->add_back(but_paths_options);
         this->add(pagesVList, Rect(param[vtt].hmargin + vh,
                                    param[vtt].vmargin + vv, 
                                    param[vtt].pageb_width,
@@ -439,18 +461,14 @@ namespace enigma { namespace gui {
 #define OPTIONS_NEW_L(label) lb = new HList;\
         lb->set_spacing(param[vtt].hoption_option); \
         lb->set_alignment(HALIGN_LEFT, VALIGN_TOP); \
-        lb->set_default_size(param[vtt].optionb_width, \
-                             param[vtt].rows*param[vtt].button_height + \
-                                 (param[vtt].rows - 1) * param[vtt].vrow_row); \
+        lb->set_default_size(param[vtt].optionb_width, param[vtt].button_height); \
         lb->add_back(new Label(N_(label), HALIGN_LEFT, VALIGN_BOTTOM)); \
         optionsVList->add_back(lb); \
 // end define
 #define OPTIONS_NEW_LB(label,button) lb = new HList;\
         lb->set_spacing(param[vtt].hoption_option); \
         lb->set_alignment(HALIGN_CENTER, VALIGN_TOP); \
-        lb->set_default_size(param[vtt].optionb_width, \
-                             param[vtt].rows*param[vtt].button_height + \
-                                 (param[vtt].rows - 1) * param[vtt].vrow_row); \
+        lb->set_default_size(param[vtt].optionb_width, param[vtt].button_height); \
         lb->add_back(new Label(N_(label), HALIGN_RIGHT, VALIGN_CENTER)); \
         lb->add_back(button); \
         optionsVList->add_back(lb); \
@@ -459,8 +477,7 @@ namespace enigma { namespace gui {
         lb->set_spacing(param[vtt].hoption_option); \
         lb->set_alignment(HALIGN_LEFT, VALIGN_TOP); \
         lb->set_default_size(2*param[vtt].optionb_width + param[vtt].hoption_option, \
-                             param[vtt].rows*param[vtt].button_height + \
-                                 (param[vtt].rows - 1) * param[vtt].vrow_row); \
+                             param[vtt].button_height); \
         lb->add_back(textbutton); \
         optionsVList->add_back(lb); \
 // end define
@@ -497,13 +514,15 @@ namespace enigma { namespace gui {
             case OPTIONS_CONFIG:
                 OPTIONS_NEW_LB("Language: ", language = new LanguageButton(this))
                 OPTIONS_NEW_LB("Mouse speed: ", new MouseSpeedButton())
+                OPTIONS_NEW_LB("Text speed: ", new TextSpeedButton())
                 OPTIONS_NEW_LB("Ratings update: ", new RatingsUpdateButton())
                 userNameTF = new TextField(app.state->getString("UserName"));
                 userNameTF->setMaxChars(20);
                 userNameTF->setInvalidChars("+");
                 OPTIONS_NEW_L("User name: ")
                 OPTIONS_NEW_T(userNameTF)
-                //...("Text speed: ", new TextSpeedButton())
+                break;
+            case OPTIONS_PATHS:
                 userPathTF = new TextField(XMLtoUtf8(LocalToXML(app.userPath.c_str()).x_str()).c_str());
                 OPTIONS_NEW_L("User path: ")
                 OPTIONS_NEW_T(userPathTF)
@@ -639,6 +658,9 @@ namespace enigma { namespace gui {
         } else if (w == but_config_options) {
             close_page();
             open_page(OPTIONS_CONFIG);
+        } else if (w == but_paths_options) {
+            close_page();
+            open_page(OPTIONS_PATHS);
         }
     }
     

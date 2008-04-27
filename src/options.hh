@@ -91,11 +91,6 @@ namespace enigma_options
     bool GetLevelStatus (const std::string &levelname,
                          LevelStatus &stat);
 
-
-    /*! Set the sound and music volume to the values in SoundVolume
-      and MusicVolume. */
-    void UpdateVolume();
-
     /*! Try to load the user's configuration file.  Returns true if
       successful. */
     bool Load ();

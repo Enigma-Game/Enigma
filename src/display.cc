@@ -303,13 +303,17 @@ TextDisplay::TextDisplay (Font &f)
   changedp(false), finishedp(true),
   pingpong (false),
   showscroll(false),
-  xoff(0), scrollspeed(200),
+  xoff(0), scrollspeed(DEFAULT_TextSpeed * FACTOR_TextSpeed),
   textsurface(0), font(f)
 {
     const video::VMInfo *vminfo = video::GetInfo();
     area = vminfo->sb_textarea;
-
     time = maxtime = 0;
+    // Note: "scrollspeed" is not yet initialised with
+    //   display::GetTextSpeed() * FACTOR_TextSpeed but a
+    //   default value instead, because Application State
+    //   Manager has not been initialised at this point
+    //   yet: This would crash.
 }
 
 void TextDisplay::set_text (const string &t, bool scrolling, double duration) 
@@ -323,7 +327,7 @@ void TextDisplay::set_text (const string &t, bool scrolling, double duration)
     if (scrolling) {
         if (duration <= 0) {
             xoff = -area.w;
-            scrollspeed = 160;
+            scrollspeed = display::GetTextSpeed() * FACTOR_TextSpeed;
         } else {
             // Showscroll mode: first show string then scoll it out
             showscroll = true;
@@ -366,7 +370,7 @@ void TextDisplay::tick (double dtime)
     if (time > maxtime) {
         if (showscroll) {
             showscroll = false;
-            scrollspeed = 160;            
+            scrollspeed = display::GetTextSpeed() * FACTOR_TextSpeed;
             maxtime = 1e20;       // "infinite" for all practical purposes
         } else {
             finishedp = true;
@@ -2187,4 +2191,19 @@ RubberHandle
 display::AddRubber (const V2 &p1, const V2 &p2)
 {
     return gamedpy->add_line (p1, p2);
+}
+
+void display::SetTextSpeed(int newspeed) {
+    int speed = ecl::Clamp<int>(newspeed, MIN_TextSpeed, MAX_TextSpeed);
+    app.state->setProperty("TextSpeed", speed);
+}
+
+int display::GetTextSpeed() {
+    int speed = app.state->getInt("TextSpeed");
+    if(speed == 0) {
+        // Text Speed has not been set yet. Use default.
+        SetTextSpeed(DEFAULT_TextSpeed);
+        return DEFAULT_TextSpeed;
+    } else
+        return speed;
 }

@@ -1,4 +1,4 @@
-pkgdatadir = $(datadir)/@PACKAGE@/menu
+pkgdatadir = $(datadir)/@PACKAGE@/music/menu
 pkgdata_DATA = menu.s3m \
                esprit.ogg
 

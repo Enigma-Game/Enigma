@@ -54,7 +54,7 @@ void sound::Init()
     }
 
     if (sound_engine->init()) {
-        options::UpdateVolume();
+        sound::UpdateVolume();
     }
     else {
         sound_enabled = false;
@@ -194,6 +194,12 @@ void sound::SetMusicVolume (double vol)
 {
     sound_engine->set_music_volume (vol);
     music_mute = (vol == 0.0);
+}
+
+void sound::UpdateVolume() 
+{
+    sound::SetSoundVolume(options::GetDouble("SoundVolume"));
+    sound::SetMusicVolume(options::GetDouble("MusicVolume"));
 }
 
 
