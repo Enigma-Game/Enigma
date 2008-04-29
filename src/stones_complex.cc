@@ -39,105 +39,6 @@ using namespace std;
 
 namespace enigma { 
 
-
-/* -------------------- RotatorStone -------------------- */
-namespace
-{
-    class RotatorStone : public PhotoStone {
-    public:
-        RotatorStone(bool clockwise_, bool movable_)
-        : clockwise(clockwise_), movable(movable_)
-        {
-            traits.name = "st-rotator";
-            traits.id = st_rotator;
-            traits.flags = stf_none;
-            traits.material = material_stone;
-            traits.restitution = 1.0;
-            traits.movable = movable_ ? MOVABLE_STANDARD : MOVABLE_PERSISTENT;
-        }
-
-    private:
-        static const double RATE;
-        static const double IMPULSE_DELAY;
-
-        bool clockwise;
-        bool movable;
-        StoneTraits traits;
-
-        Stone *clone() { return new RotatorStone(clockwise, movable); }
-        void dispose() { delete this; }
-        
-        // Stone interface
-        void on_creation (GridPos p) {
-            Stone::on_creation(p);
-            photo_activate();
-        }
-        void on_removal (GridPos p){
-            photo_deactivate();
-            Stone::on_removal(p);
-        }
-
-        void send_impulses() {
-            GridPos p = get_pos();
-
-            if (clockwise) {
-                send_impulse (move(p, NORTH), EAST, IMPULSE_DELAY);
-                send_impulse (move(p, EAST), SOUTH, IMPULSE_DELAY);
-                send_impulse (move(p, SOUTH), WEST, IMPULSE_DELAY);
-                send_impulse (move(p, WEST), NORTH, IMPULSE_DELAY);
-            } else {
-                send_impulse (move(p, NORTH), WEST, IMPULSE_DELAY);
-                send_impulse (move(p, EAST), NORTH, IMPULSE_DELAY);
-                send_impulse (move(p, SOUTH), EAST, IMPULSE_DELAY);
-                send_impulse (move(p, WEST), SOUTH, IMPULSE_DELAY);
-            }
-        }
-
-
-        void init_model() {
-            set_anim(clockwise ? "st-rotator-right" : "st-rotator-left");
-        }
-        void animcb() {
-            init_model();
-            send_impulses();
-        }
-
-        void actor_hit (const StoneContact &sc) {
-            if (player::WieldedItemIs (sc.actor, "it_wrench")) {
-                clockwise = !clockwise;
-                init_model();
-            }
-
-            if (movable)
-                maybe_push_stone(sc);
-        }
-
-        void on_impulse(const Impulse& impulse) {
-            if (movable)
-                move_stone(impulse.dir);
-        }
-
-        // PhotoStone interface
-        void notify_laseron() {
-            clockwise = !clockwise;
-            init_model();
-        }
-        void notify_laseroff() {}
-
-        const StoneTraits &get_traits() const
-        {
-            return traits;
-        }
-
-    private:
-        FreezeStatusBits get_freeze_bits() { return FREEZEBIT_IRREGULAR; }    
-    };
-    
-    const double RotatorStone::RATE          = 1.0;
-    const double RotatorStone::IMPULSE_DELAY = 0.1;
-}
-
-
 /* -------------------- PullStone -------------------- */
 
 // When pushed this stone acts like pulled.
@@ -2978,12 +2879,6 @@ void Init_complex()
     Register("st-puzzle2-nsw", new PuzzleStone(12, true));
     Register("st-puzzle2-esw", new PuzzleStone(8, true));
     Register("st-puzzle2-nesw", new PuzzleStone(16, true));
-
-
-    Register ("st-rotator-right", new RotatorStone(true, false));
-    Register ("st-rotator-left", new RotatorStone(false, false));
-    Register ("st-rotator_move-right", new RotatorStone(true, true));
-    Register ("st-rotator_move-left", new RotatorStone(false, true));
 
     Register(new ShogunStone);
     Register("st-shogun-s", new ShogunStone(1));
