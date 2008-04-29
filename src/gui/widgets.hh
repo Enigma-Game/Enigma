@@ -333,7 +333,7 @@ namespace enigma { namespace gui {
         bool isHighlight();
     protected:
         Button();
-
+        
         // Widget interface.
         void draw(ecl::GC &gc, const ecl::Rect &r);
         void activate();
@@ -463,6 +463,23 @@ namespace enigma { namespace gui {
         virtual void draw(ecl::GC &gc, const ecl::Rect &r);
     private:
         std::string fname_sel, fname_unsel;
+    };
+
+
+    /* -------------------- BorderlessImageButton -------------------- */
+
+    class BorderlessImageButton : public PushButton {
+    public:
+        BorderlessImageButton(const std::string &unselected,
+                              const std::string &selected,
+                              const std::string &mouseover,
+                              ActionListener    *al = 0);
+        void set_images(const std::string &unselected, const std::string &selected,
+                        const std::string &mouseover);
+        // Widget interface.
+        virtual void draw(ecl::GC &gc, const ecl::Rect &r);
+    private:
+        std::string fname_sel, fname_unsel, fname_mouse;
     };
 
 }} // namespace enigma::gui

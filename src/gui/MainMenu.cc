@@ -212,27 +212,34 @@ namespace enigma { namespace gui {
     {
         const video::VMInfo *vminfo = video::GetInfo();
         const int vshrink = vminfo->width < 640 ? 1 : 0;
-        int y[] = {75, 150, 170, 200, 200};
+        int y[] = {75, 170, 190, 220, 220};
+        // parameters to use when flags are not at top: {75, 150, 170, 200, 200};
+#ifdef ENABLE_EXPERIMENTAL
+        y[1] = 150;
+#endif
         BuildVList b(this, Rect((vminfo->width - 150)/2, y[vminfo->tt], 150, vshrink?20:40), 5);
         m_startgame = b.add(new StaticTextButton(N_("Start Game"), this));
         m_levelpack = b.add(new StaticTextButton(N_("Level Pack"), this));
 #ifdef ENABLE_EXPERIMENTAL
-        m_netgame   = b.add (new StaticTextButton (N_("Network Game"), this));
+        m_netgame   = b.add(new StaticTextButton(N_("Network Game"), this));
         leveled     = b.add(new StaticTextButton(N_("Editor"), this));
 #endif
         options     = b.add(new StaticTextButton(N_("Options"), this));
         credits     = b.add(new StaticTextButton(N_("Credits"), this));
         quit        = b.add(new StaticTextButton(N_("Quit"), this));
-        int ly = vminfo->width - 5 - 35*NUMENTRIES(nls::languages);
+        int ly = vminfo->width - 5 - 35*(NUMENTRIES(nls::languages) - 1);
         //BuildHList l(this, Rect(ly, (vminfo->height) - 30, 30, 20), 5);
         BuildHList l(this, Rect(ly, 10, 30, 20), 5);
         //BuildVList l(this, Rect(vminfo->width - 45, 15, 30, 20), 5);
         language.clear();
         if(!vshrink)
-            for (size_t i=0; i<NUMENTRIES(nls::languages); ++i)
-                language.push_back(l.add(
-                    new ImageButton(nls::languages[i].flagimage,
-                                    nls::languages[i].flagimage, this)));
+            for (size_t i=1; i<NUMENTRIES(nls::languages); ++i) {
+                BorderlessImageButton *but = new BorderlessImageButton(
+                    nls::languages[i].flagimage + string("-shaded"),
+                    nls::languages[i].flagimage,
+                    nls::languages[i].flagimage, this);
+                language.push_back(l.add(but));
+            }
     }
     
     void MainMenu::draw_background(ecl::GC &gc) 
@@ -247,7 +254,11 @@ namespace enigma { namespace gui {
         Font *f = enigma::GetFont("levelmenu");
         Surface * logo(enigma::GetImage("enigma_logo3"));
         int x0=(vminfo->width - logo->width())/2;
-        int y0[] = {0, 30, 40, 50, 60};
+        int y0[] = {0, 50, 60, 70, 80};
+        // parameters to use when flags are not at top: {0, 30, 40, 50, 60};
+#ifdef ENABLE_EXPERIMENTAL
+        y0[1] = 30;
+#endif
         blit(gc, x0, y0[vminfo->tt], logo);
         f->render (gc, 5, vminfo->height - 20, app.getVersionInfo().c_str());
     }
@@ -291,8 +302,8 @@ namespace enigma { namespace gui {
         } else if (w == quit) {
             Menu::quit();
         } else if (language.size() > 0) {
-            for (size_t i=0; i<NUMENTRIES(nls::languages); ++i)
-                if (w == language[i]) {
+            for (size_t i=1; i<NUMENTRIES(nls::languages); ++i)
+                if (w == language[i-1]) {
                     options::SetOption ("Language", nls::languages[i].localename);
                     app.setLanguage(nls::languages[i].localename);
                 }

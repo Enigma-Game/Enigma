@@ -462,14 +462,14 @@ namespace enigma { namespace gui {
         lb->set_spacing(param[vtt].hoption_option); \
         lb->set_alignment(HALIGN_LEFT, VALIGN_TOP); \
         lb->set_default_size(param[vtt].optionb_width, param[vtt].button_height); \
-        lb->add_back(new Label(N_(label), HALIGN_LEFT, VALIGN_BOTTOM)); \
+        lb->add_back(new Label(label, HALIGN_LEFT, VALIGN_BOTTOM)); \
         optionsVList->add_back(lb); \
 // end define
 #define OPTIONS_NEW_LB(label,button) lb = new HList;\
         lb->set_spacing(param[vtt].hoption_option); \
         lb->set_alignment(HALIGN_CENTER, VALIGN_TOP); \
         lb->set_default_size(param[vtt].optionb_width, param[vtt].button_height); \
-        lb->add_back(new Label(N_(label), HALIGN_RIGHT, VALIGN_CENTER)); \
+        lb->add_back(new Label(label, HALIGN_RIGHT, VALIGN_CENTER)); \
         lb->add_back(button); \
         optionsVList->add_back(lb); \
 // end define
@@ -484,50 +484,50 @@ namespace enigma { namespace gui {
 
         switch (new_page) {
             case OPTIONS_MAIN:
-                OPTIONS_NEW_LB("Language: ", language = new LanguageButton(this))
-                OPTIONS_NEW_LB("Fullscreen: ", fullscreen = new FullscreenButton(this))
-                OPTIONS_NEW_LB("Video mode: ", videomode = new VideoModeButton())
-                OPTIONS_NEW_LB("Mouse speed: ", new MouseSpeedButton())
-                OPTIONS_NEW_LB("Sound volume: ", new SoundVolumeButton())
-                OPTIONS_NEW_LB("Music volume: ", new MusicVolumeButton())
-                OPTIONS_NEW_LB("Ratings update: ", new RatingsUpdateButton())
+                OPTIONS_NEW_LB(N_("Language: "), language = new LanguageButton(this))
+                OPTIONS_NEW_LB(N_("Fullscreen: "), fullscreen = new FullscreenButton(this))
+                OPTIONS_NEW_LB(N_("Video mode: "), videomode = new VideoModeButton())
+                OPTIONS_NEW_LB(N_("Mouse speed: "), new MouseSpeedButton())
+                OPTIONS_NEW_LB(N_("Sound volume: "), new SoundVolumeButton())
+                OPTIONS_NEW_LB(N_("Music volume: "), new MusicVolumeButton())
+                OPTIONS_NEW_LB(N_("Ratings update: "), new RatingsUpdateButton())
                 userNameTF = new TextField(app.state->getString("UserName"));
                 userNameTF->setMaxChars(20);
                 userNameTF->setInvalidChars("+");
-                OPTIONS_NEW_L("User name: ")
+                OPTIONS_NEW_L(N_("User name: "))
                 OPTIONS_NEW_T(userNameTF)
                 break;
             case OPTIONS_VIDEO:
-                OPTIONS_NEW_LB("Fullscreen: ", fullscreen = new FullscreenButton())
+                OPTIONS_NEW_LB(N_("Fullscreen: "), fullscreen = new FullscreenButton())
                 fullscreen->set_listener(this);
-                OPTIONS_NEW_LB("Video mode: ", videomode = new VideoModeButton())
-                OPTIONS_NEW_LB("Gamma correction: ", new GammaButton())
+                OPTIONS_NEW_LB(N_("Video mode: "), videomode = new VideoModeButton())
+                OPTIONS_NEW_LB(N_("Gamma correction: "), new GammaButton())
                 break;
             case OPTIONS_AUDIO:
-                OPTIONS_NEW_LB("Sound set: ", new SoundSetButton())
-                OPTIONS_NEW_LB("Menu music: ", new MenuMusicButton)
-                OPTIONS_NEW_LB("Sound volume: ", new SoundVolumeButton())
-                OPTIONS_NEW_LB("Music volume: ", new MusicVolumeButton())
-                OPTIONS_NEW_LB("Stereo: ", new StereoButton())
+                OPTIONS_NEW_LB(N_("Sound set: "), new SoundSetButton())
+                OPTIONS_NEW_LB(N_("Menu music: "), new MenuMusicButton)
+                OPTIONS_NEW_LB(N_("Sound volume: "), new SoundVolumeButton())
+                OPTIONS_NEW_LB(N_("Music volume: "), new MusicVolumeButton())
+                OPTIONS_NEW_LB(N_("Stereo: "), new StereoButton())
                 //...("Music ingame: ", new InGameMusicButton)
                 break;
             case OPTIONS_CONFIG:
-                OPTIONS_NEW_LB("Language: ", language = new LanguageButton(this))
-                OPTIONS_NEW_LB("Mouse speed: ", new MouseSpeedButton())
-                OPTIONS_NEW_LB("Text speed: ", new TextSpeedButton())
-                OPTIONS_NEW_LB("Ratings update: ", new RatingsUpdateButton())
+                OPTIONS_NEW_LB(N_("Language: "), language = new LanguageButton(this))
+                OPTIONS_NEW_LB(N_("Mouse speed: "), new MouseSpeedButton())
+                OPTIONS_NEW_LB(N_("Text speed: "), new TextSpeedButton())
+                OPTIONS_NEW_LB(N_("Ratings update: "), new RatingsUpdateButton())
                 userNameTF = new TextField(app.state->getString("UserName"));
                 userNameTF->setMaxChars(20);
                 userNameTF->setInvalidChars("+");
-                OPTIONS_NEW_L("User name: ")
+                OPTIONS_NEW_L(N_("User name: "))
                 OPTIONS_NEW_T(userNameTF)
                 break;
             case OPTIONS_PATHS:
                 userPathTF = new TextField(XMLtoUtf8(LocalToXML(app.userPath.c_str()).x_str()).c_str());
-                OPTIONS_NEW_L("User path: ")
+                OPTIONS_NEW_L(N_("User path: "))
                 OPTIONS_NEW_T(userPathTF)
                 userImagePathTF = new TextField(XMLtoUtf8(LocalToXML(app.userImagePath.c_str()).x_str()).c_str());
-                OPTIONS_NEW_L("User image path: ")
+                OPTIONS_NEW_L(N_("User image path: "))
                 OPTIONS_NEW_T(userImagePathTF)
                 break;
         }

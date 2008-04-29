@@ -606,7 +606,9 @@ string UntranslatedLabel::get_text() const {
 
 /* -------------------- Button -------------------- */
 
-Button::Button() : m_activep (false), highlight (false) {
+Button::Button()
+: m_activep (false), highlight (false)
+{
 }
 
 void Button::activate() 
@@ -632,7 +634,7 @@ bool Button::isHighlight() {
 void Button::draw(ecl::GC &gc, const ecl::Rect &r) {
     const int borderw = 4;
 
-    ecl::Surface *s = enigma::GetImage (m_activep ? "buttonhl" : "button");
+    ecl::Surface *s = enigma::GetImage(m_activep ? "buttonhl" : "button");
 
     if (s) {                    // Ugly, but hey, it works
         Rect srcrect (0,0,borderw, borderw);
@@ -941,3 +943,32 @@ void ImageButton::draw(ecl::GC &gc, const ecl::Rect &r) {
         blit(gc, x, y, s);
     }
 }
+
+/* -------------------- BorderlessImageButton -------------------- */
+
+BorderlessImageButton::BorderlessImageButton(const string &unselected,
+    const string &selected, const string &mouseover, ActionListener *al)
+: fname_sel(selected), fname_unsel(unselected), fname_mouse(mouseover)
+{
+    set_listener(al);
+}
+
+void BorderlessImageButton::set_images(const string &unselected,
+                                       const string &selected, const string &mouseover) {
+    fname_sel = selected;
+    fname_unsel = unselected;
+    fname_mouse = mouseover;
+}
+
+void BorderlessImageButton::draw(ecl::GC &gc, const ecl::Rect &r) {
+    string &fname = m_activep ? fname_mouse : (is_pressed() ? fname_sel : fname_unsel);
+
+    if (Surface *s = enigma::GetImage(fname.c_str())) {
+        int w=s->width();
+        int h=s->height();
+        int x = get_x() + (get_w()-w)/2;
+        int y = get_y() + (get_h()-h)/2;
+        blit(gc, x, y, s);
+    }
+}
+
