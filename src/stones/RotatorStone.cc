@@ -30,6 +30,10 @@ namespace enigma {
         state = counterclockwise ? CCW : CW;
     }
 
+    RotatorStone::~RotatorStone() {
+        GameTimer.remove_alarm(this);
+    }
+    
     std::string RotatorStone::getClass() const {
         return "st_rotator";
     }
@@ -134,7 +138,7 @@ namespace enigma {
         GridPos p = get_pos();
         
         for (int i = WEST; i <= NORTH; i++) {
-            if (Value id = getAttr(ecl::strf("$neighbour%d",i))) {
+            if (Value id = getAttr(ecl::strf("$neighbor%d",i))) {
                 Stone *st = GetStone(move(get_pos(), (Direction)i));
                 if (st != NULL  && id == st->getId()) {
                     send_impulse(move(p, (Direction)i), state == CW ? rotate_cw((Direction)i) : rotate_ccw((Direction)i));
@@ -150,7 +154,7 @@ namespace enigma {
     void RotatorStone::send_impulses() {
         for (int i = WEST; i <= NORTH; i++) {
             Stone *st = GetStone(move(get_pos(), (Direction)i));
-            Stone::setAttr(ecl::strf("$neighbour%d",i), (st == NULL) ? Value() : Value(st->getId()));
+            Stone::setAttr(ecl::strf("$neighbor%d",i), (st == NULL) ? Value() : Value(st->getId()));
         }
         GameTimer.set_alarm(this, 0.1);
         

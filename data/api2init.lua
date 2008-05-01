@@ -73,6 +73,10 @@ BLACK = 0
 WHITE = 1
 NOCOLOR = nil
 
+-- rotation direction
+CW  = 0
+CCW = 1
+
 -- oxyd color
 OXYD_BLUE   =  0
 OXYD_RED    =  1

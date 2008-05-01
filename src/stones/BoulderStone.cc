@@ -138,7 +138,7 @@ namespace enigma {
         if (state == FALLING)
             return;
 
-        if (impulse.sender && impulse.sender->is_kind("st-rotator")) {
+        if (impulse.sender && impulse.sender->is_kind("st_rotator")) {
             setDir(impulse.dir);  // activate
         }
         move_stone(impulse.dir);  // due to rotator and impulsestone

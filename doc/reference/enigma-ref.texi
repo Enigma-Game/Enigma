@@ -3397,6 +3397,7 @@ used in the default manner.
 * nopaction::
 * inverse::
 * destination::
+* movable::
 @end menu
 
 @node name
@@ -3484,6 +3485,27 @@ do take the first token object.
 @item @b{Access:} @ @ read/write
 @item @b{Support:} @ @ by teleporting objects
 @end table
+
+@node movable
+@subsection movable
+
+An attribute that describes if a stone is movable by actor impulses. It is 
+supported by all stones.
+
+Note that this attribute is not listed in the individual stone description
+if the stone is generally not movable.
+
+@table @asis
+@item @b{Type:} @ @ bool
+@item @b{Values:} @ @ @code{true}, @code{false}
+@item @b{Default:} @ @ usually @code{false}
+If a stone exists only in a movable variant this attribute will default to
+@samp{true}.
+@item @b{Access:} @ @ read/sometimes write
+This attribute is only writable for objects that exist in both variations.
+@item @b{Support:} @ @ by all stones
+@end table
+
 
 @node Common Messages
 @section Common Messages
@@ -4506,6 +4528,7 @@ to use @samp{st_panel} with the attributes @samp{cluster} and @samp{faces}.
 * st_monoflop::        Monoflop Switch
 * st_oxyd::            Game Target Stone
 * st_polarswitch::     Transparency Switch for Light Beams
+* st_rotator::         Rotating Stone Impulser
 * st_switch::          Classical on/off Switch
 * st_timer::           Animated Timer
 @end menu
@@ -5168,6 +5191,53 @@ Switches on at value @samp{1}, and off at values @samp{0}.
 @end table
 
 @item @b{Action:} @ @ @xref{target}, @ @ @xref{action}
+
+@end table
+
+@c ----------------- Rotator Stone -------------------- 
+@node st_rotator
+@subsection st_rotator
+@obindex st_rotator
+
+Rotators send impulses to neighboring stones, thus pushing them in the direction
+given by the rotation. @ref{st_boulder} additionally change their direction to
+the one they are pushed to.
+
+Rotators can either rotate in clockwise or counterclockwise direction. They can
+be movable or unmovable.
+
+The rotator changes its rotation direction when hit by an actor with a revealed
+@ref{it_wrench} and by laser beams. Every additional laser beam causes a change
+in the rotation direction.
+
+@table @asis
+@item @b{Attributes:}
+
+@table @asis
+@item @b{state}, @ @ @i{values}: @code{CW}, @code{CCW}; @ @ @i{default}: @code{CW} @ @ @xref{state}
+The rotation direction - @samp{CW} for clockwise as default, or @samp{CCW} for
+counter clockwise. 
+@item @b{counterclockwise} @ @ @i{values}: @code{true}, @code{false}; @ @ @i{default}: @code{false}
+The standard rotation direction is clockwise. Use this attribute to revert the
+direction.
+@item @b{movable} @ @ @i{values}: @code{true}, @code{false}; @ @ @i{default}: @code{false} @ @ @xref{movable}
+@end table
+
+@item @b{Messages:}
+
+@table @asis
+@item @b{toggle} @ @ @xref{toggle}
+Switches the rotation direction.
+@end table
+
+@item @b{Variants:}
+
+@table @asis
+@item @b{st_rotator}: state = @code{CW}
+@item @b{st_rotator_cw}: state = @code{CW}
+@item @b{st_rotator_ccw}: state = @code{CCW}
+@end table
+
 
 @end table
 

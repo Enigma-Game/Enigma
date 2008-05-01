@@ -43,6 +43,7 @@ namespace enigma {
         };
     public:
         RotatorStone(bool isMovable, bool counterclockwise);
+        ~RotatorStone();
         
         // Object interface
         virtual std::string getClass() const;
@@ -78,7 +79,4 @@ namespace enigma {
 } // namespace enigma
 
 #endif
-#ifndef ROTATORSTONE_HH_
-#define ROTATORSTONE_HH_
 
-#endif /*ROTATORSTONE_HH_*/

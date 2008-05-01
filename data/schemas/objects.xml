@@ -442,7 +442,6 @@
     <object name="st_rotator">
       <attr name="counterclock"/>
       <attr name="movable"/>
-      <msg name="_model_reanimated"/>
     </object>
     <object name="st_rotator_cw">
       <attr name="state" value="0"/>
