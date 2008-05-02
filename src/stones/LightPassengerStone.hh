@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2002,2003,2004 Daniel Heck
+ * Copyright (C) 2006 Andreas Lochmann
  * Copyright (C) 2008 Ronald Lamprecht
  *
  * This program is free software; you can redistribute it and/or
@@ -17,11 +17,10 @@
  * 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.
  *
  */
-#ifndef BOULDERSTONE_HH
-#define BOULDERSTONE_HH
+#ifndef LIGHTPASSENGERSTONE_HH
+#define LIGHTPASSENGERSTONE_HH
 
 #include "stones.hh"
-//#include "laser.hh"
 
 #include "stones_internal.hh"
 
@@ -30,25 +29,26 @@ namespace enigma {
     /** 
      * 
      */
-    class BoulderStone : public Stone {
-        CLONEOBJ(BoulderStone);
+    class LightPassengerStone : public Stone, public TimeHandler {
+        CLONEOBJ(LightPassengerStone);
         DECL_TRAITS;
     private:
         enum iState {
-            INIT,       ///< 
-            ACTIVE,     ///< may send trigger into direction
-            IDLE,       ///< already sent trigger w/o success
-            FALLING     ///< falling into abyss
+            OFF,     ///< inactive, does not react on laser 
+            ON,      ///< active, does react on laser
+            BLINK,   ///< active, double lasered, ready to break
+            BREAK    ///< active, breaking and dissolving
         };
         
         enum ObjectPrivatFlagsBits {
-            OBJBIT_LIGHT     =  15<<24   ///< Light status kept for move, swap, pull operations 
+            OBJBIT_SKATEDIR =   7<<24,   ///< current skate direction
+            OBJBIT_BLOCKED  =   1<<27    ///< have been blocked by a stone on last move attempt 
         };
     public:
-        BoulderStone(Direction dir = NORTH);
+        LightPassengerStone(bool isActive);
+        virtual ~LightPassengerStone();
         
         // Object interface
-        virtual void setAttr(const string& key, const Value &val);
         virtual Value message(const Message &m);
         
         // StateObject interface
@@ -56,9 +56,9 @@ namespace enigma {
         virtual void setState(int extState);
 
         // GridObject interface
+        virtual void init_model();
         virtual void on_creation(GridPos p);
         virtual void on_removal(GridPos p);
-        virtual void init_model();
         virtual void lightDirChanged(DirectionBits oldDirs, DirectionBits newDirs);
         
         // ModelCallback interface
@@ -66,16 +66,13 @@ namespace enigma {
         
         // Stone interface
         virtual void actor_hit(const StoneContact &sc);
-        virtual void on_floor_change();
-        virtual void on_move();
         virtual void on_impulse(const Impulse& impulse);
-//        virtual const char *collision_sound();
 
+        // TimeHandler interface
+        virtual void alarm();
+        
     private:
-        Direction getDir() const;
-        void setDir(Direction d);
-        bool haveObstacle(Direction dir);
-        void triggerObstacle(Direction dir, bool isRaising);
+        double calcInterval();
     };
 
 } // namespace enigma

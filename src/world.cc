@@ -447,7 +447,6 @@ void World::tick (double dtime)
     // dtime is always 0.01 (cf. server.cc)
 
     move_actors (dtime);
-    handle_delayed_impulses (dtime);
     tick_sound_dampings();
 
     // Tell floors and items about new stones.
@@ -1456,41 +1455,6 @@ void World::did_move_actor(Actor *a) {
     
 }
 
-void World::handle_delayed_impulses (double dtime)
-{
-    // Handle delayed impulses
-    ImpulseList::iterator i = delayed_impulses.begin(),
-        end = delayed_impulses.end();
-    while (i != end) {
-        // shall the impulse take effect now ?
-        if (i->tick(dtime)) {
-            i->mark_referenced(true);
-            if (Stone *st = GetStone(i->destination()))
-                i->send_impulse(st);  // may delete stones and revoke delayed impuleses!
-            i = delayed_impulses.erase(i);
-        }
-        else
-            ++i;
-    }
-}
-
-void World::revoke_delayed_impulses(const Stone *target) {
-    // Revokes delayed impulses to and from target
-    ImpulseList::iterator i = delayed_impulses.begin(),
-        end = delayed_impulses.end();
-    while (i != end) {
-        if (i->is_receiver(target) || i->is_sender(target)) {
-            if (i->is_referenced()) {
-                i->mark_obsolete();
-                ++i;
-            } else {
-                i = delayed_impulses.erase(i);
-            }
-        } else {
-            ++i;
-        }
-    }
-}
 
 void World::tick_sound_dampings ()
 {
@@ -2287,21 +2251,6 @@ void ChangeMeditation(int diffMeditatists, int diffIndispensableHollows,
     
 }
 
-void addDelayedImpulse (const Impulse& impulse, double delay, 
-                               const Stone *estimated_receiver) 
-{
-    // @@@ FIXME: is a special handling necessary if several impulses hit same destination ?
-
-    level->delayed_impulses.push_back(DelayedImpulse(impulse, delay, estimated_receiver));
-}
-
-void revokeDelayedImpulses(const Stone *target) {
-    // Any stone may call this function on deletion.
-    // When the repository shuts down no world is existing thus check
-    // world first.
-    if (level.get() != NULL) 
-        level->revoke_delayed_impulses(target);
-}
 
 float getVolume(const char *name, Object *obj, float def_volume)
 {

@@ -116,7 +116,7 @@ Stone::Stone(const char * kind)
 : GridObject (kind), freeze_check_running (false)
 {}
 
-Stone::~Stone() { revokeDelayedImpulses(this); }
+Stone::~Stone() {  }
 
 const StoneTraits &Stone::get_traits() const
 {

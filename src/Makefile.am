@@ -217,6 +217,8 @@ enigma_SOURCES = 		\
 	stones/LaserStone.hh	\
 	stones/LaserSwitch.cc	\
 	stones/LaserSwitch.hh	\
+	stones/LightPassengerStone.cc	\
+	stones/LightPassengerStone.hh	\
 	stones/MonoFlopStone.cc	\
 	stones/MonoFlopStone.hh	\
 	stones/OxydStone.cc	\

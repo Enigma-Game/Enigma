@@ -289,7 +289,7 @@ const char *oxyd::oxydmag_stone_map[256] = {
     "st-stoneimpulse-hollow",   // OxydMagnum stone 0xa4
     UNUSED,                     // OxydMagnum stone 0xa5
     UNUSED,                     // OxydMagnum stone 0xa6
-    "st-lightpassenger",        // OxydMagnum stone 0xa7
+    "st_lightpassenger",        // OxydMagnum stone 0xa7
     UNUSED,                     // OxydMagnum stone 0xa8
     UNUSED,                     // OxydMagnum stone 0xa9
     // codes >= 0xaa are unused

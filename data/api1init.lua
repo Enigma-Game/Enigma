@@ -115,6 +115,8 @@ RenamingObjectsNew2Old = {
     st_laser_n = "st-laser-n",
     st_laserswitch = "st-laserswitch",
     st_laserflop = "st-lasertimeswitch",
+    st_lightpassenger = "st-lightpassenger",
+    st_lightpassenger_off = "st-lightpassenger_off",
     st_monoflop = "st-timeswitch",
     st_oxyd = "st-oxyd",
     st_panel = "st-wood_001",
@@ -310,6 +312,12 @@ function enigma.SetAttrib(obj, key, val)
      if key == "value" then
          _key = "coin_value"
      end
+     if key == "friction_factor" then
+         _key = "friction"
+     end
+     if key == "gradient_factor" then
+         _key = "gradient"
+     end
      if key == "targetx" then
          local d = enigma._GetAttrib(obj, "destination")
          if (en.usertype(d) == "position") then
@@ -369,6 +377,12 @@ function enigma.GetAttrib(obj, key)
      end
      if key == "value" then
          _key = "coin_value"
+     end
+     if key == "friction_factor" then
+         _key = "friction"
+     end
+     if key == "gradient_factor" then
+         _key = "gradient"
      end
      if key == "blackball" or key == "whiteball" then
          _key = "color"
@@ -478,8 +492,8 @@ MessageRenaming = {
     ["st-stoneimpulse__trigger"] = "signal",
     ["st-stoneimpulse-hollow__trigger"] = "signal",
     ["st-stoneimpulse_movable__trigger"] = "signal",
-    ["st-lightpassenger__trigger"] = "toggle",
-    ["st-lightpassenger__onoff"] = "toggle",
+    st_lightpassenger__trigger = "toggle",
+    st_lightpassenger__onoff = "toggle",
     ["st-mirror__trigger"] = "turn",
     ["st-oxyd__trigger"] = "toggle",
     ["st-plain__trigger"] = "signal",

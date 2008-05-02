@@ -331,14 +331,6 @@ namespace enigma {
     Floor *GetFloor (GridPos p);
     void   KillFloor (GridPos p);
 
-/* -------------------- Impulses -------------------- */
-
-    void addDelayedImpulse(const Impulse& impulse, double delay,
-                           const Stone *estimated_receiver);
-
-    /*! Revoke all delayed impulses with TARGET as sender or receiver. */
-    void revokeDelayedImpulses(const Stone *target);
-
 
 /* -------------------- Explosions -------------------- */
 

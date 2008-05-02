@@ -64,37 +64,6 @@ namespace enigma {
         static std::vector<void*> instances;
     };
 
-/* -------------------- PhotoStone -------------------- */
-
-    /*! Most stones are indifferent to laser beams: They either block
-      the light completely or they let it pass, but they do not change
-      their internal state when they are hit by light.  Certain kinds
-      of stones need to be notified whenever the `light' goes on or off
-      -- these can be derived from this class.
-    
-      The most prominent example are Oxyd stones -- they open when
-      they are hit by a laser beam.  See the remarks at the beginning
-      of this file to understand why overriding `processLight' is not
-      sufficient for a proper implementation of Oxyd stones.
-    */
-
-    class PhotoStone : public Stone, public PhotoCell {
-    protected:
-        PhotoStone();
-        PhotoStone(const char *kind);
-
-    private:
-        bool illuminated;
-
-        // PhotoCell interface
-        void on_recalc_start();
-        void on_recalc_finish();
-
-        // PhotoStone interface
-        virtual void notify_laseron() = 0;
-        virtual void notify_laseroff() = 0;
-    };
-    
 /* -------------------- LaserBeam -------------------- */
 
     class LaserBeam : public Item {

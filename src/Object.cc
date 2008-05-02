@@ -323,12 +323,6 @@ namespace enigma {
     /* Like variant above, but the _result_ of the impulse is delayed.
      */
     
-    void Object::send_impulse(const GridPos& dest, Direction dir, double delay)
-    {
-        if (Stone *st = GetStone(dest)) {
-            addDelayedImpulse(Impulse(this, dest, dir), delay, st);
-        }
-    }
     
     bool Object::getDestinationByIndex(int idx, ecl::V2 &dstpos) const {
         int i = 0;  // counter for destination candidates

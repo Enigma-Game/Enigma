@@ -19,6 +19,7 @@
  */
 
 #include "stones/BoulderStone.hh"
+#include "laser.hh"
 #include "player.hh"
 #include "world.hh"
 //#include "main.hh"
@@ -63,10 +64,20 @@ namespace enigma {
     }
     
     void BoulderStone::on_creation(GridPos p) {
+        // just update light status, do not react for new stones
+        // swapped and moved once are handled by the on_move method
+        updateCurrentLightDirs();
         activatePhoto();
         Stone::on_creation(p);
     }
     
+    void BoulderStone::on_removal(GridPos p) {
+        // remember last enlightment for stone moves and swaps
+        objFlags &= ~OBJBIT_LIGHT;
+        objFlags |= (objFlags & OBJBIT_LIGHTNEWDIRS) << 24;
+        Stone::on_removal(p);
+    }
+
     void BoulderStone::init_model() {
         std::string mname  = "st-bolder" + to_suffix(getDir());
         if (state == FALLING)
@@ -131,6 +142,11 @@ namespace enigma {
     void BoulderStone::on_move() {
         state = ACTIVE;
         triggerObstacle(getDir(), true);
+        
+        objFlags &= ~OBJBIT_LIGHTNEWDIRS;
+        objFlags |= (objFlags & OBJBIT_LIGHT) >> 24;
+        RecalcLight();   // necessary for rotators swapped out of light
+        
         Stone::on_move();
     }
     

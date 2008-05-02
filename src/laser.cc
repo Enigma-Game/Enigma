@@ -96,35 +96,6 @@ void PhotoCell::photo_deactivate()
 }
 
 
-/* -------------------- PhotoStone -------------------- */
-
-PhotoStone::PhotoStone(const char *kind) : Stone(kind) 
-{
-    illuminated = false;
-}
-
-PhotoStone::PhotoStone()
-{
-    illuminated = false;
-}
-
-void PhotoStone::on_recalc_start() 
-{}
-
-void PhotoStone::on_recalc_finish() 
-{ 
-    GridPos p = get_pos();
-    bool illu = (LightFrom(p, NORTH) || LightFrom(p, EAST)
-                 || LightFrom(p, WEST) || LightFrom(p, SOUTH));
-
-    if (illu != illuminated) {
-        if (illu) notify_laseron();
-        else      notify_laseroff();
-        illuminated = illu;
-    }
-}
-
-
 /* -------------------- LaserBeam -------------------- */
 
 // The implementation of laser beams is a little tricky because, in

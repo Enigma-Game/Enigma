@@ -293,8 +293,6 @@ typedef list<sound::SoundDamping> SoundDampingList;
         void did_move_actor(Actor *a);
         void tick_actor(Actor *a, double dtime);
 
-        void revoke_delayed_impulses(const Stone *target);
-
     private:
 
         /* ---------- Private methods ---------- */
@@ -319,7 +317,6 @@ typedef list<sound::SoundDamping> SoundDampingList;
         void handle_actor_contacts ();
         void handle_actor_contact (Actor *actor1, Actor *actor2);
         void handle_stone_contacts(unsigned actoridx);
-        void handle_delayed_impulses (double dtime);
         void stone_change (GridPos p);
         void tick_sound_dampings ();
 
@@ -347,7 +344,6 @@ typedef list<sound::SoundDamping> SoundDampingList;
         //! True if game is not running yet
         bool                 preparing_level;
 
-        ImpulseList          delayed_impulses;
         vector<GridPos>      changed_stones;
 
         SoundDampingList     sound_dampings; // see SoundEffectManager for details

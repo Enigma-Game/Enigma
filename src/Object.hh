@@ -106,7 +106,6 @@ namespace enigma {
         /* ---------- Helper routines ---------- */
 
         void send_impulse(const GridPos& dest, Direction dir);
-        void send_impulse(const GridPos& dest, Direction dir, double delay);
 
         /* ---------- Object interface ---------- */
         
