@@ -131,6 +131,7 @@ namespace display
         }
         void draw_shadow(ecl::GC &gc, int x, int y) {
             bg->draw_shadow(gc,x,y);
+//            fg->draw_shadow(gc,x,y);
         }
         Model *clone() {
             return new CompositeModel(bg->clone(), fg->clone());

@@ -58,7 +58,7 @@ namespace enigma {
                 Object::setAttr("$connections", ALL_DIRECTIONS ^ remainigFaces);     // avoid init of model
                 sound_event ("shatter");
                 state = (remainigFaces == NODIRBIT) ? FINALBREAK : BREAK;
-                set_anim("st_window_anim");  // TODO anim with remaining unbroken faces
+                set_anim(ecl::strf("st_window%d_anim", getConnections()));
             }
             
             else if (player::WieldedItemIs (sc.actor, "it_wrench")) {

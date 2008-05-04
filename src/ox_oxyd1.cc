@@ -214,7 +214,7 @@ const char *oxyd::oxyd1_stone_map[256] = {
     "st-oneway_white-e",        // Oxyd1 stone 0x3b
     "st-oneway_white-n",        // Oxyd1 stone 0x3c
     "st-oneway_white-s",        // Oxyd1 stone 0x3d
-    "st-window",                // Oxyd1 stone 0x3e
+    "st_window",                // Oxyd1 stone 0x3e
     "",                         // Oxyd1 stone 0x3f magic stone
     "",                         // Oxyd1 stone 0x40 magic stone
     "",                         // Oxyd1 stone 0x41 magic stone

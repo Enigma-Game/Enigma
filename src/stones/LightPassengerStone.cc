@@ -23,6 +23,7 @@
 #include "laser.hh"
 #include "main.hh"
 #include "player.hh"
+#include "server.hh"
 
 #include <algorithm>
 
@@ -97,6 +98,8 @@ namespace enigma {
     
     void LightPassengerStone::on_creation(GridPos p) {
         activatePhoto();
+        if (updateCurrentLightDirs() != NODIRBIT)
+            GameTimer.set_alarm(this, calcInterval(), false);
         Stone::on_creation(p);
     }
     
@@ -141,7 +144,8 @@ namespace enigma {
 
     void LightPassengerStone::on_impulse(const Impulse& impulse) {
         Actor *a = dynamic_cast<Actor*>(impulse.sender);
-        if (a == NULL && ((objFlags & OBJBIT_LIGHTNEWDIRS) == NODIRBIT || state == OFF))
+        if (a == NULL && ((objFlags & OBJBIT_LIGHTNEWDIRS) == NODIRBIT || state == OFF 
+                || server::GameCompatibility != GAMET_ENIGMA))
             move_stone(impulse.dir);
     }
     
@@ -207,17 +211,19 @@ namespace enigma {
             is 50 ms or the interval given in "interval".
         */
         double base = getAttr("interval");
-        if (Value f = getAttr("friction"))
-            base *= 1.0 + (double)f * GetFloor(get_pos())->get_friction();
-        if (Value g = getAttr("gradient")) {
-            Direction skateDir = (Direction)((int)((objFlags & OBJBIT_SKATEDIR) >> 24) - 1);
-            if (skateDir != NODIR) {
-                V2 vec = V2(0.0,0.0);
-                double quot = 0;
-                GetFloor(get_pos())->add_force(0, vec);
-                quot = skateDir == NORTH ? -vec[1] : skateDir == SOUTH ? vec[1] :
-                    skateDir == EAST ? vec[0] : skateDir == WEST ? -vec[0] : 0;
-                base /= std::max(1.0 + (double)g * quot, 0.01);                    
+        if (Floor *floor = GetFloor(get_pos())) {
+            if (Value f = getAttr("friction"))
+                base *= 1.0 + (double)f * floor->get_friction();
+            if (Value g = getAttr("gradient")) {
+                Direction skateDir = (Direction)((int)((objFlags & OBJBIT_SKATEDIR) >> 24) - 1);
+                if (skateDir != NODIR) {
+                    V2 vec = V2(0.0,0.0);
+                    double quot = 0;
+                    floor->add_force(0, vec);
+                    quot = skateDir == NORTH ? -vec[1] : skateDir == SOUTH ? vec[1] :
+                        skateDir == EAST ? vec[0] : skateDir == WEST ? -vec[0] : 0;
+                    base /= std::max(1.0 + (double)g * quot, 0.01);                    
+                }
             }
         }
         return std::max(base, 0.02);

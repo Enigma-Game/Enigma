@@ -1187,30 +1187,11 @@ end
 -- st-window --
 do
     local fg_window = DefSubimages("st-window", {modelname="fg-window",w=4,h=4})
+    local sh_window = DefSubimages("sh_window", {modelname="sh_window",w=4,h=4,imgw=ShadowSize,imgh=ShadowSize})
 
-    local shadowlist = {{}, -- undefined "windowless" window stone
-                        {"sh-window-w"},
-                        {"sh-window-s"},
-                        {"sh-window-s","sh-window-w"},
-                        {"sh-window-e"},
-                        {"sh-window-e","sh-window-w"},
-                        {"sh-window-e","sh-window-s"},
-                        {"sh-window-e","sh-window-s","sh-window-w"},
-                        {"sh-window-n"},
-                        {"sh-window-n","sh-window-w"},
-                        {"sh-window-n","sh-window-s"},
-                        {"sh-window-n","sh-window-s","sh-window-w"},
-                        {"sh-window-n","sh-window-e"},
-                        {"sh-window-n","sh-window-e","sh-window-w"},
-                        {"sh-window-n","sh-window-e","sh-window-s"},
-                        {"sh-window-n","sh-window-e","sh-window-s","sh-window-w"}
-                       }
-
-    for i = 2, 16 do
-        DefMultipleComposite("sh-window"..i, shadowlist[i])
-        DefShModel("st_window"..(16-i), "fg-window"..i, "sh-window"..i)
+    for i = 2, 16 do  -- faces + 1
+        DefShModel("st_window"..(16-i), "fg-window"..i, "sh_window"..i)
     end
-
     -- 4 sided window stone:
     DefAlias("st_window","st_window0")
 
@@ -1218,16 +1199,15 @@ do
     local breaking_window_names = {}
     local breaking_images = DefSubimages("st-window-break", {h=4})
 
-    for i=1, table.getn(fg_window) do
+    for i=1, table.getn(fg_window) do   -- faces + 1
         breaking_window_names[i] = {}
         for j = 1, table.getn(breaking_images) do
-            breaking_window_names[i][j] = "st-window"..i.."-"..j
+            breaking_window_names[i][j] = "st-window-breaking"..i.."-"..j
             display.DefineComposite(breaking_window_names[i][j], fg_window[i], breaking_images[j])
         end
         local frames = BuildFrames(breaking_window_names[i], 130)
-        -- TODO: finish anim names used:
-        DefAnim("st_window"..i.."_anim", frames)
-        DefAnim("st_window_anim", frames)
+        DefAnim("st_window"..(16-i).."_anim_fg", frames)
+        DefShModel("st_window"..(16-i).."_anim", "st_window"..(16-i).."_anim_fg", sh_window[i]);
     end
 end
 
