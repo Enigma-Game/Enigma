@@ -656,11 +656,7 @@ do
     DefImage("sh-puzzle1")
     DefImage("sh-brake")
     DefImage("sh-floating")
-    -- Windows shadows:
-    DefImage("sh-window-n")
-    DefImage("sh-window-e")
-    DefImage("sh-window-s")
-    DefImage("sh-window-w")
+    -- Note: Window shadows are defined where needed.
 end
 
 -------------------
