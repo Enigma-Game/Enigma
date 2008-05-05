@@ -3,7 +3,7 @@
   <el:protected>
     <el:info el:type="level">
       <el:identity el:title="Puller Mailing" el:subtitle="Oxyd Magnum 82" el:id="magnum82"/>
-      <el:version el:score="1" el:release="1" el:revision="0" el:status="released"/>
+      <el:version el:score="1" el:release="1" el:revision="2" el:status="released"/>
       <el:author  el:name="anonymous" el:email="" el:homepage=""/>
       <el:copyright>Copyright © anonymous</el:copyright>
       <el:license el:type="Donated to Enigma under the projects license" el:open="true"/>
@@ -130,22 +130,6 @@ create_world_by_map(level)
 draw_map(0,0,stmap,stones)
 draw_map(0,0,itmap,items)
 draw_map(0,0,acmap,actors)
-SetAttrib(enigma.GetStone(3,4),"init",FALSE)
-SetAttrib(enigma.GetStone(3,8),"init",FALSE)
-SetAttrib(enigma.GetStone(5,4),"init",FALSE)
-SetAttrib(enigma.GetStone(5,8),"init",FALSE)
-SetAttrib(enigma.GetStone(7,4),"init",FALSE)
-SetAttrib(enigma.GetStone(7,8),"init",FALSE)
-SetAttrib(enigma.GetStone(9,4),"init",FALSE)
-SetAttrib(enigma.GetStone(9,8),"init",FALSE)
-SetAttrib(enigma.GetStone(11,4),"init",FALSE)
-SetAttrib(enigma.GetStone(11,8),"init",FALSE)
-SetAttrib(enigma.GetStone(13,4),"init",FALSE)
-SetAttrib(enigma.GetStone(13,8),"init",FALSE)
-SetAttrib(enigma.GetStone(15,4),"init",FALSE)
-SetAttrib(enigma.GetStone(15,8),"init",FALSE)
-SetAttrib(enigma.GetStone(17,4),"init",FALSE)
-SetAttrib(enigma.GetStone(17,8),"init",FALSE)
 SetAttrib(enigma.GetItem(18,7),"invisible",TRUE)
 Signal ("st(3 4)","st(4 4)")
 Signal ("st(5 4)","st(6 4)")

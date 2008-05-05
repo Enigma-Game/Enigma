@@ -3,7 +3,7 @@
   <el:protected>
     <el:info el:type="level">
       <el:identity el:title="Waterworld" el:subtitle="" el:id="illmind11"/>
-      <el:version el:score="1" el:release="1" el:revision="2" el:status="released"/>
+      <el:version el:score="1" el:release="1" el:revision="3" el:status="released"/>
       <el:author  el:name="illmind" el:email="support@mag-heut.net" el:homepage="http://www.mag-heut.net/"/>
       <el:copyright>Copyright © 2003 illmind</el:copyright>
       <el:license el:type="GPL version 2" el:open="true"/>
@@ -250,9 +250,9 @@ draw_map(0,0,itmap,items)
 draw_map(0,0,acmap,actors)
 SetAttrib(enigma.GetItem(26,17),"text","text1")
 SetAttrib(enigma.GetItem(27,6),"text","text2")
-SetAttrib(enigma.GetStone(31,4),"init",FALSE)
-SetAttrib(enigma.GetStone(31,5),"init",FALSE)
-SetAttrib(enigma.GetStone(31,6),"init",FALSE)
+--SetAttrib(enigma.GetStone(31,4),"init",FALSE)
+--SetAttrib(enigma.GetStone(31,5),"init",FALSE)
+--SetAttrib(enigma.GetStone(31,6),"init",FALSE)
 SetAttrib(enigma.GetItem(49,18),"text","text3")
 SetAttrib(enigma.GetItem(61,26),"invisible",FALSE)
 SetAttrib(enigma.GetItem(69,17),"text","text1")

@@ -3,7 +3,7 @@
   <el:protected>
     <el:info el:type="level">
       <el:identity el:title="Give more Way" el:subtitle="" el:id="just21"/>
-      <el:version el:score="2" el:release="2" el:revision="2" el:status="released"/>
+      <el:version el:score="2" el:release="2" el:revision="3" el:status="released"/>
       <el:author  el:name="JuSt" el:email="" el:homepage=""/>
       <el:copyright>Copyright © 2007 JuSt</el:copyright>
       <el:license el:type="GPL v2.0 or above" el:open="true"/>
@@ -64,7 +64,7 @@ if difficult then
     set_stones("st-stone_break", {{8, 4}, {3, 7}, {13, 7}, {7, 9}})
 end
 set_stone("st-glass", 11, 9, {type="0"})
-set_stone("st-lightpassenger", 13, 11, {name="bolder4", direction=NORTH})
+set_stone("st-lightpassenger", 13, 11, {name="bolder4"})
 set_stones("st-laser", {{3, 12}, {13, 12}}, {dir=NORTH, on="1"})
 
 -- Actor Layer

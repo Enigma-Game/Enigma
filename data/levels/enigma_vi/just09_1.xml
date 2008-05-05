@@ -3,7 +3,7 @@
   <el:protected>
     <el:info el:type="level">
       <el:identity el:title="Playing with Lasers" el:subtitle="" el:id="just09_1"/>
-      <el:version el:score="1" el:release="1" el:revision="1" el:status="released"/>
+      <el:version el:score="1" el:release="1" el:revision="2" el:status="released"/>
       <el:author  el:name="JuSt" el:email="" el:homepage=""/>
       <el:copyright>Copyright © 2005 JuSt</el:copyright>
       <el:license el:type="GPL v2.0 or above" el:open="true"/>
@@ -53,7 +53,7 @@ set_stone("st-pmirror", 10, 3, {movable=TRUE, transparent=FALSE, orientation="3"
 
 set_stone("st-wood", 13, 5)
 
-set_stone("st-lightpassenger", 4, 8, {name="bolder3", direction=EAST})
+set_stone("st-lightpassenger", 4, 8, {name="bolder3"})
 
 set_stone("st-stoneimpulse_movable", 14, 5, {name="stoneimpulse16"})
 set_stone("st-stoneimpulse", 15, 5, {name="stoneimpulse15"})

@@ -3,7 +3,7 @@
   <el:protected>
     <el:info el:type="level">
       <el:identity el:title="The Passage" el:subtitle="" el:id="just11"/>
-      <el:version el:score="1" el:release="1" el:revision="6" el:status="released"/>
+      <el:version el:score="1" el:release="1" el:revision="7" el:status="released"/>
       <el:author  el:name="JuSt" el:email="" el:homepage=""/>
       <el:copyright>Copyright © 2007 JuSt</el:copyright>
       <el:license el:type="GPL v2.0 or above" el:open="true"/>
@@ -59,7 +59,7 @@ set_item("it-magicwand", 16, 14)
 set_item("it-coin1", 17, 15)
 set_item("it-trigger", 1, 18, {action="openclose", target="vortex1", invisible=FALSE})
 set_item("it-trigger", 32, 11, {action="callback", target="bolder_run", invisible=TRUE})
-set_item("it-vortex-closed", 3, 19, {name="vortex1", targetx="2.5", targety="22.5", strength="0"})
+set_item("it-vortex-closed", 3, 19, {name="vortex1", targetx="2.5", targety="22.5"})
 set_item("it-coin1", 9, 21)
 set_item("it-cross", 2, 22)
 set_item("it-blocker", 26, 2)

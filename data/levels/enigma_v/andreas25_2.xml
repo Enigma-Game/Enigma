@@ -3,7 +3,7 @@
   <el:protected>
     <el:info el:type="level">
       <el:identity el:title="Acoustic Reminiscence" el:subtitle="" el:id="andreas25"/>
-      <el:version el:score="1" el:release="2" el:revision="2" el:status="released"/>
+      <el:version el:score="1" el:release="2" el:revision="3" el:status="released"/>
       <el:author  el:name="Andreas Lochmann" el:email="" el:homepage=""/>
       <el:copyright>Copyright © 2006 Andreas Lochmann</el:copyright>
       <el:license el:type="GPL v2.0 or above" el:open="true"/>
@@ -124,20 +124,20 @@ function settrigger(x,y)
     error("(3) Unexpected probability: Assume to be extraordinarily happy to have found this!")
   else
     set_item("it-sensor", x, y, {name = "trigger"..tostring(counter-1),
-      action = "callback", target = "triggerfunc", mynumber = found, mystate = 1})
+      action = "callback", target = "triggerfunc", _mynumber = found, _mystate = 1})
     set_floor("fl-trigger", x, y)
   end
 end
 function triggerfunc(onoff, sender)
-  if enigma.GetAttrib(sender, "mystate") == 1 then
-    local mynumber = enigma.GetAttrib(sender, "mynumber")
+  if enigma.GetAttrib(sender, "_mystate") == 1 then
+    local mynumber = enigma.GetAttrib(sender, "_mynumber")
     local mysound = oxydsound[mynumber]
     if difficult then
       soundstring = soundstring..diffsound[mysound]
     else
       soundstring = soundstring..strsub(choosefrom,mysound,mysound)
     end
-    enigma.SetAttrib(sender, "mystate", 0)
+    enigma.SetAttrib(sender, "_mystate", 0)
     set_floor("fl-samba", enigma.GetPos(sender))
     if lasttriggered == -1 then
       lasttriggered = mynumber
@@ -149,7 +149,7 @@ function triggerfunc(onoff, sender)
         local sum = 0
         for j = 0, 17 do
           sum = sum + enigma.GetAttrib(enigma.GetNamedObject(
-                           "trigger"..tostring(j)), "mystate")
+                           "trigger"..tostring(j)), "_mystate")
         end
         if sum == 0 then
           for j = 0, 1 do
@@ -164,7 +164,7 @@ function triggerfunc(onoff, sender)
           if trig == nil then
             error("Um... shouldn't happen: trig == nil.")
           end        
-          SetAttrib(trig, "mystate", 1)
+          SetAttrib(trig, "_mystate", 1)
           set_floor("fl-trigger", enigma.GetPos(trig))
           lasttriggered = -1          
         end

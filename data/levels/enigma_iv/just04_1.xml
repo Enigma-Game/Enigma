@@ -3,7 +3,7 @@
   <el:protected>
     <el:info el:type="level">
       <el:identity el:title="Laser Pushing" el:subtitle="" el:id="just04"/>
-      <el:version el:score="1" el:release="1" el:revision="0" el:status="released"/>
+      <el:version el:score="1" el:release="1" el:revision="2" el:status="released"/>
       <el:author  el:name="JuSt" el:email="" el:homepage=""/>
       <el:copyright>Copyright © JuSt</el:copyright>
       <el:license el:type="GPL v2.0 or above" el:open="true"/>
@@ -25,7 +25,7 @@ oxyd_default_flavor="b"
 fill_floor("fl-rough-blue")
 
 -- Item Layer
-set_item("it-vortex-open", 37, 1, {name="vortex16", targetx="11.5", targety="11.5", strength="1"})
+set_item("it-vortex-open", 37, 1, {name="vortex16", targetx="11.5", targety="11.5"})
 set_item("it-trigger", 23, 3, {action="openclose", target="door17", invisible=FALSE})
 set_item("it-trigger", 29, 5, {action="openclose", target="door18", invisible=FALSE})
 set_item("it-trigger", 22, 8, {action="openclose", target="door20", invisible=FALSE})
