@@ -179,6 +179,9 @@
       <attr name="faces"/>
       <msg name="_model_reanimated"/>
     </object>
+    <object name="st" abstract="true">
+      <attr name="movable" rw="r"/>
+    </object>
     <object name="st_blocker">
       <attr name="autoclose"/>
       <msg name="close"/>
@@ -460,7 +463,7 @@
     </object>
     <object name="st_rotator">
       <attr name="counterclock"/>
-      <attr name="movable"/>
+      <attr name="movable" rw="rw"/>
     </object>
     <object name="st_rotator_cw">
       <attr name="state" value="0"/>

@@ -153,6 +153,10 @@ namespace enigma {
         Direction skateDir = (Direction)((int)((objFlags & OBJBIT_SKATEDIR) >> 24) - 1);
         if ((objFlags & OBJBIT_LIGHTNEWDIRS) && (state == ON || state == BLINK)) {
             GridPos p = get_pos();
+            if (objFlags & OBJBIT_BLOCKED) {
+                send_impulse(move(p, skateDir), skateDir);
+                objFlags &= ~OBJBIT_BLOCKED;
+            }
             int toSouth = (objFlags & NORTHBIT ? -1 : 0) + (objFlags & SOUTHBIT ? +1 : 0);
             int toWest =  (objFlags & EASTBIT ? -1 : 0) + (objFlags & WESTBIT ? +1 : 0);
             if (toSouth * toWest != 0) {
@@ -187,13 +191,7 @@ namespace enigma {
                     // Skipping each second turn makes the passenger stone seem
                     // slower when pushing another stone. This looks more
                     // natural. That's why impulse is delayed:
-                    if (objFlags & OBJBIT_BLOCKED) {
-                        send_impulse(move(p, skateDir), skateDir);
-                        objFlags &= ~OBJBIT_BLOCKED;
-                    } else
-                        objFlags |= OBJBIT_BLOCKED;
-                } else {
-                    objFlags &= ~OBJBIT_BLOCKED;
+                    objFlags |= OBJBIT_BLOCKED;
                 }
                 move_stone(skateDir);
             }

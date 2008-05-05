@@ -2310,7 +2310,7 @@ They may be opened or closed. Is a vortex is closed, the actor cannot enter.
             if (v) {                // Destination is also a vortex
                 Stone *st = GetStone(p_target);
     
-                if (st && !st->is_floating()) {
+                if (st && st->is_sticky(actor)) {
                     // is destination vortex blocked? redirect
                     setAttr("$dest_idx", dest_idx + 1);
                     client::Msg_Sparkle(v_target);
