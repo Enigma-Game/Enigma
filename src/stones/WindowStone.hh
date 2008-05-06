@@ -30,11 +30,10 @@
 
 /* -------------------- Window -------------------- */
 
-/** \page st_window Breakable Stone
+/**  st_window Breakable Stone
 
 Hit this window heavily with your marble to blast it into smithereens.
 
-\image html st_window.png
 */
 
 namespace enigma {
@@ -44,27 +43,39 @@ namespace enigma {
         DECL_TRAITS;
     private:
         enum iState { IDLE, BREAK, FINALBREAK };
+
+        enum ObjectPrivatFlagsBits {
+            OBJBIT_SCRATCHDIRS  =   3<<24,   ///< faces that are scratched
+            OBJBIT_SECURE       =   1<<26    ///<  
+        };
         
     public:
         WindowStone(std::string faces);
         
         // Object interface
+        virtual void setAttr(const std::string &key, const Value &val);
+        virtual Value getAttr(const std::string &key) const;
         virtual Value message(const Message &m);
+        
+         // StateObject interface
+        virtual int externalState() const;
+        virtual void setState(int extState);
+       
+        // GridObject interface
+        virtual void init_model();
 
         // ModelCallback interface
-        void animcb();
+        virtual void animcb();
 
         // Stone interface
-        void actor_hit(const StoneContact &sc);
-        StoneResponse collision_response(const StoneContact &sc);
-        const char *collision_sound() {return "glass";}
-        bool is_transparent (Direction) const { return true; }
-        bool is_floating() const { return state != IDLE; }
+        virtual void actor_hit(const StoneContact &sc);
+        virtual StoneResponse collision_response(const StoneContact &sc);
+        virtual const char *collision_sound() {return "glass";}
+        virtual bool is_transparent (Direction) const { return true; }
+        virtual bool is_floating() const { return state != IDLE; }
         virtual bool is_sticky(const Actor *a) const;
 
-
     private:
-        DirectionBits breakingFaces;
         bool tryInnerPull(Direction dir);
     };
 

@@ -19,13 +19,36 @@
  */
 
 #include "stones/WindowStone.hh"
-//#include "main.hh"
+#include "main.hh"
 #include "server.hh"
 #include "world.hh"
 
 namespace enigma {
-    WindowStone::WindowStone(std::string faces) : Stone(), breakingFaces(NODIRBIT) {
+    WindowStone::WindowStone(std::string faces) : Stone() {
         setAttr("faces", faces);
+    }
+    
+    void WindowStone::setAttr(const std::string &key, const Value &val) {
+        if (key == "secure") {
+            if (val.to_bool() != (objFlags & OBJBIT_SECURE)) {
+                if (val.to_bool()) {
+                    objFlags |= OBJBIT_SECURE;
+                } else {
+                    objFlags &= ~OBJBIT_SECURE;
+                }
+                if (isDisplayable())
+                    init_model();
+                return;
+            }
+        }
+        Stone::setAttr(key, val);
+    }
+    
+    Value WindowStone::getAttr(const std::string &key) const {
+        if (key == "secure") {
+            return (bool)(objFlags & OBJBIT_SECURE);
+        }
+        return Stone::getAttr(key);
     }
     
     Value WindowStone::message(const Message &m) {
@@ -35,6 +58,20 @@ namespace enigma {
         return Stone::message(m);
     }
     
+    int WindowStone::externalState() const {
+        return 0;
+    }
+    
+    void WindowStone::setState(int extState) {
+        // ignore any state access
+    }
+
+    void WindowStone::init_model() {
+        if (state == IDLE) {   // anims will not be cleared 
+            set_model(ecl::strf("st_window_%s%d", objFlags & OBJBIT_SECURE ? "green" : "blue" , getConnections()));
+        }
+    }
+
     void WindowStone::animcb() {
         if (state == FINALBREAK)
             KillStone(get_pos());
@@ -46,7 +83,6 @@ namespace enigma {
     
     void WindowStone::actor_hit(const StoneContact &sc) {
         Actor *a = sc.actor;
-        // TODO do we want to allow breaks while breaking?
         if (state == IDLE) {
             double impulse = -(a->get_vel() * sc.normal) * get_mass(a);
             if (impulse > 35) {
@@ -58,7 +94,9 @@ namespace enigma {
                 Object::setAttr("$connections", ALL_DIRECTIONS ^ remainigFaces);     // avoid init of model
                 sound_event ("shatter");
                 state = (remainigFaces == NODIRBIT) ? FINALBREAK : BREAK;
-                set_anim(ecl::strf("st_window%d_anim", getConnections()));
+                set_anim(ecl::strf("st_window_%s%d_anim",  objFlags & OBJBIT_SECURE ? "green" : "blue", getConnections()));
+                if (server::GameCompatibility == GAMET_OXYD1)
+                    KillItem(get_pos());
             }
             
             else if (player::WieldedItemIs (sc.actor, "it_wrench")) {

@@ -1182,28 +1182,39 @@ end
 
 -- st-window --
 do
-    local fg_window = DefSubimages("st-window", {modelname="fg-window",w=4,h=4})
-    local sh_window = DefSubimages("sh_window", {modelname="sh_window",w=4,h=4,imgw=ShadowSize,imgh=ShadowSize})
+    local fg_window_blue = DefSubimages("st_window_blue", {modelname="fg-window_blue",w=4,h=4})
+    local fg_window_green = DefSubimages("st_window_green", {modelname="fg-window_green",w=4,h=4})
+    local sh_window = DefSubimages("sh_window", {modelname="sh-window",w=4,h=4,imgw=ShadowSize,imgh=ShadowSize})
 
     for i = 2, 16 do  -- faces + 1
-        DefShModel("st_window"..(16-i), "fg-window"..i, "sh_window"..i)
+        DefShModel("st_window_blue"..(16-i), "fg-window_blue"..i, "sh-window"..i)
+        DefShModel("st_window_green"..(16-i), "fg-window_green"..i, "sh-window"..i)
     end
     -- 4 sided window stone:
-    DefAlias("st_window","st_window0")
+    DefAlias("st_window_blue","st_window_blue0")
+    DefAlias("st_window_green","st_window_green0")
 
     -- Breaking animimation:
-    local breaking_window_names = {}
-    local breaking_images = DefSubimages("st-window-break", {h=4})
+    local breaking_window_blue_names = {}
+    local breaking_window_green_names = {}
+    local breaking_images_blue = DefSubimages("st_window_blue_break", {h=4})
+    local breaking_images_green = DefSubimages("st_window_green_break", {h=4})
 
-    for i=1, table.getn(fg_window) do   -- faces + 1
-        breaking_window_names[i] = {}
-        for j = 1, table.getn(breaking_images) do
-            breaking_window_names[i][j] = "st-window-breaking"..i.."-"..j
-            display.DefineComposite(breaking_window_names[i][j], fg_window[i], breaking_images[j])
+    for i=1, table.getn(fg_window_blue) do   -- faces + 1
+        breaking_window_blue_names[i] = {}
+        breaking_window_green_names[i] = {}
+        for j = 1, table.getn(breaking_images_blue) do
+            breaking_window_blue_names[i][j] = "st-window_blue_breaking"..i.."-"..j
+            breaking_window_green_names[i][j] = "st-window_green_breaking"..i.."-"..j
+            display.DefineComposite(breaking_window_blue_names[i][j], fg_window_blue[i], breaking_images_blue[j])
+            display.DefineComposite(breaking_window_green_names[i][j], fg_window_green[i], breaking_images_green[j])
         end
-        local frames = BuildFrames(breaking_window_names[i], 130)
-        DefAnim("st_window"..(16-i).."_anim_fg", frames)
-        DefShModel("st_window"..(16-i).."_anim", "st_window"..(16-i).."_anim_fg", sh_window[i]);
+        local frames_blue = BuildFrames(breaking_window_blue_names[i], 130)
+        local frames_green = BuildFrames(breaking_window_green_names[i], 130)
+        DefAnim("st-window_blue"..(16-i).."_anim_fg", frames_blue)
+        DefAnim("st-window_green"..(16-i).."_anim_fg", frames_green)
+        DefShModel("st_window_blue"..(16-i).."_anim", "st-window_blue"..(16-i).."_anim_fg", sh_window[i]);
+        DefShModel("st_window_green"..(16-i).."_anim", "st-window_green"..(16-i).."_anim_fg", sh_window[i]);
     end
 end
 
