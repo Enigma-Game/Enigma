@@ -407,12 +407,6 @@ Item  *OxydLoader::make_item (int type)
         it->setAttr ("code", 3);
     }
     break;
-    case 0x2a:                  // sensor inverse
-    {
-        it = MakeItem(it_sensor);
-        it->setAttr("inverse", true);
-    }
-    break;
     default:
         {
             ItemID id = config.itemtable[type];

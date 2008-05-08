@@ -29,6 +29,7 @@
     <attr name="orientation" type="int" default="0" min="0" max="3" rw="rw"/>
     <attr name="oxydcolor" type="int" default="-1" min="-4" max="7" rw="rw"/>
     <attr name="range" type="double" default="1.0" rw="rw"/>
+    <attr name="secure" type="bool" default="false" rw="rw"/>
     <attr name="scissor" type="bool" default="true" rw="rw"/>
     <attr name="state" type="int" default="0" min="0" max="1" rw="rw"/>
     <attr name="static" type="bool" default="false" rw="rw"/>
@@ -492,6 +493,57 @@
       <msg name="on"/>
       <msg name="off"/>
       <msg name="signal"/>
+    </object>
+    <object name="st_window">
+      <attr name="faces" default="s"/>
+      <attr name="secure"/>
+      <msg name="inner_pull"/>
+      <msg name="_explosion"/>
+    </object>
+    <object name="st_window_w">
+      <attr name="faces" value="w"/>
+    </object>
+    <object name="st_window_s">
+      <attr name="faces" value="s"/>
+    </object>
+    <object name="st_window_sw">
+      <attr name="faces" value="sw"/>
+    </object>
+    <object name="st_window_e">
+      <attr name="faces" value="e"/>
+    </object>
+    <object name="st_window_ew">
+      <attr name="faces" value="ew"/>
+    </object>
+    <object name="st_window_es">
+      <attr name="faces" value="es"/>
+    </object>
+    <object name="st_window_esw">
+      <attr name="faces" value="esw"/>
+    </object>
+    <object name="st_window_n">
+      <attr name="faces" value="n"/>
+    </object>
+    <object name="st_window_nw">
+      <attr name="faces" value="nw"/>
+    </object>
+    <object name="st_window_ns">
+      <attr name="faces" value="ns"/>
+    </object>
+    <object name="st_window_nsw">
+      <attr name="faces" value="nsw"/>
+    </object>
+    <object name="st_window_ne">
+      <attr name="faces" value="ne"/>
+    </object>
+    <object name="st_window_new">
+      <attr name="faces" value="new"/>
+    </object>
+    <object name="st_window_nes">
+      <attr name="faces" value="nes"/>
+    </object>
+    <object name="st_window_nesw">
+      <attr name="faces" value="nesw"/>
     </object>
   </zoo>
 </objects>

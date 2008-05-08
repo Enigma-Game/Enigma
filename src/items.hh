@@ -181,6 +181,8 @@ namespace enigma {
         virtual Item *clone() = 0;
 
         virtual const ItemTraits &get_traits() const = 0;
+        
+        virtual bool isStatic() const;
 
         /*! Return true if item completely covers the floor. In this
           case the Floor::actor_contact() will not be called

@@ -45,8 +45,8 @@ namespace enigma {
         enum iState { IDLE, BREAK, FINALBREAK };
 
         enum ObjectPrivatFlagsBits {
-            OBJBIT_SCRATCHDIRS  =   3<<24,   ///< faces that are scratched
-            OBJBIT_SECURE       =   1<<26    ///<  
+            OBJBIT_SCRATCHDIRS  =   ALL_DIRECTIONS<<24,   ///< faces that are scratched
+            OBJBIT_SECURE       =   1<<29    ///<  
         };
         
     public:
@@ -76,6 +76,7 @@ namespace enigma {
         virtual bool is_sticky(const Actor *a) const;
 
     private:
+        void breakFaces(DirectionBits faces);
         bool tryInnerPull(Direction dir);
     };
 

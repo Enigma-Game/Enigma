@@ -1914,69 +1914,71 @@ void BroadcastMessage (const std::string& msg,
 
 namespace
 {
-    void explosion (GridPos p, ItemID explosion_item)
+    void explosion(GridPos source, GridPos dest, ItemID explosion_item)
     {
-        if (Stone *stone = GetStone(p))
-            SendMessage(stone, "_explosion");
-        if (Item  *item  = GetItem(p)) {
+        if (Stone *stone = GetStone(dest))
+            SendMessage(stone, "_explosion", source);
+        if (source == dest)  // item and floor handling on explosion center is specific
+            return;
+        if (Item  *item  = GetItem(dest)) {
             if (has_flags(item, itf_indestructible))
-                SendMessage(item, "_explosion");
+                SendMessage(item, "_explosion", source);
             else
-                SetItem(p, explosion_item);
+                SetItem(dest, explosion_item);
         }
         else
-            SetItem(p, explosion_item);
-        if (Floor *floor = GetFloor(p))
+            SetItem(dest, explosion_item);
+        if (Floor *floor = GetFloor(dest))
             SendMessage(floor, "_explosion");
     }
 }
 
 void SendExplosionEffect(GridPos center, ExplosionType type) 
 {
-    const int AFFECTED_FIELDS       = 8;
+    const int AFFECTED_FIELDS       = 9;
 
     for (int a = 0; a<AFFECTED_FIELDS; ++a) {
-        GridPos  dest            = get_neighbour (center, a+1);
-        Item    *item            = GetItem (dest);
-        Stone   *stone           = GetStone (dest);
-        Floor   *floor           = GetFloor (dest);
-        bool     direct_neighbor = a<4;
+        GridPos  dest            = get_neighbour(center, a);
+        Item    *item            = GetItem(dest);
+        Stone   *stone           = GetStone(dest);
+        Floor   *floor           = GetFloor(dest);
+        bool     direct_neighbor = a<=4;
 
         switch (type) {
-        case EXPLOSION_DYNAMITE:
-            if (stone) SendMessage(stone, "ignite");
-            if (item) SendMessage(item, "ignite");
-            if (floor) SendMessage(floor, "ignite");
-            break;
-
-        case EXPLOSION_BLACKBOMB:
-            if (direct_neighbor) {
-                explosion (dest, it_explosion1);
-            } else {
-                // Note: should not ignite in non-enigma-mode!
+            case EXPLOSION_DYNAMITE:
                 if (stone) SendMessage(stone, "ignite");
-                if (item) SendMessage(item, "ignite");
+                if (item)  SendMessage(item, "ignite");
                 if (floor) SendMessage(floor, "ignite");
-            }
-            break;
+                break;
 
-        case EXPLOSION_WHITEBOMB:
-            // Note: at least in oxyd1 only direct neighbors
-            // explode, and the others not even ignite
-            explosion (dest, it_explosion3);            
-            break;
-
-        case EXPLOSION_BOMBSTONE:
-            if (direct_neighbor) {
-                if (stone) SendMessage(stone, "_bombstone");
-                if (item) SendMessage(item, "_bombstone");
-                if (floor) SendMessage(floor, "_bombstone");
-            }
-            break;
-
-        case EXPLOSION_SPITTER:
-            // TODO: spitter explosions
-            break;
+            case EXPLOSION_BLACKBOMB:
+                if (direct_neighbor) {
+                    explosion(center, dest, it_explosion1);
+                } else {
+                    // Note: should not ignite in non-enigma-mode!
+                    if (stone) SendMessage(stone, "ignite");
+                    if (item)  SendMessage(item, "ignite");
+                    if (floor) SendMessage(floor, "ignite");
+                }
+                break;
+    
+            case EXPLOSION_WHITEBOMB:
+                // Note: at least in oxyd1 only direct neighbors
+                // explode, and the others not even ignite
+                explosion(center, dest, it_explosion3);            
+                break;
+    
+            case EXPLOSION_BOMBSTONE:
+                if (direct_neighbor) {
+                    if (stone) SendMessage(stone, "_bombstone");
+                    if (item) SendMessage(item, "_bombstone");
+                    if (floor) SendMessage(floor, "_bombstone");
+                }
+                break;
+    
+            case EXPLOSION_SPITTER:
+                // TODO: spitter explosions
+                break;
         }
     }
 }

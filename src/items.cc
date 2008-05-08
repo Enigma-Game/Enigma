@@ -163,6 +163,10 @@ ItemAction Item::activate(Actor* /*a*/, GridPos /*p*/) {
     return ITEM_DROP;
 }
 
+bool Item::isStatic() const {
+    return get_traits().flags & itf_static;
+}
+
 void Item::add_force(Actor *, V2 &) {
 }
 
@@ -1628,6 +1632,10 @@ namespace
            SetStone (p, st);
            kill();
         }
+        
+        virtual bool isStatic() const {
+            return activep;  // active seed is static
+        }
 
         virtual const char* get_stone_name() = 0;
     public:
@@ -2490,6 +2498,11 @@ namespace
         Puller(Direction dir)
         : active(false), m_direction(dir)
 	{ }
+    
+        virtual bool isStatic() const {
+            return active;  // active puller is static
+        }
+        
     public:
         static void setup() {
             RegisterItem (new Puller(NORTH));
@@ -3154,9 +3167,11 @@ namespace
    activated only once. */
     class Sensor : public Item {
         CLONEOBJ(Sensor);
-        DECL_TRAITS;
+        DECL_TRAITS_ARRAY(2, traitsIdx());
     public:
-        Sensor() {}
+        static void setup();
+            
+        Sensor(bool inverse);
         
         // Object interface
         virtual Value message(const Message &m);
@@ -3169,7 +3184,19 @@ namespace
 
         // Item interface
         virtual void actor_enter(Actor *a);
+    
+    private:
+        int traitsIdx() const;
     };
+    
+    void Sensor::setup() {
+        RegisterItem (new Sensor(false));
+        RegisterItem (new Sensor(true));
+    }
+    
+    Sensor::Sensor(bool inverse) {
+        Object::setAttr("inverse", inverse);
+    }
     
     Value Sensor::message(const Message &m) {
         if (m.message == "_hit") {   // door knocking forward to black/whitballstone
@@ -3200,7 +3227,14 @@ namespace
         performAction(true);
     }
     
-    DEF_TRAITSF(Sensor, "it_sensor", it_sensor, itf_static);
+    int Sensor::traitsIdx() const {
+        return getAttr("inverse").to_bool() ? 1 : 0;
+    }
+//    DEF_TRAITSF(Sensor, "it_sensor", it_sensor, itf_static);
+    ItemTraits Sensor::traits[2] = {
+        {"it_sensor",  it_sensor,  itf_static},
+        {"it_sensor",  it_inversesensor,  itf_static}
+    };
 
 /* -------------------- Signal filters -------------------- */
 namespace
@@ -3989,7 +4023,8 @@ void InitItems()
     RegisterItem (new SeedWood);
     RegisterItem (new SeedNowood);
     RegisterItem (new SeedVolcano);
-    RegisterItem (new Sensor);
+//    RegisterItem (new Sensor);
+    Sensor::setup();
     ShogunDot::setup();
     SignalFilterItem::setup();
     RegisterItem (new Spade);
