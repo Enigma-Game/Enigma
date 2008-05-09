@@ -4525,12 +4525,14 @@ to use @samp{st_panel} with the attributes @samp{cluster} and @samp{faces}.
 * st_laser::           Lightemitting Laser
 * st_laserflop::       Lightsensitive Monoflop
 * st_laserswitch::     Lightsensitive Switch
+* st_lightpassenger::  Stone pushed by Light
 * st_monoflop::        Monoflop Switch
 * st_oxyd::            Game Target Stone
 * st_polarswitch::     Transparency Switch for Light Beams
 * st_rotator::         Rotating Stone Impulser
 * st_switch::          Classical on/off Switch
 * st_timer::           Animated Timer
+* st_window::          Faced Window
 @end menu
 
 
@@ -5005,6 +5007,87 @@ the light change with proper actions.
 
 @end table
 
+@c ----------------- Lightpassenger Stone -------------------- 
+
+@node st_lightpassenger
+@subsection st_lightpassenger
+@obindex st_lightpassenger
+
+The light passenger skates on a laser beam, and may push up to one
+movable stone in front of it. Opposing laser beams are ignored.
+When another laser beam crosses the actual laser beam on which the
+passenger skates, the passenger switches beams. If it is initially
+lighted by two rectangular beams, one of them will be chosen by
+random. The light passenger's skating ability can be turned off
+and on.
+
+When a stone is in its way, the passenger sends an impulse to the
+blocking stone, which may move it, but it may also have other effects;
+e.g., a turnstile turns around and an impulse-stone starts pulsing,
+but it does not open oxyds (this is intended).
+
+The light passenger can't be pushed by actors, but, e.g., by
+@ref{st_stoneimpulse}.
+
+The speed of the light passenger can be changed with the
+@samp{interval}-attribute (default 50 ms, which is quite fast) and may
+include the floor friction and local gradient via
+@samp{friction} and @code{gradient}. The resulting interval results as
+
+@example
+interval  =  base * (1 + stone_friction * floor_friction) / (1 + stone_gradient * floor_gradient)
+@end example
+
+with @samp{base} the value of the @samp{interval}-attribute,
+@samp{floor_friction} the friction of the floor below the light passenger,
+and @floor{floor_gradient} the parallel part of the force of the floor,
+i.e., the sum of gradient-force and @code{force_x/y}-attributes.
+
+The light passenger can be switched on and off by messages (see
+below), and appears as @samp{st_glass2} when inactive.  The variant
+@samp{st_lightpassenger_off} is deactivated from the beginning.
+
+When an active @samp{st_lightpassenger} is trapped between exactly two
+opposing light beams or light beams from all four directions, it
+starts blinking.  In this state, it can be destroyed with
+@ref{it_hammer}.
+
+@table @asis
+@item @b{Attributes:}
+
+@table @asis
+@item @b{state}, @ @ @i{values}: @code{ON}, @code{OFF}; @ @ @i{default}: @code{ON}; @ @ @xref{state}
+Represents the activity state.
+@item @b{interval} @ @ @i{values}: positive number; @ @ @i{default}: @code{0.05}
+The base interval for movements.
+@item @b{friction} @ @ @i{values}: positive number; @ @ @i{default}: @code{0.0}
+Stone friction of the speed of the light passenger.
+@item @b{gradient} @ @ @i{values}: positive number; @ @ @i{default}: @code{0.0}
+Stone gradient of the speed of the light passenger.
+
+@end table
+
+@item @b{Messages:}
+
+@table @asis
+@item @b{signal} @ @ @xref{signal}
+Switches on at value @samp{1}. A values of @samp{0} is ignored.
+@item @b{on} @ @ @xref{on}
+Switch the lightpassenger on.
+@item @b{off} @ @ @xref{off}
+Switch the lightpassenger off.
+@end table
+
+@item @b{Variants:}
+
+@table @asis
+@item @b{st_lightpassenger}: state = @code{ON}
+@item @b{st_lightpassenger_on}: state = @code{ON}
+@item @b{st_lightpassenger_off}: state = @code{OFF}
+@end table
+
+@end table
+
 @c ----------------- Monoflop Stone -------------------- 
 @node st_monoflop
 @subsection st_monoflop
@@ -5348,6 +5431,88 @@ Switches on at value @samp{1}, and off at values @samp{0}.
 The action value starts with @samp{true} and alternates on every event between
 @samp{false} and @samp{true}. A timer that is reset starts again with value 
 @samp{true}
+@end table
+
+
+@c ----------------- Window Stone -------------------- 
+@node st_window
+@subsection st_window
+@obindex st_window
+
+A stone made up just of glass window faces. All combination of window faces with
+at least one face are possible. There exist two versions of windows, normal
+blue colored glass and green colored saftey glass, that is nearly undistructable.
+Saftey glass is seleted by setting the attribute @samp{secure} to @samp{true}.
+
+All windows are transparent to laser light.
+
+Slowly moving actors will bounce from window faces on any side. They can freely
+move within the inner part of the window stone. Invisible actors can even pass
+the normal blue window faces, but not the green saftey glass faces.
+
+Fast moving actors can blast normal blue window faces into smithereens. But too
+strong hits will cause marbles to shatter themselves. An actor can lower the
+required speed by adding @ref{it_weight}, by revealing an @ref{it_hammer}, or by
+weakening the window faces by prior scratching it with an @ref{it_ring}. Green
+safty glass windows will never break on actor attacks.
+
+Bomb explosions can shatter window faces, too. Normal blue window faces adjacent
+to a bomb explosion will break. Green saftey glass faces will break only if 
+prior weakened by an @ref{it_ring} scratch.
+
+Window faces can be rearranged by actors with a revealed @ref{it_wrench}.
+Pushing a face from the outside may move it to the opposite side of the window.
+But it will only move to the opposite side if there is not already a window face.
+And additionally the grid position adjacent to the opposite side must be free
+of a stone. Just another window stone without an adjacent window face is allowed
+on this position. The reason is, that the moving window face will push
+non static items and any actors positioned on the affected window grid to the
+next grid.
+
+Window face rearrangements can also be initiated by an @ref{it_puller} dropped 
+within the window and by the message @samp{inner_pull}.
+
+
+@table @asis
+@item @b{Attributes:}
+
+@table @asis
+@item @b{faces} @ @ @i{values}: string; @ @ @i{default}: @code{"s"}
+Describes the window faces of the stone. The string is a substring of 
+@samp{"nesw"} listing the faces. The sequence of the sides, north, east, south,
+west, is guaranteed on read access but arbitrary on write access.
+@item @b{secure} @ @ @i{values}: @code{true}, @code{false}; @ @ @i{default}: @code{false}
+Green saftey glass is secure, whereas normal blue is not.
+@end table
+
+@item @b{Messages:}
+
+@table @asis
+@item @b{inner_pull}, @ @ @i{value type}: direction
+Try to tear the opposite window face into the given direction.
+@end table
+
+@item @b{Variants:}
+@table @asis
+@item @b{st_window}: faces = @code{"s"}
+@item @b{st_window_w}: faces = @code{"w"}
+@item @b{st_window_s}: faces = @code{"s"}
+@item @b{st_window_sw}: faces = @code{"sw"}
+@item @b{st_window_e}: faces = @code{"e"}
+@item @b{st_window_ew}: faces = @code{"ew"}
+@item @b{st_window_es}: faces = @code{"es"}
+@item @b{st_window_esw}: faces = @code{"esw"}
+@item @b{st_window_n}: faces = @code{"n"}
+@item @b{st_window_nw}: faces = @code{"nw"}
+@item @b{st_window_ns}: faces = @code{"ns"}
+@item @b{st_window_nsw}: faces = @code{"nsw"}
+@item @b{st_window_ne}: faces = @code{"ne"}
+@item @b{st_window_new}: faces = @code{"new"}
+@item @b{st_window_nes}: faces = @code{"nes"}
+@item @b{st_window_nesw}: faces = @code{"nesw"}
+
+@end table
+
 @end table
 
 
