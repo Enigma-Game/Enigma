@@ -102,7 +102,10 @@ namespace enigma {
                 KillStone(get_pos());
                 return;
             }
-            set_model(ecl::strf("st_window_%s%d", objFlags & OBJBIT_SECURE ? "green" : "blue" , getConnections()));
+            uint32_t scratchDirs = ((objFlags & OBJBIT_SCRATCHDIRS) >> 24);
+            set_model(ecl::strf("st_window_%s%d_%d", objFlags & OBJBIT_SECURE ? "green" : "blue" , 
+                    getFaces() & ~scratchDirs, scratchDirs));
+                    
         }
     }
 
@@ -117,7 +120,7 @@ namespace enigma {
     
     void WindowStone::actor_hit(const StoneContact &sc) {
         Actor *a = sc.actor;
-        
+            
         if (state == IDLE) {
             double impulse = -(a->get_vel() * sc.normal) * get_mass(a);
             double threshold = 22;
@@ -145,8 +148,9 @@ namespace enigma {
                     tryInnerPull(SOUTH, a);
                 }
             } else if (player::WieldedItemIs (sc.actor, "it-ring")) {
-                objFlags |= (sc.faces << 24);   // scratch face
+                objFlags |= ((sc.faces & getFaces())<< 24) ;   // scratch face
                 sound_event("crack");
+                init_model();
             }
         }
     }
@@ -180,7 +184,10 @@ namespace enigma {
         Object::setAttr("$connections", ALL_DIRECTIONS ^ remainigFaces);     // avoid init of model
         sound_event("shatter");
         state = (remainigFaces == NODIRBIT) ? FINALBREAK : BREAK;
-        set_anim(ecl::strf("st_window_%s%d_anim",  objFlags & OBJBIT_SECURE ? "green" : "blue", getConnections()));
+        
+        uint32_t scratchDirs = ((objFlags & OBJBIT_SCRATCHDIRS) >> 24);
+        set_anim(ecl::strf("st_window_%s%d_%d_anim",  objFlags & OBJBIT_SECURE ? "green" : "blue",
+            getFaces() & ~scratchDirs, scratchDirs));
         if (server::GameCompatibility == GAMET_OXYD1)
             KillItem(get_pos());
     }
@@ -197,11 +204,11 @@ namespace enigma {
                 DirectionBits remainigFaces = (DirectionBits)((faces & ~to_bits(reverse(dir)))
                         |to_bits(dir));  // move face
                 Object::setAttr("$connections", ALL_DIRECTIONS ^ remainigFaces);     // avoid init of model
-                init_model();
                 // transfer scratches
                 if (((objFlags & OBJBIT_SCRATCHDIRS) >> 24) & to_bits(reverse(dir)))
                     objFlags |= ((to_bits(dir)) << 24);       // mark moved face as scratched
                 objFlags &= ~(to_bits(reverse(dir)) << 24);  // remove scratch mark from old position
+                init_model();
                 
                 // move items
                 Item *it = GetItem(w_pos);

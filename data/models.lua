@@ -410,15 +410,18 @@ end
 function DefMultipleComposite(name, imglist)
     -- Assert imglist >= 1!
     local listsize = table.getn(imglist)
-    if listsize == 1 then
-        display.DefineComposite(name, imglist[1], imglist[1])
+    if listsize == 0 then
+        DefAlias(name, "invisible")
+    elseif listsize == 1 then
+        DefAlias(name, imglist[1])
     elseif listsize == 2 then
         display.DefineComposite(name, imglist[1], imglist[2])
     elseif listsize > 2 then
-        display.DefineComposite(name, imglist[1], imglist[2])
-        for i = 3, table.getn(imglist) do
-            display.DefineComposite(name, name, imglist[i])
+        display.DefineComposite(name.."-2", imglist[1], imglist[2])
+        for i = 3, table.getn(imglist)-1 do
+            display.DefineComposite(name.."-"..i, name.."-"..(i-1), imglist[i])
         end
+        display.DefineComposite(name, name.."-"..(table.getn(imglist)-1), imglist[table.getn(imglist)])
     end
 end
 

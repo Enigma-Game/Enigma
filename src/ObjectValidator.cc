@@ -286,7 +286,7 @@ namespace enigma {
         
         AttributeDescriptor *attr = new AttributeDescriptor(name, valType, defaultValue, allowRead, allowWrite, minVal, maxVal);
         defaultAttributes[name] = attr;
-        Log << "Default Attribute " << name << "\n";
+//        Log << "Default Attribute " << name << "\n";
     }
     
     void ObjectValidator::scanMessageElement(DOMElement *msgElement) {
@@ -360,7 +360,7 @@ namespace enigma {
             }
         }
         
-        kd->log();
+//        kd->log();
     }
     
     Value ObjectValidator::parseTypedValue(const XMLCh* xmlSource, const std::string &strSource, validationType type) {
