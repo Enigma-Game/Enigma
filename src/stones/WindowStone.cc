@@ -21,7 +21,8 @@
 #include "stones/WindowStone.hh"
 #include "actors.hh"
 #include "items.hh"
-//#include "main.hh"
+#include "main.hh"
+#include "player.hh"
 #include "server.hh"
 #include "world.hh"
 #include <vector>
@@ -88,6 +89,13 @@ namespace enigma {
         // ignore any state access
     }
 
+    DirectionBits WindowStone::getFaces(bool actorInvisible) const {
+        if (!actorInvisible || objFlags & OBJBIT_SECURE)
+            return Stone::getFaces(actorInvisible);
+        else
+            return NODIRBIT;
+    }
+    
     void WindowStone::init_model() {
         if (state == IDLE) {   // anims will not be cleared 
             if (getFaces() == NODIRBIT) {   // a tease of level author tried to set a faceless window!
@@ -128,13 +136,13 @@ namespace enigma {
             
             else if (player::WieldedItemIs (sc.actor, "it_wrench")) {
                 if (sc.faces == WESTBIT && sc.normal[0] < 0){
-                    tryInnerPull(EAST);
+                    tryInnerPull(EAST, a);
                 } else if (sc.faces == EASTBIT && sc.normal[0] > 0) {
-                    tryInnerPull(WEST);
+                    tryInnerPull(WEST, a);
                 } else if (sc.faces == SOUTHBIT && sc.normal[1] > 0) {
-                    tryInnerPull(NORTH);
+                    tryInnerPull(NORTH, a);
                 } else if (sc.faces == NORTHBIT && sc.normal[1] < 0) {
-                    tryInnerPull(SOUTH);
+                    tryInnerPull(SOUTH, a);
                 }
             } else if (player::WieldedItemIs (sc.actor, "it-ring")) {
                 objFlags |= (sc.faces << 24);   // scratch face
@@ -177,10 +185,13 @@ namespace enigma {
             KillItem(get_pos());
     }
     
-    bool WindowStone::tryInnerPull(Direction dir) {
+    bool WindowStone::tryInnerPull(Direction dir, Actor *initiator) {
         DirectionBits faces = getFaces();
+        GridPos w_pos(get_pos());
+        GridPos w_pos_neighbor = move(w_pos, dir);
+        
         if (!has_dir(faces, dir) && has_dir(faces, reverse(dir))){
-            Stone *stone = GetStone(move(get_pos(), dir));
+            Stone *stone = GetStone(w_pos_neighbor);
             if (!stone || ((stone->get_traits().id == st_window) &&  
                     !has_dir(stone->getFaces(), reverse(dir)))) {
                 DirectionBits remainigFaces = (DirectionBits)((faces & ~to_bits(reverse(dir)))
@@ -193,24 +204,35 @@ namespace enigma {
                 objFlags &= ~(to_bits(reverse(dir)) << 24);  // remove scratch mark from old position
                 
                 // move items
-                Item *it = GetItem(get_pos());
+                Item *it = GetItem(w_pos);
+                Item *it_neighbor = GetItem(w_pos_neighbor);
                 if (it != NULL && !it->isStatic())
-                    SetItem(move(get_pos(), dir), YieldItem(get_pos()));
+                    if (it_neighbor == NULL)
+                        SetItem(w_pos_neighbor, YieldItem(w_pos));
+                    else
+                        SetItem(w_pos, MakeItem(it_squashed));
                 
                 // move actors
                 std::vector<Actor*> found_actors;
-                const double range_one_field = 1.415; // approx. 1 field [ > sqrt(1+1) ]
+                const double range_one_field = 1.415 + Actor::get_max_radius(); // approx. 1 field [ > sqrt(1+1) ]
                 GetActorsInRange(get_pos().center(), range_one_field, found_actors);
                 std::vector<Actor*>::iterator e = found_actors.end();
                 for (std::vector<Actor*>::iterator i = found_actors.begin(); i != e; ++i) {
-                    Actor   *actor     = *i;
-                    GridPos  actor_pos(actor->get_pos());
-                    if (actor_pos == get_pos()) { // if the actor is in the field
-                        V2 dest = actor->get_pos();
-                        // we do not have to worry about the level border as no face can be pushed to the border
-                        dest[0] += (dir == EAST) ? 1 : (dir == WEST) ? -1 : 0;
-                        dest[1] += (dir == SOUTH) ? 1 : (dir == NORTH) ? -1 : 0;
-                        WarpActor(actor, dest[0], dest[1], true);
+                    Actor *a = *i;
+                    if (a != initiator) {
+                        V2 dest = a->get_pos();
+                        GridPos a_pos(dest);
+                        double r = get_radius(a);
+                        if ((a_pos == w_pos)  // if the actor is in the field
+                                || ((dir == EAST) && (dest[0] - r < w_pos.x + 1) && (a_pos == w_pos_neighbor))
+                                || ((dir == WEST) && (dest[0] + r > w_pos.x) && (a_pos == w_pos_neighbor))
+                                || ((dir == SOUTH) && (dest[1] - r < w_pos.y + 1) && (a_pos == w_pos_neighbor))
+                                || ((dir == NORTH) && (dest[1] + r > w_pos.y) && (a_pos == w_pos_neighbor))) {
+                            // we do not have to worry about the level border as no face can be pushed to the border
+                            dest[0] = (dir == EAST) ? (w_pos.x + 1 + r) : ((dir == WEST) ? (w_pos.x - r) : dest[0]);
+                            dest[1] = (dir == SOUTH) ? (w_pos.y + 1 + r): ((dir == NORTH) ? (w_pos.y - r) : dest[1]);
+                            WarpActor(a, dest[0], dest[1], true);
+                        }
                     }
                 }
                 

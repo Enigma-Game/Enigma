@@ -21,12 +21,9 @@
 #define WINDOWSTONE_HH_INCLUDED
 
 #include "stones.hh"
-#include "stones/ConnectiveStone.hh"
 
 #include "actors.hh"
-#include "player.hh"
 #include "stones_internal.hh"
-#include "world.hh"
 
 /* -------------------- Window -------------------- */
 
@@ -62,6 +59,7 @@ namespace enigma {
         virtual void setState(int extState);
        
         // GridObject interface
+        virtual DirectionBits getFaces(bool actorInvisible = false) const;
         virtual void init_model();
 
         // ModelCallback interface
@@ -77,7 +75,7 @@ namespace enigma {
 
     private:
         void breakFaces(DirectionBits faces);
-        bool tryInnerPull(Direction dir);
+        bool tryInnerPull(Direction dir, Actor *initiator = NULL);
     };
 
 } // namespace enigma

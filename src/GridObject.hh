@@ -106,7 +106,7 @@ namespace enigma {
         display::Model *set_anim (const std::string &mname);
 
         DirectionBits getConnections() const;
-        DirectionBits getFaces() const;
+        virtual DirectionBits getFaces(bool actorInvisible = false) const;
         
 
     protected:

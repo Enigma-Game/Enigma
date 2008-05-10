@@ -631,7 +631,7 @@ void World::find_contact_with_stone(Actor *a, GridPos p, StoneContact &c,
     bool isWindow = stone->get_traits().id == st_window;
     DirectionBits wsides;
     if (isWindow) {
-        wsides = stone->getFaces();
+        wsides = stone->getFaces(a->is_invisible());
     }
     
     const ActorInfo &ai = *a->get_actorinfo();
@@ -681,7 +681,7 @@ void World::find_contact_with_stone(Actor *a, GridPos p, StoneContact &c,
             // the faces that the neighbour window owns
             Stone * neighbour = GetStone(GridPos(x+xoff_neighbour, y+yoff_neighbour));
             DirectionBits face_neighbour = (neighbour != NULL && neighbour->get_traits().id == st_window) 
-                    ? neighbour->getFaces() : NODIRBIT;
+                    ? neighbour->getFaces(a->is_invisible()) : NODIRBIT;
             
             
             if ((winFacesActorStone&face) && !(face_neighbour&face)) {
@@ -947,7 +947,7 @@ void World::find_stone_contacts(Actor *a, StoneContact &c0, StoneContact &c1,
     // contacts within the grid
     Stone * actorWinStone = GetStone(g);
     DirectionBits winFacesActorStone = (actorWinStone != NULL && actorWinStone->get_traits().id == st_window)
-            ? actorWinStone->getFaces() : NODIRBIT;
+            ? actorWinStone->getFaces(a->is_invisible()) : NODIRBIT;
     
     // distinguish 9 squares within gridpos that may cause contacts
     // low cost reduction of cases that need to be examined in detail:

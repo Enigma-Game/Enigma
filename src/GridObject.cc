@@ -172,7 +172,7 @@ namespace enigma {
             return NODIRBIT;
     }
     
-    DirectionBits GridObject::getFaces() const {
+    DirectionBits GridObject::getFaces(bool actorUnvisible) const {
         return DirectionBits(ALL_DIRECTIONS ^ getConnections());
     }
     
