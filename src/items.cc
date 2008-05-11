@@ -1244,6 +1244,10 @@ namespace
             }
         }
 
+        virtual bool isStatic() const {
+            return state == BURNING;  // burning dynamite cannot be picked up
+        }
+
         void explode () {
             GridPos p = get_pos();
             SendExplosionEffect(p, EXPLOSION_DYNAMITE);

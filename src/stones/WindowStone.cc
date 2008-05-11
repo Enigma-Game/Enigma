@@ -45,6 +45,18 @@ namespace enigma {
                     init_model();
                 return;
             }
+        } else if (key == "scratches") {
+            int d = NODIRBIT;
+            std::string vs(val);
+            if (vs.find('n') != std::string::npos) d |= NORTHBIT;
+            if (vs.find('e') != std::string::npos) d |= EASTBIT;
+            if (vs.find('s') != std::string::npos) d |= SOUTHBIT;
+            if (vs.find('w') != std::string::npos) d |= WESTBIT;
+            objFlags &= ~OBJBIT_SCRATCHDIRS;
+            objFlags |= ((d & getFaces())<< 24) ;
+            if (isDisplayable())
+                init_model();
+            return;
         }
         Stone::setAttr(key, val);
     }
@@ -52,6 +64,14 @@ namespace enigma {
     Value WindowStone::getAttr(const std::string &key) const {
         if (key == "secure") {
             return (bool)(objFlags & OBJBIT_SECURE);
+        } else if (key == "scratches") {
+            std::string result;
+            DirectionBits db = (DirectionBits)((objFlags & OBJBIT_SCRATCHDIRS) >> 24);
+            if (db & NORTHBIT) result += "n";
+            if (db & EASTBIT)  result += "e";
+            if (db & SOUTHBIT) result += "s";
+            if (db & WESTBIT)  result += "w";
+            return result;
         }
         return Stone::getAttr(key);
     }
@@ -148,7 +168,7 @@ namespace enigma {
                     tryInnerPull(SOUTH, a);
                 }
             } else if (player::WieldedItemIs (sc.actor, "it-ring")) {
-                objFlags |= ((sc.faces & getFaces())<< 24) ;   // scratch face
+                objFlags |= ((sc.faces & getFaces())<< 24);   // scratch face
                 sound_event("crack");
                 init_model();
             }

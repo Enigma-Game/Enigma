@@ -31,6 +31,7 @@
     <attr name="range" type="double" default="1.0" rw="rw"/>
     <attr name="secure" type="bool" default="false" rw="rw"/>
     <attr name="scissor" type="bool" default="true" rw="rw"/>
+    <attr name="scratches" type="string" default="" rw="rw"/>
     <attr name="state" type="int" default="0" min="0" max="1" rw="rw"/>
     <attr name="static" type="bool" default="false" rw="rw"/>
     <attr name="strength" type="double" default="1" rw="rw"/>
@@ -496,6 +497,7 @@
     </object>
     <object name="st_window">
       <attr name="faces" default="s"/>
+      <attr name="scratches"/>
       <attr name="secure"/>
       <msg name="inner_pull"/>
       <msg name="_explosion"/>

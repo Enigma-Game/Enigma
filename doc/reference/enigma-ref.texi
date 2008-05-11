@@ -2707,7 +2707,7 @@ anymore).
 
 A position of an actor like the black marble needs to be given by two floating
 numbers as coordinates like @{1.5,@ 2.5@} for an actor positioned in the center
-of the tile that is one row right and two columns down of the upper left corner
+of the tile that is one column right and two rows down of the upper left corner
 tile.
 
 @cindex grid position
@@ -2750,7 +2750,7 @@ that gives the user the feeling of a slope. And last but not least a floor
 may burn. A whole set of attributes let you control the details of the fire
 behaviour.
 
-The item layer is shared between items that an actor can pickup and items that
+The item layer is shared between items that an actor can pick up and items that
 are static. The first category are items like keys, banana, etc. Static items
 are bombs, landmines, triggers, hollows and items that will only be set by the
 system itself like laserbeams, fire animations, ash, etc. As only one item can
@@ -2840,7 +2840,7 @@ sender objects. But the author can request any grid object anytime by its
 position.
 
 With an object reference, that is of a special Lua type @samp{object}, you can
-request the objects on its current state and attributes, modifiy the
+request the objects on its current state and attributes, modify the
 object, send messages or perform any supported methods of the object.
 
 Objects can be grouped for efficient handling of common operations on
@@ -5443,6 +5443,8 @@ A stone made up just of glass window faces. All combination of window faces with
 at least one face are possible. There exist two versions of windows, normal
 blue colored glass and green colored saftey glass, that is nearly undistructable.
 Saftey glass is seleted by setting the attribute @samp{secure} to @samp{true}.
+Every glass face can be weakened by @samp{scratches} which are visible in the
+shadows.
 
 All windows are transparent to laser light.
 
@@ -5467,7 +5469,8 @@ And additionally the grid position adjacent to the opposite side must be free
 of a stone. Just another window stone without an adjacent window face is allowed
 on this position. The reason is, that the moving window face will push
 non static items and any actors positioned on the affected window grid to the
-next grid.
+next grid. If this grid is already occupied by an item, the window grid item
+will be @ref{it_squashed}.
 
 Window face rearrangements can also be initiated by an @ref{it_puller} dropped 
 within the window and by the message @samp{inner_pull}.
@@ -5479,10 +5482,14 @@ within the window and by the message @samp{inner_pull}.
 @table @asis
 @item @b{faces} @ @ @i{values}: string; @ @ @i{default}: @code{"s"}
 Describes the window faces of the stone. The string is a substring of 
-@samp{"nesw"} listing the faces. The sequence of the sides, north, east, south,
+@code{"nesw"} listing the faces. The sequence of the sides, north, east, south,
 west, is guaranteed on read access but arbitrary on write access.
 @item @b{secure} @ @ @i{values}: @code{true}, @code{false}; @ @ @i{default}: @code{false}
 Green saftey glass is secure, whereas normal blue is not.
+@item @b{scatches} @ @ @i{values}: string; @ @ @i{default}: @code{""}
+Describes the scratched window faces of the stone. The string is a substring of 
+@code{"nesw"} listing the affected faces. The sequence of the sides, north, east,
+south, west, is guaranteed on read access but arbitrary on write access.
 @end table
 
 @item @b{Messages:}
