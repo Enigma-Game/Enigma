@@ -285,6 +285,21 @@ void Actor::setAttr(const string& key, const Value &val)
     Object::setAttr(key, val);
 }
 
+    double Actor::squareDistance(const Object *other) const {
+        const Actor *a = dynamic_cast<const Actor *>(other);
+        if (a != NULL)
+            return ecl::square(get_pos() - a->get_pos());
+        else
+            return other->squareDistance(this);
+    }
+
+    bool Actor::isSouthOrEastOf(const Object *other) const {
+        const Actor *a = dynamic_cast<const Actor *>(other);
+        if (a != NULL)
+            return (get_pos()[1] > - a->get_pos()[1]) || ((get_pos()[1] ==  a->get_pos()[1]) && (get_pos()[0] > - a->get_pos()[0]));
+        else
+            return !(other->isSouthOrEastOf(this));
+    }
 
 /* -------------------- RotorBase -------------------- */
 

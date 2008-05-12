@@ -84,7 +84,7 @@ namespace enigma {
             return pos;
     }
     
-    bool GridObject::isDisplayable() {
+    bool GridObject::isDisplayable() const {
         return pos.x >= 0;
     }
     
@@ -184,6 +184,37 @@ namespace enigma {
         kill_model (p);
         if (objFlags & OBJBIT_PHOTOACTIV)
             deactivatePhoto();
+    }
+    
+    double GridObject::squareDistance(const Object *other) const {
+        if (isDisplayable()) {
+            const Actor *a = dynamic_cast<const Actor *>(other);
+            if (a != NULL) {
+                ecl::V2 apos = a->get_pos();
+                return (apos[0] - pos.x)*(apos[0] - pos.x) + (apos[1] - pos.y)*(apos[1] - pos.y);
+            }
+            const GridObject *g = dynamic_cast<const GridObject *>(other);
+            if  (g != NULL && g->isDisplayable()) {
+                return (g->pos.x - pos.x)*(g->pos.x -  pos.x) + (g->pos.y -  pos.y)*(g->pos.y -  pos.y);
+            }
+        }
+        return Object::squareDistance(other);  // infinity
+    }
+    
+    bool GridObject::isSouthOrEastOf(const Object *other) const {
+        if (isDisplayable()) {
+            const Actor *a = dynamic_cast<const Actor *>(other);
+            if (a != NULL) {
+                ecl::V2 apos = a->get_pos();
+                return (apos[1] < pos.y) || ((apos[1] == pos.y) && (apos[0] < pos.x));
+            }
+            const GridObject *g = dynamic_cast<const GridObject *>(other);
+            if  (g != NULL && g->isDisplayable()) {
+                return (g->pos.y < pos.y) || ((g->pos.y ==  pos.y) && (g->pos.x <  pos.x));
+            } else 
+                return true;  // other GridObject is not on Grid
+        }
+        return false;        
     }
     
     

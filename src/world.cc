@@ -325,21 +325,47 @@ void World::remove (ForceField *ff)
         forces.erase(i);
 }
 
-Object * World::get_named(const string &name)
-{
-    ecl::Dict<Object*>::iterator found = m_objnames.find(name);
+Object * World::get_named(const std::string &name) {
+    std::string wanted = name;
+    if (wanted.size() > 0 && wanted[0] == '@')
+        wanted.erase(0, 1); // erase the leading @ 
+    ecl::Dict<Object*>::iterator found = m_objnames.find(wanted);
     if (found != m_objnames.end()) 
         return found->second;
 //    Log << "Did not find named object: " << name << '\n';
     return NULL;
 }
 
-std::list<Object *> World::get_group(const std::string &tmpl) {
+std::list<Object *> World::get_group(const std::string &tmpl, const Object *reference) {
     std::list<Object *> result;
     ecl::Dict<Object *>::iterator it = m_objnames.begin();
+    std::string pattern = tmpl;
+    bool nearest = false;         // limit result to nearest object
+    double mindist = -1;
+    if (pattern.size() > 0 && pattern[0] == '@') {
+        pattern.erase(0, 1); // erase the leading @
+        if (reference != NULL)
+            nearest = true;
+    } 
+
     for (; it != m_objnames.end(); ++it) {
-        if (string_match(it->first, tmpl))
-            result.push_back(it->second);
+        if (string_match(it->first, pattern)) {
+            if (!nearest || mindist < 0) {
+                result.push_back(it->second);
+                if (nearest) {
+                    mindist = reference->squareDistance(it->second);
+                }
+            } else {
+                double newdist = reference->squareDistance(it->second);
+                
+                // replace last candidate by new closer object, choose a unique candidate
+                if (mindist > newdist || ((mindist == newdist) && it->second->isSouthOrEastOf(result.back()))) {
+                    result.pop_back();
+                    result.push_back(it->second);
+                    mindist = newdist;
+                }
+            }
+        }
     }
     return result;
 }
@@ -1623,8 +1649,8 @@ Object * GetNamedObject (const std::string &name)
     return level->get_named (name);
 }
 
-std::list<Object *> GetNamedGroup(const std::string &name) {
-    return level->get_group(name);
+std::list<Object *> GetNamedGroup(const std::string &name, const Object *reference) {
+    return level->get_group(name, reference);
 }
 
 bool IsLevelBorder(const GridPos &p) {

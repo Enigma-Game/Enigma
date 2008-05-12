@@ -233,6 +233,11 @@ namespace enigma {
          * for any other value.
          */
         bool to_bool() const;
+        
+        /**
+         * 
+         */
+        ObjectList getObjectList(const Object *reference = NULL) const;
     private:
         void clear();      ///< Release resources and assign type NIL
 

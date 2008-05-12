@@ -91,7 +91,7 @@ namespace enigma {
          * updated, too.
          * @return   true if display access is possible, false otherwise
          */
-        bool isDisplayable();
+        bool isDisplayable() const;
 
         // GridObject interface
         
@@ -108,6 +108,8 @@ namespace enigma {
         DirectionBits getConnections() const;
         virtual DirectionBits getFaces(bool actorInvisible = false) const;
         
+        virtual double squareDistance(const Object *other) const;
+        virtual bool isSouthOrEastOf(const Object *other) const;
 
     protected:
         // GridObject interface

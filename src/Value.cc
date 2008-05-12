@@ -283,34 +283,7 @@ namespace enigma {
     }
     
     Value::operator ObjectList() const {
-        ObjectList result;
-        switch (type) {
-            case STRING:
-                if (std::string(val.str).find_first_of("*?") != std::string::npos) {
-                    // wildcards in object name - we need to add all objects
-                    result = GetNamedGroup(val.str);
-                    break;
-                }
-                // else it is a single object name - fall through
-            case NAMEDOBJECT:
-            case OBJECT:
-                result.push_back(*this);
-                break;
-            case GROUP:
-                std::vector<std::string> vs;
-                ecl::split_copy(std::string(val.str), ',', back_inserter(vs));
-                for (std::vector<std::string>::iterator it = vs.begin(); it != vs.end(); ++it) {
-                    if (it->size() > 0) {
-                        if ((*it)[0] == '#') {
-                            result.push_back(Object::getObject(atoi((*it).c_str() + 1)));
-                        } else {
-                            result.push_back(GetNamedObject(*it));
-                        }
-                    }
-                }
-                break;
-        }
-        return result;
+        return getObjectList(NULL);
     }
     
     Value::operator TokenList() const {
@@ -446,6 +419,37 @@ namespace enigma {
             default :
                 return true;
         }
+    }
+    
+    ObjectList Value::getObjectList(const Object *reference) const {
+        ObjectList result;
+        switch (type) {
+            case STRING:
+                if (std::string(val.str).find_first_of("*?") != std::string::npos) {
+                    // wildcards in object name - we need to add all objects
+                    result = GetNamedGroup(val.str, reference);
+                    break;
+                }
+                // else it is a single object name - fall through
+            case NAMEDOBJECT:
+            case OBJECT:
+                result.push_back(*this);
+                break;
+            case GROUP:
+                std::vector<std::string> vs;
+                ecl::split_copy(std::string(val.str), ',', back_inserter(vs));
+                for (std::vector<std::string>::iterator it = vs.begin(); it != vs.end(); ++it) {
+                    if (it->size() > 0) {
+                        if ((*it)[0] == '#') {
+                            result.push_back(Object::getObject(atoi((*it).c_str() + 1)));
+                        } else {
+                            result.push_back(GetNamedObject(*it));
+                        }
+                    }
+                }
+                break;
+        }
+        return result;
     }
     
     

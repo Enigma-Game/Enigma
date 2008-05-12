@@ -182,6 +182,8 @@ namespace enigma {
         }
 
         const GridPos &get_gridpos() const { return m_actorinfo.gridpos; }
+        virtual double squareDistance(const Object *other) const;
+        virtual bool isSouthOrEastOf(const Object *other) const;
 
     protected:
         virtual Object::ObjectType getObjectType() const {return Object::ACTOR;}

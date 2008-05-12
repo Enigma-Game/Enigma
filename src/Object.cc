@@ -269,7 +269,7 @@ namespace enigma {
         for (TokenList::iterator tit = targets.begin(); tit != targets.end(); ++tit) {
             action = (ait != actions.end()) ? ait->to_string() : "";
             
-            ObjectList ol = *tit;  // get all objects described by target token
+            ObjectList ol = (*tit).getObjectList(this);  // get all or nearest objects described by target token
             if (ol.size() == 0 || (ol.size() == 1 && ol.front() == NULL)) {  // no target object
                 if ((action == "callback" || action == "") && (tit->getType() == Value::STRING) 
                         && lua::IsFunc(lua::LevelState(), tit->get_string())) {
@@ -335,7 +335,7 @@ namespace enigma {
             // evaluate destination objects in sequence up to "idx"
             TokenList tl = dest;  // convert any object type value to a tokenlist 
             for (TokenList::iterator tit = tl.begin(); tit != tl.end(); ++tit) {
-                ObjectList ol = *tit;  // convert next token to an objectlist
+                ObjectList ol = (*tit).getObjectList(this);  // convert next token to an objectlist
                 for (ObjectList::iterator oit = ol.begin(); oit != ol.end(); ++oit) {
                     GridObject *go = dynamic_cast<GridObject *>(*oit);  // get the object
                     if (go != NULL) {   // no actors as destination!
@@ -368,6 +368,14 @@ namespace enigma {
     
     Object::ObjectType Object::getObjectType() const {
         return OTHER;
+    }
+    
+    double Object::squareDistance(const Object *other) const {
+        return 1e15;   // inifinity in enigma world
+    }
+    
+    bool Object::isSouthOrEastOf(const Object *other) const {
+        return true;
     }
     
 } // namespace enigma

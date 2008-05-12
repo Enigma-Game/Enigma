@@ -167,7 +167,7 @@ namespace enigma {
     void    NameObject (Object *obj, const string &name);
     void    UnnameObject (Object *obj);
     Object *GetNamedObject (const string &name);
-    std::list<Object *> GetNamedGroup(const std::string &templ);
+    std::list<Object *> GetNamedGroup(const std::string &templ, const Object *reference = NULL);
 
 /* -------------------- Force Fields -------------------- */
 

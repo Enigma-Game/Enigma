@@ -197,6 +197,8 @@ namespace enigma {
         virtual ObjectType getObjectType() const;
         void transferName(Object *target);
         virtual void transferIdentity(Object *target);
+        virtual double squareDistance(const Object *other) const;
+        virtual bool isSouthOrEastOf(const Object *other) const;
 
     protected:
         /** This function is used by all triggers, switches etc. that
