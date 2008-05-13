@@ -1182,92 +1182,102 @@ end
 
 -- st-window --
 do
-    local fg_window_blue = DefSubimages("st_window_blue", {modelname="fg-window_blue",w=4,h=4})
-    local fg_window_green = DefSubimages("st_window_green", {modelname="fg-window_green",w=4,h=4})
+    local fg_window = {blue = DefSubimages("st_window_blue", {modelname="fg-window_blue",w=4,h=4}),
+                       green = DefSubimages("st_window_green", {modelname="fg-window_green",w=4,h=4}) }
     local sh_windowx = DefSubimages("sh_window", {modelname="sh-windowx",w=2,h=4,imgw=ShadowSize,imgh=ShadowSize})
-    local breaking_images_blue = DefSubimages("st_window_blue_break", {h=4})
-    local breaking_images_green = DefSubimages("st_window_green_break", {h=4})
-    
-    local faces = 0
-    local broken = 0
-    local shadows = {}
-    for W = 0, 1 do
-      local Wfaces = faces
-      for S = 0, 1 do
-        local Sfaces = faces
-        local shadows = shadows
-        for E = 0, 1 do
-          local Efaces = faces
-          local shadows = shadows
-          for N = 0, 1 do
-            local Nfaces = faces
-            local shadows = shadows
-            for w = 0, 1-W do
-              local wbroken = broken
-              local shadows = shadows
-              for s = 0, 1-S do
-                local sbroken = broken
-                local shadows = shadows
-                for e = 0, 1-E do
-                  local ebroken = broken
-                  local shadows = shadows
-                  for n = 0, 1-N do
-                    local nbroken = broken
-                    local shadows = {}
-                    if W==1 then table.insert(shadows,"sh-windowx1") end
-                    if S==1 then table.insert(shadows,"sh-windowx2") end
-                    if E==1 then table.insert(shadows,"sh-windowx3") end
-                    if N==1 then table.insert(shadows,"sh-windowx4") end
-                    if w==1 then table.insert(shadows,"sh-windowx5") end
-                    if s==1 then table.insert(shadows,"sh-windowx6") end
-                    if e==1 then table.insert(shadows,"sh-windowx7") end
-                    if n==1 then table.insert(shadows,"sh-windowx8") end
-                    DefMultipleComposite("sh-windowx"..faces.."-"..broken, shadows)
-                    DefShModel("st_window_blue"..faces.."_"..broken, "fg-window_blue"..(faces+broken+1), "sh-windowx"..faces.."-"..broken)
-                    DefShModel("st_window_green"..faces.."_"..broken, "fg-window_green"..(faces+broken+1), "sh-windowx"..faces.."-"..broken)
+    local breaking_images = {blue = DefSubimages("st_window_blue_break", {h=4}),
+                             green = DefSubimages("st_window_green_break", {h=4})}
 
-                    local breaking_window_blue_names = {}
-                    local breaking_window_green_names = {}
-                    for j = 1, table.getn(breaking_images_blue) do
-                        breaking_window_blue_names[j] = "st-window_blue_breaking"..faces.."_"..broken.."-"..j
-                        breaking_window_green_names[j] = "st-window_green_breaking"..faces.."_"..broken.."-"..j
-                        display.DefineComposite(breaking_window_blue_names[j], fg_window_blue[faces+broken+1], breaking_images_blue[j])
-                        display.DefineComposite(breaking_window_green_names[j], fg_window_green[faces+broken+1], breaking_images_green[j])
-                    end
-                    local frames_blue = BuildFrames(breaking_window_blue_names, 130)
-                    local frames_green = BuildFrames(breaking_window_green_names, 130)
-                    DefAnim("st-window_blue"..faces.."_"..broken.."_anim_fg", frames_blue)
-                    DefAnim("st-window_green"..faces.."_"..broken.."_anim_fg", frames_green)
-                    DefShModel("st_window_blue"..faces.."_"..broken.."_anim", "st-window_blue"..faces.."_"..broken.."_anim_fg", "sh-windowx"..faces.."-"..broken);
-                    DefShModel("st_window_green"..faces.."_"..broken.."_anim", "st-window_green"..faces.."_"..broken.."_anim_fg", "sh-windowx"..faces.."-"..broken);
-
-
-                    table.insert(shadows,"sh-windowx8")
-                    broken = nbroken + 8
-                  end
-                  table.insert(shadows,"sh-windowx7")
-                  broken = ebroken + 4
-                end
-                table.insert(shadows,"sh-windowx6")
-                broken = sbroken + 2
-              end
-              table.insert(shadows,"sh-windowx5")
-              broken = wbroken + 1
-            end
-            table.insert(shadows,"sh-windowx4")
-            broken = 0
-            faces = Nfaces + 8
-          end
-          table.insert(shadows,"sh-windowx3")
-          faces = Efaces + 4
-        end
-        table.insert(shadows,"sh-windowx2")
-        faces = Sfaces + 2
-      end
-      table.insert(shadows,"sh-windowx1")
-      faces = Wfaces + 1
+    local function name(combination, separator)
+      return combination.normal_faces..separator..combination.scratched_faces
     end
-    
+
+    -- The window images are constructed in two steps.
+    -- 1) All possible combinations of the shadows are constructed
+    --    (for each direction: "no shadow", "normal face", "scratched face",
+    --    represented as "0, 1, 2" in a table).
+    -- 2) Using the table of all possible combinations, all images
+    --    and animations of the window stones are constructed.
+    -- Step 1 works as follows: We start with direction 1 (North),
+    -- and all three possibilities for shadows to the North. At this
+    -- point, the images for shadows to North only are build.
+    -- As next, for each of the three North-possibilities, we
+    -- construct the East-possibilities, i.e. we now have 3*3 combinations
+    -- and 3*3-1 shadow-images. We continue with South and West.
+    -- The table "all_combinations" is after each pass of the "direction"-loop:
+    --  0) {{}}
+    --  1) {{0}, {1}, {2}}
+    --  2) {{0,0}, {0,1}, {0,2}, {1,0}, {1,1}, {1,2}, {2,0}, {2,1}, {2,2}}
+    --  3) {{0,0,0}, {0,0,1}, {0,0,2}, {0,1,0}, {0,1,1}, ... }
+    --  4) {{0,0,0,0}, {0,0,0,1}, {0,0,0,2}, {0,0,1,0}, ... }
+    -- Plus extra entries to count the number of normal_faces and
+    -- scratched_faces (to be exactly, the numbers binarily represent
+    -- the existence of the face).
+    local all_combinations = {{normal_faces = 0, scratched_faces = 0}}
+    DefAlias("sh-windowx0-0", "invisible")
+    local base = {0, 1, 2}
+    for direction = 1, 4 do
+        local next_list = {}
+        for _, old_combination in pairs(all_combinations) do
+            for _, new_digit in pairs(base) do
+                -- Deep-copy old_combination to new_combination.
+                local new_combination = {}
+                for k, digit in pairs(old_combination) do
+                    new_combination[k] = digit
+                end
+                -- Add a new digit to new_combination and save it.
+                new_combination[direction] = new_digit
+                table.insert(next_list, new_combination)
+                -- If this combination adds a new face, create
+                -- the corresponding composite image, based on the
+                -- image of old_combination.
+                if new_digit ~= 0 then
+                    -- First, increase the "number" of faces.
+                    if new_digit == 1 then
+                        new_combination.normal_faces = new_combination.normal_faces
+                                + ({1,2,4,8})[direction]
+                    elseif new_digit == 2 then
+                        new_combination.scratched_faces = new_combination.scratched_faces
+                                + ({1,2,4,8})[direction]
+                    end
+                    -- Now compose the shadow image.
+                    display.DefineComposite(
+                            "sh-windowx"..name(new_combination, "-"),
+                            "sh-windowx"..name(old_combination, "-"),
+                            "sh-windowx"..(direction + ({0,4})[new_digit]))
+                end
+            end
+        end
+        all_combinations = next_list
+    end
+
+    for _, combination in pairs(all_combinations) do
+        -- Abbreviations. Note that sometimes "-" and sometimes "_" is
+        -- used as separator. Don't expect a pattern.
+        local total_faces = combination.normal_faces + combination.scratched_faces
+        local name1 = name(combination, "-")
+        local name2 = name(combination, "_")
+        for _, color in pairs({"blue", "green"}) do
+            -- Normal stone (= not breaking)
+            DefShModel("st_window_"..color..name2,
+                       "fg-window_"..color..(total_faces + 1),
+                       "sh-windowx"..name1)
+            -- Breaking animation
+            local breaking_window_names = {}
+            for j = 1, table.getn(breaking_images[color]) do
+                breaking_window_names[j] =
+                          "st-window_"..color.."_breaking"..name1.."-"..j
+                display.DefineComposite(breaking_window_names[j],
+                          fg_window[color][total_faces + 1],
+                          breaking_images[color][j])
+            end
+            local frames = BuildFrames(breaking_window_names, 130)
+            DefAnim("st-window_"..color..name2.."_anim_fg", frames)
+            DefShModel("st_window_"..color..name2.."_anim",
+                       "st-window_"..color..name2.."_anim_fg",
+                       "sh-windowx"..name1);
+        end
+    end
 end
 
 -----------------

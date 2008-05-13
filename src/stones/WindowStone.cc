@@ -124,8 +124,7 @@ namespace enigma {
             }
             uint32_t scratchDirs = ((objFlags & OBJBIT_SCRATCHDIRS) >> 24);
             set_model(ecl::strf("st_window_%s%d_%d", objFlags & OBJBIT_SECURE ? "green" : "blue" , 
-                    getFaces() & ~scratchDirs, scratchDirs));
-                    
+                    getFaces() & ~scratchDirs, scratchDirs));                    
         }
     }
 

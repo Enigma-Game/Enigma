@@ -516,14 +516,20 @@ function itemfreeze_timercallback()
         local current_stone = itemfreeze_stone[j]
         local old_x = itemfreeze_pos_x[j]
         local old_y = itemfreeze_pos_y[j]
-        itemfreeze_pos_x[j], itemfreeze_pos_y[j] = enigma.GetPos(current_stone)
-        --if (enigma.GetStone(itemfreeze_pos_x[j], itemfreeze_pos_y[j])
-        --    ~= itemfreeze_stone[j]) then -- this doesn't work in lua 5!
-        if (old_x ~= itemfreeze_pos_x[j]) or (old_y ~= itemfreeze_pos_y[j]) then
-          -- Obviously, this stone has moved!
-          enigma.EmitSound(current_stone, "ballcollision")
-          itemfreeze_look_for_floor(j, old_x, old_y)
-          itemfreeze_look_for_item(j, old_x, old_y)
+        local new_x, new_y = enigma.GetPos(current_stone)
+        if (new_x >= 0) and (new_y >= 0) then
+          itemfreeze_pos_x[j], itemfreeze_pos_y[j] = new_x, new_y
+          --if (enigma.GetStone(itemfreeze_pos_x[j], itemfreeze_pos_y[j])
+          --    ~= itemfreeze_stone[j]) then -- this doesn't work in lua 5!
+          if (old_x ~= itemfreeze_pos_x[j]) or (old_y ~= itemfreeze_pos_y[j]) then
+            -- Obviously, this stone has moved!
+            enigma.EmitSound(current_stone, "ballcollision")
+            itemfreeze_look_for_floor(j, old_x, old_y)
+            itemfreeze_look_for_item(j, old_x, old_y)
+          end
+        else
+          -- Stone has disappeared - probably swapped. Just do
+          -- as if nothing happened and wait.
         end  
       end
     end

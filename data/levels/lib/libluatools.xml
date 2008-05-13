@@ -170,6 +170,29 @@ function luatools.cyclic_permutation(n)
   return sequence2
 end
 
+-- Return a table of all combinations of DEPTH entries,
+-- each of which is chosen from DIGITS.
+-- Example: luatools.combinations(3, {7, 8, "a"}) will return
+--   { {7,7,7}, {7,7,8}, {7,7,"a"}, {7,8,7}, {7,8,8}, {7,8,"a"},
+--     {7,"a",7}, {7,"a",8}, {7,"a","a"}, {8,7,7}, ... }
+-- Mathematically, it builds the leafs of an #DIGITS-ary tree
+-- of depth DEPTH.
+function luatools.combinations(depth, digits)
+  local all_combinations = {{}}
+  for _ = 1, depth do
+    local next_step = {}
+    for _, old_combination in pairs(all_combinations) do
+      for _, new_digit in pairs(digits) do
+        local new_combination = luatools.deep_copy(old_combination)
+        table.insert(new_combination, new_digit)
+        table.insert(next, new_combination)
+      end
+    end
+    all_combinations = next_step
+  end
+  return all_combinations
+end
+
     ]]></el:luamain>
     <el:i18n>
     </el:i18n>

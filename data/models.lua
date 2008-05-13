@@ -405,8 +405,7 @@ end
 -- Define a multiple composite --
 -- This function will compose a list of images
 -- and store the result in "name".
--- At the moment, this function is only used for the
--- shadows of "st-window".
+-- As this function needs lots of memory, it's use is deprecated.
 function DefMultipleComposite(name, imglist)
     -- Assert imglist >= 1!
     local listsize = table.getn(imglist)
