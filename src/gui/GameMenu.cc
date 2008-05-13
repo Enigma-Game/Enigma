@@ -123,7 +123,7 @@ namespace enigma { namespace gui {
     //             delete src;
     //             src = tmp;
     //         }
-            zoomed = src->zoom(vminfo->width, vminfo->height);
+            zoomed = src->zoom(vminfo->width+1, vminfo->height+1);
             delete src;
         }
     

@@ -146,10 +146,37 @@ string sound::GetOptionSoundSetText(int value)
 
 SoundEvent::SoundEvent ()
 : name(""), has_position(false), position(),
-  priority (0), volume (0.0),
-  left (0), right(0), active (false),
-  playing_time (0)
+  priority(0), volume(0.0), range(30.0), fullvol_range(0.2),
+  number_events(1), left(0), right(0), active(false),
+  playing_time(0)
 {}
+
+double SoundEvent::effectiveVolume(double dist) {
+    double reduced_dist = max(0.0, dist - fullvol_range);
+    return (1 - reduced_dist / range) * volume;
+}
+
+bool SoundEvent::merge(SoundEvent se) {
+    if (has_position && se.has_position) {
+        /*! Merge the soundevent se onto this one. The loudness profile
+           of a soundevent se is that of a cylinder shaped center region
+           with height se.volume and radius se.fullvol_range,
+           surrounded by a linearly decreasing area of breadth se.range.
+           The merged soundevent will have a center region covering both
+           old center regions, and its volume is set to the maximum
+           of the two volumes. */
+        double dist = ecl::length(position - se.position);
+        volume = max(volume, se.volume);
+        fullvol_range += dist/2;
+        position = (number_events * position + se.number_events * se.position)
+                       / (number_events + se.number_events);
+        number_events += se.number_events;
+        return true;
+    } else {
+        // Don't merge global sounds.
+        return false;
+    }
+}            
 
 /* -------------------- SoundEffectManager -------------------- */
 

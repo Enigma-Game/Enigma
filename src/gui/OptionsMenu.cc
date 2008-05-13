@@ -461,7 +461,8 @@ namespace enigma { namespace gui {
 #define OPTIONS_NEW_L(label) lb = new HList;\
         lb->set_spacing(param[vtt].hoption_option); \
         lb->set_alignment(HALIGN_LEFT, VALIGN_TOP); \
-        lb->set_default_size(param[vtt].optionb_width, param[vtt].button_height); \
+        lb->set_default_size(2*param[vtt].optionb_width + param[vtt].hoption_option, \
+                             param[vtt].button_height); \
         lb->add_back(new Label(label, HALIGN_LEFT, VALIGN_BOTTOM)); \
         optionsVList->add_back(lb); \
 // end define

@@ -219,6 +219,9 @@ namespace sound
         ecl::V2   position;
         int       priority;
         double    volume;           // Volume between 0.0 and 1.0
+        double    range;            // How far can sound travel? (Default: 30.0)
+        double    fullvol_range;    // If distance sound origin <= this value, play at full volume
+        int       number_events;    // Increased when soundevents are merged
         int       left;
         int       right;
 
@@ -228,6 +231,12 @@ namespace sound
 
         // Constructor
         SoundEvent ();
+        
+        // Effective volume calculation
+        double    effectiveVolume(double dist);
+        
+        // Merge another sound event onto this one.
+        bool      merge(SoundEvent se);
     };
 
 /* -------------------- SoundEffect and SoundEffectRepository ---------------- */

@@ -351,12 +351,6 @@ void SoundEngine_SDL::fadeout_music()
 
 void SoundEngine_SDL::update_channel (int channel)
 {
-    // If distance sound origin <= this value, play at full volume
-    const double fullvol_range = 0.2;
-
-    // How far can sound travel?
-    const double range = 30;    
-
     SoundEvent &se = m_channelinfo[channel];
 
     double volume;
@@ -364,13 +358,10 @@ void SoundEngine_SDL::update_channel (int channel)
     int    right;
     if (se.has_position) {
         ecl::V2 distv = se.position - m_listenerpos;
-        double dist = max(0.0, length(distv) - fullvol_range);
-
         int xdist = int(distv[0] * options::GetDouble("StereoSeparation"));
-
         left  = ecl::Clamp (255 - xdist, 0, 255);
         right = ecl::Clamp (255 + xdist, 0, 255);
-        volume = (1 - dist/range) * se.volume;
+        volume = se.effectiveVolume(length(distv));
     }
     else
     {
@@ -392,7 +383,7 @@ int SoundEngine_SDL::already_playing (const SoundEvent &s)
 
         if (se.active && se.name == s.name && se.playing_time < 0.05
             && (!se.has_position || !s.has_position ||
-		ecl::length(se.position - s.position) < 30))
+		ecl::length(se.position - s.position) < se.range + se.fullvol_range))
             return static_cast<int> (i);
     }
     return -1;
@@ -429,9 +420,8 @@ bool SoundEngine_SDL::play_sound (const SoundEvent &s)
     if (channel != -1) {
         MutexLock (m_instance->m_mutex);
         SoundEvent &se = m_channelinfo [channel];
-        if (se.has_position) {
-            se.position = (se.position + s.position) / 2;
-            update_channel (channel);
+        if(se.merge(s)) {
+            update_channel(channel);
             return true;
         }
     }
