@@ -50,6 +50,12 @@ namespace enigma {
             if (objFlags & OBJBIT_LIGHTNEWDIRS)
                 lightDirChanged(NODIRBIT, (DirectionBits)(objFlags & OBJBIT_LIGHTNEWDIRS));
             return Value();            
+        } else if (m.message == "glasses") {
+            if (to_bool(m.value) != (objFlags & OBJBIT_VISIBLE)) {
+                objFlags ^= OBJBIT_VISIBLE; // toggle visibility bit
+                init_model();
+            }
+            return Value();
         }
         return Stone::message(m);
     }
@@ -77,7 +83,8 @@ namespace enigma {
     void LightPassengerStone::init_model() {
         switch(state) {
             case OFF:
-                set_anim("st-lightpassenger_off"); break;
+                set_anim(objFlags & OBJBIT_VISIBLE ?
+                    "st-lightpassenger_off" : "st-lightpassenger_hidden"); break;
             case ON:
                 set_anim("st-lightpassenger"); break;
             case BLINK:

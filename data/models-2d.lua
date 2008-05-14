@@ -941,16 +941,27 @@ end
 do
     local img = DefSubimages("st-lightpassenger", {h=7})
     DefShModel("st-lightpassenger", img[1], "sh-glass")
-    DefAlias("st-lightpassenger_off", "st-glass2")
+    DefImage("st-lightpassenger_offx", {filename = "st-lightpassenger_off"})
+    DefShModel("st-lightpassenger_off", "st-lightpassenger_offx", "sh-glass")
+    DefAlias("st-lightpassenger_hidden", "st-glass2")
+    -- Blink animation
     local frames = {img[2], img[3], img[4], img[5], img[6], img[7]}
     DefAnim("st-lightpassenger-blink1", PingPong(BuildFrames(frames, 75)), true)
     DefShModel("st-lightpassenger-blink", "st-lightpassenger-blink1", "sh-glass")
-    img = DefSubimages("st-lightpassenger-break-v", {h=7})
-    DefAnim("st-lightpassenger-break-v", BuildFrames(img, 50), false)
-    img = DefSubimages("st-lightpassenger-break-h", {h=7})
-    DefAnim("st-lightpassenger-break-h", BuildFrames(img, 50), false)
-    img = DefSubimages("st-lightpassenger-break-hv", {h=7})
-    DefAnim("st-lightpassenger-break-hv", BuildFrames(img, 50), false)
+    -- Break animation
+    img = DefSubimages("st-lightpassenger-break", {h=7})
+    local anim_v, anim_h, anim_hv = {}, {}, {}
+    for j = 1, 7 do
+      anim_v[j] = "st-lightpassenger-break-v"..j
+      display.DefineComposite(anim_v[j], "it-laserv", img[j])
+      anim_h[j] = "st-lightpassenger-break-h"..j
+      display.DefineComposite(anim_h[j], "it-laserh", img[j])
+      anim_hv[j] = "st-lightpassenger-break-hv"..j
+      display.DefineComposite(anim_hv[j], "it-laserhv", img[j])
+    end
+    DefAnim("st-lightpassenger-break-v", BuildFrames(anim_v, 50), false)
+    DefAnim("st-lightpassenger-break-h", BuildFrames(anim_h, 50), false)
+    DefAnim("st-lightpassenger-break-hv", BuildFrames(anim_hv, 50), false)
 end
 
 -- st-magic :-) --

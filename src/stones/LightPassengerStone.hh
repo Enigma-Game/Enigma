@@ -42,7 +42,8 @@ namespace enigma {
         
         enum ObjectPrivatFlagsBits {
             OBJBIT_SKATEDIR =   7<<24,   ///< current skate direction
-            OBJBIT_BLOCKED  =   1<<27    ///< have been blocked by a stone on last move attempt 
+            OBJBIT_BLOCKED  =   1<<27,   ///< have been blocked by a stone on last move attempt 
+            OBJBIT_VISIBLE  =   1<<28    ///< this stone isn't hidden when inactive
         };
     public:
         LightPassengerStone(bool isActive);
