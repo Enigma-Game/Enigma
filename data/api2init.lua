@@ -133,22 +133,22 @@ wo:_register("drawmap", drawmap)
 res = {}
 
 function res.random_implementation(context, evaluator, key, x, y)
-    for hit_itr, hit_pair in ipairs(context[3]) do
+    for hit_itr, hit_pair in ipairs(context[4]) do
         if key == hit_pair[1] then
             local super = nil
             if hit_pair[2] ~= nil then
-                super = evaluator(context[2], hit_pair[2], x, y)
+                super = evaluator(context[3], hit_pair[2], x, y)
             end
             local repl_key
-            local r = math.random(context[5])
+            local r = math.random(context[6])
             local i = 1
-            local s = context[4][i][2]
+            local s = context[5][i][2]
             while s < r do
                 i = i + 1
-                s = s + context[4][i][2]
+                s = s + context[5][i][2]
             end
-            repl_key = context[4][i][1]
-            local replacement = evaluator(context[2], repl_key, x, y)
+            repl_key = context[5][i][1]
+            local replacement = evaluator(context[3], repl_key, x, y)
             if super == nil then
                 return replacement
             elseif type(super) == "table" then
@@ -159,7 +159,7 @@ function res.random_implementation(context, evaluator, key, x, y)
         end
     end
     -- key not found
-    return evaluator(context[2], key, x, y)
+    return evaluator(context[3], key, x, y)
 end
 
 function res.random(subresolver, hits, replacements)
@@ -192,9 +192,109 @@ function res.random(subresolver, hits, replacements)
     for i, v in ipairs(repl_table) do
         repl_sum = repl_sum + v[2]
     end
-    local context = {res.random_implementation, subresolver, hit_table, 
+    local context = {res.random_implementation, nil, subresolver, hit_table, 
                       repl_table, repl_sum}
     return context
 end
 
+function res.autotile_newtile(key, template, substitution)
+    local decl = template:_declaration()  -- get a deep copy
+    local result
+    for i, tile in ipairs(decl) do
+        if type(tile) == "string" then
+            if result == nil then
+                result = ti[tile]
+            else
+                result = result .. ti[tile]
+            end
+        else
+            local at = {}   -- attribute table
+            for key, val in pairs(tile) do   -- a table
+                if type(val) ~= "table" then
+                    if type(val) == "string" then
+                        at[key] = string.gsub(val, "%%%%", "%%"..substitution)
+                    else
+                        at[key] = val
+                    end
+                else
+                    local tt = {} 
+                    for j, token in ipairs(val) do
+                        if type(token) == "string" then
+                            tt[j] = string.gsub(token, "%%%%", "%%"..substitution)
+                        else
+                            tt[j] = token
+                        end
+                    end
+                    at[key] = tt
+                end
+            end
+            if result == nil then
+                result = ti(at)
+            else
+                result = result .. ti(at)
+            end
+        end
+    end
+    ti[key] = result
+end
 
+function res.autotile_implementation(context, evaluator, key, x, y)
+    for i, rule in ipairs (context[4]) do
+        if #rule == 3 then   -- from, to substitution
+            --
+            local first = string.byte(rule[1], #rule[1])
+            local last = string.byte(rule[2], #rule[2])
+            local candidate = string.byte(key, #key)
+            
+            if #key == #rule[1] and string.sub(key, 1, -2) == string.sub(rule[1], 1, -2)
+                    and first <= candidate and candidate <= last then
+                if ti[key] == nil then
+                    res.autotile_newtile(key, ti[rule[3]], candidate - first)
+                end
+                return ti[key]
+            end
+        elseif string.find(key, rule[1], 1, true) == 1 then
+            -- prefix based substitution
+            if ti[key] == nil then
+                res.autotile_newtile(key, ti[rule[2]], string.sub(key, #(rule[1]) + 1))
+            end
+            return ti[key]
+        end
+    end
+    return evaluator(context[3], key, x, y)
+end
+
+function res.autotile(subresolver, ...)
+    -- syntax: ... = <{prefixkey, template} | {fistkey, lastkey, template}>
+    local args = {...}
+    -- TODO check args!
+    -- check tables contain only strings (2 or 3)
+    -- check in case of 3 that last > first in last char, but equal in first chars,
+    for i, rule in ipairs(args) do
+        if type(rule) ~= "table" then
+            error("Resolver autotile rule " .. i.." is not a table", 2)
+        else
+            if #rule < 2 or #rule > 3 then
+                error("Resolver autotile rule "..i.." wrong number of arguments", 2)
+            end
+            for j, str in ipairs(rule) do
+                if type(str) ~= "string" then
+                    error("Resolver autotile rule "..i.." has not a string in position "..j, 2)
+                end
+            end
+            if #rule == 3 then
+                local first = string.byte(rule[1], #rule[1])
+                local last  = string.byte(rule[2], #rule[2])
+                if #rule[2] ~= #rule[1] or string.sub(rule[2], 1, -2) ~= string.sub(rule[1], 1, -2)
+                        or first > last then
+                    error("Resolver autotile rule "..i.." bad range start-end strings", 2)
+                end
+            end
+            if ti[rule[#rule]] == nil then
+                error("Resolver autotile missing template tile '"..rule[#rule].."'", 2)
+            end
+        end
+    end
+    local context = {res.autotile_implementation, nil, subresolver, args}
+    return context
+end

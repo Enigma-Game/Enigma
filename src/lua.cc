@@ -63,8 +63,8 @@ extern "C" {
 /**
  * The tile dictionary or function that should be used to resolve tile keys.
  */
-#define LUA_ID_RESOLVER "_RESOLVER"
-#define LUA_ID_FLOORKEY "_FLOORKEY"
+#define LUA_ID_RESOLVER  "_RESOLVER"
+#define LUA_ID_FLOORKEY  "_FLOORKEY"
 
 using namespace std;
 
@@ -1060,7 +1060,7 @@ static int gridAlignPosition(lua_State *L) {
     return 1;
 }
 
-static int pushNewTile(lua_State *L, int numArgs) {
+static int pushNewTile(lua_State *L, int numArgs, std::string key="") {
     // numArgs 1 or 2 of type (table|tile)
     int *udata;
     udata=(int *)lua_newuserdata(L,sizeof(int));   // position user object
@@ -1083,6 +1083,10 @@ static int pushNewTile(lua_State *L, int numArgs) {
     if (numArgs == 2) {
         lua_pushvalue(L, -3);
         lua_rawseti(L, -2, 2);
+    }
+    if (key != "") {
+        lua_pushstring(L, key.c_str());
+        lua_rawseti(L, -2, 3);
     }
     lua_setmetatable(L, -2);    
     return 1;
@@ -1878,6 +1882,10 @@ static int evaluateKey(lua_State *L) {
         throwLuaError(L, "Resolver with false argument types");
         return 0;
     }
+    std::string key = lua_tostring(L, -3);
+    int x = lua_tointeger(L, -2);
+    int y = lua_tointeger(L, -1);
+    
     if (is_tiles(L, -4)) {
         lua_pushvalue(L, -3);       // duplicate key
         lua_gettable(L, -5);        // get tile entry in table, remove key duplicate
@@ -1894,7 +1902,8 @@ static int evaluateKey(lua_State *L) {
         }
         // check result - must be tile or table
         if (!(is_tile(L, -1) || is_table(L, -1))) {
-            throwLuaError(L, "Tile key resolver error - expected tile or table as return value");
+            throwLuaError(L, ecl::strf("World init undefined tile '%s' at %d, %d", 
+                    key.c_str(), x, y).c_str());
             return 0;
         }
         return 1;
@@ -1912,7 +1921,8 @@ static int evaluateKey(lua_State *L) {
         }        
         // check result - must be tile or table
         if (!(is_tile(L, -1) || is_table(L, -1))) {
-            throwLuaError(L, "Tile key resolver error - expected tile or table as return value");
+            throwLuaError(L, ecl::strf("World init undefined tile '%s' at %d, %d", 
+                    key.c_str(), x, y).c_str());
             return 0;
         }
         return 1;
@@ -1978,7 +1988,7 @@ static int createWorld(lua_State *L) {
         return 0;
     }
     
-    // remember resolver and default key for missing floors
+    // remember top resolver and default key for missing floors
     lua_pushvalue(L, 2);
     lua_setfield(L, LUA_REGISTRYINDEX, LUA_ID_RESOLVER);  
     lua_pushvalue(L, 3);
@@ -2042,6 +2052,9 @@ static int createWorld(lua_State *L) {
             setObjectByKey(L, key, j, i, isDefault);
         }
     }
+    
+    // TODO finalization of resolvers
+    
     lua_pushinteger(L, width);
     lua_pushinteger(L, height);
     return 2;
@@ -2246,8 +2259,104 @@ static int dispatchTileWriteAccess(lua_State *L) {
 }
 
 static int dispatchTileReadAccess(lua_State *L) {
+    // tile, key
+    if (lua_isstring(L, 2)) {
+        std::string keyStr = lua_tostring(L, 2);
+        MethodMap::iterator iter = tileMethodeMap.find(keyStr);
+        if (iter != tileMethodeMap.end()) {
+            // call method
+            lua_pushcfunction(L, iter->second);
+            return 1;
+        }
+    }
     throwLuaError(L, "Tile: illegal read access");
     return 0;
+}
+
+static void tileDeclForTable(lua_State *L) {
+    // table (declaration), table (the result copy)
+    if (lua_objlen(L, -2) == 0)   // empty declaration table 
+        return;
+    // deep copy of all table entries
+    lua_newtable(L);    // the table copy for the result
+    lua_pushnil(L);  // first key
+    while (lua_next(L, -4) != 0) {
+         // key is at index -2 and value at index -1
+         // ignore all keys besides strings - ignore key 1, the object type
+         lua_pushvalue(L, -2); // a copy of key for work
+         if (lua_istable(L, -2)) {
+            // a token as value - we need a deep copy
+            lua_newtable(L);    // the table copy for the result
+            lua_pushnil(L);  // first key
+            while (lua_next(L, -4) != 0) {
+                 // key is at index -2 and value at index -1
+                 // ignore all keys besides strings - ignore key 1, the object type
+                 lua_pushvalue(L, -2); // a copy of key for work
+                 lua_pushvalue(L, -2); // a copy of value for work - no tokens within tokens allowed!
+                 lua_rawset(L, -5);    // store
+                 lua_pop(L, 1);  // remove value, leave original key for loop
+            }
+         } else {
+            // all other values are no references - a copy is sufficient
+            lua_pushvalue(L, -2); // a copy of value for work
+         }
+         lua_rawset(L, -5);    // store
+         lua_pop(L, 1);  // remove original value, leave original key for loop
+    }
+    
+    int resultsize = lua_objlen(L, -2);   // last index of result table
+    lua_rawseti(L, -2, resultsize + 1);   // append tile key
+    return;
+}
+
+static int tileDeclForTile(lua_State *L, bool isTop = false) {
+    // tile, table (the result)
+    
+    // this is a recursive function - ensure enough space on the stack
+    if (lua_gettop(L) >  LUA_MINSTACK - 5)
+        lua_checkstack(L, 10);         // guarantee another 10 free slots
+        
+    lua_getmetatable(L, -2);
+    if (!isTop) {
+        lua_rawgeti(L, -1, 3);    // tile key or nil
+        if (!lua_isnil(L, -1)) {
+            int resultsize = lua_objlen(L, -3);   // last index of result table
+            lua_rawseti(L, -3, resultsize + 1);   // append tile key
+            lua_pop(L, 1);     // metatable
+            return 0;
+        }
+        lua_pop(L, 1);     // tile key 
+    }
+    
+    lua_rawgeti(L, -1, 1);    // first tile part
+    lua_pushvalue(L, -3);     // result table
+    if (is_tile(L, -2))
+        tileDeclForTile(L);
+    else
+        tileDeclForTable(L);
+    lua_pop(L, 2);  // tile or table and 
+    lua_rawgeti(L, -1, 2);    // second optional tile part
+    if (!lua_isnil(L, -1)) {
+        lua_pushvalue(L, -3);     // result table
+        if (is_tile(L, -2))
+            tileDeclForTile(L);
+        else
+            tileDeclForTable(L);
+        lua_pop(L, 1);  // result table
+    }
+    lua_pop(L, 2);  // tile or table or nil + metatable
+    return 0;
+}
+
+static int tileDeclaration(lua_State *L) {
+    // tile
+    if (lua_gettop(L) != 1) {
+        throwLuaError(L, "Tile declaration with illegal arguments");
+        return 0;
+    }
+    lua_newtable(L); // the result
+    tileDeclForTile(L, true);
+    return 1;
 }
 
 static int appendTile(lua_State *L) {
@@ -2278,7 +2387,7 @@ static int dispatchTilesReadAccess(lua_State *L) {
         return 0;
     }
     lua_getmetatable(L, 1);
-    lua_rawgeti(L, -1, 1);   // content table
+    lua_rawgeti(L, -1, 1);    // content table
     lua_pushvalue(L, 2);      // copy key
     lua_rawget(L, -2);        // check for existing entry in table
     return 1;
@@ -2290,11 +2399,11 @@ static int dispatchTilesWriteAccess(lua_State *L) {
         throwLuaError(L, "Tiles: key is not a string");
         return 0;
     }
-    if (is_table(L, 3)) {
+    if (is_table(L, 3) || is_tile(L, 3)) {
         // convert table to a tile
-        pushNewTile(L, 1);
+        pushNewTile(L, 1, lua_tostring(L, 2));
         lua_remove(L, 3);   
-    } else if (!is_tile(L, 3)) {
+    } else {
         throwLuaError(L, "Tiles: value is not a tile or table");
         return 0;
     }
@@ -2571,7 +2680,7 @@ static CFunction worldOperations[] = {
 static CFunction worldMethods[] = {
     {createWorld,                   "create"},
     {registerWorldUserMethod,       "_register"},
-    {evaluateKey,                    "_evaluate"},
+    {evaluateKey,                   "_evaluate"},
     {getFloor,                      "fl"},
     {getItem,                       "it"},
     {getStone,                      "st"},
@@ -2587,6 +2696,7 @@ static CFunction tileOperations[] = {
 };
 
 static CFunction tileMethods[] = {
+    {tileDeclaration,               "_declaration"},
     {0,0}
 };
 
