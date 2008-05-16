@@ -266,10 +266,8 @@ end
 
 function res.autotile(subresolver, ...)
     -- syntax: ... = <{prefixkey, template} | {fistkey, lastkey, template}>
+    -- context: [4] = table with unmodified rule tables
     local args = {...}
-    -- TODO check args!
-    -- check tables contain only strings (2 or 3)
-    -- check in case of 3 that last > first in last char, but equal in first chars,
     for i, rule in ipairs(args) do
         if type(rule) ~= "table" then
             error("Resolver autotile rule " .. i.." is not a table", 2)
@@ -298,3 +296,30 @@ function res.autotile(subresolver, ...)
     local context = {res.autotile_implementation, nil, subresolver, args}
     return context
 end
+
+function res.composer_implementation(context, evaluator, key, x, y)
+    local tile = evaluator(context[3], key, x, y)
+    if tile ~= nil then
+        return tile
+    end
+    -- try to compose tile
+    for i = 1, #key do
+        local subkey = string.rep(" ", i-1) .. string.sub(key, i, i) .. string.rep(" ", #key - i)
+        local subtile = evaluator(context[3], subkey, x, y)
+        if subtile == nil then
+            return nil
+        end
+        if tile == nil then
+            tile = subtile
+        else
+            tile = tile .. subtile
+        end
+    end
+    return tile
+end
+
+function res.composer(subresolver)
+    local context = {res.composer_implementation, nil, subresolver}
+    return context
+end
+
