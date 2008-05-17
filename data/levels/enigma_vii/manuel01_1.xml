@@ -1,0 +1,465 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no" ?>
+<el:level xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://enigma-game.org/schema/level/1 level.xsd" xmlns:el="http://enigma-game.org/schema/level/1">
+ <el:protected>
+ <el:info el:type="level">
+  <el:identity el:title="Map it out II" el:subtitle="4D Confusion ..." el:id="manuel01"/>
+  <el:version el:score="1" el:release="1" el:revision="0" el:status="released"/>
+  <el:author el:name="Manuel Eisentraut" el:email="" el:homepage=""/>
+  <el:copyright>Copyright © 2006 Manuel Eisentraut </el:copyright>
+  <el:license el:type="GPL v2.0 or above" el:open="true"/>
+  <el:compatibility el:enigma="1.01"/>
+  <el:modes el:easy="true" el:single="true" el:network="false"/>
+  <el:score el:easy="3:10" el:difficult="5:12"/>
+ </el:info>
+ <el:luamain><![CDATA[
+rooms_wide=19
+rooms_high=1
+
+levelw=1+(19*rooms_wide)
+levelh=1+(12*rooms_high)
+
+create_world( levelw, levelh)
+enigma.ConserveLevel=FALSE
+
+fill_floor("fl-normal", 0,0,levelw,levelh)
+
+function renderline( line, pattern)
+ for i=1, strlen(pattern) do
+  local c = strsub( pattern, i, i)
+  if c=="#" then
+   set_stone("st-rock6", i-1, line)
+  elseif c=="!" then
+   abyss(i-1,line)
+  elseif c=="A" then
+   set_item("it-wormhole", i-1, line, {strength=0,targetx="9.5",targety="6.5"})
+  elseif c=="B" then
+   set_item("it-wormhole", i-1, line, {strength=0,targetx="351.5",targety="6.5"})
+  elseif c=="1" then
+   set_item("it-trigger",i-1,line,{invisible=1,action="callback",target="richtung1"})
+  elseif c=="2" then
+   set_item("it-trigger",i-1,line,{invisible=1,action="callback",target="richtung2"})
+  elseif c=="3" then
+   set_item("it-trigger",i-1,line,{invisible=1,action="callback",target="richtung3"})
+  elseif c=="4" then
+   set_item("it-trigger",i-1,line,{invisible=1,action="callback",target="richtung4"})
+  elseif c=="5" then
+   set_item("it-trigger",i-1,line,{invisible=1,action="callback",target="richtung5"})
+  elseif c=="6" then
+   set_item("it-trigger",i-1,line,{invisible=1,action="callback",target="richtung6"})
+  elseif c=="7" then
+   set_item("it-trigger",i-1,line,{invisible=1,action="callback",target="richtung7"})
+  elseif c=="8" then
+   set_item("it-trigger",i-1,line,{invisible=1,action="callback",target="richtung8"})
+  elseif c=="x" then
+   set_item("it-trigger",i-1,line,{invisible=1,action="callback",target="stoprichtung"})
+  elseif c==" " then
+   set_item("it-trigger",i-1,line,{invisible=1})
+  elseif c=="o" then
+   set_stone("st-oxyd", i-1, line,{color="0"})
+  elseif c=="Q" then
+   set_item("it-trigger",i-1,line,{invisible=1,action="callback",target="ziehe"})
+  elseif c=="S" then
+   set_item("it-trigger",i-1,line,{invisible=1,action="callback",target="zieheA"})
+  elseif c=="s" then
+   set_item("it-trigger",i-1,line,{invisible=1,action="callback",target="zieheB"})
+  elseif c=="." then
+   set_actor("ac-blackball",i-.5,line+.5,{name="b1",player=0})
+   if difficult then
+    document(i-1,line,"text1") 
+   else
+    document(i-1,line,"text2")
+   end
+  end
+ end
+end
+
+renderline(00,"!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!")
+renderline(01,"!!!!###########!!!!!!!!###########!!!!!!!!###########!!!!!!!!###########!!!!!!!!###########!!!!!!!!###########!!!!!!!!###########!!!!!!!!###########!!!!!!!!###########!!!!!!!!###########!!!!!!!!###########!!!!!!!!###########!!!!!!!!###########!!!!!!!!###########!!!!!!!!###########!!!!!!!!###########!!!!!!!!###########!!!!!!!!###########!!!!!!!!###########!!!!!")
+renderline(02,"!!!!#B ##,## B#!!!!!!!!#A ##A## A#!!!!!!!!#, ##,## ,#!!!!!!!!#, ##,## ,#!!!!!!!!#, ##,## ,#!!!!!!!!#, ##,## ,#!!!!!!!!#, ##,## ,#!!!!!!!!#, ##,## ,#!!!!!!!!#, ##,## ,#!!!!!!!!#, ##,## ,#!!!!!!!!#, ##,## ,#!!!!!!!!#, ##,## ,#!!!!!!!!#, ##,## ,#!!!!!!!!#, ##,## ,#!!!!!!!!#, ##,## ,#!!!!!!!!#, ##,## ,#!!!!!!!!#, ##,## ,#!!!!!!!!#, ##,## ,#!!!!!!!!#A ##A## A#!!!!!")
+renderline(03,"!!!!# 8 #1# 2 #!!!!!!!!# 8 #1# 2 #!!!!!!!!# 8 #1# 2 #!!!!!!!!# 8 #1# 2 #!!!!!!!!# 8 #1# 2 #!!!!!!!!# 8 #1# 2 #!!!!!!!!# 8 #1# 2 #!!!!!!!!# 8 #1# 2 #!!!!!!!!# 8 #1# 2 #!!!!!!!!# 8 #1# 2 #!!!!!!!!# 8 #1# 2 #!!!!!!!!# 8 #1# 2 #!!!!!!!!# 8 #1# 2 #!!!!!!!!# 8 #1# 2 #!!!!!!!!# 8 #1# 2 #!!!!!!!!# 8 #1# 2 #!!!!!!!!# 8 #1# 2 #!!!!!!!!# 8 #1# 2 #!!!!!!!!# 8 #1# 2 #!!!!!")
+renderline(04,"!!!!## x x x ##!!!!!!!!## x x x ##!!!!!!!!## x x x ##!!!!!!!!## x x x ##!!!!!!!!## x x x ##!!!!!!!!## x x x ##!!!!!!!!## x x x ##!!!!!!!!## x x x ##!!!!!!!!## x x x ##!!!!!!!!## x x x ##!!!!!!!!## x x x ##!!!!!!!!## x x x ##!!!!!!!!## x x x ##!!!!!!!!## x x x ##!!!!!!!!## x x x ##!!!!!!!!## x x x ##!!!!!!!!## x x x ##!!!!!!!!## x x x ##!!!!!!!!## x x x ##!!!!!")
+renderline(05,"!!!!###     ###!!!!!!!!###     ###!!!!!!!!###  o  ###!!!!!!!!###   o ###!!!!!!!!###     ###!!!!!!!!###     ###!!!!!!!!###     ###!!!!!!!!###     ###!!!!!!!!###     ###!!!!!!!!### o   ###!!!!!!!!###  o  ###!!!!!!!!###   o ###!!!!!!!!###     ###!!!!!!!!###     ###!!!!!!!!###     ###!!!!!!!!###     ###!!!!!!!!###     ###!!!!!!!!### o   ###!!!!!!!!###     ###!!!!!")
+renderline(06,"!!!!#B7x S x3B#!!!!!!!!#A7x . x3A#!!!!!!!!#,7x Q x3,#!!!!!!!!#,7x Q x3,#!!!!!!!!#,7x Qox3,#!!!!!!!!#,7x Q x3,#!!!!!!!!#,7x Q x3,#!!!!!!!!#,7x Q x3,#!!!!!!!!#,7xoQ x3,#!!!!!!!!#,7x Q x3,#!!!!!!!!#,7x Q x3,#!!!!!!!!#,7x Q x3,#!!!!!!!!#,7x Qox3,#!!!!!!!!#,7x Q x3,#!!!!!!!!#,7x Q x3,#!!!!!!!!#,7x Q x3,#!!!!!!!!#,7xoQ x3,#!!!!!!!!#,7x Q x3,#!!!!!!!!#A7x s x3A#!!!!!")
+renderline(07,"!!!!###     ###!!!!!!!!###     ###!!!!!!!!###     ###!!!!!!!!###     ###!!!!!!!!###     ###!!!!!!!!###   o ###!!!!!!!!###  o  ###!!!!!!!!### o   ###!!!!!!!!###     ###!!!!!!!!###     ###!!!!!!!!###     ###!!!!!!!!###     ###!!!!!!!!###     ###!!!!!!!!###   o ###!!!!!!!!###  o  ###!!!!!!!!### o   ###!!!!!!!!###     ###!!!!!!!!###     ###!!!!!!!!###     ###!!!!!")
+renderline(08,"!!!!## x x x ##!!!!!!!!## x x x ##!!!!!!!!## x x x ##!!!!!!!!## x x x ##!!!!!!!!## x x x ##!!!!!!!!## x x x ##!!!!!!!!## x x x ##!!!!!!!!## x x x ##!!!!!!!!## x x x ##!!!!!!!!## x x x ##!!!!!!!!## x x x ##!!!!!!!!## x x x ##!!!!!!!!## x x x ##!!!!!!!!## x x x ##!!!!!!!!## x x x ##!!!!!!!!## x x x ##!!!!!!!!## x x x ##!!!!!!!!## x x x ##!!!!!!!!## x x x ##!!!!!")
+renderline(09,"!!!!# 6 #5# 4 #!!!!!!!!# 6 #5# 4 #!!!!!!!!# 6 #5# 4 #!!!!!!!!# 6 #5# 4 #!!!!!!!!# 6 #5# 4 #!!!!!!!!# 6 #5# 4 #!!!!!!!!# 6 #5# 4 #!!!!!!!!# 6 #5# 4 #!!!!!!!!# 6 #5# 4 #!!!!!!!!# 6 #5# 4 #!!!!!!!!# 6 #5# 4 #!!!!!!!!# 6 #5# 4 #!!!!!!!!# 6 #5# 4 #!!!!!!!!# 6 #5# 4 #!!!!!!!!# 6 #5# 4 #!!!!!!!!# 6 #5# 4 #!!!!!!!!# 6 #5# 4 #!!!!!!!!# 6 #5# 4 #!!!!!!!!# 6 #5# 4 #!!!!!")
+renderline(10,"!!!!#B ##,## B#!!!!!!!!#A ##A## A#!!!!!!!!#, ##,## ,#!!!!!!!!#, ##,## ,#!!!!!!!!#, ##,## ,#!!!!!!!!#, ##,## ,#!!!!!!!!#, ##,## ,#!!!!!!!!#, ##,## ,#!!!!!!!!#, ##,## ,#!!!!!!!!#, ##,## ,#!!!!!!!!#, ##,## ,#!!!!!!!!#, ##,## ,#!!!!!!!!#, ##,## ,#!!!!!!!!#, ##,## ,#!!!!!!!!#, ##,## ,#!!!!!!!!#, ##,## ,#!!!!!!!!#, ##,## ,#!!!!!!!!#, ##,## ,#!!!!!!!!#A ##A## A#!!!!!")
+renderline(11,"!!!!###########!!!!!!!!###########!!!!!!!!###########!!!!!!!!###########!!!!!!!!###########!!!!!!!!###########!!!!!!!!###########!!!!!!!!###########!!!!!!!!###########!!!!!!!!###########!!!!!!!!###########!!!!!!!!###########!!!!!!!!###########!!!!!!!!###########!!!!!!!!###########!!!!!!!!###########!!!!!!!!###########!!!!!!!!###########!!!!!!!!###########!!!!!")
+renderline(12,"!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!")
+
+
+if difficult then
+ tab={
+ 1,1,0,1,1,1,1,1,0,1,0,0,1,1,1,1,0,1,1,1,1,1,1,0,1,1,0,1,1,1,1,1,0,1,0,1,1,1,0,1,0,1,1,1,1,1,0,1,1,1,0,0,1,1,1,1,1,1,1,1,1,1,0,0,
+ 1,0,1,1,1,1,0,1,1,0,1,1,1,1,1,1,1,1,0,1,1,1,0,1,1,0,1,1,1,1,1,1,1,0,1,1,1,1,1,1,1,1,1,0,1,1,1,1,0,0,1,1,1,1,0,0,1,0,1,1,1,1,1,1,
+ 1,1,1,0,1,1,1,1,0,1,1,0,1,1,1,0,0,1,1,1,1,1,1,0,0,1,1,1,1,1,1,1,1,0,1,0,1,1,1,1,1,1,1,1,1,1,1,0,1,0,1,0,1,1,1,1,1,1,1,1,1,1,1,0,
+ 1,1,0,0,1,0,1,1,1,0,1,1,1,0,1,0,1,0,1,1,1,1,1,1,0,1,1,1,1,0,1,1,1,1,1,1,1,0,0,1,0,1,1,1,1,1,1,1,1,0,1,1,1,0,1,1,1,0,1,1,1,0,1,1,
+ 1,1,0,0,1,1,1,1,1,1,1,1,1,1,1,0,1,0,1,1,1,1,1,1,1,1,0,1,1,1,1,1,0,1,0,1,1,0,0,1,1,1,0,0,1,1,1,1,1,1,1,1,1,0,1,0,0,0,1,1,1,1,0,1,
+ 1,0,1,0,1,1,0,1,1,0,0,1,1,0,0,0,0,0,0,0,1,0,1,1,1,1,1,1,1,1,1,0,0,0,1,1,1,1,1,1,1,1,1,1,1,1,0,1,1,0,1,1,1,0,0,1,1,0,1,1,1,0,1,1,
+ 0,1,0,0,1,1,1,1,1,1,1,1,1,1,1,0,1,1,0,1,1,0,1,1,0,1,1,1,1,1,1,1,1,1,0,1,1,1,0,1,0,1,1,1,1,1,1,1,0,1,1,1,1,1,0,1,1,1,1,1,1,0,1,1,
+ 0,1,1,1,1,0,0,1,0,1,0,1,1,0,1,1,1,1,1,1,1,0,1,1,0,1,1,1,1,1,1,1,1,1,1,1,1,0,1,1,1,1,1,1,1,1,0,1,1,1,1,0,1,0,1,1,1,1,1,1,1,0,1,0,
+ 1,0,1,1,1,1,1,1,1,1,1,1,0,1,1,1,1,1,1,1,0,1,1,1,0,1,1,1,1,1,1,1,1,1,1,1,0,1,1,1,0,1,0,0,0,1,1,1,1,1,1,1,1,1,1,0,1,1,0,1,1,1,1,1,
+ 0,0,0,1,1,1,1,1,0,1,0,0,1,1,0,1,1,0,1,1,1,1,1,0,1,0,1,1,1,1,0,1,1,1,1,1,1,1,0,1,1,1,1,1,1,1,0,1,1,1,1,0,0,1,1,1,1,1,1,1,1,1,1,0,
+ 1,0,0,0,1,0,1,1,1,0,1,1,0,1,1,0,1,1,1,0,0,1,1,1,1,1,1,1,0,1,1,0,0,1,0,1,1,1,0,1,1,1,1,0,1,1,1,1,0,0,1,1,1,1,1,0,1,0,1,1,1,1,1,1,
+ 1,0,1,1,1,0,0,1,1,0,0,1,1,1,1,1,0,1,0,0,1,0,1,1,1,1,1,1,0,0,1,0,1,0,1,1,1,1,1,1,1,1,1,1,0,1,0,1,1,1,1,1,1,1,0,1,0,0,1,1,1,1,1,1,
+ 0,1,1,1,1,0,1,1,1,0,1,0,1,0,1,1,1,1,1,1,1,1,1,0,1,1,0,1,1,1,1,1,1,1,1,1,0,1,1,1,1,1,1,0,1,1,1,1,0,1,0,0,1,0,1,0,0,1,1,1,0,0,0,0,
+ 1,1,0,0,1,0,1,1,0,0,1,0,1,0,1,0,1,0,1,1,0,1,0,0,1,0,1,1,1,1,1,1,1,1,1,1,0,0,0,1,0,1,1,1,1,1,1,1,0,0,1,1,1,1,1,1,1,0,1,1,1,0,1,1,
+ 1,1,1,1,0,1,1,1,1,1,1,1,1,0,1,1,1,1,0,1,1,1,1,1,0,1,1,1,0,1,1,1,0,1,1,1,1,1,1,1,0,1,1,1,0,1,1,1,1,1,0,1,0,1,0,1,1,1,0,1,1,1,1,1,
+ 1,1,1,1,0,1,1,1,0,1,0,1,0,0,1,1,1,1,1,0,1,0,0,1,1,1,1,1,0,0,0,0,0,1,1,1,1,1,1,1,0,1,1,1,1,1,0,1,1,1,1,1,1,0,1,1,1,1,1,1,1,0,1,1,
+ 1,1,1,0,1,1,1,1,1,0,1,1,1,1,1,0,1,0,1,0,1,1,1,1,0,1,0,1,0,1,1,0,1,0,1,1,1,1,1,1,1,1,1,1,0,1,1,1,1,0,1,1,1,1,1,1,1,1,1,1,1,1,0,1,
+ 1,1,1,1,0,1,1,1,0,1,1,1,0,1,1,1,1,1,0,0,1,1,1,1,1,1,1,1,1,1,1,0,1,1,1,0,1,1,1,1,1,1,1,0,1,1,1,0,0,0,1,1,1,1,0,0,1,0,1,1,1,1,1,1,
+ 1,1,0,1,1,1,1,1,0,1,1,0,1,0,1,1,1,1,1,0,1,0,1,0,1,1,1,1,1,1,1,0,1,1,0,1,0,0,0,1,0,1,1,1,1,1,1,1,0,1,1,1,0,0,1,1,1,1,0,1,1,1,1,1,
+ 1,1,1,0,1,1,0,1,1,1,1,1,1,1,1,0,0,0,0,1,0,1,1,1,1,1,0,1,1,1,0,1,0,1,1,1,1,1,1,1,0,1,1,1,1,1,1,1,1,0,1,0,1,0,0,1,0,0,1,1,0,0,0,0,
+ 1,1,1,1,0,1,1,1,1,0,0,1,1,1,1,1,1,0,1,1,1,1,1,1,1,0,1,1,1,1,1,1,0,1,0,1,1,1,1,1,1,1,1,0,1,1,0,1,1,0,1,1,0,1,1,0,1,1,1,1,0,1,1,1,
+ 1,0,0,1,1,1,0,1,1,1,1,0,0,1,1,1,0,1,1,0,1,0,1,0,1,1,1,1,1,1,1,0,1,0,1,1,1,1,0,1,0,1,1,1,0,1,1,1,1,1,1,1,0,0,1,1,1,1,1,1,1,0,1,1,
+ 1,1,0,1,1,1,1,1,1,1,1,1,1,0,1,1,0,1,0,0,1,0,1,1,0,1,1,1,0,0,1,0,1,1,0,1,0,1,0,1,1,1,0,1,0,1,1,1,1,1,1,1,1,0,0,1,1,1,0,1,1,1,1,1,
+ 1,1,1,0,1,0,0,1,0,1,1,1,0,1,0,0,0,1,1,0,1,1,1,1,1,1,0,1,1,1,0,0,1,1,1,1,0,0,1,1,1,1,1,1,0,1,1,1,0,1,1,1,1,1,1,1,1,1,1,1,1,1,0,1,
+ 1,1,0,0,1,1,1,1,1,1,1,0,1,1,1,0,1,0,1,1,1,1,1,0,1,1,1,1,0,1,1,1,1,1,1,1,1,1,0,1,1,0,1,1,1,1,1,1,1,1,0,1,1,1,1,1,1,0,1,1,1,1,1,1,
+ 1,0,0,1,1,1,1,1,1,1,1,1,0,1,1,1,1,0,1,0,1,1,0,1,1,1,1,1,1,1,1,0,1,0,1,1,1,1,0,1,1,1,1,0,1,1,1,1,1,1,1,1,0,1,1,0,1,0,1,1,1,1,1,1,
+ 1,0,1,1,1,1,1,1,1,1,0,0,0,1,1,1,1,0,1,1,1,0,1,0,1,1,0,1,1,1,1,1,1,1,1,0,1,1,1,1,1,1,1,0,0,0,0,0,1,1,1,0,0,1,1,0,1,0,1,1,1,0,0,0,
+ 1,1,1,1,1,0,1,1,1,1,0,1,1,1,1,1,1,1,1,0,0,0,1,1,1,1,1,1,1,1,1,0,1,0,1,1,0,0,1,1,1,0,1,1,0,1,0,1,1,0,1,1,1,1,1,1,1,1,1,1,0,0,1,1,
+ 1,1,1,0,1,0,1,1,1,1,1,0,1,1,1,0,1,1,1,1,1,0,1,0,1,0,1,1,1,1,1,1,1,1,1,0,0,1,1,1,1,0,1,1,1,1,1,0,1,1,0,1,1,1,1,1,1,0,1,1,1,0,1,1,
+ 1,0,1,0,1,1,1,1,1,0,0,1,1,1,1,0,1,1,1,1,0,1,0,1,1,0,1,1,1,1,1,1,1,1,1,0,1,0,1,1,1,1,1,0,0,0,0,0,1,0,1,0,1,0,1,0,1,1,1,1,1,1,1,0,
+ 1,1,1,0,1,1,1,1,1,1,1,0,1,1,1,0,1,1,1,1,0,1,1,0,1,1,1,1,0,0,1,1,1,1,0,1,1,1,1,1,1,1,1,1,1,0,1,1,1,1,0,1,1,1,1,1,1,1,1,1,1,0,1,1,
+ 1,1,0,1,1,0,0,1,1,1,0,0,0,0,1,1,1,1,1,0,0,1,0,0,1,1,0,1,1,0,1,0,1,1,1,1,1,1,0,1,1,1,1,1,1,1,0,1,1,1,1,1,0,0,1,1,1,1,1,1,1,1,0,1}
+ w=1
+ x=2
+ y=2
+ z=1
+ w_max=4
+ x_max=4
+ y_max=4
+ z_max=4
+ enigma.KillItem(28,2)
+ enigma.KillItem(32,6)
+ enigma.KillItem(24,6)
+else
+ tab={
+ 0,1,0,1,1,1,1,1,0,0,1,1,1,1,1,1,1,1,0,1,1,1,1,1,1,1,1,1,1,1,0,1,0,1,0,1,1,1,1,1,0,1,1,1,1,1,0,1,0,1,1,1,1,1,1,1,1,1,1,0,1,1,0,1,
+ 1,0,1,1,1,1,1,0,1,1,1,0,1,1,1,1,1,0,1,1,1,0,1,0,1,1,0,1,1,1,1,1,1,1,1,0,1,1,1,1,1,0,1,1,1,1,1,0,1,0,1,1,1,1,0,1,1,1,1,0,1,1,1,1,
+ 1,0,1,1,1,1,1,0,0,0,1,1,1,0,1,1,0,1,0,1,1,1,1,1,0,1,0,1,1,0,1,1,1,1,0,1,1,1,1,1,1,1,1,1,1,1,0,1,0,1,1,1,1,0,0,1,0,1,1,1,1,0,0,1,
+ 0,1,1,1,1,1,1,1,1,1,1,0,1,0,1,1,0,1,1,1,1,0,1,0,1,1,1,0,0,1,1,1,1,1,1,1,0,1,1,0,1,1,0,1,1,1,1,1,1,1,0,1,1,1,1,1,1,1,1,1,0,1,1,1,
+ 1,1,0,1,0,1,0,1,1,0,1,1,0,1,0,1,1,1,1,0,1,1,1,1,1,0,1,1,1,1,0,0,1,1,1,0,1,1,1,1,0,1,0,0,1,1,1,0,1,0,1,1,1,1,1,0,1,1,0,1,1,1,1,1,
+ 1,1,0,1,1,1,0,1,1,1,0,1,1,1,1,1,1,0,1,1,1,0,0,1,1,1,1,0,1,1,0,1,1,1,1,1,0,0,0,0,0,1,1,0,0,1,1,1,1,1,1,1,0,1,1,0,1,1,1,1,1,0,1,1,
+ 1,1,1,0,1,1,1,1,0,1,0,0,0,1,1,0,1,1,1,1,0,1,1,0,0,1,1,0,0,0,1,1,1,1,1,0,1,1,0,0,0,1,1,1,0,1,1,0,1,1,0,1,1,1,1,1,1,1,1,0,1,1,1,1,
+ 1,1,0,1,1,1,1,0,1,1,1,0,1,1,0,1,1,1,1,0,1,1,1,0,1,1,0,1,1,1,0,0,1,0,1,1,1,1,1,1,1,1,1,0,1,1,1,1,1,0,1,1,1,1,0,0,1,0,1,1,1,1,1,1,
+ 1,1,1,1,0,1,1,1,1,0,0,1,1,1,1,1,1,1,1,0,1,1,1,1,1,1,1,0,1,1,1,0,1,0,0,1,1,1,0,0,1,0,1,1,1,0,1,1,1,1,1,0,1,1,1,1,1,0,1,1,1,0,0,0,
+ 1,1,0,1,0,0,1,1,1,1,1,0,1,1,1,1,1,1,1,1,1,0,1,0,1,1,1,1,1,1,0,1,1,1,0,1,0,1,1,1,1,1,1,1,1,0,1,1,1,1,1,1,0,0,1,1,1,1,1,1,1,1,0,1,
+ 1,1,1,1,0,0,1,1}
+ w=1
+ x=1
+ y=1
+ z=1
+ w_max=3
+ x_max=3
+ y_max=3
+ z_max=3
+ enigma.KillItem(28,2)
+ enigma.KillItem(32,2)
+ enigma.KillItem(32,10)
+ enigma.KillItem(28,10)
+ enigma.KillItem(24,10)
+ enigma.KillItem(24,2) 
+end
+
+richtung=-1
+
+function S(w,x,y,z,d)
+ return tab[d+8*z+(8*z_max*y)+(8*z_max*y_max*x)+(8*z_max*y_max*x_max*w)]
+end
+
+
+function richtung1()
+ richtung=1
+end
+
+function richtung2()
+ richtung=2
+end
+
+function richtung3()
+ richtung=3
+end
+
+function richtung4()
+ richtung=4
+end
+
+function richtung5()
+ richtung=5
+end
+
+function richtung6()
+ richtung=6
+end
+
+function richtung7()
+ richtung=7
+end
+
+function richtung8()
+ richtung=8
+end
+
+function stoprichtung()
+ richtung=-1
+end
+
+function welche_Ecke(aa,bb,cc,dd)
+ if aa~=0 and aa~=w_max-1 then return -1 end
+ if bb~=0 and bb~=x_max-1 then return -1 end
+ if cc~=0 and cc~=y_max-1 then return -1 end
+ if dd~=0 and dd~=z_max-1 then return -1 end
+ ee = 0
+ if aa==w_max-1 then ee=ee+8 end
+ if bb==x_max-1 then ee=ee+4 end
+ if cc==y_max-1 then ee=ee+2 end
+ if dd==z_max-1 then ee=ee+1 end
+ return ee
+end
+
+function ziehe()
+
+ if richtung==1 then
+  w=w-1
+ elseif richtung==2 then
+  x=x+1
+ elseif richtung==3 then
+  y=y+1
+ elseif richtung==4 then
+  z=z+1
+ elseif richtung==5 then
+  w=w+1
+ elseif richtung==6 then
+  x=x-1
+ elseif richtung==7 then
+  y=y-1
+ elseif richtung==8 then
+  z=z-1
+ end 
+
+ richtung=-1
+
+end
+
+
+function zieheA()
+
+ ziehe();
+
+ enigma.KillItem(9,2)
+ enigma.KillItem(13,2)
+ enigma.KillItem(13,6)
+ enigma.KillItem(13,10)
+ enigma.KillItem(9,10)
+ enigma.KillItem(5,10)
+ enigma.KillItem(5,6)
+ enigma.KillItem(5,2)
+
+ if S(w,x,y,z,5)==0 then
+  if welche_Ecke(w-1,x,y,z)~=-1 then
+   set_item("it-wormhole",9,2, {strength=0, targetx=47.5+19*welche_Ecke(w-1,x,y,z), targety="6.5"})
+  else
+   set_item("it-wormhole",9,2, {strength=0, targetx="351.5", targety="6.5"})
+  end
+ end
+
+ if S(w,x,y,z,2)==0 then
+  if welche_Ecke(w,x+1,y,z)~=-1 then
+   set_item("it-wormhole",13,2, {strength=0, targetx=47.5+19*welche_Ecke(w,x+1,y,z), targety="6.5"})
+  else
+   set_item("it-wormhole",13,2, {strength=0, targetx="351.5", targety="6.5"})
+  end
+ end
+
+ if S(w,x,y,z,3)==0 then
+  if welche_Ecke(w,x,y+1,z)~=-1 then
+   set_item("it-wormhole",13,6, {strength=0, targetx=47.5+19*welche_Ecke(w,x,y+1,z), targety="6.5"})
+  else
+   set_item("it-wormhole",13,6, {strength=0, targetx="351.5", targety="6.5"})
+  end
+ end
+
+ if S(w,x,y,z,4)==0 then
+  if welche_Ecke(w,x,y,z+1)~=-1 then
+   set_item("it-wormhole",13,10, {strength=0, targetx=47.5+19*welche_Ecke(w,x,y,z+1), targety="6.5"})
+  else
+   set_item("it-wormhole",13,10, {strength=0, targetx="351.5", targety="6.5"})
+  end
+ end
+
+ if S(w,x,y,z,1)==0 then
+  if welche_Ecke(w+1,x,y,z)~=-1 then
+   set_item("it-wormhole",9,10, {strength=0, targetx=47.5+19*welche_Ecke(w+1,x,y,z), targety="6.5"})
+  else
+   set_item("it-wormhole",9,10, {strength=0, targetx="351.5", targety="6.5"})
+  end
+ end
+
+ if S(w,x,y,z,6)==0 then
+  if welche_Ecke(w,x-1,y,z)~=-1 then
+   set_item("it-wormhole",5,10, {strength=0, targetx=47.5+19*welche_Ecke(w,x-1,y,z), targety="6.5"})
+  else
+   set_item("it-wormhole",5,10, {strength=0, targetx="351.5", targety="6.5"})
+  end
+ end
+
+ if S(w,x,y,z,7)==0 then
+  if welche_Ecke(w,x,y-1,z)~=-1 then
+   set_item("it-wormhole",5,6, {strength=0, targetx=47.5+19*welche_Ecke(w,x,y-1,z), targety="6.5"})
+  else
+   set_item("it-wormhole",5,6, {strength=0, targetx="351.5", targety="6.5"})
+  end
+ end
+
+ if S(w,x,y,z,8)==0 then
+  if welche_Ecke(w,x,y,z-1)~=-1 then
+   set_item("it-wormhole",5,2, {strength=0, targetx=47.5+19*welche_Ecke(w,x,y,z-1), targety="6.5"})
+  else
+   set_item("it-wormhole",5,2, {strength=0, targetx="351.5", targety="6.5"})
+  end
+ end
+end
+
+
+function zieheB()
+ 
+ ziehe();
+
+ enigma.KillItem(351,2)
+ enigma.KillItem(355,2)
+ enigma.KillItem(355,6)
+ enigma.KillItem(355,10)
+ enigma.KillItem(351,10)
+ enigma.KillItem(347,10)
+ enigma.KillItem(347,6)
+ enigma.KillItem(347,2)
+
+ if S(w,x,y,z,5)==0 then
+  if welche_Ecke(w-1,x,y,z)~=-1 then
+   set_item("it-wormhole",351,2, {strength=0, targetx=47.5+19*welche_Ecke(w-1,x,y,z), targety="6.5"})
+  else
+   set_item("it-wormhole",351,2, {strength=0, targetx="9.5", targety="6.5"})
+  end
+ end
+
+ if S(w,x,y,z,2)==0 then
+  if welche_Ecke(w,x+1,y,z)~=-1 then
+   set_item("it-wormhole",355,2, {strength=0, targetx=47.5+19*welche_Ecke(w,x+1,y,z), targety="6.5"})
+  else
+   set_item("it-wormhole",355,2, {strength=0, targetx="9.5", targety="6.5"})
+  end
+ end
+
+ if S(w,x,y,z,3)==0 then
+  if welche_Ecke(w,x,y+1,z)~=-1 then
+   set_item("it-wormhole",355,6, {strength=0, targetx=47.5+19*welche_Ecke(w,x,y+1,z), targety="6.5"})
+  else
+   set_item("it-wormhole",355,6, {strength=0, targetx="9.5", targety="6.5"})
+  end
+ end
+
+ if S(w,x,y,z,4)==0 then
+  if welche_Ecke(w,x,y,z+1)~=-1 then
+   set_item("it-wormhole",355,10, {strength=0, targetx=47.5+19*welche_Ecke(w,x,y,z+1), targety="6.5"})
+  else
+   set_item("it-wormhole",355,10, {strength=0, targetx="9.5", targety="6.5"})
+  end
+ end
+
+ if S(w,x,y,z,1)==0 then
+  if welche_Ecke(w+1,x,y,z)~=-1 then
+   set_item("it-wormhole",351,10, {strength=0, targetx=47.5+19*welche_Ecke(w+1,x,y,z), targety="6.5"})
+  else
+   set_item("it-wormhole",351,10, {strength=0, targetx="9.5", targety="6.5"})
+  end
+ end
+
+ if S(w,x,y,z,6)==0 then
+  if welche_Ecke(w,x-1,y,z)~=-1 then
+   set_item("it-wormhole",347,10, {strength=0, targetx=47.5+19*welche_Ecke(w,x-1,y,z), targety="6.5"})
+  else
+   set_item("it-wormhole",347,10, {strength=0, targetx="9.5", targety="6.5"})
+  end
+ end
+
+ if S(w,x,y,z,7)==0 then
+  if welche_Ecke(w,x,y-1,z)~=-1 then
+   set_item("it-wormhole",347,6, {strength=0, targetx=47.5+19*welche_Ecke(w,x,y-1,z), targety="6.5"})
+  else
+   set_item("it-wormhole",347,6, {strength=0, targetx="9.5", targety="6.5"})
+  end
+ end
+
+ if S(w,x,y,z,8)==0 then
+  if welche_Ecke(w,x,y,z-1)~=-1 then
+   set_item("it-wormhole",347,2, {strength=0, targetx=47.5+19*welche_Ecke(w,x,y,z-1), targety="6.5"})
+  else
+   set_item("it-wormhole",347,2, {strength=0, targetx="9.5", targety="6.5"})
+  end
+ end
+end
+
+ecke_nr=-1
+
+for qqq = 0,w_max-1,w_max-1 do
+ for www = 0,x_max-1,x_max-1 do
+  for eee = 0,y_max-1,y_max-1 do
+   for rrr = 0,z_max-1,z_max-1 do
+
+    ecke_nr = welche_Ecke(qqq,www,eee,rrr)
+    if S(qqq,www,eee,rrr,5)==0 then
+     set_item("it-wormhole",9+19*(ecke_nr+2),2, {strength=0, targetx="9.5", targety="6.5"})
+    end
+
+    if S(qqq,www,eee,rrr,2)==0 then
+     set_item("it-wormhole",13+19*(ecke_nr+2),2, {strength=0, targetx="9.5", targety="6.5"})
+    end
+
+    if S(qqq,www,eee,rrr,3)==0 then
+     set_item("it-wormhole",13+19*(ecke_nr+2),6, {strength=0, targetx="9.5", targety="6.5"})
+    end
+
+    if S(qqq,www,eee,rrr,4)==0 then
+     set_item("it-wormhole",13+19*(ecke_nr+2),10, {strength=0, targetx="9.5", targety="6.5"})
+    end
+
+    if S(qqq,www,eee,rrr,1)==0 then
+     set_item("it-wormhole",9+19*(ecke_nr+2),10, {strength=0, targetx="9.5", targety="6.5"})
+    end
+
+    if S(qqq,www,eee,rrr,6)==0 then
+     set_item("it-wormhole",5+19*(ecke_nr+2),10, {strength=0, targetx="9.5", targety="6.5"})
+    end
+
+    if S(qqq,www,eee,rrr,7)==0 then
+     set_item("it-wormhole",5+19*(ecke_nr+2),6, {strength=0, targetx="9.5", targety="6.5"})
+    end
+
+    if S(qqq,www,eee,rrr,8)==0 then
+     set_item("it-wormhole",5+19*(ecke_nr+2),2, {strength=0, targetx="9.5", targety="6.5"})
+    end
+
+   end
+  end
+ end
+end
+
+ ]]></el:luamain>
+ <el:i18n>
+	 <el:string el:key="title">
+		 <el:english el:translate="false"/>
+	 </el:string>
+	 <el:string el:key="subtitle">
+		 <el:english el:translate="false"/>
+	 </el:string>
+	 <el:string el:key="text1">
+		 <el:english el:translate="true">Ever mapped out a 4D-Labyrinth? Well, it's time to learn thinking in four dimensions ... Some hints: size of the labyrinth is 4x4x4x4; your current position is (2|3|3|2); in all of the 16 corners of the hypercube is a blue oxyd ...</el:english>
+	 </el:string>
+	 <el:string el:key="text2">
+		 <el:english el:translate="true">Ever mapped out a 4D-Labyrinth? Well, it's time to learn thinking in four dimensions ... Some hints: size of the labyrinth is 3x3x3x3; your current position is (2|2|2|2); in all of the 16 corners of the hypercube is a blue oxyd ...</el:english>
+	 </el:string>
+    </el:i18n>
+ </el:protected>
+</el:level>
+

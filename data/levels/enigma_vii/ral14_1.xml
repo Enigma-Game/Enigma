@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no" ?>
+<el:level xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://enigma-game.org/schema/level/1 level.xsd" xmlns:el="http://enigma-game.org/schema/level/1">
+  <el:protected >
+    <el:info el:type="level">
+      <el:identity el:title="Bold Boulder" el:subtitle="" el:id="20061124ral279"/>
+      <el:version el:score="1" el:release="1" el:revision="$Revision: 96 $" el:status="released"/>
+      <el:author  el:name="Ronald Lamprecht" el:email="ral@users.berlios.de"/>
+      <el:copyright>Copyright © 2006 Ronald Lamprecht</el:copyright>
+      <el:license el:type="GPL v2.0 or above" el:open="true"/>
+      <el:compatibility el:enigma="1.10">
+      </el:compatibility>
+      <el:modes el:easy="true" el:single="true" el:network="false"/>
+      <el:comments>
+        <el:credits el:showinfo="true">Thanks to Andreas for the idea of a color reduced easy mode</el:credits>
+      </el:comments>
+      <el:score el:easy="5:55" el:difficult="16:56"/>
+    </el:info>
+    <el:luamain><![CDATA[
+wo["ConserveLevel"] = true
+
+ti[" "] = {"fl-wood"}
+ti["-"] = {"fl-abyss"}
+ti["~"] = {"fl-water"}
+ti["x"] = {"st_oxyd", "oxyd#", flavor="d"}
+ti["#"] = {"st-likeoxydd"}
+ti["N"] = {"st_boulder_n"}
+ti["R"] = {"st_rotator_ccw"}
+ti["B"] = {"st_blocker"}
+ti["b"] = {"it_blocker"}
+ti["I"] = {"st-stoneimpulse_movable"}
+ti["1"] = {"#ac-blackball"}
+
+
+w, h = wo(ti, " ", {
+"-----Rxxxxxxxxx-----",
+"----RbBbBbBbBbBR----",
+"---RBBbbBBbbBBbbR---",
+"--RbbbbBBBBbbbbBBR--",
+"-RB              bR-",
+"xBB              BBR",
+"xbb N 1 ~~~~  I  Bbx",
+"RBb              bBx",
+"-RB              bR-",
+"--RbbbbBBBBbbbbBBR--",
+"---RBBbbBBbbBBbbR---",
+"----RbBbBbBbBbBR----",
+"-----xxxxxxxxxR-----"
+})
+
+if not wo["IsDifficult"] then
+    no["oxyd#*"]["oxydcolor"] = OXYD_BLUE
+end
+
+wo:shuffleOxyd()
+    ]]></el:luamain>
+    <el:i18n>
+      <el:string el:key="title">
+        <el:english el:translate="false"/>
+      </el:string>
+    </el:i18n>
+  </el:protected>
+</el:level>

@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no" ?>
+<index xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="index.xsd">
+
+  <info enigma="1.00" group="Enigma" location="10900" network="false" owner="Enigma Team" release="1" revision="1" title="Enigma VIII"/>
+
+  <attributes/>
+
+  <levels>
+    <level _seq="1" _title="Jack-Of-All-Trades" _xpath="./mecke12_1" author="mecke" ctrl="force" easy="true" id="mecke12" rel="1" rev="31" score="1" target="time" unit="duration"/>
+    <level _seq="2" _title="Enigmaparcour" _xpath="./mecke15_1" author="mecke" ctrl="force" easy="true" id="mecke15" rel="1" rev="11" score="1" target="time" unit="duration"/>
+    <level _seq="3" _title="Rhythm of Space" _xpath="./mecke20_1" author="mecke" ctrl="force" easy="true" id="mecke20" rel="1" rev="21" score="1" target="time" unit="duration"/>
+  </levels>
+
+</index>

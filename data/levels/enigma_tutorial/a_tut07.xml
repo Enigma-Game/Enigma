@@ -1,0 +1,99 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no" ?>
+<el:level xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://enigma-game.org/schema/level/1 level.xsd" xmlns:el="http://enigma-game.org/schema/level/1">
+  <el:protected>
+    <el:info el:type="level">
+      <el:identity el:title="Chess Stones" el:subtitle="" el:id="c_tut01"/>
+      <el:version el:score="1" el:release="1" el:revision="1" el:status="released"/>
+      <el:author  el:name="Raoul Bourquin, ShadowPhrogg32642342, Andreas Lochmann" el:email="" el:homepage=""/>
+      <el:copyright>Copyright © 2008 Raoul Bourquin, Andreas Lochmann</el:copyright>
+      <el:license el:type="GPL v2.0 or above" el:open="true"/>
+      <el:compatibility el:enigma="1.10">
+        <el:dependency el:path="lib/libluatools" el:id="lib/libluatools" el:release="1" el:preload="true"/>
+      </el:compatibility>
+      <el:modes el:easy="false" el:single="true" el:network="false"/>
+      <el:comments>
+      </el:comments>
+      <el:score el:easy="-" el:difficult="2:22"/>
+    </el:info>
+    <el:luamain><![CDATA[
+wo["ConserveLevel"] = true
+
+ti[" "] = {"fl-leavesb"}
+ti["1"] = {"fl-leavesc1"}
+ti["2"] = {"fl-leavesc2"}
+ti["3"] = {"fl-leavesc3"}
+ti["4"] = {"fl-leavesc4"}
+ti["."] = {"fl-leaves"}
+ti["~"] = {"fl-water"}
+
+ti["#"] = ti[" "] .. {"st-likeoxyda"}
+ti["@"] = ti["."] .. {"#ac-blackball"}
+ti["C"] = ti["."] .. {"st-chess_black"}
+ti["c"] = ti["."] .. {"st-chess_black", "it_cross"}
+ti["D"] = ti[" "] .. {"st-door_a", name="door#"}
+ti["T"] = ti["."] .. {"it_trigger", name="trigger#", target="open_door"}
+ti["B"] = ti["."] .. {"#ac-blackball", controllers=0, player=1, name="second_marble"}
+ti["S"] = ti["."] .. {"st_switch", target="let_marble_run"}
+ti["d"] = ti["."] .. {"st-door_a", name="first_door"}
+ti["t"] = ti["."] .. {"it_trigger", target="first_door"}
+ti["i"] = ti["."] .. {"it-document", text="text1"}
+ti["I"] = ti["."] .. {"it-document", text="text2"}
+ti["x"] = ti[" "] .. {"st_oxyd", flavor="d"}
+
+w, h = wo(ti, " ", {
+ -- 01234567890123456789
+   "#x###########x####x#",
+   "xD           D    Dx",
+   "# 1.....3          #",
+   "# .......  1...3   #",
+   "# ..C.... 1.T.T.3  #",
+   "# 2...... .T...T.  #",
+   "xD ...... ...~... Dx",
+   "# 1...... .T...T.  #",
+   "# ..C.... 2.T.T.4  #",
+   "# .......  2...4   #",
+   "# 2...I.4          #",
+   "xD    .      D    Dx",
+   "#x####.######x####x#",
+   "#    #.#           #",
+   "#    #.#           #",
+   "#    #d#     1.3   #",
+   "#    #.#     .B.   #",
+   "#    #.#     ...   #",
+   "######.####  2..3  #",
+   "#     .   #   .c.  #",
+   "#  1...3  #   2..3 #",
+   "#  .@.i...S    .t. #",
+   "#  2...4  #    2.4 #",
+   "#         #        #",
+   "####################",
+})
+
+function let_marble_run(onoff, sender)
+  wo:fl(no["second_marble"]):set({force_x = 65, force_y = 155})
+  sender:set({target = ""})
+end
+
+trigger_to_doors = luatools.permutation(8)
+
+function open_door(onoff, sender)
+  local trigger_name = sender["name"]
+  local number = tonumber(string.sub(trigger_name, 9, -1))
+  local door_name = "door#"..trigger_to_doors[number]
+  no[door_name]:message("toggle")
+end
+
+    ]]></el:luamain>
+    <el:i18n>
+      <el:string el:key="title">
+        <el:english el:translate="false"/>
+      </el:string>
+      <el:string el:key="text1">
+        <el:english el:translate="true">The stone with the horse's head is called ''chess stone''. Watch how the other marble hits one of them to move it. The angle is important.</el:english>
+      </el:string> 
+      <el:string el:key="text2">
+        <el:english el:translate="true">Now try to move these chess stones onto the triggers. They always move two steps plus one step, the crosses might give you some idea.</el:english>
+      </el:string> 
+    </el:i18n>
+  </el:protected>
+</el:level>

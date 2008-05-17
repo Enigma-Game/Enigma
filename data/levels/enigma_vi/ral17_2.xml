@@ -3,17 +3,17 @@
   <el:protected >
     <el:info el:type="level">
       <el:identity el:title="Turnstiles for Two" el:subtitle="Rhapsody on Turnstiles in Blue and Green" el:id="20070314ral189"/>
-      <el:version el:score="1" el:release="1" el:revision="$Revision: 64 $" el:status="released"/>
+      <el:version el:score="2" el:release="2" el:revision="$Revision: 94 $" el:status="released"/>
       <el:author  el:name="Ronald Lamprecht" el:email="ral@users.berlios.de"/>
-      <el:copyright>Copyright © 2006 Ronald Lamprecht</el:copyright>
+      <el:copyright>Copyright © 2006, 2007, 2008 Ronald Lamprecht</el:copyright>
       <el:license el:type="GPL v2.0 or above" el:open="true"/>
       <el:compatibility el:enigma="1.00"/>
       <el:modes el:easy="true" el:single="true" el:network="false"/>
       <el:comments>
-        <el:credits el:showinfo="true" el:showstart="false">Thanks to Nat Pryce for his libs and code examples</el:credits>
+        <el:credits el:showinfo="true" el:showstart="false">Thanks to Clifford and NObby for valuable feedback</el:credits>
         <el:code>Lua 5.1</el:code>
       </el:comments>
-      <el:score el:easy="12:29" el:difficult="16:36"/>
+      <el:score el:easy="10:36" el:difficult="19:56"/>
     </el:info>
     <el:luamain><![CDATA[
 enigma.ConserveLevel = FALSE
@@ -140,6 +140,8 @@ oxyd_default_flavor = "a"
 
 tiles = {}
 tiles[" "] = {floor("fl-sahara")}
+tiles["."] = {floor("fl-sahara",{friction=18, mousefactor=3.0})}
+tiles["!"] = {floor("fl-sahara",{force_y=30})}
 tiles["~"] = {floor("fl-water")}
 tiles["v"] = {floor("fl-acwhite")}
 tiles["b"] = {floor("fl-acblack")}
@@ -160,15 +162,16 @@ tiles["I"] = {inherit(" "), stone("st-oneway_white-n")}
 tiles["K"] = {inherit(" "), stone("st-oneway_white-s")}
 tiles["k"] = {inherit(" "), stone("st-oneway_black-s")}
 tiles["B"] = {inherit(" "), stone("st-black3")}
+tiles["C"] = {inherit("."), stone("st-black3")}
 tiles["V"] = {inherit(" "), stone("st-white3")}
-tiles["p"] = {inherit(" "), stone("st-brake")}
+tiles["X"] = {inherit("."), stone("st-white3")}
 tiles["R"] = {inherit("~"), stone("st-rotator-right")}
 tiles["r"] = {inherit(" "), stone("st-rotator_move-right")}
 tiles["L"] = {inherit("~"), stone("st-rotator-left")}
 tiles["ch"] = {inherit(" "), item("it-cherry")}
 tiles["G"] = {inherit("ch"), stone("st-glass")}
-tiles["U"] = {inherit(" "), item("it-vortex-closed", {name="vortex1",targetx=7, targety=17})}
-tiles["u"] = {inherit(" "), item("it-vortex-closed", {targetx=7, targety=17})}
+tiles["ba"] = {inherit("~"), item("it-cherry")}
+tiles["g"] = {inherit("ba"), stone("st-glass_move")}
 
 
 tiles["yb"] = {inherit(" "), item("it-yinyang")}
@@ -180,13 +183,40 @@ tiles["8"] = {inherit(" "), actor("ac-top",{force=0, range=0})}
 
 if difficult then
     tiles["P"] = tiles[" "]
+    tiles["p"] = tiles[" "]
+    tiles["U"] = {inherit(" "), stone("st-grate1")}
+    tiles["u"] = tiles["r"]
+    tiles["t"] = tiles[" "]
+    tiles["A"] = {inherit("!"), item("it-blocker")}
+    tiles["a"] = {inherit(" "), item("it-trigger",{target="doblock", action="callback"})}
+    tiles["="] = tiles["~"]
+    tiles["i"] = tiles["~"]
+    tiles["m"] = {inherit("~"), stone("st-mail-e")}
 else
     tiles["P"] = {inherit(" "), item("it-pin")}
+    tiles["p"] = {inherit(" "), stone("st-brake")}
+    tiles["U"] = tiles[" "]
+    tiles["u"] = tiles[" "]
+    tiles["t"] = tiles["r"]
+    tiles["A"] = tiles[" "]
+    tiles["a"] = tiles[" "]
+    tiles["="] = tiles[" "]
+    tiles["i"] = {inherit("~"), stone("st-invisible")}
+    tiles["m"] = tiles["~"]
 end
+
+function doblock(value, sender)
+    if value == TRUE then
+        enigma.SendMessage(enigma.GetItem(8, 10), "close", nil)
+    else
+        enigma.SendMessage(enigma.GetStone(8, 10), "open", nil)
+    end
+end
+
 
 create_world_from_map( tiles, {
 "####################",
-"#x ~  x  JJ  x  ~ x#",
+"#x m  x  JJ  x  ~ x#",
 "#  ~     ~~     ~  #",
 "#  ~     ~~  n  ~  #",
 "#BB~~~T~~~~~~T~~~BB#",
@@ -195,35 +225,34 @@ create_world_from_map( tiles, {
 "# wTe          wTe #",
 "# vSv    n     vSv #",
 "#~~~~I~~~T~R~~k~~~~#",
-"#     ~      ~     #",
-"# ~~~~~ r    ~~~~~ #",
-"# ~ B ~   p  ~ V ~ #",
-"# ~xBwTe    wTeVx~ #",
-"# ~ B ~    r ~ V ~ #",
-"# ~~~~~U     ~~~~~ #",
+"#     ~ A~a  ~     #",
+"# ~~~~~      ~~~~~ #",
+"# ~ B ~ r p  ~ V ~ #",
+"# ~xBwTe UU wTeVx~ #",
+"# ~ B ~    u ~ V ~ #",
+"# ~~~~~      ~~~~~ #",
 "# N   ~~R~T~~~   N #",
-"#wT x ~u  s  ~ x Te#",
-"# S   ~      ~   S #",
-"# ~~~~~R    L~~~~~ #",
+"#wT x ~   s  ~ x Te#",
+"# S   ~   U  ~   S #",
+"# ~~~~~R=  =L~~~~~ #",
 "# ~   ~      ~   ~ #",
-"# ~   Te    wT   ~ #",
+"# ~   Te UtUwT   ~ #",
 "# ~   ~      ~   ~ #",
 "#V~~~~~  n   ~~~~~B#",
 "#     ~~WTE~~~     #",
 "#~~      s      ####",
 "#x~      ~~~  ###x##",
 "# ~      ~x~  #VVVV#",
-"# ~  ~~~V~B~  #GGGG#",
-"#wTe ~xB N V  #    #",
-"# ~~ ~~~~T~~~~   w #",
-"# ~~   B S Vx~  r  #",
-"# L~~  ~V~B~~~     #",
+"# ~  ~~iXiBi  #GGGG#",
+"#wTe ~xB.N.X  R    #",
+"# ~~ ~~i~T~i~~ g w #",
+"# ~~   C.S.Vx~  r  #",
+"# L~~  iViCi~~     #",
 "# ~8~  ~x~  N   G  #",
 "L T~L  ~~~  T    T #",
 "# s B       S      #",
 "####################"
 })
-SendMessage(enigma.GetNamedObject("vortex1"), "open")
 
 repeat
     local good_oxyds = 0

@@ -1,0 +1,197 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no" ?>
+<el:level xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://enigma-game.org/schema/level/1 level.xsd" xmlns:el="http://enigma-game.org/schema/level/1">
+  <el:protected>
+    <el:info el:type="level">
+      <el:identity el:title="Tinker, Tailor" el:subtitle="" el:id="andreas46"/>
+      <el:version el:score="2" el:release="4" el:revision="2" el:status="released"/>
+      <el:author el:name="Andreas Lochmann" el:email="" el:homepage=""/>
+      <el:copyright>Copyright © 2007 Andreas Lochmann</el:copyright>
+      <el:license el:type="GPL v2.0 or above" el:open="true"/>
+      <el:compatibility el:enigma="1.10">
+        <el:dependency el:path="lib/libluatools" el:id="lib/libluatools" el:release="1" el:preload="true"/>
+      </el:compatibility>
+      <el:modes el:easy="true" el:single="true" el:network="false"/>
+      <el:score el:easy="3:25" el:difficult="5:44"/>
+    </el:info>
+    <el:luamain><![CDATA[
+parastonekind = "st-grate2"  --"st-likeoxyda-open"
+
+if wo["IsDifficult"] then
+  maxstrength = 1000
+else
+  maxstrength = 0
+end
+
+function myrandom()
+  -- Return a random number of the following: 3, 2, 1, -1, -2, -3.
+  return ({3,2,1,-1,-2,-3})[random(6)]
+end
+
+wo["ConserveLevel"] = true
+
+ti[" "] = {"fl-leavesb"}
+ti["1"] = {"fl-leavesc1"}
+ti["2"] = {"fl-leavesc2"}
+ti["3"] = {"fl-leavesc3"}
+ti["4"] = {"fl-leavesc4"}
+ti["."] = {"fl-leavesb", force_x = myrandom(), force_y = myrandom()}
+
+ti["#"] = ti[" "] .. {"st-glass2"}
+ti["G"] = ti[" "] .. {"st-glass2"}
+ti["@"] = ti[" "] .. {"#ac-blackball", name = "marble"}
+ti["o"] = ti[" "] .. {"st_oxyd", flavor = "b"}
+ti["S"] = ti[" "] .. {"st-scissors", name = "scissors#", target = "call_scissors"}
+ti["C"] = ti[" "] .. {"st-scissors", name = "scissors_central", target = "call_scissors"}
+ti["X"] = (ti[" "] .. {"st-glass1"}) .. {"#ac-horse", name = "horse#"}
+ti["s"] = ti[" "] .. {parastonekind, name = "parascissors#"}
+ti["c"] = ti[" "] .. {parastonekind, name = "parascissors_central"}
+ti["x"] = (ti[" "] .. {"st-glass1_hole", name = "paraplace#"})
+ti["u"] = ti[" "] .. {"st_switch", target = "next_pattern"}
+ti["v"] = ti[" "] .. {"st_switch", target = "solve"}
+ti["r"] = {"fl-leavesb", "parafloor#"}
+ti["t"] = ti[" "] .. {"st_timer", interval = 2.0, name = "timer", loop = false,
+                      invisible = true}
+
+w, h = wo(ti, " ", {
+ -- 01234567890123456789
+   "####################",
+   "#         GG  r r  #",
+   "#   X X   GGr.....r#",
+   "#   S S   GG..x.x..#",
+   "#         GG..s.s..#",
+   "#XS @   SXGGxs...sx#",
+   "#    C    GG...c...#",
+   "#XS     SXGGxs...sx#",
+   "#         GG..s.s..#",
+   "#   S S   GG..x.x..#",
+   "#   X X   GGr.....r#",
+   "#         GG  r r  #",
+   "####################",
+   "t                   ",
+})
+
+function connect(obj1, obj2, strength)
+  enigma.AddRubberBand(obj1, obj2, strength or maxstrength, 2.5)
+  obj1:set({_partner = obj2})
+  obj2:set({_partner = obj1})
+end
+
+function call_scissors(onoff, sender)
+  local marbles_partner = no["marble"]["_partner"]
+  local scissors_partner = sender["_partner"]
+  if sender == marbles_partner then
+    -- Marble hit its own partner, recreate rubberband
+    -- and everything is fine
+    connect(no["marble"], sender)
+  else
+    -- This is the interesting case:
+    -- Rubberband of marble is already cut, now delete the other one
+    -- We do some trick while rubberbands can't be killed yet:
+    -- Recreate the stone!
+    --no["rb_"..scissors_partner["name"]]:kill()
+    local sname = sender["name"]
+    wo[sender] = {"st-scissors", name = sname, target = "call_scissors"}
+    -- Reconnect
+    connect(no["marble"], no[sname])
+    connect(scissors_partner, marbles_partner, 0)
+    -- Check for correct pattern
+    local correct = true
+    for j = 1, 8 do
+      correct = correct and
+          (no["horse#"..j]["_partner"] == no["scissors#"..Goal[j]])
+    end
+    if correct then
+      next_pattern()
+    end
+  end
+end
+
+function solve()
+  for j = 1, 8 do
+    wo[no["scissors#"..j]] = {"st-scissors", name = "scissors#"..j}
+  end
+  for j = 1, 8 do
+    connect(no["horse#"..j], no["scissors#"..Goal[j]])
+  end
+end
+
+pattern_count = 0
+function next_pattern()
+  pattern_count = pattern_count + 1
+  if pattern_count < 8 then
+    -- create new permutation with one horse less
+    local p = luatools.cyclic_permutation(8 - pattern_count)
+    for j = 8 - pattern_count + 1, 8 do
+      p[j] = j
+    end
+    for j = 1, 8 do
+      Goal[fixpoint_permutation[j]] = fixpoint_permutation[p[j]]
+    end
+    -- create temporary goals for the horses to untangle
+    local TemporaryGoal = luatools.permutation(8)
+    for j = 1, 8 do
+      no["parahorse#"..j]:set(
+          {destination = {no["parafloor#"..TemporaryGoal[j]]}})
+    end
+    -- use timer to set real goals
+    no["timer"]:set({target = "fix_horses", interval = 2.0, loop = false})
+    no["timer"]:message("on")
+  else
+    -- set oxyds
+    for j = 1, 8 do
+      wo[no["scissors#"..j]] = {"st_oxyd"}
+    end
+    wo:shuffleOxyd()
+  end
+end
+
+function fix_horses()
+  for j = 1, 8 do
+    no["parahorse#"..Goal[j]]:set({destination = {no["paraplace#"..j]}})
+  end
+  -- taint the glass of the new "fixpoint"
+  local k = 8 - pattern_count + 1  --first_permutation[pattern_count]
+  wo[no["paraplace#"..fixpoint_permutation[k]]]
+    = {"st-glass2_hole", name = "paraplace#"..fixpoint_permutation[k]}
+  if pattern_count == 7 then
+    wo[no["paraplace#"..fixpoint_permutation[1]]]
+      = {"st-glass2_hole", name = "paraplace#"..fixpoint_permutation[1]}
+  end
+end
+
+Goal = luatools.cyclic_permutation(8)
+connect(no["marble"], no["scissors_central"])
+
+if wo["IsDifficult"] then
+  fixpoint_permutation = luatools.permutation(8)
+else
+  fixpoint_permutation = {}
+  for j = 1, 8 do
+    fixpoint_permutation[j] = j
+  end
+end
+
+for j = 1, 8 do
+  -- Note: The parahorses have the same number as the stones
+  --       they're connected to. It's the paraplace which Goal
+  --       references to, in contrast to the real situation on
+  --       the left side.
+  wo[no["paraplace#"..j]] = {"#ac-horse", name = "parahorse#"..Goal[j],
+                                          force = 4 + j/10}
+end
+
+for j = 1, 8 do
+  connect(no["parahorse#"..j], no["parascissors#"..j], 0)
+  connect(no["horse#"..j], no["scissors#"..j], 0)
+end
+
+wo:shuffleOxyd()
+
+    ]]></el:luamain>
+    <el:i18n>
+      <el:string el:key="title">
+        <el:english el:translate="false"/>
+      </el:string>
+    </el:i18n>
+  </el:protected>
+</el:level>

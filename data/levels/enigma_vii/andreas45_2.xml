@@ -1,0 +1,206 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no" ?>
+<el:level xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://enigma-game.org/schema/level/1 level.xsd" xmlns:el="http://enigma-game.org/schema/level/1">
+  <el:protected>
+    <el:info el:type="level">
+      <el:identity el:title="Elbow Society" el:subtitle="" el:id="andreas45"/>
+      <el:version el:score="2" el:release="2" el:revision="5" el:status="released"/>
+      <el:author el:name="Andreas Lochmann" el:email="" el:homepage=""/>
+      <el:copyright>Copyright © 2007 Andreas Lochmann</el:copyright>
+      <el:license el:type="GPL v2.0 or above" el:open="true"/>
+      <el:compatibility el:enigma="0.92">
+        <el:dependency el:path="lib/natmaze" el:id="lib/natmaze" el:release="1" el:preload="true"/>
+      </el:compatibility>
+      <el:modes el:easy="true" el:single="true" el:network="false"/>
+      <el:comments>
+        <el:dedication>Thanks to Nat for his maze-library!</el:dedication>
+      </el:comments>
+      <el:score el:easy="0:52" el:difficult="1:56"/>
+    </el:info>
+    <el:luamain><![CDATA[
+
+originx = 1
+originy = 1
+mainfloor = "fl-black"
+mainstone = "st-death"
+friction = 3.0
+mousefactor = 1.0
+
+function set_deathly(x, y)
+  set_item("it-death", x, y)
+end
+
+function cell_to_level( cellx, celly )
+  return originx + cellx * 2, originy + celly * 2
+end
+
+mod = math.mod or math.fmod
+
+function close_tile(x, y)
+  -- Set the death-item on the left or right side?
+  -- Choosing this randomly doesn't look very well,
+  -- as a random distribution is too clustered.
+  -- Instead, we use some modulo magic, yielding a
+  -- repeating pattern of size 3x5 (maze) or 5x3
+  -- (puzzle).
+  local result
+  if y < 25 then
+    -- 3x5 looks better in the maze.
+    result = mod(mod(x, 3) + mod(y, 5), 2)
+  else
+    -- 5x3 looks better in the puzzle area.
+    result = mod(mod(x, 5) + mod(y, 3), 2)
+  end
+  if result == 0 then
+    set_deathly(x, y)
+  else
+    set_deathly(x + 9, y)
+  end
+end
+  
+function render_cell( maze, cellx, celly )
+  x, y = cell_to_level( cellx, celly )
+  if not maze:can_go_south(cellx,celly) then
+    close_tile(x, y+1)
+  end
+  if x == 9 then
+    return
+  end
+  close_tile(x+1, y+1)
+  if not maze:can_go_east(cellx,celly) then
+    close_tile(x+1, y)
+  end
+end
+
+function call_trigger(onoff, sender)
+  local x, y = enigma.GetPos(sender)
+  x = x + 9
+  y = y + 4
+  SendMessage(enigma.GetFloor(x,y), "open")
+end
+
+function renderLine(line, pattern)
+  for j = 1, strlen(pattern) do
+    local c = strsub(pattern, j, j)
+    if c == " " then
+      --set_floor(mainfloor, j-1, line)
+    elseif c == "#" then
+      set_stone(mainstone, j-1, line)
+    elseif c == "." then
+      --set_deathly(j-1, line)       
+    elseif c == "+" then
+      close_tile(j-1, line)
+    elseif c == "*" then
+      set_deathly(j-1, line)       
+    elseif c == "t" then
+      set_item("it-trigger", j-1, line,
+               {action = "callback", target = "call_trigger"})
+    elseif c == "b" then
+      set_floor("fl-bridge-closed", j-1, line,
+                {friction = friction, mousefactor = mousefactor})
+    elseif c == "B" then
+      set_floor("fl-bridge-closed", j-1, line,
+                {friction = friction, mousefactor = mousefactor})
+      set_deathly(j-1, line)
+    end
+  end
+end
+
+
+levelw = 20
+if difficult then
+  levelh = (5*12) + 1
+else
+  levelh = (3*12) + 1
+end
+
+create_world(levelw, levelh)
+
+for x = 0, levelw - 1 do
+  for y = 0, levelh - 1 do
+    set_floor(mainfloor, x, y, {friction = friction, mousefactor = mousefactor})
+  end
+end
+
+draw_border(mainstone)
+render_maze(new_kruskal_maze(5, 12), render_cell)
+kill_item(9, 24)
+kill_item(18, 24)
+set_stone("st-oxyd",  1, levelh - 1, {color="7"})
+set_stone("st-oxyd",  9, levelh - 1, {color="7"})
+set_stone("st-oxyd", 10, levelh - 1, {color="7"})
+set_stone("st-oxyd", 18, levelh - 1, {color="7"})
+
+if difficult then
+  set_stone("st-oxyd",  1, 35, {color="7"})
+  set_stone("st-oxyd", 10, 35, {color="7"})
+  set_stone("st-oxyd",  1, 35+12, {color="7"})
+  set_stone("st-oxyd", 10, 35+12, {color="7"})
+end
+
+set_actor("ac-blackball", 1.5, 1.5, {essential = -1})
+set_actor("ac-blackball", 10.5, 1.5, {essential = -1})
+
+enigma.ConserveLevel = FALSE
+
+if difficult then
+  --              01234567890123456789
+  renderLine(25, "#                  #")
+  renderLine(26, "#ttttttttt.. ......#")
+  renderLine(27, "#tt tttttt.. ......#")
+  renderLine(28, "#ttttttttt   .*....#")
+  renderLine(29, "#ttttttttt .......*#")
+  renderLine(30, "#ttt*ttt tbbbbBbbbb#")
+  renderLine(31, "#tttttttttbb bbbbbb#")
+  renderLine(32, "#+.+  +..+bbbbbbbbb#")
+  renderLine(33, "#...+ .++.bbbbbbbbb#")
+  renderLine(34, "#.    +   bbb bbb b#")
+  renderLine(35, "#....   + bbbbbbbbb#")
+  renderLine(36, "######### ######## #")
+  renderLine(37, "#                  #")
+  renderLine(38, "#ttttttttt.. ......#")
+  renderLine(39, "#tt tttttt.. ......#")
+  renderLine(40, "#ttttttttt.. .*....#")
+  renderLine(41, "#ttttttttt*.      *#")
+  renderLine(42, "#ttt*ttt tbbbbBbbbb#")
+  renderLine(43, "#tttttttttbb bbbbbb#")
+  renderLine(44, "#+ +     +bbbbbbbbb#")
+  renderLine(45, "#. .+..++.bbbbbbbbb#")
+  renderLine(46, "#.    +   bbb bbb b#")
+  renderLine(47, "#....   + bbbbbbbbb#")
+  renderLine(48, "######### ######## #")
+  renderLine(49, "#                  #")
+  renderLine(50, "#ttttttttt..... ...#")
+  renderLine(51, "#tt tttttt..... ...#")
+  renderLine(52, "#ttttttttt....* ...#")
+  renderLine(53, "#ttttttttt*.     .*#")
+  renderLine(54, "#ttt*ttt tbbbbBbbbb#")
+  renderLine(55, "#tttttttttbb bbbbbb#")
+  renderLine(56, "#+ +..+  +bbbbbbbbb#")
+  renderLine(57, "#. .+..+  bbbbbbbbb#")
+  renderLine(58, "#  ...+.. bbb bbb b#")
+  renderLine(59, "# ......+ bbbbbbbbb#")
+  --              012345678901234567890123456789012345678
+else
+  --              01234567890123456789
+  renderLine(25, "#                  #")
+  renderLine(26, "#ttttttttt.........#")
+  renderLine(27, "#tt tttttt.........#")
+  renderLine(28, "#ttttttttt....*....#")
+  renderLine(29, "#ttttttttt........*#")
+  renderLine(30, "#ttt*ttt tbbbbBbbbb#")
+  renderLine(31, "#tttttttttbb bbbbbb#")
+  renderLine(32, "#+.+.....+bbbbbbbbb#")
+  renderLine(33, "#...+..+..bbbbbbbbb#")
+  renderLine(34, "#.....+...bbb bbb b#")
+  renderLine(35, "#.......+.bbbbbbbbb#")
+  --              012345678901234567890123456789012345678
+end
+
+    ]]></el:luamain>
+    <el:i18n>
+      <el:string el:key="title">
+        <el:english el:translate="false"/>
+      </el:string>
+    </el:i18n>
+  </el:protected>
+</el:level>

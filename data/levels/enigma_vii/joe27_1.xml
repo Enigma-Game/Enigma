@@ -1,0 +1,113 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no" ?>
+<el:level xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://enigma-game.org/schema/level/1 level.xsd" xmlns:el="http://enigma-game.org/schema/level/1">
+  <el:protected>
+    <el:info el:type="level">
+      <el:identity el:title="Pick-Up" el:subtitle="" el:id="joe27"/>
+      <el:version el:score="1" el:release="1" el:revision="0" el:status="released"/>
+      <el:author  el:name="Joseph Dunne" el:email="" el:homepage=""/>
+      <el:copyright>Copyright © 2008 Joseph Dunne</el:copyright>
+      <el:license el:type="GPL v2.0 or above" el:open="true"/>
+      <el:compatibility el:enigma="1.00">
+       <el:dependency el:path="lib/ant" el:id="lib/ant" el:release="1" el:preload="true"/>
+      </el:compatibility>
+      <el:modes el:easy="false" el:single="true" el:network="false"/>
+      <el:score el:easy="-" el:difficult="-"/>
+    </el:info>
+    <el:luamain><![CDATA[
+cells={}
+stones={}
+
+stones[" "]=cell{}
+cells[" "]=cell{}
+
+cells[" "]=cell{floor="fl-sahara"}
+cells["0"]=cell{floor="fl-abyss"}
+
+stones["#"]=cell{stone="st-yellow"}
+stones["%"]=cell{stone="st-black1"}
+stones["G"]=cell{stone="st-puzzle-hollow"}
+stones["W"]=cell{stone="st-puzzle-n"}
+stones["R"]=cell{stone="st-puzzle-ns"}
+stones["V"]=cell{stone="st-puzzle-ew"}
+stones["A"]=cell{stone="st-puzzle-w"}
+stones["X"]=cell{stone="st-puzzle-s"}
+stones["D"]=cell{stone="st-puzzle-e"}
+stones["Q"]=cell{stone="st-puzzle-nw"}
+stones["Z"]=cell{stone="st-puzzle-sw"}
+stones["C"]=cell{stone="st-puzzle-es"}
+stones["E"]=cell{stone="st-puzzle-ne"}
+stones["F"]=cell{stone="st-puzzle-nsw"}
+stones["B"]=cell{stone="st-puzzle-esw"}
+stones["H"]=cell{stone="st-puzzle-nes"}
+stones["T"]=cell{stone="st-puzzle-new"}
+stones["S"]=cell{stone="st-puzzle-nesw"}
+
+level={"                    ",
+       "                    ",
+       "                    ",
+       "                    ",
+       "                    ",
+       "                    ",
+       "                    ",
+       "                    ",
+       "                    ",
+       "                    ",
+       "                    ",
+       "                    ",
+       "                    ",
+       " 000                ",
+       " 000                ",
+       " 000                ",
+       "                    ",
+       "                    ",
+       "                    ",
+       "                    ",
+       "                    ",
+       "                    ",
+       "                    ",
+       "                    ",
+       "                    "}
+
+stmap={"####################",
+       "####################",
+       "####################",
+       "####################",
+       "#######CVVVVVZ######",
+       "#######R     R######",
+       "#######R   0 R######",
+       "#######R     R######",
+       "#######EVVVVVQ######",
+       "####################",
+       "####################",
+       "####################",
+       "#000################",
+       "0    #########     #",
+       "0   0########B     #",
+       "0                  #",
+       "#                  %",
+       "#                  %",
+       "#E   H      #      #",
+       "##%#####T###C      A",
+       "#      ###         #",
+       "#  Z               #",
+       "# S Q              #",
+       "#                  #",
+       "####################"}
+
+create_world_by_map(level)
+draw_map(0,0,stmap,stones)
+
+set_actor("ac-blackball",1.5,23.5,{player=0})
+set_item("it-vortex-closed",19,17,{name="vortex1",targetx="9.5",targety="6.5"})
+set_item("it-vortex-open",8,6,{targetx="18.5",targety="15.5"})
+set_stone("st-switch",4,13,{action="openclose",target="vortex1"})
+
+oxyd_shuffle()
+    ]]></el:luamain>
+    <el:i18n>
+      <el:string el:key="title">
+        <el:english el:translate="false"/>
+      </el:string>
+    </el:i18n>
+  </el:protected>
+</el:level>

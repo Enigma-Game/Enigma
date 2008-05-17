@@ -1,0 +1,472 @@
+﻿<?xml version="1.0" encoding="utf-8" standalone="no" ?>
+<el:level xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+  xsi:schemaLocation="http://enigma-game.org/schema/level/1 level.xsd"
+  xmlns:el="http://enigma-game.org/schema/level/1">
+  <el:protected >
+    <el:info el:type="level">
+      <el:identity el:title="Audience in Venice" el:subtitle="Press the Triggers" el:id="mecke9"/>
+      <el:version el:score="1" el:release="1" el:revision="$Revision: 20 $" el:status="released"/>
+      <el:author  el:name="mecke" el:email="" el:homepage=""/>
+      <el:copyright>Copyright © 2008 Thomas Bernhardt</el:copyright>
+      <el:license el:type="GPL v2.0 or above" el:open="true"/>
+      <el:compatibility el:enigma="0.92">
+        <el:dependency el:path="lib/ant" el:id="lib/ant" el:release="1" el:preload="true"/>
+      </el:compatibility>
+      <el:modes el:easy="true" el:single="true" el:network="false" el:control="force"
+        el:scoreunit="duration" el:scoretarget="time"/>
+      <el:score el:easy="12:01" el:difficult="14:39"/>
+    </el:info>
+    <el:luamain><![CDATA[
+function file_oxyd(x,y,f)
+    oxyd_default_flavor=f
+    oxyd(x,y)
+end
+levelh=37
+levelw=76
+enigma.FlatForce=30
+enigma.SlopeForce=30
+enigma.ElectricForce=30
+cells={}
+items={}
+actors={}
+stones={}
+actors[" "]=cell{}
+stones[" "]=cell{}
+cells[" "]=cell{}
+items[" "]=cell{}
+cells["!"]=cell{floor="fl-brick"}
+function ac_blackball(x,y)
+n=""
+p=0
+f=0
+ if (x==0) and (y==0) then
+  n="ac0x0"
+  p=0
+  mf=1
+ end
+set_actor("ac-blackball",x+0.5,y+0.5,{player=p,name=n,mouseforce=mf})
+end
+actors["!"]=cell{parent={{ac_blackball}}}
+cells["#"]=cell{floor="fl-gradient1"}
+cells["$"]=cell{floor="fl-dunes"}
+cells["%"]=cell{floor="fl-water"}
+stones["!"]=cell{stone="st-death"}
+stones["#"]=cell{stone="st-rock1"}
+cells["&"]=cell{floor="fl-normal"}
+stones["$"]=cell{stone="st-thief"}
+stones["%"]=cell{stone="st-black3"}
+stones["&"]=cell{stone="st-stone_break"}
+items["!"]=cell{item="it-document"}
+stones["'"]=cell{stone="st-glass_move"}
+stones["("]=cell{stone="st-bumps"}
+stones[")"]=cell{stone="st-grate1"}
+items["#"]=cell{item="it-hstrip"}
+stones["*"]=cell{stone="st-brick"}
+stones["+"]=cell{stone="st-mirror-3>"}
+stones[","]=cell{stone="st-mirror-p|"}
+stones["-"]=cell{stone="st-laser-n"}
+cells["'"]=cell{floor="fl-himalaya"}
+cells["("]=cell{floor="fl-leavesc2"}
+items["$"]=cell{item="it-glasses"}
+stones["."]=cell{stone="st-wood_001"}
+stones["ß"]=cell{stone="st-brake"}
+stones["/"]=cell{stone="st-mirror-3vm"}
+stones["0"]=cell{stone="st-mirror-p\\tm"}
+function ac_top(x,y)
+n=""
+r=0
+f=0
+ init=false
+ if (x==7) and (y==4) then
+  n="ac7x4"
+  r=1
+  f=1
+  init=FALSE
+ end
+ if (x==10) and (y==27) then
+  n="ac10x27"
+  r=1
+  f=1
+  init=FALSE
+ end
+ if (x==13) and (y==27) then
+  n="ac13x27"
+  r=1
+  f=1
+  init=FALSE
+ end
+set_actor("ac-top",x+0.5,y+0.5,{range=r,force=f,name=n,gohome=init})
+end
+actors["#"]=cell{parent={{ac_top}}}
+cells[")"]=cell{floor="fl-red"}
+stones["1"]=cell{stone="st-brownie"}
+stones["2"]=cell{stone="st-rock4"}
+cells["*"]=cell{floor="fl-plank"}
+items["%"]=cell{item="it-umbrella"}
+cells["+"]=cell{floor="fl-bluegreenx"}
+stones["3"]=cell{stone="st-yellow"}
+stones["4"]=cell{stone="st-door-v"}
+items["&"]=cell{item="it-extralife"}
+stones["5"]=cell{stone="st-door-h"}
+cells[","]=cell{floor="fl-swamp"}
+items["'"]=cell{item="it-coin2"}
+stones["6"]=cell{stone="st-glass"}
+stones["7"]=cell{parent={{file_oxyd,"d"}}}
+stones["8"]=cell{stone="st-knight"}
+stones["9"]=cell{stone="st-bolder-e"}
+items["("]=cell{item="it-vstrip"}
+stones[":"]=cell{stone="st-bolder-w"}
+stones[";"]=cell{stone="st-wood"}
+items[")"]=cell{item="it-key_b"}
+stones["<"]=cell{stone="st-mirror-p\\"}
+stones["="]=cell{stone="st-key_a"}
+items["*"]=cell{item="it-trigger"}
+cells["-"]=cell{floor="fl-sahara"}
+items["+"]=cell{item="it-flagblack"}
+stones[">"]=cell{stone="st-bolder-n"}
+stones["?"]=cell{stone="st-blue-sand"}
+cells["."]=cell{floor="fl-samba"}
+items[","]=cell{item="it-magicwand"}
+cells["/"]=cell{floor="fl-gravel"}
+stones["@"]=cell{stone="st-rubberband"}
+stones["A"]=cell{stone="st-rock3"}
+items["-"]=cell{item="it-banana"}
+stones["B"]=cell{stone="st-actorimpulse"}
+stones["C"]=cell{stone="st-rotator-left"}
+cells["0"]=cell{floor="fl-sand"}
+cells["1"]=cell{floor="fl-rough-blue"}
+stones["D"]=cell{stone="st-rock1_hole"}
+stones["E"]=cell{stone="st-stoneimpulse-hollow"}
+stones["F"]=cell{stone="st-stoneimpulse"}
+cells["2"]=cell{floor="fl-light"}
+items["."]=cell{item="it-sword"}
+cells["3"]=cell{floor="fl-leavesc4"}
+items["/"]=cell{item="it-coffee"}
+stones["G"]=cell{stone="st-actorimpulse_invisible"}
+items["0"]=cell{item="it-cherry"}
+cells["4"]=cell{floor="fl-leavesc1"}
+stones["H"]=cell{stone="st-marble"}
+items["1"]=cell{item="it-wormhole"}
+cells["5"]=cell{floor="fl-leavese2"}
+stones["I"]=cell{stone="st-swap"}
+items["2"]=cell{item="it-flagwhite"}
+items["3"]=cell{item="it-key_a"}
+cells["6"]=cell{floor="fl-leaves"}
+stones["J"]=cell{stone="st-white3"}
+stones["K"]=cell{stone="st-likeoxydd"}
+items["4"]=cell{item="it-crack3"}
+stones["L"]=cell{stone="st-coffee"}
+stones["M"]=cell{stone="st-shogun-sml"}
+stones["N"]=cell{stone="st-door_a"}
+items["5"]=cell{item="it-springboard"}
+stones["O"]=cell{stone="st-rock6"}
+items["6"]=cell{item="it-coin4"}
+stones["P"]=cell{stone="st-grate3"}
+stones["Q"]=cell{stone="st-chess_white"}
+stones["R"]=cell{stone="st-grate2"}
+cells["7"]=cell{floor="fl-space"}
+stones["S"]=cell{stone="st-break_invisible"}
+cells["8"]=cell{floor="fl-bluegray"}
+stones["T"]=cell{stone="st-bolder-s"}
+cells["9"]=cell{floor="fl-hay"}
+stones["U"]=cell{stone="st-rock3_break"}
+stones["V"]=cell{stone="st-rock5"}
+stones["W"]=cell{stone="st-mirror-p-m"}
+items["7"]=cell{item="it-surprise"}
+stones["X"]=cell{stone="st-oneway_black-n"}
+items["8"]=cell{item="it-squashed"}
+stones["Y"]=cell{stone="st-oneway_black-w"}
+cells[":"]=cell{floor="fl-leavesd1"}
+stones["Z"]=cell{stone="st-lightpassenger_off"}
+stones["?"]=cell{stone="st-laser-e"}
+stones["^"]=cell{stone="st-brake"}
+level={"!%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%&%%%,,%%%%%%89,%%%%%%%%%%%%%%",
+       "####%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%///////0%000%%//////%%%%%%/%%%%%:::::",
+       "####%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%/%%%%%60%0%0%%/%%%%/%%,+%%/%%%%%:::::",
+       "####%%%%%%%%%%%%!!%%%%%%%%%%%%%%%%%%%%%!!%%%%%0%0%0%%//,/%/%%%%%%..%%%%:::::",
+       "####%%''%%%%%%&&!!%---%)%---%%%%%%1111%!!!%%/%0%0,///%///%/%%%%***%%%%%:::::",
+       "$$$$%%''%%%%!!!%!!%---%)%---'''%%%1111%%%!!%%%060%%%%,%%%%/%/88***%%%%%:::::",
+       "%%%%%%%)%%%%%%%%%%%'%%%%%%%'%''%%%/%%%%%%!!%%%0%000%////%,/%/%%***%%%%%%%%%%",
+       "%%%%%%()!!!!!%%%%%%'%%%%%%%'%''%%%/%%%%%%%%%%%0,%20%/%%/,%/%/%%%8!%%%%%%%%%%",
+       "%%%%%%%%%%%,%%%%%%%'%%%%%%%''''%%//%%%%%%.%%%10%-%0%/%,////%/%%%8%6%%.%%%%%%",
+       "%%%%%%%%%%%,%%%%%%%%%%%%%%%.%/%%//%%%%%%%.%%%%02,%0%/,%%%%%%/%7%&&67770%%%%%",
+       "%%%%%%%%%%%,%%%%%%%%%%%%%%%.%/%//%///%%%%.%.%%00000%/////////%7%%%&%%%%%%%%%",
+       "%%%%%%%%%%%%%%%%%%%%%%%%%%%%%/%/%%/%/%%%%%%.%%%%%%%%%%%%%%%%%%7%%%%%%%%%%%%%",
+       "%%%%%%%%%%%%%%%%%%%!%%%%%%%%%/%////%/%%%%%%2%%%%%%2%%%%%%%/////////%%%%%%%%%",
+       "%%%%%%%%%%%%%%%%%%%%%%%%%%%%%/%%%%%%/%%+++%2%++++%2%%%%%%%/%%%%%%%/%%%%%%%%%",
+       "%%%%%%%%%%%%%%%%%%%%%%%%%%%///%//////%%+222222222222222222/%%%%%%%/%%%%%%%%%",
+       "%%%%%%%%*+!!!!+*%%%%%%%%%%%/%%%/%%%%%%%+2222222222222%%%%%7%%%%%%%/%%%%%%%%%",
+       "%%%%%%!!*+!!!!+*!!%%%%%%%%%/%%%/%%%%%%%+22222222222%%%%%%%77///////%%%%%%%%%",
+       "%%%%%%!!*+!!!!+*!!%%%%%%%%%/%%%//////%222222222222%%%%%%%%%%0%%%%%%%%%%%%%%%",
+       "%%%%%%%%*++++++*%%%%%%%%%%%/%%%%%%%%/%%+2222222222%%%%%%%%%%0%%%000%%%%%%%%%",
+       "%%%%%%%%********%%%%%%%%%%%/////%%%%/%%++++++22222%%%%%%%%%%0%%%0%0%%%%%%%%%",
+       "%%%%%%%%++++++++%%%%%%%%%%%%%%%/%%%%/%%%%%%%%+2222%%%%%%%%7700000%0%%%%%%%%%",
+       "%%%%%%%%+))))))+%%%%%%%%%%%.%%%/%%%%/%%%%%%%%+2222))))%%%%%%%%%%%%0%%%00%%%%",
+       "%%%%%%%%+))))))+%%%%%%%%%%%.%%%/%%%%/%%%%%%%%+2222%%%%%%%%%00000000%%&00&%%%",
+       "%%%%%%%%+))))))+%%%%%%%%%%%..%%/%%%%/%%%3345%+2222%%%%%%%%%7%%%%%%%%%&%%&%%%",
+       "%%%%%%%%+))))))+%%%!%%%%%%%%%%%//////%!%222222222222222%%!%7%%%%%%%%%&000%%!",
+       "%%%%%%%%+))))))+%%%%%%%%%%%%%%%%%%%%%%%%%.%.%%%%%%%%.%%%%.%000000000//00::::",
+       "%%%%%%%%+))))))+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%.%%::::",
+       "%%%%%%%%+))))))+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%//%%::::",
+       "%%%%%%%%+))))))+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%.%%::::",
+       "%%%%%%%%++++++++%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%//%%::::",
+       "%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%0%%%%%%%%%%%%%%%%%%0%%%%%%%%%%%%%%%%%%%%%%.",
+       "%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%.",
+       "%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%,%%%%%%%%%%%%%%%%%%%%%%%%%%%.",
+       "%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%44%44444%%%%%%%%%%%%%%%%%%%%%%%%%//",
+       "%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%44444444%%%%%%%%%%%%%%%%%%%%%%%%%%.",
+       "%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%4)444444%%%%%%%%%%%%%%%%%%%%%%%%%//",
+       "%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%4)444444%%%%%%%%%%%%%%%%%%%%%%%%%%0"}
+acmap={"!                                                                           ",
+       "                                                                            ",
+       "                                                                            ",
+       "                                                                            ",
+       "       #                                                                    ",
+       "                                                                            ",
+       "                                                                            ",
+       "                                                                            ",
+       "                                                                            ",
+       "                                                                            ",
+       "                                                                            ",
+       "                                                                            ",
+       "                                                                            ",
+       "                                                                            ",
+       "                                                                            ",
+       "                                                                            ",
+       "                                                                            ",
+       "                                                                            ",
+       "                                                                            ",
+       "                                                                            ",
+       "                                                                            ",
+       "                                                                            ",
+       "                                                                            ",
+       "                                                                            ",
+       "                                                                            ",
+       "                                                                            ",
+       "                                                                            ",
+       "          #  #                                                              ",
+       "                                                                            ",
+       "                                                                            ",
+       "                                                                            ",
+       "                                                                            ",
+       "                                                                            ",
+       "                                                                            ",
+       "                                                                            ",
+       "                                                                            ",
+       "                                                                            "}
+itmap={"                                          ..   **                7          ",
+       "                                                             (              ",
+       "                                                                            ",
+       "                                                     &            !         ",
+       "                  # !                 #     * !     5 5 ,                   ",
+       "  ! ##         #  # !    !      ##             4                 /          ",
+       "            (              +   -                   2                        ",
+       "      $                        -         (         2          .  *          ",
+       "                   &           -             *     2             # #        ",
+       "           '               ,                       2                        ",
+       "                                         &#        2                        ",
+       "                                                                  (         ",
+       "                                     #                                      ",
+       "                                                                            ",
+       "                                     #   /    /                             ",
+       "          &                                                                 ",
+       "                                                                            ",
+       "        % !     )                       !                                   ",
+       "                                           /              ++                ",
+       "                                                                            ",
+       "                   +                                 6                      ",
+       "                   +      *             . .      !/  1                      ",
+       "                                                     6 #               ,    ",
+       "                  *                      0 0  +  2                          ",
+       "                                           !           ##                  &",
+       "                   +                                      # // // //8!      ",
+       "                   +                       2                             8 !",
+       "                                           2                        8   8 81",
+       "                  *                        2                             8  ",
+       "                                           2                     2228       ",
+       "                  *                        2                                ",
+       "                                           2                                ",
+       "                                               !                            ",
+       "                                           2                                ",
+       "                                           3                                ",
+       "                                                                            ",
+       "                                          1 !                               "}
+stmap={" $&(#                      ## 222    22!      !            Z  U             ",
+       "    ##   #     ###                A  22                     # UOO      ZZZZZ",
+       "    ### ###   ## ##         ##222 AA     AA .  # # ##  #    DU UO      Z   Z",
+       "    ######## ###  # .  .  . ##2A2 AAA    AA222 @           T# V?6          Z",
+       "    )   #  ###  ;    ;      ##222          2             9DD# U W O    Z   Z",
+       "    )   #  #       ; ;         %       AA  222    %          ^  I O    ZZZZZ",
+       "!% %)## #### ###### .  .  .     2)  ## AA                         OO        ",
+       "## ###       # ## #             )C  ####  HH##       6   6         OO       ",
+       "## ###.1222 #######             2     C#  HH#      6  6  Q 6 VVV  W O O     ",
+       "                          %           ##A5% ##   $           VBV  U         ",
+       "## ########6#######%      >            AA                    V!V  ! UUOO    ",
+       "## ########  # ## #%:      ##   2     AA                               OO   ",
+       "             ######        ##         EFFFFEEFFEFFEEFFEFF            (((((( ",
+       "                           ##   2 ##  FAAAA)AAALAKMKOOOOFO BBAAABB   (      ",
+       "                            4     DD  EA                 4   ABA     (      ",
+       "    **** 3    3 ****        ### 2 ##  FA           3N3)OOO   AAA     (  ((((",
+       "         4    4             #@# 2 $$  FA     JJJ   NK3     6         (  (   ",
+       "      /  3    3  =          ###       E)     JKJ   3N3  2296 BBB     (  (   ",
+       "         333333    *                  FA     JJJ        2R 6 BAB     (  (   ",
+       "      0         0  *            B ##  FAAAAAA     33333 22 6 BBB     (  (   ",
+       "        335335336           ### B #6  FFFFEFFA    33363    6         (  (   ",
+       "        3      36           #3# B ##   A'A'AFA    484 3 OOSSSSSSSS   (  (   ",
+       "     ++ 3      30<        % ### C   :  AAAAAFA    33363 PO6          8  8   ",
+       "        3  33  36: *                 C   G GFA    33333 OO6 33 22 AA 8  8   ",
+       "        3 3773 36  *                                   )) 6 33 22 AA XXYX   ",
+       "        3 3883 36                                         6           YXY   ",
+       "        3  9:  36                                                   S SS  $ ",
+       "     ,, 3      3<<                                                    SS   '",
+       "     -  3      36: *                                                S SS  $ ",
+       "        33!33!336  *                                                  SS    ",
+       "                 %                                                  9%      ",
+       "                                                                            ",
+       "                                                                            ",
+       "                                                                            ",
+       "                                             AKA                            ",
+       "                                         ( ( A.A                            ",
+       "                                         ( ( A3A                            "}
+create_world_by_map(level)
+draw_map(0,0,stmap,stones)
+draw_map(0,0,itmap,items)
+draw_map(0,0,acmap,actors)
+SetAttrib(enigma.GetItem(2,5),"text","text1")
+SetAttrib(enigma.GetStone(5,28),"on",FALSE)
+SetAttrib(enigma.GetItem(10,17),"text","text2")
+SetAttrib(enigma.GetItem(18,23),"invisible",FALSE)
+SetAttrib(enigma.GetItem(18,28),"invisible",FALSE)
+SetAttrib(enigma.GetItem(18,30),"invisible",FALSE)
+SetAttrib(enigma.GetItem(20,4),"text","text3")
+SetAttrib(enigma.GetItem(20,5),"text","text4")
+SetAttrib(enigma.GetItem(25,5),"text","text5")
+SetAttrib(enigma.GetItem(26,21),"invisible",FALSE)
+SetAttrib(enigma.GetItem(40,17),"text","text6")
+SetAttrib(enigma.GetItem(43,24),"text","text7")
+SetAttrib(enigma.GetItem(44,4),"invisible",FALSE)
+SetAttrib(enigma.GetItem(44,36),"text","text8")
+SetAttrib(enigma.GetItem(46,4),"text","text9")
+SetAttrib(enigma.GetItem(47,32),"text","text10")
+SetAttrib(enigma.GetItem(49,21),"text","text11")
+SetAttrib(enigma.GetStone(63,3),"on",FALSE)
+SetAttrib(enigma.GetItem(65,7),"invisible",FALSE)
+SetAttrib(enigma.GetItem(66,3),"text","text12")
+SetAttrib(enigma.GetItem(69,25),"text","text13")
+SetAttrib(enigma.GetItem(75,26),"text","hurry to san giorgio")
+
+if (not difficult) then
+set_floor("fl-swamp",2,6)
+set_floor("fl-swamp",2,7)
+set_floor("fl-swamp",2,8)
+set_floor("fl-swamp",2,10)
+set_floor("fl-swamp",2,11)
+set_floor("fl-bluegray",2,9)
+draw_floor("fl-bluegray",{2,12},{0,1},18)
+set_stone("st-black3",2,30)
+set_stone("st-brake",57,8)
+set_floor("fl-swamp",47,1)
+set_item("it-umbrella",8,16)
+SetAttrib(enigma.GetItem(75,27),"strength",3)
+SetAttrib(enigma.GetItem(75,27),"range",3)
+SetAttrib(enigma.GetItem(53,21),"strength",3)
+SetAttrib(enigma.GetItem(53,21),"range",3)
+SetAttrib(enigma.GetItem(42,36),"strength",3)
+SetAttrib(enigma.GetItem(42,36),"range",3)
+else
+draw_floor("fl-water",{2,6},{0,1},24)
+set_floor("fl-water",47,1)
+set_stone("st-glass_move",2,6)
+set_stone("st-chess_white",57,8)
+SetAttrib(enigma.GetItem(75,27),"strength",10)
+SetAttrib(enigma.GetItem(75,27),"range",10)
+SetAttrib(enigma.GetItem(53,21),"strength",10)
+SetAttrib(enigma.GetItem(53,21),"range",10)
+SetAttrib(enigma.GetItem(42,36),"strength",10)
+SetAttrib(enigma.GetItem(42,36),"range",10)
+end
+Signal ("it(44 4)","st(50 21)")
+Signal ("it(18 23)","st(13 20)")
+Signal ("it(18 28)","st(10 20)")
+Signal ("it(18 30)","st(14 16)")
+Signal ("it(42 36)","fl(42 24)")
+Signal ("it(53 21)","fl(11 16)")
+Signal ("it(75 27)","fl(44 35)")
+Signal ("st(17 17)","st(5 28)")
+Signal ("st(5 28)","st(5 28)")
+Signal ("it(65 7)","st(63 3)")
+Signal ("it(26 21)","st(28 14)")
+Signal ("it(45 8)","st(41 9)")
+Signal ("it(47 0)","st(57 14)")
+Signal ("it(48 0)","st(52 21)")
+
+oxyd_shuffle()
+ ]]></el:luamain>
+      <el:i18n>
+        <el:string el:key="title">
+          <el:english el:translate="true"/>
+		  <el:translation el:lang="de">Audienz in Venedig</el:translation>
+        </el:string>
+        <el:string el:key="subtitle">
+          <el:english el:translate="true"/>
+		  <el:translation el:lang="de">Drücke den Bodenschalter</el:translation>
+        </el:string>
+		<el:string el:key="text1">
+        <el:english el:translate="true">Welcome to Venice</el:english>
+        <el:translation el:lang="de">Willkommen in Venedig</el:translation>
+      </el:string> 
+		<el:string el:key="text2">
+        <el:english el:translate="true">Welcome to the Audience</el:english>
+        <el:translation el:lang="de">Willkommen nun zur Audienz!</el:translation>
+      </el:string> 		
+	  <el:string el:key="text3">
+        <el:english el:translate="true">rialto</el:english>
+        <el:translation el:lang="de">Rialtobrücke...</el:translation>
+      </el:string> 		
+	  <el:string el:key="text4">
+        <el:english el:translate="true">...under construction</el:english>
+        <el:translation el:lang="de">Baustelle!</el:translation>
+      </el:string> 		
+	  <el:string el:key="text5">
+        <el:english el:translate="true">try the bolders as gondola</el:english>
+        <el:translation el:lang="de">Nutze die Bolder als Gondeln</el:translation>
+      </el:string> 		
+	  <el:string el:key="text6">
+        <el:english el:translate="true">piazza san marco</el:english>
+        <el:translation el:lang="de">Markusplatz</el:translation>
+      </el:string> 		
+	  <el:string el:key="text7">
+        <el:english el:translate="true">danger</el:english>
+        <el:translation el:lang="de">Gefahr</el:translation>
+      </el:string> 		
+	  <el:string el:key="text8">
+        <el:english el:translate="true">san giorgio</el:english>
+        <el:translation el:lang="de">San Giorgio</el:translation>
+      </el:string> 		
+	  <el:string el:key="text9">
+        <el:english el:translate="true">guardian ducale</el:english>
+        <el:translation el:lang="de">Residenz der Palastwache</el:translation>
+      </el:string> 		
+	  <el:string el:key="text10">
+        <el:english el:translate="true">gondoliere on strike</el:english>
+        <el:translation el:lang="de">Gondoliere streiken!</el:translation>
+      </el:string> 		
+	  <el:string el:key="text11">
+        <el:english el:translate="true">palace ducale</el:english>
+        <el:translation el:lang="de">Dogenpalast</el:translation>
+      </el:string> 		
+	  <el:string el:key="text12">
+        <el:english el:translate="true">look at san michele</el:english>
+        <el:translation el:lang="de">Da drüben liegt San Michele</el:translation>
+      </el:string> 		
+	  <el:string el:key="text13">
+        <el:english el:translate="true">use the gondola below</el:english>
+        <el:translation el:lang="de">Unten die Gondel...Schick sie los!</el:translation>
+      </el:string> 		
+	   <el:string el:key="text14">
+        <el:english el:translate="true">hurry to san giorgio</el:english>
+        <el:translation el:lang="de">Auf nach San Giorgio...</el:translation>
+      </el:string> 		
+     </el:i18n>
+  </el:protected>
+</el:level>
