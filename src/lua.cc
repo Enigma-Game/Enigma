@@ -2054,6 +2054,23 @@ static int createWorld(lua_State *L) {
     }
     
     // TODO finalization of resolvers
+    lua_getfield(L, LUA_REGISTRYINDEX, LUA_ID_RESOLVER);
+    while (is_table(L, -1)) {
+        lua_rawgeti(L, -1, 2);      // get resolver finalization at index 2
+        if (!lua_isnil(L, -1)) {
+            lua_pushvalue(L, -2);       // duplicate table as resolver context
+            int retval=lua_pcall(L, 1, 0, 0);     // resolver(context,evaluator,key,x,y) ->  tile
+            if (retval!=0) {
+                throwLuaError(L, "Error within tile key resolver finalization");
+                return 0;
+            }
+        } else {
+            lua_pop(L, 1);  // nil
+        }
+        lua_rawgeti(L, -1, 3);      // get subresolver at index 3
+        lua_remove(L, -2);          // substitute current resolver table by subresolver
+    }
+    lua_pop(L, 1);   // final resolver
     
     lua_pushinteger(L, width);
     lua_pushinteger(L, height);

@@ -72,7 +72,7 @@ namespace enigma {
                 if (objFlags & OBJBIT_LIGHTNEWDIRS)  // currently enlighted?
                     GameTimer.set_alarm(this, calcInterval(), false);
             }
-        } else if ((state == ON || state == BLINK) && state == 0) {
+        } else if ((state == ON || state == BLINK) && extState == 0) {
             state = OFF;
             objFlags &= ~OBJBIT_SKATEDIR;  // NODIR
             if (isDisplayable())

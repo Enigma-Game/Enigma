@@ -303,7 +303,7 @@ function res.composer_implementation(context, evaluator, key, x, y)
         return tile
     end
     -- try to compose tile
-    for i = 1, #key do
+    for i = #key, 1, -1 do
         local subkey = string.rep(" ", i-1) .. string.sub(key, i, i) .. string.rep(" ", #key - i)
         local subtile = evaluator(context[3], subkey, x, y)
         if subtile == nil then
@@ -313,6 +313,13 @@ function res.composer_implementation(context, evaluator, key, x, y)
             tile = subtile
         else
             tile = tile .. subtile
+        end
+        if #key == 3 then
+            subkey = string.sub(key, 1, i-1) .. " " .. string.sub(key, i+1)
+            local subtile2 = evaluator(context[3], subkey, x, y)
+            if subtile2 ~= nil then
+                return subtile2 .. subtile
+            end
         end
     end
     return tile

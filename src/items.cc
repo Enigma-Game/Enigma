@@ -667,6 +667,9 @@ namespace
         // Object interface
         virtual std::string getClass() const;
 
+        // StateObject interface
+        virtual void setState(int extState);
+
         // GridObject interface
         virtual void processLight(Direction d);
         
@@ -689,6 +692,10 @@ namespace
         return "Coin";
     }
     
+    void Coin::setState(int extState) {
+        // ignore any state access
+    }
+
     void Coin::processLight(Direction d) {
         sound_event("itemtransform");
         switch (state) {
