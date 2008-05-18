@@ -39,6 +39,7 @@ build new levels using Lua and how to interact with the game engine.
 * Actor Objects::
 * Other Objects::               Rubberbands, etc.
 * Advanced Features::           Fire, ...
+* Extension Development::       Resolver, Library Development
 * Old API - Objects::           Description of all objects in Enigma
 * Old API - Variables::         Lua variables that influence the game
 * Old API - Functions::               Predefined functions
@@ -2878,15 +2879,15 @@ The name is a string that should be made up of characters @samp{a..z},
 @samp{A..Z}, numbers @samp{0..9} and the underscore @samp{_}. Other special
 charcters are only allowed as far as they are explained in the following text.
 
+@cindex auto naming
 It is up to you to ensure unique names. Reusage of an already assigned name
 will unname the prior object and assign the name to the new object. To simplify
 the naming of larger groups of similar objects you can add the hash sign 
 @samp{#} as the last character to a name, e.g. @samp{mydoor#}. This causes Enigma
-to add a unique number to the given string. The number will start with 1, the
-first unused number will be taken. Thus the first door will be named
-@samp{mydoor#1} the second one @samp{mydoor#2} and so on. If you delete the
-object named @samp{mydoor#2} lateron and if you name another object 
-@samp{mydoor#} it will be assigned the unused name @samp{mydoor#2}.
+to add a unique random number to the given string. Thus an auto named object
+will never unname another prior auto named object. But if you delete an 
+auto named object that has been named e.g. @samp{mydoor#132} the number and
+the same name may be assigned to another that is created lateron.
 
 All named objects are registered by the @dfn{named object} repository. The API
 provides a variable @samp{no} that allows you to retrieve any named object, e.g.
@@ -2905,6 +2906,31 @@ can provide a name string as a longterm valid object reference. If the attribute
 allows several objects to be given you can either give a group of object
 references, a table of object names or a object name with wildcards. Thus
 the string @samp{"mydoor#*"} is a valid target.
+
+@cindex nearest object
+Often switches are located near by their target object. As a major shortcut
+you can reference the nearest object out of a group by prefixing its name
+with an @samp{@@} character.
+
+@example
+ti["F"] = @{"st_floppy", target="@@door#*"@}
+ti["D"] = @{"st_blocker", name="door#"@}
+@end example
+
+With this tile declaration you can describe arbitrary number of floppy switches
+and nearby blocker doors in a world map all by the same two tile key characters.
+Every floppy switch will target the nearest blocker door. If two target are
+given within the same distance the one located in the south will win. If the
+targets are additionally horizontally aligned the one located in east will win.
+In the rare case of objects located on the same position stones will preceed
+items, floors and actors. The chosen target or destination depends just on the
+location of these objects and their type, but nothing else. Thus you can rely
+on a stable selection mechanism.
+
+By usage of this nearest object feature you can drastically reduce the number
+of needed tile declarations. @ref{Nearest Object Clustering} may help you in
+case of wrong selected equidistant targets. @ref{Auto Tiling} is another 
+feature for reducing the need of tile declarations.
 
 Another unique feature of object names is their late on access evaluation. This
 allows you to reference an object prior to its existence. E.g. if you want to
@@ -3100,7 +3126,7 @@ open a door named @samp{mydoor} you can write:
 
 Objects like the switch can be triggered on and off. Each time they will
 perform the action. If you would like the door to open and close in turn to
-the switch you another action than @samp{open}. The universal message for
+the switch you need another action than @samp{open}. The universal message for
 changing targets in their alternate states is @samp{toggle}.
 
 @example
@@ -3120,7 +3146,7 @@ both targeting the same door, you will have no clear relationship between the
 switch states and the door.
 
 As you remember messages can take a value. Action messages are no exception.
-Every objects sends its actions with a value, usually a bool value. A switch
+Every object sends its actions with a value, usually a bool value. A switch
 sends a value @samp{true} if it just switched on, and a value @samp{false} if
 it just switched off. The appropriate message for the door would be the 
 universal message @samp{signal}:
@@ -3132,11 +3158,11 @@ universal message @samp{signal}:
 Now the door will open when the switch is turned on and close if the switch is
 turned off.
 
-If you look at @ref{signal} you will notice that this messages takes an integer
-value of @samp{0} or @samp{1}. Indeed the action value does not match. But in
-this as in many other cases the messages and values are designed in a way that
-they are autoconverted to the appropriated type. This compatibility is the basis
-for a seamless plugging of objects.
+The message @ref{signal} takes an integer value of @samp{0} or @samp{1}. 
+Indeed the action value does not match. But in this as in many other cases 
+the messages and values are designed in a way that they are autoconverted to
+the appropriated type. This compatibility is the basis for a seamless plugging
+of objects.
 
 In many cases authors face the task of triggering two or more objects by a
 single object. @samp{target} and @samp{action} are both able to take 
@@ -3180,10 +3206,12 @@ like @ref{toggle}. Even two stated objects can be easily sychronized by the
 standard action @ref{signal}. But sometimes you may want to perform very state
 specific actions. Let us look how this can be done.
 
-E.g. a @ref{st_fourswitch} that switches two @ref{st_laser} beaming in 3 states
-but one of them being switched off while in @samp{EAST} state and the other being
-switched off while in @samp{WEST} state. This can be done by usage of state
-dependent target and actions:
+E.g. let us take an @ref{st_fourswitch}, that has four states, and two 
+@ref{st_laser} which should be switched on and off. Both lasers should emit
+their beams while the fourswitch is in 3 of its states. But one of them should
+be off just while the fourswitch is in the @samp{EAST} state and the other
+should be off just while the fourswitch is in the @samp{WEST} state. 
+This can be done by usage of state dependent target and actions:
 
 @example
 @{st_fourswitch, target_3="laser#2", action_3="on",
@@ -3312,7 +3340,7 @@ of the dynamite.
 
 Some objects do process internal state transformations that cannot be configured
 by attributes. But some of these states may be of interest on describing a
-snapshot of a level. Where possible special object subkinds exists with a suffix
+snapshot of a level. Where possible a special object subkind exists with a suffix
 of @samp{_new}. These objects can be used in the initial level description to
 set objects in special initial states. E.g. @ref{it_blocker} provides such a
 special subkind. Note that these objects will never report their initial
@@ -3346,6 +3374,9 @@ Read API Concept Draft
 * Enigma Lua Types::   
 * Object Definitions and Tiles::
 * Lua Positions::
+* World Creation and Resolver Chaining::
+* Custom Resolver::
+
 @end menu
 
 @c ----------------- Lua Example -------------------- 
@@ -3369,7 +3400,175 @@ Read API Concept Draft
 
 @node Lua Positions
 @section Lua Positions
+@c ----------------- World Creation and Resolver Chaining -------------------- 
 
+@node World Creation and Resolver Chaining
+@section World Creation and Resolver Chaining
+
+Once all parameters have been set and all tiles have been declared it is time
+to create the level world with all its objects. This is done by the following
+constructor that appears in two variations.
+
+@table @asis
+@item @b{Syntax:}
+width, height = @b{wo}(@i{topresolver}, @i{defaultkey}, @i{map})
+
+width, height = @b{wo}(@i{topresolver}, @i{defaultkey}, @i{width}, @i{height})
+
+@table @asis
+@item @i{topresolver} = @code{ti} | @i{resolver} | @i{localresolver}
+Every tile in the world is given by a key that needs to be resolved to its
+declaration. This can be done either by the tiles repository @samp{ti}, or
+by given library @ref{Resolvers} or by local @ref{Custom Resolver} function.
+This argument takes the top resolver that is requested first.
+@item @i{defaultkey}
+A string that defines the key that should be taken as default. It is taken
+if no other key is given and it is added to a tile if a floor object is
+missing. The character length of this key defines the key size within the map
+@item @i{map}
+A table of strings. Each string describes a row of tiles by its tile keys.
+If a map is given, the worlds size is determined from the longest string and
+the number of rows.
+@item @i{width}
+As an argument that is given instead of a map it describes the width of the
+desired world.
+@item @i{height}
+As an argument that is given instead of a map it describes the height of the
+desired world.
+@end table
+
+@item @b{Syntax Samples:}
+@example
+w, h = wo(ti, "  ", 20, 13)
+w, h = wo(resolver, " ", {
+       "                    ",
+       ...
+       "                    "})
+@end example
+
+@item @b{Details:}
+This world constructor may just be called once. Every subsequent call causes
+an error. This call sets the size of the world to fixed values that are reported
+by its two return values. The world size can lateron be retrieved by the world
+attributes @ref{Width} and @ref{Height}, too.
+
+A mapless world is filled with default tiles. Rows in a given map that are
+shorter than others are filled with default tiles, too. Any tile that does
+not define a floor object will add the floor object of the default tile.
+
+Every key is resolved to its tile declaration via the given resolver chain.
+The top resolver is given to this call as a parameter. If it is @samp{ti} the
+chain consists just of one element and the tile delaration stored in the tiles
+repository at the given key is taken. But there exist several useful 
+@ref{Resolvers} that may simplify the task of level writing or provide dynamic
+features like randomness, mazes, etc. If you like to use one or several of them
+you provide the instance of the resolver to be requested first in this 
+constructor. The instance that should be requested next is set in the top
+resolver as first argument, and so on. The last library resolver takes usually
+@samp{ti} as its subresolver. For even more flexibility you can provide an
+own @ref{Custom Resolver} function within the level to take influence on the key
+interpretation. This function has to be the last resolver in the chain.
+
+@item @b{Example:}
+@example
+ti["~"] = @{"fl_water"@}
+ti["s"] = @{"fl_sahara"@}
+ti["t"] = @{"fl_tigris"@}
+ti["1"] = @{"ac-blackball", 0, 0.5@}
+
+ti["template_trigger"] = @{"it_trigger", target="myoxyd%%", action="open"@}
+ti["template_oxyd"]    = ti["~"] .. @{"st_oxyd", "myoxyd%%"@}
+
+myrandom = res.random(ti, " ", @{"s", "t"@})
+
+myautotile = res.autotile(myrandom, @{"a", "h", "template_trigger"@}, 
+                              @{"A", "H", "template_oxyd"@})
+                                    
+w, h = wo(myautotile, " ", @{
+"A~                ~E",
+"~~                ~~",
+"~~   h        b   ~~",
+"~~                ~~",
+"B~     c    d     ~F",
+"~~                ~~",
+"~~        1       ~~",
+"~~                ~~",
+"C~     f    e     ~G",
+"~~                ~~",
+"~~   g        a   ~~",
+"~~                ~~",
+"D~                ~H"
+@})
+
+wo:shuffleOxyd()
+@end example
+@end table
+
+@c ----------------- Custom Resolver -------------------- 
+
+@node Custom Resolver
+@section Custom Resolver
+
+A customer resolver is a function in the level that allows a dynamic remapping
+of tiles. When this function is registered in the resolver chain it is called
+once for every tile to be set. The tile that this function return will be set.
+
+Typical use cases are design patterns that are easy to calculate, but tedious
+to draw in the map and dynamic generated levels that differ slightly on every
+restart.
+
+@table @asis
+@item @b{Syntax:}
+tile = @b{myresolver}(@i{key}, @i{x}, @i{y})
+
+@table @asis
+@item @i{key}
+String that contains the tile key to be resolved.
+@item @i{x}
+The world x coordinate of the tile.
+@item @i{x}
+The world y coordinate of the tile.
+@end table
+
+@item @b{Example:}
+@example
+ti["r"] = @{"fl_rough_red"@}
+ti["b"] = @{"fl_rough_blue"@}
+ti["1"] = @{"#ac-blackball"@}
+
+ti["x"] = @{"it_cross"@}
+
+function myresolver(key, x, y)
+    if key == " " then
+        local center = ((x%3) * (y%3))%2 
+        local checker = ((math.modf(x/3) %2) + (math.modf(y/3) %2))%2
+        if center + checker == 1 then
+            return ti["r"]
+        else
+            return ti["b"]
+        end
+    else
+        return ti[key]
+    end
+end
+
+w, h = wo(myresolver, " ", @{
+"                    ",
+"                    ",
+"                    ",
+"      x x           ",
+"       x            ",
+"      x x           ",
+"                    ",
+"          1         ",
+"                    ",
+"                    ",
+"                    ",
+"                    ",
+"                    "
+@})
+@end example
+@end table
 
 @c ===================  Commons  =======================
 @node Common Attributes and Messages
@@ -3545,12 +3744,29 @@ This attribute is only writable for objects that exist in both variations.
 @section Global Attributes
 
 @menu
+* Height::
 * IsDifficult:: 
 * MagnetRange:: 
-* MagnetStrength:: 
+* MagnetStrength::
+* Width::
 * WormholeRange:: 
 * WormholeStrength:: 
 @end menu
+
+@node Height
+@subsection Height
+
+A global read only variable reports the height of the the world in grid units.
+This is set by the initial world constructor call 
+(@pxref{World Creation and Resolver Chaining}).
+
+@table @asis
+@item @b{Type:} @ @ number
+@item @b{Values:} @ @ positiv integer number
+@item @b{Default:} @ @ @code{?}
+@item @b{Access:} @ @ read only
+@item @b{Support:} @ @ object independent
+@end table
 
 @node IsDifficult
 @subsection IsDifficult
@@ -3596,6 +3812,21 @@ value is only used if no object specific value is set.
 Positve number are attracting, negative numbers are repelling.
 @item @b{Access:} @ @ read/write
 @item @b{Support:} @ @ @ref{it_magnet}
+@end table
+
+@node Width
+@subsection Width
+
+A global read only variable reports the width of the the world in grid units.
+This is set by the initial world constructor call 
+(@pxref{World Creation and Resolver Chaining}).
+
+@table @asis
+@item @b{Type:} @ @ number
+@item @b{Values:} @ @ positiv integer number
+@item @b{Default:} @ @ @code{?}
+@item @b{Access:} @ @ read only
+@item @b{Support:} @ @ object independent
 @end table
 
 @node WormholeRange
@@ -5140,10 +5371,10 @@ sequence, otherwise the first one closes again.
 
 Even though most levels make use of just a single pair of each color, there
 is no limit on a single color. If you like you can define 3 blue pairs of oxyds
-together with 2 yellow pairs. You do this by setting explicit @samp{color}
+together with 2 yellow pairs. You do this by setting explicit @samp{oxydcolor}
 attributes to the oxyds.
 
-For standard levels the @samp{color} can be set to its default @samp{OXYD_AUTO}.
+For standard levels the @samp{oxydcolor} can be set to its default @samp{OXYD_AUTO}.
 This causes an automatic coloring by pairs of colors in the standard color
 sequence.
 
@@ -5206,7 +5437,7 @@ closed state and the way of opening differ in the following way:
 @item @code{"c"} blue, flat stone that opens by a concentric animation
 @item @code{"d"} dark blue, pyramid like stone that opens like a flower
 @end table
-@item @b{color}, @ @ @i{values}: @code{OXYD_AUTO}, @code{OXYD_FAKE}, @code{OXYD_FART}, @code{OXYD_BOLD}, @code{OXYD_BLUE}, @code{OXYD_RED}, @code{OXYD_GREEN}, @code{OXYD_YELLOW}, @code{OXYD_CYAN}, @code{OXYD_PURPLE}, @code{OXYD_WHITE}, @code{OXYD_BLACK}, ; @ @ @i{default}: @code{OXYD_AUTO}
+@item @b{oxydcolor}, @ @ @i{values}: @code{OXYD_AUTO}, @code{OXYD_FAKE}, @code{OXYD_FART}, @code{OXYD_BOLD}, @code{OXYD_BLUE}, @code{OXYD_RED}, @code{OXYD_GREEN}, @code{OXYD_YELLOW}, @code{OXYD_CYAN}, @code{OXYD_PURPLE}, @code{OXYD_WHITE}, @code{OXYD_BLACK}, ; @ @ @i{default}: @code{OXYD_AUTO}
 @item @b{noshuffle} @ @ @i{values}: @code{true}, @code{false}; @ @ @i{default}: @code{false}
 @item @b{static} @ @ @i{values}: @code{true}, @code{false}; @ @ @i{default}: @code{false}
 Static oxyds are neither swappable nor pullable.
@@ -5539,13 +5770,578 @@ Try to tear the opposite window face into the given direction.
 @chapter Advanced Features
 
 @menu 
-* Oxyd Shuffling Rules::       
+* World Advanced Methods::  Additional features provided by the world
+* Resolvers::               Standard tools for interpretation of tile maps
+* Tips and Tricks::         Simple patterns that are valuable like a feature
 @end menu
 
-@node Oxyd Shuffling Rules
-@section Oxyd Shuffling Rules
+@node World Advanced Methods
+@section World Advanced Methods
+
+@menu 
+* wo:shuffleOxyd::  Oxyd Shuffling Rules
+* wo:drawMap::      
+@end menu
+
+@c ----------------- shuffleOxyd -------------------- 
+@node wo:shuffleOxyd
+@subsection wo:shuffleOxyd
 
 Read API Concept Draft
+
+Work in progress!
+
+@table @asis
+@item @b{Syntax:}
+
+@b{wo:shuffleOxyd}(@i{rules})
+
+@table @asis
+@item @i{rules} = @i{rule}, @i{rule},...
+No rule or as many as you like, all seperated by a comma.
+@item @i{rule} = @{@i{group1}, @i{group2}, @i{maxrule}, @i{minrule}, @i{circularrule}, @i{linearrule}, @i{logrule}@}
+Each rule is a table with a subset of the listed entries. The @i{group1} entry
+is mandatory. All other entries are optional and can be added in any combination.
+@item @i{group1} = @i{group} | @i{objectreference} | @i{objectspecifier}
+A description of oxyd objects that are part of the first rule group. Either
+a group or a single object reference or a string specifier that resolves to a
+single or via wildcard to several oxyd objects are legal descriptors.
+@item @i{group2} = @i{group} | @i{objectreference} | @i{objectspecifier}
+A description of oxyd objects that are part of the second rule group. Either
+a group or a single object reference or a string specifier that resolves to a 
+single or via wildcard to several oxyd objects are legal descriptors.
+@item @i{maxrule} = @code{max = }@i{number}
+The maximum number of oxyd pairs.
+@item @i{minrule} = @code{min = }@i{number}
+The minimum number of oxyd pairs.
+@item @i{circularrule} = @code{circular = true}
+Avoid any pair of neighboring oxyds in group1. Avoid an oxyd pair of first and
+last oxyd in group1, too.
+@item @i{linearrule} = @code{linear = true}
+Avoid any pair of neighboring oxyds in group1.
+@item @i{logrule} = @code{log = } @ @  @code{"solution"} |@code{"count"} |@code{"all"} 
+Log additional information to the log stream for debugging purposes and 
+security checks by the level author.
+@end table
+
+@item @b{Syntax Samples:}
+@example
+wo:shuffleOxyd()
+wo:shuffleOxyd(@{"borderoxyds#*", circular=true@})
+wo:shuffleOxyd(@{"leftoxyds#*","rightoxyds#*", min=3@}, @{"islandoxyds#*", max=0@})
+@end example
+
+@item @b{Details:}
+
+@item @b{Full Example:}
+@example
+@end example
+@end table
+
+@c ----------------- drawMap -------------------- 
+@node wo:drawMap
+@subsection wo:drawMap
+
+
+@node Resolvers
+@section Resolvers
+
+@menu 
+* res.autotile::  Generate tiles from given template declarations
+* res.composer::  Compose tiles from given base tiles
+* res.maze::      Generate arbitrary chaped mazes
+* res.random::    Choosing random tiles in a given distribution
+@end menu
+
+@c ----------------- Autotile Resolver -------------------- 
+
+@node res.autotile
+@subsection res.autotile
+
+Autotiling reduces the number of required tile declarations by generating them
+according to given simple rules. The most common application are a bunch of
+identical switch like objects that target all target the same type of object
+like a door or a laser. As each of them has its individual target object it
+would require to write a separate tile declaration with a unique tile key, e.g.
+
+@example
+ti["A"] = @{"st_floppy", target="laserA"@} 
+ti["B"] = @{"st_floppy", target="laserB"@} 
+ti["C"] = @{"st_floppy", target="laserC"@} 
+ti["a"] = @{"st_laser", name="laserA"@} 
+ti["b"] = @{"st_laser", name="laserB"@} 
+ti["c"] = @{"st_laser", name="laserC"@} 
+@end example
+
+Autotiling requires just one template tile of each type and substitutes any
+pattern @samp{%%} by a unique substitution.
+
+@example
+ti["template_switch"] = @{"st_floppy", target="laser%%"@} 
+ti["template_laser"]  = @{"st_laser", name="laser%%"@} 
+@end example
+
+Independent on the number of required unique objects you have just one template.
+You just declare the used ranged of tile keys by a rule and are free to use
+them within your level map.
+
+@table @asis
+@item @b{Syntax:}
+
+@b{res.autotile}(@i{subresolver}, @i{rules})
+
+@table @asis
+@item @i{subresolver}
+Resolver to which unresolved requests should be forwarded. May be @samp{ti}
+as the final resolver of the resolver chain.
+@item @i{rules} = @i{rule}, @i{rule},...
+One rule or as many as you like, all seperated by a comma.
+@item @i{rule} = @i{prefixrule} | @i{rangerule}
+Each rule can be either a prefixrule or a rangerule in any mixture
+@item @i{prefixrule} = @{@i{prefix}, @i{template}@}
+A table with two entries. First a prefix string that is common to all tile
+keys that should be handeled followed by key string of the template tile.
+@item @i{rangerule} = @{@i{first}, @i{last}, @i{template}@}
+A table with three entries. A string with the first key to be handled, followed
+by a string with the last key to be handled. The third value is the key string
+of the template tile.
+@end table
+
+@item @b{Syntax Samples:}
+@example
+res.autotile(ti, @{"A", "template_switch"@}, @{"L", "template_laser@})
+res.autotile(ti, @{"a", "e", "template_trigger@}, @{"A", "E", "template_door"@}
+@end example
+
+@item @b{Details:}
+Prefix rules need a key length of at least 2. You can not use it with maps
+of just one character per tile. The resolver will create a tile declaration for
+any tile key in the map that matches the given prefix. A copy of the template
+will be taken and all occurences of the two characters @samp{%%} will be
+substituted by a single percent sign followed by the suffix of the used tile
+key. Thus a key of @samp{AD} will target the laser @samp{laser%D}. You need to
+use the key @samp{LD} in the map for the matching laser.
+
+Rangerules match any tile key in the given range. It can well be used in one
+character key maps. But it can be used in multicharacter maps, too. In this case
+the given first and last keys may just differ in the last character. Again a
+copy of the template rule will be generated and the @samp{%%} patterns will be
+substituted. But in this case the substitution is composed of a single percent
+sign followed by an interger number that counts the key position within the
+given range. Thus a key of @samp{c} will target the door @samp{door%3}. 
+You need to use the key @samp{C} in the map for the matching door.
+
+The template tile definitions can well be composed of several concatenated 
+tiles even with references of base tiles. The pattern substitution takes place
+on any attribute value containing string descriptions. A valid template would
+be:
+@example
+ti["template"] = ti["~"] .. ti(@{"it_trigger", target=@{"door%%#*","laser%%"@}@}) .. @{"st_grate1"@}
+@end example
+
+@item @b{Full Example:}
+@example
+ti[" "] = @{"fl-sahara"@}
+
+ti["template_a"] = @{"st_floppy", target=@{"door%%#*","laser%%"@}@}
+ti["template_A"] = @{"st_blocker", "door%%#"@}
+ti["template_1"] = @{"st_laser_s", "laser%%"@}
+
+ti["x"] = @{"#ac-blackball"@} .. ti(@{"it_floppy"@})
+
+local resolver = res.autotile(ti, @{"a", "e", "template_a"@}, 
+    @{"A", "E", "template_A"@},  @{"1", "5", "template_1"@})
+
+w, h = wo(resolver, " ", @{
+"                    ",
+"                    ",
+"   a   DB  e    BC  ",
+"                    ",
+"   CD  b   AE   c   ",
+"                    ",
+"   d   EA           ",
+"                    ",
+"           x        ",
+"                    ",
+"                    ",
+"   4  2  5  1  3    ",
+"                    "
+@})
+@end example
+@end table
+
+@c ----------------- Composer Resolver -------------------- 
+
+@node res.composer
+@subsection res.composer
+
+The composer resolver reduces the number of required tile declarations by
+geneating them by composition of base tiles. Small motley levels and nearly
+every large level will use many different objects in numerous tile compositions.
+As the usable one character tile key candidates will not suffice you will need
+to use two or three character tile keys. But you will need numerous tile
+declarations, one for every used object combination.
+
+The composer frees you from declaring every used combination. You just declare
+the base objects, e.g. the floors and all stones, items, actors and use 
+combinations of these base tiles keys. The composer constructs the required
+tile declarations on the fly. E.g. with the following base tile declarations:
+
+@example
+ti[" ."] = @{"fl_space"@}
+ti[" ~"] = @{"fl_water"@}
+ti["X "] = @{"st_grate"@}
+ti["h "] = @{"it_hammer"@}
+@end example
+
+You can freely use any of the additional combination like @code{"X."} - a grate
+on space, @code{"X~"} - a grate on water, @code{"h."} - a hammer on space, 
+@code{"h~"} - a hammer on water.
+
+@table @asis
+@item @b{Syntax:}
+
+@b{res.composer}(@i{subresolver})
+
+@table @asis
+@item @i{subresolver}
+Resolver to which unresolved requests should be forwarded. May be @samp{ti}
+as the final resolver of the resolver chain.
+@end table
+
+@item @b{Syntax Samples:}
+@example
+res.composer(ti)
+@end example
+
+@item @b{Details:}
+For every key in the map the subresolver will be first requested for a tile
+declaration. Thus any given declaration will preceede the auto composition.
+
+Just in case that no declaration exists the search starts for existing subkey
+tiles. Subkeys are keys with some characters replaced by a whitespace @samp{ }.
+For all key lengths the basic subkeys with just one character different from a
+whitespace will be examined. Additional just for three character key length
+the three keys with just one whitespace replacement and two remaining 
+original characters will be examined and these compositions will preceed the
+composition of three one character tiles.
+
+Thus for the key @code{"h~"} the composer will look for @code{"h "} and 
+@code{" ~"}. For the three character key @code{"#h~"} The compser will look for
+@code{"#h "} plus @code{"  ~"}, @code{"# ~"} plus @code{" h "}, @code{" h~"}
+plus @code{"#  "} and finally @code{"#  "} plus @code{" h "} plus @code{"  ~"}.
+For the 4 character key @code{"A#h~"} the compser will just look for 
+@code{"A   "} plus @code{" #  "} plus @code{"  h "} plus @code{"   ~"}. The
+same holds for any larger key length.
+
+It is recommended to add the composer resolver behind most other library
+resolvers in the resolver chain.
+
+@item @b{Full Example:}
+@example
+ti["  "] = @{"fl_sahara"@}
+ti[" ="] = @{"fl_tigris"@}
+ti[" ."] = @{"fl_abyss"@}
+ti[" ~"] = @{"fl_water"@}
+ti[" ;"] = @{"fl_leaves"@}
+
+ti["# "] = @{"st_rock1"@}
+ti["W "] = @{"st_wood"@}
+ti["X "] = @{"st_oxyd"@}
+ti["G "] = @{"st_grate1"@}
+
+ti["2 "] = @{"it_coin_s"@}
+ti["s "] = @{"it_seed"@}
+ti["c "] = @{"it_cherry"@}
+ti["h "] = @{"it_hammer"@}
+
+ti["k "] = @{"it_key"@} .. ti(@{"st_glass1"@})
+
+ti["xx"] = @{"#ac-blackball"@} 
+
+local resolver = res.composer(ti)
+
+w, h = wo(resolver, "  ", @{
+"                                        ",
+"  h= ;W;2;c G~ ~# #.2.X X~k=k;          ",
+"                                        ",
+"  2;s;    2.s.    2=s=                  ",
+"  c;h;    c.h.    c=h=    xx            ",
+"                                        "
+@})
+@end example
+
+@end table
+
+
+@node res.maze
+@subsection res.maze
+
+@node res.random
+@subsection res.random
+
+
+
+
+@node Tips and Tricks
+@section Tips and Tricks
+
+@menu 
+* Nearest Object Clustering::    When nearest object address wrong target
+@end menu
+
+@node Nearest Object Clustering
+@subsection Nearest Object Clustering
+
+The nearest object as described in @ref{Object Naming} provides a major feature
+for reducing the number of needed tile declarations. As the selection needs
+to be unique a rule had to be defined in case of equal distances. South wins, 
+then East, Stone are favored to Items, Floors and Actors.
+
+In most cases level authors can arrange their objects to fit these rules. But
+sometimes the level design does not allow the straight forward usage of a
+simple nearest object selection. E.g.
+
+@example
+ti["F"] = @{"st_floppy", target="@@door#*"@}
+ti["D"] = @{"st_blocker", name="door#"@}
+wo{ti, " ", {
+"       B            ",
+"       FB#####FB####",
+"       # F    B     ",
+"       # #    F#####",
+@end example
+
+In both cases the floppy switch that is located at the crossing of to blocker
+doors will open the false one.
+
+But you can use a cluster concept like the one we introduced for
+@ref{Cluster Stones}. Just add one or in rare cases two or three additional
+groups. Assign all standard cases to group A and the out of line cases in 
+group B:
+
+@example
+ti["F"] = @{"st_floppy", target="@@doorA#*"@}
+ti["D"] = @{"st_blocker", name="doorA#"@}
+ti["f"] = @{"st_floppy", target="@@doorB#*"@}
+ti["d"] = @{"st_blocker", name="doorB#"@}
+wo{ti, " ", {
+"       b            ",
+"       fB#####fb####",
+"       # F    B     ",
+"       # #    F#####",
+@end example
+
+By clustering the doors in two groups you just need two additional tile
+declarations. But you will likely be able to handle a dozen of additional
+switch/door combinations.
+
+
+
+@c ==================  Extension Development  =======================
+
+@node Extension Development
+@chapter Extension Development
+
+@menu 
+* Resolver Development::    
+@end menu
+
+@node Resolver Development
+@section Resolver Development
+
+Resolvers are designed to provide easy pluggable extensions for usage by level 
+authors. Furtheron resolvers should be as flexible as possible. To reach these
+goals each resolver consists of three parts: the configurator, the implemention
+and the finalizer.
+
+@menu 
+* Resolver Configurator::      
+* Resolver Implementation::      
+* Resolver Finalizer::      
+@end menu
+
+
+@node Resolver Configurator
+@subsection Resolver Configurator
+
+The configurator is the function that is being called, when the author
+supplies the resolver specific parameters.
+
+@table @asis
+@item @b{Syntax:}
+context = @b{res.resolvername}(@i{subresolver},...)
+
+@table @asis
+@item @i{subresolver}
+Resolver to which unresolved requests should be forwarded. May be @samp{ti}
+as the final resolver of the resolver chain.
+@end table
+
+@item @b{Details:}
+This function has just one mandatory paramenter, the subresolver. You are free
+to specify arbitrary further parameters due to the needs of the resolvers task.
+
+All official resolvers will be registered in the registry table @samp{res} under
+their official name:
+
+@example
+function res.composer(subresolver)
+    ...
+end
+@end example
+
+This configurator function will be called just once per level start. It is 
+called after the tile declarations and before the first tile is set and the
+implementation part may be called.
+
+It is the task of the configurator function to check the user supplied
+parameters thoroughly and to provide appropriate error messages on bad
+parameters. Do this with an lua error message call at level 2:
+@example
+error("Resolver autotile rule " .. i.." is not a table", 2)
+@end example
+
+The configuration function has to return a table that contains the context
+for subsequent calls of the implementation. This table has three predefined
+entries:
+
+@table @asis
+@item @b{[1]} = @i{implementation function}
+@item @b{[2]} = @i{finalizer function}
+@item @b{[3]} = @i{subresolver}
+@item @b{...} = resolver specific additional entries
+@end table
+
+All the checked and preprocessed parameters have to be stored in this context
+table for later usage. The resolver implementation function is usually 
+registered as @samp{res.resolvername_implementation}. The finalizer can be
+@samp{nil} if no finalization is necessary. The subresolver given as the
+first parameter of the configurator call needs to be the third context
+table entry.
+
+@item @b{Full Example:}
+@example
+function res.composer(subresolver)
+    local context = @{res.composer_implementation, nil, subresolver@}
+    return context
+end
+@end example
+@end table
+
+@node Resolver Implementation
+@subsection Resolver Implementation
+
+When the map gets evaluated on the world creation the top resolver is asked
+for every key to return the valid tile declaration. This is done with the
+following call.
+
+@table @asis
+@item @b{Syntax:}
+tile = @b{resolver_implementation}(@i{context}, @i{evaluator}, @i{key}, @i{x}, @i{y})
+
+@table @asis
+@item @i{context}
+The context as provided as return value by the @ref{Resolver Configurator}.
+@item @i{evaluator}
+A system function that needs to be called whenever this resolver needs to
+look up the key by its subresolver.
+@item @i{key}
+The key string that should be resolved
+@item @i{x}, @i{y}
+The position of the tile.
+
+@item @b{Details:}
+Based on the given parameters, the key, the position, the resolver parameters
+stored in the context and the existing tiles that can be requested via the
+evaluator function the implementation needs to decide if it takes influence on
+the key. Note that it is not possible to access any world object via its
+coordinate at this time. On every call you have to assume that it may be the
+first tile that is set.
+
+If the key is not resolved to a final tile by this resolver, the subresolver
+must be called via the evaluator function:
+@example
+local tile = evaluator(context[3], key, x, y)
+@end example
+
+Remember that the subresolver is stored at position 3 of the context. As no
+influence should be taken this tile is the one that should be returned.
+
+But if you want to return another tile you are free to do it. You can decide
+on another key and ask the subresolver for the appropriate tile. You can
+even concatenate two tiles returned by subsequent subresolver calls. You are
+allowed to return a new tile with a table declaration of an object. Some valid
+return statements:
+@example
+return evaluator(context[3], "a", x, y)
+return evaluator(context[3], "a", x, y) .. evaluator(context[3], "b", x, y)
+return evaluator(context[3], "a", x, y) .. ti({"st_laser_n", state=ON})
+@end example
+
+You are even allowed to add new tile declartions to the tiles repository to
+speed up subsequent calls:
+@example
+ti["newkey"] = evaluator(context[3], "a", x, y) .. ti({"st_laser_n", state=ON})
+@end example
+
+A resolver implementation can store and modifiy any of its private parameters
+in the context table for subsequent calls. Especially it can enlist all 
+coordinates for postprocessing operations in the finalizer.
+
+@item @b{Full Example:}
+The implementatio of the composer (without the special 3 character key treatment)
+@example
+function res.composer_implementation(context, evaluator, key, x, y)
+    local tile = evaluator(context[3], key, x, y)
+    if tile ~= nil then
+        return tile
+    end
+    -- try to compose tile
+    for i = 1, #key do
+        local subkey = string.rep(" ", i-1) .. string.sub(key, i, i) .. string.rep(" ", #key - i)
+        local subtile = evaluator(context[3], subkey, x, y)
+        if subtile == nil then
+            return nil
+        end
+        if tile == nil then
+            tile = subtile
+        else
+            tile = tile .. subtile
+        end
+    end
+    return tile
+end
+@end
+
+@node Resolver Finalizer
+@subsection Resolver Finalizer
+
+If the @ref{Resolver Configurator} provides a finalizer function in its context
+this function will be called once when all tiles from the map have been set.
+
+@table @asis
+@item @b{Syntax:}
+@b{resolver_finalization}(@i{context})
+
+@table @asis
+@item @i{context}
+The context as provided as return value by the @ref{Resolver Configurator}.
+@end table
+
+@item @b{Details:}
+The finalization functions of chained resolvers are called from top to bottom.
+
+Many resolvers have no need of a finalization. But some like a maze constructor
+need to know all participating tiles until they can do their final work.
+
+As all tiles from the map have been processed the objects can now be accessed.
+Further information may be stored in the resolvers context.
+
+The finalizer does neither call its subresolver nor does it return a value.
+@end table
+
+@c ===================  Old API - Objects  =======================
 
 @node Old API - Objects
 @chapter Old API - Objects
