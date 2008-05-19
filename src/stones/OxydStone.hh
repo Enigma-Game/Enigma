@@ -64,6 +64,7 @@ namespace enigma {
     public:
         enum RuleType {RULE_SINGLE_MIN, RULE_SINGLE_MAX, RULE_PAIR_MIN, RULE_PAIR_MAX};
         enum Color {BLUE = 0, RED, GREEN, YELLOW, CYAN, PURPLE, WHITE, BLACK, 
+            GREY, ORANGE, PINE, BROWN,
             COLORCOUNT,
             AUTO = -1,
             FAKE = -2,

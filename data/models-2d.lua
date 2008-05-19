@@ -1195,7 +1195,7 @@ end
 do
     local fg_window = {blue = DefSubimages("st_window_blue", {modelname="fg-window_blue",w=4,h=4}),
                        green = DefSubimages("st_window_green", {modelname="fg-window_green",w=4,h=4}) }
-    local sh_windowx = DefSubimages("sh_window", {modelname="sh-windowx",w=2,h=4,imgw=ShadowSize,imgh=ShadowSize})
+    local sh_window = DefSubimages("sh_window", {w=2,h=4,imgw=ShadowSize,imgh=ShadowSize})
     local breaking_images = {blue = DefSubimages("st_window_blue_break", {h=4}),
                              green = DefSubimages("st_window_green_break", {h=4})}
 
@@ -1209,12 +1209,12 @@ do
     --    represented as "0, 1, 2" in a table).
     -- 2) Using the table of all possible combinations, all images
     --    and animations of the window stones are constructed.
-    -- Step 1 works as follows: We start with direction 1 (North),
-    -- and all three possibilities for shadows to the North. At this
-    -- point, the images for shadows to North only are build.
-    -- As next, for each of the three North-possibilities, we
-    -- construct the East-possibilities, i.e. we now have 3*3 combinations
-    -- and 3*3-1 shadow-images. We continue with South and West.
+    -- Step 1 works as follows: We start with direction 1 (West),
+    -- and all three possibilities for shadows to the West. At this
+    -- point, the images for shadows to West only are build.
+    -- As next, for each of the three West-possibilities, we
+    -- construct the South-possibilities, i.e. we now have 3*3 combinations
+    -- and 3*3-1 shadow-images. We continue with East and North.
     -- The table "all_combinations" is after each pass of the "direction"-loop:
     --  0) {{}}
     --  1) {{0}, {1}, {2}}
@@ -1225,7 +1225,7 @@ do
     -- scratched_faces (to be exactly, the numbers binarily represent
     -- the existence of the face).
     local all_combinations = {{normal_faces = 0, scratched_faces = 0}}
-    DefAlias("sh-windowx0-0", "invisible")
+    DefAlias("sh_window0-0", "invisible")
     local base = {0, 1, 2}
     for direction = 1, 4 do
         local next_list = {}
@@ -1253,9 +1253,9 @@ do
                     end
                     -- Now compose the shadow image.
                     display.DefineComposite(
-                            "sh-windowx"..name(new_combination, "-"),
-                            "sh-windowx"..name(old_combination, "-"),
-                            "sh-windowx"..(direction + ({0,4})[new_digit]))
+                            "sh_window"..name(new_combination, "-"),
+                            "sh_window"..name(old_combination, "-"),
+                            "sh_window"..(direction + ({0,4})[new_digit]))
                 end
             end
         end
@@ -1272,7 +1272,7 @@ do
             -- Normal stone (= not breaking)
             DefShModel("st_window_"..color..name2,
                        "fg-window_"..color..(total_faces + 1),
-                       "sh-windowx"..name1)
+                       "sh_window"..name1)
             -- Breaking animation
             local breaking_window_names = {}
             for j = 1, table.getn(breaking_images[color]) do
@@ -1286,7 +1286,7 @@ do
             DefAnim("st-window_"..color..name2.."_anim_fg", frames)
             DefShModel("st_window_"..color..name2.."_anim",
                        "st-window_"..color..name2.."_anim_fg",
-                       "sh-windowx"..name1);
+                       "sh_window"..name1);
         end
     end
 end
@@ -1308,18 +1308,17 @@ end
 -- them automatically.
 
 do
-    local colorspots = FrameNames("st-oxydbtempl", 2,9)
-    AddFrameNames(colorspots, "st-oxydbtempl", 96,97)
-    local openovls = FrameNames("st-oxydbtempl", 10,14)
+    local num_colors = 12
+    local colorspots = FrameNames("st-oxyd-color", 1, num_colors)
+    AddFrameNames(colorspots, "st-oxyd-color", 96, 97)
+    local blink_ovls = FrameNames("st-oxyd-blink", 1, 5)
     local pseudospots = {}
-    pseudospots[-3] = FrameNames("st-oxydbtempl", 101,104)
-    pseudospots[-4] = FrameNames("st-oxydbtempl", 111,118)
-
+    pseudospots[-3] = FrameNames("st-oxyd-pseudo-3", 1, 4)
+    pseudospots[-4] = FrameNames("st-oxyd-pseudo-4", 1, 8)
 
 -- Define "fading in" and "fading out" animations for oxyd stones.
 -- These two animations are combined with the stone images to
 -- produce the opening and closing animations for oxyd stones.
-
     local baseimg = {
         a="st-oxyda-open",
         b="st-oxydb-open",
@@ -1352,7 +1351,7 @@ do
         local spotcolor = color
         
         if (color >= 0) then
-            spotcolor = color + 1   -- oxyd color 0..7, file 2..9, frames 1..8
+            spotcolor = color + 1 -- oxyd color 0..num_colors-1, file 1.., frames 1..
         else
             spotcolor = 100 + color -- pseudo colors
         end
@@ -1377,8 +1376,8 @@ do
         local n = "st-oxyd" .. flavor .. color .. "-open"
         local names = {}
 
-        for i=1, table.getn(openovls) do
-            local images={baseimg[flavor],colorspots[color+1],openovls[i]}
+        for i=1, table.getn(blink_ovls) do
+            local images={baseimg[flavor],colorspots[color+1],blink_ovls[i]}
             names[i] = n .. format("_%04d", i)
             DefOverlay(names[i], images)
         end
@@ -1417,7 +1416,7 @@ do
         DefStone("st-oxyd"..flavor, shadow[flavor])
         DefShModel("st-likeoxyd"..flavor, "st-oxyd"..flavor, shadow[flavor])
 --        DefSolidStone("st-likeoxyd"..flavor, "st-oxyd"..flavor)
-        img=DefImage("st-oxyd"..flavor.."-open")
+        img = DefImage("st-oxyd"..flavor.."-open")
         DefShModel("st-likeoxyd"..flavor.."-open", img, shadow[flavor])
 
         local fadein = "oxyd"..flavor.."-fadein"
@@ -1425,7 +1424,7 @@ do
         DefAnim(fadein, fopening[flavor])
         DefAnim(fadeout, fclosing[flavor])
 
-        for color=0,7 do
+        for color = 0, num_colors - 1 do
             mkopenclose(flavor, color)
             mkblink(flavor, color)
             mkopened(flavor, color)
@@ -1437,8 +1436,8 @@ do
     end
     mkoxyd("a")
     mkoxyd("b")
-    mkoxyd("d")
     mkoxyd("c")
+    mkoxyd("d")
 end
 
 -- st-coffee --
