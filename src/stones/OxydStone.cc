@@ -46,7 +46,7 @@ namespace enigma {
     unsigned int OxydStone::logBadFrameCount;
     
     unsigned short OxydStone::numColorsAvailable() {
-        return COLORCOUNT;  // may dependent on enigma compatibility in future!
+        return  server::MaxOxydColor + 1;
     }
     
     void OxydStone::addShuffleRule(RuleType type, unsigned short limit, Value group1, Value group2) {

@@ -100,6 +100,7 @@ double   server::IceFriction;
 lev::levelStatusType   server::LevelStatus; // no Lua access
 double   server::MagnetForce;
 double   server::MagnetRange;
+int      server::MaxOxydColor;
 int32_t  server::RandomState;               // no Lua access
 double   server::SlopeForce;
 double   server::SwampSinkSpeed;
@@ -250,6 +251,7 @@ void server::PrepareLevel()
     server::SwampSinkSpeed    = 4;
     server::MagnetForce       = 30;
     server::MagnetRange       = 10;
+    server::MaxOxydColor      = 7;    // for compatibility
     server::WormholeForce     = 30;
     server::WormholeRange     = 10;
     server::HoleForce         = 1.0;

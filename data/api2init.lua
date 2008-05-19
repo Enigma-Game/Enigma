@@ -249,7 +249,7 @@ function res.autotile_implementation(context, evaluator, key, x, y)
             if #key == #rule[1] and string.sub(key, 1, -2) == string.sub(rule[1], 1, -2)
                     and first <= candidate and candidate <= last then
                 if ti[key] == nil then
-                    res.autotile_newtile(key, ti[rule[3]], candidate - first)
+                    res.autotile_newtile(key, ti[rule[3]], candidate - first + 1)
                 end
                 return ti[key]
             end

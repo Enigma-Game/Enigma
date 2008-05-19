@@ -19,8 +19,10 @@
 
 #include "WorldProxy.hh"
 #include "display.hh"
+#include "errors.hh"
 #include "server.hh"
 #include "world.hh"
+#include "stones/OxydStone.hh"
 
 namespace enigma {
  
@@ -77,6 +79,8 @@ namespace enigma {
             return server::MagnetForce;
         } else if (key == "MagnetRange") {
             return server::MagnetRange;
+        } else if (key == "MaxOxydColor") {
+            return server::MaxOxydColor;
         } else if (key == "SlopeForce") {
             return server::SlopeForce;
         } else if (key == "SwampSinkSpeed") {
@@ -123,6 +127,10 @@ namespace enigma {
         } else if (key == "MagnetRange") {
             server::MagnetRange = val;
             BroadcastMessage("_updateglobals", "it_magnet", GRID_ITEMS_BIT);
+        } else if (key == "MaxOxydColor") {
+            server::MaxOxydColor = val;
+            ASSERT(server::MaxOxydColor >= 0 && server::MaxOxydColor < OxydStone::COLORCOUNT, XLevelRuntime,
+                    "Attribute 'MaxOxydColor' value is out of range.");
         } else if (key == "SlopeForce") {
             server::SlopeForce = val;
         } else if (key == "SwampSinkSpeed") {

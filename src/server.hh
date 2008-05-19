@@ -89,6 +89,8 @@ namespace enigma_server
     // Really: probability that a floor tile will crack when an actor
     // enters or leaves it.
     extern double   Brittleness;
+    
+    extern int      MaxOxydColor;
 
     extern double   WaterSinkSpeed;
 
