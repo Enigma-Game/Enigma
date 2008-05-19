@@ -147,6 +147,10 @@ namespace enigma {
     }
     
     Value Object::message(const Message &m) {
+        if (m.message == "_init") {
+            // finalize nearest target and destination
+            finalizeNearestObjectReferences();
+        }
         return Value();
     }
     
@@ -352,6 +356,27 @@ namespace enigma {
             }
         }
         return false;
+    }
+    
+    void Object::finalizeNearestObjectReferences(std::string attr) {
+        bool modified = false;
+        TokenList targets = getAttr(attr);
+        
+        for (TokenList::iterator tit = targets.begin(); tit != targets.end(); ++tit) {
+            modified |= (*tit).finalizeNearestObjectReference(this);
+        }
+        if (modified)
+            setAttr(attr, targets);
+    }
+    
+    void Object::finalizeNearestObjectReferences() {
+        finalizeNearestObjectReferences("target");
+        finalizeNearestObjectReferences("destination");
+        int min = getAttr("$minState");
+        int max = getAttr("$maxState");
+        for (int i = min; i <= max; i++) {
+            finalizeNearestObjectReferences(ecl::strf("target_%d", i));
+        }
     }
     
     void Object::warning(const char *format, ...) const {

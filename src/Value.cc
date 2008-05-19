@@ -452,6 +452,29 @@ namespace enigma {
         return result;
     }
     
+    bool Value::finalizeNearestObjectReference(const Object *reference) {
+        if (type == STRING && std::string(val.str).find("@@") != 0 && std::string(val.str).find("@") == 0
+                && std::string(val.str).find_first_of("*?") != std::string::npos) {
+            //
+            ObjectList result = GetNamedGroup(val.str, reference);
+            clear();
+            if (!result.empty() && result.front() != NULL) {
+                Value v = result.front()->getAttr("name");
+                if (v && v.type == STRING && strcmp(v.val.str, "") != 0) {
+                    val.str = new char[strlen(v.val.str)+1];
+                    strcpy(val.str, v.val.str);
+                    type = NAMEDOBJECT;
+                    return true;
+                }
+            }
+            // otherwise it resolves to no object
+            type = NAMEDOBJECT;
+            val.dval[0] = 0;
+            return true;
+        }
+        return false;
+    }
+    
     
     int to_int(const Value &v) {
         return v;

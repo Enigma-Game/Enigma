@@ -52,6 +52,10 @@ namespace enigma {
     Value StateObject::getAttr(const string &key) const {
         if (key == "state")
             return externalState();
+        else if (key == "$maxState")
+            return maxState();
+        else if (key == "$minState")
+            return minState();
         return Object::getAttr(key);
     }
     
@@ -64,11 +68,11 @@ namespace enigma {
         Object::setAttr(key, val);
     }
     
-    int StateObject::maxState() {
+    int StateObject::maxState() const {
         return 1;  // default 2 state
     }
     
-    int StateObject::minState() {
+    int StateObject::minState() const {
         return 0;  // default 2 state
     }
     

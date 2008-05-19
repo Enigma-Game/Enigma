@@ -48,7 +48,7 @@ namespace enigma {
         return Stone::invertActionValue(val);
     }
     
-    int FourSwitch::maxState() {
+    int FourSwitch::maxState() const {
         return 3;  // dir representing state
     }
     

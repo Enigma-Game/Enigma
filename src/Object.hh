@@ -250,6 +250,9 @@ namespace enigma {
         int       id;
         AttribMap attribs;
         
+        void finalizeNearestObjectReferences(std::string attr);
+        void finalizeNearestObjectReferences();
+        
         static int getNextId(Object *obj, bool bootFinished);
         static void bootFinished();
         static void freeId(int id);

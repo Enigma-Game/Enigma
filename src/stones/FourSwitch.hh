@@ -64,7 +64,7 @@ namespace enigma {
         virtual Value invertActionValue(const Value &val) const;
         
         // StateObject interface
-        virtual int maxState();
+        virtual int maxState() const;
         virtual void toggleState();
         virtual void setState(int extState);
 

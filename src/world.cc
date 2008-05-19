@@ -328,7 +328,9 @@ void World::remove (ForceField *ff)
 Object * World::get_named(const std::string &name) {
     std::string wanted = name;
     if (wanted.size() > 0 && wanted[0] == '@')
-        wanted.erase(0, 1); // erase the leading @ 
+        wanted.erase(0, 1); // erase a leading @ 
+    if (wanted.size() > 0 && wanted[0] == '@')
+        wanted.erase(0, 1); // erase a leading @@ 
     ecl::Dict<Object*>::iterator found = m_objnames.find(wanted);
     if (found != m_objnames.end()) 
         return found->second;
@@ -344,6 +346,9 @@ std::list<Object *> World::get_group(const std::string &tmpl, const Object *refe
     double mindist = -1;
     if (pattern.size() > 0 && pattern[0] == '@') {
         pattern.erase(0, 1); // erase the leading @
+        if (pattern.size() > 0 && pattern[0] == '@') {
+            pattern.erase(0, 1); // erase the leading @@
+        }
         if (reference != NULL)
             nearest = true;
     } 

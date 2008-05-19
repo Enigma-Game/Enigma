@@ -97,13 +97,13 @@ namespace enigma {
          * The maximum number of the external state. It defaults to 1, and 
          * should be overridden by the final subclass just on demand. 
          */
-        virtual int maxState();
+        virtual int maxState() const;
         
         /**
          * The minimum number of the external state. It defaults to 0, and
          * should be overridden by the final subclass just on demand.
          */
-        virtual int minState();
+        virtual int minState() const;
         
         /**
          * The method that is called on toggle messages to switch the object
