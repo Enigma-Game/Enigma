@@ -1954,7 +1954,7 @@ attribute.
 
 @b{Contents - Elements:}
 
-The comments element itself contains only subelements as content.
+The compatibility element itself contains only subelements as content.
 
 @table @asis
 @item @b{dependency}, @i{optional, mutiple occurence}
@@ -2344,7 +2344,7 @@ to the @samp{english} element. The translator receives this comment with
 the English string as we will see later.
 
 If the author is not native English-speaking, he should add his own @samp{translation}
-subelement to the @samp{sting} element. The @samp{translation} element has a
+subelement to the @samp{string} element. The @samp{translation} element has a
 single mandatory attribute @samp{lang} that takes the 2-character language
 abbreviation. The contents of the element is the translation itself.
 
@@ -2886,12 +2886,12 @@ the naming of larger groups of similar objects you can add the hash sign
 @samp{#} as the last character to a name, e.g. @samp{mydoor#}. This causes Enigma
 to add a unique random number to the given string. Thus an auto named object
 will never unname another prior auto named object. But if you delete an 
-auto named object that has been named e.g. @samp{mydoor#132} the number and
+auto named object that has been named e.g. @samp{mydoor#103284} the number and
 the same name may be assigned to another that is created lateron.
 
 All named objects are registered by the @dfn{named object} repository. The API
 provides a variable @samp{no} that allows you to retrieve any named object, e.g.
-@samp{no["mydoor#1"]}. You get an @ref{Object Reference} or @samp{nil} if no
+@samp{no["mylaser_a"]}. You get an @ref{Object Reference} or @samp{nil}, if no
 object is registered by the given name.
 
 As you can auto name groups of objects you are allowed to use the wildcard
@@ -2925,12 +2925,12 @@ targets are additionally horizontally aligned the one located in east will win.
 In the rare case of objects located on the same position stones will preceed
 items, floors and actors. The chosen target or destination depends just on the
 location of these objects and their type, but nothing else. Thus you can rely
-on a stable selection mechanism.
+on a stable selection mechanism. @ref{Nearest Object Clustering} may help you in
+case of unexpected selected equidistant targets. 
 
-By usage of this nearest object feature you can drastically reduce the number
-of needed tile declarations. @ref{Nearest Object Clustering} may help you in
-case of wrong selected equidistant targets. @ref{Auto Tiling} is another 
-feature for reducing the need of tile declarations.
+Auto naming and nearest object features help you to reduce the number
+of needed tile declarations. Resolvers like @ref{res.autotile} and
+@ref{res.composer} are other feature for reducing the need of tile declarations.
 
 Another unique feature of object names is their late on access evaluation. This
 allows you to reference an object prior to its existence. E.g. if you want to
@@ -2955,8 +2955,33 @@ attributes the name is part of the object identity. Thus if you name an
 @ref{st_blocker} and it it shrinks to an @ref{it_blocker} you will retrieve this
 item if you ask the name object repository for the named object.
 
+When an object like a door is completly killed, e.g. by an @ref{it_seed},
+it can no longer be targeted by active objects like switches. A still existing
+reference to a no longer existing object does not cause problems on 
+@ref{Messages}. But what about the nearest object references? To avoid problems
+due to killed objects the standard nearest object reference with just one 
+@samp{@@} as prefix are finalized on @ref{Level Initialization}. This means that
+they get substituted by the unique name of the nearest object that exists after
+the creation of all objects and before the user takes action and can kill a
+candidate.
+
+But sometimes you may like a dynamic nearest object target or destination. One
+that is evaluated when it gets accessed. By prefixing a name with @samp{@@@@}
+the reference will not get finalized on initialization but remains dynamic.
+
+@example
+ti["c"] = @{it_coin_s", "magic#"@}
+ti["v"] = @{it_vortex", destination="@@@@magic#*@}
+@end example
+
+Setting three magic coins and one vortex in your map will teleport the marble
+to the grid of that coin that is nearest to the vortex at the moment of 
+teleportation.
+
 To avoid unexpected problems with invalid object references a few critical
 objects are internally autonamed if the level author does not provide a name.
+But these unique names should never interfere with the user assigned object
+names.
 
 @node Object Attributes
 @subsection Object Attributes
@@ -3748,6 +3773,7 @@ This attribute is only writable for objects that exist in both variations.
 * IsDifficult:: 
 * MagnetRange:: 
 * MagnetStrength::
+* MaxOxydColor::
 * Width::
 * WormholeRange:: 
 * WormholeStrength:: 
@@ -3814,10 +3840,10 @@ Positve number are attracting, negative numbers are repelling.
 @item @b{Support:} @ @ @ref{it_magnet}
 @end table
 
-@node Width
-@subsection Width
+@node Height
+@subsection Height
 
-A global read only variable reports the width of the the world in grid units.
+A global read only variable reports the height of the the world in grid units.
 This is set by the initial world constructor call 
 (@pxref{World Creation and Resolver Chaining}).
 
@@ -3827,6 +3853,20 @@ This is set by the initial world constructor call
 @item @b{Default:} @ @ @code{?}
 @item @b{Access:} @ @ read only
 @item @b{Support:} @ @ object independent
+@end table
+
+@node MaxOxydColor
+@subsection MaxOxydColor
+
+A global variable that limits the number of colors assigned to autocolored
+@ref{st_oxyd}. Be careful with increasing this value beyond its default.
+
+@table @asis
+@item @b{Type:} @ @ number
+@item @b{Values:} @ @ @code{OXYD_BLUE}, ... @code{OXYD_BROWN}
+@item @b{Default:} @ @ @code{OXYD_BLACK}
+@item @b{Access:} @ @ read/write
+@item @b{Support:} @ @ @ref{st_oxyd}
 @end table
 
 @node WormholeRange
@@ -5370,7 +5410,7 @@ a color spot when opening. Pairs of same colored stones have to be opened in
 sequence, otherwise the first one closes again.
 
 Even though most levels make use of just a single pair of each color, there
-is no limit on a single color. If you like you can define 3 blue pairs of oxyds
+is no limit on a single color. If you like you can define 3 pairs of blue oxyds
 together with 2 yellow pairs. You do this by setting explicit @samp{oxydcolor}
 attributes to the oxyds.
 
@@ -5378,16 +5418,21 @@ For standard levels the @samp{oxydcolor} can be set to its default @samp{OXYD_AU
 This causes an automatic coloring by pairs of colors in the standard color
 sequence.
 
-There is no limit on the number of used oxyd pairs. But as just 8 colors do exist
-the colors will repeat from the 9th pair giving the user the possibility to
-build arbitrary couples within a single color. Uneven number of regular colored
-oxyds are not allowed.
+There is no limit on the number of used oxyd pairs. There exists 12 different
+regular colors for oxyds. But per default just the first 8 colors will be
+assigned to @samp{OXYD_AUTO} colored oxyds. The colors will repeat from the
+9th pair giving the user the possibility to build arbitrary couples within a
+single color. With the world attribute @ref{MaxOxydColor} you can lower or
+increase this limit. By setting this attribute to @samp{OXYD_GREEN} you can
+enforce the engine to assign just the first three colors. Be careful in usage
+of more than 8 colors as levels can get incredible difficult. Uneven number of
+regular colored oxyds are not allowed.
 
 Usually oxyds are shuffled by a @samp{wo:shuffleOxyd()} statement after setting
 of all oxyds. All @samp{CLOSED} oxyds that are not explicitly excluded by the
 @samp{noshuffle} attribute take place in shuffling. But you can define
 arbitrary rules to limit and influence the shuffling process to guarantee
-solvabitlity and fairness (@pxref{Oxyd Shuffling Rules}).
+solvabitlity and fairness (@pxref{shuffleOxyd}).
 
 Oxyds are opened either by an actor hit, an additional laser beam, an
 @ref{st_boulder} triggering or a message call. A single opened oxyd is in the
@@ -5395,7 +5440,7 @@ state @samp{OPEN}. If a matching second oxyd is opened both switch to the state
 @samp{OXYDPAIR}. Note that this state can be requested, but it can not be set
 directly.
 
-Single opened oxyds close on not matching partner oxyds being opened and on 
+Single opened oxyds close on a not matching partner oxyd being opened and on 
 @samp{close} messages and state setting operations. But oxyds being part of
 an opened pair will not be closed this way.
 
@@ -5409,8 +5454,8 @@ stone: @ref{st_likeoxyd_a}, @ref{st_likeoxyd_b}, @ref{st_likeoxyd_c},
 part in the oxyd shuffling you can use an oxyd of color @samp{OXYD_FAKE}.
 
 During the game oxyds can be reshuffled. Just those oxyds that are still closed
-will take part in the new shuffle process. @ref{Oxyd Shuffling Rules} will be
-still guranteed for these partial in game reshuffles. It can be initiated either
+will take part in the new shuffle process. Oxyd shuffling rules will still be
+guranteed for these partial in game reshuffles. It can be initiated either
 by a @samp{shuffle} message that is send to any of the oxyd objects, or by
 usage of an oxyd of color @samp{OXYD_BOLD}. If such a special oxyd is opened,
 e.g. by an actor hit, it shuffles all remaining oxyds including itself.
@@ -5437,7 +5482,7 @@ closed state and the way of opening differ in the following way:
 @item @code{"c"} blue, flat stone that opens by a concentric animation
 @item @code{"d"} dark blue, pyramid like stone that opens like a flower
 @end table
-@item @b{oxydcolor}, @ @ @i{values}: @code{OXYD_AUTO}, @code{OXYD_FAKE}, @code{OXYD_FART}, @code{OXYD_BOLD}, @code{OXYD_BLUE}, @code{OXYD_RED}, @code{OXYD_GREEN}, @code{OXYD_YELLOW}, @code{OXYD_CYAN}, @code{OXYD_PURPLE}, @code{OXYD_WHITE}, @code{OXYD_BLACK}, ; @ @ @i{default}: @code{OXYD_AUTO}
+@item @b{oxydcolor}, @ @ @i{values}: @code{OXYD_AUTO}, @code{OXYD_FAKE}, @code{OXYD_FART}, @code{OXYD_BOLD}, @code{OXYD_BLUE}, @code{OXYD_RED}, @code{OXYD_GREEN}, @code{OXYD_YELLOW}, @code{OXYD_CYAN}, @code{OXYD_PURPLE}, @code{OXYD_WHITE}, @code{OXYD_BLACK}, @code{OXYD_GREY}, @code{OXYD_ORANGE}, @code{OXYD_PINE}, @code{OXYD_BROWN}; @ @ @i{default}: @code{OXYD_AUTO}
 @item @b{noshuffle} @ @ @i{values}: @code{true}, @code{false}; @ @ @i{default}: @code{false}
 @item @b{static} @ @ @i{values}: @code{true}, @code{false}; @ @ @i{default}: @code{false}
 Static oxyds are neither swappable nor pullable.
@@ -5779,17 +5824,20 @@ Try to tear the opposite window face into the given direction.
 @section World Advanced Methods
 
 @menu 
-* wo:shuffleOxyd::  Oxyd Shuffling Rules
-* wo:drawMap::      
+* shuffleOxyd::  Oxyd Shuffling Rules
+* drawMap::      
 @end menu
 
 @c ----------------- shuffleOxyd -------------------- 
-@node wo:shuffleOxyd
-@subsection wo:shuffleOxyd
+@node shuffleOxyd
+@subsection shuffleOxyd
 
 Read API Concept Draft
 
 Work in progress!
+
+
+@ref{st_oxyd}
 
 @table @asis
 @item @b{Syntax:}
@@ -5839,8 +5887,8 @@ wo:shuffleOxyd(@{"leftoxyds#*","rightoxyds#*", min=3@}, @{"islandoxyds#*", max=0
 @end table
 
 @c ----------------- drawMap -------------------- 
-@node wo:drawMap
-@subsection wo:drawMap
+@node drawMap
+@subsection drawMap
 
 
 @node Resolvers
@@ -5927,7 +5975,7 @@ character key maps. But it can be used in multicharacter maps, too. In this case
 the given first and last keys may just differ in the last character. Again a
 copy of the template rule will be generated and the @samp{%%} patterns will be
 substituted. But in this case the substitution is composed of a single percent
-sign followed by an interger number that counts the key position within the
+sign followed by an integer number that counts the key position within the
 given range. Thus a key of @samp{c} will target the door @samp{door%3}. 
 You need to use the key @samp{C} in the map for the matching door.
 
