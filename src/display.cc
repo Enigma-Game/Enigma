@@ -24,6 +24,7 @@
  */
 
 #include "display_internal.hh"
+#include "errors.hh"
 #include "video.hh"
 #include "main.hh"
 
@@ -868,7 +869,7 @@ void SpriteHandle::show() const {
 /* -------------------- Sprite layer -------------------- */
 
 DL_Sprites::DL_Sprites()
-: numsprites(0), maxsprites(1000)
+: numsprites(0), maxsprites(1000), dispensiblesprites(1000)
 {}
 
 DL_Sprites::~DL_Sprites() {
@@ -876,7 +877,8 @@ DL_Sprites::~DL_Sprites() {
 }
 
 Sprite *DL_Sprites::get_sprite(SpriteId id) {
-    return (id == MAGIC_SPRITEID) ? 0 : sprites[id];
+    ASSERT(id != MAGIC_SPRITEID, XLevelRuntime, "Sprite layer fatal error: request of not existing sprite");
+    return sprites[id];
 }
 
 void DL_Sprites::new_world (int w, int h) {
@@ -906,9 +908,9 @@ void DL_Sprites::move_sprite (SpriteId id, const ecl::V2& newpos)
     }
 }
 
-SpriteId DL_Sprites::add_sprite (Sprite *sprite) 
+SpriteId DL_Sprites::add_sprite (Sprite *sprite, bool isDispensible) 
 {
-    if (numsprites >= maxsprites) {
+    if (numsprites >= maxsprites || (isDispensible && numsprites >= dispensiblesprites)) {
         delete sprite;
         return MAGIC_SPRITEID;
     }
@@ -1807,7 +1809,7 @@ CommonDisplay::CommonDisplay (const ScreenArea &a)
     shadow_layer  = new DL_Shadows(stone_layer, sprite_layer);
     line_layer    = new DL_Lines;
     effects_layer = new DL_Sprites;
-    effects_layer->set_maxsprites(50);
+    effects_layer->set_maxsprites(70, 50);
 
     // Register display layers
     m_engine->add_layer (floor_layer);
@@ -1875,10 +1877,10 @@ CommonDisplay::add_line (V2 p1, V2 p2)
 }
 
 SpriteHandle
-CommonDisplay::add_effect (const V2& pos, Model *m)
+CommonDisplay::add_effect (const V2& pos, Model *m, bool isDispensible)
 {
     Sprite *spr = new Sprite (pos, SPRITE_EFFECT, m);
-    return SpriteHandle (effects_layer, effects_layer->add_sprite(spr));
+    return SpriteHandle (effects_layer, effects_layer->add_sprite(spr, isDispensible));
 }
 
 SpriteHandle
@@ -2152,8 +2154,8 @@ Model *display::YieldModel(const GridLoc &l) {
     return gamedpy->yield_model (l);
 }
 
-SpriteHandle display::AddEffect (const V2& pos, const char *modelname) {
-    return gamedpy->add_effect (pos, MakeModel(modelname));
+SpriteHandle display::AddEffect (const V2& pos, const char *modelname, bool isDispensible) {
+    return gamedpy->add_effect (pos, MakeModel(modelname), isDispensible);
 }
 
 SpriteHandle

@@ -960,7 +960,7 @@ void client::Msg_PlaySound (const std::string &wavfile, double relative_volume)
 }
 
 void client::Msg_Sparkle (const ecl::V2 &pos) {
-    display::AddEffect (pos, "ring-anim");
+    display::AddEffect (pos, "ring-anim", true);
 }
 
 

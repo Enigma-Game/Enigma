@@ -223,7 +223,7 @@ namespace display
         void new_world (int, int);
 
         /* ---------- Member functions ---------- */
-        SpriteId add_sprite (Sprite *sprite);
+        SpriteId add_sprite (Sprite *sprite, bool isDispensible = false);
         void kill_sprite (SpriteId id);
         void move_sprite (SpriteId, const ecl::V2& newpos);
         void replace_sprite (SpriteId id, Model *m);
@@ -233,7 +233,7 @@ namespace display
 
         Model *get_model (SpriteId id) { return sprites[id]->model; }
 
-        void set_maxsprites (unsigned m) { maxsprites = m; }
+        void set_maxsprites (unsigned m, unsigned c) { maxsprites = m; dispensiblesprites = c;}
 
         Sprite *get_sprite(SpriteId id);
 
@@ -250,6 +250,7 @@ namespace display
         // Variables.
         unsigned numsprites;    // Current number of sprites
         unsigned maxsprites;    // Maximum number of sprites
+        unsigned dispensiblesprites;    // Threshold above which just critical sprites are accepted
     };
 
 
@@ -347,7 +348,7 @@ namespace display
 
         DisplayEngine *get_engine() const { return m_engine; }
 
-        SpriteHandle add_effect (const V2& pos, Model *m);
+        SpriteHandle add_effect (const V2& pos, Model *m, bool isDispensible = false);
         SpriteHandle add_sprite (const V2 &pos, Model *m);
 
         RubberHandle add_line (V2 p1, V2 p2);

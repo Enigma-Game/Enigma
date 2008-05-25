@@ -154,7 +154,7 @@ namespace display
 
     /*! Add a new effect sprite.  Sprites of this type are
       automatically deleted once the animation has finished.  */
-    SpriteHandle AddEffect (const ecl::V2 &pos, const char *modelname);
+    SpriteHandle AddEffect (const ecl::V2 &pos, const char *modelname, bool isDispensible = false);
 
     /*! Create a new sprite.  If modelname==0, the sprite is
       considered invisible.  Sprites of this type are _never_
