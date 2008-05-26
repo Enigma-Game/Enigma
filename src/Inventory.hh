@@ -26,7 +26,6 @@
 
 namespace enigma
 {
-//    using Item;          // TODO: remove this after moving Item into enigma namespace
     class Item;
     class Inventory : public ItemHolder {
     public:

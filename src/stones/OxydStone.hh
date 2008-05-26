@@ -87,7 +87,7 @@ namespace enigma {
         virtual void setAttr(const string& key, const Value &val);
 
         // StateObject interface
-        virtual int maxState();
+        virtual int maxState() const;
         virtual void toggleState();
         virtual int externalState() const;
         virtual void setState(int extState);

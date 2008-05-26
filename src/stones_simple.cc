@@ -132,8 +132,8 @@ namespace
 
         virtual Value message(const Message &m)
         {
-            if (traits->hollow && m.message == "glasses") {
-                if (to_int(m.value)) {
+            if (traits->hollow && m.message == "_glasses") {
+                if (to_int(m.value) & 2) {  // hollow
                     if (!sunglasses) {
                         sunglasses = true;
                         set_model( "invisible");
@@ -1860,8 +1860,8 @@ namespace
         }
 
         virtual Value message(const Message &m) {
-            if (m.message == "glasses") {
-                if (to_int(m.value)) {
+            if (m.message == "_glasses") {
+                if (to_int(m.value) & 1) {   // Glasses::DEATH
                     if (!visible) {
                         visible = true;
                         set_visible_model();

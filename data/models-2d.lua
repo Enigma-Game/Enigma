@@ -401,7 +401,6 @@ do
         "it-dynamite",
         "it-flagblack",
         "it-flagwhite",
-        "it-glasses",
         "it-glasses-broken",
         "it-hill",
         "it-hollow",
@@ -436,6 +435,7 @@ do
     DefImage("it_cross", {filename="it-cross"})
     DefImage("it_extralife", {filename="it-extralife"})
     DefImage("it_floppy", {filename="it-floppy"})
+    DefImage("it_glasses", {filename="it-glasses"})
     DefImage("it_hammer", {filename="it-hammer"})
     DefImage("it_key", {filename="it-key"})
     DefImage("it_sword", {filename="it-sword"})

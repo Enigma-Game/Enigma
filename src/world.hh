@@ -129,9 +129,6 @@ namespace enigma {
     /* Output a message whenever a message is being sent. */
     extern bool TrackMessages;
 
-    /* A hack to implement BlackBallsStone and WhiteBallsStone. */
-    extern Actor *CurrentCollisionActor;
-
 //----------------------------------------------------------------------
 // FUNCTIONS
 //----------------------------------------------------------------------

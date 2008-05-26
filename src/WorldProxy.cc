@@ -67,6 +67,8 @@ namespace enigma {
             return server::BumperForce;
         } else if (key == "ElectricForce") {
             return server::ElectricForce;
+        } else if (key == "ExtralifeGlasses") {
+            return server::ExtralifeGlasses;
         } else if (key == "FlatForce") {
             return server::FlatForce;
         } else if (key == "FrictionFactor") {
@@ -113,6 +115,8 @@ namespace enigma {
             server::BumperForce = val;
         } else if (key == "ElectricForce") {
             server::ElectricForce = val;
+        } else if (key == "ExtralifeGlasses") {
+            server::ExtralifeGlasses = val;
         } else if (key == "FlatForce") {
             server::FlatForce = val;
         } else if (key == "FrictionFactor") {

@@ -902,7 +902,7 @@ namespace enigma {
             set_model(string("st-oxyd")+(std::string)val);
     }
         
-    int OxydStone::maxState() {
+    int OxydStone::maxState() const {
         return 2;
     }
     

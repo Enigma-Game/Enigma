@@ -106,6 +106,13 @@ DISPENSIBLE   = 0
 INDISPENSIBLE = 1
 PERKIND       = 2
 
+-- glasses
+SPOT_DEATH          =   1
+SPOT_HOLLOW         =   2
+SPOT_ACTORIMPULSE   =   4
+SPOT_SENSOR         =   8
+SPOT_LIGHTPASSENGER =  16
+
 ---------------------
 -- Utility Methods --
 ---------------------

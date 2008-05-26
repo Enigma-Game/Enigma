@@ -50,8 +50,8 @@ namespace enigma {
             if (objFlags & OBJBIT_LIGHTNEWDIRS)
                 lightDirChanged(NODIRBIT, (DirectionBits)(objFlags & OBJBIT_LIGHTNEWDIRS));
             return Value();            
-        } else if (m.message == "glasses") {
-            if (to_bool(m.value) != (objFlags & OBJBIT_VISIBLE)) {
+        } else if (m.message == "_glasses") {
+            if ((((int)(m.value) & 16) != 0) != ((objFlags & OBJBIT_VISIBLE) != 0)) {
                 objFlags ^= OBJBIT_VISIBLE; // toggle visibility bit
                 init_model();
             }
@@ -146,6 +146,11 @@ namespace enigma {
         if (a != NULL && state == BLINK && player::WieldedItemIs(a, "it_hammer")) {
             state = BREAK;
             init_model();
+        } else if (state == OFF && player::WieldedItemIs(a, "it_brush")) {
+            Item * it = GetItem(get_pos());
+            if (it != NULL && get_id(it) == it_cross)
+                KillItem(get_pos());
+            setState(1);
         }
     }
 
@@ -201,6 +206,10 @@ namespace enigma {
                     objFlags |= OBJBIT_BLOCKED;
                 }
                 move_stone(skateDir);
+                Item * it = GetItem(get_pos());
+                if (it != NULL && get_id(it) == it_cross) {
+                    setState(0);
+                }
             }
             GameTimer.set_alarm(this, calcInterval(), false);
         }

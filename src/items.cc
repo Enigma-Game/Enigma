@@ -441,6 +441,7 @@ namespace
         
         // Item interface
         virtual string get_inventory_model();
+        virtual void setup_successor(Item *newitem);
 
         // TimeHandler interface
         virtual void alarm();
@@ -481,6 +482,10 @@ namespace
             sound_event ("itemtransform");
             replace(it_glasses);
         }
+    }
+    
+    void  ExtraLife::setup_successor(Item *newitem) {
+        newitem->setState(server::ExtralifeGlasses);
     }
     
     void ExtraLife::alarm() {
@@ -3410,34 +3415,74 @@ namespace
 
 
 /* -------------------- Glasses -------------------- */
-namespace
-{
     class Glasses : public Item {
         CLONEOBJ(Glasses);
         DECL_TRAITS;
 
-        static bool wears_glasses(Actor *a) {
-            return player::GetInventory(a)->find("it-glasses") != -1;
-        }
-
-        void on_drop(Actor *a) {
-            if (!wears_glasses(a)) // 'this' was the only it-glasses
-                BroadcastMessage("glasses", 0.0, GRID_STONES_BIT);
-        }
-        void on_pickup(Actor *a) {
-            if (!wears_glasses(a)) // no glasses before
-                BroadcastMessage("glasses", 1.0, GRID_STONES_BIT);
-        }
-        void on_stonehit(Stone *) {
-            sound_event ("shatter");
-            replace (it_glasses_broken);
-        }
     public:
-        Glasses()
-        {}
+        enum Spot {
+            NOTHING         =  0,   // broken glasses
+            DEATH           =  1,
+            HOLLOW          =  2,
+            ACTORIMPULSE    =  4,
+            SENSOR          =  8,
+            LIGHTPASSENGER  = 16,
+            MAX             = 31
+        };
+        
+        static void updateGlasses();
+        
+        Glasses();
+        
+        // StateObject interface
+        virtual int maxState() const;
+        virtual void toggleState();
+        
+        // Items interface
+        virtual void on_drop(Actor *a);
+        virtual void on_pickup(Actor *a);
+        virtual void on_stonehit(Stone *st);
+        
     };
-    DEF_TRAITS(Glasses, "it-glasses", it_glasses);
-}
+    
+    void Glasses::updateGlasses() {
+        Inventory *ci = player::GetInventory(player::CurrentPlayer());
+        int newVisibility = 0;
+        int i = -1;
+        while ((i = ci->find("it_glasses", i+1)) != -1) {
+            Glasses *gl = dynamic_cast<Glasses *>(ci->get_item(i));
+            newVisibility |= gl->state;
+        }
+        if (newVisibility != server::GlassesVisibility) {
+            server::GlassesVisibility = newVisibility;
+            BroadcastMessage("_glasses", newVisibility, GRID_STONES_BIT);
+        }
+    }
+    
+    Glasses::Glasses() {
+        state = DEATH + HOLLOW + LIGHTPASSENGER;
+    }
+    
+    int Glasses::maxState() const {
+        return MAX;
+    }
+    
+    void Glasses::toggleState() {
+        // ignore toggle
+    }
+    
+    void Glasses::on_drop(Actor *a) {
+        updateGlasses();
+    }
+    void Glasses::on_pickup(Actor *a) {
+        updateGlasses();
+    }
+    void Glasses::on_stonehit(Stone *) {
+        sound_event ("shatter");
+        replace(it_glasses_broken);
+    }
+        
+    DEF_TRAITS(Glasses, "it_glasses", it_glasses);
 
 
 /* -------------------- Invisible abyss -------------------- */
@@ -3571,6 +3616,7 @@ namespace
                 if (Inventory *inv = player::MayPickup(a, NULL)) {
                     std::vector<Item *>::size_type oldSize = m_contents.size();
                     inv->takeItemsFrom(this);
+                    Glasses::updateGlasses();
                     if (oldSize != m_contents.size() && !inv->willAddItem(this)) {
                         // some items have been picked up but the bag will not
                         // be picked up (and cause the following actions)

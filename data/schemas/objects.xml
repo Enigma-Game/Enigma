@@ -54,6 +54,7 @@
     <msg name="_bombstone" type="nil"/>
     <msg name="_brush" type="nil"/>
     <msg name="_explosion" type="nil"/>
+    <msg name="_glasses" type="nil"/>
     <msg name="_hit" type="object"/>
     <msg name="_init" type="nil"/>
     <msg name="_jumping" type="bool"/>
@@ -111,6 +112,9 @@
     <object name="it_extralife"/>
     <object name="it_extralife_new" init="true"/>
     <object name="it_floppy"/>
+    <object name="it_glasses">
+      <attr name="state" max="31"/>
+    </object>
     <object name="it_hammer"/>
     <object name="it_hammer_new" init="true"/>
     <object name="it_key">

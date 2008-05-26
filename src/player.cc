@@ -270,6 +270,7 @@ void player::SetCurrentPlayer(unsigned iplayer)
     else {
         icurrent_player = iplayer;
         RedrawInventory (GetInventory(iplayer));
+        dynamic_cast<Item *>(GetObjectTemplate("it_glasses"))->on_pickup(NULL);  // ugly hack to call updateGlasses
     }
 }
 
@@ -566,8 +567,8 @@ void player::PickupItem (Actor *a, GridPos p)
 {
     if (Inventory *inv = MayPickup(a, GetField(p)->item)) {
         if (Item *item = YieldItem(p)) {
-            item->on_pickup(a);
             inv->add_item(item);
+            item->on_pickup(a);
             RedrawInventory (inv);
             sound::EmitSoundEvent ("pickup", p.center());
         }

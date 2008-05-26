@@ -95,6 +95,8 @@ double   server::ElectricForce;
 double   server::EnigmaCompatibility;       // no Lua access
 double   server::FlatForce;
 double   server::FrictionFactor;
+int      server::GlassesVisibility;         // no Lua access
+int      server::ExtralifeGlasses;
 double   server::HoleForce;
 double   server::IceFriction;
 lev::levelStatusType   server::LevelStatus; // no Lua access
@@ -244,6 +246,8 @@ void server::PrepareLevel()
     server::SlopeForce        = 25.0;
     server::FlatForce         = 0.0;
     server::FrictionFactor    = 1.0;
+    server::GlassesVisibility = 0;     // nothing
+    server::ExtralifeGlasses  = 19;  // death + hollow + lightpassenger
     server::IceFriction       = 1.0;
     server::ElectricForce     = 15.0;
     server::BumperForce       = 200.0;
