@@ -29,7 +29,7 @@
 
 namespace enigma {
     LightPassengerStone::LightPassengerStone(bool isActive) : Stone () {
-        state =  isActive ? ON : OFF;
+        state =  isActive ? ON_NEW : OFF;
     }
 
     LightPassengerStone::~LightPassengerStone() {
@@ -66,13 +66,15 @@ namespace enigma {
     
     void LightPassengerStone::setState(int extState) {
         if (state == OFF && extState == 1) {
-            state = ON;
             if (isDisplayable()) {
+                state = ON;
                 init_model();
                 if (objFlags & OBJBIT_LIGHTNEWDIRS)  // currently enlighted?
                     GameTimer.set_alarm(this, calcInterval(), false);
+            } else {
+                state = ON_NEW;
             }
-        } else if ((state == ON || state == BLINK) && extState == 0) {
+        } else if ((state == ON || state == ON_NEW || state == BLINK) && extState == 0) {
             state = OFF;
             objFlags &= ~OBJBIT_SKATEDIR;  // NODIR
             if (isDisplayable())
@@ -83,12 +85,12 @@ namespace enigma {
     void LightPassengerStone::init_model() {
         switch(state) {
             case OFF:
-                set_anim(objFlags & OBJBIT_VISIBLE ?
+                set_model(objFlags & OBJBIT_VISIBLE ?
                     "st-lightpassenger_off" : "st-lightpassenger_hidden"); break;
             case ON:
-                set_anim("st-lightpassenger"); break;
+                set_model("st-lightpassenger"); break;
             case BLINK:
-                set_anim("st-lightpassenger-blink"); break;
+                set_model("st-lightpassenger-blink"); break;
             case BREAK:
                 bool NorthSouth = objFlags & (NORTHBIT | SOUTHBIT);
                 bool EastWest = objFlags & (WESTBIT | EASTBIT);
@@ -107,6 +109,17 @@ namespace enigma {
         activatePhoto();
         if (updateCurrentLightDirs() != NODIRBIT)
             GameTimer.set_alarm(this, calcInterval(), false);
+        if (((server::GlassesVisibility & 16) != 0) != ((objFlags & OBJBIT_VISIBLE) != 0)) {
+            objFlags ^= OBJBIT_VISIBLE; // toggle visibility bit
+        }
+        if (state == ON || state == BLINK) {
+            Item *it = GetItem(p);
+            if (it != NULL && get_id(it) == it_cross) {
+                setState(0);
+            }
+        } else if (state == ON_NEW) {
+            state = ON;
+        }
         Stone::on_creation(p);
     }
     

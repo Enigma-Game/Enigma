@@ -54,6 +54,7 @@ RenamingObjectsNew2Old = {
     it_cross = "it-cross",
     it_extralife = "it-extralife",
     it_floppy = "it-floppy",
+    it_glasses = "it-glasses",
     it_hammer = "it-hammer",
     it_magnet = "it-magnet",
     it_magnet_on = "it-magnet-on",

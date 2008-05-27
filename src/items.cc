@@ -3192,6 +3192,9 @@ namespace
         // Object interface
         virtual Value message(const Message &m);
         
+        // StateObject interface
+        virtual void setAttr(const string& key, const Value &val);
+        
         // GridObject interface
         virtual void init_model();
 
@@ -3222,12 +3225,25 @@ namespace
             return Value();
         } else if (m.message == "_hitactor") {
             return getAttr("$hitactor");
+        } else if (m.message == "_glasses") {
+            if (isDisplayable())
+                init_model();            
         }
         return Item::message(m);
     }
     
+    void Sensor::setAttr(const string& key, const Value &val) {
+        if (key == "invisible") {
+            Item::setAttr(key, val);
+            if (isDisplayable())
+                init_model();
+            return;
+        }
+        Item::setAttr(key, val);
+    }
+    
     void Sensor::init_model() {
-        if (getAttr("invisible").to_bool())
+        if (getAttr("invisible").to_bool() && ((server::GlassesVisibility & 8) == 0))
             set_model("invisible");
         else
             set_model("it_sensor");
@@ -3246,7 +3262,7 @@ namespace
     int Sensor::traitsIdx() const {
         return getAttr("inverse").to_bool() ? 1 : 0;
     }
-//    DEF_TRAITSF(Sensor, "it_sensor", it_sensor, itf_static);
+
     ItemTraits Sensor::traits[2] = {
         {"it_sensor",  it_sensor,  itf_static},
         {"it_sensor",  it_inversesensor,  itf_static}
@@ -3455,7 +3471,7 @@ namespace
         }
         if (newVisibility != server::GlassesVisibility) {
             server::GlassesVisibility = newVisibility;
-            BroadcastMessage("_glasses", newVisibility, GRID_STONES_BIT);
+            BroadcastMessage("_glasses", newVisibility, GridLayerBits(GRID_ITEMS_BIT | GRID_STONES_BIT));
         }
     }
     

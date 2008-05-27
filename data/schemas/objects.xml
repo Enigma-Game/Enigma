@@ -135,6 +135,7 @@
     </object>
     <object name="it_sensor">
       <attr name="invisible"/>
+      <msg name="_glasses"/>
       <msg name="_hit"/>
     </object>
     <object name="it_sword"/>
@@ -371,6 +372,7 @@
       <msg name="off"/>
       <msg name="signal"/>
       <msg name="_init"/>
+      <msg name="_glasses"/>
       <msg name="_model_reanimated"/>
       <msg name="_trigger"/>
     </object>

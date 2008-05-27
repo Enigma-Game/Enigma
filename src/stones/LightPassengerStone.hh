@@ -37,13 +37,14 @@ namespace enigma {
             OFF,     ///< inactive, does not react on laser 
             ON,      ///< active, does react on laser
             BLINK,   ///< active, double lasered, ready to break
-            BREAK    ///< active, breaking and dissolving
+            BREAK,   ///< active, breaking and dissolving
+            ON_NEW   ///< a new lightpassenger that should start in ON on first grid set
         };
         
         enum ObjectPrivatFlagsBits {
             OBJBIT_SKATEDIR =   7<<24,   ///< current skate direction
             OBJBIT_BLOCKED  =   1<<27,   ///< have been blocked by a stone on last move attempt 
-            OBJBIT_VISIBLE  =   1<<28    ///< this stone isn't hidden when inactive
+            OBJBIT_VISIBLE  =   1<<28    ///< can be distinguished from glass when inactive
         };
     public:
         LightPassengerStone(bool isActive);
