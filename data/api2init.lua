@@ -107,6 +107,7 @@ INDISPENSIBLE = 1
 PERKIND       = 2
 
 -- glasses
+SPOT_NOTHING        =   0
 SPOT_DEATH          =   1
 SPOT_HOLLOW         =   2
 SPOT_ACTORIMPULSE   =   4

@@ -63,7 +63,7 @@ namespace enigma {
             return Width();
         } else if (key == "Brittleness") {
             return server::Brittleness;
-        } else if (key == "BumperForce") {
+        } else if (key == "BumperStrength") {
             return server::BumperForce;
         } else if (key == "ElectricForce") {
             return server::ElectricForce;
@@ -77,7 +77,7 @@ namespace enigma {
             return server::HoleForce;
         } else if (key == "IceFriction") {
             return server::IceFriction;
-        } else if (key == "MagnetForce") {
+        } else if (key == "MagnetStrength") {
             return server::MagnetForce;
         } else if (key == "MagnetRange") {
             return server::MagnetRange;
@@ -89,7 +89,7 @@ namespace enigma {
             return server::SwampSinkSpeed;
         } else if (key == "WaterSinkSpeed") {
             return server::WaterSinkSpeed;
-        } else if (key == "WormholeForce") {
+        } else if (key == "WormholeStrength") {
             return server::WormholeForce;
         } else if (key == "WormholeRange") {
             return server::WormholeRange;
@@ -111,7 +111,7 @@ namespace enigma {
             STATUSBAR->show_move_counter (server::ShowMoves);
         } else if (key == "Brittleness") {
             server::Brittleness = val;
-        } else if (key == "BumperForce") {
+        } else if (key == "BumperStrength") {
             server::BumperForce = val;
         } else if (key == "ElectricForce") {
             server::ElectricForce = val;

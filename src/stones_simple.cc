@@ -1432,114 +1432,6 @@ Value ThiefStone::message(const Message &m) {
     return Stone::message(m);
 }
 
-// -------------------------
-//      ActorImpulseBase
-// -------------------------
-
-namespace
-{
-    class ActorImpulseBase : public Stone {
-    public:
-        ActorImpulseBase(const char *kind) : Stone(kind), state(IDLE) {
-//             setAttr("force", Value());
-        }
-
-    protected:
-        virtual void actor_hit (const StoneContact &sc) {
-            if (state == IDLE) {
-                // actor_hit is called before reflect, but the force added below
-                // is applied to actor after the reflection.
-
-                double forcefac = getDefaultedAttr("force", server::BumperForce);
-
-                V2 vec = normalize(sc.actor->get_pos() - get_pos().center());
-                sc.actor->add_force (distortedVelocity(vec, forcefac));                
-
-                sound_event("bumper");
-                set_anim("st-actorimpulse-anim");
-                state = PULSING;
-            }
-        }
-
-    private:
-        virtual const char *collision_sound() {
-            return "";
-        }
-
-        void animcb() {
-            if (state == PULSING) {
-                state = IDLE;
-                init_model();
-            }
-        }
-
-        // Variables
-        enum State { IDLE, PULSING, BROKEN };
-        State state;
-    };
-
-
-    class ActorImpulseStone : public ActorImpulseBase {
-        CLONEOBJ(ActorImpulseStone);
-
-        int signalidx;
-
-        virtual Value message(const Message &m) {
-            if(server::GameCompatibility != GAMET_ENIGMA) {
-                // Oxyd* usage of ActorImpulseStone as a signal multiplier
-                ObjectList ol = getAttr("$!oxyd!destinations");
-                
-                if (m.message == "_init" && ol.size() > 0) {
-                    signalidx = 0;
-                    SendMessage(ol.front(), "signal", 1);
-                    return Value();
-                } else if (m.message == "signal") {
-                    int i = 0;
-                    bool didBreak = false;
-                    for (ObjectList::iterator oit = ol.begin(); oit != ol.end(); ++oit, i++) {
-                        if (i == signalidx) {
-                            SendMessage(*oit, "signal", 0);
-                        } else if (i == signalidx + 1) {
-                            SendMessage(*oit, "signal", 1);
-                            didBreak = true;
-                            break;
-                        }
-                    }
-                    if (!didBreak && ol.size() > 0) {
-                        SendMessage(ol.front(), "signal", 1);
-                        signalidx = 0;                        
-                    } else
-                        signalidx++;
-                    return Value();
-                }
-            } // GameCompatibility != GAMET_ENIGMA
-            return ActorImpulseBase::message(m);
-        }
-
-    public:
-        ActorImpulseStone() : ActorImpulseBase("st-actorimpulse"),
-                              signalidx(0)
-        {}
-    };
-
-
-    class ActorImpulseStoneInvisible : public ActorImpulseBase {
-        CLONEOBJ(ActorImpulseStoneInvisible);
-    public:
-        ActorImpulseStoneInvisible() : ActorImpulseBase("st-actorimpulse_invisible") {}
-
-        void actor_hit(const StoneContact& sc) {
-            if (player::WieldedItemIs (sc.actor, "it_brush")) {
-                Stone *st = MakeStone("st-actorimpulse");
-                SetStone(get_pos(), st);
-                st->actor_hit(sc);
-            }
-            else
-                ActorImpulseBase::actor_hit(sc);
-        }
-    };
-}
-
 //----------------------------------------
 // FakeOxydStone
 //----------------------------------------
@@ -2193,9 +2085,6 @@ void DefineSimpleStoneMovable(const std::string &kind,
 
 void Init_simple()
 {
-    Register(new ActorImpulseStone);
-    Register(new ActorImpulseStoneInvisible);
-
     BlackWhiteStone::setup();
 
     Register(new BlockStone);

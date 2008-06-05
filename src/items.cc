@@ -192,7 +192,6 @@ namespace
     DEF_ITEM(Key,       "it_key", it_key);
     DEF_ITEM(Odometer,  "it-odometer", it_odometer);
     DEF_ITEM(Wrench,    "it_wrench", it_wrench);
-    DEF_ITEM(BrokenGlasses, "it-glasses-broken", it_glasses_broken);
     DEF_ITEMF(Coffee,   "it-coffee", it_coffee, itf_inflammable);
 }
 
@@ -3433,7 +3432,7 @@ namespace
 /* -------------------- Glasses -------------------- */
     class Glasses : public Item {
         CLONEOBJ(Glasses);
-        DECL_TRAITS;
+        DECL_TRAITS_ARRAY(2, traitsIdx());
 
     public:
         enum Spot {
@@ -3447,18 +3446,25 @@ namespace
         };
         
         static void updateGlasses();
-        
-        Glasses();
+        static void setup();
+                
+        Glasses(int initState);
         
         // StateObject interface
         virtual int maxState() const;
         virtual void toggleState();
+        virtual void setState(int extState);
+        
+        // GridObject interface
+        virtual void init_model();
         
         // Items interface
         virtual void on_drop(Actor *a);
         virtual void on_pickup(Actor *a);
         virtual void on_stonehit(Stone *st);
         
+    private:
+        int traitsIdx() const;
     };
     
     void Glasses::updateGlasses() {
@@ -3475,8 +3481,13 @@ namespace
         }
     }
     
-    Glasses::Glasses() {
-        state = DEATH + HOLLOW + LIGHTPASSENGER;
+    void Glasses::setup() {
+        RegisterItem (new Glasses(0));
+        RegisterItem (new Glasses(DEATH + HOLLOW + LIGHTPASSENGER));
+    }
+    
+    Glasses::Glasses(int initState) {
+        state = initState;
     }
     
     int Glasses::maxState() const {
@@ -3487,6 +3498,24 @@ namespace
         // ignore toggle
     }
     
+    void Glasses::setState(int extState) {
+        state = extState;
+        if (isDisplayable()) {
+            init_model();
+        } else {
+            // maybe part of players inventory
+            updateGlasses();
+            player::RedrawInventory();
+        }
+    }
+    
+    void Glasses::init_model() {
+        if (state > 0)
+            set_model("it_glasses");
+        else
+            set_model("it_glasses_broken");
+    }
+    
     void Glasses::on_drop(Actor *a) {
         updateGlasses();
     }
@@ -3495,10 +3524,17 @@ namespace
     }
     void Glasses::on_stonehit(Stone *) {
         sound_event ("shatter");
-        replace(it_glasses_broken);
+        setState(0);
     }
         
-    DEF_TRAITS(Glasses, "it_glasses", it_glasses);
+    int Glasses::traitsIdx() const {
+        return state != 0 ? 0 : 1;
+    }
+
+    ItemTraits Glasses::traits[2] = {
+        {"it_glasses",  it_glasses,  itf_none},
+        {"it_glasses_broken",  it_glasses_broken,  itf_none}
+    };
 
 
 /* -------------------- Invisible abyss -------------------- */
@@ -4069,8 +4105,7 @@ void InitItems()
     RegisterItem (new FlagBlack);
     RegisterItem (new FlagWhite);
     RegisterItem (new Floppy);
-    RegisterItem (new Glasses);
-    RegisterItem (new BrokenGlasses);
+    Glasses::setup();
     RegisterItem (new Hammer(false));
     Register ("it_hammer_new", new Hammer(true));
     RegisterItem (new Hill);
@@ -4096,7 +4131,6 @@ void InitItems()
     RegisterItem (new SeedWood);
     RegisterItem (new SeedNowood);
     RegisterItem (new SeedVolcano);
-//    RegisterItem (new Sensor);
     Sensor::setup();
     ShogunDot::setup();
     SignalFilterItem::setup();

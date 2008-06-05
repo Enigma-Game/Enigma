@@ -14,6 +14,11 @@
     <attr name="flavor" type="string" default="b" rw="rw"/>
     <attr name="friction" type="double" default="nil" rw="rw"/>
     <attr name="gradient" type="double" default="nil" rw="rw"/>
+    <attr name="hit_factor" type="double" default="nil" rw="rw"/>
+    <attr name="hit_distortion_xx" type="double" default="1" rw="rw"/>
+    <attr name="hit_distortion_xy" type="double" default="0" rw="rw"/>
+    <attr name="hit_distortion_yx" type="double" default="0" rw="rw"/>
+    <attr name="hit_distortion_yy" type="double" default="1" rw="rw"/>
     <attr name="instant" type="bool" default="false" rw="rw"/>
     <attr name="interval" type="double" default="1" rw="rw"/>
     <attr name="interval_s" type="double" default="3" rw="rw"/>
@@ -115,6 +120,9 @@
     <object name="it_glasses">
       <attr name="state" max="31"/>
     </object>
+    <object name="it_glasses_broken">
+      <attr name="state" value="0"/>
+    </object>
     <object name="it_hammer"/>
     <object name="it_hammer_new" init="true"/>
     <object name="it_key">
@@ -188,6 +196,21 @@
     </object>
     <object name="st" abstract="true">
       <attr name="movable" rw="r"/>
+    </object>
+    <object name="st_actorimpulse">
+      <attr name="invisible"/>
+      <attr name="strength" default="nil"/>
+      <attr name="hit_factor"/>
+      <attr name="hit_distortion_xx"/>
+      <attr name="hit_distortion_xy"/>
+      <attr name="hit_distortion_yx"/>
+      <attr name="hit_distortion_yy"/>
+      <msg name="_init"/>
+      <msg name="_model_reanimated"/>
+      <msg name="_trigger"/>
+    </object>
+    <object name="st_actorimpulse_invisible">
+      <attr name="invisible" value="true"/>
     </object>
     <object name="st_blocker">
       <attr name="autoclose"/>

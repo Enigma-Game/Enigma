@@ -1,4 +1,5 @@
 /*
+ * Copyright (C) 2002,2003,2004 Daniel Heck
  * Copyright (C) 2008 Ronald Lamprecht
  *
  * This program is free software; you can redistribute it and/or
@@ -16,8 +17,8 @@
  * 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.
  *
  */
-#ifndef CLUSTERSTONE_HH
-#define CLUSTERSTONE_HH
+#ifndef ACTORIMPULSESTONE_HH
+#define ACTORIMPULSESTONE_HH
 
 #include "stones.hh"
 
@@ -28,29 +29,44 @@ namespace enigma {
     /** 
      * 
      */
-    class ClusterStone : public Stone {
-        CLONEOBJ(ClusterStone);
+    class ActorImpulseStone : public Stone {
+        CLONEOBJ(ActorImpulseStone);
+        DECL_TRAITS_ARRAY(2, traitsIdx());
+    private:
+        enum iState {
+            IDLE,     ///< 
+            PULSING   ///< 
+        };
+        
+        enum ObjectPrivatFlagsBits {
+            OBJBIT_INVISIBLE   =   1<<24,  ///< Object is invisible 
+        };
     public:
-        ClusterStone(std::string classname, std::string connections);
+        ActorImpulseStone(bool isInvisible);
         
         // Object interface
         virtual std::string getClass() const;
         virtual void setAttr(const string& key, const Value &val);
+        virtual Value getAttr(const std::string &key) const;
         virtual Value message(const Message &m);
         
+        // StateObject interface
+        virtual void setState(int extState);
+
         // GridObject interface
-        virtual void on_creation(GridPos p);
-        virtual void on_removal(GridPos p);
-        virtual std::string getModelName() const;
+        virtual void init_model();
+        
+        // ModelCallback interface
+        virtual void animcb();
         
         // Stone interface
-        virtual bool is_removable() const;
-        
+        virtual void actor_hit(const StoneContact &sc);
+        virtual const char *collision_sound();
+
     private:
-        void autoJoinCluster();
-        void autoLeaveCluster();
+        int traitsIdx() const;
     };
 
 } // namespace enigma
 
-#endif /*CLUSTERSTONE_HH_*/
+#endif

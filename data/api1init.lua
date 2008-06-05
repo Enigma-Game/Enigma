@@ -55,6 +55,7 @@ RenamingObjectsNew2Old = {
     it_extralife = "it-extralife",
     it_floppy = "it-floppy",
     it_glasses = "it-glasses",
+    it_glasses_broken = "it-glasses-broken",
     it_hammer = "it-hammer",
     it_magnet = "it-magnet",
     it_magnet_on = "it-magnet-on",
@@ -68,6 +69,8 @@ RenamingObjectsNew2Old = {
     it_wormhole_on = "it-wormhole",
     it_wormhole_off = "it-wormhole-off",
     it_wrench = "it-wrench",
+    st_actorimpulse = "st-actorimpulse",
+    st_actorimpulse_invisible = "st-actorimpulse_invisible",
     st_blocker = "st-blocker",
     st_blocker_new = "st-blocker-growing",
     st_bluesand = "st-blue-sand",
@@ -313,6 +316,10 @@ function enigma.SetAttrib(obj, key, val)
      if key == "value" then
          _key = "coin_value"
      end
+     if key == "force" and (_obj_name == "st-actorimpulse" or
+             _obj_name == "st-actorimpulse_invisible")  then
+         _key = "strength"
+     end
      if key == "friction_factor" then
          _key = "friction"
      end
@@ -378,6 +385,10 @@ function enigma.GetAttrib(obj, key)
      end
      if key == "value" then
          _key = "coin_value"
+     end
+     if key == "force" and (_obj_name == "st-actorimpulse" or
+             _obj_name == "st-actorimpulse_invisible")  then
+         _key = "strength"
      end
      if key == "friction_factor" then
          _key = "friction"

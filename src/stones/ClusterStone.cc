@@ -21,8 +21,13 @@
 //#include "main.hh"
 
 namespace enigma {
-    ClusterStone::ClusterStone(std::string classname, std::string connections) : Stone(classname.c_str()) {
+    ClusterStone::ClusterStone(std::string classname, std::string connections) : Stone() {
         setAttr("connections", connections);
+        setAttr("$class", classname);
+    }
+    
+    std::string ClusterStone::getClass() const {
+        return getAttr("$class").to_string();
     }
     
     void ClusterStone::setAttr(const string& key, const Value &val) {
@@ -53,6 +58,10 @@ namespace enigma {
         autoLeaveCluster();
         Stone::on_removal(p);
     }
+    
+    std::string ClusterStone::getModelName() const {
+        return getClass();
+    }
 
     bool ClusterStone::is_removable() const {
         return getFaces() == ALL_DIRECTIONS;
@@ -64,7 +73,7 @@ namespace enigma {
         for (int i = WEST; i <= NORTH; i++) {
             Direction d = (Direction) i;
             Stone *neighbour = GetStone(move(p, d));
-            if (neighbour != NULL && std::string(neighbour->get_kind()) == get_kind()) {
+            if (neighbour != NULL && std::string(neighbour->getClass()) == getClass()) {
                 Value neighbourCluster = neighbour->getAttr("cluster");
                 if (myCluster) {
                     if (myCluster == neighbourCluster) {
@@ -92,7 +101,7 @@ namespace enigma {
         for (int i = WEST; i <= NORTH; i++) {
             Direction d = (Direction) i;
             Stone *neighbour = GetStone(move(p, d));
-            if (neighbour != NULL && std::string(neighbour->get_kind()) == get_kind() 
+            if (neighbour != NULL && std::string(neighbour->getClass()) == getClass() 
                     && neighbour->getAttr("cluster")) {
                 neighbour->setAttr("$connections", neighbour->getConnections() & (ALL_DIRECTIONS ^ to_bits(reverse(d))));
             }
