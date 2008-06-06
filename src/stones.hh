@@ -23,7 +23,6 @@
 
 namespace enigma {
     
-//    using namespace enigma;
     struct Impulse;
     struct StoneContact;
 
@@ -32,6 +31,8 @@ namespace enigma {
         st_FIRST = 0,
         st_none = 0,
 
+        st_actorimpulse,
+        st_actorimpulse_invisible,
         st_borderstone,
         st_black1,
         st_black2,

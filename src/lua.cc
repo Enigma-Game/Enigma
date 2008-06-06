@@ -60,6 +60,7 @@ extern "C" {
 #define LUA_ID_GROUP    "_GROUP"
 #define LUA_ID_TILES    "_TILES"
 #define LUA_ID_TILE     "_TILE"
+#define LUA_ID_DEFAULT  "_DEFAULT"
 /**
  * The tile dictionary or function that should be used to resolve tile keys.
  */
@@ -189,6 +190,11 @@ static bool is_group(lua_State *L, int idx) {
 static bool is_world(lua_State *L, int idx) {
     return lua_isuserdata(L,idx) && checkMetadata(L, idx, LUA_ID_WORLD);
 }
+
+static bool is_default(lua_State *L, int idx) {
+    return lua_isuserdata(L,idx) && checkMetadata(L, idx, LUA_ID_DEFAULT);
+}
+
 
 static Object *to_object(lua_State *L, int idx) {
     
@@ -388,6 +394,8 @@ static Value to_value(lua_State *L, int idx) {
                 return Value(toObjectList(L, idx));
             else  if (is_position(L, idx))
                 return Value(toPosition(L, idx));
+            else  if (is_default(L, idx))
+                return Value();
         case LUA_TTABLE: {
             TokenList tokens;
             int i = 1;
@@ -2555,6 +2563,21 @@ static int iteratorGroup(lua_State *L) {
     }
 }
 
+MethodMap defaultMethodeMap;
+
+static int pushNewDefault(lua_State *L) {
+    // tiles is a singleton
+    
+    int *udata;
+    udata=(int *)lua_newuserdata(L,sizeof(int));   // user object
+    *udata = 1;  // dummy
+    
+    luaL_getmetatable(L, LUA_ID_DEFAULT);
+    lua_setmetatable(L, -2);
+    return 1;
+}
+
+
 static CFunction globalfuncs[] = {
     {FindDataFile,          "FindDataFile"},
 //    {lua::PlaySoundGlobal,  "PlaySoundGlobal"},
@@ -2742,6 +2765,14 @@ static CFunction groupOperations[] = {
 static CFunction groupMethods[] = {
     {groupMessage,                  "message"},
     {killObject,                    "kill"},
+    {0,0}
+};
+
+static CFunction defaultOperations[] = {
+    {0,0}
+};
+
+static CFunction defaultMethods[] = {
     {0,0}
 };
 
@@ -3041,6 +3072,7 @@ lua_State *InitLevel()
     RegisterLuaType(L, LUA_ID_TILE, tileOperations, tileMethods, tileMethodeMap);
     RegisterLuaType(L, LUA_ID_TILES, tilesOperations, tilesMethods, tilesMethodeMap);
     RegisterLuaType(L, LUA_ID_GROUP, groupOperations, groupMethods, groupMethodeMap);
+    RegisterLuaType(L, LUA_ID_DEFAULT, defaultOperations, defaultMethods, defaultMethodeMap);
     
     pushNewNamedObj(L);
     RegisterObject(L, "no");
@@ -3050,6 +3082,9 @@ lua_State *InitLevel()
     
     pushNewTiles(L);
     RegisterObject(L, "ti");
+    
+    pushNewDefault(L);
+    RegisterObject(L, "DEFAULT");
     
     return L;
 }

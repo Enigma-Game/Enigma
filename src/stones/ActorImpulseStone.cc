@@ -155,8 +155,8 @@ namespace enigma {
 
     
     StoneTraits ActorImpulseStone::traits[2] = {
-        {"st_actorimpulse", st_INVALID, stf_none, material_stone, 1.0, MOVABLE_PERSISTENT},
-        {"st_actorimpulse_invisible", st_INVALID, stf_none, material_stone, 1.0, MOVABLE_PERSISTENT},
+        {"st_actorimpulse", st_actorimpulse, stf_none, material_stone, 1.0, MOVABLE_PERSISTENT},
+        {"st_actorimpulse_invisible", st_actorimpulse_invisible, stf_none, material_stone, 1.0, MOVABLE_PERSISTENT},
     };
     
     BOOT_REGISTER_START
