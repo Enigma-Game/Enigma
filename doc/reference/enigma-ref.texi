@@ -3002,7 +3002,7 @@ types can be assigned:
 @item int
 @item double
 @item string
-@item nil
+@item nil, DEFAULT
 @item position
 @item object
 @item group
@@ -3022,8 +3022,31 @@ value. E.g. if you set the attribute "orientation" of @ref{st_boulder} to
 @samp{nil} it will be set to its default, which is actually @samp{NORTH}, an
 enumerated direction value. A subsequent read of the attribute will return this
 value. Just those attributes that allow a nil value will ever return @samp{nil}
-on a read access. Aa a direct consequence these attributes always default to 
+on a read access. As a direct consequence these attributes always default to 
 @samp{nil}.
+
+The authors of Lua did decide to prohibit the usage of @samp{nil} as a value
+in Lua tables. As we make heavy usage of anonymous tables as object 
+declarations, you would not be able to set such attributes to @samp{nil}. You
+would need to set such attributes explicitly. As a workaround we added a custom
+value @samp{DEFAULT} that can be used anywhere to set attributes - even within
+Lua tables.
+
+@example
+mySwitch["color"] = nil
+mySwitch["color"] = DEFAULT
+wo[{3,6}] = @{"ac_marble_black", player=DEFAULT@}
+@end example
+
+Note that @samp{DEFAULT} is not equal to @samp{nil}. They are different values
+concerning Lua. They just result both in attributes reset to their default. If
+you request a nil valued attribute you will always receive the Lua value
+@samp{nil}. @samp{DEFAULT} will never be returned by the engine.
+
+A group is an ordered set of @ref{Object Reference}s. As all contained objects
+must exist this value is seldomly used for attributes in object declarations.
+But is is very useful for postprocessing of objects and for usage within
+@ref{Callback Function}s.
 
 The most complex attribute value type are the tokens. Their purpose is the
 specification of one or many objects. As Enigma provides several means to do
@@ -3622,6 +3645,7 @@ used in the default manner.
 * inverse::
 * destination::
 * movable::
+* hit_*::
 @end menu
 
 @node name
@@ -3652,14 +3676,90 @@ Some objects will be autonamed if no name is defined.
 @node state
 @subsection state
 
+The central attribute of any object that describes the current state of an 
+object in its standard life cycle. This @ref{Object State} is described by
+a simple number. Most dynamic objects have just 2 states. Others may have more.
+The available states are listed with each object. This universal attribute
+allows common messages like @ref{toggle}, @ref{signal}, @ref{on}, @ref{off},
+@ref{open}, @ref{close}. 
+
+@table @asis
+@item @b{Type:} @ @ number
+@item @b{Values:} @ @ dependend on the individual object
+Please use the given upper case constants.
+@item @b{Default:} @ @ @code{0}
+@item @b{Access:} @ @ read/sometimes write
+While it is common to set the state attribute on object creation, it is 
+preferable to change the object state lateron by messages.
+@item @b{Support:} @ @ by all objects
+@end table
+
 @node target
 @subsection target
+
+All active objects react on being triggered by performing an action on their
+targets. This attribute is part of the @ref{Target - Action} paradigm that 
+guarantees pluggability of objects. You can either set a general @samp{target}
+attribute for an object, or you can set @ref{state} dependant attributes 
+@samp{target_0}, @samp{target_1},... (@pxref{Object State}). They all have the
+same syntax:
+
+@table @asis
+@item @b{Type:} @ @ string, object, group, tokens @ @ @xref{Object Description}
+Single targets may be declared by their object name or their reference. Multiple
+targets can be declared by usage of groups and tokens.
+@item @b{Values:} @ @ @xref{Object Attributes}
+@example
+target = "myDoor"
+target = myObject
+target = @{"myDoor", myObject@}
+target = @{grp(obj1, obj2), "myDoor", myObject@}
+@end example
+
+@item @b{Default:} @ @ @code{nil}
+@item @b{Access:} @ @ read/write
+@item @b{Support:} @ @ by all objects
+@end table
 
 @node action
 @subsection action
 
+All active objects react on being triggered by performing an action on their
+targets. This attribute is part of the @ref{Target - Action} paradigm that 
+guarantees pluggability of objects. You can either set a general @samp{action}
+attribute for an object, or you can set @ref{state} dependant attributes 
+@samp{action_0}, @samp{action_1},... (@pxref{Object State}). They all have the
+same syntax:
+
+@table @asis
+@item @b{Type:} @ @ string, tokens of strings @ @ @xref{Target - Action}
+A single action may be declared by its message string. Multiple actions that
+match multiple targets can be declared by tokens of strings.
+@item @b{Values:} @ @ @xref{Object Attributes}
+@example
+action = "open"
+action = @{"open", "turn", "toggle"@}
+@end example
+
+@item @b{Default:} @ @ @code{nil}
+@item @b{Access:} @ @ read/write
+@item @b{Support:} @ @ by all objects
+@end table
+
 @node nopaction
 @subsection nopaction
+
+A very special addition to the @ref{Target - Action} paradigm that allows
+in case of state specific actions to deny the sending of default messages
+(@pxref{Object State}).
+
+@table @asis
+@item @b{Type:} @ @ bool
+@item @b{Values:} @ @ @code{true}, @code{false}
+@item @b{Default:} @ @ @code{false}
+@item @b{Access:} @ @ read/write
+@item @b{Support:} @ @ by all objects
+@end table
 
 @node inverse
 @subsection inverse
@@ -3730,6 +3830,31 @@ This attribute is only writable for objects that exist in both variations.
 @item @b{Support:} @ @ by all stones
 @end table
 
+@node hit_*
+@subsection hit_*
+
+A set of attributes that allow you to distort hit forces. Objects like 
+@ref{st_flash}, @ref{st_spitter} and @ref{st_actorimpulse} apply forces that
+are either based on the hit velocity or the position. 
+
+By usage of a simple @samp{hit_factor} you can increase, decrease or invert the
+default factor. Note that you must not set this attribute, if you want to use
+the default.
+
+By setting the four attributes @samp{hit_distortion_xx}, @samp{hit_distortion_xy},
+@samp{hit_distortion_yx} and @samp{hit_distortion_yy} you can describe a 
+matrix to set up a new direction. These attributes default to 1, 0, 0, 1. 
+A 90 degree clockwise turn is described by 0, 1, -1, 0.
+
+@table @asis
+@item @b{Type:} @ @ number
+@item @b{Values:} @ @ 
+@item @b{Default:} @ @ factor - @code{nil}, xx, yy - @code{1}, xy, yx - @code{0}
+By default no hit factor is applied. The hit matrix is the neutral one.
+@item @b{Access:} @ @ read/write
+@item @b{Support:} @ @ by some stones
+@end table
+
 
 @node Common Messages
 @section Common Messages
@@ -3769,6 +3894,8 @@ This attribute is only writable for objects that exist in both variations.
 @section Global Attributes
 
 @menu
+* BumperStrength::
+* ExtralifeGlasses::
 * Height::
 * IsDifficult:: 
 * MagnetRange:: 
@@ -3779,16 +3906,46 @@ This attribute is only writable for objects that exist in both variations.
 * WormholeStrength:: 
 @end menu
 
+@node BumperStrength
+@subsection BumperStrength
+
+A global scalar default factor for the actorimpulse bumping force. This global 
+value is only used if no object specific value is set. 
+
+@table @asis
+@item @b{Type:} @ @ number
+@item @b{Values:} @ @ float number
+@item @b{Default:} @ @ @code{+200.0}
+@item @b{Access:} @ @ read/write
+@item @b{Support:} @ @ @ref{st_actorimpulse}
+@end table
+
+@node ExtralifeGlasses
+@subsection ExtralifeGlasses
+
+A global variable that defines the @ref{it_glasses} type that is generated on
+the laser light convertion of an @ref{it_extralife}
+
+@table @asis
+@item @b{Type:} @ @ number
+@item @b{Values:} @ @ positiv integer number
+A sum out of the constants @samp{SPOT_DEATH}, @samp{SPOT_HOLLOW},
+@samp{SPOT_ACTORIMPULSE}, @samp{SPOT_SENSOR}, @samp{SPOT_LIGHTPASSENGER}
+@item @b{Default:} @ @ @code{SPOT_DEATH + SPOT_HOLLOW + SPOT_LIGHTPASSENGER}
+@item @b{Access:} @ @ read/write
+@item @b{Support:} @ @ @ref{it_extralife}
+@end table
+
 @node Height
 @subsection Height
 
-A global read only variable reports the height of the the world in grid units.
+A global read only variable reports the height of the world in grid units.
 This is set by the initial world constructor call 
 (@pxref{World Creation and Resolver Chaining}).
 
 @table @asis
 @item @b{Type:} @ @ number
-@item @b{Values:} @ @ positiv integer number
+@item @b{Values:} @ @ positive integer number
 @item @b{Default:} @ @ @code{?}
 @item @b{Access:} @ @ read only
 @item @b{Support:} @ @ object independent
@@ -3799,8 +3956,9 @@ This is set by the initial world constructor call
 
 A global read only variable that defines the current diffculty mode selected
 by the user. All differences of easy and difficult mode within the level should
-be coded solely in dependence of this flag. A level that supports an easy mode
-the author needs to declare it in the XML header in the element @ref{<modes>}.
+be coded solely in dependence of this flag. If a level that supports an easy
+mode the author needs to declare it in the XML header in the element 
+@ref{<modes>}.
 
 @table @asis
 @item @b{Type:} @ @ bool
@@ -3840,10 +3998,10 @@ Positve number are attracting, negative numbers are repelling.
 @item @b{Support:} @ @ @ref{it_magnet}
 @end table
 
-@node Height
-@subsection Height
+@node Width
+@subsection Width
 
-A global read only variable reports the height of the the world in grid units.
+A global read only variable reports the width of the the world in grid units.
 This is set by the initial world constructor call 
 (@pxref{World Creation and Resolver Chaining}).
 
@@ -3894,7 +4052,7 @@ value is only used if no object specific value is set.
 @item @b{Type:} @ @ number
 @item @b{Values:} @ @ float number
 @item @b{Default:} @ @ @code{30.0}
-Positve number are attracting, negative numbers are repelling.
+Positive number are attracting, negative numbers are repelling.
 @item @b{Access:} @ @ read/write
 @item @b{Support:} @ @ @ref{it_wormhole}
 @end table
@@ -3922,6 +4080,7 @@ Positve number are attracting, negative numbers are repelling.
 * it_coin::            Enigma's currency
 * it_extralife::
 * it_floppy::          
+* it_glasses::         Glasses to spot certain objects
 * it_hammer::
 * it_key::             
 * it_magnet::
@@ -3956,7 +4115,7 @@ will open and close a given blocker multiple times.
 Note that the blocker is the only door object that allows a stone to be pushed
 through. Just boulders cause the growing. Any other stone keeps the open state.
 
-Another unique door feature is the closing of an blocker item caused by a 
+Another unique door feature is the closing of a blocker item caused by a 
 passing actor if the autoclose attribute is set to true.
 
 Note that a dropped @ref{it_brake} destroys this item.
@@ -3968,8 +4127,8 @@ Note that a dropped @ref{it_brake} destroys this item.
 @item @b{state}, @ @ @i{values}: @code{0}, @code{1}; @ @ @i{default}: @code{1} @ @ @xref{state}
 Use CLOSED and OPEN macros as values. The item represents the open state
 and will always return state 1. But you can set its state what is equivalent
-to sending an open message in case of value 1 and an close message in case of
-value 0..
+to sending an open message in case of value 1 and a close message in case of
+value 0.
 
 @atindex autoclose
 @item @b{autoclose} @ @ @i{values}: @code{true}, @code{false}; @ @ @i{default}: @code{false}
@@ -3984,7 +4143,7 @@ A true value causes any actor passing this item to close and grow the blocker.
 A signal of value 1 sends an open message, a signal of value 0 sends a close
 message.
 @item @b{toggle} @ @ @xref{toggle}
-A toggle causes an close message.
+A toggle causes a close message.
 @item @b{close} @ @ @xref{close}
 A close message take immediate effect if the item is not covered by a stone.
 The item transforms to a new growing @ref{st_blocker}. If it is covered by a
@@ -3994,7 +4153,7 @@ when the stone moves away.
 As the item is open this message takes only effect if it is currently covered
 by a stone and marked as unlocked. That means it should grow as soon as the
 stone moves away what happens when an @ref{st_boulder} passes an idle blocker
-item. In this case an open messages locks the blocker again to avoid a growing
+item. In this case an open message locks the blocker again to avoid a growing
 when the stone moves away.
 @end table
 
@@ -4090,6 +4249,8 @@ its action. Similar, but instant sensors for actors are @ref{it_sensor} and
 A cross can be drawn with an @ref{it_pencil} and it can be removed with an
 @ref{it_brush}.
 
+An @ref{st_lightpassenger} moving onto a cross item will switch off.
+
 @table @asis
 @item @b{Attributes:}
 
@@ -4116,7 +4277,9 @@ Number of seconds that the actor must stay on the sensor to cause an action.
 @obindex it_extralife
 
 An extralife transforms into @ref{it_glasses} when hit by a laser beam and is
-itself a laser transformation result of an @samp{it_coin4} (@pxref{it_coin}).
+itself a laser transformation result of an @samp{it_coin_l} (@pxref{it_coin}).
+The global variable @ref{ExtralifeGlasses} describes what the new glasses are
+able to spot.
 
 An extralife that comes into existence on an illuminated grid position will not
 be destroyed due to already existing laser beams. But it will be destroyed on
@@ -4154,6 +4317,61 @@ the floppy as first item in the players inventory.
 
 @end table
 
+@c ----------------- Glasses Item -------------------- 
+@node it_glasses
+@subsection it_glasses
+@obindex it_glasses
+
+Glasses help a marble to spot certain other objects that are otherwise invisible
+or indistinguishable. 
+
+To be effective glasses must be hold in the top level of a players inventory.
+That means that the glasses must be shown in the inventory and not be burried
+in an @ref{it_bag} that is part of the inventory. Of course glasses just help
+those actors that are attached to the player wearing the glasses.
+
+Glasses can make invisible @ref{st_death} visible, can uncover invisible
+passages by making hollow stones transparent, can make inactive
+@ref{st_lightpassenger} be distinguishable from @ref{st_glass}, can make
+invisble @ref{it_sensor} be visible and they can make invisble 
+@ref{st_actorimpulse} be visible.
+
+All these features are configurable by the constants @samp{SPOT_DEATH},
+@samp{SPOT_HOLLOW}, @samp{SPOT_LIGHTPASSENGER}, @samp{SPOT_SENSOR} and
+@samp{SPOT_ACTORIMPULSE}. You can set the @samp{state} attribute to a sum
+of these constants that should apply to given glasses. The default is for 
+backward compatibility @samp{SPOT_DEATH + SPOT_HOLLOW + SPOT_LIGHTPASSENGER}.
+When a player wears several glasses he spots everything that any of the glasses
+could spot.
+
+Glasses break when a stone is pushed over them. Broken glasses spot nothing.
+
+Glasses result from the laser light transformation of @ref{it_extralife}. The
+features of such new glasses are determined by the global variable 
+@ref{ExtralifeGlasses}.
+
+@table @asis
+@item @b{Attributes:}
+
+@table @asis
+@item @b{state}, @ @ @i{values}: positive numbers; @ @ @i{default}: @code{SPOT_DEATH + SPOT_HOLLOW + SPOT_LIGHTPASSENGER} @ @ @xref{state}
+A sum of the constants @samp{SPOT_DEATH}, @samp{SPOT_HOLLOW}, 
+@samp{SPOT_LIGHTPASSENGER}, @samp{SPOT_SENSOR}, @samp{SPOT_ACTORIMPULSE}.
+@samp{SPOT_NOTHING} is the state of a broken glasses.
+@end table
+
+@item @b{Messages:} none
+
+@item @b{Variants:}
+@table @asis
+@item @b{it_glasses}
+Active glasses item.
+@item @b{it_glasses_broken}
+Broken glasses that spot nothing.
+@end table
+
+@end table
+
 @c ----------------- Hammer Item -------------------- 
 @node it_hammer
 @subsection it_hammer
@@ -4163,7 +4381,7 @@ The hammer is used to destroy some stones, see @ref{Breakable Stones} and
 @ref{st_lightpassenger}. 
 
 It transforms into @ref{it_sword} when hit by a laser beam and is itself a
-laser transformation result of an @ref{it_sword} and an @samp{it_coin2} 
+laser transformation result of an @ref{it_sword} and an @samp{it_coin_m} 
 (@pxref{it_coin}).
 
 An hammer that comes into existence on an illuminated grid position will not
@@ -4281,7 +4499,7 @@ passing actors. You can make the trigger invisible by setting its attribute.
 Be aware that the user will still notice that actors cannot drop items onto the
 same grid position.
 
-Alternative objects that reacts on actors are @ref{it_trigger} and 
+Alternative objects that react on actors are @ref{it_trigger} and 
 @ref{it_cross}.
 
 @table @asis
@@ -4361,7 +4579,7 @@ You can make the trigger invisible by setting its attribute. Be aware that it
 still produces its click-sounds and the user will notice that actors cannot drop
 items onto the same grid position.
 
-Alternative objects that reacts just on actors are @ref{it_sensor} and
+Alternative objects that react just on actors are @ref{it_sensor} and
 @ref{it_cross}.
 
 @table @asis
@@ -4398,7 +4616,7 @@ and @samp{fall} messages; in other words, from all lethal situations and
 thieves.
 
 An umbrella gets destroyed when hit by a laser beam and is itself a
-laser transformation result of an @samp{it_coin1}(@pxref{it_coin}).
+laser transformation result of an @samp{it_coin_s}(@pxref{it_coin}).
 
 An umbrella that comes into existence on an illuminated grid position will not
 be destroyed due to already existing laser beams. But it will be destroyed on
@@ -4481,9 +4699,9 @@ Opens the vortex on value @samp{1}, and closes the vortex on value @samp{0}.
 @item @b{toggle} @ @ @xref{toggle}
 Opens a closed vortex and closes an open vortex if possible.
 @item @b{open} @ @ @xref{open}
-Try to open a vortex.
+Tries to open the vortex.
 @item @b{close} @ @ @xref{close}
-Try to close a vortex.
+Tries to close the vortex.
 @end table
 
 @item @b{Action:}
@@ -4510,7 +4728,7 @@ A vortex in state @samp{CLOSED}.
 Teleports actors of any kind to a given @samp{destination}. Unlike 
 @ref{it_vortex} every wormhole has a unique destination. But of course the
 destination may be another wormhole which instantly teleports the actor again.
-Infinite circle of wormholes conneted by destinations are forbidden.
+An infinite circle of wormholes that are connected by destinations is forbidden.
 
 A wormhole can attract or repell actors in its @samp{range} with a force
 proportional to the @samp{strength} and the inverse of the squared distance.
@@ -4522,7 +4740,7 @@ Rubberbands bound to teleported actors are cut by default. The attribute
 @samp{scissor} allows you to control the cutting behaviour.
 
 After teleporting an actor, the wormhole's teleporting ability may be switched
-off for a short latency period given by @samp{interval}. A letancy separates
+off for a short latency period given by @samp{interval}. A latency separates
 actors travelling through a wormhole and avoids overlapping actors at the
 destination.
 
@@ -4531,7 +4749,7 @@ destination.
 
 @table @asis
 @item @b{state}, @ @ @i{values}: @code{ON}, @code{OFF}; @ @ @i{default}: @code{OFF} @ @ @xref{state}
-The current force state - @samp{ON} for an force applying wormholes, @samp{OFF}
+The current force state - @samp{ON} for a force applying wormholes, @samp{OFF}
 for force neutral wormholes.
 
 @item @b{destination}, @ @ @i{values}: tokens or position; @ @ @i{default}: @code{nil} @ @ @xref{destination}
@@ -4549,7 +4767,7 @@ where as negative numbers are repelling forces.
 Rubberband cutting behaviour on teleporting.
 
 @item @b{interval} @ @ @i{values}: float number greater equal 0; @ @ @i{default}: @code{0.0}
-The letancy time after a teleport during which no further teleports take place.
+The latency time after a teleport during which no further teleports take place.
 
 
 @item @b{Messages:}
@@ -4787,6 +5005,7 @@ to use @samp{st_panel} with the attributes @samp{cluster} and @samp{faces}.
 @section Special Stones
 
 @menu
+* st_actorimpulse::    Bumper Stone
 * st_blocker::         Shrinkable Blocker
 * st_boulder::         Moving Arrow Boulder
 * st_coinslot::        Coin Driven Switch
@@ -4806,6 +5025,68 @@ to use @samp{st_panel} with the attributes @samp{cluster} and @samp{faces}.
 * st_window::          Faced Window
 @end menu
 
+
+@c ----------------- Actorimpulse Stone -------------------- 
+@node st_actorimpulse
+@subsection st_actorimpulse
+@obindex st_actorimpulse
+
+An active bumper for actors and some stones like @ref{st_boulder}. The 
+actorimpulse stone can be made invisible while idle to introduce some surprise
+effects.
+
+Actors that hit this stone will not be reflected just passively. An additional
+force will be applied to them that can even be distorted. By default the actors
+are just pushed away from the center of the stone. A global attribute
+@ref{BumperStrength} gives a default force that can be overridden by the 
+stone attribute @samp{strength}.
+
+For sophisticated usage you can distort this force by usage of the @ref{hit_*}
+attributes. Note that the @samp{hit_factor} overrides a @samp{strength}
+attribute.
+
+An actorimpulse stone can be configured by the @samp{invisible} attribute to
+be hidden while being idle. While pulsing any actorimpulse is visible. An
+invisible actorimpulse can be made permanent visible by hitting it with a
+revealed @ref{it_brush} in the players inventory. The level author can configure
+@ref{it_glasses} by addition of @samp{SPOT_ACTORIMPULSE} to show otherwise
+invisible actorimpulse stones. With the global attribute @ref{ExtralifeGlasses}
+even glasses generated by laser lighting an @ref{it_extralife} can be configured
+to show invisible actorimpulse stones.
+
+An @ref{st_boulder} hitting an actorimpulse stone will revert its direction
+and return in the incoming direction.
+
+@table @asis
+@item @b{Attributes:}
+
+@table @asis
+@item @b{invisible} @ @ @i{values}: @code{true}, @code{false}; @ @ @i{default}: @code{false}
+An invisible actorimpulse stone is totally transparent. But the user will
+notice it, as actors will bounce with addtional impulses.
+@item @b{strength} @ @ @i{values}: float number; @ @ @i{default}: @code{+200.0} @ @ @xref{BumperStrength}
+A scalar factor for the impulse force. Positive numbers are attracting forces
+where as negative numbers are repelling forces.
+@item @b{hit_factor} @ @ @i{values}: float number; @ @ @i{default}: @code{nil} @ @ @xref{hit_*}
+A @samp{hit_factor} overrrides a given @samp{strength} attribute.
+@item @b{hit_distortion_xx} @ @ @i{values}: float number; @ @ @i{default}: @code{+1.0} @ @ @xref{hit_*}
+@item @b{hit_distortion_xy} @ @ @i{values}: float number; @ @ @i{default}: @code{0.0} @ @ @xref{hit_*}
+@item @b{hit_distortion_yx} @ @ @i{values}: float number; @ @ @i{default}: @code{0.0} @ @ @xref{hit_*}
+@item @b{hit_distortion_yy} @ @ @i{values}: float number; @ @ @i{default}: @code{+1.0} @ @ @xref{hit_*}
+@end table
+
+@item @b{Messages:} none
+
+@item @b{Action:} @ @ @xref{target}, @ @ @xref{action}
+
+@item @b{Variants:}
+
+@table @asis
+@item @b{st_actorimpulse}: invisible = @code{false}
+@item @b{st_actorimpulse_invisible}: invisible = @code{true}
+@end table
+
+@end table
 
 @c ----------------- Blocker Stone -------------------- 
 @node st_blocker
@@ -4892,7 +5173,7 @@ A marble blocking its way is shattered. When a stone blocks its way, it triggers
 it by a sequence of two internal messages. Some stones give way like 
 @ref{st_blocker}, others change their state like @ref{st_oxyd}, 
 @ref{st_stoneimpulse}, @ref{st_fart}, @ref{st_mirror}, @ref{st_fourswitch},
-@ref{st_volcano}. A third categorie switches temporary in another state on the
+@ref{st_volcano}. A third category switches temporary in another state on the
 first message sent when the boulder reaches a grid and switch back on the
 second message sent when the boulder gives up like @ref{st_[black/white]},
 @ref{st_plain}, @ref{st_lightpassenger}.
@@ -4902,11 +5183,12 @@ on top of them. Additionally @ref{it_blocker} will be released to grow again
 to a blocking stone.
 
 Boulder stones fall into @ref{fl_abyss}, but cross @ref{fl_water}
-unchanged.  
+unchanged.
 
-@ref{it_magicwand} and lasers reverse its direction. @ref{st_rotator} changes
-its direction according to the rotators direction. @ref{st_stoneimpulse} pushes
-a boulder away.
+@ref{it_magicwand} and lasers reverse its direction. An @ref{st_actorimpulse}
+reverts the direction if the boulder hits it frontally. An @ref{st_rotator}
+changes its direction according to the rotators direction. An 
+@ref{st_stoneimpulse} pushes a boulder away.
 
 @table @asis
 @item @b{Attributes:}
@@ -5314,9 +5596,18 @@ with @samp{base} the value of the @samp{interval}-attribute,
 and @floor{floor_gradient} the parallel part of the force of the floor,
 i.e., the sum of gradient-force and @code{force_x/y}-attributes.
 
-The light passenger can be switched on and off by messages (see
-below), and appears as @samp{st_glass2} when inactive.  The variant
-@samp{st_lightpassenger_off} is deactivated from the beginning.
+The light passenger can be switched on and off by messages (see below), and 
+appears as @samp{st_glass2} when inactive. A player with an @ref{it_glasses}
+in his inventory that includes the @samp{SPOT_LIGHTPASSENGER} feature is able
+to distinguish the switched off lightpassenger from an @samp{st_glass2}.
+The variant @samp{st_lightpassenger_off} is deactivated from the beginning.
+A lightpassenger that moves onto an @ref{it_cross} switches off immediatly. A
+switchted off lightpassenger can be switched on by an actor hit with a revealed
+@ref{it_brush} in the inventory. Such a touch with a brush does wipe out a
+cross beneath the lightpassenger, too.
+
+An @ref{st_boulder} hitting a lightpassenger toggles its state for a short
+period.
 
 When an active @samp{st_lightpassenger} is trapped between exactly two
 opposing light beams or light beams from all four directions, it
@@ -5832,12 +6123,23 @@ Try to tear the opposite window face into the given direction.
 @node shuffleOxyd
 @subsection shuffleOxyd
 
-Read API Concept Draft
+Shuffling the color distribution of the @ref{st_oxyd} makes every level, that
+is no meditation, a bit generic. On every level start the level looks a little
+bit different and the user has to solve a modified level. This provides long
+term amusement. Thus the call of this method is part of most levels.
 
-Work in progress!
+Many levels just call this method without any arguments. This results in a
+shuffling of all @ref{st_oxyd} that are not exclude by an @samp{noshuffle}
+attribute.
 
-
-@ref{st_oxyd}
+But sometimes levels need to influence the shuffling, either for ensuring that
+the level remains solvable, or simply to ensure fairness. Imagine a level that
+has two @ref{st_oxyd}s in every corner. If by chance a user gets a distribution
+where he has in each corner a pair of same colored oxyds, the level might be
+trivial. Another level may have a passage that the marble can pass just a few
+times. With 5 or more oxyds on each side of the passage you need to ensure that
+the marble never needs to pass the passage more often than possible. Both 
+situations can be handled by providing proper rules as arguments to this method.
 
 @table @asis
 @item @b{Syntax:}
@@ -5847,7 +6149,7 @@ Work in progress!
 @table @asis
 @item @i{rules} = @i{rule}, @i{rule},...
 No rule or as many as you like, all seperated by a comma.
-@item @i{rule} = @{@i{group1}, @i{group2}, @i{maxrule}, @i{minrule}, @i{circularrule}, @i{linearrule}, @i{logrule}@}
+@item @i{rule} = @{@i{group1}, @i{group2}, @i{maxrule}, @i{minrule}, @i{circularrule}, @i{linearrule}, @i{log}@}
 Each rule is a table with a subset of the listed entries. The @i{group1} entry
 is mandatory. All other entries are optional and can be added in any combination.
 @item @i{group1} = @i{group} | @i{objectreference} | @i{objectspecifier}
@@ -5867,7 +6169,7 @@ Avoid any pair of neighboring oxyds in group1. Avoid an oxyd pair of first and
 last oxyd in group1, too.
 @item @i{linearrule} = @code{linear = true}
 Avoid any pair of neighboring oxyds in group1.
-@item @i{logrule} = @code{log = } @ @  @code{"solution"} |@code{"count"} |@code{"all"} 
+@item @i{log} = @code{log = } @ @  @code{"solution"} |@code{"count"} |@code{"all"} 
 Log additional information to the log stream for debugging purposes and 
 security checks by the level author.
 @end table
@@ -5881,9 +6183,112 @@ wo:shuffleOxyd(@{"leftoxyds#*","rightoxyds#*", min=3@}, @{"islandoxyds#*", max=0
 
 @item @b{Details:}
 
+Any call of @samp{wo:shuffleOxyd()} must occur after all @ref{st_oxyd} have been
+set. That means that it must follow the standard world initialzation 
+(@pxref{World Creation and Resolver Chaining}). As a side effect shuffleOxyd 
+will assign colors to all @samp{OXYD_AUTO} colored @ref{st_oxyd}. 
+
+Once called the given shuffling rules remain valid. Any further reshuffling
+must be done by messages @samp{closeall} and @samp{shuffle} to one arbitrary
+@ref{st_oxyd} instance. No addition of an @ref{st_oxyd} or subsequent 
+@samp{wo:shuffleOxyd()} calls are possible without disturbing and deleting the
+given rules.
+
+Rule based shuffling is limited to a maximum of one pair of each standard oxyd
+color plus any combination of additional special fake, fart or bold oxyds 
+summing up to a maximum of 32 oxyds. If more than 32 oxyds or 2 or more pairs
+of a single standard color are set, all oxyds will be shuffled by random
+ignoring any provided rules.
+
+There are basically two different types of rules. Those with one group and those
+with two groups of oxyds (Note that group is the general API expression for
+a set of oxyds and not a mathematical group). For a single group the rules apply
+to the oxyd instances within this group. For two groups the rules apply to oxyd
+pairs with one oxyd in the first group and the other in the second group.
+
+E.g. @samp{@{"islandoxyds#*", max=0@}} requests that there is no pair within
+this group of oxyds. Whereas @samp{@{"leftoxyds#*","rightoxyds#*", min=3@}} 
+requests that there are 3 different oxyd pairs, each with one oxyd out of the
+leftoxyd group and the second out of the rightoxyd group.
+
+Linear and circular rules can only be applied to a single group. They are
+shortcuts for the most common rules that are applied to oxyds arranged on a
+line or a circle. In both cases they avoid pairs of neighboring oxyds. They
+are equivalent to @samp{n-1} res. @samp{n} rules with all possible neighboring
+oxyds pairs as two groups and a rule of @samp{max=0}.
+
+Note that you can apply several rules at once to given groups. E.g. you can
+apply a minrule and a maxrule within one rule!
+
+The shuffling process consists always of two stages. The most important first
+stage generates a valid oxyd pair distribution. That means that we settle which
+pairs will have the same color. But the color itself is assigned in an
+independent second stage. As for the examination of given rules just the pair
+distribution is relevant, we do just count and log these different distributions
+ignoring the colors.
+
+With 16 oxyds of 8 different colors and no restricting rules you have 2027025
+(15 * 13 * 11 * 9 * 7 * 5 * 3) different valid distributions. Keep in mind
+that useful rules should always keep hundreds or thousands of different valid
+distributions for a level.
+
+For debugging purposes you can add a log parameter to one of the rules (it does
+not matter to which one). If you request the log of @samp{solution} the
+pair distribution will be printed to the log stream. 
+
+In case of @samp{count} the number of different oxyd distributions will be 
+counted and logged. It is recommended to check the count on complex rules to 
+ensure that enough distributions remain for a varying game. But be careful 
+applying count on trivial rules. With 16 oxyds there may be as many as
+... distributions and it may take a standard PC up to 30 seconds to count them!
+
+Be very, very cautious in usage of logging @samp{all}. This call tries to print
+all solutions. It takes ages if there are to many solutions. First check the
+count before trying to log the solutions.
+
 @item @b{Full Example:}
 @example
+wo["ConserveLevel"] = false
+
+ti["~"] = @{"fl_water"@}
+ti[" "] = @{"fl_plank"@}
+ti["c"] = @{"it_crack3", brittleness=0@}
+ti["^"] = @{"st_oneway_n"@}
+ti["1"] = @{"ac_marble_black", 0, 0.5}
+
+ti["x"] = @{"st_oxyd", "island#"@}
+ti["y"] = @{"st_oxyd", "left#"@}
+ti["z"] = @{"st_oxyd", "right#"@}
+
+w, h = wo(ti, " ", @{
+"~~x  x  x  x  x  x~~",
+"~~                ~~",
+"~~~~^~~~~~~~~~~^~~~~",
+"y       ~~~~       z",
+"~       cccc       ~",
+"y       ~~~~       z",
+"~       cccc       ~",
+"y       ~~~~       z",
+"~       cccc       ~",
+"y       ~~~~       z",
+"~~~~c~~~~~~~~~~c~~~~",
+"~~                ~~",
+"~~        1       ~~"
+@})
+
+wo:shuffleOxyd(@{"island#*", min=3, linear=true@}, @{"left#*","right#*", max=2, min=2@})
 @end example
+
+This level uses 14 oxyds. The 6 oxyds in the upper row are on an island that
+can not be left once the marble entered it through one of the oneways. Thus
+we need 3 pairs of oxyds on this island, which are enforced by the min rule.
+To avoid trivial neighboring pairs on the island, we do add a linear rule, too.
+The marble can pass just three times between the left and right islands. This
+allows a first look on the color oxyds with one pass and opening one pair on
+each of the two following passes. Thus we limit the number of pairs by a max
+rule to 2. To avoid trivial oxyd pair distributions, like two pairs on the left
+and two pairs on the right side, we do add a min rule that enforces that two
+shared pairs of oxyds do exist.
 @end table
 
 @c ----------------- drawMap -------------------- 
