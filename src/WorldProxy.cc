@@ -63,7 +63,7 @@ namespace enigma {
             return Width();
         } else if (key == "Brittleness") {
             return server::Brittleness;
-        } else if (key == "BumperStrength") {
+        } else if (key == "ActorimpulseStrength") {
             return server::BumperForce;
         } else if (key == "ElectricForce") {
             return server::ElectricForce;
@@ -111,7 +111,7 @@ namespace enigma {
             STATUSBAR->show_move_counter (server::ShowMoves);
         } else if (key == "Brittleness") {
             server::Brittleness = val;
-        } else if (key == "BumperStrength") {
+        } else if (key == "ActorimpulseStrength") {
             server::BumperForce = val;
         } else if (key == "ElectricForce") {
             server::ElectricForce = val;

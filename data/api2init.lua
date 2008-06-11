@@ -118,25 +118,67 @@ SPOT_LIGHTPASSENGER =  16
 -- Utility Methods --
 ---------------------
 
-function drawmap(world, resolver, origin, ignore, map)
-    local len = string.len(ignore)
-    for y=1, #map do
-        local linelen = string.len(map[y])
-        if math.fmod(linelen, len) ~= 0 then
-            error("drawmap map line ".. y .. " with odd length", 2)
-        end
-        for x = 1, linelen/len do
-            local key = string.sub(map[y], len*(x-1)+1, len*x)
-            if key ~= ignore then
-                world[origin + {x-1, y-1}] =  
-                        world:_evaluate(resolver, key, origin.x + x - 1, 
-                                origin.y + y-1)
+wo:_register("drawMap", 
+    function (world, resolver, origin, ignore, map)
+        -- TODO check validity of arguements
+        local len = string.len(ignore)
+        for y=1, #map do
+            local linelen = string.len(map[y])
+            if math.fmod(linelen, len) ~= 0 then
+                error("drawmap map line ".. y .. " with odd length", 2)
+            end
+            for x = 1, linelen/len do
+                local key = string.sub(map[y], len*(x-1)+1, len*x)
+                if key ~= ignore then
+                    world[origin + {x-1, y-1}] =  
+                            world:_evaluate(resolver, key, origin.x + x - 1, 
+                                    origin.y + y-1)
+                end
             end
         end
     end
-end
+)
 
-wo:_register("drawmap", drawmap)
+wo:_register("drawBorder", 
+    function (world, origin, arg2, arg3, arg4)
+        local dest = arg2
+        local tile = arg3
+        if type(arg2) == "number" and type(arg3) == "number" then
+            dest = po(origin.x + arg2 - 1, origin.y + arg3 - 1)
+            tile = arg4
+        end
+        -- TODO check validity of arguements
+        for x = origin.x, dest.x do
+            wo[{x, origin.y}] = tile
+            if origin.y ~= dest.y then
+                wo[{x, dest.y}] = tile
+            end
+        end
+        for y = origin.y + 1, dest.y -1 do
+            wo[{origin.x, y}] = tile
+            if origin.x ~= dest.x then
+                wo[{dest.x, y}] = tile
+            end
+        end
+    end
+)
+
+wo:_register("drawRect", 
+    function (world, origin, arg2, arg3, arg4)
+        local dest = arg2
+        local tile = arg3
+        if type(arg2) == "number" and type(arg3) == "number" then
+            dest = po(origin.x + arg2 - 1, origin.y + arg3 - 1)
+            tile = arg4
+        end
+        -- TODO check validity of arguements
+        for x = origin.x, dest.x do
+            for y = origin.y, dest.y do
+                wo[{x, y}] = tile
+            end
+        end
+    end
+)
 
 ---------------
 -- Resolvers --
