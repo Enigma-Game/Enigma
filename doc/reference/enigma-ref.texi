@@ -3574,9 +3574,23 @@ tile = @b{myresolver}(@i{key}, @i{x}, @i{y})
 String that contains the tile key to be resolved.
 @item @i{x}
 The world x coordinate of the tile.
-@item @i{x}
+@item @i{y}
 The world y coordinate of the tile.
 @end table
+
+@item @b{Details:}
+A custom resolver function is the last resolver that is called in the chain.
+It has to return the final tile that should be drawn at the given position.
+This can be done by statement @samp{return ti["k"]}, which references the tile
+already declared in the tiles map.
+
+If no suited tile is already declared you can alternatively return a new tile
+like @samp{return ti(@{"st_switch", state=ON@})}.
+
+If you decide not to draw any tile at all, you must return an empty tile
+declaration: @samp{return ti(@{@})}.
+
+@samp{return nil} indicates an error of usage of an unknown tile key.
 
 @item @b{Example:}
 @example
@@ -3872,29 +3886,106 @@ By default no hit factor is applied. The hit matrix is the neutral one.
 @node toggle
 @subsection toggle
 
+This is the default message that is always taken if no other message is provided.
+It toggels the @ref{Object State} quite independant of the very nature of the
+state. Two-stated objects like switches will toggle their state form @samp{ON}
+to @samp{OFF} or from @samp{OFF} to @samp{ON}. Door like objects will toggle 
+their state form @samp{OPEN} to @samp{CLOSED} or from @samp{CLOSED} to 
+@samp{OPEN}. Other objects like @ref{st_fourswitch} will turn into the next
+direction. Generally the object will toggle to its next state.
+
+@table @asis
+@item @b{Value:} @ @ -
+@item @b{Returns:} @ @ -
+@item @b{Support:} @ @ by nearly all objects which use the @samp{state} attribute
+@end table
+
 @node nop
 @subsection nop
+
+A dummy message that just does nothing: no operation. You may need it in cases
+of state dependent actions to block an otherwise sent default @samp{toggle}
+message (@pxref{Object State}).
+
+@table @asis
+@item @b{Value:} @ @ -
+@item @b{Returns:} @ @ -
+@item @b{Support:} @ @ by all objects
+@end table
 
 @node signal
 @subsection signal
 
+A signal message tries to set the object to the state 0 (@samp{OFF}, 
+@samp{CLOSED}) or state 1 (@samp{ON}, @samp{OPEN}) according to its value. This
+message allows you to keep the states of a action source and a receiving object
+in sync. Note that values like @samp{true}, @samp{false} and direction values
+like @samp{WEST} to @samp{NORTH} are converted to 0 and 1. This allows you to
+use @samp{signal} as action message on most objects.
+
+@table @asis
+@item @b{Value:} @ @ @code{0}, @code{1}
+@item @b{Returns:} @ @ -
+@item @b{Support:} @ @ by nearly all objects which use the @samp{state} attribute
+@end table
+
 @node on
 @subsection on
+
+This message is just supported by objects that can be switched on and off. Just
+objects in state @samp{OFF} will be switched on. An object in state @samp{ON}
+remains unchanged in its state.
+
+@table @asis
+@item @b{Value:} @ @ -
+@item @b{Returns:} @ @ -
+@item @b{Support:} @ @ by objects that can be switched on and off
+@end table
 
 @node off
 @subsection off
 
+This message is just supported by objects that can be switched on and off. Just
+objects in state @samp{ON} will be switched off. An object in state @samp{OFF}
+remains unchanged in its state.
+
+@table @asis
+@item @b{Value:} @ @ -
+@item @b{Returns:} @ @ -
+@item @b{Support:} @ @ by objects that can be switched on and off
+@end table
+
 @node open
 @subsection open
 
+This message is just supported by door like objects that can be opened and closed.
+Just objects in state @samp{CLOSED} will be opened. An object in state 
+@samp{OPEN} remains unchanged in its state.
+
+@table @asis
+@item @b{Value:} @ @ -
+@item @b{Returns:} @ @ -
+@item @b{Support:} @ @ by door like objects that can be opened and closed
+@end table
+
 @node close
 @subsection close
+
+This message is just supported by door like objects that can be opened and closed.
+Just objects in state @samp{OPEN} will be closed. An object in state 
+@samp{CLOSED} remains unchanged in its state.
+
+@table @asis
+@item @b{Value:} @ @ -
+@item @b{Returns:} @ @ -
+@item @b{Support:} @ @ by door like objects that can be opened and closed
+@end table
 
 @node Global Attributes
 @section Global Attributes
 
 @menu
-* BumperStrength::
+* ActorimpulseStrength::
 * ExtralifeGlasses::
 * Height::
 * IsDifficult:: 
@@ -3906,11 +3997,11 @@ By default no hit factor is applied. The hit matrix is the neutral one.
 * WormholeStrength:: 
 @end menu
 
-@node BumperStrength
-@subsection BumperStrength
+@node ActorimpulseStrength
+@subsection ActorimpulseStrength
 
-A global scalar default factor for the actorimpulse bumping force. This global 
-value is only used if no object specific value is set. 
+A global scalar default factor for the actorimpulse stone bumping force. This 
+global value is only used if no object specific value is set. 
 
 @table @asis
 @item @b{Type:} @ @ number
@@ -4445,7 +4536,7 @@ to avoid extraordinary large forces.
 The current magnet state - @samp{ON} for an active magnet, @samp{OFF} for an
 inactive magnet.
 
-@item @b{range} @ @ @i{values}: float number greater equal 0; @ @ @i{default}: @code{10.0} @ @ @xref{MagnetRange}
+@item @b{range} @ @ @i{values}: float number greater or equal 0; @ @ @i{default}: @code{10.0} @ @ @xref{MagnetRange}
 The distance up to which the magnet applies forces to actors.
 
 @item @b{strength} @ @ @i{values}: float number; @ @ @i{default}: @code{+30.0} @ @ @xref{MagnetStrength}
@@ -4755,7 +4846,7 @@ for force neutral wormholes.
 @item @b{destination}, @ @ @i{values}: tokens or position; @ @ @i{default}: @code{nil} @ @ @xref{destination}
 The destination of the teleport given by an object or a position.
 
-@item @b{range} @ @ @i{values}: float number greater equal 0; @ @ @i{default}: @code{10.0} @ @ @xref{WormholeRange}
+@item @b{range} @ @ @i{values}: float number greater or equal 0; @ @ @i{default}: @code{10.0} @ @ @xref{WormholeRange}
 The distance up to which the wormhole applies forces to actors.
 
 @item @b{strength} @ @ @i{values}: float number; @ @ @i{default}: @code{+30.0} @ @ @xref{WormholeStrength}
@@ -4766,7 +4857,7 @@ where as negative numbers are repelling forces.
 @item @b{scissor}, @ @ @i{values}: @code{true}, @code{false}; @ @ @i{default}: @code{true}
 Rubberband cutting behaviour on teleporting.
 
-@item @b{interval} @ @ @i{values}: float number greater equal 0; @ @ @i{default}: @code{0.0}
+@item @b{interval} @ @ @i{values}: float number greater or equal 0; @ @ @i{default}: @code{0.0}
 The latency time after a teleport during which no further teleports take place.
 
 
@@ -5038,7 +5129,7 @@ effects.
 Actors that hit this stone will not be reflected just passively. An additional
 force will be applied to them that can even be distorted. By default the actors
 are just pushed away from the center of the stone. A global attribute
-@ref{BumperStrength} gives a default force that can be overridden by the 
+@ref{ActorimpulseStrength} gives a default force that can be overridden by the 
 stone attribute @samp{strength}.
 
 For sophisticated usage you can distort this force by usage of the @ref{hit_*}
@@ -5064,7 +5155,7 @@ and return in the incoming direction.
 @item @b{invisible} @ @ @i{values}: @code{true}, @code{false}; @ @ @i{default}: @code{false}
 An invisible actorimpulse stone is totally transparent. But the user will
 notice it, as actors will bounce with addtional impulses.
-@item @b{strength} @ @ @i{values}: float number; @ @ @i{default}: @code{+200.0} @ @ @xref{BumperStrength}
+@item @b{strength} @ @ @i{values}: float number; @ @ @i{default}: @code{+200.0} @ @ @xref{ActorimpulseStrength}
 A scalar factor for the impulse force. Positive numbers are attracting forces
 where as negative numbers are repelling forces.
 @item @b{hit_factor} @ @ @i{values}: float number; @ @ @i{default}: @code{nil} @ @ @xref{hit_*}
@@ -6115,9 +6206,185 @@ Try to tear the opposite window face into the given direction.
 @section World Advanced Methods
 
 @menu 
-* shuffleOxyd::  Oxyd Shuffling Rules
+* drawBorder::   
 * drawMap::      
+* drawRect::     
+* shuffleOxyd::  Oxyd Shuffling Rules
 @end menu
+
+@c ----------------- drawBorder -------------------- 
+@node drawBorder
+@subsection drawBorder
+
+Draw a border around a rectangle out of given tiles.
+
+@table @asis
+@item @b{Syntax:}
+@b{wo:drawBorder}(@i{upperleft_edge}, @i{lowerright_edge}, @i{tile})
+
+@b{wo:drawBorder}(@i{upperleft_edge}, @i{width}, @i{height}, @i{tile})
+
+@table @asis
+@item @i{upperleft_edge}
+Upper left anchor position of the rectangle. 
+@item @i{lowerright_edge}
+Lower right end position of the rectangle. 
+@item @i{width}
+Width of the rectangle. 
+@item @i{height}
+Height of the rectangle. 
+@end table
+
+@item @b{Syntax Samples:}
+@example
+wo:drawBorder(po(0, 0), wo["Width"], wo["Height"], ti["#"])
+wo:drawBorder(no["myRectUL"], no["myRectLR"], @{"st_grate1"@})
+@end example
+
+@item @b{Details:}
+
+
+
+@item @b{Full Example:}
+@example
+@end example
+@end table
+
+@c ----------------- drawMap -------------------- 
+@node drawMap
+@subsection drawMap
+
+Even if the world is initialized by a map on creation of the world 
+(@pxref{World Creation and Resolver Chaining}), it is sometime useful to 
+be able to draw smaller submaps either as part of the initialization or as
+dynamic level changes within @ref{Callback Function}. Of course the main purpose
+of @samp{drawMap} is the drawing of repeating patterns.
+
+@table @asis
+@item @b{Syntax:}
+
+@b{wo:drawMap}(@i{resolver}, @i{anchor}, @i{ignore}, @i{map})
+
+@table @asis
+@item @i{subresolver}
+Resolver to which unresolved requests should be forwarded. May be @samp{ti}
+as the final resolver of the resolver chain.
+@item @i{anchor}
+The anchor position where the upper left tile of the map should be drawn.
+@item @i{ignore}
+A tile key string that should be ignored. This key string is mandatory, even
+if it not used within the map.
+@item @i{map}
+A table of strings. Each string describes a row of tiles by its tile keys.
+@end table
+
+@item @b{Syntax Samples:}
+@example
+wo:drawMap(ti, po(5, 7), "-", @{"abcabc"@})
+wo:drawMap(ti, anchor_object, "--", @{"--##--##","##--##"@})
+@end example
+
+@item @b{Details:}
+The syntax is similar to the world creation call. But there are two essential
+difference you need to be aware of. First the map is drawn in the already
+existing world. Thus we need to define the position. This is done via the
+anchor position, which can be an already existing object, too.
+
+The second difference is in the definition of a tile key string for tiles in 
+the map that should be ignored. Remember that the world initialization requested
+a default tile key string. This default is still valid. But with the given 
+ignore key string we can draw arbitrary shaped patterns by filling unused
+grids in the map with this key.
+
+The length of the ignore key defines the map key length. It is strongly
+recommended to use the same key length as in the world map.
+
+The rows of the supplied map are drawn from the anchor position. The rows may
+be of different length and may start with ignore tile keys. The anchor must be
+the position composed of the smallest x and smallest y coordinate within the
+pattern.
+
+You can use drawMap anywhere after the world creation. You are even allowed to
+use it within the world creation in a resolver.
+
+@item @b{Full Example:}
+@example
+ti[" "] = @{"fl-plank"@}
+ti["X"] = @{"st_oxyd"@}
+ti["B"] = @{"st-black3"@}
+ti["W"] = @{"st-white3"@}
+ti["y"] = @{"it-yinyang"@}
+ti["1"] = ti["y"] .. @{"#ac-blackball"@}
+ti["2"] = ti["y"] .. @{"#ac-whiteball"@}
+
+function myresolver(key, x, y)
+    if key == "w" then
+        wo:drawMap(ti, po(x-1, y-1), "-", @{"-W-",
+                                           "WXW",
+                                           "-W-"@})
+        return ti(@{@})
+    elseif key == "b" then
+        wo:drawMap(ti, po(x-1, y-1), "-", @{"-B",
+                                           "BXB",
+                                           "-B"@})
+        return ti(@{@})
+    else
+        return ti[key]
+    end
+end
+
+w, h = wo(myresolver, " ", @{
+"                    ",
+"  b         b       ",
+"       w       w    ",
+"                    ",
+"                    ",
+"   w                ",
+"         12      b  ",
+"              w     ",
+"         w          ",
+"      b             ",
+"   w           b    ",
+"         b          ",
+"                    "
+@})
+wo:shuffleOxyd()
+@end example
+@end table
+
+@c ----------------- drawRect -------------------- 
+@node drawRect
+@subsection drawRect
+
+@table @asis
+@item @b{Syntax:}
+@b{wo:drawRect}(@i{upperleft_edge}, @i{lowerright_edge}, @i{tile})
+
+@b{wo:drawRect}(@i{upperleft_edge}, @i{width}, @i{height}, @i{tile})
+
+@table @asis
+@item @i{upperleft_edge}
+Upper left anchor position of the rectangle. 
+@item @i{lowerright_edge}
+Lower right end position of the rectangle. 
+@item @i{width}
+Width of the rectangle. 
+@item @i{height}
+Height of the rectangle. 
+@end table
+
+@item @b{Syntax Samples:}
+@example
+wo:drawRect(po(0, 0), wo["Width"], wo["Height"], ti[" "])
+wo:drawRect(no["myRectUL"], no["myRectLR"], @{"fl_water"@})
+@end example
+
+@item @b{Details:}
+@item @b{Full Example:}
+@example
+@end example
+@end table
+
 
 @c ----------------- shuffleOxyd -------------------- 
 @node shuffleOxyd
@@ -6290,11 +6557,6 @@ rule to 2. To avoid trivial oxyd pair distributions, like two pairs on the left
 and two pairs on the right side, we do add a min rule that enforces that two
 shared pairs of oxyds do exist.
 @end table
-
-@c ----------------- drawMap -------------------- 
-@node drawMap
-@subsection drawMap
-
 
 @node Resolvers
 @section Resolvers
@@ -6530,10 +6792,109 @@ w, h = wo(resolver, "  ", @{
 @node res.maze
 @subsection res.maze
 
+
+@c ----------------- Random Resolver -------------------- 
+
 @node res.random
 @subsection res.random
 
+With map based level description you have explicit control about the objects
+being set on every single grid. But sometimes you may want to introduce some
+randomness in the used objects. E.g. a floor may be made up of two types at
+random to generate a different look on every level start. The randomness would
+even make a level more difficult to play if one of the two floors would 
+invert the mouse forces. The random resolver allows you to set up such
+cases.
 
+@table @asis
+@item @b{Syntax:}
+
+@b{res.random}(@i{subresolver}, @i{hits}, @i{replacements})
+
+@table @asis
+@item @i{subresolver}
+Resolver to which unresolved requests should be forwarded. May be @samp{ti}
+as the final resolver of the resolver chain.
+@item @i{hits} = @i{key} | @{@i{hit}, @i{hit}, ...@}
+Either a single tile key string that defines the tiles to be randomized, or a
+table of hit descriptors that should all be examined in parallel.
+@item @i{hit} = @i{key} | @{@i{key}, @i{superkey}@}
+Either a single tile key string or a pair of tile key string and a related
+tile superkey string. The superkey tile will be set additionally to the random
+replacement.
+@item @i{replacements} = @i{key} | @{@i{replacement}, @i{replacement}, ...@}
+Either a single tile key string that would be taken without randomness or as in
+most cases a table of replacement descriptors from which the resulting tile
+should be selected with randomness.
+@item @i{replacement} = @i{key} | @{@i{key}, @i{frequency}@}
+Either a single tile key string that should be taken with a frequency of @samp{1},
+or a pair of a tile key string with a given frequency number.
+@end table
+
+@item @b{Syntax Samples:}
+@example
+res.random(ti, "x", @{"a", "b"@})
+res.random(ti, @{@{"x", "y"@},@{"i","j"@}@}, @{@{"a", 2@}, @{"b", 1@}@})
+@end example
+
+@item @b{Details:}
+Every key in the map is checked against the given hit key strings. If it fits
+one of them a replacement will take place.
+
+The replacement will be one of the replacement tile keys resolved via the
+subresolver. The different keys will be chosen with a likelyhood according to
+the ratio of the given frequency numbers. If no frequency is supplied a default
+of @samp{1} is taken. Thus in the first example both keys are taken in an ratio
+1:1, whereas in the second the ratio will be 2:1.
+
+When a superkey is given for a hit key this superkey will additionally be 
+resolved via the subresolver. This feature allows to use randomness on tiles
+with more than one object on a grid position. E.g. an item or an actor on a
+random floor. The other objects can be set via the superkey while the random
+floor is set according to the replacement rules.
+
+@item @b{Full Example:}
+@example
+ti["~"] = @{"fl-water"@}
+ti["s"] = @{"fl-sahara"@}
+ti["t"] = @{"fl-tigris"@}
+ti["i"] = @{"fl-inverse2"@}
+ti["b"] = @{"fl-acblack"@}
+ti["w"] = @{"fl-acwhite"@}
+
+ti["c"] = @{"it_coin_s"@}
+ti["p"] = @{"it_brush"@}
+
+ti["1"] = @{"ac-blackball", 0, 0.5@}
+
+simple_random = res.random(ti, " ", @{"s", "t"@})
+
+full_random = res.random(simple_random, @{".",@{"C","c"@},@{"p","p"@}@},
+                                        @{@{"i",3@},@{"b",4@},@{"w",1@}@})
+
+w, h = wo(full_random, "s", @{
+"         ~~.........",
+"         ~~.........",
+"         ~~......C..",
+"         ~~.........",
+"         ~~.........",
+"         ~~.........",
+"         c1.........",
+"         ~~.........",
+"         ~~.........",
+"         ~~.........",
+"         ~~......p..",
+"         ~~.........",
+"         ~~........."
+})
+@end example
+
+Note that in this example we can use @samp{p} as key as well as superkey. This
+is due to the fact that nowhere else this tile is directly set. Whereas the
+tile key @samp{c} is used for another tile with the default floor. Thus we do
+need to use another unique key @samp{C} for the coin on our random floor. 
+
+@end table
 
 
 @node Tips and Tricks
@@ -6743,7 +7104,7 @@ in the context table for subsequent calls. Especially it can enlist all
 coordinates for postprocessing operations in the finalizer.
 
 @item @b{Full Example:}
-The implementatio of the composer (without the special 3 character key treatment)
+The implementation of the composer (without the special 3 character key treatment)
 @example
 function res.composer_implementation(context, evaluator, key, x, y)
     local tile = evaluator(context[3], key, x, y)
