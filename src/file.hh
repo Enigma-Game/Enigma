@@ -22,6 +22,7 @@
 #include <iosfwd>
 #include <vector>
 #include <list>
+#include <memory>
 #include "ecl_error.hh"
 
 namespace enigma

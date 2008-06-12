@@ -28,6 +28,7 @@
 #include <cassert>
 #include <algorithm>
 #include <iostream>
+#include <climits>
 
 using namespace enigma::gui;
 using namespace ecl;
