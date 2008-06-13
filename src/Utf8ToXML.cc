@@ -17,6 +17,7 @@
  *
  */
 
+#include <cstring>
 #include "Utf8ToXML.hh"
 #include "main.hh"
 #include <xercesc/util/XMLString.hpp>

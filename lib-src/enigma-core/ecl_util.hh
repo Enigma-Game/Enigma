@@ -20,6 +20,7 @@
 #define ECL_UTIL_HH_INCLUDED
 
 #include <string>
+#include <algorithm>
 
 /* hide GNU extensions for non-gnu compilers: */
 #ifndef __GNU__
