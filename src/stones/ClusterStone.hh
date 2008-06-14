@@ -35,6 +35,7 @@ namespace enigma {
         
         // Object interface
         virtual std::string getClass() const;
+        virtual const char *get_kind() const;  // for backward compatibility
         virtual void setAttr(const string& key, const Value &val);
         virtual Value message(const Message &m);
         
