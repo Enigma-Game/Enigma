@@ -23,6 +23,7 @@
 #include "main.hh"
 
 #include "SDL_mixer.h"
+#include "SDL_mutex.h"
 
 #include <string>
 #include <cassert>

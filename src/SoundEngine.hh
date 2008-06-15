@@ -26,6 +26,7 @@
 #include "SoundEffectManager.hh"
 #include "MusicManager.hh"
 #include "SDL_mixer.h"
+#include "SDL_mutex.h"
 
 #include <string>
 #include <vector>

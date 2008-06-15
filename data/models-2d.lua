@@ -397,7 +397,6 @@ do
         "it-cross",
         "it-document",
         "it-drop",
-        "it-dummy",
         "it-dynamite",
         "it-flagblack",
         "it-flagwhite",
@@ -463,6 +462,11 @@ end
 -- it-extinguisher --
 do
     DefTiles("it-extinguisher", {"it-extinguisher", "it-extinguisher_medium", "it-extinguisher_empty"})
+end
+
+-- it-dummy
+do
+    DefTiles("it-dummy", {"it-dummy", "it-dummy_egg"})
 end
 
 -- Oil --

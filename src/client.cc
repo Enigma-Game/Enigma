@@ -484,6 +484,7 @@ static const char *helptext_ingame[] = {
     N_("Left mouse button:"),    N_("Activate/drop leftmost inventory item"),
     N_("Right mouse button:"),      N_("Rotate inventory items"),
     N_("Escape:"),                  N_("Show game menu"),
+    N_("Shift+Escape:"),            N_("Quit game immediately"),
     N_("F1:"),                      N_("Show this help"),
     N_("F3:"),                      N_("Kill current marble"),
     N_("Shift+F3:"),                N_("Restart the current level"),
@@ -502,7 +503,7 @@ void Client::show_help()
     server::Msg_Pause (true);
     video::TempInputGrab grab(false);
 
-    helptext_ingame[15] = app.state->getInt("NextLevelMode") == lev::NEXT_LEVEL_NOT_BEST
+    helptext_ingame[17] = app.state->getInt("NextLevelMode") == lev::NEXT_LEVEL_NOT_BEST
         ? _("Skip to next level for best score hunt")
         : _("Skip to next unsolved level");
 

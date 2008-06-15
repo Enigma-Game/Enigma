@@ -29,7 +29,7 @@ ti["~"] = {"fl-water"}
 ti["#"] = ti[" "] .. {"st-likeoxyda"}
 ti["@"] = ti["."] .. {"#ac-blackball"}
 ti["C"] = ti["."] .. {"st-chess_black"}
-ti["c"] = ti["."] .. {"st-chess_black", "it_cross"}
+ti["c"] = (ti["."] .. {"st-chess_black"}) .. {"it_cross"}
 ti["D"] = ti[" "] .. {"st-door_a", name="door#"}
 ti["T"] = ti["."] .. {"it_trigger", name="trigger#", target="open_door"}
 ti["B"] = ti["."] .. {"#ac-blackball", controllers=0, player=1, name="second_marble"}
@@ -92,7 +92,7 @@ end
         <el:english el:translate="true">The stone with the horse's head is called ''chess stone''. Watch how the other marble hits one of them to move it. The angle is important.</el:english>
       </el:string> 
       <el:string el:key="text2">
-        <el:english el:translate="true">Now try to move these chess stones onto the triggers. They always move two steps plus one step, the crosses might give you some idea.</el:english>
+        <el:english el:translate="true">Now try to move these chess stones onto the triggers. They always move two steps plus one step.</el:english>
       </el:string> 
     </el:i18n>
   </el:protected>

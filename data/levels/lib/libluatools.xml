@@ -131,7 +131,7 @@ end
 -- A wrapper of "if" to resemble the ternary ?:-function.
 -- Note that this function evaluates both IFTRUE as well as IFFALSE, e.g.
 --   luatools.cond(t == 0, 1/t, error("Division by zero"))
--- will evaluate the error-function and thus hold for any T.
+-- will evaluate the error-function and thus halt for any T.
 -- Hence: Make sure there are no sideeffects in IFTRUE and IFFALSE!
 function luatools.cond(condition, iftrue, iffalse)
   if condition then
@@ -139,6 +139,59 @@ function luatools.cond(condition, iftrue, iffalse)
   else
     return iffalse
   end
+end
+
+-- digits returns a table whose elements are the digits of NUMBER
+-- in base BASE. BASE can be a number (e.g. 3 to get ternary)
+-- as well as a table (then the table entries with numerical
+-- keys will be used as digits).
+-- Examples:
+--   luatools.digits(13, 2) = {1, 0, 1, 1}
+--   luatools.digits(15, 16) = {15}
+--   luatools.digits(17, 3) = {2, 2, 1}
+--   luatools.digits(17, {2, "b", 5}) = {5, 5, "b"}
+-- Hexadecimal would be:
+--   luatools.digits(x, {0,1,2,3,4,5,6,7,8,9,"A","B","C","D","E","F"})
+-- NUMBER is supposed to be a non-negative integer.
+function luatools.digits(number, base)
+  -- Check arguments and calculate fullbase and exponent
+  if type(number) ~= "number" then
+    error("digits: First argument not a number ("..type(number).." instead).")
+  end
+  if (type(base) ~= "number") and (type(base) ~= "table") then
+    error("digits: Second argument not valid type ("..type(base)..").")
+  end
+  if (number < 0) or (number ~= math.ceil(number)) then
+    error("digits: First argument out of range ("..number..").")
+  end
+  local fullbase = {}
+  local exponent = 0
+  if type(base) == "number" then
+    if (base < 2) or (base ~= math.ceil(base)) then
+      error("digits: Second argument out of range ("..base..").")
+    end
+    for j = 1, base do
+      table.insert(fullbase, j - 1)
+    end
+  else -- type(base) == "table"
+    if table.getn(base) < 2 then
+      error("digits: Second argument has not enough elements.")
+    end
+    fullbase = base
+  end
+  exponent = table.getn(fullbase)
+  -- Decompose NUMBER
+  local remains = number
+  local result = {}
+  while remains > 0 do
+    local d = luatools.mod(remains, exponent)
+    table.insert(result, fullbase[d + 1])
+    remains = (remains - d) / exponent
+    if remains ~= math.ceil(remains) then
+      error("digits: Internal error during calculation (remains = "..remains..").")
+    end
+  end
+  return result
 end
 
 -- Return a random permutation of n elements.

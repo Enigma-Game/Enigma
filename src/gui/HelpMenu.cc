@@ -22,6 +22,8 @@
 #include "video.hh"
 #include "nls.hh"
 
+#include <cassert>
+
 using namespace ecl;
 using namespace std;
 
@@ -37,7 +39,10 @@ namespace enigma { namespace gui {
         const video::VMInfo &vminfo = *video::GetInfo();
         const int vshrink = vminfo.width < 640 ? 1 : 0;
         
-        add(ok, Rect(vminfo.width-(vshrink?85:170),vminfo.height-(vshrink?30:60),vshrink?75:150,vshrink?20:40));
+        add(ok, Rect(vminfo.width  - (vshrink ? 85 : 170),
+                     vminfo.height - (vshrink ? 30 : 60),
+                     vshrink ? 75 : 150,
+                     vshrink ? 20 : 40));
     }
     
     bool HelpMenu::on_event (const SDL_Event &e) 
@@ -64,10 +69,14 @@ namespace enigma { namespace gui {
         blit(gc, 0,0, enigma::GetImage("menu_bg", ".jpg"));
         Font *f = enigma::GetFont(cfg.fontname.c_str());
     
-        int x = (vminfo.width-(vshrink?320:640))/2;
+        int x = (vminfo.width - (vshrink ? 320 : 640))/2;
         int y = (cfg.y0/(vshrink?2:1)) + (vminfo.height - (vshrink?240:480))/2;
         for (int i = 0; helptext[i]; i += 2) 
         {
+            assert(helptext[i+1]);
+            // If assert stops here, and you've worked on the game
+            // help menu, check Client::show_help(): Here one of
+            // the text lines is redefined. Correct the line number.
             f->render (gc, cfg.x0/(vshrink?2:1) + x, y, _(helptext[i]));    // translate
             f->render (gc, cfg.x1/(vshrink?2:1) + x, y, _(helptext[i+1]));  // translate
             y += cfg.yskip/(vshrink?2:1);
