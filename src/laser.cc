@@ -40,62 +40,6 @@ namespace enigma {
 
 
 
-/* -------------------- PhotoCell -------------------- */
-
-vector<void*> PhotoCell::instances;
-
-PhotoCell::~PhotoCell() 
-{
-    photo_deactivate();
-}
-
-
-/**
- * This function notifies all instances of PhotoCell that a
- * recalculation of the laser beams is about to begin by calling
- * on_recalc_start() for each instance.
- */
-void PhotoCell::notify_start()
-{
-    for(unsigned i=0; i<instances.size(); ++i)
-    {
-        PhotoCell *pc = (PhotoCell*) instances[i];
-        pc->on_recalc_start();
-    }
-}
-
-/**
- * This function notifies all instances of PhotoCell that the engine
- * has finished recalculating the laser beams by calling
- * on_recalc_finish() for each instance.
- */
-void PhotoCell::notify_finish()
-{
-    for(unsigned i=0; i<instances.size(); ++i)
-    {
-        PhotoCell *pc = (PhotoCell*) instances[i];
-        pc->on_recalc_finish();
-    }
-}
-
-void PhotoCell::photo_activate()
-{
-    vector<void*>::iterator i = std::find(instances.begin(), instances.end(), this);
-    if (i != instances.end())
-        assert (0 || "Photocell activated twice\n");
-    else
-        instances.push_back (this);
-}
-
-void PhotoCell::photo_deactivate()
-{
-    vector<void*>::iterator i;
-    i = std::find (instances.begin(), instances.end(), this);
-    if (i != instances.end())
-        instances.erase(i);
-}
-
-
 /* -------------------- LaserBeam -------------------- */
 
 // The implementation of laser beams is a little tricky because, in
@@ -302,7 +246,6 @@ bool LightFrom (GridPos p, Direction dir) {
 void PerformRecalcLight(bool isInit) {
     if (light_recalc_scheduled) {
         light_recalc_scheduled = false;    // this is the right place - but we have first to fix some object like hammer,...
-        PhotoCell::notify_start();
         GridObject::preLaserRecalc();
         LaserBeam::kill_all();
         LaserStone::reemit_all();
@@ -310,7 +253,6 @@ void PerformRecalcLight(bool isInit) {
         if (!isInit)
             // do not cause actions on initial laser beam generation
             GridObject::postLaserRecalc();
-        PhotoCell::notify_finish();
 //        light_recalc_scheduled = false;
     }
 }

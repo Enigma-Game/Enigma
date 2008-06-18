@@ -509,11 +509,14 @@ row- or columnwise.
 */
 namespace
 {
-    class PuzzleStone : public ConnectiveStone, public TimeHandler, public PhotoCell {
+    class PuzzleStone : public ConnectiveStone, public TimeHandler {
         INSTANCELISTOBJ(PuzzleStone);
         DECL_TRAITS;
     public:
         PuzzleStone(int connections, bool oxyd1_compatible_);  
+        
+        virtual void lightDirChanged(DirectionBits oldDirs, DirectionBits newDirs);
+        
     protected:
         virtual ~PuzzleStone() {
             GameTimer.remove_alarm (this);
@@ -553,19 +556,12 @@ namespace
 
         void alarm();
 
-        /* ---------- PhotoCell interface ---------- */
-
-        void on_recalc_start();
-        void on_recalc_finish();
-
         /* ---------- Stone interface ---------- */
 
         virtual Value message(const Message &m);
 
         void on_creation (GridPos p);
-        void on_removal (GridPos p);
         void on_impulse (const Impulse& impulse);
-        void processLight(Direction dir);
 
         bool is_floating() const;
 
@@ -576,17 +572,15 @@ namespace
         /* ---------- Variables ---------- */
         bool visited;           // flag for DFS
         enum { IDLE, EXPLODING } state;
-        DirectionBits illumination; // last state of surrounding laser beams
     };
     DEF_TRAITSM(PuzzleStone, "st-puzzle", st_puzzle, MOVABLE_IRREGULAR);
 }
 
 PuzzleStone::InstanceList PuzzleStone::instances;
 
-PuzzleStone::PuzzleStone(int connections, bool oxyd1_compatible_)
-: ConnectiveStone(connections), 
-  state (IDLE), 
-  illumination (NODIRBIT)
+PuzzleStone::PuzzleStone(int connections, bool oxyd1_compatible_) : ConnectiveStone(connections), 
+  state (IDLE)
+//  illumination (NODIRBIT)
 {
     setAttr("oxyd", int(oxyd1_compatible_));
 }
@@ -1012,34 +1006,18 @@ void PuzzleStone::maybe_rotate_cluster(Direction dir)
 }
 
 void PuzzleStone::on_creation (GridPos p) {
-    photo_activate();
+    activatePhoto();
     ConnectiveStone::on_creation (p);
-    illumination = NODIRBIT;
 }
 
-void PuzzleStone::on_removal(GridPos p) {
-    photo_deactivate();
-    ConnectiveStone::on_removal(p);
-}
 
-void PuzzleStone::processLight(Direction dir) {
-    ecl::set_flags (illumination, to_bits(reverse(dir)));
-}
-
-void PuzzleStone::on_recalc_start() {
-    illumination = NODIRBIT;
-}
-
-void PuzzleStone::on_recalc_finish() {
-    if (illumination != (ALL_DIRECTIONS+1) && 
-        illumination != NODIRBIT && 
-        state == IDLE) 
-    {
+void PuzzleStone::lightDirChanged(DirectionBits oldDirs, DirectionBits newDirs) {
+    if (state == IDLE && newDirs != NODIRBIT) {
         if (!explode_complete_cluster() && oxyd1_compatible()) {
-            if (illumination & NORTHBIT) maybe_rotate_cluster(SOUTH);
-            if (illumination & SOUTHBIT) maybe_rotate_cluster(NORTH);
-            if (illumination & EASTBIT)  maybe_rotate_cluster(WEST);
-            if (illumination & WESTBIT)  maybe_rotate_cluster(EAST);
+            if (newDirs & SOUTHBIT) maybe_rotate_cluster(SOUTH);
+            if (newDirs & NORTHBIT) maybe_rotate_cluster(NORTH);
+            if (newDirs & WESTBIT)  maybe_rotate_cluster(WEST);
+            if (newDirs & EASTBIT)  maybe_rotate_cluster(EAST);
         }
     }
 }
