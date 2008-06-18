@@ -1613,7 +1613,7 @@ end
 --      st-{3mirror,pmirror}-{m,s}{o,t}[1234]
 --
 -- {m,s} -> movable or static
--- {o,t} -> opaque or transparent
+-- {o,t,f} -> opaque or pane transparent or full transparent (pane + side)
 --
 -- The numbers map to actual orientations as follows:
 --
@@ -1634,7 +1634,8 @@ do
     mirror3_opaque = FrameNames("st-mirrortempl", 1, 4)
     mirror3_transp = FrameNames("st-mirrortempl", 5, 8)
     mirrorp_opaque = FrameNames("st-mirrortempl", 9, 12)
-    mirrorp_transp = FrameNames("st-mirrortempl", 13, 16)
+    mirrorp_transp1 = FrameNames("st-mirrortempl", 13, 16)
+    mirrorp_transp2 = FrameNames("st-mirrortempl", 17, 20)
 
     make_mirror("st-3mirror-mo", "st-mirror-movable", mirror3_opaque)
     make_mirror("st-3mirror-so", "st-mirror-static",  mirror3_opaque)
@@ -1643,8 +1644,10 @@ do
 
     make_mirror("st-pmirror-mo", "st-mirror-movable", mirrorp_opaque)
     make_mirror("st-pmirror-so", "st-mirror-static",  mirrorp_opaque)
-    make_mirror("st-pmirror-mt", "st-mirror-movable", mirrorp_transp)
-    make_mirror("st-pmirror-st", "st-mirror-static",  mirrorp_transp)
+    make_mirror("st-pmirror-mt", "st-mirror-movable", mirrorp_transp1)
+    make_mirror("st-pmirror-st", "st-mirror-static",  mirrorp_transp1)
+    make_mirror("st-pmirror-mf", "st-mirror-movable", mirrorp_transp2)
+    make_mirror("st-pmirror-sf", "st-mirror-static",  mirrorp_transp2)
 end
 
 --------------------------

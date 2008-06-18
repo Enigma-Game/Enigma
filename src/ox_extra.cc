@@ -189,20 +189,20 @@ const char *oxyd::oxydextra_stone_map[256] = {
     "st-laser-3",        // OxydExtra stone 0x40
     UNUSED,              // OxydExtra stone 0x41
     UNUSED,              // OxydExtra stone 0x42
-    "st-mirror-p-",      // OxydExtra stone 0x43
-    "st-mirror-p\\",     // OxydExtra stone 0x44
+    "st_mirror_slab_s",  // OxydExtra stone 0x43
+    "st_mirror_slab_w",  // OxydExtra stone 0x44
     UNUSED,              // OxydExtra stone 0x45
-    "st-mirror-p/",      // OxydExtra stone 0x46
+    "st_mirror_slab_e",  // OxydExtra stone 0x46
     UNUSED,              // OxydExtra stone 0x47
     UNUSED,              // OxydExtra stone 0x48
     UNUSED,              // OxydExtra stone 0x49
     UNUSED,              // OxydExtra stone 0x4a
-    "st-mirror-p-t",     // OxydExtra stone 0x4b
+    "st_mirror_slab_st", // OxydExtra stone 0x4b
     UNUSED,              // OxydExtra stone 0x4c
-    "st-mirror-3>",      // OxydExtra stone 0x4d
-    "st-mirror-3^",      // OxydExtra stone 0x4e
-    "st-mirror-3<",      // OxydExtra stone 0x4f
-    "st-mirror-3v",      // OxydExtra stone 0x50
+    "st_mirror_triangle_ec", // OxydExtra stone 0x4d
+    "st_mirror_triangle_nc", // OxydExtra stone 0x4e
+    "st_mirror_triangle_wc", // OxydExtra stone 0x4f
+    "st_mirror_triangle_sc", // OxydExtra stone 0x50
     UNUSED,              // OxydExtra stone 0x51
     UNUSED,              // OxydExtra stone 0x52
     UNUSED,              // OxydExtra stone 0x53

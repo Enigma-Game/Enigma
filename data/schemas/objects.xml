@@ -41,6 +41,7 @@
     <attr name="static" type="bool" default="false" rw="rw"/>
     <attr name="strength" type="double" default="1" rw="rw"/>
     <attr name="target" type="tokens" default="nil" rw="rw"/>
+    <attr name="transparent" type="bool" default="false" rw="rw"/>
   </attributes>
   <messages>
     <msg name="close" type="nil"/>
@@ -409,6 +410,27 @@
       <attr name="state" rw="r"/>
       <msg name="_init"/>
       <msg name="_model_reanimated"/>
+    </object>
+    <object name="st_mirror">
+      <attr name="counterclock"/>
+      <attr name="flavor" default="slab"/>
+      <attr name="movable" rw="rw"/>
+      <attr name="orientation"/>
+      <attr name="transparent"/>
+      <msg name="orientate"/>
+      <msg name="signal"/>
+      <msg name="turn"/>
+      <msg name="turnback"/>
+      <msg name="_trigger"/>
+    </object>
+    <object name="st_mirror_sheets">
+      <attr name="flavor" value="sheets"/>
+    </object>
+    <object name="st_mirror_slab">
+      <attr name="flavor" value="slab"/>
+    </object>
+    <object name="st_mirror_triangle">
+      <attr name="flavor" value="triangle"/>
     </object>
     <object name="st_monoflop">
       <attr name="interval" default="1.8"/>

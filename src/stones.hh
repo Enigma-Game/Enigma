@@ -66,6 +66,7 @@ namespace enigma {
         st_knight,
         st_laserbreak,
         st_magic,
+        st_mirror,
         st_movebreak,
         st_oneway,
         st_oneway_black,

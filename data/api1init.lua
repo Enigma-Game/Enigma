@@ -121,6 +121,40 @@ RenamingObjectsNew2Old = {
     st_laserflop = "st-lasertimeswitch",
     st_lightpassenger = "st-lightpassenger",
     st_lightpassenger_off = "st-lightpassenger_off",
+    
+    st_mirror_slab_n = "st-mirror-p|",
+    st_mirror_slab_e = "st-mirror-p/",
+    st_mirror_slab_s = "st-mirror-p-",
+    st_mirror_slab_w = "st-mirror-p\\",
+    st_mirror_slab_nt = "st-mirror-p|t",
+    st_mirror_slab_et = "st-mirror-p/t",
+    st_mirror_slab_st = "st-mirror-p-t",
+    st_mirror_slab_wt = "st-mirror-p\\t",
+    st_mirror_slab_nm = "st-mirror-p|m",
+    st_mirror_slab_em = "st-mirror-p/m",
+    st_mirror_slab_sm = "st-mirror-p-m",
+    st_mirror_slab_wm = "st-mirror-p\\m",
+    st_mirror_slab_ntm = "st-mirror-p|tm",
+    st_mirror_slab_etm = "st-mirror-p/tm",
+    st_mirror_slab_stm = "st-mirror-p-tm",
+    st_mirror_slab_wtm = "st-mirror-p\\tm",
+    st_mirror_triangle_n = "st-mirror-3^",
+    st_mirror_triangle_e = "st-mirror-3>",
+    st_mirror_triangle_s = "st-mirror-3v",
+    st_mirror_triangle_w = "st-mirror-3<",
+    st_mirror_triangle_nt = "st-mirror-3^t",
+    st_mirror_triangle_et = "st-mirror-3>t",
+    st_mirror_triangle_st = "st-mirror-3vt",
+    st_mirror_triangle_wt = "st-mirror-3<t",
+    st_mirror_triangle_nm = "st-mirror-3^m",
+    st_mirror_triangle_em = "st-mirror-3>m",
+    st_mirror_triangle_sm = "st-mirror-3vm",
+    st_mirror_triangle_wm = "st-mirror-3<m",
+    st_mirror_triangle_ntm = "st-mirror-3^tm",
+    st_mirror_triangle_etm = "st-mirror-3>tm",
+    st_mirror_triangle_stm = "st-mirror-3vtm",
+    st_mirror_triangle_wtm = "st-mirror-3<tm",
+    
     st_monoflop = "st-timeswitch",
     st_oxyd = "st-oxyd",
     st_panel = "st-wood_001",
@@ -208,8 +242,12 @@ function enigma.MakeObject(name)
         enigma._SetAttrib(obj, "scissor", false)
         enigma._SetAttrib(obj, "autoclose", true)
         return obj
+    elseif name == "st-pmirror" then
+        return enigma._MakeObject("st_mirror_slab_e")
+    elseif name == "st-3mirror" then
+        return enigma._MakeObject("st_mirror_triangle_s")
     end
-
+    
     newname = RenamingObjectsOld2New[name]
     
     if name == "st-laser" then
@@ -263,6 +301,9 @@ function enigma.GetKind(obj)
     end
     if string.sub(_newname, 1, 8) == "st_laser" then
         return "st-laser"
+    end
+    if _newname == "it_mirror" then
+        return "st-mirror"
     end
     if _oldname ~= nil then
         return _oldname
@@ -371,6 +412,15 @@ function enigma.SetAttrib(obj, key, val)
      if key == "invisible" then
          if val == 1 then _val = true else _val = false end
      end
+     if key == "orientation" then
+         _val = (6 - val) % 4
+     end
+     if key == "transparent" then
+         if val == 1 then _val = true else _val = false end
+     end
+     if key == "movable" then
+         if val == 1 then _val = true else _val = false end
+     end
      enigma._SetAttrib(obj, _key, _val)
 end
 
@@ -456,6 +506,15 @@ function enigma.GetAttrib(obj, key)
      if key == "invisible" then
          if val == false then val = 0 else val = 1 end
      end
+     if key == "orientation" then
+         val = (5 - val) % 4 + 1
+     end
+     if key == "transparent" then
+         if val == false then val = 0 else val = 1 end
+     end
+     if key == "movable" then
+         if val == false then val = 0 else val = 1 end
+     end
      return val
 end
 
@@ -506,7 +565,7 @@ MessageRenaming = {
     ["st-stoneimpulse_movable__trigger"] = "signal",
     st_lightpassenger__trigger = "toggle",
     st_lightpassenger__onoff = "toggle",
-    ["st-mirror__trigger"] = "turn",
+    st_mirror__trigger = "turn",
     st_oxyd__trigger = "open",
     ["st-plain__trigger"] = "signal",
     ["st-plain_hole__trigger"] = "signal",

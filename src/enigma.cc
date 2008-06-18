@@ -84,6 +84,12 @@ Direction rotate_ccw (Direction d)
     return rdir[d+1];
 }
 
+Direction next(Direction d) {
+    static Direction rdir[] = {WEST, SOUTH, EAST, NORTH, NODIR};
+    return rdir[d+1];
+}
+
+
 Direction
 direction_fromto(GridPos source, GridPos target)
 {
@@ -128,7 +134,6 @@ DirectionBits rotate(DirectionBits d, bool clockwise)
     }
     return d;
 }
-
 
 /* -------------------- GridPos -------------------- */
 
