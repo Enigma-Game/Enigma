@@ -640,6 +640,14 @@ do
     DefAlias("it-wormhole-off", "it-wormhole1")
 end
 
+-- it_trap --
+do
+    local images = DefSubimages("it_trap", {h=8})
+    local frames = BuildFrames(images, 100)
+    DefAnim("it_trap_breaking", frames)
+    DefAlias("it_trap", "it_trap8")
+end
+
 --------------------------------------------------------------------------------
 --                                STONE MODELS                                --
 --------------------------------------------------------------------------------
