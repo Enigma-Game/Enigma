@@ -383,7 +383,10 @@ namespace display
         virtual void tick(double dtime, const ecl::V2 &point) = 0;
         virtual void center(const ecl::V2 &point);
 
-        void set_boundary (double b) { m_boundary = b; }
+        void set_boundary (double b) { 
+            m_boundary_x = b;
+            m_boundary_y = b;
+        }
 
     protected:
         DisplayEngine *get_engine() const { return m_engine; }
@@ -392,7 +395,8 @@ namespace display
         double get_voff() const;
         ecl::V2 get_scrollpos(const ecl::V2 &point);
 
-        double m_boundary;
+        double m_boundary_x;
+        double m_boundary_y;
 
     private:
         DisplayEngine *m_engine;
@@ -402,7 +406,7 @@ namespace display
       sprite reaches the border of the current screen. */
     class Follower_Screen : public Follower {
     public:
-        Follower_Screen(DisplayEngine *e);
+        Follower_Screen(DisplayEngine *e, double borderx = 0.5, double bordery = 0.5);
         void tick(double dtime, const ecl::V2 &point);
     };
 
@@ -411,7 +415,7 @@ namespace display
       screen. */
     class Follower_Scrolling : public Follower {
     public:
-        Follower_Scrolling (DisplayEngine *e, bool screenwise_);
+        Follower_Scrolling (DisplayEngine *e, bool screenwise, double borderx = 0.5, double bordery = 0.5);
         void tick(double dtime, const ecl::V2 &point);
         void center(const ecl::V2 &point);
     private:
@@ -451,6 +455,7 @@ namespace display
 
         /* ---------- Scrolling ---------- */
         void set_follow_mode (FollowMode m);
+        void updateFollowMode();
         void follow_center();
         void set_follow_sprite(SpriteId id);
         void set_reference_point (const ecl::V2 &point);

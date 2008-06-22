@@ -82,6 +82,12 @@ bool     server::AllowSingleOxyds;
 bool     server::AllowTogglePlayer;
 bool     server::CreatingPreview = false;   // read only for Lua
 bool     server::ConserveLevel;
+
+Value    server::FollowAction;
+bool     server::FollowGrid;
+int      server::FollowMethod;
+Value    server::FollowThreshold;
+
 double   server::LevelTime;                 // read only for Lua (> 1.10)
 bool     server::ShowMoves;
 bool     server::SingleComputerGame;        // no Lua access
@@ -241,6 +247,10 @@ void server::PrepareLevel()
     server::SingleComputerGame= true;
     server::AllowSingleOxyds  = false;
     server::AllowTogglePlayer = true;
+    server::FollowAction      = GridPos(19, 12);   // inner space of a room
+    server::FollowGrid        = true;
+    server::FollowMethod      = display::FOLLOW_FLIP;      // FLIP
+    server::FollowThreshold   = 0.5;
     server::ShowMoves         = false;
     server::Brittleness       = 0.5;
     server::SlopeForce        = 25.0;
@@ -273,7 +283,7 @@ void server::PrepareLua() {
     // different levels do not get in each other's way.
     int api = (server::EnigmaCompatibility < 1.10) ? 1 : 2;
     lua::ShutdownLevel();
-    lua_State *L = lua::InitLevel();
+    lua_State *L = lua::InitLevel(api);
     if (lua::DoSysFile(L, "compat.lua") != lua::NO_LUAERROR) {
         throw XLevelLoading("While processing 'compat.lua':\n"+lua::LastError(L));
     }

@@ -64,7 +64,7 @@ namespace enigma { namespace lua {
     lua_State *LevelState();
 
     /*! Initialize the ingame Lua state. */
-    lua_State *InitLevel();
+    lua_State *InitLevel(int api);
 
     /*! Close the ingame Lua state. */
     void ShutdownLevel();

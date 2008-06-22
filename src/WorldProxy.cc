@@ -51,6 +51,15 @@ namespace enigma {
             return server::ConserveLevel;
         } else if (key == "CreatingPreview") {
             return server::CreatingPreview;  // read only
+        } else if (key == "FollowAction") {
+            return server::FollowAction;
+        } else if (key == "FollowGrid") {
+            return server::FollowGrid;
+        } else if (key == "FollowMethod") {
+            return server::FollowMethod;
+//        } else if (key == "FollowRoomSize") {    // Enigma 1.2 
+        } else if (key == "FollowThreshold") {
+            return server::FollowThreshold;            
         } else if (key == "Height") {
             return Height();
         } else if (key == "IsDifficult") {
@@ -104,8 +113,38 @@ namespace enigma {
             server::AllowTogglePlayer = val;
         } else if (key == "ConserveLevel") {
             server::ConserveLevel = val.to_bool();
-        } else if (key == "FollowMode") {
-            display::SetFollowMode((display::FollowMode)((int)val));
+        } else if (key == "FollowAction") {
+            server::FollowAction = val;
+            display::UpdateFollowMode();
+        } else if (key == "FollowGrid") {
+            bool wasGrid = server::FollowGrid;
+            server::FollowGrid = val.to_bool();
+            if (wasGrid && !server::FollowGrid) {
+                server::FollowMethod = display::FOLLOW_SCROLL;
+                server::FollowThreshold = 0;
+                server::FollowAction = 0;
+            } else if (!wasGrid && server::FollowGrid) {
+                server::FollowThreshold = 0.5;
+                server::FollowAction = ecl::V2(9.5, 6);
+            }
+            display::UpdateFollowMode();
+        } else if (key == "FollowMethod") {
+            int oldMethod = server::FollowMethod;
+            server::FollowMethod = val;
+            if ( oldMethod != server::FollowMethod) {
+                if (server::FollowMethod == display::FOLLOW_FLIP) {
+                    server::FollowThreshold = 0.5;
+                    server::FollowAction = ecl::V2(19, 12);
+                } else if (server::FollowMethod == display::FOLLOW_SCROLL &&  server::FollowGrid) {
+                    server::FollowThreshold = 0.5;
+                    server::FollowAction = ecl::V2(9.5, 6);
+                }
+                display::UpdateFollowMode();
+            }
+//        } else if (key == "FollowRoomSize") {    // Enigma 1.2 
+        } else if (key == "FollowThreshold") {
+            server::FollowThreshold = val;
+            display::UpdateFollowMode();
         } else if (key == "ShowMoves") {
             server::ShowMoves = val.to_bool();
             STATUSBAR->show_move_counter (server::ShowMoves);

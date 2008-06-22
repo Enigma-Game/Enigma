@@ -114,6 +114,11 @@ SPOT_ACTORIMPULSE   =   4
 SPOT_SENSOR         =   8
 SPOT_LIGHTPASSENGER =  16
 
+-- Follower
+FOLLOW_NO     = 0
+FOLLOW_SCROLL = 1
+FOLLOW_FLIP   = 2
+
 ---------------------
 -- Utility Methods --
 ---------------------

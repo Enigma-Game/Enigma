@@ -21,6 +21,7 @@
 
 #include "enigma.hh"
 #include "ecl.hh"
+#include "server.hh"
 
 //----------------------------------------
 // Definition of models
@@ -109,15 +110,22 @@ namespace display
 namespace display
 {
     enum FollowMode {
-        FOLLOW_NONE            = 0, // Don't follow any sprite
+        FOLLOW_NONEOLD            = 0, // Don't follow any sprite
         FOLLOW_SCROLLING       = 1, // Scroll the screen
         FOLLOW_SCREEN          = 2, // Flip the screen region
         FOLLOW_SCREENSCROLLING = 3, // Scroll to the next screen
         FOLLOW_SMOOTH          = 4, // Follow pixel by pixel
     };
+    
+    enum FollowTyp {
+        FOLLOW_NONE            = 0, // Don't follow any sprite
+        FOLLOW_SCROLL          = 1, // Scroll pixelwise
+        FOLLOW_FLIP            = 2, // Flip the display to destination
+    };
 
 
     void SetFollowMode (FollowMode m);
+    void UpdateFollowMode();
     void SetScrollBoundary (double boundary);
 
     void SetReferencePoint (const ecl::V2 &point);

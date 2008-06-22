@@ -1598,32 +1598,30 @@ void DL_Shadows::draw(GC &gc, int xpos, int ypos, int x, int y) {
     m_cache->release (sh);
 }
 
-
+
 //----------------------------------------------------------------------
 // Sprite following code
 //----------------------------------------------------------------------
 
-Follower::Follower (DisplayEngine *e)
-: m_boundary (0.5),
-  m_engine(e)
-{}
+Follower::Follower (DisplayEngine *e) : m_boundary_x (0.5), m_boundary_y (0.5), m_engine(e) {
+}
 
 double Follower::get_hoff() const 
 { 
     ScreenArea gamearea = m_engine->get_area();
-    return gamearea.w / m_engine->get_tilew() -m_boundary*2; 
+    return gamearea.w / m_engine->get_tilew() -m_boundary_x*2; 
 }
 
 double Follower::get_voff() const 
 {
     ScreenArea gamearea = m_engine->get_area();
-    return gamearea.h / m_engine->get_tileh() -m_boundary*2;
+    return gamearea.h / m_engine->get_tileh() -m_boundary_y*2;
 }
 
 void Follower::center(const ecl::V2 &point) 
 {
-    double borderh = m_boundary; 
-    double borderv = m_boundary;
+    double borderh = m_boundary_x; 
+    double borderv = m_boundary_y;
     double hoff = get_hoff();
     double voff = get_voff();
 
@@ -1639,20 +1637,21 @@ bool Follower::set_offset (V2 offs)
     DisplayEngine *e = get_engine();
     offs[0] = max (offs[0], 0.0);
     offs[1] = max (offs[1], 0.0);
-    offs[0] = min (offs[0], double(e->get_width()-get_hoff()-1));
-    offs[1] = min (offs[1], double(e->get_height()-get_voff()-1));
+    offs[0] = min (offs[0], double(e->get_width()-get_hoff()-m_boundary_x*2));
+    offs[1] = min (offs[1], double(e->get_height()-get_voff()-m_boundary_y*2));
     if (offs != e->get_offset()) {
-	e->set_offset(offs);
-	return true;
+        e->set_offset(offs);
+        return true;
     }
     return false;
 }
 
 /* -------------------- Follower_Screen -------------------- */
 
-Follower_Screen::Follower_Screen(DisplayEngine *e)
-: Follower(e)
-{}
+Follower_Screen::Follower_Screen(DisplayEngine *e, double borderx, double bordery) : Follower(e) {
+    m_boundary_x  = borderx;
+    m_boundary_y  = bordery;
+}
 
 
 /*! Determine whether the screen must be scrolled or not, and change
@@ -1666,15 +1665,17 @@ void Follower_Screen::tick(double, const ecl::V2 &point) {
 }
 
 
-
+
 /* -------------------- Follower_Scrolling -------------------- */
 
-Follower_Scrolling::Follower_Scrolling(DisplayEngine *e, bool screenwise_)
+Follower_Scrolling::Follower_Scrolling(DisplayEngine *e, bool screenwise_, double borderx, double bordery)
 : Follower (e),
   currently_scrolling(false),
   scrollspeed(0), resttime(0),
-  screenwise (screenwise_)
-{}
+  screenwise (screenwise_) {
+    m_boundary_x  = borderx;
+    m_boundary_y  = bordery;
+}
 
 void Follower_Scrolling::center(const ecl::V2 &point) 
 {
@@ -1690,17 +1691,15 @@ void Follower_Scrolling::tick(double dtime, const ecl::V2 &point)
         ScreenArea gamearea = engine->get_area();
         int        tilew    = engine->get_tilew();
         int        tileh    = engine->get_tileh();
-        int        borderx  = tilew/2;
-        int        bordery  = tileh/2;
 
         int sx, sy;
         engine->world_to_screen(point, &sx, &sy);
 
-        bool scrollx_p = (sx < gamearea.x + borderx)
-            || (sx >= gamearea.x + gamearea.w - borderx);
+        bool scrollx_p = (sx < gamearea.x + m_boundary_x * tilew)
+            || (sx >= gamearea.x + gamearea.w - m_boundary_x * tilew);
 
-        bool scrolly_p = (sy < gamearea.y + bordery)
-            || (sy >= gamearea.y + gamearea.h - bordery);
+        bool scrolly_p = (sy < gamearea.y + m_boundary_y * tileh)
+            || (sy >= gamearea.y + gamearea.h - m_boundary_y * tileh);
 
         if (scrollx_p || scrolly_p) {
             V2 olddest = destpos;
@@ -1714,20 +1713,26 @@ void Follower_Scrolling::tick(double dtime, const ecl::V2 &point)
             if (screenwise) {
                 double hoff = get_hoff();
                 double voff = get_voff();
-                destpos[0] = floor((point[0]-m_boundary) / hoff) * hoff;
-                destpos[1] = floor((point[1]-m_boundary) / voff) * voff;
+//                Log << "scroll screen " << hoff << " " << voff << " " << m_boundary_x << " " << m_boundary_y << "\n";
+                destpos[0] = floor((point[0]-m_boundary_x) / hoff) * hoff;
+                destpos[1] = floor((point[1]-m_boundary_y) / voff) * voff;
             } else {
                 destpos = point - V2(gamearea.w/tilew, gamearea.h/tileh)/2;
+                // round to grid - a hack just for 20x13 screen TODO rewrite for Enigma 1.2
+                // x scroll of "alternating" 10 and 9 grids, try to join this grid after warps 
+                double xmod = std::fmod(destpos[0], 19);
+                if (xmod < 5 || (xmod > 10 && xmod < 14.5))
+                    destpos[0] = std::floor(destpos[0]);
+                else 
+                    destpos[0] = std::ceil(destpos[0]);
+                // y scroll of stable 6 grids
+                destpos[1] = round_nearest<int>(destpos[1]);
             }
 
-            // Round to integer pixel offset
-            destpos[0] = round_nearest<int>(destpos[0]*tilew)/tilew;
-            destpos[1] = round_nearest<int>(destpos[1]*tileh)/tileh;
-
             // Don't scroll off the game area
-            destpos[0] = Clamp (destpos[0], 0.0,
+            destpos[0] = ecl::Clamp<double>(destpos[0], 0.0,
                                 (double)engine->get_width()-gamearea.w/tilew);
-            destpos[1] = Clamp (destpos[1], 0.0, 
+            destpos[1] = ecl::Clamp<double>(destpos[1], 0.0, 
                                 (double)engine->get_height()-gamearea.h/tileh);
             if (!scrollx_p)
                 destpos[0] = olddest[0];
@@ -1788,7 +1793,7 @@ void Follower_Smooth::center (const ecl::V2 &point)
     set_offset(calc_offset (point));
 }
 
-
+
 //----------------------------------------------------------------------
 // Editor / game display engine
 //----------------------------------------------------------------------
@@ -1946,7 +1951,7 @@ void GameDisplay::new_world (int w, int h) {
     CommonDisplay::new_world (w, h);
     status_bar->new_world();
     resize_game_area (NTILESH, NTILESV);
-    set_follow_mode (FOLLOW_SCREEN);
+    updateFollowMode();
     m_reference_point = V2();
 
 //     shadow_layer->new_world(w,h);
@@ -1958,26 +1963,54 @@ GameDisplay::get_status_bar() const
     return status_bar;
 }
 
-
+
 /* -------------------- Scrolling -------------------- */
 
 void GameDisplay::set_follow_mode (FollowMode m) {
     switch (m) {
-    case FOLLOW_NONE: 
-        set_follower(0); 
-        break;
-    case FOLLOW_SCROLLING:
-	set_follower (new Follower_Scrolling(get_engine(), false)); 
-        break;
-    case FOLLOW_SCREEN:
-	set_follower (new Follower_Screen(get_engine())); 
-        break;
-    case FOLLOW_SCREENSCROLLING:
-	set_follower (new Follower_Scrolling(get_engine(), true)); 
-        break;
-    case FOLLOW_SMOOTH:
-        set_follower (new Follower_Smooth(get_engine()));
+        case FOLLOW_NONEOLD: 
+            set_follower(0); 
+            break;
+        case FOLLOW_SCROLLING:
+       	    set_follower (new Follower_Scrolling(get_engine(), false)); 
+            break;
+        case FOLLOW_SCREEN:
+    	    set_follower (new Follower_Screen(get_engine())); 
+            break;
+        case FOLLOW_SCREENSCROLLING:
+    	    set_follower (new Follower_Scrolling(get_engine(), true, 0.5, 0.5)); 
+            break;
+        case FOLLOW_SMOOTH:
+            set_follower (new Follower_Smooth(get_engine()));
     };
+    get_engine()->mark_redraw_screen();
+}
+
+void GameDisplay::updateFollowMode () {
+    if (!server::FollowGrid)
+        set_follower(new Follower_Smooth(get_engine()));
+    else if (server::FollowMethod == FOLLOW_NONE) 
+        set_follower(NULL); 
+    else if (server::FollowMethod == FOLLOW_FLIP) {
+	    if (server::FollowThreshold.getType() == Value::DOUBLE) 
+            set_follower (new Follower_Screen(get_engine(), (double)server::FollowThreshold, 
+                    (double)server::FollowThreshold)); 
+        else
+            set_follower (new Follower_Screen(get_engine(), ecl::V2(server::FollowThreshold)[0], 
+                    ecl::V2(server::FollowThreshold)[1])); 
+    }
+    else if ((server::FollowThreshold.getType() == Value::DOUBLE) && ((double)server::FollowThreshold == 0.5) 
+            && (server::FollowAction == Value(ecl::V2(9.5, 6))))
+   	    set_follower(new Follower_Scrolling(get_engine(), false)); 
+    else {
+	    if (server::FollowThreshold.getType() == Value::DOUBLE) 
+            set_follower (new Follower_Scrolling(get_engine(), true, (double)server::FollowThreshold, 
+                    (double)server::FollowThreshold)); 
+        else
+            set_follower (new Follower_Scrolling(get_engine(), true, ecl::V2(server::FollowThreshold)[0], 
+                    ecl::V2(server::FollowThreshold)[1])); 
+    }
+    get_engine()->mark_redraw_screen();
 }
 
 void GameDisplay::set_follower (Follower *f) {
@@ -2123,6 +2156,10 @@ void display::SetReferencePoint (const ecl::V2 &point) {
 
 void display::SetFollowMode(FollowMode m) {
     gamedpy->set_follow_mode(m);
+}
+
+void display::UpdateFollowMode() {
+    gamedpy->updateFollowMode();
 }
 
 void display::SetScrollBoundary (double boundary) {

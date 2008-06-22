@@ -24,6 +24,7 @@
 #define SERVER_HH_INCLUDED
 
 #include "lev/Proxy.hh"
+#include "Value.hh"
 
 #include <stdint.h>
 
@@ -98,6 +99,11 @@ namespace enigma_server
     
     extern int      GlassesVisibility;
     extern int      ExtralifeGlasses;
+    
+    extern Value     FollowAction;
+    extern bool      FollowGrid;
+    extern int       FollowMethod;
+    extern Value     FollowThreshold;
 
 /* --------------------  Force multipliers... -------------------- */
 

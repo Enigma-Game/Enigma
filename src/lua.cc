@@ -3043,7 +3043,7 @@ void ShutdownGlobal()
 
 
 
-lua_State *InitLevel() 
+lua_State *InitLevel(int api) 
 {
     char buffer[255];
 
@@ -3057,9 +3057,10 @@ lua_State *InitLevel()
 
     tolua_open(L);
     tolua_enigma_open(L);
-    tolua_px_open(L);
-    tolua_display_open(L);
-
+    if (api == 1) {
+        tolua_px_open(L);
+        tolua_display_open(L);
+    }
     
     RegisterFuncs(L, levelfuncs);
     RegisterFuncs2(L, levelFuncs);
