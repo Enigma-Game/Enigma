@@ -3,7 +3,7 @@
   <el:protected>
     <el:info el:type="level">
       <el:identity el:title="Tinker, Tailor" el:subtitle="" el:id="andreas46"/>
-      <el:version el:score="2" el:release="4" el:revision="2" el:status="released"/>
+      <el:version el:score="2" el:release="4" el:revision="3" el:status="released"/>
       <el:author el:name="Andreas Lochmann" el:email="" el:homepage=""/>
       <el:copyright>Copyright © 2007 Andreas Lochmann</el:copyright>
       <el:license el:type="GPL v2.0 or above" el:open="true"/>
@@ -29,45 +29,45 @@ end
 
 wo["ConserveLevel"] = true
 
-ti[" "] = {"fl-leavesb"}
-ti["1"] = {"fl-leavesc1"}
-ti["2"] = {"fl-leavesc2"}
-ti["3"] = {"fl-leavesc3"}
-ti["4"] = {"fl-leavesc4"}
-ti["."] = {"fl-leavesb", force_x = myrandom(), force_y = myrandom()}
+ti["  "] = {"fl-leavesb"}
+ti[". "] = {"fl-leavesb", force_x = myrandom(), force_y = myrandom()}
 
-ti["#"] = ti[" "] .. {"st-glass2"}
-ti["G"] = ti[" "] .. {"st-glass2"}
-ti["@"] = ti[" "] .. {"#ac-blackball", name = "marble"}
-ti["o"] = ti[" "] .. {"st_oxyd", flavor = "b"}
-ti["S"] = ti[" "] .. {"st-scissors", name = "scissors#", target = "call_scissors"}
-ti["C"] = ti[" "] .. {"st-scissors", name = "scissors_central", target = "call_scissors"}
-ti["X"] = (ti[" "] .. {"st-glass1"}) .. {"#ac-horse", name = "horse#"}
-ti["s"] = ti[" "] .. {parastonekind, name = "parascissors#"}
-ti["c"] = ti[" "] .. {parastonekind, name = "parascissors_central"}
-ti["x"] = (ti[" "] .. {"st-glass1_hole", name = "paraplace#"})
-ti["u"] = ti[" "] .. {"st_switch", target = "next_pattern"}
-ti["v"] = ti[" "] .. {"st_switch", target = "solve"}
-ti["r"] = {"fl-leavesb", "parafloor#"}
-ti["t"] = ti[" "] .. {"st_timer", interval = 2.0, name = "timer", loop = false,
-                      invisible = true}
+ti["# "] = ti["  "] .. {"st-glass2"}
+ti["G "] = ti["  "] .. {"st-glass2"}
+ti["@ "] = ti["  "] .. {"#ac-blackball", name = "marble"}
+ti["o "] = ti["  "] .. {"st_oxyd", flavor = "b"}
+ti["template_S"] = ti["  "] .. {"st-scissors", name = "scissors%%", target = "call_scissors"}
+ti["C "] = ti["  "] .. {"st-scissors", name = "scissors_central", target = "call_scissors"}
+ti["template_X"] = (ti["  "] .. {"st-glass1"}) .. {"#ac-horse", name = "horse%%"}
+ti["template_s"] = ti["  "] .. {parastonekind, name = "parascissors%%"}
+ti["c "] = ti["  "] .. {parastonekind, name = "parascissors_central"}
+ti["template_x"] = (ti["  "] .. {"st-glass1_hole", name = "paraplace%%"})
+ti["u "] = ti["  "] .. {"st_switch", target = "next_pattern"}
+ti["v "] = ti["  "] .. {"st_switch", target = "solve"}
+ti["template_r"] = {"fl-leavesb", "parafloor%%"}
+ti["t "] = ti["  "] .. {"st_timer", interval = 2.0, name = "timer", loop = false,
+                       invisible = true}
 
-w, h = wo(ti, " ", {
+local resolver = res.autotile(ti,
+                   {"S", "template_S"}, {"X", "template_X"},
+                   {"s", "template_s"}, {"x", "template_x"}, {"r", "template_r"})
+
+w, h = wo(resolver, "  ", {
  -- 01234567890123456789
-   "####################",
-   "#         GG  r r  #",
-   "#   X X   GGr.....r#",
-   "#   S S   GG..x.x..#",
-   "#         GG..s.s..#",
-   "#XS @   SXGGxs...sx#",
-   "#    C    GG...c...#",
-   "#XS     SXGGxs...sx#",
-   "#         GG..s.s..#",
-   "#   S S   GG..x.x..#",
-   "#   X X   GGr.....r#",
-   "#         GG  r r  #",
-   "####################",
-   "t                   ",
+   "# # # # # # # # # # # # # # # # # # # # ",
+   "#                   G G     r1  r2    # ",
+   "#       X1  X2      G G r3. . . . . r4# ",
+   "#       S1  S2      G G . . x1. x2. . # ",
+   "#                   G G . . s1. s2. . # ",
+   "# X3S3  @       S4X4G G x3s3. . . s4x4# ",
+   "#         C         G G . . . c . . . # ",
+   "# X5S5          S6X6G G x5s5. . . s6x6# ",
+   "#                   G G . . s7. s8. . # ",
+   "#       S7  S8      G G . . x7. x8. . # ",
+   "#       X7  X8      G G r5. . . . . r6# ",
+   "#                   G G     r7  r8    # ",
+   "# # # # # # # # # # # # # # # # # # # # ",
+   "t                                       ",
 })
 
 function connect(obj1, obj2, strength)
@@ -98,7 +98,7 @@ function call_scissors(onoff, sender)
     local correct = true
     for j = 1, 8 do
       correct = correct and
-          (no["horse#"..j]["_partner"] == no["scissors#"..Goal[j]])
+          (no["horse%"..j]["_partner"] == no["scissors%"..Goal[j]])
     end
     if correct then
       next_pattern()
@@ -108,10 +108,10 @@ end
 
 function solve()
   for j = 1, 8 do
-    wo[no["scissors#"..j]] = {"st-scissors", name = "scissors#"..j}
+    wo[no["scissors%"..j]] = {"st-scissors", name = "scissors%"..j}
   end
   for j = 1, 8 do
-    connect(no["horse#"..j], no["scissors#"..Goal[j]])
+    connect(no["horse%"..j], no["scissors%"..Goal[j]])
   end
 end
 
@@ -130,8 +130,8 @@ function next_pattern()
     -- create temporary goals for the horses to untangle
     local TemporaryGoal = luatools.permutation(8)
     for j = 1, 8 do
-      no["parahorse#"..j]:set(
-          {destination = {no["parafloor#"..TemporaryGoal[j]]}})
+      no["parahorse%"..j]:set(
+          {destination = {no["parafloor%"..TemporaryGoal[j]]}})
     end
     -- use timer to set real goals
     no["timer"]:set({target = "fix_horses", interval = 2.0, loop = false})
@@ -139,7 +139,7 @@ function next_pattern()
   else
     -- set oxyds
     for j = 1, 8 do
-      wo[no["scissors#"..j]] = {"st_oxyd"}
+      wo[no["scissors%"..j]] = {"st_oxyd"}
     end
     wo:shuffleOxyd()
   end
@@ -147,15 +147,15 @@ end
 
 function fix_horses()
   for j = 1, 8 do
-    no["parahorse#"..Goal[j]]:set({destination = {no["paraplace#"..j]}})
+    no["parahorse%"..Goal[j]]:set({destination = {no["paraplace%"..j]}})
   end
   -- taint the glass of the new "fixpoint"
   local k = 8 - pattern_count + 1  --first_permutation[pattern_count]
-  wo[no["paraplace#"..fixpoint_permutation[k]]]
-    = {"st-glass2_hole", name = "paraplace#"..fixpoint_permutation[k]}
+  wo[no["paraplace%"..fixpoint_permutation[k]]]
+    = {"st-glass2_hole", name = "paraplace%"..fixpoint_permutation[k]}
   if pattern_count == 7 then
-    wo[no["paraplace#"..fixpoint_permutation[1]]]
-      = {"st-glass2_hole", name = "paraplace#"..fixpoint_permutation[1]}
+    wo[no["paraplace%"..fixpoint_permutation[1]]]
+      = {"st-glass2_hole", name = "paraplace%"..fixpoint_permutation[1]}
   end
 end
 
@@ -176,13 +176,13 @@ for j = 1, 8 do
   --       they're connected to. It's the paraplace which Goal
   --       references to, in contrast to the real situation on
   --       the left side.
-  wo[no["paraplace#"..j]] = {"#ac-horse", name = "parahorse#"..Goal[j],
+  wo[no["paraplace%"..j]] = {"#ac-horse", name = "parahorse%"..Goal[j],
                                           force = 4 + j/10}
 end
 
 for j = 1, 8 do
-  connect(no["parahorse#"..j], no["parascissors#"..j], 0)
-  connect(no["horse#"..j], no["scissors#"..j], 0)
+  connect(no["parahorse%"..j], no["parascissors%"..j], 0)
+  connect(no["horse%"..j], no["scissors%"..j], 0)
 end
 
 wo:shuffleOxyd()

@@ -5,7 +5,7 @@
   <el:protected >
     <el:info el:type="level">
       <el:identity el:title="Enigmaparcour" el:subtitle="Open the Doors" el:id="mecke15"/>
-      <el:version el:score="1" el:release="1" el:revision="$Revision: 11 $" el:status="released"/>
+      <el:version el:score="1" el:release="1" el:revision="$Revision: 12 $" el:status="released"/>
       <el:author  el:name="mecke" el:email="" el:homepage=""/>
       <el:copyright>Copyright © 2008 Thomas Bernhardt</el:copyright>
       <el:license el:type="GPL v2.0 or above" el:open="true"/>
@@ -54,7 +54,7 @@ ti["G"] = ti["_"] .. {"st-glass"}
 ti["Y"] = ti[" "] .. {"st-glass"}
 ti["L"] = ti["_"] .. {"st_laser_e", name="laser", state=ON}
 ti["h"] = ti[" "] .. {"st-bluegray_hole"}
-ti["A"] = ti["~"] .. {"st-actorimpulse"}
+ti["A"] = ti["~"] .. {"st_actorimpulse"}
 ti["I"] = ti[" "] .. {"st-oneway_black-w"}
 ti["^"] = ti[" "] .. {"st_boulder_n"}
 ti[">"] = ti["v"] .. {"st_boulder_e"}
@@ -65,13 +65,13 @@ ti["4"] = ti[" "] .. {"st-oneway-w"}
 ti["6"] = ti[" "] .. {"st-oneway-e"}
 ti["8"] = ti[" "] .. {"st-oneway_black-n"}
 ti["Q"] = ti[" "] .. {"st-stone_break"}
-ti["m"] = ti["_"] .. {"st-pmirror", movable=false, transparent=true, orientation=2}
-ti["M"] = ti["_"] .. {"st-pmirror", movable=false, orientation=1}
+ti["m"] = ti["_"] .. {"st_mirror_slab", movable=false, transparent=true, orientation=2}
+ti["M"] = ti["_"] .. {"st_mirror_slab", movable=false, orientation=1}
 ti["X"] = ti["~"] .. {"st_oxyd", flavor="a"}
 ti["S"] = ti["_"] .. {"st_laserswitch", target={"door#7", "door#8"}}
 ti[":"] = ti[" "] .. {"st-door-v", name="door#"}
 ti["9"] = ti[" "] .. {"st-turnstile"}
-ti["?"] = ti["~"] .. {"st-actorimpulse_invisible"}
+ti["?"] = ti["~"] .. {"st_actorimpulse_invisible"}
 ti["z"] = ti["v"] .. {"st-stone_break"}
 ti["N"] = ti["t"] .. {"fl-ice"}
 ti["-"] = ti["~"] .. {"it-hstrip"}
@@ -115,7 +115,7 @@ wo[base+{7, 7}] = {"st-turnstile-w"}
 wo[base+{9, 7}] = {"st-turnstile-e"}
 
 wo[base+{18, 11}] = {"it_key", code=1}
-wo[base+{8, 1}] = {"it-glasses"}
+wo[base+{8, 1}] = {"it_glasses"}
 wo[base+{8, 0}] = {"it_umbrella_new"}
 wo[base+{0, 11}] = {"it-magicwand"}
 wo[base+{5, 11}] = {"it_extralife"}
@@ -134,7 +134,7 @@ wo[base+{3,2}] = {"it_vortex_open", name="vortex2", destination="vortex1"}
 
 wo[base+{3, 9}] = ti["~"]
 wo[base+{2, 9}] = ti["~"]
-wo[base+{3, 6}] = {"st-pmirror", movable=false, orientation=4}
+wo[base+{3, 6}] = {"st_mirror_slab", movable=false, orientation=4}
 
 wo[base+{18, 0}] = {"it_trigger", target="door#2"}
 wo[base+{18, 4}] = {"it_trigger", target="door#1"}
