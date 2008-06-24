@@ -403,7 +403,6 @@ do
         "it-hill",
         "it-hollow",
         "it-hstrip",
-        "it-landmine",
         "it-magicwand",
         "it-odometer",
         "it-pencil",
@@ -437,6 +436,7 @@ do
     DefImage("it_glasses_broken", {filename="it-glasses-broken"})
     DefImage("it_hammer", {filename="it-hammer"})
     DefImage("it_key", {filename="it-key"})
+    DefImage("it_landmine", {filename="it-landmine"})
     DefImage("it_sword", {filename="it-sword"})
     DefImage("it_umbrella", {filename="it-umbrella"})
     DefImage("it_wrench", {filename="it-wrench"})

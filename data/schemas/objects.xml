@@ -129,6 +129,7 @@
     <object name="it_key">
       <attr name="code"/>
     </object>
+    <object name="it_landmine"/>
     <object name="it_magnet">
       <attr name="range" default="nil"/>
       <attr name="strength" default="nil"/>
@@ -154,6 +155,11 @@
       <attr name="state" rw="r"/>
       <msg name="_init"/>
       <msg name="_jumping"/>
+    </object>
+    <object name="it_trap">
+      <msg name="open"/>
+      <msg name="signal"/>
+      <msg name="_glasses"/>
     </object>
     <object name="it_umbrella"/>
     <object name="it_umbrella_new" init="true"/>

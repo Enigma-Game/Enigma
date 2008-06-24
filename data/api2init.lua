@@ -101,6 +101,12 @@ SOUTH = 1
 EAST  = 2
 NORTH = 3
 
+-- alternative orientation notation for mirrors
+BACKSLASH  = 0
+HORIZONTAL = 1
+SLASH      = 2
+VERTICAL   = 3
+
 -- essential
 DISPENSIBLE   = 0
 INDISPENSIBLE = 1
@@ -113,11 +119,15 @@ SPOT_HOLLOW         =   2
 SPOT_ACTORIMPULSE   =   4
 SPOT_SENSOR         =   8
 SPOT_LIGHTPASSENGER =  16
+SPOT_TRAP           =  32
 
 -- Follower
 FOLLOW_NO     = 0
 FOLLOW_SCROLL = 1
 FOLLOW_FLIP   = 2
+
+FOLLOW_FULLSCREEN = po(19, 12)
+FOLLOW_HALFSCREEN = po(9.5, 6)
 
 ---------------------
 -- Utility Methods --

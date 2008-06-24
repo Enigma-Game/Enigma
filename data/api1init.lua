@@ -57,10 +57,12 @@ RenamingObjectsNew2Old = {
     it_glasses = "it-glasses",
     it_glasses_broken = "it-glasses-broken",
     it_hammer = "it-hammer",
+    it_landmine = "it-landmine",
     it_magnet = "it-magnet",
     it_magnet_on = "it-magnet-on",
     it_magnet_off = "it-magnet-off",
     it_sword = "it-sword",
+    it_trap = "it-abyss",
     it_trigger = "it-trigger",
     it_umbrella = "it-umbrella",
     it_vortex = "it-vortex-open",
@@ -302,7 +304,7 @@ function enigma.GetKind(obj)
     if string.sub(_newname, 1, 8) == "st_laser" then
         return "st-laser"
     end
-    if _newname == "it_mirror" then
+    if _newname == "st_mirror" then
         return "st-mirror"
     end
     if _oldname ~= nil then
@@ -412,7 +414,7 @@ function enigma.SetAttrib(obj, key, val)
      if key == "invisible" then
          if val == 1 then _val = true else _val = false end
      end
-     if key == "orientation" then
+     if key == "orientation" and _obj_name == "st-mirror" then
          _val = (6 - val) % 4
      end
      if key == "transparent" then
@@ -506,7 +508,7 @@ function enigma.GetAttrib(obj, key)
      if key == "invisible" then
          if val == false then val = 0 else val = 1 end
      end
-     if key == "orientation" then
+     if key == "orientation" and _obj_name == "st-mirror" then
          val = (5 - val) % 4 + 1
      end
      if key == "transparent" then

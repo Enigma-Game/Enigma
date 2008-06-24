@@ -115,16 +115,19 @@ namespace enigma {
     
     Value MirrorStone::message(const Message &m) {
         if (m.message == "orientate") {
-            setAttr("orientation", m.value);
+            setAttr("state", m.value);   // enforce value check
             return Value();
         } else if ((m.message == "turn" || m.message == "turnback")) {
-            setAttr("orientation", (m.message == "turn" && !getAttr("counterclock").to_bool() || 
+            setAttr("state", (m.message == "turn" && !getAttr("counterclock").to_bool() || 
                     m.message == "turnback" && getAttr("counterclock").to_bool())
                     ? rotate_cw((Direction)state) : rotate_ccw((Direction)state));
             return Value();
         } else if (m.message == "signal") {
             if (m.value == 1)
                 toggleState();
+            else if (m.value == 0 && server::GameCompatibility != GAMET_ENIGMA)
+                // rotate mirror in opposite direction
+                setState(!getAttr("counterclock").to_bool() ? rotate_ccw((Direction)state) : rotate_cw((Direction)state));
             return Value();
         } else if (m.message == "_trigger") {
             if (m.value == 1)
@@ -147,6 +150,7 @@ namespace enigma {
         if (isDisplayable()) {
             init_model();
             RecalcLight();
+            sound_event ("mirrorturn");
         }
      }
     

@@ -3182,11 +3182,15 @@ namespace
    activated only once. */
     class Sensor : public Item {
         CLONEOBJ(Sensor);
-        DECL_TRAITS_ARRAY(2, traitsIdx());
+        DECL_TRAITS_ARRAY(4, traitsIdx());
+    private:
+        enum ObjectPrivatFlagsBits {
+            OBJBIT_ISFILTER  =   1<<24    ///< sensor that filters signals, too
+        };
     public:
         static void setup();
             
-        Sensor(bool inverse);
+        Sensor(bool inverse, bool isFilter = false);
         
         // Object interface
         virtual Value message(const Message &m);
@@ -3208,12 +3212,18 @@ namespace
     };
     
     void Sensor::setup() {
-        RegisterItem (new Sensor(false));
-        RegisterItem (new Sensor(true));
+        RegisterItem(new Sensor(false));
+        RegisterItem(new Sensor(true));
+        RegisterItem(new Sensor(true, true));
+        RegisterItem(new Sensor(false, true));
     }
     
-    Sensor::Sensor(bool inverse) {
+    Sensor::Sensor(bool inverse, bool isFilter) {
         Object::setAttr("inverse", inverse);
+        if (isFilter) {
+            objFlags |= OBJBIT_ISFILTER;
+            Item::setAttr("invisible", true);
+        }
     }
     
     Value Sensor::message(const Message &m) {
@@ -3227,6 +3237,10 @@ namespace
         } else if (m.message == "_glasses") {
             if (isDisplayable())
                 init_model();            
+        } else if (m.message == "signal" && (objFlags & OBJBIT_ISFILTER)) {
+            if (m.value == 1)
+                performAction(true);   // invertion done by Object
+            return Value();
         }
         return Item::message(m);
     }
@@ -3259,55 +3273,18 @@ namespace
     }
     
     int Sensor::traitsIdx() const {
-        return getAttr("inverse").to_bool() ? 1 : 0;
+        int idx = getAttr("inverse").to_bool() ? 1 : 0;
+        if (objFlags & OBJBIT_ISFILTER)
+            idx +=2;
+        return idx;
     }
 
-    ItemTraits Sensor::traits[2] = {
+    ItemTraits Sensor::traits[4] = {
         {"it_sensor",  it_sensor,  itf_static},
-        {"it_sensor",  it_inversesensor,  itf_static}
+        {"it_sensor",  it_inversesensor,  itf_static},
+        {"it_sensor_filter1", it_signalfilter1, itf_static | itf_invisible, 0.0},  // DAT only
+        {"it_sensor_filter0", it_signalfilter0, itf_static | itf_invisible, 0.0}   // DAT only
     };
-
-/* -------------------- Signal filters -------------------- */
-namespace
-{
-    class SignalFilterItem : public Item {
-        CLONEOBJ(SignalFilterItem);
-        DECL_TRAITS_ARRAY(2, type);
-
-        SignalFilterItem(int type_) : type(type_) {
-            ASSERT(type >= 0 && type <= 1, XLevelRuntime, "SignalFilterItem: type unknown");
-        }
-
-        virtual Value message(const Message &m) {
-            if (m.message == "signal") {
-                int value = m.value;
-//                 warning("received signal with value %i", value);
-                if (value)
-                    performAction(type != 0);
-                return Value();
-            }
-            return Item::message(m);
-        }
-
-        // type of signal filter
-        // 0 : receive 1 -> send 0
-        // 1 : receive 1 -> send 1
-        int type;
-
-    public:
-        static void setup() {
-            RegisterItem (new SignalFilterItem(0));
-            RegisterItem (new SignalFilterItem(1));
-        }
-    };
-    ItemTraits SignalFilterItem::traits[2] = {
-        {"it-signalfilter0", it_signalfilter0,
-            itf_static | itf_invisible | itf_fireproof, 0.0},
-        {"it-signalfilter1", it_signalfilter1,
-            itf_static | itf_invisible | itf_fireproof, 0.0},
-    };
-}
-
 
 /* -------------------- EasyKillStone -------------------- */
 
@@ -3537,51 +3514,109 @@ namespace
     };
 
 
-/* -------------------- Invisible abyss -------------------- */
-namespace
-{
-    class InvisibleAbyss : public Item {
-        CLONEOBJ(InvisibleAbyss);
+/* -------------------- Invisible Trap -------------------- */
+    class Trap : public Item {
+        CLONEOBJ(Trap);
         DECL_TRAITS;
-        bool actor_hit(Actor *a) {
-            SendMessage(a, "fall");
-            return false;
-        }
+    
     public:
-        InvisibleAbyss() {}
+        Trap();
+        
+        // Object interface
+        virtual Value message(const Message &m);
+        
+        // StateObject interface
+        virtual void setState(int extState);
+        
+        // GridObject interface
+        virtual void init_model();
+
+        // ModelCallback interface
+        virtual void animcb();
+
+        // Item interface
+        virtual bool actor_hit(Actor *a);        
     };
-    DEF_TRAITSF(InvisibleAbyss, "it-abyss", it_abyss,
-                itf_static | itf_invisible | itf_fireproof);
-}
+    
+    Trap::Trap() {
+    }
+    
+    Value Trap::message(const Message &m) {
+        if (m.message == "_glasses") {
+            if (isDisplayable())
+                init_model();            
+        }
+        return Item::message(m);
+    }
+    
+    void Trap::setState(int extState) {
+        if (state == 0) {       // no toggle back of a broken (open) trap
+            state == extState;
+            init_model();
+        }
+    }
+    
+    void Trap::init_model() {
+        if (state == 0 && ((server::GlassesVisibility & 32) == 0))
+            set_model("invisible");
+        else
+            set_model("it_trap");
+        
+    }
+    
+    void Trap::animcb() {
+        init_model();
+    }
+    
+    bool Trap::actor_hit(Actor *a) {
+        SendMessage(a, "fall");
+        if (state == 0) {
+            state = 1;
+            set_anim("it_trap_breaking");
+        }
+        return false;
+    }
+        
+    DEF_TRAITSF(Trap, "it_trap", it_trap, itf_static | itf_fireproof);
 
 
 /* -------------------- Landmine -------------------- */
-namespace
-{
     class Landmine : public Item {
         CLONEOBJ(Landmine);
         DECL_TRAITS;
 
-	void explode() {
-            sound_event ("landmine");
-	    replace (it_explosion2);
+    public:
+        Landmine();
+
+        // Item interface
+        virtual bool actor_hit(Actor *a);
+        virtual void on_stonehit(Stone *st);
+    
+    private:
+        void explode();
+    };
+
+    Landmine::Landmine() {
+    }
+    
+    bool Landmine::actor_hit (Actor *a) {
+        const double ITEM_RADIUS = 0.3;
+        double dist = length(a->get_pos() - get_pos().center());
+        if (dist < ITEM_RADIUS)
+            explode();
+        return false;
+    }
+    
+    void Landmine::on_stonehit(Stone *st) { 
+        explode();
+    }
+    
+	void Landmine::explode() {
+        sound_event ("landmine");
+        replace(it_explosion2);
 	}
 
-        bool actor_hit (Actor *a) {
-            const double ITEM_RADIUS = 0.3;
-            double dist = length(a->get_pos() - get_pos().center());
-            if (dist < ITEM_RADIUS)
-		explode();
-            return false;
-        }
-
-        void on_stonehit(Stone *) { explode(); }
-    public:
-        Landmine()
-        {}
-    };
-    DEF_TRAITSF(Landmine, "it-landmine", it_landmine, itf_static);
-}
+    DEF_TRAITSF(Landmine, "it_landmine", it_landmine, itf_static);
 
 
 /* -------------------- Cross -------------------- */
@@ -4111,7 +4146,7 @@ void InitItems()
     RegisterItem (new Hill);
     RegisterItem (new Hollow);
     RegisterItem (new HStrip);
-    RegisterItem (new InvisibleAbyss);
+    RegisterItem (new Trap);
     RegisterItem (new Key);
     RegisterItem (new Landmine);
     RegisterItem (new MagicWand);
@@ -4133,7 +4168,6 @@ void InitItems()
     RegisterItem (new SeedVolcano);
     Sensor::setup();
     ShogunDot::setup();
-    SignalFilterItem::setup();
     RegisterItem (new Spade);
     RegisterItem (new Spoon);
     RegisterItem (new Spring1);
