@@ -4057,11 +4057,11 @@ namespace
     DEF_TRAITS(Drop, "it-drop", it_drop);
 }
 
-/* -------------------- Rubberband -------------------- */
+/* -------------------- RubberbandItem -------------------- */
 namespace
 {
-    class Rubberband : public Item {
-        CLONEOBJ(Rubberband);
+    class RubberbandItem : public Item {
+        CLONEOBJ(RubberbandItem);
         DECL_TRAITS;
 
         ItemAction activate(Actor *a, GridPos p) {
@@ -4110,9 +4110,9 @@ namespace
         }
 
     public:
-        Rubberband() {}
+        RubberbandItem() {}
     };
-    DEF_TRAITS(Rubberband, "it-rubberband", it_rubberband);
+    DEF_TRAITS(RubberbandItem, "it-rubberband", it_rubberband);
 }
 
 /* -------------------- Functions -------------------- */
@@ -4175,7 +4175,6 @@ void InitItems()
     Pipe::setup();
     Puller::setup();
     RegisterItem (new Ring);
-    RegisterItem (new Rubberband);
     RegisterItem (new SeedWood);
     RegisterItem (new SeedNowood);
     RegisterItem (new SeedVolcano);
@@ -4207,7 +4206,7 @@ void InitItems()
     RegisterItem (new WormHole(true));
     Register ("it_wormhole", new WormHole(true));
     RegisterItem (new YinYang);
-    RegisterItem (new Rubberband);
+    RegisterItem (new RubberbandItem);
 }
 
 } // namespace enigma

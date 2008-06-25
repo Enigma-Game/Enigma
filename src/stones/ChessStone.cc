@@ -75,7 +75,7 @@ namespace enigma {
         return Stone::message(m);
     }
     
-    void setState(int extState) {
+    void ChessStone::setState(int extState) {
         // block any write attempts
     }
 
