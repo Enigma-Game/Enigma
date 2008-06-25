@@ -28,15 +28,14 @@
 #include <string>
 #include <cassert>
 
-using namespace std;
-using namespace sound;
 using namespace enigma;
+using namespace sound;
 
 
 /* -------------------- Local variables -------------------- */
 namespace
 {
-    auto_ptr<SoundEngine> sound_engine;
+    std::auto_ptr<SoundEngine> sound_engine;
 
     bool sound_enabled      = true;
     bool music_enabled      = true;
@@ -168,12 +167,12 @@ void sound::FadeoutMusic()
     sound_engine->fadeout_music();
 }
 
-bool sound::PlayMusic (const string &name, double position) 
+bool sound::PlayMusic (const std::string &name, double position) 
 {
     if(sound::IsMusicMute() || name=="")
         return false;
     
-    string fname;
+    std::string fname;
     return app.resourceFS->findFile (name, fname) && sound_engine->play_music(fname, position);
 }
 
@@ -317,7 +316,7 @@ void SoundEngine_SDL::stop_music()
     m_current_music = 0;
 }
 
-bool SoundEngine_SDL::play_music (const string &filename, double position) 
+bool SoundEngine_SDL::play_music (const std::string &filename, double position) 
 {
     if (Mix_Music *music = Mix_LoadMUS(filename.c_str())) {
         if (m_current_music)
@@ -390,19 +389,19 @@ int SoundEngine_SDL::already_playing (const SoundEvent &s)
     return -1;
 }
 
-Mix_Chunk *SoundEngine_SDL::cache_sound(const string &name)
+Mix_Chunk *SoundEngine_SDL::cache_sound(const std::string &name)
 {
     ecl::Dict<Mix_Chunk*>::iterator i=wav_cache.find(name);
     if (i == wav_cache.end()) {
         Mix_Chunk *ch = 0;
-        string filename;
+        std::string filename;
         if (app.resourceFS->findFile("soundsets/" + name + ".wav", filename))
              ch = Mix_LoadWAV(filename.c_str());
         if (ch != 0)
             wav_cache.insert(name, ch);
         else
             enigma::Log << "Couldn't load sample '" << name << "': "
-                        << Mix_GetError() << endl;
+                        << Mix_GetError() << std::endl;
         return ch;
     } else
         return i->second;
@@ -410,7 +409,7 @@ Mix_Chunk *SoundEngine_SDL::cache_sound(const string &name)
 
 void SoundEngine_SDL::cache_sound(const SoundEffect &s) 
 {
-    string filename = s.getFilename();
+    std::string filename = s.getFilename();
     if (filename != "")
         cache_sound(filename);
 }

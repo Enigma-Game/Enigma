@@ -26,14 +26,12 @@
 #include <vector>
 #include <map>
 
-using namespace std;
-
 namespace sound
 {
 
 /* -------------------- Interface Functions -------------------- */
 
-    void DefineMusicSingle(string title, string filename);
+    void DefineMusicSingle(std::string title, std::string filename);
 
     bool StartMenuMusic();
     bool StartLevelMusic();
@@ -45,7 +43,7 @@ namespace sound
     int GetOptionMenuMusicCount();
     int GetOptionMenuMusic();
     void SetOptionMenuMusic(int value);
-    string GetOptionMenuMusicText(int value);
+    std::string GetOptionMenuMusicText(int value);
 
 /* -------------------- Music and MusicQueue -------------------- */
 
@@ -57,13 +55,13 @@ namespace sound
 
     class MusicSingle {
     public:
-        MusicSingle(string title_, string filename_, Uint32 length_,
+        MusicSingle(std::string title_, std::string filename_, Uint32 length_,
                     Uint32 loop_start_, Uint32 loop_end_, bool allows_loop_)
         : title(title_), filename(filename_), length(length_),
           loop_start(loop_start_), loop_end(loop_end_),
           allows_loop(allows_loop_), start_time() {}
 
-        MusicSingle(string title_, string filename_)
+        MusicSingle(std::string title_, std::string filename_)
         : title(title_), filename(filename_), length(0),
           loop_start(0), loop_end(0), allows_loop(false), start_time() {}
 
@@ -75,8 +73,8 @@ namespace sound
         bool maybeLoopBack();
 
     private:
-        string title;
-        string filename;
+        std::string title;
+        std::string filename;
         Uint32 length;      // in milliseconds
         Uint32 loop_start;  // where the loop starts
         Uint32 loop_end;    // where the loop should end (but continues playing until next tick)
@@ -86,7 +84,7 @@ namespace sound
 
     class MusicQueue {
     public:
-        MusicQueue(string title_, int button_position_)
+        MusicQueue(std::string title_, int button_position_)
         : title(title_), button_position(button_position_),
           current_position_in_queue(-1), single_title() {}
 
@@ -97,20 +95,20 @@ namespace sound
         bool start();
         bool next();
         void leave();
-        string getCurrentMusicTitle();
+        std::string getCurrentMusicTitle();
         int getButtonPosition() { return button_position; }
         void setButtonPosition(int pos) { button_position = pos; }
-        void appendSingle(string title);
+        void appendSingle(std::string title);
 
     private:
         int current_position_in_queue;
-        string title;
+        std::string title;
         int button_position;
-        vector<string> single_title;
+        std::vector<std::string> single_title;
     };
 
-    typedef map<string, MusicSingle> MusicSingleRepository;
-    typedef map<string, MusicQueue> MusicQueueRepository;
+    typedef std::map<std::string, MusicSingle> MusicSingleRepository;
+    typedef std::map<std::string, MusicQueue> MusicQueueRepository;
 
     /*! MusicContext is a nominal condition to change the
       music during the next tick.
@@ -133,15 +131,15 @@ namespace sound
         void setMusicContext(MusicContext context) { music_context = context; }
         MusicContext getMusicContext() { return music_context; }
 
-        bool defineMusicSingle(string title, string filename);
-        bool playMusicSingle(string title);
-        string getCurrentMusicTitle();
+        bool defineMusicSingle(std::string title, std::string filename);
+        bool playMusicSingle(std::string title);
+        std::string getCurrentMusicTitle();
                 
-        bool setActiveMusicQueue(string music_queue_title);
-        string getActiveMusicQueueTitle() { return active_music_queue; }
-        string getMusicQueueByPosition(int button_position);
+        bool setActiveMusicQueue(std::string music_queue_title);
+        std::string getActiveMusicQueueTitle() { return active_music_queue; }
+        std::string getMusicQueueByPosition(int button_position);
         int getMenuMusicQueueCount();
-        int getMusicQueueButtonPosition(string music_queue_title) {
+        int getMusicQueueButtonPosition(std::string music_queue_title) {
             return music_queues[music_queue_title].getButtonPosition();
         }
 
@@ -152,7 +150,7 @@ namespace sound
         static MusicManager *theSingleton;
         MusicSingleRepository    music_singles;
         MusicQueueRepository     music_queues;
-        string                   active_music_queue;
+        std::string              active_music_queue;
         MusicContext             music_context;
     };
     

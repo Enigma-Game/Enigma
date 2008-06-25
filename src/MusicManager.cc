@@ -29,7 +29,6 @@
 #include <string>
 #include <cassert>
 
-using namespace std;
 using namespace enigma;
 using namespace sound;
 
@@ -72,7 +71,7 @@ void sound::InitMusic()
     MusicManager::instance()->init();
 }
 
-void sound::DefineMusicSingle(string title, string filename) {
+void sound::DefineMusicSingle(std::string title, std::string filename) {
     // TODO: include play_till, replay_from, volume etc
     if(filename == "") {
         Log << "Warning: Tried to define music single '" << title
@@ -93,7 +92,7 @@ int sound::GetOptionMenuMusicCount()
 
 int sound::GetOptionMenuMusic()
 {
-    string music_queue = app.state->getString("MenuMusicQueue");
+    std::string music_queue = app.state->getString("MenuMusicQueue");
     int pos = MusicManager::instance()->getMusicQueueButtonPosition(music_queue);
     assert(pos >= 0);
     return pos;
@@ -101,12 +100,12 @@ int sound::GetOptionMenuMusic()
 
 void sound::SetOptionMenuMusic(int value)
 {
-    string music_queue = MusicManager::instance()->getMusicQueueByPosition(value);
+    std::string music_queue = MusicManager::instance()->getMusicQueueByPosition(value);
     app.state->setProperty("MenuMusicQueue", music_queue);
     MusicManager::instance()->setActiveMusicQueue(music_queue);
 }
 
-string sound::GetOptionMenuMusicText(int value)
+std::string sound::GetOptionMenuMusicText(int value)
 {
     return MusicManager::instance()->getMusicQueueByPosition(value);
 }
@@ -185,19 +184,19 @@ void MusicManager::init()
     tick(-1);
 }
 
-bool MusicManager::defineMusicSingle(string title, string filename)
+bool MusicManager::defineMusicSingle(std::string title, std::string filename)
 {
     music_singles[title] = MusicSingle(title, filename);
     Log << "Added music single '" << title << "'.\n";
     return true;
 }
 
-bool MusicManager::playMusicSingle(string title)
+bool MusicManager::playMusicSingle(std::string title)
 {
     return music_singles[title].start();
 }
 
-bool MusicManager::setActiveMusicQueue(string music_queue_title)
+bool MusicManager::setActiveMusicQueue(std::string music_queue_title)
 {
     if (music_queue_title == "") {
         Log << "Warning: Tried to choose empty music queue title as menu music queue.\n";
@@ -223,7 +222,7 @@ bool MusicManager::setActiveMusicQueue(string music_queue_title)
     }
 }
 
-string MusicManager::getMusicQueueByPosition(int button_position)
+std::string MusicManager::getMusicQueueByPosition(int button_position)
 {
     for (MusicQueueRepository::iterator i = music_queues.begin();
              i != music_queues.end(); ++i)
@@ -242,7 +241,7 @@ int MusicManager::getMenuMusicQueueCount()
     return count;
 }
 
-string MusicManager::getCurrentMusicTitle() {
+std::string MusicManager::getCurrentMusicTitle() {
     if(sound::IsMusicPlaying() && (active_music_queue != ""))
         return music_queues[active_music_queue].getCurrentMusicTitle();
     else
@@ -285,7 +284,7 @@ bool MusicSingle::maybeLoopBack()
 
 /* -------------------- Music Queue -------------------- */
 
-string MusicQueue::getCurrentMusicTitle()
+std::string MusicQueue::getCurrentMusicTitle()
 {
     if(current_position_in_queue == -1)
         return "";
@@ -293,7 +292,7 @@ string MusicQueue::getCurrentMusicTitle()
         return single_title[current_position_in_queue];
 }
 
-void MusicQueue::appendSingle(string title)
+void MusicQueue::appendSingle(std::string title)
 {
     single_title.push_back(title);
 }
@@ -317,7 +316,7 @@ bool MusicQueue::next()
         current_position_in_queue++;
         if(current_position_in_queue >= single_title.size())
             current_position_in_queue = 0;
-        string single = single_title[current_position_in_queue];
+        std::string single = single_title[current_position_in_queue];
         Log << "Play next in queue " << title << ": " << single << ".\n";
         return MusicManager::instance()->playMusicSingle(single);
     }

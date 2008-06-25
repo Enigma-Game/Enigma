@@ -27,8 +27,6 @@
 #include <vector>
 #include <map>
 
-using namespace std;
-
 /** ----------- Survey of the formal data structure -----------
  *
  *  The wav-files are not to be accessed directly. There are several layers
@@ -136,9 +134,9 @@ namespace sound
 {
 /* -------------------- Data types -------------------- */
 
-    typedef string SoundName;
+    typedef std::string SoundName;
 
-    typedef vector <unsigned char> ByteVec;
+    typedef std::vector <unsigned char> ByteVec;
 
     struct SoundData {
         ByteVec  buf;
@@ -153,33 +151,33 @@ namespace sound
     void DefineSound (const SoundName &, const SoundData &);
     
     /*! Helper function for oxyd.cc */
-    string GetOxydSoundSet(OxydLib::OxydVersion oxyd_ver);
+    std::string GetOxydSoundSet(OxydLib::OxydVersion oxyd_ver);
 
     /*! Sound set handling */
     void InitSoundSets();
-    void SetActiveSoundSet(string soundset_name);
-    void SetDefaultSoundSet(string soundset_name);
+    void SetActiveSoundSet(std::string soundset_name);
+    void SetDefaultSoundSet(std::string soundset_name);
 
     /*! Define a new sound event. */
-    void DefineSoundEffect(string soundset_key, string name, string filename,
+    void DefineSoundEffect(std::string soundset_key, std::string name, std::string filename,
                            double volume, bool loop, bool global, int priority,
                            double damp_max, double damp_inc, double damp_mult,
-                           double damp_min, double damp_tick, string silence_string);
+                           double damp_min, double damp_tick, std::string silence_string);
 
     /*! Trigger a sound event.  Return whether the event was handled. */
-    bool EmitSoundEvent (const string &eventname,
+    bool EmitSoundEvent (const std::string &eventname,
                          const ecl::V2 &pos = ecl::V2 (), 
                          double volume = 1.0, bool force_global = false);
-    bool EmitSoundEventGlobal (const string &eventname, double volume = 1.0);
+    bool EmitSoundEventGlobal (const std::string &eventname, double volume = 1.0);
 
     /*! Send the silence string of a sound effect to command line. */
-    void WriteSilenceString (const string &eventname);
+    void WriteSilenceString (const std::string &eventname);
 
     /*! Helper functions for options menu */
     int GetOptionSoundSetCount();
     int GetOptionSoundSet();
     void SetOptionSoundSet(int value);
-    string GetOptionSoundSetText(int value);
+    std::string GetOptionSoundSetText(int value);
 
 /* -------------------- SoundDampingList ---------------- */
 
@@ -196,14 +194,14 @@ namespace sound
 
     class SoundDamping {
     private:
-        string effect_name;
+        std::string effect_name;
         const void *origin;
         float factor;
         DampingData damp;
 
     public:
-        SoundDamping(string effect_name_, const void *origin_);
-        bool is_equal(string name2, const void *origin2) {
+        SoundDamping(std::string effect_name_, const void *origin_);
+        bool is_equal(std::string name2, const void *origin2) {
             return (origin2 == origin) && (effect_name == name2);
         }
         float get_volume(float def_volume);
@@ -246,10 +244,10 @@ namespace sound
 
     class SoundEffect {
     public:
-        SoundEffect(string name_, string soundset_key_, string filename_,
+        SoundEffect(std::string name_, std::string soundset_key_, std::string filename_,
                        double volume_, bool loop_, bool global_, int priority_,
                        double damp_max_, double damp_inc_, double damp_mult_,
-                       double damp_min_, double damp_tick_, string silence_string_)
+                       double damp_min_, double damp_tick_, std::string silence_string_)
         : name(name_), soundset_key(soundset_key_), filename(filename_), volume(volume_),
           loop(loop_), global(global_), priority(priority_),
           silence_string(silence_string_) {
@@ -270,18 +268,18 @@ namespace sound
             damp.tick =  0.9;
         }
 
-        void setFilename(string filename_) { filename = filename_; }
-        string getFilename() const { return filename; }
+        void setFilename(std::string filename_) { filename = filename_; }
+        std::string getFilename() const { return filename; }
         bool play(const ecl::V2 &pos = ecl::V2(), double vol = 1.0, bool glob = false);
         DampingData getDampingData() { return damp; }
-        string getSoundSetKey() { return soundset_key; }
-        string getSilenceString() { return silence_string; }
+        std::string getSoundSetKey() { return soundset_key; }
+        std::string getSilenceString() { return silence_string; }
 
     private:
-        string name;
-        string filename;
-        string soundset_key;
-        string silence_string;
+        std::string name;
+        std::string filename;
+        std::string soundset_key;
+        std::string silence_string;
         double volume;
         bool loop;
         bool global;
@@ -291,11 +289,11 @@ namespace sound
 
     class SoundSet {
     public:
-        SoundSet(string soundset_key_, int button_position_, OxydLib::OxydVersion oxyd_ver_)
+        SoundSet(std::string soundset_key_, int button_position_, OxydLib::OxydVersion oxyd_ver_)
         : soundset_key(soundset_key_), is_oxyd(true), oxyd_ver(oxyd_ver_),
           button_position(button_position_) {}
 
-        SoundSet(string soundset_key_, int button_position_)
+        SoundSet(std::string soundset_key_, int button_position_)
         : soundset_key(soundset_key_), is_oxyd(false),
           oxyd_ver(OxydLib::OxydVersion_Invalid), button_position(button_position_) {}
 
@@ -306,19 +304,19 @@ namespace sound
         bool activate();
         OxydLib::OxydVersion getOxydVersion() { return oxyd_ver; }
         bool isOxyd() { return is_oxyd; }
-        string getSoundSetKey() { return soundset_key; }
+        std::string getSoundSetKey() { return soundset_key; }
         int getButtonPosition() { return button_position; }
         void setButtonPosition(int pos) { button_position = pos; }
 
     private:
-        string soundset_key;
+        std::string soundset_key;
         bool is_oxyd;
         OxydLib::OxydVersion oxyd_ver;
         int button_position;
     };
     
-    typedef map<string, SoundEffect> SoundEffectRepository;
-    typedef map<string, SoundSet> SoundSetRepository;
+    typedef std::map<std::string, SoundEffect> SoundEffectRepository;
+    typedef std::map<std::string, SoundSet> SoundSetRepository;
 
 
 /* -------------------- SoundEffectManager -------------------- */
@@ -330,38 +328,38 @@ namespace sound
 
         // ---------- Sound effect repository and sound sets ----------
 
-        void setActiveSoundSetKey(string soundset_key) {active_sound_set_key=soundset_key;}
-        string getActiveSoundSetKey() { return active_sound_set_key; }
-        void setDefaultSoundSet(string soundset_name) {default_sound_set=soundset_name;}
-        string getDefaultSoundSet() { return default_sound_set; }
-        string effectKey(string effect_name, string soundset_name = "");
-        DampingData getDampingData(string effect_name) {
+        void setActiveSoundSetKey(std::string soundset_key) {active_sound_set_key=soundset_key;}
+        std::string getActiveSoundSetKey() { return active_sound_set_key; }
+        void setDefaultSoundSet(std::string soundset_name) {default_sound_set=soundset_name;}
+        std::string getDefaultSoundSet() { return default_sound_set; }
+        std::string effectKey(std::string effect_name, std::string soundset_name = "");
+        DampingData getDampingData(std::string effect_name) {
             return sound_effects[effectKey(effect_name)].getDampingData(); }
-        void defineSoundEffect(string soundset_key, string name, SoundEffect se) {
+        void defineSoundEffect(std::string soundset_key, std::string name, SoundEffect se) {
             sound_effects[effectKey(name, soundset_key)] = se;
         }
-        bool emitSoundEvent (const string &eventname, const ecl::V2 &pos = ecl::V2 (), 
+        bool emitSoundEvent (const std::string &eventname, const ecl::V2 &pos = ecl::V2 (), 
                              double volume = 1.0, bool force_global = false);
-        void writeSilenceString (const string &eventname);
+        void writeSilenceString (const std::string &eventname);
         void initSoundSets();
-        bool defineSoundSet(string soundset_name, string soundset_key, int button_position);
-        bool defineSoundSetOxyd(string soundset_name, string soundset_key,
+        bool defineSoundSet(std::string soundset_name, std::string soundset_key, int button_position);
+        bool defineSoundSetOxyd(std::string soundset_name, std::string soundset_key,
                                 OxydLib::OxydVersion oxyd_ver, int button_position);
-        string getOxydSoundSet(OxydLib::OxydVersion oxyd_ver);
+        std::string getOxydSoundSet(OxydLib::OxydVersion oxyd_ver);
 
-        int convertToOldSoundSetNumber(string soundset_name);
-        string convertFromOldSoundSetNumber(int soundset_number);
+        int convertToOldSoundSetNumber(std::string soundset_name);
+        std::string convertFromOldSoundSetNumber(int soundset_number);
 
-        void setActiveSoundSet(string soundset_name);
+        void setActiveSoundSet(std::string soundset_name);
         void preloadSoundEffects();
 
         void setSoundSetCount(int count) { sound_set_count = count; }
         int getSoundSetCount() { return sound_set_count; }
         
-        int getSoundSetButtonPosition(string soundset_name) {
+        int getSoundSetButtonPosition(std::string soundset_name) {
             return sound_sets[soundset_name].getButtonPosition();
         }
-        string getSoundSetByPosition(int button_position);
+        std::string getSoundSetByPosition(int button_position);
         
     protected:
         SoundEffectManager();
@@ -370,8 +368,8 @@ namespace sound
         static SoundEffectManager *theSingleton;
         SoundSetRepository         sound_sets;
         SoundEffectRepository      sound_effects;
-        string                     active_sound_set_key;
-        string                     default_sound_set;
+        std::string                active_sound_set_key;
+        std::string                default_sound_set;
         int                        sound_set_count;
     };
 }

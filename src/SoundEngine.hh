@@ -31,8 +31,6 @@
 #include <string>
 #include <vector>
 
-using namespace std;
-
 namespace sound
 {
 
@@ -46,7 +44,7 @@ namespace sound
     void DisableSound();
     void EnableSound();
     void DisableMusic();
-    bool PlayMusic(const string &name, double position = 0.0);
+    bool PlayMusic(const std::string &name, double position = 0.0);
     void FadeoutMusic();
 
     /*! Stop any music currently playing. */
@@ -89,7 +87,7 @@ namespace sound
 
         // ---------- Music ----------
 
-        virtual bool play_music(const string &filename, double position) = 0;
+        virtual bool play_music(const std::string &filename, double position) = 0;
         virtual void stop_music() = 0;
         virtual void fadeout_music() = 0;
         virtual bool is_music_playing() = 0;
@@ -113,7 +111,7 @@ namespace sound
         bool is_initialized() const { return true; }
         void set_sound_volume(double /*soundvol*/) {}
         void set_music_volume(double /*musicvol*/) {}
-        bool play_music (const string &/*filename*/, double /*position*/) { return false; }
+        bool play_music (const std::string &/*filename*/, double /*position*/) { return false; }
         void stop_music() {}
         void fadeout_music() {}
         bool is_music_playing() { return false; }
@@ -136,7 +134,7 @@ namespace sound
         bool is_initialized() const { return m_initialized; }
         void set_sound_volume(double soundvol);
         void set_music_volume(double musicvol);
-        bool play_music (const string &filename, double position);
+        bool play_music (const std::string &filename, double position);
         void stop_music();
         void fadeout_music();
         bool is_music_playing();
@@ -158,7 +156,7 @@ namespace sound
 
     private:
         // ---------- Private methods ----------
-        Mix_Chunk *cache_sound(const string &name);
+        Mix_Chunk *cache_sound(const std::string &name);
 
         void update_channel (int channel);
         int already_playing (const SoundEvent &s);
@@ -176,7 +174,7 @@ namespace sound
         Uint16     m_format;
         int        m_channels;
         ecl::Dict<Mix_Chunk*> wav_cache;
-        vector<SoundEvent> m_channelinfo;
+        std::vector<SoundEvent> m_channelinfo;
         ecl::V2      m_listenerpos;
         SDL_mutex  *m_mutex;
         static SoundEngine_SDL *m_instance;
