@@ -150,6 +150,15 @@ namespace enigma {
         if (m.message == "_init") {
             // finalize nearest target and destination
             finalizeNearestObjectReferences();
+        } else if (m.message == "kill") {
+            switch (getObjectType()) {
+                case FLOOR:
+                    KillFloor(dynamic_cast<GridObject *>(this)->get_pos()); break;
+                case ITEM:
+                    KillItem(dynamic_cast<GridObject *>(this)->get_pos()); break;
+                case STONE:
+                    KillStone(dynamic_cast<GridObject *>(this)->get_pos()); break;
+            }
         }
         return Value();
     }

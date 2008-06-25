@@ -558,8 +558,8 @@ end
 -- it-death --
 do
     local images = DefSubimages("it-death", {h=4})
-    DefAlias("it-death", images[1])
-    DefAnim("it-death-anim", BuildFrames(images, 100))
+    DefAlias("it_death", images[1])
+    DefAnim("it_death_anim", BuildFrames(images, 100))
 end
 
 -- Explosion --

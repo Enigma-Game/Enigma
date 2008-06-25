@@ -53,6 +53,7 @@ RenamingObjectsNew2Old = {
     it_coin_l = "it-coin4",
     it_cross = "it-cross",
     it_extralife = "it-extralife",
+    it_death = "it-death",
     it_floppy = "it-floppy",
     it_glasses = "it-glasses",
     it_glasses_broken = "it-glasses-broken",

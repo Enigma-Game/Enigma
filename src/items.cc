@@ -3419,7 +3419,8 @@ namespace
             ACTORIMPULSE    =  4,
             SENSOR          =  8,
             LIGHTPASSENGER  = 16,
-            MAX             = 31
+            TRAP            = 32,
+            MAX             = 63
         };
         
         static void updateGlasses();
@@ -3569,10 +3570,12 @@ namespace
     }
     
     bool Trap::actor_hit(Actor *a) {
-        SendMessage(a, "fall");
-        if (state == 0) {
-            state = 1;
-            set_anim("it_trap_breaking");
+        if (!a->is_flying()) {
+            SendMessage(a, "fall");
+            if (state == 0) {
+                state = 1;
+                set_anim("it_trap_breaking");
+            }
         }
         return false;
     }
@@ -3601,9 +3604,11 @@ namespace
     
     bool Landmine::actor_hit (Actor *a) {
         const double ITEM_RADIUS = 0.3;
-        double dist = length(a->get_pos() - get_pos().center());
-        if (dist < ITEM_RADIUS)
-            explode();
+        if (!a->is_flying()) {
+            double dist = length(a->get_pos() - get_pos().center());
+            if (dist < ITEM_RADIUS)
+                explode();
+        }
         return false;
     }
     
@@ -3835,35 +3840,43 @@ namespace
 }
 
 /* -------------------- it-death -------------------- */
-namespace
-{
-    class Death : public Item {
-        CLONEOBJ(Death);
+    class DeathItem : public Item {
+        CLONEOBJ(DeathItem);
         DECL_TRAITS;
-
-        bool active;
-
-        bool actor_hit(Actor *a) {
-            ActorInfo &ai = * a->get_actorinfo();
-            if (!ai.grabbed) {
-                SendMessage(a, "shatter");
-                if (!active) {
-                    active=true;
-                    set_anim("it-death-anim");
-                }
-            }
-            return false;
-        }
-
-    protected:
-        void animcb() { set_model("it-death"); active=false; }
-
+        
     public:
-        Death() : active(false) {}
-    };
+        DeathItem();
+        
+        // ModelCallback interface
+        virtual void animcb();
 
-    DEF_TRAITSF(Death, "it-death", it_death, itf_static | itf_indestructible);
-}
+        // Item interface
+        virtual bool actor_hit(Actor *a);
+        
+    };
+    
+    DeathItem::DeathItem() {
+    }
+    
+    void DeathItem::animcb() { 
+        set_model("it_death"); 
+        state = 0;
+     }
+
+    bool DeathItem::actor_hit(Actor *a) {
+        ActorInfo &ai = * a->get_actorinfo();
+        if (!ai.grabbed) {
+            SendMessage(a, "shatter");
+            if (state == 0) {
+                state = 1;
+                set_anim("it_death_anim");
+            }
+        }
+        return false;
+    }
+    
+    DEF_TRAITSF(DeathItem, "it_death", it_death, itf_static | itf_indestructible);
+
 
 /* -------------------- HStrip and VStrip -------------------- */
 namespace
@@ -4123,7 +4136,7 @@ void InitItems()
     Coin::setup();
     Crack::setup();
     RegisterItem (new Cross);
-    RegisterItem (new Death);
+    RegisterItem (new DeathItem);
     RegisterItem (new Debris);
     RegisterItem (new Document);
     RegisterItem (new Drop);
