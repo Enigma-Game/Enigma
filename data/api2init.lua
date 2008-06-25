@@ -107,6 +107,16 @@ HORIZONTAL = 1
 SLASH      = 2
 VERTICAL   = 3
 
+-- multidirections as used by st_chess
+NNE = po(1, -2)
+NEE = po(2, -1)
+SEE = po(2, 1)
+SSE = po(1, 2)
+SSW = po(-1, 2)
+SWW = po(-2, 1)
+NWW = po(-2, -1)
+NNW = po(-2, -1)
+
 -- essential
 DISPENSIBLE   = 0
 INDISPENSIBLE = 1
@@ -120,6 +130,7 @@ SPOT_ACTORIMPULSE   =   4
 SPOT_SENSOR         =   8
 SPOT_LIGHTPASSENGER =  16
 SPOT_TRAP           =  32
+
 
 -- Follower
 FOLLOW_NO     = 0

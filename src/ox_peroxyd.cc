@@ -241,8 +241,8 @@ const char *oxyd::peroxyd_stone_map[256] = {
     "st_key",                   // PerOxyd stone 0x2c
     "st_floppy",                // PerOxyd stone 0x2d
     "",                         // PerOxyd stone 0x2e (?)
-    "st-death",                 // PerOxyd stone 0x2f
-    "st-death_invisible",       // PerOxyd stone 0x30
+    "st_death",                 // PerOxyd stone 0x2f
+    "st_death_invisible",       // PerOxyd stone 0x30
     "st-oneway_black-w",        // PerOxyd stone 0x31
     "st-oneway_black-e",        // PerOxyd stone 0x32
     "st-oneway_black-n",        // PerOxyd stone 0x33

@@ -113,7 +113,7 @@
       <xs:enumeration value="double"/>
       <xs:enumeration value="nil"/>
       <xs:enumeration value="dir"/>
-<!--      <xs:enumeration value="pos"/>  -->
+      <xs:enumeration value="pos"/>
       <xs:enumeration value="string"/>
       <xs:enumeration value="enum"/>
       <xs:enumeration value="object"/>

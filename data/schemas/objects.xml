@@ -44,11 +44,14 @@
     <attr name="transparent" type="bool" default="false" rw="rw"/>
   </attributes>
   <messages>
+    <msg name="capture" type="nil"/>
     <msg name="close" type="nil"/>
     <msg name="closeall" type="nil"/>
+    <msg name="flip" type="nil"/>
     <msg name="hit" type="object"/>
     <msg name="inner_pull" type="dir"/>
     <msg name="kill" type="nil"/>
+    <msg name="move" type="pos"/>
     <msg name="off" type="nil"/>
     <msg name="on" type="nil"/>
     <msg name="open" type="nil"/>
@@ -343,6 +346,19 @@
     <object name="st_brick_nesw">
       <attr name="connections" value="nesw"/>
     </object>
+    <object name="st_chess">
+      <attr name="color" default="0"/>
+      <msg name="capture"/>
+      <msg name="flip"/>
+      <msg name="move"/>
+      <msg name="signal"/>
+    </object>
+    <object name="st_chess_black">
+      <attr name="color" value="0"/>
+    </object>
+    <object name="st_chess_white">
+      <attr name="color" value="1"/>
+    </object>
     <object name="st_coinslot">
       <attr name="instant"/>
       <attr name="interval_s"/>
@@ -352,6 +368,13 @@
     </object>
     <object name="st_coinslot_instant">
       <attr name="instant" value="true"/>
+    </object>
+    <object name="st_death">
+      <attr name="invisible"/>
+      <msg name="_model_reanimated"/>
+    </object>
+    <object name="st_death_invisible">
+      <attr name="invisible" value="true"/>
     </object>
     <object name="st_floppy">
       <msg name="on"/>

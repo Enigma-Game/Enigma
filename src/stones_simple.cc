@@ -1688,94 +1688,6 @@ namespace
 }
 
 
-/* -------------------- DeathStone -------------------- */
-
-/** \page st-death Death's Head Stone
-
-Simply kills all actors that touch it (except for actors that are
-immune to these stones).
-
-\image html st-death.png
-*/
-namespace
-{
-    class DeathStone : public Stone {
-        CLONEOBJ(DeathStone);
-        DECL_TRAITS;
-        bool active;
-      
-        void actor_hit(const StoneContact &sc) {
-            SendMessage(sc.actor, "shatter");
-            if (!active) {
-                active=true;
-                set_anim("st-death-anim");
-            }
-        }
-
-        // even a slight touch should shatter the actor: 
-        void actor_touch(const StoneContact &sc) { actor_hit(sc); }
-
-    protected:
-        void animcb() { set_model("st-death"); active=false; }
-    public:
-        DeathStone() : active(false)
-        {}
-    };
-    DEF_TRAITS(DeathStone, "st-death", st_death);
-}
-
-
-/* -------------------- Invisible DeathStone -------------------- */
-
-/** \page st-death_invisible Death's Head Stone invivible
-
-Simply kills all actors that touch it (except for actors that are
-immune to these stones). This variant is invisible.
-
-\image html st-death.png
-*/
-namespace
-{
-    class DeathStoneInvisible : public DeathStone {
-        CLONEOBJ(DeathStoneInvisible);
-        DECL_TRAITS;
-
-        bool visible; // seen through glasses
-
-        void set_visible_model() {
-            set_model(visible ? "st-death" : "st-death_invisible");
-        }
-
-        void animcb() {
-            DeathStone::animcb();
-            set_visible_model();
-        }
-
-        virtual Value message(const Message &m) {
-            if (m.message == "_glasses") {
-                if (to_int(m.value) & 1) {   // Glasses::DEATH
-                    if (!visible) {
-                        visible = true;
-                        set_visible_model();
-                    }
-                }
-                else {
-                    if (visible) {
-                        visible = false;
-                        set_visible_model();
-                    }
-                }
-                return Value();
-            }
-            return DeathStone::message(m);
-        }
-    public:
-        DeathStoneInvisible() : visible(false) {}
-    };
-    DEF_TRAITS(DeathStoneInvisible, "st-death_invisible", st_death_invisible);
-}
-
-
 /* -------------------- Brake stone -------------------- */
 
 /** \page st-brake Brake
@@ -2102,8 +2014,6 @@ void Init_simple()
 
     RegisterStone (new ChameleonStone);
 
-    RegisterStone (new DeathStone);
-    RegisterStone (new DeathStoneInvisible);
     Register(new DiscoLight);
     Register(new DiscoMedium);
     Register(new DiscoDark);

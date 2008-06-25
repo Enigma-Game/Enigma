@@ -849,11 +849,11 @@ do
         --local f2 = BuildFrames(img2, 40)
         local f2 = f1
         local f3 = BuildFrames(img1, 500)
-        DefAnim("st-chess"..colour.."-disappearing", f1);
-        DefAnim("st-chess"..colour.."-appearing", ReverseFrames(f1))
-        DefAnim("st-chess"..colour.."-captured", f2);
-        DefAnim("st-chess"..colour.."-swamp", f3);
-        DefRoundStone("st-chess"..colour, img1[1])
+        DefAnim("st_chess"..colour.."-disappearing", f1);
+        DefAnim("st_chess"..colour.."-appearing", ReverseFrames(f1))
+        DefAnim("st_chess"..colour.."-captured", f2);
+        DefAnim("st_chess"..colour.."-swamp", f3);
+        DefRoundStone("st_chess"..colour, img1[1])
     end
 
     make_chess("_black")

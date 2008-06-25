@@ -169,8 +169,8 @@ const char *oxyd::oxydextra_stone_map[256] = {
     UNUSED,              // OxydExtra stone 0x2c
     "st_floppy",         // OxydExtra stone 0x2d
     UNUSED,              // OxydExtra stone 0x2e
-    "st-death",          // OxydExtra stone 0x2f
-    "st-death_invisible", // OxydExtra stone 0x30
+    "st_death",          // OxydExtra stone 0x2f
+    "st_death_invisible", // OxydExtra stone 0x30
     "st-oneway_black-w", // OxydExtra stone 0x31
     UNUSED,              // OxydExtra stone 0x32
     "st-oneway_black-n", // OxydExtra stone 0x33
