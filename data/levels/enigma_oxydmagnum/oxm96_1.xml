@@ -3,7 +3,7 @@
   <el:protected>
     <el:info el:type="level">
       <el:identity el:title="Hall of Mirrors" el:subtitle="Oxyd Magnum 96" el:id="siegfried96"/>
-      <el:version el:score="1" el:release="1" el:revision="0" el:status="released"/>
+      <el:version el:score="1" el:release="1" el:revision="1" el:status="released"/>
       <el:author  el:name="Siegfried Fennig" el:email="" el:homepage=""/>
       <el:copyright>Copyright © 2003 Siegfried Fennig</el:copyright>
       <el:license el:type="GPL version 2" el:open="true"/>
@@ -121,110 +121,110 @@ switch9 = 0
 function switchaction()
     lasera=enigma.GetNamedObject("laser")
     if switch8 == 1 or switch9 == 1 then
-       SendMessage(lasera, "on")
+        SendMessage(lasera, "on")
     end
     if switch8 == 0 and switch9 == 0 then
-       SendMessage(lasera, "off")
+        SendMessage(lasera, "off")
     end
     mir1=enigma.GetNamedObject("mirror01")
     mir2=enigma.GetNamedObject("mirror02")
     if switch1 == 1 or switch4 == 1 then
-       SendMessage(mir1, "mirror-east")
-       SendMessage(mir2, "mirror-east")
+        SetAttrib(mir1, "orientation", 4)
+        SetAttrib(mir2, "orientation", 4)
     end
     if switch1 == 0 and switch4 == 0 then
-       SendMessage(mir1, "mirror-west")
-       SendMessage(mir2, "mirror-north")
+        SetAttrib(mir1, "orientation", 2)
+        SetAttrib(mir2, "orientation", 3)
     end
     mir3=enigma.GetNamedObject("mirror03")
     if switch2 == 1 or switch4 == 1 then
-       SendMessage(mir3, "mirror-north")
+	SetAttrib(mir3, "orientation", 3)
     end
     if switch2 == 0 and switch4 == 0 then
-       SendMessage(mir3, "mirror-east")
+        SetAttrib(mir3, "orientation", 4)
     end
     mir4=enigma.GetNamedObject("mirror04")
     if switch3 == 1 or switch4 == 1 then
-       SendMessage(mir4, "mirror-south")
+        SetAttrib(mir4, "orientation", 1)
     end
     if switch3 == 0 and switch4 == 0 then
-       SendMessage(mir4, "mirror-east")
+        SetAttrib(mir4, "orientation", 4)
     end
     mir5=enigma.GetNamedObject("mirror05")
     if switch4 == 1 or switch5 == 1 then
-       SendMessage(mir5, "mirror-west")
+        SetAttrib(mir5, "orientation", 2)
     end
     if switch4 == 0 and switch5 == 0 then
-       SendMessage(mir5, "mirror-east")
+        SetAttrib(mir5, "orientation", 4)
     end
     mir6=enigma.GetNamedObject("mirror06")
     if switch4 == 1 then
-       SendMessage(mir6, "mirror-west")
+        SetAttrib(mir6, "orientation", 2)
     end
     if switch4 == 0 then
-       SendMessage(mir6, "mirror-south")
+        SetAttrib(mir6, "orientation", 1)
     end
     mir7=enigma.GetNamedObject("mirror07")
     mir8=enigma.GetNamedObject("mirror08")
     if switch1 == 1 or switch6 == 1 then
-       SendMessage(mir7, "mirror-west")
-       SendMessage(mir8, "mirror-east")
+        SetAttrib(mir7, "orientation", 2)
+	SetAttrib(mir8, "orientation", 4)
     end
     if switch1 == 0 and switch6 == 0 then
-       SendMessage(mir7, "mirror-south")
-       SendMessage(mir8, "mirror-west")
+        SetAttrib(mir7, "orientation", 1)
+	SetAttrib(mir8, "orientation", 2)
     end
     mir9 =enigma.GetNamedObject("mirror09")
     mir13=enigma.GetNamedObject("mirror13")
     if switch6 == 1 then
-       SendMessage(mir9,  "mirror-north")
-       SendMessage(mir13, "mirror-west")
+        SetAttrib(mir9, "orientation", 3)
+	SetAttrib(mir13, "orientation", 2)
     end
     if switch6 == 0 then
-       SendMessage(mir9,  "mirror-west")
-       SendMessage(mir13, "mirror-south")
+        SetAttrib(mir9, "orientation", 2)
+        SetAttrib(mir13, "orientation", 1)
     end
     mir10=enigma.GetNamedObject("mirror10")
     if switch2 == 1 or switch6 == 1 then
-       SendMessage(mir10, "mirror-south")
+        SetAttrib(mir10, "orientation", 1)
     end
     if switch2 == 0 and switch6 == 0 then
-       SendMessage(mir10, "mirror-west")
+        SetAttrib(mir10, "orientation", 2)
     end
     mir11=enigma.GetNamedObject("mirror11")
     if switch3 == 1 or switch6 == 1 then
-       SendMessage(mir11, "mirror-north")
+        SetAttrib(mir11, "orientation", 3)
     end
     if switch3 == 0 and switch6 == 0 then
-       SendMessage(mir11, "mirror-west")
+        SetAttrib(mir11, "orientation", 2)
     end
     mir12=enigma.GetNamedObject("mirror12")
     if switch5 == 1 or switch6 == 1 then
-       SendMessage(mir12, "mirror-east")
+    	SetAttrib(mir12, "orientation", 4)
     end
     if switch5 == 0 and switch6 == 0 then
-       SendMessage(mir12, "mirror-west")
+    	SetAttrib(mir12, "orientation", 2)
     end
     mir14=enigma.GetNamedObject("mirror14")
     if switch1 == 1 or switch7 == 1 then
-       SendMessage(mir14, "mirror-south")
+    	SetAttrib(mir14, "orientation", 1)
     end
     if switch1 == 0 and switch7 == 0 then
-       SendMessage(mir14, "mirror-east")
+    	SetAttrib(mir14, "orientation", 4)
     end
     mir15=enigma.GetNamedObject("mirror15")
     if switch2 == 1 or switch7 == 1 then
-       SendMessage(mir15, "mirror-west")
+    	SetAttrib(mir15, "orientation", 2)
     end
     if switch2 == 0 and switch7 == 0 then
-       SendMessage(mir15, "mirror-north")
+    	SetAttrib(mir15, "orientation", 3)
     end
     mir16=enigma.GetNamedObject("mirror16")
     if switch3 == 1 or switch7 == 1 then
-       SendMessage(mir16, "mirror-east")
+    	SetAttrib(mir16, "orientation", 4)
     end
     if switch3 == 0 and switch7 == 0 then
-       SendMessage(mir16, "mirror-west")
+    	SetAttrib(mir16, "orientation", 2)
     end
 end
 

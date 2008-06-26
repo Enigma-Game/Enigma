@@ -3,7 +3,7 @@
   <el:protected>
     <el:info el:type="level">
       <el:identity el:title="Laser Games" el:subtitle="" el:id="mp03"/>
-      <el:version el:score="1" el:release="1" el:revision="2" el:status="released"/>
+      <el:version el:score="1" el:release="1" el:revision="3" el:status="released"/>
       <el:author  el:name="moonpearl" el:email="" el:homepage=""/>
       <el:copyright>Copyright © moonpearl</el:copyright>
       <el:license el:type="GPL v2.0 or above" el:open="true"/>
@@ -17,17 +17,12 @@
       <el:score el:easy="-" el:difficult="-"/>
     </el:info>
     <el:luamain><![CDATA[
--- !!BBE105!! Do not delete this line
-
 function file_oxyd(x,y,f)
     oxyd_default_flavor=f
     oxyd(x,y)
 end
 levelh=13
 levelw=20
-enigma.FlatForce=30
-enigma.SlopeForce=30
-enigma.ElectricForce=30
 cells={}
 items={}
 actors={}
@@ -43,15 +38,15 @@ stones["#"]=cell{stone="st-block"}
 items["!"]=cell{item="it-trigger"}
 stones["$"]=cell{stone="st-fourswitch"}
 function ac_blackball(x,y)
-n=""
-p=0
-f=0
+ n=""
+ p=0
+ f=0
  if (x==4) and (y==10) then
   n="ac4x10"
   p=0
-  mf=1,66666666666667
+  mf=1.66666666666667
  end
-set_actor("ac-blackball",x+0.5,y+0.5,{player=p,name=n,mouseforce=mf})
+ set_actor("ac-blackball",x+0.5,y+0.5,{player=p,name=n,mouseforce=mf})
 end
 actors["!"]=cell{parent={{ac_blackball}}}
 stones["%"]=cell{parent={{file_oxyd,"b"}}}
@@ -77,45 +72,45 @@ level={"!#!#!#!#!#!#!#!#!#!#",
        "!#!#!#!#!#!#!#!#!#!#",
        "#!#!#!#!#!#!#!#!#!#!",
        "!#!#!#!#!#!#!#!#!#!#"}
-   acmap={"                    ",
-          "                    ",
-          "                    ",
-          "                    ",
-          "                    ",
-          "                    ",
-          "                    ",
-          "                    ",
-          "                    ",
-          "                    ",
-          "    !               ",
-          "                    ",
-          "                    "}
-  itmap={"                    ",
-         "                    ",
-         "                    ",
-         "                    ",
-         "                    ",
-         "                    ",
-         "                    ",
-         "                    ",
-         "                    ",
-         "                    ",
-         "                    ",
-         "                    ",
-         "                    "}
- stmap={"!!!!!!!!!!!%!%!%!%!!",
-        "!        !         !",
-        "!  # #   ! & , ' , %",
-        "!      # !         !",
-        "!        ! ' ) + ) %",
-        "!   $$   !         !",
-        "!   $$   ! ( ' ) * %",
-        "!   $$   !         !",
-        "!        ! - * ( - %",
-        "!        !         !",
-        "!     #  ! & * ' , %",
-        "!        !         !",
-        "!!!!!!!!!!!%!%!%!.!!"}
+acmap={"                    ",
+       "                    ",
+       "                    ",
+       "                    ",
+       "                    ",
+       "                    ",
+       "                    ",
+       "                    ",
+       "                    ",
+       "                    ",
+       "    !               ",
+       "                    ",
+       "                    "}
+itmap={"                    ",
+       "                    ",
+       "                    ",
+       "                    ",
+       "                    ",
+       "                    ",
+       "                    ",
+       "                    ",
+       "                    ",
+       "                    ",
+       "                    ",
+       "                    ",
+       "                    "}
+stmap={"!!!!!!!!!!!%!%!%!%!!",
+       "!        !         !",
+       "!  # #   ! & , ' , %",
+       "!      # !         !",
+       "!        ! ' ) + ) %",
+       "!   $$   !         !",
+       "!   $$   ! ( ' ) * %",
+       "!   $$   !         !",
+       "!        ! - * ( - %",
+       "!        !         !",
+       "!     #  ! & * ' , %",
+       "!        !         !",
+       "!!!!!!!!!!!%!%!%!.!!"}
 create_world_by_map(level)
 draw_map(0,0,stmap,stones)
 draw_map(0,0,itmap,items)
@@ -172,20 +167,6 @@ Signal ("st(5 7)","st(15 8)")
 Signal ("st(5 7)","st(15 8)")
 Signal ("st(5 7)","st(15 8)")
 Signal ("st(5 7)","st(15 8)")
---Signal ("it(3 4)","st(11 2)")
---Signal ("it(4 4)","st(13 2)")
---Signal ("it(5 4)","st(15 2)")
---Signal ("it(6 4)","st(17 2)")
---Signal ("it(3 5)","st(11 4)")
---Signal ("it(6 5)","st(17 4)")
---Signal ("it(3 6)","st(11 6)")
---Signal ("it(6 6)","st(17 6)")
---Signal ("it(3 7)","st(11 8)")
---Signal ("it(6 7)","st(17 8)")
---Signal ("it(3 8)","st(11 10)")
---Signal ("it(4 8)","st(13 10)")
---Signal ("it(5 8)","st(15 10)")
---Signal ("it(6 8)","st(17 10)")
 oxyd_shuffle()
 
 -- ^ I I V
@@ -196,33 +177,33 @@ oxyd_shuffle()
 
 function switch()
     mir=enigma.GetNamedObject("mirror0")
-    if sw0==1 then SendMessage(mir,"mirror-east") else SendMessage(mir,"mirror-north") end
+    if sw0==1 then SetAttrib(mir,"orientation", 4) else SetAttrib(mir,"orientation", 3) end
     mir=enigma.GetNamedObject("mirror1")
-    if sw1==1 then SendMessage(mir,"mirror-east") else SendMessage(mir,"mirror-south") end
+    if sw1==1 then SetAttrib(mir,"orientation", 4) else SetAttrib(mir,"orientation", 1) end
     mir=enigma.GetNamedObject("mirror2")
-    if sw2==1 then SendMessage(mir,"mirror-east") else SendMessage(mir,"mirror-north") end
+    if sw2==1 then SetAttrib(mir,"orientation", 4) else SetAttrib(mir,"orientation", 3) end
     mir=enigma.GetNamedObject("mirror3")
-    if sw3==1 then SendMessage(mir,"mirror-west") else SendMessage(mir,"mirror-south") end
+    if sw3==1 then SetAttrib(mir,"orientation", 2) else SetAttrib(mir,"orientation", 1) end
     mir=enigma.GetNamedObject("mirror4")
-    if sw4==1 then SendMessage(mir,"mirror-east") else SendMessage(mir,"mirror-north") end
+    if sw4==1 then SetAttrib(mir,"orientation", 4) else SetAttrib(mir,"orientation", 3) end
     mir=enigma.GetNamedObject("mirror5")
-    if sw5==1 then SendMessage(mir,"mirror-west") else SendMessage(mir,"mirror-south") end
+    if sw5==1 then SetAttrib(mir,"orientation", 2) else SetAttrib(mir,"orientation", 1) end
     mir=enigma.GetNamedObject("mirror6")
-    if sw6==1 then SendMessage(mir,"mirror-south") else SendMessage(mir,"mirror-east") end
+    if sw6==1 then SetAttrib(mir,"orientation", 1) else SetAttrib(mir,"orientation", 4) end
     mir=enigma.GetNamedObject("mirror7")
-    if sw7==1 then SendMessage(mir,"mirror-north") else SendMessage(mir,"mirror-west") end
+    if sw7==1 then SetAttrib(mir,"orientation", 3) else SetAttrib(mir,"orientation", 2) end
     mir=enigma.GetNamedObject("mirror8")
-    if sw8==1 then SendMessage(mir,"mirror-east") else SendMessage(mir,"mirror-north") end
+    if sw8==1 then SetAttrib(mir,"orientation", 4) else SetAttrib(mir,"orientation", 3) end
     mir=enigma.GetNamedObject("mirror9")
-    if sw9==1 then SendMessage(mir,"mirror-east") else SendMessage(mir,"mirror-north") end
+    if sw9==1 then SetAttrib(mir,"orientation", 4) else SetAttrib(mir,"orientation", 3) end
     mir=enigma.GetNamedObject("mirror10")
-    if sw10==1 then SendMessage(mir,"mirror-east") else SendMessage(mir,"mirror-north") end
+    if sw10==1 then SetAttrib(mir,"orientation", 4) else SetAttrib(mir,"orientation", 3) end
     mir=enigma.GetNamedObject("mirror11")
-    if sw11==1 then SendMessage(mir,"mirror-north") else SendMessage(mir,"mirror-west") end
+    if sw11==1 then SetAttrib(mir,"orientation", 3) else SetAttrib(mir,"orientation", 2) end
     mir=enigma.GetNamedObject("mirror12")
-    if sw12==1 then SendMessage(mir,"mirror-east") else SendMessage(mir,"mirror-north") end
+    if sw12==1 then SetAttrib(mir,"orientation", 4) else SetAttrib(mir,"orientation", 3) end
     mir=enigma.GetNamedObject("mirror13")
-    if sw13==1 then SendMessage(mir,"mirror-west") else SendMessage(mir,"mirror-south") end
+    if sw13==1 then SetAttrib(mir,"orientation", 2) else SetAttrib(mir,"orientation", 1) end
 end
 function funcc0(ison)
     sw0=ison

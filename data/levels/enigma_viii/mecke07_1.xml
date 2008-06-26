@@ -1,0 +1,97 @@
+<?xml version="1.0" encoding="utf-8" standalone="no" ?>
+<el:level xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://enigma-game.org/schema/level/1 level.xsd" xmlns:el="http://enigma-game.org/schema/level/1">
+  <el:protected >
+    <el:info el:type="level">
+      <el:identity el:title="Helios I" el:subtitle="Use the Lightpassenger" el:id="mecke48"/>
+      <el:version el:score="1" el:release="1" el:revision="$Revision: 11 $" el:status="released"/>
+      <el:author  el:name="mecke" el:email="" el:homepage=""/>
+      <el:copyright>Copyright © 2008 Thomas Bernhardt</el:copyright>
+      <el:license el:type="GPL v2.0 or above" el:open="true"/>
+      <el:compatibility el:enigma="1.10"/>
+      <el:modes el:easy="false" el:single="true" el:network="false" el:control="force" el:scoreunit="duration" el:scoretarget="time"/>
+      <el:score el:easy="14:51" el:difficult="18:10"/>
+    </el:info>
+    <el:luamain><![CDATA[	
+wo["ConserveLevel"] = true
+
+ti["  "] = {"fl-sahara"}
+ti[" _"] = {"fl-swamp"}
+ti["# "] = {"st_lightpassenger"}
+ti[" i"] = {"st_lightpassenger"}
+ti[" l"] = {"fl-sahara"}
+ti["X "] = {"st-grate1"}
+ti["* "] = ti[" _"] ..  {"#ac-blackball"}
+ti[" ,"] = {"fl-red"}
+ti[" ~"] = {"fl-water"}
+ti[" ."] = {"fl-space"}
+ti[" n"] = {"fl-light"}
+ti["K "] = {"st_laser_n", name="laser1", state=OFF}
+ti["E "] = {"st_lightpassenger_off"}
+ti["O "] = {"st_rotator_ccw", movable=false}
+ti["Y "] = {"st-glass2_move"}
+ti["B "] = {"it_trigger",target="laser1"}
+ti["U1"] = {"st-black4"}
+ti["D "] = {"st_death"}
+ti["L "] = ti[" _"] .. {"st_laser_s", name="laser", state=ON}
+ti["h "] = {"st-bluegray_hole"}
+ti["A "] = ti[" ~"] .. {"st_actorimpulse"}
+ti["> "] = ti[" ~"] .. {"st_boulder_e"}
+ti["< "] = {"st_boulder_w"}
+ti[" f"] = {"it_wrench"}
+ti["x1"] = ti[" ~"] .. {"st_oxyd", flavor="a",name="olli1"}
+ti["x2"] = ti[" ~"] .. {"st_oxyd", flavor="a",name="olli2"}
+ti["x3"] = ti[" ~"] .. {"st_oxyd", flavor="a",name="olli3"}
+ti["x4"] = ti[" ~"] .. {"st_oxyd", flavor="a",name="olli4"}
+ti["x5"] = ti[" ~"] .. {"st_oxyd", flavor="a",name="olli5"}
+ti["x6"] = ti[" ~"] .. {"st_oxyd", flavor="a",name="olli6"}
+ti["o "] = {"it-springboard"}
+ti[" j"] = {"it-magicwand"}
+ti["S "] = ti[" n"] ..{"st-black4"}
+ti["G "] = {"st-yellow"}
+ti["P "] = ti[" n"] ..{"st-pull"}
+ti["g "] = {"it_glasses"}
+ti["T "] = ti["g "] .. {"st-grate1"}
+ti["J "] = {"#ac-top", range=1, force=1}
+ti["= "] = {"#ac-horse"}
+ti["$1"] = {"it_trigger", target="olli1"}
+ti["$2"] = {"it_trigger", target="olli2"}
+ti["$3"] = {"it_trigger", target="olli3"}
+ti["$4"] = {"it_trigger", target="olli4"}
+ti["$5"] = {"it_trigger", target="olli5"}
+ti["$6"] = {"it_trigger", target="olli6"}
+ti["Z "] = {"st_switch", action="open",target="vortex1"}
+ti["V1"] = ti[" _"] ..{"it_vortex_closed", name="vortex1", destination="vortex2"}
+ti["V2"] = ti["  "] ..{"it_vortex_open", name="vortex2", destination="vortex1"}
+
+local resolver = res.composer(ti)
+
+w, h = wo(resolver, "  ", {
+-- 0001020304050607080910111213141516171819
+  "# # # # # # # # # # # # # # $4# $5# $6# ",
+  "# D D D D D D D A # # #  ~h  _h  _h  ~# ",
+  "# D x1D x2D x3D A # G #  . l . l . l .# ",
+  "# D D D D D D D A # Sj<  ,  Y.  Y.  E.# ",
+  "# A A A A A A A A # P  iX X X X X X X # ",
+  "# h  .h  .h  .h X # P # X    .   .   .# ",
+  "Z     J   J   J X   *   X J   J   J   V1",
+  "#   L.   .   .  X # P # X h  .h  .h K.# ",
+  "# X X X X X X X X  iT # A A A A A A A # ",
+  "#    .  Y.  Y.    O Sf# A D D D D D D # ",
+  "#  lE. l . l . l ~> G # A D x4D x5D x6# ",
+  "# h  ~h  _h  _h  ~# B # A D D D D D D # ",
+  "# # $1# $2# $3# # # V2# # # # # # # # # "
+})
+
+wo:shuffleOxyd()
+    ]]></el:luamain>
+      <el:i18n>
+        <el:string el:key="title">
+          <el:english el:translate="false"/>
+        </el:string>
+        <el:string el:key="subtitle">
+          <el:english el:translate="true"/>
+	  <el:translation el:lang="de">Nutze den Lightpass...</el:translation>
+        </el:string>
+     </el:i18n>
+  </el:protected>
+</el:level>

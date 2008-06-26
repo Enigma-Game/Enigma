@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no" ?>
 <index xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="index.xsd">
 
-  <info enigma="1.00" group="Facets" location="15100" network="false" owner="Enigma Team" release="1" revision="5" title="Enigma 0.92 - 1"/>
+  <info enigma="1.00" group="Facets" location="15100" network="false" owner="Enigma Team" release="1" revision="6" title="Enigma 0.92 - 1"/>
 
   <attributes/>
 
@@ -60,7 +60,7 @@
     <level _seq="52" _title="Watery Grave" _xpath="enigma_i/martin37_1" author="Martin Hawlisch" ctrl="force" easy="false" id="martin37" rel="1" rev="0" score="1" target="time" unit="duration"/>
     <level _seq="53" _title="Break and Enter" _xpath="enigma_v/siegfried16_1" author="Siegfried Fennig" ctrl="force" easy="false" id="level5b" rel="1" rev="0" score="1" target="time" unit="duration"/>
     <level _seq="54" _title="Jump And Run" _xpath="enigma_iii/siegfried40_1" author="Siegfried Fennig" ctrl="force" easy="false" id="level6c" rel="1" rev="1" score="1" target="time" unit="duration"/>
-    <level _seq="55" _title="Back And Forth" _xpath="enigma_ii/martin26_2" author="Martin Hawlisch" ctrl="force" easy="false" id="martin26" rel="2" rev="1" score="2" target="time" unit="duration"/>
+    <level _seq="55" _title="Back And Forth" _xpath="enigma_ii/martin26_2" author="Martin Hawlisch" ctrl="force" easy="false" id="martin26" rel="2" rev="2" score="2" target="time" unit="duration"/>
     <level _seq="56" _title="Hidden Treasure" _xpath="enigma_peroxyd/peroxyd49_1" author="Siegfried Fennig" ctrl="force" easy="false" id="level6f" rel="1" rev="0" score="1" target="time" unit="duration"/>
     <level _seq="57" _title="Mossy Paths" _xpath="enigma_i/martin02_1" author="Martin Hawlisch" ctrl="force" easy="false" id="martin02" rel="1" rev="0" score="1" target="time" unit="duration"/>
     <level _seq="58" _title="Light Barriers" _xpath="enigma_ii/qq01_1" author="Andrzej Szombierski" ctrl="force" easy="false" id="qq1" rel="1" rev="0" score="1" target="time" unit="duration"/>
@@ -88,7 +88,7 @@
     <level _seq="80" _title="Black Lava" _xpath="enigma_i/ant12_1" author="Petr Machata" ctrl="force" easy="false" id="ant12" rel="1" rev="0" score="1" target="time" unit="duration"/>
     <level _seq="81" _title="Flood Gates" _xpath="enigma_iv/nat08_1" author="Nat Pryce" ctrl="force" easy="false" id="nat8" rel="1" rev="0" score="1" target="time" unit="duration"/>
     <level _seq="82" _title="Balancing Act" _xpath="enigma_i/nat09_1" author="Nat Pryce" ctrl="force" easy="false" id="nat9" rel="1" rev="0" score="1" target="time" unit="duration"/>
-    <level _seq="83" _title="Automaton Magic" _xpath="enigma_ii/ant07_1" author="Petr Machata" ctrl="force" easy="false" id="ant07" rel="1" rev="0" score="1" target="time" unit="duration"/>
+    <level _seq="83" _title="Automaton Magic" _xpath="enigma_ii/ant07_1" author="Petr Machata" ctrl="force" easy="false" id="ant07" rel="1" rev="1" score="1" target="time" unit="duration"/>
     <level _seq="84" _title="Sheet Of Ice" _xpath="enigma_v/martin58_1" author="Martin Hawlisch" ctrl="force" easy="false" id="martin58" rel="1" rev="0" score="1" target="time" unit="duration"/>
     <level _seq="85" _title="No Trespassing" _xpath="enigma_peroxyd/peroxydlink65_1" author="Siegfried Fennig" ctrl="force" easy="false" id="level7c" rel="1" rev="0" score="1" target="time" unit="duration"/>
     <level _seq="86" _title=".J.U.M.P." _xpath="enigma_i/martin60_1" author="Martin Hawlisch" ctrl="force" easy="false" id="martin60" rel="1" rev="0" score="1" target="time" unit="duration"/>
@@ -132,7 +132,7 @@
     <level _seq="124" _title="Slinky-Racing" _xpath="enigma_iv/duffy14_1" author="Jacob Scott" ctrl="force" easy="true" id="duffy14" rel="1" rev="1" score="1" target="time" unit="duration"/>
     <level _seq="125" _title="Boulder-Puzzle" _xpath="enigma_iv/duffy06_1" author="Jacob Scott" ctrl="force" easy="false" id="duffy6" rel="1" rev="1" score="1" target="time" unit="duration"/>
     <level _seq="126" _title="Wild" _xpath="enigma_iii/ant28_1" author="Petr Machata" ctrl="force" easy="false" id="ant28" rel="1" rev="0" score="1" target="time" unit="duration"/>
-    <level _seq="127" _title="The Document" _xpath="enigma_i/duffy04_1" author="Jacob Scott" ctrl="force" easy="false" id="duffy4" rel="1" rev="1" score="1" target="time" unit="duration"/>
+    <level _seq="127" _title="The Document" _xpath="enigma_i/duffy04_1" author="Jacob Scott" ctrl="force" easy="false" id="duffy4" rel="1" rev="2" score="1" target="time" unit="duration"/>
     <level _seq="128" _title="Double-Maze" _xpath="enigma_iii/duffy09_1" author="Jacob Scott" ctrl="force" easy="false" id="duffy9" rel="1" rev="1" score="1" target="time" unit="duration"/>
     <level _seq="129" _title="- Meditation -" _xpath="enigma_peroxyd/peroxydlink60_2" author="Siegfried Fennig" ctrl="force" easy="false" id="meditation17" rel="2" rev="1" score="2" target="time" unit="duration"/>
     <level _seq="130" _title="Chained" _xpath="enigma_iv/ant22_1" author="Petr Machata" ctrl="force" easy="false" id="ant22" rel="1" rev="0" score="1" target="time" unit="duration"/>

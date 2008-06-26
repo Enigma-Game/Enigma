@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<el:level xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://enigma-game.org/schema/level/1 level.xsd" xmlns:el="http://enigma-game.org/schema/level/1">
+  <el:protected>
+    <el:info el:type="level">
+      <el:identity el:title="Joona's Chess" el:id="joona02"/>
+      <el:version el:score="1" el:release="1" el:revision="0" el:status="released"/>
+      <el:author el:name="Joona Laire" el:email="joona.laire@gmail.com"/>
+      <el:copyright>Copyright © 2006 Joona Laire</el:copyright>
+      <el:license el:type="GPL v2.0 or above" el:open="true"/>
+      <el:compatibility el:enigma="1.00">
+        <el:dependency el:path="lib/ant" el:id="lib/ant" el:release="1" el:preload="true"/>
+      </el:compatibility>
+      <el:modes el:easy="true" el:single="true" el:network="false"/>
+      <el:score el:easy="-" el:difficult="-"/>
+    </el:info>
+    <el:luamain><![CDATA[
+cells={}
+cells[" "]=cell{floor="fl-white"}
+cells["o"]=cell{floor="fl-black"}
+cells["X"]=cell{stone="st-yellow"}
+cells["+"]=cell{actor="ac-blackball"}
+cells["-"]=cell{actor={"ac-whiteball",{essential=-1}}}
+cells["0"]=cell{oxyd}
+cells["H"]=cell{stone="st-chess_white"}
+cells["B"]=cell{stone="st-block", floor="fl-black"}
+cells["S"]=cell{stone="st-rock3_move", floor="fl-black"}
+cells["y"]=cell{item="it-yinyang"}
+cells["F"]=cell{stone={"st-flash", {hit_factor=50}}}
+cells["Z"]=cell{stone="st-white3"}
+if difficult then
+  cells["*"]=cell{actor={"ac-rotor", {range=6, force=60, gohome=0}}}
+else
+  cells["*"]=cell{actor={"ac-rotor", {range=6, force=20, gohome=0}}}
+end
+cells["x"]=cell{floor="fl-rough-blue"}
+cells["?"]=cell{stone="st-grate1"}
+
+level = {
+   "ZZZZZ?????XXXXXXXXXX",
+   "Zo B o S ?X0   0XxxX",
+   "Z B o S o?X     XxxX",
+   "Zo B o S ?X     XxxX",
+   "Z-B o S o?Z     XxxX",
+   "Zo B o S*?X0   0XxxX",
+   "Z B o S o?XXXXXXXXXX",
+   "Zo B o S ?XxxX     X",
+   "Z B o S o?XxxX     X",
+   "ZZZZZ?????XxxX  F  X",
+   "XXXXXXXXXXXxxX     X",
+   "XxxxxxxxxxXxxX    +X",
+   "XXXXXXXXXXXXXXXXXXXX"
+}
+
+oxyd_default_flavor = "a"
+set_default_parent(cells[" "])
+create_world_by_map(level,cells)
+oxyd_shuffle()
+    ]]></el:luamain>
+    <el:i18n/>
+  </el:protected>
+</el:level>

@@ -1,0 +1,240 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no" ?>
+<el:level xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://enigma-game.org/schema/level/1 level.xsd" xmlns:el="http://enigma-game.org/schema/level/1">
+  <el:protected>
+    <el:info el:type="level">
+      <el:identity el:title="Enigmines" el:subtitle="" el:id="huffman01"/>
+      <el:version el:score="1" el:release="1" el:revision="0" el:status="released"/>
+      <el:author  el:name="Brian Huffman" el:email="" el:homepage=""/>
+      <el:copyright>Copyright © 2007 Brian Huffman</el:copyright>
+      <el:license el:type="GPL version 2" el:open="true"/>
+      <el:compatibility el:enigma="1.00">
+      </el:compatibility>
+      <el:modes el:easy="true" el:single="true" el:network="false"/>
+      <el:score el:easy="1:22" el:difficult="2:00"/>
+    </el:info>
+    <el:luamain><![CDATA[
+levelw = 39
+levelh = 13
+create_world (levelw, levelh)
+
+fill_floor ("fl-leavesb", 0, 0, levelw, levelh)
+set_actor ("ac-blackball", 2.5, 6.5)
+document (1, 6, "text1")
+document (18, 6, "text2")
+
+if difficult then
+    mines = 36
+else
+    mines = 24
+end
+
+score = 14 * 11 - mines
+
+mine_map = {}
+xx = {}
+yy = {}
+
+winnable = 1
+
+function init_mines ()
+    for i = 1, 14 do
+        mine_map[i] = {}
+        for j = 1, 11 do
+            mine_map[i][j] = 0
+        end
+    end
+    for n = 1, mines do
+        local i, j
+        repeat
+            i = random (2, 13)
+            j = random (2, 10)
+        until mine_map[i][j] == 0
+        xx[n] = i+2
+        yy[n] = j+0
+        mine_map[i][j] = 1
+    end
+end
+
+function reachable ()
+    local a = {}
+    local m = 14 * 11
+    local oldm
+
+    for i = 1, 14 do
+        a[i] = {}
+        for j = 1, 11 do
+            a[i][j] = 0
+            if i < 3 or i > 12 or j < 3 or j > 9 then
+                m = m - 1
+                a[i][j] = 1
+            end
+        end
+    end
+
+    repeat
+        oldm = m
+        for i = 2, 13 do
+            for j = 2, 10 do
+                if mine_map[i][j] == 0 and a[i][j] == 1 then
+                    if a[i-1][j] == 0 then m = m - 1 end
+                    if a[i+1][j] == 0 then m = m - 1 end
+                    if a[i][j-1] == 0 then m = m - 1 end
+                    if a[i][j+1] == 0 then m = m - 1 end
+                    a[i-1][j] = 1
+                    a[i+1][j] = 1
+                    a[i][j-1] = 1
+                    a[i][j+1] = 1
+                end
+            end
+        end
+    until m == oldm
+
+    return (m == 0)
+end
+
+repeat init_mines ()
+until reachable ()
+
+floors = {
+    "fl-white",       -- 0
+    "fl-bluegray",    -- 1
+    "fl-black",       -- 2
+    "fl-red",         -- 3
+    "fl-sahara",      -- 4
+    "fl-rough-blue",  -- 5
+    "fl-rough-red",   -- 6
+    "fl-himalaya",    -- 7
+    "fl-abyss_fake"   -- 8
+}
+
+function mine_at (i, j)
+    if i < 1 or j < 1 or i > 14 or j > 11 then
+        return 0
+    else
+        return mine_map[i][j]
+    end
+end
+
+for i = 1, 14 do
+    local x = i+2
+    for j = 1, 11 do
+        local y = j
+        local n = 1
+        n = n + mine_at (i-1, j-1)
+        n = n + mine_at (i+1, j-1)
+        n = n + mine_at (i-1, j+1)
+        n = n + mine_at (i+1, j+1)
+        n = n + mine_at (i, j-1)
+        n = n + mine_at (i, j+1)
+        n = n + mine_at (i-1, j)
+        n = n + mine_at (i+1, j)
+        n = n + mine_at (i, j)
+        set_floor (floors[n], x, y, {friction=4.0, mousefactor=1.5})
+
+        if mine_map[i][j] == 0 then
+            set_item ("it-trigger", x, y, {action="callback", target="cb_uncover"})
+        else
+            set_item ("it-trigger", x, y, {action="callback", target="cb_explode"})
+        end
+    end
+end
+
+function draw_score ()
+    local a = floor (score / 12)
+    local b = score - a * 12
+    draw_stones ("st-glass", {0, 1}, {0, 1}, 11-a)
+    draw_stones ("st-rock1", {0, 11}, {0, -1}, a)
+    draw_stones ("st-glass", {19, 1}, {0, 1}, 11-b)
+    draw_stones ("st-rock1", {19, 11}, {0, -1}, b)
+end
+
+draw_score ()
+
+function cb_uncover (onoff, sender)
+    local x, y = enigma.GetPos (sender)
+    enigma.KillItem (x, y)
+
+    if winnable == 1 then
+        score = score - 1
+        draw_score ()
+    end
+
+    if score == 0 then
+        for n = 1, 8 do
+            enigma.KillItem (xx[n], yy[n])
+            oxyd (xx[n], yy[n])
+        end
+        oxyd_shuffle ()
+    end
+end
+
+function cb_explode (onoff, sender)
+    for n = 1, mines do
+        enigma.KillItem (xx[n], yy[n])
+        local bomb = set_item ("it-blackbomb", xx[n], yy[n])
+        SendMessage (bomb, "explode")
+    end
+
+    if score > 0 then
+        winnable = 0
+        document (1, 7, "text4")
+    end
+end
+
+function unopened_at (i, j)
+    if mine_map[i][j] == 1 then return false end
+    local it = enigma.GetItem (i+2, j+0)
+    return (it ~= nil and enigma.GetKind (it) == "it-trigger")
+end
+
+-- hint mechanism
+draw_stones ("st-rock1", {27, 5}, {1, 0}, 6)
+draw_stones ("st-rock1", {27, 7}, {1, 0}, 6)
+set_stone ("st-rock1", 32, 6)
+set_stone ("st-timeswitch", 31, 6, {delay=10.0, action="callback", target="cb_hint"})
+doorv (27, 6, {name="door1"})
+SendMessage ("door1", "open")
+document (29, 6, "text3")
+
+function cb_hint (onoff)
+    if onoff == 1 then
+        SendMessage ("door1", "close")
+    else
+        SendMessage ("door1", "open")
+        if score > 0 then
+            local k = random (1, score)
+            local i = 0
+            local j = 1
+            for n = 1, k do
+                repeat
+                    i = i + 1
+                    if i > 14 then
+                        i = 1
+                        j = j + 1
+                    end
+                until unopened_at (i, j)
+            end
+            cb_uncover (true, enigma.GetItem (i+2, j+0))
+        end
+    end
+end
+    ]]></el:luamain>
+    <el:i18n>
+      <el:string el:key="title">
+        <el:english el:translate="false"/>
+      </el:string>
+      <el:string el:key="text1">
+        <el:english el:translate="true">Watch out for mines!        White = 0, Blue = 1, Black = 2, Red = 3, Yellow = 4, Deep Blue = 5, Deep Red = 6 ...</el:english>
+      </el:string>
+      <el:string el:key="text2">
+        <el:english el:translate="true">Hint: Mines are never located along the edges.  If you still get stuck, look behind the wall!</el:english>
+      </el:string>
+      <el:string el:key="text3">
+        <el:english el:translate="true">Hit the switch to uncover one tile, but you will have to wait 10 seconds.</el:english>
+      </el:string>
+      <el:string el:key="text4">
+        <el:english el:translate="false">Shift+F3</el:english>
+      </el:string>
+    </el:i18n>
+  </el:protected>
+</el:level>

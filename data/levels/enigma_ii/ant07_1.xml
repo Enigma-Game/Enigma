@@ -3,63 +3,48 @@
   <el:protected>
     <el:info el:type="level">
       <el:identity el:title="Automaton Magic" el:subtitle="" el:id="ant07"/>
-      <el:version el:score="1" el:release="1" el:revision="0" el:status="released"/>
+      <el:version el:score="1" el:release="1" el:revision="1" el:status="released"/>
       <el:author  el:name="Petr Machata" el:email="" el:homepage=""/>
       <el:copyright>Copyright © 2002 Petr Machata</el:copyright>
       <el:license el:type="GPL v2.0 or above" el:open="true"/>
-      <el:compatibility el:enigma="0.92">
-       <el:dependency el:path="lib/ant" el:id="lib/ant" el:release="1" el:preload="true"/>
-      </el:compatibility>
+      <el:compatibility el:enigma="1.10"/>
       <el:modes el:easy="false" el:single="true" el:network="false"/>
-      <el:comments>
-        <el:code>Lua 5.1 and XML converted by Leveladministrators</el:code>
-      </el:comments>
       <el:score el:easy="-" el:difficult="-"/>
     </el:info>
     <el:luamain><![CDATA[
--- 2003-02-10 -- keeping up to date with latest additions to ant.lua
--- 2003-06-23 -- changed abyss to water, because st-bolder now falls into abyss [ralf]
+wo["ConserveLevel"] = true
 
-stepon = nil
-function turnbolder()
-   stepon = not(stepon)
-   if (stepon) then
-      local bolder_dir=enigma.GetAttrib(enigma.GetNamedObject("bolder1"), "direction") -1
-      while (bolder_dir<0) do bolder_dir = bolder_dir +4 end
-      SendMessage("bolder1", "direction",bolder_dir)
-   end
+ti[" "] = {"fl-sand"}
+ti["~"] = {"fl-water"}
+ti["#"] = ti["~"] .. {"st-greenbrown"}
+ti["O"] = ti["~"] .. {"st_oxyd", flavor="a", name="oxydstone#"}
+ti["m"] = ti[" "] .. {"it-magicwand"}
+ti["B"] = ti[" "] .. {"st_boulder_e", "the_boulder"}
+ti["+"] = ti["~"] .. {"it_trigger", target="turn_boulder", action_1="callback", invisible=true}
+ti["A"] = {"ac-blackball", 0.0, 0.5}
+
+w, h = wo(ti, " ", {
+"####O##########O####",
+"#~~~~          ~~~~#",
+"#~                ~#",
+"#~                ~#",
+"O~  +   B      +  ~O",
+"#                  #",
+"#       m A        #",
+"#                  #",
+"O~  +          +  ~O",
+"#~                ~#",
+"#~                ~#",
+"#~~~~          ~~~~#",
+"####O##########O####"
+})
+
+function turn_boulder(state, sender)
+    if st(sender) == no["the_boulder"] then
+        no["the_boulder"]:turn()
+    end
 end
-
-cells={}
-cells[" "]=cell{floor="fl-sand"}
-cells["."]=cell{floor="fl-water"}
-cells["#"]=cell{stone="st-greenbrown"}
-cells["O"]=cell{actor={"ac-blackball", {player=0}}}
-cells["m"]=cell{item= {"it-magicwand"}}
-cells["T"]=cell{parent=cells["."],item={"it-trigger", {action="callback", target="turnbolder", invisible=1}}}
-cells[">"]=cell{stone={"st-bolder-e", {name="bolder1"}}}
-cells["0"]=oxyd
-
-level = {
-   "####0##########0####",
-   "#....          ....#",
-   "#.                .#",
-   "#.                .#",
-   "0.  T   >      T  .0",
-   "#                  #",
-   "#       m O        #",
-   "#                  #",
-   "0.  T          T  .0",
-   "#.                .#",
-   "#.                .#",
-   "#....          ....#",
-   "####0##########0####"
-}
-
-oxyd_default_flavor = "a"
-set_default_parent(cells[" "])
-create_world_by_map(level)
-oxyd_shuffle()
+wo:shuffleOxyd({"oxydstone#*", circular=true})
     ]]></el:luamain>
     <el:i18n>
       <el:string el:key="title">

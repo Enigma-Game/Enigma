@@ -3,16 +3,13 @@
   <el:protected>
     <el:info el:type="level">
       <el:identity el:title="Psycho Pushing" el:subtitle="" el:id="ss3"/>
-      <el:version el:score="1" el:release="1" el:revision="0" el:status="released"/>
+      <el:version el:score="2" el:release="2" el:revision="1" el:status="released"/>
       <el:author  el:name="Sven Siggelkow" el:email="" el:homepage=""/>
       <el:copyright>Copyright © 2003 Sven Siggelkow</el:copyright>
       <el:license el:type="GPL v2.0 or above" el:open="true"/>
       <el:compatibility el:enigma="0.92">
       </el:compatibility>
       <el:modes el:easy="true" el:single="true" el:network="false"/>
-      <el:comments>
-        <el:code>Lua 5.1 and XML converted by Leveladministrators</el:code>
-      </el:comments>
       <el:score el:easy="-" el:difficult="-"/>
     </el:info>
     <el:luamain><![CDATA[
@@ -23,8 +20,11 @@ levelh = 25
 create_world(levelw, levelh)
 oxyd_default_flavor = "c"  
 set_actor("ac-blackball", 2.5,2.5)
+
 draw_border("st-rock1")
 fill_floor("fl-rough", 0,0, levelw,levelh)
+
+einmal = 0 -- um Switchbug zu eliminieren, mit dem man den gesamten Bolder verschwinden lassen kann bei erneuter Betätigung
 
 -- Randsteine verschiebbar
 --------------------------------------------------------------------------------------------
@@ -39,11 +39,6 @@ fill_floor("fl-rough", 0,0, levelw,levelh)
 set_item("it-floppy",5,1)
 set_item("it-blackbomb",10,1)
 set_item("it-magnet",15,1)
-if difficult then
-            set_item("it-flagblack",20,1)
-      else
-            set_item("it-umbrella",20,1)
-end
 set_item("it-sword",25,1)
 set_item("it-key_a",30,1)
 set_item("it-brush",35,1)
@@ -102,7 +97,10 @@ fakeoxyd(x0+4,y0-1)
 set_stone("st-switch", 0, 14, {action="callback", target="start"})
 
 function start()
-        kill_stone(7,2) --blocker weg
+        if einmal == 0 then
+          kill_stone(7,2) --blocker weg
+          end
+        einmal = 1
 end
 
 kill_stone(x0+4,y0)
@@ -155,6 +153,7 @@ end
 y0=3
 x0=11
 -- Box 2
+set_stone("st-rock1",x0+4, y0-2) --fest, damit man nicht Holzsteine ins Wasser schieben kann
 fill_stones("st-rock1",x0,y0,8,2)
 fill_stones("st-rock1",x0,y0,2,5)
 fill_stones("st-rock1",x0+6,y0,2,8)
@@ -357,7 +356,7 @@ oxyd(x0,y0+4)
 local laser1 = laser(x0+6,y0+1,TRUE,WEST)
 draw_stones("st-death",{x0+4,y0+2}, {1,0},3 )
 draw_stones("st-death",{x0+1,y0+6}, {1,0},4 )
-set_stone("st-death",x0+1,y0+2)
+set_stone("st-death",x0+1,y0+2) 
 set_stone("st-death",x0+2,y0+4)
 set_stone("st-death",x0+4,y0+5)
 
@@ -495,6 +494,23 @@ function triggerbox8(num)
       doorsopenbox8 = 0
    end
 end
+
+if difficult then
+            set_item("it-flagblack",20,1)
+      else
+           y0=14
+           x0=11
+           draw_stones("st-rock1",{x0,y0}, {1,0},8)   
+           draw_stones("st-rock1",{x0,(y0+8-1)}, {1,0},8)
+           draw_stones("st-rock1",{x0,y0}, {0,1},8)   
+           draw_stones("st-rock1",{(x0+8-1),y0}, {0,1},8)
+           enigma.KillStone(x0+5, y0)           
+           draw_stones("st-rock1",{x0+4,y0+2}, {1,0},3 )
+           draw_stones("st-rock1",{x0+1,y0+6}, {1,0},4 )
+           set_stone("st-rock1",x0+1,y0+2) 
+           set_stone("st-rock1",x0+2,y0+4)
+           set_stone("st-rock1",x0+4,y0+5) 
+            end
 
 oxyd_shuffle()
     ]]></el:luamain>

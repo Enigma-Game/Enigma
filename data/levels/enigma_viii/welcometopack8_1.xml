@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no" ?>
+<el:level xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://enigma-game.org/schema/level/1 level.xsd" xmlns:el="http://enigma-game.org/schema/level/1">
+  <el:protected>
+    <el:info el:type="level">
+      <el:identity el:title="Welcome" el:subtitle="" el:id="welcometopack8"/>
+      <el:version el:score="1" el:release="1" el:revision="1" el:status="released"/>
+      <el:author  el:name="Raoul Bourquin" el:email="" el:homepage=""/>
+      <el:copyright>Copyright © 2008 Raoul Bourquin</el:copyright>
+      <el:license el:type="GPL v2.0 or above" el:open="true"/>
+      <el:compatibility el:enigma="1.1">
+      </el:compatibility>
+      <el:modes el:easy="true" el:single="true" el:network="false"/>
+      <el:score el:easy="-" el:difficult="-"/>
+    </el:info>
+    <el:luamain><![CDATA[
+wo["ConserveLevel"] = false
+
+ti[" "] = {"fl-red"}
+ti["#"] = {"st-glass3"}
+
+ti["t"] = {"st_oxyd", name="group1#"}
+ti["u"] = {"st_oxyd", name="group2#"}
+ti["v"] = {"st_oxyd", name="group3#"}
+ti["w"] = {"st_oxyd", name="group4#"}
+ti["A"] = {"#ac-blackball"}
+ti["D"] = {"it-document", text="text1"}
+
+if wo["IsDifficult"] then
+    ti["T"] = {"st_timer", target="fart1", action="toggle", interval=30}
+    ti["F"] = {"st-fart", "fart1"}
+else
+    ti["T"] = ti[" "]
+    ti["F"] = ti[" "]
+end
+
+
+w, h = wo(ti, " ", {
+"####################",
+"#        TF        #",
+"#                  #",
+"#    t        u    #",
+"#  t    t  u    u  #",
+"#     t      u     #",
+"#  v     AD     u  #",
+"#     v      w     #",
+"#  v    v  w    w  #",
+"#    v        w    #",
+"#                  #",
+"#                  #",
+"####################"
+})
+wo:shuffleOxyd({"group1#*", max=2},{"group2#*", max=2},{"group3#*", max=2},{"group4#*", max=2})
+    ]]></el:luamain>
+    <el:i18n>
+      <el:string el:key="title">
+        <el:english el:translate="true"/>
+        <el:translation el:lang="de">Willkommen</el:translation>
+      </el:string>
+      <el:string el:key="text1">
+        <el:english el:translate="true">Welcome to Enigma VIII</el:english>
+      </el:string>
+    </el:i18n>
+  </el:protected>
+</el:level>

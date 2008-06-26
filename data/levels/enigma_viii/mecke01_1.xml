@@ -1,0 +1,132 @@
+﻿<?xml version="1.0" encoding="utf-8" standalone="no" ?>
+<el:level xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://enigma-game.org/schema/level/1 level.xsd" xmlns:el="http://enigma-game.org/schema/level/1">
+  <el:protected >
+    <el:info el:type="level">
+      <el:identity el:title="A Screenful of Secrets" el:subtitle="My First Level" el:id="mecke01"/>
+      <el:version el:score="1" el:release="1" el:revision="$Revision: 20 $" el:status="released"/>
+      <el:author  el:name="mecke" el:email="" el:homepage=""/>
+      <el:copyright>Copyright © 2008 Thomas Bernhardt</el:copyright>
+      <el:license el:type="GPL v2.0 or above" el:open="true"/>
+        <el:compatibility el:enigma="1.10" /> 
+      <el:modes el:easy="true" el:single="true" el:network="false" el:control="force" el:scoreunit="duration" el:scoretarget="time"/>
+      <el:comments>
+        <el:credits el:showinfo="true" el:showstart="false">Thanks to Ronald Lamprecht for some tricky ideas and code examples</el:credits> 
+      </el:comments>
+       <el:score el:easy="06:58" el:difficult="07:21"/>
+    </el:info>
+    <el:luamain><![CDATA[
+wo["ConserveLevel"] = true
+
+ti["R"] = {"#ac-rotor", range="1", force="1"}
+ti["  "] = {"fl-normal"}
+ti[" r"] = {"fl-red"}
+ti[" h"] = {"fl-himalaya"}
+ti[" '"] = {"fl-sahara"}
+ti[" b"] = {"fl-bluegray"}
+ti[" +"] = {"fl-rough-red"}
+ti[" -"] = {"fl-rough-blue"}
+ti[" ~"] = {"fl-water"}
+ti[" ,"] = {"fl-space"}
+ti[" ."] = {"fl-abyss"}
+ti[" _"] = {"fl-swamp"}
+ti[" ;"] = {"fl-gradient3"}
+ti["! "] = {"st_death"}
+ti["# "] = {"st-black4"}
+ti["+ "] = {"st_actorimpulse_invisible"}
+ti["G "] = {"st-glass"}
+ti["m "] = {"st-glass_move"}
+ti["X "] = {"st-grate1"}
+ti["P "] = {"st-pull"}
+ti["W "] = ti["P "] .. {"it_wormhole",range=0,strength=0, state=OFF}
+ti["^ "] = {"st-oneway_black-n"}
+ti["v "] = {"st-oneway_black-s"}
+ti["> "] = {"st-oneway_black-e"}
+ti["K "] = {"st-knight"}
+ti["s "] = {"it-squashed"}
+ti["R "] = ti["R"] .. ti["X "]
+ti["o "] = {"st_oxyd", flavor="d"}
+ti["O "] = {"st_oxyd",flavor="d", name="O#"}
+ti[". "] = {"it-tinyhill"}
+ti["c "] = {"it-cherry"}
+ti["| "] = {"st_death_invisible"}
+ti[", "] = {"st-likeoxydd"}
+ti["= "] = {"st_mirror_triangle", movable=false, transparent=false, orientation=4}
+ti["T "] = ti["X "] .. {"#ac-top", range="1", force="1"}
+ti["6 "] = {"st_panel"}
+ti["b "] = {"it-blackbomb"}
+ti["B "] = ti["b "] .. ti["X "]
+ti["e "] = {"it_extralife"}
+ti["Y "] = {"it_brush"}
+ti["l "] = ti["+ "] .. {"it-spoon"} 
+ti["E "] = {"st_boulder_e"}
+ti["h "] = {"it_hammer"}
+ti["- "] = {"it-hstrip"}
+ti["w "] = {"it_wormhole",range=0,strength=0, state=OFF}
+ti["p "] = {"it-puller-n"}
+ti["q "] = {"it-puller-s"}
+ti["t "] = {"it-document",text="text1"}
+ti["M "] = ti["m "] .. {"it-spring2"}
+ti["* "] = ti[" +"] ..{"#ac-blackball"}
+ti["L1"] = {"st_laser_s",name="laser1", state=OFF}
+ti["L2"] = {"st_laser_s",name="laser2", state=OFF}
+ti["L5"] = {"st_laser_s", state=ON}
+ti["L6"] = {"st_laser_n", state=ON}
+ti["L3"] = {"st_laser_n",name="laser3", state=OFF}
+ti["L4"] = {"st_laser_n",name="laser4", state=OFF}
+ti["S1"] = {"it_trigger", target="laser1"}
+ti["S2"] = {"it_trigger", target="laser2"}
+ti["S3"] = {"it_trigger", target="laser3"}
+ti["S4"] = {"it_trigger", target="laser4"}
+
+if wo ["IsDifficult"] then
+    ti["x1"] = ti["! "] .. ti[" h"]
+    ti["x2"] = ti["X "] .. ti[" h"]
+    ti["x3"] = ti["X "] .. ti[" b"]
+    ti["x4"] = ti["X "] .. ti[" b"]
+    ti["x5"] = ti["R"]  .. ti["X "] .. ti[" b"]
+    ti["x6"] = ti["! "]
+else
+    ti["x1"] = ti["G "] .. ti[" h"]
+    ti["x2"] = ti[" h"]
+    ti["x3"] = ti[" b"] .. ti["X "] .. {"it-spring2"}
+    ti["x4"] = ti[" b"] .. ti["X "] .. {"it-cherry"}
+    ti["x5"] = ti["X "] .. ti[" b"]
+    ti["x6"] = ti["G "]
+end
+
+local resolver = res.composer(ti)
+
+w, h = wo(resolver, "  ", {
+-- 0001020304050607080910111213141516171819
+  "!   mrXhx1L5L1P'P'P'P'P'P'P'P'W'P'P'P'L2",
+  "  ^ mrXb h ~ ' - r   ;   ;   ;e  ;Y  ;  ",
+  "#   mrx2sb ~S1E  r   ~   ~  c~  b~   ~S2",
+  "+   mrx3 h ~ ' -6 G_+ +_# #_  b_b  _    ",
+  "XrXr, Xhx5X~TbX~RbXrXrXrXrXrXrBrBrXrXrXr",
+  "o o x6 b hG ! G G  , .m+ . .! b, , , ,Xr",
+  "|+.+K > o = O O  ,h,-.M+* w+ +b,p,q,t,O ",
+  "o o x6 b hG ! G G  , .m+ . .! b, , , ,Xr",
+  "XrXr, Xhx5X~TbX~RbXrXrXrXrXrXrBrBrXrXrXr",
+  "+   mrx4 h ~ ' -6 G +_l #_#  _b b_   _  ",
+  "#   mrx2sb ~S3E  r ~   ~  c~  b~   ~  S4",
+  "  v mrXb h ~ ' - r ;   ;   ;   ;e  ;e   ",
+  "!   mrXhx1L6L3P'P'P'P'P'P'P'P'W'P'P'P'L4"
+})
+
+wo:shuffleOxyd({"O#*", max=0})
+ ]]></el:luamain>
+    <el:i18n>
+      <el:string el:key="title">
+        <el:english el:translate="false"/>
+      </el:string>
+      <el:string el:key="subtitle">
+        <el:english el:translate="true"/>
+        <el:translation el:lang="de">Meine erste Levelkomposition</el:translation> 
+      </el:string>
+      <el:string el:key="text1">
+        <el:english el:translate="true">"Secrets? Use the items, ... use the glasses ...</el:english>
+        <el:translation el:lang="de">Geheimnisse? Nutze die Gegenstände, ... eine Brille ...</el:translation>
+      </el:string>
+    </el:i18n>
+  </el:protected>
+</el:level>

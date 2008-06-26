@@ -3,7 +3,7 @@
   <el:protected>
     <el:info el:type="level">
       <el:identity el:title="Bavarian Madness" el:subtitle="" el:id="ss8"/>
-      <el:version el:score="1" el:release="1" el:revision="0" el:status="released"/>
+      <el:version el:score="1" el:release="1" el:revision="1" el:status="released"/>
       <el:author  el:name="Sven Siggelkow" el:email="" el:homepage=""/>
       <el:copyright>Copyright © 203 Sven Siggelkow</el:copyright>
       <el:license el:type="GPL v2.0 or above" el:open="true"/>
@@ -24,13 +24,13 @@ set_actor("ac-blackball", 10, 6.5)
 draw_checkerboard_floor( "fl-inverse", "fl-ice", 0, 0,levelw,levelh)
 function renderLine( line, pattern)
     for i=1, strlen(pattern) do
-      local c = strsub( pattern, i, i)
-      if c ==   "#" then
-         set_floor("fl-abyss",i-1,line)
-      elseif c =="m" then                                                               
-         set_item("it-landmine",i-1,line, {targetx="1.5",targety="8.5",strength=0})
-      elseif c=="O" then
-     oxyd(i-1,line) 
+        local c = strsub( pattern, i, i)
+        if c ==   "#" then
+            set_floor("fl-abyss",i-1,line)
+        elseif c =="m" then                                                               
+            set_item("it-landmine",i-1,line)
+        elseif c=="O" then
+            oxyd(i-1,line) 
         end
     end
 end
@@ -48,8 +48,7 @@ renderLine(09, "##m  m    m     m ##")
 renderLine(10, "##Om      m      O##")
 renderLine(11, "####   m    m   ####")
 renderLine(12, "####################")
---              01234567890123456789
-                              
+--              01234567890123456789                          
 oxyd_shuffle()
     ]]></el:luamain>
     <el:i18n>

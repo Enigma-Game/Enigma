@@ -5,16 +5,15 @@
   <el:protected >
     <el:info el:type="level">
       <el:identity el:title="Enigmaparcour" el:subtitle="Open the Doors" el:id="mecke15"/>
-      <el:version el:score="1" el:release="1" el:revision="$Revision: 12 $" el:status="released"/>
+      <el:version el:score="1" el:release="1" el:revision="$Revision: 17 $" el:status="released"/>
       <el:author  el:name="mecke" el:email="" el:homepage=""/>
       <el:copyright>Copyright © 2008 Thomas Bernhardt</el:copyright>
       <el:license el:type="GPL v2.0 or above" el:open="true"/>
       <el:compatibility el:enigma="1.10"/>
-      <el:modes el:easy="true" el:single="true" el:network="false" el:control="force"
-        el:scoreunit="duration" el:scoretarget="time"/>
+      <el:modes el:easy="true" el:single="true" el:network="false" el:control="force" el:scoreunit="duration" el:scoretarget="time"/>
       <el:comments>
-        <el:credits el:showinfo="true" el:showstart="false">Thanks to Raoul Bourquin for the patterns, in the new API,
-		and to Ronald Lamprecht for the "bottlepattern"</el:credits>
+        <el:credits el:showinfo="true" el:showstart="false">Thanks to Raoul Bourquin for the patterns, in the new API, and to Ronald Lamprecht for 
+the "bottlepattern"</el:credits>
       </el:comments>
       <el:score el:easy="14:51" el:difficult="18:10"/>
     </el:info>
@@ -22,138 +21,124 @@
 wo["ConserveLevel"] = true
 
 if wo ["IsDifficult"] then
-ti[" "] = {"fl-abyss_fake"}
-ti["v"] = {"fl-ice"}
-ti["+"] = {"ac-rotor", 0.5, 0.5,}
+    ti["  "] = {"fl-abyss_fake"}
+    ti[" v"] = {"fl-ice"}
+    ti[" '"] = {"fl-rough"}
+    ti["+ "] = ti[" '"] ..{"ac-rotor", 0.5, 0.5,}
 else
-ti[" "] = {"fl-rough"}
-ti["v"] = {"fl-rough"}
-ti["+"] = {"ac-rotor", 0.5, 0.5}
+    ti["  "] = {"fl-rough"}
+    ti[" v"] = {"fl-rough"}
+    ti["+ "] = ti[" v"] ..{"ac-rotor", 0.5, 0.5}
 end
-ti["~"] = {"fl-water"}
-ti["_"] = {"fl-swamp"}
-ti["."] = {"fl-space"}
+ti[" ~"] = {"fl-water"}
+ti[" _"] = {"fl-swamp"}
+ti[" ."] = {"fl-space"}
+ti[" ("] = {"fl-gradient", type=3}
+ti["t "] = {"st-stone_break"}
+ti["# "] = {"st_lightpassenger"}
+ti["K "] = {"st-knight"}
+ti["B "] = {"st-brick_magic"}
+ti["O "] = {"st_rotator_ccw", movable=true}
+ti["R "] = {"st-rubberband"}
+ti["T "] = {"st-thief"}
+ti["Y "] = {"st-glass"}
+ti["r "] = {"st-brownie"}
+ti["U1"] = {"st-black4"}
+ti["U2"] = ti["U1"] .. {"it_extralife"}
+ti[" i"] = ti["U1"] .. {"fl-inverse"}
+ti[" w"] = ti["U1"] .. {"fl-water"}
+ti[" e"] = ti[" i"] .. {"it_hammer"}
+ti["u "] = ti[" _"] .. {"st-grate2"}
+ti["x "] = ti[" ("] .. {"it_brush"}
+ti["D1"] = {"st_death"}
+ti["D2"] = {"st_death_invisible"}
+ti["D3"] = ti["D2"] .. {"it_umbrella_new"}
+ti["H "] = ti[" i"] .. {"st_key", code=1, target={"door#5"}}
+ti["G "] = ti[" _"] .. {"st-glass"}
+ti["L "] = ti[" _"] .. {"st_laser_e", name="laser", state=ON}
+ti["h1"] = {"st-bluegray_hole"}
+ti["A "] = ti[" ~"] .. {"st_actorimpulse"}
+ti["I "] = {"st-oneway_black-w"}
+ti["^1"] = {"st_boulder_n"}
+ti["^2"] = ti[" ~"] .. {"st_boulder_n"}
+ti["^3"] = ti["^2"] .. {"it_cross"}
+ti["> "] = ti[" v"] .. {"st_boulder_e"}
+ti["< "] = {"st_boulder_w"}
+ti["3 "] = ti[" v"] .. {"st-wood"}
+ti["2 "] = {"st-oneway_black-s"}
+ti[" f"] = {"it_wrench"}
+ti["4 "] = ti[" f"] ..{"st-oneway-w"}
+ti["6 "] = {"st-oneway-e"}
+ti["8 "] = {"st-oneway_black-n"}
+ti["Q "] = {"st-stone_break"}
+ti["m "] = ti[" _"] .. {"st_mirror_slab", movable=false, transparent=true, orientation=2}
+ti["M1"] = ti[" _"] .. {"st_mirror_slab", movable=false, transparent=false, orientation=4}
+ti["M2"] = ti[" _"] .. {"st_mirror_slab", movable=false, orientation=1}
+ti["X "] = ti[" ~"] .. {"st_oxyd", flavor="a"}
+ti["S "] = ti[" _"] .. {"st_laserswitch", target={"door#7", "door#8"}}
+ti[": "] = {"st-door-v", name="door#"}
+ti["? "] = ti[" ~"] .. {"st_actorimpulse_invisible"}
+ti["z "] = ti[" v"] .. {"st-stone_break"}
+ti["N "] = ti[" v"] .. {"st-stone_break"}
+ti["- "] = ti[" ~"] .. {"it-hstrip"}
+ti["b "] = ti[" ~"] .. {"it-booze"}
+ti["h2"] = ti["h1"] .. {"it-cherry"}
+ti["h3"] = ti["h1"] .. {"it_glasses"}
+ti["5 "] = {"it_key", code=1}
+ti["o "] = {"it-springboard"}
+ti["j "] = {"it-magicwand"}
+ti[" z"] = {"it-booze"}
+ti["P "] = {"st-grate1"}
+ti["9 "] = {"st-turnstile"} 
+ti["a "] = {"st-turnstile-n"}
+ti["q "] = {"st-turnstile-s"}
+ti["k "] = {"st-turnstile-w"}
+ti["l "] = {"st-turnstile-e"}
+ti[" *"] = {"it-crack3"}
+ti["* "] = ti[" *"] ..  {"#ac-blackball"}
+ti["J "] = {"#ac-top", range=1, force=1}
+ti["= "] = {"#ac-horse"}
+ti["$1"] = {"it_trigger", target="door#2"}
+ti["$2"] = {"it_trigger", target="door#1"}
+ti["$3"] = {"it_trigger", target="laser"}
+ti["$4"] = {"it_trigger", target="door#3"}
+ti["$5"] = {"it_trigger", target="door#4"}
+ti["$6"] = {"it_trigger", target="door#9"}
+ti["$7"] = {"it_trigger", target="door#6"}
+ti["V1"] = ti[" i"] ..{"it_vortex_open", name="vortex1", destination="vortex2"}
+ti["V2"] = ti[" i"] ..{"it_vortex_open", name="vortex2", destination="vortex1"}
 
-ti["t"] = {"st-stone_break"}
-ti["U"] = ti[" "] .. {"st-black4"}
-ti["u"] = ti["_"] .. {"st-grate2"}
-ti["i"] = ti["U"] .. {"fl-inverse"}
-ti["w"] = ti["U"] .. {"fl-water"}
-ti["("] = {"fl-gradient", type=3}
-ti["#"] = ti[" "] .. {"st_lightpassenger"}
-ti["K"] = ti[" "] .. {"st-knight"}
-ti["D"] = ti[" "] .. {"st-death"}
-ti["d"] = ti[" "] .. {"st-death_invisible"}
-ti["B"] = ti[" "] .. {"st-brick_magic"}
-ti["O"] = ti[" "] .. {"st_rotator_ccw", movable=true}
-ti["R"] = ti[" "] .. {"st-rubberband"}
-ti["T"] = ti[" "] .. {"st-thief"}
-ti["r"] = ti[" "] .. {"st-brownie"}
-ti["H"] = ti["i"] .. {"st_key", code=1, target={"door#5"}}
-ti["G"] = ti["_"] .. {"st-glass"}
-ti["Y"] = ti[" "] .. {"st-glass"}
-ti["L"] = ti["_"] .. {"st_laser_e", name="laser", state=ON}
-ti["h"] = ti[" "] .. {"st-bluegray_hole"}
-ti["A"] = ti["~"] .. {"st_actorimpulse"}
-ti["I"] = ti[" "] .. {"st-oneway_black-w"}
-ti["^"] = ti[" "] .. {"st_boulder_n"}
-ti[">"] = ti["v"] .. {"st_boulder_e"}
-ti["<"] = ti[" "] .. {"st_boulder_w"}
-ti["3"] = ti["v"] .. {"st-wood"}
-ti["2"] = ti[" "] .. {"st-oneway_black-s"}
-ti["4"] = ti[" "] .. {"st-oneway-w"}
-ti["6"] = ti[" "] .. {"st-oneway-e"}
-ti["8"] = ti[" "] .. {"st-oneway_black-n"}
-ti["Q"] = ti[" "] .. {"st-stone_break"}
-ti["m"] = ti["_"] .. {"st_mirror_slab", movable=false, transparent=true, orientation=2}
-ti["M"] = ti["_"] .. {"st_mirror_slab", movable=false, orientation=1}
-ti["X"] = ti["~"] .. {"st_oxyd", flavor="a"}
-ti["S"] = ti["_"] .. {"st_laserswitch", target={"door#7", "door#8"}}
-ti[":"] = ti[" "] .. {"st-door-v", name="door#"}
-ti["9"] = ti[" "] .. {"st-turnstile"}
-ti["?"] = ti["~"] .. {"st_actorimpulse_invisible"}
-ti["z"] = ti["v"] .. {"st-stone_break"}
-ti["N"] = ti["t"] .. {"fl-ice"}
-ti["-"] = ti["~"] .. {"it-hstrip"}
-ti["b"] = ti["~"] .. {"it-booze"}
-ti["o"] = {"it-springboard"}
-ti["P"] = {"st-grate1"}
+local resolver = res.composer(ti)
 
-ti["*"] = {"ac-blackball", 0.5, 0.5}
-
-ti["="] = {"ac-horse", 0.5, 0.5}
-
-w, h = wo(ti, " ", {
-"#########################",
-"#iHwiiidddddd . = . #vvv#",
-"#iwwiww hhh d~~.D.~~#vXv#",
-"#iiwiiw TTT  r      #vvv#",
-"#wiiwii  *  DAAAAA2##vXv#",
-"#MGGmGM- ~ -6+vvvv6v#vvv#",
-"#__GGGG~~9~~K########vXv#",
-"#L_GMGM- ~ -:::::::::KKK#",
-"#__GGGG~~9~~K########vXv#",
-"#SuGmGM- ~ -43<Nvvv #vvv#",
-"#>^^^ Y     D Q888Q #vXv#",
-"#^^^^UU hTh BO  O  D#vvv#",
-"#    UU ThT B ??o?? #vXv#",
-"#RRRRRR hhh B  Pb   #vvv#",
-"#########################"
+w, h = wo(resolver, "  ", {
+-- 00010203040506070809101112131415161718192021222324
+  "# # # # # # # # # # # # # # # # # # # # # # # # # ",
+  "#  iH  w i i eD2D2D3D2D2D2x  .  =    .$1#  v v v# ",
+  "#  i w w i w w  h1h3h1  D2 ~ ~ .D1 . ~ ~#  vX  v# ",
+  "#  i i wV2 i w  T T T   $3r             #  v v v# ",
+  "#  w iV1 w i i    *     D1A A A A A 2 # #  vX  v# ",
+  "# M2G G m G M2-   a~  - 6 +  v v v v6v$2#  v v v# ",
+  "#  _ _G G G G  ~ ~9  ~ ~K # # # # # # # #  vX  v# ",
+  "# L  _G M1G M2-   q~  - : : : : : : : : : K K K # ",
+  "#  _ _G G G G  ~k~9 l~ ~K # # # # # # # #  vX  v# ",
+  "# S u G m G M2-    ~  - 4 3 < N  v v v$5#  v v v# ",
+  "# > ^1^2^3$4Y     J     D1  Q 8 8 8 Q $7#  vX  v# ",
+  "# ^1^1^1^1U1U1  h1T h1  B O     O     D1#  v v v# ",
+  "# j       U1U2  T h2T   B   ? ? o ? ? 5 #  vX  v# ",
+  "# R R R R R R   h1h2h1  B     P b     $6#  v v v# ",
+  "# # # # # # # # # # # # # # # # # # # # # # # # # "
 })
 
-base = st({1,1})
-if wo ["IsDifficult"] then
-wo[base+{12, 4}] = {"fl-rough"}
-else
-wo[base+{12, 4}] = {"fl-rough"}
-end
-wo[base+{8, 9}] = {"ac-top", 0.5, 0.5, range=1, force=1} 
-wo[base+{8, 3}] = {"it-crack3"} 
-wo[base+{8, 4}] = {"st-turnstile-n"}
-wo[base+{8, 6}] = {"st-turnstile-s"}
-wo[base+{7, 7}] = {"st-turnstile-w"}
-wo[base+{9, 7}] = {"st-turnstile-e"}
-
-wo[base+{18, 11}] = {"it_key", code=1}
-wo[base+{8, 1}] = {"it_glasses"}
-wo[base+{8, 0}] = {"it_umbrella_new"}
-wo[base+{0, 11}] = {"it-magicwand"}
-wo[base+{5, 11}] = {"it_extralife"}
-wo[base+{8, 11}] = {"it-cherry"}
-wo[base+{8, 12}] = {"it-cherry"}
-wo[base+{5, 0}] = {"it_hammer"}
-wo[base+{11, 8}] = {"it_wrench"}
-wo[base+{12, 0}] = {"it_brush"}
-wo[base+{12, 0}] = {"fl-gradient", type=3}
-
-wo[base+{3, 8}] = {"it_cross"}
-wo[base+{3, 9}] = {"it_cross"}
-
-wo[base+{2,3}] = {"it_vortex_open", name="vortex1", destination="vortex2"}
-wo[base+{3,2}] = {"it_vortex_open", name="vortex2", destination="vortex1"}
-
-wo[base+{3, 9}] = ti["~"]
-wo[base+{2, 9}] = ti["~"]
-wo[base+{3, 6}] = {"st_mirror_slab", movable=false, orientation=4}
-
-wo[base+{18, 0}] = {"it_trigger", target="door#2"}
-wo[base+{18, 4}] = {"it_trigger", target="door#1"}
-wo[base+{11, 2}] = {"it_trigger", target="laser"}
-wo[base+{4, 9}] = {"it_trigger", target="door#3"}
-wo[base+{18, 8}] = {"it_trigger", target="door#4"}
-wo[base+{18, 12}] = {"it_trigger", target="door#9"}
-wo[base+{18, 9}] = {"it_trigger", target="door#6"}
-
 wo:shuffleOxyd()
-    ]]></el:luamain>
-      <el:i18n>
-        <el:string el:key="title">
-          <el:english el:translate="false"/>
-        </el:string>
-        <el:string el:key="subtitle">
-          <el:english el:translate="true"/>
-	  <el:translation el:lang="de">Öffne die Tore</el:translation>
-        </el:string>
-     </el:i18n>
+ ]]></el:luamain>
+    <el:i18n>
+      <el:string el:key="title">
+        <el:english el:translate="false"/>
+      </el:string>
+      <el:string el:key="subtitle">
+        <el:english el:translate="true"/>
+        <el:translation el:lang="de">Öffne die Tore</el:translation>
+      </el:string>
+    </el:i18n>
   </el:protected>
 </el:level>

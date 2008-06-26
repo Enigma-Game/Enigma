@@ -1,0 +1,125 @@
+<?xml version="1.0" encoding="utf-8" standalone="no" ?>
+<el:level xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://enigma-game.org/schema/level/1 level.xsd" xmlns:el="http://enigma-game.org/schema/level/1">
+  <el:protected>
+    <el:info el:type="level">
+      <el:identity el:title="Tilt Board" el:id="20080529ulf118"/>
+      <el:version el:score="1" el:release="1" el:revision="$Revision: 115 $" el:status="released"/>
+      <el:author  el:name="Ulf Stegemann" el:email="ulf-enigma@zeitform.de" el:homepage="http://ulf.zeitform.de"/>
+      <el:copyright>Copyright © 2007 Ulf Stegemann</el:copyright>
+      <el:license el:type="GPL v2.0 or above" el:open="true"/>
+      <el:compatibility el:enigma="1.00">
+        <el:dependency el:path="lib/ant" el:id="lib/ant" el:release="1" el:preload="true"/>
+      </el:compatibility>
+      <el:modes el:easy="true" el:single="true" el:network="false" el:control="force" el:scoreunit="duration" el:scoretarget="time"/>
+      <el:score el:easy="00:22" el:difficult="00:45"/>
+    </el:info>
+    <el:luamain><![CDATA[
+-- DIFFICULTY --
+if difficult then
+  enigma.SlopeForce = 40
+end
+
+-- CELLS --
+lasers={}
+cells={}
+cells[" "]=cell{floor="fl-abyss"}
+cells["1"]=cell{floor="fl-gray",item={"it-sensor",{action="callback",target="tiltfloor",_mydir=2}}}
+cells["2"]=cell{floor="fl-gray",item={"it-sensor",{action="callback",target="tiltfloor",_mydir=7}}}
+cells["3"]=cell{floor="fl-gray",item={"it-sensor",{action="callback",target="tiltfloor",_mydir=3}}}
+cells["4"]=cell{floor="fl-gray",item={"it-sensor",{action="callback",target="tiltfloor",_mydir=9}}}
+cells["5"]=cell{floor="fl-gray",item={"it-sensor",{action="callback",target="tiltfloor",_mydir=1}}}
+cells["6"]=cell{floor="fl-gray",item={"it-sensor",{action="callback",target="tiltfloor",_mydir=6}}}
+cells["7"]=cell{floor="fl-gray",item={"it-sensor",{action="callback",target="tiltfloor",_mydir=4}}}
+cells["8"]=cell{floor="fl-gray",item={"it-sensor",{action="callback",target="tiltfloor",_mydir=8}}}
+cells["9"]=cell{floor="fl-gray",item={"it-sensor",{action="callback",target="tiltfloor",_mydir=0}}}
+
+-- LANDSCAPE MAP --
+level = {
+--  00000000001111111111
+--  01234567890123456789
+   "                    ", -- 00
+   "     88811111222    ", -- 01
+   "     88881112222    ", -- 02
+   "     88881112222    ", -- 03
+   "     78881112223    ", -- 04
+   "     77778123333    ", -- 05
+   "     77777933333    ", -- 06
+   "     77776543333    ", -- 07
+   "     76665554443    ", -- 08
+   "     66665554444    ", -- 09
+   "     66665554444    ", -- 10
+   "     66655555444    ", -- 11
+   "                    "  -- 12
+}
+
+-- FUNCTIONS --
+
+function tiltfloor(onoff,sender)
+  local gdir = enigma.GetAttrib(sender, "_mydir")
+  if gdir == 0 then
+    fill_floor("fl-gray", 5,1, 11,11)
+  else
+    i=0
+    while i<11 do
+      draw_floor("fl-gradient", {5,1+i}, {1,0}, 11, {type=gdir})
+      i = i+1
+    end
+  end
+end
+
+pos_hard = {{4,0},{5,0},{4,1},
+            {16,0},{15,0},{16,1},
+            {4,12},{4,11},{5,12},
+            {16,12},{15,12},{16,11}}
+pos_med  = {{6,0},{7,0},{8,0},{12,0},{13,0},{14,0},{4,2},{4,3},{4,4},{4,8},{4,9},{4,10},{16,2},{16,3},{16,4},{16,8},{16,9},{16,10},{6,12},{7,12},{8,12},{12,12},{13,12},{14,12}}
+pos_easy = {{9,0},{10,0},{11,0},{4,5},{4,6},{4,7},{9,12},{10,12},{11,12},{16,5},{16,6},{16,7}}
+counter = 0
+
+function setoxyd()
+  while (counter < 2) do
+    getandset(pos_hard)
+    counter = counter+1
+  end
+  while (counter < 4) do
+    getandset(pos_easy)
+    counter = counter+1
+  end
+  while (counter < 10) do
+    getandset(pos_med)
+    counter = counter+1
+  end
+end
+
+function getandset(mytable)
+    local n = table.getn(mytable)
+    r = random(1,n)
+    p = mytable[r]
+    set_stone("st-oxyd",p[1],p[2],{flavor="a"})
+    table.remove(mytable,r)
+    if (counter == 0) then
+      if (r == 1 or r == 4 or r == 7 or r == 10) then
+        table.remove(mytable,r)
+        table.remove(mytable,r)
+      elseif (r == 2 or r == 5 or r == 8 or r == 11) then
+        table.remove(mytable,r-1)
+      else
+        table.remove(mytable,r-2)
+      end
+    end
+end
+
+-- GENERAL --
+enigma.ConserveLevel=TRUE
+set_default_parent(cells[" "])
+create_world_by_map(level)
+setoxyd()
+oxyd_shuffle()
+set_actor("ac-blackball",10.5,6.5,{player=0})
+    ]]></el:luamain>
+    <el:i18n>
+      <el:string el:key="title">
+        <el:english el:translate="false"/>
+      </el:string>
+     </el:i18n>
+  </el:protected>
+</el:level>

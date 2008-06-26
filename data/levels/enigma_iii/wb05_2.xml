@@ -3,17 +3,14 @@
   <el:protected>
     <el:info el:type="level">
       <el:identity el:title="Block its way!" el:subtitle="" el:id="wb5"/>
-      <el:version el:score="1" el:release="1" el:revision="0" el:status="released"/>
+      <el:version el:score="2" el:release="2" el:revision="1" el:status="released"/>
       <el:author  el:name="Jon 'WB' Sneyers" el:email="" el:homepage=""/>
       <el:copyright>Copyright © 2003 Jon 'WB' Sneyers</el:copyright>
       <el:license el:type="GPL v2.0 or above" el:open="true"/>
       <el:compatibility el:enigma="0.92">
        <el:dependency el:path="lib/ant" el:id="lib/ant" el:release="1" el:preload="true"/>
       </el:compatibility>
-      <el:modes el:easy="false" el:single="true" el:network="false"/>
-      <el:comments>
-        <el:code>Lua 5.1 and XML converted by Leveladministrators</el:code>
-      </el:comments>
+      <el:modes el:easy="true" el:single="true" el:network="false"/>
       <el:score el:easy="-" el:difficult="-"/>
     </el:info>
     <el:luamain><![CDATA[
@@ -28,7 +25,6 @@ cells["w"]=cell{stone="st-wood"}
 cells["W"]=cell{parent=cells[":"], stone={"st-wood"}}
 cells["i"]=cell{stone="st-stoneimpulse"}
 cells["I"]=cell{stone="st-stoneimpulse-hollow"}
-
 cells["#"]=cell{stone="st-rock6"}
 cells["="]=cell{stone="st-rock1"}
 cells["R"]=cell{stone="st-rock8"}
@@ -36,20 +32,16 @@ cells["B"]=cell{parent=cells[":"],stone="st-black4"}
 cells["b"]=cell{parent=cells[":"],stone="st-white4"}
 cells["@"]=cell{floor="fl-abyss"}
 cells["."]=cell{floor="fl-water"}
-
 cells["H"]=cell{stone="st-chameleon"}
-
 cells["&"]=cell{{{oneway, EAST}}}
 cells["l"]=cell{{{oneway, SOUTH}}}
 cells["j"]=cell{{{oneway, NORTH}}}
-
 cells["V"]=cell{parent=cells[" "], stone="st-bolder-s"}
 cells[">"]=cell{parent=cells[" "], stone="st-bolder-e"}
 cells["<"]=cell{parent=cells[" "], stone="st-bolder-w"}
 cells["^"]=cell{parent=cells[" "], stone="st-bolder-n"}
-
 cells["t"]=cell{stone={face="st-door", attr={name="doorA", type="v"}}}
-cells["T"]=cell{item= {face="it-trigger", attr={action="close", target="doorA"}}}
+cells["T"]=cell{item= {face="it-trigger", attr={action="callback", target="close_doors"}}}
 cells["U"]=cell{item= {face="it-trigger", attr={action="open", target="doorA"}}}
 cells["O"]=cell{actor={face="ac-blackball", attr={player=0}}}
 cells["o"]=cell{actor={face="ac-whiteball", attr={player=1}}}
@@ -60,11 +52,17 @@ cells["2"]=cell{{{document, "text2"}}}
 cells["3"]=cell{{{document, "text3"}}}
 cells["4"]=cell{{{document, "text4"}}}
 
+if not difficult then
+    cells["u"]=cell{floor="fl-leaves"}
+else
+    cells["u"]=cell{stone={face="st-door-v-open", attr={name="doorB", type="v"}}}
+end
+
 level = {      
 --  012345678901234567890123456789012345678
    "...................====================",
    ".iiiiiiiiiiiiiiii#iV:=::::::::::::::::=",
-   ".iU      #######i#i#:=::===========:W:=",
+   ".iUu     #######i#i#:=::===========:W:=",
    ".i## O 1 & 2   ii#ii:=::=:::::::::=:::=",
    ".i0#     #####.wI0#i:=::=:::====:==:::=",
    ".i4iiiiiiIIIIIIi##ii:=B==:::=0:=...:::=",
@@ -74,7 +72,7 @@ level = {
    ".i0 i# ww  IIII 3  .::======.=====::===",
    ".i0y t II     I  w#:::=0::::.=0::::==:=",
    ".iiiiiiiiiiiiiiiii##T=======.=======::=",
-   "...................===:::::WWW::&:::::0",  -- _________________________
+   "...................===:::::WWW::&:::::0",
    "...........RRR%%....=:::::::::::==l====",
    "..%%%%%%%..R w %..;;;:::::::::::::::::=",
    "..%  w w%..%  w%R...===W============BB=",
@@ -90,12 +88,16 @@ level = {
 --  012345678901234567890123456789012345678
 }
 
+function close_doors()
+	SendMessage("doorA", "close")
+	SendMessage("doorB", "close")
+end
+
 set_default_parent(cells[" "])
 create_world_by_map(level)
 oxyd_shuffle()
 enigma.ConserveLevel = FALSE
 oxyd_default_flavor = "d"
-
 document(21,21,"text5")
     ]]></el:luamain>
     <el:i18n>

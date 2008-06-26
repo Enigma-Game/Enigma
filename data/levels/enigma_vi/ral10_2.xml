@@ -1,0 +1,92 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no" ?>
+<el:level xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://enigma-game.org/schema/level/1 level.xsd" xmlns:el="http://enigma-game.org/schema/level/1">
+  <el:protected >
+    <el:info el:type="level">
+      <el:identity el:title="Bodyguard" el:subtitle="In the line of thieves" el:id="20060730ral012"/>
+      <el:version el:score="1" el:release="2" el:revision="$Revision: 97 $" el:status="released"/>
+      <el:author  el:name="Ronald Lamprecht" el:email="ral@users.berlios.de"/>
+      <el:copyright>Copyright © 2006 Ronald Lamprecht</el:copyright>
+      <el:license el:type="GPL v2.0 or above" el:open="true"/>
+      <el:compatibility el:enigma="1.10"/>
+      <el:modes el:easy="true" el:single="true" el:network="false"/>
+      <el:score el:easy="3:44" el:difficult="9:40"/>
+    </el:info>
+    <el:luamain><![CDATA[
+wo["ConserveLevel"] = false
+
+ti[" "] = {"fl-bluegray"}
+ti["."] = {"fl-thief"}
+ti["#"] = {"st-glass"}
+ti["+"] = {"st-glass", "doorA#"}
+ti["*"] = {"st-glass", "doorB#"}
+ti["B"] = {"st-black4"}
+ti["W"] = {"st-white4"}
+ti["b"] = ti["B"] .. {"it-yinyang"}
+ti["w"] = ti["W"] .. {"it-yinyang"}
+ti["c"] = {"it_cross"}
+
+ti["k"] = ti["B"] .. {"it_key", code="%1"}
+ti["l"] = ti["B"] .. {"it_key", code="%2"}
+ti["m"] = ti["W"] .. {"it_key", code="%3"}
+ti["n"] = ti["W"] .. {"it_key", code="%4"}
+
+ti["1"] = ti["."] .. {"#ac-blackball", player=0}
+ti["0"] = ti["."] .. {"#ac-whiteball", player=1, controllers=2}
+ti["H"] = ti["."] .. {"#ac-horse", force=1, destination={"op%1", "op%2","op%3", "op%4"}}
+ti["h"] = ti["."] .. {"#ac-horse", force=1, destination={"ip%1", "ip%2","ip%3", "ip%4"}}
+
+ti["T"] = {"it-document", text="help_keys"}
+ti["template_inner"] = {"fl-thief", "ip%%"}
+
+if wo["IsDifficult"] then
+    ti[","] = ti["."]
+    ti["template_outer"] = {"fl-thief", "op%%"}
+    ti["template_K"] = ti["#"]
+    ti["template_P"] = {"st_key", code="%%", target={"@doorA#*", "@doorB#*"}, action={"kill","kill"}}
+else
+    ti[","] = ti[" "]
+    ti["template_outer"] = {"fl-bluegray", "op%%"}
+    ti["template_K"] = {"st_key", code="%%", target={"@doorA#*", "@doorB#*"}, action={"kill","kill"}}
+    ti["template_P"] = ti["#"]
+
+end
+
+ti["x"] = {"st_oxyd"}
+
+local resolver = res.autotile(ti, {"2", "5", "template_outer"}, 
+        {"6", "9", "template_inner"}, {"P","S", "template_P"}, 
+        {"K","N", "template_K"})
+
+w, h = wo(resolver, " ", {
+"x*###R########P###*x",
+"+.....        ....0+",
+"#..##############..#",
+"#..#2,....H...,5#..#",
+"M..#,####..####,#..K",
+"#..#.#9c.h..c6#.#..#",
+"#.Tk.#.m#bw#l.#.n .#",
+"#..#.#8......7#.#..#",
+"N..#,##########,#..L",
+"#..#3,........,4#..#",
+"#..##############..#",
+"+1....        .....+",
+"x*###S########Q###*x"
+})
+
+wo:shuffleOxyd()
+    ]]></el:luamain>
+    <el:i18n>
+      <el:string el:key="title">
+        <el:english el:translate="false"/>
+      </el:string>
+      <el:string el:key="subtitle">
+        <el:english el:translate="true"/>
+        <el:translation el:lang="de">In der Schusslinie von Dieben</el:translation>
+      </el:string>
+      <el:string el:key="help_keys">
+        <el:english>Keys from left to right are NE, NW, SE, SW.</el:english>
+        <el:translation el:lang="de">Die Schlüssel von links nach rechts sind NO, NW, SO, SW.</el:translation>
+      </el:string>
+    </el:i18n>
+  </el:protected>
+</el:level>

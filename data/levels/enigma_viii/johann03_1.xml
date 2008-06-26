@@ -1,0 +1,93 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no" ?>
+<el:level xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://enigma-game.org/schema/level/1 level.xsd" xmlns:el="http://enigma-game.org/schema/level/1">
+  <el:protected>
+    <el:info el:type="level">
+      <el:identity el:title="Cross Mail" el:subtitle="The level goes on" el:id="johann03"/>
+      <el:version el:score="1" el:release="1" el:revision="1" el:status="released"/>
+      <el:author  el:name="Johann Freymuth" el:email="" el:homepage=""/>
+      <el:copyright>Copyright © 2007 Johann Freymuth</el:copyright>
+      <el:license el:type="GPL v2.0 or above" el:open="true"/>
+      <el:compatibility el:enigma="1.10"/>
+      <el:modes el:easy="false" el:single="true" el:network="false"/>
+      <el:score el:easy="-" el:difficult="-"/>
+    </el:info>
+    <el:luamain><![CDATA[
+wo["ConserveLevel"] = true
+
+ti[" "] = {"fl-white"}
+ti["x"] = {"it_cross"}
+ti["|"] = {"it-pipe-v"}
+ti["9"] = {"it-pipe-ne"}
+ti["8"] = {"it-pipe-es"}
+ti["7"] = {"it-pipe-sw"}
+ti["6"] = {"it-pipe-wn"}
+ti["b"] = {"it_brush"}
+ti["h"] = {"it_hammer"}
+ti["d"] = {"it-dynamite"}
+ti["o"] = {"it-blackbomb"}
+ti["#"] = {"st-glass2"}
+ti["C"] = {"st-glass1"}
+ti["0"] = ti["C"] .. {"it-pipe-v"}
+ti["1"] = ti["C"] .. {"it-pipe-h"}
+ti["2"] = ti["C"] .. {"it-pipe-ne"}
+ti["3"] = ti["C"] .. {"it-pipe-es"}
+ti["4"] = ti["C"] .. {"it-pipe-sw"}
+ti["5"] = ti["C"] .. {"it-pipe-wn"}
+ti["X"] = ti["x"] .. {"st-glass2"}
+ti["M"] = {"st-mail-e"}
+ti["U"] = {"st-mail-n"}
+ti["I"] = {"st-break_invisible"}
+ti["O"] = {"st_oxyd", name="oxydstone#"}
+ti["i"] = {"st_switch", target="setv"}
+ti["j"] = {"st_switch", target="seth"}
+ti["k"] = {"st_switch", target="setne"}
+ti["l"] = {"st_switch", target="setes"}
+ti["m"] = {"st_switch", target="setsw"}
+ti["n"] = {"st_switch", target="setwn"}
+ti["B"] = ti({"it-yinyang"}) .. {"#ac-blackball"}
+ti["W"] = ti({"it-yinyang"}) .. {"#ac-whiteball"}
+
+w, h = wo(ti, " ", {
+"##########XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX",
+"#B      bhX       x         x x x x x x x x x x      XdIO#",
+"#         X       x       x x x x x xox x x x x      X IC#",
+"#         X       x      x  x x x x x x x x x x      XdIO#",
+"#         X       x     x   x x x x x x x x x xxxxx  C IC#",
+"#         M  x  xxx    x    x x x x x x xox x xxo x  XdIO#",
+"#         X     x       x   xox x x x x x x x x x xx X IC#",
+"#         X       x      x  x x xox x x x x x x x  x XdIO#",
+"#         X     xxx       x x x x x x x x x xox xx x X IC#",
+"#         X       x         x x x x x x x x x x x  x XdIO#",
+"#ijklmn#  XXXXXXXXXXXXXXXXXXXUXXXUXXXUXXXUXXXUXXXUXXXX IC#",
+"#012345#  #W||||||||||||||                   8679     dIO#",
+"##########################################################"
+})
+
+wo:shuffleOxyd({"oxydstone#*", linear=true})
+
+function setv()
+    wo[{1,9}] = {"it-pipe-v"}
+end
+function seth()
+    wo[{2,9}] = {"it-pipe-h"}
+end
+function setne()
+    wo[{3,9}] = {"it-pipe-ne"}
+end
+function setes()
+    wo[{4,9}] = {"it-pipe-es"}
+end
+function setsw()
+    wo[{5,9}] = {"it-pipe-sw"}
+end
+function setwn()
+    wo[{6,9}] = {"it-pipe-wn"}
+end
+    ]]></el:luamain>
+    <el:i18n>
+      <el:string el:key="title">
+        <el:english el:translate="false"/>
+      </el:string>
+    </el:i18n>
+  </el:protected>
+</el:level>

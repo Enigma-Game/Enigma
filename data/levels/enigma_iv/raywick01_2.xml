@@ -3,24 +3,47 @@
   <el:protected>
     <el:info el:type="level">
       <el:identity el:title="Doors Galore" el:subtitle="" el:id="RayWick001"/>
-      <el:version el:score="1" el:release="1" el:revision="0" el:status="released"/>
-      <el:author  el:name="Ray Wick" el:email="" el:homepage=""/>
+      <el:version el:score="2" el:release="2" el:revision="1" el:status="released"/>
+      <el:author  el:name="Ray Wick" el:email="RayRWick@AOL.com" el:homepage=""/>
       <el:copyright>Copyright © Ray Wick</el:copyright>
       <el:license el:type="Donated to Enigma under the projects license" el:open="true"/>
-      <el:compatibility el:enigma="0.92">
-      </el:compatibility>
-      <el:modes el:easy="false" el:single="true" el:network="false"/>
+      <el:compatibility el:enigma="1.00" el:engine="enigma"/>
+      <el:modes el:easy="true" el:single="true" el:network="false"/>
       <el:comments>
-        <el:code>Lua 5.1 and XML converted by Leveladministrators</el:code>
+        <el:credits el:showinfo="true" el:showstart="false">Difficult variation by Ronald Lamprecht.</el:credits>
+        <el:code>
+	  Authors original level modified to maintain "enigma" compatibility by a 
+	  solution neutral minimal change. Authors version as easy mode with an 
+	  additional variation from Ronald Lamprecht as difficult mode.
+	</el:code>
       </el:comments>
       <el:score el:easy="-" el:difficult="-"/>
     </el:info>
     <el:luamain><![CDATA[
+enigma.ConserveLevel = FALSE
+
 LAND_FLOOR = "fl-brick"
 SOFT_FLOOR = "fl-hay"
 WATER_FLOOR = "fl-water"
 WALL = "st-brick"
 
+if difficult then
+level = {
+    "#@###S#L##########@#",
+    "#6#~~~~~J 0@# > #B1#",
+    "C ~~~ ~~~~###5# D  $",
+    "#     ~~~~~~~ E H G#",
+    "#b+++ ~~~~~~@ #4# 7@",
+    "#e    ~~~!~~+ ! #8##",
+    "#  a ~~~~~~~~ !   ##",
+    "# ~~~~~~~~~~~ #c???#",
+    "# ~~~@~~d~~ * #??+ #",
+    "# ~~~~~~  + + ###  #",
+    "# ~~~~gx  +++ 3 #9I#",
+    "# >  +. +    +# < 2@",
+    "#@##########!!###A##"
+}
+else
 level = {
     "#@###S#L##########@#",
     "#6#~~~~~@~~~~ > #B1#",
@@ -32,19 +55,18 @@ level = {
     "# ~~~~~~~~~~~ #c???#",
     "# ~~~@~~d~~ * #??+ #",
     "# ~~~~~~  + + ###  #",
-    "# ~~~~~~  +++ 3 #9I#",
-    "# >  + x     +# < 2@",
+    "# ~~~~gx  +++ 3 #9I#",
+    "# >  +.      +# < 2@",
     "#@##########!!###A##"
 }
+end
 
 cells = {}
 cells["!"] = function( x, y )
---    set_floor( LAND_FLOOR, x, y )
     set_stone( "st-stoneimpulse", x, y )
 end
 
 cells["#"] = function( x, y )
---    set_floor( LAND_FLOOR, x, y )
     set_stone( WALL, x, y )
 end
 cells["*"] = function( x, y )
@@ -82,6 +104,10 @@ cells["^"] = function( x, y )
     set_floor( LAND_FLOOR, x, y )
     set_stone( "st-oneway-n", x, y)
 end
+cells["g"] = function( x, y )
+    set_floor( WATER_FLOOR, x, y )
+    set_stone( "st-glass", x, y)
+end
 cells["?"] = function( x, y )
     set_floor( LAND_FLOOR, x, y )
     set_item( "it-coin1", x, y )
@@ -89,6 +115,15 @@ end
 cells["x"] = function( x, y )
     set_floor( LAND_FLOOR, x, y )
     set_item( "it-blackbomb", x, y )
+end
+cells["x"] = function( x, y )
+    set_floor( "fl-water", x, y )
+    set_stone( "st-glass", x, y)
+    set_item( "it-blackbomb", x, y )
+end
+cells["."] = function( x, y )
+    set_floor( "fl-wood", x, y )
+    set_item( "it-burnable_oil", x, y )
 end
 cells[" "] = function( x, y )
     set_floor( LAND_FLOOR, x,y )
@@ -129,6 +164,10 @@ cells["9"] = function( x, y )
     set_floor( LAND_FLOOR, x, y )
     doorh(x, y, {name="door9"} )
 end
+cells["0"] = function( x, y )
+    set_floor( LAND_FLOOR, x, y )
+    doorv(x, y, {name="door0"} )
+end
 cells["A"] = function( x, y )
     set_floor( LAND_FLOOR, x, y )
     set_stone( "st-key_a", x, y, {action="openclose", target="door1"})
@@ -165,6 +204,10 @@ cells["I"] = function( x, y )
     set_floor( LAND_FLOOR, x, y )
     set_stone( "st-floppy", x, y, {action="openclose", target="door9"})
 end
+cells["J"] = function( x, y )
+    set_floor( LAND_FLOOR, x, y )
+    set_item( "it-trigger", x, y, {action="openclose", target="door0"})
+end
 cells["L"] = function( x, y )
     set_floor( SOFT_FLOOR, x, y )
     set_attrib(laser(x, y, FALSE, SOUTH), "name", "laser")
@@ -175,12 +218,10 @@ cells["S"] = function( x, y )
 end
 cells["a"] = function( x, y )
     set_floor( LAND_FLOOR, x, y )
---    set_stone( "st-wood", x, y )
     set_item( "it-key_a", x, y )
 end
 cells["b"] = function( x, y )
     set_floor( LAND_FLOOR, x, y )
---    set_stone( "st-wood", x, y )
     set_item( "it-key_b", x, y )
 end
 cells["c"] = function( x, y )
@@ -190,7 +231,6 @@ cells["c"] = function( x, y )
 end
 cells["d"] = function( x, y )
     set_floor( LAND_FLOOR, x, y )
---    set_stone( "st-wood", x, y )
     set_item( "it-floppy", x, y )
 end
 cells["e"] = function( x, y )
@@ -200,7 +240,6 @@ cells["e"] = function( x, y )
 end
 cells["f"] = function( x, y )
     set_floor( LAND_FLOOR, x, y )
---    set_stone( "st-wood", x, y )
     set_item( "it-floppy", x, y )
 end
 

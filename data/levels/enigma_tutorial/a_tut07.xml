@@ -28,8 +28,8 @@ ti["~"] = {"fl-water"}
 
 ti["#"] = ti[" "] .. {"st-likeoxyda"}
 ti["@"] = ti["."] .. {"#ac-blackball"}
-ti["C"] = ti["."] .. {"st-chess_black"}
-ti["c"] = (ti["."] .. {"st-chess_black"}) .. {"it_cross"}
+ti["C"] = ti["."] .. {"st_chess_black"}
+ti["c"] = (ti["."] .. {"st_chess_black"}) .. {"it_cross"}
 ti["D"] = ti[" "] .. {"st-door_a", name="door#"}
 ti["T"] = ti["."] .. {"it_trigger", name="trigger#", target="open_door"}
 ti["B"] = ti["."] .. {"#ac-blackball", controllers=0, player=1, name="second_marble"}

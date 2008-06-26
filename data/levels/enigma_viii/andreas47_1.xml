@@ -1,0 +1,176 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no" ?>
+<el:level xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://enigma-game.org/schema/level/1 level.xsd" xmlns:el="http://enigma-game.org/schema/level/1">
+  <el:protected>
+    <el:info el:type="level">
+      <el:identity el:title="The Show Jumper" el:subtitle="" el:id="andreas47"/>
+      <el:version el:score="1" el:release="1" el:revision="2" el:status="released"/>
+      <el:author el:name="Andreas Lochmann" el:email="" el:homepage=""/>
+      <el:copyright>Copyright © 2008 Andreas Lochmann</el:copyright>
+      <el:license el:type="GPL v2.0 or above" el:open="true"/>
+      <el:compatibility el:enigma="1.10">
+        <el:dependency el:path="lib/libluatools" el:id="lib/libluatools" el:release="1" el:preload="true"/>
+      </el:compatibility>
+      <el:modes el:easy="true" el:single="true" el:network="false"/>
+      <el:score el:easy="1:06" el:difficult="3:56"/>
+    </el:info>
+    <el:luamain><![CDATA[
+-- Difficult mode solvable in 36 pushes,
+-- easy in 16 (using dark-green tiles as shortcut).
+
+wo["ConserveLevel"] = false
+wo["ShowMoves"] = true
+
+ti[" "] = {"fl-leavesb"}
+ti["_"] = ti[" "]
+ti["&"] = {"fl-leaves"}
+ti["+"] = ti["&"] --.. {"st-yellow"}
+ti["*"] = ti["&"]
+
+ti["%"] = ti["+"]
+
+ti["."] = ti["_"] --.. {"st-grate1"}
+ti["@"] = ti["+"] .. {"#ac-whiteball-small", player = 0}
+ti["1"] = ti[" "] .. {"st_window_sw", secure = true}
+ti["2"] = ti[" "] .. {"st_window_s", secure = true}
+ti["3"] = ti[" "] .. {"st_window_es", secure = true}
+ti["4"] = ti[" "] .. {"st_window_w", secure = true}
+ti["5"] = ti[" "] .. {"st_window_nesw", secure = true}
+ti["6"] = ti[" "] .. {"st_window_e", secure = true}
+ti["7"] = ti[" "] .. {"st_window_nw", secure = true}
+ti["8"] = ti[" "] .. {"st_window_n", secure = true}
+ti["9"] = ti[" "] .. {"st_window_ne", secure = true}
+
+ti["t"] = ti[" "] .. {"it_trigger", target = "mydoor"}
+ti["d"] = ti[" "] .. {"st-door_a", "mydoor"}
+ti["c"] = ti["%"] .. {"st_chess_white"}
+ti["o"] = ti[" "] .. {"st_oxyd", flavor = "b", oxydcolor = 2}
+
+if wo["IsDifficult"] then
+  width, height = wo(ti, " ", {
+   -- 01234567890123456789
+     "788888888888888889o5",
+     "432%.+81%.+84%.+8.do",
+     "44.+8%..+.%..+8%.8+9",
+     "4@c...+%...+%.4.+%.6",
+     "4...*6..2*..6.*62.36",
+     "4%+.2.%+..8%+...%+66",
+     "144%.+..%.+6.%8+..%6",
+     "44.+8%..+2%..+.%..+6",
+     "4+%.6.+%.6.+%.4.+%66",
+     "4...*2..2*....*8..36",
+     "4%+...%+...%+..4%+.6",
+     "41.%8+..%.+..%8+..t6",
+     "12222222222232222223"
+  })
+else
+  width, height = wo(ti, " ", {
+   -- 01234567890123456789
+     "788888888888888889o5",
+     "4..%.+..%.+..%.+..do",
+     "4..+.%..+.%..+.%..+9",
+     "4@c...+%...+%...+%.6",
+     "4...*....*....*....6",
+     "4%+...%+...%+...%+.6",
+     "4..%.+..%.+..%.+..%6",
+     "4..+.%..+.%..+.%..+6",
+     "4+%...+%...+%...+%.6",
+     "4...*....*....*....6",
+     "4%+...%+...%+...%+.6",
+     "4..%.+..%.+..%.+..t6",
+     "12222222222222222223"
+  })
+end
+
+-- The available positions for the chess stone can be
+-- understood as two standard lattices (marked with "%"
+-- and "+" above), glued together at six common points
+-- ("*"). The two tables below defines where the chess
+-- stone can be pushed to within these lattices.
+-- Some "impossible" ways are included to ensure that
+-- no window stones are set on chess-stone-places.
+-- Elements marked with "0+" correspond to the central
+-- gluing points ("*"). They have to coincide in both
+-- tables.
+
+local n, e, s, w = 1, 2, 4, 8
+
+floor_plus = {
+  {-1,      s+e+w,   w+s,   w+n,   -1,      -1,      -1,    -1,    -1   },
+  {-1,      n+e,   0+w,     s+e+w, s+w,     w+s+n,   -1,    -1,    -1   },
+  {s+e+w,   w+s,     w+n,   w+e, 0+e,       n+w,     w+s,   w+n,   -1   },
+  {n+e,   0+s+w,     s+w,   s+w,   s+w+n,   e+s,   0+w+s,   w+e+n, s+n+e},
+  {-1,      e+n,     e+n, 0+s+e,   w+n,     s,       n+e,   w+n+e, -1   },
+  {-1,      -1,      -1,    n,     e+w,   0+w+s,     w+e,   w+n+s, -1   },
+  {-1,      -1,      -1,    -1,    -1,      n+e,     w+n+e, -1,     -1   }
+}
+
+floor_percent = {
+  {-1,      -1,      -1,      -1,      -1,      -1,    n,     -1,    -1},
+  {-1,      -1,      -1,      -1,      s+e+n,   e+s,   s+n+e, -1,    -1},
+  {-1,      -1,      e+n,     s,       n+w+e, 0+w+s,   w+s+e, w+s+n, -1},
+  {e+s+n,   e+s,     e+n,   0+e,       w+n,     w+n,   s,     w+s+e, -1},
+--{e+s+n,   e+s,     e+n,   0+e,       w,       w+n,   s,     w+s+e, -1},
+  {n+e,   0+w,       w,       n+e,     e+s,     w+e, 0+s+w,   w+e,   n},
+  {n+w,     n+w+e,   e+n+s,   n+e+s, 0+s+e,     w,     w+n,   -1,    -1},
+  {-1,      n+e,   0+s+w,     w,       w+n,     -1,    -1,    -1,    -1},
+  {-1,      n+e+w,   w+n,     -1,      -1,      -1,    -1,    -1,    -1}
+}
+
+function add_glass(rx, ry, dir)
+  local stn = wo:st({rx,ry})
+  if stn:is("st_oxyd") then
+    return
+  end
+  if stn:exists() then
+    if stn:is("st_window") then
+      stn.faces = stn.faces..dir
+    else
+      wo[{rx,ry}] = {"st_window_"..dir, secure = true}
+    end
+  else
+    wo[{rx,ry}] = {"st_window_"..dir, secure = true}
+  end
+end
+
+function add_dirs(rx, ry, dirs)
+  if not(dirs[1] == 1) then  -- n
+    add_glass(rx, ry + 1, "n")
+  end
+  if not(dirs[2] == 1) then  -- e
+    add_glass(rx - 1, ry, "e")
+  end
+  if not(dirs[3] == 1) then  -- s
+    add_glass(rx, ry - 1, "s")
+  end
+  if not(dirs[4] == 1) then  -- w
+    add_glass(rx + 1, ry, "w")
+  end
+end
+
+for y, line in pairs(floor_plus) do
+  for x, ways in pairs(line) do
+    if ways >= 0 then
+      local dirs = luatools.digits(ways, 2)
+      local rx, ry = 2*x+y-4, 2*y-x+3
+      add_dirs(rx, ry, dirs)
+    end
+  end
+end
+
+for y, line in pairs(floor_percent) do
+  for x, ways in pairs(line) do
+    if ways >= 0 then
+      local dirs = luatools.digits(ways, 2)
+      local rx, ry = 2*x-y+5, 2*y+x-8
+      add_dirs(rx, ry, dirs)
+    end
+  end
+end
+    ]]></el:luamain>
+    <el:i18n>
+      <el:string el:key="title">
+        <el:english el:translate="false"/>
+      </el:string>
+    </el:i18n>
+  </el:protected>
+</el:level>

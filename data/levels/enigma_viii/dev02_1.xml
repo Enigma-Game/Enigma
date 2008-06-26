@@ -1,0 +1,370 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no" ?>
+<el:level xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://enigma-game.org/schema/level/1 level.xsd" xmlns:el="http://enigma-game.org/schema/level/1">
+  <el:protected>
+    <el:info el:type="level">
+      <el:identity el:title="Status code 302" el:subtitle="RFC 2068, 10.3.3" el:id="dev02"/>
+      <el:version el:score="1" el:release="1" el:revision="4" el:status="released"/>
+      <el:author  el:name="/dev/null" el:email="" el:homepage=""/>
+      <el:copyright>Copyright © 2008 dev0</el:copyright>
+      <el:license el:type="GPL v2.0 or above" el:open="true"/>
+      <el:compatibility el:enigma="1.01"/>
+      <el:modes el:easy="true" el:single="true" el:network="false"/>
+      <el:score el:easy="-" el:difficult="-"/>
+    </el:info>
+    <el:luamain><![CDATA[
+statS = {}
+for i = 0, 14 do
+	statS[i] = 1
+end
+
+if difficult then
+	add2x = 52
+else
+	add2x = 0
+end
+
+function putsXY(y,s)
+  for x = 0, strlen(s) do
+    local c = strsub(s,x+1,x+1)
+    if (c == "#")     then set_stone("st-rock1",x,y)
+    elseif (c == "o") then oxyd(x,y)
+    -- standard tiles
+    elseif (c == ".") then set_stone("st-disco-dark",x,y)
+    elseif (c == ":") then set_floor("fl-tigris",x,y)
+    elseif (c == "*") then set_stone("st-rock1_move",x,y)
+    elseif (c == "=") then set_stone("st-rock1_hole",x,y)
+    elseif (c == "O") then set_stone("st-likeoxydc",x,y)
+    elseif (c == "a") then set_floor("fl-abyss",x,y)
+    elseif (c == "b") then set_stone("st-wood1",x,y)
+    elseif (c == "e") then set_stone("st-glass_move",x,y)
+    elseif (c == "f") then set_stone("st-glass",x,y)
+    elseif (c == "g") then set_stone("st-grate1",x,y)
+    elseif (c == "h") then set_floor("fl-inverse2",x,y)
+    elseif (c == "i") then set_stone("st-laser",x,y,{name = "laserN", dir = SOUTH, on = TRUE})
+    elseif (c == "j") then set_stone("st-laser",x,y,{name = "laserS", dir = NORTH, on = TRUE})
+    elseif (c == "k") then set_item("it-coin1",x,y)
+    elseif (c == "l") then set_stone("st-door",x,y,{name = "door00", type = "v"})
+    elseif (c == "m") then set_stone("st-door",x,y,{name = "door02a", type = "v"})
+    elseif (c == "n") then set_stone("st-door",x,y,{name = "door02b", type = "v"})
+    elseif (c == "p") then set_stone("st-lightpassenger",x,y)
+                           set_item("it-seed",x,y)
+    elseif (c == "r") then set_stone("st-rock5",x,y)
+    elseif (c == "s") then set_stone("st-swap",x,y)
+    elseif (c == "u") then set_stone("st-rock1_hole",x,y)
+                           if difficult then set_floor("fl-acwhite",x,y)
+                           end
+    elseif (c == "v") then set_stone("st-break_invisible",x,y)
+    elseif (c == "w") then set_floor("fl-abyss_fake",x,y)
+    elseif (c == "x") then set_stone("st-white4",x,y)
+    elseif (c == "z") then set_floor("fl-abyss",x,y)
+                           set_stone("st-grate1",x,y)
+    elseif (c == "<") then set_stone("st-door",x,y,{name = "door01a", type = "h"})
+    elseif (c == ">") then set_stone("st-door",x,y,{name = "door01b", type = "h"})
+    elseif (c == "G") then if difficult then set_stone("st-grate2",x,y)
+                                             set_floor("fl-acblack",x,y)
+                           else set_stone("st-grate1",x,y)
+                                set_floor("fl-black",x,y) 
+                           end
+    elseif (c == "M" and difficult) then set_item("it-coin1",x,y)
+    elseif (c == "K" and difficult) then set_stone("st-knight",x,y)
+                                         set_floor("fl-acwhite",x,y)
+    elseif (c == "X" and difficult) then set_stone("st-black4",x,y)
+    elseif (c == "Y") then if difficult then set_stone("st-yinyang2",x,y)
+                           else set_stone("st-switch_white",x,y,{name = "switch01", action = "callback", target = "toggleSwitch01"})
+                           end
+    -- triggers, switches, sensors 
+    elseif (c == "N") then set_stone("st-switch_white",x,y,{name = "switch07", action = "onoff", target = "laserN"})
+    elseif (c == "S") then set_stone("st-switch_black",x,y,{name = "switch08", action = "onoff", target = "laserS"})
+    elseif (c == "0") then set_floor("fl-acblack",x,y)
+                           set_item("it-sensor",x,y,{name = "sensor00", action = "callback", target = "toggleSensor00"})
+    elseif (c == "1") then set_item("it-sensor",x,y,{name = "sensor01", action = "callback", target = "openDoor00"})
+    elseif (c == "2") then set_stone("st-rock1",x,y)
+                           set_stone("st-floppy",x + add2x,y,{action ="callback", target = "openDoor01a"})
+    elseif (c == "3") then set_stone("st-rock1",x,y)
+                           set_stone("st-floppy",x + add2x,y,{action ="callback", target = "openDoor01b"})
+    elseif (c == "4") then set_item("it-trigger",x,y,{name = "trigger04", action = "callback", target = "toggleTrigger04"})
+    elseif (c == "5") then set_item("it-trigger",x,y,{name = "trigger05", action = "callback", target = "toggleTrigger05"})
+    elseif (c == "6") then set_stone("st-switch_black",x,y,{name = "switch06", action = "callback", target = "toggleSwitch06"})
+    elseif (c == "7") then set_item("it-trigger",x,y,{name = "trigger07", action = "callback", target = "toggleTrigger07"})
+    elseif (c == "9") then set_stone("st-switch_white",x,y,{name = "switch09", action = "callback", target = "toggleSwitch09"})
+    elseif (c == "A") then set_item("it-trigger",x,y,{name = "triggerA", action = "callback", target = "toggleTriggerA"})
+    elseif (c == "B") then set_item("it-trigger",x,y,{name = "triggerB", action = "callback", target = "toggleTriggerB"})
+    elseif (c == "C") then set_item("it-trigger",x,y,{name = "triggerC", action = "callback", target = "toggleTriggerC"})
+    elseif (c == "D") then set_item("it-trigger",x,y,{name = "triggerD", action = "callback", target = "toggleTriggerD"})
+    -- misc
+    end
+  end
+end
+
+function toggleDisco()
+  if (statS[10] == 1) then   -- turn off start screen
+    for i = 0, 19 do
+      for j = 0, 12 do
+        enigma.KillStone(i,j)
+      end
+    end
+    putsXY(00,"                  ")
+    putsXY(01,"                  ")
+    putsXY(02,"                  ")
+    putsXY(03,"                  ")
+    putsXY(04,"  :::             ")
+    putsXY(05,"  :   :: :: ::: ::")
+    putsXY(06,"  ::  :  :  : : : ")
+    putsXY(07,"  :   :  :  : : : ")
+    putsXY(08,"  ::: :  :  ::: : ")
+    putsXY(09,"                  ")
+    putsXY(10,"  oooooooooooooooo")
+    putsXY(11,"                  ")
+    putsXY(12,"                  ")
+    oxyd_shuffle()
+  end
+  statS[10] = statS[10] - 1
+  
+end
+
+function createWormHole4Black()
+  set_item("it-wormhole",9,5,{targetx = 25.5, targety = 6.5, strength = "1", range = "1"})
+end
+
+function openDoors()
+  if (statS[2] == 0 and statS[3] == 0) then
+    SendMessage("door01a","open","1")
+    SendMessage("door01b","open","1")
+  else
+    SendMessage("door01a","close","0")
+    SendMessage("door01b","close","0")
+  end
+end
+
+function toggleSensor00()
+  if difficult then createWormHole4Black()
+  end
+  set_stone("st-grate3",28,6)
+  set_floor("fl-abyss",55,6)
+  statS[0] = 0;
+end
+
+function toggleSwitch01()
+  if (statS[1] == 1) then
+    createWormHole4Black()
+  end
+  statS[1] = 0
+end
+
+function openDoor00()
+  if (statS[0] == 0 and difficult) or (statS[1] == 0) then
+    enigma.KillItem(9,5)
+    SendMessage("door00", "open", "1")
+    document(39,6,"text1")
+  end
+end
+
+function openDoor01a()
+  if (statS[2] == 1) then statS[2] = 0
+  else statS[2] = 1 
+  end
+  openDoors()
+end
+
+function openDoor01b()
+  if (statS[3] == 1) then statS[3] = 0
+  else statS[3] = 1 
+  end
+  openDoors()
+end
+
+function toggleTrigger04()
+  if (statS[4] == 1) then
+    SendMessage("door02b", "open", "1")
+    statS[4] = 0
+  elseif (statS[4] == 0) then
+    SendMessage("door02b", "close", "0")
+    statS[4] = 1
+  end
+end
+
+function toggleTrigger05()
+  if (statS[5] == 1) then
+    SendMessage("door02a", "open", "1")
+    statS[5] = 0
+  elseif (statS[5] == 0) then
+    SendMessage("door02a", "close", "0")
+    statS[5] = 1
+  end
+end
+
+function toggleSwitch06()
+  if (statS[6] == 1) then
+    enigma.KillStone(28,6)
+    statS[6] = 1
+  end
+end
+
+function toggleTrigger07()
+  if (statS[7] == 0) then
+    set_stone("st-grate1",62,2)
+    set_stone("st-grate1",62,10)
+    statS[7] = 1
+  elseif (statS[7] == 1) then
+    enigma.KillStone(62,2)
+    enigma.KillStone(62,10)
+    statS[7] = 0
+  end
+end
+
+function toggleSwitch09()
+  if (statS[9] == 1 and statS[0] == 0) then
+    if difficult then
+      enigma.KillStone(38,6)
+      enigma.KillStone(58,6)
+      set_stone("st-switch_black",38,6,{name = "switch10", action = "callback", target = "toggleDisco"})
+    else
+      toggleDisco()
+      statS[4] = 1
+      statS[5] = 1
+      toggleTrigger04()
+      toggleTrigger05()
+    end
+    enigma.KillItem(27,6)
+    set_floor("fl-black",55,6)
+  end
+  statS[9] = statS[9] - 1
+end
+
+function removeTriggerAC()
+  local getObjA = enigma.GetStone(64,2)
+  local getObjC = enigma.GetStone(64,10)
+  
+  if (getObjA ~= nil and getObjC ~= nil) then
+    if (enigma.GetKind(getObjA) == "st-rock1_move" and enigma.GetKind(getObjC) == "st-rock1_move") then
+      enigma.KillStone(64,2)
+      enigma.KillStone(64,10)
+      enigma.KillItem(64,2)
+      enigma.KillItem(64,10)
+      set_item("it-seed",64,2,{name = "seedA"})
+      set_item("it-seed",64,10,{name = "seedC"})
+      SendMessage("seedA","grow","nil")
+      SendMessage("seedC","grow","nil")
+    end
+  end
+end
+
+function removeTriggerBD()
+  local getObjB = enigma.GetStone(64,3)
+  local getObjD = enigma.GetStone(64,9)
+
+  if (getObjB ~= nil and getObjD ~= nil) then
+    if (enigma.GetKind(getObjB) == "st-rock1_move" and enigma.GetKind(getObjD) == "st-rock1_move") then
+      enigma.KillStone(64,3)
+      enigma.KillStone(64,9)
+      enigma.KillItem(64,3)
+      enigma.KillItem(64,9)
+      set_item("it-seed",64,3,{name = "seedB"})
+      set_item("it-seed",64,9,{name = "seedD"})
+      SendMessage("seedB","grow","nil")
+      SendMessage("seedD","grow","nil")
+    end
+  end
+end
+
+function toggleTriggerA()
+  if (statS[11] == 1) then
+    if (statS[13] == 0) then
+      removeTriggerAC()
+    end
+    statS[11] = 0
+  elseif (statS[11] == 0) then
+    statS[11] = 1  
+  end
+end
+
+function toggleTriggerB()
+  if (statS[12] == 1) then
+    if (statS[14] == 0) then
+      removeTriggerBD()
+    end
+    statS[12] = 0
+  elseif (statS[12] == 0) then
+    statS[12] = 1
+  end
+end
+
+function toggleTriggerC()
+  if (statS[13] == 1) then
+    if (statS[11] == 0) then
+      removeTriggerAC()
+    end
+    statS[13] = 0
+  elseif (statS[13] == 0) then
+    statS[13] = 1  
+  end
+end
+
+function toggleTriggerD()
+  if (statS[14] == 1) then
+    if (statS[12] == 0) then
+      removeTriggerBD()
+    end
+    statS[14] = 0
+  elseif (statS[14] == 0) then
+    statS[14] = 1
+  end
+end
+
+cols = 77
+rows = 13
+CreateWorld(cols,rows)
+fill_floor("fl-black",0,0,cols,rows)
+
+--         0         1         2         3         4         5         6         7         8
+--         012345678901234567890123456789012345678901234567890123456789012345678901234567890
+putsXY(00,"....................#########################################################")
+putsXY(01,"....................# abm   * 6#if   f        *fff       * a7 f  a         4#")
+putsXY(02,"....................#bab# * * a#N* s*ffffff f       fffff* a  g Aaaaaaaaafff#")
+putsXY(03,"....................#aba# * * a#g    *    f ffffffff*    * a  f Baaba  baaaa#")
+putsXY(04,"..rrr...............#aba# *   a#z   fffff f           fff#    f  a aabaabbbb#")
+putsXY(05,"..r...rr.rr.rrr.rr..###<2 ######z fgfaaafxfffffffffffff  #f ggffff ff     fa ")
+putsXY(06,"..rr..r..r..r.r.r...l1KK#XY0hhhGp**  a9af               k**    ***  baaaaaa #")
+putsXY(07,"..r...r..r..r.r.r...###>3 ######z fgfaaafxfffffffffffff  #f ggffff ff     fa ")
+putsXY(08,"..rrr.r..r..rrr.r...#aba# uv  w#z   fffff f           fff#    f  a aabaabbbb#")
+putsXY(09,"....................#baa#vuvuvw#g    *    f ffffffff     * a  f Daaba  baaaa#")
+putsXY(10,"..rrrrrrrrrrrrrrrr..#abb#vuvuvw#N* s*ffffff f       fffff* a  g Caaaaaaaafff#")
+putsXY(11,"....................# abn   uvS#jf   f      *  fff*      * a7 f  a         5#")
+putsXY(12,"....................#########################################################")
+--         0         1         2         3         4         5         6         7         8
+--         012345678901234567890123456789012345678901234567890123456789012345678901234567890
+
+if enigma.CreatingPreview then
+  set_actor("ac-blackball",25.5,5.5,{player = 0})
+else
+  set_actor("ac-blackball",9.5,5.5,{player = 0})
+end
+
+set_actor("ac-whiteball",55.5,6.5,{player = 1})
+set_item("it-yinyang",9,5)
+set_item("it-yinyang",55,6)
+set_item("it-floppy",21,4)
+set_item("it-floppy",21,8)
+
+if not difficult then
+  set_floor("fl-black",32,8)
+  set_floor("fl-black",32,4)
+  enigma.KillStone(32,9)
+  enigma.KillStone(32,3)
+  set_stone("st-grate1",33,3)
+  set_stone("st-grate1",33,9)
+  set_stone("st-grate1",35,4)
+  set_stone("st-grate1",35,8)
+end
+
+    ]]></el:luamain>
+    <el:i18n>
+      <el:string el:key="title">
+        <el:english el:translate="false"/>
+      </el:string>
+      <el:string el:key="text1">
+        <el:english el:translate="true">Hey, you've got godlike help? Is the hell hound on your trail?</el:english>
+      </el:string> 
+    </el:i18n>
+  </el:protected>
+</el:level>

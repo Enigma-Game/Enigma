@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no" ?>
 <index xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="index.xsd">
 
-  <info enigma="1.00" group="Enigma" location="10800" network="false" owner="Enigma Team" release="1" revision="13" title="Enigma VII"/>
+  <info enigma="1.00" group="Enigma" location="10800" network="false" owner="Enigma Team" release="1" revision="14" title="Enigma VII"/>
 
   <attributes/>
 
@@ -85,7 +85,7 @@
     <level _seq="77" _title="Multiban" _xpath="./dpl01_1" author="Dominik Leipold" ctrl="force" easy="false" id="dpl01" rel="1" rev="1" score="1" target="time" unit="duration"/>
     <level _seq="78" _title="Riverside" _xpath="./johann02_2" author="Johann Freymuth" ctrl="force" easy="false" id="johann02" rel="2" rev="0" score="2" target="time" unit="duration"/>
     <level _seq="79" _title="The Lone Ranger" _xpath="./pulley04_1" author="Mark Pulley" ctrl="force" easy="false" id="pulley04" rel="1" rev="0" score="1" target="time" unit="duration"/>
-    <level _seq="80" _title="Little Shop Of Horrors" _xpath="./pulley07_1" author="Mark Pulley" ctrl="force" easy="false" id="pulley01" rel="1" rev="4" score="1" target="time" unit="duration"/>
+    <level _seq="80" _title="Little Shop Of Horrors" _xpath="./pulley07_1" author="Mark Pulley" ctrl="force" easy="false" id="pulley07" rel="1" rev="5" score="1" target="time" unit="duration"/>
     <level _seq="81" _title="Spaceship Control" _xpath="./safalra01_1" author="Safalra" ctrl="force" easy="false" id="safalra01" rel="1" rev="1" score="1" target="time" unit="duration"/>
     <level _seq="82" _title="Ball Alley" _xpath="./johann01_1" author="Johann Freymuth" ctrl="force" easy="false" id="johann01" rel="1" rev="0" score="1" target="time" unit="duration"/>
     <level _seq="83" _title="Action Potential" _xpath="./pulley02_1" author="Mark Pulley" ctrl="force" easy="true" id="pulley02" rel="1" rev="0" score="1" target="time" unit="duration"/>
@@ -94,7 +94,7 @@
     <level _seq="86" _title="Lady in Red" _xpath="./just30_1" author="Just" ctrl="force" easy="true" id="just30" rel="1" rev="3" score="1" target="time" unit="duration"/>
     <level _seq="87" _title="Crawling the Abyss" _xpath="./sph02_1" author="ShadowPhrogg32642342" ctrl="force" easy="true" id="sph02" rel="1" rev="5" score="1" target="time" unit="duration"/>
     <level _seq="88" _title="Bold Boulder" _xpath="./ral14_1" author="Ronald Lamprecht" ctrl="force" easy="true" id="20061124ral279" rel="1" rev="96" score="1" target="time" unit="duration"/>
-    <level _seq="89" _title="Tinker, Tailor" _xpath="./andreas46_3" author="Andreas Lochmann" ctrl="force" easy="true" id="andreas46" rel="4" rev="2" score="2" target="time" unit="duration"/>
+    <level _seq="89" _title="Tinker, Tailor" _xpath="./andreas46_3" author="Andreas Lochmann" ctrl="force" easy="true" id="andreas46" rel="4" rev="3" score="2" target="time" unit="duration"/>
     <level _seq="90" _title="Elbow Society" _xpath="./andreas45_2" author="Andreas Lochmann" ctrl="force" easy="true" id="andreas45" rel="2" rev="5" score="2" target="time" unit="duration"/>
     <level _seq="91" _title="Watchmaker" _xpath="./huesing01_1" author="Johannes Hüsing" ctrl="force" easy="false" id="huesing01" rel="1" rev="1" score="1" target="time" unit="duration"/>
     <level _seq="92" _title="Map it out II" _xpath="./manuel01_1" author="Manuel Eisentraut" ctrl="force" easy="true" id="manuel01" rel="1" rev="0" score="1" target="time" unit="duration"/>

@@ -1,0 +1,102 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no" ?>
+<el:level xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://enigma-game.org/schema/level/1 level.xsd" xmlns:el="http://enigma-game.org/schema/level/1">
+  <el:protected>
+    <el:info el:type="level">
+      <el:identity el:title="Impulsive Order" el:subtitle="" el:id="raywick5"/>
+      <el:version el:score="1" el:release="1" el:revision="2" el:status="released"/>
+      <el:author  el:name="Ray Wick" el:email=""/>
+      <el:copyright>Copyright © 2008 Ray Wick</el:copyright>
+      <el:license el:type="GPL v2.0 or above" el:open="true"/>
+      <el:compatibility el:enigma="1.10">
+      </el:compatibility>
+      <el:modes el:easy="true" el:single="true" el:network="false"/>
+      <el:comments>
+      </el:comments>
+      <el:score el:easy="-" el:difficult="-"/>
+    </el:info>
+    <el:luamain><![CDATA[
+wo["ConserveLevel"] = true
+
+ti["*"] = {"#ac-blackball"}
+ti["@"] = {"st_oxyd"}
+ti["~"] = {"fl-water"}
+ti["."] = {"fl-swamp"}
+ti[" "] = {"fl-marble"}
+ti["K"] = {"fl-abyss"}
+ti["#"] = {"st-marble"}
+ti["g"] = {"st-glass"}
+ti["G"] = {"st-grate2"}
+ti["+"] = {"st-wood"}
+ti["v"] = {"st-oneway-s"}
+ti[">"] = {"st-oneway-e"}
+ti["<"] = {"st-oneway-w"}
+ti["1"] = {"st-door-v", name="door1"}
+ti["2"] = {"st-stoneimpulse", name="inner#"}
+ti["4"] = {"st-stoneimpulse"}
+ti["5"] = {"st-stoneimpulse", name="outer#"}
+ti["L"] = {"st_laser_s", name="laser1"}
+ti["M"] = {"st_mirror", transparent=true, orientation=0}
+ti["Z"] = {"st-shogun-sml"}
+ti["x"] = {"it-blackbomb"}
+ti["s"] = ti["G"] .. {"it-spring1"}
+ti["z"] = {"it-shogun-l", action="open", target="door1"}
+ti["B"] = {"it_trigger", action_1="signal", action_0="nop", target="outer#*"}
+ti["C"] = {"it_trigger", action_1="signal", action_0="nop", target="inner#*"}
+ti["E"] = {"it_trigger", action="toggle", target="laser1"}
+if wo["IsDifficult"] then
+  ti["!"] = ti[" "]
+  ti[";"] = ti["."]
+else
+  ti["!"] = {"it_extralife"}
+  ti[";"] = {"fl-marble"}
+end
+
+w, h = wo(ti, " ", {
+    "####################",
+    "@.....;;~~~~;;.....@",
+    "#~~~~.~~~~~;;~~~~~.#",
+    "#....;;;....~~.....#",
+    "# ~~~~~~ ~~~~~ ~~~~#",
+    "@                  @",
+    "ggg4g4g4g4g4g4g4g gg",
+    "Lgg+g+g+g+g+g+g+g gg",
+    "Mg x x x x x x x x~g",
+    "Mg x x x x x x x x~@",
+    "Mg x x x x x x x x~g",
+    "#gvgggggggggggggg gg",
+    "ggEgggggg42gggggg gg",
+    "g   g   44 K   GGGGg",
+    "gvgvg  44  5g  g  Gg",
+    "gCgBg 44  44g  g  Gg",
+    "gvgvg 4  44gg  g  Gg",
+    "g g g   44 gg  g  Gg",
+    "g g gz 44  gg*Z4  Gg",
+    "g > g   44 gg  g  Gg",
+    "g < g 4  44gg  g  Gg",
+    "g g g 44  44g  g  Gg",
+    "g g g  44  5g  g  Gg",
+    "gvgvg   44 K   GGGGg",
+    "gCgBggggg42ggggg ggg",
+    "gvgvgggggggggggg ggg",
+    "g                1 @",
+    "ggggggggggggggggggsg",
+    "@!   ~~~~gg~~~~    @",
+    "#    ~~~~gg~~~~    #",
+    "#    ~~~~gg~~~~    #",
+    "#~~~~~~~    ~~~~~~~#",
+    "ggggg~~~    ~~~ggggg",
+    "#~~~~~~~    ~~~~~~~#",
+    "#    ~~~~gg~~~~    #",
+    "@!   ~~~~gg~~~~   !@",
+    "#########gg#########"
+})
+
+wo:shuffleOxyd()
+  ]]></el:luamain>
+    <el:i18n>
+	 <el:string el:key="title">
+	   <el:english el:translate="false"/>
+	 </el:string>
+   </el:i18n>
+  </el:protected>
+</el:level>

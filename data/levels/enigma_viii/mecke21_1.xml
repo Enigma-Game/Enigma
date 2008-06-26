@@ -1,0 +1,433 @@
+﻿<?xml version="1.0" encoding="utf-8" standalone="no" ?>
+<el:level xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+  xsi:schemaLocation="http://enigma-game.org/schema/level/1 level.xsd"
+  xmlns:el="http://enigma-game.org/schema/level/1">
+  <el:protected >
+    <el:info el:type="level">
+      <el:identity el:title="Red Cave" el:subtitle="In Red Light" el:id="mecke21"/>
+      <el:version el:score="1" el:release="1" el:revision="$Revision: 30 $" el:status="released"/>
+      <el:author  el:name="mecke" el:email="" el:homepage=""/>
+      <el:copyright>Copyright © 2008 Thomas Bernhardt</el:copyright>
+      <el:license el:type="GPL v2.0 or above" el:open="true"/>
+      <el:compatibility el:enigma="0.92">
+        <el:dependency el:path="lib/ant" el:id="lib/ant" el:release="1" el:preload="true"/>
+      </el:compatibility>
+      <el:modes el:easy="true" el:single="true" el:network="false" el:control="force" el:scoreunit="duration" el:scoretarget="time"/>
+      <el:comments>
+        <el:credits el:showinfo="true" el:showstart="false">Thanks to Ronald Lamprecht and Clifford J.Tasner for testing and important ideas"
+	</el:credits> 
+      </el:comments>
+      <el:score el:easy="23:10" el:difficult="29:12"/>
+    </el:info>
+    <el:luamain><![CDATA[
+function file_oxyd(x,y,f)
+ oxyd_default_flavor=f
+ oxyd(x,y)
+end
+levelh=37
+levelw=77
+enigma.FlatForce=30
+enigma.SlopeForce=30
+enigma.ElectricForce=30
+cells={}
+items={}
+actors={}
+stones={}
+actors[" "]=cell{}
+stones[" "]=cell{}
+cells[" "]=cell{}
+items[" "]=cell{}
+
+if (not difficult) then
+  cells["!"]=cell{floor={"fl-red",{friction=3.6}}}
+else
+  cells["!"]=cell{floor="fl-red"}
+end
+
+stones["!"]=cell{stone="st-bumps"}
+cells["#"]=cell{floor="fl-normal"}
+stones["#"]=cell{stone="st-oneway_black-s"}
+stones["$"]=cell{stone="st-grate1"}
+stones["%"]=cell{stone="st-oneway_black-n"}
+stones["&"]=cell{stone="st-camouflage"}
+items["!"]=cell{item="it-springboard"}
+stones["'"]=cell{stone="st-bolder-w"}
+cells["$"]=cell{floor="fl-space"}
+stones["("]=cell{stone="st-death"}
+stones[")"]=cell{parent={{file_oxyd,"d"}}}
+stones["*"]=cell{stone="st-laser-s"}
+stones["+"]=cell{stone="st-glass"}
+cells["%"]=cell{floor="fl-abyss"}
+cells["&"]=cell{floor="fl-water"}
+items["#"]=cell{item="it-cherry"}
+items["$"]=cell{item="it-hstrip"}
+stones[","]=cell{stone="st-glass_move"}
+cells["'"]=cell{floor="fl-bluegray"}
+stones["-"]=cell{stone="st-knight"}
+stones["."]=cell{stone="st-bolder-e"}
+cells["("]=cell{floor="fl-bluegreenx"}
+stones["/"]=cell{stone="st-door-v"}
+stones["0"]=cell{stone="st-black3"}
+function ac_rotor(x,y)
+n=""
+r=0
+f=0
+ init=false
+ if (x==17) and (y==2) then
+  n="ac17x2"
+  r=10
+  f=10
+  init=TRUE
+ end
+ if (x==17) and (y==34) then
+  n="ac17x34"
+  r=10
+  f=10
+  init=TRUE
+ end
+ if (x==62) and (y==18) then
+  n="ac62x18"
+  r=10
+  f=10
+  init=FALSE
+ end
+ if (x==68) and (y==18) then
+  n="ac68x18"
+  r=5
+  f=5
+  init=TRUE
+ end
+ if (x==75) and (y==18) then
+  n="ac75x18"
+  r=8
+  f=8
+  init=TRUE
+ end
+set_actor("ac-rotor",x+0.5,y+0.5,{range=r,force=f,name=n,gohome=init})
+end
+actors["!"]=cell{parent={{ac_rotor}}}
+stones["1"]=cell{stone="st-floppy"}
+cells[")"]=cell{floor="fl-acwhite"}
+stones["2"]=cell{stone="st-actorimpulse"}
+stones["3"]=cell{stone="st-break_invisible"}
+items["%"]=cell{item="it-magicwand"}
+stones["4"]=cell{stone="st-yinyang1"}
+stones["5"]=cell{stone="st-white3"}
+items["&"]=cell{item="it-shogun-s"}
+items["'"]=cell{item="it-shogun-m"}
+items["("]=cell{item="it-vstrip"}
+stones["6"]=cell{stone="st-key_c"}
+items[")"]=cell{item="it-spring2"}
+items["*"]=cell{item="it-shogun-l"}
+cells["*"]=cell{floor="fl-swamp"}
+items["+"]=cell{item="it-floppy"}
+--items[","]=cell{item="it-umbrella"}
+items["-"]=cell{item="it-wormhole"}
+stones["7"]=cell{stone="st-rotator-right"}
+items["."]=cell{item="it-trigger"}
+stones["8"]=cell{stone="st-rotator-left"}
+stones["9"]=cell{stone="st-death_invisible"}
+items["/"]=cell{item="it-coin1"}
+stones[":"]=cell{stone="st-stone_break"}
+stones[";"]=cell{stone="st-likeoxydd"}
+stones["<"]=cell{stone="st-key_a"}
+stones["="]=cell{stone="st-bluegray_hole"}
+items["u"]=cell{item="it-death"}
+function ac_blackball(x,y)
+n=""
+p=0
+f=0
+ if (x==48) and (y==18) then
+  n="ac48x18"
+  p=0
+  mf=1
+ end
+set_actor("ac-blackball",x+0.5,y+0.5,{player=p,name=n,mouseforce=mf})
+end
+actors["#"]=cell{parent={{ac_blackball}}}
+function ac_horse(x,y)
+n=""
+t1=""
+t2=""
+t3=""
+t4=""
+f=0
+ if (x==48) and (y==30) then
+  n="ac48x30"
+  
+  f=0
+ end
+set_actor("ac-horse",x+0.5,y+0.5,{force=f,name=n})
+end
+actors["$"]=cell{parent={{ac_horse}}}
+items["0"]=cell{item="it-brush"}
+stones[">"]=cell{stone="st-stoneimpulse-hollow"}
+stones["?"]=cell{stone="st-stoneimpulse"}
+stones["@"]=cell{stone="st-fart"}
+stones["A"]=cell{stone="st-break_bolder"}
+items["1"]=cell{item="it-key_b"}
+items["2"]=cell{item="it-key_c"}
+stones["B"]=cell{stone="st-key_b"}
+items["3"]=cell{item="it-key_a"}
+items["4"]=cell{item="it-glasses"}
+items["5"]=cell{item="it-extralife"}
+stones["C"]=cell{stone="st-oneway_black-w"}
+function ac_top(x,y)
+n=""
+r=0
+f=0
+ init=false
+ if (x==73) and (y==30) then
+  n="ac73x30"
+  r=3
+  f=2
+  init=FALSE
+ end
+ if (x==74) and (y==30) then
+  n="ac74x30"
+  r=2
+  f=2
+  init=TRUE
+ end
+ if (x==75) and (y==30) then
+  n="ac75x30"
+  r=2
+  f=2
+  init=TRUE
+ end
+set_actor("ac-top",x+0.5,y+0.5,{range=r,force=f,name=n,gohome=init})
+end
+actors["%"]=cell{parent={{ac_top}}}
+items["6"]=cell{item="it-spoon"}
+items["7"]=cell{item="it-crack3"}
+level={"!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!",
+       "!!!!!!!!!!!!!!!!!(!!!!!!!!!!!&!!!!!!!!!!*!*!*!!!*!!!*!*!!!*!*!!*!!!!%!%!%!!!!",
+       "!!!!$$$$$$$$$!!!(!(!!!!!!!!!&!&!!!!!!!!*!*!*!*!*!*!*!*!*****!**!!!!!*%!!!!!!!",
+       "!!!!!!!!!!!!!!!!!(!!!!!!!!!!!&!!!!!!!!!!*!*!*!!!*!!!*!*!!!*!*!!*!!!*!!%!%!!!!",
+       "!!!!!!!%%!!!!!!!!(!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!*!*!!!!%%!!!!",
+       "!!!!!!!!!!!!!!!!((((!!!!!!!%%%%%!!!!!!!!!!!!%!!!!!!!%!!!!!!!!!!!!*!!!!!!%!!!!",
+       "!!!!!!!!!!!!!!!!!(!!!!!!!!!%%%%%!!!!!!!!!!!%!!!!%!!!!%!!!!!!!!!!!!!!!!!!%!!!!",
+       "!!!!%%!!!!!!!!!!!(!!!!!!!!!%%!%%!!!!!!!!!!%!!!!%!%!!!!%!!!!!!!!!!!!!!!!!'!!!!",
+       "!!!!!!!!!!!!!!!!!(!!!!!!!!!!!!!!!!!!!!!!!%!!!!!!%!!!!!!%!!!!!!!!!!!!!!!!%!!!!",
+       "!!!!!!!!!!%!!!%!(!(!!!!!!!!%%%%%!!!!!!!!%!!!!!!!!!!!!!!!%!!!!!!!!!!!!!!!%!!!!",
+       "!!!!!!!!!!!!!!!!!(!!!!!!!!!!!!!!!!!!!!!!%!!!!!!!!!!!!!!!%!!!!!!!!!!!!!!!%!!!!",
+       "!!%!!!!%!!!!!!!!!(!!!!!!!!!!!(!!!!!!!!!!!%!!!!!!!!!!!!!%!!!!!!!!!!!!!!!!%!!!!",
+       "!!!!!!!!!!!!!!!!!(!)!!!!!!!!!(!!!!!!!!)!!!%!!!!!!!!!!!%!!)!!!!!!!!!!!!!!!!!!!",
+       "!!!!!!!!!!!!%!!!!(!!!!!&!!!!!(!!!!!&!!!!!!!%!!!!!!!!!%!!!!!!!!!!!!!!!!!!!!!!!",
+       "!!!!!!!!!!!!!!!!(!(!!!!!&!!!!(!!!!&!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!",
+       "!!!!!!!%%!!!!!!!!(!!!!!!!&!!!(!!!&!!!!!&&&&&&&'''''&&&&&&!!!!!!!!!!!!!!!!!!!!",
+       "!!!!!!!!!!!!!!!!(((!!!!!!!&!!(!!&!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!",
+       "!!!!!!!!!!!!!!&!(((!!!!!!!!&&&&&!!!!!!!!!!!!!!!!'!!!!!!!!!!!!!!!!!!!!!!!!!!!!",
+       "!!!!!!!%%!!!!&!!(!(!!!!!!!!&!!!&!!!!!!!&&&&&&&&&!&&&&&&&&!!!!!!!!!!!%!!!!!!!!",
+       "!!!!!!!!!!!!!!&!(((!!!!!!!!&&&&&!!!!!!!!!!!!!!!!'!!!!!!!!!!!!!!!!!!!!!!!!!!!!",
+       "!!!!!!!!!!!!!!!!(((!!!!!!!&!!(!!&!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!",
+       "!!!!!!!%%!!!!!!!!(!!!!!!!&!!!(!!!&!!!!!&&&&&&&'''''&&&&&&!!!!!!!!!!!!!!!!!!!!",
+       "!!!!!!!!!!!!!!!!(!(!!!!!&!!!!(!!!!&!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!",
+       "!!!!!!!!!!!!!!!!!(!!!!!&!!!!!*!!!!!&!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!",
+       "!!!!!!!%%!!!!!!!!(!)!!!!!!!!!!!!!!!!!!)!!!!!!!!!!!!!!!!!!)!!!!!!!!!!!!!!!!!!!",
+       "!!!!!!!!!!!!!!!!!(!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!%!!!!!!!!!%!%!!!!!!!",
+       "!!&&&&&&&&&&&&!!!(!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!%!%!!!!%%!%!!!%%%!!!!",
+       "!!&&&&&&&&&&&&!!!(!!!!!!!!!!!!!!!!!!!!!!!%%!!!!!!!!!!!!%!!!%!!!!!%!!%%!!%!!!!",
+       "!!&&&&&&&&&&&&!!(!(!!!!!!!!!!!!!!!!!!!!!%!!%!!!!!!!!!!%!!!!!%!!%!%!%%!%%!!!!!",
+       "!!&&&&&&&&&&&&!!!(!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!$$$$$$$$$$!%%!%!!%!%!!!!",
+       "!!&&&&&&&&&&&&!!(((!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!%!!!!!%!!!%!!!%!!!%!!!!",
+       "!!&&&&&&&&&&&&!!!(!!!!!!!!!!!!!!!!!!!!!!%!!%!!!!!!!!!!!%!!!%!%!!!%%!!!%%!!!!!",
+       "!!&&&&&&&&&&&&!!!!!!!!!!!!!!!!!!!!!!!!!!!%%!!!!!!!!!!!!!%!%!!!!%!!!%%!!!%!!!!",
+       "!$$$!!!!!!!!$$$!!(!!!!!!!!!!!!!!!!!!!!!!!!!!!!&!!!&!!!!!!%!!%!!!!%!%!!%!%!!!!",
+       "!$!$''''''''$!(!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!&!!!!!&!!!!!!!!!!%!%%!!!!!!%!!!!",
+       "!$$$!!!!!!!!$$$!(!(!!!!!!!!!!!!!!!!!!!!!!!!!!!&!!!&!!!!!!!!!!!!!!!%!%!!%!!!!!",
+       "!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!"}
+   acmap={"                                                                             ",
+          "                                                                             ",
+          "                 !                                                           ",
+          "                                                                             ",
+          "                                                                             ",
+          "                                                                             ",
+          "                                                                             ",
+          "                                                                             ",
+          "                                                                             ",
+          "                                                                             ",
+          "                                                                             ",
+          "                                                                             ",
+          "                                                                             ",
+          "                                                                             ",
+          "                                                                             ",
+          "                                                                             ",
+          "                                                                             ",
+          "                                                                             ",
+          "                                                #             !     !      ! ",
+          "                                                                             ",
+          "                                                                             ",
+          "                                                                             ",
+          "                                                                             ",
+          "                                                                             ",
+          "                                                                             ",
+          "                                                                             ",
+          "                                                                             ",
+          "                                                                             ",
+          "                                                                             ",
+          "                                                                             ",
+          "                                                $                        %%% ",
+          "                                                                             ",
+          "                                                                             ",
+          "                                                                             ",
+          "                 !                                                           ",
+          "                                                                             ",
+          "                                                                             "}
+  itmap={"                                                                             ",
+         "                           ! ( !                                             ",
+         "                           !$ $!                                       5     ",
+         "                           ! ( !                                             ",
+         "                           !!!!!                                          6  ",
+         "                                                                             ",
+         "                                                                             ",
+         "                                              !   !                       7  ",
+         "                                                                             ",
+         "                          !     !        !               !                )  ",
+         "                                         !               !                   ",
+         "                             !  -    -                                       ",
+         "                             &                                               ",
+         "                            # 5                                              ",
+         "                             &                  .                            ",
+         "                                                               2             ",
+         " !     !!     !              '                                               ",
+         "  !   !  !   !                                                               ",
+         "   ! !    ! !                *                                    3          ",
+         "  !   !  !   !                                                               ",
+         " !     !!     !              +            .           .                      ",
+         "                            ' '                               1              ",
+         "                                                                             ",
+         "                           &   &                                             ",
+         "                                                                             ",
+         "                                                                             ",
+         "                                                                             ",
+         "  ############                                                               ",
+         "  $$$$$$$$$$$$                                 . .                           ",
+         "                                                .                            ",
+         "  $$$$$$$$$$$$      %                                                        ",
+         "  ############                                  .                            ",
+         "                                                                          6  ",
+         "                                                                             ",
+         "                                             u/   0u                         ",
+         "                                                                             ",
+         "                                                                             "}
+ stmap={"!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!",
+        "!#(########%%%#!   !                  !       ! : !      !   !           ---!",
+        "!$)           $!   !!        6        /   !    :!:    !      /   B       -)-!",
+        "!%(%%%%%%%%###%!   !                  !       ! : !      !   !           ---!",
+        "!              !  !                    !!!!!!!!!!!!!!!!!!!!!!!              !",
+        "! *&*&*&*&*&*&&! 0/                   !         9            -              !",
+        "!              ! 0!                    !      9 : 9          -              !",
+        "!&+& $+&+&+&+& ! 0 !                  !     9  :<:  9        A          C A !",
+        "!              ! 0 !!444444444444444444!      9 : 9          -     @        !",
+        "!&+&,&+&+&+&+& ! 0 !                   /    9       9        3    @@@     3 !",
+        "!              ! 0 ! 444444444444444444!        * 9          -   @@3@@      !",
+        "!&+&+&+$+&+&+&,! ( !                  !     9  2:2  9        -  @@@@@@@     !",
+        "!              ! ( !!!!!!!!!! !!!!!!!!!!      2: :2      !!!!!!!!!!@!!!!!@@@!",
+        "!&+& &+((&+&+&&! 0 !        , ,       !      2  :  2     !@@@@@@@@@@@@@@@@@@!",
+        "!              ! 0 !        +++        !    2       2    !@3333333333333333 !",
+        "! ( (     ( (  ! 0 !       + + +      !      2     2     !@3AAAAAAAAAAAAAA3 !",
+        "!              !   !      + + + +      !      2 = 2      !@3A333333333333A3 !",
+        "!              ! 0 !     +   2   +    !    8   ; ;   7   !@3A3AAAAAAAAAA3A3 !",
+        "!     (        /010!     +  + +  +     !7     .         8!@3A3A33333333A3A3 !",
+        "!              ! 0 !      +  2  +     !        ; ;       !@3A3AAAAAAAAAA3A3 !",
+        "!              !   !       + + +       !    7 2 = 2 8    !@3A333333333333A3 !",
+        "!              ! 0 !        +++       !  7   2     2   8 !@3AAAAAAAAAAAAAA3 !",
+        "! ( (     ( (  ! 0 !         +         !    2       2    !@3333333333333333 !",
+        "!              ! 0 !        + +       !      2     2     !@@@@@@@@@@@@@@@@@@!",
+        "!        (     ! 0 !!!!!!!!!! !!!!!!!!!!      2   2      !!!!!!!!!!!@!!!!@@@!",
+        "!$$$$$$$$$$$$$$! ( !222222222 22222222!        2 2                          !",
+        "!$            $! 0 !2      5    5 5 2  !      (   (      >                  !",
+        "!$            $! 0 !2 5555 5 22  5    !      ( ( ( (     >                  !",
+        "!#            $! 0 !2 55   5 2  5555 2 !    (       (   >?>                 !",
+        "!'''''''''''' .! 0 !2555 2   2 5 5          /       / ->> >>>               !",
+        "!$            %! 0 /3 55  2222 5 5 2 2 !    (  ( (  (   >?>                 !",
+        "!$            $!   !2 222 2    5 5 2  !      (     (     >                  !",
+        "!$            $!   !2 2 2 222 55   22  !      (   (      >                  !",
+        "!$($$$$$$$$$$$$!   !2   2   2  22222  !        ( (                          !",
+        "!() --------  $!   !2 5 555  5  2   5  !       / /       -                ) !",
+        "!$($$$$$$$$$$$$!   !2 5     555   5   !        ( (       -                  !",
+        "!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!"}
+create_world_by_map(level)
+draw_map(0,0,stmap,stones)
+draw_map(0,0,itmap,items)
+draw_map(0,0,acmap,actors)
+SetAttrib(enigma.GetStone(2,5),"on",FALSE)
+SetAttrib(enigma.GetStone(4,5),"on",FALSE)
+SetAttrib(enigma.GetStone(6,5),"on",FALSE)
+SetAttrib(enigma.GetStone(8,5),"on",FALSE)
+SetAttrib(enigma.GetStone(10,5),"on",FALSE)
+SetAttrib(enigma.GetStone(12,5),"on",FALSE)
+SetAttrib(enigma.GetStone(17,18),"on",FALSE)
+SetAttrib(enigma.GetItem(32,11),"strength",3)
+SetAttrib(enigma.GetItem(32,11),"range",3)
+SetAttrib(enigma.GetItem(37,11),"strength",2)
+SetAttrib(enigma.GetItem(37,11),"range",2)
+SetAttrib(enigma.GetItem(42,20),"invisible",FALSE)
+SetAttrib(enigma.GetItem(47,28),"invisible",FALSE)
+SetAttrib(enigma.GetStone(48,10),"on",FALSE)
+SetAttrib(enigma.GetItem(48,14),"invisible",FALSE)
+SetAttrib(enigma.GetItem(48,29),"invisible",FALSE)
+SetAttrib(enigma.GetItem(48,31),"invisible",FALSE)
+SetAttrib(enigma.GetItem(49,28),"invisible",FALSE)
+SetAttrib(enigma.GetItem(54,20),"invisible",FALSE)
+set_item("it-extralife",46,22)
+set_item("it-extralife",50,22)
+
+if (not difficult) then
+  set_item("it-extralife",8,24)
+  set_item("it-extralife",9,24)
+  set_item("it-extralife",48,22)
+  set_item("it-extralife",67,6)
+  set_item("it-extralife",48,25)
+  set_item("it-spring2",29,22)
+  set_item("it-glasses",67,10)
+  set_item("it-coin1",48,35)
+  set_stone("st-break_invisible",48,35)
+  else
+  set_floor("fl-water",72,34)
+  set_floor("fl-abyss",73,34)
+  set_floor("fl-abyss",74,33)
+  set_floor("fl-abyss",74,35)
+  set_floor("fl-abyss",75,34)
+  set_item("it-death",73,33)
+  set_item("it-hstrip",73,34)
+  set_item("it-death",73,35)
+  set_item("it-vstrip",74,33)
+  set_item("it-vstrip",74,35)
+  set_item("it-death",75,33)
+  set_item("it-hstrip",75,34)
+  set_item("it-death",75,35)
+  set_item("it-extralife",29,22)
+end
+
+Signal ("it(49 28)","st(52 29)")
+Signal ("it(47 28)","st(47 34)")
+Signal ("it(48 29)","st(49 34)")
+Signal ("it(48 31)","st(44 29)")
+Signal ("st(48 7)","st(61 2)")
+Signal ("st(65 2)","st(38 2)")
+Signal ("st(29 2)","st(18 5)")
+Signal ("st(29 2)","st(19 30)")
+Signal ("st(17 18)","st(15 18)")
+Signal ("it(32 11)","fl(48 14)")
+Signal ("st(29 2)","st(39 9)")
+Signal ("it(48 14)","st(48 10)")
+Signal ("it(54 20)","st(12 5)")
+Signal ("it(54 20)","st(8 5)")
+Signal ("it(54 20)","st(4 5)")
+Signal ("it(42 20)","st(10 5)")
+Signal ("it(42 20)","st(6 5)")
+Signal ("it(42 20)","st(2 5)")
+oxyd_shuffle()
+    ]]></el:luamain>
+      <el:i18n>
+        <el:string el:key="title">
+          <el:english el:translate="false"/>
+        </el:string>
+        <el:string el:key="subtitle">
+          <el:english el:translate="false"/>
+        </el:string>
+     </el:i18n>
+  </el:protected>
+</el:level>

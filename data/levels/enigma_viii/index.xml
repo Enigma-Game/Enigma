@@ -1,14 +1,29 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no" ?>
 <index xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="index.xsd">
 
-  <info enigma="1.00" group="Enigma" location="10900" network="false" owner="Enigma Team" release="1" revision="1" title="Enigma VIII"/>
+  <info enigma="1.00" group="Enigma" location="10900" network="false" owner="Enigma Team" release="1" revision="2" title="Enigma VIII"/>
 
   <attributes/>
 
   <levels>
-    <level _seq="1" _title="Jack-Of-All-Trades" _xpath="./mecke12_1" author="mecke" ctrl="force" easy="true" id="mecke12" rel="1" rev="31" score="1" target="time" unit="duration"/>
-    <level _seq="2" _title="Enigmaparcour" _xpath="./mecke15_1" author="mecke" ctrl="force" easy="true" id="mecke15" rel="1" rev="11" score="1" target="time" unit="duration"/>
-    <level _seq="3" _title="Rhythm of Space" _xpath="./mecke20_1" author="mecke" ctrl="force" easy="true" id="mecke20" rel="1" rev="21" score="1" target="time" unit="duration"/>
+    <level _seq="1" _title="Welcome" _xpath="./welcometopack8_1" author="Raoul Bourquin" ctrl="force" easy="true" id="welcometopack8" rel="1" rev="1" score="1" target="time" unit="duration"/>
+    <level _seq="2" _title="Jack-Of-All-Trades" _xpath="./mecke12_1" author="mecke" ctrl="force" easy="true" id="mecke12" rel="1" rev="31" score="1" target="time" unit="duration"/>
+    <level _seq="3" _title="Enigmaparcour" _xpath="./mecke15_1" author="mecke" ctrl="force" easy="true" id="mecke15" rel="1" rev="17" score="1" target="time" unit="duration"/>
+    <level _seq="4" _title="Rhythm of Space" _xpath="./mecke20_1" author="mecke" ctrl="force" easy="true" id="mecke20" rel="1" rev="21" score="1" target="time" unit="duration"/>
+    <level _seq="5" _title="The Show Jumper" _xpath="./andreas47_1" author="Andreas Lochmann" ctrl="force" easy="true" id="andreas47" rel="1" rev="2" score="1" target="time" unit="duration"/>
+    <level _seq="6" _title="The Red Room" _xpath="./joe29_1" author="Joseph Dunne" ctrl="force" easy="true" id="joe29" rel="1" rev="0" score="1" target="time" unit="duration"/>
+    <level _seq="7" _title="Enigmines" _xpath="./huffman01_1" author="Brian Huffman" ctrl="force" easy="true" id="huffman01" rel="1" rev="0" score="1" target="time" unit="duration"/>
+    <level _seq="8" _title="Red Cave" _xpath="./mecke21_1" author="mecke" ctrl="force" easy="true" id="mecke21" rel="1" rev="30" score="1" target="time" unit="duration"/>
+    <level _seq="9" _title="Status code 302" _xpath="./dev02_1" author="/dev/null" ctrl="force" easy="true" id="dev02" rel="1" rev="4" score="1" target="time" unit="duration"/>
+    <level _seq="10" _title="A Screenful of Secrets" _xpath="./mecke01_1" author="mecke" ctrl="force" easy="true" id="mecke01" rel="1" rev="20" score="1" target="time" unit="duration"/>
+    <level _seq="11" _title="Southside Life" _xpath="./mecke10_1" author="mecke" ctrl="force" easy="true" id="mecke10" rel="1" rev="18" score="1" target="time" unit="duration"/>
+    <level _seq="12" _title="Joona's Chess" _xpath="./joona02_1" author="Joona Laire" ctrl="force" easy="true" id="joona02" rel="1" rev="0" score="1" target="time" unit="duration"/>
+    <level _seq="13" _title="Helios I" _xpath="./mecke07_1" author="mecke" ctrl="force" easy="false" id="mecke48" rel="1" rev="11" score="1" target="time" unit="duration"/>
+    <level _seq="14" _title="The Green Hell" _xpath="./mecke22_1" author="mecke" ctrl="force" easy="true" id="mecke22" rel="1" rev="55" score="1" target="time" unit="duration"/>
+    <level _seq="15" _title="Tilt Board" _xpath="./ulf06_1" author="Ulf Stegemann" ctrl="force" easy="true" id="20080529ulf118" rel="1" rev="115" score="1" target="time" unit="duration"/>
+    <level _seq="16" _title="4 - 8 - 4" _xpath="./dpl03_3" author="Dominik Leipold" ctrl="force" easy="true" id="20070821dpl003" rel="3" rev="4" score="3" target="time" unit="duration"/>
+    <level _seq="17" _title="Impulsive Order" _xpath="./raywick05_1" author="Ray Wick" ctrl="force" easy="true" id="raywick5" rel="1" rev="2" score="1" target="time" unit="duration"/>
+    <level _seq="18" _title="Cross Mail" _xpath="./johann03_1" author="Johann Freymuth" ctrl="force" easy="false" id="johann03" rel="1" rev="1" score="1" target="time" unit="duration"/>
   </levels>
 
 </index>
