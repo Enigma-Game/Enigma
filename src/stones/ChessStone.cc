@@ -20,7 +20,6 @@
 
 #include "stones/ChessStone.hh"
 #include "errors.hh"
-//#include "main.hh"
 #include "player.hh"
 
 namespace enigma {
@@ -28,13 +27,9 @@ namespace enigma {
     double ChessStone::hit_threshold = 1.5;
 
     ChessStone::ChessStone(int color) {
-        newcolor = color;
-        Stone::setAttr("color", color);
-        destination = GridPos(0,0);
-        capture_retry = 0;
-        rememberFalling = false;
-        rememberSwamp = false;
+        setAttr("$destination", GridPos(0,0));
         state = IDLE;
+        set_color(color);
     }
 
     ChessStone::~ChessStone() {
@@ -69,7 +64,7 @@ namespace enigma {
             set_color(to_int(m.value));
             return Value();
         } else if (m.message == "flip") {
-            set_color(1 - newcolor); //(int)getAttr("color"));
+            set_color((objFlags & OBJBIT_NEWCOLOR) ? 0 : 1);
             return Value();
         }
         return Stone::message(m);
@@ -93,16 +88,16 @@ namespace enigma {
                 break;
             case DISAPPEARING:
                 // Maybe the floor has changed into swamp or abyss?
-                if (!rememberFalling && !rememberSwamp) {
+                if (!(objFlags & (OBJBIT_FALL | OBJBIT_SINK))) {
                     if (try_state(APPEARING)) {
-                        st = GetStone(destination);
+                        st = GetStone(getAttr("$destination"));
                         if (st) {
                             // Something went wrong while killing the old
                             // stone, or maybe a third one intervened.
                             // Don't move, just reappear at old position.                
                         } else {
-                            move_stone(destination, "movesmall");
-                            SendMessage(GetFloor(destination), "capture");
+                            move_stone(getAttr("$destination"), "movesmall");
+                            SendMessage(GetFloor(getAttr("$destination")), "capture");
                         }
                         // maybe a floor-change has happened, but during
                         // state APPEARING this doesn't mean anything:
@@ -114,7 +109,7 @@ namespace enigma {
                 // just by continuing to the next case:
             case CAPTURED:
             case FALLING:
-            case SWAMP:
+            case SINKING:
                 KillStone(get_pos());
                 break;
             default:
@@ -159,31 +154,27 @@ namespace enigma {
             if (fl->is_kind("fl-abyss"))
                 try_state(FALLING);
             if (fl->is_kind("fl-swamp"))
-                try_state(SWAMP);
+                try_state(SINKING);
         }
     }
     
     void ChessStone::alarm() {
-        switch(state) {
-            case CAPTURING:
-                if(!GetStone(destination)) {
-                    if(try_state(DISAPPEARING))
-                        set_anim(get_model_name() + "-disappearing");
-                    break;
-                } else if(capture_retry < max_capture_retry) {
-                    ++capture_retry;
-                    GameTimer.set_alarm(this, capture_interval, false);
-                } else {
-                    // Cancel efforts to capture foreign stone.
-                    capture_retry = 0;
-                    try_state(IDLE);
-                }
-                break;
-            default:
-               ASSERT(0, XLevelRuntime, "ChessStone: inconsistent state in alarm()");
+        ASSERT(state == CAPTURING, XLevelRuntime,
+            "ChessStone: inconsistent state in alarm()");
+        int capture_retry = (objFlags & OBJBIT_CAPTURE_RETRY) >> 27;
+        if(!GetStone(getAttr("$destination"))) {
+            if(try_state(DISAPPEARING))
+                set_anim(get_model_name() + "-disappearing");
+        } else if(capture_retry < max_capture_retry) {
+            objFlags &= ~OBJBIT_CAPTURE_RETRY;
+            objFlags |= ((capture_retry + 1) << 27) & OBJBIT_CAPTURE_RETRY;
+            GameTimer.set_alarm(this, capture_interval, false);
+        } else {
+            // Cancel efforts to capture foreign stone.
+            objFlags &= ~OBJBIT_CAPTURE_RETRY;
+            try_state(IDLE);
         }
     }
-
 
     std::string ChessStone::get_model_name() {
         return getClass() + ((getAttr("color") == 0) ? "_black" : "_white");
@@ -192,7 +183,7 @@ namespace enigma {
     Value ChessStone::maybe_move_to(Direction dir1, Direction dir2) {
         if (state == IDLE) {
             // check for fire, step by step
-            destination = move(get_pos(), dir1);
+            GridPos destination = move(get_pos(), dir1);
             if (Item *it = GetItem(destination))
                 if (get_id(it) == it_burnable_burning)
                     return Value();
@@ -205,7 +196,10 @@ namespace enigma {
                 if (get_id(it) == it_burnable_burning)
                     return Value();
             // check for boundary
-            if (!IsInsideLevel(destination))  return Value();
+            if (!IsInsideLevel(destination))
+                return Value();
+            // safe destination to attribute, needed after animation
+            setAttr("$destination", destination);
             // check for stone
             if (!GetStone(destination)) {
                 // Simple case: Just move.
@@ -223,7 +217,7 @@ namespace enigma {
                         "ChessStone: strange things happening in maybe_move_to");
                     // must work, because state is IDLE
                     GameTimer.set_alarm(this, capture_interval, false);
-                    capture_retry = 0;
+                    objFlags &= ~OBJBIT_CAPTURE_RETRY;
                     return true;
                 }
                 return Value();
@@ -243,23 +237,25 @@ namespace enigma {
     }
 
     bool ChessStone::try_state(State newstate) {
-        if (state != FALLING && state != SWAMP) {
-            // Switch to FALLING or SWAMP only when IDLE,
+        if (state != FALLING && state != SINKING) {
+            // Switch to FALLING or SINKING only when IDLE,
             // but remember them!
             if (newstate == FALLING)
-                rememberFalling = true;
-            else if (newstate == SWAMP)
-                rememberSwamp = true;
+                objFlags |= OBJBIT_FALL;
+            else if (newstate == SINKING)
+                objFlags |= OBJBIT_SINK;
             else
                 state = newstate;        
-            if (state == IDLE &&  getAttr("color") != newcolor)
-                set_color(newcolor);
-            if (state == IDLE && rememberFalling) {
+            // After changing the state to IDLE, do we
+            // have to make up for something?
+            if (state == IDLE && getAttr("color") != ((objFlags & OBJBIT_NEWCOLOR) ? 1 : 0))
+                set_color((objFlags & OBJBIT_NEWCOLOR) ? 1 : 0);
+            if (state == IDLE && (objFlags & OBJBIT_FALL)) {
                 state = FALLING;
                 set_anim(get_model_name() + "-disappearing");
             }
-            if (state == IDLE && rememberSwamp) {
-                state = SWAMP;
+            if (state == IDLE && (objFlags & OBJBIT_SINK)) {
+                state = SINKING;
                 set_anim(get_model_name() + "-swamp");
             }
         }
@@ -272,12 +268,14 @@ namespace enigma {
         }
         if(state == IDLE) {
             Stone::setAttr("color", color);
-            newcolor = color;
+            objFlags &= ~OBJBIT_NEWCOLOR;
+            objFlags |= (color == 1) ? OBJBIT_NEWCOLOR : false;
             if (isDisplayable())
                 init_model();
         } else {
             // Remember this color and set it the next time IDLE is set.
-            newcolor = color;
+            objFlags &= ~OBJBIT_NEWCOLOR;
+            objFlags |= (color == 1) ? OBJBIT_NEWCOLOR : false;
         }
     }
     

@@ -113,6 +113,7 @@ RenamingObjectsNew2Old = {
     st_brick_new = "st-bigbrick-new",
     st_brick_nes = "st-bigbrick-nes",
     st_brick_nesw = "st-bigbrick-nesw",
+    st_chess = "st-chess",
     st_chess_black = "st-chess_black",
     st_chess_white = "st-chess_white",
     st_coinslot = "st-coinslot",

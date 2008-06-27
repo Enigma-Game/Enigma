@@ -3,7 +3,7 @@
   <el:protected>
     <el:info el:type="library">
       <el:identity el:title="" el:id="lib/libluatools"/>
-      <el:version el:score="1" el:release="1" el:revision="2" el:status="released"/>
+      <el:version el:score="1" el:release="1" el:revision="3" el:status="released"/>
       <el:author  el:name="Enigma Team" el:email="" el:homepage=""/>
       <el:copyright>Copyright © 2007 Enigma Team</el:copyright>
       <el:license el:type="GPL v2.0 or above" el:open="true"/>
@@ -244,6 +244,159 @@ function luatools.combinations(depth, digits)
     all_combinations = next_step
   end
   return all_combinations
+end
+
+---------------------------------------------------------------------
+--  MAP  HANDLING
+---------------------------------------------------------------------
+
+-- A "map" is a table of strings, like it's used in most
+-- graphical ways to describe a level, including API 2.
+
+-- fuse_map_layers takes a list of maps or a table of maps
+-- and returns a map, which is constructed from the others
+-- in the following way:
+--  Map1:  {"abc", "def"}
+--  Map2:  {"ABC", "DEF"}
+--  Map3:  {"123", "456"}
+--  fuse_map_layers(Map1, Map2, Map3):
+--         {"aA1bB2cC3", "dD4eE5fF6"}
+-- Missing letters are replaced by " ".
+-- This function can be used to combine several layers
+-- (e.g. floors, stones, items, actors) into a common
+-- (typically very large) map.
+-- fuse_map_layers assumes that the input maps are all
+-- using a key length of 1. Otherwise you should use
+-- split_map_layers before applying fuse_map_layers.
+function luatools.fuse_map_layers(layer1, ...)
+  -- Understand arguments
+  local layers = {layer1, ...}
+  if table.getn(layers) == 1 then
+    layers = layer1
+  end
+  if type(layers) ~= "table" then
+    error("fuse_map_layers: Argument is not a table (map).")
+  end
+  -- Calculate new height and width
+  local max_lines, max_length = 0, 0
+  for _, layer in pairs(layers) do
+    if type(layer) ~= "table" then
+      error("fuse_map_layers: Argument is not a table.")
+    end
+    max_lines = math.max(max_lines, table.getn(layer))
+    for _, line in pairs(layer) do
+      if type(line) ~= "string" then
+        error("fuse_map_layers: Line in table (map) is not a string.")
+      end
+      max_length = math.max(max_length, string.len(line))
+    end
+  end
+  local result = {}
+  -- Create result
+  local result = {}
+  for y = 1, max_lines do
+    result[y] = ""
+    for x = 1, max_length do
+      for _, layer in pairs(layers) do
+        if layer[y] and (string.len(layer[y]) >= x ) then
+          result[y] = result[y] .. string.sub(layer[y], x, x)
+        else
+          result[y] = result[y] .. " "
+        end
+      end
+    end
+  end
+  return result
+end
+
+-- split_map_layers takes a map, splits it into KEYLENGTH
+-- layers and returns a table of layers. It's the opposite
+-- to fuse_map_layers.
+function luatools.split_map_layers(keylength, map)
+  -- Analyse arguments
+  if type(keylength) ~= "number" then
+    error("split_map_layers: First argument should be a number (key length).")
+  end
+  if type(map) ~= "table" then
+    error("split_map_layers: Second argument should be a table (map).")
+  end
+  -- Split layers
+  local layers = {}
+  for j = 1, keylength do
+    layers[j] = {}
+  end
+  for y, line in pairs(map) do
+    if type(line) ~= "string" then
+      error("print_map: Line is not a string.")
+    end
+    for j = 1, keylength do
+      layers[j][y] = ""
+    end
+    for x = 1, string.len(line) do
+      local j = luatools.mod(x - 1, keylength) + 1
+      layers[j][y] = layers[j][y]..string.sub(line, x, x)
+    end
+  end
+  return layers
+end
+
+-- concat_maps_vertically takes a list of maps or a table of
+-- maps and returns a map, which is constructed from the others
+-- in the following way:
+--  Map1:  {"abc", "def"}
+--  Map2:  {"ABC", "DEF"}
+--  Map3:  {"123", "456"}
+--  fuse_map_layers(Map1, Map2, Map3):
+--         {"abcABC123", "defDEF456"}
+-- Missing letters are replaced by " ".
+-- This function can be used to combine several rooms
+-- or areas of a map to build a larger map.
+-- Note that concat_maps_vertically doesn't take an
+-- offset value for a vertical shift of the maps!
+function luatools.concat_maps_vertically(map1, ...)
+  -- Understand arguments
+  local maps = {map1, ...}
+  if table.getn(maps) == 1 then
+    maps = map1
+  end
+  if type(maps) ~= "table" then
+    error("concat_maps_vertically: Argument is not a table (map).")
+  end
+  -- Find maximal line lengths and height
+  local lengths = {}
+  local height = 0
+  for j, map in pairs(maps) do
+    lengths[j] = 0
+    for y, line in pairs(map) do
+      lengths[j] = math.max(lengths[j], string.len(line))
+      height = math.max(height, y)
+    end
+  end
+  -- Concat to result
+  local result = {}
+  for y = 1, height do
+    result[y] = ""
+    for j, map in pairs(maps) do
+      result[y] = result[y] .. map[y] .. string.rep(" ", lengths[j] - string.len(map[y])) 
+    end
+  end
+  return result
+end
+
+-- print_map uses the print command to print a map.
+-- It should be used for debug reasons only.
+-- SEP can be a separator like "|" to encase the map
+-- on the left and on the right.
+function luatools.print_map(map, sep)
+  if type(map) ~= "table" then
+    error("print_map: Argument is not a table (map).")
+  end
+  for _, line in pairs(map) do
+    if type(line) ~= "string" then
+      error("print_map: Line is not a string.")
+    end
+    print((sep or "")..line..(sep or ""))
+  end
 end
 
     ]]></el:luamain>

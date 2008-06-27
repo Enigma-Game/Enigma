@@ -3,7 +3,7 @@
   <el:protected>
     <el:info el:type="level">
       <el:identity el:title="Tandem Chess" el:subtitle="Work together!" el:id="luc342007"/>
-      <el:version el:score="1" el:release="1" el:revision="1" el:status="released"/>
+      <el:version el:score="1" el:release="1" el:revision="2" el:status="released"/>
       <el:author  el:name="Lukas Schüller" el:email="Lucky_Luc@web.de" el:homepage=""/>
       <el:copyright>Copyright © 2007 Lukas Schüller</el:copyright>
       <el:license el:type="GPL v2.0 or above" el:open="true"/>
@@ -57,20 +57,20 @@ function writeLine( line, cells)
     elseif(c =="K") then
       set_stone("st-chess_black",i-1,line)
     elseif(c =="B") then
-      set_item("it-trigger",i-1,line,{invisible="1",action="callback",target="flip_black"})
+      set_item("it-trigger",i-1,line,{invisible=1,action="callback",target="flip_black"})
       set_floor("fl-black",i-1,line)
     elseif(c =="W") then
-      set_item("it-trigger",i-1,line,{invisible="1",action="callback",target="flip_white"})
+      set_item("it-trigger",i-1,line,{invisible=1,action="callback",target="flip_white"})
       set_floor("fl-white",i-1,line)
     elseif(c =="x") then
       set_item("it-trigger",i-1,line)
     elseif(c =="O") then
       oxyd(i-1,line)
     elseif(c =="0") then
-      set_actor("ac-blackball",i-0.5,line+0.5,{player="0"})
+      set_actor("ac-blackball",i-0.5,line+0.5,{player=0})
       set_item("it-yinyang",i-1,line)
     elseif(c =="1") then
-      set_actor("ac-whiteball",i-0.5,line+0.5,{player="1"})
+      set_actor("ac-whiteball",i-0.5,line+0.5,{player=1})
       set_item("it-yinyang",i-1,line)
     end
   end

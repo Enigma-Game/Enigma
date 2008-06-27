@@ -37,9 +37,31 @@ namespace enigma {
 
     private:
         // Variables and Constants
+        // (APPEARING and DISAPPEARING are used when moving the stone.)
         enum State {IDLE, APPEARING, DISAPPEARING, CAPTURING,
-                    CAPTURED, FALLING, SWAMP};
-        
+                    CAPTURED, FALLING, SINKING};
+
+        // The first three boolean flags are meant as buffers to
+        // remember state-changes. When the horse is just jumping
+        // or capturing, no state-change can be done at once, but
+        // only after jumping. To avoid shortcuts, this is
+        // consequently done for floor-changes as well, which
+        // means that a horse can (retroactively) sink or fall
+        // though standing on normal floor after a jump, if the
+        // origin floor became swamp or abyss in meanwhile.
+        // The final 5 bits are used in the following way:
+        // During a capture, the capturing stone has to give the
+        // captured stone enough time to play its animation.
+        // So 20 alarms of 0.1 seconds each are scheduled, to
+        // wait before finally cancelling the capture.
+        // OBJBIT_CAPTURE_RETRY is the corresponding counter.
+        enum ObjectPrivatFlagsBits {
+            OBJBIT_NEWCOLOR      =  1<<24, ///< change to this color next time possible
+            OBJBIT_FALL          =  1<<25, ///< fall next time possible
+            OBJBIT_SINK          =  1<<26, ///< sink next time possible
+            OBJBIT_CAPTURE_RETRY = 31<<27  ///< count retries for capturing
+        };
+
     public:
         ChessStone(int color);
         virtual ~ChessStone();
@@ -70,13 +92,7 @@ namespace enigma {
     private:
         static double capture_interval;
         static double hit_threshold;
-        static const int max_capture_retry = 20;
-
-        GridPos destination;   // TODO -> attribute
-        int newcolor;  // Buffers a color-changing message while not IDLE.  // TODO -> objFlags
-        int capture_retry;    // TODO -> objFlags
-        bool rememberFalling; // TODO -> objFlags
-        bool rememberSwamp;   // TODO -> objFlags
+        static const int max_capture_retry = 20; // note definition of OBJBIT_CAPTURE_RETRY
 
         // Methods
         string get_model_name();
