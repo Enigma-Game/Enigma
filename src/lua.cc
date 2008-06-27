@@ -1908,8 +1908,8 @@ static int evaluateKey(lua_State *L) {
             throwLuaError(L, "Error within tile key resolver");
             return 0;
         }
-        // check result - must be tile or table
-        if (!(is_tile(L, -1) || is_table(L, -1))) {
+        // check result - must be tile or table or nil
+        if (!(is_tile(L, -1) || is_table(L, -1) || lua_isnil(L, -1))) {
             throwLuaError(L, ecl::strf("World init undefined tile '%s' at %d, %d", 
                     key.c_str(), x, y).c_str());
             return 0;
@@ -1923,12 +1923,12 @@ static int evaluateKey(lua_State *L) {
         lua_pushvalue(L, -6);       // duplicate x
         lua_pushvalue(L, -6);       // duplicate y
         int retval=lua_pcall(L, 5, 1, 0);     // resolver(context,evaluator,key,x,y) ->  tile
-        if (retval!=0) {
+        if (retval!=0) { 
             throwLuaError(L, "Error within tile key resolver");
             return 0;
-        }        
-        // check result - must be tile or table
-        if (!(is_tile(L, -1) || is_table(L, -1))) {
+        }
+        // check result - must be tile or table or nil
+        if (!(is_tile(L, -1) || is_table(L, -1) || lua_isnil(L, -1))) {
             throwLuaError(L, ecl::strf("World init undefined tile '%s' at %d, %d", 
                     key.c_str(), x, y).c_str());
             return 0;
