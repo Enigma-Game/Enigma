@@ -2971,7 +2971,7 @@ the reference will not get finalized on initialization but remains dynamic.
 
 @example
 ti["c"] = @{it_coin_s", "magic#"@}
-ti["v"] = @{it_vortex", destination="@@@@magic#*@}
+ti["v"] = @{it_vortex", destination="@@@@magic#*"@}
 @end example
 
 Setting three magic coins and one vortex in your map will teleport the marble
@@ -3699,12 +3699,12 @@ allows common messages like @ref{toggle}, @ref{signal}, @ref{on}, @ref{off},
 
 @table @asis
 @item @b{Type:} @ @ number
-@item @b{Values:} @ @ dependend on the individual object
+@item @b{Values:} @ @ dependent on the individual object
 Please use the given upper case constants.
 @item @b{Default:} @ @ @code{0}
 @item @b{Access:} @ @ read/sometimes write
 While it is common to set the state attribute on object creation, it is 
-preferable to change the object state lateron by messages.
+preferable to change the object state later on by messages.
 @item @b{Support:} @ @ by all objects
 @end table
 
@@ -3714,7 +3714,7 @@ preferable to change the object state lateron by messages.
 All active objects react on being triggered by performing an action on their
 targets. This attribute is part of the @ref{Target - Action} paradigm that 
 guarantees pluggability of objects. You can either set a general @samp{target}
-attribute for an object, or you can set @ref{state} dependant attributes 
+attribute for an object, or you can set @ref{state} dependent attributes 
 @samp{target_0}, @samp{target_1},... (@pxref{Object State}). They all have the
 same syntax:
 
@@ -3741,7 +3741,7 @@ target = @{grp(obj1, obj2), "myDoor", myObject@}
 All active objects react on being triggered by performing an action on their
 targets. This attribute is part of the @ref{Target - Action} paradigm that 
 guarantees pluggability of objects. You can either set a general @samp{action}
-attribute for an object, or you can set @ref{state} dependant attributes 
+attribute for an object, or you can set @ref{state} dependent attributes 
 @samp{action_0}, @samp{action_1},... (@pxref{Object State}). They all have the
 same syntax:
 
@@ -3887,10 +3887,10 @@ By default no hit factor is applied. The hit matrix is the neutral one.
 @subsection toggle
 
 This is the default message that is always taken if no other message is provided.
-It toggels the @ref{Object State} quite independant of the very nature of the
+It toggles the @ref{Object State} quite independent of the very nature of the
 state. Two-stated objects like switches will toggle their state form @samp{ON}
 to @samp{OFF} or from @samp{OFF} to @samp{ON}. Door like objects will toggle 
-their state form @samp{OPEN} to @samp{CLOSED} or from @samp{CLOSED} to 
+their state from @samp{OPEN} to @samp{CLOSED} or from @samp{CLOSED} to 
 @samp{OPEN}. Other objects like @ref{st_fourswitch} will turn into the next
 direction. Generally the object will toggle to its next state.
 
@@ -3918,7 +3918,7 @@ message (@pxref{Object State}).
 
 A signal message tries to set the object to the state 0 (@samp{OFF}, 
 @samp{CLOSED}) or state 1 (@samp{ON}, @samp{OPEN}) according to its value. This
-message allows you to keep the states of a action source and a receiving object
+message allows you to keep the states of an action source and a receiving object
 in sync. Note that values like @samp{true}, @samp{false} and direction values
 like @samp{WEST} to @samp{NORTH} are converted to 0 and 1. This allows you to
 use @samp{signal} as action message on most objects.
@@ -3987,6 +3987,10 @@ Just objects in state @samp{OPEN} will be closed. An object in state
 @menu
 * ActorimpulseStrength::
 * ExtralifeGlasses::
+* FollowAction::
+* FollowGrid::
+* FollowMethod::
+* FollowThreshold::
 * Height::
 * IsDifficult:: 
 * MagnetRange:: 
@@ -4019,13 +4023,85 @@ the laser light convertion of an @ref{it_extralife}
 
 @table @asis
 @item @b{Type:} @ @ number
-@item @b{Values:} @ @ positiv integer number
+@item @b{Values:} @ @ positive integer number
 A sum out of the constants @samp{SPOT_DEATH}, @samp{SPOT_HOLLOW},
-@samp{SPOT_ACTORIMPULSE}, @samp{SPOT_SENSOR}, @samp{SPOT_LIGHTPASSENGER}
+@samp{SPOT_ACTORIMPULSE}, @samp{SPOT_SENSOR}, @samp{SPOT_LIGHTPASSENGER}, 
+@samp{SPOT_TRAP}
 @item @b{Default:} @ @ @code{SPOT_DEATH + SPOT_HOLLOW + SPOT_LIGHTPASSENGER}
 @item @b{Access:} @ @ read/write
 @item @b{Support:} @ @ @ref{it_extralife}
 @end table
+
+@node FollowAction
+@subsection FollowAction
+
+A global variable that describes the action of the display on relocation. This
+attribute is introduced for future extensions, but is currently just partially
+supported. Just the values listed below are used. Please use this attribute
+just as explained in @ref{Display Follow Strategy}.
+
+@table @asis
+@item @b{Type:} @ @ number or position
+@item @b{Values:} @ @ @code{0}, @code{FOLLOW_FULLSCREEN}, @code{HALFSCREEN}
+The distance of display readjustment. Positions are used to supply different 
+values for x and y. The value @samp{@{19, 12@}} is a standard full screen move.
+The value @samp{@{9.5, 6@}} is a standard half screen move. A value @samp{0}
+is a minimal smooth move or the default value for grid based moves.
+@item @b{Default:} @ @ @code{@{19, 12@}}
+Actually the default is mode based (@pxref{Display Follow Strategy}).
+@item @b{Access:} @ @ read/write
+@item @b{Support:} @ @ no objects
+@end table
+
+
+@node FollowGrid
+@subsection FollowGrid
+
+A global variable that determines if the display is fixed in its static
+positions to grids or if it can be scrolled to any pixel position 
+(@pxref{Display Follow Strategy}).
+
+@table @asis
+@item @b{Type:} @ @ bool
+@item @b{Values:} @ @ @code{true}, @code{false}
+@item @b{Default:} @ @ @code{true}
+@item @b{Access:} @ @ read/write
+@item @b{Support:} @ @ no objects
+@end table
+
+@node FollowMethod
+@subsection FollowMethod
+
+A global variable that describes the method how the display moves, either not
+at all, by pixelwise scrolling, or by flipping to another screen or region
+(@pxref{Display Follow Strategy}).
+
+@table @asis
+@item @b{Type:} @ @ number
+@item @b{Values:} @ @ @code{FOLLOW_NO}, @code{FOLLOW_SCROLL}, @code{FOLLOW_FLIP}
+@item @b{Default:} @ @ @code{FOLLOW_FLIP}
+@item @b{Access:} @ @ read/write
+@item @b{Support:} @ @ no objects
+@end table
+
+@node FollowThreshold
+@subsection FollowThreshold
+
+A global variable that describes the threshold at which a crossing active marble
+triggers the display to relocate. It is given as the distance to the screen
+boundary (@pxref{Display Follow Strategy}).
+
+@table @asis
+@item @b{Type:} @ @ number or position
+@item @b{Values:} @ @ 0 or positive number, or a pair of two positive numbers
+The distance from the screen boundary at which the displays readjusts. Positions
+are used to supply different values for x and y. All values need to be less
+than half of the screen size.
+@item @b{Default:} @ @ @code{0.5}
+@item @b{Access:} @ @ read/write
+@item @b{Support:} @ @ no objects
+@end table
+
 
 @node Height
 @subsection Height
@@ -4089,21 +4165,6 @@ Positve number are attracting, negative numbers are repelling.
 @item @b{Support:} @ @ @ref{it_magnet}
 @end table
 
-@node Width
-@subsection Width
-
-A global read only variable reports the width of the the world in grid units.
-This is set by the initial world constructor call 
-(@pxref{World Creation and Resolver Chaining}).
-
-@table @asis
-@item @b{Type:} @ @ number
-@item @b{Values:} @ @ positiv integer number
-@item @b{Default:} @ @ @code{?}
-@item @b{Access:} @ @ read only
-@item @b{Support:} @ @ object independent
-@end table
-
 @node MaxOxydColor
 @subsection MaxOxydColor
 
@@ -4117,6 +4178,22 @@ A global variable that limits the number of colors assigned to autocolored
 @item @b{Access:} @ @ read/write
 @item @b{Support:} @ @ @ref{st_oxyd}
 @end table
+
+@node Width
+@subsection Width
+
+A global read only variable reports the width of the world in grid units.
+This is set by the initial world constructor call 
+(@pxref{World Creation and Resolver Chaining}).
+
+@table @asis
+@item @b{Type:} @ @ number
+@item @b{Values:} @ @ positiv integer number
+@item @b{Default:} @ @ @code{?}
+@item @b{Access:} @ @ read only
+@item @b{Support:} @ @ object independent
+@end table
+
 
 @node WormholeRange
 @subsection WormholeRange
@@ -4167,16 +4244,19 @@ Positive number are attracting, negative numbers are repelling.
 @menu
 * it_blocker::         Shrinked Blocker Stone
 * it_brush::           
-* it_cross::           Floor switch for patient Actors
 * it_coin::            Enigma's currency
+* it_cross::           Floor switch for patient Actors
+* it_death::           Unpassable grid blocker
 * it_extralife::
 * it_floppy::          
 * it_glasses::         Glasses to spot certain objects
 * it_hammer::
 * it_key::             
+* it_landmine::        
 * it_magnet::
 * it_sensor::          Floor Switch for passing Actors
 * it_sword::
+* it_trap::            
 * it_trigger::         Floor Switch for Actors and Stones
 * it_umbrella::        Death Protection Item
 * it_vortex::          Teleport of Marbels
@@ -4361,6 +4441,29 @@ Number of seconds that the actor must stay on the sensor to cause an action.
 
 @end table
 
+@c ----------------- Death Item -------------------- 
+@node it_death
+@subsection it_death
+@obindex it_death
+
+This item shatters any marble that tries to pass the grid. Even jumping marbles
+will be shattered. Just marbles protected by an activated @ref{it_umbrella} can
+pass without taking harm. Apart from that an @samp{it_death} barrier can only be 
+passed by walking around the complete barrier or by warping through an
+@ref{it_vortex}, an @ref{it_wormhole} or by means of an @ref{it_ring}.
+
+The death item is the most secure barrier object. Comparable objects are
+@ref{it_booze_broken}, @ref{fl_abyss}, @ref{fl_water}, @ref{it_trap} or simply
+any solid wall of stones. Usually these alternatives should be favored. The
+death item should mainly be used when all other alternatives are too unsecure.
+
+@table @asis
+
+@item @b{Attributes:} none
+
+@item @b{Messages:} none
+
+@end table
 
 @c ----------------- Extralife Item -------------------- 
 @node it_extralife
@@ -4424,16 +4527,15 @@ those actors that are attached to the player wearing the glasses.
 Glasses can make invisible @ref{st_death} visible, can uncover invisible
 passages by making hollow stones transparent, can make inactive
 @ref{st_lightpassenger} be distinguishable from @ref{st_glass}, can make
-invisble @ref{it_sensor} be visible and they can make invisble 
-@ref{st_actorimpulse} be visible.
+invisble @ref{it_sensor}, @ref{it_trap} and @ref{st_actorimpulse} be visible.
 
 All these features are configurable by the constants @samp{SPOT_DEATH},
-@samp{SPOT_HOLLOW}, @samp{SPOT_LIGHTPASSENGER}, @samp{SPOT_SENSOR} and
-@samp{SPOT_ACTORIMPULSE}. You can set the @samp{state} attribute to a sum
-of these constants that should apply to given glasses. The default is for 
-backward compatibility @samp{SPOT_DEATH + SPOT_HOLLOW + SPOT_LIGHTPASSENGER}.
-When a player wears several glasses he spots everything that any of the glasses
-could spot.
+@samp{SPOT_HOLLOW}, @samp{SPOT_LIGHTPASSENGER}, @samp{SPOT_SENSOR}, 
+@samp{SPOT_TRAP} and @samp{SPOT_ACTORIMPULSE}. You can set the @samp{state} 
+attribute to a sum of these constants that should apply to given glasses. The 
+default is for  backward compatibility 
+@samp{SPOT_DEATH + SPOT_HOLLOW + SPOT_LIGHTPASSENGER}. When a player wears 
+several glasses he spots everything that any of the glasses could spot.
 
 Glasses break when a stone is pushed over them. Broken glasses spot nothing.
 
@@ -4447,8 +4549,8 @@ features of such new glasses are determined by the global variable
 @table @asis
 @item @b{state}, @ @ @i{values}: positive numbers; @ @ @i{default}: @code{SPOT_DEATH + SPOT_HOLLOW + SPOT_LIGHTPASSENGER} @ @ @xref{state}
 A sum of the constants @samp{SPOT_DEATH}, @samp{SPOT_HOLLOW}, 
-@samp{SPOT_LIGHTPASSENGER}, @samp{SPOT_SENSOR}, @samp{SPOT_ACTORIMPULSE}.
-@samp{SPOT_NOTHING} is the state of a broken glasses.
+@samp{SPOT_LIGHTPASSENGER}, @samp{SPOT_SENSOR}, @samp{SPOT_ACTORIMPULSE},
+@samp{SPOT_TRAP}. @samp{SPOT_NOTHING} is the state of a broken glasses.
 @end table
 
 @item @b{Messages:} none
@@ -4513,6 +4615,30 @@ The code of a key must match that of an @ref{st_key} to unlock it.
 @end table
 
 @item @b{Messages:} none
+
+@end table
+
+@c ----------------- Landmine Item -------------------- 
+@node it_landmine
+@subsection it_landmine
+@obindex it_landmine
+
+A static item that explodes on actors stepping onto its critical center part and
+on stones being pushed onto the mine.
+
+The landmine explodes shattering nearby marbles on the same grid and leaves an
+@ref{it_hollow} behind.
+
+Actors can jump over a landmine and pass carefully between two adjacent 
+landmines without activying the mines. Landmines do neither react on nearby
+explosions, nor fire, nor laserbeams.
+
+@table @asis
+@item @b{Attributes:} none
+
+@item @b{Messages:} none
+
+@item @b{Action:} none
 
 @end table
 
@@ -4588,7 +4714,14 @@ detected.
 Sensors do not cause any noise. Visible sensors will nevertheless flash on
 passing actors. You can make the trigger invisible by setting its attribute. 
 Be aware that the user will still notice that actors cannot drop items onto the
-same grid position.
+same grid position. 
+
+The level author can configure @ref{it_glasses} by addition of 
+@samp{SPOT_SENSOR} to show invisible sensor items. An actor with such an
+@ref{it_glasses} in its inventory will be able to spot invisible sensor items.
+With the global attribute @ref{ExtralifeGlasses} even glasses generated by laser
+lighting an @ref{it_extralife} can be configured not to show invisible sensor 
+items.
 
 Alternative objects that react on actors are @ref{it_trigger} and 
 @ref{it_cross}.
@@ -4637,6 +4770,46 @@ flickering of repeated item transformations.
 A standard sword item.
 @item @b{it_sword_new}
 A sword that is immune to light transformations for a short latency period.
+@end table
+
+@end table
+
+@c ----------------- Trap Item -------------------- 
+@node it_trap
+@subsection it_trap
+@obindex it_trap
+
+A classical trap that is camouflaged by a floor image. Any marble stepping onto
+this trap will break the trap and fall into the trap's abyss. But marbles can
+jump unharmed over a trap. Movable stones can be pushed over a trap without any
+reaction.
+
+Any marble falling into a trap causes it to break and to become visible by the
+remanents of the trap. The trap can be opened by messages, too.
+
+The level author can configure @ref{it_glasses} by addition of 
+@samp{SPOT_TRAP} to show invisible traps. An actor with such an
+@ref{it_glasses} in its inventory will be able to spot invisible traps.
+With the global attribute @ref{ExtralifeGlasses} even glasses generated by laser
+lighting an @ref{it_extralife} can be configured not to show invisible traps.
+
+@table @asis
+@item @b{Attributes:}
+
+@table @asis
+@item @b{state}, @ @ @i{values}: @code{CLOSED}, @code{OPEN}; @ @ @i{default}: @code{CLOSED} @ @ @xref{state}
+A @samp{CLOSED} trap is intact and invisible, an @samp{OPEN} trap is broken and
+visible.
+@end table
+@item @b{Messages:}
+
+@table @asis
+@item @b{signal} @ @ @xref{signal}
+Opens the trap on value @samp{1}
+@item @b{toggle} @ @ @xref{toggle}
+Opens the trap.
+@item @b{open} @ @ @xref{open}
+Opens the trap.
 @end table
 
 @end table
@@ -5099,7 +5272,9 @@ to use @samp{st_panel} with the attributes @samp{cluster} and @samp{faces}.
 * st_actorimpulse::    Bumper Stone
 * st_blocker::         Shrinkable Blocker
 * st_boulder::         Moving Arrow Boulder
+* st_chess::           Movable Chess Knight Stone
 * st_coinslot::        Coin Driven Switch
+* st_death::           Skull Stone
 * st_floppy::          Floppy Driven Switch
 * st_fourswitch::      Four Direction Switch
 * st_key::             Key Driven Switch
@@ -5107,6 +5282,7 @@ to use @samp{st_panel} with the attributes @samp{cluster} and @samp{faces}.
 * st_laserflop::       Lightsensitive Monoflop
 * st_laserswitch::     Lightsensitive Switch
 * st_lightpassenger::  Stone pushed by Light
+* st_mirror::          Mirrors of all flavors
 * st_monoflop::        Monoflop Switch
 * st_oxyd::            Game Target Stone
 * st_polarswitch::     Transparency Switch for Light Beams
@@ -5325,6 +5501,69 @@ none
 
 @end table
 
+@c ----------------- Chess Stone -------------------- 
+@node st_chess
+@subsection st_chess
+@obindex st_chess
+
+A chess stone is like a chess knight. It exists in the two colors black and
+white, it can jump and make a chess knight move. It can even beat stones at
+the target position.
+
+A black chess can only be moved with a black marble, a white one with white
+marbles. The jump direction is given by the marble hit direction. It moves
+two grid steps into the direction, into which other movable stones move just one
+grid, plus one grid step vertical. The vertical direction is given by the
+marbles vertical velocity component.
+
+When there is a chess stone of opposite color or an @ref{st_thief} at the target
+position of a knight move, this stone is captured and destroyed.
+
+When hit with a revealed @ref{it_wand}, a chess stone changes color. 
+
+Chess stones fall into @ref{fl_abyss} and sink in @ref{fl_swamp}, but cross
+@ref{fl_water} undamaged. 
+
+A chess stone that jumps onto a @ref{fl_thief} captures and inactivates the 
+thief.
+
+Chess stones can't jump over or into fire (see The 1.0-Fire System). At least, 
+a chess knight is brave enough not to panic when fire starts to burn beneath. 
+Note that fire can't ignite the floor below a chess stone. In this
+context it acts like an immovable stone. In the same sense, they don't act on 
+stone impulses of @ref{st_stoneimpulse} or @ref{it_puller}. 
+
+@table @asis
+@item @b{Attributes:}
+
+@table @asis
+@item @b{color} @ @ @i{values}: @code{BLACK}, @code{WHITE}; @ @ @i{default}: @code{BLACK}
+The color of the chess stone
+@item @b{movable} @ @ @i{values}: @code{true}; @ @ @i{default}: @code{true} @ @ @xref{movable}
+Read only attribute that states the movability of a chess stone.
+@end table
+
+@item @b{Messages:}
+
+@table @asis
+@item @b{flip}
+Flip the color of the stone.
+@item @b{move}, @ @ @i{value type}: position; @ @ @i{values}: @code{NNE}, @code{NEE}, @code{SEE}, @code{SSE}, @code{SSW}, @code{SWW}, @code{NWW}, @code{NNW}
+Jump into the given dirction.
+@end table
+
+@item @b{Action:}  none
+
+@item @b{Variants:}
+
+@table @asis
+@item @b{st_chess}: color = @code{BLACK}
+@item @b{st_chess_black}: color = @code{BLACK}
+@item @b{st_chess_white}: color = @code{WHITE}
+@end table
+
+@end table
+
 @c ----------------- Coinslot Stone -------------------- 
 @node st_coinslot
 @subsection st_coinslot
@@ -5382,6 +5621,54 @@ Number of additional active seconds on insertion of a large @ref{it_coin}.
 @end table
 
 @end table
+
+@c ----------------- Death Stone -------------------- 
+@node st_death
+@subsection st_death
+@obindex st_death
+
+Shatters any marble that hits or even just touches it. Just marbles protected
+by an activated @ref{it_umbrella} will bounce unharmed as other actors do which
+will not die anyway.
+
+Death stones can be configured by the @samp{invisible} attribute to
+be hidden while being idle. When hit by an actor any death stone becomes
+temporary visible. An actor with unbroken standard @ref{it_glasses} in its
+inventory will be able to spot invisible death stones.
+
+The level author can configure @ref{it_glasses} by elimination of 
+@samp{SPOT_DEATH} not to show invisible death stones. With the global attribute
+@ref{ExtralifeGlasses} even glasses generated by laser lighting an 
+@ref{it_extralife} can be configured not to show invisible actorimpulse stones.
+
+@table @asis
+@item @b{Attributes:}
+
+@table @asis
+@item @b{state}, @ @ @i{values}: @code{ON}, @code{OFF}; @ @ @i{default}: @code{OFF}; @i{access}: @code{read only}  @ @ @xref{state}
+Current activity state of the death stone. A stone is usually activated by
+a hitting actor.
+@item @b{invisible} @ @ @i{values}: @code{true}, @code{false}; @ @ @i{default}: @code{false}
+Invisible death stones show only when hit by an actor or been toggled by a message.
+
+@item @b{Messages:}
+@table @asis
+@item @b{toggle} @ @ @xref{toggle}
+Temporarily activy the stone to show its animation and to get visible for this
+period.
+@end table
+
+@item @b{Action:} none
+
+@item @b{Variants:}
+
+@table @asis
+@item @b{st_death}: invisible = @code{false}
+@item @b{st_death_invisible}: invisible = @code{true}
+@end table
+
+@end table
+
 
 @c ----------------- Floppy Stone -------------------- 
 @node st_floppy
@@ -5737,6 +6024,92 @@ Switch the lightpassenger off.
 @item @b{st_lightpassenger}: state = @code{ON}
 @item @b{st_lightpassenger_on}: state = @code{ON}
 @item @b{st_lightpassenger_off}: state = @code{OFF}
+@end table
+
+@end table
+
+@c ----------------- Mirror Stone -------------------- 
+@node st_mirror
+@subsection st_mirror
+@obindex st_mirror
+
+Mirror stones redirect and fork laser beams. They exist in different shapes.
+You can set the shape by the attribute @samp{flavor} or by using the 
+appropriate subkind. There are two planar versions called @samp{slab} and 
+@samp{sheets}, and a @samp{triangle} version.
+
+The mirror panes can either be non-transparent or semi-transparent. Even though
+you set this feature with the attribute @samp{transparent} you should be aware
+that even with a value of @samp{true} the mirror is not fully transparent. E.g.
+a @samp{slab} mirror will block any laser light that is parallel to its shape
+as the short ends are no mirrors at all. For this reason we provide the second
+planar version called @samp{sheets}, which lets light parallel to its sheets
+pass.
+
+Mirrors hit by an actor or impulsed by an @ref{st_stoneimpulse} will move if
+their attribute @samp{movable} is set to true. Mirrors that are not movable
+will differ slightly in a darker color.
+
+Mirros hit or just touched will turn their mirror panes by 90 degrees. The 
+standard turning direction is clockwise. But this standard can be changed with
+by the attribute @samp{counterclockwise}. An @ref{st_boulder} hitting a mirror
+will turn it in its standard direction, too.
+
+A mirror can be turned into the opposite direction either by a message 
+@samp{turnback} or by an actor with a revealed @ref{it_wrench} in its 
+inventory.
+
+@table @asis
+@item @b{Attributes:}
+
+@table @asis
+@item @b{flavor} @ @ @i{values}: @code{"slab"}, @code{"sheets"}, @code{"triangle"}; @ @ @i{default}: @code{"slab"}
+Mirror panes either set up as an triangle or as a side intransparent slab or
+as a mandatory semi-transparent pair of sheets.
+@item @b{state}, @ @ @i{values}: @code{NORTH}, @code{EAST}, @code{SOUTH}, @code{WEST}; @ @ @i{default}: @code{NORTH}; @ @ @xref{state}
+The orientation of the mirror. For a triangle mirror it is the triangles 
+pointing direction. For a planar mirror it the reflection direction of an 
+incoming northbound beam.
+@item @b{orientation}, @ @ @i{values}: @code{NORTH}, @code{EAST}, @code{SOUTH}, @code{WEST}; @ @ @i{default}: @code{NORTH}
+The orientation of the mirror. For a triangle mirror it is the triangles 
+pointing direction. For a planar mirror it the reflection direction of an 
+incoing northbound beam.
+@item @b{transparent} @ @ @i{values}: @code{true}, @code{false}; @ @ @i{default}: @code{false}
+Semitransparency of the mirror panes.
+@item @b{movable} @ @ @i{values}: @code{true}, @code{false}; @ @ @i{default}: @code{false} @ @ @xref{movable}
+Movability on actor hits and stone impulses.
+@item @b{counterclockwise} @ @ @i{values}: @code{true}, @code{false}; @ @ @i{default}: @code{false}
+The standard turning direction is clockwise. Use this attribute to revert the
+direction.
+@end table
+
+@item @b{Messages:}
+
+@table @asis
+@msindex orientate
+@item @b{orientate}, @ @ @i{value type}: direction
+Change the orientation to the given direction value. The @ref{st_fourswitch}
+provides a compatible action which allows you to set a boulder as
+target and this message as action.
+@item @b{turn}
+Turn the orientation in turning direction as defined by attribute 
+@samp{counterclockwise}.
+@item @b{turnback}
+Turn the orientation in opposite turning direction as defined by attribute 
+@samp{counterclockwise}.
+@item @b{signal} @ @ @xref{signal}
+Turn the orientation in turning direction as defined by attribute 
+@samp{counterclockwise} on at value @samp{1}. A values of @samp{0} is ignored.
+
+@end table
+
+@item @b{Action:} none
+
+@table @asis
+@item @b{st_mirror}: flavor=@code{slab}, state = @code{NORTH}
+@item @b{st_mirror_slab}: flavor=@code{slab}, state = @code{NORTH}
+@item @b{st_mirror_sheets}: flavor=@code{sheets}, state = @code{NORTH}
+@item @b{st_mirror_triangle}: flavor=@code{triangle}, state = @code{NORTH}
 @end table
 
 @end table
@@ -6199,6 +6572,7 @@ Tries to tear the opposite window face into the given direction.
 @menu 
 * World Advanced Methods::  Additional features provided by the world
 * Resolvers::               Standard tools for interpretation of tile maps
+* General Features::        Special features by various objects
 * Tips and Tricks::         Simple patterns that are valuable like a feature
 @end menu
 
@@ -6896,6 +7270,135 @@ need to use another unique key @samp{C} for the coin on our random floor.
 
 @end table
 
+@node General Features
+@section General Features
+
+@menu 
+* Display Follow Strategy::    How the display view follows the active marble
+* Fire Spreading::
+* Freeze Checking::
+@end menu
+
+@node Display Follow Strategy
+@subsection Display Follow Strategy
+
+As the world can be larger than a display screen the active marble can move
+out of the area that is visible at level start. Somehow the display has to
+follow the active marble. 
+
+Whereas prior Enigma versions did provide just a handful of fixed modes, future
+versions will give you a much more detailed control of the display following 
+strategy. We decided to switch the configuration to the future parameters
+already now. This allows us to give you some more follower control, even though
+some attributes are still limited in their values.
+
+The strategy is described by the following parameters.
+
+@table @asis
+@item @b{Attributes:}
+
+@table @asis
+@item @ref{FollowGrid}
+@item @ref{FollowMethod}
+@item @ref{FollowThreshold}
+@item @ref{FollowAction}
+
+@end table
+
+@item @b{Syntax Samples:}
+@example
+wo["FollowGrid"] = true
+wo["FollowMethod"] = FOLLOW_SCROLL
+@end example
+
+@item @b{Details:}
+The attributes should always be set in the sequence as given above. This is due
+to the fact that the first attributes may reset some of the later attributes
+to matching defaults. This way you will have to set just a two attributes for
+the most common cases.
+
+You can set the display follow strategy at any point. You are even allowed to
+switch the strategy during the running game.
+
+@item @b{Valid Configurations as of Enigma 1.10:}
+
+@table @asis
+@item @b{Screen Flipping:}
+@example
+wo["FollowGrid"] = true
+wo["FollowMethod"] = FOLLOW_FLIP
+@end example
+The default strategy. The screen flips as soon as the marble reaches the outer
+half of the boundary grid tile. The screen moves by a full screen minus the
+common tile row or column.
+
+@item @b{Half Screen Scrolling:}
+@example
+wo["FollowGrid"] = true
+wo["FollowMethod"] = FOLLOW_SCROLL
+wo["FollowAction"] = FOLLOW_HALFSCREEN
+@end example
+As soon as the marble reaches the outer half of the boundary grid tile the
+display scrolls pixel by pixel by half a screen. It realigns to the grid. As
+on a standard sized screen the display would have to scroll 9.5 grids in 
+horizontal direction such scrolls will alternate in scrolls of 9 and 10 grids.
+The follower will try to stabilize the reachable scroll positions.
+
+@item @b{Permanent Smooth Scrolling:}
+@example
+wo["FollowGrid"] = false
+wo["FollowMethod"] = FOLLOW_SCROLL
+@end example
+The active actor will always stay in the center of the screen. The display
+compensates the actors movement pixel by pixel by scrolling. The display 
+positions are not aligned to grid tiles.
+
+@item @b{Full Screen Scrolling:}
+@example
+wo["FollowGrid"] = true
+wo["FollowMethod"] = FOLLOW_SCROLL
+wo["FollowAction"] = FOLLOW_FULLSCREEN
+@end example
+As soon as the marble reaches the outer half of the boundary grid tile the
+display scrolls pixel by pixel by a full screen minus the common tile row or
+column.
+
+@item @b{No Screen Scrolling:}
+@example
+wo["FollowMethod"] = FOLLOW_NO
+@end example
+No scrolling at all. Even if the active actor moves out of sight the display
+remains at its position.
+
+@item @b{Screen Flipping at a given threshold:}
+@example
+wo["FollowGrid"] = true
+wo["FollowMethod"] = FOLLOW_FLIP
+wo["FollowThreshold"] = po(2.5, 1.5)
+@end example
+The screen flips as soon as the marble reaches the given distance to the screen
+boundary. The screen moves by a full screen minus twice the threshold distance.
+The final display realigns to the grid even on odd threshold distances.
+
+@item @b{Full Screen Scrolling at a given threshold:}
+@example
+wo["FollowGrid"] = true
+wo["FollowMethod"] = FOLLOW_SCROLL
+wo["FollowThreshold"] = po(2.5, 1.5)
+@end example
+The screen scrolls as soon as the marble reaches the given distance to the screen
+boundary. The screen moves by a full screen minus twice the threshold distance.
+The final display realigns to the grid even on odd threshold distances.
+@end table
+
+@end table
+
+@node Fire Spreading
+@subsection Fire Spreading
+
+@node Freeze Checking
+@subsection Freeze Checking
+
 
 @node Tips and Tricks
 @section Tips and Tricks
@@ -6918,7 +7421,7 @@ simple nearest object selection. E.g.
 
 @example
 ti["F"] = @{"st_floppy", target="@@door#*"@}
-ti["D"] = @{"st_blocker", name="door#"@}
+ti["B"] = @{"st_blocker", name="door#"@}
 wo{ti, " ", {
 "       B            ",
 "       FB#####FB####",
@@ -6936,9 +7439,9 @@ group B:
 
 @example
 ti["F"] = @{"st_floppy", target="@@doorA#*"@}
-ti["D"] = @{"st_blocker", name="doorA#"@}
+ti["B"] = @{"st_blocker", name="doorA#"@}
 ti["f"] = @{"st_floppy", target="@@doorB#*"@}
-ti["d"] = @{"st_blocker", name="doorB#"@}
+ti["b"] = @{"st_blocker", name="doorB#"@}
 wo{ti, " ", {
 "       b            ",
 "       fB#####fb####",
