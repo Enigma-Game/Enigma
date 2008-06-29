@@ -1414,7 +1414,7 @@ Value ThiefStone::message(const Message &m) {
     if(m.message == "signal" && server::GameCompatibility != GAMET_ENIGMA) {
         performAction(!m.value.to_bool());  // inverse signal multiplier
         return Value();
-    } else if (m.message == "capture" && state == IDLE) {
+    } else if (m.message == "_capture" && state == IDLE) {
         state = CAPTURED;
         Item * it =  GetItem(get_pos());
         

@@ -48,7 +48,7 @@ namespace enigma {
     }
 
     Value ChessStone::message(const Message &m) {
-        if (m.message == "capture") {
+        if (m.message == "_capture") {
             if (isDisplayable() && state == IDLE && m.value.to_string() != getKind())
                 if (try_state(CAPTURED)) {
                     set_anim(get_model_name() + "-captured");
@@ -97,7 +97,7 @@ namespace enigma {
                             // Don't move, just reappear at old position.                
                         } else {
                             move_stone(getAttr("$destination"), "movesmall");
-                            SendMessage(GetFloor(getAttr("$destination")), "capture");
+                            SendMessage(GetFloor(getAttr("$destination")), "_capture");
                         }
                         // maybe a floor-change has happened, but during
                         // state APPEARING this doesn't mean anything:
@@ -211,7 +211,7 @@ namespace enigma {
             } else {
                 // Test stone. Is it opposite chess stone or totally another one?
                 Stone *st = GetStone(destination);
-                if(to_int(SendMessage(st, "capture", Value(get_model_name()))) ) {
+                if(to_int(SendMessage(st, "_capture", Value(get_model_name()))) ) {
                     // Give it some time for animation, then replace it.
                     ASSERT(try_state(CAPTURING), XLevelRuntime,
                         "ChessStone: strange things happening in maybe_move_to");

@@ -955,7 +955,7 @@ void Thief::steal()
 }
 
 Value Thief::message(const Message &m) {
-    if(m.message == "capture" && state == IDLE) {
+    if(m.message == "_capture" && state == IDLE) {
         state = CAPTURED;
         Item * it =  GetItem(get_pos());
         

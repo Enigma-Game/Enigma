@@ -44,7 +44,6 @@
     <attr name="transparent" type="bool" default="false" rw="rw"/>
   </attributes>
   <messages>
-    <msg name="capture" type="nil"/>
     <msg name="close" type="nil"/>
     <msg name="closeall" type="nil"/>
     <msg name="flip" type="nil"/>
@@ -63,6 +62,7 @@
     <msg name="turnback" type="nil"/>
     <msg name="_bombstone" type="nil"/>
     <msg name="_brush" type="nil"/>
+    <msg name="_capture" type="nil"/>
     <msg name="_explosion" type="nil"/>
     <msg name="_glasses" type="nil"/>
     <msg name="_hit" type="object"/>
@@ -348,10 +348,11 @@
     </object>
     <object name="st_chess">
       <attr name="color" default="0"/>
-      <msg name="capture"/>
+      <attr name="movable" default="true" rw="r"/>
       <msg name="flip"/>
       <msg name="move"/>
       <msg name="signal"/>
+      <msg name="_capture"/>
     </object>
     <object name="st_chess_black">
       <attr name="color" value="0"/>
