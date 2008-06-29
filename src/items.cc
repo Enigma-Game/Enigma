@@ -3280,8 +3280,8 @@ namespace
     }
 
     ItemTraits Sensor::traits[4] = {
-        {"it_sensor",  it_sensor,  itf_static},
-        {"it_sensor",  it_inversesensor,  itf_static},
+        {"it_sensor",  it_sensor,  itf_static}, 
+        {"it_sensor_inverse",  it_inversesensor,  itf_static},
         {"it_sensor_filter1", it_signalfilter1, itf_static | itf_invisible, 0.0},  // DAT only
         {"it_sensor_filter0", it_signalfilter0, itf_static | itf_invisible, 0.0}   // DAT only
     };
@@ -3839,7 +3839,7 @@ namespace
     DEF_TRAITS(Pencil, "it-pencil", it_pencil);
 }
 
-/* -------------------- it-death -------------------- */
+/* -------------------- Death Item  -------------------- */
     class DeathItem : public Item {
         CLONEOBJ(DeathItem);
         DECL_TRAITS;
@@ -3877,6 +3877,114 @@ namespace
     
     DEF_TRAITSF(DeathItem, "it_death", it_death, itf_static | itf_indestructible);
 
+/* -------------------- Strip Items  -------------------- */
+    class StripItem : public Item {
+        CLONEOBJ(StripItem);
+        DECL_TRAITS_ARRAY(16, traitsIdx());
+        
+    public:
+        static void setup();
+                
+        StripItem(std::string connections);
+        
+        // Object interface
+        virtual std::string getClass() const;
+
+        // StateObject interface
+        virtual void setState(int extState);
+        
+        // GridObject interface
+        virtual std::string getModelName() const;
+        virtual void init_model();
+                
+        // Items interface
+        virtual bool covers_floor(ecl::V2 pos) const;
+        
+    private:
+        int traitsIdx() const;
+    };
+    
+    
+    void StripItem::setup() {
+        RegisterItem(new StripItem(""));
+        RegisterItem(new StripItem("w"));
+        RegisterItem(new StripItem("s"));
+        RegisterItem(new StripItem("sw"));
+        RegisterItem(new StripItem("e"));
+        RegisterItem(new StripItem("ew"));
+        RegisterItem(new StripItem("es"));
+        RegisterItem(new StripItem("esw"));
+        RegisterItem(new StripItem("n"));
+        RegisterItem(new StripItem("nw"));
+        RegisterItem(new StripItem("ns"));
+        RegisterItem(new StripItem("nsw"));
+        RegisterItem(new StripItem("ne"));
+        RegisterItem(new StripItem("new"));
+        RegisterItem(new StripItem("nes"));
+        RegisterItem(new StripItem("nesw"));
+    }
+    
+    StripItem::StripItem(std::string connections) {
+        setAttr("connections", connections);
+    }
+        
+    std::string StripItem::getClass() const {
+        return "it_strip";
+    }
+    
+    void StripItem::setState(int extState) {
+        // block state set
+    }
+    
+    std::string StripItem::getModelName() const {
+//        return getClass();
+        return "st_bluesand";
+    }
+    
+    void StripItem::init_model() {
+        // need to bypass Item's implementation
+        GridObject::init_model();
+    }
+
+    bool StripItem::covers_floor(ecl::V2 pos) const {
+        if (GridPos(pos) != get_pos())
+            return false;
+
+        const double MAXDIST = 6.0/32;
+        
+        double ycenter = get_pos().y + 0.5;
+        double xcenter = get_pos().x + 0.5;
+        DirectionBits cbits = getConnections();
+        
+        return (((fabs(pos[1] - ycenter) <= MAXDIST) 
+                && (((pos[0] <= xcenter) && (cbits & WESTBIT)) || ((pos[0] >= xcenter) && (cbits & EASTBIT))))
+                || ((fabs(pos[0] - xcenter) <= MAXDIST) 
+                && (((pos[1] <= ycenter) && (cbits & NORTHBIT)) || ((pos[1] >= ycenter) && (cbits & SOUTHBIT)))))
+                ? true : false;
+    }
+        
+    int StripItem::traitsIdx() const {
+        return getConnections();
+    }
+
+    ItemTraits StripItem::traits[16] = {
+        {"it_strip",  it_strip,  itf_static},
+        {"it_strip_w",  it_strip_w,  itf_static},
+        {"it_strip_s",  it_strip_s,  itf_static},
+        {"it_strip_sw",  it_strip_sw,  itf_static},
+        {"it_strip_e",  it_strip_e,  itf_static},
+        {"it_strip_ew",  it_strip_ew,  itf_static},
+        {"it_strip_es",  it_strip_es,  itf_static},
+        {"it_strip_esw",  it_strip_esw,  itf_static},
+        {"it_strip_n",  it_strip_n,  itf_static},
+        {"it_strip_nw",  it_strip_nw,  itf_static},
+        {"it_strip_ns",  it_strip_ns,  itf_static},
+        {"it_strip_nsw",  it_strip_nsw,  itf_static},
+        {"it_strip_ne",  it_strip_ne,  itf_static},
+        {"it_strip_new",  it_strip_new,  itf_static},
+        {"it_strip_nes",  it_strip_nes,  itf_static},
+        {"it_strip_nesw",  it_strip_nesw,  itf_static}
+    };
 
 /* -------------------- HStrip and VStrip -------------------- */
 namespace
@@ -4186,6 +4294,7 @@ void InitItems()
     RegisterItem (new Spring2);
     RegisterItem (new Springboard);
     RegisterItem (new Squashed);
+    StripItem::setup();
     RegisterItem (new SurpriseItem);
     RegisterItem (new Sword(false));
     Register ("it_sword_new", new Sword(true));
