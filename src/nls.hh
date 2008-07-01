@@ -37,6 +37,8 @@ namespace nls
         { "Magyar",     "hu_HU", "flags25x15/hu" },
         { "Português",  "pt_BR", "flags25x15/pt" },
         { "Suomi",      "fi_FI", "flags25x15/fi" },
+        { "українська", "uk_UA", "flags25x15/ua" },
+        { "беларуская", "be_BY", "flags25x15/by" },
     };
 }
 
