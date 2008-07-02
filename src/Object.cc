@@ -152,6 +152,8 @@ namespace enigma {
             finalizeNearestObjectReferences();
         } else if (m.message == "kill") {
             switch (getObjectType()) {
+                case OTHER:
+                    KillOther(dynamic_cast<Other *>(this)); break;
                 case FLOOR:
                     KillFloor(dynamic_cast<GridObject *>(this)->get_pos()); break;
                 case ITEM:
@@ -159,6 +161,13 @@ namespace enigma {
                 case STONE:
                     KillStone(dynamic_cast<GridObject *>(this)->get_pos()); break;
             }
+        } else if (m.message == "disconnect") {
+            ObjectList olist = getAttr("rubbers");   // a private deletion resistant copy
+            for (ObjectList::iterator it = olist.begin(); it != olist.end(); ++it)
+                KillOther(dynamic_cast<Other *>(*it));
+            olist = getAttr("wires");   // a private deletion resistant copy
+            for (ObjectList::iterator it = olist.begin(); it != olist.end(); ++it)
+                KillOther(dynamic_cast<Other *>(*it));
         }
         return Value();
     }
@@ -401,7 +410,7 @@ namespace enigma {
     }
     
     Object::ObjectType Object::getObjectType() const {
-        return OTHER;
+        return OBJECT;
     }
     
     double Object::squareDistance(const Object *other) const {

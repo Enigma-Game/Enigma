@@ -197,6 +197,12 @@ enigma_SOURCES = 		\
 	lev/ScoreManager.hh	\
 	lev/VolatileIndex.cc	\
 	lev/VolatileIndex.hh	\
+	others/Other.cc		\
+	others/Other.hh		\
+	others/Rubberband.cc	\
+	others/Rubberband.hh	\
+	others/WireControl.cc	\
+	others/WireControl.hh	\
 	stones/ActorImpulseStone.cc	\
 	stones/ActorImpulseStone.hh	\
 	stones/BlockerStone.cc	\

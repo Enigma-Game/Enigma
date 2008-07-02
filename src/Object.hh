@@ -79,6 +79,7 @@ namespace enigma {
 
     public:
         enum ObjectType { 
+            OBJECT,
             OTHER,
             STONE,
             FLOOR,

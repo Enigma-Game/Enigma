@@ -631,19 +631,24 @@ void OxydLoader::connect_rubberbands ()
     for (int i=0; i<num_rubberbands; ++i) {
         const RubberBand &rb = level.getRubberBand(game_mode, i);
 
-        Actor *actor = get_actor (rb.getFirstEndMarble());
-        RubberBandData rbd;
-        rbd.length = rb.getNaturalLength() / 32.0;
-        rbd.strength = rb.getForce() / 60.0;
+        Object *anchor2 = NULL;
         if (rb.isSecondEndMarble()) {
-            Actor *actor2 = get_actor (rb.getSecondEndMarble());
-            AddRubberBand (actor, actor2, rbd);
+            anchor2 = get_actor (rb.getSecondEndMarble());
         }
         else {
             GridPos p(rb.getSecondEndPieceX(), rb.getSecondEndPieceY());
-            if (GetStone(p) != NULL) // Fix for MagnumGold Level #108
-                AddRubberBand (actor, GetStone(p), rbd); 
+            anchor2 = GetStone(p);
+            if (anchor2 == NULL) // Fix for MagnumGold Level #108
+                continue;
         }
+        
+        Object *obj = MakeObject("ot_rubberband");
+        obj->setAttr("anchor1", get_actor(rb.getFirstEndMarble()));
+        obj->setAttr("anchor2", anchor2);
+        obj->setAttr("strength", rb.getForce() / 60.0);
+        obj->setAttr("length", rb.getNaturalLength() / 32.0);
+        obj->setAttr("threshold", 0.0);
+        AddOther(dynamic_cast<Other *>(obj));
     }
 }
 

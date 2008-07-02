@@ -1,6 +1,6 @@
 /*
  * Copyright (C) 2002,2003,2004,2005 Daniel Heck
- * Copyright (C) 2007 Ronald Lamprecht
+ * Copyright (C) 2007,2008 Ronald Lamprecht
  *
  * This program is free software; you can redistribute it and/or
  * modify it under the terms of the GNU General Public License
@@ -91,85 +91,6 @@ Message::Message () : sender (NULL) {
 Message::Message (const std::string &theMessage, const Value &theValue, Object * theSender) : 
         message (theMessage), value (theValue), sender (theSender) {
 }
-
-/* -------------------- RubberBandData -------------------- */
-
-RubberBandData::RubberBandData () {
-    strength = 1;
-    length = 2;
-    minlength = 0;
-}
-
-RubberBandData::RubberBandData (const RubberBandData &x) {
-    strength  = x.strength;
-    length    = x.length;
-    minlength = x.minlength;
-}
-
-/* -------------------- RubberBand -------------------- */
-
-RubberBand::RubberBand (Actor *a1, Actor *a2, const RubberBandData &d)
-: actor(a1), actor2(a2), stone(0), model(0), data (d)
-{
-    ASSERT(actor, XLevelRuntime, "RubberBand: no actor defined");
-    ASSERT(d.length >= 0, XLevelRuntime, "RubberBand: length negative");
-	ASSERT(d.length >= d.minlength, XLevelRuntime, "RubberBand: minlength > length");
-    model = display::AddRubber(get_p1(),get_p2());
-}
-
-RubberBand::RubberBand (Actor *a1, Stone *st, const RubberBandData &d)
-: actor(a1), actor2(0), stone(st), model(0), data (d)
-{
-    ASSERT(actor, XLevelRuntime, "RubberBand: no actor defined");
-    ASSERT(d.length >= 0, XLevelRuntime, "RubberBand: length negative");
-    ASSERT(d.length >= d.minlength, XLevelRuntime, "RubberBand: minlength > length");
-    model = display::AddRubber(get_p1(), get_p2());
-}
-
-RubberBand::~RubberBand() {
-    model.kill();
-}
-
-void RubberBand::apply_forces ()
-{
-    V2 v = get_p2()-get_p1();
-    double vv = ecl::length(v);
-    V2 force;
-    
-    if (vv == 0) {
-        force = V2(0, 0);
-    } else if (vv < data.minlength) {
-        force = v*data.strength*(vv-data.minlength)/vv;
-        force /= 6;
-    } else if (vv > data.length) {
-        force = v*data.strength*(vv-data.length)/vv;
-        force /= 6;
-    }
-    
-    actor->add_force(force);
-    if (actor2)
-        actor2->add_force(-force);
-}
-
-V2 RubberBand::get_p1() const
-{
-    return V2(actor->get_pos()[0], actor->get_pos()[1]);
-}
-
-V2 RubberBand::get_p2() const
-{
-    if (!stone)
-        return V2(actor2->get_pos()[0], actor2->get_pos()[1]);
-    else
-        return stone->get_pos().center();
-}
-
-void RubberBand::tick (double /* dtime */) 
-{
-    model.update_first (get_p1());
-    model.update_second (get_p2());
-}
-
 
 /* -------------------- Field -------------------- */
 
@@ -311,7 +232,11 @@ World::~World()
 {
     fields = FieldArray(0,0);
     for_each(actorlist.begin(), actorlist.end(), mem_fun(&Actor::dispose));
-    delete_sequence (m_rubberbands.begin(), m_rubberbands.end());
+    while (!others.empty()) {
+        Other *ot = others.back();
+        others.pop_back();
+        ot->dispose();
+    }
 }
 
 bool World::is_border(const GridPos &p) {
@@ -1346,8 +1271,9 @@ void World::move_actors (double dtime)
             a->move();         // 'move' nevertheless, to pick up items etc
             a->think(dtime); 
         }
-        for_each (m_rubberbands.begin(), m_rubberbands.end(), 
-                  mem_fun(&RubberBand::apply_forces));
+        for (RubberbandList::iterator rit = rubberbands.begin(); rit != rubberbands.end(); ++rit) {
+            (*rit)->applyForces(dt);
+        }    
 
         rest_time -= dt;
     }
@@ -1682,104 +1608,6 @@ void SetConstantForce (V2 force) {
 }
 
 
-/* -------------------- Rubber bands -------------------- */
-
-void AddRubberBand (Actor *a, Stone *st, const RubberBandData &d)
-{
-    level->m_rubberbands.push_back(new RubberBand (a, st, d));
-}
-
-void AddRubberBand (Actor *a, Actor *a2, const RubberBandData &d)
-{
-    RubberBandData rbd (d);
-    rbd.length = ecl::Max (d.length, get_radius(a) + get_radius(a2));
-    level->m_rubberbands.push_back(new RubberBand (a, a2, rbd));
-}
-
-bool KillRubberBands (Actor *a)
-{
-    bool didKill = false;
-    for (unsigned i=0; i<level->m_rubberbands.size(); ) {
-        RubberBand &r = *level->m_rubberbands[i];
-        if (r.get_actor() == a || r.get_actor2() == a) {
-            delete &r;
-            level->m_rubberbands.erase(level->m_rubberbands.begin()+i);
-            didKill = true;
-            continue;       // don't increment i
-        }
-        ++i;
-    }
-    return didKill;
-}
-
-
-void KillRubberBand (Actor *a, Stone *st)
-{
-    ASSERT(a, XLevelRuntime, "KillRubberBand: no actor attached");
-    for (unsigned i=0; i<level->m_rubberbands.size(); ) {
-        RubberBand &r = *level->m_rubberbands[i];
-        if (r.get_actor() == a && r.get_stone() != 0)
-            if (r.get_stone()==st || st==0) {
-                delete &r;
-                level->m_rubberbands.erase(level->m_rubberbands.begin()+i);
-                continue;       // don't increment i
-            }
-        ++i;
-    }
-}
-
-void KillRubberBand (Actor *a, Actor *a2)
-{
-    ASSERT(a, XLevelRuntime, "KillRubberBand: no actor attached");
-    for (unsigned i=0; i<level->m_rubberbands.size(); ) {
-        RubberBand &r = *level->m_rubberbands[i];
-        if (r.get_actor() == a && r.get_actor2() != 0)
-            if (r.get_actor2()==a2 || a2==0) {
-                delete &r;
-                level->m_rubberbands.erase(level->m_rubberbands.begin()+i);
-                continue;       // don't increment i
-            }
-        ++i;
-    }
-}
-
-void KillRubberBands (Stone *st)
-{
-   for (unsigned i=0; i<level->m_rubberbands.size(); ) {
-        RubberBand &r = *level->m_rubberbands[i];
-        if (r.get_stone() != 0 && r.get_stone()==st) {
-            delete &r;
-            level->m_rubberbands.erase(level->m_rubberbands.begin()+i);
-            continue;       // don't increment i
-        }
-        ++i;
-    }
-}
-
-void GiveRubberBands (Stone *st, vector<Rubber_Band_Info> &rubs) {
-   for (unsigned i=0; i<level->m_rubberbands.size(); ) {
-        RubberBand &r = *level->m_rubberbands[i];
-        if (r.get_stone() == st) {
-            Rubber_Band_Info rbi;
-            rbi.act = r.get_actor();
-            rbi.data = r.get_data();
-            rubs.push_back(rbi);
-        }
-        ++i;
-    }
-}
-
-bool HasRubberBand (Actor *a, Stone *st)
-{
-    for (unsigned i=0; i<level->m_rubberbands.size(); ++i) {
-        RubberBand &r = *level->m_rubberbands[i];
-        if (r.get_actor() == a && r.get_stone() == st)
-            return true;
-    }
-    return false;
-}
-
-
 /* -------------------- Signals, Messages, Actions -------------------- */
 
 void AddSignal (const GridLoc &srcloc, const GridLoc &dstloc, const string &msg) {
@@ -2029,6 +1857,32 @@ const Field *GetField (GridPos p)
     return level->get_field(p);
 }
 
+
+/* -------------------- Other manipulation -------------------- */
+
+void AddOther(Other *o) {
+    level->others.push_back(o);
+    Rubberband * rb = dynamic_cast<Rubberband *>(o);
+    if (rb != NULL)
+        level->rubberbands.push_back(rb);
+    o->postAddition();
+}
+
+void KillOther(Other *o) {
+    o->preRemoval();
+    OtherList::iterator i = find(level->others.begin(), level->others.end(), o);
+    if (i != level->others.end()) {
+        level->others.erase(i);
+        Rubberband * rb = dynamic_cast<Rubberband *>(o);
+        if (rb != NULL) {
+            RubberbandList::iterator j = find(level->rubberbands.begin(), level->rubberbands.end(), rb);
+            if (j != level->rubberbands.end()) {
+                level->rubberbands.erase(j);
+            }
+        }
+        o->dispose();
+    }
+}
 
 /* -------------------- Floor manipulation -------------------- */
 
@@ -2311,9 +2165,10 @@ void TickFinished () {
         level->actorlist[i]->move_screen();
     }
 
-    // 
-    for (unsigned i=0; i<level->m_rubberbands.size();++i) 
-        level->m_rubberbands[i]->tick (0.0);
+    //     
+    for (OtherList::iterator oit = level->others.begin(); oit != level->others.end(); ++oit) {
+        (*oit)->tick(0);
+    }    
 }
 
 void InitWorld()

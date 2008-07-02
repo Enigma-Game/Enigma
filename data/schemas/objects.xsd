@@ -117,6 +117,7 @@
       <xs:enumeration value="string"/>
       <xs:enumeration value="enum"/>
       <xs:enumeration value="object"/>
+      <xs:enumeration value="group"/>
       <xs:enumeration value="tokens"/>
     </xs:restriction>
   </xs:simpleType>

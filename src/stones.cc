@@ -149,9 +149,20 @@ void Stone::actor_hit(const StoneContact &sc)
 void Stone::actor_touch(const StoneContact &sc) {
 }
 
-void Stone::on_impulse(const Impulse& impulse) {
-    if (is_movable())
+void Stone::on_impulse(const Impulse& impulse, bool isWireImpulse) {
+    if (is_movable()) {
         move_stone(impulse.dir);
+        if (!isWireImpulse) {
+            ObjectList olist = getAttr("fellows");
+            for (ObjectList::iterator it = olist.begin(); it != olist.end(); ++it) {
+                Stone *fellow = dynamic_cast<Stone *>(*it);
+                if (fellow != NULL) {
+                    Impulse wireImpulse(this, fellow->get_pos(), impulse.dir);
+                    fellow->on_impulse(wireImpulse, true);
+                }
+            }
+        }
+    }
 }
 
 const char * Stone::collision_sound() {
@@ -455,6 +466,7 @@ YieldedGridStone::YieldedGridStone(Stone *st)
     GridPos pos = stone->get_pos();
     model       = display::YieldModel(GridLoc(GRID_STONES, pos));
     YieldStone(pos);
+    st->setOwnerPos(pos);   // the stone remains owned at the old position
 }
 
 YieldedGridStone::~YieldedGridStone() 

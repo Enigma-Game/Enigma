@@ -64,7 +64,7 @@ namespace enigma {
         
         // Stone interface
         virtual void actor_hit(const StoneContact &sc);
-        virtual void on_impulse(const Impulse& impulse);
+        virtual void on_impulse(const Impulse& impulse, bool isWireImpulse=false);
         virtual void on_move();
         virtual FreezeStatusBits get_freeze_bits();
 

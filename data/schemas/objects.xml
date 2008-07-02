@@ -2,6 +2,8 @@
 <objects xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="objects.xsd">
   <attributes>
     <attr name="action" type="tokens" default="nil" rw="rw"/>
+    <attr name="anchor1" type="tokens" default="nil" rw="rw"/>
+    <attr name="anchor2" type="tokens" default="nil" rw="rw"/>
     <attr name="autoclose" type="bool" default="false" rw="rw"/>
     <attr name="cluster" type="int" default="nil" min="0" max="1" rw="rw"/>
     <attr name="code" type="int" default="1" rw="rw"/>
@@ -11,6 +13,7 @@
     <attr name="counterclock" type="bool" default="false" rw="rw"/>
     <attr name="destination" type="tokens" default="nil" rw="rw"/>
     <attr name="faces" type="string" default="nil" rw="rw"/>
+    <attr name="fellows" type="group" default="nil" rw="r"/>
     <attr name="flavor" type="string" default="b" rw="rw"/>
     <attr name="friction" type="double" default="nil" rw="rw"/>
     <attr name="gradient" type="double" default="nil" rw="rw"/>
@@ -26,7 +29,10 @@
     <attr name="interval_l" type="double" default="12" rw="rw"/>
     <attr name="inverse" type="bool" default="false" rw="rw"/>
     <attr name="invisible" type="bool" default="false" rw="rw"/>
+    <attr name="length" type="double" default="1" rw="rw"/>
     <attr name="loop" type="bool" default="true" rw="rw"/>
+    <attr name="max" type="double" default="0" rw="rw"/>
+    <attr name="min" type="double" default="0" rw="rw"/>
     <attr name="movable" type="bool" default="false" rw="rw"/>
     <attr name="name" type="string" default="nil" rw="rw"/>
     <attr name="nopaction" type="bool" default="false" rw="rw"/>
@@ -34,6 +40,7 @@
     <attr name="orientation" type="int" default="0" min="0" max="3" rw="rw"/>
     <attr name="oxydcolor" type="int" default="-1" min="-4" max="7" rw="rw"/>
     <attr name="range" type="double" default="1.0" rw="rw"/>
+    <attr name="rubbers" type="group" default="nil" rw="r"/>
     <attr name="secure" type="bool" default="false" rw="rw"/>
     <attr name="scissor" type="bool" default="true" rw="rw"/>
     <attr name="scratches" type="string" default="" rw="rw"/>
@@ -42,10 +49,13 @@
     <attr name="strength" type="double" default="1" rw="rw"/>
     <attr name="target" type="tokens" default="nil" rw="rw"/>
     <attr name="transparent" type="bool" default="false" rw="rw"/>
+    <attr name="threshold" type="double" default="0" rw="rw"/>
+    <attr name="wires" type="group" default="nil" rw="r"/>
   </attributes>
   <messages>
     <msg name="close" type="nil"/>
     <msg name="closeall" type="nil"/>
+    <msg name="disconnect" type="nil"/>
     <msg name="flip" type="nil"/>
     <msg name="hit" type="object"/>
     <msg name="inner_pull" type="dir"/>
@@ -86,6 +96,7 @@
       <attr name="state"/>
       <attr name="target"/>
       <action type="bool"/>
+      <msg name="disconnect"/>
       <msg name="kill"/>
       <msg name="toggle"/>
     </object>
@@ -207,8 +218,26 @@
       <attr name="faces"/>
       <msg name="_model_reanimated"/>
     </object>
+    <object name="ot" abstract="true">
+    </object>
+    <object name="ot_rubberband">
+      <attr name="anchor1"/>
+      <attr name="anchor2"/>
+      <attr name="strength" default="10"/>
+      <attr name="length"/>
+      <attr name="threshold"/>
+      <attr name="max"/>
+      <attr name="min"/>
+    </object>
+    <object name="ot_wirecontrol">
+      <attr name="anchor1"/>
+      <attr name="anchor2"/>
+    </object>
     <object name="st" abstract="true">
       <attr name="movable" rw="r"/>
+      <attr name="fellows"/>
+      <attr name="rubbers"/>
+      <attr name="wires"/>
     </object>
     <object name="st_actorimpulse">
       <attr name="invisible"/>

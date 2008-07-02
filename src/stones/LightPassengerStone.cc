@@ -167,7 +167,7 @@ namespace enigma {
         }
     }
 
-    void LightPassengerStone::on_impulse(const Impulse& impulse) {
+    void LightPassengerStone::on_impulse(const Impulse& impulse, bool isWireImpulse) {
         Actor *a = dynamic_cast<Actor*>(impulse.sender);
         if (a == NULL && ((objFlags & OBJBIT_LIGHTNEWDIRS) == NODIRBIT || state == OFF 
                 || server::GameCompatibility != GAMET_ENIGMA))

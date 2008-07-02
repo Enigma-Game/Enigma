@@ -2038,7 +2038,7 @@ set_item("it-wormhole", 1,1, {targetx=5.5, targety=10.5, strength=50, range=5})
                 state |= 4;  // mark warping
                 bool isScissor = to_bool(getAttr("scissor")) || server::GameCompatibility != GAMET_ENIGMA;
                 if (isScissor)
-                    KillRubberBands(actor);
+                    SendMessage(actor, "disconnect");
                 WarpActor(actor, targetpos[0], targetpos[1], false);
                 state &= ~4; // release warping
             }
@@ -2284,7 +2284,7 @@ They may be opened or closed. Is a vortex is closed, the actor cannot enter.
                 bool isScissor = to_bool(getDefaultedAttr("scissor", 
                         (server::EnigmaCompatibility >= 1.10) || server::GameCompatibility != GAMET_ENIGMA));
                 if (isScissor)
-                    KillRubberBands(actor);
+                    SendMessage(actor, "disconnect");
             }
         }
         state = OPEN;
@@ -2304,7 +2304,7 @@ They may be opened or closed. Is a vortex is closed, the actor cannot enter.
             bool isScissor = to_bool(getDefaultedAttr("scissor", 
                     (server::EnigmaCompatibility >= 1.10) || server::GameCompatibility != GAMET_ENIGMA));
             if (isScissor)
-                KillRubberBands(actor);
+                SendMessage(actor, "disconnect");
         }
         state = OPEN;
         if (getAttr("autoclose").to_bool())
@@ -4135,7 +4135,7 @@ namespace
 
             if (id == ac_blackball || id == ac_whiteball) {
                 // Kill ALL rubberbands connected with the actor:
-                KillRubberBands (a);
+                SendMessage(a, "disconnect");
                 Actor *rotor = MakeActor (ac_rotor);
                 rotor->setAttr("mouseforce", Value (1.0));
                 rotor->setAttr("controllers", Value (iplayer+1));
@@ -4165,7 +4165,7 @@ namespace
     DEF_TRAITS(Drop, "it-drop", it_drop);
 }
 
-/* -------------------- RubberbandItem -------------------- */
+/* -------------------- Rubberband Item-------------------- */
 namespace
 {
     class RubberbandItem : public Item {
@@ -4173,46 +4173,35 @@ namespace
         DECL_TRAITS;
 
         ItemAction activate(Actor *a, GridPos p) {
-            // Default values for the rubberband:
-            double strength = getDefaultedAttr("strength", 10.0);
-            double length = getDefaultedAttr("length", 1.0);
-            double minlength = getDefaultedAttr("minlength", 0.0);
-
-            RubberBandData rbd;
-            rbd.strength = strength;
-            rbd.length = length;
-            rbd.minlength = minlength;
-
-            // Target to connect to, default: ""
-            std::string target(getAttr("target"));
-            
             // TODO: Multiple Targets!
             // TODO: Target for black and target for white marble?
             // TODO: MultiplayerGame: Defaulttarget is second actor!
 
+            // Get actor or stone with the name, given in "connect_to":
+            Object *anchor2 = getAttr("target");
+            
+            // Target does NOT exist, Drop Item
+            if (anchor2 == NULL)
+                return ITEM_DROP;
+                
             // The mode attribute "scissor" defines, if when using an it-rubberband,
             // other rubberbands to the actor will be cut of or not, true means they will. false is default.
             bool isScissor = to_bool(getAttr("scissor"));
 
-            // Get actor or stone with the name, given in "connect_to":
-            Actor *target_actor = dynamic_cast<Actor*>(GetNamedObject(target));
-            Stone *target_stone = dynamic_cast<Stone*>(GetNamedObject(target));
-
-            // Target does NOT exist, Drop Item
-            if((!target_actor)&&(!target_stone)) return ITEM_DROP;
-
             if (isScissor)
-                KillRubberBands (a);
+                SendMessage(a, "disconnect");
 
             sound_event ("rubberband");
-            if (target_actor) {
-                // It's not allowed to connect a rubberband to self.
-                if (target_actor != a)
-                    AddRubberBand (a,target_actor,rbd);
-                else
-                    return ITEM_DROP; }
-            else
-                AddRubberBand (a,target_stone,rbd);
+            
+            if (anchor2 != a) { // It's not allowed to connect a rubberband to self.
+                Object *obj = MakeObject("ot_rubberband");
+                obj->setAttr("anchor1", a);
+                obj->setAttr("anchor2", anchor2);
+                obj->setAttr("strength", getDefaultedAttr("strength", 10.0));
+                obj->setAttr("length", getDefaultedAttr("length", 1.0));
+                obj->setAttr("threshold", getDefaultedAttr("minlength", 0.0));
+                AddOther(dynamic_cast<Other *>(obj));
+            }
 
             return ITEM_KILL;
         }

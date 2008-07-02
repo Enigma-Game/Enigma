@@ -189,10 +189,10 @@ namespace display
         unsigned id;
     };
 
-    RubberHandle AddRubber (const ecl::V2 &p1, const ecl::V2 &p2);
+    RubberHandle AddRubber (const ecl::V2 &p1, const ecl::V2 &p2, unsigned short rc, unsigned short gc, unsigned short bc);
 }
 
-
+
 /* -------------------- Status bar -------------------- */
 namespace display
 {

@@ -17,6 +17,7 @@
  *
  */
 
+
 #include <memory>
 
 namespace enigma {
@@ -28,38 +29,11 @@ namespace enigma {
 
     typedef vector<ForceField*>  ForceList;
 //    typedef vector<StoneContact> StoneContactList;
+    typedef list<Other *>         OtherList;
+    typedef list<Rubberband *>    RubberbandList;
     typedef vector<Actor*>       ActorList;
     typedef vector<Signal>       SignalList;
 
-
-/* -------------------- RubberBand -------------------- */
-    
-    /*! Stores the physical information about a rubber band (to which
-      object it is attached, its length and force, etc.) */
-    class RubberBand {
-    public:
-        RubberBand (Actor *a1, Actor *a2, const RubberBandData &d);
-        RubberBand (Actor *a1, Stone *st, const RubberBandData &d);
-        ~RubberBand();
-
-        void apply_forces ();
-        void tick (double dtime);
-
-        Actor *get_actor() const { return actor; }
-        Actor *get_actor2() const { return actor2; }
-        Stone *get_stone() const { return stone; }
-
-        const RubberBandData get_data () const { return data; }
-    private:
-        V2 get_p1() const;
-        V2 get_p2() const;
-
-        // Variables.
-        Actor *actor, *actor2;
-        Stone *stone;
-        display::RubberHandle model;
-        RubberBandData data;
-    };
 
 /* -------------------- MouseForce -------------------- */
 
@@ -224,7 +198,7 @@ namespace enigma {
         void raw_set (Field &f, Stone *st) { f.stone = st;}
         void dispose (Stone *st) {
             if (st) {
-                KillRubberBands(st);
+                SendMessage(st, "disconnect");
                 DisposeObject(st);
             }
         }
@@ -332,7 +306,8 @@ typedef list<sound::SoundDamping> SoundDampingList;
         ActorList            actorlist; // List of movable, dynamic objects
         Actor               *leftmost_actor;   // sorted double linked list of actors
         Actor               *rightmost_actor;  
-        vector<RubberBand *> m_rubberbands;
+        OtherList            others;
+        RubberbandList       rubberbands;
         MouseForce           m_mouseforce;
         V2                   flatForce;
         int                  scrambleIntensity;

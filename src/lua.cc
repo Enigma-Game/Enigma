@@ -757,21 +757,25 @@ en_add_rubber_band (lua_State *L)
     Object *o2       = to_object(L, 2);
     Actor  *a2       = dynamic_cast<Actor*>(o2);
     Stone  *st       = dynamic_cast<Stone*>(o2);
-    RubberBandData d;
-    d.strength  = lua_tonumber (L, 3);
-    d.length    = lua_tonumber (L, 4);
-    d.minlength = lua_tonumber (L, 5);
 
     if (!a1)
         throwLuaError(L, "AddRubberBand: First argument must be an actor\n");
+
+    Object *obj = MakeObject("ot_rubberband");
+    obj->setAttr("anchor1", a1);
+    if (a2)
+        obj->setAttr("anchor2", a2);
+    else if (st)
+        obj->setAttr("anchor2", st);
     else {
-        if (a2)
-            AddRubberBand (a1, a2, d);
-        else if (st)
-            AddRubberBand (a1, st, d);
-        else
-            throwLuaError(L, "AddRubberBand: Second argument must be actor or stone\n");
+        obj->dispose();
+        throwLuaError(L, "AddRubberBand: Second argument must be actor or stone\n");
     }
+    obj->setAttr("strength", lua_tonumber (L, 3));
+    obj->setAttr("length", lua_tonumber (L, 4));
+    obj->setAttr("threshold", lua_tonumber (L, 5));
+    AddOther(dynamic_cast<Other *>(obj));
+
     return 0;
 }
 
@@ -1851,6 +1855,10 @@ static int setObjectByTable(lua_State *L, double x, double y, bool onlyFloors = 
             } else
                 DisposeObject(obj);
             break;
+        case Object::OTHER :
+            if (x < 0)
+                AddOther(dynamic_cast<Other *>(obj));
+            break;
         default :
             throwLuaError(L, "World set of unknown object");
     }
@@ -2178,6 +2186,17 @@ static int pushNewWorld(lua_State *L) {
     luaL_getmetatable(L, LUA_ID_WORLD);
     lua_setmetatable(L, -2);
     return 1;
+}
+
+static int addOther(lua_State *L) {
+    // world, table | tile
+    if (is_tile(L, 2)  || is_table(L, 2)) {
+        if (is_table(L, -1))
+            setObjectByTable(L, -1, -1);
+        else // is tile
+            setObjectByTile(L, -1, -1);
+    }
+    return 0;
 }
 
 static int shuffleOxyd(lua_State *L) {
@@ -2721,6 +2740,7 @@ static CFunction worldMethods[] = {
     {createWorld,                   "create"},
     {registerWorldUserMethod,       "_register"},
     {evaluateKey,                   "_evaluate"},
+    {addOther,                      "add"},
     {getFloor,                      "fl"},
     {getItem,                       "it"},
     {getStone,                      "st"},

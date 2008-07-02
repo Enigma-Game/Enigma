@@ -393,7 +393,7 @@ namespace
         void on_removal(GridPos p);
 
         // Stone interface
-        void on_impulse (const Impulse &impulse);
+        void on_impulse (const Impulse &impulse, bool isWireImpulse=false);
         bool is_removable() const { return state == IDLE; }
         void actor_hit (const StoneContact &sc);
 
@@ -460,7 +460,7 @@ void SwapStone::alarm()
 //    sound_event ("moveslow");
 }
 
-void SwapStone::on_impulse(const Impulse& impulse) 
+void SwapStone::on_impulse(const Impulse& impulse, bool isWireImpulse) 
 {
     if (state == IDLE) {
         GridPos oldp = get_pos();
@@ -728,7 +728,7 @@ namespace
 //             else
 //                 maybe_push_stone (sc);
         }
-        void on_impulse(const Impulse& impulse) {
+        void on_impulse(const Impulse& impulse, bool isWireImpulse=false) {
             move_stone(impulse.dir);
         }
 
@@ -1148,7 +1148,7 @@ namespace
         void actor_hit(const StoneContact &sc) {
             sound_event("scissors");
             set_anim("st-scissors-snip");
-            if (KillRubberBands (sc.actor))
+            if (SendMessage(sc.actor, "disconnect").to_bool())
                 performAction(false);
         }
         void animcb() {
@@ -1187,31 +1187,37 @@ namespace
         DECL_TRAITS;
 
         void actor_hit(const StoneContact &sc) {
-            double strength = getDefaultedAttr("strength", 10.0);
-            double length = getDefaultedAttr("length", 1.0);
-            double minlength = getAttr("minlength");
-
-            RubberBandData rbd;
-            rbd.strength = strength;
-            rbd.length = length;
-            rbd.minlength = minlength;
-
             // The mode attribute "scissor" defines, if when touching an st-rubberband,
             // other rubberbands to the actor will be cut of or not, true means they will. true is default.
             bool isScissor = to_bool(getDefaultedAttr("scissor", true));
 
-            if (!HasRubberBand (sc.actor, this)) {
+//            if (!HasRubberBand (sc.actor, this)) {
+            bool alreadyConnected = false;
+            ObjectList rubbers = sc.actor->getAttr("rubbers");
+            for (ObjectList::iterator it =  rubbers.begin(); it != rubbers.end(); ++it) {
+                if (((Object *)(*it)->getAttr("anchor2")) == this) {
+                    alreadyConnected = true;
+                    break;
+                }
+            }
+            if (!alreadyConnected) {
                 sound_event ("rubberband");
                 if (isScissor) {
-                    KillRubberBand (sc.actor, (Stone*)0);
+                    SendMessage(sc.actor, "disconnect");
                 }
-                AddRubberBand (sc.actor, this, rbd);
+                Object *obj = MakeObject("ot_rubberband");
+                obj->setAttr("anchor1", sc.actor);
+                obj->setAttr("anchor2", this);
+                obj->setAttr("strength", getDefaultedAttr("strength", 10.0));
+                obj->setAttr("length", getDefaultedAttr("length", 1.0));
+                obj->setAttr("threshold", getAttr("minlength"));
+                AddOther(dynamic_cast<Other *>(obj));
             }
             // if (player::wielded_item_is (sc.actor, "it-magicwand"))
             maybe_push_stone (sc);
         }
 
-        void on_impulse (const Impulse& impulse) {
+        void on_impulse (const Impulse& impulse, bool isWireImpulse=false) {
             Actor *a = dynamic_cast<Actor *> (impulse.sender);
             if (a && player::WieldedItemIs (a, "it-magicwand"))
                 move_stone(impulse.dir);

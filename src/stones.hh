@@ -164,6 +164,7 @@ namespace enigma {
     };
         
     class Stone : public GridObject {
+    
     public:
         Stone();
         Stone(const char *kind);
@@ -216,7 +217,7 @@ namespace enigma {
         
         virtual void   on_move();
         virtual void   on_floor_change() {}
-        virtual void   on_impulse(const Impulse& impulse);
+        virtual void   on_impulse(const Impulse& impulse, bool isWireImpulse=false);
 
     protected:
         virtual Object::ObjectType getObjectType() const {return Object::STONE;}

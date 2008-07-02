@@ -231,7 +231,7 @@ void player::LevelFinished()
         for (unsigned j=0; j<players[i].actors.size(); ++j) {
             Actor *a = players[i].actors[j];
             SendMessage(a, "disappear");
-            KillRubberBands (a);
+            SendMessage(a, "disconnect");
         }
     }
 }
@@ -586,7 +586,7 @@ void player::PickupStoneAsItem (Actor *a, enigma::GridPos p)
                 kind[0] = 'i';
 
             if (Item *item = MakeItem(kind.c_str())) {
-                KillRubberBands(stone);
+                SendMessage(stone, "disconnect");
                 DisposeObject (stone);
                 inv->add_item(item);
                 player::RedrawInventory(inv);

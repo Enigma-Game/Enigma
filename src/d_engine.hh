@@ -26,7 +26,7 @@
 
 namespace display
 {
-
+
 /* -------------------- DisplayEngine -------------------- */
 
     class DisplayEngine {
@@ -131,7 +131,7 @@ namespace display
         DisplayEngine *m_engine;
     };
 
-
+
 /* -------------------- ModelLayer -------------------- */
 
     /*! The base class for all layers that contains Models. */
@@ -187,7 +187,7 @@ namespace display
         int m_redrawsize;
     };
 
-
+
 /* -------------------- Sprites -------------------- */
 
     class Sprite : public ecl::Nocopy {
@@ -253,7 +253,7 @@ namespace display
         unsigned dispensiblesprites;    // Threshold above which just critical sprites are accepted
     };
 
-
+
 /* -------------------- Shadows -------------------- */
 
     struct StoneShadowCache;
@@ -289,14 +289,17 @@ namespace display
         ecl::Array2<bool>   m_hasactor;
     };
 
-
+
 /* -------------------- Lines -------------------- */
 
     struct Line {
-        V2 start,end;
+        V2 start, end;
         V2 oldstart, oldend;
+        unsigned short r,g,b;
 
-        Line(const V2 &s, const V2 &e) :start(s), end(e) {}
+        Line(const V2 &s, const V2 &e, unsigned short rc, unsigned short gc, unsigned short bc) :
+                start (s), end (e), r (rc), g (gc), b (bc) {
+        }
         Line() {}
     };
 
@@ -313,7 +316,7 @@ namespace display
         {}
         void draw_onepass (ecl::GC &gc);
 
-        RubberHandle add_line (const V2 &p1, const V2 &p2);
+        RubberHandle add_line (const V2 &p1, const V2 &p2, unsigned short rc, unsigned short gc, unsigned short bc);
         void set_startpoint (unsigned id, const V2 &p1);
         void set_endpoint (unsigned id, const V2 &p2);
         void kill_line (unsigned id);
@@ -328,7 +331,7 @@ namespace display
         LineMap   m_rubbers;
     };
 
-
+
 /* -------------------- CommonDisplay -------------------- */
 
     /*! Parts of the display engine that are common to the game and
@@ -351,7 +354,7 @@ namespace display
         SpriteHandle add_effect (const V2& pos, Model *m, bool isDispensible = false);
         SpriteHandle add_sprite (const V2 &pos, Model *m);
 
-        RubberHandle add_line (V2 p1, V2 p2);
+        RubberHandle add_line (V2 p1, V2 p2, unsigned short rc, unsigned short gc, unsigned short bc);
 
         void new_world (int w, int h);
         void redraw();
@@ -372,7 +375,7 @@ namespace display
         DisplayEngine *m_engine;
     };
 
-
+
 /* -------------------- Scrolling -------------------- */
 
 
@@ -437,7 +440,7 @@ namespace display
         ecl::V2 calc_offset (const ecl::V2 &point);
     };
 
-
+
 /* -------------------- GameDisplay -------------------- */
 
     class GameDisplay : public CommonDisplay {

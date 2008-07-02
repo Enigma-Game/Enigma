@@ -27,6 +27,8 @@
 #include "items.hh"
 #include "stones.hh"
 #include "util.hh"
+#include "others/Other.hh"
+#include "others/Rubberband.hh"
 
 namespace enigma {
 
@@ -175,51 +177,10 @@ namespace enigma {
     void SetConstantForce (V2 force);
 
 
-/* -------------------- Rubbers Bands -------------------- */
+/* -------------------- Other Objects -------------------- */
 
-    struct RubberBandData {
-	double strength;
-	double length;
-        double minlength;
-        RubberBandData ();
-        RubberBandData (const RubberBandData &);
-    };
-
-    struct Rubber_Band_Info {
-	Actor *act;
-        RubberBandData data;
-    };
-    typedef std::vector<Rubber_Band_Info> RBI_vector;
-
-
-    /*! Add a rubber band that connects an actor with either a stone
-      or another actor.  `strength' is the force constant, and
-      `length' is the natural length of the elastic: if it is shorter
-      than `length' it will exert no force on the actor(s). */
-    void AddRubberBand (Actor *a, Stone *st, const RubberBandData &d);
-    void AddRubberBand (Actor *a, Actor *a2, const RubberBandData &d);
-
-    /*! Remove all rubber bands connected to `a'. */
-    bool KillRubberBands (Actor *a);
-
-    /*! Remove the rubber band between `a' and `st'.  If `st' is 0,
-      all rubber bands connecting `a' to a stone will be cut. */
-    void KillRubberBand (Actor *a, Stone *st);
-
-    /*! Remove the rubber band between `a' and `a2'.  If `a2' is 0,
-      all rubber bands connecting `a' to other actors will be cut. */
-    void KillRubberBand (Actor *a, Actor *a2);
-
-    /*! Remove all rubber bands attached to stone ST. */
-    void KillRubberBands (Stone *st);
-
-    /*! Fills given vector with basic info about rubbers attached to
-      given stone */
-    void GiveRubberBands (Stone *st, RBI_vector &rubbers);
-
-    /*! Returns true if there already is a rubber band connecting `a'
-      and `st'. */
-    bool HasRubberBand (Actor *a, Stone *st);
+    void AddOther(Other *o);
+    void KillOther(Other *o);
 
 /* -------------------- Meditation Control ---------------------- */
 

@@ -101,7 +101,7 @@ namespace
             if (state == IDLE)
                 maybe_push_stone(sc);
         }
-        void on_impulse(const Impulse& impulse);
+        void on_impulse(const Impulse& impulse, bool isWireImpulse=false);
         bool is_removable() const {
             return state == IDLE;
         }
@@ -189,7 +189,7 @@ void PullStone::alarm() {
     change_state(IDLE);
 }
 
-void PullStone::on_impulse(const Impulse& impulse) 
+void PullStone::on_impulse(const Impulse& impulse, bool isWireImpulse) 
 {
     if (state != IDLE)
         return;
@@ -561,7 +561,7 @@ namespace
         virtual Value message(const Message &m);
 
         void on_creation (GridPos p);
-        void on_impulse (const Impulse& impulse);
+        void on_impulse (const Impulse& impulse, bool isWireImpulse=false);
 
         bool is_floating() const;
 
@@ -906,7 +906,7 @@ Value PuzzleStone::message(const Message &m) {
     return ConnectiveStone::message(m);
 }
 
-void PuzzleStone::on_impulse(const Impulse& impulse) 
+void PuzzleStone::on_impulse(const Impulse& impulse, bool isWireImpulse) 
 {
 //    if (!oxyd1_compatible() && state == IDLE) {
     if (state == IDLE) {
@@ -1362,7 +1362,7 @@ namespace
                 SendMessage(it, "noshogun");
         }
 
-        void on_impulse(const Impulse& impulse);
+        void on_impulse(const Impulse& impulse, bool isWireImpulse=false);
 
         void init_model() {
             set_model(ecl::strf("st-shogun%d", int(get_holes())));
@@ -1408,7 +1408,7 @@ void ShogunStone::notify_item ()
     }
 }
 
-void ShogunStone::on_impulse(const Impulse& impulse) {
+void ShogunStone::on_impulse(const Impulse& impulse, bool isWireImpulse) {
     GridPos destpos     = move(get_pos(), impulse.dir);
     Holes holes         = get_holes();
     Holes smallest      = smallest_hole(holes);
@@ -1487,7 +1487,7 @@ namespace
 
         void change_state(State st);
 
-        virtual void on_impulse(const Impulse& impulse) {
+        virtual void on_impulse(const Impulse& impulse, bool isWireImpulse=false) {
             incoming = impulse.dir;
             change_state(PULSING);
         }
@@ -1698,7 +1698,7 @@ namespace
             }
         }
 
-        void on_impulse(const Impulse& impulse) {
+        void on_impulse(const Impulse& impulse, bool isWireImpulse) {
             State oldstate = state;
 
             if (move_stone(impulse.dir)) {
@@ -1753,7 +1753,7 @@ namespace
         // Private methods
         DirectionBits arms_present() const;
         bool          no_stone (int xoff, int yoff) const;
-        void set_arm (Direction dir, RBI_vector &rubs);
+        void set_arm (Direction dir);
         void remove_arms (DirectionBits arms);
         void rotate_arms (DirectionBits arms, bool clockwise);
         void handleActorsAndItems(bool clockwise, Object *impulse_sender);
@@ -1798,7 +1798,7 @@ namespace
         virtual Direction get_dir() const = 0;
 
         void actor_hit(const StoneContact &sc);
-        void on_impulse(const Impulse& impulse);
+        void on_impulse(const Impulse& impulse, bool isWireImpulse=false);
 
         Turnstile_Pivot_Base *get_pivot() {
             Stone *st = GetStone (move (get_pos(), reverse(get_dir())));
@@ -1849,7 +1849,7 @@ namespace
 
 /* -------------------- Turnstile_Arm -------------------- */
 
-void Turnstile_Arm::on_impulse(const Impulse& impulse) {
+void Turnstile_Arm::on_impulse(const Impulse& impulse, bool isWireImpulse) {
     enum Action { ROTL, ROTR, stay };
     static Action actions[4][4] = {
         { stay, ROTL, stay, ROTR }, // west arm
@@ -1944,33 +1944,33 @@ void Turnstile_Pivot_Base::remove_arms (DirectionBits arms) {
 void Turnstile_Pivot_Base::rotate_arms (DirectionBits arms, bool clockwise) {
     GridPos p = get_pos();
 
-    RBI_vector Nrubs;
-    RBI_vector Erubs;
-    RBI_vector Srubs;
-    RBI_vector Wrubs;
+//    RBI_vector Nrubs;
+//    RBI_vector Erubs;
+//    RBI_vector Srubs;
+//    RBI_vector Wrubs;
 
-    if (arms & NORTHBIT) GiveRubberBands(GetStone(move (p, NORTH)), Nrubs);
-    if (arms & EASTBIT) GiveRubberBands(GetStone(move (p, EAST)), Erubs);
-    if (arms & SOUTHBIT) GiveRubberBands(GetStone(move (p, SOUTH)), Srubs);
-    if (arms & WESTBIT) GiveRubberBands(GetStone(move (p, WEST)), Wrubs);
+//    if (arms & NORTHBIT) GiveRubberBands(GetStone(move (p, NORTH)), Nrubs);
+//    if (arms & EASTBIT) GiveRubberBands(GetStone(move (p, EAST)), Erubs);
+//    if (arms & SOUTHBIT) GiveRubberBands(GetStone(move (p, SOUTH)), Srubs);
+//    if (arms & WESTBIT) GiveRubberBands(GetStone(move (p, WEST)), Wrubs);
 
     remove_arms(arms);
 
     if (clockwise) {
-	if (arms & NORTHBIT) set_arm(EAST, Nrubs);
-	if (arms & EASTBIT)  set_arm(SOUTH, Erubs);
-	if (arms & SOUTHBIT) set_arm(WEST, Srubs);
-	if (arms & WESTBIT)  set_arm(NORTH, Wrubs);
+	if (arms & NORTHBIT) set_arm(EAST);
+	if (arms & EASTBIT)  set_arm(SOUTH);
+	if (arms & SOUTHBIT) set_arm(WEST);
+	if (arms & WESTBIT)  set_arm(NORTH);
     }
     else {
-	if (arms & NORTHBIT) set_arm(WEST, Nrubs);
-	if (arms & EASTBIT)  set_arm(NORTH, Erubs);
-	if (arms & SOUTHBIT) set_arm(EAST, Srubs);
-	if (arms & WESTBIT)  set_arm(SOUTH, Wrubs);
+	if (arms & NORTHBIT) set_arm(WEST);
+	if (arms & EASTBIT)  set_arm(NORTH);
+	if (arms & SOUTHBIT) set_arm(EAST);
+	if (arms & WESTBIT)  set_arm(SOUTH);
     }
 }
 
-void Turnstile_Pivot_Base::set_arm (Direction dir, RBI_vector &rubs) {
+void Turnstile_Pivot_Base::set_arm (Direction dir) {
     const char *names[4] = { "st-turnstile-w", "st-turnstile-s",
                              "st-turnstile-e", "st-turnstile-n" };
     Stone   *st   = MakeStone(names[dir]);
@@ -1980,9 +1980,9 @@ void Turnstile_Pivot_Base::set_arm (Direction dir, RBI_vector &rubs) {
     if (Item *it = GetItem(newp))
         it->on_stonehit(st);
 
-    if (!rubs.empty())
-	for (RBI_vector::iterator i = rubs.begin(); i != rubs.end(); ++i)
-	    AddRubberBand (i->act, st, i->data);
+//    if (!rubs.empty())
+//	for (RBI_vector::iterator i = rubs.begin(); i != rubs.end(); ++i)
+//	    AddRubberBand (i->act, st, i->data);
 }
 
 bool Turnstile_Pivot_Base::rotate(bool clockwise, Object *impulse_sender) {
