@@ -208,16 +208,17 @@ namespace enigma {
 
         /* ---------- Stone interface (events) ---------- */
 
-        virtual void   actor_hit (const StoneContact &sc);
-        virtual void   actor_touch (const StoneContact &sc);
-        virtual void   actor_inside (Actor * /*a*/) {}
-        virtual void   actor_contact (Actor * /*a*/) {}
+        virtual void actor_hit (const StoneContact &sc);
+        virtual void actor_touch (const StoneContact &sc);
+        virtual void actor_inside (Actor * /*a*/) {}
+        virtual void actor_contact (Actor * /*a*/) {}
 
-        virtual bool   freeze_check();
+        virtual bool freeze_check();
         
-        virtual void   on_move();
-        virtual void   on_floor_change() {}
-        virtual void   on_impulse(const Impulse& impulse, bool isWireImpulse=false);
+        virtual void on_move();
+        virtual void on_floor_change() {}
+        virtual void on_impulse(const Impulse& impulse);
+        void propagateImpulse(const Impulse& impulse);
 
     protected:
         virtual Object::ObjectType getObjectType() const {return Object::STONE;}

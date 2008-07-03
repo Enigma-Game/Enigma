@@ -49,11 +49,12 @@ namespace enigma {
         Object    *sender;
         GridPos    dest;
         Direction  dir;
+        bool       byWire;
 
         // Constructors
-        Impulse(Object *sender_, const GridPos& dest_, Direction dir_)
-        : sender(sender_), dest(dest_), dir(dir_)
-        {}
+        Impulse(Object *sender_, const GridPos& dest_, Direction dir_, bool sendByWire = false)
+                : sender (sender_), dest (dest_), dir (dir_), byWire (sendByWire) {
+        }
     };
 
     struct Message {

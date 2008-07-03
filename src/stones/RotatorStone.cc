@@ -116,9 +116,10 @@ namespace enigma {
             maybe_push_stone(sc);
     }
 
-    void RotatorStone::on_impulse(const Impulse& impulse, bool isWireImpulse) {
+    void RotatorStone::on_impulse(const Impulse& impulse) {
         if (objFlags & OBJBIT_MOVABLE) {
             move_stone(impulse.dir);
+            propagateImpulse(impulse);
         }
     }
     

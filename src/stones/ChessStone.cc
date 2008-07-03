@@ -141,7 +141,7 @@ namespace enigma {
         }
     }
 
-    void ChessStone::on_impulse(const Impulse& impulse, bool isWireImpulse) {
+    void ChessStone::on_impulse(const Impulse& impulse) {
     }
     
     bool ChessStone::is_removable() const {    // Interface for st-swap and st-pull

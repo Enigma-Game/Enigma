@@ -58,56 +58,6 @@ bool maybe_push_stone (const StoneContact &sc)
 }
 
 
-//======================================================================
-// STONES
-//======================================================================
-
-/** \page lstones  Available Stones
-
-Oxyd Stones:
-- \ref st-oxyd
-- \ref st-fakeoxyd
-- \ref st-fart
-
-Movable stones:
-- \ref st-brownie
-- \ref st-wood
-- \ref st-block
-
-Stones that can trigger actions:
-- \ref st-switch
-- \ref st-fourswitch
-- \ref st-laserswitch
-- \ref st-key
-- \ref st-coinslot
-- \ref st-timer
-
-Stones that can change their behaviour:
-- \ref st-brick_magic
-- \ref st-stonebrush
-- \ref st-invisible_magic
-- \ref st-break_invisible
-
-Lasers and Mirrors:
-- \ref st-laser
-- \ref st-pmirror
-- \ref st-3mirror
-
-Other stones:
-- \ref st-death
-- \ref st-swap
-- \ref st-bolder
-- \ref st-puzzle
-- \ref st-stone_break
-- \ref st_window
-- \ref st-break_acwhite
-- \ref st-break_acblack
-- \ref st-oneway
-- \ref st-oneway_black
-- \ref st-oneway_white
-- \ref st-chameleon
-*/
-
 Stone::Stone()
 : freeze_check_running (false)
 {}
@@ -149,17 +99,21 @@ void Stone::actor_hit(const StoneContact &sc)
 void Stone::actor_touch(const StoneContact &sc) {
 }
 
-void Stone::on_impulse(const Impulse& impulse, bool isWireImpulse) {
+void Stone::on_impulse(const Impulse& impulse) {
     if (is_movable()) {
         move_stone(impulse.dir);
-        if (!isWireImpulse) {
-            ObjectList olist = getAttr("fellows");
-            for (ObjectList::iterator it = olist.begin(); it != olist.end(); ++it) {
-                Stone *fellow = dynamic_cast<Stone *>(*it);
-                if (fellow != NULL) {
-                    Impulse wireImpulse(this, fellow->get_pos(), impulse.dir);
-                    fellow->on_impulse(wireImpulse, true);
-                }
+        propagateImpulse(impulse);
+    }
+}
+
+void Stone::propagateImpulse(const Impulse& impulse) {
+    if (!impulse.byWire) {
+        ObjectList olist = getAttr("fellows");
+        for (ObjectList::iterator it = olist.begin(); it != olist.end(); ++it) {
+            Stone *fellow = dynamic_cast<Stone *>(*it);
+            if (fellow != NULL) {
+                Impulse wireImpulse(this, fellow->get_pos(), impulse.dir, true);
+                fellow->on_impulse(wireImpulse);
             }
         }
     }

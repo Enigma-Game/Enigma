@@ -1145,49 +1145,68 @@ static int setAttributes(lua_State *L) {
     return 0;
 }
 
-static int getFloor(lua_State *L) {
-    // position|table|obj|(num,num)
+static int getStoneItemFloor(lua_State *L, Object::ObjectType ot) {
+    // position|table|obj|(num,num)|group
     if (is_world(L, 1))      // world method?
         lua_remove(L, 1);    // no need of context
-    newPosition(L);          // unify all arg types to a position
-    lua_getmetatable(L, -1);            
-    lua_rawgeti(L, -1, 1);
-    int x = round_down<int>(lua_tonumber(L, -1));
-    lua_rawgeti(L, -2, 2);
-    int y = round_down<int>(lua_tonumber(L, -1));
-    Object *o = GetFloor(GridPos(x, y));
-    pushobject(L, o);
+    if (is_group(L, 1)) {
+        ObjectList srcList = to_value(L, 1);
+        ObjectList objects;
+        for (ObjectList::iterator itr = srcList.begin(); itr != srcList.end(); ++itr) {
+            GridPos  p;
+            if (GridObject *gobj = dynamic_cast<GridObject*>(*itr)) {
+                p = gobj->getOwnerPos();
+            } else if (Actor *a = dynamic_cast<Actor*>(*itr)) {
+                p = GridPos(a->get_pos());
+            } else {
+                continue;  // no valid position
+            }
+            Object *obj = NULL;
+            switch (ot) {
+                case Object::FLOOR :
+                    obj = GetFloor(p); break;
+                case Object::ITEM :
+                    obj = GetItem(p); break;
+                case Object::STONE :
+                    obj = GetStone(p); break;
+            }
+            if (obj != NULL) 
+                objects.push_back(obj);
+        }
+        pushNewGroup(L, objects);
+    } else {
+        newPosition(L);          // unify all arg types to a position
+        lua_getmetatable(L, -1);            
+        lua_rawgeti(L, -1, 1);
+        int x = round_down<int>(lua_tonumber(L, -1));
+        lua_rawgeti(L, -2, 2);
+        int y = round_down<int>(lua_tonumber(L, -1));
+        Object *obj = NULL;
+        switch (ot) {
+            case Object::FLOOR :
+                obj = GetFloor(GridPos(x, y)); break;
+            case Object::ITEM :
+                obj = GetItem(GridPos(x, y)); break;
+            case Object::STONE :
+                obj = GetStone(GridPos(x, y)); break;
+        }
+        pushobject(L, obj);
+    }
     return 1;
+}
+static int getFloor(lua_State *L) {
+    // position|table|obj|(num,num)|group
+    return getStoneItemFloor(L, Object::FLOOR);
 }
 
 static int getItem(lua_State *L) {
-    // position|table|obj|(num,num)
-    if (is_world(L, 1))      // world method?
-        lua_remove(L, 1);    // no need of context
-    newPosition(L);          // unify all arg types to a position
-    lua_getmetatable(L, -1);            
-    lua_rawgeti(L, -1, 1);
-    int x = round_down<int>(lua_tonumber(L, -1));
-    lua_rawgeti(L, -2, 2);
-    int y = round_down<int>(lua_tonumber(L, -1));
-    Object *o = GetItem(GridPos(x, y));
-    pushobject(L, o);
-    return 1;
+    // position|table|obj|(num,num)|group
+    return getStoneItemFloor(L, Object::ITEM);
 }
 
 static int getStone(lua_State *L) {
-    // position|table|obj|(num,num)
-    if (is_world(L, 1))      // world method?
-        lua_remove(L, 1);    // no need of context
-    newPosition(L);          // unify all arg types to a position
-    lua_getmetatable(L, -1);            
-    lua_rawgeti(L, -1, 1);
-    int x = round_down<int>(lua_tonumber(L, -1));
-    lua_rawgeti(L, -2, 2);
-    int y = round_down<int>(lua_tonumber(L, -1));
-    Object *o = GetStone(GridPos(x, y));
-    pushobject(L, o);
-    return 1;
+    // position|table|obj|(num,num)|group
+    return getStoneItemFloor(L, Object::STONE);
 }
 
 static int killObjectBase(lua_State *L) {  // TODO Itemholder owner objects
@@ -1341,7 +1360,10 @@ static int groupMessage(lua_State *L) {
         lua_rawgeti(L, -1, i);  // the object
         lua_pushvalue(L, 2);    // copy the message
         lua_pushvalue(L, 3);    // copy message value
-        objectMessageBase(L);   // end up with return value on top
+        if (lua_isnil(L, -3)) 
+            lua_pushnil(L);     // do not send messages to nil - nil may occur in groups
+        else
+            objectMessageBase(L);   // end up with return value on top
     }
     return numObjects >= 1 ? 1 : 0;  // return last message value if group was not empty
 }

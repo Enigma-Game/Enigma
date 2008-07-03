@@ -241,6 +241,10 @@ enigma_SOURCES = 		\
 	stones/PolarSwitchStone.hh	\
 	stones/RotatorStone.cc	\
 	stones/RotatorStone.hh	\
+	stones/RubberbandStone.cc	\
+	stones/RubberbandStone.hh	\
+	stones/ScissorsStone.cc	\
+	stones/ScissorsStone.hh	\
 	stones/Switch.cc	\
 	stones/Switch.hh	\
 	stones/TimerStone.cc	\

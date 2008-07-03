@@ -150,7 +150,7 @@ namespace enigma {
         Stone::on_move();
     }
     
-    void BoulderStone::on_impulse(const Impulse& impulse, bool isWireImpulse) {
+    void BoulderStone::on_impulse(const Impulse& impulse) {
         if (state == FALLING)
             return;
 

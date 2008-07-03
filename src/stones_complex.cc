@@ -101,7 +101,7 @@ namespace
             if (state == IDLE)
                 maybe_push_stone(sc);
         }
-        void on_impulse(const Impulse& impulse, bool isWireImpulse=false);
+        void on_impulse(const Impulse& impulse);
         bool is_removable() const {
             return state == IDLE;
         }
@@ -189,7 +189,7 @@ void PullStone::alarm() {
     change_state(IDLE);
 }
 
-void PullStone::on_impulse(const Impulse& impulse, bool isWireImpulse) 
+void PullStone::on_impulse(const Impulse& impulse) 
 {
     if (state != IDLE)
         return;
@@ -204,7 +204,7 @@ void PullStone::on_impulse(const Impulse& impulse, bool isWireImpulse)
         return;                 // avoid unremoveable and border stones
     }
 
-    PullStone *newStone = this->clone();
+    PullStone *newStone = this->clone();    // TODO never ever clone a world's object!! reengineering!
 
     if (other_stone) {
         // yield other_stone:
@@ -561,7 +561,7 @@ namespace
         virtual Value message(const Message &m);
 
         void on_creation (GridPos p);
-        void on_impulse (const Impulse& impulse, bool isWireImpulse=false);
+        void on_impulse (const Impulse& impulse);
 
         bool is_floating() const;
 
@@ -906,7 +906,7 @@ Value PuzzleStone::message(const Message &m) {
     return ConnectiveStone::message(m);
 }
 
-void PuzzleStone::on_impulse(const Impulse& impulse, bool isWireImpulse) 
+void PuzzleStone::on_impulse(const Impulse& impulse) 
 {
 //    if (!oxyd1_compatible() && state == IDLE) {
     if (state == IDLE) {
@@ -1362,7 +1362,7 @@ namespace
                 SendMessage(it, "noshogun");
         }
 
-        void on_impulse(const Impulse& impulse, bool isWireImpulse=false);
+        void on_impulse(const Impulse& impulse);
 
         void init_model() {
             set_model(ecl::strf("st-shogun%d", int(get_holes())));
@@ -1408,7 +1408,7 @@ void ShogunStone::notify_item ()
     }
 }
 
-void ShogunStone::on_impulse(const Impulse& impulse, bool isWireImpulse) {
+void ShogunStone::on_impulse(const Impulse& impulse) {
     GridPos destpos     = move(get_pos(), impulse.dir);
     Holes holes         = get_holes();
     Holes smallest      = smallest_hole(holes);
@@ -1487,7 +1487,7 @@ namespace
 
         void change_state(State st);
 
-        virtual void on_impulse(const Impulse& impulse, bool isWireImpulse=false) {
+        virtual void on_impulse(const Impulse& impulse) {
             incoming = impulse.dir;
             change_state(PULSING);
         }
@@ -1698,7 +1698,7 @@ namespace
             }
         }
 
-        void on_impulse(const Impulse& impulse, bool isWireImpulse) {
+        void on_impulse(const Impulse& impulse) {
             State oldstate = state;
 
             if (move_stone(impulse.dir)) {
@@ -1798,7 +1798,7 @@ namespace
         virtual Direction get_dir() const = 0;
 
         void actor_hit(const StoneContact &sc);
-        void on_impulse(const Impulse& impulse, bool isWireImpulse=false);
+        void on_impulse(const Impulse& impulse);
 
         Turnstile_Pivot_Base *get_pivot() {
             Stone *st = GetStone (move (get_pos(), reverse(get_dir())));
@@ -1849,7 +1849,7 @@ namespace
 
 /* -------------------- Turnstile_Arm -------------------- */
 
-void Turnstile_Arm::on_impulse(const Impulse& impulse, bool isWireImpulse) {
+void Turnstile_Arm::on_impulse(const Impulse& impulse) {
     enum Action { ROTL, ROTR, stay };
     static Action actions[4][4] = {
         { stay, ROTL, stay, ROTR }, // west arm

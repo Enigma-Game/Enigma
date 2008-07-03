@@ -344,8 +344,8 @@ const char *oxyd::peroxyd_stone_map[256] = {
     "st-swap",                  // PerOxyd stone 0x93
     "st-spitter",               // PerOxyd stone 0x94
     0,                          // PerOxyd stone 0x95 (dynamite holder, will implememnt it)(levels: 41 184 200)
-    "st-rubberband",            // PerOxyd stone 0x96
-    "st-scissors",              // PerOxyd stone 0x97
+    "st_rubberband",            // PerOxyd stone 0x96
+    "st_scissors",              // PerOxyd stone 0x97
     "st-grate3",                // PerOxyd stone 0x98
     "st_blocker",               // PerOxyd stone 0x99
     "st-grate1",                // PerOxyd stone 0x9a

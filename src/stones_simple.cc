@@ -393,7 +393,7 @@ namespace
         void on_removal(GridPos p);
 
         // Stone interface
-        void on_impulse (const Impulse &impulse, bool isWireImpulse=false);
+        void on_impulse (const Impulse &impulse);
         bool is_removable() const { return state == IDLE; }
         void actor_hit (const StoneContact &sc);
 
@@ -460,7 +460,7 @@ void SwapStone::alarm()
 //    sound_event ("moveslow");
 }
 
-void SwapStone::on_impulse(const Impulse& impulse, bool isWireImpulse) 
+void SwapStone::on_impulse(const Impulse& impulse) 
 {
     if (state == IDLE) {
         GridPos oldp = get_pos();
@@ -728,7 +728,7 @@ namespace
 //             else
 //                 maybe_push_stone (sc);
         }
-        void on_impulse(const Impulse& impulse, bool isWireImpulse=false) {
+        void on_impulse(const Impulse& impulse) {
             move_stone(impulse.dir);
         }
 
@@ -1131,105 +1131,6 @@ namespace
 }
 
 
-/* -------------------- Scissors stone -------------------- */
-
-/** \page st-scissors Scissors stone
-
-This stone cuts \c all rubber bands attached to an actor that touches
-it.
-
-\image html st-scissors
-*/
-namespace
-{
-    class ScissorsStone : public Stone {
-        CLONEOBJ(ScissorsStone);
-        DECL_TRAITS;
-        void actor_hit(const StoneContact &sc) {
-            sound_event("scissors");
-            set_anim("st-scissors-snip");
-            if (SendMessage(sc.actor, "disconnect").to_bool())
-                performAction(false);
-        }
-        void animcb() {
-            set_model("st-scissors");
-        }
-    public:
-        ScissorsStone() 
-        {}
-    };
-    DEF_TRAITS(ScissorsStone, "st-scissors", st_scissors);
-}
-
-
-/* -------------------- Rubberband stone -------------------- */
-
-/** \page st-rubberband Rubberband stone
-
-If hit by a marble, this stone first removes existing connections with
-other rubberband stones and then attaches a new elastic between the
-marble and itself.  Nothing happens if the marble was already attached
-to this particular stone.
-
-This stone can be moved if hit with a magic wand.
-
-\subsection rubberbanda Attributes
-
-- \c length  The natural length of the rubberband (default: 1)
-- \c strength The strength of the rubberband (default: 10)
-
-\image html st-rubberband.png
-*/
-namespace
-{
-    class RubberBandStone : public Stone {
-        CLONEOBJ(RubberBandStone);
-        DECL_TRAITS;
-
-        void actor_hit(const StoneContact &sc) {
-            // The mode attribute "scissor" defines, if when touching an st-rubberband,
-            // other rubberbands to the actor will be cut of or not, true means they will. true is default.
-            bool isScissor = to_bool(getDefaultedAttr("scissor", true));
-
-//            if (!HasRubberBand (sc.actor, this)) {
-            bool alreadyConnected = false;
-            ObjectList rubbers = sc.actor->getAttr("rubbers");
-            for (ObjectList::iterator it =  rubbers.begin(); it != rubbers.end(); ++it) {
-                if (((Object *)(*it)->getAttr("anchor2")) == this) {
-                    alreadyConnected = true;
-                    break;
-                }
-            }
-            if (!alreadyConnected) {
-                sound_event ("rubberband");
-                if (isScissor) {
-                    SendMessage(sc.actor, "disconnect");
-                }
-                Object *obj = MakeObject("ot_rubberband");
-                obj->setAttr("anchor1", sc.actor);
-                obj->setAttr("anchor2", this);
-                obj->setAttr("strength", getDefaultedAttr("strength", 10.0));
-                obj->setAttr("length", getDefaultedAttr("length", 1.0));
-                obj->setAttr("threshold", getAttr("minlength"));
-                AddOther(dynamic_cast<Other *>(obj));
-            }
-            // if (player::wielded_item_is (sc.actor, "it-magicwand"))
-            maybe_push_stone (sc);
-        }
-
-        void on_impulse (const Impulse& impulse, bool isWireImpulse=false) {
-            Actor *a = dynamic_cast<Actor *> (impulse.sender);
-            if (a && player::WieldedItemIs (a, "it-magicwand"))
-                move_stone(impulse.dir);
-        }
-    public:
-        RubberBandStone () {
-            setAttr("length", 1.0);
-            setAttr("strength", 10.0);
-        }
-    };
-    DEF_TRAITSM(RubberBandStone, "st-rubberband", st_rubberband, MOVABLE_STANDARD);
-}
 
 /* -------------------- FartStone -------------------- */
 
@@ -2034,8 +1935,6 @@ void Init_simple()
     Register(new Knight);
     Register(new LaserBreakable);
     Register(new MagicStone);
-    Register(new RubberBandStone);
-    Register(new ScissorsStone);
     Register(new Stone_break("st-stone_break"));
     Register(new Stone_break("st-rock3_break"));
     Register(new Stone_break("st-break_gray"));

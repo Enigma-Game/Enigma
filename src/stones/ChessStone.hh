@@ -86,7 +86,7 @@ namespace enigma {
         
         // Stone interface
         virtual void actor_hit(const StoneContact &sc);
-        virtual void on_impulse(const Impulse& impulse, bool isWireImpulse=false);
+        virtual void on_impulse(const Impulse& impulse);
         virtual bool is_removable() const;
         virtual void on_floor_change();
 

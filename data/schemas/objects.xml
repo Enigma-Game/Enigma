@@ -42,7 +42,7 @@
     <attr name="range" type="double" default="1.0" rw="rw"/>
     <attr name="rubbers" type="group" default="nil" rw="r"/>
     <attr name="secure" type="bool" default="false" rw="rw"/>
-    <attr name="scissor" type="bool" default="true" rw="rw"/>
+    <attr name="scissor" type="bool" default="false" rw="rw"/>
     <attr name="scratches" type="string" default="" rw="rw"/>
     <attr name="state" type="int" default="0" min="0" max="1" rw="rw"/>
     <attr name="static" type="bool" default="false" rw="rw"/>
@@ -586,6 +586,14 @@
     <object name="st_rotator_ccw">
       <attr name="state" value="1"/>
     </object>
+    <object name="st_rubberband">
+      <attr name="strength" default="10"/>
+      <attr name="length"/>
+      <attr name="threshold"/>
+      <attr name="max"/>
+      <attr name="scissor" default="true"/>
+    </object>
+    <object name="st_scissors"/>
     <object name="st_switch">
       <attr name="color"/>
       <attr name="instant"/>

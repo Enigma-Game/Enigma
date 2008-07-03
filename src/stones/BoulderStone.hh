@@ -68,7 +68,7 @@ namespace enigma {
         virtual void actor_hit(const StoneContact &sc);
         virtual void on_floor_change();
         virtual void on_move();
-        virtual void on_impulse(const Impulse& impulse, bool isWireImpulse=false);
+        virtual void on_impulse(const Impulse& impulse);
 //        virtual const char *collision_sound();
 
     private:

@@ -171,6 +171,8 @@ RenamingObjectsNew2Old = {
     st_rotator_ccw = "st-rotator-left",
     st_rotator_cw_movable = "st-rotator_move-right",
     st_rotator_ccw_movable = "st-rotator_move-left",
+    st_rubberband = "st-rubberband",
+    st_scissors = "st-scissors",
     st_switch = "st-switch",
     st_switch_black = "st-switch_black",
     st_switch_white = "st-switch_white",
@@ -375,6 +377,9 @@ function enigma.SetAttrib(obj, key, val)
      if key == "gradient_factor" then
          _key = "gradient"
      end
+     if key == "minlength" and (_obj_name == "st-rubberband")  then
+         _key = "threshold"
+     end
      if key == "targetx" then
          local d = enigma._GetAttrib(obj, "destination")
          if (en.usertype(d) == "position") then
@@ -453,6 +458,9 @@ function enigma.GetAttrib(obj, key)
      end
      if key == "gradient_factor" then
          _key = "gradient"
+     end
+     if key == "minlength" and (_obj_name == "st-rubberband")  then
+         _key = "threshold"
      end
      if key == "blackball" or key == "whiteball" then
          _key = "color"

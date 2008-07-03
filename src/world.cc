@@ -1869,6 +1869,9 @@ void AddOther(Other *o) {
 }
 
 void KillOther(Other *o) {
+    if (o == NULL)
+        return;
+    
     o->preRemoval();
     OtherList::iterator i = find(level->others.begin(), level->others.end(), o);
     if (i != level->others.end()) {

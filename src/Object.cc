@@ -162,12 +162,22 @@ namespace enigma {
                     KillStone(dynamic_cast<GridObject *>(this)->get_pos()); break;
             }
         } else if (m.message == "disconnect") {
+            bool wasConnected = false;
             ObjectList olist = getAttr("rubbers");   // a private deletion resistant copy
             for (ObjectList::iterator it = olist.begin(); it != olist.end(); ++it)
                 KillOther(dynamic_cast<Other *>(*it));
+            if (olist.size() > 0) {
+                wasConnected = true;
+                setAttr("rubber", Value());   // delete attribute
+            }
             olist = getAttr("wires");   // a private deletion resistant copy
             for (ObjectList::iterator it = olist.begin(); it != olist.end(); ++it)
                 KillOther(dynamic_cast<Other *>(*it));
+            if (olist.size() > 0) {
+                wasConnected = true;
+                setAttr("wires", Value());   // delete attribute
+            }
+            return wasConnected;
         }
         return Value();
     }
