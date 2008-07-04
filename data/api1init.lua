@@ -62,6 +62,7 @@ RenamingObjectsNew2Old = {
     it_magnet = "it-magnet",
     it_magnet_on = "it-magnet-on",
     it_magnet_off = "it-magnet-off",
+    it_rubberband = "it-rubberband",
     it_sword = "it-sword",
     it_trap = "it-abyss",
     it_trigger = "it-trigger",
@@ -121,6 +122,7 @@ RenamingObjectsNew2Old = {
     st_death_invisible = "st-death_invisible",
     st_floppy = "st-floppy",
     st_fourswitch = "st-fourswitch",
+    st_knight = "st-knight",
     st_laser_w = "st-laser-w",
     st_laser_s = "st-laser-s",
     st_laser_e = "st-laser-e",
@@ -377,8 +379,11 @@ function enigma.SetAttrib(obj, key, val)
      if key == "gradient_factor" then
          _key = "gradient"
      end
-     if key == "minlength" and (_obj_name == "st-rubberband")  then
+     if key == "minlength"  then
          _key = "threshold"
+     end
+     if key == "target" and (_obj_name == "it-rubberband") then
+         _key = "anchor2"
      end
      if key == "targetx" then
          local d = enigma._GetAttrib(obj, "destination")
@@ -459,8 +464,11 @@ function enigma.GetAttrib(obj, key)
      if key == "gradient_factor" then
          _key = "gradient"
      end
-     if key == "minlength" and (_obj_name == "st-rubberband")  then
+     if key == "minlength"  then
          _key = "threshold"
+     end
+     if key == "target" and (_obj_name == "it-rubberband") then
+         _key = "anchor2"
      end
      if key == "blackball" or key == "whiteball" then
          _key = "color"

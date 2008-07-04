@@ -165,6 +165,15 @@
       <msg name="_glasses"/>
       <msg name="_hit"/>
     </object>
+    <object name="it_rubberband">
+      <attr name="anchor2"/>
+      <attr name="strength" default="10"/>
+      <attr name="length"/>
+      <attr name="threshold"/>
+      <attr name="max"/>
+      <attr name="min"/>
+      <attr name="scissor"/>
+    </object>
     <object name="it_sword"/>
     <object name="it_sword_new" init="true"/>
     <object name="it_trigger">
@@ -229,7 +238,7 @@
       <attr name="max"/>
       <attr name="min"/>
     </object>
-    <object name="ot_wirecontrol">
+    <object name="ot_wire">
       <attr name="anchor1"/>
       <attr name="anchor2"/>
     </object>
@@ -422,6 +431,9 @@
       <msg name="on"/>
       <msg name="off"/>
       <msg name="signal"/>
+    </object>
+    <object name="st_knight">
+      <attr name="state" max="4" rw="r"/>
     </object>
     <object name="st_laser">
       <attr name="counterclock"/>

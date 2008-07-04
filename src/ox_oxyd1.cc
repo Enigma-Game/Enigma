@@ -202,7 +202,7 @@ const char *oxyd::oxyd1_stone_map[256] = {
     "st_fourswitch",            // Oxyd1 stone 0x2f
     "st_key",                   // Oxyd1 stone 0x30
     "st_floppy",                // Oxyd1 stone 0x31
-    "st-knight",                // Oxyd1 stone 0x32
+    "st_knight",                // Oxyd1 stone 0x32
     0,                          // Oxyd1 stone 0x33 oscillator (properties set in oxyd.cc)
     "st_death",                 // Oxyd1 stone 0x34
     "st_death_invisible",       // Oxyd1 stone 0x35

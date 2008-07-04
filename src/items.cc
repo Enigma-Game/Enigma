@@ -4166,51 +4166,65 @@ namespace
 }
 
 /* -------------------- Rubberband Item-------------------- */
-namespace
-{
     class RubberbandItem : public Item {
         CLONEOBJ(RubberbandItem);
         DECL_TRAITS;
 
-        ItemAction activate(Actor *a, GridPos p) {
-            // TODO: Multiple Targets!
-            // TODO: Target for black and target for white marble?
-            // TODO: MultiplayerGame: Defaulttarget is second actor!
+    public:
+        RubberbandItem();
 
-            // Get actor or stone with the name, given in "connect_to":
-            Object *anchor2 = getAttr("target");
+        // Object interface
+        virtual std::string getClass() const;
+
+        // Item interface
+        virtual ItemAction activate(Actor* a, GridPos p);
+};
+    
+    RubberbandItem::RubberbandItem() {
+    }
+    
+    std::string RubberbandItem::getClass() const {
+        return "it_rubberband";
+    }
+    
+    ItemAction RubberbandItem::activate(Actor *a, GridPos p) {
+        // TODO: Multiple Targets!
+        // TODO: Target for black and target for white marble?
+        // TODO: MultiplayerGame: Defaulttarget is second actor!
+
+        // Get actor or stone with the name, given in "connect_to":
+        Object *anchor2 = getAttr("anchor2");
+        
+        // Target does NOT exist, Drop Item
+        if (anchor2 == NULL)
+            return ITEM_DROP;
             
-            // Target does NOT exist, Drop Item
-            if (anchor2 == NULL)
-                return ITEM_DROP;
-                
-            // The mode attribute "scissor" defines, if when using an it-rubberband,
-            // other rubberbands to the actor will be cut of or not, true means they will. false is default.
-            bool isScissor = to_bool(getAttr("scissor"));
+        // The mode attribute "scissor" defines, if when using an it-rubberband,
+        // other rubberbands to the actor will be cut of or not, true means they will. false is default.
+        bool isScissor = to_bool(getAttr("scissor"));
 
-            if (isScissor)
-                SendMessage(a, "disconnect");
+        if (isScissor)
+            SendMessage(a, "disconnect");
 
-            sound_event ("rubberband");
-            
-            if (anchor2 != a) { // It's not allowed to connect a rubberband to self.
-                Object *obj = MakeObject("ot_rubberband");
-                obj->setAttr("anchor1", a);
-                obj->setAttr("anchor2", anchor2);
-                obj->setAttr("strength", getDefaultedAttr("strength", 10.0));
-                obj->setAttr("length", getDefaultedAttr("length", 1.0));
-                obj->setAttr("threshold", getDefaultedAttr("minlength", 0.0));
-                AddOther(dynamic_cast<Other *>(obj));
-            }
-
-            return ITEM_KILL;
+        sound_event ("rubberband");
+        
+        if (anchor2 != a) { // It's not allowed to connect a rubberband to self.
+            Object *obj = MakeObject("ot_rubberband");
+            obj->setAttr("anchor1", a);
+            obj->setAttr("anchor2", anchor2);
+            obj->setAttr("strength", getAttr("strength"));
+            obj->setAttr("length", getAttr("length"));
+            obj->setAttr("threshold", getAttr("threshold"));
+            obj->setAttr("max", getAttr("max"));
+            obj->setAttr("min", getAttr("min"));
+            AddOther(dynamic_cast<Other *>(obj));
         }
 
-    public:
-        RubberbandItem() {}
-    };
-    DEF_TRAITS(RubberbandItem, "it-rubberband", it_rubberband);
-}
+        return ITEM_KILL;
+    }
+    
+    DEF_TRAITS(RubberbandItem, "it_rubberband", it_rubberband);
+
 
 /* -------------------- Functions -------------------- */
 
@@ -4272,6 +4286,7 @@ void InitItems()
     Pipe::setup();
     Puller::setup();
     RegisterItem (new Ring);
+    RegisterItem (new RubberbandItem);
     RegisterItem (new SeedWood);
     RegisterItem (new SeedNowood);
     RegisterItem (new SeedVolcano);
@@ -4304,7 +4319,6 @@ void InitItems()
     RegisterItem (new WormHole(true));
     Register ("it_wormhole", new WormHole(true));
     RegisterItem (new YinYang);
-    RegisterItem (new RubberbandItem);
 }
 
 } // namespace enigma

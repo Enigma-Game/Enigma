@@ -17,37 +17,37 @@
  *
  */
 
-#include "others/WireControl.hh"
+#include "others/Wire.hh"
 #include "errors.hh"
 #include "main.hh"
 #include "world.hh"
 
 namespace enigma {
-    WireControl::WireControl() {
+    Wire::Wire() {
     }
     
-    std::string WireControl::getClass() const {
-        return "ot_wirecontrol";
+    std::string Wire::getClass() const {
+        return "ot_wire";
     }
 
-    void WireControl::setAttr(const std::string &key, const Value &val) {
+    void Wire::setAttr(const std::string &key, const Value &val) {
         if (key == "anchor1") {
             Stone *old = anchor1;
             anchor1 = dynamic_cast<Stone *>((Object *)val);
-            ASSERT(anchor1 != NULL, XLevelRuntime, "WireControl: 'anchor1' is no stone");
-            ASSERT(anchor1 != anchor2, XLevelRuntime, "WireControl: 'anchor1' is identical to 'anchor2'");
+            ASSERT(anchor1 != NULL, XLevelRuntime, "Wire: 'anchor1' is no stone");
+            ASSERT(anchor1 != anchor2, XLevelRuntime, "Wire: 'anchor1' is identical to 'anchor2'");
             switchAnchor(old, anchor1, anchor2);
         } else if (key == "anchor2") {
             Stone * old = anchor2;
             anchor2 = dynamic_cast<Stone *>((Object *)val);
-            ASSERT(anchor2 != NULL, XLevelRuntime, "WireControl: 'anchor2' is no stone");
-            ASSERT(anchor2 != anchor1, XLevelRuntime, "WireControl: 'anchor1' is identical to 'anchor2'");
+            ASSERT(anchor2 != NULL, XLevelRuntime, "Wire: 'anchor2' is no stone");
+            ASSERT(anchor2 != anchor1, XLevelRuntime, "Wire: 'anchor1' is identical to 'anchor2'");
             switchAnchor(old, anchor2, anchor1);
         }
         Other::setAttr(key, val);
     }
     
-    Value WireControl::getAttr(const std::string &key) const {
+    Value Wire::getAttr(const std::string &key) const {
         if (key == "anchor1") {
             return anchor1;
         } else if (key == "anchor2") {
@@ -56,23 +56,23 @@ namespace enigma {
         return Other::getAttr(key);
     }
     
-    void WireControl::postAddition() {
+    void Wire::postAddition() {
         model = display::AddRubber(anchor1->getOwnerPos().center(), anchor2->getOwnerPos().center(), 200, 50, 150);    // purple
     }
     
-    void WireControl::preRemoval() {
+    void Wire::preRemoval() {
         model.kill();
         switchAnchor(anchor1, NULL, anchor2);
         switchAnchor(anchor2, NULL, anchor1);        
     }
     
-    void WireControl::tick(double dt) {  // TODO maybe we should let the stones inform the wires on every move
+    void Wire::tick(double dt) {  // TODO maybe we should let the stones inform the wires on every move
         model.update_first(anchor1->getOwnerPos().center());
         model.update_second(anchor2->getOwnerPos().center());
     }
     
     
-    void WireControl::switchAnchor(Object *oldAnchor, Object *newAnchor, Object *otherAnchor) {
+    void Wire::switchAnchor(Object *oldAnchor, Object *newAnchor, Object *otherAnchor) {
         if (oldAnchor != NULL) {
             ObjectList olist = oldAnchor->getAttr("wires");
             olist.remove(this);
@@ -110,7 +110,7 @@ namespace enigma {
     }
 
     BOOT_REGISTER_START
-        BootRegister(new WireControl(), "ot_wirecontrol");
+        BootRegister(new Wire(), "ot_wire");
     BOOT_REGISTER_END
 
 } // namespace enigma

@@ -158,6 +158,7 @@ namespace enigma {
             setDir(impulse.dir);  // activate
         }
         move_stone(impulse.dir);  // due to rotator and impulsestone
+        propagateImpulse(impulse);
     }
 
     Direction BoulderStone::getDir() const {

@@ -172,7 +172,7 @@ const char *oxyd::oxydmag_stone_map[256] = {
     "st_fourswitch",            // OxydMagnum stone 0x2f (Level 89 and 92)
     "st_key",                   // OxydMagnum stone 0x30
     "st_floppy",                // OxydMagnum stone 0x31
-    "st-knight",                // OxydMagnum stone 0x32
+    "st_knight",                // OxydMagnum stone 0x32
     "st_fourswitch",            // OxydMagnum stone 0x33 (Level 51 and 100)
     "st_death",                 // OxydMagnum stone 0x34
     "st_death_invisible",       // OxydMagnum stone 0x35

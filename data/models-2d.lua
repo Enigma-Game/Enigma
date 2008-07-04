@@ -408,7 +408,6 @@ do
         "it-pencil",
         "it-pin",
         "it-ring",
-        "it-rubberband",
         "it-spade",
         "it-spoon",
         "it-squashed",
@@ -437,6 +436,7 @@ do
     DefImage("it_hammer", {filename="it-hammer"})
     DefImage("it_key", {filename="it-key"})
     DefImage("it_landmine", {filename="it-landmine"})
+    DefImage("it_rubberband", {filename="it-rubberband"})
     DefImage("it_sword", {filename="it-sword"})
     DefImage("it_umbrella", {filename="it-umbrella"})
     DefImage("it_wrench", {filename="it-wrench"})

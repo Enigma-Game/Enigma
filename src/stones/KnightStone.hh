@@ -5,7 +5,7 @@
  * modify it under the terms of the GNU General Public License
  * as published by the Free Software Foundation; either version 2
  * of the License, or (at your option) any later version.
- *  
+ *
  * This program is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
@@ -16,40 +16,42 @@
  * 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.
  *
  */
-#ifndef WIRECONTROL_HH_INCLUDED
-#define WIRECONTROL_HH_INCLUDED
+#ifndef KNIGHTSTONE_HH
+#define KNIGHTSTONE_HH
 
-#include "others/Other.hh"
-#include "display.hh"
 #include "stones.hh"
-
-/* -------------------- Other -------------------- */
-
+#include "stones_internal.hh"
 
 namespace enigma {
-    
-    class WireControl : public Other {
-        CLONEOBJ(WireControl)
+
+    /** 
+     * 
+     * 
+     */
+    class KnightStone : public Stone {
+         CLONEOBJ(KnightStone);
+         DECL_TRAITS;
+    private:
+        enum iState {
+        };
 
     public:
-        WireControl();
-        
+        KnightStone();
+
         // Object interface
         virtual std::string getClass() const;
-        virtual void setAttr(const std::string &key, const Value &val);
-        virtual Value getAttr(const std::string &key) const;
         
-        // Other interface
-        virtual void postAddition();
-        virtual void preRemoval();
-        virtual void tick(double dt);
+        // StateObject interface
+        virtual int maxState() const;
+        virtual void setState(int extState);
+
+        // GridObject interface
+        virtual void init_model();
         
-    private:
-        Stone * anchor1;
-        Stone * anchor2;
-        display::RubberHandle model;
-        
-        void switchAnchor(Object *oldAnchor, Object *newAnchor, Object *otherAnchor);
+        // Stone interface
+        virtual StoneResponse collision_response(const StoneContact &sc);
+        virtual void actor_hit(const StoneContact &sc);
+        virtual bool is_floating() const;
     };
 
 } // namespace enigma

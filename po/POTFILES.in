@@ -20,4 +20,5 @@ src/lua.cc
 src/d_models.cc
 src/PreferenceManager.cc
 src/StateManager.cc
+src/stones/KnightStone.cc
 po/level_i18n.cc

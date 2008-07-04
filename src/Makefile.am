@@ -201,8 +201,8 @@ enigma_SOURCES = 		\
 	others/Other.hh		\
 	others/Rubberband.cc	\
 	others/Rubberband.hh	\
-	others/WireControl.cc	\
-	others/WireControl.hh	\
+	others/Wire.cc		\
+	others/Wire.hh		\
 	stones/ActorImpulseStone.cc	\
 	stones/ActorImpulseStone.hh	\
 	stones/BlockerStone.cc	\
@@ -225,6 +225,8 @@ enigma_SOURCES = 		\
 	stones/FourSwitch.hh	\
 	stones/KeySwitch.cc	\
 	stones/KeySwitch.hh	\
+	stones/KnightStone.cc	\
+	stones/KnightStone.hh	\
 	stones/LaserStone.cc	\
 	stones/LaserStone.hh	\
 	stones/LaserSwitch.cc	\

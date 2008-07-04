@@ -1758,45 +1758,6 @@ namespace
     };
 }
 
-
-/* -------------------- Knight stone -------------------- */
-namespace
-{
-    class Knight : public Stone {
-        CLONEOBJ(Knight);
-        DECL_TRAITS;
-
-        int subtype;
-        enum {MIN_SUBTYPE=1, MAX_SUBTYPE=5};
-
-        StoneResponse collision_response(const StoneContact &) {
-            return (subtype == MAX_SUBTYPE) ? STONE_PASS : STONE_REBOUND;
-        }
-        void actor_hit(const StoneContact &sc)
-        {
-            if (subtype != MAX_SUBTYPE) {
-                if (player::WieldedItemIs (sc.actor, "it_sword")) {
-                    subtype += 1;
-                    if (subtype == MAX_SUBTYPE) {
-                        client::Msg_ShowText ("All right, we'll call it a draw", false, 4.0);
-		    }
-                    init_model();
-                } else {
-                    SendMessage(sc.actor, "shatter");
-                }
-            }
-        }
-        void init_model() {
-            set_model(ecl::strf("st-knight%d", subtype));
-        }
-        bool is_floating() const { return subtype == MAX_SUBTYPE; }
-    public:
-        Knight() : subtype (MIN_SUBTYPE) {}
-    };
-    DEF_TRAITSM(Knight, "st-knight", st_knight, MOVABLE_BREAKABLE);
-}
-
-
 /* -------------------- Fire breakable stones -------------------- */
 
 /* These stones mimic the behaviour of the plain-looking stones in
@@ -1932,7 +1893,6 @@ void Init_simple()
     Register(new Grate2);
     Register(new Grate3);
     Register(new InvisibleMagic);
-    Register(new Knight);
     Register(new LaserBreakable);
     Register(new MagicStone);
     Register(new Stone_break("st-stone_break"));
