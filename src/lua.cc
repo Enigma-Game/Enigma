@@ -1075,7 +1075,7 @@ static int gridAlignPosition(lua_State *L) {
 static int pushNewTile(lua_State *L, int numArgs, std::string key="") {
     // numArgs 1 or 2 of type (table|tile)
     int *udata;
-    udata=(int *)lua_newuserdata(L,sizeof(int));   // position user object
+    udata=(int *)lua_newuserdata(L,sizeof(int));   // user object
     *udata = 1;
     
     lua_newtable(L);  // individual metatable copy
@@ -1125,7 +1125,7 @@ static void setObjectAttributes(Object *obj, lua_State *L) {
                 obj->setAttrChecked(key, to_value(L, -2));
             }
          } else if (lua_tointeger(L, -1) == 2) {  // second entry without a string key is taken as name
-             if (lua_isstring(L, -2))
+             if (!lua_isnumber(L, -2) && lua_isstring(L, -2))
                  NameObject(obj, lua_tostring(L, -2));
          }
          lua_pop(L, 2);  // remove copy key + value, leave original key for loop
@@ -1803,6 +1803,10 @@ static int setObjectByTable(lua_State *L, double x, double y, bool onlyFloors = 
     int yi = round_down<int>(y);
     Object *obj = NULL;
     
+    if (!lua_istable(L, -1)) {
+        throwLuaError(L, ecl::strf("World: object set of wrong type '%s'", lua_typename(L, -1)).c_str());
+        return 0;
+    }
     if (lua_objlen(L, -1) == 0) {  // empty table as set nothing operation
         return 0;
     }
@@ -1982,7 +1986,11 @@ static int setObjectByKey(lua_State *L, std::string key, int j, int i, bool only
                 key.c_str(), j, i).c_str());
         return 0;
     }
-    setObjectByTile(L, j, i, onlyFloors);
+    if (lua_istable(L, -1))
+        setObjectByTable(L, j, i, onlyFloors);
+    else
+        setObjectByTile(L, j, i, onlyFloors);
+
     lua_pop(L, 5);  // tile, y, x, key, resolver
 
     if (GetFloor(GridPos(j, i)) == NULL) {
@@ -1997,7 +2005,11 @@ static int setObjectByKey(lua_State *L, std::string key, int j, int i, bool only
             throwLuaError(L, ecl::strf("World init undefined default tile at %d, %d",  j, i).c_str());
             return 0;
         }
-        setObjectByTile(L, j, i, true);   // limit to floor set
+        if (lua_istable(L, -1))
+            setObjectByTable(L, j, i, true);
+        else
+            setObjectByTile(L, j, i, true);   // limit to floor set
+            
         lua_pop(L, 5);  // default tile
         if (GetFloor(GridPos(j, i)) == NULL) {
             throwLuaError(L, ecl::strf("World no floor at %d, %d", j, i).c_str());
