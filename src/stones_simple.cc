@@ -1008,7 +1008,7 @@ namespace
 
         void maybe_fall_or_stopfire() {
             GridPos p = get_pos();
-            if (IsLevelBorder(p))
+            if (server::GameCompatibility != GAMET_ENIGMA && IsLevelBorder(p))
                 return;
             if (Floor *fl = GetFloor(p)) {
                 const string &k = fl->get_kind();
@@ -1040,7 +1040,7 @@ namespace
             if (server::GameCompatibility == GAMET_OXYD1)
                 maybe_fall_or_stopfire();
         }
-
+        
         // other oxyds versions: fall everytime the floor changes
         void on_floor_change() {
             if (server::GameCompatibility != GAMET_OXYD1)

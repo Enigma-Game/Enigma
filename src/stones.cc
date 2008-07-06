@@ -101,8 +101,11 @@ void Stone::actor_touch(const StoneContact &sc) {
 
 void Stone::on_impulse(const Impulse& impulse) {
     if (is_movable()) {
-        move_stone(impulse.dir);
-        propagateImpulse(impulse);
+        int id = getId();
+        move_stone(impulse.dir);    // may kill the stone!
+        
+        if (Object::getObject(id) != NULL)   // not killed?
+            propagateImpulse(impulse);
     }
 }
 
