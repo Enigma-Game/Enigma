@@ -1248,6 +1248,10 @@ void World::move_actors (double dtime)
             ai.contacts_count = 0;
         }
         
+        for (RubberbandList::iterator rit = rubberbands.begin(); rit != rubberbands.end(); ++rit) {
+            (*rit)->applyForces(dt);
+        }
+        
         handle_actor_contacts();
         for (unsigned i=0; i<nactors; ++i) {
             Actor     *a  = actorlist[i];
@@ -1271,9 +1275,6 @@ void World::move_actors (double dtime)
             a->move();         // 'move' nevertheless, to pick up items etc
             a->think(dtime); 
         }
-        for (RubberbandList::iterator rit = rubberbands.begin(); rit != rubberbands.end(); ++rit) {
-            (*rit)->applyForces(dt);
-        }    
 
         rest_time -= dt;
     }

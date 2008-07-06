@@ -18,6 +18,7 @@
  */
 
 #include "others/Rubberband.hh"
+#include "actors.hh"
 #include "errors.hh"
 #include "main.hh"
 #include "world.hh"
@@ -61,10 +62,10 @@ namespace enigma {
             ASSERT(innerThreshold >= 0, XLevelRuntime, "Rubberband: inner threshold is negative");
         } else if (key == "max") {
             maxLength = val;
-            ASSERT(minLength >= 0, XLevelRuntime, "Rubberband: max length is negative");
+            ASSERT(maxLength >= 0, XLevelRuntime, "Rubberband: max length is negative");
         } else if (key == "min") {
             minLength = val;
-            ASSERT(maxLength >= 0, XLevelRuntime, "Rubberband: min length is negative");
+            ASSERT(minLength >= 0, XLevelRuntime, "Rubberband: min length is negative");
         }
         Other::setAttr(key, val);
     }
@@ -104,34 +105,87 @@ namespace enigma {
     }
     
     void Rubberband::applyForces(double dt) {
+        const double eps = 0.02;  // epsilon distant limit for contacts
         ecl::V2 v = posAnchor2() - anchor1->get_pos();
-        double vv = ecl::length(v);
+        double len = ecl::length(v);
         ecl::V2 force;
         
-        if (vv == 0) {
-            force = V2(0, 0);
-        } else if (maxLength > 0 && vv > maxLength) {
+        if (minLength + eps <= len && (len <= maxLength -eps || maxLength == 0)) {
+            if (len == 0) {
+                force = V2(0, 0);
+            } else if (len > outerThreshold) {
+                force = v * strength * (len - outerThreshold)/len;
+            } else if (len < innerThreshold) {
+                force = v * strength * (len - innerThreshold)/len;
+            }
+        
+            ActorInfo *ai = anchor1->get_actorinfo();
+            ai->force += force;
+            if (!(objFlags & OBJBIT_STONE)) {
+                ai = anchor2.ac->get_actorinfo();
+                ai->force -= force;
+            }
+                
+        } else if (objFlags & OBJBIT_STONE) {
             ActorInfo *ai = anchor1->get_actorinfo();
             ecl::V2 vn = normalize(v);
-            double av = ai->vel * vn;
-            if (av > -0.05) 
-                av = -0.05;
-                
-            force = - 1 * av * vn / dt * ai->mass;
-            force /= 6;
-        } else if (minLength > 0 && vv < minLength) {
+            bool isMax = (len > maxLength - eps);
+            bool isMin = (len < minLength + eps);
+
+            // neutralize other force componentes in rubber direction
+            double force1 = vn * ai->force;
+            if ((!isMin && (force1 > 0)) || (!isMax && (force1 < 0)))
+                force1 = 0;
+            ai->force -= force1 * vn;
             
-        } else if (vv < innerThreshold) {
-            force = v * strength * (vv - innerThreshold)/vv;
-            force /= 6;
-        } else if (vv > outerThreshold) {
-            force = v * strength * (vv - outerThreshold)/vv;
-            force /= 6;
+            double relspeed = ai->vel * vn;   // positive for shrinking dist
+            if (!isMin && (relspeed > 0) || !isMax && (relspeed < 0))
+                relspeed = 0;
+            force = - 1.8 * relspeed * vn / dt * ai->mass;  // 0.9 factor as damping
+            ai->collforce += force;
+//            Log << "Rubber stone force "<< force1 << "  " <<relspeed<< "\n";
+        } else {
+            // two actors bouncing on min/max limits
+            ActorInfo *ai1 = anchor1->get_actorinfo();
+            ActorInfo *ai2 = anchor2.ac->get_actorinfo();
+            ecl::V2 vn = normalize(v);
+            double mass = ai1->mass + ai2->mass;
+            bool isMax = (len > maxLength - eps);
+            bool isMin = (len < minLength + eps);
+            bool isBoth = isMax && isMin;
+            if (isBoth) {
+                isMax = (len > (maxLength - minLength)/2);
+                isMin = !isMax; 
+            }
+            
+            // redistribute other force components in rubber direction according 
+            // to the mass of actors to move the complex but to avoid length change
+            
+            // component of other forces in rubber direction
+            double force1 = vn * ai1->force;
+            double force2 = vn * ai2->force;
+            
+            // limit to min/max affected forces
+            if ((!isMin && (force1 > 0)) || (!isMax && (force1 < 0)))
+                force1 = 0;
+            if ((!isMin && (force2 < 0)) || (!isMax && (force2 > 0)))
+                force2 = 0;
+            ai1->force += (-force1 + (force1 + force2) * (ai1->mass)/mass) * vn;
+            ai2->force += (-force2 + (force1 + force2) * (ai2->mass)/mass) * vn;
+            
+            // bounce if min/max rules are violated
+            double relspeed = vn * (ai2->vel - ai1->vel);  // speed of band extension
+            double dmu = 2 * ai1->mass * ai2->mass / (ai1->mass + ai2->mass);
+
+            if (isMax && (relspeed < 0) || isMin && (relspeed >0))
+                relspeed = 0;
+            force = (dmu * relspeed / dt) * vn;
+            force = force * 0.9;   // damping for wrong friction calculation
+//            Log << "Rubber force " << force1 <<  "  " << force2 << "  relspeed  " << relspeed  << " both " << isBoth << "\n";
+            ai1->collforce += force;
+            ai2->collforce -= force;
         }
-        
-        anchor1->add_force(force);
-        if (!(objFlags & OBJBIT_STONE))
-            anchor2.ac->add_force(-force);
+
     }
     
     ecl::V2 Rubberband::posAnchor2() {
