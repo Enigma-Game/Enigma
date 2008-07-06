@@ -87,6 +87,50 @@ function luatools.shuffle_table(t)
   end
 end
 
+-- print_table uses the print command to print all
+-- entries of a table, one table per line.
+-- It should be used for debug reasons only.
+-- PREFIX can be a string to be put in front of each
+-- line of the output, in case you need to distinguish
+-- several outputs from each other.
+-- print_table is recursive, i.e. a table with table
+-- as entries will call print_table again. To avoid
+-- infinite loops, DEPTH is used as additional argument.
+-- Don't use it in levels. If you want to suppress
+-- the recursive function, use DEPTH = -1.
+function luatools.print_table(t, prefix, depth)
+  if type(t) ~= "table" then
+    print("print_table: Argument is of type "..type(t)..", not table.")
+    return
+  end
+  for key, value in pairs(t) do
+    local key_s
+    if type(key) == "string" then
+      key_s = "\"" .. key .. "\""
+    elseif type(key) == "number" then
+      key_s = key
+    else
+      key_s = "<" .. type(key) .. ">"
+    end
+    if type(value) == "number" then
+      print(prefix .. "|" .. key_s .. " = " .. value)
+    elseif type(value) == "string" then
+      print(prefix .. "|" .. key_s .. " = \"" .. value .. "\"")
+    elseif type(value) == "table" then
+      if depth < 5 then
+        print(prefix .. "|" .. key_s .. " = |")
+        luatools.print_table(value,
+            prefix .. "|" .. string.rep(" ", string.len(key_s)),
+            (depth or 0) + 1)
+      else
+        print(prefix .. "|" .. key_s .. " = | ...")
+      end
+    else
+      print(prefix .. "|" .. key_s .. " of type " .. type(value))
+    end
+  end
+end
+
 ---------------------------------------------------------------------
 --  ADVANCED  POSITION  HANDLING  AND  CALCULATIONS
 ---------------------------------------------------------------------
@@ -194,6 +238,55 @@ function luatools.digits(number, base)
   return result
 end
 
+-- Return a table of all combinations of DEPTH entries,
+-- each of which is chosen from DIGITS.
+-- Example: luatools.combinations(3, {7, 8, "a"}) will return
+--   { {7,7,7}, {7,7,8}, {7,7,"a"}, {7,8,7}, {7,8,8}, {7,8,"a"},
+--     {7,"a",7}, {7,"a",8}, {7,"a","a"}, {8,7,7}, ... }
+-- Mathematically, it builds the leafs of an #DIGITS-ary tree
+-- of depth DEPTH.
+function luatools.combinations(depth, digits)
+  local all_combinations = {{}}
+  for _ = 1, depth do
+    local next_step = {}
+    for _, old_combination in pairs(all_combinations) do
+      for _, new_digit in pairs(digits) do
+        local new_combination = luatools.deep_copy(old_combination)
+        table.insert(new_combination, new_digit)
+        table.insert(next, new_combination)
+      end
+    end
+    all_combinations = next_step
+  end
+  return all_combinations
+end
+
+-- cubic_polynomial returns the result of the
+-- following polynomial with coefficients in A:
+-- a[10]*y*y*y + a[9]*x*y*y + a[8]*x*x*y + a[7]*x*x*x
+--   + a[6]*y*y + a[5]*x*y + a[4]*x*x + a[3]*y + a[2]*x + a[1]
+-- You can use luatools.random_vector(10, ...) and
+-- a modulo operation to easily form a random
+-- pattern of a floor, or choose the coefficients
+-- to your own liking. Entries in A which are not
+-- numbers are considered zero.
+function luatools.cubic_polynomial(a, x, y)
+  if type(a) ~= "table" then
+    error("cubic_polynomial: First argument not a table (" .. type(a)
+          .. " instead).")
+  end
+  if (type(x) ~= "number") or (type(y) ~= "number") then
+    error("cubic_polynomial: Second or third argument not a number.")
+  end
+  return   (a[10] or 0)*y*y*y + (a[9] or 0)*x*y*y + (a[8] or 0)*x*x*y
+         + (a[7] or 0)*x*x*x + (a[6] or 0)*y*y + (a[5] or 0)*x*y
+         + (a[4] or 0)*x*x + (a[3] or 0)*y + (a[2] or 0)*x + (a[1] or 0)
+end
+
+---------------------------------------------------------------------
+--  PERMUTATIONS  AND  RANDOM  NUMBERS
+---------------------------------------------------------------------
+
 -- Return a random permutation of n elements.
 -- This function outputs a table with integer entries between
 -- 1 and n at positions 1 to n.
@@ -223,27 +316,20 @@ function luatools.cyclic_permutation(n)
   return sequence2
 end
 
--- Return a table of all combinations of DEPTH entries,
--- each of which is chosen from DIGITS.
--- Example: luatools.combinations(3, {7, 8, "a"}) will return
---   { {7,7,7}, {7,7,8}, {7,7,"a"}, {7,8,7}, {7,8,8}, {7,8,"a"},
---     {7,"a",7}, {7,"a",8}, {7,"a","a"}, {8,7,7}, ... }
--- Mathematically, it builds the leafs of an #DIGITS-ary tree
--- of depth DEPTH.
-function luatools.combinations(depth, digits)
-  local all_combinations = {{}}
-  for _ = 1, depth do
-    local next_step = {}
-    for _, old_combination in pairs(all_combinations) do
-      for _, new_digit in pairs(digits) do
-        local new_combination = luatools.deep_copy(old_combination)
-        table.insert(new_combination, new_digit)
-        table.insert(next, new_combination)
-      end
-    end
-    all_combinations = next_step
+-- Return a table with NUMBER random entries.
+-- Additional arguments like with math.random.
+function luatools.random_vector(number, ...)
+  if type(number) ~= "number" then
+    error("random_vector: First argument not a number ("..type(number).." instead).")
   end
-  return all_combinations
+  if (number < 0) or (number ~= math.ceil(number)) then
+    error("random_vector: First argument out of range ("..number..").")
+  end
+  local result = {}
+  for j = 1, number do
+    result[j] = math.random(...)
+  end
+  return result
 end
 
 ---------------------------------------------------------------------
@@ -377,7 +463,8 @@ function luatools.concat_maps_vertically(map1, ...)
   for y = 1, height do
     result[y] = ""
     for j, map in pairs(maps) do
-      result[y] = result[y] .. map[y] .. string.rep(" ", lengths[j] - string.len(map[y])) 
+      result[y] = result[y] .. (map[y] or "")
+                    .. string.rep(" ", lengths[j] - string.len(map[y] or "")) 
     end
   end
   return result
