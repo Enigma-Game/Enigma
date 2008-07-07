@@ -3955,8 +3955,8 @@ namespace
         double xcenter = get_pos().x + 0.5;
         DirectionBits cbits = getConnections();
         
-        return (((fabs(pos[1] - ycenter) <= MAXDIST) 
-                && (((pos[0] <= xcenter + MAXDIST) && (cbits & WESTBIT)) || ((pos[0] >= xcenter - MAXDIST) && (cbits & EASTBIT))))
+        return (((fabs(pos[1] - ycenter) <= MAXDIST) && ((fabs(pos[0] - xcenter) <= MAXDIST)  ||
+                   ((pos[0] <= xcenter + MAXDIST) && (cbits & WESTBIT)) || ((pos[0] >= xcenter - MAXDIST) && (cbits & EASTBIT))))
                 || ((fabs(pos[0] - xcenter) <= MAXDIST) 
                 && (((pos[1] <= ycenter + MAXDIST) && (cbits & NORTHBIT)) || ((pos[1] >= ycenter - MAXDIST) && (cbits & SOUTHBIT)))))
                 ? true : false;
@@ -3985,44 +3985,10 @@ namespace
         {"it_strip_nesw",  it_strip_nesw,  itf_static}
     };
 
-/* -------------------- HStrip and VStrip -------------------- */
-namespace
-{
-    class HStrip : public Item {
-        CLONEOBJ(HStrip);
-        DECL_TRAITS;
-    public:
-        HStrip() {
-        }
-        bool covers_floor(ecl::V2 pos) const {
-            if (GridPos(pos) != get_pos())
-                return false;
-
-            const double MAXDIST = 6.0/32;
-            double ycenter = get_pos().y + 0.5;
-            return (fabs(pos[1] - ycenter) > MAXDIST) ? false : true;
-        }
-    };
-    DEF_TRAITSF(HStrip, "it-hstrip", it_hstrip, itf_static);
-
-    class VStrip : public Item {
-        CLONEOBJ(VStrip);
-        DECL_TRAITS;
-    public:
-        VStrip() {
-        }
-        bool covers_floor(ecl::V2 pos) const {
-            if (GridPos(pos) != get_pos())
-                return false;
-
-            const double MAXDIST = 5.0/32;
-            double xcenter = get_pos().x + 0.5;
-            return (fabs(pos[0] - xcenter) > MAXDIST) ? false : true;
-        }
-    };
-    DEF_TRAITSF(VStrip, "it-vstrip", it_vstrip, itf_static);
 
 /* -------------------- it-surprise -------------------- */
+namespace
+{
 
     class SurpriseItem : public Item {
         CLONEOBJ(SurpriseItem);
@@ -4271,7 +4237,6 @@ void InitItems()
     Register ("it_hammer_new", new Hammer(true));
     RegisterItem (new Hill);
     RegisterItem (new Hollow);
-    RegisterItem (new HStrip);
     RegisterItem (new Trap);
     RegisterItem (new Key);
     RegisterItem (new Landmine);
@@ -4313,7 +4278,6 @@ void InitItems()
     Register ("it_vortex", new Vortex(true));
     RegisterItem (new Vortex(false));
     RegisterItem (new Vortex(true));
-    RegisterItem (new VStrip);
     RegisterItem (new Weight);
     RegisterItem (new WhiteBomb);
     RegisterItem (new Wrench);

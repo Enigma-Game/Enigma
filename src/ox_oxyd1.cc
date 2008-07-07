@@ -362,8 +362,8 @@ ITEMMAPTYPE oxyd::oxyd1_item_map[256] = {
     ITEMSPEC(it_tinyhill),                // 0x31
     ITEMSPEC(it_hollow),                  // 0x32
     ITEMSPEC(it_tinyhollow),              // 0x33
-    ITEMSPEC(it_vstrip),                  // 0x34
-    ITEMSPEC(it_hstrip),                  // 0x35
+    ITEMSPEC(it_strip_ns),                // 0x34
+    ITEMSPEC(it_strip_ew),                // 0x35
     ITEMSPEC(it_springboard),             // 0x36
     ITEMSPEC(it_bridge_oxyd),             // 0x37 bridge active
     ITEMSPEC(it_bridge_oxyd),             // 0x38 bridge inactive

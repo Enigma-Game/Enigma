@@ -176,6 +176,54 @@
       <attr name="min"/>
       <attr name="scissor"/>
     </object>
+    <object name="it_strip">
+      <attr name="connections"/>
+    </object>
+    <object name="it_strip_w">
+      <attr name="connections" value="w"/>
+    </object>
+    <object name="it_strip_s">
+      <attr name="connections" value="s"/>
+    </object>
+    <object name="it_strip_sw">
+      <attr name="connections" value="sw"/>
+    </object>
+    <object name="it_strip_e">
+      <attr name="connections" value="e"/>
+    </object>
+    <object name="it_strip_ew">
+      <attr name="connections" value="ew"/>
+    </object>
+    <object name="it_strip_es">
+      <attr name="connections" value="es"/>
+    </object>
+    <object name="it_strip_esw">
+      <attr name="connections" value="esw"/>
+    </object>
+    <object name="it_strip_n">
+      <attr name="connections" value="n"/>
+    </object>
+    <object name="it_strip_nw">
+      <attr name="connections" value="nw"/>
+    </object>
+    <object name="it_strip_ns">
+      <attr name="connections" value="ns"/>
+    </object>
+    <object name="it_strip_nsw">
+      <attr name="connections" value="nsw"/>
+    </object>
+    <object name="it_strip_ne">
+      <attr name="connections" value="ne"/>
+    </object>
+    <object name="it_strip_new">
+      <attr name="connections" value="new"/>
+    </object>
+    <object name="it_strip_nes">
+      <attr name="connections" value="nes"/>
+    </object>
+    <object name="it_strip_nesw">
+      <attr name="connections" value="nesw"/>
+    </object>
     <object name="it_sword"/>
     <object name="it_sword_new" init="true"/>
     <object name="it_trigger">
@@ -222,13 +270,6 @@
       <attr name="state" value="1"/>
     </object>
     <object name="it_wrench"/>
-    <object name="st" abstract="true"/>
-    <object name="st_clusterstone" abstract="true">
-      <attr name="cluster"/>
-      <attr name="connections"/>
-      <attr name="faces"/>
-      <msg name="_model_reanimated"/>
-    </object>
     <object name="ot" abstract="true">
     </object>
     <object name="ot_rubberband">
@@ -243,6 +284,13 @@
     <object name="ot_wire">
       <attr name="anchor1"/>
       <attr name="anchor2"/>
+    </object>
+    <object name="st" abstract="true"/>
+    <object name="st_clusterstone" abstract="true">
+      <attr name="cluster"/>
+      <attr name="connections"/>
+      <attr name="faces"/>
+      <msg name="_model_reanimated"/>
     </object>
     <object name="st" abstract="true">
       <attr name="movable" rw="r"/>

@@ -348,8 +348,8 @@ ITEMMAPTYPE oxyd::oxydmag_item_map[256] = {
     ITEMSPEC(it_tinyhill),      // OxydMagnum item 0x31
     ITEMSPEC(it_hollow),        // OxydMagnum item 0x32
     ITEMSPEC(it_tinyhollow),    // OxydMagnum item 0x33
-    ITEMSPEC(it_vstrip),        // OxydMagnum item 0x34
-    ITEMSPEC(it_hstrip),        // OxydMagnum item 0x35
+    ITEMSPEC(it_strip_ns),      // OxydMagnum item 0x34
+    ITEMSPEC(it_strip_ew),      // OxydMagnum item 0x35
     ITEMSPEC(it_springboard),   // OxydMagnum item 0x36
     ITEMSPEC(it_MISSING),       // OxydMagnum item 0x37
     ITEMSPEC(it_bridge_oxyd),   // OxydMagnum item 0x38
