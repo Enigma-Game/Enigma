@@ -3957,9 +3957,9 @@ namespace
         DirectionBits cbits = getConnections();
         
         return (((fabs(pos[1] - ycenter) <= MAXDIST) 
-                && (((pos[0] <= xcenter) && (cbits & WESTBIT)) || ((pos[0] >= xcenter) && (cbits & EASTBIT))))
+                && (((pos[0] <= xcenter + MAXDIST) && (cbits & WESTBIT)) || ((pos[0] >= xcenter - MAXDIST) && (cbits & EASTBIT))))
                 || ((fabs(pos[0] - xcenter) <= MAXDIST) 
-                && (((pos[1] <= ycenter) && (cbits & NORTHBIT)) || ((pos[1] >= ycenter) && (cbits & SOUTHBIT)))))
+                && (((pos[1] <= ycenter + MAXDIST) && (cbits & NORTHBIT)) || ((pos[1] >= ycenter - MAXDIST) && (cbits & SOUTHBIT)))))
                 ? true : false;
     }
         

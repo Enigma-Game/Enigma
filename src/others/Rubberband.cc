@@ -131,6 +131,8 @@ namespace enigma {
             ecl::V2 vn = normalize(v);
             bool isMax = (len > maxLength - eps);
             bool isMin = (len < minLength + eps);
+            ObjectList rl = anchor1->getAttr("rubbers");
+            int numRubbers =rl.size();
 
             // neutralize other force componentes in rubber direction
             double force1 = vn * ai->force;
@@ -141,7 +143,7 @@ namespace enigma {
             double relspeed = ai->vel * vn;   // positive for shrinking dist
             if (!isMin && (relspeed > 0) || !isMax && (relspeed < 0))
                 relspeed = 0;
-            force = - 1.8 * relspeed * vn / dt * ai->mass;  // 0.9 factor as damping
+            force = - (1 + 0.8 / numRubbers) * relspeed * vn / dt * ai->mass;  // damping for inverse friction and multiconnections
             ai->collforce += force;
 //            Log << "Rubber stone force "<< force1 << "  " <<relspeed<< "\n";
         } else {
@@ -157,6 +159,9 @@ namespace enigma {
                 isMax = (len > (maxLength - minLength)/2);
                 isMin = !isMax; 
             }
+            ObjectList rl1 = anchor1->getAttr("rubbers");
+            ObjectList rl2 = anchor2.ac->getAttr("rubbers");
+            int numRubbers = rl1.size() + rl2.size() - 1;
             
             // redistribute other force components in rubber direction according 
             // to the mass of actors to move the complex but to avoid length change
@@ -180,7 +185,7 @@ namespace enigma {
             if (isMax && (relspeed < 0) || isMin && (relspeed >0))
                 relspeed = 0;
             force = (dmu * relspeed / dt) * vn;
-            force = force * 0.9;   // damping for wrong friction calculation
+            force = force * (0.5 + 0.4 / numRubbers);   // damping for inverse friction and multicollision
 //            Log << "Rubber force " << force1 <<  "  " << force2 << "  relspeed  " << relspeed  << " both " << isBoth << "\n";
             ai1->collforce += force;
             ai2->collforce -= force;
