@@ -1214,6 +1214,9 @@ static int killObjectBase(lua_State *L) {  // TODO Itemholder owner objects
     if (obj) {   // ignore not existing object
         GridObject *gobj;
         switch (obj->getObjectType()) {
+            case Object::OTHER :
+                KillOther(dynamic_cast<Other *>(obj));
+                break;
             case Object::FLOOR :
                 gobj = dynamic_cast<GridObject*>(obj);
                 KillFloor(gobj->get_pos());
@@ -1326,9 +1329,9 @@ static int objectMessageBase(lua_State *L) {
         catch (const XLevelRuntime &e) {
             throwLuaError (L, e.what());
         }
-        catch (...) {
-            throwLuaError (L, "uncaught exception");
-        }
+//        catch (...) {
+//            throwLuaError (L, "uncaught exception x");
+//        }
     }
     push_value(L, answer);
     return 1;
@@ -1850,20 +1853,38 @@ static int setObjectByTable(lua_State *L, double x, double y, bool onlyFloors = 
     switch (obj->getObjectType()) {
         case Object::FLOOR :
             if (Value odd = obj->getAttr("checkerboard")) {
-                if ((xi+yi)%2 != (int)odd)
+                if ((xi+yi)%2 != (int)odd) {
+                    DisposeObject(obj);
                     break;
+                }
             }
             SetFloor(GridPos(xi,yi), dynamic_cast<Floor *>(obj));
             break;
         case Object::STONE :
-            if (!onlyFloors)
+            if (!onlyFloors) {
+                if (Value odd = obj->getAttr("checkerboard")) {
+                    if ((xi+yi)%2 != (int)odd) {
+                        DisposeObject(obj);
+                        break;
+                    }
+                }
                 SetStone(GridPos(xi,yi), dynamic_cast<Stone *>(obj));
-            else
+            } else {
                 DisposeObject(obj);
+            }
             break;
         case Object::ITEM  :
-            if (!onlyFloors)
+            if (!onlyFloors) {
+                if (Value odd = obj->getAttr("checkerboard")) {
+                    if ((xi+yi)%2 != (int)odd) {
+                        DisposeObject(obj);
+                        break;
+                    }
+                }
                 SetItem(GridPos(xi,yi), dynamic_cast<Item *>(obj));
+            } else {
+                DisposeObject(obj);
+            }
             break;
         case Object::ACTOR :
             if (!onlyFloors) {

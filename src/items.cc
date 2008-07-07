@@ -4193,11 +4193,13 @@ namespace
         // TODO: MultiplayerGame: Defaulttarget is second actor!
 
         // Get actor or stone with the name, given in "connect_to":
-        Object *anchor2 = getAttr("anchor2");
+        ObjectList ol = getAttr("anchor2").getObjectList(a);
         
         // Target does NOT exist, Drop Item
-        if (anchor2 == NULL)
+        if (ol.size() == 0)
             return ITEM_DROP;
+
+        Object *anchor2 = ol.front();
             
         // The mode attribute "scissor" defines, if when using an it-rubberband,
         // other rubberbands to the actor will be cut of or not, true means they will. false is default.
@@ -4218,6 +4220,7 @@ namespace
             obj->setAttr("max", getAttr("max"));
             obj->setAttr("min", getAttr("min"));
             AddOther(dynamic_cast<Other *>(obj));
+            performAction(true);
         }
 
         return ITEM_KILL;

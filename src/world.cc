@@ -310,7 +310,8 @@ void World::name_object(Object *obj, const std::string &name)
     if (name.size() > 0 && name[name.size() - 1] == '#') {
         // auto name object with a unique name
         int i;
-        for (i = 1; get_named(name + ecl::strf("%d",i)) != NULL; i++);
+//        for (i = 1; get_named(name + ecl::strf("%d",i)) != NULL; i++);
+        for (i = IntegerRand(1,999999); get_named(name + ecl::strf("%d",i)) != NULL; i = IntegerRand(1,999999));
         unique_name = name + ecl::strf("%d",i);
     }
     m_objnames.insert(unique_name, obj); // [name] = obj;
@@ -1884,7 +1885,7 @@ void KillOther(Other *o) {
                 level->rubberbands.erase(j);
             }
         }
-        o->dispose();
+        DisposeObject(o);
     }
 }
 
