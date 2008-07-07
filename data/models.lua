@@ -100,10 +100,9 @@ function DefSubimages(name, options)
     local yoff = opts.yoff or 0
     local modelname = opts.modelname or name
     local padding = options.padding or 0
-
-    local imagelist={}
-    local cnt = 1
-    local r=ecl.Rect:new(0,0,0,0)
+    local cnt = options.startindex or 1
+    local imagelist = {}
+    local r = ecl.Rect:new(0,0,0,0)
     for x=1,w do
         for y=1,h do
             r.x,r.y,r.w,r.h = imgw*(x-1),imgh*(y-1),imgw,imgh

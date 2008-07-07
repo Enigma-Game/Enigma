@@ -3937,8 +3937,7 @@ namespace
     }
     
     std::string StripItem::getModelName() const {
-//        return getClass();
-        return "st_bluesand";
+        return getClass();
     }
     
     void StripItem::init_model() {

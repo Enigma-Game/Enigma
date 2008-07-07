@@ -497,9 +497,9 @@ end
 
 -- it_strip --
 do
-    DefSubimages("it_strip", {modelname="it_strip",w=4,h=4})
+    DefSubimages("it_strip", {modelname="it_strip", w=4, h=4, startindex=0})
+    DefAlias("it_strip", "it_strip0")
 end
-
 
 ----------------------------------------
 -- Animated Items and Item Animations --
