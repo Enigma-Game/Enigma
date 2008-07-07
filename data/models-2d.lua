@@ -495,6 +495,12 @@ do
     DefTiles("it-yinyang", {"it-yinyang", "it-yanying"})
 end
 
+-- it_strip --
+do
+    DefSubimages("it_strip", {modelname="it_strip",w=4,h=4})
+end
+
+
 ----------------------------------------
 -- Animated Items and Item Animations --
 ----------------------------------------
