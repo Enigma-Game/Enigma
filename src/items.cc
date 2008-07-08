@@ -4185,7 +4185,8 @@ namespace
             obj->setAttr("max", getAttr("max"));
             obj->setAttr("min", getAttr("min"));
             AddOther(dynamic_cast<Other *>(obj));
-            performAction(true);
+            transferIdentity(obj);
+            SendMessage(obj, "_performaction");
         }
 
         return ITEM_KILL;

@@ -1081,6 +1081,11 @@ void DL_Lines::draw_onepass (ecl::GC &gc)
 
         set_color(gc, i->second.r, i->second.g, i->second.b, 255);
         line (gc, x1, y1, x2, y2);
+        if (i->second.thick) {
+            line (gc, x1-1, y1, x2-1, y2);
+            line (gc, x1, y1-1, x2, y2-1);
+            line (gc, x1-1, y1-1, x2-1, y2-1);
+        }
     }
 }
 
@@ -1140,9 +1145,9 @@ void DL_Lines::mark_redraw_line (const Line &r) {
     }
 }
 
-RubberHandle DL_Lines::add_line (const V2 &p1, const V2 &p2, unsigned short rc, unsigned short gc, unsigned short bc)
+RubberHandle DL_Lines::add_line (const V2 &p1, const V2 &p2, unsigned short rc, unsigned short gc, unsigned short bc, bool isThick)
 {
-    m_rubbers[m_id] = Line(p1, p2, rc, gc, bc);
+    m_rubbers[m_id] = Line(p1, p2, rc, gc, bc, isThick);
     mark_redraw_line (m_rubbers[m_id]);
     return RubberHandle(this, m_id++);
 }
@@ -1876,9 +1881,9 @@ CommonDisplay::yield_model (const GridLoc &l)
 
 
 RubberHandle
-CommonDisplay::add_line (V2 p1, V2 p2, unsigned short rc, unsigned short gc, unsigned short bc)
+CommonDisplay::add_line (V2 p1, V2 p2, unsigned short rc, unsigned short gc, unsigned short bc, bool isThick)
 {
-    return line_layer->add_line (p1, p2, rc, gc, bc);
+    return line_layer->add_line (p1, p2, rc, gc, bc, isThick);
 }
 
 SpriteHandle
@@ -2227,8 +2232,8 @@ const Rect& display::GetGameArea () {
 }
 
 RubberHandle
-display::AddRubber (const V2 &p1, const V2 &p2, unsigned short rc, unsigned short gc, unsigned short bc) {
-    return gamedpy->add_line(p1, p2, rc, gc, bc);
+display::AddRubber(const V2 &p1, const V2 &p2, unsigned short rc, unsigned short gc, unsigned short bc, bool isThick) {
+    return gamedpy->add_line(p1, p2, rc, gc, bc, isThick);
 }
 
 void display::SetTextSpeed(int newspeed) {

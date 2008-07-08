@@ -56,8 +56,17 @@ namespace enigma {
         return Other::getAttr(key);
     }
     
+    Value Wire::message(const Message &m) {
+        if (m.message == "_performaction") {
+            performAction(true);
+            return Value();
+        }
+        return Other::message(m);
+    }
+
     void Wire::postAddition() {
-        model = display::AddRubber(anchor1->getOwnerPos().center(), anchor2->getOwnerPos().center(), 200, 50, 150);    // purple
+//        model = display::AddRubber(anchor1->getOwnerPos().center(), anchor2->getOwnerPos().center(), 100, 255, 30, true);    // lime
+        model = display::AddRubber(anchor1->getOwnerPos().center(), anchor2->getOwnerPos().center(), 200, 50, 150, true);    // purple
     }
     
     void Wire::preRemoval() {

@@ -189,7 +189,7 @@ namespace display
         unsigned id;
     };
 
-    RubberHandle AddRubber (const ecl::V2 &p1, const ecl::V2 &p2, unsigned short rc, unsigned short gc, unsigned short bc);
+    RubberHandle AddRubber (const ecl::V2 &p1, const ecl::V2 &p2, unsigned short rc, unsigned short gc, unsigned short bc, bool isThick);
 }
 
 

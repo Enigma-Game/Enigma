@@ -41,7 +41,7 @@ namespace enigma {
         sound_event("scissors");
         set_anim("st-scissors-snip");
         if (SendMessage(sc.actor, "disconnect").to_bool())
-            performAction(false);
+            performAction(true);
     }
 
     DEF_TRAITS(ScissorsStone, "st_scissors", st_scissors);

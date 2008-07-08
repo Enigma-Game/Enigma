@@ -90,7 +90,7 @@ namespace enigma {
     }
     
     void Rubberband::postAddition() {
-        model = display::AddRubber(anchor1->get_pos(), posAnchor2(), 240, 140, 20);  // orange
+        model = display::AddRubber(anchor1->get_pos(), posAnchor2(), 240, 140, 20, true);  // orange
     }
     
     void Rubberband::preRemoval() {

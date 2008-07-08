@@ -260,6 +260,10 @@ function enigma.MakeObject(name)
         return enigma._MakeObject("st_mirror_slab_e")
     elseif name == "st-3mirror" then
         return enigma._MakeObject("st_mirror_triangle_s")
+    elseif name == "st-scissors" then
+        local obj = enigma._MakeObject("st_scissors")
+        enigma._SetAttrib(obj, "inverse", true)
+        return obj
     end
     
     newname = RenamingObjectsOld2New[name]

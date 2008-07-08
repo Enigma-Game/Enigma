@@ -280,6 +280,7 @@
       <attr name="threshold"/>
       <attr name="max"/>
       <attr name="min"/>
+      <msg name="_performaction"/>
     </object>
     <object name="ot_wire">
       <attr name="anchor1"/>
