@@ -59,6 +59,7 @@ RenamingObjectsNew2Old = {
     it_glasses_broken = "it-glasses-broken",
     it_hammer = "it-hammer",
     it_landmine = "it-landmine",
+    it_magicwand = "it-magicwand",
     it_magnet = "it-magnet",
     it_magnet_on = "it-magnet-on",
     it_magnet_off = "it-magnet-off",

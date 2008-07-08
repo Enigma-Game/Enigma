@@ -830,7 +830,7 @@ namespace
         BrickMagic() : Stone("st-brick_magic") {}
     private:
         void actor_hit(const StoneContact &sc) {
-            if (player::WieldedItemIs (sc.actor, "it-magicwand")) {
+            if (player::WieldedItemIs (sc.actor, "it_magicwand")) {
                 sound_event ("stonepaint");
                 ReplaceStone (get_pos(), MakeStone("st-glass"));
             }
@@ -961,7 +961,7 @@ namespace
 
         void actor_hit(const StoneContact &sc) {
             if (state == INVISIBLE) {
-                if (player::WieldedItemIs (sc.actor, "it-magicwand")) {
+                if (player::WieldedItemIs (sc.actor, "it_magicwand")) {
                     sound_event ("stonepaint");
                     state = STONE;
                     set_model("st-greenbrown");
@@ -1492,7 +1492,7 @@ namespace
         YinYangStone3() : YinYangStone("st-yinyang3") {}
     private:
         void actor_hit(const StoneContact &sc) {
-            if (player::WieldedItemIs (sc.actor, "it-magicwand") ||
+            if (player::WieldedItemIs (sc.actor, "it_magicwand") ||
                 player::WieldedItemIs (sc.actor, "it_brush"))
             {
                 Value color = sc.actor->getAttr("color");

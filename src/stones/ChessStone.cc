@@ -119,7 +119,7 @@ namespace enigma {
 
     void ChessStone::actor_hit(const StoneContact &sc) {
          Value accolor = sc.actor->getAttr("color");
-         if (player::WieldedItemIs (sc.actor, "it-magicwand")) {
+         if (player::WieldedItemIs (sc.actor, "it_magicwand")) {
              sound_event ("stonepaint");
              set_color(1 - (int)getAttr("color"));
              // If not IDLE, color will be set next time IDLE is set.

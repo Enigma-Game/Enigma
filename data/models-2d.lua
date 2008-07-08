@@ -402,8 +402,6 @@ do
         "it-flagwhite",
         "it-hill",
         "it-hollow",
-        "it-hstrip",
-        "it-magicwand",
         "it-odometer",
         "it-pencil",
         "it-pin",
@@ -416,7 +414,6 @@ do
         "it-surprise",
         "it-tinyhill",
         "it-tinyhollow",
-        "it-vstrip",
         "it-weight",
         "it-whitebomb"
     }
@@ -436,6 +433,7 @@ do
     DefImage("it_hammer", {filename="it-hammer"})
     DefImage("it_key", {filename="it-key"})
     DefImage("it_landmine", {filename="it-landmine"})
+    DefImage("it_magicwand", {filename="it-magicwand"})
     DefImage("it_rubberband", {filename="it-rubberband"})
     DefImage("it_sword", {filename="it-sword"})
     DefImage("it_umbrella", {filename="it-umbrella"})

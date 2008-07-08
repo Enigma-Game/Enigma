@@ -187,7 +187,7 @@ bool Item::actor_hit(Actor *actor)
 
 namespace
 {
-    DEF_ITEM(MagicWand, "it-magicwand", it_magicwand);
+    DEF_ITEM(MagicWand, "it_magicwand", it_magicwand);
     DEF_ITEM(Floppy,    "it_floppy", it_floppy);
     DEF_ITEM(Key,       "it_key", it_key);
     DEF_ITEM(Odometer,  "it-odometer", it_odometer);

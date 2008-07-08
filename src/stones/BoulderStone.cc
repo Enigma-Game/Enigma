@@ -126,7 +126,7 @@ namespace enigma {
         if (state == FALLING)
             return;
 
-        if (player::WieldedItemIs (sc.actor, "it-magicwand")) {
+        if (player::WieldedItemIs (sc.actor, "it_magicwand")) {
             setDir(reverse(getDir()));
         }
     }
@@ -168,7 +168,7 @@ namespace enigma {
     void BoulderStone::setDir(Direction d) {
         if (d != getDir() && (state != FALLING)) {
             Object::setAttr("orientation", d);
-            state = ACTIVE;   // if turned by it-magicwand -> allow triggering
+            state = ACTIVE;   // if turned by it_magicwand -> allow triggering
             triggerObstacle(getDir(), true);
             init_model();
         }
