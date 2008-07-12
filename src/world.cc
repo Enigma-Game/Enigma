@@ -460,10 +460,10 @@ void World::scramble_puzzles()
 #define M_PI 3.1415926535
 #endif
 
-void World::add_mouseforce (Actor *a, Floor *floor, V2 &mforce)
+ecl::V2 World::drunkenMouseforce(Actor *a, V2 &mforce)
 {
+    V2 f = mforce;
     if (a->get_controllers() != 0) {
-        V2 f = floor->process_mouseforce(a, m_mouseforce.get_force(a));
         if (a->is_drunken()) {
             // rotate mouse force by random angle
             double maxangle = M_PI * 0.7;
@@ -471,8 +471,8 @@ void World::add_mouseforce (Actor *a, Floor *floor, V2 &mforce)
             f = V2(f[0]*cos(angle) - f[1]*sin(angle),
                    f[0]*sin(angle) + f[1]*cos(angle));
         }
-        mforce += f;
     }
+    return f;
 }
 
 /*! Calculate the total force on an actor A at time TIME.  The
@@ -480,9 +480,10 @@ void World::add_mouseforce (Actor *a, Floor *floor, V2 &mforce)
   that the position and velocity entries in ActorInfo will be updated
   only after a *successful* time step, so they cannot be used
   here.] */
-V2 World::get_local_force (Actor *a)
-{
+V2 World::get_local_force (Actor *a) {
     V2 f;
+    V2 m;
+    double friction = 0;
 
     if (a->is_on_floor()) {
         if (Floor *floor = a->m_actorinfo.field->floor) {
@@ -490,30 +491,29 @@ V2 World::get_local_force (Actor *a)
             f += flatForce;
 
             // Mouse force
-            add_mouseforce (a, floor, f);
-
-            // Friction
-            double friction = floor->get_friction();
-            if (a->has_spikes())
-                friction += 7.0;
-
-            V2 v = a->get_vel();
-            double vv=length(v);
-            if (vv > 0) {
-                V2 frictionf = v * (server::FrictionFactor*friction);
-                frictionf /= vv;
-                frictionf *= pow(vv, 0.8);
-                f -= frictionf;
+            if (a->get_controllers() != 0) {
+                m = floor->process_mouseforce(a, m_mouseforce.get_force(a));
             }
+            // Friction
+            friction = floor->get_friction();
 
+            // Floor force
             floor->add_force(a, f);
         }
 
-        if (Item *item = a->m_actorinfo.field->item) 
+        if (Item *item = a->m_actorinfo.field->item) {
+            friction = item->getFriction(a->get_pos(), friction);
+            if (a->get_controllers() != 0) {
+                m = item->calcMouseforce(a, m_mouseforce.get_force(a), m);
+            }
             item->add_force(a, f);
+        }
     }
+    
+    a->m_actorinfo.friction = friction;
+    f += drunkenMouseforce(a, m);
 
-    return f;
+    return f + m;
 }
 
 /* Global forces are calculated less often than local ones, namely
@@ -1323,6 +1323,25 @@ void World::advance_actor (Actor *a, double &dtime)
     double q = length(ai.vel) / MAXVEL;
     if (q > 1)
         ai.vel /= q;
+        
+    // Friction influence
+    double friction = server::FrictionFactor * ai.friction; 
+    if (a->has_spikes())
+        friction += 7.0 * server::FrictionFactor;
+
+    double vv=length(ai.vel);
+    if (vv > 0) {
+        V2 frictionf = ai.vel * friction;
+        frictionf /= vv;
+        frictionf *= pow(vv, 0.8);
+        ai.vel -= dtime * frictionf / ai.mass;
+        if (friction  < 0) {  // inverse, accelerating friction
+            // Limit to maximum velocity again
+            double q = length(ai.vel) / MAXVEL;
+            if (q > 1)
+                ai.vel /= q;
+        }
+    }
 
     ai.pos += dtime * ai.vel;
     // avoid actors outside of world

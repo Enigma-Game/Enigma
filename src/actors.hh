@@ -90,6 +90,7 @@ namespace enigma {
 //        ecl::V2 oldpos;		// Backup position for enter/leave notification
         ecl::V2 force;		// Force used during tick
         ecl::V2 collforce;
+        double  friction;       // friction on the current position
         
         // 2 sets of contacts - one for the current tick, one for the last tick
         Contact contacts_a[MAX_CONTACTS];

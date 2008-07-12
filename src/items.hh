@@ -190,7 +190,9 @@ namespace enigma {
         /* ---------- Virtual functions ---------- */
         const char *get_kind() const;
         void init_model();
-        void processLight(Direction d);
+        virtual void processLight(Direction d);
+        virtual double getFriction(ecl::V2 pos, double defaultFriction);
+        virtual ecl::V2 calcMouseforce(Actor *a, ecl::V2 mouseForce, ecl::V2 floorForce);
 
         /* ---------- Item interface ---------- */
 

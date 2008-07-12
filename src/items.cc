@@ -142,6 +142,13 @@ void Item::processLight(Direction d) {
         GridObject::processLight(d);
 }
 
+double Item::getFriction(ecl::V2 pos, double defaultFriction) {
+    return defaultFriction;
+}
+
+ecl::V2 Item::calcMouseforce(Actor *a, ecl::V2 mouseForce, ecl::V2 floorForce) {
+    return floorForce;
+}
 
 void Item::on_drop (Actor * /*a*/) {
 }
@@ -3899,6 +3906,8 @@ namespace
                 
         // Items interface
         virtual bool covers_floor(ecl::V2 pos) const;
+        virtual double getFriction(ecl::V2 pos, double defaultFriction);
+        virtual ecl::V2 calcMouseforce(Actor *a, ecl::V2 mouseForce, ecl::V2 floorForce);
         
     private:
         int traitsIdx() const;
@@ -3960,6 +3969,22 @@ namespace
                 || ((fabs(pos[0] - xcenter) <= MAXDIST) 
                 && (((pos[1] <= ycenter + MAXDIST) && (cbits & NORTHBIT)) || ((pos[1] >= ycenter - MAXDIST) && (cbits & SOUTHBIT)))))
                 ? true : false;
+    }
+    
+    double StripItem::getFriction(ecl::V2 pos, double defaultFriction) {
+        Value v = getAttr("friction");
+        if (v && covers_floor(pos))
+            return v;
+        else
+            return defaultFriction;
+    }
+    
+    ecl::V2 StripItem::calcMouseforce(Actor *a, ecl::V2 mouseForce, ecl::V2 floorForce) {
+        Value v = getAttr("mousefactor");
+        if (v && covers_floor(a->get_pos()))
+            return mouseForce * (double)v ;
+        else
+            return floorForce;        
     }
         
     int StripItem::traitsIdx() const {

@@ -271,7 +271,7 @@ typedef list<sound::SoundDamping> SoundDampingList;
 
         /* ---------- Private methods ---------- */
 
-        void add_mouseforce (Actor *a, Floor *floor, V2 &mforce);
+        ecl::V2 drunkenMouseforce(Actor *a, V2 &mforce);
         V2 get_local_force (Actor *a);
         V2 get_global_force (Actor *a);
 
