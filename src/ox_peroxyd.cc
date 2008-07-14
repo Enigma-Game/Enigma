@@ -352,11 +352,11 @@ const char *oxyd::peroxyd_stone_map[256] = {
     "st-metal_hole",            // PerOxyd stone 0x9b
     "st-stone1",                // PerOxyd stone 0x9c
     "st-fart",                  // PerOxyd stone 0x9d
-    "st-turnstile",             // PerOxyd stone 0x9e
-    "st-turnstile-n",           // PerOxyd stone 0x9f
-    "st-turnstile-s",           // PerOxyd stone 0xa0
-    "st-turnstile-w",           // PerOxyd stone 0xa1
-    "st-turnstile-e",           // PerOxyd stone 0xa2
+    "st_turnstile_red",         // PerOxyd stone 0x9e
+    "st_turnstilearm_n",        // PerOxyd stone 0x9f
+    "st_turnstilearm_s",        // PerOxyd stone 0xa0
+    "st_turnstilearm_w",        // PerOxyd stone 0xa1
+    "st_turnstilearm_e",        // PerOxyd stone 0xa2
     UNUSED,                     // PerOxyd stone 0xa3
     "st_laserflop_on",        // PerOxyd stone 0xa4 laserswitch on
     UNUSED,                     // PerOxyd stone 0xa5

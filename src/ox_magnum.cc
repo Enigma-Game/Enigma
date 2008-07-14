@@ -276,11 +276,11 @@ const char *oxyd::oxydmag_stone_map[256] = {
     "st-chargeminus",           // OxydMagnum stone 0x97
     "st-chargezero",            // OxydMagnum stone 0x98
     0,                          // OxydMagnum stone 0x99 (common was 'st-blocker')(Level 121 ?)(in normal Oxyd Magnum Levels unused!)
-    "st-turnstile",             // OxydMagnum stone 0x9a
-    "st-turnstile-n",           // OxydMagnum stone 0x9b
-    "st-turnstile-s",           // OxydMagnum stone 0x9c
-    "st-turnstile-w",           // OxydMagnum stone 0x9d
-    "st-turnstile-e",           // OxydMagnum stone 0x9e
+    "st_turnstile_red",         // OxydMagnum stone 0x9a
+    "st_turnstilearm_n",        // OxydMagnum stone 0x9b
+    "st_turnstilearm_s",        // OxydMagnum stone 0x9c
+    "st_turnstilearm_w",        // OxydMagnum stone 0x9d
+    "st_turnstilearm_e",        // OxydMagnum stone 0x9e
     UNUSED,                     // OxydMagnum stone 0x9f
     UNUSED,                     // OxydMagnum stone 0xa0
     UNUSED,                     // OxydMagnum stone 0xa1

@@ -251,6 +251,8 @@ enigma_SOURCES = 		\
 	stones/Switch.hh	\
 	stones/TimerStone.cc	\
 	stones/TimerStone.hh	\
+	stones/Turnstile.cc	\
+	stones/Turnstile.hh	\
 	stones/WindowStone.cc	\
 	stones/WindowStone.hh
 

@@ -182,6 +182,12 @@ RenamingObjectsNew2Old = {
     st_switch_black = "st-switch_black",
     st_switch_white = "st-switch_white",
     st_timer = "st-timer",
+    st_turnstile_red = "st-turnstile",
+    st_turnstile_green = "st-turnstile-green",
+    st_turnstilearm_n = "st-turnstile-n",
+    st_turnstilearm_e = "st-turnstile-e",
+    st_turnstilearm_s = "st-turnstile-s",
+    st_turnstilearm_w = "st-turnstile-w",
     st_window = "st-window"
 }
 

@@ -682,6 +682,39 @@
       <msg name="off"/>
       <msg name="signal"/>
     </object>
+    <object name="st_turnstile">
+      <attr name="counterclock"/>
+      <attr name="flavor"/>
+      <attr name="orientation"/>
+      <attr name="state" max="0"/>
+      <msg name="signal"/>
+      <msg name="turn"/>
+      <msg name="turnback"/>
+    </object>
+    <object name="st_turnstile_red">
+      <attr name="flavor" value="red"/>
+    </object>
+    <object name="st_turnstile_green">
+      <attr name="flavor" value="green"/>
+    </object>
+    <object name="st_turnstilearm">
+      <attr name="state" max="3"/>
+      <attr name="connections"/>
+      <attr name="orientation"/>
+      <msg name="orientate"/>
+    </object>
+    <object name="st_turnstilearm_n">
+      <attr name="state" value="3"/>
+    </object>
+    <object name="st_turnstilearm_e">
+      <attr name="state" value="2"/>
+    </object>
+    <object name="st_turnstilearm_s">
+      <attr name="state" value="1"/>
+    </object>
+    <object name="st_turnstilearm_w">
+      <attr name="state" value="0"/>
+    </object>
     <object name="st_window">
       <attr name="faces" default="s"/>
       <attr name="scratches"/>

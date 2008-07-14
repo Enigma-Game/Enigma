@@ -150,7 +150,8 @@ namespace enigma {
     
     void GridObject::setState(int extState) {
         StateObject::setState(extState);
-        init_model();
+        if (isDisplayable())
+            init_model();
     }
     
     std::string GridObject::getModelName() const {
