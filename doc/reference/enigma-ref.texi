@@ -3862,13 +3862,12 @@ A 90 degree clockwise turn is described by 0, 1, -1, 0.
 
 @table @asis
 @item @b{Type:} @ @ number
-@item @b{Values:} @ @ 
+@item @b{Values:} @ @ ?
 @item @b{Default:} @ @ factor - @code{nil}, xx, yy - @code{1}, xy, yx - @code{0}
 By default no hit factor is applied. The hit matrix is the neutral one.
 @item @b{Access:} @ @ read/write
 @item @b{Support:} @ @ by some stones
 @end table
-
 
 @node Common Messages
 @section Common Messages
@@ -4981,7 +4980,7 @@ A vortex in state @samp{OPEN}.
 A vortex in state @samp{CLOSED}.
 @end table
 
-
+@end table
 @end table
 
 @c ----------------- Wormhole Item -------------------- 
@@ -5009,30 +5008,25 @@ actors travelling through a wormhole and avoids overlapping actors at the
 destination.
 
 @table @asis
+
 @item @b{Attributes:}
 
 @table @asis
 @item @b{state}, @ @ @i{values}: @code{ON}, @code{OFF}; @ @ @i{default}: @code{OFF} @ @ @xref{state}
 The current force state - @samp{ON} for a force applying wormholes, @samp{OFF}
 for force neutral wormholes.
-
 @item @b{destination}, @ @ @i{values}: tokens or position; @ @ @i{default}: @code{nil} @ @ @xref{destination}
 The destination of the teleport given by an object or a position.
-
 @item @b{range} @ @ @i{values}: float number greater or equal 0; @ @ @i{default}: @code{10.0} @ @ @xref{WormholeRange}
 The distance up to which the wormhole applies forces to actors.
-
 @item @b{strength} @ @ @i{values}: float number; @ @ @i{default}: @code{+30.0} @ @ @xref{WormholeStrength}
 A scalar factor for the wormhole force. Positive numbers are attracting forces
 where as negative numbers are repelling forces.
-@end table
-
 @item @b{scissor}, @ @ @i{values}: @code{true}, @code{false}; @ @ @i{default}: @code{true}
 Rubberband cutting behaviour on teleporting.
-
 @item @b{interval} @ @ @i{values}: float number greater or equal 0; @ @ @i{default}: @code{0.0}
 The latency time after a teleport during which no further teleports take place.
-
+@end table
 
 @item @b{Messages:}
 
@@ -5642,14 +5636,15 @@ The level author can configure @ref{it_glasses} by elimination of
 @ref{it_extralife} can be configured not to show invisible actorimpulse stones.
 
 @table @asis
-@item @b{Attributes:}
 
+@item @b{Attributes:}
 @table @asis
 @item @b{state}, @ @ @i{values}: @code{ON}, @code{OFF}; @ @ @i{default}: @code{OFF}; @i{access}: @code{read only}  @ @ @xref{state}
 Current activity state of the death stone. A stone is usually activated by
 a hitting actor.
 @item @b{invisible} @ @ @i{values}: @code{true}, @code{false}; @ @ @i{default}: @code{false}
 Invisible death stones show only when hit by an actor or been toggled by a message.
+@end table
 
 @item @b{Messages:}
 @table @asis
@@ -5661,7 +5656,6 @@ period.
 @item @b{Action:} none
 
 @item @b{Variants:}
-
 @table @asis
 @item @b{st_death}: invisible = @code{false}
 @item @b{st_death_invisible}: invisible = @code{true}
@@ -5971,7 +5965,7 @@ interval  =  base * (1 + stone_friction * floor_friction) / (1 + stone_gradient 
 
 with @samp{base} the value of the @samp{interval}-attribute,
 @samp{floor_friction} the friction of the floor below the light passenger,
-and @floor{floor_gradient} the parallel part of the force of the floor,
+and @samp{floor_gradient} the parallel part of the force of the floor,
 i.e., the sum of gradient-force and @code{force_x/y}-attributes.
 
 The light passenger can be switched on and off by messages (see below), and 
@@ -6895,7 +6889,7 @@ ti["~"] = @{"fl_water"@}
 ti[" "] = @{"fl_plank"@}
 ti["c"] = @{"it_crack3", brittleness=0@}
 ti["^"] = @{"st_oneway_n"@}
-ti["1"] = @{"ac_marble_black", 0, 0.5}
+ti["1"] = @{"ac_marble_black", 0, 0.5@}
 
 ti["x"] = @{"st_oxyd", "island#"@}
 ti["y"] = @{"st_oxyd", "left#"@}
@@ -7260,7 +7254,7 @@ w, h = wo(full_random, "s", @{
 "         ~~......p..",
 "         ~~.........",
 "         ~~........."
-})
+@})
 @end example
 
 Note that in this example we can use @samp{p} as key as well as superkey. This
@@ -7422,7 +7416,7 @@ simple nearest object selection. E.g.
 @example
 ti["F"] = @{"st_floppy", target="@@door#*"@}
 ti["B"] = @{"st_blocker", name="door#"@}
-wo{ti, " ", {
+wo@{ti, " ", @{
 "       B            ",
 "       FB#####FB####",
 "       # F    B     ",
@@ -7442,7 +7436,7 @@ ti["F"] = @{"st_floppy", target="@@doorA#*"@}
 ti["B"] = @{"st_blocker", name="doorA#"@}
 ti["f"] = @{"st_floppy", target="@@doorB#*"@}
 ti["b"] = @{"st_blocker", name="doorB#"@}
-wo{ti, " ", {
+wo@{ti, " ", @{
 "       b            ",
 "       fB#####fb####",
 "       # F    B     ",
@@ -7567,6 +7561,7 @@ look up the key by its subresolver.
 The key string that should be resolved
 @item @i{x}, @i{y}
 The position of the tile.
+@end table
 
 @item @b{Details:}
 Based on the given parameters, the key, the position, the resolver parameters
@@ -7629,7 +7624,8 @@ function res.composer_implementation(context, evaluator, key, x, y)
     end
     return tile
 end
-@end
+@end example
+@end table
 
 @node Resolver Finalizer
 @subsection Resolver Finalizer
@@ -10142,7 +10138,7 @@ more coins you put in, the longer the switch will stay activated.
 @item on
 as usual
 @item target, action
-As usual
+as usual
 @end table
 
 @strong{Messages}
