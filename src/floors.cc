@@ -749,7 +749,7 @@ void Bridge::stone_change(Stone *st) {
 
 Value Bridge::message(const Message &m)
 {
-    if (m.message == "open" && (state==CLOSED || state==CLOSING)) {
+    if (m.message == "open" && (state==CLOSED || state==CLOSING|| state==OPENING)) {
         change_state(OPENING);
         return Value();
     } else if (m.message == "close") {
