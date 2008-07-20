@@ -142,7 +142,7 @@ void Item::processLight(Direction d) {
         GridObject::processLight(d);
 }
 
-double Item::getFriction(ecl::V2 pos, double defaultFriction) {
+double Item::getFriction(ecl::V2 pos, double defaultFriction, Actor *a) {
     return defaultFriction;
 }
 
@@ -3905,8 +3905,8 @@ namespace
         virtual void init_model();
                 
         // Items interface
-        virtual bool covers_floor(ecl::V2 pos) const;
-        virtual double getFriction(ecl::V2 pos, double defaultFriction);
+        virtual bool covers_floor(ecl::V2 pos, Actor *a) const;
+        virtual double getFriction(ecl::V2 pos, double defaultFriction, Actor *a);
         virtual ecl::V2 calcMouseforce(Actor *a, ecl::V2 mouseForce, ecl::V2 floorForce);
         
     private:
@@ -3954,11 +3954,26 @@ namespace
         GridObject::init_model();
     }
 
-    bool StripItem::covers_floor(ecl::V2 pos) const {
+    bool StripItem::covers_floor(ecl::V2 pos, Actor *a) const {
         if (GridPos(pos) != get_pos())
             return false;
 
-        const double MAXDIST = 6.0/32;
+        double velocity = 0;
+        if (a != NULL) 
+            velocity = ecl::length(a->get_actorinfo()->vel);
+            
+        // calculate the maximal horizontal or vertical distance from the center:
+        // gurantee that a large marble can touch a neighboring stone at speed 0,
+        // and a fast marble does not step off the strip on hitting a neighbor stone.
+        // A fast marble might not reach the stone in one timestep while being
+        // on top of the strip and is afterwards moved forward off the strip.
+        // Thus we must expand the strip with increasing speed of the actor - call
+        // it a relativistic effect :-)
+        // d = 1/2 - 19/64 - 0.02 + velocity/400 
+        //  = 1/2 - radius large marble - epsilon + velocity/(1/2.5 ms)
+        // we need to limit the speed to avoid a fast marble traversing the gap in
+        // two timesteps! 
+        double MAXDIST = 0.183125 + ecl::Clamp(velocity/400, 0.0, 0.125);
         
         double ycenter = get_pos().y + 0.5;
         double xcenter = get_pos().x + 0.5;
@@ -3971,17 +3986,17 @@ namespace
                 ? true : false;
     }
     
-    double StripItem::getFriction(ecl::V2 pos, double defaultFriction) {
+    double StripItem::getFriction(ecl::V2 pos, double defaultFriction, Actor *a) {
         Value v = getAttr("friction");
-        if (v && covers_floor(pos))
+        if (v && covers_floor(pos, a))
             return v;
         else
             return defaultFriction;
     }
     
     ecl::V2 StripItem::calcMouseforce(Actor *a, ecl::V2 mouseForce, ecl::V2 floorForce) {
-        Value v = getAttr("mousefactor");
-        if (v && covers_floor(a->get_pos()))
+        Value v = getAttr("adhesion");
+        if (v && covers_floor(a->get_pos(), a))
             return mouseForce * (double)v ;
         else
             return floorForce;        

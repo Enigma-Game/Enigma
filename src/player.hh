@@ -37,7 +37,7 @@ namespace enigma
     namespace player {
 
         /*! Start a new game for two virtual players. */
-        void NewGame(bool isRestart);
+        void NewGame();
 
         /*! This is called whenever a new level is reached in a running
           game.  The inventories of all players are cleaned up, i.e., all
@@ -53,7 +53,7 @@ namespace enigma
 
         /*! Called as soon as the current level is finished; it removes
           the actors of all players from the level. */
-        void LevelFinished();
+        void LevelFinished(int stage);
 
         /* This function is only used by the YinYang items to exchange the
            two players. */
@@ -96,6 +96,7 @@ namespace enigma
         ItemAction ActivateItem (Item *it);
 
         void Tick (double dtime);
+        void CheckDeadActors();
         void PlayerShutdown();
 
     } // namespace player

@@ -140,7 +140,7 @@ void Actor::think(double /*dtime*/) {
     if (m_actorinfo.field) {
         Floor *fl = m_actorinfo.field->floor;
         Item *it = m_actorinfo.field->item;
-        bool item_covers_floor = (it && it->covers_floor(m_actorinfo.pos));
+        bool item_covers_floor = (it && it->covers_floor(m_actorinfo.pos, this));
         if (!item_covers_floor && fl && this->is_on_floor())
             fl->actor_contact(this);
     }
@@ -802,6 +802,12 @@ Value BasicBall::message(const Message &m)
                 handled = true;
             }
             break;
+        case SHATTERING:
+            if (m.message == "_levelfinish") {
+                change_state(DEAD);
+                handled = true;
+            }
+            break;
         case DEAD:
             if (m.message == "resurrect") {
                 change_state(RESURRECTED);
@@ -918,7 +924,7 @@ void BasicBall::sink (double dtime)
 
     Floor *fl = m_actorinfo.field->floor;
     Item *it = m_actorinfo.field->item;
-    if (!(it != NULL && it->covers_floor(get_pos())) && fl != NULL)
+    if (!(it != NULL && it->covers_floor(get_pos(), this)) && fl != NULL)
         fl->get_sink_speed (sink_speed, raise_speed);
     
     if (sink_speed == 0.0 || has_shield()) {
@@ -1107,11 +1113,11 @@ void BasicBall::change_state(State newstate) {
         break;
     case DISAPPEARING:
         GrabActor(this);
-	disable_shield();
+        disable_shield();
         set_anim(kind+"-disappear");
         break;
     case RESURRECTED:
-	disable_shield();
+        disable_shield();
         sinkDepth = minSinkDepth;
 	break;
     default:

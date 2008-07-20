@@ -66,8 +66,12 @@ namespace enigma {
             return (server::GetDifficulty() == DIFFICULTY_HARD);  // read only
         } else if (key == "LevelTime") {   
             return server::LevelTime;    // read only
+        } else if (key == "ProvideExtralifes") {
+            return server::ProvideExtralifes;
         } else if (key == "ShowMoves") {
             return server::ShowMoves;
+        } else if (key == "SurviveFinish") {
+            return server::SurviveFinish;
         } else if (key == "Width") {
             return Width();
         } else if (key == "Brittleness") {
@@ -145,9 +149,17 @@ namespace enigma {
         } else if (key == "FollowThreshold") {
             server::FollowThreshold = val;
             display::UpdateFollowMode();
+        } else if (key == "ProvideExtralifes") {
+            bool newFlag = val.to_bool();
+            ASSERT(server::ProvideExtralifes || !newFlag, XLevelRuntime, 
+                "Attribute 'ProvideExtralifes': toggling from false to true not allowed");
+            server::ProvideExtralifes = newFlag;
+            
         } else if (key == "ShowMoves") {
             server::ShowMoves = val.to_bool();
             STATUSBAR->show_move_counter (server::ShowMoves);
+        } else if (key == "SurviveFinish") {
+            server::SurviveFinish = val.to_bool();
         } else if (key == "Brittleness") {
             server::Brittleness = val;
         } else if (key == "ActorimpulseStrength") {

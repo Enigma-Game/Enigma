@@ -2,6 +2,7 @@
 <objects xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="objects.xsd">
   <attributes>
     <attr name="action" type="tokens" default="nil" rw="rw"/>
+    <attr name="adhesion" type="double" default="nil" rw="rw"/>
     <attr name="anchor1" type="tokens" default="nil" rw="rw"/>
     <attr name="anchor2" type="tokens" default="nil" rw="rw"/>
     <attr name="autoclose" type="bool" default="false" rw="rw"/>
@@ -34,7 +35,6 @@
     <attr name="loop" type="bool" default="true" rw="rw"/>
     <attr name="max" type="double" default="0" rw="rw"/>
     <attr name="min" type="double" default="0" rw="rw"/>
-    <attr name="mousefactor" type="double" default="nil" rw="rw"/>
     <attr name="movable" type="bool" default="false" rw="rw"/>
     <attr name="name" type="string" default="nil" rw="rw"/>
     <attr name="nopaction" type="bool" default="false" rw="rw"/>
@@ -180,7 +180,7 @@
     <object name="it_strip">
       <attr name="connections"/>
       <attr name="friction"/>
-      <attr name="mousefactor"/>
+      <attr name="adhesion"/>
     </object>
     <object name="it_strip_w">
       <attr name="connections" value="w"/>
@@ -701,6 +701,7 @@
       <attr name="state" max="3"/>
       <attr name="connections"/>
       <attr name="orientation"/>
+      <attr name="movable" default="true" rw="r"/>
       <msg name="orientate"/>
     </object>
     <object name="st_turnstilearm_n">

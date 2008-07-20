@@ -56,6 +56,7 @@ namespace enigma_server
         sv_paused,
         sv_restart_level,
         sv_restart_game,
+        sv_finishing,
         sv_finished,
     };
 
@@ -82,6 +83,9 @@ bool     server::AllowSingleOxyds;
 bool     server::AllowTogglePlayer;
 bool     server::CreatingPreview = false;   // read only for Lua
 bool     server::ConserveLevel;
+bool     server::IsLevelRestart;            // no Lua access
+bool     server::ProvideExtralifes;
+bool     server::SurviveFinish;
 
 Value    server::FollowAction;
 bool     server::FollowGrid;
@@ -136,9 +140,10 @@ void load_level(lev::Proxy *levelProxy, bool isRestart)
 {
     try {
         server::PrepareLevel();
+        IsLevelRestart = isRestart;
 
         // clear inventory before level load and give us 2 extralives
-        player::NewGame(isRestart);
+        player::NewGame();
 
         levelProxy->loadLevel();  // sets the compatibility mode
 
@@ -243,6 +248,8 @@ void server::PrepareLevel()
     server::WorldInitialized  = false;
     server::LevelTime         = 0.0;
     server::ConserveLevel     = true;
+    server::ProvideExtralifes = true;
+    server::SurviveFinish     = true;
     server::TwoPlayerGame     = false;
     server::SingleComputerGame= true;
     server::AllowSingleOxyds  = false;
@@ -297,7 +304,7 @@ void server::PrepareLua() {
 
 void server::RestartLevel() 
 {
-    if (state == sv_running || state == sv_finished) {
+    if (state == sv_running || state == sv_finished || state == sv_finishing) {
         state = sv_restart_level;
         current_state_dtime = 0;
     }
@@ -309,57 +316,60 @@ bool server::IsRestartingLevel() {
 
 void server::Msg_RestartGame() 
 {
-    if (state == sv_running || state == sv_finished) {
+    if (state == sv_running || state == sv_finished || state == sv_finishing) {
         state = sv_restart_game;
         current_state_dtime = 0;
     }
 }
 
-void server::FinishLevel()
-{
+void server::FinishLevel() {
     if (state == sv_running) {
-        state = sv_finished;
-        current_state_dtime = 0;
-        player::LevelFinished(); // remove player-controlled actors
-        client::Msg_Command("level_finished");
-    }
-    else {
-        // XXX server internal error: should only be called while game is running
+        state = sv_finishing;
     }
 }
 
-
-void server::Tick (double dtime) 
-{
+void server::Tick (double dtime) {
     switch (state) {
-    case sv_idle:
-        break;
-    case sv_paused:
-        break;
-    case sv_waiting_for_clients:
-        break;
-    case sv_running: 
-        gametick (dtime);
-        break;
-    case sv_restart_level:
-    case sv_restart_game:
-        current_state_dtime += dtime;
-        if (current_state_dtime >= 1.0) {
-            lev::Index *ind = lev::Index::getCurrentIndex();
-            load_level(ind->getCurrent(), (state == sv_restart_level));
-        } else {
-            gametick(dtime);
-        }
-        break;
-    case sv_finished:
-        current_state_dtime += dtime;
-        if (current_state_dtime <= 2.5)
-            gametick(dtime);
-        else {
-            client::Msg_AdvanceLevel (lev::ADVANCE_NEXT_MODE);
-            state = sv_waiting_for_clients;
-        }
-        break;
+        case sv_idle:
+            break;
+        case sv_paused:
+            break;
+        case sv_waiting_for_clients:
+            break;
+        case sv_running: 
+            gametick (dtime);
+            break;
+        case sv_restart_level:
+        case sv_restart_game:
+            current_state_dtime += dtime;
+            if (current_state_dtime >= 1.0) {
+                lev::Index *ind = lev::Index::getCurrentIndex();
+                load_level(ind->getCurrent(), (state == sv_restart_level));
+            } else {
+                gametick(dtime);
+            }
+            break;
+        case sv_finishing:
+            if (server::SurviveFinish) {
+                player::LevelFinished(0);     // mark all shattered actors as dead
+                player::CheckDeadActors();    // restart level or game if actors are dead!
+            }
+            if (state == sv_finishing) {
+                state = sv_finished;
+                current_state_dtime = 0;
+                player::LevelFinished(1); // remove player-controlled actors
+                client::Msg_Command("level_finished");
+            }
+            break;
+        case sv_finished:
+            current_state_dtime += dtime;
+            if (current_state_dtime <= 2.5)
+                gametick(dtime);
+            else {
+                client::Msg_AdvanceLevel (lev::ADVANCE_NEXT_MODE);
+                state = sv_waiting_for_clients;
+            }
+            break;
     }
 }
 

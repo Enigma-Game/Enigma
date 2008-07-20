@@ -58,6 +58,9 @@ namespace enigma_server
     // True: do not reset level when player dies
     extern bool     ConserveLevel;
 
+    extern bool     IsLevelRestart;
+    extern bool     ProvideExtralifes;
+    extern bool     SurviveFinish;
     extern bool     TwoPlayerGame;
 
     extern bool     SingleComputerGame;

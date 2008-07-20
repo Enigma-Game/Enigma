@@ -154,13 +154,13 @@ void player::PlayerShutdown() {
 
 /* -------------------- Functions -------------------- */
 
-void player::NewGame (bool isRestart) {
+void player::NewGame() {
     int nplayers = 2;           // Always prepare for two players
     std::vector<int> extralives(2);
 
     // calculate number of extralives
     for (int i=0; i<nplayers; ++i) {
-        if (isRestart) {
+        if (server::IsLevelRestart) {
             // count existing number of extralives
             int idxLife = -1;
             extralives[i] = -1;
@@ -170,7 +170,7 @@ void player::NewGame (bool isRestart) {
             } while (idxLife != -1);
         } else {
             // new game provides 2 extralives
-            extralives[i] = 2;
+            extralives[i] = (server::ProvideExtralifes) ? 2 : 0;
         }
     }
 
@@ -225,13 +225,17 @@ void player::PrepareLevel()
     leveldat = LevelLocalData();
 }
 
-void player::LevelFinished() 
+void player::LevelFinished(int stage) 
 {
     for (unsigned i=0; i<players.size(); ++i) {
         for (unsigned j=0; j<players[i].actors.size(); ++j) {
             Actor *a = players[i].actors[j];
-            SendMessage(a, "disappear");
-            SendMessage(a, "disconnect");
+            if (stage == 0) {
+                SendMessage(a, "_levelfinish");
+            } else {
+                SendMessage(a, "disappear");
+                SendMessage(a, "disconnect");
+            }
         }
     }
 }
@@ -402,8 +406,7 @@ void player::AddUnassignedActor (Actor *a) {
     unassignedActors.push_back(a);
 }
 
-static void CheckDeadActors() 
-{
+void player::CheckDeadActors() {
     bool           toggle_player    = false;
     const unsigned NO_PLAYER        = UINT_MAX;
     unsigned       toggle_to_player = NO_PLAYER;

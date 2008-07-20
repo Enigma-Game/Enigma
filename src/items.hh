@@ -191,7 +191,7 @@ namespace enigma {
         const char *get_kind() const;
         void init_model();
         virtual void processLight(Direction d);
-        virtual double getFriction(ecl::V2 pos, double defaultFriction);
+        virtual double getFriction(ecl::V2 pos, double defaultFriction, Actor *a);
         virtual ecl::V2 calcMouseforce(Actor *a, ecl::V2 mouseForce, ecl::V2 floorForce);
 
         /* ---------- Item interface ---------- */
@@ -206,7 +206,7 @@ namespace enigma {
           case the Floor::actor_contact() will not be called
           automatically; this must be done from `Item::actor_hit' (if
           at all). */
-        virtual bool covers_floor(ecl::V2 pos) const { return false; }
+        virtual bool covers_floor(ecl::V2 pos, Actor *a) const { return false; }
 
         /*! Return the force an item exerts on actor `a'.  This is
           used by sloped and hills for force fields that are local to

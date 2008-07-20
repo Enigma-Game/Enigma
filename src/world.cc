@@ -418,6 +418,13 @@ void World::tick (double dtime)
     GameTimer.tick(dtime);
 
     PerformRecalcLight(false);   // recalculate laser beams if necessary
+    // do kill lasered actors in same time step
+    for (unsigned i=0; i < actorlist.size(); ++i) {
+        Item *it = actorlist[i]->get_actorinfo()->field->item;
+        if (it != NULL && get_id(it) == it_laserbeam) {
+            it->actor_hit(actorlist[i]);
+        }
+    }
 }
 
 /* ---------- Puzzle scrambling -------------------- */
@@ -502,7 +509,7 @@ V2 World::get_local_force (Actor *a) {
         }
 
         if (Item *item = a->m_actorinfo.field->item) {
-            friction = item->getFriction(a->get_pos(), friction);
+            friction = item->getFriction(a->get_pos(), friction, a);
             if (a->get_controllers() != 0) {
                 m = item->calcMouseforce(a, m_mouseforce.get_force(a), m);
             }
@@ -1518,6 +1525,7 @@ void Resize (int w, int h)
     level.reset (new World(w,h));
     display::NewWorld(w, h);
     server::WorldSized = true;
+    player::NewGame();
 }
 
 int Width() {
