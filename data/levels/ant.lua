@@ -1021,7 +1021,9 @@ end
 function add_rubber_bands(gr1, gr2, strength, length)
    for i = 1,getn(gr1) do
       for j = 1,getn(gr2) do
-	 AddRubberBand(gr1[i], gr2[j], strength, length)
+	 if not enigma.IsSameObject(gr1[i], gr2[j]) then
+            AddRubberBand(gr1[i], gr2[j], strength, length)
+         end
       end
    end
 end

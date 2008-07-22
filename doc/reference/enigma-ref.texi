@@ -3905,10 +3905,16 @@ may provide adhesion values as well to deviate from the floor adhesion.
 @node checkerboard
 @subsection checkerboard
 
-An attribute that .
+An attribute that defines if a given object declaration should only be applied
+on 'even' or 'uneven' grid positions. Setting this attribute to @samp{0} assures
+that this object will only be set on grid positions with an even sum of 
+@code{x + y} grid coordinates, where as a value of @samp{1} assures that the
+sum must be uneven. This way you can easily provide two different object
+declarations for a tile to generate an arbitrary chaped map of checkerboard
+floors, items or stones.
 
 @table @asis
-@item @b{Type:} @ @ bool
+@item @b{Type:} @ @ number
 @item @b{Values:} @ @ @code{0}, @code{1}
 @item @b{Default:} @ @ @code{nil}
 @item @b{Access:} @ @ read/write
@@ -5858,7 +5864,7 @@ changes its direction according to the rotator's direction. An
 @item @b{orientation}, @ @ @i{values}: @code{NORTH}, @code{EAST}, @code{SOUTH}, @code{WEST}; @ @ @i{default}: @code{NORTH}
 The orientation of the boulder that is shown by its arrow. It determines the
 direction that the boulder will take on its next move.
-@item @b{counterclockwise} @ @ @i{values}: @code{true}, @code{false}; @ @ @i{default}: @code{false}
+@item @b{counterclock} @ @ @i{values}: @code{true}, @code{false}; @ @ @i{default}: @code{false}
 The standard turning direction is clockwise. Use this attribute to revert the
 direction.
 @end table
@@ -5873,10 +5879,10 @@ provides a compatible action which allows you to set a boulder as
 target and this message as action.
 @item @b{turn}
 Turn orientation in turning direction as defined by attribute 
-@samp{counterclockwise}.
+@samp{counterclock}.
 @item @b{turnback}
 Turn orientation in opposite turning direction as defined by attribute 
-@samp{counterclockwise}.
+@samp{counterclock}.
 @end table
 
 @item @b{Action:}
@@ -6117,7 +6123,7 @@ dependent on the pointing direction.
 @table @asis
 @atindex state
 @item @b{state}, @ @ @i{values}: @code{NORTH}, @code{EAST}, @code{SOUTH}, @code{WEST}; @ @ @i{default}: @code{NORTH} @ @ @xref{state}
-@item @b{counterclockwise} @ @ @i{values}: @code{true}, @code{false}; @ @ @i{default}: @code{false}
+@item @b{counterclock} @ @ @i{values}: @code{true}, @code{false}; @ @ @i{default}: @code{false}
 The standard turning direction is clockwise. Use this attribute to revert the
 direction.
 @item @b{inverse} @ @ @xref{inverse}
@@ -6248,7 +6254,7 @@ on by a message.
 @item @b{orientation}, @ @ @i{values}: @code{NORTH}, @code{EAST}, @code{SOUTH}, @code{WEST}; @ @ @i{default}: @code{NORTH}
 The orientation of the laser. It determines the direction that the laser will
 emit light if it is switched on.
-@item @b{counterclockwise} @ @ @i{values}: @code{true}, @code{false}; @ @ @i{default}: @code{false}
+@item @b{counterclock} @ @ @i{values}: @code{true}, @code{false}; @ @ @i{default}: @code{false}
 The standard turning direction is clockwise. Use this attribute to revert the
 direction.
 @end table
@@ -6262,10 +6268,10 @@ Switch the laser on at value @samp{1} and off at value @samp{0}.
 @item @b{off} @ @ @xref{off}
 @item @b{turn}
 Turn orientation in turning direction as defined by attribute 
-@samp{counterclockwise}.
+@samp{counterclock}.
 @item @b{turnback}
 Turn orientation in opposite turning direction as defined by attribute 
-@samp{counterclockwise}.
+@samp{counterclock}.
 @end table
 
 @item @b{Action:} none
@@ -6474,7 +6480,7 @@ will differ slightly in a darker color.
 
 Mirros hit or just touched will turn their mirror panes by 90 degrees. The 
 standard turning direction is clockwise. But this standard can be changed 
-by the attribute @samp{counterclockwise}. An @ref{st_boulder} hitting a mirror
+by the attribute @samp{counterclock}. An @ref{st_boulder} hitting a mirror
 will turn it in its standard direction, too. 
 
 A mirror can be turned into the opposite direction either by a message 
@@ -6503,7 +6509,7 @@ incoming northbound beam.
 Semitransparency of the mirror panes.
 @item @b{movable} @ @ @i{values}: @code{true}, @code{false}; @ @ @i{default}: @code{false} @ @ @xref{movable}
 Movability on actor hits and stone impulses.
-@item @b{counterclockwise} @ @ @i{values}: @code{true}, @code{false}; @ @ @i{default}: @code{false}
+@item @b{counterclock} @ @ @i{values}: @code{true}, @code{false}; @ @ @i{default}: @code{false}
 The standard turning direction is clockwise. Use this attribute to revert the
 direction.
 @end table
@@ -6518,13 +6524,13 @@ provides a compatible action which allows you to set a mirror as
 target and this message as action.
 @item @b{turn}
 Turn the orientation in turning direction as defined by attribute 
-@samp{counterclockwise}.
+@samp{counterclock}.
 @item @b{turnback}
 Turn the orientation in opposite turning direction as defined by attribute 
-@samp{counterclockwise}.
+@samp{counterclock}.
 @item @b{signal} @ @ @xref{signal}
 Turn the orientation in turning direction as defined by attribute 
-@samp{counterclockwise} on value @samp{1}. A value of @samp{0} is ignored.
+@samp{counterclock} on value @samp{1}. A value of @samp{0} is ignored.
 
 @end table
 
@@ -6758,7 +6764,7 @@ in the rotation direction.
 @item @b{state}, @ @ @i{values}: @code{CW}, @code{CCW}; @ @ @i{default}: @code{CW} @ @ @xref{state}
 The rotation direction - @samp{CW} for clockwise as default, or @samp{CCW} for
 counter clockwise. 
-@item @b{counterclockwise} @ @ @i{values}: @code{true}, @code{false}; @ @ @i{default}: @code{false}
+@item @b{counterclock} @ @ @i{values}: @code{true}, @code{false}; @ @ @i{default}: @code{false}
 The standard rotation direction is clockwise. Use this attribute to revert the
 direction.
 @item @b{movable} @ @ @i{values}: @code{true}, @code{false}; @ @ @i{default}: @code{false} @ @ @xref{movable}
@@ -7010,7 +7016,7 @@ easy read evaluation of the current turnstile orientation.
 @table @asis
 @item @b{Attributes:}
 @table @asis
-@item @b{counterclockwise} @ @ @i{values}: @code{true}, @code{false}; @ @ @i{default}: @code{false}
+@item @b{counterclock} @ @ @i{values}: @code{true}, @code{false}; @ @ @i{default}: @code{false}
 The standard turning direction is clockwise. Use this attribute to revert the
 direction.
 @atindex orientation
@@ -7027,9 +7033,9 @@ relative to its previous value.
 @item @b{signal} @ @ @xref{signal}
 Rotate the turnstile counterclockwise on @samp{1}, and clockwise at values @samp{0}.
 @item @b{turn}
-Turn in turning direction as defined by attribute @samp{counterclockwise}.
+Turn in turning direction as defined by attribute @samp{counterclock}.
 @item @b{turnback}
-Turn in opposite turning direction as defined by attribute @samp{counterclockwise}.
+Turn in opposite turning direction as defined by attribute @samp{counterclock}.
 @end table
 
 @item @b{Action:} @ @ @xref{target}, @ @ @xref{action}

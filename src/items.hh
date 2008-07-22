@@ -147,10 +147,10 @@ namespace enigma {
         it_wormhole_on,
         it_wrench,
         it_yinyang,
-        it_LAST,
-        it_COUNT,
         //  for DAT compatibility only
-        it_inversesensor
+        it_inversesensor,
+        it_LAST,
+        it_COUNT
     };
 
     /*! What may happen to an item _after_ it was activated? */

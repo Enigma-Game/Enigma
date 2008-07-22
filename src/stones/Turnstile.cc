@@ -459,8 +459,10 @@ namespace enigma {
     };
     
     BOOT_REGISTER_START
-        BootRegister(new TurnstilePivot("red"),  "st_turnstile_red");
-        BootRegister(new TurnstilePivot("green"),  "st_turnstile_green");
+        BootRegister(new TurnstilePivot("red"), "st_turnstile");
+        BootRegister(new TurnstilePivot("red"), "st_turnstile_red");
+        BootRegister(new TurnstilePivot("green"), "st_turnstile_green");
+        BootRegister(new TurnstileArm(NORTH), "st_turnstilearm");
         BootRegister(new TurnstileArm(WEST),  "st_turnstilearm_w");
         BootRegister(new TurnstileArm(SOUTH), "st_turnstilearm_s");
         BootRegister(new TurnstileArm(EAST),  "st_turnstilearm_e");

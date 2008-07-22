@@ -3,7 +3,7 @@
   <el:protected>
     <el:info el:type="library">
       <el:identity el:title="" el:id="lib/ant"/>
-      <el:version el:score="1" el:release="1" el:revision="0" el:status="released"/>
+      <el:version el:score="1" el:release="1" el:revision="1" el:status="released"/>
       <el:author  el:name="Petr Machata" el:email="" el:homepage=""/>
       <el:copyright>Copyright © 2002-2003 Petr Machata</el:copyright>
       <el:license el:type="GPL v2.0 or above" el:open="true"/>
@@ -1045,7 +1045,9 @@ end
 function add_rubber_bands(gr1, gr2, strength, length)
    for i = 1,getn(gr1) do
       for j = 1,getn(gr2) do
-	 AddRubberBand(gr1[i], gr2[j], strength, length)
+	 if not enigma.IsSameObject(gr1[i], gr2[j]) then
+            AddRubberBand(gr1[i], gr2[j], strength, length)
+         end
       end
    end
 end
