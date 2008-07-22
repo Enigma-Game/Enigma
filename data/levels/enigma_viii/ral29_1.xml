@@ -1,0 +1,77 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no" ?>
+<el:level xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://enigma-game.org/schema/level/1 level.xsd" xmlns:el="http://enigma-game.org/schema/level/1">
+  <el:protected >
+    <el:info el:type="level">
+      <el:identity el:title="Freestyle Microwire" el:subtitle="" el:id="20080719ral530"/>
+      <el:version el:score="1" el:release="1" el:revision="$Revision: 107 $" el:status="released"/>
+      <el:author  el:name="Ronald Lamprecht" el:email="ral@users.berlios.de"/>
+      <el:copyright>Copyright © 2008 Ronald Lamprecht</el:copyright>
+      <el:license el:type="GPL v2.0 or above" el:open="true"/>
+      <el:compatibility el:enigma="1.10"/>
+      <el:modes el:easy="true" el:single="true" el:network="false"/>
+      <el:score el:easy="0:33" el:difficult="0:28"/>
+    </el:info>
+    <el:luamain><![CDATA[
+wo["ConserveLevel"] = false
+wo["ProvideExtralifes"] = false
+wo["ShowMoves"] = true
+wo["MaxOxydColor"] = OXYD_BLUE
+
+ti[" "] = {"fl-abyss"}
+ti["."] = {"fl-light", friction=7, mousefactor=1.8}
+ti["*"] = {"st-glass1"}
+ti["g"] = {"st-glass1_hole"}
+ti["#"] = {"it_trigger", "trigger#", target="check"}
+ti["mirror"] = {"st_mirror", "mirror%%", orientation=SLASH, movable=true}
+ti["S"] = {"st_mirror", orientation=SLASH, transparent=true}
+ti["B"] = {"st_mirror", orientation=BACKSLASH, transparent=true}
+ti["L"] = ti[" "] .. {"st_laser_s", "laser"}
+ti["O"] = {"st_oxyd_d"}
+
+if wo["IsDifficult"] then
+    ti["@"] = ti["."] .. {"#ac-blackball"}
+    ti["%"] = ti[" "]
+else
+    ti["@"] = ti["."] .. ti["g"] .. {"#ac-blackball"}
+    ti["%"] = ti["g"]
+end
+
+
+w, h = wo(res.autotile(ti,{"1","4","mirror"}), ".", {
+"O        LSB       O",
+"                    ",
+"                    ",
+"       ******       ",
+"       *.1.#*      B",
+"S      *2@#.*      B",
+"B      *.#%3*       ",
+"       *#.4.*      S",
+"       ******       ",
+"                    ",
+"                    ",
+"                    ",
+"O       B S        O"
+})
+
+wo:add({"ot_wire", anchor1="mirror%1", anchor2="mirror%2"})
+wo:add({"ot_wire", anchor1="mirror%2", anchor2="mirror%3"})
+wo:add({"ot_wire", anchor1="mirror%3", anchor2="mirror%4"})
+wo:shuffleOxyd()
+
+function check()
+    for trigger in no["trigger#*"] do
+        if not (st(trigger):is("st_mirror")) then
+            no["laser"]:off()
+            return
+        end
+    end
+    no["laser"]:on()
+end
+    ]]></el:luamain>
+    <el:i18n>
+      <el:string el:key="title">
+        <el:english el:translate="false"/>
+      </el:string>
+    </el:i18n>
+  </el:protected>
+</el:level>

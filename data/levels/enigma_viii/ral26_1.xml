@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no" ?>
+<el:level xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://enigma-game.org/schema/level/1 level.xsd" xmlns:el="http://enigma-game.org/schema/level/1">
+  <el:protected >
+    <el:info el:type="level">
+      <el:identity el:title="Wireban Premiere" el:subtitle="" el:id="20080715ral161"/>
+      <el:version el:score="1" el:release="1" el:revision="$Revision: 105 $" el:status="released"/>
+      <el:author  el:name="Ronald Lamprecht" el:email="ral@users.berlios.de"/>
+      <el:copyright>Copyright © 2008 Ronald Lamprecht</el:copyright>
+      <el:license el:type="GPL v2.0 or above" el:open="true"/>
+      <el:compatibility el:enigma="1.10"/>
+      <el:modes el:easy="false" el:single="true" el:network="false"/>
+      <el:score el:easy="-" el:difficult="3:38"/>
+    </el:info>
+    <el:luamain><![CDATA[
+wo["ConserveLevel"] = false
+wo["ShowMoves"] = true
+
+ti[" "] = {"fl-lightgray", friction=7, mousefactor=1.8}
+ti["."] = {"fl-abyss"}
+ti["#"] = {"st-rock8"}
+ti["+"] = {"st-grate1"}
+ti["w"] = {"st-brownie", "wood1"}
+ti["W"] = {"st-brownie", "wood2"}
+ti["D"] = {"st-door_a", "door1"}
+ti["d"] = {"st-door_a", "door2"}
+ti["T"] = {"it_trigger", target="door1"}
+ti["t"] = {"it_trigger", target="door2"}
+ti["L"] = {"st_oxyd", "left#"}
+ti["R"] = {"st_oxyd", "right#"}
+ti["@"] = {"#ac-blackball"}
+
+
+w, h = wo(ti, " ", {
+"####################",
+"#@W#  # # #     #  #",
+"#w    #    #  # #  #",
+"## # #  #   # #    #",
+"#  #   ## #   #   ##",
+"#    # +#  #  ## # #",
+"# #####     # ## # #",
+"#      #  # #  # # #",
+"##  #     #    # ###",
+"L D########## #  d R",
+"L #......#   ##  # R",
+"L #T....t        # R",
+"####################"
+})
+
+wo:add({"ot_wire", anchor1="wood1", anchor2="wood2"})
+wo:shuffleOxyd()
+    ]]></el:luamain>
+    <el:i18n>
+      <el:string el:key="title">
+        <el:english el:translate="false"/>
+      </el:string>
+    </el:i18n>
+  </el:protected>
+</el:level>

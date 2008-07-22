@@ -3,7 +3,7 @@
   <el:protected >
     <el:info el:type="level">
       <el:identity el:title="A Screenful of Secrets" el:subtitle="My First Level" el:id="mecke01"/>
-      <el:version el:score="1" el:release="1" el:revision="$Revision: 20 $" el:status="released"/>
+      <el:version el:score="1" el:release="1" el:revision="$Revision: 21 $" el:status="released"/>
       <el:author  el:name="mecke" el:email="" el:homepage=""/>
       <el:copyright>Copyright © 2008 Thomas Bernhardt</el:copyright>
       <el:license el:type="GPL v2.0 or above" el:open="true"/>
@@ -41,7 +41,7 @@ ti["W "] = ti["P "] .. {"it_wormhole",range=0,strength=0, state=OFF}
 ti["^ "] = {"st-oneway_black-n"}
 ti["v "] = {"st-oneway_black-s"}
 ti["> "] = {"st-oneway_black-e"}
-ti["K "] = {"st-knight"}
+ti["K "] = {"st_knight"}
 ti["s "] = {"it-squashed"}
 ti["R "] = ti["R"] .. ti["X "]
 ti["o "] = {"st_oxyd", flavor="d"}
@@ -50,7 +50,7 @@ ti[". "] = {"it-tinyhill"}
 ti["c "] = {"it-cherry"}
 ti["| "] = {"st_death_invisible"}
 ti[", "] = {"st-likeoxydd"}
-ti["= "] = {"st_mirror_triangle", movable=false, transparent=false, orientation=4}
+ti["= "] = {"st_mirror_triangle", movable=false, transparent=false, orientation=EAST}
 ti["T "] = ti["X "] .. {"#ac-top", range="1", force="1"}
 ti["6 "] = {"st_panel"}
 ti["b "] = {"it-blackbomb"}
@@ -60,7 +60,7 @@ ti["Y "] = {"it_brush"}
 ti["l "] = ti["+ "] .. {"it-spoon"} 
 ti["E "] = {"st_boulder_e"}
 ti["h "] = {"it_hammer"}
-ti["- "] = {"it-hstrip"}
+ti["- "] = {"it_strip_ew"}
 ti["w "] = {"it_wormhole",range=0,strength=0, state=OFF}
 ti["p "] = {"it-puller-n"}
 ti["q "] = {"it-puller-s"}

@@ -3,104 +3,69 @@
   <el:protected>
     <el:info el:type="level">
       <el:identity el:title="Same task ..." el:subtitle="... different Mirrors" el:id="raoul29"/>
-      <el:version el:score="1" el:release="1" el:revision="2" el:status="released"/>
+      <el:version el:score="1" el:release="1" el:revision="4" el:status="released"/>
       <el:author  el:name="Raoul Bourquin" el:email="" el:homepage=""/>
       <el:copyright>Copyright © 2007 Raoul Bourquin</el:copyright>
       <el:license el:type="GPL v2.0 or above" el:open="true"/>
-      <el:compatibility el:enigma="0.92">
+      <el:compatibility el:enigma="1.10">
       </el:compatibility>
       <el:modes el:easy="true" el:single="true" el:network="false"/>
       <el:score el:easy="-" el:difficult="-"/>
     </el:info>
     <el:luamain><![CDATA[
--- GENERAL --
-levelh = 13
-levelw = 20
+wo["ConserveLevel"] = true
 
-create_world(levelw, levelh)
-fill_floor("fl-metal")
-
-function renderLine( line, pattern)
-    for i=1, strlen(pattern) do
-        local c = strsub( pattern, i, i)
-          if c=="O" then
-            oxyd(i-1,line)
-        elseif c=="G" then
-            set_stone("st-glass2",i-1,line)
-        elseif c=="F" then
-            set_stone("st-glass1",i-1,line)
-        elseif c=="<" then
-            set_stone("st-mirror-3<m",i-1,line)
-        elseif c=="|" then
-            set_stone("st-mirror-p|m",i-1,line)
-        elseif c=="(" then
-            set_stone("st-mirror-3<tm",i-1,line)
-        elseif c=="i" then
-            set_stone("st-mirror-p|tm",i-1,line)
-        elseif c=="L" then
-            set_stone("st-laser",i-1,line,{on=FALSE, dir=WEST, name="l_west"})
-        elseif c=="l" then
-            set_stone("st-laser",i-1,line,{on=FALSE, dir=EAST, name="l_east"})
-        elseif c=="P" then
-            set_stone("st-polarswitch",i-1,line,{on=FALSE})
-
-        elseif c=="h" then
-            set_stone("st-mirror-p-t",i-1,line)
-        elseif c=="v" then
-            set_stone("st-mirror-p|t",i-1,line)
-
-        elseif c=="b" then
-            set_item("it-flagblack",i-1,line)
-        elseif c=="w" then
-            set_item("it-flagwhite",i-1,line)
-
-        elseif c=="-" then
-            set_floor("fl-abyss",i-1,line)
-        elseif c=="~" then
-            if not difficult then
-                set_floor("fl-abyss",i-1,line,{friction=0.1})
-            else
-                set_floor("fl-abyss",i-1,line,{friction=0.25})
-            end
-        end
-    end
-end
-
-renderLine(00 , "-------G~~~~G-------")
-renderLine(01 , "GGOFFFFOGGGGOFFFFOGG")
-renderLine(02 , "GGh    hGGGFh    hFG")
-renderLine(03 , "OvP----PvOOvP----PvO")
-renderLine(04 , "F -    - GG -   w- F")
-renderLine(05 , "F - << - GG - |i - F")
-renderLine(06 , "F -  < - Ll - |  - F")
-renderLine(07 , "F - (< - GG - |i - F")
-renderLine(08 , "F -b   - GG -    - F")
-renderLine(09 , "OvP----PvOOvP----PvO")
-renderLine(10 , "GGh    hGGGFh    hFG")
-renderLine(11 , "GGOFFFFOGGGGOFFFFOGG")
-renderLine(12 , "-------G~~~~G-------")
-
-oxyd_shuffle()
-
-set_item("it-trigger",8,0,{action="on", target="l_west"})
-set_item("it-trigger",11,0,{action="off", target="l_west"})
-
-set_item("it-trigger",8,12,{action="off", target="l_east"})
-set_item("it-trigger",11,12,{action="on", target="l_east"})
-
-if not difficult then
-    set_actor("ac-rotor",10,0.5, {force="10", range="15", prefercurrent=1})
-    set_actor("ac-rotor",10,12.5, {force="10", range="15", prefercurrent=1})
+ti[" "] = {"fl-metal"}
+ti["-"] = {"fl-abyss"}
+if wo["IsDifficult"] then
+  ti["~"] = {"fl-abyss", friction=0.25}
 else
-    set_actor("ac-rotor",10,0.5, {force="20", range="15", prefercurrent=1})
-    set_actor("ac-rotor",10,12.5, {force="20", range="15", prefercurrent=1})
+  ti["~"] = {"fl-abyss", friction=0.1}
 end
+ti["G"] = {"st-glass2"}
+ti["F"] = {"st-glass1"}
+ti["w"] = ti[" "] .. {"it-flagwhite"}
+ti["b"] = ti[" "] .. {"it-flagblack"}
+ti["y"] = {"it-yinyang"}
+ti["h"] = {"st_mirror", flavor="slab", transparent=true, orientation=SOUTH}
+ti["v"] = {"st_mirror", flavor="slab", transparent=true, orientation=NORTH}
+ti["<"] = {"st_mirror", flavor="triangle", transparent=false, movable=true, orientation=WEST}
+ti["|"] = {"st_mirror", flavor="slab", transparent=false, movable=true}
+ti["("] = {"st_mirror", flavor="triangle", transparent=true, movable=true, orientation=WEST}
+ti["i"] = {"st_mirror", flavor="sheets", transparent=true, movable=true}
+ti["P"] = {"st_polarswitch"}
+ti["1"] = {"it_trigger", target="l_west", action_1="on", action_0="off"}
+ti["2"] = {"it_trigger", target="l_east", action_1="on", action_0="off"}
+ti["L"] = {"st_laser", orientation=WEST, name="l_west"}
+ti["l"] = {"st_laser", orientation=EAST, name="l_east"}
+ti["O"] = {"st_oxyd", flavor="b"}
+ti["A"] = ti["y"] .. {"#ac-blackball", essential=1}
+ti["B"] = ti["y"] .. {"#ac-whiteball", essential=1}
 
--- Special
-set_actor("ac-blackball", 4.5,6.5, {player=0})
-set_actor("ac-whiteball", 15.5,6.5, {player=1})
-set_item("it-yinyang",4,6)
-set_item("it-yinyang",15,6)
+w, h = wo(ti, " ", {
+"-------G1~~2G-------",
+"GGOFFFFOGGGGOFFFFOGG",
+"GGh    hGGGFh    hFG",
+"OvP----PvOOvP----PvO",
+"F -    - GG -   w- F",
+"F - << - GG - |i - F",
+"F - A< - Ll - |B - F",
+"F - (< - GG - |i - F",
+"F -b   - GG -    - F",
+"OvP----PvOOvP----PvO",
+"GGh    hGGGFh    hFG",
+"GGOFFFFOGGGGOFFFFOGG",
+"-------G1~~2G-------"
+})
+
+if  wo["IsDifficult"]  then
+    wo[{10, 0.5}] = {"ac-rotor", force=20, range=15, prefercurrent=1}
+    wo[{10, 12.5}] = {"ac-rotor", force=20, range=15, prefercurrent=1}
+else
+    wo[{10, 0.5}] = {"ac-rotor", force=10, range=15, prefercurrent=1}
+    wo[{10, 12.5}] = {"ac-rotor", force=10, range=15, prefercurrent=1}
+end
+wo:shuffleOxyd()
     ]]></el:luamain>
     <el:i18n>
       <el:string el:key="title">

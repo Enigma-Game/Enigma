@@ -45,7 +45,7 @@ ti["x4"] = ti[" ~"] .. {"st_oxyd", flavor="a",name="olli4"}
 ti["x5"] = ti[" ~"] .. {"st_oxyd", flavor="a",name="olli5"}
 ti["x6"] = ti[" ~"] .. {"st_oxyd", flavor="a",name="olli6"}
 ti["o "] = {"it-springboard"}
-ti[" j"] = {"it-magicwand"}
+ti[" j"] = {"it_magicwand"}
 ti["S "] = ti[" n"] ..{"st-black4"}
 ti["G "] = {"st-yellow"}
 ti["P "] = ti[" n"] ..{"st-pull"}

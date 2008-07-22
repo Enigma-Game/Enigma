@@ -18,7 +18,7 @@ ti[" "] = {"fl-sand"}
 ti["~"] = {"fl-water"}
 ti["#"] = ti["~"] .. {"st-greenbrown"}
 ti["O"] = ti["~"] .. {"st_oxyd", flavor="a", name="oxydstone#"}
-ti["m"] = ti[" "] .. {"it-magicwand"}
+ti["m"] = ti[" "] .. {"it_magicwand"}
 ti["B"] = ti[" "] .. {"st_boulder_e", "the_boulder"}
 ti["+"] = ti["~"] .. {"it_trigger", target="turn_boulder", action_1="callback", invisible=true}
 ti["A"] = {"ac-blackball", 0.0, 0.5}

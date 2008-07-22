@@ -1,0 +1,169 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no" ?>
+<el:level xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://enigma-game.org/schema/level/1 level.xsd" xmlns:el="http://enigma-game.org/schema/level/1">
+  <el:protected>
+    <el:info el:type="level">
+      <el:identity el:title="Earthlink" el:subtitle="" el:id="pulley15"/>
+      <el:version el:score="1" el:release="1" el:revision="0" el:status="released"/>
+      <el:author  el:name="Mark Pulley" el:email="" el:homepage=""/>
+      <el:copyright>Copyright © 2008 Mark Pulley</el:copyright>
+      <el:license el:type="GPL v2.0 or above" el:open="true"/>
+      <el:compatibility el:enigma="1.00">
+       <el:dependency el:path="lib/ant" el:id="lib/ant" el:release="1" el:preload="true"/>
+      </el:compatibility>
+      <el:modes el:easy="true" el:single="true" el:network="false"/>
+      <el:score el:easy="9:35" el:difficult="10:35"/>
+    </el:info>
+    <el:luamain><![CDATA[
+function file_oxyd(x,y,f)
+    oxyd_default_flavor=f
+    oxyd(x,y)
+end
+
+-- ANT --
+create_world(115,73)
+cells={}
+cells[" "]=cell{floor="fl-leavesb"}
+cells["b"]=cell{stone="st-camouflage"}
+cells["e"]=cell{stone="st-oneway-e"}
+cells["g"]=cell{stone="st-grate1",floor="fl-leavesb"}
+cells["n"]=cell{stone="st-oneway-n"}
+cells["o"]=cell{stone="st-stoneimpulse"}
+cells["s"]=cell{stone="st-oneway-s"}
+cells["w"]=cell{stone="st-oneway-w"}
+cells["z"]=cell{stone="st-wood"}
+cells["O"]=cell{stone="st-stoneimpulse-hollow",floor="fl-abyss"}
+cells["."]=cell{stone="st-stoneimpulse-hollow"}
+
+if difficult then
+  cells["r"]=cell{floor="fl-leavesb"}
+  cells["E"]=cell{stone="st-oneway-e"}
+  cells["G"]=cell{stone="st-grate1",floor="fl-leavesb"}
+  cells["N"]=cell{stone="st-oneway-n"}
+  cells["S"]=cell{stone="st-oneway-s"}
+  cells["W"]=cell{stone="st-oneway-w"}
+  cells["Z"]=cell{stone="st-wood"}
+  cells[","]=cell{stone="st-stoneimpulse-hollow"}
+else
+  cells["r"]=cell{floor="fl-red"}
+  cells["E"]=cell{stone="st-camouflage"}
+  cells["G"]=cell{stone="st-grate1",floor="fl-red"}
+  cells["N"]=cell{stone="st-camouflage"}
+  cells["S"]=cell{stone="st-camouflage"}
+  cells["W"]=cell{stone="st-camouflage"}
+  cells["Z"]=cell{stone="st-wood",floor="fl-red"}
+  cells[","]=cell{stone="st-stoneimpulse-hollow",floor="fl-red"}
+end
+
+--      |         1    1   |2    2    3    3  | 4    4    5    5 |  6    6    7    7    8    8    9    9    0    0    1    1    2    2    3
+--      |1   5    0    5   |0    5    0    5  | 0    5    0    5 |  0    5    0    5    0    5    0    5    0    5    0    5    0    5    0 
+level={"bbbbborZOooorZobbbbbbbbb.ZroooOZrobbbbbbbbbo ZOooo Zobbbbbbbbb.ZroooOZrobbbbbbbbbo ZOooo Zobbbbbbbbb.ZroooOZrobbbbb",
+       "bbbbbbbSbbbbNbObbbbbbbbbobGbobbGbobbbbbbbbbbbSbbbbNbObbbbbbbbbobGbobbGbobbbbbbbbbbbSbbbbNbObbbbbbbbbobGbobbGbobbbbb",--01
+       "oO.............   booobboo,oooo,oobboooO.............   booobboo,oooo,oobboooO.............   booobboo,oooo,oobbooo",
+       "Zb   .        .   brbobbbbrbbborbbbbobZb   .        .   b bobbbbrbbborbbbbobZb   .        .   b bobbbbrbbborbbbbobZ",
+       "rW   .        .   WZG,rrrrrbbborrrrr,GrW   .        .   WZG,rrrrrbbborrrrr,GrW   .        .   WZG,rrrrrbbborrrrr,Gr",
+       "ob   .        .   bOboooooobbbbbbbbbooob   .        .   bOboooooobbbbbbbbbooob   .        .   bOboooooobbbbbbbbbooo",--05
+       "ob   .        .   bobobbbbbbbbbbbbbbobob   .        .   bobobbbbbbbbbbbbbbobob   .        .   bobobbbbbbbbbbbbbbobo",
+       "Ob   .        .   booobbbbbbbbboooooobOb   .        .   booobbbbbbbbboooooobOb   .        .   booobbbbbbbbboooooobO",
+       "ZE   .        .   e g.     obbb     .gze   .        .   e g.     obbb     .gze   .        .   e g.     obbbrrrrr,GZ",
+       "rb   .        .   bzbobbbb obbb bbbbob b   .        .   bzbobbbb obbb bbbbob b   .        .   bzbobbbb obbbrbbbbobr",
+       "ob   .............Oooobboo.oooo.oobbooob   .............Oooobboo.oooo.oobbooob   .............Oooobboo.oooo,oobbooo",--10
+       "bbbbbObSbbbbnbbbbbbbbbbbobgbbobgbobbbbbbbbbObsbbbbnbbbbbbbbbbbobgbbobgbobbbbbbbbbObsbbbbnbbbbbbbbbbbobgbbobGbobbbbb",
+       "bbbbb.ZroooOz obbbbbbbbbo zOooo zobbbbbbbbboz oooOz obbbbbbbbbo zOooo zobbbbbbbbboz oooOz obbbbbbbbbo zOooorZobbbbb",--
+       "bbbbbobGbobbgbobbbbbbbbbbbsbbbbnbObbbbbbbbbobgbobbgbobbbbbbbbbbbsbbbbnbObbbbbbbbbobgbobbgbobbbbbbbbbbbsbbbbNbObbbbb",
+       "ooobboo,oooo.oobboooO.............   booobboo.oooo.oobboooO.............   booobboo.oooo.oobboooO.............   bo",
+       "rbobbbbrbbbo bbbbobzb   .        .   b bobbbb bbbo bbbbobzb   .        .   b bobbbb bbbo bbbbobzb   .        .   br",--15
+       "ZG,rrrrrbbbo     .g w   .        .   wzg.     bbbo     .g w   .        .   wzg.     bbbo     .g w   .        .   WZ",
+       "Oboooooobbbbbbbbbooob   .        .   bOboooooobbbbbbbbbooob   .        .   bOboooooobbbbbbbbbooob   .        .   bO",
+       "obobbbbbbbbbbbbbbobob   .        .   bobobbbbbbbbbbbbbbobob   .        .   bobobbbbbbbbbbbbbbobob   .        .   bo",
+       "ooobbbbbbbbboooooobOb   .        .   booobbbbbbbbboooooobOb   .        .   booobbbbbbbbboooooobOb   .        .   bo",
+       "rG,rrrrrobbb     .gze   .        .   e g.     obbb     .gze   .        .   e g.     obbb     .gze   .        .   Er",--20
+       "Zbobbbbrobbb bbbbob b   .        .   bzbobbbb obbb bbbbob b   .        .   bzbobbbb obbb bbbbob b   .        .   bZ",
+       "ooobboo,oooo.oobbooob   .............Oooobboo.oooo.oobbooob   .............Oooobboo.oooo.oobbooob   .............Oo",
+       "bbbbbobGbbobgbobbbbbbbbbObsbbbbnbbbbbbbbbbbobgbbobgbobbbbbbbbbObsbbbbnbbbbbbbbbbbobgbbobgbobbbbbbbbbObsbbbbNbbbbbbb",
+       "bbbbborZOooo zobbbbbbbbboz oooOz obbbbbbbbbo zOooo zobbbbbbbbboz oooOz obbbbbbbbbo zOooo zobbbbbbbbboz oooOZrobbbbb",--
+       "bbbbbbbSbbbbnbObbbbbbbbbobgbobbgbobbbbbbbbbbbsbbbbnbObbbbbbbbbobgbobbgbobbbbbbbbbbbsbbbbnbObbbbbbbbbobgbobbGbobbbbb",--25
+       "oO.............   booobboo.oooo.oobboooO.............   booobboo.oooo.oobboooO.............   booobboo.oooo,oobbooo",
+       "Zb   .        .   b bobbbb bbbo bbbbobzb   .        .   b bobbbb bbbo bbbbobzb   .        .   b bobbbb bbborbbbbobZ",
+       "rW   .        .   wzg.     bbbo     .g w   .        .   wzg.     bbbo     .g w   .        .   wzg.     bbborrrrr,Gr",
+       "ob   .        .   bOboooooobbbbbbbbbooob   .        .   bOboooooobbbbbbbbbooob   .        .   bOboooooobbbbbbbbbooo",
+       "ob   .        .   bobobbbbbbbbbbbbbbobob   .        .   bobobbbbbbbbbbbbbbobob   .        .   bobobbbbbbbbbbbbbbobo",--30
+       "Ob   .        .   booobbbbbbbbboooooobOb   .        .   booobbbbbbbbboooooobOb   .        .   booobbbbbbbbboooooobO",
+       "ZE   .        .   e g.     obbb     .gze   .        .   e g.     obbb     .gze   .        .   e g.     obbbrrrrr,GZ",
+       "rb   .        .   bzbobbbb obbb bbbbob b   .        .   bzbobbbb obbb bbbbob b   .        .   bzbobbbb obbbrbbbbobr",
+       "ob   .............Oooobboo.oooo.oobbooob   .............Oooobboo.oooo.oobbooob   .............Oooobboo.oooo,oobbooo",
+       "bbbbbObSbbbbnbbbbbbbbbbbobgbbobgbobbbbbbbbbObsbbbbnbbbbbbbbbbbobgbbobgbobbbbbbbbbObsbbbbnbbbbbbbbbbbobgbbobGbobbbbb",--35
+       "bbbbb.ZroooOz obbbbbbbbbo zOooo zobbbbbbbbboz oooOz obbbbbbbbbo zOooo zobbbbbbbbboz oooOz obbbbbbbbbo zOooorZobbbbb",--
+       "bbbbbobGbobbgbobbbbbbbbbbbsbbbbnbObbbbbbbbbobgbobbgbobbbbbbbbbbbsbbbbnbObbbbbbbbbobgbobbgbobbbbbbbbbbbsbbbbNbObbbbb",
+       "ooobboo,oooo.oobboooO.............   booobboo.oooo.oobboooO.............   booobboo.oooo.oobboooO.............   bo",
+       "rbobbbbrbbbo bbbbobzb   .        .   b bobbbb bbbo bbbbobzb   .        .   b bobbbb bbbo bbbbobzb   .        .   br",
+       "ZG,rrrrrbbbo     .g w   .        .   wzg.     bbbo     .g w   .        .   wzg.     bbbo     .g w   .        .   WZ",--40
+       "Oboooooobbbbbbbbbooob   .        .   bOboooooobbbbbbbbbooob   .        .   bOboooooobbbbbbbbbooob   .        .   bO",
+       "obobbbbbbbbbbbbbbobob   .        .   bobobbbbbbbbbbbbbbobob   .        .   bobobbbbbbbbbbbbbbobob   .        .   bo",
+       "ooobbbbbbbbboooooobOb   .        .   booobbbbbbbbboooooobOb   .        .   booobbbbbbbbboooooobOb   .        .   bo",
+       "rG,rrrrrobbb     .gze   .        .   e g.     obbb     .gze   .        .   e g.     obbb     .gze   .        .   Er",
+       "Zbobbbbrobbb bbbbob b   .        .   bzbobbbb obbb bbbbob b   .        .   bzbobbbb obbb bbboob b   .        .   bZ",--45
+       "ooobboo,oooo.oobbooob   .............Oooobboo.oooo.oobbooob   .............Oooobboo.oooo.oobbooob   .............Oo",
+       "bbbbbobGbbobgbobbbbbbbbbObsbbbbnbbbbbbbbbbbobgbbobgbobbbbbbbbbObsbbbbnbbbbbbbbbbbobgbbobgbobbbbbbbbbObsbbbbNbbbbbbb",
+       "bbbbborZOooo zobbbbbbbbboz oooOz obbbbbbbbbo zOooo zobbbbbbbbboz oooOz obbbbbbbbbo zOooo zobbbbbbbbboz oooOZrobbbbb",--
+       "bbbbbbbSbbbbnbObbbbbbbbbobgbobbgbobbbbbbbbbbbsbbbbnbObbbbbbbbbobgbobbgbobbbbbbbbbbbsbbbbnbObbbbbbbbbobgbobbGbobbbbb",
+       "oO.............   booobboo.oooo.oobboooO.............   booobboo.oooo.oobboooO.............   booobboo.oooo,oobbooo",--50
+       "Zb   .        .   b bobbbb bbbo bbbbobzb   .        .   b bobbbb bbbo bbbbobzb   .        .   b bobbbb bbborbbbbobZ",
+       "rW   .        .   wzg.     bbbo     .g w   .        .   wzg.     bbbo     .g w   .        .   wzg.     bbborrrrr,Gr",
+       "ob   .        .   bOboooooobbbbbbbbbooob   .        .   bOboooooobbbbbbbbbooob   .        .   bOboooooobbbbbbbbbooo",
+       "ob   .        .   bobobbbbbbbbbbbbbbobob   .        .   bobobbbbbbbbbbbbbbobob   .        .   bobobbbbbbbbbbbbbbobo",
+       "Ob   .        .   booobbbbbbbbboooooobOb   .        .   booobbbbbbbbboooooobOb   .        .   booobbbbbbbbboooooobO",--55
+       "ZE   .        .   e g.     obbb     .gze   .        .   e g.     obbb     .gze   .        .   e g.     obbbrrrrr,GZ",
+       "rb   .        .   bzbobbbb obbb bbbbob b   .        .   bzbobbbb obbb bbbbob b   .        .   bzbobbbb obbbrbbbbobr",
+       "ob   .............Oooobboo.oooo.oobbooob   .............Oooobboo.oooo.oobbooob   .............Oooobboo.oooo,oobbooo",
+       "bbbbbObSbbbbnbbbbbbbbbbbobgbbobgbobbbbbbbbbObsbbbbnbbbbbbbbbbbobgbbobgbobbbbbbbbbObsbbbbnbbbbbbbbbbbobgbbobGbobbbbb",
+       "bbbbb.ZroooOz obbbbbbbbbo zOooo zobbbbbbbbboz oooOz obbbbbbbbbo zOooo zobbbbbbbbboz oooOz obbbbbbbbbo zOooorZobbbbb",--60
+       "bbbbbobGbobbgbobbbbbbbbbbbsbbbbnbObbbbbbbbbobgbobbgbobbbbbbbbbbbsbbbbnbObbbbbbbbbobgbobbgbobbbbbbbbbbbsbbbbNbObbbbb",
+       "ooobboo,oooo.oobboooO.............   booobboo.oooo.oobboooO.............   booobboo.oooo.oobboooO.............   bo",
+       "rbobbbbrbbbo bbbbobzb   .        .   b bobbbb bbbo bbbbobzb   .        .   b bobbbb bbbo bbbbobzb   .        .   br",
+       "ZG,rrrrrbbbo     .g w   .        .   wzg.     bbbo     .g w   .        .   wzg.     bbbo     .g w   .        .   WZ",
+       "Oboooooobbbbbbbbbooob   .        .   bOboooooobbbbbbbbbooob   .        .   bOboooooobbbbbbbbbooob   .        .   bO",--65
+       "obobbbbbbbbbbbbbbobob   .        .   bobobbbbbbbbbbbbbbobob   .        .   bobobbbbbbbbbbbbbbobob   .        .   bo",
+       "ooobbbbbbbbboooooobOb   .        .   booobbbbbbbbboooooobOb   .        .   booobbbbbbbbboooooobOb   .        .   bo",
+       "rG,rrrrrobbbrrrrr,GZE   .        .   ErG,rrrrrobbbrrrrr,GZE   .        .   ErG,rrrrrobbbrrrrr,GZE   .        .   Er",
+       "Zbobbbbrobbbrbbbbobrb   .        .   bZbobbbbrobbbrbbbbobrb   .        .   bZbobbbbrobbbrbbbbobrb   .        .   bZ",
+       "ooobboo,oooo,oobbooob   .............Oooobboo,oooo,oobbooob   .............Oooobboo,oooo,oobbooob   .............Oo",--70
+       "bbbbbobGbbobGbobbbbbbbbbObSbbbbNbbbbbbbbbbbobGbbobGbobbbbbbbbbObSbbbbNbbbbbbbbbbbobGbbobGbobbbbbbbbbObSbbbbNbbbbbbb",
+       "bbbbborZOooorZobbbbbbbbboZroooOZr.bbbbbbbbborZOooorZobbbbbbbbboZroooOZr.bbbbbbbbborZOooorZobbbbbbbbboZroooOZr.bbbbb"}-- 72
+--      |         1    1   |2    2    3    3  | 4    4    5    5 |  6    6    7    7    8    8    9    9    0    0    1    1
+--      |1   5    0    5   |0    5    0    5  | 0    5    0    5 |  0    5    0    5    0    5    0    5    0    5    0    5
+
+set_default_parent(cells[" "])
+draw_map(0,0,level,cells)
+
+positions = {{9,6},{47,6},{85,6},{28,18},{66,18},{104,18},{9,30},{47,30},{85,30},{28,42},{66,42},{104,42},{9,54},{47,54},{85,54},{28,66},{66,66},{104,66}}
+
+for j = 1, 16 do
+   local n = table.getn(positions)
+   r = random(1,n)
+   p = positions[r]
+   oxyd(p[1],p[2])
+   table.remove(positions,r)
+end
+for j = 1, 2 do
+  local n = table.getn(positions)
+  r = random(1,n)
+  p = positions[r]
+  if difficult then
+    set_stone("st-fart", p[1], p[2])
+  else
+    set_stone("st-fakeoxyd", p[1], p[2])
+  end
+  table.remove(positions,r)
+end
+
+set_actor("ac-blackball",48.5,30.5,{player=0,name="bb"})
+oxyd_shuffle()
+
+    ]]></el:luamain>
+    <el:i18n>
+      <el:string el:key="title">
+        <el:english el:translate="false"/>
+      </el:string>
+    </el:i18n>
+  </el:protected>
+</el:level>

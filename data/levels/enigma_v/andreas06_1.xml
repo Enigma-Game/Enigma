@@ -3,12 +3,11 @@
   <el:protected>
     <el:info el:type="level">
       <el:identity el:title="Laser Path" el:subtitle="" el:id="andreas06"/>
-      <el:version el:score="1" el:release="1" el:revision="2" el:status="released"/>
+      <el:version el:score="1" el:release="1" el:revision="3" el:status="released"/>
       <el:author  el:name="Andreas Lochmann" el:email="" el:homepage=""/>
       <el:copyright>Copyright © 2005 Andreas Lochmann</el:copyright>
       <el:license el:type="GPL v2.0 or above" el:open="true"/>
-      <el:compatibility el:enigma="0.92">
-       <el:dependency el:path="lib/ant" el:id="lib/ant" el:release="1" el:preload="true"/>
+      <el:compatibility el:enigma="1.10">
       </el:compatibility>
       <el:modes el:easy="true" el:single="true" el:network="false"/>
       <el:comments>
@@ -17,132 +16,65 @@
       <el:score el:easy="01:08" el:difficult="02:07"/>
     </el:info>
     <el:luamain><![CDATA[
--- Created with the help of BBE 1.05
 
-function file_oxyd(x,y,f)
-    oxyd_default_flavor=f
-    oxyd(x,y)
-end
-levelh=13
-levelw=20
-enigma.FlatForce=30
-enigma.SlopeForce=30
-enigma.ElectricForce=30
-cells={}
-items={}
-actors={}
-stones={}
-actors[" "]=cell{}
-stones[" "]=cell{}
-cells[" "]=cell{}
-items[" "]=cell{}
-cells["!"]=cell{floor="fl-normal"}
-stones["!"]=cell{stone="st-metal"}
-stones["#"]=cell{stone="st-laserswitch"}
-stones["$"]=cell{parent={{file_oxyd,"a"}}}
-stones["%"]=cell{stone="st-door-h"}
-stones["&"]=cell{stone="st-laser-e"}
-stones["'"]=cell{stone="st-glass1"}
-stones["("]=cell{stone="st-mirror-p|t"}
-stones[")"]=cell{stone="st-mirror-p|"}
-stones["*"]=cell{stone="st-switch"}
-stones["+"]=cell{stone="st-door-v"}
-function ac_blackball(x,y)
-n=""
-p=0
-f=0
- if (x==4) and (y==2) then
-  n="ac4x2"
-  p=0
-  mf=1
- end
-set_actor("ac-blackball",x+0.5,y+0.5,{player=p,name=n,mouseforce=mf})
-end
-actors["!"]=cell{parent={{ac_blackball}}}
--- stones[","]=cell{stone="st-oneway-w"}
-stones["<"]=cell{stone="st-oneway-w"}
-stones[">"]=cell{stone="st-oneway-e"}
-stones["-"]=cell{stone="st-mirror-p|m"}
-stones["."]=cell{stone="st-mirror-p|tm"}
-if difficult then
-  stones["M"]=cell{stone="st-metal"}
-  stones["L"]=cell{stone="st-metal"}
-  stones["K"]=cell{stone="st-metal"}
+-- Originally created with the help of BBE 1.05
+
+ti[" "]={"fl-normal"}
+ti["!"]={"st-metal"}
+ti["$"]={"st_oxyd", flavor = "a"}
+ti["1"]={"st_laserswitch", target = "door1"}
+ti["2"]={"st_laserswitch", target = "door2"}
+ti["3"]={"st_laserswitch", target = "door3"}
+ti["4"]={"st_laserswitch", target = "door4"}
+ti["a"]={"st-door-v", "door1"}
+ti["b"]={"st-door-h", "door2"}
+ti["c"]={"st-door-h", "door3"}
+ti["d"]={"st-door-h", "door4"}
+ti["e"]={"st-door-v", "door5"}
+ti["*"]={"st_switch", target = "laser"}
+ti["E"]={"st_switch", target = "door5"}
+ti["&"]={"st_laser", "laser", orientation = EAST}
+ti["'"]={"st-glass1"}
+ti[")"]={"st_mirror", orientation = 3}  -- p|
+ti["("]={"st_mirror", orientation = 3, transparent = true, flavor = "sheets"}  -- p|t
+ti["-"]={"st_mirror", orientation = 3, movable = true}  -- p|m
+ti["."]={"st_mirror", orientation = 3, movable = true,
+                      transparent = true, flavor = "sheets"}  -- p|tm
+ti["@"]={"#ac-blackball", mouseforce = 1}
+ti["<"]={"st-oneway-w"}
+ti[">"]={"st-oneway-e"}
+if wo["IsDifficult"] then
+  ti["M"]=ti["!"]
+  ti["L"]=ti["!"]
+  ti["K"]=ti["!"]
 else
-  stones["M"]=cell{stone="st-mirror-p|m"}
-  stones["L"]=cell{stone="st-mirror-p|tm"}
-  stones["K"]=cell{stone="st-mirror-p|"}
+  ti["M"]=ti["-"]  -- p|m
+  ti["L"]=ti["."]  -- p|tm
+  ti["K"]=ti[")"]  -- p|
 end
-if difficult then
-else
-end
-level={"!!!!!!!!!!!!!!!!!!!!",
-       "!!!!!!!!!!!!!!!!!!!!",
-       "!!!!!!!!!!!!!!!!!!!!",
-       "!!!!!!!!!!!!!!!!!!!!",
-       "!!!!!!!!!!!!!!!!!!!!",
-       "!!!!!!!!!!!!!!!!!!!!",
-       "!!!!!!!!!!!!!!!!!!!!",
-       "!!!!!!!!!!!!!!!!!!!!",
-       "!!!!!!!!!!!!!!!!!!!!",
-       "!!!!!!!!!!!!!!!!!!!!",
-       "!!!!!!!!!!!!!!!!!!!!",
-       "!!!!!!!!!!!!!!!!!!!!",
-       "!!!!!!!!!!!!!!!!!!!!"}
-   acmap={"                    ",
-          "                    ",
-          "    !               ",
-          "                    ",
-          "                    ",
-          "                    ",
-          "                    ",
-          "                    ",
-          "                    ",
-          "                    ",
-          "                    ",
-          "                    ",
-          "                    "}
-  itmap={"                    ",
-         "                    ",
-         "                    ",
-         "                    ",
-         "                    ",
-         "                    ",
-         "                    ",
-         "                    ",
-         "                    ",
-         "                    ",
-         "                    ",
-         "                    ",
-         "                    "}
- stmap={"!!!!!!!!!!!!!!!!!!#!",
-        "!!&              ( #",
-        "!$'            >   !",
-        "!!!*'!!(''')'-''K'%!",
-        "# (              ) !",
+
+w, h = wo(ti, " ", 
+       {"!!!!!!!!!!!!!!!!!!1!",
+        "!!&              ( 2",
+        "!$' @          >   !",
+        "!!!*'!!(''')'-''K'b!",
+        "3 (              ) !",
         "!    <         <   !",
-        "!%'!'!-''!''!-!!'!'!",
-        "! )              ( #",
+        "!c'!'!-''!''!-!!'!'!",
+        "! )              ( 4",
         "!    >         >   !",
-        "!!!!'!M!LL!-''.!''%!",
-        "!$'+'            ) !",
-        "!!!*+<         <   !",
-        "!!!!!!!!!!!!!!!!('(!"}
-create_world_by_map(level)
-draw_map(0,0,stmap,stones)
-draw_map(0,0,itmap,items)
-draw_map(0,0,acmap,actors)
-Signal ("st(3 3)","st(2 1)")
-Signal ("st(19 1)","st(18 3)")
-Signal ("st(3 11)","st(3 10)")
-Signal ("st(0 4)","st(1 6)")
-Signal ("st(19 7)","st(18 9)")
-Signal ("st(18 0)","st(4 11)")
-if difficult then
-  enigma.ConserveLevel = FALSE
-  set_item("it-document", 5, 2, {text="text1"})
+        "!!!!'!M!LL!-''.!''d!",
+        "!$'e'            ) !",
+        "!!!Ea<         <   !",
+        "!!!!!!!!!!!!!!!!('(!"})
+
+if wo["IsDifficult"] then
+  wo["ConserveLevel"] = false
+  wo[{5, 2}] = {"it-document", text = "text1"}
 end
-oxyd_shuffle()
+
+wo:shuffleOxyd()
+
     ]]></el:luamain>
     <el:i18n>
       <el:string el:key="title">

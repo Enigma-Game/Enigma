@@ -1,0 +1,84 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no" ?>
+<el:level xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://enigma-game.org/schema/level/1 level.xsd" xmlns:el="http://enigma-game.org/schema/level/1">
+  <el:protected >
+    <el:info el:type="level">
+      <el:identity el:title="Wired Five" el:subtitle="" el:id="20080721ral073"/>
+      <el:version el:score="1" el:release="1" el:revision="$Revision: 109 $" el:status="released"/>
+      <el:author  el:name="Ronald Lamprecht" el:email="ral@users.berlios.de"/>
+      <el:copyright>Copyright © 2008 Ronald Lamprecht</el:copyright>
+      <el:license el:type="GPL v2.0 or above" el:open="true"/>
+      <el:compatibility el:enigma="1.10"/>
+      <el:modes el:easy="true" el:single="true" el:network="false"/>
+      <el:score el:easy="1:39" el:difficult="3:36"/>
+    </el:info>
+    <el:luamain><![CDATA[
+wo["ConserveLevel"] = true
+wo["ShowMoves"] = true
+
+cb = 0         -- checkerboard
+xoffset = 2    -- x offset of map
+if wo["IsDifficult"] then
+    cb = 1
+    xoffset = 1
+end
+
+ti[" "] = {"fl-abyss"}
+ti["*"] = ti[" "] ..{"st-marble"}
+ti["."] = {"fl-marble", friction=7, mousefactor=1.8, checkerboard=cb} 
+          .. ti({"fl-light", friction=7, mousefactor=1.8, checkerboard=1-cb})
+
+if wo["IsDifficult"] then
+    ti["+"] = ti[" "]
+else
+    ti["+"] = ti["."]
+end
+
+ti["trigger"] = {"it_trigger", target="hill%%", action="signal", inverse=true}
+ti["brownie"] = {"st-marble_move", "brownie%%"}
+ti["mini"] = {"fl-light", friction=7, mousefactor=1.8} 
+             .. ti({"#ac-whiteball-small", player=0})
+             .. ti({"it-tinyhill", "hill%%"})
+ti[","] = ti["."] .. {"it-tinyhill", "hill%5"}
+ti["@"] = ti["."] .. {"#ac-whiteball-small", player=0, essential=-1}
+
+myres = res.autotile(ti,{"1","5","brownie"},{"a","d","mini"},{"A","E","trigger"})
+
+wo(myres, ".", {
+       "a*                *b",
+       "*                  *",
+       "  +++++++++         ",
+       "  +2.....3+         ",
+       "  +.......+         ",
+       "  +.......+         ",
+       "  +...1...+         ",
+       "  +.......+         ",
+       "  +.......+         ",
+       "  +4.....5+         ",
+       "  +++++++++         ",
+       "*                  *",
+       "c*                *d"
+})
+
+wo:drawMap(myres, no["brownie%3"] + {xoffset,0} ," ", {
+       " A     B",
+       "",
+       "",
+       ",@  E",
+       "",
+       "",
+       " C     D",
+})
+
+wo:add({"ot_wire", anchor1="brownie%1", anchor2="brownie%2"})
+wo:add({"ot_wire", anchor1="brownie%1", anchor2="brownie%3"})
+wo:add({"ot_wire", anchor1="brownie%1", anchor2="brownie%4"})
+wo:add({"ot_wire", anchor1="brownie%1", anchor2="brownie%5"})
+
+    ]]></el:luamain>
+    <el:i18n>
+      <el:string el:key="title">
+        <el:english el:translate="false"/>
+      </el:string>
+    </el:i18n>
+  </el:protected>
+</el:level>

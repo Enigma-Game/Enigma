@@ -1,0 +1,118 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no" ?>
+<el:level xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://enigma-game.org/schema/level/1 level.xsd" xmlns:el="http://enigma-game.org/schema/level/1">
+  <el:protected>
+    <el:info el:type="level">
+      <el:identity el:title="Colour Maze" el:subtitle="" el:id="pulley16"/>
+      <el:version el:score="3" el:release="3" el:revision="2" el:status="released"/>
+      <el:author  el:name="Mark Pulley" el:email="" el:homepage=""/>
+      <el:copyright>Copyright © 2008 Mark Pulley</el:copyright>
+      <el:license el:type="GPL v2.0 or above" el:open="true"/>
+      <el:compatibility el:enigma="1.10"/>
+      <el:modes el:easy="false" el:single="true" el:network="false"/>
+      <el:comments>
+        <el:credits el:showinfo="true" el:showstart="false">New API translation by Ronald Lamprecht</el:credits>
+      </el:comments>      
+      <el:score el:easy="-" el:difficult="0:22"/>
+    </el:info>
+    <el:luamain><![CDATA[
+wo["ConserveLevel"] = false
+wo["FollowGrid"] = false
+wo["FollowMethod"] = FOLLOW_SCROLL
+
+ti[" "] = {"fl-abyss_fake"}
+ti["*"] = {"st-glass1"}
+
+ti["!"] = {"fl-rough-blue", "blue#", _color="blue"}
+ti["@"] = {"fl-bumps", "orange#", _color="orange"}
+ti["#"] = {"fl-rough-red", "red#", _color="red"}
+ti["$"] = {"fl-leavesb", "green#", _color="green"}
+
+ti["1"] = ti["!"] .. {"st-door-h-open"}
+ti["2"] = ti["@"] .. {"st-door-h-open"}
+ti["3"] = ti["#"] .. {"st-door-h-open"}
+ti["4"] = ti["$"] .. {"st-door-h-open"}
+
+ti["d"] = {"it-document", text="text1"}
+ti["5"] = ti["1"] .. ti["d"]
+ti["6"] = ti["2"] .. ti["d"]
+ti["7"] = ti["3"] .. ti["d"]
+ti["8"] = ti["4"] .. ti["d"]
+
+ti["a"] = {"it_sensor", invisible=true, target="gates"}
+ti["O"] = ti["a"] .. {"#ac-blackball", "me"}
+
+ti["0"] = {"st_oxyd_a"}
+
+-- the following resolver can be eliminated by 4 tile declarations and a map editing
+function door_resolver(key, x, y)
+    if y%4 == 1 and (key == "1" or key == "2" or key=="3" or key =="4"
+            or key == "6" or key =="8") then
+        return ti[key] .. {"st-door-v-open"}
+    else
+        return ti[key]
+    end
+end
+
+wo(door_resolver, " ", {
+--      |         1    1   |2    2
+--      |1   5    0    5   |0    5
+       "***************************",
+       "*a2@2a3#3a2@2a1!1a3#3a1!1a*", --01
+       "*1***3***4***4***1***4***3*", 
+       "*!***#***$***$***!***$***#*", 
+       "*1***3***4***4***1***4***3*", 
+       "*a3#3a1!1a2@2a4$4a2@2a2@2a*", --05
+       "*4***4***3***4***4***1***1*", 
+       "*$***$***#***$***$***!***!*", 
+       "*4***4***3***4***4***1***1*", 
+       "*a3#3a2@2a4$4a3#3a4$4a3#3a*", 
+       "*4***1***1***2*******1***3*", --10
+       "*$***!***!***@*******!***#*", 
+       "*4***1***5***2***0***1***3*", --
+       "*a2@2a2@6O8$4a***a4$4a3#3a*", 
+       "*3***1***7***1***0***2***2*", 
+       "*#***!***#***!*******@***@*", --15
+       "*3***1***3***1*******2***2*", 
+       "*a4$4a1!1a3#3a2@2a3#3a4$4a*", 
+       "*4***2***2***4***4***2***1*", 
+       "*$***@***@***$***$***@***!*", 
+       "*4***2***2***4***4***2***1*", --20
+       "*a1!1a2@2a3#3a3#3a2@2a1!1a*", 
+       "*2***3***4***4***1***1***4*", 
+       "*@***#***$***$***!***!***$*", 
+       "*2***3***4***4***1***1***4*", --
+       "*a3#3a1!1a1!1a3#3a2@2a3#3a*", --25
+       "***************************"} -- 
+--      |         1    1   |2    2
+--      |1   5    0    5   |0    5
+)
+
+last = it(no["me"])   -- the position of the last visited sensor
+move = 0              -- the count of link moves
+sequence = {}         -- the sequence of the 4 colors that the user did choose
+
+function gates(value, sender)
+    if (last - sender) ~= po(0,0) then
+        local middle = last + (sender - last)/2
+        local color = fl(middle)["_color"]
+        if color == nil then return end  -- someone cheated, avoid throwing an exception
+        st(no[color.."#*"]):close()
+        sequence[move%4] = color
+        if sequence[(move+1)%4] ~= nil then
+            st(no[sequence[(move+1)%4].."#*"]):open()
+        end
+        move = move + 1
+        last = sender
+    end
+end
+    ]]></el:luamain>
+    <el:i18n>
+      <el:string el:key="title">
+        <el:english el:translate="false"/>
+      </el:string>
+      <el:string el:key="text1">
+        <el:english el:translate="true">This is a colour maze. You have to work out what order you need to traverse the coloured floors in order to reach the oxyds.</el:english>
+      </el:string> 
+    </el:i18n>
+  </el:protected>
+</el:level>
