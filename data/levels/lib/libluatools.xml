@@ -113,20 +113,21 @@ function luatools.print_table(t, prefix, depth)
       key_s = "<" .. type(key) .. ">"
     end
     if type(value) == "number" then
-      print(prefix .. "|" .. key_s .. " = " .. value)
+      print((prefix or "") .. "|" .. key_s .. " = " .. value)
     elseif type(value) == "string" then
-      print(prefix .. "|" .. key_s .. " = \"" .. value .. "\"")
+      print((prefix or "").. "|" .. key_s .. " = \"" .. value .. "\"")
     elseif type(value) == "table" then
-      if depth < 5 then
-        print(prefix .. "|" .. key_s .. " = |")
+      if (depth or 0) < 5 then
+        print((prefix or "") .. "|" .. key_s .. " = |")
         luatools.print_table(value,
-            prefix .. "|" .. string.rep(" ", string.len(key_s)),
+            (prefix or "") .. "|" .. string.rep(" ", string.len(key_s) + 3),
             (depth or 0) + 1)
+        print((prefix or "") .. "|")
       else
-        print(prefix .. "|" .. key_s .. " = | ...")
+        print((prefix or "") .. "|" .. key_s .. " = | ...")
       end
     else
-      print(prefix .. "|" .. key_s .. " of type " .. type(value))
+      print((prefix or "").. "|" .. key_s .. " of type " .. type(value))
     end
   end
 end
@@ -426,27 +427,27 @@ function luatools.split_map_layers(keylength, map)
   return layers
 end
 
--- concat_maps_vertically takes a list of maps or a table of
+-- concat_maps_horizontally takes a list of maps or a table of
 -- maps and returns a map, which is constructed from the others
 -- in the following way:
 --  Map1:  {"abc", "def"}
 --  Map2:  {"ABC", "DEF"}
 --  Map3:  {"123", "456"}
---  fuse_map_layers(Map1, Map2, Map3):
+--  concat_maps_horizontally(Map1, Map2, Map3):
 --         {"abcABC123", "defDEF456"}
 -- Missing letters are replaced by " ".
 -- This function can be used to combine several rooms
 -- or areas of a map to build a larger map.
--- Note that concat_maps_vertically doesn't take an
+-- Note that concat_maps_horizontally doesn't take an
 -- offset value for a vertical shift of the maps!
-function luatools.concat_maps_vertically(map1, ...)
+function luatools.concat_maps_horizontally(map1, ...)
   -- Understand arguments
   local maps = {map1, ...}
   if table.getn(maps) == 1 then
     maps = map1
   end
   if type(maps) ~= "table" then
-    error("concat_maps_vertically: Argument is not a table (map).")
+    error("concat_maps_horizontally: Argument is not a table (map).")
   end
   -- Find maximal line lengths and height
   local lengths = {}
@@ -467,6 +468,199 @@ function luatools.concat_maps_vertically(map1, ...)
                     .. string.rep(" ", lengths[j] - string.len(map[y] or "")) 
     end
   end
+  return result
+end
+
+-- concat_maps_vertically takes a list of maps or a table of
+-- maps and returns a map, which is constructed from the others
+-- in the following way:
+--  Map1:  {"abc", "def"}
+--  Map2:  {"ABC", "DEF"}
+--  Map3:  {"123", "456"}
+--  concat_maps_vertically(Map1, Map2, Map3):
+--         {"abc", "def", "ABC", "DEF", "123", "456"}
+-- This function can be used to combine several rooms
+-- or areas of a map to build a larger map.
+-- Note that concat_maps_vertically doesn't take an
+-- offset value for a horizontal shift of the maps!
+function luatools.concat_maps_vertically(map1, ...)
+  -- Understand arguments
+  local maps = {map1, ...}
+  if table.getn(maps) == 1 then
+    maps = map1
+  end
+  if type(maps) ~= "table" then
+    error("concat_maps_vertically: Argument is not a table (map).")
+  end
+  -- Create result
+  local result = {}
+  for j, map in pairs(maps) do
+    for y, line in pairs(map) do
+      table.insert(result, line)
+    end
+  end
+  return result
+end
+  
+-- get_key_in_map returns the key of MAP at position POSARG.
+-- KEYLENGTH can be a number or a string (then its length is
+-- considered to be the keylength). Returns nil if POSARG is
+-- not described in map.
+function luatools.get_key_in_map(map, keylength, posarg)
+  if type(map) ~= "table" then
+    error("get_key_in_map: First argument is not a table (map).")
+  end
+  if ((type(keylength) ~= "string") and (type(keylength) ~= "number"))
+      or ((type(keylength) == "number") and (keylength ~= math.floor(keylength))) then
+    error("get_key_in_map: Second argument is not an integer or string (keylength).")
+  end
+  local kl = keylength
+  if type(kl) == "string" then
+    kl = string.len(kl)
+  end
+  local pos = posarg
+  if type(pos) ~= "userdata" then
+    pos = po(posarg)
+  end
+  local px, py = math.floor(pos.x), math.floor(pos.y)
+  if (type(px) ~= "number") and (type(py) ~= "number") then
+    error("get_key_in_map: Can't interpret third argument as position.")
+  end
+  if not map[py] then
+    return nil
+  end
+  if string.len(map[py]) < kl * px then
+    return nil
+  end
+  return string.sub(map[py], kl * (px - 1) + 1, kl * px)  
+end
+
+-- insert_key_in_map inserts key KEY at position POSARG
+-- into the map MAP, which is assumed to be a table of
+-- strings, and returns the result. The key length of the
+-- map is assumed to be the length of KEY, so partial keys
+-- are not supported. Missing entries are filled with a
+-- neccessary number of spaces.
+function luatools.insert_key_in_map(map, key, posarg)
+  if type(map) ~= "table" then
+    error("insert_key_in_map: First argument is not a table (map).")
+  end
+  if type(key) ~= "string" then
+    error("insert_key_in_map: Second argument is not a string (key).")
+  end
+  if key == "" then
+    error("insert_key_in_map: Second argument (key) is empty.")
+  end
+  local pos = posarg
+  if type(pos) ~= "userdata" then
+    pos = po(posarg)
+  end
+  local px, py = math.floor(pos.x), math.floor(pos.y)
+  if (type(px) ~= "number") and (type(py) ~= "number") then
+    error("insert_key_in_map: Can't interpret third argument as position.")
+  end
+  local keylength = string.len(key)
+  local result = {}
+  for y = 1, math.max(#map, py) do
+    if y ~= py then
+      result[y] = map[y] or ""
+    else
+      local delta = keylength * (px - 1) - string.len(map[y])
+      if delta >= 0 then
+        -- Line of map has to be expanded.
+        result[y] = (map[y] or "") .. string.rep(" ", delta) .. key
+      else
+        -- Insert key into map (old key is deleted).
+        result[y] = string.sub(map[y], 1, keylength * (px - 1)) .. key ..
+                      string.sub(map[y], keylength * px + 1, string.len(map[y]))
+      end
+    end
+  end
+  return result  
+end
+
+-- complete_map returns a rectangularly completed version
+-- of MAP, with " " as fillers.
+function luatools.complete_map(map)
+  if type(map) ~= "table" then
+    error("complete_map: Argument is not a table (map).")
+  end
+  local width = 0
+  local height = 0
+  local result = {}
+  for key, entry in pairs(map) do
+    height = math.max(height, tonumber(key) or 0)
+    if type(entry) == "string" then
+      width = math.max(width, string.len(entry))
+    else
+      -- Odd entry. Report if key is a number
+      -- (i.e. non-number user keys are allowed).
+      if type(key) == "number" then
+        error("complete_map: Line " .. key .. " in map is not a string, but "
+              .. type(entry) .. ".")
+      else
+        result[key] = luatools.deep_copy(entry)
+      end
+    end
+  end
+  for y = 1, height do
+    result[y] = map[y] or ""
+    result[y] = result[y] .. string.rep(" ", width - string.len(result[y]))
+  end
+  return result
+end
+
+-- mirror_map_vertically returns MAP, mirrored along a
+-- horizontal axis (i.e. North and South are inverted).
+-- Missing entries are replaced with " ".
+function luatools.mirror_map_vertically(map)
+  if type(map) ~= "table" then
+    error("mirror_map_vertically: Argument is not a table (map).")
+  end
+  local completed = luatools.complete_map(map)
+  local result = {}
+  for key, entry in pairs(completed) do
+    if type(key) == "number" then
+      result[table.getn(completed) - key + 1] = entry
+    else
+      result[key] = luatools.deep_copy(entry)
+    end
+  end  
+  return result
+end
+
+-- mirror_map_horizontally returns MAP, mirrored along
+-- a vertical axis (i.e. East and West are inverted).
+-- The keylength given by KEY (example tile key or number)
+-- is respected.
+function luatools.mirror_map_horizontally(map, keylength)
+  if type(map) ~= "table" then
+    error("mirror_map_horizontally: Argument is not a table (map).")
+  end
+  if ((type(keylength) ~= "string") and (type(keylength) ~= "number"))
+      or ((type(keylength) == "number") and (keylength ~= math.floor(keylength))) then
+    error("mirror_map_horizontally: Second argument is not an integer or string (keylength).")
+  end
+  local kl = keylength
+  if type(kl) == "string" then
+    kl = string.len(kl)
+  end
+  local completed = luatools.complete_map(map)
+  local map_width = string.len(completed[1] or "") / kl
+  if math.ceil(map_width) ~= map_width then
+    error("mirror_map_horizontally: Map is odd (broken key length).")
+  end
+  local result = {}
+  for v, entry in pairs(completed) do
+    if type(v) == "number" then
+      for j = 1, map_width do
+        local x = kl * (map_width - j)
+        result[v] = (result[v] or "") .. string.sub(entry, x + 1, x + kl)
+      end
+    else
+      result[v] = luatools.deep_copy(entry)
+    end
+  end  
   return result
 end
 

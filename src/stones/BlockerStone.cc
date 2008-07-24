@@ -64,6 +64,10 @@ namespace enigma {
     }
     
     void BlockerStone::setState(int extState) {
+        if (extState == 1 && !isDisplayable()) {
+            ASSERT(0, XLevelRuntime,
+                   "There is no open st_blocker. Use it_blocker instead.");
+        }
         if (extState == 1) {    // -> open (shrink)
             setIState(SHRINKING);
         }

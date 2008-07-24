@@ -7893,6 +7893,8 @@ w, h = wo(resolver, " ", @{
 @end example
 @end table
 
+A more elaborate example can be found in @ref{Orthogonal Autotiling}.
+
 @c ----------------- Composer Resolver -------------------- 
 
 @node res.composer
@@ -8239,6 +8241,7 @@ The final display realigns to the grid even on odd threshold distances.
 
 @menu 
 * Nearest Object Clustering::    When nearest object address wrong target
+* Orthogonal Autotiling::        Autotiling with different sources and targets
 @end menu
 
 @node Nearest Object Clustering
@@ -8287,7 +8290,72 @@ By clustering the doors in two groups you just need two additional tile
 declarations. But you will likely be able to handle a dozen of additional
 switch/door combinations.
 
+@node Orthogonal Autotiling
+@subsection Orthogonal Autotiling
 
+Autotiling is useful whenever you want to define lots of
+target-action-pairings, even when source and target objects differ (i.e. use
+different tile keys). In this case we speak of @samp{orthogonal autotiling}.
+Let's take a look at the important parts of the API 2 version of the level
+@samp{Laser Games}:
+
+@example
+...
+ti["T*"] = @{"it_trigger", target = "mirror%%", action_1 = "turn", action_0 = "turnback"@}
+ti["F*"] = @{"st_fourswitch", target = "mirror%%"@}
+ti["1*"] = @{"st_mirror", name = "mirror%%", flavor = "triangle", orientation = NORTH@}
+ti["2*"] = @{"st_mirror", name = "mirror%%", flavor = "triangle", orientation = SOUTH@}
+ti["3*"] = @{"st_mirror", name = "mirror%%", orientation = NORTH@}
+...
+
+local resolver = res.autotile(ti, @{"T", "T*"@}, @{"F", "F*"@},
+    @{"1", "1*"@}, @{"2", "2*"@}, @{"3", "3*"@}, @{"4", "4*"@}, @{"5", "5*"@},
+    @{"6", "6*"@}, @{"7", "7*"@}, @{"8", "8*"@}, @{"9", "9*"@})
+         
+w, h = wo(resolver, "  ", @{
+"# # # # # # # # # # # $ # $ # $ # $ # # ",
+"#                 #                   # ",
+"#     =   =       #   1a  9b  3c  2d  $ ",
+"#             =   #                   # ",
+"#     TaTbTcTd    #   3e  4f  5g  4h  $ ",
+"#     TeFfFgTh    #                   # ",
+"#     TiFjFkTl    #   6i  3j  4k  7l  $ ",
+"#     TmFnFoTp    #                   # ",
+"#     TqTrTsTt    #   8m  7n  6o  8p  $ ",
+"#                 #                   # ",
+"#       @@   =     #   1q  7r  3s  2t  $ ",
+"#                 #                   # ",
+"# # # # # # # # # # # $ # $ # $ # ^ # # "
+@})
+...
+@end example
+
+We have different kinds of sources for our actions (triggers @code{T} and
+fourswitchs @code{F}), and different kinds of targets (mirrors @code{1},
+@code{2} etc.). However, as all mirrors are consistently named @code{mirror%%},
+with @code{%%} being replaced by @code{%a} to @code{%t}, the connections
+between the objects can be set easily without having to worry about different
+object types: The trigger @code{Ta} will turn mirror @code{1a} (which is called
+@code{mirror%a}), @code{Tb} will turn @code{9b} and so on. If we decide to
+replace mirror @code{1a} by, say, mirror type @code{2}, we can simply replace
+@code{1a} by @code{2a}, and still preserve the action-target-pairing.
+
+In this very special situation, the attribute @code{counterclock} proves to
+be useful: All mirrors in this level turn clockwise, except for @code{9b}.
+Without @code{counterclock}, we'd have to use a callback-function to decide
+about the target and manually choose between the actions @code{turn} and
+@code{turnback}. However, by setting
+
+@example
+ti["9*"] = @{"st_mirror", name = "mirror%%", flavor = "triangle",
+                         orientation = SOUTH, counterclock = true@}
+@end example
+
+it's possible to send the same messages to all mirrors that correspond to
+triggers (i.e. @code{turn} when the trigger is pressed down and @code{turnback}
+when it is released again), and still to have one or more mirrors behave in a
+different way (i.e. rotating in another direction). The @code{inverse}
+attribute is of a similar use.
 
 @c ==================  Extension Development  =======================
 
