@@ -5,7 +5,7 @@
   <el:protected >
     <el:info el:type="level">
       <el:identity el:title="Enigmaparcour" el:subtitle="Open the Doors" el:id="mecke15"/>
-      <el:version el:score="1" el:release="1" el:revision="$Revision: 17 $" el:status="released"/>
+      <el:version el:score="1" el:release="1" el:revision="$Revision: 18 $" el:status="released"/>
       <el:author  el:name="mecke" el:email="" el:homepage=""/>
       <el:copyright>Copyright © 2008 Thomas Bernhardt</el:copyright>
       <el:license el:type="GPL v2.0 or above" el:open="true"/>
@@ -76,7 +76,15 @@ ti["M1"] = ti[" _"] .. {"st_mirror_slab", movable=false, transparent=false, orie
 ti["M2"] = ti[" _"] .. {"st_mirror_slab", movable=false, orientation=1}
 ti["X "] = ti[" ~"] .. {"st_oxyd", flavor="a"}
 ti["S "] = ti[" _"] .. {"st_laserswitch", target={"door#7", "door#8"}}
-ti[": "] = {"st-door-v", name="door#"}
+ti[":1"] = {"st-door-v", name="door#1"}
+ti[":2"] = {"st-door-v", name="door#2"}
+ti[":3"] = {"st-door-v", name="door#3"}
+ti[":4"] = {"st-door-v", name="door#4"}
+ti[":5"] = {"st-door-v", name="door#5"}
+ti[":6"] = {"st-door-v", name="door#6"}
+ti[":7"] = {"st-door-v", name="door#7"}
+ti[":8"] = {"st-door-v", name="door#8"}
+ti[":9"] = {"st-door-v", name="door#9"}
 ti["? "] = ti[" ~"] .. {"st_actorimpulse_invisible"}
 ti["z "] = ti[" v"] .. {"st-stone_break"}
 ti["N "] = ti[" v"] .. {"st-stone_break"}
@@ -119,7 +127,7 @@ w, h = wo(resolver, "  ", {
   "#  w iV1 w i i    *     D1A A A A A 2 # #  vX  v# ",
   "# M2G G m G M2-   a~  - 6 +  v v v v6v$2#  v v v# ",
   "#  _ _G G G G  ~ ~9  ~ ~K # # # # # # # #  vX  v# ",
-  "# L  _G M1G M2-   q~  - : : : : : : : : : K K K # ",
+  "# L  _G M1G M2-   q~  - :1:2:3:4:5:6:7:8:9K K K # ",
   "#  _ _G G G G  ~k~9 l~ ~K # # # # # # # #  vX  v# ",
   "# S u G m G M2-    ~  - 4 3 < N  v v v$5#  v v v# ",
   "# > ^1^2^3$4Y     J     D1  Q 8 8 8 Q $7#  vX  v# ",

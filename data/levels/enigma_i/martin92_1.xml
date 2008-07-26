@@ -17,9 +17,6 @@
       <el:score el:easy="-" el:difficult="-"/>
     </el:info>
     <el:luamain><![CDATA[
-create_world(20, 13)
-fill_floor("fl-abyss")
-
 level =  {
  "                    ",
  " ##..--++++++--..## ",
