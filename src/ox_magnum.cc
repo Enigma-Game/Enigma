@@ -24,14 +24,8 @@
 // defining PLAIN_SPEC_ONLY only shows xxx_floor_map, xxx_stone_map and xxx_item_map
 // Note:  the xxx_item_map changes it's type (ItemID -> const char *)
 
-#define ITEMSPEC(i) #i
-#define ITEMMAPTYPE const char *
-
 #else
 // Standard enigma section :
-
-#define ITEMSPEC(i) i
-#define ITEMMAPTYPE enigma::ItemID
 
 #include "oxyd_internal.hh"
 using namespace enigma;
@@ -295,110 +289,110 @@ const char *oxyd::oxydmag_stone_map[256] = {
     // codes >= 0xaa are unused
 };
 
-ITEMMAPTYPE oxyd::oxydmag_item_map[256] = {
-    ITEMSPEC(it_none),          // OxydMagnum item 0x00
-    ITEMSPEC(it_extralife),     // OxydMagnum item 0x01
-    ITEMSPEC(it_EXTERNAL),      // OxydMagnum item 0x02 document 1
-    ITEMSPEC(it_EXTERNAL),      // OxydMagnum item 0x03 document 2
-    ITEMSPEC(it_hammer),        // OxydMagnum item 0x04
-    ITEMSPEC(it_coffee),        // OxydMagnum item 0x05
-    ITEMSPEC(it_cherry),        // OxydMagnum item 0x06
-    ITEMSPEC(it_umbrella),      // OxydMagnum item 0x07
-    ITEMSPEC(it_glasses),       // OxydMagnum item 0x08
-    ITEMSPEC(it_glasses_broken), // OxydMagnum item 0x09
-    ITEMSPEC(it_dynamite),      // OxydMagnum item 0x0a
-    ITEMSPEC(it_blackbomb),     // OxydMagnum item 0x0b
-    ITEMSPEC(it_whitebomb),     // OxydMagnum item 0x0c
-    ITEMSPEC(it_crack0),        // OxydMagnum item 0x0d
-    ITEMSPEC(it_crack1),        // OxydMagnum item 0x0e
-    ITEMSPEC(it_crack2),        // OxydMagnum item 0x0f
-    ITEMSPEC(it_crack3),        // OxydMagnum item 0x10
-    ITEMSPEC(it_coin1),         // OxydMagnum item 0x11
-    ITEMSPEC(it_coin2),         // OxydMagnum item 0x12
-    ITEMSPEC(it_coin4),         // OxydMagnum item 0x13
-    ITEMSPEC(it_key_a),         // OxydMagnum item 0x14
-    ITEMSPEC(it_key_b),         // OxydMagnum item 0x15
-    ITEMSPEC(it_key_c),         // OxydMagnum item 0x16
-    ITEMSPEC(it_floppy),        // OxydMagnum item 0x17
-    ITEMSPEC(it_sword),         // OxydMagnum item 0x18
-    ITEMSPEC(it_flagwhite),     // OxydMagnum item 0x19
-    ITEMSPEC(it_flagblack),     // OxydMagnum item 0x1a
-    ITEMSPEC(it_ring),          // OxydMagnum item 0x1b
-    ITEMSPEC(it_pipe_wn),       // OxydMagnum item 0x1c
-    ITEMSPEC(it_pipe_sw),       // OxydMagnum item 0x1d
-    ITEMSPEC(it_pipe_ne),       // OxydMagnum item 0x1e
-    ITEMSPEC(it_pipe_es),       // OxydMagnum item 0x1f
-    ITEMSPEC(it_pipe_v),        // OxydMagnum item 0x20
-    ITEMSPEC(it_pipe_h),        // OxydMagnum item 0x21
-    ITEMSPEC(it_spade),         // OxydMagnum item 0x22
-    ITEMSPEC(it_UNUSED),        // OxydMagnum item 0x23
-    ITEMSPEC(it_pin),           // OxydMagnum item 0x24
-    ITEMSPEC(it_seed),          // OxydMagnum item 0x25
-    ITEMSPEC(it_spring2),       // OxydMagnum item 0x26
-    ITEMSPEC(it_spring1),       // OxydMagnum item 0x27
-    ITEMSPEC(it_bag),           // OxydMagnum item 0x28
-    ITEMSPEC(it_magnet_off),    // OxydMagnum item 0x29
-    ITEMSPEC(it_inversesensor), // OxydMagnum item 0x2a
-    ITEMSPEC(it_sensor),        // OxydMagnum item 0x2b
-    ITEMSPEC(it_shogun_s),      // OxydMagnum item 0x2c
-    ITEMSPEC(it_vortex_open),   // OxydMagnum item 0x2d
-    ITEMSPEC(it_vortex_closed), // OxydMagnum item 0x2e
-    ITEMSPEC(it_wormhole_on),   // OxydMagnum item 0x2f
-    ITEMSPEC(it_hill),          // OxydMagnum item 0x30
-    ITEMSPEC(it_tinyhill),      // OxydMagnum item 0x31
-    ITEMSPEC(it_hollow),        // OxydMagnum item 0x32
-    ITEMSPEC(it_tinyhollow),    // OxydMagnum item 0x33
-    ITEMSPEC(it_strip_ns),      // OxydMagnum item 0x34
-    ITEMSPEC(it_strip_ew),      // OxydMagnum item 0x35
-    ITEMSPEC(it_springboard),   // OxydMagnum item 0x36
-    ITEMSPEC(it_MISSING),       // OxydMagnum item 0x37
-    ITEMSPEC(it_bridge_oxyd),   // OxydMagnum item 0x38
-    ITEMSPEC(it_UNUSED),        // OxydMagnum item 0x39
-    ITEMSPEC(it_UNUSED),        // OxydMagnum item 0x3a
-    ITEMSPEC(it_UNUSED),        // OxydMagnum item 0x3b
-    ITEMSPEC(it_UNUSED),        // OxydMagnum item 0x3c
-    ITEMSPEC(it_UNUSED),        // OxydMagnum item 0x3d
-    ITEMSPEC(it_UNUSED),        // OxydMagnum item 0x3e
-    ITEMSPEC(it_UNUSED),        // OxydMagnum item 0x3f
-    ITEMSPEC(it_UNUSED),        // OxydMagnum item 0x40
-    ITEMSPEC(it_UNUSED),        // OxydMagnum item 0x41
-    ITEMSPEC(it_UNUSED),        // OxydMagnum item 0x42
-    ITEMSPEC(it_UNUSED),        // OxydMagnum item 0x43
-    ITEMSPEC(it_UNUSED),        // OxydMagnum item 0x44
-    ITEMSPEC(it_UNUSED),        // OxydMagnum item 0x45
-    ITEMSPEC(it_UNUSED),        // OxydMagnum item 0x46
-    ITEMSPEC(it_UNUSED),        // OxydMagnum item 0x47
-    ITEMSPEC(it_UNUSED),        // OxydMagnum item 0x48
-    ITEMSPEC(it_UNUSED),        // OxydMagnum item 0x49
-    ITEMSPEC(it_UNUSED),        // OxydMagnum item 0x4a
-    ITEMSPEC(it_UNUSED),        // OxydMagnum item 0x4b
-    ITEMSPEC(it_springboard),   // OxydMagnum item 0x4c
-    ITEMSPEC(it_UNUSED),        // OxydMagnum item 0x4d
-    ITEMSPEC(it_UNUSED),        // OxydMagnum item 0x4e
-    ITEMSPEC(it_UNUSED),        // OxydMagnum item 0x4f
-    ITEMSPEC(it_UNUSED),        // OxydMagnum item 0x50
-    ITEMSPEC(it_UNUSED),        // OxydMagnum item 0x51
-    ITEMSPEC(it_UNUSED),        // OxydMagnum item 0x52
-    ITEMSPEC(it_UNUSED),        // OxydMagnum item 0x53
-    ITEMSPEC(it_UNUSED),        // OxydMagnum item 0x54
-    ITEMSPEC(it_UNUSED),        // OxydMagnum item 0x55
-    ITEMSPEC(it_UNUSED),        // OxydMagnum item 0x56
-    ITEMSPEC(it_UNUSED),        // OxydMagnum item 0x57
-    ITEMSPEC(it_UNUSED),        // OxydMagnum item 0x58
-    ITEMSPEC(it_UNUSED),        // OxydMagnum item 0x59
-    ITEMSPEC(it_UNUSED),        // OxydMagnum item 0x5a
-    ITEMSPEC(it_UNUSED),        // OxydMagnum item 0x5b
-    ITEMSPEC(it_UNUSED),        // OxydMagnum item 0x5c
-    ITEMSPEC(it_UNUSED),        // OxydMagnum item 0x5d
-    ITEMSPEC(it_UNUSED),        // OxydMagnum item 0x5e
-    ITEMSPEC(it_signalfilter1), // OxydMagnum item 0x5f
-    ITEMSPEC(it_drop),          // OxydMagnum item 0x60 (drunk)
-    ITEMSPEC(it_UNUSED),        // OxydMagnum item 0x61 (rev. breaking area)
-    ITEMSPEC(it_UNUSED),        // OxydMagnum item 0x62 (player exchange)
-    ITEMSPEC(it_trigger),       // OxydMagnum item 0x63
-    ITEMSPEC(it_puller_n),      // OxydMagnum item 0x64
-    ITEMSPEC(it_puller_s),      // OxydMagnum item 0x65
-    ITEMSPEC(it_puller_w),      // OxydMagnum item 0x66
-    ITEMSPEC(it_puller_e),      // OxydMagnum item 0x67
+const char* oxyd::oxydmag_item_map[256] = {
+    IT_INVALID,          // OxydMagnum item 0x00
+    "it_extralife",     // OxydMagnum item 0x01
+    IT_EXTERNAL,      // OxydMagnum item 0x02 document 1
+    IT_EXTERNAL,      // OxydMagnum item 0x03 document 2
+    "it_hammer",        // OxydMagnum item 0x04
+    "it-coffee",        // OxydMagnum item 0x05
+    "it-cherry",        // OxydMagnum item 0x06
+    "it_umbrella",      // OxydMagnum item 0x07
+    "it_glasses",       // OxydMagnum item 0x08
+    "it_glasses_broken", // OxydMagnum item 0x09
+    "it-dynamite",      // OxydMagnum item 0x0a
+    "it-blackbomb",     // OxydMagnum item 0x0b
+    "it-whitebomb",     // OxydMagnum item 0x0c
+    "it-crack0",        // OxydMagnum item 0x0d
+    "it-crack1",        // OxydMagnum item 0x0e
+    "it-crack2",        // OxydMagnum item 0x0f
+    "it-crack3",        // OxydMagnum item 0x10
+    "it_coin_s",         // OxydMagnum item 0x11
+    "it_coin_m",         // OxydMagnum item 0x12
+    "it_coin_l",         // OxydMagnum item 0x13
+    "it_key_a",         // OxydMagnum item 0x14
+    "it_key_b",         // OxydMagnum item 0x15
+    "it_key_c",         // OxydMagnum item 0x16
+    "it_floppy",        // OxydMagnum item 0x17
+    "it_sword",         // OxydMagnum item 0x18
+    "it-flagwhite",     // OxydMagnum item 0x19
+    "it-flagblack",     // OxydMagnum item 0x1a
+    "it-ring",          // OxydMagnum item 0x1b
+    "it-pipe-wn",       // OxydMagnum item 0x1c
+    "it-pipe-sw",       // OxydMagnum item 0x1d
+    "it-pipe-ne",       // OxydMagnum item 0x1e
+    "it-pipe-es",       // OxydMagnum item 0x1f
+    "it-pipe-v",        // OxydMagnum item 0x20
+    "it-pipe-h",        // OxydMagnum item 0x21
+    "it-spade",         // OxydMagnum item 0x22
+    UNUSED,        // OxydMagnum item 0x23
+    "it-pin",           // OxydMagnum item 0x24
+    "it-seed",          // OxydMagnum item 0x25
+    "it-spring2",       // OxydMagnum item 0x26
+    "it-spring1",       // OxydMagnum item 0x27
+    "it-bag",           // OxydMagnum item 0x28
+    "it_magnet_off",    // OxydMagnum item 0x29
+    "it_inversesensor", // OxydMagnum item 0x2a
+    "it_sensor",        // OxydMagnum item 0x2b
+    "it-shogun-s",      // OxydMagnum item 0x2c
+    "it_vortex_open",   // OxydMagnum item 0x2d
+    "it_vortex_closed", // OxydMagnum item 0x2e
+    "it_wormhole_on",   // OxydMagnum item 0x2f
+    "it-hill",          // OxydMagnum item 0x30
+    "it-tinyhill",      // OxydMagnum item 0x31
+    "it-hollow",        // OxydMagnum item 0x32
+    "it-tinyhollow",    // OxydMagnum item 0x33
+    "it_strip_ns",      // OxydMagnum item 0x34
+    "it_strip_ew",      // OxydMagnum item 0x35
+    "it-springboard",   // OxydMagnum item 0x36
+    IT_MISSING,       // OxydMagnum item 0x37
+    "it-bridge-oxyd",   // OxydMagnum item 0x38
+    UNUSED,        // OxydMagnum item 0x39
+    UNUSED,        // OxydMagnum item 0x3a
+    UNUSED,        // OxydMagnum item 0x3b
+    UNUSED,        // OxydMagnum item 0x3c
+    UNUSED,        // OxydMagnum item 0x3d
+    UNUSED,        // OxydMagnum item 0x3e
+    UNUSED,        // OxydMagnum item 0x3f
+    UNUSED,        // OxydMagnum item 0x40
+    UNUSED,        // OxydMagnum item 0x41
+    UNUSED,        // OxydMagnum item 0x42
+    UNUSED,        // OxydMagnum item 0x43
+    UNUSED,        // OxydMagnum item 0x44
+    UNUSED,        // OxydMagnum item 0x45
+    UNUSED,        // OxydMagnum item 0x46
+    UNUSED,        // OxydMagnum item 0x47
+    UNUSED,        // OxydMagnum item 0x48
+    UNUSED,        // OxydMagnum item 0x49
+    UNUSED,        // OxydMagnum item 0x4a
+    UNUSED,        // OxydMagnum item 0x4b
+    "it-springboard",   // OxydMagnum item 0x4c
+    UNUSED,        // OxydMagnum item 0x4d
+    UNUSED,        // OxydMagnum item 0x4e
+    UNUSED,        // OxydMagnum item 0x4f
+    UNUSED,        // OxydMagnum item 0x50
+    UNUSED,        // OxydMagnum item 0x51
+    UNUSED,        // OxydMagnum item 0x52
+    UNUSED,        // OxydMagnum item 0x53
+    UNUSED,        // OxydMagnum item 0x54
+    UNUSED,        // OxydMagnum item 0x55
+    UNUSED,        // OxydMagnum item 0x56
+    UNUSED,        // OxydMagnum item 0x57
+    UNUSED,        // OxydMagnum item 0x58
+    UNUSED,        // OxydMagnum item 0x59
+    UNUSED,        // OxydMagnum item 0x5a
+    UNUSED,        // OxydMagnum item 0x5b
+    UNUSED,        // OxydMagnum item 0x5c
+    UNUSED,        // OxydMagnum item 0x5d
+    UNUSED,        // OxydMagnum item 0x5e
+    "it_sensor_filter1", // OxydMagnum item 0x5f
+    "it-drop",          // OxydMagnum item 0x60 (drunk)
+    UNUSED,        // OxydMagnum item 0x61 (rev. breaking are)
+    UNUSED,        // OxydMagnum item 0x62 (player exchange)
+    "it_trigger",       // OxydMagnum item 0x63
+    "it-puller-n",      // OxydMagnum item 0x64
+    "it-puller-s",      // OxydMagnum item 0x65
+    "it-puller-w",      // OxydMagnum item 0x66
+    "it-puller-e",      // OxydMagnum item 0x67
     // codes >= 0x68 are unused
 };

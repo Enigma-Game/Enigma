@@ -185,7 +185,7 @@ namespace enigma {
 
         /* ---------- Public methods ---------- */
         void kill();
-        void replace (ItemID id);
+        void replace(std::string kind);
 
         /* ---------- Virtual functions ---------- */
         const char *get_kind() const;
@@ -276,6 +276,44 @@ namespace enigma {
 /* -------------------- Functions -------------------- */
 
     void InitItems();
+    
+    
+/* --------------------  Item Macros -------------------- */
+
+#define DEF_ITEM(classname, kindname, kindid)   \
+    class classname : public Item {             \
+        CLONEOBJ(classname);                    \
+        DECL_ITEMTRAITS;                            \
+    public:                                     \
+        classname() {}                          \
+    };                                          \
+    DEF_ITEMTRAITS(classname, kindname, kindid)
+
+#define DEF_ITEMF(classname, kindname, kindid, flags)   \
+    class classname : public Item {             \
+        CLONEOBJ(classname);                    \
+        DECL_ITEMTRAITS;                            \
+    public:                                     \
+        classname() {}                          \
+    };                                          \
+    DEF_ITEMTRAITSF(classname, kindname, kindid, flags)
+
+#define DECL_ITEMTRAITS                                             \
+        static ItemTraits traits;                               \
+        const ItemTraits &get_traits() const { return traits; }
+
+#define DECL_ITEMTRAITS_ARRAY(n, subtype_expr)                                      \
+        static ItemTraits traits[n];                                            \
+        const ItemTraits &get_traits() const { return traits[subtype_expr]; }
+
+#define DEF_ITEMTRAITS(classname, name, id)         \
+    ItemTraits classname::traits = { name, id, itf_none, 0.0 }
+
+#define DEF_ITEMTRAITSF(classname, name, id, flags)         \
+    ItemTraits classname::traits = { name, id, flags, 0.0 }
+
+#define DEF_ITEMTRAITSR(classname, name, id, radius)         \
+    ItemTraits classname::traits = { name, id, 0, radius }
     
 } // namespace enigma
 

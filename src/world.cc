@@ -1816,7 +1816,7 @@ void BroadcastMessage (const std::string& msg,
 
 namespace
 {
-    void explosion(GridPos source, GridPos dest, ItemID explosion_item)
+    void explosion(GridPos source, GridPos dest, const char * explosion_item)
     {
         if (Stone *stone = GetStone(dest))
             SendMessage(stone, "_explosion", source);
@@ -1826,10 +1826,10 @@ namespace
             if (has_flags(item, itf_indestructible))
                 SendMessage(item, "_explosion", source);
             else
-                SetItem(dest, explosion_item);
+                SetItem(dest, MakeItem(explosion_item));
         }
         else
-            SetItem(dest, explosion_item);
+            SetItem(dest, MakeItem(explosion_item));
         if (Floor *floor = GetFloor(dest))
             SendMessage(floor, "_explosion");
     }
@@ -1855,7 +1855,7 @@ void SendExplosionEffect(GridPos center, ExplosionType type)
 
             case EXPLOSION_BLACKBOMB:
                 if (direct_neighbor) {
-                    explosion(center, dest, it_explosion1);
+                    explosion(center, dest, "it-explosion1");
                 } else {
                     // Note: should not ignite in non-enigma-mode!
                     if (stone) SendMessage(stone, "ignite");
@@ -1867,7 +1867,7 @@ void SendExplosionEffect(GridPos center, ExplosionType type)
             case EXPLOSION_WHITEBOMB:
                 // Note: at least in oxyd1 only direct neighbors
                 // explode, and the others not even ignite
-                explosion(center, dest, it_explosion3);            
+                explosion(center, dest, "it-explosion3");            
                 break;
     
             case EXPLOSION_BOMBSTONE:
@@ -2020,11 +2020,6 @@ void SetItem (GridPos p, Item* it)
 {
     MaybeRecalcLight(p);
     level->it_layer.set(p,it);
-}
-
-void SetItem (GridPos p, ItemID id) 
-{
-    SetItem (p, MakeItem (id));
 }
 
 
@@ -2323,9 +2318,6 @@ void ObjectRepos::dump_info()
 namespace
 {
     ObjectRepos *repos;
-    vector<Actor *> actor_repos(ac_COUNT);
-    vector<Stone *> stone_repos(st_COUNT);
-    vector<Item *> item_repos(it_COUNT);
 }
 
 
@@ -2381,22 +2373,12 @@ void Register (const string &kind, Stone *obj) {
     Register(kind, o);
 }
 
-void RegisterStone (Stone *stone) 
-{
-    Register(static_cast<Object*>(stone));
-    StoneID id = get_id(stone);
-    ASSERT (id != st_INVALID, XLevelRuntime,
-        "RegisterStone: trying to register with invalid ID");
-    stone_repos[id] = stone;
-}
-
 void RegisterActor (Actor *actor) 
 {
     Register(static_cast<Object*>(actor));
     ActorID id = get_id(actor);
     ASSERT (id != ac_INVALID, XLevelRuntime,
         "RegisterActor: trying to register with invalid ID");
-    actor_repos[id] = actor;
 }
 
 void Repos_Shutdown() {
@@ -2440,24 +2422,6 @@ Actor * MakeActor (const char *kind) {
     return dynamic_cast<Actor*>(MakeObject(kind));
 }
 
-Actor *MakeActor (ActorID id) 
-{
-    if (Actor *ac = actor_repos[id])
-        return ac->clone();
-    else
-        ASSERT(0, XLevelRuntime, "MakeActor: no actor for ID defined");
-    return 0;
-}
-
-Stone *MakeStone (StoneID id) 
-{
-    if (Stone *st = stone_repos[id])
-        return st->clone();
-    else
-        ASSERT(0, XLevelRuntime, "MakeStone: no stone for ID defined");
-    return 0;
-}
-
 
 void DisposeObject(Object *o) {
     if (o != 0) {
@@ -2493,17 +2457,8 @@ void RegisterItem (Item *item)
     ItemID id = get_id(item);
     ASSERT(id != it_INVALID, XLevelRuntime,
         "RegisterItem: trying to register with invalid ID");
-    item_repos[id] = item;
 }
 
-Item *MakeItem (ItemID id) 
-{
-    if (Item *it = item_repos[id])
-        return it->clone();
-    else
-        ASSERT(0, XLevelRuntime, "MakeItem: no item for ID defined");
-    return 0;
-}
 
 Item * MakeItem(const char *kind) {
     return dynamic_cast<Item*>(MakeObject(kind));

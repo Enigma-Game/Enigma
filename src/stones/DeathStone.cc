@@ -19,6 +19,8 @@
  */
 
 #include "stones/DeathStone.hh"
+
+#include "items/GlassesItem.hh"
 //#include "main.hh"
 
 namespace enigma {
@@ -72,7 +74,7 @@ namespace enigma {
 
     void DeathStone::init_model() {
         if (state == IDLE) {
-            if ((objFlags & OBJBIT_INVISIBLE) && ((server::GlassesVisibility & 1) == 0))
+            if ((objFlags & OBJBIT_INVISIBLE) && ((server::GlassesVisibility & Glasses::DEATH) == 0))
                 set_model("invisible");
             else
                 set_model("st-death");

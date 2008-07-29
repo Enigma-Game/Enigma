@@ -380,7 +380,7 @@ void SpitterStone::animcb() {
     case IDLE:
         ASSERT(0, XLevelRuntime, "SpitterStone: animcb called with inconsistent state"); 
     case LOADING: {
-        Actor     *ball = MakeActor (ac_cannonball);
+        Actor     *ball = MakeActor("ac-cannonball");
         ActorInfo *ai   = ball->get_actorinfo();
         V2         center  = get_pos().center();
 

@@ -24,6 +24,7 @@
 #include "main.hh"
 #include "player.hh"
 #include "server.hh"
+#include "items/GlassesItem.hh"
 
 #include <algorithm>
 
@@ -109,7 +110,7 @@ namespace enigma {
         activatePhoto();
         if (updateCurrentLightDirs() != NODIRBIT)
             GameTimer.set_alarm(this, calcInterval(), false);
-        if (((server::GlassesVisibility & 16) != 0) != ((objFlags & OBJBIT_VISIBLE) != 0)) {
+        if (((server::GlassesVisibility & Glasses::LIGHTPASSENGER) != 0) != ((objFlags & OBJBIT_VISIBLE) != 0)) {
             objFlags ^= OBJBIT_VISIBLE; // toggle visibility bit
         }
         if (state == ON || state == BLINK) {

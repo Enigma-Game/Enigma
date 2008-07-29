@@ -197,6 +197,10 @@ enigma_SOURCES = 		\
 	lev/ScoreManager.hh	\
 	lev/VolatileIndex.cc	\
 	lev/VolatileIndex.hh	\
+	items/BlockerItem.cc	\
+	items/BlockerItem.hh	\
+	items/GlassesItem.cc	\
+	items/GlassesItem.hh	\
 	others/Other.cc		\
 	others/Other.hh		\
 	others/Rubberband.cc	\

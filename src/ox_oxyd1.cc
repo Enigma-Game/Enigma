@@ -24,13 +24,9 @@
 // defining PLAIN_SPEC_ONLY only shows xxx_floor_map, xxx_stone_map and xxx_item_map
 // Note:  the xxx_item_map changes it's type (ItemID -> const char *)
 
-#define ITEMSPEC(i) #i
-#define ITEMMAPTYPE const char *
 
 #else
 // Standard enigma section :
-#define ITEMSPEC(i) i
-#define ITEMMAPTYPE ItemID
 
 #include "server.hh"
 #include "oxyd_internal.hh"
@@ -309,103 +305,103 @@ const char *oxyd::oxyd1_stone_map[256] = {
     // codes >= 0x9a are unused
 };
 
-ITEMMAPTYPE oxyd::oxyd1_item_map[256] = {
-    ITEMSPEC(it_none),                    // 0x00
-    ITEMSPEC(it_extralife),               // 0x01
-    ITEMSPEC(it_EXTERNAL),                // 0x02 document 1
-    ITEMSPEC(it_EXTERNAL),                // 0x03 document 2
-    ITEMSPEC(it_hammer),                  // 0x04
-    ITEMSPEC(it_coffee),                  // 0x05
-    ITEMSPEC(it_cherry),                  // 0x06
-    ITEMSPEC(it_umbrella),                // 0x07
-    ITEMSPEC(it_glasses),                 // 0x08
-    ITEMSPEC(it_glasses_broken),          // 0x09
-    ITEMSPEC(it_dynamite),                // 0x0a
-    ITEMSPEC(it_blackbomb),               // 0x0b
-    ITEMSPEC(it_whitebomb),               // 0x0c
-    ITEMSPEC(it_crack0),                  // 0x0d
-    ITEMSPEC(it_crack1),                  // 0x0e
-    ITEMSPEC(it_crack2),                  // 0x0f
-    ITEMSPEC(it_crack3),                  // 0x10
-    ITEMSPEC(it_coin1),                   // 0x11
-    ITEMSPEC(it_coin2),                   // 0x12
-    ITEMSPEC(it_coin4),                   // 0x13
-    ITEMSPEC(it_key_a),                   // 0x14
-    ITEMSPEC(it_key_b),                   // 0x15
-    ITEMSPEC(it_key_c),                   // 0x16
-    ITEMSPEC(it_floppy),                  // 0x17
-    ITEMSPEC(it_sword),                   // 0x18
-    ITEMSPEC(it_flagwhite),               // 0x19
-    ITEMSPEC(it_flagblack),               // 0x1a
-    ITEMSPEC(it_ring),                    // 0x1b
-    ITEMSPEC(it_pipe_wn),                 // 0x1c
-    ITEMSPEC(it_pipe_sw),                 // 0x1d
-    ITEMSPEC(it_pipe_ne),                 // 0x1e
-    ITEMSPEC(it_pipe_es),                 // 0x1f
-    ITEMSPEC(it_pipe_v),                  // 0x20
-    ITEMSPEC(it_pipe_h),                  // 0x21
-    ITEMSPEC(it_spade),                   // 0x22
-    ITEMSPEC(it_surprise),                // 0x23
-    ITEMSPEC(it_pin),                     // 0x24
-    ITEMSPEC(it_seed),                    // 0x25
-    ITEMSPEC(it_spring2),                 // 0x26
-    ITEMSPEC(it_spring1),                 // 0x27
-    ITEMSPEC(it_bag),                     // 0x28
-    ITEMSPEC(it_magnet_off),              // 0x29
-    ITEMSPEC(it_inversesensor),           // 0x2a
-    ITEMSPEC(it_sensor),                  // 0x2b
-    ITEMSPEC(it_shogun_s),                // 0x2c
-    ITEMSPEC(it_vortex_open),             // 0x2d
-    ITEMSPEC(it_vortex_closed),           // 0x2e
-    ITEMSPEC(it_wormhole_on),             // 0x2f
-    ITEMSPEC(it_hill),                    // 0x30
-    ITEMSPEC(it_tinyhill),                // 0x31
-    ITEMSPEC(it_hollow),                  // 0x32
-    ITEMSPEC(it_tinyhollow),              // 0x33
-    ITEMSPEC(it_strip_ns),                // 0x34
-    ITEMSPEC(it_strip_ew),                // 0x35
-    ITEMSPEC(it_springboard),             // 0x36
-    ITEMSPEC(it_bridge_oxyd),             // 0x37 bridge active
-    ITEMSPEC(it_bridge_oxyd),             // 0x38 bridge inactive
-    ITEMSPEC(it_bridge_oxyd_active),      // 0x39 walkable bridge (?)
-    ITEMSPEC(it_UNUSED),                  // 0x3a
-    ITEMSPEC(it_UNUSED),                  // 0x3b
-    ITEMSPEC(it_UNUSED),                  // 0x3c
-    ITEMSPEC(it_UNUSED),                  // 0x3d
-    ITEMSPEC(it_UNUSED),                  // 0x3e
-    ITEMSPEC(it_UNUSED),                  // 0x3f
-    ITEMSPEC(it_UNUSED),                  // 0x40
-    ITEMSPEC(it_UNUSED),                  // 0x41
-    ITEMSPEC(it_UNUSED),                  // 0x42
-    ITEMSPEC(it_UNUSED),                  // 0x43
-    ITEMSPEC(it_UNUSED),                  // 0x44
-    ITEMSPEC(it_UNUSED),                  // 0x45
-    ITEMSPEC(it_UNUSED),                  // 0x46
-    ITEMSPEC(it_UNUSED),                  // 0x47
-    ITEMSPEC(it_UNUSED),                  // 0x48
-    ITEMSPEC(it_UNUSED),                  // 0x49
-    ITEMSPEC(it_UNUSED),                  // 0x4a
-    ITEMSPEC(it_UNUSED),                  // 0x4b
-    ITEMSPEC(it_UNUSED),                  // 0x4c
-    ITEMSPEC(it_UNUSED),                  // 0x4d
-    ITEMSPEC(it_UNUSED),                  // 0x4e
-    ITEMSPEC(it_UNUSED),                  // 0x4f
-    ITEMSPEC(it_UNUSED),                  // 0x50
-    ITEMSPEC(it_UNUSED),                  // 0x51
-    ITEMSPEC(it_UNUSED),                  // 0x52
-    ITEMSPEC(it_UNUSED),                  // 0x53
-    ITEMSPEC(it_UNUSED),                  // 0x54
-    ITEMSPEC(it_UNUSED),                  // 0x55
-    ITEMSPEC(it_UNUSED),                  // 0x56
-    ITEMSPEC(it_UNUSED),                  // 0x57
-    ITEMSPEC(it_UNUSED),                  // 0x58
-    ITEMSPEC(it_UNUSED),                  // 0x59
-    ITEMSPEC(it_UNUSED),                  // 0x5a
-    ITEMSPEC(it_UNUSED),                  // 0x5b
-    ITEMSPEC(it_UNUSED),                  // 0x5c
-    ITEMSPEC(it_UNUSED),                  // 0x5d
-    ITEMSPEC(it_UNUSED),                  // 0x5e
-    ITEMSPEC(it_sensor),                  // 0x5f
-    ITEMSPEC(it_drop),                    // 0x60    drop (turns actor into rotor)
+const char *oxyd::oxyd1_item_map[256] = {
+    IT_INVALID,                   // 0x00
+    "it_extralife",               // 0x01
+    IT_EXTERNAL,                  // 0x02 document 1
+    IT_EXTERNAL,                  // 0x03 document 2
+    "it_hammer",                  // 0x04
+    "it-coffee",                  // 0x05
+    "it-cherry",                  // 0x06
+    "it_umbrella",                // 0x07
+    "it_glasses",                 // 0x08
+    "it_glasses_broken",          // 0x09
+    "it-dynamite",                // 0x0a
+    "it-blackbomb",               // 0x0b
+    "it-whitebomb",               // 0x0c
+    "it-crack0",                  // 0x0d
+    "it-crack1",                  // 0x0e
+    "it-crack2",                  // 0x0f
+    "it-crack3",                  // 0x10
+    "it_coin_s",                  // 0x11
+    "it_coin_m",                  // 0x12
+    "it_coin_l",                  // 0x13
+    "it_key_a",                   // 0x14
+    "it_key_b",                   // 0x15
+    "it_key_c",                   // 0x16
+    "it_floppy",                  // 0x17
+    "it_sword",                   // 0x18
+    "it-flagwhite",               // 0x19
+    "it-flagblack",               // 0x1a
+    "it-ring",                    // 0x1b
+    "it-pipe-wn",                 // 0x1c
+    "it-pipe-sw",                 // 0x1d
+    "it-pipe-ne",                 // 0x1e
+    "it-pipe-es",                 // 0x1f
+    "it-pipe-v",                  // 0x20
+    "it-pipe-h",                  // 0x21
+    "it-spade",                   // 0x22
+    "it-surprise",                // 0x23
+    "it-pin",                     // 0x24
+    "it-seed",                    // 0x25
+    "it-spring2",                 // 0x26
+    "it-spring1",                 // 0x27
+    "it-bag",                     // 0x28
+    "it_magnet_off",              // 0x29
+    "it_inversesensor",           // 0x2a
+    "it_sensor",                  // 0x2b
+    "it-shogun-s",                // 0x2c
+    "it_vortex_open",             // 0x2d
+    "it_vortex_closed",           // 0x2e
+    "it_wormhole_on",             // 0x2f
+    "it-hill",                    // 0x30
+    "it-tinyhill",                // 0x31
+    "it-hollow",                  // 0x32
+    "it-tinyhollow",              // 0x33
+    "it_strip_ns",                // 0x34
+    "it_strip_ew",                // 0x35
+    "it-springboard",             // 0x36
+    "it-bridge-oxyd",             // 0x37 bridge active
+    "it-bridge-oxyd",             // 0x38 bridge inactive
+    "it-bridge-oxyd_active",      // 0x39 walkable bridge (?"
+    UNUSED,                  // 0x3a
+    UNUSED,                  // 0x3b
+    UNUSED,                  // 0x3c
+    UNUSED,                  // 0x3d
+    UNUSED,                  // 0x3e
+    UNUSED,                  // 0x3f
+    UNUSED,                  // 0x40
+    UNUSED,                  // 0x41
+    UNUSED,                  // 0x42
+    UNUSED,                  // 0x43
+    UNUSED,                  // 0x44
+    UNUSED,                  // 0x45
+    UNUSED,                  // 0x46
+    UNUSED,                  // 0x47
+    UNUSED,                  // 0x48
+    UNUSED,                  // 0x49
+    UNUSED,                  // 0x4a
+    UNUSED,                  // 0x4b
+    UNUSED,                  // 0x4c
+    UNUSED,                  // 0x4d
+    UNUSED,                  // 0x4e
+    UNUSED,                  // 0x4f
+    UNUSED,                  // 0x50
+    UNUSED,                  // 0x51
+    UNUSED,                  // 0x52
+    UNUSED,                  // 0x53
+    UNUSED,                  // 0x54
+    UNUSED,                  // 0x55
+    UNUSED,                  // 0x56
+    UNUSED,                  // 0x57
+    UNUSED,                  // 0x58
+    UNUSED,                  // 0x59
+    UNUSED,                  // 0x5a
+    UNUSED,                  // 0x5b
+    UNUSED,                  // 0x5c
+    UNUSED,                  // 0x5d
+    UNUSED,                  // 0x5e
+    "it_sensor",                  // 0x5f
+    "it-drop",                    // 0x60    drop (turns actor into rotor)
     // codes >= 0x61 are unused
 };

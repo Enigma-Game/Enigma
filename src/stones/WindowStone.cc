@@ -236,7 +236,7 @@ namespace enigma {
                     if (it_neighbor == NULL)
                         SetItem(w_pos_neighbor, YieldItem(w_pos));
                     else
-                        SetItem(w_pos, MakeItem(it_squashed));
+                        SetItem(w_pos, MakeItem("it-squashed"));
                 
                 // move actors
                 std::vector<Actor*> found_actors;

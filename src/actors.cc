@@ -584,11 +584,11 @@ void CannonBall::animcb()
     }
     else if (Item *it = GetItem(p)) {
         if (!has_flags(it, itf_indestructible))
-            SetItem (p, it_explosion3);
+            SetItem (p, MakeItem("it-explosion3"));
     }
     else if (Floor *fl = GetFloor(p)) {
         if (fl->is_destructible())
-            SetItem (p, it_explosion3);
+            SetItem (p, MakeItem("it-explosion3"));
     }
     KillActor (this);
 }

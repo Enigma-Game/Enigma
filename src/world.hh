@@ -279,7 +279,6 @@ namespace enigma {
 /* -------------------- Items -------------------- */
 
     void  SetItem (GridPos p, Item* it);
-    void  SetItem (GridPos p, ItemID id);
     Item *GetItem (GridPos p);
     Item *YieldItem (GridPos p);
     void  KillItem (GridPos p);
@@ -311,9 +310,7 @@ namespace enigma {
     Object *MakeObject (const char *kind);
     Floor  *MakeFloor (const char *kind);
     Stone  *MakeStone (const char *kind);
-    Stone  *MakeStone (StoneID id);
     Actor  *MakeActor (const char *kind);
-    Actor  *MakeActor (ActorID id);
 
     void DisposeObject(Object *o);
 
@@ -333,7 +330,6 @@ namespace enigma {
     void Register (const string &kind, Object *obj);
     void Register (const string &kind, Floor *obj);
     void Register (const string &kind, Stone *obj);
-    void RegisterStone (Stone *st);
     void RegisterActor (Actor *ac);
 
 
@@ -341,7 +337,6 @@ namespace enigma {
     void Register (const string &kind, Item *obj);
     void RegisterItem (Item *it);
     Item   *MakeItem (const char *kind);
-    Item   *MakeItem (ItemID id);
 
     /* Shutdown object repository */
     void Repos_Shutdown();

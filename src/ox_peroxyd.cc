@@ -24,14 +24,8 @@
 // defining PLAIN_SPEC_ONLY only shows xxx_floor_map, xxx_stone_map and xxx_item_map
 // Note:  the xxx_item_map changes it's type (ItemID -> const char *)
 
-#define ITEMSPEC(i) #i
-#define ITEMMAPTYPE const char *
-
 #else
 // Standard enigma section :
-
-#define ITEMSPEC(i) i
-#define ITEMMAPTYPE enigma::ItemID
 
 #include "server.hh"
 #include "oxyd_internal.hh"
@@ -384,129 +378,129 @@ const char *oxyd::peroxyd_stone_map[256] = {
 };
 
 
-ITEMMAPTYPE oxyd::peroxyd_item_map[256] = {
-    ITEMSPEC(it_none),                    // 0x00
-    ITEMSPEC(it_extralife),               // 0x01
-    ITEMSPEC(it_EXTERNAL),                // 0x02 document 1
-    ITEMSPEC(it_EXTERNAL),                // 0x03 document 2
-    ITEMSPEC(it_hammer),                  // 0x04
-    ITEMSPEC(it_coffee),                  // 0x05
-    ITEMSPEC(it_cherry),                  // 0x06
-    ITEMSPEC(it_umbrella),                // 0x07
-    ITEMSPEC(it_glasses),                 // 0x08
-    ITEMSPEC(it_glasses_broken),          // 0x09
-    ITEMSPEC(it_dynamite),                // 0x0a
-    ITEMSPEC(it_blackbomb),               // 0x0b
-    ITEMSPEC(it_whitebomb),               // 0x0c
-    ITEMSPEC(it_crack0),                  // 0x0d
-    ITEMSPEC(it_crack1),                  // 0x0e
-    ITEMSPEC(it_crack2),                  // 0x0f
-    ITEMSPEC(it_crack3),                  // 0x10
-    ITEMSPEC(it_coin1),                   // 0x11
-    ITEMSPEC(it_coin2),                   // 0x12
-    ITEMSPEC(it_coin4),                   // 0x13
-    ITEMSPEC(it_key_a),                   // 0x14
-    ITEMSPEC(it_key_b),                   // 0x15
-    ITEMSPEC(it_key_c),                   // 0x16
-    ITEMSPEC(it_floppy),                  // 0x17
-    ITEMSPEC(it_flagwhite),               // 0x18
-    ITEMSPEC(it_flagblack),               // 0x19
-    ITEMSPEC(it_ring),                    // 0x1a
-    ITEMSPEC(it_pipe_wn),                 // 0x1b
-    ITEMSPEC(it_pipe_sw),                 // 0x1c
-    ITEMSPEC(it_pipe_ne),                 // 0x1d
-    ITEMSPEC(it_pipe_es),                 // 0x1e
-    ITEMSPEC(it_pipe_v),                  // 0x1f
-    ITEMSPEC(it_pipe_h),                  // 0x20
-    ITEMSPEC(it_spade),                   // 0x21
-    ITEMSPEC(it_surprise),                // 0x22
-    ITEMSPEC(it_pin),                     // 0x23
-    ITEMSPEC(it_seed),                    // 0x24
-    ITEMSPEC(it_spring2),                 // 0x25
-    ITEMSPEC(it_spring1),                 // 0x26
-    ITEMSPEC(it_bag),                     // 0x27
-    ITEMSPEC(it_magnet_off),              // 0x28
-    ITEMSPEC(it_signalfilter0),           // 0x29
-    ITEMSPEC(it_signalfilter1),           // 0x2a
-    ITEMSPEC(it_shogun_s),                // 0x2b
-    ITEMSPEC(it_shogun_l),                // 0x2c
-    ITEMSPEC(it_vortex_open),             // 0x2d
-    ITEMSPEC(it_vortex_closed),           // 0x2e
-    ITEMSPEC(it_wormhole_on),             // 0x2f XXX
-    ITEMSPEC(it_hill),                    // 0x30
-    ITEMSPEC(it_tinyhill),                // 0x31
-    ITEMSPEC(it_hollow),                  // 0x32
-    ITEMSPEC(it_tinyhollow),              // 0x33
-    ITEMSPEC(it_strip_ns),                // 0x34
-    ITEMSPEC(it_strip_ew),                // 0x35
-    ITEMSPEC(it_springboard),             // 0x36
-    ITEMSPEC(it_MISSING),                 // 0x37
-    ITEMSPEC(it_bridge_oxyd),             // 0x38
-    ITEMSPEC(it_UNUSED),                  // 0x39
-    ITEMSPEC(it_UNUSED),                  // 0x3a
-    ITEMSPEC(it_UNUSED),                  // 0x3b
-    ITEMSPEC(it_cross),                   // 0x3c
-    ITEMSPEC(it_spoon),                   // 0x3d
-    ITEMSPEC(it_MISSING),                 // 0x3e rubber band
-    ITEMSPEC(it_changefloor),             // 0x3f
-    ITEMSPEC(it_trigger),                 // 0x40
-    ITEMSPEC(it_brush),                   // 0x41
-    ITEMSPEC(it_banana),                  // 0x42
-    ITEMSPEC(it_pencil),                  // 0x43
-    ITEMSPEC(it_brake),                   // 0x44
-    ITEMSPEC(it_squashed),                // 0x45
-    ITEMSPEC(it_blocker),                 // 0x46
-    ITEMSPEC(it_magicwand),               // 0x47
-    ITEMSPEC(it_wrench),                  // 0x48
-    ITEMSPEC(it_UNUSED),                  // 0x49
-    ITEMSPEC(it_odometer),                // 0x4a
-    ITEMSPEC(it_puller_n),                // 0x4b
-    ITEMSPEC(it_puller_s),                // 0x4c
-    ITEMSPEC(it_puller_w),                // 0x4d
-    ITEMSPEC(it_puller_e),                // 0x4e
-    ITEMSPEC(it_UNUSED),                  // 0x4f
-    ITEMSPEC(it_UNUSED),                  // 0x50
-    ITEMSPEC(it_MISSING),                 // 0x51 puller left, active
-    ITEMSPEC(it_UNUSED),                  // 0x52
-    ITEMSPEC(it_MISSING),                 // 0x53 oxyd on floor (?)
-    ITEMSPEC(it_UNUSED),                  // 0x54
-    ITEMSPEC(it_UNUSED),                  // 0x55
-    ITEMSPEC(it_UNUSED),                  // 0x56
-    ITEMSPEC(it_UNUSED),                  // 0x57
-    ITEMSPEC(it_MISSING),                 // 0x58 oxyd on floor
-    ITEMSPEC(it_MISSING),                 // 0x59 oxyd on floor
-    ITEMSPEC(it_UNUSED),                  // 0x5a
-    ITEMSPEC(it_UNUSED),                  // 0x5b
-    ITEMSPEC(it_UNUSED),                  // 0x5c
-    ITEMSPEC(it_UNUSED),                  // 0x5d
-    ITEMSPEC(it_UNUSED),                  // 0x5e
-    ITEMSPEC(it_UNUSED),                  // 0x5f
-    ITEMSPEC(it_UNUSED),                  // 0x60
-    ITEMSPEC(it_UNUSED),                  // 0x61
-    ITEMSPEC(it_UNUSED),                  // 0x62
-    ITEMSPEC(it_UNUSED),                  // 0x63
-    ITEMSPEC(it_UNUSED),                  // 0x64
-    ITEMSPEC(it_UNUSED),                  // 0x65
-    ITEMSPEC(it_UNUSED),                  // 0x66
-    ITEMSPEC(it_UNUSED),                  // 0x67
-    ITEMSPEC(it_UNUSED),                  // 0x68
-    ITEMSPEC(it_UNUSED),                  // 0x69
-    ITEMSPEC(it_blackbomb_burning),       // 0x6a
-    ITEMSPEC(it_UNUSED),                  // 0x6b
-    ITEMSPEC(it_UNUSED),                  // 0x6c
-    ITEMSPEC(it_UNUSED),                  // 0x6d
-    ITEMSPEC(it_UNUSED),                  // 0x6e
-    ITEMSPEC(it_UNUSED),                  // 0x6f
-    ITEMSPEC(it_UNUSED),                  // 0x70
-    ITEMSPEC(it_UNUSED),                  // 0x71
-    ITEMSPEC(it_UNUSED),                  // 0x72
-    ITEMSPEC(it_UNUSED),                  // 0x73
-    ITEMSPEC(it_UNUSED),                  // 0x74
-    ITEMSPEC(it_UNUSED),                  // 0x75
-    ITEMSPEC(it_easykillstone),           // 0x76
-    ITEMSPEC(it_easykeepstone),           // 0x77
-    ITEMSPEC(it_2pkillstone),             // 0x78
-    ITEMSPEC(it_1pkillstone),             // 0x79
+const char *oxyd::peroxyd_item_map[256] = {
+    IT_INVALID,                   // 0x00
+    "it_extralife",               // 0x01
+    IT_EXTERNAL,                  // 0x02 document 1
+    IT_EXTERNAL,                  // 0x03 document 2
+    "it_hammer",                  // 0x04
+    "it-coffee",                  // 0x05
+    "it-cherry",                  // 0x06
+    "it_umbrella",                // 0x07
+    "it_glasses",                 // 0x08
+    "it_glasses_broken",          // 0x09
+    "it-dynamite",                // 0x0a
+    "it-blackbomb",               // 0x0b
+    "it-whitebomb",               // 0x0c
+    "it-crack0",                  // 0x0d
+    "it-crack1",                  // 0x0e
+    "it-crack2",                  // 0x0f
+    "it-crack3",                  // 0x10
+    "it_coin_s",                  // 0x11
+    "it_coin_m",                  // 0x12
+    "it_coin_l",                  // 0x13
+    "it_key_a",                   // 0x14
+    "it_key_b",                   // 0x15
+    "it_key_c",                   // 0x16
+    "it_floppy",                  // 0x17
+    "it-flagwhite",               // 0x18
+    "it-flagblack",               // 0x19
+    "it-ring",                    // 0x1a
+    "it-pipe-wn",                 // 0x1b
+    "it-pipe-sw",                 // 0x1c
+    "it-pipe-ne",                 // 0x1d
+    "it-pipe-es",                 // 0x1e
+    "it-pipe-v",                  // 0x1f
+    "it-pipe-h",                  // 0x20
+    "it-spade",                   // 0x21
+    "it-surprise",                // 0x22
+    "it-pin",                     // 0x23
+    "it-seed",                    // 0x24
+    "it-spring2",                 // 0x25
+    "it-spring1",                 // 0x26
+    "it-bag",                     // 0x27
+    "it_magnet_off",              // 0x28
+    "it_sensor_filter0",          // 0x29
+    "it_sensor_filter1",          // 0x2a
+    "it-shogun-s",                // 0x2b
+    "it-shogun-l",                // 0x2c
+    "it_vortex_open",             // 0x2d
+    "it_vortex_closed",           // 0x2e
+    "it_wormhole_on",             // 0x2f XXX
+    "it-hill",                    // 0x30
+    "it-tinyhill",                // 0x31
+    "it-hollow",                  // 0x32
+    "it-tinyhollow",              // 0x33
+    "it_strip_ns",                // 0x34
+    "it_strip_ew",                // 0x35
+    "it-springboard",             // 0x36
+    IT_MISSING,                   // 0x37
+    "it-bridge-oxyd",             // 0x38
+    UNUSED,                  // 0x39
+    UNUSED,                  // 0x3a
+    UNUSED,                  // 0x3b
+    "it_cross",                   // 0x3c
+    "it-spoon",                   // 0x3d
+    IT_MISSING,                   // 0x3e rubber band
+    "it-changefloor",             // 0x3f
+    "it_trigger",                 // 0x40
+    "it_brush",                   // 0x41
+    "it-banana",                  // 0x42
+    "it-pencil",                  // 0x43
+    "it-brake",                   // 0x44
+    "it-squashed",                // 0x45
+    "it_blocker",                 // 0x46
+    "it_magicwand",               // 0x47
+    "it_wrench",                  // 0x48
+    UNUSED,                  // 0x49
+    "it-odometer",                // 0x4a
+    "it-puller-n",                // 0x4b
+    "it-puller-s",                // 0x4c
+    "it-puller-w",                // 0x4d
+    "it-puller-e",                // 0x4e
+    UNUSED,                       // 0x4f
+    UNUSED,                       // 0x50
+    IT_MISSING,                   // 0x51 puller left, active
+    UNUSED,                       // 0x52
+    IT_MISSING,                   // 0x53 oxyd on floor (?"
+    UNUSED,                       // 0x54
+    UNUSED,                       // 0x55
+    UNUSED,                       // 0x56
+    UNUSED,                       // 0x57
+    IT_MISSING,                   // 0x58 oxyd on floor
+    IT_MISSING,                   // 0x59 oxyd on floor
+    UNUSED,                  // 0x5a
+    UNUSED,                  // 0x5b
+    UNUSED,                  // 0x5c
+    UNUSED,                  // 0x5d
+    UNUSED,                  // 0x5e
+    UNUSED,                  // 0x5f
+    UNUSED,                  // 0x60
+    UNUSED,                  // 0x61
+    UNUSED,                  // 0x62
+    UNUSED,                  // 0x63
+    UNUSED,                  // 0x64
+    UNUSED,                  // 0x65
+    UNUSED,                  // 0x66
+    UNUSED,                  // 0x67
+    UNUSED,                  // 0x68
+    UNUSED,                  // 0x69
+    "it-blackbomb-burning",       // 0x6a
+    UNUSED,                  // 0x6b
+    UNUSED,                  // 0x6c
+    UNUSED,                  // 0x6d
+    UNUSED,                  // 0x6e
+    UNUSED,                  // 0x6f
+    UNUSED,                  // 0x70
+    UNUSED,                  // 0x71
+    UNUSED,                  // 0x72
+    UNUSED,                  // 0x73
+    UNUSED,                  // 0x74
+    UNUSED,                  // 0x75
+    "it-easykillstone",           // 0x76
+    "it-easykeepstone",           // 0x77
+    "it-2pkillstone",             // 0x78
+    "it-1pkillstone",             // 0x79
     // codes >= 0x7a are unused
 };
 

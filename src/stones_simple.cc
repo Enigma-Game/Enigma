@@ -24,6 +24,7 @@
 #include "client.hh"
 #include "main.hh"
 #include "Inventory.hh"
+#include "items/GlassesItem.hh"
 
 #include "stones_internal.hh"
 
@@ -133,7 +134,7 @@ namespace
         virtual Value message(const Message &m)
         {
             if (traits->hollow && m.message == "_glasses") {
-                if (to_int(m.value) & 2) {  // hollow
+                if (to_int(m.value) & Glasses::HOLLOW) {  // hollow
                     if (!sunglasses) {
                         sunglasses = true;
                         set_model( "invisible");
@@ -1306,7 +1307,7 @@ void ThiefStone::steal_from_player()
         enigma::Inventory *inv = player::GetInventory(m_affected_actor);
         if (inv && inv->size() > 0) {
             if (bag == NULL) {
-                bag = MakeItem(it_bag);
+                bag = MakeItem("it-bag");
                 bag->setOwnerPos(get_pos());
             }
             int i = IntegerRand (0, int (inv->size()-1));
@@ -1419,7 +1420,7 @@ namespace
     public:
         static void setup() {
             for (int i=0; i<8; ++i)
-                RegisterStone (new BlackWhiteStone(i));
+                Register(new BlackWhiteStone(i));
         }
     };
 
@@ -1549,7 +1550,7 @@ void BombStone::animcb()
     if(Item *it = GetItem(get_pos())) {
         SendMessage(it, "ignite");
     } else
-        SetItem(p, it_explosion1);
+        SetItem(p, MakeItem("it-explosion1"));
 }
 
 Value BombStone::message(const Message &m) 
@@ -1640,7 +1641,7 @@ namespace
         void explode() {
             GridPos p = get_pos();
             KillStone(p);
-            SetItem(p, it_explosion1);
+            SetItem(p, MakeItem("it-explosion1"));
         }
 
         void processLight(Direction d) {
@@ -1880,13 +1881,13 @@ void Init_simple()
 
     Register(new BrickMagic);
 
-    RegisterStone (new ChameleonStone);
+    Register(new ChameleonStone);
 
     Register(new DiscoLight);
     Register(new DiscoMedium);
     Register(new DiscoDark);
     Register(new DummyStone);
-    RegisterStone (new EasyModeStone);
+    Register(new EasyModeStone);
     Register(new FakeOxydStone);
     Register(new FartStone);
     Register(new Grate1);

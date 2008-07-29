@@ -369,64 +369,51 @@ Item  *OxydLoader::make_item (int type)
     OxydLib::Language lang = Language_English;
     std::string localelang = ecl::GetLanguageCode (ecl::SysMessageLocaleName());
     if (localelang == "de")
-	lang = Language_German;
+        lang = Language_German;
     else if (localelang == "fr")
-	lang = Language_French;
+        lang = Language_French;
     
     switch (type) {
-    case 0x00: break;           // ignore
-    case 0x02:                  // note 1
-	{
-	    it = MakeItem (it_document);
-	    string text = convert_encoding(level.getNoteText(0, lang));
-	    it->setAttr ("text", text.c_str());
-	}
-        break;
-    case 0x03:                  // note 2
-    {
-        it = MakeItem (it_document);
-        string text = convert_encoding(level.getNoteText(1, lang));
-        it->setAttr ("text", text.c_str());
-    }
-    break;
-    case 0x14:                  // key a
-    {
-        it = MakeItem(it_key);
-        it->setAttr ("code", 1);
-    }
-    break;
-    case 0x15:                  // key b
-    {
-        it = MakeItem(it_key);
-        it->setAttr ("code", 2);
-    }
-    break;
-    case 0x16:                  // key c
-    {
-        it = MakeItem(it_key);
-        it->setAttr ("code", 3);
-    }
-    break;
-    default:
-        {
-            ItemID id = config.itemtable[type];
-            if (id == it_INVALID) {
+        case 0x00: break;           // ignore
+        case 0x02:                  // note 1
+    	    it = MakeItem("it-document");
+    	    it->setAttr ("text", convert_encoding(level.getNoteText(0, lang)).c_str());
+            break;
+        case 0x03:                  // note 2
+            it = MakeItem("it-document");
+            it->setAttr ("text", convert_encoding(level.getNoteText(1, lang)).c_str());
+            break;
+        case 0x14:                  // key a
+            it = MakeItem("it_key");
+            it->setAttr ("code", 1);
+            break;
+        case 0x15:                  // key b
+            it = MakeItem("it_key");
+            it->setAttr ("code", 2);
+            break;
+        case 0x16:                  // key c
+            it = MakeItem("it_key");
+            it->setAttr ("code", 3);
+            break;
+        default:
+            std::string key = config.itemtable[type];
+            if (key == IT_INVALID) {
                 Log << ecl::strf ("Unknown item %X\n",type);
-                it = MakeItem (it_dummy);
+                it = MakeItem("it-dummy");
                 it->setAttr("code", type);
+            } else if (key == "it_vortex_closed") {
+                it = MakeItem(key.c_str());
+                it->setAttr("autoclose", true);
+            } else if (key == "it_sensor") {
+                it = MakeItem(key.c_str());
+                it->setAttr("invisible", true);
+            } else if (key == "it_inversesensor") {
+                it = MakeItem("it_sensor");
+                it->setAttr("invisible", true);
+                it->setAttr("inverse", true);
             } else {
-                it = MakeItem (id);
-                if (id == it_vortex_closed)
-                    it->setAttr("autoclose", true);
-                else if (id == it_sensor) {
-                    it->setAttr("invisible", true);
-                }
-                else if (id == it_inversesensor) {
-                    it->setAttr("invisible", true);
-                    it->setAttr("inverse", true);
-                }
+                it = MakeItem(key.c_str());                
             }
-        }
     }
     return it;
 }
@@ -514,23 +501,23 @@ void OxydLoader::load_actors ()
 
         switch (marble.getMarbleType()) {
         case MarbleType_Black:
-            ac = MakeActor (ac_blackball);
+            ac = MakeActor("ac-blackball");
             ac->setAttr ("player", Value(0.0));
             break;
         case MarbleType_White:
-            ac = MakeActor (ac_whiteball);
+            ac = MakeActor ("ac-whiteball");
             ac->setAttr ("player", Value(1.0));
             break;
         case MarbleType_Meditation:
             if (have_black_marble && !level.getHarmlessMeditationMarbles()) {
                 // # example: Oxyd Extra #28
-                ac = MakeActor (ac_killerball);
+                ac = MakeActor ("ac-killerball");
 //                ac->setAttr ("player", Value(0.0));
                 ac->setAttr ("mouseforce", Value (1.0));
                 ac->setAttr ("controllers", Value (3.0));
             }
             else {
-                ac = MakeActor (ac_meditation);
+                ac = MakeActor ("ac-whiteball-small");
                 nmeditationmarbles += 1;
 
                 if (config.twoplayers && (nmeditationmarbles % 2) == 0)
@@ -547,7 +534,7 @@ void OxydLoader::load_actors ()
             }
             break;
         case MarbleType_Jack:
-            ac = MakeActor (ac_top);
+            ac = MakeActor ("ac-top");
             if (!minfo.is_default(MI_FORCE)) {
                 double force = minfo.get_value(MI_FORCE) / 4; // just a guess
                 ac->setAttr("force", Value(force) );
@@ -561,7 +548,7 @@ void OxydLoader::load_actors ()
             break;
 
         case MarbleType_Rotor: {
-            ac = MakeActor (ac_rotor);
+            ac = MakeActor ("ac-rotor");
 
             double force = minfo.get_value (MI_FORCE, 30) * 0.3;
             double range = minfo.get_value (MI_RANGE, 100) / 32.0;
@@ -578,7 +565,7 @@ void OxydLoader::load_actors ()
         }
 
         case MarbleType_Horse: {
-            ac = MakeActor (ac_horse);
+            ac = MakeActor ("ac-horse");
             int levelw = level.getWidth();
             if (!minfo.is_default(MI_HORSETARGET1)) {
                 int targetpos = minfo.get_value(MI_HORSETARGET1);
@@ -607,7 +594,7 @@ void OxydLoader::load_actors ()
             break;
         }
         case MarbleType_Bug:
-            ac = MakeActor (ac_bug);
+            ac = MakeActor ("ac-bug");
             break;
         default:
             enigma::Log << "Unhandled actor type " << int(marble.getMarbleType()) << endl;

@@ -181,7 +181,7 @@ void player::NewGame() {
         Inventory *inv = GetInventory(i);
         inv->assignOwner(i);
         for (int j = 0 ; j < extralives[i]; j++)
-            inv->add_item (MakeItem (it_extralife));
+            inv->add_item(MakeItem("it_extralife"));
     }
     
     unassignedActors.clear();
@@ -193,7 +193,7 @@ void player::AddYinYang ()
     for (unsigned i=0; i<players.size(); ++i) {
         Inventory *inv = GetInventory (i);
         if (inv->find ("it-yinyang") == -1) 
-            inv->add_item (MakeItem (it_yinyang));
+            inv->add_item(MakeItem("it-yinyang"));
     }
 }
 
@@ -216,7 +216,7 @@ void player::PrepareLevel()
                 nextralifes += 1;
         inv->clear();
         for (int i=0; i<nextralifes; ++i)
-            inv->add_item (MakeItem (it_extralife));
+            inv->add_item(MakeItem ("it_extralife"));
 
         players[iplayer].actors.clear();
     }

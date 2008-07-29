@@ -22,6 +22,7 @@
 //#include "main.hh"
 #include "player.hh"
 #include "server.hh"
+#include "items/GlassesItem.hh"
 
 namespace enigma {
     ActorImpulseStone::ActorImpulseStone(bool isInvisible) : Stone () {
@@ -110,7 +111,7 @@ namespace enigma {
 
     void ActorImpulseStone::init_model() {
         if (state == IDLE) {
-            if ((objFlags & OBJBIT_INVISIBLE) && ((server::GlassesVisibility & 4) == 0))
+            if ((objFlags & OBJBIT_INVISIBLE) && ((server::GlassesVisibility & Glasses::ACTORIMPULSE) == 0))
                 set_model("invisible");
             else
                 set_model("st-actorimpulse");

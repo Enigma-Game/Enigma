@@ -24,14 +24,8 @@
 // defining PLAIN_SPEC_ONLY only shows xxx_floor_map, xxx_stone_map and xxx_item_map
 // Note:  the xxx_item_map changes it's type (ItemID -> const char *)
 
-#define ITEMSPEC(i) #i
-#define ITEMMAPTYPE const char *
-
 #else
 // Standard enigma section :
-
-#define ITEMSPEC(i) i
-#define ITEMMAPTYPE enigma::ItemID
 
 #include "oxyd_internal.hh"
 using namespace enigma;
@@ -313,73 +307,73 @@ const char *oxyd::oxydextra_stone_map[256] = {
     // codes >= 0xbc are unused
 };
 
-ITEMMAPTYPE oxyd::oxydextra_item_map[256] = {
-    ITEMSPEC(it_none),                    // OxydExtra item 0x00
-    ITEMSPEC(it_extralife),               // OxydExtra item 0x01
-    ITEMSPEC(it_document),                // OxydExtra item 0x02
-    ITEMSPEC(it_document),                // OxydExtra item 0x03
-    ITEMSPEC(it_hammer),                  // OxydExtra item 0x04
-    ITEMSPEC(it_coffee),                  // OxydExtra item 0x05
-    ITEMSPEC(it_cherry),                  // OxydExtra item 0x06
-    ITEMSPEC(it_umbrella),                // OxydExtra item 0x07
-    ITEMSPEC(it_MISSING),                 // OxydExtra item 0x08
-    ITEMSPEC(it_UNUSED),                  // OxydExtra item 0x09
-    ITEMSPEC(it_dynamite),                // OxydExtra item 0x0a
-    ITEMSPEC(it_UNUSED),                  // OxydExtra item 0x0b
-    ITEMSPEC(it_UNUSED),                  // OxydExtra item 0x0c
-    ITEMSPEC(it_crack0),                  // OxydExtra item 0x0d
-    ITEMSPEC(it_crack1),                  // OxydExtra item 0x0e
-    ITEMSPEC(it_crack2),                  // OxydExtra item 0x0f
-    ITEMSPEC(it_crack3),                  // OxydExtra item 0x10
-    ITEMSPEC(it_coin1),                   // OxydExtra item 0x11
-    ITEMSPEC(it_coin2),                   // OxydExtra item 0x12
-    ITEMSPEC(it_coin4),                   // OxydExtra item 0x13
-    ITEMSPEC(it_key_a),                   // OxydExtra item 0x14
-    ITEMSPEC(it_key_b),                   // OxydExtra item 0x15
-    ITEMSPEC(it_key_c),                   // OxydExtra item 0x16
-    ITEMSPEC(it_floppy),                  // OxydExtra item 0x17
-    ITEMSPEC(it_UNUSED),                  // OxydExtra item 0x18
-    ITEMSPEC(it_UNUSED),                  // OxydExtra item 0x19
-    ITEMSPEC(it_UNUSED),                  // OxydExtra item 0x1a
-    ITEMSPEC(it_UNUSED),                  // OxydExtra item 0x1b
-    ITEMSPEC(it_UNUSED),                  // OxydExtra item 0x1c
-    ITEMSPEC(it_UNUSED),                  // OxydExtra item 0x1d
-    ITEMSPEC(it_UNUSED),                  // OxydExtra item 0x1e
-    ITEMSPEC(it_UNUSED),                  // OxydExtra item 0x1f
-    ITEMSPEC(it_UNUSED),                  // OxydExtra item 0x20
-    ITEMSPEC(it_spade),                   // OxydExtra item 0x21
-    ITEMSPEC(it_surprise),                // OxydExtra item 0x22
-    ITEMSPEC(it_pin),                     // OxydExtra item 0x23
-    ITEMSPEC(it_UNUSED),                  // OxydExtra item 0x24
-    ITEMSPEC(it_UNUSED),                  // OxydExtra item 0x25
-    ITEMSPEC(it_UNUSED),                  // OxydExtra item 0x26
-    ITEMSPEC(it_bag),                     // OxydExtra item 0x27
-    ITEMSPEC(it_UNUSED),                  // OxydExtra item 0x28
-    ITEMSPEC(it_UNUSED),                  // OxydExtra item 0x29
-    ITEMSPEC(it_sensor),                  // OxydExtra item 0x2a
-    ITEMSPEC(it_shogun_s),                // OxydExtra item 0x2b
-    ITEMSPEC(it_UNUSED),                  // OxydExtra item 0x2c
-    ITEMSPEC(it_vortex_open),             // OxydExtra item 0x2d
-    ITEMSPEC(it_UNUSED),                  // OxydExtra item 0x2e
-    ITEMSPEC(it_wormhole_on),             // OxydExtra item 0x2f
-    ITEMSPEC(it_hill),                    // OxydExtra item 0x30
-    ITEMSPEC(it_tinyhill),                // OxydExtra item 0x31
-    ITEMSPEC(it_hollow),                  // OxydExtra item 0x32
-    ITEMSPEC(it_tinyhollow),              // OxydExtra item 0x33
-    ITEMSPEC(it_UNUSED),                  // OxydExtra item 0x34
-    ITEMSPEC(it_UNUSED),                  // OxydExtra item 0x35
-    ITEMSPEC(it_UNUSED),                  // OxydExtra item 0x36
-    ITEMSPEC(it_bridge_oxyd),             // OxydExtra item 0x37
-    ITEMSPEC(it_UNUSED),                  // OxydExtra item 0x38
-    ITEMSPEC(it_UNUSED),                  // OxydExtra item 0x39
-    ITEMSPEC(it_UNUSED),                  // OxydExtra item 0x3a
-    ITEMSPEC(it_UNUSED),                  // OxydExtra item 0x3b
-    ITEMSPEC(it_MISSING),                 // OxydExtra item 0x3c
-    ITEMSPEC(it_UNUSED),                  // OxydExtra item 0x3d
-    ITEMSPEC(it_UNUSED),                  // OxydExtra item 0x3e
-    ITEMSPEC(it_UNUSED),                  // OxydExtra item 0x3f
-    ITEMSPEC(it_trigger),                 // OxydExtra item 0x40
-    ITEMSPEC(it_brush),                   // OxydExtra item 0x41
-    ITEMSPEC(it_banana),                  // OxydExtra item 0x42
+const char* oxyd::oxydextra_item_map[256] = {
+    IT_INVALID,                    // OxydExtra item 0x00
+    "it_extralife",               // OxydExtra item 0x01
+    IT_EXTERNAL,                // OxydExtra item 0x02
+    IT_EXTERNAL,                // OxydExtra item 0x03
+    "it_hammer",                  // OxydExtra item 0x04
+    "it-coffee",                  // OxydExtra item 0x05
+    "it-cherry",                  // OxydExtra item 0x06
+    "it_umbrella",                // OxydExtra item 0x07
+    IT_MISSING,                 // OxydExtra item 0x08
+    UNUSED,                  // OxydExtra item 0x09
+    "it-dynamite",                // OxydExtra item 0x0a
+    UNUSED,                  // OxydExtra item 0x0b
+    UNUSED,                  // OxydExtra item 0x0c
+    "it-crack0",                  // OxydExtra item 0x0d
+    "it-crack1",                  // OxydExtra item 0x0e
+    "it-crack2",                  // OxydExtra item 0x0f
+    "it-crack3",                  // OxydExtra item 0x10
+    "it_coin_s",                   // OxydExtra item 0x11
+    "it_coin_m",                   // OxydExtra item 0x12
+    "it_coin_l",                   // OxydExtra item 0x13
+    "it_key_a",                   // OxydExtra item 0x14
+    "it_key_b",                   // OxydExtra item 0x15
+    "it_key_c",                   // OxydExtra item 0x16
+    "it_floppy",                  // OxydExtra item 0x17
+    UNUSED,                  // OxydExtra item 0x18
+    UNUSED,                  // OxydExtra item 0x19
+    UNUSED,                  // OxydExtra item 0x1a
+    UNUSED,                  // OxydExtra item 0x1b
+    UNUSED,                  // OxydExtra item 0x1c
+    UNUSED,                  // OxydExtra item 0x1d
+    UNUSED,                  // OxydExtra item 0x1e
+    UNUSED,                  // OxydExtra item 0x1f
+    UNUSED,                  // OxydExtra item 0x20
+    "it-spade",                   // OxydExtra item 0x21
+    "it-surprise",                // OxydExtra item 0x22
+    "it-pin",                     // OxydExtra item 0x23
+    UNUSED,                  // OxydExtra item 0x24
+    UNUSED,                  // OxydExtra item 0x25
+    UNUSED,                  // OxydExtra item 0x26
+    "it-bag",                     // OxydExtra item 0x27
+    UNUSED,                  // OxydExtra item 0x28
+    UNUSED,                  // OxydExtra item 0x29
+    "it_sensor",                  // OxydExtra item 0x2a
+    "it-shogun-s",                // OxydExtra item 0x2b
+    UNUSED,                  // OxydExtra item 0x2c
+    "it_vortex_open",             // OxydExtra item 0x2d
+    UNUSED,                  // OxydExtra item 0x2e
+    "it_wormhole_on",             // OxydExtra item 0x2f
+    "it-hill",                    // OxydExtra item 0x30
+    "it-tinyhill",                // OxydExtra item 0x31
+    "it-hollow",                  // OxydExtra item 0x32
+    "it-tinyhollow",              // OxydExtra item 0x33
+    UNUSED,                  // OxydExtra item 0x34
+    UNUSED,                  // OxydExtra item 0x35
+    UNUSED,                  // OxydExtra item 0x36
+    "it-bridge-oxyd",             // OxydExtra item 0x37
+    UNUSED,                  // OxydExtra item 0x38
+    UNUSED,                  // OxydExtra item 0x39
+    UNUSED,                  // OxydExtra item 0x3a
+    UNUSED,                  // OxydExtra item 0x3b
+    IT_MISSING,                 // OxydExtra item 0x3c
+    UNUSED,                  // OxydExtra item 0x3d
+    UNUSED,                  // OxydExtra item 0x3e
+    UNUSED,                  // OxydExtra item 0x3f
+    "it_trigger",                 // OxydExtra item 0x40
+    "it_brush",                   // OxydExtra item 0x41
+    "it-banana",                  // OxydExtra item 0x42
     // codes >= 0x43 are unused
 };

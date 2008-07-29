@@ -213,7 +213,7 @@ int Floor::get_fire_countdown() {
 }
 
 bool Floor::force_fire() {
-    SetItem(get_pos(), it_burnable_ignited);
+    SetItem(get_pos(), MakeItem("it-burnable-ignited"));
     fire_countdown = 0;
     return true;
 }
@@ -374,7 +374,7 @@ bool Floor::stop_fire(bool is_message) {
         SetFloor(p, MakeFloor(get_firetransform().c_str()));
     // Remember, at this point "this" may be destroyed.
     if(!GetFloor(p)->has_firetype(flft_noash))
-        SetItem(p, it_burnable_ash);
+        SetItem(p, MakeItem("it-burnable-ash"));
     return true; // fire extinguished  
 }
 
@@ -403,7 +403,7 @@ void Floor::on_burnable_animcb(bool justIgnited) {
     if(cont_fire)
         // continue burning
         //   -> put animation
-        SetItem(p, it_burnable_burning);
+        SetItem(p, MakeItem("it-burnable-burning"));
     else
         stop_fire(false);
 }
@@ -930,7 +930,7 @@ void Thief::steal()
         enigma::Inventory *inv = player::GetInventory(m_affected_actor);
         if (inv && inv->size() > 0) {
             if (bag == NULL) {
-                bag = MakeItem(it_bag);
+                bag = MakeItem("it-bag");
                 bag->setOwnerPos(get_pos());
             }
             int i = IntegerRand (0, int (inv->size()-1));
@@ -943,7 +943,7 @@ void Thief::steal()
     if(Item *it = GetItem(get_pos())) {
         if (!(it->get_traits().flags & itf_static)) {
             if (bag == NULL) {
-                bag = MakeItem(it_bag);
+                bag = MakeItem("it-bag");
                 bag->setOwnerPos(get_pos());                
             }
             dynamic_cast<ItemHolder *>(bag)->add_item(YieldItem(get_pos())); 

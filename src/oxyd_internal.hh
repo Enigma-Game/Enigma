@@ -29,9 +29,9 @@
 
 #include <cassert>
 
-#define it_UNUSED it_INVALID
-#define it_EXTERNAL it_INVALID
-#define it_MISSING it_INVALID
+#define IT_INVALID "it_invalid"
+#define IT_EXTERNAL IT_INVALID
+#define IT_MISSING IT_INVALID
 #define it_key_a it_key
 #define it_key_b it_key
 #define it_key_c it_key
@@ -58,7 +58,7 @@ namespace oxyd
         bool           twoplayers;
         GameMode       gamemode;
         const char   **floortable;
-        ItemID        *itemtable;
+        const char   **itemtable;
         const char   **stonetable;
 
         int id_timer;
@@ -68,7 +68,7 @@ namespace oxyd
         LoaderConfig (bool twoplayers_,
                       GameMode gamemode_,
                       const char **floortable_,
-                      ItemID *itemtable_,
+                      const char **itemtable_,
                       const char **stonetable_,
                       const char *oxyd_flavor_ = "a"
                       )
@@ -307,19 +307,19 @@ namespace oxyd
 
 /* -------------------- Global Variables -------------------- */
 
-    extern ItemID oxyd1_item_map[];
+    extern const char * oxyd1_item_map[];
     extern const char *oxyd1_floor_map[];
     extern const char *oxyd1_stone_map[];
 
-    extern ItemID peroxyd_item_map[];
+    extern const char * peroxyd_item_map[];
     extern const char *peroxyd_floor_map[];
     extern const char *peroxyd_stone_map[];
 
-    extern ItemID oxydmag_item_map[];
+    extern const char * oxydmag_item_map[];
     extern const char *oxydmag_floor_map[];
     extern const char *oxydmag_stone_map[];
 
-    extern ItemID oxydextra_item_map[];
+    extern const char * oxydextra_item_map[];
     extern const char *oxydextra_floor_map[];
     extern const char *oxydextra_stone_map[];
 
