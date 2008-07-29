@@ -520,7 +520,7 @@ V2 World::get_local_force (Actor *a) {
     a->m_actorinfo.friction = friction;
     f += drunkenMouseforce(a, m);
 
-    return f + m;
+    return f;
 }
 
 /* Global forces are calculated less often than local ones, namely
