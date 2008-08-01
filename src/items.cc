@@ -875,7 +875,7 @@ void HillHollow::add_force(Actor *a, V2 &f)
 
 void HillHollow::transmute(Type newtype)
 {
-    static char *newmodel[] = { "it-hill", "it-hollow", "it-tinyhill", "it_tinyhollow" };
+    static char *newmodel[] = { "it-hill", "it-hollow", "it-tinyhill", "it-tinyhollow" };
     replace(newmodel[newtype]);
 }
 
@@ -2760,7 +2760,7 @@ namespace
             if (Item *it = GetItem(p)) {
                 SendMessage (it, "extinguish");
             } else {
-                SetItem (p, MakeItem("it-burnable-fireproof"));
+                SetItem (p, MakeItem("it-burnable_fireproof"));
             }
         }
 

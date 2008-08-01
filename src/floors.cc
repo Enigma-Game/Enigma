@@ -213,7 +213,7 @@ int Floor::get_fire_countdown() {
 }
 
 bool Floor::force_fire() {
-    SetItem(get_pos(), MakeItem("it-burnable-ignited"));
+    SetItem(get_pos(), MakeItem("it-burnable_ignited"));
     fire_countdown = 0;
     return true;
 }
@@ -374,7 +374,7 @@ bool Floor::stop_fire(bool is_message) {
         SetFloor(p, MakeFloor(get_firetransform().c_str()));
     // Remember, at this point "this" may be destroyed.
     if(!GetFloor(p)->has_firetype(flft_noash))
-        SetItem(p, MakeItem("it-burnable-ash"));
+        SetItem(p, MakeItem("it-burnable_ash"));
     return true; // fire extinguished  
 }
 
@@ -403,7 +403,7 @@ void Floor::on_burnable_animcb(bool justIgnited) {
     if(cont_fire)
         // continue burning
         //   -> put animation
-        SetItem(p, MakeItem("it-burnable-burning"));
+        SetItem(p, MakeItem("it-burnable_burning"));
     else
         stop_fire(false);
 }

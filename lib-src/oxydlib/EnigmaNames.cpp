@@ -22,6 +22,9 @@
 
 #define PLAIN_SPEC_ONLY
 #define UNUSED "<unused>"
+#define IT_INVALID "it_invalid"
+#define IT_EXTERNAL IT_INVALID
+#define IT_MISSING IT_INVALID
 
 #include "../../src/ox_oxyd1.cc"
 #include "../../src/ox_extra.cc"
