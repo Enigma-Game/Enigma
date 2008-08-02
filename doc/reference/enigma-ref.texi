@@ -3282,7 +3282,7 @@ argument is the reference of the calling object.
 
 In the example we check if the @ref{st_switch} did just toggle to ON. If this
 is given we take the switch, which is the sender, as a position and set a new
-@{it_coin} to the grid east of it - a small bank automate that supplies money. 
+@ref{it_coin} to the grid east of it - a small bank automate that supplies money. 
 
 The @ref{Advanced Lua Examples} will show examples of real powerful callback 
 functions with a line by line comment.
@@ -3576,7 +3576,7 @@ of the source code itself!
 24    @i{ti}["@var{L}"] = @{"@b{st_laser}", @b{orientation}=@var{EAST}, @b{state}=@var{ON}@}
 25    @i{ti}["@var{M}"] = @{"@b{st_lightpassenger}", @b{interval}=@var{0.04}@}
 26
-27    @i{ti}["@var{P}}"] = @{"@b{st_polarswitch}", @b{name}="@var{polar}"@}
+27    @i{ti}["@var{P}"] = @{"@b{st_polarswitch}", @b{name}="@var{polar}"@}
 28    @i{ti}["@var{T}"] = @{"@b{it_trigger}", @b{target}="@var{polar}"@}
 29
 30    @i{ti}["@var{^}"] = @{"@b{st_boulder}", "@var{boulder}", @b{orientation}=@var{NORTH}@}
@@ -3616,7 +3616,7 @@ of the source code itself!
 64        "@var{F    ~   B   ~+++++#}",
 65        "@var{# 1  ~   B   #+++++#}",
 66        "@var{S   v~V  B   D+++++#}",
-67        "@var{####################}"}
+67        "@var{####################}"@}
 68    @})
 69
 70    @i{wo}:@b{shuffleOxyd}()
@@ -3699,7 +3699,7 @@ times we just have to add comma separated additional attributes. The attribute
 names are not quoted as they are followed by an equal @samp{=} sign.
 
 @example
-27    @i{ti}["@var{P}}"] = @{"@b{st_polarswitch}", @b{name}="@var{polar}"@}
+27    @i{ti}["@var{P}"] = @{"@b{st_polarswitch}", @b{name}="@var{polar}"@}
 28    @i{ti}["@var{T}"] = @{"@b{it_trigger}", @b{target}="@var{polar}"@}
 @end example
 
@@ -3771,7 +3771,7 @@ any objects at all.
 Another object group is an @ref{st_turnstile} cluster with one arm disconnected.
 The first two definitions are straight forward. But in line 42 we preceed the
 arm's definition by another tile reference. It is the abyss tile defined in 
-line 19. By concatenation, the two dots @{..}, of a tile and a object
+line 19. By concatenation, the two dots @b{..}, of a tile and a object
 definition we can define a new that is composed of both objects. In this case
 we define a turnstile arm on top of an abyss floor.
 
@@ -3833,7 +3833,7 @@ line 20.
 64        "@var{F    ~   B   ~+++++#}",
 65        "@var{# 1  ~   B   #+++++#}",
 66        "@var{S   v~V  B   D+++++#}",
-67        "@var{####################}"}
+67        "@var{####################}"@}
 68    @})
 @end example
 
@@ -4237,12 +4237,14 @@ or other attributes of an object to report its current classification.
 
 @table @asis
 @item @b{Creating Groups:}
+
 @example
 @var{group} = @i{no}["@b{Atrax}#*"]           -- a group of all matching objects
 			        --   wildcards "*","?" allowed
 @var{group} = @i{grp}(@var{obj1}, @var{obj2}, @var{obj3})
-@var{group} = @i{grp}({@var{obj1}, @var{obj2}, @var{obj3}@})  -- a group of objects set up in a table
+@var{group} = @i{grp}(@{@var{obj1}, @var{obj2}, @var{obj3}@})  -- a group of objects set up in a table
 @end example
+
 Requesting objects from the named object repository will result in a group of
 objects if you make proper usage of wildcards. Appending an asterix @samp{*}
 to the autonaming hash will retrieve all objects that have been set with this
