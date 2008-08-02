@@ -3173,6 +3173,7 @@ subsequent chapters.
 @node Target - Action
 @subsection Target - Action
 
+@cindex target action paradigm
 The "target action paradigm" is a classical object oriented method that allows
 you to easily plug together objects. One object is triggered by a function
 call or by an event like an actor hitting a stone, crossing over or applying an
@@ -3246,7 +3247,45 @@ will be sent.
 @node Callback Function
 @subsection Callback Function
 
+@cindex callback function
+The most powerful extension to the @ref{Target - Action} paradigm that you can
+think of are callback functions. Instead of a target object as receiver of an
+action message you can supply an own @url{http://www.lua.org, Lua} function that
+is called whenever the action is triggered.
 
+@example
+@{st_switch, target="my_magic", action="callback"@}
+@{st_switch, target="my_magic"@}
+@end example
+
+The @samp{target} is the name of the function as a string. You may set the
+@samp{action} to the string @samp{"callback"} for purpose of clarification,
+but it is not necessary as you see in the second example. The engine identifies
+the target to be of type of a Lua function and thus the action needs to be
+a callback. But you should note and remember that it is up to you to ensure that
+all object names and callback functions names are unique. 
+
+Let us look at the syntax of such a callback function
+
+@example
+function my_magic(value, sender)
+    if value == true
+        wo[sender + @{1,0@}] = @{"it_coin_s"@}
+    end
+end
+@end example
+
+The function is called with two arguments. The first one is a value. The type
+and contents depends on the issuing object, but in most cases it is a boolean
+value. You will find the value described in the objects description. The second
+argument is the reference of the calling object.
+
+In the example we check if the @ref{st_switch} did just toggle to ON. If this
+is given we take the switch, which is the sender, as a position and set a new
+@{it_coin} to the grid east of it - a small bank automate that supplies money. 
+
+The @ref{Advanced Lua Examples} will show examples of real powerful callback 
+functions with a line by line comment.
 
 @node Object State
 @subsection Object State
@@ -3447,39 +3486,1429 @@ via its old name.
 @node Lua API
 @chapter Lua API
 
-Read API Concept Draft
+Knowing the basic principles of an Enigma level's world you now just need
+the language glue to write your first level. Enigma levels are written in
+the language @url{http://www.lua.org, Lua}. This powerful language gives you
+the ability to write most complex, dynamical levels, while being nearly 
+transparent on writing basic standard levels. Indeed there is no reason to dig
+into this language at the very beginning.
+
+With the second Lua API version, as of Enigma 1.10, we designed an optimized
+way of describing levels in a very short and readable manner. Thus we do
+introduce you to this API by giving several examples from a basic level to most 
+thrilling dynamic real Enigma levels. You should be able to start your first
+experiments just after reading the first example with its explanations.
+
+For your convenience we do color the Lua code part. Predefined Lua variables and
+functions are colored in green. Enigma internal string constants as object kinds,
+attribute or message names are colored in blue. Level specific variable names
+and value constants are colored in magenta.
+
+After the examples and a short overview we do give details of the language
+specific API part as you can expect it for a reference manual. Please note
+that additional @ref{Advanced Features} are described in a seperate chapter.
+
+Until this chapter is finished please read the API Concept Draft, too!
 
 @menu
-* Lua Example:: 
-* Enigma Lua Types::   
-* Object Definitions and Tiles::
-* Lua Positions::
+* Basic Lua Examples:: 
+* API 2 Overview::   
+* Advanced Lua Examples:: 
+* Position::
+* Object::
+* Group::
+* NamedObjects::
+* Tile::
+* Tiles::
+* World::
 * World Creation and Resolver Chaining::
 * Custom Resolver::
 
 @end menu
 
-@c ----------------- Lua Example -------------------- 
+@c ----------------- Lua Examples -------------------- 
 
-@node Lua Example
-@section Lua Example
+@node Basic Lua Examples
+@section Basic Lua Examples
 
-@c ----------------- Enigma Lua Types -------------------- 
+Let us look at two basic onescreener levels, that make use of all basic 
+techniques. While the first level is a little bit artifical, as it is designed 
+for demo purposes only, the second one is a quite dynamic real level out of
+the Enigma levelpacks.
 
-@node Enigma Lua Types
-@section Enigma Lua Types
+@menu
+* Basic Example::             
+* Colored Turnstiles::         Enigma Levelpack VIII, level #?
+@end menu
+
+@c ----------------- Basic Example -------------------- 
+@node Basic Example
+@subsection Basic Example
+
+Let us view the sourcecode. We did add a line count in the first two columns
+for reference purpose within this section. These line count number are not part
+of the source code itself!
+
+@example
+ 1    <?xml version="1.0" encoding="UTF-8" standalone="no" ?>
+ 2    <el:level xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://enigma-game.org/schema/level/1 level.xsd" xmlns:el="http://enigma-game.org/schema/level/1">
+ 3     <el:protected>
+ 4       <el:info el:type="level">
+ 5         <el:identity el:title="Basic Level" el:subtitle="" el:id="20080721ral513"/>
+ 6         <el:version el:score="1" el:release="1" el:revision="$Revision: 1170 $" el:status="experimental"/>
+ 7         <el:author  el:name="Ronald Lamprecht" el:email="ral@@users.berlios.de"/>
+ 8         <el:copyright>Copyright @copyright{} 2008 Ronald Lamprecht</el:copyright>
+ 9         <el:license el:type="GPL v2.0 or above" el:open="true"/>
+10         <el:compatibility el:enigma="@var{1.10}"/>
+11         <el:modes el:easy="true" el:single="true" el:network="false"/>
+12         <el:score el:easy="-" el:difficult="-"/>
+13       </el:info>
+14       <el:luamain><![CDATA[
+15
+16    @i{wo}["@b{ConserveLevel}"] = @var{true}
+17
+18    @i{ti}["@var{ }"] = @{"@b{fl-samba}"@}
+19    @i{ti}["@var{.}"] = @{"@b{fl-abyss}"@}
+20    @i{ti}["@var{~}"] = @{"@b{fl-water}"@}
+21    @i{ti}["@var{#}"] = @{"@b{st-rock1}"@}
+22    @i{ti}["@var{X}"] = @{"@b{st_oxyd}"@}
+23
+24    @i{ti}["@var{L}"] = @{"@b{st_laser}", @b{orientation}=@var{EAST}, @b{state}=@var{ON}@}
+25    @i{ti}["@var{M}"] = @{"@b{st_lightpassenger}", @b{interval}=@var{0.04}@}
+26
+27    @i{ti}["@var{P}}"] = @{"@b{st_polarswitch}", @b{name}="@var{polar}"@}
+28    @i{ti}["@var{T}"] = @{"@b{it_trigger}", @b{target}="@var{polar}"@}
+29
+30    @i{ti}["@var{^}"] = @{"@b{st_boulder}", "@var{boulder}", @b{orientation}=@var{NORTH}@}
+31    @i{ti}["@var{F}"] = @{"@b{st_fourswitch}", @b{target}="@var{boulder}", @b{action}="@var{orientate}"@}
+32
+33    @i{ti}["@var{D}"] = @{"@b{st-door-v}", "@var{door}"@}
+34    @i{ti}["@var{B}"] = @{"@b{it_blocker}", "@var{wall#}"@}
+35    @i{ti}["@var{S}"] = @{"@b{st_switch}", @b{target}=@{"@var{door}", "@var{wall#*}"@}@}
+36
+37    @i{ti}["@var{v}"] = @{"@b{it_vortex}", "@var{left}", @b{destination}="@var{right}"@}
+38    @i{ti}["@var{V}"] = @{"@b{it_vortex}", "@var{right}", @b{destination}="@var{left}"@}
+39
+40    @i{ti}["@var{O}"] = @{"@b{st_turnstile}", @b{flavor}="@var{red}"@}
+41    @i{ti}["@var{E}"] = @{"@b{st_turnstilearm}", @b{orientation}=@var{EAST}@}
+42    @i{ti}["@var{N}"] = @i{ti}["@var{.}"] .. @{"@b{st_turnstilearm_n}"@}
+43
+44    @i{ti}["@var{+}"] = @{"@b{fl-samba}", @b{checkerboard}=@var{0}@} .. ti(@{"@b{fl-wood}", @b{checkerboard}=@var{1}@})
+45
+46    @i{ti}["@var{1}"] = @{"#@b{ac-blackball}"@}
+47
+48    if @i{wo}["@b{IsDifficult}"] then
+49        @i{ti}["@var{=}"] = @i{ti}["@var{~}"]
+50    else
+51        @i{ti}["@var{=}"] = @i{ti}["@var{~}"] .. @{"@b{it_strip_ew}"@}
+52    end
+53
+54    w, h = @i{wo}(@i{ti}, "@var{ }", @{
+55        "@var{####################}",
+56        "@var{#      ....++++++~ #}",
+57        "@var{L   PM ..N.++~~~~OE#}",
+58        "@var{#######  T~++++++. #}",
+59        "@var{#     ^   ~++++++# #}",
+60        "@var{#         =++++++X X}",
+61        "@var{#         ~++++++# #}",
+62        "@var{#~~~~~~~~~~~~~+++X X}",
+63        "@var{#    ~   B   ~+++###}",
+64        "@var{F    ~   B   ~+++++#}",
+65        "@var{# 1  ~   B   #+++++#}",
+66        "@var{S   v~V  B   D+++++#}",
+67        "@var{####################}"}
+68    @})
+69
+70    @i{wo}:@b{shuffleOxyd}()
+71
+72     ]]></el:luamain>
+73        <el:i18n>
+74          <el:string el:key="title">
+75            <el:english el:translate="false"/>
+76          </el:string>
+77        </el:i18n>
+78      </el:protected>
+79    </el:level>
+@end example
+
+The resulting level looks like this in the game
+
+Let us now analyse the code line by line.
+
+Lines 1 to 14 are the XML metadata of the level as described in 
+@ref{Level Basics}. The only line worth mentioning is
+@example
+10         <el:compatibility el:enigma="@var{1.10}"/>
+@end example
+
+You need to declare the level to be compatible to Enigma 1.10 or higher for
+the new API 2 as described in this reference manual. A value less than 1.10
+indicates compatiblity to a previous Enigma release that did use the old API 1,
+which should not be mixed up with the new API 2.
+
+The Lua part starts with line 15:
+@example
+16    @i{wo}["@b{ConserveLevel}"] = @var{true}
+@end example
+
+Like most levels it starts with setting @ref{Global Attributes}. The handle of 
+our world is @samp{wo}. This object reference is preset
+(@pxref{World as an Object}). Concerning Lua it is an @samp{userdata},
+but most of its usage syntax is identical to that of Lua tables. Thus we access
+an attribute by providing the desired attribute name in square brackets. As we
+give a literal attribute name, we have to put it in double quotes @samp{"}. In
+total this line requests the world to resurrect a killed actor as long as there
+are enough extralifes to conserve the running level (@pxref{ConserveLevel}).
+In fact @samp{true} is the default value. So we could have left this line out.
+But remember it is a demo level.
+
+The second part of a level are the tile definitions as explained in
+@ref{World's Shape and Coordinates}. Let us start with the most simple ones:
+@example
+18    @i{ti}["@var{ }"] = @{"@b{fl-samba}"@}
+19    @i{ti}["@var{.}"] = @{"@b{fl-abyss}"@}
+20    @i{ti}["@var{~}"] = @{"@b{fl-water}"@}
+21    @i{ti}["@var{#}"] = @{"@b{st-rock1}"@}
+22    @i{ti}["@var{X}"] = @{"@b{st_oxyd}"@}
+@end example
+
+Again we use a handle @samp{ti} which is a preset object reference for the
+tile definition repository. Like the world it is a Lua @samp{userdata}. And
+we can access it like the world by giving the desired index in square brackets.
+These indices are free to your choice. They have to be of a common character length
+if they are referenced in the world map below. For a small level one character
+keys are sufficient. You can use any ASCII character that Lua is aware of. That
+means upper and lower case characters @samp{A-Z,a-z}, the numbers and special
+characters besides backslash @samp{\} and double quote @samp{"}.
+
+The assigned object definition are given as Lua anonymous tables, the curly braces,
+containing in the most simple case just the desired @ref{Object Kind}. As it
+is again a literal string, it has to be quoted. Without any further specification
+the objects are taken in their default configuaration as described in 
+@ref{Floor Objects} and following chapters.
+
+@example
+24    @i{ti}["@var{L}"] = @{"@b{st_laser}", @b{orientation}=@var{EAST}, @b{state}=@var{ON}@}
+25    @i{ti}["@var{M}"] = @{"@b{st_lightpassenger}", @b{interval}=@var{0.04}@}
+@end example
+
+These two lines define objects with custom configuration. The @ref{st_laser}
+should send its beam to the east and should start being switched on. The
+@ref{st_lightpassenger} should move a little bit faster than usually. Both
+times we just have to add comma separated additional attributes. The attribute
+names are not quoted as they are followed by an equal @samp{=} sign.
+
+@example
+27    @i{ti}["@var{P}}"] = @{"@b{st_polarswitch}", @b{name}="@var{polar}"@}
+28    @i{ti}["@var{T}"] = @{"@b{it_trigger}", @b{target}="@var{polar}"@}
+@end example
+
+An @ref{st_polarswitch} named for reference usage (@pxref{Object Naming}).
+The @ref{it_trigger} sets up a @ref{Target - Action}, the target being our
+polarswitch. The action attribute is omitted. It defaults to the message
+@samp{toggle}. Thus any actor or stone on top of the trigger makes the
+polarswitch transparent, but switches it back to intransparency when leaving
+the trigger.
+
+@example
+30    @i{ti}["@var{^}"] = @{"@b{st_boulder}", "@var{boulder}", @b{orientation}=@var{NORTH}@}
+31    @i{ti}["@var{F}"] = @{"@b{st_fourswitch}", @b{target}="@var{boulder}", @b{action}="@var{orientate}"@}
+@end example
+
+Another pair of objects that are coupled by @ref{Target - Action}. The
+@ref{st_boulder} starts trying to move to north. This time we name the object
+just by giving the name as the second comma separated string. We omitted the
+attribute identifier @samp{name =}. This is a shortcut for this most common
+attribute which requires the name to be given as the second value directly 
+after the objects kind.
+
+The @ref{st_fourswitch} references the boulder as its target. We need to give
+the action as well, as we want to make use of a special action that directly 
+steers the boulder according to the fourswitch orientation.
+
+@example
+33    @i{ti}["@var{D}"] = @{"@b{st-door-v}", "@var{door}"@}
+34    @i{ti}["@var{B}"] = @{"@b{it_blocker}", "@var{wall#}"@}
+35    @i{ti}["@var{S}"] = @{"@b{st_switch}", @b{target}=@{"@var{door}", "@var{wall#*}"@}@}
+@end example
+
+And another even more complex @ref{Target - Action}. We want a single 
+@ref{st_switch} to toggle a @ref{st_door} as well as set of @ref{it_blocker}s
+at the same time. The gaming idea is that neither with switch on nor with switch
+off the marble can pass both obstacles. The gamer needs to steer the boulder
+through the blocker wall to pass these obstacles.
+
+The setup of the door is simple. We just need to name it to be able to reference
+it later on. We want to use several blocker objects and we need to name each 
+for reference purposes. We do this by appending a hash sign @samp{#} to its
+name as described in @ref{Object Naming}. Every blocker gets a unique name.
+The switch needs to list all these objects as its targets. This is done by
+an embedded anonymous table given by the curly braces and comma separated
+values. The first one is our door's name, the second one is a wildcarded string
+that describes all our blocker objects. The asterix stands for any suffix
+that may have been added behind the hash in the process of autonaming of our
+blockers.
+
+@example
+37    @i{ti}["@var{v}"] = @{"@b{it_vortex}", "@var{left}", @b{destination}="@var{right}"@}
+38    @i{ti}["@var{V}"] = @{"@b{it_vortex}", "@var{right}", @b{destination}="@var{left}"@}
+@end example
+
+We want to use two @ref{it_vortex} that are connected to each other allowing
+the marble to warp into both directions. We set up both vortices with a unique
+name and add the attribute @samp{destination} referencing the other vortex' name.
+
+Note that it is no problem to reference the right vortex in line 37 while it
+is named later on in line 38. We are still just defining tiles and not creating
+any objects at all.
+
+@example
+40    @i{ti}["@var{O}"] = @{"@b{st_turnstile}", @b{flavor}="@var{red}"@}
+41    @i{ti}["@var{E}"] = @{"@b{st_turnstilearm}", @b{orientation}=@var{EAST}@}
+42    @i{ti}["@var{N}"] = @i{ti}["@var{.}"] .. @{"@b{st_turnstilearm_n}"@}
+@end example
+
+Another object group is an @ref{st_turnstile} cluster with one arm disconnected.
+The first two definitions are straight forward. But in line 42 we preceed the
+arm's definition by another tile reference. It is the abyss tile defined in 
+line 19. By concatenation, the two dots @{..}, of a tile and a object
+definition we can define a new that is composed of both objects. In this case
+we define a turnstile arm on top of an abyss floor.
+
+You may be wondering why we did not define floors for the other stone and item
+tiles. We make use of the tile definition in line 18 that we will declare
+later as the default floor for our level. Thus any tile declaration that does
+not provide its own floor will set this default floor.
+
+@example
+44    @i{ti}["@var{+}"] = @{"@b{fl-samba}", @b{checkerboard}=@var{0}@} .. ti(@{"@b{fl-wood}", @b{checkerboard}=@var{1}@})
+@end example
+
+Just for fun we want to provide a checkerboard floor on the right side of our
+level. This can be done by usage of the @ref{checkerboard} attribute. Again
+we concatenate two object definitions for a single tile. Both are floors. That
+means for each grid position we try to set both floor types, but just one meets
+the checkboard condition and will be set.
+
+Please notice that we did convert one one the floor object definitions to a tile
+definition by the function call @samp{ti()}. This is necessary as Lua does not
+know how to concatenate two anonymous tables. One argument of the concatenation
+has to be a tile.
+
+@example
+46    @i{ti}["@var{1}"] = @{"#@b{ac-blackball}"@}
+@end example
+
+Finally we do need our marble. Unlike other objects it can be positioned 
+anywhere within a grid. The most common position is the center of the grid.
+This is simply done by preceeding the actor's kind by a hash sign @samp{#}.
+
+@example
+48    if @i{wo}["@b{IsDifficult}"] then
+49        @i{ti}["@var{=}"] = @i{ti}["@var{~}"]
+50    else
+51        @i{ti}["@var{=}"] = @i{ti}["@var{~}"] .. @{"@b{it_strip_ew}"@}
+52    end
+@end example
+
+We encourage every level author to provide an easy mode for the levels. This
+is an example how to define mode dependant tiles. Like in line 16 we access
+a world attribute. But this time it is a read access of @ref{IsDifficult}.
+In easy mode we want a @ref{it_strip} on top of water floor that allows the 
+marble to pass and press the trigger. In difficult mode the there should be
+no passage. Thus the special tile is identical to the water tile defined in
+line 20.
+
+@example
+54    w, h = @i{wo}(@i{ti}, "@var{ }", @{
+55        "@var{####################}",
+56        "@var{#      ....++++++~ #}",
+57        "@var{L   PM ..N.++~~~~OE#}",
+58        "@var{#######  T~++++++. #}",
+59        "@var{#     ^   ~++++++# #}",
+60        "@var{#         =++++++X X}",
+61        "@var{#         ~++++++# #}",
+62        "@var{#~~~~~~~~~~~~~+++X X}",
+63        "@var{#    ~   B   ~+++###}",
+64        "@var{F    ~   B   ~+++++#}",
+65        "@var{# 1  ~   B   #+++++#}",
+66        "@var{S   v~V  B   D+++++#}",
+67        "@var{####################}"}
+68    @})
+@end example
+
+After all tiles have been defined we can create our world simply by a map that
+uses our tile keys. The first argument is our handle @samp{ti}, that defines
+how the keys should be resolved. The second argument is the key of our default
+floor. The third argument is the map as a table of strings, one for every line.
+
+The world initialization returns the width and height of our world which are
+calcluated by the maps size.
+
+@example
+70    @i{wo}:@b{shuffleOxyd}()
+@end example
+
+After the world is created and all objects are set, we can do some final
+postprocessing before the level starts to run. The most common task is the
+shuffling of the oxyds, which is just a method call of @ref{shuffleOxyd} to 
+our mighty world object.
+
+@c ----------------- Colored Turnstiles -------------------- 
+@node Colored Turnstiles
+@subsection Colored Turnstiles
+
+As this level is part of the Enigma levelpacks we recommend that you play
+the level first to get familar with the used objects and their behaviour.
+
+Now let us look at the essential Lua source code part of the level to understand
+how such an idea can be realized with the new API
+
+@example
+@i{ti}["@var{ }"] = @{"@b{fl-sahara}"@}
+@i{ti}["@var{#}"] = @{"@b{st-rock6}"@}
+@i{ti}["@var{@@}"] = @{"#@b{ac-blackball}"@}
+
+@i{ti}["@var{N}"] = @{"@b{st_turnstilearm_n}"@}
+@i{ti}["@var{S}"] = @{"@b{st_turnstilearm_s}"@}
+@i{ti}["@var{E}"] = @{"@b{st_turnstilearm_e}"@}
+@i{ti}["@var{W}"] = @{"@b{st_turnstilearm_w}"@}
+@i{ti}["@var{R}"] = @{"@b{st_turnstile}", @b{action} = @{"@b{open}", "@b{close}"@}, @b{target} = @{"@var{red}#*", "@var{green}#*"@}@}
+@i{ti}["@var{G}"] = @{"@b{st_turnstile}", @b{action} = @{"@b{close}", "@b{open}"@}, @b{target} = @{"@var{red}#*", "@var{green}#*"@},
+                           @b{flavor} = "@b{green}"@}
+@i{ti}["@var{r}"] = @{"@b{it_blocker}", "@var{red}#"@} .. @i{ti}(@{"@b{fl-red}"@})
+@i{ti}["@var{g}"] = @{"@b{it_blocker}", "@var{green}#"@} .. @i{ti}(@{"@b{fl-leaves}"@})
+
+@i{ti}["@var{O}"] = @{"@b{st_oxyd}", @b{flavor} = "@b{d}", @b{oxydcolor} = @var{OXYD_GREEN}@}
+@i{ti}["@var{o}"] = @{"@b{st_oxyd}", @b{flavor} = "@b{d}", @b{oxydcolor} = @var{OXYD_RED}@}
+  
+@var{w}, @var{h} = @i{wo}(@i{ti}, "@var{ }", @{
+ -- 01234567890123456789
+   "@var{#O#####O############}",
+   "@var{#   r N g N rO##O#O#}",
+   "@var{#WRE#WGE# R ####g#r#}",
+   "@var{#   r N r S  r N   #}",
+   "@var{#g#g#WG #g##r# REr##}",
+   "@var{# # N S r    g S  gO}",
+   "@var{#@@g RE#g#gWGE###g###}",
+   "@var{# # S   g    r N  ro}",
+   "@var{#r#r#WGE#r##g#WGEg##}",
+   "@var{# N r S g N  r     #}",
+   "@var{#WGE# RE# RE####r#g#}",
+   "@var{#   g S r S go##o#o#}",
+   "@var{#o#####o############}"
+@})
+@end example
+
+There are just four tile definitions that do all the dynamic actions. Let us
+look first at the blocker item definitions:
+
+@example
+@i{ti}["@var{r}"] = @{"@b{it_blocker}", "@var{red}#"@} .. @i{ti}(@{"@b{fl-red}"@})
+@i{ti}["@var{g}"] = @{"@b{it_blocker}", "@var{green}#"@} .. @i{ti}(@{"@b{fl-leaves}"@})
+@end example
+All blockers on red floors are autonamed with a name being composed of the
+prefix @samp{red#} and a unique random number being added by the engine as
+explained in @ref{Object Naming}. This allows us to address all these blockers
+later on.
+
+@example
+@i{ti}["@var{R}"] = @{"@b{st_turnstile}", @b{action} = @{"@b{open}", "@b{close}"@}, @b{target} = @{"@var{red}#*", "@var{green}#*"@}@}
+@i{ti}["@var{G}"] = @{"@b{st_turnstile}", @b{action} = @{"@b{close}", "@b{open}"@}, @b{target} = @{"@var{red}#*", "@var{green}#*"@},
+                           @b{flavor} = "@b{green}"@}
+@end example
+Whenever the marble hits and turns an @ref{st_turnstile} it performs its actions
+on the targets. Here the author makes clever usage of multitargets and 
+multiactions as described in @ref{Target - Action}. On every turn of a red
+turnstile all objects named @samp{red#*}, that are all our blockers on a red
+floor, will be send a message @samp{open}, whereas all blockes on a green floor,
+the second target group, receives the second action message @samp{close}. It is
+essential to choose the @samp{open}, @samp{close} messages instead of 
+@samp{toggle}, as more than one red turnstile may be turned in sequence, but
+just the first red turn should "toggle" all blockers. The next toggling should
+occur on the first green turn following thereafter.
+
+Hope you got the basic idea of the new API. You may well start with you first
+level experiments. But you should return and read the following chapters with
+overview and advanced examples to write even more fancy levels.
+
+@c ----------------- API 2 Overview -------------------- 
+
+@node API 2 Overview
+@section API 2 Overview
+
+Having analysed a first level it is time get an overview of the API 2 
+capabilities. Let us take a task driven appoach by listing the different
+possibilities and use cases by example.
+
+@menu
+* Types Overview::         
+* Position Tasks::           
+* Attribute Tasks::           
+* Object Tasks::           
+* Group Tasks::           
+* Tiles and World Tasks::           
+@end menu
 
 
+@c ----------------- Types Overview -------------------- 
+@node Types Overview
+@subsection Types Overview
 
-@c -------------- Object Definitions and Tiles ----------------- 
+But first we need to introduce you to the special Enigma value types besides
+the standard Lua types @samp{nil}, @samp{boolean}, @samp{string}, 
+@samp{function} and @samp{table}:
+ 
+@table @asis
+@item @b{Types:}
+@table @asis
+@item @b{position:}@ @ @xref{Position}
+A position within the world that can be described by an x and y coordinate.
+@item @b{object:}@ @ @xref{Object}
+An Enimga object like a stone, item, floor, other. Any object is a position, too.
+@item @b{group:}@ @ @xref{Group}
+A list of objects.
+@item @b{namedobjects:} @i{preset variable:} @code{@b{no}}; @ @ @xref{NamedObjects}
+The singleton type of the repository of all named objects.
+@item @b{default:} @i{preset variable:} @code{@b{DEFAULT}}; @ @ @xref{Default}
+The singleton type of default values that can be used instead of Lua's @samp{nil}
+in anonymous table tile definitions.
+@item @b{tile:}@ @ @xref{Tile}
+A description of one or several objects for a common grid position (floor, item,
+stone, actor)
+@item @b{tiles:} @i{preset variable:} @code{@b{ti}}; @ @ @xref{Tiles}
+The singleton type of the repository of all tile instances.
+@item @b{world:} @i{preset variable:} @code{@b{wo}}; @ @ @xref{World}
+The singleton type of the world that contains all objects.
+@end table
+@end table
 
-@node Object Definitions and Tiles
-@section Object Definitions and Tiles
+Please note the three handles @samp{no}, @samp{ti} and @samp{wo}. You have
+noticed two of them in the previous section @ref{Basic Lua Examples}. These
+are three variables, that are preset prior the level code gets executed.
 
-@c ----------------- Lua Positions -------------------- 
+API 2 uses generally two character names for frequently used variables and
+functions to shorten the level code and to make it better readable. Authors 
+should try to use either single characters or names that are three characters or
+longer for private variable names.
 
-@node Lua Positions
-@section Lua Positions
+For the rest of this section let us assume that @samp{obj} is an object 
+reference of a stone, item or floor, which means that is of type @samp{object}.
+And let @samp{pos} be a valid variable of type @samp{position}.
+
+@c ----------------- Position Tasks -------------------- 
+@node Position Tasks
+@subsection Position Tasks
+
+@table @asis
+@item @b{Creating Positions:}
+@example
+@var{pos} = @i{po}(@var{7}, @var{3})         -- using function "po()" to generate a position object
+@var{pos} = @i{po}(@{@var{7}, @var{3}@})        -- using a table position constant as argument
+@var{pos} = @var{obj}              -- every object is a valid position
+@var{pos} = @i{po}(@var{12.3}, @var{3.7})    -- a position within a grid (for an actor) 
+@end example
+Absolut positions are created by the function @samp{po()}. But the most common
+way should be the reinterpretation of an object as a position. This lets you
+set other objects relatively to given ones.
+
+@item @b{Position Constants:}
+@example
+@{@var{7},@var{3}@}     -- a valid position for all arguments and operations (@pxref{Caveats}) 
+@end example
+Anonymous tables with just two number values can be used in many cases directly as
+a position constant. In case of errors, e.g. when operators are not well defined
+like addition of two constants what result in an attempt of adding two Lua 
+tables, use the function @samp{po()} to convert the constant.
+
+@item @b{Coordinate Access:}
+@example
+@var{x}, @var{y} = @var{pos}.@b{x}, @var{pos}.@b{y}
+@var{x}, @var{y} = @var{pos}["@b{x}"], pos["@b{y}"]
+@var{x}, @var{y} = @var{pos}:@b{xy}()
+@var{x}, @var{y} = @var{obj}.@b{x}, @var{obj}.@b{y}
+@var{x}, @var{y} = @var{obj}:@b{xy}()
+@end example
+The x and y coordinate of a position or object can be read accessed like any
+object attribute. A position or object method call by @samp{xy()} returns
+both coordinate values at once. You can not set a position value by coordinate
+write access. Objects need to be set to a new world position. New positions
+can be calculated by position arithmetic.
+
+@item @b{Position Calculation:}
+@example
+@var{pos} = @var{obj} + @{@var{2},@var{7}@}
+@var{dpos} = @var{obj1} - @var{obj2}
+@var{dpos2} = @var{2} * @var{dpos}
+@var{dpos3} = @var{dpos} / @var{2}
+@end example
+Positions can be added or subtracted to get distance vectors. You can multiply
+and divide them with any number.
+
+@item @b{Center positions for set actors}
+@example
+@var{pos_centered1} = @var{pos} + @{@var{0.5}, @var{0.5}@}
+@var{pos_centered2} = #@var{pos}
+@var{pos_centered3} = #@var{obj}
+@end example
+Especially for positioning of actors you sometimes need the position of the
+center of a grid. Of course you can get it by addition of a constant position.
+But the @samp{#} operator applied on a position or an actor does the same in
+a simpler way.
+
+@item @b{Round a position to a grid}
+@example
+@var{grid_pos} = @var{pos}:@b{grid}()
+@var{grid_pos} = ((@var{pos1} - @var{pos2})/@var{2}):@b{grid}()
+@end example
+A result of a position calculation needs sometimes to be rounded to integer grid
+coordinates. This is done by the @samp{grid()} method.
+
+@item @b{Position comparison}
+@example
+@var{pos_centered1} == @var{pos_centered2}
+@var{pos_centered1} ~= @var{pos_centered2}    -- Lua's inequality operator
+@end example
+Position can be easily compared to equality.
+@end table
+
+@c ----------------- Attribute Tasks -------------------- 
+@node Attribute Tasks
+@subsection Attribute Tasks
+
+@table @asis
+
+@item @b{Single Attribute Setting:}
+@example
+@var{obj}["@b{destination}"] = @i{po}(@var{7},@var{3})
+@i{wo}["@b{Brittleness}"] = @var{7}
+@end example
+Object attributes as well as global world attributes can be set like Lua table
+values. They can take values of special Enigma types like position, object or
+group.
+
+@item @b{Multiple Attribute Setting:}
+@example
+@var{obj}:@b{set}(@{@b{target}=@var{mydoor}, @b{action}="@b{open}"@})
+@end example
+You can multiple attributes on any object at once with the objects @samp{set()}
+method. The arguement is an anonymous Lua table with the attribute names as keys
+and assigned values of your choice.
+
+@item @b{Requesting Attributes:}
+@example
+@var{value} = @var{obj}["@b{attr_name}"]
+@var{value} = @i{wo}["@b{Brittleness}"]
+if @i{wo}["@b{IsDifficult}"] then ... end
+@end example
+Attributes of objects and the world can be read like Lua table key values.
+
+@item @b{Reset Attributes:}
+@example
+@var{obj}["@b{length}"] = nil       -- the default length, e.g. @samp{1}
+@var{obj}["@b{color}"]  = nil       -- delete color attribute - no color
+@var{obj}["@b{length}"] = @i{DEFAULT}   -- the default length, e.g. @samp{1}
+@end example
+Any object attribute can be reset to its default value, what is the attributes
+"delete" operation, by assigning it the Lua @samp{nil} or the Enigma 
+@samp{DEFAULT} value.
+
+@end table
+
+@c ----------------- Object Tasks -------------------- 
+@node Object Tasks
+@subsection Object Tasks
+
+@table @asis
+@item @b{Creating Objects:}
+@example
+@i{wo}[@var{pos}]  = @{"@b{st_chess}", @b{color}=@var{WHITE}, @b{name}="@var{Atrax}"@}   -- on grid pos
+@i{wo}[#@var{pos}] = @{"@b{ac_bug}"@}              -- actor centered on grid pos
+@i{wo}[@var{pos}]  = @{"#@b{ac_bug}"@}             -- actor centered on grid pos
+@i{wo}[@var{pos}]  = @{"@b{ac_bug}", @var{0.3}, @var{0.7}@}    -- actor with offsets to pos
+@i{wo}[@var{my_floor}] = @{"@b{it_magicwand}"@}    -- set an wand on top of a given foor object
+@i{wo}[@var{pos}]  = @i{ti}["@var{x}"]                 -- tile based object definition
+@end example
+Besides map based object creation, that you saw in the previous basic examples,
+you can create new objects on any world position directly. The world takes a
+position, that may well be an object, as key argument. The new object is
+described either by an anonymous Lua table, containing the kind string as first
+value and additional attributes as key value pairs appended, or by a tile object.
+
+@item @b{Object Naming:}
+@example
+@i{no}["@var{Atrax}"] = @var{obj}
+@i{wo}[@var{pos}] = @{"@b{st_chess}", @b{name}="@var{Atrax}"@}
+@i{wo}[@var{pos}] = @{"@b{st_chess}", "@var{Atrax}", @b{color}=@var{WHITE}@}
+@end example
+As explained in @ref{Object Naming}, the names are the only longtime valid
+object references. You can explicitly name an object by assigning it at the
+named object repository @samp{no} to the name as the key. But most times you
+just supply the objects name as an object attribute. If you supply the name
+attribute as the @b{second} value in the anonymous table you can omit the
+key @samp{name =} part as a common abreviation.
+
+@item @b{Object Autonaming:}
+@example
+@i{wo}[@var{pos}] = @{"@b{st_chess}", @b{name}="@var{Atrax}#"@}
+@end example
+As explained in @ref{Object Naming} you can append a hash sign @samp{#} to a
+name and use the resulting string for arbitrary number of similar objects. This
+is especially useful for building groups.
+
+@item @b{Requesting Objects:}
+@example
+@var{obj} = @i{no}["@var{Atrax}"]       -- named object retrieval from repository
+@var{obj} = @i{it}(@var{pos})
+@var{obj} = @i{it}(@var{x},@var{y})
+@var{obj} = @i{st}(@var{pos})
+@var{obj} = @i{wo}:@b{it}(@var{pos})
+@var{my_item} = @i{it}(@var{my_floor})  -- get the item that is on top of the given floor
+@end example
+The most common way is naming objects and the requesting the @samp{no} 
+repository for the object reference. If you know the position of the desired
+object you can use one of the functions or world methods @samp{fl}, @samp{it},
+@samp{st} that take a position, an object as position, or just the two
+coordinates as arguments. Especially requesting one type of objects that is
+positioned at the same grid as another object, the stone on top of a floor, etc.
+can be very useful.
+
+@item @b{Killing Objects:}
+@example
+@i{wo}[@var{pos}] = @{"@b{it_nil}"@}
+@var{obj}:@b{kill}()
+@end example
+You remove an object by setting another replacement object at the same
+position in the same layer. If you do not want to set a new object you can use
+the placebo objects @samp{fl_nil}, @samp{it_nil}, @samp{st_nil}. Another way is
+to call the @samp{kill()} method of an object or send it a @samp{kill} message.
+You can only remove objects that are set on the grid. Neither actors nor owned
+objects like items in a players inventory can be killed - they will simply
+ignore the attempt.
+
+@item @b{Comparing Objects}
+@example
+@var{obj1} == @var{obj2}
+@var{obj1} ~= @var{obj2}
+@end example
+Objects can be directly compared on equality or inequality. It is a identity
+comparison that acknowledges that you have two references of the same object.
+
+@item @b{Existence of an object}
+@example
+@var{obj}:@b{exists}()
+-@var{obj}                -- unary minus operator on object
+if -@var{obj} then ...
+@end example
+Object references may get invalid due to objects being killed. In most cases
+this no problem as requests to invalid objects will simply be ignored. But if
+the level logic depends on the existence of an object you can call the 
+@samp{exists()} method or simply preceed the reference by the unary minus 
+@samp{-} operator. Both ways return a simple bool value stating if the object
+reference is still valid.
+
+@item @b{Messages:}
+@example
+@var{my_boulder}:@b{message}("@b{orientate}", @var{WEST})
+@var{my_boulder}:@b{orientate}(@var{EAST})
+@var{my_door}:@b{open}()
+@end example
+@ref{Messages} are a main feature of Enigma. You can send them directly to any
+object by the @samp{message()} method or by using any message directly as a
+method call itself.
+
+@item @b{Object Classification:}
+@example
+@var{obj}:@b{is}("@b{st_chess}")
+@var{obj}:@b{is}("@b{st}")
+@var{obj}:@b{is}("@b{st_chess_black}")
+@end example
+You create objects by giving an @ref{Object Kind}. Later on you can check a
+given object for conformity to a given class or kind. Even though you can not
+create abstract kind objects like @samp{st}, you can check this way if an object
+is a stone. Checking for special subkinds may even evaluate the current state
+or other attributes of an object to report its current classification.
+
+@end table
+
+@c ----------------- Group Tasks -------------------- 
+@node Group Tasks
+@subsection Group Tasks
+
+@table @asis
+@item @b{Creating Groups:}
+@example
+@var{group} = @i{no}["@b{Atrax}#*"]           -- a group of all matching objects
+			        --   wildcards "*","?" allowed
+@var{group} = @i{grp}(@var{obj1}, @var{obj2}, @var{obj3})
+@var{group} = @i{grp}({@var{obj1}, @var{obj2}, @var{obj3}@})  -- a group of objects set up in a table
+@end example
+Requesting objects from the named object repository will result in a group of
+objects if you make proper usage of wildcards. Appending an asterix @samp{*}
+to the autonaming hash will retrieve all objects that have been set with this
+name suffix. But you can create a group by the @samp{grp} function, too. Simply
+add the desired object reference as arguments, either single or as a table.
+
+@item @b{Group Usage:}
+@example
+@var{floor_group}["@b{friction}"] = @var{3.2}      -- set attribute on all floors in the group
+@var{door_group}:@b{message}("@b{open}")
+@var{door_group}:@b{open}()
+@var{stone_group}:@b{kill}()
+@i{wo}[@var{floor_group}] = @{"@b{it_coin_m}"@}   -- add some money on all floor positions
+
+@i{wo}[@var{pos}] = @{"@b{st_switch}", @b{target}=@var{door_group}, @b{action}="@b{open}"@}
+@i{wo}[@var{pos}] = @{"@b{st_switch}", @b{target}="@var{door}#*", @b{action}="@b{close}"@}
+@end example
+Many object operations can be applied to groups in the same manner. The 
+operations will be applied to all members of the group. You set attributes,
+send messages or call any method.
+
+The world object takes a group as key, too. You can set objects of a given
+definition to many positions at once.
+
+Another usage of groups is the application as an attribute value. E.g. you can
+define multiple targets by supplying a group.
+
+@item @b{Group Operations:}
+@example
+@var{doors_lasers} = @var{doorgrp} + @var{lasergrp}       -- join of two groups
+@var{lasergrp}     = @var{doors_lasers} - @var{doorgrp}   -- difference of two groups
+@var{common_doors} = @var{doorgrp1} * @var{doorgrp2}      -- intersection of two groups
+@end example
+Groups offer some standard operations known from handling with sets.
+
+@item @b{Group Members:}
+@example
+@var{count} = #@var{mygroup}        -- number of objects in the group
+@var{obj}   = @var{mygroup}[@var{5}]     -- 5th object of the group
+for @var{i} = @var{1}, #@var{mygroup} do @var{obj} = @var{mygroup}[@var{i}] ... end
+for @var{obj} in @var{mygroup} do ... end
+@end example
+You can access the members of a group by numbered indices. The size of a group
+is reported by the standard Lua hash @samp{#} operator. If you need to iterate
+over the objects of a group you can write easily Lua for loops. You can either
+iterate with a counter or directly iterate the content objects.
+@end table
+
+@c ----------------- Tiles and World Tasks -------------------- 
+@node Tiles and World Tasks
+@subsection Tiles and World Tasks
+
+@table @asis
+
+@item @b{Tiles:}
+@example
+@i{ti}["@var{_}"] = @{"@b{fl_sahara}"@}
+@i{ti}["@var{__}"] = @{"@b{fl_sahara}"@}
+@i{ti}["@var{..}"] = @{"@b{fl_sand}"@}
+@i{ti}["@var{##}"] = @{"@b{st_blocker}"@}
+@i{ti}["@var{switch_template}"] = @{"@b{st_switch}"@}
+@i{ti}["@var{..}"] = @{"@b{fl_abyss}"@}   -- redefinition causes error to avoid common mistakes
+@i{ti}["@var{.w}"] = @i{ti}["@var{..}"] .. @{"@b{it_magicwand}"@}
+@i{ti}["@var{ w}"] = @{"@b{fl_abyss}"@} .. @i{ti}(@{"@b{it_magicwand}"@})
+@end example
+The tiles repository @samp{ti} is like a table, but specialized on storage of
+tile definitions. You can use any string as key. You can store the same 
+definition twice at different keys. But you are not allowed to redefine an
+already set key. This is pure protection of common error situations. A
+definition stored in the repository can be used in other definitions that
+follow. Referencing a tiles repository entry at a given key like @samp{ti[".."]}
+results in a tile value. Such tile values can be concatenated by the @samp{..}
+operator with other tile values and anonymous tables containing object 
+definitions. The last example is a concatenation of two prior not declared 
+object definitions. You can not concatenate two anonymous tables. Lua forbids 
+that. By converting any of the two tables by the @samp{ti()} to a tile value the 
+concatenation gets valid.
+
+@item @b{World Initialization}
+@example
+  @var{width}, @var{height} = @i{wo}(@i{ti}, "@var{__}", { -- second arg: default tile key that 
+  "@var{##__......}",                  --   defines the base, too - this example
+  "@var{##..__.w__}",                  --   is 2 chars per tile/grid 
+  "@var{##.. w__..}"
+  })
+@end example
+The world is initialized by the @samp{wo()} call that is explained in details
+at @ref{World Creation and Resolver Chaining}. In the simple form you supply
+the @samp{ti} handle as the first argument. The second argument is the key of
+the default tile definition that defines the default floor to be set if a tile
+does not contain another floor object. At the same time this key defines by its
+length the standard key length as used in the following map, too. The third 
+argument is the map given as an anonymous table of strings. The worlds size is
+given by the maximum line length and the number of lines. These values are
+returned by the call.
+
+@end table
+
+@c ----------------- Advanced Lua Examples -------------------- 
+
+@node Advanced Lua Examples
+@section Advanced Lua Examples
+
+Now it is time to reveal the real power of the new API. Let us look again at
+two real levels. Investigate the levels first by playing and then join 
+in the line by line commentation of the source code to understand how to
+implement your own level ideas.
+
+@menu
+* Color Maze::    Enigma levelpack VIII, level #19
+* Wired::           Enigma levelpack VIII, level #22
+@end menu
+
+
+@c ----------------- Color Maze -------------------- 
+@node Color Maze
+@subsection Color Maze
+
+Let us view the Lua source code part. We did add a line count in the first two
+columns for reference purpose within this section. These line count number are 
+not part of the source code itself!
+
+@example
+01    @i{wo}["@b{ConserveLevel}"] = @var{false}
+02    @i{wo}["@b{FollowGrid}"] = @var{false}
+03    @i{wo}["@b{FollowMethod}"] = @var{FOLLOW_SCROLL}
+04    
+05    @i{ti}["@var{ }"] = @{"@b{fl-abyss_fake}"@} .. @i{ti}(@{"@b{st-glass1}"@})
+06    
+07    @i{ti}["@var{!}"] = @{"@b{fl-rough-blue}", "@var{blue#}", @var{_color}="@var{blue}"@}
+08    @i{ti}["@var{@@}"] = @{"@b{fl-bumps}", "@var{orange#}", @var{_color}="@var{orange}"@}
+09    @i{ti}["@var{#}"] = @{"@b{fl-rough-red}", "@var{red#}", @var{_color}="@var{red}"@}
+10    @i{ti}["@var{$}"] = @{"@b{fl-leavesb}", "@var{green#}", @var{_color}="@var{green}"@}
+11    
+12    @i{ti}["@var{b}"] = @i{ti}["@var{!}"] .. @{"@b{st-door-h-open}"@}
+13    @i{ti}["@var{B}"] = @i{ti}["@var{!}"] .. @{"@b{st-door-v-open}"@}
+14    @i{ti}["@var{o}"] = @i{ti}["@var{@@}"] .. @{"@b{st-door-h-open}"@}
+15    @i{ti}["@var{O}"] = @i{ti}["@var{@@}"] .. @{"@b{st-door-v-open}"@}
+16    @i{ti}["@var{r}"] = @i{ti}["@var{#}"] .. @{"@b{st-door-h-open}"@}
+17    @i{ti}["@var{R}"] = @i{ti}["@var{#}"] .. @{"@b{st-door-v-open}"@}
+18    @i{ti}["@var{g}"] = @i{ti}["@var{$}"] .. @{"@b{st-door-h-open}"@}
+19    @i{ti}["@var{G}"] = @i{ti}["@var{$}"] .. @{"@b{st-door-v-open}"@}
+20    
+21    @i{ti}["@var{d}"] = @{"@b{it-document}", @b{text}="@var{text1}"@}
+22    @i{ti}["@var{5}"] = @i{ti}["@var{b}"] .. @i{ti}["@var{d}"]
+23    @i{ti}["@var{6}"] = @i{ti}["@var{O}"] .. @i{ti}["@var{d}"]
+24    @i{ti}["@var{7}"] = @i{ti}["@var{r}"] .. @i{ti}["@var{d}"]
+25    @i{ti}["@var{8}"] = @i{ti}["@var{G}"] .. @i{ti}["@var{d}"]
+26    
+27    @i{ti}["@var{x}"] = @{"@b{it_sensor}", @b{invisible}=@var{true}, @b{target}="@var{gates}"@}
+28    @i{ti}["@var{*}"] = @i{ti}["@var{x}"] .. @{"#@b{ac-blackball}", "@var{me}"@}
+29    
+30    @i{ti}["@var{?}"] = @{"@b{st_oxyd_a}"@}
+31    
+32    @i{wo}(@i{ti}, "@var{ }", @{
+33    --      |         1    1   |2    2
+34    --      |1   5    0    5   |0    5
+35           "@var{                           }",
+36           "@var{ xO@@OxR#RxO@@OxB!BxR#RxB!Bx }", --01
+37           "@var{ b   r   g   g   b   g   r }", 
+38           "@var{ !   #   $   $   !   $   # }", 
+39           "@var{ b   r   g   g   b   g   r }", 
+40           "@var{ xR#RxB!BxO@@OxG$GxO@@OxO@@Ox }", --05
+41           "@var{ g   g   r   g   g   b   b }", 
+42           "@var{ $   $   #   $   $   !   ! }", 
+43           "@var{ g   g   r   g   g   b   b }", 
+44           "@var{ xR#RxO@@OxG$GxR#RxG$GxR#Rx }", 
+45           "@var{ g   b   b   o       b   r }", --10
+46           "@var{ $   !   !   @@       !   # }", 
+47           "@var{ g   b   5   o   ?   b   r }", --
+48           "@var{ xO@@OxO@@6*8$Gx   xG$GxR#Rx }", 
+49           "@var{ r   b   7   b   ?   o   o }", 
+50           "@var{ #   !   #   !       @@   @@ }", --15
+51           "@var{ r   b   r   b       o   o }", 
+52           "@var{ xG$GxB!BxR#RxO@@OxR#RxG$Gx }", 
+53           "@var{ g   o   o   g   g   o   b }", 
+54           "@var{ $   @@   @@   $   $   @@   ! }", 
+55           "@var{ g   o   o   g   g   o   b }", --20
+56           "@var{ xB!BxO@@OxR#RxR#RxO@@OxB!Bx }", 
+57           "@var{ o   r   g   g   b   b   g }", 
+58           "@var{ @@   #   $   $   !   !   $ }", 
+59           "@var{ o   r   g   g   b   b   g }", --
+60           "@var{ xR#RxB!BxB!BxR#RxO@@OxR#Rx }", --25
+61           "@var{                           }"@} -- 
+62    --      |         1    1   |2    2
+63    --      |1   5    0    5   |0    5
+64    )
+65    
+66    @var{last} = @b{it}(@i{no}["@var{me}"])   -- the last visited sensor
+67    @var{move} = @var{0}              -- the count of link moves
+68    @var{sequence} = @{@}         -- the sequence of the 4 colors that the user did choose
+69    
+70    function @var{gates}(@var{value}, @var{sender})
+71        if @var{last} ~= @var{sender} then
+72            local @var{middle} = @var{last} + (@var{sender} - @var{last})/@var{2}
+73            local @var{color} = @b{fl}(@var{middle})["@var{_color}"]
+74            if @var{color} == @var{nil} then return end  -- someone cheated, avoid throwing an exception
+75            @b{st}(@i{no}[@var{color}.."@var{#*}"]):@b{close}()
+76            @var{sequence}[@var{move}%@var{4}] = @var{color}
+77            if @var{move} >= @var{3} then
+78                @b{st}(@i{no}[@var{sequence}[(@var{move}+@var{1})%@var{4}].."@var{#*}"]):@b{open}()
+79            end
+80            @var{move} = @var{move} + @var{1}
+81            @var{last} = @var{sender}
+82        end
+83    end
+@end example
+
+Let us concentrate on new aspects not discussed in the previous 
+@ref{Basic Lua Examples}.
+
+@example
+01    @i{wo}["@b{ConserveLevel}"] = @var{false}
+02    @i{wo}["@b{FollowGrid}"] = @var{false}
+03    @i{wo}["@b{FollowMethod}"] = @var{FOLLOW_SCROLL}
+@end example
+This level must forbid the user to resurrect a marble at the start position.
+At the same time the user should the area around the marble as complete as
+possible. Thus the scroll mode needs to be set, too. All this is done by
+setting special @ref{Global Attributes}.
+
+@example
+05    @i{ti}["@var{ }"] = @{"@b{fl-abyss_fake}"@} .. @i{ti}(@{"@b{st-glass1}"@})
+32    @i{wo}(@i{ti}, "@var{ }", @{
+@end example
+The unaccessible areas are filled with a transparent glass on top of a black
+floor as defined in line 5. The world initialization uses this tile definition
+as the default tile. This is o.k. as it contains a floor definition. Additional
+objects like the glass stone will never be set on default usage.
+
+@example
+07    @i{ti}["@var{!}"] = @{"@b{fl-rough-blue}", "@var{blue#}", @var{_color}="@var{blue}"@}
+08    @i{ti}["@var{@@}"] = @{"@b{fl-bumps}", "@var{orange#}", @var{_color}="@var{orange}"@}
+09    @i{ti}["@var{#}"] = @{"@b{fl-rough-red}", "@var{red#}", @var{_color}="@var{red}"@}
+10    @i{ti}["@var{$}"] = @{"@b{fl-leavesb}", "@var{green#}", @var{_color}="@var{green}"@}
+@end example
+Every floor object is autonamed for later group access purposes. Additinally
+every floor objects sets a user attribute prefixed in its name by an underscore
+@samp{_}. This attribute stores a string that we need later on in the callback
+function.
+
+@example
+12    @i{ti}["@var{b}"] = @i{ti}["@var{!}"] .. @{"@b{st-door-h-open}"@}
+13    @i{ti}["@var{B}"] = @i{ti}["@var{!}"] .. @{"@b{st-door-v-open}"@}
+@end example
+The doors are set without being named, as we will target them by their position.
+
+@example
+27    @i{ti}["@var{x}"] = @{"@b{it_sensor}", @b{invisible}=@var{true}, @b{target}="@var{gates}"@}
+@end example
+The actors moves are detected by invisible @ref{it_sensor}s that are positioned
+on any intersection. The target is the @ref{Callback Function} @samp{gates}.
+The action can be ommited as the function name is a unique target.
+
+@example
+66    @var{last} = @b{it}(@i{no}["@var{me}"])   -- the last visited sensor
+@end example
+A Lua variable that stores the last sensor visited by the marble. This is
+initially the sensor beneath the start position of the marble. We do get the 
+marble by name, but do store the sensor item beneath it, that is an unnamed
+object.
+
+@example
+67    @var{move} = @var{0}              -- the count of link moves
+68    @var{sequence} = @{@}         -- the sequence of the 4 colors that the user did choose
+@end example
+These are the essential variables for our algorithm. The user is free in 
+selecting the sequence of the colored floors. We do initialize the sequence
+by an anonymous table that will be filled with the color names. An additional
+move counter will give us the current index into this table.
+
+@example
+70    function @var{gates}(@var{value}, @var{sender})
+71        if @var{last} ~= @var{sender} then
+@end example
+The callback function provides the sender, the @ref{it_sensor}, that caused
+the action. It is the current sensor. As the marble can return to the last
+sensor, we have to check that it is a new sensor before taking any actions.
+A simple object comparison suffices.
+
+@example
+72            local @var{middle} = @var{last} + (@var{sender} - @var{last})/@var{2}
+73            local @var{color} = @b{fl}(@var{middle})["@var{_color}"]
+@end example
+We need to know the color of the floor strip that the marble did pass. We do
+calculate the position of the middle of this floor strip by position calculation.
+We simply take the middle position between the last and the current intersection.
+Once we have the middle position we can get the floor object and retrieve the
+private user attribute with the color description.
+
+@example
+74            if @var{color} == @var{nil} then return end  -- someone cheated, avoid throwing an exception
+@end example
+In regular play we are guaranteed to get a color value. But just in case a
+gamer cheats he may have moved irregular without visiting neighboring sensors.
+Just avoid errors. The gamer can not score anyway.
+
+@example
+75            @b{st}(@i{no}[@var{color}.."@var{#*}"]):@b{close}()
+@end example
+Knowing the color we want to close all doors on same colored floor strips. We
+did autoname the floors by matching name prefixes. Thus we can retrieve all
+floors of a given color by concatenating the color string with the suffix 
+@samp{#*} and requesting the named object repository. As we are interested in
+the doors we do request the stone above every floor. We provide a group of
+floors and get a group of stones. Not every floor has a door on top. That does
+not matter as only existing objects are added to the resulting stone group.
+Knowing the stones we just send them all a @samp{close} message.
+
+@example
+76            @var{sequence}[@var{move}%@var{4}] = @var{color}
+@end example
+We need to remember the sequence of colors. We just store the color name in
+the table at the index given by the move count modulo 4. Yes we could limit
+this statement to the first four moves. But who cares? The modulo operation
+is simpler than a conditional expression.
+
+@example
+77            if @var{move} >= @var{3} then
+78                @b{st}(@i{no}[@var{sequence}[(@var{move}+@var{1})%@var{4}].."@var{#*}"]):@b{open}()
+79            end
+@end example
+On the first 3 moves we just do close doors and remember the color sequence.
+But starting with the 4th move we need to open the next color in sequence.
+We do retrieve the color string of the next color from the sequence table by
+a simple modulo calulation. Having the color name we do the same trick as in
+line 75. But this time we do send the @samp{open} messages to all affected doors.
+
+@example
+80            @var{move} = @var{move} + @var{1}
+81            @var{last} = @var{sender}
+@end example
+Finally we just have to increase the move count and to remember the current
+sender as the last visited sensor.
+
+That is all to code a quite complex dynamic level idea like "Color Maze".
+
+@c ----------------- Wired -------------------- 
+@node Wired
+@subsection Wired
+You should have restarted this level several times to notice the design changes
+of the floor pattern and the border panel stones besides the dynamic wiring of
+the stones.
+
+Let us view the Lua source code part. We did add a line count in the first two
+columns for reference purpose within this section. These line count number are 
+not part of the source code itself!
+
+@example
+01	  <el:compatibility el:enigma="1.10">
+02	    <el:dependency el:path="lib/libluatools" el:id="lib/libluatools" el:release="1" el:preload="true"/>
+03	  </el:compatibility>
+...
+04    @i{ti}["@var{ }"] = @{"@b{fl-sahara}", @b{friction} = @var{3.5}, @b{adhesion} = @var{4.0}@}
+05    @i{ti}["@var{a}"] = @{"@b{fl-light}", @b{friction} = @var{3.5}, @b{adhesion} = @var{4.0}@}
+06    @i{ti}["@var{b}"] = @{"@b{fl-white}", @b{friction} = @var{3.5}, @b{adhesion} = @var{4.0}@}
+07    @i{ti}["@var{c}"] = @{"@b{fl-lightgray}", @b{friction} = @var{3.5}, @b{adhesion} = @var{4.0}@}
+08    @i{ti}["@var{_}"] = @{"@b{fl-water}"@}
+09    @i{ti}["@var{@@}"] = @{"#@b{ac-blackball}"@}
+10    @i{ti}["@var{w}"] = @{"@b{st-plain_move}", "@var{wood}#"@}
+11    @i{ti}["@var{t}"] = @{"@b{it_trigger}", "@var{trigger}#"@}
+12    @i{ti}["@var{d}"] = @{"@b{st_blocker}", "@var{door}#"@}
+13    @i{ti}["@var{o}"] = @{"@b{st_oxyd}", @b{oxydcolor} = @var{OXYD_YELLOW}, @b{flavor} = "@var{a}"@}
+14    @i{ti}["@var{O}"] = @{"@b{st_oxyd}", @b{oxydcolor} = @var{OXYD_WHITE}, @b{flavor} = "@var{a}"@}
+15    @i{ti}["@var{1}"] = @{"@b{st_panel}", @b{cluster} = @var{1}@}
+16    @i{ti}["@var{2}"] = @{"@b{st_panel}", @b{cluster} = @var{2}@}
+17    @i{ti}["@var{S}"] = @{"@b{st_switch}", @b{target} = "@var{easy_mode_call}"@}
+18    
+19    @var{floors}  = @{@i{ti}["@var{ }"], @i{ti}["@var{a}"], @i{ti}["@var{b}"], @i{ti}["@var{c}"]@}
+20    @var{polynom} = @i{luatools}.@i{random_vector}(@var{10}, @var{4})
+21    
+22    function @var{myresolver}(@var{key}, @var{x}, @var{y})
+23      if @var{key} == "@var{ }" then 
+24	  return @var{floors}[@i{luatools}.@i{cubic_polynomial}(@var{polynom}, @var{x}, @var{y}) % (#@var{floors}) + @var{1}]
+25      elseif    (@var{key} == "@var{#}")
+26            or ((@var{key} == "@var{_}") and (@i{random}(@var{4}) == @var{1}))
+27            or ((@var{key} == "@var{S}") and @i{wo}["@b{IsDifficult}"]) then
+28        return @i{ti}[""..@i{random}(@var{2})]
+29      else
+30        return @i{ti}[@var{key}]
+31      end
+32    end
+33    
+34    @var{w}, @var{h} = @i{wo}(@var{myresolver}, "@var{ }", @{
+35     -- 01234567890123456789
+36       "@var{####################___________________}",
+37       "@var{#                  #_____###o###_______}",
+38       "@var{#   w   w t   t    #_____#d   d#_______}",
+39       "@var{#     w   w t   t  #___### ### ###_____}",
+40       "@var{#  w     t         #___#d d#_#d d#_____}",
+41       "@var{#                  ##### ###_### ###___}",
+42       "@var{S    w   w t @@ t        d#___#_#d d#___}",
+43       "@var{#                  #######_####### #___}",
+44       "@var{#  w     t         #_______O  d# # o___}",
+45       "@var{#     w   w t   t  #_______### ### #___}",
+46       "@var{#   w   w t   t    #_________#d   d#___}",
+47       "@var{#                  #_________###O###___}",
+48       "@var{####################___________________}"
+49    @})
+50    
+51    @var{door_p} = @i{luatools}.@i{permutation}(@var{12})
+52    @var{wire_p} = @i{luatools}.@i{permutation}(@var{12})
+53    @var{woods} = @i{no}["@var{wood}#*"]
+54    @var{triggers} = @i{no}["@var{trigger}#*"]
+55    @var{doors} = @i{no}["@var{door}#*"]
+56    
+57    for @var{j} = @var{1}, @var{12} do
+58      @var{triggers}[@var{j}].@b{target} = @var{doors}[@var{door_p}[@var{j}]]
+59    end
+60    
+61    for @var{j} = @var{1}, @var{9} do
+62      @i{wo}:@b{add}(@{"@b{ot_wire}",
+63              @b{anchor1} = @var{woods}[@var{wire_p}[@var{j} + @var{3}]],
+64              @b{anchor2} = @var{woods}[@var{wire_p}[@var{j}%@var{3} + @var{1}]]@})
+65      @i{wo}:@b{add}(@{"@b{ot_wire}", @b{name} = "@var{obsolete_wire}#",
+66              @b{anchor1} = @var{woods}[@var{wire_p}[@var{j} + @var{3}]],
+67              @b{anchor2} = @var{woods}[@var{wire_p}[@var{j}%@var{9} + @var{4}]]@})
+68    end
+69    
+70    function @var{easy_mode_call}(@var{is_on}, @var{sender})
+71      if @var{is_on} then
+72        @i{no}["@var{obsolete_wire}#*"]:@b{kill}()
+73      else
+74        for @var{j} = @var{1}, @var{9} do
+75          @i{wo}:@b{add}(@{"@b{ot_wire}", @b{name} = "@var{obsolete_wire}#",
+76             	  @b{anchor1} = @var{woods}[@var{wire_p}[@var{j} + @var{3}]],
+77                @b{anchor2} = @var{woods}[@var{wire_p}[@var{j}%@var{9} + @var{4}]]@})
+78        end
+79      end
+80    end
+@end example
+How is this versatility in design and action achieved as the last lines 69 to
+79 obviously deal just with the easy mode diffs? Let us analyse the lines
+that do the real work.
+
+@example
+01	  <el:compatibility el:enigma="1.10">
+02	    <el:dependency el:path="lib/libluatools" el:id="lib/libluatools" el:release="1" el:preload="true"/>
+03	  </el:compatibility>
+@end example
+We make use of some functions of the luatools library. Thus we need to preload it, 
+besides declaration of compatibility to Enigma 1.10.
+
+@example
+04    @i{ti}["@var{ }"] = @{"@b{fl-sahara}", @b{friction} = @var{3.5}, @b{adhesion} = @var{4.0}@}
+05    @i{ti}["@var{a}"] = @{"@b{fl-light}", @b{friction} = @var{3.5}, @b{adhesion} = @var{4.0}@}
+06    @i{ti}["@var{b}"] = @{"@b{fl-white}", @b{friction} = @var{3.5}, @b{adhesion} = @var{4.0}@}
+07    @i{ti}["@var{c}"] = @{"@b{fl-lightgray}", @b{friction} = @var{3.5}, @b{adhesion} = @var{4.0}@}
+@end example
+Four floor types that the dynamic floor is composed of. They all are unified
+in the @samp{friction} and @samp{adhesion} to provide smooth movement on the
+stylish floor.
+
+@example
+10    @i{ti}["@var{w}"] = @{"@b{st-plain_move}", "@var{wood}#"@}
+11    @i{ti}["@var{t}"] = @{"@b{it_trigger}", "@var{trigger}#"@}
+12    @i{ti}["@var{d}"] = @{"@b{st_blocker}", "@var{door}#"@}
+@end example
+The movable stone that will be wired, the target triggers and the doors to be
+opened. All are autonamed for group retrieval from the named object repository.
+
+@example
+13    @i{ti}["@var{o}"] = @{"@b{st_oxyd}", @b{oxydcolor} = @var{OXYD_YELLOW}, @b{flavor} = "@var{a}"@}
+14    @i{ti}["@var{O}"] = @{"@b{st_oxyd}", @b{oxydcolor} = @var{OXYD_WHITE}, @b{flavor} = "@var{a}"@}
+@end example
+A minor design aspect: selecting two unique colors for the @ref{st_oxyd}s.
+
+@example
+15    @i{ti}["@var{1}"] = @{"@b{st_panel}", @b{cluster} = @var{1}@}
+16    @i{ti}["@var{2}"] = @{"@b{st_panel}", @b{cluster} = @var{2}@}
+@end example
+The base of the prominent all time different looking @ref{st_panel} boarder 
+design. Two tiles with panel stones assigned to two different clusters. The
+engine will automatically join all neighboring stones of the same cluster to
+big unified blocks. Now we just need to assign these tiles to the different 
+grid positions.
+
+@example
+17    @i{ti}["@var{S}"] = @{"@b{st_switch}", @b{target} = "@var{easy_mode_call}"@}
+@end example
+The left boarder switch that will just be used in easy mode. It is blocked in
+line 27 to not appear in the regular mode. The target is the callback function
+of lines 71 to 81.
+
+@example
+19    @var{floors}  = @{@i{ti}["@var{ }"], @i{ti}["@var{a}"], @i{ti}["@var{b}"], @i{ti}["@var{c}"]@}
+20    @var{polynom} = @i{luatools}.@i{random_vector}(@var{10}, @var{4})
+@end example
+Preparations for the floor design. The four floor tiles are stored in a table
+for number based index access. Ten random numbers in the range 1 to 4 are
+stored in a table, which we will use as polynom coefficients later on.
+
+@example
+22    function @var{myresolver}(@var{key}, @var{x}, @var{y})
+34    @var{w}, @var{h} = @i{wo}(@var{myresolver}, "@var{ }", @{
+@end example
+Up to now we did look up the keys used in the map from our tiles repository
+@samp{ti} that was the first argument of the world initialization call. But
+now we use a @ref{Custom Resolver} (@pxref{World Creation and Resolver Chaining}).
+The function starting in line 22 is called on every tile to be resolved. It has
+the task of delivering the appropriate tile.
+
+@example
+23      if @var{key} == "@var{ }" then 
+24	  return @var{floors}[@i{luatools}.@i{cubic_polynomial}(@var{polynom}, @var{x}, @var{y}) % (#@var{floors}) + @var{1}]
+@end example
+These two lines generate the always changing floor design. For every map key
+@samp{ } we calculate the cubic polynomial that is randomized due to the
+coefficients. The resulting number is limited to the number of our four floors.
+This number is taken as the index into our @samp{floors} table and the resulting
+tile definition is returned.
+
+@example
+25      elseif    (@var{key} == "@var{#}")
+26            or ((@var{key} == "@var{_}") and (@i{random}(@var{4}) == @var{1}))
+27            or ((@var{key} == "@var{S}") and @i{wo}["@b{IsDifficult}"]) then
+28        return @i{ti}[""..@i{random}(@var{2})]
+@end example
+And now we cluster the boarder panels. First we need to decide where to put
+panels at all. The positions marked @samp{#} in the map are for sure. 
+Additionally we choose randomly every 4th @samp{_} postition to be a panel 
+instead of being a water floor. Finally we replace just in difficult mode
+the switch marked as @samp{S} by a panel stone. Now we need to assign to this
+grid position one of the two panel cluster tiles. We simply generate a random
+number out of 1 and 2. But we do need a string as the tiles key. We force Lua
+to convert the number to string by concatenating an empty string @samp{""} with
+the random number. Choosing the right panel variants to build up closed clusters
+is done by the enginge.
+
+@example
+29      else
+30        return @i{ti}[@var{key}]
+@end example
+Finally for all other keys that need no special treatment we just take the
+tile definition as stored in the tiles repository.
+
+@example
+34    @var{w}, @var{h} = @i{wo}(@var{myresolver}, "@var{ }", @{
+35     -- 01234567890123456789
+36       "@var{####################___________________}",
+37       "@var{#                  #_____###o###_______}",
+38       "@var{#   w   w t   t    #_____#d   d#_______}",
+39       "@var{#     w   w t   t  #___### ### ###_____}",
+...
+@end example
+The map uses the keys as interpreted by the custom resolver. Thus all mandatory
+panel stones are marked by @samp{#} and all may be water by @samp{_}. All spaces
+@samp{ } do not stand for the sahara floor definition in the tiles repository,
+but are floor positions for our design floor set up in the custom resolver.
+Note that even the @samp{w} marked tiles will set a design floor, as the
+default floor is @samp{ }, too.
+
+@example
+51    @var{door_p} = @i{luatools}.@i{permutation}(@var{12})
+52    @var{wire_p} = @i{luatools}.@i{permutation}(@var{12})
+@end example
+Now let us shuffle the trigger/door assignment and the wire distribution. We
+do this by permutating 12 index numbers to be used for door and wire access.
+
+@example
+53    @var{woods} = @i{no}["@var{wood}#*"]
+54    @var{triggers} = @i{no}["@var{trigger}#*"]
+55    @var{doors} = @i{no}["@var{door}#*"]
+@end example
+Get the groups of movable stones, triggers and doors. It is essential to do this
+once and to store the resulting groups as we want to index the group members.
+Repeated access to the named object repository does not guarantee a stable
+sorting of the result groups. Thus we operate on the stable onece retrieved
+and stored groups. 
+
+@example
+57    for @var{j} = @var{1}, @var{12} do
+58      @var{triggers}[@var{j}].@b{target} = @var{doors}[@var{door_p}[@var{j}]]
+59    end
+@end example
+A random assignment of the triggers to the doors. Every triggers gets a random
+indexed member of the door group as target. Note the alternative attribute
+member access on the trigger. Instead of embracing the attributes name in 
+square brackets and quoting the string constant as @samp{["target"]} the
+author did prefer to write @samp{.target}. That is a legal Lua alternative
+statement as long as the attribute's name is a legal Lua name (@pxref{Caveats}).
+
+@example
+61    for @var{j} = @var{1}, @var{9} do
+62      @i{wo}:@b{add}(@{"@b{ot_wire}",
+63              @b{anchor1} = @var{woods}[@var{wire_p}[@var{j} + @var{3}]],
+64              @b{anchor2} = @var{woods}[@var{wire_p}[@var{j}%@var{3} + @var{1}]]@})
+@end example
+Finally we need to add the @ref{ot_wire} between our movable stones. This can
+not be done within the map. We need to use the @ref{World Advanced Method} 
+@samp{wo:add()}, which takes the two connected stones as two anchor attributes.
+We select the first 3 stones of our wood group as stones to be connected with
+3 other stones of the indices 4 to 12. Thus we take in every loop as the first
+anchor one of the stones 4 to 12 and connect it to one of the first 3 stones by
+a simple modulo operation. The first three stones now have three wires and are
+finished. The last 9 stones have just one wire.
+
+@example
+65      @i{wo}:@b{add}(@{"@b{ot_wire}", @b{name} = "@var{obsolete_wire}#",
+66              @b{anchor1} = @var{woods}[@var{wire_p}[@var{j} + @var{3}]],
+67              @b{anchor2} = @var{woods}[@var{wire_p}[@var{j}%@var{9} + @var{4}]]@})
+68    end
+@end example
+Now we wire these remaining 9 stones in sequence, in a closed circle. That gives
+each stone 2 additinal wires. We do this by connecting each of the stones 4 to
+11 with is successor and finally connecting stone 12 to stone 4, what is done
+by the modulo operation. This completes the level for the regular mode.
+As prepartion for the easy mode we do autoname these additional wires.
+
+@example
+71    function @var{easy_mode_call}(@var{is_on}, @var{sender})
+72      if @var{is_on} then
+73        @i{no}["@var{obsolete_wire}#*"]:@b{kill}()
+@end example
+Just for the easy mode we added a switch to remove and recreate the additional
+wires. As we named these obsolete wires we can simply kill all of them in a
+single call by applying the @samp{kill()} method to the group of these wires.
+
+@example
+73      else
+74        for @var{j} = @var{1}, @var{9} do
+75          @i{wo}:@b{add}(@{"@b{ot_wire}", @b{name} = "@var{obsolete_wire}#",
+76             	  @b{anchor1} = @var{woods}[@var{wire_p}[@var{j} + @var{3}]],
+77                @b{anchor2} = @var{woods}[@var{wire_p}[@var{j}%@var{9} + @var{4}]]@})
+78        end
+79      end
+@end example
+When the user switches off again, the wires should be recreated. That is done
+by the same code as lines 65 to 68. Note that is essential that we stored and
+kept the used wire permutation in the variable @samp{wire_p}.
+
+@c ----------------- Position -------------------- 
+
+@node Position
+@section Position
+
+@c ----------------- Object -------------------- 
+
+@node Object
+@section Object
+
+@c ----------------- Group -------------------- 
+
+@node Group
+@section Group
+
+@c ----------------- NamedObjects -------------------- 
+
+@node NamedObjects
+@section NamedObjects
+
+@c ----------------- Tile -------------------- 
+
+@node Tile
+@section Tile
+
+@c ----------------- Tiles -------------------- 
+
+@node Tiles
+@section Tiles
+
+@c ----------------- World -------------------- 
+
+@node World
+@section World
+
 @c ----------------- World Creation and Resolver Chaining -------------------- 
 
 @node World Creation and Resolver Chaining
