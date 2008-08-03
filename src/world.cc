@@ -844,10 +844,14 @@ void World::find_contact_with_edge(Actor *a, GridPos p0, GridPos p1, GridPos p2,
     } else if (s0 && s1 && c0.response==STONE_REBOUND && c1.response==STONE_REBOUND) {
         // join stones to a block without rounded edges
         find_contact_with_stone(a, p1, c1, winFacesActorStone, false, s1);  // collision with straight neighbour only
+        if (c1.normal*(a->get_actorinfo()->vel) >= 0 /* &&  s1 has restituion 1.0 */)  // leaving a oneway or door
+            find_contact_with_stone(a, p0, c0, winFacesActorStone, true, s0);          // collide with diagonal stone
         find_contact_with_stone(a, p2, c2, winFacesActorStone, true, s2);   // register contact without collision
     } else if (s0 && s2 && c0.response==STONE_REBOUND && c2.response==STONE_REBOUND) {
         // join stones to a block without rounded edges
         find_contact_with_stone(a, p2, c2, winFacesActorStone, false, s2);  // contact with straight neighbour only
+        if (c2.normal*(a->get_actorinfo()->vel) >= 0 /* &&  s2 has restituion 1.0 */)  // leaving a oneway or door
+            find_contact_with_stone(a, p0, c0, winFacesActorStone, true, s0);          // collide with diagonal stone
         find_contact_with_stone(a, p1, c1, winFacesActorStone, true, s1);   // register contact without collision
     } else {
         // register single stone collisions and contacts

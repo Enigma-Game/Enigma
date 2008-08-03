@@ -360,8 +360,16 @@ StoneResponse OneWayBase::collision_response(const StoneContact &sc) {
     DirectionBits dirs=contact_faces(sc);
     Direction o=get_orientation();
 
-    if (!sc.actor->is_flying() && actor_may_pass(sc.actor))
-        return has_dir(dirs,o) ? STONE_REBOUND : STONE_PASS;
+    if (!sc.actor->is_flying() && actor_may_pass(sc.actor)) {
+        StoneResponse result = STONE_PASS;
+        if ((o == WEST && (get_pos().x >= sc.actor->get_pos()[0])) ||
+                (o == SOUTH && (get_pos().y + 1 <= sc.actor->get_pos()[1])) ||
+                (o == EAST && (get_pos().x + 1 <= sc.actor->get_pos()[0])) ||
+                (o == NORTH && (get_pos().y >= sc.actor->get_pos()[1])))
+            result = STONE_REBOUND;
+        return result;
+//        return has_dir(dirs,o) ? STONE_REBOUND : STONE_PASS;
+    }
     else
         return STONE_REBOUND;
 }
