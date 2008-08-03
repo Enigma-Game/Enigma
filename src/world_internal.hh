@@ -319,7 +319,9 @@ typedef list<sound::SoundDamping> SoundDampingList;
         //! True if game is not running yet
         bool                 preparing_level;
 
-        vector<GridPos>      changed_stones;
+        std::vector<GridPos> changed_stones;
+        std::list<GridPos>   collisionCriticalPositions;  // stones set to positions after collision check
+        bool                 registerCriticalPositions;
 
         SoundDampingList     sound_dampings; // see SoundEffectManager for details
 

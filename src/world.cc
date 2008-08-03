@@ -410,6 +410,7 @@ void World::tick (double dtime)
     for (unsigned i=0; i<changed_stones.size(); ++i)
         stone_change(changed_stones[i]);
     changed_stones.clear();
+    
 
     m_mouseforce.tick (dtime);
     for_each (forces.begin(), forces.end(),
@@ -1279,6 +1280,8 @@ void World::move_actors (double dtime)
         }
         
         handle_actor_contacts();
+        collisionCriticalPositions.clear();
+        registerCriticalPositions = true;
         for (unsigned i=0; i<nactors; ++i) {
             Actor     *a  = actorlist[i];
             ActorInfo &ai = * a->get_actorinfo();
@@ -1301,6 +1304,7 @@ void World::move_actors (double dtime)
             a->move();         // 'move' nevertheless, to pick up items etc
             a->think(dtime); 
         }
+        registerCriticalPositions = false;
 
         rest_time -= dt;
     }
@@ -1361,9 +1365,19 @@ void World::advance_actor (Actor *a, double &dtime)
     if (ai.pos[1] < 0) ai.pos[1] = 0.0;
     if (ai.pos[1] >= h) ai.pos[1] = h - 1e-12;
     
-    // disallow direct diagonal grid moves
+    
     GridPos oldGridPos(oldPos);
     GridPos newGridPos(ai.pos);
+    //
+    for (std::list<GridPos>::iterator itr = collisionCriticalPositions.begin(); itr != collisionCriticalPositions.end(); ++itr) {
+        if (*itr == newGridPos) {
+            ai.pos = oldPos;
+            newGridPos = oldGridPos;
+            break;
+        }
+    }
+    
+    // disallow direct diagonal grid moves
     if (oldGridPos.x != newGridPos.x && oldGridPos.y != newGridPos.y) {
         // split diagonal grid move in the middle of the path over the missed grid
         V2 newPos = ai.pos;
@@ -1979,6 +1993,8 @@ Stone * YieldStone(GridPos p) {
 void SetStone(GridPos p, Stone* st) {
     level->st_layer.set(p,st);
     level->changed_stones.push_back(p);
+    if (level->registerCriticalPositions)
+        level->collisionCriticalPositions.push_back(p);
 }
 
 void ReplaceStone (GridPos p, Stone* st) {
