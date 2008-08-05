@@ -579,6 +579,19 @@
       <msg name="close"/>
       <msg name="signal"/>
     </object>
+    <object name="st_oneway" states="4">
+      <attr name="color"/>
+      <attr name="orientation"/>
+      <msg name="flip"/>
+      <msg name="orientate"/>
+      <msg name="signal"/>
+    </object>
+    <object name="st_oneway_black">
+      <attr name="color" value="0"/>
+    </object>
+    <object name="st_oneway_white">
+      <attr name="color" value="1"/>
+    </object>
     <object name="st_oxyd_a">
       <attr name="flavor" value="a"/>
     </object>

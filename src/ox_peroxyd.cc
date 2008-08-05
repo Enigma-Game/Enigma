@@ -237,14 +237,14 @@ const char *oxyd::peroxyd_stone_map[256] = {
     "",                         // PerOxyd stone 0x2e (?)
     "st_death",                 // PerOxyd stone 0x2f
     "st_death_invisible",       // PerOxyd stone 0x30
-    "st-oneway_black-w",        // PerOxyd stone 0x31
-    "st-oneway_black-e",        // PerOxyd stone 0x32
-    "st-oneway_black-n",        // PerOxyd stone 0x33
-    "st-oneway_black-s",        // PerOxyd stone 0x34
-    "st-oneway_white-w",        // PerOxyd stone 0x35
-    "st-oneway_white-e",        // PerOxyd stone 0x36
-    "st-oneway_white-n",        // PerOxyd stone 0x37
-    "st-oneway_white-s",        // PerOxyd stone 0x38
+    "st_oneway_black_w",        // PerOxyd stone 0x31
+    "st_oneway_black_e",        // PerOxyd stone 0x32
+    "st_oneway_black_n",        // PerOxyd stone 0x33
+    "st_oneway_black_s",        // PerOxyd stone 0x34
+    "st_oneway_white_w",        // PerOxyd stone 0x35
+    "st_oneway_white_e",        // PerOxyd stone 0x36
+    "st_oneway_white_n",        // PerOxyd stone 0x37
+    "st_oneway_white_s",        // PerOxyd stone 0x38
     "st-magic",                 // PerOxyd stone 0x39 ('st-magic')
     "st-magic",                 // PerOxyd stone 0x3a ('st-magic')
     "st-magic",                 // PerOxyd stone 0x3b ('st-magic')

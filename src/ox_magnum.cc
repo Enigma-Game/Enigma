@@ -170,14 +170,14 @@ const char *oxyd::oxydmag_stone_map[256] = {
     "st_fourswitch",            // OxydMagnum stone 0x33 (Level 51 and 100)
     "st_death",                 // OxydMagnum stone 0x34
     "st_death_invisible",       // OxydMagnum stone 0x35
-    "st-oneway_black-w",        // OxydMagnum stone 0x36
-    "st-oneway_black-e",        // OxydMagnum stone 0x37
-    "st-oneway_black-n",        // OxydMagnum stone 0x38
-    "st-oneway_black-s",        // OxydMagnum stone 0x39
-    "st-oneway_white-w",        // OxydMagnum stone 0x3a
-    "st-oneway_white-e",        // OxydMagnum stone 0x3b
-    "st-oneway_white-n",        // OxydMagnum stone 0x3c
-    "st-oneway_white-s",        // OxydMagnum stone 0x3d
+    "st_oneway_black_w",        // OxydMagnum stone 0x36
+    "st_oneway_black_e",        // OxydMagnum stone 0x37
+    "st_oneway_black_n",        // OxydMagnum stone 0x38
+    "st_oneway_black_s",        // OxydMagnum stone 0x39
+    "st_oneway_white_w",        // OxydMagnum stone 0x3a
+    "st_oneway_white_e",        // OxydMagnum stone 0x3b
+    "st_oneway_white_n",        // OxydMagnum stone 0x3c
+    "st_oneway_white_s",        // OxydMagnum stone 0x3d
     UNUSED,                     // OxydMagnum stone 0x3e
     UNUSED,                     // OxydMagnum stone 0x3f
     UNUSED,                     // OxydMagnum stone 0x40

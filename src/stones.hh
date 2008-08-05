@@ -69,8 +69,6 @@ namespace enigma {
         st_mirror,
         st_movebreak,
         st_oneway,
-        st_oneway_black,
-        st_oneway_white,
         st_oxyd_0x18,
         st_peroxyd_0xb8,
         st_peroxyd_0xb9,
@@ -194,7 +192,7 @@ namespace enigma {
         virtual bool   is_removable() const { return true; }
 
         /*! Is this stone floating above the floor (e.g. actors may pass)? */
-        virtual bool   is_floating() const { return false; }
+        virtual bool is_floating() const { return false; }
         
         /*! Can laser beams pass through stone? Return is_floating() by default. */
         virtual bool   is_transparent (Direction d) const { 

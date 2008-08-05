@@ -202,14 +202,14 @@ const char *oxyd::oxyd1_stone_map[256] = {
     0,                          // Oxyd1 stone 0x33 oscillator (properties set in oxyd.cc)
     "st_death",                 // Oxyd1 stone 0x34
     "st_death_invisible",       // Oxyd1 stone 0x35
-    "st-oneway_black-w",        // Oxyd1 stone 0x36
-    "st-oneway_black-e",        // Oxyd1 stone 0x37
-    "st-oneway_black-n",        // Oxyd1 stone 0x38
-    "st-oneway_black-s",        // Oxyd1 stone 0x39
-    "st-oneway_white-w",        // Oxyd1 stone 0x3a
-    "st-oneway_white-e",        // Oxyd1 stone 0x3b
-    "st-oneway_white-n",        // Oxyd1 stone 0x3c
-    "st-oneway_white-s",        // Oxyd1 stone 0x3d
+    "st_oneway_black_w",        // Oxyd1 stone 0x36
+    "st_oneway_black_e",        // Oxyd1 stone 0x37
+    "st_oneway_black_n",        // Oxyd1 stone 0x38
+    "st_oneway_black_s",        // Oxyd1 stone 0x39
+    "st_oneway_white_w",        // Oxyd1 stone 0x3a
+    "st_oneway_white_e",        // Oxyd1 stone 0x3b
+    "st_oneway_white_n",        // Oxyd1 stone 0x3c
+    "st_oneway_white_s",        // Oxyd1 stone 0x3d
     "st_window",                // Oxyd1 stone 0x3e
     "",                         // Oxyd1 stone 0x3f magic stone
     "",                         // Oxyd1 stone 0x40 magic stone
