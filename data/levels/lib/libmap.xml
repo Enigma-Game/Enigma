@@ -1,0 +1,409 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no" ?>
+<el:level xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://enigma-game.org/schema/level/1 level.xsd" xmlns:el="http://enigma-game.org/schema/level/1">
+  <el:protected>
+    <el:info el:type="library">
+      <el:identity el:title="" el:id="lib/libmap"/>
+      <el:version el:score="1" el:release="1" el:revision="1" el:status="released"/>
+      <el:author  el:name="Enigma Team" el:email="" el:homepage=""/>
+      <el:copyright>Copyright © 2008 Enigma Team</el:copyright>
+      <el:license el:type="GPL v2.0 or above" el:open="true"/>
+      <el:compatibility el:enigma="1.10">
+      </el:compatibility>
+      <el:modes el:easy="false" el:single="false" el:network="false"/>
+      <el:comments>
+      </el:comments>
+      <el:score el:easy="-" el:difficult="-"/>
+    </el:info>
+    <el:luamain><![CDATA[
+
+---------------------------------------------------------------------
+-- libmap provides a metatable for maps, thus some general utilities
+-- for working with maps. It includes functions for joining maps
+-- in several ways, for queries and manipulation of single entries
+-- in the map.
+---------------------------------------------------------------------
+--
+-- libmap provides the following functions:
+--   wo:newMap(defaultKey, arg1, arg2)
+--   lib.map.concat_horizontally(map1, map2)  aka. map1 .. map2
+--   lib.map.concat_vertically(map1, map2)    aka. map1 + map2
+--   lib.map.fuse(arg1, arg2)                 aka. map1 * map2
+--   lib.map.transform(map, op)               aka. map ^ op
+--   lib.map.get(map, key)                    aka. map[key]
+--   lib.map.set(map, key, value)             aka. map[key] = value
+--   lib.map.extend(map, key)                 aka. map:extend(key)
+--   lib.map.sub(map, arg1, arg2)             aka. map:sub(arg1, arg2)
+--   lib.map.covers(map, pos)                 aka. map:covers(pos)
+--   lib.map.setDefaultKey(map, newkey)       aka. map:setDefaultKey(newkey)
+--   lib.map.print(map, withXYCounts, left_separator, right_separator)
+--                                            aka. map:print(...)
+-- Please consult the reference manual for details.
+--
+
+if not lib then
+  lib = {}
+end
+
+lib.map = {}
+
+function lib.map.concat_horizontally(map1, map2)
+  if    (type(map1) ~= "table") or (rawget(map1, "__type") ~= "map")
+     or (type(map2) ~= "table") or (rawget(map2, "__type") ~= "map") then
+    error("lib.map.concat_horizontally: Can only work on maps.")
+  end
+  if string.len(map1.defaultkey) ~= string.len(map2.defaultkey) then
+    error("lib.map.concat_horizontally: Default keys differ in length.")
+  end
+  local result = {}
+  for y = 1, math.max(map1.height, map2.height) do
+    result[y] = (rawget(map1, y) or string.rep(map1.defaultkey, map1.width))
+             .. (rawget(map2, y) or string.rep(map2.defaultkey, map2.width))
+  end
+  return wo:newMap(map1.defaultkey, result)  
+end
+
+function lib.map.concat_vertically(map1, map2)
+  if    (type(map1) ~= "table") or (rawget(map1, "__type") ~= "map")
+     or (type(map2) ~= "table") or (rawget(map2, "__type") ~= "map") then
+    error("lib.map.concat_vertically: Can only work on maps.")
+  end
+  if string.len(map1.defaultkey) ~= string.len(map2.defaultkey) then
+    error("lib.map.concat_vertically: Default keys differ in length.")
+  end
+  local result = {}
+  for y = 1, map1.height do
+    result[y] = rawget(map1, y)  -- rest of line will be filled by wo:newMap
+  end
+  -- As the default key for result will be set to the first
+  -- default key, we have to attach the missing lines of the
+  -- second map here now.
+  local rest = string.rep(map2.defaultkey, math.max(0, map1.width - map2.width))
+  for y = 1, map2.height do
+    result[y + map1.height] = rawget(map2, y) .. rest
+  end
+  return wo:newMap(map1.defaultkey, result)
+end
+
+function lib.map.fuse(arg1, arg2)
+  local map1, map2 = arg1, arg2
+  if type(arg1) == "string" then
+    map1 = wo:newMap(arg1)
+  end
+  if type(arg2) == "string" then
+    map2 = wo:newMap(arg2)
+  end
+  if    (type(map1) ~= "table") or (rawget(map1, "__type") ~= "map")
+     or (type(map2) ~= "table") or (rawget(map2, "__type") ~= "map") then
+    error("lib.map.fuse: Can only work on maps.")
+  end
+  local result = {}
+  for y = 1, math.max(map1.height, map2.height) do
+    result[y] = ""
+    for x = 1, math.max(map1.width, map2.width) do
+      result[y] = result[y] .. map1[{x - 1, y - 1}] .. map2[{x - 1, y - 1}]
+    end
+  end
+  return wo:newMap(map1.defaultkey .. map2.defaultkey, result)  
+end
+
+function lib.map.transform(map, op)
+  if (type(map) ~= "table") or (rawget(map, "__type") ~= "map") then
+    error("lib.map.transform: Can only work on maps.")
+  end
+  if (type(op) ~= "number") or (op < 0) or (op > 7) or (op ~= math.floor(op)) then
+    error("lib.map.transform: Unknown transformation request")
+  end
+  local w, h = map.width, map.height
+  local function rot(pos)
+    return ({
+      [MAP_DEFAULT]           = po({pos.x,         pos.y}),
+      [MAP_CW]                = po({pos.y,         h - 1 - pos.x}), --
+      [MAP_180]               = po({w - 1 - pos.x, h - 1 - pos.y}),
+      [MAP_CCW]               = po({w - 1 - pos.y, pos.x}),         --
+      [MAP_MIRROR_HORIZONTAL] = po({w - 1 - pos.x, pos.y}),
+      [MAP_MIRROR_VERTICAL]   = po({pos.x,         h - 1 - pos.y}),
+      [MAP_MIRROR_SLASH]      = po({pos.y,         pos.x}),
+      [MAP_MIRROR_BACKSLASH]  = po({w - 1 - pos.y, h - 1 - pos.x})  --
+    })[op]
+  end
+  local new_w, new_h = w, h
+  if    (op == MAP_CW) or (op == MAP_CCW) or (op == MAP_MIRROR_SLASH)
+     or (op == MAP_MIRROR_BACKSLASH) then
+    new_w, new_h = h, w
+  end
+  local result = {}
+  for y = 1, new_h do
+    result[y] = ""
+    for x = 1, new_w do
+      result[y] = result[y] .. map[rot(po({x - 1, y - 1}))]
+    end
+  end
+  return wo:newMap(map.defaultkey, result)  
+end
+
+function lib.map.sub(map, arg1, arg2)
+  if (type(map) ~= "table") or (rawget(map, "__type") ~= "map") then
+    error("lib.map.sub: Can only work on maps.")
+  end
+  local pos1, pos2 = arg1, arg2
+  if type(pos1) == "table" then
+    pos1 = po(pos1)
+  end
+  if type(pos2) == "table" then
+    pos2 = po(pos2)
+  end
+  pos1 = pos1:grid()
+  pos2 = pos2:grid()
+  if (pos2.x < 0) or (pos2.y < 0) then
+    error("lib.map.sub: Second position must be positive.")
+  end
+  local result = {}
+  for y = 1, pos2.y do
+    result[y] = string.sub(rawget(map, pos1.y + y) or "",
+                  pos1.x * map.keylength + 1,
+                  (pos1.x + pos2.x) * map.keylength) or ""
+    result[y] = result[y] .. string.rep(map.defaultkey,
+                  math.max(0, pos2.x - string.len(result[y]) / map.keylength))
+  end
+  return wo:newMap(map.defaultkey, result)  
+end
+
+function lib.map.covers(map, pos)
+  return (pos.x >= 0) and (pos.y >= 0)
+      and (pos.x < map.width) and (pos.y < map.height)
+end
+
+function lib.map.get(map, key)
+  if type(key) == "string" then
+    if (key == "type") or (key == "width") or (key == "height")
+       or (key == "defaultkey") or (key == "keylength") then
+      return rawget(map, "__"..key)
+    else  
+      return map.user_attributes[key]
+    end
+  else
+    local pos = key
+    if type(pos) == "table" then
+      pos = po(pos)
+    end
+    pos = pos:grid()
+    if map:covers(pos) then
+      local kl = rawget(map, "__keylength")
+      return string.sub(rawget(map, pos.y + 1), kl * pos.x + 1, (pos.x + 1) * kl)
+    else
+      return rawget(map, "__defaultkey")
+    end
+  end
+end
+
+function lib.map.set(map, key, value)
+  if type(key) == "string" then
+    if (key == "type") then
+      if tostring(value) ~= "map" then
+        error("lib.map.set: A map is a map is a map is a map, and not a "
+            .. tostring(value) .. "!")
+      else
+        return
+      end
+    elseif (key == "width") or (key == "height") then
+      error("lib.map.set: Use extend or sub to change the size of a map.")
+    elseif (key == "keylength") then
+      error("lib.map.set: Can't change keylength without default key.")
+    elseif (key == "defaultkey") then
+      map:setDefaultKey(value)
+      return
+    end
+    map.user_attributes[key] = value
+  else
+    if type(value) ~= "string" then
+      error("lib.map.set: Key must be of type string, is "..type(value)..".")
+    end
+    local kl = rawget(map, "__keylength")
+    if string.len(value) ~= kl then
+      error("lib.map.set: Key must be of the same length as default key "
+          .."(should be "..kl.. ", is "..string.len(value)..").")
+    end
+    local pos = key
+    if type(pos) == "table" then
+      pos = po(pos)
+    end
+    pos = pos:grid()
+    if (pos.x < 0) or (pos.y < 0) then
+      error("lib.map.set: Negative positions are not supported.")
+    end
+    map:extend(pos)
+    rawset(map, pos.y + 1,
+           string.sub(rawget(map, pos.y + 1), 1, pos.x * kl)
+        .. value
+        .. string.sub(rawget(map, pos.y + 1), (pos.x + 1) * kl + 1, -1))
+  end
+end
+
+function lib.map.extend(map, key)
+  if (type(map) ~= "table") or (rawget(map, "__type") ~= "map") then
+    error("lib.map.extend: Can only work on maps.")
+  end
+  local pos = key
+  if type(pos) == "table" then
+    pos = po(pos)
+  end
+  pos = pos:grid()
+  local w, h = rawget(map, "__width"), rawget(map, "__height")
+  local dk = rawget(map, "__defaultkey")
+  if pos.x >= w then
+    local attach = string.rep(dk, pos.x - w + 1)
+    for y = 1, h do
+      rawset(map, y, rawget(map, y) .. attach)
+    end
+    w = pos.x + 1
+  end
+  if pos.y >= h then
+    local line = string.rep(dk, w)
+    for y = h + 1, pos.y + 1 do
+      rawset(map, y, line)
+    end
+    h = pos.y + 1
+  end
+  rawset(map, "__width", w)
+  rawset(map, "__height", h)
+end
+
+function lib.map.print(map, withXYCounts, left_separator, right_separator)
+  if (type(map) ~= "table") or (rawget(map, "__type") ~= "map") then
+    error("lib.map.print: Can only print maps, sorry.")
+  end
+  local w, h = map.width, map.height
+  local kl = rawget(map, "__keylength")
+  if withXYCounts then
+    local line = string.rep(" ", kl) .. (left_separator or "")
+    for x = 0, w - 1 do
+      line = line .. string.rep(" ", math.max(0, kl - string.len(x)))
+                  .. string.sub(x, math.max(0, string.len(x) - kl) + 1, string.len(x))
+    end
+    line = line .. (right_separator or "")
+    print(line)
+  end
+  for y = 0, h - 1 do
+    local line = ""
+    if withXYCounts then
+      line =    string.rep(" ", math.max(0, kl - string.len(y)))
+             .. string.sub(y, math.max(0, string.len(y) - kl) + 1, string.len(y))      
+    end
+    line = line .. (left_separator or "") .. map[y + 1] .. (right_separator or "")
+    print(line)
+  end
+end
+
+function lib.map.setDefaultKey(map, newkey)
+  if (type(map) ~= "table") or (rawget(map, "__type") ~= "map") then
+    error("lib.map.setDefaultKey: Can only set default key of maps, sorry.")
+  end
+  if type(newkey) ~= "string" then
+    error("lib.map.setDefaultKey: Default key must be string, is "..type(newkey)..".")
+  end
+  if newkey == "" then
+    error("lib.map.setDefaultKey: Default key can't be empty.")
+  end
+  local new_width = map.width * map.keylength / string.len(newkey)
+  if new_width ~= math.ceil(new_width) then
+    error("lib.map.setDefaultKey: Map width doesn't fit to new default key.")
+  end
+  rawset(map, "__defaultkey", newkey)
+  rawset(map, "__keylength", string.len(newkey))
+  rawset(map, "__width", new_width)
+end
+
+lib.map.metatable = {
+  __concat = lib.map.concat_horizontally,
+  __add = lib.map.concat_vertically,
+  __mul = lib.map.fuse,
+  __pow = lib.map.transform,
+  __index = lib.map.get,
+  __newindex = lib.map.set,
+}
+
+wo:_register("newMap",
+  function(world, defaultKey, arg1, arg2)
+    local newmap = {user_attributes = {}}
+    -- Check arguments, create map if necessary.
+    if type(defaultKey) ~= "string" then
+      error("newMap: Default key is not of type string, but "..type(defaultKey)..".")
+    end
+    if defaultKey == "" then
+      error("newMap: Default key can't be empty.")
+    end
+    local width = 0
+    local height = 0
+    local kl = string.len(defaultKey)
+    if (type(arg1) == "table") and (type(arg2) == "nil") then
+      -- Interpret table as map.
+      for key, entry in pairs(arg1) do
+        if type(key) == "number" then
+          -- This line is going to be a real map entry.
+          height = math.max(height, key)
+          if type(entry) ~= "string" then
+            error("newMap: Line " .. key .. " is not a string, but "
+                  .. type(entry) .. ".")
+          end
+          local line_width = string.len(entry) / kl
+          if line_width ~= math.floor(line_width) then
+            error("newMap: Line " .. key .. " doesn't fit to key length.")
+          end
+          width = math.max(width, line_width)
+          newmap[key] = entry
+        elseif type(key) == "string" then
+          newmap.user_attributes[key] = entry
+        else
+          error("newMap: Strange type for a table key: " .. type(key) .. ".")
+        end
+      end
+      -- Now complete the map, make it rectangular.
+      for y = 1, height do
+        newmap[y] = newmap[y] or ""
+        newmap[y] = newmap[y]
+            .. string.rep(defaultKey, width - string.len(newmap[y]) / kl)
+      end
+    elseif type(arg1) == "number" and type(arg2) == "number" then
+      -- Create map from scratch.
+      if (arg1 < 1) or (arg2 < 1) or (arg1 ~= math.floor(arg1))
+          or (arg2 ~= math.floor(arg2)) then
+        error("newMap: Width or Height out of range ("..arg1..", "..arg2..").")
+      end
+      local line = string.rep(defaultKey, arg1)
+      for y = 1, arg2 do      
+        newmap[y] = line
+      end
+      width = arg1
+      height = arg2
+    elseif type(arg1) == "nil" and type(arg2) == "nil" then
+      -- Create 1x1-map from scratch.
+      return wo:newMap(defaultKey, 1, 1)
+    --elseif type(arg2) == "nil" then
+    --  -- Interpret arg1 as position.
+    --  return wo:newMap(defaultKey, pos.x + 1, pos.y + 1)
+    else
+      error("newMap: Syntax error. Can't understand arguments.")
+    end
+    -- Set additional values.
+    newmap.__type = "map"
+    newmap.__width = width
+    newmap.__height = height
+    newmap.__defaultkey = defaultKey
+    newmap.__keylength = string.len(defaultKey)
+    -- Set methods and finally metatable.
+    newmap.print = lib.map.print
+    newmap.covers = lib.map.covers
+    newmap.setDefaultKey = lib.map.setDefaultKey
+    newmap.extend = lib.map.extend
+    newmap.sub = lib.map.sub
+    setmetatable(newmap, lib.map.metatable)
+    return newmap
+  end
+)
+
+    ]]></el:luamain>
+    <el:i18n>
+    </el:i18n>
+  </el:protected>
+</el:level>
+

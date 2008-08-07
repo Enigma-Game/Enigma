@@ -131,7 +131,6 @@ SPOT_SENSOR         =   8
 SPOT_LIGHTPASSENGER =  16
 SPOT_TRAP           =  32
 
-
 -- Follower
 FOLLOW_NO     = 0
 FOLLOW_SCROLL = 1
@@ -140,13 +139,23 @@ FOLLOW_FLIP   = 2
 FOLLOW_FULLSCREEN = po(19, 12)
 FOLLOW_HALFSCREEN = po(9.5, 6)
 
+-- Read directions for maps
+MAP_DEFAULT = 0
+MAP_CW = 1
+MAP_180 = 2
+MAP_CCW = 3
+MAP_MIRROR_HORIZONTAL = 4
+MAP_MIRROR_VERTICAL = 5
+MAP_MIRROR_SLASH = 6
+MAP_MIRROR_BACKSLASH = 7
+
 ---------------------
 -- Utility Methods --
 ---------------------
 
 wo:_register("drawMap", 
     function (world, resolver, origin, ignore, map)
-        -- TODO check validity of arguements
+        -- TODO check validity of arguments
         local len = string.len(ignore)
         for y=1, #map do
             local linelen = string.len(map[y])
@@ -173,7 +182,7 @@ wo:_register("drawBorder",
             dest = po(origin.x + arg2 - 1, origin.y + arg3 - 1)
             tile = arg4
         end
-        -- TODO check validity of arguements
+        -- TODO check validity of arguments
         for x = origin.x, dest.x do
             wo[{x, origin.y}] = tile
             if origin.y ~= dest.y then
@@ -197,7 +206,7 @@ wo:_register("drawRect",
             dest = po(origin.x + arg2 - 1, origin.y + arg3 - 1)
             tile = arg4
         end
-        -- TODO check validity of arguements
+        -- TODO check validity of arguments
         for x = origin.x, dest.x do
             for y = origin.y, dest.y do
                 wo[{x, y}] = tile
