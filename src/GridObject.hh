@@ -149,6 +149,7 @@ namespace enigma {
         static void prepareLevel();
     private:
         static std::list<GridObject *> photoSensorList;
+        static std::list<GridObject *>::iterator postRecalcItr;
     
     public:
         virtual void processLight(Direction d);   // direction of laserbeam

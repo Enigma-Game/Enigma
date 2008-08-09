@@ -222,6 +222,7 @@ namespace enigma {
     // GridObject laser light support
     
     std::list<GridObject *> GridObject::photoSensorList;
+    std::list<GridObject *>::iterator GridObject::postRecalcItr;
 
     void GridObject::preLaserRecalc() {
         for (list<GridObject *>::iterator itr = photoSensorList.begin(); itr != photoSensorList.end(); ++itr) {
@@ -231,9 +232,9 @@ namespace enigma {
     }
     
     void GridObject::postLaserRecalc() {
-        for (list<GridObject *>::iterator itr = photoSensorList.begin(); itr != photoSensorList.end(); ) {
-            list<GridObject *>::iterator witr = itr;  // work iterator for possible deletion of object
-            ++itr;                                    // main iterator does no longer point to critical object
+        for (postRecalcItr = photoSensorList.begin(); postRecalcItr != photoSensorList.end(); ) {
+            list<GridObject *>::iterator witr = postRecalcItr;  // work iterator for possible deletion of object
+            ++postRecalcItr;                          // main iterator does no longer point to critical object
             uint32_t flags = (*witr)->objFlags;
             DirectionBits newDirs = (DirectionBits)(flags & OBJBIT_LIGHTNEWDIRS);
             DirectionBits oldDirs = (DirectionBits)((flags & OBJBIT_LIGHTOLDDIRS) >> 4);
@@ -245,6 +246,7 @@ namespace enigma {
     
     void GridObject::prepareLevel() {
         photoSensorList.clear();
+        postRecalcItr = photoSensorList.end();
     }
 
     void GridObject::processLight(Direction dir) {
@@ -266,8 +268,12 @@ namespace enigma {
     
     void GridObject::deactivatePhoto() {
         std::list<GridObject *>::iterator itr = std::find(photoSensorList.begin(), photoSensorList.end(), this);
-        if (itr != photoSensorList.end())
+        if (itr != photoSensorList.end()) {
+            if (postRecalcItr == itr)  //  deactivation on lightDirChanged that interflicts postLaserRecalc
+                // this object can no longer do as the postLaserRecalc iterator, proceed to next one
+                ++postRecalcItr;
             photoSensorList.erase(itr);
+        }
         objFlags &= ~OBJBIT_PHOTOACTIV;
         
     }
