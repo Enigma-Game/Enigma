@@ -155,7 +155,7 @@ namespace enigma {
         bool actionValue = false;
         bool doInit = false;
         
-        Log << "Coinslot state change from " << state << " to " << newIState << "\n";
+//        Log << "Coinslot state change from " << state << " to " << newIState << "\n";
         switch (state) {
             case OFF :
                 ASSERT(newIState != ON, XLevelRuntime, "Coinslot - illegal state change from OFF to ON");

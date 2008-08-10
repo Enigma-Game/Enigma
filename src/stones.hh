@@ -53,6 +53,7 @@ namespace enigma {
         st_coinslot,
         st_death,
         st_death_invisible,
+        st_door,
         st_easymode,
         st_explosion,
         st_fakeoxyda,
@@ -189,13 +190,13 @@ namespace enigma {
         }
 
         /*! Can a swap-stone or pull-stone swap this stone? */
-        virtual bool   is_removable() const { return true; }
+        virtual bool is_removable() const { return true; }
 
         /*! Is this stone floating above the floor (e.g. actors may pass)? */
         virtual bool is_floating() const { return false; }
         
         /*! Can laser beams pass through stone? Return is_floating() by default. */
-        virtual bool   is_transparent (Direction d) const { 
+        virtual bool is_transparent(Direction d) const { 
             return is_floating();
         }
         

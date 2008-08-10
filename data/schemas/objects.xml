@@ -60,6 +60,7 @@
     <msg name="disconnect" type="nil"/>
     <msg name="flip" type="nil"/>
     <msg name="hit" type="object"/>
+    <msg name="ignite" type="nil"/>
     <msg name="inner_pull" type="dir"/>
     <msg name="kill" type="nil"/>
     <msg name="move" type="pos"/>
@@ -468,6 +469,25 @@
     </object>
     <object name="st_death_invisible">
       <attr name="invisible" value="true"/>
+    </object>
+    <object name="st_door">
+      <attr name="faces" default="nesw"/>
+      <attr name="flavor"/>
+      <msg name="close"/>
+      <msg name="open"/>
+      <msg name="signal"/>
+    </object>
+    <object name="st_door_a">
+      <attr name="flavor" value="a"/>
+    </object>
+    <object name="st_door_b">
+      <attr name="flavor" value="b"/>
+    </object>
+    <object name="st_door_c">
+      <attr name="flavor" value="c"/>
+    </object>
+    <object name="st_door_d">
+      <attr name="flavor" value="d"/>
     </object>
     <object name="st_floppy">
       <msg name="on"/>

@@ -223,6 +223,8 @@ enigma_SOURCES = 		\
 	stones/ConnectiveStone.hh	\
 	stones/DeathStone.cc	\
 	stones/DeathStone.hh	\
+	stones/Door.cc		\
+	stones/Door.hh		\
 	stones/FloppySwitch.cc   \
 	stones/FloppySwitch.hh   \
 	stones/FourSwitch.cc	\

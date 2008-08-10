@@ -231,8 +231,8 @@ const char *oxyd::oxydextra_stone_map[256] = {
     UNUSED,              // OxydExtra stone 0x70
     UNUSED,              // OxydExtra stone 0x71
     UNUSED,              // OxydExtra stone 0x72
-    "st-door-h",         // OxydExtra stone 0x73
-    "st-door-v",         // OxydExtra stone 0x74
+    "st_door_d",         // OxydExtra stone 0x73
+    "st_door_d_ew",      // OxydExtra stone 0x74
     UNUSED,              // OxydExtra stone 0x75
     "st-invisible",      // OxydExtra stone 0x76
     UNUSED,              // OxydExtra stone 0x77

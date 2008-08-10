@@ -123,6 +123,9 @@ RenamingObjectsNew2Old = {
     st_coinslot = "st-coinslot",
     st_death = "st-death",
     st_death_invisible = "st-death_invisible",
+    st_door_a = "st-door_a",
+    st_door_b = "st-door_b",
+    st_door_c = "st-door_c",
     st_floppy = "st-floppy",
     st_fourswitch = "st-fourswitch",
     st_knight = "st-knight",
@@ -286,6 +289,24 @@ function enigma.MakeObject(name)
         local obj = enigma._MakeObject("st_scissors")
         enigma._SetAttrib(obj, "inverse", true)
         return obj
+    elseif name == "st-door-h" or name == "st-door" then
+        local obj = enigma._MakeObject("st_door_d")
+        enigma._SetAttrib(obj, "faces", "ns")
+        return obj
+    elseif name == "st-door-h-open" then
+        local obj = enigma._MakeObject("st_door_d")
+        enigma._SetAttrib(obj, "faces", "ns")
+        enigma._SetAttrib(obj, "state", 1)
+        return obj
+    elseif name == "st-door-v" then
+        local obj = enigma._MakeObject("st_door_d")
+        enigma._SetAttrib(obj, "faces", "ew")
+        return obj
+    elseif name == "st-door-h-open" then
+        local obj = enigma._MakeObject("st_door_d")
+        enigma._SetAttrib(obj, "faces", "ew")
+        enigma._SetAttrib(obj, "state", 1)
+        return obj
     end
     
     newname = RenamingObjectsOld2New[name]
@@ -329,6 +350,14 @@ function enigma.GetKind(obj)
             return "it-key_c"
         else -- arbitrary keycodes
             return "it-key_a"
+        end
+    end
+    if _newname == "st_door" then
+        local flavor = enigma._GetAttrib(obj, "flavor")
+        if flavor == "d" then
+            return "st-door"
+        else
+            return "st-door_" .. flavor
         end
     end
     if _newname == "it_sensor" then
@@ -467,6 +496,10 @@ function enigma.SetAttrib(obj, key, val)
      if key == "movable" then
          if val == 1 then _val = true else _val = false end
      end
+     if key == "type" and _obj_name == "st-door" then
+         _key = "faces"
+         if val == "h" then _val = "ns" else _val = "ew" end
+     end
      enigma._SetAttrib(obj, _key, _val)
 end
 
@@ -509,6 +542,11 @@ function enigma.GetAttrib(obj, key)
      end
      if key == "on" then
          _key = "state"
+     end
+     if key == "type" and _obj_name == "st-door" then
+         faces = enigma._GetAttrib(obj, "faces")
+         if faces == "ns" then val = "h" else val = "v" end
+         return val
      end
 
      local val = enigma._GetAttrib(obj, _key)
@@ -607,6 +645,7 @@ MessageRenaming = {
     st_blocker_new__openclose = "toggle",
     st_blocker_new__trigger = "toggle",
     st_boulder__direction = "orientate",
+    st_door__openclose = "toggle",
     ["st-fart__trigger"] = "toggle",
     st_fourswitch__trigger = "toggle",
     st_floppy__onoff = "toggle",

@@ -231,12 +231,12 @@ const char *oxyd::oxydmag_stone_map[256] = {
     "st-mail-w",                // OxydMagnum stone 0x70
     "st-mail-e",                // OxydMagnum stone 0x71
     "st-mail-s",                // OxydMagnum stone 0x72
-    "st-door-h",                // OxydMagnum stone 0x73
-    "st-door-v",                // OxydMagnum stone 0x74
+    "st_door_d",                // OxydMagnum stone 0x73
+    "st_door_d_ew",             // OxydMagnum stone 0x74
     "st-metal",                 // OxydMagnum stone 0x75
     "st-invisible",             // OxydMagnum stone 0x76
     UNUSED,                     // OxydMagnum stone 0x77
-    "st-door-v-open",           // OxydMagnum stone 0x78 (st-door-h-open was wrong, look at level #32)
+    "st_door_d_ew_open",        // OxydMagnum stone 0x78 (st-door-h-open was wrong, look at level #32)
     UNUSED,                     // OxydMagnum stone 0x79
     "st_laserflop_on",          // OxydMagnum stone 0x7a (Level 66, this is a solid stone)
     UNUSED,                     // OxydMagnum stone 0x7b

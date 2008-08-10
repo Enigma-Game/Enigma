@@ -166,14 +166,14 @@ const char *oxyd::oxyd1_stone_map[256] = {
     0,                          // Oxyd1 stone 0x00
     0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
     "st-fakeoxyd",              // Oxyd1 stone 0x11
-    "st-door_c",                // Oxyd1 stone 0x12
+    "st_door_c",                // Oxyd1 stone 0x12
     "st_brick_es",              // Oxyd1 stone 0x13
     "st_brick_sw",              // Oxyd1 stone 0x14
     "st_brick_ne"  ,            // Oxyd1 stone 0x15
     "st_brick_nw",              // Oxyd1 stone 0x16
     "st-plain_hole",            // Oxyd1 stone 0x17
     "st-oxyd-0x18",             // Oxyd1 stone 0x18
-    "st-door_c-open",           // Oxyd1 stone 0x19
+    "st_door_c_open",           // Oxyd1 stone 0x19
     "st-grate1",                // Oxyd1 stone 0x1a
     "st-grate2",                // Oxyd1 stone 0x1b
     "st-bug",                   // Oxyd1 stone 0x1c
@@ -263,12 +263,12 @@ const char *oxyd::oxyd1_stone_map[256] = {
     "st-mail-w",                // Oxyd1 stone 0x70
     "st-mail-e",                // Oxyd1 stone 0x71
     "st-mail-s",                // Oxyd1 stone 0x72
-    "st-door-h",                // Oxyd1 stone 0x73
-    "st-door-v",                // Oxyd1 stone 0x74
+    "st_door_d",                // Oxyd1 stone 0x73
+    "st_door_d_ew",             // Oxyd1 stone 0x74
     "st-metal",                 // Oxyd1 stone 0x75
     "st-invisible",             // Oxyd1 stone 0x76
-    "st-door-h-open",           // Oxyd1 stone 0x77
-    "st-door-v-open",           // Oxyd1 stone 0x78
+    "st_door_d_open",           // Oxyd1 stone 0x77
+    "st_door_d_ew_open",        // Oxyd1 stone 0x78
     UNUSED,                     // Oxyd1 stone 0x79
     "st_laserflop_on",          // Oxyd1 stone 0x7a (only used in level #23)
     UNUSED,                     // Oxyd1 stone 0x7b
