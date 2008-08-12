@@ -38,7 +38,7 @@ namespace enigma {
         if (key == "flavor") { 
             Stone::setAttr(key, val);
             if (val.to_string() != "d")
-                Stone::setAttr("faces", ALL_DIRECTIONS);
+                Stone::setAttr("faces", "nesw");
             if (isDisplayable() && state <= OPEN)
                 init_model();    // need to redisplay after attribute set
             return;

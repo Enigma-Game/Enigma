@@ -54,7 +54,7 @@ namespace enigma {
 
         void creation(GridPos p) {
             pos = p;
-            on_creation (p);
+            on_creation(p);
         }
         void removal(GridPos p) { 
             on_removal(p);

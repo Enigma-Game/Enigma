@@ -2637,6 +2637,25 @@ static int iteratorGroup(lua_State *L) {
     }
 }
 
+static int shuffleGroup(lua_State *L) {
+    // group
+    ObjectList oldSort = toObjectList(L, 1);
+    ObjectList newSort;
+    std::vector<Object *> shuffleVector;
+    for (ObjectList::iterator itr = oldSort.begin(); itr != oldSort.end(); ++itr)
+        shuffleVector.push_back(*itr);
+    int members = shuffleVector.size();
+    for (int i = members - 1; i > 0; i--) {
+        int j = IntegerRand(0, i);
+        Object * obj = shuffleVector[j];
+        shuffleVector[j] = shuffleVector[i];
+        shuffleVector[i] = obj;
+    }
+    for (std::vector<Object *>::iterator itr = shuffleVector.begin(); itr != shuffleVector.end(); ++itr)
+        newSort.push_back(*itr);
+    return pushNewGroup(L, newSort);
+}
+
 MethodMap defaultMethodeMap;
 
 static int pushNewDefault(lua_State *L) {
@@ -2840,6 +2859,7 @@ static CFunction groupOperations[] = {
 static CFunction groupMethods[] = {
     {groupMessage,                  "message"},
     {killObject,                    "kill"},
+    {shuffleGroup,                  "shuffle"},
     {0,0}
 };
 
