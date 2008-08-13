@@ -256,7 +256,7 @@ const char *oxyd::oxyd1_stone_map[256] = {
     "st-flash",                 // Oxyd1 stone 0x69
     "st_coinslot_instant",      // Oxyd1 stone 0x6a
     "st-thief",                 // Oxyd1 stone 0x6b
-    "st-shogun-s",              // Oxyd1 stone 0x6c
+    "st_shogun_s",              // Oxyd1 stone 0x6c
     "st-stoneimpulse",          // Oxyd1 stone 0x6d
     "st_laserflop",             // Oxyd1 stone 0x6e
     "st-mail-n",                // Oxyd1 stone 0x6f
@@ -350,7 +350,7 @@ const char *oxyd::oxyd1_item_map[256] = {
     "it_magnet_off",              // 0x29
     "it_inversesensor",           // 0x2a
     "it_sensor",                  // 0x2b
-    "it-shogun-s",                // 0x2c
+    "it_shogun_s",                // 0x2c
     "it_vortex_open",             // 0x2d
     "it_vortex_closed",           // 0x2e
     "it_wormhole_on",             // 0x2f

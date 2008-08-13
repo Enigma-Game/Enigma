@@ -103,9 +103,13 @@ Field::Field()
 
 Field::~Field()
 {
-    DisposeObject(floor);
-    DisposeObject(item);
+    // the field should be empty at this point, but for security reasons ...
     DisposeObject(stone);
+    stone = NULL;
+    DisposeObject(item);
+    item = NULL;
+    DisposeObject(floor);
+    floor = NULL;
 }
 
 
@@ -230,13 +234,25 @@ World::World(int ww, int hh) : fields(ww,hh), preparing_level(true),
 
 World::~World()
 {
-    fields = FieldArray(0,0);
-    for_each(actorlist.begin(), actorlist.end(), mem_fun(&Actor::dispose));
+    // remove wires, rubberbands first, as they disconnect from other objects
     while (!others.empty()) {
         Other *ot = others.back();
         others.pop_back();
         ot->dispose();
     }
+    // dispose all grid objects without removing them to avoid side effects
+    // keep the field array still valid for arbitrary access
+    for (FieldArray::iterator itr = fields.begin(); itr != fields.end(); ++itr) {
+        DisposeObject((*itr).stone);
+        (*itr).stone = NULL;
+        DisposeObject((*itr).item);
+        (*itr).item = NULL;
+        DisposeObject((*itr).floor);
+        (*itr).floor = NULL;
+    }
+    // reset the fields
+    fields = FieldArray(0,0);
+    for_each(actorlist.begin(), actorlist.end(), mem_fun(&Actor::dispose));
 }
 
 bool World::is_border(const GridPos &p) {
@@ -1558,9 +1574,9 @@ int Height() {
 void WorldPrepareLevel ()
 {
     GameTimer.clear();
-    GridObject::prepareLevel();
-    LaserBeam::prepareLevel();
-    Resize (20, 13);
+    Resize (20, 13);             // delete old world with all its objects
+    GridObject::prepareLevel();  // clear lists of no longer existing objects
+    LaserBeam::prepareLevel();   // clear lists of no longer existing objects
 }
 
 bool WorldInitLevel()
@@ -1953,7 +1969,8 @@ void KillOther(Other *o) {
 void KillFloor(GridPos p) 
 {
     level->fl_layer.kill(p);
-    lua::SetDefaultFloor(lua::LevelState(), p.x, p.y);
+    if (server::EnigmaCompatibility >= 1.10)
+        lua::SetDefaultFloor(lua::LevelState(), p.x, p.y);
 }
 
 Floor *GetFloor(GridPos p) 

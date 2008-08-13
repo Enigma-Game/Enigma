@@ -613,9 +613,9 @@ end
 
 -- it-shogun --
 do
-    NewAnim("it-shogun-s", {img="it-shogun-small", h=3, speed=160, pingpong=1, loop=1})
-    NewAnim("it-shogun-m", {img="it-shogun-med",   h=3, speed=160, pingpong=1, loop=1})
-    NewAnim("it-shogun-l", {img="it-shogun-big",   h=3, speed=160, pingpong=1, loop=1})
+    NewAnim("it_shogun_s", {img="it-shogun-small", h=3, speed=160, pingpong=1, loop=1})
+    NewAnim("it_shogun_m", {img="it-shogun-med",   h=3, speed=160, pingpong=1, loop=1})
+    NewAnim("it_shogun_l", {img="it-shogun-big",   h=3, speed=160, pingpong=1, loop=1})
 end
 
 -- it-springboard --

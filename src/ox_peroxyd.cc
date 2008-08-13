@@ -283,20 +283,20 @@ const char *oxyd::peroxyd_stone_map[256] = {
     "st-puzzle-hollow",         // PerOxyd stone 0x5c
     "st-laserbreak",            // PerOxyd stone 0x5d
     "st-coffee",                // PerOxyd stone 0x5e
-    "st-shogun",                // PerOxyd stone 0x5f (oxyd with a hole, movable ... strange stone! st-shogun as workaround, only link level 74)
+    "st_shogun",                // PerOxyd stone 0x5f (oxyd with a hole, movable ... strange stone! st-shogun as workaround, only link level 74)
     "st-disco-dark",            // PerOxyd stone 0x60
     "st-disco-medium",          // PerOxyd stone 0x61
     "st-bombs",                 // PerOxyd stone 0x62
     "st-flash",                 // PerOxyd stone 0x63
     "st_coinslot_instant",      // PerOxyd stone 0x64
     "st-thief",                 // PerOxyd stone 0x65
-    "st-shogun-s",              // PerOxyd stone 0x66
-    "st-shogun-m",              // PerOxyd stone 0x67
-    "st-shogun-l",              // PerOxyd stone 0x68
-    "st-shogun-sml",            // PerOxyd stone 0x69
-    "st-shogun-ml",             // PerOxyd stone 0x6a
-    "st-shogun-sl",             // PerOxyd stone 0x6b
-    "st-shogun-sm",             // PerOxyd stone 0x6c
+    "st_shogun_s",              // PerOxyd stone 0x66
+    "st_shogun_m",              // PerOxyd stone 0x67
+    "st_shogun_l",              // PerOxyd stone 0x68
+    "st_shogun_sml",            // PerOxyd stone 0x69
+    "st_shogun_ml",             // PerOxyd stone 0x6a
+    "st_shogun_sl",             // PerOxyd stone 0x6b
+    "st_shogun_sm",             // PerOxyd stone 0x6c
     "st-stoneimpulse",          // PerOxyd stone 0x6d
     "st_laserflop",             // PerOxyd stone 0x6e
     "st-mail-n",                // PerOxyd stone 0x6f
@@ -422,8 +422,8 @@ const char *oxyd::peroxyd_item_map[256] = {
     "it_magnet_off",              // 0x28
     "it_sensor_filter0",          // 0x29
     "it_sensor_filter1",          // 0x2a
-    "it-shogun-s",                // 0x2b
-    "it-shogun-l",                // 0x2c
+    "it_shogun_s",                // 0x2b
+    "it_shogun_l",                // 0x2c
     "it_vortex_open",             // 0x2d
     "it_vortex_closed",           // 0x2e
     "it_wormhole_on",             // 0x2f XXX

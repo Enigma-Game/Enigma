@@ -133,18 +133,22 @@ const char * Stone::collision_sound() {
    Note: This should be used by on_impulse() to perform a move.
 */
 bool Stone::move_stone(GridPos newPos, const char *soundevent) {
-    GridPos p      = get_pos();
-
-    if (!GetStone(newPos)) {
-        sound_event (soundevent);
-
-        MoveStone(p, newPos);
-        server::IncMoveCounter();
-
-        on_move();
-        if (Item *it = GetItem(newPos)) it->on_stonehit(this);
-
-        return true;
+    if (isDisplayable()) {
+        GridPos p      = get_pos();
+    
+        if (!GetStone(newPos)) {
+            sound_event (soundevent);
+    
+            MoveStone(p, newPos);
+            server::IncMoveCounter();
+    
+            on_move();
+            if (Item *it = GetItem(newPos))
+                it->on_stonehit(this);
+    
+            return true;
+        }
+        return false;
     }
     return false;
 }
@@ -447,6 +451,7 @@ void YieldedGridStone::set_stone(GridPos pos)
 
 void YieldedGridStone::dispose() 
 {
+    SendMessage(stone, "disconnect");
     stone->dispose();
     delete model;
     stone = 0;

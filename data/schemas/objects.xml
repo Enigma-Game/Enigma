@@ -37,6 +37,8 @@
     <attr name="min" type="double" default="0" rw="rw"/>
     <attr name="movable" type="bool" default="false" rw="rw"/>
     <attr name="name" type="string" default="nil" rw="rw"/>
+    <attr name="name_m" type="string" default="nil" rw="rw"/>
+    <attr name="name_s" type="string" default="nil" rw="rw"/>
     <attr name="nopaction" type="bool" default="false" rw="rw"/>
     <attr name="noshuffle" type="bool" default="false" rw="rw"/>
     <attr name="orientation" type="int" default="0" min="0" max="3" rw="rw"/>
@@ -85,6 +87,7 @@
     <msg name="_model_reanimated" type="nil"/>
     <msg name="_passed" type="nil"/>            <!-- check type-->
     <msg name="_performaction" type="nil"/>
+    <msg name="_shogun" type="int"/>
     <msg name="_spitter" type="nil"/>
     <msg name="_start" type="nil"/>
     <msg name="_trigger" type="bool"/>
@@ -168,6 +171,20 @@
       <attr name="invisible"/>
       <msg name="_glasses"/>
       <msg name="_hit"/>
+    </object>
+    <object name="it_shogun">
+      <attr name="state" max="16" default="4"/>
+      <msg name="_shogun"/>
+      <msg name="_init"/>
+    </object>
+    <object name="it_shogun_s">
+      <attr name="state" value="4"/>
+    </object>
+    <object name="it_shogun_m">
+      <attr name="state" value="8"/>
+    </object>
+    <object name="it_shogun_l">
+      <attr name="state" value="16"/>
     </object>
     <object name="it_rubberband">
       <attr name="anchor2"/>
@@ -693,6 +710,38 @@
       <attr name="scissor" default="true"/>
     </object>
     <object name="st_scissors"/>
+    <object name="st_shogun">
+      <attr name="state" max="16"/>
+      <msg name="_shogun"/>
+      <msg name="_init"/>
+    </object>
+    <object name="st_shogun">
+      <attr name="name_m"/>
+      <attr name="name_s"/>
+      <attr name="state" max="16" default="4"/>
+      <msg name="_shogun"/>
+    </object>
+    <object name="st_shogun_s">
+      <attr name="state" value="4"/>
+    </object>
+    <object name="st_shogun_m">
+      <attr name="state" value="8"/>
+    </object>
+    <object name="st_shogun_sm">
+      <attr name="state" value="12"/>
+    </object>
+    <object name="st_shogun_l">
+      <attr name="state" value="16"/>
+    </object>
+    <object name="st_shogun_sl">
+      <attr name="state" value="20"/>
+    </object>
+    <object name="st_shogun_ml">
+      <attr name="state" value="24"/>
+    </object>
+    <object name="st_shogun_sml">
+      <attr name="state" value="28"/>
+    </object>
     <object name="st_switch">
       <attr name="color"/>
       <attr name="instant"/>

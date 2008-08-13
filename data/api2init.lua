@@ -131,7 +131,12 @@ SPOT_SENSOR         =   8
 SPOT_LIGHTPASSENGER =  16
 SPOT_TRAP           =  32
 
--- Follower
+-- shogun
+SHOGUN_S =  4
+SHOGUN_M =  8
+SHOGUN_L = 16
+
+-- follower
 FOLLOW_NO     = 0
 FOLLOW_SCROLL = 1
 FOLLOW_FLIP   = 2

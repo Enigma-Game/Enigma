@@ -665,7 +665,7 @@ namespace
     }
     
     std::string Coin::getClass() const {
-        return "Coin";
+        return "it_coin";
     }
     
     void Coin::setState(int extState) {
@@ -1670,83 +1670,6 @@ namespace
         {}
     };
     DEF_ITEMTRAITSR(SeedVolcano, "it-seed_volcano", it_seed_volcano, 0.2f);
-}
-
-
-/* -------------------- Shogun dot -------------------- */
-
-/** \page it-shogun Shogun Dot
-
-\subsection shogundota Attributes
-- \b size:            1..3  (smallest..largest)
-- \b target, \b action:   as usual
-*/
-namespace
-{
-    class ShogunDot : public Item {
-        CLONEOBJ(ShogunDot);
-        DECL_ITEMTRAITS_ARRAY(3, subtype);
-    public:
-        static void setup() {
-            RegisterItem (new ShogunDot(SMALL));
-            RegisterItem (new ShogunDot(MEDIUM));
-            RegisterItem (new ShogunDot(LARGE));
-        }
-    private:
-        enum SubType { SMALL, MEDIUM, LARGE };
-        ShogunDot(SubType size);
-
-        virtual Value message(const Message &m);
-        void stone_change(Stone *st);
-
-        // Variables.
-        bool activated;
-        SubType subtype;
-    };
-
-    ItemTraits ShogunDot::traits[3] = {
-        { "it-shogun-s", it_shogun_s, itf_static, 0.0 },
-        { "it-shogun-m", it_shogun_m, itf_static, 0.0 },
-        { "it-shogun-l", it_shogun_l, itf_static, 0.0 }
-    };
-}
-
-ShogunDot::ShogunDot (SubType size)
-: activated(false), subtype(size)
-{
-}
-
-void ShogunDot::stone_change(Stone *st) {
-    if (activated) {
-        if (st == 0) {
-            warning("stone_change: Stone disappeared w/o sending me a proper message!");
-            activated = false;
-            performAction(false);
-        }
-    }
-}
-
-Value ShogunDot::message(const Message &m) {
-    if (m.message == "noshogun") {
-        if (activated) {
-            activated = false;
-            performAction(false);
-        }
-        return Value();
-    } else {
-        const char *s = m.message.c_str();
-        bool size_matches =
-            (strncmp(s, "shogun", 6) == 0)    &&
-            ((s[6]-'1')              == subtype) &&
-            (s[7] == 0);
-
-        if (size_matches != activated) {
-            activated = size_matches;
-            performAction(activated);
-            return Value();
-        }
-    }
-    return Item::message(m);
 }
 
 
@@ -3922,7 +3845,6 @@ void InitItems()
     RegisterItem (new SeedNowood);
     RegisterItem (new SeedVolcano);
     Sensor::setup();
-    ShogunDot::setup();
     RegisterItem (new Spade);
     RegisterItem (new Spoon);
     RegisterItem (new Spring1);

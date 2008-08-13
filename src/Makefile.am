@@ -201,6 +201,8 @@ enigma_SOURCES = 		\
 	items/BlockerItem.hh	\
 	items/GlassesItem.cc	\
 	items/GlassesItem.hh	\
+	items/ShogunDot.cc	\
+	items/ShogunDot.hh	\
 	others/Other.cc		\
 	others/Other.hh		\
 	others/Rubberband.cc	\
@@ -255,6 +257,8 @@ enigma_SOURCES = 		\
 	stones/RubberbandStone.hh	\
 	stones/ScissorsStone.cc	\
 	stones/ScissorsStone.hh	\
+	stones/ShogunStone.cc	\
+	stones/ShogunStone.hh	\
 	stones/Switch.cc	\
 	stones/Switch.hh	\
 	stones/TimerStone.cc	\
