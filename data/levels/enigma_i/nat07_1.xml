@@ -31,7 +31,7 @@ end
 function door( id, type )
    return function( x, y )
       set_floor( INNER_FLOOR, x, y )
-      set_stone( "st-door_a", x, y, {name=id,type=type} )
+      set_stone( "st-door_a", x, y, {name=id} )
    end
 end
 

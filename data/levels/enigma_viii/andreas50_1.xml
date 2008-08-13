@@ -1,0 +1,75 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no" ?>
+<el:level xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://enigma-game.org/schema/level/1 level.xsd" xmlns:el="http://enigma-game.org/schema/level/1">
+  <el:protected>
+    <el:info el:type="level">
+      <el:identity el:title="Colored Oxyds" el:subtitle="" el:id="andreas50"/>
+      <el:version el:score="1" el:release="1" el:revision="2" el:status="released"/>
+      <el:author el:name="Andreas Lochmann" el:email="" el:homepage=""/>
+      <el:copyright>Copyright © 2008 Andreas Lochmann</el:copyright>
+      <el:license el:type="GPL v2.0 or above" el:open="true"/>
+      <el:compatibility el:enigma="1.10">
+      </el:compatibility>
+      <el:modes el:easy="false" el:single="true" el:network="false"/>
+      <el:score el:easy="-" el:difficult="1:22"/>
+    </el:info>
+    <el:luamain><![CDATA[
+wo["ConserveLevel"] = false
+
+ti["  "] = {"fl-samba"}
+ti[". "] = {"fl-abyss"}
+ti["# "] = {"st-stone2"}
+ti["@ "] = {"#ac-blackball"}
+ti["D "] = {"st_oneway", orientation = SOUTH}
+ti["U "] = {"st_oneway", orientation = NORTH}
+ti["S "] = {"st_oxyd", oxydcolor = OXYD_BOLD, noshuffle = true}
+ti["F "] = {"st_oxyd", oxydcolor = OXYD_FART, noshuffle = true}
+
+ti["d1"] = {"fl-red"}       .. ti({"it_blocker", "RED#"})
+ti["d2"] = {"fl-bluegray"}  .. ti({"it_blocker", "CYAN#"})
+ti["d3"] = {"fl-bluegreen"} .. ti({"it_blocker", "BLUE#"})
+ti["d4"] = {"fl-leavesb"}   .. ti({"it_blocker", "GREEN#"})
+ti["d5"] = {"fl-black"}     .. ti({"it_blocker", "BLACK#"})
+ti["d6"] = {"fl-white"}     .. ti({"it_blocker", "WHITE#"})
+ti["d7"] = {"fl-sahara"}    .. ti({"it_blocker", "YELLOW#"})
+ti["d8"] = {"fl-rough-red"} .. ti({"it_blocker", "PURPLE#"})
+
+ti["o1"] = {"st_oxyd", oxydcolor = OXYD_RED, target = "RED#*",
+            action_0 = "open", action_1 = "open", action_2 = "close"}
+ti["o2"] = {"st_oxyd", oxydcolor = OXYD_CYAN, target = "CYAN#*",
+            action_0 = "open", action_1 = "open", action_2 = "close"}
+ti["o3"] = {"st_oxyd", oxydcolor = OXYD_BLUE, target = "BLUE#*",
+            action_0 = "open", action_1 = "open", action_2 = "close"}
+ti["o4"] = {"st_oxyd", oxydcolor = OXYD_GREEN, target = "GREEN#*",
+            action_0 = "open", action_1 = "open", action_2 = "close"}
+ti["o5"] = {"st_oxyd", oxydcolor = OXYD_BLACK, target = "BLACK#*",
+            action_0 = "open", action_1 = "open", action_2 = "close"}
+ti["o6"] = {"st_oxyd", oxydcolor = OXYD_WHITE, target = "WHITE#*",
+            action_0 = "open", action_1 = "open", action_2 = "close"}
+ti["o7"] = {"st_oxyd", oxydcolor = OXYD_YELLOW, target = "YELLOW#*",
+            action_0 = "open", action_1 = "open", action_2 = "close"}
+ti["o8"] = {"st_oxyd", oxydcolor = OXYD_PURPLE, target = "PURPLE#*",
+            action_0 = "open", action_1 = "open", action_2 = "close"}
+
+w, h = wo(ti, "  ", {
+ -- 0 1 2 3 4 5 6 7 8 9 0 1 2 3 4 5 6 7 8 9
+   ". # o2# o6# o3# o1# o6# o8# o7# o2# . ",
+   ". #       #       #       #       # . ",
+   ". #       #       #       #       # . ",
+   "# # d1D d2# d3D d4# d5D d6# d7D d8# # ",
+   "#                                   # ",
+   "F                 @                 F ",
+   "#                                   # ",
+   "# # d1U d2# d3U d4# d5U d6# d7U d8# # ",
+   ". #       #       #       #       # . ",
+   ". #       #       #       #       # . ",
+   ". # o3# o5# o5# o4# o8# o4# o1# o7# . ",
+})
+
+    ]]></el:luamain>
+    <el:i18n>
+      <el:string el:key="title">
+        <el:english el:translate="false"/>
+      </el:string>
+    </el:i18n>
+  </el:protected>
+</el:level>

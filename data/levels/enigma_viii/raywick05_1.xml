@@ -3,7 +3,7 @@
   <el:protected>
     <el:info el:type="level">
       <el:identity el:title="Impulsive Order" el:subtitle="" el:id="raywick5"/>
-      <el:version el:score="1" el:release="1" el:revision="2" el:status="released"/>
+      <el:version el:score="1" el:release="1" el:revision="4" el:status="released"/>
       <el:author  el:name="Ray Wick" el:email=""/>
       <el:copyright>Copyright © 2008 Ray Wick</el:copyright>
       <el:license el:type="GPL v2.0 or above" el:open="true"/>
@@ -27,10 +27,10 @@ ti["#"] = {"st-marble"}
 ti["g"] = {"st-glass"}
 ti["G"] = {"st-grate2"}
 ti["+"] = {"st-wood"}
-ti["v"] = {"st-oneway-s"}
-ti[">"] = {"st-oneway-e"}
-ti["<"] = {"st-oneway-w"}
-ti["1"] = {"st-door-v", name="door1"}
+ti["v"] = {"st_oneway_s"}
+ti[">"] = {"st_oneway_e"}
+ti["<"] = {"st_oneway_w"}
+ti["1"] = {"st_door", name="door1", flavor="d", faces="ew"}
 ti["2"] = {"st-stoneimpulse", name="inner#"}
 ti["4"] = {"st-stoneimpulse"}
 ti["5"] = {"st-stoneimpulse", name="outer#"}

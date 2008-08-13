@@ -3,7 +3,7 @@
   <el:protected>
     <el:info el:type="level">
       <el:identity el:title="The Disappearing Block" el:subtitle="" el:id="duffy2"/>
-      <el:version el:score="1" el:release="1" el:revision="1" el:status="released"/>
+      <el:version el:score="1" el:release="1" el:revision="2" el:status="released"/>
       <el:author  el:name="Jacob Scott" el:email="" el:homepage=""/>
       <el:copyright>Copyright © 2003 Jacob Scott</el:copyright>
       <el:license el:type="GPL v2.0 or above" el:open="true"/>
@@ -147,7 +147,7 @@ set_stone("st-greenbrown",18,3)
 hammer(2,1)
 
 set_item("it-trigger", 18,7, {invisible=1,action="open", target="door3"})
-set_stone("st-door_b", 17,6, {name="door3", type="v"})
+set_stone("st-door_b", 17,6, {name="door3"})
 
 set_actor("ac-blackball" ,10, 4)
     ]]></el:luamain>

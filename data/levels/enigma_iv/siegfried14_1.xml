@@ -3,7 +3,7 @@
   <el:protected>
     <el:info el:type="level">
       <el:identity el:title="Running Rings" el:subtitle="" el:id="level4f"/>
-      <el:version el:score="1" el:release="1" el:revision="0" el:status="released"/>
+      <el:version el:score="1" el:release="1" el:revision="1" el:status="released"/>
       <el:author  el:name="Siegfried Fennig" el:email="" el:homepage=""/>
       <el:copyright>Copyright © 2003 Siegfried Fennig</el:copyright>
       <el:license el:type="GPL version 2" el:open="true"/>
@@ -128,19 +128,19 @@ set_stone("st-death", 14,11)
 set_item("it-hollow", 1,92)
 
 set_stone("st-key_a", 5,40, {action="openclose", target="door1"})
-set_stone("st-door_b", 11,8, {name="door1", type="h"})
+set_stone("st-door_b", 11,8, {name="door1"})
 set_item("it-key_a", 8,67)
 
 set_stone( "st-key_b", 14,77, {action="openclose", target="door2"})
-set_stone("st-door_b", 9,22, {name="door2", type="h"})
+set_stone("st-door_b", 9,22, {name="door2"})
 set_item("it-key_b", 12,7)
 
 set_stone( "st-key_c", 5,59, {action="openclose", target="door3"})
-set_stone("st-door_b", 8,55, {name="door3", type="v"})
+set_stone("st-door_b", 8,55, {name="door3"})
 set_item("it-key_c", 7,11)
 
 set_stone("st-coinslot", 5,16, {action="openclose", target="door4"})
-set_stone("st-door_b", 10,15, {name="door4", type="h"})
+set_stone("st-door_b", 10,15, {name="door4"})
 set_item("it-coin4", 5,12,{value=6})
 
 oneway(15,5, enigma.EAST)

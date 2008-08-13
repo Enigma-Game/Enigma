@@ -2,8 +2,8 @@
 <el:level xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://enigma-game.org/schema/level/1 level.xsd" xmlns:el="http://enigma-game.org/schema/level/1">
   <el:protected>
     <el:info el:type="level">
-      <el:identity el:title="Colour Maze" el:subtitle="" el:id="pulley16"/>
-      <el:version el:score="3" el:release="3" el:revision="2" el:status="released"/>
+      <el:identity el:title="Color Maze" el:subtitle="" el:id="pulley16"/>
+      <el:version el:score="3" el:release="3" el:revision="4" el:status="released"/>
       <el:author  el:name="Mark Pulley" el:email="" el:homepage=""/>
       <el:copyright>Copyright © 2008 Mark Pulley</el:copyright>
       <el:license el:type="GPL v2.0 or above" el:open="true"/>
@@ -19,70 +19,63 @@ wo["ConserveLevel"] = false
 wo["FollowGrid"] = false
 wo["FollowMethod"] = FOLLOW_SCROLL
 
-ti[" "] = {"fl-abyss_fake"}
-ti["*"] = {"st-glass1"}
+ti[" "] = {"fl-abyss_fake"} .. ti({"st-glass1"})
 
 ti["!"] = {"fl-rough-blue", "blue#", _color="blue"}
 ti["@"] = {"fl-bumps", "orange#", _color="orange"}
 ti["#"] = {"fl-rough-red", "red#", _color="red"}
 ti["$"] = {"fl-leavesb", "green#", _color="green"}
 
-ti["1"] = ti["!"] .. {"st-door-h-open"}
-ti["2"] = ti["@"] .. {"st-door-h-open"}
-ti["3"] = ti["#"] .. {"st-door-h-open"}
-ti["4"] = ti["$"] .. {"st-door-h-open"}
+ti["b"] = ti["!"] .. {"st_door", flavor="d", faces="ns", state=OPEN}
+ti["B"] = ti["!"] .. {"st_door", flavor="d", faces="ew", state=OPEN}
+ti["o"] = ti["@"] .. {"st_door", flavor="d", faces="ns", state=OPEN}
+ti["O"] = ti["@"] .. {"st_door", flavor="d", faces="ew", state=OPEN}
+ti["r"] = ti["#"] .. {"st_door", flavor="d", faces="ns", state=OPEN}
+ti["R"] = ti["#"] .. {"st_door", flavor="d", faces="ew", state=OPEN}
+ti["g"] = ti["$"] .. {"st_door", flavor="d", faces="ns", state=OPEN}
+ti["G"] = ti["$"] .. {"st_door", flavor="d", faces="ew", state=OPEN}
 
 ti["d"] = {"it-document", text="text1"}
-ti["5"] = ti["1"] .. ti["d"]
-ti["6"] = ti["2"] .. ti["d"]
-ti["7"] = ti["3"] .. ti["d"]
-ti["8"] = ti["4"] .. ti["d"]
+ti["5"] = ti["b"] .. ti["d"]
+ti["6"] = ti["O"] .. ti["d"]
+ti["7"] = ti["r"] .. ti["d"]
+ti["8"] = ti["G"] .. ti["d"]
 
-ti["a"] = {"it_sensor", invisible=true, target="gates"}
-ti["O"] = ti["a"] .. {"#ac-blackball", "me"}
+ti["x"] = {"it_sensor", invisible=true, target="gates"}
+ti["*"] = ti["x"] .. {"#ac-blackball", "me"}
 
-ti["0"] = {"st_oxyd_a"}
+ti["?"] = {"st_oxyd_a"}
 
--- the following resolver can be eliminated by 4 tile declarations and a map editing
-function door_resolver(key, x, y)
-    if y%4 == 1 and (key == "1" or key == "2" or key=="3" or key =="4"
-            or key == "6" or key =="8") then
-        return ti[key] .. {"st-door-v-open"}
-    else
-        return ti[key]
-    end
-end
-
-wo(door_resolver, " ", {
+wo(ti, " ", {
 --      |         1    1   |2    2
 --      |1   5    0    5   |0    5
-       "***************************",
-       "*a2@2a3#3a2@2a1!1a3#3a1!1a*", --01
-       "*1***3***4***4***1***4***3*", 
-       "*!***#***$***$***!***$***#*", 
-       "*1***3***4***4***1***4***3*", 
-       "*a3#3a1!1a2@2a4$4a2@2a2@2a*", --05
-       "*4***4***3***4***4***1***1*", 
-       "*$***$***#***$***$***!***!*", 
-       "*4***4***3***4***4***1***1*", 
-       "*a3#3a2@2a4$4a3#3a4$4a3#3a*", 
-       "*4***1***1***2*******1***3*", --10
-       "*$***!***!***@*******!***#*", 
-       "*4***1***5***2***0***1***3*", --
-       "*a2@2a2@6O8$4a***a4$4a3#3a*", 
-       "*3***1***7***1***0***2***2*", 
-       "*#***!***#***!*******@***@*", --15
-       "*3***1***3***1*******2***2*", 
-       "*a4$4a1!1a3#3a2@2a3#3a4$4a*", 
-       "*4***2***2***4***4***2***1*", 
-       "*$***@***@***$***$***@***!*", 
-       "*4***2***2***4***4***2***1*", --20
-       "*a1!1a2@2a3#3a3#3a2@2a1!1a*", 
-       "*2***3***4***4***1***1***4*", 
-       "*@***#***$***$***!***!***$*", 
-       "*2***3***4***4***1***1***4*", --
-       "*a3#3a1!1a1!1a3#3a2@2a3#3a*", --25
-       "***************************"} -- 
+       "                           ",
+       " xO@OxR#RxO@OxB!BxR#RxB!Bx ", --01
+       " b   r   g   g   b   g   r ", 
+       " !   #   $   $   !   $   # ", 
+       " b   r   g   g   b   g   r ", 
+       " xR#RxB!BxO@OxG$GxO@OxO@Ox ", --05
+       " g   g   r   g   g   b   b ", 
+       " $   $   #   $   $   !   ! ", 
+       " g   g   r   g   g   b   b ", 
+       " xR#RxO@OxG$GxR#RxG$GxR#Rx ", 
+       " g   b   b   o       b   r ", --10
+       " $   !   !   @       !   # ", 
+       " g   b   5   o   ?   b   r ", --
+       " xO@OxO@6*8$Gx   xG$GxR#Rx ", 
+       " r   b   7   b   ?   o   o ", 
+       " #   !   #   !       @   @ ", --15
+       " r   b   r   b       o   o ", 
+       " xG$GxB!BxR#RxO@OxR#RxG$Gx ", 
+       " g   o   o   g   g   o   b ", 
+       " $   @   @   $   $   @   ! ", 
+       " g   o   o   g   g   o   b ", --20
+       " xB!BxO@OxR#RxR#RxO@OxB!Bx ", 
+       " o   r   g   g   b   b   g ", 
+       " @   #   $   $   !   !   $ ", 
+       " o   r   g   g   b   b   g ", --
+       " xR#RxB!BxB!BxR#RxO@OxR#Rx ", --25
+       "                           "} -- 
 --      |         1    1   |2    2
 --      |1   5    0    5   |0    5
 )
@@ -111,7 +104,7 @@ end
         <el:english el:translate="false"/>
       </el:string>
       <el:string el:key="text1">
-        <el:english el:translate="true">This is a colour maze. You have to work out what order you need to traverse the coloured floors in order to reach the oxyds.</el:english>
+        <el:english el:translate="true">This is a color maze. You have to work out what order you need to traverse the colored floors in order to reach the oxyds.</el:english>
       </el:string> 
     </el:i18n>
   </el:protected>

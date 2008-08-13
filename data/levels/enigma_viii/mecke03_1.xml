@@ -1,0 +1,88 @@
+﻿<?xml version="1.0" encoding="utf-8" standalone="no" ?>
+<el:level xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://enigma-game.org/schema/level/1 level.xsd" xmlns:el="http://enigma-game.org/schema/level/1">
+  <el:protected >
+    <el:info el:type="level">
+      <el:identity el:title="Balance Beam" el:subtitle="Balance Beam" el:id="mecke03"/>
+      <el:version el:score="1" el:release="1" el:revision="$Revision: 29 $" el:status="released"/>
+      <el:author  el:name="mecke"/>
+      <el:copyright>Copyright © 2008 Thomas Bernhardt</el:copyright>
+      <el:license el:type="GPL v2.0 or above" el:open="true"/>
+        <el:compatibility el:enigma="1.10" /> 
+      <el:modes el:easy="true" el:single="true" el:network="false" el:control="force" el:scoreunit="duration" el:scoretarget="time"/>
+      <el:comments>
+        <el:credits el:showinfo="true" el:showstart="false">Thanks to Ronald Lamprecht for the new "st_window"</el:credits> 
+      </el:comments>
+      <el:score el:easy="04:55" el:difficult="05:13"/>
+    </el:info>
+    <el:luamain><![CDATA[	
+wo["ConserveLevel"] = true
+
+if wo ["IsDifficult"] then
+    ti["b"] = {"fl-ice"}
+  else
+    ti["b"] = {"fl-bluegray"}
+end
+ti[" "] = {"fl-space"}
+ti["r"] = {"fl-red"}
+ti["z"] = {"fl-rough"}
+ti["l"] = {"fl-light"}
+ti["~"] = {"fl-water"}
+ti["y"] = {"fl-swamp"}
+ti["n"] = {"st_window_n"}
+ti["s"] = {"st_window_s"}
+ti["w"] = {"st_window_w"}
+ti["e"] = {"st_window_e"}
+ti["1"] = {"st_window_es"}
+ti["P"] = {"st-stoneimpulse-hollow"}
+ti["Q"] = {"st-break_invisible"}
+ti["T"] = {"st-yellow"}
+ti["!"] = {"it_death"}
+ti["B"] = {"st-glass"}
+ti["0"] = ti["r"] .. {"#ac-blackball"}
+ti["X"] = ti["r"] .. {"st_oxyd", flavor="a"}
+ti["#"] = ti["z"] .. {"#ac-top", range="3", force="10"}
+ti["+"] = ti["~"] .. {"st_actorimpulse"}
+ti["Y"] = ti["y"] .. {"it_wormhole"}
+ti["2"] = ti["r"] .. {"st_window_ns",secure=true}
+ti["-"] = ti["~"] .. {"it_strip_ew"}
+ti["3"] = {"st_window_ne"}
+ti["V"] = {"it_sensor",action="close",target="door"}
+ti["Z"] = ti["l"] ..{"it_sensor",action="open",target="door"}
+ti["*"] = ti["r"] .. {"st_door","door", flavor="d", faces="ew"}
+
+ti["4"] = {"st_fourswitch",state=2, target="hans", action="inner_pull"}
+ti["5"] = ti["-"] .. {"st_window_ne", "hans"}
+ti["6"] = {"st_fourswitch",state=1, target="peter", action="inner_pull"}
+ti["7"] = ti["-"] .. {"st_window_es", "peter"}
+ti["8"] = {"st_fourswitch",state=2, target="klaus", action="inner_pull"}
+ti["9"] = ti["-"] .. {"st_window_ne", "klaus"}
+
+w, h = wo(ti, " ", {
+"B bbbbbbbbbbbbbbbbbbbbbb2222222222w22222222222bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbwBBB",
+"Bbb!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!~!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!bbBXB",
+"BbT                 1            yyy          T                                                nB6BbB",
+"BbT               Q1            yyyyy          T                                            QQnQQQBbB",
+"BbT            + Q1Q           yyyYyyy          T                                      +    Qn n sBbB",
+"BbTQQQQQTQQQQQ+++1 T          yyyyyyyyy          T     + +           + +              +++TTTTT#TTzT B",
+"4rr22222022222 r  5r         yyyyy+yyyyy         b     r rlr l r l rlr r     b l b   r Z *Vrr 7rr9 rB",
+"BbTQQQQQTQQQQQ+++3#T          yyyyyyyyy          T     + +           + +              +++TTTTTzTT#T B",
+"BbT            + Q3Q           yyyYyyy          T                                      +     QQsQnBbB",
+"BbT               Q3            yyyyy          T                                              s QQBbB",
+"BbT                 3            yyy          T                                                sB8BbB",
+"Bbb!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!~!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!bbBXB",
+"B bbbbbbbbbbbbbbbbbbbbbb2222222222w22222222222bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbwBBB"
+})
+wo:shuffleOxyd()
+
+   ]]></el:luamain>
+     <el:i18n>
+       <el:string el:key="title">
+         <el:english el:translate="true"/>
+         <el:translation el:lang="de">Schwebebalken</el:translation> 
+       </el:string>
+       <el:string el:key="subtitle">
+         <el:english el:translate="false"/>
+       </el:string>
+     </el:i18n>
+  </el:protected>
+</el:level>

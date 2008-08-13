@@ -3,7 +3,7 @@
   <el:protected>
     <el:info el:type="level">
       <el:identity el:title="Turnstile Maze" el:subtitle="" el:id="duffy53"/>
-      <el:version el:score="1" el:release="1" el:revision="1" el:status="released"/>
+      <el:version el:score="1" el:release="1" el:revision="2" el:status="released"/>
       <el:author  el:name="Jacob Scott" el:email="" el:homepage=""/>
       <el:copyright>Copyright © 203 Jacob Scott</el:copyright>
       <el:license el:type="GPL v2.0 or above" el:open="true"/>
@@ -147,7 +147,7 @@ function renderLine( line, pattern)
         elseif c=="v" then
             set_floor("fl-bridge",i-1,line,{name="bridge22"})
         elseif c == "%" then
-            set_stone("st-door_b", i-1,line, {name="door1", type="v"})
+            set_stone("st-door_b", i-1,line, {name="door1"})
         end
     end
 end

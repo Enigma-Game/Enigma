@@ -3,7 +3,7 @@
   <el:protected>
     <el:info el:type="level">
       <el:identity el:title="Oxyd Labyrinth" el:subtitle="" el:id="martin87"/>
-      <el:version el:score="1" el:release="1" el:revision="0" el:status="released"/>
+      <el:version el:score="1" el:release="1" el:revision="1" el:status="released"/>
       <el:author  el:name="Martin Hawlisch" el:email="" el:homepage=""/>
       <el:copyright>Copyright © 2003 Martin Hawlisch</el:copyright>
       <el:license el:type="GPL version 2" el:open="true"/>
@@ -28,7 +28,7 @@ function renderLine( line, pattern)
     for i=1, strlen(pattern) do
       local c = strsub( pattern, i, i)
       if c =="#" then
-         set_stone("st-door_a",i-1,line,{type="v"})
+         set_stone("st-door_a",i-1,line)
       elseif c == "O" then
          oxyd( i-1, line)
       elseif c == "+" then
@@ -37,12 +37,12 @@ function renderLine( line, pattern)
     end
 end
 
-set_stone("st-door_a", 1,10, {type="v", name="door1"})
-set_stone("st-door_a", 6, 9, {type="v", name="door2"})
-set_stone("st-door_a", 6, 5, {type="v", name="door3"})
-set_stone("st-door_a", 9,10, {type="v", name="door4"})
-set_stone("st-door_a",17, 8, {type="v", name="door5"})
-set_stone("st-door_a", 6, 2, {type="v", name="door6"})
+set_stone("st-door_a", 1,10, {name="door1"})
+set_stone("st-door_a", 6, 9, {name="door2"})
+set_stone("st-door_a", 6, 5, {name="door3"})
+set_stone("st-door_a", 9,10, {name="door4"})
+set_stone("st-door_a",17, 8, {name="door5"})
+set_stone("st-door_a", 6, 2, {name="door6"})
 
 shogundot1(17,1, {target="door1", action="openclose"})
 shogundot1(16,2, {target="door2", action="openclose"})

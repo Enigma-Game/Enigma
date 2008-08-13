@@ -4772,7 +4772,7 @@ grid position one of the two panel cluster tiles. We simply generate a random
 number out of 1 and 2. But we do need a string as the tiles key. We force Lua
 to convert the number to string by concatenating an empty string @samp{""} with
 the random number. Choosing the right panel variants to build up closed clusters
-is done by the enginge.
+is done by the engine.
 
 @example
 29      else
@@ -4812,7 +4812,7 @@ do this by permutating 12 index numbers to be used for door and wire access.
 Get the groups of movable stones, triggers and doors. It is essential to do this
 once and to store the resulting groups as we want to index the group members.
 Repeated access to the named object repository does not guarantee a stable
-sorting of the result groups. Thus we operate on the stable onece retrieved
+sorting of the result groups. Thus we operate on the stable once retrieved
 and stored groups. 
 
 @example

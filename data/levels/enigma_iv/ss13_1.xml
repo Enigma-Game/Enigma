@@ -3,7 +3,7 @@
   <el:protected>
     <el:info el:type="level">
       <el:identity el:title="Slide it in" el:subtitle="" el:id="ss13"/>
-      <el:version el:score="1" el:release="1" el:revision="0" el:status="released"/>
+      <el:version el:score="1" el:release="1" el:revision="1" el:status="released"/>
       <el:author  el:name="Sven Siggelkow" el:email="" el:homepage=""/>
       <el:copyright>Copyright © 2003 Sven Siggelkow</el:copyright>
       <el:license el:type="GPL v2.0 or above" el:open="true"/>
@@ -69,13 +69,13 @@ function renderLine( line, pattern)
      end
          hollow(i-1,line, {name="hollow4"})
       elseif c=="e" then
-         set_stone("st-door_a", i-1,line, {name="door1", type="v"})
+         set_stone("st-door_a", i-1,line, {name="door1"})
       elseif c=="f" then
-         set_stone("st-door_a", i-1,line, {name="door2", type="v"})
+         set_stone("st-door_a", i-1,line, {name="door2"})
       elseif c=="g" then
-         set_stone("st-door_a", i-1,line, {name="door3", type="v"})
+         set_stone("st-door_a", i-1,line, {name="door3"})
       elseif c=="h" then
-         set_stone("st-door_a", i-1,line, {name="door4", type="v"})
+         set_stone("st-door_a", i-1,line, {name="door4"})
       elseif c=="1" then
      set_stone("st-switch",i-1,line, {action="callback", target="s1"})
       elseif c=="2" then

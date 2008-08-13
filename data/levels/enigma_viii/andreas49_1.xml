@@ -3,7 +3,7 @@
   <el:protected>
     <el:info el:type="level">
       <el:identity el:title="Wired" el:subtitle="" el:id="andreas49"/>
-      <el:version el:score="1" el:release="1" el:revision="2" el:status="released"/>
+      <el:version el:score="1" el:release="1" el:revision="3" el:status="released"/>
       <el:author el:name="Andreas Lochmann" el:email="" el:homepage=""/>
       <el:copyright>Copyright © 2008 Andreas Lochmann</el:copyright>
       <el:license el:type="GPL v2.0 or above" el:open="true"/>
@@ -14,14 +14,10 @@
       <el:score el:easy="0:37" el:difficult="8:49"/>
     </el:info>
     <el:luamain><![CDATA[
--- difficult: 0:52
-wo["ConserveLevel"] = true
-
 ti[" "] = {"fl-sahara", friction = 3.5, mouseforce = 4.0}
 ti["a"] = {"fl-light", friction = 3.5, mouseforce = 4.0}
 ti["b"] = {"fl-white", friction = 3.5, mouseforce = 4.0}
 ti["c"] = {"fl-lightgray", friction = 3.5, mouseforce = 4.0}
-ti["#"] = {"st-stone2"}
 ti["_"] = {"fl-water"}
 ti["@"] = {"#ac-blackball"}
 ti["w"] = {"st-plain_move", "wood#"}
@@ -33,12 +29,12 @@ ti["1"] = {"st_panel", cluster = 1}
 ti["2"] = {"st_panel", cluster = 2}
 ti["S"] = {"st_switch", target = "easy_mode_call"}
 
-floors = {ti[" "], ti["a"], ti["b"], ti["c"]}
-a = luatools.random_vector(10, 4)
+floors  = {ti[" "], ti["a"], ti["b"], ti["c"]}
+polynom = luatools.random_vector(10, 4)
 
 function myresolver(key, x, y)
   if key == " " then  
-    return floors[luatools.cubic_polynomial(a, x, y) % (#floors) + 1]
+    return floors[luatools.cubic_polynomial(polynom, x, y) % (#floors) + 1]
   elseif    (key == "#")
          or ((key == "_") and (random(4) == 1))
          or ((key == "S") and wo["IsDifficult"]) then
@@ -67,35 +63,34 @@ w, h = wo(myresolver, " ", {
 
 door_p = luatools.permutation(12)
 wire_p = luatools.permutation(12)
-more_wires = luatools.cyclic_permutation(9)
 woods = no["wood#*"]
+triggers = no["trigger#*"]
+doors = no["door#*"]
 
 for j = 1, 12 do
-  no["trigger#*"][j].target = no["door#*"][door_p[j]]
+  triggers[j].target = doors[door_p[j]]
 end
 
 for j = 1, 9 do
   wo:add({"ot_wire",
           anchor1 = woods[wire_p[j + 3]],
-          anchor2 = woods[wire_p[luatools.mod(j, 3) + 1]]})
+          anchor2 = woods[wire_p[j%3 + 1]]})
   wo:add({"ot_wire", name = "obsolete_wire#",
           anchor1 = woods[wire_p[j + 3]],
-          anchor2 = woods[wire_p[more_wires[j] + 3]]})
+          anchor2 = woods[wire_p[j%9 + 4]]})
 end
 
-function easy_mode_call(onoff, sender)
-  if onoff then
-    no["obsolete_wire#*"]:message("kill")
+function easy_mode_call(is_on, sender)
+  if is_on then
+    no["obsolete_wire#*"]:kill()
   else
     for j = 1, 9 do
       wo:add({"ot_wire", name = "obsolete_wire#",
               anchor1 = woods[wire_p[j + 3]],
-              anchor2 = woods[wire_p[more_wires[j] + 3]]})
+              anchor2 = woods[wire_p[j%9 + 4]]})
     end
   end
 end
-
---wo:shuffleOxyd()
     ]]></el:luamain>
     <el:i18n>
       <el:string el:key="title">

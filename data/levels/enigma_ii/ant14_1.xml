@@ -3,7 +3,7 @@
   <el:protected>
     <el:info el:type="level">
       <el:identity el:title="Dancers" el:subtitle="" el:id="ant14"/>
-      <el:version el:score="1" el:release="1" el:revision="0" el:status="released"/>
+      <el:version el:score="1" el:release="1" el:revision="1" el:status="released"/>
       <el:author  el:name="Petr Machata" el:email="" el:homepage=""/>
       <el:copyright>Copyright © 2003 Petr Machata</el:copyright>
       <el:license el:type="GPL v2.0 or above" el:open="true"/>
@@ -50,7 +50,7 @@ cells["+"]=cell{item={"it-trigger", {action="callback", target="revert_bolders"}
 bolders = {}
 doors   = {}
 cells[">"]=cell{{{add_multistone, "st-bolder-e", bolders}}}
-cells["="]=cell{{{add_multistone, "st-door_a", doors, {type="h"}}, cells["."]}}
+cells["="]=cell{{{add_multistone, "st-door_a", doors}, cells["."]}}
 
 cells["0"]=oxyd
 cells["O"]=cell{actor={"ac-blackball", {player=0}}}

@@ -302,7 +302,7 @@ function enigma.MakeObject(name)
         local obj = enigma._MakeObject("st_door_d")
         enigma._SetAttrib(obj, "faces", "ew")
         return obj
-    elseif name == "st-door-h-open" then
+    elseif name == "st-door-v-open" then
         local obj = enigma._MakeObject("st_door_d")
         enigma._SetAttrib(obj, "faces", "ew")
         enigma._SetAttrib(obj, "state", 1)

@@ -3,7 +3,7 @@
   <el:protected>
     <el:info el:type="level">
       <el:identity el:title="Security Guards" el:subtitle="" el:id="duffy108"/>
-      <el:version el:score="1" el:release="1" el:revision="1" el:status="released"/>
+      <el:version el:score="1" el:release="1" el:revision="2" el:status="released"/>
       <el:author  el:name="Jacob Scott" el:email="" el:homepage=""/>
       <el:copyright>Copyright © 2004 Jacob Scott</el:copyright>
       <el:license el:type="GPL v2.0 or above" el:open="true"/>
@@ -67,37 +67,37 @@ function renderLine( line, pattern)
         elseif c=="Q" then
             set_stone("st-switch",i-1,line,{action="callback",target="funcc1"})
         elseif c=="A" then
-            set_stone("st-door_a",i-1,line,{close=0,name="door1"})
+            set_stone("st-door_a",i-1,line,{name="door1"})
         elseif c=="B" then
-            set_stone("st-door_a",i-1,line,{close=0,name="door2"})
+            set_stone("st-door_a",i-1,line,{name="door2"})
         elseif c=="C" then
-            set_stone("st-door_a",i-1,line,{close=0,name="door3"})
+            set_stone("st-door_a",i-1,line,{name="door3"})
         elseif c=="D" then
-            set_stone("st-door_a",i-1,line,{close=0,name="door4"})
+            set_stone("st-door_a",i-1,line,{name="door4"})
         elseif c=="E" then
-            set_stone("st-door_a",i-1,line,{close=0,name="door5"})
+            set_stone("st-door_a",i-1,line,{name="door5"})
         elseif c=="F" then
-            set_stone("st-door_a",i-1,line,{close=0,name="door6"})
+            set_stone("st-door_a",i-1,line,{name="door6"})
         elseif c=="G" then
-            set_stone("st-door_a",i-1,line,{close=0,name="door7"})
+            set_stone("st-door_a",i-1,line,{name="door7"})
         elseif c=="`" then
-            set_stone("st-door_a",i-1,line,{close=0,name="door8"})
+            set_stone("st-door_a",i-1,line,{name="door8"})
         elseif c=="I" then
-            set_stone("st-door_a",i-1,line,{close=0,name="door9"})
+            set_stone("st-door_a",i-1,line,{name="door9"})
         elseif c=="J" then
-            set_stone("st-door_a",i-1,line,{close=0,name="door10"})
+            set_stone("st-door_a",i-1,line,{name="door10"})
         elseif c=="K" then
-            set_stone("st-door_a",i-1,line,{close=0,name="door11"})
+            set_stone("st-door_a",i-1,line,{name="door11"})
         elseif c=="L" then
-            set_stone("st-door_a",i-1,line,{close=0,name="door12"})
+            set_stone("st-door_a",i-1,line,{name="door12"})
         elseif c=="M" then
-            set_stone("st-door_a",i-1,line,{close=0,name="door13"})
+            set_stone("st-door_a",i-1,line,{name="door13"})
         elseif c=="$" then
-            set_stone("st-door_a",i-1,line,{close=0,name="door14"})
+            set_stone("st-door_a",i-1,line,{name="door14"})
         elseif c=="%" then
-            set_stone("st-door_a",i-1,line,{close=0,name="door15"})
+            set_stone("st-door_a",i-1,line,{name="door15"})
         elseif c=="P" then
-            set_stone("st-door_a",i-1,line,{close=0,name="door16"})
+            set_stone("st-door_a",i-1,line,{name="door16"})
         end
     end
 end

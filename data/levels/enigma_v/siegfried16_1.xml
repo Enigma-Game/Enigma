@@ -3,7 +3,7 @@
   <el:protected>
     <el:info el:type="level">
       <el:identity el:title="Break and Enter" el:subtitle="" el:id="level5b"/>
-      <el:version el:score="1" el:release="1" el:revision="0" el:status="released"/>
+      <el:version el:score="1" el:release="1" el:revision="1" el:status="released"/>
       <el:author  el:name="Siegfried Fennig" el:email="" el:homepage=""/>
       <el:copyright>Copyright © 2003 Siegfried Fennig</el:copyright>
       <el:license el:type="GPL version 2" el:open="true"/>
@@ -170,18 +170,18 @@ function t_h3()
     end
 end
 
-set_stone("st-door_b", 4,6, {name="door1", type="v"})
-set_stone("st-door_b", 5,6, {name="door2", type="v"})
-set_stone("st-door_b", 6,6, {name="door3", type="v"})
-set_stone("st-door_b", 7,6, {name="door4", type="v"})
-set_stone("st-door_b", 8,6, {name="door5", type="v"})
-set_stone("st-door_b", 9,6, {name="door6", type="v"})
-set_stone("st-door_b", 10,6, {name="door7", type="v"})
-set_stone("st-door_b", 11,6, {name="door8", type="v"})
-set_stone("st-door_b", 12,6, {name="door9", type="v"})
-set_stone("st-door_b", 13,6, {name="door10", type="v"})
-set_stone("st-door_b", 14,6, {name="door11", type="v"})
-set_stone("st-door_b", 15,6, {name="door12", type="v"})
+set_stone("st-door_b", 4,6, {name="door1"})
+set_stone("st-door_b", 5,6, {name="door2"})
+set_stone("st-door_b", 6,6, {name="door3"})
+set_stone("st-door_b", 7,6, {name="door4"})
+set_stone("st-door_b", 8,6, {name="door5"})
+set_stone("st-door_b", 9,6, {name="door6"})
+set_stone("st-door_b", 10,6, {name="door7"})
+set_stone("st-door_b", 11,6, {name="door8"})
+set_stone("st-door_b", 12,6, {name="door9"})
+set_stone("st-door_b", 13,6, {name="door10"})
+set_stone("st-door_b", 14,6, {name="door11"})
+set_stone("st-door_b", 15,6, {name="door12"})
 
 set_actor("ac-blackball", 2.5, 10.5)
     ]]></el:luamain>

@@ -3,7 +3,7 @@
   <el:protected>
     <el:info el:type="level">
       <el:identity el:title="Enigmines" el:subtitle="" el:id="huffman01"/>
-      <el:version el:score="1" el:release="1" el:revision="0" el:status="released"/>
+      <el:version el:score="1" el:release="1" el:revision="2" el:status="released"/>
       <el:author  el:name="Brian Huffman" el:email="" el:homepage=""/>
       <el:copyright>Copyright © 2007 Brian Huffman</el:copyright>
       <el:license el:type="GPL version 2" el:open="true"/>
@@ -201,7 +201,7 @@ function cb_hint (onoff)
         SendMessage ("door1", "close")
     else
         SendMessage ("door1", "open")
-        if score > 0 then
+        if (score > 0) and (winnable == 1) then
             local k = random (1, score)
             local i = 0
             local j = 1

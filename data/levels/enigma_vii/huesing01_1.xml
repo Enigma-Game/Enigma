@@ -22,7 +22,7 @@ ti["~"] = {"fl-water"}
 ti["#"] = {"st-metal"}
 ti["W"] = ti["+"] .. {"st-wood"}
 ti["X"] = {"st_oxyd"}
-ti[":"] = {"st-door-v","door#"}
+ti[":"] = {"st_door","door#", flavor="d", faces="ew"}
 ti["A"] = ti["~"] .. {"st_boulder_n", "boulderA"}
 ti["a"] = {"it_trigger", target="boulderA", action_1="turn"}
 ti["B"] = ti["~"] .. {"st_boulder_s", "boulderB"}
@@ -75,4 +75,3 @@ w, h = wo(ti, " ", {
     </el:i18n>
   </el:protected>
 </el:level>
-

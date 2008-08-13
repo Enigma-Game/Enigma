@@ -3,7 +3,7 @@
   <el:protected >
     <el:info el:type="level">
       <el:identity el:title="Wireban Premiere" el:subtitle="" el:id="20080715ral161"/>
-      <el:version el:score="1" el:release="1" el:revision="$Revision: 105 $" el:status="released"/>
+      <el:version el:score="1" el:release="1" el:revision="$Revision: 106 $" el:status="released"/>
       <el:author  el:name="Ronald Lamprecht" el:email="ral@users.berlios.de"/>
       <el:copyright>Copyright © 2008 Ronald Lamprecht</el:copyright>
       <el:license el:type="GPL v2.0 or above" el:open="true"/>
@@ -21,8 +21,8 @@ ti["#"] = {"st-rock8"}
 ti["+"] = {"st-grate1"}
 ti["w"] = {"st-brownie", "wood1"}
 ti["W"] = {"st-brownie", "wood2"}
-ti["D"] = {"st-door_a", "door1"}
-ti["d"] = {"st-door_a", "door2"}
+ti["D"] = {"st_door", "door1", flavor="a"}
+ti["d"] = {"st_door", "door2", flavor="a"}
 ti["T"] = {"it_trigger", target="door1"}
 ti["t"] = {"it_trigger", target="door2"}
 ti["L"] = {"st_oxyd", "left#"}

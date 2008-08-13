@@ -3,7 +3,7 @@
   <el:protected>
     <el:info el:type="level">
       <el:identity el:title="Boulder-Puzzle" el:subtitle="" el:id="duffy6"/>
-      <el:version el:score="1" el:release="1" el:revision="1" el:status="released"/>
+      <el:version el:score="1" el:release="1" el:revision="2" el:status="released"/>
       <el:author  el:name="Jacob Scott" el:email="" el:homepage=""/>
       <el:copyright>Copyright © 2003 Jacob Scott</el:copyright>
       <el:license el:type="GPL v2.0 or above" el:open="true"/>
@@ -52,19 +52,19 @@ function renderLine( line, pattern)
         elseif c == "," then
             set_item("it-trigger", i-1,line, {action="openclose", target="door6"})
         elseif c == "<" then
-            set_stone("st-door_b", i-1,line, {name="door6", type="v"})
+            set_stone("st-door_b", i-1,line, {name="door6"})
         elseif c == "." then
             set_item("it-trigger", i-1,line, {action="openclose", target="door7"})
         elseif c == ">" then
-            set_stone("st-door_b", i-1,line, {name="door7", type="v"})
+            set_stone("st-door_b", i-1,line, {name="door7"})
         elseif c == "/" then
             set_item("it-trigger", i-1,line, {action="openclose", target="door8"})
         elseif c == "?" then
-            set_stone("st-door_b", i-1,line, {name="door8", type="v"})
+            set_stone("st-door_b", i-1,line, {name="door8"})
         elseif c == ";" then
             set_item("it-trigger", i-1,line, {action="openclose", target="door9"})
         elseif c == ":" then
-            set_stone("st-door_b", i-1,line, {name="door9", type="v"})
+            set_stone("st-door_b", i-1,line, {name="door9"})
         elseif c == "!" then
             set_floor("fl-water",i-1,line)
         end
@@ -83,7 +83,7 @@ renderLine(04,"# !!!       !!!    !!! # !/#!! !!! #L!#")
 renderLine(05,"# Ds!    m   DL    !R#L! !!!   !sD !s!#")
 renderLine(06,"# g!! z     !RU    !sD     #!  #L#!!!!#")
 renderLine(07,"#!!         !!s#!  !!#    !Us  !!!s!  #")
-renderLine(08,"#s!        !!ssU!   #!!   !!!    #L!  #") -- renderLine(08,"#s!        !!ssU!   #!!   !!!    #L!  #")
+renderLine(08,"#s!        !!ssU!   #!!   !!!    #L!  #")
 renderLine(09,"#R#        !oR#!!   Us!          !!#  #")
 renderLine(10,"#          !!!       !!          !sU  #")
 renderLine(11,"#L                          ,   R#    #")

@@ -135,9 +135,9 @@ function renderLine( line, pattern)
         elseif c=="N" then
             set_stone("st-coinslot", i-1,line, {action="callback", target="funcc"})
         elseif c == "5" then
-            set_stone("st-door_b", i-1,line, {name="door4", type="v"})
+            set_stone("st-door_b", i-1,line, {name="door4"})
         elseif c == "2" then
-            set_stone("st-door_b", i-1,line, {name="door5", type="v"})
+            set_stone("st-door_b", i-1,line, {name="door5"})
         elseif c=="=" then
             fill_floor("fl-space", i-1,line, 1,1)
         elseif c=="m" then

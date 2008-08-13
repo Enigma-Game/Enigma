@@ -26,8 +26,8 @@ actor = cell{actor={"ac-blackball", {player=0}}}
 
 doorsA = {}
 doorsB = {}
-doorA = cell{{{add_multistone, "st-door_a", doorsA, {type="v"}}}}
-doorB = cell{{{add_multistone, "st-door_a", doorsB, {type="v"}}}}
+doorA = cell{{{add_multistone, "st-door_a", doorsA}}}
+doorB = cell{{{add_multistone, "st-door_a", doorsB}}}
 
 cslt1 = cell{stone={"st-coinslot", {action="callback", target="f_doorA"}}}
 cslt2 = cell{stone={"st-coinslot", {action="callback", target="f_doorB"}}}

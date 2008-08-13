@@ -1,0 +1,448 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no" ?>
+<el:level xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://enigma-game.org/schema/level/1 level.xsd" xmlns:el="http://enigma-game.org/schema/level/1">
+  <el:protected>
+    <el:info el:type="level">
+      <el:identity el:title="Fashions Pass" el:subtitle="But dynamite is forever" el:id="andreas48"/>
+      <el:version el:score="1" el:release="1" el:revision="2" el:status="released"/>
+      <el:author el:name="Andreas Lochmann" el:email="" el:homepage=""/>
+      <el:copyright>Copyright © 2008 Andreas Lochmann</el:copyright>
+      <el:license el:type="GPL v2.0 or above" el:open="true"/>
+      <el:compatibility el:enigma="1.10">
+        <el:dependency el:path="lib/natmaze" el:id="lib/natmaze" el:release="1" el:preload="true"/>
+        <el:dependency el:path="lib/libluatools" el:id="lib/libluatools" el:release="1" el:preload="true"/>
+      </el:compatibility>
+      <el:modes el:easy="false" el:single="true" el:network="false"/>
+      <el:comments>
+        <el:dedication>Thanks to Nat for his maze-library!</el:dedication>
+      </el:comments>
+      <el:score el:easy="-" el:difficult="26:33"/>
+    </el:info>
+    <el:luamain><![CDATA[
+
+--------------------------------------------
+-- CONSTANTS
+--------------------------------------------
+
+spot_constants = {SPOT_DEATH,
+                  SPOT_TRAP,
+                  SPOT_SENSOR,
+                  SPOT_ACTORIMPULSE,
+                  SPOT_HOLLOW}
+
+designs =
+  {{"fl-samba",     "fl-water", "st-bluegray",   "st-bluegray_hole",   OXYD_CYAN},
+   {"fl-rock",      "fl-abyss", "st-camouflage", "st-camouflage_hole", OXYD_GREEN},
+   {"fl-sahara",    "fl-abyss", "st-greenbrown", "st-greenbrown_hole", OXYD_YELLOW},
+   {"fl-black",     "fl-water", "st-marble",     "st-marble_hole",     OXYD_PURPLE},
+   {"fl-bluegreen", "fl-abyss", "st-metal",      "st-metal_hole",      OXYD_BLUE},
+   {"fl-brick",     "fl-water", "st-rock1",      "st-rock1_hole",      OXYD_RED},
+   {"fl-gravel",    "fl-abyss", "st-rock2",      "st-rock2_hole",      OXYD_BLACK},
+   {"fl-metal",     "fl-water", "st-rock3",      "st-rock3_hole",      OXYD_WHITE}}
+
+vortex_goals = {}
+maze_maps = {}
+mazes = {}
+
+--------------------------------------------
+-- MOST IMPORTANT RANDOM DECISIONS
+--------------------------------------------
+
+design_permutation = luatools.permutation(#designs)
+spot_permutation = luatools.permutation(#spot_constants)
+monoflop_permutation = luatools.permutation(5)
+final_spot_1 = random(2) + 1
+final_spot_2 = random(2) + 3
+wo["ExtralifeGlasses"] = spot_constants[spot_permutation[1]]
+
+--------------------------------------------
+-- TILE DEFINITIONS (CENTRAL AND OXYD ROOM)
+--------------------------------------------
+
+ti["  "] = {"fl-water"}
+ti[" 0"] = {"fl-stone"}
+ti["@0"] = {"#ac-blackball"} .. ti({"fl-stone", "start_position"})
+ti["L0"] = {"st_laser", orientation = EAST, state = ON} .. ti[" 0"]
+ti["P0"] = {"st_polarswitch"} .. ti[" 0"]
+ti["v0"] = {"it_vortex", autoclose = true, state = CLOSED, name = "vortex#"} .. ti[" 0"]
+ti["M0"] = {"st_monoflop", target = "monoflop_call", name = "monoflop#"} .. ti[" 0"]
+ti["e0"] = {"it_extralife"} .. ti[" 0"]
+ti["W0"] = {"st_turnstilearm_w"} .. ti[" 0"]
+ti["S0"] = {"st_turnstilearm_s"} .. ti[" 0"]
+ti["T0"] = {"st_turnstile"} .. ti[" 0"]
+ti["B0"] = {"st-stone_break"} .. ti[" 0"]
+ti["s0"] = {"it-spade"} .. ti[" 0"]
+
+for j = 1, 5 do
+  ti[j.."0"] = {"st_oxyd", oxydcolor = designs[design_permutation[j]][5]} .. ti[" 0"]
+end
+
+ti["panel1"] = ti({"st_panel", cluster = 1}) .. ti[" 0"]
+ti["panel2"] = ti({"st_panel", cluster = 2}) .. ti[" 0"]
+ti["water"] = ti({"fl-water"})
+
+--------------------------------------------
+-- TILE DEFINITIONS (MAZES)
+--------------------------------------------
+
+for j = 1, 5 do
+  local design = designs[design_permutation[j]]
+  local spot = spot_constants[spot_permutation[j]]
+
+  ti["_"..j] = ti({design[1]})
+
+  if spot == SPOT_SENSOR then
+    ti[" "..j] = ti["_"..j] .. ti({"it_blocker", name = "sensor_door#"})
+  else
+    ti[" "..j] = ti["_"..j]
+  end
+  
+  if spot == SPOT_ACTORIMPULSE then
+    ti["#"..j] = ti["_"..j] .. ti({design[2]})
+  else
+    ti["#"..j] = ti["_"..j] .. ti({design[3]})
+  end
+  
+  if spot == SPOT_HOLLOW then
+    ti["."..j] = ti["_"..j] .. ti({design[4]})
+  else
+    ti["."..j] = ti["_"..j]
+  end
+
+  if spot == SPOT_DEATH then
+    ti["*"..j] = ti["_"..j] .. ti({"st_death", invisible = true})
+  elseif spot == SPOT_TRAP then
+    ti["*"..j] = ti["_"..j] .. ti({"it_trap"})
+  elseif spot == SPOT_SENSOR then
+    ti["*"..j] = ti["_"..j]
+      .. ti({"it_sensor", invisible = true, action = "close", target = "sensor_door#*"})
+  elseif spot == SPOT_ACTORIMPULSE then
+    ti["*"..j] = ti["_"..j] .. ti({"st_actorimpulse", invisible = true, strength = 1000})
+  elseif spot == SPOT_HOLLOW then
+    ti["*"..j] = ti["_"..j] .. ti({design[4]}) .. ti({"it-booze-broken"})
+  end
+
+  if spot == SPOT_SENSOR then
+    ti["g"..j] = ti["_"..j] .. ti({"it_sensor", target = "sensor_door#*",
+                   action = "open"})
+  else
+    ti["g"..j] = ti["_"..j]
+  end
+  
+  ti["M"..j] = {"st_monoflop", target = "vortex_"..spot,
+                 action_1 = "open", action_0 = "close"} .. ti["_"..j]
+  ti["v"..j] = {"it_vortex", autoclose = true, state = CLOSED,
+                 name = "vortex_"..spot, destination = "start_position"} .. ti["_"..j]
+  ti["O"..j] = {"st_oxyd", oxydcolor = design[5]} .. ti["_"..j]
+  ti["d"..j] = {"it-dynamite"} .. ti["_"..j]
+  ti["G"..j] = {"it_glasses", state = spot_constants[spot_permutation[(j%5) + 1]]}
+               .. ti["_"..j]
+  ti["H"..j] = {"it_glasses", state = spot_constants[spot_permutation[((j+1)%5) + 1]]}
+               .. ti["_"..j]
+  ti["E"..j] = {"it_extralife"} .. ti["_"..j]
+  ti["A"..j] = {"st_oneway", orientation = EAST} .. ti["_"..j]
+  ti["-"..j] = ti[" 0"]
+
+  if (j == 4) or (j == 5) then
+    ti["+"..j] = ti["#"..j]
+    ti["k"..j] = ti["_"..j]
+    ti["D"..j] = ti["_"..j] .. {"st_blocker", "keydoor"..j}
+  else
+    ti["+"..j] = ti["_"..j]
+    ti["K"..j] = ti["_"..j]
+    ti["D"..j] = ti["_"..j]
+  end
+end    
+
+ti["k1"] = ti["_1"] .. {"it_floppy"}
+ti["k2"] = ti["_2"] .. {"it_key", code = "good_key"}
+ti["k3"] = ti["_3"] .. {"it_key", code = "bad_key"}
+ti["K4"] = ti["_4"] .. {"st_floppy", target = "keydoor4"}
+ti["K5"] = ti["_5"] .. {"st_key", code = "good_key", target = "keydoor5"}
+
+--------------------------------------------
+-- RESOLVER (RANDOM ELEMENTS)
+--------------------------------------------
+
+panel_randomicity = {["~"] = 15, ["%"] = 2, ["$"] = 1}
+
+function main_resolver(key, x, y)
+  local mainkey = string.sub(key, 1, 1)
+  local number = tonumber(string.sub(key, 2, 2))
+  if panel_randomicity[mainkey] then
+    if random(panel_randomicity[mainkey]) == 1 then
+      return ti["panel"..random(2)]
+    else
+      return ti["water"]
+    end
+  elseif mainkey == "*" and random(3) == 1 then
+    return ti["#"..number]
+  elseif mainkey == "." and random(3) == 1 then
+    return ti["_"..number]
+  elseif mainkey == "g" then
+    table.insert(vortex_goals, po({x + 0.5, y + 0.5}))
+    return ti["g"..number]
+  end
+  return ti[key]
+end
+
+--------------------------------------------
+-- MAP AND MAZE TOOLS
+--------------------------------------------
+
+function replace_key_in_map(j, oldkey, newkey, pos)
+  if luatools.get_key_in_map(maze_maps[j], oldkey, pos) == oldkey then
+    maze_maps[j] = luatools.insert_key_in_map(maze_maps[j], newkey, pos)
+  end
+end
+
+function glue_maze_into_map(j, maze, height, width, offset)
+  for y = 0, height - 1 do
+    for x = 0, width - 1 do
+      local pos = 2*po({x, y}) + offset
+      local east = luatools.cond(maze:can_go_east(x,y), ".", "*")
+      local south = luatools.cond(maze:can_go_south(x,y), ".", "*")
+      replace_key_in_map(j, " ", east,  pos + {1,0})
+      replace_key_in_map(j, " ", south, pos + {0,1})
+      replace_key_in_map(j, " ", "#",   pos + {1,1})
+    end
+  end
+end
+
+--------------------------------------------
+-- CENTRAL ROOM
+--------------------------------------------
+
+central_room = {
+-- |        ++        |        ++        |        ++        |
+  "~~~~~~~%%%%%~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~%%%%$",
+  "~~~~~%%%%%%%%%%~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~%%%%%$$",
+  "~~~%%%%     %%%%%~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~%%%%%%%%$$",
+  "~~%%%   M v    %%%%%~~~~%%%%%%%%%%~~~~~~~~~~%%%%%%%%%$$$$",
+  "~~%%  v     M    %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%$$$$$$$",
+  "~~%%               %%%%%%%      %%%%%%%%%%%%%%%%%$WT $$$$",
+  "~~%% M   @    v             LP                     S     ",
+  "~~%%               %%%%%%%      %%%%%%%%%%%%%%%%%$$$$$$$$",
+  "~~%%  v     M    %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%$$$$$$$",
+  "~~%%%   M v    %%%%%~~~~%%%%%%%%%%~~~~~~~~~~%%%%%%%%%$$$$",
+  "~~~%%%%     %%%%%~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~%%%%%%%%$$",
+  "~~~~~%%%%%%%%%%~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~%%%%%$$",
+  "~~~~~~~%%%%%~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~%%%%$"}
+
+--------------------------------------------
+-- FIRST FIVE MAZES
+--------------------------------------------
+
+maze_map = {
+"###O################################O##",
+"#_____                             ___#",
+"#_M___                             _d_O",
+"O__v__                             ___#",
+"#___g_                                #",
+"#_____                                #",
+"#                                     #",
+"#                                     #",
+"#                                     #",
+"#                                     #",
+"#                                     #",
+"#                                     #",
+"#                                     #",
+"#                                     #",
+"#                                     #",
+"#                                     #",
+"#                                     #",
+"#                                     #",
+"#                                     #",
+"#                                _____#",
+"#                                _++D+#",
+"#___                             _+k__O",
+"O_d_                             _K___#",
+"#___                             _+___#",
+"##O################################O###"}
+
+maze_width = 19
+maze_height = 12
+maze_offset = po({2, 2})
+
+for j = 1, 5 do
+  mazes[j] = new_kruskal_maze(maze_width, maze_height)
+end
+
+for j = 1, 5 do
+  maze_maps[j] = luatools.deep_copy(maze_map)
+  glue_maze_into_map(j, mazes[j], maze_height, maze_width, maze_offset)
+  local glasses1 = po({5 + random(9), 5 + random(3)})
+  local glasses2, extralife
+  repeat
+    glasses2 = po({5 + random(9), 5 + random(3)})
+  until glasses2 ~= glasses1
+  repeat
+    extralife = po({5 + random(9), 5 + random(3)})
+  until (extralife ~= glasses1) and (extralife ~= glasses2)
+  replace_key_in_map(j, " ", "G", 2*glasses1 + maze_offset)
+  replace_key_in_map(j, " ", "H", 2*glasses2 + maze_offset)
+  replace_key_in_map(j, " ", "E", 2*extralife + maze_offset)
+  if random(2) == 1 then
+    maze_maps[j] = luatools.mirror_map_vertically(maze_maps[j])
+  end
+  if random(2) == 1 then
+    maze_maps[j] = luatools.mirror_map_horizontally(maze_maps[j], 1)
+  end
+  local number_field = {}
+  for y = 1, #maze_map do
+    number_field[y] = string.rep(""..j, string.len(maze_map[y]))
+  end  
+  maze_maps[j] = luatools.fuse_map_layers(maze_maps[j], number_field)
+end
+
+--------------------------------------------
+-- FINAL MAZE
+--------------------------------------------
+
+fmaze_width = 19 * 2 - 1
+fmaze_height = 12 * 2 - 1
+fmaze_offset = po({3, 3})
+
+-- frame
+maze_maps[6] = {string.rep("$", fmaze_width * 2 + 3)}
+table.insert(maze_maps[6], maze_maps[6][1])
+for j = 1, fmaze_height * 2 - 1 do
+  table.insert(maze_maps[6], "$$" .. string.rep(" ", fmaze_width * 2 - 1) .. "$$")
+end
+table.insert(maze_maps[6], maze_maps[6][1])
+table.insert(maze_maps[6], maze_maps[6][1])
+
+-- oneway entry and exit
+replace_key_in_map(6, "$", "-", {1, 7})
+replace_key_in_map(6, "$", "A", {2, 7})
+replace_key_in_map(6, "$", "-", {fmaze_width * 2 + 2, fmaze_height * 2 - 3})
+replace_key_in_map(6, "$", "-", {fmaze_width * 2 + 3, fmaze_height * 2 - 3})
+
+-- water/panel holes
+local radius = {}
+local position = {}
+for h = 1, 5 do
+  local tries = 0
+  repeat
+    radius[h] = 5 + random(5)
+    position[h] = po({radius[h] + 2 + random(2*fmaze_width - 1 - 2*(radius[h] + 2)),
+                      radius[h] + 2 + random(2*fmaze_height - 1 - 2*(radius[h] + 2))})
+    local correct = true
+    for j = 1, h - 1 do
+      local delta = position[h] - position[j]
+      local joined_radius = radius[h] + radius[j] + 2
+      correct = correct and
+        (delta.x*delta.x + delta.y*delta.y > joined_radius * joined_radius)
+    end
+    tries = tries + 1
+  until correct or (tries > 100)
+end
+for h = 1, #radius do
+  for y = -radius[h], radius[h] do
+    for x = -radius[h], radius[h] do
+      local distsqr = x*x + y*y
+      if distsqr <= (radius[h] - 3) * (radius[h] - 3) then
+        replace_key_in_map(6, "$", "%", position[h] + {x, y})
+        replace_key_in_map(6, "_", "%", position[h] + {x, y})
+        replace_key_in_map(6, " ", "%", position[h] + {x, y})
+      elseif distsqr <= (radius[h] - 1.5) * (radius[h] - 1.5) then
+        replace_key_in_map(6, "_", "$", position[h] + {x, y})
+        replace_key_in_map(6, " ", "$", position[h] + {x, y})
+      elseif distsqr <= radius[h] * radius[h] then
+        replace_key_in_map(6, " ", "-", position[h] + {x, y})
+      end
+    end
+  end
+end
+
+-- maze
+fmaze = new_kruskal_maze(fmaze_width, fmaze_height)
+glue_maze_into_map(6, fmaze, fmaze_height, fmaze_width, fmaze_offset)
+
+-- numbers
+local number_field = {}
+for y = 1, #maze_maps[6] do
+  number_field[y] = ""
+  for x = 1, string.len(maze_maps[6][y]) do
+    number_field[y] = number_field[y]
+      .. luatools.cond(math.floor(x/5)%2 == math.floor(y/5)%2, final_spot_1, final_spot_2)
+  end
+end
+maze_maps[6] = luatools.fuse_map_layers(maze_maps[6], number_field)
+
+--------------------------------------------
+-- OXYD ROOM
+--------------------------------------------
+
+oxyd_room = {
+-- |        ++        |
+   "$%%%%%%%~~%%%~~~~~~",
+   "$%%%%%%%%%%3%%%%~~~",
+   "$$%%%%%%2%%B%%4%%%%",
+   "$$%%%1%%B%   %B%%5%",
+   "$$$%%B%         %B%",
+   "$$$%%    $$$$$    %",
+   "  s     $$$$$$$   %",
+   "$$$%%    $$$$$    %",
+   "$$$%%B%         %B%",
+   "$$%%%5%%B%   %B%%1%",
+   "$$%%%%%%4%%B%%2%%%%",
+   "$%%%%%%%%%%3%%%%~~~",
+   "$%%%%%%%~~%%%~~~~~~"}
+
+--------------------------------------------
+-- FUSING, GLUING AND CREATING THE WORLD
+--------------------------------------------
+
+-- prepare central room
+local central_number_field = {}
+for y = 1, #central_room do
+  central_number_field[y] = string.rep("0", string.len(central_room[y]))
+end
+central_room = luatools.fuse_map_layers(central_room, central_number_field)
+
+-- prepare oxyd room
+for j = 1, 3*12 do
+  table.insert(oxyd_room, 1, "")
+end
+local oxyd_number_field = {}
+for y = 1, #oxyd_room do
+  oxyd_number_field[y] = string.rep("0", string.len(oxyd_room[y]))
+end
+oxyd_room = luatools.fuse_map_layers(oxyd_room, oxyd_number_field)
+
+-- glue together
+local xspacing = {string.rep(" ", 2*18)}
+local yspacing = {"", "", "", "", "", "", "", "", "", "", ""} -- 11 times
+
+map1 = luatools.concat_maps_vertically(maze_maps[1], yspacing, maze_maps[2])
+map2 = luatools.concat_maps_vertically(maze_maps[3], yspacing, maze_maps[4])
+map3 = luatools.concat_maps_vertically(central_room, yspacing, maze_maps[5])
+whole_map = luatools.concat_maps_horizontally(
+    map1, xspacing, map2, xspacing, map3, maze_maps[6], oxyd_room)
+
+w, h = wo(main_resolver, "  ", whole_map)
+
+print ("Width: "..w..", Height: "..h..", Total: "..w*h)
+
+--------------------------------------------
+-- MONOFLOP-VORTEX CABLING
+--------------------------------------------
+
+for j = 1, 5 do
+  no["monoflop#*"][j]["_mynumber"] = monoflop_permutation[j]
+  no["vortex#*"][j]["destination"] = vortex_goals[j]
+end
+
+function monoflop_call(onoff, sender)
+  local myvortex = no["vortex#*"][sender["_mynumber"]]
+  myvortex:message(luatools.cond(onoff == true, "open", "close"))
+end
+
+    ]]></el:luamain>
+    <el:i18n>
+      <el:string el:key="title">
+        <el:english el:translate="false"/>
+      </el:string>
+    </el:i18n>
+  </el:protected>
+</el:level>

@@ -3,7 +3,7 @@
   <el:protected>
     <el:info el:type="level">
       <el:identity el:title="Come To Me" el:subtitle="" el:id="ant20"/>
-      <el:version el:score="1" el:release="1" el:revision="0" el:status="released"/>
+      <el:version el:score="1" el:release="1" el:revision="1" el:status="released"/>
       <el:author  el:name="Petr Machata" el:email="" el:homepage=""/>
       <el:copyright>Copyright © 2003 Petr Machata</el:copyright>
       <el:license el:type="GPL v2.0 or above" el:open="true"/>
@@ -54,7 +54,7 @@ actors = {}
 cells["O"]=cell{{{add_multiactor, "ac-blackball", actors, {player=0}}}}
 
 doors = {}
-cells["b"]=cell{{cells["_"],{add_multistone, "st-door_b", doors, {type="v"}}}}
+cells["b"]=cell{{cells["_"],{add_multistone, "st-door_b", doors}}}
 cells["B"]=cell{{cells["_"],{switchcell, actors, doors}}}
 
 cells["0"]=oxyd

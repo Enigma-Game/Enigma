@@ -3,7 +3,7 @@
   <el:protected>
     <el:info el:type="level">
       <el:identity el:title="Laser Path" el:subtitle="" el:id="andreas06"/>
-      <el:version el:score="1" el:release="1" el:revision="3" el:status="released"/>
+      <el:version el:score="1" el:release="1" el:revision="5" el:status="released"/>
       <el:author  el:name="Andreas Lochmann" el:email="" el:homepage=""/>
       <el:copyright>Copyright © 2005 Andreas Lochmann</el:copyright>
       <el:license el:type="GPL v2.0 or above" el:open="true"/>
@@ -26,11 +26,11 @@ ti["1"]={"st_laserswitch", target = "door1"}
 ti["2"]={"st_laserswitch", target = "door2"}
 ti["3"]={"st_laserswitch", target = "door3"}
 ti["4"]={"st_laserswitch", target = "door4"}
-ti["a"]={"st-door-v", "door1"}
-ti["b"]={"st-door-h", "door2"}
-ti["c"]={"st-door-h", "door3"}
-ti["d"]={"st-door-h", "door4"}
-ti["e"]={"st-door-v", "door5"}
+ti["a"]={"st_door", "door1", flavor="d", faces="ew"}
+ti["b"]={"st_door", "door2", flavor="d", faces="ns"}
+ti["c"]={"st_door", "door3", flavor="d", faces="ns"}
+ti["d"]={"st_door", "door4", flavor="d", faces="ns"}
+ti["e"]={"st_door", "door5", flavor="d", faces="ew"}
 ti["*"]={"st_switch", target = "laser"}
 ti["E"]={"st_switch", target = "door5"}
 ti["&"]={"st_laser", "laser", orientation = EAST}
@@ -41,8 +41,8 @@ ti["-"]={"st_mirror", orientation = 3, movable = true}  -- p|m
 ti["."]={"st_mirror", orientation = 3, movable = true,
                       transparent = true, flavor = "sheets"}  -- p|tm
 ti["@"]={"#ac-blackball", mouseforce = 1}
-ti["<"]={"st-oneway-w"}
-ti[">"]={"st-oneway-e"}
+ti["<"]={"st_oneway_w"}
+ti[">"]={"st_oneway_e"}
 if wo["IsDifficult"] then
   ti["M"]=ti["!"]
   ti["L"]=ti["!"]

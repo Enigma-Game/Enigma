@@ -2,45 +2,47 @@
 <el:level xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://enigma-game.org/schema/level/1 level.xsd" xmlns:el="http://enigma-game.org/schema/level/1">
   <el:protected>
     <el:info el:type="level">
-      <el:identity el:title="Mirrors and Wire" el:subtitle="" el:id="andreas53"/>
-      <el:version el:score="1" el:release="1" el:revision="2" el:status="released"/>
+      <el:identity el:title="Vanity's Constrictions" el:subtitle="The Hand Mirror Cabinet" el:id="andreas53"/>
+      <el:version el:score="2" el:release="2" el:revision="5" el:status="released"/>
       <el:author el:name="Andreas Lochmann" el:email="" el:homepage=""/>
       <el:copyright>Copyright © 2008 Andreas Lochmann</el:copyright>
       <el:license el:type="GPL v2.0 or above" el:open="true"/>
       <el:compatibility el:enigma="1.10">
-        <el:dependency el:path="lib/libluatools" el:id="lib/libluatools" el:release="1" el:preload="true"/>
       </el:compatibility>
       <el:modes el:easy="true" el:single="true" el:network="false"/>
-      <el:score el:easy="0:37" el:difficult="8:49"/>
+      <el:score el:easy="2:20" el:difficult="6:02"/>
     </el:info>
     <el:luamain><![CDATA[
--- difficult: 0:52
-
 wo["ConserveLevel"] = true
 
-ti["  "] = {"fl-sand"}
-ti["# "] = {"st_bluesand", cluster = 1}
-ti["g "] = {"st-glass3"}
+ti["  "] = {"fl-bluegray", checkerboard = 0, friction = 6.0, adhesion = 2.0}
+           .. ti({"fl-darkgray", checkerboard = 1, friction = 6.0, adhesion = 2.0})
+ti["# "] = {"st-glass2"}
 ti["@ "] = {"#ac-blackball"}
-ti["o "] = {"st_oxyd", oxydcolor = OXYD_YELLOW, flavor = "a"}
-ti["O "] = {"st_oxyd", oxydcolor = OXYD_WHITE, flavor = "a"}
+ti["O "] = {"st_oxyd", oxydcolor = OXYD_PURPLE, flavor = "a"}
 ti["S "] = {"st_laserswitch", target = "oxyddoor"}
-ti["D "] = {"st-door-v", "oxyddoor"}
+ti["D "] = {"st_door", "oxyddoor", flavor="d", faces="ew"}
 ti["L "] = {"st_laser", state = ON, orientation = SOUTH}
-ti["F "] = {"st-fart"}
 ti["T "] = {"st_mirror", flavor = "triangle", orientation = WEST}
-ti["/!"] = {"st_mirror", flavor = "plane", orientation = 2}
-ti["/"] = {"st_mirror", "mirror%%", flavor = "plane", orientation = 2, movable = true}
-ti["&"] = {"st_mirror", "mirror%%", flavor = "plane", orientation = 0, movable = true}
-ti["A"] = {"st-wood", "anchor%%", _mytarget = "mirror%%"}
+ti["/*"] = {"st_mirror", "mirror%%", flavor = "plane", orientation = 2, movable = true}
+ti["&*"] = {"st_mirror", "mirror%%", flavor = "plane", orientation = 0, movable = true}
+ti["A*"] = {"st-wood", "anchor%%", _mytarget = "mirror%%"}
 
-w, h = wo(res.autotile(ti, {"Aa", "Al", "A"}, {"/a", "/l", "/"}, {"&a", "&l", "&"}), "  ", {
- -- 01234567890123456789
+if wo["IsDifficult"] then
+  ti["F "] = ti["# "]
+  ti["g "] = {"st-glass"}
+else
+  ti["F "] = ti["  "]
+  ti["g "] = ti["  "]
+end
+
+w, h = wo(res.autotile(ti, {"A", "A*"}, {"/", "/*"}, {"&", "&*"}), "  ", {
+-- 01234567890123456789
    "# # # # O # # # L # # # O # # # # # # # ",
    "#                 g                   # ",
    "#                 g                   O ",
    "S                 g     T             # ",
-   "#     O   /c  O   g                 # # ",
+   "#     O   /c  O   g             F   # # ",
    "# g g g g g g     g             O   D O ",
    "#         O g     g &f  O &h&i  &j&k# # ",
    "#           g     g g g g g g g # # # # ",
@@ -55,7 +57,6 @@ for j in no["anchor%*"] do
   wo:add({"ot_wire", anchor1 = j, anchor2 = no[j._mytarget]})
 end
 
---wo:shuffleOxyd()
     ]]></el:luamain>
     <el:i18n>
       <el:string el:key="title">

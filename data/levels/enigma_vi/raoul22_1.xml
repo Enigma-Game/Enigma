@@ -17,7 +17,6 @@
       <el:score el:easy="-" el:difficult="-"/>
     </el:info>
     <el:luamain><![CDATA[
-
 function file_oxyd(x,y,f)
     oxyd_default_flavor=f
     oxyd(x,y)
@@ -117,13 +116,13 @@ pb={{5,14},{6,14},{5,15},{6,15}}
 for i = 1, 10 do
     for j = 1, 12 do
         if triggermatrix[j][i]==1 then
-            set_item("it-trigger", 5+i-1, 6+j-1,{action = "callback", target = "func_change_floor", invisible=true})
+            set_item("it-trigger", 5+i-1, 6+j-1,{action = "callback", target = "func_change_floor", invisible=TRUE})
         elseif triggermatrix[j][i]==2 then
             set_stone("st-chess_white",5+i-1,6+j-1,{name="w"})
-            set_item("it-trigger", 5+i-1, 6+j-1,{action = "callback", target = "func_black", invisible=true})
+            set_item("it-trigger", 5+i-1, 6+j-1,{action = "callback", target = "func_black", invisible=TRUE})
         elseif triggermatrix[j][i]==3 then
             set_stone("st-chess_black",5+i-1,6+j-1,{name="b"})
-            set_item("it-trigger", 5+i-1, 6+j-1,{action = "callback", target = "func_white", invisible=true})
+            set_item("it-trigger", 5+i-1, 6+j-1,{action = "callback", target = "func_white", invisible=TRUE})
         end
     end
 end

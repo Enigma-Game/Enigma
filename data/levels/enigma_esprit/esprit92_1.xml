@@ -3,7 +3,7 @@
   <el:protected>
     <el:info el:type="level">
       <el:identity el:title="esprit 92" el:subtitle="esprit 92" el:id="ss_esp92"/>
-      <el:version el:score="1" el:release="1" el:revision="0" el:status="released"/>
+      <el:version el:score="1" el:release="1" el:revision="1" el:status="released"/>
       <el:author  el:name="Sven Siggelkow" el:email="" el:homepage=""/>
       <el:copyright>Copyright © 2003 Sven Siggelkow</el:copyright>
       <el:license el:type="GPL v2.0 or above" el:open="true"/>
@@ -80,9 +80,9 @@ function renderLine( line, pattern)
       elseif c=="A" then
          set_stone("st-key_a", i-1, line, {action="openclose", target="door"}) 
       elseif c=="|" then
-         set_stone("st-door_b", i-1,line, {name="door", type="v"}) 
+         set_stone("st-door_b", i-1,line, {name="door"}) 
       elseif c=="-" then
-         set_stone("st-door_b", i-1,line, {type="v"}) 
+         set_stone("st-door_b", i-1,line) 
       elseif c=="c" then
          set_stone("st-stone_break", i-1,line) 
       elseif c=="O" then

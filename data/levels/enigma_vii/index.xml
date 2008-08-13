@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no" ?>
 <index xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="index.xsd">
 
-  <info enigma="1.00" group="Enigma" location="10800" network="false" owner="Enigma Team" release="1" revision="15" title="Enigma VII"/>
+  <info enigma="1.00" group="Enigma" location="10800" network="false" owner="Enigma Team" release="1" revision="16" title="Enigma VII"/>
 
   <attributes/>
 
@@ -55,7 +55,7 @@
     <level _seq="47" _title="Wood - Water - Wood" _xpath="./duffy173_1" author="Jacob Scott" ctrl="force" easy="false" id="duffy173" rel="1" rev="0" score="1" target="time" unit="duration"/>
     <level _seq="48" _title="Transpositions" _xpath="./duffy174_1" author="Jacob Scott" ctrl="force" easy="false" id="duffy174" rel="1" rev="1" score="1" target="time" unit="duration"/>
     <level _seq="49" _title="The Pearl Necklet" _xpath="./duffy175_1" author="Jacob Scott" ctrl="force" easy="false" id="duffy175" rel="1" rev="0" score="1" target="time" unit="duration"/>
-    <level _seq="50" _title="Puppet" _xpath="./pulley06_2" author="Mark Pulley" ctrl="force" easy="true" id="pulley06" rel="2" rev="1" score="1" target="time" unit="duration"/>
+    <level _seq="50" _title="Puppet" _xpath="./pulley06_2" author="Mark Pulley" ctrl="force" easy="true" id="pulley06" rel="2" rev="2" score="1" target="time" unit="duration"/>
     <level _seq="51" _title="Restless Meditation" _xpath="./ral09_1" author="Ronald Lamprecht" ctrl="force" easy="true" id="20070623ral914" rel="1" rev="77" score="1" target="time" unit="duration"/>
     <level _seq="52" _title="Ghost Driver" _xpath="./duffy176_1" author="Jacob Scott" ctrl="force" easy="false" id="duffy176" rel="1" rev="0" score="1" target="time" unit="duration"/>
     <level _seq="53" _title="Re-entry Circuit" _xpath="./pulley05_1" author="Mark Pulley" ctrl="force" easy="false" id="pulley05" rel="1" rev="0" score="1" target="time" unit="duration"/>

@@ -38,9 +38,9 @@ ti["m "] = {"st-glass_move"}
 ti["X "] = {"st-grate1"}
 ti["P "] = {"st-pull"}
 ti["W "] = ti["P "] .. {"it_wormhole",range=0,strength=0, state=OFF}
-ti["^ "] = {"st-oneway_black-n"}
-ti["v "] = {"st-oneway_black-s"}
-ti["> "] = {"st-oneway_black-e"}
+ti["^ "] = {"st_oneway_black_n"}
+ti["v "] = {"st_oneway_black_s"}
+ti["> "] = {"st_oneway_black_e"}
 ti["K "] = {"st_knight"}
 ti["s "] = {"it-squashed"}
 ti["R "] = ti["R"] .. ti["X "]

@@ -3,7 +3,7 @@
   <el:protected>
     <el:info el:type="level">
       <el:identity el:title="- Meditation -" el:subtitle="" el:id="ant23"/>
-      <el:version el:score="1" el:release="1" el:revision="0" el:status="released"/>
+      <el:version el:score="1" el:release="1" el:revision="1" el:status="released"/>
       <el:author  el:name="Petr Machata" el:email="" el:homepage=""/>
       <el:copyright>Copyright © 2003 Petr Machata</el:copyright>
       <el:license el:type="GPL v2.0 or above" el:open="true"/>
@@ -17,8 +17,6 @@
       <el:score el:easy="-" el:difficult="-"/>
     </el:info>
     <el:luamain><![CDATA[
--- 2003-02-09 -- fixes in object groups
--- 2003-02-10 -- rubber band fix
 cells={}
 
 cells[" "]=cell{floor={face="fl-metal"}}
@@ -31,10 +29,10 @@ cells["a"]=cell{item={face="it-trigger", attr={action="openclose", target="doorA
 cells["b"]=cell{item={face="it-trigger", attr={action="openclose", target="doorB"}}}
 cells["c"]=cell{item={face="it-trigger", attr={action="openclose", target="doorC"}}}
 cells["d"]=cell{item={face="it-trigger", attr={action="openclose", target="doorD"}}}
-cells["A"]=cell{parent=cells["O"], stone={face="st-door_b", attr={type="v", name="doorA"}}}
-cells["B"]=cell{parent=cells["O"], stone={face="st-door_b", attr={type="v", name="doorB"}}}
-cells["C"]=cell{parent=cells["O"], stone={face="st-door_b", attr={type="v", name="doorC"}}}
-cells["D"]=cell{parent=cells["O"], stone={face="st-door_b", attr={type="v", name="doorD"}}}
+cells["A"]=cell{parent=cells["O"], stone={face="st-door_b", attr={name="doorA"}}}
+cells["B"]=cell{parent=cells["O"], stone={face="st-door_b", attr={name="doorB"}}}
+cells["C"]=cell{parent=cells["O"], stone={face="st-door_b", attr={name="doorC"}}}
+cells["D"]=cell{parent=cells["O"], stone={face="st-door_b", attr={name="doorD"}}}
 
 blocks = {};
 actors = {};

@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no" ?>
+<el:level xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://enigma-game.org/schema/level/1 level.xsd" xmlns:el="http://enigma-game.org/schema/level/1">
+  <el:protected>
+    <el:info el:type="level">
+      <el:identity el:title="Colored Turnstiles" el:subtitle="" el:id="andreas51"/>
+      <el:version el:score="1" el:release="1" el:revision="1" el:status="released"/>
+      <el:author el:name="Andreas Lochmann" el:email="" el:homepage=""/>
+      <el:copyright>Copyright © 2008 Andreas Lochmann</el:copyright>
+      <el:license el:type="GPL v2.0 or above" el:open="true"/>
+      <el:compatibility el:enigma="1.10">
+      </el:compatibility>
+      <el:modes el:easy="false" el:single="true" el:network="false"/>
+      <el:score el:easy="-" el:difficult="2:07"/>
+    </el:info>
+    <el:luamain><![CDATA[
+
+wo["ConserveLevel"] = true
+
+ti[" "] = {"fl-sahara"}
+ti["#"] = {"st-rock6"}
+ti["@"] = {"#ac-blackball", "marble_black"}
+
+ti["N"] = {"st_turnstilearm_n"}
+ti["S"] = {"st_turnstilearm_s"}
+ti["E"] = {"st_turnstilearm_e"}
+ti["W"] = {"st_turnstilearm_w"}
+ti["R"] = {"st_turnstile", action = {"open", "close"}, target = {"red#*", "green#*"}}
+ti["G"] = {"st_turnstile", action = {"close", "open"}, target = {"red#*", "green#*"},
+                           flavor = "green"}
+ti["r"] = {"it_blocker", "red#"} .. ti({"fl-red"})
+ti["g"] = {"it_blocker", "green#"} .. ti({"fl-leaves"})
+
+ti["O"] = {"st_oxyd", flavor = "d", oxydcolor = OXYD_GREEN}
+ti["o"] = {"st_oxyd", flavor = "d", oxydcolor = OXYD_RED}
+  
+w, h = wo(ti, " ", {
+ -- 01234567890123456789
+   "#O#####O############",
+   "#   r N g N rO##O#O#",
+   "#WRE#WGE# R ####g#r#",
+   "#   r N r S  r N   #",
+   "#g#g#WG #g##r# REr##",
+   "# # N S r    g S  gO",
+   "#@g RE#g#gWGE###g###",
+   "# # S   g    r N  ro",
+   "#r#r#WGE#r##g#WGEg##",
+   "# N r S g N  r     #",
+   "#WGE# RE# RE####r#g#",
+   "#   g S r S go##o#o#",
+   "#o#####o############"
+})
+
+wo:shuffleOxyd()
+
+    ]]></el:luamain>
+    <el:i18n>
+      <el:string el:key="title">
+        <el:english el:translate="false"/>
+      </el:string>
+    </el:i18n>
+  </el:protected>
+</el:level>

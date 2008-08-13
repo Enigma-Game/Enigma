@@ -3,7 +3,7 @@
   <el:protected>
     <el:info el:type="level">
       <el:identity el:title="What a Mess" el:subtitle="" el:id="duffy68"/>
-      <el:version el:score="2" el:release="2" el:revision="2" el:status="released"/>
+      <el:version el:score="2" el:release="2" el:revision="3" el:status="released"/>
       <el:author  el:name="Jacob Scott" el:email="" el:homepage=""/>
       <el:copyright>Copyright © 2003 Jacob Scott</el:copyright>
       <el:license el:type="GPL v2.0 or above" el:open="true"/>
@@ -89,13 +89,13 @@ function renderLine( line, pattern)
         elseif c=="K" then
             set_stone("st-key_a", i-1,line, {action="callback", target="funcc2"})
         elseif c == "1" then
-            set_stone("st-door_a", i-1,line, {name="door1", type="h"})
+            set_stone("st-door_a", i-1,line, {name="door1"})
         elseif c == "2" then
-            set_stone("st-door_a", i-1,line, {name="door2", type="h"})
+            set_stone("st-door_a", i-1,line, {name="door2"})
         elseif c == "3" then
-            set_stone("st-door_a", i-1,line, {name="door3", type="h"})
+            set_stone("st-door_a", i-1,line, {name="door3"})
         elseif c == "4" then
-            set_stone("st-door_a", i-1,line, {name="door4", type="h"})
+            set_stone("st-door_a", i-1,line, {name="door4"})
         elseif c=="A" then
             puzzle(i-1,line,PUZ_0100)
         elseif c=="B" then

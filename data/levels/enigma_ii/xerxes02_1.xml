@@ -3,7 +3,7 @@
   <el:protected>
     <el:info el:type="level">
       <el:identity el:title="Dirt Clod" el:subtitle="" el:id="xerxes02"/>
-      <el:version el:score="1" el:release="1" el:revision="0" el:status="released"/>
+      <el:version el:score="1" el:release="1" el:revision="1" el:status="released"/>
       <el:author  el:name="Xerxes M. Dynatos" el:email="" el:homepage=""/>
       <el:copyright>Copyright © 2005 Xerxes M. Dynatos</el:copyright>
       <el:license el:type="GPL v2.0 or above" el:open="true"/>
@@ -70,9 +70,9 @@ function renderLine( line, pattern)
             set_stone( "st-greenbrown_hole", i-1, line)
             set_item("it-extralife", i-.5,line+.5)
         elseif c=="r" then
-            set_stone("st-door_b", i-1,line, {name="door5", type="v"})
+            set_stone("st-door_b", i-1,line, {name="door5"})
         elseif c=="q" then
-            set_stone("st-door_b", i-1,line, {name="door6", type="v"})
+            set_stone("st-door_b", i-1,line, {name="door6"})
         elseif c=="W" then
             set_stone( "st-greenbrown_hole", i-1, line)
             set_item("it-wormhole", i-1,line, {strength=1,targetx="5",targety="6"})
