@@ -1106,7 +1106,7 @@ void World::handle_stone_contact (StoneContact &sc)
 
             // remove collision forces components from actor-actor collisions 
             // in direction of stone
-            double normal_component = sc.normal * ai.collforce;
+            double normal_component = sc.normal * ai.collforce;            
             if (normal_component < 0) {
                 ai.collforce -= normal_component * sc.normal;
             }
@@ -1116,8 +1116,18 @@ void World::handle_stone_contact (StoneContact &sc)
         }
     }
     else if (sc.is_contact) {
-        if (Stone *stone = GetStone(sc.stonepos))
+        if (Stone *stone = GetStone(sc.stonepos)) {
             stone->actor_contact(sc.actor);
+            
+            if (a->get_gridpos() != sc.stonepos) {
+                // remove collision forces components from actor-actor collisions 
+                // in direction of stone
+                double normal_component = sc.normal * ai.collforce;            
+                if (normal_component < 0) {
+                    ai.collforce -= normal_component * sc.normal;
+                }
+            } 
+        }
     }
 }
 
