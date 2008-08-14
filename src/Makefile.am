@@ -201,8 +201,20 @@ enigma_SOURCES = 		\
 	items/BlockerItem.hh	\
 	items/GlassesItem.cc	\
 	items/GlassesItem.hh	\
+	items/Magnet.cc		\
+	items/Magnet.hh		\
+	items/Sensor.cc		\
+	items/Sensor.hh		\
 	items/ShogunDot.cc	\
 	items/ShogunDot.hh	\
+	items/StripItem.cc	\
+	items/StripItem.hh	\
+	items/Trigger.cc	\
+	items/Trigger.hh	\
+	items/Vortex.cc		\
+	items/Vortex.hh		\
+	items/Wormhole.cc	\
+	items/Wormhole.hh	\
 	others/Other.cc		\
 	others/Other.hh		\
 	others/Rubberband.cc	\
