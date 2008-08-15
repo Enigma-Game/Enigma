@@ -1023,9 +1023,9 @@ function keya(x,y) set_item("it-key", x,y, {keycode=1.0}) end
 function keyb(x,y) set_item("it-key", x,y, {keycode=2.0}) end
 function keyc(x,y) set_item("it-key", x,y, {keycode=3.0}) end
 
-function shogundot1(x,y,attrs) set_item("it-shogun-s", x, y, attrs) end
-function shogundot2(x,y,attrs) set_item("it-shogun-m", x, y, attrs) end
-function shogundot3(x,y,attrs) set_item("it-shogun-l", x, y, attrs) end
+function shogundot1(x,y,attrs) set_item("it_shogun_s", x, y, attrs) end
+function shogundot2(x,y,attrs) set_item("it_shogun_m", x, y, attrs) end
+function shogundot3(x,y,attrs) set_item("it_shogun_l", x, y, attrs) end
 
 function Wormhole(x,y,targetx, targety, attribs)
     local attrs = attribs or {}

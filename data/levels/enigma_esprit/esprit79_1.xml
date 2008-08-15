@@ -3,7 +3,7 @@
   <el:protected>
     <el:info el:type="level">
       <el:identity el:title="esprit 79" el:subtitle="esprit 79" el:id="ss_esp79"/>
-      <el:version el:score="1" el:release="1" el:revision="0" el:status="released"/>
+      <el:version el:score="1" el:release="1" el:revision="1" el:status="released"/>
       <el:author  el:name="Sven Siggelkow" el:email="" el:homepage=""/>
       <el:copyright>Copyright © 2003 Sven Siggelkow</el:copyright>
       <el:license el:type="GPL v2.0 or above" el:open="true"/>
@@ -41,15 +41,14 @@ function renderLine( line, pattern)
       elseif c=="C" then
          set_stone("st-coinslot", i-1,line,{target="s1", action="callback"})
       elseif c=="1" then
-         set_stone("st-door_c", i-1,line, {name="door1", type="v"})
+         set_stone("st-door_c", i-1,line, {name="door1"})
       elseif c=="2" then
-         set_stone("st-door_c", i-1,line, {name="door2", type="v"})
+         set_stone("st-door_c", i-1,line, {name="door2"})
       elseif c=="R" then
-     --set_actor("ac-rotor", i-1+0.5,line+0.5, {mouseforce=1, range=25, force=40})
          set_actor("ac-rotor", i-1+0.5,line+0.5, {range=25, force=40})
       elseif c=="O" then
-     oxyd(i-1,line) 
-        end
+         oxyd(i-1,line) 
+      end
     end
 end
 --              01234567890123456789

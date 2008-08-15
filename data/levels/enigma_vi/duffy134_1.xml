@@ -3,7 +3,7 @@
   <el:protected>
     <el:info el:type="level">
       <el:identity el:title="Pleasure Garden" el:subtitle="" el:id="duffy134"/>
-      <el:version el:score="1" el:release="1" el:revision="4" el:status="released"/>
+      <el:version el:score="1" el:release="1" el:revision="5" el:status="released"/>
       <el:author  el:name="Jacob Scott" el:email="" el:homepage=""/>
       <el:copyright>Copyright © 2007 Jacob Scott</el:copyright>
       <el:license el:type="GPL v2.0 or above" el:open="true"/>
@@ -103,20 +103,20 @@ function renderLine( line, pattern)
         elseif c == "z" then
             set_actor("ac-blackball", i-1,line, {player=0})
         elseif c == "a" then
-            set_stone("st-shogun", i-1, line, {holes=1})
+            set_stone("st-shogun-s", i-1, line)
             set_floor("fl-water",i-1,line)
         elseif c == "n" then
-            set_stone("st-shogun", i-1, line, {holes=2})
+            set_stone("st-shogun-m", i-1, line)
         elseif c == "O" then
-            set_stone("st-shogun", i-1, line, {holes=1})
+            set_stone("st-shogun-s", i-1, line)
         elseif c == "p" then
-            set_stone("st-shogun", i-1, line, {holes=2})
+            set_stone("st-shogun-m", i-1, line)
         elseif c == "q" then
-            set_stone("st-shogun", i-1, line, {holes=4})
+            set_stone("st-shogun-l", i-1, line)
         elseif c == "S" then
-            set_stone("st-shogun", i-1, line, {holes=4})
+            set_stone("st-shogun-l", i-1, line)
         elseif c == "r" then
-            set_stone("st-shogun", i-1, line, {holes=1})
+            set_stone("st-shogun-s", i-1, line)
         elseif c == "~" then
             mirror3(i-1,line,TRUE,FALSE, 1)
         elseif c == "H" then

@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no" ?>
 <index xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="index.xsd">
 
-  <info enigma="1.00" group="Facets" location="15600" network="false" owner="Enigma Team" release="1" revision="10" title="Enigma 1.1 new"/>
+  <info enigma="1.00" group="Facets" location="15600" network="false" owner="Enigma Team" release="1" revision="11" title="Enigma 1.1 new"/>
 
   <attributes/>
 
@@ -97,7 +97,7 @@
     <level _seq="89" _title="The Green Hell" _xpath="enigma_viii/mecke22_1" author="mecke" ctrl="force" easy="true" id="mecke22" rel="1" rev="55" score="1" target="time" unit="duration"/>
     <level _seq="90" _title="Tilt Board" _xpath="enigma_viii/ulf06_2" author="Ulf Stegemann" ctrl="force" easy="true" id="20080529ulf118" rel="2" rev="116" score="2" target="time" unit="duration"/>
     <level _seq="91" _title="4 - 8 - 4" _xpath="enigma_viii/dpl03_3" author="Dominik Leipold" ctrl="force" easy="true" id="20070821dpl003" rel="3" rev="4" score="3" target="time" unit="duration"/>
-    <level _seq="92" _title="Impulsive Order" _xpath="enigma_viii/raywick05_1" author="Ray Wick" ctrl="force" easy="true" id="raywick5" rel="1" rev="4" score="1" target="time" unit="duration"/>
+    <level _seq="92" _title="Impulsive Order" _xpath="enigma_viii/raywick05_1" author="Ray Wick" ctrl="force" easy="true" id="raywick5" rel="1" rev="5" score="1" target="time" unit="duration"/>
     <level _seq="93" _title="Cross Mail" _xpath="enigma_viii/johann03_1" author="Johann Freymuth" ctrl="force" easy="false" id="johann03" rel="1" rev="1" score="1" target="time" unit="duration"/>
     <level _seq="94" _title="Color Maze" _xpath="enigma_viii/pulley16_3" author="Mark Pulley" ctrl="force" easy="false" id="pulley16" rel="3" rev="4" score="3" target="time" unit="duration"/>
     <level _seq="95" _title="Earthlink" _xpath="enigma_viii/pulley15_1" author="Mark Pulley" ctrl="force" easy="true" id="pulley15" rel="1" rev="0" score="1" target="time" unit="duration"/>

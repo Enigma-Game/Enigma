@@ -23,6 +23,7 @@
 //#include "errors.hh"
 //#include "main.hh"
 //#include "server.hh"
+#include "client.hh"
 #include "world.hh"
 
 namespace enigma {

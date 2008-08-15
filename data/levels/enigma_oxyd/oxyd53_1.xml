@@ -3,7 +3,7 @@
   <el:protected>
     <el:info el:type="level">
       <el:identity el:title="Scrooge" el:subtitle="Oxyd 53" el:id="siegfried100"/>
-      <el:version el:score="1" el:release="1" el:revision="0" el:status="released"/>
+      <el:version el:score="1" el:release="1" el:revision="1" el:status="released"/>
       <el:author  el:name="Siegfried Fennig" el:email="" el:homepage=""/>
       <el:copyright>Copyright © 2003 Siegfried Fennig</el:copyright>
       <el:license el:type="GPL version 2" el:open="true"/>
@@ -295,18 +295,18 @@ function t_h3()
     end
 end
 
-set_stone("st-door_a", 23, 6, {name="door1",  type="v"})
-set_stone("st-door_a", 24, 6, {name="door2",  type="v"})
-set_stone("st-door_a", 25, 6, {name="door3",  type="v"})
-set_stone("st-door_a", 26, 6, {name="door4",  type="v"})
-set_stone("st-door_a", 27, 6, {name="door5",  type="v"})
-set_stone("st-door_a", 28, 6, {name="door6",  type="v"})
-set_stone("st-door_a", 29, 6, {name="door7",  type="v"})
-set_stone("st-door_a", 30, 6, {name="door8",  type="v"})
-set_stone("st-door_a", 31, 6, {name="door9",  type="v"})
-set_stone("st-door_a", 32, 6, {name="door10", type="v"})
-set_stone("st-door_a", 33, 6, {name="door11", type="v"})
-set_stone("st-door_a", 34, 6, {name="door12", type="v"})
+set_stone("st-door_a", 23, 6, {name="door1"})
+set_stone("st-door_a", 24, 6, {name="door2"})
+set_stone("st-door_a", 25, 6, {name="door3"})
+set_stone("st-door_a", 26, 6, {name="door4"})
+set_stone("st-door_a", 27, 6, {name="door5"})
+set_stone("st-door_a", 28, 6, {name="door6"})
+set_stone("st-door_a", 29, 6, {name="door7"})
+set_stone("st-door_a", 30, 6, {name="door8"})
+set_stone("st-door_a", 31, 6, {name="door9"})
+set_stone("st-door_a", 32, 6, {name="door10"})
+set_stone("st-door_a", 33, 6, {name="door11"})
+set_stone("st-door_a", 34, 6, {name="door12"})
 
 switch1 = 0
 switch2 = 0

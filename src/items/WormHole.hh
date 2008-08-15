@@ -23,6 +23,9 @@
 
 #include "enigma.hh"
 
+#include "world.hh"
+#include "errors.hh"
+
 namespace enigma {
     class WormHole : public Item, public ForceField, public TimeHandler {
     private:

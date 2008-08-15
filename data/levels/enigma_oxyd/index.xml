@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no" ?>
 <index xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="index.xsd">
 
-  <info enigma="1.00" group="Déjà-vu" location="20200" network="false" owner="Enigma Team" release="1" revision="2" title="Oxyd"/>
+  <info enigma="1.00" group="Déjà-vu" location="20200" network="false" owner="Enigma Team" release="1" revision="3" title="Oxyd"/>
 
   <attributes/>
 
@@ -34,7 +34,7 @@
     <level _seq="26" _title="Take a Break" _xpath="./oxyd39_1" author="Siegfried Fennig" ctrl="force" easy="false" id="siegfried72" rel="1" rev="0" score="1" target="time" unit="duration"/>
     <level _seq="27" _title="Jump Pads" _xpath="./oxyd51_1" author="Siegfried Fennig" ctrl="force" easy="false" id="siegfried88" rel="1" rev="0" score="1" target="time" unit="duration"/>
     <level _seq="28" _title="Moonwalking" _xpath="./oxyd52_1" author="Ulf Stegemann" ctrl="force" easy="false" id="20060629ulf006" rel="1" rev="0" score="1" target="time" unit="duration"/>
-    <level _seq="29" _title="Scrooge" _xpath="./oxyd53_1" author="Siegfried Fennig" ctrl="force" easy="false" id="siegfried100" rel="1" rev="0" score="1" target="time" unit="duration"/>
+    <level _seq="29" _title="Scrooge" _xpath="./oxyd53_1" author="Siegfried Fennig" ctrl="force" easy="false" id="siegfried100" rel="1" rev="1" score="1" target="time" unit="duration"/>
     <level _seq="30" _title="Soaring High" _xpath="./oxyd54_1" author="Siegfried Fennig" ctrl="force" easy="false" id="siegfried101" rel="1" rev="0" score="1" target="time" unit="duration"/>
     <level _seq="31" _title="Oxyd 70" _xpath="./oxyd70_1" author="Raoul Bourquin" ctrl="force" easy="false" id="oxyd70" rel="1" rev="2" score="1" target="time" unit="duration"/>
     <level _seq="32" _title="Oxyd 77" _xpath="./oxyd77_1" author="Raoul Bourquin" ctrl="force" easy="false" id="oxyd77" rel="1" rev="0" score="1" target="time" unit="duration"/>

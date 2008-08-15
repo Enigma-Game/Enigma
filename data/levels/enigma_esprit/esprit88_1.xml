@@ -3,7 +3,7 @@
   <el:protected>
     <el:info el:type="level">
       <el:identity el:title="The Locksmith" el:subtitle="esprit 88" el:id="ss_esp88"/>
-      <el:version el:score="1" el:release="1" el:revision="0" el:status="released"/>
+      <el:version el:score="1" el:release="1" el:revision="1" el:status="released"/>
       <el:author  el:name="Sven Siggelkow" el:email="" el:homepage=""/>
       <el:copyright>Copyright © 2003 Sven Siggelkow</el:copyright>
       <el:license el:type="GPL v2.0 or above" el:open="true"/>
@@ -28,7 +28,7 @@ function renderLine( line, pattern)
     for i=1, strlen(pattern) do
       local c = strsub( pattern, i, i)
       if c ==   "#" then
-         set_stone("st-door_b", i-1,line, {type="v"})
+         set_stone("st-door_b", i-1,line)
       elseif c=="A" then
          abyss(i-1,line)
       elseif c=="x" then
@@ -80,8 +80,8 @@ function renderLine( line, pattern)
       elseif c=="q" then
          set_stone("st-key_c", i-1, line)
       elseif c=="O" then 
-     oxyd(i-1,line)  
-        end
+         oxyd(i-1,line)  
+      end
     end
 end
 --              012345678901234567890123456789012345678 
