@@ -213,8 +213,8 @@ enigma_SOURCES = 		\
 	items/Trigger.hh	\
 	items/Vortex.cc		\
 	items/Vortex.hh		\
-	items/Wormhole.cc	\
-	items/Wormhole.hh	\
+	items/WormHole.cc	\
+	items/WormHole.hh	\
 	others/Other.cc		\
 	others/Other.hh		\
 	others/Rubberband.cc	\
