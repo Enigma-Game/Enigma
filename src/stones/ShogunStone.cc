@@ -24,8 +24,8 @@
 #include "world.hh"
 
 namespace enigma {
-    ShogunStone::ShogunStone(int initState) : Stone () {
-        state = initState;
+    ShogunStone::ShogunStone(int holes) : Stone () {
+        objFlags |= holes << 24;
     }
     
     ShogunStone* ShogunStone::clone() {
@@ -46,6 +46,41 @@ namespace enigma {
         return "st_shogun";
     }
     
+    void ShogunStone::setAttr(const string& key, const Value &val) {
+        if (key == "flavor") {
+            ASSERT(!isDisplayable(), XLevelRuntime, "ShogunStone: attempt to reflavor an existing shogun");
+            std::string flavor = val.to_string();
+            int holes = 0;
+            if (flavor.find('n') != std::string::npos)  holes += ShogunStone::N;
+            if (flavor.find('t') != std::string::npos)  holes += ShogunStone::T;
+            if (flavor.find('s') != std::string::npos)  holes += ShogunStone::S;
+            if (flavor.find('m') != std::string::npos)  holes += ShogunStone::M;
+            if (flavor.find('l') != std::string::npos)  holes += ShogunStone::L;
+            if (flavor.find('g') != std::string::npos)  holes += ShogunStone::G;
+            if (flavor.find('u') != std::string::npos)  holes += ShogunStone::U;
+            ASSERT(holes != 0, XLevelRuntime, ecl::strf("ShogunStone: illegal 'flavor' of '%s'", flavor.c_str()).c_str());
+            objFlags &= ~OBJBIT_HOLES;
+            objFlags |= holes << 24;
+            return;
+        }
+        Stone::setAttr(key, val);
+    }
+    
+    Value ShogunStone::getAttr(const string &key) const {
+        if (key == "flavor") {
+            std::string result;
+            int holes = getHoles();
+            if (holes & ShogunStone::N) result += "n";
+            if (holes & ShogunStone::T) result += "t";
+            if (holes & ShogunStone::S) result += "s";
+            if (holes & ShogunStone::M) result += "m";
+            if (holes & ShogunStone::L) result += "l";
+            if (holes & ShogunStone::G) result += "g";
+            if (holes & ShogunStone::U) result += "u";
+            return result;
+        } else
+            return Stone::getAttr(key);
+    }
     Value ShogunStone::message(const Message &m) {
         if (m.message == "kill") {
             if (yieldShogun()) {
@@ -54,18 +89,17 @@ namespace enigma {
             }
             return Value();
         } else if (m.message =="_shogun") {
-            return m.value == state;
+            return m.value == getHoles();
         }
             return Stone::message(m);
     }
 
     void ShogunStone::setState(int extState) {
-        if (!isDisplayable())
-            Stone::setState(extState & 28);   // just not yet set shoguns with legal values
+        // reject any write attempts
     }
     
     void ShogunStone::init_model() {
-        set_model(ecl::strf("st-shogun%d", state/4));
+        set_model(ecl::strf("st-shogun%d", getHoles()/S));
     }
     
     void ShogunStone::setOwnerPos(GridPos po) {
@@ -79,20 +113,20 @@ namespace enigma {
         if (subShogun != NULL)
             // swap or pull based new grid positioning of a shogun stack
             subShogun->setOwnerPos(p);
-        else if (state != ownHole()) {
+        else if (getHoles() != ownHole()) {
             // initial set of a new shogun stack
-            int subState = state & ~ownHole();
-            if (subState & 8) {
+            int subHoles = getHoles() & ~ownHole();
+            if (subHoles & M) {
                 ShogunStone *s = dynamic_cast<ShogunStone *>(MakeObject("st_shogun_m"));
                 subShogun = s;
                 s->superShogun = this;
                 s->setOwnerPos(p);
-                s->state = subState;
-                subState &= ~8;
+                s->addSubHoles(subHoles);
+                subHoles &= ~M;
                 if (Value v = getAttr("name_m"))
                     NameObject(s, v.to_string());
             }
-            if (subState & 4) {
+            if (subHoles & S) {
                 ShogunStone *s = dynamic_cast<ShogunStone *>(MakeObject("st_shogun_s"));
                 if (subShogun == NULL) {
                     subShogun = s;
@@ -106,7 +140,7 @@ namespace enigma {
                 s->setOwnerPos(p);
             }
         }
-        SendMessage(GetItem(p), "_shogun", state);
+        SendMessage(GetItem(p), "_shogun", getHoles());
     }
     
     void ShogunStone::on_removal(GridPos p) {
@@ -130,7 +164,7 @@ namespace enigma {
         if (st != NULL) {
             nss = dynamic_cast<ShogunStone *>(st);
             if (nss != NULL)
-                fitsNeighborShogun = (nss->state & (2*ownHole() -1)) == 0;
+                fitsNeighborShogun = (nss->getHoles() & (2*ownHole() -1)) == 0;
         }
         
         if ((st == NULL) || fitsNeighborShogun) {  // can we move?
@@ -143,31 +177,61 @@ namespace enigma {
             // then put to new position
             if (st == NULL) {
                 SetStone(newPos, this);
-                SendMessage(GetItem(newPos), "_shogun", state);
+                SendMessage(GetItem(newPos), "_shogun", getHoles());
             } else {
                 // register our hole to all super shoguns
                 ShogunStone *s = nss;
                 for (; s->subShogun != NULL; s = s->subShogun) {
-                    s->state |= ownHole();
+                    s->addSubHoles(ownHole());
                 }
                 // register ourself to smallest shogun
-                s->state |= ownHole();
+                s->addSubHoles(ownHole());
                 s->subShogun = this;
                 superShogun = s;
 
                 nss->init_model();     // display new hole         
-                SendMessage(GetItem(newPos), "_shogun", nss->state);
+                SendMessage(GetItem(newPos), "_shogun", nss->getHoles());
                 setOwnerPos(newPos);   // the stone is owned at the new position
             }
             
             server::IncMoveCounter();
             ShatterActorsInsideField(newPos);
+            if (server::GameCompatibility != GAMET_ENIGMA) {
+                if (Item *it = GetItem(newPos)) {
+                    ItemID id = get_id(it);
+                    if ((server::GameCompatibility != GAMET_OXYD1 && server::GameCompatibility != GAMET_OXYDMAGNUM) ||
+                            (id != it_cherry && id != it_blackbomb && id != it_whitebomb))
+                        it->on_stonehit(this);
+                }
+            }
         }
         propagateImpulse(impulse);
     }
     
-    int ShogunStone::ownHole() {
-        return (state >= 16) ? 16 : ((state >= 8) ? 8 : 4);
+    int ShogunStone::getHoles() const {
+        return (objFlags & OBJBIT_HOLES) >> 24;
+    }
+    
+    int ShogunStone::ownHole() const {
+        int holes = getHoles();
+        for (int check = ShogunStone::U; check > 0; check = check >> 1)
+            if (holes & check)
+                return check;
+        ASSERT(false, XLevelRuntime, "ShogunStone: internal error - no holes");
+    }
+    
+    void ShogunStone::addSubHoles(int holes) {
+        objFlags |= holes <<24;
+    }
+    
+    void ShogunStone::removeSubHoles(int holes) {
+        objFlags &= ~(holes <<24);
+    }
+    
+    void ShogunStone::removeAllSubHoles() {
+        int hole = ownHole();
+        objFlags &= ~OBJBIT_HOLES;
+        objFlags |= hole <<24;
     }
     
     bool ShogunStone::yieldShogun() {
@@ -180,9 +244,9 @@ namespace enigma {
             YieldStone(oldPos);
             subShogun->superShogun = NULL;
             SetStone(oldPos, subShogun);
-            SendMessage(GetItem(oldPos), "_shogun", subShogun->state);
+            SendMessage(GetItem(oldPos), "_shogun", subShogun->getHoles());
             subShogun = NULL;
-            state = ownHole();
+            removeAllSubHoles();
         } else {
             // a sub shogun
             ShogunStone *oss = dynamic_cast<ShogunStone *>(GetStone(getOwnerPos()));
@@ -191,24 +255,24 @@ namespace enigma {
             
             ASSERT(superShogun != NULL, XLevelRuntime, "Shogun: missing super shogun");
             superShogun->subShogun = subShogun;
-            superShogun->state &= ~ownHole();
+            superShogun->removeSubHoles(ownHole());
             if (ShogunStone *superSuperShogun = superShogun->superShogun) {
-                superSuperShogun->state &= ~ownHole();
+                superSuperShogun->removeSubHoles(ownHole());
                 superSuperShogun->init_model();
-                SendMessage(GetItem(getOwnerPos()), "_shogun", superSuperShogun->state);
+                SendMessage(GetItem(getOwnerPos()), "_shogun", superSuperShogun->getHoles());
             } else
                 superShogun->init_model();
-                SendMessage(GetItem(getOwnerPos()), "_shogun", superShogun->state);
+                SendMessage(GetItem(getOwnerPos()), "_shogun", superShogun->getHoles());
             if (subShogun != NULL) subShogun->superShogun = superShogun;
             superShogun = NULL;
             subShogun = NULL;
-            state = ownHole();
+            removeAllSubHoles();
         }
         return true;
     }
     
     FreezeStatusBits ShogunStone::get_freeze_bits() {
-        return (state == 4) ? FREEZEBIT_STANDARD : FREEZEBIT_NO_STONE;
+        return (getHoles() == S) ? FREEZEBIT_STANDARD : FREEZEBIT_NO_STONE;
     }
     
     DEF_TRAITSM(ShogunStone, "st_shogun", st_shogun, MOVABLE_IRREGULAR);

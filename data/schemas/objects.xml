@@ -173,18 +173,18 @@
       <msg name="_hit"/>
     </object>
     <object name="it_shogun">
-      <attr name="state" max="16" default="4"/>
+      <attr name="flavor"/>
       <msg name="_shogun"/>
       <msg name="_init"/>
     </object>
     <object name="it_shogun_s">
-      <attr name="state" value="4"/>
+      <attr name="flavor" value="s"/>
     </object>
     <object name="it_shogun_m">
-      <attr name="state" value="8"/>
+      <attr name="flavor" value="m"/>
     </object>
     <object name="it_shogun_l">
-      <attr name="state" value="16"/>
+      <attr name="flavor" value="l"/>
     </object>
     <object name="it_rubberband">
       <attr name="anchor2"/>
@@ -716,31 +716,31 @@
       <msg name="_init"/>
     </object>
     <object name="st_shogun">
+      <attr name="flavor"/>
       <attr name="name_m"/>
       <attr name="name_s"/>
-      <attr name="state" max="16" default="4"/>
       <msg name="_shogun"/>
     </object>
     <object name="st_shogun_s">
-      <attr name="state" value="4"/>
+      <attr name="flavor" value="s"/>
     </object>
     <object name="st_shogun_m">
-      <attr name="state" value="8"/>
+      <attr name="flavor" value="m"/>
     </object>
     <object name="st_shogun_sm">
-      <attr name="state" value="12"/>
+      <attr name="flavor" value="sm"/>
     </object>
     <object name="st_shogun_l">
-      <attr name="state" value="16"/>
+      <attr name="flavor" value="l"/>
     </object>
     <object name="st_shogun_sl">
-      <attr name="state" value="20"/>
+      <attr name="flavor" value="sl"/>
     </object>
     <object name="st_shogun_ml">
-      <attr name="state" value="24"/>
+      <attr name="flavor" value="ml"/>
     </object>
     <object name="st_shogun_sml">
-      <attr name="state" value="28"/>
+      <attr name="flavor" value="sml"/>
     </object>
     <object name="st_switch">
       <attr name="color"/>

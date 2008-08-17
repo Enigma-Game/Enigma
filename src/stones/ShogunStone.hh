@@ -38,16 +38,23 @@ namespace enigma {
             S         =  4,   ///<  Small
             M         =  8,   ///<  Medium
             L         = 16,   ///<  Large
-            G         = 32,   ///<  Giant
-            U         = 64    ///<  Universal
+            G         = 32,   ///<  Giant - not yet existing
+            U         = 64    ///<  Universal - not yet existing
         };
-
-        ShogunStone(int initState);
+        
+    private:
+        enum ObjectPrivatFlagsBits {
+            OBJBIT_HOLES =   127<<24,   ///< holes as defined in stones/ShogunStone.hh
+        };
+    public:
+        ShogunStone(int holes);
         ShogunStone* clone();
         void dispose();
         
         // Object interface
         virtual std::string getClass() const;
+        virtual void setAttr(const string& key, const Value &val);
+        virtual Value getAttr(const std::string &key) const;
         virtual Value message(const Message &m);
         
         // StateObject interface
@@ -67,7 +74,11 @@ namespace enigma {
         ShogunStone *superShogun;
         ShogunStone *subShogun;
         
-        int ownHole();
+        int getHoles() const;
+        int ownHole() const;
+        void addSubHoles(int holes);
+        void removeSubHoles(int holes);
+        void removeAllSubHoles();
         bool yieldShogun();
     };
 

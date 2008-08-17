@@ -31,14 +31,21 @@ namespace enigma {
         DECL_ITEMTRAITS_ARRAY(3, traitsIdx());
 
     private:
+        enum iState {
+            OFF,     ///< inactive, no matching shogun stack on top
+            ON       ///< active, matching shogun stack on top
+        };
+        
         enum ObjectPrivatFlagsBits {
-            OBJBIT_ACTIVE =   1<<24,   ///< 
+            OBJBIT_HOLES =   127<<24,   ///< holes as defined in stones/ShogunStone.hh
         };
     public:
-        ShogunDot(int initState);
+        ShogunDot(int holes);
 
         // Object interface
         virtual std::string getClass() const;
+        virtual void setAttr(const string& key, const Value &val);
+        virtual Value getAttr(const std::string &key) const;
         virtual Value message(const Message &m);
 
         // GridObject interface
@@ -48,6 +55,8 @@ namespace enigma {
         virtual void setState(int extState);
 
     private:
+        int getHoles() const;
+        int requiredShogunHoles() const;
         int traitsIdx() const;
     };
     

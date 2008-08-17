@@ -25,28 +25,59 @@
 
 namespace enigma {
 
-    ShogunDot::ShogunDot(int initState) {
-        state = initState;
+    ShogunDot::ShogunDot(int holes) {
+        objFlags |= holes << 24;
     }
 
     std::string ShogunDot::getClass() const {
         return "it_shogun";
     }
     
+    void ShogunDot::setAttr(const string& key, const Value &val) {
+        if (key == "flavor") {
+            std::string flavor = val.to_string();
+            int holes = 0;
+            if (flavor == "s")
+                holes = ShogunStone::S;
+            else if (flavor == "m")
+                holes = ShogunStone::M;
+            else if (flavor == "l")
+                holes = ShogunStone::L;
+            else
+                ASSERT(false, XLevelRuntime, ecl::strf("ShogunDot: illegal 'flavor' of '%s'", flavor.c_str()).c_str());
+            objFlags &= ~OBJBIT_HOLES;
+            objFlags |= holes << 24;
+            if (isDisplayable()) {
+                init_model();
+                state = SendMessage(GetStone(get_pos()), "_shogun", requiredShogunHoles()).to_bool() ? ON : OFF;
+                // no action is performed due to snapshot principle 
+            }
+            return;
+        }
+        Item::setAttr(key, val);
+    }
+    
+    Value ShogunDot::getAttr(const string &key) const {
+        if (key == "flavor") {
+            int holes = getHoles();
+            return holes == ShogunStone::L ? "l" : (state == ShogunStone::M ? "m" : "s");
+        } else
+            return Item::getAttr(key);
+    }
+    
     Value ShogunDot::message(const Message &m) {
         if (m.message =="_init" ) {
-            if (SendMessage(GetStone(get_pos()), "_shogun", (state/2 -1)*4).to_bool()) {
-                objFlags |= OBJBIT_ACTIVE;
-                if (server::EnigmaCompatibility < 1.10)
-                    performAction(true);
+            state = (SendMessage(GetStone(get_pos()), "_shogun", requiredShogunHoles()).to_bool()) ? ON : OFF;
+            if (server::EnigmaCompatibility < 1.10 && state == ON) {
+                performAction(true);
             }
         } else if (m.message =="_shogun" && server::WorldInitialized) {
-            if (!(objFlags & OBJBIT_ACTIVE) && ((state/2 -1)*4 == (int)m.value)) {  // shoguns s, sm, sml for dots s, m, l
+            if (state == OFF && (requiredShogunHoles() == (int)m.value)) {  
+                state = ON;
                 performAction(true);
-                objFlags |= OBJBIT_ACTIVE;
-            } else if ((objFlags & OBJBIT_ACTIVE) && ((state/2 -1)*4 != (int)m.value)) {  // shoguns s, sm, sml for dots s, m, l
+            } else if (state == ON && (requiredShogunHoles() != (int)m.value)) {
+                state = OFF;
                 performAction(false);
-                objFlags &= ~OBJBIT_ACTIVE;
             }
             return Value();
         }
@@ -54,22 +85,28 @@ namespace enigma {
     }
     
     void ShogunDot::setState(int extState) {
-        ASSERT(extState == 16 || extState == 8 || extState == 4, XLevelRuntime,"");
-        state = extState;
-        if (isDisplayable()) {
-            init_model();
-        }
+        // deny any write access 
     }
     
     void ShogunDot::on_creation(GridPos p) {
         if (server::WorldInitialized &&
-                SendMessage(GetStone(get_pos()), "_shogun", (state/2 -1)*4).to_bool())
-            objFlags |= OBJBIT_ACTIVE;
+                SendMessage(GetStone(get_pos()), "_shogun", requiredShogunHoles()).to_bool())
+            state = ON;
         Item::on_creation(p);
     }
     
+    int ShogunDot::getHoles() const {
+        return (objFlags & OBJBIT_HOLES) >> 24;
+    }
+    
+    int ShogunDot::requiredShogunHoles() const {  // currently shoguns s, sm, sml for dots s, m, l
+        static int smallestHole = ShogunStone::S;
+        return (getHoles()/smallestHole * 2 - 1) * smallestHole;
+    }
+    
     int ShogunDot::traitsIdx() const {
-        return state == 16 ? 2 : (state == 8 ? 1 : 0);
+        int holes = getHoles();
+        return holes == ShogunStone::L ? 2 : (holes == ShogunStone::M ? 1 : 0);
     }
     
 
