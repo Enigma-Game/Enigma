@@ -3406,7 +3406,7 @@ essential to know how to set up such objects to get the desired start
 configuration without the objects changing unexpected on level initialization.
 
 The snapshot principle is a simple thumb rule that you can rely on in describing
-the level as snapshot of object at a given point of time. Every object has just
+the level as a snapshot of object at a given point of time. Every object has just
 to be configured as it should be at the given time. All interactions that would
 take place in a running game do not take place while setting objects during
 initialization.
@@ -3417,7 +3417,7 @@ attributes:
 
 @example
 @{"st_switch", target="mydoor", state=ON@}
-@{"st_door_v", name="mydoor", state=OPEN@}
+@{"st_door", name="mydoor", state=OPEN@}
 @end example
 
 A laser that is initially on that illuminates a laserswitch needs an initially
@@ -3582,7 +3582,7 @@ of the source code itself!
 30    @i{ti}["@var{^}"] = @{"@b{st_boulder}", "@var{boulder}", @b{orientation}=@var{NORTH}@}
 31    @i{ti}["@var{F}"] = @{"@b{st_fourswitch}", @b{target}="@var{boulder}", @b{action}="@var{orientate}"@}
 32
-33    @i{ti}["@var{D}"] = @{"@b{st-door-v}", "@var{door}"@}
+33    @i{ti}["@var{D}"] = @{"@b{st_door_d}", "@var{door}", @b{faces}="@var{ew}"@}
 34    @i{ti}["@var{B}"] = @{"@b{it_blocker}", "@var{wall#}"@}
 35    @i{ti}["@var{S}"] = @{"@b{st_switch}", @b{target}=@{"@var{door}", "@var{wall#*}"@}@}
 36
@@ -3727,7 +3727,7 @@ the action as well, as we want to make use of a special action that directly
 steers the boulder according to the fourswitch orientation.
 
 @example
-33    @i{ti}["@var{D}"] = @{"@b{st-door-v}", "@var{door}"@}
+33    @i{ti}["@var{D}"] = @{"@b{st_door_d}", "@var{door}", @b{faces}="@var{ew}"@}
 34    @i{ti}["@var{B}"] = @{"@b{it_blocker}", "@var{wall#}"@}
 35    @i{ti}["@var{S}"] = @{"@b{st_switch}", @b{target}=@{"@var{door}", "@var{wall#*}"@}@}
 @end example
@@ -5341,7 +5341,7 @@ on 'even' or 'uneven' grid positions. Setting this attribute to @samp{0} assures
 that this object will only be set on grid positions with an even sum of 
 @code{x + y} grid coordinates, where as a value of @samp{1} assures that the
 sum must be uneven. This way you can easily provide two different object
-declarations for a tile to generate an arbitrary chaped map of checkerboard
+declarations for a tile to generate an arbitrarily chaped map of checkerboard
 floors, items or stones.
 
 @table @asis
@@ -5366,7 +5366,7 @@ to kill or reconnect single rubberbands. But to add new rubberbands you need
 to use the world's @samp{add} method.
 
 @table @asis
-@item @b{Type:} @ @ group of @code{ot_rubberband} objects
+@item @b{Type:} @ @ group of @ref{ot_rubberband} objects
 @item @b{Default:} @ @ @code{nil}
 @item @b{Access:} @ @ read only
 @item @b{Support:} @ @ by actor and stone objects
@@ -5581,8 +5581,8 @@ this message on behalf of their owner.
 @node disconnect
 @subsection disconnect
 
-This message causes the receipent to disconnect from all @ref{fellows} by
-cutting all @ref{wires} and @ref{rubbers} that are connect to it.
+This message causes the recipient to disconnect from all @ref{fellows} by
+cutting all @ref{wires} and @ref{rubbers} that are connected to it.
 
 @table @asis
 @item @b{Value:} @ @ -
@@ -5853,7 +5853,7 @@ counter besides the level time. It is mainly used in Sokoban like levels.
 
 A global variable that defines if the essential actors have to survive the
 finish of the game (@pxref{Ending Conditions}). With this attribute set to 
-@samp{false} a gamer can sacrify an essential actor to finish the level in the
+@samp{false} a gamer can sacrifice an essential actor to finish the level in the
 same step in some subtle cases.
 
 @table @asis
@@ -5942,6 +5942,7 @@ Positive number are attracting, negative numbers are repelling.
 * it_magnet::          
 * it_rubberband::      
 * it_sensor::          Floor Switch for passing Actors
+* it_shogun::          Dot for Shogun Stones
 * it_strip::           Narrow Bridge
 * it_sword::
 * it_trap::            
@@ -6427,7 +6428,7 @@ A magnet in state @samp{OFF}.
 
 A portable @ref{ot_rubberband} that gets connected to the bearer on activation.
 
-As the rubberbands @samp{anchor1} is given by the activator itself, just the
+As the rubberband's @samp{anchor1} is given by the activator itself, just the
 @samp{anchor2} reference can be configured by this item. It can be any stone
 or actor reference. 
 
@@ -6439,7 +6440,7 @@ If @samp{anchor2} does not exist, the @samp{it_rubberband} will be dropped.
 
 The other attributes describe the force and length parameters of the 
 @ref{ot_rubberband}, that will be created on application of the item. In fact
-the items identity will be transfered to its successor 
+the item's identity will be transfered to its successor 
 (@pxref{Object Transformation}). After creation of the life rubberband the 
 action message will be send to the target. Note that it is actually the 
 @ref{ot_rubberband} as the successor that sends the message.
@@ -6453,7 +6454,7 @@ Object reference or name of an actor or a stone that the rubber will be
 connected to. The reference will be evaluated on item activation.
 @item @b{strength} @ @ @i{values}: number; @ @ @i{default}: @code{10.0}
 The force strength.
-@item @b{length} @ @ @i{values}: positiv number; @ @ @i{default}: @code{1.0}
+@item @b{length} @ @ @i{values}: positive number; @ @ @i{default}: @code{1.0}
 The natural length above which forces are applied.
 @item @b{threshold} @ @ @i{values}: positiv number or zero; @ @ @i{default}: @code{0.0}
 The length smaller than the natural length below which inverted forces are applied.
@@ -6465,7 +6466,7 @@ The maximum length at which actors bounce.
 
 @item @b{Messages:} none
 @item @b{Action:} @ @ @xref{target}, @ @ @xref{action}
-On succesfull activation of this item the action message is send with a value of
+On succesful activation of this item the action message is send with a value of
 @samp{true}. Note that the parameter @samp{sender} will report the new 
 @ref{ot_rubberband}.
 @end table
@@ -6515,6 +6516,51 @@ cannot drop items onto the same grid position.
 
 @end table
 
+
+@c ----------------- Shogun Dot Item -------------------- 
+@node it_shogun
+@subsection it_shogun
+@obindex it_shogun
+
+A dot like, blue animated sensor item for @ref{st_shogun} stones. The dot comes
+in three variations matching the different hole sizes of shogun stones.
+
+Shogun dots detect stacks of @ref{st_shogun} that contain all variations from
+small up to the size of the dot. Thus the small dot requires just a single small
+shogun stone, the middle sized dot requires a stack of a small shogun beneath
+a middle sized shogun stone, whereas the large dot requires a stack of all three
+shogun stones on top.
+
+There is no way to set the state of a dot manually. But the state can 
+nevertheless be read. At initialization a dot with a matching shogun stack on 
+top will start in state @samp{ON} without sending actions due to the 
+@ref{Snapshot Principle}.
+
+@table @asis
+@item @b{Attributes:}
+@table @asis
+@item @b{state}, @ @ @i{values}: @code{OFF}, @code{ON}; @ @ @i{default}: @code{OFF}; @ @ @i{access}: @code{read only}  @ @ @xref{state}
+The current state of the dot - @samp{ON} for a matching @ref{st_shogun} stack
+on top, @samp{OFF} otherwise.
+@item @b{flavor}, @ @ @i{values}: @code{"s"}, @code{"m"}, @code{"l"}; @ @ @i{default}: @code{"s"}
+A string describing the hole size. @code{"s"} for a small hole, @code{m} for
+a medium hole, @code{"l"} for a large hole.
+
+@end table
+
+@item @b{Messages:} none
+
+@item @b{Action:}  @ @ @xref{target}, @ @ @xref{action}
+
+@item @b{Variants:}
+@table @asis
+@item @b{it_shogun}: flavor = @code{"s"}
+@item @b{it_shogun_s}: flavor = @code{"s"}
+@item @b{it_shogun_m}: flavor = @code{"m"}
+@item @b{it_shogun_l}: flavor = @code{"l"}
+@end table
+
+@end table
 
 @c ----------------- Strip Item -------------------- 
 @node it_strip
@@ -7100,6 +7146,7 @@ to use @samp{st_panel} with the attributes @samp{cluster} and @samp{faces}.
 * st_chess::           Movable Chess Knight Stone
 * st_coinslot::        Coin Driven Switch
 * st_death::           Skull Stone
+* st_door::            Door of various Flavors
 * st_floppy::          Floppy Driven Switch
 * st_fourswitch::      Four Direction Switch
 * st_key::             Key Driven Switch
@@ -7110,11 +7157,13 @@ to use @samp{st_panel} with the attributes @samp{cluster} and @samp{faces}.
 * st_lightpassenger::  Stone pushed by Light
 * st_mirror::          Mirrors of all flavors
 * st_monoflop::        Monoflop Switch
+* st_oneway::          Oneway Passage
 * st_oxyd::            Game Target Stone
 * st_polarswitch::     Transparency Switch for Light Beams
 * st_rotator::         Rotating Stone Impulser
 * st_rubberband::      Rubberband generator
 * st_scissors::        Scissors cutting rubberbands
+* st_shogun::          Stackable Hole Stones
 * st_switch::          Classical on/off Switch
 * st_timer::           Animated Timer
 * st_turnstile::       Turnstile Pivot
@@ -7500,6 +7549,94 @@ period.
 @end table
 
 
+@c ----------------- Door Stone -------------------- 
+@node st_door
+@subsection st_door
+@obindex st_door
+
+Doors are stones that let actors pass or block them to enter the grid, depending
+on their state. Doors can be opened and closed by the standard set of messages.
+Doors do not open or close instantly. They need a small amount of time. Actors
+can pass only doors that are completly open.
+
+There are several flavors of doors. Where as the variants @code{"a"} to 
+@code{"c"} represent grid filling block doors, does the flavor @code{"d"} 
+represent a faces based door, that opens or blocks just the given faces of the
+grid. Currently just the combinations of two parallel aligned door faces,
+aka horizontal and vertical doors, are supported.
+
+As door grids can be entered on unfaced sides you should block these faces by
+unpassable stones. If you do not block these entries or even allow marbles to
+warp into a door, the actors will be free to leave the doors even if they are
+closed. But marbles will shatter on the door grid when doors are closed. This
+behaviour is a legacy Enigma feature.
+
+Doors are stones that are even present if they are not visible in the @code{OPEN}
+state. This means you can not push or move any other stone through an open door.
+The @ref{st_blocker} is a quite compatible door alternative that allows stones
+to pass in its open state.
+
+All doors are floating and will not press @ref{it_triggers}. Thus you can detect
+passing actors by positioning a trigger beneath a door. Doors will neither press
+@ref{fl_bridge} and will thus take no influence on the bridge.
+
+Laser light will pass any open door, but will be blocked by closed faces. Closed
+doors of type @code{"d"} let light pass if the faces are parallel aligned to
+the light without intervening the light.
+
+Just doors of type @code{"d"} allow an actor to knock on its closed faces.
+This causes an action that might open the door or do anything else. A common
+target is @ref{st_balls} that evaluated the color of the knocking actor.
+
+@table @asis
+
+@item @b{Attributes:}
+@table @asis
+@item @b{state}, @ @ @i{values}: @code{OPEN}, @code{CLOSED}; @ @ @i{default}: @code{CLOSED}; @ @ @xref{state}
+The open state of the door.
+
+@item @b{flavor} @ @ @i{values}: @code{"a"}, @code{"b"}, @code{"c"}, @code{"d"}; @ @ @i{default}: @code{"d"}
+Representing different door types as described above. Block based flavors
+@code{"a"}, @code{"b"}, @code{"c"} and the face based flavor @code{"d"}.
+
+@item @b{faces} @ @ @i{values}: string; @ @ @i{default}: @code{"nesw"}
+Describes the door faces of the stone. The string is a substring of 
+@code{"nesw"} listing the faces. The sequence of the sides, north, east, south,
+west, is guaranteed on read access but arbitrary on write access. Note that
+the supported face combinations depend on the flavor. All but flavor @code{"d"}
+do always provide all 4 faces. Flavor @code{"d"} currently supports the face
+combinations @code{"ns"} and @code{"ew"}, in other words horizontal and 
+vertical aligned door faces, with the first combination being the default.
+
+@end table
+
+@item @b{Messages:}
+@table @asis
+@item @b{open} @ @ @xref{open}
+Opens a closed door or reverses the process of a closing door.
+@item @b{close} @ @ @xref{close}
+Closes an open door or reverses the process of an opening door.
+@item @b{signal} @ @ @xref{signal}
+Opens at value @samp{1}, and closes at value @samp{0}.
+@end table
+
+@item @b{Action:}
+Just flavor @code{"d"} doors will perform an action on an actor touching a face
+of a closed door. The action value will be the actor object, which can be
+evaluated on its kind. This action value fits the @samp{hit} messages of
+objects like @ref{st_balls}.
+
+@item @b{Variants:}
+@table @asis
+@item @b{st_door}: flavor = @code{"d"}
+@item @b{st_door_a}: flavor = @code{"a"}
+@item @b{st_door_b}: flavor = @code{"b"}
+@item @b{st_door_c}: flavor = @code{"c"}
+@item @b{st_door_d}: flavor = @code{"d"}
+@end table
+
+@end table
+
 @c ----------------- Floppy Stone -------------------- 
 @node st_floppy
 @subsection st_floppy
@@ -7524,7 +7661,7 @@ Current activity state of the floppy stone.
 
 @table @asis
 @item @b{signal} @ @ @xref{signal}
-Switches on at value @samp{1}, and off at values @samp{0}.
+Switches on at value @samp{1}, and off at value @samp{0}.
 @item @b{on} @ @ @xref{on}
 @item @b{off} @ @ @xref{off}
 @end table
@@ -8018,6 +8155,69 @@ Switch the monoflop on like on an actor hit.
 
 @end table
 
+@c ----------------- Oneway Stone -------------------- 
+@node st_oneway
+@subsection st_oneway
+@obindex st_oneway
+
+A stone with one special face, that allows actors just to pass from inside
+to outside but not vice versa. The other faces can generally be passed in both
+directions. As most times it is more important to be aware of the passages that
+are blocked, you may remember that the oneway's arrow points to the side that
+can not be entered.
+
+Three variants of the oneway do exist. A neutral, green-gray colored one that 
+lets any actor pass according to the above rules, and additionally a black and
+a white colored oneway. These last oneways will let pass only marbles of 
+matching color. All other actors will reflect from all four sides.
+
+All oneways can only be passed by actors moving on the floor. Jumping actors
+will bounce on every side.
+
+The @samp{orientation} of a neutral oneway can be flipped to the opposite
+direction by an actor hitting it with a revealed @ref{it_magicwand}. All
+oneway variations will change their orientation on messages @samp{signal} and
+@samp{flip}.
+
+@table @asis
+@item @b{Attributes:}
+
+@table @asis
+@item @b{state}, @ @ @i{values}: @code{NORTH}, @code{EAST}, @code{SOUTH}, @code{WEST}; @ @ @i{default}: @code{NORTH} @ @ @xref{state}
+The orientation of the oneway as shown by the arrow.
+@item @b{orientation}, @ @ @i{values}: @code{NORTH}, @code{EAST}, @code{SOUTH}, @code{WEST}; @ @ @i{default}: @code{NORTH}
+The orientation of the oneway as shown by the arrow.
+@item @b{color} @ @ @i{values}: @code{nil}, @code{BLACK}, @code{WHITE}; @ @ @i{default}: @code{nil}
+The color of the oneway that needs to match the actor's color to allow passing.
+The default @samp{nil} color is a greengrey oneway that matches all actors,
+marbles of any color as well as all other actors.
+@end table
+
+@item @b{Messages:}
+
+@table @asis
+@item @b{orientate}, @ @ @i{value type}: direction
+Change the orientation to the given direction value. The @ref{st_fourswitch}
+provides a compatible action which allows you to set a oneway as
+target and this message as action.
+@item @b{flip},
+Flip the orientation to the opposite direction.
+@item @b{signal} @ @ @xref{signal}
+Flip the orientation to the opposite direction.
+@end table
+
+@item @b{Action:} none
+
+@item @b{Variants:}
+
+@table @asis
+@item @b{st_oneway}
+@item @b{st_oneway_black}: color = @code{BLACK}
+@item @b{st_oneway_white}: color = @code{WHITE}
+@end table
+
+@end table
+
 @c ----------------- Oxyd Stone -------------------- 
 @node st_oxyd
 @subsection st_oxyd
@@ -8231,10 +8431,10 @@ No rubberband is attached if the hitting actor is already connected to this
 particular stone.
 
 If the attribute @samp{scissor} is @samp{true}, all rubberbands connected to
-the hitting actor are removed prior attaching the direct new connection.
+the hitting actor are removed prior to attaching the direct new connection.
 
 The rubberband stone is static by default. But an actor with a revealed 
-@ref{it_wand} can move it by hitting it. As the actor will get connected by
+@ref{it_magicwand} can move it by hitting it. As the actor will get connected by
 an @ref{ot_rubberband} at the same time you will usually place an 
 @ref{st_scissors} near the target place as an opportunity for the marble to free
 itself again from the rubberband stone.
@@ -8276,8 +8476,89 @@ action/target-pair.
 @item @b{Messages:} none
 
 @item @b{Action:} @ @ @xref{target}, @ @ @xref{action}
-Send an action message with value @samp{true} on freeing an actor from its
+Sends an action message with value @samp{true} on freeing an actor from its
 rubberbands.
+
+@end table
+
+@c ----------------- Shogun Stone -------------------- 
+@node st_shogun
+@subsection st_shogun
+@obindex st_shogun
+
+Shogun stones are nestable stones like Fukuroma or Matryoshka dolls. The
+different basic variations are distinguishable by their central hole. Small, 
+medium and large ones do exist. In contrast to the Fukuroma dolls you can push 
+smaller variations beneath the larger ones but not vice versa. You can see 
+smaller shoguns pushed beneath larger ones through the upper, larger hole. 
+Thus the player is always aware of the stack of shogun stones positioned on a
+single grid.
+
+An actor or a stone impulse hitting a shogun stack will push the smallest shogun 
+out of the stack. The upper and larger shogun stones can only be moved out of
+a stack by a @ref{ot_wire} impulse. But larger shoguns stones can never be 
+pushed over smaller ones.
+
+@ref{it_shogun} are a special trigger type for shogun stones represented by 
+animated blue dots. They just react on shogun stacks positioned on top of the
+dot items. All shogun sizes must be present from the smallest up to the size
+of the dot itself.
+
+Shogun stones press @ref{it_trigger}, too. But all other items that react on
+other stones being pushed over them will not react on shogun stones. E.g.
+@ref{it_seed} will not grow, @ref{it_bomb} will not explode, @ref{it_coin} will
+not transform and @ref{it_cherry} will not smash.
+
+All shogun stones keep their identity even if they are pushed together onto a
+single grid. Thus each shogun can be connected independently to @ref{ot_wire}s
+or @ref{ot_rubberband}s. On initialization you can set a stack of shogun onto
+a grid by setting a single shogun stone with a combined flavor string. The
+largest shogun stone of a stack will be positioned onto the grid and all smaller
+ones being part of the stack will be contained by the largest one. You can name 
+the smaller shoguns of a stack by the additional attributes @samp{name_m} and 
+@samp{name_s}. Every shogun, even those being part of a stack can individually
+be killed by sending a @ref{kill} message to it. By setting another stone or
+@samp{st_nil} onto the grid currently being occupied by a shogun grid all shogun
+stones being part of the stack will be killed.
+
+@table @asis
+@item @b{Attributes:}
+@table @asis
+@item @b{flavor}, @ @ @i{values}: @code{"s"}, @code{"m"}, @code{"l"}, @code{"sm"}, @code{"sl"}, @code{"ml"}, @code{"sml"}; @ @ @i{default}: @code{"s"}; @ @ @i{access}: after initialization read only
+A string describing the hole sizes of this shogun stone and all smaller shogun
+stones that are positioned beneath this stone. @code{"s"} for a small hole, @code{m} for
+a medium hole, @code{"l"} for a large hole, plus combinations of these
+characters for stacks. On initialization all shoguns of this grid's stack will 
+be set according to this attribute, which can be prior set. After initialization
+this attribute is read only and reports the current stack configuration. The
+character sequence is guaranteed to be sorted from small to large on read access
+but is arbitrary on initial write access.
+
+@item @b{name_m} @ @ @i{values}: string; @ @ @i{default}: @code{nil}
+Name of the middle sized shogun as subpart of a stack of a large shogun.
+
+@item @b{name_s} @ @ @i{values}: string; @ @ @i{default}: @code{nil}
+Name of the small sized shogun as subpart of a stack of a large or middle sized
+shogun.
+
+@end table
+
+@item @b{Messages:} none
+
+@item @b{Action:} none
+
+@item @b{Variants:}
+
+@table @asis
+@item @b{st_shogun}: flavor = @code{"s"}
+@item @b{st_shogun_s}: flavor = @code{"s"}
+@item @b{st_shogun_m}: flavor = @code{"m"}
+@item @b{st_shogun_sm}: flavor = @code{"sm"}
+@item @b{st_shogun_l}: flavor = @code{"l"}
+@item @b{st_shogun_sl}: flavor = @code{"sl"}
+@item @b{st_shogun_ml}: flavor = @code{"ml"}
+@item @b{st_shogun_sml}: flavor = @code{"sml"}
+@end table
 
 @end table
 
@@ -8428,7 +8709,7 @@ them.
 When green turnstiles push actors to a diagonal grid position they will push 
 away an @ref{st_turnstilearm}, and just this single kind of stone, if it is
 located on this target grid. This feature can be used to intertwine several
-turnstile as it can be seen in the level @samp{ZigZag}.
+turnstiles as it can be seen in the level @samp{ZigZag}.
 
 There are two other ways of coupling turnstiles. You can simply set another
 @samp{st_turnstile} as the target of a first one and perform a @samp{signal}
@@ -8447,6 +8728,8 @@ easy read evaluation of the current turnstile orientation.
 @table @asis
 @item @b{Attributes:}
 @table @asis
+@item @b{flavor} @ @ @i{values}: @code{"red"}, @code{"green"}; @ @ @i{default}: @code{"red"}
+The distinguishing color of the pivot that signals the behaviour.
 @item @b{counterclock} @ @ @i{values}: @code{true}, @code{false}; @ @ @i{default}: @code{false}
 The standard turning direction is clockwise. Use this attribute to revert the
 direction.
@@ -8462,11 +8745,11 @@ relative to its previous value.
 
 @table @asis
 @item @b{signal} @ @ @xref{signal}
-Rotate the turnstile counterclockwise on @samp{1}, and clockwise at values @samp{0}.
+Rotates the turnstile counterclockwise on @samp{1}, and clockwise at values @samp{0}.
 @item @b{turn}
-Turn in turning direction as defined by attribute @samp{counterclock}.
+Turns in turning direction as defined by attribute @samp{counterclock}.
 @item @b{turnback}
-Turn in opposite turning direction as defined by attribute @samp{counterclock}.
+Turns in opposite turning direction as defined by attribute @samp{counterclock}.
 @end table
 
 @item @b{Action:} @ @ @xref{target}, @ @ @xref{action}
@@ -8497,7 +8780,7 @@ with the same connections. But neither an arm will not connect to other
 @ref{st_puzzle} nor a puzzle to a pivot.
 
 An arm is connected to a pivot on a neighboring grid position solely by a 
-matching connection. It is no longer free movable. All its impulses will turn
+matching connection. It is no longer freely movable. All its impulses will turn
 the @ref{st_turnstile} cluster instead.
 
 A special move of an arm is due to actors being moved by another green 
@@ -8690,9 +8973,9 @@ An orange link between two objects that can apply attracting or repelling forces
 to them.
 
 The two connected objects are called anchors. The attribute @samp{anchor1} holds
-the first objects reference that must be an actor. The @samp{anchor2} references
+the first object's reference that must be an actor. The @samp{anchor2} references
 the second object that can either be another actor or a stone. Both objects
-must exist to @ref{add} an rubberband to the world. If the stone sinks, breaks
+must exist to @ref{add} a rubberband to the world. If the stone sinks, breaks
 or is killed otherwise the rubberband will be destroyed, too.
 
 Both anchor objects will update their attributes @ref{rubbers} and @ref{fellows}
@@ -8762,12 +9045,12 @@ and creation of this rubberband. The action value is @samp{1}.
 A wire is a purple wire connecting two stones that transfers every stone pushing
 impulse from one stone to the other and vice versa. Thus both stones will move
 on the impulse if they are movable at all and not blocked in the direction of
-the impulse. The impulses may origin from an actor hitting a stone, an 
+the impulse. The impulses may originate from an actor hitting a stone, an 
 @ref{it_puller}, an @ref{st_rotator}, an @ref{st_stoneimpulse}.
 
 A single stone can be wired to many other stones. All these @ref{fellows} will
 move on an impulse. But the impulses will not be propagated to further stones
-that are wired themsselves to any of the fellows. Just the direct wired stones
+that are wired themselves to any of the fellows. Just the direct wired stones
 will move.
 
 You can request the wires connected to a stone by the stones @ref{wires} 
@@ -9483,9 +9766,9 @@ Every key in the map is checked against the given hit key strings. If it fits
 one of them a replacement will take place.
 
 The replacement will be one of the replacement tile keys resolved via the
-subresolver. The different keys will be chosen with a likelyhood according to
+subresolver. The different keys will be chosen with a likelihood according to
 the ratio of the given frequency numbers. If no frequency is supplied a default
-of @samp{1} is taken. Thus in the first example both keys are taken in an ratio
+of @samp{1} is taken. Thus in the first example both keys are taken in a ratio
 1:1, whereas in the second the ratio will be 2:1.
 
 When a superkey is given for a hit key this superkey will additionally be 
@@ -9681,7 +9964,7 @@ The final display realigns to the grid even on odd threshold distances.
 The nearest object as described in @ref{Object Naming} provides a major feature
 for reducing the number of needed tile declarations. As the selection needs
 to be unique a rule had to be defined in case of equal distances. South wins, 
-then East, Stone are favored to Items, Floors and Actors.
+then east, stones are favored to items, floors and actors.
 
 In most cases level authors can arrange their objects to fit these rules. But
 sometimes the level design does not allow the straight forward usage of a
@@ -9697,7 +9980,7 @@ wo@{ti, " ", @{
 "       # #    F#####",
 @end example
 
-In both cases the floppy switch that is located at the crossing of to blocker
+In both cases the floppy switch that is located at the crossing of two blocker
 doors will open the false one.
 
 But you can use a cluster concept like the one we introduced for
@@ -9847,7 +10130,7 @@ implementation part may be called.
 
 It is the task of the configurator function to check the user supplied
 parameters thoroughly and to provide appropriate error messages on bad
-parameters. Do this with an lua error message call at level 2:
+parameters. Do this with a lua error message call at level 2:
 @example
 error("Resolver autotile rule " .. i.." is not a table", 2)
 @end example
