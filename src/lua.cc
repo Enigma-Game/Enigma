@@ -1960,7 +1960,7 @@ static int evaluateKey(lua_State *L) {
         lua_pushvalue(L, -4);       // duplicate y
         int retval=lua_pcall(L, 3, 1, 0);     // resolver(key,x,y) ->  tile
         if (retval!=0) {
-            throwLuaError(L, "Error within tile key resolver");
+            throwLuaError(L, ecl::strf("Error within tile key resolver: \n  %s", lua_tostring(L, -1)).c_str());
             return 0;
         }
         // check result - must be tile or table or nil
@@ -1979,7 +1979,7 @@ static int evaluateKey(lua_State *L) {
         lua_pushvalue(L, -6);       // duplicate y
         int retval=lua_pcall(L, 5, 1, 0);     // resolver(context,evaluator,key,x,y) ->  tile
         if (retval!=0) { 
-            throwLuaError(L, "Error within tile key resolver");
+            throwLuaError(L, ecl::strf("Error within tile key resolver: \n  %s", lua_tostring(L, -1)).c_str());
             return 0;
         }
         // check result - must be tile or table or nil

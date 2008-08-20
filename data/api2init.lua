@@ -216,10 +216,34 @@ wo:_register("drawRect",
 )
 
 ---------------
+-- Libraries --
+---------------
+
+lib = {}
+setmetatable(lib, {__index = 
+    function (table, key)
+        if type(key) == "string" then
+            error("Library function named '"..key.."' not existing. A typo or a missing library dependency may cause this fault.", 2)
+        else
+            error("Library function access with a key of type '"..type(key).."'. A name is mandatory.", 2)
+        end
+    end 
+})
+
+---------------
 -- Resolvers --
 ---------------
 
 res = {}
+setmetatable(res, {__index = 
+    function (table, key)
+        if type(key) == "string" then
+            error("Resolver named '"..key.."' not existing. A typo or a missing library dependency may cause this fault.", 2)
+        else
+            error("Resolver access with a key of type '"..type(key).."'. A name is mandatory.", 2)
+        end
+    end 
+})
 
 function res.random_implementation(context, evaluator, key, x, y)
     for hit_itr, hit_pair in ipairs(context[4]) do

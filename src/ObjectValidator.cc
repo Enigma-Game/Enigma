@@ -105,24 +105,32 @@ namespace enigma {
     void ObjectValidator::init() {
         ASSERT(doc != NULL, XFrontend, "ObjectValidator try to init without given document");
         
+        std::string errMessage;
         DOMNodeList *elemList;
         DOMElement *baseElem;
         
-        baseElem = dynamic_cast<DOMElement *>(doc->getElementsByTagName(Utf8ToXML("attributes").x_str())->item(0));
-        elemList = baseElem->getElementsByTagName(Utf8ToXML("attr").x_str());
-        for (int i = 0, l = elemList->getLength(); i < l; i++) {
-            scanAttributeElement(dynamic_cast<DOMElement *>(elemList->item(i)));
+        try{
+            baseElem = dynamic_cast<DOMElement *>(doc->getElementsByTagName(Utf8ToXML("attributes").x_str())->item(0));
+            elemList = baseElem->getElementsByTagName(Utf8ToXML("attr").x_str());
+            for (int i = 0, l = elemList->getLength(); i < l; i++) {
+                scanAttributeElement(dynamic_cast<DOMElement *>(elemList->item(i)));
+            }
+            
+            baseElem = dynamic_cast<DOMElement *>(doc->getElementsByTagName(Utf8ToXML("messages").x_str())->item(0));
+            elemList = baseElem->getElementsByTagName(Utf8ToXML("msg").x_str());
+            for (int i = 0, l = elemList->getLength(); i < l; i++) {
+                scanMessageElement(dynamic_cast<DOMElement *>(elemList->item(i)));
+            }
+            
+            elemList = doc->getElementsByTagName(Utf8ToXML("object").x_str());
+            for (int i = 0, l = elemList->getLength(); i < l; i++) {
+                scanObjectElement(dynamic_cast<DOMElement *>(elemList->item(i)));
+            }
+        } catch (...) {
+            errMessage = "Exception on parse of object declarations\n";
         }
-        
-        baseElem = dynamic_cast<DOMElement *>(doc->getElementsByTagName(Utf8ToXML("messages").x_str())->item(0));
-        elemList = baseElem->getElementsByTagName(Utf8ToXML("msg").x_str());
-        for (int i = 0, l = elemList->getLength(); i < l; i++) {
-            scanMessageElement(dynamic_cast<DOMElement *>(elemList->item(i)));
-        }
-        
-        elemList = doc->getElementsByTagName(Utf8ToXML("object").x_str());
-        for (int i = 0, l = elemList->getLength(); i < l; i++) {
-            scanObjectElement(dynamic_cast<DOMElement *>(elemList->item(i)));
+        if (!errMessage.empty()) {
+            throw XFrontend("Cannot init object declarations file: \nError: " + errMessage);
         }
     }
     
