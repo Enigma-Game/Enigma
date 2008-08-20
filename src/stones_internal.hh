@@ -52,30 +52,6 @@ namespace enigma {
        stone. */
     bool maybe_push_stone (const StoneContact &sc);
 
-/* -------------------- YieldedGridStone -------------------- */
-
-    // allows to completely remove a Stone and its model
-    // for a short time
-    //
-    // - "delays" animation
-    //
-    // @@@ FIXME: alarms have to be disabled as well
-
-    class YieldedGridStone {
-        Stone   *stone;
-        display::Model *model;
-
-        YieldedGridStone(const YieldedGridStone&);
-        YieldedGridStone& operator = (const YieldedGridStone&);
-    public:
-
-        YieldedGridStone(Stone *st);
-        ~YieldedGridStone();
-
-        void set_stone(enigma::GridPos pos);
-        void dispose();
-    };
-
 } // namespace enigma
 
 #endif

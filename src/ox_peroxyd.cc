@@ -335,7 +335,7 @@ const char *oxyd::peroxyd_stone_map[256] = {
     "st-rock8",                 // PerOxyd stone 0x90
     "st_rotator_ccw_movable",   // PerOxyd stone 0x91
     "st_rotator_cw_movable",    // PerOxyd stone 0x92
-    "st-swap",                  // PerOxyd stone 0x93
+    "st_swap",                  // PerOxyd stone 0x93
     "st-spitter",               // PerOxyd stone 0x94
     0,                          // PerOxyd stone 0x95 (dynamite holder, will implememnt it)(levels: 41 184 200)
     "st_rubberband",            // PerOxyd stone 0x96

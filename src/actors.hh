@@ -76,6 +76,7 @@ namespace enigma {
         GridPos gridpos;        // Grid position for pos
         const Field *field;     // Field of pos
         ecl::V2 vel;            // Velocity
+        ecl::V2 frozen_vel;     // Velocity backup for forzen actors
         ecl::V2 pos_force;      // Extrapolated position for global force calc
         ecl::V2 forceacc;       // Force accumulator
         double charge;          // Electric charge

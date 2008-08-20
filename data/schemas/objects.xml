@@ -79,14 +79,15 @@
     <msg name="_brush" type="nil"/>
     <msg name="_capture" type="nil"/>
     <msg name="_explosion" type="nil"/>
+    <msg name="_freeze" type="nil"/>
     <msg name="_glasses" type="nil"/>
     <msg name="_hit" type="object"/>
     <msg name="_init" type="nil"/>
     <msg name="_jumping" type="bool"/>
-    <msg name="_performaction" type="nil"/>
     <msg name="_model_reanimated" type="nil"/>
     <msg name="_passed" type="nil"/>            <!-- check type-->
     <msg name="_performaction" type="nil"/>
+    <msg name="_revive" type="nil"/>
     <msg name="_shogun" type="int"/>
     <msg name="_spitter" type="nil"/>
     <msg name="_start" type="nil"/>
@@ -692,6 +693,11 @@
       <msg name="off"/>
       <msg name="signal"/>
     </object>
+    <object name="st_pull">
+      <attr name="state" rw="r"/>
+      <msg name="_freeze"/>
+      <msg name="_revive"/>
+    </object>
     <object name="st_rotator">
       <attr name="counterclock"/>
       <attr name="movable" rw="rw"/>
@@ -741,6 +747,9 @@
     </object>
     <object name="st_shogun_sml">
       <attr name="flavor" value="sml"/>
+    </object>
+    <object name="st_swap">
+      <attr name="state" rw="r"/>
     </object>
     <object name="st_switch">
       <attr name="color"/>

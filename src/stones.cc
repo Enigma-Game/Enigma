@@ -419,46 +419,6 @@ void SpitterStone::actor_hit (const StoneContact &sc)
 }
 
 
-/* -------------------- YieldedGridStone -------------------- */
-
-YieldedGridStone::YieldedGridStone(Stone *st)
-: stone(st)
-{
-    GridPos pos = stone->get_pos();
-    model       = display::YieldModel(GridLoc(GRID_STONES, pos));
-    YieldStone(pos);
-    st->setOwnerPos(pos);   // the stone remains owned at the old position
-}
-
-YieldedGridStone::~YieldedGridStone() 
-{
-    ASSERT(!stone, XLevelRuntime,
-        "YieldedGridStone: destructor called though stone still exists");
-    ASSERT(!model, XLevelRuntime,
-        "YieldedGridStone: destructor called though model still exists");
-}
-
-void YieldedGridStone::set_stone(GridPos pos) 
-{
-    SetStone(pos, stone);
-    display::SetModel(GridLoc(GRID_STONES, stone->get_pos()), model);
-    stone->on_move();    // continue animations -- this is buggy if the stone has another
-                         // model on the new position like st-chameleon
-    SendMessage(stone, "_model_reanimated");  // temp fix: reset bad models
-    stone = 0;
-    model = 0;
-}
-
-void YieldedGridStone::dispose() 
-{
-    SendMessage(stone, "disconnect");
-    stone->dispose();
-    delete model;
-    stone = 0;
-    model = 0;
-}
-
-
 /* -------------------- Oxyd compatibility stones -------------------- */
 
 namespace
@@ -812,8 +772,8 @@ namespace
             }
             return Stone::message(m);
         }
-        void on_move() {
-            Stone::on_move();
+        void on_floor_change() {
+//            Stone::on_move();
             GridPos p = get_pos();
             if (Floor *fl = GetFloor (p)) {
                 if (fl->is_kind("fl-abyss")) {

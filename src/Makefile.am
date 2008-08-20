@@ -263,6 +263,8 @@ enigma_SOURCES = 		\
 	stones/OxydStone.hh	\
 	stones/PolarSwitchStone.cc	\
 	stones/PolarSwitchStone.hh	\
+	stones/PullStone.cc	\
+	stones/PullStone.hh	\
 	stones/RotatorStone.cc	\
 	stones/RotatorStone.hh	\
 	stones/RubberbandStone.cc	\
@@ -271,6 +273,8 @@ enigma_SOURCES = 		\
 	stones/ScissorsStone.hh	\
 	stones/ShogunStone.cc	\
 	stones/ShogunStone.hh	\
+	stones/SwapStone.cc	\
+	stones/SwapStone.hh	\
 	stones/Switch.cc	\
 	stones/Switch.hh	\
 	stones/TimerStone.cc	\
@@ -278,7 +282,9 @@ enigma_SOURCES = 		\
 	stones/Turnstile.cc	\
 	stones/Turnstile.hh	\
 	stones/WindowStone.cc	\
-	stones/WindowStone.hh
+	stones/WindowStone.hh	\
+	stones/YieldingStone.cc	\
+	stones/YieldingStone.hh
 
 datadir = @datadir@
 

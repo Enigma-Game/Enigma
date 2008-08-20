@@ -374,147 +374,6 @@ namespace
     DEF_TRAITS(ChameleonStone, "st-chameleon", st_chameleon);
 }
 
-
-/* -------------------- SwapStone -------------------- */
-
-namespace
-{
-    class SwapStone : public Stone, public TimeHandler {
-        DECL_TRAITS;    
-    public:
-        SwapStone();
-        ~SwapStone();
-    private:
-        // Object interface
-        SwapStone *clone();
-        void       dispose();
-
-        // GridObject interface
-        void init_model();
-        void on_removal(GridPos p);
-
-        // Stone interface
-        void on_impulse (const Impulse &impulse);
-        bool is_removable() const { return state == IDLE; }
-        void actor_hit (const StoneContact &sc);
-
-        // TimeHandler interface
-        void alarm();
-
-        // Variables :
-        enum State { IDLE, COME, GO } state;
-        YieldedGridStone *in_exchange_with;
-        Direction         move_dir;
-    };
-    DEF_TRAITSM(SwapStone, "st-swap", st_swap, MOVABLE_IRREGULAR);
-}
-
-SwapStone::SwapStone()
-: state(IDLE),
-  in_exchange_with(0),
-  move_dir(NODIR)
-{}
-
-SwapStone::~SwapStone() {
-    GameTimer.remove_alarm(this);
-}
-
-SwapStone *SwapStone::clone() {
-    SwapStone *other        = new SwapStone(*this);
-    other->in_exchange_with = 0;
-    return other;
-}
-
-void SwapStone::dispose() {
-    if (state == COME && in_exchange_with != 0) {
-        in_exchange_with->dispose();
-        delete in_exchange_with;
-    }
-    delete this;
-}
-
-void SwapStone::on_removal(GridPos p) {
-    if (state == COME) {
-        GameTimer.remove_alarm(this);
-        GridPos oldPos = move(get_pos(), reverse(move_dir));
-        SwapStone *other = dynamic_cast<SwapStone *>(GetStone(oldPos));
-        if (other != NULL) {
-            other->state = IDLE;
-            other->init_model();
-        }
-    }
-    GridObject::on_removal(p);
-}
-
-/* Animation finished; put the "swapped" stone to its new position. */
-void SwapStone::alarm()
-{
-    GridPos oldPos = move(get_pos(), reverse(move_dir));
-
-    // Set the swapped stone (this also kills the old (inactive) swap stone)
-    in_exchange_with->set_stone(oldPos);
-    delete in_exchange_with;
-    in_exchange_with = 0;
-
-    state = IDLE;
-    init_model();
-//    sound_event ("moveslow");
-}
-
-void SwapStone::on_impulse(const Impulse& impulse) 
-{
-    if (state == IDLE) {
-        GridPos oldp = get_pos();
-        GridPos newp = move(oldp, impulse.dir);
-
-        // never swap beyond the world and for non enigma modes do not swap to
-        // border as well.
-        if (IsInsideLevel(newp) &&
-                (server::GameCompatibility == GAMET_ENIGMA || !IsLevelBorder(newp))) {
-            Stone *other = GetStone(newp);
-            if (other && other->is_removable()) {
-                SwapStone *newStone = new SwapStone;
-                newStone->state            = COME;
-                newStone->in_exchange_with = new YieldedGridStone(other); // yields 'other'
-                newStone->move_dir         = impulse.dir;
-
-                GameTimer.set_alarm(newStone, 0.1, false);
-
-                SetStone(newp, newStone);
-
-                state    = GO;
-                move_dir = impulse.dir;
-                init_model();
-
-                sound_event ("moveslow");
-                server::IncMoveCounter(1);
-            }
-        }
-    }
-}
-
-void SwapStone::actor_hit(const StoneContact &sc) {
-    Direction dir = get_push_direction (sc);
-    if (dir != NODIR) {
-        send_impulse(get_pos(), dir);
-    }
-}
-
-void SwapStone::init_model() {
-    static const char *models_come[] = { "st-swap-w", "st-swap-s", "st-swap-e", "st-swap-n" };
-    static const char *models_go[] =   { "st-swap-e", "st-swap-n", "st-swap-w", "st-swap-s" };
-
-    const char *model = 0;
-    switch (state) {
-    case IDLE: model = "st-swap"; break;
-    case COME: model = models_come[move_dir]; break;
-    case GO:   model = models_go[move_dir]; break;
-    }
-
-    set_model(model);
-}
-
-
 /* -------------------- BlockStone -------------------- */
 
 namespace
@@ -1658,6 +1517,10 @@ namespace
 
         bool is_sticky(const Actor *) const 
         { return false; }
+        
+        void on_move() {
+            // we are not floating, but we do not shatter actors when swapped or pulled
+        }
     };
     DEF_TRAITSM(BrakeStone, "st-brake", st_brake, MOVABLE_BREAKABLE);
 }
@@ -1823,7 +1686,7 @@ namespace
                 Stone::actor_hit(sc);
         }
 
-        void on_move() {
+        void on_floor_change() {
             GridPos p = get_pos();
             if (Floor *fl = GetFloor (p)) {
                 if (fl->is_kind("fl-abyss")) {
@@ -1901,8 +1764,6 @@ void Init_simple()
     Register(new Stone_break("st-break_gray"));
     Register(new Stone_movebreak);
     Register(new Stonebrush);
-    Register(new SwapStone);
-
     Register(new ThiefStone);
 
     Register(new RandomWoodenStone); // random flavor
