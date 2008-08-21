@@ -140,23 +140,69 @@ FOLLOW_FULLSCREEN = po(19, 12)
 FOLLOW_HALFSCREEN = po(9.5, 6)
 
 -- Read directions for maps
-MAP_DEFAULT = 0
-MAP_CW = 1
-MAP_180 = 2
-MAP_CCW = 3
-MAP_MIRROR_HORIZONTAL = 4
-MAP_MIRROR_VERTICAL = 5
+MAP_IDENT = 0
+MAP_ROT_CW = 1
+MAP_ROT_180 = 2
+MAP_ROT_CCW = 3
+MAP_MIRROR_BACKSLASH = 4
+MAP_MIRROR_HORIZONTAL = 5
 MAP_MIRROR_SLASH = 6
-MAP_MIRROR_BACKSLASH = 7
+MAP_MIRROR_VERTICAL = 7
+MAP_COUNT = 7
 
 ---------------------
 -- Utility Methods --
 ---------------------
 
 wo:_register("drawMap", 
-    function (world, resolver, origin, ignore, map)
+    function (world, resolver, anchor, ignorearg, maparg, readarg)
         -- TODO check validity of arguments
+        -- world, resolver, (position|object|table), string, (table|map), [int]
+        -- world, resolver, (position|object|table), map, [int]
+        -- Analyse arguments 3 to 6
+        local origin = anchor
+        if type(origin) == "table" then
+            origin = po(origin)
+        end
+        local ignore = ignorearg
+        local map = maparg
+        local readdir = readarg or MAP_IDENT
+        if (ignorearg.type == "map") then
+            map = ignorearg
+            ignore = map.defaultkey
+            readdir = maparg or MAP_IDENT
+        elseif     (type(map.defaultkey) == "string")
+               and (string.len(map.defaultkey) ~= string.len(ignore)) then
+            error("drawmap: Ignore key and default key differ in length.", 2)
+        end
         local len = string.len(ignore)
+        if    (type(readdir) ~= "number") or (readdir % 1 ~= 0)
+           or (readdir < MAP_IDENT) or (readdir > MAP_COUNT) then
+            error("drawmap: Unknown read direction.", 2)
+        end
+        -- Prepare read direction rotation
+        local w, h = 0, 0
+        local function rot(x, y)
+            -- The difference of this function to the one in libmap
+            -- results among others from different coordinate origins
+            -- and different application of rot.
+            return ({[MAP_IDENT]             = {x,         y},
+                     [MAP_ROT_CW]            = {h + 1 - y, x},
+                     [MAP_ROT_180]           = {w + 1 - x, h + 1 - y},
+                     [MAP_ROT_CCW]           = {y,         w + 1 - x},
+                     [MAP_MIRROR_HORIZONTAL] = {w + 1 - x, y},
+                     [MAP_MIRROR_VERTICAL]   = {x,         h + 1 - y},
+                     [MAP_MIRROR_SLASH]      = {y,         x},
+                     [MAP_MIRROR_BACKSLASH]  = {h + 1 - y, w + 1 - x} })[readdir]
+        end
+        if readdir ~= MAP_IDENT then
+          -- Calculate height and width for rotation if neccessary
+          h = #map
+          for y = 1, h do
+            w = math.max(w, string.len(map[y])/len)
+          end
+        end
+        -- Draw map
         for y=1, #map do
             local linelen = string.len(map[y])
             if math.fmod(linelen, len) ~= 0 then
@@ -165,9 +211,20 @@ wo:_register("drawMap",
             for x = 1, linelen/len do
                 local key = string.sub(map[y], len*(x-1)+1, len*x)
                 if key ~= ignore then
-                    world[origin + {x-1, y-1}] =  
-                            world:_evaluate(resolver, key, origin.x + x - 1, 
-                                    origin.y + y-1)
+                    local p = {origin.x - 1, origin.y - 1}
+                    if readdir == MAP_IDENT then
+                      p = {p[1] + x, p[2] + y}
+                    else
+                      p = {p[1] + (rot(x,y))[1], p[2] + (rot(x,y))[2]}
+                    end
+                    tile = world:_evaluate(resolver, key, p[1], p[2])
+                    if tile then
+                        world[p] = tile
+                    else
+                        error("drawmap: undefined tile '" .. key .. "' at "
+                              .. p[1] .. ", " .. p[2] .. "(in submap at "
+                              .. x .. ", ".. y .. ")")
+                    end
                 end
             end
         end

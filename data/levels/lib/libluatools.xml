@@ -33,6 +33,7 @@ luatools = {}
 -- deep_copy returns a copy of SOURCE, where table entries are
 -- not copied as memory references, but complete ("deep copy").
 -- Metatables are transfered, but not deep-copied.
+-- TODO: use rawset/rawget instead.
 function luatools.deep_copy(source)
  if type(source) ~= "table" then
    return source
@@ -146,8 +147,16 @@ function luatools.manhattan_distance(x1, y1, x2, y2)
     return math.abs(x1 - x2) + math.abs(y1 - y2)
   end
   if x1 and y1 then
-    -- x1 and y1 are positions
-    return math.abs(x1.x - y1.x) + math.abs(x1.y - y1.y)
+    -- x1 and y1 are positions, possibly tables.
+    local p1 = x1
+    local p2 = y1
+    if type(p1) == "table" then
+      p1 = po(p1)
+    end
+    if type(p2) == "table" then
+      p2 = po(p2)
+    end
+    return math.abs(p1.x - p2.x) + math.abs(p1.y - p2.y)
   end
   error("manhattan_distance: Too less arguments.")  
 end
@@ -162,6 +171,12 @@ end
 -- values as it should. The following function returns (given
 -- an integer) another integer between 0 and MODUL-1.
 function luatools.mod(value, modul)
+  if (type(value) ~= "number") or (type(modul) ~= "number") then
+    error("luatools.mod: Arguments are not two numbers.")
+  end
+  if modul <= 0 then
+    error("luatools.mod: Second argument (modul) must be positive.")
+  end
   if value < 0 then
     -- No, the following call to luatools.mod is not a real
     -- recursion, it's only for the case where VALUE is a
@@ -248,10 +263,26 @@ end
 -- of depth DEPTH.
 function luatools.combinations(depth, digits)
   local all_combinations = {{}}
+  local digs = digits
+  if (type(depth) ~= "number") or (depth < 1) or (depth ~= math.floor(depth)) then
+    error("combinations: First argument (depth) not a number or out of range.")
+  end
+  if type(digits) == "number" then
+    if (digits < 1) or (digits ~= math.floor(digits)) then
+      error("combinations: Second argument (digits) out of range.")
+    end
+    digs = {}
+    for j = 1, digits do
+      digs[j] = j
+    end
+  end
+  if type(digs) ~= "table" then
+    error("combinations: Second argument (digits) should be number or table.")
+  end
   for _ = 1, depth do
     local next_step = {}
     for _, old_combination in pairs(all_combinations) do
-      for _, new_digit in pairs(digits) do
+      for _, new_digit in pairs(digs) do
         local new_combination = luatools.deep_copy(old_combination)
         table.insert(new_combination, new_digit)
         table.insert(next, new_combination)
@@ -294,6 +325,9 @@ end
 function luatools.permutation(n)
   if type(n) ~= "number" then
     error("permutation: Expected number, got "..type(n).."!")
+  end
+  if (n < 1) or (n ~= math.floor(n)) then
+    error("permutation: Argument must be positive integer.")
   end
   local sequence = {}
   for j = 1, n do

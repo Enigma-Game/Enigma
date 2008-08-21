@@ -2044,17 +2044,32 @@ static int setObjectByKey(lua_State *L, std::string key, int j, int i, bool only
 static int createWorld(lua_State *L) {
     // world, resolver, default key, map
     // world, (ti|function|table), string, table
+    // world, (ti|function|table), string, number, number
+    // world, (ti|function|table), libmap-map
     if (server::WorldSized) {
         throwLuaError(L, "World recreation not allowed");
         return 0;
     }
     
+    // Is third argument a table? If so, check for an entry called
+    // "defaultkey" and insert it into the stack at position 3.
+    // This is consistent with libmap, as a metamethod will be
+    // triggered, but can be used more generally as well.
+    if (is_table(L, 3)) {
+        lua_getfield(L, 3, "defaultkey");
+        if (not lua_isstring(L, -1))
+            throwLuaError(L, "World create with false argument types");
+        lua_insert(L, 3);
+    }
+    
+    // check arguments
     int width = 0;
     int height = 0;
     int keyLength = 1;
     std::string defaultKey;
-    if (!((is_tiles(L, 2)||lua_isfunction(L, 2)||is_table(L, 2)) && lua_isstring(L, 3) && 
-            (is_table(L, 4) || (lua_isnumber(L, 4) && lua_isnumber(L, 5))))) {
+    if (!(   (is_tiles(L, 2) || lua_isfunction(L, 2) || is_table(L, 2))
+          &&  lua_isstring(L, 3)
+          && (is_table(L, 4) || (lua_isnumber(L, 4) && lua_isnumber(L, 5))))) {
         throwLuaError(L, "World create with false argument types");
         return 0;
     }
@@ -2149,8 +2164,9 @@ static int createWorld(lua_State *L) {
 }
 
 static int dispatchWorldWriteAccess(lua_State *L) {
-    // [object|position|table] = table|tile
     // [string] = value
+    // [object|position|table] = table|tile
+    // [object|position|table] = nil (=> error)
     if (lua_isstring(L, 2)) {
         std::string name = lua_tostring(L, 2);
         // TODO check string
@@ -2226,8 +2242,12 @@ static int dispatchWorldWriteAccess(lua_State *L) {
         else // is tile
             setObjectByTile(L, x, y);
         return 0;
+    } else if ((is_object(L, 2) || is_position(L, 2) || is_table(L, 2) || is_group(L, 2)) && 
+            lua_isnil(L, 3)) {
+        throwLuaError(L, "World write access with nil value (undefined tile?)");
+        return 0;
     } else {
-        throwLuaError(L, "World write access with bad index");
+        throwLuaError(L, "World write access with bad index or bad value");
         return 0;
     }
 }
