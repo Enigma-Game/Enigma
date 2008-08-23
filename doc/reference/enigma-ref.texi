@@ -38,6 +38,7 @@ build new levels using Lua and how to interact with the game engine.
 * Stone Objects::
 * Actor Objects::
 * Other Objects::               Rubberbands, etc.
+* Libraries::                   Advanced tools
 * Advanced Features::           Fire, ...
 * Extension Development::       Resolver, Library Development
 * Old API - Objects::           Description of all objects in Enigma
@@ -1338,7 +1339,7 @@ parts:
 * Internationalization (i18n)::
 * Usage::
 * Update and Upgrade::
-* Libraries::
+* Using Libraries::
 @end menu
 
 @node Getting Started with Levels
@@ -2554,15 +2555,15 @@ new release, we added another upgrade element in the public section. Level admin
 use this element for the same purpose, with the same syntax, without modifying the author's
 protected section.
 
-@node Libraries
-@section Libraries
+@node Using Libraries
+@section Using Libraries
 
 Libraries are collections of Lua functions for reuse in many levels. To use a library, you must
-declare it as an dependency, as described in @ref{<compatibility>}. Preloading the library is all
+declare it as a dependency, as described in @ref{<compatibility>}. Preloading the library is all
 you have to do to use the library. Otherwise, you can use the function @ref{enigma.LoadLib} to
 load the library at a certain point of execution.
 
-Enigma provides several very useful libraries. You will find them on the system
+Enigma provides several very useful @ref{Libraries}. You will find them on the system
 path in the subdirectory @samp{levels/lib}. Most of them are documented in-line.
 You will find a separate documentation file
 @samp{doc/ant_lua.txt} for @samp{ant}.
@@ -4595,7 +4596,7 @@ not part of the source code itself!
 
 @example
 01	  <el:compatibility el:enigma="1.10">
-02	    <el:dependency el:path="lib/libluatools" el:id="lib/libluatools" el:release="1" el:preload="true"/>
+02	    <el:dependency el:path="lib/libmath" el:id="lib/libmath" el:release="1" el:preload="true"/>
 03	  </el:compatibility>
 ...
 04    @i{ti}["@var{ }"] = @{"@b{fl-sahara}", @b{friction} = @var{3.5}, @b{adhesion} = @var{4.0}@}
@@ -4614,11 +4615,11 @@ not part of the source code itself!
 17    @i{ti}["@var{S}"] = @{"@b{st_switch}", @b{target} = "@var{easy_mode_call}"@}
 18    
 19    @var{floors}  = @{@i{ti}["@var{ }"], @i{ti}["@var{a}"], @i{ti}["@var{b}"], @i{ti}["@var{c}"]@}
-20    @var{polynom} = @i{luatools}.@i{random_vector}(@var{10}, @var{4})
+20    @var{polynom} = @i{lib}.@i{math}.@i{random_vector}(@var{10}, @var{4})
 21    
 22    function @var{myresolver}(@var{key}, @var{x}, @var{y})
 23      if @var{key} == "@var{ }" then 
-24	  return @var{floors}[@i{luatools}.@i{cubic_polynomial}(@var{polynom}, @var{x}, @var{y}) % (#@var{floors}) + @var{1}]
+24	  return @var{floors}[@i{lib}.@i{math}.@i{cubic_polynomial}(@var{polynom}, @var{x}, @var{y}) % (#@var{floors}) + @var{1}]
 25      elseif    (@var{key} == "@var{#}")
 26            or ((@var{key} == "@var{_}") and (@i{random}(@var{4}) == @var{1}))
 27            or ((@var{key} == "@var{S}") and @i{wo}["@b{IsDifficult}"]) then
@@ -4645,8 +4646,8 @@ not part of the source code itself!
 48       "@var{####################___________________}"
 49    @})
 50    
-51    @var{door_p} = @i{luatools}.@i{permutation}(@var{12})
-52    @var{wire_p} = @i{luatools}.@i{permutation}(@var{12})
+51    @var{door_p} = @i{lib}.@i{math}.@i{permutation}(@var{12})
+52    @var{wire_p} = @i{lib}.@i{math}.@i{permutation}(@var{12})
 53    @var{woods} = @i{no}["@var{wood}#*"]
 54    @var{triggers} = @i{no}["@var{trigger}#*"]
 55    @var{doors} = @i{no}["@var{door}#*"]
@@ -4682,11 +4683,11 @@ that do the real work.
 
 @example
 01	  <el:compatibility el:enigma="1.10">
-02	    <el:dependency el:path="lib/libluatools" el:id="lib/libluatools" el:release="1" el:preload="true"/>
+02	    <el:dependency el:path="lib/libmath" el:id="lib/libmath" el:release="1" el:preload="true"/>
 03	  </el:compatibility>
 @end example
-We make use of some functions of the luatools library. Thus we need to preload it, 
-besides declaration of compatibility to Enigma 1.10.
+We make use of some functions of the @ref{libmath} library. Thus we need to
+preload it, besides declaration of compatibility to Enigma 1.10.
 
 @example
 04    @i{ti}["@var{ }"] = @{"@b{fl-sahara}", @b{friction} = @var{3.5}, @b{adhesion} = @var{4.0}@}
@@ -4731,7 +4732,7 @@ of lines 71 to 81.
 
 @example
 19    @var{floors}  = @{@i{ti}["@var{ }"], @i{ti}["@var{a}"], @i{ti}["@var{b}"], @i{ti}["@var{c}"]@}
-20    @var{polynom} = @i{luatools}.@i{random_vector}(@var{10}, @var{4})
+20    @var{polynom} = @i{lib}.@i{math}.@i{random_vector}(@var{10}, @var{4})
 @end example
 Preparations for the floor design. The four floor tiles are stored in a table
 for number based index access. Ten random numbers in the range 1 to 4 are
@@ -4749,7 +4750,7 @@ the task of delivering the appropriate tile.
 
 @example
 23      if @var{key} == "@var{ }" then 
-24	  return @var{floors}[@i{luatools}.@i{cubic_polynomial}(@var{polynom}, @var{x}, @var{y}) % (#@var{floors}) + @var{1}]
+24	  return @var{floors}[@i{lib}.@i{math}.@i{cubic_polynomial}(@var{polynom}, @var{x}, @var{y}) % (#@var{floors}) + @var{1}]
 @end example
 These two lines generate the always changing floor design. For every map key
 @samp{ } we calculate the cubic polynomial that is randomized due to the
@@ -4798,11 +4799,11 @@ Note that even the @samp{w} marked tiles will set a design floor, as the
 default floor is @samp{ }, too.
 
 @example
-51    @var{door_p} = @i{luatools}.@i{permutation}(@var{12})
-52    @var{wire_p} = @i{luatools}.@i{permutation}(@var{12})
+51    @var{door_p} = @i{lib}.@i{math}.@i{permutation}(@var{12})
+52    @var{wire_p} = @i{lib}.@i{math}.@i{permutation}(@var{12})
 @end example
 Now let us shuffle the trigger/door assignment and the wire distribution. We
-do this by permutating 12 index numbers to be used for door and wire access.
+do this by permuting 12 index numbers to be used for door and wire access.
 
 @example
 53    @var{woods} = @i{no}["@var{wood}#*"]
@@ -9082,6 +9083,962 @@ already.
 @menu
 @end menu
 
+@c ===================  Libraries  =======================
+
+@node Libraries
+@chapter Libraries
+
+@menu
+* liblua::       General methods for tables.
+* libmath::      Mathematical algorithms, like random permutations.
+* libmap::       Methods for API 2-maps.
+* libsoko::      A library to interpret Sokoban level files.
+@end menu
+
+@node liblua
+@section liblua
+
+@menu
+* lib.lua.combine_tables::  Collect entries of anonymous Lua-tables into a common table.
+* lib.lua.cond::            A wrapper for if.
+* lib.lua.deep_copy::       Complete copies of Lua-tables.
+* lib.lua.mod::             A modulo operation.
+* lib.lua.print_table::     Print tables for debug reasons.
+* lib.lua.shuffle_table::   Shuffle arbitrary anonymous Lua-tables.
+@end menu
+
+@c ----------------- combine_tables -------------------- 
+
+@node lib.lua.combine_tables
+@subsection lib.lua.combine_tables
+
+@samp{combine_tables} combines all entries of a set or table of tables into one
+common table (i.e., it joins the subtables). As some of the subtables can have
+equally named entries, the first subtable has highest priority, the second
+subtable second priority etc.
+
+@table @asis
+@item @b{Syntax:}
+@b{lib.lua.combine_tables}(@i{overtable})
+
+@b{lib.lua.combine_tables}(@i{table1}, @i{table2}, ...)
+
+@table @asis
+@item @i{overtable}
+A table of tables: @samp{overtable = @{table1, table2, ...@}}
+
+@item @i{table1}, @i{table2}, ...
+Lua tables to be joined.
+@end table
+
+@item @b{Syntax Samples:}
+@example
+all_contacts = lib.lua.combine_tables(telephon_numbers, email_addresses)
+@end example
+
+@item @b{Details:}
+Just as groups can be joined by @samp{grp1 + grp2}, it can sometimes be
+neccessary to join anonymous tables, as well. 
+In most situations, object grouping should be used instead, but when one works
+with more abstract data (like names of objects instead of objects, or tables
+holding design informations), @samp{combine_tables} can be useful.
+
+@item @b{Full Example:}
+@example
+@end example
+@end table
+
+@c ----------------- cond -------------------- 
+
+@node lib.lua.cond
+@subsection lib.lua.cond
+
+@samp{lib.lua.cond} is a conditional assignment, a ternary operator very
+similar (but not equal to) the @samp{?:}-expression in C-like languages. Note
+however, that there are caveats, see details.
+
+@table @asis
+@item @b{Syntax:}
+@b{lib.lua.cond}(@i{condition}, @i{iftrue}, @i{iffalse})
+
+@table @asis
+@item @i{condition}
+A boolean expression.
+
+@item @i{iftrue}
+The expression to be returned if @samp{condition} is true.
+
+@item @i{iffalse}
+The expression to be returned if @samp{condition} is false.
+@end table
+
+@item @b{Syntax Samples:}
+@example
+lib.lua.cond(wo["IsDifficult"], @{"st_death"@}, ti["#"])
+@end example
+
+@item @b{Details:}
+@samp{lib.lua.cond} evaluates both expressions @samp{iftrue} and
+@samp{iffalse}, regargless of @samp{condition}. Hence,
+@example
+lib.lua.cond(t == 0, 1/t, error("Division by zero"))
+@end example
+will always raise an error: All sideeffects will happen.
+Another example which will not work:
+@example
+w,h = lib.lua.cond(wo["IsDifficult"], wo(ti, " ", map1), wo(ti, " ", map2))
+@end example
+Use this instead:
+@example
+w,h = wo(ti, " ", lib.lua.cond(wo["IsDifficult"], map1, map2))
+@end example
+However, in most cases @samp{lib.lua.cond} is used with static expressions for
+@samp{iftrue} and @samp{iffalse} (e.g. strings or variables), when no
+sideeffects are possible.
+
+@item @b{Full Example:}
+@example
+@end example
+@end table
+
+@c ----------------- deep_copy -------------------- 
+
+@node lib.lua.deep_copy
+@subsection lib.lua.deep_copy
+
+@samp{deep_copy} returns a copy of its argument, where table entries are
+not copied as memory references (like Lua typically does), but complete
+(thereby called "deep copy").
+
+@table @asis
+@item @b{Syntax:}
+@b{lib.lua.deep_copy}(@i{source})
+
+@table @asis
+@item @i{source}
+The object to be copied.
+@end table
+
+@item @b{Syntax Samples:}
+@example
+a = @{5@}
+b = a
+c = lib.lua.deep_copy(a)
+b[1] = 4
+@end example
+
+After these four commands, @samp{a[1]} and @samp{b[1]} will both be @samp{4},
+but @samp{c[1]} will still be @samp{5}.
+
+@item @b{Details:}
+Metatables are transfered, but not deep-copied.
+Userdata (like tiles and positions) is not guaranteed to be deep-copied.
+
+@item @b{Full Example:}
+@example
+@end example
+@end table
+
+@c ----------------- mod -------------------- 
+
+@node lib.lua.mod
+@subsection lib.lua.mod
+
+A wrapper for the modulo operation.
+
+@table @asis
+@item @b{Syntax:}
+@b{lib.lua.mod}(@i{value}, @i{modul})
+
+@table @asis
+@item @i{value}, @i{modul}
+Numbers. @samp{modul} must be positive (non-zero).
+@end table
+
+@item @b{Syntax Samples:}
+@example
+lib.lua.mod(7*7, 17)
+lib.lua.mod(5.3, 1/3)
+lib.lua.mod(no["marble"].x, 1)
+@end example
+
+@item @b{Details:}
+Lua 5.0 uses @samp{math.mod} as modulo operation, Lua 5.1 provides @samp{%} and
+@samp{math.fmod}. Whereas all three operations agree on positive numbers and
+zero as @samp{value}, there are differences on negative numbers:
+@example
+math.mod(-1, 4) == -1
+math.fmod(-1, 4) == -1
+(-1)%4 == 3
+lib.lua.mod(-1, 4) == 3
+@end example
+While the Lua-own modulo functions yield results even for negative
+@samp{modul} (with varying signs of the outcome), @samp{lib.lua.mod} will raise
+an error if @samp{modul <= 0}, and the result @samp{r} is otherwise guaranteed
+to be @samp{0 <= r < modul}.
+
+@item @b{Full Example:}
+@example
+@end example
+@end table
+
+@c ----------------- print_table -------------------- 
+
+@node lib.lua.print_table
+@subsection lib.lua.print_table
+
+@samp{print_table} is a debug command, which uses the API's @samp{print}
+command to recursively print its argument to the standard output.
+
+@table @asis
+@item @b{Syntax:}
+@b{lib.lua.print_table}(@i{table}, @i{prefix}, @i{depth})
+
+@table @asis
+@item @i{table}
+The table to be printed.
+
+@item @i{prefix}
+A string which will be printed before the table as a
+separator. Can be @samp{nil}.
+
+@item @i{depth}
+@samp{nil} in normal use, @samp{-1} if you want to suppress the recursion.
+@end table
+
+@item @b{Syntax Samples:}
+@example
+a = @{1, 5=2, "Hello", other_table = @{x = 4, y = 5, z = "World"@}@}
+lib.lua.print_table(a, nil, -1)
+lib.lua.print_table(a, "--> ")
+@end example
+
+@item @b{Details:}
+@samp{print_table} is recursive, i.e. a table with table
+as entries will call @samp{print_table} again. To avoid
+infinite loops, @samp{depth} is used internally to count
+the depth level of the recursion. The recursion currently
+stops on depth 5. Set @samp{depth} to @samp{-1} to stop
+recursion entirely.
+
+Use @samp{print_table} only for debugging and testing, it
+is not meant as an element of gameplay.
+@item @b{Full Example:}
+@example
+@end example
+@end table
+
+@c ----------------- shuffle_table -------------------- 
+
+@node lib.lua.shuffle_table
+@subsection lib.lua.shuffle_table
+
+@samp{shuffle_table} randomly resorts its argument.
+
+@table @asis
+@item @b{Syntax:}
+@b{lib.lua.shuffle_table}(@i{source})
+
+@table @asis
+@item @i{source}
+The table to be shuffled.
+@end table
+
+@item @b{Syntax Samples:}
+@example
+a = @{1, 2, 3, "r", @{"x", "y", "z"@}, 4@}
+lib.lua.shuffle_table(a)
+@end example
+
+A typical result for @samp{a} would be
+@example
+a = @{"r", 4, 2, @{"x", "y", "z"@}, 1, 3@}
+@end example
+
+@item @b{Details:}
+The result is a permutation of the original table. The permutation restricts to
+those entries with numerical keys, and of those only the ones between @samp{1}
+and @samp{table.getn(@i{source})}. @samp{shuffle_table} has no return value.
+
+@item @b{Full Example:}
+@example
+@end example
+@end table
+
+
+@node libmath
+@section libmath
+
+@menu
+* lib.math.combinations::       Calculates all possible combinations of a set.
+* lib.math.cubic_polynomial::   Calculates the result of a cubic polynomial.
+* lib.math.cyclic_permutation:: Random cyclic permutation.
+* lib.math.digits::             Decomposes a number into digits for an arbitrary base.
+* lib.math.manhattan_distance:: Calculates the Manhattan distance of positions.
+* lib.math.permutation::        Random permutation.
+* lib.math.random_vector::      A table with random entries.
+@end menu
+
+@c ----------------- combinations -------------------- 
+
+@node lib.math.combinations
+@subsection lib.math.combinations
+
+@samp{lib.math.combinations} returns a table of all combinations of
+@samp{depth} entries, each of which is chosen from @samp{digits}.
+
+@table @asis
+@item @b{Syntax:}
+@b{lib.math.combinations}(@i{depth}, @i{digits})
+
+@table @asis
+@item @i{depth}
+A positive integer.
+
+@item @i{digits}
+A positive integer or a table with numerical entries.
+@end table
+
+@item @b{Syntax Samples:}
+@example
+lib.math.combinations(2, 2)
+ == @{ @{1, 1@}, @{1, 2@}, @{2, 1@}, @{2, 2@} @}
+lib.math.combinations(3, @{7, 8, "a"@})
+ == @{ @{7,7,7@}, @{7,7,8@}, @{7,7,"a"@},
+       @{7,8,7@}, @{7,8,8@}, @{7,8,"a"@},
+       @{7,"a",7@}, @{7,"a",8@}, @{7,"a","a"@},
+       @{8,7,7@}, ... @}
+@end example
+
+@item @b{Details:}
+Mathematically, it builds the leafs of an @samp{#digits}-ary tree
+of depth @samp{depth}.
+
+@item @b{Full Example:}
+@example
+@end example
+@end table
+
+@c ----------------- cubic_polynomial -------------------- 
+
+@node lib.math.cubic_polynomial
+@subsection lib.math.cubic_polynomial
+
+@samp{cubic_polynomial} returns the result of the following polynomial with
+coefficients in @samp{a}:
+@example
+a[10]*y*y*y + a[9]*x*y*y + a[8]*x*x*y + a[7]*x*x*x
+  + a[6]*y*y + a[5]*x*y + a[4]*x*x + a[3]*y + a[2]*x + a[1]
+@end example
+
+@table @asis
+@item @b{Syntax:}
+@b{lib.math.cubic_polynomial}(@i{a}, @i{x}, @i{y})
+
+@table @asis
+@item @i{a}
+A table with numerical entries @samp{a[1]} to @samp{a[10]}. The entries may be
+@samp{nil} (i.e. missing), then they are interpreted as zero.
+
+@item @i{x}, @i{y}
+Numbers.
+
+@end table
+
+@item @b{Syntax Samples:}
+@example
+lib.math.cubic_polynomial(@{1, a, b@}, x, y) == a*x + b*y
+@end example
+
+@item @b{Details:}
+You can use @samp{lib.math.random_vector(10, ...)} and a modulo operation to
+easily form a random pattern of a floor, or choose the coefficients to your own
+liking. Entries in A which are not numbers are considered zero.
+
+@item @b{Full Example:}
+This is an excerpt from "Wired" and demonstrates the use of
+@samp{cubic_polynomial} inside a custom resolver to create random, but
+patternlike floors:
+@example
+[...]
+floors = @{ti[" "], ti["a"], ti["b"], ti["c"]@}
+polynom = lib.math.random_vector(10, 4)
+
+function myresolver(key, x, y)
+  if key == " " then  
+    return floors[lib.math.cubic_polynomial(a, x, y) % (#floors) + 1]
+  elseif
+    [...]
+  else
+    return ti[key]
+  end
+end
+
+w, h = wo(myresolver, " ", @{
+[...]
+@end example
+"Wired" is explained in detail in section @ref{Wired}.
+@end table
+
+@c ----------------- cyclic_permutation -------------------- 
+
+@node lib.math.cyclic_permutation
+@subsection lib.math.cyclic_permutation
+
+@samp{cyclic_permutation} returns a random permutation (i.e. a random shuffling)
+of the numbers 1 to @samp{n}, which is cyclic: There exists a closed path from
+any number to any other number (see details below).
+
+@table @asis
+@item @b{Syntax:}
+@b{lib.math.cyclic_permutation}(@i{n})
+
+@table @asis
+@item @i{n}
+A positive integer.
+@end table
+
+@item @b{Syntax Samples:}
+@example
+lib.math.cyclic_permutation(#no["marbles#*"])
+@end example
+
+@item @b{Details:}
+A cyclic permutation is a special kind of permutation, which has only one
+cycle. The easiest way is to give an example for a cyclic permutation:
+@example
+8, 1, 2, 9, 3, 7, 4, 6, 10, 5
+@end example
+We may write this as:
+@example
+1 -> 8
+2 -> 1
+3 -> 2
+...
+@end example
+We can now put all of these together into a sequence:
+@example
+1 -> 8 -> 6 -> 7 -> 4 -> 9 -> 10 -> 5 -> 3 -> 2 -> 1
+@end example
+This is, the sequence creates a single cycle through all 10 numbers.
+This is not always possible with a general permutation.
+
+If you need a fixpoint-free permutation, you might choose to use a cyclic
+permutation instead, although not every fixpoint-free permutation is cyclic.
+
+@item @b{Full Example:}
+If you want to connect an arbitrary number of meditation marbles with
+rubberbands in a cyclic manner, but otherwise randomly, you can use
+@samp{lib.math.cyclic_permutation}:
+@example
+marbles = no["marbles#*"]
+p = lib.math.cyclic_permutation(#marbles)
+
+for j = 1, #marbles do
+  wo:add(@{"ot_rubberband", anchor1 = marbles[j], anchor2 = marbles[p[j]]@})
+end
+@end example
+If you want to connect them in a linear way, you can either remove a step in
+the loop:
+@example
+[...]
+for j = 1, #marbles - 1 do
+[...]
+@end example
+or use @samp{lib.math.permutation} in the following way:
+@example
+marbles = no["marbles#*"]
+p = lib.math.permutation(#marbles)
+
+for j = 1, #marbles - 1 do
+  wo:add(@{"ot_rubberband", anchor1 = marbles[p[j]], anchor2 = marbles[p[j+1]]@})
+end
+@end example
+@end table
+
+@c ----------------- digits -------------------- 
+
+@node lib.math.digits
+@subsection lib.math.digits
+
+@samp{lib.math.digits} returns a table whose elements are the digits of
+@samp{number} in base @samp{base}. @samp{base} can be a positive integer (e.g.
+3 to get ternary) as well as a table (then the table entries with numerical
+keys will be used as digits).
+
+@table @asis
+@item @b{Syntax:}
+@b{lib.math.digits}(@i{number}, @i{base})
+
+@table @asis
+@item @i{number}
+A non-negative integer.
+
+@item @i{base}
+A positive integer other than 1, or a table with numerical keys.
+
+@end table
+
+@item @b{Syntax Samples:}
+@example
+lib.math.digits(13, 2) == @{1, 0, 1, 1@}
+lib.math.digits(15, 16) == @{15@}
+lib.math.digits(17, 3) == @{2, 2, 1@}
+lib.math.digits(17, @{2, "b", 5@}) == @{5, 5, "b"@}
+@end example
+
+The following function can be used to get a table with hexadecimal entries:
+@example
+lib.math.digits(x, @{0,1,2,3,4,5,6,7,8,9,"A","B","C","D","E","F"@})
+@end example
+
+@item @b{Details:}
+
+@item @b{Full Example:}
+@example
+@end example
+@end table
+
+@c ----------------- manhattan_distance -------------------- 
+
+@node lib.math.manhattan_distance
+@subsection lib.math.manhattan_distance
+
+@samp{manhattan_distance} calculates the Manhattan distance between two
+positions @samp{pos1} and @samp{pos2}, which is 
+@example
+|pos1.x - pos2.x| + |pos1.y - pos2.y|.
+@end example
+
+@table @asis
+@item @b{Syntax:}
+@b{lib.math.manhattan_distance}(@i{pos1}, @i{pos2})
+
+@b{lib.math.manhattan_distance}(@i{x1}, @i{y1}, @i{x2}, @i{y2})
+
+@table @asis
+@item @i{pos1}, @i{pos2}
+Positions (e.g. object references or tables @samp{@{posx, posy@}}.
+
+@item @i{x1}, @i{y1}, @i{x2}, @i{y2}
+Coordinates of the positions @samp{pos1} and @samp{pos2}, respectively.
+@end table
+
+@item @b{Syntax Samples:}
+@example
+lib.math.manhattan_distance(4, 5, 3, 3)
+lib.math.manhattan_distance(@{4, 5@}, @{3, 3@})
+lib.math.manhattan_distance(no["marble"], no["othermarble"])
+@end example
+
+@item @b{Details:}
+The Manhattan distance counts the minimal number of pushes neccessary to push a
+wood stone from one position to another. Its unit balls are squares with the
+diagonals parallel to the x- and y-axis (rhombi).
+
+@item @b{Full Example:}
+@example
+@end example
+@end table
+
+@c ----------------- permutation -------------------- 
+
+@node lib.math.permutation
+@subsection lib.math.permutation
+
+@samp{permutation} returns a random permutation (i.e. a random shuffling) of the
+numbers 1 to @samp{n}.
+
+@table @asis
+@item @b{Syntax:}
+@b{lib.math.permutation}(@i{n})
+
+@table @asis
+@item @i{n}
+A positive integer.
+@end table
+
+@item @b{Syntax Samples:}
+@example
+lib.math.permutation(#no["doors#*"])
+@end example
+
+@item @b{Details:}
+Permutations give a simple way to randomize a level, e.g. by changing the
+assignment of action/target-pairs ("Which trigger to which door?").
+
+@item @b{Full Example:}
+@example
+@end example
+@end table
+
+@c ----------------- random_vector -------------------- 
+
+@node lib.math.random_vector
+@subsection lib.math.random_vector
+
+@samp{random_vector} returns a table of @samp{n} random entries.
+
+@table @asis
+@item @b{Syntax:}
+@b{lib.math.random_vector}(@i{n}, @i{...})
+
+@table @asis
+@item @i{n}
+A non-negative integer.
+
+@item @i{...}
+Further arguments, which are the same as for @samp{math.random}: Either no
+further arguments, then the random numbers will be float values in
+@samp{[0,1)}, or with one additional number @samp{p}, then the random numbers
+will be integers between 1 and @samp{p} (both included), or two additional
+numbers @samp{p, q}, then the random numbers will be integers between @samp{p}
+and @samp{q} (both included).
+@end table
+
+@item @b{Syntax Samples:}
+@example
+lib.math.random_vector(4, 3)
+@end example
+will return a table of 4 random numbers out of @{1,2,3@}, and
+@example
+lib.math.random_vector(22)
+@end example
+returns a table of 22 float values between 0.0 and 1.0 (excluding 1.0).
+
+@item @b{Details:}
+@samp{random_vector} can be used in conjunction with @samp{cubic_polynomial} to
+create random patterns, see @ref{lib.math.cubic_polynomial} and @ref{Wired}.
+
+@item @b{Full Example:}
+@example
+@end example
+@end table
+  
+
+@node libmap
+@section libmap
+
+@samp{libmap} gives the author more possibilities to work with API 2-maps. Up
+to now, a map just is a table of strings, as described in @ref{World Creation
+and Resolver Chaining}. With @samp{libmap}, you can utilize maps in a more
+advanced way.
+
+@menu
+* Creating Maps::
+* Drawing Maps::
+* Rotating and Mirroring Maps::
+* Requesting and Changing Single Map Entries::
+* Connecting Two Maps::
+* Other Map Tasks::
+@end menu
+
+@c ----------------- Creating Maps -------------------- 
+
+@node Creating Maps
+@subsection Creating Maps
+
+We start by defining a table of strings representing the level we want to
+write in a two-dimensional array of tile keys:
+
+@example
+mypremap = @{"# # # # # # # ",
+            "o t1  #   t2o ",
+            "#     #     # ",
+            "#     d2d1# # ",
+            "# @@1#     @@2# ",
+            "# # #     t1# ",
+            "o   d3    t3o ",
+            "# # # # # # # "@}
+@end example
+
+To not get confused with names, in this section we'll call such a table of
+strings a 'premap'. We create a map (in the sense of libmap) by applying
+@samp{wo:newMap} to it, with a default key and the premap as arguments:
+@example
+mymap = wo:newMap("  ", mypremap)
+@end example
+The default key is saved in @samp{mymap} as well, it's part of a map.
+
+You can use
+@example
+mymap = wo:newMap(key, height, width)
+@end example
+to define map of size @samp{height*width}, where every tile key is @samp{key},
+and the default key is set to @samp{key} as well. You might even omit
+@samp{height} and @samp{width}, then you create a map consisting of only one
+character.
+
+@c ----------------- Drawing Maps -------------------- 
+
+@node Drawing Maps
+@subsection Drawing Maps
+
+Just as we could've used the premap with @samp{wo} or @samp{wo:drawMap} to draw
+it (see @ref{drawMap}), we can use the newly created map as well:
+@example
+wo(resolver, mymap)
+wo:drawMap(resolver, anchor, mymap)
+wo:drawMap(resolver, anchor, ignore, mymap)
+@end example
+When the @samp{ignore}-attribute for @samp{drawMap} is omitted, the default key
+of @samp{mymap} is used instead.
+
+Of course you can draw the map multiple times, even from within a resolver, see
+@ref{drawMap} for a full example.
+
+@c ----------------- Rotating and Mirroring Maps -------------------- 
+
+@node Rotating and Mirroring Maps
+@subsection Rotating and Mirroring Maps
+
+We can transform a single map simply by using one of the following commands:
+@example
+newmap = lib.map.transform(mymap, operation)
+newmap = mymap ^ operation
+@end example
+@samp{operation} can be any of the following constants:
+@table @asis
+@item @samp{MAP_IDENT}
+No transformation.
+@item @samp{MAP_ROT_CW}
+Rotate 90 degrees clockwise.
+@item @samp{MAP_ROT_180}
+Rotate 180 degrees (i.e. a point reflection around the midpoint)
+@item @samp{MAP_ROT_CCW}
+Rotate 90 degrees counter-clockwise.
+@item @samp{MAP_MIRROR_HORIZONTAL}
+Mirror along a vertical axis, i.e. left and right are swapped.
+@item @samp{MAP_MIRROR_VERTICAL}
+Mirror along a horizontal axis, i.e. up and down are swapped.
+@item @samp{MAP_MIRROR_SLASH}
+Mirror along the diagonal from upper-left to lower-right corner.
+@item @samp{MAP_MIRROR_BACKSLASH}
+Mirror along the diagonal from upper-right to lower-left corner.
+@end table
+The mirror-constants might seem inverse to their meaning, however it's meant in
+the following sense: @samp{MAP_MIRROR_HORIZONTAL} flips left and right, i.e. the
+reflection is done in horizontal direction, with a vertical axis.
+
+When you want to perform two transformations after each other, remember that
+neither
+@example
+newmap = mymap ^ operation1 ^ operation2
+@end example
+nor
+@example
+newmap = mymap ^ (operation1 * operation2)
+@end example
+will work. The correct syntax is:
+@example
+newmap = (mymap ^ operation1) ^ operation2
+@end example
+
+@c ----------------- Requesting and Changing Single Map Entries -------------------- 
+
+@node Requesting and Changing Single Map Entries
+@subsection Requesting and Changing Single Map Entries
+
+Let's take a look at our example again:
+@example
+mymap = wo:newMap("  ", @{"# # # # # # # ",
+                         "o t1  #   t2o ",
+                         "#     #     # ",
+                         "#     d2d1# # ",
+                         "# @@1#     @@2# ",
+                         "# # #     t1# ",
+                         "o   d3    t3o ",
+                         "# # # # # # # "@})
+@end example
+It's easy to check, what kind of tile key is at position @code{@{1,1@}} (note
+that the upper left corner is at position @code{@{0,0@}}):
+@example
+mymap[@{1, 1@}] == "t1"
+@end example
+It's similarly easy to change it. Let's say, we want to create a passage
+one tile right beside the second marble @samp{@@2}, which is named
+@samp{marble2}:
+@example
+mymap[no["marble2"] + @{1,0@}]
+@end example
+Note that the reference to @samp{marble2} only works after the marble has been
+set.
+
+@c ----------------- Connecting Two Maps -------------------- 
+
+@node Connecting Two Maps
+@subsection Connecting Two Maps
+
+Given two maps @samp{map1} and @samp{map2}, we can glue them together
+horizontally by @samp{map1 .. map2} as well as vertically with @samp{map1 +
+map2}. Missing entries will be filled with the default key of the respective
+map, the default key of the result will be the one of @samp{map1}. A simple
+example:
+@example
+map1 = wo:newMap(" ", @{"####",
+                        "o  #",
+                        "# w#",
+                        "####"@})
+map2 = wo:newMap(".", @{"#######",
+                        "#w.#..#",
+                        "#..D..#",
+                        "#..#.w#",
+                        "#######"@})
+map1 .. map2 == wo:newMap(" ", @{"###########",
+                                "o  ##w.#..#",
+                                "# w##..D..#",
+                                "#####..#.w#",
+                                "    #######"@})
+map2 .. map1 == wo:newMap(".", @{"###########",
+                                "#w.#..#o  #",
+                                "#..D..## w#",
+                                "#..#.w#####",
+                                "#######    "@})
+map1 + map2 == wo:newMap(" ", @{"####   ",
+                               "o  #   ",
+                               "# w#   ",
+                               "####   ",
+                               "#######",
+                               "#w.#..#",
+                               "#..D..#",
+                               "#..#.w#",
+                               "#######"@})
+@end example
+
+It's also possible to paste a map into another map:
+@example
+map1:paste(map2, pos)
+@end example
+will paste @samp{map2} into @samp{map1} at position @samp{pos} (relative to
+@samp{map1}: @code{@{0,0@}} is the upper left edge). If neccessary, @samp{map1}
+will be extended such that the whole of @samp{map2} fits into it. You can use
+@samp{map1.sub} to reduce its size again (see below) as well as to define
+@samp{map2} as a section of another map. During the pasting, any occurence of
+the default key of @samp{map2} will be ignored, i.e. not drawn onto
+@samp{map1}. You can change the default key with @samp{map2.defaultkey = ...}
+prior to the paste command to circumvent this, or use
+@samp{map2.replace(tile)} to replace more tile keys by the default key, such
+that they are not drawn as well. You can use an object group for @samp{pos}, in
+this case several copies of @samp{map2} will be pasted into @samp{map1}. There
+is no guarantee about the sequence in which the maps will be pasted into
+@samp{map1}.
+
+However, there's a fourth possibility: Two maps may represent two different
+parts of tile keys. Let's give an example to fuse two tile key layers:
+@example
+first_char = wo:newMap(".", @{"#######",
+                             "#w.#..#",
+                             "#..D..#",
+                             "#..#.w#",
+                             "#######"@})
+last_char  = wo:newMap(".", @{"C     C",
+                             " 11 22 ",
+                             " 11322 ",
+                             " 11 22 ",
+                             "C     C"@})
+first_char * last_char = wo:newMap(" .", @{"#C# # # # # #C",
+                                          "# w1.1# .2.2# ",
+                                          "# .1.1D3.2.2# ",
+                                          "# .1.1# .2w2# ",
+                                          "#C# # # # # #C"@})
+@end example
+The default key of the fused map is the concatenation of the two original
+default keys. You can use a string instead of any of the two maps, in this case
+the whole tile key layer will consist of this string everywhere:
+@example
+first_char = wo:newMap(".", @{"#######",
+                             "#w.#..#",
+                             "#..D..#",
+                             "#..#.w#",
+                             "#######"@})
+first_char * "u" = wo:newMap(" u", @{"#u#u#u#u#u#u#u",
+                                    "#uwu.u#u.u.u#u",
+                                    "#u.u.uDu.u.u#u",
+                                    "#u.u.u#u.uwu#u",
+                                    "#u#u#u#u#u#u#u"@})
+
+@end example
+Fusing maps can be a mighty technique in combination with the
+@ref{res.composer}- and @ref{res.autotile}-resolvers.
+
+@c ----------------- Other Map Tasks -------------------- 
+
+@node Other Map Tasks
+@subsection Other Map Tasks
+
+You can access the default key of a map by @samp{mymap.defaultkey}, and change
+it just as easily:
+@example
+mymap.defaultkey = ".3"
+mymap:set_default_key(".3")
+@end example
+The new default key should have the same length as the old one. However, it is
+possible to choose a new key length as long as it fits to the map.
+
+You can replace any occurence of a tile key @samp{tile1} by @samp{tile2} simply
+by
+@example
+mymap:replace(tile1, tile2)
+@end example
+You can omit @samp{tile2}, then any occurence of @samp{tile1} will be replaced
+by the default key.
+
+Width and height of a map can be accessed via @samp{mymap.width} and
+@samp{mymap.height}. However, these values can be changed only through the
+following commands @samp{mymap:extend} and @samp{mymap:sub}.
+
+It's possible to extend a map to a given position, as long as both
+coordinates are non-negative:
+@example
+mymap:extend(@{19, 12@})
+@end example
+will extend @samp{mymap} up to position @samp{@{19,12@}}. Missing entries will
+be filled with the default key. If the map already covers this position, no
+change will be done.
+
+@samp{lib.map.sub} allows you to copy a rectangular area of a map and create a
+"submap" this way. @samp{lib.map.sub} uses the same syntax as
+@samp{wo:drawRect}, i.e. either
+@example
+submap = mymap:sub(pos1, pos2)
+@end example
+with @samp{pos1} being the top left-hand corner and @samp{pos2} the bottom
+right-hand corner, or alternatively
+@example
+submap = mymap:sub(pos1, width, height)
+@end example
+to define the rectangle by its top left-hand corner and the side lengths of its
+area. If the bottom right-hand corner overlaps the area of @samp{mymap}, the
+resulting @samp{submap} will still be just the rectangular section of
+@samp{mymap}, i.e. width and height can be less than the arguments specified.
+Use @samp{submap:extend(width, height)} to ensure the full width and height.
+The default key of the submap of course is the default key of the original map.
+
+If you want to check whether a position @samp{pos} lies inside a map, you can
+use @samp{mymap:covers(pos)}, which returns a boolean value. Note that a map
+always starts in @samp{@{0,0@}}.
+
+Finally, you can use @samp{mymap:print()} to print @samp{mymap} to standard
+output. Similar to @ref{lib.lua.print_table}, this is useful for debugging a
+level by taking a look at its maps, but should not appear in the final level.
+@samp{mymap:print()} allows several optional arguments:
+@example
+mymap:print(withXYCounts, left_separator, right_separator)
+@end example
+If @samp{withXYCounts} is @samp{true}, the map is printed with coordinates on
+the top and on the left. @samp{left_separator} and @samp{right_separator} can
+be strings to be put between the left coordinate axis and the map, and behind
+the map (to analyse space characters).
+
+@node libsoko
+@section libsoko
+
+@menu
+* lib.soko.create::
+* lib.soko.recreate::
+* lib.soko.draw::
+@end menu
+
 @c ===================  Advanced Features  =======================
 
 @node Advanced Features
@@ -9184,7 +10141,9 @@ of @samp{drawMap} is the drawing of repeating patterns.
 @table @asis
 @item @b{Syntax:}
 
-@b{wo:drawMap}(@i{resolver}, @i{anchor}, @i{ignore}, @i{map})
+@b{wo:drawMap}(@i{resolver}, @i{anchor}, @i{ignore}, @i{map}, [@i{readdir}])
+
+@b{wo:drawMap}(@i{resolver}, @i{anchor}, @i{libmap-map}, [@i{readdir}])
 
 @table @asis
 @item @i{subresolver}
@@ -9197,12 +10156,20 @@ A tile key string that should be ignored. This key string is mandatory, even
 if it not used within the map.
 @item @i{map}
 A table of strings. Each string describes a row of tiles by its tile keys.
+@item @i{libmap-map}
+If the map used is created via @ref{libmap}, the @samp{ignore}-string can
+be omitted. The map's default key will then be ignored instead.
+@item @i{readdir}
+An optional argument to modify the direction of the map relative to the world.
+This argument can be any of the constants described in @ref{Rotating and
+Mirroring Maps}.
 @end table
 
 @item @b{Syntax Samples:}
 @example
 wo:drawMap(ti, po(5, 7), "-", @{"abcabc"@})
 wo:drawMap(ti, anchor_object, "--", @{"--##--##","##--##"@})
+wo:drawMap(ti, {12, 5}, " ", @{"122  221"@}, MAP_ROT_CW)
 @end example
 
 @item @b{Details:}
