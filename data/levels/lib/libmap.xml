@@ -131,7 +131,7 @@ function lib.map.transform(map, op)
   for y = 1, new_h do
     result[y] = ""
     for x = 1, new_w do
-      result[y] = result[y] .. map[rot({x - 1, y - 1})]
+      result[y] = result[y] .. map[rot(x - 1, y - 1)]
     end
   end
   return wo:newMap(map.defaultkey, result)  
@@ -431,7 +431,8 @@ wo:_register("newMap",
           end
           local line_width = string.len(entry) / kl
           if line_width ~= math.floor(line_width) then
-            error("newMap: Line " .. key .. " doesn't fit to key length.", 2)
+            error("newMap: Line " .. key .. " doesn't fit to key length ("
+                  .. kl .. ").", 2)
           end
           width = math.max(width, line_width)
           newmap[key] = entry

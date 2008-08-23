@@ -3,12 +3,13 @@
   <el:protected>
     <el:info el:type="level">
       <el:identity el:title="Tinker, Tailor" el:subtitle="" el:id="andreas46"/>
-      <el:version el:score="2" el:release="4" el:revision="4" el:status="released"/>
+      <el:version el:score="2" el:release="4" el:revision="5" el:status="released"/>
       <el:author el:name="Andreas Lochmann" el:email="" el:homepage=""/>
       <el:copyright>Copyright © 2007 Andreas Lochmann</el:copyright>
       <el:license el:type="GPL v2.0 or above" el:open="true"/>
       <el:compatibility el:enigma="1.10">
-        <el:dependency el:path="lib/libluatools" el:id="lib/libluatools" el:release="1" el:preload="true"/>
+        <el:dependency el:path="lib/libmath" el:id="lib/libmath" el:release="1" el:preload="true"/>
+        <el:dependency el:path="lib/liblua" el:id="lib/liblua" el:release="1" el:preload="true"/>
       </el:compatibility>
       <el:modes el:easy="true" el:single="true" el:network="false"/>
       <el:score el:easy="2:18" el:difficult="5:10"/>
@@ -74,7 +75,7 @@ w, h = wo(resolver, "  ", {
 function connect(obj1, obj2, restrict)
   wo:add({"ot_rubberband", anchor1 = obj1, anchor2 = obj2,
           strength = strength or maxstrength,
-          max = luatools.cond(restrict and wo["IsDifficult"], 2.5, nil)})
+          max = lib.lua.cond(restrict and wo["IsDifficult"], 2.5, nil)})
   -- Save partner of actor: When call_scissors is called, the
   -- rubberband will've already been removed, so ["fellows"]
   -- doesn't work anymore for the marble.
@@ -123,7 +124,7 @@ function next_pattern()
   pattern_count = pattern_count + 1
   if pattern_count < 8 then
     -- create new permutation with one horse less
-    local p = luatools.cyclic_permutation(8 - pattern_count)
+    local p = lib.math.cyclic_permutation(8 - pattern_count)
     for j = 8 - pattern_count + 1, 8 do
       p[j] = j
     end
@@ -131,7 +132,7 @@ function next_pattern()
       Goal[fixpoint_permutation[j]] = fixpoint_permutation[p[j]]
     end
     -- create temporary goals for the horses to untangle
-    local TemporaryGoal = luatools.permutation(8)
+    local TemporaryGoal = lib.math.permutation(8)
     for j = 1, 8 do
       no["parahorse%"..j]:set(
           {destination = {no["parafloor%"..TemporaryGoal[j]]}})
@@ -162,11 +163,11 @@ function fix_horses()
   end
 end
 
-Goal = luatools.cyclic_permutation(8)
+Goal = lib.math.cyclic_permutation(8)
 connect(no["marble"], no["scissors_central"], true)
 
 if wo["IsDifficult"] then
-  fixpoint_permutation = luatools.permutation(8)
+  fixpoint_permutation = lib.math.permutation(8)
 else
   fixpoint_permutation = {}
   for j = 1, 8 do

@@ -1,0 +1,189 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no" ?>
+<el:level xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://enigma-game.org/schema/level/1 level.xsd" xmlns:el="http://enigma-game.org/schema/level/1">
+  <el:protected>
+    <el:info el:type="library">
+      <el:identity el:title="" el:id="lib/liblua"/>
+      <el:version el:score="1" el:release="1" el:revision="4" el:status="released"/>
+      <el:author  el:name="Enigma Team" el:email="" el:homepage=""/>
+      <el:copyright>Copyright © 2007, 2008 Enigma Team</el:copyright>
+      <el:license el:type="GPL v2.0 or above" el:open="true"/>
+      <el:compatibility el:enigma="1.10">
+      </el:compatibility>
+      <el:modes el:easy="false" el:single="false" el:network="false"/>
+      <el:comments>
+      </el:comments>
+      <el:score el:easy="-" el:difficult="-"/>
+    </el:info>
+    <el:luamain><![CDATA[
+
+---------------------------------------------------------------------
+-- liblib.lua holds some general utilities for working with Lua.
+-- It includes functions for deep-copying tables, combining tables,
+-- and shuffling tables and a conditional function.
+---------------------------------------------------------------------
+--
+-- liblua provides the following functions:
+--   lib.lua.deep_copy(source)
+--   lib.lua.combine_tables(arg1, ...)
+--   lib.lua.shuffle_table(t)
+--   lib.lua.print_table(t, prefix, depth)
+--   lib.lua.mod(value, modul)
+--   lib.lua.cond(condition, iftrue, iffalse)
+--
+
+lib.lua = {}
+setmetatable(lib.lua, getmetatable(lib))
+
+---------------------------------------------------------------------
+--  TABLE  HANDLING
+---------------------------------------------------------------------
+
+-- deep_copy returns a copy of SOURCE, where table entries are
+-- not copied as memory references, but complete ("deep copy").
+-- Metatables are transfered, but not deep-copied.
+-- TODO: use rawset/rawget instead.
+function lib.lua.deep_copy(source)
+ if type(source) ~= "table" then
+   return source
+ end
+ local dest = {}
+ for k, v in pairs(source) do
+   if type(source[k]) == "table" then
+     dest[k] = lib.lua.deep_copy(source[k])
+   else
+     dest[k] = source[k]
+   end
+ end
+ setmetatable(dest, getmetatable(source))
+ return dest
+end 
+
+-- combine_tables returns a table consisting of all entries of the
+-- entries of OVER_TABLE: OVER_TABLE is a table of tables, say
+-- {T1, T2, T3, ...}. The result of combine_tables will be a new
+-- table with all entries of T1, T2, T3 etc., with the first table
+-- having highest priority etc.
+function lib.lua.combine_tables(arg1, ...)
+  local args = {arg1, ...}
+  if table.getn(args) == 1 then
+    args = arg1
+  end
+  if type(args) ~= "table" then
+    error("combine_tables: None or only one argument, and it's not a table!", 2)
+  end
+  local result = {}
+  for j,t in pairs(args) do
+    if type(t) ~= "table" then
+      error("combine_tables: Main table does not consist of tables alone!", 2)
+    end
+    for k,v in pairs(t) do
+      result[k] = result[k] or lib.lua.deep_copy(v)
+    end
+  end
+  return result
+end
+
+-- shuffle_table resorts the table T randomly. Note that only those entries
+-- of T can be sorted, that are indexed with integers from 1 to table.getn(T).
+-- No return value, the table itself is shuffled.
+function lib.lua.shuffle_table(t)
+  if table.getn(t) < 2 then
+    return
+  end
+  for n = table.getn(t), 2, -1 do
+    local m = math.random(n)
+    t[n], t[m] = t[m], t[n]
+  end
+end
+
+-- print_table uses the print command to print all
+-- entries of a table, one table per line.
+-- It should be used for debug reasons only.
+-- PREFIX can be a string to be put in front of each
+-- line of the output, in case you need to distinguish
+-- several outputs from each other.
+-- print_table is recursive, i.e. a table with table
+-- as entries will call print_table again. To avoid
+-- infinite loops, DEPTH is used as additional argument.
+-- Don't use it in levels. If you want to suppress
+-- the recursive function, use DEPTH = -1.
+function lib.lua.print_table(t, prefix, depth)
+  if type(t) ~= "table" then
+    print("print_table: Argument is of type "..type(t)..", not table.")
+    return
+  end
+  for key, value in pairs(t) do
+    local key_s
+    if type(key) == "string" then
+      key_s = "\"" .. key .. "\""
+    elseif type(key) == "number" then
+      key_s = key
+    else
+      key_s = "<" .. type(key) .. ">"
+    end
+    if type(value) == "number" then
+      print((prefix or "") .. "|" .. key_s .. " = " .. value)
+    elseif type(value) == "string" then
+      print((prefix or "").. "|" .. key_s .. " = \"" .. value .. "\"")
+    elseif type(value) == "table" then
+      if (depth or 0) < 5 then
+        print((prefix or "") .. "|" .. key_s .. " = |")
+        lib.lua.print_table(value,
+            (prefix or "") .. "|" .. string.rep(" ", string.len(key_s) + 3),
+            (depth or 0) + 1)
+        print((prefix or "") .. "|")
+      else
+        print((prefix or "") .. "|" .. key_s .. " = | ...")
+      end
+    else
+      print((prefix or "").. "|" .. key_s .. " of type " .. type(value))
+    end
+  end
+end
+
+---------------------------------------------------------------------
+--  MATHEMATICAL  FUNCTIONS
+---------------------------------------------------------------------
+
+-- As Lua uses different names for the modulo-function in its
+-- versions, it's sometimes better to wrap them.
+-- Even worse, lua's modulo function doesn't handle negative
+-- values as it should. The following function returns (given
+-- an integer) another integer between 0 and MODUL-1.
+function lib.lua.mod(value, modul)
+  if (type(value) ~= "number") or (type(modul) ~= "number") then
+    error("lib.lua.mod: Arguments are not two numbers.", 2)
+  end
+  if modul <= 0 then
+    error("lib.lua.mod: Second argument (modul) must be positive.", 2)
+  end
+  if value < 0 then
+    -- No, the following call to lib.lua.mod is not a real
+    -- recursion, it's only for the case where VALUE is a
+    -- negative multiple of MODUL (otherwise we would get
+    -- MODUL as result, not zero).
+    return lib.lua.mod(modul + (math.fmod or math.mod)(value, modul), modul)
+  else
+    return (math.fmod or math.mod)(value, modul)
+  end
+end
+
+-- A wrapper of "if" to resemble the ternary ?:-function.
+-- Note that this function evaluates both IFTRUE as well as IFFALSE, e.g.
+--   lib.lua.cond(t == 0, 1/t, error("Division by zero"))
+-- will evaluate the error-function and thus halt for any T.
+-- Hence: Make sure there are no sideeffects in IFTRUE and IFFALSE!
+function lib.lua.cond(condition, iftrue, iffalse)
+  if condition then
+    return iftrue
+  else
+    return iffalse
+  end
+end
+
+    ]]></el:luamain>
+    <el:i18n>
+    </el:i18n>
+  </el:protected>
+</el:level>
+

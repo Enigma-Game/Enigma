@@ -8,7 +8,8 @@
       <el:copyright>Copyright © 2007 Enigma Team</el:copyright>
       <el:license el:type="GPL v2.0 or above" el:open="true"/>
       <el:compatibility el:enigma="1.00">
-        <el:dependency el:path="lib/libluatools" el:id="lib/libluatools" el:release="1" el:preload="true"/>
+        <el:dependency el:path="lib/liblua" el:id="lib/liblua" el:release="1" el:preload="true"/>
+        <el:dependency el:path="lib/libmath" el:id="lib/libmath" el:release="1" el:preload="true"/>
         <el:dependency el:path="lib/libsoko-designlist" el:id="lib/libsoko-designlist" el:release="1" el:preload="true"/>
         <el:dependency el:path="lib/libsoko-endphase" el:id="lib/libsoko-endphase" el:release="1" el:preload="true"/>
       </el:compatibility>
@@ -137,7 +138,7 @@ end
 -- set_oxyd sets an oxyd with given flavor and color and adds
 -- the neccessary entry to list_oxyd.
 function set_oxyd(sokoarea_number, list_entry, flavor, color)
-  local entry = luatools.deep_copy(list_entry)
+  local entry = lib.lua.deep_copy(list_entry)
   entry.flavor = flavor
   entry.color = color
   oxyd(entry.lx, entry.ly, flavor, color)
@@ -824,16 +825,16 @@ function design_from_description(design_description, level_array, maxdesignnumbe
   -- choose design
   local design = {}
   if type(design_description) == "number" then
-    design = luatools.deep_copy(design_list[design_description])
+    design = lib.lua.deep_copy(design_list[design_description])
   elseif type(design_description) == "table" then
-    design = luatools.deep_copy(design_description)
+    design = lib.lua.deep_copy(design_description)
   elseif (type(design_description) == "nil") and (type(level_array) == "table") then
-    design = luatools.deep_copy(design_from_level(level_array, maxdesignnumber))
+    design = lib.lua.deep_copy(design_from_level(level_array, maxdesignnumber))
   else
     myerror("Can't make sense of design type "..type(design)..".")
   end
   -- fill chosen design with default values where neccessary
-  design = luatools.combine_tables({design, default_design})
+  design = lib.lua.combine_tables({design, default_design})
   -- No stone set for outf, not even "st-none"?
   -- Use the default outf-stone instead, and remove it on endphase.
   if type(design.outf) ~= "table" then

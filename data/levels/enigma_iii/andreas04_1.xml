@@ -3,12 +3,12 @@
   <el:protected>
     <el:info el:type="level">
       <el:identity el:title="Laser Castle" el:subtitle="" el:id="andreas04"/>
-      <el:version el:score="1" el:release="1" el:revision="3" el:status="released"/>
+      <el:version el:score="1" el:release="1" el:revision="4" el:status="released"/>
       <el:author  el:name="Andreas Lochmann" el:email="" el:homepage=""/>
       <el:copyright>Copyright © 2006 Andreas Lochmann</el:copyright>
       <el:license el:type="GPL v2.0 or above" el:open="true"/>
       <el:compatibility el:enigma="1.10">
-        <el:dependency el:path="lib/libluatools" el:id="lib/libluatools" el:release="1" el:preload="true"/>
+        <el:dependency el:path="lib/libmap" el:id="lib/libmap" el:release="1" el:preload="true"/>
       </el:compatibility>
       <el:modes el:easy="true" el:single="true" el:network="false"/>
       <el:comments>
@@ -19,8 +19,6 @@
     </el:info>
     <el:luamain><![CDATA[
 -- Originally created with the help of BBE 1.05
-
-isPreview = wo["CreatingPreview"]
 
 ti["    "]={"fl-water"}
 ti["!   "]={"fl-water"}
@@ -72,7 +70,7 @@ ti[" +  "]={"st_laser", "la_w", orientation = WEST, state = OFF}
 ti[" -  "]={"st_laser", "la_n", orientation = NORTH, state = OFF}
 ti[" .  "]={"st_laser", "la_s", orientation = SOUTH, state = OFF}
 ti[" 0  "]={"st_laser", "la_e", orientation = EAST, state = OFF}
-ti[" 5  "]={"st-door-v", "castle_door"}
+ti[" 5  "]={"st_door", "castle_door", faces="ew"}
 ti[" 6  "]={"st-stoneimpulse-hollow"}
 ti["  1 "]={"it_trigger", target = {"fo_a", "fo_c"}}
 ti["  2 "]={"it_trigger", target = {"fo_a"}}
@@ -85,7 +83,11 @@ ti["  % "]={"it_hammer"}
 ti["  ' "]={"it-seed"}
 ti["  ( "]={"it-extralife"}
 ti["  & "]={"it-document", text = "text1"}
-ti["   !"]=luatools.cond(isPreview, {}, {"#ac-blackball", mouseforce = 1})
+if wo["CreatingPreview"] then
+  ti["   !"] = {}
+else
+  ti["   !"] = {"#ac-blackball", mouseforce = 1}
+end
 ti["   #"]={"ac-top", range = 10, force = 10, gohome = false}
 
 level={"!!!!!!!!!!!!!!!!!!!!",
@@ -297,7 +299,8 @@ level={"!!!!!!!!!!!!!!!!!!!!",
         "             %%)'%  ",
         "              %%%%  "}
 
-map = luatools.fuse_map_layers(level, stmap, itmap, acmap)
+map =   wo:newMap(" ", level) * wo:newMap(" ", stmap)
+      * wo:newMap(" ", itmap) * wo:newMap(" ", acmap)
 w, h = wo(res.composer(ti), "    ", map)
 
 if not wo["IsDifficult"] then
@@ -306,7 +309,7 @@ end
 
 wo["SlopeForce"] = 30
 
-if isPreview then
+if wo["CreatingPreview"] then
   wo[{4, 11.3}] = {"ac-blackball"}
   wo["FollowGrid"] = false
   wo["FollowMethod"] = FOLLOW_SCROLL

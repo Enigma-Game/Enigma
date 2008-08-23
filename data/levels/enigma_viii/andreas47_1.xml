@@ -3,12 +3,12 @@
   <el:protected>
     <el:info el:type="level">
       <el:identity el:title="The Show Jumper" el:subtitle="" el:id="andreas47"/>
-      <el:version el:score="1" el:release="1" el:revision="3" el:status="released"/>
+      <el:version el:score="1" el:release="1" el:revision="4" el:status="released"/>
       <el:author el:name="Andreas Lochmann" el:email="" el:homepage=""/>
       <el:copyright>Copyright © 2008 Andreas Lochmann</el:copyright>
       <el:license el:type="GPL v2.0 or above" el:open="true"/>
       <el:compatibility el:enigma="1.10">
-        <el:dependency el:path="lib/libluatools" el:id="lib/libluatools" el:release="1" el:preload="true"/>
+        <el:dependency el:path="lib/libmath" el:id="lib/libmath" el:release="1" el:preload="true"/>
       </el:compatibility>
       <el:modes el:easy="true" el:single="true" el:network="false"/>
       <el:score el:easy="1:06" el:difficult="3:56"/>
@@ -150,7 +150,7 @@ end
 for y, line in pairs(floor_plus) do
   for x, ways in pairs(line) do
     if ways >= 0 then
-      local dirs = luatools.digits(ways, 2)
+      local dirs = lib.math.digits(ways, 2)
       local rx, ry = 2*x+y-4, 2*y-x+3
       add_dirs(rx, ry, dirs)
     end
@@ -160,7 +160,7 @@ end
 for y, line in pairs(floor_percent) do
   for x, ways in pairs(line) do
     if ways >= 0 then
-      local dirs = luatools.digits(ways, 2)
+      local dirs = lib.math.digits(ways, 2)
       local rx, ry = 2*x-y+5, 2*y+x-8
       add_dirs(rx, ry, dirs)
     end

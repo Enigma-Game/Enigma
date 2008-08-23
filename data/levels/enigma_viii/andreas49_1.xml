@@ -3,12 +3,12 @@
   <el:protected>
     <el:info el:type="level">
       <el:identity el:title="Wired" el:subtitle="" el:id="andreas49"/>
-      <el:version el:score="1" el:release="1" el:revision="3" el:status="released"/>
+      <el:version el:score="1" el:release="1" el:revision="4" el:status="released"/>
       <el:author el:name="Andreas Lochmann" el:email="" el:homepage=""/>
       <el:copyright>Copyright © 2008 Andreas Lochmann</el:copyright>
       <el:license el:type="GPL v2.0 or above" el:open="true"/>
       <el:compatibility el:enigma="1.10">
-        <el:dependency el:path="lib/libluatools" el:id="lib/libluatools" el:release="1" el:preload="true"/>
+        <el:dependency el:path="lib/libmath" el:id="lib/libmath" el:release="1" el:preload="true"/>
       </el:compatibility>
       <el:modes el:easy="true" el:single="true" el:network="false"/>
       <el:score el:easy="0:37" el:difficult="8:49"/>
@@ -30,11 +30,11 @@ ti["2"] = {"st_panel", cluster = 2}
 ti["S"] = {"st_switch", target = "easy_mode_call"}
 
 floors  = {ti[" "], ti["a"], ti["b"], ti["c"]}
-polynom = luatools.random_vector(10, 4)
+polynom = lib.math.random_vector(10, 4)
 
 function myresolver(key, x, y)
   if key == " " then  
-    return floors[luatools.cubic_polynomial(polynom, x, y) % (#floors) + 1]
+    return floors[lib.math.cubic_polynomial(polynom, x, y) % (#floors) + 1]
   elseif    (key == "#")
          or ((key == "_") and (random(4) == 1))
          or ((key == "S") and wo["IsDifficult"]) then
@@ -61,8 +61,8 @@ w, h = wo(myresolver, " ", {
    "####################___________________"
 })
 
-door_p = luatools.permutation(12)
-wire_p = luatools.permutation(12)
+door_p = lib.math.permutation(12)
+wire_p = lib.math.permutation(12)
 woods = no["wood#*"]
 triggers = no["trigger#*"]
 doors = no["door#*"]
