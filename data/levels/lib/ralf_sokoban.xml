@@ -901,7 +901,8 @@ function install_oxyds(w,h) -- uses Nat's method (see nat7.lua)
          if doorface == "st-blocker" then
            set_stone(doorface,xd,yd, {name="door"..doors})
          else
-           set_stone(doorface,xd,yd, {name="door"..doors, type=d})
+--           set_stone(doorface,xd,yd, {name="door"..doors, type=d})
+           set_stone(doorface,xd,yd, {name="door"..doors})
          end
       end
       oxyd(xo,yo)

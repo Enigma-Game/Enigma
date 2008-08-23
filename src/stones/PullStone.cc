@@ -65,7 +65,11 @@ namespace enigma {
     }
     
     bool PullStone::is_transparent(Direction d) const {
-        return true;
+        // a moving pull stone should be transparent just on of the two affected grids at each
+        // point of time. The vanishing part is the proxy of the other exchanged stone.
+        // Thus it inherits the transparency behaviour from it. 
+        return (state != VANISHING || 
+                (yieldedStone != NULL && yieldedStone->is_transparent(d))); 
     }
     
     void PullStone::on_impulse(const Impulse& impulse) {

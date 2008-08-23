@@ -2618,8 +2618,23 @@ static int dispatchGroupReadAccess(lua_State *L) {
         }
     } else {
         lua_getmetatable(L, 1);
-        lua_pushvalue(L, 2);   // copy last object as key
-        lua_rawget(L, -2);     // get last index        
+        lua_pushvalue(L, 2);   // copy object as key
+        lua_rawget(L, -2);     // get index
+        if (lua_isnil(L, -1)) {
+            // another copy of the object is used that results in another metatable hash,
+            // we need to compare with all objects (call it a workaround for a lua caveat or bad design)
+            Object *obj1 = to_object(L, 2);
+            int numObjects = lua_objlen(L, -2);
+            for (int i = 1; i <= numObjects; ++i) {
+                lua_rawgeti(L, -2, i);  // the object
+                Object *obj2 = to_object(L, -1);
+                lua_pop(L, 1);          // the object        
+                if (obj1 == obj2) {
+                    lua_pushinteger(L, i);
+                    break;
+                }
+            }            
+        }
     }
     return 1;
 }

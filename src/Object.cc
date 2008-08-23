@@ -284,6 +284,10 @@ namespace enigma {
         Value messageValue = val;
         if (objFlags & OBJBIT_INVERSE)
             messageValue = invertActionValue(val);
+        
+        if (server::EnigmaCompatibility < 1.10) {
+            messageValue = messageValue.to_bool() ? 1 : 0; 
+        }
 
         TokenList targets = getAttr("target");
         TokenList actions = getAttr("action");

@@ -57,6 +57,7 @@ namespace enigma {
         virtual bool is_floating() const;
         virtual bool is_sticky(const Actor *a) const;
         virtual bool is_removable() const;
+        virtual bool is_transparent(Direction d) const;
         virtual void on_impulse(const Impulse& impulse);
         
         // TimeHandler interface

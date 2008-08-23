@@ -109,12 +109,12 @@ VERTICAL   = 3
 
 -- multidirections as used by st_chess
 NNE = po(1, -2)
-NEE = po(2, -1)
-SEE = po(2, 1)
+ENE = po(2, -1)
+ESE = po(2, 1)
 SSE = po(1, 2)
 SSW = po(-1, 2)
-SWW = po(-2, 1)
-NWW = po(-2, -1)
+WSW = po(-2, 1)
+WNW = po(-2, -1)
 NNW = po(-2, -1)
 
 -- essential

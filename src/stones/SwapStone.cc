@@ -64,6 +64,13 @@ namespace enigma {
         return state == IDLE;
     }
     
+    bool SwapStone::is_transparent(Direction d) const {
+        // a moving swap stone should be intransparent just on of the two affected grids at each
+        // point of time. The vanishing part is the proxy of the other exchanged stone.
+        // Thus it inherits the transparency behaviour from it. 
+        return (state == VANISHING && 
+                (yieldedStone != NULL && yieldedStone->is_transparent(d))); 
+    }
     void SwapStone::on_impulse(const Impulse& impulse) {
         if (state != IDLE)
             return;
