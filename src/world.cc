@@ -2037,6 +2037,10 @@ void MoveStone (GridPos oldPos, GridPos newPos) {
     SetStone(newPos, YieldStone(oldPos));
 }
 
+void TouchStone(GridPos pos) {
+    level->changed_stones.push_back(pos);
+}
+
 void SetScrambleIntensity (int intensity) {
     level->scrambleIntensity = intensity;
 }

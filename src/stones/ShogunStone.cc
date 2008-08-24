@@ -81,6 +81,7 @@ namespace enigma {
         } else
             return Stone::getAttr(key);
     }
+    
     Value ShogunStone::message(const Message &m) {
         if (m.message == "kill") {
             if (yieldShogun()) {

@@ -16,8 +16,8 @@
  * 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.
  *
  */
-#ifndef SHOGUNDOTITEM_HH
-#define SHOGUNDOTITEM_HH
+#ifndef SEEDITEM_HH
+#define SEEDITEM_HH
 
 #include "items.hh"
 
@@ -26,37 +26,47 @@
 namespace enigma {
     /**
      */
-    class ShogunDot : public Item {
-        CLONEOBJ(ShogunDot);
+    class SeedItem : public Item {
+        CLONEOBJ(SeedItem);
         DECL_ITEMTRAITS_ARRAY(3, traitsIdx());
 
     private:
         enum iState {
-            OFF,     ///< inactive, no matching shogun stack on top
-            ON       ///< active, matching shogun stack on top
+            IDLE,     ///< inactive
+            ACTIVE    ///< activated
         };
         
         enum ObjectPrivatFlagsBits {
-            OBJBIT_HOLES =   127<<24,   ///< holes as defined in stones/ShogunStone.hh
+            OBJBIT_FLAVOR =   3<<24,   ///< wood, greenbrown, volcano seed
         };
     public:
-        ShogunDot(int holes);
+        SeedItem(int flavor);
 
         // Object interface
         virtual std::string getClass() const;
         virtual void setAttr(const string& key, const Value &val);
         virtual Value getAttr(const std::string &key) const;
         virtual Value message(const Message &m);
-
+        
         // StateObject interface
         virtual void setState(int extState);
 
         // GridObject interface
-        virtual void on_creation(GridPos p);
+        virtual void init_model();
+        virtual void processLight(Direction d);
+        
+        // ModelCallback interface
+        virtual void animcb();
+        
+        // ItemObject interface
+        virtual std::string get_inventory_model();
+        virtual bool isStatic() const;
+        virtual void on_drop(Actor *a);
+        virtual void on_stonehit(Stone *st);
+        virtual bool actor_hit(Actor *a);
 
     private:
-        int getHoles() const;
-        int requiredShogunHoles() const;
+        void startGrowing();
         int traitsIdx() const;
     };
     

@@ -343,7 +343,7 @@ const char *oxyd::oxyd1_item_map[256] = {
     "it-spade",                   // 0x22
     "it-surprise",                // 0x23
     "it-pin",                     // 0x24
-    "it-seed",                    // 0x25
+    "it_seed",                    // 0x25
     "it-spring2",                 // 0x26
     "it-spring1",                 // 0x27
     "it-bag",                     // 0x28

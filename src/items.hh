@@ -100,8 +100,8 @@ namespace enigma {
         it_puller_w,
         it_ring,
         it_rubberband,
-        it_seed,
-        it_seed_nowood,
+        it_seed_wood,
+        it_seed_fake,
         it_seed_volcano,
         it_sensor,
         it_shogun_s,
@@ -236,7 +236,7 @@ namespace enigma {
 
         /*! The model used for displaying this item in an
           inventory. */
-        virtual string get_inventory_model();
+        virtual std::string get_inventory_model();
 
         /* Called when item is activated by the owner of `a'. */
         virtual ItemAction activate(Actor* a, GridPos p);

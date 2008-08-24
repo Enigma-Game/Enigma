@@ -61,6 +61,7 @@
     <msg name="closeall" type="nil"/>
     <msg name="disconnect" type="nil"/>
     <msg name="flip" type="nil"/>
+    <msg name="grow" type="nil"/>
     <msg name="hit" type="object"/>
     <msg name="ignite" type="nil"/>
     <msg name="inner_pull" type="dir"/>
@@ -167,6 +168,21 @@
     </object>
     <object name="it_magnet_on">
       <attr name="state" value="1"/>
+    </object>
+    <object name="it_seed">
+      <attr name="flavor"/>
+      <attr name="secure"/>
+      <msg name="grow"/>
+      <msg name="signal"/>
+    </object>
+    <object name="it_seed_wood">
+      <attr name="flavor" value="wood"/>
+    </object>
+    <object name="it_seed_fake">
+      <attr name="flavor" value="fake"/>
+    </object>
+    <object name="it_seed_volcano">
+      <attr name="flavor" value="volcano"/>
     </object>
     <object name="it_sensor">
       <attr name="invisible"/>
@@ -806,6 +822,10 @@
     </object>
     <object name="st_turnstilearm_w">
       <attr name="state" value="0"/>
+    </object>
+    <object name="st_volcano">
+      <attr name="secure"/>
+      <msg name="_trigger"/>
     </object>
     <object name="st_window">
       <attr name="faces" default="s"/>

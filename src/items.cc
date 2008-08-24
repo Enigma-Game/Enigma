@@ -145,7 +145,7 @@ void Item::add_force(Actor *, V2 &) {
 bool Item::actor_hit(Actor *actor)
 {
     const ItemTraits &tr = get_traits();
-    if (tr.flags & itf_static)
+    if (isStatic())
         return false;
     else {
         double radius = 0.3;
@@ -1271,12 +1271,6 @@ namespace
             change_state(BURNING);
         }
         void on_drop(Actor *) { change_state(BURNING); }
-        bool actor_hit(Actor *a) {
-            if (state == BURNING)
-                return false;   // don't pick up burning dynamite
-
-            return Item::actor_hit(a);
-        }
     };
     DEF_ITEMTRAITSF(Dynamite, "it-dynamite", it_dynamite,
                 itf_indestructible | itf_fireproof);
@@ -1425,107 +1419,6 @@ namespace
 }
 
 
-/* -------------------- Seed -------------------- */
-namespace
-{
-    class Seed : public Item {
-        bool activep;
-
-        bool actor_hit(Actor *a) {
-            if (activep)
-                return false;   // do not pickup growing seed
-            return Item::actor_hit(a);
-        }
-        void on_drop (Actor *) {start_growing();}
-        void on_stonehit (Stone *) {start_growing();}
-        void processLight(Direction d) {start_growing();}
-
-        virtual Value message(const Message &m) {
-            if (m.message == "grow" || m.message == "signal") {
-                start_growing();
-                return Value();
-            }
-            return Item::message(m);
-        }
-
-        void start_growing() {
-            if (!activep) {
-                activep = true;
-                sound_event ("seedgrow");
-                set_anim("it-seed-growing");
-            }
-        }
-
-        void animcb() {
-            GridPos p= get_pos();
-            if ((server::GameCompatibility == GAMET_OXYDMAGNUM || server::GameCompatibility == GAMET_OXYD1) &&
-                (get_stone_name() == "st-wood-growing" && GetStone(p))) {
-                string model = GetStone(p)->get_kind();
-                if (model == "st-grate1") {
-                    SetFloor(p, MakeFloor("fl-stwood"));
-                    kill();
-                    return;
-               }
-           }
-           Stone *st = MakeStone (get_stone_name());
-           transferName(st);
-           SetStone (p, st);
-           kill();
-        }
-        
-        virtual bool isStatic() const {
-            return activep;  // active seed is static
-        }
-
-        virtual const char* get_stone_name() = 0;
-    public:
-        Seed ()
-        : activep(false)
-        {}
-    };
-
-    class SeedWood : public Seed {
-        CLONEOBJ(SeedWood);
-        DECL_ITEMTRAITS;
-
-        const char* get_stone_name() {
-            return "st-wood-growing";
-        }
-
-    public:
-        SeedWood()
-        {}
-    };
-    DEF_ITEMTRAITSR(SeedWood, "it-seed", it_seed, 0.2f);
-
-    class SeedNowood : public Seed {
-        CLONEOBJ(SeedNowood);
-        DECL_ITEMTRAITS;
-
-        const char* get_stone_name() {
-            return "st-greenbrown-growing";
-        }
-    public:
-        SeedNowood()
-        {}
-    };
-    DEF_ITEMTRAITSR(SeedNowood, "it-seed_nowood", it_seed_nowood, 0.2f);
-
-    class SeedVolcano : public Seed {
-        CLONEOBJ(SeedVolcano);
-        DECL_ITEMTRAITS;
-
-        const char* get_stone_name() {
-            return "st-volcano-growing";
-        }
-    public:
-        SeedVolcano()
-        {}
-    };
-    DEF_ITEMTRAITSR(SeedVolcano, "it-seed_volcano", it_seed_volcano, 0.2f);
-}
-
-
 /* -------------------- YinYang item -------------------- */
 namespace
 {
@@ -1624,12 +1517,6 @@ namespace
 
         bool active;
         Direction m_direction;
-
-        bool actor_hit(Actor *a) {
-            if (active)
-                return false;
-            return Item::actor_hit(a);
-        }
 
         void on_drop(Actor *) { activate(); }
 
@@ -2841,9 +2728,6 @@ void InitItems()
     Puller::setup();
     RegisterItem (new Ring);
     RegisterItem (new RubberbandItem);
-    RegisterItem (new SeedWood);
-    RegisterItem (new SeedNowood);
-    RegisterItem (new SeedVolcano);
     RegisterItem (new Spade);
     RegisterItem (new Spoon);
     RegisterItem (new Spring1);

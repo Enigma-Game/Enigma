@@ -203,6 +203,8 @@ enigma_SOURCES = 		\
 	items/GlassesItem.hh	\
 	items/Magnet.cc		\
 	items/Magnet.hh		\
+	items/SeedItem.cc	\
+	items/SeedItem.hh	\
 	items/Sensor.cc		\
 	items/Sensor.hh		\
 	items/ShogunDot.cc	\
@@ -281,6 +283,8 @@ enigma_SOURCES = 		\
 	stones/TimerStone.hh	\
 	stones/Turnstile.cc	\
 	stones/Turnstile.hh	\
+	stones/VolcanoStone.cc	\
+	stones/VolcanoStone.hh	\
 	stones/WindowStone.cc	\
 	stones/WindowStone.hh	\
 	stones/YieldingStone.cc	\

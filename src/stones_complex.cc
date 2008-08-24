@@ -39,77 +39,6 @@ using namespace std;
 
 namespace enigma { 
 
-/* -------------------- Volcano -------------------- */
-namespace
-{
-    class VolcanoStone : public Stone {
-        CLONEOBJ(VolcanoStone);
-        DECL_TRAITS;
-    public:
-        enum State {INACTIVE, ACTIVE, FINISHED, BREAKING};
-        VolcanoStone( State initstate=INACTIVE) : state( initstate) {}
-    private:
-        enum State state;
-
-        void init_model() {
-            switch( state) {
-            case FINISHED:
-            case INACTIVE: set_model( "st-plain"); break;
-            case ACTIVE: set_anim( "st-farting"); break;
-            case BREAKING: set_anim("st-stone_break-anim"); break;
-            }
-        }
-
-        void animcb() {
-            if (state == ACTIVE) {
-                // Spread
-                GridPos p = get_pos();
-                if (DoubleRand(0, 1) > 0.7) spread (move(p, NORTH));
-                if (DoubleRand(0, 1) > 0.7) spread (move(p, EAST));
-                if (DoubleRand(0, 1) > 0.7) spread (move(p, SOUTH));
-                if (DoubleRand(0, 1) > 0.7) spread (move(p, WEST));
-
-                // Be finished at random time
-                if (DoubleRand(0, 1) > 0.95)
-                    state = FINISHED;
-                init_model();
-            } else if( state == BREAKING) {
-                KillStone( get_pos());
-            }
-        }
-
-        virtual Value message(const Message &m) {
-            if (m.message == "_trigger" || m.message == "toggle") {
-                if (state == INACTIVE) {
-                    state = ACTIVE;
-                    init_model();
-                }
-                return Value();
-            }
-            return Stone::message(m);
-        }
-
-        void spread( GridPos p) {
-            Stone *st = GetStone(p);
-            if( !st) {
-                Item *it = MakeItem("it-seed_volcano");
-                SetItem( p, it);
-                SendMessage( it, "grow");
-            }
-        }
-
-        void actor_hit(const StoneContact &sc) {
-            Actor *a = sc.actor;
-
-            if( state == ACTIVE && player::WieldedItemIs (a, "it_hammer")) {
-                state = BREAKING;
-                init_model();
-            }
-        }
-    };
-    DEF_TRAITSM(VolcanoStone, "st-volcano", st_volcano, MOVABLE_BREAKABLE);    
-}
-
 
 ///* -------------------- Puzzle stones -------------------- */ 
 
@@ -1134,10 +1063,6 @@ void Init_complex()
     MailStone::setup();
 
     Register(new MovableImpulseStone);
-
-    Register( new VolcanoStone);
-    Register("st-volcano_inactive", new VolcanoStone(VolcanoStone::INACTIVE));
-    Register("st-volcano_active", new VolcanoStone(VolcanoStone::ACTIVE));
 
     // PerOxyd/Enigma compatible puzzle stones:
     Register(new PuzzleStone(0, false));

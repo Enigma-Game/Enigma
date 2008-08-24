@@ -969,25 +969,6 @@ namespace
     };
     DEF_TRAITS(GreenbrownStone_Growing, "st-greenbrown-growing", st_greenbrown_growing);
 
-    class VolcanoStone_Growing : public Stone {
-        CLONEOBJ(VolcanoStone_Growing);
-        DECL_TRAITS;
-    public:
-        VolcanoStone_Growing()
-        {}
-    private:
-        void init_model() { set_anim("st-volcano-growing"); }
-        void animcb() {
-            Stone *st = MakeStone("st-volcano_active");
-            ReplaceStone(get_pos(), st);
-        }
-        void actor_contact(Actor *a) {SendMessage(a, "shatter");}
-        void actor_inside(Actor *a) {SendMessage(a, "shatter");}
-        void actor_hit(const StoneContact &sc) {SendMessage(sc.actor, "shatter");}
-
-        FreezeStatusBits get_freeze_bits() { return FREEZEBIT_NO_STONE; }
-    };
-    DEF_TRAITS(VolcanoStone_Growing, "st-volcano-growing", st_volcano_growing);
 }
 
 
@@ -1773,7 +1754,6 @@ void Init_simple()
     Register(new WoodenStone("st-flhay", "fl-hay"));
     Register(new WoodenStone_Growing);
     Register(new GreenbrownStone_Growing);
-    Register(new VolcanoStone_Growing);
 
     Register(new YinYangStone1);
     Register(new YinYangStone2);

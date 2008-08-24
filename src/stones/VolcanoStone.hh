@@ -17,8 +17,8 @@
  * 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.
  *
  */
-#ifndef BOULDERSTONE_HH
-#define BOULDERSTONE_HH
+#ifndef VOLCANOSTONE_HH
+#define VOLCANOSTONE_HH
 
 #include "stones.hh"
 
@@ -29,25 +29,31 @@ namespace enigma {
     /** 
      * 
      */
-    class BoulderStone : public Stone {
-        CLONEOBJ(BoulderStone);
+    class VolcanoStone : public Stone {
+        CLONEOBJ(VolcanoStone);
         DECL_TRAITS;
     private:
         enum iState {
-            INIT,       ///< 
-            ACTIVE,     ///< may send trigger into direction
-            IDLE,       ///< already sent trigger w/o success
-            FALLING     ///< falling into abyss
+            INACTIVE,     ///< 
+            ACTIVE,       ///< 
+            NEW,          ///<
+            GROWING,      ///<
+            FINISHED,     ///< 
+            BREAKING      ///< 
         };
         
+    private:
         enum ObjectPrivatFlagsBits {
-            OBJBIT_LIGHT     =  15<<24   ///< Light status kept for move, swap, pull operations 
+            OBJBIT_SECURE =   1<<24,   ///< secure spreading of volcano
         };
+
     public:
-        BoulderStone(Direction dir = NORTH);
+        VolcanoStone(int initState);
         
         // Object interface
+        virtual std::string getClass() const;        
         virtual void setAttr(const string& key, const Value &val);
+        virtual Value getAttr(const std::string &key) const;
         virtual Value message(const Message &m);
         
         // StateObject interface
@@ -55,26 +61,26 @@ namespace enigma {
         virtual void setState(int extState);
 
         // GridObject interface
-        virtual void on_creation(GridPos p);
-        virtual void on_removal(GridPos p);
         virtual void init_model();
-        virtual void lightDirChanged(DirectionBits oldDirs, DirectionBits newDirs);
         
         // ModelCallback interface
         virtual void animcb();
         
         // Stone interface
+        virtual bool is_floating() const;
+        virtual bool is_transparent(Direction d) const;
+        virtual bool is_sticky(const Actor *a) const;
+        virtual StoneResponse collision_response(const StoneContact &sc);
         virtual void actor_hit(const StoneContact &sc);
-        virtual void on_floor_change();
-        virtual void on_move();
-        virtual void on_impulse(const Impulse& impulse);
-//        virtual const char *collision_sound();
+        virtual void actor_touch(const StoneContact &sc);
+        virtual void actor_inside(Actor *a);
+        virtual void actor_contact(Actor *a);
+        virtual FreezeStatusBits get_freeze_bits();
 
     private:
-        Direction getDir() const;
-        void setDir(Direction d);
-        bool haveObstacle(Direction dir);
-        void triggerObstacle(Direction dir, bool isRaising);
+        void spread(GridPos p);
+        bool neighborsVulcanized();
+        bool positionVulcanizable(GridPos p);
     };
 
 } // namespace enigma

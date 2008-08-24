@@ -327,7 +327,7 @@ const char* oxyd::oxydmag_item_map[256] = {
     "it-spade",         // OxydMagnum item 0x22
     UNUSED,        // OxydMagnum item 0x23
     "it-pin",           // OxydMagnum item 0x24
-    "it-seed",          // OxydMagnum item 0x25
+    "it_seed",          // OxydMagnum item 0x25
     "it-spring2",       // OxydMagnum item 0x26
     "it-spring1",       // OxydMagnum item 0x27
     "it-bag",           // OxydMagnum item 0x28
