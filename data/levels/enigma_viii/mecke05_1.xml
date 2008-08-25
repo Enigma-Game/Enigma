@@ -3,7 +3,7 @@
   <el:protected>
     <el:info el:type="level">
       <el:identity el:title="Sanssouci" el:subtitle="A Baroque Game" el:id="mecke05"/>
-      <el:version el:score="1" el:release="1" el:revision="$Revision:22$" el:status="released"/>
+      <el:version el:score="1" el:release="1" el:revision="$Revision:23$" el:status="released"/>
       <el:author  el:name="mecke" el:email=""/>
       <el:copyright>Copyright © 2008 Thomas Bernhardt</el:copyright>
       <el:license el:type="GPL v2.0 or above" el:open="true"/>
@@ -117,8 +117,8 @@ ti["l "] = {"st_panel", cluster=2}
 ti["P "] = {"st_panel"}
 ti["Q "] = {"st_panel_s"}
 ti["Q3"] = {"st_panel_s","repanel1"}
-ti["G "] = {"st-swap"}
-ti["W "] = ti["^ "] .. {"st-swap"}
+ti["G "] = {"st_swap"}
+ti["W "] = ti["^ "] .. {"st_swap"}
 ti["a "] = {"st_switch", target="fire"}
 ti["b "] = {"st_switch", target="knight"}
 ti["c "] = {"st_switch", target="jux"}

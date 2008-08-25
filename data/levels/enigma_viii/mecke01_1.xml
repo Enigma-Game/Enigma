@@ -3,7 +3,7 @@
   <el:protected >
     <el:info el:type="level">
       <el:identity el:title="A Screenful of Secrets" el:subtitle="My First Level" el:id="mecke01"/>
-      <el:version el:score="1" el:release="1" el:revision="$Revision: 21 $" el:status="released"/>
+      <el:version el:score="1" el:release="1" el:revision="$Revision: 22 $" el:status="released"/>
       <el:author  el:name="mecke" el:email="" el:homepage=""/>
       <el:copyright>Copyright © 2008 Thomas Bernhardt</el:copyright>
       <el:license el:type="GPL v2.0 or above" el:open="true"/>
@@ -36,7 +36,7 @@ ti["+ "] = {"st_actorimpulse_invisible"}
 ti["G "] = {"st-glass"}
 ti["m "] = {"st-glass_move"}
 ti["X "] = {"st-grate1"}
-ti["P "] = {"st-pull"}
+ti["P "] = {"st_pull"}
 ti["W "] = ti["P "] .. {"it_wormhole",range=0,strength=0, state=OFF}
 ti["^ "] = {"st_oneway_black_n"}
 ti["v "] = {"st_oneway_black_s"}

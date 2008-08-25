@@ -3,7 +3,7 @@
   <el:protected>
     <el:info el:type="level">
       <el:identity el:title="- Meditation -" el:subtitle="" el:id="alain04"/>
-      <el:version el:score="1" el:release="1" el:revision="1" el:status="released"/>
+      <el:version el:score="1" el:release="1" el:revision="2" el:status="released"/>
       <el:author  el:name="Alain Busser" el:email="" el:homepage=""/>
       <el:copyright>Copyright © 2006 Alain Busser</el:copyright>
       <el:license el:type="GPL v2.0 or above" el:open="true"/>
@@ -32,45 +32,45 @@ function renderLine( line, pattern)
         elseif c == "o" then
             oxyd( i-1, line)
             elseif c == "a" then
-            set_item("it-wormhole",i-1,line, {targetx=13.5, targety=10+random(10)/10, strength=0, range=0})          
+            set_item("it-wormhole",i-1,line, {targetx=13+random(6)/8, targety=10+random(6)/8, strength=0, range=0})
         elseif c == "b" then
-            set_item("it-wormhole",i-1,line, {targetx=4.5, targety=3+random(10)/10, strength=0, range=0})          
+            set_item("it-wormhole",i-1,line, {targetx=4+random(6)/8, targety=3+random(6)/8, strength=0, range=0})
             elseif c == "c" then
-            set_item("it-wormhole",i-1,line, {targetx=16.5, targety=4+random(10)/10, strength=0, range=0})          
+            set_item("it-wormhole",i-1,line, {targetx=16+random(6)/8, targety=4+random(6)/8, strength=0, range=0})
         elseif c == "d" then
-            set_item("it-wormhole",i-1,line, {targetx=6.5, targety=10+random(10)/10, strength=0, range=0})          
+            set_item("it-wormhole",i-1,line, {targetx=6+random(6)/8, targety=10+random(6)/8, strength=0, range=0})
             elseif c == "e" then
-            set_item("it-wormhole",i-1,line, {targetx=13.5, targety=3+random(10)/10, strength=0, range=0})          
+            set_item("it-wormhole",i-1,line, {targetx=13+random(6)/8, targety=3+random(6)/8, strength=0, range=0})
         elseif c == "f" then
-            set_item("it-wormhole",i-1,line, {targetx=4.5, targety=10+random(10)/10, strength=0, range=0})          
+            set_item("it-wormhole",i-1,line, {targetx=4+random(6)/8, targety=10+random(6)/8, strength=0, range=0})
             elseif c == "g" then
-            set_item("it-wormhole",i-1,line, {targetx=16.5, targety=9+random(10)/10, strength=0, range=0})          
+            set_item("it-wormhole",i-1,line, {targetx=16+random(6)/8, targety=9+random(6)/8, strength=0, range=0})
         elseif c == "h" then
-            set_item("it-wormhole",i-1,line, {targetx=6.5, targety=3+random(10)/10, strength=0, range=0})          
+            set_item("it-wormhole",i-1,line, {targetx=6+random(6)/8, targety=3+random(6)/8, strength=0, range=0})
         elseif c == "i" then
-            set_item("it-wormhole",i-1,line, {targetx=13.5, targety=10+random(10)/10, strength=0, range=0})          
+            set_item("it-wormhole",i-1,line, {targetx=13+random(6)/8, targety=10+random(6)/8, strength=0, range=0})
         elseif c == "j" then
-            set_item("it-wormhole",i-1,line, {targetx=4.5, targety=3+random(10)/10, strength=0, range=0})          
+            set_item("it-wormhole",i-1,line, {targetx=4+random(6)/8, targety=3+random(6)/8, strength=0, range=0})
             elseif c == "k" then
-            set_item("it-wormhole",i-1,line, {targetx=16.5, targety=4+random(10)/10, strength=0, range=0})          
+            set_item("it-wormhole",i-1,line, {targetx=16+random(6)/8, targety=4+random(6)/8, strength=0, range=0})
         elseif c == "l" then
-            set_item("it-wormhole",i-1,line, {targetx=6.5, targety=10+random(10)/10, strength=0, range=0})          
+            set_item("it-wormhole",i-1,line, {targetx=6+random(6)/8, targety=10+random(6)/8, strength=0, range=0})
             elseif c == "m" then
-            set_item("it-wormhole",i-1,line, {targetx=13.5, targety=3+random(10)/10, strength=0, range=0})          
+            set_item("it-wormhole",i-1,line, {targetx=13+random(6)/8, targety=3+random(6)/8, strength=0, range=0})
         elseif c == "n" then
-            set_item("it-wormhole",i-1,line, {targetx=4.5, targety=10+random(10)/10, strength=0, range=0})          
+            set_item("it-wormhole",i-1,line, {targetx=4+random(6)/8, targety=10+random(6)/8, strength=0, range=0})
             elseif c == "p" then
-            set_item("it-wormhole",i-1,line, {targetx=16.5, targety=9+random(10)/10, strength=0, range=0})          
+            set_item("it-wormhole",i-1,line, {targetx=16+random(6)/8, targety=9+random(6)/8, strength=0, range=0})
         elseif c == "q" then
-            set_item("it-wormhole",i-1,line, {targetx=6.5, targety=3+random(10)/10, strength=0, range=0})          
+            set_item("it-wormhole",i-1,line, {targetx=6+random(6)/8, targety=3+random(6)/8, strength=0, range=0})
           elseif c=="z" then
-            set_actor("ac-whiteball-small", i-.5,line+.5, {player=0})
+            set_actor("ac-whiteball-small", i-0.5,line+0+0.5, {player=0})
         elseif c=="+" then
             set_item("it-hollow", i-1, line)
         elseif c=="*" then
             set_stone("st-actorimpulse_invisible", i-1,line)
         end
-    end    
+    end
 end
 
 --               01234567890123456789
