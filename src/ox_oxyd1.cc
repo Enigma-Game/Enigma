@@ -259,10 +259,10 @@ const char *oxyd::oxyd1_stone_map[256] = {
     "st_shogun_s",              // Oxyd1 stone 0x6c
     "st-stoneimpulse",          // Oxyd1 stone 0x6d
     "st_laserflop",             // Oxyd1 stone 0x6e
-    "st-mail-n",                // Oxyd1 stone 0x6f
-    "st-mail-w",                // Oxyd1 stone 0x70
-    "st-mail-e",                // Oxyd1 stone 0x71
-    "st-mail-s",                // Oxyd1 stone 0x72
+    "st_mail_n",                // Oxyd1 stone 0x6f
+    "st_mail_w",                // Oxyd1 stone 0x70
+    "st_mail_e",                // Oxyd1 stone 0x71
+    "st_mail_s",                // Oxyd1 stone 0x72
     "st_door_d",                // Oxyd1 stone 0x73
     "st_door_d_ew",             // Oxyd1 stone 0x74
     "st-metal",                 // Oxyd1 stone 0x75
@@ -334,12 +334,12 @@ const char *oxyd::oxyd1_item_map[256] = {
     "it-flagwhite",               // 0x19
     "it-flagblack",               // 0x1a
     "it-ring",                    // 0x1b
-    "it-pipe-wn",                 // 0x1c
-    "it-pipe-sw",                 // 0x1d
-    "it-pipe-ne",                 // 0x1e
-    "it-pipe-es",                 // 0x1f
-    "it-pipe-v",                  // 0x20
-    "it-pipe-h",                  // 0x21
+    "it_pipe_nw",                 // 0x1c
+    "it_pipe_sw",                 // 0x1d
+    "it_pipe_ne",                 // 0x1e
+    "it_pipe_es",                 // 0x1f
+    "it_pipe_ns",                 // 0x20
+    "it_pipe_ew",                 // 0x21
     "it-spade",                   // 0x22
     "it-surprise",                // 0x23
     "it-pin",                     // 0x24

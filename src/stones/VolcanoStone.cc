@@ -188,7 +188,7 @@ namespace enigma {
     
     BOOT_REGISTER_START
         BootRegister(new VolcanoStone(0), "st_volcano");
-        BootRegister(new VolcanoStone(0), "st_volcano_inactive");
+        BootRegister(new VolcanoStone(0), "st_volcano_idle");
         BootRegister(new VolcanoStone(1), "st_volcano_active");
         BootRegister(new VolcanoStone(2), "st_volcano_new");
         BootRegister(new VolcanoStone(3), "st_volcano_growing");

@@ -971,107 +971,6 @@ namespace
 
 }
 
-
-
-/* -------------------- FartStone -------------------- */
-
-/** \page st-fart Fart Stone
-
-The fart stone has the unpleasant habit of "blowing off" when
-triggered (by actor contact or signal) and will close all oxyd stones.
-
-\subsection fartm Messages
-
-- \b trigger: as usual
-
-*/
-
-namespace
-{
-    class FartStone : public Stone {
-        CLONEOBJ(FartStone);
-        DECL_TRAITS;
-
-        enum State { IDLE, FARTING, BREAKING };
-        State state;
-        bool rememberBreaking;  // set true if an explosion or break-message
-                                // or such occured while farting
-
-        void change_state(State newstate);
-        void animcb();
-        void actor_hit(const StoneContact &sc);
-        virtual Value message(const Message &m);
-
-        void processLight(Direction d) {
-            change_state(BREAKING);
-        }
-    public:
-        FartStone() : state(IDLE), rememberBreaking(false) 
-        {}
-    };
-    DEF_TRAITSM(FartStone, "st-fart", st_fart, MOVABLE_BREAKABLE);
-}
-
-void FartStone::change_state(State newstate) 
-{
-    if (state == newstate)
-        return;
-
-    switch (newstate) {
-    case IDLE:
-        state = IDLE;
-        init_model();
-        if (rememberBreaking)
-            change_state(BREAKING);
-        break;
-    case FARTING:
-    case BREAKING:
-        if (state == IDLE) {
-            Object *ox = GetObjectTemplate("st_oxyd");
-            SendMessage(ox, "closeall");
-            sound_event("fart");
-            if (newstate == BREAKING) {
-                sound_event ("stonedestroy");
-                set_anim ("st-fartbreak-anim");
-            }
-            else
-                set_anim("st-farting");
-            state = newstate;
-        } else if (state == FARTING && newstate == BREAKING)
-            rememberBreaking = true;
-        break;
-    }
-}
-
-void FartStone::animcb() 
-{
-    if (state == FARTING)
-        change_state(IDLE);
-    else if (state == BREAKING)
-        KillStone(get_pos());
-}
-
-void FartStone::actor_hit(const StoneContact &sc) 
-{
-    if (player::WieldedItemIs (sc.actor, "it_hammer"))
-        change_state(BREAKING);
-    else
-        change_state(FARTING);
-}
-Value FartStone::message(const Message &m) 
-{
-    if (m.message == "toggle" || (m.message == "signal" && m.value != 0) ||
-            (m.message == "_trigger" && m.value.to_bool())) {
-        change_state(FARTING);
-        return Value();
-    } else if (m.message == "ignite" || m.message == "_explosion") { 
-        change_state(BREAKING);
-        return Value();
-    }
-    return Stone::message(m);
-}
-
-
 /* -------------------- Thief -------------------- */
 namespace
 {
@@ -1435,78 +1334,6 @@ namespace
     DEF_TRAITSM(MagicStone, "st-magic", st_magic, MOVABLE_BREAKABLE);
 }
 
-
-/* -------------------- Brake stone -------------------- */
-
-/** \page st-brake Brake
-
-Blocks bolder stones and other movable stones.  Can be picked up.
-
-\image html st-brake.png
-*/
-
-namespace
-{
-    class BrakeStone : public Stone {
-        CLONEOBJ(BrakeStone);
-        DECL_TRAITS;
-    public:
-        BrakeStone()
-        {}
-
-        void on_creation (GridPos p) {
-            Stone::on_creation(p);
-
-            Item    *it = GetItem(p);
-            if (it && it->is_kind("it_blocker")) {
-                KillItem(p);
-//                sound_event ("explosion1");
-            }
-        }
-
-        StoneResponse collision_response(const StoneContact &/*sc*/) {
-            return STONE_PASS;
-        }
-
-        void actor_inside(Actor *a) {
-            const double BRAKE_RADIUS = 0.3;
-            GridPos      p            = get_pos();
-            double       dist         = length(a->get_pos() - p.center());
-
-            if (dist < BRAKE_RADIUS) {
-                player::PickupStoneAsItem(a, p);
-            }
-        }
-
-        void explode() {
-            GridPos p = get_pos();
-            KillStone(p);
-            SetItem(p, MakeItem("it-explosion1"));
-        }
-
-        void processLight(Direction d) {
-            explode();
-        }
-
-        virtual Value message(const Message &m) {
-            if (m.message == "_explosion") {
-                explode();
-                return Value();
-            }
-            return Stone::message(m);
-        }
-
-        bool is_sticky(const Actor *) const 
-        { return false; }
-        
-        void on_move() {
-            // we are not floating, but we do not shatter actors when swapped or pulled
-        }
-    };
-    DEF_TRAITSM(BrakeStone, "st-brake", st_brake, MOVABLE_BREAKABLE);
-}
-
-
 /* -------------------- Disco stones -------------------- */
 namespace
 {
@@ -1716,7 +1543,6 @@ void Init_simple()
     Register(new BombStone("st-bombs", "it-blackbomb"));
     //Register(new BombStone("st-dynamite", "it-dynamite"));
     //Register(new BombStone("st-whitebombs", "it-whitebomb"));
-    Register(new BrakeStone);
 
     Register(new Break_acblack);
     Register(new Break_acwhite);
@@ -1733,7 +1559,6 @@ void Init_simple()
     Register(new DummyStone);
     Register(new EasyModeStone);
     Register(new FakeOxydStone);
-    Register(new FartStone);
     Register(new Grate1);
     Register(new Grate2);
     Register(new Grate3);

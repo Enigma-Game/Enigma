@@ -168,7 +168,7 @@ namespace enigma {
                 fitsNeighborShogun = (nss->getHoles() & (2*ownHole() -1)) == 0;
         }
         
-        if ((st == NULL) || fitsNeighborShogun) {  // can we move?
+        if ((subShogun == NULL) && ((st == NULL) || fitsNeighborShogun)) {  // can we move?
             // first remove from current position
             if (!yieldShogun())
                 return;            // being swapped or pulled

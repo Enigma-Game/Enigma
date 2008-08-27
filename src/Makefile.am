@@ -197,12 +197,18 @@ enigma_SOURCES = 		\
 	lev/ScoreManager.hh	\
 	lev/VolatileIndex.cc	\
 	lev/VolatileIndex.hh	\
+	items/BrakeItem.cc	\
+	items/BrakeItem.hh	\
 	items/BlockerItem.cc	\
 	items/BlockerItem.hh	\
 	items/GlassesItem.cc	\
 	items/GlassesItem.hh	\
 	items/Magnet.cc		\
 	items/Magnet.hh		\
+	items/PipeItem.cc	\
+	items/PipeItem.hh	\
+	items/RubberbandItem.cc	\
+	items/RubberbandItem.hh	\
 	items/SeedItem.cc	\
 	items/SeedItem.hh	\
 	items/Sensor.cc		\
@@ -229,6 +235,8 @@ enigma_SOURCES = 		\
 	stones/BlockerStone.hh	\
 	stones/BoulderStone.cc	\
 	stones/BoulderStone.hh	\
+	stones/BrakeStone.cc	\
+	stones/BrakeStone.hh	\
 	stones/ChessStone.cc	\
 	stones/ChessStone.hh	\
 	stones/ClusterStone.cc	\
@@ -241,6 +249,8 @@ enigma_SOURCES = 		\
 	stones/DeathStone.hh	\
 	stones/Door.cc		\
 	stones/Door.hh		\
+	stones/FartStone.cc	\
+	stones/FartStone.hh	\
 	stones/FloppySwitch.cc   \
 	stones/FloppySwitch.hh   \
 	stones/FourSwitch.cc	\
@@ -255,6 +265,8 @@ enigma_SOURCES = 		\
 	stones/LaserSwitch.hh	\
 	stones/LightPassengerStone.cc	\
 	stones/LightPassengerStone.hh	\
+	stones/MailStone.cc	\
+	stones/MailStone.hh	\
 	stones/MirrorStone.cc	\
 	stones/MirrorStone.hh	\
 	stones/MonoFlopStone.cc	\

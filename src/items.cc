@@ -1048,46 +1048,6 @@ namespace
     DEF_ITEMTRAITSF(Springboard, "it-springboard", it_springboard, itf_static);
 }
 
-
-/* -------------------- Brake -------------------- */
-
-// Brake is only used to hold st-brake while it is in an inventory
-
-// TODO transfer identity !!
-namespace
-{
-    class Brake : public Item {
-        CLONEOBJ(Brake);
-        DECL_ITEMTRAITS;
-    public:
-        Brake() {}
-
-        void on_creation (GridPos p) {
-            SetStone(p, MakeStone("st-brake"));
-            kill();
-        }
-
-        bool can_drop_at (GridPos p) {
-            return GetStone(p) == 0;
-        }
-
-        void drop (Actor *, GridPos p) {
-            SetStone(p, MakeStone("st-brake"));
-            kill();
-        }
-
-        string get_inventory_model() {
-            return "st-brake";
-        }
-
-        ItemAction activate(Actor *, GridPos) {
-            return ITEM_DROP;
-        }
-    };
-    DEF_ITEMTRAITS(Brake, "it-brake", it_brake);
-}
-
-
 /* -------------------- Explosion -------------------- */
 namespace
 {
@@ -1468,45 +1428,6 @@ namespace
     };
     DEF_ITEMTRAITS(Spade, "it-spade", it_spade);
 }
-
-
-/* -------------------- Pipes -------------------- */
-namespace
-{
-    class Pipe : public Item {
-        CLONEOBJ(Pipe);
-        int subtype;
-        DECL_ITEMTRAITS_ARRAY(10, subtype);
-
-        Pipe(int stype) : subtype(stype) {}
-        virtual Value message(const Message &m) {
-            if (m.message == "_explosion") {
-                replace("it-explosion1");
-                return Value();
-            }
-            return Item::message(m);
-        }
-    public:
-        static void setup() {
-            for (int i=0; i<10; ++i)
-                RegisterItem (new Pipe (i));
-        }
-    };
-
-    ItemTraits Pipe::traits[] = {
-        {"it-pipe-e",  it_pipe_e,  itf_none, 0.0 },
-        {"it-pipe-w",  it_pipe_w,  itf_none, 0.0 },
-        {"it-pipe-s",  it_pipe_s,  itf_none, 0.0 },
-        {"it-pipe-n",  it_pipe_n,  itf_none, 0.0 },
-        {"it-pipe-es", it_pipe_es, itf_none, 0.0 },
-        {"it-pipe-ne", it_pipe_ne, itf_none, 0.0 },
-        {"it-pipe-sw", it_pipe_sw, itf_none, 0.0 },
-        {"it-pipe-wn", it_pipe_wn, itf_none, 0.0 },
-        {"it-pipe-h",  it_pipe_h,  itf_none, 0.0 },
-        {"it-pipe-v",  it_pipe_v,  itf_none, 0.0 },
-    };
-}
-
 
 /* -------------------- Pullers -------------------- */
 namespace
@@ -2609,71 +2530,6 @@ namespace
     DEF_ITEMTRAITS(Drop, "it-drop", it_drop);
 }
 
-/* -------------------- Rubberband Item-------------------- */
-    class RubberbandItem : public Item {
-        CLONEOBJ(RubberbandItem);
-        DECL_ITEMTRAITS;
-
-    public:
-        RubberbandItem();
-
-        // Object interface
-        virtual std::string getClass() const;
-
-        // Item interface
-        virtual ItemAction activate(Actor* a, GridPos p);
-};
-    
-    RubberbandItem::RubberbandItem() {
-    }
-    
-    std::string RubberbandItem::getClass() const {
-        return "it_rubberband";
-    }
-    
-    ItemAction RubberbandItem::activate(Actor *a, GridPos p) {
-        // TODO: Multiple Targets!
-        // TODO: Target for black and target for white marble?
-        // TODO: MultiplayerGame: Defaulttarget is second actor!
-
-        // Get actor or stone with the name, given in "connect_to":
-        ObjectList ol = getAttr("anchor2").getObjectList(a);
-        
-        // Target does NOT exist, Drop Item
-        if (ol.size() == 0)
-            return ITEM_DROP;
-
-        Object *anchor2 = ol.front();
-            
-        // The mode attribute "scissor" defines, if when using an it-rubberband,
-        // other rubberbands to the actor will be cut of or not, true means they will. false is default.
-        bool isScissor = to_bool(getAttr("scissor"));
-
-        if (isScissor)
-            SendMessage(a, "disconnect");
-
-        sound_event ("rubberband");
-        
-        if (anchor2 != a) { // It's not allowed to connect a rubberband to self.
-            Object *obj = MakeObject("ot_rubberband");
-            obj->setAttr("anchor1", a);
-            obj->setAttr("anchor2", anchor2);
-            obj->setAttr("strength", getAttr("strength"));
-            obj->setAttr("length", getAttr("length"));
-            obj->setAttr("threshold", getAttr("threshold"));
-            obj->setAttr("max", getAttr("max"));
-            obj->setAttr("min", getAttr("min"));
-            AddOther(dynamic_cast<Other *>(obj));
-            transferIdentity(obj);
-            SendMessage(obj, "_performaction");
-        }
-
-        return ITEM_KILL;
-    }
-    
-    DEF_ITEMTRAITS(RubberbandItem, "it_rubberband", it_rubberband);
-
-
 /* -------------------- Functions -------------------- */
 
 void InitItems()
@@ -2683,7 +2539,6 @@ void InitItems()
     RegisterItem (new BlackBomb);
     RegisterItem (new BlackBombBurning);
     RegisterItem (new Booze);
-    RegisterItem (new Brake);
     RegisterItem (new BrokenBooze);
     RegisterItem (new Brush);
     Burnable::setup();
@@ -2724,10 +2579,8 @@ void InitItems()
     RegisterItem (new OxydBridgeActive);
     RegisterItem (new Pencil);
     RegisterItem (new Pin);
-    Pipe::setup();
     Puller::setup();
     RegisterItem (new Ring);
-    RegisterItem (new RubberbandItem);
     RegisterItem (new Spade);
     RegisterItem (new Spoon);
     RegisterItem (new Spring1);

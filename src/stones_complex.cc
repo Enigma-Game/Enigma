@@ -947,120 +947,11 @@ namespace
                 st_stoneimpulse_movable, MOVABLE_STANDARD);
 }
 
-
-/* -------------------- Mail stone -------------------- */
-
-namespace
-{
-    class MailStone : public Stone {
-        CLONEOBJ(MailStone);
-        Direction m_dir;
-
-
-        MailStone (const char *kind, Direction dir);
-        void actor_hit (const StoneContact &sc);
-
-        GridPos find_pipe_endpoint();
-    public:
-        static void setup();
-    };
-}
-
-void MailStone::setup()
-{
-    Register (new MailStone ("st-mail-n", NORTH));
-    Register (new MailStone ("st-mail-e", EAST));
-    Register (new MailStone ("st-mail-s", SOUTH));
-    Register (new MailStone ("st-mail-w", WEST));
-}
-
-MailStone::MailStone (const char *kind, Direction dir)
-: Stone(kind), m_dir(dir)
-{}
-
-
-void MailStone::actor_hit (const StoneContact &sc) 
-{
-    if (enigma::Inventory *inv = player::GetInventory(sc.actor)) {
-        if (Item *it = inv->get_item(0)) {
-            GridPos p = find_pipe_endpoint();
-            if (IsInsideLevel(p) && it->can_drop_at (p)) {
-                it = inv->yield_first();
-                player::RedrawInventory (inv);
-                it->drop(sc.actor, p);
-            }
-        }
-    }
-}
-
-/** About recursion detection while finding the end of a mailpipe
- *  
- *  Since there are no possibilities for forking a mailpipe, there is only one 
- *  cause that may lead to a closed, circular mailpipe. This is if a pipeitem is
- *  placed exactly under the mailstone. But not every pipepiece is dangerous,
- *  there are some that can be placed under the mailstone without problems.
- * 
- *  The mailpipe is only closed to a circular one if the pipepiece under the
- *  mailstone has the same 'output'-direction as the stone.
- */
-GridPos MailStone::find_pipe_endpoint() 
-{
-    GridPos p = get_pos();
-    Direction move_dir = m_dir;
-    GridPos q = p; // Store the stonepos for recursion detection.
-
-    while (move_dir != NODIR) {
-        p.move (move_dir);
-        if (Item *it = GetItem(p)) {
-            switch (get_id(it)) {
-            case it_pipe_h:
-                if (!(move_dir == EAST || move_dir == WEST))
-                    move_dir = NODIR;
-                break;
-            case it_pipe_v:
-                if (!(move_dir == SOUTH || move_dir == NORTH))
-                    move_dir = NODIR;
-                break;
-            case it_pipe_ne:
-                if (move_dir == SOUTH)     move_dir = EAST;
-                else if (move_dir == WEST) move_dir = NORTH;
-                else                       move_dir = NODIR;
-                break;
-            case it_pipe_es:
-                if (move_dir == NORTH)     move_dir = EAST;
-                else if (move_dir == WEST) move_dir = SOUTH;
-                else                       move_dir = NODIR;
-                break;
-            case it_pipe_sw:
-                if (move_dir == NORTH)     move_dir = WEST;
-                else if (move_dir == EAST) move_dir = SOUTH;
-                else                       move_dir = NODIR;
-                break;
-            case it_pipe_wn:
-                if (move_dir == SOUTH)     move_dir = WEST;
-                else if (move_dir == EAST) move_dir = NORTH;
-                else                       move_dir = NODIR;
-                break;
-            default:
-                move_dir = NODIR;; // end of pipe reached
-            }
-        } else
-            move_dir = NODIR;
-
-        if (p == q)
-            ASSERT(move_dir != m_dir, XLevelRuntime, "Mailpipe is circular! Recursion detected!");   
-    }
-    return p;
-}
-
-
 // --------------------------------------------------------------------------------
 
 void Init_complex()
 {
     Register(new HollowStoneImpulseStone);
-
-    MailStone::setup();
 
     Register(new MovableImpulseStone);
 
@@ -1106,4 +997,3 @@ void Init_complex()
 }
 
 } // namespace enigma
-

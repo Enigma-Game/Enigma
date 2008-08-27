@@ -120,6 +120,7 @@
     </object>
     <object name="it_blocker_new" init="true">
     </object>
+    <object name="it_brake"/>
     <object name="it_brush"/>
     <object name="it_coin">
       <attr name="coin_value" default="3"/>
@@ -169,6 +170,49 @@
     <object name="it_magnet_on">
       <attr name="state" value="1"/>
     </object>
+    <object name="it_pipe">
+      <attr name="connections"/>
+      <msg name="_explosion"/>
+    </object>
+    <object name="it_pipe_w">
+      <attr name="connections" value="w"/>
+    </object>
+    <object name="it_pipe_s">
+      <attr name="connections" value="s"/>
+    </object>
+    <object name="it_pipe_sw">
+      <attr name="connections" value="sw"/>
+    </object>
+    <object name="it_pipe_e">
+      <attr name="connections" value="e"/>
+    </object>
+    <object name="it_pipe_ew">
+      <attr name="connections" value="ew"/>
+    </object>
+    <object name="it_pipe_es">
+      <attr name="connections" value="es"/>
+    </object>
+    <object name="it_pipe_n">
+      <attr name="connections" value="n"/>
+    </object>
+    <object name="it_pipe_nw">
+      <attr name="connections" value="nw"/>
+    </object>
+    <object name="it_pipe_ns">
+      <attr name="connections" value="ns"/>
+    </object>
+    <object name="it_pipe_ne">
+      <attr name="connections" value="ne"/>
+    </object>
+    <object name="it_rubberband">
+      <attr name="anchor2"/>
+      <attr name="strength" default="10"/>
+      <attr name="length"/>
+      <attr name="threshold"/>
+      <attr name="max"/>
+      <attr name="min"/>
+      <attr name="scissor"/>
+    </object>
     <object name="it_seed">
       <attr name="flavor"/>
       <attr name="secure"/>
@@ -202,15 +246,6 @@
     </object>
     <object name="it_shogun_l">
       <attr name="flavor" value="l"/>
-    </object>
-    <object name="it_rubberband">
-      <attr name="anchor2"/>
-      <attr name="strength" default="10"/>
-      <attr name="length"/>
-      <attr name="threshold"/>
-      <attr name="max"/>
-      <attr name="min"/>
-      <attr name="scissor"/>
     </object>
     <object name="it_strip">
       <attr name="connections"/>
@@ -427,6 +462,9 @@
     <object name="st_boulder_n">
       <attr name="orientation" value="3"/>
     </object>
+    <object name="st_brake">
+      <msg name="_explosion"/>
+    </object>
     <object name="st_brick" super="st_clusterstone"/>
     <object name="st_brick_w">
       <attr name="connections" value="w"/>
@@ -523,6 +561,12 @@
     <object name="st_door_d">
       <attr name="flavor" value="d"/>
     </object>
+    <object name="st_fart" states="3">
+      <msg name="ignite"/>
+      <msg name="signal"/>
+      <msg name="_explosion"/>
+      <msg name="_trigger"/>
+    </object>
     <object name="st_floppy">
       <msg name="on"/>
       <msg name="off"/>
@@ -542,6 +586,21 @@
     </object>
     <object name="st_knight">
       <attr name="state" max="4" rw="r"/>
+    </object>
+    <object name="st_mail">
+      <attr name="orientation"/>
+    </object>
+    <object name="st_mail_w">
+      <attr name="orientation" value="0"/>
+    </object>
+    <object name="st_mail_s">
+      <attr name="orientation" value="1"/>
+    </object>
+    <object name="st_mail_e">
+      <attr name="orientation" value="2"/>
+    </object>
+    <object name="st_mail_n">
+      <attr name="orientation" value="3"/>
     </object>
     <object name="st_laser">
       <attr name="counterclock"/>

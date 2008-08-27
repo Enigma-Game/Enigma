@@ -92,8 +92,8 @@ namespace enigma {
         it_pencil,
         it_pin,
         it_pipe_e, it_pipe_w, it_pipe_s, it_pipe_n,
-        it_pipe_es, it_pipe_ne, it_pipe_sw, it_pipe_wn,
-        it_pipe_h, it_pipe_v,
+        it_pipe_es, it_pipe_ne, it_pipe_sw, it_pipe_nw,
+        it_pipe_ew, it_pipe_ns,
         it_puller_n,
         it_puller_e,
         it_puller_s,
@@ -214,9 +214,9 @@ namespace enigma {
           register a ForceField in the world. */
         virtual void add_force(Actor *a, ecl::V2 &f);
 
-        virtual bool can_drop_at (GridPos p);
+        virtual bool can_drop_at(GridPos p);
 
-        virtual void drop (Actor *a, GridPos p);
+        virtual void drop(Actor *a, GridPos p);
 
         /*! Called when item is dropped by actor `a' */
         virtual void on_drop(Actor *a);

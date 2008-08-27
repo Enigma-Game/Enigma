@@ -227,10 +227,10 @@ const char *oxyd::oxydmag_stone_map[256] = {
     "st_shogun_s",              // OxydMagnum stone 0x6c
     "st-stoneimpulse",          // OxydMagnum stone 0x6d
     "st_laserflop",             // OxydMagnum stone 0x6e
-    "st-mail-n",                // OxydMagnum stone 0x6f
-    "st-mail-w",                // OxydMagnum stone 0x70
-    "st-mail-e",                // OxydMagnum stone 0x71
-    "st-mail-s",                // OxydMagnum stone 0x72
+    "st_mail_n",                // OxydMagnum stone 0x6f
+    "st_mail_w",                // OxydMagnum stone 0x70
+    "st_mail_e",                // OxydMagnum stone 0x71
+    "st_mail_s",                // OxydMagnum stone 0x72
     "st_door_d",                // OxydMagnum stone 0x73
     "st_door_d_ew",             // OxydMagnum stone 0x74
     "st-metal",                 // OxydMagnum stone 0x75
@@ -318,12 +318,12 @@ const char* oxyd::oxydmag_item_map[256] = {
     "it-flagwhite",     // OxydMagnum item 0x19
     "it-flagblack",     // OxydMagnum item 0x1a
     "it-ring",          // OxydMagnum item 0x1b
-    "it-pipe-wn",       // OxydMagnum item 0x1c
-    "it-pipe-sw",       // OxydMagnum item 0x1d
-    "it-pipe-ne",       // OxydMagnum item 0x1e
-    "it-pipe-es",       // OxydMagnum item 0x1f
-    "it-pipe-v",        // OxydMagnum item 0x20
-    "it-pipe-h",        // OxydMagnum item 0x21
+    "it_pipe_nw",       // OxydMagnum item 0x1c
+    "it_pipe_sw",       // OxydMagnum item 0x1d
+    "it_pipe_ne",       // OxydMagnum item 0x1e
+    "it_pipe_es",       // OxydMagnum item 0x1f
+    "it_pipe_ns",        // OxydMagnum item 0x20
+    "it_pipe_ew",        // OxydMagnum item 0x21
     "it-spade",         // OxydMagnum item 0x22
     UNUSED,        // OxydMagnum item 0x23
     "it-pin",           // OxydMagnum item 0x24

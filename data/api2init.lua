@@ -66,6 +66,8 @@ OFF      = 0
 ON       = 1
 CLOSED   = 0
 OPEN     = 1
+IDLE     = 0
+ACTIVE   = 1
 OXYDPAIR = 2
 
 -- color
@@ -130,6 +132,10 @@ SPOT_ACTORIMPULSE   =   4
 SPOT_SENSOR         =   8
 SPOT_LIGHTPASSENGER =  16
 SPOT_TRAP           =  32
+
+-- coinslot
+COIN_IGNORE = -1
+COIN_REJECT = -2
 
 -- follower
 FOLLOW_NO     = 0

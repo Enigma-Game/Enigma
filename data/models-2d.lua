@@ -479,8 +479,8 @@ end
 
 -- it-pipe --
 do
-    DefTiles("it-pipe", {"it-pipe-e", "it-pipe-s", "it-pipe-es", "it-pipe-sw", "it-pipe-h",
-                            "it-pipe-w", "it-pipe-n", "it-pipe-ne", "it-pipe-wn", "it-pipe-v"})
+    DefTiles("it-pipe", {"it_pipe_e", "it_pipe_s", "it_pipe_es", "it_pipe_sw", "it_pipe_ew",
+                            "it_pipe_w", "it_pipe_n", "it_pipe_ne", "it_pipe_nw", "it_pipe_ns"})
 end
 
 -- it-trigger --

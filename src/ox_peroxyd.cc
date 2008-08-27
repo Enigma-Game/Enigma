@@ -299,10 +299,10 @@ const char *oxyd::peroxyd_stone_map[256] = {
     "st_shogun_sm",             // PerOxyd stone 0x6c
     "st-stoneimpulse",          // PerOxyd stone 0x6d
     "st_laserflop",             // PerOxyd stone 0x6e
-    "st-mail-n",                // PerOxyd stone 0x6f
-    "st-mail-w",                // PerOxyd stone 0x70
-    "st-mail-e",                // PerOxyd stone 0x71
-    "st-mail-s",                // PerOxyd stone 0x72
+    "st_mail_n",                // PerOxyd stone 0x6f
+    "st_mail_w",                // PerOxyd stone 0x70
+    "st_mail_e",                // PerOxyd stone 0x71
+    "st_mail_s",                // PerOxyd stone 0x72
     "st_door_d",                // PerOxyd stone 0x73
     "st_door_d_ew",             // PerOxyd stone 0x74
     "st-metal",                 // PerOxyd stone 0x75
@@ -345,7 +345,7 @@ const char *oxyd::peroxyd_stone_map[256] = {
     "st-grate1",                // PerOxyd stone 0x9a
     "st-metal_hole",            // PerOxyd stone 0x9b
     "st-stone1",                // PerOxyd stone 0x9c
-    "st-fart",                  // PerOxyd stone 0x9d
+    "st_fart",                  // PerOxyd stone 0x9d
     "st_turnstile_red",         // PerOxyd stone 0x9e
     "st_turnstilearm_n",        // PerOxyd stone 0x9f
     "st_turnstilearm_s",        // PerOxyd stone 0xa0
@@ -406,12 +406,12 @@ const char *oxyd::peroxyd_item_map[256] = {
     "it-flagwhite",               // 0x18
     "it-flagblack",               // 0x19
     "it-ring",                    // 0x1a
-    "it-pipe-wn",                 // 0x1b
-    "it-pipe-sw",                 // 0x1c
-    "it-pipe-ne",                 // 0x1d
-    "it-pipe-es",                 // 0x1e
-    "it-pipe-v",                  // 0x1f
-    "it-pipe-h",                  // 0x20
+    "it_pipe_nw",                 // 0x1b
+    "it_pipe_sw",                 // 0x1c
+    "it_pipe_ne",                 // 0x1d
+    "it_pipe_es",                 // 0x1e
+    "it_pipe_ns",                  // 0x1f
+    "it_pipe_ew",                  // 0x20
     "it-spade",                   // 0x21
     "it-surprise",                // 0x22
     "it-pin",                     // 0x23
@@ -447,7 +447,7 @@ const char *oxyd::peroxyd_item_map[256] = {
     "it_brush",                   // 0x41
     "it-banana",                  // 0x42
     "it-pencil",                  // 0x43
-    "it-brake",                   // 0x44
+    "it_brake",                   // 0x44
     "it-squashed",                // 0x45
     "it_blocker",                 // 0x46
     "it_magicwand",               // 0x47

@@ -113,7 +113,7 @@ namespace enigma {
                     double interval;
                     if (server::EnigmaCompatibility < 1.10) 
                         interval = it->getAttr("coin_value");
-                    else 
+                    else {
                         switch (id) {
                             case it_coin1:
                                 interval = getAttr("interval_s"); break;
@@ -122,20 +122,25 @@ namespace enigma {
                             case it_coin4:
                                 interval = getAttr("interval_l"); break;
                         }
-                    
-                    if (objFlags & OBJBIT_INSTANT) {
-                        // start or update timer
-                        double rest = GameTimer.remove_alarm(this);
-                        GameTimer.set_alarm(this, interval + rest, false);
-                    } else {
-                        // remember time value for animcb evaluation
-                        setAttr("$addTime", (double)getAttr("$addTime") + interval);
+                        if (interval == -2)  // reject coin
+                            return;
+                    }
+                    if (interval > 0) {
+                        if (objFlags & OBJBIT_INSTANT) {
+                            // start or update timer
+                            double rest = GameTimer.remove_alarm(this);
+                            GameTimer.set_alarm(this, interval + rest, false);
+                        } else {
+                            // remember time value for animcb evaluation
+                            setAttr("$addTime", (double)getAttr("$addTime") + interval);
+                        }
                     }
                     inv->yield_first();
                     player::RedrawInventory(inv);
                     delete it;
                     
-                    setIState((objFlags & OBJBIT_INSTANT) ? INSERT_ON : (iState)(state + 2));
+                    if (interval > 0)
+                        setIState((objFlags & OBJBIT_INSTANT) ? INSERT_ON : (iState)(state + 2));
                 }
             }
         }
