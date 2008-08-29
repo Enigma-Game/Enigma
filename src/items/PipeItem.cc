@@ -56,7 +56,8 @@ namespace enigma {
                         }
                     } else
                         move_dir = NODIR;
-                }
+                } else
+                    move_dir = NODIR;
             } else
                 move_dir = NODIR;
     
@@ -72,14 +73,6 @@ namespace enigma {
     
     std::string PipeItem::getClass() const {
         return "it_pipe";
-    }
-    
-    Value PipeItem::message(const Message &m) {
-        if (m.message == "_explosion") {
-            transform("it-explosion1");
-            return Value();
-        }
-        return Item::message(m);
     }
     
     std::string PipeItem::getModelName() const {

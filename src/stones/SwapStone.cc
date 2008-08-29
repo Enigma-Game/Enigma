@@ -98,7 +98,9 @@ namespace enigma {
         state = APPEARING;
         set_model(std::string("st-swap") + to_suffix(impulse.dir));
         GameTimer.set_alarm(this, 0.1, false);
-
+        if (server::GameCompatibility == GAMET_PEROXYD)
+            if (Item *it = GetItem(newPos))
+                it->on_stonehit(this);
 
         sound_event("moveslow");
         server::IncMoveCounter(1);
@@ -111,6 +113,9 @@ namespace enigma {
             if (isDisplayable())
                 init_model();
         } else if (state == VANISHING) {
+            if (server::GameCompatibility == GAMET_PEROXYD)
+                if (Item *it = GetItem(get_pos()))
+                    it->on_stonehit(this);
             setStone();
         } else
             ASSERT(false, XLevelRuntime, "SwapStone: alarm called with inconsistent state");

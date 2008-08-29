@@ -35,7 +35,6 @@ namespace enigma {
 
         // Object interface
         virtual std::string getClass() const;
-        virtual Value message(const Message &m);
 
         // Gridobject interface
         virtual std::string getModelName() const;
