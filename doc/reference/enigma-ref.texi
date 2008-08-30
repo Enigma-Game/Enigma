@@ -5929,6 +5929,7 @@ Positive number are attracting, negative numbers are repelling.
 
 @menu
 * it_blocker::         Shrinked Blocker Stone
+* it_brake::           Movable Stone Brake
 * it_brush::           
 * it_coin::            Enigma's currency
 * it_cross::           Floor switch for patient Actors
@@ -5941,7 +5942,9 @@ Positive number are attracting, negative numbers are repelling.
 * it_landmine::        
 * it_magicwand::       Wizards Tools
 * it_magnet::          
+* it_pipe::            
 * it_rubberband::      
+* it_seed::            Seeds for Wood, Volcano Stones
 * it_sensor::          Floor Switch for passing Actors
 * it_shogun::          Dot for Shogun Stones
 * it_strip::           Narrow Bridge
@@ -6032,6 +6035,41 @@ A blocker that just finished shrinking. Mainly used internally as the direct
 successor of an @ref{st_blocker}. But it may be useful to generate an initial
 snapshot of a moving boulder over a blocker line, too. See example levels.
 @end table
+
+@end table
+
+@c ----------------- Brake Item -------------------- 
+@node it_brake
+@subsection it_brake
+@obindex it_brake
+
+The brake is a stone that can be picked up as an item by actors. The 
+@ref{st_brake} can be used to stop a running @ref{st_boulder} or a
+@ref{st_lightpassenger}, what likely has given this object its name.
+
+When an actor passes below the brake stone it will pick up the object like
+other items. The brake will be added as a brake item to its inventory. 
+Unlike other items the brake can be dropped even on grids that are already
+occupied by an item. But you can not drop the brake beneath another stone like
+a @ref{it_seed}.
+
+On dropping the brake item it transforms immediatly to an @ref{st_brake} without
+killing an item positioned on the grid. The brake stone will press an
+@ref{it_trigger} beneath, what makes the brake item a portable trigger key.
+
+The item itself will never exist on the world grid. It exists just as part of
+the player inventory or item containers like @ref{it_bag}.
+
+Due to the @ref{Snapshot Principle} you should never instantiate this item. Do
+set an @ref{st_brake} to the world grid positions instead. This item is listed
+for your understanding what happens to a picked up brake and for identifying
+an @ref{Object Kind} @samp{it_brake} in an inventory or a container.
+
+@table @asis
+
+@item @b{Attributes:} none
+
+@item @b{Messages:} none
 
 @end table
 
@@ -6422,6 +6460,104 @@ A magnet in state @samp{OFF}.
 
 @end table
 
+@c ----------------- Seed Item -------------------- 
+@node it_seed
+@subsection it_seed
+@obindex it_seed
+
+Stone seeds are items that start growing and finally transforming to stones
+on activation. There are different @samp{flavor}s of seeds that all look the
+same, but do grow to different stones. While a @samp{wood} seed grows to an
+@ref{st_wood}, a @samp{fake} seed grows to an unmovable green brown stone and
+a @samp{volcano} seed grows to an active @ref{st_volcano}.
+
+Seeds can be dropped on any item free grid position, even beneath another stone
+that will get killed by the seed successor stone.
+
+Seeds get automatically activated when being dropped, when hit by a laser beam
+or a stone being pushed on them. You can activate them by @samp{grow} and
+@samp{signal} messages, too.
+
+The identity of the seed gets transfered to the emerging stone including the
+attribute @samp{secure}.
+
+The only method of handling seeds without activation are containment within a
+@ref{it_bag} or sending them via @ref{st_mail} to a destination grid.
+
+@table @asis
+@item @b{Attributes:}
+@table @asis
+@item @b{flavor}, @ @ @i{values}: @code{"wood"}, @code{"fake"}, @code{"volcano"}; @ @ @i{default}: @code{"wood"}
+The type of the resulting stone.
+@item @b{secure} @ @ @i{values}: @code{true}, @code{false}; @ @ @i{default}: @code{false}
+This attribute is transfered to the resulting stone. The @ref{st_volcano} makes
+use of it.
+@end table
+
+@item @b{Messages:} none
+@table @asis
+@item @b{grow}
+Start growing the seed.
+@item @b{signal} @ @ @xref{signal}
+Start growing the seed.
+@end table
+
+@item @b{Variants:}
+@table @asis
+@item @b{it_seed} flavor = @code{"wood"}
+@item @b{it_seed_wood} flavor = @code{"wood"}
+@item @b{it_seed_fake} flavor = @code{"fake"}
+@item @b{it_seed_volcano} flavor = @code{"volcano"}
+@end table
+
+@end table
+
+@c ----------------- Pipe Item -------------------- 
+@node it_pipe
+@subsection it_pipe
+@obindex it_pipe
+
+Pipe items are used to build item transporting pipes connected to an
+@ref{st_mail}. 
+
+Pipe items are described by their @samp{connections} to neighbor grids. A pipe
+is build up of items with fitting connections.
+
+Even though there exist pipe ending items with just one connection there is
+currently no known usage of them besides decoration.
+
+@table @asis
+@item @b{Attributes:}
+@table @asis
+@item @b{connections}, @ @ @i{values}: string; @ @ @i{default}: @code{"ew"}
+Describes the pipe connections to the neighbor grids. The string is a substring of 
+@code{"nesw"} listing the existing connections. The sequence of the sides, north,
+east, south, west, is guaranteed on read access but arbitrary on write access.
+Currently only pipes with one or two connections do exist.
+@end table
+
+@item @b{Messages:} none
+@item @b{Action:} none
+
+@item @b{Variants:}
+@table @asis
+@item @b{it_pipe} connections = @code{"ew"}
+The horizontal pipe.
+@item @b{it_pipe_w} connections = @code{"w"}
+@item @b{it_pipe_s} connections = @code{"s"}
+@item @b{it_pipe_sw} connections = @code{"sw"}
+@item @b{it_pipe_e} connections = @code{"e"}
+@item @b{it_pipe_ew} connections = @code{"ew"}
+The horizontal pipe.
+@item @b{it_pipe_es} connections = @code{"es"}
+@item @b{it_pipe_n} connections = @code{"n"}
+@item @b{it_pipe_nw} connections = @code{"nw"}
+@item @b{it_pipe_ns} connections = @code{"ns"}
+The vertical pipe.
+@item @b{it_pipe_ne} connections = @code{"ne"}
+@end table
+@end table
+
 @c ----------------- Rubberband Item -------------------- 
 @node it_rubberband
 @subsection it_rubberband
@@ -6470,6 +6606,59 @@ The maximum length at which actors bounce.
 On succesful activation of this item the action message is send with a value of
 @samp{true}. Note that the parameter @samp{sender} will report the new 
 @ref{ot_rubberband}.
+@end table
+
+
+@c ----------------- Seed Item -------------------- 
+@node it_seed
+@subsection it_seed
+@obindex it_seed
+
+Stone seeds are items that start growing and finally transforming to stones
+on activation. There are different @samp{flavor}s of seeds that all look the
+same, but do grow to different stones. While a @samp{wood} seed grows to an
+@ref{st_wood}, a @samp{fake} seed grows to an unmovable green brown stone and
+a @samp{volcano} seed grows to an active @ref{st_volcano}.
+
+Seeds can be dropped on any item free grid position, even beneath another stone
+that will get killed by the seed successor stone.
+
+Seeds get automatically activated when being dropped, when hit by a laser beam
+or a stone being pushed on them. You can activate them by @samp{grow} and
+@samp{signal} messages, too.
+
+The identity of the seed gets transfered to the emerging stone including the
+attribute @samp{secure}.
+
+The only method of handling seeds without activation are containment within a
+@ref{it_bag} or sending them via @ref{st_mail} to a destination grid.
+
+@table @asis
+@item @b{Attributes:}
+@table @asis
+@item @b{flavor}, @ @ @i{values}: @code{"wood"}, @code{"fake"}, @code{"volcano"}; @ @ @i{default}: @code{"wood"}
+The type of the resulting stone.
+@item @b{secure} @ @ @i{values}: @code{true}, @code{false}; @ @ @i{default}: @code{false}
+This attribute is transfered to the resulting stone. The @ref{st_volcano} makes
+use of it.
+@end table
+
+@item @b{Messages:} none
+@table @asis
+@item @b{grow}
+Start growing the seed.
+@item @b{signal} @ @ @xref{signal}
+Start growing the seed.
+@end table
+
+@item @b{Variants:}
+@table @asis
+@item @b{it_seed} flavor = @code{"wood"}
+@item @b{it_seed_wood} flavor = @code{"wood"}
+@item @b{it_seed_fake} flavor = @code{"fake"}
+@item @b{it_seed_volcano} flavor = @code{"volcano"}
+@end table
+
 @end table
 
 @c ----------------- Sensor Item -------------------- 
@@ -7144,10 +7333,12 @@ to use @samp{st_panel} with the attributes @samp{cluster} and @samp{faces}.
 * st_actorimpulse::    Bumper Stone
 * st_blocker::         Shrinkable Blocker
 * st_boulder::         Moving Arrow Boulder
+* st_brake::           Brake for moving Boulders
 * st_chess::           Movable Chess Knight Stone
 * st_coinslot::        Coin Driven Switch
 * st_death::           Skull Stone
 * st_door::            Door of various Flavors
+* st_fart::            Oxyd closing Stone
 * st_floppy::          Floppy Driven Switch
 * st_fourswitch::      Four Direction Switch
 * st_key::             Key Driven Switch
@@ -7156,19 +7347,23 @@ to use @samp{st_panel} with the attributes @samp{cluster} and @samp{faces}.
 * st_laserflop::       Lightsensitive Monoflop
 * st_laserswitch::     Lightsensitive Switch
 * st_lightpassenger::  Stone pushed by Light
+* st_mail::            Mail office for Item transportation
 * st_mirror::          Mirrors of all flavors
 * st_monoflop::        Monoflop Switch
 * st_oneway::          Oneway Passage
 * st_oxyd::            Game Target Stone
 * st_polarswitch::     Transparency Switch for Light Beams
+* st_pull::            Pullable Stone
 * st_rotator::         Rotating Stone Impulser
 * st_rubberband::      Rubberband generator
 * st_scissors::        Scissors cutting rubberbands
 * st_shogun::          Stackable Hole Stones
+* st_swap::            Neighbor Swapping Stone
 * st_switch::          Classical on/off Switch
 * st_timer::           Animated Timer
 * st_turnstile::       Turnstile Pivot
 * st_turnstilearm::    Turnstile Arm
+* st_volcano::         Spreading Volcano
 * st_window::          Faced Window
 @end menu
 
@@ -7378,6 +7573,40 @@ none
 @item @b{st_boulder_s}: orientation = @code{SOUTH}
 @item @b{st_boulder_w}: orientation = @code{WEST}
 @end table
+
+@end table
+
+@c ----------------- Brake Stone -------------------- 
+@node st_brake
+@subsection st_brake
+@obindex st_brake
+
+The brake stone can be used to block a running @ref{st_boulder} or a
+@ref{st_lightpassenger}, what likely has given this object its name. But unlike
+all other blocking stones the brake can be picked up as an item by actors and
+dropped anywhere else.
+
+When an actor passes below the brake stone it will pick up the object like
+other items. The brake will be added as an @ref{it_brake} to its inventory. 
+Unlike other items the brake can be dropped even on grids that are already
+occupied by an item. But you can not drop the brake beneath another stone like
+a @ref{it_seed}.
+
+On dropping the brake item it transforms immediatly back to an @ref{st_brake}
+without killing the item positioned on the grid. Just one exception is a brake
+being dropped on top of an @ref{it_blocker} what results in an elimination of
+the blocker. On the other hand a brake stone will press an @ref{it_trigger}
+beneath, what makes the brake item a portable trigger key.
+
+The brake stone explodes when it is exposed to laser light or a @ref{it_bomb}
+explosion on a direct neighbor grid.
+
+@table @asis
+@item @b{Attributes:} none
+
+@item @b{Messages:} none
+
+@item @b{Action:} none
 
 @end table
 
@@ -7635,6 +7864,49 @@ objects like @ref{st_balls}.
 @item @b{st_door_c}: flavor = @code{"c"}
 @item @b{st_door_d}: flavor = @code{"d"}
 @end table
+
+@end table
+
+@c ----------------- Fart Stone -------------------- 
+@node st_fart
+@subsection st_fart
+@obindex st_fart
+
+This stone looks like an @ref{st_oxyd} of flavor @code{"b"}, but it has the
+unpleasant habit of "blowing off" when being activated. Unfortunatley the 
+bad air closes all open @ref{st_oxyd}s.
+
+The stone gets activated on an actor hit, on @ref{st_boulder}s hit and on its
+destruction.
+
+The player can destroy this troublemaker with an actor that reveals an 
+@ref{it_hammer}, by directing a laser light onto the fart stone or by a nearby
+explosion or ignition. 
+
+Of course you can activate and destroy it by messages and state set operations,
+too.
+
+@table @asis
+@item @b{Attributes:}
+
+@table @asis
+@item @b{state}, @ @ @i{values}: @code{IDLE}, @code{ACTIVE}, @code{BREAKING}; @ @ @i{default}: @code{IDLE}: @ @ @xref{state}
+Current state of the fart stone. You can just change the state into legal
+follow up states. A breaking state is final.
+@end table
+
+@item @b{Messages:}
+
+@table @asis
+@item @b{toggle} @ @ @xref{toggle}
+Toggles stone from @samp{IDLE} to @samp{ACTIVE}
+@item @b{signal} @ @ @xref{signal}
+Toggles stone from @samp{IDLE} to @samp{ACTIVE}
+@item @b{ignite}
+Toggles stone to @samp{BREAKING}
+@end table
+
+@item @b{Action:} none
 
 @end table
 
@@ -8025,6 +8297,41 @@ Switch the lightpassenger off.
 
 @end table
 
+@c ----------------- Mail Stone -------------------- 
+@node st_mail
+@subsection st_mail
+@obindex st_mail
+
+When hit by an actor, a mail stone takes the first item out of the player's
+inventory and drops it at its exit, or the exit of the appending @ref{it_pipe}. 
+If this position is blocked (e.g., by another item), no item is taken from
+inventory.
+
+@table @asis
+@item @b{Attributes:}
+
+@table @asis
+@item @b{orientation}, @ @ @i{values}: @code{NORTH}, @code{EAST}, @code{SOUTH}, @code{WEST}; @ @ @i{default}: @code{NORTH}
+The orientation of the mail stone. It determines the neighbor grid position
+onto which the item will dropped, or where the pipe starts.
+@end table
+
+@item @b{Messages:} none
+
+@item @b{Action:} none
+
+@item @b{Variants:}
+
+@table @asis
+@item @b{st_mail}: orientation = @code{NORTH}
+@item @b{st_mail_w}: orientation = @code{WEST}
+@item @b{st_mail_s}: orientation = @code{SOUTH}
+@item @b{st_mail_e}: orientation = @code{EAST}
+@item @b{st_mail_n}: orientation = @code{NORTH}
+@end table
+
+@end table
+
 @c ----------------- Mirror Stone -------------------- 
 @node st_mirror
 @subsection st_mirror
@@ -8373,6 +8680,53 @@ Switches on at value @samp{1}, and off at values @samp{0}.
 
 @end table
 
+@c ----------------- Pull Stone -------------------- 
+@node st_pull
+@subsection st_pull
+@obindex st_pull
+
+A pull stone changes its position on an initiating impulse into the reverse
+direction of the impulse. Thus it can not be pushed like other movable stones.
+But when an actor hits a pull stone it acts like being pulled. If another stone
+is located on the destination grid, both stones will exchange their positions.
+The exchange will also be perfomed when the pull stones receives a stone impulse
+via an @ref{ot_wire} or a neighboring @ref{st_stoneimpulse}. A similar stone is
+the @ref{st_swap}, that exchanges with stones in the forward direction of the
+initiating impulse.
+
+Actors on the destination grid, including an initiating hitting actor, are 
+pulled through it, not caged under them. The actors reappear on the old grid
+position of the pull stone with their old velocities.
+
+The pull stone is laser light transparent like other glass like stones.
+
+An existing stone exchange partner is not mandatory. But if an stone is located
+on the destination position of a pull stone some conditions must be met for a
+stone exchange. Connected @ref{Cluster Stones} building a block, @ref{st_oxyd} 
+configured as being @samp{static}, and another @ref{st_swap} or pull stone that
+is currently engaged in an own stone exchange operation will refuse swapping.
+
+Stone exchanges will not cause item hit transformations as caused by push moved
+stones. But the exchanged stones will react on the new floor, e.g. causing 
+@ref{st_wood} and similar stones to sink into water.
+
+Furtheron the exchange is atomic concerning @ref{it_trigger} detection and
+laser light transparency. If the exchanged stone is not transparent, the light
+will pass on every time slice just on one of the two grids. If the exchanged
+stone is floating and does not press @ref{it_trigger}s, the pull stone will 
+press just one trigger, releasing the trigger of the old position before 
+pressing the new position's trigger like any other stone being pushed from one 
+grid to the next.
+
+@table @asis
+@item @b{Attributes:} none
+
+@item @b{Messages:} none
+
+@item @b{Action:} none
+
+@end table
+
 @c ----------------- Rotator Stone -------------------- 
 @node st_rotator
 @subsection st_rotator
@@ -8416,7 +8770,6 @@ Switches the rotation direction.
 @item @b{st_rotator_cw}: state = @code{CW}
 @item @b{st_rotator_ccw}: state = @code{CCW}
 @end table
-
 
 @end table
 
@@ -8560,6 +8913,46 @@ shogun.
 @item @b{st_shogun_ml}: flavor = @code{"ml"}
 @item @b{st_shogun_sml}: flavor = @code{"sml"}
 @end table
+
+@end table
+
+@c ----------------- Swap Stone -------------------- 
+@node st_swap
+@subsection st_swap
+@obindex st_swap
+
+A swap stone can exchange its position with a neighboring stone on the side
+in direction of the initiating impulse. It is not freely movable by pushes.
+But when an actor hits a swap stone and another stone is located on the opposite
+side of the swap stone, both stones will exchange their positions. The swap will
+also be perfomed when the swap stones receives a stone impulse via an
+@ref{ot_wire} or a neighboring @ref{st_stoneimpulse}. A similar stone it the
+@ref{st_pull}, that exchanges with stones in the reverse direction of the
+initiating impulse.
+
+An existing stone exchange partner is mandatory. Nearly all stones can be 
+swapped. Just connected @ref{Cluster Stones} building a block, @ref{st_oxyd} 
+configured as being @samp{static}, and another swap stone or @ref{st_pull} that
+is currently engaged in an own stone exchange operation will refuse swapping.
+
+Stone exchanges will not cause item hit transformations as caused by push moved
+stones. But the exchanged stones will react on the new floor, e.g. causing 
+@ref{st_wood} and similar stones to sink into water.
+
+Furtheron the exchange is atomic concerning @ref{it_trigger} detection and
+laser light transparency. If the exchanged stone is transparent, the light
+will pass on every time slice just on one of the two grids. If the exchanged
+stone is floating and does not press @ref{it_trigger}s, the swap stone will 
+press just one trigger, releasing the trigger of the old position before 
+pressing the new position's trigger like any other stone being pushed from one 
+grid to the next.
+
+@table @asis
+@item @b{Attributes:} none
+
+@item @b{Messages:} none
+
+@item @b{Action:} none
 
 @end table
 
@@ -8827,6 +9220,69 @@ target and this message as action.
 @item @b{st_turnstilearm_e}: orientation = @code{EAST}
 @item @b{st_turnstilearm_s}: orientation = @code{SOUTH}
 @item @b{st_turnstilearm_w}: orientation = @code{WEST}
+@end table
+@end table
+
+@c ----------------- Volcano Stone -------------------- 
+@node st_volcano
+@subsection st_volcano
+@obindex st_volcano
+
+A volcano stone spreads slowly to neighboring grid positions and filling up
+complete areas and will just stop on boundaries set by others stones.
+
+A volcano can either start by the setting of an @samp{ACTIVE} variant, by
+an inactive @samp{IDLE} variant being triggered by a message or a hitting
+@ref{st_boulder}, or by an @ref{it_seed} of flavor @code{volcano} being dropped
+or triggered.
+
+Once being activated a volcano stone spreads randomly to its direct neighbor
+positions. Even though the new set volcano seeds can be passed by actors
+without harm for a short period of time the volcano gets lethal while growing.
+After reaching its full size a volcano remains for a random time in an active,
+glowing state spreading to neighbour positions. During this phase an actor
+with a revealed @ref{it_hammer} can destroy the active volcano stone.
+
+The spreading of the volcano can be made @samp{secure} by setting this attribute
+to @samp{true}. Per default the spreading in not secure and a volcano may
+stop spreading with a certain chance anywhere, but especially in narrow gateways.
+In contrast a secure volcano remains active until it is guaranteed that all its
+neighbor grid positions will be filled with volcano stones.
+
+After its active phase a volcano reaches its final inactive state and can not
+be reactivated anymore.
+
+A volcano stone will press any @ref{it_trigger} as soon as it starts growing.
+
+!!Work in progress!! special behaviour on items and floors may yet be added
+
+@table @asis
+@item @b{Attributes:}
+@table @asis
+@item @b{state}, @ @ @i{values}: @code{IDLE}, @code{ACTIVE}; @ @ @i{default}: @code{IDLE} @ @ @xref{state}
+Inactive, finished and breaking volcano will report an @samp{IDLE} state,
+new, growing and active volcano will report an @samp{ACTIVE} state. An inactive
+volcano can be activated by setting the state to @samp{ACTIVE}. All other
+attempts to set the state will be silently ignored.
+@item @b{secure} @ @ @i{values}: @code{true}, @code{false}; @ @ @i{default}: @code{false}
+A secure volcano will spread a complete area with guarantee.
+@end table
+
+@item @b{Messages:}
+@table @asis
+@item @b{toggle} @ @ @xref{toggle}
+Activates an inactive volcano stone.
+@end table
+
+@item @b{Variants:}
+@table @asis
+@item @b{st_volcano}: state = @code{IDLE}
+@item @b{st_volcano_idle}: state = @code{IDLE}
+@item @b{st_volcano_active}: state = @code{ACTIVE}
+@item @b{st_volcano_new}:
+An active volcano starting in the seed like phase.
+@item @b{st_volcano_growing}:
+An active volcano starting in the growing phase.
 @end table
 @end table
 
