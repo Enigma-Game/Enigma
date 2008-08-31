@@ -4717,7 +4717,7 @@ A minor design aspect: selecting two unique colors for the @ref{st_oxyd}s.
 15    @i{ti}["@var{1}"] = @{"@b{st_panel}", @b{cluster} = @var{1}@}
 16    @i{ti}["@var{2}"] = @{"@b{st_panel}", @b{cluster} = @var{2}@}
 @end example
-The base of the prominent all time different looking @ref{st_panel} boarder 
+The base of the prominent all time different looking @ref{st_panel} border 
 design. Two tiles with panel stones assigned to two different clusters. The
 engine will automatically join all neighboring stones of the same cluster to
 big unified blocks. Now we just need to assign these tiles to the different 
@@ -4726,7 +4726,7 @@ grid positions.
 @example
 17    @i{ti}["@var{S}"] = @{"@b{st_switch}", @b{target} = "@var{easy_mode_call}"@}
 @end example
-The left boarder switch that will just be used in easy mode. It is blocked in
+The left border switch that will just be used in easy mode. It is blocked in
 line 27 to not appear in the regular mode. The target is the callback function
 of lines 71 to 81.
 
@@ -4764,7 +4764,7 @@ tile definition is returned.
 27            or ((@var{key} == "@var{S}") and @i{wo}["@b{IsDifficult}"]) then
 28        return @i{ti}[""..@i{random}(@var{2})]
 @end example
-And now we cluster the boarder panels. First we need to decide where to put
+And now we cluster the border panels. First we need to decide where to put
 panels at all. The positions marked @samp{#} in the map are for sure. 
 Additionally we choose randomly every 4th @samp{_} postition to be a panel 
 instead of being a water floor. Finally we replace just in difficult mode
@@ -9903,13 +9903,13 @@ Numbers.
 
 @item @b{Syntax Samples:}
 @example
-lib.math.cubic_polynomial(@{1, a, b@}, x, y) == a*x + b*y
+lib.math.cubic_polynomial(@{1, a, b@}, x, y) == a*x + b*y + 1
 @end example
 
 @item @b{Details:}
 You can use @samp{lib.math.random_vector(10, ...)} and a modulo operation to
 easily form a random pattern of a floor, or choose the coefficients to your own
-liking. Entries in A which are not numbers are considered zero.
+liking. Entries in @samp{a} which are not numbers are considered zero.
 
 @item @b{Full Example:}
 This is an excerpt from "Wired" and demonstrates the use of
@@ -10332,14 +10332,14 @@ map, the default key of the result will be the one of @samp{map1}. A simple
 example:
 @example
 map1 = wo:newMap(" ", @{"####",
-                        "o  #",
-                        "# w#",
-                        "####"@})
+                       "o  #",
+                       "# w#",
+                       "####"@})
 map2 = wo:newMap(".", @{"#######",
-                        "#w.#..#",
-                        "#..D..#",
-                        "#..#.w#",
-                        "#######"@})
+                       "#w.#..#",
+                       "#..D..#",
+                       "#..#.w#",
+                       "#######"@})
 map1 .. map2 == wo:newMap(" ", @{"###########",
                                 "o  ##w.#..#",
                                 "# w##..D..#",
