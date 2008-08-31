@@ -354,10 +354,10 @@ const char *oxyd::oxyd1_item_map[256] = {
     "it_vortex_open",             // 0x2d
     "it_vortex_closed",           // 0x2e
     "it_wormhole_on",             // 0x2f
-    "it-hill",                    // 0x30
-    "it-tinyhill",                // 0x31
-    "it-hollow",                  // 0x32
-    "it-tinyhollow",              // 0x33
+    "it_meditation_hill",         // 0x30
+    "it_meditation_bump",         // 0x31
+    "it_meditation_hollow",       // 0x32
+    "it_meditation_dent",         // 0x33
     "it_strip_ns",                // 0x34
     "it_strip_ew",                // 0x35
     "it-springboard",             // 0x36

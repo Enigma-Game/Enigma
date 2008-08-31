@@ -394,14 +394,11 @@ do
         "it-booze",
         "it-booze-broken",
         "it-cherry",
-        "it-cross",
         "it-document",
         "it-drop",
         "it-dynamite",
         "it-flagblack",
         "it-flagwhite",
-        "it-hill",
-        "it-hollow",
         "it-odometer",
         "it-pencil",
         "it-pin",
@@ -412,8 +409,6 @@ do
         "it-spring1",
         "it-spring2",
         "it-surprise",
-        "it-tinyhill",
-        "it-tinyhollow",
         "it-weight",
         "it-whitebomb"
     }
@@ -434,6 +429,10 @@ do
     DefImage("it_key", {filename="it-key"})
     DefImage("it_landmine", {filename="it-landmine"})
     DefImage("it_magicwand", {filename="it-magicwand"})
+    DefImage("it_meditation_hollow", {filename="it-hollow"})
+    DefImage("it_meditation_hill", {filename="it-hill"})
+    DefImage("it_meditation_dent", {filename="it-tinyhollow"})
+    DefImage("it_meditation_bump", {filename="it-tinyhill"})
     DefImage("it_rubberband", {filename="it-rubberband"})
     DefImage("it_sword", {filename="it-sword"})
     DefImage("it_umbrella", {filename="it-umbrella"})

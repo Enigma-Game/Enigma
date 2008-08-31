@@ -95,8 +95,8 @@ namespace enigma {
 
         // GridObject interface
         
-        virtual void actor_enter (Actor *a) {}
-        virtual void actor_leave (Actor *a) {}
+        virtual void actor_enter(Actor *a) {}
+        virtual void actor_leave(Actor *a) {}
 
 
         void warning(const char *format, ...) const;

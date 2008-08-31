@@ -86,7 +86,7 @@ namespace enigma {
             return server::FlatForce;
         } else if (key == "FrictionFactor") {
             return server::FrictionFactor;
-        } else if (key == "HoleForce") {
+        } else if (key == "MeditationForce") {
             return server::HoleForce;
         } else if (key == "IceFriction") {
             return server::IceFriction;
@@ -172,7 +172,7 @@ namespace enigma {
             server::FlatForce = val;
         } else if (key == "FrictionFactor") {
             server::FrictionFactor = val;
-        } else if (key == "HoleForce") {
+        } else if (key == "MeditationForce") {
             server::HoleForce = val;
         } else if (key == "IceFriction") {
             server::IceFriction = val;

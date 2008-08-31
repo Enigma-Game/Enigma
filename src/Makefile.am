@@ -205,6 +205,8 @@ enigma_SOURCES = 		\
 	items/GlassesItem.hh	\
 	items/Magnet.cc		\
 	items/Magnet.hh		\
+	items/Meditation.cc	\
+	items/Meditation.hh	\
 	items/PipeItem.cc	\
 	items/PipeItem.hh	\
 	items/RubberbandItem.cc	\

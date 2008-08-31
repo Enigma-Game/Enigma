@@ -355,11 +355,11 @@ const char* oxyd::oxydextra_item_map[256] = {
     UNUSED,                  // OxydExtra item 0x2c
     "it_vortex_open",             // OxydExtra item 0x2d
     UNUSED,                  // OxydExtra item 0x2e
-    "it_wormhole_on",             // OxydExtra item 0x2f
-    "it-hill",                    // OxydExtra item 0x30
-    "it-tinyhill",                // OxydExtra item 0x31
-    "it-hollow",                  // OxydExtra item 0x32
-    "it-tinyhollow",              // OxydExtra item 0x33
+    "it_wormhole_on",        // OxydExtra item 0x2f
+    "it_meditation_hill",    // OxydExtra item 0x30
+    "it_meditation_bump",    // OxydExtra item 0x31
+    "it_meditation_hollow",  // OxydExtra item 0x32
+    "it_meditation_dent",    // OxydExtra item 0x33
     UNUSED,                  // OxydExtra item 0x34
     UNUSED,                  // OxydExtra item 0x35
     UNUSED,                  // OxydExtra item 0x36

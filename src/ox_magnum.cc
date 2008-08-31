@@ -338,10 +338,10 @@ const char* oxyd::oxydmag_item_map[256] = {
     "it_vortex_open",   // OxydMagnum item 0x2d
     "it_vortex_closed", // OxydMagnum item 0x2e
     "it_wormhole_on",   // OxydMagnum item 0x2f
-    "it-hill",          // OxydMagnum item 0x30
-    "it-tinyhill",      // OxydMagnum item 0x31
-    "it-hollow",        // OxydMagnum item 0x32
-    "it-tinyhollow",    // OxydMagnum item 0x33
+    "it_meditation_hill",   // OxydMagnum item 0x30
+    "it_meditation_bump",   // OxydMagnum item 0x31
+    "it_meditation_hollow", // OxydMagnum item 0x32
+    "it_meditation_dent",   // OxydMagnum item 0x33
     "it_strip_ns",      // OxydMagnum item 0x34
     "it_strip_ew",      // OxydMagnum item 0x35
     "it-springboard",   // OxydMagnum item 0x36
