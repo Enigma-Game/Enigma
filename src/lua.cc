@@ -1374,16 +1374,26 @@ static int groupMessage(lua_State *L) {
 std::vector<std::string> messageLIFO;
 
 static int objectDirectMessage(lua_State *L) {
+    // object, value
     std::string message = messageLIFO.back();
     messageLIFO.pop_back();
+    if (lua_gettop(L) < 1 || !is_object(L, 1)) {
+        throwLuaError(L, "Message error: no target object - may be caused by usage of '.' instead of ':'");
+        return 0;
+    }
     lua_pushstring(L, message.c_str());
     lua_insert(L, 2);    // message below optional value
     return objectMessage(L);
 }
 
 static int groupDirectMessage(lua_State *L) {
+    // group, value
     std::string message = messageLIFO.back();
     messageLIFO.pop_back();
+    if (lua_gettop(L) < 1 || !is_group(L, 1)) {
+        throwLuaError(L, "Message error: no target group - may be caused by usage of '.' instead of ':'");
+        return 0;
+    }
     lua_pushstring(L, message.c_str());
     lua_insert(L, 2);    // message below optional value
     return groupMessage(L);

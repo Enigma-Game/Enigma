@@ -204,6 +204,11 @@ namespace enigma {
         virtual bool is_sticky(const Actor *a) const { 
             return !is_floating(); 
         }
+        
+        // Fire and water spreading that is face and state dependent for stones like doors, window
+        virtual bool allowsSpreading(Direction dir) const {
+            return is_floating();
+        }
 
         /* ---------- Stone interface (events) ---------- */
 

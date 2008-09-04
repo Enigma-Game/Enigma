@@ -66,6 +66,7 @@ namespace enigma {
         virtual void animcb();
 
         // Stone interface
+        virtual bool allowsSpreading(Direction dir) const;
         virtual void actor_hit(const StoneContact &sc);
         virtual StoneResponse collision_response(const StoneContact &sc);
         virtual const char *collision_sound() {return "glass";}

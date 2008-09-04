@@ -93,7 +93,7 @@ namespace enigma {
         it_meditation_dent,
         it_meditation_bump,
         it_meditation_hill,
-        it_meditation_vulcano,
+        it_meditation_volcano,
         it_odometer,
         it_pencil,
         it_pin,

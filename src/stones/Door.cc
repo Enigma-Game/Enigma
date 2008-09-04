@@ -106,6 +106,10 @@ namespace enigma {
         }
     }
     
+    bool Door::allowsSpreading(Direction dir) const {
+        return state != CLOSED || !has_dir(getFaces(), dir);
+    }
+    
     StoneResponse Door::collision_response(const StoneContact &sc) {
         Direction cf = contact_face(sc);
         if (state == OPEN)

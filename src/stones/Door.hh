@@ -63,6 +63,7 @@ namespace enigma {
         // Stone interface
         virtual bool is_floating() const;
         virtual bool is_transparent(Direction d) const;
+        virtual bool allowsSpreading(Direction dir) const;
         virtual StoneResponse collision_response(const StoneContact &sc);
         virtual void actor_hit(const StoneContact &sc);
         virtual const char *collision_sound();

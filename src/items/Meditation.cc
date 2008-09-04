@@ -240,7 +240,7 @@ namespace enigma {
         {"it_meditation_dent",  it_meditation_dent,  itf_static | itf_fireproof},
         {"it_meditation_bump",  it_meditation_bump,  itf_static | itf_fireproof},
         {"it_meditation_hill",  it_meditation_hill,  itf_static | itf_fireproof},
-        {"it_meditation_vulcano",  it_meditation_vulcano,  itf_static | itf_fireproof},
+        {"it_meditation_volcano",  it_meditation_volcano,  itf_static | itf_fireproof},
     };
 
     BOOT_REGISTER_START
@@ -250,7 +250,7 @@ namespace enigma {
         BootRegister(new Meditation(-1), "it_meditation_dent");
         BootRegister(new Meditation(1), "it_meditation_bump");
         BootRegister(new Meditation(2), "it_meditation_hill");
-        BootRegister(new Meditation(3), "it_meditation_vulcano");
+        BootRegister(new Meditation(3), "it_meditation_volcano");
     BOOT_REGISTER_END
 
 } // namespace enigma

@@ -220,7 +220,7 @@ namespace enigma {
                 if (st && st->is_sticky(actor)) {
                     // is destination vortex blocked? redirect
                     setAttr("$dest_idx", dest_idx + 1);
-                    client::Msg_Sparkle(v_target);
+                    client::Msg_Sparkle(p_target.center());
                     WarpActor(actor, v_target[0], v_target[1], false);
                     GameTimer.set_alarm(this, 0.4, false);
                 }

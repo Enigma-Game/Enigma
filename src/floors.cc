@@ -232,10 +232,9 @@ bool Floor::try_ignite(Direction sourcedir, FloorHeatFlags flhf) {
     // Special case: "st-flrock": No fire at all!
     bool no_closing_stone = true;
     if (Stone *st = GetStone(p)) {
-        string model = st->get_kind();
         if (st->is_movable())
             no_closing_stone = false;
-        else if(!st->is_floating())
+        else if(!st->allowsSpreading(sourcedir))
             return false;
     }
 
@@ -380,26 +379,24 @@ bool Floor::stop_fire(bool is_message) {
 
 void Floor::on_burnable_animcb(bool justIgnited) {
     GridPos p = get_pos();
-    // Analyse and maybe kill stone: May the fire spread?
-    bool spread = true;
-    if( Stone *st = GetStone(p)) {
-        // Return true on fire-message to allow fire to spread.
-        // Floating stones also allow spreading. Don't use an
-        // OR-statement as the message might kill the stone.
-        spread = st->is_floating();
-        if(to_int(SendMessage(st, "fire")) != 0.0)
-            spread = true;
-    }
+    // 
+    SendMessage(GetStone(p), "fire");
+
     // Will we stop this time with burning?
     bool cont_fire = justIgnited || has_firetype(flft_eternal) || DoubleRand(0,1) < 0.7;
     FloorHeatFlags flhf = (FloorHeatFlags) (flhf_fire
         | (justIgnited ? flhf_first : flhf_fire) | (cont_fire ? flhf_fire : flhf_last));
-    if(spread) {
+
+    Stone *st = GetStone(p);   // stone can be killed due to fire message
+    if (st == NULL || st->allowsSpreading(NORTH))
         heat_neighbor(NORTH, flhf);
+    if (st == NULL || st->allowsSpreading(EAST))
         heat_neighbor(EAST,  flhf);
+    if (st == NULL || st->allowsSpreading(SOUTH))
         heat_neighbor(SOUTH, flhf);
+    if (st == NULL || st->allowsSpreading(WEST))
         heat_neighbor(WEST,  flhf);
-    }
+
     if(cont_fire)
         // continue burning
         //   -> put animation

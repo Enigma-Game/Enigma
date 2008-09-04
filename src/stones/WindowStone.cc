@@ -137,6 +137,10 @@ namespace enigma {
         }
     }
     
+    bool WindowStone::allowsSpreading(Direction dir) const {
+        return !has_dir(getFaces(), dir);
+    }
+    
     void WindowStone::actor_hit(const StoneContact &sc) {
         Actor *a = sc.actor;
             
