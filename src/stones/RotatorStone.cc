@@ -118,8 +118,10 @@ namespace enigma {
 
     void RotatorStone::on_impulse(const Impulse& impulse) {
         if (objFlags & OBJBIT_MOVABLE) {
+            int id = getId();
             move_stone(impulse.dir);
-            propagateImpulse(impulse);
+            if (Object::getObject(id) != NULL)   // not killed?
+                propagateImpulse(impulse);
         }
     }
     

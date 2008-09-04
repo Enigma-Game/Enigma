@@ -261,7 +261,7 @@ bool Stone::freeze_check() {
        || ((ms_e & pm) && (ms_n & p) && (ms_se & p))
        || ((ms_e & pm) && (ms_s & p) && (ms_ne & p)))
     {
-        ReplaceStone(this_pos, MakeStone("st-death"));
+        ReplaceStone(this_pos, MakeStone("st_death"));
         // recheck neighboring stones
         // avoid endless loop with bool freeze_check_running
         if (Stone *st = GetStone(this_pos))

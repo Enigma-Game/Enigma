@@ -18,6 +18,7 @@
     <attr name="faces" type="string" default="nil" rw="rw"/>
     <attr name="fellows" type="group" default="nil" rw="r"/>
     <attr name="flavor" type="string" default="b" rw="rw"/>
+    <attr name="freeze_check" type="bool" default="false" rw="rw"/>
     <attr name="friction" type="double" default="nil" rw="rw"/>
     <attr name="gradient" type="double" default="nil" rw="rw"/>
     <attr name="hit_factor" type="double" default="nil" rw="rw"/>
@@ -397,6 +398,7 @@
     <object name="st" abstract="true">
       <attr name="movable" rw="r"/>
       <attr name="fellows"/>
+      <attr name="freeze_check"/>
       <attr name="rubbers"/>
       <attr name="wires"/>
     </object>

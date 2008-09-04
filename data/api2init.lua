@@ -181,11 +181,11 @@ wo:_register("drawMap",
         local ignore = ignorearg
         local map = maparg
         local readdir = readarg or MAP_IDENT
-        if (ignorearg.type == "map") then
+        if (type(ignore) == "table") and (type(ignore.defaultkey) == "string") then
             map = ignorearg
             ignore = map.defaultkey
             readdir = maparg or MAP_IDENT
-        elseif     (type(map.defaultkey) == "string")
+        elseif (type(map) == "table") and (type(map.defaultkey) == "string")
                and (string.len(map.defaultkey) ~= string.len(ignore)) then
             error("drawmap: Ignore key and default key differ in length.", 2)
         end

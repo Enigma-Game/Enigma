@@ -157,8 +157,10 @@ namespace enigma {
         if (impulse.sender && impulse.sender->is_kind("st_rotator")) {
             setDir(impulse.dir);  // activate
         }
+        int id = getId();
         move_stone(impulse.dir);  // due to rotator and impulsestone
-        propagateImpulse(impulse);
+        if (Object::getObject(id) != NULL)   // not killed?
+            propagateImpulse(impulse);
     }
 
     Direction BoulderStone::getDir() const {

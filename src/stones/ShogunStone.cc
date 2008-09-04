@@ -153,6 +153,7 @@ namespace enigma {
 
     void ShogunStone::on_impulse(const Impulse& impulse) {
         static char * soundevent = "movesmall";
+        int id = getId();
         
         if (!impulse.byWire && subShogun != NULL) {
             subShogun->on_impulse(impulse);
@@ -191,8 +192,8 @@ namespace enigma {
                 superShogun = s;
 
                 nss->init_model();     // display new hole         
-                SendMessage(GetItem(newPos), "_shogun", nss->getHoles());
                 setOwnerPos(newPos);   // the stone is owned at the new position
+                SendMessage(GetItem(newPos), "_shogun", nss->getHoles());
             }
             
             server::IncMoveCounter();
@@ -206,7 +207,8 @@ namespace enigma {
                 }
             }
         }
-        propagateImpulse(impulse);
+        if (Object::getObject(id) != NULL)   // not killed?
+            propagateImpulse(impulse);
     }
     
     int ShogunStone::getHoles() const {

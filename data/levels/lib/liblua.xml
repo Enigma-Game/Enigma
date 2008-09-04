@@ -124,7 +124,7 @@ function lib.lua.print_table(t, prefix, depth)
     if type(value) == "number" then
       print((prefix or "") .. "|" .. key_s .. " = " .. value)
     elseif type(value) == "string" then
-      print((prefix or "").. "|" .. key_s .. " = \"" .. value .. "\"")
+      print((prefix or "") .. "|" .. key_s .. " = \"" .. value .. "\"")
     elseif type(value) == "table" then
       if (depth or 0) < 5 then
         print((prefix or "") .. "|" .. key_s .. " = |")
@@ -135,8 +135,15 @@ function lib.lua.print_table(t, prefix, depth)
       else
         print((prefix or "") .. "|" .. key_s .. " = | ...")
       end
+    elseif (type(value) == "userdata") and (usertype(value) == "position") then
+      print((prefix or "") .. "|" .. key_s .. " = position " .. value.x
+            .. "/" .. value.y)
+    elseif (type(value) == "userdata") and (usertype(value) == "object") then
+      print((prefix or "") .. "|" .. key_s .. " = object of name '"
+            .. (value.name or "") .. "'")
     else
-      print((prefix or "").. "|" .. key_s .. " of type " .. type(value))
+      print((prefix or "") .. "|" .. key_s .. " of type " .. type(value)
+            .. " (usertype '" .. usertype(value) .. "')")
     end
   end
 end

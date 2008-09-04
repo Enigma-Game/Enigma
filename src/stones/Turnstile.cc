@@ -144,6 +144,7 @@ namespace enigma {
         }
     
         if (can_rotate) {
+            int id = getId();
             sound_event (clockwise ? "turnstileright" : "turnstileleft");
             sound_event("movesmall");
     
@@ -151,7 +152,10 @@ namespace enigma {
             set_anim(ecl::strf("st-turnstile%s-anim", (std::string("red") == getAttr("flavor").to_string()) ? "" : "-green"));
             rotate_arms(arms, clockwise);
             handleActorsAndItems(clockwise, impulse_sender);
-            
+
+            if (Object::getObject(id) == NULL)   // Killed? Then forget the rest.
+                return can_rotate;
+        
             Direction dir = to_direction(getAttr("orientation"));
             dir = clockwise ? rotate_cw(dir) : rotate_ccw(dir);
             Stone::setAttr("orientation", dir);

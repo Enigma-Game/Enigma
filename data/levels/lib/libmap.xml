@@ -141,16 +141,16 @@ function lib.map.sub(map, origin, arg2, arg3)
   if (type(map) ~= "table") or (map.type ~= "map") then
     error("lib.map.sub: Can only work on maps.", 2)
   end
-  local pos1, pos2 = arg1, arg2
+  local pos1, pos2 = origin, arg2
+  if (type(pos1) == "table") or (usertype(pos1) == "object") then
+    pos1 = po(pos1)
+  end
+  if (type(pos2) == "table") or (usertype(pos2) == "object") then
+    pos2 = po(pos2)
+  end
   if type(arg2) == "number" and type(arg3) == "number" then
     -- arg2 and arg3 are width and height
     pos2 = po(pos1.x + arg2 - 1, pos1.y + arg3 - 1)
-  end
-  if type(pos1) == "table" then
-    pos1 = po(pos1)
-  end
-  if type(pos2) == "table" then
-    pos2 = po(pos2)
   end
   pos1 = pos1:grid()
   pos2 = pos2:grid()
@@ -159,11 +159,11 @@ function lib.map.sub(map, origin, arg2, arg3)
         .. "is not top left-hand corner).", 2)
   end
   local result = {}
-  for y = pos1.y, pos2.y do
+  local kl = map.keylength
+  for y = pos1.y + 1, pos2.y + 1 do
     if y < map.height then
-      result[y] = string.sub(rawget(map, y) or "",
-                    pos1.x * map.keylength + 1,
-                    (pos2.x + 1) * map.keylength) or ""
+      result[y-pos1.y] = string.sub(rawget(map, y) or "",
+                             pos1.x * kl + 1, (pos2.x + 1) * kl) or ""
     end
   end
   return wo:newMap(map.defaultkey, result)  
@@ -179,7 +179,6 @@ function lib.map.paste(map1, map2, posarg)
   if (usertype(posarg) == "object") or (usertype(posarg) == "position") then
     local kl = rawget(map2, "__keylength")
     local dk = rawget(map2, "__defaultkey")
-    print(posarg.x..", "..posarg.y)
     for y = 1, map2.height do
       local line = rawget(map2, y)
       for x = 1, map2.width do

@@ -3,11 +3,11 @@
   <el:protected>
     <el:info el:type="library">
       <el:identity el:title="" el:id="lib/libsoko-endphase"/>
-      <el:version el:score="1" el:release="1" el:revision="1" el:status="experimental"/>
+      <el:version el:score="1" el:release="1" el:revision="2" el:status="experimental"/>
       <el:author el:name="Enigma Team" el:email="" el:homepage=""/>
-      <el:copyright>Copyright © 2007 Enigma Team</el:copyright>
+      <el:copyright>Copyright © 2007, 2008 Enigma Team</el:copyright>
       <el:license el:type="GPL v2.0 or above" el:open="true"/>
-      <el:compatibility el:enigma="1.00">
+      <el:compatibility el:enigma="1.10">
       </el:compatibility>
       <el:modes el:easy="false" el:single="false" el:network="false"/>
       <el:comments>
@@ -26,17 +26,16 @@
 ------------------------------------------------------------------------
 
 function goal_trigger(onoff, sender)
-  local x, y = enigma.GetPos(sender)
-  local nr = enigma.GetAttrib(sender, "_sokoarea")
+  local nr = sender._sokoarea
   local more_boxes = false  -- memorizes whether a box was added or removed
   if sokoarea[nr].endphase_started then
     return
   end
 
   -- A new stone? Or has a stone been removed?
-  if(enigma.GetAttrib(sender, "_box") == 0) then
-    if enigma.GetStone(x,y) then
-      enigma.SetAttrib(sender, "_box", 1)
+  if(sender._box == 0) then
+    if -wo:st(sender) then
+      sender._box = 1
       sokoarea[nr].goals_filled = sokoarea[nr].goals_filled + 1
       more_boxes = true
     else
@@ -44,7 +43,7 @@ function goal_trigger(onoff, sender)
       return
     end
   else
-    enigma.SetAttrib(sender, "_box", 0)
+    sender._box = 0
     sokoarea[nr].goals_filled = sokoarea[nr].goals_filled - 1
   end
 
@@ -110,7 +109,7 @@ function prepare_endphase(sokoarea_number)
       or (alg == "allcrack")
       or (alg == "vortex") then
     endphase_set_block_oxyds(nr, (sokoarea[nr].design.door or
-        sokoarea[nr].design.wall or "st-none"), param)
+        sokoarea[nr].design.wall or "st_nil"), param)
     sokoarea[nr].goal_hook = endphase_goal_hook_ralf
   elseif (alg == "block") then
     endphase_set_block_oxyds(nr, param)
@@ -134,8 +133,8 @@ function endphase(sokoarea_number)
   local endp = lib.lua.deep_copy(sokoarea[sokoarea_number].design.endp)
   local alg = endp.alg
   local param = ""
-  local px, py = enigma.GetPos(enigma.GetNamedObject("marble_"..sokoarea_number.."_1"))
-  
+  local marble = po(no["marble_"..sokoarea_number.."_1"])
+
   -- decompose alg into algorithm name and additional parameter
   local sep = string.find(alg, ":")
   if sep then
@@ -157,17 +156,19 @@ function endphase(sokoarea_number)
   if type(give) == "table" then
     for k, v in pairs(give) do
       if is_item(v) or is_stone(v) or is_floor(v) then
-        set_element(px, py, sokoarea_number, "", v)
+        set_element(marble, sokoarea_number, "", v)
       elseif is_actor(v) then
-        set_actor(v, px + 0.5, py + 0.5)
+        wo[marble] = {v, 0.5, 0.5}
       elseif v == "rubberball" then
-        local old_actor = enigma.GetNamedObject("marble_"..sokoarea_number.."_1")
+        local old_actor = no["marble_"..sokoarea_number.."_1"]
         local actor_kind = "ac-whiteball"
         if sokoarea[sokoarea_number].design.white then
           actor_kind = "ac-blackball"
         end
-        local new_actor = set_actor(actor_kind, px+0.5, py+0.5, {controllers=0})
-        AddRubberBand(old_actor, new_actor, 50, 0)
+        wo[marble] = {actor_kind, "rubberball_sokoarea_"..sokoarea_number,
+                        0.5, 0.5, controllers = 0}
+        wo:add({"ot_rubberband", anchor1 = no["marble_"..sokoarea_number],
+            anchor2 = no["rubberball_sokoarea_"..sokoarea_number], strength = 50})
       else
         myerror("Can't give "..v..".")
       end
@@ -200,7 +201,7 @@ function endphase(sokoarea_number)
     endphase_set_hide_oxyds(sokoarea_number)
     endphase_magnets(sokoarea_number, param)
   elseif alg == "knock" then
-    -- don't do anything; endphase_call_knock_item
+    -- don't do anything; endphase_call_knocking
     -- queries endphase_started.
   else
     -- use default: "circle"
@@ -211,9 +212,8 @@ end
 function endphase_redraw_level_array(sokoarea_number)
   local nr = sokoarea_number or 1
   local endp = lib.lua.deep_copy(sokoarea[nr].design.endp)
-  local dx = sokoarea[nr].offset.x
-  local dy = sokoarea[nr].offset.y
-
+  local offset = sokoarea[nr].offset
+  
   -- small routine to check the walls and outside
   local function is_oxyd_or_blocker(x,y)
     if sokoarea[nr].list_oxyd[x.."/"..y] then
@@ -226,21 +226,21 @@ function endphase_redraw_level_array(sokoarea_number)
   
   -- redraw outside
   for p, v in pairs(sokoarea[nr].list_outside) do
-    if not is_oxyd_or_blocker(v.lx, v.ly) then
-      set_element(v.lx, v.ly, nr, k, endp.outf)
+    if not is_oxyd_or_blocker(v.abs.x, v.abs.y) then
+      set_element(v.abs, nr, k, endp.outf)
     end
   end
   
   -- redraw the rest inside level_array:
   for y = 0, sokoarea[nr].array_height - 1 do
     for x = 0, sokoarea[nr].array_width - 1 do
-      if not is_oxyd_or_blocker(x+dx, y+dy) then
+      if not is_oxyd_or_blocker(x + offset.x, y + offset.y) then
         local ch = sokoarea[nr].level_array[y+1][x+1]
         for k, v in pairs(endp) do
           if    ((k == "inf")  and char_is_inf(ch))
              or ((k == "wall") and char_is_wall(ch))
              or ((k == "goal") and char_is_goal(ch)) then
-            set_element(x+dx, y+dy, nr, k, v)
+            set_element(offset + {x,y}, nr, k, v)
           end
         end
       end
@@ -250,7 +250,7 @@ function endphase_redraw_level_array(sokoarea_number)
   -- if existent, redraw blocker floors
   if (sokoarea[nr].list_blocker) and (endp.inf) then
     for p, v in pairs(sokoarea[nr].list_blocker) do
-      set_element(v.lx, v.ly, nr, "inf", endp.inf)
+      set_element(v.abs, nr, "inf", endp.inf)
     end
   end 
 end
@@ -260,36 +260,34 @@ end
 ------------------------------------------------------------------------
 
 function endphase_circle(sokoarea_number)
-  local acname = "marble_"..sokoarea_number.."_1"
   local flavor = sokoarea[sokoarea_number].design.oxyd or "b"
-  local actor = enigma.GetNamedObject(acname)
-  if not actor then
-    acname = "marble"
-    actor = enigma.GetNamedObject(acname)
-    if not actor then
+  local actor = no["marble_"..sokoarea_number.."_1"]
+  if not -actor then
+    actor = no["marble"]
+    if not -actor then
       myerror("No marble found. Please name it 'marble'.")  
     end
   end
-  local x, y = enigma.GetPos(actor)
-  if x > 10 then
-    x = x - 2
+  local abs = po(actor)
+  if abs.x > 10 then
+    abs = abs + {-2,0}
   end
-  if y > 6 then
-    y = y - 2
+  if abs.y > 6 then
+    abs = abs + {0,-2}
   end
   for j = 0, 2 do
-    set_oxyd(sokoarea_number, {lx = x+j, ly = y-1}, flavor, 2*j)
-    set_oxyd(sokoarea_number, {lx = x-1, ly = y+j}, flavor, 2*j)
-    set_oxyd(sokoarea_number, {lx = x+j, ly = y+3}, flavor, 2*j+1)
-    set_oxyd(sokoarea_number, {lx = x+3, ly = y+j}, flavor, 2*j+1)
+    set_oxyd(sokoarea_number, {abs = abs + {j,-1}}, flavor, 2*j)
+    set_oxyd(sokoarea_number, {abs = abs + {-1,j}}, flavor, 2*j)
+    set_oxyd(sokoarea_number, {abs = abs + {j,3}},  flavor, 2*j+1)
+    set_oxyd(sokoarea_number, {abs = abs + {3,j}},  flavor, 2*j+1)
     for k = 0, 2 do
-      kill_stone(x+j, y+k)
-      kill_item(x+j, y+k)
-      set_element(x+j, y+k, sokoarea_number, "inf")
+      wo:st(abs + {j,k}):kill()
+      wo:it(abs + {j,k}):kill()
+      set_element(abs + {j,k}, sokoarea_number, "inf")
     end
   end
-  set_stone("st-fart", x+1, y+1, {_sokoarea = sokoarea_number})
-  oxyd_shuffle()
+  wo[abs + {1,1}] = {"st_fart", _sokoarea = sokoarea_number}
+  wo:shuffleOxyd()
 end
 
 -- endphase_set_outside_oxyds distributes oxyds over the outside and
@@ -299,8 +297,7 @@ end
 function endphase_set_outside_oxyds(sokoarea_number, param)
   local places = {}
   local nr = sokoarea_number or 1
-  local dx = sokoarea[nr].offset.x
-  local dy = sokoarea[nr].offset.y
+  local offset = sokoarea[nr].offset
   local mx = sokoarea[nr].array_width
   local my = sokoarea[nr].array_height
   local flavor = sokoarea[nr].design.oxyd or "b"
@@ -309,7 +306,7 @@ function endphase_set_outside_oxyds(sokoarea_number, param)
   -- for the marble.
   for p, v in pairs(lib.lua.combine_tables(sokoarea[nr].list_outside,
                 sokoarea[nr].list_wall_two)) do
-    if (mod(v.lx, 2) == 0) and (mod(v.ly, 2) == 0) then
+    if (v.abs.x % 2 == 0) and (v.abs.y % 2 == 0) then
       table.insert(places, v)
     end
   end
@@ -321,10 +318,10 @@ function endphase_set_outside_oxyds(sokoarea_number, param)
     -- Not enough places? Then choose corners of level_array.
     -- They should always be at least wall_two and far enough
     -- away from each other.
-    places = { {lx = dx,           ly = dy},
-               {lx = dx + mx - 1,  ly = dy},
-               {lx = dx,           ly = dy + my - 1},
-               {lx = dx + mx - 1,  ly = dy + my - 1} }
+    places = { {abs = offset},
+               {abs = offset + {mx - 1, 0}},
+               {abs = offset + {0, my - 1}},
+               {abs = offset + {mx - 1, my - 1}}}
   elseif max <  20 then  number_pairs = 2
   elseif max <  50 then  number_pairs = 3
   elseif max < 100 then  number_pairs = 4
@@ -340,10 +337,10 @@ function endphase_set_outside_oxyds(sokoarea_number, param)
   lib.lua.shuffle_table(places)
 
   for j = 1, number_pairs do
-    set_oxyd(sokoarea_number, lib.lua.deep_copy(places[2*j-1]), flavor, j - 1)
-    set_oxyd(sokoarea_number, lib.lua.deep_copy(places[2*j]), flavor, j - 1)
+    set_oxyd(sokoarea_number, places[2*j-1], flavor, j - 1)
+    set_oxyd(sokoarea_number, places[2*j], flavor, j - 1)
   end
-  oxyd_shuffle()
+  wo:shuffleOxyd()
 end
 
 function endphase_set_block_oxyds(sokoarea_number, blocker, max_pairs)
@@ -355,34 +352,32 @@ function endphase_set_block_oxyds(sokoarea_number, blocker, max_pairs)
   -- and the opposite position as oxyd, if it is of type wall_two.
   -- Make sure that each possible oxyd position is assigned at most once,
   -- and that no other oxyds or blockers are near.
-  local function opposite_as_oxyd(x, y, dx, dy)
-    if     sokoarea[nr].list_way[(x+dx).."/"..(y+dy)]
-       and sokoarea[nr].list_wall_two[(x-dx).."/"..(y-dy)] then
+  local function opposite_as_oxyd(xy, dxy)
+    if     sokoarea[nr].list_way[(xy.x+dxy.x).."/"..(xy.y+dxy.y)]
+       and sokoarea[nr].list_wall_two[(xy.x-dxy.x).."/"..(xy.y-dxy.y)] then
       -- Check that no oxyd has been set on this position before
       -- and no other oxyd or blocker is near the new oxyd or its
       -- blocker.
       for j, w in pairs(oxyds) do
-        if    (lib.math.manhattan_distance(w.blocker.lx, w.blocker.ly, x, y) <= 1)
-           or (lib.math.manhattan_distance(w.lx, w.ly, x, y) <= 1)
-           or (lib.math.manhattan_distance(w.blocker.lx, w.blocker.ly, x-dx, y-dy) <= 1)
-           or (lib.math.manhattan_distance(w.lx, w.ly, x-dx, y-dy) <= 1) then
-          return false
+        if    (lib.math.manhattan_distance(w.blocker.abs, xy) <= 1)
+           or (lib.math.manhattan_distance(w.abs, xy) <= 1)
+           or (lib.math.manhattan_distance(w.blocker.abs, xy - dxy) <= 1)
+           or (lib.math.manhattan_distance(w.abs, xy - dxy) <= 1) then
+          return
         end
       end
-      table.insert(oxyds,
-         {lx = x-dx, ly = y-dy,
-          blocker = {lx = x, ly = y, oxyd = {lx = x-dx, ly = y-dy}},
-          way = {lx = x+dx, ly = y+dy}})
-      return true
+      table.insert(oxyds, {abs = xy - dxy,
+          blocker = {abs = xy, oxyd = {abs = xy - dxy}}, way = {abs = xy + dxy}})
+      return
     end
-    return false
+    return
   end
+  local directions = {po({-1,0}), po({1,0}), po({0,-1}), po({0,1})}
   for p, v in pairs(sokoarea[nr].list_wall_one) do
     if v.count == 1 then
-      opposite_as_oxyd(v.lx, v.ly, -1,  0)
-      opposite_as_oxyd(v.lx, v.ly,  1,  0)
-      opposite_as_oxyd(v.lx, v.ly,  0, -1)
-      opposite_as_oxyd(v.lx, v.ly,  0,  1)
+      for _, dir in ipairs(directions) do
+        opposite_as_oxyd(v.abs, dir)
+      end
     end
   end
 
@@ -391,7 +386,7 @@ function endphase_set_block_oxyds(sokoarea_number, blocker, max_pairs)
   local number_pairs = 2
   if max < 4 then
     -- Not enough places? Choose "circle"-algorithm instead.
-    sokoarea[nr].endp.alg = "circle"
+    sokoarea[nr].design.endp.alg = "circle"
     return
   elseif max <  8 then  number_pairs = 2
   elseif max < 16 then  number_pairs = 3
@@ -409,31 +404,31 @@ function endphase_set_block_oxyds(sokoarea_number, blocker, max_pairs)
   -- set oxyds and blockers
   local function set_block(w)
     local myblocker = lib.lua.deep_copy(blocker)
-    -- if there's an entry "st-door", choose between st-door-h and st-door-v.
+    -- If there's an entry "st_door_d", choose the faces.
     if type(myblocker) == "string" then
       myblocker = {myblocker}
     end
     for j, v in pairs(myblocker) do
-      if v == "st-door" then
-        if w.lx == w.oxyd.lx then
-          myblocker[j] = "st-door-h"
+      if v == "st_door_d" then
+        if w.abs.x == w.oxyd.abs.x then
+          myblocker[j] = "st_door_d"
         else
-          myblocker[j] = "st-door-v"
+          myblocker[j] = "st_door_d_ew"
         end        
       end
     end
     -- now set in-floor and blocker, and add to list_blocker.
-    set_element(w.lx, w.ly, nr, "inf")
-    set_element(w.lx, w.ly, nr, "", myblocker)
-    sokoarea[nr].list_blocker[(w.lx).."/"..(w.ly)] = lib.lua.deep_copy(w)
+    set_element(w.abs, nr, "inf")
+    set_element(w.abs, nr, "", myblocker)
+    sokoarea[nr].list_blocker[(w.abs.x).."/"..(w.abs.y)] = lib.lua.deep_copy(w)
   end
   for j = 1, number_pairs do   -- Testlevel: 14
-    set_oxyd(nr, lib.lua.deep_copy(oxyds[2*j-1]), flavor, j - 1)
-    set_oxyd(nr, lib.lua.deep_copy(oxyds[2*j]), flavor, j - 1)
+    set_oxyd(nr, oxyds[2*j-1], flavor, j - 1)
+    set_oxyd(nr, oxyds[2*j], flavor, j - 1)
     set_block(oxyds[2*j-1].blocker)
     set_block(oxyds[2*j].blocker)
   end
-  oxyd_shuffle()
+  wo:shuffleOxyd()
 
   -- assign goals to blockers
   -- Note: There might be more goals as blockers, and, vice versa,
@@ -484,26 +479,26 @@ function endphase_set_hide_oxyds(sokoarea_number, param)
     set_oxyd(sokoarea_number, places[2*j-1], flavor, j - 1)
     set_oxyd(sokoarea_number, places[2*j], flavor, j - 1)
   end
-  oxyd_shuffle()  
+  wo:shuffleOxyd()
 end
 
 function endphase_gradients(sokoarea_number, param)
   local force = tonumber(param) or 25.0
   for p, v in pairs(sokoarea[sokoarea_number].list_way) do
     local grad_type = random(1,12)
-    set_floor("fl-gradient", v.lx, v.ly, {type = grad_type, force = force})
+    wo[v.abs] = {"fl-gradient", type = grad_type, force = force}
   end
 end
 
 function endphase_magnets(sokoarea_number, param)
-  local force = tonumber(param) or 50.0
+  local force = tonumber(param) or 30.0
   local places = {}
   local nr = sokoarea_number or 1
   local flavor = sokoarea[nr].design.oxyd or "b"
 
   -- add all way-elements which are not goals
   for p, v in pairs(sokoarea[nr].list_way) do
-    if not char_is_goal(sokoarea[nr].level_array[v.ay][v.ax]) then
+    if not char_is_goal(sokoarea[nr].level_array[v.rel.y][v.rel.x]) then
       table.insert(places, v)
     end
   end
@@ -515,8 +510,7 @@ function endphase_magnets(sokoarea_number, param)
 
   -- set magnets
   for j = 1, number_magnets do
-    set_item("it-magnet-on", places[j].lx, places[j].ly,
-             {range = 5, strength = force})
+    wo[places[j].abs] = {"it_magnet_on", range = 5, strength = force}
   end
 end
 
@@ -544,9 +538,9 @@ function endphase_fourswitch(sokoarea_number)
   
   -- set fourswitchs
   for j = 1, 2*number_pairs do
-    set_stone("st-fourswitch", places[j].lx, places[j].ly,
-        {action="callback", target="endphase_call_fourswitch", _number=j,
-         _sokoarea = sokoarea_number})
+    wo[places[j].abs] =
+        {"st_fourswitch", target = "endphase_call_fourswitch", _number = j,
+         _sokoarea = sokoarea_number}
     places[j].current = 4
     places[j].solve = random(1,4)
     places[j].correct = false
@@ -556,8 +550,8 @@ function endphase_fourswitch(sokoarea_number)
 end
 
 function endphase_call_fourswitch(onoff, sender)
-  local j = enigma.GetAttrib(sender, "_number")
-  local nr = enigma.GetAttrib(sender, "_sokoarea")
+  local j = sender._number
+  local nr = sender._sokoarea
   local places = sokoarea[nr].places
 
   -- When fourswitch is knocked, count it.
@@ -569,8 +563,7 @@ function endphase_call_fourswitch(onoff, sender)
   -- When count is correct, make it "st-likeoxyda-open".
   if places[j].current == places[j].solve then
     places[j].correct = true
-    set_stone("st-likeoxyda-open", places[j].lx, places[j].ly,
-        {_number = 0, _sokoarea = sokoarea_number})
+    wo[places[j].abs] = {"st-likeoxyda-open", _number = 0, _sokoarea = sokoarea_number}
   end
 
   -- Now the difficult part: If it's the first fourswitch (the one
@@ -581,20 +574,18 @@ function endphase_call_fourswitch(onoff, sender)
   -- time (making it show the new number). This means: Recursion!
   if j ~= 1 then
     -- Trigger all lower fourswitchs
-    local x = places[j-1].lx
-    local y = places[j-1].ly
+    local xy = places[j-1].abs
     if places[j-1].correct then
       -- reset the fourswitch
-      mystone = set_stone("st-fourswitch", x, y,
-        {_number = j - 1, _sokoarea = sokoarea_number})
+      wo[xy] = {"st_fourswitch", _number = j - 1, _sokoarea = sokoarea_number}
+      mystone = wo:st(xy)
       for k = 1, places[j-1].current do
-        SendMessage(mystone, "trigger")
+        mystone:toggle()
       end
-      enigma.SetAttrib(mystone, "action", "callback")
-      enigma.SetAttrib(mystone, "target", "endphase_call_fourswitch")
+      mystone.target = "endphase_call_fourswitch"
       places[j-1].correct = false
     end
-    SendMessage(enigma.GetStone(x, y), "trigger")
+    wo:st(xy):toggle()
   else
     -- Check all fourswitchs
     local correct = true
@@ -607,7 +598,7 @@ function endphase_call_fourswitch(onoff, sender)
         set_oxyd(sokoarea_number, places[2*k-1], flavor, k - 1)
         set_oxyd(sokoarea_number, places[2*k], flavor, k - 1)
       end
-      oxyd_shuffle()
+      wo:shuffleOxyd()
     end
   end  
 end
@@ -615,8 +606,8 @@ end
 
 function endphase_allcrack(sokoarea_number)
   for p, v in pairs(sokoarea[sokoarea_number].list_way) do
-    if not enigma.GetItem(v.lx, v.ly) then
-      set_item("it-crack3", v.lx, v.ly)
+    if not -wo:it(v.abs) then
+      wo[v.abs] = {"it-crack3"}
     end
   end  
 end
@@ -625,49 +616,48 @@ function endphase_goal_hook_ralf(sokoarea_number, sender, more_boxes,
     goals_filled, number_goals)
   local nr = sokoarea_number or 1
   -- verify correct sokoarea-number and existence of "goal_to_blocker"
-  if nr ~= enigma.GetAttrib(sender, "_sokoarea") then
+  if nr ~= sender._sokoarea then
     myerror("libsoko: Inconsistent sokoarea numbers in goal hook!")
   end
   if type(sokoarea[nr].goal_to_blocker) ~= "table" then
     myerror("libsoko: Blocker list is missing during goal hook!")
   end
   -- identify the corresponding door and open it
-  local goal_number = enigma.GetAttrib(sender, "_goal_number")
-  local blocker = sokoarea[nr].goal_to_blocker[goal_number]
+  local blocker = sokoarea[nr].goal_to_blocker[sender._goal_number]
   if blocker then
-    endphase_ralf_open_door(nr, more_boxes, blocker.lx, blocker.ly)  
+    endphase_ralf_open_door(nr, more_boxes, blocker.abs)
   end
 end
 
 function endphase_ralf_open_doors(sokoarea_number)
   for p, v in pairs(sokoarea[sokoarea_number].list_blocker) do
-    endphase_ralf_open_door(sokoarea_number, true, v.lx, v.ly)
+    endphase_ralf_open_door(sokoarea_number, true, v.abs)
   end
 end
 
 -- endphase_ralf_open_door opens or closes a door at position
 -- (X,Y), dependend on the boolean OPEN.
-function endphase_ralf_open_door(sokoarea_number, open, x, y)
+function endphase_ralf_open_door(sokoarea_number, open, xy)
   local door_kind = sokoarea[sokoarea_number].design.endp.open_door
   if door_kind then
     if not open then
       door_kind =    sokoarea[sokoarea_number].design.door
-                  or sokoarea[sokoarea_number].design.wall or "st-none"
+                  or sokoarea[sokoarea_number].design.wall or "st_nil"
     end
-    set_element(x, y, sokoarea_number, "", door_kind)
+    set_element(xy, sokoarea_number, "", door_kind)
   else
     -- use default "open"/"close"-messages instead
-    local st = enigma.GetStone(x, y)
-    local it = enigma.GetItem(x, y)
-    local fl = enigma.GetFloor(x, y)
-    if st and enigma.GetAttrib(st, "_sokoarea") then
-      SendMessage(st, lib.lua.cond(open, "open", "close"))
+    local st = wo:st(xy)
+    local it = wo:it(xy)
+    local fl = wo:fl(xy)
+    if -st and st._sokoarea then
+      st:message(lib.lua.cond(open, "open", "close"))
     end
-    if it and enigma.GetAttrib(it, "_sokoarea") then
-      SendMessage(it, lib.lua.cond(open, "open", "close"))
+    if -it and it._sokoarea then
+      it:message(lib.lua.cond(open, "open", "close"))
     end
-    if fl then
-      SendMessage(fl, lib.lua.cond(open, "close", "open"))
+    if -fl then
+      fl:message(lib.lua.cond(open, "close", "open"))
     end
   end  
 end
@@ -685,26 +675,26 @@ function endphase_vortex(sokoarea_number)
   end
 
   -- Analyse connected components of list_way, separated by goals.
-  local function mark_component(lx, ly)
-    if     (list_way[lx.."/"..ly])
-       and (not list_way[lx.."/"..ly].component)
-       and (not sokoarea[nr].list_goal[lx.."/"..ly]) then
-      list_way[lx.."/"..ly].component = components
+  local function mark_component(xy)
+    if     (list_way[xy.x.."/"..xy.y])
+       and (not list_way[xy.x.."/"..xy.y].component)
+       and (not sokoarea[nr].list_goal[xy.x.."/"..xy.y]) then
+      list_way[xy.x.."/"..xy.y].component = components
       --set_floor(({"fl-leaves", "fl-ice", "fl-red", "fl-black", "fl-white",
       --    "fl-sahara", "fl-light", "fl-gray", "fl-lightgray", "fl-rough",
       --    "fl-marble", "fl-tigris"})[components] or "fl-sand", lx, ly)
-      table.insert(component[components], {lx = lx, ly = ly})
-      mark_component(lx+1, ly)
-      mark_component(lx-1, ly)
-      mark_component(lx, ly+1)
-      mark_component(lx, ly-1)
+      table.insert(component[components], {abs = xy})
+      mark_component(xy + {1,0})
+      mark_component(xy + {-1,0})
+      mark_component(xy + {0,1})
+      mark_component(xy + {0,-1})
     end
   end
   for p, v in pairs(list_way) do
     if (not list_way[p].component) and (not sokoarea[nr].list_goal[p]) then
       components = components + 1
       component[components] = {oxyds = 0}
-      mark_component(v.lx, v.ly)      
+      mark_component(v.abs)
     end    
   end
 
@@ -715,10 +705,9 @@ function endphase_vortex(sokoarea_number)
 
   -- Analyse oxyds and to which components they belong to.
   for p, v in pairs(sokoarea[nr].list_oxyd) do
-    local component_number = list_way[v.blocker.lx.."/"..v.blocker.ly].component or -1
+    local component_number = list_way[v.blocker.abs.x.."/"..v.blocker.abs.y].component or -1
     if component_number == -1 then
-      set_item("it-banana", v.blocker.lx, v.blocker.ly)
-      mydebug("Banana on "..v.blocker.lx.."/"..v.blocker.ly)
+      myerror("Error in component calculation.")
     else
       component[component_number].oxyds = component[component_number].oxyds + 1
     end
@@ -728,7 +717,7 @@ function endphase_vortex(sokoarea_number)
   -- components, plus the one the marble actually occupies.
   local t = {}  -- helper table: components with oxyds or marble
   local u = {}  -- helper table: all components except t
-  local mx, my = enigma.GetPos(enigma.GetNamedObject("marble_"..nr.."_1"))
+  local mx, my = po(no["marble_"..nr.."_1"]):xy()
   local marble_component = (list_way[mx.."/"..my] or {}).component
   for j = 1, components do
     if (component[j].oxyds > 0) or (j == marble_component) then
@@ -744,9 +733,8 @@ function endphase_vortex(sokoarea_number)
   end
   component = t
   components = table.getn(component)
-  u = nil
 
-  -- From each component, choose one tile and save the {lx,ly}-entry
+  -- From each component, choose one tile and save the position
   local vortex = {}
   for j = 1, components do
     table.insert(vortex, component[j][random(1, table.getn(component[j]))])
@@ -757,14 +745,14 @@ function endphase_vortex(sokoarea_number)
   local connect = lib.math.cyclic_permutation(components)
 
   -- Now set and connect the vortices
-  for j, v in pairs(vortex) do
+  for j, v in ipairs(vortex) do
     local w = vortex[connect[j]]
     -- Remember: We also allow (we need!) vortices at old blocker-positions.
     -- There could still be a stone over this. This stone might be st-blocker,
     -- which turns to it-blocker and has therefore to be removed. Better
     -- we remove all stones:
-    kill_stone(v.lx, v.ly)
-    set_item("it-vortex-open", v.lx, v.ly, {targetx = w.lx, targety = w.ly})
+    wo:st(v.abs):kill()
+    wo[v.abs] = {"it_vortex_open", destination = w.abs}
   end  
 end
 
@@ -772,10 +760,6 @@ function endphase_set_knocking(sokoarea_number, param)
   local nr = sokoarea_number
   local flavor = sokoarea[nr].design.oxyd or "b"
   local places = {}
-  local itemkind = param
-  if (itemkind == nil) or (itemkind == "") then
-    itemkind = "it-sensor"
-  end
 
   -- add all blockers
   for p, v in pairs(sokoarea[nr].list_blocker) do
@@ -783,41 +767,25 @@ function endphase_set_knocking(sokoarea_number, param)
   end
 
   lib.lua.shuffle_table(places)
-  
-  -- set items (for Enigma 1.0), set attributes of door (>= 1.1)
-  for j, v in pairs(places) do
-    set_item(itemkind, v.lx, v.ly, {action="callback",
-        target="endphase_call_knocking", _number=j, _sokoarea=nr})
-    local st = enigma.GetStone(v.lx, v.ly)
-    if st then
-      enigma.SetAttrib(st, "action", "callback")
-      enigma.SetAttrib(st, "target", "endphase_call_knocking")
-      local closepos = places[lib.lua.mod(j, table.getn(places)) + 1]
-      local openpos = places[lib.lua.mod(j+1, table.getn(places)) + 1]
-      enigma.SetAttrib(st, "_close_x", closepos.lx)
-      enigma.SetAttrib(st, "_close_y", closepos.ly)
-      enigma.SetAttrib(st, "_open_x", openpos.lx)
-      enigma.SetAttrib(st, "_open_y", openpos.ly)
-      --enigma.SetAttrib(st, "_close",
-      --  lib.lua.deep_copy(places[lib.lua.mod(j+1, table.getn(places)) + 1]))
-      --enigma.SetAttrib(st, "_open",
-      --  lib.lua.deep_copy(places[lib.lua.mod(j+2, table.getn(places)) + 1]))
+
+  -- set attributes of door
+  for j, v in ipairs(places) do
+    local st = wo:st(v.abs)
+    if -st then
+      st.action = "callback"
+      st.target = "endphase_call_knocking"
+      st._close = places[lib.lua.mod(j, table.getn(places)) + 1].abs
+      st._open = places[lib.lua.mod(j+1, table.getn(places)) + 1].abs
+      st._number = j
     end
   end
 end
 
 function endphase_call_knocking(onoff, sender)
-  local j = enigma.GetAttrib(sender, "_number")
-  local nr = enigma.GetAttrib(sender, "_sokoarea")
+  local j = sender._number
+  local nr = sender._sokoarea
   if (not nr) or (not j) then
     myerror("libsoko: Knocking's source has no number or no sokoarea.")
-  end
-  -- Check that it-sensor did not send its message because of
-  -- the marble standing on it:
-  local x, y = enigma.GetPos(sender)
-  local mx, my = enigma.GetPos(enigma.GetNamedObject("marble_"..nr.."_1"))
-  if (x == mx) and (y == my) then
-    return
   end
   mydebug("Knocked on "..j.."/"..sokoarea[nr].number_oxyds)
   -- Deactivate the first door until endphase has started.
@@ -825,21 +793,14 @@ function endphase_call_knocking(onoff, sender)
     mydebug("Door deactivated until endphase.")
     return
   end
-  -- Get the door (possibly it already is sender), and open or close
-  -- the neccessary doors given as attributes.
-  local mydoor = enigma.GetStone(x, y)
-  if enigma.GetAttrib(mydoor, "_sokoarea") == nr then
-    local close_x = enigma.GetAttrib(mydoor, "_close_x")
-    local close_y = enigma.GetAttrib(mydoor, "_close_y")
-    local open_x = enigma.GetAttrib(mydoor, "_open_x")
-    local open_y = enigma.GetAttrib(mydoor, "_open_y")
-    local closedoor = enigma.GetStone(close_x, close_y)
-    local opendoor = enigma.GetStone(open_x, open_y)
-    if closedoor then
-      SendMessage(closedoor, "close")
+  -- Open or close the neccessary doors given as attributes.
+  if sender._sokoarea == nr then
+    print(po(sender).x.."/"..po(sender).y.."/"..sender:kind())
+    if wo:st(sender._close):is("st_door") then
+      wo:st(sender._close):close()
     end
-    if opendoor then
-      SendMessage(opendoor, "open")
+    if wo:st(sender._open):is("st_door") then
+      wo:st(sender._open):open()
     end
   end
 end

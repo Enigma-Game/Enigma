@@ -3,12 +3,13 @@
   <el:protected>
     <el:info el:type="level">
       <el:identity el:title="Libsoko - Test" el:subtitle="" el:id="test_libsoko"/>
-      <el:version el:score="1" el:release="1" el:revision="2" el:status="experimental"/>
+      <el:version el:score="1" el:release="1" el:revision="3" el:status="experimental"/>
       <el:author el:name="Andreas Lochmann" el:email="" el:homepage=""/>
       <el:copyright>Copyright © 2007 Andreas Lochmann</el:copyright>
       <el:license el:type="GPL v2.0 or above" el:open="true"/>
-      <el:compatibility el:enigma="1.00">
+      <el:compatibility el:enigma="1.10">
         <el:dependency el:path="lib/libsoko" el:id="lib/libsoko" el:release="1" el:preload="true"/>
+        <el:dependency el:path="lib/liblua" el:id="lib/liblua" el:release="1" el:preload="true"/>
       </el:compatibility>
       <el:modes el:easy="true" el:single="true" el:network="false"/>
       <el:score el:easy="-" el:difficult="-"/>
@@ -314,15 +315,15 @@ chessoban =
 design_min = 1 --76
 design_max = table.getn(design_list)
 
-design_number = design_max
+design_number = 77 --design_max
 
 --create_sokoball(multilevel2, 1, 1)
 create_sokoball(multilevel2, 13, design_number)
 --create_sokoball(chessoban, 2)
 --draw_sokoball(0, 0, chessoban, 2, nil, true) --leftending)
-set_stone("st-switch", 9, 1, {action="callback", target="design_minus_one"})
-set_stone("st-switch", 10, 1, {action="callback", target="design_plus_one"})
-design_statistics()
+wo[{9,1}] = {"st_switch", target="design_minus_one"}
+wo[{10,1}] = {"st_switch", target="design_plus_one"}
+--design_statistics()
 
 function leftending(nr)
   if nr == 2 then
@@ -339,8 +340,8 @@ function design_minus_one()
     design_number = design_max
   end
   recreate_sokoball(design_number)
-  set_stone("st-switch", 9, 1, {action="callback", target="design_minus_one"})
-  set_stone("st-switch", 10, 1, {action="callback", target="design_plus_one"})
+  wo[{9,1}] = {"st_switch", target="design_minus_one"}
+  wo[{10,1}] = {"st_switch", target="design_plus_one"}
 end
 function design_plus_one()
   design_number = design_number + 1
@@ -348,10 +349,9 @@ function design_plus_one()
     design_number = design_min
   end
   recreate_sokoball(design_number)
-  set_stone("st-switch", 9, 1, {action="callback", target="design_minus_one"})
-  set_stone("st-switch", 10, 1, {action="callback", target="design_plus_one"})
+  wo[{9,1}] = {"st_switch", target="design_minus_one"}
+  wo[{10,1}] = {"st_switch", target="design_plus_one"}
 end
-
 
     ]]></el:luamain>
     <el:i18n>

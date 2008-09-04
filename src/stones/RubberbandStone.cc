@@ -68,8 +68,10 @@ namespace enigma {
     void RubberbandStone::on_impulse (const Impulse& impulse) {
         Actor *a = dynamic_cast<Actor *>(impulse.sender);
         if (a && player::WieldedItemIs (a, "it_magicwand")) {
+            int id = getId();
             move_stone(impulse.dir);
-            propagateImpulse(impulse);
+            if (Object::getObject(id) != NULL)   // not killed?
+                propagateImpulse(impulse);
         }
     }
 

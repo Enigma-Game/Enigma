@@ -3,11 +3,11 @@
   <el:protected>
     <el:info el:type="library">
       <el:identity el:title="" el:id="lib/libsoko"/>
-      <el:version el:score="1" el:release="1" el:revision="1" el:status="experimental"/>
+      <el:version el:score="1" el:release="1" el:revision="2" el:status="experimental"/>
       <el:author el:name="Enigma Team" el:email="" el:homepage=""/>
-      <el:copyright>Copyright © 2007 Enigma Team</el:copyright>
+      <el:copyright>Copyright © 2007, 2008 Enigma Team</el:copyright>
       <el:license el:type="GPL v2.0 or above" el:open="true"/>
-      <el:compatibility el:enigma="1.00">
+      <el:compatibility el:enigma="1.10">
         <el:dependency el:path="lib/liblua" el:id="lib/liblua" el:release="1" el:preload="true"/>
         <el:dependency el:path="lib/libmath" el:id="lib/libmath" el:release="1" el:preload="true"/>
         <el:dependency el:path="lib/libsoko-designlist" el:id="lib/libsoko-designlist" el:release="1" el:preload="true"/>
@@ -28,6 +28,8 @@
 -- libsoko-endphase.xml. Please read the comments in libsoko-designlist.xml
 -- to understand design tables, and libsoko-endphase.xml for goal-triggering
 -- and endphases.
+
+lib.soko = {}
 
 ------------------------------------------------------------------------
 -- Global variables
@@ -83,39 +85,37 @@ sokoarea = {}
 ------------------------------------------------------------------------
 
 function mydebug(st)
-  --print(st)
+  print(st)
 end
 function mywarning(st)
   print(st)
 end
 function myerror(st)
-  error(st)
+  error(st, 2)
 end
 
-function is_floor(s)        return string.sub(s, 1, 3) == "fl-"  end
-function is_stone(s)        return string.sub(s, 1, 3) == "st-"  end
-function is_item(s)         return string.sub(s, 1, 3) == "it-"  end
-function is_actor(s)        return string.sub(s, 1, 3) == "ac-"  end
-function is_algorithm(s)    return string.sub(s, 1, 3) == "al:"  end
-function is_friction(s)     return string.sub(s, 1, 3) == "fr:"  end
-function is_mousefactor(s)  return string.sub(s, 1, 3) == "mf:"  end
+function is_floor(s)        return string.sub(s, 1, 2) == "fl"  end
+function is_stone(s)        return string.sub(s, 1, 2) == "st"  end
+function is_item(s)         return string.sub(s, 1, 2) == "it"  end
+function is_actor(s)        return string.sub(s, 1, 2) == "ac"  end
+function char_is_outf(ch)   return string.find(ch, "[ ]")       == 1  end
+function char_is_inf(ch)    return not char_is_outf(ch)               end
 function char_is_wall(ch)   return string.find(ch, "[#]")       == 1  end
 function char_is_goal(ch)   return string.find(ch, "[\.\*\+N]") == 1  end
 function char_is_box(ch)    return string.find(ch, "[$\*]")     == 1  end
 function char_is_chess(ch)  return string.find(ch, "[nN]")      == 1  end
 function char_is_player(ch) return string.find(ch, "[@\+]")     == 1  end
-function char_is_outf(ch)   return string.find(ch, "[ ]")       == 1  end
-function char_is_inf(ch)    return not char_is_outf(ch)               end
 
 -- choose_among_multiples selects a number between 1 and COUNT
 -- based on the coordinates X and Y and the algorithm's name ALG.
-function choose_among_multiples(x, y, count, alg)
+function choose_among_multiples(abs, count, alg)
   if alg == "checkerboard" then
-    return math.mod(mod(x,2)+mod(y,2), count) + 1
+    return (((abs.x%2) + (abs.y%2)) % count) + 1
   elseif alg == "lines" then
-    return math.mod(x + y, count) + 1
+    return ((abs.x + abs.y) % count) + 1
   elseif alg == "waves" then
-    return math.mod(x + y * y + x*y*x + 3*y*x*y*x, count) + 1
+    local x, y = abs:xy()
+    return ((x + y * y + x*y*x + 3*y*x*y*x) % count) + 1
   elseif alg == "random" then
     return math.random(count)
   end
@@ -141,8 +141,8 @@ function set_oxyd(sokoarea_number, list_entry, flavor, color)
   local entry = lib.lua.deep_copy(list_entry)
   entry.flavor = flavor
   entry.color = color
-  oxyd(entry.lx, entry.ly, flavor, color)
-  sokoarea[sokoarea_number].list_oxyd[(entry.lx).."/"..(entry.ly)] = entry
+  wo[entry.abs] = {"st_oxyd", flavor = flavor, oxydcolor = color}
+  sokoarea[sokoarea_number].list_oxyd[entry.abs.x.."/"..entry.abs.y] = entry
   sokoarea[sokoarea_number].number_oxyds =
       sokoarea[sokoarea_number].number_oxyds + 1
 end
@@ -151,8 +151,7 @@ end
 -- list_way, list_wall_one and list_wall_two for SOKOAREA_NUMBER.
 function create_lists(sokoarea_number)
   local nr = sokoarea_number or 1
-  local dx = sokoarea[nr].offset.x
-  local dy = sokoarea[nr].offset.y
+  local offset = sokoarea[nr].offset
   local mx = sokoarea[nr].array_width
   local my = sokoarea[nr].array_height
   sokoarea[nr].list_outside = {}
@@ -163,22 +162,24 @@ function create_lists(sokoarea_number)
   for x = 0, mx - 1 do
     for y = 0, my - 1 do
       local ch = sokoarea[nr].level_array[y+1][x+1]
-      local entry = {lx = x+dx, ly = y+dy, ax = x+1, ay = y+1}
+      local entry = {abs = offset + {x,y}, rel = po({x+1, y+1})}
+      local sig = entry.abs.x.."/"..entry.abs.y
       if char_is_outf(ch) then
-        sokoarea[nr].list_outside[(x+dx).."/"..(y+dy)] = entry
+        sokoarea[nr].list_outside[sig] = entry
       elseif char_is_wall(ch) then
-        sokoarea[nr].list_wall[(x+dx).."/"..(y+dy)] = entry
+        sokoarea[nr].list_wall[sig] = entry
       else
-        sokoarea[nr].list_way[(x+dx).."/"..(y+dy)] = entry
-      end        
+        sokoarea[nr].list_way[sig] = entry
+      end
     end
   end
   -- list_outside (outside level_array)
   if sokoarea[nr].level_width and sokoarea[nr].level_height then
     for x = 0, sokoarea[nr].level_width - 1 do
       for y = 0, sokoarea[nr].level_height - 1 do
-        if (x < dx) or (x > mx+dx-1) or (y < dy) or (y > my+dy-1) then
-          sokoarea[nr].list_outside[x.."/"..y] = {lx = x, ly = y}
+        if    (x < offset.x) or (x > mx + offset.x - 1)
+           or (y < offset.y) or (y > my + offset.y - 1) then
+          sokoarea[nr].list_outside[x.."/"..y] = {abs = po({x,y})}
         end
       end
     end
@@ -189,8 +190,8 @@ function create_lists(sokoarea_number)
   -- (iii) it's near a way.
   -- In addition, it counts the number of near ways.
   for p, v in pairs(sokoarea[nr].list_wall) do
-    local x = v.lx
-    local y = v.ly
+    local x = v.abs.x
+    local y = v.abs.y
     if    sokoarea[nr].list_outside[(x-1).."/"..(y)]
        or sokoarea[nr].list_outside[(x+1).."/"..(y)]
        or sokoarea[nr].list_outside[(x).."/"..(y-1)]
@@ -206,7 +207,7 @@ function create_lists(sokoarea_number)
       if sokoarea[nr].list_way[(x).."/"..(y+1)] then  count = count + 1  end
       if count > 0 then
         sokoarea[nr].list_wall_one[x.."/"..y] =
-            {lx = x, ly = y, ax = v.ax, ay = v.ay, count = count}
+            {abs = v.abs, rel = v.rel, count = count}
       end
     end
   end
@@ -226,7 +227,7 @@ function create_lists(sokoarea_number)
     if not sokoarea[nr].list_wall_two[x.."/"..y] then
       -- create new entry
       sokoarea[nr].list_wall_two[x.."/"..y] =
-          {lx = x, ly = y, ax = nil, ay = nil, wall_one = {}}
+          {abs = po({x,y}), rel = nil, wall_one = {}}
     end
     -- add the corresponding wall_one
     local w = table.getn(sokoarea[nr].list_wall_two[x.."/"..y].wall_one) + 1
@@ -234,10 +235,10 @@ function create_lists(sokoarea_number)
         sokoarea[nr].list_wall_one[one_x.."/"..one_y]
   end
   for p, v in pairs(sokoarea[nr].list_wall_one) do
-    check_ii_and_iii(v.lx+1, v.ly, v.lx, v.ly)
-    check_ii_and_iii(v.lx-1, v.ly, v.lx, v.ly)
-    check_ii_and_iii(v.lx, v.ly+1, v.lx, v.ly)
-    check_ii_and_iii(v.lx, v.ly-1, v.lx, v.ly)
+    check_ii_and_iii(v.abs.x+1, v.abs.y, v.abs.x, v.abs.y)
+    check_ii_and_iii(v.abs.x-1, v.abs.y, v.abs.x, v.abs.y)
+    check_ii_and_iii(v.abs.x, v.abs.y+1, v.abs.x, v.abs.y)
+    check_ii_and_iii(v.abs.x, v.abs.y-1, v.abs.x, v.abs.y)
   end  
 end
 
@@ -248,11 +249,12 @@ function new_sokoarea()
   sokoarea[sokoarea_number] = {
     level_array = {},
     design = default_design,
+    algorithms = {},
     number_goals = 0,
     goals_filled = 0,
     actor_count = 0,
     endphase_started = false,
-    offset = {0, 0},
+    offset = po({0, 0}),
     level_width = nil,
     level_height = nil,
     uses_chess = false,
@@ -278,15 +280,15 @@ end
 
 -- set_element sets element name EL_STR of area SOKOAREA_NUMBER at x, y.
 -- EL_DESIGN is optional and overrides the design of the given sokoarea.
-function set_element(x, y, sokoarea_number, el_str, el_design)
+function set_element(abs, sokoarea_number, el_str, el_design)
   if type(sokoarea[sokoarea_number]) ~= "table" then
     myerror("Sokoarea table number "..sokoarea_number.." broken or not existing.")
   end
   local el = el_design or sokoarea[sokoarea_number].design[el_str]
   local in_endphase = sokoarea[sokoarea_number].endphase_started
 
-  if (type(x) ~= "number") or (type(y) ~= "number") then
-    myerror("libsoko.set_element: Coordinates are not numbers!")
+  if (usertype(abs) ~= "position") then
+    myerror("libsoko.set_element: Coordinate is not a position!")
     return
   end
 
@@ -299,37 +301,33 @@ function set_element(x, y, sokoarea_number, el_str, el_design)
   local it = {}
   local multiple_alg = "checkerboard"
   local friction = nil
-  local mousefactor = nil
+  local adhesion = nil
   local fire = nil
 
   -- Now analyse EL: Decompose its entries into fl,st,it.
   -- Each entry might in turn hold a ":NUMBER", which multiplicates it.
   for j, v in pairs(el or {}) do
     if type(v) == "string" then
-      -- Separate the multiplicator
+      -- Separate the multiplicator or argument (separated by ":")
       local s = v
       local nr = 1
       local sep = string.find(v, ":")
+      local arg = nil
       if sep then
         s = string.sub(v, 1, sep - 1)
-        nr = tonumber(string.sub(v, sep + 1))
-      end
-      if type(nr) ~= "number" then
-        -- Assume it's not a multiplicator, like in "al:ALGORITHM".
-        s = v
-        nr = 1
+        arg = string.sub(v, sep + 1)
       end
 
       -- Now sort the entry into tables
-      for j = 1, nr do
-            if is_floor(s)       then  table.insert(fl, s)
-        elseif is_stone(s)       then  table.insert(st, s)
-        elseif is_item(s)        then  table.insert(it, s)
-        elseif is_algorithm(s)   then  multiple_alg = string.sub(s, 4, -1)
-        elseif is_friction(s)    then  friction = tonumber(string.sub(s, 4, -1))
-        elseif is_mousefactor(s) then  mousefactor = tonumber(string.sub(s, 4, -1))
-        elseif s == "fire"       then  fire = true
-        elseif s == "nofire"     then  fire = false
+      for j = 1, tonumber(arg) or 1 do
+            if is_floor(s)    then  table.insert(fl, s)
+        elseif is_stone(s)    then  table.insert(st, s)
+        elseif is_item(s)     then  table.insert(it, s)
+        elseif s == "al"      then  multiple_alg = arg
+        elseif s == "fr"      then  friction = tonumber(arg) or 1
+        elseif s == "ad"      then  adhesion = tonumber(arg) or 1
+        elseif s == "fire"    then  fire = true
+        elseif s == "nofire"  then  fire = false
         else
           mywarning("Unknown entry "..j.."="..s.." in design element.")
         end
@@ -344,76 +342,67 @@ function set_element(x, y, sokoarea_number, el_str, el_design)
 
   ----------- floor --------------
   if table.getn(fl) > 0 then
-    local flkind = fl[choose_among_multiples(x, y, table.getn(fl), multiple_alg)]
+    local flkind = fl[choose_among_multiples(abs, table.getn(fl), multiple_alg)]
     if flkind == "fl-bridge_x" then
-      created_objects.fl = set_floor("fl-bridge", x, y,
-          {type = "x", burnable = false, eternal = true})
+      wo[abs] = {"fl-bridge", type = "x", burnable = false, eternal = true}
     elseif flkind == "fl-bridge_y" then
-      created_objects.fl = set_floor("fl-bridge", x, y,
-          {type = "y", burnable = false, eternal = true})
+      wo[abs] = {"fl-bridge", type = "y", burnable = false, eternal = true}
     else
-      created_objects.fl = set_floor(flkind, x, y,
-          {burnable = false, eternal = true})
+      wo[abs] = {flkind, burnable = false, eternal = true}
     end
+    created_objects.fl = wo:fl(abs)
     if type(friction) == "number" then
-      enigma.SetAttrib(created_objects.fl, "friction", friction)
+      created_objects.fl.friction = friction
     end
-    if type(mousefactor) == "number" then
-      enigma.SetAttrib(created_objects.fl, "mousefactor", mousefactor)
+    if type(adhesion) == "number" then
+      created_objects.fl.adhesion = adhesion
     end
   end
 
   ----------- stone ---------------
   if table.getn(st) > 0 then
-    local stkind = st[choose_among_multiples(x, y, table.getn(st), multiple_alg)]
-    local existing_stone = enigma.GetStone(x, y)
-    if (not existing_stone) or (enigma.GetKind(existing_stone) ~= "st-oxyd") then
-      if stkind == "st-none" then
-        kill_stone(x, y)
-      else
-        created_objects.st = set_stone(stkind, x, y, {_sokoarea = sokoarea_number})
-      end
+    local stkind = st[choose_among_multiples(abs, table.getn(st), multiple_alg)]
+    if (not -wo:st(abs)) or (not wo:st(abs):is("st_oxyd")) then
+      wo[abs] = {stkind, _sokoarea = sokoarea_number}
+      created_objects.st = wo:st(abs)
     end
   end
 
   ----------- item ----------------
   if table.getn(it) > 0 then
-    local itkind = it[choose_among_multiples(x, y, table.getn(it), multiple_alg)]
+    local itkind = it[choose_among_multiples(abs, table.getn(it), multiple_alg)]
     if sokoarea[sokoarea_number].uses_chess and not in_endphase then
-      itkind = "it-trigger"
-    end    
-    if itkind == "it-none" then
-      kill_item(x, y)
-    else
-      created_objects.it = set_item(itkind, x, y)
+      itkind = "it_trigger"
     end
+    wo[abs] = {itkind}
+    created_objects.it = wo:it(abs)
     if (el_str == "goal") and not in_endphase then
       local gn = sokoarea[sokoarea_number].number_goals + 1
       sokoarea[sokoarea_number].number_goals = gn
-      sokoarea[sokoarea_number].list_goal[x.."/"..y] = 
-          {lx = x, ly = y, goal_number = gn}
+      sokoarea[sokoarea_number].list_goal[abs.x.."/"..abs.y] =
+          {abs = abs, goal_number = gn}
       if created_objects.it and not in_endphase then
-        enigma.SetAttrib(created_objects.it, "action", "callback")
-        enigma.SetAttrib(created_objects.it, "target", "goal_trigger")
-        enigma.SetAttrib(created_objects.it, "_box", 0)
-        enigma.SetAttrib(created_objects.it, "_sokoarea", sokoarea_number)
-        enigma.SetAttrib(created_objects.it, "_goal_number", gn)
+        created_objects.it.action = "callback"
+        created_objects.it.target = "goal_trigger"
+        created_objects.it._box = 0
+        created_objects.it._sokoarea = sokoarea_number
+        created_objects.it._goal_number = gn
       end
     end
   end
 
   ----------- fire ----------------
   if fire ~= nil then
-    local myfloor = enigma.GetFloor(x,y)
+    local myfloor = wo:fl(abs)
     if myfloor then
       if fire then
-        enigma.SetAttrib(myfloor, "burnable", true)
-        enigma.SetAttrib(myfloor, "eternal", true)
-        SendMessage(myfloor, "forcefire")
+        myfloor.burnable = true
+        myfloor.eternal = true
+        myfloor:message("forcefire")
       else
-        SendMessage(myfloor, "stopfire")
-        enigma.SetAttrib(myfloor, "burnable", false)
-        enigma.SetAttrib(myfloor, "eternal", true)
+        myfloor:message("stopfire")
+        myfloor.burnable = false
+        myfloor.eternal = true
       end
     end
   end
@@ -434,8 +423,7 @@ end
 function draw_level_array(sokoarea_number, outside, draw_actor)
   local nr = sokoarea_number or 1
   local design = sokoarea[nr].design
-  local dx = sokoarea[nr].offset.x
-  local dy = sokoarea[nr].offset.y
+  local offset = sokoarea[nr].offset
   sokoarea[nr].list_goal = {}
 
   -- create level
@@ -443,44 +431,45 @@ function draw_level_array(sokoarea_number, outside, draw_actor)
     for x = 0, sokoarea[nr].array_width - 1 do
       local ch = sokoarea[nr].level_array[y+1][x+1]
       local obj = {}
+      local abs = offset + {x,y}
       
       -- set floor outside or floor inside
       if (ch == " ") then -- note: space stands for outside, "-" for inside!
         if outside then
-          kill_stone(x+dx, y+dy)
-          kill_item(x+dx, y+dy)
-          set_element(x+dx, y+dy, nr, "outf")
+          wo:st(abs):kill()
+          wo:it(abs):kill()
+          set_element(abs, nr, "outf")
         end
       else
-        kill_stone(x+dx, y+dy)
-        kill_item(x+dx, y+dy)
-        obj = set_element(x+dx, y+dy, nr, "inf")
-        enigma.SetAttrib(obj.fl, "freeze_check", true)
+        wo:st(abs):kill()
+        wo:it(abs):kill()
+        obj = set_element(abs, nr, "inf")
+        obj.fl.freeze_check = true
       end
       
       -- Walls
       if char_is_wall(ch) then
-        obj = set_element(x+dx, y+dy, nr, "wall")
+        obj = set_element(abs, nr, "wall")
       end
       
       -- Goals
       if char_is_goal(ch) then
-        obj = set_element(x+dx, y+dy, nr, "goal")
-        enigma.SetAttrib(enigma.GetFloor(x+dx, y+dy), "freeze_check", false)
+        obj = set_element(abs, nr, "goal")
+        wo:fl(abs).freeze_check = false
       end
       
       -- Boxes
       if char_is_box(ch) then
-        obj = set_element(x+dx, y+dy, nr, "box")
-        enigma.SetAttrib(obj.st, "freeze_check", true)
+        obj = set_element(abs, nr, "box")
+        obj.st.freeze_check = true
       end
       
       -- Chess-Stones
       if char_is_chess(ch) then
         if design["white"] then
-          set_stone("st-chess_white", x + dx, y + dy)
+          wo[abs] = {"st-chess_white"}
         else
-          set_stone("st-chess_black", x + dx, y + dy)
+          wo[abs] = {"st-chess_black"}
         end
       end
       
@@ -489,11 +478,9 @@ function draw_level_array(sokoarea_number, outside, draw_actor)
         sokoarea[nr].actor_count = sokoarea[nr].actor_count + 1
         local acname = "marble_"..nr.."_"..sokoarea[nr].actor_count
         if design["white"] then
-          set_actor("ac-whiteball", x + 0.5 + dx, y + 0.5 + dy,
-              { name = acname, controllers = 1, player = 0 })
+          wo[abs] = {"#ac-whiteball", acname, controllers = 1, player = 0}
         else
-          set_actor("ac-blackball", x + 0.5 + dx, y + 0.5 + dy,
-              { name = acname })
+          wo[abs] = {"#ac-blackball", acname}
         end
       end
     end
@@ -835,7 +822,7 @@ function design_from_description(design_description, level_array, maxdesignnumbe
   end
   -- fill chosen design with default values where neccessary
   design = lib.lua.combine_tables({design, default_design})
-  -- No stone set for outf, not even "st-none"?
+  -- No stone set for outf, not even "st_nil"?
   -- Use the default outf-stone instead, and remove it on endphase.
   if type(design.outf) ~= "table" then
     design.outf = {design.outf}
@@ -854,7 +841,7 @@ function design_from_description(design_description, level_array, maxdesignnumbe
       return design
     end
   end
-  table.insert(design.endp.outf, "st-none")  
+  table.insert(design.endp.outf, "st_nil")  
   return design
 end
 
@@ -899,7 +886,8 @@ function create_sokoball(level, sublevel, design, maxdesignnumber)
   local levelh = math.max(sokoarea[1].array_height, 13)
   sokoarea[1].level_width = levelw
   sokoarea[1].level_height = levelh
-  create_world(levelw, levelh)
+  ti[" "] = {"fl-abyss"}
+  wo(ti, " ", levelw, levelh)
   
   -- calculate padding
   local dx = 0
@@ -910,7 +898,7 @@ function create_sokoball(level, sublevel, design, maxdesignnumber)
   if levelh > sokoarea[1].array_height then
     dy = math.floor((levelh - sokoarea[1].array_height) / 2)
   end
-  sokoarea[1].offset = {x = dx, y = dy}
+  sokoarea[1].offset = po({dx, dy})
 
   -- calculate design
   sokoarea[1].design =
@@ -922,7 +910,7 @@ function create_sokoball(level, sublevel, design, maxdesignnumber)
   -- draw level
   for x = 0, levelw - 1 do
     for y = 0, levelh - 1 do
-      set_element(x, y, 1, "outf")
+      set_element(po({x,y}), 1, "outf")
     end
   end
   draw_level_array(1, true, true)
@@ -931,9 +919,10 @@ function create_sokoball(level, sublevel, design, maxdesignnumber)
   prepare_endphase(1)
 
   -- Enigma's global variables
-  enigma.ConserveLevel = FALSE
-  enigma.ShowMoves = TRUE
-  display.SetFollowMode(display.FOLLOW_SMOOTH)
+  wo["ConserveLevel"] = false
+  wo["ShowMoves"] = true
+  wo["FollowGrid"] = false
+  wo["FollowMethod"] = FOLLOW_SCROLL
 
   -- return level width and height
   return levelw, levelh
@@ -953,19 +942,18 @@ function recreate_sokoball(design, maxdesignnumber, sokoarea_number)
   if sokoarea[nr].level_width and sokoarea[nr].level_height then
     for x = 0, sokoarea[nr].level_width - 1 do
       for y = 0, sokoarea[nr].level_height - 1 do
-        kill_stone(x, y)
-        kill_item(x, y)
-        set_element(x, y, nr, "outf")
+        wo:st(x, y):kill()
+        wo:it(x, y):kill()
+        set_element(po({x,y}), nr, "outf")
       end
     end
   else
     for x = 0, sokoarea[nr].array_width - 1 do
       for y = 0, sokoarea[nr].array_height - 1 do
-        local rx = x + sokoarea[nr].offset.x
-        local ry = y + sokoarea[nr].offset.y
-        kill_stone(rx, ry)
-        kill_item(rx, ry)
-        set_element(rx, ry, nr, "outf")
+        local abs = sokoarea[nr].offset + {x,y}
+        wo:st(abs):kill()
+        wo:it(abs):kill()
+        set_element(abs, nr, "outf")
       end
     end
   end
@@ -997,7 +985,7 @@ end
 
 -- draw_sokoball draws a sokoball level from argument LEVEL, sublevel
 -- number SUBLEVEL with design DESIGN (see create_sokoball) at offset
--- DX, DY. It's arguments are identical to those of create_sokoball.
+-- OFFSET. It's arguments are identical to those of create_sokoball.
 -- Whereas create_sokoball should be used for sokoball-only levels,
 -- draw_sokoball can be used to add a sokoban type area to a larger
 -- level. The difference is as follows:
@@ -1016,7 +1004,7 @@ end
 -- Note: Overwriting one sokoarea with another creates problems
 --       with the triggers.
 --
-function draw_sokoball(dx, dy, level, sublevel, design, draw_actor,
+function draw_sokoball(offset, level, sublevel, design, draw_actor,
                        endphase_hook, goal_hook)
   local nr = new_sokoarea()
   -- unpack level
@@ -1024,7 +1012,7 @@ function draw_sokoball(dx, dy, level, sublevel, design, draw_actor,
   sokoarea[nr].array_width = table.getn(sokoarea[nr].level_array[1])
   sokoarea[nr].array_height = table.getn(sokoarea[nr].level_array)
   sokoarea[nr].uses_chess = check_chess(nr)
-  sokoarea[nr].offset = {x = dx, y = dy}
+  sokoarea[nr].offset = offset
   sokoarea[nr].design = 
       design_from_description(design, sokoarea[nr].level_array)
   if hook ~= nil then
