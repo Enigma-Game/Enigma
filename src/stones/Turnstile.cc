@@ -433,10 +433,10 @@ namespace enigma {
             if (a != stay) {
                 bool clockwise = (a == ROTR);
                 Actor *actor = dynamic_cast<Actor*>(impulse.sender);
-                Log << "Turnstile impulse " << get_id(pivot) << " - "<<st_turnstile_green <<"\n";
+//                Log << "Turnstile impulse " << get_id(pivot) << " - "<<st_turnstile_green <<"\n";
                 if (get_id(pivot) == st_turnstile_green && actor != NULL &&
                         player::WieldedItemIs(actor, "it_wrench")) {
-                    Log << "Turnstile Wand\n";
+//                    Log << "Turnstile Wand\n";
                     clockwise = !clockwise;
                 }
                 pivot->rotate(clockwise, impulse.sender, this); // ROTR is clockwise
@@ -447,7 +447,7 @@ namespace enigma {
             move_stone(impulse.dir);
         }
         
-        if (Object::getObject(id) != NULL)   // not killed?
+        if (Object::getObject(id) != NULL)   // not killed - on pivot action?
             propagateImpulse(impulse);
     }
 

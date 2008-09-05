@@ -172,10 +172,8 @@ namespace enigma {
         Actor *a = dynamic_cast<Actor*>(impulse.sender);
         if (a == NULL && ((objFlags & OBJBIT_LIGHTNEWDIRS) == NODIRBIT || state == OFF 
                 || server::GameCompatibility != GAMET_ENIGMA)) {
-            int id = getId();
             move_stone(impulse.dir);
-            if (Object::getObject(id) != NULL)   // not killed?
-                propagateImpulse(impulse);
+            propagateImpulse(impulse);
         }
     }
     

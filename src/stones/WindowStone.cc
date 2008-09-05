@@ -216,6 +216,7 @@ namespace enigma {
     }
     
     bool WindowStone::tryInnerPull(Direction dir, Actor *initiator) {
+        static double eps = 3.0/32;   // thickness of a window face
         DirectionBits faces = getFaces();
         GridPos w_pos(get_pos());
         GridPos w_pos_neighbor = move(w_pos, dir);
@@ -259,13 +260,32 @@ namespace enigma {
                                 || ((dir == SOUTH) && (dest[1] - r < w_pos.y + 1) && (a_pos == w_pos_neighbor))
                                 || ((dir == NORTH) && (dest[1] + r > w_pos.y) && (a_pos == w_pos_neighbor))) {
                             // we do not have to worry about the level border as no face can be pushed to the border
-                            dest[0] = (dir == EAST) ? (w_pos.x + 1 + r) : ((dir == WEST) ? (w_pos.x - r) : dest[0]);
-                            dest[1] = (dir == SOUTH) ? (w_pos.y + 1 + r): ((dir == NORTH) ? (w_pos.y - r) : dest[1]);
+                            if (dir == EAST || dir == WEST) {
+                                dest[0] = (dir == EAST) ? (w_pos.x + 1 + r) : (w_pos.x - r) ;
+                                if (stone && has_dir(stone->getFaces(), NORTH))
+                                   dest[1] = ecl::Max(dest[1], w_pos.y + r + eps);
+                                else if (GetStone(move(w_pos, NORTH)) != NULL)
+                                   dest[1] = ecl::Max(dest[1], w_pos.y + r);
+                                if (stone && has_dir(stone->getFaces(), SOUTH))
+                                   dest[1] = ecl::Min(dest[1], w_pos.y + 1 - r - eps);
+                                else if (GetStone(move(w_pos, SOUTH)) != NULL)
+                                   dest[1] = ecl::Min(dest[1], w_pos.y + 1 - r);
+                            } else {
+                                dest[1] = (dir == SOUTH) ? (w_pos.y + 1 + r): ((dir == NORTH) ? (w_pos.y - r) : dest[1]);
+                                if (stone && has_dir(stone->getFaces(), WEST))
+                                   dest[0] = ecl::Max(dest[0], w_pos.x + r + eps);
+                                else if (GetStone(move(w_pos, WEST)) != NULL)
+                                   dest[0] = ecl::Max(dest[0], w_pos.x + r);
+                                if (stone && has_dir(stone->getFaces(), EAST))
+                                   dest[0] = ecl::Min(dest[0], w_pos.x + 1 - r - eps);
+                                else if (GetStone(move(w_pos, EAST)) != NULL)
+                                   dest[0] = ecl::Min(dest[0], w_pos.x + 1 - r);
+                            }
                             WarpActor(a, dest[0], dest[1], true);
                         }
                     }
                 }
-                
+                TouchStone(get_pos());  // avoid another actor getting below a moved window face
                 return true;
             }
         }

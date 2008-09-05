@@ -86,8 +86,6 @@ namespace enigma {
             return;                 // avoid unremoveable and border stones
         }
         
-        int id = getId();
-        
         PullStone *vanishStone = dynamic_cast<PullStone *>(MakeObject("st_pull"));
         vanishStone->state = VANISHING;
         
@@ -124,11 +122,9 @@ namespace enigma {
         }
         vanishStone->setAttr("$frozen_actors", actors);
 
-        if (Object::getObject(id) != NULL) {  // not killed?
-            sound_event("moveslow");
-            propagateImpulse(impulse);
-        }
-    }
+        sound_event("moveslow");
+        propagateImpulse(impulse);
+     }
     
     void PullStone::alarm() {
         if (state == APPEARING) {

@@ -1119,7 +1119,7 @@ void World::handle_stone_contact (StoneContact &sc)
         if (Stone *stone = GetStone(sc.stonepos)) {
             stone->actor_contact(sc.actor);
             
-            if (a->get_gridpos() != sc.stonepos) {
+            if (a->get_gridpos() != sc.stonepos && !sc.ignore && sc.response == STONE_REBOUND) {
                 // remove collision forces components from actor-actor collisions 
                 // in direction of stone
                 double normal_component = sc.normal * ai.collforce;            
@@ -2039,6 +2039,8 @@ void MoveStone (GridPos oldPos, GridPos newPos) {
 
 void TouchStone(GridPos pos) {
     level->changed_stones.push_back(pos);
+    if (level->registerCriticalPositions)
+        level->collisionCriticalPositions.push_back(pos);
 }
 
 void SetScrambleIntensity (int intensity) {

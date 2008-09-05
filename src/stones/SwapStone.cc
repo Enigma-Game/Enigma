@@ -85,8 +85,6 @@ namespace enigma {
             return;                 // avoid unremoveable and border stones
         }
 
-        int id = getId();
-        
         SwapStone *vanishStone = dynamic_cast<SwapStone *>(MakeObject("st_swap"));
         vanishStone->state = VANISHING;
         
@@ -105,10 +103,8 @@ namespace enigma {
                 it->on_stonehit(this);
 
         server::IncMoveCounter(1);
-        if (Object::getObject(id) != NULL) {  // not killed?
-            sound_event("moveslow");
-            propagateImpulse(impulse);
-        }
+        sound_event("moveslow");
+        propagateImpulse(impulse);
     }
     
     void SwapStone::alarm() {

@@ -1060,8 +1060,8 @@ namespace
         void explode() {
             GridPos p = get_pos();
             sound_event ("blackbomb");
-            SendExplosionEffect(p, EXPLOSION_BLACKBOMB);
             replace("it-explosion3");
+            SendExplosionEffect(p, EXPLOSION_BLACKBOMB);  // may kill the bomb by another explosion1 set by brake
         }
     };
     DEF_ITEMTRAITSF(BlackBomb, "it-blackbomb", it_blackbomb,
@@ -1095,7 +1095,7 @@ namespace
             GridPos p = get_pos();
             sound_event ("whitebomb");
             replace("it-explosion3");
-            SendExplosionEffect(p, EXPLOSION_WHITEBOMB);
+            SendExplosionEffect(p, EXPLOSION_WHITEBOMB); // may kill the bomb by another explosion1 set by brake
         }
 
     public:
