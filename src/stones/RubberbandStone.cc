@@ -70,6 +70,7 @@ namespace enigma {
         if (a && player::WieldedItemIs (a, "it_magicwand")) {
             move_stone(impulse.dir);
             propagateImpulse(impulse);
+        }
     }
 
     DEF_TRAITSM(RubberbandStone, "st_rubberband", st_rubberband, MOVABLE_STANDARD);
