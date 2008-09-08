@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no" ?>
 <index xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="index.xsd">
 
-  <info enigma="1.00" group="Facets" location="15600" network="false" owner="Enigma Team" release="1" revision="12" title="Enigma 1.1 new"/>
+  <info enigma="1.00" group="Facets" location="15600" network="false" owner="Enigma Team" release="1" revision="13" title="Enigma 1.1 new"/>
 
   <attributes/>
 
@@ -89,7 +89,7 @@
     <level _seq="81" _title="Enigmines" _xpath="enigma_viii/huffman01_1" author="Brian Huffman" ctrl="force" easy="true" id="huffman01" rel="1" rev="2" score="1" target="time" unit="duration"/>
     <level _seq="82" _title="Red Cave" _xpath="enigma_viii/mecke21_1" author="mecke" ctrl="force" easy="true" id="mecke21" rel="1" rev="30" score="1" target="time" unit="duration"/>
     <level _seq="83" _title="Status code 302" _xpath="enigma_viii/dev02_1" author="/dev/null" ctrl="force" easy="true" id="dev02" rel="1" rev="4" score="1" target="time" unit="duration"/>
-    <level _seq="84" _title="A Screenful of Secrets" _xpath="enigma_viii/mecke01_1" author="mecke" ctrl="force" easy="true" id="mecke01" rel="1" rev="22" score="1" target="time" unit="duration"/>
+    <level _seq="84" _title="A Screenful of Secrets" _xpath="enigma_viii/mecke01_1" author="mecke" ctrl="force" easy="true" id="mecke01" rel="1" rev="23" score="1" target="time" unit="duration"/>
     <level _seq="85" _title="Southside Life" _xpath="enigma_viii/mecke10_1" author="mecke" ctrl="force" easy="true" id="mecke10" rel="1" rev="18" score="1" target="time" unit="duration"/>
     <level _seq="86" _title="Joona's Chess" _xpath="enigma_viii/joona02_1" author="Joona Laire" ctrl="force" easy="true" id="joona02" rel="1" rev="0" score="1" target="time" unit="duration"/>
     <level _seq="87" _title="Helios I" _xpath="enigma_viii/mecke07_1" author="mecke" ctrl="force" easy="false" id="mecke48" rel="1" rev="12" score="1" target="time" unit="duration"/>
@@ -97,14 +97,14 @@
     <level _seq="89" _title="Tilt Board" _xpath="enigma_viii/ulf06_2" author="Ulf Stegemann" ctrl="force" easy="true" id="20080529ulf118" rel="2" rev="116" score="2" target="time" unit="duration"/>
     <level _seq="90" _title="4 - 8 - 4" _xpath="enigma_viii/dpl03_3" author="Dominik Leipold" ctrl="force" easy="true" id="20070821dpl003" rel="3" rev="4" score="3" target="time" unit="duration"/>
     <level _seq="91" _title="Impulsive Order" _xpath="enigma_viii/raywick05_1" author="Ray Wick" ctrl="force" easy="true" id="raywick5" rel="1" rev="5" score="1" target="time" unit="duration"/>
-    <level _seq="92" _title="Cross Mail" _xpath="enigma_viii/johann03_1" author="Johann Freymuth" ctrl="force" easy="false" id="johann03" rel="1" rev="1" score="1" target="time" unit="duration"/>
+    <level _seq="92" _title="Cross Mail" _xpath="enigma_viii/johann03_1" author="Johann Freymuth" ctrl="force" easy="false" id="johann03" rel="1" rev="2" score="1" target="time" unit="duration"/>
     <level _seq="93" _title="Color Maze" _xpath="enigma_viii/pulley16_3" author="Mark Pulley" ctrl="force" easy="false" id="pulley16" rel="3" rev="4" score="3" target="time" unit="duration"/>
     <level _seq="94" _title="Earthlink" _xpath="enigma_viii/pulley15_1" author="Mark Pulley" ctrl="force" easy="true" id="pulley15" rel="1" rev="0" score="1" target="time" unit="duration"/>
     <level _seq="95" _title="Vanity's Constrictions" _xpath="enigma_viii/andreas53_2" author="Andreas Lochmann" ctrl="force" easy="true" id="andreas53" rel="2" rev="5" score="2" target="time" unit="duration"/>
     <level _seq="96" _title="Wired" _xpath="enigma_viii/andreas49_1" author="Andreas Lochmann" ctrl="force" easy="true" id="andreas49" rel="1" rev="4" score="1" target="time" unit="duration"/>
     <level _seq="97" _title="Push Wires" _xpath="enigma_viii/ral24_1" author="Ronald Lamprecht" ctrl="force" easy="true" id="20080708ral196" rel="1" rev="100" score="1" target="time" unit="duration"/>
-    <level _seq="98" _title="Wired Five" _xpath="enigma_viii/ral25_1" author="Ronald Lamprecht" ctrl="force" easy="true" id="20080721ral073" rel="1" rev="109" score="1" target="time" unit="duration"/>
-    <level _seq="99" _title="Wireban Premiere" _xpath="enigma_viii/ral26_1" author="Ronald Lamprecht" ctrl="force" easy="false" id="20080715ral161" rel="1" rev="106" score="1" target="time" unit="duration"/>
+    <level _seq="98" _title="Wired Five" _xpath="enigma_viii/ral25_1" author="Ronald Lamprecht" ctrl="force" easy="true" id="20080721ral073" rel="1" rev="112" score="1" target="time" unit="duration"/>
+    <level _seq="99" _title="Wireban Premiere" _xpath="enigma_viii/ral26_1" author="Ronald Lamprecht" ctrl="force" easy="false" id="20080715ral161" rel="1" rev="112" score="1" target="time" unit="duration"/>
     <level _seq="100" _title="Microwire" _xpath="enigma_viii/ral27_1" author="Ronald Lamprecht" ctrl="force" easy="false" id="20080717ral427" rel="1" rev="107" score="1" target="time" unit="duration"/>
     <level _seq="101" _title="More Microwire" _xpath="enigma_viii/ral28_1" author="Ronald Lamprecht" ctrl="force" easy="false" id="20080717ral282" rel="1" rev="105" score="1" target="time" unit="duration"/>
     <level _seq="102" _title="Freestyle Microwire" _xpath="enigma_viii/ral29_1" author="Ronald Lamprecht" ctrl="force" easy="true" id="20080719ral530" rel="1" rev="107" score="1" target="time" unit="duration"/>
@@ -113,6 +113,7 @@
     <level _seq="105" _title="Fashions Pass" _xpath="enigma_viii/andreas48_2" author="Andreas Lochmann" ctrl="force" easy="false" id="andreas48" rel="2" rev="3" score="2" target="time" unit="duration"/>
     <level _seq="106" _title="Colored Turnstiles" _xpath="enigma_viii/andreas51_1" author="Andreas Lochmann" ctrl="force" easy="false" id="andreas51" rel="1" rev="1" score="1" target="time" unit="duration"/>
     <level _seq="107" _title="Sanssouci" _xpath="enigma_viii/mecke05_1" author="mecke" ctrl="force" easy="true" id="mecke05" rel="1" rev="23" score="1" target="time" unit="duration"/>
+    <level _seq="108" _title="Wired Shogun" _xpath="enigma_viii/ral34_1" author="Ronald Lamprecht" ctrl="force" easy="true" id="20080828ral417" rel="1" rev="112" score="1" target="time" unit="duration"/>
   </levels>
 
 </index>

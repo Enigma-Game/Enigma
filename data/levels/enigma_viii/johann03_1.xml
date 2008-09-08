@@ -3,7 +3,7 @@
   <el:protected>
     <el:info el:type="level">
       <el:identity el:title="Cross Mail" el:subtitle="The level goes on" el:id="johann03"/>
-      <el:version el:score="1" el:release="1" el:revision="1" el:status="released"/>
+      <el:version el:score="1" el:release="1" el:revision="2" el:status="released"/>
       <el:author  el:name="Johann Freymuth" el:email="" el:homepage=""/>
       <el:copyright>Copyright © 2007 Johann Freymuth</el:copyright>
       <el:license el:type="GPL v2.0 or above" el:open="true"/>
@@ -16,26 +16,26 @@ wo["ConserveLevel"] = true
 
 ti[" "] = {"fl-white"}
 ti["x"] = {"it_cross"}
-ti["|"] = {"it-pipe-v"}
-ti["9"] = {"it-pipe-ne"}
-ti["8"] = {"it-pipe-es"}
-ti["7"] = {"it-pipe-sw"}
-ti["6"] = {"it-pipe-wn"}
+ti["|"] = {"it_pipe_ns"}
+ti["9"] = {"it_pipe_ne"}
+ti["8"] = {"it_pipe_es"}
+ti["7"] = {"it_pipe_sw"}
+ti["6"] = {"it_pipe_nw"}
 ti["b"] = {"it_brush"}
 ti["h"] = {"it_hammer"}
 ti["d"] = {"it-dynamite"}
 ti["o"] = {"it-blackbomb"}
 ti["#"] = {"st-glass2"}
 ti["C"] = {"st-glass1"}
-ti["0"] = ti["C"] .. {"it-pipe-v"}
-ti["1"] = ti["C"] .. {"it-pipe-h"}
-ti["2"] = ti["C"] .. {"it-pipe-ne"}
-ti["3"] = ti["C"] .. {"it-pipe-es"}
-ti["4"] = ti["C"] .. {"it-pipe-sw"}
-ti["5"] = ti["C"] .. {"it-pipe-wn"}
+ti["0"] = ti["C"] .. {"it_pipe_ns"}
+ti["1"] = ti["C"] .. {"it_pipe_ew"}
+ti["2"] = ti["C"] .. {"it_pipe_ne"}
+ti["3"] = ti["C"] .. {"it_pipe_es"}
+ti["4"] = ti["C"] .. {"it_pipe_sw"}
+ti["5"] = ti["C"] .. {"it_pipe_nw"}
 ti["X"] = ti["x"] .. {"st-glass2"}
-ti["M"] = {"st-mail-e"}
-ti["U"] = {"st-mail-n"}
+ti["M"] = {"st_mail_e"}
+ti["U"] = {"st_mail_n"}
 ti["I"] = {"st-break_invisible"}
 ti["O"] = {"st_oxyd", name="oxydstone#"}
 ti["i"] = {"st_switch", target="setv"}
@@ -66,22 +66,22 @@ w, h = wo(ti, " ", {
 wo:shuffleOxyd({"oxydstone#*", linear=true})
 
 function setv()
-    wo[{1,9}] = {"it-pipe-v"}
+    wo[{1,9}] = {"it_pipe_ns"}
 end
 function seth()
-    wo[{2,9}] = {"it-pipe-h"}
+    wo[{2,9}] = {"it_pipe_ew"}
 end
 function setne()
-    wo[{3,9}] = {"it-pipe-ne"}
+    wo[{3,9}] = {"it_pipe_ne"}
 end
 function setes()
-    wo[{4,9}] = {"it-pipe-es"}
+    wo[{4,9}] = {"it_pipe_es"}
 end
 function setsw()
-    wo[{5,9}] = {"it-pipe-sw"}
+    wo[{5,9}] = {"it_pipe_sw"}
 end
 function setwn()
-    wo[{6,9}] = {"it-pipe-wn"}
+    wo[{6,9}] = {"it_pipe_nw"}
 end
     ]]></el:luamain>
     <el:i18n>

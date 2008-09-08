@@ -1,0 +1,91 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no" ?>
+<el:level xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://enigma-game.org/schema/level/1 level.xsd" xmlns:el="http://enigma-game.org/schema/level/1">
+  <el:protected >
+    <el:info el:type="level">
+      <el:identity el:title="Wired Shogun" el:subtitle="" el:id="20080828ral417"/>
+      <el:version el:score="1" el:release="1" el:revision="$Revision: 112 $" el:status="released"/>
+      <el:author  el:name="Ronald Lamprecht" el:email="ral@users.berlios.de"/>
+      <el:copyright>Copyright © 2008 Ronald Lamprecht</el:copyright>
+      <el:license el:type="GPL v2.0 or above" el:open="true"/>
+      <el:compatibility el:enigma="1.10"/>
+      <el:modes el:easy="true" el:single="true" el:network="false"/>
+      <el:score el:easy="2:05" el:difficult="3:29"/>
+    </el:info>
+    <el:luamain><![CDATA[
+wo["ConserveLevel"] = true
+
+ti[" "] = {"fl-light", checkerboard=1} .. ti({"fl-marble", checkerboard=0})
+ti["."] = {"fl-abyss"}
+
+ti["1"] = {"st_shogun_l", "l1"}
+ti["2"] = {"st_shogun_l", "l2"}
+ti["4"] = {"st_shogun_m", "m1"}
+ti["5"] = {"st_shogun_m", "m2"}
+ti["7"] = {"st_shogun_s", "s1"}
+ti["8"] = {"st_shogun_s", "s2"}
+
+ti["a"] = {"it_shogun_l", target="ba#*", action="openclose"}
+
+ti["A"] = {"fl-bridge", "ba#", type="a"}
+ti["B"] = {"fl-bridge", "bb#", type="a"}
+ti["C"] = {"fl-bridge", "bc#", type="a"}
+
+if wo["IsDifficult"] then
+  ti["3"] = {"st_shogun_l", "l3"}
+  ti["6"] = {"st_shogun_m", "m3"}
+  ti["9"] = {"st_shogun_s", "s3"}
+  ti["b"] = {"it_shogun_l", target="bb#*", action="openclose"}
+  ti["c"] = {"it_shogun_l", target="bc#*", action="openclose"}
+  ti["D"] = ti["."]
+else
+  ti["3"] = ti[" "]
+  ti["6"] = {"it_shogun_l", target="bd#*", action="openclose"}
+  ti["9"] = ti[" "]
+  ti["b"] = ti[" "]
+  ti["c"] = ti[" "]
+  ti["D"] = {"fl-bridge", "bd#", type="a"}
+end
+
+ti["X"] = {"st_oxyd_d"} .. ti["."]
+
+ti["@"] = {"#ac-blackball"}
+
+
+w, h = wo(ti, " ", {
+"...................",
+"..XCB.       .BCX..",
+"..CDA 1     8 ADC..",
+"..BA           AB..",
+"...    9   b    ...",
+"..               ..",
+".. 5   a @ 6   4 ..",
+"..               ..",
+"...    3   c    ...",
+"..BA           AB..",
+"..CDA 7     2 ADC..",
+"..XCB.       .BCX..",
+"..................."
+})
+
+if wo["IsDifficult"] then
+  wo:add({"ot_wire", anchor1="l1", anchor2="m1"})
+  wo:add({"ot_wire", anchor1="s1", anchor2="m1"})
+  wo:add({"ot_wire", anchor1="l2", anchor2="m2"})
+  wo:add({"ot_wire", anchor1="s2", anchor2="m2"})
+  wo:add({"ot_wire", anchor1="l3", anchor2="m3"})
+  wo:add({"ot_wire", anchor1="s3", anchor2="m3"})
+else
+  wo:add({"ot_wire", anchor1="l1", anchor2="m1"})
+  wo:add({"ot_wire", anchor1="s1", anchor2="l2"})
+  wo:add({"ot_wire", anchor1="s2", anchor2="m2"})
+end
+
+wo:shuffleOxyd()
+    ]]></el:luamain>
+    <el:i18n>
+      <el:string el:key="title">
+        <el:english el:translate="false"/>
+      </el:string>
+    </el:i18n>
+  </el:protected>
+</el:level>
