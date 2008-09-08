@@ -45,6 +45,7 @@ RenamingObjectsOld2New = {
 }
 
 RenamingObjectsNew2Old = {
+    fl_bridge = "fl-bridge",
     it_blocker = "it-blocker",
     it_blocker_new = "it-blocker-new",
     it_brake = "it-brake",
@@ -255,7 +256,14 @@ for k,v in pairs(RenamingObjectsNew2Old) do
 end
 
 function enigma.MakeObject(name)
-    if name == "st-key" then
+    if name == "fl-bridge-open" then
+        local obj = enigma._MakeObject("fl_bridge")
+        return obj
+    elseif name == "fl-bridge-closed" then
+        local obj = enigma._MakeObject("fl_bridge")
+        enigma._SetAttrib(obj, "state", 0)
+        return obj
+    elseif name == "st-key" then
         local obj = enigma._MakeObject("st_key")
         -- Old API keycode default was 0 for st-key, but 1 for it-key!
         enigma._SetAttrib(obj, "code", 0)
@@ -541,6 +549,13 @@ function enigma.SetAttrib(obj, key, val)
          _key = "faces"
          if val == "h" then _val = "ns" else _val = "ew" end
      end
+     if key == "type" and _obj_name == "fl-bridge" then
+         _key = "flavor"
+         if val == "x" then _val = "bw"
+         elseif val == "y" then _val = "bn"
+         else _val = "gc"
+         end
+     end
      enigma._SetAttrib(obj, _key, _val)
 end
 
@@ -585,9 +600,16 @@ function enigma.GetAttrib(obj, key)
          _key = "state"
      end
      if key == "type" and _obj_name == "st-door" then
-         faces = enigma._GetAttrib(obj, "faces")
+         local faces = enigma._GetAttrib(obj, "faces")
          if faces == "ns" then val = "h" else val = "v" end
          return val
+     end
+     if key == "type" and _obj_name == "fl-bridge" then
+         local flavor = enigma._GetAttrib(obj, "flavor")
+         if flavor == "bw" then return "x"
+         elseif flavor == "bn" then return "y"
+         else return "a"
+         end
      end
 
      local val = enigma._GetAttrib(obj, _key)
@@ -661,6 +683,7 @@ function enigma.GetObjectTemplate(kind)
 end
 
 MessageRenaming = {
+    fl_bridge__openclose = "toggle",
     it_blocker__trigger = "toggle",
     it_blocker__openclose = "toggle",
     ["it-burnable__trigger"] = "ignite",

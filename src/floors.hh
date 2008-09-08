@@ -105,7 +105,7 @@ namespace enigma {
         virtual void on_pickup (Item *) {}
 
         virtual void stone_change(Stone *) {}
-        virtual void actor_contact (Actor *) {}
+        virtual void actor_contact(Actor *) {}
 
         virtual double get_friction() const;
         virtual double get_mousefactor() const;

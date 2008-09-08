@@ -110,7 +110,7 @@ const char *oxyd::oxydextra_floor_map[256] = {
     UNUSED,              // OxydExtra floor 0x49
     UNUSED,              // OxydExtra floor 0x4a
     UNUSED,              // OxydExtra floor 0x4b
-    "fl-bridge",         // OxydExtra floor 0x4c
+    "fl_bridge",         // OxydExtra floor 0x4c
     UNUSED,              // OxydExtra floor 0x4d
     UNUSED,              // OxydExtra floor 0x4e
     UNUSED,              // OxydExtra floor 0x4f

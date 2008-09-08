@@ -58,15 +58,14 @@ bool maybe_push_stone (const StoneContact &sc)
 }
 
 
-Stone::Stone()
-: freeze_check_running (false)
-{}
+Stone::Stone() : freeze_check_running (false) {
+}
 
-Stone::Stone(const char * kind)
-: GridObject (kind), freeze_check_running (false)
-{}
+Stone::Stone(const char * kind) : GridObject (kind), freeze_check_running (false) {
+}
 
-Stone::~Stone() {  }
+Stone::~Stone() {
+}
 
 const StoneTraits &Stone::get_traits() const
 {

@@ -3,7 +3,7 @@
   <el:protected>
     <el:info el:type="level">
       <el:identity el:title="Temple of Gold" el:subtitle="" el:id="duffy151"/>
-      <el:version el:score="3" el:release="3" el:revision="6" el:status="released"/>
+      <el:version el:score="3" el:release="3" el:revision="7" el:status="released"/>
       <el:author  el:name="Jacob Scott" el:email="" el:homepage=""/>
       <el:copyright>Copyright © 2007 Jacob Scott</el:copyright>
       <el:license el:type="GPL v2.0 or above" el:open="true"/>
@@ -248,7 +248,7 @@ end
 
 function showbridges(value, sender)
     for i = 1,bridgecount do
-        SendMessage(enigma.GetNamedObject("bridge#"..i), "signal", value)
+        SendMessage(enigma.GetNamedObject("bridge#"..i), "toggle", value)
     end
 end
 

@@ -117,7 +117,10 @@ namespace
         PuzzleStone(int connections, bool oxyd1_compatible_);  
         
         virtual void lightDirChanged(DirectionBits oldDirs, DirectionBits newDirs);
-        
+        virtual bool is_transparent(Direction d) const;
+        virtual bool is_sticky(const Actor *a) const;
+        virtual bool allowsSpreading(Direction dir) const;
+        virtual void on_move();
     protected:
         virtual ~PuzzleStone() {
             GameTimer.remove_alarm (this);
@@ -163,8 +166,6 @@ namespace
 
         void on_creation (GridPos p);
         void on_impulse (const Impulse& impulse);
-
-        bool is_floating() const;
 
         StoneResponse collision_response(const StoneContact &sc);
         void actor_hit (const StoneContact &sc);
@@ -590,8 +591,21 @@ bool PuzzleStone::explode_complete_cluster()
     return exploded;
 }
 
-bool PuzzleStone::is_floating() const {
+bool PuzzleStone::is_transparent(Direction d) const {
     return get_connections() == 0;
+}
+
+bool PuzzleStone::is_sticky(const Actor *a) const {
+    return get_connections() != 0;
+}
+
+bool PuzzleStone::allowsSpreading(Direction dir) const {
+    return get_connections() == 0;
+}
+
+void PuzzleStone::on_move() {
+    if (get_connections() != 0) 
+        ShatterActorsInsideField (get_pos());
 }
 
 void PuzzleStone::maybe_rotate_cluster(Direction dir) 

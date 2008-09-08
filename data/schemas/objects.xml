@@ -112,6 +112,23 @@
       <msg name="kill"/>
       <msg name="toggle"/>
     </object>
+    <object name="fl" abstract="true"/>
+    <object name="fl_bridge">
+      <attr name="flavor" default="gc"/>
+      <msg name="close"/>
+      <msg name="open"/>
+      <msg name="signal"/>
+      <msg name="_init"/>
+    </object>
+    <object name="fl_bridge_gc">
+      <attr name="flavor" value="gc"/>
+    </object>
+    <object name="fl_bridge_bw">
+      <attr name="flavor" value="bw"/>
+    </object>
+    <object name="fl_bridge_bn">
+      <attr name="flavor" value="bn"/>
+    </object>
     <object name="it" abstract="true"/>
     <object name="it_blocker">
       <attr name="autoclose"/>

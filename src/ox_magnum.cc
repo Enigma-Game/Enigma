@@ -116,7 +116,7 @@ const char *oxyd::oxydmag_floor_map[256] = {
     UNUSED,                     // OxydMagnum floor 0x4f
     UNUSED,                     // OxydMagnum floor 0x50
     UNUSED,                     // OxydMagnum floor 0x51
-    "fl-bridge",                // OxydMagnum floor 0x52 (common was 'fl-bridge')
+    "fl_bridge",                // OxydMagnum floor 0x52 (common was 'fl-bridge')
     "fl-springboard",           // OxydMagnum floor 0x53
     "fl-light",                 // OxydMagnum floor 0x54
     "fl-lightgray",             // OxydMagnum floor 0x55

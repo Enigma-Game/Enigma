@@ -145,6 +145,8 @@ enigma_SOURCES = 		\
 	XMLtoLocal.hh		\
 	XMLtoUtf8.cc		\
 	XMLtoUtf8.hh		\
+	floors/BridgeFloor.cc	\
+	floors/BridgeFloor.hh	\
 	gui/ErrorMenu.cc	\
 	gui/ErrorMenu.hh	\
 	gui/GameMenu.cc		\
@@ -185,18 +187,6 @@ enigma_SOURCES = 		\
 	gui/TextField.hh	\
 	gui/widgets.cc		\
 	gui/widgets.hh		\
-	lev/Index.cc		\
-	lev/Index.hh		\
-	lev/RatingManager.cc	\
-	lev/RatingManager.hh	\
-	lev/PersistentIndex.cc	\
-	lev/PersistentIndex.hh	\
-	lev/Proxy.cc		\
-	lev/Proxy.hh		\
-	lev/ScoreManager.cc	\
-	lev/ScoreManager.hh	\
-	lev/VolatileIndex.cc	\
-	lev/VolatileIndex.hh	\
 	items/BrakeItem.cc	\
 	items/BrakeItem.hh	\
 	items/BlockerItem.cc	\
@@ -225,6 +215,18 @@ enigma_SOURCES = 		\
 	items/Vortex.hh		\
 	items/WormHole.cc	\
 	items/WormHole.hh	\
+	lev/Index.cc		\
+	lev/Index.hh		\
+	lev/RatingManager.cc	\
+	lev/RatingManager.hh	\
+	lev/PersistentIndex.cc	\
+	lev/PersistentIndex.hh	\
+	lev/Proxy.cc		\
+	lev/Proxy.hh		\
+	lev/ScoreManager.cc	\
+	lev/ScoreManager.hh	\
+	lev/VolatileIndex.cc	\
+	lev/VolatileIndex.hh	\
 	others/Other.cc		\
 	others/Other.hh		\
 	others/Rubberband.cc	\

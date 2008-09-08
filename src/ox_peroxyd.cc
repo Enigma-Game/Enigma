@@ -179,7 +179,7 @@ const char *oxyd::peroxyd_floor_map[256] = {
     UNUSED,                     // PerOxyd floor 0x49
     UNUSED,                     // PerOxyd floor 0x4a
     UNUSED,                     // PerOxyd floor 0x4b
-    "fl-bridge-open",           // PerOxyd floor 0x4c
+    "fl_bridge",                // PerOxyd floor 0x4c
     UNUSED,                     // PerOxyd floor 0x4d
     "fl-gray",                  // PerOxyd floor 0x4e
     "fl-gradient13",            // PerOxyd floor 0x4f (flat force up, beige)        (maybe gradient22?)

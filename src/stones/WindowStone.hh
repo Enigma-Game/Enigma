@@ -73,6 +73,7 @@ namespace enigma {
         virtual bool is_transparent (Direction) const { return true; }
         virtual bool is_floating() const { return state != IDLE; }
         virtual bool is_sticky(const Actor *a) const;
+        virtual void on_move();
 
     private:
         void breakFaces(DirectionBits faces);

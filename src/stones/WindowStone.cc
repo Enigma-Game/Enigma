@@ -182,6 +182,10 @@ namespace enigma {
         return false;
     }
     
+    void WindowStone::on_move() {
+        // do not shatter actors
+    }
+    
     StoneResponse WindowStone::collision_response(const StoneContact &sc) {
         const double face_width = 3.0/32.0; 
         

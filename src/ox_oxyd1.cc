@@ -149,7 +149,7 @@ const char *oxyd::oxyd1_floor_map[256] = {
     UNUSED,                     // Oxyd1 floor 0x4f
     UNUSED,                     // Oxyd1 floor 0x50
     UNUSED,                     // Oxyd1 floor 0x51
-    "fl-bridge",                // Oxyd1 floor 0x52
+    "fl_bridge",                // Oxyd1 floor 0x52
     "fl-springboard",           // Oxyd1 floor 0x53
     UNUSED,                     // Oxyd1 floor 0x54
     "fl-gray",                  // Oxyd1 floor 0x55

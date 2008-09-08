@@ -95,7 +95,7 @@ void Floor::setAttr(const string& key, const Value &val)
         var_floorforce[0] = to_double(val);
     else if (key == "force_y")
         var_floorforce[1] = to_double(val);
-    Object::setAttr(key, val);
+    GridObject::setAttr(key, val);
 }
 
 void Floor::get_sink_speed (double &sinkspeed, double &raisespeed) const {
@@ -675,173 +675,6 @@ void Gradient::add_force(Actor *a, V2 &f)
     Floor::add_force(a, f);
 }
 
-
-/* -------------------- Bridge -------------------- */
-
-/** \page fl-bridge Bridge Floor
-
-This Floor can be opened and closed much like a bridge.
-The actor can move over this floor if the bridge is closed,
-and will fall into abyss when the bridge is open.
-
-\subsection bridgea Attributes
-
-- \b type	The type of the bridge, currently only 'a' is possible
-
-\subsection bridgem Messages
-- \b open	open the bridge so actors cannot pass it
-- \b close	close the bridge so actors can pass it
-- \b openclose	toggle the state of the bridge
-- \b signal     same as \b openclose
-
-*/
-namespace
-{
-    class Bridge : public Floor {
-        CLONEOBJ(Bridge);
-    public:
-        Bridge(bool open=true);
-        virtual Value message(const Message &m);
-    private:
-        enum State {
-            OPEN, CLOSED, OPENING, CLOSING, // normal states
-            CLOSING_BYSTONE, CLOSED_BYSTONE // when stones are moved onto the bridge
-        } state;
-        // the BYSTONE-states look like closed, but act like open
-
-        char get_type() const {
-            string type = "a";
-            if (Value v = getAttr("type")) type = v.get_string();
-            return type[0];
-        }
-
-//         void actor_enter(Actor *);
-        void actor_contact (Actor* a) {if (state!=CLOSED) SendMessage(a, "fall");}
-        void init_model();
-        void stone_change(Stone *st);
-
-        void change_state( State newstate);
-        void animcb();
-    };
-}
-
-Bridge::Bridge(bool open) : Floor("fl-bridge", 5, 1)
-{
-    setAttr("type", "a");
-    state=open ? OPEN : CLOSED;
-}
-
-void Bridge::stone_change(Stone *st) {
-    if (st && !st->is_floating()) {
-        if (state == OPEN || state == OPENING) {
-            change_state(CLOSING_BYSTONE);
-        }
-    }
-    else {
-        if (state == CLOSED_BYSTONE || state == CLOSING_BYSTONE) {
-            change_state(OPENING);
-        }
-    }
-}
-
-Value Bridge::message(const Message &m)
-{
-    if (m.message == "open" && (state==CLOSED || state==CLOSING|| state==OPENING)) {
-        change_state(OPENING);
-        return Value();
-    } else if (m.message == "close") {
-        switch (state) {
-            case OPEN:
-            case OPENING:
-            case CLOSING_BYSTONE:
-                change_state(CLOSING);
-                break;
-            case CLOSED_BYSTONE:
-                change_state(CLOSED);
-                break;
-            case CLOSED:
-            case CLOSING:
-                break; // already closed
-        }
-        return Value();
-    } else if (m.message == "openclose" || m.message == "signal") {
-        switch (state) {
-            case OPEN:
-            case OPENING:
-            case CLOSING_BYSTONE:
-                change_state(CLOSING);
-                break;
-            case CLOSED_BYSTONE:
-                change_state(CLOSED);
-                break;
-            case CLOSED:
-            case CLOSING:
-                change_state(OPENING);
-                break;
-        }
-        return Value();
-    }
-    return Floor::message(m);
-}
-
-void Bridge::init_model()
-{
-    set_model(ecl::strf("fl-bridge%c-%s", get_type(),
-                       (state==OPEN) ? "open" : "closed"));
-}
-
-void Bridge::change_state( State newstate)
-{
-    if (state != newstate) {
-        string mname = string("fl-bridge")+get_type();
-
-        switch( newstate) {
-        case OPENING: {
-            Stone *st = GetStone(get_pos());
-            if (st && !st->is_floating()) {
-                if (state == CLOSED || state == CLOSED_BYSTONE)
-                    newstate = CLOSED_BYSTONE;
-                else if (state == CLOSING || state == CLOSING_BYSTONE)
-                    newstate = CLOSING_BYSTONE;
-                // here the model is already correct!
-            }
-            else { // no stone or floating stone :
-                if( state == CLOSING || state == CLOSING_BYSTONE)
-                    get_model()->reverse();
-                else
-                    set_anim(mname+"-opening");
-            }
-            break;
-        }
-        case CLOSING:
-        case CLOSING_BYSTONE:
-            if( state == OPENING)
-                get_model()->reverse();
-            else if (state != CLOSING && state != CLOSING_BYSTONE)
-                set_anim(mname+"-closing");
-            break;
-        case OPEN:
-        case CLOSED:
-        case CLOSED_BYSTONE:
-            state = newstate;
-            init_model();
-            break;
-        }
-        state = newstate;
-    }
-}
-
-void Bridge::animcb()
-{
-    switch (state) {
-        case OPENING: change_state(OPEN); break;
-        case CLOSING: change_state(CLOSED); break;
-        case CLOSING_BYSTONE: change_state(CLOSED_BYSTONE); break;
-        default :
-            ASSERT(0, XLevelRuntime, "Bridge: animcb called after unknown animation");
-            break;
-    }
-}
 
 /* -------------------- Thief Floor -------------------- */
 namespace{
@@ -1014,9 +847,6 @@ void InitFloors()
     Register(new FallenBox("fl-stwood"));
     Register(new FallenBox("fl-stwood1"));
     Register(new FallenBox("fl-stwood2"));
-    Register(new Bridge);
-    Register("fl-bridge-open", new Bridge(true));
-    Register("fl-bridge-closed", new Bridge(false));
     Register(new Thief);
     Register(new WhiteTile);
     Register(new BlackTile);
