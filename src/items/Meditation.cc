@@ -37,7 +37,7 @@ namespace enigma {
         if (key == "essential") {
             bool essential = (val == 1);
             if (essential != (bool)(objFlags & OBJBIT_INDISPENSIBLE)) {
-                if (isDisplayable() /* && state != HILL && state != BUMP */) {
+                if (isDisplayable()) {
                     if (whiteball != NULL && enter_time == -1) {   // meditatist is registered
                         bool indispensable = objFlags & OBJBIT_INDISPENSIBLE;
                         ChangeMeditation(0, 0, indispensable ? -1 : +1, indispensable ? +1 : -1);
@@ -83,35 +83,29 @@ namespace enigma {
     }
     
     void Meditation::toggleState() {
-        setState(-state);
+        int newState;
+        switch (state) {
+            case CALDERA: newState = HILL; break;
+            case HOLLOW:  newState = VOLCANO; break;
+            case DENT:    newState = BUMP; break;
+            case BUMP:    newState = DENT; break;
+            case HILL:    newState = CALDERA; break;
+            case VOLCANO: newState = HOLLOW; break;
+        }
+        setState(newState);
     }
     
     void Meditation::setState(int extState) {
         if (extState != state && extState != 0) {
-            if (isDisplayable()) {
-                if (state != HILL && state != BUMP && (extState == HILL || extState == BUMP)) {
-                    // a meditation hole is changed to a hill or bump
-                    if (whiteball != NULL)
-                        deregisterWhiteball();
-//                    if (objFlags & OBJBIT_INDISPENSIBLE)
-//                        ChangeMeditation(0, -1, 0, 0);
-                } else if ((state == HILL || state == BUMP) && extState != HILL && extState != BUMP) {
-                    // hill or bump is made a meditation hole
-                    if (server::WorldInitialized)
-                        checkActors();
-//                    if (objFlags & OBJBIT_INDISPENSIBLE)
-//                        ChangeMeditation(0, +1, 0, 0);
-                }
-                
-                state = extState;
+            state = extState;
+            if (isDisplayable()) {                
                 init_model();
-            } else
-                state = extState;
+            }
         }
     }
         
     void Meditation::on_creation(GridPos p) {
-        if (/* state != HILL && state != BUMP && */ (objFlags & OBJBIT_INDISPENSIBLE))
+        if (objFlags & OBJBIT_INDISPENSIBLE)
             ChangeMeditation(0, +1, 0, 0);
         if (server::WorldInitialized)
             checkActors();
@@ -119,7 +113,7 @@ namespace enigma {
     }
     
     void Meditation::on_removal(GridPos p) {
-        if (/* state != HILL && state != BUMP && */ (objFlags & OBJBIT_INDISPENSIBLE))
+        if (objFlags & OBJBIT_INDISPENSIBLE)
             ChangeMeditation(0, -1, 0, 0);
         if (whiteball != NULL)
             deregisterWhiteball();
@@ -140,27 +134,26 @@ namespace enigma {
         static const double MINTIME = 1.0;
         ItemID id = get_id(this);
     
-        if (state != HILL && state != BUMP) {
-            if (whiteball == NULL && !a->is_flying() && get_id(a) == ac_meditation && isMeditating(a)) {
-                // meditatist entered a free hollow
-                whiteball  = a;
-                enter_time = server::LevelTime;
-            } else if (whiteball == a) {
-                if (a->is_flying() || !isMeditating(a)) {
-                    // meditatist left hollow
-                    whiteball = NULL;
-                    if (enter_time == -1) {   // meditatist is registered
-                        bool indispensable = objFlags & OBJBIT_INDISPENSIBLE;
-                        ChangeMeditation(0, 0, indispensable ? -1 : 0, indispensable ? 0 : -1);
-                    }
-                } else  if (enter_time != -1 && (server::LevelTime - enter_time) >= MINTIME) {
-                        // just meditated enough to mark hollow as engaged
-                        bool indispensable = objFlags & OBJBIT_INDISPENSIBLE;
-                        ChangeMeditation(0, 0, indispensable ? +1 : 0, indispensable ? 0 : +1);
-                        enter_time = -1;  // mark as registered
+        if (whiteball == NULL && !a->is_flying() && get_id(a) == ac_meditation && isMeditating(a)) {
+            // meditatist entered a free hollow
+            whiteball  = a;
+            enter_time = server::LevelTime;
+        } else if (whiteball == a) {
+            if (a->is_flying() || !isMeditating(a)) {
+                // meditatist left hollow
+                whiteball = NULL;
+                if (enter_time == -1) {   // meditatist is registered
+                    bool indispensable = objFlags & OBJBIT_INDISPENSIBLE;
+                    ChangeMeditation(0, 0, indispensable ? -1 : 0, indispensable ? 0 : -1);
                 }
+            } else  if (enter_time != -1 && (server::LevelTime - enter_time) >= MINTIME) {
+                    // just meditated enough to mark hollow as engaged
+                    bool indispensable = objFlags & OBJBIT_INDISPENSIBLE;
+                    ChangeMeditation(0, 0, indispensable ? +1 : 0, indispensable ? 0 : +1);
+                    enter_time = -1;  // mark as registered
             }
         }
+
         return false;  // do not pick up
     }
     
@@ -189,7 +182,7 @@ namespace enigma {
     
     bool Meditation::isMeditating(Actor *a) {
         double dist = ecl::length(a->get_pos() - get_pos().center());
-        return (state <= HOLLOW) && dist < 0.4 || (state == DENT || state == VOLCANO) && dist < 0.24;
+        return dist < 0.24 || ((state <= HOLLOW || state >= HILL) && dist < 0.4) ;
     }
      
     void Meditation::shovel() {
@@ -206,18 +199,14 @@ namespace enigma {
     
     void Meditation::checkActors() {
         ItemID id = get_id(this);
-        if (state != HILL && state != BUMP) {
-            std::vector<Actor*> actors;
-            GetActorsInsideField(get_pos(), actors);
-            for (std::vector<Actor*>::iterator itr = actors.begin(); itr != actors.end(); ++itr) {
-//                Log << "Hollow - initial meditatist  typ " << get_id(*itr) << "\n";
-                if (!(*itr)->is_flying() &&  whiteball==NULL && get_id(*itr)==ac_meditation && isMeditating(*itr)) {
-                     // meditatist entered a free hollow
-                    whiteball  = *itr;
-                    enter_time = server::LevelTime;
-//                    Log << "Hollow - initial meditatist time " << enter_time << "\n";
-                    break;
-                }
+        std::vector<Actor*> actors;
+        GetActorsInsideField(get_pos(), actors);
+        for (std::vector<Actor*>::iterator itr = actors.begin(); itr != actors.end(); ++itr) {
+            if (!(*itr)->is_flying() &&  whiteball==NULL && get_id(*itr)==ac_meditation && isMeditating(*itr)) {
+                 // meditatist entered a free hollow
+                whiteball  = *itr;
+                enter_time = server::LevelTime;
+                break;
             }
         }
     }

@@ -54,6 +54,9 @@ namespace enigma {
         // GridObject interface
         virtual void on_creation(GridPos p);
 
+        // Item interface
+        virtual void stone_change(Stone *st);
+        
     private:
         int getHoles() const;
         int requiredShogunHoles() const;

@@ -66,9 +66,9 @@ namespace enigma {
             AddOther(dynamic_cast<Other *>(obj));
             transferIdentity(obj);
             SendMessage(obj, "_performaction");
-        }
-
-        return ITEM_KILL;
+            return ITEM_KILL;
+        } else
+            return ITEM_DROP;
     }
     
     DEF_ITEMTRAITS(RubberbandItem, "it_rubberband", it_rubberband);

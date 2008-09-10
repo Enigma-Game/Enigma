@@ -684,6 +684,7 @@ end
 
 MessageRenaming = {
     fl_bridge__openclose = "toggle",
+    fl_bridge__signal = "toggle",
     it_blocker__trigger = "toggle",
     it_blocker__openclose = "toggle",
     ["it-burnable__trigger"] = "ignite",
@@ -692,11 +693,8 @@ MessageRenaming = {
     ["it-burnable_fireproof__trigger"] = "ignite",
     ["it-burnable_ash__trigger"] = "ignite",
     ["it-burnable_oil__trigger"] = "ignite",
-    ["it-hill__trigger"] = "flip",
-    ["it-hollow__trigger"] = "flip",
     it_magnet__onoff = "toggle",
-    ["it-tinyhill__trigger"] = "flip",
-    ["it-tinyhollow__trigger"] = "flip",
+    it_medidation__trigger = "flip",
     it_vortex__openclose = "toggle",
     it_vortex__trigger = "toggle",
     it_wormhole__onoff = "toggle",

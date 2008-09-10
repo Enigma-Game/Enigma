@@ -71,15 +71,6 @@ namespace enigma {
             if (server::EnigmaCompatibility < 1.10 && state == ON) {
                 performAction(true);
             }
-        } else if (m.message =="_shogun" && server::WorldInitialized) {
-            if (state == OFF && (requiredShogunHoles() == (int)m.value)) {  
-                state = ON;
-                performAction(true);
-            } else if (state == ON && (requiredShogunHoles() != (int)m.value)) {
-                state = OFF;
-                performAction(false);
-            }
-            return Value();
         }
         return Item::message(m);
     }
@@ -93,6 +84,14 @@ namespace enigma {
                 SendMessage(GetStone(get_pos()), "_shogun", requiredShogunHoles()).to_bool())
             state = ON;
         Item::on_creation(p);
+    }
+    
+    void ShogunDot::stone_change(Stone *st) {
+        int newState = SendMessage(GetStone(get_pos()), "_shogun", requiredShogunHoles()).to_bool() ? ON : OFF;
+        if (state != newState ) {  
+            state = newState;
+            performAction(newState == ON);
+        }
     }
     
     int ShogunDot::getHoles() const {

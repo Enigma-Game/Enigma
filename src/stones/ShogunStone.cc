@@ -141,11 +141,9 @@ namespace enigma {
                 s->setOwnerPos(p);
             }
         }
-        SendMessage(GetItem(p), "_shogun", getHoles());
     }
     
     void ShogunStone::on_removal(GridPos p) {
-        SendMessage(GetItem(p), "_shogun", 0);
         if (subShogun != NULL)
             subShogun->setOwnerPos(GridPos(-1,-1));
         Stone::on_removal(p);
@@ -153,7 +151,6 @@ namespace enigma {
 
     void ShogunStone::on_impulse(const Impulse& impulse) {
         static char * soundevent = "movesmall";
-        int id = getId();
         
         if (!impulse.byWire && subShogun != NULL) {
             subShogun->on_impulse(impulse);
@@ -179,7 +176,6 @@ namespace enigma {
             // then put to new position
             if (st == NULL) {
                 SetStone(newPos, this);
-                SendMessage(GetItem(newPos), "_shogun", getHoles());
             } else {
                 // register our hole to all super shoguns
                 ShogunStone *s = nss;
@@ -193,7 +189,7 @@ namespace enigma {
 
                 nss->init_model();     // display new hole         
                 setOwnerPos(newPos);   // the stone is owned at the new position
-                SendMessage(GetItem(newPos), "_shogun", nss->getHoles());
+                TouchStone(newPos);
             }
             
             server::IncMoveCounter();
@@ -207,8 +203,7 @@ namespace enigma {
                 }
             }
         }
-        if (Object::getObject(id) != NULL)   // not killed?
-            propagateImpulse(impulse);
+        propagateImpulse(impulse);
     }
     
     int ShogunStone::getHoles() const {
@@ -240,14 +235,12 @@ namespace enigma {
     bool ShogunStone::yieldShogun() {
         if (isDisplayable() && subShogun == NULL) {
             YieldStone(get_pos());
-            SendMessage(GetItem(get_pos()), "_shogun", 0);
         } else if (isDisplayable()) {
             // top most shogun moved by wire or killed
             GridPos oldPos = get_pos(); 
             YieldStone(oldPos);
             subShogun->superShogun = NULL;
             SetStone(oldPos, subShogun);
-            SendMessage(GetItem(oldPos), "_shogun", subShogun->getHoles());
             subShogun = NULL;
             removeAllSubHoles();
         } else {
@@ -262,10 +255,10 @@ namespace enigma {
             if (ShogunStone *superSuperShogun = superShogun->superShogun) {
                 superSuperShogun->removeSubHoles(ownHole());
                 superSuperShogun->init_model();
-                SendMessage(GetItem(getOwnerPos()), "_shogun", superSuperShogun->getHoles());
+                TouchStone(getOwnerPos());
             } else
                 superShogun->init_model();
-                SendMessage(GetItem(getOwnerPos()), "_shogun", superShogun->getHoles());
+                TouchStone(getOwnerPos());
             if (subShogun != NULL) subShogun->superShogun = superShogun;
             superShogun = NULL;
             subShogun = NULL;
