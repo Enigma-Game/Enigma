@@ -219,6 +219,38 @@ RenamingObjectsNew2Old = {
     st_panel = "st-wood_001",
     st_polarswitch = "st-polarswitch",
     st_pull = "st-pull",
+    st_puzzle = "st-puzzle",
+    st_puzzle_blue_w = "st-puzzle-w",
+    st_puzzle_blue_s = "st-puzzle-s",
+    st_puzzle_blue_sw = "st-puzzle-sw",
+    st_puzzle_blue_e = "st-puzzle-e",
+    st_puzzle_blue_ew = "st-puzzle-ew",
+    st_puzzle_blue_es = "st-puzzle-es",
+    st_puzzle_blue_esw = "st-puzzle-esw",
+    st_puzzle_blue_n = "st-puzzle-n",
+    st_puzzle_blue_nw = "st-puzzle-nw",
+    st_puzzle_blue_ns = "st-puzzle-ns",
+    st_puzzle_blue_nsw = "st-puzzle-nsw",
+    st_puzzle_blue_ne = "st-puzzle-ne",
+    st_puzzle_blue_new = "st-puzzle-new",
+    st_puzzle_blue_nes = "st-puzzle-nes",
+    st_puzzle_blue_nesw = "st-puzzle-nesw",
+    st_puzzle_blue_hollow = "st-puzzle-hollow",
+    st_puzzle_yellow_w = "st-puzzle2-w",
+    st_puzzle_yellow_s = "st-puzzle2-s",
+    st_puzzle_yellow_sw = "st-puzzle2-sw",
+    st_puzzle_yellow_e = "st-puzzle2-e",
+    st_puzzle_yellow_ew = "st-puzzle2-ew",
+    st_puzzle_yellow_es = "st-puzzle2-es",
+    st_puzzle_yellow_esw = "st-puzzle2-esw",
+    st_puzzle_yellow_n = "st-puzzle2-n",
+    st_puzzle_yellow_nw = "st-puzzle2-nw",
+    st_puzzle_yellow_ns = "st-puzzle2-ns",
+    st_puzzle_yellow_nsw = "st-puzzle2-nsw",
+    st_puzzle_yellow_ne = "st-puzzle2-ne",
+    st_puzzle_yellow_new = "st-puzzle2-new",
+    st_puzzle_yellow_nes = "st-puzzle2-nes",
+    st_puzzle_yellow_nesw_hollow = "st-puzzle2-hollow",
     st_rotator_cw = "st-rotator-right",
     st_rotator_ccw = "st-rotator-left",
     st_rotator_cw_movable = "st-rotator_move-right",
@@ -409,6 +441,9 @@ function enigma.GetKind(obj)
             return "st-door_" .. flavor
         end
     end
+    if _newname == "st_puzzle" then
+        return "st-puzzle"
+    end
     if _newname == "it_sensor" then
         local code = enigma._GetAttrib(obj, "inverse")
         if code == false then
@@ -441,9 +476,8 @@ function enigma.SetAttrib(obj, key, val)
              _key = "oxydcolor"
 	 end
      end
-     if key == "connections" and _obj_name ~= "st-puzzle" then
-         if val == 1 then _val = ""
-         elseif  val == 2  then _val = "w"
+     if key == "connections" then
+         if  val == 2  then _val = "w"
          elseif  val == 3  then _val = "s"
          elseif  val == 4  then _val = "sw"
          elseif  val == 5  then _val = "e"
@@ -458,7 +492,15 @@ function enigma.SetAttrib(obj, key, val)
          elseif  val == 14 then _val = "new"
          elseif  val == 15 then _val = "nes"
          elseif  val == 16 then _val = "nesw"
+         elseif  val == 1 and _obj_name ~= "st-puzzle" then _val = ""
+         elseif  val == 1 and _obj_name == "st-puzzle" then
+             _key = "hollow"
+             _val = true
          end
+     end
+     if key == "oxyd" then
+        _key = "color"
+        if val == 0 then _val = 2 else _val = 3 end
      end
      if key == "keycode" then
          _key = "code"
@@ -611,6 +653,11 @@ function enigma.GetAttrib(obj, key)
          else return "a"
          end
      end
+     if key == "oxyd" and _obj_name == "st-puzzle" then
+         local color = enigma._GetAttrib(obj, "color")
+         if color == 2 then val = 0 else val = 1 end
+         return val
+     end
 
      local val = enigma._GetAttrib(obj, _key)
      
@@ -620,7 +667,7 @@ function enigma.GetAttrib(obj, key)
      if key == "whiteball" then
         if val == 1 then val = 1 else val = 0 end
      end
-     if key == "connections" and _obj_name ~= "st-puzzle" then
+     if key == "connections" then
          if val == "" then val = 1
          elseif  val == "w"    then val = 2
          elseif  val == "s"    then val = 3

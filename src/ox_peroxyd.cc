@@ -269,18 +269,18 @@ const char *oxyd::peroxyd_stone_map[256] = {
     "st_mirror_triangle_nc",    // PerOxyd stone 0x4e
     "st_mirror_triangle_wc",    // PerOxyd stone 0x4f
     "st_mirror_triangle_sc",    // PerOxyd stone 0x50
-    "st-puzzle-es",             // PerOxyd stone 0x51
-    "st-puzzle-sw",             // PerOxyd stone 0x52
-    "st-puzzle-nw",             // PerOxyd stone 0x53
-    "st-puzzle-ne",             // PerOxyd stone 0x54
-    "st-puzzle-ew",             // PerOxyd stone 0x55
-    "st-puzzle-ns",             // PerOxyd stone 0x56
-    "st-puzzle-n",              // PerOxyd stone 0x57
-    "st-puzzle-s",              // PerOxyd stone 0x58
-    "st-puzzle-w",              // PerOxyd stone 0x59
-    "st-puzzle-e",              // PerOxyd stone 0x5a
-    "st-puzzle-nesw",           // PerOxyd stone 0x5b
-    "st-puzzle-hollow",         // PerOxyd stone 0x5c
+    "st_puzzle_blue_es",        // PerOxyd stone 0x51
+    "st_puzzle_blue_sw",        // PerOxyd stone 0x52
+    "st_puzzle_blue_nw",        // PerOxyd stone 0x53
+    "st_puzzle_blue_ne",        // PerOxyd stone 0x54
+    "st_puzzle_blue_ew",        // PerOxyd stone 0x55
+    "st_puzzle_blue_ns",        // PerOxyd stone 0x56
+    "st_puzzle_blue_n",         // PerOxyd stone 0x57
+    "st_puzzle_blue_s",         // PerOxyd stone 0x58
+    "st_puzzle_blue_w",         // PerOxyd stone 0x59
+    "st_puzzle_blue_e",         // PerOxyd stone 0x5a
+    "st_puzzle_blue_nesw",      // PerOxyd stone 0x5b
+    "st_puzzle_blue_nesw_hollow", // PerOxyd stone 0x5c
     "st-laserbreak",            // PerOxyd stone 0x5d
     "st-coffee",                // PerOxyd stone 0x5e
     "st_shogun",                // PerOxyd stone 0x5f (oxyd with a hole, movable ... strange stone! st-shogun as workaround, only link level 74)

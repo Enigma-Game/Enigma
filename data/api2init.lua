@@ -71,8 +71,10 @@ ACTIVE   = 1
 OXYDPAIR = 2
 
 -- color
-BLACK = 0
-WHITE = 1
+BLACK  = 0
+WHITE  = 1
+BLUE   = 2
+YELLOW = 3
 NOCOLOR = nil
 
 -- rotation direction

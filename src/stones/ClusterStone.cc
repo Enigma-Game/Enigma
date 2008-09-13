@@ -70,48 +70,7 @@ namespace enigma {
     bool ClusterStone::is_removable() const {
         return getFaces() == ALL_DIRECTIONS;
     }
-    
-    void ClusterStone::autoJoinCluster() {
-        GridPos p = get_pos();
-        Value myCluster = getAttr("cluster");
-        for (int i = WEST; i <= NORTH; i++) {
-            Direction d = (Direction) i;
-            Stone *neighbour = GetStone(move(p, d));
-            if (neighbour != NULL && std::string(neighbour->getClass()) == getClass()) {
-                Value neighbourCluster = neighbour->getAttr("cluster");
-                if (myCluster) {
-                    if (myCluster == neighbourCluster) {
-                        setAttr("$connections", getConnections() | to_bits(d));
-                        neighbour->setAttr("$connections", neighbour->getConnections() | to_bits(reverse(d)));
-                    } else if (!neighbourCluster && neighbour->getConnections() & to_bits(reverse(d))) {
-                        setAttr("$connections", getConnections() | to_bits(d));
-                    } else {
-                        setAttr("$connections", getConnections() & (ALL_DIRECTIONS ^ to_bits(d))); // clear connection
-                    }
-                } else if (neighbourCluster)  {// I have fixed connections -> adapt neighbour
-                    if (getConnections() & to_bits(d))
-                        neighbour->setAttr("$connections", neighbour->getConnections() | to_bits(reverse(d)));
-                    else
-                        neighbour->setAttr("$connections", neighbour->getConnections() & (ALL_DIRECTIONS ^ to_bits(reverse(d))));
-                }
-            } else if (myCluster) { // no neighbour -> no connection
-                setAttr("$connections", getConnections() & (ALL_DIRECTIONS ^ to_bits(d))); // clear connection
-            }
-        }
-    }
-    
-    void ClusterStone::autoLeaveCluster() {
-        GridPos p = get_pos();
-        for (int i = WEST; i <= NORTH; i++) {
-            Direction d = (Direction) i;
-            Stone *neighbour = GetStone(move(p, d));
-            if (neighbour != NULL && std::string(neighbour->getClass()) == getClass() 
-                    && neighbour->getAttr("cluster")) {
-                neighbour->setAttr("$connections", neighbour->getConnections() & (ALL_DIRECTIONS ^ to_bits(reverse(d))));
-            }
-        }
-    }
-    
+        
     BOOT_REGISTER_START
         BootRegister(new ClusterStone("st_panel", ""), "st_panel");
         BootRegister(new ClusterStone("st_panel", "w"), "st_panel_w");

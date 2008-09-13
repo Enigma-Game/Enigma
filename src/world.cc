@@ -460,7 +460,7 @@ void World::scramble_puzzles()
         for (; i != e; ++i) {
             Stone *puzz = GetStone(i->pos);
             if (puzz && i->intensity) {
-                SendMessage(puzz, "scramble", Value(double(i->dir)));
+                SendMessage(puzz, "_scramble", Value(double(i->dir)));
                 --i->intensity;
             }
             else {

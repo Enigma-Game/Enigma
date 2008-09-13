@@ -41,7 +41,9 @@ namespace enigma {
     
     enum Color {
         BLACK = 0,
-        WHITE = 1
+        WHITE = 1,
+        BLUE  = 2,
+        YELLOW = 3
     };
     
 /* -------------------- Various types -------------------- */

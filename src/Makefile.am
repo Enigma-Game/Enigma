@@ -247,8 +247,6 @@ enigma_SOURCES = 		\
 	stones/ClusterStone.hh	\
 	stones/CoinSlot.cc	\
 	stones/CoinSlot.hh	\
-	stones/ConnectiveStone.cc	\
-	stones/ConnectiveStone.hh	\
 	stones/DeathStone.cc	\
 	stones/DeathStone.hh	\
 	stones/Door.cc		\
@@ -283,6 +281,8 @@ enigma_SOURCES = 		\
 	stones/PolarSwitchStone.hh	\
 	stones/PullStone.cc	\
 	stones/PullStone.hh	\
+	stones/PuzzleStone.cc	\
+	stones/PuzzleStone.hh	\
 	stones/RotatorStone.cc	\
 	stones/RotatorStone.hh	\
 	stones/RubberbandStone.cc	\

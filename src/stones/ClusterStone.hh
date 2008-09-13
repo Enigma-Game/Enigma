@@ -45,11 +45,7 @@ namespace enigma {
         virtual std::string getModelName() const;
         
         // Stone interface
-        virtual bool is_removable() const;
-        
-    private:
-        void autoJoinCluster();
-        void autoLeaveCluster();
+        virtual bool is_removable() const;        
     };
 
 } // namespace enigma

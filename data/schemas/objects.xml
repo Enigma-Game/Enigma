@@ -6,7 +6,7 @@
     <attr name="anchor1" type="tokens" default="nil" rw="rw"/>
     <attr name="anchor2" type="tokens" default="nil" rw="rw"/>
     <attr name="autoclose" type="bool" default="false" rw="rw"/>
-    <attr name="cluster" type="int" default="nil" min="0" max="1" rw="rw"/>
+    <attr name="cluster" type="int" default="nil" min="0" max="9" rw="rw"/>
     <attr name="code" type="int" default="1" rw="rw"/>
     <attr name="coin_value" type="double" default="1" rw="rw"/>
     <attr name="color" type="int" default="nil" min="0" max="1" rw="rw"/>
@@ -26,6 +26,7 @@
     <attr name="hit_distortion_xy" type="double" default="0" rw="rw"/>
     <attr name="hit_distortion_yx" type="double" default="0" rw="rw"/>
     <attr name="hit_distortion_yy" type="double" default="1" rw="rw"/>
+    <attr name="hollow" type="bool" default="false" rw="rw"/>
     <attr name="instant" type="bool" default="false" rw="rw"/>
     <attr name="interval" type="double" default="1" rw="rw"/>
     <attr name="interval_s" type="double" default="3" rw="rw"/>
@@ -63,6 +64,7 @@
     <msg name="closeall" type="nil"/>
     <msg name="disconnect" type="nil"/>
     <msg name="flip" type="nil"/>
+    <msg name="get_adjacents" type="nil"/>
     <msg name="grow" type="nil"/>
     <msg name="hit" type="object"/>
     <msg name="ignite" type="nil"/>
@@ -73,6 +75,8 @@
     <msg name="on" type="nil"/>
     <msg name="open" type="nil"/>
     <msg name="orientate" type="nil"/>
+    <msg name="pull_rotate" type="int"/>
+    <msg name="push_rotate" type="int"/>
     <msg name="shuffle" type="nil"/>
     <msg name="shovel" type="nil"/>
     <msg name="signal" type="int" min="0" max="1"/>
@@ -92,6 +96,7 @@
     <msg name="_passed" type="nil"/>            <!-- check type-->
     <msg name="_performaction" type="nil"/>
     <msg name="_revive" type="nil"/>
+    <msg name="_scramble" type="int"/>
     <msg name="_shogun" type="int"/>
     <msg name="_spitter" type="nil"/>
     <msg name="_start" type="nil"/>
@@ -819,6 +824,23 @@
       <msg name="_freeze"/>
       <msg name="_revive"/>
     </object>
+    <object name="st_puzzle">
+      <attr name="connections"/>
+      <attr name="cluster"/>
+      <attr name="color" min="2" max="3"/>
+      <attr name="hollow"/>
+      <attr name="state" rw="r"/>
+      <msg name="get_adjacents"/>
+      <msg name="pull_rotate"/>
+      <msg name="push_rotate"/>
+      <msg name="_scramble"/>
+    </object>
+    <object name="st_puzzle_blue">
+      <attr name="color" value="2"/>
+    </object>
+    <object name="st_puzzle_yellow">
+      <attr name="color" value="3"/>
+   </object>
     <object name="st_rotator">
       <attr name="counterclock"/>
       <attr name="movable" rw="rw"/>

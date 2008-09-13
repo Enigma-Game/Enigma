@@ -209,6 +209,10 @@ namespace enigma {
         virtual bool allowsSpreading(Direction dir) const {
             return is_floating();
         }
+        
+        virtual bool isConnectable(Stone *other) const {
+            return other != NULL && std::string(other->getClass()) == getClass();
+        }
 
         /* ---------- Stone interface (events) ---------- */
 
@@ -230,6 +234,11 @@ namespace enigma {
         bool move_stone(GridPos newPos, const char *soundevent);
         bool move_stone(Direction dir);
         ecl::V2 distortedVelocity (ecl::V2 vel, double defaultfactor);
+        
+        // Cluster support
+        void autoJoinCluster();
+        void autoLeaveCluster();
+        
 
     protected:
         // GridObject interface

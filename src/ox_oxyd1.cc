@@ -235,17 +235,17 @@ const char *oxyd::oxyd1_stone_map[256] = {
     "st_mirror_triangle_nc",    // Oxyd1 stone 0x54
     "st_mirror_triangle_wc",    // Oxyd1 stone 0x55
     "st_mirror_triangle_sc",    // Oxyd1 stone 0x56
-    "st-puzzle2-es",            // Oxyd1 stone 0x57
-    "st-puzzle2-sw",            // Oxyd1 stone 0x58
-    "st-puzzle2-nw",            // Oxyd1 stone 0x59
-    "st-puzzle2-ne",            // Oxyd1 stone 0x5a
-    "st-puzzle2-ew",            // Oxyd1 stone 0x5b
-    "st-puzzle2-ns",            // Oxyd1 stone 0x5c
-    "st-puzzle2-n",             // Oxyd1 stone 0x5d
-    "st-puzzle2-s",             // Oxyd1 stone 0x5e
-    "st-puzzle2-w",             // Oxyd1 stone 0x5f
-    "st-puzzle2-e",             // Oxyd1 stone 0x60
-    "st-puzzle2-nesw",          // Oxyd1 stone 0x61
+    "st_puzzle_yellow_es",      // Oxyd1 stone 0x57
+    "st_puzzle_yellow_sw",      // Oxyd1 stone 0x58
+    "st_puzzle_yellow_nw",      // Oxyd1 stone 0x59
+    "st_puzzle_yellow_ne",      // Oxyd1 stone 0x5a
+    "st_puzzle_yellow_ew",      // Oxyd1 stone 0x5b
+    "st_puzzle_yellow_ns",      // Oxyd1 stone 0x5c
+    "st_puzzle_yellow_n",       // Oxyd1 stone 0x5d
+    "st_puzzle_yellow_s",       // Oxyd1 stone 0x5e
+    "st_puzzle_yellow_w",       // Oxyd1 stone 0x5f
+    "st_puzzle_yellow_e",       // Oxyd1 stone 0x60
+    "st_puzzle_yellow_nesw",    // Oxyd1 stone 0x61
     "st-metal_hole",            // Oxyd1 stone 0x62
     "st-laserbreak",            // Oxyd1 stone 0x63
     "st-fakeoxyda",             // Oxyd1 stone 0x64
