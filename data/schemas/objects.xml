@@ -3,6 +3,7 @@
   <attributes>
     <attr name="action" type="tokens" default="nil" rw="rw"/>
     <attr name="adhesion" type="double" default="nil" rw="rw"/>
+    <attr name="algorithm" type="string" default="std" rw="rw"/>
     <attr name="anchor1" type="tokens" default="nil" rw="rw"/>
     <attr name="anchor2" type="tokens" default="nil" rw="rw"/>
     <attr name="autoclose" type="bool" default="false" rw="rw"/>
@@ -28,6 +29,7 @@
     <attr name="hit_distortion_yy" type="double" default="1" rw="rw"/>
     <attr name="hollow" type="bool" default="false" rw="rw"/>
     <attr name="instant" type="bool" default="false" rw="rw"/>
+    <attr name="intensity" type="double" default="1" rw="rw"/>
     <attr name="interval" type="double" default="1" rw="rw"/>
     <attr name="interval_s" type="double" default="3" rw="rw"/>
     <attr name="interval_m" type="double" default="6" rw="rw"/>
@@ -46,6 +48,7 @@
     <attr name="noshuffle" type="bool" default="false" rw="rw"/>
     <attr name="orientation" type="int" default="0" min="0" max="3" rw="rw"/>
     <attr name="oxydcolor" type="int" default="-1" min="-4" max="7" rw="rw"/>
+    <attr name="push_directions" type="string" default="nil" rw="rw"/>
     <attr name="range" type="double" default="1.0" rw="rw"/>
     <attr name="rubbers" type="group" default="nil" rw="r"/>
     <attr name="secure" type="bool" default="false" rw="rw"/>
@@ -117,7 +120,9 @@
       <msg name="kill"/>
       <msg name="toggle"/>
     </object>
-    <object name="fl" abstract="true"/>
+    <object name="fl" abstract="true">
+      <attr name="push_directions"/>
+    </object>
     <object name="fl_bridge">
       <attr name="flavor" default="gc"/>
       <msg name="close"/>
@@ -825,10 +830,12 @@
       <msg name="_revive"/>
     </object>
     <object name="st_puzzle">
+      <attr name="algorithm"/>
       <attr name="connections"/>
       <attr name="cluster"/>
       <attr name="color" min="2" max="3"/>
       <attr name="hollow"/>
+      <attr name="intensity" default="3"/>
       <attr name="state" rw="r"/>
       <msg name="get_adjacents"/>
       <msg name="pull_rotate"/>
