@@ -73,6 +73,8 @@ namespace enigma {
     }
     
     void BlockerItem::setState(int extState) {
+        if (isDisplayable())
+            stone_change(GetStone(get_pos()));
         if (extState == 1) {         // open (shrink)
             if (state == UNLOCKED)   //   revoke pending grow/close
                 setIState(LOCKED);

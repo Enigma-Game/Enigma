@@ -446,10 +446,11 @@ bundle-doc:
 	cp $(top_builddir)/doc/reference/*.html $(bundle_doc)/reference/
 
 # Special target to create a binary linked with Mac OS X frameworks
+# note this assumes that xercesc and libpng are installed in same directory as the SDL libraries.
 static_prefix := `$(SDL_CONFIG) --prefix`
 .PHONY: enigma-fw-mosx
 enigma-fw-mosx: $(enigma_OBJECTS) $(enigma_DEPENDENCIES)
-	$(CXX) $(LDFLAGS) -o enigma-fw $(enigma_OBJECTS) $(enigma_DEPENDENCIES) $(static_prefix)/lib/libintl.a $(static_prefix)/lib/libxerces-c.a /usr/lib/libiconv.dylib -L$(static_prefix)/lib -lsdlmain -lz -framework SDL -framework SDL_image -framework SDL_mixer -framework Cocoa -framework OpenGL -framework SDL_ttf $(static_prefix)/lib/libpng.a 
+	$(CXX) $(LDFLAGS) -o enigma-fw $(enigma_OBJECTS) $(enigma_DEPENDENCIES) ${LIBINTL} $(static_prefix)/lib/libxerces-c.a -L$(static_prefix)/lib -lsdlmain -lz -framework SDL -framework SDL_image -framework SDL_mixer -framework Cocoa -framework OpenGL -framework SDL_ttf $(static_prefix)/lib/libpng.a 
 
 # Special target to make a disk image of the bundled app
 .PHONY: bundle-dmg

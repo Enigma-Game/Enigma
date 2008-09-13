@@ -137,6 +137,7 @@ namespace enigma {
             return "fl-bridgex-";
         else if (flavor == "bn")
             return "fl-bridgey-";
+        return "";
     }
     
     void BridgeFloor::set_iState(int newState) {
