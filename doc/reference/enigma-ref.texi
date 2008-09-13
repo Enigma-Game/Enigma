@@ -9560,7 +9560,7 @@ already.
 * lib.lua.deep_copy::       Complete copies of Lua-tables.
 * lib.lua.mod::             A modulo operation.
 * lib.lua.print_table::     Print tables for debug reasons.
-* lib.lua.shuffle_table::   Shuffle arbitrary anonymous Lua-tables.
+* lib.lua.shuffle::         Shuffle arbitrary anonymous Lua-tables.
 @end menu
 
 @c ----------------- combine_tables -------------------- 
@@ -9784,37 +9784,53 @@ is not meant as an element of gameplay.
 @end example
 @end table
 
-@c ----------------- shuffle_table -------------------- 
+@c ----------------- shuffle -------------------- 
 
-@node lib.lua.shuffle_table
-@subsection lib.lua.shuffle_table
+@node lib.lua.shuffle
+@subsection lib.lua.shuffle
 
-@samp{shuffle_table} randomly resorts its argument.
+@samp{shuffle} randomly resorts its argument, a numerical table.
 
 @table @asis
 @item @b{Syntax:}
-@b{lib.lua.shuffle_table}(@i{source})
+@i{result} = @b{lib.lua.shuffle}(@i{source})
 
 @table @asis
 @item @i{source}
-The table to be shuffled.
+The table to be shuffled (only the numerical entries will be shuffled).
 @end table
 
 @item @b{Syntax Samples:}
 @example
+directions = lib.lua.shuffle(@{NORTH, SOUTH, EAST, WEST@})
 a = @{1, 2, 3, "r", @{"x", "y", "z"@}, 4@}
-lib.lua.shuffle_table(a)
+b = lib.lua.shuffle(a)
 @end example
 
-A typical result for @samp{a} would be
+A typical result for @samp{b} would be
 @example
-a = @{"r", 4, 2, @{"x", "y", "z"@}, 1, 3@}
+b = @{"r", 4, 2, @{"x", "y", "z"@}, 1, 3@}
 @end example
 
 @item @b{Details:}
-The result is a permutation of the original table. The permutation restricts to
-those entries with numerical keys, and of those only the ones between @samp{1}
-and @samp{table.getn(@i{source})}. @samp{shuffle_table} has no return value.
+The result is a permutation of the numerical entries of the source table,
+starting with entry 1 and ending with entry @samp{table.getn(@i{source})}. All
+other entries will simply be copied into @samp{result}. All copies are shallow
+copies, i.e. table-valued and userdata-valued entries (like objects) are not
+copied, just references (pointers) to them. Use @ref{lib.lua.deep_copy} to
+create a deep copy of the shuffled table, if needed. @samp{result} will use the
+same metatable as @samp{source}, and metamethods will be used during the copy
+and shuffling process.
+
+Currently, @samp{lib.lua.shuffle} can shuffle only tables. To shuffle groups,
+use the group method of the same name:
+@example
+mygroup:shuffle()
+@end example
+
+Shuffling a @ref{libmap}-map results in a map with shuffled rows, i.e. the
+x-coordinates of all tile keys are kept constant. Use @ref{Rotating and
+Mirroring Maps} to shuffle the columns.
 
 @item @b{Full Example:}
 @example

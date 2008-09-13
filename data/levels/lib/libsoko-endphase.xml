@@ -3,7 +3,7 @@
   <el:protected>
     <el:info el:type="library">
       <el:identity el:title="" el:id="lib/libsoko-endphase"/>
-      <el:version el:score="1" el:release="1" el:revision="2" el:status="experimental"/>
+      <el:version el:score="1" el:release="1" el:revision="3" el:status="experimental"/>
       <el:author el:name="Enigma Team" el:email="" el:homepage=""/>
       <el:copyright>Copyright © 2007, 2008 Enigma Team</el:copyright>
       <el:license el:type="GPL v2.0 or above" el:open="true"/>
@@ -334,7 +334,7 @@ function endphase_set_outside_oxyds(sokoarea_number, param)
     end    
   end
 
-  lib.lua.shuffle_table(places)
+  places = lib.lua.shuffle(places)
 
   for j = 1, number_pairs do
     set_oxyd(sokoarea_number, places[2*j-1], flavor, j - 1)
@@ -399,7 +399,7 @@ function endphase_set_block_oxyds(sokoarea_number, blocker, max_pairs)
     end    
   end
 
-  lib.lua.shuffle_table(oxyds)
+  oxyds = lib.lua.shuffle(oxyds)
 
   -- set oxyds and blockers
   local function set_block(w)
@@ -437,7 +437,7 @@ function endphase_set_block_oxyds(sokoarea_number, blocker, max_pairs)
   for p, v in pairs(sokoarea[nr].list_goal) do
     table.insert(goal_table, v)
   end
-  lib.lua.shuffle_table(goal_table)
+  goal_table = lib.lua.shuffle(goal_table)
   for j = 2, math.min(table.getn(goal_table), table.getn(oxyds)) do
     sokoarea[nr].goal_to_blocker[goal_table[j].goal_number] = oxyds[j].blocker
   end
@@ -454,7 +454,7 @@ function endphase_set_hide_oxyds(sokoarea_number, param)
     table.insert(places, v)
   end
 
-  lib.lua.shuffle_table(places)
+  places = lib.lua.shuffle(places)
   
   -- choose number of oxyds
   local max = table.getn(places)
@@ -503,7 +503,7 @@ function endphase_magnets(sokoarea_number, param)
     end
   end
 
-  lib.lua.shuffle_table(places)
+  places = lib.lua.shuffle(places)
 
   -- choose number of magnets
   local number_magnets = math.floor(table.getn(places)/6)
@@ -523,7 +523,7 @@ function endphase_fourswitch(sokoarea_number)
     table.insert(places, v)
   end
 
-  lib.lua.shuffle_table(places)
+  places = lib.lua.shuffle(places)
 
   -- choose number of fourswitchs/oxyds
   local max = table.getn(places)
@@ -726,7 +726,7 @@ function endphase_vortex(sokoarea_number)
       table.insert(u, component[j])
     end
   end
-  lib.lua.shuffle_table(u)
+  u = lib.lua.shuffle(u)
   while (table.getn(t) < 5) and (table.getn(u) > 0) do
     table.insert(t, u[table.getn(u)])
     table.remove(u)
@@ -766,7 +766,7 @@ function endphase_set_knocking(sokoarea_number, param)
     table.insert(places, v)
   end
 
-  lib.lua.shuffle_table(places)
+  places = lib.lua.shuffle(places)
 
   -- set attributes of door
   for j, v in ipairs(places) do
@@ -795,7 +795,6 @@ function endphase_call_knocking(onoff, sender)
   end
   -- Open or close the neccessary doors given as attributes.
   if sender._sokoarea == nr then
-    print(po(sender).x.."/"..po(sender).y.."/"..sender:kind())
     if wo:st(sender._close):is("st_door") then
       wo:st(sender._close):close()
     end

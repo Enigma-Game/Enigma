@@ -3,7 +3,7 @@
   <el:protected>
     <el:info el:type="library">
       <el:identity el:title="" el:id="lib/liblua"/>
-      <el:version el:score="1" el:release="1" el:revision="4" el:status="released"/>
+      <el:version el:score="1" el:release="1" el:revision="5" el:status="released"/>
       <el:author  el:name="Enigma Team" el:email="" el:homepage=""/>
       <el:copyright>Copyright © 2007, 2008 Enigma Team</el:copyright>
       <el:license el:type="GPL v2.0 or above" el:open="true"/>
@@ -25,7 +25,7 @@
 -- liblua provides the following functions:
 --   lib.lua.deep_copy(source)
 --   lib.lua.combine_tables(arg1, ...)
---   lib.lua.shuffle_table(t)
+--   lib.lua.shuffle(t)
 --   lib.lua.print_table(t, prefix, depth)
 --   lib.lua.mod(value, modul)
 --   lib.lua.cond(condition, iftrue, iffalse)
@@ -83,17 +83,29 @@ function lib.lua.combine_tables(arg1, ...)
   return result
 end
 
--- shuffle_table resorts the table T randomly. Note that only those entries
--- of T can be sorted, that are indexed with integers from 1 to table.getn(T).
--- No return value, the table itself is shuffled.
-function lib.lua.shuffle_table(t)
-  if table.getn(t) < 2 then
-    return
+-- shuffle resorts the table T randomly and returns a shallow copy of the
+-- shuffled table. Note that only those entries of T can be sorted, that
+-- are indexed with integers from 1 to table.getn(T), all other entries
+-- will be in the result, but will not be shuffled. Metatable will be
+-- that of the argument. Metamethods will be used during the copy
+-- (i.e. no rawget or rawset).
+function lib.lua.shuffle(t)
+  if type(t) ~= "table" then
+    error("lib.lua.shuffle: Argument is not a table.", 2)
   end
-  for n = table.getn(t), 2, -1 do
+  local result = {}
+  setmetatable(result, getmetatable(t))
+  for key, value in pairs(t) do
+    result[key] = value
+  end
+  if table.getn(result) < 2 then
+    return result
+  end
+  for n = table.getn(result), 2, -1 do
     local m = math.random(n)
-    t[n], t[m] = t[m], t[n]
+    result[n], result[m] = result[m], result[n]
   end
+  return result
 end
 
 -- print_table uses the print command to print all
