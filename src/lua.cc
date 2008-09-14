@@ -935,6 +935,19 @@ static int newPosition(lua_State *L) {
     return pushNewPosition(L);
 }
 
+static int minusPosition(lua_State *L) {
+    // pos  + ?? (some undocumented garbage is on the stack!!)    
+    lua_getmetatable(L, 1);
+    lua_rawgeti(L, -1, 1);
+    double x = lua_tonumber(L, -1);
+    lua_rawgeti(L, -2, 2);
+    double y = lua_tonumber(L, -1);
+    lua_pushnumber(L, -x);
+    lua_pushnumber(L, -y);
+
+    return pushNewPosition(L);
+}
+
 static int addPositionsBase(lua_State *L, int factorArg2) {
     // (pos|obj|table) +|- (pos|obj|table)
     double x = 0;
@@ -1069,6 +1082,17 @@ static int gridAlignPosition(lua_State *L) {
     lua_pushnumber(L, x);
     lua_pushnumber(L, y);
     pushNewPosition(L);
+    return 1;
+}
+
+static int existsPosition(lua_State *L) {
+    // position guaranteed
+    lua_getmetatable(L, -1);
+    lua_rawgeti(L, -1, 1);
+    lua_rawgeti(L, -2, 2);
+    int x = round_down<int>(lua_tonumber(L, -2));
+    int y = round_down<int>(lua_tonumber(L, -1));
+    lua_pushboolean(L, IsInsideLevel(GridPos(x, y)));
     return 1;
 }
 
@@ -1556,20 +1580,18 @@ static int dispatchObjectReadAccess(lua_State *L) {
     } else {
         // attribute
         Value val;  // nil
-        if (obj) {
-            if ((keyStr.find('_') != 0) &&  obj->validateMessage(keyStr, Value(Value::DEFAULT))) {
-                // it is a valid public message - try to send it
-                messageLIFO.push_back(keyStr);
-                lua_pushcfunction(L, objectDirectMessage);
-            } else {
-                val = obj->getAttrChecked(keyStr);
-                // user attribute, existing system attribute or nil if no object
-                push_value(L, val);
-            }
+        if ((keyStr.find('_') != 0) && (obj == NULL || obj->validateMessage(keyStr, Value(Value::DEFAULT)))) {
+            // it is a valid public message - try to send it
+            messageLIFO.push_back(keyStr);
+            lua_pushcfunction(L, objectDirectMessage);
+        } else if (obj != NULL) {
+            val = obj->getAttrChecked(keyStr);
+            // user attribute, existing system attribute or nil if no object
+            push_value(L, val);
         } else {
             // access of no longer existing object - ignore it and return nil
             push_value(L, val);
-        } 
+        }
         return 1;
     }
     return 0;
@@ -2829,12 +2851,14 @@ static CFunction positionOperations[] = {
     {multiplyPositions,             "__mul"},      //  obj * obj
     {dividePositions,               "__div"},      //  obj / obj
     {centerPosition,                "__len"},      //  #obj
+    {minusPosition,                 "__unm"},      //  -obj
     {0,0}
 };
 
 static CFunction positionMethods[] = {
     {xyPosition,                    "xy"},
     {gridAlignPosition,             "grid"},
+    {existsPosition,                "exists"},
     {0,0}
 };
 
