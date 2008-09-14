@@ -16,7 +16,7 @@
     </el:info>
     <el:luamain><![CDATA[
 function res.puzzle_finalization(context)
-    print("puzzle final - num pos "..#context[5])
+--    print("puzzle final - num pos "..#context[5])
     local stones = {}
     for i, ppos in ipairs(context[5]) do
         local stone = st(context[5][i])
@@ -41,7 +41,7 @@ function res.puzzle_finalization(context)
     local offsets = {po(-1,0), po(0,1), po(1,0), po(0,-1)}
     local dirchars = {"w","s","e","n"}
     for h, huddle in ipairs(huddles) do
-        print("puzzle final - shuffle huddle of size "..#huddle)
+--        print("puzzle final - shuffle huddle of size "..#huddle)
         local pfloors = fl(huddle)
         local pushes = {}
         local intensity = 0
@@ -56,7 +56,7 @@ function res.puzzle_finalization(context)
         for puz in huddle do
             for dir, offset in ipairs(offsets) do
                 local cand = puz - offset
-                if cand.x >= 0 and cand.x < width and cand.y >= 0 and cand.y < height then
+                if cand:exists() then
                     local cfloor = fl(cand)
                     if pfloors[cfloor] == nil then
                         local may_push = true
@@ -69,8 +69,7 @@ function res.puzzle_finalization(context)
                         if may_push then
                             local length = 1
                             local lpos = puz + offset
-                            while lpos.x >= 0 and lpos.x < width and lpos.y >= 0 and lpos.y < height
-                                    and pfloors[fl(lpos)] ~= nil do
+                            while lpos:exists() and pfloors[fl(lpos)] ~= nil do
                                 length = length + 1
                                 lpos = lpos + offset
                             end
@@ -84,20 +83,28 @@ function res.puzzle_finalization(context)
             end
         end
         intensity = intensity * #huddle
-        local maxp = math.floor(math.sqrt(intensity))
         while intensity > 0 and #pushes > 0 do
             local pidx = random(#pushes)  -- select a random push pos/dir
-            local nump = random(math.min(pushes[pidx][3],
-                            math.max(maxp, intensity)))  -- number of pushes 
+            local puzz = st(pushes[pidx][1])
+            local dir = pushes[pidx][2]
+            local length = pushes[pidx][3]
+            local nextpuzz = st(puzz + offsets[dir + 1])
             
-            intensity = intensity - nump
-            for i = 1, nump do 
-                if not (st(pushes[pidx][1] + offsets[pushes[pidx][2] + 1]))["hollow"] then
-                    st(pushes[pidx][1]):pull_rotate(pushes[pidx][2])
-                end
+            -- check for leading sequence of hollow puzzles
+            while length > 2 and puzz["hollow"] and nextpuzz["hollow"] do
+                puzz = nextpuzz
+                nextpuzz = st(puzz + offsets[dir + 1])
+                length = length - 1
+            end
+            
+            if not nextpuzz["hollow"] then
+                puzz:pull_rotate(dir)
+                intensity = intensity - 1
             end
         end
     end
+    -- cleanup for subsequent calls
+    context[5] = {}
 end
 
 function res.puzzle_newtile(key, template, suffix)

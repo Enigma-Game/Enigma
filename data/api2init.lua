@@ -244,6 +244,15 @@ wo:_register("drawMap",
                 end
             end
         end
+        -- Call resolver finalizers
+        local context = resolver
+        while type(context) == "table" do
+            local finalizer = context[2]
+            if type(finalizer) == "function" then
+               finalizer(context) 
+            end
+            context = context[3]
+        end
     end
 )
 
