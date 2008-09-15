@@ -1158,10 +1158,10 @@ do
 end
 
 -- st-turnstle, arms --
-DefAlias("st-turnstile-e", "st-puzzle2")
-DefAlias("st-turnstile-w", "st-puzzle5")
-DefAlias("st-turnstile-s", "st-puzzle9")
-DefAlias("st-turnstile-n", "st-puzzle3")
+DefAlias("st-turnstile-e", "st_puzzle1")
+DefAlias("st-turnstile-w", "st_puzzle4")
+DefAlias("st-turnstile-s", "st_puzzle8")
+DefAlias("st-turnstile-n", "st_puzzle2")
 
 -- st-turnstile-green --
 do

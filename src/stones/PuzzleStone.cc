@@ -44,14 +44,11 @@ namespace enigma {
         if (key == "hollow") {
             if (val.to_bool() != (bool)(objFlags & OBJBIT_HOLLOW)) {
                 objFlags ^= OBJBIT_HOLLOW;
-                if (objFlags & OBJBIT_HOLLOW)
-                    Stone::setAttr("connections", "nesw");
-                else if (isDisplayable())
-                    init_model();
             }
             return;
-        } else if (key == "connections" && !(objFlags & OBJBIT_HOLLOW)) {
+        } else if (key == "connections") {
             Stone::setAttr(key, val);
+            return;
         }
         Stone::setAttr(key, val);
     }
@@ -124,7 +121,7 @@ namespace enigma {
     void PuzzleStone::on_creation(GridPos p) {
         if (!(objFlags & OBJBIT_INIT)) {
             autoJoinCluster();
-             objFlags |= OBJBIT_INIT;
+            objFlags |= OBJBIT_INIT;
         }
         activatePhoto();
         Stone::on_creation(p);

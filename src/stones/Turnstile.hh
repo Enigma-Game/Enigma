@@ -28,39 +28,39 @@ namespace enigma {
 
     class TurnstileArm;
 
-    /** 
-     * 
+    /**
+     *
      */
     class TurnstilePivot : public Stone {
         CLONEOBJ(TurnstilePivot);
         DECL_TRAITS_ARRAY(2, traitsIdx());
     private:
         enum iState {
-            IDLE,     ///< 
-            ROTATING  ///< 
+            IDLE,     ///<
+            ROTATING  ///<
         };
-        
+
     public:
         TurnstilePivot(std::string flavor);
-        
+
         // Object interface
         virtual std::string getClass() const;
         virtual void setAttr(const string& key, const Value &val);
         virtual Value message(const Message &m);
-        
+
         // StateObject interface
         virtual int maxState() const;
         virtual void setState(int extState);
 
         // GridObject interface
         virtual void init_model();
-        
+
         // ModelCallback interface
         virtual void animcb();
-        
+
         // Stone interface
 //        virtual void actor_hit(const StoneContact &sc);
-        
+
         bool rotate(bool clockwise, Object *impulse_sender, TurnstileArm *initiator);
         int traitsIdx() const;
     private:
@@ -72,36 +72,36 @@ namespace enigma {
         void handleActorsAndItems(bool clockwise, Object *impulse_sender);
     };
 
-    
-    /** 
-     * 
+
+    /**
+     *
      */
     class TurnstileArm : public Stone {
         CLONEOBJ(TurnstileArm);
         DECL_TRAITS_ARRAY(4, state);
-        
+
     public:
         TurnstileArm(Direction dir);
-        
+
         // Object interface
         virtual std::string getClass() const;
         virtual void setAttr(const string& key, const Value &val);
         virtual Value getAttr(const std::string &key) const;
         virtual Value message(const Message &m);
-        
+
         // StateObject interface
         virtual int maxState() const;
 
         // GridObject interface
         virtual void init_model();
-        
+
         // Stone interface
         virtual void on_impulse(const Impulse& impulse);
-        
+
     private:
         TurnstilePivot *getPivot();
     };
-    
+
 } // namespace enigma
 
 #endif
