@@ -1033,11 +1033,11 @@ end
 
 -- st-puzzle* --
 do
-    DefSubimages("st-puzzle", {modelname="st-puzzlex",w=8,h=4})
-    for i=2,16  do DefSolidStone("st-puzzle"..i, "st-puzzlex"..i) end
-    for i=18,32 do DefSolidStone("st-puzzle"..i, "st-puzzlex"..i) end
-    DefShModel("st-puzzle1", "st-puzzlex1", "sh-puzzle1")
-    DefShModel("st-puzzle17", "st-puzzlex17", "sh-puzzle1")
+    DefSubimages("st_puzzle", {modelname="st_puzzlex",w=16,h=4,startindex=0})
+    -- Full puzzels
+    for i=0,31  do DefSolidStone("st_puzzle"..i, "st_puzzlex"..i) end
+    -- Hollow puzzels
+    for i=32,63  do DefShModel("st_puzzle"..i, "st_puzzlex"..i, "sh-puzzle1") end
 end
 
 -- st-rock3-break --
@@ -1366,7 +1366,7 @@ do
         local fadein = "oxyd"..flavor.."-fadein"
         local fadeout= "oxyd"..flavor.."-fadeout"
         local spotcolor = color
-        
+
         if (color >= 0) then
             spotcolor = color + 1 -- oxyd color 0..num_colors-1, file 1.., frames 1..
         else
