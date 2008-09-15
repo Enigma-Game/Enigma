@@ -3,15 +3,15 @@
   <el:protected>
     <el:info el:type="library">
       <el:identity el:title="" el:id="lib/libsoko"/>
-      <el:version el:score="1" el:release="1" el:revision="2" el:status="experimental"/>
+      <el:version el:score="1" el:release="1" el:revision="3" el:status="experimental"/>
       <el:author el:name="Enigma Team" el:email="" el:homepage=""/>
       <el:copyright>Copyright © 2007, 2008 Enigma Team</el:copyright>
       <el:license el:type="GPL v2.0 or above" el:open="true"/>
       <el:compatibility el:enigma="1.10">
         <el:dependency el:path="lib/liblua" el:id="lib/liblua" el:release="1" el:preload="true"/>
         <el:dependency el:path="lib/libmath" el:id="lib/libmath" el:release="1" el:preload="true"/>
-        <el:dependency el:path="lib/libsoko-designlist" el:id="lib/libsoko-designlist" el:release="1" el:preload="true"/>
-        <el:dependency el:path="lib/libsoko-endphase" el:id="lib/libsoko-endphase" el:release="1" el:preload="true"/>
+        <el:dependency el:path="lib/libsoko-designlist" el:id="lib/libsoko-designlist" el:release="1" el:preload="false"/>
+        <el:dependency el:path="lib/libsoko-endphase" el:id="lib/libsoko-endphase" el:release="1" el:preload="false"/>
       </el:compatibility>
       <el:modes el:easy="false" el:single="false" el:network="false"/>
       <el:comments>
@@ -30,16 +30,20 @@
 -- and endphases.
 
 lib.soko = {}
+setmetatable(lib.soko, getmetatable(lib))
+
+enigma.LoadLib("lib/libsoko-designlist")
+enigma.LoadLib("lib/libsoko-endphase")
 
 ------------------------------------------------------------------------
 -- Global variables
 ------------------------------------------------------------------------
 
 -- The global table "sokoarea" holds all sokoban parts a level
--- creates. I.e., sokoarea[1] holds information about the first
--- part, sokoarea[2] about the second etc. In most cases, only
--- sokoarea[1] will be used.
--- Each sokoarea[j] is again a table with the following entries:
+-- creates. I.e., lib.soko.sokoarea[1] holds information about the first
+-- part, lib.soko.sokoarea[2] about the second etc. In most cases, only
+-- lib.soko.sokoarea[1] will be used.
+-- Each lib.soko.sokoarea[j] is again a table with the following entries:
 --
 --        level_array - a 2D-array of characters defining the sokoban part
 --        array_width - width of level_array
@@ -53,15 +57,9 @@ lib.soko = {}
 --         uses_chess - flag to note that st-chess was used (no shogun-triggers)
 --        level_width - width of whole level (create_sokoban only)
 --       level_height - height of whole level (create_sokoban only)
---          goal_hook - function to call when a goal activates/deactivates
---      endphase_hook - function to call when all triggers are filled
+--          goal_hook - describes the function to call when a goal is activated/deactivated
+--      endphase_hook - describes the function to call when all triggers are filled
 --
--- endphase_hook is a function with one argument, the sokoarea-number.
--- goal_hook takes five arguments: Sokoarea-number, goal-object that was
--- triggered, a bool whether the box was added (instead of removed), number
--- of now-filled goals in this area, number of all goals in this area.
--- Hooking goal_hook does not interfere the default operations of libsoko,
--- but hooking endphase_hook results in skipping the usual endphase.
 -- However, you can call endphase(sokoarea_number) yourself if neccessary.
 --
 --       list_outside - list of positions of outf-tiles
@@ -78,19 +76,19 @@ lib.soko = {}
 -- (nil else). Some endphases also use list_oxyd, list_blocker,
 -- goal_to_blocker and/or number_oxyds as additional data structures.
 
-sokoarea = {}
+lib.soko.sokoarea = {}
 
 ------------------------------------------------------------------------
 -- Tools
 ------------------------------------------------------------------------
 
-function mydebug(st)
+function lib.soko.debug(st)
+  --print(st)
+end
+function lib.soko.warning(st)
   print(st)
 end
-function mywarning(st)
-  print(st)
-end
-function myerror(st)
+function lib.soko.error(st)
   error(st, 2)
 end
 
@@ -108,7 +106,7 @@ function char_is_player(ch) return string.find(ch, "[@\+]")     == 1  end
 
 -- choose_among_multiples selects a number between 1 and COUNT
 -- based on the coordinates X and Y and the algorithm's name ALG.
-function choose_among_multiples(abs, count, alg)
+function lib.soko.choose_among_multiples(abs, count, alg)
   if alg == "checkerboard" then
     return (((abs.x%2) + (abs.y%2)) % count) + 1
   elseif alg == "lines" then
@@ -123,10 +121,10 @@ end
 
 -- check_chess returns a boolean whether a chess stone is used
 -- in the sokoarea SOKOAREA_NUMBER.
-function check_chess(sokoarea_number)
-  for y = 1, sokoarea[sokoarea_number].array_height do
-    for x = 1, sokoarea[sokoarea_number].array_width do
-      local ch = sokoarea[sokoarea_number].level_array[y][x]
+function lib.soko.check_chess(sokoarea_number)
+  for y = 1, lib.soko.sokoarea[sokoarea_number].array_height do
+    for x = 1, lib.soko.sokoarea[sokoarea_number].array_width do
+      local ch = lib.soko.sokoarea[sokoarea_number].level_array[y][x]
       if char_is_chess(ch) then
         return true
       end
@@ -137,49 +135,49 @@ end
 
 -- set_oxyd sets an oxyd with given flavor and color and adds
 -- the neccessary entry to list_oxyd.
-function set_oxyd(sokoarea_number, list_entry, flavor, color)
+function lib.soko.set_oxyd(sokoarea_number, list_entry, flavor, color)
   local entry = lib.lua.deep_copy(list_entry)
   entry.flavor = flavor
   entry.color = color
   wo[entry.abs] = {"st_oxyd", flavor = flavor, oxydcolor = color}
-  sokoarea[sokoarea_number].list_oxyd[entry.abs.x.."/"..entry.abs.y] = entry
-  sokoarea[sokoarea_number].number_oxyds =
-      sokoarea[sokoarea_number].number_oxyds + 1
+  lib.soko.sokoarea[sokoarea_number].list_oxyd[entry.abs.x.."/"..entry.abs.y] = entry
+  lib.soko.sokoarea[sokoarea_number].number_oxyds =
+      lib.soko.sokoarea[sokoarea_number].number_oxyds + 1
 end
 
 -- create_lists creates the special lists list_outside, list_wall,
 -- list_way, list_wall_one and list_wall_two for SOKOAREA_NUMBER.
-function create_lists(sokoarea_number)
+function lib.soko.create_lists(sokoarea_number)
   local nr = sokoarea_number or 1
-  local offset = sokoarea[nr].offset
-  local mx = sokoarea[nr].array_width
-  local my = sokoarea[nr].array_height
-  sokoarea[nr].list_outside = {}
-  sokoarea[nr].list_way = {}
-  sokoarea[nr].list_wall_one = {}
-  sokoarea[nr].list_wall_two = {}
+  local offset = lib.soko.sokoarea[nr].offset
+  local mx = lib.soko.sokoarea[nr].array_width
+  local my = lib.soko.sokoarea[nr].array_height
+  lib.soko.sokoarea[nr].list_outside = {}
+  lib.soko.sokoarea[nr].list_way = {}
+  lib.soko.sokoarea[nr].list_wall_one = {}
+  lib.soko.sokoarea[nr].list_wall_two = {}
   -- list_way, list_wall and list_outside (inside level_array)
   for x = 0, mx - 1 do
     for y = 0, my - 1 do
-      local ch = sokoarea[nr].level_array[y+1][x+1]
+      local ch = lib.soko.sokoarea[nr].level_array[y+1][x+1]
       local entry = {abs = offset + {x,y}, rel = po({x+1, y+1})}
       local sig = entry.abs.x.."/"..entry.abs.y
       if char_is_outf(ch) then
-        sokoarea[nr].list_outside[sig] = entry
+        lib.soko.sokoarea[nr].list_outside[sig] = entry
       elseif char_is_wall(ch) then
-        sokoarea[nr].list_wall[sig] = entry
+        lib.soko.sokoarea[nr].list_wall[sig] = entry
       else
-        sokoarea[nr].list_way[sig] = entry
+        lib.soko.sokoarea[nr].list_way[sig] = entry
       end
     end
   end
   -- list_outside (outside level_array)
-  if sokoarea[nr].level_width and sokoarea[nr].level_height then
-    for x = 0, sokoarea[nr].level_width - 1 do
-      for y = 0, sokoarea[nr].level_height - 1 do
+  if lib.soko.sokoarea[nr].level_width and lib.soko.sokoarea[nr].level_height then
+    for x = 0, lib.soko.sokoarea[nr].level_width - 1 do
+      for y = 0, lib.soko.sokoarea[nr].level_height - 1 do
         if    (x < offset.x) or (x > mx + offset.x - 1)
            or (y < offset.y) or (y > my + offset.y - 1) then
-          sokoarea[nr].list_outside[x.."/"..y] = {abs = po({x,y})}
+          lib.soko.sokoarea[nr].list_outside[x.."/"..y] = {abs = po({x,y})}
         end
       end
     end
@@ -189,24 +187,24 @@ function create_lists(sokoarea_number)
   -- (i) it's a wall, (ii) it's near or diagonal to outside,
   -- (iii) it's near a way.
   -- In addition, it counts the number of near ways.
-  for p, v in pairs(sokoarea[nr].list_wall) do
+  for p, v in pairs(lib.soko.sokoarea[nr].list_wall) do
     local x = v.abs.x
     local y = v.abs.y
-    if    sokoarea[nr].list_outside[(x-1).."/"..(y)]
-       or sokoarea[nr].list_outside[(x+1).."/"..(y)]
-       or sokoarea[nr].list_outside[(x).."/"..(y-1)]
-       or sokoarea[nr].list_outside[(x).."/"..(y+1)]
-       or sokoarea[nr].list_outside[(x+1).."/"..(y+1)]
-       or sokoarea[nr].list_outside[(x+1).."/"..(y-1)]
-       or sokoarea[nr].list_outside[(x-1).."/"..(y+1)]
-       or sokoarea[nr].list_outside[(x-1).."/"..(y-1)] then
+    if    lib.soko.sokoarea[nr].list_outside[(x-1).."/"..(y)]
+       or lib.soko.sokoarea[nr].list_outside[(x+1).."/"..(y)]
+       or lib.soko.sokoarea[nr].list_outside[(x).."/"..(y-1)]
+       or lib.soko.sokoarea[nr].list_outside[(x).."/"..(y+1)]
+       or lib.soko.sokoarea[nr].list_outside[(x+1).."/"..(y+1)]
+       or lib.soko.sokoarea[nr].list_outside[(x+1).."/"..(y-1)]
+       or lib.soko.sokoarea[nr].list_outside[(x-1).."/"..(y+1)]
+       or lib.soko.sokoarea[nr].list_outside[(x-1).."/"..(y-1)] then
       local count = 0
-      if sokoarea[nr].list_way[(x-1).."/"..(y)] then  count = count + 1  end
-      if sokoarea[nr].list_way[(x+1).."/"..(y)] then  count = count + 1  end
-      if sokoarea[nr].list_way[(x).."/"..(y-1)] then  count = count + 1  end
-      if sokoarea[nr].list_way[(x).."/"..(y+1)] then  count = count + 1  end
+      if lib.soko.sokoarea[nr].list_way[(x-1).."/"..(y)] then  count = count + 1  end
+      if lib.soko.sokoarea[nr].list_way[(x+1).."/"..(y)] then  count = count + 1  end
+      if lib.soko.sokoarea[nr].list_way[(x).."/"..(y-1)] then  count = count + 1  end
+      if lib.soko.sokoarea[nr].list_way[(x).."/"..(y+1)] then  count = count + 1  end
       if count > 0 then
-        sokoarea[nr].list_wall_one[x.."/"..y] =
+        lib.soko.sokoarea[nr].list_wall_one[x.."/"..y] =
             {abs = v.abs, rel = v.rel, count = count}
       end
     end
@@ -214,27 +212,27 @@ function create_lists(sokoarea_number)
   -- list_wall_two
   -- There are three conditions for an element of list_wall_two:
   -- (i) it's near a wall_one, (ii) it's not a wall_one,
-  -- (iii) it's wall or outside. Next function checks (ii) and (iii)
+  -- (iii) it's wall or outside. Next function lib.soko.checks (ii) and (iii)
   -- and adds the checked element to the list. In addition, the
   -- neighboring wall_one are added into the list.
   local function check_ii_and_iii(x, y, one_x, one_y)
-    if sokoarea[nr].list_wall_one[x.."/"..y] then
+    if lib.soko.sokoarea[nr].list_wall_one[x.."/"..y] then
       return
     end
-    if sokoarea[nr].list_way[x.."/"..y] then
+    if lib.soko.sokoarea[nr].list_way[x.."/"..y] then
       return
     end
-    if not sokoarea[nr].list_wall_two[x.."/"..y] then
+    if not lib.soko.sokoarea[nr].list_wall_two[x.."/"..y] then
       -- create new entry
-      sokoarea[nr].list_wall_two[x.."/"..y] =
+      lib.soko.sokoarea[nr].list_wall_two[x.."/"..y] =
           {abs = po({x,y}), rel = nil, wall_one = {}}
     end
     -- add the corresponding wall_one
-    local w = table.getn(sokoarea[nr].list_wall_two[x.."/"..y].wall_one) + 1
-    sokoarea[nr].list_wall_two[x.."/"..y].wall_one[w] =
-        sokoarea[nr].list_wall_one[one_x.."/"..one_y]
+    local w = table.getn(lib.soko.sokoarea[nr].list_wall_two[x.."/"..y].wall_one) + 1
+    lib.soko.sokoarea[nr].list_wall_two[x.."/"..y].wall_one[w] =
+        lib.soko.sokoarea[nr].list_wall_one[one_x.."/"..one_y]
   end
-  for p, v in pairs(sokoarea[nr].list_wall_one) do
+  for p, v in pairs(lib.soko.sokoarea[nr].list_wall_one) do
     check_ii_and_iii(v.abs.x+1, v.abs.y, v.abs.x, v.abs.y)
     check_ii_and_iii(v.abs.x-1, v.abs.y, v.abs.x, v.abs.y)
     check_ii_and_iii(v.abs.x, v.abs.y+1, v.abs.x, v.abs.y)
@@ -244,11 +242,11 @@ end
 
 -- new_sokoarea initialises a new entry in the global
 -- sokoarea table and returns its number.
-function new_sokoarea()
-  sokoarea_number = table.getn(sokoarea) + 1
-  sokoarea[sokoarea_number] = {
+function lib.soko.new_sokoarea()
+  sokoarea_number = table.getn(lib.soko.sokoarea) + 1
+  lib.soko.sokoarea[sokoarea_number] = {
     level_array = {},
-    design = default_design,
+    design = lib.soko.default_design,
     algorithms = {},
     number_goals = 0,
     goals_filled = 0,
@@ -278,17 +276,17 @@ end
 -- Drawing Functions and Level Interpretation
 ------------------------------------------------------------------------
 
--- set_element sets element name EL_STR of area SOKOAREA_NUMBER at x, y.
+-- lib.soko.set_element sets element name EL_STR of area SOKOAREA_NUMBER at x, y.
 -- EL_DESIGN is optional and overrides the design of the given sokoarea.
-function set_element(abs, sokoarea_number, el_str, el_design)
-  if type(sokoarea[sokoarea_number]) ~= "table" then
-    myerror("Sokoarea table number "..sokoarea_number.." broken or not existing.")
+function lib.soko.set_element(abs, sokoarea_number, el_str, el_design)
+  if type(lib.soko.sokoarea[sokoarea_number]) ~= "table" then
+    lib.soko.error("Sokoarea table number "..sokoarea_number.." broken or not existing.")
   end
-  local el = el_design or sokoarea[sokoarea_number].design[el_str]
-  local in_endphase = sokoarea[sokoarea_number].endphase_started
+  local el = el_design or lib.soko.sokoarea[sokoarea_number].design[el_str]
+  local in_endphase = lib.soko.sokoarea[sokoarea_number].endphase_started
 
   if (usertype(abs) ~= "position") then
-    myerror("libsoko.set_element: Coordinate is not a position!")
+    lib.soko.error("libsoko.lib.soko.set_element: Coordinate is not a position!")
     return
   end
 
@@ -329,11 +327,11 @@ function set_element(abs, sokoarea_number, el_str, el_design)
         elseif s == "fire"    then  fire = true
         elseif s == "nofire"  then  fire = false
         else
-          mywarning("Unknown entry "..j.."="..s.." in design element.")
+          lib.soko.warning("Unknown entry "..j.."="..s.." in design element.")
         end
       end
     else
-      mywarning("In design element, entry "..j.." is of type "
+      lib.soko.warning("In design element, entry "..j.." is of type "
                 ..type(v)..", not string.")      
     end
   end
@@ -342,7 +340,7 @@ function set_element(abs, sokoarea_number, el_str, el_design)
 
   ----------- floor --------------
   if table.getn(fl) > 0 then
-    local flkind = fl[choose_among_multiples(abs, table.getn(fl), multiple_alg)]
+    local flkind = fl[lib.soko.choose_among_multiples(abs, table.getn(fl), multiple_alg)]
     if flkind == "fl-bridge_x" then
       wo[abs] = {"fl-bridge", type = "x", burnable = false, eternal = true}
     elseif flkind == "fl-bridge_y" then
@@ -361,7 +359,7 @@ function set_element(abs, sokoarea_number, el_str, el_design)
 
   ----------- stone ---------------
   if table.getn(st) > 0 then
-    local stkind = st[choose_among_multiples(abs, table.getn(st), multiple_alg)]
+    local stkind = st[lib.soko.choose_among_multiples(abs, table.getn(st), multiple_alg)]
     if (not -wo:st(abs)) or (not wo:st(abs):is("st_oxyd")) then
       wo[abs] = {stkind, _sokoarea = sokoarea_number}
       created_objects.st = wo:st(abs)
@@ -370,16 +368,16 @@ function set_element(abs, sokoarea_number, el_str, el_design)
 
   ----------- item ----------------
   if table.getn(it) > 0 then
-    local itkind = it[choose_among_multiples(abs, table.getn(it), multiple_alg)]
-    if sokoarea[sokoarea_number].uses_chess and not in_endphase then
+    local itkind = it[lib.soko.choose_among_multiples(abs, table.getn(it), multiple_alg)]
+    if lib.soko.sokoarea[sokoarea_number].uses_chess and not in_endphase then
       itkind = "it_trigger"
     end
     wo[abs] = {itkind}
     created_objects.it = wo:it(abs)
     if (el_str == "goal") and not in_endphase then
-      local gn = sokoarea[sokoarea_number].number_goals + 1
-      sokoarea[sokoarea_number].number_goals = gn
-      sokoarea[sokoarea_number].list_goal[abs.x.."/"..abs.y] =
+      local gn = lib.soko.sokoarea[sokoarea_number].number_goals + 1
+      lib.soko.sokoarea[sokoarea_number].number_goals = gn
+      lib.soko.sokoarea[sokoarea_number].list_goal[abs.x.."/"..abs.y] =
           {abs = abs, goal_number = gn}
       if created_objects.it and not in_endphase then
         created_objects.it.action = "callback"
@@ -418,18 +416,18 @@ end
 --  - set global variables
 --  - prepare oxyds
 --  - solve the level
--- This function is not intended to be used in level programming
+-- This function lib.soko.is not intended to be used in level programming
 -- directly, use "draw_sokoball" instead.
-function draw_level_array(sokoarea_number, outside, draw_actor)
+function lib.soko.draw_level_array(sokoarea_number, outside, draw_actor)
   local nr = sokoarea_number or 1
-  local design = sokoarea[nr].design
-  local offset = sokoarea[nr].offset
-  sokoarea[nr].list_goal = {}
+  local design = lib.soko.sokoarea[nr].design
+  local offset = lib.soko.sokoarea[nr].offset
+  lib.soko.sokoarea[nr].list_goal = {}
 
   -- create level
-  for y = 0, sokoarea[nr].array_height - 1 do
-    for x = 0, sokoarea[nr].array_width - 1 do
-      local ch = sokoarea[nr].level_array[y+1][x+1]
+  for y = 0, lib.soko.sokoarea[nr].array_height - 1 do
+    for x = 0, lib.soko.sokoarea[nr].array_width - 1 do
+      local ch = lib.soko.sokoarea[nr].level_array[y+1][x+1]
       local obj = {}
       local abs = offset + {x,y}
       
@@ -438,29 +436,29 @@ function draw_level_array(sokoarea_number, outside, draw_actor)
         if outside then
           wo:st(abs):kill()
           wo:it(abs):kill()
-          set_element(abs, nr, "outf")
+          lib.soko.set_element(abs, nr, "outf")
         end
       else
         wo:st(abs):kill()
         wo:it(abs):kill()
-        obj = set_element(abs, nr, "inf")
+        obj = lib.soko.set_element(abs, nr, "inf")
         obj.fl.freeze_check = true
       end
       
       -- Walls
       if char_is_wall(ch) then
-        obj = set_element(abs, nr, "wall")
+        obj = lib.soko.set_element(abs, nr, "wall")
       end
       
       -- Goals
       if char_is_goal(ch) then
-        obj = set_element(abs, nr, "goal")
+        obj = lib.soko.set_element(abs, nr, "goal")
         wo:fl(abs).freeze_check = false
       end
       
       -- Boxes
       if char_is_box(ch) then
-        obj = set_element(abs, nr, "box")
+        obj = lib.soko.set_element(abs, nr, "box")
         obj.st.freeze_check = true
       end
       
@@ -475,8 +473,8 @@ function draw_level_array(sokoarea_number, outside, draw_actor)
       
       -- Actors
       if char_is_player(ch) and draw_actor then
-        sokoarea[nr].actor_count = sokoarea[nr].actor_count + 1
-        local acname = "marble_"..nr.."_"..sokoarea[nr].actor_count
+        lib.soko.sokoarea[nr].actor_count = lib.soko.sokoarea[nr].actor_count + 1
+        local acname = "marble_"..nr.."_"..lib.soko.sokoarea[nr].actor_count
         if design["white"] then
           wo[abs] = {"#ac-whiteball", acname, controllers = 1, player = 0}
         else
@@ -507,9 +505,9 @@ end
 -- in which case SUBLEVEL determines the number of the level to unpack.
 -- Default of SUBLEVEL is 1.
 --
-function unpack_level(multilevel, sublevel_number)
+function lib.soko.unpack_level(multilevel, sublevel_number)
   if type(multilevel) ~= "string" then
-    myerror("Can't make sense of level type "..type(level)..".")
+    lib.soko.error("Can't make sense of level type "..type(level)..".")
   end
   local current_level = 0
   local level = ""
@@ -535,16 +533,16 @@ function unpack_level(multilevel, sublevel_number)
           level = line.."\n"
         end
       end
-      mydebug("Level "..current_level.." : |"..line.."|")
+      lib.soko.debug("Level "..current_level.." : |"..line.."|")
     else
       in_level = false
     end
   end
   
-  mydebug(level)
+  lib.soko.debug(level)
   
   if level == "" then
-    myerror("libsoko.unpack_level: Multilevel holds less than "
+    lib.soko.error("libsoko.unpack_level: Multilevel holds less than "
             ..sublevel_number.." levels!")
   end
 
@@ -593,7 +591,7 @@ function unpack_level(multilevel, sublevel_number)
   end  
 
   -- mark outside floor fields from the border
-  function check_for_outside(x, y)
+  local function check_for_outside(x, y)
     if level_array[y][x] == "-" then
       level_array[y][x] = " "
       if y > 1         then  check_for_outside(x, y - 1)  end
@@ -646,9 +644,9 @@ function unpack_level(multilevel, sublevel_number)
     end
   end
   if (border_n >= border_s) or (border_w >= border_e) then
-    myerror("libsoko: Level is empty or trimming code is corrupt.")
+    lib.soko.error("libsoko: Level is empty or trimming code is corrupt.")
   end
-  mydebug("N: "..border_n..", S: "..border_s
+  lib.soko.debug("N: "..border_n..", S: "..border_s
       ..", W: "..border_w..", E: "..border_e)
   local trimmed_array = {}
   for y = border_n, border_s do
@@ -658,9 +656,9 @@ function unpack_level(multilevel, sublevel_number)
       trimmed_array[y - border_n + 1][x - border_w + 1] = level_array[y][x]
       line = line .. level_array[y][x]
     end
-    mydebug("|"..line.."|")
+    lib.soko.debug("|"..line.."|")
   end
-  mydebug(table.getn(trimmed_array).." : "..table.getn(trimmed_array[1]))
+  lib.soko.debug(table.getn(trimmed_array).." : "..table.getn(trimmed_array[1]))
   return trimmed_array
 end
 
@@ -766,12 +764,12 @@ end
 --  only slightly above the normal distribution. However, their
 --  ratio varies with the list length.
 --
--- See also: Landau function g(n) for determining the maximal
+-- See also: Landau function lib.soko.g(n) for determining the maximal
 --           order of an element in the symmetric group S(n).
 --
-function number_from_level(level_array, list_length)
+function lib.soko.number_from_level(level_array, list_length)
   local j = list_length + 1
-  mydebug("Calculating number from level_array, modulus "..list_length.." ...")
+  lib.soko.debug("Calculating number from level_array, modulus "..list_length.." ...")
   local l = 2
   repeat
     j = j - 1
@@ -793,12 +791,12 @@ function number_from_level(level_array, list_length)
       end
     end
   until (b == 0) or (j == 1)
-  mydebug("Calculation ended. Result: "..j)
+  lib.soko.debug("Calculation ended. Result: "..j)
   return j
 end
 
-function design_from_level(level_array, list_length)
-  return design_list[number_from_level(level_array,
+function lib.soko.design_from_level(level_array, list_length)
+  return lib.soko.design_list[lib.soko.number_from_level(level_array,
             list_length or table.getn(design_list))]
 end
 
@@ -808,20 +806,20 @@ end
 --  - a number specifying the number of the design in the design list
 --  - "nil" plus a level_array from which a design from the design
 --    list will be chosen.
-function design_from_description(design_description, level_array, maxdesignnumber)
+function lib.soko.design_from_description(design_description, level_array, maxdesignnumber)
   -- choose design
   local design = {}
   if type(design_description) == "number" then
-    design = lib.lua.deep_copy(design_list[design_description])
+    design = lib.lua.deep_copy(lib.soko.design_list[design_description])
   elseif type(design_description) == "table" then
     design = lib.lua.deep_copy(design_description)
   elseif (type(design_description) == "nil") and (type(level_array) == "table") then
-    design = lib.lua.deep_copy(design_from_level(level_array, maxdesignnumber))
+    design = lib.lua.deep_copy(lib.soko.design_from_level(level_array, maxdesignnumber))
   else
-    myerror("Can't make sense of design type "..type(design)..".")
+    lib.soko.error("Can't make sense of design type "..type(design)..".")
   end
   -- fill chosen design with default values where neccessary
-  design = lib.lua.combine_tables({design, default_design})
+  design = lib.lua.combine_tables({design, lib.soko.default_design})
   -- No stone set for outf, not even "st_nil"?
   -- Use the default outf-stone instead, and remove it on endphase.
   if type(design.outf) ~= "table" then
@@ -832,7 +830,7 @@ function design_from_description(design_description, level_array, maxdesignnumbe
       return design
     end
   end
-  table.insert(design.outf, default_design.outf_default_stone)
+  table.insert(design.outf, lib.soko.default_design.outf_default_stone)
   if type(design.endp.outf) ~= "table" then
     design.endp.outf = {design.endp.outf}
   end
@@ -863,60 +861,60 @@ end
 -- design list is enlarged.
 -- Returns width and height of new level.
 --
-function create_sokoball(level, sublevel, design, maxdesignnumber)
+function lib.soko.create_sokoball(level, sublevel, design, maxdesignnumber)
   -- check that this is the first sokoarea, and initialise it.
-  if type(sokoarea) ~= "table" then
-    myerror("No sense in sokoarea of type "..type(sokoarea)..".")
+  if type(lib.soko.sokoarea) ~= "table" then
+    lib.soko.error("No sense in sokoarea of type "..type(sokoarea)..".")
   end
-  if table.getn(sokoarea) ~= 0 then
-    myerror("Tried to use create_sokoball twice. Use draw_sokoball instead.")
+  if table.getn(lib.soko.sokoarea) ~= 0 then
+    lib.soko.error("Tried to use create_sokoball twice. Use draw_sokoball instead.")
   end
-  new_sokoarea()
+  lib.soko.new_sokoarea()
 
   -- unpack level
-  sokoarea[1].level_array = unpack_level(level, sublevel)
+  lib.soko.sokoarea[1].level_array = lib.soko.unpack_level(level, sublevel)
 
   -- calculate screen position
   -- Important Note: level_array is reversely indexed, i.e.
   --                 level_array[y-coordinate][x-coordinate]
-  sokoarea[1].array_width = table.getn(sokoarea[1].level_array[1])
-  sokoarea[1].array_height = table.getn(sokoarea[1].level_array)
-  sokoarea[1].uses_chess = check_chess(1)
-  local levelw = math.max(sokoarea[1].array_width, 20)
-  local levelh = math.max(sokoarea[1].array_height, 13)
-  sokoarea[1].level_width = levelw
-  sokoarea[1].level_height = levelh
+  lib.soko.sokoarea[1].array_width = table.getn(lib.soko.sokoarea[1].level_array[1])
+  lib.soko.sokoarea[1].array_height = table.getn(lib.soko.sokoarea[1].level_array)
+  lib.soko.sokoarea[1].uses_chess = lib.soko.check_chess(1)
+  local levelw = math.max(lib.soko.sokoarea[1].array_width, 20)
+  local levelh = math.max(lib.soko.sokoarea[1].array_height, 13)
+  lib.soko.sokoarea[1].level_width = levelw
+  lib.soko.sokoarea[1].level_height = levelh
   ti[" "] = {"fl-abyss"}
   wo(ti, " ", levelw, levelh)
   
   -- calculate padding
   local dx = 0
   local dy = 0
-  if levelw > sokoarea[1].array_width then
-    dx = math.floor((levelw - sokoarea[1].array_width) / 2)
+  if levelw > lib.soko.sokoarea[1].array_width then
+    dx = math.floor((levelw - lib.soko.sokoarea[1].array_width) / 2)
   end
-  if levelh > sokoarea[1].array_height then
-    dy = math.floor((levelh - sokoarea[1].array_height) / 2)
+  if levelh > lib.soko.sokoarea[1].array_height then
+    dy = math.floor((levelh - lib.soko.sokoarea[1].array_height) / 2)
   end
-  sokoarea[1].offset = po({dx, dy})
+  lib.soko.sokoarea[1].offset = po({dx, dy})
 
   -- calculate design
-  sokoarea[1].design =
-    design_from_description(design, sokoarea[1].level_array, maxdesignnumber)
+  lib.soko.sokoarea[1].design =
+    lib.soko.design_from_description(design, lib.soko.sokoarea[1].level_array, maxdesignnumber)
 
   -- create special position lists
-  create_lists(nr)
+  lib.soko.create_lists(nr)
   
   -- draw level
   for x = 0, levelw - 1 do
     for y = 0, levelh - 1 do
-      set_element(po({x,y}), 1, "outf")
+      lib.soko.set_element(po({x,y}), 1, "outf")
     end
   end
-  draw_level_array(1, true, true)
+  lib.soko.draw_level_array(1, true, true)
   
   -- prepare oxyds for end phase
-  prepare_endphase(1)
+  lib.soko.prepare_endphase(1)
 
   -- Enigma's global variables
   wo["ConserveLevel"] = false
@@ -933,54 +931,54 @@ end
 -- from scratch, but not the world and doesn't add another
 -- actor.
 --
-function recreate_sokoball(design, maxdesignnumber, sokoarea_number)
+function lib.soko.recreate_sokoball(design, maxdesignnumber, sokoarea_number)
   local nr = sokoarea_number or 1
 
-  sokoarea[nr].design =
-      design_from_description(design, sokoarea[nr].level_array, maxdesignnumber)
+  lib.soko.sokoarea[nr].design =
+      lib.soko.design_from_description(design, lib.soko.sokoarea[nr].level_array, maxdesignnumber)
 
-  if sokoarea[nr].level_width and sokoarea[nr].level_height then
-    for x = 0, sokoarea[nr].level_width - 1 do
-      for y = 0, sokoarea[nr].level_height - 1 do
+  if lib.soko.sokoarea[nr].level_width and lib.soko.sokoarea[nr].level_height then
+    for x = 0, lib.soko.sokoarea[nr].level_width - 1 do
+      for y = 0, lib.soko.sokoarea[nr].level_height - 1 do
         wo:st(x, y):kill()
         wo:it(x, y):kill()
-        set_element(po({x,y}), nr, "outf")
+        lib.soko.set_element(po({x,y}), nr, "outf")
       end
     end
   else
-    for x = 0, sokoarea[nr].array_width - 1 do
-      for y = 0, sokoarea[nr].array_height - 1 do
-        local abs = sokoarea[nr].offset + {x,y}
+    for x = 0, lib.soko.sokoarea[nr].array_width - 1 do
+      for y = 0, lib.soko.sokoarea[nr].array_height - 1 do
+        local abs = lib.soko.sokoarea[nr].offset + {x,y}
         wo:st(abs):kill()
         wo:it(abs):kill()
-        set_element(abs, nr, "outf")
+        lib.soko.set_element(abs, nr, "outf")
       end
     end
   end
 
-  sokoarea[nr].number_goals = 0
-  sokoarea[nr].goals_filled = 0
-  sokoarea[nr].endphase_started = false
-  sokoarea[nr].goal_to_blocker = {}
-  sokoarea[nr].goal_hook = nil
-  sokoarea[nr].list_goal = {}
-  sokoarea[nr].list_oxyd = {}
-  sokoarea[nr].list_blocker = {}
-  sokoarea[nr].number_oxyds = 0
-  sokoarea[nr].goal_to_blocker = {}
-  sokoarea[nr].endphase_hook = endphase
+  lib.soko.sokoarea[nr].number_goals = 0
+  lib.soko.sokoarea[nr].goals_filled = 0
+  lib.soko.sokoarea[nr].endphase_started = false
+  lib.soko.sokoarea[nr].goal_to_blocker = {}
+  lib.soko.sokoarea[nr].list_goal = {}
+  lib.soko.sokoarea[nr].list_oxyd = {}
+  lib.soko.sokoarea[nr].list_blocker = {}
+  lib.soko.sokoarea[nr].number_oxyds = 0
+  lib.soko.sokoarea[nr].goal_to_blocker = {}
+  lib.soko.sokoarea[nr].goal_hook = nil
+  lib.soko.sokoarea[nr].endphase_hook = endphase
 
-  --sokoarea[nr].list_outside = {}
-  --sokoarea[nr].list_wall = {}
-  --sokoarea[nr].list_way = {}
-  --sokoarea[nr].list_wall_one = {}
-  --sokoarea[nr].list_wall_two = {}
+  --lib.soko.sokoarea[nr].list_outside = {}
+  --lib.soko.sokoarea[nr].list_wall = {}
+  --lib.soko.sokoarea[nr].list_way = {}
+  --lib.soko.sokoarea[nr].list_wall_one = {}
+  --lib.soko.sokoarea[nr].list_wall_two = {}
 
-  draw_level_array(nr, true, false)
+  lib.soko.draw_level_array(nr, true, false)
 
   -- prepare oxyds for end phase
-  prepare_endphase(nr)
-  mydebug("Prepared for endphase "..sokoarea[nr].design.endp.alg..".")
+  lib.soko.prepare_endphase(nr)
+  lib.soko.debug("Prepared for endphase "..lib.soko.sokoarea[nr].design.endp.alg..".")
 end
 
 -- draw_sokoball draws a sokoball level from argument LEVEL, sublevel
@@ -996,36 +994,36 @@ end
 --  - draw any oxyds
 --  - solve the level when all triggers are activated.
 -- DRAW_ACTOR determines if an actor should be placed.
--- ENDPHASE_HOOK is the function to be called when all goals are filled.
--- GOAL_HOOK is called when a single goal is triggered (see libsoko-endphase).
--- (As a function, not as a string!) If it's nil, the standard
+-- ENDPHASE_HOOK describes the function to be called when all goals are filled.
+-- GOAL_HOOK describes the function to be called when a single goal is
+-- triggered (see libsoko-endphase). If it's nil, the standard
 -- function from this library will be called. This might be
 -- broken as no oxyds have been prepared.
 -- Note: Overwriting one sokoarea with another creates problems
 --       with the triggers.
 --
-function draw_sokoball(offset, level, sublevel, design, draw_actor,
+function lib.soko.draw_sokoball(offset, level, sublevel, design, draw_actor,
                        endphase_hook, goal_hook)
-  local nr = new_sokoarea()
+  local nr = lib.soko.new_sokoarea()
   -- unpack level
-  sokoarea[nr].level_array = unpack_level(level, sublevel)
-  sokoarea[nr].array_width = table.getn(sokoarea[nr].level_array[1])
-  sokoarea[nr].array_height = table.getn(sokoarea[nr].level_array)
-  sokoarea[nr].uses_chess = check_chess(nr)
-  sokoarea[nr].offset = offset
-  sokoarea[nr].design = 
-      design_from_description(design, sokoarea[nr].level_array)
+  lib.soko.sokoarea[nr].level_array = lib.soko.unpack_level(level, sublevel)
+  lib.soko.sokoarea[nr].array_width = table.getn(lib.soko.sokoarea[nr].level_array[1])
+  lib.soko.sokoarea[nr].array_height = table.getn(lib.soko.sokoarea[nr].level_array)
+  lib.soko.sokoarea[nr].uses_chess = lib.soko.check_chess(nr)
+  lib.soko.sokoarea[nr].offset = offset
+  lib.soko.sokoarea[nr].design = 
+    lib.soko.design_from_description(design, lib.soko.sokoarea[nr].level_array)
   if hook ~= nil then
-    sokoarea[nr].endphase_hook = endphase_hook
+    lib.soko.sokoarea[nr].endphase_hook = endphase_hook
   end
-  sokoarea[nr].goal_hook = goal_hook
-  create_lists(nr)
-  draw_level_array(nr, false, draw_actor)
+  lib.soko.sokoarea[nr].goal_hook = goal_hook
+  lib.soko.create_lists(nr)
+  lib.soko.draw_level_array(nr, false, draw_actor)
 end
 
--- design_statistics uses mywarning to output statistics of
+-- design_statistics uses lib.soko.warning to output statistics of
 -- the used algorithms
-function design_statistics()
+function lib.soko.design_statistics()
   alglist = {}
   for k, v in pairs(design_list) do
     if v.endp then
@@ -1038,7 +1036,7 @@ function design_statistics()
     end
   end
   for k, v in pairs(alglist) do
-    mywarning(k..": "..v)
+    lib.soko.warning(k..": "..v)
   end
 end
 

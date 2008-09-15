@@ -313,12 +313,12 @@ chessoban =
 
 
 design_min = 1 --76
-design_max = table.getn(design_list)
+design_max = table.getn(lib.soko.design_list)
 
 design_number = 77 --design_max
 
 --create_sokoball(multilevel2, 1, 1)
-create_sokoball(multilevel2, 13, design_number)
+lib.soko.create_sokoball(multilevel2, 13, design_number)
 --create_sokoball(chessoban, 2)
 --draw_sokoball(0, 0, chessoban, 2, nil, true) --leftending)
 wo[{9,1}] = {"st_switch", target="design_minus_one"}
@@ -327,7 +327,7 @@ wo[{10,1}] = {"st_switch", target="design_plus_one"}
 
 function leftending(nr)
   if nr == 2 then
-    recreate_sokoball(150, 2)
+    lib.soko.recreate_sokoball(150, 2)
   else
     error("Should never happen!")
   end
@@ -339,7 +339,7 @@ function design_minus_one()
   if design_number < design_min then
     design_number = design_max
   end
-  recreate_sokoball(design_number)
+  lib.soko.recreate_sokoball(design_number)
   wo[{9,1}] = {"st_switch", target="design_minus_one"}
   wo[{10,1}] = {"st_switch", target="design_plus_one"}
 end
@@ -348,7 +348,7 @@ function design_plus_one()
   if design_number > design_max then
     design_number = design_min
   end
-  recreate_sokoball(design_number)
+  lib.soko.recreate_sokoball(design_number)
   wo[{9,1}] = {"st_switch", target="design_minus_one"}
   wo[{10,1}] = {"st_switch", target="design_plus_one"}
 end

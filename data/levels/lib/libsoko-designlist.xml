@@ -3,7 +3,7 @@
   <el:protected>
     <el:info el:type="library">
       <el:identity el:title="" el:id="lib/libsoko-designlist"/>
-      <el:version el:score="1" el:release="1" el:revision="2" el:status="experimental"/>
+      <el:version el:score="1" el:release="1" el:revision="3" el:status="experimental"/>
       <el:author el:name="Enigma Team" el:email="" el:homepage=""/>
       <el:copyright>Copyright © 2007, 2008 Enigma Team</el:copyright>
       <el:license el:type="GPL v2.0 or above" el:open="true"/>
@@ -91,7 +91,7 @@
 --   block:X        : create oxyds with blocking object X
 --   outside:X      : create X oxyd-pairs in the outside and outer walls
   
-default_design = {
+lib.soko.default_design = {
   wall = { "st-rock3", "fl-leaves" },
    inf = { "fl-wood" },
   outf = { "fl-water" },
@@ -109,7 +109,7 @@ default_design = {
 -- This is done to avoid a chess-stone from jumping into the void,
 -- as a present to the gamer.
 
-design_list = {
+lib.soko.design_list = {
 
 -- endp-algs: circle, ralf, hide, outside, allcrack, block, fourswitch
 --            vortex, gradients, magnets
@@ -646,7 +646,7 @@ design_list = {
 --   create_sokoban(..., ..., ralfcode_conversion_table[715])
 -- to activate it.
 --
-ralfcode_conversion_table = {
+lib.soko.ralfcode_conversion_table = {
      [0]   = 1,
    [714+1] = 4,
    [715+1] = 70,

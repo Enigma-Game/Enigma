@@ -3,7 +3,7 @@
   <el:protected>
     <el:info el:type="library">
       <el:identity el:title="" el:id="lib/libsoko-endphase"/>
-      <el:version el:score="1" el:release="1" el:revision="3" el:status="experimental"/>
+      <el:version el:score="1" el:release="1" el:revision="4" el:status="experimental"/>
       <el:author el:name="Enigma Team" el:email="" el:homepage=""/>
       <el:copyright>Copyright © 2007, 2008 Enigma Team</el:copyright>
       <el:license el:type="GPL v2.0 or above" el:open="true"/>
@@ -21,14 +21,16 @@
 -- endphases. Don't include this library with your levels (it won't
 -- have any effect), but libsoko.xml.
 
+lib.soko.GOAL_HOOK_RALF = 1
+
 ------------------------------------------------------------------------
 -- Goal Trigger and Endphase Main Functions
 ------------------------------------------------------------------------
 
-function goal_trigger(onoff, sender)
+function lib.soko.goal_trigger(onoff, sender)
   local nr = sender._sokoarea
   local more_boxes = false  -- memorizes whether a box was added or removed
-  if sokoarea[nr].endphase_started then
+  if lib.soko.sokoarea[nr].endphase_started then
     return
   end
 
@@ -36,7 +38,7 @@ function goal_trigger(onoff, sender)
   if(sender._box == 0) then
     if -wo:st(sender) then
       sender._box = 1
-      sokoarea[nr].goals_filled = sokoarea[nr].goals_filled + 1
+      lib.soko.sokoarea[nr].goals_filled = lib.soko.sokoarea[nr].goals_filled + 1
       more_boxes = true
     else
       -- blind alarm, probably a marble
@@ -44,49 +46,48 @@ function goal_trigger(onoff, sender)
     end
   else
     sender._box = 0
-    sokoarea[nr].goals_filled = sokoarea[nr].goals_filled - 1
+    lib.soko.sokoarea[nr].goals_filled = lib.soko.sokoarea[nr].goals_filled - 1
   end
 
   -- Call goal_hook, e.g. for algorithms "ralf" and "allcrack".
-  if type(sokoarea[nr].goal_hook) == "function" then
-    sokoarea[nr].goal_hook(nr, sender, more_boxes, sokoarea[nr].goals_filled,
-              sokoarea[nr].number_goals)
+  if type(lib.soko.sokoarea[nr].goal_hook) == "number" then
+    if lib.soko.sokoarea[nr].goal_hook == lib.soko.GOAL_HOOK_RALF then
+      lib.soko.endphase_goal_hook_ralf(nr, sender, more_boxes,
+          lib.soko.sokoarea[nr].goals_filled, lib.soko.sokoarea[nr].number_goals)
   end
   
   -- Start endphase?
-  if sokoarea[nr].goals_filled == sokoarea[nr].number_goals then
-    sokoarea[nr].endphase_started = true
-    if type(sokoarea[nr].endphase_hook) == "function" then
-      sokoarea[nr].endphase_hook(nr)
-    else
-      mydebug("libsoko: No endphase hook found!")
+  if lib.soko.sokoarea[nr].goals_filled == lib.soko.sokoarea[nr].number_goals then
+    lib.soko.sokoarea[nr].endphase_started = true
+    if type(lib.soko.sokoarea[nr].endphase_hook) ~= "nil" then
+      lib.soko.debug("libsoko: Unknown endphase hook.")
     end
   end
 end
 
-function prepare_endphase(sokoarea_number)
+function lib.soko.prepare_endphase(sokoarea_number)
   local nr = sokoarea_number
   -- ensure existence of goals
-  if sokoarea[nr].number_goals < 1 then
-    myerror("No goals defined!\n")
+  if lib.soko.sokoarea[nr].number_goals < 1 then
+    lib.soko.error("No goals defined!\n")
   end
   -- ensure a correctly set endphase-attribute
-  local endp = sokoarea[nr].design.endp
+  local endp = lib.soko.sokoarea[nr].design.endp
   if not endp then
-    sokoarea[nr].design.endp = lib.lua.deep_copy(default_design.endp)
-    endp = sokoarea[nr].design.endp
+    lib.soko.sokoarea[nr].design.endp = lib.lua.deep_copy(lib.soko.default_design.endp)
+    endp = lib.soko.sokoarea[nr].design.endp
   end
   if type(endp) ~= "table" then
-    myerror("This design's endphase is given as "..type(endp)
+    lib.soko.error("This design's endphase is given as "..type(endp)
             ..", should be table.")
   end
   local alg = endp.alg
   if alg == nil then
-    sokoarea[nr].design.endp.alg = lib.lua.deep_copy(default_design.endp.alg)
+    lib.soko.sokoarea[nr].design.endp.alg = lib.lua.deep_copy(lib.soko.default_design.endp.alg)
     alg = endp.alg
   end
   if type(alg) ~= "string" then
-    myerror("This design's endphase algorithm is given as "..type(alg)
+    lib.soko.error("This design's endphase algorithm is given as "..type(alg)
             ..", should be string.")
   end
 
@@ -108,29 +109,29 @@ function prepare_endphase(sokoarea_number)
   elseif (alg == "ralf")
       or (alg == "allcrack")
       or (alg == "vortex") then
-    endphase_set_block_oxyds(nr, (sokoarea[nr].design.door or
-        sokoarea[nr].design.wall or "st_nil"), param)
-    sokoarea[nr].goal_hook = endphase_goal_hook_ralf
+    lib.soko.endphase_set_block_oxyds(nr, (lib.soko.sokoarea[nr].design.door or
+        lib.soko.sokoarea[nr].design.wall or "st_nil"), param)
+    lib.soko.sokoarea[nr].goal_hook = lib.soko.GOAL_HOOK_RALF
   elseif (alg == "block") then
-    endphase_set_block_oxyds(nr, param)
+    lib.soko.endphase_set_block_oxyds(nr, param)
   elseif (alg == "outside") then
-    endphase_set_outside_oxyds(nr, param)
+    lib.soko.endphase_set_outside_oxyds(nr, param)
   elseif (alg == "knock") then
-    endphase_set_block_oxyds(nr, sokoarea[nr].design.door, 3)
-    endphase_set_knocking(nr, param)
+    lib.soko.endphase_set_block_oxyds(nr, lib.soko.sokoarea[nr].design.door, 3)
+    lib.soko.endphase_set_knocking(nr, param)
   -- "Jumpyoxyds" deactivated for once
   --elseif (alg == "jumpyoxyds") then
   --  endphase_set_block_oxyds(nr, "jumpy")
-  --  goal_hook = endphase_goal_hook_ralf
+  --  goal_hook = lib.soko.GOAL_HOOK_RALF
   else
-    mywarning("Endphase algorithm "..alg.." unknown! Will use 'circle' instead.")
+    lib.soko.warning("Endphase algorithm "..alg.." unknown! Will use 'circle' instead.")
   end
 end
 
-function endphase(sokoarea_number)
+function lib.soko.endphase(sokoarea_number)
   -- Correct structure of endp-attribute has been checked
   -- by prepare_endphase, we trust it blindly.
-  local endp = lib.lua.deep_copy(sokoarea[sokoarea_number].design.endp)
+  local endp = lib.lua.deep_copy(lib.soko.sokoarea[sokoarea_number].design.endp)
   local alg = endp.alg
   local param = ""
   local marble = po(no["marble_"..sokoarea_number.."_1"])
@@ -142,9 +143,9 @@ function endphase(sokoarea_number)
     param = string.sub(endp.alg, sep + 1)
   end
   if param == "" then
-    mydebug("Endphase starts of type "..alg..", no parameter.")
+    lib.soko.debug("Endphase starts of type "..alg..", no parameter.")
   else
-    mydebug("Endphase starts of type "..alg..", parameter "..param..".")
+    lib.soko.debug("Endphase starts of type "..alg..", parameter "..param..".")
   end
 
   -- redraw level and give items
@@ -156,13 +157,13 @@ function endphase(sokoarea_number)
   if type(give) == "table" then
     for k, v in pairs(give) do
       if is_item(v) or is_stone(v) or is_floor(v) then
-        set_element(marble, sokoarea_number, "", v)
+        lib.soko.set_element(marble, sokoarea_number, "", v)
       elseif is_actor(v) then
         wo[marble] = {v, 0.5, 0.5}
       elseif v == "rubberball" then
         local old_actor = no["marble_"..sokoarea_number.."_1"]
         local actor_kind = "ac-whiteball"
-        if sokoarea[sokoarea_number].design.white then
+        if lib.soko.sokoarea[sokoarea_number].design.white then
           actor_kind = "ac-blackball"
         end
         wo[marble] = {actor_kind, "rubberball_sokoarea_"..sokoarea_number,
@@ -170,11 +171,11 @@ function endphase(sokoarea_number)
         wo:add({"ot_rubberband", anchor1 = no["marble_"..sokoarea_number],
             anchor2 = no["rubberball_sokoarea_"..sokoarea_number], strength = 50})
       else
-        myerror("Can't give "..v..".")
+        lib.soko.error("Can't give "..v..".")
       end
     end
   elseif type(give) ~= "nil" then
-    myerror("Can't give something of type "..type(v)..".")
+    lib.soko.error("Can't give something of type "..type(v)..".")
   end
 
   if alg == "circle" then
@@ -209,38 +210,38 @@ function endphase(sokoarea_number)
   end
 end
 
-function endphase_redraw_level_array(sokoarea_number)
+function lib.soko.endphase_redraw_level_array(sokoarea_number)
   local nr = sokoarea_number or 1
-  local endp = lib.lua.deep_copy(sokoarea[nr].design.endp)
-  local offset = sokoarea[nr].offset
+  local endp = lib.lua.deep_copy(lib.soko.sokoarea[nr].design.endp)
+  local offset = lib.soko.sokoarea[nr].offset
   
   -- small routine to check the walls and outside
   local function is_oxyd_or_blocker(x,y)
-    if sokoarea[nr].list_oxyd[x.."/"..y] then
+    if lib.soko.sokoarea[nr].list_oxyd[x.."/"..y] then
       return true
-    elseif sokoarea[nr].list_blocker[x.."/"..y] then
+    elseif lib.soko.sokoarea[nr].list_blocker[x.."/"..y] then
       return true
     end
     return false
   end
   
   -- redraw outside
-  for p, v in pairs(sokoarea[nr].list_outside) do
+  for p, v in pairs(lib.soko.sokoarea[nr].list_outside) do
     if not is_oxyd_or_blocker(v.abs.x, v.abs.y) then
-      set_element(v.abs, nr, k, endp.outf)
+      lib.soko.set_element(v.abs, nr, k, endp.outf)
     end
   end
   
   -- redraw the rest inside level_array:
-  for y = 0, sokoarea[nr].array_height - 1 do
-    for x = 0, sokoarea[nr].array_width - 1 do
+  for y = 0, lib.soko.sokoarea[nr].array_height - 1 do
+    for x = 0, lib.soko.sokoarea[nr].array_width - 1 do
       if not is_oxyd_or_blocker(x + offset.x, y + offset.y) then
-        local ch = sokoarea[nr].level_array[y+1][x+1]
+        local ch = lib.soko.sokoarea[nr].level_array[y+1][x+1]
         for k, v in pairs(endp) do
           if    ((k == "inf")  and char_is_inf(ch))
              or ((k == "wall") and char_is_wall(ch))
              or ((k == "goal") and char_is_goal(ch)) then
-            set_element(offset + {x,y}, nr, k, v)
+            lib.soko.set_element(offset + {x,y}, nr, k, v)
           end
         end
       end
@@ -248,9 +249,9 @@ function endphase_redraw_level_array(sokoarea_number)
   end
   
   -- if existent, redraw blocker floors
-  if (sokoarea[nr].list_blocker) and (endp.inf) then
-    for p, v in pairs(sokoarea[nr].list_blocker) do
-      set_element(v.abs, nr, "inf", endp.inf)
+  if (lib.soko.sokoarea[nr].list_blocker) and (endp.inf) then
+    for p, v in pairs(lib.soko.sokoarea[nr].list_blocker) do
+      lib.soko.set_element(v.abs, nr, "inf", endp.inf)
     end
   end 
 end
@@ -259,13 +260,13 @@ end
 -- Endphase Games and Algorithms
 ------------------------------------------------------------------------
 
-function endphase_circle(sokoarea_number)
-  local flavor = sokoarea[sokoarea_number].design.oxyd or "b"
+function lib.soko.endphase_circle(sokoarea_number)
+  local flavor = lib.soko.sokoarea[sokoarea_number].design.oxyd or "b"
   local actor = no["marble_"..sokoarea_number.."_1"]
   if not -actor then
     actor = no["marble"]
     if not -actor then
-      myerror("No marble found. Please name it 'marble'.")  
+      lib.soko.error("No marble found. Please name it 'marble'.")  
     end
   end
   local abs = po(actor)
@@ -276,14 +277,14 @@ function endphase_circle(sokoarea_number)
     abs = abs + {0,-2}
   end
   for j = 0, 2 do
-    set_oxyd(sokoarea_number, {abs = abs + {j,-1}}, flavor, 2*j)
-    set_oxyd(sokoarea_number, {abs = abs + {-1,j}}, flavor, 2*j)
-    set_oxyd(sokoarea_number, {abs = abs + {j,3}},  flavor, 2*j+1)
-    set_oxyd(sokoarea_number, {abs = abs + {3,j}},  flavor, 2*j+1)
+    lib.soko.set_oxyd(sokoarea_number, {abs = abs + {j,-1}}, flavor, 2*j)
+    lib.soko.set_oxyd(sokoarea_number, {abs = abs + {-1,j}}, flavor, 2*j)
+    lib.soko.set_oxyd(sokoarea_number, {abs = abs + {j,3}},  flavor, 2*j+1)
+    lib.soko.set_oxyd(sokoarea_number, {abs = abs + {3,j}},  flavor, 2*j+1)
     for k = 0, 2 do
       wo:st(abs + {j,k}):kill()
       wo:it(abs + {j,k}):kill()
-      set_element(abs + {j,k}, sokoarea_number, "inf")
+      lib.soko.set_element(abs + {j,k}, sokoarea_number, "inf")
     end
   end
   wo[abs + {1,1}] = {"st_fart", _sokoarea = sokoarea_number}
@@ -294,18 +295,18 @@ end
 -- wall_two-area of the level. There will be 2 to 5 pairs of oxyds
 -- depending on the amount of space. PARAM may define a maximal
 -- number of oxyd pairs (good for outf = "fl-space").
-function endphase_set_outside_oxyds(sokoarea_number, param)
+function lib.soko.endphase_set_outside_oxyds(sokoarea_number, param)
   local places = {}
   local nr = sokoarea_number or 1
-  local offset = sokoarea[nr].offset
-  local mx = sokoarea[nr].array_width
-  local my = sokoarea[nr].array_height
-  local flavor = sokoarea[nr].design.oxyd or "b"
+  local offset = lib.soko.sokoarea[nr].offset
+  local mx = lib.soko.sokoarea[nr].array_width
+  local my = lib.soko.sokoarea[nr].array_height
+  local flavor = lib.soko.sokoarea[nr].design.oxyd or "b"
 
   -- Select all places outside or in the walls, unreachable
   -- for the marble.
-  for p, v in pairs(lib.lua.combine_tables(sokoarea[nr].list_outside,
-                sokoarea[nr].list_wall_two)) do
+  for p, v in pairs(lib.lua.combine_tables(lib.soko.sokoarea[nr].list_outside,
+                lib.soko.sokoarea[nr].list_wall_two)) do
     if (v.abs.x % 2 == 0) and (v.abs.y % 2 == 0) then
       table.insert(places, v)
     end
@@ -337,24 +338,24 @@ function endphase_set_outside_oxyds(sokoarea_number, param)
   places = lib.lua.shuffle(places)
 
   for j = 1, number_pairs do
-    set_oxyd(sokoarea_number, places[2*j-1], flavor, j - 1)
-    set_oxyd(sokoarea_number, places[2*j], flavor, j - 1)
+    lib.soko.set_oxyd(sokoarea_number, places[2*j-1], flavor, j - 1)
+    lib.soko.set_oxyd(sokoarea_number, places[2*j], flavor, j - 1)
   end
   wo:shuffleOxyd()
 end
 
-function endphase_set_block_oxyds(sokoarea_number, blocker, max_pairs)
+function lib.soko.endphase_set_block_oxyds(sokoarea_number, blocker, max_pairs)
   local oxyds = {}
   local nr = sokoarea_number or 1
-  local flavor = sokoarea[nr].design.oxyd or "b"
+  local flavor = lib.soko.sokoarea[nr].design.oxyd or "b"
 
   -- Add all wall_one-elements with exactly one way near as blocker,
   -- and the opposite position as oxyd, if it is of type wall_two.
   -- Make sure that each possible oxyd position is assigned at most once,
   -- and that no other oxyds or blockers are near.
   local function opposite_as_oxyd(xy, dxy)
-    if     sokoarea[nr].list_way[(xy.x+dxy.x).."/"..(xy.y+dxy.y)]
-       and sokoarea[nr].list_wall_two[(xy.x-dxy.x).."/"..(xy.y-dxy.y)] then
+    if     lib.soko.sokoarea[nr].list_way[(xy.x+dxy.x).."/"..(xy.y+dxy.y)]
+       and lib.soko.sokoarea[nr].list_wall_two[(xy.x-dxy.x).."/"..(xy.y-dxy.y)] then
       -- Check that no oxyd has been set on this position before
       -- and no other oxyd or blocker is near the new oxyd or its
       -- blocker.
@@ -373,7 +374,7 @@ function endphase_set_block_oxyds(sokoarea_number, blocker, max_pairs)
     return
   end
   local directions = {po({-1,0}), po({1,0}), po({0,-1}), po({0,1})}
-  for p, v in pairs(sokoarea[nr].list_wall_one) do
+  for p, v in pairs(lib.soko.sokoarea[nr].list_wall_one) do
     if v.count == 1 then
       for _, dir in ipairs(directions) do
         opposite_as_oxyd(v.abs, dir)
@@ -386,7 +387,7 @@ function endphase_set_block_oxyds(sokoarea_number, blocker, max_pairs)
   local number_pairs = 2
   if max < 4 then
     -- Not enough places? Choose "circle"-algorithm instead.
-    sokoarea[nr].design.endp.alg = "circle"
+    lib.soko.sokoarea[nr].design.endp.alg = "circle"
     return
   elseif max <  8 then  number_pairs = 2
   elseif max < 16 then  number_pairs = 3
@@ -418,13 +419,13 @@ function endphase_set_block_oxyds(sokoarea_number, blocker, max_pairs)
       end
     end
     -- now set in-floor and blocker, and add to list_blocker.
-    set_element(w.abs, nr, "inf")
-    set_element(w.abs, nr, "", myblocker)
-    sokoarea[nr].list_blocker[(w.abs.x).."/"..(w.abs.y)] = lib.lua.deep_copy(w)
+    lib.soko.set_element(w.abs, nr, "inf")
+    lib.soko.set_element(w.abs, nr, "", myblocker)
+    lib.soko.sokoarea[nr].list_blocker[(w.abs.x).."/"..(w.abs.y)] = lib.lua.deep_copy(w)
   end
   for j = 1, number_pairs do   -- Testlevel: 14
-    set_oxyd(nr, oxyds[2*j-1], flavor, j - 1)
-    set_oxyd(nr, oxyds[2*j], flavor, j - 1)
+    lib.soko.set_oxyd(nr, oxyds[2*j-1], flavor, j - 1)
+    lib.soko.set_oxyd(nr, oxyds[2*j], flavor, j - 1)
     set_block(oxyds[2*j-1].blocker)
     set_block(oxyds[2*j].blocker)
   end
@@ -434,23 +435,23 @@ function endphase_set_block_oxyds(sokoarea_number, blocker, max_pairs)
   -- Note: There might be more goals as blockers, and, vice versa,
   --       there might be more blockers as goals.
   local goal_table = {}
-  for p, v in pairs(sokoarea[nr].list_goal) do
+  for p, v in pairs(lib.soko.sokoarea[nr].list_goal) do
     table.insert(goal_table, v)
   end
   goal_table = lib.lua.shuffle(goal_table)
   for j = 2, math.min(table.getn(goal_table), table.getn(oxyds)) do
-    sokoarea[nr].goal_to_blocker[goal_table[j].goal_number] = oxyds[j].blocker
+    lib.soko.sokoarea[nr].goal_to_blocker[goal_table[j].goal_number] = oxyds[j].blocker
   end
 end
 
 -- endphase_set_hide_oxyds distributes oxyds over the wall_one-walls.
 -- PARAM is a maximal number of oxyd pairs.
-function endphase_set_hide_oxyds(sokoarea_number, param)
-  local flavor = sokoarea[sokoarea_number].design.oxyd or "b"
+function lib.soko.endphase_set_hide_oxyds(sokoarea_number, param)
+  local flavor = lib.soko.sokoarea[sokoarea_number].design.oxyd or "b"
   local places = {}
   
   -- add all wall_one-elements
-  for p, v in pairs(sokoarea[sokoarea_number].list_wall_one) do
+  for p, v in pairs(lib.soko.sokoarea[sokoarea_number].list_wall_one) do
     table.insert(places, v)
   end
 
@@ -476,29 +477,29 @@ function endphase_set_hide_oxyds(sokoarea_number, param)
   
   -- set oxyds
   for j = 1, number_pairs do
-    set_oxyd(sokoarea_number, places[2*j-1], flavor, j - 1)
-    set_oxyd(sokoarea_number, places[2*j], flavor, j - 1)
+    lib.soko.set_oxyd(sokoarea_number, places[2*j-1], flavor, j - 1)
+    lib.soko.set_oxyd(sokoarea_number, places[2*j], flavor, j - 1)
   end
   wo:shuffleOxyd()
 end
 
-function endphase_gradients(sokoarea_number, param)
+function lib.soko.endphase_gradients(sokoarea_number, param)
   local force = tonumber(param) or 25.0
-  for p, v in pairs(sokoarea[sokoarea_number].list_way) do
+  for p, v in pairs(lib.soko.sokoarea[sokoarea_number].list_way) do
     local grad_type = random(1,12)
     wo[v.abs] = {"fl-gradient", type = grad_type, force = force}
   end
 end
 
-function endphase_magnets(sokoarea_number, param)
+function lib.soko.endphase_magnets(sokoarea_number, param)
   local force = tonumber(param) or 30.0
   local places = {}
   local nr = sokoarea_number or 1
-  local flavor = sokoarea[nr].design.oxyd or "b"
+  local flavor = lib.soko.sokoarea[nr].design.oxyd or "b"
 
   -- add all way-elements which are not goals
-  for p, v in pairs(sokoarea[nr].list_way) do
-    if not char_is_goal(sokoarea[nr].level_array[v.rel.y][v.rel.x]) then
+  for p, v in pairs(lib.soko.sokoarea[nr].list_way) do
+    if not char_is_goal(lib.soko.sokoarea[nr].level_array[v.rel.y][v.rel.x]) then
       table.insert(places, v)
     end
   end
@@ -514,12 +515,12 @@ function endphase_magnets(sokoarea_number, param)
   end
 end
 
-function endphase_fourswitch(sokoarea_number)
-  local flavor = sokoarea[sokoarea_number].design.oxyd or "b"
+function lib.soko.endphase_fourswitch(sokoarea_number)
+  local flavor = lib.soko.sokoarea[sokoarea_number].design.oxyd or "b"
   local places = {}
 
   -- add all wall_one-elements
-  for p, v in pairs(sokoarea[sokoarea_number].list_wall_one) do
+  for p, v in pairs(lib.soko.sokoarea[sokoarea_number].list_wall_one) do
     table.insert(places, v)
   end
 
@@ -546,13 +547,13 @@ function endphase_fourswitch(sokoarea_number)
     places[j].correct = false
   end
   places.number_pairs = number_pairs
-  sokoarea[sokoarea_number].places = lib.lua.deep_copy(places)
+  lib.soko.sokoarea[sokoarea_number].places = lib.lua.deep_copy(places)
 end
 
-function endphase_call_fourswitch(onoff, sender)
+function lib.soko.endphase_call_fourswitch(onoff, sender)
   local j = sender._number
   local nr = sender._sokoarea
-  local places = sokoarea[nr].places
+  local places = lib.soko.sokoarea[nr].places
 
   -- When fourswitch is knocked, count it.
   places[j].current = places[j].current + 1
@@ -570,7 +571,7 @@ function endphase_call_fourswitch(onoff, sender)
   -- fourswitch that doesn't change any other), check all fourswitchs
   -- and replace them by oxyds if all are correct. Else, recreate the
   -- next fourswitch in hierarchy, set it to the old number, then
-  -- set the callback function and call it once by triggering another
+  -- set the callback function lib.soko.and call it once by triggering another
   -- time (making it show the new number). This means: Recursion!
   if j ~= 1 then
     -- Trigger all lower fourswitchs
@@ -595,8 +596,8 @@ function endphase_call_fourswitch(onoff, sender)
     if correct then
       -- replace fourswitchs by oxyds
       for k = 1, places.number_pairs do
-        set_oxyd(sokoarea_number, places[2*k-1], flavor, k - 1)
-        set_oxyd(sokoarea_number, places[2*k], flavor, k - 1)
+        lib.soko.set_oxyd(sokoarea_number, places[2*k-1], flavor, k - 1)
+        lib.soko.set_oxyd(sokoarea_number, places[2*k], flavor, k - 1)
       end
       wo:shuffleOxyd()
     end
@@ -604,47 +605,47 @@ function endphase_call_fourswitch(onoff, sender)
 end
 
 
-function endphase_allcrack(sokoarea_number)
-  for p, v in pairs(sokoarea[sokoarea_number].list_way) do
+function lib.soko.endphase_allcrack(sokoarea_number)
+  for p, v in pairs(lib.soko.sokoarea[sokoarea_number].list_way) do
     if not -wo:it(v.abs) then
       wo[v.abs] = {"it-crack3"}
     end
   end  
 end
 
-function endphase_goal_hook_ralf(sokoarea_number, sender, more_boxes,
+function lib.soko.endphase_goal_hook_ralf(sokoarea_number, sender, more_boxes,
     goals_filled, number_goals)
   local nr = sokoarea_number or 1
   -- verify correct sokoarea-number and existence of "goal_to_blocker"
   if nr ~= sender._sokoarea then
-    myerror("libsoko: Inconsistent sokoarea numbers in goal hook!")
+    lib.soko.error("libsoko: Inconsistent sokoarea numbers in goal hook!")
   end
-  if type(sokoarea[nr].goal_to_blocker) ~= "table" then
-    myerror("libsoko: Blocker list is missing during goal hook!")
+  if type(lib.soko.sokoarea[nr].goal_to_blocker) ~= "table" then
+    lib.soko.error("libsoko: Blocker list is missing during goal hook!")
   end
   -- identify the corresponding door and open it
-  local blocker = sokoarea[nr].goal_to_blocker[sender._goal_number]
+  local blocker = lib.soko.sokoarea[nr].goal_to_blocker[sender._goal_number]
   if blocker then
     endphase_ralf_open_door(nr, more_boxes, blocker.abs)
   end
 end
 
-function endphase_ralf_open_doors(sokoarea_number)
-  for p, v in pairs(sokoarea[sokoarea_number].list_blocker) do
+function lib.soko.endphase_ralf_open_doors(sokoarea_number)
+  for p, v in pairs(lib.soko.sokoarea[sokoarea_number].list_blocker) do
     endphase_ralf_open_door(sokoarea_number, true, v.abs)
   end
 end
 
 -- endphase_ralf_open_door opens or closes a door at position
 -- (X,Y), dependend on the boolean OPEN.
-function endphase_ralf_open_door(sokoarea_number, open, xy)
-  local door_kind = sokoarea[sokoarea_number].design.endp.open_door
+function lib.soko.endphase_ralf_open_door(sokoarea_number, open, xy)
+  local door_kind = lib.soko.sokoarea[sokoarea_number].design.endp.open_door
   if door_kind then
     if not open then
-      door_kind =    sokoarea[sokoarea_number].design.door
-                  or sokoarea[sokoarea_number].design.wall or "st_nil"
+      door_kind =    lib.soko.sokoarea[sokoarea_number].design.door
+                  or lib.soko.sokoarea[sokoarea_number].design.wall or "st_nil"
     end
-    set_element(xy, sokoarea_number, "", door_kind)
+    lib.soko.set_element(xy, sokoarea_number, "", door_kind)
   else
     -- use default "open"/"close"-messages instead
     local st = wo:st(xy)
@@ -662,10 +663,10 @@ function endphase_ralf_open_door(sokoarea_number, open, xy)
   end  
 end
 
-function endphase_vortex(sokoarea_number)
+function lib.soko.endphase_vortex(sokoarea_number)
   local nr = sokoarea_number or 1
   local list_way = 
-    lib.lua.combine_tables(sokoarea[nr].list_way, sokoarea[nr].list_blocker)
+    lib.lua.combine_tables(lib.soko.sokoarea[nr].list_way, lib.soko.sokoarea[nr].list_blocker)
   local components = 0
   local component = {}
 
@@ -678,7 +679,7 @@ function endphase_vortex(sokoarea_number)
   local function mark_component(xy)
     if     (list_way[xy.x.."/"..xy.y])
        and (not list_way[xy.x.."/"..xy.y].component)
-       and (not sokoarea[nr].list_goal[xy.x.."/"..xy.y]) then
+       and (not lib.soko.sokoarea[nr].list_goal[xy.x.."/"..xy.y]) then
       list_way[xy.x.."/"..xy.y].component = components
       --set_floor(({"fl-leaves", "fl-ice", "fl-red", "fl-black", "fl-white",
       --    "fl-sahara", "fl-light", "fl-gray", "fl-lightgray", "fl-rough",
@@ -691,7 +692,7 @@ function endphase_vortex(sokoarea_number)
     end
   end
   for p, v in pairs(list_way) do
-    if (not list_way[p].component) and (not sokoarea[nr].list_goal[p]) then
+    if (not list_way[p].component) and (not lib.soko.sokoarea[nr].list_goal[p]) then
       components = components + 1
       component[components] = {oxyds = 0}
       mark_component(v.abs)
@@ -704,10 +705,10 @@ function endphase_vortex(sokoarea_number)
   end
 
   -- Analyse oxyds and to which components they belong to.
-  for p, v in pairs(sokoarea[nr].list_oxyd) do
+  for p, v in pairs(lib.soko.sokoarea[nr].list_oxyd) do
     local component_number = list_way[v.blocker.abs.x.."/"..v.blocker.abs.y].component or -1
     if component_number == -1 then
-      myerror("Error in component calculation.")
+      lib.soko.error("Error in component calculation.")
     else
       component[component_number].oxyds = component[component_number].oxyds + 1
     end
@@ -756,13 +757,13 @@ function endphase_vortex(sokoarea_number)
   end  
 end
 
-function endphase_set_knocking(sokoarea_number, param)
+function lib.soko.endphase_set_knocking(sokoarea_number, param)
   local nr = sokoarea_number
-  local flavor = sokoarea[nr].design.oxyd or "b"
+  local flavor = lib.soko.sokoarea[nr].design.oxyd or "b"
   local places = {}
 
   -- add all blockers
-  for p, v in pairs(sokoarea[nr].list_blocker) do
+  for p, v in pairs(lib.soko.sokoarea[nr].list_blocker) do
     table.insert(places, v)
   end
 
@@ -781,16 +782,16 @@ function endphase_set_knocking(sokoarea_number, param)
   end
 end
 
-function endphase_call_knocking(onoff, sender)
+function lib.soko.endphase_call_knocking(onoff, sender)
   local j = sender._number
   local nr = sender._sokoarea
   if (not nr) or (not j) then
-    myerror("libsoko: Knocking's source has no number or no sokoarea.")
+    lib.soko.error("libsoko: Knocking's source has no number or no sokoarea.")
   end
-  mydebug("Knocked on "..j.."/"..sokoarea[nr].number_oxyds)
+  lib.soko.debug("Knocked on "..j.."/"..lib.soko.sokoarea[nr].number_oxyds)
   -- Deactivate the first door until endphase has started.
-  if (j == 1) and (not sokoarea[nr].endphase_started) then
-    mydebug("Door deactivated until endphase.")
+  if (j == 1) and (not lib.soko.sokoarea[nr].endphase_started) then
+    lib.soko.debug("Door deactivated until endphase.")
     return
   end
   -- Open or close the neccessary doors given as attributes.
