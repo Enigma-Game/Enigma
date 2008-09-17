@@ -99,6 +99,9 @@ namespace enigma {
         } else if (m.message == "push_rotate") {
             rotateLine(to_direction(m.value), true);
             return Value();
+        } else if (m.message == "_init") {
+            updateCurrentLightDirs();
+            return Value();
         }
         return Stone::message(m);
     }
@@ -124,6 +127,7 @@ namespace enigma {
             objFlags |= OBJBIT_INIT;
         }
         activatePhoto();
+        updateCurrentLightDirs();
         Stone::on_creation(p);
     }
 
@@ -131,10 +135,16 @@ namespace enigma {
         if (state == IDLE && !(objFlags & OBJBIT_HOLLOW)) {
             DirectionBits addDirs = added_dirs(oldDirs, newDirs);
             if (addDirs != NODIRBIT && !explodeCluster() && getAttr("color") == BLUE) {
+                GridPos p = get_pos();
                 if (addDirs & SOUTHBIT) rotateLine(SOUTH);
-                if (addDirs & NORTHBIT) rotateLine(NORTH);
-                if (addDirs & WESTBIT)  rotateLine(WEST);
-                if (addDirs & EASTBIT)  rotateLine(EAST);
+                if (p == get_pos() && (addDirs & WESTBIT))  rotateLine(WEST);
+                if (p == get_pos() && (addDirs & NORTHBIT)) rotateLine(NORTH);
+                if (p == get_pos() && (addDirs & EASTBIT))  rotateLine(EAST);
+                
+                if (p != get_pos() && GetStone(p)->getAttr("hollow").to_bool()) {
+                    // we are still enlighted via hollow successor
+                    objFlags |= to_bits(direction_fromto(p, get_pos()));
+                }
             }
         }
     }

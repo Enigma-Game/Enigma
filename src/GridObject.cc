@@ -259,7 +259,7 @@ namespace enigma {
     
     void GridObject::activatePhoto() {
         ASSERT((objFlags & OBJBIT_PHOTOACTIV) == 0, XLevelRuntime , "GridObject: double photo sensor activation");
-        photoSensorList.push_back(this);
+        photoSensorList.push_front(this);  // it is essential to insert at front in case a object is moved on lightDirChanged()
         objFlags |= OBJBIT_PHOTOACTIV;
     }
 
