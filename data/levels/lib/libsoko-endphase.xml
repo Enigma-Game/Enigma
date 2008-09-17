@@ -3,7 +3,7 @@
   <el:protected>
     <el:info el:type="library">
       <el:identity el:title="" el:id="lib/libsoko-endphase"/>
-      <el:version el:score="1" el:release="1" el:revision="4" el:status="experimental"/>
+      <el:version el:score="1" el:release="1" el:revision="5" el:status="experimental"/>
       <el:author el:name="Enigma Team" el:email="" el:homepage=""/>
       <el:copyright>Copyright © 2007, 2008 Enigma Team</el:copyright>
       <el:license el:type="GPL v2.0 or above" el:open="true"/>
@@ -22,12 +22,13 @@
 -- have any effect), but libsoko.xml.
 
 lib.soko.GOAL_HOOK_RALF = 1
+lib.soko.ENDPHASE_HOOK_DEFAULT = 1
 
 ------------------------------------------------------------------------
 -- Goal Trigger and Endphase Main Functions
 ------------------------------------------------------------------------
 
-function lib.soko.goal_trigger(onoff, sender)
+function lib_soko_goal_trigger(onoff, sender)
   local nr = sender._sokoarea
   local more_boxes = false  -- memorizes whether a box was added or removed
   if lib.soko.sokoarea[nr].endphase_started then
@@ -54,13 +55,24 @@ function lib.soko.goal_trigger(onoff, sender)
     if lib.soko.sokoarea[nr].goal_hook == lib.soko.GOAL_HOOK_RALF then
       lib.soko.endphase_goal_hook_ralf(nr, sender, more_boxes,
           lib.soko.sokoarea[nr].goals_filled, lib.soko.sokoarea[nr].number_goals)
+    else
+      lib.soko.error("libsoko: Unknown goal hook.")
+    end
   end
   
   -- Start endphase?
   if lib.soko.sokoarea[nr].goals_filled == lib.soko.sokoarea[nr].number_goals then
     lib.soko.sokoarea[nr].endphase_started = true
-    if type(lib.soko.sokoarea[nr].endphase_hook) ~= "nil" then
-      lib.soko.debug("libsoko: Unknown endphase hook.")
+    if type(lib.soko.sokoarea[nr].endphase_hook) == "number" then
+      if lib.soko.sokoarea[nr].endphase_hook == lib.soko.ENDPHASE_HOOK_DEFAULT then
+        lib.soko.endphase(nr)
+      else
+        lib.soko.error("libsoko: Unknown endphase hook number " .. 
+          lib.soko.sokoarea[nr].endphase_hook .. ".")
+      end
+    else
+      lib.soko.error("libsoko: Unknown endphase hook of type "
+        .. type(lib.soko.sokoarea[nr].endphase_hook) .. ".")
     end
   end
 end
@@ -149,7 +161,7 @@ function lib.soko.endphase(sokoarea_number)
   end
 
   -- redraw level and give items
-  endphase_redraw_level_array(sokoarea_number)
+  lib.soko.endphase_redraw_level_array(sokoarea_number)
   local give = lib.lua.deep_copy(endp.give)
   if type(give) == "string" then
     give = {give}
@@ -179,34 +191,34 @@ function lib.soko.endphase(sokoarea_number)
   end
 
   if alg == "circle" then
-    endphase_circle(sokoarea_number)
+    lib.soko.endphase_circle(sokoarea_number)
   elseif alg == "hide" then
-    endphase_set_hide_oxyds(sokoarea_number, param)
+    lib.soko.endphase_set_hide_oxyds(sokoarea_number, param)
   elseif    (alg == "ralf")
          or (alg == "outside")
          --or (alg == "jumpyoxyds")
          or (alg == "block") then
-    endphase_ralf_open_doors(sokoarea_number)
+    lib.soko.endphase_ralf_open_doors(sokoarea_number)
   elseif alg == "allcrack" then
-    endphase_ralf_open_doors(sokoarea_number)
-    endphase_allcrack(sokoarea_number)
+    lib.soko.endphase_ralf_open_doors(sokoarea_number)
+    lib.soko.endphase_allcrack(sokoarea_number)
   elseif alg == "fourswitch" then
-    endphase_fourswitch(sokoarea_number)
+    lib.soko.endphase_fourswitch(sokoarea_number)
   elseif alg == "vortex" then
-    endphase_ralf_open_doors(sokoarea_number)
-    endphase_vortex(sokoarea_number)
+    lib.soko.endphase_ralf_open_doors(sokoarea_number)
+    lib.soko.endphase_vortex(sokoarea_number)
   elseif alg == "gradients" then
-    endphase_set_hide_oxyds(sokoarea_number)
-    endphase_gradients(sokoarea_number, param)
+    lib.soko.endphase_set_hide_oxyds(sokoarea_number)
+    lib.soko.endphase_gradients(sokoarea_number, param)
   elseif alg == "magnets" then
-    endphase_set_hide_oxyds(sokoarea_number)
-    endphase_magnets(sokoarea_number, param)
+    lib.soko.endphase_set_hide_oxyds(sokoarea_number)
+    lib.soko.endphase_magnets(sokoarea_number, param)
   elseif alg == "knock" then
     -- don't do anything; endphase_call_knocking
     -- queries endphase_started.
   else
     -- use default: "circle"
-    endphase_circle(sokoarea_number)
+    lib.soko.endphase_circle(sokoarea_number)
   end
 end
 
@@ -462,7 +474,7 @@ function lib.soko.endphase_set_hide_oxyds(sokoarea_number, param)
   local number_pairs = 1
   if max < 2 then
     -- use circle instead
-    endphase_circle(sokoarea)
+    lib.soko.endphase_circle(sokoarea)
     return
   elseif max <  6  then  number_pairs = 2
   elseif max < 10  then  number_pairs = 3
@@ -531,7 +543,7 @@ function lib.soko.endphase_fourswitch(sokoarea_number)
   local number_pairs = 1
   if max < 2 then
     -- use circle instead
-    endphase_circle(sokoarea_number)
+    lib.soko.endphase_circle(sokoarea_number)
     return
   elseif max <  6  then  number_pairs = 2
   elseif max < 10  then  number_pairs = 3
@@ -540,7 +552,7 @@ function lib.soko.endphase_fourswitch(sokoarea_number)
   -- set fourswitchs
   for j = 1, 2*number_pairs do
     wo[places[j].abs] =
-        {"st_fourswitch", target = "endphase_call_fourswitch", _number = j,
+        {"st_fourswitch", target = "lib_soko_endphase_call_fourswitch", _number = j,
          _sokoarea = sokoarea_number}
     places[j].current = 4
     places[j].solve = random(1,4)
@@ -550,7 +562,7 @@ function lib.soko.endphase_fourswitch(sokoarea_number)
   lib.soko.sokoarea[sokoarea_number].places = lib.lua.deep_copy(places)
 end
 
-function lib.soko.endphase_call_fourswitch(onoff, sender)
+function lib_soko_endphase_call_fourswitch(onoff, sender)
   local j = sender._number
   local nr = sender._sokoarea
   local places = lib.soko.sokoarea[nr].places
@@ -571,7 +583,7 @@ function lib.soko.endphase_call_fourswitch(onoff, sender)
   -- fourswitch that doesn't change any other), check all fourswitchs
   -- and replace them by oxyds if all are correct. Else, recreate the
   -- next fourswitch in hierarchy, set it to the old number, then
-  -- set the callback function lib.soko.and call it once by triggering another
+  -- set the callback function and call it once by triggering another
   -- time (making it show the new number). This means: Recursion!
   if j ~= 1 then
     -- Trigger all lower fourswitchs
@@ -583,7 +595,7 @@ function lib.soko.endphase_call_fourswitch(onoff, sender)
       for k = 1, places[j-1].current do
         mystone:toggle()
       end
-      mystone.target = "endphase_call_fourswitch"
+      mystone.target = "lib_soko_endphase_call_fourswitch"
       places[j-1].correct = false
     end
     wo:st(xy):toggle()
@@ -626,13 +638,13 @@ function lib.soko.endphase_goal_hook_ralf(sokoarea_number, sender, more_boxes,
   -- identify the corresponding door and open it
   local blocker = lib.soko.sokoarea[nr].goal_to_blocker[sender._goal_number]
   if blocker then
-    endphase_ralf_open_door(nr, more_boxes, blocker.abs)
+    lib.soko.endphase_ralf_open_door(nr, more_boxes, blocker.abs)
   end
 end
 
 function lib.soko.endphase_ralf_open_doors(sokoarea_number)
   for p, v in pairs(lib.soko.sokoarea[sokoarea_number].list_blocker) do
-    endphase_ralf_open_door(sokoarea_number, true, v.abs)
+    lib.soko.endphase_ralf_open_door(sokoarea_number, true, v.abs)
   end
 end
 
@@ -774,7 +786,7 @@ function lib.soko.endphase_set_knocking(sokoarea_number, param)
     local st = wo:st(v.abs)
     if -st then
       st.action = "callback"
-      st.target = "endphase_call_knocking"
+      st.target = "lib_soko_endphase_call_knocking"
       st._close = places[lib.lua.mod(j, table.getn(places)) + 1].abs
       st._open = places[lib.lua.mod(j+1, table.getn(places)) + 1].abs
       st._number = j
@@ -782,7 +794,7 @@ function lib.soko.endphase_set_knocking(sokoarea_number, param)
   end
 end
 
-function lib.soko.endphase_call_knocking(onoff, sender)
+function lib_soko_endphase_call_knocking(onoff, sender)
   local j = sender._number
   local nr = sender._sokoarea
   if (not nr) or (not j) then

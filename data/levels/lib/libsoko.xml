@@ -3,7 +3,7 @@
   <el:protected>
     <el:info el:type="library">
       <el:identity el:title="" el:id="lib/libsoko"/>
-      <el:version el:score="1" el:release="1" el:revision="3" el:status="experimental"/>
+      <el:version el:score="1" el:release="1" el:revision="4" el:status="experimental"/>
       <el:author el:name="Enigma Team" el:email="" el:homepage=""/>
       <el:copyright>Copyright © 2007, 2008 Enigma Team</el:copyright>
       <el:license el:type="GPL v2.0 or above" el:open="true"/>
@@ -83,7 +83,7 @@ lib.soko.sokoarea = {}
 ------------------------------------------------------------------------
 
 function lib.soko.debug(st)
-  --print(st)
+  print(st)
 end
 function lib.soko.warning(st)
   print(st)
@@ -257,7 +257,7 @@ function lib.soko.new_sokoarea()
     level_height = nil,
     uses_chess = false,
     goal_hook = nil,
-    endphase_hook = endphase,
+    endphase_hook = lib.soko.ENDPHASE_HOOK_DEFAULT,
     list_outside = {},
     list_wall = {},
     list_way = {},
@@ -381,7 +381,7 @@ function lib.soko.set_element(abs, sokoarea_number, el_str, el_design)
           {abs = abs, goal_number = gn}
       if created_objects.it and not in_endphase then
         created_objects.it.action = "callback"
-        created_objects.it.target = "goal_trigger"
+        created_objects.it.target = "lib_soko_goal_trigger"
         created_objects.it._box = 0
         created_objects.it._sokoarea = sokoarea_number
         created_objects.it._goal_number = gn
@@ -966,7 +966,7 @@ function lib.soko.recreate_sokoball(design, maxdesignnumber, sokoarea_number)
   lib.soko.sokoarea[nr].number_oxyds = 0
   lib.soko.sokoarea[nr].goal_to_blocker = {}
   lib.soko.sokoarea[nr].goal_hook = nil
-  lib.soko.sokoarea[nr].endphase_hook = endphase
+  lib.soko.sokoarea[nr].endphase_hook = lib.soko.ENDPHASE_HOOK_DEFAULT
 
   --lib.soko.sokoarea[nr].list_outside = {}
   --lib.soko.sokoarea[nr].list_wall = {}
@@ -1014,7 +1014,7 @@ function lib.soko.draw_sokoball(offset, level, sublevel, design, draw_actor,
   lib.soko.sokoarea[nr].design = 
     lib.soko.design_from_description(design, lib.soko.sokoarea[nr].level_array)
   if hook ~= nil then
-    lib.soko.sokoarea[nr].endphase_hook = endphase_hook
+    lib.soko.sokoarea[nr].endphase_hook = lib.soko.ENDPHASE_HOOK_DEFAULT
   end
   lib.soko.sokoarea[nr].goal_hook = goal_hook
   lib.soko.create_lists(nr)
