@@ -62,7 +62,9 @@ namespace enigma {
     private:
         enum iState {
             IDLE,       ///<
-            PENDING,    ///<  a cluster gets locked on a pending explosion to avoid further actions
+            FALLING,    ///< a cluster falling into water or abyss
+            FALLEN,     ///< a stone that is fallen an is vanishing
+            PENDING,    ///< a cluster gets locked on a pending explosion to avoid further actions
             IGNITED,    ///< 
             EXPLODING   ///< 
         };
@@ -100,16 +102,17 @@ namespace enigma {
         virtual void animcb();
 
         // Stone interface
-        virtual bool isConnectable(Stone *other) const;
-        virtual void on_impulse(const Impulse& impulse);
-        virtual void on_move();
-        virtual bool is_sticky(const Actor *a) const;
         virtual bool is_transparent(Direction d) const;
+        virtual bool is_sticky(const Actor *a) const;
         virtual bool allowsSpreading(Direction dir) const;
         virtual bool is_removable() const;        
+        virtual bool isConnectable(Stone *other) const;
         virtual StoneResponse collision_response(const StoneContact &sc);
         virtual void actor_hit(const StoneContact &sc);
         virtual void actor_contact(Actor *a);
+        virtual void on_impulse(const Impulse& impulse);
+        virtual void on_move();
+        virtual void on_floor_change();
         
         // TimeHandler interface
         virtual void alarm();

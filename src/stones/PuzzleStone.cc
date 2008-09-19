@@ -134,7 +134,7 @@ namespace enigma {
     void PuzzleStone::lightDirChanged(DirectionBits oldDirs, DirectionBits newDirs) {
         if (state == IDLE && !(objFlags & OBJBIT_HOLLOW)) {
             DirectionBits addDirs = added_dirs(oldDirs, newDirs);
-            if (addDirs != NODIRBIT && !explodeCluster() && getAttr("color") == BLUE) {
+            if (addDirs != NODIRBIT && !explodeCluster() && getAttr("color") == YELLOW) {
                 GridPos p = get_pos();
                 if (addDirs & SOUTHBIT) rotateLine(SOUTH);
                 if (p == get_pos() && (addDirs & WESTBIT))  rotateLine(WEST);
@@ -251,6 +251,14 @@ namespace enigma {
             ShatterActorsInsideField (get_pos());
     }
 
+    void PuzzleStone::on_floor_change() {
+        if (state == FALLING) {
+            state = FALLEN;   // we need to mark the puzzle as the floor set recalls this methods
+            SetFloor(get_pos(), MakeFloor("fl-gray"));
+            KillStone(get_pos());
+        }
+    }
+    
     void PuzzleStone::alarm() {
         explodeStone();
     }
@@ -410,24 +418,22 @@ namespace enigma {
         sound_event("movebig");
         int size = cluster.size();
 
-        if (createBridge) {
-            for (PuzzleList::iterator itr = cluster.begin(); itr != cluster.end(); ++itr) {
-                SetFloor(move((*itr)->get_pos(), dir), MakeFloor("fl-gray"));
-                KillStone((*itr)->get_pos());
-            }
+        for (PuzzleList::iterator itr = cluster.begin(); itr != cluster.end(); ++itr) {
+           (*itr)->sourcePos = (*itr)->get_pos();
+           YieldStone((*itr)->sourcePos);
         }
-        else {
-            for (PuzzleList::iterator itr = cluster.begin(); itr != cluster.end(); ++itr) {
-               (*itr)->sourcePos = (*itr)->get_pos();
-               YieldStone((*itr)->sourcePos);
-            }
 
-            for (PuzzleList::iterator itr = cluster.begin(); itr != cluster.end(); ++itr) {
-                SetStone(move((*itr)->sourcePos, dir), *itr);
-                (*itr)->on_move();
-            }
+        for (PuzzleList::iterator itr = cluster.begin(); itr != cluster.end(); ++itr) {
+            SetStone(move((*itr)->sourcePos, dir), *itr);
+            (*itr)->on_move();
         }
         server::IncMoveCounter(size);
+
+        if (createBridge) {
+            for (PuzzleList::iterator itr = cluster.begin(); itr != cluster.end(); ++itr) {
+                (*itr)->state = FALLING;
+            }
+        }
         return true;
     }
 

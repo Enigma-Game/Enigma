@@ -99,8 +99,9 @@ function res.puzzle_finalization(context)
             
             if not nextpuzz["hollow"] then
                 puzz:pull_rotate(dir)
-                intensity = intensity - 1
             end
+            -- decrement in any case - there may exist no way scramble
+            intensity = intensity - 1
         end
     end
     -- cleanup for subsequent calls
@@ -119,8 +120,20 @@ function res.puzzle_newtile(key, template, suffix)
             end
         else
             if tile[1]:find("st_puzzle", 1, true) then
-                local clusteridx = ("01234456789"):find(suffix)
-                local connections = (" abcdefghijklmno"):find(suffix)
+                local clusteridx = ("01234456789"):find(suffix, 1, true)
+                local connections = (" abcdefghijklmno"):find(suffix, 1 , true)
+                if  clusteridx == nil then
+                    clusteridx = (")!@#$%^&*("):find(suffix, 1, true)
+                    if clusteridx ~= nil then
+                        tile["hollow"] = true
+                    end
+                end
+                if  connections == nil then
+                    connections = ("+ABCDEFGHIJKLMNO"):find(suffix, 1, true)
+                    if connections ~= nil then
+                        tile["hollow"] = true
+                    end
+                end
                 if  clusteridx ~= nil then
                     tile["cluster"] = clusteridx - 1
                 elseif connections ~= nil then
