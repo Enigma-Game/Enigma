@@ -3,43 +3,42 @@
   <el:protected>
     <el:info el:type="level">
       <el:identity el:title="Sanssouci" el:subtitle="A Baroque Game" el:id="mecke05"/>
-      <el:version el:score="1" el:release="1" el:revision="$Revision:23$" el:status="released"/>
+      <el:version el:score="1" el:release="1" el:revision="$Revision:24$" el:status="released"/>
       <el:author  el:name="mecke" el:email=""/>
       <el:copyright>Copyright © 2008 Thomas Bernhardt</el:copyright>
       <el:license el:type="GPL v2.0 or above" el:open="true"/>
       <el:compatibility el:enigma="1.10"/>
-      <el:modes el:easy="true" el:single="true" el:network="false" el:control="force"
-        el:scoreunit="duration" el:scoretarget="time"/>
-	<el:comments>
-    <el:credits el:showinfo="true" el:showstart="false">Thanks to Ronald Lamprecht and Raoul Bourquin for some important patterns</el:credits> 
-    </el:comments>
-       <el:score el:easy="12:20" el:difficult="13:56"/>
+      <el:modes el:easy="true" el:single="true" el:network="false" el:control="force" el:scoreunit="duration" el:scoretarget="time"/>
+      <el:comments>
+        <el:credits el:showinfo="true" el:showstart="false">Thanks to Ronald Lamprecht and Raoul Bourquin for some important patterns</el:credits>
+      </el:comments>
+      <el:score el:easy="12:20" el:difficult="13:56"/>
     </el:info>
     <el:luamain><![CDATA[
 wo["ConserveLevel"] = true
 
 if wo ["IsDifficult"] then
     ti["  "] = {"fl-gravel",burnable=true}
-	ti["H "] = {"fl-gravel",burnable=true,"hotspot"}
-	ti["n1"] = {"fl-gravel","knight1"}
-	ti["n2"] = {"fl-gravel","knight2"}
-	ti["n3"] = {"fl-gravel","break2"}
-	ti["m5"] = {"fl-gravel","swordm"}
-	ti["n5"] = {"fl-gravel","swordn"}
-	ti["o5"] = {"fl-gravel","swordo"}
-	ti["s5"] = {"fl-gravel","swords"}
-	ti["y "] = {"fl-swamp"}
-  else
+    ti["H "] = {"fl-gravel",burnable=true,"hotspot"}
+    ti["n1"] = {"fl-gravel","knight1"}
+    ti["n2"] = {"fl-gravel","knight2"}
+    ti["n3"] = {"fl-gravel","break2"}
+    ti["m5"] = {"fl-gravel","swordm"}
+    ti["n5"] = {"fl-gravel","swordn"}
+    ti["o5"] = {"fl-gravel","swordo"}
+    ti["s5"] = {"fl-gravel","swords"}
+    ti["y "] = {"fl-swamp"}
+else
     ti["  "] = {"fl-rough",burnable=true}
-	ti["H "] = {"fl-rough",burnable=true,securefire=true,"hotspot"}
-	ti["n1"] = {"fl-rough","knight1"}
-	ti["n2"] = {"fl-rough","knight2"}
-	ti["n3"] = {"fl-rough","break2"}
-	ti["m5"] = {"fl-rough","swordm"}
-	ti["n5"] = {"fl-rough","swordn"}
-	ti["o5"] = {"fl-rough","swordo"}
-	ti["s5"] = {"fl-rough","swords"}
-	ti["y "] = {"fl-swamp",{friction=0.6}}
+    ti["H "] = {"fl-rough",burnable=true,securefire=true,"hotspot"}
+    ti["n1"] = {"fl-rough","knight1"}
+    ti["n2"] = {"fl-rough","knight2"}
+    ti["n3"] = {"fl-rough","break2"}
+    ti["m5"] = {"fl-rough","swordm"}
+    ti["n5"] = {"fl-rough","swordn"}
+    ti["o5"] = {"fl-rough","swordo"}
+    ti["s5"] = {"fl-rough","swords"}
+    ti["y "] = {"fl-swamp",{friction=0.6}}
 end
 
 ti["9 "] = {"fl-bluegreenx"}
@@ -174,21 +173,21 @@ ti["I7"] = ti["S7"] .. {"st_window_w",secure=true}
 ti["I9"] = ti["S9"] .. {"st_window_e",secure=true}
 ti["I1"] = ti["S2"] .. {"st_window_w",secure=true}
 ti["I3"] = ti["S2"] .. {"st_window_e",secure=true}
-ti["NE"] = ti["E2"] .. {"st-puzzle2-ne"}
-ti["NW"] = ti["E1"] .. {"st-puzzle2-nw"}
-ti["SE"] = ti["S2"] .. {"st-puzzle2-es"}
-ti["SW"] = ti["S2"] .. {"st-puzzle2-sw"}
-ti["GE"] = ti["~ "] .. {"st-puzzle2-e"}
-ti["GW"] = ti["~ "] .. {"st-puzzle2-w"}
-ti["QE"] = ti["~ "] .. {"st-puzzle2-ne"}
-ti["QW"] = ti["~ "] .. {"st-puzzle2-nw"}
-ti["OE"] = ti["~ "] .. {"st-puzzle2-es"}
-ti["OW"] = ti["~ "] .. {"st-puzzle2-sw"}
+ti["NE"] = ti["E2"] .. {"st_puzzle_yellow_ne"}
+ti["NW"] = ti["E1"] .. {"st_puzzle_yellow_nw"}
+ti["SE"] = ti["S2"] .. {"st_puzzle_yellow_es"}
+ti["SW"] = ti["S2"] .. {"st_puzzle_yellow_sw"}
+ti["GE"] = ti["~ "] .. {"st_puzzle_yellow_e"}
+ti["GW"] = ti["~ "] .. {"st_puzzle_yellow_w"}
+ti["QE"] = ti["~ "] .. {"st_puzzle_yellow_ne"}
+ti["QW"] = ti["~ "] .. {"st_puzzle_yellow_nw"}
+ti["OE"] = ti["~ "] .. {"st_puzzle_yellow_es"}
+ti["OW"] = ti["~ "] .. {"st_puzzle_yellow_sw"}
 ti["TT"] = ti["y "] .. {"it_strip_new"}
 ti["EE"] = ti["  "] .. {"it-cherry"}
 ti["Ee"] = ti["? "] .. {"it-cherry"}
 ti["/="] = {"st_window_s"}
-ti["!!"] = ti({"st_window_new", secure=true}) .. {"it_extralife"} 
+ti["!!"] = ti({"st_window_new", secure=true}) .. {"it_extralife"}
 
 local resolver = res.composer(ti)
 
@@ -247,7 +246,6 @@ w, h = wo(resolver, "  ", {
 function fire ()
     no["hotspot"]:setfire()
     wo[no["Tollkirsche#*"]] = {"it_death"}
-	
 end
 
 function knight ()
@@ -256,14 +254,14 @@ end
 
 function jux ()
     wo[no["swords"]] = {"it_sword",}
-	wo[no["sword4"]] = {"st-puzzle2-es"}
-	wo[no["sword2"]] = {"st-puzzle2-sw"}
-	wo[no["swordo"]] = {"st-puzzle2-w"}
-	wo[no["swordm"]] = {"st-puzzle2-e"}
-	wo[no["swordn"]] = {"st-puzzle2-ew"}
-	wo[no["sword1"]] = {"st-puzzle2-new"}
-	wo[no["swords"]] = {"st-puzzle2-new"}
-	wo[no["sword3"]] = {"st-puzzle2-ew"}
+    wo[no["sword4"]] = {"st-puzzle2-es"}
+    wo[no["sword2"]] = {"st-puzzle2-sw"}
+    wo[no["swordo"]] = {"st-puzzle2-w"}
+    wo[no["swordm"]] = {"st-puzzle2-e"}
+    wo[no["swordn"]] = {"st-puzzle2-ew"}
+    wo[no["sword1"]] = {"st-puzzle2-new"}
+    wo[no["swords"]] = {"st-puzzle2-new"}
+    wo[no["sword3"]] = {"st-puzzle2-ew"}
 end
 
 j = 0
@@ -271,37 +269,33 @@ function recluster(value, sender)
     j = j+1
     if (j <= 1) then
       wo[no["repanel1"]] = {"st_panel"}
-	  wo[no["repanel2"]] = {"st_panel"}
-	  wo[no["knight2"]] =  {"st_knight"}
-	end  
-end    
+      wo[no["repanel2"]] = {"st_panel"}
+      wo[no["knight2"]] =  {"st_knight"}
+    end
+end
 
 
 function topblock1 ()
-    wo[{14,12}] = {"st-black4"}  
-  
+    wo[{14,12}] = {"st-black4"}
 end
 
 function topblock2 ()
-    wo[{5,12}] = {"st-black4"}  
-  
+    wo[{5,12}] = {"st-black4"}
 end
 
 function topblock3 ()
-    wo[{5,11}] = {"st-black4"}  
-  
+    wo[{5,11}] = {"st-black4"}
 end
 
 function topblock4 ()
-    wo[{14,11}] = {"st-black4"}  
-  
+    wo[{14,11}] = {"st-black4"}
 end
 
 wo:add({"ot_wire", anchor1="boulderCircle", anchor2="dd1"})
 wo:add({"ot_wire", anchor1="boulderCircle", anchor2="dd2"})
 wo:add({"ot_wire", anchor1="woody1", anchor2="woody2"})
 
-wo:shuffleOxyd()  
+wo:shuffleOxyd()
   ]]></el:luamain>
     <el:i18n>
       <el:string el:key="title">

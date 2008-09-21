@@ -3,7 +3,7 @@
   <el:protected >
     <el:info el:type="level">
       <el:identity el:title="Wired Shogun" el:subtitle="" el:id="20080828ral417"/>
-      <el:version el:score="1" el:release="1" el:revision="$Revision: 112 $" el:status="released"/>
+      <el:version el:score="1" el:release="1" el:revision="$Revision: 114 $" el:status="released"/>
       <el:author  el:name="Ronald Lamprecht" el:email="ral@users.berlios.de"/>
       <el:copyright>Copyright © 2008 Ronald Lamprecht</el:copyright>
       <el:license el:type="GPL v2.0 or above" el:open="true"/>
@@ -24,26 +24,26 @@ ti["5"] = {"st_shogun_m", "m2"}
 ti["7"] = {"st_shogun_s", "s1"}
 ti["8"] = {"st_shogun_s", "s2"}
 
-ti["a"] = {"it_shogun_l", target="ba#*", action="openclose"}
+ti["a"] = {"it_shogun_l", target="ba#*"}
 
-ti["A"] = {"fl-bridge", "ba#", type="a"}
-ti["B"] = {"fl-bridge", "bb#", type="a"}
-ti["C"] = {"fl-bridge", "bc#", type="a"}
+ti["A"] = {"fl_bridge_gc", "ba#"}
+ti["B"] = {"fl_bridge_gc", "bb#"}
+ti["C"] = {"fl_bridge_gc", "bc#"}
 
 if wo["IsDifficult"] then
   ti["3"] = {"st_shogun_l", "l3"}
   ti["6"] = {"st_shogun_m", "m3"}
   ti["9"] = {"st_shogun_s", "s3"}
-  ti["b"] = {"it_shogun_l", target="bb#*", action="openclose"}
-  ti["c"] = {"it_shogun_l", target="bc#*", action="openclose"}
+  ti["b"] = {"it_shogun_l", target="bb#*"}
+  ti["c"] = {"it_shogun_l", target="bc#*"}
   ti["D"] = ti["."]
 else
   ti["3"] = ti[" "]
-  ti["6"] = {"it_shogun_l", target="bd#*", action="openclose"}
+  ti["6"] = {"it_shogun_l", target="bd#*"}
   ti["9"] = ti[" "]
   ti["b"] = ti[" "]
   ti["c"] = ti[" "]
-  ti["D"] = {"fl-bridge", "bd#", type="a"}
+  ti["D"] = {"fl_bridge_gc", "bd#"}
 end
 
 ti["X"] = {"st_oxyd_d"} .. ti["."]

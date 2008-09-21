@@ -3,7 +3,7 @@
   <el:protected >
     <el:info el:type="level">
       <el:identity el:title="More Microwire" el:subtitle="" el:id="20080717ral282"/>
-      <el:version el:score="1" el:release="1" el:revision="$Revision: 105 $" el:status="released"/>
+      <el:version el:score="1" el:release="1" el:revision="$Revision: 114 $" el:status="released"/>
       <el:author  el:name="Ronald Lamprecht" el:email="ral@users.berlios.de"/>
       <el:copyright>Copyright © 2008 Ronald Lamprecht</el:copyright>
       <el:license el:type="GPL v2.0 or above" el:open="true"/>
@@ -19,22 +19,18 @@ ti[" "] = {"fl-abyss"}
 ti["."] = {"fl-samba", friction=7, mousefactor=1.8}
 ti["*"] = ti[" "] ..{"st-beads"}
 ti["#"] = {"fl-samba"}
-ti["1"] = {"it_trigger", target="bridgeA", action="openclose"} 
-          .. ti({"st-brownie", "brownie1"})
-ti["2"] = {"it_trigger", target="bridgeB", action="openclose"} 
-          .. ti({"st-brownie", "brownie2"})
-ti["3"] = {"it_trigger", target="bridgeC", action="openclose"} 
-          .. ti({"st-brownie", "brownie3"})
-ti["4"] = {"it_trigger", target="bridgeD", action="openclose"} 
-          .. ti({"#ac-blackball"})
-ti["5"] = {"it_trigger", target="bridgeE", action="openclose"} 
-ti["6"] = {"it_trigger", target="bridgeF", action="openclose"} 
-ti["a"] = {"fl-bridge-closed", "bridgeA", type="x"}
-ti["b"] = {"fl-bridge-closed", "bridgeB", type="x"}
-ti["c"] = {"fl-bridge-closed", "bridgeC", type="x"}
-ti["d"] = {"fl-bridge-closed", "bridgeD", type="x"}
-ti["e"] = {"fl-bridge", "bridgeE", type="x"}
-ti["f"] = {"fl-bridge", "bridgeF", type="x"}
+ti["1"] = {"it_trigger", target="bridgeA"} .. ti{"st-brownie", "brownie1"}
+ti["2"] = {"it_trigger", target="bridgeB"} .. ti{"st-brownie", "brownie2"}
+ti["3"] = {"it_trigger", target="bridgeC"} .. ti{"st-brownie", "brownie3"}
+ti["4"] = {"it_trigger", target="bridgeD"} .. ti{"#ac-blackball"}
+ti["5"] = {"it_trigger", target="bridgeE"} 
+ti["6"] = {"it_trigger", target="bridgeF"} 
+ti["a"] = {"fl_bridge_bw", "bridgeA", state=CLOSED}
+ti["b"] = {"fl_bridge_bw", "bridgeB", state=CLOSED}
+ti["c"] = {"fl_bridge_bw", "bridgeC", state=CLOSED}
+ti["d"] = {"fl_bridge_bw", "bridgeD", state=CLOSED}
+ti["e"] = {"fl_bridge_bw", "bridgeE"}
+ti["f"] = {"fl_bridge_bw", "bridgeF"}
 ti["W"] = {"st_oxyd_d", "west#"}
 ti["E"] = {"st_oxyd_d", "east#"}
 
@@ -57,6 +53,7 @@ w, h = wo(ti, ".", {
 wo:add({"ot_wire", anchor1="brownie1", anchor2="brownie2"})
 wo:add({"ot_wire", anchor1="brownie2", anchor2="brownie3"})
 wo:shuffleOxyd({no["west#*"], max=0})
+
     ]]></el:luamain>
     <el:i18n>
       <el:string el:key="title">

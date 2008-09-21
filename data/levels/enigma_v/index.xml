@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no" ?>
 <index xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="index.xsd">
 
-  <info enigma="1.00" group="Enigma" location="10600" network="false" owner="Enigma Team" release="1" revision="7" title="Enigma V"/>
+  <info enigma="1.00" group="Enigma" location="10600" network="false" owner="Enigma Team" release="1" revision="8" title="Enigma V"/>
 
   <attributes/>
 
@@ -27,7 +27,7 @@
     <level _seq="19" _title="Oxyd-Puzzle" _xpath="./raoul05_1" author="Raoul Bourquin" ctrl="force" easy="false" id="raoul05" rel="1" rev="2" score="1" target="time" unit="duration"/>
     <level _seq="20" _title="- Meditation -" _xpath="./ralf12_1" author="Ralf Westram" ctrl="force" easy="true" id="ralf12" rel="1" rev="1" score="1" target="time" unit="duration"/>
     <level _seq="21" _title="Plan Ahead" _xpath="./duffy114_2" author="Jacob Scott" ctrl="force" easy="true" id="duffy114" rel="2" rev="3" score="2" target="time" unit="duration"/>
-    <level _seq="22" _title="Keystone" _xpath="./raoul12_1" author="Raoul Bourquin" ctrl="force" easy="true" id="raoul12" rel="1" rev="3" score="1" target="time" unit="duration"/>
+    <level _seq="22" _title="Keystone" _xpath="./raoul12_2" author="Raoul Bourquin" ctrl="force" easy="true" id="raoul12" rel="2" rev="4" score="1" target="time" unit="duration"/>
     <level _seq="23" _title="Print 23" _xpath="./richi07_1" author="Richi Bützer" ctrl="force" easy="false" id="richi07" rel="1" rev="0" score="1" target="time" unit="duration"/>
     <level _seq="24" _title="Space Pirates" _xpath="./siegfried19_2" author="Siegfried Fennig" ctrl="force" easy="false" id="level6a" rel="2" rev="0" score="2" target="time" unit="duration"/>
     <level _seq="25" _title="Laser Crossing" _xpath="./luc24_1" author="Lukas Schüller" ctrl="force" easy="true" id="luc24" rel="1" rev="0" score="1" target="time" unit="duration"/>

@@ -1,0 +1,101 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no" ?>
+<el:level xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://enigma-game.org/schema/level/1 level.xsd" xmlns:el="http://enigma-game.org/schema/level/1">
+  <el:protected>
+    <el:info el:type="level">
+      <el:identity el:title="Relaxing at the sea" el:subtitle="" el:id="dev08"/>
+      <el:version el:score="1" el:release="1" el:revision="9" el:status="released"/>
+      <el:author  el:name="/dev/null" el:email="" el:homepage=""/>
+      <el:copyright>Copyright © 2008 dev0</el:copyright>
+      <el:license el:type="GPL v2.0 or above" el:open="true"/>
+      <el:compatibility el:enigma="1.10"/>
+      <el:modes el:easy="true" el:single="true" el:network="false"/>
+      <el:comments>
+        <el:credits el:showinfo="true" el:showstart="true">Thanks to Meditation Master Daydreamer for faith-healing the level which terribly suffered from cuts.</el:credits>
+      </el:comments>
+      <el:score el:easy="-" el:difficult="-"/>
+    </el:info>
+    <el:luamain><![CDATA[
+-- settings
+wo["FollowMethod"] = FOLLOW_SCROLL
+
+-- variables
+sFactor = 5.0
+
+-- tiles
+ti["  "] = {"fl-water"}
+ti[" c"] = {"fl-concrete"}
+ti[" h"] = {"fl-hay"}
+ti[" l"] = {"fl-leaves"}
+ti[" r"] = {"fl-rock"}
+ti[" s"] = {"fl-sand"}
+ti[" v"] = {"fl-gravel", friction = sFactor}
+ti[" V"] = {"fl-gravel", friction = sFactor * 2.5}
+ti[". "] = {"st-disco-light"}
+ti[": "] = {"st-disco-medium"}
+ti["p "] = {"st-flrock"}
+ti["R "] = {"st-rock2"}
+ti["w "] = {"st-wood"}
+ti["% "] = {"it-document", text = "Did you ask the devil to give you more power? ;-)"}
+
+-- meditation_hollow
+ti["5 "] = {"it_meditation_hollow", essential = 0}
+ti["6 "] = {"it_meditation_hollow", essential = 1}
+ti["7 "] = {"it_meditation_hollow", essential = 1}
+ti["8 "] = {"it_meditation_hollow", essential = 1} .. ti["p "]
+ti["9 "] = {"it_meditation_hollow", essential = 1}
+
+if wo["IsDifficult"] then
+  ti["P "] = ti["p "]
+  ti["W "] = ti[" r"]
+else
+  ti["P "] = ti[" r"]
+  ti["W "] = ti["p "]
+end
+
+-- the ball(s)
+ti["1 "] = {"#ac-whiteball-small", player = 0, essential=1}
+ti["2 "] = {"#ac-whiteball-small", player = 0, essential=1}
+ti["3 "] = {"#ac-whiteball-small", player = 0, essential=1} .. ti["p "]
+ti["4 "] = {"#ac-whiteball-small", player = 0, essential=1} .. ti["p "]
+
+-- map
+local resolver = res.composer(ti)
+
+width, height = wo(resolver, "  ", 
+-- 0                  10                  20
+-- 0 1 2 3 4 5 6 7 8 9 0 1 2 3 4 5 6 7 8 9 0 1
+{ "            . . . . : : : : : : : . . . . : ", --  0
+  "                  . . . : . . . . . R . : : ", --  1
+  "   l l l l            . . .        vRv. . . ", --  2 
+  "   l1lwlwl   l l l l           r rRrRv v. . ", --  3 
+  "   lwl l5l     lwlwl s        wh r  RvR . . ", --  4 
+  "                   l lws          R       . ", --  5 
+  "                   l l s         h h r r  . ", --  6 
+  "     r        .                hwhwlwl l    ", --  7 
+  "    pr  R       . . . . .      h l l l l    ", --  8 
+  "     rpr r r r  . R : .                     ", --  9 
+  "     r r rpr r  . : R R .     wh h          ", -- 10 
+  "        R         . R 6V v       rR         ", -- 11
+  "     r  R  r      . . R        r rR  r r    ", -- 12
+  "     r  R pr        .                r c    ", -- 13
+  ".     R R  r  pr r.      r    . .   prwc c  ", -- 14
+  ".         pr rpr rR     Pr rpr  pr    wc    ", -- 15
+  ". .  r  R  r rPr rR      r. . pr    wc      ", -- 16
+  ". . WrR R R         R    r. .  r            ", -- 17
+  ". .    v7vR      r  R      rpr r     cwc h  ", -- 18
+  ".  r rR  vR R .  r rR R   R   .     wcwc h  ", -- 19
+  ". prpr2v8VR R R Pr r4r r  R           wh h  ", -- 20
+  ".    rR   R   3r rpr rR 9VR . .       wh    ", -- 21
+  ". . . . R %vR R  r r rR R : . . .           ", -- 22
+  ". . . . : : : . .     . . : : : . .         ", -- 23
+  ". . : : : : : : . . . . : : : : : . . .     "  -- 24
+}) 
+
+    ]]></el:luamain>
+    <el:i18n>
+      <el:string el:key="title">
+        <el:english el:translate="false"/>
+      </el:string>
+    </el:i18n>
+  </el:protected>
+</el:level>

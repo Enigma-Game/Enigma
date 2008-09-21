@@ -1,0 +1,143 @@
+<?xml version="1.0" encoding="utf-8" standalone="no" ?>
+<el:level xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+  xsi:schemaLocation="http://enigma-game.org/schema/level/1 level.xsd"
+  xmlns:el="http://enigma-game.org/schema/level/1">
+  <el:protected >
+    <el:info el:type="level">
+      <el:identity el:title="Helios II" el:subtitle="Use the Lightpassenger" el:id="mecke08"/>
+      <el:version el:score="1" el:release="1" el:revision="$Revision: 15 $" el:status="released"/>
+      <el:author  el:name="mecke" el:email="" el:homepage=""/>
+      <el:copyright>Copyright © 2008 Thomas Bernhardt</el:copyright>
+      <el:license el:type="GPL v2.0 or above" el:open="true"/>
+      <el:compatibility el:enigma="1.10"/>
+      <el:modes el:easy="true" el:single="true" el:network="false" el:control="force" el:scoreunit="duration" el:scoretarget="time"/>
+      <el:comments>
+        <el:credits el:showinfo="true" el:showstart="false">Thanks to Ronald Lamprecht for the difficult mode</el:credits>
+      </el:comments>
+      <el:score el:easy="14:51" el:difficult="19:53"/>
+    </el:info>
+    <el:luamain><![CDATA[
+wo["ConserveLevel"] = true
+wo["ExtralifeGlasses"] = wo["ExtralifeGlasses"] + SPOT_ACTORIMPULSE
+
+ti[" t"] = {"fl-thief"}
+ti["  "] = {"fl-rough"}
+ti[" q"] = {"fl-bluegreenx"}
+ti[" i"] = ti[" q"] ..{"it-crack3", brittleness=0}
+ti["# "] = ti[" i"] ..{"st_actorimpulse_invisible"}
+ti[" l"] = ti["  "] ..{"it_meditation_bump"}
+ti[" m"] = {"fl-sahara"}
+ti[" c"] = {"it_brush"}
+ti["X "] = ti[" m"] ..{"st-grate1"}
+ti[" _"] = {"fl-swamp"}
+
+ti[" ,"] = {"fl-red"}
+ti[" ~"] = {"fl-water"}
+ti[" ."] = {"fl-bluegreenx", friction=0.8}
+ti[" n"] = {"fl-light"}
+
+ti["E "] = {"st_lightpassenger_off"}
+ti["O "] = {"st_rotator_ccw", movable=false}
+ti["Q "] = {"st_rotator_ccw", movable=true}
+ti["T "] = {"st-thief"}
+ti["Y "] = {"st-glass_move"}
+ti["B "] = {"it_trigger",target="laser1"}
+ti["C "] = {"it_trigger",target="laser2"}
+ti["F "] = {"it_trigger",target="laser3"}
+ti["K "] = {"st_laser_n", name="laser1", state=OFF}
+ti["U "] = {"st_laser_n", name="laser2", state=OFF}
+ti["W "] = {"st_laser_n", name="laser3", state=OFF}
+ti["1 "] = {"st-black4"}
+ti["D "] = {"st_death"}
+ti["L "] = ti[" _"] .. {"st_laser_s", name="laser", state=ON}
+ti["h "] = {"st-bluegray_hole"}
+ti["A "] = ti[" ~"] .. {"st_actorimpulse"}
+ti["> "] = ti[" ~"] .. {"st_boulder_e"}
+ti["< "] = {"st_boulder_w"}
+ti[" f"] = {"it_wrench"}
+ti[" y"] = {"it_floppy"}
+ti["x1"] = ti[" ~"] .. {"st_oxyd", flavor="a",name="olli1"}
+ti["x2"] = ti[" ~"] .. {"st_oxyd", flavor="a",name="olli2"}
+ti["x3"] = ti[" ~"] .. {"st_oxyd", flavor="a",name="olli3"}
+ti["x4"] = ti[" ~"] .. {"st_oxyd", flavor="a",name="olli4"}
+ti["x5"] = ti[" ~"] .. {"st_oxyd", flavor="a",name="olli5"}
+ti["x6"] = ti[" ~"] .. {"st_oxyd", flavor="a",name="olli6"}
+ti["e "] = {"it_extralife"}
+ti["o "] = {"it-springboard"}
+ti[" j"] = {"it_magicwand"}
+ti["S "] = ti[" n"] ..{"st-white4"}
+ti["G "] = {"st-yellow"}
+ti["2 "] = {"st-brake"}
+ti["P "] = {"st_pull"}
+
+ti["J "] = {"#ac-top", range=1, force=1}
+ti["= "] = {"#ac-horse"}
+
+ti["Z "] = {"st_floppy", action="open",target="vortex1"}
+ti["V1"] = ti[" _"] ..{"it_vortex_closed", name="vortex1", destination="vortex2"}
+
+if wo["IsDifficult"] then
+  ti[" '"] = ti[" ."] .. {"it-crack2", brittleness=0}
+  ti["1f"] = ti["1 "] .. {"it_magicwand"}
+  ti["* "] = ti["  "] .. {"#ac-blackball"}
+  ti["Dx"] = ti[" ."] .. {"st_door", "doora#", flavor="a"}
+  ti["Ax"] = ti[" ."] .. {"st_door", "doorb#", flavor="a"}
+  ti["$1"] = {"it_trigger", target={"@doora#*", "@doorb#*"}}
+  ti["$2"] = {"it_trigger", target={"@doora#*", "@doorb#*"}}
+  ti["$3"] = {"it_trigger", target={"@doora#*", "@doorb#*"}}
+  ti["$4"] = {"it_trigger", target={"@doora#*", "@doorb#*"}}
+  ti["$5"] = {"it_trigger", target={"@doora#*", "@doorb#*"}}
+  ti["$6"] = {"it_trigger", target={"@doora#*", "@doorb#*"}}
+  ti["3 "] = {"fl-swamp"}
+  ti["M."] = ti[" _"]
+  ti["V2"] = ti["  "] ..{"it_vortex_open", name="vortex2", destination="vortex3"}
+  ti["Ay"] = ti["Ax"] ..{"it_vortex_open", name="vortex3", destination="vortex1"}
+else
+  ti[" '"] = {"fl-swamp"}
+  ti["1f"] = ti["1 "] .. {"it_wrench"}
+  ti["* "] = ti[" t"] .. {"#ac-blackball"}
+  ti["Dx"] = ti["D "]
+  ti["Ax"] = ti["A "]
+  ti["$1"] = {"it_trigger", target="olli1"}
+  ti["$2"] = {"it_trigger", target="olli2"}
+  ti["$3"] = {"it_trigger", target="olli3"}
+  ti["$4"] = {"it_trigger", target="olli4"}
+  ti["$5"] = {"it_trigger", target="olli5"}
+  ti["$6"] = {"it_trigger", target="olli6"}
+  ti["3 "] = ti[" j"] ..{"fl-swamp"}
+  ti["M."] = ti[" _"] .. {"it_glasses"}
+  ti["V2"] = ti["  "] ..{"it_vortex_open", name="vortex2", destination="vortex1"}
+end
+
+local resolver = res.composer(ti)
+
+w, h = wo(resolver, "  ", {
+-- 0001020304050607080910111213141516171819
+  "# # # # # # # # # # # # # # $4# $5# $6# ",
+  "# D D D D D D D A # # #  ~h  'h  'h  ~# ",
+  "# D x1D x2D x3D A # G #  . l .Ql . l .# ",
+  "# D DxD DxD DxD A # 1j  e,   .e  .< E.# ",
+  "# A AxA AxA AxA A # Pc iX X X SfX X X # ",
+  "# h  .h  .h  .h X # P # X    .  M.   .# ",
+  "Z     J   J   J X  t*  tX J   J   J   V1",
+  "#   L.  3    .  X # P # X h  .h  .h W.# ",
+  "# X X X X SyX X X  iPc# A A AxA AxA Ay# ",
+  "# e E.   .Q  .  e O 1f# A D DxD DxD Dx# ",
+  "#  l . l . l . l ~> G # A D x4D x5D x6# ",
+  "# h  ~h  'h  'h  ~# F # A D D D D D D # ",
+  "# # $1# $2# $3# # # V2# # # # # # # # # "
+})
+
+wo:shuffleOxyd()
+    ]]></el:luamain>
+      <el:i18n>
+        <el:string el:key="title">
+          <el:english el:translate="false"/>
+        </el:string>
+        <el:string el:key="subtitle">
+          <el:english el:translate="true"/>
+          <el:translation el:lang="de">Nutze den Lightpass...</el:translation>
+        </el:string>
+     </el:i18n>
+  </el:protected>
+</el:level>

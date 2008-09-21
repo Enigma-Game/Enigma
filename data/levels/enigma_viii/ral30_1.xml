@@ -1,0 +1,127 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no" ?>
+<el:level xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://enigma-game.org/schema/level/1 level.xsd" xmlns:el="http://enigma-game.org/schema/level/1">
+  <el:protected >
+    <el:info el:type="level">
+      <el:identity el:title="Scarlett's Necklet" el:subtitle="Who did broke the pearl necklet?" el:id="20080814ral422"/>
+      <el:version el:score="1" el:release="1" el:revision="$Revision: 115 $" el:status="released"/>
+      <el:author  el:name="Ronald Lamprecht" el:email="ral@users.berlios.de"/>
+      <el:copyright>Copyright © 2008 Ronald Lamprecht</el:copyright>
+      <el:license el:type="GPL v2.0 or above" el:open="true"/>
+      <el:compatibility el:enigma="1.10">
+        <el:dependency el:path="lib/liblua" el:id="lib/liblua" el:release="1" el:preload="true"/>
+      </el:compatibility>
+      <el:modes el:easy="true" el:single="true" el:network="false"/>
+      <el:comments>
+        <el:credits el:showinfo="true" el:showstart="false">Pearl theme inspired by Jacob Scott, Scarlett story by Andreas Lochmann</el:credits>
+      </el:comments>
+      <el:score el:easy="5:54" el:difficult="10:47"/>
+    </el:info>
+    <el:luamain><![CDATA[
+wo["ConserveLevel"] = true
+
+ti[" "] = {"fl-black"}
+ti["="] = {"fl_bridge_bw", "bridge#"}
+ti["x"] = {"it_shogun_s", "x%%"}
+
+ti["A"] = {"st-block", "pearl#"}
+ti["B"] = {"st-brownie", "pearl#"}
+ti["C"] = {"st-marble_move", "pearl#"}
+ti["D"] = {"st-rock1_move", "pearl#"}
+ti["E"] = {"st-glass1_move", "pearl#"}
+ti["F"] = {"st-camouflage_move", "pearl#"}
+ti["G"] = {"st-wood", "pearl#"}
+ti["H"] = {"st-glass_move", "pearl#"}
+ti["I"] = {"st-rock3_move", "pearl#"}
+ti["J"] = {"st-flhay", "pearl#"}
+
+ti["_"] = {"st_window_s", secure=true}
+ti["|"] = {"st_window_e", secure=true}
+ti["."] = {"st_window_w", secure=true}
+ti["-"] = {"st_window_n", secure=true}
+ti["}"] = {"st_window_ne", secure=true}
+ti["{"] = {"st_window_nw", secure=true}
+ti[")"] = {"st_window_es", secure=true}
+ti["("] = {"st_window_sw", secure=true}
+
+ti["d"] = {"it-document", text="story"}
+
+if wo["IsDifficult"] then
+    ti["S"] = {"st_coinslot", target="check"}
+    ti["s"] = {"st-yellow"}
+    ti["c"] = {"it_coin_s"}
+else
+    ti["S"] = {"st_switch", target="check"}
+    ti["s"] = {"st-rock1"}
+    ti["c"] = ti[" "]
+end
+
+ti["X"] = {"st_oxyd_d", "oxyd"}
+
+ti["@"] = {"ac-blackball", 0, 0.5}
+
+pearl_keys = lib.lua.shuffle({"A","B","C","D","E","F","G","H","I","J"})
+function myres(key, x, y)
+   local idx = ("ABCDEFGHIJ"):find(key, 1, true)
+   if idx ~= nil then
+       return ti[pearl_keys[idx]]
+   else
+       return ti[key]
+   end
+end
+
+w, h = wo(res.autotile(myres,{"0","9","x"}), " ", {
+"{--------sS--------}",
+".     cccccccc     |",
+".0                9|",
+".                  |",
+".      G JH I      |",
+". 1   A B  C D   8 |",
+".       E  F       |",
+".  2      @     7  |",
+".        cd        |",
+".    3        6    |",
+".       4  5       |",
+"(________  ________)",
+"X=== =  =  =  = ===X"
+})
+
+pearls = no["pearl#*"]:shuffle()
+
+function check(value, sender)
+    if value or sender:is("st_switch") then
+        no["bridge#*"]:open()
+        no["oxyd"]:closeall()
+        for i = 1, #pearls + 1 do
+            j = ((i-1) % #pearls) + 1   -- we need to check first place two times
+            pearl = st(no["x%"..j])
+            pearl_right = st(no["x%"..((j % #pearls) + 1)])
+            if -pearl and -pearl_right then
+                wirename = "wire"..pearls[pearl].."_"..pearls[pearl_right]
+                if pearl_right == pearls[(pearls[pearl] % #pearls) + 1] and not -no[wirename] then
+                    wo:add({"ot_wire", wirename, anchor1=pearl, anchor2=pearl_right})
+                    pearl["_wires"] = lib.lua.cond(pearl["_wires"] == 1, 2, 1)
+                    pearl_right["_wires"] = lib.lua.cond(pearl_right["_wires"] == 1, 2, 1)
+                end
+                wires = pearl["wires"]
+                if pearl["_wires"] == 2 then
+                    fl(pearl.x, h-1):close()
+                end
+            end
+        end
+    end
+end
+
+    ]]></el:luamain>
+    <el:i18n>
+      <el:string el:key="title">
+        <el:english el:translate="false"/>
+      </el:string>
+      <el:string el:key="subtitle">
+        <el:english el:translate="true"/>
+      </el:string>
+      <el:string el:key="story">
+        <el:english el:translate="true" >Mrs Scarlett's wonderful pearl necklet tore, and now all the colorful pearls roll on the floor. Mrs Scarlett doesn't remember the sequence, but she knows, adjacent pearls connect, when being on dots while triggered by the switch.</el:english>
+      </el:string>
+    </el:i18n>
+  </el:protected>
+</el:level>

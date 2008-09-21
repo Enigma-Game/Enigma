@@ -3,7 +3,7 @@
   <el:protected>
     <el:info el:type="level">
       <el:identity el:title="Elbow Society" el:subtitle="" el:id="andreas45"/>
-      <el:version el:score="2" el:release="2" el:revision="5" el:status="released"/>
+      <el:version el:score="2" el:release="2" el:revision="6" el:status="released"/>
       <el:author el:name="Andreas Lochmann" el:email="" el:homepage=""/>
       <el:copyright>Copyright © 2007 Andreas Lochmann</el:copyright>
       <el:license el:type="GPL v2.0 or above" el:open="true"/>
@@ -23,7 +23,7 @@ originy = 1
 mainfloor = "fl-black"
 mainstone = "st-death"
 friction = 3.0
-mousefactor = 1.0
+adhesion = 1.0
 
 function set_deathly(x, y)
   set_item("it-death", x, y)
@@ -56,7 +56,7 @@ function close_tile(x, y)
     set_deathly(x + 9, y)
   end
 end
-  
+
 function render_cell( maze, cellx, celly )
   x, y = cell_to_level( cellx, celly )
   if not maze:can_go_south(cellx,celly) then
@@ -86,20 +86,20 @@ function renderLine(line, pattern)
     elseif c == "#" then
       set_stone(mainstone, j-1, line)
     elseif c == "." then
-      --set_deathly(j-1, line)       
+      --set_deathly(j-1, line)
     elseif c == "+" then
       close_tile(j-1, line)
     elseif c == "*" then
-      set_deathly(j-1, line)       
+      set_deathly(j-1, line)
     elseif c == "t" then
       set_item("it-trigger", j-1, line,
                {action = "callback", target = "call_trigger"})
     elseif c == "b" then
       set_floor("fl-bridge-closed", j-1, line,
-                {friction = friction, mousefactor = mousefactor})
+                {friction = friction, adhesion = adhesion})
     elseif c == "B" then
       set_floor("fl-bridge-closed", j-1, line,
-                {friction = friction, mousefactor = mousefactor})
+                {friction = friction, adhesion = adhesion})
       set_deathly(j-1, line)
     end
   end
@@ -117,7 +117,7 @@ create_world(levelw, levelh)
 
 for x = 0, levelw - 1 do
   for y = 0, levelh - 1 do
-    set_floor(mainfloor, x, y, {friction = friction, mousefactor = mousefactor})
+    set_floor(mainfloor, x, y, {friction = friction, adhesion = adhesion})
   end
 end
 

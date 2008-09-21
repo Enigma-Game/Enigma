@@ -1,0 +1,101 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no" ?>
+<el:level xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://enigma-game.org/schema/level/1 level.xsd" xmlns:el="http://enigma-game.org/schema/level/1">
+  <el:protected>
+    <el:info el:type="level">
+      <el:identity el:title="Keystone" el:subtitle="" el:id="raoul12"/>
+      <el:version el:score="1" el:release="2" el:revision="4" el:status="released"/>
+      <el:author  el:name="Raoul Bourquin" el:email="raoul@users.berlios.de" el:homepage=""/>
+      <el:copyright>Copyright © 2006,2008 Raoul Bourquin</el:copyright>
+      <el:license el:type="GPL v2.0 or above" el:open="true"/>
+      <el:compatibility el:enigma="1.10">
+        <el:dependency el:path="lib/libpuzzle" el:id="lib/libpuzzle" el:release="3" el:preload="true"/>
+      </el:compatibility>
+      <el:modes el:easy="true" el:single="true" el:network="false"/>
+      <el:comments>
+      </el:comments>
+      <el:score el:easy="-" el:difficult="1:10"/>
+    </el:info>
+    <el:luamain><![CDATA[
+wo["ConserveLevel"] = true
+
+ti[" "] = {"fl-black"}
+ti["."] = {"fl-abyss"}
+ti["#"] = {"st-glass"}
+ti["O"] = {"st_oxyd"}
+ti["P"] = {"st_puzzle_blue", cluster=1}
+ti["1"] = {"st_switch_white", target="permute", _tag=1}
+ti["2"] = {"st_switch_white", target="permute", _tag=2}
+ti["3"] = {"st_switch_white", target="permute", _tag=3}
+ti["4"] = {"st_switch_white", target="permute", _tag=4}
+ti["5"] = {"st_switch_white", target="permute", _tag=5}
+ti["6"] = {"st_switch_white", target="permute", _tag=6}
+ti["7"] = {"st_switch_white", target="permute", _tag=7}
+ti["?"] = {"st_puzzle_yellow", intensity = 4/5, cluster=1}
+ti["@"] = {"#ac-blackball"} .. ti({"it-yinyang"})
+ti["B"] = {"#ac-whiteball"} .. ti({"it-yinyang"})
+
+puzz = res.puzzle(ti,"?")
+
+w, h = wo(puzz, " ", {
+"#######O#######",
+"#     PPP     #",
+"#      P      #",
+"#     PPP     #",
+"#      P      #",
+"#P  P??P??P  P#",
+"OPPPPP???PPPPPO",
+"#P P ??P??P  P#",
+"#      PP     #",
+"#     PP      #",
+"#      P    @ #",
+"#     PPP     #",
+"#######O#######",
+
+"...............",
+"...............",
+"...............",
+"...............",
+"...............",
+"...............",
+"...............",
+"...............",
+"...............",
+"...............",
+"...............",
+
+"...............",
+"...............",
+"..###########..",
+"..#         #..",
+"..# B       #..",
+"..#  1   3  #..",
+"..#   567   #..",
+"..#  2   4  #..",
+"..#         #..",
+"..#         #..",
+"..###########..",
+"...............",
+"..............."
+})
+
+wo:shuffleOxyd()
+
+if wo["IsDifficult"] then
+    pos = {{9,7}, {9,5}, {5,7}, {5,5}, {8,7}, {8,6}, {6,5}}
+    dir = {WEST, WEST, EAST, EAST, NORTH, WEST, SOUTH}
+else
+    pos = {{5,5}, {5,7}, {9,5}, {9,7}, {6,5}, {6,6}, {8,7}}
+    dir = {EAST, EAST, WEST, WEST, SOUTH, EAST, NORTH}
+end
+
+function permute(value, sender)
+    wo:st(pos[sender["_tag"]]):message("push_rotate", dir[sender["_tag"]])
+end
+    ]]></el:luamain>
+    <el:i18n>
+     <el:string el:key="title">
+       <el:english el:translate="false"/>
+     </el:string>
+   </el:i18n>
+  </el:protected>
+</el:level>
