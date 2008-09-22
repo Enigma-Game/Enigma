@@ -7,6 +7,7 @@
     <attr name="anchor1" type="tokens" default="nil" rw="rw"/>
     <attr name="anchor2" type="tokens" default="nil" rw="rw"/>
     <attr name="autoclose" type="bool" default="false" rw="rw"/>
+    <attr name="burnable" type="bool" default="false" rw="rw"/>
     <attr name="cluster" type="int" default="nil" min="0" max="9" rw="rw"/>
     <attr name="code" type="int" default="1" rw="rw"/>
     <attr name="coin_value" type="double" default="1" rw="rw"/>
@@ -16,7 +17,9 @@
     <attr name="checkerboard" type="int" default="nil" rw="rw"/>
     <attr name="destination" type="tokens" default="nil" rw="rw"/>
     <attr name="essential" type="int" default="0" min="0" max="2" rw="rw"/>
+    <attr name="eternal" type="bool" default="false" rw="rw"/>
     <attr name="faces" type="string" default="nil" rw="rw"/>
+    <attr name="fastfire" type="bool" default="false" rw="rw"/>
     <attr name="fellows" type="group" default="nil" rw="r"/>
     <attr name="flavor" type="string" default="b" rw="rw"/>
     <attr name="freeze_check" type="bool" default="false" rw="rw"/>
@@ -28,6 +31,8 @@
     <attr name="hit_distortion_yx" type="double" default="0" rw="rw"/>
     <attr name="hit_distortion_yy" type="double" default="1" rw="rw"/>
     <attr name="hollow" type="bool" default="false" rw="rw"/>
+    <attr name="ignitable" type="bool" default="false" rw="rw"/>
+    <attr name="initfire" type="bool" default="false" rw="rw"/>
     <attr name="instant" type="bool" default="false" rw="rw"/>
     <attr name="intensity" type="double" default="1" rw="rw"/>
     <attr name="interval" type="double" default="1" rw="rw"/>
@@ -44,6 +49,7 @@
     <attr name="name" type="string" default="nil" rw="rw"/>
     <attr name="name_m" type="string" default="nil" rw="rw"/>
     <attr name="name_s" type="string" default="nil" rw="rw"/>
+    <attr name="noash" type="bool" default="false" rw="rw"/>
     <attr name="nopaction" type="bool" default="false" rw="rw"/>
     <attr name="noshuffle" type="bool" default="false" rw="rw"/>
     <attr name="orientation" type="int" default="0" min="0" max="3" rw="rw"/>
@@ -66,9 +72,12 @@
     <msg name="close" type="nil"/>
     <msg name="closeall" type="nil"/>
     <msg name="disconnect" type="nil"/>
+    <msg name="expl" type="nil"/>
     <msg name="flip" type="nil"/>
+    <msg name="forcefire" type="nil"/>
     <msg name="get_adjacents" type="nil"/>
     <msg name="grow" type="nil"/>
+    <msg name="heat" type="nil"/>
     <msg name="hit" type="object"/>
     <msg name="ignite" type="nil"/>
     <msg name="inner_pull" type="dir"/>
@@ -80,9 +89,11 @@
     <msg name="orientate" type="nil"/>
     <msg name="pull_rotate" type="int"/>
     <msg name="push_rotate" type="int"/>
+    <msg name="setfire" type="nil"/>
     <msg name="shuffle" type="nil"/>
     <msg name="shovel" type="nil"/>
     <msg name="signal" type="int" min="0" max="1"/>
+    <msg name="stopfire" type="nil"/>
     <msg name="toggle" type="nil"/>
     <msg name="turn" type="nil"/>
     <msg name="turnback" type="nil"/>
@@ -121,7 +132,21 @@
       <msg name="toggle"/>
     </object>
     <object name="fl" abstract="true">
+      <attr name="burnable"/>
+      <attr name="eternal"/>
+      <attr name="fastfire"/>
+      <attr name="freeze_check"/>
+      <attr name="ignitable"/>
+      <attr name="initfire"/>      
+      <attr name="noash"/>
       <attr name="push_directions"/>
+      <attr name="secure"/>
+      <msg name="expl"/>
+      <msg name="heat"/>
+      <msg name="forcefire"/>
+      <msg name="ignite"/>
+      <msg name="setfire"/>
+      <msg name="stopfire"/>
     </object>
     <object name="fl_bridge">
       <attr name="flavor" default="gc"/>

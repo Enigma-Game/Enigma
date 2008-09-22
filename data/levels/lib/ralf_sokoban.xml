@@ -3,7 +3,7 @@
   <el:protected>
     <el:info el:type="library">
       <el:identity el:title="" el:id="lib/ralf_sokoban"/>
-      <el:version el:score="1" el:release="1" el:revision="2" el:status="released"/>
+      <el:version el:score="1" el:release="1" el:revision="3" el:status="released"/>
       <el:author  el:name="Ralf Westram" el:email="amgine@reallysoft.de" el:homepage=""/>
       <el:copyright>Copyright © Mar 2003 Ralf Westram</el:copyright>
       <el:license el:type="GPL v2.0 or above" el:open="true"/>
@@ -19,7 +19,15 @@
     <el:luamain><![CDATA[
 
 -- Jun 06: Changed "init(num)" such that reverse_scrolling is used
---         in difficult mode instead of easy mode  -- Andreas
+--         in difficult mode instead of easy mode.  -- Andreas
+-- Sep 08: * Deactivated annoying "boxface=..."-log
+--         * Multiple create_world are not allowed, so I separated
+--           the oxyd position calculation from the real oxyd setting
+--           (i.e. splitted "install_oxyds" into two functions and
+--           adapted the corresponding loop in "play_sokoban").
+--         * Deactivated solvability check for swapStyle-puzzles:
+--           It never worked before and with the new swap-stones
+--           it's completely broken.  -- Andreas
 
 --debug_mode()
 show_restricted = 0 -- set to 1 to use different floors for restricted areas (for debugging)
@@ -325,10 +333,10 @@ function set_box(x,y)
    if (test==1) then
       set_stone("st-brake",x,y,{name=boxname});
    elseif (boxface=="st-glass1" or boxface=="sokoban_box") then
-      print("boxface="..boxface);
+      debug("boxface="..boxface);
       set_stone(boxface,x,y,{movable=1,name=boxname});
    else
-      print("boxface="..boxface);
+      debug("boxface="..boxface);
       set_stone(boxface,x,y,{name=boxname})
    end
 end
@@ -612,7 +620,7 @@ end
 
 maxoxyds = 999
 
-function install_oxyds(w,h) -- uses Nat's method (see nat7.lua)
+function choose_oxyd_positions(w,h) -- uses Nat's method (see nat7.lua)
    for x=1,w do
       for y=1,h do
          if (peek(x,y)=='#') then
@@ -875,7 +883,9 @@ function install_oxyds(w,h) -- uses Nat's method (see nat7.lua)
       position[p][3] = position[p][3]+xlo-1
       position[p][4] = position[p][4]+ylo-1
    end
+end
 
+function set_oxyds()
    -- now really set oxyds
    for p=1,positions do
       local xd,yd = position[p][1],position[p][2]
@@ -885,24 +895,22 @@ function install_oxyds(w,h) -- uses Nat's method (see nat7.lua)
       enigma.KillStone(xo,yo)
 
       if (shogunLaser==1) then
-         lasers = lasers+1
          local d
          if (xd==xo) then
             if (yd>yo) then d = NORTH else d = SOUTH end
          else
             if (xd>xo) then d = WEST else d = EAST end
          end
-         set_stone("st-laser",xd,yd,{name="laser"..lasers, dir=d,on=0})
+         set_stone("st-laser",xd,yd,{name="laser"..p, dir=d,on=0})
       else
-         doors = doors+1
          local d = "v"
          if (xd==xo) then d = "h" end
          set_floor(floorface,xd,yd)
          if doorface == "st-blocker" then
-           set_stone(doorface,xd,yd, {name="door"..doors})
+           set_stone(doorface,xd,yd, {name="door"..p})
          else
---           set_stone(doorface,xd,yd, {name="door"..doors, type=d})
-           set_stone(doorface,xd,yd, {name="door"..doors})
+--           set_stone(doorface,xd,yd, {name="door"..p, type=d})
+           set_stone(doorface,xd,yd, {name="door"..p})
          end
       end
       oxyd(xo,yo)
@@ -924,7 +932,7 @@ function correct_locked_target_position()
    if (multiTriggeredDoors>0 and multiTriggeredDoors<doors) then
       locked_target = multiTriggeredDoors+1 -- dont use multitrigger door (makes levels nearly unsolvable)
    end
-
+      
    debug("correct_locked_target_position: locked_target="..locked_target.." doors="..doors.." multiTriggeredDoors="..multiTriggeredDoors);
 
    while (locked_target <= doors) do
@@ -1352,41 +1360,54 @@ function play_sokoban(level,num)
       preferred_width,preferred_height = w+40,h+26
    end
 
-   while ((tries > 0) and (maxoxyds > 0) and (ok == 0)) do
-      init(num-1)
-      rs_create_world(level,cells,set_spacecell,set_spacecell)
+   init(num-1)
+   rs_create_world(level,cells,set_spacecell,set_spacecell)
+   
+   enigma.ConserveLevel = FALSE
+   enigma.ShowMoves = TRUE
 
-      enigma.ConserveLevel = FALSE
-      enigma.ShowMoves = TRUE
-
-      if (scrolling==1) then
-         spl,spr,spt,spb = 1,1,1,1 -- everywhere is space
-      else
-         if (xlo > 0) then
-            spl = 1 -- there's space at the left side
-            space_count = space_count + maph
-         end
-         if (ylo > 0) then
-            spt = 1 -- there's space at the top side
-            space_count = space_count + mapw
-         end
-         if ((xlo+mapw) < 20) then
-            spr = 1 -- there's space at the right side
-            space_count = space_count + maph
-         end
-         if ((ylo+maph) < 13) then
-            spb = 1 -- there's space at the bottom side
-            space_count = space_count + mapw
-         end
+   if (scrolling==1) then
+      spl,spr,spt,spb = 1,1,1,1 -- everywhere is space
+   else
+      if (xlo > 0) then
+         spl = 1 -- there's space at the left side
+         space_count = space_count + maph
       end
-
-      debug("Space aside: spl="..spl.." spr="..spr.." spt="..spt.." spb="..spb);
+      if (ylo > 0) then
+         spt = 1 -- there's space at the top side
+         space_count = space_count + mapw
+      end
+      if ((xlo+mapw) < 20) then
+         spr = 1 -- there's space at the right side
+         space_count = space_count + maph
+      end
+      if ((ylo+maph) < 13) then
+         spb = 1 -- there's space at the bottom side
+         space_count = space_count + mapw
+      end
+   end
+   
+   debug("Space aside: spl="..spl.." spr="..spr.." spt="..spt.." spb="..spb);
+   
+   while ((tries > 0) and (maxoxyds > 0) and (ok == 0)) do
+      doors = 0
+      lasers = 0
+      shuffle = {}
+      shuffletrig = {}
+      position = {}
+      positions = 0
+      locked_target = 1
 
       -- install oxyds
-      install_oxyds(w,h)
-      local targets=doors
-      if (shogunLaser==1) then targets=lasers end
-      init_shuffle(targets) -- mix trigger-door associations
+      choose_oxyd_positions(w,h)
+
+      if (shogunLaser==1) then
+         lasers = positions
+      else
+         doors = positions
+      end      
+
+      init_shuffle(positions) -- mix trigger-door associations
       ok = correct_target_positions()
       -- ok = 1
       if (ok == 0) then
@@ -1395,6 +1416,8 @@ function play_sokoban(level,num)
       tries = tries - 1
       -- if (maxoxyds > 2) then maxoxyds = maxoxyds - 1 end
    end
+   
+   set_oxyds()
 
    if (ok==0) then
       error("Sorry - couldn't correct door positions. Avoiding deadlock (try again)");
@@ -1427,7 +1450,9 @@ function play_sokoban(level,num)
          boxx[b]=-1
          boxy[b]=-1
       end
-      set_stone("st-timer", 0,0, {action="callback", target="timer_cb", interval=0.3, invisible=1})
+      if useSwapStyle ~= 1 then
+        set_stone("st-timer", 0,0, {action="callback", target="timer_cb", interval=0.3, invisible=1})
+      end
    end
 
 end

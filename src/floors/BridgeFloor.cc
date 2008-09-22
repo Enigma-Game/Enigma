@@ -26,7 +26,9 @@
 
 namespace enigma {
     
-    BridgeFloor::BridgeFloor(std::string flavor) : Floor("fl_bridge", 5, 1) {
+    BridgeFloor::BridgeFloor(std::string flavor) : Floor("fl_bridge", 5, 1,
+        flf_default, flft_noash, "fl-abyss")
+    {
         Floor::setAttr("flavor", flavor);
         state = OPEN;
     }
@@ -40,6 +42,7 @@ namespace enigma {
             std::string flavor = val.to_string();
             ASSERT(flavor == "gc" || flavor == "bw" || flavor == "bn", XLevelRuntime, "BridgeFloor illegal flavor value");
             Floor::setAttr("flavor", val);
+            Floor::setAttr("burnable", flavor != "gc");
             if (isDisplayable() && state <= OPEN) {
                 init_model();    // need to redisplay after attribute set
             }
@@ -153,6 +156,14 @@ namespace enigma {
                 set_anim(model_basename() + "closing");
         }
         state = newState;
+    }
+
+    bool BridgeFloor::has_firetype(FloorFireType selector) {
+        if(   (selector == flft_burnable)
+           && (server::GameCompatibility == GAMET_ENIGMA)) {
+            return (state == CLOSED) && Floor::has_firetype(selector);
+        } else
+            return Floor::has_firetype(selector);
     }
 
     BOOT_REGISTER_START

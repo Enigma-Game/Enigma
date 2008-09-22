@@ -63,7 +63,10 @@ namespace enigma {
         // Floor interface
         virtual void stone_change(Stone *st);
         virtual void actor_contact(Actor *a);
-        
+
+    protected:
+        bool has_firetype(FloorFireType selector);
+            
     private:
         // Private methods.
         std::string model_basename() const;

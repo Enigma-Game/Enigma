@@ -7636,7 +7636,7 @@ Chess stones fall into @ref{fl_abyss} and sink in @ref{fl_swamp}, but cross
 A chess stone that jumps onto a @ref{fl_thief} captures and inactivates the 
 thief.
 
-Chess stones can't jump over or into fire (see The 1.0-Fire System). At least, 
+Chess stones can't jump over or into fire (see @ref{The 1.0-Fire System}). At least, 
 a chess knight is brave enough not to panic when fire starts to burn beneath. 
 Note that fire can't ignite the floor below a chess stone. In this
 context it acts like an immovable stone. In the same sense, they don't act on 
@@ -15873,11 +15873,11 @@ one in 1.0-non-Enigma-mode.
 @strong{Burnable and Fireproof Floors}
 
 The following floors are fireproof (they don't burn by default):
-@code{fl-abyss*, fl-ac*, fl-black, fl-brick, fl-bridge*, fl-bumps,
+@code{fl-abyss*, fl-ac*, fl-black, fl-brick, fl-bumps,
 fl-concrete, fl-dummy, fl-dunes, fl-gradient*, fl-gravel, fl-gray,
 fl-himalaya, fl-ice*, fl-inverse, fl-inverse2, fl-darkgray, fl-metal*,
 fl-mortar, fl-normal*, fl-rock, fl-sahara, fl-sand, fl-space*,
-fl-springboard, fl-stone, fl-swamp, fl-water, fl-white}
+fl-springboard, fl-stone, fl-swamp, fl-water, fl-white}, gray @code{fl-bridge}
 
 The following floors are burnable: @code{fl-bluegray, fl-bluegreen*,
 fl-hay, fl-light, fl-lightgray, fl-marble, fl-red, fl-rough*,
@@ -15887,7 +15887,14 @@ The following floors are burnable and leave @code{fl-dunes} behind:
 @code{fl-leaves*}
 
 The following floors are burnable and leave @code{fl-abyss} behind:
-@code{fl-floor_001, fl-plank, fl-samba*, fl-stwood*, fl-wood*}
+@code{fl-floor_001, fl-plank, fl-samba*, fl-stwood*, fl-wood*}, brown
+@code{fl-bridge}.
+
+An open @ref{fl-bridge} is never burnable, this overrides all items and
+attributes. A closed @code{fl-bridge} is burnable if and only if it is brown,
+but this can be changed via attribute @code{burnable}. Note that changing the
+flavor of @code{fl-bridge} will change @code{burnable} according to the new
+flavor as well.
 
 @strong{Fireproof Items}
 

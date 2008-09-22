@@ -3,7 +3,7 @@
   <el:protected>
     <el:info el:type="library">
       <el:identity el:title="" el:id="lib/ralf"/>
-      <el:version el:score="1" el:release="1" el:revision="0" el:status="released"/>
+      <el:version el:score="1" el:release="1" el:revision="2" el:status="released"/>
       <el:author  el:name="Ralf Westram" el:email="amgine@reallysoft.de" el:homepage=""/>
       <el:copyright>Copyright © Feb 2003 Ralf Westram</el:copyright>
       <el:license el:type="GPL v2.0 or above" el:open="true"/>
@@ -18,6 +18,11 @@
     </el:info>
     <el:luamain><![CDATA[
 -- Thanks to ant
+
+-- Sep 08: Ensure that create_world is called only once.
+--         Use global variables to store world size.  -- Andreas
+
+ralf_world_created = false
 
 -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- --
 -- draw maps of maps (metamaps)
@@ -146,7 +151,13 @@ function rs_init_world(map, bordercell)
    --print("xlo="..xlo.." ylo="..ylo)
 
    local oxyd_flavor = oxyd_default_flavor
-   create_world(rworldw, rworldh)
+
+   if not ralf_world_created then
+     create_world(rworldw, rworldh)
+     ralf_world_created = true
+   else
+     error("Not allowed to recreate the world.")
+   end
    oxyd_default_flavor = oxyd_flavor
 end
 
