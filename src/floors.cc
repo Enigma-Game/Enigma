@@ -87,7 +87,7 @@ ecl::V2 Floor::process_mouseforce (Actor *a, ecl::V2 force) {
 
 void Floor::setAttr(const string& key, const Value &val)
 {
-    if (key == "mousefactor")
+    if (key == "adhesion")
         var_mousefactor = to_double(val);
     else if (key == "friction")
         var_friction = to_double(val);
@@ -97,6 +97,16 @@ void Floor::setAttr(const string& key, const Value &val)
         var_floorforce[1] = to_double(val);
     GridObject::setAttr(key, val);
 }
+
+    Value Floor::getAttr(const std::string &key) const {
+        if (key == "adhesion") {
+            return var_mousefactor;
+        } else if (key == "friction") {
+            return var_friction;
+        }
+        return GridObject::getAttr(key);
+
+    }
 
 void Floor::get_sink_speed (double &sinkspeed, double &raisespeed) const {
 //     sinkspeed = raisespeed = 0.0;

@@ -96,6 +96,7 @@ namespace enigma {
         void dispose();
         virtual Value message(const Message &m);
         virtual void setAttr(const string& key, const Value &val);
+        virtual Value getAttr(const std::string &key) const;
 
         // Floor interface
         virtual ecl::V2 process_mouseforce (Actor *a, ecl::V2 force);

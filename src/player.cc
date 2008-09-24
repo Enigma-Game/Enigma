@@ -548,7 +548,7 @@ void player::InhibitPickup(bool flag) {
 
 /*! Return pointer to inventory if actor may pick up items, 0
    otherwise. */
-Inventory *player::MayPickup(Actor *a, Item *it) 
+Inventory *player::MayPickup(Actor *a, Item *it, bool allowFlying) 
 {
     int iplayer=-1;
     if (Value v = a->getAttr("player")) iplayer = v;
@@ -559,7 +559,7 @@ Inventory *player::MayPickup(Actor *a, Item *it)
 
     Inventory *inv = GetInventory(iplayer);
     bool dont_pickup = players[iplayer].inhibit_pickup 
-        || a->is_flying()
+        || (!allowFlying && a->is_flying())
         || !inv->willAddItem(it)
         || a->is_dead();
 
@@ -580,7 +580,7 @@ void player::PickupItem (Actor *a, GridPos p)
 
 void player::PickupStoneAsItem (Actor *a, enigma::GridPos p) 
 {
-    if (Inventory *inv = MayPickup(a, GetField(p)->item)) 
+    if (Inventory *inv = MayPickup(a, GetField(p)->item, true)) 
     {
         if (Stone *stone = YieldStone(p)) 
         {

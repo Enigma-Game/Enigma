@@ -599,6 +599,9 @@ function enigma.SetAttrib(obj, key, val)
          else _val = "gc"
          end
      end
+     if key == "mousefactor" then
+         _key = "adhesion"
+     end
      enigma._SetAttrib(obj, _key, _val)
 end
 

@@ -120,10 +120,10 @@ function res.puzzle_newtile(key, template, suffix)
             end
         else
             if tile[1]:find("st_puzzle", 1, true) then
-                local clusteridx = ("01234456789"):find(suffix, 1, true)
+                local clusteridx = ("01234pqrstuvwxyz"):find(suffix, 1, true)
                 local connections = (" abcdefghijklmno"):find(suffix, 1 , true)
                 if  clusteridx == nil then
-                    clusteridx = (")!@#$%^&*("):find(suffix, 1, true)
+                    clusteridx = ("56789PQRSTUVWXYZ"):find(suffix, 1, true)
                     if clusteridx ~= nil then
                         tile["hollow"] = true
                     end
@@ -135,7 +135,11 @@ function res.puzzle_newtile(key, template, suffix)
                     end
                 end
                 if  clusteridx ~= nil then
-                    tile["cluster"] = clusteridx - 1
+                    if clusteridx < 6 then
+                        tile["cluster"] = clusteridx - 1
+                    else   -- pqr...xyz = 10...20
+                        tile["cluster"] = clusteridx + 4
+                    end
                 elseif connections ~= nil then
                     tile["connections"] = ({"","w","s","sw","e","ew","es","esw",
                             "n","nw","ns","nsw","ne","new","nes","nesw"})[connections]

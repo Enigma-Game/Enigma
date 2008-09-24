@@ -244,6 +244,7 @@ namespace enigma {
 
             moveCluster(!actor_with_wand, impulse.dir);
         }
+        propagateImpulse(impulse);
     }
 
     void PuzzleStone::on_move() {

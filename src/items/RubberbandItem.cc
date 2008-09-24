@@ -54,7 +54,15 @@ namespace enigma {
 
         sound_event ("rubberband");
         
-        if (anchor2 != a) { // It's not allowed to connect a rubberband to self.
+        bool alreadyConnected = false;
+        ObjectList rubbers = a->getAttr("rubbers");
+        for (ObjectList::iterator it =  rubbers.begin(); it != rubbers.end(); ++it) {
+            if (((Object *)(*it)->getAttr("anchor2")) == anchor2) {
+                alreadyConnected = true;
+                break;
+            }
+        }
+        if (!alreadyConnected && anchor2 != a) { // It's not allowed to connect a rubberband to self.
             Object *obj = MakeObject("ot_rubberband");
             obj->setAttr("anchor1", a);
             obj->setAttr("anchor2", anchor2);

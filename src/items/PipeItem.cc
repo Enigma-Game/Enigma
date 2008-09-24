@@ -52,7 +52,7 @@ namespace enigma {
                             case SOUTHBIT : move_dir = SOUTH; break;
                             case EASTBIT : move_dir = EAST; break;
                             case NORTHBIT : move_dir = NORTH; break;
-                            default : move_dir = NODIR; break;
+                            default : return GridPos(-1, -1);         // illegal position outside of world
                         }
                     } else
                         move_dir = NODIR;

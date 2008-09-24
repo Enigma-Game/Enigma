@@ -109,6 +109,20 @@ namespace enigma {
             if (otherAnchor != NULL) {
                 // add both anchors to each others fellows list
                 olist = newAnchor->getAttr("fellows");
+                ObjectList::iterator it = find(olist.begin(), olist.end(), otherAnchor);
+                if (it != olist.end()) {
+                    // we are a replacement wire for an already existing wire - remove it
+                    olist = newAnchor->getAttr("wires");
+                    for (ObjectList::iterator itr = olist.begin(); itr != olist.end(); ++itr) {
+                        Wire *w = dynamic_cast<Wire *>(*itr);
+                        if (w != NULL && (((Object *)(w->getAttr("anchor1")) == newAnchor &&  (Object *)(w->getAttr("anchor2")) == otherAnchor)
+                                || ((Object *)(w->getAttr("anchor2")) == newAnchor &&  (Object *)(w->getAttr("anchor1")) == otherAnchor)))
+                            KillOther(w);
+                            break;
+                    }
+                    // reload fellows
+                    olist = newAnchor->getAttr("fellows");
+                }
                 olist.push_back(otherAnchor);
                 newAnchor->setAttr("fellows", olist);
                 olist = otherAnchor->getAttr("fellows");

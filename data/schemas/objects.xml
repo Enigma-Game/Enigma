@@ -132,16 +132,17 @@
       <msg name="toggle"/>
     </object>
     <object name="fl" abstract="true">
+      <attr name="adhesion"/>
       <attr name="burnable"/>
       <attr name="eternal"/>
       <attr name="fastfire"/>
       <attr name="freeze_check"/>
+      <attr name="friction"/>
       <attr name="ignitable"/>
       <attr name="initfire"/>      
       <attr name="noash"/>
       <attr name="push_directions"/>
       <attr name="secure"/>
-      <msg name="expl"/>
       <msg name="heat"/>
       <msg name="forcefire"/>
       <msg name="ignite"/>
