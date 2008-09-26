@@ -205,10 +205,10 @@ void gametick(double dtime)
     player::Tick (time_accu);
     for (;time_accu >= timestep; time_accu -= timestep) {
         WorldTick (timestep);
-        if (lua::CallFunc (lua::LevelState(), "Tick", timestep, NULL) != 0) {
-            throw XLevelRuntime (string("Calling 'Tick' failed:\n")
-                                                + lua::LastError(lua::LevelState()));
-        }
+//        if (lua::CallFunc (lua::LevelState(), "Tick", timestep, NULL) != 0) {
+//            throw XLevelRuntime (string("Calling 'Tick' failed:\n")
+//                                                + lua::LastError(lua::LevelState()));
+//        }
     }
     TickFinished ();
 }

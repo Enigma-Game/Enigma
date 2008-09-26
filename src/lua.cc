@@ -1074,6 +1074,10 @@ static int dividePositions(lua_State *L) {
 
 static int gridAlignPosition(lua_State *L) {
     // position guaranteed
+    if (lua_gettop(L) < 1 || !is_position(L, 1)) {
+        throwLuaError(L, "Syntax error - usage of '.' instead of ':'");
+        return 0;        
+    }
     lua_getmetatable(L, 1);
     lua_rawgeti(L, -1, 1);
     lua_rawgeti(L, -2, 2);
@@ -1087,6 +1091,10 @@ static int gridAlignPosition(lua_State *L) {
 
 static int existsPosition(lua_State *L) {
     // position guaranteed
+    if (lua_gettop(L) < 1 || !is_position(L, 1)) {
+        throwLuaError(L, "Syntax error - usage of '.' instead of ':'");
+        return 0;        
+    }
     lua_getmetatable(L, -1);
     lua_rawgeti(L, -1, 1);
     lua_rawgeti(L, -2, 2);
@@ -1158,6 +1166,10 @@ static void setObjectAttributes(Object *obj, lua_State *L) {
 
 static int setAttributes(lua_State *L) {
     // 
+    if (lua_gettop(L) < 1 || !is_object(L, 1)) {
+        throwLuaError(L, "Syntax error - usage of '.' instead of ':'");
+        return 0;        
+    }
     Object *obj = to_object(L, 1);
     lua_rawgeti(L, -1, 1);  // check if any unnamed attribute exists
     if (!lua_isnil(L, -1)) {
@@ -1219,17 +1231,17 @@ static int getStoneItemFloor(lua_State *L, Object::ObjectType ot) {
     return 1;
 }
 static int getFloor(lua_State *L) {
-    // position|table|obj|(num,num)|group
+    // optional world, position|table|obj|(num,num)|group
     return getStoneItemFloor(L, Object::FLOOR);
 }
 
 static int getItem(lua_State *L) {
-    // position|table|obj|(num,num)|group
+    // optional world, position|table|obj|(num,num)|group
     return getStoneItemFloor(L, Object::ITEM);
 }
 
 static int getStone(lua_State *L) {
-    // position|table|obj|(num,num)|group
+    // optional world, position|table|obj|(num,num)|group
     return getStoneItemFloor(L, Object::STONE);
 }
 
@@ -1262,6 +1274,10 @@ static int killObjectBase(lua_State *L) {  // TODO Itemholder owner objects
 }
 
 static int killObject(lua_State *L) {
+    if (lua_gettop(L) < 1 || !(is_object(L, 1) || is_group(L, 1))) {
+        throwLuaError(L, "Syntax error - usage of '.' instead of ':'");
+        return 0;        
+    }
     if (lua_gettop(L) != 1) {
          throwLuaError(L, "Kill of object allows no arguments");
          return 0;
@@ -1282,6 +1298,10 @@ static int killObject(lua_State *L) {
 
 static int xyObject(lua_State *L) {
     // object guaranteed
+    if (lua_gettop(L) < 1 || !is_object(L, 1)) {
+        throwLuaError(L, "Syntax error - usage of '.' instead of ':'");
+        return 0;        
+    }
     Object *obj = to_object(L,1);
     GridPos  p;
     if (GridObject *gobj = dynamic_cast<GridObject*>(obj)) {
@@ -1307,6 +1327,10 @@ static int objectEquality(lua_State *L) {
 
 static int objectExistance(lua_State *L) { 
     // object type is guaranteed
+    if (lua_gettop(L) < 1 || !is_object(L, 1)) {
+        throwLuaError(L, "Syntax error - usage of '.' instead of ':'");
+        return 0;        
+    }
     Object * obj = to_object(L, 1);
     lua_pushboolean(L, (obj != NULL));
     return 1;
@@ -1314,6 +1338,10 @@ static int objectExistance(lua_State *L) {
 
 static int objectGetKind(lua_State *L) { 
     // object type is guaranteed
+    if (lua_gettop(L) < 1 || !is_object(L, 1)) {
+        throwLuaError(L, "Syntax error - usage of '.' instead of ':'");
+        return 0;        
+    }
     Object * obj = to_object(L, 1);
     lua_pushstring(L, (obj != NULL) ? obj->getKind().c_str() : "");
     return 1;
@@ -1321,6 +1349,10 @@ static int objectGetKind(lua_State *L) {
 
 static int objectIsKind(lua_State *L) { 
     // object type is guaranteed
+    if (lua_gettop(L) < 1 || !is_object(L, 1)) {
+        throwLuaError(L, "Syntax error - usage of '.' instead of ':'");
+        return 0;        
+    }
     Object * obj = to_object(L, 1);
     if (!lua_isstring(L, 2)) {
         throwLuaError(L,"Illegal kind - no string");
@@ -1362,6 +1394,10 @@ static int objectMessageBase(lua_State *L) {
 }
 
 static int objectMessage(lua_State *L) {
+    if (lua_gettop(L) < 1 || !is_object(L, 1)) {
+        throwLuaError(L, "Syntax error - usage of '.' instead of ':'");
+        return 0;        
+    }
     if (lua_gettop(L) < 2) {
         throwLuaError (L, "Message missing");
         return 0;
@@ -1372,6 +1408,10 @@ static int objectMessage(lua_State *L) {
 }
 
 static int groupMessage(lua_State *L) {
+    if (lua_gettop(L) < 1 || !is_group(L, 1)) {
+        throwLuaError(L, "Syntax error - usage of '.' instead of ':'");
+        return 0;        
+    }
     if (lua_gettop(L) < 2) {
         throwLuaError (L, "Message missing");
         return 0;
@@ -1611,6 +1651,10 @@ static int dispatchObjectWriteAccess(lua_State *L){
 
 static int xyPosition(lua_State *L) {
     // position guaranteed
+    if (lua_gettop(L) < 1 || !is_position(L, 1)) {
+        throwLuaError(L, "Syntax error - usage of '.' instead of ':'");
+        return 0;        
+    }
     lua_getmetatable(L, 1);            
     lua_rawgeti(L, -1, 1);
     lua_rawgeti(L, -2, 2);
@@ -2297,6 +2341,10 @@ static int pushNewWorld(lua_State *L) {
 
 static int addOther(lua_State *L) {
     // world, table | tile
+    if (lua_gettop(L) < 1 || !is_world(L, 1)) {
+        throwLuaError(L, "Syntax error - usage of '.' instead of ':'");
+        return 0;        
+    }
     if (is_tile(L, 2)  || is_table(L, 2)) {
         if (is_table(L, -1))
             setObjectByTable(L, -1, -1);
@@ -2310,6 +2358,10 @@ static int shuffleOxyd(lua_State *L) {
     // world, {table}  -- table with 1=(group|obj|name), [2=(group|obj|name], 
     //                               min=[number], max=[number], circular=true, linear=true
     //                               log=("solution"|"count"|"all") 
+    if (lua_gettop(L) < 1 || !is_world(L, 1)) {
+        throwLuaError(L, "Syntax error - usage of '.' instead of ':'");
+        return 0;        
+    }
     OxydStone::LogType logFlag = OxydStone::NOTHING;
     for (int i = 2; i <= lua_gettop(L); i++) {
         if (!is_table(L, i)) {
@@ -2501,9 +2553,9 @@ static int tileDeclForTile(lua_State *L, bool isTop = false) {
 
 static int tileDeclaration(lua_State *L) {
     // tile
-    if (lua_gettop(L) != 1) {
-        throwLuaError(L, "Tile declaration with illegal arguments");
-        return 0;
+    if (lua_gettop(L) != 1 || !is_tile(L, 1)) {
+        throwLuaError(L, "Tile declaration with illegal arguments: possible syntax error - usage of '.' instead of ':'");
+        return 0;        
     }
     lua_newtable(L); // the result
     tileDeclForTile(L, true);
@@ -2706,6 +2758,10 @@ static int iteratorGroup(lua_State *L) {
 
 static int shuffleGroup(lua_State *L) {
     // group
+    if (lua_gettop(L) < 1 || !is_group(L, 1)) {
+        throwLuaError(L, "Syntax error - usage of '.' instead of ':'");
+        return 0;        
+    }
     ObjectList oldSort = toObjectList(L, 1);
     ObjectList newSort;
     std::vector<Object *> shuffleVector;
@@ -3019,29 +3075,54 @@ bool IsFunc(lua_State *L, const char *funcname) {
     return result;
 }
 
-Error CallFunc(lua_State *L, const char *funcname, const Value& arg, Object *obj) {
+Error CallFunc(lua_State *L, const std::string funcpath, const Value& arg, Object *obj, bool expectFunction) {
     int retval;
-    lua_getglobal(L, funcname);
-    push_value(L, arg);
-    pushobject(L, obj);
-    retval=lua_pcall(L,2,0,0);
-    if (retval!=0) // error
-    {
-        lua_setglobal (L, "_LASTERROR") ; //Set _LASTERROR to returned error message
+    const char *funcname = funcpath.c_str();
+    
+    if (funcpath.find('.')) {
+        std::list<std::string> nodes;
+        ecl::split_copy(funcpath, '.', std::back_inserter(nodes));
+        for (std::list<std::string>::iterator itr = nodes.begin(); itr != nodes.end();) {
+            if (itr == nodes.begin()) {
+                lua_getglobal(L, (*itr).c_str());
+            } else {
+                lua_getfield(L, -1, (*itr).c_str());
+                lua_remove(L, -2);
+            }
+            ++itr;
+            if (itr != nodes.end() && !lua_istable(L, -1)) {
+                if (expectFunction) {
+                    lua_pushstring(L, ecl::strf("Super domain of '%s' is not a table!", (*itr).c_str()).c_str());
+                    lua_setglobal(L, "_LASTERROR");
+                    return ERRRUN;
+                } else {
+                    lua_pop(L, 1);
+                    return NO_LUAERROR;
+                }
+            }
+        }
+    } else {
+        lua_getglobal(L, funcname);
     }
-    return _lua_err_code(retval);
-}
-
-Error CallFunc(lua_State *L, const char *funcname, const ByteVec& arg) {
-  int retval;
-    lua_getglobal(L, funcname);
-    lua_pushlstring (L, &arg[0], arg.size());
-    retval=lua_pcall(L,1,0,0);
-    if (retval!=0) // error
-    {
-        lua_setglobal (L, "_LASTERROR") ; //Set _LASTERROR to returned error message
+    
+    if (lua_isfunction(L, -1)) {
+        push_value(L, arg);
+        pushobject(L, obj);
+        retval = lua_pcall(L, 2, 0, 0);
+        if (retval != 0)  {  // error
+            lua_setglobal(L, "_LASTERROR") ; //Set _LASTERROR to returned error message
+        }
+        return _lua_err_code(retval);
+    } else {
+        if (expectFunction) {
+            lua_pushstring(L, "No function of given name exists.");
+            lua_setglobal(L, "_LASTERROR");
+            return ERRRUN;
+        } else {
+            lua_pop(L, 1);
+            return NO_LUAERROR;
+        }
     }
-    return _lua_err_code(retval);
 }
 
 std::string NewMessageName(lua_State *L, const Object *obj, const std::string &message) {

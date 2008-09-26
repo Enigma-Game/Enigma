@@ -91,11 +91,7 @@ namespace enigma { namespace lua {
     
     /*! Call a Lua function with one argument.  This is mainly used
       for callbacks during the game. */
-    Error CallFunc(lua_State *L, const char *funcname, const enigma::Value& arg, Object *obj);
-
-    /*! Call a Lua function with a (large) byte vector as the sole
-      argument.  Currently only used for loading XML levels. */
-    Error CallFunc (lua_State *L, const char *funcname, const ByteVec &arg);
+    Error CallFunc(lua_State *L, std::string funcpath, const enigma::Value& arg, Object *obj, bool expectFunction = true);
     
     std::string NewMessageName(lua_State *L, const Object *obj, const std::string &message);
     

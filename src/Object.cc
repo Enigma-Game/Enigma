@@ -307,10 +307,10 @@ namespace enigma {
             
             ObjectList ol = (*tit).getObjectList(this);  // get all or nearest objects described by target token
             if (ol.size() == 0 || (ol.size() == 1 && ol.front() == NULL)) {  // no target object
-                if ((action == "callback" || action == "") && (tit->getType() == Value::STRING) 
-                        && lua::IsFunc(lua::LevelState(), tit->get_string())) {
+                if ((action == "callback" || action.empty()) && (tit->getType() == Value::STRING)) { 
+//                        && lua::IsFunc(lua::LevelState(), tit->get_string())) {
                     // it is an existing callback function
-                    if (lua::CallFunc(lua::LevelState(), tit->get_string(), messageValue, this) != lua::NO_LUAERROR) {
+                    if (lua::CallFunc(lua::LevelState(), tit->get_string(), messageValue, this, !action.empty()) != lua::NO_LUAERROR) {
                         throw XLevelRuntime(std::string("callback '") + tit->get_string() + "' failed:\n"+lua::LastError(lua::LevelState()));
                     }
                 }
