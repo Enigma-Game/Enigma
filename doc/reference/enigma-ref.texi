@@ -5608,6 +5608,7 @@ cutting all @ref{wires} and @ref{rubbers} that are connected to it.
 * MagnetRange:: 
 * MagnetStrength::
 * MaxOxydColor::
+* MeditationStrength::
 * ProvideExtralifes::
 * ShowMoves::
 * SurviveFinish::
@@ -5819,6 +5820,21 @@ A global variable that limits the number of colors assigned to autocolored
 @item @b{Support:} @ @ @ref{st_oxyd}
 @end table
 
+@node MeditationStrength
+@subsection MeditationStrength
+
+A global scalar default factor for @ref{it_meditation} slope forces. Positive
+numbers are downhill forces that let actors roll into dents and hollows and roll
+down from hills and bumps. 
+
+@table @asis
+@item @b{Type:} @ @ number
+@item @b{Values:} @ @ float number
+@item @b{Default:} @ @ @code{1.0}
+@item @b{Access:} @ @ read/write
+@item @b{Support:} @ @ @ref{it_meditation}
+@end table
+
 @node ProvideExtralifes
 @subsection ProvideExtralifes
 
@@ -5915,6 +5931,87 @@ Positive number are attracting, negative numbers are repelling.
 
 @node Floor Objects
 @chapter Floor Objects
+
+@menu
+* Special Floors:: 
+@end menu
+
+@node Special Floors
+@section Special Floors
+
+@menu
+* fl_bridge::         Abyss Bridge
+@end menu
+
+@c ----------------- Bridge Floor -------------------- 
+@node fl_bridge
+@subsection fl_bridge
+@obindex fl_bridge
+
+A bridge is a variable floor that can be passed when being @code{CLOSED} but
+being unpassable for marbles like @ref{fl_abyss} when being opened. Floor
+bridges come in several flavors. They can be grey or wooden brown, they can
+pop up in the center or emerge from one side. The flavor string is a combination
+of a color character and a emerging direction character. Note that not all
+combination do exist.
+
+Bridges can be opened and closed via messages and state set operations like
+@ref{st_door}.
+
+But a unique feature of bridges is to close on a solid stone being pushed onto
+them. Thus stones do not fall into the visible abyss of an opened bridge, but
+can be pushed over them. But as soon as the stone leaves the bridge it openes
+again. Thus a user will notice the closing and opening bridge on stone pushes.
+
+To be more precise after a stone leaving a bridge, it switches into the state
+that it would have had if the stone would never have been on top of it. That
+means that if a stone gets pushed onto an open bridge and the bridge receives
+a @code{"close"} or @code{"toggle"} message while the stone is being on top the
+bridge remains closed when the stone is pushed away.
+
+A bridge being set adjusts its state according to the @ref{Snapshot Principle}.
+It checks for solid stones being on top of it and auto closes accordingly.
+
+@table @asis
+
+@item @b{Attributes:}
+
+@table @asis
+@item @b{state}, @ @ @i{values}: @code{CLOSED}, @code{OPEN}; @ @ @i{default}: @code{OPEN} @ @ @xref{state}
+The state as visible and responsible for the actor ability to pass.
+@item @b{flavor}, @ @ @i{values}: @code{"gc"}, @code{"bw"}, @code{"bn"}; @ @ @i{default}: @code{"gc"}
+The type of the bridge.
+@end table
+
+@item @b{Messages:}
+@table @asis
+@item @b{open} @ @ @xref{open}
+Opens a closed bridge that is not covered by a solid stone. Otherwise the 
+explicit open request will be registered and executed as soon as the stone
+is pushed away.
+@item @b{close} @ @ @xref{close}
+Closes an open bridge. If the bridge is already closed by a covering solid
+stone, the request will be registered and the bridge will not open when the
+stone is pushed away.
+@item @b{signal} @ @ @xref{signal}
+A signal of value 1 sends an open message, a signal of value 0 sends a close
+message.
+@item @b{toggle} @ @ @xref{toggle}
+A toggle causes a change of the state if no stone is on top, or the registered
+explicit state if a solid stone currently covers the bridge.
+@end table
+
+
+@item @b{Variants:}
+@table @asis
+@item @b{fl_bridge} flavor = @code{"gc"}
+@item @b{fl_bridge_gc} flavor = @code{"gc"}
+@item @b{fl_bridge_bw} flavor = @code{"bw"}
+@item @b{fl_bridge_bn} flavor = @code{"bn"}
+@end table
+
+@end table
+
 @c ===================  Items  =======================
 
 @node Item Objects
@@ -5942,6 +6039,7 @@ Positive number are attracting, negative numbers are repelling.
 * it_landmine::        
 * it_magicwand::       Wizards Tools
 * it_magnet::          
+* it_meditation::      
 * it_pipe::            
 * it_rubberband::      
 * it_seed::            Seeds for Wood, Volcano Stones
@@ -6460,54 +6558,87 @@ A magnet in state @samp{OFF}.
 
 @end table
 
-@c ----------------- Seed Item -------------------- 
-@node it_seed
-@subsection it_seed
-@obindex it_seed
+@c ----------------- Meditation Item -------------------- 
+@node it_meditation
+@subsection it_meditation
+@obindex it_meditation
 
-Stone seeds are items that start growing and finally transforming to stones
-on activation. There are different @samp{flavor}s of seeds that all look the
-same, but do grow to different stones. While a @samp{wood} seed grows to an
-@ref{st_wood}, a @samp{fake} seed grows to an unmovable green brown stone and
-a @samp{volcano} seed grows to an active @ref{st_volcano}.
+Meditation items are small round areas of flatness imperfection. All actors will
+experience the slope forces that can be modified by the global scalar factor
+@ref{MeditationStrength}. There are different shapes of meditation items that 
+are named according to their shape: @code{MEDITATION_CALDERA}, 
+@code{MEDITATION_HOLLOW}, @code{MEDITATION_DENT}, @code{MEDITATION_BUMP}, 
+@code{MEDITATION_HILL}, @code{MEDITATION_VOLCANO}.
 
-Seeds can be dropped on any item free grid position, even beneath another stone
-that will get killed by the seed successor stone.
+Of special interest are @ref{ac_marble_meditation}s resting on a meditation 
+item. They are counted as meditating after staying continuously for one second
+within the round area of the item. One of the two @ref{Ending Conditions} of the
+game is that all meditation marbles come to rest on mediation items.
 
-Seeds get automatically activated when being dropped, when hit by a laser beam
-or a stone being pushed on them. You can activate them by @samp{grow} and
-@samp{signal} messages, too.
+As meditation items can dynamically be generated during the game by exploding
+@ref{it_landmine} or @ref{it_dynamite} it may be necessary for an author to
+mark those meditation items that are required to be filled with meditation
+marbles. You do this by setting the @samp{essential} attribute to @code{true}.
+Please make rare and obvious usage of this attribute, as the player can not 
+distinguish essential from not essential meditation items by their images.
 
-The identity of the seed gets transfered to the emerging stone including the
-attribute @samp{secure}.
+Meditation items can transform into other shapes by various means. 
 
-The only method of handling seeds without activation are containment within a
-@ref{it_bag} or sending them via @ref{st_mail} to a destination grid.
+First a user can push a solid stone over a meditation item or activate an 
+@ref{it_shovel} on it. Both actions flatten the meditation, either
+@code{MEDITATION_VOLCANO} -> @code{MEDITATION_HILL} -> @code{MEDITATION_BUMP}
+-> @code{it_nil} or @code{MEDITATION_CALDERA} -> @code{MEDITATION_HOLLOW} ->
+@code{MEDITATION_DENT} -> @code{it_nil}.
+
+Secondly you can send a @code{"flip"} message to a meditation item which 
+transforms hollow like items into their hill like counterparts and vice versa:
+@code{MEDITATION_VOLCANO} <-> @code{MEDITATION_CALDERA}, @code{MEDITATION_HILL} 
+<-> @code{MEDITATION_HOLLOW}, @code{MEDITATION_BUMP} <-> @code{MEDITATION_DENT}.
+
+Third a @code{"signal"} messages flips on a @code{1} value all meditations to
+their hill like counterparts, keeping hill like meditations unchanged, and on a
+@code{0} value to their hollow like counterparts, keeping hollow like meditations
+unchanged.
+
+A fourth message is @code{"toggle"}. It transforms @code{MEDITATION_HOLLOW} <->
+@code{MEDITATION_VOLCANO}, @code{MEDITATION_CALDERA} <-> @code{MEDITATION_HILL},
+@code{MEDITATION_BUMP} <-> @code{MEDITATION_DENT}.
+
+Of course you can change the state by attribute setting anytime in any sequence
+you like. Essentialness is kept on shape transformations and mediation actor
+counting is updated and continues.
 
 @table @asis
 @item @b{Attributes:}
 @table @asis
-@item @b{flavor}, @ @ @i{values}: @code{"wood"}, @code{"fake"}, @code{"volcano"}; @ @ @i{default}: @code{"wood"}
-The type of the resulting stone.
-@item @b{secure} @ @ @i{values}: @code{true}, @code{false}; @ @ @i{default}: @code{false}
-This attribute is transfered to the resulting stone. The @ref{st_volcano} makes
-use of it.
+@item @b{state}, @ @ @i{values}: @code{MEDITATION_CALDERA}, @code{MEDITATION_HOLLOW}, @code{MEDITATION_DENT}, @code{MEDITATION_BUMP}, @code{MEDITATION_HILL}, @code{MEDITATION_VOLCANO}; @ @ @i{default}: @code{MEDITATION_HOLLOW} @ @ @xref{state}
+The shape of the meditation.
+@item @b{essential} @ @ @i{values}: @code{true}, @code{false}; @ @ @i{default}: @code{false}
+Essentialness of being filled with a meditation marble to fulfill the 
+@ref{Ending Conditions}.
 @end table
 
-@item @b{Messages:} none
+@item @b{Messages:}
 @table @asis
-@item @b{grow}
-Start growing the seed.
+@item @b{flip}
+Shape transformation. See text above.
+@item @b{shovel}
+Shape transformation like an activated @ref{it_shovel}. See text above.
 @item @b{signal} @ @ @xref{signal}
-Start growing the seed.
+Shape transformation. See text above.
+@item @b{toggle}
+Shape transformation. See text above.
 @end table
 
 @item @b{Variants:}
 @table @asis
-@item @b{it_seed} flavor = @code{"wood"}
-@item @b{it_seed_wood} flavor = @code{"wood"}
-@item @b{it_seed_fake} flavor = @code{"fake"}
-@item @b{it_seed_volcano} flavor = @code{"volcano"}
+@item @b{it_meditation} state = @code{MEDITATION_HOLLOW}
+@item @b{it_meditation_caldera} state = @code{MEDITATION_CALDERA}
+@item @b{it_meditation_hollow} state = @code{MEDITATION_HOLLOW}
+@item @b{it_meditation_dent} state = @code{MEDITATION_DENT}
+@item @b{it_meditation_bump} state = @code{MEDITATION_BUMP}
+@item @b{it_meditation_hill} state = @code{MEDITATION_HILL}
+@item @b{it_meditation_volcano} state = @code{MEDITATION_VOLCANO}
 @end table
 
 @end table
@@ -6643,7 +6774,7 @@ This attribute is transfered to the resulting stone. The @ref{st_volcano} makes
 use of it.
 @end table
 
-@item @b{Messages:} none
+@item @b{Messages:}
 @table @asis
 @item @b{grow}
 Start growing the seed.
@@ -7354,6 +7485,7 @@ to use @samp{st_panel} with the attributes @samp{cluster} and @samp{faces}.
 * st_oxyd::            Game Target Stone
 * st_polarswitch::     Transparency Switch for Light Beams
 * st_pull::            Pullable Stone
+* st_puzzle::          Clusterable Puzzle Stones
 * st_rotator::         Rotating Stone Impulser
 * st_rubberband::      Rubberband generator
 * st_scissors::        Scissors cutting rubberbands
@@ -7586,11 +7718,11 @@ The brake stone can be used to block a running @ref{st_boulder} or a
 all other blocking stones the brake can be picked up as an item by actors and
 dropped anywhere else.
 
-When an actor passes below the brake stone it will pick up the object like
-other items. The brake will be added as an @ref{it_brake} to its inventory. 
-Unlike other items the brake can be dropped even on grids that are already
-occupied by an item. But you can not drop the brake beneath another stone like
-a @ref{it_seed}.
+When an actor passes an brake stone, rolling on the floor or while jumping, it
+will pick up the object like other items. The brake will be added as an
+@ref{it_brake} to its inventory. Unlike other items the brake can be dropped 
+even on grids that are already occupied by an item. But you can not drop the
+brake beneath another stone like a @ref{it_seed}.
 
 On dropping the brake item it transforms immediatly back to an @ref{st_brake}
 without killing the item positioned on the grid. Just one exception is a brake
@@ -7694,6 +7826,13 @@ interval runs off while the next coin did not yet finish its insertion the
 coinslot will first switch @samp{OFF} and switch @samp{ON} when the next coin
 is completly inserted.
 
+The acticity interval of a coin insertion depends on the type of the coin. For
+each type you can set the interval by the @samp{interval_*} attributes. You
+can reject the insertion of a coin type by setting its interval to 
+@samp{COIN_REJECT}. The coin will not be taken from the players inventory. By
+a value of @samp{COIN_IGNORE} on the interval attribute the coinslot will fetch
+the coin but will not act at all.
+
 Coinslots configured as @samp{instant} do activate immediatly when the actor
 hits the stone. On every actor hit a coin is inserted independent of the last
 insertion.
@@ -7710,11 +7849,11 @@ Current activity state of the coinslot.
 @item @b{instant} @ @ @i{values}: @code{true}, @code{false}; @ @ @i{default}: @code{false}
 A default coinslot switches to active state after insertion of a coin and allows
 the insertion of just one coin at a time.
-@item @b{interval_s} @ @ @i{values}: positive number; @ @ @i{default}: @code{3.0}
+@item @b{interval_s} @ @ @i{values}: positive number, @code{COIN_REJECT}, @code{COIN_IGNORE}; @ @ @i{default}: @code{3.0}
 Number of additional active seconds on insertion of a small @ref{it_coin}.
-@item @b{interval_m} @ @ @i{values}: positive number; @ @ @i{default}: @code{6.0}
+@item @b{interval_m} @ @ @i{values}: positive number, @code{COIN_REJECT}, @code{COIN_IGNORE}; @ @ @i{default}: @code{6.0}
 Number of additional active seconds on insertion of a medium @ref{it_coin}.
-@item @b{interval_l} @ @ @i{values}: positive number; @ @ @i{default}: @code{12.0}
+@item @b{interval_l} @ @ @i{values}: positive number, @code{COIN_REJECT}, @code{COIN_IGNORE}; @ @ @i{default}: @code{12.0}
 Number of additional active seconds on insertion of a large @ref{it_coin}.
 @end table
 
@@ -8305,7 +8444,10 @@ Switch the lightpassenger off.
 When hit by an actor, a mail stone takes the first item out of the player's
 inventory and drops it at its exit, or the exit of the appending @ref{it_pipe}. 
 If this position is blocked (e.g., by another item), no item is taken from
-inventory.
+inventory. The @ref{it_brake} is the only item that gets delivered even if 
+another item is positioned at the end of the pipe as it emerges the pipe as an
+@{st_brake} stone. An @ref{it_pipe} end piece with just one fitting connection
+closes a mail pipe completely, rejecting any item insertion.
 
 @table @asis
 @item @b{Attributes:}
@@ -8727,6 +8869,145 @@ grid to the next.
 
 @end table
 
+@c ----------------- Puzzle Stone -------------------- 
+@node st_puzzle
+@subsection st_puzzle
+@obindex st_puzzle
+
+Puzzle stones can construct large clusters of stones, that move together and can
+be destroyed together. There are two colors, blue and yellow puzzle stones, 
+which behave different. Each of these color families again consists of 16
+variants that differ in the location of sockets to which neighboring puzzle 
+stones can be attached. Furtheron there are hollow variants of all colors and
+connections.
+
+A cluster is complete as soon as all sockets of all stones are connected to
+matching sockets of adjacent puzzle stones of the same color, but independent
+of being hollow or solid. A cluster fragment still has at least one stone with
+an open stub. A single puzzle stone with no open sockets counts as a complete
+cluster.
+
+Puzzle stone offer manifold features. A complete cluster can explode and 
+dissolve. Cluster fragments and complete clusters can move and will sink on some
+floors building bridges. Rows and columns of adjacent, identical colored puzzle
+stones, connected and unconnected ones, can shift rotate thus allowing the 
+player to rearrange and sort the puzzle.
+
+Blue puzzle stones can be moved as single stones, cluster fragements and 
+complete clusters by an actor pushing or a stone impulse by @ref{ot_wire} or
+@ref{st_stoneimpulse}. Of course all new positions of the moving puzzle must be
+free of other stones. If all new positions are @ref{fl_water} the blue puzzle
+will sink and leave @ref{fl_gray} thus building a bridge over water. If all new
+positions are @ref{fl_abyss} just complete blue clusters will sink and build
+a bridge. If all new positions are either abyss or water with at least one
+abyss floor just complete blue clusters will sink. Note that puzzles just sink
+on moves. Moving a blue fragment besides another fragment on abyss so that both
+fragments build a complete cluster will not sink the new cluster. It will sink
+on the next move. If two or more stones of a cluster are connected by a wire
+which all send move impulses by the same event, the cluster will move multiple
+times. But it will sink on the first opportunity.
+
+Just single unconnected yellow puzzle stones can be moved by actors. Any yellow
+cluster of 2 or more stone can not moved by actor hits. But on stone impulses
+they move like blue puzzles with the exception that just complete yellow clusters
+will sink on water.
+
+All puzzle stone moves do not cause standard item transformations, like 
+@ref{it_coin} value changes, @ref{it_bomb} explosions, etc. But they all are not
+floating and thus do press @ref{it_trigger}s and close @ref{fl_bridge}s.
+
+Hollow puzzle stones let pass actors, either moving on the floor or jumping,
+and laser light without any interaction, too.
+
+Complete clusters can explode and dissolve. A precondition is that the cluster
+is isolated from any adjacent, same colored further puzzle stone. Such clusters
+explode on an additional new laser beam hitting one of its solid stones. Yellow
+ones explode on any actor hit. Blue ones only on actor hits with a revealed 
+@ref{it_magicwand}.
+
+Exploding puzzles will stay on place and do not interact any more. The exploding
+stones are leathal for actors hitting them, but an actor can start an explosion
+beneath a hollow puzzle stone and stay beneath this hollow exploding stone
+without harm until the puzzle dissolved.
+
+Puzzles can be rearranged by column and row rotations. Blue puzzle react just
+on actor hits with a revealed wand, yellow ones on any actor hit. All colors
+do rotate on laser light hits. All rotations can originate only on a solid
+puzzle stone. All subsequent puzzle stones of the same color will shift away
+with the last puzzle of the line returning to the origin. This operation is
+called @code{"push_rotate"} and can be initiated by a message, too.
+
+In case of actor hits possible explosions preceed moves, which preceed rotation
+operations. Thus you need to touch a blue puzzle row carefully with a revealed
+wand if the row is part of a movable cluster fragment. If the speed is 
+sufficient for a hit operation, the cluster will move instead of an expected
+row rotation.
+
+Like @ref{Cluster Stone}s puzzle accept a @samp{cluster} attribute. A new set
+puzzle stone autoconnects to adjacent, same colored puzzle stones belonging to
+the same cluster. But once set the puzzle stone will of course not change its 
+connections on subsequent moves or rotations. But as a level author you need to 
+think of possible puzzle stones pushed to positions neighboring an area on which
+a puzzle might be set during the running game. The new set stones may 
+autoconnect to such unexpected stones if the color and cluster number fits.
+
+The resolver @ref{res.puzzle} provides easy methods to set and shuffle puzzles.
+The attributes @samp{algorithm} and @samp{intensity} are used by the resolver
+only.
+
+If you need to shuffle a puzzle of your own, you can make use of the messages
+@samp{get_adjacents} which returns the group of color matching, adjacent puzzle 
+stones, and @samp{push_rotate} which is the exact invertion of a push rotation.
+
+@table @asis
+@item @b{Attributes:} none
+@item @b{color} @ @ @i{values}: @code{BLUE}, @code{YELLOW}; @ @ @i{default}: @code{BLUE}
+The color of the puzzle stubs. Adjacent puzzle stones of matching colors and
+connections cluster to fragments.
+
+@item @b{connections}, @ @ @i{values}: string; @ @ @i{default}: @code{nil}
+Describes the connection stubs of the puzzle stone. The string is a substring
+of @code{"nesw"} listing the stubs. The sequence of the sides, north, east, 
+south, west, is guaranteed on read access but arbitrary on write access.
+
+@item @b{cluster} @ @ @i{values}: number; @ @ @i{default}: @code{nil}
+If set to a number all adjacent puzzle stones of the same color with
+the identical cluster number will build a cluster. This attribute superceds
+any explicitly given connection description.
+
+@item @b{hollow} @ @ @i{values}: @code{true}, @code{false}; @ @ @i{default}: @code{false}
+A hollow puzzle stone has a hole in its middle and allows actors to pass beneath.
+
+@item @b{algorithm}, @ @ @i{values}: string; @ @ @i{default}: @code{nil}
+
+@item @b{intensity} @ @ @i{values}: number; @ @ @i{default}: @code{3}
+
+@item @b{Messages:}
+@table @asis
+@item @b{get_adjacents}
+Returns the huddle of all adjacent puzzle stones of same color independent of
+being connected or not. The huddle is returned as a group.
+@item @b{pull_rotate}, @ @ @i{value type}: direction
+Perform a reverse @samp{push_rotate} from this puzzle stone with the line
+of puzzle stone into the given direction.
+@item @b{push_rotate}, @ @ @i{value type}: direction
+Perform a line rotation as described above from this puzzle stone with the line
+of puzzle stone into the given direction.
+
+@end table
+
+@item @b{Action:} none
+
+@item @b{Variants:}
+
+@table @asis
+@item @b{st_puzzle}: color = @code{BLUE}
+@item @b{st_puzzle_blue}: color = @code{BLUE}
+@item @b{st_puzzle_yellow}: color = @code{YELLOW}
+@end table
+
+@end table
+
 @c ----------------- Rotator Stone -------------------- 
 @node st_rotator
 @subsection st_rotator
@@ -8849,9 +9130,8 @@ Thus the player is always aware of the stack of shogun stones positioned on a
 single grid.
 
 An actor or a stone impulse hitting a shogun stack will push the smallest shogun 
-out of the stack. The upper and larger shogun stones can only be moved out of
-a stack by a @ref{ot_wire} impulse. But larger shoguns stones can never be 
-pushed over smaller ones.
+out of the stack. The upper and larger shogun stones can never be moved out of
+a stack and larger shoguns stones can never be pushed over smaller ones.
 
 @ref{it_shogun} are a special trigger type for shogun stones represented by 
 animated blue dots. They just react on shogun stacks positioned on top of the
@@ -9509,6 +9789,9 @@ A single stone can be wired to many other stones. All these @ref{fellows} will
 move on an impulse. But the impulses will not be propagated to further stones
 that are wired themselves to any of the fellows. Just the direct wired stones
 will move.
+
+But you can wire to stones just once. Any subsequent additional wire between
+two already wired stones will cut the old wire prior establishing the new one.
 
 You can request the wires connected to a stone by the stones @ref{wires} 
 attribute. As it is tedious to evaluate both anchors, every stone supports
@@ -10926,6 +11209,7 @@ shared pairs of oxyds do exist.
 * res.autotile::  Generate tiles from given template declarations
 * res.composer::  Compose tiles from given base tiles
 * res.maze::      Generate arbitrarly chaped mazes
+* res.puzzle::    Generate puzzle tiles and shuffle resulting puzzle clusters
 * res.random::    Choosing random tiles in a given distribution
 @end menu
 
@@ -11154,6 +11438,172 @@ w, h = wo(resolver, "  ", @{
 
 @node res.maze
 @subsection res.maze
+
+
+@c ----------------- Puzzle Resolver -------------------- 
+
+@node res.puzzle
+@subsection res.puzzle
+
+The puzzle resolver helps you to reduce the number of required tile declarations
+for clusters of @ref{st_puzzle} stones. By usage of the @samp{cluster} attribute
+of @ref{st_puzzle} you can easily set clusters of fully connected stones. But
+for irregular, internally just partial connected puzzles you often need a bunch
+of similar tile declarations that differ just in the @samp{connections} attribute
+value. 
+
+@example
+ti["B1"] = @{"st_puzzle_blue", cluster=1@} 
+ti["Ba"] = @{"st_puzzle_blue", connections="w"@} 
+ti["Bb"] = @{"st_puzzle_blue", connections="sw"@} 
+ti["Bd"] = @{"st_puzzle_blue", connections="ew"@} 
+ti["Bh"] = @{"st_puzzle_blue", connections="n"@} 
+@end example
+
+Like @ref{res.autotile} this resolver offers autotiling. You just define one
+template tile and can use all connections variations
+
+@example
+ti["B"] = @{"st_puzzle_blue"@} 
+@end example
+
+Additonally this resolver registers every puzzle stone set and allows you to
+shuffle the puzzle clusters. You can even select shuffle algorithms and define
+accessible sides of a puzzle.
+
+@table @asis
+@item @b{Location:}
+This resolver is part of the library @samp{libpuzzle} as of release 3. You can
+use it by adding the following dependency to your level @ref{<compatibility>}
+declaration:
+@example
+<el:dependency el:path="lib/libpuzzle" el:id="lib/libpuzzle" el:release="3" el:preload="true"/>
+@end example
+
+@item @b{Syntax:}
+
+@b{res.puzzle}(@i{subresolver}, @i{rules})
+
+@table @asis
+@item @i{subresolver}
+Resolver to which unresolved requests should be forwarded. May be @samp{ti}
+as the final resolver of the resolver chain.
+@item @i{rules} = @i{rule}, @i{rule},...
+One rule or as many as you like, all seperated by a comma.
+@item @i{rule}
+The string of the template tile key that is the common tile key prefix for all
+autogenerated tile declarations.
+@end table
+
+@item @b{Syntax Samples:}
+@example
+res.puzzle(ti, "B", "Y", "I", "M")
+@end example
+
+@item @b{Details:}
+The puzzle resolver assumes a tile key length of two or more characters. The
+given rules are prefix strings which need concat with a one character suffix
+to a standard tile key. Given a rule with a proper template rule you can use
+any of the following suffices without tile declaration:
+
+@example
+    Suffix   Cluster Connections
+Solid Hollow 
+ '0'   '5'       0   autoconnect
+ '1'   '6'       1   autoconnect
+ '2'   '7'       2   autoconnect
+ '3'   '8'       3   autoconnect
+ '4'   '9'       4   autoconnect
+ ' '   '+'      nil    ""
+ 'a'   'A'      nil    "w"
+ 'b'   'B'      nil    "s"
+ 'c'   'C'      nil    "sw"
+ 'd'   'D'      nil    "e" 
+ 'e'   'E'      nil    "ew" 
+ 'f'   'F'      nil    "es" 
+ 'g'   'G'      nil    "esw" 
+ 'h'   'H'      nil    "n" 
+ 'i'   'I'      nil    "nw" 
+ 'j'   'J'      nil    "ns" 
+ 'k'   'K'      nil    "nsw" 
+ 'l'   'L'      nil    "ne" 
+ 'm'   'M'      nil    "new" 
+ 'n'   'N'      nil    "nes" 
+ 'o'   'O'      nil    "nesw" 
+ 'p'   'P'      10   autoconnect
+ 'q'   'Q'      11   autoconnect
+ 'r'   'R'      12   autoconnect
+ 's'   'S'      13   autoconnect
+ 't'   'T'      14   autoconnect
+ 'u'   'U'      15   autoconnect
+ 'v'   'V'      16   autoconnect
+ 'w'   'W'      17   autoconnect
+ 'x'   'X'      18   autoconnect
+ 'y'   'Y'      19   autoconnect
+ 'z'   'Z'      20   autoconnect
+@end example
+
+All puzzle stones set by this resolver will be registered and shuffled by
+default with the @samp{intensity} of 3. You can define other intensity attribute
+values on any puzzle stone. The maximum intensity of all stones in a cluster
+will be taken. The intensity multiplied by the number of stones in a cluster
+describes the number of inverse pushes, called pulls, that will be performed
+during shuffling. Thus an intensity of 3 on a cluster of 6 stones will perform
+18 pulls. That means it is guaranteed that you can solve the puzzle with 18
+pushes. But as some pull operations may neutralize the user may be able to
+solve such a shuffled puzzle with less than 18 pushes.
+
+If you define no shuffle @samp{algorithm} it is assumed that the user can
+rotate the puzzle from any side and any @ref{st_puzzle}. The requested number
+of shuffling pull operations will be performed from random puzzle stones in a
+manner that gurantees that the user can solve the puzzle if he has free access
+to all sides.
+
+If you set the @samp{algorithm} on any of the puzzle stones to the value
+@code{"marked"} the resolver registers that the user has no free access, but
+just from positions that you did mark. You do mark a position by setting
+the attribute @samp{"push_directions"} on a floor. All floors adajacent to
+outer puzzle stones from which a user can push rotate a puzzle will be checked
+for this attribute. If its string value, a substring of @code{"nesw"}, contains
+the character of the required push direction this push event will take part
+in the random reverse shuffling process.
+
+Note that hollow stones and their restriction of not being able to initiate a
+rotation if fully respected on shuffling.
+
+@item @b{Full Example:}
+@example
+ti["  "] = @{"fl-sahara"@}
+ti["##"] = @{"st-rock1"@}
+
+ti[".."] = @{"fl-sahara", push_directions="nesw"@}
+
+ti["B"] = @{"st_puzzle_blue"@} 
+ti["Y"] = @{"st_puzzle_yellow"@} 
+ti["I"] = @{"st_puzzle_blue", intensity=2/6@} 
+ti["M"] = @{"st_puzzle_blue", algorithm="marked", intensity=10@} 
+
+ti["xx"] = @{"#ac-blackball"@} ..ti(@{"it_magicwand"@})
+
+local resolver = res.puzzle(ti, "B", "Y", "I", "M")
+
+w, h = wo(resolver, "  ", @{
+"                                        ",
+"B1B1B1B1                                ",
+"B2B1BjB1                      Y1Y6Y1    ",
+"B2B2B2B2                      Y1Y1YC    ",
+"                                Y6YnY1  ",
+"                ##########      Y1Y1Y1  ",
+"                ##M1M1M1##              ",
+"  I1I1          ##M1McM1..              ",
+"  I6Ia          ..M1M1M1..      xx      ",
+"  I1I1            ....####              ",
+"                                        ",
+"                                        ",
+"                                        "
+@})
+@end example
+@end table
 
 
 @c ----------------- Random Resolver -------------------- 
@@ -11724,7 +12174,7 @@ The finalizer does neither call its subresolver nor does it return a value.
 * Floors::                      
 * Items::                       
 * Stones::                      
-* Actors::                      
+* Old Actors::                      
 * General object attributes::
 * The 1.0-Fire System::
 * Freeze Checking::
@@ -15476,8 +15926,8 @@ marble.
 
 
 @c ----------------------------------------------------------------------
-@node Actors
-@section Actors
+@node Old Actors
+@section Old Actors
 
 @menu
 * Actor Attributes::            Common attributes of actors
